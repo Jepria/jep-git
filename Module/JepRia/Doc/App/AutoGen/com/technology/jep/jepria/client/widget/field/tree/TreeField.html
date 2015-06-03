@@ -1,0 +1,1076 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!--NewPage-->
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<TITLE>
+TreeField (JepRia JavaDoc)
+</TITLE>
+
+
+<LINK REL ="stylesheet" TYPE="text/css" HREF="../../../../../../../../stylesheet.css" TITLE="Style">
+
+<SCRIPT type="text/javascript">
+function windowTitle()
+{
+    if (location.href.indexOf('is-external=true') == -1) {
+        parent.document.title="TreeField (JepRia JavaDoc)";
+    }
+}
+</SCRIPT>
+<NOSCRIPT>
+</NOSCRIPT>
+
+</HEAD>
+
+<BODY BGCOLOR="white" onload="windowTitle();">
+<HR>
+
+
+<!-- ========= START OF TOP NAVBAR ======= -->
+<A NAME="navbar_top"><!-- --></A>
+<A HREF="#skip-navbar_top" title="Skip navigation links"></A>
+<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
+<TR>
+<TD COLSPAN=2 BGCOLOR="#EEEEFF" CLASS="NavBarCell1">
+<A NAME="navbar_top_firstrow"><!-- --></A>
+<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3" SUMMARY="">
+  <TR ALIGN="center" VALIGN="top">
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-summary.html"><FONT CLASS="NavBarFont1"><B>Package</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../../index-all.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../../help-doc.html"><FONT CLASS="NavBarFont1"><B>Help</B></FONT></A>&nbsp;</TD>
+  </TR>
+</TABLE>
+</TD>
+<TD ALIGN="right" VALIGN="top" ROWSPAN=3><EM>
+</EM>
+</TD>
+</TR>
+
+<TR>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+&nbsp;PREV CLASS&nbsp;
+&nbsp;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.CheckCascade.html" title="enum in com.technology.jep.jepria.client.widget.field.tree"><B>NEXT CLASS</B></A></FONT></TD>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+  <A HREF="../../../../../../../../index.html?com/technology/jep/jepria/client/widget/field/tree/TreeField.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="TreeField.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+&nbsp;<SCRIPT type="text/javascript">
+  <!--
+  if(window==top) {
+    document.writeln('<A HREF="../../../../../../../../allclasses-noframe.html"><B>All Classes</B></A>');
+  }
+  //-->
+</SCRIPT>
+<NOSCRIPT>
+  <A HREF="../../../../../../../../allclasses-noframe.html"><B>All Classes</B></A>
+</NOSCRIPT>
+
+
+</FONT></TD>
+</TR>
+<TR>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+  SUMMARY:&nbsp;<A HREF="#nested_class_summary">NESTED</A>&nbsp;|&nbsp;<A HREF="#field_summary">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
+</TR>
+</TABLE>
+<A NAME="skip-navbar_top"></A>
+<!-- ========= END OF TOP NAVBAR ========= -->
+
+<HR>
+<!-- ======== START OF CLASS DATA ======== -->
+<H2>
+<FONT SIZE="-1">
+com.technology.jep.jepria.client.widget.field.tree</FONT>
+<BR>
+Class TreeField&lt;V extends <A HREF="../../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A>&gt;</H2>
+<PRE>
+java.lang.Object
+  <IMG SRC="../../../../../../../../resources/inherit.gif" ALT="extended by ">com.google.gwt.user.client.ui.UIObject
+      <IMG SRC="../../../../../../../../resources/inherit.gif" ALT="extended by ">com.google.gwt.user.client.ui.Widget
+          <IMG SRC="../../../../../../../../resources/inherit.gif" ALT="extended by ">com.google.gwt.user.client.ui.Panel
+              <IMG SRC="../../../../../../../../resources/inherit.gif" ALT="extended by ">com.google.gwt.user.client.ui.SimplePanel
+                  <IMG SRC="../../../../../../../../resources/inherit.gif" ALT="extended by ">com.google.gwt.user.client.ui.ScrollPanel
+                      <IMG SRC="../../../../../../../../resources/inherit.gif" ALT="extended by "><B>com.technology.jep.jepria.client.widget.field.tree.TreeField&lt;V&gt;</B>
+</PRE>
+<DL>
+<DT><B>All Implemented Interfaces:</B> <DD>com.google.gwt.event.dom.client.HasScrollHandlers, com.google.gwt.event.logical.shared.HasAttachHandlers, com.google.gwt.event.shared.HasHandlers, com.google.gwt.user.client.EventListener, com.google.gwt.user.client.ui.AcceptsOneWidget, com.google.gwt.user.client.ui.HasHorizontalScrolling, com.google.gwt.user.client.ui.HasOneWidget, com.google.gwt.user.client.ui.HasScrolling, com.google.gwt.user.client.ui.HasVerticalScrolling, com.google.gwt.user.client.ui.HasVisibility, com.google.gwt.user.client.ui.HasWidgets, com.google.gwt.user.client.ui.HasWidgets.ForIsWidget, com.google.gwt.user.client.ui.IsWidget, com.google.gwt.user.client.ui.ProvidesResize, com.google.gwt.user.client.ui.RequiresResize, com.google.gwt.user.client.ui.SourcesScrollEvents, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/event/CheckChangeEvent.HasCheckChangeHandlers.html" title="interface in com.technology.jep.jepria.client.widget.field.multistate.event">CheckChangeEvent.HasCheckChangeHandlers</A>&lt;V&gt;, java.lang.Iterable&lt;com.google.gwt.user.client.ui.Widget&gt;</DD>
+</DL>
+<HR>
+<DL>
+<DT><PRE>public class <B>TreeField&lt;V extends <A HREF="../../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A>&gt;</B><DT>extends com.google.gwt.user.client.ui.ScrollPanel<DT>implements <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/event/CheckChangeEvent.HasCheckChangeHandlers.html" title="interface in com.technology.jep.jepria.client.widget.field.multistate.event">CheckChangeEvent.HasCheckChangeHandlers</A>&lt;V&gt;</DL>
+</PRE>
+
+<P>
+<HR>
+
+<P>
+<!-- ======== NESTED CLASS SUMMARY ======== -->
+
+<A NAME="nested_class_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Nested Class Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;class</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.CheckCascade.html" title="enum in com.technology.jep.jepria.client.widget.field.tree">TreeField.CheckCascade</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Check cascade enum.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;class</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.CheckNodes.html" title="enum in com.technology.jep.jepria.client.widget.field.tree">TreeField.CheckNodes</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Check nodes enum.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>(package private) &nbsp;class</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.TreeDataProvider.html" title="class in com.technology.jep.jepria.client.widget.field.tree">TreeField.TreeDataProvider</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A custom <CODE>AsyncDataProvider</CODE>.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>(package private) &nbsp;class</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.TreeModel.html" title="class in com.technology.jep.jepria.client.widget.field.tree">TreeField.TreeModel</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="nested_classes_inherited_from_class_com.google.gwt.user.client.ui.UIObject"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Nested classes/interfaces inherited from class com.google.gwt.user.client.ui.UIObject</B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE>com.google.gwt.user.client.ui.UIObject.DebugIdImpl, com.google.gwt.user.client.ui.UIObject.DebugIdImplEnabled</CODE></TD>
+</TR>
+</TABLE>
+&nbsp;
+<A NAME="nested_classes_inherited_from_class_com.google.gwt.user.client.ui.HasWidgets"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Nested classes/interfaces inherited from interface com.google.gwt.user.client.ui.HasWidgets</B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE>com.google.gwt.user.client.ui.HasWidgets.ForIsWidget</CODE></TD>
+</TR>
+</TABLE>
+&nbsp;
+<!-- =========== FIELD SUMMARY =========== -->
+
+<A NAME="field_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Field Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html#checkable">checkable</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.CheckNodes.html" title="enum in com.technology.jep.jepria.client.widget.field.tree">TreeField.CheckNodes</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html#checkNodes">checkNodes</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.CheckCascade.html" title="enum in com.technology.jep.jepria.client.widget.field.tree">TreeField.CheckCascade</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html#checkStyle">checkStyle</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/images/TreeFieldResources.html" title="interface in com.technology.jep.jepria.client.widget.field.tree.images">TreeFieldResources</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html#images">images</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private static&nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html#JEP_RIA_TREE_FIELD_STYLE">JEP_RIA_TREE_FIELD_STYLE</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;<A HREF="../../../../../../../../com/technology/jep/jepria/client/async/DataLoader.html" title="interface in com.technology.jep.jepria.client.async">DataLoader</A>&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html" title="type parameter in TreeField">V</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html#loader">loader</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeFieldMessages.html" title="class in com.technology.jep.jepria.client.widget.field.tree">TreeFieldMessages</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html#messages">messages</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;java.util.Map&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html" title="type parameter in TreeField">V</A>,<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeNodeInfo.html" title="class in com.technology.jep.jepria.client.widget.field.tree">TreeNodeInfo</A>&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html" title="type parameter in TreeField">V</A>&gt;&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html#nodeMapOfDisplay">nodeMapOfDisplay</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;java.util.List&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html" title="type parameter in TreeField">V</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html#partialSelectedNodes">partialSelectedNodes</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Список частично выбранных узлов, позволяющий снизить 
+ нагрузку на клиенте за счет отсутствия необходимости получения 
+ списка детей родительского узла</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;com.google.gwt.view.client.SetSelectionModel&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html" title="type parameter in TreeField">V</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html#selectionModel">selectionModel</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;com.google.gwt.user.cellview.client.CellTree</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html#tree">tree</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="fields_inherited_from_class_com.google.gwt.user.client.ui.UIObject"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Fields inherited from class com.google.gwt.user.client.ui.UIObject</B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE>DEBUG_ID_PREFIX</CODE></TD>
+</TR>
+</TABLE>
+&nbsp;
+<!-- ======== CONSTRUCTOR SUMMARY ======== -->
+
+<A NAME="constructor_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Constructor Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html#TreeField()">TreeField</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;
+<!-- ========== METHOD SUMMARY =========== -->
+
+<A NAME="method_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Method Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;com.google.gwt.event.shared.HandlerRegistration</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html#addCheckChangeHandler(com.technology.jep.jepria.client.widget.field.multistate.event.CheckChangeEvent.CheckChangeHandler)">addCheckChangeHandler</A></B>(<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/event/CheckChangeEvent.CheckChangeHandler.html" title="interface in com.technology.jep.jepria.client.widget.field.multistate.event">CheckChangeEvent.CheckChangeHandler</A>&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html" title="type parameter in TreeField">V</A>&gt;&nbsp;handler)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Adds a <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/event/CheckChangeEvent.CheckChangeHandler.html" title="interface in com.technology.jep.jepria.client.widget.field.multistate.event"><CODE>CheckChangeEvent.CheckChangeHandler</CODE></A> handler for
+ <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/event/CheckChangeEvent.html" title="class in com.technology.jep.jepria.client.widget.field.multistate.event"><CODE>CheckChangeEvent</CODE></A> events.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html#clearSelection()">clearSelection</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html#collapseAll()">collapseAll</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;java.util.List&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html" title="type parameter in TreeField">V</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html#getCheckedSelection()">getCheckedSelection</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;java.util.List&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html" title="type parameter in TreeField">V</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html#getChildrenNodes(V)">getChildrenNodes</A></B>(<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html" title="type parameter in TreeField">V</A>&nbsp;node)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeNodeInfo.html" title="class in com.technology.jep.jepria.client.widget.field.tree">TreeNodeInfo</A>&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html" title="type parameter in TreeField">V</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html#getNodeInfoByValue(V)">getNodeInfoByValue</A></B>(<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html" title="type parameter in TreeField">V</A>&nbsp;node)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html#isLeaf(java.lang.Object)">isLeaf</A></B>(java.lang.Object&nbsp;value)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html#isNodeOpened(com.google.gwt.user.cellview.client.TreeNode, V)">isNodeOpened</A></B>(com.google.gwt.user.cellview.client.TreeNode&nbsp;node,
+             <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html" title="type parameter in TreeField">V</A>&nbsp;value)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html#isNodeOpened(V)">isNodeOpened</A></B>(<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html" title="type parameter in TreeField">V</A>&nbsp;value)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html#isSelected(V)">isSelected</A></B>(<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html" title="type parameter in TreeField">V</A>&nbsp;value)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html#refreshNode(V)">refreshNode</A></B>(<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html" title="type parameter in TreeField">V</A>&nbsp;node)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Refresh state of node with specified value</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html#setBorders(boolean)">setBorders</A></B>(boolean&nbsp;borders)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html#setCheckable(boolean)">setCheckable</A></B>(boolean&nbsp;checkable)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html#setChecked(V, boolean)">setChecked</A></B>(<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html" title="type parameter in TreeField">V</A>&nbsp;value,
+           boolean&nbsp;checked)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html#setCheckNodes(com.technology.jep.jepria.client.widget.field.tree.TreeField.CheckNodes)">setCheckNodes</A></B>(<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.CheckNodes.html" title="enum in com.technology.jep.jepria.client.widget.field.tree">TreeField.CheckNodes</A>&nbsp;checkNodes)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html#setCheckStyle(com.technology.jep.jepria.client.widget.field.tree.TreeField.CheckCascade)">setCheckStyle</A></B>(<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.CheckCascade.html" title="enum in com.technology.jep.jepria.client.widget.field.tree">TreeField.CheckCascade</A>&nbsp;checkStyle)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;com.google.gwt.user.cellview.client.TreeNode</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html#setExpanded(com.google.gwt.user.cellview.client.TreeNode, V, boolean)">setExpanded</A></B>(com.google.gwt.user.cellview.client.TreeNode&nbsp;node,
+            <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html" title="type parameter in TreeField">V</A>&nbsp;value,
+            boolean&nbsp;expand)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Search specified node in the tree.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;com.google.gwt.user.cellview.client.TreeNode</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html#setExpanded(V, boolean)">setExpanded</A></B>(<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html" title="type parameter in TreeField">V</A>&nbsp;value,
+            boolean&nbsp;expand)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html#setLoader(com.technology.jep.jepria.client.async.DataLoader)">setLoader</A></B>(<A HREF="../../../../../../../../com/technology/jep/jepria/client/async/DataLoader.html" title="interface in com.technology.jep.jepria.client.async">DataLoader</A>&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html" title="type parameter in TreeField">V</A>&gt;&nbsp;dataLoader)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html#setPartialSelected(java.util.List)">setPartialSelected</A></B>(java.util.List&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html" title="type parameter in TreeField">V</A>&gt;&nbsp;list)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html#showTree()">showTree</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_com.google.gwt.user.client.ui.ScrollPanel"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from class com.google.gwt.user.client.ui.ScrollPanel</B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE>addScrollHandler, addScrollListener, ensureVisible, getContainerElement, getHorizontalScrollPosition, getMaximumHorizontalScrollPosition, getMaximumVerticalScrollPosition, getMinimumHorizontalScrollPosition, getMinimumVerticalScrollPosition, getScrollableElement, getScrollPosition, getVerticalScrollPosition, isTouchScrollingDisabled, onAttach, onDetach, onResize, removeScrollListener, scrollToBottom, scrollToLeft, scrollToRight, scrollToTop, setAlwaysShowScrollBars, setHeight, setHorizontalScrollPosition, setScrollPosition, setSize, setTouchScrollingDisabled, setVerticalScrollPosition, setWidth</CODE></TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_com.google.gwt.user.client.ui.SimplePanel"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from class com.google.gwt.user.client.ui.SimplePanel</B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE>add, getWidget, iterator, remove, setWidget, setWidget</CODE></TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_com.google.gwt.user.client.ui.Panel"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from class com.google.gwt.user.client.ui.Panel</B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE>add, adopt, clear, doAttachChildren, doDetachChildren, orphan, remove</CODE></TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_com.google.gwt.user.client.ui.Widget"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from class com.google.gwt.user.client.ui.Widget</B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE>addAttachHandler, addBitlessDomHandler, addDomHandler, addHandler, asWidget, asWidgetOrNull, createHandlerManager, delegateEvent, fireEvent, getHandlerCount, getLayoutData, getParent, isAttached, isOrWasAttached, onBrowserEvent, onLoad, onUnload, removeFromParent, setLayoutData, sinkEvents, unsinkEvents</CODE></TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_com.google.gwt.user.client.ui.UIObject"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from class com.google.gwt.user.client.ui.UIObject</B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE>addStyleDependentName, addStyleName, ensureDebugId, ensureDebugId, ensureDebugId, getAbsoluteLeft, getAbsoluteTop, getElement, getOffsetHeight, getOffsetWidth, getStyleElement, getStyleName, getStyleName, getStylePrimaryName, getStylePrimaryName, getTitle, isVisible, isVisible, onEnsureDebugId, removeStyleDependentName, removeStyleName, resolvePotentialElement, setElement, setElement, setPixelSize, setStyleDependentName, setStyleName, setStyleName, setStyleName, setStyleName, setStylePrimaryName, setStylePrimaryName, setTitle, setVisible, setVisible, sinkBitlessEvent, toString</CODE></TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from class java.lang.Object</B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE>clone, equals, finalize, getClass, hashCode, notify, notifyAll, wait, wait, wait</CODE></TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_com.google.gwt.event.shared.HasHandlers"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from interface com.google.gwt.event.shared.HasHandlers</B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE>fireEvent</CODE></TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_com.google.gwt.user.client.ui.IsWidget"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from interface com.google.gwt.user.client.ui.IsWidget</B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE>asWidget</CODE></TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
+<!-- ============ FIELD DETAIL =========== -->
+
+<A NAME="field_detail"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
+<B>Field Detail</B></FONT></TH>
+</TR>
+</TABLE>
+
+<A NAME="tree"><!-- --></A><H3>
+tree</H3>
+<PRE>
+private com.google.gwt.user.cellview.client.CellTree <B>tree</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="loader"><!-- --></A><H3>
+loader</H3>
+<PRE>
+private <A HREF="../../../../../../../../com/technology/jep/jepria/client/async/DataLoader.html" title="interface in com.technology.jep.jepria.client.async">DataLoader</A>&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html" title="type parameter in TreeField">V</A> extends <A HREF="../../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A>&gt; <B>loader</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="partialSelectedNodes"><!-- --></A><H3>
+partialSelectedNodes</H3>
+<PRE>
+private java.util.List&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html" title="type parameter in TreeField">V</A> extends <A HREF="../../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A>&gt; <B>partialSelectedNodes</B></PRE>
+<DL>
+<DD>Список частично выбранных узлов, позволяющий снизить 
+ нагрузку на клиенте за счет отсутствия необходимости получения 
+ списка детей родительского узла
+<P>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="JEP_RIA_TREE_FIELD_STYLE"><!-- --></A><H3>
+JEP_RIA_TREE_FIELD_STYLE</H3>
+<PRE>
+private static final java.lang.String <B>JEP_RIA_TREE_FIELD_STYLE</B></PRE>
+<DL>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../../../../constant-values.html#com.technology.jep.jepria.client.widget.field.tree.TreeField.JEP_RIA_TREE_FIELD_STYLE">Constant Field Values</A></DL>
+</DL>
+<HR>
+
+<A NAME="nodeMapOfDisplay"><!-- --></A><H3>
+nodeMapOfDisplay</H3>
+<PRE>
+private java.util.Map&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html" title="type parameter in TreeField">V</A> extends <A HREF="../../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A>,<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeNodeInfo.html" title="class in com.technology.jep.jepria.client.widget.field.tree">TreeNodeInfo</A>&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html" title="type parameter in TreeField">V</A> extends <A HREF="../../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A>&gt;&gt; <B>nodeMapOfDisplay</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="messages"><!-- --></A><H3>
+messages</H3>
+<PRE>
+private <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeFieldMessages.html" title="class in com.technology.jep.jepria.client.widget.field.tree">TreeFieldMessages</A> <B>messages</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="images"><!-- --></A><H3>
+images</H3>
+<PRE>
+private <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/images/TreeFieldResources.html" title="interface in com.technology.jep.jepria.client.widget.field.tree.images">TreeFieldResources</A> <B>images</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="checkNodes"><!-- --></A><H3>
+checkNodes</H3>
+<PRE>
+private <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.CheckNodes.html" title="enum in com.technology.jep.jepria.client.widget.field.tree">TreeField.CheckNodes</A> <B>checkNodes</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="checkStyle"><!-- --></A><H3>
+checkStyle</H3>
+<PRE>
+private <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.CheckCascade.html" title="enum in com.technology.jep.jepria.client.widget.field.tree">TreeField.CheckCascade</A> <B>checkStyle</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="selectionModel"><!-- --></A><H3>
+selectionModel</H3>
+<PRE>
+private com.google.gwt.view.client.SetSelectionModel&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html" title="type parameter in TreeField">V</A> extends <A HREF="../../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A>&gt; <B>selectionModel</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="checkable"><!-- --></A><H3>
+checkable</H3>
+<PRE>
+private boolean <B>checkable</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+
+<!-- ========= CONSTRUCTOR DETAIL ======== -->
+
+<A NAME="constructor_detail"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
+<B>Constructor Detail</B></FONT></TH>
+</TR>
+</TABLE>
+
+<A NAME="TreeField()"><!-- --></A><H3>
+TreeField</H3>
+<PRE>
+public <B>TreeField</B>()</PRE>
+<DL>
+</DL>
+
+<!-- ============ METHOD DETAIL ========== -->
+
+<A NAME="method_detail"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
+<B>Method Detail</B></FONT></TH>
+</TR>
+</TABLE>
+
+<A NAME="setLoader(com.technology.jep.jepria.client.async.DataLoader)"><!-- --></A><H3>
+setLoader</H3>
+<PRE>
+public void <B>setLoader</B>(<A HREF="../../../../../../../../com/technology/jep/jepria/client/async/DataLoader.html" title="interface in com.technology.jep.jepria.client.async">DataLoader</A>&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html" title="type parameter in TreeField">V</A>&gt;&nbsp;dataLoader)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getCheckedSelection()"><!-- --></A><H3>
+getCheckedSelection</H3>
+<PRE>
+public java.util.List&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html" title="type parameter in TreeField">V</A>&gt; <B>getCheckedSelection</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setPartialSelected(java.util.List)"><!-- --></A><H3>
+setPartialSelected</H3>
+<PRE>
+public void <B>setPartialSelected</B>(java.util.List&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html" title="type parameter in TreeField">V</A>&gt;&nbsp;list)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="clearSelection()"><!-- --></A><H3>
+clearSelection</H3>
+<PRE>
+public void <B>clearSelection</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="addCheckChangeHandler(com.technology.jep.jepria.client.widget.field.multistate.event.CheckChangeEvent.CheckChangeHandler)"><!-- --></A><H3>
+addCheckChangeHandler</H3>
+<PRE>
+public com.google.gwt.event.shared.HandlerRegistration <B>addCheckChangeHandler</B>(<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/event/CheckChangeEvent.CheckChangeHandler.html" title="interface in com.technology.jep.jepria.client.widget.field.multistate.event">CheckChangeEvent.CheckChangeHandler</A>&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html" title="type parameter in TreeField">V</A>&gt;&nbsp;handler)</PRE>
+<DL>
+<DD><B>Description copied from interface: <CODE><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/event/CheckChangeEvent.HasCheckChangeHandlers.html#addCheckChangeHandler(com.technology.jep.jepria.client.widget.field.multistate.event.CheckChangeEvent.CheckChangeHandler)">CheckChangeEvent.HasCheckChangeHandlers</A></CODE></B></DD>
+<DD>Adds a <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/event/CheckChangeEvent.CheckChangeHandler.html" title="interface in com.technology.jep.jepria.client.widget.field.multistate.event"><CODE>CheckChangeEvent.CheckChangeHandler</CODE></A> handler for
+ <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/event/CheckChangeEvent.html" title="class in com.technology.jep.jepria.client.widget.field.multistate.event"><CODE>CheckChangeEvent</CODE></A> events.
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/event/CheckChangeEvent.HasCheckChangeHandlers.html#addCheckChangeHandler(com.technology.jep.jepria.client.widget.field.multistate.event.CheckChangeEvent.CheckChangeHandler)">addCheckChangeHandler</A></CODE> in interface <CODE><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/event/CheckChangeEvent.HasCheckChangeHandlers.html" title="interface in com.technology.jep.jepria.client.widget.field.multistate.event">CheckChangeEvent.HasCheckChangeHandlers</A>&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html" title="type parameter in TreeField">V</A> extends <A HREF="../../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A>&gt;</CODE></DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>handler</CODE> - the handler
+<DT><B>Returns:</B><DD>the registration for the event</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="isNodeOpened(com.google.gwt.user.cellview.client.TreeNode,com.technology.jep.jepria.shared.field.option.JepOption)"><!-- --></A><A NAME="isNodeOpened(com.google.gwt.user.cellview.client.TreeNode, V)"><!-- --></A><H3>
+isNodeOpened</H3>
+<PRE>
+public boolean <B>isNodeOpened</B>(com.google.gwt.user.cellview.client.TreeNode&nbsp;node,
+                            <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html" title="type parameter in TreeField">V</A>&nbsp;value)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="isNodeOpened(com.technology.jep.jepria.shared.field.option.JepOption)"><!-- --></A><A NAME="isNodeOpened(V)"><!-- --></A><H3>
+isNodeOpened</H3>
+<PRE>
+public boolean <B>isNodeOpened</B>(<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html" title="type parameter in TreeField">V</A>&nbsp;value)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="isLeaf(java.lang.Object)"><!-- --></A><H3>
+isLeaf</H3>
+<PRE>
+public boolean <B>isLeaf</B>(java.lang.Object&nbsp;value)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="showTree()"><!-- --></A><H3>
+showTree</H3>
+<PRE>
+public void <B>showTree</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="isSelected(com.technology.jep.jepria.shared.field.option.JepOption)"><!-- --></A><A NAME="isSelected(V)"><!-- --></A><H3>
+isSelected</H3>
+<PRE>
+public boolean <B>isSelected</B>(<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html" title="type parameter in TreeField">V</A>&nbsp;value)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setChecked(com.technology.jep.jepria.shared.field.option.JepOption,boolean)"><!-- --></A><A NAME="setChecked(V, boolean)"><!-- --></A><H3>
+setChecked</H3>
+<PRE>
+public void <B>setChecked</B>(<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html" title="type parameter in TreeField">V</A>&nbsp;value,
+                       boolean&nbsp;checked)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setExpanded(com.google.gwt.user.cellview.client.TreeNode,com.technology.jep.jepria.shared.field.option.JepOption,boolean)"><!-- --></A><A NAME="setExpanded(com.google.gwt.user.cellview.client.TreeNode, V, boolean)"><!-- --></A><H3>
+setExpanded</H3>
+<PRE>
+public com.google.gwt.user.cellview.client.TreeNode <B>setExpanded</B>(com.google.gwt.user.cellview.client.TreeNode&nbsp;node,
+                                                                <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html" title="type parameter in TreeField">V</A>&nbsp;value,
+                                                                boolean&nbsp;expand)</PRE>
+<DL>
+<DD>Search specified node in the tree. Expand or collapse it. And return founded node or null if it's leaf.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>node</CODE> - relative node<DD><CODE>value</CODE> - specified value<DD><CODE>expand</CODE> - flag to expand or collapse this node
+<DT><B>Returns:</B><DD>reference of current node</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setExpanded(com.technology.jep.jepria.shared.field.option.JepOption,boolean)"><!-- --></A><A NAME="setExpanded(V, boolean)"><!-- --></A><H3>
+setExpanded</H3>
+<PRE>
+public com.google.gwt.user.cellview.client.TreeNode <B>setExpanded</B>(<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html" title="type parameter in TreeField">V</A>&nbsp;value,
+                                                                boolean&nbsp;expand)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="collapseAll()"><!-- --></A><H3>
+collapseAll</H3>
+<PRE>
+public void <B>collapseAll</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="refreshNode(com.technology.jep.jepria.shared.field.option.JepOption)"><!-- --></A><A NAME="refreshNode(V)"><!-- --></A><H3>
+refreshNode</H3>
+<PRE>
+public void <B>refreshNode</B>(<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html" title="type parameter in TreeField">V</A>&nbsp;node)</PRE>
+<DL>
+<DD>Refresh state of node with specified value
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>node</CODE> - value of this node</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setCheckNodes(com.technology.jep.jepria.client.widget.field.tree.TreeField.CheckNodes)"><!-- --></A><H3>
+setCheckNodes</H3>
+<PRE>
+public void <B>setCheckNodes</B>(<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.CheckNodes.html" title="enum in com.technology.jep.jepria.client.widget.field.tree">TreeField.CheckNodes</A>&nbsp;checkNodes)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setCheckStyle(com.technology.jep.jepria.client.widget.field.tree.TreeField.CheckCascade)"><!-- --></A><H3>
+setCheckStyle</H3>
+<PRE>
+public void <B>setCheckStyle</B>(<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.CheckCascade.html" title="enum in com.technology.jep.jepria.client.widget.field.tree">TreeField.CheckCascade</A>&nbsp;checkStyle)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setCheckable(boolean)"><!-- --></A><H3>
+setCheckable</H3>
+<PRE>
+public void <B>setCheckable</B>(boolean&nbsp;checkable)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setBorders(boolean)"><!-- --></A><H3>
+setBorders</H3>
+<PRE>
+public void <B>setBorders</B>(boolean&nbsp;borders)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getChildrenNodes(com.technology.jep.jepria.shared.field.option.JepOption)"><!-- --></A><A NAME="getChildrenNodes(V)"><!-- --></A><H3>
+getChildrenNodes</H3>
+<PRE>
+public java.util.List&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html" title="type parameter in TreeField">V</A>&gt; <B>getChildrenNodes</B>(<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html" title="type parameter in TreeField">V</A>&nbsp;node)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getNodeInfoByValue(com.technology.jep.jepria.shared.field.option.JepOption)"><!-- --></A><A NAME="getNodeInfoByValue(V)"><!-- --></A><H3>
+getNodeInfoByValue</H3>
+<PRE>
+public <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeNodeInfo.html" title="class in com.technology.jep.jepria.client.widget.field.tree">TreeNodeInfo</A>&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html" title="type parameter in TreeField">V</A>&gt; <B>getNodeInfoByValue</B>(<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html" title="type parameter in TreeField">V</A>&nbsp;node)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<!-- ========= END OF CLASS DATA ========= -->
+<HR>
+
+
+<!-- ======= START OF BOTTOM NAVBAR ====== -->
+<A NAME="navbar_bottom"><!-- --></A>
+<A HREF="#skip-navbar_bottom" title="Skip navigation links"></A>
+<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
+<TR>
+<TD COLSPAN=2 BGCOLOR="#EEEEFF" CLASS="NavBarCell1">
+<A NAME="navbar_bottom_firstrow"><!-- --></A>
+<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3" SUMMARY="">
+  <TR ALIGN="center" VALIGN="top">
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-summary.html"><FONT CLASS="NavBarFont1"><B>Package</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../../index-all.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../../help-doc.html"><FONT CLASS="NavBarFont1"><B>Help</B></FONT></A>&nbsp;</TD>
+  </TR>
+</TABLE>
+</TD>
+<TD ALIGN="right" VALIGN="top" ROWSPAN=3><EM>
+</EM>
+</TD>
+</TR>
+
+<TR>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+&nbsp;PREV CLASS&nbsp;
+&nbsp;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.CheckCascade.html" title="enum in com.technology.jep.jepria.client.widget.field.tree"><B>NEXT CLASS</B></A></FONT></TD>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+  <A HREF="../../../../../../../../index.html?com/technology/jep/jepria/client/widget/field/tree/TreeField.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="TreeField.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+&nbsp;<SCRIPT type="text/javascript">
+  <!--
+  if(window==top) {
+    document.writeln('<A HREF="../../../../../../../../allclasses-noframe.html"><B>All Classes</B></A>');
+  }
+  //-->
+</SCRIPT>
+<NOSCRIPT>
+  <A HREF="../../../../../../../../allclasses-noframe.html"><B>All Classes</B></A>
+</NOSCRIPT>
+
+
+</FONT></TD>
+</TR>
+<TR>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+  SUMMARY:&nbsp;<A HREF="#nested_class_summary">NESTED</A>&nbsp;|&nbsp;<A HREF="#field_summary">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
+</TR>
+</TABLE>
+<A NAME="skip-navbar_bottom"></A>
+<!-- ======== END OF BOTTOM NAVBAR ======= -->
+
+<HR>
+
+</BODY>
+</HTML>

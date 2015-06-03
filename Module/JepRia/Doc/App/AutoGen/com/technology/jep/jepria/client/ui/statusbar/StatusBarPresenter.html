@@ -1,0 +1,374 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!--NewPage-->
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<TITLE>
+StatusBarPresenter (JepRia JavaDoc)
+</TITLE>
+
+
+<LINK REL ="stylesheet" TYPE="text/css" HREF="../../../../../../../stylesheet.css" TITLE="Style">
+
+<SCRIPT type="text/javascript">
+function windowTitle()
+{
+    if (location.href.indexOf('is-external=true') == -1) {
+        parent.document.title="StatusBarPresenter (JepRia JavaDoc)";
+    }
+}
+</SCRIPT>
+<NOSCRIPT>
+</NOSCRIPT>
+
+</HEAD>
+
+<BODY BGCOLOR="white" onload="windowTitle();">
+<HR>
+
+
+<!-- ========= START OF TOP NAVBAR ======= -->
+<A NAME="navbar_top"><!-- --></A>
+<A HREF="#skip-navbar_top" title="Skip navigation links"></A>
+<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
+<TR>
+<TD COLSPAN=2 BGCOLOR="#EEEEFF" CLASS="NavBarCell1">
+<A NAME="navbar_top_firstrow"><!-- --></A>
+<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3" SUMMARY="">
+  <TR ALIGN="center" VALIGN="top">
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-summary.html"><FONT CLASS="NavBarFont1"><B>Package</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../index-all.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../help-doc.html"><FONT CLASS="NavBarFont1"><B>Help</B></FONT></A>&nbsp;</TD>
+  </TR>
+</TABLE>
+</TD>
+<TD ALIGN="right" VALIGN="top" ROWSPAN=3><EM>
+</EM>
+</TD>
+</TR>
+
+<TR>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+&nbsp;<A HREF="../../../../../../../com/technology/jep/jepria/client/ui/statusbar/StatusBarActivityMapper.html" title="class in com.technology.jep.jepria.client.ui.statusbar"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../../../../../com/technology/jep/jepria/client/ui/statusbar/StatusBarView.html" title="interface in com.technology.jep.jepria.client.ui.statusbar"><B>NEXT CLASS</B></A></FONT></TD>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+  <A HREF="../../../../../../../index.html?com/technology/jep/jepria/client/ui/statusbar/StatusBarPresenter.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="StatusBarPresenter.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+&nbsp;<SCRIPT type="text/javascript">
+  <!--
+  if(window==top) {
+    document.writeln('<A HREF="../../../../../../../allclasses-noframe.html"><B>All Classes</B></A>');
+  }
+  //-->
+</SCRIPT>
+<NOSCRIPT>
+  <A HREF="../../../../../../../allclasses-noframe.html"><B>All Classes</B></A>
+</NOSCRIPT>
+
+
+</FONT></TD>
+</TR>
+<TR>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+  SUMMARY:&nbsp;NESTED&nbsp;|&nbsp;<A HREF="#field_summary">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
+</TR>
+</TABLE>
+<A NAME="skip-navbar_top"></A>
+<!-- ========= END OF TOP NAVBAR ========= -->
+
+<HR>
+<!-- ======== START OF CLASS DATA ======== -->
+<H2>
+<FONT SIZE="-1">
+com.technology.jep.jepria.client.ui.statusbar</FONT>
+<BR>
+Class StatusBarPresenter&lt;V extends <A HREF="../../../../../../../com/technology/jep/jepria/client/ui/statusbar/StatusBarView.html" title="interface in com.technology.jep.jepria.client.ui.statusbar">StatusBarView</A>,E extends <A HREF="../../../../../../../com/technology/jep/jepria/client/ui/eventbus/plain/PlainEventBus.html" title="class in com.technology.jep.jepria.client.ui.eventbus.plain">PlainEventBus</A>,S extends <A HREF="../../../../../../../com/technology/jep/jepria/shared/service/data/JepDataServiceAsync.html" title="interface in com.technology.jep.jepria.shared.service.data">JepDataServiceAsync</A>,F extends <A HREF="../../../../../../../com/technology/jep/jepria/client/ui/plain/StandardClientFactory.html" title="interface in com.technology.jep.jepria.client.ui.plain">StandardClientFactory</A>&lt;E,S&gt;&gt;</H2>
+<PRE>
+java.lang.Object
+  <IMG SRC="../../../../../../../resources/inherit.gif" ALT="extended by ">com.google.gwt.activity.shared.AbstractActivity
+      <IMG SRC="../../../../../../../resources/inherit.gif" ALT="extended by "><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/JepActivity.html" title="class in com.technology.jep.jepria.client.ui">com.technology.jep.jepria.client.ui.JepActivity</A>&lt;E,F&gt;
+          <IMG SRC="../../../../../../../resources/inherit.gif" ALT="extended by "><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/JepPresenter.html" title="class in com.technology.jep.jepria.client.ui">com.technology.jep.jepria.client.ui.JepPresenter</A>&lt;E,F&gt;
+              <IMG SRC="../../../../../../../resources/inherit.gif" ALT="extended by "><B>com.technology.jep.jepria.client.ui.statusbar.StatusBarPresenter&lt;V,E,S,F&gt;</B>
+</PRE>
+<DL>
+<DT><B>All Implemented Interfaces:</B> <DD>com.google.gwt.activity.shared.Activity</DD>
+</DL>
+<HR>
+<DL>
+<DT><PRE>public class <B>StatusBarPresenter&lt;V extends <A HREF="../../../../../../../com/technology/jep/jepria/client/ui/statusbar/StatusBarView.html" title="interface in com.technology.jep.jepria.client.ui.statusbar">StatusBarView</A>,E extends <A HREF="../../../../../../../com/technology/jep/jepria/client/ui/eventbus/plain/PlainEventBus.html" title="class in com.technology.jep.jepria.client.ui.eventbus.plain">PlainEventBus</A>,S extends <A HREF="../../../../../../../com/technology/jep/jepria/shared/service/data/JepDataServiceAsync.html" title="interface in com.technology.jep.jepria.shared.service.data">JepDataServiceAsync</A>,F extends <A HREF="../../../../../../../com/technology/jep/jepria/client/ui/plain/StandardClientFactory.html" title="interface in com.technology.jep.jepria.client.ui.plain">StandardClientFactory</A>&lt;E,S&gt;&gt;</B><DT>extends <A HREF="../../../../../../../com/technology/jep/jepria/client/ui/JepPresenter.html" title="class in com.technology.jep.jepria.client.ui">JepPresenter</A>&lt;E,F&gt;</DL>
+</PRE>
+
+<P>
+<HR>
+
+<P>
+<!-- =========== FIELD SUMMARY =========== -->
+
+<A NAME="field_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Field Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;<A HREF="../../../../../../../com/technology/jep/jepria/client/ui/statusbar/StatusBarPresenter.html" title="type parameter in StatusBarPresenter">V</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/statusbar/StatusBarPresenter.html#view">view</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="fields_inherited_from_class_com.technology.jep.jepria.client.ui.JepPresenter"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Fields inherited from class com.technology.jep.jepria.client.ui.<A HREF="../../../../../../../com/technology/jep/jepria/client/ui/JepPresenter.html" title="class in com.technology.jep.jepria.client.ui">JepPresenter</A></B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/JepPresenter.html#_workstate">_workstate</A>, <A HREF="../../../../../../../com/technology/jep/jepria/client/ui/JepPresenter.html#place">place</A></CODE></TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="fields_inherited_from_class_com.technology.jep.jepria.client.ui.JepActivity"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Fields inherited from class com.technology.jep.jepria.client.ui.<A HREF="../../../../../../../com/technology/jep/jepria/client/ui/JepActivity.html" title="class in com.technology.jep.jepria.client.ui">JepActivity</A></B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/JepActivity.html#clientFactory">clientFactory</A>, <A HREF="../../../../../../../com/technology/jep/jepria/client/ui/JepActivity.html#eventBus">eventBus</A>, <A HREF="../../../../../../../com/technology/jep/jepria/client/ui/JepActivity.html#logger">logger</A>, <A HREF="../../../../../../../com/technology/jep/jepria/client/ui/JepActivity.html#messageBox">messageBox</A></CODE></TD>
+</TR>
+</TABLE>
+&nbsp;
+<!-- ======== CONSTRUCTOR SUMMARY ======== -->
+
+<A NAME="constructor_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Constructor Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/statusbar/StatusBarPresenter.html#StatusBarPresenter(com.google.gwt.place.shared.Place, F)">StatusBarPresenter</A></B>(com.google.gwt.place.shared.Place&nbsp;place,
+                   <A HREF="../../../../../../../com/technology/jep/jepria/client/ui/statusbar/StatusBarPresenter.html" title="type parameter in StatusBarPresenter">F</A>&nbsp;clientFactory)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;
+<!-- ========== METHOD SUMMARY =========== -->
+
+<A NAME="method_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Method Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/statusbar/StatusBarPresenter.html#bind()">bind</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Метод используется для перекрытия потомками с целью "привязки" элементов представления к функционалу презентера.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/statusbar/StatusBarPresenter.html#onChangeWorkstate(com.technology.jep.jepria.client.ui.WorkstateEnum)">onChangeWorkstate</A></B>(<A HREF="../../../../../../../com/technology/jep/jepria/client/ui/WorkstateEnum.html" title="enum in com.technology.jep.jepria.client.ui">WorkstateEnum</A>&nbsp;workstate)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/statusbar/StatusBarPresenter.html#start(com.google.gwt.user.client.ui.AcceptsOneWidget, com.google.gwt.event.shared.EventBus)">start</A></B>(com.google.gwt.user.client.ui.AcceptsOneWidget&nbsp;container,
+      com.google.gwt.event.shared.EventBus&nbsp;eventBus)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_com.technology.jep.jepria.client.ui.JepPresenter"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from class com.technology.jep.jepria.client.ui.<A HREF="../../../../../../../com/technology/jep/jepria/client/ui/JepPresenter.html" title="class in com.technology.jep.jepria.client.ui">JepPresenter</A></B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/JepPresenter.html#adjustToWorkstate(com.technology.jep.jepria.client.ui.WorkstateEnum)">adjustToWorkstate</A>, <A HREF="../../../../../../../com/technology/jep/jepria/client/ui/JepPresenter.html#changeWorkstate(com.google.gwt.place.shared.Place)">changeWorkstate</A>, <A HREF="../../../../../../../com/technology/jep/jepria/client/ui/JepPresenter.html#changeWorkstate(com.technology.jep.jepria.client.ui.WorkstateEnum)">changeWorkstate</A>, <A HREF="../../../../../../../com/technology/jep/jepria/client/ui/JepPresenter.html#getPlace()">getPlace</A>, <A HREF="../../../../../../../com/technology/jep/jepria/client/ui/JepPresenter.html#isAcceptableWorkstate(com.technology.jep.jepria.client.ui.WorkstateEnum)">isAcceptableWorkstate</A>, <A HREF="../../../../../../../com/technology/jep/jepria/client/ui/JepPresenter.html#setPlace(com.google.gwt.place.shared.Place)">setPlace</A></CODE></TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_com.technology.jep.jepria.client.ui.JepActivity"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from class com.technology.jep.jepria.client.ui.<A HREF="../../../../../../../com/technology/jep/jepria/client/ui/JepActivity.html" title="class in com.technology.jep.jepria.client.ui">JepActivity</A></B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/JepActivity.html#mayStop()">mayStop</A>, <A HREF="../../../../../../../com/technology/jep/jepria/client/ui/JepActivity.html#onCancel()">onCancel</A>, <A HREF="../../../../../../../com/technology/jep/jepria/client/ui/JepActivity.html#onStop()">onStop</A></CODE></TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from class java.lang.Object</B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE>clone, equals, finalize, getClass, hashCode, notify, notifyAll, toString, wait, wait, wait</CODE></TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
+<!-- ============ FIELD DETAIL =========== -->
+
+<A NAME="field_detail"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
+<B>Field Detail</B></FONT></TH>
+</TR>
+</TABLE>
+
+<A NAME="view"><!-- --></A><H3>
+view</H3>
+<PRE>
+protected <A HREF="../../../../../../../com/technology/jep/jepria/client/ui/statusbar/StatusBarPresenter.html" title="type parameter in StatusBarPresenter">V</A> extends <A HREF="../../../../../../../com/technology/jep/jepria/client/ui/statusbar/StatusBarView.html" title="interface in com.technology.jep.jepria.client.ui.statusbar">StatusBarView</A> <B>view</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+
+<!-- ========= CONSTRUCTOR DETAIL ======== -->
+
+<A NAME="constructor_detail"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
+<B>Constructor Detail</B></FONT></TH>
+</TR>
+</TABLE>
+
+<A NAME="StatusBarPresenter(com.google.gwt.place.shared.Place,com.technology.jep.jepria.client.ui.plain.StandardClientFactory)"><!-- --></A><A NAME="StatusBarPresenter(com.google.gwt.place.shared.Place, F)"><!-- --></A><H3>
+StatusBarPresenter</H3>
+<PRE>
+public <B>StatusBarPresenter</B>(com.google.gwt.place.shared.Place&nbsp;place,
+                          <A HREF="../../../../../../../com/technology/jep/jepria/client/ui/statusbar/StatusBarPresenter.html" title="type parameter in StatusBarPresenter">F</A>&nbsp;clientFactory)</PRE>
+<DL>
+</DL>
+
+<!-- ============ METHOD DETAIL ========== -->
+
+<A NAME="method_detail"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
+<B>Method Detail</B></FONT></TH>
+</TR>
+</TABLE>
+
+<A NAME="start(com.google.gwt.user.client.ui.AcceptsOneWidget, com.google.gwt.event.shared.EventBus)"><!-- --></A><H3>
+start</H3>
+<PRE>
+public void <B>start</B>(com.google.gwt.user.client.ui.AcceptsOneWidget&nbsp;container,
+                  com.google.gwt.event.shared.EventBus&nbsp;eventBus)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="bind()"><!-- --></A><H3>
+bind</H3>
+<PRE>
+protected void <B>bind</B>()</PRE>
+<DL>
+<DD>Метод используется для перекрытия потомками с целью "привязки" элементов представления к функционалу презентера.
+<P>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="onChangeWorkstate(com.technology.jep.jepria.client.ui.WorkstateEnum)"><!-- --></A><H3>
+onChangeWorkstate</H3>
+<PRE>
+protected void <B>onChangeWorkstate</B>(<A HREF="../../../../../../../com/technology/jep/jepria/client/ui/WorkstateEnum.html" title="enum in com.technology.jep.jepria.client.ui">WorkstateEnum</A>&nbsp;workstate)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Overrides:</B><DD><CODE><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/JepPresenter.html#onChangeWorkstate(com.technology.jep.jepria.client.ui.WorkstateEnum)">onChangeWorkstate</A></CODE> in class <CODE><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/JepPresenter.html" title="class in com.technology.jep.jepria.client.ui">JepPresenter</A>&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/ui/statusbar/StatusBarPresenter.html" title="type parameter in StatusBarPresenter">E</A> extends <A HREF="../../../../../../../com/technology/jep/jepria/client/ui/eventbus/plain/PlainEventBus.html" title="class in com.technology.jep.jepria.client.ui.eventbus.plain">PlainEventBus</A>,<A HREF="../../../../../../../com/technology/jep/jepria/client/ui/statusbar/StatusBarPresenter.html" title="type parameter in StatusBarPresenter">F</A> extends <A HREF="../../../../../../../com/technology/jep/jepria/client/ui/plain/StandardClientFactory.html" title="interface in com.technology.jep.jepria.client.ui.plain">StandardClientFactory</A>&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/ui/statusbar/StatusBarPresenter.html" title="type parameter in StatusBarPresenter">E</A>,<A HREF="../../../../../../../com/technology/jep/jepria/client/ui/statusbar/StatusBarPresenter.html" title="type parameter in StatusBarPresenter">S</A>&gt;&gt;</CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<!-- ========= END OF CLASS DATA ========= -->
+<HR>
+
+
+<!-- ======= START OF BOTTOM NAVBAR ====== -->
+<A NAME="navbar_bottom"><!-- --></A>
+<A HREF="#skip-navbar_bottom" title="Skip navigation links"></A>
+<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
+<TR>
+<TD COLSPAN=2 BGCOLOR="#EEEEFF" CLASS="NavBarCell1">
+<A NAME="navbar_bottom_firstrow"><!-- --></A>
+<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3" SUMMARY="">
+  <TR ALIGN="center" VALIGN="top">
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-summary.html"><FONT CLASS="NavBarFont1"><B>Package</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../index-all.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../help-doc.html"><FONT CLASS="NavBarFont1"><B>Help</B></FONT></A>&nbsp;</TD>
+  </TR>
+</TABLE>
+</TD>
+<TD ALIGN="right" VALIGN="top" ROWSPAN=3><EM>
+</EM>
+</TD>
+</TR>
+
+<TR>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+&nbsp;<A HREF="../../../../../../../com/technology/jep/jepria/client/ui/statusbar/StatusBarActivityMapper.html" title="class in com.technology.jep.jepria.client.ui.statusbar"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../../../../../com/technology/jep/jepria/client/ui/statusbar/StatusBarView.html" title="interface in com.technology.jep.jepria.client.ui.statusbar"><B>NEXT CLASS</B></A></FONT></TD>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+  <A HREF="../../../../../../../index.html?com/technology/jep/jepria/client/ui/statusbar/StatusBarPresenter.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="StatusBarPresenter.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+&nbsp;<SCRIPT type="text/javascript">
+  <!--
+  if(window==top) {
+    document.writeln('<A HREF="../../../../../../../allclasses-noframe.html"><B>All Classes</B></A>');
+  }
+  //-->
+</SCRIPT>
+<NOSCRIPT>
+  <A HREF="../../../../../../../allclasses-noframe.html"><B>All Classes</B></A>
+</NOSCRIPT>
+
+
+</FONT></TD>
+</TR>
+<TR>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+  SUMMARY:&nbsp;NESTED&nbsp;|&nbsp;<A HREF="#field_summary">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
+</TR>
+</TABLE>
+<A NAME="skip-navbar_bottom"></A>
+<!-- ======== END OF BOTTOM NAVBAR ======= -->
+
+<HR>
+
+</BODY>
+</HTML>

@@ -1,0 +1,892 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!--NewPage-->
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<TITLE>
+JepBaseNumberField (JepRia JavaDoc)
+</TITLE>
+
+
+<LINK REL ="stylesheet" TYPE="text/css" HREF="../../../../../../../../stylesheet.css" TITLE="Style">
+
+<SCRIPT type="text/javascript">
+function windowTitle()
+{
+    if (location.href.indexOf('is-external=true') == -1) {
+        parent.document.title="JepBaseNumberField (JepRia JavaDoc)";
+    }
+}
+</SCRIPT>
+<NOSCRIPT>
+</NOSCRIPT>
+
+</HEAD>
+
+<BODY BGCOLOR="white" onload="windowTitle();">
+<HR>
+
+
+<!-- ========= START OF TOP NAVBAR ======= -->
+<A NAME="navbar_top"><!-- --></A>
+<A HREF="#skip-navbar_top" title="Skip navigation links"></A>
+<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
+<TR>
+<TD COLSPAN=2 BGCOLOR="#EEEEFF" CLASS="NavBarCell1">
+<A NAME="navbar_top_firstrow"><!-- --></A>
+<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3" SUMMARY="">
+  <TR ALIGN="center" VALIGN="top">
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-summary.html"><FONT CLASS="NavBarFont1"><B>Package</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../../index-all.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../../help-doc.html"><FONT CLASS="NavBarFont1"><B>Help</B></FONT></A>&nbsp;</TD>
+  </TR>
+</TABLE>
+</TD>
+<TD ALIGN="right" VALIGN="top" ROWSPAN=3><EM>
+</EM>
+</TD>
+</TR>
+
+<TR>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+&nbsp;PREV CLASS&nbsp;
+&nbsp;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepBaseTextField.html" title="class in com.technology.jep.jepria.client.widget.field.multistate"><B>NEXT CLASS</B></A></FONT></TD>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+  <A HREF="../../../../../../../../index.html?com/technology/jep/jepria/client/widget/field/multistate/JepBaseNumberField.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="JepBaseNumberField.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+&nbsp;<SCRIPT type="text/javascript">
+  <!--
+  if(window==top) {
+    document.writeln('<A HREF="../../../../../../../../allclasses-noframe.html"><B>All Classes</B></A>');
+  }
+  //-->
+</SCRIPT>
+<NOSCRIPT>
+  <A HREF="../../../../../../../../allclasses-noframe.html"><B>All Classes</B></A>
+</NOSCRIPT>
+
+
+</FONT></TD>
+</TR>
+<TR>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+  SUMMARY:&nbsp;<A HREF="#nested_classes_inherited_from_class_com.google.gwt.user.client.ui.UIObject">NESTED</A>&nbsp;|&nbsp;<A HREF="#field_summary">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
+</TR>
+</TABLE>
+<A NAME="skip-navbar_top"></A>
+<!-- ========= END OF TOP NAVBAR ========= -->
+
+<HR>
+<!-- ======== START OF CLASS DATA ======== -->
+<H2>
+<FONT SIZE="-1">
+com.technology.jep.jepria.client.widget.field.multistate</FONT>
+<BR>
+Class JepBaseNumberField&lt;E extends com.google.gwt.user.client.ui.ValueBox&lt;? extends java.lang.Number&gt;&gt;</H2>
+<PRE>
+java.lang.Object
+  <IMG SRC="../../../../../../../../resources/inherit.gif" ALT="extended by ">com.google.gwt.user.client.ui.UIObject
+      <IMG SRC="../../../../../../../../resources/inherit.gif" ALT="extended by ">com.google.gwt.user.client.ui.Widget
+          <IMG SRC="../../../../../../../../resources/inherit.gif" ALT="extended by ">com.google.gwt.user.client.ui.Panel
+              <IMG SRC="../../../../../../../../resources/inherit.gif" ALT="extended by ">com.google.gwt.user.client.ui.ComplexPanel
+                  <IMG SRC="../../../../../../../../resources/inherit.gif" ALT="extended by ">com.google.gwt.user.client.ui.DeckPanel
+                      <IMG SRC="../../../../../../../../resources/inherit.gif" ALT="extended by "><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html" title="class in com.technology.jep.jepria.client.widget.field.multistate">com.technology.jep.jepria.client.widget.field.multistate.JepMultiStateField</A>&lt;E,com.google.gwt.user.client.ui.HTML&gt;
+                          <IMG SRC="../../../../../../../../resources/inherit.gif" ALT="extended by "><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepBaseTextField.html" title="class in com.technology.jep.jepria.client.widget.field.multistate">com.technology.jep.jepria.client.widget.field.multistate.JepBaseTextField</A>&lt;E&gt;
+                              <IMG SRC="../../../../../../../../resources/inherit.gif" ALT="extended by "><B>com.technology.jep.jepria.client.widget.field.multistate.JepBaseNumberField&lt;E&gt;</B>
+</PRE>
+<DL>
+<DT><B>All Implemented Interfaces:</B> <DD>com.google.gwt.event.logical.shared.HasAttachHandlers, com.google.gwt.event.shared.HasHandlers, com.google.gwt.user.client.EventListener, com.google.gwt.user.client.ui.HasAnimation, com.google.gwt.user.client.ui.HasVisibility, com.google.gwt.user.client.ui.HasWidgets, com.google.gwt.user.client.ui.HasWidgets.ForIsWidget, com.google.gwt.user.client.ui.IndexedPanel, com.google.gwt.user.client.ui.IndexedPanel.ForIsWidget, com.google.gwt.user.client.ui.InsertPanel, com.google.gwt.user.client.ui.InsertPanel.ForIsWidget, com.google.gwt.user.client.ui.IsWidget, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/event/JepObservable.html" title="interface in com.technology.jep.jepria.client.widget.event">JepObservable</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/JepField.html" title="interface in com.technology.jep.jepria.client.widget.field">JepField</A>&lt;E,com.google.gwt.user.client.ui.HTML&gt;, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiState.html" title="interface in com.technology.jep.jepria.client.widget.field.multistate">JepMultiState</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/validation/Validator.html" title="interface in com.technology.jep.jepria.client.widget.field.validation">Validator</A>, java.lang.Iterable&lt;com.google.gwt.user.client.ui.Widget&gt;</DD>
+</DL>
+<DL>
+<DT><B>Direct Known Subclasses:</B> <DD><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepIntegerField.html" title="class in com.technology.jep.jepria.client.widget.field.multistate">JepIntegerField</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMoneyField.html" title="class in com.technology.jep.jepria.client.widget.field.multistate">JepMoneyField</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepNumberField.html" title="class in com.technology.jep.jepria.client.widget.field.multistate">JepNumberField</A></DD>
+</DL>
+<HR>
+<DL>
+<DT><PRE>public abstract class <B>JepBaseNumberField&lt;E extends com.google.gwt.user.client.ui.ValueBox&lt;? extends java.lang.Number&gt;&gt;</B><DT>extends <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepBaseTextField.html" title="class in com.technology.jep.jepria.client.widget.field.multistate">JepBaseTextField</A>&lt;E&gt;</DL>
+</PRE>
+
+<P>
+Поле для ввода произвольных чисел.
+ Вводимыми символами данного поля могут быть только цифры (запрет ввода точек для целочисленных типов и прочих спецсимволов)
+ Если необходимо запретить ввод отрицательных значений, то это делается методом setAllowNegative(false)
+ 
+ Особенности:<br/>
+ Необходимость данной абстракции обусловлена тем, чтобы в прикладном коде избавиться от потребности генерализации поля <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepNumberField.html" title="class in com.technology.jep.jepria.client.widget.field.multistate"><CODE>JepNumberField</CODE></A>
+<P>
+
+<P>
+<HR>
+
+<P>
+<!-- ======== NESTED CLASS SUMMARY ======== -->
+
+<A NAME="nested_class_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Nested Class Summary</B></FONT></TH>
+</TR>
+</TABLE>
+&nbsp;<A NAME="nested_classes_inherited_from_class_com.google.gwt.user.client.ui.UIObject"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Nested classes/interfaces inherited from class com.google.gwt.user.client.ui.UIObject</B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE>com.google.gwt.user.client.ui.UIObject.DebugIdImpl, com.google.gwt.user.client.ui.UIObject.DebugIdImplEnabled</CODE></TD>
+</TR>
+</TABLE>
+&nbsp;
+<A NAME="nested_classes_inherited_from_class_com.google.gwt.user.client.ui.InsertPanel"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Nested classes/interfaces inherited from interface com.google.gwt.user.client.ui.InsertPanel</B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE>com.google.gwt.user.client.ui.InsertPanel.ForIsWidget</CODE></TD>
+</TR>
+</TABLE>
+&nbsp;
+<A NAME="nested_classes_inherited_from_class_com.google.gwt.user.client.ui.HasWidgets"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Nested classes/interfaces inherited from interface com.google.gwt.user.client.ui.HasWidgets</B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE>com.google.gwt.user.client.ui.HasWidgets.ForIsWidget</CODE></TD>
+</TR>
+</TABLE>
+&nbsp;
+<!-- =========== FIELD SUMMARY =========== -->
+
+<A NAME="field_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Field Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepBaseNumberField.html#allowDecimals">allowDecimals</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Признак возможности ввода десятичного разделителя.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;java.util.List&lt;java.lang.Character&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepBaseNumberField.html#allowed">allowed</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Набор допустимых символов для ввода.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepBaseNumberField.html#allowNegative">allowNegative</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Признак возможности ввода отрицательных значений.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepBaseNumberField.html#decimalSeparator">decimalSeparator</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Разделитель целой и десятичной частей.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepBaseNumberField.html#digitChars">digitChars</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Набор цифр.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepBaseNumberField.html#groupingSeparator">groupingSeparator</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Разделитель тысячных разрядов.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private static&nbsp;char</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepBaseNumberField.html#MINUS">MINUS</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Знак минус.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;com.google.gwt.i18n.client.NumberFormat</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepBaseNumberField.html#numberFormat">numberFormat</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Формат вывода чисел.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private static&nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepBaseNumberField.html#TEXT_FIELD_STYLE">TEXT_FIELD_STYLE</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Наименование селектора (класса стилей) текстового поля.</TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="fields_inherited_from_class_com.technology.jep.jepria.client.widget.field.multistate.JepBaseTextField"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Fields inherited from class com.technology.jep.jepria.client.widget.field.multistate.<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepBaseTextField.html" title="class in com.technology.jep.jepria.client.widget.field.multistate">JepBaseTextField</A></B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepBaseTextField.html#delayedTask">delayedTask</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepBaseTextField.html#keyDownHandler">keyDownHandler</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepBaseTextField.html#keyPressHandler">keyPressHandler</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepBaseTextField.html#keyUpHandler">keyUpHandler</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepBaseTextField.html#typingTimeout">typingTimeout</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepBaseTextField.html#typingTimeoutMinTextSize">typingTimeoutMinTextSize</A></CODE></TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="fields_inherited_from_class_com.technology.jep.jepria.client.widget.field.multistate.JepMultiStateField"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Fields inherited from class com.technology.jep.jepria.client.widget.field.multistate.<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html" title="class in com.technology.jep.jepria.client.widget.field.multistate">JepMultiStateField</A></B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#_workstate">_workstate</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#ALIGN_ATTRIBUTE_NAME">ALIGN_ATTRIBUTE_NAME</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#allowBlank">allowBlank</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#editable">editable</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#EDITABLE_CARD_STYLE">EDITABLE_CARD_STYLE</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#editableCard">editableCard</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#editableCardLabel">editableCardLabel</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#editablePanel">editablePanel</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#errorIcon">errorIcon</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#FIELD_INDICATOR_STYLE">FIELD_INDICATOR_STYLE</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#LABEL_FIELD_STYLE">LABEL_FIELD_STYLE</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#loadingIcon">loadingIcon</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#observable">observable</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#VIEW_CARD_STYLE">VIEW_CARD_STYLE</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#viewCard">viewCard</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#viewCardLabel">viewCardLabel</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#viewPanel">viewPanel</A></CODE></TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="fields_inherited_from_class_com.google.gwt.user.client.ui.UIObject"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Fields inherited from class com.google.gwt.user.client.ui.UIObject</B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE>DEBUG_ID_PREFIX</CODE></TD>
+</TR>
+</TABLE>
+&nbsp;
+<!-- ======== CONSTRUCTOR SUMMARY ======== -->
+
+<A NAME="constructor_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Constructor Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepBaseNumberField.html#JepBaseNumberField()">JepBaseNumberField</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepBaseNumberField.html#JepBaseNumberField(java.lang.String)">JepBaseNumberField</A></B>(java.lang.String&nbsp;fieldLabel)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;
+<!-- ========== METHOD SUMMARY =========== -->
+
+<A NAME="method_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Method Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepBaseNumberField.html#applyStyle()">applyStyle</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Метод для стилизации поля.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepBaseNumberField.html#getAllowNegative()">getAllowNegative</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns true if negative values are allowed.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;com.google.gwt.i18n.client.NumberFormat</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepBaseNumberField.html#getNumberFormat()">getNumberFormat</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Получение формата вывода чисел.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;java.lang.Number</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepBaseNumberField.html#getValue()">getValue</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Получение значения поля.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepBaseNumberField.html#initAllowedInputCharacters()">initAllowedInputCharacters</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Инициализация списка допустимых символов.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepBaseNumberField.html#isValid()">isValid</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Проверяет, содержит ли поле допустимое значение.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepBaseNumberField.html#keyPressEventHandler(com.google.gwt.event.dom.client.DomEvent)">keyPressEventHandler</A></B>(com.google.gwt.event.dom.client.DomEvent&lt;?&gt;&nbsp;event)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Обработка события ввода символов в поле.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepBaseNumberField.html#setAllowNegative(boolean)">setAllowNegative</A></B>(boolean&nbsp;allowNegative)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sets whether negative value are allowed.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepBaseNumberField.html#setNumberFormat(com.google.gwt.i18n.client.NumberFormat)">setNumberFormat</A></B>(com.google.gwt.i18n.client.NumberFormat&nbsp;numberFormat)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Установка формата вывода чисел.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepBaseNumberField.html#setValue(java.lang.Object)">setValue</A></B>(java.lang.Object&nbsp;value)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Установка значения поля.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepBaseNumberField.html#setViewValue(java.lang.Object)">setViewValue</A></B>(java.lang.Object&nbsp;value)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Установка значения для карты Просмотра.</TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_com.technology.jep.jepria.client.widget.field.multistate.JepBaseTextField"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from class com.technology.jep.jepria.client.widget.field.multistate.<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepBaseTextField.html" title="class in com.technology.jep.jepria.client.widget.field.multistate">JepBaseTextField</A></B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepBaseTextField.html#addChangeValueListener()">addChangeValueListener</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepBaseTextField.html#addListener(com.technology.jep.jepria.client.widget.event.JepEventType, com.technology.jep.jepria.client.widget.event.JepListener)">addListener</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepBaseTextField.html#addLostFocusListener()">addLostFocusListener</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepBaseTextField.html#addTypingTimeoutListener()">addTypingTimeoutListener</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepBaseTextField.html#afterTypingTimeoutFailure()">afterTypingTimeoutFailure</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepBaseTextField.html#afterTypingTimeoutSuccess()">afterTypingTimeoutSuccess</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepBaseTextField.html#clear()">clear</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepBaseTextField.html#getTypingTimeoutMinTextSize()">getTypingTimeoutMinTextSize</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepBaseTextField.html#initKeyboardHandlers()">initKeyboardHandlers</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepBaseTextField.html#initKeyDownHandler()">initKeyDownHandler</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepBaseTextField.html#initKeyPressHandler()">initKeyPressHandler</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepBaseTextField.html#initKeyUpHandler()">initKeyUpHandler</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepBaseTextField.html#keyDownEventHandler(com.google.gwt.event.dom.client.DomEvent)">keyDownEventHandler</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepBaseTextField.html#keyUpEventHandler(com.google.gwt.event.dom.client.DomEvent)">keyUpEventHandler</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepBaseTextField.html#setMaxLength(int)">setMaxLength</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepBaseTextField.html#setTypingTimeout(int)">setTypingTimeout</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepBaseTextField.html#setTypingTimeoutMinTextSize(int)">setTypingTimeoutMinTextSize</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepBaseTextField.html#startTypingTimeout()">startTypingTimeout</A></CODE></TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_com.technology.jep.jepria.client.widget.field.multistate.JepMultiStateField"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from class com.technology.jep.jepria.client.widget.field.multistate.<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html" title="class in com.technology.jep.jepria.client.widget.field.multistate">JepMultiStateField</A></B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#addEditableCard()">addEditableCard</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#addViewCard()">addViewCard</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#changeWorkstate(com.technology.jep.jepria.client.ui.WorkstateEnum)">changeWorkstate</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#clearInvalid()">clearInvalid</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#clearView()">clearView</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#getEditableCard()">getEditableCard</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#getFieldLabel()">getFieldLabel</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#getInputElement()">getInputElement</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#getListeners(com.technology.jep.jepria.client.widget.event.JepEventType)">getListeners</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#getRawValue()">getRawValue</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#getViewCard()">getViewCard</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#markInvalid(java.lang.String)">markInvalid</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#notifyListeners(com.technology.jep.jepria.client.widget.event.JepEventType, com.technology.jep.jepria.client.widget.event.JepEvent)">notifyListeners</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#onChangeWorkstate(com.technology.jep.jepria.client.ui.WorkstateEnum)">onChangeWorkstate</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#removeListener(com.technology.jep.jepria.client.widget.event.JepEventType, com.technology.jep.jepria.client.widget.event.JepListener)">removeListener</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#removeMarginsAndPaddings(com.google.gwt.dom.client.Element)">removeMarginsAndPaddings</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#setAllowBlank(boolean)">setAllowBlank</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#setEditable(boolean)">setEditable</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#setEmptyText(java.lang.String)">setEmptyText</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#setEnabled(boolean)">setEnabled</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#setFieldHeight(int)">setFieldHeight</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#setFieldLabel(java.lang.String)">setFieldLabel</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#setFieldWidth(int)">setFieldWidth</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#setLabelSeparator(java.lang.String)">setLabelSeparator</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#setLabelWidth(int)">setLabelWidth</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#setLoadingImage(boolean)">setLoadingImage</A></CODE></TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_com.google.gwt.user.client.ui.DeckPanel"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from class com.google.gwt.user.client.ui.DeckPanel</B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE>add, getVisibleWidget, insert, insert, isAnimationEnabled, remove, setAnimationEnabled, showWidget</CODE></TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_com.google.gwt.user.client.ui.ComplexPanel"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from class com.google.gwt.user.client.ui.ComplexPanel</B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE>add, add, adjustIndex, checkIndexBoundsForAccess, checkIndexBoundsForInsertion, getChildren, getWidget, getWidgetCount, getWidgetIndex, getWidgetIndex, insert, insert, iterator, remove</CODE></TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_com.google.gwt.user.client.ui.Panel"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from class com.google.gwt.user.client.ui.Panel</B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE>add, adopt, doAttachChildren, doDetachChildren, orphan, remove</CODE></TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_com.google.gwt.user.client.ui.Widget"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from class com.google.gwt.user.client.ui.Widget</B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE>addAttachHandler, addBitlessDomHandler, addDomHandler, addHandler, asWidget, asWidgetOrNull, createHandlerManager, delegateEvent, fireEvent, getHandlerCount, getLayoutData, getParent, isAttached, isOrWasAttached, onAttach, onBrowserEvent, onDetach, onLoad, onUnload, removeFromParent, setLayoutData, sinkEvents, unsinkEvents</CODE></TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_com.google.gwt.user.client.ui.UIObject"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from class com.google.gwt.user.client.ui.UIObject</B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE>addStyleDependentName, addStyleName, ensureDebugId, ensureDebugId, ensureDebugId, getAbsoluteLeft, getAbsoluteTop, getElement, getOffsetHeight, getOffsetWidth, getStyleElement, getStyleName, getStyleName, getStylePrimaryName, getStylePrimaryName, getTitle, isVisible, isVisible, onEnsureDebugId, removeStyleDependentName, removeStyleName, resolvePotentialElement, setElement, setElement, setHeight, setPixelSize, setSize, setStyleDependentName, setStyleName, setStyleName, setStyleName, setStyleName, setStylePrimaryName, setStylePrimaryName, setTitle, setVisible, setVisible, setWidth, sinkBitlessEvent, toString</CODE></TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from class java.lang.Object</B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE>clone, equals, finalize, getClass, hashCode, notify, notifyAll, wait, wait, wait</CODE></TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_com.google.gwt.user.client.ui.InsertPanel.ForIsWidget"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from interface com.google.gwt.user.client.ui.InsertPanel.ForIsWidget</B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE>add</CODE></TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_com.google.gwt.user.client.ui.IndexedPanel.ForIsWidget"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from interface com.google.gwt.user.client.ui.IndexedPanel.ForIsWidget</B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE>getWidgetIndex</CODE></TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_com.google.gwt.user.client.ui.IndexedPanel"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from interface com.google.gwt.user.client.ui.IndexedPanel</B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE>getWidget, getWidgetCount, getWidgetIndex, remove</CODE></TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
+<!-- ============ FIELD DETAIL =========== -->
+
+<A NAME="field_detail"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
+<B>Field Detail</B></FONT></TH>
+</TR>
+</TABLE>
+
+<A NAME="allowed"><!-- --></A><H3>
+allowed</H3>
+<PRE>
+private java.util.List&lt;java.lang.Character&gt; <B>allowed</B></PRE>
+<DL>
+<DD>Набор допустимых символов для ввода.
+<P>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="digitChars"><!-- --></A><H3>
+digitChars</H3>
+<PRE>
+private java.lang.String <B>digitChars</B></PRE>
+<DL>
+<DD>Набор цифр.
+<P>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="decimalSeparator"><!-- --></A><H3>
+decimalSeparator</H3>
+<PRE>
+protected java.lang.String <B>decimalSeparator</B></PRE>
+<DL>
+<DD>Разделитель целой и десятичной частей.
+<P>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="groupingSeparator"><!-- --></A><H3>
+groupingSeparator</H3>
+<PRE>
+protected java.lang.String <B>groupingSeparator</B></PRE>
+<DL>
+<DD>Разделитель тысячных разрядов.
+<P>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="allowDecimals"><!-- --></A><H3>
+allowDecimals</H3>
+<PRE>
+protected boolean <B>allowDecimals</B></PRE>
+<DL>
+<DD>Признак возможности ввода десятичного разделителя.
+<P>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="allowNegative"><!-- --></A><H3>
+allowNegative</H3>
+<PRE>
+private boolean <B>allowNegative</B></PRE>
+<DL>
+<DD>Признак возможности ввода отрицательных значений.
+<P>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="numberFormat"><!-- --></A><H3>
+numberFormat</H3>
+<PRE>
+private com.google.gwt.i18n.client.NumberFormat <B>numberFormat</B></PRE>
+<DL>
+<DD>Формат вывода чисел.<br/>
+ По умолчанию не задан (null).
+<P>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="MINUS"><!-- --></A><H3>
+MINUS</H3>
+<PRE>
+private static final char <B>MINUS</B></PRE>
+<DL>
+<DD>Знак минус.
+<P>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../../../../constant-values.html#com.technology.jep.jepria.client.widget.field.multistate.JepBaseNumberField.MINUS">Constant Field Values</A></DL>
+</DL>
+<HR>
+
+<A NAME="TEXT_FIELD_STYLE"><!-- --></A><H3>
+TEXT_FIELD_STYLE</H3>
+<PRE>
+private static final java.lang.String <B>TEXT_FIELD_STYLE</B></PRE>
+<DL>
+<DD>Наименование селектора (класса стилей) текстового поля.
+<P>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../../../../constant-values.html#com.technology.jep.jepria.client.widget.field.multistate.JepBaseNumberField.TEXT_FIELD_STYLE">Constant Field Values</A></DL>
+</DL>
+
+<!-- ========= CONSTRUCTOR DETAIL ======== -->
+
+<A NAME="constructor_detail"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
+<B>Constructor Detail</B></FONT></TH>
+</TR>
+</TABLE>
+
+<A NAME="JepBaseNumberField()"><!-- --></A><H3>
+JepBaseNumberField</H3>
+<PRE>
+public <B>JepBaseNumberField</B>()</PRE>
+<DL>
+</DL>
+<HR>
+
+<A NAME="JepBaseNumberField(java.lang.String)"><!-- --></A><H3>
+JepBaseNumberField</H3>
+<PRE>
+public <B>JepBaseNumberField</B>(java.lang.String&nbsp;fieldLabel)</PRE>
+<DL>
+</DL>
+
+<!-- ============ METHOD DETAIL ========== -->
+
+<A NAME="method_detail"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
+<B>Method Detail</B></FONT></TH>
+</TR>
+</TABLE>
+
+<A NAME="setValue(java.lang.Object)"><!-- --></A><H3>
+setValue</H3>
+<PRE>
+public void <B>setValue</B>(java.lang.Object&nbsp;value)</PRE>
+<DL>
+<DD>Установка значения поля.<br/>
+ При установке значения поля, устанавливаются значения для обеих карт сразу: для карты Редактирования и карты Просмотра.<br/>
+ После установки значения карты Редактирования происходит скрытие/стирание сообщения инвалидации.<br/><br/>
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/JepField.html#setValue(java.lang.Object)">setValue</A></CODE> in interface <CODE><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/JepField.html" title="interface in com.technology.jep.jepria.client.widget.field">JepField</A>&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepBaseNumberField.html" title="type parameter in JepBaseNumberField">E</A> extends com.google.gwt.user.client.ui.ValueBox&lt;? extends java.lang.Number&gt;,com.google.gwt.user.client.ui.HTML&gt;</CODE><DT><B>Overrides:</B><DD><CODE><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepBaseTextField.html#setValue(java.lang.Object)">setValue</A></CODE> in class <CODE><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepBaseTextField.html" title="class in com.technology.jep.jepria.client.widget.field.multistate">JepBaseTextField</A>&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepBaseNumberField.html" title="type parameter in JepBaseNumberField">E</A> extends com.google.gwt.user.client.ui.ValueBox&lt;? extends java.lang.Number&gt;&gt;</CODE></DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>value</CODE> - значение поля</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getValue()"><!-- --></A><H3>
+getValue</H3>
+<PRE>
+public java.lang.Number <B>getValue</B>()</PRE>
+<DL>
+<DD>Получение значения поля.
+<P>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>значение поля</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setViewValue(java.lang.Object)"><!-- --></A><H3>
+setViewValue</H3>
+<PRE>
+protected void <B>setViewValue</B>(java.lang.Object&nbsp;value)</PRE>
+<DL>
+<DD>Установка значения для карты Просмотра.<br/>
+ <br/>
+ Если для поля задано значение формата вывода чисел, то значение устанавливается в соответствии 
+ с этим форматом. В противном случае выводится строковое значение, возвращаемое методом toString().<br/>
+ <br/>
+ При перегрузке данного метода в наследниках необходимо обеспечить, чтобы данный метод был быстрым/НЕ ресурсо-затратным.<br/>
+ <br/>
+ Основная идея Jep-полей: они должны быть легкими. Поэтому, карта Просмотра должна быть именно текстовым (или простым Html) представлением
+ значения карты Редактирования.<br/>
+ В тех случаях, когда чисто текстовое представление нецелесообразно (списки, деревья и т.п.) - в поле используется ТОЛЬКО одна карта - 
+ карта Редактирования (т.е. карта Просмотра - вообще НЕ используется).
+<P>
+<DD><DL>
+<DT><B>Overrides:</B><DD><CODE><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#setViewValue(java.lang.Object)">setViewValue</A></CODE> in class <CODE><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html" title="class in com.technology.jep.jepria.client.widget.field.multistate">JepMultiStateField</A>&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepBaseNumberField.html" title="type parameter in JepBaseNumberField">E</A> extends com.google.gwt.user.client.ui.ValueBox&lt;? extends java.lang.Number&gt;,com.google.gwt.user.client.ui.HTML&gt;</CODE></DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>value</CODE> - значение для карты Просмотра</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="keyPressEventHandler(com.google.gwt.event.dom.client.DomEvent)"><!-- --></A><H3>
+keyPressEventHandler</H3>
+<PRE>
+protected boolean <B>keyPressEventHandler</B>(com.google.gwt.event.dom.client.DomEvent&lt;?&gt;&nbsp;event)</PRE>
+<DL>
+<DD>Обработка события ввода символов в поле.
+<P>
+<DD><DL>
+<DT><B>Overrides:</B><DD><CODE><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepBaseTextField.html#keyPressEventHandler(com.google.gwt.event.dom.client.DomEvent)">keyPressEventHandler</A></CODE> in class <CODE><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepBaseTextField.html" title="class in com.technology.jep.jepria.client.widget.field.multistate">JepBaseTextField</A>&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepBaseNumberField.html" title="type parameter in JepBaseNumberField">E</A> extends com.google.gwt.user.client.ui.ValueBox&lt;? extends java.lang.Number&gt;&gt;</CODE></DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>event</CODE> - срабатываемое событие
+<DT><B>Returns:</B><DD>true - если ввод символов не был отменен, иначе - прерван</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getNumberFormat()"><!-- --></A><H3>
+getNumberFormat</H3>
+<PRE>
+public com.google.gwt.i18n.client.NumberFormat <B>getNumberFormat</B>()</PRE>
+<DL>
+<DD>Получение формата вывода чисел.
+<P>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>формат вывода чисел</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setNumberFormat(com.google.gwt.i18n.client.NumberFormat)"><!-- --></A><H3>
+setNumberFormat</H3>
+<PRE>
+public void <B>setNumberFormat</B>(com.google.gwt.i18n.client.NumberFormat&nbsp;numberFormat)</PRE>
+<DL>
+<DD>Установка формата вывода чисел.
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>numberFormat</CODE> - формат вывода чисел</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getAllowNegative()"><!-- --></A><H3>
+getAllowNegative</H3>
+<PRE>
+public boolean <B>getAllowNegative</B>()</PRE>
+<DL>
+<DD>Returns true if negative values are allowed.
+<P>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>the allow negative value state</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setAllowNegative(boolean)"><!-- --></A><H3>
+setAllowNegative</H3>
+<PRE>
+public void <B>setAllowNegative</B>(boolean&nbsp;allowNegative)</PRE>
+<DL>
+<DD>Sets whether negative value are allowed.
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>allowNegative</CODE> - true to allow negative values</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="isValid()"><!-- --></A><H3>
+isValid</H3>
+<PRE>
+public boolean <B>isValid</B>()</PRE>
+<DL>
+<DD>Проверяет, содержит ли поле допустимое значение.
+ <br>
+ Предварительно очищает сообщение об ошибке. Если поле является обязательным, а
+ введённое значение пусто, устанавливает сообщение об ошибке и возвращает false. 
+ Предназначен для переопределения в классах-наследниках.
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/JepField.html#isValid()">isValid</A></CODE> in interface <CODE><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/JepField.html" title="interface in com.technology.jep.jepria.client.widget.field">JepField</A>&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepBaseNumberField.html" title="type parameter in JepBaseNumberField">E</A> extends com.google.gwt.user.client.ui.ValueBox&lt;? extends java.lang.Number&gt;,com.google.gwt.user.client.ui.HTML&gt;</CODE><DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/validation/Validator.html#isValid()">isValid</A></CODE> in interface <CODE><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/validation/Validator.html" title="interface in com.technology.jep.jepria.client.widget.field.validation">Validator</A></CODE><DT><B>Overrides:</B><DD><CODE><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#isValid()">isValid</A></CODE> in class <CODE><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html" title="class in com.technology.jep.jepria.client.widget.field.multistate">JepMultiStateField</A>&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepBaseNumberField.html" title="type parameter in JepBaseNumberField">E</A> extends com.google.gwt.user.client.ui.ValueBox&lt;? extends java.lang.Number&gt;,com.google.gwt.user.client.ui.HTML&gt;</CODE></DL>
+</DD>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>true - если поле содержит допустимое значение, false - в противном случае</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="initAllowedInputCharacters()"><!-- --></A><H3>
+initAllowedInputCharacters</H3>
+<PRE>
+protected void <B>initAllowedInputCharacters</B>()</PRE>
+<DL>
+<DD>Инициализация списка допустимых символов.
+<P>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="applyStyle()"><!-- --></A><H3>
+applyStyle</H3>
+<PRE>
+protected void <B>applyStyle</B>()</PRE>
+<DL>
+<DD>Метод для стилизации поля.<br/>
+ Для применения новых стилей элемента необходимо в наследниках перекрывать данный метод.
+ 
+ Особенности:<br/>
+ Карте редактирования присваиваем стиль TextBox для единообразия.
+<P>
+<DD><DL>
+<DT><B>Overrides:</B><DD><CODE><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#applyStyle()">applyStyle</A></CODE> in class <CODE><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html" title="class in com.technology.jep.jepria.client.widget.field.multistate">JepMultiStateField</A>&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepBaseNumberField.html" title="type parameter in JepBaseNumberField">E</A> extends com.google.gwt.user.client.ui.ValueBox&lt;? extends java.lang.Number&gt;,com.google.gwt.user.client.ui.HTML&gt;</CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<!-- ========= END OF CLASS DATA ========= -->
+<HR>
+
+
+<!-- ======= START OF BOTTOM NAVBAR ====== -->
+<A NAME="navbar_bottom"><!-- --></A>
+<A HREF="#skip-navbar_bottom" title="Skip navigation links"></A>
+<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
+<TR>
+<TD COLSPAN=2 BGCOLOR="#EEEEFF" CLASS="NavBarCell1">
+<A NAME="navbar_bottom_firstrow"><!-- --></A>
+<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3" SUMMARY="">
+  <TR ALIGN="center" VALIGN="top">
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-summary.html"><FONT CLASS="NavBarFont1"><B>Package</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../../index-all.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../../help-doc.html"><FONT CLASS="NavBarFont1"><B>Help</B></FONT></A>&nbsp;</TD>
+  </TR>
+</TABLE>
+</TD>
+<TD ALIGN="right" VALIGN="top" ROWSPAN=3><EM>
+</EM>
+</TD>
+</TR>
+
+<TR>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+&nbsp;PREV CLASS&nbsp;
+&nbsp;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepBaseTextField.html" title="class in com.technology.jep.jepria.client.widget.field.multistate"><B>NEXT CLASS</B></A></FONT></TD>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+  <A HREF="../../../../../../../../index.html?com/technology/jep/jepria/client/widget/field/multistate/JepBaseNumberField.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="JepBaseNumberField.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+&nbsp;<SCRIPT type="text/javascript">
+  <!--
+  if(window==top) {
+    document.writeln('<A HREF="../../../../../../../../allclasses-noframe.html"><B>All Classes</B></A>');
+  }
+  //-->
+</SCRIPT>
+<NOSCRIPT>
+  <A HREF="../../../../../../../../allclasses-noframe.html"><B>All Classes</B></A>
+</NOSCRIPT>
+
+
+</FONT></TD>
+</TR>
+<TR>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+  SUMMARY:&nbsp;<A HREF="#nested_classes_inherited_from_class_com.google.gwt.user.client.ui.UIObject">NESTED</A>&nbsp;|&nbsp;<A HREF="#field_summary">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
+</TR>
+</TABLE>
+<A NAME="skip-navbar_bottom"></A>
+<!-- ======== END OF BOTTOM NAVBAR ======= -->
+
+<HR>
+
+</BODY>
+</HTML>

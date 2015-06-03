@@ -1,0 +1,269 @@
+/*
+ * Copyright 2011 Google Inc.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
+ */
+@def selectionBorderWidth 2px;
+
+.dataGridWidget {
+	
+}
+
+.dataGridFirstColumn {
+	
+}
+
+.dataGridLastColumn {
+	
+}
+
+.dataGridFooter {
+	border-top: 2px solid #6f7277;
+	padding: 3px 15px;
+	text-align: left;
+	color: #4b4a4a;
+	text-shadow: #ddf 1px 1px 0;
+	overflow: hidden;
+	white-space: nowrap;
+}
+
+.dataGridHeader {
+	border-bottom: 1px solid rgb(221, 221, 221);
+	border-right: 1px solid rgb(221, 221, 221);
+	padding-bottom: 3px;
+	padding-left: 5px;
+	padding-right: 3px;
+	padding-top: 3px;
+	text-align: left;
+	color: black;
+	text-shadow: none;
+	font: 11px tahoma, arial, verdana, sans-serif;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	/*font-weight:bold;*/
+	overflow: hidden;
+	background-color: rgb(237, 237, 237);
+	/*background: url(data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/2wBDAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/wAARCAAYAAIDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD+8iiuQ/te8/57D/viH/43RV8j7r8f8iOddn+H+Z5t/wAJl4c/6GHRf/Bvp/8A8foooq1J6bdPx5f/AJJkKK036fjy/wDyTP/Z) repeat-x 0px bottom;*/
+	cursor: hand;
+}
+
+.dataGridHeader td {
+	border-bottom: 1px solid rgb(221, 221, 221);
+	border-right: 1px solid rgb(221, 221, 221);
+	padding-bottom: 3px;
+	padding-left: 5px;
+	padding-right: 3px;
+	padding-top: 3px;
+	text-align: left;
+	color: black;
+	text-shadow: none;
+	font: 11px tahoma, arial, verdana, sans-serif;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	/*font-weight:bold;*/
+	overflow: hidden;
+	background-color: rgb(237, 237, 237);
+	/*background: url(data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/2wBDAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/wAARCAAYAAIDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD+8iiuQ/te8/57D/viH/43RV8j7r8f8iOddn+H+Z5t/wAJl4c/6GHRf/Bvp/8A8foooq1J6bdPx5f/AJJkKK036fjy/wDyTP/Z) repeat-x 0px bottom;*/
+	cursor: hand;
+}
+
+
+.dataGridHeader div {
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.dataGridCell {
+	padding-bottom: 3px;
+	padding-left: 5px;
+	padding-right: 3px;
+	padding-top: 3px;
+	overflow: hidden;
+	font: 11px tahoma, arial, verdana, sans-serif;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	
+	border-collapse: collapse;
+	
+	border-bottom-color: rgb(237, 237, 237);
+	border-bottom-style: solid;
+	border-bottom-width: 1px;
+	border-left-color: rgb(237, 237, 237);
+	border-left-style: solid;
+	border-left-width: 0px;
+	border-right-color: rgb(237, 237, 237);
+	border-right-style: solid;
+	border-right-width: 0px;
+	border-top-color: rgb(250, 250, 250);
+	border-top-style: solid;
+	border-top-width: 1px;
+}
+
+.dataGridCell div {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+
+.dataGridFirstColumnFooter {
+	
+}
+
+.dataGridFirstColumnHeader {
+	
+}
+
+.dataGridLastColumnFooter {
+	
+}
+
+.dataGridLastColumnHeader {
+	
+}
+
+.dataGridSortableHeader {
+	/* cursor: pointer; */
+	cursor: hand;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	
+}
+
+.dataGridSortableHeader:focus { 
+	outline: none; 
+}
+
+.dataGridSortableHeader:hover {
+	color: black;
+	
+	border-bottom: 1px solid rgb(163, 186, 233);
+	
+	background-color: #DFE8F6;
+	/*background: url(data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/2wBDAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/wAARCAAWAAIDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD+5CivH6K/SP7J/wCoj/yl/wDdD4f6/wD9Ov8Ayf8A+0PIv+F0eFv+fDX/APwF07/5a0UUV+irLMDp+47f8va39z/p55s+OWOxWn73t9in/c/uebP/2Q==) repeat-x 0px bottom;*/
+}
+
+.dataGridSortedHeaderAscending {
+	
+}
+
+.dataGridSortedHeaderDescending {
+	
+}
+
+.dataGridEvenRow {
+	background: #ffffff;
+}
+
+.dataGridEvenRowCell {
+	/*border: none; border: selectionBorderWidth solid #ffffff; */
+	
+}
+
+.dataGridOddRow {
+	background: #fafafa;
+}
+
+.dataGridOddRowCell {
+	/* border: none; border: selectionBorderWidth solid #f3f7fb; */
+	
+}
+
+.dataGridHoveredRow {
+	background: #eee;
+}
+
+.dataGridHoveredRowCell {
+	
+	
+	border-bottom-color: rgb(221, 221, 221);
+	border-bottom-style: solid;
+	border-bottom-width: 1px;
+	
+	border-collapse: separate;
+	
+	border-top-color: rgb(221, 221, 221);
+	border-top-style: solid;
+	border-top-width: 1px;
+	
+	border-right-width: 0px;
+	border-left-width: 0px;
+
+	/* border: selectionBorderWidth solid #eee; */
+}
+
+.dataGridKeyboardSelectedRow {
+	background: #DFE8F6;
+}
+
+.dataGridKeyboardSelectedRowCell {
+	border-bottom-color: rgb(183, 206, 253);
+	border-bottom-style: solid;
+	border-bottom-width: 1px;
+	
+	border-collapse: separate;
+	
+	border-top-color: rgb(183, 206, 253);
+	border-top-style: solid;
+	border-top-width: 1px;
+	
+	border-left-width: 0px;
+	border-right-width: 0px;
+
+	/* border: selectionBorderWidth solid #ffc; */
+}
+
+.dataGridSelectedRow {
+	background: #DFE8F6;
+	color: black;
+	height: auto;
+	overflow: auto;
+}
+
+.dataGridSelectedRowCell {
+	
+	border-bottom-color: rgb(183, 206, 253);
+	border-bottom-style: solid;
+	border-bottom-width: 1px;
+	
+	border-collapse: separate;
+	
+	border-top-color: rgb(183, 206, 253);
+	border-top-style: solid;
+	border-top-width: 1px;
+	
+	border-left-width: 0px;
+	border-right-width: 0px;
+
+	/*border: none; /* border: selectionBorderWidth solid #628cd5; */
+}
+
+/**
+ * The keyboard selected cell is visible over selection.
+ */
+.dataGridKeyboardSelectedCell {
+	border-bottom-color: rgb(183, 206, 253);
+	border-bottom-style: solid;
+	border-bottom-width: 1px;
+	
+	border-collapse: separate;
+	
+	border-top-color: rgb(183, 206, 253); /*rgb(183, 206, 253);*/
+	border-top-style: solid;
+	border-top-width: 1px;
+	
+	border-left-width: 0px;
+	border-right-width: 0px;
+	
+	/*border: none; /* border: selectionBorderWidth solid #d7dde8; */
+}
+

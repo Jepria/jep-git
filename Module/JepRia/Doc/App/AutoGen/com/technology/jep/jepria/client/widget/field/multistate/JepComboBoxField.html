@@ -1,0 +1,1248 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!--NewPage-->
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<TITLE>
+JepComboBoxField (JepRia JavaDoc)
+</TITLE>
+
+
+<LINK REL ="stylesheet" TYPE="text/css" HREF="../../../../../../../../stylesheet.css" TITLE="Style">
+
+<SCRIPT type="text/javascript">
+function windowTitle()
+{
+    if (location.href.indexOf('is-external=true') == -1) {
+        parent.document.title="JepComboBoxField (JepRia JavaDoc)";
+    }
+}
+</SCRIPT>
+<NOSCRIPT>
+</NOSCRIPT>
+
+</HEAD>
+
+<BODY BGCOLOR="white" onload="windowTitle();">
+<HR>
+
+
+<!-- ========= START OF TOP NAVBAR ======= -->
+<A NAME="navbar_top"><!-- --></A>
+<A HREF="#skip-navbar_top" title="Skip navigation links"></A>
+<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
+<TR>
+<TD COLSPAN=2 BGCOLOR="#EEEEFF" CLASS="NavBarCell1">
+<A NAME="navbar_top_firstrow"><!-- --></A>
+<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3" SUMMARY="">
+  <TR ALIGN="center" VALIGN="top">
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-summary.html"><FONT CLASS="NavBarFont1"><B>Package</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../../index-all.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../../help-doc.html"><FONT CLASS="NavBarFont1"><B>Help</B></FONT></A>&nbsp;</TD>
+  </TR>
+</TABLE>
+</TD>
+<TD ALIGN="right" VALIGN="top" ROWSPAN=3><EM>
+</EM>
+</TD>
+</TR>
+
+<TR>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+&nbsp;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepCheckBoxField.html" title="class in com.technology.jep.jepria.client.widget.field.multistate"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepDateField.html" title="class in com.technology.jep.jepria.client.widget.field.multistate"><B>NEXT CLASS</B></A></FONT></TD>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+  <A HREF="../../../../../../../../index.html?com/technology/jep/jepria/client/widget/field/multistate/JepComboBoxField.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="JepComboBoxField.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+&nbsp;<SCRIPT type="text/javascript">
+  <!--
+  if(window==top) {
+    document.writeln('<A HREF="../../../../../../../../allclasses-noframe.html"><B>All Classes</B></A>');
+  }
+  //-->
+</SCRIPT>
+<NOSCRIPT>
+  <A HREF="../../../../../../../../allclasses-noframe.html"><B>All Classes</B></A>
+</NOSCRIPT>
+
+
+</FONT></TD>
+</TR>
+<TR>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+  SUMMARY:&nbsp;<A HREF="#nested_classes_inherited_from_class_com.google.gwt.user.client.ui.UIObject">NESTED</A>&nbsp;|&nbsp;<A HREF="#field_summary">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
+</TR>
+</TABLE>
+<A NAME="skip-navbar_top"></A>
+<!-- ========= END OF TOP NAVBAR ========= -->
+
+<HR>
+<!-- ======== START OF CLASS DATA ======== -->
+<H2>
+<FONT SIZE="-1">
+com.technology.jep.jepria.client.widget.field.multistate</FONT>
+<BR>
+Class JepComboBoxField</H2>
+<PRE>
+java.lang.Object
+  <IMG SRC="../../../../../../../../resources/inherit.gif" ALT="extended by ">com.google.gwt.user.client.ui.UIObject
+      <IMG SRC="../../../../../../../../resources/inherit.gif" ALT="extended by ">com.google.gwt.user.client.ui.Widget
+          <IMG SRC="../../../../../../../../resources/inherit.gif" ALT="extended by ">com.google.gwt.user.client.ui.Panel
+              <IMG SRC="../../../../../../../../resources/inherit.gif" ALT="extended by ">com.google.gwt.user.client.ui.ComplexPanel
+                  <IMG SRC="../../../../../../../../resources/inherit.gif" ALT="extended by ">com.google.gwt.user.client.ui.DeckPanel
+                      <IMG SRC="../../../../../../../../resources/inherit.gif" ALT="extended by "><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html" title="class in com.technology.jep.jepria.client.widget.field.multistate">com.technology.jep.jepria.client.widget.field.multistate.JepMultiStateField</A>&lt;E,com.google.gwt.user.client.ui.HTML&gt;
+                          <IMG SRC="../../../../../../../../resources/inherit.gif" ALT="extended by "><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepBaseTextField.html" title="class in com.technology.jep.jepria.client.widget.field.multistate">com.technology.jep.jepria.client.widget.field.multistate.JepBaseTextField</A>&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.html" title="class in com.technology.jep.jepria.client.widget.field">ComboBox</A>&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A>&gt;&gt;
+                              <IMG SRC="../../../../../../../../resources/inherit.gif" ALT="extended by "><B>com.technology.jep.jepria.client.widget.field.multistate.JepComboBoxField</B>
+</PRE>
+<DL>
+<DT><B>All Implemented Interfaces:</B> <DD>com.google.gwt.event.logical.shared.HasAttachHandlers, com.google.gwt.event.shared.HasHandlers, com.google.gwt.user.client.EventListener, com.google.gwt.user.client.ui.HasAnimation, com.google.gwt.user.client.ui.HasVisibility, com.google.gwt.user.client.ui.HasWidgets, com.google.gwt.user.client.ui.HasWidgets.ForIsWidget, com.google.gwt.user.client.ui.IndexedPanel, com.google.gwt.user.client.ui.IndexedPanel.ForIsWidget, com.google.gwt.user.client.ui.InsertPanel, com.google.gwt.user.client.ui.InsertPanel.ForIsWidget, com.google.gwt.user.client.ui.IsWidget, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/event/JepObservable.html" title="interface in com.technology.jep.jepria.client.widget.event">JepObservable</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/JepField.html" title="interface in com.technology.jep.jepria.client.widget.field">JepField</A>&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.html" title="class in com.technology.jep.jepria.client.widget.field">ComboBox</A>&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A>&gt;,com.google.gwt.user.client.ui.HTML&gt;, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/JepOptionField.html" title="interface in com.technology.jep.jepria.client.widget.field">JepOptionField</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiState.html" title="interface in com.technology.jep.jepria.client.widget.field.multistate">JepMultiState</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/validation/Validator.html" title="interface in com.technology.jep.jepria.client.widget.field.validation">Validator</A>, java.lang.Iterable&lt;com.google.gwt.user.client.ui.Widget&gt;</DD>
+</DL>
+<HR>
+<DL>
+<DT><PRE>public class <B>JepComboBoxField</B><DT>extends <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepBaseTextField.html" title="class in com.technology.jep.jepria.client.widget.field.multistate">JepBaseTextField</A>&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.html" title="class in com.technology.jep.jepria.client.widget.field">ComboBox</A>&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A>&gt;&gt;<DT>implements <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/JepOptionField.html" title="interface in com.technology.jep.jepria.client.widget.field">JepOptionField</A></DL>
+</PRE>
+
+<P>
+Поле для ввода из выпадающего списка.<br/>
+
+ Основные особенности работы с полем.<br/>
+ Поле в качестве своего значения принимает <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepBaseTextField.html#setValue(java.lang.Object)"><CODE>JepBaseTextField.setValue(Object value)</CODE></A> 
+ и возвращает <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/JepField.html#getValue()"><CODE>JepField.getValue()</CODE></A>
+ экземпляр класса <A HREF="../../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option"><CODE>JepOption</CODE></A> .<br/>
+ Таким образом, для работы с полем необходимо в наследниках <A HREF="../../../../../../../../com/technology/jep/jepria/shared/record/JepRecordDefinition.html" title="class in com.technology.jep.jepria.shared.record"><CODE>JepRecordDefinition</CODE></A>
+ установить тип поля <A HREF="../../../../../../../../com/technology/jep/jepria/shared/field/JepTypeEnum.html#OPTION"><CODE>JepTypeEnum.OPTION</CODE></A>
+ и на серверной стороне в бине делать преобразование из/в <A HREF="../../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option"><CODE>JepOption</CODE></A> .<br/>
+ Подобный подход в работе со значением поля связан с оптимизацией производительности работы поля - 
+ предотвращении lookup'ов (переборе списка значений для получения отображаемого значения) на клиенте
+ и переносе операций на сервер.<br/>
+ <br/>
+ Концепция поддержки обработки событий отражена в описании пакета <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/package-summary.html"><CODE>com.technology.jep.jepria.client.widget</CODE></A>.
+ <dl>
+   <dt>Поддерживаемые типы событий <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/event/JepEvent.html" title="class in com.technology.jep.jepria.client.widget.event"><CODE>JepEvent</CODE></A>:</dt>
+   <dd><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/event/JepEventType.html#CHANGE_SELECTION_EVENT"><CODE>CHANGE_SELECTION_EVENT</CODE></A></dd>
+   <dd><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/event/JepEventType.html#FIRST_TIME_USE_EVENT"><CODE>FIRST_TIME_USE_EVENT</CODE></A></dd>
+ </dl>
+<P>
+
+<P>
+<HR>
+
+<P>
+<!-- ======== NESTED CLASS SUMMARY ======== -->
+
+<A NAME="nested_class_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Nested Class Summary</B></FONT></TH>
+</TR>
+</TABLE>
+&nbsp;<A NAME="nested_classes_inherited_from_class_com.google.gwt.user.client.ui.UIObject"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Nested classes/interfaces inherited from class com.google.gwt.user.client.ui.UIObject</B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE>com.google.gwt.user.client.ui.UIObject.DebugIdImpl, com.google.gwt.user.client.ui.UIObject.DebugIdImplEnabled</CODE></TD>
+</TR>
+</TABLE>
+&nbsp;
+<A NAME="nested_classes_inherited_from_class_com.google.gwt.user.client.ui.InsertPanel"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Nested classes/interfaces inherited from interface com.google.gwt.user.client.ui.InsertPanel</B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE>com.google.gwt.user.client.ui.InsertPanel.ForIsWidget</CODE></TD>
+</TR>
+</TABLE>
+&nbsp;
+<A NAME="nested_classes_inherited_from_class_com.google.gwt.user.client.ui.HasWidgets"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Nested classes/interfaces inherited from interface com.google.gwt.user.client.ui.HasWidgets</B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE>com.google.gwt.user.client.ui.HasWidgets.ForIsWidget</CODE></TD>
+</TR>
+</TABLE>
+&nbsp;
+<!-- =========== FIELD SUMMARY =========== -->
+
+<A NAME="field_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Field Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="../../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepComboBoxField.html#EMPTY_CHOICE_OPTION">EMPTY_CHOICE_OPTION</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Пустая опция.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepComboBoxField.html#firstTimeUsedQuery">firstTimeUsedQuery</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Запрос, с которым выпадающий список раскрывается впервые</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;<A HREF="../../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepComboBoxField.html#lastOption">lastOption</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Последняя для вывода в списке опция</TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="fields_inherited_from_class_com.technology.jep.jepria.client.widget.field.multistate.JepBaseTextField"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Fields inherited from class com.technology.jep.jepria.client.widget.field.multistate.<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepBaseTextField.html" title="class in com.technology.jep.jepria.client.widget.field.multistate">JepBaseTextField</A></B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepBaseTextField.html#delayedTask">delayedTask</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepBaseTextField.html#keyDownHandler">keyDownHandler</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepBaseTextField.html#keyPressHandler">keyPressHandler</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepBaseTextField.html#keyUpHandler">keyUpHandler</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepBaseTextField.html#typingTimeout">typingTimeout</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepBaseTextField.html#typingTimeoutMinTextSize">typingTimeoutMinTextSize</A></CODE></TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="fields_inherited_from_class_com.technology.jep.jepria.client.widget.field.multistate.JepMultiStateField"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Fields inherited from class com.technology.jep.jepria.client.widget.field.multistate.<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html" title="class in com.technology.jep.jepria.client.widget.field.multistate">JepMultiStateField</A></B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#_workstate">_workstate</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#ALIGN_ATTRIBUTE_NAME">ALIGN_ATTRIBUTE_NAME</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#allowBlank">allowBlank</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#editable">editable</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#EDITABLE_CARD_STYLE">EDITABLE_CARD_STYLE</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#editableCard">editableCard</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#editableCardLabel">editableCardLabel</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#editablePanel">editablePanel</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#errorIcon">errorIcon</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#FIELD_INDICATOR_STYLE">FIELD_INDICATOR_STYLE</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#LABEL_FIELD_STYLE">LABEL_FIELD_STYLE</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#loadingIcon">loadingIcon</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#observable">observable</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#VIEW_CARD_STYLE">VIEW_CARD_STYLE</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#viewCard">viewCard</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#viewCardLabel">viewCardLabel</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#viewPanel">viewPanel</A></CODE></TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="fields_inherited_from_class_com.google.gwt.user.client.ui.UIObject"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Fields inherited from class com.google.gwt.user.client.ui.UIObject</B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE>DEBUG_ID_PREFIX</CODE></TD>
+</TR>
+</TABLE>
+&nbsp;
+<!-- ======== CONSTRUCTOR SUMMARY ======== -->
+
+<A NAME="constructor_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Constructor Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepComboBoxField.html#JepComboBoxField()">JepComboBoxField</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepComboBoxField.html#JepComboBoxField(java.lang.String)">JepComboBoxField</A></B>(java.lang.String&nbsp;fieldLabel)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepComboBoxField.html#JepComboBoxField(java.lang.String, java.lang.String)">JepComboBoxField</A></B>(java.lang.String&nbsp;fieldId,
+                 java.lang.String&nbsp;fieldLabel)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;
+<!-- ========== METHOD SUMMARY =========== -->
+
+<A NAME="method_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Method Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepComboBoxField.html#addChangeSelectionListner()">addChangeSelectionListner</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Добавление прослушивателя для реализации прослушивания события
+ <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/event/JepEventType.html#CHANGE_SELECTION_EVENT"><CODE>JepEventType.CHANGE_SELECTION_EVENT</CODE></A>.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepComboBoxField.html#addEditableCard()">addEditableCard</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Метод добавляющий на панель Редактирование соответствующее поле (компонент) Gxt.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepComboBoxField.html#addFirstTimeUseListener()">addFirstTimeUseListener</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Добавление Gxt прослушивателей для реализации прослушивания события 
+ <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/event/JepEventType.html#FIRST_TIME_USE_EVENT"><CODE>JepEventType.FIRST_TIME_USE_EVENT</CODE></A> .</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepComboBoxField.html#addLastOptionSelectCancelListener()">addLastOptionSelectCancelListener</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Добавление прослушивателей для реализации прослушивания события 
+ <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/event/BeforeSelectEvent.html" title="class in com.technology.jep.jepria.client.widget.field.multistate.event"><CODE>BeforeSelectEvent</CODE></A> с целью предотвращения выбора последней опции.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepComboBoxField.html#addListener(com.technology.jep.jepria.client.widget.event.JepEventType, com.technology.jep.jepria.client.widget.event.JepListener)">addListener</A></B>(<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/event/JepEventType.html" title="enum in com.technology.jep.jepria.client.widget.event">JepEventType</A>&nbsp;eventType,
+            <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/event/JepListener.html" title="interface in com.technology.jep.jepria.client.widget.event">JepListener</A>&nbsp;listener)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Добавление слушателя определенного типа собитий.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepComboBoxField.html#afterFirstTimeUseFailure()">afterFirstTimeUseFailure</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Процедура, выполняемая по НЕуспешному завершению обработчика события 
+ <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/event/JepEventType.html#FIRST_TIME_USE_EVENT"><CODE>JepEventType.FIRST_TIME_USE_EVENT</CODE></A> .</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepComboBoxField.html#afterFirstTimeUseSuccess()">afterFirstTimeUseSuccess</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Процедура, выполняемая по успешному завершению обработчика события 
+ <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/event/JepEventType.html#FIRST_TIME_USE_EVENT"><CODE>JepEventType.FIRST_TIME_USE_EVENT</CODE></A> .</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepComboBoxField.html#afterTypingTimeoutSuccess()">afterTypingTimeoutSuccess</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Процедура, выполняемая по успешному завершению обработчика события 
+ <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/event/JepEventType.html#TYPING_TIMEOUT_EVENT"><CODE>JepEventType.TYPING_TIMEOUT_EVENT</CODE></A> .</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepComboBoxField.html#applyStyle()">applyStyle</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Метод для стилизации поля.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepComboBoxField.html#clearInvalid()">clearInvalid</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Очистка сообщения об ошибке.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../../../../../com/technology/jep/jepria/shared/field/JepLikeEnum.html" title="enum in com.technology.jep.jepria.shared.field">JepLikeEnum</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepComboBoxField.html#getFilterMode()">getFilterMode</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Получение режима фильтрации.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepComboBoxField.html#getLastOptionText()">getLastOptionText</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Получение наименования последней опции.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepComboBoxField.html#getRawValue()">getRawValue</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Получение значения компонента из DOM-дерева документа.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepComboBoxField.html#getValue()">getValue</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Получение значения поля.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;com.google.gwt.dom.client.Element</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepComboBoxField.html#getValueBoxElement()">getValueBoxElement</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepComboBoxField.html#isValid()">isValid</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Проверяет, содержит ли поле допустимое значение.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepComboBoxField.html#loadEmptyOptionList()">loadEmptyOptionList</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Установка пустого списка опций JepOption</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepComboBoxField.html#markInvalid(java.lang.String)">markInvalid</A></B>(java.lang.String&nbsp;error)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Установка сообщения об ошибке.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepComboBoxField.html#setEmptyText(java.lang.String)">setEmptyText</A></B>(java.lang.String&nbsp;emptyText)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Установка текста по умолчанию для пустого (незаполненного значением) поля.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepComboBoxField.html#setEnabled(boolean)">setEnabled</A></B>(boolean&nbsp;enabled)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Установка доступности или недоступности (карты Редактирования) поля для редактирования.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepComboBoxField.html#setFilterMode(com.technology.jep.jepria.shared.field.JepLikeEnum)">setFilterMode</A></B>(<A HREF="../../../../../../../../com/technology/jep/jepria/shared/field/JepLikeEnum.html" title="enum in com.technology.jep.jepria.shared.field">JepLikeEnum</A>&nbsp;filterMode)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Установка режима фильтрации.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepComboBoxField.html#setLastOptionText(java.lang.String)">setLastOptionText</A></B>(java.lang.String&nbsp;lastOptionText)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Установка наименования последней опции.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepComboBoxField.html#setMaxLength(int)">setMaxLength</A></B>(int&nbsp;maxLength)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Установка максимальной длины поля 
+ Особенность:
+ Наличие слушателя события KeyPress, запрещающего возможность ввода символов больше максимально заданного количества.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepComboBoxField.html#setOptions(java.util.List)">setOptions</A></B>(java.util.List&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A>&gt;&nbsp;options)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Установка опций выпадающего списка (с пустой опцией).</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepComboBoxField.html#setOptions(java.util.List, boolean)">setOptions</A></B>(java.util.List&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A>&gt;&nbsp;options,
+           boolean&nbsp;hasEmptyChoice)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Установка опций выпадающего списка с возможностью добавления пустой опции.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepComboBoxField.html#setValue(java.lang.Object)">setValue</A></B>(java.lang.Object&nbsp;value)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Установка значения поля.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepComboBoxField.html#setViewValue(java.lang.Object)">setViewValue</A></B>(java.lang.Object&nbsp;value)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Установка значения для карты Просмотра.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepComboBoxField.html#startTypingTimeout()">startTypingTimeout</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Запуск задачи по тайм-ауту, когда длина вводимой строки превышает необходимое минимальное значение
+ <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepBaseTextField.html#setTypingTimeoutMinTextSize(int)"><CODE>JepBaseTextField.setTypingTimeoutMinTextSize(int minTextSize)</CODE></A>.</TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_com.technology.jep.jepria.client.widget.field.multistate.JepBaseTextField"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from class com.technology.jep.jepria.client.widget.field.multistate.<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepBaseTextField.html" title="class in com.technology.jep.jepria.client.widget.field.multistate">JepBaseTextField</A></B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepBaseTextField.html#addChangeValueListener()">addChangeValueListener</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepBaseTextField.html#addLostFocusListener()">addLostFocusListener</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepBaseTextField.html#addTypingTimeoutListener()">addTypingTimeoutListener</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepBaseTextField.html#afterTypingTimeoutFailure()">afterTypingTimeoutFailure</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepBaseTextField.html#clear()">clear</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepBaseTextField.html#getTypingTimeoutMinTextSize()">getTypingTimeoutMinTextSize</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepBaseTextField.html#initKeyboardHandlers()">initKeyboardHandlers</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepBaseTextField.html#initKeyDownHandler()">initKeyDownHandler</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepBaseTextField.html#initKeyPressHandler()">initKeyPressHandler</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepBaseTextField.html#initKeyUpHandler()">initKeyUpHandler</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepBaseTextField.html#keyDownEventHandler(com.google.gwt.event.dom.client.DomEvent)">keyDownEventHandler</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepBaseTextField.html#keyPressEventHandler(com.google.gwt.event.dom.client.DomEvent)">keyPressEventHandler</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepBaseTextField.html#keyUpEventHandler(com.google.gwt.event.dom.client.DomEvent)">keyUpEventHandler</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepBaseTextField.html#setTypingTimeout(int)">setTypingTimeout</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepBaseTextField.html#setTypingTimeoutMinTextSize(int)">setTypingTimeoutMinTextSize</A></CODE></TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_com.technology.jep.jepria.client.widget.field.multistate.JepMultiStateField"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from class com.technology.jep.jepria.client.widget.field.multistate.<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html" title="class in com.technology.jep.jepria.client.widget.field.multistate">JepMultiStateField</A></B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#addViewCard()">addViewCard</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#changeWorkstate(com.technology.jep.jepria.client.ui.WorkstateEnum)">changeWorkstate</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#clearView()">clearView</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#getEditableCard()">getEditableCard</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#getFieldLabel()">getFieldLabel</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#getInputElement()">getInputElement</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#getListeners(com.technology.jep.jepria.client.widget.event.JepEventType)">getListeners</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#getViewCard()">getViewCard</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#notifyListeners(com.technology.jep.jepria.client.widget.event.JepEventType, com.technology.jep.jepria.client.widget.event.JepEvent)">notifyListeners</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#onChangeWorkstate(com.technology.jep.jepria.client.ui.WorkstateEnum)">onChangeWorkstate</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#removeListener(com.technology.jep.jepria.client.widget.event.JepEventType, com.technology.jep.jepria.client.widget.event.JepListener)">removeListener</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#removeMarginsAndPaddings(com.google.gwt.dom.client.Element)">removeMarginsAndPaddings</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#setAllowBlank(boolean)">setAllowBlank</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#setEditable(boolean)">setEditable</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#setFieldHeight(int)">setFieldHeight</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#setFieldLabel(java.lang.String)">setFieldLabel</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#setFieldWidth(int)">setFieldWidth</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#setLabelSeparator(java.lang.String)">setLabelSeparator</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#setLabelWidth(int)">setLabelWidth</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#setLoadingImage(boolean)">setLoadingImage</A></CODE></TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_com.google.gwt.user.client.ui.DeckPanel"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from class com.google.gwt.user.client.ui.DeckPanel</B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE>add, getVisibleWidget, insert, insert, isAnimationEnabled, remove, setAnimationEnabled, showWidget</CODE></TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_com.google.gwt.user.client.ui.ComplexPanel"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from class com.google.gwt.user.client.ui.ComplexPanel</B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE>add, add, adjustIndex, checkIndexBoundsForAccess, checkIndexBoundsForInsertion, getChildren, getWidget, getWidgetCount, getWidgetIndex, getWidgetIndex, insert, insert, iterator, remove</CODE></TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_com.google.gwt.user.client.ui.Panel"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from class com.google.gwt.user.client.ui.Panel</B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE>add, adopt, doAttachChildren, doDetachChildren, orphan, remove</CODE></TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_com.google.gwt.user.client.ui.Widget"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from class com.google.gwt.user.client.ui.Widget</B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE>addAttachHandler, addBitlessDomHandler, addDomHandler, addHandler, asWidget, asWidgetOrNull, createHandlerManager, delegateEvent, fireEvent, getHandlerCount, getLayoutData, getParent, isAttached, isOrWasAttached, onAttach, onBrowserEvent, onDetach, onLoad, onUnload, removeFromParent, setLayoutData, sinkEvents, unsinkEvents</CODE></TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_com.google.gwt.user.client.ui.UIObject"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from class com.google.gwt.user.client.ui.UIObject</B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE>addStyleDependentName, addStyleName, ensureDebugId, ensureDebugId, ensureDebugId, getAbsoluteLeft, getAbsoluteTop, getElement, getOffsetHeight, getOffsetWidth, getStyleElement, getStyleName, getStyleName, getStylePrimaryName, getStylePrimaryName, getTitle, isVisible, isVisible, onEnsureDebugId, removeStyleDependentName, removeStyleName, resolvePotentialElement, setElement, setElement, setHeight, setPixelSize, setSize, setStyleDependentName, setStyleName, setStyleName, setStyleName, setStyleName, setStylePrimaryName, setStylePrimaryName, setTitle, setVisible, setVisible, setWidth, sinkBitlessEvent, toString</CODE></TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from class java.lang.Object</B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE>clone, equals, finalize, getClass, hashCode, notify, notifyAll, wait, wait, wait</CODE></TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_com.google.gwt.user.client.ui.InsertPanel.ForIsWidget"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from interface com.google.gwt.user.client.ui.InsertPanel.ForIsWidget</B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE>add</CODE></TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_com.google.gwt.user.client.ui.IndexedPanel.ForIsWidget"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from interface com.google.gwt.user.client.ui.IndexedPanel.ForIsWidget</B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE>getWidgetIndex</CODE></TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_com.google.gwt.user.client.ui.IndexedPanel"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from interface com.google.gwt.user.client.ui.IndexedPanel</B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE>getWidget, getWidgetCount, getWidgetIndex, remove</CODE></TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
+<!-- ============ FIELD DETAIL =========== -->
+
+<A NAME="field_detail"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
+<B>Field Detail</B></FONT></TH>
+</TR>
+</TABLE>
+
+<A NAME="EMPTY_CHOICE_OPTION"><!-- --></A><H3>
+EMPTY_CHOICE_OPTION</H3>
+<PRE>
+public static final <A HREF="../../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A> <B>EMPTY_CHOICE_OPTION</B></PRE>
+<DL>
+<DD>Пустая опция.
+<P>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="lastOption"><!-- --></A><H3>
+lastOption</H3>
+<PRE>
+protected <A HREF="../../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A> <B>lastOption</B></PRE>
+<DL>
+<DD>Последняя для вывода в списке опция
+<P>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="firstTimeUsedQuery"><!-- --></A><H3>
+firstTimeUsedQuery</H3>
+<PRE>
+private java.lang.String <B>firstTimeUsedQuery</B></PRE>
+<DL>
+<DD>Запрос, с которым выпадающий список раскрывается впервые
+<P>
+<DL>
+</DL>
+</DL>
+
+<!-- ========= CONSTRUCTOR DETAIL ======== -->
+
+<A NAME="constructor_detail"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
+<B>Constructor Detail</B></FONT></TH>
+</TR>
+</TABLE>
+
+<A NAME="JepComboBoxField()"><!-- --></A><H3>
+JepComboBoxField</H3>
+<PRE>
+public <B>JepComboBoxField</B>()</PRE>
+<DL>
+</DL>
+<HR>
+
+<A NAME="JepComboBoxField(java.lang.String)"><!-- --></A><H3>
+JepComboBoxField</H3>
+<PRE>
+public <B>JepComboBoxField</B>(java.lang.String&nbsp;fieldLabel)</PRE>
+<DL>
+</DL>
+<HR>
+
+<A NAME="JepComboBoxField(java.lang.String, java.lang.String)"><!-- --></A><H3>
+JepComboBoxField</H3>
+<PRE>
+public <B>JepComboBoxField</B>(java.lang.String&nbsp;fieldId,
+                        java.lang.String&nbsp;fieldLabel)</PRE>
+<DL>
+</DL>
+
+<!-- ============ METHOD DETAIL ========== -->
+
+<A NAME="method_detail"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
+<B>Method Detail</B></FONT></TH>
+</TR>
+</TABLE>
+
+<A NAME="addEditableCard()"><!-- --></A><H3>
+addEditableCard</H3>
+<PRE>
+protected void <B>addEditableCard</B>()</PRE>
+<DL>
+<DD>Метод добавляющий на панель Редактирование соответствующее поле (компонент) Gxt.<br/>
+ Перегружается в наследниках для добавления соответсвующих наследникам полей Gxt.<br/>
+ Особенности:<br/>
+ По умолчанию, в Gxt для комбобокса определено событие срабатывания клавиши, вызывающее метод ComboBox.doQuery(String, boolean).<br/>
+ Во избежание совместной отработки функционала Gxt и определенного в JepRia при наличии слушателя события 
+ <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/event/JepEventType.html#TYPING_TIMEOUT_EVENT"><CODE>JepEventType.TYPING_TIMEOUT_EVENT</CODE></A>, переопределяем метод 
+ ComboBox.onKeyUp(FieldEvent) при добавлении ComboBox'а на панель Редактирования.
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#addEditableCard()">addEditableCard</A></CODE> in class <CODE><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html" title="class in com.technology.jep.jepria.client.widget.field.multistate">JepMultiStateField</A>&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.html" title="class in com.technology.jep.jepria.client.widget.field">ComboBox</A>&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A>&gt;,com.google.gwt.user.client.ui.HTML&gt;</CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setValue(java.lang.Object)"><!-- --></A><H3>
+setValue</H3>
+<PRE>
+public void <B>setValue</B>(java.lang.Object&nbsp;value)</PRE>
+<DL>
+<DD>Установка значения поля.<br/>
+ Особеность реализации перегруженного метода:
+ <ul>
+  <li>Если для поля определен слушатель события FIRST_TIME_USE_EVENT и само событие еще НЕ происходило, то выпадающий список 
+ заполняется одной единственной опцией - опцией, которая устанавливается как значение поля;</li>
+  <li>В конце вызывается метод предка <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepBaseTextField.html#setValue(java.lang.Object)"><CODE>JepBaseTextField.setValue(Object value)</CODE></A> .</li>
+ </ul>
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/JepField.html#setValue(java.lang.Object)">setValue</A></CODE> in interface <CODE><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/JepField.html" title="interface in com.technology.jep.jepria.client.widget.field">JepField</A>&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.html" title="class in com.technology.jep.jepria.client.widget.field">ComboBox</A>&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A>&gt;,com.google.gwt.user.client.ui.HTML&gt;</CODE><DT><B>Overrides:</B><DD><CODE><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepBaseTextField.html#setValue(java.lang.Object)">setValue</A></CODE> in class <CODE><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepBaseTextField.html" title="class in com.technology.jep.jepria.client.widget.field.multistate">JepBaseTextField</A>&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.html" title="class in com.technology.jep.jepria.client.widget.field">ComboBox</A>&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A>&gt;&gt;</CODE></DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>value</CODE> - значение поля</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setViewValue(java.lang.Object)"><!-- --></A><H3>
+setViewValue</H3>
+<PRE>
+protected void <B>setViewValue</B>(java.lang.Object&nbsp;value)</PRE>
+<DL>
+<DD>Установка значения для карты Просмотра.<br/>
+ При перегрузке данного метода в наследниках необходимо обеспечить, чтобы данный метод был быстрым/НЕ ресурсо-затратным.<br/>
+ 
+ Основная идея Jep-полей: они должны быть легкими. Поэтому, карта Просмотра должна быть именно текстовым (или простым Html) представлением
+ значения карты Редактирования.<br/>
+ В тех случаях, когда чисто текстовое представление нецелесообразно (списки, деревья и т.п.) - в поле используется ТОЛЬКО одна карта - 
+ карта Редактирования (т.е. карта Просмотра - вообще НЕ используется).
+<P>
+<DD><DL>
+<DT><B>Overrides:</B><DD><CODE><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#setViewValue(java.lang.Object)">setViewValue</A></CODE> in class <CODE><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html" title="class in com.technology.jep.jepria.client.widget.field.multistate">JepMultiStateField</A>&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.html" title="class in com.technology.jep.jepria.client.widget.field">ComboBox</A>&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A>&gt;,com.google.gwt.user.client.ui.HTML&gt;</CODE></DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>value</CODE> - значение для карты Просмотра</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setOptions(java.util.List)"><!-- --></A><H3>
+setOptions</H3>
+<PRE>
+public void <B>setOptions</B>(java.util.List&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A>&gt;&nbsp;options)</PRE>
+<DL>
+<DD>Установка опций выпадающего списка (с пустой опцией).
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/JepOptionField.html#setOptions(java.util.List)">setOptions</A></CODE> in interface <CODE><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/JepOptionField.html" title="interface in com.technology.jep.jepria.client.widget.field">JepOptionField</A></CODE></DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>options</CODE> - опции выпадающего списка</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setOptions(java.util.List, boolean)"><!-- --></A><H3>
+setOptions</H3>
+<PRE>
+public void <B>setOptions</B>(java.util.List&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A>&gt;&nbsp;options,
+                       boolean&nbsp;hasEmptyChoice)</PRE>
+<DL>
+<DD>Установка опций выпадающего списка с возможностью добавления пустой опции.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>options</CODE> - список опций<DD><CODE>hasEmptyChoice</CODE> - флаг для вставки пустой опции</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="addListener(com.technology.jep.jepria.client.widget.event.JepEventType, com.technology.jep.jepria.client.widget.event.JepListener)"><!-- --></A><H3>
+addListener</H3>
+<PRE>
+public void <B>addListener</B>(<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/event/JepEventType.html" title="enum in com.technology.jep.jepria.client.widget.event">JepEventType</A>&nbsp;eventType,
+                        <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/event/JepListener.html" title="interface in com.technology.jep.jepria.client.widget.event">JepListener</A>&nbsp;listener)</PRE>
+<DL>
+<DD>Добавление слушателя определенного типа собитий.<br/>
+ Концепция поддержки обработки событий и пример реализации метода отражен в описании пакета <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/package-summary.html"><CODE>com.technology.jep.jepria.client.widget</CODE></A>.
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/event/JepObservable.html#addListener(com.technology.jep.jepria.client.widget.event.JepEventType, com.technology.jep.jepria.client.widget.event.JepListener)">addListener</A></CODE> in interface <CODE><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/event/JepObservable.html" title="interface in com.technology.jep.jepria.client.widget.event">JepObservable</A></CODE><DT><B>Overrides:</B><DD><CODE><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepBaseTextField.html#addListener(com.technology.jep.jepria.client.widget.event.JepEventType, com.technology.jep.jepria.client.widget.event.JepListener)">addListener</A></CODE> in class <CODE><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepBaseTextField.html" title="class in com.technology.jep.jepria.client.widget.field.multistate">JepBaseTextField</A>&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.html" title="class in com.technology.jep.jepria.client.widget.field">ComboBox</A>&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A>&gt;&gt;</CODE></DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>eventType</CODE> - тип события<DD><CODE>listener</CODE> - слушатель</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="addChangeSelectionListner()"><!-- --></A><H3>
+addChangeSelectionListner</H3>
+<PRE>
+protected void <B>addChangeSelectionListner</B>()</PRE>
+<DL>
+<DD>Добавление прослушивателя для реализации прослушивания события
+ <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/event/JepEventType.html#CHANGE_SELECTION_EVENT"><CODE>JepEventType.CHANGE_SELECTION_EVENT</CODE></A>.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="addFirstTimeUseListener()"><!-- --></A><H3>
+addFirstTimeUseListener</H3>
+<PRE>
+protected void <B>addFirstTimeUseListener</B>()</PRE>
+<DL>
+<DD>Добавление Gxt прослушивателей для реализации прослушивания события 
+ <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/event/JepEventType.html#FIRST_TIME_USE_EVENT"><CODE>JepEventType.FIRST_TIME_USE_EVENT</CODE></A> .
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="addLastOptionSelectCancelListener()"><!-- --></A><H3>
+addLastOptionSelectCancelListener</H3>
+<PRE>
+protected void <B>addLastOptionSelectCancelListener</B>()</PRE>
+<DL>
+<DD>Добавление прослушивателей для реализации прослушивания события 
+ <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/event/BeforeSelectEvent.html" title="class in com.technology.jep.jepria.client.widget.field.multistate.event"><CODE>BeforeSelectEvent</CODE></A> с целью предотвращения выбора последней опции.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="afterFirstTimeUseSuccess()"><!-- --></A><H3>
+afterFirstTimeUseSuccess</H3>
+<PRE>
+public void <B>afterFirstTimeUseSuccess</B>()</PRE>
+<DL>
+<DD>Процедура, выполняемая по успешному завершению обработчика события 
+ <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/event/JepEventType.html#FIRST_TIME_USE_EVENT"><CODE>JepEventType.FIRST_TIME_USE_EVENT</CODE></A> .
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="afterFirstTimeUseFailure()"><!-- --></A><H3>
+afterFirstTimeUseFailure</H3>
+<PRE>
+public void <B>afterFirstTimeUseFailure</B>()</PRE>
+<DL>
+<DD>Процедура, выполняемая по НЕуспешному завершению обработчика события 
+ <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/event/JepEventType.html#FIRST_TIME_USE_EVENT"><CODE>JepEventType.FIRST_TIME_USE_EVENT</CODE></A> .
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="afterTypingTimeoutSuccess()"><!-- --></A><H3>
+afterTypingTimeoutSuccess</H3>
+<PRE>
+public void <B>afterTypingTimeoutSuccess</B>()</PRE>
+<DL>
+<DD>Процедура, выполняемая по успешному завершению обработчика события 
+ <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/event/JepEventType.html#TYPING_TIMEOUT_EVENT"><CODE>JepEventType.TYPING_TIMEOUT_EVENT</CODE></A> .
+<P>
+<DD><DL>
+<DT><B>Overrides:</B><DD><CODE><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepBaseTextField.html#afterTypingTimeoutSuccess()">afterTypingTimeoutSuccess</A></CODE> in class <CODE><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepBaseTextField.html" title="class in com.technology.jep.jepria.client.widget.field.multistate">JepBaseTextField</A>&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.html" title="class in com.technology.jep.jepria.client.widget.field">ComboBox</A>&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A>&gt;&gt;</CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="startTypingTimeout()"><!-- --></A><H3>
+startTypingTimeout</H3>
+<PRE>
+protected void <B>startTypingTimeout</B>()</PRE>
+<DL>
+<DD>Запуск задачи по тайм-ауту, когда длина вводимой строки превышает необходимое минимальное значение
+ <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepBaseTextField.html#setTypingTimeoutMinTextSize(int)"><CODE>JepBaseTextField.setTypingTimeoutMinTextSize(int minTextSize)</CODE></A>.
+<P>
+<DD><DL>
+<DT><B>Overrides:</B><DD><CODE><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepBaseTextField.html#startTypingTimeout()">startTypingTimeout</A></CODE> in class <CODE><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepBaseTextField.html" title="class in com.technology.jep.jepria.client.widget.field.multistate">JepBaseTextField</A>&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.html" title="class in com.technology.jep.jepria.client.widget.field">ComboBox</A>&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A>&gt;&gt;</CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getLastOptionText()"><!-- --></A><H3>
+getLastOptionText</H3>
+<PRE>
+public java.lang.String <B>getLastOptionText</B>()</PRE>
+<DL>
+<DD>Получение наименования последней опции.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>наименование последней опции</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setLastOptionText(java.lang.String)"><!-- --></A><H3>
+setLastOptionText</H3>
+<PRE>
+public void <B>setLastOptionText</B>(java.lang.String&nbsp;lastOptionText)</PRE>
+<DL>
+<DD>Установка наименования последней опции.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>lastOptionText</CODE> - новое наименование последней опции</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getFilterMode()"><!-- --></A><H3>
+getFilterMode</H3>
+<PRE>
+public <A HREF="../../../../../../../../com/technology/jep/jepria/shared/field/JepLikeEnum.html" title="enum in com.technology.jep.jepria.shared.field">JepLikeEnum</A> <B>getFilterMode</B>()</PRE>
+<DL>
+<DD>Получение режима фильтрации.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>режим фильтрации в виде <A HREF="../../../../../../../../com/technology/jep/jepria/shared/field/JepLikeEnum.html" title="enum in com.technology.jep.jepria.shared.field"><CODE>JepLikeEnum</CODE></A></DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setFilterMode(com.technology.jep.jepria.shared.field.JepLikeEnum)"><!-- --></A><H3>
+setFilterMode</H3>
+<PRE>
+public void <B>setFilterMode</B>(<A HREF="../../../../../../../../com/technology/jep/jepria/shared/field/JepLikeEnum.html" title="enum in com.technology.jep.jepria.shared.field">JepLikeEnum</A>&nbsp;filterMode)</PRE>
+<DL>
+<DD>Установка режима фильтрации.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>filterMode</CODE> - режим фильтрации</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getValue()"><!-- --></A><H3>
+getValue</H3>
+<PRE>
+public <A HREF="../../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A> <B>getValue</B>()</PRE>
+<DL>
+<DD>Получение значения поля.
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/JepField.html#getValue()">getValue</A></CODE> in interface <CODE><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/JepField.html" title="interface in com.technology.jep.jepria.client.widget.field">JepField</A>&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.html" title="class in com.technology.jep.jepria.client.widget.field">ComboBox</A>&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A>&gt;,com.google.gwt.user.client.ui.HTML&gt;</CODE></DL>
+</DD>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>значение поля</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="isValid()"><!-- --></A><H3>
+isValid</H3>
+<PRE>
+public boolean <B>isValid</B>()</PRE>
+<DL>
+<DD>Проверяет, содержит ли поле допустимое значение.
+ <br>
+ Предварительно очищает сообщение об ошибке. Если поле является обязательным, а
+ введённое значение пусто, устанавливает сообщение об ошибке и возвращает false. 
+ Предназначен для переопределения в классах-наследниках.
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/JepField.html#isValid()">isValid</A></CODE> in interface <CODE><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/JepField.html" title="interface in com.technology.jep.jepria.client.widget.field">JepField</A>&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.html" title="class in com.technology.jep.jepria.client.widget.field">ComboBox</A>&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A>&gt;,com.google.gwt.user.client.ui.HTML&gt;</CODE><DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/validation/Validator.html#isValid()">isValid</A></CODE> in interface <CODE><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/validation/Validator.html" title="interface in com.technology.jep.jepria.client.widget.field.validation">Validator</A></CODE><DT><B>Overrides:</B><DD><CODE><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#isValid()">isValid</A></CODE> in class <CODE><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html" title="class in com.technology.jep.jepria.client.widget.field.multistate">JepMultiStateField</A>&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.html" title="class in com.technology.jep.jepria.client.widget.field">ComboBox</A>&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A>&gt;,com.google.gwt.user.client.ui.HTML&gt;</CODE></DL>
+</DD>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>true - если поле содержит допустимое значение, false - в противном случае</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="loadEmptyOptionList()"><!-- --></A><H3>
+loadEmptyOptionList</H3>
+<PRE>
+public void <B>loadEmptyOptionList</B>()</PRE>
+<DL>
+<DD>Установка пустого списка опций JepOption
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setMaxLength(int)"><!-- --></A><H3>
+setMaxLength</H3>
+<PRE>
+public void <B>setMaxLength</B>(int&nbsp;maxLength)</PRE>
+<DL>
+<DD>Установка максимальной длины поля 
+ Особенность:
+ Наличие слушателя события KeyPress, запрещающего возможность ввода символов больше максимально заданного количества.
+ По умолчанию, пользователь может ввести сколь угодно много символов и проверка будет осуществена лишь при валидации поля.
+<P>
+<DD><DL>
+<DT><B>Overrides:</B><DD><CODE><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepBaseTextField.html#setMaxLength(int)">setMaxLength</A></CODE> in class <CODE><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepBaseTextField.html" title="class in com.technology.jep.jepria.client.widget.field.multistate">JepBaseTextField</A>&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.html" title="class in com.technology.jep.jepria.client.widget.field">ComboBox</A>&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A>&gt;&gt;</CODE></DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>maxLength</CODE> - максимальная длина поля</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setEnabled(boolean)"><!-- --></A><H3>
+setEnabled</H3>
+<PRE>
+public void <B>setEnabled</B>(boolean&nbsp;enabled)</PRE>
+<DL>
+<DD>Установка доступности или недоступности (карты Редактирования) поля для редактирования.
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/JepField.html#setEnabled(boolean)">setEnabled</A></CODE> in interface <CODE><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/JepField.html" title="interface in com.technology.jep.jepria.client.widget.field">JepField</A>&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.html" title="class in com.technology.jep.jepria.client.widget.field">ComboBox</A>&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A>&gt;,com.google.gwt.user.client.ui.HTML&gt;</CODE><DT><B>Overrides:</B><DD><CODE><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#setEnabled(boolean)">setEnabled</A></CODE> in class <CODE><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html" title="class in com.technology.jep.jepria.client.widget.field.multistate">JepMultiStateField</A>&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.html" title="class in com.technology.jep.jepria.client.widget.field">ComboBox</A>&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A>&gt;,com.google.gwt.user.client.ui.HTML&gt;</CODE></DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>enabled</CODE> - true - поле доступно для редактирования, false - поле не доступно для редактирования</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setEmptyText(java.lang.String)"><!-- --></A><H3>
+setEmptyText</H3>
+<PRE>
+public void <B>setEmptyText</B>(java.lang.String&nbsp;emptyText)</PRE>
+<DL>
+<DD>Установка текста по умолчанию для пустого (незаполненного значением) поля.
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/JepField.html#setEmptyText(java.lang.String)">setEmptyText</A></CODE> in interface <CODE><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/JepField.html" title="interface in com.technology.jep.jepria.client.widget.field">JepField</A>&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.html" title="class in com.technology.jep.jepria.client.widget.field">ComboBox</A>&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A>&gt;,com.google.gwt.user.client.ui.HTML&gt;</CODE><DT><B>Overrides:</B><DD><CODE><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#setEmptyText(java.lang.String)">setEmptyText</A></CODE> in class <CODE><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html" title="class in com.technology.jep.jepria.client.widget.field.multistate">JepMultiStateField</A>&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.html" title="class in com.technology.jep.jepria.client.widget.field">ComboBox</A>&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A>&gt;,com.google.gwt.user.client.ui.HTML&gt;</CODE></DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>emptyText</CODE> - пустой текст</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getRawValue()"><!-- --></A><H3>
+getRawValue</H3>
+<PRE>
+public java.lang.String <B>getRawValue</B>()</PRE>
+<DL>
+<DD>Получение значения компонента из DOM-дерева документа.
+<P>
+<DD><DL>
+<DT><B>Overrides:</B><DD><CODE><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#getRawValue()">getRawValue</A></CODE> in class <CODE><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html" title="class in com.technology.jep.jepria.client.widget.field.multistate">JepMultiStateField</A>&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.html" title="class in com.technology.jep.jepria.client.widget.field">ComboBox</A>&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A>&gt;,com.google.gwt.user.client.ui.HTML&gt;</CODE></DL>
+</DD>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>возвращаемое значение</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="markInvalid(java.lang.String)"><!-- --></A><H3>
+markInvalid</H3>
+<PRE>
+public void <B>markInvalid</B>(java.lang.String&nbsp;error)</PRE>
+<DL>
+<DD>Установка сообщения об ошибке.
+<P>
+<DD><DL>
+<DT><B>Overrides:</B><DD><CODE><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#markInvalid(java.lang.String)">markInvalid</A></CODE> in class <CODE><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html" title="class in com.technology.jep.jepria.client.widget.field.multistate">JepMultiStateField</A>&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.html" title="class in com.technology.jep.jepria.client.widget.field">ComboBox</A>&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A>&gt;,com.google.gwt.user.client.ui.HTML&gt;</CODE></DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>error</CODE> - сообщение обшибке</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="clearInvalid()"><!-- --></A><H3>
+clearInvalid</H3>
+<PRE>
+public void <B>clearInvalid</B>()</PRE>
+<DL>
+<DD>Очистка сообщения об ошибке.
+<P>
+<DD><DL>
+<DT><B>Overrides:</B><DD><CODE><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#clearInvalid()">clearInvalid</A></CODE> in class <CODE><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html" title="class in com.technology.jep.jepria.client.widget.field.multistate">JepMultiStateField</A>&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.html" title="class in com.technology.jep.jepria.client.widget.field">ComboBox</A>&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A>&gt;,com.google.gwt.user.client.ui.HTML&gt;</CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getValueBoxElement()"><!-- --></A><H3>
+getValueBoxElement</H3>
+<PRE>
+protected com.google.gwt.dom.client.Element <B>getValueBoxElement</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="applyStyle()"><!-- --></A><H3>
+applyStyle</H3>
+<PRE>
+protected void <B>applyStyle</B>()</PRE>
+<DL>
+<DD>Метод для стилизации поля.<br/>
+ Для применения новых стилей элемента необходимо в наследниках перекрывать данный метод.
+<P>
+<DD><DL>
+<DT><B>Overrides:</B><DD><CODE><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#applyStyle()">applyStyle</A></CODE> in class <CODE><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html" title="class in com.technology.jep.jepria.client.widget.field.multistate">JepMultiStateField</A>&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.html" title="class in com.technology.jep.jepria.client.widget.field">ComboBox</A>&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A>&gt;,com.google.gwt.user.client.ui.HTML&gt;</CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<!-- ========= END OF CLASS DATA ========= -->
+<HR>
+
+
+<!-- ======= START OF BOTTOM NAVBAR ====== -->
+<A NAME="navbar_bottom"><!-- --></A>
+<A HREF="#skip-navbar_bottom" title="Skip navigation links"></A>
+<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
+<TR>
+<TD COLSPAN=2 BGCOLOR="#EEEEFF" CLASS="NavBarCell1">
+<A NAME="navbar_bottom_firstrow"><!-- --></A>
+<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3" SUMMARY="">
+  <TR ALIGN="center" VALIGN="top">
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-summary.html"><FONT CLASS="NavBarFont1"><B>Package</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../../index-all.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../../help-doc.html"><FONT CLASS="NavBarFont1"><B>Help</B></FONT></A>&nbsp;</TD>
+  </TR>
+</TABLE>
+</TD>
+<TD ALIGN="right" VALIGN="top" ROWSPAN=3><EM>
+</EM>
+</TD>
+</TR>
+
+<TR>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+&nbsp;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepCheckBoxField.html" title="class in com.technology.jep.jepria.client.widget.field.multistate"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepDateField.html" title="class in com.technology.jep.jepria.client.widget.field.multistate"><B>NEXT CLASS</B></A></FONT></TD>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+  <A HREF="../../../../../../../../index.html?com/technology/jep/jepria/client/widget/field/multistate/JepComboBoxField.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="JepComboBoxField.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+&nbsp;<SCRIPT type="text/javascript">
+  <!--
+  if(window==top) {
+    document.writeln('<A HREF="../../../../../../../../allclasses-noframe.html"><B>All Classes</B></A>');
+  }
+  //-->
+</SCRIPT>
+<NOSCRIPT>
+  <A HREF="../../../../../../../../allclasses-noframe.html"><B>All Classes</B></A>
+</NOSCRIPT>
+
+
+</FONT></TD>
+</TR>
+<TR>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+  SUMMARY:&nbsp;<A HREF="#nested_classes_inherited_from_class_com.google.gwt.user.client.ui.UIObject">NESTED</A>&nbsp;|&nbsp;<A HREF="#field_summary">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
+</TR>
+</TABLE>
+<A NAME="skip-navbar_bottom"></A>
+<!-- ======== END OF BOTTOM NAVBAR ======= -->
+
+<HR>
+
+</BODY>
+</HTML>

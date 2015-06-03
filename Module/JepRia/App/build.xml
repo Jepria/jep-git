@@ -1,0 +1,312 @@
+﻿<project name="Jep Module Building" default="build">
+
+	<property file="build.properties" />
+
+	<property name="J2EE_HOME" value="${OC4J_HOME}/j2ee/home" />
+
+	<property name="MODULE_PACKAGE" value="com/technology/${PROJECT_NAME_IN_PACKAGE}/${MODULE_NAME_IN_PACKAGE}" />
+	<property name="RESOURCE_HOME" value="src/resources/${MODULE_PACKAGE}" />
+	<property name="JAVA_DOC_DIR" value="../Doc/App/AutoGen" />
+
+	<property name="LOG_LEVEL" value="info" />
+
+	<path id="libs">
+		<pathelement location="${GWT_HOME}/gwt-user.jar" />
+		<pathelement location="${GWT_HOME}/gwt-dev.jar" />
+		<pathelement location="${GWT_LOG_HOME}/gwt-log.jar" />
+
+		<pathelement location="${GWT_HOME}/gwt-servlet.jar" />
+		<pathelement location="${LOG4J_HOME}/log4j.jar" />
+		<pathelement location="${COMMONS-FILEUPLOAD_HOME}/commons-fileupload.jar" />
+		<pathelement location="${JUNIT_HOME}/junit.jar" />
+	</path>
+
+	<path id="selenium-libs">
+		<pathelement location="${SELENIUM_HOME}/selenium-java-2.43.1.jar" />
+		<pathelement location="${SELENIUM_HOME}/libs/apache-mime4j-0.6.jar" />
+		<pathelement location="${SELENIUM_HOME}/libs/bsh-1.3.0.jar" />
+		<pathelement location="${SELENIUM_HOME}/libs/cglib-nodep-2.1_3.jar" />
+		<pathelement location="${SELENIUM_HOME}/libs/commons-codec-1.9.jar" />
+		<pathelement location="${SELENIUM_HOME}/libs/commons-collections-3.2.1.jar" />
+		<pathelement location="${SELENIUM_HOME}/libs/commons-exec-1.1.jar" />
+		<pathelement location="${SELENIUM_HOME}/libs/commons-io-2.4.jar" />
+		<pathelement location="${SELENIUM_HOME}/libs/commons-jxpath-1.3.jar" />
+		<pathelement location="${SELENIUM_HOME}/libs/commons-lang3-3.3.2.jar" />
+		<pathelement location="${SELENIUM_HOME}/libs/commons-logging-1.1.3.jar" />
+		<pathelement location="${SELENIUM_HOME}/libs/cssparser-0.9.14.jar" />
+		<pathelement location="${SELENIUM_HOME}/libs/guava-15.0.jar" />
+		<pathelement location="${SELENIUM_HOME}/libs/hamcrest-core-1.3.jar" />
+		<pathelement location="${SELENIUM_HOME}/libs/hamcrest-library-1.3.jar" />
+		<pathelement location="${SELENIUM_HOME}/libs/htmlunit-2.15.jar" />
+		<pathelement location="${SELENIUM_HOME}/libs/htmlunit-core-js-2.15.jar" />
+		<pathelement location="${SELENIUM_HOME}/libs/httpclient-4.3.4.jar" />
+		<pathelement location="${SELENIUM_HOME}/libs/httpcore-4.3.2.jar" />
+		<pathelement location="${SELENIUM_HOME}/libs/httpmime-4.3.4.jar" />
+		<pathelement location="${SELENIUM_HOME}/libs/ini4j-0.5.2.jar" />
+		<pathelement location="${SELENIUM_HOME}/libs/jcommander-1.29.jar" />
+		<pathelement location="${SELENIUM_HOME}/libs/jetty-websocket-8.1.8.jar" />
+		<pathelement location="${SELENIUM_HOME}/libs/jna-3.4.0.jar" />
+		<pathelement location="${SELENIUM_HOME}/libs/jna-platform-3.4.0.jar" />
+		<pathelement location="${SELENIUM_HOME}/libs/json-20080701.jar" />
+		<pathelement location="${SELENIUM_HOME}/libs/junit-dep-4.11.jar" />
+		<pathelement location="${SELENIUM_HOME}/libs/nekohtml-1.9.21.jar" />
+		<pathelement location="${SELENIUM_HOME}/libs/netty-3.5.7.Final.jar" />
+		<pathelement location="${SELENIUM_HOME}/libs/operadriver-1.5.jar" />
+		<pathelement location="${SELENIUM_HOME}/libs/phantomjsdriver-1.1.0.jar" />
+		<pathelement location="${SELENIUM_HOME}/libs/protobuf-java-2.4.1.jar" />
+		<pathelement location="${SELENIUM_HOME}/libs/sac-1.3.jar" />
+		<pathelement location="${SELENIUM_HOME}/libs/serializer-2.7.1.jar" />
+		<pathelement location="${SELENIUM_HOME}/libs/testng-6.8.5.jar" />
+		<pathelement location="${SELENIUM_HOME}/libs/xalan-2.7.1.jar" />
+		<pathelement location="${SELENIUM_HOME}/libs/xercesImpl-2.11.0.jar" />
+		<pathelement location="${SELENIUM_HOME}/libs/xml-apis-1.4.01.jar" />
+	</path>
+
+	<path id="oc4j-libs">
+		<pathelement location="${J2EE_HOME}/lib/servlet.jar" />
+		<pathelement location="${J2EE_HOME}/lib/ejb30.jar" />
+		<pathelement location="${J2EE_HOME}/lib/jta.jar" />
+		<pathelement location="${J2EE_HOME}/lib/oc4j-internal.jar" />
+		<pathelement location="${J2EE_HOME}/jazncore.jar" />
+		<pathelement location="${OC4J_HOME}/jdbc/lib/ojdbc14dms.jar" />
+	</path>
+
+	<path id="weblogic-libs">
+		<pathelement location="${WL_LIB_HOME}/wls-api.jar" />
+	</path>
+
+	<path id="gwt-libs">
+		<pathelement location="${GWT_HOME}/gwt-user.jar" />
+		<pathelement location="${GWT_HOME}/gwt-dev.jar" />
+		<pathelement location="${GWT_LOG_HOME}/gwt-log.jar" />
+	</path>
+
+	<fileset id="class-jar" dir="build">
+		<include name="**/*.class" />
+		<exclude name="**/*Bean*.class"/>
+		<exclude name="**/JepSecurityModule_OC4J.class" />
+		<exclude name="**/JepSecurityModule_WL.class" />
+	</fileset>
+
+	<fileset id="ejb-jar" dir="build">
+		<include name="**/*Bean*.class" />
+	</fileset>
+
+	<fileset id="oc4j-jar" dir="build">
+		<include name="**/oc4j/JepSecurityModule_OC4J.class" />
+	</fileset>
+
+	<fileset id="weblogic-jar" dir="build">
+		<include name="**/weblogic/JepSecurityModule_WL.class" />
+	</fileset>
+
+	<fileset id="src-jar" dir="src/java">
+		<include name="**/client/**/*.java" />
+		<include name="**/client/**/*.html" />
+		<include name="**/client/**/*.css" />
+		<exclude name="**/overview.html" />
+		<exclude name="**/package.html" />
+		<include name="**/shared/**/*.java" />
+		<include name="**/images/*.png" />
+		<include name="**/images/*.gif" />
+		<include name="**/${MODULE_NAME}Text.properties" />
+		<include name="**/${MODULE_NAME}Text_??.properties" />
+		<include name="**/${MODULE_NAME}.gwt.xml" />
+	</fileset>
+	
+	<fileset id="class-auto-jar" dir="build-auto">
+		<include name="**/*.class" />
+	</fileset>
+	<fileset id="class-test-jar" dir="build-test">
+		<include name="**/*.class" />
+	</fileset>
+
+
+	<target name="start-log">
+		<mkdir dir="log" />
+		<tstamp>
+			<format property="timestamp" pattern="yyyyMMdd_HHmmss" />
+		</tstamp>
+		<dirname property="pdir" file="." />
+		<basename property="version" file="${pdir}" />
+		<record name="log/${timestamp}-${MODULE_NAME}-${version}-${PROJECT_NAME}.txt" loglevel="${LOG_LEVEL}" />
+	</target>
+
+	<target name="text-resources-update-check" depends="start-log">
+		<uptodate targetfile="src/java/${MODULE_PACKAGE}/shared/text/${MODULE_NAME}Text.java" property="text-resources-is-uptodate">
+			<srcfiles dir="src/java/${MODULE_PACKAGE}/shared/text" includes="*.properties" />
+		</uptodate>
+	</target>
+
+	<target name="encode-text-resources" depends="text-resources-update-check" unless="text-resources-is-uptodate">
+		<native2ascii encoding="UTF-8" src="src/java/${MODULE_PACKAGE}/shared/text" dest="src/java/${MODULE_PACKAGE}/shared/text" ext=".target_properties" includes="**/*_Source.properties" />
+		<move file="src/java/${MODULE_PACKAGE}/shared/text/${MODULE_NAME}Text_Source.target_properties" tofile="src/java/${MODULE_PACKAGE}/shared/text/${MODULE_NAME}Text.properties" />
+	</target>
+
+	<target name="encode-text-for-gwt" depends="encode-text-resources" unless="text-resources-is-uptodate">
+		<java classname="com.google.gwt.i18n.tools.I18NSync">
+			<classpath>
+				<pathelement location="src/java" />
+				<path refid="gwt-libs" />
+			</classpath>
+			<arg value="-out" />
+			<arg value="src/java" />
+			<arg value="com.technology.${PROJECT_NAME_IN_PACKAGE}.${MODULE_NAME_IN_PACKAGE}.shared.text.${MODULE_NAME}Text" />
+		</java>
+	</target>
+
+	<target name="java-compile" depends="encode-text-for-gwt">
+		<mkdir dir="build" />
+		<javac srcdir="src/java" destdir="build" debug="on" encoding="utf-8" target="1.5" includeantruntime="false">
+			<classpath refid="weblogic-libs" />
+			<classpath refid="libs" />
+			<classpath refid="oc4j-libs" />
+		</javac>
+	</target>
+
+	<target name="java-auto-compile" depends="java-compile">
+		<mkdir dir="build-auto" />
+		<javac srcdir="auto/java" destdir="build-auto" debug="on" encoding="utf-8" target="1.5" includeantruntime="false">
+			<classpath refid="libs" />
+			<classpath refid="selenium-libs" />
+			<classpath><pathelement location="build" /></classpath>
+		</javac>
+	</target>
+
+	<target name="java-test-compile" depends="java-compile, java-auto-compile">
+		<mkdir dir="build-test" />
+		<javac srcdir="test/java" destdir="build-test" debug="on" encoding="utf-8" target="1.5" includeantruntime="false">
+			<classpath refid="libs" />
+			<classpath refid="selenium-libs" />
+			<classpath>
+				<pathelement location="build" />
+				<pathelement location="build-auto" />
+			</classpath>
+		</javac>
+	</target>
+
+	<target name="jar-update-check" depends="java-compile">
+		<uptodate targetfile="lib/${MODULE_NAME_IN_PACKAGE}.jar" property="jar-is-uptodate">
+			<srcfiles refid="class-jar" />
+			<srcfiles refid="src-jar" />
+		</uptodate>
+	</target>
+
+	<target name="jar" depends="jar-update-check" unless="jar-is-uptodate">
+		<jar destfile="lib/${MODULE_NAME_IN_PACKAGE}.jar">
+			<fileset refid="class-jar" />
+			<fileset refid="src-jar" />
+		</jar>
+	</target>
+
+	<target name="jar-auto-update-check" depends="java-auto-compile">
+		<uptodate targetfile="lib/${MODULE_NAME_IN_PACKAGE}-auto.jar" property="jar-auto-is-uptodate">
+			<srcfiles refid="class-auto-jar" />
+		</uptodate>
+	</target>
+
+	<target name="jar-auto" depends="jar-auto-update-check" unless="jar-auto-is-uptodate">
+		<jar destfile="lib/${MODULE_NAME_IN_PACKAGE}-auto.jar">
+			<fileset refid="class-auto-jar" />
+		</jar>
+	</target>
+
+	<target name="jar-test-update-check" depends="java-test-compile">
+		<uptodate targetfile="lib/${MODULE_NAME_IN_PACKAGE}-test.jar" property="jar-test-is-uptodate">
+			<srcfiles refid="class-test-jar" />
+		</uptodate>
+	</target>
+
+	<target name="jar-test" depends="jar-test-update-check" unless="jar-test-is-uptodate">
+		<jar destfile="lib/${MODULE_NAME_IN_PACKAGE}-test.jar">
+			<fileset refid="class-test-jar" />
+		</jar>
+	</target>
+	
+	<target name="ejb-jar-update-check" depends="java-compile">
+		<uptodate targetfile="lib/${MODULE_NAME_IN_PACKAGE}-ejb.jar" property="ejb-jar-is-uptodate">
+			<srcfiles refid="ejb-jar" />
+		</uptodate>
+	</target>
+
+	<target name="oc4j-jar-update-check" depends="java-compile">
+		<uptodate targetfile="lib/${MODULE_NAME_IN_PACKAGE}-oc4j.jar" property="oc4j-jar-is-uptodate">
+			<srcfiles refid="oc4j-jar" />
+		</uptodate>
+	</target>
+
+	<target name="weblogic-jar-update-check" depends="java-compile">
+		<uptodate targetfile="lib/${MODULE_NAME_IN_PACKAGE}-weblogic.jar" property="weblogic-jar-is-uptodate">
+			<srcfiles refid="weblogic-jar" />
+		</uptodate>
+	</target>
+
+	<target name="ejb-jar" depends="ejb-jar-update-check" unless="ejb-jar-is-uptodate">
+		<jar destfile="lib/${MODULE_NAME_IN_PACKAGE}-ejb.jar">
+			<fileset refid="ejb-jar" />
+		</jar>
+	</target>
+
+
+	<target name="oc4j-jar" depends="oc4j-jar-update-check" unless="oc4j-jar-is-uptodate">
+		<jar destfile="lib/${MODULE_NAME_IN_PACKAGE}-oc4j.jar">
+			<fileset refid="oc4j-jar" />
+		</jar>
+	</target>
+
+	<target name="weblogic-jar" depends="weblogic-jar-update-check" unless="weblogic-jar-is-uptodate">
+		<jar destfile="lib/${MODULE_NAME_IN_PACKAGE}-weblogic.jar">
+			<fileset refid="weblogic-jar" />
+		</jar>
+	</target>
+
+	<target name="build" depends="jar, ejb-jar, oc4j-jar, weblogic-jar, jar-auto, jar-test" />
+
+	<target name="doc" depends="java-compile, java-auto-compile">
+		<javadoc sourcepath="src/java;auto/java"
+			packagenames="*"
+			includenosourcepackages="true"
+			overview="src/java/${MODULE_PACKAGE}/overview.html"
+			destdir="${JAVA_DOC_DIR}"
+			encoding="UTF-8"
+			docencoding="UTF-8"
+			charset="UTF-8"
+			access="private"
+			additionalparam="-notimestamp"
+			Windowtitle="${MODULE_NAME} JavaDoc"
+			Doctitle="${MODULE_NAME} API Reference">
+			<classpath refid="libs" />
+			<classpath refid="oc4j-libs" />
+			<classpath refid="weblogic-libs" />
+			<classpath refid="selenium-libs" />
+		</javadoc>
+	</target>
+
+	<target name="doc-with-test" depends="java-compile, java-test-compile">
+		<javadoc sourcepath="src/java;auto/java"
+			packagenames="*"
+			includenosourcepackages="true"
+			overview="src/java/${MODULE_PACKAGE}/overview.html"
+			destdir="${JAVA_DOC_DIR}"
+			encoding="UTF-8"
+			docencoding="UTF-8"
+			charset="UTF-8"
+			access="private"
+			additionalparam="-notimestamp"
+			Windowtitle="${MODULE_NAME} JavaDoc (with test)"
+			Doctitle="${MODULE_NAME} API Reference (with test)">
+			<classpath refid="libs" />
+			<classpath refid="oc4j-libs" />
+			<classpath refid="weblogic-libs" />
+			<classpath refid="selenium-libs" />
+		</javadoc>
+	</target>
+
+	<target name="clean" depends="start-log">
+		<delete includeemptydirs="true" quiet="true">
+			<fileset dir="build" />
+			<fileset dir="build-test" />
+			<fileset dir="build-auto" />
+		</delete>
+	</target>
+</project>

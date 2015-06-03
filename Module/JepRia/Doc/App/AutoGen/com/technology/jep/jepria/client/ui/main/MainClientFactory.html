@@ -1,0 +1,453 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!--NewPage-->
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<TITLE>
+MainClientFactory (JepRia JavaDoc)
+</TITLE>
+
+
+<LINK REL ="stylesheet" TYPE="text/css" HREF="../../../../../../../stylesheet.css" TITLE="Style">
+
+<SCRIPT type="text/javascript">
+function windowTitle()
+{
+    if (location.href.indexOf('is-external=true') == -1) {
+        parent.document.title="MainClientFactory (JepRia JavaDoc)";
+    }
+}
+</SCRIPT>
+<NOSCRIPT>
+</NOSCRIPT>
+
+</HEAD>
+
+<BODY BGCOLOR="white" onload="windowTitle();">
+<HR>
+
+
+<!-- ========= START OF TOP NAVBAR ======= -->
+<A NAME="navbar_top"><!-- --></A>
+<A HREF="#skip-navbar_top" title="Skip navigation links"></A>
+<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
+<TR>
+<TD COLSPAN=2 BGCOLOR="#EEEEFF" CLASS="NavBarCell1">
+<A NAME="navbar_top_firstrow"><!-- --></A>
+<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3" SUMMARY="">
+  <TR ALIGN="center" VALIGN="top">
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-summary.html"><FONT CLASS="NavBarFont1"><B>Package</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../index-all.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../help-doc.html"><FONT CLASS="NavBarFont1"><B>Help</B></FONT></A>&nbsp;</TD>
+  </TR>
+</TABLE>
+</TD>
+<TD ALIGN="right" VALIGN="top" ROWSPAN=3><EM>
+</EM>
+</TD>
+</TR>
+
+<TR>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+&nbsp;<A HREF="../../../../../../../com/technology/jep/jepria/client/ui/main/MainActivityMapper.html" title="class in com.technology.jep.jepria.client.ui.main"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../../../../../com/technology/jep/jepria/client/ui/main/MainClientFactoryImpl.html" title="class in com.technology.jep.jepria.client.ui.main"><B>NEXT CLASS</B></A></FONT></TD>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+  <A HREF="../../../../../../../index.html?com/technology/jep/jepria/client/ui/main/MainClientFactory.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="MainClientFactory.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+&nbsp;<SCRIPT type="text/javascript">
+  <!--
+  if(window==top) {
+    document.writeln('<A HREF="../../../../../../../allclasses-noframe.html"><B>All Classes</B></A>');
+  }
+  //-->
+</SCRIPT>
+<NOSCRIPT>
+  <A HREF="../../../../../../../allclasses-noframe.html"><B>All Classes</B></A>
+</NOSCRIPT>
+
+
+</FONT></TD>
+</TR>
+<TR>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+  SUMMARY:&nbsp;NESTED&nbsp;|&nbsp;FIELD&nbsp;|&nbsp;CONSTR&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+DETAIL:&nbsp;FIELD&nbsp;|&nbsp;CONSTR&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
+</TR>
+</TABLE>
+<A NAME="skip-navbar_top"></A>
+<!-- ========= END OF TOP NAVBAR ========= -->
+
+<HR>
+<!-- ======== START OF CLASS DATA ======== -->
+<H2>
+<FONT SIZE="-1">
+com.technology.jep.jepria.client.ui.main</FONT>
+<BR>
+Interface MainClientFactory&lt;E extends <A HREF="../../../../../../../com/technology/jep/jepria/client/ui/eventbus/main/MainEventBus.html" title="class in com.technology.jep.jepria.client.ui.eventbus.main">MainEventBus</A>,S extends <A HREF="../../../../../../../com/technology/jep/jepria/shared/service/JepMainServiceAsync.html" title="interface in com.technology.jep.jepria.shared.service">JepMainServiceAsync</A>&gt;</H2>
+<DL>
+<DT><B>All Superinterfaces:</B> <DD><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/ClientFactory.html" title="interface in com.technology.jep.jepria.client.ui">ClientFactory</A>&lt;E&gt;</DD>
+</DL>
+<DL>
+<DT><B>All Known Implementing Classes:</B> <DD><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/main/MainClientFactoryImpl.html" title="class in com.technology.jep.jepria.client.ui.main">MainClientFactoryImpl</A></DD>
+</DL>
+<HR>
+<DL>
+<DT><PRE>public interface <B>MainClientFactory&lt;E extends <A HREF="../../../../../../../com/technology/jep/jepria/client/ui/eventbus/main/MainEventBus.html" title="class in com.technology.jep.jepria.client.ui.eventbus.main">MainEventBus</A>,S extends <A HREF="../../../../../../../com/technology/jep/jepria/shared/service/JepMainServiceAsync.html" title="interface in com.technology.jep.jepria.shared.service">JepMainServiceAsync</A>&gt;</B><DT>extends <A HREF="../../../../../../../com/technology/jep/jepria/client/ui/ClientFactory.html" title="interface in com.technology.jep.jepria.client.ui">ClientFactory</A>&lt;E&gt;</DL>
+</PRE>
+
+<P>
+Клиентская фабрика приложения.
+<P>
+
+<P>
+<HR>
+
+<P>
+
+<!-- ========== METHOD SUMMARY =========== -->
+
+<A NAME="method_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Method Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/main/MainClientFactory.html#contains(java.lang.String)">contains</A></B>(java.lang.String&nbsp;moduleId)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Проверяет наличие определенного идентификатора модуля среди идентификаторов модулей приложения.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;com.google.gwt.activity.shared.Activity</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/main/MainClientFactory.html#createMainModulePresenter()">createMainModulePresenter</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Создание главного презентера приложения.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;com.google.gwt.place.shared.Place</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/main/MainClientFactory.html#getDefaultPlace()">getDefaultPlace</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Получение Place'а по умолчанию для приложения.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../../../../com/technology/jep/jepria/client/ui/main/MainClientFactory.html" title="type parameter in MainClientFactory">S</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/main/MainClientFactory.html#getMainService()">getMainService</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Получение главного сервиса приложения.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;com.google.gwt.user.client.ui.IsWidget</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/main/MainClientFactory.html#getMainView()">getMainView</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Получение главного представления (View) приложения.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;java.lang.String[]</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/main/MainClientFactory.html#getModuleIds()">getModuleIds</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Получение идентификаторов модулей приложения.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;java.lang.String[]</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/main/MainClientFactory.html#getModuleItemTitles()">getModuleItemTitles</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Получение наименований модулей приложения.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../../../../com/technology/jep/jepria/client/history/place/MainPlaceController.html" title="class in com.technology.jep.jepria.client.history.place">MainPlaceController</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/main/MainClientFactory.html#getPlaceController()">getPlaceController</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Получение объекта управления Place'ами приложения.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/main/MainClientFactory.html#getPlainClientFactory(java.lang.String, com.technology.jep.jepria.client.async.LoadAsyncCallback)">getPlainClientFactory</A></B>(java.lang.String&nbsp;moduleId,
+                      <A HREF="../../../../../../../com/technology/jep/jepria/client/async/LoadAsyncCallback.html" title="class in com.technology.jep.jepria.client.async">LoadAsyncCallback</A>&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/ui/plain/PlainClientFactory.html" title="interface in com.technology.jep.jepria.client.ui.plain">PlainClientFactory</A>&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/ui/eventbus/plain/PlainEventBus.html" title="class in com.technology.jep.jepria.client.ui.eventbus.plain">PlainEventBus</A>,<A HREF="../../../../../../../com/technology/jep/jepria/shared/service/data/JepDataServiceAsync.html" title="interface in com.technology.jep.jepria.shared.service.data">JepDataServiceAsync</A>&gt;&gt;&nbsp;callback)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Получение клиентской фабрики заданного модуля приложения.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/main/MainClientFactory.html#setModuleIds(java.lang.String[])">setModuleIds</A></B>(java.lang.String[]&nbsp;moduleIds)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Установка идентификаторов модулей приложения.</TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_com.technology.jep.jepria.client.ui.ClientFactory"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from interface com.technology.jep.jepria.client.ui.<A HREF="../../../../../../../com/technology/jep/jepria/client/ui/ClientFactory.html" title="interface in com.technology.jep.jepria.client.ui">ClientFactory</A></B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/ClientFactory.html#getEventBus()">getEventBus</A>, <A HREF="../../../../../../../com/technology/jep/jepria/client/ui/ClientFactory.html#getEventFilter()">getEventFilter</A>, <A HREF="../../../../../../../com/technology/jep/jepria/client/ui/ClientFactory.html#getExceptionManager()">getExceptionManager</A>, <A HREF="../../../../../../../com/technology/jep/jepria/client/ui/ClientFactory.html#getLogger()">getLogger</A>, <A HREF="../../../../../../../com/technology/jep/jepria/client/ui/ClientFactory.html#getMessageBox()">getMessageBox</A>, <A HREF="../../../../../../../com/technology/jep/jepria/client/ui/ClientFactory.html#getTexts()">getTexts</A>, <A HREF="../../../../../../../com/technology/jep/jepria/client/ui/ClientFactory.html#getUiSecurity()">getUiSecurity</A></CODE></TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
+<!-- ============ METHOD DETAIL ========== -->
+
+<A NAME="method_detail"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
+<B>Method Detail</B></FONT></TH>
+</TR>
+</TABLE>
+
+<A NAME="getPlaceController()"><!-- --></A><H3>
+getPlaceController</H3>
+<PRE>
+<A HREF="../../../../../../../com/technology/jep/jepria/client/history/place/MainPlaceController.html" title="class in com.technology.jep.jepria.client.history.place">MainPlaceController</A> <B>getPlaceController</B>()</PRE>
+<DL>
+<DD>Получение объекта управления Place'ами приложения.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>объект управления Place'ами приложения</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getDefaultPlace()"><!-- --></A><H3>
+getDefaultPlace</H3>
+<PRE>
+com.google.gwt.place.shared.Place <B>getDefaultPlace</B>()</PRE>
+<DL>
+<DD>Получение Place'а по умолчанию для приложения.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>Place по умолчанию для приложения</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getMainView()"><!-- --></A><H3>
+getMainView</H3>
+<PRE>
+com.google.gwt.user.client.ui.IsWidget <B>getMainView</B>()</PRE>
+<DL>
+<DD>Получение главного представления (View) приложения.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>главное представление (View) приложения</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getMainService()"><!-- --></A><H3>
+getMainService</H3>
+<PRE>
+<A HREF="../../../../../../../com/technology/jep/jepria/client/ui/main/MainClientFactory.html" title="type parameter in MainClientFactory">S</A> <B>getMainService</B>()</PRE>
+<DL>
+<DD>Получение главного сервиса приложения.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>главный сервис приложения</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="createMainModulePresenter()"><!-- --></A><H3>
+createMainModulePresenter</H3>
+<PRE>
+com.google.gwt.activity.shared.Activity <B>createMainModulePresenter</B>()</PRE>
+<DL>
+<DD>Создание главного презентера приложения.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>главный презентер приложения</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getPlainClientFactory(java.lang.String, com.technology.jep.jepria.client.async.LoadAsyncCallback)"><!-- --></A><H3>
+getPlainClientFactory</H3>
+<PRE>
+void <B>getPlainClientFactory</B>(java.lang.String&nbsp;moduleId,
+                           <A HREF="../../../../../../../com/technology/jep/jepria/client/async/LoadAsyncCallback.html" title="class in com.technology.jep.jepria.client.async">LoadAsyncCallback</A>&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/ui/plain/PlainClientFactory.html" title="interface in com.technology.jep.jepria.client.ui.plain">PlainClientFactory</A>&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/ui/eventbus/plain/PlainEventBus.html" title="class in com.technology.jep.jepria.client.ui.eventbus.plain">PlainEventBus</A>,<A HREF="../../../../../../../com/technology/jep/jepria/shared/service/data/JepDataServiceAsync.html" title="interface in com.technology.jep.jepria.shared.service.data">JepDataServiceAsync</A>&gt;&gt;&nbsp;callback)</PRE>
+<DL>
+<DD>Получение клиентской фабрики заданного модуля приложения.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>moduleId</CODE> - идентификатор модуля приложения<DD><CODE>callback</CODE> - объект асинхронного обратного вызова содержащий клиентскую фабрику модуля приложения</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setModuleIds(java.lang.String[])"><!-- --></A><H3>
+setModuleIds</H3>
+<PRE>
+void <B>setModuleIds</B>(java.lang.String[]&nbsp;moduleIds)</PRE>
+<DL>
+<DD>Установка идентификаторов модулей приложения.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>moduleIds</CODE> - идентификаторы модулей приложения</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getModuleIds()"><!-- --></A><H3>
+getModuleIds</H3>
+<PRE>
+java.lang.String[] <B>getModuleIds</B>()</PRE>
+<DL>
+<DD>Получение идентификаторов модулей приложения.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>идентификаторы модулей приложения</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="contains(java.lang.String)"><!-- --></A><H3>
+contains</H3>
+<PRE>
+boolean <B>contains</B>(java.lang.String&nbsp;moduleId)</PRE>
+<DL>
+<DD>Проверяет наличие определенного идентификатора модуля среди идентификаторов модулей приложения.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>moduleId</CODE> - проверяемый идентификатор модуля
+<DT><B>Returns:</B><DD>true - если запрошенный идентификатор модуля найден, false - в противном случае.</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getModuleItemTitles()"><!-- --></A><H3>
+getModuleItemTitles</H3>
+<PRE>
+java.lang.String[] <B>getModuleItemTitles</B>()</PRE>
+<DL>
+<DD>Получение наименований модулей приложения.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>наименования модулей приложения</DL>
+</DD>
+</DL>
+<!-- ========= END OF CLASS DATA ========= -->
+<HR>
+
+
+<!-- ======= START OF BOTTOM NAVBAR ====== -->
+<A NAME="navbar_bottom"><!-- --></A>
+<A HREF="#skip-navbar_bottom" title="Skip navigation links"></A>
+<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
+<TR>
+<TD COLSPAN=2 BGCOLOR="#EEEEFF" CLASS="NavBarCell1">
+<A NAME="navbar_bottom_firstrow"><!-- --></A>
+<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3" SUMMARY="">
+  <TR ALIGN="center" VALIGN="top">
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-summary.html"><FONT CLASS="NavBarFont1"><B>Package</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../index-all.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../help-doc.html"><FONT CLASS="NavBarFont1"><B>Help</B></FONT></A>&nbsp;</TD>
+  </TR>
+</TABLE>
+</TD>
+<TD ALIGN="right" VALIGN="top" ROWSPAN=3><EM>
+</EM>
+</TD>
+</TR>
+
+<TR>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+&nbsp;<A HREF="../../../../../../../com/technology/jep/jepria/client/ui/main/MainActivityMapper.html" title="class in com.technology.jep.jepria.client.ui.main"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../../../../../com/technology/jep/jepria/client/ui/main/MainClientFactoryImpl.html" title="class in com.technology.jep.jepria.client.ui.main"><B>NEXT CLASS</B></A></FONT></TD>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+  <A HREF="../../../../../../../index.html?com/technology/jep/jepria/client/ui/main/MainClientFactory.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="MainClientFactory.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+&nbsp;<SCRIPT type="text/javascript">
+  <!--
+  if(window==top) {
+    document.writeln('<A HREF="../../../../../../../allclasses-noframe.html"><B>All Classes</B></A>');
+  }
+  //-->
+</SCRIPT>
+<NOSCRIPT>
+  <A HREF="../../../../../../../allclasses-noframe.html"><B>All Classes</B></A>
+</NOSCRIPT>
+
+
+</FONT></TD>
+</TR>
+<TR>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+  SUMMARY:&nbsp;NESTED&nbsp;|&nbsp;FIELD&nbsp;|&nbsp;CONSTR&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+DETAIL:&nbsp;FIELD&nbsp;|&nbsp;CONSTR&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
+</TR>
+</TABLE>
+<A NAME="skip-navbar_bottom"></A>
+<!-- ======== END OF BOTTOM NAVBAR ======= -->
+
+<HR>
+
+</BODY>
+</HTML>

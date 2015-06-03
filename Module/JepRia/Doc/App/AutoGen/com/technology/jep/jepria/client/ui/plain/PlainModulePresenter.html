@@ -1,0 +1,753 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!--NewPage-->
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<TITLE>
+PlainModulePresenter (JepRia JavaDoc)
+</TITLE>
+
+
+<LINK REL ="stylesheet" TYPE="text/css" HREF="../../../../../../../stylesheet.css" TITLE="Style">
+
+<SCRIPT type="text/javascript">
+function windowTitle()
+{
+    if (location.href.indexOf('is-external=true') == -1) {
+        parent.document.title="PlainModulePresenter (JepRia JavaDoc)";
+    }
+}
+</SCRIPT>
+<NOSCRIPT>
+</NOSCRIPT>
+
+</HEAD>
+
+<BODY BGCOLOR="white" onload="windowTitle();">
+<HR>
+
+
+<!-- ========= START OF TOP NAVBAR ======= -->
+<A NAME="navbar_top"><!-- --></A>
+<A HREF="#skip-navbar_top" title="Skip navigation links"></A>
+<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
+<TR>
+<TD COLSPAN=2 BGCOLOR="#EEEEFF" CLASS="NavBarCell1">
+<A NAME="navbar_top_firstrow"><!-- --></A>
+<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3" SUMMARY="">
+  <TR ALIGN="center" VALIGN="top">
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-summary.html"><FONT CLASS="NavBarFont1"><B>Package</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../index-all.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../help-doc.html"><FONT CLASS="NavBarFont1"><B>Help</B></FONT></A>&nbsp;</TD>
+  </TR>
+</TABLE>
+</TD>
+<TD ALIGN="right" VALIGN="top" ROWSPAN=3><EM>
+</EM>
+</TD>
+</TR>
+
+<TR>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+&nbsp;<A HREF="../../../../../../../com/technology/jep/jepria/client/ui/plain/PlainClientFactoryImpl.html" title="class in com.technology.jep.jepria.client.ui.plain"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../../../../../com/technology/jep/jepria/client/ui/plain/PlainModuleView.html" title="interface in com.technology.jep.jepria.client.ui.plain"><B>NEXT CLASS</B></A></FONT></TD>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+  <A HREF="../../../../../../../index.html?com/technology/jep/jepria/client/ui/plain/PlainModulePresenter.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="PlainModulePresenter.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+&nbsp;<SCRIPT type="text/javascript">
+  <!--
+  if(window==top) {
+    document.writeln('<A HREF="../../../../../../../allclasses-noframe.html"><B>All Classes</B></A>');
+  }
+  //-->
+</SCRIPT>
+<NOSCRIPT>
+  <A HREF="../../../../../../../allclasses-noframe.html"><B>All Classes</B></A>
+</NOSCRIPT>
+
+
+</FONT></TD>
+</TR>
+<TR>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+  SUMMARY:&nbsp;NESTED&nbsp;|&nbsp;<A HREF="#field_summary">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
+</TR>
+</TABLE>
+<A NAME="skip-navbar_top"></A>
+<!-- ========= END OF TOP NAVBAR ========= -->
+
+<HR>
+<!-- ======== START OF CLASS DATA ======== -->
+<H2>
+<FONT SIZE="-1">
+com.technology.jep.jepria.client.ui.plain</FONT>
+<BR>
+Class PlainModulePresenter&lt;V extends <A HREF="../../../../../../../com/technology/jep/jepria/client/ui/plain/PlainModuleView.html" title="interface in com.technology.jep.jepria.client.ui.plain">PlainModuleView</A>,E extends <A HREF="../../../../../../../com/technology/jep/jepria/client/ui/eventbus/plain/PlainEventBus.html" title="class in com.technology.jep.jepria.client.ui.eventbus.plain">PlainEventBus</A>,S extends <A HREF="../../../../../../../com/technology/jep/jepria/shared/service/data/JepDataServiceAsync.html" title="interface in com.technology.jep.jepria.shared.service.data">JepDataServiceAsync</A>,F extends <A HREF="../../../../../../../com/technology/jep/jepria/client/ui/plain/PlainClientFactory.html" title="interface in com.technology.jep.jepria.client.ui.plain">PlainClientFactory</A>&lt;E,S&gt;&gt;</H2>
+<PRE>
+java.lang.Object
+  <IMG SRC="../../../../../../../resources/inherit.gif" ALT="extended by ">com.google.gwt.activity.shared.AbstractActivity
+      <IMG SRC="../../../../../../../resources/inherit.gif" ALT="extended by "><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/JepActivity.html" title="class in com.technology.jep.jepria.client.ui">com.technology.jep.jepria.client.ui.JepActivity</A>&lt;E,F&gt;
+          <IMG SRC="../../../../../../../resources/inherit.gif" ALT="extended by "><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/JepPresenter.html" title="class in com.technology.jep.jepria.client.ui">com.technology.jep.jepria.client.ui.JepPresenter</A>&lt;E,F&gt;
+              <IMG SRC="../../../../../../../resources/inherit.gif" ALT="extended by "><B>com.technology.jep.jepria.client.ui.plain.PlainModulePresenter&lt;V,E,S,F&gt;</B>
+</PRE>
+<DL>
+<DT><B>All Implemented Interfaces:</B> <DD>com.google.gwt.activity.shared.Activity, com.google.gwt.event.shared.EventHandler, <A HREF="../../../../../../../com/technology/jep/jepria/client/ui/eventbus/event/EnterModuleEvent.Handler.html" title="interface in com.technology.jep.jepria.client.ui.eventbus.event">EnterModuleEvent.Handler</A>, <A HREF="../../../../../../../com/technology/jep/jepria/client/ui/eventbus/event/ExitScopeEvent.Handler.html" title="interface in com.technology.jep.jepria.client.ui.eventbus.event">ExitScopeEvent.Handler</A>, <A HREF="../../../../../../../com/technology/jep/jepria/client/ui/eventbus/event/UpdateScopeEvent.Handler.html" title="interface in com.technology.jep.jepria.client.ui.eventbus.event">UpdateScopeEvent.Handler</A>, <A HREF="../../../../../../../com/technology/jep/jepria/client/ui/eventbus/plain/event/PrepareReportEvent.Handler.html" title="interface in com.technology.jep.jepria.client.ui.eventbus.plain.event">PrepareReportEvent.Handler</A>, <A HREF="../../../../../../../com/technology/jep/jepria/client/ui/eventbus/plain/event/SearchEvent.Handler.html" title="interface in com.technology.jep.jepria.client.ui.eventbus.plain.event">SearchEvent.Handler</A>, <A HREF="../../../../../../../com/technology/jep/jepria/client/ui/eventbus/plain/event/SetCurrentRecordEvent.Handler.html" title="interface in com.technology.jep.jepria.client.ui.eventbus.plain.event">SetCurrentRecordEvent.Handler</A></DD>
+</DL>
+<DL>
+<DT><B>Direct Known Subclasses:</B> <DD><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/plain/StandardModulePresenter.html" title="class in com.technology.jep.jepria.client.ui.plain">StandardModulePresenter</A></DD>
+</DL>
+<HR>
+<DL>
+<DT><PRE>public class <B>PlainModulePresenter&lt;V extends <A HREF="../../../../../../../com/technology/jep/jepria/client/ui/plain/PlainModuleView.html" title="interface in com.technology.jep.jepria.client.ui.plain">PlainModuleView</A>,E extends <A HREF="../../../../../../../com/technology/jep/jepria/client/ui/eventbus/plain/PlainEventBus.html" title="class in com.technology.jep.jepria.client.ui.eventbus.plain">PlainEventBus</A>,S extends <A HREF="../../../../../../../com/technology/jep/jepria/shared/service/data/JepDataServiceAsync.html" title="interface in com.technology.jep.jepria.shared.service.data">JepDataServiceAsync</A>,F extends <A HREF="../../../../../../../com/technology/jep/jepria/client/ui/plain/PlainClientFactory.html" title="interface in com.technology.jep.jepria.client.ui.plain">PlainClientFactory</A>&lt;E,S&gt;&gt;</B><DT>extends <A HREF="../../../../../../../com/technology/jep/jepria/client/ui/JepPresenter.html" title="class in com.technology.jep.jepria.client.ui">JepPresenter</A>&lt;E,F&gt;<DT>implements <A HREF="../../../../../../../com/technology/jep/jepria/client/ui/eventbus/event/EnterModuleEvent.Handler.html" title="interface in com.technology.jep.jepria.client.ui.eventbus.event">EnterModuleEvent.Handler</A>, <A HREF="../../../../../../../com/technology/jep/jepria/client/ui/eventbus/event/ExitScopeEvent.Handler.html" title="interface in com.technology.jep.jepria.client.ui.eventbus.event">ExitScopeEvent.Handler</A>, <A HREF="../../../../../../../com/technology/jep/jepria/client/ui/eventbus/plain/event/SearchEvent.Handler.html" title="interface in com.technology.jep.jepria.client.ui.eventbus.plain.event">SearchEvent.Handler</A>, <A HREF="../../../../../../../com/technology/jep/jepria/client/ui/eventbus/plain/event/SetCurrentRecordEvent.Handler.html" title="interface in com.technology.jep.jepria.client.ui.eventbus.plain.event">SetCurrentRecordEvent.Handler</A>, <A HREF="../../../../../../../com/technology/jep/jepria/client/ui/eventbus/event/UpdateScopeEvent.Handler.html" title="interface in com.technology.jep.jepria.client.ui.eventbus.event">UpdateScopeEvent.Handler</A>, <A HREF="../../../../../../../com/technology/jep/jepria/client/ui/eventbus/plain/event/PrepareReportEvent.Handler.html" title="interface in com.technology.jep.jepria.client.ui.eventbus.plain.event">PrepareReportEvent.Handler</A></DL>
+</PRE>
+
+<P>
+<HR>
+
+<P>
+<!-- =========== FIELD SUMMARY =========== -->
+
+<A NAME="field_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Field Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;<A HREF="../../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/plain/PlainModulePresenter.html#currentRecord">currentRecord</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;<A HREF="../../../../../../../com/technology/jep/jepria/client/ui/eventbus/main/MainEventBus.html" title="class in com.technology.jep.jepria.client.ui.eventbus.main">MainEventBus</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/plain/PlainModulePresenter.html#mainEventBus">mainEventBus</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/plain/PlainModulePresenter.html#moduleId">moduleId</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;<A HREF="../../../../../../../com/technology/jep/jepria/client/history/place/PlainPlaceController.html" title="class in com.technology.jep.jepria.client.history.place">PlainPlaceController</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/plain/PlainModulePresenter.html#placeController">placeController</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;<A HREF="../../../../../../../com/technology/jep/jepria/client/ui/plain/PlainModulePresenter.html" title="type parameter in PlainModulePresenter">S</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/plain/PlainModulePresenter.html#service">service</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;<A HREF="../../../../../../../com/technology/jep/jepria/client/ui/plain/PlainModulePresenter.html" title="type parameter in PlainModulePresenter">V</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/plain/PlainModulePresenter.html#view">view</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="fields_inherited_from_class_com.technology.jep.jepria.client.ui.JepPresenter"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Fields inherited from class com.technology.jep.jepria.client.ui.<A HREF="../../../../../../../com/technology/jep/jepria/client/ui/JepPresenter.html" title="class in com.technology.jep.jepria.client.ui">JepPresenter</A></B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/JepPresenter.html#_workstate">_workstate</A>, <A HREF="../../../../../../../com/technology/jep/jepria/client/ui/JepPresenter.html#place">place</A></CODE></TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="fields_inherited_from_class_com.technology.jep.jepria.client.ui.JepActivity"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Fields inherited from class com.technology.jep.jepria.client.ui.<A HREF="../../../../../../../com/technology/jep/jepria/client/ui/JepActivity.html" title="class in com.technology.jep.jepria.client.ui">JepActivity</A></B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/JepActivity.html#clientFactory">clientFactory</A>, <A HREF="../../../../../../../com/technology/jep/jepria/client/ui/JepActivity.html#eventBus">eventBus</A>, <A HREF="../../../../../../../com/technology/jep/jepria/client/ui/JepActivity.html#logger">logger</A>, <A HREF="../../../../../../../com/technology/jep/jepria/client/ui/JepActivity.html#messageBox">messageBox</A></CODE></TD>
+</TR>
+</TABLE>
+&nbsp;
+<!-- ======== CONSTRUCTOR SUMMARY ======== -->
+
+<A NAME="constructor_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Constructor Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/plain/PlainModulePresenter.html#PlainModulePresenter(java.lang.String, com.google.gwt.place.shared.Place, F)">PlainModulePresenter</A></B>(java.lang.String&nbsp;moduleId,
+                     com.google.gwt.place.shared.Place&nbsp;place,
+                     <A HREF="../../../../../../../com/technology/jep/jepria/client/ui/plain/PlainModulePresenter.html" title="type parameter in PlainModulePresenter">F</A>&nbsp;clientFactory)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;
+<!-- ========== METHOD SUMMARY =========== -->
+
+<A NAME="method_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Method Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/plain/PlainModulePresenter.html#bind()">bind</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Метод используется для перекрытия потомками с целью "привязки" элементов представления к функционалу презентера.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/plain/PlainModulePresenter.html#buildReportParametersFromRecord(com.technology.jep.jepria.shared.report.JepReportParameters, com.technology.jep.jepria.shared.record.JepRecord)">buildReportParametersFromRecord</A></B>(<A HREF="../../../../../../../com/technology/jep/jepria/shared/report/JepReportParameters.html" title="class in com.technology.jep.jepria.shared.report">JepReportParameters</A>&nbsp;reportParameters,
+                                <A HREF="../../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</A>&nbsp;record)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/plain/PlainModulePresenter.html#fillData()">fillData</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Подготавливает (получает) данные для отображения в модуле соответствующие текущему состоянию модуля 
+ <A HREF="../../../../../../../com/technology/jep/jepria/client/ui/JepPresenter.html#_workstate"><CODE>JepPresenter._workstate</CODE></A> .</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/plain/PlainModulePresenter.html#fillFields(com.technology.jep.jepria.client.history.scope.JepScope)">fillFields</A></B>(<A HREF="../../../../../../../com/technology/jep/jepria/client/history/scope/JepScope.html" title="class in com.technology.jep.jepria.client.history.scope">JepScope</A>&nbsp;scope)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Заполнение полей детальной формы на основе данных History (на основе первичного ключа).</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/plain/PlainModulePresenter.html#fillList(com.technology.jep.jepria.client.history.scope.JepScope)">fillList</A></B>(<A HREF="../../../../../../../com/technology/jep/jepria/client/history/scope/JepScope.html" title="class in com.technology.jep.jepria.client.history.scope">JepScope</A>&nbsp;scope)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Заполнение списка списочной формы на основе данных History (на основе шаблона поиска).</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/plain/PlainModulePresenter.html#onChangeWorkstate(com.technology.jep.jepria.client.ui.WorkstateEnum)">onChangeWorkstate</A></B>(<A HREF="../../../../../../../com/technology/jep/jepria/client/ui/WorkstateEnum.html" title="enum in com.technology.jep.jepria.client.ui">WorkstateEnum</A>&nbsp;workstate)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/plain/PlainModulePresenter.html#onEnterModule(com.technology.jep.jepria.client.ui.eventbus.event.EnterModuleEvent)">onEnterModule</A></B>(<A HREF="../../../../../../../com/technology/jep/jepria/client/ui/eventbus/event/EnterModuleEvent.html" title="class in com.technology.jep.jepria.client.ui.eventbus.event">EnterModuleEvent</A>&nbsp;event)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Обработчик события перехода на модуль.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/plain/PlainModulePresenter.html#onExitScope(com.technology.jep.jepria.client.ui.eventbus.event.ExitScopeEvent)">onExitScope</A></B>(<A HREF="../../../../../../../com/technology/jep/jepria/client/ui/eventbus/event/ExitScopeEvent.html" title="class in com.technology.jep.jepria.client.ui.eventbus.event">ExitScopeEvent</A>&nbsp;event)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Called when a <A HREF="../../../../../../../com/technology/jep/jepria/client/ui/eventbus/event/ExitScopeEvent.html" title="class in com.technology.jep.jepria.client.ui.eventbus.event"><CODE>ExitScopeEvent</CODE></A> is fired.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/plain/PlainModulePresenter.html#onPrepareReport(com.technology.jep.jepria.client.ui.eventbus.plain.event.PrepareReportEvent)">onPrepareReport</A></B>(<A HREF="../../../../../../../com/technology/jep/jepria/client/ui/eventbus/plain/event/PrepareReportEvent.html" title="class in com.technology.jep.jepria.client.ui.eventbus.plain.event">PrepareReportEvent</A>&nbsp;event)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Called when a <A HREF="../../../../../../../com/technology/jep/jepria/client/ui/eventbus/plain/event/PrepareReportEvent.html" title="class in com.technology.jep.jepria.client.ui.eventbus.plain.event"><CODE>PrepareReportEvent</CODE></A> is fired.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/plain/PlainModulePresenter.html#onSearch(com.technology.jep.jepria.client.ui.eventbus.plain.event.SearchEvent)">onSearch</A></B>(<A HREF="../../../../../../../com/technology/jep/jepria/client/ui/eventbus/plain/event/SearchEvent.html" title="class in com.technology.jep.jepria.client.ui.eventbus.plain.event">SearchEvent</A>&nbsp;event)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Обработчик события поиска.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/plain/PlainModulePresenter.html#onSetCurrentRecord(com.technology.jep.jepria.client.ui.eventbus.plain.event.SetCurrentRecordEvent)">onSetCurrentRecord</A></B>(<A HREF="../../../../../../../com/technology/jep/jepria/client/ui/eventbus/plain/event/SetCurrentRecordEvent.html" title="class in com.technology.jep.jepria.client.ui.eventbus.plain.event">SetCurrentRecordEvent</A>&nbsp;event)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Обработчик события установки (выбора) текущей записи.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/plain/PlainModulePresenter.html#onUpdateScope(com.technology.jep.jepria.client.ui.eventbus.event.UpdateScopeEvent)">onUpdateScope</A></B>(<A HREF="../../../../../../../com/technology/jep/jepria/client/ui/eventbus/event/UpdateScopeEvent.html" title="class in com.technology.jep.jepria.client.ui.eventbus.event">UpdateScopeEvent</A>&nbsp;event)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Called when a <A HREF="../../../../../../../com/technology/jep/jepria/client/ui/eventbus/event/UpdateScopeEvent.html" title="class in com.technology.jep.jepria.client.ui.eventbus.event"><CODE>UpdateScopeEvent</CODE></A> is fired.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/plain/PlainModulePresenter.html#setMainView()">setMainView</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Установка главного виджета(-контейнера) приложения.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/plain/PlainModulePresenter.html#start(com.google.gwt.user.client.ui.AcceptsOneWidget, com.google.gwt.event.shared.EventBus)">start</A></B>(com.google.gwt.user.client.ui.AcceptsOneWidget&nbsp;container,
+      com.google.gwt.event.shared.EventBus&nbsp;eventBus)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_com.technology.jep.jepria.client.ui.JepPresenter"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from class com.technology.jep.jepria.client.ui.<A HREF="../../../../../../../com/technology/jep/jepria/client/ui/JepPresenter.html" title="class in com.technology.jep.jepria.client.ui">JepPresenter</A></B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/JepPresenter.html#adjustToWorkstate(com.technology.jep.jepria.client.ui.WorkstateEnum)">adjustToWorkstate</A>, <A HREF="../../../../../../../com/technology/jep/jepria/client/ui/JepPresenter.html#changeWorkstate(com.google.gwt.place.shared.Place)">changeWorkstate</A>, <A HREF="../../../../../../../com/technology/jep/jepria/client/ui/JepPresenter.html#changeWorkstate(com.technology.jep.jepria.client.ui.WorkstateEnum)">changeWorkstate</A>, <A HREF="../../../../../../../com/technology/jep/jepria/client/ui/JepPresenter.html#getPlace()">getPlace</A>, <A HREF="../../../../../../../com/technology/jep/jepria/client/ui/JepPresenter.html#isAcceptableWorkstate(com.technology.jep.jepria.client.ui.WorkstateEnum)">isAcceptableWorkstate</A>, <A HREF="../../../../../../../com/technology/jep/jepria/client/ui/JepPresenter.html#setPlace(com.google.gwt.place.shared.Place)">setPlace</A></CODE></TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_com.technology.jep.jepria.client.ui.JepActivity"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from class com.technology.jep.jepria.client.ui.<A HREF="../../../../../../../com/technology/jep/jepria/client/ui/JepActivity.html" title="class in com.technology.jep.jepria.client.ui">JepActivity</A></B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/JepActivity.html#mayStop()">mayStop</A>, <A HREF="../../../../../../../com/technology/jep/jepria/client/ui/JepActivity.html#onCancel()">onCancel</A>, <A HREF="../../../../../../../com/technology/jep/jepria/client/ui/JepActivity.html#onStop()">onStop</A></CODE></TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from class java.lang.Object</B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE>clone, equals, finalize, getClass, hashCode, notify, notifyAll, toString, wait, wait, wait</CODE></TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
+<!-- ============ FIELD DETAIL =========== -->
+
+<A NAME="field_detail"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
+<B>Field Detail</B></FONT></TH>
+</TR>
+</TABLE>
+
+<A NAME="moduleId"><!-- --></A><H3>
+moduleId</H3>
+<PRE>
+protected java.lang.String <B>moduleId</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="view"><!-- --></A><H3>
+view</H3>
+<PRE>
+protected <A HREF="../../../../../../../com/technology/jep/jepria/client/ui/plain/PlainModulePresenter.html" title="type parameter in PlainModulePresenter">V</A> extends <A HREF="../../../../../../../com/technology/jep/jepria/client/ui/plain/PlainModuleView.html" title="interface in com.technology.jep.jepria.client.ui.plain">PlainModuleView</A> <B>view</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="service"><!-- --></A><H3>
+service</H3>
+<PRE>
+protected <A HREF="../../../../../../../com/technology/jep/jepria/client/ui/plain/PlainModulePresenter.html" title="type parameter in PlainModulePresenter">S</A> extends <A HREF="../../../../../../../com/technology/jep/jepria/shared/service/data/JepDataServiceAsync.html" title="interface in com.technology.jep.jepria.shared.service.data">JepDataServiceAsync</A> <B>service</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="mainEventBus"><!-- --></A><H3>
+mainEventBus</H3>
+<PRE>
+protected <A HREF="../../../../../../../com/technology/jep/jepria/client/ui/eventbus/main/MainEventBus.html" title="class in com.technology.jep.jepria.client.ui.eventbus.main">MainEventBus</A> <B>mainEventBus</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="placeController"><!-- --></A><H3>
+placeController</H3>
+<PRE>
+protected <A HREF="../../../../../../../com/technology/jep/jepria/client/history/place/PlainPlaceController.html" title="class in com.technology.jep.jepria.client.history.place">PlainPlaceController</A> <B>placeController</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="currentRecord"><!-- --></A><H3>
+currentRecord</H3>
+<PRE>
+protected <A HREF="../../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</A> <B>currentRecord</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+
+<!-- ========= CONSTRUCTOR DETAIL ======== -->
+
+<A NAME="constructor_detail"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
+<B>Constructor Detail</B></FONT></TH>
+</TR>
+</TABLE>
+
+<A NAME="PlainModulePresenter(java.lang.String,com.google.gwt.place.shared.Place,com.technology.jep.jepria.client.ui.plain.PlainClientFactory)"><!-- --></A><A NAME="PlainModulePresenter(java.lang.String, com.google.gwt.place.shared.Place, F)"><!-- --></A><H3>
+PlainModulePresenter</H3>
+<PRE>
+public <B>PlainModulePresenter</B>(java.lang.String&nbsp;moduleId,
+                            com.google.gwt.place.shared.Place&nbsp;place,
+                            <A HREF="../../../../../../../com/technology/jep/jepria/client/ui/plain/PlainModulePresenter.html" title="type parameter in PlainModulePresenter">F</A>&nbsp;clientFactory)</PRE>
+<DL>
+</DL>
+
+<!-- ============ METHOD DETAIL ========== -->
+
+<A NAME="method_detail"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
+<B>Method Detail</B></FONT></TH>
+</TR>
+</TABLE>
+
+<A NAME="start(com.google.gwt.user.client.ui.AcceptsOneWidget, com.google.gwt.event.shared.EventBus)"><!-- --></A><H3>
+start</H3>
+<PRE>
+public void <B>start</B>(com.google.gwt.user.client.ui.AcceptsOneWidget&nbsp;container,
+                  com.google.gwt.event.shared.EventBus&nbsp;eventBus)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE>start</CODE> in interface <CODE>com.google.gwt.activity.shared.Activity</CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="bind()"><!-- --></A><H3>
+bind</H3>
+<PRE>
+protected void <B>bind</B>()</PRE>
+<DL>
+<DD>Метод используется для перекрытия потомками с целью "привязки" элементов представления к функционалу презентера.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="onUpdateScope(com.technology.jep.jepria.client.ui.eventbus.event.UpdateScopeEvent)"><!-- --></A><H3>
+onUpdateScope</H3>
+<PRE>
+public void <B>onUpdateScope</B>(<A HREF="../../../../../../../com/technology/jep/jepria/client/ui/eventbus/event/UpdateScopeEvent.html" title="class in com.technology.jep.jepria.client.ui.eventbus.event">UpdateScopeEvent</A>&nbsp;event)</PRE>
+<DL>
+<DD><B>Description copied from interface: <CODE><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/eventbus/event/UpdateScopeEvent.Handler.html#onUpdateScope(com.technology.jep.jepria.client.ui.eventbus.event.UpdateScopeEvent)">UpdateScopeEvent.Handler</A></CODE></B></DD>
+<DD>Called when a <A HREF="../../../../../../../com/technology/jep/jepria/client/ui/eventbus/event/UpdateScopeEvent.html" title="class in com.technology.jep.jepria.client.ui.eventbus.event"><CODE>UpdateScopeEvent</CODE></A> is fired.
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/eventbus/event/UpdateScopeEvent.Handler.html#onUpdateScope(com.technology.jep.jepria.client.ui.eventbus.event.UpdateScopeEvent)">onUpdateScope</A></CODE> in interface <CODE><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/eventbus/event/UpdateScopeEvent.Handler.html" title="interface in com.technology.jep.jepria.client.ui.eventbus.event">UpdateScopeEvent.Handler</A></CODE></DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>event</CODE> - the <A HREF="../../../../../../../com/technology/jep/jepria/client/ui/eventbus/event/UpdateScopeEvent.html" title="class in com.technology.jep.jepria.client.ui.eventbus.event"><CODE>UpdateScopeEvent</CODE></A></DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="onExitScope(com.technology.jep.jepria.client.ui.eventbus.event.ExitScopeEvent)"><!-- --></A><H3>
+onExitScope</H3>
+<PRE>
+public void <B>onExitScope</B>(<A HREF="../../../../../../../com/technology/jep/jepria/client/ui/eventbus/event/ExitScopeEvent.html" title="class in com.technology.jep.jepria.client.ui.eventbus.event">ExitScopeEvent</A>&nbsp;event)</PRE>
+<DL>
+<DD><B>Description copied from interface: <CODE><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/eventbus/event/ExitScopeEvent.Handler.html#onExitScope(com.technology.jep.jepria.client.ui.eventbus.event.ExitScopeEvent)">ExitScopeEvent.Handler</A></CODE></B></DD>
+<DD>Called when a <A HREF="../../../../../../../com/technology/jep/jepria/client/ui/eventbus/event/ExitScopeEvent.html" title="class in com.technology.jep.jepria.client.ui.eventbus.event"><CODE>ExitScopeEvent</CODE></A> is fired.
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/eventbus/event/ExitScopeEvent.Handler.html#onExitScope(com.technology.jep.jepria.client.ui.eventbus.event.ExitScopeEvent)">onExitScope</A></CODE> in interface <CODE><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/eventbus/event/ExitScopeEvent.Handler.html" title="interface in com.technology.jep.jepria.client.ui.eventbus.event">ExitScopeEvent.Handler</A></CODE></DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>event</CODE> - the <A HREF="../../../../../../../com/technology/jep/jepria/client/ui/eventbus/event/ExitScopeEvent.html" title="class in com.technology.jep.jepria.client.ui.eventbus.event"><CODE>ExitScopeEvent</CODE></A></DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="onEnterModule(com.technology.jep.jepria.client.ui.eventbus.event.EnterModuleEvent)"><!-- --></A><H3>
+onEnterModule</H3>
+<PRE>
+public void <B>onEnterModule</B>(<A HREF="../../../../../../../com/technology/jep/jepria/client/ui/eventbus/event/EnterModuleEvent.html" title="class in com.technology.jep.jepria.client.ui.eventbus.event">EnterModuleEvent</A>&nbsp;event)</PRE>
+<DL>
+<DD>Обработчик события перехода на модуль.
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/eventbus/event/EnterModuleEvent.Handler.html#onEnterModule(com.technology.jep.jepria.client.ui.eventbus.event.EnterModuleEvent)">onEnterModule</A></CODE> in interface <CODE><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/eventbus/event/EnterModuleEvent.Handler.html" title="interface in com.technology.jep.jepria.client.ui.eventbus.event">EnterModuleEvent.Handler</A></CODE></DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>event</CODE> - событие перехода на модуль</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setMainView()"><!-- --></A><H3>
+setMainView</H3>
+<PRE>
+protected void <B>setMainView</B>()</PRE>
+<DL>
+<DD>Установка главного виджета(-контейнера) приложения.<br/>
+ В методе используется вызов вида : <code>mainEventBus.setMainView(clientFactory.getMainClientFactory().getMainView());</code> <br/>
+ При этом, при передаче <code>null</code> в качестве главного виджета приложения, текущий главный виджет удаляется с RootPanel'и.<br/>
+ Т.о., перегрузкой данного метода можно установить, при заходе на модуль приложения, любой главный виджет приложения или скрыть текущий.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="fillData()"><!-- --></A><H3>
+fillData</H3>
+<PRE>
+protected void <B>fillData</B>()</PRE>
+<DL>
+<DD>Подготавливает (получает) данные для отображения в модуле соответствующие текущему состоянию модуля 
+ <A HREF="../../../../../../../com/technology/jep/jepria/client/ui/JepPresenter.html#_workstate"><CODE>JepPresenter._workstate</CODE></A> .
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="onSearch(com.technology.jep.jepria.client.ui.eventbus.plain.event.SearchEvent)"><!-- --></A><H3>
+onSearch</H3>
+<PRE>
+public void <B>onSearch</B>(<A HREF="../../../../../../../com/technology/jep/jepria/client/ui/eventbus/plain/event/SearchEvent.html" title="class in com.technology.jep.jepria.client.ui.eventbus.plain.event">SearchEvent</A>&nbsp;event)</PRE>
+<DL>
+<DD>Обработчик события поиска.<br/>
+ 
+ Особенности:<br/>
+ Сохраняет поисковый шаблон в History.
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/eventbus/plain/event/SearchEvent.Handler.html#onSearch(com.technology.jep.jepria.client.ui.eventbus.plain.event.SearchEvent)">onSearch</A></CODE> in interface <CODE><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/eventbus/plain/event/SearchEvent.Handler.html" title="interface in com.technology.jep.jepria.client.ui.eventbus.plain.event">SearchEvent.Handler</A></CODE></DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>event</CODE> - событие поиска</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="onChangeWorkstate(com.technology.jep.jepria.client.ui.WorkstateEnum)"><!-- --></A><H3>
+onChangeWorkstate</H3>
+<PRE>
+protected void <B>onChangeWorkstate</B>(<A HREF="../../../../../../../com/technology/jep/jepria/client/ui/WorkstateEnum.html" title="enum in com.technology.jep.jepria.client.ui">WorkstateEnum</A>&nbsp;workstate)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Overrides:</B><DD><CODE><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/JepPresenter.html#onChangeWorkstate(com.technology.jep.jepria.client.ui.WorkstateEnum)">onChangeWorkstate</A></CODE> in class <CODE><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/JepPresenter.html" title="class in com.technology.jep.jepria.client.ui">JepPresenter</A>&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/ui/plain/PlainModulePresenter.html" title="type parameter in PlainModulePresenter">E</A> extends <A HREF="../../../../../../../com/technology/jep/jepria/client/ui/eventbus/plain/PlainEventBus.html" title="class in com.technology.jep.jepria.client.ui.eventbus.plain">PlainEventBus</A>,<A HREF="../../../../../../../com/technology/jep/jepria/client/ui/plain/PlainModulePresenter.html" title="type parameter in PlainModulePresenter">F</A> extends <A HREF="../../../../../../../com/technology/jep/jepria/client/ui/plain/PlainClientFactory.html" title="interface in com.technology.jep.jepria.client.ui.plain">PlainClientFactory</A>&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/ui/plain/PlainModulePresenter.html" title="type parameter in PlainModulePresenter">E</A>,<A HREF="../../../../../../../com/technology/jep/jepria/client/ui/plain/PlainModulePresenter.html" title="type parameter in PlainModulePresenter">S</A>&gt;&gt;</CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="fillList(com.technology.jep.jepria.client.history.scope.JepScope)"><!-- --></A><H3>
+fillList</H3>
+<PRE>
+protected void <B>fillList</B>(<A HREF="../../../../../../../com/technology/jep/jepria/client/history/scope/JepScope.html" title="class in com.technology.jep.jepria.client.history.scope">JepScope</A>&nbsp;scope)</PRE>
+<DL>
+<DD>Заполнение списка списочной формы на основе данных History (на основе шаблона поиска).
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>scope</CODE> - заданный уровень иерархии (History)</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="fillFields(com.technology.jep.jepria.client.history.scope.JepScope)"><!-- --></A><H3>
+fillFields</H3>
+<PRE>
+protected void <B>fillFields</B>(<A HREF="../../../../../../../com/technology/jep/jepria/client/history/scope/JepScope.html" title="class in com.technology.jep.jepria.client.history.scope">JepScope</A>&nbsp;scope)</PRE>
+<DL>
+<DD>Заполнение полей детальной формы на основе данных History (на основе первичного ключа).
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>scope</CODE> - заданный уровень иерархии (History)</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="onSetCurrentRecord(com.technology.jep.jepria.client.ui.eventbus.plain.event.SetCurrentRecordEvent)"><!-- --></A><H3>
+onSetCurrentRecord</H3>
+<PRE>
+public void <B>onSetCurrentRecord</B>(<A HREF="../../../../../../../com/technology/jep/jepria/client/ui/eventbus/plain/event/SetCurrentRecordEvent.html" title="class in com.technology.jep.jepria.client.ui.eventbus.plain.event">SetCurrentRecordEvent</A>&nbsp;event)</PRE>
+<DL>
+<DD>Обработчик события установки (выбора) текущей записи.<br/>
+ 
+ Особенности:<br/>
+ Сохраняет текущую запись в качестве первичного ключа в History.
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/eventbus/plain/event/SetCurrentRecordEvent.Handler.html#onSetCurrentRecord(com.technology.jep.jepria.client.ui.eventbus.plain.event.SetCurrentRecordEvent)">onSetCurrentRecord</A></CODE> in interface <CODE><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/eventbus/plain/event/SetCurrentRecordEvent.Handler.html" title="interface in com.technology.jep.jepria.client.ui.eventbus.plain.event">SetCurrentRecordEvent.Handler</A></CODE></DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>event</CODE> - событие установки (выбора) текущей записи</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="onPrepareReport(com.technology.jep.jepria.client.ui.eventbus.plain.event.PrepareReportEvent)"><!-- --></A><H3>
+onPrepareReport</H3>
+<PRE>
+public void <B>onPrepareReport</B>(<A HREF="../../../../../../../com/technology/jep/jepria/client/ui/eventbus/plain/event/PrepareReportEvent.html" title="class in com.technology.jep.jepria.client.ui.eventbus.plain.event">PrepareReportEvent</A>&nbsp;event)</PRE>
+<DL>
+<DD><B>Description copied from interface: <CODE><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/eventbus/plain/event/PrepareReportEvent.Handler.html#onPrepareReport(com.technology.jep.jepria.client.ui.eventbus.plain.event.PrepareReportEvent)">PrepareReportEvent.Handler</A></CODE></B></DD>
+<DD>Called when a <A HREF="../../../../../../../com/technology/jep/jepria/client/ui/eventbus/plain/event/PrepareReportEvent.html" title="class in com.technology.jep.jepria.client.ui.eventbus.plain.event"><CODE>PrepareReportEvent</CODE></A> is fired.
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/eventbus/plain/event/PrepareReportEvent.Handler.html#onPrepareReport(com.technology.jep.jepria.client.ui.eventbus.plain.event.PrepareReportEvent)">onPrepareReport</A></CODE> in interface <CODE><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/eventbus/plain/event/PrepareReportEvent.Handler.html" title="interface in com.technology.jep.jepria.client.ui.eventbus.plain.event">PrepareReportEvent.Handler</A></CODE></DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>event</CODE> - the <A HREF="../../../../../../../com/technology/jep/jepria/client/ui/eventbus/plain/event/PrepareReportEvent.html" title="class in com.technology.jep.jepria.client.ui.eventbus.plain.event"><CODE>PrepareReportEvent</CODE></A></DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="buildReportParametersFromRecord(com.technology.jep.jepria.shared.report.JepReportParameters, com.technology.jep.jepria.shared.record.JepRecord)"><!-- --></A><H3>
+buildReportParametersFromRecord</H3>
+<PRE>
+protected void <B>buildReportParametersFromRecord</B>(<A HREF="../../../../../../../com/technology/jep/jepria/shared/report/JepReportParameters.html" title="class in com.technology.jep.jepria.shared.report">JepReportParameters</A>&nbsp;reportParameters,
+                                               <A HREF="../../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</A>&nbsp;record)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<!-- ========= END OF CLASS DATA ========= -->
+<HR>
+
+
+<!-- ======= START OF BOTTOM NAVBAR ====== -->
+<A NAME="navbar_bottom"><!-- --></A>
+<A HREF="#skip-navbar_bottom" title="Skip navigation links"></A>
+<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
+<TR>
+<TD COLSPAN=2 BGCOLOR="#EEEEFF" CLASS="NavBarCell1">
+<A NAME="navbar_bottom_firstrow"><!-- --></A>
+<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3" SUMMARY="">
+  <TR ALIGN="center" VALIGN="top">
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-summary.html"><FONT CLASS="NavBarFont1"><B>Package</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../index-all.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../help-doc.html"><FONT CLASS="NavBarFont1"><B>Help</B></FONT></A>&nbsp;</TD>
+  </TR>
+</TABLE>
+</TD>
+<TD ALIGN="right" VALIGN="top" ROWSPAN=3><EM>
+</EM>
+</TD>
+</TR>
+
+<TR>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+&nbsp;<A HREF="../../../../../../../com/technology/jep/jepria/client/ui/plain/PlainClientFactoryImpl.html" title="class in com.technology.jep.jepria.client.ui.plain"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../../../../../com/technology/jep/jepria/client/ui/plain/PlainModuleView.html" title="interface in com.technology.jep.jepria.client.ui.plain"><B>NEXT CLASS</B></A></FONT></TD>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+  <A HREF="../../../../../../../index.html?com/technology/jep/jepria/client/ui/plain/PlainModulePresenter.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="PlainModulePresenter.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+&nbsp;<SCRIPT type="text/javascript">
+  <!--
+  if(window==top) {
+    document.writeln('<A HREF="../../../../../../../allclasses-noframe.html"><B>All Classes</B></A>');
+  }
+  //-->
+</SCRIPT>
+<NOSCRIPT>
+  <A HREF="../../../../../../../allclasses-noframe.html"><B>All Classes</B></A>
+</NOSCRIPT>
+
+
+</FONT></TD>
+</TR>
+<TR>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+  SUMMARY:&nbsp;NESTED&nbsp;|&nbsp;<A HREF="#field_summary">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
+</TR>
+</TABLE>
+<A NAME="skip-navbar_bottom"></A>
+<!-- ======== END OF BOTTOM NAVBAR ======= -->
+
+<HR>
+
+</BODY>
+</HTML>

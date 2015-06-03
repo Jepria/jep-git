@@ -1,0 +1,1365 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!--NewPage-->
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<TITLE>
+DualListBox (JepRia JavaDoc)
+</TITLE>
+
+
+<LINK REL ="stylesheet" TYPE="text/css" HREF="../../../../../../../stylesheet.css" TITLE="Style">
+
+<SCRIPT type="text/javascript">
+function windowTitle()
+{
+    if (location.href.indexOf('is-external=true') == -1) {
+        parent.document.title="DualListBox (JepRia JavaDoc)";
+    }
+}
+</SCRIPT>
+<NOSCRIPT>
+</NOSCRIPT>
+
+</HEAD>
+
+<BODY BGCOLOR="white" onload="windowTitle();">
+<HR>
+
+
+<!-- ========= START OF TOP NAVBAR ======= -->
+<A NAME="navbar_top"><!-- --></A>
+<A HREF="#skip-navbar_top" title="Skip navigation links"></A>
+<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
+<TR>
+<TD COLSPAN=2 BGCOLOR="#EEEEFF" CLASS="NavBarCell1">
+<A NAME="navbar_top_firstrow"><!-- --></A>
+<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3" SUMMARY="">
+  <TR ALIGN="center" VALIGN="top">
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-summary.html"><FONT CLASS="NavBarFont1"><B>Package</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../index-all.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../help-doc.html"><FONT CLASS="NavBarFont1"><B>Help</B></FONT></A>&nbsp;</TD>
+  </TR>
+</TABLE>
+</TD>
+<TD ALIGN="right" VALIGN="top" ROWSPAN=3><EM>
+</EM>
+</TD>
+</TR>
+
+<TR>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+&nbsp;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.SuggestionMenuItem.html" title="class in com.technology.jep.jepria.client.widget.field"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/FieldManager.html" title="class in com.technology.jep.jepria.client.widget.field"><B>NEXT CLASS</B></A></FONT></TD>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+  <A HREF="../../../../../../../index.html?com/technology/jep/jepria/client/widget/field/DualListBox.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="DualListBox.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+&nbsp;<SCRIPT type="text/javascript">
+  <!--
+  if(window==top) {
+    document.writeln('<A HREF="../../../../../../../allclasses-noframe.html"><B>All Classes</B></A>');
+  }
+  //-->
+</SCRIPT>
+<NOSCRIPT>
+  <A HREF="../../../../../../../allclasses-noframe.html"><B>All Classes</B></A>
+</NOSCRIPT>
+
+
+</FONT></TD>
+</TR>
+<TR>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+  SUMMARY:&nbsp;<A HREF="#nested_classes_inherited_from_class_com.google.gwt.user.client.ui.UIObject">NESTED</A>&nbsp;|&nbsp;<A HREF="#field_summary">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
+</TR>
+</TABLE>
+<A NAME="skip-navbar_top"></A>
+<!-- ========= END OF TOP NAVBAR ========= -->
+
+<HR>
+<!-- ======== START OF CLASS DATA ======== -->
+<H2>
+<FONT SIZE="-1">
+com.technology.jep.jepria.client.widget.field</FONT>
+<BR>
+Class DualListBox</H2>
+<PRE>
+java.lang.Object
+  <IMG SRC="../../../../../../../resources/inherit.gif" ALT="extended by ">com.google.gwt.user.client.ui.UIObject
+      <IMG SRC="../../../../../../../resources/inherit.gif" ALT="extended by ">com.google.gwt.user.client.ui.Widget
+          <IMG SRC="../../../../../../../resources/inherit.gif" ALT="extended by ">com.google.gwt.user.client.ui.Composite
+              <IMG SRC="../../../../../../../resources/inherit.gif" ALT="extended by "><B>com.technology.jep.jepria.client.widget.field.DualListBox</B>
+</PRE>
+<DL>
+<DT><B>All Implemented Interfaces:</B> <DD>com.google.gwt.event.logical.shared.HasAttachHandlers, com.google.gwt.event.logical.shared.HasValueChangeHandlers&lt;java.util.List&lt;<A HREF="../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A>&gt;&gt;, com.google.gwt.event.shared.HasHandlers, com.google.gwt.user.client.EventListener, com.google.gwt.user.client.ui.HasVisibility, com.google.gwt.user.client.ui.HasWidgets, com.google.gwt.user.client.ui.IsRenderable, com.google.gwt.user.client.ui.IsWidget, java.lang.Iterable&lt;com.google.gwt.user.client.ui.Widget&gt;</DD>
+</DL>
+<HR>
+<DL>
+<DT><PRE>public class <B>DualListBox</B><DT>extends com.google.gwt.user.client.ui.Composite<DT>implements com.google.gwt.user.client.ui.HasWidgets, com.google.gwt.event.logical.shared.HasValueChangeHandlers&lt;java.util.List&lt;<A HREF="../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A>&gt;&gt;</DL>
+</PRE>
+
+<P>
+Компонент редактирования для поля <A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepDualListField.html" title="class in com.technology.jep.jepria.client.widget.field.multistate"><CODE>JepDualListField</CODE></A>.
+ Представляет собой два списка. Левый список содержит список опций, правый - список выбранных
+ опций. Элементы перемещаются между списками либо с помощью расположенного между списками 
+ блока кнопок, либо двойным кликом.
+<P>
+
+<P>
+<HR>
+
+<P>
+<!-- ======== NESTED CLASS SUMMARY ======== -->
+
+<A NAME="nested_class_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Nested Class Summary</B></FONT></TH>
+</TR>
+</TABLE>
+&nbsp;<A NAME="nested_classes_inherited_from_class_com.google.gwt.user.client.ui.UIObject"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Nested classes/interfaces inherited from class com.google.gwt.user.client.ui.UIObject</B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE>com.google.gwt.user.client.ui.UIObject.DebugIdImpl, com.google.gwt.user.client.ui.UIObject.DebugIdImplEnabled</CODE></TD>
+</TR>
+</TABLE>
+&nbsp;
+<A NAME="nested_classes_inherited_from_class_com.google.gwt.user.client.ui.HasWidgets"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Nested classes/interfaces inherited from interface com.google.gwt.user.client.ui.HasWidgets</B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE>com.google.gwt.user.client.ui.HasWidgets.ForIsWidget</CODE></TD>
+</TR>
+</TABLE>
+&nbsp;
+<!-- =========== FIELD SUMMARY =========== -->
+
+<A NAME="field_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Field Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;int</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/DualListBox.html#BUTTON_PANEL_WIDTH">BUTTON_PANEL_WIDTH</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ширина центральной панели с кнопками.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private static&nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/DualListBox.html#DUAL_LIST_BOX_STYLE">DUAL_LIST_BOX_STYLE</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Наименование CSS-стиля для данного компонента.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private static&nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/DualListBox.html#DUALLIST_MOVE_ALL_LEFT_BUTTON_ID">DUALLIST_MOVE_ALL_LEFT_BUTTON_ID</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private static&nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/DualListBox.html#DUALLIST_MOVE_ALL_RIGHT_BUTTON_ID">DUALLIST_MOVE_ALL_RIGHT_BUTTON_ID</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private static&nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/DualListBox.html#DUALLIST_MOVE_LEFT_BUTTON_ID">DUALLIST_MOVE_LEFT_BUTTON_ID</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private static&nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/DualListBox.html#DUALLIST_MOVE_RIGHT_BUTTON_ID">DUALLIST_MOVE_RIGHT_BUTTON_ID</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;int</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/DualListBox.html#fieldId">fieldId</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Идентификатор поля - случайное значение.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;java.util.Map&lt;java.lang.String,<A HREF="../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/DualListBox.html#idToOption">idToOption</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Хэш таблица ключ-опция.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;int</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/DualListBox.html#inc">inc</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Счётчик опций поля.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;com.google.gwt.user.client.ui.ListBox</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/DualListBox.html#left">left</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Левый список опций.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/button/JepButton.html" title="class in com.technology.jep.jepria.client.widget.button">JepButton</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/DualListBox.html#moveAllLeft">moveAllLeft</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Кнопка переноса всех элементов в левый список.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/button/JepButton.html" title="class in com.technology.jep.jepria.client.widget.button">JepButton</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/DualListBox.html#moveAllRight">moveAllRight</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Кнопка переноса всех элементов в правый список.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/button/JepButton.html" title="class in com.technology.jep.jepria.client.widget.button">JepButton</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/DualListBox.html#moveLeft">moveLeft</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Кнопка переноса элемента из правого списка в левый.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/button/JepButton.html" title="class in com.technology.jep.jepria.client.widget.button">JepButton</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/DualListBox.html#moveRight">moveRight</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Кнопка переноса элемента из левого списка в правый.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;java.util.Comparator&lt;<A HREF="../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/DualListBox.html#optionComparator">optionComparator</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Компаратор, сравнивающий опции при добавлении элементов в левый и правый список.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;java.util.List&lt;<A HREF="../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/DualListBox.html#options">options</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Текущий список опций.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;java.util.Map&lt;<A HREF="../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A>,java.lang.String&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/DualListBox.html#optionToId">optionToId</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Хэш-таблица опция-ключ.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;com.google.gwt.user.client.ui.HorizontalPanel</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/DualListBox.html#panel">panel</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Панель, на которой располагаются компоненты виджета.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;com.google.gwt.user.client.ui.ListBox</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/DualListBox.html#right">right</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Правый список опций.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;java.util.List&lt;<A HREF="../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/DualListBox.html#value">value</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Список выбранных опций (значение поля).</TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="fields_inherited_from_class_com.google.gwt.user.client.ui.UIObject"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Fields inherited from class com.google.gwt.user.client.ui.UIObject</B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE>DEBUG_ID_PREFIX</CODE></TD>
+</TR>
+</TABLE>
+&nbsp;
+<!-- ======== CONSTRUCTOR SUMMARY ======== -->
+
+<A NAME="constructor_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Constructor Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/DualListBox.html#DualListBox()">DualListBox</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;
+<!-- ========== METHOD SUMMARY =========== -->
+
+<A NAME="method_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Method Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/DualListBox.html#add(com.google.gwt.user.client.ui.Widget)">add</A></B>(com.google.gwt.user.client.ui.Widget&nbsp;w)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/DualListBox.html#addItem(com.google.gwt.user.client.ui.ListBox, com.technology.jep.jepria.shared.field.option.JepOption, java.lang.String)">addItem</A></B>(com.google.gwt.user.client.ui.ListBox&nbsp;listBox,
+        <A HREF="../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A>&nbsp;item,
+        java.lang.String&nbsp;value)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Служебный метод, добавляющий элемент в список.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;com.google.gwt.event.shared.HandlerRegistration</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/DualListBox.html#addValueChangeHandler(com.google.gwt.event.logical.shared.ValueChangeHandler)">addValueChangeHandler</A></B>(com.google.gwt.event.logical.shared.ValueChangeHandler&lt;java.util.List&lt;<A HREF="../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A>&gt;&gt;&nbsp;handler)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/DualListBox.html#clear()">clear</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Метод не поддерживается.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;java.util.List&lt;<A HREF="../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/DualListBox.html#getItems(com.google.gwt.user.client.ui.ListBox)">getItems</A></B>(com.google.gwt.user.client.ui.ListBox&nbsp;listBox)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Служебный метод, позволяющий получить список содержащихся в списке опций.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/DualListBox.html#getItemTitle(com.technology.jep.jepria.shared.field.option.JepOption)">getItemTitle</A></B>(<A HREF="../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A>&nbsp;option)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Формирование всплывающей подсказки для опции.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/DualListBox.html#getKey()">getKey</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Генерирует ключ для опции.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;java.util.List&lt;<A HREF="../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/DualListBox.html#getSelectedItems(com.google.gwt.user.client.ui.ListBox)">getSelectedItems</A></B>(com.google.gwt.user.client.ui.ListBox&nbsp;listBox)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Служебный метод, позволяющий получить список выбранных опций в списке.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;java.util.List&lt;<A HREF="../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/DualListBox.html#getValue()">getValue</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Получение списка выбранных опций (значения).</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;java.util.Iterator&lt;com.google.gwt.user.client.ui.Widget&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/DualListBox.html#iterator()">iterator</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Метод не поддерживается.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/DualListBox.html#moveLeft(com.technology.jep.jepria.shared.field.option.JepOption)">moveLeft</A></B>(<A HREF="../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A>&nbsp;option)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Перенос опции в левый список.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/DualListBox.html#moveRight(com.technology.jep.jepria.shared.field.option.JepOption)">moveRight</A></B>(<A HREF="../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A>&nbsp;option)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Перенос опции в правый список.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/DualListBox.html#onMoveAllLeft()">onMoveAllLeft</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Действие по нажатию на кнопку переноса всех опций в левый список.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/DualListBox.html#onMoveAllRight()">onMoveAllRight</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Действие по нажатию на кнопку переноса всех опций в правый список.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/DualListBox.html#onMoveLeft()">onMoveLeft</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Действие по нажатию на кнопку переноса выбранных в правом списке опций в левый.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/DualListBox.html#onMoveRight()">onMoveRight</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Действие по нажатию на кнопку переноса выбранных в левом списке опций в правый.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/DualListBox.html#remove(com.google.gwt.user.client.ui.Widget)">remove</A></B>(com.google.gwt.user.client.ui.Widget&nbsp;w)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private static&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/DualListBox.html#removeByValue(com.google.gwt.user.client.ui.ListBox, java.lang.String)">removeByValue</A></B>(com.google.gwt.user.client.ui.ListBox&nbsp;listBox,
+              java.lang.String&nbsp;value)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Служебный метод, удаляющий элемент из компонента <CODE>ListBox</CODE> по его значению (value).</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/DualListBox.html#setEnabled(boolean)">setEnabled</A></B>(boolean&nbsp;enabled)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Установка доступности или недоступности компонента.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/DualListBox.html#setHeight(java.lang.String)">setHeight</A></B>(java.lang.String&nbsp;height)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Установка высоты компонента.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private static&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/DualListBox.html#setItemTitle(com.google.gwt.user.client.ui.ListBox, java.lang.String, java.lang.String)">setItemTitle</A></B>(com.google.gwt.user.client.ui.ListBox&nbsp;listBox,
+             java.lang.String&nbsp;value,
+             java.lang.String&nbsp;title)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Служебный метод, устанавливающий подсказку для элемента компонента по его значению (value).</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/DualListBox.html#setListBoxWidth(java.lang.String)">setListBoxWidth</A></B>(java.lang.String&nbsp;width)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Установка ширины списков.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/DualListBox.html#setOptionComparator(java.util.Comparator)">setOptionComparator</A></B>(java.util.Comparator&lt;<A HREF="../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A>&gt;&nbsp;comparator)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Установка компаратора, сравнивающего добавляемые в списки элементы.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/DualListBox.html#setOptions(java.util.List)">setOptions</A></B>(java.util.List&lt;<A HREF="../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A>&gt;&nbsp;optionList)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Установка списка доступных опций.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/DualListBox.html#setValue(java.util.List)">setValue</A></B>(java.util.List&lt;<A HREF="../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A>&gt;&nbsp;value)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Установка списка выбранных опций (значения поля).</TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_com.google.gwt.user.client.ui.Composite"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from class com.google.gwt.user.client.ui.Composite</B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE>claimElement, getWidget, initializeClaimedElement, initWidget, isAttached, onAttach, onBrowserEvent, onDetach, render, render, resolvePotentialElement, setWidget</CODE></TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_com.google.gwt.user.client.ui.Widget"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from class com.google.gwt.user.client.ui.Widget</B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE>addAttachHandler, addBitlessDomHandler, addDomHandler, addHandler, asWidget, asWidgetOrNull, createHandlerManager, delegateEvent, doAttachChildren, doDetachChildren, fireEvent, getHandlerCount, getLayoutData, getParent, isOrWasAttached, onLoad, onUnload, removeFromParent, setLayoutData, sinkEvents, unsinkEvents</CODE></TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_com.google.gwt.user.client.ui.UIObject"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from class com.google.gwt.user.client.ui.UIObject</B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE>addStyleDependentName, addStyleName, ensureDebugId, ensureDebugId, ensureDebugId, getAbsoluteLeft, getAbsoluteTop, getElement, getOffsetHeight, getOffsetWidth, getStyleElement, getStyleName, getStyleName, getStylePrimaryName, getStylePrimaryName, getTitle, isVisible, isVisible, onEnsureDebugId, removeStyleDependentName, removeStyleName, setElement, setElement, setPixelSize, setSize, setStyleDependentName, setStyleName, setStyleName, setStyleName, setStyleName, setStylePrimaryName, setStylePrimaryName, setTitle, setVisible, setVisible, setWidth, sinkBitlessEvent, toString</CODE></TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from class java.lang.Object</B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE>clone, equals, finalize, getClass, hashCode, notify, notifyAll, wait, wait, wait</CODE></TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_com.google.gwt.event.shared.HasHandlers"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from interface com.google.gwt.event.shared.HasHandlers</B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE>fireEvent</CODE></TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
+<!-- ============ FIELD DETAIL =========== -->
+
+<A NAME="field_detail"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
+<B>Field Detail</B></FONT></TH>
+</TR>
+</TABLE>
+
+<A NAME="DUALLIST_MOVE_RIGHT_BUTTON_ID"><!-- --></A><H3>
+DUALLIST_MOVE_RIGHT_BUTTON_ID</H3>
+<PRE>
+private static final java.lang.String <B>DUALLIST_MOVE_RIGHT_BUTTON_ID</B></PRE>
+<DL>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../../../constant-values.html#com.technology.jep.jepria.client.widget.field.DualListBox.DUALLIST_MOVE_RIGHT_BUTTON_ID">Constant Field Values</A></DL>
+</DL>
+<HR>
+
+<A NAME="DUALLIST_MOVE_LEFT_BUTTON_ID"><!-- --></A><H3>
+DUALLIST_MOVE_LEFT_BUTTON_ID</H3>
+<PRE>
+private static final java.lang.String <B>DUALLIST_MOVE_LEFT_BUTTON_ID</B></PRE>
+<DL>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../../../constant-values.html#com.technology.jep.jepria.client.widget.field.DualListBox.DUALLIST_MOVE_LEFT_BUTTON_ID">Constant Field Values</A></DL>
+</DL>
+<HR>
+
+<A NAME="DUALLIST_MOVE_ALL_RIGHT_BUTTON_ID"><!-- --></A><H3>
+DUALLIST_MOVE_ALL_RIGHT_BUTTON_ID</H3>
+<PRE>
+private static final java.lang.String <B>DUALLIST_MOVE_ALL_RIGHT_BUTTON_ID</B></PRE>
+<DL>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../../../constant-values.html#com.technology.jep.jepria.client.widget.field.DualListBox.DUALLIST_MOVE_ALL_RIGHT_BUTTON_ID">Constant Field Values</A></DL>
+</DL>
+<HR>
+
+<A NAME="DUALLIST_MOVE_ALL_LEFT_BUTTON_ID"><!-- --></A><H3>
+DUALLIST_MOVE_ALL_LEFT_BUTTON_ID</H3>
+<PRE>
+private static final java.lang.String <B>DUALLIST_MOVE_ALL_LEFT_BUTTON_ID</B></PRE>
+<DL>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../../../constant-values.html#com.technology.jep.jepria.client.widget.field.DualListBox.DUALLIST_MOVE_ALL_LEFT_BUTTON_ID">Constant Field Values</A></DL>
+</DL>
+<HR>
+
+<A NAME="BUTTON_PANEL_WIDTH"><!-- --></A><H3>
+BUTTON_PANEL_WIDTH</H3>
+<PRE>
+public static final int <B>BUTTON_PANEL_WIDTH</B></PRE>
+<DL>
+<DD>Ширина центральной панели с кнопками.
+<P>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../../../constant-values.html#com.technology.jep.jepria.client.widget.field.DualListBox.BUTTON_PANEL_WIDTH">Constant Field Values</A></DL>
+</DL>
+<HR>
+
+<A NAME="DUAL_LIST_BOX_STYLE"><!-- --></A><H3>
+DUAL_LIST_BOX_STYLE</H3>
+<PRE>
+private static final java.lang.String <B>DUAL_LIST_BOX_STYLE</B></PRE>
+<DL>
+<DD>Наименование CSS-стиля для данного компонента.
+<P>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../../../constant-values.html#com.technology.jep.jepria.client.widget.field.DualListBox.DUAL_LIST_BOX_STYLE">Constant Field Values</A></DL>
+</DL>
+<HR>
+
+<A NAME="fieldId"><!-- --></A><H3>
+fieldId</H3>
+<PRE>
+private final int <B>fieldId</B></PRE>
+<DL>
+<DD>Идентификатор поля - случайное значение.<br>
+ Используется для формирования ключа опций.
+<P>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="inc"><!-- --></A><H3>
+inc</H3>
+<PRE>
+private int <B>inc</B></PRE>
+<DL>
+<DD>Счётчик опций поля.<br>
+ Используется для формирования ключа опций.
+<P>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="panel"><!-- --></A><H3>
+panel</H3>
+<PRE>
+private final com.google.gwt.user.client.ui.HorizontalPanel <B>panel</B></PRE>
+<DL>
+<DD>Панель, на которой располагаются компоненты виджета.
+<P>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="left"><!-- --></A><H3>
+left</H3>
+<PRE>
+private final com.google.gwt.user.client.ui.ListBox <B>left</B></PRE>
+<DL>
+<DD>Левый список опций.
+<P>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="right"><!-- --></A><H3>
+right</H3>
+<PRE>
+private final com.google.gwt.user.client.ui.ListBox <B>right</B></PRE>
+<DL>
+<DD>Правый список опций.
+<P>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="moveRight"><!-- --></A><H3>
+moveRight</H3>
+<PRE>
+private final <A HREF="../../../../../../../com/technology/jep/jepria/client/widget/button/JepButton.html" title="class in com.technology.jep.jepria.client.widget.button">JepButton</A> <B>moveRight</B></PRE>
+<DL>
+<DD>Кнопка переноса элемента из левого списка в правый.
+<P>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="moveLeft"><!-- --></A><H3>
+moveLeft</H3>
+<PRE>
+private final <A HREF="../../../../../../../com/technology/jep/jepria/client/widget/button/JepButton.html" title="class in com.technology.jep.jepria.client.widget.button">JepButton</A> <B>moveLeft</B></PRE>
+<DL>
+<DD>Кнопка переноса элемента из правого списка в левый.
+<P>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="moveAllRight"><!-- --></A><H3>
+moveAllRight</H3>
+<PRE>
+private final <A HREF="../../../../../../../com/technology/jep/jepria/client/widget/button/JepButton.html" title="class in com.technology.jep.jepria.client.widget.button">JepButton</A> <B>moveAllRight</B></PRE>
+<DL>
+<DD>Кнопка переноса всех элементов в правый список.
+<P>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="moveAllLeft"><!-- --></A><H3>
+moveAllLeft</H3>
+<PRE>
+private final <A HREF="../../../../../../../com/technology/jep/jepria/client/widget/button/JepButton.html" title="class in com.technology.jep.jepria.client.widget.button">JepButton</A> <B>moveAllLeft</B></PRE>
+<DL>
+<DD>Кнопка переноса всех элементов в левый список.
+<P>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="optionComparator"><!-- --></A><H3>
+optionComparator</H3>
+<PRE>
+private java.util.Comparator&lt;<A HREF="../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A>&gt; <B>optionComparator</B></PRE>
+<DL>
+<DD>Компаратор, сравнивающий опции при добавлении элементов в левый и правый список.
+ По умолчанию сравнение осуществляется по имени опции без учёта регистра.
+<P>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="options"><!-- --></A><H3>
+options</H3>
+<PRE>
+private java.util.List&lt;<A HREF="../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A>&gt; <B>options</B></PRE>
+<DL>
+<DD>Текущий список опций.
+<P>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="value"><!-- --></A><H3>
+value</H3>
+<PRE>
+private java.util.List&lt;<A HREF="../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A>&gt; <B>value</B></PRE>
+<DL>
+<DD>Список выбранных опций (значение поля).
+<P>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="idToOption"><!-- --></A><H3>
+idToOption</H3>
+<PRE>
+private java.util.Map&lt;java.lang.String,<A HREF="../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A>&gt; <B>idToOption</B></PRE>
+<DL>
+<DD>Хэш таблица ключ-опция.
+<P>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="optionToId"><!-- --></A><H3>
+optionToId</H3>
+<PRE>
+private java.util.Map&lt;<A HREF="../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A>,java.lang.String&gt; <B>optionToId</B></PRE>
+<DL>
+<DD>Хэш-таблица опция-ключ.
+<P>
+<DL>
+</DL>
+</DL>
+
+<!-- ========= CONSTRUCTOR DETAIL ======== -->
+
+<A NAME="constructor_detail"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
+<B>Constructor Detail</B></FONT></TH>
+</TR>
+</TABLE>
+
+<A NAME="DualListBox()"><!-- --></A><H3>
+DualListBox</H3>
+<PRE>
+public <B>DualListBox</B>()</PRE>
+<DL>
+</DL>
+
+<!-- ============ METHOD DETAIL ========== -->
+
+<A NAME="method_detail"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
+<B>Method Detail</B></FONT></TH>
+</TR>
+</TABLE>
+
+<A NAME="add(com.google.gwt.user.client.ui.Widget)"><!-- --></A><H3>
+add</H3>
+<PRE>
+public void <B>add</B>(com.google.gwt.user.client.ui.Widget&nbsp;w)</PRE>
+<DL>
+<DD>
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE>add</CODE> in interface <CODE>com.google.gwt.user.client.ui.HasWidgets</CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="addValueChangeHandler(com.google.gwt.event.logical.shared.ValueChangeHandler)"><!-- --></A><H3>
+addValueChangeHandler</H3>
+<PRE>
+public com.google.gwt.event.shared.HandlerRegistration <B>addValueChangeHandler</B>(com.google.gwt.event.logical.shared.ValueChangeHandler&lt;java.util.List&lt;<A HREF="../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A>&gt;&gt;&nbsp;handler)</PRE>
+<DL>
+<DD>
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE>addValueChangeHandler</CODE> in interface <CODE>com.google.gwt.event.logical.shared.HasValueChangeHandlers&lt;java.util.List&lt;<A HREF="../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A>&gt;&gt;</CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="clear()"><!-- --></A><H3>
+clear</H3>
+<PRE>
+public void <B>clear</B>()</PRE>
+<DL>
+<DD>Метод не поддерживается.
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE>clear</CODE> in interface <CODE>com.google.gwt.user.client.ui.HasWidgets</CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getItemTitle(com.technology.jep.jepria.shared.field.option.JepOption)"><!-- --></A><H3>
+getItemTitle</H3>
+<PRE>
+public java.lang.String <B>getItemTitle</B>(<A HREF="../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A>&nbsp;option)</PRE>
+<DL>
+<DD>Формирование всплывающей подсказки для опции.<br>
+ По умолчанию в качестве всплывающей подсказки используется имя.
+ Если необходимо иначе сформировать подсказку, данный метод
+ требуется переопределить в классе-наследнике.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>option</CODE> - опция
+<DT><B>Returns:</B><DD>всплывающая подсказка</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getValue()"><!-- --></A><H3>
+getValue</H3>
+<PRE>
+public java.util.List&lt;<A HREF="../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A>&gt; <B>getValue</B>()</PRE>
+<DL>
+<DD>Получение списка выбранных опций (значения).
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>список выбранных опций</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setEnabled(boolean)"><!-- --></A><H3>
+setEnabled</H3>
+<PRE>
+public void <B>setEnabled</B>(boolean&nbsp;enabled)</PRE>
+<DL>
+<DD>Установка доступности или недоступности компонента.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>enabled</CODE> - true - компонент доступен, false - компонент заблокирован</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setHeight(java.lang.String)"><!-- --></A><H3>
+setHeight</H3>
+<PRE>
+public void <B>setHeight</B>(java.lang.String&nbsp;height)</PRE>
+<DL>
+<DD>Установка высоты компонента.<br>
+<P>
+<DD><DL>
+<DT><B>Overrides:</B><DD><CODE>setHeight</CODE> in class <CODE>com.google.gwt.user.client.ui.UIObject</CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="iterator()"><!-- --></A><H3>
+iterator</H3>
+<PRE>
+public java.util.Iterator&lt;com.google.gwt.user.client.ui.Widget&gt; <B>iterator</B>()</PRE>
+<DL>
+<DD>Метод не поддерживается.
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE>iterator</CODE> in interface <CODE>com.google.gwt.user.client.ui.HasWidgets</CODE><DT><B>Specified by:</B><DD><CODE>iterator</CODE> in interface <CODE>java.lang.Iterable&lt;com.google.gwt.user.client.ui.Widget&gt;</CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="remove(com.google.gwt.user.client.ui.Widget)"><!-- --></A><H3>
+remove</H3>
+<PRE>
+public boolean <B>remove</B>(com.google.gwt.user.client.ui.Widget&nbsp;w)</PRE>
+<DL>
+<DD>
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE>remove</CODE> in interface <CODE>com.google.gwt.user.client.ui.HasWidgets</CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setListBoxWidth(java.lang.String)"><!-- --></A><H3>
+setListBoxWidth</H3>
+<PRE>
+public void <B>setListBoxWidth</B>(java.lang.String&nbsp;width)</PRE>
+<DL>
+<DD>Установка ширины списков.<br>
+ Ширина для обоих списков устанавливается одинаковая.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>width</CODE> - ширина</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setOptionComparator(java.util.Comparator)"><!-- --></A><H3>
+setOptionComparator</H3>
+<PRE>
+public void <B>setOptionComparator</B>(java.util.Comparator&lt;<A HREF="../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A>&gt;&nbsp;comparator)</PRE>
+<DL>
+<DD>Установка компаратора, сравнивающего добавляемые в списки элементы.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>comparator</CODE> - </DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setOptions(java.util.List)"><!-- --></A><H3>
+setOptions</H3>
+<PRE>
+public void <B>setOptions</B>(java.util.List&lt;<A HREF="../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A>&gt;&nbsp;optionList)</PRE>
+<DL>
+<DD>Установка списка доступных опций.<br>
+ Если среди выбранных опций (в значении поля) присутствуют элементы,
+ отсутствующие в заданном списке, то они также добавляются.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>optionList</CODE> - список опций</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setValue(java.util.List)"><!-- --></A><H3>
+setValue</H3>
+<PRE>
+public void <B>setValue</B>(java.util.List&lt;<A HREF="../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A>&gt;&nbsp;value)</PRE>
+<DL>
+<DD>Установка списка выбранных опций (значения поля).<br>
+ Если переданный список содержит значения, не присутствующие
+ в списке опций компонента, то их копии добавляются в список
+ доступных опций.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>value</CODE> - список выбранных опций</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="addItem(com.google.gwt.user.client.ui.ListBox, com.technology.jep.jepria.shared.field.option.JepOption, java.lang.String)"><!-- --></A><H3>
+addItem</H3>
+<PRE>
+private void <B>addItem</B>(com.google.gwt.user.client.ui.ListBox&nbsp;listBox,
+                     <A HREF="../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A>&nbsp;item,
+                     java.lang.String&nbsp;value)</PRE>
+<DL>
+<DD>Служебный метод, добавляющий элемент в список.<br>
+ При добавлении элементы сортируются с использованием поля <A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/DualListBox.html#optionComparator"><CODE>optionComparator</CODE></A>.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>listBox</CODE> - список<DD><CODE>item</CODE> - добавляемый элемент<DD><CODE>value</CODE> - значение элемента</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getItems(com.google.gwt.user.client.ui.ListBox)"><!-- --></A><H3>
+getItems</H3>
+<PRE>
+private java.util.List&lt;<A HREF="../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A>&gt; <B>getItems</B>(com.google.gwt.user.client.ui.ListBox&nbsp;listBox)</PRE>
+<DL>
+<DD>Служебный метод, позволяющий получить список содержащихся в списке опций.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>listBox</CODE> - список
+<DT><B>Returns:</B><DD>список опций</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getKey()"><!-- --></A><H3>
+getKey</H3>
+<PRE>
+private java.lang.String <B>getKey</B>()</PRE>
+<DL>
+<DD>Генерирует ключ для опции.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>ключ</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getSelectedItems(com.google.gwt.user.client.ui.ListBox)"><!-- --></A><H3>
+getSelectedItems</H3>
+<PRE>
+private java.util.List&lt;<A HREF="../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A>&gt; <B>getSelectedItems</B>(com.google.gwt.user.client.ui.ListBox&nbsp;listBox)</PRE>
+<DL>
+<DD>Служебный метод, позволяющий получить список выбранных опций в списке.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>listBox</CODE> - список
+<DT><B>Returns:</B><DD>список выбранных опций</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="moveLeft(com.technology.jep.jepria.shared.field.option.JepOption)"><!-- --></A><H3>
+moveLeft</H3>
+<PRE>
+private void <B>moveLeft</B>(<A HREF="../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A>&nbsp;option)</PRE>
+<DL>
+<DD>Перенос опции в левый список.<br>
+ Опция исключается из списка выбранных.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>option</CODE> - опция, подлежащая переносу</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="moveRight(com.technology.jep.jepria.shared.field.option.JepOption)"><!-- --></A><H3>
+moveRight</H3>
+<PRE>
+private void <B>moveRight</B>(<A HREF="../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A>&nbsp;option)</PRE>
+<DL>
+<DD>Перенос опции в правый список.<br>
+ Опция добавляется в список выбранных.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>option</CODE> - опция, подлежащая переносу</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="onMoveAllRight()"><!-- --></A><H3>
+onMoveAllRight</H3>
+<PRE>
+private void <B>onMoveAllRight</B>()</PRE>
+<DL>
+<DD>Действие по нажатию на кнопку переноса всех опций в правый список.<br>
+ Поочерёдно переносит все опции из левого списка в правый и генерирует событие
+ <CODE>ValueChangeEvent</CODE>.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="onMoveAllLeft()"><!-- --></A><H3>
+onMoveAllLeft</H3>
+<PRE>
+private void <B>onMoveAllLeft</B>()</PRE>
+<DL>
+<DD>Действие по нажатию на кнопку переноса всех опций в левый список.<br>
+ Поочерёдно переносит все опции из правого списка в левый и генерирует событие
+ <CODE>ValueChangeEvent</CODE>.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="onMoveRight()"><!-- --></A><H3>
+onMoveRight</H3>
+<PRE>
+private void <B>onMoveRight</B>()</PRE>
+<DL>
+<DD>Действие по нажатию на кнопку переноса выбранных в левом списке опций в правый.<br>
+ Поочерёдно переносит выбранные опции из левого списка в правый и генерирует событие
+ <CODE>ValueChangeEvent</CODE>.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="onMoveLeft()"><!-- --></A><H3>
+onMoveLeft</H3>
+<PRE>
+private void <B>onMoveLeft</B>()</PRE>
+<DL>
+<DD>Действие по нажатию на кнопку переноса выбранных в правом списке опций в левый.<br>
+ Поочерёдно переносит выбранные опции из правого списка в левый и генерирует событие
+ <CODE>ValueChangeEvent</CODE>.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="removeByValue(com.google.gwt.user.client.ui.ListBox, java.lang.String)"><!-- --></A><H3>
+removeByValue</H3>
+<PRE>
+private static void <B>removeByValue</B>(com.google.gwt.user.client.ui.ListBox&nbsp;listBox,
+                                  java.lang.String&nbsp;value)</PRE>
+<DL>
+<DD>Служебный метод, удаляющий элемент из компонента <CODE>ListBox</CODE> по его значению (value).
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>listBox</CODE> - компонент<DD><CODE>value</CODE> - значение элемента</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setItemTitle(com.google.gwt.user.client.ui.ListBox, java.lang.String, java.lang.String)"><!-- --></A><H3>
+setItemTitle</H3>
+<PRE>
+private static void <B>setItemTitle</B>(com.google.gwt.user.client.ui.ListBox&nbsp;listBox,
+                                 java.lang.String&nbsp;value,
+                                 java.lang.String&nbsp;title)</PRE>
+<DL>
+<DD>Служебный метод, устанавливающий подсказку для элемента компонента по его значению (value).
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>listBox</CODE> - компонент<DD><CODE>value</CODE> - значение<DD><CODE>title</CODE> - подсказка</DL>
+</DD>
+</DL>
+<!-- ========= END OF CLASS DATA ========= -->
+<HR>
+
+
+<!-- ======= START OF BOTTOM NAVBAR ====== -->
+<A NAME="navbar_bottom"><!-- --></A>
+<A HREF="#skip-navbar_bottom" title="Skip navigation links"></A>
+<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
+<TR>
+<TD COLSPAN=2 BGCOLOR="#EEEEFF" CLASS="NavBarCell1">
+<A NAME="navbar_bottom_firstrow"><!-- --></A>
+<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3" SUMMARY="">
+  <TR ALIGN="center" VALIGN="top">
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-summary.html"><FONT CLASS="NavBarFont1"><B>Package</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../index-all.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../help-doc.html"><FONT CLASS="NavBarFont1"><B>Help</B></FONT></A>&nbsp;</TD>
+  </TR>
+</TABLE>
+</TD>
+<TD ALIGN="right" VALIGN="top" ROWSPAN=3><EM>
+</EM>
+</TD>
+</TR>
+
+<TR>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+&nbsp;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.SuggestionMenuItem.html" title="class in com.technology.jep.jepria.client.widget.field"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/FieldManager.html" title="class in com.technology.jep.jepria.client.widget.field"><B>NEXT CLASS</B></A></FONT></TD>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+  <A HREF="../../../../../../../index.html?com/technology/jep/jepria/client/widget/field/DualListBox.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="DualListBox.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+&nbsp;<SCRIPT type="text/javascript">
+  <!--
+  if(window==top) {
+    document.writeln('<A HREF="../../../../../../../allclasses-noframe.html"><B>All Classes</B></A>');
+  }
+  //-->
+</SCRIPT>
+<NOSCRIPT>
+  <A HREF="../../../../../../../allclasses-noframe.html"><B>All Classes</B></A>
+</NOSCRIPT>
+
+
+</FONT></TD>
+</TR>
+<TR>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+  SUMMARY:&nbsp;<A HREF="#nested_classes_inherited_from_class_com.google.gwt.user.client.ui.UIObject">NESTED</A>&nbsp;|&nbsp;<A HREF="#field_summary">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
+</TR>
+</TABLE>
+<A NAME="skip-navbar_bottom"></A>
+<!-- ======== END OF BOTTOM NAVBAR ======= -->
+
+<HR>
+
+</BODY>
+</HTML>

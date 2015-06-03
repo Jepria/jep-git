@@ -1,0 +1,818 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!--NewPage-->
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<TITLE>
+ExcelReport (JepRia JavaDoc)
+</TITLE>
+
+
+<LINK REL ="stylesheet" TYPE="text/css" HREF="../../../../../../../stylesheet.css" TITLE="Style">
+
+<SCRIPT type="text/javascript">
+function windowTitle()
+{
+    if (location.href.indexOf('is-external=true') == -1) {
+        parent.document.title="ExcelReport (JepRia JavaDoc)";
+    }
+}
+</SCRIPT>
+<NOSCRIPT>
+</NOSCRIPT>
+
+</HEAD>
+
+<BODY BGCOLOR="white" onload="windowTitle();">
+<HR>
+
+
+<!-- ========= START OF TOP NAVBAR ======= -->
+<A NAME="navbar_top"><!-- --></A>
+<A HREF="#skip-navbar_top" title="Skip navigation links"></A>
+<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
+<TR>
+<TD COLSPAN=2 BGCOLOR="#EEEEFF" CLASS="NavBarCell1">
+<A NAME="navbar_top_firstrow"><!-- --></A>
+<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3" SUMMARY="">
+  <TR ALIGN="center" VALIGN="top">
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-summary.html"><FONT CLASS="NavBarFont1"><B>Package</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../index-all.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../help-doc.html"><FONT CLASS="NavBarFont1"><B>Help</B></FONT></A>&nbsp;</TD>
+  </TR>
+</TABLE>
+</TD>
+<TD ALIGN="right" VALIGN="top" ROWSPAN=3><EM>
+</EM>
+</TD>
+</TR>
+
+<TR>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+&nbsp;PREV CLASS&nbsp;
+&nbsp;<A HREF="../../../../../../../com/technology/jep/jepria/server/download/excel/ExcelReportConstant.html" title="class in com.technology.jep.jepria.server.download.excel"><B>NEXT CLASS</B></A></FONT></TD>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+  <A HREF="../../../../../../../index.html?com/technology/jep/jepria/server/download/excel/ExcelReport.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="ExcelReport.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+&nbsp;<SCRIPT type="text/javascript">
+  <!--
+  if(window==top) {
+    document.writeln('<A HREF="../../../../../../../allclasses-noframe.html"><B>All Classes</B></A>');
+  }
+  //-->
+</SCRIPT>
+<NOSCRIPT>
+  <A HREF="../../../../../../../allclasses-noframe.html"><B>All Classes</B></A>
+</NOSCRIPT>
+
+
+</FONT></TD>
+</TR>
+<TR>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+  SUMMARY:&nbsp;NESTED&nbsp;|&nbsp;<A HREF="#field_summary">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
+</TR>
+</TABLE>
+<A NAME="skip-navbar_top"></A>
+<!-- ========= END OF TOP NAVBAR ========= -->
+
+<HR>
+<!-- ======== START OF CLASS DATA ======== -->
+<H2>
+<FONT SIZE="-1">
+com.technology.jep.jepria.server.download.excel</FONT>
+<BR>
+Class ExcelReport</H2>
+<PRE>
+java.lang.Object
+  <IMG SRC="../../../../../../../resources/inherit.gif" ALT="extended by "><B>com.technology.jep.jepria.server.download.excel.ExcelReport</B>
+</PRE>
+<HR>
+<DL>
+<DT><PRE>public class <B>ExcelReport</B><DT>extends java.lang.Object</DL>
+</PRE>
+
+<P>
+Класс, формирующий Excel-отчёт.<br/>
+ Формирует отчёт в формате Excel XML в соответствии с RecordDefinition, списком записей,
+ списком полей и списком имён полей. Если в прикладном модуле необходимо изменить внешний
+ вид отчёта, то это осуществляется посредством перекрытия <core>protected</code>-методов.
+<P>
+
+<P>
+<HR>
+
+<P>
+<!-- =========== FIELD SUMMARY =========== -->
+
+<A NAME="field_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Field Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/server/download/excel/ExcelReport.html#autoFilter">autoFilter</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Флаг, отвечающий за включение/выключение автофильтра.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;java.text.DecimalFormat</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/server/download/excel/ExcelReport.html#decimalFormat">decimalFormat</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Десятичный форат.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;<A HREF="../../../../../../../com/technology/jep/jepria/shared/record/JepRecordDefinition.html" title="class in com.technology.jep.jepria.shared.record">JepRecordDefinition</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/server/download/excel/ExcelReport.html#recordDefinition">recordDefinition</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Определение записи.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;java.util.List&lt;java.lang.String&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/server/download/excel/ExcelReport.html#reportFields">reportFields</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Список идентификаторов полей, используемых для формирования документа.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;java.util.List&lt;java.lang.String&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/server/download/excel/ExcelReport.html#reportHeaders">reportHeaders</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Список имён полей (заголовки таблицы в выгружаемом файле).</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;java.util.ResourceBundle</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/server/download/excel/ExcelReport.html#resourceBundle">resourceBundle</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Resource bundle (необходим для обработки полей типа Boolean).</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;java.util.List&lt;<A HREF="../../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/server/download/excel/ExcelReport.html#resultRecords">resultRecords</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Список записей, на основе которых строится документ.</TD>
+</TR>
+</TABLE>
+&nbsp;
+<!-- ======== CONSTRUCTOR SUMMARY ======== -->
+
+<A NAME="constructor_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Constructor Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/server/download/excel/ExcelReport.html#ExcelReport(com.technology.jep.jepria.shared.record.JepRecordDefinition, java.util.List, java.util.List, java.util.List)">ExcelReport</A></B>(<A HREF="../../../../../../../com/technology/jep/jepria/shared/record/JepRecordDefinition.html" title="class in com.technology.jep.jepria.shared.record">JepRecordDefinition</A>&nbsp;recordDefinition,
+            java.util.List&lt;java.lang.String&gt;&nbsp;reportFields,
+            java.util.List&lt;java.lang.String&gt;&nbsp;reportHeaders,
+            java.util.List&lt;<A HREF="../../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</A>&gt;&nbsp;resultRecords)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Создаёт Excel-отчёт.</TD>
+</TR>
+</TABLE>
+&nbsp;
+<!-- ========== METHOD SUMMARY =========== -->
+
+<A NAME="method_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Method Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/server/download/excel/ExcelReport.html#createAutoFilter()">createAutoFilter</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Создание автофильтра.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/server/download/excel/ExcelReport.html#createBooleanCell(java.lang.Boolean)">createBooleanCell</A></B>(java.lang.Boolean&nbsp;booleanValue)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Создание ячейки с данными булевского типа.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/server/download/excel/ExcelReport.html#createCell(com.technology.jep.jepria.shared.record.JepRecord, java.lang.String)">createCell</A></B>(<A HREF="../../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</A>&nbsp;record,
+           java.lang.String&nbsp;field)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Формирование ячейки на основе записи и имени поля.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/server/download/excel/ExcelReport.html#createColumns()">createColumns</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Создание столбцов.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/server/download/excel/ExcelReport.html#createDataRow(com.technology.jep.jepria.shared.record.JepRecord)">createDataRow</A></B>(<A HREF="../../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</A>&nbsp;record)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Формирование строки с данными.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/server/download/excel/ExcelReport.html#createDateCell(java.util.Date)">createDateCell</A></B>(java.util.Date&nbsp;date)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Создание ячейки с датой.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/server/download/excel/ExcelReport.html#createDateTimeCell(java.util.Date)">createDateTimeCell</A></B>(java.util.Date&nbsp;dateTime)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Создание ячейки с датой и временем.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/server/download/excel/ExcelReport.html#createDecimalCell(java.lang.Number)">createDecimalCell</A></B>(java.lang.Number&nbsp;number)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Создание ячейки с десятичным числом.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/server/download/excel/ExcelReport.html#createDefaultCell(java.lang.Object)">createDefaultCell</A></B>(java.lang.Object&nbsp;value)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Создание ячейки для полей всех прочих типов.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/server/download/excel/ExcelReport.html#createEmptyCell()">createEmptyCell</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Создание пустой ячейки.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/server/download/excel/ExcelReport.html#createHeaderRow()">createHeaderRow</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Создание заголовка таблицы.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/server/download/excel/ExcelReport.html#createIntegerCell(java.lang.Integer)">createIntegerCell</A></B>(java.lang.Integer&nbsp;integerValue)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Создание ячейки с десятичным числом <br/>
+ По умолчанию выводится значение, получаемое с помощью метода <code>toString()</code>.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/server/download/excel/ExcelReport.html#createStyles()">createStyles</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Создание списка стилей.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/server/download/excel/ExcelReport.html#createTimeCell(com.technology.jep.jepria.shared.time.JepTime)">createTimeCell</A></B>(<A HREF="../../../../../../../com/technology/jep/jepria/shared/time/JepTime.html" title="class in com.technology.jep.jepria.shared.time">JepTime</A>&nbsp;time)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Создание ячейки с временем.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/server/download/excel/ExcelReport.html#isAutoFilter()">isAutoFilter</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Возвращает флаг включения автофильтра.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/server/download/excel/ExcelReport.html#print(java.io.PrintWriter)">print</A></B>(java.io.PrintWriter&nbsp;pw)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Вывод документа на печать.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/server/download/excel/ExcelReport.html#setAutoFilter(boolean)">setAutoFilter</A></B>(boolean&nbsp;autoFilter)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Включение или выключение автофильтра.</TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from class java.lang.Object</B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE>clone, equals, finalize, getClass, hashCode, notify, notifyAll, toString, wait, wait, wait</CODE></TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
+<!-- ============ FIELD DETAIL =========== -->
+
+<A NAME="field_detail"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
+<B>Field Detail</B></FONT></TH>
+</TR>
+</TABLE>
+
+<A NAME="recordDefinition"><!-- --></A><H3>
+recordDefinition</H3>
+<PRE>
+protected final <A HREF="../../../../../../../com/technology/jep/jepria/shared/record/JepRecordDefinition.html" title="class in com.technology.jep.jepria.shared.record">JepRecordDefinition</A> <B>recordDefinition</B></PRE>
+<DL>
+<DD>Определение записи.
+<P>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="reportFields"><!-- --></A><H3>
+reportFields</H3>
+<PRE>
+protected final java.util.List&lt;java.lang.String&gt; <B>reportFields</B></PRE>
+<DL>
+<DD>Список идентификаторов полей, используемых для формирования документа.
+<P>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="reportHeaders"><!-- --></A><H3>
+reportHeaders</H3>
+<PRE>
+protected final java.util.List&lt;java.lang.String&gt; <B>reportHeaders</B></PRE>
+<DL>
+<DD>Список имён полей (заголовки таблицы в выгружаемом файле).
+<P>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="resultRecords"><!-- --></A><H3>
+resultRecords</H3>
+<PRE>
+protected final java.util.List&lt;<A HREF="../../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</A>&gt; <B>resultRecords</B></PRE>
+<DL>
+<DD>Список записей, на основе которых строится документ.
+<P>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="resourceBundle"><!-- --></A><H3>
+resourceBundle</H3>
+<PRE>
+protected final java.util.ResourceBundle <B>resourceBundle</B></PRE>
+<DL>
+<DD>Resource bundle (необходим для обработки полей типа Boolean).
+<P>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="decimalFormat"><!-- --></A><H3>
+decimalFormat</H3>
+<PRE>
+protected final java.text.DecimalFormat <B>decimalFormat</B></PRE>
+<DL>
+<DD>Десятичный форат.
+<P>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="autoFilter"><!-- --></A><H3>
+autoFilter</H3>
+<PRE>
+private boolean <B>autoFilter</B></PRE>
+<DL>
+<DD>Флаг, отвечающий за включение/выключение автофильтра.<br/>
+ По умолчанию автофильтр включён.
+<P>
+<DL>
+</DL>
+</DL>
+
+<!-- ========= CONSTRUCTOR DETAIL ======== -->
+
+<A NAME="constructor_detail"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
+<B>Constructor Detail</B></FONT></TH>
+</TR>
+</TABLE>
+
+<A NAME="ExcelReport(com.technology.jep.jepria.shared.record.JepRecordDefinition, java.util.List, java.util.List, java.util.List)"><!-- --></A><H3>
+ExcelReport</H3>
+<PRE>
+public <B>ExcelReport</B>(<A HREF="../../../../../../../com/technology/jep/jepria/shared/record/JepRecordDefinition.html" title="class in com.technology.jep.jepria.shared.record">JepRecordDefinition</A>&nbsp;recordDefinition,
+                   java.util.List&lt;java.lang.String&gt;&nbsp;reportFields,
+                   java.util.List&lt;java.lang.String&gt;&nbsp;reportHeaders,
+                   java.util.List&lt;<A HREF="../../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</A>&gt;&nbsp;resultRecords)</PRE>
+<DL>
+<DD>Создаёт Excel-отчёт.
+<P>
+<DL>
+<DT><B>Parameters:</B><DD><CODE>recordDefinition</CODE> - определение формата записи<DD><CODE>reportFields</CODE> - список идентификаторов полей, участвующих в формировании документа<DD><CODE>reportHeaders</CODE> - наименования полей<DD><CODE>resultRecords</CODE> - список записей для формирования документа</DL>
+</DL>
+
+<!-- ============ METHOD DETAIL ========== -->
+
+<A NAME="method_detail"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
+<B>Method Detail</B></FONT></TH>
+</TR>
+</TABLE>
+
+<A NAME="setAutoFilter(boolean)"><!-- --></A><H3>
+setAutoFilter</H3>
+<PRE>
+public void <B>setAutoFilter</B>(boolean&nbsp;autoFilter)</PRE>
+<DL>
+<DD>Включение или выключение автофильтра.<br/>
+ По умолчанию автофильтр включён.
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>autoFilter</CODE> - флаг включения автофильтра</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="isAutoFilter()"><!-- --></A><H3>
+isAutoFilter</H3>
+<PRE>
+public boolean <B>isAutoFilter</B>()</PRE>
+<DL>
+<DD>Возвращает флаг включения автофильтра.<br/>
+ По умолчанию автофильтр включён.
+<P>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>true, если автофильтр включён, и false в противном случае</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="print(java.io.PrintWriter)"><!-- --></A><H3>
+print</H3>
+<PRE>
+public void <B>print</B>(java.io.PrintWriter&nbsp;pw)</PRE>
+<DL>
+<DD>Вывод документа на печать.
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>pw</CODE> - объект класса PrintWriter, в который осуществляется печать документа</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="createAutoFilter()"><!-- --></A><H3>
+createAutoFilter</H3>
+<PRE>
+protected java.lang.String <B>createAutoFilter</B>()</PRE>
+<DL>
+<DD>Создание автофильтра. <br/>
+ Возвращает строку автофильтра. По умолчанию в фильтрации участвуют все столбцы. 
+ Если необходим нестандартный автофильтр (например, не по всем столбцам), метод 
+ перекрывается в наследниках.
+<P>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>XML-представление автофильтра</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="createStyles()"><!-- --></A><H3>
+createStyles</H3>
+<PRE>
+protected java.lang.String <B>createStyles</B>()</PRE>
+<DL>
+<DD>Создание списка стилей. <br/>
+ Возвращает строку со стилями. Если необходимо определить дополнительные стили или заменить
+  стили по умолчанию, данный метод перекрывается в наследниках.
+<P>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>XML-представление стилей документа</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="createHeaderRow()"><!-- --></A><H3>
+createHeaderRow</H3>
+<PRE>
+protected java.lang.String <B>createHeaderRow</B>()</PRE>
+<DL>
+<DD>Создание заголовка таблицы. <br/>
+ Формирует строку с заголовком таблицы. Имена полей обрамляются секцией CDATA. Если необходимо
+  сделать "нестандартный" заголовок, данный метод переопределяется в классах-наследниках.
+<P>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>XML-представление заголовочной строки документа.</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="createColumns()"><!-- --></A><H3>
+createColumns</H3>
+<PRE>
+protected java.lang.String <B>createColumns</B>()</PRE>
+<DL>
+<DD>Создание столбцов. <br/>
+ Формирует строку с описанием столбцов. По умолчанию задаётся ширина столбцов, равная 150.
+  Если необходимо изменить количество столбцов, ширину или другие их параметры, данный метод
+  переопределяется в наследниках.
+<P>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>XML-представление объявления столбцов.</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="createDataRow(com.technology.jep.jepria.shared.record.JepRecord)"><!-- --></A><H3>
+createDataRow</H3>
+<PRE>
+protected java.lang.String <B>createDataRow</B>(<A HREF="../../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</A>&nbsp;record)</PRE>
+<DL>
+<DD>Формирование строки с данными. <br/>
+ При необходимости изменить состав полей, данный метод переопределяется
+ в наследниках.
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>record</CODE> - запись, на основе которой формируется строка
+<DT><B>Returns:</B><DD>XML-представление строки</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="createCell(com.technology.jep.jepria.shared.record.JepRecord, java.lang.String)"><!-- --></A><H3>
+createCell</H3>
+<PRE>
+protected java.lang.String <B>createCell</B>(<A HREF="../../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</A>&nbsp;record,
+                                      java.lang.String&nbsp;field)</PRE>
+<DL>
+<DD>Формирование ячейки на основе записи и имени поля. <br/>
+ Если необходимо индивидуальное форматирование для одного или нескольких полей,
+ данный метод переопределяется в наследниках.
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>record</CODE> - запись, из которой берётся поле<DD><CODE>field</CODE> - идентификатор поля
+<DT><B>Returns:</B><DD>XML-представление ячейки</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="createEmptyCell()"><!-- --></A><H3>
+createEmptyCell</H3>
+<PRE>
+protected java.lang.String <B>createEmptyCell</B>()</PRE>
+<DL>
+<DD>Создание пустой ячейки. <br/>
+ Формирование пустой ячейки для полей типа null. Если необходимо изменить вид пустых полей,
+ метод переопределяется в наследниках.
+<P>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>XML-представление пустой ячейки</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="createDecimalCell(java.lang.Number)"><!-- --></A><H3>
+createDecimalCell</H3>
+<PRE>
+protected java.lang.String <B>createDecimalCell</B>(java.lang.Number&nbsp;number)</PRE>
+<DL>
+<DD>Создание ячейки с десятичным числом. <br/>
+ Формирование ячейки с десятичными данными (Float, Double, BigDecimal). По умолчанию
+ выводится два знака после запятой. Если необходимо вывести большее количество знаков
+ или изменить форматирование, метод переопределяется в наследниках.
+ <b>Внимание:</b> В качестве десятичного разделителя обязательно должна выступать точка,
+ иначе документ не будет сформирован корректно.
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>number</CODE> - значение, помещаемое в ячейку
+<DT><B>Returns:</B><DD>XML-представление ячейки с десятичными данными</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="createIntegerCell(java.lang.Integer)"><!-- --></A><H3>
+createIntegerCell</H3>
+<PRE>
+protected java.lang.String <B>createIntegerCell</B>(java.lang.Integer&nbsp;integerValue)</PRE>
+<DL>
+<DD>Создание ячейки с десятичным числом <br/>
+ По умолчанию выводится значение, получаемое с помощью метода <code>toString()</code>.
+ При необходимости изменить отображение целочисленных ячеек метод переопределяется в наследниках.
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>integerValue</CODE> - целочисленное значение, помещаемое в ячейку
+<DT><B>Returns:</B><DD>XML-представление ячейки</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="createBooleanCell(java.lang.Boolean)"><!-- --></A><H3>
+createBooleanCell</H3>
+<PRE>
+protected java.lang.String <B>createBooleanCell</B>(java.lang.Boolean&nbsp;booleanValue)</PRE>
+<DL>
+<DD>Создание ячейки с данными булевского типа. <br/>
+ По умолчанию, для истинных значений выводится "Да", для ложных "Нет"
+ в соответствующей локали. Для <code>null</code> выводится пустая строка.
+ Используется стиль форматирования строковых ячеек. Если необходимо специальное
+ форматирование или вывод другого текста, метод переопределяется в наследниках.
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>booleanValue</CODE> - значение, помещаемое в ячейку
+<DT><B>Returns:</B><DD>XML-представление ячейки с булевым значением</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="createDateTimeCell(java.util.Date)"><!-- --></A><H3>
+createDateTimeCell</H3>
+<PRE>
+protected java.lang.String <B>createDateTimeCell</B>(java.util.Date&nbsp;dateTime)</PRE>
+<DL>
+<DD>Создание ячейки с датой и временем.<br/>
+ Если необходимо специальное форматирование для ячеек с датой и временем, данный метод
+ переопределяется в наследниках.
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>dateTime</CODE> - дата и время, помещаемые в ячейку
+<DT><B>Returns:</B><DD>XML-представление ячейки с датой и временем</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="createTimeCell(com.technology.jep.jepria.shared.time.JepTime)"><!-- --></A><H3>
+createTimeCell</H3>
+<PRE>
+protected java.lang.String <B>createTimeCell</B>(<A HREF="../../../../../../../com/technology/jep/jepria/shared/time/JepTime.html" title="class in com.technology.jep.jepria.shared.time">JepTime</A>&nbsp;time)</PRE>
+<DL>
+<DD>Создание ячейки с временем.<br/>
+ Если необходимо специальное форматирование для ячеек с временем, данный метод
+ переопределяется в наследниках.
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>time</CODE> - время, помещаемое в ячейку
+<DT><B>Returns:</B><DD>XML-представление ячейки с временем</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="createDateCell(java.util.Date)"><!-- --></A><H3>
+createDateCell</H3>
+<PRE>
+protected java.lang.String <B>createDateCell</B>(java.util.Date&nbsp;date)</PRE>
+<DL>
+<DD>Создание ячейки с датой.<br/>
+ Если необходимо специальное форматирование для ячеек с датой, данный метод
+ переопределяется в наследниках.
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>date</CODE> - дата, помещаемая в ячейку
+<DT><B>Returns:</B><DD>XML-представление ячейки с датой</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="createDefaultCell(java.lang.Object)"><!-- --></A><H3>
+createDefaultCell</H3>
+<PRE>
+protected java.lang.String <B>createDefaultCell</B>(java.lang.Object&nbsp;value)</PRE>
+<DL>
+<DD>Создание ячейки для полей всех прочих типов.<br/>
+ По умолчанию с в ячейку помещается строковое представление объекта, 
+ получаемое с помощью метода <code>toString()</code>, обрамлённое секцией CDATA.
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>value</CODE> - объект, строковое представление которого необходимо поместить в ячейку
+<DT><B>Returns:</B><DD>XML-представление ячейки</DL>
+</DD>
+</DL>
+<!-- ========= END OF CLASS DATA ========= -->
+<HR>
+
+
+<!-- ======= START OF BOTTOM NAVBAR ====== -->
+<A NAME="navbar_bottom"><!-- --></A>
+<A HREF="#skip-navbar_bottom" title="Skip navigation links"></A>
+<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
+<TR>
+<TD COLSPAN=2 BGCOLOR="#EEEEFF" CLASS="NavBarCell1">
+<A NAME="navbar_bottom_firstrow"><!-- --></A>
+<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3" SUMMARY="">
+  <TR ALIGN="center" VALIGN="top">
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-summary.html"><FONT CLASS="NavBarFont1"><B>Package</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../index-all.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../help-doc.html"><FONT CLASS="NavBarFont1"><B>Help</B></FONT></A>&nbsp;</TD>
+  </TR>
+</TABLE>
+</TD>
+<TD ALIGN="right" VALIGN="top" ROWSPAN=3><EM>
+</EM>
+</TD>
+</TR>
+
+<TR>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+&nbsp;PREV CLASS&nbsp;
+&nbsp;<A HREF="../../../../../../../com/technology/jep/jepria/server/download/excel/ExcelReportConstant.html" title="class in com.technology.jep.jepria.server.download.excel"><B>NEXT CLASS</B></A></FONT></TD>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+  <A HREF="../../../../../../../index.html?com/technology/jep/jepria/server/download/excel/ExcelReport.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="ExcelReport.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+&nbsp;<SCRIPT type="text/javascript">
+  <!--
+  if(window==top) {
+    document.writeln('<A HREF="../../../../../../../allclasses-noframe.html"><B>All Classes</B></A>');
+  }
+  //-->
+</SCRIPT>
+<NOSCRIPT>
+  <A HREF="../../../../../../../allclasses-noframe.html"><B>All Classes</B></A>
+</NOSCRIPT>
+
+
+</FONT></TD>
+</TR>
+<TR>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+  SUMMARY:&nbsp;NESTED&nbsp;|&nbsp;<A HREF="#field_summary">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
+</TR>
+</TABLE>
+<A NAME="skip-navbar_bottom"></A>
+<!-- ======== END OF BOTTOM NAVBAR ======= -->
+
+<HR>
+
+</BODY>
+</HTML>

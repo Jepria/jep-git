@@ -1,0 +1,1330 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!--NewPage-->
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<TITLE>
+ComboBox (JepRia JavaDoc)
+</TITLE>
+
+
+<LINK REL ="stylesheet" TYPE="text/css" HREF="../../../../../../../stylesheet.css" TITLE="Style">
+
+<SCRIPT type="text/javascript">
+function windowTitle()
+{
+    if (location.href.indexOf('is-external=true') == -1) {
+        parent.document.title="ComboBox (JepRia JavaDoc)";
+    }
+}
+</SCRIPT>
+<NOSCRIPT>
+</NOSCRIPT>
+
+</HEAD>
+
+<BODY BGCOLOR="white" onload="windowTitle();">
+<HR>
+
+
+<!-- ========= START OF TOP NAVBAR ======= -->
+<A NAME="navbar_top"><!-- --></A>
+<A HREF="#skip-navbar_top" title="Skip navigation links"></A>
+<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
+<TR>
+<TD COLSPAN=2 BGCOLOR="#EEEEFF" CLASS="NavBarCell1">
+<A NAME="navbar_top_firstrow"><!-- --></A>
+<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3" SUMMARY="">
+  <TR ALIGN="center" VALIGN="top">
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-summary.html"><FONT CLASS="NavBarFont1"><B>Package</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../index-all.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../help-doc.html"><FONT CLASS="NavBarFont1"><B>Help</B></FONT></A>&nbsp;</TD>
+  </TR>
+</TABLE>
+</TD>
+<TD ALIGN="right" VALIGN="top" ROWSPAN=3><EM>
+</EM>
+</TD>
+</TR>
+
+<TR>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+&nbsp;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.TextCellImpl.html" title="class in com.technology.jep.jepria.client.widget.field"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.JepOptionSuggestion.html" title="class in com.technology.jep.jepria.client.widget.field"><B>NEXT CLASS</B></A></FONT></TD>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+  <A HREF="../../../../../../../index.html?com/technology/jep/jepria/client/widget/field/ComboBox.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="ComboBox.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+&nbsp;<SCRIPT type="text/javascript">
+  <!--
+  if(window==top) {
+    document.writeln('<A HREF="../../../../../../../allclasses-noframe.html"><B>All Classes</B></A>');
+  }
+  //-->
+</SCRIPT>
+<NOSCRIPT>
+  <A HREF="../../../../../../../allclasses-noframe.html"><B>All Classes</B></A>
+</NOSCRIPT>
+
+
+</FONT></TD>
+</TR>
+<TR>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+  SUMMARY:&nbsp;<A HREF="#nested_class_summary">NESTED</A>&nbsp;|&nbsp;<A HREF="#field_summary">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
+</TR>
+</TABLE>
+<A NAME="skip-navbar_top"></A>
+<!-- ========= END OF TOP NAVBAR ========= -->
+
+<HR>
+<!-- ======== START OF CLASS DATA ======== -->
+<H2>
+<FONT SIZE="-1">
+com.technology.jep.jepria.client.widget.field</FONT>
+<BR>
+Class ComboBox&lt;T extends <A HREF="../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A>&gt;</H2>
+<PRE>
+java.lang.Object
+  <IMG SRC="../../../../../../../resources/inherit.gif" ALT="extended by ">com.google.gwt.user.client.ui.UIObject
+      <IMG SRC="../../../../../../../resources/inherit.gif" ALT="extended by ">com.google.gwt.user.client.ui.Widget
+          <IMG SRC="../../../../../../../resources/inherit.gif" ALT="extended by ">com.google.gwt.user.client.ui.Composite
+              <IMG SRC="../../../../../../../resources/inherit.gif" ALT="extended by "><B>com.technology.jep.jepria.client.widget.field.ComboBox&lt;T&gt;</B>
+</PRE>
+<DL>
+<DT><B>All Implemented Interfaces:</B> <DD>com.google.gwt.event.logical.shared.HasAttachHandlers, com.google.gwt.event.logical.shared.HasValueChangeHandlers&lt;T&gt;, com.google.gwt.event.shared.HasHandlers, com.google.gwt.user.client.EventListener, com.google.gwt.user.client.TakesValue&lt;T&gt;, com.google.gwt.user.client.ui.HasValue&lt;T&gt;, com.google.gwt.user.client.ui.HasVisibility, com.google.gwt.user.client.ui.IsRenderable, com.google.gwt.user.client.ui.IsWidget, <A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/event/AfterExpandEvent.HasAfterExpandHandlers.html" title="interface in com.technology.jep.jepria.client.widget.field.multistate.event">AfterExpandEvent.HasAfterExpandHandlers</A>, <A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/event/BeforeExpandEvent.HasBeforeExpandHandlers.html" title="interface in com.technology.jep.jepria.client.widget.field.multistate.event">BeforeExpandEvent.HasBeforeExpandHandlers</A>, <A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/event/BeforeSelectEvent.HasBeforeSelectHandlers.html" title="interface in com.technology.jep.jepria.client.widget.field.multistate.event">BeforeSelectEvent.HasBeforeSelectHandlers</A>&lt;T&gt;</DD>
+</DL>
+<HR>
+<DL>
+<DT><PRE>public class <B>ComboBox&lt;T extends <A HREF="../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A>&gt;</B><DT>extends com.google.gwt.user.client.ui.Composite<DT>implements com.google.gwt.user.client.ui.HasValue&lt;T&gt;, <A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/event/BeforeExpandEvent.HasBeforeExpandHandlers.html" title="interface in com.technology.jep.jepria.client.widget.field.multistate.event">BeforeExpandEvent.HasBeforeExpandHandlers</A>, <A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/event/AfterExpandEvent.HasAfterExpandHandlers.html" title="interface in com.technology.jep.jepria.client.widget.field.multistate.event">AfterExpandEvent.HasAfterExpandHandlers</A>, <A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/event/BeforeSelectEvent.HasBeforeSelectHandlers.html" title="interface in com.technology.jep.jepria.client.widget.field.multistate.event">BeforeSelectEvent.HasBeforeSelectHandlers</A>&lt;T&gt;</DL>
+</PRE>
+
+<P>
+Выпадающий список.
+ 
+ Особенности:<br>
+ Отличается от стандартного возможностью его гибкой настройки, что весьма проблематично, а иногда и вовсе невозможно с нативным комбобоксом.
+<P>
+
+<P>
+<HR>
+
+<P>
+<!-- ======== NESTED CLASS SUMMARY ======== -->
+
+<A NAME="nested_class_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Nested Class Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>(package private) &nbsp;class</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.JepOptionSuggestion.html" title="class in com.technology.jep.jepria.client.widget.field">ComboBox.JepOptionSuggestion</A>&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.JepOptionSuggestion.html" title="type parameter in ComboBox.JepOptionSuggestion">T</A> extends <A HREF="../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A>&gt;</B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Логическое представление опций выпадающего списка.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>(package private) &nbsp;class</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.JepOptionSuggestionDisplay.html" title="class in com.technology.jep.jepria.client.widget.field">ComboBox.JepOptionSuggestionDisplay</A>&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.JepOptionSuggestionDisplay.html" title="type parameter in ComboBox.JepOptionSuggestionDisplay">T</A> extends <A HREF="../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A>&gt;</B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"Отображение" списка опций.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>(package private) &nbsp;class</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.JepOptionSuggestOracle.html" title="class in com.technology.jep.jepria.client.widget.field">ComboBox.JepOptionSuggestOracle</A>&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.JepOptionSuggestOracle.html" title="type parameter in ComboBox.JepOptionSuggestOracle">T</A> extends <A HREF="../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A>&gt;</B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Общий список доступных опций выпадающего списка.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>(package private) &nbsp;class</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.SuggestionMenuItem.html" title="class in com.technology.jep.jepria.client.widget.field">ComboBox.SuggestionMenuItem</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Меню опции выпадающего списка.</TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="nested_classes_inherited_from_class_com.google.gwt.user.client.ui.UIObject"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Nested classes/interfaces inherited from class com.google.gwt.user.client.ui.UIObject</B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE>com.google.gwt.user.client.ui.UIObject.DebugIdImpl, com.google.gwt.user.client.ui.UIObject.DebugIdImplEnabled</CODE></TD>
+</TR>
+</TABLE>
+&nbsp;
+<!-- =========== FIELD SUMMARY =========== -->
+
+<A NAME="field_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Field Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private static&nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.html#COMBOBOX_FIELD_SELECT_IMAGE_STYLE">COMBOBOX_FIELD_SELECT_IMAGE_STYLE</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Наименование селектора (класса стилей) кнопки выбора в комбобоксе.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private static&nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.html#DISABLED_FIELD_STYLE">DISABLED_FIELD_STYLE</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Наименование селектора (класса стилей) для недоступных элементов.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.html#enabled">enabled</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Признак доступности поля.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;<A HREF="../../../../../../../com/technology/jep/jepria/shared/field/JepLikeEnum.html" title="enum in com.technology.jep.jepria.shared.field">JepLikeEnum</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.html#filterMode">filterMode</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Режим фильтрации, согласно которому будет произоводиться отбор опций при пользовательском
+ вводе данных (FIRST - поиск по первым символам опций, LAST - по последним, CONTAINS - по вхождению, EXACT - точное совпадение).</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.html#filterProperty">filterProperty</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Наименование поля опции, по которому будет осуществлена фильтрация элементов списка (по умолчанию, наименование).</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private static&nbsp;int</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.html#ICON_WIDTH">ICON_WIDTH</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Значение ширины кнопки выбора элементов.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.html#isSelectClicked">isSelectClicked</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Признак нажатия на кнопку выбора элементов выпадающего списка.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private static&nbsp;int</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.html#MENU_ITEM_HEIGHT">MENU_ITEM_HEIGHT</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Значение высоты опций выпадающего списка.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private static&nbsp;int</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.html#OPTION_COUNT">OPTION_COUNT</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Количество опций для выбора, доступных по умолчанию.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.SuggestionMenuItem.html" title="class in com.technology.jep.jepria.client.widget.field">ComboBox.SuggestionMenuItem</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.html#selectedItem">selectedItem</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Элемент меню выбранной опции.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.html" title="type parameter in ComboBox">T</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.html#selectedOption">selectedOption</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Выбранная текущая опция.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;com.google.gwt.user.client.ui.Image</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.html#selectImage">selectImage</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Изображение кнопки выбора элементов выпадающего списка.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;com.google.gwt.user.client.ui.SuggestBox</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.html#suggestBox">suggestBox</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Текстовая область выпадающего списка.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;java.util.List&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.html" title="type parameter in ComboBox">T</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.html#unfilteredOptions">unfilteredOptions</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Список опций, не доступных для фильтрации.</TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="fields_inherited_from_class_com.google.gwt.user.client.ui.UIObject"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Fields inherited from class com.google.gwt.user.client.ui.UIObject</B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE>DEBUG_ID_PREFIX</CODE></TD>
+</TR>
+</TABLE>
+&nbsp;
+<!-- ======== CONSTRUCTOR SUMMARY ======== -->
+
+<A NAME="constructor_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Constructor Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.html#ComboBox()">ComboBox</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;
+<!-- ========== METHOD SUMMARY =========== -->
+
+<A NAME="method_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Method Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;com.google.gwt.event.shared.HandlerRegistration</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.html#addAfterExpandHandler(com.technology.jep.jepria.client.widget.field.multistate.event.AfterExpandEvent.AfterExpandHandler)">addAfterExpandHandler</A></B>(<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/event/AfterExpandEvent.AfterExpandHandler.html" title="interface in com.technology.jep.jepria.client.widget.field.multistate.event">AfterExpandEvent.AfterExpandHandler</A>&nbsp;handler)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Добавление обработчика на событие, срабатывающего после раскрытия списка опций.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;com.google.gwt.event.shared.HandlerRegistration</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.html#addBeforeExpandHandler(com.technology.jep.jepria.client.widget.field.multistate.event.BeforeExpandEvent.BeforeExpandHandler)">addBeforeExpandHandler</A></B>(<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/event/BeforeExpandEvent.BeforeExpandHandler.html" title="interface in com.technology.jep.jepria.client.widget.field.multistate.event">BeforeExpandEvent.BeforeExpandHandler</A>&nbsp;handler)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Добавление обработчика на событие, срабатывающего до раскрытия списка опций.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;com.google.gwt.event.shared.HandlerRegistration</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.html#addBeforeSelectHandler(com.technology.jep.jepria.client.widget.field.multistate.event.BeforeSelectEvent.BeforeSelectHandler)">addBeforeSelectHandler</A></B>(<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/event/BeforeSelectEvent.BeforeSelectHandler.html" title="interface in com.technology.jep.jepria.client.widget.field.multistate.event">BeforeSelectEvent.BeforeSelectHandler</A>&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.html" title="type parameter in ComboBox">T</A>&gt;&nbsp;handler)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Добавление обработчика на событие, срабатывающего до выбора опции выпадающего списка.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;com.google.gwt.event.shared.HandlerRegistration</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.html#addValueChangeHandler(com.google.gwt.event.logical.shared.ValueChangeHandler)">addValueChangeHandler</A></B>(com.google.gwt.event.logical.shared.ValueChangeHandler&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.html" title="type parameter in ComboBox">T</A>&gt;&nbsp;handler)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.html#applyStyleForOption(T, java.lang.String, java.lang.String)">applyStyleForOption</A></B>(<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.html" title="type parameter in ComboBox">T</A>&nbsp;option,
+                    java.lang.String&nbsp;attr,
+                    java.lang.String&nbsp;value)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Установка css-атрибута для конкретной опции выпадающего списка.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.html#beforeExpandEventCancelled()">beforeExpandEventCancelled</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Признак будет ли раскрытие списка отменено.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.html#collapseIf(com.google.gwt.dom.client.NativeEvent)">collapseIf</A></B>(com.google.gwt.dom.client.NativeEvent&nbsp;event)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.JepOptionSuggestionDisplay.html" title="class in com.technology.jep.jepria.client.widget.field">ComboBox.JepOptionSuggestionDisplay</A>&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.html" title="type parameter in ComboBox">T</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.html#getDisplay()">getDisplay</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Получение абстракции "отображения" возможных опций выпадающего списка.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../../../../com/technology/jep/jepria/shared/field/JepLikeEnum.html" title="enum in com.technology.jep.jepria.shared.field">JepLikeEnum</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.html#getFilterMode()">getFilterMode</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Получение режима фильтрации.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;int</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.html#getLimit()">getLimit</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Получение количества видимых опций.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;java.util.List&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.html" title="type parameter in ComboBox">T</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.html#getOptions()">getOptions</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Получение списка доступных для выбора опций.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.JepOptionSuggestOracle.html" title="class in com.technology.jep.jepria.client.widget.field">ComboBox.JepOptionSuggestOracle</A>&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.html" title="type parameter in ComboBox">T</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.html#getOracle()">getOracle</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Получение абстракции "логического представления" возможных опций выпадающего списка.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.html" title="type parameter in ComboBox">T</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.html#getValue()">getValue</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;com.google.gwt.user.client.ui.ValueBoxBase&lt;java.lang.String&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.html#getValueBoxBase()">getValueBoxBase</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Получение компонента текстового поля.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.html#hasAfterExpandHandler()">hasAfterExpandHandler</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Проверка наличия обработчиков события, срабатывающего после раскрытия опций выпадающего списка.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.html#hasBeforeSelectHandler()">hasBeforeSelectHandler</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Проверка наличия обработчиков события, срабатывающего до выбора опции выпадающего списка.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.html#isExpanded()">isExpanded</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Проверка раскрыт ли комбобокс.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.html#setEnabled(boolean)">setEnabled</A></B>(boolean&nbsp;enabled)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Установка признака доступности/недоступности элемента.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.html#setExpanded(boolean)">setExpanded</A></B>(boolean&nbsp;expanded)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Установка состояния открытости/свернутости списка опций.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.html#setFilterMode(com.technology.jep.jepria.shared.field.JepLikeEnum)">setFilterMode</A></B>(<A HREF="../../../../../../../com/technology/jep/jepria/shared/field/JepLikeEnum.html" title="enum in com.technology.jep.jepria.shared.field">JepLikeEnum</A>&nbsp;filterMode)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Установка режима фильтрации.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.html#setFilterProperty(java.lang.String)">setFilterProperty</A></B>(java.lang.String&nbsp;filterProperty)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Установка свойства фильтрующего значения опции.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.html#setLimit(int)">setLimit</A></B>(int&nbsp;limit)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Установка количества видимых опций (без скроллирования).</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.html#setOptions(java.util.List)">setOptions</A></B>(java.util.List&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.html" title="type parameter in ComboBox">T</A>&gt;&nbsp;options)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Установка опций компонента.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.html#setUnfilteredOptions(java.util.List)">setUnfilteredOptions</A></B>(java.util.List&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.html" title="type parameter in ComboBox">T</A>&gt;&nbsp;options)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Установка списка нефильтруемых опций.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.html#setValue(T)">setValue</A></B>(<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.html" title="type parameter in ComboBox">T</A>&nbsp;value)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.html#setValue(T, boolean)">setValue</A></B>(<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.html" title="type parameter in ComboBox">T</A>&nbsp;value,
+         boolean&nbsp;fireEvents)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.html#setWidth(java.lang.String)">setWidth</A></B>(java.lang.String&nbsp;width)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.html#toggle()">toggle</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Изменяем состояние раскрытости/свернутости списка опций на противоположное.</TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_com.google.gwt.user.client.ui.Composite"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from class com.google.gwt.user.client.ui.Composite</B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE>claimElement, getWidget, initializeClaimedElement, initWidget, isAttached, onAttach, onBrowserEvent, onDetach, render, render, resolvePotentialElement, setWidget</CODE></TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_com.google.gwt.user.client.ui.Widget"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from class com.google.gwt.user.client.ui.Widget</B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE>addAttachHandler, addBitlessDomHandler, addDomHandler, addHandler, asWidget, asWidgetOrNull, createHandlerManager, delegateEvent, doAttachChildren, doDetachChildren, fireEvent, getHandlerCount, getLayoutData, getParent, isOrWasAttached, onLoad, onUnload, removeFromParent, setLayoutData, sinkEvents, unsinkEvents</CODE></TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_com.google.gwt.user.client.ui.UIObject"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from class com.google.gwt.user.client.ui.UIObject</B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE>addStyleDependentName, addStyleName, ensureDebugId, ensureDebugId, ensureDebugId, getAbsoluteLeft, getAbsoluteTop, getElement, getOffsetHeight, getOffsetWidth, getStyleElement, getStyleName, getStyleName, getStylePrimaryName, getStylePrimaryName, getTitle, isVisible, isVisible, onEnsureDebugId, removeStyleDependentName, removeStyleName, setElement, setElement, setHeight, setPixelSize, setSize, setStyleDependentName, setStyleName, setStyleName, setStyleName, setStyleName, setStylePrimaryName, setStylePrimaryName, setTitle, setVisible, setVisible, sinkBitlessEvent, toString</CODE></TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from class java.lang.Object</B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE>clone, equals, finalize, getClass, hashCode, notify, notifyAll, wait, wait, wait</CODE></TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_com.google.gwt.event.shared.HasHandlers"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from interface com.google.gwt.event.shared.HasHandlers</B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE>fireEvent</CODE></TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
+<!-- ============ FIELD DETAIL =========== -->
+
+<A NAME="field_detail"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
+<B>Field Detail</B></FONT></TH>
+</TR>
+</TABLE>
+
+<A NAME="suggestBox"><!-- --></A><H3>
+suggestBox</H3>
+<PRE>
+private com.google.gwt.user.client.ui.SuggestBox <B>suggestBox</B></PRE>
+<DL>
+<DD>Текстовая область выпадающего списка.
+<P>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="selectImage"><!-- --></A><H3>
+selectImage</H3>
+<PRE>
+private com.google.gwt.user.client.ui.Image <B>selectImage</B></PRE>
+<DL>
+<DD>Изображение кнопки выбора элементов выпадающего списка.
+<P>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="selectedOption"><!-- --></A><H3>
+selectedOption</H3>
+<PRE>
+private <A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.html" title="type parameter in ComboBox">T</A> extends <A HREF="../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A> <B>selectedOption</B></PRE>
+<DL>
+<DD>Выбранная текущая опция.
+<P>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="isSelectClicked"><!-- --></A><H3>
+isSelectClicked</H3>
+<PRE>
+private boolean <B>isSelectClicked</B></PRE>
+<DL>
+<DD>Признак нажатия на кнопку выбора элементов выпадающего списка.
+<P>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="ICON_WIDTH"><!-- --></A><H3>
+ICON_WIDTH</H3>
+<PRE>
+private static final int <B>ICON_WIDTH</B></PRE>
+<DL>
+<DD>Значение ширины кнопки выбора элементов.
+<P>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../../../constant-values.html#com.technology.jep.jepria.client.widget.field.ComboBox.ICON_WIDTH">Constant Field Values</A></DL>
+</DL>
+<HR>
+
+<A NAME="MENU_ITEM_HEIGHT"><!-- --></A><H3>
+MENU_ITEM_HEIGHT</H3>
+<PRE>
+private static final int <B>MENU_ITEM_HEIGHT</B></PRE>
+<DL>
+<DD>Значение высоты опций выпадающего списка.
+<P>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../../../constant-values.html#com.technology.jep.jepria.client.widget.field.ComboBox.MENU_ITEM_HEIGHT">Constant Field Values</A></DL>
+</DL>
+<HR>
+
+<A NAME="OPTION_COUNT"><!-- --></A><H3>
+OPTION_COUNT</H3>
+<PRE>
+private static final int <B>OPTION_COUNT</B></PRE>
+<DL>
+<DD>Количество опций для выбора, доступных по умолчанию.
+<P>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../../../constant-values.html#com.technology.jep.jepria.client.widget.field.ComboBox.OPTION_COUNT">Constant Field Values</A></DL>
+</DL>
+<HR>
+
+<A NAME="filterMode"><!-- --></A><H3>
+filterMode</H3>
+<PRE>
+private <A HREF="../../../../../../../com/technology/jep/jepria/shared/field/JepLikeEnum.html" title="enum in com.technology.jep.jepria.shared.field">JepLikeEnum</A> <B>filterMode</B></PRE>
+<DL>
+<DD>Режим фильтрации, согласно которому будет произоводиться отбор опций при пользовательском
+ вводе данных (FIRST - поиск по первым символам опций, LAST - по последним, CONTAINS - по вхождению, EXACT - точное совпадение).
+<P>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="filterProperty"><!-- --></A><H3>
+filterProperty</H3>
+<PRE>
+private java.lang.String <B>filterProperty</B></PRE>
+<DL>
+<DD>Наименование поля опции, по которому будет осуществлена фильтрация элементов списка (по умолчанию, наименование).
+<P>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="unfilteredOptions"><!-- --></A><H3>
+unfilteredOptions</H3>
+<PRE>
+private java.util.List&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.html" title="type parameter in ComboBox">T</A> extends <A HREF="../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A>&gt; <B>unfilteredOptions</B></PRE>
+<DL>
+<DD>Список опций, не доступных для фильтрации.
+<P>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="selectedItem"><!-- --></A><H3>
+selectedItem</H3>
+<PRE>
+private <A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.SuggestionMenuItem.html" title="class in com.technology.jep.jepria.client.widget.field">ComboBox.SuggestionMenuItem</A> <B>selectedItem</B></PRE>
+<DL>
+<DD>Элемент меню выбранной опции.
+<P>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="COMBOBOX_FIELD_SELECT_IMAGE_STYLE"><!-- --></A><H3>
+COMBOBOX_FIELD_SELECT_IMAGE_STYLE</H3>
+<PRE>
+private static final java.lang.String <B>COMBOBOX_FIELD_SELECT_IMAGE_STYLE</B></PRE>
+<DL>
+<DD>Наименование селектора (класса стилей) кнопки выбора в комбобоксе.
+<P>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../../../constant-values.html#com.technology.jep.jepria.client.widget.field.ComboBox.COMBOBOX_FIELD_SELECT_IMAGE_STYLE">Constant Field Values</A></DL>
+</DL>
+<HR>
+
+<A NAME="DISABLED_FIELD_STYLE"><!-- --></A><H3>
+DISABLED_FIELD_STYLE</H3>
+<PRE>
+private static final java.lang.String <B>DISABLED_FIELD_STYLE</B></PRE>
+<DL>
+<DD>Наименование селектора (класса стилей) для недоступных элементов.
+<P>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../../../constant-values.html#com.technology.jep.jepria.client.widget.field.ComboBox.DISABLED_FIELD_STYLE">Constant Field Values</A></DL>
+</DL>
+<HR>
+
+<A NAME="enabled"><!-- --></A><H3>
+enabled</H3>
+<PRE>
+private boolean <B>enabled</B></PRE>
+<DL>
+<DD>Признак доступности поля.
+<P>
+<DL>
+</DL>
+</DL>
+
+<!-- ========= CONSTRUCTOR DETAIL ======== -->
+
+<A NAME="constructor_detail"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
+<B>Constructor Detail</B></FONT></TH>
+</TR>
+</TABLE>
+
+<A NAME="ComboBox()"><!-- --></A><H3>
+ComboBox</H3>
+<PRE>
+public <B>ComboBox</B>()</PRE>
+<DL>
+</DL>
+
+<!-- ============ METHOD DETAIL ========== -->
+
+<A NAME="method_detail"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
+<B>Method Detail</B></FONT></TH>
+</TR>
+</TABLE>
+
+<A NAME="setOptions(java.util.List)"><!-- --></A><H3>
+setOptions</H3>
+<PRE>
+public void <B>setOptions</B>(java.util.List&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.html" title="type parameter in ComboBox">T</A>&gt;&nbsp;options)</PRE>
+<DL>
+<DD>Установка опций компонента.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>options</CODE> - список опций для выбора</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getOptions()"><!-- --></A><H3>
+getOptions</H3>
+<PRE>
+public java.util.List&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.html" title="type parameter in ComboBox">T</A>&gt; <B>getOptions</B>()</PRE>
+<DL>
+<DD>Получение списка доступных для выбора опций.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>список доступных опций</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getValue()"><!-- --></A><H3>
+getValue</H3>
+<PRE>
+public <A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.html" title="type parameter in ComboBox">T</A> <B>getValue</B>()</PRE>
+<DL>
+<DD>
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE>getValue</CODE> in interface <CODE>com.google.gwt.user.client.TakesValue&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.html" title="type parameter in ComboBox">T</A> extends <A HREF="../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A>&gt;</CODE><DT><B>Specified by:</B><DD><CODE>getValue</CODE> in interface <CODE>com.google.gwt.user.client.ui.HasValue&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.html" title="type parameter in ComboBox">T</A> extends <A HREF="../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A>&gt;</CODE></DL>
+</DD>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>текущее выбранное значение из списка</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setValue(com.technology.jep.jepria.shared.field.option.JepOption)"><!-- --></A><A NAME="setValue(T)"><!-- --></A><H3>
+setValue</H3>
+<PRE>
+public void <B>setValue</B>(<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.html" title="type parameter in ComboBox">T</A>&nbsp;value)</PRE>
+<DL>
+<DD>
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE>setValue</CODE> in interface <CODE>com.google.gwt.user.client.TakesValue&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.html" title="type parameter in ComboBox">T</A> extends <A HREF="../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A>&gt;</CODE><DT><B>Specified by:</B><DD><CODE>setValue</CODE> in interface <CODE>com.google.gwt.user.client.ui.HasValue&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.html" title="type parameter in ComboBox">T</A> extends <A HREF="../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A>&gt;</CODE></DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>value</CODE> - устанавливаемое новое значение</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setFilterProperty(java.lang.String)"><!-- --></A><H3>
+setFilterProperty</H3>
+<PRE>
+public void <B>setFilterProperty</B>(java.lang.String&nbsp;filterProperty)</PRE>
+<DL>
+<DD>Установка свойства фильтрующего значения опции.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>filterProperty</CODE> - - новое фильтрующее свойство</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="isExpanded()"><!-- --></A><H3>
+isExpanded</H3>
+<PRE>
+public boolean <B>isExpanded</B>()</PRE>
+<DL>
+<DD>Проверка раскрыт ли комбобокс.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>true - список опций отображается пользователю, в противном случае - false</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setExpanded(boolean)"><!-- --></A><H3>
+setExpanded</H3>
+<PRE>
+public void <B>setExpanded</B>(boolean&nbsp;expanded)</PRE>
+<DL>
+<DD>Установка состояния открытости/свернутости списка опций.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>expanded</CODE> - true - раскрываем комбобокс, иначе - сворачиваем список опций</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="toggle()"><!-- --></A><H3>
+toggle</H3>
+<PRE>
+public void <B>toggle</B>()</PRE>
+<DL>
+<DD>Изменяем состояние раскрытости/свернутости списка опций на противоположное.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="collapseIf(com.google.gwt.dom.client.NativeEvent)"><!-- --></A><H3>
+collapseIf</H3>
+<PRE>
+public void <B>collapseIf</B>(com.google.gwt.dom.client.NativeEvent&nbsp;event)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setValue(com.technology.jep.jepria.shared.field.option.JepOption,boolean)"><!-- --></A><A NAME="setValue(T, boolean)"><!-- --></A><H3>
+setValue</H3>
+<PRE>
+public void <B>setValue</B>(<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.html" title="type parameter in ComboBox">T</A>&nbsp;value,
+                     boolean&nbsp;fireEvents)</PRE>
+<DL>
+<DD>
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE>setValue</CODE> in interface <CODE>com.google.gwt.user.client.ui.HasValue&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.html" title="type parameter in ComboBox">T</A> extends <A HREF="../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A>&gt;</CODE></DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>value</CODE> - новое устанавливаемое значение<DD><CODE>fireEvents</CODE> - выбрасываем событие установки нового значения</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setLimit(int)"><!-- --></A><H3>
+setLimit</H3>
+<PRE>
+public void <B>setLimit</B>(int&nbsp;limit)</PRE>
+<DL>
+<DD>Установка количества видимых опций (без скроллирования).
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>limit</CODE> - новое значение количества отображаемых опций</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getLimit()"><!-- --></A><H3>
+getLimit</H3>
+<PRE>
+public int <B>getLimit</B>()</PRE>
+<DL>
+<DD>Получение количества видимых опций.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>значение количества видимых опций (без скроллирования)</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="addValueChangeHandler(com.google.gwt.event.logical.shared.ValueChangeHandler)"><!-- --></A><H3>
+addValueChangeHandler</H3>
+<PRE>
+public com.google.gwt.event.shared.HandlerRegistration <B>addValueChangeHandler</B>(com.google.gwt.event.logical.shared.ValueChangeHandler&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.html" title="type parameter in ComboBox">T</A>&gt;&nbsp;handler)</PRE>
+<DL>
+<DD>
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE>addValueChangeHandler</CODE> in interface <CODE>com.google.gwt.event.logical.shared.HasValueChangeHandlers&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.html" title="type parameter in ComboBox">T</A> extends <A HREF="../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A>&gt;</CODE></DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>handler</CODE> - обработчик события изменения значения выпадающего списка
+<DT><B>Returns:</B><DD>ссылка на соответстующую запись обработчика</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getValueBoxBase()"><!-- --></A><H3>
+getValueBoxBase</H3>
+<PRE>
+public com.google.gwt.user.client.ui.ValueBoxBase&lt;java.lang.String&gt; <B>getValueBoxBase</B>()</PRE>
+<DL>
+<DD>Получение компонента текстового поля.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>ссылки на текстовое поле</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="addBeforeExpandHandler(com.technology.jep.jepria.client.widget.field.multistate.event.BeforeExpandEvent.BeforeExpandHandler)"><!-- --></A><H3>
+addBeforeExpandHandler</H3>
+<PRE>
+public com.google.gwt.event.shared.HandlerRegistration <B>addBeforeExpandHandler</B>(<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/event/BeforeExpandEvent.BeforeExpandHandler.html" title="interface in com.technology.jep.jepria.client.widget.field.multistate.event">BeforeExpandEvent.BeforeExpandHandler</A>&nbsp;handler)</PRE>
+<DL>
+<DD>Добавление обработчика на событие, срабатывающего до раскрытия списка опций.
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/event/BeforeExpandEvent.HasBeforeExpandHandlers.html#addBeforeExpandHandler(com.technology.jep.jepria.client.widget.field.multistate.event.BeforeExpandEvent.BeforeExpandHandler)">addBeforeExpandHandler</A></CODE> in interface <CODE><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/event/BeforeExpandEvent.HasBeforeExpandHandlers.html" title="interface in com.technology.jep.jepria.client.widget.field.multistate.event">BeforeExpandEvent.HasBeforeExpandHandlers</A></CODE></DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>handler</CODE> - обработчик события
+<DT><B>Returns:</B><DD>ссылка на соответстующую запись обработчика</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="addAfterExpandHandler(com.technology.jep.jepria.client.widget.field.multistate.event.AfterExpandEvent.AfterExpandHandler)"><!-- --></A><H3>
+addAfterExpandHandler</H3>
+<PRE>
+public com.google.gwt.event.shared.HandlerRegistration <B>addAfterExpandHandler</B>(<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/event/AfterExpandEvent.AfterExpandHandler.html" title="interface in com.technology.jep.jepria.client.widget.field.multistate.event">AfterExpandEvent.AfterExpandHandler</A>&nbsp;handler)</PRE>
+<DL>
+<DD>Добавление обработчика на событие, срабатывающего после раскрытия списка опций.
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/event/AfterExpandEvent.HasAfterExpandHandlers.html#addAfterExpandHandler(com.technology.jep.jepria.client.widget.field.multistate.event.AfterExpandEvent.AfterExpandHandler)">addAfterExpandHandler</A></CODE> in interface <CODE><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/event/AfterExpandEvent.HasAfterExpandHandlers.html" title="interface in com.technology.jep.jepria.client.widget.field.multistate.event">AfterExpandEvent.HasAfterExpandHandlers</A></CODE></DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>handler</CODE> - обработчик события
+<DT><B>Returns:</B><DD>ссылка на соответстующую запись обработчика</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="addBeforeSelectHandler(com.technology.jep.jepria.client.widget.field.multistate.event.BeforeSelectEvent.BeforeSelectHandler)"><!-- --></A><H3>
+addBeforeSelectHandler</H3>
+<PRE>
+public com.google.gwt.event.shared.HandlerRegistration <B>addBeforeSelectHandler</B>(<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/event/BeforeSelectEvent.BeforeSelectHandler.html" title="interface in com.technology.jep.jepria.client.widget.field.multistate.event">BeforeSelectEvent.BeforeSelectHandler</A>&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.html" title="type parameter in ComboBox">T</A>&gt;&nbsp;handler)</PRE>
+<DL>
+<DD>Добавление обработчика на событие, срабатывающего до выбора опции выпадающего списка.
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/event/BeforeSelectEvent.HasBeforeSelectHandlers.html#addBeforeSelectHandler(com.technology.jep.jepria.client.widget.field.multistate.event.BeforeSelectEvent.BeforeSelectHandler)">addBeforeSelectHandler</A></CODE> in interface <CODE><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/event/BeforeSelectEvent.HasBeforeSelectHandlers.html" title="interface in com.technology.jep.jepria.client.widget.field.multistate.event">BeforeSelectEvent.HasBeforeSelectHandlers</A>&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.html" title="type parameter in ComboBox">T</A> extends <A HREF="../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A>&gt;</CODE></DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>handler</CODE> - обработчик события
+<DT><B>Returns:</B><DD>ссылка на соответстующую запись обработчика</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="hasBeforeSelectHandler()"><!-- --></A><H3>
+hasBeforeSelectHandler</H3>
+<PRE>
+public boolean <B>hasBeforeSelectHandler</B>()</PRE>
+<DL>
+<DD>Проверка наличия обработчиков события, срабатывающего до выбора опции выпадающего списка.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>true - если имеются обработчики событий такого типа, в противном случае - false</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="hasAfterExpandHandler()"><!-- --></A><H3>
+hasAfterExpandHandler</H3>
+<PRE>
+public boolean <B>hasAfterExpandHandler</B>()</PRE>
+<DL>
+<DD>Проверка наличия обработчиков события, срабатывающего после раскрытия опций выпадающего списка.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>true - если имеются обработчики событий такого типа, в противном случае - false</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="beforeExpandEventCancelled()"><!-- --></A><H3>
+beforeExpandEventCancelled</H3>
+<PRE>
+protected boolean <B>beforeExpandEventCancelled</B>()</PRE>
+<DL>
+<DD>Признак будет ли раскрытие списка отменено.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>true - если событие будет прервано, иначе - false</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getFilterMode()"><!-- --></A><H3>
+getFilterMode</H3>
+<PRE>
+public <A HREF="../../../../../../../com/technology/jep/jepria/shared/field/JepLikeEnum.html" title="enum in com.technology.jep.jepria.shared.field">JepLikeEnum</A> <B>getFilterMode</B>()</PRE>
+<DL>
+<DD>Получение режима фильтрации.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>режим фильтрации в виде <A HREF="../../../../../../../com/technology/jep/jepria/shared/field/JepLikeEnum.html" title="enum in com.technology.jep.jepria.shared.field"><CODE>JepLikeEnum</CODE></A></DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setFilterMode(com.technology.jep.jepria.shared.field.JepLikeEnum)"><!-- --></A><H3>
+setFilterMode</H3>
+<PRE>
+public void <B>setFilterMode</B>(<A HREF="../../../../../../../com/technology/jep/jepria/shared/field/JepLikeEnum.html" title="enum in com.technology.jep.jepria.shared.field">JepLikeEnum</A>&nbsp;filterMode)</PRE>
+<DL>
+<DD>Установка режима фильтрации.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>filterMode</CODE> - режим фильтрации</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setUnfilteredOptions(java.util.List)"><!-- --></A><H3>
+setUnfilteredOptions</H3>
+<PRE>
+public void <B>setUnfilteredOptions</B>(java.util.List&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.html" title="type parameter in ComboBox">T</A>&gt;&nbsp;options)</PRE>
+<DL>
+<DD>Установка списка нефильтруемых опций.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>options</CODE> - нефильтруемые опции</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getDisplay()"><!-- --></A><H3>
+getDisplay</H3>
+<PRE>
+public <A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.JepOptionSuggestionDisplay.html" title="class in com.technology.jep.jepria.client.widget.field">ComboBox.JepOptionSuggestionDisplay</A>&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.html" title="type parameter in ComboBox">T</A>&gt; <B>getDisplay</B>()</PRE>
+<DL>
+<DD>Получение абстракции "отображения" возможных опций выпадающего списка.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>абстракция "отображения" возможных опций</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getOracle()"><!-- --></A><H3>
+getOracle</H3>
+<PRE>
+public <A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.JepOptionSuggestOracle.html" title="class in com.technology.jep.jepria.client.widget.field">ComboBox.JepOptionSuggestOracle</A>&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.html" title="type parameter in ComboBox">T</A>&gt; <B>getOracle</B>()</PRE>
+<DL>
+<DD>Получение абстракции "логического представления" возможных опций выпадающего списка.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>абстракция "логического представления" возможных опций</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="applyStyleForOption(com.technology.jep.jepria.shared.field.option.JepOption,java.lang.String,java.lang.String)"><!-- --></A><A NAME="applyStyleForOption(T, java.lang.String, java.lang.String)"><!-- --></A><H3>
+applyStyleForOption</H3>
+<PRE>
+public void <B>applyStyleForOption</B>(<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.html" title="type parameter in ComboBox">T</A>&nbsp;option,
+                                java.lang.String&nbsp;attr,
+                                java.lang.String&nbsp;value)</PRE>
+<DL>
+<DD>Установка css-атрибута для конкретной опции выпадающего списка.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>option</CODE> - опция с изменяемым стилем<DD><CODE>attr</CODE> - стилевой атрибут<DD><CODE>value</CODE> - значение атрибута</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setWidth(java.lang.String)"><!-- --></A><H3>
+setWidth</H3>
+<PRE>
+public void <B>setWidth</B>(java.lang.String&nbsp;width)</PRE>
+<DL>
+<DD>
+<P>
+<DD><DL>
+<DT><B>Overrides:</B><DD><CODE>setWidth</CODE> in class <CODE>com.google.gwt.user.client.ui.UIObject</CODE></DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>width</CODE> - новое значение ширины поля</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setEnabled(boolean)"><!-- --></A><H3>
+setEnabled</H3>
+<PRE>
+public void <B>setEnabled</B>(boolean&nbsp;enabled)</PRE>
+<DL>
+<DD>Установка признака доступности/недоступности элемента.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>enabled</CODE> - true - поле становится доступным, в противном случае - блокируется.</DL>
+</DD>
+</DL>
+<!-- ========= END OF CLASS DATA ========= -->
+<HR>
+
+
+<!-- ======= START OF BOTTOM NAVBAR ====== -->
+<A NAME="navbar_bottom"><!-- --></A>
+<A HREF="#skip-navbar_bottom" title="Skip navigation links"></A>
+<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
+<TR>
+<TD COLSPAN=2 BGCOLOR="#EEEEFF" CLASS="NavBarCell1">
+<A NAME="navbar_bottom_firstrow"><!-- --></A>
+<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3" SUMMARY="">
+  <TR ALIGN="center" VALIGN="top">
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-summary.html"><FONT CLASS="NavBarFont1"><B>Package</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../index-all.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../help-doc.html"><FONT CLASS="NavBarFont1"><B>Help</B></FONT></A>&nbsp;</TD>
+  </TR>
+</TABLE>
+</TD>
+<TD ALIGN="right" VALIGN="top" ROWSPAN=3><EM>
+</EM>
+</TD>
+</TR>
+
+<TR>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+&nbsp;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.TextCellImpl.html" title="class in com.technology.jep.jepria.client.widget.field"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.JepOptionSuggestion.html" title="class in com.technology.jep.jepria.client.widget.field"><B>NEXT CLASS</B></A></FONT></TD>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+  <A HREF="../../../../../../../index.html?com/technology/jep/jepria/client/widget/field/ComboBox.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="ComboBox.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+&nbsp;<SCRIPT type="text/javascript">
+  <!--
+  if(window==top) {
+    document.writeln('<A HREF="../../../../../../../allclasses-noframe.html"><B>All Classes</B></A>');
+  }
+  //-->
+</SCRIPT>
+<NOSCRIPT>
+  <A HREF="../../../../../../../allclasses-noframe.html"><B>All Classes</B></A>
+</NOSCRIPT>
+
+
+</FONT></TD>
+</TR>
+<TR>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+  SUMMARY:&nbsp;<A HREF="#nested_class_summary">NESTED</A>&nbsp;|&nbsp;<A HREF="#field_summary">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
+</TR>
+</TABLE>
+<A NAME="skip-navbar_bottom"></A>
+<!-- ======== END OF BOTTOM NAVBAR ======= -->
+
+<HR>
+
+</BODY>
+</HTML>

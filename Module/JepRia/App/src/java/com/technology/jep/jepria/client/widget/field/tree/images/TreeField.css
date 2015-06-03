@@ -1,0 +1,83 @@
+/*
+ * Copyright 2010 Google Inc.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
+ *
+ * Notice:
+ * The original file is com/google/gwt/user/cellview/client/CellTreeBasic.css
+ */
+.cellTreeWidget {
+  
+}
+
+.cellTreeEmptyMessage {
+  padding-left: 16px;
+  font-style: italic;
+}
+
+.cellTreeItem {
+  padding-top: 1px;
+  padding-bottom: 1px;
+  white-space: nowrap;
+  cursor: hand;
+  cursor: pointer;
+  zoom: 1;
+}
+
+.cellTreeItem:hover {
+  background: #F1F1F1;	  
+}
+
+.cellTreeItemImage {
+  
+}
+
+.cellTreeItemImageValue {
+  zoom: 1;
+}
+
+.cellTreeItemValue {
+  outline: none;
+}
+
+.cellTreeOpenItem {
+  
+}
+
+.cellTreeTopItem {
+  
+}
+
+.cellTreeTopItemImage {
+  
+}
+
+.cellTreeTopItemImageValue {
+  
+}
+
+.cellTreeKeyboardSelectedItem {
+  background-color: white;
+  outline: none;
+}
+
+.cellTreeSelectedItem {
+  background-color: white;
+  color: black;
+  overflow: visible;
+}
+
+.cellTreeShowMoreButton {
+  padding-left: 16px;
+  outline: none;
+}

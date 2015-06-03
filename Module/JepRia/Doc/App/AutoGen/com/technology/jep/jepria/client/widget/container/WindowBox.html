@@ -1,0 +1,1499 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!--NewPage-->
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<TITLE>
+WindowBox (JepRia JavaDoc)
+</TITLE>
+
+
+<LINK REL ="stylesheet" TYPE="text/css" HREF="../../../../../../../stylesheet.css" TITLE="Style">
+
+<SCRIPT type="text/javascript">
+function windowTitle()
+{
+    if (location.href.indexOf('is-external=true') == -1) {
+        parent.document.title="WindowBox (JepRia JavaDoc)";
+    }
+}
+</SCRIPT>
+<NOSCRIPT>
+</NOSCRIPT>
+
+</HEAD>
+
+<BODY BGCOLOR="white" onload="windowTitle();">
+<HR>
+
+
+<!-- ========= START OF TOP NAVBAR ======= -->
+<A NAME="navbar_top"><!-- --></A>
+<A HREF="#skip-navbar_top" title="Skip navigation links"></A>
+<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
+<TR>
+<TD COLSPAN=2 BGCOLOR="#EEEEFF" CLASS="NavBarCell1">
+<A NAME="navbar_top_firstrow"><!-- --></A>
+<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3" SUMMARY="">
+  <TR ALIGN="center" VALIGN="top">
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-summary.html"><FONT CLASS="NavBarFont1"><B>Package</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../index-all.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../help-doc.html"><FONT CLASS="NavBarFont1"><B>Help</B></FONT></A>&nbsp;</TD>
+  </TR>
+</TABLE>
+</TD>
+<TD ALIGN="right" VALIGN="top" ROWSPAN=3><EM>
+</EM>
+</TD>
+</TR>
+
+<TR>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+&nbsp;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/container/JepTabLayoutPanel.html" title="class in com.technology.jep.jepria.client.widget.container"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;NEXT CLASS</FONT></TD>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+  <A HREF="../../../../../../../index.html?com/technology/jep/jepria/client/widget/container/WindowBox.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="WindowBox.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+&nbsp;<SCRIPT type="text/javascript">
+  <!--
+  if(window==top) {
+    document.writeln('<A HREF="../../../../../../../allclasses-noframe.html"><B>All Classes</B></A>');
+  }
+  //-->
+</SCRIPT>
+<NOSCRIPT>
+  <A HREF="../../../../../../../allclasses-noframe.html"><B>All Classes</B></A>
+</NOSCRIPT>
+
+
+</FONT></TD>
+</TR>
+<TR>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+  SUMMARY:&nbsp;<A HREF="#nested_classes_inherited_from_class_com.google.gwt.user.client.ui.DialogBox">NESTED</A>&nbsp;|&nbsp;<A HREF="#field_summary">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
+</TR>
+</TABLE>
+<A NAME="skip-navbar_top"></A>
+<!-- ========= END OF TOP NAVBAR ========= -->
+
+<HR>
+<!-- ======== START OF CLASS DATA ======== -->
+<H2>
+<FONT SIZE="-1">
+com.technology.jep.jepria.client.widget.container</FONT>
+<BR>
+Class WindowBox</H2>
+<PRE>
+java.lang.Object
+  <IMG SRC="../../../../../../../resources/inherit.gif" ALT="extended by ">com.google.gwt.user.client.ui.UIObject
+      <IMG SRC="../../../../../../../resources/inherit.gif" ALT="extended by ">com.google.gwt.user.client.ui.Widget
+          <IMG SRC="../../../../../../../resources/inherit.gif" ALT="extended by ">com.google.gwt.user.client.ui.Panel
+              <IMG SRC="../../../../../../../resources/inherit.gif" ALT="extended by ">com.google.gwt.user.client.ui.SimplePanel
+                  <IMG SRC="../../../../../../../resources/inherit.gif" ALT="extended by ">com.google.gwt.user.client.ui.PopupPanel
+                      <IMG SRC="../../../../../../../resources/inherit.gif" ALT="extended by ">com.google.gwt.user.client.ui.DecoratedPopupPanel
+                          <IMG SRC="../../../../../../../resources/inherit.gif" ALT="extended by ">com.google.gwt.user.client.ui.DialogBox
+                              <IMG SRC="../../../../../../../resources/inherit.gif" ALT="extended by "><B>com.technology.jep.jepria.client.widget.container.WindowBox</B>
+</PRE>
+<DL>
+<DT><B>All Implemented Interfaces:</B> <DD>com.google.gwt.event.logical.shared.HasAttachHandlers, com.google.gwt.event.logical.shared.HasCloseHandlers&lt;com.google.gwt.user.client.ui.PopupPanel&gt;, com.google.gwt.event.logical.shared.HasOpenHandlers&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/container/WindowBox.html" title="class in com.technology.jep.jepria.client.widget.container">WindowBox</A>&gt;, com.google.gwt.event.shared.HasHandlers, com.google.gwt.safehtml.client.HasSafeHtml, com.google.gwt.user.client.EventListener, com.google.gwt.user.client.EventPreview, com.google.gwt.user.client.ui.AcceptsOneWidget, com.google.gwt.user.client.ui.HasAnimation, com.google.gwt.user.client.ui.HasHTML, com.google.gwt.user.client.ui.HasOneWidget, com.google.gwt.user.client.ui.HasText, com.google.gwt.user.client.ui.HasVisibility, com.google.gwt.user.client.ui.HasWidgets, com.google.gwt.user.client.ui.HasWidgets.ForIsWidget, com.google.gwt.user.client.ui.IsWidget, com.google.gwt.user.client.ui.MouseListener, com.google.gwt.user.client.ui.SourcesPopupEvents, java.lang.Iterable&lt;com.google.gwt.user.client.ui.Widget&gt;</DD>
+</DL>
+<DL>
+<DT><B>Direct Known Subclasses:</B> <DD><A HREF="../../../../../../../com/technology/jep/jepria/client/message/MessageBox.html" title="class in com.technology.jep.jepria.client.message">MessageBox</A></DD>
+</DL>
+<HR>
+<DL>
+<DT><PRE>public class <B>WindowBox</B><DT>extends com.google.gwt.user.client.ui.DialogBox<DT>implements com.google.gwt.event.logical.shared.HasOpenHandlers&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/container/WindowBox.html" title="class in com.technology.jep.jepria.client.widget.container">WindowBox</A>&gt;</DL>
+</PRE>
+
+<P>
+<HR>
+
+<P>
+<!-- ======== NESTED CLASS SUMMARY ======== -->
+
+<A NAME="nested_class_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Nested Class Summary</B></FONT></TH>
+</TR>
+</TABLE>
+&nbsp;<A NAME="nested_classes_inherited_from_class_com.google.gwt.user.client.ui.DialogBox"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Nested classes/interfaces inherited from class com.google.gwt.user.client.ui.DialogBox</B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE>com.google.gwt.user.client.ui.DialogBox.Caption, com.google.gwt.user.client.ui.DialogBox.CaptionImpl</CODE></TD>
+</TR>
+</TABLE>
+&nbsp;
+<A NAME="nested_classes_inherited_from_class_com.google.gwt.user.client.ui.PopupPanel"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Nested classes/interfaces inherited from class com.google.gwt.user.client.ui.PopupPanel</B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE>com.google.gwt.user.client.ui.PopupPanel.AnimationType, com.google.gwt.user.client.ui.PopupPanel.PositionCallback</CODE></TD>
+</TR>
+</TABLE>
+&nbsp;
+<A NAME="nested_classes_inherited_from_class_com.google.gwt.user.client.ui.UIObject"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Nested classes/interfaces inherited from class com.google.gwt.user.client.ui.UIObject</B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE>com.google.gwt.user.client.ui.UIObject.DebugIdImpl, com.google.gwt.user.client.ui.UIObject.DebugIdImplEnabled</CODE></TD>
+</TR>
+</TABLE>
+&nbsp;
+<A NAME="nested_classes_inherited_from_class_com.google.gwt.user.client.ui.HasWidgets"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Nested classes/interfaces inherited from interface com.google.gwt.user.client.ui.HasWidgets</B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE>com.google.gwt.user.client.ui.HasWidgets.ForIsWidget</CODE></TD>
+</TR>
+</TABLE>
+&nbsp;
+<!-- =========== FIELD SUMMARY =========== -->
+
+<A NAME="field_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Field Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;com.google.gwt.user.client.ui.Anchor</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/container/WindowBox.html#close">close</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private static&nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/container/WindowBox.html#CLOSE_BUTTON_WINDOW_BOX_STYLE">CLOSE_BUTTON_WINDOW_BOX_STYLE</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Наименование селектора (класса стилей) кнопки закрытия.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;com.google.gwt.user.client.ui.FlowPanel</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/container/WindowBox.html#container">container</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;com.google.gwt.user.client.ui.FlowPanel</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/container/WindowBox.html#controls">controls</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private static&nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/container/WindowBox.html#DIALOG_CONTAINER_WINDOW_BOX_STYLE">DIALOG_CONTAINER_WINDOW_BOX_STYLE</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Наименование селектора (класса стилей) области сообщения всплывающего окна.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private static&nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/container/WindowBox.html#DIALOG_CONTROLS_WINDOW_BOX_STYLE">DIALOG_CONTROLS_WINDOW_BOX_STYLE</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Наименование селектора (класса стилей) области кнопок всплывающего окна.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;int</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/container/WindowBox.html#dragMode">dragMode</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;int</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/container/WindowBox.html#dragX">dragX</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;int</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/container/WindowBox.html#dragY">dragY</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private static&nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/container/WindowBox.html#MAIN_WINDOW_BOX_STYLE">MAIN_WINDOW_BOX_STYLE</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Наименование селектора (класса стилей) всплывающего окна.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private static&nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/container/WindowBox.html#MAXIMIZE_BUTTON_WINDOW_BOX_STYLE">MAXIMIZE_BUTTON_WINDOW_BOX_STYLE</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Наименование селектора (класса стилей) кнопки увеличения размеров всплывающего окна.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private static&nbsp;int</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/container/WindowBox.html#MIN_HEIGHT">MIN_HEIGHT</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private static&nbsp;int</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/container/WindowBox.html#MIN_WIDTH">MIN_WIDTH</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;int</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/container/WindowBox.html#minHeight">minHeight</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;com.google.gwt.user.client.ui.Anchor</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/container/WindowBox.html#minimize">minimize</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private static&nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/container/WindowBox.html#MINIMIZE_BUTTON_WINDOW_BOX_STYLE">MINIMIZE_BUTTON_WINDOW_BOX_STYLE</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Наименование селектора (класса стилей) кнопки уменьшения размеров всплывающего окна.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/container/WindowBox.html#minimized">minimized</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;int</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/container/WindowBox.html#minWidth">minWidth</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/container/WindowBox.html#resizable">resizable</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="fields_inherited_from_class_com.google.gwt.user.client.ui.UIObject"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Fields inherited from class com.google.gwt.user.client.ui.UIObject</B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE>DEBUG_ID_PREFIX</CODE></TD>
+</TR>
+</TABLE>
+&nbsp;
+<!-- ======== CONSTRUCTOR SUMMARY ======== -->
+
+<A NAME="constructor_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Constructor Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/container/WindowBox.html#WindowBox()">WindowBox</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates a WindowBox which is permanent (no auto-hide), non-modal, has a "minimize"- and "close"-button
+ in the top-right corner and is not resizeable.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/container/WindowBox.html#WindowBox(boolean)">WindowBox</A></B>(boolean&nbsp;resizeable)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates a WindowBox which is permanent, non-modal, has a "minimize"- and "close"-button and is optionally resizeable.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/container/WindowBox.html#WindowBox(boolean, boolean)">WindowBox</A></B>(boolean&nbsp;showCloseIcon,
+          boolean&nbsp;resizeable)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates a WindowBox which is permanent and nonmodal, optionally resizeable and/or has a "minimize"- and 
+ "close"-button.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/container/WindowBox.html#WindowBox(boolean, boolean, boolean)">WindowBox</A></B>(boolean&nbsp;showMinimizeIcon,
+          boolean&nbsp;showCloseIcon,
+          boolean&nbsp;resizeable)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates a WindowBox which is permanent and nonmodal, optionally resizeable and/or has a "minimize"- and
+ "close"-button.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/container/WindowBox.html#WindowBox(boolean, boolean, boolean, boolean)">WindowBox</A></B>(boolean&nbsp;modal,
+          boolean&nbsp;showMinimizeIcon,
+          boolean&nbsp;showCloseIcon,
+          boolean&nbsp;resizeable)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates a WindowBox which is permanent, optionally modal, resizeable and/or has a "minimize"- and 
+ "close"-button.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/container/WindowBox.html#WindowBox(boolean, boolean, boolean, boolean, boolean)">WindowBox</A></B>(boolean&nbsp;autoHide,
+          boolean&nbsp;modal,
+          boolean&nbsp;showMinimizeIcon,
+          boolean&nbsp;showCloseIcon,
+          boolean&nbsp;resizeable)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates an empty WindowBox with all configuration options.</TD>
+</TR>
+</TABLE>
+&nbsp;
+<!-- ========== METHOD SUMMARY =========== -->
+
+<A NAME="method_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Method Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;com.google.gwt.event.shared.HandlerRegistration</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/container/WindowBox.html#addOpenHandler(com.google.gwt.event.logical.shared.OpenHandler)">addOpenHandler</A></B>(com.google.gwt.event.logical.shared.OpenHandler&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/container/WindowBox.html" title="class in com.technology.jep.jepria.client.widget.container">WindowBox</A>&gt;&nbsp;handler)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/container/WindowBox.html#beginDragging(com.google.gwt.event.dom.client.MouseDownEvent)">beginDragging</A></B>(com.google.gwt.event.dom.client.MouseDownEvent&nbsp;event)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;int</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/container/WindowBox.html#calcDragMode(int, int)">calcDragMode</A></B>(int&nbsp;clientX,
+             int&nbsp;clientY)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Calculates the position of the mouse relative to the dialog box, and returns the corresponding "drag-mode"
+ integer, which describes which area of the box is being resized.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/container/WindowBox.html#continueDragging(com.google.gwt.event.dom.client.MouseMoveEvent)">continueDragging</A></B>(com.google.gwt.event.dom.client.MouseMoveEvent&nbsp;event)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/container/WindowBox.html#dragResizeWidget(com.google.gwt.user.client.ui.PopupPanel, int, int)">dragResizeWidget</A></B>(com.google.gwt.user.client.ui.PopupPanel&nbsp;panel,
+                 int&nbsp;dx,
+                 int&nbsp;dy)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Convenience method to set the height, width and position of the given widget</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/container/WindowBox.html#endDragging(com.google.gwt.event.dom.client.MouseUpEvent)">endDragging</A></B>(com.google.gwt.event.dom.client.MouseUpEvent&nbsp;event)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;com.google.gwt.user.client.ui.FlowPanel</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/container/WindowBox.html#getControlPanel()">getControlPanel</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns the FlowPanel that contains the controls.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;int</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/container/WindowBox.html#getRelX(com.google.gwt.dom.client.Element, int)">getRelX</A></B>(com.google.gwt.dom.client.Element&nbsp;resize,
+        int&nbsp;clientX)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Recalculation of X-coordinate</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;int</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/container/WindowBox.html#getRelY(com.google.gwt.dom.client.Element, int)">getRelY</A></B>(com.google.gwt.dom.client.Element&nbsp;resize,
+        int&nbsp;clientY)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Recalculation of Y-coordinate</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;com.google.gwt.user.client.ui.Widget</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/container/WindowBox.html#getWidget()">getWidget</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/container/WindowBox.html#isResizable()">isResizable</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns whether the dialog box is mouse-resizeable</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/container/WindowBox.html#onBrowserEvent(com.google.gwt.user.client.Event)">onBrowserEvent</A></B>(com.google.gwt.user.client.Event&nbsp;event)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/container/WindowBox.html#onCloseClick(com.google.gwt.event.dom.client.ClickEvent)">onCloseClick</A></B>(com.google.gwt.event.dom.client.ClickEvent&nbsp;event)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Called when the close icon is clicked.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/container/WindowBox.html#onMinimizeClick(com.google.gwt.event.dom.client.ClickEvent)">onMinimizeClick</A></B>(com.google.gwt.event.dom.client.ClickEvent&nbsp;event)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Called when the minimize icon is clicked.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/container/WindowBox.html#onPreviewNativeEvent(com.google.gwt.user.client.Event.NativePreviewEvent)">onPreviewNativeEvent</A></B>(com.google.gwt.user.client.Event.NativePreviewEvent&nbsp;event)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/container/WindowBox.html#remove(com.google.gwt.user.client.ui.Widget)">remove</A></B>(com.google.gwt.user.client.ui.Widget&nbsp;w)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/container/WindowBox.html#setCloseIconVisible(boolean)">setCloseIconVisible</A></B>(boolean&nbsp;visible)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Set whether the "close"-button should appear in the top right corner of the header</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/container/WindowBox.html#setMinHeight(int)">setMinHeight</A></B>(int&nbsp;minHeight)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sets the minimum height to which this widget can be resized by the user, if resizing is enabled.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/container/WindowBox.html#setMinimizeIconVisible(boolean)">setMinimizeIconVisible</A></B>(boolean&nbsp;visible)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Set whether the "minimize"-button should appear in the top right corner of the header</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/container/WindowBox.html#setMinWidth(int)">setMinWidth</A></B>(int&nbsp;minWidth)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sets the minimum width to which this widget can be resized by the user, if resizing is enabled.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/container/WindowBox.html#setResizable(boolean)">setResizable</A></B>(boolean&nbsp;resizable)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Set the dialog box to be resizeable by the user</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/container/WindowBox.html#setWidget(com.google.gwt.user.client.ui.Widget)">setWidget</A></B>(com.google.gwt.user.client.ui.Widget&nbsp;widget)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/container/WindowBox.html#show()">show</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/container/WindowBox.html#updateCursor(int)">updateCursor</A></B>(int&nbsp;dragMode)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sets the cursor to indicate resizability for a specified "drag-mode" (i.e. how the box is being resized)
+ on the dialog box.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected static&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/container/WindowBox.html#updateCursor(int, com.google.gwt.dom.client.Element)">updateCursor</A></B>(int&nbsp;dm,
+             com.google.gwt.dom.client.Element&nbsp;element)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Static helper method to change the cursor for a given element when resizing is enabled.</TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_com.google.gwt.user.client.ui.DialogBox"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from class com.google.gwt.user.client.ui.DialogBox</B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE>doAttachChildren, doDetachChildren, getCaption, getHTML, getText, hide, onEnsureDebugId, onMouseDown, onMouseEnter, onMouseLeave, onMouseMove, onMouseUp, setHTML, setHTML, setText</CODE></TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_com.google.gwt.user.client.ui.DecoratedPopupPanel"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from class com.google.gwt.user.client.ui.DecoratedPopupPanel</B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE>clear, getCellElement, iterator</CODE></TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_com.google.gwt.user.client.ui.PopupPanel"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from class com.google.gwt.user.client.ui.PopupPanel</B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE>addAutoHidePartner, addCloseHandler, addPopupListener, center, getAnimationType, getContainerElement, getGlassElement, getGlassStyleName, getOffsetHeight, getOffsetWidth, getPopupLeft, getPopupTop, getStyleElement, getTitle, hide, isAnimationEnabled, isAutoHideEnabled, isAutoHideOnHistoryEventsEnabled, isGlassEnabled, isModal, isPreviewingAllNativeEvents, isShowing, isVisible, onEventPreview, onKeyDownPreview, onKeyPressPreview, onKeyUpPreview, onUnload, removeAutoHidePartner, removePopupListener, setAnimationEnabled, setAnimationType, setAutoHideEnabled, setAutoHideOnHistoryEventsEnabled, setGlassEnabled, setGlassStyleName, setHeight, setModal, setPopupPosition, setPopupPositionAndShow, setPreviewingAllNativeEvents, setTitle, setVisible, setWidth, showRelativeTo</CODE></TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_com.google.gwt.user.client.ui.SimplePanel"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from class com.google.gwt.user.client.ui.SimplePanel</B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE>add, setWidget</CODE></TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_com.google.gwt.user.client.ui.Panel"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from class com.google.gwt.user.client.ui.Panel</B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE>add, adopt, orphan, remove</CODE></TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_com.google.gwt.user.client.ui.Widget"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from class com.google.gwt.user.client.ui.Widget</B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE>addAttachHandler, addBitlessDomHandler, addDomHandler, addHandler, asWidget, asWidgetOrNull, createHandlerManager, delegateEvent, fireEvent, getHandlerCount, getLayoutData, getParent, isAttached, isOrWasAttached, onAttach, onDetach, onLoad, removeFromParent, setLayoutData, sinkEvents, unsinkEvents</CODE></TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_com.google.gwt.user.client.ui.UIObject"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from class com.google.gwt.user.client.ui.UIObject</B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE>addStyleDependentName, addStyleName, ensureDebugId, ensureDebugId, ensureDebugId, getAbsoluteLeft, getAbsoluteTop, getElement, getStyleName, getStyleName, getStylePrimaryName, getStylePrimaryName, isVisible, removeStyleDependentName, removeStyleName, resolvePotentialElement, setElement, setElement, setPixelSize, setSize, setStyleDependentName, setStyleName, setStyleName, setStyleName, setStyleName, setStylePrimaryName, setStylePrimaryName, setVisible, sinkBitlessEvent, toString</CODE></TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from class java.lang.Object</B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE>clone, equals, finalize, getClass, hashCode, notify, notifyAll, wait, wait, wait</CODE></TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_com.google.gwt.event.shared.HasHandlers"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from interface com.google.gwt.event.shared.HasHandlers</B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE>fireEvent</CODE></TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
+<!-- ============ FIELD DETAIL =========== -->
+
+<A NAME="field_detail"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
+<B>Field Detail</B></FONT></TH>
+</TR>
+</TABLE>
+
+<A NAME="MIN_WIDTH"><!-- --></A><H3>
+MIN_WIDTH</H3>
+<PRE>
+private static final int <B>MIN_WIDTH</B></PRE>
+<DL>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../../../constant-values.html#com.technology.jep.jepria.client.widget.container.WindowBox.MIN_WIDTH">Constant Field Values</A></DL>
+</DL>
+<HR>
+
+<A NAME="MIN_HEIGHT"><!-- --></A><H3>
+MIN_HEIGHT</H3>
+<PRE>
+private static final int <B>MIN_HEIGHT</B></PRE>
+<DL>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../../../constant-values.html#com.technology.jep.jepria.client.widget.container.WindowBox.MIN_HEIGHT">Constant Field Values</A></DL>
+</DL>
+<HR>
+
+<A NAME="container"><!-- --></A><H3>
+container</H3>
+<PRE>
+private com.google.gwt.user.client.ui.FlowPanel <B>container</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="controls"><!-- --></A><H3>
+controls</H3>
+<PRE>
+private com.google.gwt.user.client.ui.FlowPanel <B>controls</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="close"><!-- --></A><H3>
+close</H3>
+<PRE>
+private com.google.gwt.user.client.ui.Anchor <B>close</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="minimize"><!-- --></A><H3>
+minimize</H3>
+<PRE>
+private com.google.gwt.user.client.ui.Anchor <B>minimize</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="dragX"><!-- --></A><H3>
+dragX</H3>
+<PRE>
+private int <B>dragX</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="dragY"><!-- --></A><H3>
+dragY</H3>
+<PRE>
+private int <B>dragY</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="minWidth"><!-- --></A><H3>
+minWidth</H3>
+<PRE>
+private int <B>minWidth</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="minHeight"><!-- --></A><H3>
+minHeight</H3>
+<PRE>
+private int <B>minHeight</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="dragMode"><!-- --></A><H3>
+dragMode</H3>
+<PRE>
+private int <B>dragMode</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="resizable"><!-- --></A><H3>
+resizable</H3>
+<PRE>
+private boolean <B>resizable</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="minimized"><!-- --></A><H3>
+minimized</H3>
+<PRE>
+private boolean <B>minimized</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="MAIN_WINDOW_BOX_STYLE"><!-- --></A><H3>
+MAIN_WINDOW_BOX_STYLE</H3>
+<PRE>
+private static final java.lang.String <B>MAIN_WINDOW_BOX_STYLE</B></PRE>
+<DL>
+<DD>Наименование селектора (класса стилей) всплывающего окна.
+<P>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../../../constant-values.html#com.technology.jep.jepria.client.widget.container.WindowBox.MAIN_WINDOW_BOX_STYLE">Constant Field Values</A></DL>
+</DL>
+<HR>
+
+<A NAME="DIALOG_CONTAINER_WINDOW_BOX_STYLE"><!-- --></A><H3>
+DIALOG_CONTAINER_WINDOW_BOX_STYLE</H3>
+<PRE>
+private static final java.lang.String <B>DIALOG_CONTAINER_WINDOW_BOX_STYLE</B></PRE>
+<DL>
+<DD>Наименование селектора (класса стилей) области сообщения всплывающего окна.
+<P>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../../../constant-values.html#com.technology.jep.jepria.client.widget.container.WindowBox.DIALOG_CONTAINER_WINDOW_BOX_STYLE">Constant Field Values</A></DL>
+</DL>
+<HR>
+
+<A NAME="CLOSE_BUTTON_WINDOW_BOX_STYLE"><!-- --></A><H3>
+CLOSE_BUTTON_WINDOW_BOX_STYLE</H3>
+<PRE>
+private static final java.lang.String <B>CLOSE_BUTTON_WINDOW_BOX_STYLE</B></PRE>
+<DL>
+<DD>Наименование селектора (класса стилей) кнопки закрытия.
+<P>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../../../constant-values.html#com.technology.jep.jepria.client.widget.container.WindowBox.CLOSE_BUTTON_WINDOW_BOX_STYLE">Constant Field Values</A></DL>
+</DL>
+<HR>
+
+<A NAME="MINIMIZE_BUTTON_WINDOW_BOX_STYLE"><!-- --></A><H3>
+MINIMIZE_BUTTON_WINDOW_BOX_STYLE</H3>
+<PRE>
+private static final java.lang.String <B>MINIMIZE_BUTTON_WINDOW_BOX_STYLE</B></PRE>
+<DL>
+<DD>Наименование селектора (класса стилей) кнопки уменьшения размеров всплывающего окна.
+<P>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../../../constant-values.html#com.technology.jep.jepria.client.widget.container.WindowBox.MINIMIZE_BUTTON_WINDOW_BOX_STYLE">Constant Field Values</A></DL>
+</DL>
+<HR>
+
+<A NAME="MAXIMIZE_BUTTON_WINDOW_BOX_STYLE"><!-- --></A><H3>
+MAXIMIZE_BUTTON_WINDOW_BOX_STYLE</H3>
+<PRE>
+private static final java.lang.String <B>MAXIMIZE_BUTTON_WINDOW_BOX_STYLE</B></PRE>
+<DL>
+<DD>Наименование селектора (класса стилей) кнопки увеличения размеров всплывающего окна.
+<P>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../../../constant-values.html#com.technology.jep.jepria.client.widget.container.WindowBox.MAXIMIZE_BUTTON_WINDOW_BOX_STYLE">Constant Field Values</A></DL>
+</DL>
+<HR>
+
+<A NAME="DIALOG_CONTROLS_WINDOW_BOX_STYLE"><!-- --></A><H3>
+DIALOG_CONTROLS_WINDOW_BOX_STYLE</H3>
+<PRE>
+private static final java.lang.String <B>DIALOG_CONTROLS_WINDOW_BOX_STYLE</B></PRE>
+<DL>
+<DD>Наименование селектора (класса стилей) области кнопок всплывающего окна.
+<P>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../../../constant-values.html#com.technology.jep.jepria.client.widget.container.WindowBox.DIALOG_CONTROLS_WINDOW_BOX_STYLE">Constant Field Values</A></DL>
+</DL>
+
+<!-- ========= CONSTRUCTOR DETAIL ======== -->
+
+<A NAME="constructor_detail"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
+<B>Constructor Detail</B></FONT></TH>
+</TR>
+</TABLE>
+
+<A NAME="WindowBox()"><!-- --></A><H3>
+WindowBox</H3>
+<PRE>
+public <B>WindowBox</B>()</PRE>
+<DL>
+<DD>Creates a WindowBox which is permanent (no auto-hide), non-modal, has a "minimize"- and "close"-button
+ in the top-right corner and is not resizeable. The dialog box should not be shown until a child widget has been
+ added using <CODE>Panel.add(com.google.gwt.user.client.ui.IsWidget)</CODE>.
+ <br><br>
+ This is the equivalent for calling <code>WindowBox(false, false, true, false)</code>.
+<P>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/container/WindowBox.html#WindowBox(boolean, boolean, boolean, boolean)"><CODE>WindowBox(boolean, boolean, boolean, boolean)</CODE></A></DL>
+</DL>
+<HR>
+
+<A NAME="WindowBox(boolean)"><!-- --></A><H3>
+WindowBox</H3>
+<PRE>
+public <B>WindowBox</B>(boolean&nbsp;resizeable)</PRE>
+<DL>
+<DD>Creates a WindowBox which is permanent, non-modal, has a "minimize"- and "close"-button and is optionally resizeable.
+ The dialog box should not be shown until a child widget has been added using
+ <A HREF="../../../../../../../com/technology/jep/jepria/client/widget/container/WindowBox.html#setWidget(com.google.gwt.user.client.ui.Widget)"><CODE>setWidget(Widget)</CODE></A>.
+<P>
+<DL>
+<DT><B>Parameters:</B><DD><CODE>resizeable</CODE> - <code>true</code> to allow resizing by dragging the borders<DT><B>See Also:</B><DD><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/container/WindowBox.html#WindowBox(boolean, boolean, boolean, boolean)"><CODE>WindowBox(boolean, boolean, boolean, boolean)</CODE></A></DL>
+</DL>
+<HR>
+
+<A NAME="WindowBox(boolean, boolean)"><!-- --></A><H3>
+WindowBox</H3>
+<PRE>
+public <B>WindowBox</B>(boolean&nbsp;showCloseIcon,
+                 boolean&nbsp;resizeable)</PRE>
+<DL>
+<DD>Creates a WindowBox which is permanent and nonmodal, optionally resizeable and/or has a "minimize"- and 
+ "close"-button. The dialog box should not be shown until a child widget has been added using
+ <A HREF="../../../../../../../com/technology/jep/jepria/client/widget/container/WindowBox.html#setWidget(com.google.gwt.user.client.ui.Widget)"><CODE>setWidget(Widget)</CODE></A>.
+<P>
+<DL>
+<DT><B>Parameters:</B><DD><CODE>resizeable</CODE> - <code>true</code> to allow resizing by dragging the borders<DD><CODE>showCloseIcon</CODE> - <code>true</code> to show "close"-icon in the top right corner of the header<DT><B>See Also:</B><DD><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/container/WindowBox.html#WindowBox(boolean, boolean, boolean, boolean)"><CODE>WindowBox(boolean, boolean, boolean, boolean)</CODE></A></DL>
+</DL>
+<HR>
+
+<A NAME="WindowBox(boolean, boolean, boolean)"><!-- --></A><H3>
+WindowBox</H3>
+<PRE>
+public <B>WindowBox</B>(boolean&nbsp;showMinimizeIcon,
+                 boolean&nbsp;showCloseIcon,
+                 boolean&nbsp;resizeable)</PRE>
+<DL>
+<DD>Creates a WindowBox which is permanent and nonmodal, optionally resizeable and/or has a "minimize"- and
+ "close"-button. The dialog box should not be shown until a child widget has been added using
+ <A HREF="../../../../../../../com/technology/jep/jepria/client/widget/container/WindowBox.html#setWidget(com.google.gwt.user.client.ui.Widget)"><CODE>setWidget(Widget)</CODE></A>.
+<P>
+<DL>
+<DT><B>Parameters:</B><DD><CODE>showMinimizeIcon</CODE> - <code>true</code> to show "minimize"-icon int the top right corner of the header<DD><CODE>resizeable</CODE> - <code>true</code> to allow resizing by dragging the borders<DD><CODE>showCloseIcon</CODE> - <code>true</code> to show "close"-icon in the top right corner of the header<DT><B>See Also:</B><DD><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/container/WindowBox.html#WindowBox(boolean, boolean, boolean, boolean)"><CODE>WindowBox(boolean, boolean, boolean, boolean)</CODE></A></DL>
+</DL>
+<HR>
+
+<A NAME="WindowBox(boolean, boolean, boolean, boolean)"><!-- --></A><H3>
+WindowBox</H3>
+<PRE>
+public <B>WindowBox</B>(boolean&nbsp;modal,
+                 boolean&nbsp;showMinimizeIcon,
+                 boolean&nbsp;showCloseIcon,
+                 boolean&nbsp;resizeable)</PRE>
+<DL>
+<DD>Creates a WindowBox which is permanent, optionally modal, resizeable and/or has a "minimize"- and 
+ "close"-button. The dialog box should not be shown until a child widget has been added using
+ <A HREF="../../../../../../../com/technology/jep/jepria/client/widget/container/WindowBox.html#setWidget(com.google.gwt.user.client.ui.Widget)"><CODE>setWidget(Widget)</CODE></A>.
+<P>
+<DL>
+<DT><B>Parameters:</B><DD><CODE>modal</CODE> - <code>true</code> if keyboard and mouse events for widgets not contained by the dialog 
+          should be ignored<DD><CODE>showMinimizeIcon</CODE> - <code>true</code> to show "minimize"-icon int the top right corner of the header<DD><CODE>resizeable</CODE> - <code>true</code> to allow resizing by dragging the borders<DD><CODE>showCloseIcon</CODE> - <code>true</code> to show "close"-icon in the top right corner of the header</DL>
+</DL>
+<HR>
+
+<A NAME="WindowBox(boolean, boolean, boolean, boolean, boolean)"><!-- --></A><H3>
+WindowBox</H3>
+<PRE>
+public <B>WindowBox</B>(boolean&nbsp;autoHide,
+                 boolean&nbsp;modal,
+                 boolean&nbsp;showMinimizeIcon,
+                 boolean&nbsp;showCloseIcon,
+                 boolean&nbsp;resizeable)</PRE>
+<DL>
+<DD>Creates an empty WindowBox with all configuration options.
+ The dialog box should not be shown until a child widget has been added using
+ <A HREF="../../../../../../../com/technology/jep/jepria/client/widget/container/WindowBox.html#setWidget(com.google.gwt.user.client.ui.Widget)"><CODE>setWidget(Widget)</CODE></A>.
+<P>
+<DL>
+<DT><B>Parameters:</B><DD><CODE>autoHide</CODE> - <code>true</code> if the dialog should be automatically hidden when the user clicks outside of it<DD><CODE>modal</CODE> - <code>true</code> if keyboard and mouse events for widgets not contained by the dialog 
+          should be ignored<DD><CODE>showMinimizeIcon</CODE> - <code>true</code> to show "minimize"-icon int the top right corner of the header<DD><CODE>showCloseIcon</CODE> - <code>true</code> to show "close"-icon in the top right corner of the header<DD><CODE>resizeable</CODE> - <code>true</code> to allow resizing by dragging the borders<DT><B>See Also:</B><DD><CODE>DialogBox.DialogBox()</CODE>, 
+<CODE>DialogBox.DialogBox(boolean)</CODE>, 
+<CODE>DialogBox.DialogBox(boolean, boolean)</CODE></DL>
+</DL>
+
+<!-- ============ METHOD DETAIL ========== -->
+
+<A NAME="method_detail"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
+<B>Method Detail</B></FONT></TH>
+</TR>
+</TABLE>
+
+<A NAME="updateCursor(int, com.google.gwt.dom.client.Element)"><!-- --></A><H3>
+updateCursor</H3>
+<PRE>
+protected static void <B>updateCursor</B>(int&nbsp;dm,
+                                   com.google.gwt.dom.client.Element&nbsp;element)</PRE>
+<DL>
+<DD>Static helper method to change the cursor for a given element when resizing is enabled.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>dm</CODE> - The code describing the position of the element in question<DD><CODE>element</CODE> - The <CODE>Element</CODE> to set the cursor on</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="updateCursor(int)"><!-- --></A><H3>
+updateCursor</H3>
+<PRE>
+protected void <B>updateCursor</B>(int&nbsp;dragMode)</PRE>
+<DL>
+<DD>Sets the cursor to indicate resizability for a specified "drag-mode" (i.e. how the box is being resized)
+ on the dialog box. The position is described by an integer, as follows:
+ 
+ <pre>
+  0-- --1-- --2
+  |           |
+  
+  |           |
+  3    -1     5
+  |           |
+  
+  |           |
+  6-- --7-- --8
+ </pre>
+ 
+ passing <code>-1</code> resets the cursor to the default.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>dragMode</CODE> - </DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="isResizable()"><!-- --></A><H3>
+isResizable</H3>
+<PRE>
+public boolean <B>isResizable</B>()</PRE>
+<DL>
+<DD>Returns whether the dialog box is mouse-resizeable
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+
+<DT><B>Returns:</B><DD><code>true</code> if the user can resize the dialog with the mouse</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setResizable(boolean)"><!-- --></A><H3>
+setResizable</H3>
+<PRE>
+public void <B>setResizable</B>(boolean&nbsp;resizable)</PRE>
+<DL>
+<DD>Set the dialog box to be resizeable by the user
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>resizable</CODE> - <code>true</code> if the user can resize the dialog with the mouse</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="onBrowserEvent(com.google.gwt.user.client.Event)"><!-- --></A><H3>
+onBrowserEvent</H3>
+<PRE>
+public void <B>onBrowserEvent</B>(com.google.gwt.user.client.Event&nbsp;event)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE>onBrowserEvent</CODE> in interface <CODE>com.google.gwt.user.client.EventListener</CODE><DT><B>Overrides:</B><DD><CODE>onBrowserEvent</CODE> in class <CODE>com.google.gwt.user.client.ui.DialogBox</CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getRelX(com.google.gwt.dom.client.Element, int)"><!-- --></A><H3>
+getRelX</H3>
+<PRE>
+private int <B>getRelX</B>(com.google.gwt.dom.client.Element&nbsp;resize,
+                    int&nbsp;clientX)</PRE>
+<DL>
+<DD>Recalculation of X-coordinate
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>resize</CODE> - resizeable element<DD><CODE>clientX</CODE> - input value of x-coordinate
+<DT><B>Returns:</B><DD>new value of x-coordinate</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getRelY(com.google.gwt.dom.client.Element, int)"><!-- --></A><H3>
+getRelY</H3>
+<PRE>
+private int <B>getRelY</B>(com.google.gwt.dom.client.Element&nbsp;resize,
+                    int&nbsp;clientY)</PRE>
+<DL>
+<DD>Recalculation of Y-coordinate
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>resize</CODE> - resizeable element<DD><CODE>clientY</CODE> - input value of y-coordinate
+<DT><B>Returns:</B><DD>new value of y-coordinate</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="calcDragMode(int, int)"><!-- --></A><H3>
+calcDragMode</H3>
+<PRE>
+protected int <B>calcDragMode</B>(int&nbsp;clientX,
+                           int&nbsp;clientY)</PRE>
+<DL>
+<DD>Calculates the position of the mouse relative to the dialog box, and returns the corresponding "drag-mode"
+ integer, which describes which area of the box is being resized.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>clientX</CODE> - The x-coordinate of the mouse in screen pixels<DD><CODE>clientY</CODE> - The y-coordinate of the mouse in screen pixels
+<DT><B>Returns:</B><DD>A value in range [-1..8] describing the position of the mouse (see <A HREF="../../../../../../../com/technology/jep/jepria/client/widget/container/WindowBox.html#updateCursor(int)"><CODE>updateCursor(int)</CODE></A> for more
+         information)</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="dragResizeWidget(com.google.gwt.user.client.ui.PopupPanel, int, int)"><!-- --></A><H3>
+dragResizeWidget</H3>
+<PRE>
+protected void <B>dragResizeWidget</B>(com.google.gwt.user.client.ui.PopupPanel&nbsp;panel,
+                                int&nbsp;dx,
+                                int&nbsp;dy)</PRE>
+<DL>
+<DD>Convenience method to set the height, width and position of the given widget
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>panel</CODE> - <DD><CODE>dx</CODE> - <DD><CODE>dy</CODE> - </DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="beginDragging(com.google.gwt.event.dom.client.MouseDownEvent)"><!-- --></A><H3>
+beginDragging</H3>
+<PRE>
+protected void <B>beginDragging</B>(com.google.gwt.event.dom.client.MouseDownEvent&nbsp;event)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Overrides:</B><DD><CODE>beginDragging</CODE> in class <CODE>com.google.gwt.user.client.ui.DialogBox</CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="continueDragging(com.google.gwt.event.dom.client.MouseMoveEvent)"><!-- --></A><H3>
+continueDragging</H3>
+<PRE>
+protected void <B>continueDragging</B>(com.google.gwt.event.dom.client.MouseMoveEvent&nbsp;event)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Overrides:</B><DD><CODE>continueDragging</CODE> in class <CODE>com.google.gwt.user.client.ui.DialogBox</CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="onPreviewNativeEvent(com.google.gwt.user.client.Event.NativePreviewEvent)"><!-- --></A><H3>
+onPreviewNativeEvent</H3>
+<PRE>
+protected void <B>onPreviewNativeEvent</B>(com.google.gwt.user.client.Event.NativePreviewEvent&nbsp;event)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Overrides:</B><DD><CODE>onPreviewNativeEvent</CODE> in class <CODE>com.google.gwt.user.client.ui.DialogBox</CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="endDragging(com.google.gwt.event.dom.client.MouseUpEvent)"><!-- --></A><H3>
+endDragging</H3>
+<PRE>
+protected void <B>endDragging</B>(com.google.gwt.event.dom.client.MouseUpEvent&nbsp;event)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Overrides:</B><DD><CODE>endDragging</CODE> in class <CODE>com.google.gwt.user.client.ui.DialogBox</CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setWidget(com.google.gwt.user.client.ui.Widget)"><!-- --></A><H3>
+setWidget</H3>
+<PRE>
+public void <B>setWidget</B>(com.google.gwt.user.client.ui.Widget&nbsp;widget)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE>setWidget</CODE> in interface <CODE>com.google.gwt.user.client.ui.HasOneWidget</CODE><DT><B>Overrides:</B><DD><CODE>setWidget</CODE> in class <CODE>com.google.gwt.user.client.ui.DecoratedPopupPanel</CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getWidget()"><!-- --></A><H3>
+getWidget</H3>
+<PRE>
+public com.google.gwt.user.client.ui.Widget <B>getWidget</B>()</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE>getWidget</CODE> in interface <CODE>com.google.gwt.user.client.ui.HasOneWidget</CODE><DT><B>Overrides:</B><DD><CODE>getWidget</CODE> in class <CODE>com.google.gwt.user.client.ui.DecoratedPopupPanel</CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="remove(com.google.gwt.user.client.ui.Widget)"><!-- --></A><H3>
+remove</H3>
+<PRE>
+public boolean <B>remove</B>(com.google.gwt.user.client.ui.Widget&nbsp;w)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE>remove</CODE> in interface <CODE>com.google.gwt.user.client.ui.HasWidgets</CODE><DT><B>Overrides:</B><DD><CODE>remove</CODE> in class <CODE>com.google.gwt.user.client.ui.DecoratedPopupPanel</CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setCloseIconVisible(boolean)"><!-- --></A><H3>
+setCloseIconVisible</H3>
+<PRE>
+public void <B>setCloseIconVisible</B>(boolean&nbsp;visible)</PRE>
+<DL>
+<DD>Set whether the "close"-button should appear in the top right corner of the header
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>visible</CODE> - <code>true</code> if a "close"-button should be shown</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setMinimizeIconVisible(boolean)"><!-- --></A><H3>
+setMinimizeIconVisible</H3>
+<PRE>
+public void <B>setMinimizeIconVisible</B>(boolean&nbsp;visible)</PRE>
+<DL>
+<DD>Set whether the "minimize"-button should appear in the top right corner of the header
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>visible</CODE> - <code>true</code> if a "minimize"-button should be shown</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getControlPanel()"><!-- --></A><H3>
+getControlPanel</H3>
+<PRE>
+public com.google.gwt.user.client.ui.FlowPanel <B>getControlPanel</B>()</PRE>
+<DL>
+<DD>Returns the FlowPanel that contains the controls. More controls can be
+ added directly to this.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="onCloseClick(com.google.gwt.event.dom.client.ClickEvent)"><!-- --></A><H3>
+onCloseClick</H3>
+<PRE>
+protected void <B>onCloseClick</B>(com.google.gwt.event.dom.client.ClickEvent&nbsp;event)</PRE>
+<DL>
+<DD>Called when the close icon is clicked. The default implementation hides the dialog box.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>event</CODE> - The <CODE>ClickEvent</CODE> to handle</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="onMinimizeClick(com.google.gwt.event.dom.client.ClickEvent)"><!-- --></A><H3>
+onMinimizeClick</H3>
+<PRE>
+protected void <B>onMinimizeClick</B>(com.google.gwt.event.dom.client.ClickEvent&nbsp;event)</PRE>
+<DL>
+<DD>Called when the minimize icon is clicked. The default implementation hides the container of the dialog box.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>event</CODE> - The <CODE>ClickEvent</CODE> to handle</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="addOpenHandler(com.google.gwt.event.logical.shared.OpenHandler)"><!-- --></A><H3>
+addOpenHandler</H3>
+<PRE>
+public com.google.gwt.event.shared.HandlerRegistration <B>addOpenHandler</B>(com.google.gwt.event.logical.shared.OpenHandler&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/container/WindowBox.html" title="class in com.technology.jep.jepria.client.widget.container">WindowBox</A>&gt;&nbsp;handler)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE>addOpenHandler</CODE> in interface <CODE>com.google.gwt.event.logical.shared.HasOpenHandlers&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/container/WindowBox.html" title="class in com.technology.jep.jepria.client.widget.container">WindowBox</A>&gt;</CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="show()"><!-- --></A><H3>
+show</H3>
+<PRE>
+public void <B>show</B>()</PRE>
+<DL>
+<DD><DL>
+<DT><B>Overrides:</B><DD><CODE>show</CODE> in class <CODE>com.google.gwt.user.client.ui.DialogBox</CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setMinWidth(int)"><!-- --></A><H3>
+setMinWidth</H3>
+<PRE>
+public void <B>setMinWidth</B>(int&nbsp;minWidth)</PRE>
+<DL>
+<DD>Sets the minimum width to which this widget can be resized by the user, if resizing is enabled. If the value
+ is invalid, it is reset to <A HREF="../../../../../../../com/technology/jep/jepria/client/widget/container/WindowBox.html#MIN_WIDTH"><CODE>MIN_WIDTH</CODE></A>
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>minWidth</CODE> - A positive int value</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setMinHeight(int)"><!-- --></A><H3>
+setMinHeight</H3>
+<PRE>
+public void <B>setMinHeight</B>(int&nbsp;minHeight)</PRE>
+<DL>
+<DD>Sets the minimum height to which this widget can be resized by the user, if resizing is enabled. If the value
+ is invalid, it is reset to <A HREF="../../../../../../../com/technology/jep/jepria/client/widget/container/WindowBox.html#MIN_WIDTH"><CODE>MIN_WIDTH</CODE></A>
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>minHeight</CODE> - A positive int value</DL>
+</DD>
+</DL>
+<!-- ========= END OF CLASS DATA ========= -->
+<HR>
+
+
+<!-- ======= START OF BOTTOM NAVBAR ====== -->
+<A NAME="navbar_bottom"><!-- --></A>
+<A HREF="#skip-navbar_bottom" title="Skip navigation links"></A>
+<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
+<TR>
+<TD COLSPAN=2 BGCOLOR="#EEEEFF" CLASS="NavBarCell1">
+<A NAME="navbar_bottom_firstrow"><!-- --></A>
+<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3" SUMMARY="">
+  <TR ALIGN="center" VALIGN="top">
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-summary.html"><FONT CLASS="NavBarFont1"><B>Package</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../index-all.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../help-doc.html"><FONT CLASS="NavBarFont1"><B>Help</B></FONT></A>&nbsp;</TD>
+  </TR>
+</TABLE>
+</TD>
+<TD ALIGN="right" VALIGN="top" ROWSPAN=3><EM>
+</EM>
+</TD>
+</TR>
+
+<TR>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+&nbsp;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/container/JepTabLayoutPanel.html" title="class in com.technology.jep.jepria.client.widget.container"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;NEXT CLASS</FONT></TD>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+  <A HREF="../../../../../../../index.html?com/technology/jep/jepria/client/widget/container/WindowBox.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="WindowBox.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+&nbsp;<SCRIPT type="text/javascript">
+  <!--
+  if(window==top) {
+    document.writeln('<A HREF="../../../../../../../allclasses-noframe.html"><B>All Classes</B></A>');
+  }
+  //-->
+</SCRIPT>
+<NOSCRIPT>
+  <A HREF="../../../../../../../allclasses-noframe.html"><B>All Classes</B></A>
+</NOSCRIPT>
+
+
+</FONT></TD>
+</TR>
+<TR>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+  SUMMARY:&nbsp;<A HREF="#nested_classes_inherited_from_class_com.google.gwt.user.client.ui.DialogBox">NESTED</A>&nbsp;|&nbsp;<A HREF="#field_summary">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
+</TR>
+</TABLE>
+<A NAME="skip-navbar_bottom"></A>
+<!-- ======== END OF BOTTOM NAVBAR ======= -->
+
+<HR>
+
+</BODY>
+</HTML>

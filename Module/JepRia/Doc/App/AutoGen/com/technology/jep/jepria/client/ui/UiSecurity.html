@@ -1,0 +1,874 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!--NewPage-->
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<TITLE>
+UiSecurity (JepRia JavaDoc)
+</TITLE>
+
+
+<LINK REL ="stylesheet" TYPE="text/css" HREF="../../../../../../stylesheet.css" TITLE="Style">
+
+<SCRIPT type="text/javascript">
+function windowTitle()
+{
+    if (location.href.indexOf('is-external=true') == -1) {
+        parent.document.title="UiSecurity (JepRia JavaDoc)";
+    }
+}
+</SCRIPT>
+<NOSCRIPT>
+</NOSCRIPT>
+
+</HEAD>
+
+<BODY BGCOLOR="white" onload="windowTitle();">
+<HR>
+
+
+<!-- ========= START OF TOP NAVBAR ======= -->
+<A NAME="navbar_top"><!-- --></A>
+<A HREF="#skip-navbar_top" title="Skip navigation links"></A>
+<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
+<TR>
+<TD COLSPAN=2 BGCOLOR="#EEEEFF" CLASS="NavBarCell1">
+<A NAME="navbar_top_firstrow"><!-- --></A>
+<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3" SUMMARY="">
+  <TR ALIGN="center" VALIGN="top">
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-summary.html"><FONT CLASS="NavBarFont1"><B>Package</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../index-all.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../help-doc.html"><FONT CLASS="NavBarFont1"><B>Help</B></FONT></A>&nbsp;</TD>
+  </TR>
+</TABLE>
+</TD>
+<TD ALIGN="right" VALIGN="top" ROWSPAN=3><EM>
+</EM>
+</TD>
+</TR>
+
+<TR>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+&nbsp;<A HREF="../../../../../../com/technology/jep/jepria/client/ui/JepView.html" title="interface in com.technology.jep.jepria.client.ui"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../../../../com/technology/jep/jepria/client/ui/WorkstateConstant.html" title="class in com.technology.jep.jepria.client.ui"><B>NEXT CLASS</B></A></FONT></TD>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+  <A HREF="../../../../../../index.html?com/technology/jep/jepria/client/ui/UiSecurity.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="UiSecurity.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+&nbsp;<SCRIPT type="text/javascript">
+  <!--
+  if(window==top) {
+    document.writeln('<A HREF="../../../../../../allclasses-noframe.html"><B>All Classes</B></A>');
+  }
+  //-->
+</SCRIPT>
+<NOSCRIPT>
+  <A HREF="../../../../../../allclasses-noframe.html"><B>All Classes</B></A>
+</NOSCRIPT>
+
+
+</FONT></TD>
+</TR>
+<TR>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+  SUMMARY:&nbsp;NESTED&nbsp;|&nbsp;<A HREF="#field_summary">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
+</TR>
+</TABLE>
+<A NAME="skip-navbar_top"></A>
+<!-- ========= END OF TOP NAVBAR ========= -->
+
+<HR>
+<!-- ======== START OF CLASS DATA ======== -->
+<H2>
+<FONT SIZE="-1">
+com.technology.jep.jepria.client.ui</FONT>
+<BR>
+Class UiSecurity</H2>
+<PRE>
+java.lang.Object
+  <IMG SRC="../../../../../../resources/inherit.gif" ALT="extended by "><B>com.technology.jep.jepria.client.ui.UiSecurity</B>
+</PRE>
+<HR>
+<DL>
+<DT><PRE>public class <B>UiSecurity</B><DT>extends java.lang.Object</DL>
+</PRE>
+
+<P>
+Класс отвечает за проверку допустимости событий (EventBus) клиентского модуля.
+<P>
+
+<P>
+<HR>
+
+<P>
+<!-- =========== FIELD SUMMARY =========== -->
+
+<A NAME="field_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Field Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;java.util.Map&lt;java.lang.Object,java.util.List&lt;java.lang.String&gt;&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/client/ui/UiSecurity.html#accessMapAND">accessMapAND</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Карта соответствия <событие, множество ролей AND></TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;java.util.Map&lt;java.lang.Object,java.util.List&lt;java.lang.String&gt;&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/client/ui/UiSecurity.html#accessMapOR">accessMapOR</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Карта соответствия <событие, множество ролей OR></TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/client/ui/UiSecurity.html#CHANGE_BODY_EVENT_NAME">CHANGE_BODY_EVENT_NAME</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/client/ui/UiSecurity.html#CHANGE_CURRENT_RECORD_EVENT_NAME">CHANGE_CURRENT_RECORD_EVENT_NAME</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/client/ui/UiSecurity.html#CHANGE_WORKSTATE_EVENT_NAME">CHANGE_WORKSTATE_EVENT_NAME</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/client/ui/UiSecurity.html#DELETE_EVENT_NAME">DELETE_EVENT_NAME</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/client/ui/UiSecurity.html#DO_DELETE_EVENT_NAME">DO_DELETE_EVENT_NAME</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/client/ui/UiSecurity.html#DO_PRINT_EVENT_NAME">DO_PRINT_EVENT_NAME</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/client/ui/UiSecurity.html#DO_SEARCH_EVENT_NAME">DO_SEARCH_EVENT_NAME</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/client/ui/UiSecurity.html#DO_SHOW_HELP_EVENT_NAME">DO_SHOW_HELP_EVENT_NAME</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/client/ui/UiSecurity.html#ENTER_SCOPE_EVENT_NAME">ENTER_SCOPE_EVENT_NAME</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/client/ui/UiSecurity.html#EXIT_SCOPE_EVENT_NAME">EXIT_SCOPE_EVENT_NAME</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/client/ui/UiSecurity.html#GO_BACK_EVENT_NAME">GO_BACK_EVENT_NAME</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/client/ui/UiSecurity.html#REFRESH_EVENT_NAME">REFRESH_EVENT_NAME</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/client/ui/UiSecurity.html#SAVE_EVENT_NAME">SAVE_EVENT_NAME</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/client/ui/UiSecurity.html#SEARCH_EVENT_NAME">SEARCH_EVENT_NAME</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/client/ui/UiSecurity.html#SELECT_OPTION_EVENT_NAME">SELECT_OPTION_EVENT_NAME</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/client/ui/UiSecurity.html#SET_DETAIL_FORM_EVENT_NAME">SET_DETAIL_FORM_EVENT_NAME</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/client/ui/UiSecurity.html#SET_FORM_EVENT_NAME">SET_FORM_EVENT_NAME</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/client/ui/UiSecurity.html#SET_LIST_FORM_EVENT_NAME">SET_LIST_FORM_EVENT_NAME</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/client/ui/UiSecurity.html#SET_NEW_RECORD_EVENT_NAME">SET_NEW_RECORD_EVENT_NAME</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/client/ui/UiSecurity.html#SET_SERVICE_EVENT_NAME">SET_SERVICE_EVENT_NAME</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/client/ui/UiSecurity.html#SET_STATUSBAR_WIDGET_EVENT_NAME">SET_STATUSBAR_WIDGET_EVENT_NAME</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/client/ui/UiSecurity.html#SET_TOOLBAR_WIDGET_EVENT_NAME">SET_TOOLBAR_WIDGET_EVENT_NAME</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/client/ui/UiSecurity.html#SHOW_EXCEL_EVENT_NAME">SHOW_EXCEL_EVENT_NAME</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/client/ui/UiSecurity.html#START_EVENT_NAME">START_EVENT_NAME</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/client/ui/UiSecurity.html#UPDATE_SCOPE_EVENT_NAME">UPDATE_SCOPE_EVENT_NAME</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;
+<!-- ======== CONSTRUCTOR SUMMARY ======== -->
+
+<A NAME="constructor_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Constructor Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/client/ui/UiSecurity.html#UiSecurity()">UiSecurity</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;
+<!-- ========== METHOD SUMMARY =========== -->
+
+<A NAME="method_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Method Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/client/ui/UiSecurity.html#addProtection(java.lang.Object, java.lang.String, int)">addProtection</A></B>(java.lang.Object&nbsp;key,
+              java.lang.String&nbsp;strRoles,
+              int&nbsp;checkRolesMethod)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Добавление ограничения прав на обработку модулем событий</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;<A HREF="../../../../../../com/technology/jep/jepria/client/ui/ActionEnum.html" title="enum in com.technology.jep.jepria.client.ui">ActionEnum</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/client/ui/UiSecurity.html#buildActionFromEvent(com.google.gwt.event.shared.GwtEvent)">buildActionFromEvent</A></B>(com.google.gwt.event.shared.GwtEvent&nbsp;event)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/client/ui/UiSecurity.html#checkAccess(java.lang.Object)">checkAccess</A></B>(java.lang.Object&nbsp;key)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Проверка прав работы с событием EventBus</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/client/ui/UiSecurity.html#checkEvent(com.google.gwt.event.shared.GwtEvent)">checkEvent</A></B>(com.google.gwt.event.shared.GwtEvent&nbsp;event)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/client/ui/UiSecurity.html#getFirstRequiredRole(java.lang.Object)">getFirstRequiredRole</A></B>(java.lang.Object&nbsp;key)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Получение первой отсутствующей роли 
+ Сделано по аналогии с версией Struts (в сообщении показывается первая отсутствующая роль)
+ для поддержки сложившихся процессов сопровождения и администрирования</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/client/ui/UiSecurity.html#getRequiredRole(java.util.Map, java.lang.Object)">getRequiredRole</A></B>(java.util.Map&lt;java.lang.Object,java.util.List&lt;java.lang.String&gt;&gt;&nbsp;accessMap,
+                java.lang.Object&nbsp;key)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from class java.lang.Object</B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE>clone, equals, finalize, getClass, hashCode, notify, notifyAll, toString, wait, wait, wait</CODE></TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
+<!-- ============ FIELD DETAIL =========== -->
+
+<A NAME="field_detail"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
+<B>Field Detail</B></FONT></TH>
+</TR>
+</TABLE>
+
+<A NAME="CHANGE_BODY_EVENT_NAME"><!-- --></A><H3>
+CHANGE_BODY_EVENT_NAME</H3>
+<PRE>
+public static final java.lang.String <B>CHANGE_BODY_EVENT_NAME</B></PRE>
+<DL>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../../constant-values.html#com.technology.jep.jepria.client.ui.UiSecurity.CHANGE_BODY_EVENT_NAME">Constant Field Values</A></DL>
+</DL>
+<HR>
+
+<A NAME="CHANGE_CURRENT_RECORD_EVENT_NAME"><!-- --></A><H3>
+CHANGE_CURRENT_RECORD_EVENT_NAME</H3>
+<PRE>
+public static final java.lang.String <B>CHANGE_CURRENT_RECORD_EVENT_NAME</B></PRE>
+<DL>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../../constant-values.html#com.technology.jep.jepria.client.ui.UiSecurity.CHANGE_CURRENT_RECORD_EVENT_NAME">Constant Field Values</A></DL>
+</DL>
+<HR>
+
+<A NAME="CHANGE_WORKSTATE_EVENT_NAME"><!-- --></A><H3>
+CHANGE_WORKSTATE_EVENT_NAME</H3>
+<PRE>
+public static final java.lang.String <B>CHANGE_WORKSTATE_EVENT_NAME</B></PRE>
+<DL>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../../constant-values.html#com.technology.jep.jepria.client.ui.UiSecurity.CHANGE_WORKSTATE_EVENT_NAME">Constant Field Values</A></DL>
+</DL>
+<HR>
+
+<A NAME="DELETE_EVENT_NAME"><!-- --></A><H3>
+DELETE_EVENT_NAME</H3>
+<PRE>
+public static final java.lang.String <B>DELETE_EVENT_NAME</B></PRE>
+<DL>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../../constant-values.html#com.technology.jep.jepria.client.ui.UiSecurity.DELETE_EVENT_NAME">Constant Field Values</A></DL>
+</DL>
+<HR>
+
+<A NAME="DO_DELETE_EVENT_NAME"><!-- --></A><H3>
+DO_DELETE_EVENT_NAME</H3>
+<PRE>
+public static final java.lang.String <B>DO_DELETE_EVENT_NAME</B></PRE>
+<DL>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../../constant-values.html#com.technology.jep.jepria.client.ui.UiSecurity.DO_DELETE_EVENT_NAME">Constant Field Values</A></DL>
+</DL>
+<HR>
+
+<A NAME="DO_PRINT_EVENT_NAME"><!-- --></A><H3>
+DO_PRINT_EVENT_NAME</H3>
+<PRE>
+public static final java.lang.String <B>DO_PRINT_EVENT_NAME</B></PRE>
+<DL>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../../constant-values.html#com.technology.jep.jepria.client.ui.UiSecurity.DO_PRINT_EVENT_NAME">Constant Field Values</A></DL>
+</DL>
+<HR>
+
+<A NAME="DO_SEARCH_EVENT_NAME"><!-- --></A><H3>
+DO_SEARCH_EVENT_NAME</H3>
+<PRE>
+public static final java.lang.String <B>DO_SEARCH_EVENT_NAME</B></PRE>
+<DL>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../../constant-values.html#com.technology.jep.jepria.client.ui.UiSecurity.DO_SEARCH_EVENT_NAME">Constant Field Values</A></DL>
+</DL>
+<HR>
+
+<A NAME="DO_SHOW_HELP_EVENT_NAME"><!-- --></A><H3>
+DO_SHOW_HELP_EVENT_NAME</H3>
+<PRE>
+public static final java.lang.String <B>DO_SHOW_HELP_EVENT_NAME</B></PRE>
+<DL>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../../constant-values.html#com.technology.jep.jepria.client.ui.UiSecurity.DO_SHOW_HELP_EVENT_NAME">Constant Field Values</A></DL>
+</DL>
+<HR>
+
+<A NAME="ENTER_SCOPE_EVENT_NAME"><!-- --></A><H3>
+ENTER_SCOPE_EVENT_NAME</H3>
+<PRE>
+public static final java.lang.String <B>ENTER_SCOPE_EVENT_NAME</B></PRE>
+<DL>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../../constant-values.html#com.technology.jep.jepria.client.ui.UiSecurity.ENTER_SCOPE_EVENT_NAME">Constant Field Values</A></DL>
+</DL>
+<HR>
+
+<A NAME="EXIT_SCOPE_EVENT_NAME"><!-- --></A><H3>
+EXIT_SCOPE_EVENT_NAME</H3>
+<PRE>
+public static final java.lang.String <B>EXIT_SCOPE_EVENT_NAME</B></PRE>
+<DL>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../../constant-values.html#com.technology.jep.jepria.client.ui.UiSecurity.EXIT_SCOPE_EVENT_NAME">Constant Field Values</A></DL>
+</DL>
+<HR>
+
+<A NAME="GO_BACK_EVENT_NAME"><!-- --></A><H3>
+GO_BACK_EVENT_NAME</H3>
+<PRE>
+public static final java.lang.String <B>GO_BACK_EVENT_NAME</B></PRE>
+<DL>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../../constant-values.html#com.technology.jep.jepria.client.ui.UiSecurity.GO_BACK_EVENT_NAME">Constant Field Values</A></DL>
+</DL>
+<HR>
+
+<A NAME="REFRESH_EVENT_NAME"><!-- --></A><H3>
+REFRESH_EVENT_NAME</H3>
+<PRE>
+public static final java.lang.String <B>REFRESH_EVENT_NAME</B></PRE>
+<DL>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../../constant-values.html#com.technology.jep.jepria.client.ui.UiSecurity.REFRESH_EVENT_NAME">Constant Field Values</A></DL>
+</DL>
+<HR>
+
+<A NAME="SEARCH_EVENT_NAME"><!-- --></A><H3>
+SEARCH_EVENT_NAME</H3>
+<PRE>
+public static final java.lang.String <B>SEARCH_EVENT_NAME</B></PRE>
+<DL>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../../constant-values.html#com.technology.jep.jepria.client.ui.UiSecurity.SEARCH_EVENT_NAME">Constant Field Values</A></DL>
+</DL>
+<HR>
+
+<A NAME="SELECT_OPTION_EVENT_NAME"><!-- --></A><H3>
+SELECT_OPTION_EVENT_NAME</H3>
+<PRE>
+public static final java.lang.String <B>SELECT_OPTION_EVENT_NAME</B></PRE>
+<DL>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../../constant-values.html#com.technology.jep.jepria.client.ui.UiSecurity.SELECT_OPTION_EVENT_NAME">Constant Field Values</A></DL>
+</DL>
+<HR>
+
+<A NAME="SET_DETAIL_FORM_EVENT_NAME"><!-- --></A><H3>
+SET_DETAIL_FORM_EVENT_NAME</H3>
+<PRE>
+public static final java.lang.String <B>SET_DETAIL_FORM_EVENT_NAME</B></PRE>
+<DL>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../../constant-values.html#com.technology.jep.jepria.client.ui.UiSecurity.SET_DETAIL_FORM_EVENT_NAME">Constant Field Values</A></DL>
+</DL>
+<HR>
+
+<A NAME="SET_FORM_EVENT_NAME"><!-- --></A><H3>
+SET_FORM_EVENT_NAME</H3>
+<PRE>
+public static final java.lang.String <B>SET_FORM_EVENT_NAME</B></PRE>
+<DL>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../../constant-values.html#com.technology.jep.jepria.client.ui.UiSecurity.SET_FORM_EVENT_NAME">Constant Field Values</A></DL>
+</DL>
+<HR>
+
+<A NAME="SET_LIST_FORM_EVENT_NAME"><!-- --></A><H3>
+SET_LIST_FORM_EVENT_NAME</H3>
+<PRE>
+public static final java.lang.String <B>SET_LIST_FORM_EVENT_NAME</B></PRE>
+<DL>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../../constant-values.html#com.technology.jep.jepria.client.ui.UiSecurity.SET_LIST_FORM_EVENT_NAME">Constant Field Values</A></DL>
+</DL>
+<HR>
+
+<A NAME="SET_NEW_RECORD_EVENT_NAME"><!-- --></A><H3>
+SET_NEW_RECORD_EVENT_NAME</H3>
+<PRE>
+public static final java.lang.String <B>SET_NEW_RECORD_EVENT_NAME</B></PRE>
+<DL>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../../constant-values.html#com.technology.jep.jepria.client.ui.UiSecurity.SET_NEW_RECORD_EVENT_NAME">Constant Field Values</A></DL>
+</DL>
+<HR>
+
+<A NAME="SET_SERVICE_EVENT_NAME"><!-- --></A><H3>
+SET_SERVICE_EVENT_NAME</H3>
+<PRE>
+public static final java.lang.String <B>SET_SERVICE_EVENT_NAME</B></PRE>
+<DL>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../../constant-values.html#com.technology.jep.jepria.client.ui.UiSecurity.SET_SERVICE_EVENT_NAME">Constant Field Values</A></DL>
+</DL>
+<HR>
+
+<A NAME="SET_STATUSBAR_WIDGET_EVENT_NAME"><!-- --></A><H3>
+SET_STATUSBAR_WIDGET_EVENT_NAME</H3>
+<PRE>
+public static final java.lang.String <B>SET_STATUSBAR_WIDGET_EVENT_NAME</B></PRE>
+<DL>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../../constant-values.html#com.technology.jep.jepria.client.ui.UiSecurity.SET_STATUSBAR_WIDGET_EVENT_NAME">Constant Field Values</A></DL>
+</DL>
+<HR>
+
+<A NAME="SET_TOOLBAR_WIDGET_EVENT_NAME"><!-- --></A><H3>
+SET_TOOLBAR_WIDGET_EVENT_NAME</H3>
+<PRE>
+public static final java.lang.String <B>SET_TOOLBAR_WIDGET_EVENT_NAME</B></PRE>
+<DL>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../../constant-values.html#com.technology.jep.jepria.client.ui.UiSecurity.SET_TOOLBAR_WIDGET_EVENT_NAME">Constant Field Values</A></DL>
+</DL>
+<HR>
+
+<A NAME="SAVE_EVENT_NAME"><!-- --></A><H3>
+SAVE_EVENT_NAME</H3>
+<PRE>
+public static final java.lang.String <B>SAVE_EVENT_NAME</B></PRE>
+<DL>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../../constant-values.html#com.technology.jep.jepria.client.ui.UiSecurity.SAVE_EVENT_NAME">Constant Field Values</A></DL>
+</DL>
+<HR>
+
+<A NAME="SHOW_EXCEL_EVENT_NAME"><!-- --></A><H3>
+SHOW_EXCEL_EVENT_NAME</H3>
+<PRE>
+public static final java.lang.String <B>SHOW_EXCEL_EVENT_NAME</B></PRE>
+<DL>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../../constant-values.html#com.technology.jep.jepria.client.ui.UiSecurity.SHOW_EXCEL_EVENT_NAME">Constant Field Values</A></DL>
+</DL>
+<HR>
+
+<A NAME="START_EVENT_NAME"><!-- --></A><H3>
+START_EVENT_NAME</H3>
+<PRE>
+public static final java.lang.String <B>START_EVENT_NAME</B></PRE>
+<DL>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../../constant-values.html#com.technology.jep.jepria.client.ui.UiSecurity.START_EVENT_NAME">Constant Field Values</A></DL>
+</DL>
+<HR>
+
+<A NAME="UPDATE_SCOPE_EVENT_NAME"><!-- --></A><H3>
+UPDATE_SCOPE_EVENT_NAME</H3>
+<PRE>
+public static final java.lang.String <B>UPDATE_SCOPE_EVENT_NAME</B></PRE>
+<DL>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../../constant-values.html#com.technology.jep.jepria.client.ui.UiSecurity.UPDATE_SCOPE_EVENT_NAME">Constant Field Values</A></DL>
+</DL>
+<HR>
+
+<A NAME="accessMapOR"><!-- --></A><H3>
+accessMapOR</H3>
+<PRE>
+private java.util.Map&lt;java.lang.Object,java.util.List&lt;java.lang.String&gt;&gt; <B>accessMapOR</B></PRE>
+<DL>
+<DD>Карта соответствия <событие, множество ролей OR>
+<P>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="accessMapAND"><!-- --></A><H3>
+accessMapAND</H3>
+<PRE>
+private java.util.Map&lt;java.lang.Object,java.util.List&lt;java.lang.String&gt;&gt; <B>accessMapAND</B></PRE>
+<DL>
+<DD>Карта соответствия <событие, множество ролей AND>
+<P>
+<DL>
+</DL>
+</DL>
+
+<!-- ========= CONSTRUCTOR DETAIL ======== -->
+
+<A NAME="constructor_detail"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
+<B>Constructor Detail</B></FONT></TH>
+</TR>
+</TABLE>
+
+<A NAME="UiSecurity()"><!-- --></A><H3>
+UiSecurity</H3>
+<PRE>
+public <B>UiSecurity</B>()</PRE>
+<DL>
+</DL>
+
+<!-- ============ METHOD DETAIL ========== -->
+
+<A NAME="method_detail"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
+<B>Method Detail</B></FONT></TH>
+</TR>
+</TABLE>
+
+<A NAME="checkAccess(java.lang.Object)"><!-- --></A><H3>
+checkAccess</H3>
+<PRE>
+public boolean <B>checkAccess</B>(java.lang.Object&nbsp;key)</PRE>
+<DL>
+<DD>Проверка прав работы с событием EventBus
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>key</CODE> - тип события или состояние
+<DT><B>Returns:</B><DD>true, если есть право, иначе - false</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getFirstRequiredRole(java.lang.Object)"><!-- --></A><H3>
+getFirstRequiredRole</H3>
+<PRE>
+public java.lang.String <B>getFirstRequiredRole</B>(java.lang.Object&nbsp;key)</PRE>
+<DL>
+<DD>Получение первой отсутствующей роли 
+ Сделано по аналогии с версией Struts (в сообщении показывается первая отсутствующая роль)
+ для поддержки сложившихся процессов сопровождения и администрирования
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>key</CODE> - 
+<DT><B>Returns:</B><DD>первая отсутствующая роль</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getRequiredRole(java.util.Map, java.lang.Object)"><!-- --></A><H3>
+getRequiredRole</H3>
+<PRE>
+private java.lang.String <B>getRequiredRole</B>(java.util.Map&lt;java.lang.Object,java.util.List&lt;java.lang.String&gt;&gt;&nbsp;accessMap,
+                                         java.lang.Object&nbsp;key)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="addProtection(java.lang.Object, java.lang.String, int)"><!-- --></A><H3>
+addProtection</H3>
+<PRE>
+public void <B>addProtection</B>(java.lang.Object&nbsp;key,
+                          java.lang.String&nbsp;strRoles,
+                          int&nbsp;checkRolesMethod)</PRE>
+<DL>
+<DD>Добавление ограничения прав на обработку модулем событий
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>key</CODE> - <DD><CODE>checkRolesMethod</CODE> - способ проверки ролей (по 'И' или по 'ИЛИ')</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="checkEvent(com.google.gwt.event.shared.GwtEvent)"><!-- --></A><H3>
+checkEvent</H3>
+<PRE>
+public boolean <B>checkEvent</B>(com.google.gwt.event.shared.GwtEvent&nbsp;event)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="buildActionFromEvent(com.google.gwt.event.shared.GwtEvent)"><!-- --></A><H3>
+buildActionFromEvent</H3>
+<PRE>
+private <A HREF="../../../../../../com/technology/jep/jepria/client/ui/ActionEnum.html" title="enum in com.technology.jep.jepria.client.ui">ActionEnum</A> <B>buildActionFromEvent</B>(com.google.gwt.event.shared.GwtEvent&nbsp;event)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<!-- ========= END OF CLASS DATA ========= -->
+<HR>
+
+
+<!-- ======= START OF BOTTOM NAVBAR ====== -->
+<A NAME="navbar_bottom"><!-- --></A>
+<A HREF="#skip-navbar_bottom" title="Skip navigation links"></A>
+<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
+<TR>
+<TD COLSPAN=2 BGCOLOR="#EEEEFF" CLASS="NavBarCell1">
+<A NAME="navbar_bottom_firstrow"><!-- --></A>
+<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3" SUMMARY="">
+  <TR ALIGN="center" VALIGN="top">
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-summary.html"><FONT CLASS="NavBarFont1"><B>Package</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../index-all.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../help-doc.html"><FONT CLASS="NavBarFont1"><B>Help</B></FONT></A>&nbsp;</TD>
+  </TR>
+</TABLE>
+</TD>
+<TD ALIGN="right" VALIGN="top" ROWSPAN=3><EM>
+</EM>
+</TD>
+</TR>
+
+<TR>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+&nbsp;<A HREF="../../../../../../com/technology/jep/jepria/client/ui/JepView.html" title="interface in com.technology.jep.jepria.client.ui"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../../../../com/technology/jep/jepria/client/ui/WorkstateConstant.html" title="class in com.technology.jep.jepria.client.ui"><B>NEXT CLASS</B></A></FONT></TD>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+  <A HREF="../../../../../../index.html?com/technology/jep/jepria/client/ui/UiSecurity.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="UiSecurity.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+&nbsp;<SCRIPT type="text/javascript">
+  <!--
+  if(window==top) {
+    document.writeln('<A HREF="../../../../../../allclasses-noframe.html"><B>All Classes</B></A>');
+  }
+  //-->
+</SCRIPT>
+<NOSCRIPT>
+  <A HREF="../../../../../../allclasses-noframe.html"><B>All Classes</B></A>
+</NOSCRIPT>
+
+
+</FONT></TD>
+</TR>
+<TR>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+  SUMMARY:&nbsp;NESTED&nbsp;|&nbsp;<A HREF="#field_summary">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
+</TR>
+</TABLE>
+<A NAME="skip-navbar_bottom"></A>
+<!-- ======== END OF BOTTOM NAVBAR ======= -->
+
+<HR>
+
+</BODY>
+</HTML>

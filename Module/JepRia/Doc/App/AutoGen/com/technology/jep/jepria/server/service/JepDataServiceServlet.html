@@ -1,0 +1,880 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!--NewPage-->
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<TITLE>
+JepDataServiceServlet (JepRia JavaDoc)
+</TITLE>
+
+
+<LINK REL ="stylesheet" TYPE="text/css" HREF="../../../../../../stylesheet.css" TITLE="Style">
+
+<SCRIPT type="text/javascript">
+function windowTitle()
+{
+    if (location.href.indexOf('is-external=true') == -1) {
+        parent.document.title="JepDataServiceServlet (JepRia JavaDoc)";
+    }
+}
+</SCRIPT>
+<NOSCRIPT>
+</NOSCRIPT>
+
+</HEAD>
+
+<BODY BGCOLOR="white" onload="windowTitle();">
+<HR>
+
+
+<!-- ========= START OF TOP NAVBAR ======= -->
+<A NAME="navbar_top"><!-- --></A>
+<A HREF="#skip-navbar_top" title="Skip navigation links"></A>
+<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
+<TR>
+<TD COLSPAN=2 BGCOLOR="#EEEEFF" CLASS="NavBarCell1">
+<A NAME="navbar_top_firstrow"><!-- --></A>
+<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3" SUMMARY="">
+  <TR ALIGN="center" VALIGN="top">
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-summary.html"><FONT CLASS="NavBarFont1"><B>Package</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../index-all.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../help-doc.html"><FONT CLASS="NavBarFont1"><B>Help</B></FONT></A>&nbsp;</TD>
+  </TR>
+</TABLE>
+</TD>
+<TD ALIGN="right" VALIGN="top" ROWSPAN=3><EM>
+</EM>
+</TD>
+</TR>
+
+<TR>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+&nbsp;PREV CLASS&nbsp;
+&nbsp;<A HREF="../../../../../../com/technology/jep/jepria/server/service/JepMainServiceServlet.html" title="class in com.technology.jep.jepria.server.service"><B>NEXT CLASS</B></A></FONT></TD>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+  <A HREF="../../../../../../index.html?com/technology/jep/jepria/server/service/JepDataServiceServlet.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="JepDataServiceServlet.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+&nbsp;<SCRIPT type="text/javascript">
+  <!--
+  if(window==top) {
+    document.writeln('<A HREF="../../../../../../allclasses-noframe.html"><B>All Classes</B></A>');
+  }
+  //-->
+</SCRIPT>
+<NOSCRIPT>
+  <A HREF="../../../../../../allclasses-noframe.html"><B>All Classes</B></A>
+</NOSCRIPT>
+
+
+</FONT></TD>
+</TR>
+<TR>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+  SUMMARY:&nbsp;NESTED&nbsp;|&nbsp;<A HREF="#field_summary">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
+</TR>
+</TABLE>
+<A NAME="skip-navbar_top"></A>
+<!-- ========= END OF TOP NAVBAR ========= -->
+
+<HR>
+<!-- ======== START OF CLASS DATA ======== -->
+<H2>
+<FONT SIZE="-1">
+com.technology.jep.jepria.server.service</FONT>
+<BR>
+Class JepDataServiceServlet</H2>
+<PRE>
+java.lang.Object
+  <IMG SRC="../../../../../../resources/inherit.gif" ALT="extended by ">javax.servlet.GenericServlet
+      <IMG SRC="../../../../../../resources/inherit.gif" ALT="extended by ">javax.servlet.http.HttpServlet
+          <IMG SRC="../../../../../../resources/inherit.gif" ALT="extended by ">com.google.gwt.user.server.rpc.AbstractRemoteServiceServlet
+              <IMG SRC="../../../../../../resources/inherit.gif" ALT="extended by ">com.google.gwt.user.server.rpc.RemoteServiceServlet
+                  <IMG SRC="../../../../../../resources/inherit.gif" ALT="extended by "><A HREF="../../../../../../com/technology/jep/jepria/server/service/JepServiceServlet.html" title="class in com.technology.jep.jepria.server.service">com.technology.jep.jepria.server.service.JepServiceServlet</A>
+                      <IMG SRC="../../../../../../resources/inherit.gif" ALT="extended by "><B>com.technology.jep.jepria.server.service.JepDataServiceServlet</B>
+</PRE>
+<DL>
+<DT><B>All Implemented Interfaces:</B> <DD>com.google.gwt.user.client.rpc.RemoteService, com.google.gwt.user.server.rpc.SerializationPolicyProvider, <A HREF="../../../../../../com/technology/jep/jepria/shared/service/data/JepDataService.html" title="interface in com.technology.jep.jepria.shared.service.data">JepDataService</A>, java.io.Serializable, javax.servlet.Servlet, javax.servlet.ServletConfig</DD>
+</DL>
+<HR>
+<DL>
+<DT><PRE>public abstract class <B>JepDataServiceServlet</B><DT>extends <A HREF="../../../../../../com/technology/jep/jepria/server/service/JepServiceServlet.html" title="class in com.technology.jep.jepria.server.service">JepServiceServlet</A><DT>implements <A HREF="../../../../../../com/technology/jep/jepria/shared/service/data/JepDataService.html" title="interface in com.technology.jep.jepria.shared.service.data">JepDataService</A></DL>
+</PRE>
+
+<P>
+Абстрактный предок сервисов данных Jep
+<P>
+
+<P>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../../serialized-form.html#com.technology.jep.jepria.server.service.JepDataServiceServlet">Serialized Form</A></DL>
+<HR>
+
+<P>
+<!-- =========== FIELD SUMMARY =========== -->
+
+<A NAME="field_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Field Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/service/JepDataServiceServlet.html#dataSourceJndiName">dataSourceJndiName</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/service/JepDataServiceServlet.html#ejbName">ejbName</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected static&nbsp;org.apache.log4j.Logger</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/service/JepDataServiceServlet.html#logger">logger</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;<A HREF="../../../../../../com/technology/jep/jepria/shared/record/JepRecordDefinition.html" title="class in com.technology.jep.jepria.shared.record">JepRecordDefinition</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/service/JepDataServiceServlet.html#recordDefinition">recordDefinition</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/service/JepDataServiceServlet.html#resourceBundleName">resourceBundleName</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;<A HREF="../../../../../../com/technology/jep/jepria/shared/dto/JepSorter.html" title="class in com.technology.jep.jepria.shared.dto">JepSorter</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/service/JepDataServiceServlet.html#sorter">sorter</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="fields_inherited_from_class_com.google.gwt.user.server.rpc.AbstractRemoteServiceServlet"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Fields inherited from class com.google.gwt.user.server.rpc.AbstractRemoteServiceServlet</B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE>perThreadRequest, perThreadResponse</CODE></TD>
+</TR>
+</TABLE>
+&nbsp;
+<!-- ======== CONSTRUCTOR SUMMARY ======== -->
+
+<A NAME="constructor_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Constructor Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected </CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/service/JepDataServiceServlet.html#JepDataServiceServlet(com.technology.jep.jepria.shared.record.JepRecordDefinition, java.lang.String)">JepDataServiceServlet</A></B>(<A HREF="../../../../../../com/technology/jep/jepria/shared/record/JepRecordDefinition.html" title="class in com.technology.jep.jepria.shared.record">JepRecordDefinition</A>&nbsp;recordDefinition,
+                      java.lang.String&nbsp;ejbName)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected </CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/service/JepDataServiceServlet.html#JepDataServiceServlet(com.technology.jep.jepria.shared.record.JepRecordDefinition, java.lang.String, java.lang.String, java.lang.String)">JepDataServiceServlet</A></B>(<A HREF="../../../../../../com/technology/jep/jepria/shared/record/JepRecordDefinition.html" title="class in com.technology.jep.jepria.shared.record">JepRecordDefinition</A>&nbsp;recordDefinition,
+                      java.lang.String&nbsp;ejbName,
+                      java.lang.String&nbsp;dataSourceJndiName,
+                      java.lang.String&nbsp;resourceBundleName)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Конструктор необходим при использовании download</TD>
+</TR>
+</TABLE>
+&nbsp;
+<!-- ========== METHOD SUMMARY =========== -->
+
+<A NAME="method_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Method Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/service/JepDataServiceServlet.html#clearFoundRecords(com.technology.jep.jepria.shared.load.FindConfig)">clearFoundRecords</A></B>(<A HREF="../../../../../../com/technology/jep/jepria/shared/load/FindConfig.html" title="class in com.technology.jep.jepria.shared.load">FindConfig</A>&nbsp;findConfig)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Удаление из сессии набора записей соответствующих заданной конфигурации поиска.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/service/JepDataServiceServlet.html#create(com.technology.jep.jepria.shared.load.FindConfig)">create</A></B>(<A HREF="../../../../../../com/technology/jep/jepria/shared/load/FindConfig.html" title="class in com.technology.jep.jepria.shared.load">FindConfig</A>&nbsp;createConfig)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Создание объекта.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/service/JepDataServiceServlet.html#delete(com.technology.jep.jepria.shared.load.FindConfig)">delete</A></B>(<A HREF="../../../../../../com/technology/jep/jepria/shared/load/FindConfig.html" title="class in com.technology.jep.jepria.shared.load">FindConfig</A>&nbsp;deleteConfig)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Удаление объекта.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../../../com/technology/jep/jepria/shared/load/PagingResult.html" title="class in com.technology.jep.jepria.shared.load">PagingResult</A>&lt;<A HREF="../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/service/JepDataServiceServlet.html#find(com.technology.jep.jepria.shared.load.PagingConfig)">find</A></B>(<A HREF="../../../../../../com/technology/jep/jepria/shared/load/PagingConfig.html" title="class in com.technology.jep.jepria.shared.load">PagingConfig</A>&nbsp;pagingConfig)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Поиск данных на основе заданной конфигурации поиска.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;<A HREF="../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/service/JepDataServiceServlet.html#findByPrimaryKey(java.util.Map)">findByPrimaryKey</A></B>(java.util.Map&lt;java.lang.String,java.lang.Object&gt;&nbsp;primaryKey)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;java.io.OutputStream</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/service/JepDataServiceServlet.html#getBinaryOutputStream(java.lang.String, java.lang.String, java.lang.String, java.lang.Integer)">getBinaryOutputStream</A></B>(java.lang.String&nbsp;tableName,
+                      java.lang.String&nbsp;fileFieldName,
+                      java.lang.String&nbsp;keyFieldName,
+                      java.lang.Integer&nbsp;recordId)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Получение выходного потока из заданного Lob-поля
+ Используется наследниками (классами приложений) для получения значений blob-полей</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;java.lang.Boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/service/JepDataServiceServlet.html#isRefreshNeeded(java.lang.Integer)">isRefreshNeeded</A></B>(java.lang.Integer&nbsp;listUID)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Извлекает из сессии флаг автообновления.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/service/JepDataServiceServlet.html#obtainFileExtension(java.lang.String)">obtainFileExtension</A></B>(java.lang.String&nbsp;fileName)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../../../com/technology/jep/jepria/shared/load/PagingResult.html" title="class in com.technology.jep.jepria.shared.load">PagingResult</A>&lt;<A HREF="../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/service/JepDataServiceServlet.html#paging(com.technology.jep.jepria.shared.load.PagingConfig)">paging</A></B>(<A HREF="../../../../../../com/technology/jep/jepria/shared/load/PagingConfig.html" title="class in com.technology.jep.jepria.shared.load">PagingConfig</A>&nbsp;pagingConfig)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Листание сохраненного в сессии списка.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/service/JepDataServiceServlet.html#prepareExcel(com.technology.jep.jepria.shared.load.PagingConfig, java.util.List, java.util.List, java.util.List)">prepareExcel</A></B>(<A HREF="../../../../../../com/technology/jep/jepria/shared/load/PagingConfig.html" title="class in com.technology.jep.jepria.shared.load">PagingConfig</A>&nbsp;pagingConfig,
+             java.util.List&lt;<A HREF="../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</A>&gt;&nbsp;selectedRecords,
+             java.util.List&lt;java.lang.String&gt;&nbsp;reportHeaders,
+             java.util.List&lt;java.lang.String&gt;&nbsp;reportFields)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Подготавливает данные для формирования Excel-отчета.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/service/JepDataServiceServlet.html#prepareFileFields(com.technology.jep.jepria.shared.record.JepRecord)">prepareFileFields</A></B>(<A HREF="../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</A>&nbsp;record)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Заполнение полей расширений имен файлов на основе имен файлов (передается как строковое значение в Lob-поле).</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/service/JepDataServiceServlet.html#prepareLikeFields(com.technology.jep.jepria.shared.record.JepRecord)">prepareLikeFields</A></B>(<A HREF="../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</A>&nbsp;record)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Добавление управляющих символов к значениям текстовых полей для поиска.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../../../com/technology/jep/jepria/shared/load/PagingResult.html" title="class in com.technology.jep.jepria.shared.load">PagingResult</A>&lt;<A HREF="../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/service/JepDataServiceServlet.html#sort(com.technology.jep.jepria.shared.load.SortConfig)">sort</A></B>(<A HREF="../../../../../../com/technology/jep/jepria/shared/load/SortConfig.html" title="class in com.technology.jep.jepria.shared.load">SortConfig</A>&nbsp;sortConfig)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Сортировка сохраненного в сессии списка.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/service/JepDataServiceServlet.html#update(com.technology.jep.jepria.shared.load.FindConfig)">update</A></B>(<A HREF="../../../../../../com/technology/jep/jepria/shared/load/FindConfig.html" title="class in com.technology.jep.jepria.shared.load">FindConfig</A>&nbsp;updateConfig)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Обновление объекта.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/service/JepDataServiceServlet.html#updateLobFields(com.technology.jep.jepria.shared.record.JepRecord)">updateLobFields</A></B>(<A HREF="../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</A>&nbsp;record)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Обновление Lob-полей в базе данных.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/service/JepDataServiceServlet.html#upload(java.lang.String, java.lang.String, java.lang.String, java.util.Map)">upload</A></B>(java.lang.String&nbsp;text,
+       java.lang.String&nbsp;tableName,
+       java.lang.String&nbsp;fileFieldName,
+       java.util.Map&lt;java.lang.String,java.lang.Object&gt;&nbsp;primaryKeyMap)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_com.technology.jep.jepria.server.service.JepServiceServlet"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from class com.technology.jep.jepria.server.service.<A HREF="../../../../../../com/technology/jep/jepria/server/service/JepServiceServlet.html" title="class in com.technology.jep.jepria.server.service">JepServiceServlet</A></B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><A HREF="../../../../../../com/technology/jep/jepria/server/service/JepServiceServlet.html#buildException(java.lang.String, java.lang.Throwable)">buildException</A>, <A HREF="../../../../../../com/technology/jep/jepria/server/service/JepServiceServlet.html#buildException(java.lang.Throwable)">buildException</A>, <A HREF="../../../../../../com/technology/jep/jepria/server/service/JepServiceServlet.html#getOperatorId()">getOperatorId</A></CODE></TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_com.google.gwt.user.server.rpc.RemoteServiceServlet"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from class com.google.gwt.user.server.rpc.RemoteServiceServlet</B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE>checkPermutationStrongName, doGetSerializationPolicy, getCodeServerPolicyUrl, getRequestModuleBasePath, getSerializationPolicy, init, loadPolicyFromCodeServer, onAfterResponseSerialized, onBeforeRequestDeserialized, processCall, processCall, processPost, shouldCompressResponse</CODE></TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_com.google.gwt.user.server.rpc.AbstractRemoteServiceServlet"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from class com.google.gwt.user.server.rpc.AbstractRemoteServiceServlet</B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE>doPost, doUnexpectedFailure, getPermutationStrongName, getThreadLocalRequest, getThreadLocalResponse, onAfterRequestDeserialized, readContent</CODE></TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_javax.servlet.http.HttpServlet"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from class javax.servlet.http.HttpServlet</B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE>doDelete, doGet, doHead, doOptions, doPut, doTrace, getLastModified, service, service</CODE></TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_javax.servlet.GenericServlet"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from class javax.servlet.GenericServlet</B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE>destroy, getInitParameter, getInitParameterNames, getServletConfig, getServletContext, getServletInfo, getServletName, init, log, log</CODE></TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from class java.lang.Object</B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE>clone, equals, finalize, getClass, hashCode, notify, notifyAll, toString, wait, wait, wait</CODE></TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
+<!-- ============ FIELD DETAIL =========== -->
+
+<A NAME="field_detail"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
+<B>Field Detail</B></FONT></TH>
+</TR>
+</TABLE>
+
+<A NAME="logger"><!-- --></A><H3>
+logger</H3>
+<PRE>
+protected static org.apache.log4j.Logger <B>logger</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="recordDefinition"><!-- --></A><H3>
+recordDefinition</H3>
+<PRE>
+protected <A HREF="../../../../../../com/technology/jep/jepria/shared/record/JepRecordDefinition.html" title="class in com.technology.jep.jepria.shared.record">JepRecordDefinition</A> <B>recordDefinition</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="sorter"><!-- --></A><H3>
+sorter</H3>
+<PRE>
+protected <A HREF="../../../../../../com/technology/jep/jepria/shared/dto/JepSorter.html" title="class in com.technology.jep.jepria.shared.dto">JepSorter</A> <B>sorter</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="ejbName"><!-- --></A><H3>
+ejbName</H3>
+<PRE>
+protected java.lang.String <B>ejbName</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="dataSourceJndiName"><!-- --></A><H3>
+dataSourceJndiName</H3>
+<PRE>
+protected java.lang.String <B>dataSourceJndiName</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="resourceBundleName"><!-- --></A><H3>
+resourceBundleName</H3>
+<PRE>
+protected java.lang.String <B>resourceBundleName</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+
+<!-- ========= CONSTRUCTOR DETAIL ======== -->
+
+<A NAME="constructor_detail"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
+<B>Constructor Detail</B></FONT></TH>
+</TR>
+</TABLE>
+
+<A NAME="JepDataServiceServlet(com.technology.jep.jepria.shared.record.JepRecordDefinition, java.lang.String)"><!-- --></A><H3>
+JepDataServiceServlet</H3>
+<PRE>
+protected <B>JepDataServiceServlet</B>(<A HREF="../../../../../../com/technology/jep/jepria/shared/record/JepRecordDefinition.html" title="class in com.technology.jep.jepria.shared.record">JepRecordDefinition</A>&nbsp;recordDefinition,
+                                java.lang.String&nbsp;ejbName)</PRE>
+<DL>
+</DL>
+<HR>
+
+<A NAME="JepDataServiceServlet(com.technology.jep.jepria.shared.record.JepRecordDefinition, java.lang.String, java.lang.String, java.lang.String)"><!-- --></A><H3>
+JepDataServiceServlet</H3>
+<PRE>
+protected <B>JepDataServiceServlet</B>(<A HREF="../../../../../../com/technology/jep/jepria/shared/record/JepRecordDefinition.html" title="class in com.technology.jep.jepria.shared.record">JepRecordDefinition</A>&nbsp;recordDefinition,
+                                java.lang.String&nbsp;ejbName,
+                                java.lang.String&nbsp;dataSourceJndiName,
+                                java.lang.String&nbsp;resourceBundleName)</PRE>
+<DL>
+<DD>Конструктор необходим при использовании download
+<P>
+<DL>
+<DT><B>Parameters:</B><DD><CODE>recordDefinition</CODE> - <DD><CODE>ejbName</CODE> - <DD><CODE>dataSourceJndiName</CODE> - <DD><CODE>resourceBundleName</CODE> - </DL>
+</DL>
+
+<!-- ============ METHOD DETAIL ========== -->
+
+<A NAME="method_detail"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
+<B>Method Detail</B></FONT></TH>
+</TR>
+</TABLE>
+
+<A NAME="update(com.technology.jep.jepria.shared.load.FindConfig)"><!-- --></A><H3>
+update</H3>
+<PRE>
+public <A HREF="../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</A> <B>update</B>(<A HREF="../../../../../../com/technology/jep/jepria/shared/load/FindConfig.html" title="class in com.technology.jep.jepria.shared.load">FindConfig</A>&nbsp;updateConfig)</PRE>
+<DL>
+<DD><B>Description copied from interface: <CODE><A HREF="../../../../../../com/technology/jep/jepria/shared/service/data/JepDataService.html#update(com.technology.jep.jepria.shared.load.FindConfig)">JepDataService</A></CODE></B></DD>
+<DD>Обновление объекта.
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../com/technology/jep/jepria/shared/service/data/JepDataService.html#update(com.technology.jep.jepria.shared.load.FindConfig)">update</A></CODE> in interface <CODE><A HREF="../../../../../../com/technology/jep/jepria/shared/service/data/JepDataService.html" title="interface in com.technology.jep.jepria.shared.service.data">JepDataService</A></CODE></DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>updateConfig</CODE> - конфигурация записи с новыми значениями
+<DT><B>Returns:</B><DD>результирующая запись</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="create(com.technology.jep.jepria.shared.load.FindConfig)"><!-- --></A><H3>
+create</H3>
+<PRE>
+public <A HREF="../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</A> <B>create</B>(<A HREF="../../../../../../com/technology/jep/jepria/shared/load/FindConfig.html" title="class in com.technology.jep.jepria.shared.load">FindConfig</A>&nbsp;createConfig)</PRE>
+<DL>
+<DD><B>Description copied from interface: <CODE><A HREF="../../../../../../com/technology/jep/jepria/shared/service/data/JepDataService.html#create(com.technology.jep.jepria.shared.load.FindConfig)">JepDataService</A></CODE></B></DD>
+<DD>Создание объекта.
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../com/technology/jep/jepria/shared/service/data/JepDataService.html#create(com.technology.jep.jepria.shared.load.FindConfig)">create</A></CODE> in interface <CODE><A HREF="../../../../../../com/technology/jep/jepria/shared/service/data/JepDataService.html" title="interface in com.technology.jep.jepria.shared.service.data">JepDataService</A></CODE></DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>createConfig</CODE> - конфигурация создаваемой записи
+<DT><B>Returns:</B><DD>результирующая запись</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="findByPrimaryKey(java.util.Map)"><!-- --></A><H3>
+findByPrimaryKey</H3>
+<PRE>
+protected <A HREF="../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</A> <B>findByPrimaryKey</B>(java.util.Map&lt;java.lang.String,java.lang.Object&gt;&nbsp;primaryKey)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="delete(com.technology.jep.jepria.shared.load.FindConfig)"><!-- --></A><H3>
+delete</H3>
+<PRE>
+public void <B>delete</B>(<A HREF="../../../../../../com/technology/jep/jepria/shared/load/FindConfig.html" title="class in com.technology.jep.jepria.shared.load">FindConfig</A>&nbsp;deleteConfig)</PRE>
+<DL>
+<DD><B>Description copied from interface: <CODE><A HREF="../../../../../../com/technology/jep/jepria/shared/service/data/JepDataService.html#delete(com.technology.jep.jepria.shared.load.FindConfig)">JepDataService</A></CODE></B></DD>
+<DD>Удаление объекта.
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../com/technology/jep/jepria/shared/service/data/JepDataService.html#delete(com.technology.jep.jepria.shared.load.FindConfig)">delete</A></CODE> in interface <CODE><A HREF="../../../../../../com/technology/jep/jepria/shared/service/data/JepDataService.html" title="interface in com.technology.jep.jepria.shared.service.data">JepDataService</A></CODE></DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>deleteConfig</CODE> - конфигурация удаляемой записи</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="find(com.technology.jep.jepria.shared.load.PagingConfig)"><!-- --></A><H3>
+find</H3>
+<PRE>
+public <A HREF="../../../../../../com/technology/jep/jepria/shared/load/PagingResult.html" title="class in com.technology.jep.jepria.shared.load">PagingResult</A>&lt;<A HREF="../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</A>&gt; <B>find</B>(<A HREF="../../../../../../com/technology/jep/jepria/shared/load/PagingConfig.html" title="class in com.technology.jep.jepria.shared.load">PagingConfig</A>&nbsp;pagingConfig)</PRE>
+<DL>
+<DD>Поиск данных на основе заданной конфигурации поиска.<br/>
+ После осуществления поиска полученный список размещается в сессии.
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../com/technology/jep/jepria/shared/service/data/JepDataService.html#find(com.technology.jep.jepria.shared.load.PagingConfig)">find</A></CODE> in interface <CODE><A HREF="../../../../../../com/technology/jep/jepria/shared/service/data/JepDataService.html" title="interface in com.technology.jep.jepria.shared.service.data">JepDataService</A></CODE></DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>pagingConfig</CODE> - конфигурация поиска
+<DT><B>Returns:</B><DD>результаты поиска</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="sort(com.technology.jep.jepria.shared.load.SortConfig)"><!-- --></A><H3>
+sort</H3>
+<PRE>
+public <A HREF="../../../../../../com/technology/jep/jepria/shared/load/PagingResult.html" title="class in com.technology.jep.jepria.shared.load">PagingResult</A>&lt;<A HREF="../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</A>&gt; <B>sort</B>(<A HREF="../../../../../../com/technology/jep/jepria/shared/load/SortConfig.html" title="class in com.technology.jep.jepria.shared.load">SortConfig</A>&nbsp;sortConfig)</PRE>
+<DL>
+<DD>Сортировка сохраненного в сессии списка.<br/>
+ При отсутствии в сессии запрошенного списка, выполняется повторный поиск 
+ <A HREF="../../../../../../com/technology/jep/jepria/server/service/JepDataServiceServlet.html#find(com.technology.jep.jepria.shared.load.PagingConfig)"><CODE>find(PagingConfig pagingConfig)</CODE></A>.
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../com/technology/jep/jepria/shared/service/data/JepDataService.html#sort(com.technology.jep.jepria.shared.load.SortConfig)">sort</A></CODE> in interface <CODE><A HREF="../../../../../../com/technology/jep/jepria/shared/service/data/JepDataService.html" title="interface in com.technology.jep.jepria.shared.service.data">JepDataService</A></CODE></DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>sortConfig</CODE> - конфигурация сортировки
+<DT><B>Returns:</B><DD>результат сортировки</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="paging(com.technology.jep.jepria.shared.load.PagingConfig)"><!-- --></A><H3>
+paging</H3>
+<PRE>
+public <A HREF="../../../../../../com/technology/jep/jepria/shared/load/PagingResult.html" title="class in com.technology.jep.jepria.shared.load">PagingResult</A>&lt;<A HREF="../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</A>&gt; <B>paging</B>(<A HREF="../../../../../../com/technology/jep/jepria/shared/load/PagingConfig.html" title="class in com.technology.jep.jepria.shared.load">PagingConfig</A>&nbsp;pagingConfig)</PRE>
+<DL>
+<DD>Листание сохраненного в сессии списка.<br/>
+ При отсутствии в сессии запрошенного списка, выполняется повторный поиск 
+ <A HREF="../../../../../../com/technology/jep/jepria/server/service/JepDataServiceServlet.html#find(com.technology.jep.jepria.shared.load.PagingConfig)"><CODE>find(PagingConfig pagingConfig)</CODE></A>.
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../com/technology/jep/jepria/shared/service/data/JepDataService.html#paging(com.technology.jep.jepria.shared.load.PagingConfig)">paging</A></CODE> in interface <CODE><A HREF="../../../../../../com/technology/jep/jepria/shared/service/data/JepDataService.html" title="interface in com.technology.jep.jepria.shared.service.data">JepDataService</A></CODE></DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>pagingConfig</CODE> - конфигурация листания
+<DT><B>Returns:</B><DD>результат листания</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="prepareExcel(com.technology.jep.jepria.shared.load.PagingConfig, java.util.List, java.util.List, java.util.List)"><!-- --></A><H3>
+prepareExcel</H3>
+<PRE>
+public void <B>prepareExcel</B>(<A HREF="../../../../../../com/technology/jep/jepria/shared/load/PagingConfig.html" title="class in com.technology.jep.jepria.shared.load">PagingConfig</A>&nbsp;pagingConfig,
+                         java.util.List&lt;<A HREF="../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</A>&gt;&nbsp;selectedRecords,
+                         java.util.List&lt;java.lang.String&gt;&nbsp;reportHeaders,
+                         java.util.List&lt;java.lang.String&gt;&nbsp;reportFields)</PRE>
+<DL>
+<DD>Подготавливает данные для формирования Excel-отчета.<br/>
+ При отсутствии в сессии набора данных для формирования отчета - выполняется повторный поиск 
+ <A HREF="../../../../../../com/technology/jep/jepria/server/service/JepDataServiceServlet.html#find(com.technology.jep.jepria.shared.load.PagingConfig)"><CODE>find(PagingConfig pagingConfig)</CODE></A>.
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../com/technology/jep/jepria/shared/service/data/JepDataService.html#prepareExcel(com.technology.jep.jepria.shared.load.PagingConfig, java.util.List, java.util.List, java.util.List)">prepareExcel</A></CODE> in interface <CODE><A HREF="../../../../../../com/technology/jep/jepria/shared/service/data/JepDataService.html" title="interface in com.technology.jep.jepria.shared.service.data">JepDataService</A></CODE></DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>pagingConfig</CODE> - параметры поиска<DD><CODE>selectedRecords</CODE> - выбранные записи для формирования отчета<DD><CODE>reportHeaders</CODE> - список содержащий названия колонок<DD><CODE>reportFields</CODE> - список содержащий идентификаторы полей, из которых брать данные для колонок</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getBinaryOutputStream(java.lang.String, java.lang.String, java.lang.String, java.lang.Integer)"><!-- --></A><H3>
+getBinaryOutputStream</H3>
+<PRE>
+protected java.io.OutputStream <B>getBinaryOutputStream</B>(java.lang.String&nbsp;tableName,
+                                                     java.lang.String&nbsp;fileFieldName,
+                                                     java.lang.String&nbsp;keyFieldName,
+                                                     java.lang.Integer&nbsp;recordId)</PRE>
+<DL>
+<DD>Получение выходного потока из заданного Lob-поля
+ Используется наследниками (классами приложений) для получения значений blob-полей
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>tableName</CODE> - <DD><CODE>fileFieldName</CODE> - <DD><CODE>keyFieldName</CODE> - <DD><CODE>recordId</CODE> - 
+<DT><B>Returns:</B><DD>выходной поток</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="prepareFileFields(com.technology.jep.jepria.shared.record.JepRecord)"><!-- --></A><H3>
+prepareFileFields</H3>
+<PRE>
+protected void <B>prepareFileFields</B>(<A HREF="../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</A>&nbsp;record)</PRE>
+<DL>
+<DD>Заполнение полей расширений имен файлов на основе имен файлов (передается как строковое значение в Lob-поле).
+ Заполнение mime-type полей на основе значений полей расширений имен файлов.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="obtainFileExtension(java.lang.String)"><!-- --></A><H3>
+obtainFileExtension</H3>
+<PRE>
+private java.lang.String <B>obtainFileExtension</B>(java.lang.String&nbsp;fileName)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="prepareLikeFields(com.technology.jep.jepria.shared.record.JepRecord)"><!-- --></A><H3>
+prepareLikeFields</H3>
+<PRE>
+protected void <B>prepareLikeFields</B>(<A HREF="../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</A>&nbsp;record)</PRE>
+<DL>
+<DD>Добавление управляющих символов к значениям текстовых полей для поиска.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="updateLobFields(com.technology.jep.jepria.shared.record.JepRecord)"><!-- --></A><H3>
+updateLobFields</H3>
+<PRE>
+protected void <B>updateLobFields</B>(<A HREF="../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</A>&nbsp;record)
+                        throws java.io.IOException,
+                               java.lang.Exception</PRE>
+<DL>
+<DD>Обновление Lob-полей в базе данных.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+
+<DT><B>Throws:</B>
+<DD><CODE>java.io.IOException</CODE>
+<DD><CODE>java.lang.Exception</CODE></DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="upload(java.lang.String, java.lang.String, java.lang.String, java.util.Map)"><!-- --></A><H3>
+upload</H3>
+<PRE>
+private void <B>upload</B>(java.lang.String&nbsp;text,
+                    java.lang.String&nbsp;tableName,
+                    java.lang.String&nbsp;fileFieldName,
+                    java.util.Map&lt;java.lang.String,java.lang.Object&gt;&nbsp;primaryKeyMap)
+             throws java.io.IOException,
+                    java.lang.Exception</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+
+<DT><B>Throws:</B>
+<DD><CODE>java.io.IOException</CODE>
+<DD><CODE>java.lang.Exception</CODE></DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="clearFoundRecords(com.technology.jep.jepria.shared.load.FindConfig)"><!-- --></A><H3>
+clearFoundRecords</H3>
+<PRE>
+private void <B>clearFoundRecords</B>(<A HREF="../../../../../../com/technology/jep/jepria/shared/load/FindConfig.html" title="class in com.technology.jep.jepria.shared.load">FindConfig</A>&nbsp;findConfig)</PRE>
+<DL>
+<DD>Удаление из сессии набора записей соответствующих заданной конфигурации поиска.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>findConfig</CODE> - конфигурация поиска</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="isRefreshNeeded(java.lang.Integer)"><!-- --></A><H3>
+isRefreshNeeded</H3>
+<PRE>
+public java.lang.Boolean <B>isRefreshNeeded</B>(java.lang.Integer&nbsp;listUID)</PRE>
+<DL>
+<DD>Извлекает из сессии флаг автообновления.
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../com/technology/jep/jepria/shared/service/data/JepDataService.html#isRefreshNeeded(java.lang.Integer)">isRefreshNeeded</A></CODE> in interface <CODE><A HREF="../../../../../../com/technology/jep/jepria/shared/service/data/JepDataService.html" title="interface in com.technology.jep.jepria.shared.service.data">JepDataService</A></CODE></DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>listUID</CODE> - уникальный идентификатор списка
+<DT><B>Returns:</B><DD>TRUE, если автообновление нужно; FALSE в противном случае</DL>
+</DD>
+</DL>
+<!-- ========= END OF CLASS DATA ========= -->
+<HR>
+
+
+<!-- ======= START OF BOTTOM NAVBAR ====== -->
+<A NAME="navbar_bottom"><!-- --></A>
+<A HREF="#skip-navbar_bottom" title="Skip navigation links"></A>
+<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
+<TR>
+<TD COLSPAN=2 BGCOLOR="#EEEEFF" CLASS="NavBarCell1">
+<A NAME="navbar_bottom_firstrow"><!-- --></A>
+<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3" SUMMARY="">
+  <TR ALIGN="center" VALIGN="top">
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-summary.html"><FONT CLASS="NavBarFont1"><B>Package</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../index-all.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../help-doc.html"><FONT CLASS="NavBarFont1"><B>Help</B></FONT></A>&nbsp;</TD>
+  </TR>
+</TABLE>
+</TD>
+<TD ALIGN="right" VALIGN="top" ROWSPAN=3><EM>
+</EM>
+</TD>
+</TR>
+
+<TR>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+&nbsp;PREV CLASS&nbsp;
+&nbsp;<A HREF="../../../../../../com/technology/jep/jepria/server/service/JepMainServiceServlet.html" title="class in com.technology.jep.jepria.server.service"><B>NEXT CLASS</B></A></FONT></TD>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+  <A HREF="../../../../../../index.html?com/technology/jep/jepria/server/service/JepDataServiceServlet.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="JepDataServiceServlet.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+&nbsp;<SCRIPT type="text/javascript">
+  <!--
+  if(window==top) {
+    document.writeln('<A HREF="../../../../../../allclasses-noframe.html"><B>All Classes</B></A>');
+  }
+  //-->
+</SCRIPT>
+<NOSCRIPT>
+  <A HREF="../../../../../../allclasses-noframe.html"><B>All Classes</B></A>
+</NOSCRIPT>
+
+
+</FONT></TD>
+</TR>
+<TR>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+  SUMMARY:&nbsp;NESTED&nbsp;|&nbsp;<A HREF="#field_summary">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
+</TR>
+</TABLE>
+<A NAME="skip-navbar_bottom"></A>
+<!-- ======== END OF BOTTOM NAVBAR ======= -->
+
+<HR>
+
+</BODY>
+</HTML>

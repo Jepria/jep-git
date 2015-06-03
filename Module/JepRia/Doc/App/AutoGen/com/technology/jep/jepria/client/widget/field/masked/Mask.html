@@ -1,0 +1,1094 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!--NewPage-->
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<TITLE>
+Mask (JepRia JavaDoc)
+</TITLE>
+
+
+<LINK REL ="stylesheet" TYPE="text/css" HREF="../../../../../../../../stylesheet.css" TITLE="Style">
+
+<SCRIPT type="text/javascript">
+function windowTitle()
+{
+    if (location.href.indexOf('is-external=true') == -1) {
+        parent.document.title="Mask (JepRia JavaDoc)";
+    }
+}
+</SCRIPT>
+<NOSCRIPT>
+</NOSCRIPT>
+
+</HEAD>
+
+<BODY BGCOLOR="white" onload="windowTitle();">
+<HR>
+
+
+<!-- ========= START OF TOP NAVBAR ======= -->
+<A NAME="navbar_top"><!-- --></A>
+<A HREF="#skip-navbar_top" title="Skip navigation links"></A>
+<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
+<TR>
+<TD COLSPAN=2 BGCOLOR="#EEEEFF" CLASS="NavBarCell1">
+<A NAME="navbar_top_firstrow"><!-- --></A>
+<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3" SUMMARY="">
+  <TR ALIGN="center" VALIGN="top">
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-summary.html"><FONT CLASS="NavBarFont1"><B>Package</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../../index-all.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../../help-doc.html"><FONT CLASS="NavBarFont1"><B>Help</B></FONT></A>&nbsp;</TD>
+  </TR>
+</TABLE>
+</TD>
+<TD ALIGN="right" VALIGN="top" ROWSPAN=3><EM>
+</EM>
+</TD>
+</TR>
+
+<TR>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+&nbsp;PREV CLASS&nbsp;
+&nbsp;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/masked/Mask.MaskItem.html" title="class in com.technology.jep.jepria.client.widget.field.masked"><B>NEXT CLASS</B></A></FONT></TD>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+  <A HREF="../../../../../../../../index.html?com/technology/jep/jepria/client/widget/field/masked/Mask.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="Mask.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+&nbsp;<SCRIPT type="text/javascript">
+  <!--
+  if(window==top) {
+    document.writeln('<A HREF="../../../../../../../../allclasses-noframe.html"><B>All Classes</B></A>');
+  }
+  //-->
+</SCRIPT>
+<NOSCRIPT>
+  <A HREF="../../../../../../../../allclasses-noframe.html"><B>All Classes</B></A>
+</NOSCRIPT>
+
+
+</FONT></TD>
+</TR>
+<TR>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+  SUMMARY:&nbsp;<A HREF="#nested_class_summary">NESTED</A>&nbsp;|&nbsp;<A HREF="#field_summary">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
+</TR>
+</TABLE>
+<A NAME="skip-navbar_top"></A>
+<!-- ========= END OF TOP NAVBAR ========= -->
+
+<HR>
+<!-- ======== START OF CLASS DATA ======== -->
+<H2>
+<FONT SIZE="-1">
+com.technology.jep.jepria.client.widget.field.masked</FONT>
+<BR>
+Class Mask</H2>
+<PRE>
+java.lang.Object
+  <IMG SRC="../../../../../../../../resources/inherit.gif" ALT="extended by "><B>com.technology.jep.jepria.client.widget.field.masked.Mask</B>
+</PRE>
+<HR>
+<DL>
+<DT><PRE>public class <B>Mask</B><DT>extends java.lang.Object</DL>
+</PRE>
+
+<P>
+Маска, используемая в виджете JepMaskedTextField.<br>
+ Содержит описание строки, которую может ввести пользователь. 
+ Используются следующие обозначения:
+ <ul>
+   <li>A - обязательное наличие в данной позиции буквы или цифры.</li>
+   <li>a - необязательное наличие в данной позиции буквы или цифры.</li>
+   <li>0 - обязательное наличие в данной позиции цифры.</li>
+   <li>9 - необязательное наличие в данной позиции цифры.</li>
+   <li>L - обязательное наличие в данной позиции буквы.</li>
+   <li>l - необязательное наличие в данной позиции буквы.</li>
+   <li>C - обязательное наличие в данной позиции произвольного символа.</li>
+   <li>c - необязательное наличие в данной позиции произвольного символа.</li>
+   <li># - обязательное наличие в данной позиции цифры или знака &quot;+&quot; или &quot;-&quot;.</li>
+   <li>&lt; - последующие буквы будут приведены к нижнему регистру.</li>
+   <li>&gt; - последующие буквы будут приведены к верхнему регистру.</li>
+   <li>&lt;&gt; - прекращение преобразования регистра.</li>
+   <li>\ - следующий символ является литералом (в коде необходимо экранировать данный символ: &quot;\\&quot;.</li>
+ </ul>
+ Все остальные символы воспринимаются как литералы.
+ Действуют следующие ограничения:
+ <ul>
+   <li>Все необязательные символы должны находиться в конце маски.</li>
+   <li>Все необязательные символы должны иметь один и тот же тип (т.е. конструкция вида
+   &quot;cccllaa9&quot; не разрешается.</li>
+ </ul>
+<P>
+
+<P>
+<HR>
+
+<P>
+<!-- ======== NESTED CLASS SUMMARY ======== -->
+
+<A NAME="nested_class_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Nested Class Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>(package private) &nbsp;class</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/masked/Mask.MaskItem.html" title="class in com.technology.jep.jepria.client.widget.field.masked">Mask.MaskItem</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Класс, описывающий позицию в маске.</TD>
+</TR>
+</TABLE>
+&nbsp;<!-- =========== FIELD SUMMARY =========== -->
+
+<A NAME="field_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Field Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;java.util.List&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/masked/Mask.MaskItem.html" title="class in com.technology.jep.jepria.client.widget.field.masked">Mask.MaskItem</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/masked/Mask.html#items">items</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Список позиций маски.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;char</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/masked/Mask.html#mandatoryChar">mandatoryChar</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Символ, используемый для вывода пустой обязательной позиции (по умолчанию - &quot;*&quot;).</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;java.util.Map&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/masked/MaskItemType.html" title="enum in com.technology.jep.jepria.client.widget.field.masked">MaskItemType</A>,java.lang.Character&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/masked/Mask.html#mandatoryCharMap">mandatoryCharMap</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Таблица соответствия типов обязательных позиций и символов, 
+ использующихся для вывода в пустой позиции.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;char</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/masked/Mask.html#optionalChar">optionalChar</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Символ, используемый для вывода пустой необязательной позиции (по умолчанию - &quot;_&quot;).</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;java.util.Map&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/masked/MaskItemType.html" title="enum in com.technology.jep.jepria.client.widget.field.masked">MaskItemType</A>,java.lang.Character&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/masked/Mask.html#optionalCharMap">optionalCharMap</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Таблица соответствия типов необязательных позиций и символов, 
+ использующихся для вывода в пустой позиции.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/masked/Mask.html#stringValue">stringValue</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Строковое представление маски.</TD>
+</TR>
+</TABLE>
+&nbsp;
+<!-- ======== CONSTRUCTOR SUMMARY ======== -->
+
+<A NAME="constructor_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Constructor Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/masked/Mask.html#Mask(java.lang.String)">Mask</A></B>(java.lang.String&nbsp;mask)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Создаёт маску из текстового представления.</TD>
+</TR>
+</TABLE>
+&nbsp;
+<!-- ========== METHOD SUMMARY =========== -->
+
+<A NAME="method_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Method Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;int</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/masked/Mask.html#adjustCursorPosition(char[], int)">adjustCursorPosition</A></B>(char[]&nbsp;chars,
+                     int&nbsp;position)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Служебный метод, осуществляющий корректировку позиции курсора.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>(package private) &nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/masked/Mask.html#applyLiterals(char[])">applyLiterals</A></B>(char[]&nbsp;chars)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Добавляет в переданный массив литералы.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>(package private) &nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/masked/Mask.html#canInsert(char[], int, char)">canInsert</A></B>(char[]&nbsp;chars,
+          int&nbsp;position,
+          char&nbsp;ch)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Проверяет, можно ли вставить символ в заданную позицию.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>(package private) &nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/masked/Mask.html#canPaste(char[], int, java.lang.String)">canPaste</A></B>(char[]&nbsp;chars,
+         int&nbsp;position,
+         java.lang.String&nbsp;inserted)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Проверяет, можно ли вставить строку в заданную позицию.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/masked/Mask.html#checkInputArray(char[])">checkInputArray</A></B>(char[]&nbsp;chars)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Служебный метод, осуществляющий выброс исключения, когда длина 
+ входного массива не совпадает с длиной маски.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/masked/Mask.html#checkPosition(int)">checkPosition</A></B>(int&nbsp;position)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Служебный метод, осуществляющий выброс исключения при некорректно
+ заданной позиции курсора.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>(package private) &nbsp;char[]</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/masked/Mask.html#clearChars(char[], int, int)">clearChars</A></B>(char[]&nbsp;chars,
+           int&nbsp;position,
+           int&nbsp;length)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Очищает заданное length символов в массиве, начиная с position.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>(package private) &nbsp;char[]</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/masked/Mask.html#getCharArray(java.lang.String)">getCharArray</A></B>(java.lang.String&nbsp;str)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Формирование массива символов из строки, если она соответствует маске.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>(package private) &nbsp;int</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/masked/Mask.html#getCursorPositionOnInsert(char[], int, char)">getCursorPositionOnInsert</A></B>(char[]&nbsp;chars,
+                          int&nbsp;position,
+                          char&nbsp;ch)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Возвращает позицию курсора после вставки символа в указанную позицию массива.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>(package private) &nbsp;int</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/masked/Mask.html#getCursorPositionOnLeft(int)">getCursorPositionOnLeft</A></B>(int&nbsp;position)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Возвращает позицию курсора после попытки передвинуть его влево.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>(package private) &nbsp;int</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/masked/Mask.html#getCursorPositionOnPaste(char[], int, java.lang.String)">getCursorPositionOnPaste</A></B>(char[]&nbsp;chars,
+                         int&nbsp;position,
+                         java.lang.String&nbsp;pasted)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Возвращает позицию курсора после вставки.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>(package private) &nbsp;int</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/masked/Mask.html#getCursorPositionOnRight(int)">getCursorPositionOnRight</A></B>(int&nbsp;position)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Возвращает позицию курсора после попытки передвинуть его вправо.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;int</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/masked/Mask.html#getEffectiveLength(char[])">getEffectiveLength</A></B>(char[]&nbsp;chars)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Вычисление эффективной длины массива символов.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/masked/Mask.html#getMaskChar(com.technology.jep.jepria.client.widget.field.masked.Mask.MaskItem)">getMaskChar</A></B>(<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/masked/Mask.MaskItem.html" title="class in com.technology.jep.jepria.client.widget.field.masked">Mask.MaskItem</A>&nbsp;item)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Служебный метод, возвращающий символ маски для данного элемента.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>(package private) &nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/masked/Mask.html#getText(char[], boolean)">getText</A></B>(char[]&nbsp;charValue,
+        boolean&nbsp;showEmptyChars)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Возвращает строковое представление массива символов с учётом маски.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>(package private) &nbsp;char[]</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/masked/Mask.html#insertChar(char[], int, char)">insertChar</A></B>(char[]&nbsp;chars,
+           int&nbsp;position,
+           char&nbsp;ch)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Возвращает результат вставки символа в массив в заданной позиции.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/masked/Mask.html#isValueEmpty(char[])">isValueEmpty</A></B>(char[]&nbsp;value)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Проверка, пусто ли переданное значение.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/masked/Mask.html#match(char[], boolean)">match</A></B>(char[]&nbsp;chars,
+      boolean&nbsp;allowEmptyChars)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Проверяет, соответствует ли массив символов маске.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/masked/Mask.html#match(java.lang.String)">match</A></B>(java.lang.String&nbsp;str)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Проверяет, соответствует ли строка маске.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/masked/Mask.html#match(java.lang.String, java.lang.String)">match</A></B>(java.lang.String&nbsp;str,
+      java.lang.String&nbsp;mask)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Проверяет, соответствует ли строка маске.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>(package private) &nbsp;char[]</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/masked/Mask.html#paste(char[], int, java.lang.String)">paste</A></B>(char[]&nbsp;chars,
+      int&nbsp;position,
+      java.lang.String&nbsp;pasted)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Возвращает результат вставки строки в массив символов в заданной позиции.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>(package private) &nbsp;char[]</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/masked/Mask.html#removeChar(char[], int)">removeChar</A></B>(char[]&nbsp;chars,
+           int&nbsp;position)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Улаление символа в массиве в заданной позиции.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/masked/Mask.html#setMandatoryChar(char)">setMandatoryChar</A></B>(char&nbsp;mandatoryChar)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Установка символа, который будет выводиться по умолчанию в пустой обязательной позиции.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/masked/Mask.html#setMandatoryChar(com.technology.jep.jepria.client.widget.field.masked.MaskItemType, java.lang.Character)">setMandatoryChar</A></B>(<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/masked/MaskItemType.html" title="enum in com.technology.jep.jepria.client.widget.field.masked">MaskItemType</A>&nbsp;itemType,
+                 java.lang.Character&nbsp;ch)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Установка символа, который будет выводиться в пустой обязательной позиции данного типа.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/masked/Mask.html#setOptionalChar(char)">setOptionalChar</A></B>(char&nbsp;optionalChar)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Установка символа, который будет выводиться по умолчанию в пустой необязательной позиции.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/masked/Mask.html#setOptionalChar(com.technology.jep.jepria.client.widget.field.masked.MaskItemType, java.lang.Character)">setOptionalChar</A></B>(<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/masked/MaskItemType.html" title="enum in com.technology.jep.jepria.client.widget.field.masked">MaskItemType</A>&nbsp;itemType,
+                java.lang.Character&nbsp;ch)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Установка символа, который будет выводиться в пустой необязательной позиции данного типа.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;int</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/masked/Mask.html#size()">size</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Возвращает длину маски (количество позиций).</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/masked/Mask.html#toString()">toString</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Возвращает строковое представление маски.</TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from class java.lang.Object</B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE>clone, equals, finalize, getClass, hashCode, notify, notifyAll, wait, wait, wait</CODE></TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
+<!-- ============ FIELD DETAIL =========== -->
+
+<A NAME="field_detail"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
+<B>Field Detail</B></FONT></TH>
+</TR>
+</TABLE>
+
+<A NAME="stringValue"><!-- --></A><H3>
+stringValue</H3>
+<PRE>
+private final java.lang.String <B>stringValue</B></PRE>
+<DL>
+<DD>Строковое представление маски.
+<P>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="items"><!-- --></A><H3>
+items</H3>
+<PRE>
+private final java.util.List&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/masked/Mask.MaskItem.html" title="class in com.technology.jep.jepria.client.widget.field.masked">Mask.MaskItem</A>&gt; <B>items</B></PRE>
+<DL>
+<DD>Список позиций маски.
+<P>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="mandatoryChar"><!-- --></A><H3>
+mandatoryChar</H3>
+<PRE>
+private char <B>mandatoryChar</B></PRE>
+<DL>
+<DD>Символ, используемый для вывода пустой обязательной позиции (по умолчанию - &quot;*&quot;).
+<P>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="optionalChar"><!-- --></A><H3>
+optionalChar</H3>
+<PRE>
+private char <B>optionalChar</B></PRE>
+<DL>
+<DD>Символ, используемый для вывода пустой необязательной позиции (по умолчанию - &quot;_&quot;).
+<P>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="mandatoryCharMap"><!-- --></A><H3>
+mandatoryCharMap</H3>
+<PRE>
+private java.util.Map&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/masked/MaskItemType.html" title="enum in com.technology.jep.jepria.client.widget.field.masked">MaskItemType</A>,java.lang.Character&gt; <B>mandatoryCharMap</B></PRE>
+<DL>
+<DD>Таблица соответствия типов обязательных позиций и символов, 
+ использующихся для вывода в пустой позиции.
+<P>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="optionalCharMap"><!-- --></A><H3>
+optionalCharMap</H3>
+<PRE>
+private java.util.Map&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/masked/MaskItemType.html" title="enum in com.technology.jep.jepria.client.widget.field.masked">MaskItemType</A>,java.lang.Character&gt; <B>optionalCharMap</B></PRE>
+<DL>
+<DD>Таблица соответствия типов необязательных позиций и символов, 
+ использующихся для вывода в пустой позиции.
+<P>
+<DL>
+</DL>
+</DL>
+
+<!-- ========= CONSTRUCTOR DETAIL ======== -->
+
+<A NAME="constructor_detail"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
+<B>Constructor Detail</B></FONT></TH>
+</TR>
+</TABLE>
+
+<A NAME="Mask(java.lang.String)"><!-- --></A><H3>
+Mask</H3>
+<PRE>
+public <B>Mask</B>(java.lang.String&nbsp;mask)</PRE>
+<DL>
+<DD>Создаёт маску из текстового представления.
+<P>
+<DL>
+<DT><B>Parameters:</B><DD><CODE>mask</CODE> - текстовое представление</DL>
+</DL>
+
+<!-- ============ METHOD DETAIL ========== -->
+
+<A NAME="method_detail"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
+<B>Method Detail</B></FONT></TH>
+</TR>
+</TABLE>
+
+<A NAME="getEffectiveLength(char[])"><!-- --></A><H3>
+getEffectiveLength</H3>
+<PRE>
+public static int <B>getEffectiveLength</B>(char[]&nbsp;chars)</PRE>
+<DL>
+<DD>Вычисление эффективной длины массива символов.<br>
+ Под эффективной длиной понимается номер позиции последнего ненулевого символа
+ плюс один, либо ноль, если массив пуст.
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>chars</CODE> - массив
+<DT><B>Returns:</B><DD>эффективная длина</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="isValueEmpty(char[])"><!-- --></A><H3>
+isValueEmpty</H3>
+<PRE>
+public boolean <B>isValueEmpty</B>(char[]&nbsp;value)</PRE>
+<DL>
+<DD>Проверка, пусто ли переданное значение.<br>
+ Значение считается пустым, если все позиции, не являющиеся литералами, пусты.
+ В позициях с литералами допускаются также символы, совпадающие с литералом.
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>value</CODE> - значение
+<DT><B>Returns:</B><DD>true, если значение пусто, и false в противном случае</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setMandatoryChar(char)"><!-- --></A><H3>
+setMandatoryChar</H3>
+<PRE>
+public void <B>setMandatoryChar</B>(char&nbsp;mandatoryChar)</PRE>
+<DL>
+<DD>Установка символа, который будет выводиться по умолчанию в пустой обязательной позиции.
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>mandatoryChar</CODE> - символ</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setMandatoryChar(com.technology.jep.jepria.client.widget.field.masked.MaskItemType, java.lang.Character)"><!-- --></A><H3>
+setMandatoryChar</H3>
+<PRE>
+public void <B>setMandatoryChar</B>(<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/masked/MaskItemType.html" title="enum in com.technology.jep.jepria.client.widget.field.masked">MaskItemType</A>&nbsp;itemType,
+                             java.lang.Character&nbsp;ch)</PRE>
+<DL>
+<DD>Установка символа, который будет выводиться в пустой обязательной позиции данного типа.<br>
+ Если в качестве символа передать null, то будет использоваться символ по умолчанию для 
+ обязательных позиций.
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>itemType</CODE> - тип символа<DD><CODE>ch</CODE> - символ</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setOptionalChar(char)"><!-- --></A><H3>
+setOptionalChar</H3>
+<PRE>
+public void <B>setOptionalChar</B>(char&nbsp;optionalChar)</PRE>
+<DL>
+<DD>Установка символа, который будет выводиться по умолчанию в пустой необязательной позиции.
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>optionalChar</CODE> - символ</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setOptionalChar(com.technology.jep.jepria.client.widget.field.masked.MaskItemType, java.lang.Character)"><!-- --></A><H3>
+setOptionalChar</H3>
+<PRE>
+public void <B>setOptionalChar</B>(<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/masked/MaskItemType.html" title="enum in com.technology.jep.jepria.client.widget.field.masked">MaskItemType</A>&nbsp;itemType,
+                            java.lang.Character&nbsp;ch)</PRE>
+<DL>
+<DD>Установка символа, который будет выводиться в пустой необязательной позиции данного типа.<br>
+ Если в качестве символа передать null, то будет использоваться символ по умолчанию для 
+ необязательных позиций.
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>itemType</CODE> - тип символа<DD><CODE>ch</CODE> - символ</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="size()"><!-- --></A><H3>
+size</H3>
+<PRE>
+public int <B>size</B>()</PRE>
+<DL>
+<DD>Возвращает длину маски (количество позиций).
+<P>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>длина</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="toString()"><!-- --></A><H3>
+toString</H3>
+<PRE>
+public java.lang.String <B>toString</B>()</PRE>
+<DL>
+<DD>Возвращает строковое представление маски.
+<P>
+<DD><DL>
+<DT><B>Overrides:</B><DD><CODE>toString</CODE> in class <CODE>java.lang.Object</CODE></DL>
+</DD>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>строковое представление маски</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="match(char[], boolean)"><!-- --></A><H3>
+match</H3>
+<PRE>
+public boolean <B>match</B>(char[]&nbsp;chars,
+                     boolean&nbsp;allowEmptyChars)</PRE>
+<DL>
+<DD>Проверяет, соответствует ли массив символов маске.
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>chars</CODE> - массив символов<DD><CODE>allowEmptyChars</CODE> - флаг, разрешающий пустые символы на обязательных позициях
+<DT><B>Returns:</B><DD>true, если массив соответствует маске, и false в противном случае</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="match(java.lang.String)"><!-- --></A><H3>
+match</H3>
+<PRE>
+public boolean <B>match</B>(java.lang.String&nbsp;str)</PRE>
+<DL>
+<DD>Проверяет, соответствует ли строка маске.
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>str</CODE> - строка
+<DT><B>Returns:</B><DD>true, если строка соответствует маске, и false в противном случае</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="match(java.lang.String, java.lang.String)"><!-- --></A><H3>
+match</H3>
+<PRE>
+public static boolean <B>match</B>(java.lang.String&nbsp;str,
+                            java.lang.String&nbsp;mask)</PRE>
+<DL>
+<DD>Проверяет, соответствует ли строка маске.
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>str</CODE> - строка<DD><CODE>mask</CODE> - строковое представление маски
+<DT><B>Returns:</B><DD>true, если строка соответствует маске, и false в противном случае</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="applyLiterals(char[])"><!-- --></A><H3>
+applyLiterals</H3>
+<PRE>
+void <B>applyLiterals</B>(char[]&nbsp;chars)</PRE>
+<DL>
+<DD>Добавляет в переданный массив литералы.
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>chars</CODE> - массив</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="canInsert(char[], int, char)"><!-- --></A><H3>
+canInsert</H3>
+<PRE>
+boolean <B>canInsert</B>(char[]&nbsp;chars,
+                  int&nbsp;position,
+                  char&nbsp;ch)</PRE>
+<DL>
+<DD>Проверяет, можно ли вставить символ в заданную позицию.
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>chars</CODE> - массив символов, в который осуществляется вставка<DD><CODE>position</CODE> - позиция курсора<DD><CODE>ch</CODE> - символ
+<DT><B>Returns:</B><DD>true, если вставка допустима, и false в противном случае</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="canPaste(char[], int, java.lang.String)"><!-- --></A><H3>
+canPaste</H3>
+<PRE>
+boolean <B>canPaste</B>(char[]&nbsp;chars,
+                 int&nbsp;position,
+                 java.lang.String&nbsp;inserted)</PRE>
+<DL>
+<DD>Проверяет, можно ли вставить строку в заданную позицию.
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>chars</CODE> - массив символов, в который осуществляется вставка<DD><CODE>position</CODE> - позиция курсора<DD><CODE>inserted</CODE> - вставляемая строка
+<DT><B>Returns:</B><DD>true, если вставка допустима, и false в противном случае</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="clearChars(char[], int, int)"><!-- --></A><H3>
+clearChars</H3>
+<PRE>
+char[] <B>clearChars</B>(char[]&nbsp;chars,
+                  int&nbsp;position,
+                  int&nbsp;length)</PRE>
+<DL>
+<DD>Очищает заданное length символов в массиве, начиная с position.
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>chars</CODE> - массив символов<DD><CODE>position</CODE> - позиция курсора<DD><CODE>length</CODE> - количество очищаемых символов
+<DT><B>Returns:</B><DD>новый массив с очищенными символами либо исходный, если в нём ничего не изменилось</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getCharArray(java.lang.String)"><!-- --></A><H3>
+getCharArray</H3>
+<PRE>
+char[] <B>getCharArray</B>(java.lang.String&nbsp;str)</PRE>
+<DL>
+<DD>Формирование массива символов из строки, если она соответствует маске.<br>
+ Если строка не соответствует маске, возвращает массив пустых символов длиной в маску.
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>str</CODE> - строка
+<DT><B>Returns:</B><DD>представление строки в виде массива длиной в маску</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getCursorPositionOnInsert(char[], int, char)"><!-- --></A><H3>
+getCursorPositionOnInsert</H3>
+<PRE>
+int <B>getCursorPositionOnInsert</B>(char[]&nbsp;chars,
+                              int&nbsp;position,
+                              char&nbsp;ch)</PRE>
+<DL>
+<DD>Возвращает позицию курсора после вставки символа в указанную позицию массива.
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>chars</CODE> - массив символов<DD><CODE>position</CODE> - позиция курсора<DD><CODE>ch</CODE> - символ
+<DT><B>Returns:</B><DD>новая позиция курсора</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getCursorPositionOnLeft(int)"><!-- --></A><H3>
+getCursorPositionOnLeft</H3>
+<PRE>
+int <B>getCursorPositionOnLeft</B>(int&nbsp;position)</PRE>
+<DL>
+<DD>Возвращает позицию курсора после попытки передвинуть его влево.<br>
+ Если курсор находится в начале, возвращает 0. Если слева один или несколько
+ литералов, курсор &quot;перепрыгивает&quot; через них.
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>position</CODE> - исходная позиция курсора
+<DT><B>Returns:</B><DD>новая позиция курсора</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getCursorPositionOnPaste(char[], int, java.lang.String)"><!-- --></A><H3>
+getCursorPositionOnPaste</H3>
+<PRE>
+int <B>getCursorPositionOnPaste</B>(char[]&nbsp;chars,
+                             int&nbsp;position,
+                             java.lang.String&nbsp;pasted)</PRE>
+<DL>
+<DD>Возвращает позицию курсора после вставки.<br>
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>chars</CODE> - массив символов<DD><CODE>position</CODE> - позиция курсора<DD><CODE>pasted</CODE> - вставляемая строка
+<DT><B>Returns:</B><DD>позиция курсора после вставки</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getCursorPositionOnRight(int)"><!-- --></A><H3>
+getCursorPositionOnRight</H3>
+<PRE>
+int <B>getCursorPositionOnRight</B>(int&nbsp;position)</PRE>
+<DL>
+<DD>Возвращает позицию курсора после попытки передвинуть его вправо.<br>
+ Если курсор находится в конце, возвращает size(). Если справа один или несколько
+ литералов, курсор &quot;перепрыгивает&quot; через них.
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>position</CODE> - исходная позиция курсора
+<DT><B>Returns:</B><DD>новая позиция курсора</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getText(char[], boolean)"><!-- --></A><H3>
+getText</H3>
+<PRE>
+java.lang.String <B>getText</B>(char[]&nbsp;charValue,
+                         boolean&nbsp;showEmptyChars)</PRE>
+<DL>
+<DD>Возвращает строковое представление массива символов с учётом маски.<br>
+ Для пустых элементов выводится символ маски.
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>charValue</CODE> - массив символов<DD><CODE>showEmptyChars</CODE> - если true, на месте пустых необязательных позиций выводятся символы маски
+<DT><B>Returns:</B><DD>строковое представление</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="insertChar(char[], int, char)"><!-- --></A><H3>
+insertChar</H3>
+<PRE>
+char[] <B>insertChar</B>(char[]&nbsp;chars,
+                  int&nbsp;position,
+                  char&nbsp;ch)</PRE>
+<DL>
+<DD>Возвращает результат вставки символа в массив в заданной позиции.
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>chars</CODE> - массив символов, в который осуществляется вставка<DD><CODE>position</CODE> - позиция вставки<DD><CODE>ch</CODE> - символ
+<DT><B>Returns:</B><DD>новый массив с результатом вставки, либо старый, если ничего не изменилось</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="paste(char[], int, java.lang.String)"><!-- --></A><H3>
+paste</H3>
+<PRE>
+char[] <B>paste</B>(char[]&nbsp;chars,
+             int&nbsp;position,
+             java.lang.String&nbsp;pasted)</PRE>
+<DL>
+<DD>Возвращает результат вставки строки в массив символов в заданной позиции.
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>chars</CODE> - массив символов<DD><CODE>position</CODE> - позиция курсора<DD><CODE>pasted</CODE> - вставляемая строка
+<DT><B>Returns:</B><DD>новый массив с результатом вставки, либо исходный, если ничего не изменилось</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="removeChar(char[], int)"><!-- --></A><H3>
+removeChar</H3>
+<PRE>
+char[] <B>removeChar</B>(char[]&nbsp;chars,
+                  int&nbsp;position)</PRE>
+<DL>
+<DD>Улаление символа в массиве в заданной позиции.
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>chars</CODE> - массив символов<DD><CODE>position</CODE> - позиция
+<DT><B>Returns:</B><DD>новый массив с удалённым символом, либо исходный, если ничего не изменилось</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="adjustCursorPosition(char[], int)"><!-- --></A><H3>
+adjustCursorPosition</H3>
+<PRE>
+private int <B>adjustCursorPosition</B>(char[]&nbsp;chars,
+                                 int&nbsp;position)</PRE>
+<DL>
+<DD>Служебный метод, осуществляющий корректировку позиции курсора.<br>
+ Необходима, если слева от курсора есть вакантные позиции с необязательными символами.
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>chars</CODE> - массив символов<DD><CODE>position</CODE> - позиция курсора
+<DT><B>Returns:</B><DD>скорректированная позиция курсора</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="checkInputArray(char[])"><!-- --></A><H3>
+checkInputArray</H3>
+<PRE>
+private void <B>checkInputArray</B>(char[]&nbsp;chars)</PRE>
+<DL>
+<DD>Служебный метод, осуществляющий выброс исключения, когда длина 
+ входного массива не совпадает с длиной маски.
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>chars</CODE> - массив символов</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="checkPosition(int)"><!-- --></A><H3>
+checkPosition</H3>
+<PRE>
+private void <B>checkPosition</B>(int&nbsp;position)</PRE>
+<DL>
+<DD>Служебный метод, осуществляющий выброс исключения при некорректно
+ заданной позиции курсора.
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>position</CODE> - позиция курсора</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getMaskChar(com.technology.jep.jepria.client.widget.field.masked.Mask.MaskItem)"><!-- --></A><H3>
+getMaskChar</H3>
+<PRE>
+private java.lang.String <B>getMaskChar</B>(<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/masked/Mask.MaskItem.html" title="class in com.technology.jep.jepria.client.widget.field.masked">Mask.MaskItem</A>&nbsp;item)</PRE>
+<DL>
+<DD>Служебный метод, возвращающий символ маски для данного элемента.
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>item</CODE> - элемент маски
+<DT><B>Returns:</B><DD>символ</DL>
+</DD>
+</DL>
+<!-- ========= END OF CLASS DATA ========= -->
+<HR>
+
+
+<!-- ======= START OF BOTTOM NAVBAR ====== -->
+<A NAME="navbar_bottom"><!-- --></A>
+<A HREF="#skip-navbar_bottom" title="Skip navigation links"></A>
+<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
+<TR>
+<TD COLSPAN=2 BGCOLOR="#EEEEFF" CLASS="NavBarCell1">
+<A NAME="navbar_bottom_firstrow"><!-- --></A>
+<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3" SUMMARY="">
+  <TR ALIGN="center" VALIGN="top">
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-summary.html"><FONT CLASS="NavBarFont1"><B>Package</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../../index-all.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../../help-doc.html"><FONT CLASS="NavBarFont1"><B>Help</B></FONT></A>&nbsp;</TD>
+  </TR>
+</TABLE>
+</TD>
+<TD ALIGN="right" VALIGN="top" ROWSPAN=3><EM>
+</EM>
+</TD>
+</TR>
+
+<TR>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+&nbsp;PREV CLASS&nbsp;
+&nbsp;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/masked/Mask.MaskItem.html" title="class in com.technology.jep.jepria.client.widget.field.masked"><B>NEXT CLASS</B></A></FONT></TD>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+  <A HREF="../../../../../../../../index.html?com/technology/jep/jepria/client/widget/field/masked/Mask.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="Mask.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+&nbsp;<SCRIPT type="text/javascript">
+  <!--
+  if(window==top) {
+    document.writeln('<A HREF="../../../../../../../../allclasses-noframe.html"><B>All Classes</B></A>');
+  }
+  //-->
+</SCRIPT>
+<NOSCRIPT>
+  <A HREF="../../../../../../../../allclasses-noframe.html"><B>All Classes</B></A>
+</NOSCRIPT>
+
+
+</FONT></TD>
+</TR>
+<TR>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+  SUMMARY:&nbsp;<A HREF="#nested_class_summary">NESTED</A>&nbsp;|&nbsp;<A HREF="#field_summary">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
+</TR>
+</TABLE>
+<A NAME="skip-navbar_bottom"></A>
+<!-- ======== END OF BOTTOM NAVBAR ======= -->
+
+<HR>
+
+</BODY>
+</HTML>

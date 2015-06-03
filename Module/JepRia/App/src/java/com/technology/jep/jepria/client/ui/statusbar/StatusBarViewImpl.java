@@ -1,0 +1,74 @@
+package com.technology.jep.jepria.client.ui.statusbar;
+
+import static com.technology.jep.jepria.client.JepRiaClientConstant.JepTexts;
+import static com.technology.jep.jepria.client.JepRiaClientConstant.TOOLBAR_DEFAULT_STYLE;
+import static com.technology.jep.jepria.client.ui.WorkstateEnum.CREATE;
+import static com.technology.jep.jepria.client.ui.WorkstateEnum.EDIT;
+import static com.technology.jep.jepria.client.ui.WorkstateEnum.SEARCH;
+import static com.technology.jep.jepria.client.ui.WorkstateEnum.SELECTED;
+import static com.technology.jep.jepria.client.ui.WorkstateEnum.VIEW_DETAILS;
+import static com.technology.jep.jepria.client.ui.WorkstateEnum.VIEW_LIST;
+
+import com.google.gwt.dom.client.Style.Unit;
+import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.Widget;
+import com.technology.jep.jepria.client.AutomationConstant;
+import com.technology.jep.jepria.client.ui.JepPresenter;
+import com.technology.jep.jepria.client.ui.WorkstateEnum;
+
+/**
+ * Реализация панели состояния.
+ */
+public class StatusBarViewImpl implements StatusBarView {
+
+	protected JepPresenter presenter = null;
+	protected Label label;
+	
+	public StatusBarViewImpl() {
+		label = new Label();
+		label.getElement().setId(AutomationConstant.STATUSBAR_PANEL_ID);
+		
+		/*
+		 * Предполагаем, что look & feel аналогичен панели инструментов.
+		 */
+		label.addStyleName(TOOLBAR_DEFAULT_STYLE);
+		
+		setHeight(DEFAULT_HEIGHT);
+	}
+
+	public void setHeight(int height) {
+		label.setHeight(height + Unit.PX.getType());
+	}
+
+	public void setWidget(Widget widget) {
+		label = (Label)widget;
+		label.getElement().setId(AutomationConstant.STATUSBAR_PANEL_ID);
+	}
+	
+	public Widget asWidget() {
+		return label;
+	}
+	
+	public void setPresenter(JepPresenter presenter) {
+		this.presenter = presenter;
+	}
+	
+	public void showWorkstate(WorkstateEnum workstate) {
+		String displayState = "";
+		if (CREATE.equals(workstate)) {
+			displayState = JepTexts.workstate_add();
+		} else if (VIEW_DETAILS.equals(workstate)) {
+			displayState = JepTexts.workstate_viewDetails();
+		} else if (VIEW_LIST.equals(workstate)) {
+			displayState = JepTexts.workstate_viewList();
+		} else if (EDIT.equals(workstate)) {
+			displayState = JepTexts.workstate_edit();
+		} else if (SEARCH.equals(workstate)) {
+			displayState = JepTexts.workstate_search();
+		} else if (SELECTED.equals(workstate)) {
+			displayState = JepTexts.workstate_selected();
+		}
+		label.setText(displayState);
+	}
+	
+}

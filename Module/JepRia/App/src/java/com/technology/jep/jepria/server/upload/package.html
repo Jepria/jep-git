@@ -1,0 +1,142 @@
+<html>
+<head>
+</head>
+
+<body bgcolor="white">
+
+<h3>Пример загрузки файла в БД, хранящегося в виде CLOB.</h3>
+		
+<pre>
+  LoadTaskEditForm loadTaskEditForm = (LoadTaskEditForm)form;
+  SimpleViewObject loadTaskView = SimpleViewObjectImpl.getInstance(request, "loadTaskView");
+  LoadFileLocal loadFile = (LoadFileLocal) ejbLookup(BEAN_JNDI_NAME);
+  TextFileUploadLocal upload = (TextFileUploadLocal) ejbLookup(TEXT_FILE_UPLOAD_BEAN_JNDI_NAME);
+  FormFile file;
+  InputStream stream;
+  Integer loadTaskId;
+  int recordId;
+
+  //Если мы вставляем новую запись
+  if(lForm.getEditMode() == EM_ADD){
+    //Получим загружаемый файл.
+    file = loadTaskEditForm.getTheFile();
+    
+    //Получим входной поток чтения.
+    stream = file.getInputStream();
+	// Создаем reader в нужной кодировке. Как ее узнать? Нужно посмотреть файлы в каких кодировках
+	// мы грузим в данном модуле.
+	Reader reader = new InputStreamReader(stream, "кодировка файла");
+
+    //Сохраним данные в базе данных: новую запись задания на загрузку.
+    loadTaskId = loadFile.createLoadTask(
+    file.getFileName()
+      , loadTaskEditForm.getSourceCode()
+      , rfSecurityModule.getCurrentUserId()); 
+
+    //Сохраним данные в базе данных: загрузим файл в поле созданной записи.	
+    FileUploadWriter.uploadFile(
+      reader
+      , upload
+      , TABLE_NAME
+      , LOB_FIELD_NAME
+      , KEY_FIELD_NAME
+      , new BigDecimal(loadTaskId.intValue())
+      , DATA_SOURCE_JNDI_NAME
+      , RESOURCE_BUNDLE_NAME);
+
+    //Освободим ресурсы после загрузки файла.
+    file.destroy();
+
+    ResourceBundle resources = ResourceBundle.getBundle(LoadFileConstant.RESOURCE_BUNDLE_NAME, new Locale("ru", ""));
+			
+    //Установим статус загрузки файла "файл загружен".
+    loadFile.setTaskStatus(
+      loadTaskId
+      , resources.getString("loadFile.taskStatus.fileLoaded")
+      , getCurrentUserId(jepSecurityModule)); 
+
+    //Получим обновленные данные из базы данных.
+    recordId = loadTaskView.addRow(
+      loadFile.findLoadTask(
+        loadTaskId
+        , null
+        , null
+        , null
+        , null
+        , null
+        , null
+        , null
+        , getCurrentUserId(jepSecurityModule)).get(0)); 
+
+    //Установим идентификатор новой записи как текущий.
+    lForm.setRecordId(recordId);
+  }
+</pre>
+
+<h3>Пример загрузки файла в БД, хранящегося в виде BINARY_FILE.</h3>
+
+<pre>
+  LoadTaskEditForm loadTaskEditForm = (LoadTaskEditForm)form;
+  SimpleViewObject loadTaskView = SimpleViewObjectImpl.getInstance(request, "loadTaskView");
+  LoadFileLocal loadFile = (LoadFileLocal) ejbLookup(BEAN_JNDI_NAME);
+  BinaryFileUploadLocal upload = (BinaryFileUploadLocal) ejbLookup(BINARY_FILE_UPLOAD_BEAN_JNDI_NAME);
+  FormFile file;
+  InputStream stream;
+  Integer loadTaskId;
+  int recordId;
+
+  //Если мы вставляем новую запись
+  if(lForm.getEditMode() == EM_ADD){
+    //Получим загружаемый файл.
+    file = loadTaskEditForm.getTheFile();
+    
+    //Получим входной поток чтения.
+    stream = file.getInputStream();
+
+    //Сохраним данные в базе данных: новую запись задания на загрузку.
+    loadTaskId = loadFile.createLoadTask(
+    file.getFileName()
+      , loadTaskEditForm.getSourceCode()
+      , rfSecurityModule.getCurrentUserId()); 
+
+    //Сохраним данные в базе данных: загрузим файл в поле созданной записи.	
+    FileUploadStream.uploadFile(
+      stream
+      , upload
+      , TABLE_NAME
+      , LOB_FIELD_NAME
+      , KEY_FIELD_NAME
+      , new BigDecimal(loadTaskId.intValue())
+      , DATA_SOURCE_JNDI_NAME
+      , RESOURCE_BUNDLE_NAME);
+
+    //Освободим ресурсы после загрузки файла.
+    file.destroy();
+
+    ResourceBundle resources = ResourceBundle.getBundle(LoadFileConstant.RESOURCE_BUNDLE_NAME, new Locale("ru", ""));
+			
+    //Установим статус загрузки файла "файл загружен".
+    loadFile.setTaskStatus(
+      loadTaskId
+      , resources.getString("loadFile.taskStatus.fileLoaded")
+      , getCurrentUserId(jepSecurityModule)); 
+
+    //Получим обновленные данные из базы данных.
+    recordId = loadTaskView.addRow(
+      loadFile.findLoadTask(
+        loadTaskId
+        , null
+        , null
+        , null
+        , null
+        , null
+        , null
+        , null
+        , getCurrentUserId(jepSecurityModule)).get(0)); 
+
+    //Установим идентификатор новой записи как текущий.
+    lForm.setRecordId(recordId);
+  }
+</pre>
+</body>
+</html>

@@ -1,0 +1,543 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!--NewPage-->
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<TITLE>
+TreeCell (JepRia JavaDoc)
+</TITLE>
+
+
+<LINK REL ="stylesheet" TYPE="text/css" HREF="../../../../../../../../stylesheet.css" TITLE="Style">
+
+<SCRIPT type="text/javascript">
+function windowTitle()
+{
+    if (location.href.indexOf('is-external=true') == -1) {
+        parent.document.title="TreeCell (JepRia JavaDoc)";
+    }
+}
+</SCRIPT>
+<NOSCRIPT>
+</NOSCRIPT>
+
+</HEAD>
+
+<BODY BGCOLOR="white" onload="windowTitle();">
+<HR>
+
+
+<!-- ========= START OF TOP NAVBAR ======= -->
+<A NAME="navbar_top"><!-- --></A>
+<A HREF="#skip-navbar_top" title="Skip navigation links"></A>
+<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
+<TR>
+<TD COLSPAN=2 BGCOLOR="#EEEEFF" CLASS="NavBarCell1">
+<A NAME="navbar_top_firstrow"><!-- --></A>
+<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3" SUMMARY="">
+  <TR ALIGN="center" VALIGN="top">
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-summary.html"><FONT CLASS="NavBarFont1"><B>Package</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../../index-all.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../../help-doc.html"><FONT CLASS="NavBarFont1"><B>Help</B></FONT></A>&nbsp;</TD>
+  </TR>
+</TABLE>
+</TD>
+<TD ALIGN="right" VALIGN="top" ROWSPAN=3><EM>
+</EM>
+</TD>
+</TR>
+
+<TR>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+&nbsp;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/cell/ListTreeNode.html" title="class in com.technology.jep.jepria.client.widget.list.cell"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;NEXT CLASS</FONT></TD>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+  <A HREF="../../../../../../../../index.html?com/technology/jep/jepria/client/widget/list/cell/TreeCell.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="TreeCell.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+&nbsp;<SCRIPT type="text/javascript">
+  <!--
+  if(window==top) {
+    document.writeln('<A HREF="../../../../../../../../allclasses-noframe.html"><B>All Classes</B></A>');
+  }
+  //-->
+</SCRIPT>
+<NOSCRIPT>
+  <A HREF="../../../../../../../../allclasses-noframe.html"><B>All Classes</B></A>
+</NOSCRIPT>
+
+
+</FONT></TD>
+</TR>
+<TR>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+  SUMMARY:&nbsp;NESTED&nbsp;|&nbsp;<A HREF="#field_summary">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
+</TR>
+</TABLE>
+<A NAME="skip-navbar_top"></A>
+<!-- ========= END OF TOP NAVBAR ========= -->
+
+<HR>
+<!-- ======== START OF CLASS DATA ======== -->
+<H2>
+<FONT SIZE="-1">
+com.technology.jep.jepria.client.widget.list.cell</FONT>
+<BR>
+Class TreeCell&lt;C&gt;</H2>
+<PRE>
+java.lang.Object
+  <IMG SRC="../../../../../../../../resources/inherit.gif" ALT="extended by ">com.google.gwt.cell.client.AbstractCell&lt;C&gt;
+      <IMG SRC="../../../../../../../../resources/inherit.gif" ALT="extended by "><B>com.technology.jep.jepria.client.widget.list.cell.TreeCell&lt;C&gt;</B>
+</PRE>
+<DL>
+<DT><DT><B>Type Parameters:</B><DD><CODE>C</CODE> - Тип, который отображает ячейка. Должен поддерживать функцию toString</DL>
+<DL>
+<DT><B>All Implemented Interfaces:</B> <DD>com.google.gwt.cell.client.Cell&lt;C&gt;</DD>
+</DL>
+<HR>
+<DL>
+<DT><PRE>public class <B>TreeCell&lt;C&gt;</B><DT>extends com.google.gwt.cell.client.AbstractCell&lt;C&gt;</DL>
+</PRE>
+
+<P>
+Реализация ячейки списка для работы с древовидной структурой на списочной форме
+<P>
+
+<P>
+<HR>
+
+<P>
+<!-- ======== NESTED CLASS SUMMARY ======== -->
+
+<A NAME="nested_class_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Nested Class Summary</B></FONT></TH>
+</TR>
+</TABLE>
+&nbsp;<A NAME="nested_classes_inherited_from_class_com.google.gwt.cell.client.Cell"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Nested classes/interfaces inherited from interface com.google.gwt.cell.client.Cell</B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE>com.google.gwt.cell.client.Cell.Context</CODE></TD>
+</TR>
+</TABLE>
+&nbsp;
+<!-- =========== FIELD SUMMARY =========== -->
+
+<A NAME="field_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Field Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;int</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/cell/TreeCell.html#depthStep">depthStep</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Количество разделителей равное ширине иконке (+/-) и одному уровню вложенности</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;com.google.gwt.resources.client.ImageResource</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/cell/TreeCell.html#folderCollapsedIcon">folderCollapsedIcon</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ресурс иконки раскрытого узла дерева</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;com.google.gwt.resources.client.ImageResource</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/cell/TreeCell.html#minusIcon">minusIcon</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ресурс иконки минуса</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;com.google.gwt.resources.client.ImageResource</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/cell/TreeCell.html#plusIcon">plusIcon</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ресурс иконки плюса</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/cell/TreeCell.html#treeDelimeter">treeDelimeter</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Разделитель</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/TreeGridManager.html" title="class in com.technology.jep.jepria.client.widget.list">TreeGridManager</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/cell/TreeCell.html#treeGridManager">treeGridManager</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ссылка на объект, управляющий списком</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;com.google.gwt.resources.client.ImageResource</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/cell/TreeCell.html#treeNoChildrenIcon">treeNoChildrenIcon</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ресурс иконки узла, у которого отсутствуют дочерние элементы</TD>
+</TR>
+</TABLE>
+&nbsp;
+<!-- ======== CONSTRUCTOR SUMMARY ======== -->
+
+<A NAME="constructor_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Constructor Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/cell/TreeCell.html#TreeCell()">TreeCell</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Конструктор, в котором определяются события, на которые будет реагировать ячейка</TD>
+</TR>
+</TABLE>
+&nbsp;
+<!-- ========== METHOD SUMMARY =========== -->
+
+<A NAME="method_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Method Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/cell/TreeCell.html#onBrowserEvent(com.google.gwt.cell.client.Cell.Context, com.google.gwt.dom.client.Element, C, com.google.gwt.dom.client.NativeEvent, com.google.gwt.cell.client.ValueUpdater)">onBrowserEvent</A></B>(com.google.gwt.cell.client.Cell.Context&nbsp;context,
+               com.google.gwt.dom.client.Element&nbsp;parent,
+               <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/cell/TreeCell.html" title="type parameter in TreeCell">C</A>&nbsp;value,
+               com.google.gwt.dom.client.NativeEvent&nbsp;event,
+               com.google.gwt.cell.client.ValueUpdater&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/cell/TreeCell.html" title="type parameter in TreeCell">C</A>&gt;&nbsp;valueUpdater)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Обработка событий ячейки</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/cell/TreeCell.html#onEnterKeyDown(com.google.gwt.cell.client.Cell.Context, com.google.gwt.dom.client.Element, C, com.google.gwt.dom.client.NativeEvent, com.google.gwt.cell.client.ValueUpdater)">onEnterKeyDown</A></B>(com.google.gwt.cell.client.Cell.Context&nbsp;context,
+               com.google.gwt.dom.client.Element&nbsp;parent,
+               <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/cell/TreeCell.html" title="type parameter in TreeCell">C</A>&nbsp;value,
+               com.google.gwt.dom.client.NativeEvent&nbsp;event,
+               com.google.gwt.cell.client.ValueUpdater&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/cell/TreeCell.html" title="type parameter in TreeCell">C</A>&gt;&nbsp;valueUpdater)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Обработка события типа enterKeyDown</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/cell/TreeCell.html#render(com.google.gwt.cell.client.Cell.Context, C, com.google.gwt.safehtml.shared.SafeHtmlBuilder)">render</A></B>(com.google.gwt.cell.client.Cell.Context&nbsp;context,
+       <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/cell/TreeCell.html" title="type parameter in TreeCell">C</A>&nbsp;value,
+       com.google.gwt.safehtml.shared.SafeHtmlBuilder&nbsp;sb)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Рендерит ячейку таблицы</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/cell/TreeCell.html#setTreeGridManager(com.technology.jep.jepria.client.widget.list.TreeGridManager)">setTreeGridManager</A></B>(<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/TreeGridManager.html" title="class in com.technology.jep.jepria.client.widget.list">TreeGridManager</A>&nbsp;treeGridManager)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Устанавливает ссылку на объект, управляющий списком</TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_com.google.gwt.cell.client.AbstractCell"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from class com.google.gwt.cell.client.AbstractCell</B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE>dependsOnSelection, getConsumedEvents, handlesSelection, isEditing, resetFocus, setValue</CODE></TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from class java.lang.Object</B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE>clone, equals, finalize, getClass, hashCode, notify, notifyAll, toString, wait, wait, wait</CODE></TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
+<!-- ============ FIELD DETAIL =========== -->
+
+<A NAME="field_detail"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
+<B>Field Detail</B></FONT></TH>
+</TR>
+</TABLE>
+
+<A NAME="depthStep"><!-- --></A><H3>
+depthStep</H3>
+<PRE>
+private int <B>depthStep</B></PRE>
+<DL>
+<DD>Количество разделителей равное ширине иконке (+/-) и одному уровню вложенности
+<P>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="treeDelimeter"><!-- --></A><H3>
+treeDelimeter</H3>
+<PRE>
+private java.lang.String <B>treeDelimeter</B></PRE>
+<DL>
+<DD>Разделитель
+<P>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="treeGridManager"><!-- --></A><H3>
+treeGridManager</H3>
+<PRE>
+private <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/TreeGridManager.html" title="class in com.technology.jep.jepria.client.widget.list">TreeGridManager</A> <B>treeGridManager</B></PRE>
+<DL>
+<DD>Ссылка на объект, управляющий списком
+<P>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="treeNoChildrenIcon"><!-- --></A><H3>
+treeNoChildrenIcon</H3>
+<PRE>
+private final com.google.gwt.resources.client.ImageResource <B>treeNoChildrenIcon</B></PRE>
+<DL>
+<DD>Ресурс иконки узла, у которого отсутствуют дочерние элементы
+<P>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="plusIcon"><!-- --></A><H3>
+plusIcon</H3>
+<PRE>
+private final com.google.gwt.resources.client.ImageResource <B>plusIcon</B></PRE>
+<DL>
+<DD>Ресурс иконки плюса
+<P>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="minusIcon"><!-- --></A><H3>
+minusIcon</H3>
+<PRE>
+private final com.google.gwt.resources.client.ImageResource <B>minusIcon</B></PRE>
+<DL>
+<DD>Ресурс иконки минуса
+<P>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="folderCollapsedIcon"><!-- --></A><H3>
+folderCollapsedIcon</H3>
+<PRE>
+private final com.google.gwt.resources.client.ImageResource <B>folderCollapsedIcon</B></PRE>
+<DL>
+<DD>Ресурс иконки раскрытого узла дерева
+<P>
+<DL>
+</DL>
+</DL>
+
+<!-- ========= CONSTRUCTOR DETAIL ======== -->
+
+<A NAME="constructor_detail"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
+<B>Constructor Detail</B></FONT></TH>
+</TR>
+</TABLE>
+
+<A NAME="TreeCell()"><!-- --></A><H3>
+TreeCell</H3>
+<PRE>
+public <B>TreeCell</B>()</PRE>
+<DL>
+<DD>Конструктор, в котором определяются события, на которые будет реагировать ячейка
+<P>
+</DL>
+
+<!-- ============ METHOD DETAIL ========== -->
+
+<A NAME="method_detail"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
+<B>Method Detail</B></FONT></TH>
+</TR>
+</TABLE>
+
+<A NAME="setTreeGridManager(com.technology.jep.jepria.client.widget.list.TreeGridManager)"><!-- --></A><H3>
+setTreeGridManager</H3>
+<PRE>
+public void <B>setTreeGridManager</B>(<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/TreeGridManager.html" title="class in com.technology.jep.jepria.client.widget.list">TreeGridManager</A>&nbsp;treeGridManager)</PRE>
+<DL>
+<DD>Устанавливает ссылку на объект, управляющий списком
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>treeGridManager</CODE> - объект, управляющий списком</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="render(com.google.gwt.cell.client.Cell.Context,java.lang.Object,com.google.gwt.safehtml.shared.SafeHtmlBuilder)"><!-- --></A><A NAME="render(com.google.gwt.cell.client.Cell.Context, C, com.google.gwt.safehtml.shared.SafeHtmlBuilder)"><!-- --></A><H3>
+render</H3>
+<PRE>
+public void <B>render</B>(com.google.gwt.cell.client.Cell.Context&nbsp;context,
+                   <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/cell/TreeCell.html" title="type parameter in TreeCell">C</A>&nbsp;value,
+                   com.google.gwt.safehtml.shared.SafeHtmlBuilder&nbsp;sb)</PRE>
+<DL>
+<DD>Рендерит ячейку таблицы
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE>render</CODE> in interface <CODE>com.google.gwt.cell.client.Cell&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/cell/TreeCell.html" title="type parameter in TreeCell">C</A>&gt;</CODE><DT><B>Specified by:</B><DD><CODE>render</CODE> in class <CODE>com.google.gwt.cell.client.AbstractCell&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/cell/TreeCell.html" title="type parameter in TreeCell">C</A>&gt;</CODE></DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>context</CODE> - контекст ячейки 
+                (информация о местоположении ячейки на списке, 
+                        значение JepRecord для строки, в которой находится ячейчка)<DD><CODE>value</CODE> - значение ячейки<DD><CODE>sb</CODE> - builder, в который помещается конечное содержимое ячейки</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="onBrowserEvent(com.google.gwt.cell.client.Cell.Context,com.google.gwt.dom.client.Element,java.lang.Object,com.google.gwt.dom.client.NativeEvent,com.google.gwt.cell.client.ValueUpdater)"><!-- --></A><A NAME="onBrowserEvent(com.google.gwt.cell.client.Cell.Context, com.google.gwt.dom.client.Element, C, com.google.gwt.dom.client.NativeEvent, com.google.gwt.cell.client.ValueUpdater)"><!-- --></A><H3>
+onBrowserEvent</H3>
+<PRE>
+public void <B>onBrowserEvent</B>(com.google.gwt.cell.client.Cell.Context&nbsp;context,
+                           com.google.gwt.dom.client.Element&nbsp;parent,
+                           <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/cell/TreeCell.html" title="type parameter in TreeCell">C</A>&nbsp;value,
+                           com.google.gwt.dom.client.NativeEvent&nbsp;event,
+                           com.google.gwt.cell.client.ValueUpdater&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/cell/TreeCell.html" title="type parameter in TreeCell">C</A>&gt;&nbsp;valueUpdater)</PRE>
+<DL>
+<DD>Обработка событий ячейки
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE>onBrowserEvent</CODE> in interface <CODE>com.google.gwt.cell.client.Cell&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/cell/TreeCell.html" title="type parameter in TreeCell">C</A>&gt;</CODE><DT><B>Overrides:</B><DD><CODE>onBrowserEvent</CODE> in class <CODE>com.google.gwt.cell.client.AbstractCell&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/cell/TreeCell.html" title="type parameter in TreeCell">C</A>&gt;</CODE></DL>
+</DD>
+<DD><DL>
+<DT><B>See Also:</B><DD><CODE>AbstractCell.onBrowserEvent(com.google.gwt.cell.client.Cell.Context, com.google.gwt.dom.client.Element, java.lang.Object, com.google.gwt.dom.client.NativeEvent, com.google.gwt.cell.client.ValueUpdater)</CODE></DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="onEnterKeyDown(com.google.gwt.cell.client.Cell.Context,com.google.gwt.dom.client.Element,java.lang.Object,com.google.gwt.dom.client.NativeEvent,com.google.gwt.cell.client.ValueUpdater)"><!-- --></A><A NAME="onEnterKeyDown(com.google.gwt.cell.client.Cell.Context, com.google.gwt.dom.client.Element, C, com.google.gwt.dom.client.NativeEvent, com.google.gwt.cell.client.ValueUpdater)"><!-- --></A><H3>
+onEnterKeyDown</H3>
+<PRE>
+protected void <B>onEnterKeyDown</B>(com.google.gwt.cell.client.Cell.Context&nbsp;context,
+                              com.google.gwt.dom.client.Element&nbsp;parent,
+                              <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/cell/TreeCell.html" title="type parameter in TreeCell">C</A>&nbsp;value,
+                              com.google.gwt.dom.client.NativeEvent&nbsp;event,
+                              com.google.gwt.cell.client.ValueUpdater&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/cell/TreeCell.html" title="type parameter in TreeCell">C</A>&gt;&nbsp;valueUpdater)</PRE>
+<DL>
+<DD>Обработка события типа enterKeyDown
+<P>
+<DD><DL>
+<DT><B>Overrides:</B><DD><CODE>onEnterKeyDown</CODE> in class <CODE>com.google.gwt.cell.client.AbstractCell&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/cell/TreeCell.html" title="type parameter in TreeCell">C</A>&gt;</CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<!-- ========= END OF CLASS DATA ========= -->
+<HR>
+
+
+<!-- ======= START OF BOTTOM NAVBAR ====== -->
+<A NAME="navbar_bottom"><!-- --></A>
+<A HREF="#skip-navbar_bottom" title="Skip navigation links"></A>
+<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
+<TR>
+<TD COLSPAN=2 BGCOLOR="#EEEEFF" CLASS="NavBarCell1">
+<A NAME="navbar_bottom_firstrow"><!-- --></A>
+<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3" SUMMARY="">
+  <TR ALIGN="center" VALIGN="top">
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-summary.html"><FONT CLASS="NavBarFont1"><B>Package</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../../index-all.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../../help-doc.html"><FONT CLASS="NavBarFont1"><B>Help</B></FONT></A>&nbsp;</TD>
+  </TR>
+</TABLE>
+</TD>
+<TD ALIGN="right" VALIGN="top" ROWSPAN=3><EM>
+</EM>
+</TD>
+</TR>
+
+<TR>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+&nbsp;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/cell/ListTreeNode.html" title="class in com.technology.jep.jepria.client.widget.list.cell"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;NEXT CLASS</FONT></TD>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+  <A HREF="../../../../../../../../index.html?com/technology/jep/jepria/client/widget/list/cell/TreeCell.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="TreeCell.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+&nbsp;<SCRIPT type="text/javascript">
+  <!--
+  if(window==top) {
+    document.writeln('<A HREF="../../../../../../../../allclasses-noframe.html"><B>All Classes</B></A>');
+  }
+  //-->
+</SCRIPT>
+<NOSCRIPT>
+  <A HREF="../../../../../../../../allclasses-noframe.html"><B>All Classes</B></A>
+</NOSCRIPT>
+
+
+</FONT></TD>
+</TR>
+<TR>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+  SUMMARY:&nbsp;NESTED&nbsp;|&nbsp;<A HREF="#field_summary">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
+</TR>
+</TABLE>
+<A NAME="skip-navbar_bottom"></A>
+<!-- ======== END OF BOTTOM NAVBAR ======= -->
+
+<HR>
+
+</BODY>
+</HTML>
