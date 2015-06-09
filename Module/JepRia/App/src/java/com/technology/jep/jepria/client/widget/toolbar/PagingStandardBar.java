@@ -1,5 +1,6 @@
 package com.technology.jep.jepria.client.widget.toolbar;
 
+import static com.technology.jep.jepria.client.JepRiaClientConstant.MAIN_FONT_STYLE;
 import static com.technology.jep.jepria.client.JepRiaClientConstant.JepImages;
 import static com.technology.jep.jepria.client.JepRiaClientConstant.JepTexts;
 import static com.technology.jep.jepria.client.widget.event.JepEventType.PAGING_GOTO_EVENT;
@@ -134,6 +135,7 @@ public class PagingStandardBar extends SimplePanel implements PagingToolBar {
 		pageNumberPrefix = new Label(JepTexts.toolbar_paging_pageNumberPrefix());
 		pageNumberPostfix = new Label();
 		pageNumberText = new TextBox();
+		pageNumberText.addStyleName(MAIN_FONT_STYLE);
 		pageNumberText.addStyleName(PAGING_BAR_NUMBER_STYLE);
 		pageNumberText.setMaxLength(4);
 		pageNumberText.setPixelSize(30, 14);
@@ -185,6 +187,7 @@ public class PagingStandardBar extends SimplePanel implements PagingToolBar {
 		
 		pageSizePrefix = new Label(JepTexts.toolbar_paging_linesPerPage());
 		pageSizeText = new TextBox();
+		pageSizeText.addStyleName(MAIN_FONT_STYLE);
 		pageSizeText.addStyleName(PAGING_BAR_NUMBER_STYLE);
 		pageSizeText.setMaxLength(4);
 		pageSizeText.setPixelSize(30, 14);
