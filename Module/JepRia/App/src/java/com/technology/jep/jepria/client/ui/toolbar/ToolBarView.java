@@ -8,6 +8,7 @@ import com.technology.jep.jepria.client.ui.JepPresenter;
 import com.technology.jep.jepria.client.ui.JepView;
 import com.technology.jep.jepria.client.widget.button.JepButton;
 import com.technology.jep.jepria.client.widget.button.JepButton.IconPosition;
+import com.technology.jep.jepria.client.widget.button.Separator;
 import com.technology.jep.jepria.client.widget.event.JepListener;
 
 /**
@@ -97,39 +98,75 @@ public interface ToolBarView extends JepView<JepPresenter> {
 	/**
 	 * Добавление кнопки с текстом.<br>
 	 * Текст используется как для кнопки, так и для всплывающей подсказки.
-	 *
-	 * @param buttonId идентификатор
-	 * @param name наименование
+	 * 
+	 * @param id идентификатор кнопки
+	 * @param text текст на кнопке и для всплывающей подсказки
+ 	 * @return добавленная кнопка
 	 */
-	void addButton(String buttonId, String name);
+	JepButton addButton(String buttonId, String text);
 
 	/**
-	 * Добавление кнопки с иконкой и всплывающей подсказкой.<br>
-	 * Наименование используется только для всплывающей подсказки.
-	 *
-	 * @param buttonId идентификатор
-	 * @param icon иконка
-	 * @param name наименование
+	 * Добавление кнопки с текстом и всплывающей подсказкой.
+	 * 
+	 * @param id идентификатор кнопки
+	 * @param text текст на кнопке
+	 * @param title всплывающая подсказка для кнопки
+ 	 * @return добавленная кнопка
 	 */
-	void addButton(String buttonId, ImageResource icon, String name);
+	JepButton addButton(String id, String text, String title);
 
 	/**
-	 * Добавление кнопки с надписью и иконкой, расположенной в указанной позиции.<br>
-	 * Наименование также используется для всплывающей подсказки.
+	 * Добавление кнопки с иконкой и всплывающей подсказкой.
 	 *
-	 * @param buttonId идентификатор
+	 * @param id идентификатор кнопки
 	 * @param icon иконка
-	 * @param name наименование
+	 * @param title всплывающая подсказка для кнопки
+ 	 * @return добавленная кнопка
+	 */
+	JepButton addButton(String id, ImageResource icon, String title);
+
+	/**
+	 * Добавление кнопки с иконкой, текстом и всплывающей подсказкой.
+	 *
+	 * @param id идентификатор кнопки
+	 * @param icon иконка
+	 * @param text текст на кнопке
+	 * @param title всплывающая подсказка для кнопки
+ 	 * @return добавленная кнопка
+	 */
+	JepButton addButton(String id, ImageResource icon, String text, String title);
+
+	/**
+	 * Добавление кнопки с текстом и иконкой, расположенной в указанной позиции.<br>
+	 * Текст используется как для кнопки, так и для всплывающей подсказки.
+	 * 
+	 * @param id идентификатор кнопки
+	 * @param icon иконка
+	 * @param text текст на кнопке
 	 * @param position расположение иконки
+ 	 * @return добавленная кнопка
 	 */
-	void addButton(String buttonId, ImageResource icon, String name, IconPosition position);
+	JepButton addButton(String id, ImageResource icon, String text, IconPosition position);
+
+	/**
+	 * Добавление кнопки с текстом, всплывающей подсказкой и иконкой, расположенной в указанной позиции.
+	 * 
+	 * @param id идентификатор кнопки
+	 * @param icon иконка
+	 * @param text текст на кнопке
+	 * @param title всплывающая подсказка для кнопки
+	 * @param position расположение иконки
+ 	 * @return добавленная кнопка
+	 */
+	JepButton addButton(String id, ImageResource icon, String text, String title, IconPosition position);
 
 	/**
 	 * Добавление разделителя.
 	 *
-	 * @param separatorId идентификатор
+	 * @param separatorId идентификатор разделителя
+ 	 * @return добавленный разделитель
 	 */
-	void addSeparator(String separatorId);
+	Separator addSeparator(String separatorId);
 
 	/**
 	 * Установка доступности кнопок только переданного набора.

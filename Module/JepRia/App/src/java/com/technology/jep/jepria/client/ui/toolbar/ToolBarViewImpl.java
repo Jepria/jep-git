@@ -76,7 +76,7 @@ public class ToolBarViewImpl implements ToolBarView {
 	/**
 	 * Заполнение тулбара стандартными элементами.
 	 */
-	private void addDefaultItems() {
+	protected void addDefaultItems() {
 		// Закомментированные блоки используются для указания принятого порядка следования кнопок и разделителей.
 	
 		addButton(
@@ -148,60 +148,113 @@ public class ToolBarViewImpl implements ToolBarView {
 	 * Добавление кнопки с текстом.<br>
 	 * Текст используется как для кнопки, так и для всплывающей подсказки.
 	 * 
-	 * @param id идентификатор
-	 * @param name наименование
+	 * @param id идентификатор кнопки
+	 * @param text текст на кнопке и для всплывающей подсказки
+ 	 * @return добавленная кнопка
 	 */
 	@Override
-	public void addButton(String id, String name) {
-		JepButton button = new JepButton(id, name);
-		panel.add(button);
-		items.put(id, button);
+	public JepButton addButton(String id, String text) {
+		return addButton(id, text, text);
 	}
 	
 	/**
-	 * Добавление кнопки с иконкой и всплывающей подсказкой. <br>
-	 * Наименование используется только для всплывающей подсказки.
-	 *
-	 * @param id идентификатор
-	 * @param icon иконка
-	 * @param name наименование
-	 */
-	@Override
-	public void addButton(String id, ImageResource icon, String name) {
-		JepButton button = new JepButton(id, null, icon);
-		button.setTitle(name);
-		panel.add(button);
-		items.put(id, button);
-	}
-	
-	/**
-	 * Добавление кнопки с надписью и иконкой, расположенной в указанной позиции.<br>
-	 * Наименование также используется для всплывающей подсказки.
+	 * Добавление кнопки с текстом и всплывающей подсказкой.
 	 * 
-	 * @param id идентификатор
-	 * @param icon иконка
-	 * @param name наименование
-	 * @param position расположение иконки
+	 * @param id идентификатор кнопки
+	 * @param text текст на кнопке
+	 * @param title всплывающая подсказка для кнопки
+ 	 * @return добавленная кнопка
 	 */
 	@Override
-	public void addButton(String id, ImageResource icon, String name, IconPosition position) {
-		JepButton button = new JepButton(id, name, icon, position);
-		button.setTitle(name);
+	public JepButton addButton(String id, String text, String title) {
+		JepButton button = new JepButton(id, text);
+		button.setTitle(title);
 		panel.add(button);
 		items.put(id, button);
+
+		return button;
 	}
 	
+	/**
+	 * Добавление кнопки с иконкой и всплывающей подсказкой.
+	 *
+	 * @param id идентификатор кнопки
+	 * @param icon иконка
+	 * @param title всплывающая подсказка для кнопки
+ 	 * @return добавленная кнопка
+	 */
+	@Override
+	public JepButton addButton(String id, ImageResource icon, String title) {
+		return addButton(id, icon, null, title);
+	}
+	
+	/**
+	 * Добавление кнопки с иконкой, текстом и всплывающей подсказкой.
+	 *
+	 * @param id идентификатор кнопки
+	 * @param icon иконка
+	 * @param text текст на кнопке
+	 * @param title всплывающая подсказка для кнопки
+ 	 * @return добавленная кнопка
+	 */
+	@Override
+	public JepButton addButton(String id, ImageResource icon, String text, String title) {
+		JepButton button = new JepButton(id, text, icon);
+		button.setTitle(title);
+		panel.add(button);
+		items.put(id, button);
+
+		return button;
+	}
+	
+	/**
+	 * Добавление кнопки с текстом и иконкой, расположенной в указанной позиции.<br>
+	 * Текст используется как для кнопки, так и для всплывающей подсказки.
+	 * 
+	 * @param id идентификатор кнопки
+	 * @param icon иконка
+	 * @param text текст на кнопке
+	 * @param position расположение иконки
+ 	 * @return добавленная кнопка
+	 */
+	@Override
+	public JepButton addButton(String id, ImageResource icon, String text, IconPosition position) {
+		return addButton(id, icon, text, text, position);
+	}
+	
+	/**
+	 * Добавление кнопки с текстом, всплывающей подсказкой и иконкой, расположенной в указанной позиции.
+	 * 
+	 * @param id идентификатор кнопки
+	 * @param icon иконка
+	 * @param text текст на кнопке
+	 * @param title всплывающая подсказка для кнопки
+	 * @param position расположение иконки
+ 	 * @return добавленная кнопка
+	 */
+	@Override
+	public JepButton addButton(String id, ImageResource icon, String text, String title, IconPosition position) {
+		JepButton button = new JepButton(id, text, icon, position);
+		button.setTitle(title);
+		panel.add(button);
+		items.put(id, button);
+
+		return button;
+	}
 	
 	/**
 	 * Добавление разделителя.
 	 *
-	 * @param separatorId идентификатор
+	 * @param separatorId идентификатор разделителя
+ 	 * @return добавленный разделитель
 	 */
 	@Override
-	public void addSeparator(String separatorId) {
+	public Separator addSeparator(String separatorId) {
 		Separator separator = new Separator();
 		panel.add(separator);
 		items.put(separatorId, separator);
+
+		return separator;
 	}
 	
 	@Override
