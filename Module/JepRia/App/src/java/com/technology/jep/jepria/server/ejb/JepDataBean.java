@@ -4,10 +4,8 @@ import static com.technology.jep.jepria.server.JepRiaServerConstant.JEP_RIA_RESO
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.ResourceBundle;
 
-import com.google.gwt.i18n.client.LocaleInfo;
 import com.technology.jep.jepria.server.dao.DaoSupport;
 import com.technology.jep.jepria.server.dao.ResultSetMapper;
 import com.technology.jep.jepria.shared.exceptions.ApplicationException;
@@ -201,12 +199,10 @@ public class JepDataBean extends JepDataStandardBean {
 	/**
 	 * Возвращает название месяца по его номеру.
 	 * @param month номер месяца (от 1 до 12)
-	 * @param locale локаль
 	 * @return название месяца
 	 */
-	protected String getMonthName(int month, LocaleInfo locale) {
-		ResourceBundle bundle = ResourceBundle.getBundle(JEP_RIA_RESOURCE_BUNDLE_NAME, 
-				new Locale(locale.getLocaleName().substring(0, 1), locale.getLocaleName().substring(3, 4)));
+	protected String getMonthName(int month) {
+		ResourceBundle bundle = ResourceBundle.getBundle(JEP_RIA_RESOURCE_BUNDLE_NAME);
 		switch(month) {
 			case 1: return bundle.getString("month.january");
 			case 2: return bundle.getString("month.february");
@@ -227,12 +223,10 @@ public class JepDataBean extends JepDataStandardBean {
 	/**
 	 * Возвращает название дня недели по номеру.
 	 * @param weekDay номер дня недели (от 1 до 7)
-	 * @param locale локаль
 	 * @return название дня недели
 	 */
-	protected String getWeekDayName(int weekDay, LocaleInfo locale) {
-		ResourceBundle bundle = ResourceBundle.getBundle(JEP_RIA_RESOURCE_BUNDLE_NAME, 
-				new Locale(locale.getLocaleName().substring(0, 1), locale.getLocaleName().substring(3, 4)));
+	protected String getWeekDayName(int weekDay) {
+		ResourceBundle bundle = ResourceBundle.getBundle(JEP_RIA_RESOURCE_BUNDLE_NAME);
 		switch(weekDay) {
 			case 1: return bundle.getString("weekDay.monday");
 			case 2: return bundle.getString("weekDay.tuesday");
@@ -247,12 +241,10 @@ public class JepDataBean extends JepDataStandardBean {
 	
 	/**
 	 * Возвращает список из двух опций, "Да" и "Нет".
-	 * @param locale локаль
 	 * @return список опций
 	 */
-	protected List<JepOption> getYesNo(LocaleInfo locale) {
-		ResourceBundle bundle = ResourceBundle.getBundle(JEP_RIA_RESOURCE_BUNDLE_NAME, 
-				new Locale(locale.getLocaleName().substring(0, 1), locale.getLocaleName().substring(3, 4)));
+	protected List<JepOption> getYesNo() {
+		ResourceBundle bundle = ResourceBundle.getBundle(JEP_RIA_RESOURCE_BUNDLE_NAME);
 		List<JepOption> result = new ArrayList<JepOption>();
 		
 		result.add(new JepOption(bundle.getString("yes"), true));

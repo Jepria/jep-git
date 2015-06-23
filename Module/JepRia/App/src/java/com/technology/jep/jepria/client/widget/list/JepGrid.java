@@ -19,6 +19,7 @@ import com.google.gwt.user.client.Cookies;
 import com.google.gwt.view.client.CellPreviewEvent;
 import com.google.gwt.view.client.CellPreviewEvent.Handler;
 import com.google.gwt.view.client.MultiSelectionModel;
+import com.google.gwt.view.client.ProvidesKey;
 import com.google.gwt.view.client.SelectionModel;
 import com.technology.jep.jepria.client.widget.list.header.ResizableHeader;
 import com.technology.jep.jepria.shared.util.JepRiaUtil;
@@ -44,7 +45,11 @@ public class JepGrid<T> extends DataGrid<T> {
 	}
 
 	public JepGrid(String gridId, final List<JepColumn> columns, boolean wrapHeaders) {
-		this(DEFAULT_PAGE_SIZE);
+		this(gridId, columns, wrapHeaders, null);
+	}
+
+	public JepGrid(String gridId, final List<JepColumn> columns, boolean wrapHeaders, ProvidesKey<T> keyProvider) {
+		this(DEFAULT_PAGE_SIZE, keyProvider);
 
 		this.gridId = gridId;
 		this.getElement().setId(gridId);
@@ -113,9 +118,9 @@ public class JepGrid<T> extends DataGrid<T> {
 		return unchecked;
 	}
 	
-	protected JepGrid(int pageSize) {
+	protected JepGrid(int pageSize, ProvidesKey<T> keyProvider) {
 
-		super(pageSize, (DataGridResource) GWT.create(DataGridResource.class));
+		super(pageSize, (DataGridResource) GWT.create(DataGridResource.class), keyProvider);
 
 		setAutoHeaderRefreshDisabled(true);
 		setMinimumTableWidth(300, Unit.PX);
