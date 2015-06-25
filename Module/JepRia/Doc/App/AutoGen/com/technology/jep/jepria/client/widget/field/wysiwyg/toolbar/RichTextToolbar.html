@@ -1,0 +1,1131 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!--NewPage-->
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<TITLE>
+RichTextToolbar (JepRia JavaDoc)
+</TITLE>
+
+
+<LINK REL ="stylesheet" TYPE="text/css" HREF="../../../../../../../../../stylesheet.css" TITLE="Style">
+
+<SCRIPT type="text/javascript">
+function windowTitle()
+{
+    if (location.href.indexOf('is-external=true') == -1) {
+        parent.document.title="RichTextToolbar (JepRia JavaDoc)";
+    }
+}
+</SCRIPT>
+<NOSCRIPT>
+</NOSCRIPT>
+
+</HEAD>
+
+<BODY BGCOLOR="white" onload="windowTitle();">
+<HR>
+
+
+<!-- ========= START OF TOP NAVBAR ======= -->
+<A NAME="navbar_top"><!-- --></A>
+<A HREF="#skip-navbar_top" title="Skip navigation links"></A>
+<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
+<TR>
+<TD COLSPAN=2 BGCOLOR="#EEEEFF" CLASS="NavBarCell1">
+<A NAME="navbar_top_firstrow"><!-- --></A>
+<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3" SUMMARY="">
+  <TR ALIGN="center" VALIGN="top">
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-summary.html"><FONT CLASS="NavBarFont1"><B>Package</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../../../index-all.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../../../help-doc.html"><FONT CLASS="NavBarFont1"><B>Help</B></FONT></A>&nbsp;</TD>
+  </TR>
+</TABLE>
+</TD>
+<TD ALIGN="right" VALIGN="top" ROWSPAN=3><EM>
+</EM>
+</TD>
+</TR>
+
+<TR>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+&nbsp;<A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/wysiwyg/toolbar/ColorPicker.html" title="class in com.technology.jep.jepria.client.widget.field.wysiwyg.toolbar"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/wysiwyg/toolbar/RichTextToolbar.EventHandler.html" title="class in com.technology.jep.jepria.client.widget.field.wysiwyg.toolbar"><B>NEXT CLASS</B></A></FONT></TD>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+  <A HREF="../../../../../../../../../index.html?com/technology/jep/jepria/client/widget/field/wysiwyg/toolbar/RichTextToolbar.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="RichTextToolbar.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+&nbsp;<SCRIPT type="text/javascript">
+  <!--
+  if(window==top) {
+    document.writeln('<A HREF="../../../../../../../../../allclasses-noframe.html"><B>All Classes</B></A>');
+  }
+  //-->
+</SCRIPT>
+<NOSCRIPT>
+  <A HREF="../../../../../../../../../allclasses-noframe.html"><B>All Classes</B></A>
+</NOSCRIPT>
+
+
+</FONT></TD>
+</TR>
+<TR>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+  SUMMARY:&nbsp;<A HREF="#nested_class_summary">NESTED</A>&nbsp;|&nbsp;<A HREF="#field_summary">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
+</TR>
+</TABLE>
+<A NAME="skip-navbar_top"></A>
+<!-- ========= END OF TOP NAVBAR ========= -->
+
+<HR>
+<!-- ======== START OF CLASS DATA ======== -->
+<H2>
+<FONT SIZE="-1">
+com.technology.jep.jepria.client.widget.field.wysiwyg.toolbar</FONT>
+<BR>
+Class RichTextToolbar</H2>
+<PRE>
+java.lang.Object
+  <IMG SRC="../../../../../../../../../resources/inherit.gif" ALT="extended by ">com.google.gwt.user.client.ui.UIObject
+      <IMG SRC="../../../../../../../../../resources/inherit.gif" ALT="extended by ">com.google.gwt.user.client.ui.Widget
+          <IMG SRC="../../../../../../../../../resources/inherit.gif" ALT="extended by ">com.google.gwt.user.client.ui.Composite
+              <IMG SRC="../../../../../../../../../resources/inherit.gif" ALT="extended by "><B>com.technology.jep.jepria.client.widget.field.wysiwyg.toolbar.RichTextToolbar</B>
+</PRE>
+<DL>
+<DT><B>All Implemented Interfaces:</B> <DD>com.google.gwt.event.logical.shared.HasAttachHandlers, com.google.gwt.event.shared.HasHandlers, com.google.gwt.user.client.EventListener, com.google.gwt.user.client.ui.HasVisibility, com.google.gwt.user.client.ui.IsRenderable, com.google.gwt.user.client.ui.IsWidget</DD>
+</DL>
+<HR>
+<DL>
+<DT><PRE>public class <B>RichTextToolbar</B><DT>extends com.google.gwt.user.client.ui.Composite</DL>
+</PRE>
+
+<P>
+A sample toolbar for use with <CODE>RichTextArea</CODE>. It provides a simple UI
+ for all rich text formatting, dynamically displayed only for the available
+ functionality.
+<P>
+
+<P>
+<HR>
+
+<P>
+<!-- ======== NESTED CLASS SUMMARY ======== -->
+
+<A NAME="nested_class_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Nested Class Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;class</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/wysiwyg/toolbar/RichTextToolbar.EventHandler.html" title="class in com.technology.jep.jepria.client.widget.field.wysiwyg.toolbar">RichTextToolbar.EventHandler</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;We use an inner EventHandler class to avoid exposing event methods on the
+ RichTextToolbar itself.</TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="nested_classes_inherited_from_class_com.google.gwt.user.client.ui.UIObject"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Nested classes/interfaces inherited from class com.google.gwt.user.client.ui.UIObject</B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE>com.google.gwt.user.client.ui.UIObject.DebugIdImpl, com.google.gwt.user.client.ui.UIObject.DebugIdImplEnabled</CODE></TD>
+</TR>
+</TABLE>
+&nbsp;
+<!-- =========== FIELD SUMMARY =========== -->
+
+<A NAME="field_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Field Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;com.google.gwt.user.client.ui.PushButton</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/wysiwyg/toolbar/RichTextToolbar.html#backColors">backColors</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;com.google.gwt.user.client.ui.ToggleButton</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/wysiwyg/toolbar/RichTextToolbar.html#bold">bold</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;com.google.gwt.user.client.ui.HorizontalPanel</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/wysiwyg/toolbar/RichTextToolbar.html#bottomPanel">bottomPanel</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private static&nbsp;int</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/wysiwyg/toolbar/RichTextToolbar.html#CHOICE_LABEL_WIDTH">CHOICE_LABEL_WIDTH</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;No label for choice of formatting.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private static&nbsp;int</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/wysiwyg/toolbar/RichTextToolbar.html#CHOICE_WIDTH">CHOICE_WIDTH</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Choice width.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;com.google.gwt.user.client.ui.PushButton</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/wysiwyg/toolbar/RichTextToolbar.html#createLink">createLink</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private static&nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/wysiwyg/toolbar/RichTextToolbar.html#FONT_NAME_PATTERN_OPTION">FONT_NAME_PATTERN_OPTION</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;HTML Pattern for options of font choice.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;<A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepComboBoxField.html" title="class in com.technology.jep.jepria.client.widget.field.multistate">JepComboBoxField</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/wysiwyg/toolbar/RichTextToolbar.html#fontLists">fontLists</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;<A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepComboBoxField.html" title="class in com.technology.jep.jepria.client.widget.field.multistate">JepComboBoxField</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/wysiwyg/toolbar/RichTextToolbar.html#fontSizes">fontSizes</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private static&nbsp;com.google.gwt.user.client.ui.RichTextArea.FontSize[]</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/wysiwyg/toolbar/RichTextToolbar.html#fontSizesConstants">fontSizesConstants</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;com.google.gwt.user.client.ui.PushButton</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/wysiwyg/toolbar/RichTextToolbar.html#foreColors">foreColors</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;com.google.gwt.user.client.ui.RichTextArea.Formatter</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/wysiwyg/toolbar/RichTextToolbar.html#formatter">formatter</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;<A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/wysiwyg/toolbar/RichTextToolbar.EventHandler.html" title="class in com.technology.jep.jepria.client.widget.field.wysiwyg.toolbar">RichTextToolbar.EventHandler</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/wysiwyg/toolbar/RichTextToolbar.html#handler">handler</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;com.google.gwt.user.client.ui.PushButton</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/wysiwyg/toolbar/RichTextToolbar.html#hr">hr</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;<A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/wysiwyg/toolbar/images/RichTextToolbarImages.html" title="interface in com.technology.jep.jepria.client.widget.field.wysiwyg.toolbar.images">RichTextToolbarImages</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/wysiwyg/toolbar/RichTextToolbar.html#images">images</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;com.google.gwt.user.client.ui.PushButton</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/wysiwyg/toolbar/RichTextToolbar.html#indent">indent</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;com.google.gwt.user.client.ui.PushButton</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/wysiwyg/toolbar/RichTextToolbar.html#insertImage">insertImage</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;com.google.gwt.user.client.ui.ToggleButton</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/wysiwyg/toolbar/RichTextToolbar.html#italic">italic</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;com.google.gwt.user.client.ui.PushButton</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/wysiwyg/toolbar/RichTextToolbar.html#justifyCenter">justifyCenter</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;com.google.gwt.user.client.ui.PushButton</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/wysiwyg/toolbar/RichTextToolbar.html#justifyLeft">justifyLeft</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;com.google.gwt.user.client.ui.PushButton</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/wysiwyg/toolbar/RichTextToolbar.html#justifyRight">justifyRight</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;com.google.gwt.user.client.ui.PushButton</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/wysiwyg/toolbar/RichTextToolbar.html#ol">ol</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;com.google.gwt.user.client.ui.PushButton</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/wysiwyg/toolbar/RichTextToolbar.html#outdent">outdent</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;com.google.gwt.user.client.ui.VerticalPanel</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/wysiwyg/toolbar/RichTextToolbar.html#outer">outer</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private static&nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/wysiwyg/toolbar/RichTextToolbar.html#PREFIX_URL">PREFIX_URL</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default value of URL to insert object.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;com.google.gwt.user.client.ui.PushButton</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/wysiwyg/toolbar/RichTextToolbar.html#removeFormat">removeFormat</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;com.google.gwt.user.client.ui.PushButton</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/wysiwyg/toolbar/RichTextToolbar.html#removeLink">removeLink</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;com.google.gwt.user.client.ui.RichTextArea</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/wysiwyg/toolbar/RichTextToolbar.html#richText">richText</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;com.google.gwt.user.client.ui.ToggleButton</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/wysiwyg/toolbar/RichTextToolbar.html#strikethrough">strikethrough</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;com.google.gwt.user.client.ui.ToggleButton</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/wysiwyg/toolbar/RichTextToolbar.html#subscript">subscript</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;com.google.gwt.user.client.ui.ToggleButton</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/wysiwyg/toolbar/RichTextToolbar.html#superscript">superscript</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;com.google.gwt.user.client.ui.HorizontalPanel</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/wysiwyg/toolbar/RichTextToolbar.html#topPanel">topPanel</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;com.google.gwt.user.client.ui.PushButton</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/wysiwyg/toolbar/RichTextToolbar.html#ul">ul</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;com.google.gwt.user.client.ui.ToggleButton</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/wysiwyg/toolbar/RichTextToolbar.html#underline">underline</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="fields_inherited_from_class_com.google.gwt.user.client.ui.UIObject"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Fields inherited from class com.google.gwt.user.client.ui.UIObject</B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE>DEBUG_ID_PREFIX</CODE></TD>
+</TR>
+</TABLE>
+&nbsp;
+<!-- ======== CONSTRUCTOR SUMMARY ======== -->
+
+<A NAME="constructor_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Constructor Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><B><A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/wysiwyg/toolbar/RichTextToolbar.html#RichTextToolbar(com.google.gwt.user.client.ui.RichTextArea)">RichTextToolbar</A></B>(com.google.gwt.user.client.ui.RichTextArea&nbsp;richText)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates a new toolbar that drives the given rich text area.</TD>
+</TR>
+</TABLE>
+&nbsp;
+<!-- ========== METHOD SUMMARY =========== -->
+
+<A NAME="method_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Method Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;com.google.gwt.user.client.ui.PopupPanel</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/wysiwyg/toolbar/RichTextToolbar.html#createColorMenu(com.google.gwt.user.client.ui.Widget)">createColorMenu</A></B>(com.google.gwt.user.client.ui.Widget&nbsp;button)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;com.google.gwt.user.client.ui.PushButton</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/wysiwyg/toolbar/RichTextToolbar.html#createColorPickerButton(java.lang.String)">createColorPickerButton</A></B>(java.lang.String&nbsp;caption)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;<A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepComboBoxField.html" title="class in com.technology.jep.jepria.client.widget.field.multistate">JepComboBoxField</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/wysiwyg/toolbar/RichTextToolbar.html#createComboBox(java.lang.String, com.technology.jep.jepria.client.widget.event.JepListener, com.technology.jep.jepria.shared.field.option.JepOption...)">createComboBox</A></B>(java.lang.String&nbsp;emptyText,
+               <A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/event/JepListener.html" title="interface in com.technology.jep.jepria.client.widget.event">JepListener</A>&nbsp;changeSelectionListener,
+               <A HREF="../../../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A>...&nbsp;options)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;<A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepComboBoxField.html" title="class in com.technology.jep.jepria.client.widget.field.multistate">JepComboBoxField</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/wysiwyg/toolbar/RichTextToolbar.html#createFontList()">createFontList</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;<A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepComboBoxField.html" title="class in com.technology.jep.jepria.client.widget.field.multistate">JepComboBoxField</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/wysiwyg/toolbar/RichTextToolbar.html#createFontSizes()">createFontSizes</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;com.google.gwt.user.client.ui.PushButton</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/wysiwyg/toolbar/RichTextToolbar.html#createPushButton(com.google.gwt.resources.client.ImageResource, java.lang.String)">createPushButton</A></B>(com.google.gwt.resources.client.ImageResource&nbsp;img,
+                 java.lang.String&nbsp;tip)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;com.google.gwt.user.client.ui.ToggleButton</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/wysiwyg/toolbar/RichTextToolbar.html#createToggleButton(com.google.gwt.resources.client.ImageResource, java.lang.String)">createToggleButton</A></B>(com.google.gwt.resources.client.ImageResource&nbsp;img,
+                   java.lang.String&nbsp;tip)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/wysiwyg/toolbar/RichTextToolbar.html#reset()">reset</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Restore default state of toolbar and its widgets</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/wysiwyg/toolbar/RichTextToolbar.html#updateStatus()">updateStatus</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Updates the status of all the stateful buttons.</TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_com.google.gwt.user.client.ui.Composite"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from class com.google.gwt.user.client.ui.Composite</B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE>claimElement, getWidget, initializeClaimedElement, initWidget, isAttached, onAttach, onBrowserEvent, onDetach, render, render, resolvePotentialElement, setWidget</CODE></TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_com.google.gwt.user.client.ui.Widget"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from class com.google.gwt.user.client.ui.Widget</B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE>addAttachHandler, addBitlessDomHandler, addDomHandler, addHandler, asWidget, asWidgetOrNull, createHandlerManager, delegateEvent, doAttachChildren, doDetachChildren, fireEvent, getHandlerCount, getLayoutData, getParent, isOrWasAttached, onLoad, onUnload, removeFromParent, setLayoutData, sinkEvents, unsinkEvents</CODE></TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_com.google.gwt.user.client.ui.UIObject"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from class com.google.gwt.user.client.ui.UIObject</B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE>addStyleDependentName, addStyleName, ensureDebugId, ensureDebugId, ensureDebugId, getAbsoluteLeft, getAbsoluteTop, getElement, getOffsetHeight, getOffsetWidth, getStyleElement, getStyleName, getStyleName, getStylePrimaryName, getStylePrimaryName, getTitle, isVisible, isVisible, onEnsureDebugId, removeStyleDependentName, removeStyleName, setElement, setElement, setHeight, setPixelSize, setSize, setStyleDependentName, setStyleName, setStyleName, setStyleName, setStyleName, setStylePrimaryName, setStylePrimaryName, setTitle, setVisible, setVisible, setWidth, sinkBitlessEvent, toString</CODE></TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from class java.lang.Object</B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE>clone, equals, finalize, getClass, hashCode, notify, notifyAll, wait, wait, wait</CODE></TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
+<!-- ============ FIELD DETAIL =========== -->
+
+<A NAME="field_detail"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
+<B>Field Detail</B></FONT></TH>
+</TR>
+</TABLE>
+
+<A NAME="FONT_NAME_PATTERN_OPTION"><!-- --></A><H3>
+FONT_NAME_PATTERN_OPTION</H3>
+<PRE>
+private static final java.lang.String <B>FONT_NAME_PATTERN_OPTION</B></PRE>
+<DL>
+<DD>HTML Pattern for options of font choice.
+<P>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../../../../../constant-values.html#com.technology.jep.jepria.client.widget.field.wysiwyg.toolbar.RichTextToolbar.FONT_NAME_PATTERN_OPTION">Constant Field Values</A></DL>
+</DL>
+<HR>
+
+<A NAME="PREFIX_URL"><!-- --></A><H3>
+PREFIX_URL</H3>
+<PRE>
+private static final java.lang.String <B>PREFIX_URL</B></PRE>
+<DL>
+<DD>Default value of URL to insert object.
+<P>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../../../../../constant-values.html#com.technology.jep.jepria.client.widget.field.wysiwyg.toolbar.RichTextToolbar.PREFIX_URL">Constant Field Values</A></DL>
+</DL>
+<HR>
+
+<A NAME="CHOICE_LABEL_WIDTH"><!-- --></A><H3>
+CHOICE_LABEL_WIDTH</H3>
+<PRE>
+private static final int <B>CHOICE_LABEL_WIDTH</B></PRE>
+<DL>
+<DD>No label for choice of formatting.
+<P>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../../../../../constant-values.html#com.technology.jep.jepria.client.widget.field.wysiwyg.toolbar.RichTextToolbar.CHOICE_LABEL_WIDTH">Constant Field Values</A></DL>
+</DL>
+<HR>
+
+<A NAME="CHOICE_WIDTH"><!-- --></A><H3>
+CHOICE_WIDTH</H3>
+<PRE>
+private static final int <B>CHOICE_WIDTH</B></PRE>
+<DL>
+<DD>Choice width.
+<P>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../../../../../constant-values.html#com.technology.jep.jepria.client.widget.field.wysiwyg.toolbar.RichTextToolbar.CHOICE_WIDTH">Constant Field Values</A></DL>
+</DL>
+<HR>
+
+<A NAME="fontSizesConstants"><!-- --></A><H3>
+fontSizesConstants</H3>
+<PRE>
+private static final com.google.gwt.user.client.ui.RichTextArea.FontSize[] <B>fontSizesConstants</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="images"><!-- --></A><H3>
+images</H3>
+<PRE>
+private <A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/wysiwyg/toolbar/images/RichTextToolbarImages.html" title="interface in com.technology.jep.jepria.client.widget.field.wysiwyg.toolbar.images">RichTextToolbarImages</A> <B>images</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="handler"><!-- --></A><H3>
+handler</H3>
+<PRE>
+private <A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/wysiwyg/toolbar/RichTextToolbar.EventHandler.html" title="class in com.technology.jep.jepria.client.widget.field.wysiwyg.toolbar">RichTextToolbar.EventHandler</A> <B>handler</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="richText"><!-- --></A><H3>
+richText</H3>
+<PRE>
+private com.google.gwt.user.client.ui.RichTextArea <B>richText</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="formatter"><!-- --></A><H3>
+formatter</H3>
+<PRE>
+private com.google.gwt.user.client.ui.RichTextArea.Formatter <B>formatter</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="outer"><!-- --></A><H3>
+outer</H3>
+<PRE>
+private com.google.gwt.user.client.ui.VerticalPanel <B>outer</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="topPanel"><!-- --></A><H3>
+topPanel</H3>
+<PRE>
+private com.google.gwt.user.client.ui.HorizontalPanel <B>topPanel</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="bottomPanel"><!-- --></A><H3>
+bottomPanel</H3>
+<PRE>
+private com.google.gwt.user.client.ui.HorizontalPanel <B>bottomPanel</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="bold"><!-- --></A><H3>
+bold</H3>
+<PRE>
+private com.google.gwt.user.client.ui.ToggleButton <B>bold</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="italic"><!-- --></A><H3>
+italic</H3>
+<PRE>
+private com.google.gwt.user.client.ui.ToggleButton <B>italic</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="underline"><!-- --></A><H3>
+underline</H3>
+<PRE>
+private com.google.gwt.user.client.ui.ToggleButton <B>underline</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="subscript"><!-- --></A><H3>
+subscript</H3>
+<PRE>
+private com.google.gwt.user.client.ui.ToggleButton <B>subscript</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="superscript"><!-- --></A><H3>
+superscript</H3>
+<PRE>
+private com.google.gwt.user.client.ui.ToggleButton <B>superscript</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="strikethrough"><!-- --></A><H3>
+strikethrough</H3>
+<PRE>
+private com.google.gwt.user.client.ui.ToggleButton <B>strikethrough</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="indent"><!-- --></A><H3>
+indent</H3>
+<PRE>
+private com.google.gwt.user.client.ui.PushButton <B>indent</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="outdent"><!-- --></A><H3>
+outdent</H3>
+<PRE>
+private com.google.gwt.user.client.ui.PushButton <B>outdent</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="justifyLeft"><!-- --></A><H3>
+justifyLeft</H3>
+<PRE>
+private com.google.gwt.user.client.ui.PushButton <B>justifyLeft</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="justifyCenter"><!-- --></A><H3>
+justifyCenter</H3>
+<PRE>
+private com.google.gwt.user.client.ui.PushButton <B>justifyCenter</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="justifyRight"><!-- --></A><H3>
+justifyRight</H3>
+<PRE>
+private com.google.gwt.user.client.ui.PushButton <B>justifyRight</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="hr"><!-- --></A><H3>
+hr</H3>
+<PRE>
+private com.google.gwt.user.client.ui.PushButton <B>hr</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="ol"><!-- --></A><H3>
+ol</H3>
+<PRE>
+private com.google.gwt.user.client.ui.PushButton <B>ol</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="ul"><!-- --></A><H3>
+ul</H3>
+<PRE>
+private com.google.gwt.user.client.ui.PushButton <B>ul</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="insertImage"><!-- --></A><H3>
+insertImage</H3>
+<PRE>
+private com.google.gwt.user.client.ui.PushButton <B>insertImage</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="createLink"><!-- --></A><H3>
+createLink</H3>
+<PRE>
+private com.google.gwt.user.client.ui.PushButton <B>createLink</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="removeLink"><!-- --></A><H3>
+removeLink</H3>
+<PRE>
+private com.google.gwt.user.client.ui.PushButton <B>removeLink</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="removeFormat"><!-- --></A><H3>
+removeFormat</H3>
+<PRE>
+private com.google.gwt.user.client.ui.PushButton <B>removeFormat</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="backColors"><!-- --></A><H3>
+backColors</H3>
+<PRE>
+private com.google.gwt.user.client.ui.PushButton <B>backColors</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="foreColors"><!-- --></A><H3>
+foreColors</H3>
+<PRE>
+private com.google.gwt.user.client.ui.PushButton <B>foreColors</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="fontLists"><!-- --></A><H3>
+fontLists</H3>
+<PRE>
+private <A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepComboBoxField.html" title="class in com.technology.jep.jepria.client.widget.field.multistate">JepComboBoxField</A> <B>fontLists</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="fontSizes"><!-- --></A><H3>
+fontSizes</H3>
+<PRE>
+private <A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepComboBoxField.html" title="class in com.technology.jep.jepria.client.widget.field.multistate">JepComboBoxField</A> <B>fontSizes</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+
+<!-- ========= CONSTRUCTOR DETAIL ======== -->
+
+<A NAME="constructor_detail"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
+<B>Constructor Detail</B></FONT></TH>
+</TR>
+</TABLE>
+
+<A NAME="RichTextToolbar(com.google.gwt.user.client.ui.RichTextArea)"><!-- --></A><H3>
+RichTextToolbar</H3>
+<PRE>
+public <B>RichTextToolbar</B>(com.google.gwt.user.client.ui.RichTextArea&nbsp;richText)</PRE>
+<DL>
+<DD>Creates a new toolbar that drives the given rich text area.
+<P>
+<DL>
+<DT><B>Parameters:</B><DD><CODE>richText</CODE> - the rich text area to be controlled</DL>
+</DL>
+
+<!-- ============ METHOD DETAIL ========== -->
+
+<A NAME="method_detail"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
+<B>Method Detail</B></FONT></TH>
+</TR>
+</TABLE>
+
+<A NAME="createColorPickerButton(java.lang.String)"><!-- --></A><H3>
+createColorPickerButton</H3>
+<PRE>
+private com.google.gwt.user.client.ui.PushButton <B>createColorPickerButton</B>(java.lang.String&nbsp;caption)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="createFontList()"><!-- --></A><H3>
+createFontList</H3>
+<PRE>
+private <A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepComboBoxField.html" title="class in com.technology.jep.jepria.client.widget.field.multistate">JepComboBoxField</A> <B>createFontList</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="createFontSizes()"><!-- --></A><H3>
+createFontSizes</H3>
+<PRE>
+private <A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepComboBoxField.html" title="class in com.technology.jep.jepria.client.widget.field.multistate">JepComboBoxField</A> <B>createFontSizes</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="createComboBox(java.lang.String, com.technology.jep.jepria.client.widget.event.JepListener, com.technology.jep.jepria.shared.field.option.JepOption...)"><!-- --></A><H3>
+createComboBox</H3>
+<PRE>
+private <A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepComboBoxField.html" title="class in com.technology.jep.jepria.client.widget.field.multistate">JepComboBoxField</A> <B>createComboBox</B>(java.lang.String&nbsp;emptyText,
+                                        <A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/event/JepListener.html" title="interface in com.technology.jep.jepria.client.widget.event">JepListener</A>&nbsp;changeSelectionListener,
+                                        <A HREF="../../../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A>...&nbsp;options)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="createPushButton(com.google.gwt.resources.client.ImageResource, java.lang.String)"><!-- --></A><H3>
+createPushButton</H3>
+<PRE>
+private com.google.gwt.user.client.ui.PushButton <B>createPushButton</B>(com.google.gwt.resources.client.ImageResource&nbsp;img,
+                                                                  java.lang.String&nbsp;tip)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="createToggleButton(com.google.gwt.resources.client.ImageResource, java.lang.String)"><!-- --></A><H3>
+createToggleButton</H3>
+<PRE>
+private com.google.gwt.user.client.ui.ToggleButton <B>createToggleButton</B>(com.google.gwt.resources.client.ImageResource&nbsp;img,
+                                                                      java.lang.String&nbsp;tip)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="updateStatus()"><!-- --></A><H3>
+updateStatus</H3>
+<PRE>
+private void <B>updateStatus</B>()</PRE>
+<DL>
+<DD>Updates the status of all the stateful buttons.
+<P>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="reset()"><!-- --></A><H3>
+reset</H3>
+<PRE>
+public void <B>reset</B>()</PRE>
+<DL>
+<DD>Restore default state of toolbar and its widgets
+<P>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="createColorMenu(com.google.gwt.user.client.ui.Widget)"><!-- --></A><H3>
+createColorMenu</H3>
+<PRE>
+protected com.google.gwt.user.client.ui.PopupPanel <B>createColorMenu</B>(com.google.gwt.user.client.ui.Widget&nbsp;button)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<!-- ========= END OF CLASS DATA ========= -->
+<HR>
+
+
+<!-- ======= START OF BOTTOM NAVBAR ====== -->
+<A NAME="navbar_bottom"><!-- --></A>
+<A HREF="#skip-navbar_bottom" title="Skip navigation links"></A>
+<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
+<TR>
+<TD COLSPAN=2 BGCOLOR="#EEEEFF" CLASS="NavBarCell1">
+<A NAME="navbar_bottom_firstrow"><!-- --></A>
+<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3" SUMMARY="">
+  <TR ALIGN="center" VALIGN="top">
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-summary.html"><FONT CLASS="NavBarFont1"><B>Package</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../../../index-all.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../../../help-doc.html"><FONT CLASS="NavBarFont1"><B>Help</B></FONT></A>&nbsp;</TD>
+  </TR>
+</TABLE>
+</TD>
+<TD ALIGN="right" VALIGN="top" ROWSPAN=3><EM>
+</EM>
+</TD>
+</TR>
+
+<TR>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+&nbsp;<A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/wysiwyg/toolbar/ColorPicker.html" title="class in com.technology.jep.jepria.client.widget.field.wysiwyg.toolbar"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/wysiwyg/toolbar/RichTextToolbar.EventHandler.html" title="class in com.technology.jep.jepria.client.widget.field.wysiwyg.toolbar"><B>NEXT CLASS</B></A></FONT></TD>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+  <A HREF="../../../../../../../../../index.html?com/technology/jep/jepria/client/widget/field/wysiwyg/toolbar/RichTextToolbar.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="RichTextToolbar.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+&nbsp;<SCRIPT type="text/javascript">
+  <!--
+  if(window==top) {
+    document.writeln('<A HREF="../../../../../../../../../allclasses-noframe.html"><B>All Classes</B></A>');
+  }
+  //-->
+</SCRIPT>
+<NOSCRIPT>
+  <A HREF="../../../../../../../../../allclasses-noframe.html"><B>All Classes</B></A>
+</NOSCRIPT>
+
+
+</FONT></TD>
+</TR>
+<TR>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+  SUMMARY:&nbsp;<A HREF="#nested_class_summary">NESTED</A>&nbsp;|&nbsp;<A HREF="#field_summary">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
+</TR>
+</TABLE>
+<A NAME="skip-navbar_bottom"></A>
+<!-- ======== END OF BOTTOM NAVBAR ======= -->
+
+<HR>
+
+</BODY>
+</HTML>

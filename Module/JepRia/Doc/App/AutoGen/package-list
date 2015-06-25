@@ -54,6 +54,9 @@ com.technology.jep.jepria.client.widget.field.multistate.large
 com.technology.jep.jepria.client.widget.field.tree
 com.technology.jep.jepria.client.widget.field.tree.images
 com.technology.jep.jepria.client.widget.field.validation
+com.technology.jep.jepria.client.widget.field.wysiwyg
+com.technology.jep.jepria.client.widget.field.wysiwyg.toolbar
+com.technology.jep.jepria.client.widget.field.wysiwyg.toolbar.images
 com.technology.jep.jepria.client.widget.list
 com.technology.jep.jepria.client.widget.list.cell
 com.technology.jep.jepria.client.widget.list.event
@@ -74,6 +77,7 @@ com.technology.jep.jepria.server.ejb
 com.technology.jep.jepria.server.exceptions
 com.technology.jep.jepria.server.i18n
 com.technology.jep.jepria.server.security
+com.technology.jep.jepria.server.security.cas
 com.technology.jep.jepria.server.security.oc4j
 com.technology.jep.jepria.server.security.weblogic
 com.technology.jep.jepria.server.service

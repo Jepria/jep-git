@@ -4,7 +4,7 @@
 <HEAD>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <TITLE>
-JepSecurityModule_WL (JepRia JavaDoc)
+JepSecurityModule_CAS (JepRia JavaDoc)
 </TITLE>
 
 
@@ -14,7 +14,7 @@ JepSecurityModule_WL (JepRia JavaDoc)
 function windowTitle()
 {
     if (location.href.indexOf('is-external=true') == -1) {
-        parent.document.title="JepSecurityModule_WL (JepRia JavaDoc)";
+        parent.document.title="JepSecurityModule_CAS (JepRia JavaDoc)";
     }
 }
 </SCRIPT>
@@ -56,8 +56,8 @@ function windowTitle()
 &nbsp;PREV CLASS&nbsp;
 &nbsp;NEXT CLASS</FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-  <A HREF="../../../../../../../index.html?com/technology/jep/jepria/server/security/weblogic/JepSecurityModule_WL.html" target="_top"><B>FRAMES</B></A>  &nbsp;
-&nbsp;<A HREF="JepSecurityModule_WL.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+  <A HREF="../../../../../../../index.html?com/technology/jep/jepria/server/security/cas/JepSecurityModule_CAS.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="JepSecurityModule_CAS.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
 &nbsp;<SCRIPT type="text/javascript">
   <!--
   if(window==top) {
@@ -74,9 +74,9 @@ function windowTitle()
 </TR>
 <TR>
 <TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
-  SUMMARY:&nbsp;NESTED&nbsp;|&nbsp;<A HREF="#field_summary">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
+  SUMMARY:&nbsp;NESTED&nbsp;|&nbsp;<A HREF="#fields_inherited_from_class_com.technology.jep.jepria.server.security.JepAbstractSecurityModule">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
 <TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
-DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
+DETAIL:&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
 </TR>
 </TABLE>
 <A NAME="skip-navbar_top"></A>
@@ -86,25 +86,21 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
 <!-- ======== START OF CLASS DATA ======== -->
 <H2>
 <FONT SIZE="-1">
-com.technology.jep.jepria.server.security.weblogic</FONT>
+com.technology.jep.jepria.server.security.cas</FONT>
 <BR>
-Class JepSecurityModule_WL</H2>
+Class JepSecurityModule_CAS</H2>
 <PRE>
 java.lang.Object
   <IMG SRC="../../../../../../../resources/inherit.gif" ALT="extended by "><A HREF="../../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html" title="class in com.technology.jep.jepria.server.security">com.technology.jep.jepria.server.security.JepAbstractSecurityModule</A>
-      <IMG SRC="../../../../../../../resources/inherit.gif" ALT="extended by "><B>com.technology.jep.jepria.server.security.weblogic.JepSecurityModule_WL</B>
+      <IMG SRC="../../../../../../../resources/inherit.gif" ALT="extended by "><B>com.technology.jep.jepria.server.security.cas.JepSecurityModule_CAS</B>
 </PRE>
 <DL>
 <DT><B>All Implemented Interfaces:</B> <DD><A HREF="../../../../../../../com/technology/jep/jepria/server/security/JepSecurityModule.html" title="interface in com.technology.jep.jepria.server.security">JepSecurityModule</A>, java.util.EventListener, javax.servlet.http.HttpSessionBindingListener</DD>
 </DL>
 <HR>
 <DL>
-<DT><PRE>public class <B>JepSecurityModule_WL</B><DT>extends <A HREF="../../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html" title="class in com.technology.jep.jepria.server.security">JepAbstractSecurityModule</A></DL>
+<DT><PRE>public class <B>JepSecurityModule_CAS</B><DT>extends <A HREF="../../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html" title="class in com.technology.jep.jepria.server.security">JepAbstractSecurityModule</A></DL>
 </PRE>
-
-<P>
-Модуль поддержки безопасности
-<P>
 
 <P>
 <HR>
@@ -117,22 +113,6 @@ java.lang.Object
 <TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
 <TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
 <B>Field Summary</B></FONT></TH>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>private static&nbsp;java.lang.String</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/server/security/weblogic/JepSecurityModule_WL.html#JSESSIONID">JSESSIONID</A></B></CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>private static&nbsp;java.lang.String</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/server/security/weblogic/JepSecurityModule_WL.html#OPERATOR_ID_PREFIX">OPERATOR_ID_PREFIX</A></B></CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Префикс имени служебного принципала, содержащего operatorId</TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="fields_inherited_from_class_com.technology.jep.jepria.server.security.JepAbstractSecurityModule"><!-- --></A>
@@ -156,7 +136,7 @@ java.lang.Object
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>private </CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/server/security/weblogic/JepSecurityModule_WL.html#JepSecurityModule_WL()">JepSecurityModule_WL</A></B>()</CODE>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/server/security/cas/JepSecurityModule_CAS.html#JepSecurityModule_CAS()">JepSecurityModule_CAS</A></B>()</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -173,25 +153,8 @@ java.lang.Object
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>private &nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/server/security/weblogic/JepSecurityModule_WL.html#deleteSessionCookies(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)">deleteSessionCookies</A></B>(javax.servlet.http.HttpServletRequest&nbsp;request,
-                     javax.servlet.http.HttpServletResponse&nbsp;response)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>private static&nbsp;java.lang.Integer</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/server/security/weblogic/JepSecurityModule_WL.html#extractOperatorId(java.lang.String)">extractOperatorId</A></B>(java.lang.String&nbsp;principalName)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;<A HREF="../../../../../../../com/technology/jep/jepria/server/security/JepSecurityModule.html" title="interface in com.technology.jep.jepria.server.security">JepSecurityModule</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/server/security/weblogic/JepSecurityModule_WL.html#getInstance(javax.servlet.http.HttpServletRequest)">getInstance</A></B>(javax.servlet.http.HttpServletRequest&nbsp;request)</CODE>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/server/security/cas/JepSecurityModule_CAS.html#getInstance(javax.servlet.http.HttpServletRequest)">getInstance</A></B>(javax.servlet.http.HttpServletRequest&nbsp;request)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Возвращает объект типа JepSecurityModule из сессии.</TD>
@@ -199,7 +162,7 @@ java.lang.Object
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;java.lang.Integer</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/server/security/weblogic/JepSecurityModule_WL.html#getJepPrincipalOperatorId(java.security.Principal)">getJepPrincipalOperatorId</A></B>(java.security.Principal&nbsp;principal)</CODE>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/server/security/cas/JepSecurityModule_CAS.html#getJepPrincipalOperatorId(java.security.Principal)">getJepPrincipalOperatorId</A></B>(java.security.Principal&nbsp;principal)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -207,17 +170,17 @@ java.lang.Object
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>private static&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/server/security/weblogic/JepSecurityModule_WL.html#isObsolete(com.technology.jep.jepria.server.security.weblogic.JepSecurityModule_WL, java.security.Principal)">isObsolete</A></B>(<A HREF="../../../../../../../com/technology/jep/jepria/server/security/weblogic/JepSecurityModule_WL.html" title="class in com.technology.jep.jepria.server.security.weblogic">JepSecurityModule_WL</A>&nbsp;securityModule,
-           java.security.Principal&nbsp;principal)</CODE>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/server/security/cas/JepSecurityModule_CAS.html#isObsolete(com.technology.jep.jepria.server.db.Db, java.security.Principal, java.lang.Integer)">isObsolete</A></B>(<A HREF="../../../../../../../com/technology/jep/jepria/server/db/Db.html" title="class in com.technology.jep.jepria.server.db">Db</A>&nbsp;db,
+           java.security.Principal&nbsp;principal,
+           java.lang.Integer&nbsp;currentOperatorId)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Проверка "свежести" объекта securityModule, закешированного в Http-сессии
- Выполняется на основе сравнения значений operatorId principal-а и объекта jepSecurityModule.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/server/security/weblogic/JepSecurityModule_WL.html#logout(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)">logout</A></B>(javax.servlet.http.HttpServletRequest&nbsp;request,
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/server/security/cas/JepSecurityModule_CAS.html#logout(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)">logout</A></B>(javax.servlet.http.HttpServletRequest&nbsp;request,
        javax.servlet.http.HttpServletResponse&nbsp;response)</CODE>
 
 <BR>
@@ -226,11 +189,10 @@ java.lang.Object
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>protected &nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/server/security/weblogic/JepSecurityModule_WL.html#updateSubject(java.security.Principal)">updateSubject</A></B>(java.security.Principal&nbsp;principal)</CODE>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/server/security/cas/JepSecurityModule_CAS.html#updateSubject(java.security.Principal)">updateSubject</A></B>(java.security.Principal&nbsp;principal)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Обновление субъекта (атрибутов безопасности пользователя: operatorId и ролей) по заданному принципалу (JAZNUserAdaptor),
- взятому по request.getUserPrincipal().</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_com.technology.jep.jepria.server.security.JepAbstractSecurityModule"><!-- --></A>
@@ -254,37 +216,6 @@ java.lang.Object
 &nbsp;
 <P>
 
-<!-- ============ FIELD DETAIL =========== -->
-
-<A NAME="field_detail"><!-- --></A>
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
-<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
-<B>Field Detail</B></FONT></TH>
-</TR>
-</TABLE>
-
-<A NAME="JSESSIONID"><!-- --></A><H3>
-JSESSIONID</H3>
-<PRE>
-private static final java.lang.String <B>JSESSIONID</B></PRE>
-<DL>
-<DL>
-<DT><B>See Also:</B><DD><A HREF="../../../../../../../constant-values.html#com.technology.jep.jepria.server.security.weblogic.JepSecurityModule_WL.JSESSIONID">Constant Field Values</A></DL>
-</DL>
-<HR>
-
-<A NAME="OPERATOR_ID_PREFIX"><!-- --></A><H3>
-OPERATOR_ID_PREFIX</H3>
-<PRE>
-private static final java.lang.String <B>OPERATOR_ID_PREFIX</B></PRE>
-<DL>
-<DD>Префикс имени служебного принципала, содержащего operatorId
-<P>
-<DL>
-<DT><B>See Also:</B><DD><A HREF="../../../../../../../constant-values.html#com.technology.jep.jepria.server.security.weblogic.JepSecurityModule_WL.OPERATOR_ID_PREFIX">Constant Field Values</A></DL>
-</DL>
-
 <!-- ========= CONSTRUCTOR DETAIL ======== -->
 
 <A NAME="constructor_detail"><!-- --></A>
@@ -295,10 +226,10 @@ private static final java.lang.String <B>OPERATOR_ID_PREFIX</B></PRE>
 </TR>
 </TABLE>
 
-<A NAME="JepSecurityModule_WL()"><!-- --></A><H3>
-JepSecurityModule_WL</H3>
+<A NAME="JepSecurityModule_CAS()"><!-- --></A><H3>
+JepSecurityModule_CAS</H3>
 <PRE>
-private <B>JepSecurityModule_WL</B>()</PRE>
+private <B>JepSecurityModule_CAS</B>()</PRE>
 <DL>
 </DL>
 
@@ -324,7 +255,7 @@ public static <A HREF="../../../../../../../com/technology/jep/jepria/server/sec
 <DD><DL>
 <DT><B>Parameters:</B><DD><CODE>request</CODE> - запрос, из которого получим сессию
 <DT><B>Returns:</B><DD>объект типа JepSecurityModule из сессии
- TODO Попробовать уменьшить размер синхронизируемого кода (synchronized)</DL>
+ TODO Попробовать уменьшить размер синхронизируемого кода (synchronized). Точно ли нужна синхронизация ?</DL>
 </DD>
 </DL>
 <HR>
@@ -341,11 +272,10 @@ public void <B>logout</B>(javax.servlet.http.HttpServletRequest&nbsp;request,
 </DL>
 <HR>
 
-<A NAME="deleteSessionCookies(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)"><!-- --></A><H3>
-deleteSessionCookies</H3>
+<A NAME="getJepPrincipalOperatorId(java.security.Principal)"><!-- --></A><H3>
+getJepPrincipalOperatorId</H3>
 <PRE>
-private void <B>deleteSessionCookies</B>(javax.servlet.http.HttpServletRequest&nbsp;request,
-                                  javax.servlet.http.HttpServletResponse&nbsp;response)</PRE>
+public java.lang.Integer <B>getJepPrincipalOperatorId</B>(java.security.Principal&nbsp;principal)</PRE>
 <DL>
 <DD><DL>
 </DL>
@@ -358,50 +288,21 @@ updateSubject</H3>
 <PRE>
 protected void <B>updateSubject</B>(java.security.Principal&nbsp;principal)</PRE>
 <DL>
-<DD>Обновление субъекта (атрибутов безопасности пользователя: operatorId и ролей) по заданному принципалу (JAZNUserAdaptor),
- взятому по request.getUserPrincipal().
- Если задан null, то субъект обновляется по атрибутам безопасности гостя.
-<P>
 <DD><DL>
 <DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html#updateSubject(java.security.Principal)">updateSubject</A></CODE> in class <CODE><A HREF="../../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html" title="class in com.technology.jep.jepria.server.security">JepAbstractSecurityModule</A></CODE></DL>
 </DD>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>principal</CODE> - принципал</DL>
+</DL>
 </DD>
 </DL>
 <HR>
 
-<A NAME="isObsolete(com.technology.jep.jepria.server.security.weblogic.JepSecurityModule_WL, java.security.Principal)"><!-- --></A><H3>
+<A NAME="isObsolete(com.technology.jep.jepria.server.db.Db, java.security.Principal, java.lang.Integer)"><!-- --></A><H3>
 isObsolete</H3>
 <PRE>
-private static boolean <B>isObsolete</B>(<A HREF="../../../../../../../com/technology/jep/jepria/server/security/weblogic/JepSecurityModule_WL.html" title="class in com.technology.jep.jepria.server.security.weblogic">JepSecurityModule_WL</A>&nbsp;securityModule,
-                                  java.security.Principal&nbsp;principal)</PRE>
-<DL>
-<DD>Проверка "свежести" объекта securityModule, закешированного в Http-сессии
- Выполняется на основе сравнения значений operatorId principal-а и объекта jepSecurityModule.
-<P>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>securityModule</CODE> - объект типа JepSecurityModule из сессии<DD><CODE>principal</CODE> - принципал
-<DT><B>Returns:</B><DD>true, если объект jepSecurityModule устарел, иначе - false</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="extractOperatorId(java.lang.String)"><!-- --></A><H3>
-extractOperatorId</H3>
-<PRE>
-private static java.lang.Integer <B>extractOperatorId</B>(java.lang.String&nbsp;principalName)</PRE>
-<DL>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="getJepPrincipalOperatorId(java.security.Principal)"><!-- --></A><H3>
-getJepPrincipalOperatorId</H3>
-<PRE>
-public java.lang.Integer <B>getJepPrincipalOperatorId</B>(java.security.Principal&nbsp;principal)</PRE>
+private static boolean <B>isObsolete</B>(<A HREF="../../../../../../../com/technology/jep/jepria/server/db/Db.html" title="class in com.technology.jep.jepria.server.db">Db</A>&nbsp;db,
+                                  java.security.Principal&nbsp;principal,
+                                  java.lang.Integer&nbsp;currentOperatorId)</PRE>
 <DL>
 <DD><DL>
 </DL>
@@ -440,8 +341,8 @@ public java.lang.Integer <B>getJepPrincipalOperatorId</B>(java.security.Principa
 &nbsp;PREV CLASS&nbsp;
 &nbsp;NEXT CLASS</FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-  <A HREF="../../../../../../../index.html?com/technology/jep/jepria/server/security/weblogic/JepSecurityModule_WL.html" target="_top"><B>FRAMES</B></A>  &nbsp;
-&nbsp;<A HREF="JepSecurityModule_WL.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+  <A HREF="../../../../../../../index.html?com/technology/jep/jepria/server/security/cas/JepSecurityModule_CAS.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="JepSecurityModule_CAS.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
 &nbsp;<SCRIPT type="text/javascript">
   <!--
   if(window==top) {
@@ -458,9 +359,9 @@ public java.lang.Integer <B>getJepPrincipalOperatorId</B>(java.security.Principa
 </TR>
 <TR>
 <TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
-  SUMMARY:&nbsp;NESTED&nbsp;|&nbsp;<A HREF="#field_summary">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
+  SUMMARY:&nbsp;NESTED&nbsp;|&nbsp;<A HREF="#fields_inherited_from_class_com.technology.jep.jepria.server.security.JepAbstractSecurityModule">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
 <TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
-DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
+DETAIL:&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
 </TR>
 </TABLE>
 <A NAME="skip-navbar_bottom"></A>

@@ -247,8 +247,7 @@ java.lang.Object
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>protected &nbsp;java.lang.String</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/ejb/JepDataBean.html#getMonthName(int, com.google.gwt.i18n.client.LocaleInfo)">getMonthName</A></B>(int&nbsp;month,
-             com.google.gwt.i18n.client.LocaleInfo&nbsp;locale)</CODE>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/ejb/JepDataBean.html#getMonthName(int)">getMonthName</A></B>(int&nbsp;month)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Возвращает название месяца по его номеру.</TD>
@@ -282,8 +281,7 @@ java.lang.Object
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>protected &nbsp;java.lang.String</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/ejb/JepDataBean.html#getWeekDayName(int, com.google.gwt.i18n.client.LocaleInfo)">getWeekDayName</A></B>(int&nbsp;weekDay,
-               com.google.gwt.i18n.client.LocaleInfo&nbsp;locale)</CODE>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/ejb/JepDataBean.html#getWeekDayName(int)">getWeekDayName</A></B>(int&nbsp;weekDay)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Возвращает название дня недели по номеру.</TD>
@@ -291,7 +289,7 @@ java.lang.Object
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>protected &nbsp;java.util.List&lt;<A HREF="../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A>&gt;</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/ejb/JepDataBean.html#getYesNo(com.google.gwt.i18n.client.LocaleInfo)">getYesNo</A></B>(com.google.gwt.i18n.client.LocaleInfo&nbsp;locale)</CODE>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/ejb/JepDataBean.html#getYesNo()">getYesNo</A></B>()</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Возвращает список из двух опций, "Да" и "Нет".</TD>
@@ -590,45 +588,43 @@ protected &lt;X&gt; X <B>getValueFromOption</B>(java.lang.Object&nbsp;option)</P
 </DL>
 <HR>
 
-<A NAME="getMonthName(int, com.google.gwt.i18n.client.LocaleInfo)"><!-- --></A><H3>
+<A NAME="getMonthName(int)"><!-- --></A><H3>
 getMonthName</H3>
 <PRE>
-protected java.lang.String <B>getMonthName</B>(int&nbsp;month,
-                                        com.google.gwt.i18n.client.LocaleInfo&nbsp;locale)</PRE>
+protected java.lang.String <B>getMonthName</B>(int&nbsp;month)</PRE>
 <DL>
 <DD>Возвращает название месяца по его номеру.
 <P>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>month</CODE> - номер месяца (от 1 до 12)<DD><CODE>locale</CODE> - локаль
+<DT><B>Parameters:</B><DD><CODE>month</CODE> - номер месяца (от 1 до 12)
 <DT><B>Returns:</B><DD>название месяца</DL>
 </DD>
 </DL>
 <HR>
 
-<A NAME="getWeekDayName(int, com.google.gwt.i18n.client.LocaleInfo)"><!-- --></A><H3>
+<A NAME="getWeekDayName(int)"><!-- --></A><H3>
 getWeekDayName</H3>
 <PRE>
-protected java.lang.String <B>getWeekDayName</B>(int&nbsp;weekDay,
-                                          com.google.gwt.i18n.client.LocaleInfo&nbsp;locale)</PRE>
+protected java.lang.String <B>getWeekDayName</B>(int&nbsp;weekDay)</PRE>
 <DL>
 <DD>Возвращает название дня недели по номеру.
 <P>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>weekDay</CODE> - номер дня недели (от 1 до 7)<DD><CODE>locale</CODE> - локаль
+<DT><B>Parameters:</B><DD><CODE>weekDay</CODE> - номер дня недели (от 1 до 7)
 <DT><B>Returns:</B><DD>название дня недели</DL>
 </DD>
 </DL>
 <HR>
 
-<A NAME="getYesNo(com.google.gwt.i18n.client.LocaleInfo)"><!-- --></A><H3>
+<A NAME="getYesNo()"><!-- --></A><H3>
 getYesNo</H3>
 <PRE>
-protected java.util.List&lt;<A HREF="../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A>&gt; <B>getYesNo</B>(com.google.gwt.i18n.client.LocaleInfo&nbsp;locale)</PRE>
+protected java.util.List&lt;<A HREF="../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A>&gt; <B>getYesNo</B>()</PRE>
 <DL>
 <DD>Возвращает список из двух опций, "Да" и "Нет".
 <P>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>locale</CODE> - локаль
+
 <DT><B>Returns:</B><DD>список опций</DL>
 </DD>
 </DL>

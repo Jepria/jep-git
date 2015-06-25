@@ -180,7 +180,23 @@ java.lang.Object
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>private static&nbsp;java.lang.String</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/large/JepLargeField.html#DOWNLOAD_URL">DOWNLOAD_URL</A></B></CODE>
+<TD><CODE><B><A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/large/JepLargeField.html#DEFAULT_DOWNLOAD_SERVLET_URL">DEFAULT_DOWNLOAD_SERVLET_URL</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;URL для выгрузки по умолчанию</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private static&nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/large/JepLargeField.html#DEFAULT_UPLOAD_SERVLET_URL">DEFAULT_UPLOAD_SERVLET_URL</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;URL для загрузки по умолчанию.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/large/JepLargeField.html#downloadServletUrl">downloadServletUrl</A></B></CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;URL для выгрузки.</TD>
@@ -224,14 +240,6 @@ java.lang.Object
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Базовый URL модуля.</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>private static&nbsp;java.lang.String</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/large/JepLargeField.html#UPLOAD_URL">UPLOAD_URL</A></B></CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;URL для загрузки.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -392,6 +400,14 @@ java.lang.Object
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/large/JepLargeField.html#setDownloadServletUrl(java.lang.String)">setDownloadServletUrl</A></B>(java.lang.String&nbsp;downloadServletUrl)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Установка URL сервлета выгрузки файла.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/large/JepLargeField.html#setEmptyText(java.lang.String)">setEmptyText</A></B>(java.lang.String&nbsp;emptyText)</CODE>
 
 <BR>
@@ -412,6 +428,14 @@ java.lang.Object
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Set limit for uploaded file in Kbytes</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/large/JepLargeField.html#setUploadServletUrl(java.lang.String)">setUploadServletUrl</A></B>(java.lang.String&nbsp;uploadServletUrl)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Установка URL сервлета загрузки файла на сервер.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -549,24 +573,24 @@ private static final java.lang.String <B>MODULE_URL</B></PRE>
 </DL>
 <HR>
 
-<A NAME="UPLOAD_URL"><!-- --></A><H3>
-UPLOAD_URL</H3>
+<A NAME="DEFAULT_UPLOAD_SERVLET_URL"><!-- --></A><H3>
+DEFAULT_UPLOAD_SERVLET_URL</H3>
 <PRE>
-private static final java.lang.String <B>UPLOAD_URL</B></PRE>
+private static final java.lang.String <B>DEFAULT_UPLOAD_SERVLET_URL</B></PRE>
 <DL>
-<DD>URL для загрузки.
+<DD>URL для загрузки по умолчанию.
 <P>
 <DL>
 </DL>
 </DL>
 <HR>
 
-<A NAME="DOWNLOAD_URL"><!-- --></A><H3>
-DOWNLOAD_URL</H3>
+<A NAME="DEFAULT_DOWNLOAD_SERVLET_URL"><!-- --></A><H3>
+DEFAULT_DOWNLOAD_SERVLET_URL</H3>
 <PRE>
-private static final java.lang.String <B>DOWNLOAD_URL</B></PRE>
+private static final java.lang.String <B>DEFAULT_DOWNLOAD_SERVLET_URL</B></PRE>
 <DL>
-<DD>URL для выгрузки.
+<DD>URL для выгрузки по умолчанию
 <P>
 <DL>
 </DL>
@@ -591,6 +615,18 @@ afterSubmitCommand</H3>
 private <A HREF="../../../../../../../../../com/technology/jep/jepria/client/JepScheduledCommand.html" title="class in com.technology.jep.jepria.client">JepScheduledCommand</A>&lt;java.lang.String&gt; <B>afterSubmitCommand</B></PRE>
 <DL>
 <DD>Отложенная команда, которая выполниться после сабмита формы (если она определена).
+<P>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="downloadServletUrl"><!-- --></A><H3>
+downloadServletUrl</H3>
+<PRE>
+private java.lang.String <B>downloadServletUrl</B></PRE>
+<DL>
+<DD>URL для выгрузки.
 <P>
 <DL>
 </DL>
@@ -928,6 +964,32 @@ public void <B>setMaxUploadFileSize</B>(int&nbsp;length)</PRE>
 <P>
 <DD><DL>
 <DT><B>Parameters:</B><DD><CODE>length</CODE> - allowed file size (Kbytes)</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setDownloadServletUrl(java.lang.String)"><!-- --></A><H3>
+setDownloadServletUrl</H3>
+<PRE>
+public void <B>setDownloadServletUrl</B>(java.lang.String&nbsp;downloadServletUrl)</PRE>
+<DL>
+<DD>Установка URL сервлета выгрузки файла.
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>downloadServletUrl</CODE> - URL сервлета выгрузки</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setUploadServletUrl(java.lang.String)"><!-- --></A><H3>
+setUploadServletUrl</H3>
+<PRE>
+public void <B>setUploadServletUrl</B>(java.lang.String&nbsp;uploadServletUrl)</PRE>
+<DL>
+<DD>Установка URL сервлета загрузки файла на сервер.
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>downloadServletUrl</CODE> - URL сервлета загрузки</DL>
 </DD>
 </DL>
 <!-- ========= END OF CLASS DATA ========= -->
