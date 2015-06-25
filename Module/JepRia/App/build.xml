@@ -75,6 +75,10 @@
 		<pathelement location="${WL_LIB_HOME}/wls-api.jar" />
 	</path>
 
+	<path id="cas-client-libs">
+		<pathelement location="${CAS_CLIENT_HOME}/cas-client-core/lib/cas-client-core-3.1.12-customized.jar" />
+	</path>
+
 	<path id="gwt-libs">
 		<pathelement location="${GWT_HOME}/gwt-user.jar" />
 		<pathelement location="${GWT_HOME}/gwt-dev.jar" />
@@ -113,7 +117,7 @@
 		<include name="**/${MODULE_NAME}Text_??.properties" />
 		<include name="**/${MODULE_NAME}.gwt.xml" />
 	</fileset>
-	
+
 	<fileset id="class-auto-jar" dir="build-auto">
 		<include name="**/*.class" />
 	</fileset>
@@ -159,6 +163,7 @@
 		<mkdir dir="build" />
 		<javac srcdir="src/java" destdir="build" debug="on" encoding="utf-8" target="1.5" includeantruntime="false">
 			<classpath refid="weblogic-libs" />
+			<classpath refid="cas-client-libs" />
 			<classpath refid="libs" />
 			<classpath refid="oc4j-libs" />
 		</javac>
@@ -169,7 +174,9 @@
 		<javac srcdir="auto/java" destdir="build-auto" debug="on" encoding="utf-8" target="1.5" includeantruntime="false">
 			<classpath refid="libs" />
 			<classpath refid="selenium-libs" />
-			<classpath><pathelement location="build" /></classpath>
+			<classpath>
+				<pathelement location="build" />
+			</classpath>
 		</javac>
 	</target>
 
@@ -222,7 +229,7 @@
 			<fileset refid="class-test-jar" />
 		</jar>
 	</target>
-	
+
 	<target name="ejb-jar-update-check" depends="java-compile">
 		<uptodate targetfile="lib/${MODULE_NAME_IN_PACKAGE}-ejb.jar" property="ejb-jar-is-uptodate">
 			<srcfiles refid="ejb-jar" />
@@ -278,6 +285,7 @@
 			<classpath refid="libs" />
 			<classpath refid="oc4j-libs" />
 			<classpath refid="weblogic-libs" />
+			<classpath refid="cas-client-libs" />
 			<classpath refid="selenium-libs" />
 		</javadoc>
 	</target>
@@ -298,6 +306,7 @@
 			<classpath refid="libs" />
 			<classpath refid="oc4j-libs" />
 			<classpath refid="weblogic-libs" />
+			<classpath refid="cas-client-libs" />
 			<classpath refid="selenium-libs" />
 		</javadoc>
 	</target>

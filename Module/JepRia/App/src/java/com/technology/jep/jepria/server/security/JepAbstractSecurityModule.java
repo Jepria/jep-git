@@ -25,7 +25,7 @@ import com.technology.jep.jepria.shared.exceptions.SystemException;
 public abstract class JepAbstractSecurityModule implements JepSecurityModule {
 	protected static Logger logger;
 	
-	private Db db = null;
+	protected Db db = null;
 	protected List<String> roles = new ArrayList<String>();
 	protected Integer operatorId = null;
 	protected String username;

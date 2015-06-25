@@ -62,7 +62,7 @@ public class JepMainServiceServlet extends JepServiceServlet implements JepMainS
 		}
 		
 		// Если Инициатива WebLogic, удаляем cookie JavaSSO (при инициативе OC4J он сам их удалит через JavaSSO Logout)
-		if(!JepServerUtil.isOC4JEnvironment(request)) {
+		if(!JepServerUtil.isJavaSSO(request)) {
 			Cookie oc4jSsoCookie = getOC4JSsoCookie(request);
 			if(oc4jSsoCookie != null) {
 				oc4jSsoCookie.setMaxAge(0);

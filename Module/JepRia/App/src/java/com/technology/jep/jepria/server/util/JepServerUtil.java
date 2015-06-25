@@ -14,8 +14,9 @@ import java.util.Map;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+
+import oracle.security.jazn.oc4j.JAZNServletRequest;
 
 import com.technology.jep.jepria.shared.exceptions.SystemException;
 
@@ -241,15 +242,6 @@ public class JepServerUtil {
 	public static String detectMimeType(String fileExtension) {
 		return fileExtension != null ? fileExtensionMimeTypeMap.get(fileExtension.toLowerCase()) : null;
 	}
-
-	public static boolean isOC4JEnvironment(ServletContext servletContext) {
-		String serverInfo = servletContext.getServerInfo();
-		return serverInfo.indexOf("10.1.3") >= 0;
-	}
-	
-	public static boolean isOC4JEnvironment(HttpServletRequest request) {
-		return isOC4JEnvironment(request.getSession().getServletContext());
-	}
 	
 	public static String getServerUrl(HttpServletRequest request) {
 		return request.getProtocol().substring(0,
@@ -258,5 +250,20 @@ public class JepServerUtil {
 				+ request.getServerName()
 				+ ":"
 				+ request.getServerPort();
+	}
+	
+	public static boolean isJavaSSO(HttpServletRequest request) {
+		boolean result = false;
+		try {
+			result = request instanceof JAZNServletRequest;
+		} catch(java.lang.NoClassDefFoundError ex) {
+			// Не JavaSSO, значит - CAS
+		}
+		
+		return result;
+	}
+
+	public static boolean isCASEnvironment(HttpServletRequest request) {
+		return !isJavaSSO(request); // TODO Исправить времянку
 	}
 }
