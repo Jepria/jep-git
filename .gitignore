@@ -1,0 +1,5 @@
+# JepRia specific
+Module/JepRia/App/build/
+Module/JepRia/App/build-auto/
+Module/JepRia/App/build-test/
+Module/JepRia/App/log/
