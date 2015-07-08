@@ -4,11 +4,9 @@ import static com.google.gwt.dom.client.BrowserEvents.CLICK;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Set;
 
 import com.google.gwt.cell.client.Cell;
 import com.google.gwt.cell.client.ClickableTextCell;
@@ -30,6 +28,7 @@ import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.safehtml.shared.SafeHtmlUtils;
 import com.google.gwt.user.cellview.client.CellTree;
 import com.google.gwt.user.cellview.client.TreeNode;
+import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.view.client.AsyncDataProvider;
 import com.google.gwt.view.client.CellPreviewEvent;
@@ -38,8 +37,6 @@ import com.google.gwt.view.client.DefaultSelectionEventManager.EventTranslator;
 import com.google.gwt.view.client.DefaultSelectionEventManager.SelectAction;
 import com.google.gwt.view.client.HasData;
 import com.google.gwt.view.client.MultiSelectionModel;
-import com.google.gwt.view.client.SelectionChangeEvent;
-import com.google.gwt.view.client.SelectionChangeEvent.HasSelectionChangedHandlers;
 import com.google.gwt.view.client.SetSelectionModel;
 import com.google.gwt.view.client.TreeViewModel;
 import com.technology.jep.jepria.client.async.DataLoader;
@@ -101,6 +98,12 @@ public class TreeField<V extends JepOption> extends ScrollPanel implements HasCh
 	 */
 	private List<V> partialSelectedNodes = new ArrayList<V>();
 	
+	/**
+	 * Раскрываемый узел
+	 */
+	private V openingNode;
+	
+	
 	private static final String JEP_RIA_TREE_FIELD_STYLE = "jepRia-TreeField-Input";
 	
 	private Map<V, TreeNodeInfo<V>> nodeMapOfDisplay = new HashMap<V, TreeNodeInfo<V>>();
@@ -126,6 +129,19 @@ public class TreeField<V extends JepOption> extends ScrollPanel implements HasCh
 		selectionModel = new MultiSelectionModel<V>(){
 			@Override
 			public void setSelected(V item, boolean selected) {
+				boolean isLeaf = isLeaf(item);
+				switch(checkNodes){
+					// допустимо выделение только листьев
+					case LEAF : { 
+						if(!isLeaf) return; 
+						break; 
+					} 
+					// допустимо выделение только родительских узлов
+					case PARENT : { 
+						if(isLeaf) return; 
+						break; 
+					}
+				}
 				super.setSelected(item, selected);
 				// если текущий узел был отмечен как частично выделенный
 				if (partialSelectedNodes.contains(item)){
@@ -164,8 +180,15 @@ public class TreeField<V extends JepOption> extends ScrollPanel implements HasCh
 			}
 		};
 		
-		tree = new CellTree(new TreeModel(), null, images, messages, Integer.MAX_VALUE);
-		
+		tree = new CellTree(new TreeModel(), null, images, messages, Integer.MAX_VALUE){
+			@Override
+			public void onBrowserEvent(Event event) {
+				// prevent multi-opening
+				if (openingNode == null){
+					super.onBrowserEvent(event);
+				}
+			}
+		};
 		tree.addOpenHandler(new OpenHandler<TreeNode>() {
 			@Override
 			@SuppressWarnings("unchecked")
@@ -400,6 +423,20 @@ public class TreeField<V extends JepOption> extends ScrollPanel implements HasCh
 				}
 				
 				public ImageResource getValue(V value) {
+					boolean isLeaf = isLeaf(value);
+					switch(checkNodes){
+						// допустимо выделение только листьев, не отображаем соответствующую картинку
+						case LEAF : { 
+							if(!isLeaf) return null; 
+							break; 
+						}
+						// допустимо выделение только родительских узлов, не отображаем соответствующую картинку
+						case PARENT : { 
+							if(isLeaf) return null; 
+							break; 
+						}
+					}
+					
 					if (partialSelectedNodes.contains(value)){
 						return images.partialChecked();
 					}
@@ -509,13 +546,18 @@ public class TreeField<V extends JepOption> extends ScrollPanel implements HasCh
 				}
 				
 				@Override
+				public boolean resetFocus(Context context, Element parent, V value) {
+					return false;
+				}
+				
+				@Override
 				protected <X> void render(Context context, V value, SafeHtmlBuilder sb, HasCell<V, X> hasCell) {
 					Cell<X> cell = hasCell.getCell();
 					X val = hasCell.getValue(value);
 					sb.appendHtmlConstant("<span " + (cell instanceof ClickableTextCell ? "title=\"" + SafeHtmlUtils.htmlEscape((String) val) + "\"" : "") + ">");
 					cell.render(context, val, sb);
 					sb.appendHtmlConstant("</span>");
-				}
+				}				
 			};
 			return new DefaultNodeInfo<V>(provider, compositeCell, selectionModel, selectionManager, null);
 		}
@@ -550,6 +592,7 @@ public class TreeField<V extends JepOption> extends ScrollPanel implements HasCh
 			TreeNodeInfo<V> nodeInfo = getNodeInfoByValue(expandNode);
 			// if cache doesn't have info about node's children
 			if (nodeInfo == null){
+				openingNode = expandNode;
 				// Query the data asynchronously making an RPC call to DB.
 				loader.load(expandNode, new JepAsyncCallback<List<V>>() {
 					@Override
@@ -558,7 +601,8 @@ public class TreeField<V extends JepOption> extends ScrollPanel implements HasCh
 						for (V value : result){
 							// store info (current nodes and correspondent display) about tree level
 							nodeMapOfDisplay.put(value, info);						
-						}						
+						}
+						openingNode = null;
 						onRangeChanged(display);
 					}
 				});
@@ -585,9 +629,9 @@ public class TreeField<V extends JepOption> extends ScrollPanel implements HasCh
 		
 		public void refreshDisplay(HasData<V> display, List<V> data){
 			display.setRowData(display.getVisibleRange().getStart(), data);
+			display.setRowCount(data.size(), true);
 		}
 		
-		@SuppressWarnings("unchecked")
 		public void refreshNode(V value){
 			// Если узел листовой или не получена информация о его детях
 			if (!partialSelectedNodes.contains(value) && JepRiaUtil.isEmpty(getChildrenNodes(value))) return; 

@@ -66,11 +66,14 @@ public class ResizableHeader<T> extends Header<String> {
 	
 	private int limit = 10;
 	
-	public ResizableHeader(String title, JepGrid<T> cellTable, Column<T, ?> column) {
+	private boolean isConfigurable; 
+	
+	public ResizableHeader(String title, JepGrid<T> cellTable, Column<T, ?> column, boolean isConfigurable) {
 		super(new HeaderCell());
 		this.title = title;
 		this.cellTable = cellTable;
 		this.column = column;
+		this.isConfigurable = isConfigurable;
 	}
 
 	@Override
@@ -307,7 +310,7 @@ public class ResizableHeader<T> extends Header<String> {
 						resetCursor(el);
 					}
 
-					if (buttonZone) {
+					if (buttonZone && isConfigurable) {
 						showButton(offsetLeft + offsetWidth, el);
 //					} else {
 //						hideButton();

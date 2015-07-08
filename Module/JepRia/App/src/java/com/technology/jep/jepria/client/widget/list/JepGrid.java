@@ -30,6 +30,7 @@ public class JepGrid<T> extends DataGrid<T> {
 	private String gridId = null;
 	private List<JepColumn> columns;
 	private boolean wrapHeaders;
+	private boolean isColumnConfigurable;
 	private static final String CHARACTERISTIC_SEPARATOR = "=";
 
 	public interface MyStyle extends DataGrid.Style {
@@ -45,10 +46,14 @@ public class JepGrid<T> extends DataGrid<T> {
 	}
 
 	public JepGrid(String gridId, final List<JepColumn> columns, boolean wrapHeaders) {
-		this(gridId, columns, wrapHeaders, null);
+		this(gridId, columns, wrapHeaders, true, null);
+	}
+	
+	public JepGrid(String gridId, final List<JepColumn> columns, boolean wrapHeaders, boolean isColumnConfigurable) {
+		this(gridId, columns, wrapHeaders, isColumnConfigurable, null);
 	}
 
-	public JepGrid(String gridId, final List<JepColumn> columns, boolean wrapHeaders, ProvidesKey<T> keyProvider) {
+	public JepGrid(String gridId, final List<JepColumn> columns, boolean wrapHeaders, boolean isColumnConfigurable, ProvidesKey<T> keyProvider) {
 		this(DEFAULT_PAGE_SIZE, keyProvider);
 
 		this.gridId = gridId;
@@ -56,6 +61,8 @@ public class JepGrid<T> extends DataGrid<T> {
 		
 		this.columns = columns;
 		this.wrapHeaders = wrapHeaders;
+		
+		this.isColumnConfigurable = isColumnConfigurable;
 		
 		final Map<String, ColumnCharasteristic> customColumnCharacteristics = parseColumnCharacteristics(Cookies.getCookie(gridId));
 		
@@ -90,7 +97,7 @@ public class JepGrid<T> extends DataGrid<T> {
 	}
 
 	public void addColumnWithHeader(JepColumn col, boolean toggle) {
-		Header<String> header = new ResizableHeader<T>(col.getHeaderText(), this, col);
+		Header<String> header = new ResizableHeader<T>(col.getHeaderText(), this, col, isColumnConfigurable);
 		
 		if (wrapHeaders)
 			header.setHeaderStyleNames(JepColumn.NORMAL_WRAP_STYLE);
