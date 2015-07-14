@@ -8,9 +8,7 @@ import static com.technology.jep.jepria.shared.JepRiaConstant.JEP_USER_NAME_FIEL
 import static com.technology.jep.jepria.shared.JepRiaConstant.JEP_USER_ROLES_FIELD_NAME;
 import static com.technology.jep.jepria.shared.field.JepFieldNames.OPERATOR_ID;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.event.shared.EventBus;
@@ -294,9 +292,9 @@ public abstract class MainModulePresenter<V extends MainView, E extends MainEven
 				// Восстановим первичный ключ главного модуля равным внешнему ключу дочернего модуля.
 				scope.setPrimaryKey(scope.getForeignKey());
 				// Сбросим неактуальный для главного модуля внешний ключ.
-				scope.setForeignKey(null);
+				scope.setForeignKey(new HashMap<String, Object>());
 				// Сбросим неактуальный для главного модуля шаблон поиска.
-				scope.setTemplateProperties(null);
+				scope.setTemplateProperties(new HashMap<String, Object>());
 			}
 			// Сделаем текущим модуль, на который необходимо перейти.
 			scope.setActiveModuleId(moduleId);
