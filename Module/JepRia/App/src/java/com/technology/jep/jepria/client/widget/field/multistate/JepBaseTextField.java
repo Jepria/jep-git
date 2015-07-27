@@ -222,7 +222,13 @@ public abstract class JepBaseTextField<E extends Widget & HasValue> extends JepM
 	 */
 	protected boolean keyPressEventHandler(DomEvent<?> event){
 		if(delayedTask != null) {
-			delayedTask.cancel();
+			int keyCode = event.getNativeEvent().getKeyCode();
+			/*
+			 * Нажатие TAB не должно прекращать выполнение task'а.
+			 */
+			if (keyCode != KeyCodes.KEY_TAB) {
+				delayedTask.cancel();
+			}
 		}
 		return true;
 	}
@@ -255,7 +261,13 @@ public abstract class JepBaseTextField<E extends Widget & HasValue> extends JepM
 	 */
 	protected boolean keyDownEventHandler(DomEvent<?> event){
 		if(delayedTask != null) {
-			delayedTask.cancel();
+			int keyCode = event.getNativeEvent().getKeyCode();
+			/*
+			 * Нажатие TAB не должно прекращать выполнение task'а.
+			 */
+			if (keyCode != KeyCodes.KEY_TAB) {
+				delayedTask.cancel();
+			}
 		}
 		return true;
 	}
