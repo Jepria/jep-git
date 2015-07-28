@@ -40,15 +40,16 @@ public class JepRiaConstant {
 	public static final String JEP_USER_NAME_FIELD_NAME = "userName";
 	public static final String JEP_USER_ROLES_FIELD_NAME = "userRoles";
 	
-	public static final String DOWNLOAD_FIELD_NAME_REQUEST_PARAMETER = "fieldName";
-	public static final String DOWNLOAD_RECORD_KEY_REQUEST_PARAMETER = "recordKey";
-	public static final String DOWNLOAD_MIME_TYPE_REQUEST_PARAMETER = "mimeType";
-	public static final String DOWNLOAD_EXTENSION_REQUEST_PARAMETER = "ext";
-	public static final String DOWNLOAD_CONTENT_DISPOSITION_REQUEST_PARAMETER = "contentDisposition";
-	public static final String DOWNLOAD_CONTENT_DISPOSITION_INLINE_REQUEST_PARAMETER_VALUE = "inline";
-	public static final String DOWNLOAD_CONTENT_DISPOSITION_ATTACHMENT_REQUEST_PARAMETER_VALUE = "attachment";
-	public static final String DOWNLOAD_FILE_NAME_REQUEST_PARAMETER = "fileName";
-	public static final String DOWNLOAD_FILE_NAME_PREFIX_REQUEST_PARAMETER = "fileNamePrefix";
+	public static final String DOWNLOAD_FIELD_NAME = "fieldName";
+	public static final String DOWNLOAD_RECORD_KEY = "recordKey";
+	public static final String DOWNLOAD_MIME_TYPE = "mimeType";
+	public static final String DOWNLOAD_EXTENSION = "ext";
+	public static final String DOWNLOAD_CONTENT_DISPOSITION = "contentDisposition";
+	public static final String DOWNLOAD_CONTENT_DISPOSITION_INLINE = "inline";
+	public static final String DOWNLOAD_CONTENT_DISPOSITION_ATTACHMENT = "attachment";
+	public static final String DOWNLOAD_FILE_NAME = "fileName";
+	public static final String DOWNLOAD_FILE_NAME_PREFIX = "fileNamePrefix";
+	public static final String DOWNLOAD_ID = "downloadId";
 	
 	/**
 	 * Имя параметра запроса, в котором передается значение идентификатора выбранного пользователем набора данных

@@ -1,9 +1,9 @@
 package com.technology.jep.jepria.client.widget.field.multistate.large;
 
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.EDIT;
-import static com.technology.jep.jepria.shared.JepRiaConstant.DOWNLOAD_FIELD_NAME_REQUEST_PARAMETER;
-import static com.technology.jep.jepria.shared.JepRiaConstant.DOWNLOAD_MIME_TYPE_REQUEST_PARAMETER;
-import static com.technology.jep.jepria.shared.JepRiaConstant.DOWNLOAD_RECORD_KEY_REQUEST_PARAMETER;
+import static com.technology.jep.jepria.shared.JepRiaConstant.DOWNLOAD_FIELD_NAME;
+import static com.technology.jep.jepria.shared.JepRiaConstant.DOWNLOAD_MIME_TYPE;
+import static com.technology.jep.jepria.shared.JepRiaConstant.DOWNLOAD_RECORD_KEY;
 import static com.technology.jep.jepria.shared.JepRiaConstant.FILE_SIZE_HIDDEN_FIELD_NAME;
 import static com.technology.jep.jepria.shared.JepRiaConstant.PRIMARY_KEY_HIDDEN_FIELD_NAME;
 
@@ -168,18 +168,18 @@ public abstract class JepLargeField<V extends Widget> extends JepMultiStateField
 			
 			sbUrl.append(downloadServletUrl);
 			sbUrl.append("?");
-			sbUrl.append(DOWNLOAD_FIELD_NAME_REQUEST_PARAMETER);
+			sbUrl.append(DOWNLOAD_FIELD_NAME);
 			sbUrl.append("=");
 			sbUrl.append(getFieldId());
 			sbUrl.append("&");
-			sbUrl.append(DOWNLOAD_RECORD_KEY_REQUEST_PARAMETER);
+			sbUrl.append(DOWNLOAD_RECORD_KEY);
 			sbUrl.append("=");
 			sbUrl.append(fileReference.getRecordKey());
 			
 			String mimeType = fileReference.getMimeType();
 			if(mimeType != null) {
 				sbUrl.append("&");
-				sbUrl.append(DOWNLOAD_MIME_TYPE_REQUEST_PARAMETER);
+				sbUrl.append(DOWNLOAD_MIME_TYPE);
 				sbUrl.append("=");
 				sbUrl.append(mimeType);
 			} else {
@@ -342,7 +342,7 @@ public abstract class JepLargeField<V extends Widget> extends JepMultiStateField
 	
 	/**
 	 * Установка URL сервлета загрузки файла на сервер.
-	 * @param downloadServletUrl URL сервлета загрузки
+	 * @param uploadServletUrl URL сервлета загрузки
 	 */
 	public void setUploadServletUrl(String uploadServletUrl) {
 		formPanel.setAction(uploadServletUrl);

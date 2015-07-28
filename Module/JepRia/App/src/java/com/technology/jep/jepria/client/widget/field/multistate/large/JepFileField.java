@@ -1,10 +1,10 @@
 package com.technology.jep.jepria.client.widget.field.multistate.large;
 
-import static com.technology.jep.jepria.shared.JepRiaConstant.DOWNLOAD_CONTENT_DISPOSITION_ATTACHMENT_REQUEST_PARAMETER_VALUE;
-import static com.technology.jep.jepria.shared.JepRiaConstant.DOWNLOAD_CONTENT_DISPOSITION_REQUEST_PARAMETER;
-import static com.technology.jep.jepria.shared.JepRiaConstant.DOWNLOAD_EXTENSION_REQUEST_PARAMETER;
-import static com.technology.jep.jepria.shared.JepRiaConstant.DOWNLOAD_FILE_NAME_PREFIX_REQUEST_PARAMETER;
-import static com.technology.jep.jepria.shared.JepRiaConstant.DOWNLOAD_FILE_NAME_REQUEST_PARAMETER;
+import static com.technology.jep.jepria.shared.JepRiaConstant.DOWNLOAD_CONTENT_DISPOSITION_ATTACHMENT;
+import static com.technology.jep.jepria.shared.JepRiaConstant.DOWNLOAD_CONTENT_DISPOSITION;
+import static com.technology.jep.jepria.shared.JepRiaConstant.DOWNLOAD_EXTENSION;
+import static com.technology.jep.jepria.shared.JepRiaConstant.DOWNLOAD_FILE_NAME_PREFIX;
+import static com.technology.jep.jepria.shared.JepRiaConstant.DOWNLOAD_FILE_NAME;
 
 import com.google.gwt.user.client.ui.HTML;
 import com.technology.jep.jepria.shared.record.lob.JepFileReference;
@@ -167,24 +167,24 @@ public class JepFileField extends JepLargeField<HTML> {
 			
 			sbRef.append(downloadUrl);
 			sbRef.append("&");
-			sbRef.append(DOWNLOAD_CONTENT_DISPOSITION_REQUEST_PARAMETER);
+			sbRef.append(DOWNLOAD_CONTENT_DISPOSITION);
 			sbRef.append("=");
-			sbRef.append(DOWNLOAD_CONTENT_DISPOSITION_ATTACHMENT_REQUEST_PARAMETER_VALUE);
+			sbRef.append(DOWNLOAD_CONTENT_DISPOSITION_ATTACHMENT);
 			if(downloadFileName != null){
 				sbRef.append("&");
-				sbRef.append(DOWNLOAD_FILE_NAME_REQUEST_PARAMETER);
+				sbRef.append(DOWNLOAD_FILE_NAME);
 				sbRef.append("=");
 				sbRef.append(downloadFileName);
 			}
 			if(downloadFileNamePrefix != null){
 				sbRef.append("&");
-				sbRef.append(DOWNLOAD_FILE_NAME_PREFIX_REQUEST_PARAMETER);
+				sbRef.append(DOWNLOAD_FILE_NAME_PREFIX);
 				sbRef.append("=");
 				sbRef.append(downloadFileNamePrefix);
 			}
 			if(fileExtension != null) {
 				sbRef.append("&");
-				sbRef.append(DOWNLOAD_EXTENSION_REQUEST_PARAMETER);
+				sbRef.append(DOWNLOAD_EXTENSION);
 				sbRef.append("=");
 				sbRef.append(fileExtension);
 			}

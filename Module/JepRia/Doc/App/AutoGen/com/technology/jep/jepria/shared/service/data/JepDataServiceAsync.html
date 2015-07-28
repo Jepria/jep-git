@@ -159,6 +159,33 @@ Interface JepDataServiceAsync</H2>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/shared/service/data/JepDataServiceAsync.html#prepareDownload(java.lang.String, java.lang.String, java.lang.String, java.lang.String, com.google.gwt.user.client.rpc.AsyncCallback)">prepareDownload</A></B>(java.lang.String&nbsp;fileName,
+                java.lang.String&nbsp;mimeType,
+                java.lang.String&nbsp;fieldName,
+                java.lang.String&nbsp;recordKey,
+                com.google.gwt.user.client.rpc.AsyncCallback&lt;java.lang.Integer&gt;&nbsp;callback)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Записывает в сессию атрибуты для выгрузки файла и возвращает id загрузки.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/shared/service/data/JepDataServiceAsync.html#prepareDownload(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, com.google.gwt.user.client.rpc.AsyncCallback)">prepareDownload</A></B>(java.lang.String&nbsp;fileName,
+                java.lang.String&nbsp;mimeType,
+                java.lang.String&nbsp;fieldName,
+                java.lang.String&nbsp;recordKey,
+                java.lang.String&nbsp;contentDisposition,
+                java.lang.String&nbsp;extension,
+                java.lang.String&nbsp;fileNamePrefix,
+                com.google.gwt.user.client.rpc.AsyncCallback&lt;java.lang.Integer&gt;&nbsp;callback)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Записывает в сессию атрибуты для выгрузки файла и возвращает id загрузки.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/shared/service/data/JepDataServiceAsync.html#prepareExcel(com.technology.jep.jepria.shared.load.PagingConfig, java.util.List, java.util.List, java.util.List, com.google.gwt.user.client.rpc.AsyncCallback)">prepareExcel</A></B>(<A HREF="../../../../../../../com/technology/jep/jepria/shared/load/PagingConfig.html" title="class in com.technology.jep.jepria.shared.load">PagingConfig</A>&nbsp;pagingConfig,
              java.util.List&lt;<A HREF="../../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</A>&gt;&nbsp;selectedRecords,
              java.util.List&lt;java.lang.String&gt;&nbsp;reportHeaders,
@@ -312,6 +339,46 @@ void <B>isRefreshNeeded</B>(java.lang.Integer&nbsp;listUID,
 <DD><DL>
 <DT><B>Parameters:</B><DD><CODE>listUID</CODE> - уникальный идентификатор списка<DD><CODE>callback</CODE> - объект асинхронного обратного вызова, содержащий значение, 
  равное TRUE, если необходимо выполнить автообновление, и FALSE в противном случае</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="prepareDownload(java.lang.String, java.lang.String, java.lang.String, java.lang.String, com.google.gwt.user.client.rpc.AsyncCallback)"><!-- --></A><H3>
+prepareDownload</H3>
+<PRE>
+void <B>prepareDownload</B>(java.lang.String&nbsp;fileName,
+                     java.lang.String&nbsp;mimeType,
+                     java.lang.String&nbsp;fieldName,
+                     java.lang.String&nbsp;recordKey,
+                     com.google.gwt.user.client.rpc.AsyncCallback&lt;java.lang.Integer&gt;&nbsp;callback)</PRE>
+<DL>
+<DD>Записывает в сессию атрибуты для выгрузки файла и возвращает id загрузки.<br>
+ Заголовку Content-disposition задаётся значение "attachment".
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>fileName</CODE> - имя файла<DD><CODE>mimeType</CODE> - mime-тип<DD><CODE>fieldName</CODE> - имя поля в таблице<DD><CODE>recordKey</CODE> - ключ записи<DD><CODE>callback</CODE> - содержит id загрузки</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="prepareDownload(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, com.google.gwt.user.client.rpc.AsyncCallback)"><!-- --></A><H3>
+prepareDownload</H3>
+<PRE>
+void <B>prepareDownload</B>(java.lang.String&nbsp;fileName,
+                     java.lang.String&nbsp;mimeType,
+                     java.lang.String&nbsp;fieldName,
+                     java.lang.String&nbsp;recordKey,
+                     java.lang.String&nbsp;contentDisposition,
+                     java.lang.String&nbsp;extension,
+                     java.lang.String&nbsp;fileNamePrefix,
+                     com.google.gwt.user.client.rpc.AsyncCallback&lt;java.lang.Integer&gt;&nbsp;callback)</PRE>
+<DL>
+<DD>Записывает в сессию атрибуты для выгрузки файла и возвращает id загрузки.<br>
+ Если значение fileName пусто, то имя выгружаемого файла формируется как
+ fileNamePrefix + recordKey + "." + extension.
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>fileName</CODE> - имя файла<DD><CODE>mimeType</CODE> - mime-тип<DD><CODE>fieldName</CODE> - имя поля в таблице<DD><CODE>recordKey</CODE> - ключ записи<DD><CODE>contentDisposition</CODE> - значение заголовка Content-disposition<DD><CODE>extension</CODE> - расширение<DD><CODE>fileNamePrefix</CODE> - префикс<DD><CODE>callback</CODE> - содержит id загрузки</DL>
 </DD>
 </DL>
 <!-- ========= END OF CLASS DATA ========= -->

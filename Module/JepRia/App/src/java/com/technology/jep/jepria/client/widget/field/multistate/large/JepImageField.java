@@ -1,7 +1,7 @@
 package com.technology.jep.jepria.client.widget.field.multistate.large;
 
-import static com.technology.jep.jepria.shared.JepRiaConstant.DOWNLOAD_CONTENT_DISPOSITION_INLINE_REQUEST_PARAMETER_VALUE;
-import static com.technology.jep.jepria.shared.JepRiaConstant.DOWNLOAD_CONTENT_DISPOSITION_REQUEST_PARAMETER;
+import static com.technology.jep.jepria.shared.JepRiaConstant.DOWNLOAD_CONTENT_DISPOSITION_INLINE;
+import static com.technology.jep.jepria.shared.JepRiaConstant.DOWNLOAD_CONTENT_DISPOSITION;
 
 import com.google.gwt.user.client.ui.Image;
 
@@ -49,9 +49,9 @@ public class JepImageField extends JepLargeField<Image> {
 		if(downloadUrl != null) {
 			sbRef.append(downloadUrl);
 			sbRef.append("&");
-			sbRef.append(DOWNLOAD_CONTENT_DISPOSITION_REQUEST_PARAMETER);
+			sbRef.append(DOWNLOAD_CONTENT_DISPOSITION);
 			sbRef.append("=");
-			sbRef.append(DOWNLOAD_CONTENT_DISPOSITION_INLINE_REQUEST_PARAMETER_VALUE);
+			sbRef.append(DOWNLOAD_CONTENT_DISPOSITION_INLINE);
 		} else {
 			return null;
 		}

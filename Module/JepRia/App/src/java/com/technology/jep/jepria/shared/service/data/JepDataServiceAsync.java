@@ -82,5 +82,34 @@ public interface JepDataServiceAsync {
 	 * равное TRUE, если необходимо выполнить автообновление, и FALSE в противном случае
 	 */
 	void isRefreshNeeded(Integer listUID, AsyncCallback<Boolean> callback);
+
+	/**
+	 * Записывает в сессию атрибуты для выгрузки файла и возвращает id загрузки.<br>
+	 * Заголовку Content-disposition задаётся значение "attachment".
+	 * 
+	 * @param fileName имя файла
+	 * @param mimeType mime-тип
+	 * @param fieldName имя поля в таблице
+	 * @param recordKey ключ записи
+	 * @param callback содержит id загрузки
+	 */
+	void prepareDownload(String fileName, String mimeType, String fieldName, String recordKey, AsyncCallback<Integer> callback);
+
+	/**
+	 * Записывает в сессию атрибуты для выгрузки файла и возвращает id загрузки.<br>
+	 * Если значение fileName пусто, то имя выгружаемого файла формируется как
+	 * fileNamePrefix + recordKey + "." + extension.
+	 * 
+	 * @param fileName имя файла
+	 * @param mimeType mime-тип
+	 * @param fieldName имя поля в таблице
+	 * @param recordKey ключ записи
+	 * @param contentDisposition значение заголовка Content-disposition
+	 * @param extension расширение
+	 * @param fileNamePrefix префикс
+	 * @param callback содержит id загрузки
+	 */
+	void prepareDownload(String fileName, String mimeType, String fieldName, String recordKey,
+		String contentDisposition, String extension, String fileNamePrefix, AsyncCallback<Integer> callback);
 	
 }

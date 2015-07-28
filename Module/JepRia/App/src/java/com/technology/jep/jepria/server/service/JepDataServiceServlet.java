@@ -7,7 +7,7 @@ import static com.technology.jep.jepria.server.JepRiaServerConstant.FOUND_RECORD
 import static com.technology.jep.jepria.server.JepRiaServerConstant.IS_REFRESH_NEEDED;
 import static com.technology.jep.jepria.server.JepRiaServerConstant.SELECTED_RECORDS_SESSION_ATTRIBUTE;
 import static com.technology.jep.jepria.server.JepRiaServerConstant.TEXT_FILE_UPLOAD_BEAN_JNDI_NAME;
-import static com.technology.jep.jepria.shared.JepRiaConstant.DEFAULT_MAX_ROW_COUNT;
+import static com.technology.jep.jepria.shared.JepRiaConstant.*;
 import static com.technology.jep.jepria.shared.field.JepFieldNames.MAX_ROW_COUNT;
 import static com.technology.jep.jepria.shared.field.JepTypeEnum.BINARY_FILE;
 import static com.technology.jep.jepria.shared.field.JepTypeEnum.CLOB;
@@ -25,13 +25,13 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.Set;
 
 import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
-import com.google.gwt.i18n.client.LocaleInfo;
 import com.technology.jep.jepria.server.download.blob.BinaryFileDownloadLocal;
 import com.technology.jep.jepria.server.download.blob.FileDownloadStream;
 import com.technology.jep.jepria.server.ejb.JepDataStandard;
@@ -39,11 +39,9 @@ import com.technology.jep.jepria.server.upload.clob.FileUploadWriter;
 import com.technology.jep.jepria.server.upload.clob.TextFileUploadLocal;
 import com.technology.jep.jepria.server.util.JepServerUtil;
 import com.technology.jep.jepria.shared.dto.JepSorter;
-import com.technology.jep.jepria.shared.exceptions.ApplicationException;
 import com.technology.jep.jepria.shared.exceptions.SystemException;
 import com.technology.jep.jepria.shared.field.JepLikeEnum;
 import com.technology.jep.jepria.shared.field.JepTypeEnum;
-import com.technology.jep.jepria.shared.field.option.JepOption;
 import com.technology.jep.jepria.shared.load.FindConfig;
 import com.technology.jep.jepria.shared.load.PagingConfig;
 import com.technology.jep.jepria.shared.load.PagingResult;
@@ -342,6 +340,31 @@ abstract public class JepDataServiceServlet extends JepServiceServlet implements
 		
 		logger.trace("END paging(" + pagingConfig + ")");
 		return pagingResult;
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public Integer prepareDownload(String fileName, String mimeType, String fieldName, String recordKey) {
+		return prepareDownload(fileName, mimeType, fieldName, recordKey, DOWNLOAD_CONTENT_DISPOSITION_ATTACHMENT, null, null);
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public Integer prepareDownload(String fileName, String mimeType, String fieldName, String recordKey, String contentDisposition, String extension, String fileNamePrefix) {
+		Integer downloadId = (new Random()).nextInt();
+		HttpSession session = getThreadLocalRequest().getSession();
+		session.setAttribute(DOWNLOAD_FILE_NAME + downloadId, fileName);
+		session.setAttribute(DOWNLOAD_MIME_TYPE + downloadId, mimeType);
+		session.setAttribute(DOWNLOAD_FIELD_NAME + downloadId, fieldName);
+		session.setAttribute(DOWNLOAD_RECORD_KEY + downloadId, recordKey);
+		session.setAttribute(DOWNLOAD_CONTENT_DISPOSITION + downloadId, contentDisposition);
+		session.setAttribute(DOWNLOAD_EXTENSION + downloadId, extension);
+		session.setAttribute(DOWNLOAD_FILE_NAME_PREFIX + downloadId, fileNamePrefix);
+		return downloadId;
 	}
 	
 	/**

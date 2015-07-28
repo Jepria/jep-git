@@ -299,6 +299,31 @@ java.lang.Object
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;java.lang.Integer</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/service/JepDataServiceServlet.html#prepareDownload(java.lang.String, java.lang.String, java.lang.String, java.lang.String)">prepareDownload</A></B>(java.lang.String&nbsp;fileName,
+                java.lang.String&nbsp;mimeType,
+                java.lang.String&nbsp;fieldName,
+                java.lang.String&nbsp;recordKey)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Записывает в сессию атрибуты для выгрузки файла и возвращает id загрузки.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;java.lang.Integer</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/service/JepDataServiceServlet.html#prepareDownload(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)">prepareDownload</A></B>(java.lang.String&nbsp;fileName,
+                java.lang.String&nbsp;mimeType,
+                java.lang.String&nbsp;fieldName,
+                java.lang.String&nbsp;recordKey,
+                java.lang.String&nbsp;contentDisposition,
+                java.lang.String&nbsp;extension,
+                java.lang.String&nbsp;fileNamePrefix)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Записывает в сессию атрибуты для выгрузки файла и возвращает id загрузки.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/service/JepDataServiceServlet.html#prepareExcel(com.technology.jep.jepria.shared.load.PagingConfig, java.util.List, java.util.List, java.util.List)">prepareExcel</A></B>(<A HREF="../../../../../../com/technology/jep/jepria/shared/load/PagingConfig.html" title="class in com.technology.jep.jepria.shared.load">PagingConfig</A>&nbsp;pagingConfig,
              java.util.List&lt;<A HREF="../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</A>&gt;&nbsp;selectedRecords,
@@ -648,6 +673,52 @@ public <A HREF="../../../../../../com/technology/jep/jepria/shared/load/PagingRe
 <DD><DL>
 <DT><B>Parameters:</B><DD><CODE>pagingConfig</CODE> - конфигурация листания
 <DT><B>Returns:</B><DD>результат листания</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="prepareDownload(java.lang.String, java.lang.String, java.lang.String, java.lang.String)"><!-- --></A><H3>
+prepareDownload</H3>
+<PRE>
+public java.lang.Integer <B>prepareDownload</B>(java.lang.String&nbsp;fileName,
+                                         java.lang.String&nbsp;mimeType,
+                                         java.lang.String&nbsp;fieldName,
+                                         java.lang.String&nbsp;recordKey)</PRE>
+<DL>
+<DD>Записывает в сессию атрибуты для выгрузки файла и возвращает id загрузки.<br>
+ Заголовку Content-disposition задаётся значение "attachment".
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../com/technology/jep/jepria/shared/service/data/JepDataService.html#prepareDownload(java.lang.String, java.lang.String, java.lang.String, java.lang.String)">prepareDownload</A></CODE> in interface <CODE><A HREF="../../../../../../com/technology/jep/jepria/shared/service/data/JepDataService.html" title="interface in com.technology.jep.jepria.shared.service.data">JepDataService</A></CODE></DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>fileName</CODE> - имя файла<DD><CODE>mimeType</CODE> - mime-тип<DD><CODE>fieldName</CODE> - имя поля в таблице<DD><CODE>recordKey</CODE> - ключ записи
+<DT><B>Returns:</B><DD>id загрузки</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="prepareDownload(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)"><!-- --></A><H3>
+prepareDownload</H3>
+<PRE>
+public java.lang.Integer <B>prepareDownload</B>(java.lang.String&nbsp;fileName,
+                                         java.lang.String&nbsp;mimeType,
+                                         java.lang.String&nbsp;fieldName,
+                                         java.lang.String&nbsp;recordKey,
+                                         java.lang.String&nbsp;contentDisposition,
+                                         java.lang.String&nbsp;extension,
+                                         java.lang.String&nbsp;fileNamePrefix)</PRE>
+<DL>
+<DD>Записывает в сессию атрибуты для выгрузки файла и возвращает id загрузки.<br>
+ Если значение fileName пусто, то имя выгружаемого файла формируется как
+ fileNamePrefix + recordKey + "." + extension.
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../com/technology/jep/jepria/shared/service/data/JepDataService.html#prepareDownload(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)">prepareDownload</A></CODE> in interface <CODE><A HREF="../../../../../../com/technology/jep/jepria/shared/service/data/JepDataService.html" title="interface in com.technology.jep.jepria.shared.service.data">JepDataService</A></CODE></DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>fileName</CODE> - имя файла<DD><CODE>mimeType</CODE> - mime-тип<DD><CODE>fieldName</CODE> - имя поля в таблице<DD><CODE>recordKey</CODE> - ключ записи<DD><CODE>contentDisposition</CODE> - значение заголовка Content-disposition<DD><CODE>extension</CODE> - расширение<DD><CODE>fileNamePrefix</CODE> - префикс
+<DT><B>Returns:</B><DD>id загрузки</DL>
 </DD>
 </DL>
 <HR>

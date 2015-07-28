@@ -135,6 +135,14 @@ java.lang.Object
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private static&nbsp;char[]</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/download/JepDownloadServlet.html#illegalCharacters">illegalCharacters</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Символы, недопустимые в имени файла.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>protected static&nbsp;org.apache.log4j.Logger</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/download/JepDownloadServlet.html#logger">logger</A></B></CODE>
 
@@ -235,6 +243,14 @@ java.lang.Object
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private static&nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/download/JepDownloadServlet.html#encodeURIComponent(java.lang.String)">encodeURIComponent</A></B>(java.lang.String&nbsp;str)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Кодирует строку в формат, подходящий для помещения в заголовок Content-disposition.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>protected &nbsp;void</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/download/JepDownloadServlet.html#onError(javax.servlet.http.HttpServletResponse, int, java.lang.String)">onError</A></B>(javax.servlet.http.HttpServletResponse&nbsp;response,
         int&nbsp;error,
@@ -245,9 +261,19 @@ java.lang.Object
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private static&nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/download/JepDownloadServlet.html#replaceIllegalCharacters(java.lang.String)">replaceIllegalCharacters</A></B>(java.lang.String&nbsp;str)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Заменяет недопустимые символы знаком подчёркивания.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>protected &nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/download/JepDownloadServlet.html#setAttachedFileName(javax.servlet.http.HttpServletResponse, javax.servlet.http.HttpServletRequest, java.lang.String)">setAttachedFileName</A></B>(javax.servlet.http.HttpServletResponse&nbsp;response,
-                    javax.servlet.http.HttpServletRequest&nbsp;request,
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/download/JepDownloadServlet.html#setAttachedFileName(javax.servlet.http.HttpServletResponse, java.lang.String, java.lang.String, java.lang.String, java.lang.String)">setAttachedFileName</A></B>(javax.servlet.http.HttpServletResponse&nbsp;response,
+                    java.lang.String&nbsp;fileName,
+                    java.lang.String&nbsp;fileExtension,
+                    java.lang.String&nbsp;fileNamePrefix,
                     java.lang.String&nbsp;recordKey)</CODE>
 
 <BR>
@@ -300,6 +326,18 @@ logger</H3>
 protected static org.apache.log4j.Logger <B>logger</B></PRE>
 <DL>
 <DD>Логгер.
+<P>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="illegalCharacters"><!-- --></A><H3>
+illegalCharacters</H3>
+<PRE>
+private static final char[] <B>illegalCharacters</B></PRE>
+<DL>
+<DD>Символы, недопустимые в имени файла.
 <P>
 <DL>
 </DL>
@@ -402,6 +440,35 @@ public <B>JepDownloadServlet</B>(<A HREF="../../../../../../com/technology/jep/j
 </TR>
 </TABLE>
 
+<A NAME="encodeURIComponent(java.lang.String)"><!-- --></A><H3>
+encodeURIComponent</H3>
+<PRE>
+private static java.lang.String <B>encodeURIComponent</B>(java.lang.String&nbsp;str)</PRE>
+<DL>
+<DD>Кодирует строку в формат, подходящий для помещения в заголовок Content-disposition.<br>
+ См. здесь: http://stackoverflow.com/a/611117
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>str</CODE> - кодируемая строка
+<DT><B>Returns:</B><DD>строка после кодирования</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="replaceIllegalCharacters(java.lang.String)"><!-- --></A><H3>
+replaceIllegalCharacters</H3>
+<PRE>
+private static java.lang.String <B>replaceIllegalCharacters</B>(java.lang.String&nbsp;str)</PRE>
+<DL>
+<DD>Заменяет недопустимые символы знаком подчёркивания.
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>str</CODE> - строка
+<DT><B>Returns:</B><DD>строка с заменёнными недопустимыми символами</DL>
+</DD>
+</DL>
+<HR>
+
 <A NAME="doGet(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)"><!-- --></A><H3>
 doGet</H3>
 <PRE>
@@ -422,18 +489,21 @@ public void <B>doGet</B>(javax.servlet.http.HttpServletRequest&nbsp;request,
 </DL>
 <HR>
 
-<A NAME="setAttachedFileName(javax.servlet.http.HttpServletResponse, javax.servlet.http.HttpServletRequest, java.lang.String)"><!-- --></A><H3>
+<A NAME="setAttachedFileName(javax.servlet.http.HttpServletResponse, java.lang.String, java.lang.String, java.lang.String, java.lang.String)"><!-- --></A><H3>
 setAttachedFileName</H3>
 <PRE>
 protected void <B>setAttachedFileName</B>(javax.servlet.http.HttpServletResponse&nbsp;response,
-                                   javax.servlet.http.HttpServletRequest&nbsp;request,
+                                   java.lang.String&nbsp;fileName,
+                                   java.lang.String&nbsp;fileExtension,
+                                   java.lang.String&nbsp;fileNamePrefix,
                                    java.lang.String&nbsp;recordKey)
                             throws java.io.UnsupportedEncodingException</PRE>
 <DL>
-<DD>Установка имени выгружаемого файла (в случае, если файл выгружается как вложение).
+<DD>Установка имени выгружаемого файла (в случае, если файл выгружается как вложение).<br>
+ Имя файла кодируется; недопустимые символы заменяются знаками подчёркивания.
 <P>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>response</CODE> - ответ сервлета<DD><CODE>request</CODE> - запрос к сервлету<DD><CODE>recordKey</CODE> - ключ записи
+<DT><B>Parameters:</B><DD><CODE>response</CODE> - ответ сервлета<DD><CODE>fileName</CODE> - имя файла<DD><CODE>fileExtension</CODE> - расширение<DD><CODE>fileNamePrefix</CODE> - префикс имени файла<DD><CODE>recordKey</CODE> - ключ записи
 <DT><B>Throws:</B>
 <DD><CODE>java.io.UnsupportedEncodingException</CODE></DL>
 </DD>

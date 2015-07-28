@@ -3,15 +3,16 @@ package com.technology.jep.jepria.server.download;
 import static com.technology.jep.jepria.server.JepRiaServerConstant.BINARY_FILE_DOWNLOAD_BEAN_JNDI_NAME;
 import static com.technology.jep.jepria.server.JepRiaServerConstant.TEXT_FILE_DOWNLOAD_BEAN_JNDI_NAME;
 import static com.technology.jep.jepria.server.download.clob.FileDownloadReader.DEFAULT_ENCODING;
-import static com.technology.jep.jepria.shared.JepRiaConstant.DOWNLOAD_CONTENT_DISPOSITION_ATTACHMENT_REQUEST_PARAMETER_VALUE;
-import static com.technology.jep.jepria.shared.JepRiaConstant.DOWNLOAD_CONTENT_DISPOSITION_INLINE_REQUEST_PARAMETER_VALUE;
-import static com.technology.jep.jepria.shared.JepRiaConstant.DOWNLOAD_CONTENT_DISPOSITION_REQUEST_PARAMETER;
-import static com.technology.jep.jepria.shared.JepRiaConstant.DOWNLOAD_EXTENSION_REQUEST_PARAMETER;
-import static com.technology.jep.jepria.shared.JepRiaConstant.DOWNLOAD_FIELD_NAME_REQUEST_PARAMETER;
-import static com.technology.jep.jepria.shared.JepRiaConstant.DOWNLOAD_FILE_NAME_PREFIX_REQUEST_PARAMETER;
-import static com.technology.jep.jepria.shared.JepRiaConstant.DOWNLOAD_FILE_NAME_REQUEST_PARAMETER;
-import static com.technology.jep.jepria.shared.JepRiaConstant.DOWNLOAD_MIME_TYPE_REQUEST_PARAMETER;
-import static com.technology.jep.jepria.shared.JepRiaConstant.DOWNLOAD_RECORD_KEY_REQUEST_PARAMETER;
+import static com.technology.jep.jepria.shared.JepRiaConstant.DOWNLOAD_CONTENT_DISPOSITION_ATTACHMENT;
+import static com.technology.jep.jepria.shared.JepRiaConstant.DOWNLOAD_CONTENT_DISPOSITION_INLINE;
+import static com.technology.jep.jepria.shared.JepRiaConstant.DOWNLOAD_CONTENT_DISPOSITION;
+import static com.technology.jep.jepria.shared.JepRiaConstant.DOWNLOAD_EXTENSION;
+import static com.technology.jep.jepria.shared.JepRiaConstant.DOWNLOAD_FIELD_NAME;
+import static com.technology.jep.jepria.shared.JepRiaConstant.DOWNLOAD_FILE_NAME_PREFIX;
+import static com.technology.jep.jepria.shared.JepRiaConstant.DOWNLOAD_FILE_NAME;
+import static com.technology.jep.jepria.shared.JepRiaConstant.DOWNLOAD_MIME_TYPE;
+import static com.technology.jep.jepria.shared.JepRiaConstant.DOWNLOAD_RECORD_KEY;
+import static com.technology.jep.jepria.shared.JepRiaConstant.DOWNLOAD_ID;
 import static com.technology.jep.jepria.shared.field.JepTypeEnum.BINARY_FILE;
 import static com.technology.jep.jepria.shared.field.JepTypeEnum.TEXT_FILE;
 
@@ -27,6 +28,7 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
@@ -47,6 +49,10 @@ public class JepDownloadServlet extends HttpServlet {
 	 */
 	protected static Logger logger = Logger.getLogger(JepDownloadServlet.class.getName());	
 	/**
+	 * Символы, недопустимые в имени файла.
+	 */
+	private static final char[] illegalCharacters = "\\/:*?\"<>|\t\n".toCharArray();
+	/**
 	 * Определение записи.
 	 */
 	private JepLobRecordDefinition fileRecordDefinition = null;
@@ -62,6 +68,40 @@ public class JepDownloadServlet extends HttpServlet {
 	 * Кодировка текстовых файлов.
 	 */
 	private final Charset textFileCharset;
+	
+	/**
+	 * Кодирует строку в формат, подходящий для помещения в заголовок Content-disposition.<br>
+	 * См. здесь: http://stackoverflow.com/a/611117
+	 * @param str кодируемая строка
+	 * @return строка после кодирования
+	 */
+	private static String encodeURIComponent(String str) {
+		String result = null;
+		try {
+			result = URLEncoder.encode(str, "UTF-8")
+			        .replaceAll("\\+", "%20")
+			        .replaceAll("\\%21", "!")
+			        .replaceAll("\\%27", "'")
+			        .replaceAll("\\%28", "(")
+			        .replaceAll("\\%29", ")")
+			        .replaceAll("\\%7E", "~");
+		} catch (UnsupportedEncodingException e) {
+			// Данное исключение не будет выброшено никогда.
+		}
+		return result;
+	}
+	
+	/**
+	 * Заменяет недопустимые символы знаком подчёркивания.
+	 * @param str строка
+	 * @return строка с заменёнными недопустимыми символами
+	 */
+	private static String replaceIllegalCharacters(String str) {
+		for (char ch : illegalCharacters) {
+			str = str.replace(ch, '_');
+		}
+		return str;
+	}
 	
 	/**
 	 * Создаёт сервлет для загрузки файлов с сервера.
@@ -104,23 +144,43 @@ public class JepDownloadServlet extends HttpServlet {
 		
 		try {
 			response.reset();
-			String mimeType = request.getParameter(DOWNLOAD_MIME_TYPE_REQUEST_PARAMETER);
-				response.setContentType(mimeType + ";charset=" + textFileCharset);
-				
-				addAntiCachingHeaders(response);
-				
-				String recordKey = request.getParameter(DOWNLOAD_RECORD_KEY_REQUEST_PARAMETER);
-			String contentDisposition = request.getParameter(DOWNLOAD_CONTENT_DISPOSITION_REQUEST_PARAMETER);
-			if(DOWNLOAD_CONTENT_DISPOSITION_INLINE_REQUEST_PARAMETER_VALUE.equals(contentDisposition)){
-				response.setHeader("Content-disposition", "inline");
-			} else if(DOWNLOAD_CONTENT_DISPOSITION_ATTACHMENT_REQUEST_PARAMETER_VALUE.equals(contentDisposition)){
-				setAttachedFileName(response, request, recordKey);
+			
+			String downloadId = request.getParameter(DOWNLOAD_ID);
+			String fileName, fileNamePrefix, fileExtension, mimeType, recordKey, contentDisposition, fieldName;
+			if (downloadId != null) {
+				HttpSession session = request.getSession();
+				fileName = (String)session.getAttribute(DOWNLOAD_FILE_NAME + downloadId);
+				fileExtension = (String)session.getAttribute(DOWNLOAD_EXTENSION + downloadId);
+				fileNamePrefix = (String)session.getAttribute(DOWNLOAD_FILE_NAME_PREFIX + downloadId);
+				mimeType = (String)session.getAttribute(DOWNLOAD_MIME_TYPE + downloadId);
+				recordKey = (String)session.getAttribute(DOWNLOAD_RECORD_KEY + downloadId);
+				fieldName = (String)session.getAttribute(DOWNLOAD_FIELD_NAME + downloadId);
+				contentDisposition = (String)session.getAttribute(DOWNLOAD_CONTENT_DISPOSITION + downloadId);
 			}
-						
-			String fieldName = request.getParameter(DOWNLOAD_FIELD_NAME_REQUEST_PARAMETER);
+			else {
+				fileName = request.getParameter(DOWNLOAD_FILE_NAME);
+				fileNamePrefix = request.getParameter(DOWNLOAD_FILE_NAME_PREFIX);
+				fileExtension = request.getParameter(DOWNLOAD_EXTENSION);
+				mimeType = request.getParameter(DOWNLOAD_MIME_TYPE);
+				recordKey = request.getParameter(DOWNLOAD_RECORD_KEY);						
+				fieldName = request.getParameter(DOWNLOAD_FIELD_NAME);		
+				contentDisposition = request.getParameter(DOWNLOAD_CONTENT_DISPOSITION);
+			}
+			
 			String fileFieldName = fileRecordDefinition.getFieldMap().get(fieldName);
+			String tableName = fileRecordDefinition.getTableName();	
+			
+			response.setContentType(mimeType + ";charset=" + textFileCharset);			
+			addAntiCachingHeaders(response);
+			
+			if(DOWNLOAD_CONTENT_DISPOSITION_INLINE.equals(contentDisposition)){
+				response.setHeader("Content-disposition", "inline");
+			} else if(DOWNLOAD_CONTENT_DISPOSITION_ATTACHMENT.equals(contentDisposition)){
+				setAttachedFileName(response, fileName, fileExtension, fileNamePrefix, recordKey);
+			}
+			
 			JepTypeEnum fileFieldType = fileRecordDefinition.getTypeMap().get(fieldName);
-			String tableName = fileRecordDefinition.getTableName();
+			
 			ServletOutputStream outputStream = response.getOutputStream();
 			
 			if(fileFieldType == BINARY_FILE) {
@@ -145,17 +205,17 @@ public class JepDownloadServlet extends HttpServlet {
 	}
 
 	/**
-	 * Установка имени выгружаемого файла (в случае, если файл выгружается как вложение).
+	 * Установка имени выгружаемого файла (в случае, если файл выгружается как вложение).<br>
+	 * Имя файла кодируется; недопустимые символы заменяются знаками подчёркивания.
 	 * @param response ответ сервлета
-	 * @param request запрос к сервлету
+	 * @param fileName имя файла
+	 * @param fileExtension расширение
+	 * @param fileNamePrefix префикс имени файла
 	 * @param recordKey ключ записи
 	 * @throws UnsupportedEncodingException 
 	 */
-	protected void setAttachedFileName(HttpServletResponse response,
-			HttpServletRequest request, String recordKey) throws UnsupportedEncodingException {
-		String fileName = request.getParameter(DOWNLOAD_FILE_NAME_REQUEST_PARAMETER);
-		String fileNamePrefix = request.getParameter(DOWNLOAD_FILE_NAME_PREFIX_REQUEST_PARAMETER);
-		String fileExtension = request.getParameter(DOWNLOAD_EXTENSION_REQUEST_PARAMETER);
+	protected void setAttachedFileName(HttpServletResponse response, String fileName, String fileExtension, 
+			String fileNamePrefix, String recordKey) throws UnsupportedEncodingException {
 		String downloadFileName;
 		if(!JepRiaUtil.isEmpty(fileName)){
 			downloadFileName = fileName;
@@ -170,8 +230,8 @@ public class JepDownloadServlet extends HttpServlet {
 		} else {
 			fileExtension = "";
 		}
-		
-		response.setHeader("Content-disposition", "attachment; filename=\"" + URLEncoder.encode(downloadFileName, textFileCharset + "") + fileExtension + "\"");
+
+		response.setHeader("Content-disposition", "attachment; filename*=UTF-8''" + encodeURIComponent(replaceIllegalCharacters(downloadFileName)) + replaceIllegalCharacters(fileExtension) + "");
 	}
 
 	/**
