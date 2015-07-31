@@ -2,7 +2,7 @@ package com.technology.jep.jepria.shared.text;
 
 /**
  * Interface to represent the constants contained in resource bundle:
- * 	'D:/JEP/Module/JepRia/Trunk/App/src/java/com/technology/jep/jepria/shared/text/JepRiaText.properties'.
+ * 	'D:/Project/Git/JepRia/Module/JepRia/App/src/java/com/technology/jep/jepria/shared/text/JepRiaText.properties'.
  */
 public interface JepRiaText extends com.google.gwt.i18n.client.Constants {
   
@@ -1418,6 +1418,15 @@ public interface JepRiaText extends com.google.gwt.i18n.client.Constants {
   @DefaultStringValue("Изображение")
   @Key("wysiwyg.toolbar.insertImage")
   String wysiwyg_toolbar_insertImage();
+
+  /**
+   * Translated "Необходимо выбрать файл с расширением {0} и размером не более {1} Кб!".
+   * 
+   * @return translated "Необходимо выбрать файл с расширением {0} и размером не более {1} Кб!"
+   */
+  @DefaultStringValue("Необходимо выбрать файл с расширением {0} и размером не более {1} Кб!")
+  @Key("wysiwyg.toolbar.insertImage.fileExtensionOrSizeError")
+  String wysiwyg_toolbar_insertImage_fileExtensionOrSizeError();
 
   /**
    * Translated "Курсив".

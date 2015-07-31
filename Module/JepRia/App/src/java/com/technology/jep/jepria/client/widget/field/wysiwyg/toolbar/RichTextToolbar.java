@@ -1,15 +1,20 @@
 package com.technology.jep.jepria.client.widget.field.wysiwyg.toolbar;
 
+import static com.technology.jep.jepria.client.widget.field.wysiwyg.toolbar.upload.ImageUploadFile.*;
+import static com.technology.jep.jepria.client.JepRiaClientConstant.FIELD_DEFAULT_HEIGHT;
+import static com.technology.jep.jepria.client.JepRiaClientConstant.JepTexts;
 import static com.technology.jep.jepria.client.widget.field.wysiwyg.toolbar.ColorPicker.BLACK;
-import static com.technology.jep.jepria.client.JepRiaClientConstant.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import com.google.gwt.core.client.JavaScriptException;
+import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.core.shared.GWT;
+import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style.TextAlign;
 import com.google.gwt.dom.client.Style.Unit;
+import com.google.gwt.event.dom.client.ChangeEvent;
+import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyUpEvent;
@@ -20,6 +25,7 @@ import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DecoratedPopupPanel;
+import com.google.gwt.user.client.ui.FileUpload;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.PopupPanel;
@@ -39,9 +45,13 @@ import com.technology.jep.jepria.client.widget.field.ComboBox;
 import com.technology.jep.jepria.client.widget.field.multistate.JepComboBoxField;
 import com.technology.jep.jepria.client.widget.field.multistate.event.BeforeSelectEvent;
 import com.technology.jep.jepria.client.widget.field.multistate.event.BeforeSelectEvent.BeforeSelectHandler;
+import com.technology.jep.jepria.client.widget.field.multistate.large.JepImageField;
 import com.technology.jep.jepria.client.widget.field.wysiwyg.toolbar.images.RichTextToolbarImages;
+import com.technology.jep.jepria.client.widget.field.wysiwyg.toolbar.upload.FileReader;
+import com.technology.jep.jepria.client.widget.field.wysiwyg.toolbar.upload.ImageUploadFile;
+import com.technology.jep.jepria.client.widget.field.wysiwyg.toolbar.upload.ProgressCallback;
+import com.technology.jep.jepria.client.widget.field.wysiwyg.toolbar.upload.ProgressEvent;
 import com.technology.jep.jepria.shared.field.option.JepOption;
-import com.technology.jep.jepria.shared.util.JepRiaUtil;
 
 /**
  * A sample toolbar for use with {@link RichTextArea}. It provides a simple UI
@@ -49,7 +59,12 @@ import com.technology.jep.jepria.shared.util.JepRiaUtil;
  * functionality.
  */
 public class RichTextToolbar extends Composite {
-
+	
+	/**
+	 * Наименование идентификатора загрузчика картинок в DOM-дереве.
+	 */
+	private static final String IMAGE_UPLOAD_FIELD_ID = "iconUploadWidget";
+	
 	/**
 	 * HTML Pattern for options of font choice.
 	 */
@@ -69,6 +84,11 @@ public class RichTextToolbar extends Composite {
 	 * Choice width.
 	 */
 	private static final int CHOICE_WIDTH = 123;
+	
+	/**
+	 * Popup panel for image uploading.
+	 */
+	private PopupPanel imagePopupPanel = null;
 
 	/**
 	 * We use an inner EventHandler class to avoid exposing event methods on the
@@ -102,10 +122,8 @@ public class RichTextToolbar extends Composite {
 			} else if (sender == justifyRight) {
 				formatter.setJustification(RichTextArea.Justification.RIGHT);
 			} else if (sender == insertImage) {
-				String url = Window.prompt(JepTexts.wysiwyg_toolbar_prompt_image(), PREFIX_URL);
-				if (url != null) {
-					formatter.insertImage(url);
-				}
+				PopupPanel p = createImageMenu();
+				p.showRelativeTo(sender);
 			} else if (sender == createLink) {
 				String url = Window.prompt(JepTexts.wysiwyg_toolbar_prompt_link(), PREFIX_URL);
 				if (url != null) {
@@ -234,7 +252,6 @@ public class RichTextToolbar extends Composite {
 		// unless at least basic editing is supported.
 		richText.addKeyUpHandler(handler);
 		richText.addClickHandler(handler);
-		
 	}
 
 	private PushButton createColorPickerButton(String caption) {
@@ -410,4 +427,69 @@ public class RichTextToolbar extends Composite {
 	    return panel;
 	}
 	
+	private JepImageField createImageUpload() {
+		final JepImageField imageField = new JepImageField();
+		imageField.setLabelWidth(1);
+		final FileUpload imageUpload = imageField.getEditableCard();
+		imageUpload.getElement().setId(IMAGE_UPLOAD_FIELD_ID);
+	    final Element imageUploadElement = imageUpload.getElement();
+	    imageUploadElement.setAttribute("accept", "image/*");
+	    // handle change event
+	    imageUpload.addChangeHandler(new ChangeHandler() {
+			@Override
+			public void onChange(ChangeEvent event) {
+				Scheduler.get().scheduleDeferred(new Scheduler.ScheduledCommand() {
+		            @Override
+		            public void execute() {
+		            	imageField.clearInvalid();
+		                if (!handleUploadIfValid(imageField)){
+		                	imageField.markInvalid(JepClientUtil.substitute(JepTexts.wysiwyg_toolbar_insertImage_fileExtensionOrSizeError(), Arrays.toString(AVAILABLE_IMAGE_EXTENSION), MAX_IMAGE_SIZE));
+		                	return;
+		                }
+	                	// hide and clear popup panel
+		                if (imagePopupPanel != null) {
+		                	imagePopupPanel.hide();
+		                	imagePopupPanel = null;
+		                }
+		            }
+		        });
+			}
+		});
+	    return imageField;
+	}
+	
+	private PopupPanel createImageMenu() {
+		final JepImageField imageUploadField = createImageUpload();
+		if (imagePopupPanel == null) {
+			this.imagePopupPanel = new DecoratedPopupPanel(true);
+			this.imagePopupPanel.setPreviewingAllNativeEvents(true);
+			this.imagePopupPanel.setAnimationType(AnimationType.ROLL_DOWN);
+			this.imagePopupPanel.getElement().getStyle().setZIndex(10);
+		}
+		imagePopupPanel.setWidget(imageUploadField);
+		return imagePopupPanel;
+	}
+	
+	private native ImageUploadFile getImageUploadFile(String id) /*-{
+		return $wnd.document.getElementById(id).files[0];
+	}-*/;
+
+	private boolean handleUploadIfValid(final JepImageField imageField) {
+		ImageUploadFile file = getImageUploadFile(imageField.getEditableCard().getElement().getId());
+		
+		if (!file.isValid()) return false;
+		
+		FileReader reader = FileReader.create();
+		reader.readAsDataURL(file, new ProgressCallback() {
+			@Override
+		    public void onError(ProgressEvent e) {
+				GWT.log("Error with upload");
+		    }
+		    @Override
+		    public void onLoad(ProgressEvent e) {
+		    	formatter.insertImage(e.getResult());
+		    }
+		});
+		return true;
+	}
 }
