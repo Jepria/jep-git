@@ -2153,8 +2153,8 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 							"	public List<JepOption> get", subtractFieldId, "() throws ApplicationException {", END_OF_LINE, 
 							"		List<JepOption> result = null;", END_OF_LINE, 
 							"		try {", END_OF_LINE,
-							"			JepDataStandard ejb = (JepDataStandard) JepServerUtil.ejbLookup(ejbName);", END_OF_LINE, 
-							"			result = ((", formName, ") ejb).get", subtractFieldId, "();", END_OF_LINE, 
+							"			", formName, " ", formName.toLowerCase(), " = (", formName, ") JepServerUtil.ejbLookup(ejbName);", END_OF_LINE, 
+							"			result = ", formName.toLowerCase(), ".get", subtractFieldId, "();", END_OF_LINE, 
 							"		} catch (Throwable th) {", END_OF_LINE,
 							"			throw new ApplicationException(th.getLocalizedMessage(), th);", END_OF_LINE, 
 							"		}", END_OF_LINE, 
@@ -2173,7 +2173,6 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 							"import com.technology.jep.jepria.server.util.JepServerUtil;", END_OF_LINE, 
 							"import com.technology.jep.jepria.shared.field.option.JepOption;", END_OF_LINE,
 							"import com.technology.jep.jepria.shared.exceptions.ApplicationException;", END_OF_LINE,
-							"import com.technology.jep.jepria.server.ejb.JepDataStandard;", END_OF_LINE, 
 							"import com.technology.", packageModuleFormName, ".server.ejb.", formName, ";", END_OF_LINE, 
 							"import java.util.List;", END_OF_LINE
 							)),
