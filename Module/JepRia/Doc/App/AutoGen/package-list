@@ -57,6 +57,7 @@ com.technology.jep.jepria.client.widget.field.validation
 com.technology.jep.jepria.client.widget.field.wysiwyg
 com.technology.jep.jepria.client.widget.field.wysiwyg.toolbar
 com.technology.jep.jepria.client.widget.field.wysiwyg.toolbar.images
+com.technology.jep.jepria.client.widget.field.wysiwyg.toolbar.upload
 com.technology.jep.jepria.client.widget.list
 com.technology.jep.jepria.client.widget.list.cell
 com.technology.jep.jepria.client.widget.list.event
