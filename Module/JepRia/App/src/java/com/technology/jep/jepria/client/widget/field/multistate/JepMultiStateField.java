@@ -467,7 +467,7 @@ public abstract class JepMultiStateField<E extends Widget, V extends Widget> ext
 	/**
 	 * Установка сообщения об ошибке.
 	 * 
-	 * @param error сообщение обшибке
+	 * @param error текст сообщения об ошибке
 	 */
 	public void markInvalid(String error) {
 		Element inputElement = getInputElement();

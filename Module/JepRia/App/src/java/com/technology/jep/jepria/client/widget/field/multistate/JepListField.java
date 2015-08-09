@@ -7,6 +7,7 @@ import static com.technology.jep.jepria.client.widget.event.JepEventType.CHANGE_
 
 import java.util.List;
 
+import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
@@ -197,8 +198,40 @@ public class JepListField extends JepMultiStateField<CheckBoxListField<JepOption
 		loadingIcon.setTitle(imageVisible ? JepTexts.loadingPanel_dataLoading() : "");
 		loadingIcon.setAltText(imageVisible ? JepTexts.loadingPanel_dataLoading() : "");
 		loadingIcon.setVisible(imageVisible);
+	}	
+	/**
+	 * Установка сообщения об ошибке.
+	 * Метод переопределён в связи с особенностями компонента редактирования
+	 * данного поля.
+	 * @param error текст сообщения об ошибке
+	 */
+	@Override
+	public void markInvalid(String error) {
+		if (errorIcon == null) {
+			errorIcon = new Image(JepImages.field_invalid());
+			errorIcon.addStyleName(FIELD_INDICATOR_STYLE);
+		} 
+		if (!errorIcon.isAttached()) {
+			editableCard.add(errorIcon);
+		}
+		errorIcon.setTitle(error);
+		errorIcon.setAltText(error);
+		errorIcon.setVisible(true);
 	}
 	
+	/**
+	 * Очистка сообщения об ошибке.<br>
+	 * Метод переопределён в связи с особенностями компонента редактирования
+	 * данного поля.
+	 */
+	public void clearInvalid(){
+		if (errorIcon != null) {
+			errorIcon.setTitle("");
+			errorIcon.setAltText("");
+			errorIcon.setVisible(false);			
+		}
+	}
+
 	/**
 	 * Установка доступности или недоступности (карты Редактирования) поля для редактирования.<br>
 	 * Метод переопределён, т.к. компонент редактирования {@link CheckBoxListField}
