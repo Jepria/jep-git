@@ -183,6 +183,9 @@ public abstract class JepMultiStateField<E extends Widget, V extends Widget> ext
 		tdLabel.removeAttribute(ALIGN_ATTRIBUTE_NAME);
 		tdLabel.addClassName(LABEL_FIELD_STYLE);
 		add(editablePanel);
+		// Если у добавляемого виджета не задана ширина, DeckPanel выставит 100%.
+		// Нам это не нужно, т.к. приводит к смещению вправо индикаторов загрузки и некорректного значения.
+		editablePanel.getElement().getStyle().clearWidth();
 
 		observable = new JepObservableImpl();
 		// Добавляем карту просмотра.
@@ -448,16 +451,13 @@ public abstract class JepMultiStateField<E extends Widget, V extends Widget> ext
 	 * @param imageVisible показать/скрыть изображение загрузки
 	 */
 	public void setLoadingImage(boolean imageVisible) {
-		Element inputElement = getInputElement();
 		if (loadingIcon == null) {
 			loadingIcon = new Image(JepImages.loading());
 			loadingIcon.addStyleName(FIELD_INDICATOR_STYLE);
 			
 		} 
 		if (!loadingIcon.isAttached()) {
-			Element parentElement = inputElement.getParentElement();
-			Element iconElement = loadingIcon.getElement();
-			parentElement.appendChild(iconElement);
+			editablePanel.add(loadingIcon);
 		}
 		loadingIcon.setTitle(imageVisible ? JepTexts.loadingPanel_dataLoading() : "");
 		loadingIcon.setAltText(imageVisible ? JepTexts.loadingPanel_dataLoading() : "");
@@ -470,23 +470,22 @@ public abstract class JepMultiStateField<E extends Widget, V extends Widget> ext
 	 * @param error текст сообщения об ошибке
 	 */
 	public void markInvalid(String error) {
-		Element inputElement = getInputElement();
-		Style elementStyle = inputElement.getStyle();
-		elementStyle.setBorderColor("#c30");
 		if (errorIcon == null) {
 			errorIcon = new Image(JepImages.field_invalid());
 			errorIcon.addStyleName(FIELD_INDICATOR_STYLE);
 		} 
 		if (!errorIcon.isAttached()) {
-			Element parentElement = inputElement.getParentElement();
-			Element iconElement = errorIcon.getElement();
-			parentElement.appendChild(iconElement);
+			editablePanel.add(errorIcon);
 		}
 		errorIcon.setTitle(error);
 		errorIcon.setAltText(error);
 		errorIcon.setVisible(true);
 		
 		markedInvalid = true;
+		
+		Element inputElement = getInputElement();
+		Style elementStyle = inputElement.getStyle();
+		elementStyle.setBorderColor("#c30");
 	}
 	
 	/**

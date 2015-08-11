@@ -1,18 +1,15 @@
 package com.technology.jep.jepria.client.widget.field.multistate;
 
 import static com.technology.jep.jepria.client.JepRiaClientConstant.FIELD_DEFAULT_HEIGHT;
-import static com.technology.jep.jepria.client.JepRiaClientConstant.JepImages;
 import static com.technology.jep.jepria.client.JepRiaClientConstant.JepTexts;
 import static com.technology.jep.jepria.client.widget.event.JepEventType.CHANGE_SELECTION_EVENT;
 
 import java.util.List;
 
-import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.user.client.ui.HTML;
-import com.google.gwt.user.client.ui.Image;
 import com.technology.jep.jepria.client.ui.WorkstateEnum;
 import com.technology.jep.jepria.client.widget.event.JepEvent;
 import com.technology.jep.jepria.client.widget.event.JepEventType;
@@ -177,59 +174,6 @@ public class JepListField extends JepMultiStateField<CheckBoxListField<JepOption
 	
 	public void setFieldHeight(double fieldHeight){
 		editableCard.setHeight(fieldHeight + Unit.PX.getType());
-	}
-
-	/**
-	 * Установка или скрытие изображения загрузки (справа от карты редактирования).<br>
-	 * Метод переопределён в связи с особенностями компонента редактирования
-	 * данного поля.
-	 * @param imageVisible показать/скрыть изображение загрузки
-	 */
-	@Override
-	public void setLoadingImage(boolean imageVisible) {
-		if (loadingIcon == null) {
-			loadingIcon = new Image(JepImages.loading());
-			loadingIcon.addStyleName(FIELD_INDICATOR_STYLE);
-			
-		} 
-		if (!loadingIcon.isAttached()) {
-			editableCard.add(loadingIcon);
-		}
-		loadingIcon.setTitle(imageVisible ? JepTexts.loadingPanel_dataLoading() : "");
-		loadingIcon.setAltText(imageVisible ? JepTexts.loadingPanel_dataLoading() : "");
-		loadingIcon.setVisible(imageVisible);
-	}	
-	/**
-	 * Установка сообщения об ошибке.
-	 * Метод переопределён в связи с особенностями компонента редактирования
-	 * данного поля.
-	 * @param error текст сообщения об ошибке
-	 */
-	@Override
-	public void markInvalid(String error) {
-		if (errorIcon == null) {
-			errorIcon = new Image(JepImages.field_invalid());
-			errorIcon.addStyleName(FIELD_INDICATOR_STYLE);
-		} 
-		if (!errorIcon.isAttached()) {
-			editableCard.add(errorIcon);
-		}
-		errorIcon.setTitle(error);
-		errorIcon.setAltText(error);
-		errorIcon.setVisible(true);
-	}
-	
-	/**
-	 * Очистка сообщения об ошибке.<br>
-	 * Метод переопределён в связи с особенностями компонента редактирования
-	 * данного поля.
-	 */
-	public void clearInvalid(){
-		if (errorIcon != null) {
-			errorIcon.setTitle("");
-			errorIcon.setAltText("");
-			errorIcon.setVisible(false);			
-		}
 	}
 
 	/**
