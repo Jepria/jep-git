@@ -2,4 +2,21 @@
 Module/JepRia/App/build/
 Module/JepRia/App/build-auto/
 Module/JepRia/App/build-test/
+Module/JepRia/App/lib/jepria-auto.jar
+Module/JepRia/App/lib/jepria-ejb.jar
+Module/JepRia/App/lib/jepria-oc4j.jar
+Module/JepRia/App/lib/jepria-test.jar
+Module/JepRia/App/lib/jepria-weblogic.jar
+Module/JepRia/App/lib/jepria.jar
 Module/JepRia/App/log/
+
+# JepRiaToolkit specific
+Module/JepRiaToolkit/App/lib/jepriatoolkit.jar
+Module/JepRiaToolkit/App/log/
+Module/JepRiaToolkit/App/classes/
+
+# Eclipse project files
+/bin/
+.classpath
+.project
+.settings
