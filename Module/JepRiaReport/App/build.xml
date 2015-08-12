@@ -1,0 +1,132 @@
+﻿<project name="Jep Module Building" default="build">
+
+	<property file="build.properties"/>
+        
+	<property name="J2EE_HOME" value="${OC4J_HOME}/j2ee/home" />
+	
+	<property name="JEP_RIA" value="${COMMON_HOME}/Module/JepRia/${JEP_RIA_VERSION}/App" />
+	
+	<property name="PROJECT_COMMON" value="${PROJECT_HOME}/Module/${PROJECT_NAME}Common/${PROJECT_COMMON_VERSION}/App" />
+	<property name="MODULE_PACKAGE" value="com/technology/${PROJECT_NAME_IN_PACKAGE}/${MODULE_NAME_IN_PACKAGE}" />
+	<property name="RESOURCE_HOME" value="src/resources/${MODULE_PACKAGE}" />
+	<property name="JAVA_DOC_DIR" value="../Doc/App/AutoGen" />
+
+	<property name="LOG_LEVEL" value="info" />
+
+	<path id="libs">
+		<pathelement location="${JEP_RIA}/lib/jepria.jar" />
+		<pathelement location="${GWT_HOME}/gwt-user.jar" />
+		<pathelement location="${GWT_HOME}/gwt-servlet.jar" />
+		<pathelement location="${GXT_HOME}/gxt.jar" />
+		<pathelement location="${J2EE_HOME}/lib/servlet.jar" />
+		<pathelement location="${J2EE_HOME}/lib/ejb30.jar" />
+		<pathelement location="${J2EE_HOME}/lib/jta.jar" />
+		<pathelement location="${J2EE_HOME}/lib/oc4j-internal.jar" />
+		<pathelement location="${J2EE_HOME}/jazncore.jar" />
+		<pathelement location="${OC4J_HOME}/jdbc/lib/ojdbc14dms.jar" />
+		<pathelement location="${LOG4J_HOME}/log4j.jar" />
+		<pathelement location="${JASPER_REPORTS_HOME}/jasperreports.jar" />
+	</path>
+	
+	<fileset id="class-jar" dir="build">
+		<include name="**/*.class" />
+	</fileset>
+<!--	
+	<fileset id="ejb-jar" dir="build">
+		<include name="**/*Bean*.class" />
+	</fileset>
+-->
+	<fileset id="src-jar" dir="src/java">
+		<include name="**/client/**/*.java" />
+		<include name="**/shared/**/*.java" />
+		<include name="**/images/*.png" />
+		<include name="**/images/*.gif" />
+		<include name="**/${MODULE_NAME}Text.properties" />
+		<include name="**/${MODULE_NAME}Text_??.properties" />
+		<include name="**/log4j.properties" />
+	</fileset>
+	
+	<fileset id="font-jar" dir="src/resources\com\technology\jep\jepreport\fonts">
+		<include name="fonts.xml" />
+		<include name="jasperreports_extension.properties" />
+		<include name="*.ttf" />
+	</fileset>
+
+	<target name="start-log">
+		<echo>JEP_RIA: ${JEP_RIA}</echo>		
+		<mkdir dir="log" />
+			<tstamp>
+				<format property="timestamp" pattern="yyyyMMdd_HHmmss"/>
+			</tstamp>
+			<dirname property="pdir" file="." />
+				<basename property="version" file="${pdir}" />
+				<record name="log/${timestamp}-${MODULE_NAME}-${version}-${PROJECT_NAME}.txt" loglevel="${LOG_LEVEL}" />
+	</target>
+
+	<target name="text-resources-update-check" depends="start-log">
+		<uptodate targetfile="src/java/${MODULE_PACKAGE}/shared/text/${MODULE_NAME}Text.properties" property="text-resources-is-uptodate">
+			<srcfiles dir="src/java/${MODULE_PACKAGE}/shared/text" includes="*.properties"/>
+		</uptodate>
+	</target>
+        
+	<target name="encode-text-resources" depends="text-resources-update-check" unless="text-resources-is-uptodate">
+		<native2ascii encoding="UTF-8" src="src/java/${MODULE_PACKAGE}/shared/text" dest="src/java/${MODULE_PACKAGE}/shared/text"
+			ext=".target_properties" includes="**/*_Source.properties" />
+		<move file="src/java/${MODULE_PACKAGE}/shared/text/${MODULE_NAME}Text_Source.target_properties" 
+			tofile="src/java/${MODULE_PACKAGE}/shared/text/${MODULE_NAME}Text.properties"/>
+	</target>
+
+<!--	<target name="compile-java" depends="encode-text-resources" unless="text-resources-is-uptodate"> -->
+	<target name="compile-java">
+		<mkdir dir="build" />
+		<javac srcdir="src/java" destdir="build" debug="on" encoding="utf-8" target="1.5" includeantruntime="false" >
+			<classpath refid="libs" />
+		</javac>
+	</target>
+
+	<target name="jar-update-check" depends="compile-java">
+		<uptodate targetfile="lib/${MODULE_NAME_IN_PACKAGE}.jar" property="jar-is-uptodate">
+			<srcfiles refid="class-jar" />
+			<srcfiles refid="src-jar" />
+		</uptodate>
+	</target>
+        
+	<target name="jar" depends="jar-update-check" unless="jar-is-uptodate">
+		<jar destfile="lib/${MODULE_NAME_IN_PACKAGE}.jar">
+			<fileset refid="class-jar" />
+			<fileset refid="src-jar" />
+			<fileset refid="font-jar" />
+		</jar>
+	</target>
+	
+	<target name="ejb-jar-update-check" depends="compile-java">
+		<uptodate targetfile="lib/${MODULE_NAME_IN_PACKAGE}-ejb.jar" property="ejb-jar-is-uptodate">
+			<srcfiles dir="build" includes="**/*Bean*.class" />
+		</uptodate>
+	</target>
+        
+	<target name="ejb-jar" depends="ejb-jar-update-check" unless="ejb-jar-is-uptodate">
+		<jar destfile="lib/${MODULE_NAME_IN_PACKAGE}-ejb.jar" basedir="build" includes="**/*Bean*.class" />
+	</target>
+	
+	<target name="build" depends="jar, ejb-jar"/>
+
+	<target name="doc" depends="start-log">
+		<javadoc sourcepath="src/java" 
+			packagenames="*" 
+			overview="src/java/${MODULE_PACKAGE}/overview.html" 
+			destdir="${JAVA_DOC_DIR}"
+			encoding="UTF-8"
+			docencoding="UTF-8"
+			charset="UTF-8">
+			<classpath refid="libs" />
+		</javadoc>
+	</target>
+
+	<target name="clean" depends="start-log">
+		<delete includeemptydirs="true">
+			<fileset dir="build"/>
+			<fileset dir="src/java" includes="**/${MODULE_NAME}Text.java"/>
+		</delete>
+	</target>
+</project>

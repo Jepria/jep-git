@@ -1,0 +1,144 @@
+<html>
+<head>
+<!--
+
+  @(#)jepreport.html	1.0 08.10.2009
+
+  Copyright ...
+-->
+</head>
+<body bgcolor="white">
+
+Пакет содержит средства поддержки работы с отчётами JasperReports на платформе JEP.<br/>
+
+<h2>Содержание Description</h2>
+
+<ul>
+  <li><a href="#systemRequirements">Системные требования</a>
+  <li><a href="#distr">Дистрибутивы</a>
+  <li><a href="#install">Установка</a>
+  <li><a href="#reports">Разработка отчётов с использованием JasperReports</a>
+  <ul>
+    <li><a href="#reportCreationSteps">Основные шаги разработки</a>
+    <li><a href="#reportKinds">Виды отчётов</a>
+  </ul>
+  <li><a href="#featuresOfStrutsConfigCreation">Особенности конфигурирования struts-config.xml</a>
+  <li><a href="#webxmlConfig">Особенности конфигурирования web.xml</a>
+  <li><a href="#templatePlace">Размещение шаблонов отчётов</a>
+  <li><a href="#largeReports">Поддержка &quot;больших отчётов&quot;</a>
+  <li><a href="#iReport">Среда визуальной разработки шаблонов <i>iReport</i></a>
+  <li><a href="#jrCompiler">Компилятор отчётов <i>JrCompiler</i></a>
+  <li><a href="#literature">Литература</a>
+  <li><a href="#error">Ошибки</a>
+  <li><a href="#todo">Доработки</a>
+</ul>
+
+<h3><a name="systemRequirements">Системные требования</a></h3>
+Для разработки отчётов <i>JasperReports</i> необходимо установить версии продуктов <i>JasperReports</i> и <i>iReport</i>, используемые в текущий момент (номера используемых версий необходимо уточнить у ответственных сотрудников). 
+Продукт <i>JasperReports</i> содержит необходимые библиотеки для поддержки работы отчётов во время выполнения, а также исходный код и множество примеров.
+Среда разработки <i>iReport</i>  используется для создания шаблонов отчётов в режиме WYSIWYG.
+
+<h3><a name="distr">Дистрибутивы</a></h3>
+Дистрибутивы, используемые для работы с системой JasperReports, находятся в директории <i>\\smskss1\install\!DT\JasperReports</i>.
+Дистрибутивы библиотеки JasperReports представляют собой установочные архивы вида jasperreports-x.y.z-project.zip, где x.y.z – номер версии продукта.
+Дистрибутивы среды разработки шаблонов отчётов iReport представляют собой установочные архивы вида iReport-nb- x.y.z.zip, где x.y.z – номер версии продукта.
+
+<h3><a name="install">Установка продуктов</a></h3>
+Оба продукта <i>JasperReports</i> и <i>iReport</i> устанавливаются простым копированием содержимого установочных архивов.
+
+<h3><a name="reports">Разработка отчётов с использованием JasperReports</a></h3>
+<h4><a name="reportCreationSteps">Основные шаги разработки</a></h3>
+В общем случае разработка отчёта для прикладного модуля <i>Jep</i> состоит из следующих шагов:
+<ol>
+	<li>Разработка шаблона отчёта и, если необходимо, его подотчётов.
+	<li>Создание на jsp кнопок инструментальной панели, инициирующих запрос на построение отчёта
+	<li>Разработка класса (наследника <i>JepAction</i>), обрабатывающего запрос на построение отчёта. 
+	<li>Подготовка скриптов сборки (setEnvironment.bat и make.bat) для создания и включения  в установочный архив модуля всего, что необходимо для работы с создаваемым отчётом.
+</ol>
+<h4><a name="reportKinds">Виды отчётов</a></h3>
+JepReport поддерживает разработку 3-х основных видов отчётов:
+<ul>
+	<li>Несписочная форма (бланки, письма и т.п.)
+	<li>Списочная форма
+	<li>Списочная форма для <i>больших отчётов</i>.
+<br>
+Под &quot;большими отчётами&quot; в данном случае понимаются отчёты, требующие большого объёма вычислительных ресурсов,
+главным образом, оперативной памяти сервера.
+<br>
+Для создания перечисленных видов отчётов используется методы класса <code>{@link com.technology.jep.jepreport.JepReportManager}</code>,
+соответственно, для несписочных форм: <code>{@link com.technology.jep.jepreport.JepReportManager#preparePrintForm(HttpServletRequest, JepReportParameters, String)}</code>,
+а для списочных - <code>{@link com.technology.jep.jepreport.JepReportManager#prepareReport(HttpServletRequest, JepReportParameters, String, String)}</code> и <code>{@link com.technology.jep.jepreport.JepReportManager#prepareLargeReport(HttpServletRequest, JepReportParameters, String, String)}</code>.
+<p>
+Методам, работающим со списочными формами отчётов необходим параметр, указывающий на источник данных.
+Для обычных списочных форм источником являются объекты <code>SimpleViewObject</code> (и тогда параметром передаётся имя атрибута сессии,
+хранящего такие объекты), а для больших отчётов - EJB, специально разработанные в прикладных модулях (и тогда параметром передаётся JNDI-имя
+EJB-модуля, реализующего интерфейс <code>JepLargeReport</code>.
+</ul>
+
+
+<h3><a name="featuresOfStrutsConfigCreation">Особенности конфигурирования struts-config.xml</a></h3>
+Ниже приведён пример определения тега &lt;forward&gt; для вызова сервлета, экспортирующего в формат PDF.
+<pre>
+...
+&lt;action path="/welcomeOutput" type="com.technology.rfi.dswelcome.action.WelcomeOutputAction" name="welcomeForm" scope="session"&gt;
+	...
+<b>	
+	&lt;forward name="getDsSchedule" path="/WEB-INF/jsp/com/technology/rfi/dswelcome/welcome.jsp?postAction=window.open(&quot;/DSWelcome/servlets/pdf&quot;,&quot;_blank&quot;);"/&gt;
+</b>	
+	...
+&lt;/action&gt;
+...
+</pre>
+
+<h3><a name="webxmlConfig">Особенности конфигурирования web.xml</a></h3>
+Экспорт отчёта из внутреннего представления в различные форматы обеспечивается экспортирующими сервлетами.
+Для форматов PDF, RTF, EXCEL, HTML и т. д. существуют сервлеты экспорта. По сервлетам экспорта есть информация в 
+установке JasperReports (можно посмотреть примеры, состав библиотек и т.п.). Для формата HTML в составе <i>JepReport</i> разработан сервлет 
+<code>com.technology.jep.jepreport.servlet.HtmlServlet</code>.
+Ниже приведён пример фрагмента <i>web.xml</i>, в котором сконфигурирован сервлет экспорта в PDF.
+<pre>
+...
+  &lt;servlet&gt;
+	&lt;servlet-name&gt;PdfServlet&lt;/servlet-name&gt;
+	&lt;servlet-class&gt;net.sf.jasperreports.j2ee.servlets.PdfServlet&lt;/servlet-class&gt;
+  &lt;/servlet&gt;
+...
+  &lt;servlet-mapping&gt;
+	&lt;servlet-name&gt;PdfServlet&lt;/servlet-name&gt;
+	&lt;url-pattern&gt;/servlets/pdf&lt;/url-pattern&gt;
+  &lt;/servlet-mapping&gt;
+...
+</pre>
+
+<h3><a name="templatePlace">Размещение шаблонов отчётов</a></h3>
+Во время выполнения шаблоны отчётов (и подотчётов) размещаются в ресурсной директории <i>%RESOURCE_HOME%\%MODULE_PACKAGE%\report</i>.
+
+<h3><a name="largeReports">Поддержка &quot;больших отчётов&quot;</a></h3>
+Для работы с большими отчётами в <i>JepReport</i> создан специальный источник данных,
+<code>com.technology.jep.jepreport.large.JepLargeReportDataSource</code>, который на уровне EJB работает с курсором БД, выгружая
+на уровень web порции данных. На уровне web, в свою очередь, используется режим виртуализации (размещения части данных отчёта на дисковой памяти),
+поддерживаемый средствами <i>JasperReports</i>.
+
+<h3><a name="iReport">Среда визуальной разработки шаблонов <i>iReport</i></a></h3>
+Во многом позволяет избежать ручного кодирования jrxml-представления шаблонов отчётов, особенно полезен при выравнивании элементов отчёта,
+выполнении предварительных просмотров, которые можно выполнять в различных форматах и т.д.
+
+<h3><a name="jrCompiler">Компилятор отчётов <i>JrCompiler</i></a></h3>
+Используется для компиляции шаблонов отчётов формата <i>.jrxml</i>. В результате компиляции создаётся бинарный файл с расширением <i>.jasper</i>. 
+
+<h3><a name="literature">Литература</a></h3>
+Литература по JasperReports размещена в директории <i>\\smskss1\install\!DT\JasperReports\Doc\</i><br>
+<ul>
+	<li><a href="file://smskss1/install/!DT/JasperReports/Doc/The Definitive Guide to JasperReports.pdf">The Definitive Guide to JasperReports. Teodor Danciu and Lucian Chirita</a>.
+	<li><a href="file://smskss1/install/!DT/JasperReports/Doc/JasperReports for Java Developers.pdf">JasperReports for Java Developers. David R. Heffelfinger</a>.
+</ul>
+
+<h3><a name="error">Ошибки</a></h3>
+<br/>
+
+<h3><a name="todo">Доработки</a></h3>
+<br/>
+
+<!-- Put @see and @since tags down here. -->
+</body>
+</html>
