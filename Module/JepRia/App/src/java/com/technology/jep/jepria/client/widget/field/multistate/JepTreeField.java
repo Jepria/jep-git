@@ -260,6 +260,13 @@ public class JepTreeField extends JepMultiStateField<TreeField<JepOption>, HTML>
 	}
 	
 	/**
+	 * {@inheritDoc}
+	 */
+	public void setEnabled(boolean enabled) {
+		// TODO реализовать блокировку поля
+	}
+	
+	/**
 	 * Очищает значение поля.<br/>
 	 * После очистки значения поля, все узлы дерева сворачиваются.<br/>
 	 * Карта Просмотра не очищается, т.к. в данном компоненте она не используется.

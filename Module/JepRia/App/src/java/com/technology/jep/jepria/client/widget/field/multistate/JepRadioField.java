@@ -94,6 +94,13 @@ public class JepRadioField extends JepMultiStateField<RadioListField<JepOption>,
 	}
 	
 	/**
+	 * {@inheritDoc}
+	 */
+	public void setEnabled(boolean enabled) {
+		// TODO реализовать блокироку поля
+	}
+	
+	/**
 	 * {@inheritDoc} 
 	 */
 	@Override

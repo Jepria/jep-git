@@ -3,7 +3,6 @@ package com.technology.jep.jepria.client.widget.field.multistate;
 import static com.technology.jep.jepria.client.JepRiaClientConstant.TYPING_TIMEOUT_DEFAULT_VALUE;
 import static com.technology.jep.jepria.client.JepRiaClientConstant.TYPING_TIMEOUT_MIN_TEXT_SIZE;
 import static com.technology.jep.jepria.client.util.JepClientUtil.isSpecialKey;
-import static com.technology.jep.jepria.client.widget.event.JepEventType.CHANGE_VALUE_EVENT;
 import static com.technology.jep.jepria.client.widget.event.JepEventType.LOST_FOCUS_EVENT;
 import static com.technology.jep.jepria.client.widget.event.JepEventType.TYPING_TIMEOUT_EVENT;
 
@@ -19,11 +18,8 @@ import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.Timer;
-import com.google.gwt.user.client.ui.FocusWidget;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HasValue;
-import com.google.gwt.user.client.ui.TextBox;
-import com.google.gwt.user.client.ui.ValueBoxBase;
 import com.google.gwt.user.client.ui.Widget;
 import com.technology.jep.jepria.client.widget.event.JepEvent;
 import com.technology.jep.jepria.client.widget.event.JepEventType;
@@ -91,6 +87,13 @@ public abstract class JepBaseTextField<E extends Widget & HasValue> extends JepM
 			clearInvalid();
 			setViewValue(value);
 		}
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	public void setEnabled(boolean enabled) {
+		getInputElement().setPropertyBoolean("disabled", !enabled);
 	}
 	
 	/**

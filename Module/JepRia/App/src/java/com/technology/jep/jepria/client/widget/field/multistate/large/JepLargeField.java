@@ -139,6 +139,13 @@ public abstract class JepLargeField<V extends Widget> extends JepMultiStateField
 	/**
 	 * {@inheritDoc}
 	 */
+	public void setEnabled(boolean enabled) {
+		getInputElement().setPropertyBoolean("disabled", !enabled);
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void clear() {
 		super.clear();

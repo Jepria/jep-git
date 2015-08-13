@@ -427,9 +427,7 @@ public abstract class JepMultiStateField<E extends Widget, V extends Widget> ext
 	 * 
 	 * @param enabled true - поле доступно для редактирования, false - поле не доступно для редактирования
 	 */
-	public void setEnabled(boolean enabled) {
-		getInputElement().setPropertyBoolean("disabled", !enabled);
-	}
+	public abstract void setEnabled(boolean enabled);
 
 	/**
 	 * Установка возможности отображения карты Редактирования поля.

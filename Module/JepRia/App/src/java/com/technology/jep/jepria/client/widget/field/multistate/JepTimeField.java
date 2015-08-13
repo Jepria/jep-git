@@ -108,6 +108,13 @@ public class JepTimeField extends JepMultiStateField<MaskedDateBox, HTML> {
 			setViewValue(value);
 		}
 	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	public void setEnabled(boolean enabled) {
+		getInputElement().setPropertyBoolean("disabled", !enabled);
+	}
 
 	/**
 	 * {@inheritDoc}
