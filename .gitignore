@@ -10,10 +10,17 @@ Module/JepRia/App/lib/jepria-weblogic.jar
 Module/JepRia/App/lib/jepria.jar
 Module/JepRia/App/log/
 
+# JepRiaReport specific
+Module/JepRiaReport/App/lib/jepriareport.jar
+Module/JepRiaReport/App/lib/jepriareport-ejb.jar
+
 # JepRiaToolkit specific
 Module/JepRiaToolkit/App/lib/jepriatoolkit.jar
 Module/JepRiaToolkit/App/log/
 Module/JepRiaToolkit/App/classes/
+
+# JrCompiler specific
+Module/JrCompiler/App/lib/jrcompiler.jar
 
 # Eclipse project files
 /bin/
