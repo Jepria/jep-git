@@ -86,14 +86,6 @@ public class JepRichTextEditorField extends JepMultiStateField<RichTextEditorFie
 	 * {@inheritDoc} 
 	 */
 	@Override
-	public void setEmptyText(String emptyText){
-		throw new UnsupportedOperationException("RichTextEditorField can't set empty text!");
-	}
-	
-	/**
-	 * {@inheritDoc} 
-	 */
-	@Override
 	public void setEnabled(boolean enabled) {
 	}
 	

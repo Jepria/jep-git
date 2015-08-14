@@ -84,6 +84,14 @@ public class JepDualListField extends JepMultiStateField<DualListBox, HTML> impl
 	public void setOptions(List<JepOption> options) {
 		editableCard.setOptions(options);		
 	}
+	
+	/**
+	 * Метод не поддерживается данным полем.
+	 */
+	@Override
+	public String getRawValue(){
+		throw new UnsupportedOperationException("DualListField does not have a raw value.");
+	}
 
 	/**
 	 * Задаёт высоту компонента редактирования.<br>

@@ -126,6 +126,14 @@ public class JepListField extends JepMultiStateField<CheckBoxListField<JepOption
 	}
 	
 	/**
+	 * Метод не поддерживается данным полем.
+	 */
+	@Override
+	public String getRawValue(){
+		throw new UnsupportedOperationException("ListField does not have a raw value.");
+	}
+	
+	/**
 	 * {@inheritDoc}
 	 */
 	@Override
@@ -154,10 +162,13 @@ public class JepListField extends JepMultiStateField<CheckBoxListField<JepOption
 		
 	}
 	
+	// TODO Есть ощущение, что данный метод не работает. Необходимо разобраться.
+	
 	/**
-	 * {@inheritDoc}
+	 * Установка текста по умолчанию для пустого (незаполненного значением) поля.
+	 * 
+	 * @param emptyText пустой текст
 	 */
-	@Override
 	public void setEmptyText(String emptyText){
 		HTML emptyTextWidget = new HTML(emptyText);
 		emptyTextWidget.setStyleName(LIST_FIELD_EMPTYTEXT_STYLE);

@@ -323,14 +323,6 @@ public abstract class JepLargeField<V extends Widget> extends JepMultiStateField
 	}
 	
 	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void setEmptyText(String emptyText){
-		throw new UnsupportedOperationException("LargeField can't set empty text!");
-	}
-	
-	/**
 	 * Set limit for uploaded file in Kbytes
 	 * 
 	 * @param length allowed file size (Kbytes)

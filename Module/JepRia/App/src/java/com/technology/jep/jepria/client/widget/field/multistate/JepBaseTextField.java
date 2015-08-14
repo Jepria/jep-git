@@ -90,6 +90,15 @@ public abstract class JepBaseTextField<E extends Widget & HasValue> extends JepM
 	}
 	
 	/**
+	 * Установка текста по умолчанию для пустого (незаполненного значением) поля.
+	 * 
+	 * @param emptyText пустой текст
+	 */
+	public void setEmptyText(String emptyText){
+		getInputElement().setPropertyString("placeholder", emptyText);
+	}
+	
+	/**
 	 * {@inheritDoc}
 	 */
 	public void setEnabled(boolean enabled) {

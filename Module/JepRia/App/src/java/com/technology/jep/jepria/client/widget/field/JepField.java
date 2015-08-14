@@ -89,11 +89,4 @@ public interface JepField<E, V> {
 	 * @param allowBlank true - допускает пустое значение поля, false - поле обязательное для заполнения
 	 */
 	void setAllowBlank(boolean allowBlank);
-	
-	/**
-	 * Установка отображаемого значения поля, когда оно является пустым.
-	 * 
-	 * @param emptyText отоброжаемый текст при пустом поле
-	 */
-	void setEmptyText(String emptyText);
 }

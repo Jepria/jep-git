@@ -2,6 +2,7 @@ package com.technology.jep.jepria.client.widget.field.multistate;
 
 import static com.technology.jep.jepria.client.JepRiaClientConstant.FIELD_DEFAULT_HEIGHT;
 import static com.technology.jep.jepria.client.JepRiaClientConstant.FIELD_DEFAULT_WIDTH;
+import static com.technology.jep.jepria.client.JepRiaClientConstant.FIELD_INVALID_COLOR;
 import static com.technology.jep.jepria.client.JepRiaClientConstant.FIELD_LABEL_DEFAULT_WIDTH;
 import static com.technology.jep.jepria.client.JepRiaClientConstant.JepImages;
 import static com.technology.jep.jepria.client.JepRiaClientConstant.JepTexts;
@@ -481,9 +482,7 @@ public abstract class JepMultiStateField<E extends Widget, V extends Widget> ext
 		
 		markedInvalid = true;
 		
-		Element inputElement = getInputElement();
-		Style elementStyle = inputElement.getStyle();
-		elementStyle.setBorderColor("#c30");
+		getInputElement().getStyle().setBorderColor(FIELD_INVALID_COLOR);
 	}
 	
 	/**
@@ -493,7 +492,6 @@ public abstract class JepMultiStateField<E extends Widget, V extends Widget> ext
 		// Проверяем: было ли поле действительно невалидно.
 		if (!markedInvalid) return;
 		
-		getInputElement().getStyle().clearBorderColor();
 		if (errorIcon != null) {
 			errorIcon.setTitle("");
 			errorIcon.setAltText("");
@@ -502,6 +500,8 @@ public abstract class JepMultiStateField<E extends Widget, V extends Widget> ext
 		}
 		
 		markedInvalid = false;
+		
+		getInputElement().getStyle().clearBorderColor();
 	}
 
 	/**
@@ -522,15 +522,6 @@ public abstract class JepMultiStateField<E extends Widget, V extends Widget> ext
 	 */
 	public void setLabelSeparator(String labelSeparator) {
 		this.labelSeparator = labelSeparator;
-	}
-	
-	/**
-	 * Установка текста по умолчанию для пустого (незаполненного значением) поля.
-	 * 
-	 * @param emptyText пустой текст
-	 */
-	public void setEmptyText(String emptyText){
-		getInputElement().setPropertyString("placeholder", emptyText);
 	}
 	
 	/**
@@ -563,6 +554,13 @@ public abstract class JepMultiStateField<E extends Widget, V extends Widget> ext
 		
 	}
 	
+	/*
+	 * TODO Метод имеет смысл не для всех полей, а лишь для тех, в основе которых лежит
+	 * один элемент типа input. Для JepListField, JepDualListField, JepTreeField и т.д.
+	 * это, очевидно, не так. Следует подумать над переносом данного метода и рефакторингом
+	 * использующих его методов.
+	 */
+	
 	/**
 	 * Получение DOM-элемента карты редактирования.
 	 * 
@@ -588,13 +586,13 @@ public abstract class JepMultiStateField<E extends Widget, V extends Widget> ext
 	 * Для применения новых стилей элемента необходимо в наследниках перекрывать данный метод.
 	 */
 	protected void applyStyle(){
-		// Установка основного шрифта в карту просмотра и редактирования.
-		getInputElement().addClassName(MAIN_FONT_STYLE);
-		viewCard.getElement().addClassName(MAIN_FONT_STYLE);
-		// Удаляем выступы и отступы карты редактирования.
-		removeMarginsAndPaddings(getInputElement());
 		// Устанавливаем атрибуты по умолчанию для компонента JepMultiStateField.
 		getElement().getStyle().setMarginBottom(5, Unit.PX);
+		// Установка основного шрифта в карту просмотра и редактирования.
+		viewCard.getElement().addClassName(MAIN_FONT_STYLE);
+		getInputElement().addClassName(MAIN_FONT_STYLE);
+		// Удаляем выступы и отступы карты редактирования.
+		removeMarginsAndPaddings(getInputElement());
 	}
 
 	/**
@@ -602,7 +600,7 @@ public abstract class JepMultiStateField<E extends Widget, V extends Widget> ext
 	 * 
 	 * @param stylezedElement	стилизуемый элемент
 	 */
-	protected void removeMarginsAndPaddings(Element stylezedElement) {
+	protected static void removeMarginsAndPaddings(Element stylezedElement) {
 		Style style = stylezedElement.getStyle();
 		style.setMargin(0, Unit.PX);
 		style.setPadding(0, Unit.PX);

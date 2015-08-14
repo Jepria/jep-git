@@ -148,15 +148,11 @@ public class JepTreeField extends JepMultiStateField<TreeField<JepOption>, HTML>
 	}
 	
 	/**
-	 * Установка возможности отображения карты Редактирования поля.<br/>
-	 * <b>Внимание!!!</b><br/>
-	 * Метод перегружен с пустой реализацией, т.к. в данном поле используется ТОЛЬКО карта Редактирования.
-	 * 
-	 * @param editable параметр никаким образом не обрабатывается
+	 * Метод не поддерживается.
 	 */
 	@Override
 	public void setEditable(boolean editable) {
-
+		throw new UnsupportedOperationException();
 	}
 	
 	/**
@@ -264,6 +260,14 @@ public class JepTreeField extends JepMultiStateField<TreeField<JepOption>, HTML>
 	 */
 	public void setEnabled(boolean enabled) {
 		// TODO реализовать блокировку поля
+	}
+	
+	/**
+	 * Метод не поддерживается данным полем.
+	 */
+	@Override
+	public String getRawValue(){
+		throw new UnsupportedOperationException("TreeField does not have a raw value.");
 	}
 	
 	/**

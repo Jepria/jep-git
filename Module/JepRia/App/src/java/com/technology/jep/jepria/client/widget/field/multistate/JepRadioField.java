@@ -127,19 +127,11 @@ public class JepRadioField extends JepMultiStateField<RadioListField<JepOption>,
 	}
 	
 	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void setEmptyText(String emptyText){
-		throw new UnsupportedOperationException("RadioField can't set empty text!");
-	}
-	
-	/**
-	 * {@inheritDoc}
+	 * Метод не поддерживается данным полем.
 	 */
 	@Override
 	public String getRawValue(){
-		throw new UnsupportedOperationException("RadioField can't get raw value!");
+		throw new UnsupportedOperationException("RadioField does not have a raw value.");
 	}
 	
 	/**
