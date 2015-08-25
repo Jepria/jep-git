@@ -271,6 +271,7 @@ input[type=text]::-ms-clear {
 	background-color: #000;
 	opacity: 0.2;
 	filter: alpha(opacity = 20);
+	z-index: 10;
 }
 
 /** Индикатор загрузки модуля */
@@ -308,6 +309,7 @@ input[type=text]::-ms-clear {
 /** Most GWT widgets already have a style name defined */
 .gwt-DialogBox {
 	width: 400px;
+	z-index: 11;
 }
 
 /** Стиль для центрального контейнера ErrorDialog, перекрывающий умолчательный стиль GWT */
@@ -360,6 +362,16 @@ input[type=text]::-ms-clear {
 .gwt-TabLayoutPanel .jepRia-TabLayoutPanelTab-common {
 	margin-left: 2px;
 	border: 1px solid #8DB2E3;
+	
+    background-image: url(../images/themes/default/tabs/bg.png);
+    background-color: white;
+    background-repeat: repeat;
+    background-position: 0 100%;
+}
+
+/** Стиль для корректного отображения границ у панели вкладок */
+.gwt-TabLayoutPanelTabs{
+    border-bottom: 1px solid #99BBE8;
 }
 
 /** Перекрытие стиля для невыбранной вкладки TabLayoutPanel */
@@ -367,9 +379,24 @@ input[type=text]::-ms-clear {
 	font-weight: normal;
 	z-index: 1;
 }
+
 /** Перекрытие стиля для выделенной вкладки TabLayoutPanel */
 .gwt-TabLayoutPanel .gwt-TabLayoutPanelTab-selected {
 	font-weight: bold;
+	border-bottom-color: #D7E4F3;
+	background: #D7E4F3;
+}
+
+/** Отключение рамки снизу у активной вкладки */
+.gwt-TabLayoutPanel .gwt-TabLayoutPanelTab-selected :after {
+    content: " ";
+    display: block;
+    background: #D7E4F3;
+    height: 1px;
+    width: 100%;
+    position: absolute;
+    bottom: -2px;
+    left: 0;
 }
 
 /** Перекрытие стилей для ComboBox */

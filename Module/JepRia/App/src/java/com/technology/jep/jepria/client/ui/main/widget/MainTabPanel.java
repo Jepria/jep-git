@@ -121,7 +121,7 @@ public class MainTabPanel extends HeaderPanel {
 		mainPanel.add(entrancePanel);
 		
 		mainPanel.setWidgetRightWidth(entrancePanel, 5, BAR_UNIT, 400, BAR_UNIT);
-		mainPanel.setWidgetTopHeight(entrancePanel, 5, BAR_UNIT, BAR_HEIGHT, BAR_UNIT);
+		mainPanel.setWidgetTopHeight(entrancePanel, 2, BAR_UNIT, BAR_HEIGHT, BAR_UNIT);
 		
 		mainPanel.getWidgetContainerElement(entrancePanel).getStyle().setTop(5, BAR_UNIT);
 		
@@ -238,13 +238,7 @@ public class MainTabPanel extends HeaderPanel {
 			tabLabel.getElement().addClassName(MAIN_FONT_STYLE);
 			style.setFontSize(11, BAR_UNIT);
 			
-			Widget parentWidget = tabLabel.getParent();
-			style = parentWidget.getElement().getStyle();
-			style.setBackgroundImage("url(" + GWT.getModuleBaseURL() + "gwt/mytheme/images/hborder.png)");
-			style.setBackgroundColor("white");
-			style.setProperty("backgroundPosition", "0px -989px");
-			style.setProperty("backgroundRepeat", "repeat");
-			parentWidget.addStyleName(TAB_LAYOUT_PANEL_TAB_STYLE);		
+			tabLabel.getParent().addStyleName(TAB_LAYOUT_PANEL_TAB_STYLE);		
 		}
 		
 	}
