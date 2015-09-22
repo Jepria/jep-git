@@ -1,0 +1,35 @@
+title: Версии
+
+
+
+group: 8.6.0 ( 2015-08-03)
+
+[*] Для установки разделов каталога, к которому относится товар, добавлена
+    функция <pkg_JepRiaShowcase.setGoodsCatalogLink>, функции
+    createGoodsCatalogLink и deleteGoodsCatalogLink удалены.
+
+[*] Для получения информации о разделах каталога, к которым относится товар,
+    в функцию <pkg_JepRiaShowcase.getGoodsCatalog> добавлен параметр goodsId
+    и в возвращаемый курсор добавлены поля goods_link_flag и
+    descendant_goods_link_flag. Функция getGoodsCatalogLink удалена.
+
+[*] В функцию <pkg_JepRiaShowcase.getBank> добавлен параметр maxRowCount.
+
+
+
+group: 8.3.0 ( 2015-03-25)
+
+[*] Для поставщиков ( таблица <jrs_supplier>) добавлены дополнительные
+    атрибуты: телефон ( phone_number), факс ( fax_number) и банковские
+    реквизиты ( bank_bic, recipient_name, settlement_account).
+
+[*] Внешние ключи jrs_request_fk_goods_id и jrs_goods_fk_supplier_id
+    пересозданы с опцией "on delete cascade".
+
+
+
+group: 1.0.0 ( 2014-05-12)
+
+[+] Добавлены таблицы и интерфейсные функции для сущностей "Поставщик",
+    "Товар", "Товар в магазине", "Запрос на закупку", "Обработка запроса" и
+    связанные с ними справочники.

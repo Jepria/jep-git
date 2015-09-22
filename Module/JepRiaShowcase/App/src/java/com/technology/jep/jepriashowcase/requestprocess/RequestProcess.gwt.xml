@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<module rename-to="RequestProcess">
+  <inherits name="com.technology.jep.jepriashowcase.main.JepRiaShowcase"/>
+  <source path="client"/>
+  <source path="shared"/>
+</module>

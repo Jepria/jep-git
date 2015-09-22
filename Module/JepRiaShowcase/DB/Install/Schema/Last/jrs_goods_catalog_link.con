@@ -1,0 +1,30 @@
+alter table
+  jrs_goods_catalog_link
+add constraint
+  jrs_goods_catalog_link_fk_good
+foreign key
+  ( goods_id)
+references
+  jrs_goods ( goods_id)
+on delete cascade
+/
+
+alter table
+  jrs_goods_catalog_link
+add constraint
+  jrs_goods_catalog_link_fk_cat
+foreign key
+  ( goods_catalog_id)
+references
+  jrs_goods_catalog ( goods_catalog_id)
+/
+
+alter table
+  jrs_goods_catalog_link
+add constraint
+  jrs_goods_catalog_link_fk_oper
+foreign key
+  ( operator_id)
+references
+  op_operator ( operator_id)
+/

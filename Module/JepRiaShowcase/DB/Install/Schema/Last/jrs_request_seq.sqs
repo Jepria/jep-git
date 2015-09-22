@@ -1,0 +1,6 @@
+-- sequence: jrs_request_seq
+-- Последовательность для заполнения первичного ключа таблицы
+-- <jrs_request>.
+create sequence
+  jrs_request_seq
+/

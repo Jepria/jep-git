@@ -1,0 +1,35 @@
+-- table: jrs_request_status
+-- Статус запроса на закупку.
+create table
+  jrs_request_status
+(
+  request_status_code             varchar2(10)                        not null
+  , request_status_name           varchar2(100)                       not null
+  , date_ins                      date                default sysdate not null
+  , operator_id                   integer                             not null
+  , constraint jrs_request_status_pk primary key
+    ( request_status_code)
+    using index tablespace &indexTablespace
+  , constraint jrs_request_status_uk_name unique
+    ( request_status_name)
+    using index tablespace &indexTablespace
+)
+/
+
+
+
+comment on table jrs_request_status is
+  'Статус запроса на закупку [ SVN root: JEP/Module/JepRiaShowcase]'
+/
+comment on column jrs_request_status.request_status_code is
+  'Код статуса запроса'
+/
+comment on column jrs_request_status.request_status_name is
+  'Наименование статуса запроса'
+/
+comment on column jrs_request_status.date_ins is
+  'Дата добавления записи'
+/
+comment on column jrs_request_status.operator_id is
+  'Id оператора, добавившего запись'
+/

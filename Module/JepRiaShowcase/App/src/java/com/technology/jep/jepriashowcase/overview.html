@@ -1,0 +1,2687 @@
+﻿<html>
+<head>
+<!--
+
+  Copyright ...
+-->
+</head>
+<body>
+
+Модуль предназначен для демонстрации возможностей, отладки, автоматизированного тестирования функционала JepRia.<br/>
+
+<h2>Содержание</h2>
+
+<ul>
+  <li><a href="#about">Описание</a></li>
+  <li><a href="#build">Сборка приложения для Production</a></li>
+  <li><a href="#ieProblem">Обеспечение совместимости под различные браузеры</a></li>
+  <li><a href="#standardSolutions">Типовые решения</a></li>
+  <li><a href="#refactoringNeeded">Косвенные признаки необходимости рефакторинга</a></li>
+  <li><a href="#autoTestConcept">Автоматизированное тестирование</a></li>
+	<ul>
+	  <li><a href="#autoTestGwtTestCase">Особенности использования GWTTestCase</a></li>
+	  <li><a href="#autoTestSelenium">Тестирование с использованием Selenium</a></li>
+		<ul>
+		  <li><a href="#autoTestArchitecture">Архитектура тестов</a></li>
+		  <li><a href="#autoTestJepRiaSystemLevel">Поддержка автоматизации работы с визуальными компонентами JepRia (системный уровень)</a></li>
+		  <li><a href="#autoTestJepRiaApplicationLevel">Поддержка автоматизации работы с JepRia-приложениями (прикладной уровень)</a></li>
+		  <li><a href="#autoTestJepRiaTestCreation">Разработка тестов JepRia-приложений</a></li>
+		  <li><a href="#autoTestJepRiaTestDDT">Тесты, управляемые данными</a></li>
+		  <li><a href="#autoTestJepRiaTestConfig">Конфигурирование тестов в TestNG</a></li>
+		  <li><a href="#autoTestJepRiaAppTestCases">Тестовые сценарии для приложений</a></li>
+		  <li><a href="#autoTestJepRiaTestRun">Запуск тестов в TestNG</a></li>
+		  <li><a href="#autoTestJepRiaTestReport">Тестовые отчёты</a></li>
+		</ul>
+	</ul>
+  <li><a href="#unifiedApplication">Создание унифицированного приложения (EAR) для OC4J и Weblogic</a></li>
+  <li><a href="#cssAgreement">Соглашение по использованию стилей css</a></li>
+  <li><a href="#deploy">Установка</a></li>
+  <li><a href="#testCases">Тестовые сценарии</a></li>
+  <li><a href="#error">Ошибки</a></li>
+  <li><a href="#todo">Доработки</a></li>
+  <li><a href="#releaseNotes">Замечания к версиям</a></li>
+</ul>
+
+<h3><a name="about">Описание</a></h3>
+Основная идея приложения - продемонстрировать возможности платформы JepRia, предоставить работающие (с актуальными исходными кодами) 
+<a href="#standardSolutions">Типовые решения</a> на уровне приложения.<br/>
+Модуль предполагает создание <a href="#autoTestConcept">Автоматизированных тестов</a> возможностей JepRia и 
+<a href="#standardSolutions">Типовых решений</a>, таким образом предполагается поддерживать качество версий JepRia и обеспечивать
+оптимальную совместимость с уже реализованным функционалом.
+
+<h3><a name="build">Сборка приложения для Production</a></h3>
+При сборке приложений JepRia для Production необходимо выполнить следующие действия:<br/>
+<ul>
+	<li>отключить клиентский лог<br/>
+Отключение клиентского лога выполняется в файле <I>&lt;Application Name&gt;.gwt.xml</I> комментированием соответствующих строк (см. выделенные строки):
+<pre>
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;
+&lt;module rename-to=&quot;Application Name&quot;&gt;
+…
+<b>
+&lt;!-- &lt;inherits name="com.allen_sauer.gwt.log.gwt-log-RemoteLogger" /&gt; --&gt;
+&lt;!-- &lt;extend-property name="log_level" values="TRACE" /&gt; --&gt;
+&lt;!-- &lt;set-property name="log_level" value="TRACE" /&gt; --&gt;
+&lt;!-- &lt;set-property name="log_DivLogger" value="ENABLED"/&gt; --&gt;
+</b>
+…
+&lt;/module&gt;
+</pre>
+	</li>
+	<li>установить для уровеня серверного логирования значение <b>INFO</b><br/>
+Установка уровня серверного логирования выполняется в файле <I>log4j.properties</I> (см. выделенные строки):
+<pre>
+#
+...
+log4j.logger.com.technology.&lt;project name&gt;.&lt;application name&gt;=<b>INFO</b>, FILE, gwt-log
+...
+log4j.logger.gwt-log=<b>INFO</b>, gwt-log
+...
+log4j.logger.com.technology.jep.jepria.shared=<b>INFO</b>, FILE, gwt-log
+...
+log4j.logger.com.technology.jep.jepria.server=<b>INFO</b>, FILE, gwt-log
+log4j.logger.com.technology.jep.jepcommon=<b>INFO</b>, FILE, gwt-log
+...
+</pre>
+	</li>
+	<li>удалить установку symbolMaps parameter для сервлета Gwt-Log посредством комментирования соответствующих строк файла <i>web.xml</i> 
+	(см. выделение):
+<pre>
+...
+    <b>&lt;!-- &lt;init-param&gt; --&gt;</b>
+      &lt;!-- This value assumes a GWT compile with '-deploy war/WEB-INF/deploy/' --&gt;
+      <b>&lt;!-- &lt;param-name&gt;symbolMaps&lt;/param-name&gt; --&gt;</b>
+...
+      <b>&lt;!-- &lt;param-value&gt;../j2ee/home/applications/&lt;application name&gt;/&lt;application name&gt;/&lt;Application Name&gt;/symbolMaps/&lt;/param-value&gt; --&gt;</b>
+    <b>&lt;!-- &lt;/init-param&gt; --&gt;</b>
+...
+</pre>
+	</li>
+	<li>убрать генерирование symbolMaps для сервлета Gwt-Log при GWT-компиляции<br/>
+Отключение генерации symbolMaps выполняется удалением параметра <i>-deploy</i> из параметров вызова компилятора -
+посредством комментирования соответствующих строк файла <i>build.xml</i> (см. выделение):
+<pre>
+&lt;project name="Jep Module Building" default="build-and-deploy"&gt;
+...
+  &lt;target name="all-gwt-compile" depends="all-text-encode, java-compile"&gt;
+...
+    &lt;java failonerror="true" fork="true" maxmemory="256m" classname="com.google.gwt.dev.Compiler"&gt;
+      &lt;classpath&gt;
+        &lt;pathelement location="src/java" /&gt;
+        &lt;pathelement location="build" /&gt;
+        &lt;path refid="libs" /&gt;
+      &lt;/classpath&gt;
+      &lt;arg value="-war" /&gt;
+      &lt;arg value="build-gwt" /&gt;
+      &lt;arg value="-style" /&gt;
+      &lt;arg value="obfuscated" /&gt;
+      &lt;!-- &lt;arg value="-draftCompile"/&gt; --&gt;
+      <b>&lt;!-- &lt;arg value="-deploy" /&gt; --&gt;</b>
+      <b>&lt;!-- &lt;arg value="build-gwt" /&gt; --&gt;</b>
+      &lt;!-- &lt;arg value="-compileReport"/&gt; --&gt;
+      &lt;arg value="com.technology.${PROJECT_NAME_IN_PACKAGE}.${MODULE_NAME_IN_PACKAGE}.main.${MODULE_NAME}" /&gt;
+    &lt;/java&gt;
+...
+  &lt;/target&gt;
+...
+&lt;/project&gt;
+</pre>
+	
+	</li>
+	<li>включить оптимизацию при GWT-компиляции<br/>
+Включение оптимизации GWT-компилятора выполняется удалением параметра <I>-draftCompile</I> из параметров вызова компилятора -
+посредством комментирования соответствующей строки файла <I>build.xml</I> (см. выделение):
+<pre>
+&lt;project name="Jep Module Building" default="build-and-deploy"&gt;
+...
+  &lt;target name="all-gwt-compile" depends="all-text-encode, java-compile"&gt;
+...
+    &lt;java failonerror="true" fork="true" maxmemory="256m" classname="com.google.gwt.dev.Compiler"&gt;
+      &lt;classpath&gt;
+        &lt;pathelement location="src/java" /&gt;
+        &lt;pathelement location="build" /&gt;
+        &lt;path refid="libs" /&gt;
+      &lt;/classpath&gt;
+      &lt;arg value="-war" /&gt;
+      &lt;arg value="build-gwt" /&gt;
+      &lt;arg value="-style" /&gt;
+      &lt;arg value="obfuscated" /&gt;
+      <b>&lt;!-- &lt;arg value="-draftCompile"/&gt; --&gt;</b>
+      &lt;!-- &lt;arg value="-deploy" /&gt; --&gt;
+      &lt;!-- &lt;arg value="build-gwt" /&gt; --&gt;
+      &lt;!-- &lt;arg value="-compileReport"/&gt; --&gt;
+      &lt;arg value="com.technology.${PROJECT_NAME_IN_PACKAGE}.${MODULE_NAME_IN_PACKAGE}.main.${MODULE_NAME}" /&gt;
+    &lt;/java&gt;
+...
+  &lt;/target&gt;
+...
+&lt;/project&gt;
+</pre>
+	
+	</li>
+	<li>включить генерацию для всех видов браузеров<br/>
+Генерация для всех видов браузеров «включается» в файле <i>&lt;Application Name&gt;.gwt.xml</i>.
+Для этого необходимо закомментарить теги свойств <i>user.agent, gxt.user.agent, user.agent.os</i>:
+<pre>
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;
+&lt;module rename-to=&quot;Application Name&quot;&gt;
+…  	
+<b>
+&lt;!-- &lt;set-property name="user.agent" value="ie9" /&gt; --&gt;
+&lt;!-- &lt;set-property name="gxt.user.agent" value="ie9" /&gt; --&gt;
+&lt;!-- &lt;set-property name="user.agent.os" value="windows" /&gt; --&gt;
+</b>
+…
+&lt;/module&gt;
+</pre>
+		<br/>
+		NB. Все возможные комбинации <i>user.agent, gxt.user.agent, user.agent.os</i> можно увидеть при генерации кода под все браузеры, 
+		воспользовавшись GWT Compile Report (см. ниже) на странице, где перечислены все Permutations.
+	</li>
+	<li>включить генерацию для всех поддерживаемых языков (русский, английский)<br/>
+
+Генерация русского и английского языков «включается» в файле <I>&lt;Application Name&gt;.gwt.xml</I> следующим образом (см. выделенные строки):
+<pre>
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;
+&lt;module rename-to=&quot;Application Name&quot;&gt;
+…  	
+<b>
+  &lt;extend-property name=&quot;locale&quot; values=&quot;ru&quot; /&gt;
+  &lt;extend-property name=&quot;locale&quot; values=&quot;en&quot; /&gt;
+  &lt;set-property-fallback name=&quot;locale&quot; value=&quot;ru&quot; /&gt;
+</b>
+…
+&lt;/module&gt;
+</pre>
+	</li>
+	<li>проверить получившийся объем первоначальной загрузки<br/>
+		Объем первоначальной загрузки должен быть около 700KB (для приложени <u>любого размера</u>). 
+		Все остальное должно находиться в отложенной загрузке (Left Over).<br/>
+		
+		Включение генерации GWT Compile Report выполняется добавлением параметра <i>-compileReport</i> в параметрах вызова компилятора -
+		посредством раскомментирования соответствующей строки файла <i>build.xml</i> (см. выделение):
+<pre>
+&lt;project name="Jep Module Building" default="build-and-deploy"&gt;
+...
+  &lt;target name="all-gwt-compile" depends="all-text-encode, java-compile"&gt;
+...
+    &lt;java failonerror="true" fork="true" maxmemory="256m" classname="com.google.gwt.dev.Compiler"&gt;
+      &lt;classpath&gt;
+        &lt;pathelement location="src/java" /&gt;
+        &lt;pathelement location="build" /&gt;
+        &lt;path refid="libs" /&gt;
+      &lt;/classpath&gt;
+      &lt;arg value="-war" /&gt;
+      &lt;arg value="build-gwt" /&gt;
+      &lt;arg value="-style" /&gt;
+      &lt;arg value="obfuscated" /&gt;
+      &lt;!-- &lt;arg value="-draftCompile"/&gt; --&gt;
+      &lt;!-- &lt;arg value="-deploy" /&gt; --&gt;
+      &lt;!-- &lt;arg value="build-gwt" /&gt; --&gt;
+      <b>&lt;arg value="-compileReport"/&gt;</b>
+      &lt;arg value="com.technology.${PROJECT_NAME_IN_PACKAGE}.${MODULE_NAME_IN_PACKAGE}.main.${MODULE_NAME}" /&gt;
+    &lt;/java&gt;
+...
+  &lt;/target&gt;
+...
+&lt;/project&gt;
+</pre>
+		<br/>
+		<a href="https://developers.google.com/web-toolkit/doc/latest/DevGuideCompileReport" target="_blank">Детальная информация о возможностях GWT Compile Report.</a>
+	</li>
+</ul>
+
+<h3><a name="ieProblem">Обеспечение совместимости под различные браузеры</a></h3>
+Размышления / Рекомендации.<br/>
+К сожалению, использование Gxt (возможно и Gwt) не гарантирует (по опыту) полностью идентичное поведение/функционирование приложений в различных
+браузерах. Как и прежде, MS Internet Explorer стоит неким ... &laquo;особняком&raquo; в плане совместимости, и создает основные проблемы для конечных
+пользователей: то, что надежно работает в других браузерах, не работает (или работает не так) в IE. Поэтому, к сожалению, типична ситуация: разработка
+ведется в одном из нормальных браузеров (Chrome, Firefox), разработка завершается, приложение отдается пользователям и ... далее начинаются
+долгий (иногда существенно более долгий, чем сама разработка) процесс отладки/доводки приложения под IE.<br/>
+Исходя из вышесказанного, возможно, целесообразно придерживаться следующего порядка разработки:
+<ol>
+	<li>Разработку изначально вести в IE;</li>
+	<li>Проверить как приложение встраивается в public-страницу в IE (если приложение предназначено для встраивания в public-страницу);</li>
+	<li>Обязательно проверить полученный результат в одном из нормальных браузеров (Chrome, Firefox).</li>
+</ol>
+Использование данного порядка разработки, наверное, будет способствовать снижению общих трудозатрат на разработку (уйдет время на отладку, в пределе,
+переделку функционала под IE), и, очевидно, будет способствовать снижению негатива, идущего от пользователей IE (пока еще очень многочисленных).
+
+<h3><a name="standardSolutions">Типовые решения</a></h3>
+<ul>
+  <li><a href="#parameterPassing">Передача параметров между модулями приложения</a></li>
+  <li><a href="#parameterPassingBetweenWebApplication">Передача значений между веб-приложениями</a></li>
+  <li><a href="#multipleLOBFields">Использование LOB-полей в нескольких модулях</a></li>
+  <li><a href="#gxtChart">Использование Gxt-графиков</a></li>
+  <li><a href="#listAutoUpdate">Автоматическое обновление списочной формы</a></li>
+  <li><a href="#sharedMethodsToParent">Перенос общих методов сервисов и бинов в главный модуль</a></li>
+  <li><a href="#customFonts">Поддержка дополнительных шрифтов</a></li>
+  <li><a href="#optionsGeneration">Генерация опций для выпадающих списков</a></li>
+  <li><a href="#mainView">Основная форма (MainView) приложения</a></li>
+  <li><a href="#removeListener">Удаление слушателей событий</a></li>
+  <li><a href="#antZip">Использование zip-архиватора с русскими именами файлов</a></li>
+  <li><a href="#apachePoi">Работа с документами MS Office с помощью Apache POI</a></li>
+  <li><a href="#dialogWindow">Использование модальных диалоговых окон</a></li>
+  <li><a href="#browserDependentFeatures">Написание специфичного для браузера кода</a></li>
+  <li><a href="#enterModule">Переход на произвольный модуль приложения без перезагрузки хост-страницы</a></li>
+  <li><a href="#treeGridManager">Использование древовидной структуры на списочной форме</a></li>
+  <li><a href="#sortOptions">Сортировка данных для выпадающих списков</a></li>
+  <li><a href="#validation">Использование кастомных валидаторов полей или группы зависимых полей</a></li>
+  <li><a href="#messageBoxButton">Возможность установки обработчика событий нажатия на кнопки в наследниках MessageBox</a></li>
+  <li><a href="#toolkitUpdate">Создание приложения и расширение сборщика с помощью JepRiaToolkit</a></li>
+  <li><a href="#buildConfig">Конфигурации сборки</a></li>
+  <li><a href="#passwordField">Реализация поля с паролем</a></li>
+</ul>
+
+<h4><a name="parameterPassing">Передача параметров между модулями приложения</a></h4>
+При реалиазации некоторых бизнес-задач перед разработчиком встает необходимость передачи параметров между модулями приложения. Существует несколько
+вариантов решения данной проблемы: использование событий, передающих в качестве параметров необходимые значения; использование атрибутов сессии; определение
+скрытых полей на <code>welcome-jsp</code> и т.д. Однако наиболее прозрачным видется решение, основанное на использовании класса-синглтона, существующего в
+единственном экземпляре в рамках всего приложения.<br>
+Описанный синглтон рекомендуется размещать по пути расположения пакета для <code>JepScope</code> и <code>JepScopeStack</code> (является также синглтоном). 
+В приведенном ниже примере в качестве передаваемого параметра был выбран объект JepRecord:<br/>
+<pre>
+package com.technology.&lt;project name&gt;.&lt;application name&gt;.main.client.history.scope;
+
+import com.technology.jep.jepria.shared.record.JepRecord;
+
+public class OutOfStaffAsRiaScope {
+
+  private JepRecord parentCurrentRecord;
+  
+  public static OutOfStaffAsRiaScope instance = new OutOfStaffAsRiaScope();
+  
+  public JepRecord getParentCurrentRecord() {
+    return parentCurrentRecord;
+  }
+  
+  public void setParentCurrentRecord(JepRecord parentCurrentRecord) {
+    this.parentCurrentRecord = parentCurrentRecord;
+  }
+}
+</pre>
+<br/>
+В точке инициализации параметров достаточно установить значение поля:<br/>
+<pre>
+  OutOfStaffAsRiaScope.instance.setParentCurrentRecord(newRecord);
+</pre>
+<br/>
+В то время как в модулях, где требуется получать данные значения будем использовать соответствующий метод полячения значения:<br/>
+<pre>
+  JepRecord parentCurrentRecord = OutOfStaffAsRiaScope.instance.getParentCurrentRecord();
+</pre>
+
+<h4><a name="parameterPassingBetweenWebApplication">Передача значений между веб-приложениями</a></h4>
+Периодически перед разработчиком Ria-приложений встает необходимость передачи параметров не только внутри разрабатываемого приложения 
+(<a href="#parameterPassing">предыдущий раздел</a>), но также критически важным становится взаимодействие с другими приложениями. Одним из способов решения возникшей
+задачи является использование cookies браузера. Это позволяет хранить необходимую информацию на клиенте, независимо от серверной реализации.<br/>
+Для работы с cookies в Java важно иметь доступ к объектам HttpServletRequest и HttpServletResponse. При помощи первого (Request) мы считываем имеющиеся значения, а
+второй (Response) предоставляет возможность их сохранения в браузере.<br/>
+Рассмотрим конкретную реализацию данных методов (их можно разместить в утильном классе и сделать статическими):<br/>
+<pre>
+  public class Util {
+    /** Метод получения значения из куки, если таковое существует. */
+    public static Cookie getCookie(HttpServletRequest request, String cookieName) {
+      Cookie[] cookies = request.getCookies();
+      if(cookies != null) {
+        for(int i = 0; i &lt; cookies.length; i++) {
+          Cookie cookie = cookies[i];
+          if (cookie.getName().equals(cookieName)
+            &amp;&amp; (cookie.getValue() != null)) {
+            return cookie;
+          }
+        }
+      }
+      return null;
+    }
+    
+    /** Метод записи значения в куки. */
+    public static void setCookie(HttpServletRequest request, HttpServletResponse response, String name, String value) {
+      Cookie cookie = new Cookie(name, value);
+      cookie.setPath("/"); // Важно: куки должны быть видны различным приложениям (по умолчанию, куки доступны в рамках собственного контекста).
+      cookie.setMaxAge(request.getSession().getMaxInactiveInterval()); // Время жизни куки станет равным времени жизни сессии.
+      response.addCookie(cookie);
+    }
+
+    ...
+  }
+</pre>
+Далее реализация зависит от конкретной бизнес-задачи. Опишу случай, с которым пришлось столкнуться в рамках проекта CommissionManagement.<br/>
+Описание кейса: при выборе/смене направления на формах редактирования (в режиме поиска, добавления, изменения) на других формах пользователю автоматически
+необходимо отображать последнее выбранное значение.<br/>
+Стоит заметить, что модуль OutOfStaff реализован с использованием библиотеки JepCommon, в то время как
+OutOfStaffAsRia - основан на JepRia.<br/>
+Итак, на форме редактирования в методе onRefresh в классе &lt;Form Name&gt;EditInputAction используем следующий код:<br>
+<pre>
+  public void onRefresh(ActionForward[] actionForward, JepSecurityModule jepSecurityModule, JepActionForm form, 
+  JepActionForm supForm, ActionMapping mapping, HttpServletRequest request, HttpServletResponse response)
+  throws Exception {
+  ...
+  if(form.getEditMode() == EM_SEARCH || form.getEditMode() == EM_ADD) {
+    Cookie directionTypeCookie = Util.getCookie(request, DIRECTION_TYPE_COOKIE_NAME);
+    String directionTypeCode = directionTypeCookie == null ? "" : directionTypeCookie.getValue();
+    if(!JepDefine.isEmpty(directionTypeCode)) {
+      actualAgentDocumentEditForm.setDirectionTypeCode(directionTypeCode);
+    }
+  }
+  ...
+  }
+</pre>
+При переходе на списочную форму выбранное значение запоминаем в куках. Нижеприведенный код помещаем в метод onRefresh класса &lt;Form Name&gt;InputAction:<br/>
+<pre>
+  public void onRefresh(ActionForward[] actionForward, JepSecurityModule jepSecurityModule, JepActionForm form,
+  JepActionForm supForm, ActionMapping mapping, HttpServletRequest request, HttpServletResponse response)
+  throws Exception {
+  ...
+  String directionTypeCode = actualAgentDocumentEditForm.getDirectionTypeCode();
+  Util.setCookie(request, response, DIRECTION_TYPE_COOKIE_NAME, directionTypeCode);
+  ...
+  }
+</pre>
+Аналогично, запоминаем значение выбранного направления на формах добавления и редактирования:<br/>
+<pre>
+  public void onSave(ActionForward[] actionForward, JepSecurityModule jepSecurityModule, JepActionForm form, 
+  JepActionForm supForm, ActionMapping mapping, HttpServletRequest request, HttpServletResponse response)
+  throws Exception {
+  ...
+  String directionTypeCode = actualAgentDocumentEditForm.getDirectionTypeCode();
+  Util.setCookie(request, response, DIRECTION_TYPE_COOKIE_NAME, directionTypeCode);
+  ...
+  }
+</pre>
+
+Для модулей приложения OutOfStaffAsRia поступим следующим образом:<br/>
+<ul>
+  <li>Определим сервисные методы и соответствующую реализация для получения значений из куки и сохранения его в куки (причем данный код рекомендуется размещать в главном модуле приложения, как это показано <a href="#sharedMethodsToParent">здесь</a>):<br/>
+    <pre>
+      {@literal @}RemoteServiceRelativePath(&quot;OutOfStaffAsRiaService&quot;)
+      public interface OutOfStaffAsRiaService extends JepDataService {
+        ...
+        JepOption getDirectionTypeFromCookie() throws ApplicationException;
+        void setDirectionTypeToCookie(JepOption directionTypeOption) throws ApplicationException;
+        ...
+      }
+    </pre>  
+    <pre>
+      public interface OutOfStaffAsRiaServiceAsync extends JepDataServiceAsync {
+        ...
+        void getDirectionTypeFromCookie(AsyncCallback&lt;JepOption&gt; callback);
+        void setDirectionTypeToCookie(JepOption directionTypeOption, AsyncCallback&lt;Void&gt; callback);
+        ...
+      }
+    </pre>
+    <pre>
+      public abstract class OutOfStaffAsRiaServiceImpl extends JepDataServiceServlet implements OutOfStaffAsRiaService {
+        ...
+        /** Метод получения значения "Направления" из куков. */
+        public JepOption getDirectionTypeFromCookie() throws ApplicationException {
+          List&lt;JepOption&gt; directionTypeList = getDirectionType();
+          Cookie directionTypeCookie = getCookieWithGivenName(DIRECTION_TYPE_COOKIE_NAME);
+          String directionTypeCode = directionTypeCookie == null ? null : directionTypeCookie.getValue(); 
+          if(!JepRiaUtil.isEmpty(directionTypeCode)) {
+            for(JepOption option : directionTypeList) {
+              if(option.getValue().equals(directionTypeCode)) {
+                return option;
+              }
+            }
+          }
+          return null;
+        }
+
+        /** Метод сохранения значения "Направления" в куки. */
+        public void setDirectionTypeToCookie(JepOption directionTypeOption) throws ApplicationException {
+          if(!JepRiaUtil.isEmpty(directionTypeOption) &amp;&amp; !JepRiaUtil.isEmpty(directionTypeOption.getValue())) {
+            setCookie(getThreadLocalRequest(), getThreadLocalResponse(), DIRECTION_TYPE_COOKIE_NAME, directionTypeOption.getValue().toString());
+          }
+        }
+
+        /** Извлечение значения куки с указанным именем. */
+        private Cookie getCookieWithGivenName(String cookieName) {
+          Cookie[] cookies = getThreadLocalRequest().getCookies();
+          if(cookies != null) {
+            for(int i = 0; i &lt; cookies.length; i++) {
+              Cookie cookie = cookies[i];
+              if(cookie.getName().equals(cookieName)
+                  &amp;&amp; !JepRiaUtil.isEmpty(cookie.getValue())) {
+                return cookie;
+              }
+            }
+          }
+          return null;
+        }
+
+        /** Сохранение куков в браузере. */
+        private void setCookie(HttpServletRequest request, HttpServletResponse response, String name, String value) {
+          Cookie cookie = new Cookie(name, value);
+          cookie.setPath("/");
+          cookie.setMaxAge(request.getSession().getMaxInactiveInterval());
+          response.addCookie(cookie);
+        }
+      ...
+      }
+    </pre>
+  </li>
+  <li>Определим DetailFormPresenter в главном модуле, в котором будут извлекаться значения "Направления" и сохраняться:<br/>
+    <pre>
+      public class OutOfStaffAsRiaDetailFormPresenter&lt;E extends PlainEventBus, V extends JepDetailFormView, S extends OutOfStaffAsRiaServiceAsync, C extends JepClientFactory&lt;E, S&gt;&gt; 
+        extends JepDetailFormPresenter&lt;E, V, S, C&gt; {
+        
+        private S service = clientFactory.getService();
+        
+        public OutOfStaffAsRiaDetailFormPresenter(JepWorkstatePlace place,
+            C clientFactory) {
+          super(place, clientFactory);
+        }
+        
+        public OutOfStaffAsRiaDetailFormPresenter(String[] modules, JepWorkstatePlace place,
+            C clientFactory) {
+          super(modules, place, clientFactory);
+        }
+
+        {@literal @}Override
+        protected void adjustToWorkstate(WorkstateEnum workstate) {
+          super.adjustToWorkstate(workstate);
+          
+          if (SEARCH.equals(workstate) || CREATE.equals(workstate)){
+            ((MainViewImpl)MainViewImpl.instance).mask(JepTexts.loadingPanel_dataLoading());
+            service.getDirectionTypeFromCookie(new JepAsyncCallback&lt;JepOption&gt;() {
+              public void onSuccess(JepOption result) {
+                fields.setFieldValue(DIRECTION_TYPE_CODE, result);
+                ((MainViewImpl)MainViewImpl.instance).unmask();
+              }
+              public void onFailure(Throwable th){
+                ((MainViewImpl)MainViewImpl.instance).unmask();
+              }
+            });
+          }
+        }
+        
+        {@literal @}Override
+        public void onSearch(SearchEvent event) {
+          super.onSearch(event);
+          service.setDirectionTypeToCookie((JepOption) fields.getFieldValue(DIRECTION_TYPE_CODE), new JepAsyncCallback&lt;Void&gt;() {
+            public void onSuccess(Void result) {
+            }
+          });
+        }
+        
+        {@literal @}Override
+        protected void afterSave(JepRecord resultRecord) {
+          super.afterSave(resultRecord);
+          service.setDirectionTypeToCookie((JepOption) fields.getFieldValue(DIRECTION_TYPE_CODE), new JepAsyncCallback&lt;Void&gt;() {
+            public void onSuccess(Void result) {
+            }
+          });
+        }
+      }
+    </pre>
+    И для тех GWT-модулей, где необходимо получение значения о направлении брать из cookies, мы унаследовываем &lt;Form Name&gt;DetailFormPresenter от OutOfStaffAsRiaDetailFormPresenter
+    и переопределяем метод  adjustToWorkstate:<br/>
+    <pre>
+      {@literal @}Override
+      protected void adjustToWorkstate(WorkstateEnum workstate) {
+        super.adjustToWorkstate(workstate);
+        //TODO: your business-code;
+      }
+    </pre>
+  </li>
+</ul>
+Удобство использования cookies очевидно при взаимодействии приложений, однако и не стоит забывать и об ограничениях, которые на них накладываются (в частности, размер передаваемых значений).
+Поэтому данная реализация может оказаться неподходящей в отдельных случаях.
+
+<h4><a name="multipleLOBFields">Использование LOB-полей в нескольких модулях</a></h4>
+По умолчанию, при генерации приложения, модуль которого содержит LOB-поля, 
+в дескрипторе развёртывания web.xml сервлеты для загрузки/выгрузки прописываются
+следующим образом:
+<pre>
+&lt;servlet&gt;
+  &lt;servlet-name&gt;downloadServlet&lt;/servlet-name&gt;
+  &lt;servlet-class&gt;com.technology.rfi.&lt;application name&gt;.&lt;module name&gt;.server.DownloadServiceImpl&lt;/servlet-class&gt;
+&lt;/servlet&gt;
+&lt;servlet-mapping&gt;
+  &lt;servlet-name&gt;downloadServlet&lt;/servlet-name&gt;
+  &lt;url-pattern&gt;/&lt;Application Name&gt;/download&lt;/url-pattern&gt;
+&lt;/servlet-mapping&gt;
+&lt;servlet&gt;
+  &lt;servlet-name&gt;uploadServlet&lt;/servlet-name&gt;
+  &lt;servlet-class&gt;com.technology.rfi.&lt;application name&gt;.&lt;module name&gt;.server.UploadServiceImpl&lt;/servlet-class&gt;
+&lt;/servlet&gt;
+&lt;servlet-mapping&gt;
+  &lt;servlet-name&gt;uploadServlet&lt;/servlet-name&gt;
+  &lt;url-pattern&gt;/&lt;Application Name&gt;/upload&lt;/url-pattern&gt;
+&lt;/servlet-mapping&gt;
+</pre>
+Однако это приводит к проблемам, когда функционал загрузки/выгрузки используется 
+в нескольких модулях одного приложения, поскольку в дескрипторе развёртывания 
+таким образом оказывается прописанным лишь один сервлет.
+<br/>
+Решение в данной ситуации
+ следующее. Пусть, например, два модуля Module1 и Module2 используют <i>выгрузку</i> файлов.
+Тогда, во-первых, дадим этим сервлетам различные имена и пропишем их на разные URL:
+<pre>
+&lt;servlet&gt;
+  &lt;servlet-name&gt;downloadServletModule1&lt;/servlet-name&gt;
+  &lt;servlet-class&gt;com.technology.rfi.&lt;application name&gt;.&lt;module name 1&gt;.server.DownloadServiceImpl&lt;/servlet-class&gt;
+&lt;/servlet&gt;
+&lt;servlet-mapping&gt;
+  &lt;servlet-name&gt;downloadServletModule1&lt;/servlet-name&gt;
+  &lt;url-pattern&gt;/&lt;Application Name&gt;/downloadModule1&lt;/url-pattern&gt;
+&lt;/servlet-mapping&gt;
+&lt;servlet&gt;
+  &lt;servlet-name&gt;downloadServletModule2&lt;/servlet-name&gt;
+  &lt;servlet-class&gt;com.technology.rfi.&lt;application name&gt;.&lt;module name 2&gt;.server.DownloadServiceImpl&lt;/servlet-class&gt;
+&lt;/servlet&gt;
+&lt;servlet-mapping&gt;
+  &lt;servlet-name&gt;downloadServletModule2&lt;/servlet-name&gt;
+  &lt;url-pattern&gt;/&lt;Application Name&gt;/downloadModule2&lt;/url-pattern&gt;
+&lt;/servlet-mapping&gt;
+</pre>
+Этого, однако, недостаточно, поэтому, во-вторых, требуется в представлении (view) 
+детальной формы переопределить метод buildDownloadUrl(), возвращающий URL, 
+по которому скачивается файл. В модуле Module1 это будет выглядеть следующим образом:
+<pre>
+public class Module1DetailFormView extends JepDetailFormViewImpl 
+  implements JepDetailFormView {
+    public Module1DetailFormView() {
+    . . .
+    JepFileField fileField = new JepFileField(module1Text.module1_detail_file_field_name()){
+      
+        {@literal @}Override
+        protected String buildDownloadUrl(Object reference) {
+          String originalURL = super.buildDownloadUrl(reference);
+          if (originalURL == null) {
+            return originalURL;
+          }
+          String modifiedURL = originalURL.replace("download", "downloadModule1");
+          return modifiedURL;
+        }
+      }
+}
+</pre>
+Для <i>загрузки</i> в web.xml вносятся аналогичные изменения:
+<pre>
+&lt;servlet&gt;
+  &lt;servlet-name&gt;uploadServletModule1&lt;/servlet-name&gt;
+  &lt;servlet-class&gt;com.technology.rfi.&lt;application name&gt;.&lt;module name 1&gt;.server.UploadServiceImpl&lt;/servlet-class&gt;
+&lt;/servlet&gt;
+&lt;servlet-mapping&gt;
+  &lt;servlet-name&gt;uploadServletModule1&lt;/servlet-name&gt;
+  &lt;url-pattern&gt;/&lt;Application Name&gt;/uploadModule1&lt;/url-pattern&gt;
+&lt;/servlet-mapping&gt;
+&lt;servlet&gt;
+  &lt;servlet-name&gt;uploadServletModule2&lt;/servlet-name&gt;
+  &lt;servlet-class&gt;com.technology.rfi.&lt;application name&gt;.&lt;module name 2&gt;.server.UploadServiceImpl&lt;/servlet-class&gt;
+&lt;/servlet&gt;
+&lt;servlet-mapping&gt;
+  &lt;servlet-name&gt;uploadServletModule2&lt;/servlet-name&gt;
+  &lt;url-pattern&gt;/&lt;Application Name&gt;/uploadModule2&lt;/url-pattern&gt;
+&lt;/servlet-mapping&gt;
+</pre>
+В код представления детальной формы вносится следующее дополнение:
+<pre>
+public class Module1DetailFormView extends JepDetailFormViewImpl 
+  implements JepDetailFormView {
+    public Module1DetailFormView() {
+      . . .
+      JepFileField fileField = . . .
+      FormPanel fileFormPanel = fileField.getFormPanel(); 
+      fileFormPanel.setAction(GWT.getModuleBaseURL() + "uploadModule1");
+    }
+}
+</pre>
+Для Module2 все вносимые изменения аналогичны.
+
+<br/>
+
+<h4><a name="gxtChart">Использование Gxt-графиков</a></h4>
+Для отрисовки графиков непосредственно на форме (детальной либо списочной) используются встроенная в Gxt библиотека Charts. 
+Данная библиотека обладает достаточно богатыми возможностями в области визуализации данных, в том числе построения 
+графиков, круговых и линейчатых диаграмм и т.д. Ознакомиться с примерами использования можно в демонстрации 
+Gxt 2.2.3 Explorer демо, в данном же разделе ограничимся примером внедрения диаграммы в прикладной 
+модуль на основе JepRia. В примере рассмотрим отображение простейшей диаграммы на форме детального просмотра.<br/>
+<br/>
+Если в модуле используется построение графиков, в его файл Module XML необходимо включить ссылку на Gxt Charts: 
+<pre>
+  &lt;inherits name='com.extjs.gxt.charts.Chart' /&gt;
+</pre>
+В текущей используемой версии Gxt 2.2.3 для отрисовки графиков в приложение внедряется объект Flash. Для управления 
+объектами Flash используется JavaScript-библиотека SWFObject. В связи с этим в блок &lt;HEAD&gt; JSP-файла приложения 
+&lt;Application Name&gt;.jsp необходимо добавить следующую строку:
+<pre>
+  &lt;script language='javascript' src='&lt;Application Name&gt;/gxt/flash/swfobject.js'&gt;&lt;/script&gt;
+</pre>
+Виджет графика необходимо добавить в представление (view). Будем рассматривать добавление графика на детальную форму, но ничто не мешает 
+аналогичным образом добавить его на списочную форму. Также необходимо добавить в представление методы управления графиком 
+извне (то есть из презентера):
+
+<pre>
+package com.technology.rfi.&lt;application name&gt;.&lt;module name&gt;.client.ui.form.detail;
+
+/*
+ * стандартные импорты JepRia, GWT и Gxt
+ */
+. . .
+
+import com.extjs.gxt.charts.client.Chart;
+import com.extjs.gxt.charts.client.ChartManager;
+import com.extjs.gxt.charts.client.model.ChartModel;
+import com.extjs.gxt.ui.client.widget.LayoutContainer;
+import com.extjs.gxt.ui.client.widget.flash.SwfObject.SwfConfig;
+ 
+public class &lt;ModuleName&gt;DetailFormView extends JepDetailFormViewImpl 
+  implements JepDetailFormView {
+  
+  private Chart chart;
+ 
+  public &lt;ModuleName&gt;DetailFormView() {
+    super(new FieldManager());    
+    LayoutContainer container = new StandardLayoutContainer();
+ 
+    /*
+     * Стандартный код, создающий поля и добавляющий их в FieldManager
+     */
+    . . .
+    
+    createChart(container);
+    container.layout();
+  }
+
+  private void createChart(LayoutContainer container) {
+    String url = GWT.getModuleBaseURL() + "gxt/chart/open-flash-chart.swf";
+    chart = new Chart(url) {
+
+      /*
+       * Задаём текст, отображаемый при отсутствии Flash Player.
+       */
+      {@literal @}Override
+      protected void onAttach() {
+        ChartManager.get().registerChart(this);
+          el().setInnerHtml("&lt;div id=\"" + getSwfId() + "\"&gt;&lt;h1&gt;График не может быть показан, так как Flash Player не установлен или отключён.&lt;/h1&gt;&lt;/div&gt;");
+          SwfConfig config = new SwfConfig();
+          injectFlash(config);
+      }
+      
+    };
+    chart.setBorders(true); // добавление рамки (необязательно)
+    container.add(chart);
+  }
+  
+  /*
+   * Связывание виджета с моделью.
+   */
+  public void setChartModel(ChartModel model) {
+    chart.setChartModel(model);
+  }
+  
+  /*
+   * Отображение/скрытие виджета графика.
+   */
+  public void setChartVisible(boolean visible) {
+    chart.setVisible(visible);
+  }
+ 
+}
+</pre>
+Основные манипуляции по построению графика осуществляются в презентере. В реальной задаче данные для построения графика запрашиваются 
+у сервера, поэтому необходимо добавление соответствующих методов в сервис и бин модуля. Однако в данном простом примере данные 
+генерируются случайным образом при каждом посещении формы детального просмотра. Отображать график будем только на форме детального 
+просмотра. Код презентера имеет следующий вид:
+<pre>
+package com.technology.rfi.&lt;application name&gt;.&lt;module name&gt;.client.ui.form.detail;
+
+/*
+ * Стандартные импорты JepRia, GWT и Gxt
+ */
+. . .
+
+import com.extjs.gxt.charts.client.model.ChartModel;
+import com.extjs.gxt.charts.client.model.axis.XAxis;
+import com.extjs.gxt.charts.client.model.axis.YAxis;
+import com.extjs.gxt.charts.client.model.charts.FilledBarChart;
+import com.google.gwt.user.client.Random;
+
+public class &lt;ModuleName&gt;DetailFormPresenter&lt;E extends PlainEventBus, S extends TestModuleServiceAsync&gt; 
+    extends JepDetailFormPresenter&lt;E, &lt;ModuleName&gt;DetailFormView, S, JepClientFactory&lt;E, S&gt;&gt; { 
+ 
+  /*
+   * Конструктор и метод bind(), а также остальные стандартные методы остаются без изменений.
+   */
+  . . .
+ 
+  protected void adjustToWorkstate(WorkstateEnum workstate) {
+    
+    /*
+     * Управление отображением и сокрытием полей модуля.
+     */
+    . . .
+    
+    view.setChartVisible(VIEW_DETAILS.equals(workstate));
+    
+    if (VIEW_DETAILS.equals(workstate)) {
+      view.setChartModel(updateChartModel());
+    }
+  }
+
+  private ChartModel updateChartModel() {
+    /*
+     * В данном простом примере диаграмма создаётся на основе данных,
+     * генерируемых случайным образом. В реальной задаче диаграмма
+     * будет формироваться на основании полученных от сервера данных.
+     */
+    ChartModel cm = new ChartModel("Ежемесячные продажи",
+        "font-size: 16px; font-weight: bold; font-family: Verdana; color:#008800;");
+    cm.setBackgroundColour("#eeffee");
+    cm.setDecimalSeparatorComma(true);
+    XAxis xa = new XAxis();
+    List&lt;String&gt; labels = new ArrayList&lt;String&gt;();
+    labels.add("Январь");
+    labels.add("Февраль");
+    labels.add("Март");
+
+    xa.setLabels(labels);
+    xa.getLabels().setColour("#009900");
+    xa.setGridColour("#eeffee");
+    xa.setColour("#009900");
+    cm.setXAxis(xa);
+    YAxis ya = new YAxis();
+    ya.setRange(5000, 20000);
+    ya.setSteps(1000);
+    ya.setGridColour("#eeffee");
+    ya.setColour("#009900");
+    cm.setYAxisLabelStyle(10, "#009900");
+    cm.setYAxis(ya);
+    FilledBarChart bchart = new FilledBarChart("#6666ff", "#000066");
+    bchart.setTooltip("#val# млн. руб.");
+    for (int t = 0; t &lt; 3; t++) {
+      bchart.addValues(Random.nextInt(5000) + 10000);
+    }
+    cm.addChartConfig(bchart);
+    return cm;
+  }
+  
+}
+</pre>
+
+<h4><a name="listAutoUpdate">Автоматическое обновление списочной формы</a></h4>
+В JepRia предусмотрена возможность автоматически обновлять списочную форму через заданные 
+промежутки времени (например, 20 секунд). В первую очередь это касается прикладных модулей, 
+использующих TaskProcessor.<br/>
+<br/>
+Общий алгоритм включения автоматического обновления следующий. Во-первых, требуется модифицировать 
+метод find() бина (класс <i>ModuleName</i>Bean), передав ему объект класса AutoRefreshResultSetMapper. 
+Рассмотрим пример:<br/>
+<pre>
+package com.technology.rfi.clientndflconvertor.loadtask.server.ejb;
+   
+{@literal @}Local( { LoadTaskLocal.class })
+{@literal @}Remote( { LoadTaskRemote.class })
+{@literal @}StatelessDeployment
+{@literal @}Stateless
+public class LoadTaskBean extends ClientNdflConvertorBean implements LoadTask {
+ 
+  public LoadTaskBean() {
+    super(DATA_SOURCE_JNDI_NAME, RESOURCE_BUNDLE_NAME);
+  }
+ 
+  {@literal @}Override
+  public List&lt;JepRecord&gt; find(
+      JepRecord templateRecord,
+      Mutable&lt;Boolean&gt; autoRefreshFlag,
+      Integer maxRowCount,
+      Integer operatorId)
+      throws ApplicationException {
+    String sqlQuery = ... ;
+    return super.find( sqlQuery,
+        new AutoRefreshResultSetMapper&lt;JepRecord&gt;(autoRefreshFlag, new ResultSetMapper&lt;JepRecord&gt;() {
+            public void map(ResultSet rs, JepRecord record) throws SQLException {
+              . . .
+              // Стандартные манипуляции с результирующим набором и записью.
+            }
+        }) {
+          public boolean isRefreshNeeded(ResultSet rs) throws SQLException {
+            String loadTaskStatusCode = rs.getString(LOAD_TASK_STATUS_CODE);
+            return !("COMPLETE".equals(loadTaskStatusCode) || "ERROR".equals(loadTaskStatusCode));
+          }}
+        , ... // Параметры поиска.
+        );
+    
+    // Остальные методы остаются без изменений.
+    
+  }
+}
+</pre>
+Остановимся подробнее на классе AutoRefreshResultSetMapper. Данный класс использует паттерн Decorator 
+и является обёрткой для ResultSetMapper, в связи с чем второй параметр его конструктора
+ &mdash; объект класса ResultSetMapper. В качестве первого обязательно передавать параметр 
+метода find() &mdash; autoRefreshFlag.<br/>
+<br/>
+Абстрактный метод isRefreshNeeded() содержит проверку условия автообновления должен 
+возвращать истину, если обновление необходимо, и ложь в противном случае. Данный метод обязательно 
+должен быть переопределён. Если необходимо, чтобы автообновление выполнялось во всех случаях, достаточно 
+определить метод следующим образом: 
+<pre>
+public boolean isRefreshNeeded(ResultSet rs) throws SQLException {
+  return true;
+}
+</pre>
+В приведённом выше примере обновление выполнится, если хотя бы одна из задач, возвращённых методом 
+find(), имела иной код статуса, кроме "COMPLETE" или "ERROR".<br/>
+<br/>Во-вторых, требуется унаследовать в презентере списочной формы (<i>ModuleName</i>ListFormPresenter) класс 
+AutoRefreshListFormPresenter. При этом в конструкторе можно задать интервал автоматического 
+обновления в миллисекундах:
+<pre>
+package com.technology.rfi.clientndflconvertor.loadtask.client.ui.form.list;
+
+public class LoadTaskListFormPresenter&lt;E extends PlainEventBus, S extends LoadTaskServiceAsync&gt; 
+  extends AutoRefreshListFormPresenter&lt;E, LoadTaskListFormViewImpl, S, JepClientFactory&lt;E, S&gt;&gt; {
+
+  public LoadTaskListFormPresenter(JepWorkstatePlace place, JepClientFactory&lt;E, S&gt; clientFactory) {
+    super(place, clientFactory);
+    super.setRefreshDelay(10000); // Автообновление каждые десять секунд.
+  }
+  
+  // Далее без изменений.
+   
+}
+</pre>
+
+Добавим, что в модулях, использующих TaskProcessor, имеет смысл после создания задачи переходить не 
+на детальную форму, как это делается по умолчанию, а на списочную.<br/>
+
+<h4><a name="sharedMethodsToParent">Перенос общих методов сервисов и бинов в главный модуль</a></h4>
+Нередко возникает ситуация, когда несколько модулей используют одинаковые методы получения данных 
+из базы. Типичный пример – извлечение списка опций для раскрывающегося списка. Чтобы не возникало 
+дублирования кода со всеми вытекающими последствиями, требуется перенести их в сервис главного модуля. 
+Для этого требуется в модуле main создать иерархию классов и интерфейсов, которые будут наследоваться 
+соответствующими классами и интерфейсами дочерних модулей.<br/>
+<br/>
+Требуется выполнить следующие действия (будем рассматривать на примере приложения TimeSheetAsRia):
+<ol>
+<li>Создать интерфейсы для сервиса модуля main (здесь и далее импорты будем опускать).<br/>
+
+<b>Интерфейс com.technology.rfi.timesheetasria.main.shared.service.TimeSheetAsRiaService</b>
+<pre>
+package com.technology.rfi.timesheetasria.main.shared.service;
+ 
+{@literal @}RemoteServiceRelativePath("TimeSheetAsRiaService")
+public interface TimeSheetAsRiaService extends JepDataService {
+  // TODO
+}
+</pre>
+<b>Интерфейс com.technology.rfi.timesheetasria.main.shared.service.TimeSheetAsRiaServiceAsync</b>
+<pre>
+package com.technology.rfi.timesheetasria.main.shared.service;
+ 
+public interface TimeSheetAsRiaServiceAsync extends JepDataServiceAsync {
+  //TODO 
+}
+
+</pre>
+</li>
+<li>Создать родительский класс для реализации сервиса
+<br/>
+<b>Класс com.technology.rfi.timesheetasria.main.server.TimeSheetAsRiaServiceImpl</b>
+<pre>
+package com.technology.rfi.timesheetasria.main.server;
+ 
+{@literal @}RemoteServiceRelativePath("TimeSheetAsRiaService")
+public class TimeSheetAsRiaServiceImpl extends JepDataServiceServlet implements TimeSheetAsRiaService  {
+ 
+  private static final long serialVersionUID = 1L;
+ 
+  public TimeSheetAsRiaServiceImpl(JepRecordDefinition recordDefinition, String ejbName) {
+    super(recordDefinition, ejbName);
+  }
+ 
+  //TODO сюда переносим методы из сервисов дочерних модулей
+}
+
+</pre>
+</li>
+<li>Создать класс для констант.
+<br/>
+<b>Класс com.technology.jep.jepria.server.JepRiaServerConstant</b>
+<pre>
+package com.technology.rfi.timesheetasria.main.server;
+ 
+public class TimeSheetAsRiaServerConstant extends JepRiaServerConstant {
+  // TODO
+}
+</pre>
+</li>
+
+<li>Создать родительский класс и интерфейсы для бинов.<br/>
+<b>Интерфейс com.technology.rfi.timesheetasria.main.shared.service.TimeSheetAsRia</b>
+<pre>
+package com.technology.rfi.timesheetasria.main.shared.service;
+ 
+public interface TimeSheetAsRia extends JepDataStandard {
+  // TODO
+}
+</pre>
+<b>Класс com.technology.rfi.timesheetasria.main.server.ejb.TimeSheetAsRiaBean</b>
+<pre>
+package com.technology.rfi.timesheetasria.main.server.ejb;
+ 
+{@literal @}Local( { TimeSheetAsRiaLocal.class })
+{@literal @}Remote( { TimeSheetAsRiaRemote.class })
+{@literal @}StatelessDeployment
+{@literal @}Stateless
+public class TimeSheetAsRiaBean extends JepDataStandardBean implements TimeSheetAsRia {{
+
+  {@literal @}Resource
+  SessionContext sessionContext;
+  
+  public TimeSheetAsRiaBean(String dataSourceJndiName, String resourceBundleName) {
+    super(dataSourceJndiName, resourceBundleName);
+  }
+
+  public List&lt;JepRecord&gt; find(JepRecord templateRecord, Integer maxRowCount,
+      Integer operatorId) throws ApplicationException {
+    throw new UnsupportedOperationException();
+  }
+
+  public Object create(JepRecord record, Integer operatorId)
+      throws ApplicationException {
+    throw new UnsupportedOperationException();
+  }
+
+  public void update(JepRecord record, Integer operatorId)
+      throws ApplicationException {
+    throw new UnsupportedOperationException();    
+  }
+
+  public void delete(JepRecord record, Integer operatorId)
+      throws ApplicationException {
+    throw new UnsupportedOperationException();    
+  }
+
+  // TODO перенести сюда методы из бина дочернего модуля
+
+}
+</pre>
+<b>Интерфейс com.technology.rfi.timesheetasria.main.server.ejb.TimeSheetAsRiaLocal</b>
+<pre>
+package com.technology.rfi.timesheetasria.main.server.ejb;
+
+import com.technology.rfi.timesheetasria.main.shared.service.TimeSheetAsRia;
+ 
+{@literal @}Local
+public interface TimeSheetAsRiaLocal extends TimeSheetAsRia {
+}
+</pre>
+<b>Интерфейс com.technology.rfi.timesheetasria.main.server.ejb.TimeSheetAsRiaRemote</b>
+<pre>
+package com.technology.rfi.timesheetasria.main.server.ejb;
+ 
+{@literal @}Remote
+public interface TimeSheetAsRiaRemote extends TimeSheetAsRia {
+}
+</pre>
+</li>
+
+<li>Унаследовать в дочерних модулях все классы и интерфейсы в пакете 
+com.technology.rfi.&lt;application name&gt;.&lt;module name&gt;.shared.service от соответствующих классов и интерфейсов 
+главного модуля.
+
+<li>Унаследовать в бинах дочерних модулей бин главного модуля.</li>
+
+<li>Унаследовать в реализации сервиса дочернего модуля (&lt;ModuleName&gt;ServiceImpl) реализацию сервиса 
+родительского модуля.</li>
+
+<li>Перенести из дочерних классов и интерфейсов в родительские определения и реализации общих методов.</li>
+
+<li>Перенести необходимые классы *Options из пакетов 
+com.technology.rfi.&lt;application name&gt;.&lt;module name&gt;.shared.field 
+в пакет com.technology.rfi.&lt;application name&gt;.main.shared.field.</li>
+
+</ol>
+<b>ВНИМАНИЕ:</b> При переносе методов необходимо следить за тем, чтобы в классах и интерфейсах 
+главного модуля не оставалось зависимостей от дочерних модулей!
+<br/>
+
+<h4><a name="customFonts">Поддержка дополнительных шрифтов</a></h4>
+Для использования в отчетах пользовательских шрифтов необходимо:<br/>
+<ol>
+  <li>В &lt;resource-home&gt; создать папку fonts.</li>
+  <li>Скопировать в неё все .ttf файлы нужных шрифтов и их вариантов начертания (полужирный, курсив и т.п.) – обычно находятся в папке …\Windows\Fonts</li>
+  <li>Создать в &lt;resource home&gt;\fonts\ файл <b>&lt;module name&gt;-fonts.xml</b> (ниже - на примере шрифта Verdana):
+    <pre>
+      &lt;?xml version="1.0" encoding="UTF-8"?&gt;
+
+      &lt;beans xmlns="http://www.springframework.org/schema/beans"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans
+             http://www.springframework.org/schema/beans/spring-beans-2.0.xsd"&gt;
+
+      &lt;!-- Секция &lt;bean&gt;...&lt;/bean&gt; повторяется для всех шрифтов, которые необходимо включить в коллекцию. --&gt;
+      &lt;bean id="verdanaFamily" class="net.sf.jasperreports.engine.fonts.SimpleFontFamily"&gt;
+        &lt;property name="name" value="Verdana"/&gt;
+        &lt;property name="normal" value="verdana.ttf"/&gt;
+        &lt;property name="italic" value="verdanai.ttf"/&gt;
+        &lt;property name="bold" value="verdanab.ttf"/&gt;
+        &lt;property name="boldItalic" value="verdanaz.ttf"/&gt;
+        &lt;property name="pdfEncoding" value="Cp1251"/&gt;
+        &lt;property name="pdfEmbedded" value="true"/&gt;
+      &lt;/bean&gt;
+      &lt;/beans&gt;
+    </pre>
+  </li>
+  <li>Создать в  &lt;resource home&gt;\fonts\ файл <b>jasperreports_extension.properties</b>:
+    <pre>
+      net.sf.jasperreports.extension.registry.factory.fonts=net.sf.jasperreports.extensions.SpringExtensionsRegistryFactory
+      net.sf.jasperreports.extension.fonts.spring.beans.resource=&lt;module name&gt;-fonts.xml
+    </pre>
+  </li>
+</ol>
+При сборке проекта будет создан файл <b>&lt;module name&gt;-fonts.jar</b> и добавлен в ear\lib.<br/>
+<br/>
+Обратите внимание следующие моменты:<br/>
+<br/>
+<ul>
+  <li>Набор вариантов начертаний (bold, italic, boldItalic) у разных шрифтов может различаться.</li>
+  <li>Необходимо внимательно указывать названия файлов с вариантами начертания шрифта, т.к. суффиксы у одинаковых начертаний разных шрифтов могут отличаться 
+  (например, полужирный наклонный Verdana называется verdanaz.ttf, а полужирный наклонный Arial -  arialbi.ttf).</li>
+  <li>Пользовательские шрифты не заменяют системный набор (Arial, Times New Roman, Courier New, Verdana), а дополняют его.</li>
+</ul>
+
+<h4><a name="optionsGeneration">Генерация опций для выпадающих списков</a></h4>
+В некоторых случаях нецелесообразно нагружать DB-интерфейс функциями, генерирующими опции для 
+выпадающих списков, - например, для списка дней недели или месяцев. В этом случае данный список 
+может быть сгенерирован на App-части. Для того, чтобы не делать это вручную, можно воспользоваться 
+фабричным методом JepOption.buildListFromToken(), который принимает на вход строку специального вида 
+- history token. В данной строке значение и имя опции разделяются с помощью последовательности символов 
+$c$, а опции - последовательностью $l$. Таким образом, списку опций &laquo;0 - Нет, 1 - Да&raquo; 
+будет соответствовать следующий токен: 0$c$Нет$l$1$c$Да.
+
+Токены для списков необходимо размещать в текстовых ресурсах. В текстовых ресурсах JepRia 
+(файлы JepRiaText_Source.properties, JepRiaText_en.properties и соответствующем им интерфейсе JepRiaText) 
+предусмотрены токены для некоторых стандартных опций (да-нет, дни недели, месяцы).<br/>
+<br/>
+Рассмотрим генерацию стандартного списка опций на примере рассмотренного выше списка 
+&laquo;0 - Нет, 1 - Да&raquo;. Заметим, что достоинством данного подхода является возможность 
+его применения как на стороне сервера (в бине или сервисе), так и на клиентской части. В бине 
+это будет выглядеть следующим образом:
+
+<pre>
+  import static com.technology.jep.jepria.server.JepRiaServerConstant.JEP_RIA_RESOURCE_BUNDLE_NAME;
+  ...
+  public class ExampleBean ... {
+    ...
+    public List&lt;JepOption&gt; getYesNo() throws ApplicationException {
+
+      ResourceBundle bundle = ResourceBundle.getBundle(JEP_RIA_RESOURCE_BUNDLE_NAME);
+      String yesNoToken = bundle.getString("form.detail.option.token.yesNo");
+      return JepOption.buildListFromToken(yesNoToken);
+    }
+
+  }
+</pre>
+
+На стороне интерфейса список опций генерируется следующим кодом:
+<pre>
+  import static com.technology.jep.jepria.client.JepRiaClientConstant.JepTexts;
+  ...
+  public class ExampleDetailFormPresenter . . . {
+    ...
+    {@literal @}Override
+    protected void bind() {
+      ...
+      List&lt;JepOption&gt; yesNoOptions = JepOption.buildListFromToken(JepTexts.form_detail_option_token_yesNo());
+      fields.setFieldOptions(EXAMPLE_YES_NO_FIELD, yesNoOptions);
+    }
+  }
+</pre>
+
+<h4><a name="mainView">Основная форма (MainView) приложения</a></h4>
+Данная форма представляет собой аналог <strong>RootPanel</strong> для приложений, написанных с использованием JepRia. 
+Для стандартных приложений на ней обычно располагаются инструментальная панель, контейнер элементов формы, статусбар, списочная форма, а также кнопка выхода и логин авторизовавшегося пользователя.
+Основная форма едина для всех модулей приложения и отлично подходит для реализации дополнительных возможностей, позволяющих проектировать user-fiendly интерфейс:
+<ul>
+  <li>Дополнение возможностей функциональных кнопок таких, как <em>Enter</em>, <em>Shift</em>, <em>Tab</em> и т.д. Пример реализации:<br/>
+    <pre>
+      new KeyNav&lt;ComponentEvent&gt;((MainViewImpl) MainViewImpl.instance) {
+        {@literal @}Override 
+        public void onEnter(ComponentEvent ce) {
+          // TODO: business code.
+        }
+
+        {@literal @}Override
+        public void onShift(ComponentEvent ce) {
+          // TODO: business code.
+        }
+        ...
+      }
+    </pre>
+  </li>
+  <li>Блокирование нажатий по элементам интерфейса (кнопкам тулбара, статусбара и т.д.) для операций, требующих определенное время на выполнение своей работы. Рекомендуется использовать следующий код:<br/>
+    <pre>
+      MainViewImpl.instance.mask(&quot;Your message!&quot;);
+      MainViewImpl.instance.unmask();
+    </pre>
+  </li>
+</ul>
+
+<h4><a name="removeListener">Удаление слушателей событий</a></h4>
+Для корректного удаления слушателей событий компонент в прикладных модулях JepRia, необходимо позаботиться и об удалении нативных слушателей GXT. 
+В противном случае, возникает повторный вызов бизнес-логики JepListener.<br>
+Для примера рассмотрим случай, когда требуется переопределить стандартную логику двойного клика на списочной форме.<br>
+Ниже приводится фрагмент кода презентера детальной формы, который следует использовать в данном случае:
+<pre>
+  ...
+  public void bind() {
+    super.bind();
+
+    //удаляем внутреннего слушателя
+    list.removeListener(JepEventType.ROW_DOUBLE_CLICK_EVENT, (JepListener) list.getListeners(JepEventType.ROW_DOUBLE_CLICK_EVENT).get(0));
+
+    //а также нативный листенер
+    Grid&lt;JepRecord&gt; grid = (Grid&lt;JepRecord&gt;) list.getWidget();
+    grid.removeListener(Events.RowDoubleClick, grid.getListeners(Events.RowDoubleClick).get(0));
+
+    //определяем новую бизнес-логику
+    list.addListener(JepEventType.ROW_DOUBLE_CLICK_EVENT, new JepListener() {
+      public void handleEvent(JepEvent event) {
+        // ... your business-code
+      }
+    }); 
+    ...
+  }
+  ...
+</pre>
+В других случаях, поступаем аналогично.
+
+<h4><a name="antZip">Использование zip-архиватора с русскими именами файлов</a></h4>
+Иногда возникает необходимость вернуть клиенту несколько файлов в ответ на одиночный запрос. В таком случае хорошей практикой является использование архиватора.
+Штатный класс <code>java.util.zip.ZipOutputStream</code> до версии 7 умеет работать только с латинскими именами файлов. 
+Так как код, работающий на сервере, зачастую использует более старую версию Java, для файлов, названия которых содержат кириллицу, проблема остается актуальной.<br/>
+Наиболее простым решением данной проблемы является использование класса <code>org.apache.tools.zip.ZipOutputStream</code>.
+<br/>
+Для этого необходимо включить в build.xml библиотеку ant.jar:<br>
+<pre>
+  ...
+  &lt;path id="libs"&gt;
+    ...
+    &lt;pathelement location="${ANT_HOME}/lib/ant.jar"/&gt;
+    ...
+  &lt;/path&gt;
+  ...  
+  &lt;target depends="web-jar" name="war"&gt;
+    &lt;outofdate&gt;
+      ...
+      &lt;sequential&gt;
+        ...
+        &lt;copy file="${ANT_HOME}/lib/ant.jar" todir="temp-war/WEB-INF/lib"/&gt;
+        ...
+      &lt;/sequential&gt;
+    &lt;/outofdate&gt;
+  &lt;/target&gt;
+  ...
+</pre>
+ 
+В приведенном ниже примере мы возвращаем клиенту архив, содержащий текстовый файл c кириллическим именем и произвольный двоичный файл (созданный заранее):<br/>
+
+<pre>
+  package com.technology.&lt;project name&gt;.&lt;application name&gt;.&lt;module name&gt;.server;
+
+  import org.apache.tools.zip.ZipEntry;
+  import org.apache.tools.zip.ZipOutputStream;
+  ...
+
+  public class ZipServlet extends HttpServlet{
+
+  ...
+
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+      try {
+        response.setContentType("application/zip");
+        response.setHeader("Content-Disposition", "attachment;filename=download.zip");
+        response.setHeader("Pragma", "public");
+        response.setHeader("Pragma", "no-cache");
+        response.setHeader("Cache-Control", "cache, must-revalidate");
+        response.setDateHeader("Expires", 0);
+        response.setDateHeader("Last-Modified", System.currentTimeMillis());
+
+        OutputStream outputStream = response.getOutputStream();			
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        ZipOutputStream zos = new ZipOutputStream(baos);
+        zos.setEncoding("Cp866");
+      
+        FileInputStream in = new FileInputStream(&lt;имя_файла_на_сервере&gt;);
+        zos.putNextEntry(new ZipEntry("Выгрузка.bin"));
+        int len;
+        while ((len = in.read(buf)) &gt; 0) {
+          out.write(buf, 0, len);
+        }
+        zos.closeEntry();
+        in.close();
+
+        zos.putNextEntry(new ZipEntry("Отчет.txt"));
+        zos.write("Выгрузка завершена успешно!");
+        zos.closeEntry();
+
+        zos.flush();
+        baos.flush();
+        zos.close();
+        baos.close();
+	
+        outputStream.write(baos.toByteArray());
+        outputStream.flush();
+        outputStream.close();
+      } catch(Exception e) {
+        e.printStackTrace();
+      }
+    }
+  }
+</pre>
+
+<h4><a name="apachePoi">Работа с документами MS Office с помощью Apache POI</a></h4>
+
+Проект Apache POI позволяет средствами Java открывать, создавать и редактировать документы MS Office таких форматов как Excel, Word и PowerPoint.<br/>
+До версии 2003 включительно MS Office использовал двоичный формат документов (.xls, .doc), а начиная с версии 2007 для сохранения документов используется формат Open Office XML. Формат OOXML представляет собой zip-архив, содержащий текст в виде XML, графику и другие данные.<br/>
+<br/> 
+Для использования POI API необходимо включить в build.xml соответствующие библиотеки:<br>
+<pre>
+  ...
+  &lt;path id="libs"&gt;
+    ...
+    &lt;pathelement location="${POI_HOME}/poi-3.9.jar"/&gt;
+    &lt;pathelement location="${POI_HOME}/poi-ooxml-3.9.jar"/&gt;
+    &lt;pathelement location="${POI_HOME}/poi-ooxml-schemas-3.9.jar"/&gt;
+    &lt;pathelement location="${POI_HOME}/poi-scratchpad-3.9.jar"/&gt;
+    &lt;pathelement location="${POI_HOME}/ooxml-lib/dom4j-1.6.1.jar"/&gt;
+    &lt;pathelement location="${POI_HOME}/ooxml-lib/stax-api-1.0.1.jar"/&gt;
+    &lt;pathelement location="${POI_HOME}/ooxml-lib/xmlbeans-2.3.0.jar"/&gt;
+    ...
+  &lt;/path&gt;
+  ...  
+  &lt;target depends="web-jar" name="war"&gt;
+    &lt;outofdate&gt;
+      ...
+      &lt;sequential&gt;
+        ...
+        &lt;copy file="${POI_HOME}/poi-3.9.jar" todir="temp-war/WEB-INF/lib"/&gt;
+        &lt;copy file="${POI_HOME}/poi-ooxml-3.9.jar" todir="temp-war/WEB-INF/lib"/&gt;
+        &lt;copy file="${POI_HOME}/poi-ooxml-schemas-3.9.jar" todir="temp-war/WEB-INF/lib"/&gt;
+        &lt;copy file="${POI_HOME}/poi-scratchpad-3.9.jar" todir="temp-war/WEB-INF/lib"/&gt;
+        &lt;copy file="${POI_HOME}/ooxml-lib/dom4j-1.6.1.jar" todir="temp-war/WEB-INF/lib"/&gt;
+        &lt;copy file="${POI_HOME}/ooxml-lib/stax-api-1.0.1.jar" todir="temp-war/WEB-INF/lib"/&gt;
+        &lt;copy file="${POI_HOME}/ooxml-lib/xmlbeans-2.3.0.jar" todir="temp-war/WEB-INF/lib"/&gt;
+        ...
+      &lt;/sequential&gt;
+    &lt;/outofdate&gt;
+  &lt;/target&gt;
+  ...
+</pre>
+Объектная модель документов формата <b>xls/xlsx</b> имеет следующую иерархию: <code>Workbook &#151;&gt; Worksheet &#151;&gt; Row &#151;&gt; Column</code><br/>
+Разница в работе со старым двоичным и новым форматом OOXML явно проявляется только на верхнем уровне: 
+для работы с форматом .xls предназначен класс <code>org.apache.poi.hssf.usermodel.HSSFWorkbook</code>, а для OOXML .xlsx &#151; <code>org.apache.poi.xssf.usermodel.XSSFWorkbook</code>. 
+Ниже по иерархии прозрачно используются общие интерфейсы.<br/>
+<br/>
+Пример работы с файлом Excel &#151; поиск и замена строки в ячейке, и сохранения в другой файл:
+<pre>
+  Boolean xlsxFormat = &lt;имя_исходного_файла&gt;.toLowerCase().endsWith(".xlsx");
+  FileInputStream fis = new FileInputStream(&lt;имя_исходного_файла&gt;);
+  Workbook workbook = xlsxFormat ? new XSSFWorkbook(fis) : new HSSFWorkbook(fis);
+
+  Sheet sheet = workbook.getSheetAt(0);
+  for (Row row : sheet) {
+    for (Cell cell : row) {
+      if (cell.getCellType() == Cell.CELL_TYPE_STRING) {
+        String cellText = cell.getStringCellValue();
+        if (cellText.contains("{FNS_ADDRESS}")) {
+          cell.setCellValue("адрес ФНС");
+        }
+        ...
+    }
+  }
+
+  FileOutputStream fos = new FileOutputStream(&lt;имя_результирующего_файла&gt;);
+  workbook.write(fos);
+  fos.flush();
+  fos.close();
+  fis.close();
+</pre>
+
+Пример работы с форматом <b>doc</b> &#151; используется класс <code>org.apache.poi.hwpf.usermodel.Range</code>, предоставляющий доступ к тексту всего документа (за исключением колонтитулов):
+<pre>
+  FileInputStream fis = new FileInputStream(&lt;имя_исходного_файла&gt;);
+  HWPFDocument doc = new HWPFDocument(fis);
+
+  Range range = doc.getRange();
+  range.replaceText("{FNS_ADDRESS}","адрес ФНС");
+  ...
+
+  FileOutputStream fos = new FileOutputStream(&lt;имя_файла&gt;);
+  doc.write(fos);
+  fis.close();
+  fos.close();
+</pre>
+Работа с форматом <b>docx</b> имеет следующую особенность: аналог класса <code>Range</code> отсутствует, параграфы <code>org.apache.poi.xwpf.usermodel.XWPFParagraph</code> в документе разбиты на более мелкие логические части <code>org.apache.poi.xwpf.usermodel.XWPFRun</code>, и разбиение это не всегда очевидно с точки зрения пользователя.<br/> 
+Пример разбиения параграфа (символ | означает начало следующего <code>XWPFRun</code>):
+<pre>
+  {|DEP|_|NAME|} , КПП {|DEP|_|KPP|}
+</pre>
+Возможность редактирования текста реализована в классе <code>XWPFRun</code>, а <code>XWPFParagraph</code> позволяет только просматривать содержимое параграфа.
+Таким образом, замена, например, такой фразы как <code>{DEP_NAME}</code> в тексте становится не такой тривиальной задачей, как для формата doc.<br/>
+Следует заметить, что формат OOXML, к которому относится docx, позволяет вручную отредактировать xml-код документа таким образом, чтобы убрать лишнюю разбивку параграфов на <code>XWPFRun</code>, объединив несколько элементов в один, существенно упростив дальнейшую обработку документа:
+<pre>
+  FileInputStream fis = new FileInputStream(&lt;имя_исходного_файла&gt;);
+  XWPFDocument doc = new XWPFDocument(fis);
+
+  for (XWPFParagraph p : doc.getParagraphs()) 
+    for (XWPFRun r : p.getRuns()) 
+      if (r.getText(0) != null) {
+        String text = r.getText(0);
+      
+        text = text.replace("{FNS_ADDRESS}","адрес ФНС");
+        ...
+      
+        r.setText(text, 0);
+      }
+
+  FileOutputStream fos = new FileOutputStream(&lt;имя_файла&gt;);
+  doc.write(fos);
+  fis.close();
+  fos.close();
+</pre>
+
+Полезные ссылки:
+<ul>
+	<li><a href="http://ru.wikipedia.org/wiki/Office_Open_XML" target="_blank">http://ru.wikipedia.org/wiki/Office_Open_XML</a></li>
+	<li><a href="http://poi.apache.org/" target="_blank">http://poi.apache.org/</a></li>
+</ul>
+
+<h4><a name="dialogWindow">Использование модальных диалоговых окон</a></h4>
+Модальный диалог в GXT реализуется путем наследования класса <code>com.extjs.gxt.ui.client.widget.Dialog</code>. 
+
+<pre>
+  ...
+  import com.extjs.gxt.ui.client.widget.Dialog;
+  
+  public class DateSelectDialog extends Dialog {
+
+    private DateField dateField = new DateField();
+
+    public DateSelectDialog() {
+      FormLayout layout = new FormLayout();
+      layout.setLabelWidth(90);
+      layout.setDefaultWidth(155);
+      setLayout(layout);
+
+      setHeading("Укажите дату получения");
+      setModal(true);
+
+      setBodyBorder(true);
+      setBodyStyle("padding: 8px;background: none");
+      setWidth(300);
+      setResizable(false);
+      setClosable(false);
+      setButtons(Dialog.OKCANCEL);
+
+      okText = "Подтвердить";
+      cancelText = "Отмена";
+
+      dateField.setAllowBlank(false);
+      dateField.setFieldLabel("Дата получения");
+      dateField.getPropertyEditor().setFormat(DEFAULT_DATE_FORMATTER);
+    
+      dateField.getDatePicker().addListener(Events.Select, new Listener&lt;ComponentEvent&gt;() {
+        public void handleEvent(ComponentEvent ce) {
+          dateField.clearInvalid();
+        }
+      });
+
+      okButton.addSelectionListener(new SelectionListener&lt;ButtonEvent&gt;() {
+        public void componentSelected(ButtonEvent ce) {
+          if (dateField.isValid()) {
+            hide();
+          }
+        }
+      });
+
+      add(dateField);
+    }
+
+    public void show() {
+      dateField.clear();
+
+      super.show();
+    }
+
+    public Date getSelectedDate() {
+      return dateField.getValue();
+    }
+  }
+</pre> 
+
+В конструкторе презентера (DetailFormPresenter, ListFormPresenter или FormContainerPresenter) создаем экземпляр диалогового окна и привязываем обработчик закрытия по кнопке ОК:<br/>
+<pre>
+  public class MyFormContainerPresenter... 
+    extends JepFormContainerPresenter&lt;E, S, F&gt; implements ChangeDateEvent.DoPrintHandler {
+
+    private DateSelectDialog dateSelectDialog;
+  
+    ...
+  
+    public MyFormContainerPresenter(JepWorkstatePlace place, F clientFactory) {
+      super(place, clientFactory);
+
+      dateSelectDialog = new DateSelectDialog();
+      ...
+    
+      dateSelectDialog.addListener(Events.Hide, new Listener&lt;WindowEvent&gt;(){
+        public void handleEvent(WindowEvent be) {
+          if (Dialog.OK.equals(be.getButtonClicked().getItemId())) {
+            Date selectedDate = dateSelectDialog.getSelectedDate());
+            ...
+          }
+        }
+      });
+    }
+    ...
+  }
+</pre> 
+
+Пример вызова модального диалога:<br/>
+<pre>
+  public void onChangeDateEvent(LostEvent event) {
+    lostDialog.show();
+  }
+</pre>
+ 
+<h4><a name="browserDependentFeatures">Написание специфичного для браузера кода</a></h4>
+Несмотря на то, что GWT позиционируется как кроссбраузерный фреймворк, иногда возникает необходимость &laquo;затачивать&raquo; тот или иной 
+функционал под конкретный браузер. Это связано, как правило, с различиями в обработке на уровне DOM и JavaScript. Для этих целей в GWT можно
+использовать механизм, именуемый <i>поздним связыванием</i> (late binding). Идея заключается в том, что при GWT-компиляции модуля для сборки 
+(permutation) с определёнными значениями свойств (таких как локаль либо user-agent) указанный класс подменяется другим.<br/>
+<br/>
+Рассмотрим на примере. Пусть для конкретного браузера (в нашем случае Firefox) на детальной форме вместо одного виджета (<code>JepComboBoxField</code>)
+требуется отобразить другой (<code>JepListField</code>). Для этого, во-первых, необходимо во view детальной формы создать виджет, используя метод 
+<code>GWT.create(Class&lt;?&gt; classLiteral)</code>. Заметим, что <b>передаваемый методу класс должен иметь конструктор без параметров</b>. Класс
+<code>JepComboBoxField</code> такого конструктора не имеет, поэтому потребуется создать его наследника с соответствующим конструктором:
+<br/>
+<pre>
+public class MyComboBoxField extends JepComboBoxField {
+  public MyComboBoxField() {
+    super("");
+  }
+}
+</pre>
+Во view детальной формы виджет создаётся следующим кодом:
+<pre>
+JepMultiStateField comboBoxField = GWT.create(MyComboBoxField.class);
+</pre>
+Во-вторых, в файле <i>&lt;Module Name&gt;.gwt.xml</i> требуется указать:
+<ol>
+	<li>имя замещаемого класса (<code>com.technology.rfi.testapplication.testmodule.client.ui.widget.MyComboBoxField</code>);</li>
+	<li>имя замещающего класса (<code>com.technology.jep.jepria.client.widget.field.multistate.JepListField</code>);</li>
+	<li>условия, при которых осуществляется замещение.</li>
+</ol>
+<pre>
+&lt;module rename-to="TestModule"&gt;
+  . . .
+  &lt;replace-with class="com.technology.jep.jepria.client.widget.field.multistate.JepListField"&gt;
+    &lt;when-type-is class="com.technology.rfi.testapplication.testmodule.client.ui.widget.MyComboBoxField"/&gt;
+    &lt;when-property-is name="user.agent" value="gecko1_8"/&gt;
+  &lt;/replace-with&gt;
+&lt;/module&gt;
+</pre>
+Рассмотрим более сложный случай, когда замену нужно выполнять более чем для одного браузера и для конкретной (например, английской) локали.
+Значения user-agent в этом случае следует перечислять с помощью тега <code>&lt;any&gt;</code>:
+<pre>
+&lt;replace-with class="com.technology.jep.jepria.client.widget.field.multistate.JepListField"&gt;
+  &lt;when-type-is class="com.technology.rfi.testapplication.testmodule.client.ui.widget.MyComboBoxField"/&gt;
+  &lt;when-property-is name="locale" value="en"/&gt;
+  &lt;any&gt;
+    &lt;when-property-is name="user.agent" value="gecko1_8"/&gt;
+    &lt;when-property-is name="user.agent" value="safari"/&gt;
+  &lt;any/&gt;
+&lt;/replace-with&gt;
+</pre>
+
+<h4><a name="enterModule">Переход на произвольный модуль приложения без перезагрузки хост-страницы</a></h4>
+В процессе работы большого приложения со множеством модулей (форм) иногда необходим быстрый нестандартный (НЕ через модуль Navigation или 
+закладку подчиненного модуля) переход на произвольный модуль данного приложения. При этом, очевидно, очень желательно НЕ перегружать повторно 
+(и, в общем случае, абсолютно бесполезно) хост-страницу приложения. Для решения подобной задачи можно воспользоваться методом 
+<code>enterModule(&lt;MODULE_ID&gt;)</code> шины событий главного модуля. Рассмотрим простейший пример перехода на произвольный модуль:
+<pre>
+  // Отразим в объекте содержащем состояние приложения JepScopeStack предстоящее переключение на заданный модуль.
+  
+  // Подготовим новый уровень иерархии, в котором укажем на какой модуль и в каком состоянии нужно перейти.
+  JepScope enterModuleScope = new JepScope(new String[] {OPERATOR_MODULE_ID}, new WorkstateEnum[] {SEARCH});
+  // Очистим текущее состояние приложения.
+  JepScopeStack.instance.clear();
+  // Добавим новый, вновь созданный, уровень иерархии, отразив тем самым новое, желаемое нами, состояние приложения.
+  JepScopeStack.instance.push(enterModuleScope);
+  
+  // Непосредственно переключимся на модуль (при этом в обработчиках события переключения произойдет настройка модуля 
+  // в соответствии с подготовленным ранее объектом состояния приложения JepScopeStack).
+  clientFactory.getMainClientFactory().getEventBus().enterModule(OPERATOR_MODULE_ID);
+</pre>
+Использование подобного подхода позволяет практически мгновенно (для уже подгруженных модулей) переключиться на заданный модуль приложения.
+<h4><a name="treeGridManager">Использование древовидной структуры на списочной форме</a></h4>
+Для реализации древовидной структуры на списочной форме необходимо следующим образом модифицировать прикладной код модуля:
+<br/><br/>
+<ol>
+	<li>Начнем с <code>ListFormView:</code>
+		<ol>
+			<li>Установить TreeGridManager в качестве класса, управляющего списком:
+			<pre>
+	public class ReconciliationListFormViewImpl extends ListFormViewImpl&lt;TreeGridManager&gt; {
+	 
+		public ReconciliationListFormViewImpl() {
+			super(new TreeGridManager());
+			...
+			</pre>
+			</li>
+			<li>В колонку, которая будут отображать элементы управления деревом, необходимо указать тип <code>TreeCell</code>. 
+			<pre>
+	
+	private List&lt;JepColumn&gt; getColumnConfigurations() {
+		final List&lt;JepColumn&gt; columns = new ArrayList&lt;JepColumn&gt;();
+		
+		columns.add(new JepColumn(INCIDENT_ID, reconciliationText.reconciliation_list_incident_id(), 150, new TreeCell&lt;String&gt;()));
+		...
+			</pre>
+			</li>
+		</ol>
+	</li>
+	<li>Далее модифицируем <code>ListFormPresenter:</code>
+		<ol>
+			<li>Необходимо инициализовать <code>TreeGridManager</code> и привязать обработчики.
+			<pre>
+	{@literal @}Override
+	protected void bind() {
+		super.bind();
+		
+		treeList.bindTree();
+		
+		treeList.initKeys(clientFactory.getRecordDefinition());
+		treeList.setLoader(new DataLoader&lt;JepRecord&gt;() {
+			public void load(final Object loadConfig, final AsyncCallback&lt;List&lt;JepRecord&gt;&gt; callback) {
+				service.find((PagingConfig) loadConfig, new JepAsyncCallback&lt;PagingResult&lt;JepRecord&gt;&gt;() {
+					public void onSuccess(PagingResult&lt;JepRecord&gt; pagingResult) {
+						List&lt;JepRecord&gt; subList = pagingResult.getData();
+						callback.onSuccess(subList);
+					}
+				
+					public void onFailure(Throwable caught) {
+						callback.onFailure(caught);
+						super.onFailure(caught);
+					}
+				});
+			}
+		});
+	}
+			</pre>
+			</li>
+		</ol>
+	</li>
+	<li>И последнее, в ejb добавить простановку значений для работы дерева: (первичный ключ, ключ родителя и флаг наличия детей)
+	<pre>
+			
+	return super.find( sqlQuery,
+		new ResultSetMapper&lt;JepRecord&gt;() {
+			public void map(ResultSet rs, JepRecord record) throws SQLException {
+				
+				record.set(RECONCILIATION_ID, getInteger(rs, RECONCILIATION_ID));
+				record.set(PARENT_RECONCILIATION_ID, getInteger(rs, PARENT_RECONCILIATION_ID));	
+				
+				boolean hasChildren = false;
+				if(getInteger(rs, TreeCellNames.HAS_CHILDREN) == 1)
+					hasChildren = true;
+				
+				record.set(TreeCellNames.HAS_CHILDREN, hasChildren);
+				
+				...
+					
+	</pre>	
+	</li>
+</ol>
+Пример: svn://srvbl08/RusFinanceInfo/Module/ASDManager, модули reconciliation и task
+<br/>
+<h4><a name="sortOptions">Сортировка данных для выпадающих списков</a></h4>
+Для сортировки данных выпадающих списков существует несколько способов:
+<ul>
+	<li>на уровне базы данных (сортировка осуществляется средствами SQL)</li>
+	<li>на уровне приложения:
+	<ol>
+		<li>в клиентской части</li>
+		<li>в серверной (на уровне компонента EJB или в коде имлементации сервисного метода (в классе *ServiceImpl))</li>
+	</ol>		
+	</li>
+</ul>
+Если сортировку необходимо выполнить на уровне приложения (не в базе данных), то ее предпочтительнее осуществлять в сервисном методе.
+В отличие от клиентского уровня, данный подход позволит сократить время выполнения операции и при этом избежать лишней нагрузки на клиентской стороне.
+А в сравнении с уровнем EJB, позволит многократно использовать данные в их &quot;первозданном&quot; виде и возможны ситуации, когда EJB-компонент отсутствует.
+<br/>
+Ниже приведен пример реализации get-метода получения списка &quot;Единиц измерения&quot; с встроенной сортировкой данных в классе {@link com.technology.jep.jepriashowcase.goods.server.service.GoodsServiceImpl}:
+<pre>
+	<strong>import com.technology.jep.jepria.shared.util.DefaultComparator;</strong>
+
+	public class <i>&lt;Module_Name&gt;</i>ServiceImpl extends JepDataServiceServlet implements <i>&lt;Module_Name&gt;</i>Service  {
+		/**
+	 	* Схема сравнения.
+		*/
+		protected Comparator&lt;Object&gt; comparator;
+		
+		public <i>&lt;Module_Name&gt;</i>ServiceImpl() {
+			...
+			<strong>this.comparator = DefaultComparator.instance;</strong>
+		}
+		...
+
+		public List&lt;JepOption&gt; getUnit() throws ApplicationException {
+			List&lt;JepOption&gt; result = null;
+			try {
+				// Осуществляем получение данных (это может быть вызов метода EJB, извлечение из файла и прочих источников).
+				result = ...
+				// Сортировку осуществляем посредством компаратора
+				<strong>Collections.sort(result, new Comparator<JepOption>() {
+					&commat;Override
+					public int compare(JepOption o1, JepOption o2) {
+						// В данном случае, отсортируем список по имени опции
+						return comparator.compare(o1.getName(), o2.getName());
+					}
+				});</strong>
+			} catch (Throwable th) {
+				throw new ApplicationException(th.getLocalizedMessage(), th);
+			}
+			return result;
+		}
+		...
+	}			
+</pre>
+<br/>
+
+<h4><a name="validation">Использование кастомных валидаторов полей или группы зависимых полей</a></h4>
+В случае необходимости дополнительной проверки поля/полей на системном уровне предусмотрен единый интерфейс валидации {@link com.technology.jep.jepria.client.widget.field.validation.Validator}.
+Для его использования следует придерживаться следующего правила:
+<ul>
+	<li>определение бизнес-логики проверки для группы взаимосвязанных (как минимум, двух) полей на уровне класса {@link com.technology.jep.jepria.client.widget.field.FieldManager}</li>
+	<li>использование кастомной валидации компонента на уровне класса {@link com.technology.jep.jepria.client.widget.field.multistate.JepMultiStateField}</li>
+</ul>
+Ниже приведен пример реализации валидаторов для поля даты &quot;Дата создания запроса&quot; и зависимых полей дат &quot;Дата создания запроса С&quot; и &quot;Дата создания запроса По&quot;:
+<ul>
+<li>Класс клиентских констант, определяющий идентификаторы предполагаемых валидаторов:
+<pre>
+	<strong>import com.technology.jep.jepria.client.widget.field.validation.Validator;</strong>
+
+	public class <i>&lt;Module_Name&gt;</i>ClientConstant extends <i>&lt;Module_Name&gt;</i>Constant {
+		...
+		public final static String REQUEST_DATE_CUSTOM_VALIDATOR_ID = "REQUEST_DATE_CUSTOM_VALIDATOR_ID";
+	
+		public final static String BEGIN_END_DATE_CUSTOM_VALIDATOR_ID = "BEGIN_END_DATE_CUSTOM_VALIDATOR_ID";
+		...
+	}			
+</pre>
+</li>
+<li>Интерфейс представления детальной формы с возможность установки кастомного валидатора:
+<pre>
+	<strong>import com.technology.jep.jepria.client.widget.field.validation.Validator;</strong>
+
+	public interface <i>&lt;Module_Name&gt;</i>DetailFormView extends DetailFormView {
+		...
+		<strong>void setCustomValidator(String validatorId, Validator customValidator);</strong>
+		...
+	}			
+</pre>
+</li>
+<li>Класс представления детальной формы, реализующий указанный ранее интерфейс:
+<pre>
+	<strong>import com.technology.jep.jepria.client.widget.field.validation.Validator;</strong>
+
+	public class <i>&lt;Module_Name&gt;</i>DetailFormViewImpl extends DetailFormViewImpl implements <i>&lt;Module_Name&gt;</i>DetailFormView {
+		
+		<strong>private static Validator customDatesValidator;
+		private static Validator customRequestDateValidator;</strong>
+		...
+
+		public <i>&lt;Module_Name&gt;</i>DetailFormViewImpl() {
+			super(<strong>new FieldManager(){
+				&commat;Override
+				public boolean isValid(){
+					return super.isValid() &amp; customDatesValidator.isValid();
+				}
+			}</strong>);
+			...
+
+			JepDateField requestDateDateField = new JepDateField(requestText.request_detail_request_date())<strong>{
+				&commat;Override
+				public boolean isValid(){
+					return super.isValid() &amp;&amp; customRequestDateValidator.isValid();
+				}
+			}</strong>;
+		}
+		<strong>
+		public void setCustomValidator(String validatorId, Validator customValidator) {
+			if (BEGIN_END_DATE_CUSTOM_VALIDATOR_ID.equalsIgnoreCase(validatorId)){
+				RequestDetailFormViewImpl.customDatesValidator = customValidator; 
+			} else if (REQUEST_DATE_CUSTOM_VALIDATOR_ID.equalsIgnoreCase(validatorId)){
+				RequestDetailFormViewImpl.customRequestDateValidator = customValidator; 
+			}
+		}</strong>
+	}			
+</pre>
+</li>
+<li>Метод bind класс презентера детальной формы:
+<pre>
+	<strong>import com.technology.jep.jepria.client.widget.field.validation.Validator;</strong>
+	...
+	public void bind() {
+		super.bind();
+		...
+		// определяем кастомный валидатор взаимодействия полей начальной и конечной дат
+		view.<strong>setCustomValidator</strong>(<strong>BEGIN_END_DATE_CUSTOM_VALIDATOR_ID</strong>, <strong>new Validator() {
+			&commat;Override
+			public boolean isValid() {
+				// Определяем бизнес-логику проверки зависимостей полей дат С и По
+				...
+			}
+		}</strong>);
+		
+		// определяем кастомный валидатор поля request_date
+		view.<strong>setCustomValidator</strong>(<strong>REQUEST_DATE_CUSTOM_VALIDATOR_ID</strong>, <strong>new Validator() {
+			&commat;Override
+			public boolean isValid() {
+				// Определяем бизнес-логику поля "Дата создания запроса"
+				...
+			}
+		}</strong>);
+	}
+	...			
+</pre>
+</li>
+</ul>
+<br/>
+
+<h4><a name="messageBoxButton">Возможность установки обработчика событий нажатия на кнопки в наследниках MessageBox</a></h4>
+Для возможности установки обработчиков нажатия на кнопки в наследниках {@link com.technology.jep.jepria.client.message.MessageBox} на прикладном уровне необходимо использовать метод <i>addButtonClickHandler</i>.
+Параметрами метода выступают обработчик нажатия на кнопку и тип переопределяемой кнопки в {@link com.technology.jep.jepria.client.message.MessageBox}.<br/>
+
+Рассмотрим случай, когда во время удаления требуется дополнительная проверка при удалении записи &quot;Поставщика&quot;, если имеются связанные записи &quot;Товаров&quot;:
+<pre>
+	public class <i>&lt;Module_Name&gt;</i>ListFormPresenter<V extends ListFormView, E extends PlainEventBus, S extends <i>&lt;Module_Name&gt;</i>ServiceAsync, F extends StandardClientFactory<E, S>> 
+		extends ListFormPresenter<V, E, S, F> {
+		
+		&commat;Override
+		public void onDoDelete(DoDeleteEvent event) {
+			if(SELECTED.equals(_workstate)) {
+				final Set&lt;JepRecord&gt; records = list.getSelectionModel().getSelectedSet();
+				<strong>MessageBox box</strong> = messageBox.confirmDeletion(records.size() > 1, new ConfirmCallback() {
+					public void onConfirm(Boolean yes) {
+						...
+					}
+				}
+				
+				<strong>box.addButtonClickHandler(<i>PredefinedButton.YES</i>, new ClickHandler() {
+					&commat;Override
+					public void onClick(ClickEvent event) {
+						// Ваша бизнес-логика...
+					}
+				});</strong>
+			}
+		}
+	}
+</pre>
+
+<br/>
+
+<h4><a name="toolkitUpdate">Создание приложения и расширение сборщика с помощью JepRiaToolkit</a></h4>
+Ранее новую версию AntTask приходилось вручную копировать в папку ant/lib на той машине, откуда производится установка (deploy) приложения.<br/>
+Теперь каждый раз, в начале сборки приложения, выполняется цель <strong>prepare-toolkit</strong>, в рамках которой происходит копирование jepriatoolkit.jar в папку lib приложения.
+Папка lib должна коммититься в SVN вместе со сборкой приложения, и в дальнейшем при установке модуля используется уже оттуда.<br/> 
+Версия (путь к приложению) JepRiaToolkit берется из файла build.properties из свойства:
+<pre>
+JEP_RIA_TOOLKIT_VERSION=Tag/6.0.0
+</pre>
+Таким образом, наличие jepriatoolkit.jar в ant/lib на машине, с которой производится установка приложения, больше не требуется.<br/> 
+Версия jepriatoolkit.jar используемая разработчиком при сборке приложения, будет поставляться вместе с приложением.
+
+<br/>
+
+<h4><a name="buildConfig">Конфигурации сборки</a></h4>
+Пересмотрен подход к переключению режима сборки приложения debug/production. 
+В модуле AntTask использовалась перегенерация кода и настроек, влияющих на сборку приложения, по фиксированному шаблону. 
+Такая реализация имеет определенные минусы – каcтомные настройки при переключении режимов не сохраняются.
+В новой версии JepRiaToolkit введен термин build configuration и соответствующее свойство в файла build.properties, задающее целевую конфигурацию:
+<pre>
+BUILD_CONFIG=debug
+</pre>
+Команды <strong>ant debug</strong> и <strong>ant production</strong> больше не поддерживаются.<br/>
+Конфигурации находятся в папке App/config/&lt;название_конфигурации&gt;, и представляют собой копию файлов (необходимых для конфигурирования сборки) из папки src и вложенных папок соответственно, включая структуру каталогов. Например, это могут быть src/java/log4j.properties, src/java/…/main/&lt;application&gt;.gwt.xml и src/html/&lt;application&gt;.css.
+Количество дополнительных конфигураций, кроме обязательных <strong>debug</strong> и <strong>production</strong> (создаются автоматически при использовании цели <strong>create-structure</strong>) не ограничено. Для существующих приложений, необходимо создание папок App/config/debug и App/config/production и копирование в них из исходников файлов, необходимых для конфигурирования сборки.<br/>
+В результате применения конигурации создается (обновляется) файл App/build.config, содержащий название последней примененной конфигурации, и список файлов, из которых она состоит. Файл должен коммититься в SVN вместе с исходниками и папкой App/config.<br/>
+Применение конфигурации происходит автоматически каждый раз перед сборкой приложения в рамках цели <strong>build-config</strong>, и является копированием содержимого папки с конфигурацией поверх папки App.<br/>
+Есть ряд особенностей, связанных с применением конфигурации:
+<ul>
+<li>При отсутствии целевой конфигурации (соответствующей папки) процесс сборки завершается с ошибкой.</li>
+<li>Поскольку копирование происходит из конфигурации в исходники, запрещено менять те файлы в исходниках, которые входят в конфигурацию, потому что при следующем применении конфигурации изменения будут потеряны. Чтобы избежать таких потерь, сверяются даты изменения, и если исходник новее чем этот же файл в текущей конфигурации – то и производится двоичное сравнение файлов, в случае расхождения – в лог выводится имя измененного файла из исходников, сборка завершается с ошибкой. Для решения проблемы нужно изменения в исходнике скопировать в соответствующий файл конфигурации, и запустить сборку.</li>
+<li>При отсутствии файла builg.config в папке App определение текущей конфигурации и проверка изменений в исходниках после применения конфигурации невозможны (см. выше), происходит просто применение целевой конфигурации.</li>
+<li>При применении конфигурации производится двоичное сравнение файлов, файлы без изменений не копируются.</li>
+</ul>
+<br/>
+
+<h4><a name="passwordField">Реализация поля с паролем</a></h4>
+Для реализации на форме поля с паролем достаточно будет переопределить метод addEditableCard в классе JepTextField следующий образом (вместо TextBox использовать PasswordTextBox): 
+<pre>
+	JepTextField svnPasswordTextField = new JepTextField(svnSearcherText.svnSearcher_detail_svn_password()){
+		/**
+		 * {&commat;inheritDoc}
+		 */
+		&commat;Override
+		protected void addEditableCard() {
+			editableCard = new PasswordTextBox();
+			editablePanel.add(editableCard);
+		}
+	};
+</pre>
+<br/>
+
+<h3><a name="refactoringNeeded">Косвенные признаки необходимости рефакторинга</a></h3>
+При наличии в коде нижеописанных конструкций и методов, в большинстве случаев, необходим рефакторинг данного кода. 
+Наличие упомянутых конструкций и методов (в большинстве случаев) свидетельствует о непонятном (<u>в первую очередь для написавшего разработчика</u>) 
+поведении кода. Очень часто это скрывает саму суть (источник) проблемы. Т.о. по &laquo;тяжести&raquo; последствий применение этих конструкций и 
+методов сравнимо с сокрытием сообщений об ошибках.<br/>
+<br/>
+Конструкции, при наличии которых требуется рефакторинг:
+<ol>
+	<li>
+    <pre>
+      ...
+      Scheduler.get().scheduleDeferred(new ScheduledCommand() {
+        public void execute() {
+          ...
+        }
+      });
+      ...
+    </pre>
+	</li>
+</ol>
+
+Методы, при наличии которых требуется рефакторинг:
+<ol>
+	<li>
+    <pre>
+      ...
+      &lt;some Container&gt;.layout();
+      ...
+    </pre>
+	</li>
+	<li>
+    <pre>
+      ...
+      &lt;some Container&gt;.layout(true);
+      ...
+    </pre>
+	</li>
+</ol>
+
+Многократное переключение <code>Place</code> (даже на тот же самый) в процессе отработки события <code>EventBus</code>.<br/>
+Крайне желательно, для нормальной работы <code>History</code> (для исключения ощущения у пользователя "пробуксовки" кнопок Вперед-Назад), 
+чтобы при отработке события <code>EventBus</code>, <code>Place</code> переключался НЕ более одного раза.
+
+<h3><a name="autoTestConcept">Автоматизированное тестирование</a></h3>
+Основные положения.<br/>
+Для повышения качества прикладных и общих (системных) модулей применяется автоматизированное тестирование.<br/>
+Известны три уровня тестирования GWT-приложений (в порядке предпочтительности, на каждый следующий переходят от безысходности):
+<ol>
+	<li>С использованием классического JUnit (state и interaction) – когда тестируются компоненты, для которых не требуется JavaScript (для MVP-архитектуры это, как правило, презентеры);</li>
+	<li>С использованием GWTTestCase – когда тестируются компоненты, для которых требуется JavaScript, и когда TestCase может быть не слишком сложно/дорого воспроизведён;</li>
+	<li>С использованием Selenium (и ему подобных продуктов) – когда TestCase слишком сложно/дорого воспроизвести иными способами, чем повторить всю последовательность действий пользователя.</li>
+</ol>
+Написание тестов (как и обычного кода), крайне желательно, реализовывать по принципу bottom-up (от простого/элементарного к сложному/комплексному) 
+- чтобы на любой момент времени у нас был рабочий код/тест.<br/>
+<br/>
+Для запуска автоматизированного тестирования используется цель <code>ant test</code>.<br/>
+<br/>
+Для получения документации по тестированию необходимо сгенерировать документацию целью <code>ant doc-with-test</code>.<br/>
+<br/>
+<h4><a name="autoTestGwtTestCase">Особенности использования GWTTestCase</a></h4>
+<ul>
+ <li>Необходимо наличие библиотеки <code>xercesImpl.jar</code> в директории JDK <code>jre/lib/ext</code></li>
+ <li>Если необходимо тестировать ближе к реальной работе приложения, то необходимо использовать тест уже на уровне JavaScript.<br/>
+ Для включения этого режима (так называемый режим <code>&laquo;production&raquo;</code> в терминах GWTTestCase) необходимо использовать
+ опцию  <code>&laquo;-prod&raquo;</code> при запуске GWTTestCase (смотри <code>build.xml</code>).<br/>
+ <b>Внимание:</b> некоторый функционал связанный с отрисовкой (render'ом) может просто НЕ работать (выдавать ошибку) при работе НЕ 
+	на уровне JavaScript.</li>
+	<li>В GWT 2.5.1 для автоматизированного тестирования используется сервер приложений Jetty 6.1.11.
+		Источник: <a href="https://gwt.googlesource.com/gwt/+/2.5.1/dev/build.xml" target="_blank">https://gwt.googlesource.com/gwt/+/2.5.1/dev/build.xml</a><br/>
+		Особенностью Jetty является тот факт, что меппинг сервлетов Jetty берет <u>НЕ</u> из <code>web.xml</code> (как обычно из тегов 
+		<code>&lt;servlet&gt;</code>), а из <code>*.gwt.xml</code>-файлов.<br/>
+		Пример из <code>JepRiaShowcase.gwt.xml</code>:
+		<pre>
+  &lt;servlet path="/MainService" class="com.technology.jep.jepria.server.service.JepMainServiceServletTest" /&gt;
+		</pre>
+	</li>
+	<li>GWTTestCase'ом тестируется, главным образом, клиентская часть. Приложение в режиме теста &laquo;ограничивается&raquo; 
+		на уровне сервисов. Т.е. при тесте данные, получаемые сервисом из <code>EJB</code> и базы данных, подменяются тестовыми данными, сформированными
+		самим разработчиком. При этом, тестовый код сервисов размещается в директории тестовых исходных кодов <code>test-gwt</code> в соответствующем
+		тестируемому классу пакете с добавлением к имени класса постфикса <code>*Test</code>.<br/>
+		Реализацию подобного подхода можно посмотреть на примере класса {@link com.technology.jep.jepria.server.service.JepMainServiceServletTest 
+		com.technology.jep.jepria.server.service.JepMainServiceServletTest}.
+	</li>
+</ul>
+Полезная информация:
+<ul>
+	<li><a href="http://www.gwtproject.org/doc/latest/DevGuideTesting.html" target="_blank">http://www.gwtproject.org/doc/latest/DevGuideTesting.html</a></li>
+	<li><a href="http://junit.sourceforge.net/javadoc/org/junit/Assert.html" target="_blank">http://junit.sourceforge.net/javadoc/org/junit/Assert.html</a></li>
+	<li>Составные части Jetty (включая исходники) можно найти здесь: <a href="http://central.maven.org/maven2/org/mortbay/jetty/" target="_blank">http://central.maven.org/maven2/org/mortbay/jetty/</a></li>
+</ul>
+
+<h4><a name="autoTestSelenium">Тестирование с использованием Selenium</a></h4>
+<h5><a name="autoTestArchitecture">Архитектура тестов</a></h4>
+Selenium WebDriver (далее по тексту - просто Selenium), строго говоря, не является средством автоматизации тестирования, он является средством автоматизации работы с браузером, то есть,
+средством эмуляции действий пользователя, работающего с Web-приложением. Поэтому Selenium может использоваться не только для тестов, но и, например, для разработки роботов, имеющих различное назначение. 
+Тесты используют Selenium как средство воздействия на Web-приложения и как средство анализа реакции Web-приложений на эти воздействия.<br>
+Подход к автоматизированному тестированию на основе Selenium, применяющийся в JepRia, основан на разделении функционала поддержки тестов, на два уровня: уровень собственно тестов и уровень автоматизации -
+эмуляции действий пользователя.
+При этом в целях максимального упрощения тестов реализация автоматизации приложения вынесена в отдельный уровень системного и прикладного кода, что избавляет создателей тестов (которые не обязательно являются
+профессиональными разработчиками) от необходимости знания особенностей Selenium.<br>
+Уровень автоматизации тестов - не просто обёртка над Selenium, он поддерживает структуру и особенности поведения JepRia-приложений. 
+<br>
+<br>
+
+<h5><a name="autoTestJepRiaSystemLevel">Поддержка автоматизации работы с визуальными компонентами JepRia (системный уровень)</a></h4>
+
+При разработке визуальных компонентов Web-приложений (кнопок, полей, комбобоксов, ...) поддержка автоматизации состоит главным образом в присвоении Web-элементам компонентов приложений соответствующих идентификаторов.
+Для этого используются конструкторы компонентов, принимающие в качестве параметров идентификаторы Web-элементов. Константы, использующиеся для формирования таких идентификаторов, находятся в
+классе <code>com.technology.jep.jepria.client.AutomationConstant</code>.
+Присвоение идентификаторов Web-элементам можно проиллюстрировать кодом конструктора StatusBar:
+<pre>	
+	public StatusBarViewImpl() {
+		label = new Label();
+		<b>label.getElement().setId(AutomationConstant.STATUSBAR_PANEL_ID);</b>
+		...
+	}
+</pre>	
+В этом фрагменте выделенная строка кода используется для присвоения идентификатора Web-элементу StatusBar. 
+
+<h5><a name="autoTestJepRiaApplicationLevel">Поддержка автоматизации работы с JepRia-приложениями (прикладной уровень)</a></h5>
+
+<h6>Фасадные компоненты (прикладной уровень) </h6>
+Поддержку автоматизации на прикладном уровне JepRia можно увидеть на примере класса реализации представления детальной формы:
+<pre>
+package com.technology.jep.jepriashowcase.goods.client.ui.form.detail;
+ 
+import static com.technology.jep.jepriashowcase.custom.client.JRSCCustomAutomationConstant.JRSC_GOODS_NAME_TEXT_FIELD_ID;
+import static com.technology.jep.jepriashowcase.custom.client.JRSCCustomAutomationConstant.JRSC_GOODS_TYPE_COMBOBOX_FIELD_ID;
+... 
+public class GoodsDetailFormViewImpl extends DetailFormViewImpl implements GoodsDetailFormView {	
+	...	
+	JepTextField goodsNameTextField = new JepTextField(<b>JRSC_GOODS_NAME_TEXT_FIELD_ID</b>, goodsText.goods_detail_goods_name());
+	goodsNameTextField.setMaxLength(255);
+	JepComboBoxField goodsTypeComboBoxField = new JepComboBoxField(<b>JRSC_GOODS_TYPE_COMBOBOX_FIELD_ID</b>, goodsText.goods_detail_goods_type());
+	...	
+}
+</pre>	
+<h6>Фасадные компоненты автоматизации (прикладной уровень) </h6>
+В целях упрощения разработки тестов на Selenium системный и прикладной уровень JepRia предоставляют высокоуровневый интерфейс работы с приложениями:
+системный уровень поддерживает работу в таких терминах предметной области JepRia как: клиентский модуль, Toolbar, Statusbar, детальная форма, поля детальной формы,
+списочная форма, и т.п.
+Прикладной уровень поддерживает работу в терминах предметной области JepRia-приложения, например, с конкретными наборами полей детальной формы.
+Для такой высокоуровневой поддержки автоматизации на системном уровне создан интерфейс <code>JepRiaModuleAuto</code> и его реализация <code>JepRiaModuleAutoImpl</code>. 
+Высокоуровневую поддержку автоматизации на прикладном уровне проиллюстрируем небольшим фрагментом интерфейса <code>GoodsAuto</code> полноэкранного модуля Goods:
+ 
+<pre>
+public interface GoodsAuto extends JepRiaModuleAuto {
+	/**
+	 * Заполнение поля <I>Наименование товара</I>
+	 * 
+	 * {@literal @}param goodsName значение поля <I>Наименование товара</I> 
+	 */
+	void setGoodsName(String goodsName);
+
+	/**
+	 * Получение значения поля <I>Наименование товара</I>
+	 * {@literal @}return значение поля <I>Наименование товара</I>
+	 */
+	String getGoodsName();
+	...
+    
+	/**
+	 * Заполнение формы создания
+	 * 
+	 * {@literal @}param goodsName Наименование товара
+	 * {@literal @}param goodsType Тип товара
+	 * {@literal @}param unit Единица измерения
+	 * {@literal @}param motivation Мотивация
+	 * {@literal @}param purchasingPrice закупочная цена
+	 * {@literal @}param goodsPhoto фото товара
+	 * {@literal @}param goodsSpecification спецификация товара
+	 */
+	void fillCreateForm(
+			String goodsName,
+			String goodsType,
+			String unit,
+			String motivation,
+			String purchasingPrice,
+			String goodsPhoto,
+			String goodsSpecification);
+}
+</pre>
+
+<h5><a name="autoTestJepRiaTestCreation">Разработка тестов JepRia-приложений</a></h5>
+
+Тесты для приложений JepRia разрабатываются для их выполнения на фреймворке <a href="http://testng.org/doc/index.html" target="_blank">TestNG</a>. 
+Ниже приводится пример теста фасадного компонента автоматизации для модуля Goods, проверяющего правильность
+заполнения поля <I>GoodsName</I> детальной формы создания методом setGoodsNameOnCreate(). 
+<pre>	
+...
+public class GoodsAutoTest {
+...
+	private JepRiaShowcaseAutoImpl automationManager;
+	private GoodsAuto cut;
+	
+	/**
+	 * Конфигурирование теста
+	 * 
+	 * {@literal @}param baseUrl - URL запуска приложения
+	 * {@literal @}param browserName - используемый браузер
+	 * {@literal @}param browserVersion - версия браузера
+	 * {@literal @}param browserPlatform - платформа, для которой реализован браузер
+	 * {@literal @}param jepriaVersion - версия JepRia
+	 * {@literal @}param forceNewBrowser - условие запуска нового браузера: если true - запускать 
+	 * {@literal @}param forceLogin - условие перелогинивания: если true - перелогиниваться
+	 * {@literal @}param username - имя пользователя
+	 * {@literal @}param password - пароль пользователя
+	 */
+	{@literal @}Parameters({
+		"baseUrl",
+		"browserName",
+		"browserVersion",
+		"browserPlatform",
+		"jepriaVersion",
+		"forceNewBrowser",
+		"forceLogin",
+		"username",
+		"password"})
+	{@literal @}BeforeMethod(groups = {"find", "create", "delete", "edit", "goto", "list", "setAndGetTextField"})
+	public void setUp(
+			String baseUrl,
+			String browserName,
+			{@literal @}Optional("fake") String browserVersion,
+			{@literal @}Optional("fake") String browserPlatform,
+			String jepriaVersion,
+			{@literal @}Optional("No") String forceNewBrowser,
+			{@literal @}Optional("No") String forceLogin,
+			String username,
+			String password) {
+			
+            automationManager = startAutomationManager(automationManager, baseUrl, browserName, browserVersion, browserPlatform, jepriaVersion, forceNewBrowser, forceLogin, username, password);
+            cut = getCut();
+            if("Yes".equalsIgnoreCase(forceLogin) || !cut.isLoggedIn()) {
+                cut.login(username, password);
+            }
+	}
+	
+	/**
+	 * Действия после окончания тестового метода
+	 * 
+	 * {@literal @}param forceNewBrowser - условие запуска нового браузера: если true - запускать 
+	 * {@literal @}param forceLogin - условие перелогинивания: если true - перелогиниваться
+	 */
+	{@literal @}AfterMethod(groups = {"find", "create", "delete", "edit", "goto", "list", "setAndGetTextField"})
+	{@literal @}Parameters({
+		"forceNewBrowser",
+		"forceLogin"})
+	public void tearDown(
+			{@literal @}Optional("No") String forceNewBrowser,
+			{@literal @}Optional("No") String forceLogin) {
+			
+             if("Yes".equalsIgnoreCase(forceNewBrowser)) {
+                 automationManager.stop();
+             } else {
+                 if("Yes".equalsIgnoreCase(forceLogin) && cut.isLoggedIn()) {
+                     cut.logout();
+                 } else {
+                     cut.goTo(WorkstateEnum.SEARCH); // Приведение модуля в исходное состояние
+                 }
+             }
+	}
+
+...
+<b>
+	{@literal @}Test
+	public void setGoodsNameOnCreate() {
+		cut.goTo(CREATE);
+		
+        String GOODS_NAME = "Вино";
+        cut.setGoodsName(GOODS_NAME);
+        AssertJUnit.assertEquals(GOODS_NAME, cut.getGoodsName());
+	}
+</b>
+...
+}
+</pre>	
+<h5><a name="autoTestJepRiaTestDDT">Тесты, управляемые данными</a></h5>
+DDT (Data Driven Testing - тесты, управляемые данными) – подход к тестированию, при котором тестовые данные хранятся отдельно от самих тестов,
+часто в документах Excel, файлах CSV или в базе данных.
+В TestNG подход DDT поддерживается реализацией <I>провайдеров данных</I>, обеспечивающих поток входных данных для тестовых методов.
+Провайдеры данных реализуются в виде Java-методов, обозначаемых аннотацией <I>{@literal @}DataProvider</I> и возвращающих один из двух типов: Object[][] или Iterator&lt;Object[]&gt;.
+Для того, чтобы тестовый метод мог работать в режиме DDT, в его аннотации {@literal @}Test нужно указать атрибут <I>dataProvider</I> присвоив ему соответствующее значение,
+например:
+<pre>
+public class LocaleUtilsTest extends Assert {
+    <b>{@literal @}DataProvider
+    public Object[][] parseLocaleData() {</b>
+        return new Object[][]{
+            {null, null},
+            {"", LocaleUtils.ROOT_LOCALE},
+            {"en", Locale.ENGLISH},
+            {"en_US", Locale.US},
+            {"en_GB", Locale.UK},
+            {"ru", new Locale("ru")},
+            {"ru_RU_some_variant", new Locale("ru", "RU", "some_variant")},
+        };
+    }
+    
+    <b>{@literal @}Test(dataProvider = "parseLocaleData")</b>
+    public void testParseLocale(String locale, Locale expected) {
+        final Locale actual = LocaleUtils.parseLocale(locale);
+        assertEquals(actual, expected);
+    }
+}    
+</pre>
+
+В приведённом примере тест <I>testParseLocale</I> будет вызван столько раз, сколько массивов данных-параметров будет передано ему из 
+провайдера данных <I>parseLocaleData</I> - в данном случае - 7 раз.
+
+Если метод-провайдер данных и тестовый метод находятся в разных классах, то в аннотацию {@literal @}Test нужно добавить атрибут, указывающий класс,
+в котором находится провайдер данных (в данном случае - <I>LocaleUtilsTestData.class</I>):
+<pre>
+public class LocaleUtilsTest extends Assert {
+...
+    {@literal @}Test(dataProvider = "parseLocaleData, <b>dataProviderClass = LocaleUtilsTestData.class"</b>)
+    public void testParseLocale(String locale, Locale expected) {
+        final Locale actual = LocaleUtils.parseLocale(locale);
+        assertEquals(actual, expected);
+    }
+}    
+</pre>
+
+Наибольшая гибкость при тестировании, управляемом данными, достигается, когда для каждого тестового метода можно указать отдельный поток входных параметров.
+В JepRia это делается при помощи использования файлового провайдера данных  <I>dataFromFile</I> и дополнительной аннотации <I>{@literal @}DataProviderArguments</I>,
+в которой указывается файл данных провайдера <I>dataFromFile</I>для соответствующего тестового метода.
+При этом провайдер данных и тестовый метод выглядят следующим образом:
+
+<pre>
+...
+    public class JepFileDataProvider {
+        {@literal @}DataProvider(name = "dataFromFile")
+        public static Iterator<Object[]> getDataFromFile(Method testMethod) throws Exception {
+            Map<String, String> arguments = DataProviderUtils.resolveDataProviderArguments(testMethod);
+            List<String> lines = JepFileDataProvider.getRawLinesFromFile(arguments.get("filePath"));
+            List<Object[]> data = new ArrayList<Object[]>();
+
+            for (String line : lines) {
+                line = line.trim();
+                if(line.length() == 0 || line.charAt(0) == '#') { // Пропускаем комментарий
+                    continue;
+                }
+
+                data.add(line.split("\\|"));
+            }
+
+            return data.iterator();
+    }
+    ...
+</pre>
+
+
+<pre>
+    /**
+     * Тест заполнения формы создания
+     */
+    <b>{@literal @}DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/goods/auto/GoodsAutoTest.fillCreateForm.method.data")
+    {@literal @}Test(dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")</b>
+    public void fillCreateForm(String goodsName, String goodsType, String unit, String motivation, String purchasingPrice) {
+        cut.goTo(CREATE);
+      
+        cut.fillCreateForm(
+            goodsName,
+            goodsType,
+            unit,
+            motivation,
+            purchasingPrice);
+      
+        assertEquals(goodsName, cut.getGoodsName());
+        assertEquals(goodsType, cut.getGoodsType());
+        assertEquals(unit, cut.getUnit());
+        assertEquals(motivation, cut.getMotivation());
+        assertEquals(purchasingPrice, cut.getPurchasingPrice());
+    }
+</pre>
+
+<h6>Формат тестовых файлов данных</h6>
+Правила создания тестовых файлов данных хорошо иллюстрируются примером файла <I>GoodsAutoTest.fillCreateForm.method.data</I>, использующегося для
+тестирования заполнения формы создания в модуле Goods. Тестовый файл данных представлят собой обычный текст и выглядит следующим образом:
+<pre>
+#Наименование товара|Тип товара|Единицы измерения|Мотивация|Закупочная цена
+Вино|Продукты питания|Литры|Процент с дохода|12345.12
+Водка|Продукты питания|Литры|Процент с дохода|100
+</pre>
+Каждая строка файла описывает параметры одного вызова тестового метода. Все параметры, разумеется, текстовые. 
+В качестве разделителя параметров используется символ '|'.
+Строки, начинающиеся c '#', считаются комментариями. Первую строку файла данных целесообразно использовать для комментария, описывающего
+формат строки параметров. 
+
+<h6>Именование тестовых файлов данных</h6>
+Правила именования, приводимые ниже, не имеют обязательного характера, но полезны для системной организации тестовых данных.
+Файлы данных могут создаваться для группы тестовых методов (имеющих одно и то же значение атрибута <I>group</I>), в этом случае они именуются с использованием расширения <I>group</I>:
+<br>
+<I>TestClass.GroupName.group.data</I>, где <I>TestClass</I> - имя Java-класса, содержащего тест, а <I>GroupName</I> - имя TestNG-группы, для
+которой этот файл предназначен, например, <b><I>GoodsAutoTest.create.group.data</I></b>.
+<br><br>
+Если файл данных создаётся для одного или нескольких тестовых методов, не объединённых группой, он именуется с использованием расширения <I>method</I>:
+<br>
+<I>TestClass.testMethodName.method.data</I>, где <I>testMethodName</I> - имя теста, для которого предназначен этот тестовый файл данных,
+например, <b><I>GoodsAutoTest.fillCreateForm.method.data</I></b>. 
+<br><br>
+
+<h6>Размещение тестовых файлов данных</h6>
+Правила размещения файлов, приводимые ниже, не имеют обязательного характера, но полезны для системной организации тестовых данных.
+В аннотации <I>{@literal @}DataProviderArguments</I> указывается относительный путь к тестовому файлу данных.
+Размещение тестовых данных выполняется по схеме:
+<br>
+<I>%APP_HOME%/%TEST_RESOURSE_HOME%/%TEST_CLASS_JAVA_PACKAGE%/TEST_DATA_FILE</I>, где
+<br>
+<I>APP_HOME</I> - директория App-части приложения 
+<br>
+<I>TEST_RESOURSE_HOME</I> - директория тестовых данных App-части приложения 
+<br>
+<I>TEST_CLASS_JAVA_PACKAGE</I> - директория, соответствующая директории пакета тестового Java-класса. 
+<br>
+<I>TEST_DATA_FILE</I> - тестовый файл данных 
+
+<h5><a name="autoTestJepRiaTestConfig">Конфигурирование тестов в TestNG</a></h5>
+Для конфигурования тестов в TestNG используются xml-файлы вида:
+<pre>
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd"&gt;
+&lt;suite name="Suite" parallel="none"&gt;
+	&lt;test name="Test"&gt;
+		&lt;parameter name="baseUrl" value="http://srvt16.d.t/info/JepRiaShowcase/JepRiaShowcase.jsp?em=Goods"/&gt;	
+		&lt;classes&gt;
+			&lt;class name="com.technology.jep.jepriashowcase.goods.auto.helpers.Goods_Entrance_HelperTest"&gt;
+			&lt;/class&gt;
+		&lt;/classes&gt;
+	&lt;/test&gt; &lt;!-- Test --&gt;
+&lt;/suite&gt; &lt;!-- Suite --&gt;
+</pre>
+Тесты каждого модуля JepRia конфигурируются в отдельном xml-файле.
+
+
+<h5><a name="autoTestJepRiaAppTestCases">Тестовые сценарии для приложений</a></h5>
+Для каждого модуля JepRia-приложения создаётся тест - набор тестовых сценариев.
+При этом тест представлен Java-классом, а тестовые сценарии - методами этого класса.
+<br>
+Каждый такой метод должен содержать javadoc-описание соответствующего тестового сценария.
+<br>
+<br>
+Ниже приводится ссылка на Selenium-тест приложения для модуля <I>Goods</I> (остальные пока не реализованы):
+<br>
+{@link com.technology.jep.jepriashowcase.goods.auto.GoodsAutoTest Selenium-тест для модуля Goods}
+<br>
+<br>
+
+<h5><a name="autoTestJepRiaTestRun">Запуск тестов в TestNG</a></h5>
+Запуск тестов модуля JepRia из ant выполняется командой вида 
+<pre>
+ant test-selenium-goods
+</pre>
+В данном случае суффикс goods идентифицирует тесты для модуля Goods.
+
+<h5><a name="autoTestJepRiaTestReport">Тестовые отчёты</a></h5>
+Отчёт о результатах прохождения последнего запуска тестов находится в директории приложения <I>App/test-output</I> и доступен по ссылке
+<a href="../../../App/test-output/index.html">Отчёт о прохождении тестов</a>
+<br>
+<br>
+Полезная информация:
+<ul>
+	<li><a href="http://habrahabr.ru/post/152653/" target="_blank">Что такое Selenium?</a></li>
+	<li><a href="http://selenium2.ru/docs/webdriver.html" target="_blank">Selenium 2.0 и WebDriver</a></li>
+	<li><a href="http://habrahabr.ru/post/121234/0" target="_blank">Тестирование в Java. TestNG</a></li>
+</ul>
+
+<h3><a name="unifiedApplication">Создание унифицированного приложения (EAR) для OC4J и Weblogic</a></h3>
+Правила создания унифицированных приложений (ear) приводятся в виде инструкции по преобразованию ear, разработанных для OC4J в ear, выполняющихся и на
+OC4J, и на Weblogic.
+<p>
+Процедура унификации может быть выполнена для тех приложений, которые базируются на унифицированной версии библиотеки JepRia, признаком чего является наличие в этой версии вспомогательных библиотек <I>jepria-oc4j</I> и <I>jepria-weblogic</I>, в которых локализован, соответственно, OC4J-зависимый и Weblogic-зависимый код. Для сборки приложения с помощью ant используется соответствующий скрипт build.xml.
+</p>
+
+Введём обозначения, исходя из предположения, что архивы ear и war JepRia-приложения распакованы в соответствующие директории:
+<ul>
+  <li><I>EAR_HOME</I> - директория JepRia-приложения;</i>
+  <li><I>WAR_HOME</I> - директория web-составляющей JepRia-приложения (поддиректория <I>EAR_HOME</I>);</i>
+</ul>
+
+Для того, чтобы JepRia-приложение, разработанное для OC4J заработало и на Weblogic, необходимо:
+<ul>
+  <li>Базировать приложение на унифицированной версии библиотеки JepRia (см выше)</i>
+  <li>Библиотеки <I>jepria-ejb.jar</I> и <I>&lt;Application Name&gt;-ejb.jar</I> из директории <I>EAR_HOME/lib</I> переместить в директорию <I>EAR_HOME</I>. Теги <I>&lt;module&gt;/&lt;ejb&gt;</I> файла <I>application.xml</I> необходимо соответственно изменить</i>
+  <li>Библиотеку <I>gwt-servlet.jar</I> из директории <I>WAR_HOME/WEB-INF/lib</I> переместить в директорию <I>EAR_HOME/lib</I></i>
+  <li>Чтобы тег <I>&lt;context-root&gt;</I> файла <I>application.xml</I> начинался с префикса, обозначающего систему (<I>RfInfo - <b>info</b>, Scoring - <b>scoring</b>, ...</I>). Это необходимо для включения SSO при работе под Weblogic</i>
+  <li>Чтобы в файлах <I>application.xml</I> и <I>web.xml</I> отсутствовали строки вида:
+<I>&lt;!DOCTYPE application PUBLIC &quot;-//Sun Microsystems, Inc.//DTD J2EE Application 1.3//EN&quot; &quot;http://java.sun.com/dtd/application_1_3.dtd&quot;&gt;</I> (если этого не сделать, то при деплое в Weblogic возникает ошибка)
+
+  </i>
+  <li>
+Чтобы в файле <I>web.xml</I> в теге <I>&lt;security-constraint&gt;/&lt;web-resource-collection&gt;/&lt;http-method&gt;</I> вместо * указывался отдельно <I>GET</I> и отдельно - <I>POST</I>:
+<code>
+</br>
+...
+</br>
+<I>&nbsp;&lt;security-constraint&gt;</br>
+&nbsp;&nbsp;&lt;web-resource-collection&gt;</br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;web-resource-name&gt;Application entry points&lt;/web-resource-name&gt;</br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;url-pattern&gt;/*&lt;/url-pattern&gt;</br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;http-method&gt;<b>GET</b>&lt;/http-method&gt;</br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;http-method&gt;<b>POST</b>&lt;/http-method&gt;</br>
+&nbsp;...</br>
+&nbsp;&lt;/security-constraint&gt;</I></br>
+...</br>
+</code>
+  </i>
+</ul>
+</br>
+В качестве примера унифицированного приложения можно использовать приложение <I>JepRiaShowcase</I>.
+Для сборки унифицированных приложений при помощи Ant необходимо использовать соответствующий скрипт <I>build.xml</I>, пример которого находится в <I>JepRiaShowcase</I>.
+
+<h3><a name="cssAgreement">Соглашение по использованию стилей css</a></h3>
+Для унификации внешнего вида приложений, виджетов (в случае системных модулей) используются css-файлы стилей.<br/>
+В обычном JepRia-приложении используются два файла стилей (смотри пример в <code>JepRiaShowcase.jsp</code>):
+<ul>
+	<li><code>JepRia.css</code> - копируется автоматически ant'ом при сборке приложения из модуля <code>JepRia</code></li>
+	<li><code>&lt;Module Name&gt;.css</code> - стили специфичные для конкретного приложения</li>
+</ul>
+В большинстве приложений файл <code>&lt;Module Name&gt;.css</code> пустой. Однако, он обязательно должен быть для корректной сборки приложения.<br/>
+<br/>
+Для <a href="http://vvz.nw.ru/Lessons/CSS/selectors.htm" target="_blank">селекторов</a> (классов стилей) приняты следующие соглашения по 
+наименованию:
+<ul>
+	<li>.&lt;мoduleName&gt;-КлассЭлемента-свойство-свойство-....<br/>
+		Примеры:
+		<ul>
+			<li>Модуль <code>JepRia</code>, файл <code>JepRia.css:</code>
+				<pre>
+  .jepRia-ToggleButton-down-hovering {
+    margin-right: 4px;
+    margin-bottom: 4px;
+    padding: 0px 0px 0px 1px;
+    border-width: 1px;
+  }
+  .jepRia-RichTextToolbar .jepRia-ToggleButton-up-hovering {
+    margin-right: 4px;
+    margin-bottom: 4px;
+    padding: 0px 1px 0px 0px;
+    border-width: 1px;
+  }
+        </pre>
+			</li>
+			<li>Модуль <code>JepRiaShowcase</code>, файл <code>JepRiaShowcase.css:</code>
+				<pre>
+  .jepRiaShowcase-ShowcaseToggleButton-down-hovering {
+    margin-right: 4px;
+    margin-bottom: 4px;
+    padding: 0px 0px 0px 1px;
+    border-width: 1px;
+  }
+  .jepRiaShowcase-ShowcaseRichTextToolbar .jepRiaShowcase-ShowcaseToggleButton-up-hovering {
+    margin-right: 4px;
+    margin-bottom: 4px;
+    padding: 0px 1px 0px 0px;
+    border-width: 1px;
+  }
+        </pre>
+			</li>
+		</ul>
+	</li>
+</ul>
+
+В коде стили указываются либо в константах модуля (общеупотребимые стили), либо в константах конкретного класса (стили специфичные для 
+класса). Т.о., применение стилей происходит, например, так:<br/>
+<pre>
+  someWidget.addStyleName(&lt;КОНСТАНТА МОДУЛЯ&gt; или &lt;КОНСТАНТА КЛАССА&gt;);
+  ...
+  someElement.addClassName(&lt;КОНСТАНТА МОДУЛЯ&gt; или &lt;КОНСТАНТА КЛАССА&gt;);
+</pre>
+
+При верстке обычного html-кода (например, для модулей с произвольным расположением виджетов по верстке), в 
+<a href="http://vvz.nw.ru/Lessons/CSS/selectors.htm" target="_blank">селекторах</a> стилей удобно указывать html-элементы, к которым данный стиль
+применяется:<br/>
+<pre>
+/* Заголовки */
+h1.someModule, h2.someModule, h3.someModule, h4.someModule {
+  text-align: left;
+  font-weight: bold;
+  font-family: Verdana, Geneva, sans-serif;
+  color: black;
+}
+
+h1.someModule.center, h2.someModule.center, h3.someModule.center, h4.someModule.center {
+  text-align: center;
+}
+h1.someModule.right, h2.someModule.right, h3.someModule.right, h4.someModule.right {
+  text-align: right;
+}
+
+/* Границы */
+.someModule.border { 
+  border: 1px solid;
+}
+.someModule.border-top { 
+  border-top: 1px solid;
+}
+.someModule.border-right { 
+  border-right: 1px solid;
+}
+.someModule.border-bottom { 
+  border-bottom: 1px solid;
+}
+.someModule.border-left { 
+  border-left: 1px solid;
+}
+
+.someModule.border-colorBlack { 
+  border-color: black;
+}
+.someModule.border-color1 { 
+  border-color: #2E8B57;
+}
+.someModule.border-color2 { 
+  border-color: #FF4D00;
+}
+.someModule.border-color3 { 
+  border-color: #8B00FF;
+}
+
+/* Таблицы */
+table.someModule { 
+  table-layout: auto;
+  border-collapse: collapse;
+  border: none;
+  color: black;
+  font-size: 12px;
+  font-family: Verdana, Geneva, sans-serif;
+}
+table.someModule td { 
+  text-align: left;
+  vertical-align: top;
+  font-weight: normal;
+  padding: 1px 1px 1px 1px;
+}
+table.someModule th { 
+  text-align: center;
+  vertical-align: top;
+  font-weight: bold;
+  padding: 1px 1px 1px 1px;
+}
+
+table.someModule.center td {
+  text-align: center;
+}
+table.someModule.left td {
+  text-align: left;
+}
+table.someModule.right td {
+  text-align: right;
+}
+table.someModule.top td {
+  vertical-align: top;
+}
+table.someModule.middle td {
+  vertical-align: middle;
+}
+table.someModule.bottom td {
+  vertical-align: bottom;
+}
+
+table.someModule td.someModule.center {
+  text-align: center;
+}
+table.someModule td.someModule.left {
+  text-align: left;
+}
+table.someModule td.someModule.right {
+  text-align: right;
+}
+table.someModule td.someModule.top {
+  vertical-align: top;
+}
+table.someModule td.someModule.middle {
+  vertical-align: middle;
+}
+table.someModule td.someModule.bottom {
+  vertical-align: bottom;
+}
+
+/* Цвета */
+.someModule.colorBlack { 
+  color: black;
+}
+.someModule.color1 { 
+  color: #2E8B57;
+}
+.someModule.color2 { 
+  color: #FF4D00;
+}
+.someModule.color3 { 
+  color: #8B00FF;
+}
+
+/* Заполнение */
+.someModule.fill {
+  width: 100%;
+  height: 100%;
+}
+.someModule.fill-width {
+  width: 100%;
+}
+.someModule.fill-height {
+  height: 100%;
+}
+</pre>
+
+Html-верстка в этом случае может выглядеть следующим образом:
+<pre>
+&lt;h2 class="someModule"&gt;Некоторый заголовок&lt;/h2&gt;
+
+&lt;table class="someModule fill-width center middle"&gt;
+  &lt;colgroup&gt;
+    &lt;col style="width: 30%;"&gt;
+    &lt;col style="width: 40%;"&gt;
+    &lt;col style="width: 30%;"&gt;
+  &lt;/colgroup&gt;
+  &lt;tr style="height: 40px;"&gt;
+    &lt;td colspan="3" class="someModule border-bottom border-color1"&gt;
+      Текст 1
+    &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr style="height: 10px;"&gt;
+    &lt;td colspan="3"/&gt;
+  &lt;/tr&gt;
+  &lt;tr style="height: 100px;"&gt;
+    &lt;td class="someModule border-right border-color1"&gt;
+      Текст 2
+    &lt;/td&gt;
+    &lt;td/&gt;
+    &lt;td class="someModule border-left border-color1 top"&gt;
+      Текст 3
+    &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;
+</pre>
+
+<h3><a name="deploy">Установка</a></h3>
+Установка модулей производится из директории <i>App</i> модуля командой:<br/>
+<i>ant deploy -DDEPLOYMENT_PATH=&lt;DEPLOYMENT_PATH&gt; -DLOGIN=&lt;LOGIN&gt; -DPASSWORD=&lt;PASSWORD&gt; -DOC4J_HOME=&lt;OC4J_HOME&gt; </i>, где<br/>
+<ul>
+  <li>DEPLOYMENT_PATH - адрес установки модуля вида <i>[opmn://]host:opmnPort[/iASInstanceName/oc4jInstanceName]</i>
+  <li>LOGIN - логин пользователя, под которым происходит установка модуля
+  <li>PASSWORD - пароль пользователя, под которым происходит установка модуля
+  <li>OC4J_HOME - директория установки JDeveloper
+</ul>
+Пример:
+<pre>
+ant deploy -DDEPLOYMENT_PATH=opmn://10.90.7.148:6003/OracleAS_1.srvapp7.d.t/OC4J_2 -DLOGIN=LOGIN -DPASSWORD=PASSWORD -DOC4J_HOME=D:\Oracle\jdev101330<br/>
+</pre>
+Замечание: для того, чтобы сборщик <a href="http://ant.apache.org">Ant</a> находился без указания полного пути к нему, необходимо
+в переменную окружения <i>Path</i> добавить путь к исполняемым файлам <a href="http://ant.apache.org">Ant</a>, например:
+<pre>
+Path=.....D:\WINDOWS\system32;D:\WINDOWS;<i>D:\oracle\jdev101330\ant\bin</i>
+</pre>
+
+<h3><a name="testCases">Тестовые сценарии</a></h3>
+<ul>
+	<li>{@link com.technology.jep.jepriashowcase.goods.auto.GoodsAutoTest}</li>
+	<li>{@link com.technology.jep.jepriashowcase.goods.auto.GoodsAutoTest Selenium-тест для модуля Goods}</li>
+</ul>
+
+<h3><a name="error">Ошибки</a></h3>
+<br/>
+
+<h3><a name="todo">Доработки</a></h3>
+<br/>
+<h3><a name="releaseNotes">Замечания к версиям</a></h3>
+<h4>Версии</h4>
+<ul>
+  <li><a href="#8.0.0">8.0.0 (2014-05-14)</a></li>
+</ul>
+
+<h5><a name="8.0.0">Версия 8.0.0 (2014-05-14)</a></h5>
+<ul>
+  <li>[+] </li>
+	<li>Для перехода на версию JepRia 8.0.0 с версии JepRia 7.X.X необходимо:
+		<ul>
+			<li>Использовать для сборки обновленный build.xml.</li>
+			<li>Использовать обновленные версии библиотек Gwt, Gwt-Log (внести соответствующие изменения в build.properties).<br/>
+				При этом необходимо сделать переименование файлов в соответствии с соглашением (убрать номера версий из названий): 
+				gwt-log-3.2.1.jar -&gt; gwt-log.jar.</li>
+			<li>Существенно изменилась хост-страница: изменен тип документа на <code>&lt;!DOCTYPE html&gt;</code>,
+				индикаторы загрузки перенесены в начало тега <code>&lt;body/&gt;</code>, на хост-странице приложения необходимо использовать константу 
+				<code>JepRiaClientConstant.APPLICATION_SLOT</code>, добавлен импорт таблиц стилей системной библиотеки <code>JepRia</code>, убрано 
+				использование стилей <code>css/gxt-all.css</code>, другие изменения - см. детали в JepRiaShowcase.jsp.</li>
+			<li>Если используется Gwt-Log, то для полноценной настройки (и избежания соответствующего сообщения при Gwt-компиляции) необходимо добавить
+				генерирование symbolMaps в параметры Gwt-компилятора и использование symbolMaps сервлетом Gwt-Log - см. <code>build.xml, web.xml
+				</code> и раздел документации &laquo;<a href="#build">Сборка приложения для Production</a>&raquo;.</li>
+			<li>В конструктор клиентской фабрики главного модуля добавляется вызов <code>initActivityMappers(this);</code>.</li>
+			<li>Пакет <code>client.ui.module</code> переименован в <code>client.ui.plain</code>.</li>
+			<li>Класс <code>JepClientSecurityModule</code> переименован в <code>UiSecurity</code>.</li>
+			<li>Для создания презентера главного модуля в клиентской фабрике главного модуля используется метод
+				<code>createMainModulePresenter()</code>.</li>
+			<li>Для создания презентера модуля в клиентской фабрике модуля используется метод
+				<code>createPlainModulePresenter(Place place)</code>.</li>
+			<li></li>
+		</ul>
+  </li>
+</ul>
+
+<br/>
+
+<!-- Put @see and @since tags down here. -->
+</body>
+</html>

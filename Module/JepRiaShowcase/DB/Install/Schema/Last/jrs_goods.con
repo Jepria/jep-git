@@ -1,0 +1,50 @@
+alter table
+  jrs_goods
+add constraint
+  jrs_goods_fk_supplier_id
+foreign key
+  ( supplier_id)
+references
+  jrs_supplier ( supplier_id)
+on delete cascade
+/
+
+alter table
+  jrs_goods
+add constraint
+  jrs_goods_fk_goods_type_code
+foreign key
+  ( goods_type_code)
+references
+  jrs_goods_type ( goods_type_code)
+/
+
+alter table
+  jrs_goods
+add constraint
+  jrs_goods_fk_motivation_type
+foreign key
+  ( motivation_type_code)
+references
+  jrs_motivation_type ( motivation_type_code)
+/
+
+alter table
+  jrs_goods
+add constraint
+  jrs_goods_fk_unit_code
+foreign key
+  ( unit_code)
+references
+  jrs_unit ( unit_code)
+/
+
+alter table
+  jrs_goods
+add constraint
+  jrs_goods_fk_op_operator
+foreign key
+  ( operator_id)
+references
+  op_operator ( operator_id)
+/

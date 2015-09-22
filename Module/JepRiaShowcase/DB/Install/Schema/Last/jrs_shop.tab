@@ -1,0 +1,35 @@
+-- table: jrs_shop
+-- Магазины.
+create table
+  jrs_shop
+(
+  shop_id                         integer                             not null
+  , shop_name                     varchar2(255)                       not null
+  , date_ins                      date                default sysdate not null
+  , operator_id                   integer                             not null
+  , constraint jrs_shop_pk primary key
+    ( shop_id)
+    using index tablespace &indexTablespace
+  , constraint jrs_shop_uk_name unique
+    ( shop_name)
+    using index tablespace &indexTablespace
+)
+/
+
+
+
+comment on table jrs_shop is
+  'Магазины [ SVN root: JEP/Module/JepRiaShowcase]'
+/
+comment on column jrs_shop.shop_id is
+  'Id магазина'
+/
+comment on column jrs_shop.shop_name is
+  'Наименование магазина'
+/
+comment on column jrs_shop.date_ins is
+  'Дата добавления записи'
+/
+comment on column jrs_shop.operator_id is
+  'Id оператора, добавившего запись'
+/

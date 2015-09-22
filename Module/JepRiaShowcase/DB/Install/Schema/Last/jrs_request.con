@@ -1,0 +1,40 @@
+alter table
+  jrs_request
+add constraint
+  jrs_request_fk_shop_id
+foreign key
+  ( shop_id)
+references
+  jrs_shop ( shop_id)
+/
+
+alter table
+  jrs_request
+add constraint
+  jrs_request_fk_request_status
+foreign key
+  ( request_status_code)
+references
+  jrs_request_status ( request_status_code)
+/
+
+alter table
+  jrs_request
+add constraint
+  jrs_request_fk_goods_id
+foreign key
+  ( goods_id)
+references
+  jrs_goods ( goods_id)
+on delete cascade
+/
+
+alter table
+  jrs_request
+add constraint
+  jrs_request_fk_op_operator
+foreign key
+  ( operator_id)
+references
+  op_operator ( operator_id)
+/

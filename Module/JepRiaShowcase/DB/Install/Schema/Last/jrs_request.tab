@@ -1,0 +1,87 @@
+-- table: jrs_request
+-- Запросы на закупку.
+create table
+  jrs_request
+(
+  request_id                      integer                             not null
+  , shop_id                       integer                             not null
+  , request_date                  date                default sysdate not null
+  , request_status_code           varchar2(10)        default 'NEW'   not null
+  , goods_id                      integer                             not null
+  , goods_quantity                number(15,4)                        not null
+  , date_ins                      date                default sysdate not null
+  , operator_id                   integer                             not null
+  , constraint jrs_request_pk primary key
+    ( request_id)
+    using index tablespace &indexTablespace
+  , constraint jrs_request_ck_goods_quant check
+    ( goods_quantity >= 0)
+)
+/
+
+
+
+comment on table jrs_request is
+  'Запросы на закупку [ SVN root: JEP/Module/JepRiaShowcase]'
+/
+comment on column jrs_request.request_id is
+  'Id запроса'
+/
+comment on column jrs_request.shop_id  is
+  'Id магазина'
+/
+comment on column jrs_request.request_date is
+  'Дата создания запроса'
+/
+comment on column jrs_request.request_status_code is
+  'Код статуса запроса'
+/
+comment on column jrs_request.goods_id is
+  'Id товара'
+/
+comment on column jrs_request.goods_quantity is
+  'Количество товара'
+/
+comment on column jrs_request.date_ins is
+  'Дата добавления записи'
+/
+comment on column jrs_request.operator_id is
+  'Id оператора, добавившего запись'
+/
+
+
+
+-- index: jrs_request_ix_shop_reqdate
+-- Индекс для внешнего ключа и поиска запросов.
+create index
+  jrs_request_ix_shop_reqdate
+on
+  jrs_request (
+    shop_id
+    , request_date
+  )
+tablespace &indexTablespace
+/
+
+-- index: jrs_request_ix_request_date
+-- Индекс для поиска запросов по дате.
+create index
+  jrs_request_ix_request_date
+on
+  jrs_request (
+    request_date
+  )
+tablespace &indexTablespace
+/
+
+
+-- index: jrs_request_ix_goods_id
+-- Индекс для внешнего ключа.
+create index
+  jrs_request_ix_goods_id
+on
+  jrs_request (
+    goods_id
+  )
+tablespace &indexTablespace
+/
