@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<application name="JepRiaShowcase" defaultDatasource="RFInfoDS" projectPackage="jep">
+	<modules>
+		<module id="Goods" name="Товар" nameEn="Goods" isBuild="">
+			<roles>
+				<role>JrsEditGoods</role>
+			</roles>
+			<db package="pkg_jepriashowcase">
+				<find parameters="GOODS_ID, SUPPLIER_ID, GOODS_NAME, GOODS_TYPE_CODE, GOODS_SEGMENT_CODE_LIST, GOODS_CATALOG_ID_LIST"/>
+				<create parameters="SUPPLIER_ID, GOODS_NAME, GOODS_TYPE_CODE, UNIT_CODE, PURCHASING_PRICE, MOTIVATION_TYPE_CODE, GOODS_PHOTO_MIME_TYPE, GOODS_PHOTO_EXTENSION, GOODS_PORTFOLIO_MIME_TYPE, GOODS_PORTFOLIO_EXTENSION"/>
+				<update parameters="GOODS_ID, SUPPLIER_ID, GOODS_NAME, GOODS_TYPE_CODE, UNIT_CODE, PURCHASING_PRICE, MOTIVATION_TYPE_CODE, GOODS_PHOTO_MIME_TYPE, GOODS_PHOTO_EXTENSION, GOODS_PORTFOLIO_MIME_TYPE, GOODS_PORTFOLIO_EXTENSION"/>
+			</db>
+			<record primaryKey="GOODS_ID" table="jrs_goods">
+				<field id="GOODS_ID" type="INTEGER" name="ID товара" nameEn="" />
+				<field id="SUPPLIER_ID" type="INTEGER" name="ID поставщика" nameEn="" />
+				<field id="GOODS_NAME" type="STRING" name="Наименование товара" nameEn="" />
+				<field id="GOODS_TYPE_CODE" type="OPTION" name="Код типа товара" nameEn="" />
+				<field id="GOODS_TYPE_NAME" type="STRING" name="Наименование типа товара" nameEn=""  />
+				<field id="GOODS_SEGMENT_CODE_LIST" type="STRING" name="Код сегмента товара" nameEn=""/>
+				<field id="GOODS_CATALOG_ID_LIST" type="STRING" name="ID раздела каталога" nameEn=""/>
+				<field id="UNIT_CODE" type="OPTION" name="Код единицы измерения" nameEn=""/>
+				<field id="UNIT_NAME" type="STRING" name="Наименование единицы измерения" nameEn=""/>
+				<field id="PURCHASING_PRICE" type="BIGDECIMAL" name="Закупочная цена" nameEn="" />
+				<field id="MOTIVATION_TYPE_CODE" type="OPTION" name="Код типа мотивации" nameEn=""/>
+				<field id="MOTIVATION_TYPE_NAME" type="STRING" name="Наименование типа мотивации" nameEn=""/>
+				<field id="GOODS_PHOTO" type="BINARY_FILE" name="Фотография товара" nameEn=""/>
+				<field id="GOODS_PHOTO_MIME_TYPE" type="STRING" name="MIME-тип файла с фотографией товара" nameEn=""/>
+				<field id="GOODS_PHOTO_EXTENSION" type="STRING" name="Расширение файла с фотографией товара" nameEn=""/>
+				<field id="GOODS_PORTFOLIO" type="BINARY_FILE" name="Cпецификация товара" nameEn=""/>
+				<field id="GOODS_PORTFOLIO_MIME_TYPE" type="STRING" name="MIME-тип файла со спецификацией товара" nameEn=""/>
+				<field id="GOODS_PORTFOLIO_EXTENSION" type="STRING" name="Расширение файла со спецификацией товара" nameEn=""/>
+			</record>
+			<forms>
+				<form-detail>
+					<field id="GOODS_ID" widget="JepLongField" />
+					<field id="GOODS_NAME" widget="JepMaskedTextField" like="CONTAINS" />
+					<field id="GOODS_TYPE_CODE" widget="JepComboBoxField" editableWorkstates=""/>
+					<field id="GOODS_SEGMENT_CODE_LIST" widget="JepListField" editableWorkstates="SEARCH"/>
+					<field id="PURCHASING_PRICE" widget="JepNumberField" editableWorkstates="CREATE"/>
+				</form-detail>
+				<form-list dblClick="off">
+					<field id="SUPPLIER_ID" />
+					<field id="GOODS_ID"/>
+					<field id="GOODS_NAME" />
+					<field id="GOODS_TYPE_NAME" />
+					<field id="PURCHASING_PRICE" />
+				</form-list>
+			</forms>
+			<toolbar>
+				<button id="ADD_BUTTON_ID" />
+				<button id="SAVE_BUTTON_ID"/>
+				<button id="EDIT_BUTTON_ID"/>
+				<button id="DELETE_BUTTON_ID"/>
+				<button id="VIEW_DETAILS_BUTTON_ID"/>
+				<separator id="SEARCH_SEPARATOR_ID"/>
+				<button id="SEARCH_BUTTON_ID"/>
+				<button id="DO_SEARCH_BUTTON_ID"/>
+				<separator id="SEARCH_SEPARATOR_ID" />
+				<button id="EXCEL_BUTTON_ID"/>
+			</toolbar>
+		</module>
+	</modules>
+</application>

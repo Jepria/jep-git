@@ -1,0 +1,9 @@
+alter table
+  jrs_supplier
+add constraint
+  jrs_supplier_fk_op_operator
+foreign key
+  ( operator_id)
+references
+  op_operator ( operator_id)
+/

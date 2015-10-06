@@ -1,0 +1,9 @@
+alter table
+  jrs_motivation_type
+add constraint
+  jrs_motivation_type_fk_oper
+foreign key
+  ( operator_id)
+references
+  op_operator ( operator_id)
+/

@@ -1,0 +1,39 @@
+-- table: jrs_goods_catalog
+--  аталог товаров.
+create table
+  jrs_goods_catalog
+(
+  goods_catalog_id                integer                             not null
+  , parent_goods_catalog_id       integer
+  , goods_catalog_name            varchar2(100)                       not null
+  , date_ins                      date                default sysdate not null
+  , operator_id                   integer                             not null
+  , constraint jrs_goods_catalog_pk primary key
+    ( goods_catalog_id)
+    using index tablespace &indexTablespace
+  , constraint jrs_goods_catalog_uk unique
+    ( parent_goods_catalog_id, goods_catalog_name)
+    using index tablespace &indexTablespace
+)
+/
+
+
+
+comment on table jrs_goods_catalog is
+  ' аталог товаров [ SVN root: JEP/Module/JepRiaShowcase]'
+/
+comment on column jrs_goods_catalog.goods_catalog_id is
+  'Id раздела каталога'
+/
+comment on column jrs_goods_catalog.parent_goods_catalog_id is
+  'Id родительского раздела каталога'
+/
+comment on column jrs_goods_catalog.goods_catalog_name is
+  'Ќаименование раздела каталога'
+/
+comment on column jrs_goods_catalog.date_ins is
+  'ƒата добавлени€ записи'
+/
+comment on column jrs_goods_catalog.operator_id is
+  'Id оператора, добавившего запись'
+/

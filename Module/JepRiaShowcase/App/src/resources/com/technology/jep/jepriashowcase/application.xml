@@ -1,0 +1,16 @@
+<?xml version = '1.0' encoding = 'windows-1251'?>
+<application>
+  <display-name>JepRiaShowcase</display-name>
+  <module>
+    <web>
+      <web-uri>jepriashowcase.war</web-uri>
+      <context-root>info/JepRiaShowcase</context-root>
+    </web>
+  </module>
+  <module>
+     <ejb>jepriashowcase-ejb.jar</ejb>
+  </module>
+  <module>
+     <ejb>jepria-ejb.jar</ejb>
+  </module>
+</application>

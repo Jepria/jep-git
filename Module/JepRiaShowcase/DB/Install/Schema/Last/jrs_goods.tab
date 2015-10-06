@@ -1,0 +1,95 @@
+-- table: jrs_goods
+-- Товары.
+create table
+  jrs_goods
+(
+  goods_id                        integer                             not null
+  , supplier_id                   integer                             not null
+  , goods_name                    varchar2(255)                       not null
+  , goods_type_code               varchar2(10)                        not null
+  , unit_code                     varchar2(10)                        not null
+  , purchasing_price              number(15,2)                        not null
+  , motivation_type_code          varchar2(10)                        not null
+  , goods_photo                   blob
+  , goods_photo_mime_type         varchar2(70)
+  , goods_photo_extension         varchar2(25)
+  , goods_portfolio               blob
+  , goods_portfolio_mime_type     varchar2(70)
+  , goods_portfolio_extension     varchar2(25)
+  , date_ins                      date                default sysdate not null
+  , operator_id                   integer                             not null
+  , constraint jrs_goods_pk primary key
+    ( goods_id)
+    using index tablespace &indexTablespace
+  , constraint jrs_goods_uk_supplier_gname unique
+    ( supplier_id, goods_name)
+    using index tablespace &indexTablespace
+  , constraint jrs_goods_ck_purchasing_price check
+    ( purchasing_price >= 0)
+)
+lob ( goods_photo, goods_portfolio) store as securefile
+/
+
+
+
+comment on table jrs_goods is
+  'Товары [ SVN root: JEP/Module/JepRiaShowcase]'
+/
+comment on column jrs_goods.goods_id is
+  'Id товара'
+/
+comment on column jrs_goods.supplier_id is
+  'Id поставщика'
+/
+comment on column jrs_goods.goods_name is
+  'Наименование товара'
+/
+comment on column jrs_goods.goods_type_code is
+  'Код типа товара'
+/
+comment on column jrs_goods.unit_code is
+  'Код единицы измерения'
+/
+comment on column jrs_goods.purchasing_price is
+  'Закупочная цена'
+/
+comment on column jrs_goods.motivation_type_code is
+  'Код типа мотивации'
+/
+comment on column jrs_goods.goods_photo is
+  'Фотография товара'
+/
+comment on column jrs_goods.goods_photo_mime_type is
+  'MIME-тип файла с фотографией товара'
+/
+comment on column jrs_goods.goods_photo_extension is
+  'Расширение файла с фотографией товара'
+/
+comment on column jrs_goods.goods_portfolio is
+  'Спецификация товара'
+/
+comment on column jrs_goods.goods_portfolio_mime_type is
+  'MIME-тип файла со спецификацией товара'
+/
+comment on column jrs_goods.goods_portfolio_extension is
+  'Расширение файла со спецификацией товара'
+/
+comment on column jrs_goods.date_ins is
+  'Дата добавления записи'
+/
+comment on column jrs_goods.operator_id is
+  'Id оператора, добавившего запись'
+/
+
+
+
+-- index: jrs_goods_ix_upper_goods_name
+-- Индекс для поиска по имени товара.
+create index
+  jrs_goods_ix_upper_goods_name
+on
+  jrs_goods (
+    upper( goods_name)
+  )
+tablespace &indexTablespace
+/

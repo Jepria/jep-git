@@ -1,0 +1,46 @@
+-- table: jrs_goods_catalog_link
+-- Разделы каталога, к которым относится товар.
+create table
+  jrs_goods_catalog_link
+(
+  goods_id                        integer                             not null
+  , goods_catalog_id              integer                             not null
+  , date_ins                      date                default sysdate not null
+  , operator_id                   integer                             not null
+  , constraint jrs_goods_catalog_link_pk primary key
+    ( goods_id, goods_catalog_id)
+)
+organization index
+tablespace &indexTablespace
+/
+
+
+
+comment on table jrs_goods_catalog_link is
+  'Разделы каталога, к которым относится товар [ SVN root: JEP/Module/JepRiaShowcase]'
+/
+comment on column jrs_goods_catalog_link.goods_id is
+  'Id товара'
+/
+comment on column jrs_goods_catalog_link.goods_catalog_id is
+  'Id раздела каталога'
+/
+comment on column jrs_goods_catalog_link.date_ins is
+  'Дата добавления записи'
+/
+comment on column jrs_goods_catalog_link.operator_id is
+  'Id оператора, добавившего запись'
+/
+
+
+
+-- index: jrs_goods_catalog_link_ix_cat
+-- Индекс для поиска товаров по разделу каталога.
+create index
+  jrs_goods_catalog_link_ix_cat
+on
+  jrs_goods_catalog_link (
+    goods_catalog_id
+  )
+tablespace &indexTablespace
+/

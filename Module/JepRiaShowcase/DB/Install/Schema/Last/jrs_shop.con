@@ -1,0 +1,9 @@
+alter table
+  jrs_shop
+add constraint
+  jrs_shop_fk_op_operator
+foreign key
+  ( operator_id)
+references
+  op_operator ( operator_id)
+/

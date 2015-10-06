@@ -1,0 +1,42 @@
+-- table: jrs_unit
+-- Единицы измерения.
+create table
+  jrs_unit
+(
+  unit_code                       varchar2(10)                        not null
+  , unit_short_name               varchar2(50)                        not null
+  , unit_name                     varchar2(50)                        not null
+  , date_ins                      date                default sysdate not null
+  , operator_id                   integer                             not null
+  , constraint jrs_unit_pk primary key
+    ( unit_code)
+    using index tablespace &indexTablespace
+  , constraint jrs_unit_uk_short_name unique
+    ( unit_short_name)
+    using index tablespace &indexTablespace
+  , constraint jrs_unit_uk_name unique
+    ( unit_name)
+    using index tablespace &indexTablespace
+)
+/
+
+
+
+comment on table jrs_unit is
+  'Единицы измерения [ SVN root: JEP/Module/JepRiaShowcase]'
+/
+comment on column jrs_unit.unit_code is
+  'Код единицы измерения'
+/
+comment on column jrs_unit.unit_short_name is
+  'Краткое наименование единицы измерения'
+/
+comment on column jrs_unit.unit_name is
+  'Наименование единицы измерения'
+/
+comment on column jrs_unit.date_ins is
+  'Дата добавления записи'
+/
+comment on column jrs_unit.operator_id is
+  'Id оператора, добавившего запись'
+/

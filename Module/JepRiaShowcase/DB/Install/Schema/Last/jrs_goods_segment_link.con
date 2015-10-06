@@ -1,0 +1,30 @@
+alter table
+  jrs_goods_segment_link
+add constraint
+  jrs_goods_segment_link_fk_good
+foreign key
+  ( goods_id)
+references
+  jrs_goods ( goods_id)
+on delete cascade
+/
+
+alter table
+  jrs_goods_segment_link
+add constraint
+  jrs_goods_segment_link_fk_seg
+foreign key
+  ( goods_segment_code)
+references
+  jrs_goods_segment ( goods_segment_code)
+/
+
+alter table
+  jrs_goods_segment_link
+add constraint
+  jrs_goods_segment_link_fk_oper
+foreign key
+  ( operator_id)
+references
+  op_operator ( operator_id)
+/
