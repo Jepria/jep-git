@@ -540,7 +540,7 @@ java.lang.Object
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>protected &nbsp;void</CODE></FONT></TD>
+<CODE>protected static&nbsp;void</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#removeMarginsAndPaddings(com.google.gwt.dom.client.Element)">removeMarginsAndPaddings</A></B>(com.google.gwt.dom.client.Element&nbsp;stylezedElement)</CODE>
 
 <BR>
@@ -564,15 +564,7 @@ java.lang.Object
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#setEmptyText(java.lang.String)">setEmptyText</A></B>(java.lang.String&nbsp;emptyText)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Установка текста по умолчанию для пустого (незаполненного значением) поля.</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
+<CODE>abstract &nbsp;void</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#setEnabled(boolean)">setEnabled</A></B>(boolean&nbsp;enabled)</CODE>
 
 <BR>
@@ -1323,7 +1315,7 @@ public java.util.List&lt;<A HREF="../../../../../../../../com/technology/jep/jep
 <A NAME="setEnabled(boolean)"><!-- --></A><H3>
 setEnabled</H3>
 <PRE>
-public void <B>setEnabled</B>(boolean&nbsp;enabled)</PRE>
+public abstract void <B>setEnabled</B>(boolean&nbsp;enabled)</PRE>
 <DL>
 <DD>Установка доступности или недоступности (карты Редактирования) поля для редактирования.
 <P>
@@ -1379,7 +1371,7 @@ public void <B>markInvalid</B>(java.lang.String&nbsp;error)</PRE>
 </DL>
 </DD>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>error</CODE> - сообщение обшибке</DL>
+<DT><B>Parameters:</B><DD><CODE>error</CODE> - текст сообщения об ошибке</DL>
 </DD>
 </DL>
 <HR>
@@ -1428,22 +1420,6 @@ public void <B>setLabelSeparator</B>(java.lang.String&nbsp;labelSeparator)</PRE>
 </DD>
 <DD><DL>
 <DT><B>Parameters:</B><DD><CODE>labelSeparator</CODE> - новый разделитель</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="setEmptyText(java.lang.String)"><!-- --></A><H3>
-setEmptyText</H3>
-<PRE>
-public void <B>setEmptyText</B>(java.lang.String&nbsp;emptyText)</PRE>
-<DL>
-<DD>Установка текста по умолчанию для пустого (незаполненного значением) поля.
-<P>
-<DD><DL>
-<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/JepField.html#setEmptyText(java.lang.String)">setEmptyText</A></CODE> in interface <CODE><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/JepField.html" title="interface in com.technology.jep.jepria.client.widget.field">JepField</A>&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html" title="type parameter in JepMultiStateField">E</A> extends com.google.gwt.user.client.ui.Widget,<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html" title="type parameter in JepMultiStateField">V</A> extends com.google.gwt.user.client.ui.Widget&gt;</CODE></DL>
-</DD>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>emptyText</CODE> - пустой текст</DL>
 </DD>
 </DL>
 <HR>
@@ -1543,7 +1519,7 @@ protected void <B>applyStyle</B>()</PRE>
 <A NAME="removeMarginsAndPaddings(com.google.gwt.dom.client.Element)"><!-- --></A><H3>
 removeMarginsAndPaddings</H3>
 <PRE>
-protected void <B>removeMarginsAndPaddings</B>(com.google.gwt.dom.client.Element&nbsp;stylezedElement)</PRE>
+protected static void <B>removeMarginsAndPaddings</B>(com.google.gwt.dom.client.Element&nbsp;stylezedElement)</PRE>
 <DL>
 <DD>Удаление отступов и выступов элемента.
 <P>
