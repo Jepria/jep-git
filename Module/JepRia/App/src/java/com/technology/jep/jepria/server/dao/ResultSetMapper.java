@@ -30,6 +30,26 @@ public abstract class ResultSetMapper<T> {
 	public abstract void map(ResultSet rs, T dto) throws SQLException;
 	
 	/**
+	 * Получение Boolean из ResultSet. Если значение == null, то метод возвращает null,
+	 * а не false, как rs.getBoolean(...).
+	 * 
+	 * @param rs                ResultSet
+	 * @param columnName        Имя столбца
+	 * @return значение столбца
+	 * @throws SQLException
+	 */
+	public static Boolean getBoolean(ResultSet rs, String columnName) throws SQLException {
+		boolean result = rs.getBoolean(columnName);
+		
+		if (rs.wasNull()) {
+			   return null;
+		} else {
+			   return result;
+		}
+	}
+
+    
+	/**
 	 * Получение Integer из ResultSet. Если значение == null, то метод возвращает null,
 	 * а не 0, как rs.getInt(...).
 	 * 
