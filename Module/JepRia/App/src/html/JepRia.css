@@ -1,5 +1,5 @@
-/* Тулбар */
-.jepRia-ToolBar {
+/* Статусбар */
+.jepRia-StatusBar {
 	font: 11px arial,tahoma,helvetica,sans-serif;
 	vertical-align: middle;
 	horizontal-align: left;
@@ -11,6 +11,23 @@
 	overflow: hidden;
 	background-color: #D0DEF0;
 	background-image: url("../images/themes/default/toolbar/bg.gif");
+}
+
+
+/* Тулбар */
+.jepRia-ToolBar {
+	font: 11px arial,tahoma,helvetica,sans-serif;
+	vertical-align: middle;
+	horizontal-align: left;
+	margin: 0;
+	padding: 2px;
+	border-style: solid;
+	border-color: #99BBE8;
+	border-width: 0 1px 1px 1px;
+	overflow: hidden;
+	background-color: #D0DEF0;
+	background-image: url("../images/themes/default/toolbar/bg.gif");
+	background-position: 0 5%;
 }
 
 /* Таблица тулбара должна иметь высоту 100%, чтобы элементы тулбара растягивались по высоте. */

@@ -112,7 +112,12 @@ public class JepRiaClientConstant extends JepRiaConstant {
 	public static final String SHORT_TIME_FORMAT_MASK = "00:00";
 	
 	/**
-	 * Наименование CSS-класса стилей для панели инструментов и панели состояния по умолчанию.
+	 * Наименование CSS-класса стилей для панели инструментов по умолчанию.
 	 */
 	public static final String TOOLBAR_DEFAULT_STYLE = "jepRia-ToolBar";
+	
+	/**
+	 * Наименование CSS-класса стилей для панели состояния по умолчанию.
+	 */
+	public static final String STATUSBAR_DEFAULT_STYLE = "jepRia-StatusBar";
 }

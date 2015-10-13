@@ -58,9 +58,6 @@ public class ToolBarViewImpl implements ToolBarView {
 		panel = new HorizontalPanel();
 		panel.getElement().setId(AutomationConstant.TOOLBAR_PANEL_ID);
 		
-		/* Стили для корректного отображения границ совместно с панелью вкладок */
-		toolBar.getElement().getStyle().setProperty("backgroundPosition", "0 5%");
-		toolBar.getElement().getStyle().setProperty("borderTop", "0");
 		toolBar.setStyleName(TOOLBAR_DEFAULT_STYLE);
 		toolBar.setWidget(panel);
 		

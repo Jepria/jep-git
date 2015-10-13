@@ -1,7 +1,7 @@
 package com.technology.jep.jepria.client.ui.statusbar;
 
 import static com.technology.jep.jepria.client.JepRiaClientConstant.JepTexts;
-import static com.technology.jep.jepria.client.JepRiaClientConstant.TOOLBAR_DEFAULT_STYLE;
+import static com.technology.jep.jepria.client.JepRiaClientConstant.STATUSBAR_DEFAULT_STYLE;
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.CREATE;
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.EDIT;
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.SEARCH;
@@ -31,7 +31,7 @@ public class StatusBarViewImpl implements StatusBarView {
 		/*
 		 * Предполагаем, что look & feel аналогичен панели инструментов.
 		 */
-		label.addStyleName(TOOLBAR_DEFAULT_STYLE);
+		label.addStyleName(STATUSBAR_DEFAULT_STYLE);
 		
 		setHeight(DEFAULT_HEIGHT);
 	}
