@@ -2,7 +2,7 @@ package com.technology.jep.jepria.shared.text;
 
 /**
  * Interface to represent the constants contained in resource bundle:
- * 	'D:/Project/Git/JepRia/Module/JepRia/App/src/java/com/technology/jep/jepria/shared/text/JepRiaText.properties'.
+ * 	'D:/Project/JEPGit/Module/JepRia/App/src/java/com/technology/jep/jepria/shared/text/JepRiaText.properties'.
  */
 public interface JepRiaText extends com.google.gwt.i18n.client.Constants {
   
@@ -1220,6 +1220,24 @@ public interface JepRiaText extends com.google.gwt.i18n.client.Constants {
   @DefaultStringValue("Пусто")
   @Key("tree.empty")
   String tree_empty();
+
+  /**
+   * Translated "Новый узел".
+   * 
+   * @return translated "Новый узел"
+   */
+  @DefaultStringValue("Новый узел")
+  @Key("tree.newLeaf")
+  String tree_newLeaf();
+
+  /**
+   * Translated "Новая папка".
+   * 
+   * @return translated "Новая папка"
+   */
+  @DefaultStringValue("Новая папка")
+  @Key("tree.newNode")
+  String tree_newNode();
 
   /**
    * Translated "Показать больше".

@@ -9,11 +9,13 @@ import com.google.gwt.cell.client.ValueUpdater;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.EventTarget;
 import com.google.gwt.dom.client.NativeEvent;
+import com.google.gwt.dom.client.Style.Cursor;
 import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.safehtml.shared.SafeHtml;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.safehtml.shared.SafeHtmlUtils;
 import com.google.gwt.user.client.ui.Image;
+import com.technology.jep.jepria.client.widget.list.HasTreeGridManager;
 import com.technology.jep.jepria.client.widget.list.TreeGridManager;
 import com.technology.jep.jepria.shared.field.TreeCellNames;
 import com.technology.jep.jepria.shared.record.JepRecord;
@@ -22,7 +24,7 @@ import com.technology.jep.jepria.shared.record.JepRecord;
  * Реализация ячейки списка для работы с древовидной структурой на списочной форме
  * @param <C> Тип, который отображает ячейка. Должен поддерживать функцию toString
  */
-public class TreeCell<C> extends AbstractCell<C> {
+public class TreeCell<C> extends AbstractCell<C> implements HasTreeGridManager {
 
 	/**
 	 * Количество разделителей равное ширине иконке (+/-) и одному уровню вложенности
@@ -37,13 +39,13 @@ public class TreeCell<C> extends AbstractCell<C> {
 	/**
 	 * Ссылка на объект, управляющий списком
 	 */
-	private TreeGridManager treeGridManager;
+	private TreeGridManager<?, ?, ?> treeGridManager;
 	
 	/**
 	 * Устанавливает ссылку на объект, управляющий списком
 	 * @param treeGridManager объект, управляющий списком
 	 */
-	public void setTreeGridManager(TreeGridManager treeGridManager){
+	public void setTreeGridManager(TreeGridManager<?, ?, ?> treeGridManager){
 		this.treeGridManager = treeGridManager;
 	}
 	
@@ -93,7 +95,7 @@ public class TreeCell<C> extends AbstractCell<C> {
 		}
 		
 		JepRecord record = (JepRecord) context.getKey();
-		ListTreeNode node = treeGridManager.findByPrimaryKey(record.get(treeGridManager.getPrimaryKeyName()));
+		ListTreeNode node = treeGridManager.findNode(record);
 		
 		
 		int depth = 1;
@@ -102,7 +104,7 @@ public class TreeCell<C> extends AbstractCell<C> {
 		if(node != null){
 			
 			depth = node.getDepth();
-			isOpen = node.getIsOpen();
+			isOpen = node.isOpen();
 		}
 		
 		
@@ -122,13 +124,14 @@ public class TreeCell<C> extends AbstractCell<C> {
 		if(Boolean.TRUE.equals(record.get(TreeCellNames.HAS_CHILDREN))){
 			
 			ImageResource imageResource = plusIcon;
-			if(isOpen == true){
+			if(isOpen){
 				imageResource = minusIcon;
 			}
 			
 			final Image icon = new Image(imageResource); 
 			icon.setWidth("10px");
 			icon.setHeight("10px");
+			icon.getElement().getStyle().setCursor(Cursor.POINTER);
 			
 			sb.append(new SafeHtml() {
 				
@@ -176,7 +179,7 @@ public class TreeCell<C> extends AbstractCell<C> {
 	        //Проверяем, что клик был по иконке
 	        if (parent.getFirstChildElement().isOrHasChild(Element.as(eventTarget))) {
 	            
-	        	treeGridManager.toogleChildren(context);
+	        	treeGridManager.toggleChildren(context);
 	        }
 	    }
 	}
@@ -188,6 +191,6 @@ public class TreeCell<C> extends AbstractCell<C> {
 	protected void onEnterKeyDown(Context context, Element parent, C value,
 		NativeEvent event, ValueUpdater<C> valueUpdater) {
 
-		treeGridManager.toogleChildren(context);
+		treeGridManager.toggleChildren(context);
 	}
 }

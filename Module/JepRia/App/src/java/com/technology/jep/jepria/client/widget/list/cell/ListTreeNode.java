@@ -10,6 +10,11 @@ import com.technology.jep.jepria.shared.record.JepRecord;
 public class ListTreeNode {
 	
 	/**
+	 * Запись, соответствующая текущему узлу дерева
+	 */
+	private JepRecord record;
+	
+	/**
 	 * Глубина
 	 */
 	private int depth;
@@ -25,21 +30,29 @@ public class ListTreeNode {
 	public List<JepRecord> children;
 	
 	/**
+	 * Запись, соответствующая родительскому узлу дерева
+	 */
+	private JepRecord parentRecord;
+	
+	public ListTreeNode(){}
+	
+	/**
 	 * Создает узел девера первого уровня
 	 */
-	public ListTreeNode(){
-		this(1);
+	public ListTreeNode(JepRecord record){
+		this(record, null, 1);
 	}
 
 	/**
 	 * Создает узел дерево с произвольной глубиной
 	 * @param depth глубина
 	 */
-	public ListTreeNode(int depth){
-		
+	public ListTreeNode(JepRecord record, JepRecord parentRecord, int depth){
 		this.depth = depth;
 		this.isOpen = false;
 		this.children = null;
+		this.record = record;
+		this.parentRecord = parentRecord;
 	}
 	
 	/**
@@ -53,23 +66,21 @@ public class ListTreeNode {
 	 * Меняет стату узла на "открытый"
 	 */
 	public void open(){
-		
-		setIsOpen(true);
+		setOpen(true);
 	}
 	
 	/**
 	 * Меняет стату узла на "закрытый"
 	 */
 	public void close(){
-		
-		setIsOpen(false);
+		setOpen(false);
 	}
 	
 	/**
 	 * Меняет статус узла
 	 * @param isOpen статус узла
 	 */
-	private void setIsOpen(boolean isOpen){
+	private void setOpen(boolean isOpen){
 		this.isOpen = isOpen;
 	}
 	
@@ -77,7 +88,7 @@ public class ListTreeNode {
 	 * Получает статус узла
 	 * @return статус узла
 	 */
-	public boolean getIsOpen(){
+	public boolean isOpen(){
 		return isOpen;
 	}
 	
@@ -89,4 +100,20 @@ public class ListTreeNode {
 		return depth;
 	}
 
+	/**
+	 * Получение записи текущего узла
+	 * @return запись
+	 */
+	public JepRecord getRecord() {
+		return record;
+	}
+	
+	/**
+	 * Получение записи родительского узла
+	 * @return запись
+	 */
+	public JepRecord getParentRecord() {
+		return parentRecord;
+	}
+	
 }

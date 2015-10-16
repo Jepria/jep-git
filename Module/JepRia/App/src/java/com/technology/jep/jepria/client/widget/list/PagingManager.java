@@ -1,17 +1,30 @@
 package com.technology.jep.jepria.client.widget.list;
 
+import static com.technology.jep.jepria.client.widget.event.JepEventType.DRAG_LEAVE_EVENT;
+import static com.technology.jep.jepria.client.widget.event.JepEventType.DRAG_OVER_EVENT;
+import static com.technology.jep.jepria.client.widget.event.JepEventType.DRAG_START_EVENT;
+import static com.technology.jep.jepria.client.widget.event.JepEventType.DROP_EVENT;
 import static com.technology.jep.jepria.client.widget.event.JepEventType.PAGING_GOTO_EVENT;
 import static com.technology.jep.jepria.client.widget.event.JepEventType.PAGING_REFRESH_EVENT;
 import static com.technology.jep.jepria.client.widget.event.JepEventType.PAGING_SIZE_EVENT;
 import static com.technology.jep.jepria.client.widget.event.JepEventType.ROW_CLICK_EVENT;
 import static com.technology.jep.jepria.client.widget.event.JepEventType.ROW_DOUBLE_CLICK_EVENT;
 
+import java.util.Collections;
 import java.util.List;
 
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.dom.client.BrowserEvents;
 import com.google.gwt.event.dom.client.DoubleClickEvent;
 import com.google.gwt.event.dom.client.DoubleClickHandler;
+import com.google.gwt.event.dom.client.DragLeaveEvent;
+import com.google.gwt.event.dom.client.DragLeaveHandler;
+import com.google.gwt.event.dom.client.DragOverEvent;
+import com.google.gwt.event.dom.client.DragOverHandler;
+import com.google.gwt.event.dom.client.DragStartEvent;
+import com.google.gwt.event.dom.client.DragStartHandler;
+import com.google.gwt.event.dom.client.DropEvent;
+import com.google.gwt.event.dom.client.DropHandler;
 import com.google.gwt.user.cellview.client.AbstractHasData;
 import com.google.gwt.view.client.CellPreviewEvent;
 import com.google.gwt.view.client.ListDataProvider;
@@ -19,6 +32,7 @@ import com.google.gwt.view.client.SetSelectionModel;
 import com.technology.jep.jepria.client.widget.event.JepEvent;
 import com.technology.jep.jepria.client.widget.event.JepEventType;
 import com.technology.jep.jepria.client.widget.event.JepListener;
+import com.technology.jep.jepria.client.widget.list.event.RowOrderChangeEvent;
 import com.technology.jep.jepria.client.widget.toolbar.PagingToolBar;
 import com.technology.jep.jepria.shared.load.PagingConfig;
 import com.technology.jep.jepria.shared.load.PagingResult;
@@ -72,6 +86,20 @@ public class PagingManager<W extends AbstractHasData<JepRecord>, P extends Pagin
 		super.setWidget(widget);
 
 		dataProvider.addDataDisplay(widget);
+		
+		// Если для грида доступен DragAndDrop, необходимо добавить возможность 
+		// изменения позиций строк
+		if (widget instanceof JepGrid<?>){
+			JepGrid<?> grid = (JepGrid<?>) widget;
+			if (grid.isDNDEnabled()) {
+				grid.addRowOrderChangerHandler(new RowOrderChangeEvent.Handler() {
+					@Override
+					public void onRowOrderChange(RowOrderChangeEvent event) {
+						changeRows(event.getOldIndex(), event.getNewIndex());
+					}
+				});
+			}
+		}
 	}
 
 	/**
@@ -114,8 +142,7 @@ public class PagingManager<W extends AbstractHasData<JepRecord>, P extends Pagin
 		// определены.
 		// Кроме, того значения по умолчанию необходимы, чтобы избежать
 		// NullPointerException, возникающий в случае попытки перевести пустой
-		// объект
-		// Integer в простой тип int.
+		// объект Integer в простой тип int.
 		if (pageSize != null) {
 			getWidget().setPageSize(pageSize);
 		}
@@ -146,8 +173,7 @@ public class PagingManager<W extends AbstractHasData<JepRecord>, P extends Pagin
 	/**
 	 * Добавление записи в список
 	 * 
-	 * @param record
-	 *            запись
+	 * @param record запись
 	 */
 	public void add(JepRecord record) {
 		dataProvider.getList().add(record);
@@ -158,8 +184,7 @@ public class PagingManager<W extends AbstractHasData<JepRecord>, P extends Pagin
 	/**
 	 * Добавление записей в список
 	 * 
-	 * @param list
-	 *            список записей
+	 * @param list список записей
 	 */
 	public void add(List<JepRecord> list) {
 		dataProvider.getList().addAll(list);
@@ -281,6 +306,18 @@ public class PagingManager<W extends AbstractHasData<JepRecord>, P extends Pagin
 		case PAGING_GOTO_EVENT:
 			addPagingGotoListener();
 			break;
+		case DRAG_START_EVENT:
+			addDragStartListener();
+			break;
+		case DRAG_OVER_EVENT:
+			addDragLeaveListener();
+			break;
+		case DRAG_LEAVE_EVENT:
+			addDragOverListener();
+			break;
+		case DROP_EVENT:
+			addDropListener();
+			break;
 		}
 
 		super.addListener(eventType, listener);
@@ -379,5 +416,115 @@ public class PagingManager<W extends AbstractHasData<JepRecord>, P extends Pagin
 			}
 		});
 	}
-
+	
+	/**
+	 * Добавление прослушивателей для реализации прослушивания события
+	 * {@link com.technology.jep.jepria.client.widget.event.JepEventType#DRAG_START_EVENT}
+	 * .
+	 */
+	protected void addDragStartListener(){
+		if (widget instanceof JepGrid<?>){
+			final JepGrid<?> grid = (JepGrid<?>) widget;
+			grid.addDragStartHandler(new DragStartHandler() {
+				@Override
+				public void onDragStart(DragStartEvent event) {
+					notifyListeners(DRAG_START_EVENT, new JepEvent(grid.getRowElement(event), event));
+				}
+			});
+		}
+		else {
+			widget.addDomHandler(new DragStartHandler() {
+				@Override
+				public void onDragStart(DragStartEvent event) {
+					notifyListeners(DRAG_START_EVENT, new JepEvent(event.getSource(), event));
+				}
+			}, DragStartEvent.getType());
+		}
+	}
+	
+	/**
+	 * Добавление прослушивателей для реализации прослушивания события
+	 * {@link com.technology.jep.jepria.client.widget.event.JepEventType#DRAG_OVER_EVENT}
+	 * .
+	 */
+	protected void addDragOverListener(){
+		if (widget instanceof JepGrid<?>){
+			final JepGrid<?> grid = (JepGrid<?>) widget;
+			grid.addDragOverHandler(new DragOverHandler() {
+				@Override
+				public void onDragOver(DragOverEvent event) {
+					notifyListeners(DRAG_OVER_EVENT, new JepEvent(grid.getRowElement(event), event));
+				}
+			});
+		}
+		else {
+			widget.addDomHandler(new DragOverHandler() {
+				@Override
+				public void onDragOver(DragOverEvent event) {
+					notifyListeners(DRAG_OVER_EVENT, new JepEvent(event.getSource(), event));
+				}
+			}, DragOverEvent.getType());
+		}
+	}
+	
+	/**
+	 * Добавление прослушивателей для реализации прослушивания события
+	 * {@link com.technology.jep.jepria.client.widget.event.JepEventType#DRAG_LEAVE_EVENT}
+	 * .
+	 */
+	protected void addDragLeaveListener(){
+		if (widget instanceof JepGrid<?>){
+			final JepGrid<?> grid = (JepGrid<?>) widget;
+			grid.addDragLeaveHandler(new DragLeaveHandler() {
+				@Override
+				public void onDragLeave(DragLeaveEvent event) {
+					notifyListeners(DRAG_LEAVE_EVENT, new JepEvent(grid.getRowElement(event), event));
+				}
+			});
+		}
+		else {
+			widget.addDomHandler(new DragLeaveHandler() {
+				@Override
+				public void onDragLeave(DragLeaveEvent event) {
+					notifyListeners(DRAG_LEAVE_EVENT, new JepEvent(event.getSource(), event));
+				}
+			}, DragLeaveEvent.getType());
+		}
+	}
+	
+	/**
+	 * Добавление прослушивателей для реализации прослушивания события
+	 * {@link com.technology.jep.jepria.client.widget.event.JepEventType#DROP_EVENT}
+	 * .
+	 */
+	protected void addDropListener(){
+		if (widget instanceof JepGrid<?>){
+			final JepGrid<?> grid = (JepGrid<?>) widget;
+			grid.addDropHandler(new DropHandler() {
+				@Override
+				public void onDrop(DropEvent event) {
+					notifyListeners(DROP_EVENT, new JepEvent(grid.getRowElement(event), event));
+				}
+			});
+		}
+		else {
+			widget.addDomHandler(new DropHandler() {
+				@Override
+				public void onDrop(DropEvent event) {
+					notifyListeners(DROP_EVENT, new JepEvent(event.getSource(), event));
+				}
+			}, DropEvent.getType());
+		}
+	}
+	
+	/**
+	 * Изменение позиции элементов виджета 
+	 * 
+	 * @param oldIndex		"старый" индекс элемента
+	 * @param newIndex		"новый" индекс элемента
+	 */
+	public void changeRows(int oldIndex, int newIndex) {
+		Collections.swap(dataProvider.getList(), oldIndex, newIndex);
+		dataProvider.refresh();
+	}
 }

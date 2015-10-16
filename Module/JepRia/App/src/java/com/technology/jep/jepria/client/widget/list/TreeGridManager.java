@@ -1,22 +1,27 @@
 package com.technology.jep.jepria.client.widget.list;
 
 import static com.technology.jep.jepria.client.JepRiaClientConstant.JepTexts;
+import static com.technology.jep.jepria.shared.field.TreeCellNames.HAS_CHILDREN;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import com.google.gwt.cell.client.Cell;
 import com.google.gwt.cell.client.Cell.Context;
 import com.google.gwt.user.cellview.client.AbstractCellTable;
+import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.view.client.SetSelectionModel;
 import com.technology.jep.jepria.client.async.DataLoader;
 import com.technology.jep.jepria.client.widget.list.cell.ListTreeNode;
-import com.technology.jep.jepria.client.widget.list.cell.TreeCell;
 import com.technology.jep.jepria.client.widget.toolbar.PagingToolBar;
-import com.technology.jep.jepria.shared.field.TreeCellNames;
 import com.technology.jep.jepria.shared.load.PagingConfig;
+import com.technology.jep.jepria.shared.load.PagingResult;
 import com.technology.jep.jepria.shared.record.JepRecord;
 import com.technology.jep.jepria.shared.record.JepRecordDefinition;
 import com.technology.jep.jepria.shared.util.JepRiaUtil;
@@ -28,6 +33,11 @@ public class TreeGridManager<W extends AbstractCellTable<JepRecord>, P extends P
 	GridManager<W, P, S> {
 	
 	/**
+	 * Колонка древовидного справочника
+	 */
+	private JepColumn<JepRecord, ?> treeCellColumn;
+	
+	/**
 	 * Коллекция содержит узлы дерева (primaryKey связывается с узлом дерева) 
 	 */
 	private Map<Object, ListTreeNode> nodes = new HashMap<Object, ListTreeNode>();
@@ -36,6 +46,16 @@ public class TreeGridManager<W extends AbstractCellTable<JepRecord>, P extends P
 	 * Наименование, по которому из record берется значение первичного ключа
 	 */
 	private String primaryKeyName;
+
+	/**
+	 * Загрузчик данных списка
+	 */
+	private DataLoader<JepRecord> loader;
+	
+	/**
+	 * Список идентификаторов "fake"-узлов, добавляемых в списочную форму
+	 */
+	private Map<Object, List<ListTreeNode>> fakeUidMap = new HashMap<Object, List<ListTreeNode>>();
 	
 	/**
 	 * Устанавливает наименование для первичного ключа
@@ -52,29 +72,6 @@ public class TreeGridManager<W extends AbstractCellTable<JepRecord>, P extends P
 	public String getPrimaryKeyName(){
 		return primaryKeyName;
 	}
-
-	
-	/**
-	 * Наименование, по которому из record берется значение ключа родителя
-	 */
-	private String parentKeyName;
-	
-	/**
-	 * Устанавливает наименовение для ключа родителя
-	 * @param parentKeyName наименование для ключа родителя
-	 */
-	public void setParentKeyName(String parentKeyName){
-		this.parentKeyName = parentKeyName;
-	}
-	
-	/**
-	 * Получает наименовение для ключа родителя
-	 * @return наименование для ключа родителя
-	 */
-	public String getParentKeyName(){
-		return parentKeyName;
-	}
-
 	
 	/**
 	 * Инициализируем названия ключей для работы с деревом по recordDefinition. <br>
@@ -82,16 +79,9 @@ public class TreeGridManager<W extends AbstractCellTable<JepRecord>, P extends P
 	 * @param recordDefinition
 	 */
 	public void initKeysFromRecordDefinition(JepRecordDefinition recordDefinition){
-		
-		//Обрабатываются только "простые" ключи
+		// Обрабатываются только "простые" ключи
 		primaryKeyName = recordDefinition.getPrimaryKey()[0];
-		parentKeyName = TreeCellNames.PARENT_PREFFIX+primaryKeyName;
 	}
-	
-	/**
-	 * Загрузчик данных списка
-	 */
-	private DataLoader<JepRecord> loader;
 	
 	/**
 	 * Устанавливает загрузчик данных списка
@@ -106,11 +96,26 @@ public class TreeGridManager<W extends AbstractCellTable<JepRecord>, P extends P
 	 * Выставляет привязку в {@link com.technology.jep.jepria.client.widget.list.cell.TreeCell} к {@link com.technology.jep.jepria.client.widget.list.TreeGridManager}
 	 */
 	public void bindTree() {
-		
-		TreeCell treeCell = (TreeCell) widget.getColumn(0).getCell(); 
-		treeCell.setTreeGridManager(this);
+		for (int i = 0; i < widget.getColumnCount(); i++){
+			// пробегаем по всем колонкам древовидного справочника
+			Cell<?> cell = widget.getColumn(i).getCell();
+			if (cell instanceof HasTreeGridManager){
+				treeCellColumn = (JepColumn<JepRecord, ?>) widget.getColumn(i);
+				((HasTreeGridManager) cell).setTreeGridManager(this);
+				break;
+			}
+		}
 	}
 	
+	/**
+	 * Поиск узла, соответствующего записи
+	 * 
+	 * @param record		искомая запись
+	 * @return логический узел
+	 */
+	public ListTreeNode findNode(JepRecord record){
+		return record == null ? null : findByPrimaryKey(record.get(primaryKeyName));
+	}
 	
 	/**
 	 * Получает узел из кеша
@@ -118,7 +123,6 @@ public class TreeGridManager<W extends AbstractCellTable<JepRecord>, P extends P
 	 * @return узел из кеша
 	 */
 	public ListTreeNode findByPrimaryKey(Object primaryKey){
-
 		return nodes.get(primaryKey);
 	}
 	
@@ -128,22 +132,25 @@ public class TreeGridManager<W extends AbstractCellTable<JepRecord>, P extends P
 	 * @param data поддерево
 	 */
 	public void setChildrenInList(JepRecord record, List<JepRecord> data){
-		
-		int index = dataProvider.getList().indexOf(record);
-		setChildrenInList(index, data);
-	}
-	
-	/**
-	 * Добавляет поддерево в список по индексу
-	 * @param index индекс, после которого добавить поддерево
-	 * @param data поддерево
-	 */
-	public void setChildrenInList(int index, List<JepRecord> data){
-		
-		dataProvider.getList().addAll(index + 1, data);
+		Object primaryKey = record.get(primaryKeyName);
+		List<ListTreeNode> fakeNodes = getFakeNodesByParentId(primaryKey);
+		List<JepRecord> fakeRecordsForParent = null;
+		if (!JepRiaUtil.isEmpty(fakeNodes)){
+			fakeRecordsForParent = new ArrayList<JepRecord>(fakeNodes.size());
+			for (ListTreeNode fakeTreeNode : fakeNodes){
+				fakeRecordsForParent.add(fakeTreeNode.getRecord());
+			}
+		}
+		List<JepRecord> existedList = dataProvider.getList();
+		if (!JepRiaUtil.isEmpty(fakeRecordsForParent)){
+			data.removeAll(fakeRecordsForParent);
+			data.addAll(0, fakeRecordsForParent);
+			existedList.removeAll(fakeRecordsForParent);
+		}
+		// добавляем поддерево
+		dataProvider.getList().addAll(existedList.indexOf(record) + 1, data);
 		widget.setVisibleRange(0, dataProvider.getList().size());
 	}
-	
 	
 	/**
 	 * Рекурсивная процедура. <br>
@@ -160,12 +167,13 @@ public class TreeGridManager<W extends AbstractCellTable<JepRecord>, P extends P
 		for(JepRecord item: list){
 			
 			removeNodes.add(item);
-			if((Boolean) item.get(TreeCellNames.HAS_CHILDREN)){
+			if(Boolean.TRUE.equals(item.get(HAS_CHILDREN))){
 				
 				Object itemPrimaryKey = item.get(primaryKeyName);
-				nodes.get(itemPrimaryKey).close();
+				ListTreeNode node = findByPrimaryKey(itemPrimaryKey);
+				node.close();
 				
-				removeBranchFromList(nodes.get(itemPrimaryKey).children);
+				removeBranchFromList(node.children);
 			}
 		}
 		
@@ -177,44 +185,39 @@ public class TreeGridManager<W extends AbstractCellTable<JepRecord>, P extends P
 	 * Также запросы кешируются, очистка кеша происходит вместе с очисткой списка
 	 * @param context контекст строки, по которой был осуществлен клик
 	 */
-	public void toogleChildren(final Context context) {
+	public void toggleChildren(final Context context) {
 		
 		final JepRecord rowRecord = (JepRecord) context.getKey();		
-		Boolean hasChildren = (Boolean) (JepRiaUtil.isEmpty(rowRecord.get(TreeCellNames.HAS_CHILDREN)) ? false : rowRecord.get(TreeCellNames.HAS_CHILDREN));
-		
+		Boolean hasChildren = Boolean.TRUE.equals(rowRecord.get(HAS_CHILDREN));
 		//Листовой узел
-		if(!hasChildren)
-			return;
+		if(!hasChildren) return;
 
-		final Object primaryKey = (Object) rowRecord.get(primaryKeyName);		
-		ListTreeNode currentNode = nodes.get(primaryKey);
+		final Object primaryKey = rowRecord.get(primaryKeyName);		
+		ListTreeNode currentNode = findByPrimaryKey(primaryKey);
 		
 		//Узла нет в кеше, то это первый клик по строке
 		if(currentNode == null){
-			currentNode = new ListTreeNode();
+			currentNode = new ListTreeNode(rowRecord);
 			nodes.put(primaryKey, currentNode);
 		}
 
 		//Детей нет в кеше, то осуществляется поиск
 		if(currentNode.children == null){
 			
-			JepRecord searchChildren = new JepRecord();
-			searchChildren.set(parentKeyName, primaryKey);
-
 			final ListTreeNode parentNode = currentNode;
 			mask(JepTexts.loadingPanel_dataLoading());
-			loader.load(new PagingConfig(searchChildren), new AsyncCallback<List<JepRecord>>() {
+			loader.load(new PagingConfig(rowRecord), new AsyncCallback<List<JepRecord>>() {
 				
 				@Override
 				public void onSuccess(List<JepRecord> subList) {
-
+					
 					parentNode.children = subList;
 					
 					for(JepRecord record: subList){
-						nodes.put(record.get(primaryKeyName), new ListTreeNode(parentNode.getDepth() + 1));
+						nodes.put(record.get(primaryKeyName), new ListTreeNode(record, rowRecord, parentNode.getDepth() + 1));
 					}
 					
-					setChildrenInList(context.getIndex(), subList);
+					setChildrenInList(rowRecord, subList);
 
 					parentNode.open();
 					unmask(); // Скроем индикатор "Загрузка данных...".
@@ -229,20 +232,19 @@ public class TreeGridManager<W extends AbstractCellTable<JepRecord>, P extends P
 
 		}else{
 			
-			if(currentNode.getIsOpen()){
+			if(currentNode.isOpen()){
 				
 				//Удаляется поддерево у текущей записи
 				removeBranchFromList(currentNode.children);
 			}else{
 				
-				setChildrenInList(context.getIndex(), currentNode.children);
+				setChildrenInList(rowRecord, currentNode.children);
 			}
 			
 			currentNode.toggleOpenStatus();
 			widget.redraw();
 		}	
 	}
-	
 	
 	/**
 	 * Очистка списка, также очищается кеш
@@ -254,7 +256,6 @@ public class TreeGridManager<W extends AbstractCellTable<JepRecord>, P extends P
 		nodes.clear();
 	}
 	
-	
 	/**
 	 * {@inheritDoc}
 	 */
@@ -263,16 +264,194 @@ public class TreeGridManager<W extends AbstractCellTable<JepRecord>, P extends P
 
 		dataProvider.getList().remove(record);
 		
-		Object primaryKey = (Object) record.get(primaryKeyName);
+		Object primaryKey = record.get(primaryKeyName);
 		ListTreeNode cacheNode = findByPrimaryKey(primaryKey);
 		
 		//Если поддерево открыто, то удаляет и его
-		if(
-			cacheNode != null
-			&& cacheNode.getIsOpen()
-		){
-			
+		if(cacheNode != null && cacheNode.isOpen()){
 			removeBranchFromList(cacheNode.children);
+		}
+	}
+		
+	/**
+	 * Динамическое добавление узла на древовидный справочник
+	 * 
+	 * @param parentRecord		родительский узел
+	 * @param isLeaf			признак листового узла
+	 */
+	public void addChildrenNode(JepRecord parentRecord, boolean isLeaf) {
+		if (!Boolean.TRUE.equals(parentRecord.get(HAS_CHILDREN))) return;
+		
+		Object primaryKey = parentRecord.get(primaryKeyName);
+		ListTreeNode cacheNode = findByPrimaryKey(primaryKey);
+		int depth = cacheNode == null ? 1 : cacheNode.getDepth();
+		JepRecord record = new JepRecord();
+		record.set(HAS_CHILDREN, !isLeaf);
+		String id = DOM.createUniqueId();
+		record.set(primaryKeyName, id);
+		int fakeNodeCount = getFakeNodes().size();
+		record.set(getTreeCellDbName(), (isLeaf ? JepTexts.tree_newLeaf() : JepTexts.tree_newNode()) + (fakeNodeCount < 1 ? "" : " " + (++fakeNodeCount)));
+		ListTreeNode treeNode = new ListTreeNode(record, parentRecord, depth + 1);
+		nodes.put(id, treeNode);
+		if (fakeUidMap.containsKey(primaryKey)){
+			fakeUidMap.get(primaryKey).add(treeNode);
+		}
+		else {
+			fakeUidMap.put(primaryKey, new ArrayList<ListTreeNode>(Collections.singletonList(treeNode)));
+		}
+		// раскроем узел, если он не раскрыт
+		if (cacheNode == null || !cacheNode.isOpen()){
+			setExpanded(cacheNode, true);
+		}
+		else {
+			cacheNode.children.add(record);
+			setChildrenInList(parentRecord, new ArrayList<JepRecord>(Collections.singletonList(record)));
+		}
+	}
+	
+	/**
+	 * Список "fake"-узлов
+	 * 
+	 * @return список фиктивно добавленных узлов
+	 */
+	public List<ListTreeNode> getFakeNodes(){
+		Collection<List<ListTreeNode>> collection = fakeUidMap.values();
+		List<ListTreeNode> resultList = new ArrayList<ListTreeNode>();
+		for (List<ListTreeNode> list : collection){
+			resultList.addAll(list);
+		}
+		return resultList;
+	}
+	
+	/**
+	 * Получение списка "fake"-узлов дерева по значению ключа 
+	 * @param primaryKey	значение ключа
+	 * @return список "fake"-узлов дерева
+	 */
+	public List<ListTreeNode> getFakeNodesByParentId(Object primaryKey){
+		return fakeUidMap.get(primaryKey);
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 * Особенности реализации:<br/>
+	 * Перед заменой строк древовидного справочника перетаскиваемые узлы схлопываются, если они ранее были раскрыты.
+	 */
+	@Override
+	public void changeRows(int oldIndex, int newIndex) {
+		JepRecord oldRecord = get(oldIndex);
+		JepRecord newRecord = get(newIndex);
+		
+		ListTreeNode oldTreeNode = findNode(oldRecord), newTreeNode = findNode(newRecord);
+		if (oldTreeNode.isOpen()){
+			toggleChildren(getContextByTreeNode(oldTreeNode));
+		}
+		if (newTreeNode.isOpen()){
+			toggleChildren(getContextByTreeNode(newTreeNode));
+		}
+		oldIndex = dataProvider.getList().indexOf(oldRecord);
+		newIndex = dataProvider.getList().indexOf(newRecord);
+		
+		int oldDepth = oldTreeNode.getDepth();
+		int newDepth = newTreeNode.getDepth();
+		
+		JepRecord oldParentRecord = oldTreeNode.getParentRecord();
+		JepRecord newParentRecord = newTreeNode.getParentRecord();
+		
+		ListTreeNode oldParentTreeNode = null, newParentTreeNode = null;
+		if (oldParentRecord != null) {
+			oldParentTreeNode = findNode(oldParentRecord);
+			oldParentTreeNode.children.set(oldParentTreeNode.children.indexOf(oldRecord) , newRecord);
+		}
+		if (newParentRecord != null) {
+			newParentTreeNode = findNode(newParentRecord);
+			newParentTreeNode.children.set(newParentTreeNode.children.indexOf(newRecord) , oldRecord);
+		}
+		
+		oldTreeNode = new ListTreeNode(oldRecord, newParentRecord, newDepth);
+		newTreeNode = new ListTreeNode(newRecord, oldParentRecord, oldDepth);
+		
+		nodes.put(oldRecord.get(primaryKeyName), oldTreeNode);
+		nodes.put(newRecord.get(primaryKeyName), newTreeNode);
+		
+		super.changeRows(oldIndex, newIndex);
+	}
+	
+	/**
+	 * Получение контекста по логической ссылке на узел
+	 * @param treeNode	логическая ссылка на узел
+	 * @return получение контекста узла
+	 */
+	private Context getContextByTreeNode(ListTreeNode treeNode){
+		return new Context(treeNode.getDepth(), widget.getColumnIndex(treeCellColumn), treeNode.getRecord());
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void set(PagingResult<JepRecord> pagingResult) {
+		super.set(pagingResult);
+		// add info about existed nodes
+		List<JepRecord> data = pagingResult.getData();
+		for (JepRecord record : data){
+			nodes.put(record.get(primaryKeyName), new ListTreeNode(record));
+		}
+	}
+	
+	/**
+	 * Получение имени поля в БД, соответствующего колонке древовидного справочника
+	 * @return наименование поля БД
+	 */
+	public String getTreeCellDbName(){
+		return treeCellColumn.getDataStoreName();
+	}
+	
+	/**
+	 * Раскрывает отрисованные узлы и удаляет их из списка узлов, которые необходимо раскрыть 
+	 * {@link com.technology.jep.jepria.client.widget.field.multistate.JepTreeField#expandedValues}.
+	 */
+	public void setExpanded(List<JepRecord> nodes, boolean expanded){
+		if(nodes != null && nodes.size() > 0) {
+			List<JepRecord> expandedValues = new ArrayList<JepRecord>(nodes);
+			Iterator<JepRecord> iterator = expandedValues.iterator();
+			while(iterator.hasNext()) {
+				JepRecord record = iterator.next();
+				// Удаляем значение, т.к. открытие узлов - это разовая (в данном случае) операция
+				// и НЕ нужно повторно открывать указанные узлы (которые пользователь, возможно, уже закрыл).
+				setExpanded(record, expanded);
+				iterator.remove();
+			}
+		}
+	}
+	
+	/**
+	 * Раскрытие/закрытие записи грида
+	 *  
+	 * @param record		запись
+	 * @param expanded		флаг открытия/закрытия
+	 */
+	public void setExpanded(JepRecord record, boolean expanded){
+		setExpanded(findNode(record), expanded);
+	}
+	
+	/**
+	 * Раскрытие/закрытие узла грида
+	 *  
+	 * @param record		узел грида
+	 * @param expanded		флаг открытия/закрытия
+	 */
+	public void setExpanded(ListTreeNode treeNode, boolean expanded){
+		if (treeNode == null) return;
+		if (expanded){
+			if (!treeNode.isOpen()){
+				toggleChildren(getContextByTreeNode(treeNode));
+			}
+		}
+		else {
+			if (treeNode.isOpen()){
+				toggleChildren(getContextByTreeNode(treeNode));
+			}
 		}
 	}
 }

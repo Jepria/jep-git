@@ -17,6 +17,7 @@ import com.google.gwt.cell.client.ImageResourceCell;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.NativeEvent;
+import com.google.gwt.dom.client.NodeList;
 import com.google.gwt.event.logical.shared.CloseEvent;
 import com.google.gwt.event.logical.shared.CloseHandler;
 import com.google.gwt.event.logical.shared.OpenEvent;
@@ -30,6 +31,7 @@ import com.google.gwt.user.cellview.client.CellTree;
 import com.google.gwt.user.cellview.client.TreeNode;
 import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.ui.ScrollPanel;
+import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.view.client.AsyncDataProvider;
 import com.google.gwt.view.client.CellPreviewEvent;
 import com.google.gwt.view.client.DefaultSelectionEventManager;
@@ -194,10 +196,10 @@ public class TreeField<V extends JepOption> extends ScrollPanel implements HasCh
 			@SuppressWarnings("unchecked")
 			public void onOpen(OpenEvent<TreeNode> event) {
 				TreeNode node = event.getTarget();
-				TreeNodeInfo<V> info = nodeMapOfDisplay.get(node.getValue());
+				V currentNode = (V) node.getValue();
+				TreeNodeInfo<V> info = nodeMapOfDisplay.get(currentNode);
 				if (JepRiaUtil.isEmpty(info)) return;
 				
-				V currentNode = (V) node.getValue();
 				if (JepRiaUtil.isEmpty(info.getNode())){
 					info.setNode(node);
 				}
@@ -210,6 +212,7 @@ public class TreeField<V extends JepOption> extends ScrollPanel implements HasCh
 					// refresh expanded node
 					refreshNode(currentNode);
 				}
+				ensureVisible(currentNode);
 			}
 		});
 		
@@ -231,6 +234,17 @@ public class TreeField<V extends JepOption> extends ScrollPanel implements HasCh
 			this.partialSelectedNodes = list;
 			for (V node : list){
 				refreshNode(node);
+			}
+		}
+	}
+	
+	public void ensureVisible(V value){
+		Element cellTreeElement = getWidget().getElement();
+		NodeList<Element> spanNodes = cellTreeElement.getElementsByTagName("span");
+		for (int i = 0; i < spanNodes.getLength(); i++) {
+			Element spanElement = spanNodes.getItem(i);
+			if (String.valueOf(value.getValue()).equalsIgnoreCase(spanElement.getId())) {
+				super.ensureVisible(new ElementSimplePanel(spanElement));
 			}
 		}
 	}
@@ -554,7 +568,8 @@ public class TreeField<V extends JepOption> extends ScrollPanel implements HasCh
 				protected <X> void render(Context context, V value, SafeHtmlBuilder sb, HasCell<V, X> hasCell) {
 					Cell<X> cell = hasCell.getCell();
 					X val = hasCell.getValue(value);
-					sb.appendHtmlConstant("<span " + (cell instanceof ClickableTextCell ? "title=\"" + SafeHtmlUtils.htmlEscape((String) val) + "\"" : "") + ">");
+					boolean isClickableTextCell = cell instanceof ClickableTextCell;
+					sb.appendHtmlConstant("<span " + (isClickableTextCell ? "title=\"" + SafeHtmlUtils.htmlEscape((String) val) + "\" id=\"" + SafeHtmlUtils.htmlEscape(String.valueOf(value.getValue())) + "\"" : "") + ">");
 					cell.render(context, val, sb);
 					sb.appendHtmlConstant("</span>");
 				}				
@@ -639,7 +654,14 @@ public class TreeField<V extends JepOption> extends ScrollPanel implements HasCh
 			TreeNodeInfo<V> nodeInfo = nodeMapOfDisplay.get(value);
 			if (!JepRiaUtil.isEmpty(nodeInfo)) {
 				refreshDisplay(nodeInfo.getDisplay(), nodeInfo.getData());
-			}
+			}			
+		}
+	}
+	
+	
+	class ElementSimplePanel extends SimplePanel {
+		public ElementSimplePanel(Element el){
+			super(el);
 		}
 	}
 }

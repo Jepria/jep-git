@@ -388,4 +388,16 @@ public class JepClientUtil {
 			cur = cur.parentNode;
 		}
 	}-*/;
+	 
+	/**
+	 * String.trim() is not defined in GWT, so use String.replace(RegEx) for GWT tests.	
+	 * '\s' in RegEx for String.replace() doesn't include &nbsp (\u00a0), even though Regex.test()
+     * does, so specifically add the unicode to the RegEx. 
+	 * @param s		string to trim
+	 * @return  trimmed string
+	 */
+	public static native String jsTrim(String s) /*-{
+		if (s.trim) return s.trim();
+		return s.replace(/^[\s,\u00a0]+|[\s,\u00a0]+$/g, '');
+	}-*/;
 }
