@@ -187,6 +187,15 @@ java.lang.Object
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;java.lang.Boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/dao/ResultSetMapper.html#getBoolean(java.sql.ResultSet, java.lang.String)">getBoolean</A></B>(java.sql.ResultSet&nbsp;rs,
+           java.lang.String&nbsp;columnName)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Получение Boolean из ResultSet.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;java.util.Date</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/dao/ResultSetMapper.html#getDate(java.sql.ResultSet, java.lang.String)">getDate</A></B>(java.sql.ResultSet&nbsp;rs,
         java.lang.String&nbsp;columnName)</CODE>
@@ -340,6 +349,25 @@ public abstract void <B>map</B>(java.sql.ResultSet&nbsp;rs,
 <P>
 <DD><DL>
 <DT><B>Parameters:</B><DD><CODE>rs</CODE> - экземпляр класса ResultSet<DD><CODE>dto</CODE> - экземпляр dto
+<DT><B>Throws:</B>
+<DD><CODE>java.sql.SQLException</CODE></DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getBoolean(java.sql.ResultSet, java.lang.String)"><!-- --></A><H3>
+getBoolean</H3>
+<PRE>
+public static java.lang.Boolean <B>getBoolean</B>(java.sql.ResultSet&nbsp;rs,
+                                           java.lang.String&nbsp;columnName)
+                                    throws java.sql.SQLException</PRE>
+<DL>
+<DD>Получение Boolean из ResultSet. Если значение == null, то метод возвращает null,
+ а не false, как rs.getBoolean(...).
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>rs</CODE> - ResultSet<DD><CODE>columnName</CODE> - Имя столбца
+<DT><B>Returns:</B><DD>значение столбца
 <DT><B>Throws:</B>
 <DD><CODE>java.sql.SQLException</CODE></DL>
 </DD>

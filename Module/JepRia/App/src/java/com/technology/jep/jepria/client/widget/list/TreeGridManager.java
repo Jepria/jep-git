@@ -438,7 +438,7 @@ public class TreeGridManager<W extends AbstractCellTable<JepRecord>, P extends P
 	/**
 	 * Раскрытие/закрытие узла грида
 	 *  
-	 * @param record		узел грида
+	 * @param treeNode		узел грида
 	 * @param expanded		флаг открытия/закрытия
 	 */
 	public void setExpanded(ListTreeNode treeNode, boolean expanded){

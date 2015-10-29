@@ -138,6 +138,22 @@ java.lang.Object
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Открытость/закрытость узла</TD>
 </TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;<A HREF="../../../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/cell/ListTreeNode.html#parentRecord">parentRecord</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Запись, соответствующая родительскому узлу дерева</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;<A HREF="../../../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/cell/ListTreeNode.html#record">record</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Запись, соответствующая текущему узлу дерева</TD>
+</TR>
 </TABLE>
 &nbsp;
 <!-- ======== CONSTRUCTOR SUMMARY ======== -->
@@ -152,10 +168,18 @@ java.lang.Object
 <TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/cell/ListTreeNode.html#ListTreeNode()">ListTreeNode</A></B>()</CODE>
 
 <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/cell/ListTreeNode.html#ListTreeNode(com.technology.jep.jepria.shared.record.JepRecord)">ListTreeNode</A></B>(<A HREF="../../../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</A>&nbsp;record)</CODE>
+
+<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Создает узел девера первого уровня</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/cell/ListTreeNode.html#ListTreeNode(int)">ListTreeNode</A></B>(int&nbsp;depth)</CODE>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/cell/ListTreeNode.html#ListTreeNode(com.technology.jep.jepria.shared.record.JepRecord, com.technology.jep.jepria.shared.record.JepRecord, int)">ListTreeNode</A></B>(<A HREF="../../../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</A>&nbsp;record,
+             <A HREF="../../../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</A>&nbsp;parentRecord,
+             int&nbsp;depth)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Создает узел дерево с произвольной глубиной</TD>
@@ -188,8 +212,24 @@ java.lang.Object
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/cell/ListTreeNode.html#getParentRecord()">getParentRecord</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Получение записи родительского узла</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/cell/ListTreeNode.html#getRecord()">getRecord</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Получение записи текущего узла</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/cell/ListTreeNode.html#getIsOpen()">getIsOpen</A></B>()</CODE>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/cell/ListTreeNode.html#isOpen()">isOpen</A></B>()</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Получает статус узла</TD>
@@ -205,7 +245,7 @@ java.lang.Object
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>private &nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/cell/ListTreeNode.html#setIsOpen(boolean)">setIsOpen</A></B>(boolean&nbsp;isOpen)</CODE>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/cell/ListTreeNode.html#setOpen(boolean)">setOpen</A></B>(boolean&nbsp;isOpen)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Меняет статус узла</TD>
@@ -241,6 +281,18 @@ java.lang.Object
 </TR>
 </TABLE>
 
+<A NAME="record"><!-- --></A><H3>
+record</H3>
+<PRE>
+private <A HREF="../../../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</A> <B>record</B></PRE>
+<DL>
+<DD>Запись, соответствующая текущему узлу дерева
+<P>
+<DL>
+</DL>
+</DL>
+<HR>
+
 <A NAME="depth"><!-- --></A><H3>
 depth</H3>
 <PRE>
@@ -275,6 +327,18 @@ public java.util.List&lt;<A HREF="../../../../../../../../com/technology/jep/jep
 <DL>
 </DL>
 </DL>
+<HR>
+
+<A NAME="parentRecord"><!-- --></A><H3>
+parentRecord</H3>
+<PRE>
+private <A HREF="../../../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</A> <B>parentRecord</B></PRE>
+<DL>
+<DD>Запись, соответствующая родительскому узлу дерева
+<P>
+<DL>
+</DL>
+</DL>
 
 <!-- ========= CONSTRUCTOR DETAIL ======== -->
 
@@ -291,15 +355,25 @@ ListTreeNode</H3>
 <PRE>
 public <B>ListTreeNode</B>()</PRE>
 <DL>
+</DL>
+<HR>
+
+<A NAME="ListTreeNode(com.technology.jep.jepria.shared.record.JepRecord)"><!-- --></A><H3>
+ListTreeNode</H3>
+<PRE>
+public <B>ListTreeNode</B>(<A HREF="../../../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</A>&nbsp;record)</PRE>
+<DL>
 <DD>Создает узел девера первого уровня
 <P>
 </DL>
 <HR>
 
-<A NAME="ListTreeNode(int)"><!-- --></A><H3>
+<A NAME="ListTreeNode(com.technology.jep.jepria.shared.record.JepRecord, com.technology.jep.jepria.shared.record.JepRecord, int)"><!-- --></A><H3>
 ListTreeNode</H3>
 <PRE>
-public <B>ListTreeNode</B>(int&nbsp;depth)</PRE>
+public <B>ListTreeNode</B>(<A HREF="../../../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</A>&nbsp;record,
+                    <A HREF="../../../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</A>&nbsp;parentRecord,
+                    int&nbsp;depth)</PRE>
 <DL>
 <DD>Создает узел дерево с произвольной глубиной
 <P>
@@ -356,10 +430,10 @@ public void <B>close</B>()</PRE>
 </DL>
 <HR>
 
-<A NAME="setIsOpen(boolean)"><!-- --></A><H3>
-setIsOpen</H3>
+<A NAME="setOpen(boolean)"><!-- --></A><H3>
+setOpen</H3>
 <PRE>
-private void <B>setIsOpen</B>(boolean&nbsp;isOpen)</PRE>
+private void <B>setOpen</B>(boolean&nbsp;isOpen)</PRE>
 <DL>
 <DD>Меняет статус узла
 <P>
@@ -369,10 +443,10 @@ private void <B>setIsOpen</B>(boolean&nbsp;isOpen)</PRE>
 </DL>
 <HR>
 
-<A NAME="getIsOpen()"><!-- --></A><H3>
-getIsOpen</H3>
+<A NAME="isOpen()"><!-- --></A><H3>
+isOpen</H3>
 <PRE>
-public boolean <B>getIsOpen</B>()</PRE>
+public boolean <B>isOpen</B>()</PRE>
 <DL>
 <DD>Получает статус узла
 <P>
@@ -393,6 +467,34 @@ public int <B>getDepth</B>()</PRE>
 <DD><DL>
 
 <DT><B>Returns:</B><DD>глубина</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getRecord()"><!-- --></A><H3>
+getRecord</H3>
+<PRE>
+public <A HREF="../../../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</A> <B>getRecord</B>()</PRE>
+<DL>
+<DD>Получение записи текущего узла
+<P>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>запись</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getParentRecord()"><!-- --></A><H3>
+getParentRecord</H3>
+<PRE>
+public <A HREF="../../../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</A> <B>getParentRecord</B>()</PRE>
+<DL>
+<DD>Получение записи родительского узла
+<P>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>запись</DL>
 </DD>
 </DL>
 <!-- ========= END OF CLASS DATA ========= -->

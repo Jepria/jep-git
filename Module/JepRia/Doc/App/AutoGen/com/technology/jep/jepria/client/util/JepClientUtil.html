@@ -309,6 +309,14 @@ java.lang.Object
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/client/util/JepClientUtil.html#jsTrim(java.lang.String)">jsTrim</A></B>(java.lang.String&nbsp;s)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;String.trim() is not defined in GWT, so use String.replace(RegEx) for GWT tests.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;void</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/client/util/JepClientUtil.html#removeDisabledLayer(java.lang.String)">removeDisabledLayer</A></B>(java.lang.String&nbsp;layerId)</CODE>
 
@@ -755,6 +763,22 @@ public static void <B>adjustToTop</B>(com.google.gwt.dom.client.Element&nbsp;ele
 <P>
 <DD><DL>
 <DT><B>Parameters:</B><DD><CODE>elem</CODE> - активный элемент, подвергаемый выравниванию</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="jsTrim(java.lang.String)"><!-- --></A><H3>
+jsTrim</H3>
+<PRE>
+public static java.lang.String <B>jsTrim</B>(java.lang.String&nbsp;s)</PRE>
+<DL>
+<DD>String.trim() is not defined in GWT, so use String.replace(RegEx) for GWT tests.        
+ '\s' in RegEx for String.replace() doesn't include &nbsp ( ), even though Regex.test()
+ does, so specifically add the unicode to the RegEx.
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>s</CODE> - string to trim
+<DT><B>Returns:</B><DD>trimmed string</DL>
 </DD>
 </DL>
 <!-- ========= END OF CLASS DATA ========= -->

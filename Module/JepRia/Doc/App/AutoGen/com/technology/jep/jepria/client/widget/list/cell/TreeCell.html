@@ -97,11 +97,11 @@ java.lang.Object
 <DL>
 <DT><DT><B>Type Parameters:</B><DD><CODE>C</CODE> - Тип, который отображает ячейка. Должен поддерживать функцию toString</DL>
 <DL>
-<DT><B>All Implemented Interfaces:</B> <DD>com.google.gwt.cell.client.Cell&lt;C&gt;</DD>
+<DT><B>All Implemented Interfaces:</B> <DD>com.google.gwt.cell.client.Cell&lt;C&gt;, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/HasTreeGridManager.html" title="interface in com.technology.jep.jepria.client.widget.list">HasTreeGridManager</A></DD>
 </DL>
 <HR>
 <DL>
-<DT><PRE>public class <B>TreeCell&lt;C&gt;</B><DT>extends com.google.gwt.cell.client.AbstractCell&lt;C&gt;</DL>
+<DT><PRE>public class <B>TreeCell&lt;C&gt;</B><DT>extends com.google.gwt.cell.client.AbstractCell&lt;C&gt;<DT>implements <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/HasTreeGridManager.html" title="interface in com.technology.jep.jepria.client.widget.list">HasTreeGridManager</A></DL>
 </PRE>
 
 <P>
@@ -181,7 +181,7 @@ java.lang.Object
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>private &nbsp;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/TreeGridManager.html" title="class in com.technology.jep.jepria.client.widget.list">TreeGridManager</A></CODE></FONT></TD>
+<CODE>private &nbsp;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/TreeGridManager.html" title="class in com.technology.jep.jepria.client.widget.list">TreeGridManager</A>&lt;?,?,?&gt;</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/cell/TreeCell.html#treeGridManager">treeGridManager</A></B></CODE>
 
 <BR>
@@ -258,7 +258,7 @@ java.lang.Object
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/cell/TreeCell.html#setTreeGridManager(com.technology.jep.jepria.client.widget.list.TreeGridManager)">setTreeGridManager</A></B>(<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/TreeGridManager.html" title="class in com.technology.jep.jepria.client.widget.list">TreeGridManager</A>&nbsp;treeGridManager)</CODE>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/cell/TreeCell.html#setTreeGridManager(com.technology.jep.jepria.client.widget.list.TreeGridManager)">setTreeGridManager</A></B>(<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/TreeGridManager.html" title="class in com.technology.jep.jepria.client.widget.list">TreeGridManager</A>&lt;?,?,?&gt;&nbsp;treeGridManager)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Устанавливает ссылку на объект, управляющий списком</TD>
@@ -322,7 +322,7 @@ private java.lang.String <B>treeDelimeter</B></PRE>
 <A NAME="treeGridManager"><!-- --></A><H3>
 treeGridManager</H3>
 <PRE>
-private <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/TreeGridManager.html" title="class in com.technology.jep.jepria.client.widget.list">TreeGridManager</A> <B>treeGridManager</B></PRE>
+private <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/TreeGridManager.html" title="class in com.technology.jep.jepria.client.widget.list">TreeGridManager</A>&lt;?,?,?&gt; <B>treeGridManager</B></PRE>
 <DL>
 <DD>Ссылка на объект, управляющий списком
 <P>
@@ -410,10 +410,13 @@ public <B>TreeCell</B>()</PRE>
 <A NAME="setTreeGridManager(com.technology.jep.jepria.client.widget.list.TreeGridManager)"><!-- --></A><H3>
 setTreeGridManager</H3>
 <PRE>
-public void <B>setTreeGridManager</B>(<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/TreeGridManager.html" title="class in com.technology.jep.jepria.client.widget.list">TreeGridManager</A>&nbsp;treeGridManager)</PRE>
+public void <B>setTreeGridManager</B>(<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/TreeGridManager.html" title="class in com.technology.jep.jepria.client.widget.list">TreeGridManager</A>&lt;?,?,?&gt;&nbsp;treeGridManager)</PRE>
 <DL>
 <DD>Устанавливает ссылку на объект, управляющий списком
 <P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/HasTreeGridManager.html#setTreeGridManager(com.technology.jep.jepria.client.widget.list.TreeGridManager)">setTreeGridManager</A></CODE> in interface <CODE><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/HasTreeGridManager.html" title="interface in com.technology.jep.jepria.client.widget.list">HasTreeGridManager</A></CODE></DL>
+</DD>
 <DD><DL>
 <DT><B>Parameters:</B><DD><CODE>treeGridManager</CODE> - объект, управляющий списком</DL>
 </DD>
