@@ -2,7 +2,7 @@ package com.technology.jep.jepriashowcase.supplier.shared.text;
 
 /**
  * Interface to represent the constants contained in resource bundle:
- * 	'E:/git/javaenterpriseplatform/Module/JepRiaShowcase/App/src/java/com/technology/jep/jepriashowcase/supplier/shared/text/SupplierText.properties'.
+ * 	'D:/git/Jep/Module/JepRiaShowcase/App/src/java/com/technology/jep/jepriashowcase/supplier/shared/text/SupplierText.properties'.
  */
 public interface SupplierText extends com.google.gwt.i18n.client.Constants {
   
@@ -160,6 +160,15 @@ public interface SupplierText extends com.google.gwt.i18n.client.Constants {
   String supplier_detail_phoneNumber();
 
   /**
+   * Translated "Привилегированный поставщик".
+   * 
+   * @return translated "Привилегированный поставщик"
+   */
+  @DefaultStringValue("Привилегированный поставщик")
+  @Key("supplier.detail.privilege_supplier_flag")
+  String supplier_detail_privilege_supplier_flag();
+
+  /**
    * Translated "Получатель (отделение банка)".
    * 
    * @return translated "Получатель (отделение банка)"
@@ -284,6 +293,15 @@ public interface SupplierText extends com.google.gwt.i18n.client.Constants {
   @DefaultStringValue("Телефон")
   @Key("supplier.list.phoneNumber")
   String supplier_list_phoneNumber();
+
+  /**
+   * Translated "Привилегированный поставщик".
+   * 
+   * @return translated "Привилегированный поставщик"
+   */
+  @DefaultStringValue("Привилегированный поставщик")
+  @Key("supplier.list.privilege_supplier_flag")
+  String supplier_list_privilege_supplier_flag();
 
   /**
    * Translated "Получатель".

@@ -9,6 +9,7 @@ public class SupplierFieldNames extends JepRecordFieldNames {
 	public static final String CONTRACT_FINISH_DATE_FROM = "contract_finish_date_from";
 	public static final String CONTRACT_FINISH_DATE_TO = "contract_finish_date_to";
 	public static final String EXCLUSIVE_SUPPLIER_FLAG = "exclusive_supplier_flag";
+	public static final String PRIVILEGE_SUPPLIER_FLAG = "privilege_supplier_flag";
 	public static final String EXCLUSIVE_SUPPLIER_OPTION = "exclusive_supplier_option";
 	public static final String SUPPLIER_DESCRIPTION = "supplier_description";
 	public static final String PHONE_NUMBER = "phone_number";

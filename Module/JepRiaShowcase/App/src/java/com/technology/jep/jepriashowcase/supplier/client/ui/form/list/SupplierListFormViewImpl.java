@@ -5,6 +5,7 @@ import static com.technology.jep.jepriashowcase.supplier.client.SupplierClientCo
 import static com.technology.jep.jepriashowcase.supplier.shared.field.SupplierFieldNames.BANKNAME;
 import static com.technology.jep.jepriashowcase.supplier.shared.field.SupplierFieldNames.CONTRACT_FINISH_DATE;
 import static com.technology.jep.jepriashowcase.supplier.shared.field.SupplierFieldNames.EXCLUSIVE_SUPPLIER_FLAG;
+import static com.technology.jep.jepriashowcase.supplier.shared.field.SupplierFieldNames.PRIVILEGE_SUPPLIER_FLAG;
 import static com.technology.jep.jepriashowcase.supplier.shared.field.SupplierFieldNames.FAX_NUMBER;
 import static com.technology.jep.jepriashowcase.supplier.shared.field.SupplierFieldNames.PHONE_NUMBER;
 import static com.technology.jep.jepriashowcase.supplier.shared.field.SupplierFieldNames.RECIPIENT_NAME;
@@ -27,6 +28,7 @@ import com.technology.jep.jepria.client.ui.form.list.ListFormViewImpl;
 import com.technology.jep.jepria.client.widget.list.GridManager;
 import com.technology.jep.jepria.client.widget.list.JepColumn;
 import com.technology.jep.jepria.client.widget.list.JepGrid;
+import com.technology.jep.jepria.client.widget.list.cell.BooleanCell;
 import com.technology.jep.jepria.client.widget.list.cell.JepCheckBoxCell;
 import com.technology.jep.jepria.client.widget.toolbar.PagingStandardBar;
 import com.technology.jep.jepria.shared.record.JepRecord;
@@ -75,6 +77,7 @@ public class SupplierListFormViewImpl extends ListFormViewImpl<GridManager> {
 		columns.add(new JepColumn(SUPPLIER_NAME, supplierText.supplier_list_supplier_name(), 150));
 		columns.add(new JepColumn(CONTRACT_FINISH_DATE, supplierText.supplier_list_contract_finish_date(), 150, new DateCell(defaultDateFormatter)));
 		columns.add(new JepColumn(EXCLUSIVE_SUPPLIER_FLAG, supplierText.supplier_list_exclusive_supplier_flag(), 150, new JepCheckBoxCell()));
+		columns.add(new JepColumn(PRIVILEGE_SUPPLIER_FLAG, supplierText.supplier_list_privilege_supplier_flag(), 150, new BooleanCell()));
 		columns.add(new JepColumn(SUPPLIER_DESCRIPTION, supplierText.supplier_list_supplier_description(), 150));
 		columns.add(new JepColumn(PHONE_NUMBER, supplierText.supplier_list_phoneNumber(), 100));
 		columns.add(new JepColumn(FAX_NUMBER, supplierText.supplier_list_faxNumber(), 100));

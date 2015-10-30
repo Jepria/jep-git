@@ -53,7 +53,10 @@ public class SupplierBean extends JepDataStandardBean implements Supplier {
 						record.set(SUPPLIER_ID, getInteger(rs, SUPPLIER_ID));
 						record.set(SUPPLIER_NAME, rs.getString(SUPPLIER_NAME));
 						record.set(CONTRACT_FINISH_DATE, getDate(rs, CONTRACT_FINISH_DATE));
+						
 						record.set(EXCLUSIVE_SUPPLIER_FLAG, rs.getBoolean(EXCLUSIVE_SUPPLIER_FLAG));
+						record.set(PRIVILEGE_SUPPLIER_FLAG, getBoolean(rs, PRIVILEGE_SUPPLIER_FLAG));
+						
 						record.set(SUPPLIER_DESCRIPTION, rs.getString(SUPPLIER_DESCRIPTION));
 						record.set(PHONE_NUMBER, rs.getString(PHONE_NUMBER));
 						record.set(FAX_NUMBER, rs.getString(FAX_NUMBER));
