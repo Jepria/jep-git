@@ -47,7 +47,7 @@ public class ProgressEvent extends NativeEvent {
 
     /**
      * The error code associated with the file read error.
-     * @return
+     * @return error code
      */
     public final native int getErrorCode() /*-{
         return this.target.error.code;

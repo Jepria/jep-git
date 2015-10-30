@@ -1,4 +1,4 @@
-/* Статусбар */
+/* Панель состояния. */
 .jepRia-StatusBar {
 	font: 11px arial,tahoma,helvetica,sans-serif;
 	vertical-align: middle;
@@ -14,7 +14,7 @@
 }
 
 
-/* Тулбар */
+/* Панель состояния */
 .jepRia-ToolBar {
 	font: 11px arial,tahoma,helvetica,sans-serif;
 	vertical-align: middle;
@@ -30,17 +30,17 @@
 	background-position: 0 5%;
 }
 
-/* Таблица тулбара должна иметь высоту 100%, чтобы элементы тулбара растягивались по высоте. */
+/* Таблица панели состояния должна иметь высоту 100%, чтобы элементы панели состояния растягивались по высоте. */
 .jepRia-ToolBar table {
 	height: 100%;
 }
 
-/* Ячейки таблицы тулбара должны иметь высоту 100%, элементы тулбара растягивались по высоте. */
+/* Ячейки таблицы панели состояния должны иметь высоту 100%, элементы панели состояния растягивались по высоте. */
 .jepRia-ToolBar td {
 	height: 100%;
 }
 
-/* Кнопка тулбара */
+/* Кнопка панели состояния */
 .jepRia-ToolBar .gwt-Button {
 	font: 11px arial,tahoma,verdana,helvetica;
 	height: 100%;
@@ -67,7 +67,7 @@
 	height: auto;
 }
 
-/* Недоступная кнопка тулбара */
+/* Недоступная кнопка панели состояния */
 .jepRia-ToolBar .gwt-Button.jepRia-JepButton-buttonDisabled {
 	opacity: 0.3; /* css standard. */
 	-moz-opacity: 0.3; /* very old mozilla/netscape browsers. */
@@ -81,13 +81,13 @@
 	background-color: transparent;
 }
 
-/* Текст на кнопке тулбара */
+/* Текст на кнопке панели состояния */
 .jepRia-ToolBar .gwt-Button .gwt-Label {
 	white-space: nowrap;
 	font: 11px arial,tahoma,verdana,helvetica;
 }
 
-/* Разделитель тулбара */
+/* Разделитель панели состояния */
 .jepRia-ToolBar .jepRia-Separator {
 	background-position: center;
 	background-repeat: repeat;
@@ -164,12 +164,12 @@ input[type=text]::-ms-clear {
 	border: solid 1px transparent;
 	background-color: transparent;
 }
-/* Текст на кнопке тулбара */
+/* Текст на кнопке панели состояния */
 .jepRia-PagingBar .gwt-Button .gwt-Label {
 	white-space: nowrap;
 	font: 11px arial, tahoma, verdana, helvetica;
 }
-/* Разделитель тулбара */
+/* Разделитель панели состояния */
 .jepRia-PagingBar .jepRia-Separator {
 	background-position: center;
 	background-repeat: repeat;

@@ -1,0 +1,843 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!--NewPage-->
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<TITLE>
+EditTreeCell (JepRia JavaDoc)
+</TITLE>
+
+
+<LINK REL ="stylesheet" TYPE="text/css" HREF="../../../../../../../../stylesheet.css" TITLE="Style">
+
+<SCRIPT type="text/javascript">
+function windowTitle()
+{
+    if (location.href.indexOf('is-external=true') == -1) {
+        parent.document.title="EditTreeCell (JepRia JavaDoc)";
+    }
+}
+</SCRIPT>
+<NOSCRIPT>
+</NOSCRIPT>
+
+</HEAD>
+
+<BODY BGCOLOR="white" onload="windowTitle();">
+<HR>
+
+
+<!-- ========= START OF TOP NAVBAR ======= -->
+<A NAME="navbar_top"><!-- --></A>
+<A HREF="#skip-navbar_top" title="Skip navigation links"></A>
+<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
+<TR>
+<TD COLSPAN=2 BGCOLOR="#EEEEFF" CLASS="NavBarCell1">
+<A NAME="navbar_top_firstrow"><!-- --></A>
+<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3" SUMMARY="">
+  <TR ALIGN="center" VALIGN="top">
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-summary.html"><FONT CLASS="NavBarFont1"><B>Package</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../../index-all.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../../help-doc.html"><FONT CLASS="NavBarFont1"><B>Help</B></FONT></A>&nbsp;</TD>
+  </TR>
+</TABLE>
+</TD>
+<TD ALIGN="right" VALIGN="top" ROWSPAN=3><EM>
+</EM>
+</TD>
+</TR>
+
+<TR>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+&nbsp;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/cell/BooleanCell.html" title="class in com.technology.jep.jepria.client.widget.list.cell"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/cell/EditTreeCell.Template.html" title="interface in com.technology.jep.jepria.client.widget.list.cell"><B>NEXT CLASS</B></A></FONT></TD>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+  <A HREF="../../../../../../../../index.html?com/technology/jep/jepria/client/widget/list/cell/EditTreeCell.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="EditTreeCell.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+&nbsp;<SCRIPT type="text/javascript">
+  <!--
+  if(window==top) {
+    document.writeln('<A HREF="../../../../../../../../allclasses-noframe.html"><B>All Classes</B></A>');
+  }
+  //-->
+</SCRIPT>
+<NOSCRIPT>
+  <A HREF="../../../../../../../../allclasses-noframe.html"><B>All Classes</B></A>
+</NOSCRIPT>
+
+
+</FONT></TD>
+</TR>
+<TR>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+  SUMMARY:&nbsp;<A HREF="#nested_class_summary">NESTED</A>&nbsp;|&nbsp;<A HREF="#field_summary">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
+</TR>
+</TABLE>
+<A NAME="skip-navbar_top"></A>
+<!-- ========= END OF TOP NAVBAR ========= -->
+
+<HR>
+<!-- ======== START OF CLASS DATA ======== -->
+<H2>
+<FONT SIZE="-1">
+com.technology.jep.jepria.client.widget.list.cell</FONT>
+<BR>
+Class EditTreeCell</H2>
+<PRE>
+java.lang.Object
+  <IMG SRC="../../../../../../../../resources/inherit.gif" ALT="extended by ">com.google.gwt.cell.client.AbstractCell&lt;C&gt;
+      <IMG SRC="../../../../../../../../resources/inherit.gif" ALT="extended by ">com.google.gwt.cell.client.AbstractEditableCell&lt;java.lang.String,<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/cell/EditTreeCell.ViewData.html" title="class in com.technology.jep.jepria.client.widget.list.cell">EditTreeCell.ViewData</A>&gt;
+          <IMG SRC="../../../../../../../../resources/inherit.gif" ALT="extended by "><B>com.technology.jep.jepria.client.widget.list.cell.EditTreeCell</B>
+</PRE>
+<DL>
+<DT><B>All Implemented Interfaces:</B> <DD>com.google.gwt.cell.client.Cell&lt;java.lang.String&gt;, <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/HasTreeGridManager.html" title="interface in com.technology.jep.jepria.client.widget.list">HasTreeGridManager</A></DD>
+</DL>
+<HR>
+<DL>
+<DT><PRE>public class <B>EditTreeCell</B><DT>extends com.google.gwt.cell.client.AbstractEditableCell&lt;java.lang.String,<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/cell/EditTreeCell.ViewData.html" title="class in com.technology.jep.jepria.client.widget.list.cell">EditTreeCell.ViewData</A>&gt;<DT>implements <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/HasTreeGridManager.html" title="interface in com.technology.jep.jepria.client.widget.list">HasTreeGridManager</A></DL>
+</PRE>
+
+<P>
+<HR>
+
+<P>
+<!-- ======== NESTED CLASS SUMMARY ======== -->
+
+<A NAME="nested_class_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Nested Class Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>(package private) static&nbsp;interface</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/cell/EditTreeCell.Template.html" title="interface in com.technology.jep.jepria.client.widget.list.cell">EditTreeCell.Template</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>(package private) static&nbsp;class</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/cell/EditTreeCell.ViewData.html" title="class in com.technology.jep.jepria.client.widget.list.cell">EditTreeCell.ViewData</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The view data object used by this cell.</TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="nested_classes_inherited_from_class_com.google.gwt.cell.client.Cell"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Nested classes/interfaces inherited from interface com.google.gwt.cell.client.Cell</B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE>com.google.gwt.cell.client.Cell.Context</CODE></TD>
+</TR>
+</TABLE>
+&nbsp;
+<!-- =========== FIELD SUMMARY =========== -->
+
+<A NAME="field_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Field Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;int</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/cell/EditTreeCell.html#depthStep">depthStep</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Количество разделителей равное ширине иконке (+/-) и одному уровню
+ вложенности</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;com.google.gwt.resources.client.ImageResource</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/cell/EditTreeCell.html#folderCollapsedIcon">folderCollapsedIcon</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ресурс иконки закрытого узла дерева</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;com.google.gwt.resources.client.ImageResource</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/cell/EditTreeCell.html#minusIcon">minusIcon</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ресурс иконки минуса</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;com.google.gwt.resources.client.ImageResource</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/cell/EditTreeCell.html#plusIcon">plusIcon</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ресурс иконки плюса</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;com.google.gwt.text.shared.SafeHtmlRenderer&lt;java.lang.String&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/cell/EditTreeCell.html#renderer">renderer</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private static&nbsp;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/cell/EditTreeCell.Template.html" title="interface in com.technology.jep.jepria.client.widget.list.cell">EditTreeCell.Template</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/cell/EditTreeCell.html#template">template</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/cell/EditTreeCell.html#treeDelimeter">treeDelimeter</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Разделитель</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/TreeGridManager.html" title="class in com.technology.jep.jepria.client.widget.list">TreeGridManager</A>&lt;?,?,?&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/cell/EditTreeCell.html#treeGridManager">treeGridManager</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ссылка на объект, управляющий списком</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;com.google.gwt.resources.client.ImageResource</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/cell/EditTreeCell.html#treeNoChildrenIcon">treeNoChildrenIcon</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ресурс иконки узла, у которого отсутствуют дочерние элементы</TD>
+</TR>
+</TABLE>
+&nbsp;
+<!-- ======== CONSTRUCTOR SUMMARY ======== -->
+
+<A NAME="constructor_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Constructor Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/cell/EditTreeCell.html#EditTreeCell()">EditTreeCell</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Construct a new EditTextCell that will use a <CODE>SimpleSafeHtmlRenderer</CODE>.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/cell/EditTreeCell.html#EditTreeCell(com.google.gwt.text.shared.SafeHtmlRenderer)">EditTreeCell</A></B>(com.google.gwt.text.shared.SafeHtmlRenderer&lt;java.lang.String&gt;&nbsp;renderer)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Construct a new EditTextCell that will use a given
+ <CODE>SafeHtmlRenderer</CODE> to render the value when not in edit mode.</TD>
+</TR>
+</TABLE>
+&nbsp;
+<!-- ========== METHOD SUMMARY =========== -->
+
+<A NAME="method_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Method Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/cell/EditTreeCell.html#cancel(com.google.gwt.cell.client.Cell.Context, com.google.gwt.dom.client.Element, java.lang.String)">cancel</A></B>(com.google.gwt.cell.client.Cell.Context&nbsp;context,
+       com.google.gwt.dom.client.Element&nbsp;parent,
+       java.lang.String&nbsp;value)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Convert the cell to non-edit mode.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/cell/EditTreeCell.html#clearInput(com.google.gwt.dom.client.Element)">clearInput</A></B>(com.google.gwt.dom.client.Element&nbsp;input)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Clear selected from the input element.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/cell/EditTreeCell.html#commit(com.google.gwt.cell.client.Cell.Context, com.google.gwt.dom.client.Element, com.technology.jep.jepria.client.widget.list.cell.EditTreeCell.ViewData, com.google.gwt.cell.client.ValueUpdater)">commit</A></B>(com.google.gwt.cell.client.Cell.Context&nbsp;context,
+       com.google.gwt.dom.client.Element&nbsp;parent,
+       <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/cell/EditTreeCell.ViewData.html" title="class in com.technology.jep.jepria.client.widget.list.cell">EditTreeCell.ViewData</A>&nbsp;viewData,
+       com.google.gwt.cell.client.ValueUpdater&lt;java.lang.String&gt;&nbsp;valueUpdater)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Commit the current value.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/cell/EditTreeCell.html#edit(com.google.gwt.cell.client.Cell.Context, com.google.gwt.dom.client.Element, java.lang.String)">edit</A></B>(com.google.gwt.cell.client.Cell.Context&nbsp;context,
+     com.google.gwt.dom.client.Element&nbsp;parent,
+     java.lang.String&nbsp;value)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Convert the cell to edit mode.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/cell/EditTreeCell.html#editEvent(com.google.gwt.cell.client.Cell.Context, com.google.gwt.dom.client.Element, java.lang.String, com.technology.jep.jepria.client.widget.list.cell.EditTreeCell.ViewData, com.google.gwt.dom.client.NativeEvent, com.google.gwt.cell.client.ValueUpdater)">editEvent</A></B>(com.google.gwt.cell.client.Cell.Context&nbsp;context,
+          com.google.gwt.dom.client.Element&nbsp;parent,
+          java.lang.String&nbsp;value,
+          <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/cell/EditTreeCell.ViewData.html" title="class in com.technology.jep.jepria.client.widget.list.cell">EditTreeCell.ViewData</A>&nbsp;viewData,
+          com.google.gwt.dom.client.NativeEvent&nbsp;event,
+          com.google.gwt.cell.client.ValueUpdater&lt;java.lang.String&gt;&nbsp;valueUpdater)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;com.google.gwt.dom.client.InputElement</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/cell/EditTreeCell.html#getInputElement(com.google.gwt.dom.client.Element)">getInputElement</A></B>(com.google.gwt.dom.client.Element&nbsp;parent)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Получение ссылки на элемент input-редактирования текста</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/cell/EditTreeCell.html#isEditing(com.google.gwt.cell.client.Cell.Context, com.google.gwt.dom.client.Element, java.lang.String)">isEditing</A></B>(com.google.gwt.cell.client.Cell.Context&nbsp;context,
+          com.google.gwt.dom.client.Element&nbsp;parent,
+          java.lang.String&nbsp;value)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/cell/EditTreeCell.html#onBrowserEvent(com.google.gwt.cell.client.Cell.Context, com.google.gwt.dom.client.Element, java.lang.String, com.google.gwt.dom.client.NativeEvent, com.google.gwt.cell.client.ValueUpdater)">onBrowserEvent</A></B>(com.google.gwt.cell.client.Cell.Context&nbsp;context,
+               com.google.gwt.dom.client.Element&nbsp;parent,
+               java.lang.String&nbsp;value,
+               com.google.gwt.dom.client.NativeEvent&nbsp;event,
+               com.google.gwt.cell.client.ValueUpdater&lt;java.lang.String&gt;&nbsp;valueUpdater)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Обработка событий ячейки</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/cell/EditTreeCell.html#render(com.google.gwt.cell.client.Cell.Context, java.lang.String, com.google.gwt.safehtml.shared.SafeHtmlBuilder)">render</A></B>(com.google.gwt.cell.client.Cell.Context&nbsp;context,
+       java.lang.String&nbsp;value,
+       com.google.gwt.safehtml.shared.SafeHtmlBuilder&nbsp;sb)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Рендерит ячейку таблицы</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/cell/EditTreeCell.html#resetFocus(com.google.gwt.cell.client.Cell.Context, com.google.gwt.dom.client.Element, java.lang.String)">resetFocus</A></B>(com.google.gwt.cell.client.Cell.Context&nbsp;context,
+           com.google.gwt.dom.client.Element&nbsp;parent,
+           java.lang.String&nbsp;value)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/cell/EditTreeCell.html#setTreeGridManager(com.technology.jep.jepria.client.widget.list.TreeGridManager)">setTreeGridManager</A></B>(<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/TreeGridManager.html" title="class in com.technology.jep.jepria.client.widget.list">TreeGridManager</A>&lt;?,?,?&gt;&nbsp;treeGridManager)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Устанавливает ссылку на объект, управляющий списком</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/cell/EditTreeCell.html#updateViewData(com.google.gwt.dom.client.Element, com.technology.jep.jepria.client.widget.list.cell.EditTreeCell.ViewData, boolean)">updateViewData</A></B>(com.google.gwt.dom.client.Element&nbsp;parent,
+               <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/cell/EditTreeCell.ViewData.html" title="class in com.technology.jep.jepria.client.widget.list.cell">EditTreeCell.ViewData</A>&nbsp;viewData,
+               boolean&nbsp;isEditing)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Update the view data based on the current value.</TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_com.google.gwt.cell.client.AbstractEditableCell"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from class com.google.gwt.cell.client.AbstractEditableCell</B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE>clearViewData, getViewData, setViewData</CODE></TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_com.google.gwt.cell.client.AbstractCell"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from class com.google.gwt.cell.client.AbstractCell</B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE>dependsOnSelection, getConsumedEvents, handlesSelection, onEnterKeyDown, setValue</CODE></TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from class java.lang.Object</B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE>clone, equals, finalize, getClass, hashCode, notify, notifyAll, toString, wait, wait, wait</CODE></TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
+<!-- ============ FIELD DETAIL =========== -->
+
+<A NAME="field_detail"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
+<B>Field Detail</B></FONT></TH>
+</TR>
+</TABLE>
+
+<A NAME="depthStep"><!-- --></A><H3>
+depthStep</H3>
+<PRE>
+private int <B>depthStep</B></PRE>
+<DL>
+<DD>Количество разделителей равное ширине иконке (+/-) и одному уровню
+ вложенности
+<P>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="treeDelimeter"><!-- --></A><H3>
+treeDelimeter</H3>
+<PRE>
+private java.lang.String <B>treeDelimeter</B></PRE>
+<DL>
+<DD>Разделитель
+<P>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="treeGridManager"><!-- --></A><H3>
+treeGridManager</H3>
+<PRE>
+private <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/TreeGridManager.html" title="class in com.technology.jep.jepria.client.widget.list">TreeGridManager</A>&lt;?,?,?&gt; <B>treeGridManager</B></PRE>
+<DL>
+<DD>Ссылка на объект, управляющий списком
+<P>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="treeNoChildrenIcon"><!-- --></A><H3>
+treeNoChildrenIcon</H3>
+<PRE>
+private final com.google.gwt.resources.client.ImageResource <B>treeNoChildrenIcon</B></PRE>
+<DL>
+<DD>Ресурс иконки узла, у которого отсутствуют дочерние элементы
+<P>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="plusIcon"><!-- --></A><H3>
+plusIcon</H3>
+<PRE>
+private final com.google.gwt.resources.client.ImageResource <B>plusIcon</B></PRE>
+<DL>
+<DD>Ресурс иконки плюса
+<P>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="minusIcon"><!-- --></A><H3>
+minusIcon</H3>
+<PRE>
+private final com.google.gwt.resources.client.ImageResource <B>minusIcon</B></PRE>
+<DL>
+<DD>Ресурс иконки минуса
+<P>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="folderCollapsedIcon"><!-- --></A><H3>
+folderCollapsedIcon</H3>
+<PRE>
+private final com.google.gwt.resources.client.ImageResource <B>folderCollapsedIcon</B></PRE>
+<DL>
+<DD>Ресурс иконки закрытого узла дерева
+<P>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="template"><!-- --></A><H3>
+template</H3>
+<PRE>
+private static <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/cell/EditTreeCell.Template.html" title="interface in com.technology.jep.jepria.client.widget.list.cell">EditTreeCell.Template</A> <B>template</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="renderer"><!-- --></A><H3>
+renderer</H3>
+<PRE>
+private final com.google.gwt.text.shared.SafeHtmlRenderer&lt;java.lang.String&gt; <B>renderer</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+
+<!-- ========= CONSTRUCTOR DETAIL ======== -->
+
+<A NAME="constructor_detail"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
+<B>Constructor Detail</B></FONT></TH>
+</TR>
+</TABLE>
+
+<A NAME="EditTreeCell()"><!-- --></A><H3>
+EditTreeCell</H3>
+<PRE>
+public <B>EditTreeCell</B>()</PRE>
+<DL>
+<DD>Construct a new EditTextCell that will use a <CODE>SimpleSafeHtmlRenderer</CODE>.
+<P>
+</DL>
+<HR>
+
+<A NAME="EditTreeCell(com.google.gwt.text.shared.SafeHtmlRenderer)"><!-- --></A><H3>
+EditTreeCell</H3>
+<PRE>
+public <B>EditTreeCell</B>(com.google.gwt.text.shared.SafeHtmlRenderer&lt;java.lang.String&gt;&nbsp;renderer)</PRE>
+<DL>
+<DD>Construct a new EditTextCell that will use a given
+ <CODE>SafeHtmlRenderer</CODE> to render the value when not in edit mode.
+<P>
+<DL>
+<DT><B>Parameters:</B><DD><CODE>renderer</CODE> - a <CODE>SafeHtmlRenderer<String></CODE> instance</DL>
+</DL>
+
+<!-- ============ METHOD DETAIL ========== -->
+
+<A NAME="method_detail"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
+<B>Method Detail</B></FONT></TH>
+</TR>
+</TABLE>
+
+<A NAME="isEditing(com.google.gwt.cell.client.Cell.Context, com.google.gwt.dom.client.Element, java.lang.String)"><!-- --></A><H3>
+isEditing</H3>
+<PRE>
+public boolean <B>isEditing</B>(com.google.gwt.cell.client.Cell.Context&nbsp;context,
+                         com.google.gwt.dom.client.Element&nbsp;parent,
+                         java.lang.String&nbsp;value)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE>isEditing</CODE> in interface <CODE>com.google.gwt.cell.client.Cell&lt;java.lang.String&gt;</CODE><DT><B>Specified by:</B><DD><CODE>isEditing</CODE> in class <CODE>com.google.gwt.cell.client.AbstractEditableCell&lt;java.lang.String,<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/cell/EditTreeCell.ViewData.html" title="class in com.technology.jep.jepria.client.widget.list.cell">EditTreeCell.ViewData</A>&gt;</CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="resetFocus(com.google.gwt.cell.client.Cell.Context, com.google.gwt.dom.client.Element, java.lang.String)"><!-- --></A><H3>
+resetFocus</H3>
+<PRE>
+public boolean <B>resetFocus</B>(com.google.gwt.cell.client.Cell.Context&nbsp;context,
+                          com.google.gwt.dom.client.Element&nbsp;parent,
+                          java.lang.String&nbsp;value)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE>resetFocus</CODE> in interface <CODE>com.google.gwt.cell.client.Cell&lt;java.lang.String&gt;</CODE><DT><B>Overrides:</B><DD><CODE>resetFocus</CODE> in class <CODE>com.google.gwt.cell.client.AbstractCell&lt;java.lang.String&gt;</CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="edit(com.google.gwt.cell.client.Cell.Context, com.google.gwt.dom.client.Element, java.lang.String)"><!-- --></A><H3>
+edit</H3>
+<PRE>
+protected void <B>edit</B>(com.google.gwt.cell.client.Cell.Context&nbsp;context,
+                    com.google.gwt.dom.client.Element&nbsp;parent,
+                    java.lang.String&nbsp;value)</PRE>
+<DL>
+<DD>Convert the cell to edit mode.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>context</CODE> - the <CODE>Context</CODE> of the cell<DD><CODE>parent</CODE> - the parent element<DD><CODE>value</CODE> - the current value</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="cancel(com.google.gwt.cell.client.Cell.Context, com.google.gwt.dom.client.Element, java.lang.String)"><!-- --></A><H3>
+cancel</H3>
+<PRE>
+private void <B>cancel</B>(com.google.gwt.cell.client.Cell.Context&nbsp;context,
+                    com.google.gwt.dom.client.Element&nbsp;parent,
+                    java.lang.String&nbsp;value)</PRE>
+<DL>
+<DD>Convert the cell to non-edit mode.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>context</CODE> - the context of the cell<DD><CODE>parent</CODE> - the parent Element<DD><CODE>value</CODE> - the value associated with the cell</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="clearInput(com.google.gwt.dom.client.Element)"><!-- --></A><H3>
+clearInput</H3>
+<PRE>
+private void <B>clearInput</B>(com.google.gwt.dom.client.Element&nbsp;input)</PRE>
+<DL>
+<DD>Clear selected from the input element. Both Firefox and IE fire spurious
+ onblur events after the input is removed from the DOM if selection is not cleared.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>input</CODE> - the input element</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="commit(com.google.gwt.cell.client.Cell.Context, com.google.gwt.dom.client.Element, com.technology.jep.jepria.client.widget.list.cell.EditTreeCell.ViewData, com.google.gwt.cell.client.ValueUpdater)"><!-- --></A><H3>
+commit</H3>
+<PRE>
+private void <B>commit</B>(com.google.gwt.cell.client.Cell.Context&nbsp;context,
+                    com.google.gwt.dom.client.Element&nbsp;parent,
+                    <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/cell/EditTreeCell.ViewData.html" title="class in com.technology.jep.jepria.client.widget.list.cell">EditTreeCell.ViewData</A>&nbsp;viewData,
+                    com.google.gwt.cell.client.ValueUpdater&lt;java.lang.String&gt;&nbsp;valueUpdater)</PRE>
+<DL>
+<DD>Commit the current value.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>context</CODE> - the context of the cell<DD><CODE>parent</CODE> - the parent Element<DD><CODE>viewData</CODE> - the <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/cell/EditTreeCell.ViewData.html" title="class in com.technology.jep.jepria.client.widget.list.cell"><CODE>EditTreeCell.ViewData</CODE></A> object<DD><CODE>valueUpdater</CODE> - the <CODE>ValueUpdater</CODE></DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="editEvent(com.google.gwt.cell.client.Cell.Context, com.google.gwt.dom.client.Element, java.lang.String, com.technology.jep.jepria.client.widget.list.cell.EditTreeCell.ViewData, com.google.gwt.dom.client.NativeEvent, com.google.gwt.cell.client.ValueUpdater)"><!-- --></A><H3>
+editEvent</H3>
+<PRE>
+private void <B>editEvent</B>(com.google.gwt.cell.client.Cell.Context&nbsp;context,
+                       com.google.gwt.dom.client.Element&nbsp;parent,
+                       java.lang.String&nbsp;value,
+                       <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/cell/EditTreeCell.ViewData.html" title="class in com.technology.jep.jepria.client.widget.list.cell">EditTreeCell.ViewData</A>&nbsp;viewData,
+                       com.google.gwt.dom.client.NativeEvent&nbsp;event,
+                       com.google.gwt.cell.client.ValueUpdater&lt;java.lang.String&gt;&nbsp;valueUpdater)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="updateViewData(com.google.gwt.dom.client.Element, com.technology.jep.jepria.client.widget.list.cell.EditTreeCell.ViewData, boolean)"><!-- --></A><H3>
+updateViewData</H3>
+<PRE>
+private java.lang.String <B>updateViewData</B>(com.google.gwt.dom.client.Element&nbsp;parent,
+                                        <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/cell/EditTreeCell.ViewData.html" title="class in com.technology.jep.jepria.client.widget.list.cell">EditTreeCell.ViewData</A>&nbsp;viewData,
+                                        boolean&nbsp;isEditing)</PRE>
+<DL>
+<DD>Update the view data based on the current value.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>parent</CODE> - the parent element<DD><CODE>viewData</CODE> - the <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/cell/EditTreeCell.ViewData.html" title="class in com.technology.jep.jepria.client.widget.list.cell"><CODE>EditTreeCell.ViewData</CODE></A> object to update<DD><CODE>isEditing</CODE> - true if in edit mode
+<DT><B>Returns:</B><DD>the new value</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setTreeGridManager(com.technology.jep.jepria.client.widget.list.TreeGridManager)"><!-- --></A><H3>
+setTreeGridManager</H3>
+<PRE>
+public void <B>setTreeGridManager</B>(<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/TreeGridManager.html" title="class in com.technology.jep.jepria.client.widget.list">TreeGridManager</A>&lt;?,?,?&gt;&nbsp;treeGridManager)</PRE>
+<DL>
+<DD>Устанавливает ссылку на объект, управляющий списком
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/HasTreeGridManager.html#setTreeGridManager(com.technology.jep.jepria.client.widget.list.TreeGridManager)">setTreeGridManager</A></CODE> in interface <CODE><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/HasTreeGridManager.html" title="interface in com.technology.jep.jepria.client.widget.list">HasTreeGridManager</A></CODE></DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>treeGridManager</CODE> - объект, управляющий списком</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="render(com.google.gwt.cell.client.Cell.Context, java.lang.String, com.google.gwt.safehtml.shared.SafeHtmlBuilder)"><!-- --></A><H3>
+render</H3>
+<PRE>
+public void <B>render</B>(com.google.gwt.cell.client.Cell.Context&nbsp;context,
+                   java.lang.String&nbsp;value,
+                   com.google.gwt.safehtml.shared.SafeHtmlBuilder&nbsp;sb)</PRE>
+<DL>
+<DD>Рендерит ячейку таблицы
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE>render</CODE> in interface <CODE>com.google.gwt.cell.client.Cell&lt;java.lang.String&gt;</CODE><DT><B>Specified by:</B><DD><CODE>render</CODE> in class <CODE>com.google.gwt.cell.client.AbstractCell&lt;java.lang.String&gt;</CODE></DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>context</CODE> - контекст ячейки (информация о местоположении ячейки на списке,
+ значение JepRecord для строки, в которой находится ячейчка)<DD><CODE>value</CODE> - значение ячейки<DD><CODE>sb</CODE> - builder, в который помещается конечное содержимое ячейки</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="onBrowserEvent(com.google.gwt.cell.client.Cell.Context, com.google.gwt.dom.client.Element, java.lang.String, com.google.gwt.dom.client.NativeEvent, com.google.gwt.cell.client.ValueUpdater)"><!-- --></A><H3>
+onBrowserEvent</H3>
+<PRE>
+public void <B>onBrowserEvent</B>(com.google.gwt.cell.client.Cell.Context&nbsp;context,
+                           com.google.gwt.dom.client.Element&nbsp;parent,
+                           java.lang.String&nbsp;value,
+                           com.google.gwt.dom.client.NativeEvent&nbsp;event,
+                           com.google.gwt.cell.client.ValueUpdater&lt;java.lang.String&gt;&nbsp;valueUpdater)</PRE>
+<DL>
+<DD>Обработка событий ячейки
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE>onBrowserEvent</CODE> in interface <CODE>com.google.gwt.cell.client.Cell&lt;java.lang.String&gt;</CODE><DT><B>Overrides:</B><DD><CODE>onBrowserEvent</CODE> in class <CODE>com.google.gwt.cell.client.AbstractCell&lt;java.lang.String&gt;</CODE></DL>
+</DD>
+<DD><DL>
+<DT><B>See Also:</B><DD><CODE>AbstractCell.onBrowserEvent(com.google.gwt.cell.client.Cell.Context,
+      com.google.gwt.dom.client.Element, java.lang.Object,
+      com.google.gwt.dom.client.NativeEvent,
+      com.google.gwt.cell.client.ValueUpdater)</CODE></DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getInputElement(com.google.gwt.dom.client.Element)"><!-- --></A><H3>
+getInputElement</H3>
+<PRE>
+private com.google.gwt.dom.client.InputElement <B>getInputElement</B>(com.google.gwt.dom.client.Element&nbsp;parent)</PRE>
+<DL>
+<DD>Получение ссылки на элемент input-редактирования текста
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>parent</CODE> - родительский узел
+<DT><B>Returns:</B><DD>DOM-элемент для редактирования содержимого узла</DL>
+</DD>
+</DL>
+<!-- ========= END OF CLASS DATA ========= -->
+<HR>
+
+
+<!-- ======= START OF BOTTOM NAVBAR ====== -->
+<A NAME="navbar_bottom"><!-- --></A>
+<A HREF="#skip-navbar_bottom" title="Skip navigation links"></A>
+<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
+<TR>
+<TD COLSPAN=2 BGCOLOR="#EEEEFF" CLASS="NavBarCell1">
+<A NAME="navbar_bottom_firstrow"><!-- --></A>
+<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3" SUMMARY="">
+  <TR ALIGN="center" VALIGN="top">
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-summary.html"><FONT CLASS="NavBarFont1"><B>Package</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../../index-all.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../../help-doc.html"><FONT CLASS="NavBarFont1"><B>Help</B></FONT></A>&nbsp;</TD>
+  </TR>
+</TABLE>
+</TD>
+<TD ALIGN="right" VALIGN="top" ROWSPAN=3><EM>
+</EM>
+</TD>
+</TR>
+
+<TR>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+&nbsp;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/cell/BooleanCell.html" title="class in com.technology.jep.jepria.client.widget.list.cell"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/cell/EditTreeCell.Template.html" title="interface in com.technology.jep.jepria.client.widget.list.cell"><B>NEXT CLASS</B></A></FONT></TD>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+  <A HREF="../../../../../../../../index.html?com/technology/jep/jepria/client/widget/list/cell/EditTreeCell.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="EditTreeCell.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+&nbsp;<SCRIPT type="text/javascript">
+  <!--
+  if(window==top) {
+    document.writeln('<A HREF="../../../../../../../../allclasses-noframe.html"><B>All Classes</B></A>');
+  }
+  //-->
+</SCRIPT>
+<NOSCRIPT>
+  <A HREF="../../../../../../../../allclasses-noframe.html"><B>All Classes</B></A>
+</NOSCRIPT>
+
+
+</FONT></TD>
+</TR>
+<TR>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+  SUMMARY:&nbsp;<A HREF="#nested_class_summary">NESTED</A>&nbsp;|&nbsp;<A HREF="#field_summary">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
+</TR>
+</TABLE>
+<A NAME="skip-navbar_bottom"></A>
+<!-- ======== END OF BOTTOM NAVBAR ======= -->
+
+<HR>
+
+</BODY>
+</HTML>
