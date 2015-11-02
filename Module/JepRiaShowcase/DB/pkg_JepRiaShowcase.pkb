@@ -73,6 +73,8 @@ end lockSupplier;
                                 ( с точностью до дн€, включительно)
   exclusiveSupplierFlag       - безальтернативный поставщик ( 1 да, 0 нет)
                                 ( по умолчанию 0)
+  privilegeSupplierFlag       - привилегированный поставщик ( 1 да, 0 нет)
+                                ( по умолчанию 0)
   phoneNumber                 - телефон
                                 ( по умолчанию отсутствует)
   faxNumber                   - факс
@@ -93,6 +95,7 @@ function createSupplier(
   supplierName varchar2
   , contractFinishDate date
   , exclusiveSupplierFlag integer := null
+  , privilegeSupplierFlag integer := null
   , phoneNumber varchar2 := null
   , faxNumber varchar2 := null
   , bankBic varchar2 := null
@@ -117,6 +120,7 @@ begin
     supplier_name
     , contract_finish_date
     , exclusive_supplier_flag
+    , privilege_supplier_flag
     , phone_number
     , fax_number
     , bank_bic
@@ -129,6 +133,7 @@ begin
     supplierName
     , trunc( contractFinishDate)
     , exclusiveSupplierFlag
+    , privilegeSupplierFlag
     , phoneNumber
     , faxNumber
     , bankBic
@@ -149,6 +154,7 @@ exception when others then
         'ќшибка при создании поставщика ('
         || ' supplierName="' || supplierName || '"'
         || ', exclusiveSupplierFlag=' || exclusiveSupplierFlag
+        || ', privilegeSupplierFlag=' || privilegeSupplierFlag
         || ').'
       )
     , true
@@ -164,6 +170,7 @@ end createSupplier;
   contractFinishDate          - дата до которой действует договор
                                 ( с точностью до дн€, включительно)
   exclusiveSupplierFlag       - безальтернативный поставщик ( 1 да, 0 нет)
+  privilegeSupplierFlag       - привилегированный поставщик ( 1 да, 0 нет)
   phoneNumber                 - телефон
   faxNumber                   - факс
   bankBic                     - банк
@@ -177,6 +184,7 @@ procedure updateSupplier(
   , supplierName varchar2
   , contractFinishDate date
   , exclusiveSupplierFlag integer
+  , privilegeSupplierFlag integer
   , phoneNumber varchar2
   , faxNumber varchar2
   , bankBic varchar2
@@ -204,6 +212,7 @@ begin
     d.supplier_name               = supplierName
     , d.contract_finish_date      = trunc( contractFinishDate)
     , d.exclusive_supplier_flag   = exclusiveSupplierFlag
+    , d.privilege_supplier_flag   = privilegeSupplierFlag
     , d.phone_number              = phoneNumber
     , d.fax_number                = faxNumber
     , d.bank_bic                  = bankBic
@@ -284,6 +293,8 @@ end deleteSupplier;
                                 ( по умолчанию без ограничений)
   exclusiveSupplierFlag       - безальтернативный поставщик ( 1 да, 0 нет)
                                 ( по умолчанию без ограничений)
+  privilegeSupplierFlag       - привилегированный поставщик ( 1 да, 0 нет)
+                                ( по умолчанию без ограничений)
   maxRowCount                 - максимальное число возвращаемых записей
                                 ( по умолчанию без ограничений)
   operatorId                  - Id оператора, выполн€ющего операцию
@@ -294,6 +305,7 @@ end deleteSupplier;
   supplier_name               - наименование поставщика
   contract_finish_date        - дата до которой действует договор
   exclusive_supplier_flag     - безальтернативный поставщик ( 1 да, 0 нет)
+  privilege_supplier_flag     - привилегированный поставщик ( 1 да, 0 нет)
   supplier_description        - описание поставщика
   phone_number                - телефон
   fax_number                  - факс
@@ -312,6 +324,7 @@ function findSupplier(
   , contractFinishDateFrom date := null
   , contractFinishDateTo date := null
   , exclusiveSupplierFlag integer := null
+  , privilegeSupplierFlag integer := null
   , maxRowCount integer := null
   , operatorId integer := null
 )
@@ -332,6 +345,7 @@ from
     , t.supplier_name
     , t.contract_finish_date
     , t.exclusive_supplier_flag
+    , t.privilege_supplier_flag
     , t.supplier_description
     , t.phone_number
     , t.fax_number
@@ -378,6 +392,9 @@ begin
   dsql.addCondition(
     't.exclusive_supplier_flag =', exclusiveSupplierFlag is null
   );
+  dsql.addCondition(
+    't.privilege_supplier_flag =', privilegeSupplierFlag is null
+  );
   dsql.useCondition( 'condition');
   dsql.addCondition(
     'rownum <= :maxRowCount', maxRowCount is null
@@ -391,6 +408,7 @@ begin
     , contractFinishDateFrom
     , contractFinishDateTo
     , exclusiveSupplierFlag
+    , privilegeSupplierFlag
     , maxRowCount
   ;
   return rc;

@@ -25,5 +25,10 @@ begin
   if :new.exclusive_supplier_flag is null then
     :new.exclusive_supplier_flag := 0;
   end if;
+
+  -- Значения по умолчанию
+  if :new.privilege_supplier_flag is null then
+    :new.privilege_supplier_flag := 0;
+  end if;
 end;
 /
