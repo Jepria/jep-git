@@ -1,5 +1,6 @@
 package com.technology.jep.jepria.client.widget.list.header.menu;
 
+import static com.technology.jep.jepria.client.JepRiaClientConstant.DND_DATA_PROPERTY;
 import static com.technology.jep.jepria.client.JepRiaClientConstant.MAIN_FONT_STYLE;
 
 import com.google.gwt.dom.client.DataTransfer;
@@ -75,7 +76,7 @@ public class CheckMenuItem extends MenuItem implements HasAllDragAndDropHandlers
 				//Required: set data for the event
 				//Without that DND doesn't work in FF
 				DataTransfer dataTransfer = event.getDataTransfer();
-				dataTransfer.setData("Text", "" + event.getSource());
+				dataTransfer.setData(DND_DATA_PROPERTY, "" + event.getSource());
 				// optional: show copy of the image
 				dataTransfer.setDragImage(getElement(), 10, 10);
 			}

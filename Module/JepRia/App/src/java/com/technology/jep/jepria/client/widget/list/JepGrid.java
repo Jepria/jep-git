@@ -1,5 +1,6 @@
 package com.technology.jep.jepria.client.widget.list;
 
+import static com.technology.jep.jepria.client.JepRiaClientConstant.DND_DATA_PROPERTY;
 import static com.technology.jep.jepria.shared.load.PagingConfig.DEFAULT_PAGE_SIZE;
 
 import java.util.Collections;
@@ -16,6 +17,7 @@ import com.google.gwt.core.client.Scheduler.ScheduledCommand;
 import com.google.gwt.dom.client.BrowserEvents;
 import com.google.gwt.dom.client.DataTransfer;
 import com.google.gwt.dom.client.Element;
+import com.google.gwt.dom.client.NativeEvent;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.dom.client.TableRowElement;
 import com.google.gwt.event.dom.client.DomEvent;
@@ -28,18 +30,19 @@ import com.google.gwt.event.dom.client.DragStartHandler;
 import com.google.gwt.event.dom.client.DropEvent;
 import com.google.gwt.event.dom.client.DropHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
+import com.google.gwt.safehtml.shared.SafeHtml;
 import com.google.gwt.user.cellview.client.DataGrid;
 import com.google.gwt.user.cellview.client.Header;
 import com.google.gwt.user.client.Cookies;
 import com.google.gwt.user.client.ui.HeaderPanel;
-import com.google.gwt.user.client.ui.Widget;
+import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.view.client.CellPreviewEvent;
 import com.google.gwt.view.client.CellPreviewEvent.Handler;
 import com.google.gwt.view.client.MultiSelectionModel;
 import com.google.gwt.view.client.ProvidesKey;
-import com.google.gwt.view.client.RowCountChangeEvent;
 import com.google.gwt.view.client.SelectionModel;
 import com.technology.jep.jepria.client.util.JepClientUtil;
+import com.technology.jep.jepria.client.widget.container.ElementSimplePanel;
 import com.technology.jep.jepria.client.widget.list.event.RowOrderChangeEvent;
 import com.technology.jep.jepria.client.widget.list.header.ResizableHeader;
 import com.technology.jep.jepria.shared.util.JepRiaUtil;
@@ -47,13 +50,15 @@ import com.technology.jep.jepria.shared.util.JepRiaUtil;
 @SuppressWarnings({"rawtypes", "unchecked"})
 public class JepGrid<T> extends DataGrid<T> {
 	
-	private Widget contentWidget;
+	private ScrollPanel contentWidget;
 	private String gridId = null;
 	private List<JepColumn> columns;
 	private boolean wrapHeaders;
 	private boolean isColumnConfigurable;
-	private static final String DND_DATA_PROPERTY = "Text";
+	
 	private static final String CHARACTERISTIC_SEPARATOR = "=";
+	private static final String LINEAR_GRADIENT_FROM_TOP_TO_BOTTOM = "linear-gradient(#D0DEF0, #FFFFFF)";
+	private static final String LINEAR_GRADIENT_FROM_BOTTOM_TO_TOP = "linear-gradient(#FFFFFF, #D0DEF0)";
 	
 	protected HandlerRegistration dragStartHandler;
 	protected HandlerRegistration dragOverHandler;
@@ -174,7 +179,7 @@ public class JepGrid<T> extends DataGrid<T> {
 	
 	protected JepGrid(int pageSize, boolean dndEnabled, ProvidesKey<T> keyProvider) {
 		super(pageSize, (DataGridResource) GWT.create(DataGridResource.class), keyProvider);
-		this.contentWidget = ((HeaderPanel) getWidget()).getContentWidget();
+		this.contentWidget = (ScrollPanel) ((HeaderPanel) getWidget()).getContentWidget();
 
 		setAutoHeaderRefreshDisabled(true);
 		setMinimumTableWidth(300, Unit.PX);
@@ -192,13 +197,6 @@ public class JepGrid<T> extends DataGrid<T> {
 		// добавим системных слушателей DragAndDrop события
 		if (dndEnabled){
 			bindDragAndDropListeners();
-			
-			addRowCountChangeHandler(new RowCountChangeEvent.Handler() {
-				@Override
-				public void onRowCountChange(RowCountChangeEvent event) {
-					
-				}
-			});
 		}
 		
 		final SelectionModel<T> selectionModel = new MultiSelectionModel<T>();
@@ -350,22 +348,6 @@ public class JepGrid<T> extends DataGrid<T> {
 	}
 	
 	/**
-	 * {@inheritDoc}
-	 * Особенности реализации:<br/>
-	 * После переинициализации новых данных, каждая строка грида становится доступной для перетаскивания.
-	 */
-	@Override
-	public void setRowData(int start, List<? extends T> values) {
-		super.setRowData(start, values);
-		if (isDNDEnabled()) {
-			for (int row = 0; row < getRowCount(); row++){
-				final TableRowElement tableRow = getRowElement(row);
-				tableRow.setDraggable(Element.DRAGGABLE_TRUE);
-			}		
-		}
-	}
-	
-	/**
 	 * Add a handler to handle {@link RowOrderChangeEvent}s.
 	 * 
 	 * @param handler the {@link RowOrderChangeEvent.Handler} to add
@@ -375,7 +357,7 @@ public class JepGrid<T> extends DataGrid<T> {
 		return addHandler(handler, RowOrderChangeEvent.getType());
 	}
 
-	public int getRowIndexByEvent(DomEvent event) {
+	public int getRowIndexByEvent(DomEvent<?> event) {
 		Element tableRow = Element.as(event.getNativeEvent().getEventTarget());
 		// index by default which corresponds an unmatched row
 		int selectedIndexRow = -1;
@@ -390,7 +372,8 @@ public class JepGrid<T> extends DataGrid<T> {
 	}
 	
 	public TableRowElement getRowElement(DomEvent<?> event){
-		return getRowElement(getRowIndexByEvent(event));
+		int rowIndex = getRowIndexByEvent(event);
+		return rowIndex == -1 ? null : getRowElement(rowIndex);
 	}
 	
 	public HandlerRegistration addDragStartHandler(DragStartHandler handler){
@@ -409,7 +392,7 @@ public class JepGrid<T> extends DataGrid<T> {
 		return contentWidget.addDomHandler(handler, DropEvent.getType());
 	}
 	
-	public Widget getContentWidget(){
+	public ScrollPanel getContentWidget(){
 		return contentWidget;
 	}
 	
@@ -432,25 +415,32 @@ public class JepGrid<T> extends DataGrid<T> {
 		this.dragOverHandler = addDragOverHandler(new DragOverHandler() {
 		    @Override
 		    public void onDragOver(DragOverEvent event) {
-		    	getRowElement(event).getStyle().setBackgroundColor("#ffa");
+		    	TableRowElement rowElement = getRowElement(event);
+		    	if (rowElement != null){
+		    		rowElement.getStyle().setBackgroundImage(isCursorAboveElementCenter(rowElement, event.getNativeEvent()) ? LINEAR_GRADIENT_FROM_TOP_TO_BOTTOM : LINEAR_GRADIENT_FROM_BOTTOM_TO_TOP);
+		    		// строка должна оказаться в области видимости пользователя
+		    		contentWidget.ensureVisible(new ElementSimplePanel(rowElement));
+		    	}
 		    }
 		});
 		
 		this.dragLeaveHandler = addDragLeaveHandler(new DragLeaveHandler() {
 			@Override
 			public void onDragLeave(DragLeaveEvent event) {
-				getRowElement(event).getStyle().clearBackgroundColor();
+				TableRowElement rowElement = getRowElement(event);
+		    	if (rowElement != null){
+		    		rowElement.getStyle().clearBackgroundImage();
+		    	}
 			}
 		});
 		 
 		// add drop handler
 		this.dropHandler = addDropHandler(new DropHandler() {
 		    @Override
-		    public void onDrop(DropEvent event) {
+		    public void onDrop(final DropEvent event) {
 		        // prevent the native text drop
 		        event.preventDefault();
-				// index by default which corresponds an unmatched row
-		        final TableRowElement rowElement = getRowElement(event);
+		        // index by default which corresponds an unmatched row
 		        final int droppedIndexRow = getRowIndexByEvent(event);
 				// get the data out of the event
 		        final int selectedIndex = Integer.decode(event.getData(DND_DATA_PROPERTY));
@@ -459,17 +449,53 @@ public class JepGrid<T> extends DataGrid<T> {
 		        	Scheduler.get().scheduleFinally(new ScheduledCommand() {
 						@Override
 						public void execute() {
-							RowOrderChangeEvent.fire(JepGrid.this, selectedIndex, droppedIndexRow);
+							TableRowElement rowElement = getRowElement(droppedIndexRow);
+							RowOrderChangeEvent.fire(JepGrid.this, selectedIndex, droppedIndexRow, LINEAR_GRADIENT_FROM_TOP_TO_BOTTOM.equals(rowElement.getStyle().getBackgroundImage()));
 							rowElement.getStyle().clearBackgroundColor();
 						}
 					});
-		        }
-		        
+		        }		        
 		    }
 		});
 	}
 	
 	boolean isDNDEnabled(){
 		return this.dragStartHandler != null;
+	}
+	
+	private boolean isCursorAboveElementCenter(Element rowElement, NativeEvent event){
+		// Calculate top position for the popup
+        int top = rowElement.getAbsoluteTop(), height = rowElement.getOffsetHeight(), 
+        	clientY = event.getClientY();
+        return clientY - top < height / 2;	
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 * Особенности:<br/>
+	 * После переинициализации новых данных, каждая строка грида становится доступной для перетаскивания.
+	 */
+	@Override
+	protected void replaceAllChildren(List<T> values, SafeHtml html) {
+		super.replaceAllChildren(values, html);
+		if (isDNDEnabled()) {
+			for (int row = 0; row < getRowCount(); row++){
+				final TableRowElement tableRow = getRowElement(row);
+				tableRow.setDraggable(Element.DRAGGABLE_TRUE);
+			}
+		}
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 * Особенности:<br/>
+	 * После выбора строки, выбранная строка вновь доступна для перетаскивания.
+	 */
+	@Override
+	protected void replaceChildren(List<T> values, int start, SafeHtml html) {
+		super.replaceChildren(values, start, html);
+		if (isDNDEnabled()) {
+			getRowElement(start).setDraggable(Element.DRAGGABLE_TRUE);
+		}
 	}
 }

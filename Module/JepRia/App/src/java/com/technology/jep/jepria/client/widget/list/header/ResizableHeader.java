@@ -168,6 +168,7 @@ public class ResizableHeader<T> extends Header<String> {
 			final List<JepColumn> columns = cellTable.getColumns();
 			panel = new DecoratedPopupPanel(true);
 		    panel.setGlassEnabled(true);
+		    panel.getElement().getStyle().setZIndex(15);
 		    panel.setPreviewingAllNativeEvents(true);
 		    panel.setAnimationType(AnimationType.ROLL_DOWN);
 		    panel.addCloseHandler(new CloseHandler<PopupPanel>() {
