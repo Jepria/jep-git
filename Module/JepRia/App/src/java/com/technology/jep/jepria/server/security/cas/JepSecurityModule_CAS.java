@@ -1,10 +1,15 @@
 package com.technology.jep.jepria.server.security.cas;
 
+import static com.technology.jep.jepria.server.JepRiaServerConstant.CAS_SERVER_NAME_CONTEXT_PARAMETER;
+import static com.technology.jep.jepria.server.JepRiaServerConstant.ENVIRONMENT_CAS_SERVER_ADDRESS;
 import static com.technology.jep.jepria.server.security.JepSecurityConstant.JEP_SECURITY_MODULE_ATTRIBUTE_NAME;
 
+import java.net.InetAddress;
 import java.security.Principal;
 import java.sql.SQLException;
 
+import javax.servlet.ServletContext;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -16,7 +21,9 @@ import com.technology.jep.jepcommon.security.pkg_Operator;
 import com.technology.jep.jepria.server.db.Db;
 import com.technology.jep.jepria.server.security.JepAbstractSecurityModule;
 import com.technology.jep.jepria.server.security.JepSecurityModule;
-import com.technology.jep.jepria.shared.exceptions.NotImplementedYetException;
+import com.technology.jep.jepria.server.util.JepServerUtil;
+import com.technology.jep.jepria.shared.JepRiaConstant;
+import com.technology.jep.jepria.shared.exceptions.SystemException;
 
 public class JepSecurityModule_CAS extends JepAbstractSecurityModule {
 
@@ -60,10 +67,70 @@ public class JepSecurityModule_CAS extends JepAbstractSecurityModule {
 	}
 
 	@Override
-	public void logout(HttpServletRequest request, HttpServletResponse response) {
-		throw new NotImplementedYetException("JepSecurityModule_CAS.logout()");
+	// TODO Перенести в CAS-клиента
+	public String logout(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		removeJavaSSOCookie(request, response);
+		request.getSession().invalidate();
+		
+		String casServerAddress = JepServerUtil.getEnvironmentValue(ENVIRONMENT_CAS_SERVER_ADDRESS);
+		
+        ServletContext context = request.getSession().getServletContext();
+        String casServerContextName = context.getInitParameter(CAS_SERVER_NAME_CONTEXT_PARAMETER);
+        if(casServerContextName != null) {
+    		final String casLogoutPath = casServerContextName + "/logout";
+    		String casLogoutAdress = casServerAddress + "/" + casLogoutPath;
+    		String canonicalHostName = InetAddress.getLocalHost().getCanonicalHostName();
+    		int serverPort = request.getServerPort();
+    		String contextPath = request.getContextPath();
+    		String logoutUrl = casLogoutAdress + "?service=http://" + canonicalHostName + ":" + serverPort + contextPath;
+    		return logoutUrl;
+        } else {
+        	throw new SystemException("casServerName context parameter not found");
+        }
 	}
 
+	private void removeJavaSSOCookie(HttpServletRequest request, HttpServletResponse response) {
+		Cookie cookie = getOC4JSsoCookie(request);
+		deleteCookie(cookie, response);
+	}
+
+	private void deleteCookie(Cookie cookie, HttpServletResponse response) {
+		if(cookie != null) {
+			cookie.setMaxAge(0);
+			cookie.setPath("/");
+			response.addCookie(cookie);
+		}
+	}
+
+	private Cookie getNavigationCookie(HttpServletRequest request) {
+		Cookie result = null;
+		Cookie[] cookies = request.getCookies();
+		for(int i = 0; i < cookies.length; i++) {
+		  String cookiePath = cookies[i].getPath();
+		  if("/info/Navigation".equals(cookiePath)) {
+			  result = cookies[i];
+			  break;
+		  }
+		}
+		
+		return result;
+	}
+	
+	private static Cookie getOC4JSsoCookie(HttpServletRequest request) {
+		Cookie result = null;
+		Cookie[] cookies = request.getCookies();
+		for(int i = 0; i < cookies.length; i++) {
+		  String cookieName = cookies[i].getName();
+		  if(JepRiaConstant.ORA_OC4J_SSO_COOKIE_NAME.equals(cookieName)) {
+			  result = cookies[i];
+			  break;
+		  }
+		}
+		
+		return result;
+	}
+	
+	
 	@Override
 	public Integer getJepPrincipalOperatorId(Principal principal) {
 		Integer result = null;

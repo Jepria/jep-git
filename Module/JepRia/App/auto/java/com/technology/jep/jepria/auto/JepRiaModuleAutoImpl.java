@@ -295,9 +295,9 @@ public class JepRiaModuleAutoImpl<A extends EntranceAppAuto, P extends JepRiaApp
 	}
 
 	/**
-	 * Получение id кнопки toolbar для перехода в заданное состояние
-	 * @param workstate требуемое состояние
-	 * @return id кнопки перехода
+	 * Получение кнопки toolbar для перехода в заданное состояние
+	 * @param workstate
+	 * @return
 	 */
 	protected String getToolbarButtonId(WorkstateEnum workstate) {
 		String toolbarButtonId = null;

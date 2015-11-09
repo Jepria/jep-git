@@ -18,6 +18,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import oracle.security.jazn.oc4j.JAZNServletRequest;
 
+import org.apache.log4j.Logger;
+
 import com.technology.jep.jepria.shared.exceptions.SystemException;
 
 /**
@@ -26,6 +28,8 @@ import com.technology.jep.jepria.shared.exceptions.SystemException;
  * @version 1.0
  */
 public class JepServerUtil {
+	private static Logger logger = Logger.getLogger(JepServerUtil.class.getName());	
+	
 	/**
 	 * Стандартный форматировщик дат.<br/>
 	 * Преобразует строки в даты и даты в строки формата {@link com.technology.jep.jepria.shared.JepRiaConstant#DEFAULT_DATE_FORMAT}.
@@ -264,6 +268,7 @@ public class JepServerUtil {
 	}
 
 	public static boolean isCASEnvironment(HttpServletRequest request) {
+		logger.trace("isCASEnvironment()");
 		return !isJavaSSO(request); // TODO Исправить времянку
 	}
 }

@@ -61,4 +61,21 @@ public class JepRiaServerConstant extends JepRiaConstant {
 	 * Суффикс, подставляемый в логин для указания того, что авторизация будет осуществлена по хэшу пароля
 	 */
 	public static final String LOGIN_SUFFIX_FOR_HASH_AUTHORIZATION = String.valueOf((char) 2).concat("hashed");
+	
+
+	/**
+	 * Внешняя переменная, в которой передается адрес сервера CAS
+	 */
+	public static final String ENVIRONMENT_CAS_SERVER_ADDRESS = "CAS_SERVER_ADDRESS";
+
+	/**
+	 * Внешняя переменная, в которой передается путь logout сервера CAS
+	 */
+	public static final String ENVIRONMENT_CAS_LOGOUT_PATH = "CAS_LOGOUT_PATH";
+	
+
+	/**
+	 * Имя параметра приложения <I>context-param</I> web.xml, содержащего адрес соответствующего CAS-сервера
+	 */
+	public static final String CAS_SERVER_NAME_CONTEXT_PARAMETER = "casServerName";
 }
