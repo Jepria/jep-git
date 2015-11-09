@@ -324,7 +324,7 @@
 					<equals arg1="${BUILD_CONFIG}" arg2="debug" />
 					<then>
 						<echo message="DEBUG" />
-						<java classname="com.google.gwt.dev.Compiler" failonerror="true" fork="true" maxmemory="512M">
+						<java classname="com.google.gwt.dev.Compiler" failonerror="true" fork="true" maxmemory="1024M">
 							<classpath>
 								<pathelement location="src/java" />
 								<pathelement location="build" />
@@ -524,12 +524,21 @@
 					<fileset dir="${JAR_TEMP}" includes="${MODULE_NAME_IN_PACKAGE}-common.jar" />
 					<fileset dir="${GWT_HOME}" includes="gwt-servlet.jar" />
 				</copy>
+				<if>
+					<isset Property="CAS_CLIENT_VERSION" />
+					<then>
+						<copy todir="temp-ear/lib">
+							<fileset dir="${COMMON_HOME}/Module/cas-client-3.1.12/${CAS_CLIENT_VERSION}/cas-client-core/lib" includes="cas-client-core-3.1.12-customized.jar" />
+						</copy>
+					</then>
+				</if>
+				
 				<copy todir="temp-ear">
 					<fileset dir="${JAR_TEMP}" includes="${MODULE_NAME_IN_PACKAGE}.war, ${MODULE_NAME_IN_PACKAGE}-ejb.jar" />
 					<fileset dir="${JEP_RIA}/lib" includes="jepria-ejb.jar" />
 				</copy>
 				<copy todir="temp-ear/lib">
-					<fileset dir="${JASPER_REPORTS_HOME}/lib" includes="spring-core-2.5.5.jar,       spring-beans-2.5.5.jar,       jfreechart-1.0.12.jar,       groovy-all-1.5.5.jar,       jcommon-1.0.15.jar,       iText-2.1.0.jar,       commons-digester-1.7.jar" />
+					<fileset dir="${JASPER_REPORTS_HOME}/lib" includes="spring-core-2.5.5.jar, spring-beans-2.5.5.jar, jfreechart-1.0.12.jar, groovy-all-1.5.5.jar, jcommon-1.0.15.jar, iText-2.1.0.jar, commons-digester-1.7.jar" />
 				</copy>
 				<jar basedir="temp-ear" destfile="lib/${MODULE_NAME_IN_PACKAGE}.ear" />
 				<delete dir="temp-ear" />
@@ -585,7 +594,7 @@
 			<then>
 				<taskdef classname="weblogic.ant.taskdefs.management.WLDeploy" classpath="${WL_LIB_HOME}/weblogic.jar" name="wldeploy" />
 				<echo message="Deploy to Weblogic" />
-				<wldeploy action="deploy" adminurl="t3://${DEPLOYMENT_PATH}" debug="true" failonerror="${failondeploy}" name="${MODULE_NAME_IN_PACKAGE}" password="${PASSWORD}" source="lib/${MODULE_NAME_IN_PACKAGE}.ear" timeout="60" upload="false" user="${LOGIN}" verbose="true" />
+				<wldeploy action="deploy" adminurl="t3://${DEPLOYMENT_PATH}" debug="true" failonerror="${failondeploy}" name="${MODULE_NAME_IN_PACKAGE}" password="${PASSWORD}" source="lib/${MODULE_NAME_IN_PACKAGE}.ear" upload="false" user="${LOGIN}" verbose="true" />
 			</then>
 			<else>
 				<echo message="Deploy to OC4J" />
@@ -604,7 +613,7 @@
 
 			</else>
 		</if>
-
+		
 		<appInstall action="finishAppInstall" deploymentPath="${DEPLOYMENT_PATH}" port="${PORT}" loadOperatorId="${LOAD_OPERATORID}" appInstallResultId="${appInstallResultId}" javaReturnCode="${javaReturnCode}" errorMessage="${errorMessage}" skipSaveInstallInfo="${SKIP_SAVE_INSTALL_INFO}" />
 	</target>
 
