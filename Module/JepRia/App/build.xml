@@ -76,7 +76,7 @@
 	</path>
 
 	<path id="cas-client-libs">
-		<pathelement location="${CAS_CLIENT_HOME}/cas-client-core/lib/cas-client-core-3.1.12-customized.jar" />
+		<pathelement location="${COMMON_HOME}/Module/cas-client-3.1.12/${CAS_CLIENT_VERSION}/cas-client-core/lib/cas-client-core-3.1.12-customized.jar" />
 	</path>
 
 	<path id="gwt-libs">
@@ -89,7 +89,6 @@
 		<include name="**/*.class" />
 		<exclude name="**/*Bean*.class"/>
 		<exclude name="**/JepSecurityModule_OC4J.class" />
-		<exclude name="**/JepSecurityModule_WL.class" />
 	</fileset>
 
 	<fileset id="ejb-jar" dir="build">
@@ -98,10 +97,6 @@
 
 	<fileset id="oc4j-jar" dir="build">
 		<include name="**/oc4j/JepSecurityModule_OC4J.class" />
-	</fileset>
-
-	<fileset id="weblogic-jar" dir="build">
-		<include name="**/weblogic/JepSecurityModule_WL.class" />
 	</fileset>
 
 	<fileset id="src-jar" dir="src/java">
@@ -242,12 +237,6 @@
 		</uptodate>
 	</target>
 
-	<target name="weblogic-jar-update-check" depends="java-compile">
-		<uptodate targetfile="lib/${MODULE_NAME_IN_PACKAGE}-weblogic.jar" property="weblogic-jar-is-uptodate">
-			<srcfiles refid="weblogic-jar" />
-		</uptodate>
-	</target>
-
 	<target name="ejb-jar" depends="ejb-jar-update-check" unless="ejb-jar-is-uptodate">
 		<jar destfile="lib/${MODULE_NAME_IN_PACKAGE}-ejb.jar">
 			<fileset refid="ejb-jar" />
@@ -261,13 +250,7 @@
 		</jar>
 	</target>
 
-	<target name="weblogic-jar" depends="weblogic-jar-update-check" unless="weblogic-jar-is-uptodate">
-		<jar destfile="lib/${MODULE_NAME_IN_PACKAGE}-weblogic.jar">
-			<fileset refid="weblogic-jar" />
-		</jar>
-	</target>
-
-	<target name="build" depends="jar, ejb-jar, oc4j-jar, weblogic-jar, jar-auto, jar-test" />
+	<target name="build" depends="jar, ejb-jar, oc4j-jar, jar-auto, jar-test" />
 
 	<target name="doc" depends="java-compile, java-auto-compile">
 		<javadoc sourcepath="src/java;auto/java"
