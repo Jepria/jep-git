@@ -101,8 +101,9 @@ public class JepSecurityModule_OC4J extends JepAbstractSecurityModule {
 		return result;
 	}
 
-	public void logout(HttpServletRequest request, HttpServletResponse response) {
+	public String logout(HttpServletRequest request, HttpServletResponse response) {
 		logout_oc4j(request, response);
+		return null;
 	}
 
 	/**

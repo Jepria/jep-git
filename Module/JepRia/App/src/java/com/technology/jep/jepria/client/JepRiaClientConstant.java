@@ -120,4 +120,10 @@ public class JepRiaClientConstant extends JepRiaConstant {
 	 * Наименование CSS-класса стилей для панели состояния по умолчанию.
 	 */
 	public static final String STATUSBAR_DEFAULT_STYLE = "jepRia-StatusBar";
+	
+	/**
+	 * Свойство перемещаемого объекта, требующее инициализации при событии {@link com.technology.jep.jepria.client.widget.event.JepEventType#DRAG_START_EVENT}
+	 * для корректной работы DragAndDrop.
+	 */
+	public static final String DND_DATA_PROPERTY = "Text";
 }

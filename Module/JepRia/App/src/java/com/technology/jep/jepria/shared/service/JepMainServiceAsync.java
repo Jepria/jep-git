@@ -15,10 +15,9 @@ public interface JepMainServiceAsync {
 	void getUserData(AsyncCallback<JepDto> callback);
 	
 	/**
-	 * Выход (logout) текущего пользователя из SSO.
+	 * Выход из приложения
 	 * 
-	 * @param callback пустой обратный вызов (для сигнализации, что асинхронный метод отработал)
+	 * @param callback Url, по которому нужно перейти в результате Logout
 	 */
-	void logout(AsyncCallback<Void> callback);
-	
+	void logout(AsyncCallback<String> callback);
 }

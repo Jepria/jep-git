@@ -338,7 +338,7 @@ public class TreeGridManager<W extends AbstractCellTable<JepRecord>, P extends P
 	 * Перед заменой строк древовидного справочника перетаскиваемые узлы схлопываются, если они ранее были раскрыты.
 	 */
 	@Override
-	public void changeRows(int oldIndex, int newIndex) {
+	public void changeRows(int oldIndex, int newIndex, boolean isAbove) {
 		JepRecord oldRecord = get(oldIndex);
 		JepRecord newRecord = get(newIndex);
 		
@@ -352,7 +352,6 @@ public class TreeGridManager<W extends AbstractCellTable<JepRecord>, P extends P
 		oldIndex = dataProvider.getList().indexOf(oldRecord);
 		newIndex = dataProvider.getList().indexOf(newRecord);
 		
-		int oldDepth = oldTreeNode.getDepth();
 		int newDepth = newTreeNode.getDepth();
 		
 		JepRecord oldParentRecord = oldTreeNode.getParentRecord();
@@ -361,20 +360,18 @@ public class TreeGridManager<W extends AbstractCellTable<JepRecord>, P extends P
 		ListTreeNode oldParentTreeNode = null, newParentTreeNode = null;
 		if (oldParentRecord != null) {
 			oldParentTreeNode = findNode(oldParentRecord);
-			oldParentTreeNode.children.set(oldParentTreeNode.children.indexOf(oldRecord) , newRecord);
+			oldParentTreeNode.children.remove(oldRecord);
 		}
 		if (newParentRecord != null) {
 			newParentTreeNode = findNode(newParentRecord);
-			newParentTreeNode.children.set(newParentTreeNode.children.indexOf(newRecord) , oldRecord);
+			int indexOfNewNode = newParentTreeNode.children.indexOf(newRecord);
+			newParentTreeNode.children.add(isAbove ? indexOfNewNode - 1 : indexOfNewNode, oldRecord);
 		}
 		
 		oldTreeNode = new ListTreeNode(oldRecord, newParentRecord, newDepth);
-		newTreeNode = new ListTreeNode(newRecord, oldParentRecord, oldDepth);
-		
 		nodes.put(oldRecord.get(primaryKeyName), oldTreeNode);
-		nodes.put(newRecord.get(primaryKeyName), newTreeNode);
 		
-		super.changeRows(oldIndex, newIndex);
+		super.changeRows(oldIndex, newIndex, isAbove);
 	}
 	
 	/**

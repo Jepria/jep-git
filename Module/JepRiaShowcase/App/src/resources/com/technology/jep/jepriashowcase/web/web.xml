@@ -1,22 +1,96 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
 <web-app>
+
+<!-- Uncomment for CAS SSO turning on
+	<context-param>
+		<param-name>casServerName</param-name>
+		<param-value>cas</param-value>
+	</context-param>
+	<filter>
+		<filter-name>CAS Single Sign Out Filter</filter-name>
+		<filter-class>org.jasig.cas.client.session.SingleSignOutFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>CAS Single Sign Out Filter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
+	<listener>
+		<listener-class>org.jasig.cas.client.session.SingleSignOutHttpSessionListener</listener-class>
+	</listener>
+  
+	<filter>
+		<filter-name>CAS Authentication Filter</filter-name>
+		<filter-class>org.jasig.cas.client.authentication.AuthenticationFilter</filter-class>
+		<init-param>
+			<param-name>renew</param-name>
+			<param-value>false</param-value>
+		</init-param>
+		<init-param>
+			<param-name>gateway</param-name>
+			<param-value>false</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>CAS Authentication Filter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
+	<filter>
+		<filter-name>CAS Validation Filter</filter-name>
+		<filter-class>org.jasig.cas.client.validation.Cas20ProxyReceivingTicketValidationFilter</filter-class>
+		<init-param>
+			<param-name>proxyCallbackPath</param-name>
+			<param-value>/info/JepRiaShowcase-wl-ica/proxyCallback</param-value>
+		</init-param>
+		
+		<init-param>
+			<param-name>proxyReceptorUrl</param-name>
+			<param-value>/info/JepRiaShowcase-wl-ica/proxyCallback</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>CAS Validation Filter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
+	<filter-mapping>
+		<filter-name>CAS Validation Filter</filter-name>
+		<url-pattern>/proxyCallback</url-pattern>	
+	</filter-mapping>
+	
+	<filter>
+		<filter-name>CAS HttpServletRequest Wrapper Filter</filter-name>
+		<filter-class>org.jasig.cas.client.util.HttpServletRequestWrapperFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>CAS HttpServletRequest Wrapper Filter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
+	<filter>
+		<filter-name>CAS Assertion Thread Local Filter</filter-name>
+		<filter-class>org.jasig.cas.client.util.AssertionThreadLocalFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>CAS Assertion Thread Local Filter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+-->	
+	
+<!-- CORS Filter, required for CAS-JavaSSO integration
+	<filter>
+	  <filter-name>CorsFilter</filter-name>
+ 	  <filter-class>com.technology.jep.jepria.server.cors.CORSFilter</filter-class>
+	</filter>
+	<filter-mapping>
+	  <filter-name>CorsFilter</filter-name>
+	  <url-pattern>/*</url-pattern>
+	</filter-mapping> 
+-->
 	<servlet>
 		<servlet-name>remoteLoggerServiceImpl</servlet-name>
 		<servlet-class>com.allen_sauer.gwt.log.server.RemoteLoggerServiceImpl</servlet-class>
-
-		<!-- The `symbolMaps` parameter specifies the server directory containing 
-			the GWT compiler symbol maps output, which is used for stack trace deobfuscation -->
-		<init-param>
-			<!-- This value assumes a GWT compile with '-deploy war/WEB-INF/deploy/' -->
-			<param-name>symbolMaps</param-name>
-			<!-- Modify the param-value based on your server environment. Some web 
-				servers use your `war` directory as the 'current working dir', while other 
-				vendors will do something different. You may use trial and error. Specify 
-				the relative path you think should work, then check the server log after 
-				forwarding the first client log message to the server. If the directory cannot 
-				be found, gwt-log will report the full path which it tried. -->
-			<param-value>../j2ee/home/applications/jepriashowcase/jepriashowcase/JepRiaShowcase/symbolMaps/</param-value>
-		</init-param>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>remoteLoggerServiceImpl</servlet-name>

@@ -31,7 +31,6 @@ import com.google.gwt.user.cellview.client.CellTree;
 import com.google.gwt.user.cellview.client.TreeNode;
 import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.ui.ScrollPanel;
-import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.view.client.AsyncDataProvider;
 import com.google.gwt.view.client.CellPreviewEvent;
 import com.google.gwt.view.client.DefaultSelectionEventManager;
@@ -43,6 +42,7 @@ import com.google.gwt.view.client.SetSelectionModel;
 import com.google.gwt.view.client.TreeViewModel;
 import com.technology.jep.jepria.client.async.DataLoader;
 import com.technology.jep.jepria.client.async.JepAsyncCallback;
+import com.technology.jep.jepria.client.widget.container.ElementSimplePanel;
 import com.technology.jep.jepria.client.widget.field.multistate.event.CheckChangeEvent;
 import com.technology.jep.jepria.client.widget.field.multistate.event.CheckChangeEvent.CheckChangeHandler;
 import com.technology.jep.jepria.client.widget.field.multistate.event.CheckChangeEvent.HasCheckChangeHandlers;
@@ -655,13 +655,6 @@ public class TreeField<V extends JepOption> extends ScrollPanel implements HasCh
 			if (!JepRiaUtil.isEmpty(nodeInfo)) {
 				refreshDisplay(nodeInfo.getDisplay(), nodeInfo.getData());
 			}			
-		}
-	}
-	
-	
-	class ElementSimplePanel extends SimplePanel {
-		public ElementSimplePanel(Element el){
-			super(el);
 		}
 	}
 }

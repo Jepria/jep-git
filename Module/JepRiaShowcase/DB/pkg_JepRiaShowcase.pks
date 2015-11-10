@@ -71,6 +71,8 @@ Supplier_RoleSName constant varchar2(50) :=
                                 ( с точностью до дня, включительно)
   exclusiveSupplierFlag       - безальтернативный поставщик ( 1 да, 0 нет)
                                 ( по умолчанию 0)
+  privilegeSupplierFlag       - привилегированный поставщик ( 1 да, 0 нет)
+                                ( по умолчанию 0)
   phoneNumber                 - телефон
                                 ( по умолчанию отсутствует)
   faxNumber                   - факс
@@ -93,6 +95,7 @@ function createSupplier(
   supplierName varchar2
   , contractFinishDate date
   , exclusiveSupplierFlag integer := null
+  , privilegeSupplierFlag integer := null
   , phoneNumber varchar2 := null
   , faxNumber varchar2 := null
   , bankBic varchar2 := null
@@ -111,6 +114,7 @@ return integer;
   contractFinishDate          - дата до которой действует договор
                                 ( с точностью до дня, включительно)
   exclusiveSupplierFlag       - безальтернативный поставщик ( 1 да, 0 нет)
+  privilegeSupplierFlag       - привилегированный поставщик ( 1 да, 0 нет)
   phoneNumber                 - телефон
   faxNumber                   - факс
   bankBic                     - банк
@@ -126,6 +130,7 @@ procedure updateSupplier(
   , supplierName varchar2
   , contractFinishDate date
   , exclusiveSupplierFlag integer
+  , privilegeSupplierFlag integer
   , phoneNumber varchar2
   , faxNumber varchar2
   , bankBic varchar2
@@ -166,6 +171,8 @@ procedure deleteSupplier(
                                 ( по умолчанию без ограничений)
   exclusiveSupplierFlag       - безальтернативный поставщик ( 1 да, 0 нет)
                                 ( по умолчанию без ограничений)
+  privilegeSupplierFlag       - привилегированный поставщик ( 1 да, 0 нет)
+                                ( по умолчанию без ограничений)
   maxRowCount                 - максимальное число возвращаемых записей
                                 ( по умолчанию без ограничений)
   operatorId                  - Id оператора, выполняющего операцию
@@ -176,6 +183,7 @@ procedure deleteSupplier(
   supplier_name               - наименование поставщика
   contract_finish_date        - дата до которой действует договор
   exclusive_supplier_flag     - безальтернативный поставщик ( 1 да, 0 нет)
+  privilege_supplier_flag     - привилегированный поставщик ( 1 да, 0 нет)
   supplier_description        - описание поставщика
   phone_number                - телефон
   fax_number                  - факс
@@ -196,6 +204,7 @@ function findSupplier(
   , contractFinishDateFrom date := null
   , contractFinishDateTo date := null
   , exclusiveSupplierFlag integer := null
+  , privilegeSupplierFlag integer := null
   , maxRowCount integer := null
   , operatorId integer := null
 )
@@ -449,8 +458,9 @@ return sys_refcursor;
 
   Параметры:
   goodsId                     - Id товара
-  goodsCatalogIdList          - Id разделы каталога, к которым относится
-                                товар ( список через запятую)
+  goodsCatalogIdList          - Id разделов каталога, к которым относится
+                                товар ( список через запятую, null при
+                                отсутствии разделов)
   operatorId                  - Id оператора, выполняющего операцию
                                 ( по умолчанию текущий)
 

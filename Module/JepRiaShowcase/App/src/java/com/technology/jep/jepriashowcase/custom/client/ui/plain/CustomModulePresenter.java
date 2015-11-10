@@ -1,12 +1,15 @@
 package com.technology.jep.jepriashowcase.custom.client.ui.plain;
 
 import static com.technology.jep.jepria.client.util.JepClientUtil.goToUrl;
-import static com.technology.jep.jepriashowcase.custom.client.CustomClientConstant.customText;
-import static com.technology.jep.jepriashowcase.main.shared.JepRiaShowcaseConstant.*;
-import static com.technology.jep.jepriashowcase.main.client.JepRiaShowcaseClientConstant.*;
 import static com.technology.jep.jepria.shared.JepRiaConstant.JEP_USER_NAME_FIELD_NAME;
 import static com.technology.jep.jepria.shared.JepRiaConstant.JEP_USER_ROLES_FIELD_NAME;
 import static com.technology.jep.jepria.shared.field.JepFieldNames.OPERATOR_ID;
+import static com.technology.jep.jepriashowcase.custom.client.CustomClientConstant.customText;
+import static com.technology.jep.jepriashowcase.main.client.JepRiaShowcaseClientConstant.OAS_SSO_MODULE_URL;
+import static com.technology.jep.jepriashowcase.main.client.JepRiaShowcaseClientConstant.URL_FULL_SCREEN;
+import static com.technology.jep.jepriashowcase.main.client.JepRiaShowcaseClientConstant.URL_SEARCH_MODULE;
+import static com.technology.jep.jepriashowcase.main.client.JepRiaShowcaseClientConstant.WL_SSO_MODULE_URL;
+import static com.technology.jep.jepriashowcase.main.shared.JepRiaShowcaseConstant.URL_EMBEDDED;
 
 import java.util.Date;
 import java.util.List;
@@ -22,8 +25,6 @@ import com.google.gwt.http.client.Response;
 import com.google.gwt.http.client.URL;
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.user.client.Cookies;
-import com.google.gwt.user.client.DOM;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.technology.jep.jepria.client.async.JepAsyncCallback;
 import com.technology.jep.jepria.client.history.scope.JepScopeStack;
@@ -184,12 +185,12 @@ public class CustomModulePresenter<V extends CustomModuleView, E extends PlainEv
 			public void onClick(ClickEvent event) {
 				view.clearCredential();
 				// Самостоятельный выход.
-				mainService.logout(new AsyncCallback<Void>() {
+				mainService.logout(new AsyncCallback<String>() {
 					public void onFailure(Throwable caught) {
 						view.toggleAuthorizationPanel();
 					}
 		
-					public void onSuccess(Void result) {
+					public void onSuccess(String result) {
 						view.toggleAuthorizationPanel();
 					}
 				});

@@ -1,8 +1,6 @@
 package com.technology.jep.jepria.client.entrance;
 
-import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.technology.jep.jepria.client.security.ClientSecurity;
 import com.technology.jep.jepria.shared.service.JepMainServiceAsync;
 
 public class Entrance {
@@ -14,36 +12,45 @@ public class Entrance {
 	}
 	
 	public static void logout() {
-		if(isNavigationFrameExist()) {
-			// Выход при помощи Navigation (для увязки работы с фремами).
-			navigationLogout();
-		} else {
-			// Самостоятельный выход.
-			mainService.logout(new AsyncCallback<Void>() {
-				public void onFailure(Throwable caught) {
-					// Попадание сюда в данном случае нормально.
-					reload();
+
+		mainService.logout(new AsyncCallback<String>() {
+			public void onFailure(Throwable caught) {
+				reload();
+			}
+
+			public void onSuccess(String logoutUrl) {
+				if(isFrameElement() && isJSSO_CAS_Integrated()) {
+						reload();
+				} else {
+					if(logoutUrl != null) {
+						casLogout(logoutUrl);
+					} else {
+						reload();
+					}
 				}
-	
-				public void onSuccess(Void result) {
-					// Попаданий сюда пока не обнаружено, но на всякий случай...
-					Log.info(ClientSecurity.instance.getUsername() + ": logout success");
-					reload();
-				}
-			});
-		}
+			}
+
+			private boolean isJSSO_CAS_Integrated() {
+				return false; // TODO Убрать времянку после внедрения интегрированного решения JSSO_CAS
+//				return true;
+			}
+		});
 	}
-	
-	private native static void reload() /*-{ 
-	    $wnd.location.reload(); 
-	}-*/; 
-	
-	private native static void navigationLogout() /*-{ 
-		$wnd.parent.navigation.location = "/Navigation/logoutInput.do?lastEventInRequest=6";	
+
+	private native static void reload() /*-{
+		document.domain = document.domain;
+		if(window.frameElement != null) {
+			$wnd.parent.location.reload(true)
+		} else {
+			$wnd.location.reload(true)
+		}
+	}-*/;
+
+	private native static void casLogout(String logoutUrl) /*-{
+		$wnd.location = logoutUrl;
 	}-*/;
 	
-	private native static boolean isNavigationFrameExist()/*-{
-		return $wnd.parent.navigation != null;
+	private native static boolean isFrameElement() /*-{
+		return window.frameElement != null;
 	}-*/;	
-
 }

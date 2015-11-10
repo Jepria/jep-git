@@ -25,10 +25,12 @@ public class RowOrderChangeEvent extends BusEvent<RowOrderChangeEvent.Handler> {
 
 	private final int oldIndex;
 	private final int newIndex;
+	private final boolean isAbove;
 
-	public RowOrderChangeEvent(int oldIndex, int newIndex) {
+	public RowOrderChangeEvent(int oldIndex, int newIndex, boolean isAbove) {
 		this.oldIndex = oldIndex;
 		this.newIndex = newIndex;
+		this.isAbove = isAbove;
 	}
 
 	/**
@@ -55,6 +57,10 @@ public class RowOrderChangeEvent extends BusEvent<RowOrderChangeEvent.Handler> {
 	public int getNewIndex() {
 		return this.newIndex;
 	}
+	
+	public boolean isAbove() {
+		return this.isAbove;
+	}
 
 	@Override
 	protected void dispatch(Handler handler) {
@@ -62,8 +68,8 @@ public class RowOrderChangeEvent extends BusEvent<RowOrderChangeEvent.Handler> {
 	}
 
 	public static RowOrderChangeEvent fire(HasHandlers source, int oldIndex,
-			int newIndex) {
-		RowOrderChangeEvent event = new RowOrderChangeEvent(oldIndex, newIndex);
+			int newIndex, boolean isAbove) {
+		RowOrderChangeEvent event = new RowOrderChangeEvent(oldIndex, newIndex, isAbove);
 		if (TYPE != null) {
 			source.fireEvent(event);
 		}

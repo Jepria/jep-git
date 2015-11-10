@@ -14,7 +14,7 @@ public interface JepSecurityModule extends HttpSessionBindingListener {
 
 	String getUsername();
 
-	void logout(HttpServletRequest request, HttpServletResponse response);
+	String logout(HttpServletRequest request, HttpServletResponse response) throws Exception;
 
 	boolean isRole(String role, boolean makeError) throws Exception;
 	

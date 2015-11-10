@@ -118,6 +118,7 @@ end
       supplierName            => '$TEST-Supplier 1'
       , contractFinishDate    => DATE '4099-05-14'
       , exclusiveSupplierFlag => 1
+      , privilegeSupplierFlag => 1
       , phoneNumber           => '98-01-01'
       , faxNumber             => '98-02-01'
       , bankBic               => '044585187'
@@ -132,6 +133,7 @@ supplier_id = ''' || supplierId || '''
 and supplier_name = ''$TEST-Supplier 1''
 and contract_finish_date = DATE ''4099-05-14''
 and exclusive_supplier_flag = 1
+and privilege_supplier_flag = 1
 and phone_number = ''98-01-01''
 and fax_number = ''98-02-01''
 and bank_bic = ''044585187''
@@ -148,6 +150,7 @@ and settlement_account = ''000001''
       , supplierName          => '$TEST-Supplier 2'
       , contractFinishDate    => DATE '4099-05-15'
       , exclusiveSupplierFlag => 0
+      , privilegeSupplierFlag => 0
       , phoneNumber           => '98-01-02'
       , faxNumber             => '98-02-02'
       , bankBic               => '044525448'
@@ -162,6 +165,7 @@ supplier_id = ''' || supplierId || '''
 and supplier_name = ''$TEST-Supplier 2''
 and contract_finish_date = DATE ''4099-05-15''
 and exclusive_supplier_flag = 0
+and privilege_supplier_flag = 0
 and phone_number = ''98-01-02''
 and fax_number = ''98-02-02''
 and bank_bic = ''044525448''
@@ -192,6 +196,7 @@ and settlement_account = ''000002''
       , contractFinishDateFrom  => DATE '4099-05-01'
       , contractFinishDateTo    => DATE '4099-05-28'
       , exclusiveSupplierFlag => 0
+      , privilegeSupplierFlag => 0
       , maxRowCount           => 5
       , operatorId            => operatorId
     );
@@ -208,6 +213,7 @@ and settlement_account = ''000002''
     rc := pkg_JepRiaShowcase.findSupplier(
       contractFinishDateFrom  => DATE '4099-05-14'
       , exclusiveSupplierFlag => 0
+      , privilegeSupplierFlag => 0
       , operatorId            => operatorId
     );
     checkCursor( 'findSupplier: dateFrom/exlFlag', 1);
@@ -231,6 +237,7 @@ supplier_id = ''' || supplierId || '''
       supplierName            => '$TEST-Supplier 1'
       , contractFinishDate    => DATE '4099-05-14'
       , exclusiveSupplierFlag => 1
+      , privilegeSupplierFlag => 1
       , operatorId            => operatorId
     );
     pkg_TestUtility.compareRowCount(
@@ -244,6 +251,7 @@ supplier_id = ''' || supplierId || '''
       supplierName            => '$TEST-Supplier 2'
       , contractFinishDate    => DATE '4099-05-01'
       , exclusiveSupplierFlag => 1
+      , privilegeSupplierFlag => 1
       , operatorId            => operatorId
     );
     pkg_TestUtility.compareRowCount(

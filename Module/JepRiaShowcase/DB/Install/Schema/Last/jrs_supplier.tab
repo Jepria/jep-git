@@ -7,6 +7,7 @@ create table
   , supplier_name                 varchar2(255)                       not null
   , contract_finish_date          date                                not null
   , exclusive_supplier_flag       number(1)           default 0       not null
+  , privilege_supplier_flag       number(1)           default 0       not null
   , supplier_description          clob
   , phone_number                  varchar2(20)
   , fax_number                    varchar2(20)
@@ -25,6 +26,8 @@ create table
     ( contract_finish_date = trunc( contract_finish_date))
   , constraint jrs_supplier_ck_excl_supp_flag check
     ( exclusive_supplier_flag in ( 0, 1))
+  , constraint jrs_supplier_ck_priv_supp_flag check
+    ( privilege_supplier_flag in ( 0, 1))
 )
 lob ( supplier_description) store as securefile
 /
@@ -45,6 +48,9 @@ comment on column jrs_supplier.contract_finish_date is
 /
 comment on column jrs_supplier.exclusive_supplier_flag is
   'Безальтернативный поставщик ( 1 да, 0 нет)'
+/
+comment on column jrs_supplier.privilege_supplier_flag is
+  'Привилегированный поставщик ( 1 да, 0 нет)'
 /
 comment on column jrs_supplier.supplier_description is
   'Описание поставщика'

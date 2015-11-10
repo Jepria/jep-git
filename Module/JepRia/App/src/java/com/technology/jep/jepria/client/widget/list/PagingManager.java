@@ -10,7 +10,6 @@ import static com.technology.jep.jepria.client.widget.event.JepEventType.PAGING_
 import static com.technology.jep.jepria.client.widget.event.JepEventType.ROW_CLICK_EVENT;
 import static com.technology.jep.jepria.client.widget.event.JepEventType.ROW_DOUBLE_CLICK_EVENT;
 
-import java.util.Collections;
 import java.util.List;
 
 import com.allen_sauer.gwt.log.client.Log;
@@ -40,7 +39,7 @@ import com.technology.jep.jepria.shared.record.JepRecord;
 
 /**
  * Класс управления списком наследником
- * <code>com.extjs.gxt.ui.client.widget.grid.AbstractHasData</code>.<br/>
+ * <code>com.google.gwt.user.cellview.client.AbstractHasData</code>.<br/>
  * <br/>
  * Концепция поддержки обработки событий отражена в описании пакета
  * {@link com.technology.jep.jepria.client.widget}.
@@ -95,7 +94,7 @@ public class PagingManager<W extends AbstractHasData<JepRecord>, P extends Pagin
 				grid.addRowOrderChangerHandler(new RowOrderChangeEvent.Handler() {
 					@Override
 					public void onRowOrderChange(RowOrderChangeEvent event) {
-						changeRows(event.getOldIndex(), event.getNewIndex());
+						changeRows(event.getOldIndex(), event.getNewIndex(), event.isAbove());
 					}
 				});
 			}
@@ -522,9 +521,13 @@ public class PagingManager<W extends AbstractHasData<JepRecord>, P extends Pagin
 	 * 
 	 * @param oldIndex		"старый" индекс элемента
 	 * @param newIndex		"новый" индекс элемента
+	 * @param isAbove		признак замены элемента выше стоящего
 	 */
-	public void changeRows(int oldIndex, int newIndex) {
-		Collections.swap(dataProvider.getList(), oldIndex, newIndex);
+	public void changeRows(int oldIndex, int newIndex, boolean isAbove) {
+		List<JepRecord> rowList = dataProvider.getList();
+		JepRecord oldRecord = rowList.get(oldIndex);
+		rowList.remove(oldRecord);
+		rowList.add(isAbove ? newIndex - 1 : newIndex, oldRecord);
 		dataProvider.refresh();
 	}
 }
