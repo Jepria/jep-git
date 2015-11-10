@@ -15,7 +15,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
-import org.jasig.cas.client.authentication.AttributePrincipal;
 
 import com.technology.jep.jepcommon.security.pkg_Operator;
 import com.technology.jep.jepria.server.db.Db;
@@ -101,20 +100,6 @@ public class JepSecurityModule_CAS extends JepAbstractSecurityModule {
 			response.addCookie(cookie);
 		}
 	}
-
-	private Cookie getNavigationCookie(HttpServletRequest request) {
-		Cookie result = null;
-		Cookie[] cookies = request.getCookies();
-		for(int i = 0; i < cookies.length; i++) {
-		  String cookiePath = cookies[i].getPath();
-		  if("/info/Navigation".equals(cookiePath)) {
-			  result = cookies[i];
-			  break;
-		  }
-		}
-		
-		return result;
-	}
 	
 	private static Cookie getOC4JSsoCookie(HttpServletRequest request) {
 		Cookie result = null;
@@ -134,8 +119,7 @@ public class JepSecurityModule_CAS extends JepAbstractSecurityModule {
 	@Override
 	public Integer getJepPrincipalOperatorId(Principal principal) {
 		Integer result = null;
-		AttributePrincipal attributePrincipal = (AttributePrincipal)principal;
-		String principalName = attributePrincipal.getName();
+		String principalName = principal.getName();
 		try {
 			Integer _operatorId = pkg_Operator.logon(db, principalName);
 			if(!_operatorId.equals(operatorId)) {	// Обновить свойства, если operatorId изменялся
@@ -152,8 +136,7 @@ public class JepSecurityModule_CAS extends JepAbstractSecurityModule {
 	@Override
 	protected void updateSubject(Principal principal) {
 		logger.trace(this.getClass() + ".updateSubject() BEGIN");
-		AttributePrincipal attributePrincipal = (AttributePrincipal)principal;
-		String principalName = attributePrincipal.getName();
+		String principalName = principal.getName();
 		logger.trace("principalName = " + principalName);
 		this.username = principalName;
 
