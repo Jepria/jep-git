@@ -75,10 +75,6 @@
 		<pathelement location="${WL_LIB_HOME}/wls-api.jar" />
 	</path>
 
-	<path id="cas-client-libs">
-		<pathelement location="${COMMON_HOME}/Module/cas-client-3.1.12/${CAS_CLIENT_VERSION}/cas-client-core/lib/cas-client-core-3.1.12-customized.jar" />
-	</path>
-
 	<path id="gwt-libs">
 		<pathelement location="${GWT_HOME}/gwt-user.jar" />
 		<pathelement location="${GWT_HOME}/gwt-dev.jar" />
@@ -158,7 +154,6 @@
 		<mkdir dir="build" />
 		<javac srcdir="src/java" destdir="build" debug="on" encoding="utf-8" target="1.5" includeantruntime="false">
 			<classpath refid="weblogic-libs" />
-			<classpath refid="cas-client-libs" />
 			<classpath refid="libs" />
 			<classpath refid="oc4j-libs" />
 		</javac>
@@ -268,7 +263,6 @@
 			<classpath refid="libs" />
 			<classpath refid="oc4j-libs" />
 			<classpath refid="weblogic-libs" />
-			<classpath refid="cas-client-libs" />
 			<classpath refid="selenium-libs" />
 		</javadoc>
 	</target>
@@ -289,7 +283,6 @@
 			<classpath refid="libs" />
 			<classpath refid="oc4j-libs" />
 			<classpath refid="weblogic-libs" />
-			<classpath refid="cas-client-libs" />
 			<classpath refid="selenium-libs" />
 		</javadoc>
 	</target>
