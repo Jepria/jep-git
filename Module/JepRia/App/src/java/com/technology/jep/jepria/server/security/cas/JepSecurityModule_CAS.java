@@ -1,7 +1,7 @@
 package com.technology.jep.jepria.server.security.cas;
 
 import static com.technology.jep.jepria.server.JepRiaServerConstant.CAS_SERVER_NAME_CONTEXT_PARAMETER;
-import static com.technology.jep.jepria.server.JepRiaServerConstant.ENVIRONMENT_CAS_SERVER_ADDRESS;
+import static com.technology.jep.jepria.server.JepRiaServerConstant.CAS_SERVER_ADDRESS_PROPERTY;
 import static com.technology.jep.jepria.server.security.JepSecurityConstant.JEP_SECURITY_MODULE_ATTRIBUTE_NAME;
 
 import java.net.InetAddress;
@@ -71,7 +71,7 @@ public class JepSecurityModule_CAS extends JepAbstractSecurityModule {
 		removeJavaSSOCookie(request, response);
 		request.getSession().invalidate();
 		
-		String casServerAddress = JepServerUtil.getEnvironmentValue(ENVIRONMENT_CAS_SERVER_ADDRESS);
+        String casServerAddress = System.getProperty(CAS_SERVER_ADDRESS_PROPERTY);
 		
         ServletContext context = request.getSession().getServletContext();
         String casServerContextName = context.getInitParameter(CAS_SERVER_NAME_CONTEXT_PARAMETER);

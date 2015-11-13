@@ -64,14 +64,9 @@ public class JepRiaServerConstant extends JepRiaConstant {
 	
 
 	/**
-	 * Внешняя переменная, в которой передается адрес сервера CAS
+	 * Внешнее свойство, в котором передается адрес сервера CAS
 	 */
-	public static final String ENVIRONMENT_CAS_SERVER_ADDRESS = "CAS_SERVER_ADDRESS";
-
-	/**
-	 * Внешняя переменная, в которой передается путь logout сервера CAS
-	 */
-	public static final String ENVIRONMENT_CAS_LOGOUT_PATH = "CAS_LOGOUT_PATH";
+	public static final String CAS_SERVER_ADDRESS_PROPERTY = "CAS_SERVER_ADDRESS";
 	
 
 	/**
