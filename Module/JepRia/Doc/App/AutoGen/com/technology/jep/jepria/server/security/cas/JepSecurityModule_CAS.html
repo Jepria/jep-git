@@ -153,6 +153,15 @@ java.lang.Object
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/server/security/cas/JepSecurityModule_CAS.html#deleteCookie(javax.servlet.http.Cookie, javax.servlet.http.HttpServletResponse)">deleteCookie</A></B>(javax.servlet.http.Cookie&nbsp;cookie,
+             javax.servlet.http.HttpServletResponse&nbsp;response)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;<A HREF="../../../../../../../com/technology/jep/jepria/server/security/JepSecurityModule.html" title="interface in com.technology.jep.jepria.server.security">JepSecurityModule</A></CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/server/security/cas/JepSecurityModule_CAS.html#getInstance(javax.servlet.http.HttpServletRequest)">getInstance</A></B>(javax.servlet.http.HttpServletRequest&nbsp;request)</CODE>
 
@@ -169,6 +178,14 @@ java.lang.Object
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private static&nbsp;javax.servlet.http.Cookie</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/server/security/cas/JepSecurityModule_CAS.html#getOC4JSsoCookie(javax.servlet.http.HttpServletRequest)">getOC4JSsoCookie</A></B>(javax.servlet.http.HttpServletRequest&nbsp;request)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>private static&nbsp;boolean</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/server/security/cas/JepSecurityModule_CAS.html#isObsolete(com.technology.jep.jepria.server.db.Db, java.security.Principal, java.lang.Integer)">isObsolete</A></B>(<A HREF="../../../../../../../com/technology/jep/jepria/server/db/Db.html" title="class in com.technology.jep.jepria.server.db">Db</A>&nbsp;db,
            java.security.Principal&nbsp;principal,
@@ -179,9 +196,18 @@ java.lang.Object
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
+<CODE>&nbsp;java.lang.String</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/server/security/cas/JepSecurityModule_CAS.html#logout(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)">logout</A></B>(javax.servlet.http.HttpServletRequest&nbsp;request,
        javax.servlet.http.HttpServletResponse&nbsp;response)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/server/security/cas/JepSecurityModule_CAS.html#removeJavaSSOCookie(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)">removeJavaSSOCookie</A></B>(javax.servlet.http.HttpServletRequest&nbsp;request,
+                    javax.servlet.http.HttpServletResponse&nbsp;response)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -263,8 +289,46 @@ public static <A HREF="../../../../../../../com/technology/jep/jepria/server/sec
 <A NAME="logout(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)"><!-- --></A><H3>
 logout</H3>
 <PRE>
-public void <B>logout</B>(javax.servlet.http.HttpServletRequest&nbsp;request,
-                   javax.servlet.http.HttpServletResponse&nbsp;response)</PRE>
+public java.lang.String <B>logout</B>(javax.servlet.http.HttpServletRequest&nbsp;request,
+                               javax.servlet.http.HttpServletResponse&nbsp;response)
+                        throws java.lang.Exception</PRE>
+<DL>
+<DD><DL>
+
+<DT><B>Throws:</B>
+<DD><CODE>java.lang.Exception</CODE></DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="removeJavaSSOCookie(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)"><!-- --></A><H3>
+removeJavaSSOCookie</H3>
+<PRE>
+private void <B>removeJavaSSOCookie</B>(javax.servlet.http.HttpServletRequest&nbsp;request,
+                                 javax.servlet.http.HttpServletResponse&nbsp;response)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="deleteCookie(javax.servlet.http.Cookie, javax.servlet.http.HttpServletResponse)"><!-- --></A><H3>
+deleteCookie</H3>
+<PRE>
+private void <B>deleteCookie</B>(javax.servlet.http.Cookie&nbsp;cookie,
+                          javax.servlet.http.HttpServletResponse&nbsp;response)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getOC4JSsoCookie(javax.servlet.http.HttpServletRequest)"><!-- --></A><H3>
+getOC4JSsoCookie</H3>
+<PRE>
+private static javax.servlet.http.Cookie <B>getOC4JSsoCookie</B>(javax.servlet.http.HttpServletRequest&nbsp;request)</PRE>
 <DL>
 <DD><DL>
 </DL>

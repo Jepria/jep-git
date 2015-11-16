@@ -230,16 +230,8 @@ java.lang.Object
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>private &nbsp;com.google.gwt.user.client.ui.Widget</CODE></FONT></TD>
+<CODE>private &nbsp;com.google.gwt.user.client.ui.ScrollPanel</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#contentWidget">contentWidget</A></B></CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>private static&nbsp;java.lang.String</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#DND_DATA_PROPERTY">DND_DATA_PROPERTY</A></B></CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -288,6 +280,22 @@ java.lang.Object
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>private &nbsp;boolean</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#isColumnConfigurable">isColumnConfigurable</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private static&nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#LINEAR_GRADIENT_FROM_BOTTOM_TO_TOP">LINEAR_GRADIENT_FROM_BOTTOM_TO_TOP</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private static&nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#LINEAR_GRADIENT_FROM_TOP_TO_BOTTOM">LINEAR_GRADIENT_FROM_TOP_TO_BOTTOM</A></B></CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -489,7 +497,7 @@ java.lang.Object
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;com.google.gwt.user.client.ui.Widget</CODE></FONT></TD>
+<CODE>&nbsp;com.google.gwt.user.client.ui.ScrollPanel</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#getContentWidget()">getContentWidget</A></B>()</CODE>
 
 <BR>
@@ -514,7 +522,7 @@ java.lang.Object
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;int</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#getRowIndexByEvent(com.google.gwt.event.dom.client.DomEvent)">getRowIndexByEvent</A></B>(com.google.gwt.event.dom.client.DomEvent&nbsp;event)</CODE>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#getRowIndexByEvent(com.google.gwt.event.dom.client.DomEvent)">getRowIndexByEvent</A></B>(com.google.gwt.event.dom.client.DomEvent&lt;?&gt;&nbsp;event)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -534,6 +542,15 @@ java.lang.Object
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Проверка видимости колонку</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#isCursorAboveElementCenter(com.google.gwt.dom.client.Element, com.google.gwt.dom.client.NativeEvent)">isCursorAboveElementCenter</A></B>(com.google.gwt.dom.client.Element&nbsp;rowElement,
+                           com.google.gwt.dom.client.NativeEvent&nbsp;event)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -561,14 +578,26 @@ java.lang.Object
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#setRowData(int, java.util.List)">setRowData</A></B>(int&nbsp;start,
-           java.util.List&lt;? extends <A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html" title="type parameter in JepGrid">T</A>&gt;&nbsp;values)</CODE>
+<CODE>protected &nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#replaceAllChildren(java.util.List, com.google.gwt.safehtml.shared.SafeHtml)">replaceAllChildren</A></B>(java.util.List&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html" title="type parameter in JepGrid">T</A>&gt;&nbsp;values,
+                   com.google.gwt.safehtml.shared.SafeHtml&nbsp;html)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
- Особенности реализации:<br/>
+ Особенности:<br/>
  После переинициализации новых данных, каждая строка грида становится доступной для перетаскивания.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#replaceChildren(java.util.List, int, com.google.gwt.safehtml.shared.SafeHtml)">replaceChildren</A></B>(java.util.List&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html" title="type parameter in JepGrid">T</A>&gt;&nbsp;values,
+                int&nbsp;start,
+                com.google.gwt.safehtml.shared.SafeHtml&nbsp;html)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ Особенности:<br/>
+ После выбора строки, выбранная строка вновь доступна для перетаскивания.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -594,7 +623,7 @@ java.lang.Object
 <TH ALIGN="left"><B>Methods inherited from class com.google.gwt.user.cellview.client.AbstractCellTable</B></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE>addColumn, addColumn, addColumn, addColumn, addColumn, addColumn, addColumn, addColumnSortHandler, addRowHoverHandler, clearColumnWidth, clearColumnWidth, convertToElements, dependsOnSelection, flush, getChildContainer, getChildElement, getColumn, getColumnCount, getColumnIndex, getColumnSortList, getColumnWidth, getEmptyTableWidget, getFooter, getFooterBuilder, getHeader, getHeaderBuilder, getKeyboardSelectedColumn, getKeyboardSelectedElement, getKeyboardSelectedSubRow, getLoadingIndicator, getRealColumnCount, getResources, getRowElement, getRowStyles, getSubRowElement, insertColumn, insertColumn, insertColumn, insertColumn, insertColumn, insertColumn, insertColumn, isAutoFooterRefreshDisabled, isAutoHeaderRefreshDisabled, isKeyboardNavigationSuppressed, isSkipRowHoverCheck, isSkipRowHoverFloatElementCheck, isSkipRowHoverStyleUpdate, onBlur, onBrowserEvent2, onFocus, redrawFooters, redrawHeaders, removeColumn, removeColumn, renderRowValues, renderRowValuesLegacy, replaceAllChildren, replaceChildren, resetFocusOnCell, setAutoFooterRefreshDisabled, setAutoHeaderRefreshDisabled, setColumnWidth, setColumnWidth, setColumnWidth, setColumnWidth, setFooterBuilder, setHeaderBuilder, setKeyboardSelected, setKeyboardSelectedColumn, setKeyboardSelectedColumn, setKeyboardSelectedRow, setKeyboardSelectedRow, setRowStyles, setSkipRowHoverCheck, setSkipRowHoverFloatElementCheck, setSkipRowHoverStyleUpdate, setTableBuilder</CODE></TD>
+<TD><CODE>addColumn, addColumn, addColumn, addColumn, addColumn, addColumn, addColumn, addColumnSortHandler, addRowHoverHandler, clearColumnWidth, clearColumnWidth, convertToElements, dependsOnSelection, flush, getChildContainer, getChildElement, getColumn, getColumnCount, getColumnIndex, getColumnSortList, getColumnWidth, getEmptyTableWidget, getFooter, getFooterBuilder, getHeader, getHeaderBuilder, getKeyboardSelectedColumn, getKeyboardSelectedElement, getKeyboardSelectedSubRow, getLoadingIndicator, getRealColumnCount, getResources, getRowElement, getRowStyles, getSubRowElement, insertColumn, insertColumn, insertColumn, insertColumn, insertColumn, insertColumn, insertColumn, isAutoFooterRefreshDisabled, isAutoHeaderRefreshDisabled, isKeyboardNavigationSuppressed, isSkipRowHoverCheck, isSkipRowHoverFloatElementCheck, isSkipRowHoverStyleUpdate, onBlur, onBrowserEvent2, onFocus, redrawFooters, redrawHeaders, removeColumn, removeColumn, renderRowValues, renderRowValuesLegacy, resetFocusOnCell, setAutoFooterRefreshDisabled, setAutoHeaderRefreshDisabled, setColumnWidth, setColumnWidth, setColumnWidth, setColumnWidth, setFooterBuilder, setHeaderBuilder, setKeyboardSelected, setKeyboardSelectedColumn, setKeyboardSelectedColumn, setKeyboardSelectedRow, setKeyboardSelectedRow, setRowStyles, setSkipRowHoverCheck, setSkipRowHoverFloatElementCheck, setSkipRowHoverStyleUpdate, setTableBuilder</CODE></TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_com.google.gwt.user.cellview.client.AbstractHasData"><!-- --></A>
@@ -603,7 +632,7 @@ java.lang.Object
 <TH ALIGN="left"><B>Methods inherited from class com.google.gwt.user.cellview.client.AbstractHasData</B></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE>addCellPreviewHandler, addLoadingStateChangeHandler, addRangeChangeHandler, addRowCountChangeHandler, cellConsumesEventType, checkRowBounds, getAccessKey, getDisplayedItem, getDisplayedItems, getKeyboardPagingPolicy, getKeyboardSelectedRow, getKeyboardSelectionPolicy, getKeyProvider, getPageSize, getPageStart, getRowContainer, getRowCount, getSelectionModel, getTabIndex, getValueKey, getVisibleItem, getVisibleItemCount, getVisibleItems, getVisibleRange, isRowCountExact, isRowWithinBounds, onBrowserEvent, onUnload, redraw, redrawRow, setAccessKey, setFocus, setFocusable, setKeyboardPagingPolicy, setKeyboardSelectedRow, setKeyboardSelectionHandler, setKeyboardSelectionPolicy, setPageSize, setPageStart, setRowCount, setRowCount, setRowData, setSelected, setSelectionModel, setSelectionModel, setTabIndex, setVisibleRange, setVisibleRange, setVisibleRangeAndClearData</CODE></TD>
+<TD><CODE>addCellPreviewHandler, addLoadingStateChangeHandler, addRangeChangeHandler, addRowCountChangeHandler, cellConsumesEventType, checkRowBounds, getAccessKey, getDisplayedItem, getDisplayedItems, getKeyboardPagingPolicy, getKeyboardSelectedRow, getKeyboardSelectionPolicy, getKeyProvider, getPageSize, getPageStart, getRowContainer, getRowCount, getSelectionModel, getTabIndex, getValueKey, getVisibleItem, getVisibleItemCount, getVisibleItems, getVisibleRange, isRowCountExact, isRowWithinBounds, onBrowserEvent, onUnload, redraw, redrawRow, setAccessKey, setFocus, setFocusable, setKeyboardPagingPolicy, setKeyboardSelectedRow, setKeyboardSelectionHandler, setKeyboardSelectionPolicy, setPageSize, setPageStart, setRowCount, setRowCount, setRowData, setRowData, setSelected, setSelectionModel, setSelectionModel, setTabIndex, setVisibleRange, setVisibleRange, setVisibleRangeAndClearData</CODE></TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_com.google.gwt.user.client.ui.Composite"><!-- --></A>
@@ -667,7 +696,7 @@ java.lang.Object
 <A NAME="contentWidget"><!-- --></A><H3>
 contentWidget</H3>
 <PRE>
-private com.google.gwt.user.client.ui.Widget <B>contentWidget</B></PRE>
+private com.google.gwt.user.client.ui.ScrollPanel <B>contentWidget</B></PRE>
 <DL>
 <DL>
 </DL>
@@ -714,16 +743,6 @@ private boolean <B>isColumnConfigurable</B></PRE>
 </DL>
 <HR>
 
-<A NAME="DND_DATA_PROPERTY"><!-- --></A><H3>
-DND_DATA_PROPERTY</H3>
-<PRE>
-private static final java.lang.String <B>DND_DATA_PROPERTY</B></PRE>
-<DL>
-<DL>
-<DT><B>See Also:</B><DD><A HREF="../../../../../../../constant-values.html#com.technology.jep.jepria.client.widget.list.JepGrid.DND_DATA_PROPERTY">Constant Field Values</A></DL>
-</DL>
-<HR>
-
 <A NAME="CHARACTERISTIC_SEPARATOR"><!-- --></A><H3>
 CHARACTERISTIC_SEPARATOR</H3>
 <PRE>
@@ -731,6 +750,26 @@ private static final java.lang.String <B>CHARACTERISTIC_SEPARATOR</B></PRE>
 <DL>
 <DL>
 <DT><B>See Also:</B><DD><A HREF="../../../../../../../constant-values.html#com.technology.jep.jepria.client.widget.list.JepGrid.CHARACTERISTIC_SEPARATOR">Constant Field Values</A></DL>
+</DL>
+<HR>
+
+<A NAME="LINEAR_GRADIENT_FROM_TOP_TO_BOTTOM"><!-- --></A><H3>
+LINEAR_GRADIENT_FROM_TOP_TO_BOTTOM</H3>
+<PRE>
+private static final java.lang.String <B>LINEAR_GRADIENT_FROM_TOP_TO_BOTTOM</B></PRE>
+<DL>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../../../constant-values.html#com.technology.jep.jepria.client.widget.list.JepGrid.LINEAR_GRADIENT_FROM_TOP_TO_BOTTOM">Constant Field Values</A></DL>
+</DL>
+<HR>
+
+<A NAME="LINEAR_GRADIENT_FROM_BOTTOM_TO_TOP"><!-- --></A><H3>
+LINEAR_GRADIENT_FROM_BOTTOM_TO_TOP</H3>
+<PRE>
+private static final java.lang.String <B>LINEAR_GRADIENT_FROM_BOTTOM_TO_TOP</B></PRE>
+<DL>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../../../constant-values.html#com.technology.jep.jepria.client.widget.list.JepGrid.LINEAR_GRADIENT_FROM_BOTTOM_TO_TOP">Constant Field Values</A></DL>
 </DL>
 <HR>
 
@@ -1007,25 +1046,6 @@ protected void <B>onMouseOver</B>(com.google.gwt.view.client.CellPreviewEvent&lt
 </DL>
 <HR>
 
-<A NAME="setRowData(int, java.util.List)"><!-- --></A><H3>
-setRowData</H3>
-<PRE>
-public void <B>setRowData</B>(int&nbsp;start,
-                       java.util.List&lt;? extends <A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html" title="type parameter in JepGrid">T</A>&gt;&nbsp;values)</PRE>
-<DL>
-<DD>
- Особенности реализации:<br/>
- После переинициализации новых данных, каждая строка грида становится доступной для перетаскивания.
-<P>
-<DD><DL>
-<DT><B>Specified by:</B><DD><CODE>setRowData</CODE> in interface <CODE>com.google.gwt.view.client.HasData&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html" title="type parameter in JepGrid">T</A>&gt;</CODE><DT><B>Overrides:</B><DD><CODE>setRowData</CODE> in class <CODE>com.google.gwt.user.cellview.client.AbstractHasData&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html" title="type parameter in JepGrid">T</A>&gt;</CODE></DL>
-</DD>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
 <A NAME="addRowOrderChangerHandler(com.technology.jep.jepria.client.widget.list.event.RowOrderChangeEvent.Handler)"><!-- --></A><H3>
 addRowOrderChangerHandler</H3>
 <PRE>
@@ -1034,7 +1054,7 @@ public com.google.gwt.event.shared.HandlerRegistration <B>addRowOrderChangerHand
 <DD>Add a handler to handle <A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/event/RowOrderChangeEvent.html" title="class in com.technology.jep.jepria.client.widget.list.event"><CODE>RowOrderChangeEvent</CODE></A>s.
 <P>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>handler</CODE> - the <CODE>RowOrderChangeEvent.Handler</CODE> to add
+<DT><B>Parameters:</B><DD><CODE>handler</CODE> - the <A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/event/RowOrderChangeEvent.Handler.html" title="interface in com.technology.jep.jepria.client.widget.list.event"><CODE>RowOrderChangeEvent.Handler</CODE></A> to add
 <DT><B>Returns:</B><DD>a <CODE>HandlerRegistration</CODE> to remove the handler</DL>
 </DD>
 </DL>
@@ -1043,7 +1063,7 @@ public com.google.gwt.event.shared.HandlerRegistration <B>addRowOrderChangerHand
 <A NAME="getRowIndexByEvent(com.google.gwt.event.dom.client.DomEvent)"><!-- --></A><H3>
 getRowIndexByEvent</H3>
 <PRE>
-public int <B>getRowIndexByEvent</B>(com.google.gwt.event.dom.client.DomEvent&nbsp;event)</PRE>
+public int <B>getRowIndexByEvent</B>(com.google.gwt.event.dom.client.DomEvent&lt;?&gt;&nbsp;event)</PRE>
 <DL>
 <DD><DL>
 </DL>
@@ -1109,7 +1129,7 @@ public com.google.gwt.event.shared.HandlerRegistration <B>addDropHandler</B>(com
 <A NAME="getContentWidget()"><!-- --></A><H3>
 getContentWidget</H3>
 <PRE>
-public com.google.gwt.user.client.ui.Widget <B>getContentWidget</B>()</PRE>
+public com.google.gwt.user.client.ui.ScrollPanel <B>getContentWidget</B>()</PRE>
 <DL>
 <DD><DL>
 </DL>
@@ -1133,6 +1153,57 @@ isDNDEnabled</H3>
 <PRE>
 boolean <B>isDNDEnabled</B>()</PRE>
 <DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="isCursorAboveElementCenter(com.google.gwt.dom.client.Element, com.google.gwt.dom.client.NativeEvent)"><!-- --></A><H3>
+isCursorAboveElementCenter</H3>
+<PRE>
+private boolean <B>isCursorAboveElementCenter</B>(com.google.gwt.dom.client.Element&nbsp;rowElement,
+                                           com.google.gwt.dom.client.NativeEvent&nbsp;event)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="replaceAllChildren(java.util.List, com.google.gwt.safehtml.shared.SafeHtml)"><!-- --></A><H3>
+replaceAllChildren</H3>
+<PRE>
+protected void <B>replaceAllChildren</B>(java.util.List&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html" title="type parameter in JepGrid">T</A>&gt;&nbsp;values,
+                                  com.google.gwt.safehtml.shared.SafeHtml&nbsp;html)</PRE>
+<DL>
+<DD>
+ Особенности:<br/>
+ После переинициализации новых данных, каждая строка грида становится доступной для перетаскивания.
+<P>
+<DD><DL>
+<DT><B>Overrides:</B><DD><CODE>replaceAllChildren</CODE> in class <CODE>com.google.gwt.user.cellview.client.AbstractCellTable&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html" title="type parameter in JepGrid">T</A>&gt;</CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="replaceChildren(java.util.List, int, com.google.gwt.safehtml.shared.SafeHtml)"><!-- --></A><H3>
+replaceChildren</H3>
+<PRE>
+protected void <B>replaceChildren</B>(java.util.List&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html" title="type parameter in JepGrid">T</A>&gt;&nbsp;values,
+                               int&nbsp;start,
+                               com.google.gwt.safehtml.shared.SafeHtml&nbsp;html)</PRE>
+<DL>
+<DD>
+ Особенности:<br/>
+ После выбора строки, выбранная строка вновь доступна для перетаскивания.
+<P>
+<DD><DL>
+<DT><B>Overrides:</B><DD><CODE>replaceChildren</CODE> in class <CODE>com.google.gwt.user.cellview.client.AbstractCellTable&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html" title="type parameter in JepGrid">T</A>&gt;</CODE></DL>
+</DD>
 <DD><DL>
 </DL>
 </DD>

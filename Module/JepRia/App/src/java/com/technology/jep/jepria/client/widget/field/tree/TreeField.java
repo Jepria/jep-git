@@ -51,6 +51,9 @@ import com.technology.jep.jepria.shared.field.option.JepOption;
 import com.technology.jep.jepria.shared.field.option.JepParentOption;
 import com.technology.jep.jepria.shared.util.JepRiaUtil;
 
+/**
+ * Класс, представляющий реализацию поля выбора в виде древовидной иерархии.
+ */
 public class TreeField<V extends JepOption> extends ScrollPanel implements HasCheckChangeHandlers<V> {
 	
 	/**
@@ -89,8 +92,14 @@ public class TreeField<V extends JepOption> extends ScrollPanel implements HasCh
 		PARENT;
 	}
 
-	
+	/**
+	 * Виджет, позволяющий представить иерархию выбора в виде дерева.
+	 */
 	private CellTree tree;
+	
+	/**
+	 * Загрузчик данных для данного компонента.
+	 */
 	private DataLoader<V> loader;
 	
 	/**
@@ -105,26 +114,52 @@ public class TreeField<V extends JepOption> extends ScrollPanel implements HasCh
 	 */
 	private V openingNode;
 	
-	
+	/**
+	 * Наименование селектора (класса стилей) для данного компонента
+	 */
 	private static final String JEP_RIA_TREE_FIELD_STYLE = "jepRia-TreeField-Input";
 	
+	/**
+	 * Карта соответствия узла дерева с его логическим представлением.
+	 */
 	private Map<V, TreeNodeInfo<V>> nodeMapOfDisplay = new HashMap<V, TreeNodeInfo<V>>();
 	
 	/* Resources: texts and images */
 	private TreeFieldMessages messages = new TreeFieldMessages();
 	private TreeFieldResources images = GWT.create(TreeFieldResources.class);
 	
+	/**
+	 * Признак возможного выбора в древовидном справочнике (по умолчанию, выбор как родительских, так и листовых узлов). 
+	 */
 	private CheckNodes checkNodes = CheckNodes.BOTH;
+	
+	/**
+	 * Стиль выбора узла и зависимых от него узлов (по умолчанию, выбор только самого себя).
+	 */
 	private CheckCascade checkStyle = CheckCascade.NONE;
 	
+	/**
+	 * Модель множественного выбора узлов дерева.
+	 */
 	private SetSelectionModel<V> selectionModel;
 	
+	/**
+	 * Возможность выбора узлов дерева (по умолчанию, допускается выделение узлов). 
+	 */
 	private boolean checkable = true;
 	
+	/**
+	 * Создает экземпляры данного класса.
+	 */
 	public TreeField(){
 		addStyleName(JEP_RIA_TREE_FIELD_STYLE);
 	}
 	
+	/**
+	 * Устанавливает значение текущего загрузчика данных.
+	 * 
+	 * @param dataLoader		инциализируемый загрузчик данных
+	 */
 	public void setLoader(DataLoader<V> dataLoader){
 		this.loader = dataLoader;
 		
@@ -225,10 +260,20 @@ public class TreeField<V extends JepOption> extends ScrollPanel implements HasCh
 		});
 	}
 
+	/**
+	 * Получает список выбранных узлов в компоненте.
+	 * 
+	 * @return	список узлов дерева
+	 */
 	public List<V> getCheckedSelection() {
 		return new ArrayList<V>(selectionModel.getSelectedSet());
 	}
 	
+	/**
+	 * Устанавливает список частично выбранных узлов дерева (без необходимости получения информации о его потомках).
+	 * 
+	 * @param list	список узлов дерева
+	 */
 	public void setPartialSelected(List<V> list){
 		if (!JepRiaUtil.isEmpty(list) && !list.isEmpty()){
 			this.partialSelectedNodes = list;
@@ -238,6 +283,11 @@ public class TreeField<V extends JepOption> extends ScrollPanel implements HasCh
 		}
 	}
 	
+	/**
+	 * Размещает указанный узел дерева в области видимости пользователя.
+	 * 
+	 * @param value		узел дерева
+	 */
 	public void ensureVisible(V value){
 		Element cellTreeElement = getWidget().getElement();
 		NodeList<Element> spanNodes = cellTreeElement.getElementsByTagName("span");
@@ -249,6 +299,9 @@ public class TreeField<V extends JepOption> extends ScrollPanel implements HasCh
 		}
 	}
 	
+	/**
+	 * Сбрасывает текущее выбранные узлы, в том числе и частично выбранные.
+	 */
 	public void clearSelection(){
 		// очищаем логический список частично выделенных узлов
 		partialSelectedNodes.clear();
@@ -258,10 +311,22 @@ public class TreeField<V extends JepOption> extends ScrollPanel implements HasCh
 		}
 	}
 
+	/**
+	 * Привязывается обработчик выбора узла к компоненту. 
+	 * 
+	 * @param handler		обработчки выбора узла
+	 */
 	public HandlerRegistration addCheckChangeHandler(CheckChangeHandler<V> handler) {
 		return addHandler(handler, CheckChangeEvent.getType());
 	}
 	
+	/**
+	 * Проверка развернутости указанного узла дерева
+	 * 
+	 * @param node		раскрываемый узел, среди потомков которого ищется узел дерева 	
+	 * @param value		проверяемый узел дерева
+	 * @return		логический признак открытости
+	 */
 	@SuppressWarnings("unchecked")
 	public boolean isNodeOpened(TreeNode node, V value){
 		for(int i = 0; i < node.getChildCount(); i++){
@@ -278,14 +343,29 @@ public class TreeField<V extends JepOption> extends ScrollPanel implements HasCh
 		return false;
 	}
 	
+	/**
+	 * Проверка развернутости указанного узла дерева.
+	 *  	
+	 * @param value		проверяемый узел дерева
+	 * @return		логический признак открытости
+	 */
 	public boolean isNodeOpened(V value){
 		return !JepRiaUtil.isEmpty(getChildrenNodes(value)) && isNodeOpened(tree.getRootTreeNode(), value);
 	}
 	
+	/**
+	 * Проверка узла дерева на наличие потомков.
+	 *  	
+	 * @param value		проверяемый узел дерева
+	 * @return		логический признак открытости
+	 */
 	public boolean isLeaf(Object value) {
 		return JepRiaUtil.isEmpty(value) ? false : !(value instanceof JepParentOption);
 	}
 	
+	/**
+	 * Показывает текущий компонент.
+	 */
 	public void showTree(){
 		if (JepRiaUtil.isEmpty(getWidget())) {
 			setWidget(tree);
@@ -293,10 +373,22 @@ public class TreeField<V extends JepOption> extends ScrollPanel implements HasCh
 		}
 	}
 	
+	/**
+	 * Проверяет является ли указанный узел дерева выбранным.
+	 * 
+	 * @param value			узел дерева
+	 * @return		логический признак выбора узла
+	 */
 	public boolean isSelected(V value){
 		return selectionModel.isSelected(value);
 	}
 	
+	/**
+	 * Устанавливает или снимает выбор для заданного узла дерева.
+	 * 
+	 * @param value			узел дерева	
+	 * @param checked		признак выбора
+	 */
 	public void setChecked(V value, boolean checked){
 		selectionModel.setSelected(value, checked);
 	}
@@ -325,6 +417,13 @@ public class TreeField<V extends JepOption> extends ScrollPanel implements HasCh
 		return null;
 	}
 	
+	/**
+	 * Search specified node in the tree beginning from root. Expand or collapse it. And return founded node or null if it's leaf. 
+	 * 
+	 * @param value				specified value
+	 * @param expand			flag to expand or collapse this node
+	 * @return reference of current node 
+	 */
 	public TreeNode setExpanded(V value, boolean expand){
 		TreeNode rootNode = tree.getRootTreeNode();
 		// if current node - root one
@@ -339,6 +438,9 @@ public class TreeField<V extends JepOption> extends ScrollPanel implements HasCh
 		return setExpanded(rootNode, value, expand);
 	}
 	
+	/**
+	 * Сворачивает все узлы дерева.
+	 */
 	public void collapseAll(){
 		setExpanded(null, false);
 	}
@@ -353,27 +455,59 @@ public class TreeField<V extends JepOption> extends ScrollPanel implements HasCh
 		((TreeModel) tree.getTreeViewModel()).refreshNode(node);
 	}
 	
+	/**
+	 * Устанавливает признак возможного выбора узлов в дереве. 
+	 * 
+	 * @param checkNodes		признак возможного выбора
+	 */
 	public void setCheckNodes(CheckNodes checkNodes) {
 		this.checkNodes = checkNodes;
 	}
 
+	/**
+	 * Устанавливает стиль выбора узлов в дереве. 
+	 * 
+	 * @param checkStyle		признак возможного выбора
+	 */
 	public void setCheckStyle(CheckCascade checkStyle) {
 		this.checkStyle = checkStyle;
 	}
 	
+	/**
+	 * Устанавливает или блокирует выбор узлов дерева. 
+	 * 
+	 * @param checkable		признак возможного выбора
+	 */
 	public void setCheckable(boolean checkable){
 		this.checkable = checkable;
 	}
 	
+	/**
+	 * Устанавливает или снимает границы компонента.
+	 * 
+	 * @param borders		признак наличия границ компонента
+	 */
 	public void setBorders(boolean borders){
 		getElement().getStyle().setProperty("border", borders ? "1px solid #ccc" : "none");
 	}
 	
+	/**
+	 * Получает список узлов-потомков указанного узла дерева.
+	 * 
+	 * @param node		узел дерева
+	 * @return список узлов-потомков
+	 */
 	public List<V> getChildrenNodes(V node){
 		TreeNodeInfo<V> info = getNodeInfoByValue(node);
 		return JepRiaUtil.isEmpty(info) ? null : info.getData();
 	}
 	
+	/**
+	 * Получает логическое описание узла дерева.
+	 * 
+	 * @param node		узел дерева
+	 * @return логическое описание дерева
+	 */
 	public TreeNodeInfo<V> getNodeInfoByValue(V node){
 		// check: is node a leaf
 		if (isLeaf(node)) return null;
@@ -387,10 +521,19 @@ public class TreeField<V extends JepOption> extends ScrollPanel implements HasCh
 		return null;
 	}
 	
+	/**
+	 * Модель представления данных в компоненте.
+	 */
 	class TreeModel implements TreeViewModel {
 		
+		/**
+		 * Провайдер данных.
+		 */
 		private TreeDataProvider provider;
 		
+		/**
+		 * Менеджер для управления выбором узлов дерева.
+		 */
 		private final DefaultSelectionEventManager<V> selectionManager =
 			DefaultSelectionEventManager.createCustomManager(new EventTranslator<V>(){
 				@Override
@@ -415,6 +558,11 @@ public class TreeField<V extends JepOption> extends ScrollPanel implements HasCh
 				}
 			});
 		
+		/**
+		 * Получает информацию о текущем узле.
+		 * 
+		 * @param value 	узел дерева
+		 */
 		@SuppressWarnings("unchecked")
 		public <T> NodeInfo<?> getNodeInfo(T value) {
 			provider = new TreeDataProvider((V) value);
@@ -577,10 +725,20 @@ public class TreeField<V extends JepOption> extends ScrollPanel implements HasCh
 			return new DefaultNodeInfo<V>(provider, compositeCell, selectionModel, selectionManager, null);
 		}
 
+		/**
+		 * Проверка, что указанный узел дерева является листовым.
+		 * 
+		 * @param value 	узел дерева
+		 */
 		public boolean isLeaf(Object value) {
 			return TreeField.this.isLeaf(value);
 		}
 		
+		/**
+		 * Обновляет информацию об узле дерева.
+		 * 
+		 * @param value		узел дерева
+		 */
 		public void refreshNode(V value){
 			provider.refreshNode(value);
 		}
@@ -591,8 +749,16 @@ public class TreeField<V extends JepOption> extends ScrollPanel implements HasCh
 	 */
 	class TreeDataProvider extends AsyncDataProvider<V> {
 		
+		/**
+		 * Раскрываемый узел
+		 */
 		private V expandNode;
 		
+		/**
+		 * Создает провайдер данных для раскрываемого узла.
+		 * 
+		 * @param node		узел дерева
+		 */
 		public TreeDataProvider(V node){
 			this.expandNode = node;
 		}
@@ -642,11 +808,22 @@ public class TreeField<V extends JepOption> extends ScrollPanel implements HasCh
 			}
 		}		
 		
+		/**
+		 * Обновляет текущее отображение списка указанных узлов дерева.
+		 * 
+		 * @param display		отображение узла дерева
+		 * @param data			список узлов дерева
+		 */
 		public void refreshDisplay(HasData<V> display, List<V> data){
 			display.setRowData(display.getVisibleRange().getStart(), data);
 			display.setRowCount(data.size(), true);
 		}
 		
+		/**
+		 * Обновляет отображение указанного узла дерева.
+		 * 
+		 * @param value			узел дерева
+		 */
 		public void refreshNode(V value){
 			// Если узел листовой или не получена информация о его детях
 			if (!partialSelectedNodes.contains(value) && JepRiaUtil.isEmpty(getChildrenNodes(value))) return; 

@@ -348,10 +348,10 @@ public class JepGrid<T> extends DataGrid<T> {
 	}
 	
 	/**
-	 * Add a handler to handle {@link RowOrderChangeEvent}s.
+	 * Add a handler to handle {@link com.technology.jep.jepria.client.widget.list.event.RowOrderChangeEvent}s.
 	 * 
-	 * @param handler the {@link RowOrderChangeEvent.Handler} to add
-	 * @return a {@link HandlerRegistration} to remove the handler
+	 * @param handler the {@link com.technology.jep.jepria.client.widget.list.event.RowOrderChangeEvent.Handler} to add
+	 * @return a {@link com.google.gwt.event.shared.HandlerRegistration} to remove the handler
 	 */
 	public HandlerRegistration addRowOrderChangerHandler(RowOrderChangeEvent.Handler handler) {
 		return addHandler(handler, RowOrderChangeEvent.getType());

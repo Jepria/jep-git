@@ -219,13 +219,14 @@ java.lang.Object
 <TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/TreeGridManager.html#bindTree()">bindTree</A></B>()</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Инициализация.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Инициализация древовидной списочной формы.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/TreeGridManager.html#changeRows(int, int)">changeRows</A></B>(int&nbsp;oldIndex,
-           int&nbsp;newIndex)</CODE>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/TreeGridManager.html#changeRows(int, int, boolean)">changeRows</A></B>(int&nbsp;oldIndex,
+           int&nbsp;newIndex,
+           boolean&nbsp;isAbove)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Изменение позиции элементов виджета</TD>
@@ -297,10 +298,10 @@ java.lang.Object
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/TreeGridManager.html#initKeysFromRecordDefinition(com.technology.jep.jepria.shared.record.JepRecordDefinition)">initKeysFromRecordDefinition</A></B>(<A HREF="../../../../../../../com/technology/jep/jepria/shared/record/JepRecordDefinition.html" title="class in com.technology.jep.jepria.shared.record">JepRecordDefinition</A>&nbsp;recordDefinition)</CODE>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/TreeGridManager.html#initPrimaryKey(com.technology.jep.jepria.shared.record.JepRecordDefinition)">initPrimaryKey</A></B>(<A HREF="../../../../../../../com/technology/jep/jepria/shared/record/JepRecordDefinition.html" title="class in com.technology.jep.jepria.shared.record">JepRecordDefinition</A>&nbsp;recordDefinition)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Инициализируем названия ключей для работы с деревом по recordDefinition.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Инициализация простого первичного ключа по record definition.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -550,16 +551,16 @@ public java.lang.String <B>getPrimaryKeyName</B>()</PRE>
 </DL>
 <HR>
 
-<A NAME="initKeysFromRecordDefinition(com.technology.jep.jepria.shared.record.JepRecordDefinition)"><!-- --></A><H3>
-initKeysFromRecordDefinition</H3>
+<A NAME="initPrimaryKey(com.technology.jep.jepria.shared.record.JepRecordDefinition)"><!-- --></A><H3>
+initPrimaryKey</H3>
 <PRE>
-public void <B>initKeysFromRecordDefinition</B>(<A HREF="../../../../../../../com/technology/jep/jepria/shared/record/JepRecordDefinition.html" title="class in com.technology.jep.jepria.shared.record">JepRecordDefinition</A>&nbsp;recordDefinition)</PRE>
+public void <B>initPrimaryKey</B>(<A HREF="../../../../../../../com/technology/jep/jepria/shared/record/JepRecordDefinition.html" title="class in com.technology.jep.jepria.shared.record">JepRecordDefinition</A>&nbsp;recordDefinition)</PRE>
 <DL>
-<DD>Инициализируем названия ключей для работы с деревом по recordDefinition. <br>
- Для нестандартных случаев, есть set-методы
+<DD>Инициализация простого первичного ключа по record definition. <br>
+ Для установки произвольного значения первичного ключа следует использовать метод <A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/TreeGridManager.html#setPrimaryKeyName(java.lang.String)"><CODE>setPrimaryKeyName(String)</CODE></A>
 <P>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>recordDefinition</CODE> - </DL>
+<DT><B>Parameters:</B><DD><CODE>recordDefinition</CODE> - ссылка на описание записи</DL>
 </DD>
 </DL>
 <HR>
@@ -582,8 +583,8 @@ bindTree</H3>
 <PRE>
 public void <B>bindTree</B>()</PRE>
 <DL>
-<DD>Инициализация. <br/> 
- Выставляет привязку в <A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/cell/TreeCell.html" title="class in com.technology.jep.jepria.client.widget.list.cell"><CODE>TreeCell</CODE></A> к <A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/TreeGridManager.html" title="class in com.technology.jep.jepria.client.widget.list"><CODE>TreeGridManager</CODE></A>
+<DD>Инициализация древовидной списочной формы. <br/> 
+ Осуществляется связывание <A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/cell/TreeCell.html" title="class in com.technology.jep.jepria.client.widget.list.cell"><CODE>TreeCell</CODE></A> или <A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/cell/EditTreeCell.html" title="class in com.technology.jep.jepria.client.widget.list.cell"><CODE>EditTreeCell</CODE></A> к <A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/TreeGridManager.html" title="class in com.technology.jep.jepria.client.widget.list"><CODE>TreeGridManager</CODE></A>
 <P>
 <DD><DL>
 </DL>
@@ -735,21 +736,22 @@ public java.util.List&lt;<A HREF="../../../../../../../com/technology/jep/jepria
 </DL>
 <HR>
 
-<A NAME="changeRows(int, int)"><!-- --></A><H3>
+<A NAME="changeRows(int, int, boolean)"><!-- --></A><H3>
 changeRows</H3>
 <PRE>
 public void <B>changeRows</B>(int&nbsp;oldIndex,
-                       int&nbsp;newIndex)</PRE>
+                       int&nbsp;newIndex,
+                       boolean&nbsp;isAbove)</PRE>
 <DL>
 <DD>Изменение позиции элементов виджета
  Особенности реализации:<br/>
  Перед заменой строк древовидного справочника перетаскиваемые узлы схлопываются, если они ранее были раскрыты.
 <P>
 <DD><DL>
-<DT><B>Overrides:</B><DD><CODE><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/PagingManager.html#changeRows(int, int)">changeRows</A></CODE> in class <CODE><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/PagingManager.html" title="class in com.technology.jep.jepria.client.widget.list">PagingManager</A>&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/TreeGridManager.html" title="type parameter in TreeGridManager">W</A> extends com.google.gwt.user.cellview.client.AbstractCellTable&lt;<A HREF="../../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</A>&gt;,<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/TreeGridManager.html" title="type parameter in TreeGridManager">P</A> extends <A HREF="../../../../../../../com/technology/jep/jepria/client/widget/toolbar/PagingToolBar.html" title="interface in com.technology.jep.jepria.client.widget.toolbar">PagingToolBar</A>,<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/TreeGridManager.html" title="type parameter in TreeGridManager">S</A> extends com.google.gwt.view.client.SetSelectionModel&lt;<A HREF="../../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</A>&gt;&gt;</CODE></DL>
+<DT><B>Overrides:</B><DD><CODE><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/PagingManager.html#changeRows(int, int, boolean)">changeRows</A></CODE> in class <CODE><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/PagingManager.html" title="class in com.technology.jep.jepria.client.widget.list">PagingManager</A>&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/TreeGridManager.html" title="type parameter in TreeGridManager">W</A> extends com.google.gwt.user.cellview.client.AbstractCellTable&lt;<A HREF="../../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</A>&gt;,<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/TreeGridManager.html" title="type parameter in TreeGridManager">P</A> extends <A HREF="../../../../../../../com/technology/jep/jepria/client/widget/toolbar/PagingToolBar.html" title="interface in com.technology.jep.jepria.client.widget.toolbar">PagingToolBar</A>,<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/TreeGridManager.html" title="type parameter in TreeGridManager">S</A> extends com.google.gwt.view.client.SetSelectionModel&lt;<A HREF="../../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</A>&gt;&gt;</CODE></DL>
 </DD>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>oldIndex</CODE> - "старый" индекс элемента<DD><CODE>newIndex</CODE> - "новый" индекс элемента</DL>
+<DT><B>Parameters:</B><DD><CODE>oldIndex</CODE> - "старый" индекс элемента<DD><CODE>newIndex</CODE> - "новый" индекс элемента<DD><CODE>isAbove</CODE> - признак замены элемента выше стоящего</DL>
 </DD>
 </DL>
 <HR>

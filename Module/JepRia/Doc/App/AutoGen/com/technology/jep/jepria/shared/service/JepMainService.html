@@ -128,7 +128,7 @@ Interface JepMainService</H2>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
+<CODE>&nbsp;java.lang.String</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/shared/service/JepMainService.html#logout()">logout</A></B>()</CODE>
 
 <BR>
@@ -168,7 +168,8 @@ getUserData</H3>
 <A NAME="logout()"><!-- --></A><H3>
 logout</H3>
 <PRE>
-void <B>logout</B>()</PRE>
+java.lang.String <B>logout</B>()
+                        throws java.lang.Exception</PRE>
 <DL>
 <DD>Выход (logout) текущего пользователя из SSO.
 <P>
@@ -176,7 +177,10 @@ void <B>logout</B>()</PRE>
 </DL>
 </DD>
 <DD><DL>
-</DL>
+
+<DT><B>Returns:</B><DD>Url, по которому нужно перейти в результате Logout
+<DT><B>Throws:</B>
+<DD><CODE>java.lang.Exception</CODE></DL>
 </DD>
 </DL>
 <!-- ========= END OF CLASS DATA ========= -->

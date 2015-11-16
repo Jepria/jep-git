@@ -38,7 +38,7 @@ import com.technology.jep.jepria.shared.load.PagingResult;
 import com.technology.jep.jepria.shared.record.JepRecord;
 
 /**
- * Класс управления списком наследником
+ * Класс управления списком наследников
  * <code>com.google.gwt.user.cellview.client.AbstractHasData</code>.<br/>
  * <br/>
  * Концепция поддержки обработки событий отражена в описании пакета
@@ -78,16 +78,16 @@ public class PagingManager<W extends AbstractHasData<JepRecord>, P extends Pagin
 	/**
 	 * Установка компонента-списка, действиями с которым, управляет класс.
 	 * 
-	 * @param widget
-	 *            компонент-список, действиями с которым, управляет класс
+	 * @param widget компонент-список, действиями с которым, управляет класс
 	 */
 	public void setWidget(W widget) {
 		super.setWidget(widget);
 
 		dataProvider.addDataDisplay(widget);
 		
-		// Если для грида доступен DragAndDrop, необходимо добавить возможность 
-		// изменения позиций строк
+		// В силу универсальности используемого виджета, необходима дополнительная проверка на его тип.
+		// Если тип виджета - JepGrid, проверяется доступность DragAndDrop и в случае необходимости 
+		// добавляется возможность изменения позиций строк.
 		if (widget instanceof JepGrid<?>){
 			JepGrid<?> grid = (JepGrid<?>) widget;
 			if (grid.isDNDEnabled()) {
@@ -104,8 +104,7 @@ public class PagingManager<W extends AbstractHasData<JepRecord>, P extends Pagin
 	/**
 	 * Установка списка значений в компонент-списка.
 	 * 
-	 * @param list
-	 *            список значений
+	 * @param list список значений
 	 */
 	public void set(List<JepRecord> list) {
 		dataProvider.setList(list);
@@ -125,8 +124,7 @@ public class PagingManager<W extends AbstractHasData<JepRecord>, P extends Pagin
 	/**
 	 * Установка объекта-результата поиска в компонент-списка.
 	 * 
-	 * @param pagingResult
-	 *            объект-результат поиска
+	 * @param pagingResult объект-результат поиска
 	 */
 	public void set(PagingResult<JepRecord> pagingResult) {
 		List<JepRecord> data = pagingResult.getData();
@@ -194,8 +192,7 @@ public class PagingManager<W extends AbstractHasData<JepRecord>, P extends Pagin
 	/**
 	 * Удаление записи из списка
 	 * 
-	 * @param index
-	 *            номер записи
+	 * @param index номер записи
 	 */
 	public void remove(int index) {
 		dataProvider.getList().remove(index);
@@ -206,8 +203,7 @@ public class PagingManager<W extends AbstractHasData<JepRecord>, P extends Pagin
 	/**
 	 * Удаление записи из списка
 	 * 
-	 * @param record
-	 *            запись
+	 * @param record запись
 	 */
 	public void remove(JepRecord record) {
 		dataProvider.getList().remove(record);
@@ -218,9 +214,7 @@ public class PagingManager<W extends AbstractHasData<JepRecord>, P extends Pagin
 	/**
 	 * Изменение записи в списке
 	 * 
-	 * @param record
-	 *            запись (экземпляр, предварительно полученный с помощью get(int
-	 *            index))
+	 * @param record запись (экземпляр, предварительно полученный с помощью get(int index))
 	 */
 	public void update(JepRecord record) {
 		int i = dataProvider.getList().indexOf(record);
@@ -230,10 +224,8 @@ public class PagingManager<W extends AbstractHasData<JepRecord>, P extends Pagin
 	/**
 	 * Изменение записи в списке (по порядковому номеру)
 	 * 
-	 * @param index
-	 *            номер записи
-	 * @param record
-	 *            запись
+	 * @param index номер записи
+	 * @param record запись
 	 */
 	public void update(int index, JepRecord record) {
 		JepRecord oldRecord = dataProvider.getList().get(index);
@@ -244,8 +236,7 @@ public class PagingManager<W extends AbstractHasData<JepRecord>, P extends Pagin
 	/**
 	 * Получение записи из списка (по порядковому номеру)
 	 * 
-	 * @param index
-	 *            номер записи
+	 * @param index номер записи
 	 * 
 	 * @return запись
 	 */
@@ -283,10 +274,8 @@ public class PagingManager<W extends AbstractHasData<JepRecord>, P extends Pagin
 	 * Концепция поддержки обработки событий и пример реализации метода отражен
 	 * в описании пакета {@link com.technology.jep.jepria.client.widget}.
 	 * 
-	 * @param eventType
-	 *            тип события
-	 * @param listener
-	 *            слушатель
+	 * @param eventType тип события
+	 * @param listener слушатель
 	 */
 	public void addListener(JepEventType eventType, JepListener listener) {
 		switch (eventType) {
@@ -422,6 +411,8 @@ public class PagingManager<W extends AbstractHasData<JepRecord>, P extends Pagin
 	 * .
 	 */
 	protected void addDragStartListener(){
+		// В силу универсальности используемого виджета, необходима дополнительная проверка на его тип.
+		// Если тип виджета - JepGrid, добавление слушателя осуществляется путем привязывания обработчика к прокручиваемой панели грида, 
 		if (widget instanceof JepGrid<?>){
 			final JepGrid<?> grid = (JepGrid<?>) widget;
 			grid.addDragStartHandler(new DragStartHandler() {
@@ -431,6 +422,7 @@ public class PagingManager<W extends AbstractHasData<JepRecord>, P extends Pagin
 				}
 			});
 		}
+		// в противном случае - к самому виджету.
 		else {
 			widget.addDomHandler(new DragStartHandler() {
 				@Override
@@ -447,6 +439,8 @@ public class PagingManager<W extends AbstractHasData<JepRecord>, P extends Pagin
 	 * .
 	 */
 	protected void addDragOverListener(){
+		// В силу универсальности используемого виджета, необходима дополнительная проверка на его тип.
+		// Если тип виджета - JepGrid, добавление слушателя осуществляется путем привязывания обработчика к прокручиваемой панели грида, 
 		if (widget instanceof JepGrid<?>){
 			final JepGrid<?> grid = (JepGrid<?>) widget;
 			grid.addDragOverHandler(new DragOverHandler() {
@@ -456,6 +450,7 @@ public class PagingManager<W extends AbstractHasData<JepRecord>, P extends Pagin
 				}
 			});
 		}
+		// в противном случае - к самому виджету.
 		else {
 			widget.addDomHandler(new DragOverHandler() {
 				@Override
@@ -472,6 +467,8 @@ public class PagingManager<W extends AbstractHasData<JepRecord>, P extends Pagin
 	 * .
 	 */
 	protected void addDragLeaveListener(){
+		// В силу универсальности используемого виджета, необходима дополнительная проверка на его тип.
+		// Если тип виджета - JepGrid, добавление слушателя осуществляется путем привязывания обработчика к прокручиваемой панели грида,
 		if (widget instanceof JepGrid<?>){
 			final JepGrid<?> grid = (JepGrid<?>) widget;
 			grid.addDragLeaveHandler(new DragLeaveHandler() {
@@ -481,6 +478,7 @@ public class PagingManager<W extends AbstractHasData<JepRecord>, P extends Pagin
 				}
 			});
 		}
+		// в противном случае - к самому виджету.
 		else {
 			widget.addDomHandler(new DragLeaveHandler() {
 				@Override
@@ -497,6 +495,8 @@ public class PagingManager<W extends AbstractHasData<JepRecord>, P extends Pagin
 	 * .
 	 */
 	protected void addDropListener(){
+		// В силу универсальности используемого виджета, необходима дополнительная проверка на его тип.
+		// Если тип виджета - JepGrid, добавление слушателя осуществляется путем привязывания обработчика к прокручиваемой панели грида,
 		if (widget instanceof JepGrid<?>){
 			final JepGrid<?> grid = (JepGrid<?>) widget;
 			grid.addDropHandler(new DropHandler() {
@@ -506,6 +506,7 @@ public class PagingManager<W extends AbstractHasData<JepRecord>, P extends Pagin
 				}
 			});
 		}
+		// в противном случае - к самому виджету.
 		else {
 			widget.addDomHandler(new DropHandler() {
 				@Override

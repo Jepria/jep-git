@@ -93,7 +93,7 @@ Interface JepSecurityModule</H2>
 <DT><B>All Superinterfaces:</B> <DD>java.util.EventListener, javax.servlet.http.HttpSessionBindingListener</DD>
 </DL>
 <DL>
-<DT><B>All Known Implementing Classes:</B> <DD><A HREF="../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html" title="class in com.technology.jep.jepria.server.security">JepAbstractSecurityModule</A>, <A HREF="../../../../../../com/technology/jep/jepria/server/security/cas/JepSecurityModule_CAS.html" title="class in com.technology.jep.jepria.server.security.cas">JepSecurityModule_CAS</A>, <A HREF="../../../../../../com/technology/jep/jepria/server/security/oc4j/JepSecurityModule_OC4J.html" title="class in com.technology.jep.jepria.server.security.oc4j">JepSecurityModule_OC4J</A>, <A HREF="../../../../../../com/technology/jep/jepria/server/security/weblogic/JepSecurityModule_WL.html" title="class in com.technology.jep.jepria.server.security.weblogic">JepSecurityModule_WL</A></DD>
+<DT><B>All Known Implementing Classes:</B> <DD><A HREF="../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html" title="class in com.technology.jep.jepria.server.security">JepAbstractSecurityModule</A>, <A HREF="../../../../../../com/technology/jep/jepria/server/security/cas/JepSecurityModule_CAS.html" title="class in com.technology.jep.jepria.server.security.cas">JepSecurityModule_CAS</A>, <A HREF="../../../../../../com/technology/jep/jepria/server/security/oc4j/JepSecurityModule_OC4J.html" title="class in com.technology.jep.jepria.server.security.oc4j">JepSecurityModule_OC4J</A></DD>
 </DL>
 <HR>
 <DL>
@@ -156,7 +156,7 @@ Interface JepSecurityModule</H2>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
+<CODE>&nbsp;java.lang.String</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/security/JepSecurityModule.html#logout(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)">logout</A></B>(javax.servlet.http.HttpServletRequest&nbsp;request,
        javax.servlet.http.HttpServletResponse&nbsp;response)</CODE>
 
@@ -231,14 +231,17 @@ java.lang.String <B>getUsername</B>()</PRE>
 <A NAME="logout(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)"><!-- --></A><H3>
 logout</H3>
 <PRE>
-void <B>logout</B>(javax.servlet.http.HttpServletRequest&nbsp;request,
-            javax.servlet.http.HttpServletResponse&nbsp;response)</PRE>
+java.lang.String <B>logout</B>(javax.servlet.http.HttpServletRequest&nbsp;request,
+                        javax.servlet.http.HttpServletResponse&nbsp;response)
+                        throws java.lang.Exception</PRE>
 <DL>
 <DD><DL>
 </DL>
 </DD>
 <DD><DL>
-</DL>
+
+<DT><B>Throws:</B>
+<DD><CODE>java.lang.Exception</CODE></DL>
 </DD>
 </DL>
 <HR>

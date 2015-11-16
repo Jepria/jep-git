@@ -142,6 +142,14 @@ java.lang.Object
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/event/RowOrderChangeEvent.html#isAbove">isAbove</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>private &nbsp;int</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/event/RowOrderChangeEvent.html#newIndex">newIndex</A></B></CODE>
 
@@ -175,8 +183,9 @@ java.lang.Object
 <B>Constructor Summary</B></FONT></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/event/RowOrderChangeEvent.html#RowOrderChangeEvent(int, int)">RowOrderChangeEvent</A></B>(int&nbsp;oldIndex,
-                    int&nbsp;newIndex)</CODE>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/event/RowOrderChangeEvent.html#RowOrderChangeEvent(int, int, boolean)">RowOrderChangeEvent</A></B>(int&nbsp;oldIndex,
+                    int&nbsp;newIndex,
+                    boolean&nbsp;isAbove)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -202,9 +211,10 @@ java.lang.Object
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/event/RowOrderChangeEvent.html" title="class in com.technology.jep.jepria.client.widget.list.event">RowOrderChangeEvent</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/event/RowOrderChangeEvent.html#fire(com.google.gwt.event.shared.HasHandlers, int, int)">fire</A></B>(com.google.gwt.event.shared.HasHandlers&nbsp;source,
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/event/RowOrderChangeEvent.html#fire(com.google.gwt.event.shared.HasHandlers, int, int, boolean)">fire</A></B>(com.google.gwt.event.shared.HasHandlers&nbsp;source,
      int&nbsp;oldIndex,
-     int&nbsp;newIndex)</CODE>
+     int&nbsp;newIndex,
+     boolean&nbsp;isAbove)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -240,6 +250,14 @@ java.lang.Object
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Gets the type associated with this event.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/event/RowOrderChangeEvent.html#isAbove()">isAbove</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_com.technology.jep.jepria.client.ui.eventbus.BusEvent"><!-- --></A>
@@ -321,6 +339,16 @@ private final int <B>newIndex</B></PRE>
 <DL>
 </DL>
 </DL>
+<HR>
+
+<A NAME="isAbove"><!-- --></A><H3>
+isAbove</H3>
+<PRE>
+private final boolean <B>isAbove</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
 
 <!-- ========= CONSTRUCTOR DETAIL ======== -->
 
@@ -332,11 +360,12 @@ private final int <B>newIndex</B></PRE>
 </TR>
 </TABLE>
 
-<A NAME="RowOrderChangeEvent(int, int)"><!-- --></A><H3>
+<A NAME="RowOrderChangeEvent(int, int, boolean)"><!-- --></A><H3>
 RowOrderChangeEvent</H3>
 <PRE>
 public <B>RowOrderChangeEvent</B>(int&nbsp;oldIndex,
-                           int&nbsp;newIndex)</PRE>
+                           int&nbsp;newIndex,
+                           boolean&nbsp;isAbove)</PRE>
 <DL>
 </DL>
 
@@ -400,6 +429,17 @@ public int <B>getNewIndex</B>()</PRE>
 </DL>
 <HR>
 
+<A NAME="isAbove()"><!-- --></A><H3>
+isAbove</H3>
+<PRE>
+public boolean <B>isAbove</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
 <A NAME="dispatch(com.technology.jep.jepria.client.widget.list.event.RowOrderChangeEvent.Handler)"><!-- --></A><H3>
 dispatch</H3>
 <PRE>
@@ -414,12 +454,13 @@ protected void <B>dispatch</B>(<A HREF="../../../../../../../../com/technology/j
 </DL>
 <HR>
 
-<A NAME="fire(com.google.gwt.event.shared.HasHandlers, int, int)"><!-- --></A><H3>
+<A NAME="fire(com.google.gwt.event.shared.HasHandlers, int, int, boolean)"><!-- --></A><H3>
 fire</H3>
 <PRE>
 public static <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/event/RowOrderChangeEvent.html" title="class in com.technology.jep.jepria.client.widget.list.event">RowOrderChangeEvent</A> <B>fire</B>(com.google.gwt.event.shared.HasHandlers&nbsp;source,
                                        int&nbsp;oldIndex,
-                                       int&nbsp;newIndex)</PRE>
+                                       int&nbsp;newIndex,
+                                       boolean&nbsp;isAbove)</PRE>
 <DL>
 <DD><DL>
 </DL>

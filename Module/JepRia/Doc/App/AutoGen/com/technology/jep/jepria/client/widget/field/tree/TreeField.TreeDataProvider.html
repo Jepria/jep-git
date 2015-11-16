@@ -53,7 +53,7 @@ function windowTitle()
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.ElementSimplePanel.html" title="class in com.technology.jep.jepria.client.widget.field.tree"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.CheckNodes.html" title="enum in com.technology.jep.jepria.client.widget.field.tree"><B>PREV CLASS</B></A>&nbsp;
 &nbsp;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.TreeModel.html" title="class in com.technology.jep.jepria.client.widget.field.tree"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../../../../../../../index.html?com/technology/jep/jepria/client/widget/field/tree/TreeField.TreeDataProvider.html" target="_top"><B>FRAMES</B></A>  &nbsp;
@@ -128,7 +128,7 @@ A custom <CODE>AsyncDataProvider</CODE>.
 <TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.TreeDataProvider.html#expandNode">expandNode</A></B></CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Раскрываемый узел</TD>
 </TR>
 </TABLE>
 &nbsp;
@@ -144,7 +144,7 @@ A custom <CODE>AsyncDataProvider</CODE>.
 <TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.TreeDataProvider.html#TreeField.TreeDataProvider(V)">TreeField.TreeDataProvider</A></B>(<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html" title="type parameter in TreeField">V</A>&nbsp;node)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Создает провайдер данных для раскрываемого узла.</TD>
 </TR>
 </TABLE>
 &nbsp;
@@ -172,7 +172,7 @@ A custom <CODE>AsyncDataProvider</CODE>.
                java.util.List&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html" title="type parameter in TreeField">V</A>&gt;&nbsp;data)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Обновляет текущее отображение списка указанных узлов дерева.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -180,7 +180,7 @@ A custom <CODE>AsyncDataProvider</CODE>.
 <TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.TreeDataProvider.html#refreshNode(V)">refreshNode</A></B>(<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html" title="type parameter in TreeField">V</A>&nbsp;value)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Обновляет отображение указанного узла дерева.</TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_com.google.gwt.view.client.AsyncDataProvider"><!-- --></A>
@@ -228,6 +228,8 @@ expandNode</H3>
 <PRE>
 private <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html" title="type parameter in TreeField">V</A> extends <A HREF="../../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A> <B>expandNode</B></PRE>
 <DL>
+<DD>Раскрываемый узел
+<P>
 <DL>
 </DL>
 </DL>
@@ -247,6 +249,10 @@ TreeField.TreeDataProvider</H3>
 <PRE>
 public <B>TreeField.TreeDataProvider</B>(<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html" title="type parameter in TreeField">V</A>&nbsp;node)</PRE>
 <DL>
+<DD>Создает провайдер данных для раскрываемого узла.
+<P>
+<DL>
+<DT><B>Parameters:</B><DD><CODE>node</CODE> - узел дерева</DL>
 </DL>
 
 <!-- ============ METHOD DETAIL ========== -->
@@ -283,8 +289,10 @@ refreshDisplay</H3>
 public void <B>refreshDisplay</B>(com.google.gwt.view.client.HasData&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html" title="type parameter in TreeField">V</A>&gt;&nbsp;display,
                            java.util.List&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html" title="type parameter in TreeField">V</A>&gt;&nbsp;data)</PRE>
 <DL>
+<DD>Обновляет текущее отображение списка указанных узлов дерева.
+<P>
 <DD><DL>
-</DL>
+<DT><B>Parameters:</B><DD><CODE>display</CODE> - отображение узла дерева<DD><CODE>data</CODE> - список узлов дерева</DL>
 </DD>
 </DL>
 <HR>
@@ -294,8 +302,10 @@ refreshNode</H3>
 <PRE>
 public void <B>refreshNode</B>(<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html" title="type parameter in TreeField">V</A>&nbsp;value)</PRE>
 <DL>
+<DD>Обновляет отображение указанного узла дерева.
+<P>
 <DD><DL>
-</DL>
+<DT><B>Parameters:</B><DD><CODE>value</CODE> - узел дерева</DL>
 </DD>
 </DL>
 <!-- ========= END OF CLASS DATA ========= -->
@@ -328,7 +338,7 @@ public void <B>refreshNode</B>(<A HREF="../../../../../../../../com/technology/j
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.ElementSimplePanel.html" title="class in com.technology.jep.jepria.client.widget.field.tree"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.CheckNodes.html" title="enum in com.technology.jep.jepria.client.widget.field.tree"><B>PREV CLASS</B></A>&nbsp;
 &nbsp;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.TreeModel.html" title="class in com.technology.jep.jepria.client.widget.field.tree"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../../../../../../../index.html?com/technology/jep/jepria/client/widget/field/tree/TreeField.TreeDataProvider.html" target="_top"><B>FRAMES</B></A>  &nbsp;

@@ -107,6 +107,10 @@ java.lang.Object
 </PRE>
 
 <P>
+Класс, представляющий реализацию поля выбора в виде древовидной иерархии.
+<P>
+
+<P>
 <HR>
 
 <P>
@@ -137,14 +141,6 @@ java.lang.Object
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>(package private) &nbsp;class</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.ElementSimplePanel.html" title="class in com.technology.jep.jepria.client.widget.field.tree">TreeField.ElementSimplePanel</A></B></CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>(package private) &nbsp;class</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.TreeDataProvider.html" title="class in com.technology.jep.jepria.client.widget.field.tree">TreeField.TreeDataProvider</A></B></CODE>
 
 <BR>
@@ -156,7 +152,7 @@ java.lang.Object
 <TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.TreeModel.html" title="class in com.technology.jep.jepria.client.widget.field.tree">TreeField.TreeModel</A></B></CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Модель представления данных в компоненте.</TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="nested_classes_inherited_from_class_com.google.gwt.user.client.ui.UIObject"><!-- --></A>
@@ -193,7 +189,7 @@ java.lang.Object
 <TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html#checkable">checkable</A></B></CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Возможность выбора узлов дерева (по умолчанию, допускается выделение узлов).</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -201,7 +197,7 @@ java.lang.Object
 <TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html#checkNodes">checkNodes</A></B></CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Признак возможного выбора в древовидном справочнике (по умолчанию, выбор как родительских, так и листовых узлов).</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -209,7 +205,7 @@ java.lang.Object
 <TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html#checkStyle">checkStyle</A></B></CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Стиль выбора узла и зависимых от него узлов (по умолчанию, выбор только самого себя).</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -225,7 +221,7 @@ java.lang.Object
 <TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html#JEP_RIA_TREE_FIELD_STYLE">JEP_RIA_TREE_FIELD_STYLE</A></B></CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Наименование селектора (класса стилей) для данного компонента</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -233,7 +229,7 @@ java.lang.Object
 <TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html#loader">loader</A></B></CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Загрузчик данных для данного компонента.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -249,7 +245,7 @@ java.lang.Object
 <TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html#nodeMapOfDisplay">nodeMapOfDisplay</A></B></CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Карта соответствия узла дерева с его логическим представлением.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -275,7 +271,7 @@ java.lang.Object
 <TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html#selectionModel">selectionModel</A></B></CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Модель множественного выбора узлов дерева.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -283,7 +279,7 @@ java.lang.Object
 <TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html#tree">tree</A></B></CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Виджет, позволяющий представить иерархию выбора в виде дерева.</TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="fields_inherited_from_class_com.google.gwt.user.client.ui.UIObject"><!-- --></A>
@@ -308,7 +304,7 @@ java.lang.Object
 <TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html#TreeField()">TreeField</A></B>()</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Создает экземпляры данного класса.</TD>
 </TR>
 </TABLE>
 &nbsp;
@@ -326,8 +322,7 @@ java.lang.Object
 <TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html#addCheckChangeHandler(com.technology.jep.jepria.client.widget.field.multistate.event.CheckChangeEvent.CheckChangeHandler)">addCheckChangeHandler</A></B>(<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/event/CheckChangeEvent.CheckChangeHandler.html" title="interface in com.technology.jep.jepria.client.widget.field.multistate.event">CheckChangeEvent.CheckChangeHandler</A>&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html" title="type parameter in TreeField">V</A>&gt;&nbsp;handler)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Adds a <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/event/CheckChangeEvent.CheckChangeHandler.html" title="interface in com.technology.jep.jepria.client.widget.field.multistate.event"><CODE>CheckChangeEvent.CheckChangeHandler</CODE></A> handler for
- <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/event/CheckChangeEvent.html" title="class in com.technology.jep.jepria.client.widget.field.multistate.event"><CODE>CheckChangeEvent</CODE></A> events.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Привязывается обработчик выбора узла к компоненту.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -335,7 +330,7 @@ java.lang.Object
 <TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html#clearSelection()">clearSelection</A></B>()</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Сбрасывает текущее выбранные узлы, в том числе и частично выбранные.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -343,7 +338,7 @@ java.lang.Object
 <TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html#collapseAll()">collapseAll</A></B>()</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Сворачивает все узлы дерева.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -351,7 +346,7 @@ java.lang.Object
 <TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html#ensureVisible(V)">ensureVisible</A></B>(<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html" title="type parameter in TreeField">V</A>&nbsp;value)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Размещает указанный узел дерева в области видимости пользователя.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -359,7 +354,7 @@ java.lang.Object
 <TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html#getCheckedSelection()">getCheckedSelection</A></B>()</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Получает список выбранных узлов в компоненте.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -367,7 +362,7 @@ java.lang.Object
 <TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html#getChildrenNodes(V)">getChildrenNodes</A></B>(<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html" title="type parameter in TreeField">V</A>&nbsp;node)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Получает список узлов-потомков указанного узла дерева.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -375,7 +370,7 @@ java.lang.Object
 <TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html#getNodeInfoByValue(V)">getNodeInfoByValue</A></B>(<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html" title="type parameter in TreeField">V</A>&nbsp;node)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Получает логическое описание узла дерева.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -383,7 +378,7 @@ java.lang.Object
 <TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html#isLeaf(java.lang.Object)">isLeaf</A></B>(java.lang.Object&nbsp;value)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Проверка узла дерева на наличие потомков.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -392,7 +387,7 @@ java.lang.Object
              <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html" title="type parameter in TreeField">V</A>&nbsp;value)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Проверка развернутости указанного узла дерева</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -400,7 +395,7 @@ java.lang.Object
 <TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html#isNodeOpened(V)">isNodeOpened</A></B>(<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html" title="type parameter in TreeField">V</A>&nbsp;value)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Проверка развернутости указанного узла дерева.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -408,7 +403,7 @@ java.lang.Object
 <TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html#isSelected(V)">isSelected</A></B>(<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html" title="type parameter in TreeField">V</A>&nbsp;value)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Проверяет является ли указанный узел дерева выбранным.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -424,7 +419,7 @@ java.lang.Object
 <TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html#setBorders(boolean)">setBorders</A></B>(boolean&nbsp;borders)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Устанавливает или снимает границы компонента.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -432,7 +427,7 @@ java.lang.Object
 <TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html#setCheckable(boolean)">setCheckable</A></B>(boolean&nbsp;checkable)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Устанавливает или блокирует выбор узлов дерева.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -441,7 +436,7 @@ java.lang.Object
            boolean&nbsp;checked)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Устанавливает или снимает выбор для заданного узла дерева.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -449,7 +444,7 @@ java.lang.Object
 <TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html#setCheckNodes(com.technology.jep.jepria.client.widget.field.tree.TreeField.CheckNodes)">setCheckNodes</A></B>(<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.CheckNodes.html" title="enum in com.technology.jep.jepria.client.widget.field.tree">TreeField.CheckNodes</A>&nbsp;checkNodes)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Устанавливает признак возможного выбора узлов в дереве.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -457,7 +452,7 @@ java.lang.Object
 <TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html#setCheckStyle(com.technology.jep.jepria.client.widget.field.tree.TreeField.CheckCascade)">setCheckStyle</A></B>(<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.CheckCascade.html" title="enum in com.technology.jep.jepria.client.widget.field.tree">TreeField.CheckCascade</A>&nbsp;checkStyle)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Устанавливает стиль выбора узлов в дереве.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -476,7 +471,7 @@ java.lang.Object
             boolean&nbsp;expand)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Search specified node in the tree beginning from root.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -484,7 +479,7 @@ java.lang.Object
 <TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html#setLoader(com.technology.jep.jepria.client.async.DataLoader)">setLoader</A></B>(<A HREF="../../../../../../../../com/technology/jep/jepria/client/async/DataLoader.html" title="interface in com.technology.jep.jepria.client.async">DataLoader</A>&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html" title="type parameter in TreeField">V</A>&gt;&nbsp;dataLoader)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Устанавливает значение текущего загрузчика данных.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -492,7 +487,7 @@ java.lang.Object
 <TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html#setPartialSelected(java.util.List)">setPartialSelected</A></B>(java.util.List&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html" title="type parameter in TreeField">V</A>&gt;&nbsp;list)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Устанавливает список частично выбранных узлов дерева (без необходимости получения информации о его потомках).</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -500,7 +495,7 @@ java.lang.Object
 <TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html#showTree()">showTree</A></B>()</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Показывает текущий компонент.</TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_com.google.gwt.user.client.ui.ScrollPanel"><!-- --></A>
@@ -593,6 +588,8 @@ tree</H3>
 <PRE>
 private com.google.gwt.user.cellview.client.CellTree <B>tree</B></PRE>
 <DL>
+<DD>Виджет, позволяющий представить иерархию выбора в виде дерева.
+<P>
 <DL>
 </DL>
 </DL>
@@ -603,6 +600,8 @@ loader</H3>
 <PRE>
 private <A HREF="../../../../../../../../com/technology/jep/jepria/client/async/DataLoader.html" title="interface in com.technology.jep.jepria.client.async">DataLoader</A>&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html" title="type parameter in TreeField">V</A> extends <A HREF="../../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A>&gt; <B>loader</B></PRE>
 <DL>
+<DD>Загрузчик данных для данного компонента.
+<P>
 <DL>
 </DL>
 </DL>
@@ -639,6 +638,8 @@ JEP_RIA_TREE_FIELD_STYLE</H3>
 <PRE>
 private static final java.lang.String <B>JEP_RIA_TREE_FIELD_STYLE</B></PRE>
 <DL>
+<DD>Наименование селектора (класса стилей) для данного компонента
+<P>
 <DL>
 <DT><B>See Also:</B><DD><A HREF="../../../../../../../../constant-values.html#com.technology.jep.jepria.client.widget.field.tree.TreeField.JEP_RIA_TREE_FIELD_STYLE">Constant Field Values</A></DL>
 </DL>
@@ -649,6 +650,8 @@ nodeMapOfDisplay</H3>
 <PRE>
 private java.util.Map&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html" title="type parameter in TreeField">V</A> extends <A HREF="../../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A>,<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeNodeInfo.html" title="class in com.technology.jep.jepria.client.widget.field.tree">TreeNodeInfo</A>&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html" title="type parameter in TreeField">V</A> extends <A HREF="../../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A>&gt;&gt; <B>nodeMapOfDisplay</B></PRE>
 <DL>
+<DD>Карта соответствия узла дерева с его логическим представлением.
+<P>
 <DL>
 </DL>
 </DL>
@@ -679,6 +682,8 @@ checkNodes</H3>
 <PRE>
 private <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.CheckNodes.html" title="enum in com.technology.jep.jepria.client.widget.field.tree">TreeField.CheckNodes</A> <B>checkNodes</B></PRE>
 <DL>
+<DD>Признак возможного выбора в древовидном справочнике (по умолчанию, выбор как родительских, так и листовых узлов).
+<P>
 <DL>
 </DL>
 </DL>
@@ -689,6 +694,8 @@ checkStyle</H3>
 <PRE>
 private <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.CheckCascade.html" title="enum in com.technology.jep.jepria.client.widget.field.tree">TreeField.CheckCascade</A> <B>checkStyle</B></PRE>
 <DL>
+<DD>Стиль выбора узла и зависимых от него узлов (по умолчанию, выбор только самого себя).
+<P>
 <DL>
 </DL>
 </DL>
@@ -699,6 +706,8 @@ selectionModel</H3>
 <PRE>
 private com.google.gwt.view.client.SetSelectionModel&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html" title="type parameter in TreeField">V</A> extends <A HREF="../../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A>&gt; <B>selectionModel</B></PRE>
 <DL>
+<DD>Модель множественного выбора узлов дерева.
+<P>
 <DL>
 </DL>
 </DL>
@@ -709,6 +718,8 @@ checkable</H3>
 <PRE>
 private boolean <B>checkable</B></PRE>
 <DL>
+<DD>Возможность выбора узлов дерева (по умолчанию, допускается выделение узлов).
+<P>
 <DL>
 </DL>
 </DL>
@@ -728,6 +739,8 @@ TreeField</H3>
 <PRE>
 public <B>TreeField</B>()</PRE>
 <DL>
+<DD>Создает экземпляры данного класса.
+<P>
 </DL>
 
 <!-- ============ METHOD DETAIL ========== -->
@@ -745,11 +758,13 @@ setLoader</H3>
 <PRE>
 public void <B>setLoader</B>(<A HREF="../../../../../../../../com/technology/jep/jepria/client/async/DataLoader.html" title="interface in com.technology.jep.jepria.client.async">DataLoader</A>&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html" title="type parameter in TreeField">V</A>&gt;&nbsp;dataLoader)</PRE>
 <DL>
+<DD>Устанавливает значение текущего загрузчика данных.
+<P>
 <DD><DL>
 </DL>
 </DD>
 <DD><DL>
-</DL>
+<DT><B>Parameters:</B><DD><CODE>dataLoader</CODE> - инциализируемый загрузчик данных</DL>
 </DD>
 </DL>
 <HR>
@@ -759,11 +774,14 @@ getCheckedSelection</H3>
 <PRE>
 public java.util.List&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html" title="type parameter in TreeField">V</A>&gt; <B>getCheckedSelection</B>()</PRE>
 <DL>
+<DD>Получает список выбранных узлов в компоненте.
+<P>
 <DD><DL>
 </DL>
 </DD>
 <DD><DL>
-</DL>
+
+<DT><B>Returns:</B><DD>список узлов дерева</DL>
 </DD>
 </DL>
 <HR>
@@ -773,11 +791,13 @@ setPartialSelected</H3>
 <PRE>
 public void <B>setPartialSelected</B>(java.util.List&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html" title="type parameter in TreeField">V</A>&gt;&nbsp;list)</PRE>
 <DL>
+<DD>Устанавливает список частично выбранных узлов дерева (без необходимости получения информации о его потомках).
+<P>
 <DD><DL>
 </DL>
 </DD>
 <DD><DL>
-</DL>
+<DT><B>Parameters:</B><DD><CODE>list</CODE> - список узлов дерева</DL>
 </DD>
 </DL>
 <HR>
@@ -787,11 +807,13 @@ ensureVisible</H3>
 <PRE>
 public void <B>ensureVisible</B>(<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html" title="type parameter in TreeField">V</A>&nbsp;value)</PRE>
 <DL>
+<DD>Размещает указанный узел дерева в области видимости пользователя.
+<P>
 <DD><DL>
 </DL>
 </DD>
 <DD><DL>
-</DL>
+<DT><B>Parameters:</B><DD><CODE>value</CODE> - узел дерева</DL>
 </DD>
 </DL>
 <HR>
@@ -801,6 +823,8 @@ clearSelection</H3>
 <PRE>
 public void <B>clearSelection</B>()</PRE>
 <DL>
+<DD>Сбрасывает текущее выбранные узлы, в том числе и частично выбранные.
+<P>
 <DD><DL>
 </DL>
 </DD>
@@ -815,15 +839,13 @@ addCheckChangeHandler</H3>
 <PRE>
 public com.google.gwt.event.shared.HandlerRegistration <B>addCheckChangeHandler</B>(<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/event/CheckChangeEvent.CheckChangeHandler.html" title="interface in com.technology.jep.jepria.client.widget.field.multistate.event">CheckChangeEvent.CheckChangeHandler</A>&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html" title="type parameter in TreeField">V</A>&gt;&nbsp;handler)</PRE>
 <DL>
-<DD><B>Description copied from interface: <CODE><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/event/CheckChangeEvent.HasCheckChangeHandlers.html#addCheckChangeHandler(com.technology.jep.jepria.client.widget.field.multistate.event.CheckChangeEvent.CheckChangeHandler)">CheckChangeEvent.HasCheckChangeHandlers</A></CODE></B></DD>
-<DD>Adds a <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/event/CheckChangeEvent.CheckChangeHandler.html" title="interface in com.technology.jep.jepria.client.widget.field.multistate.event"><CODE>CheckChangeEvent.CheckChangeHandler</CODE></A> handler for
- <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/event/CheckChangeEvent.html" title="class in com.technology.jep.jepria.client.widget.field.multistate.event"><CODE>CheckChangeEvent</CODE></A> events.
+<DD>Привязывается обработчик выбора узла к компоненту.
 <P>
 <DD><DL>
 <DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/event/CheckChangeEvent.HasCheckChangeHandlers.html#addCheckChangeHandler(com.technology.jep.jepria.client.widget.field.multistate.event.CheckChangeEvent.CheckChangeHandler)">addCheckChangeHandler</A></CODE> in interface <CODE><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/event/CheckChangeEvent.HasCheckChangeHandlers.html" title="interface in com.technology.jep.jepria.client.widget.field.multistate.event">CheckChangeEvent.HasCheckChangeHandlers</A>&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html" title="type parameter in TreeField">V</A> extends <A HREF="../../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A>&gt;</CODE></DL>
 </DD>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>handler</CODE> - the handler
+<DT><B>Parameters:</B><DD><CODE>handler</CODE> - обработчки выбора узла
 <DT><B>Returns:</B><DD>the registration for the event</DL>
 </DD>
 </DL>
@@ -835,11 +857,14 @@ isNodeOpened</H3>
 public boolean <B>isNodeOpened</B>(com.google.gwt.user.cellview.client.TreeNode&nbsp;node,
                             <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html" title="type parameter in TreeField">V</A>&nbsp;value)</PRE>
 <DL>
+<DD>Проверка развернутости указанного узла дерева
+<P>
 <DD><DL>
 </DL>
 </DD>
 <DD><DL>
-</DL>
+<DT><B>Parameters:</B><DD><CODE>node</CODE> - раскрываемый узел, среди потомков которого ищется узел дерева<DD><CODE>value</CODE> - проверяемый узел дерева
+<DT><B>Returns:</B><DD>логический признак открытости</DL>
 </DD>
 </DL>
 <HR>
@@ -849,11 +874,14 @@ isNodeOpened</H3>
 <PRE>
 public boolean <B>isNodeOpened</B>(<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html" title="type parameter in TreeField">V</A>&nbsp;value)</PRE>
 <DL>
+<DD>Проверка развернутости указанного узла дерева.
+<P>
 <DD><DL>
 </DL>
 </DD>
 <DD><DL>
-</DL>
+<DT><B>Parameters:</B><DD><CODE>value</CODE> - проверяемый узел дерева
+<DT><B>Returns:</B><DD>логический признак открытости</DL>
 </DD>
 </DL>
 <HR>
@@ -863,11 +891,14 @@ isLeaf</H3>
 <PRE>
 public boolean <B>isLeaf</B>(java.lang.Object&nbsp;value)</PRE>
 <DL>
+<DD>Проверка узла дерева на наличие потомков.
+<P>
 <DD><DL>
 </DL>
 </DD>
 <DD><DL>
-</DL>
+<DT><B>Parameters:</B><DD><CODE>value</CODE> - проверяемый узел дерева
+<DT><B>Returns:</B><DD>логический признак открытости</DL>
 </DD>
 </DL>
 <HR>
@@ -877,6 +908,8 @@ showTree</H3>
 <PRE>
 public void <B>showTree</B>()</PRE>
 <DL>
+<DD>Показывает текущий компонент.
+<P>
 <DD><DL>
 </DL>
 </DD>
@@ -891,11 +924,14 @@ isSelected</H3>
 <PRE>
 public boolean <B>isSelected</B>(<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html" title="type parameter in TreeField">V</A>&nbsp;value)</PRE>
 <DL>
+<DD>Проверяет является ли указанный узел дерева выбранным.
+<P>
 <DD><DL>
 </DL>
 </DD>
 <DD><DL>
-</DL>
+<DT><B>Parameters:</B><DD><CODE>value</CODE> - узел дерева
+<DT><B>Returns:</B><DD>логический признак выбора узла</DL>
 </DD>
 </DL>
 <HR>
@@ -906,11 +942,13 @@ setChecked</H3>
 public void <B>setChecked</B>(<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html" title="type parameter in TreeField">V</A>&nbsp;value,
                        boolean&nbsp;checked)</PRE>
 <DL>
+<DD>Устанавливает или снимает выбор для заданного узла дерева.
+<P>
 <DD><DL>
 </DL>
 </DD>
 <DD><DL>
-</DL>
+<DT><B>Parameters:</B><DD><CODE>value</CODE> - узел дерева<DD><CODE>checked</CODE> - признак выбора</DL>
 </DD>
 </DL>
 <HR>
@@ -940,11 +978,14 @@ setExpanded</H3>
 public com.google.gwt.user.cellview.client.TreeNode <B>setExpanded</B>(<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html" title="type parameter in TreeField">V</A>&nbsp;value,
                                                                 boolean&nbsp;expand)</PRE>
 <DL>
+<DD>Search specified node in the tree beginning from root. Expand or collapse it. And return founded node or null if it's leaf.
+<P>
 <DD><DL>
 </DL>
 </DD>
 <DD><DL>
-</DL>
+<DT><B>Parameters:</B><DD><CODE>value</CODE> - specified value<DD><CODE>expand</CODE> - flag to expand or collapse this node
+<DT><B>Returns:</B><DD>reference of current node</DL>
 </DD>
 </DL>
 <HR>
@@ -954,6 +995,8 @@ collapseAll</H3>
 <PRE>
 public void <B>collapseAll</B>()</PRE>
 <DL>
+<DD>Сворачивает все узлы дерева.
+<P>
 <DD><DL>
 </DL>
 </DD>
@@ -984,11 +1027,13 @@ setCheckNodes</H3>
 <PRE>
 public void <B>setCheckNodes</B>(<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.CheckNodes.html" title="enum in com.technology.jep.jepria.client.widget.field.tree">TreeField.CheckNodes</A>&nbsp;checkNodes)</PRE>
 <DL>
+<DD>Устанавливает признак возможного выбора узлов в дереве.
+<P>
 <DD><DL>
 </DL>
 </DD>
 <DD><DL>
-</DL>
+<DT><B>Parameters:</B><DD><CODE>checkNodes</CODE> - признак возможного выбора</DL>
 </DD>
 </DL>
 <HR>
@@ -998,11 +1043,13 @@ setCheckStyle</H3>
 <PRE>
 public void <B>setCheckStyle</B>(<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.CheckCascade.html" title="enum in com.technology.jep.jepria.client.widget.field.tree">TreeField.CheckCascade</A>&nbsp;checkStyle)</PRE>
 <DL>
+<DD>Устанавливает стиль выбора узлов в дереве.
+<P>
 <DD><DL>
 </DL>
 </DD>
 <DD><DL>
-</DL>
+<DT><B>Parameters:</B><DD><CODE>checkStyle</CODE> - признак возможного выбора</DL>
 </DD>
 </DL>
 <HR>
@@ -1012,11 +1059,13 @@ setCheckable</H3>
 <PRE>
 public void <B>setCheckable</B>(boolean&nbsp;checkable)</PRE>
 <DL>
+<DD>Устанавливает или блокирует выбор узлов дерева.
+<P>
 <DD><DL>
 </DL>
 </DD>
 <DD><DL>
-</DL>
+<DT><B>Parameters:</B><DD><CODE>checkable</CODE> - признак возможного выбора</DL>
 </DD>
 </DL>
 <HR>
@@ -1026,11 +1075,13 @@ setBorders</H3>
 <PRE>
 public void <B>setBorders</B>(boolean&nbsp;borders)</PRE>
 <DL>
+<DD>Устанавливает или снимает границы компонента.
+<P>
 <DD><DL>
 </DL>
 </DD>
 <DD><DL>
-</DL>
+<DT><B>Parameters:</B><DD><CODE>borders</CODE> - признак наличия границ компонента</DL>
 </DD>
 </DL>
 <HR>
@@ -1040,11 +1091,14 @@ getChildrenNodes</H3>
 <PRE>
 public java.util.List&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html" title="type parameter in TreeField">V</A>&gt; <B>getChildrenNodes</B>(<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html" title="type parameter in TreeField">V</A>&nbsp;node)</PRE>
 <DL>
+<DD>Получает список узлов-потомков указанного узла дерева.
+<P>
 <DD><DL>
 </DL>
 </DD>
 <DD><DL>
-</DL>
+<DT><B>Parameters:</B><DD><CODE>node</CODE> - узел дерева
+<DT><B>Returns:</B><DD>список узлов-потомков</DL>
 </DD>
 </DL>
 <HR>
@@ -1054,11 +1108,14 @@ getNodeInfoByValue</H3>
 <PRE>
 public <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeNodeInfo.html" title="class in com.technology.jep.jepria.client.widget.field.tree">TreeNodeInfo</A>&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html" title="type parameter in TreeField">V</A>&gt; <B>getNodeInfoByValue</B>(<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html" title="type parameter in TreeField">V</A>&nbsp;node)</PRE>
 <DL>
+<DD>Получает логическое описание узла дерева.
+<P>
 <DD><DL>
 </DL>
 </DD>
 <DD><DL>
-</DL>
+<DT><B>Parameters:</B><DD><CODE>node</CODE> - узел дерева
+<DT><B>Returns:</B><DD>логическое описание дерева</DL>
 </DD>
 </DL>
 <!-- ========= END OF CLASS DATA ========= -->

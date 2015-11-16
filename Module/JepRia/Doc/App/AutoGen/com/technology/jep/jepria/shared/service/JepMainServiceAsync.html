@@ -122,10 +122,10 @@ Interface JepMainServiceAsync</H2>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/shared/service/JepMainServiceAsync.html#logout(com.google.gwt.user.client.rpc.AsyncCallback)">logout</A></B>(com.google.gwt.user.client.rpc.AsyncCallback&lt;java.lang.Void&gt;&nbsp;callback)</CODE>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/shared/service/JepMainServiceAsync.html#logout(com.google.gwt.user.client.rpc.AsyncCallback)">logout</A></B>(com.google.gwt.user.client.rpc.AsyncCallback&lt;java.lang.String&gt;&nbsp;callback)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Выход (logout) текущего пользователя из SSO.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Выход из приложения</TD>
 </TR>
 </TABLE>
 &nbsp;
@@ -157,12 +157,12 @@ void <B>getUserData</B>(com.google.gwt.user.client.rpc.AsyncCallback&lt;<A HREF=
 <A NAME="logout(com.google.gwt.user.client.rpc.AsyncCallback)"><!-- --></A><H3>
 logout</H3>
 <PRE>
-void <B>logout</B>(com.google.gwt.user.client.rpc.AsyncCallback&lt;java.lang.Void&gt;&nbsp;callback)</PRE>
+void <B>logout</B>(com.google.gwt.user.client.rpc.AsyncCallback&lt;java.lang.String&gt;&nbsp;callback)</PRE>
 <DL>
-<DD>Выход (logout) текущего пользователя из SSO.
+<DD>Выход из приложения
 <P>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>callback</CODE> - пустой обратный вызов (для сигнализации, что асинхронный метод отработал)</DL>
+<DT><B>Parameters:</B><DD><CODE>callback</CODE> - Url, по которому нужно перейти в результате Logout</DL>
 </DD>
 </DL>
 <!-- ========= END OF CLASS DATA ========= -->

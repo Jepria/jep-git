@@ -66,6 +66,7 @@ com.technology.jep.jepria.client.widget.list.header.menu
 com.technology.jep.jepria.client.widget.list.header.menu.images
 com.technology.jep.jepria.client.widget.toolbar
 com.technology.jep.jepria.server
+com.technology.jep.jepria.server.cors
 com.technology.jep.jepria.server.dao
 com.technology.jep.jepria.server.db
 com.technology.jep.jepria.server.db.blob
@@ -80,7 +81,6 @@ com.technology.jep.jepria.server.i18n
 com.technology.jep.jepria.server.security
 com.technology.jep.jepria.server.security.cas
 com.technology.jep.jepria.server.security.oc4j
-com.technology.jep.jepria.server.security.weblogic
 com.technology.jep.jepria.server.service
 com.technology.jep.jepria.server.upload
 com.technology.jep.jepria.server.upload.blob

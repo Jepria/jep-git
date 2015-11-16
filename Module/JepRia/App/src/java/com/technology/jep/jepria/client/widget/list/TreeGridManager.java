@@ -74,13 +74,12 @@ public class TreeGridManager<W extends AbstractCellTable<JepRecord>, P extends P
 	}
 	
 	/**
-	 * Инициализируем названия ключей для работы с деревом по recordDefinition. <br>
-	 * Для нестандартных случаев, есть set-методы
-	 * @param recordDefinition
+	 * Инициализация простого первичного ключа по record definition. <br>
+	 * Для установки произвольного значения первичного ключа следует использовать метод {@link TreeGridManager#setPrimaryKeyName(String)}
+	 * @param recordDefinition		ссылка на описание записи
 	 */
-	public void initKeysFromRecordDefinition(JepRecordDefinition recordDefinition){
-		// Обрабатываются только "простые" ключи
-		primaryKeyName = recordDefinition.getPrimaryKey()[0];
+	public void initPrimaryKey(JepRecordDefinition recordDefinition){
+		setPrimaryKeyName(recordDefinition.getPrimaryKey()[0]);
 	}
 	
 	/**
@@ -92,13 +91,14 @@ public class TreeGridManager<W extends AbstractCellTable<JepRecord>, P extends P
 	}
 		
 	/**
-	 * Инициализация. <br/> 
-	 * Выставляет привязку в {@link com.technology.jep.jepria.client.widget.list.cell.TreeCell} к {@link com.technology.jep.jepria.client.widget.list.TreeGridManager}
+	 * Инициализация древовидной списочной формы. <br/> 
+	 * Осуществляется связывание {@link com.technology.jep.jepria.client.widget.list.cell.TreeCell} или {@link com.technology.jep.jepria.client.widget.list.cell.EditTreeCell} к {@link com.technology.jep.jepria.client.widget.list.TreeGridManager}
 	 */
 	public void bindTree() {
 		for (int i = 0; i < widget.getColumnCount(); i++){
-			// пробегаем по всем колонкам древовидного справочника
 			Cell<?> cell = widget.getColumn(i).getCell();
+			// осуществляется поиск колонки нужного типа TreeCell или EditTreeCell,
+			// поскольку порядок следования столбцов может быть изменен пользователем
 			if (cell instanceof HasTreeGridManager){
 				treeCellColumn = (JepColumn<JepRecord, ?>) widget.getColumn(i);
 				((HasTreeGridManager) cell).setTreeGridManager(this);
