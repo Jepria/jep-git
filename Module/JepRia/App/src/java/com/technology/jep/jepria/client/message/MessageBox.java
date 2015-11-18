@@ -3,11 +3,13 @@ package com.technology.jep.jepria.client.message;
 import static com.technology.jep.jepria.client.JepRiaClientConstant.JepTexts;
 import static com.technology.jep.jepria.client.JepRiaClientConstant.MAIN_FONT_STYLE;
 
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style.FontWeight;
+import com.google.gwt.dom.client.Style.TextAlign;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyCodes;
@@ -67,6 +69,7 @@ public class MessageBox extends WindowBox {
 
 		buttonsContainer = new DockPanel();
 		buttonsContainer.setSpacing(5);
+		buttonsContainer.setWidth("100%");
 
 		mainPanel.setWidget(0, 0, iconMessageContainer);
 		mainPanel.setWidget(1, 0, buttonsContainer);
@@ -100,6 +103,19 @@ public class MessageBox extends WindowBox {
 		cellFormatter.getElement(0, 0).getStyle().setHeight(iconMessageContainerHeight, Unit.PX);
 		cellFormatter.getElement(1, 0).getStyle().setHeight(buttonsContainerHeight, Unit.PX);
 		mainPanel.getElement().getStyle().setProperty("minWidth", 300 + Unit.PX.getType());
+		
+		boolean isFirst = true;
+		// Loop all buttons
+		for (Iterator<Button> buttonIterator = buttons.values().iterator(); buttonIterator.hasNext(); isFirst = false){
+			Button b = buttonIterator.next(); 
+			boolean isNotLast = buttonIterator.hasNext();
+			if (isFirst){
+				b.getElement().getParentElement().getStyle().setTextAlign(isNotLast ? TextAlign.RIGHT : TextAlign.CENTER);
+			}
+			else if (isNotLast){
+				buttonsContainer.setCellWidth(b, b.getOffsetWidth() + Unit.PX.getType());
+			}
+		}
 
 		center();
 	}

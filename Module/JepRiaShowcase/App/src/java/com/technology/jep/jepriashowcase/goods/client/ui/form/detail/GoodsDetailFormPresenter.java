@@ -141,7 +141,6 @@ public class GoodsDetailFormPresenter<E extends PlainEventBus, S extends GoodsSe
 	protected void adjustToWorkstate(WorkstateEnum workstate) {
 		if (EDIT.equals(workstate) || VIEW_DETAILS.equals(workstate)){
 			JepTreeField treeField = (JepTreeField) fields.get(GOODS_CATALOG_ID_LIST);
-			treeField.setEditable(false);
 			treeField.clear();
 			List<JepOption> expandedValues = (List<JepOption>) currentRecord.get(GOODS_CATALOG_ID_LIST_FOR_EXPAND);
 			List<JepOption> checkedValues = (List<JepOption>) currentRecord.get(GOODS_CATALOG_ID_LIST_FOR_CHECKED);

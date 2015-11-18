@@ -11,6 +11,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.google.gwt.dom.client.Style.TextAlign;
+import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyCodes;
@@ -202,6 +204,9 @@ public class PagingStandardBar extends SimplePanel implements PagingToolBar {
 
 		pageSizePanel.add(pageSizePrefix);
 		pageSizePanel.add(pageSizeText);
+		pageSizePrefix.getElement().getStyle().setTextAlign(TextAlign.RIGHT);
+		pageSizePanel.setCellWidth(pageSizeText, 30 + Unit.PX.getType());
+		pageSizePanel.setWidth("100%");
 
 		panel.add(buttonsPanel);
 		panel.add(displayText);
@@ -211,10 +216,6 @@ public class PagingStandardBar extends SimplePanel implements PagingToolBar {
 		panel.setCellHorizontalAlignment(buttonsPanel, HasHorizontalAlignment.ALIGN_LEFT);
 		panel.setCellHorizontalAlignment(displayText, HasHorizontalAlignment.ALIGN_CENTER);
 		panel.setCellHorizontalAlignment(pageSizePanel, HasHorizontalAlignment.ALIGN_RIGHT);
-		
-//		panel.setCellVerticalAlignment(buttonsPanel, HasVerticalAlignment.ALIGN_MIDDLE);
-//		panel.setCellVerticalAlignment(displayText, HasVerticalAlignment.ALIGN_MIDDLE);
-//		panel.setCellVerticalAlignment(pageSizePanel, HasVerticalAlignment.ALIGN_MIDDLE);
 	}
 
 	public Button makeButton(String buttonId, ImageResource icon, String name, ClickHandler handler) {
@@ -365,6 +366,7 @@ public class PagingStandardBar extends SimplePanel implements PagingToolBar {
 		displayTextBuffer.append(totalLength);
 
 		displayText.setText(displayTextBuffer.toString());
+		displayText.getElement().getStyle().setTextAlign(TextAlign.CENTER);
 	}
 
 	/**
@@ -377,15 +379,15 @@ public class PagingStandardBar extends SimplePanel implements PagingToolBar {
 	 */
 	public void addListener(JepEventType eventType, JepListener listener) {
 		switch (eventType) {
-		case PAGING_REFRESH_EVENT:
-			addPagingRefreshListner();
-			break;
-		case PAGING_SIZE_EVENT:
-			addPagingSizeListner();
-			break;
-		case PAGING_GOTO_EVENT:
-			addPagingGotoListener();
-			break;
+			case PAGING_REFRESH_EVENT:
+				addPagingRefreshListner();
+				break;
+			case PAGING_SIZE_EVENT:
+				addPagingSizeListner();
+				break;
+			case PAGING_GOTO_EVENT:
+				addPagingGotoListener();
+				break;
 		}
 
 		observable.addListener(eventType, listener);

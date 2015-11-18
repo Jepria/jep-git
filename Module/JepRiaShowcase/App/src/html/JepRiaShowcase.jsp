@@ -19,6 +19,11 @@
 		<!-- be added before this line.								 -->
 		<!--																					 -->
 		<script type="text/javascript" language="javascript" src="JepRiaShowcase/JepRiaShowcase.nocache.js"></script>
+		<style>
+			td {
+				text-align: left;
+			}
+		</style>
 	</head>
 
 	<!--																					 -->
@@ -27,7 +32,7 @@
 	<!-- to create a completely dynamic UI.				 -->
 	<!--																					 -->
 	<body style="margin: 0px; padding: 0px; width: 100%; height: 100%;">
-
+		
 		<!-- OPTIONAL: include this if you want history support -->
 		<iframe src="javascript:''" id="__gwt_historyFrame" tabIndex='-1' style="position: absolute; width: 0; height: 0; border: 0;"></iframe>
 		

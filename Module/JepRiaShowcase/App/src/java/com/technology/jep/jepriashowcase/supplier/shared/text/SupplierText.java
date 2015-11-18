@@ -2,7 +2,7 @@ package com.technology.jep.jepriashowcase.supplier.shared.text;
 
 /**
  * Interface to represent the constants contained in resource bundle:
- * 	'D:/git/Jep/Module/JepRiaShowcase/App/src/java/com/technology/jep/jepriashowcase/supplier/shared/text/SupplierText.properties'.
+ * 	'D:/Project/JEPGit/Module/JepRiaShowcase/App/src/java/com/technology/jep/jepriashowcase/supplier/shared/text/SupplierText.properties'.
  */
 public interface SupplierText extends com.google.gwt.i18n.client.Constants {
   
