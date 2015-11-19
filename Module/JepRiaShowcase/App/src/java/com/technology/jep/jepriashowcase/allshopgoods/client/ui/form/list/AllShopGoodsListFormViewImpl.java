@@ -28,7 +28,9 @@ public class AllShopGoodsListFormViewImpl extends ListFormViewImpl<GridManager> 
 		gridPanel.setHeight("100%");
 		gridPanel.setWidth("100%");
  
-		JepGrid<JepRecord> grid = new JepGrid<JepRecord>(getGridId(), getColumnConfigurations(), true, true, true);
+		JepGrid<JepRecord> grid = new JepGrid<JepRecord>(getGridId(), getColumnConfigurations());
+		grid.setWrapHeaders(true);
+		grid.setDndEnabled(true);
 		PagingStandardBar pagingBar = new PagingStandardBar(25);
  
 		gridPanel.setContentWidget(grid);
