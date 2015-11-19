@@ -9,14 +9,14 @@ import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 
 /**
  * Реализация ячейки,
- * которая отображает на списочной форме логическое (True/False) значение в текстовом виде (Да/Нет).
+ * которая отображает на списочной форме логическое (True/False) значение в текстовом виде (Да/Нет).<br/>
  * Также поддерживается null, в этом случае в ячейке выводится пустая строка.
  */
 public class BooleanCell extends AbstractCell<Boolean> {
 
 	/**
-	 * Создает объект BooleanCell c заданными событиями. 
-	 * Реализация заключается в вызове конструктора базового класса AbstractCell.
+	 * Создает объект BooleanCell c заданными событиями.<br/> 
+	 * Реализация заключается в вызове конструктора базового класса AbstractCell.<br/>
 	 * Подробности смотрите в com.google.gwt.cell.client.AbstractCell
 	 * 
 	 * @param consumedEvents события, используемые ячейкой
@@ -27,8 +27,8 @@ public class BooleanCell extends AbstractCell<Boolean> {
 	}
 
 	/**
-	 * Создает объект BooleanCel c заданными событиями. 
-	 * Реализация заключается в вызове конструктора базового класса AbstractCell.
+	 * Создает объект BooleanCel c заданными событиями.<br/>
+	 * Реализация заключается в вызове конструктора базового класса AbstractCell.<br/>
 	 * Подробности смотрите в com.google.gwt.cell.client.AbstractCell
 	 * 
 	 * @param consumedEvents события, используемые ячейкой
@@ -39,7 +39,7 @@ public class BooleanCell extends AbstractCell<Boolean> {
 	}
 
 	/**
-	 * Отрисовывает ячейку таблицы
+	 * Отрисовывает ячейку таблицы.
 	 * @param context контекст ячейки 
 	 * @param value значение ячейки
 	 * @param sb объект, в который помещается конечное содержимое ячейки 
@@ -49,10 +49,11 @@ public class BooleanCell extends AbstractCell<Boolean> {
 			Boolean value, SafeHtmlBuilder sb) {
 		
 		String label = "";
-
-        if (value != null){
-          label = Boolean.TRUE.equals(value) ? JepTexts.yes() : JepTexts.no();
-        }
-        sb.appendEscaped(label);
+		
+		if (value != null){
+			label = Boolean.TRUE.equals(value) ? JepTexts.yes() : JepTexts.no();
+		}
+		
+		sb.appendEscaped(label);
 	}
 }

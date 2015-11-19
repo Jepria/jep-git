@@ -14,7 +14,7 @@
 }
 
 
-/* Панель состояния */
+/* Инструментальная панель. */
 .jepRia-ToolBar {
 	font: 11px arial,tahoma,helvetica,sans-serif;
 	vertical-align: middle;
@@ -30,17 +30,17 @@
 	background-position: 0 5%;
 }
 
-/* Таблица панели состояния должна иметь высоту 100%, чтобы элементы панели состояния растягивались по высоте. */
+/* Таблица инструментальной панели должна иметь высоту 100%, чтобы элементы инструментальной панели растягивались по высоте. */
 .jepRia-ToolBar table {
 	height: 100%;
 }
 
-/* Ячейки таблицы панели состояния должны иметь высоту 100%, элементы панели состояния растягивались по высоте. */
+/* Ячейки таблицы инструментальной панели должны иметь высоту 100%, элементы инструментальной панели растягивались по высоте. */
 .jepRia-ToolBar td {
 	height: 100%;
 }
 
-/* Кнопка панели состояния */
+/* Кнопка инструментальной панели */
 .jepRia-ToolBar .gwt-Button {
 	font: 11px arial,tahoma,verdana,helvetica;
 	height: 100%;
@@ -67,7 +67,7 @@
 	height: auto;
 }
 
-/* Недоступная кнопка панели состояния */
+/* Недоступная кнопка инструментальной панели */
 .jepRia-ToolBar .gwt-Button.jepRia-JepButton-buttonDisabled {
 	opacity: 0.3; /* css standard. */
 	-moz-opacity: 0.3; /* very old mozilla/netscape browsers. */
@@ -81,13 +81,13 @@
 	background-color: transparent;
 }
 
-/* Текст на кнопке панели состояния */
+/* Текст на кнопке инструментальной панели */
 .jepRia-ToolBar .gwt-Button .gwt-Label {
 	white-space: nowrap;
 	font: 11px arial,tahoma,verdana,helvetica;
 }
 
-/* Разделитель панели состояния */
+/* Разделитель инструментальной панели */
 .jepRia-ToolBar .jepRia-Separator {
 	background-position: center;
 	background-repeat: repeat;
@@ -164,12 +164,12 @@ input[type=text]::-ms-clear {
 	border: solid 1px transparent;
 	background-color: transparent;
 }
-/* Текст на кнопке панели состояния */
+/* Текст на кнопке инструментальной панели */
 .jepRia-PagingBar .gwt-Button .gwt-Label {
 	white-space: nowrap;
 	font: 11px arial, tahoma, verdana, helvetica;
 }
-/* Разделитель панели состояния */
+/* Разделитель инструментальной панели */
 .jepRia-PagingBar .jepRia-Separator {
 	background-position: center;
 	background-repeat: repeat;
