@@ -100,12 +100,18 @@ java.lang.Object
                           <IMG SRC="../../../../../../../resources/inherit.gif" ALT="extended by "><B>com.technology.jep.jepria.client.widget.list.JepGrid&lt;T&gt;</B>
 </PRE>
 <DL>
+<DT><DT><B>Type Parameters:</B><DD><CODE>T</CODE> - тип записей строк таблицы</DL>
+<DL>
 <DT><B>All Implemented Interfaces:</B> <DD>com.google.gwt.event.logical.shared.HasAttachHandlers, com.google.gwt.event.shared.HasHandlers, com.google.gwt.user.cellview.client.HasKeyboardPagingPolicy, com.google.gwt.user.cellview.client.HasKeyboardSelectionPolicy, com.google.gwt.user.client.EventListener, com.google.gwt.user.client.ui.Focusable, com.google.gwt.user.client.ui.HasVisibility, com.google.gwt.user.client.ui.IsRenderable, com.google.gwt.user.client.ui.IsWidget, com.google.gwt.user.client.ui.RequiresResize, com.google.gwt.view.client.HasCellPreviewHandlers&lt;T&gt;, com.google.gwt.view.client.HasData&lt;T&gt;, com.google.gwt.view.client.HasKeyProvider&lt;T&gt;, com.google.gwt.view.client.HasRows</DD>
 </DL>
 <HR>
 <DL>
 <DT><PRE>public class <B>JepGrid&lt;T&gt;</B><DT>extends com.google.gwt.user.cellview.client.DataGrid&lt;T&gt;</DL>
 </PRE>
+
+<P>
+Класс для создания таблиц данных, в качестве строк которых выступают записи указанного типа T
+<P>
 
 <P>
 <HR>
@@ -125,7 +131,7 @@ java.lang.Object
 <TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.ColumnCharasteristic.html" title="class in com.technology.jep.jepria.client.widget.list">JepGrid.ColumnCharasteristic</A></B></CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Класс для хранения характеристик колонки таблица данных</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -133,7 +139,7 @@ java.lang.Object
 <TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.DataGridResource.html" title="interface in com.technology.jep.jepria.client.widget.list">JepGrid.DataGridResource</A></B></CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Интерфейс ресурсов для кастомизации внешнего отображения виджета</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -141,7 +147,7 @@ java.lang.Object
 <TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.MyStyle.html" title="interface in com.technology.jep.jepria.client.widget.list">JepGrid.MyStyle</A></B></CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Интерфейс для стилизации виджета</TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="nested_classes_inherited_from_class_com.google.gwt.user.cellview.client.DataGrid"><!-- --></A>
@@ -218,7 +224,7 @@ java.lang.Object
 <TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#CHARACTERISTIC_SEPARATOR">CHARACTERISTIC_SEPARATOR</A></B></CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Разделитель в строке, хранящей информацию о характеристиках таблицы</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -226,7 +232,7 @@ java.lang.Object
 <TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#columns">columns</A></B></CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Список колонок таблица данных</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -234,7 +240,15 @@ java.lang.Object
 <TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#contentWidget">contentWidget</A></B></CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Виджет со строками таблицы</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#dndEnabled">dndEnabled</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Флаг доступности переноса строк таблицы данных</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -242,7 +256,7 @@ java.lang.Object
 <TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#dragLeaveHandler">dragLeaveHandler</A></B></CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Обработчик системного события покидания строки таблицы другой строки</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -250,7 +264,7 @@ java.lang.Object
 <TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#dragOverHandler">dragOverHandler</A></B></CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Обработчик системного события нахождения строки таблицы над другой строкой</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -258,7 +272,7 @@ java.lang.Object
 <TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#dragStartHandler">dragStartHandler</A></B></CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Обработчик системного события начала переноса строки таблицы</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -266,7 +280,7 @@ java.lang.Object
 <TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#dropHandler">dropHandler</A></B></CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Обработчик системного события завершения переноса строки таблицы</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -274,7 +288,15 @@ java.lang.Object
 <TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#gridId">gridId</A></B></CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Идентификатор таблица данных</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#initialized">initialized</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Флаг полной инициализации виджета</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -282,7 +304,7 @@ java.lang.Object
 <TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#isColumnConfigurable">isColumnConfigurable</A></B></CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Флаг допустимости настройки порядка следования колонок и их отображения в таблице данных</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -290,7 +312,7 @@ java.lang.Object
 <TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#LINEAR_GRADIENT_FROM_BOTTOM_TO_TOP">LINEAR_GRADIENT_FROM_BOTTOM_TO_TOP</A></B></CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Линейный градиент перехода от белого цвета к голубому</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -298,7 +320,7 @@ java.lang.Object
 <TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#LINEAR_GRADIENT_FROM_TOP_TO_BOTTOM">LINEAR_GRADIENT_FROM_TOP_TO_BOTTOM</A></B></CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Линейный градиент перехода от голубого цвета к белому</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -306,7 +328,7 @@ java.lang.Object
 <TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#wrapHeaders">wrapHeaders</A></B></CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Флаг допустимости переноса наименований колонок грида</TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="fields_inherited_from_class_com.google.gwt.user.client.ui.UIObject"><!-- --></A>
@@ -328,81 +350,28 @@ java.lang.Object
 <B>Constructor Summary</B></FONT></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>protected </CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#JepGrid(int, boolean, com.google.gwt.view.client.ProvidesKey)">JepGrid</A></B>(int&nbsp;pageSize,
-        boolean&nbsp;dndEnabled,
-        com.google.gwt.view.client.ProvidesKey&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html" title="type parameter in JepGrid">T</A>&gt;&nbsp;keyProvider)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#JepGrid(java.lang.String, java.util.List)">JepGrid</A></B>(java.lang.String&nbsp;gridId,
         java.util.List&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepColumn.html" title="class in com.technology.jep.jepria.client.widget.list">JepColumn</A>&gt;&nbsp;columns)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Создает таблицу данных на списочной форме.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#JepGrid(java.lang.String, java.util.List, boolean)">JepGrid</A></B>(java.lang.String&nbsp;gridId,
         java.util.List&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepColumn.html" title="class in com.technology.jep.jepria.client.widget.list">JepColumn</A>&gt;&nbsp;columns,
         boolean&nbsp;wrapHeaders)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<B>Deprecated.</B>&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#JepGrid(java.lang.String, java.util.List, boolean, boolean)">JepGrid</A></B>(java.lang.String&nbsp;gridId,
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#JepGrid(java.lang.String, java.util.List, boolean, com.google.gwt.view.client.ProvidesKey)">JepGrid</A></B>(java.lang.String&nbsp;gridId,
         java.util.List&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepColumn.html" title="class in com.technology.jep.jepria.client.widget.list">JepColumn</A>&gt;&nbsp;columns,
         boolean&nbsp;wrapHeaders,
-        boolean&nbsp;isColumnConfigurable)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#JepGrid(java.lang.String, java.util.List, boolean, boolean, boolean)">JepGrid</A></B>(java.lang.String&nbsp;gridId,
-        java.util.List&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepColumn.html" title="class in com.technology.jep.jepria.client.widget.list">JepColumn</A>&gt;&nbsp;columns,
-        boolean&nbsp;wrapHeaders,
-        boolean&nbsp;isColumnConfigurable,
-        boolean&nbsp;dndEnabled)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#JepGrid(java.lang.String, java.util.List, boolean, boolean, boolean, com.google.gwt.view.client.ProvidesKey)">JepGrid</A></B>(java.lang.String&nbsp;gridId,
-        java.util.List&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepColumn.html" title="class in com.technology.jep.jepria.client.widget.list">JepColumn</A>&gt;&nbsp;columns,
-        boolean&nbsp;wrapHeaders,
-        boolean&nbsp;isColumnConfigurable,
-        boolean&nbsp;dndEnabled,
         com.google.gwt.view.client.ProvidesKey&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html" title="type parameter in JepGrid">T</A>&gt;&nbsp;keyProvider)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#JepGrid(java.lang.String, java.util.List, boolean, boolean, com.google.gwt.view.client.ProvidesKey)">JepGrid</A></B>(java.lang.String&nbsp;gridId,
-        java.util.List&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepColumn.html" title="class in com.technology.jep.jepria.client.widget.list">JepColumn</A>&gt;&nbsp;columns,
-        boolean&nbsp;wrapHeaders,
-        boolean&nbsp;isColumnConfigurable,
-        com.google.gwt.view.client.ProvidesKey&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html" title="type parameter in JepGrid">T</A>&gt;&nbsp;keyProvider)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Создает таблицу данных на списочной форме.</TD>
 </TR>
 </TABLE>
 &nbsp;
@@ -429,7 +398,7 @@ java.lang.Object
 <TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#addDragLeaveHandler(com.google.gwt.event.dom.client.DragLeaveHandler)">addDragLeaveHandler</A></B>(com.google.gwt.event.dom.client.DragLeaveHandler&nbsp;handler)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Add a handler to handle <CODE>DragLeaveEvent</CODE>s.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -437,7 +406,7 @@ java.lang.Object
 <TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#addDragOverHandler(com.google.gwt.event.dom.client.DragOverHandler)">addDragOverHandler</A></B>(com.google.gwt.event.dom.client.DragOverHandler&nbsp;handler)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Add a handler to handle <CODE>DragOverEvent</CODE>s.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -445,7 +414,7 @@ java.lang.Object
 <TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#addDragStartHandler(com.google.gwt.event.dom.client.DragStartHandler)">addDragStartHandler</A></B>(com.google.gwt.event.dom.client.DragStartHandler&nbsp;handler)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Add a handler to handle <CODE>DragStartEvent</CODE>s.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -453,7 +422,7 @@ java.lang.Object
 <TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#addDropHandler(com.google.gwt.event.dom.client.DropHandler)">addDropHandler</A></B>(com.google.gwt.event.dom.client.DropHandler&nbsp;handler)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Add a handler to handle <CODE>DropEvent</CODE>s.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -469,7 +438,7 @@ java.lang.Object
 <TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#bindDragAndDropListeners()">bindDragAndDropListeners</A></B>()</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Привязка слушателей переноса строк к таблице данных.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -501,7 +470,7 @@ java.lang.Object
 <TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#getContentWidget()">getContentWidget</A></B>()</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Получить ссылку на виджет со строками таблицы</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -517,7 +486,7 @@ java.lang.Object
 <TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#getRowElement(com.google.gwt.event.dom.client.DomEvent)">getRowElement</A></B>(com.google.gwt.event.dom.client.DomEvent&lt;?&gt;&nbsp;event)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Получение строки таблицы по DOM-событию</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -525,7 +494,7 @@ java.lang.Object
 <TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#getRowIndexByEvent(com.google.gwt.event.dom.client.DomEvent)">getRowIndexByEvent</A></B>(com.google.gwt.event.dom.client.DomEvent&lt;?&gt;&nbsp;event)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Перегруженная версия получения индекса строки таблицы по DOM-событию</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -534,6 +503,16 @@ java.lang.Object
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Получение точного индекса колонки</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#initialize()">initialize</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Инициализируется список колонок грида и в случае необходимости добавляются слушатели 
+ событий <A HREF="../../../../../../../com/technology/jep/jepria/client/widget/event/JepEventType.html#DRAG_START_EVENT"><CODE>JepEventType.DRAG_START_EVENT</CODE></A>, <A HREF="../../../../../../../com/technology/jep/jepria/client/widget/event/JepEventType.html#DRAG_OVER_EVENT"><CODE>JepEventType.DRAG_OVER_EVENT</CODE></A>,
+ <A HREF="../../../../../../../com/technology/jep/jepria/client/widget/event/JepEventType.html#DRAG_LEAVE_EVENT"><CODE>JepEventType.DRAG_LEAVE_EVENT</CODE></A>, <A HREF="../../../../../../../com/technology/jep/jepria/client/widget/event/JepEventType.html#DROP_EVENT"><CODE>JepEventType.DROP_EVENT</CODE></A></TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -550,15 +529,26 @@ java.lang.Object
                            com.google.gwt.dom.client.NativeEvent&nbsp;event)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Определяет находится ли курсор мыши в верхней или нижней части строки таблица при перетаскивании.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>(package private) &nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#isDNDEnabled()">isDNDEnabled</A></B>()</CODE>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#isDndEnabled()">isDndEnabled</A></B>()</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Возвращает флаг доступности переноса строк на таблице данных</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#onLoad()">onLoad</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ 
+ Особенности:<br/>
+ Конфигурирование виджета происходит в момент его добавления к DOM-дереву и единожды.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -598,6 +588,30 @@ java.lang.Object
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
  Особенности:<br/>
  После выбора строки, выбранная строка вновь доступна для перетаскивания.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#setColumnConfigurable(boolean)">setColumnConfigurable</A></B>(boolean&nbsp;isColumnConfigurable)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Установка или отключение возможности конфигурирования характеристик колонок.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#setDndEnabled(boolean)">setDndEnabled</A></B>(boolean&nbsp;dndEnabled)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Установка или отключение возможности переноса строк в таблице данных.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#setWrapHeaders(boolean)">setWrapHeaders</A></B>(boolean&nbsp;wrapHeaders)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Установка или отключение возможности переноса наименований колонок.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -650,7 +664,7 @@ java.lang.Object
 <TH ALIGN="left"><B>Methods inherited from class com.google.gwt.user.client.ui.Widget</B></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE>addAttachHandler, addBitlessDomHandler, addDomHandler, addHandler, asWidget, asWidgetOrNull, createHandlerManager, delegateEvent, doAttachChildren, doDetachChildren, fireEvent, getHandlerCount, getLayoutData, getParent, isOrWasAttached, onLoad, removeFromParent, setLayoutData, sinkEvents, unsinkEvents</CODE></TD>
+<TD><CODE>addAttachHandler, addBitlessDomHandler, addDomHandler, addHandler, asWidget, asWidgetOrNull, createHandlerManager, delegateEvent, doAttachChildren, doDetachChildren, fireEvent, getHandlerCount, getLayoutData, getParent, isOrWasAttached, removeFromParent, setLayoutData, sinkEvents, unsinkEvents</CODE></TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_com.google.gwt.user.client.ui.UIObject"><!-- --></A>
@@ -698,6 +712,8 @@ contentWidget</H3>
 <PRE>
 private com.google.gwt.user.client.ui.ScrollPanel <B>contentWidget</B></PRE>
 <DL>
+<DD>Виджет со строками таблицы
+<P>
 <DL>
 </DL>
 </DL>
@@ -708,6 +724,8 @@ gridId</H3>
 <PRE>
 private java.lang.String <B>gridId</B></PRE>
 <DL>
+<DD>Идентификатор таблица данных
+<P>
 <DL>
 </DL>
 </DL>
@@ -718,6 +736,8 @@ columns</H3>
 <PRE>
 private java.util.List&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepColumn.html" title="class in com.technology.jep.jepria.client.widget.list">JepColumn</A>&gt; <B>columns</B></PRE>
 <DL>
+<DD>Список колонок таблица данных
+<P>
 <DL>
 </DL>
 </DL>
@@ -728,6 +748,8 @@ wrapHeaders</H3>
 <PRE>
 private boolean <B>wrapHeaders</B></PRE>
 <DL>
+<DD>Флаг допустимости переноса наименований колонок грида
+<P>
 <DL>
 </DL>
 </DL>
@@ -738,6 +760,32 @@ isColumnConfigurable</H3>
 <PRE>
 private boolean <B>isColumnConfigurable</B></PRE>
 <DL>
+<DD>Флаг допустимости настройки порядка следования колонок и их отображения в таблице данных
+<P>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="dndEnabled"><!-- --></A><H3>
+dndEnabled</H3>
+<PRE>
+private boolean <B>dndEnabled</B></PRE>
+<DL>
+<DD>Флаг доступности переноса строк таблицы данных
+<P>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="initialized"><!-- --></A><H3>
+initialized</H3>
+<PRE>
+private boolean <B>initialized</B></PRE>
+<DL>
+<DD>Флаг полной инициализации виджета
+<P>
 <DL>
 </DL>
 </DL>
@@ -748,6 +796,8 @@ CHARACTERISTIC_SEPARATOR</H3>
 <PRE>
 private static final java.lang.String <B>CHARACTERISTIC_SEPARATOR</B></PRE>
 <DL>
+<DD>Разделитель в строке, хранящей информацию о характеристиках таблицы
+<P>
 <DL>
 <DT><B>See Also:</B><DD><A HREF="../../../../../../../constant-values.html#com.technology.jep.jepria.client.widget.list.JepGrid.CHARACTERISTIC_SEPARATOR">Constant Field Values</A></DL>
 </DL>
@@ -758,6 +808,8 @@ LINEAR_GRADIENT_FROM_TOP_TO_BOTTOM</H3>
 <PRE>
 private static final java.lang.String <B>LINEAR_GRADIENT_FROM_TOP_TO_BOTTOM</B></PRE>
 <DL>
+<DD>Линейный градиент перехода от голубого цвета к белому
+<P>
 <DL>
 <DT><B>See Also:</B><DD><A HREF="../../../../../../../constant-values.html#com.technology.jep.jepria.client.widget.list.JepGrid.LINEAR_GRADIENT_FROM_TOP_TO_BOTTOM">Constant Field Values</A></DL>
 </DL>
@@ -768,6 +820,8 @@ LINEAR_GRADIENT_FROM_BOTTOM_TO_TOP</H3>
 <PRE>
 private static final java.lang.String <B>LINEAR_GRADIENT_FROM_BOTTOM_TO_TOP</B></PRE>
 <DL>
+<DD>Линейный градиент перехода от белого цвета к голубому
+<P>
 <DL>
 <DT><B>See Also:</B><DD><A HREF="../../../../../../../constant-values.html#com.technology.jep.jepria.client.widget.list.JepGrid.LINEAR_GRADIENT_FROM_BOTTOM_TO_TOP">Constant Field Values</A></DL>
 </DL>
@@ -778,6 +832,8 @@ dragStartHandler</H3>
 <PRE>
 protected com.google.gwt.event.shared.HandlerRegistration <B>dragStartHandler</B></PRE>
 <DL>
+<DD>Обработчик системного события начала переноса строки таблицы
+<P>
 <DL>
 </DL>
 </DL>
@@ -788,6 +844,8 @@ dragOverHandler</H3>
 <PRE>
 protected com.google.gwt.event.shared.HandlerRegistration <B>dragOverHandler</B></PRE>
 <DL>
+<DD>Обработчик системного события нахождения строки таблицы над другой строкой
+<P>
 <DL>
 </DL>
 </DL>
@@ -798,6 +856,8 @@ dragLeaveHandler</H3>
 <PRE>
 protected com.google.gwt.event.shared.HandlerRegistration <B>dragLeaveHandler</B></PRE>
 <DL>
+<DD>Обработчик системного события покидания строки таблицы другой строки
+<P>
 <DL>
 </DL>
 </DL>
@@ -808,6 +868,8 @@ dropHandler</H3>
 <PRE>
 protected com.google.gwt.event.shared.HandlerRegistration <B>dropHandler</B></PRE>
 <DL>
+<DD>Обработчик системного события завершения переноса строки таблицы
+<P>
 <DL>
 </DL>
 </DL>
@@ -828,74 +890,44 @@ JepGrid</H3>
 public <B>JepGrid</B>(java.lang.String&nbsp;gridId,
                java.util.List&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepColumn.html" title="class in com.technology.jep.jepria.client.widget.list">JepColumn</A>&gt;&nbsp;columns)</PRE>
 <DL>
+<DD>Создает таблицу данных на списочной форме.
+<P>
+<DL>
+<DT><B>Parameters:</B><DD><CODE>gridId</CODE> - идентификатор грида<DD><CODE>columns</CODE> - список колонок</DL>
 </DL>
 <HR>
 
 <A NAME="JepGrid(java.lang.String, java.util.List, boolean)"><!-- --></A><H3>
 JepGrid</H3>
 <PRE>
-public <B>JepGrid</B>(java.lang.String&nbsp;gridId,
-               java.util.List&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepColumn.html" title="class in com.technology.jep.jepria.client.widget.list">JepColumn</A>&gt;&nbsp;columns,
-               boolean&nbsp;wrapHeaders)</PRE>
+<FONT SIZE="-1">@Deprecated
+</FONT>public <B>JepGrid</B>(java.lang.String&nbsp;gridId,
+                          java.util.List&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepColumn.html" title="class in com.technology.jep.jepria.client.widget.list">JepColumn</A>&gt;&nbsp;columns,
+                          boolean&nbsp;wrapHeaders)</PRE>
 <DL>
+<DD><B>Deprecated.</B>&nbsp;
+<P>
+<DD>Создает таблицу данных на списочной форме.
+<P>
+<DL>
+<DT><B>Parameters:</B><DD><CODE>gridId</CODE> - идентификатор грида<DD><CODE>columns</CODE> - список колонок<DD><CODE>wrapHeaders</CODE> - допустимость переноса наименования колонок
+ 
+ Особенность: следует использовать альтернативные перегруженные конструкторы</DL>
 </DL>
 <HR>
 
-<A NAME="JepGrid(java.lang.String, java.util.List, boolean, boolean)"><!-- --></A><H3>
+<A NAME="JepGrid(java.lang.String, java.util.List, boolean, com.google.gwt.view.client.ProvidesKey)"><!-- --></A><H3>
 JepGrid</H3>
 <PRE>
 public <B>JepGrid</B>(java.lang.String&nbsp;gridId,
                java.util.List&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepColumn.html" title="class in com.technology.jep.jepria.client.widget.list">JepColumn</A>&gt;&nbsp;columns,
                boolean&nbsp;wrapHeaders,
-               boolean&nbsp;isColumnConfigurable)</PRE>
-<DL>
-</DL>
-<HR>
-
-<A NAME="JepGrid(java.lang.String, java.util.List, boolean, boolean, boolean)"><!-- --></A><H3>
-JepGrid</H3>
-<PRE>
-public <B>JepGrid</B>(java.lang.String&nbsp;gridId,
-               java.util.List&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepColumn.html" title="class in com.technology.jep.jepria.client.widget.list">JepColumn</A>&gt;&nbsp;columns,
-               boolean&nbsp;wrapHeaders,
-               boolean&nbsp;isColumnConfigurable,
-               boolean&nbsp;dndEnabled)</PRE>
-<DL>
-</DL>
-<HR>
-
-<A NAME="JepGrid(java.lang.String, java.util.List, boolean, boolean, com.google.gwt.view.client.ProvidesKey)"><!-- --></A><H3>
-JepGrid</H3>
-<PRE>
-public <B>JepGrid</B>(java.lang.String&nbsp;gridId,
-               java.util.List&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepColumn.html" title="class in com.technology.jep.jepria.client.widget.list">JepColumn</A>&gt;&nbsp;columns,
-               boolean&nbsp;wrapHeaders,
-               boolean&nbsp;isColumnConfigurable,
                com.google.gwt.view.client.ProvidesKey&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html" title="type parameter in JepGrid">T</A>&gt;&nbsp;keyProvider)</PRE>
 <DL>
-</DL>
-<HR>
-
-<A NAME="JepGrid(java.lang.String, java.util.List, boolean, boolean, boolean, com.google.gwt.view.client.ProvidesKey)"><!-- --></A><H3>
-JepGrid</H3>
-<PRE>
-public <B>JepGrid</B>(java.lang.String&nbsp;gridId,
-               java.util.List&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepColumn.html" title="class in com.technology.jep.jepria.client.widget.list">JepColumn</A>&gt;&nbsp;columns,
-               boolean&nbsp;wrapHeaders,
-               boolean&nbsp;isColumnConfigurable,
-               boolean&nbsp;dndEnabled,
-               com.google.gwt.view.client.ProvidesKey&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html" title="type parameter in JepGrid">T</A>&gt;&nbsp;keyProvider)</PRE>
+<DD>Создает таблицу данных на списочной форме.
+<P>
 <DL>
-</DL>
-<HR>
-
-<A NAME="JepGrid(int, boolean, com.google.gwt.view.client.ProvidesKey)"><!-- --></A><H3>
-JepGrid</H3>
-<PRE>
-protected <B>JepGrid</B>(int&nbsp;pageSize,
-                  boolean&nbsp;dndEnabled,
-                  com.google.gwt.view.client.ProvidesKey&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html" title="type parameter in JepGrid">T</A>&gt;&nbsp;keyProvider)</PRE>
-<DL>
+<DT><B>Parameters:</B><DD><CODE>gridId</CODE> - идентификатор грида<DD><CODE>columns</CODE> - список колонок<DD><CODE>wrapHeaders</CODE> - допустимость переноса наименования колонок<DD><CODE>keyProvider</CODE> - провайдер ключей грида</DL>
 </DL>
 
 <!-- ============ METHOD DETAIL ========== -->
@@ -1065,8 +1097,11 @@ getRowIndexByEvent</H3>
 <PRE>
 public int <B>getRowIndexByEvent</B>(com.google.gwt.event.dom.client.DomEvent&lt;?&gt;&nbsp;event)</PRE>
 <DL>
+<DD>Перегруженная версия получения индекса строки таблицы по DOM-событию
+<P>
 <DD><DL>
-</DL>
+<DT><B>Parameters:</B><DD><CODE>event</CODE> - случившееся DOM-событие
+<DT><B>Returns:</B><DD>индекс строки таблицы данных</DL>
 </DD>
 </DL>
 <HR>
@@ -1076,8 +1111,11 @@ getRowElement</H3>
 <PRE>
 public com.google.gwt.dom.client.TableRowElement <B>getRowElement</B>(com.google.gwt.event.dom.client.DomEvent&lt;?&gt;&nbsp;event)</PRE>
 <DL>
+<DD>Получение строки таблицы по DOM-событию
+<P>
 <DD><DL>
-</DL>
+<DT><B>Parameters:</B><DD><CODE>event</CODE> - случившееся DOM-событие
+<DT><B>Returns:</B><DD>DOM-элемент строки таблицы данных</DL>
 </DD>
 </DL>
 <HR>
@@ -1087,8 +1125,11 @@ addDragStartHandler</H3>
 <PRE>
 public com.google.gwt.event.shared.HandlerRegistration <B>addDragStartHandler</B>(com.google.gwt.event.dom.client.DragStartHandler&nbsp;handler)</PRE>
 <DL>
+<DD>Add a handler to handle <CODE>DragStartEvent</CODE>s.
+<P>
 <DD><DL>
-</DL>
+<DT><B>Parameters:</B><DD><CODE>handler</CODE> - the <CODE>DragStartHandler</CODE> to add
+<DT><B>Returns:</B><DD>a <CODE>HandlerRegistration</CODE> to remove the handler</DL>
 </DD>
 </DL>
 <HR>
@@ -1098,8 +1139,11 @@ addDragOverHandler</H3>
 <PRE>
 public com.google.gwt.event.shared.HandlerRegistration <B>addDragOverHandler</B>(com.google.gwt.event.dom.client.DragOverHandler&nbsp;handler)</PRE>
 <DL>
+<DD>Add a handler to handle <CODE>DragOverEvent</CODE>s.
+<P>
 <DD><DL>
-</DL>
+<DT><B>Parameters:</B><DD><CODE>handler</CODE> - the <CODE>DragOverHandler</CODE> to add
+<DT><B>Returns:</B><DD>a <CODE>HandlerRegistration</CODE> to remove the handler</DL>
 </DD>
 </DL>
 <HR>
@@ -1109,8 +1153,11 @@ addDragLeaveHandler</H3>
 <PRE>
 public com.google.gwt.event.shared.HandlerRegistration <B>addDragLeaveHandler</B>(com.google.gwt.event.dom.client.DragLeaveHandler&nbsp;handler)</PRE>
 <DL>
+<DD>Add a handler to handle <CODE>DragLeaveEvent</CODE>s.
+<P>
 <DD><DL>
-</DL>
+<DT><B>Parameters:</B><DD><CODE>handler</CODE> - the <CODE>DragLeaveHandler</CODE> to add
+<DT><B>Returns:</B><DD>a <CODE>HandlerRegistration</CODE> to remove the handler</DL>
 </DD>
 </DL>
 <HR>
@@ -1120,8 +1167,11 @@ addDropHandler</H3>
 <PRE>
 public com.google.gwt.event.shared.HandlerRegistration <B>addDropHandler</B>(com.google.gwt.event.dom.client.DropHandler&nbsp;handler)</PRE>
 <DL>
+<DD>Add a handler to handle <CODE>DropEvent</CODE>s.
+<P>
 <DD><DL>
-</DL>
+<DT><B>Parameters:</B><DD><CODE>handler</CODE> - the <CODE>DropHandler</CODE> to add
+<DT><B>Returns:</B><DD>a <CODE>HandlerRegistration</CODE> to remove the handler</DL>
 </DD>
 </DL>
 <HR>
@@ -1131,30 +1181,64 @@ getContentWidget</H3>
 <PRE>
 public com.google.gwt.user.client.ui.ScrollPanel <B>getContentWidget</B>()</PRE>
 <DL>
+<DD>Получить ссылку на виджет со строками таблицы
+<P>
 <DD><DL>
-</DL>
+
+<DT><B>Returns:</B><DD>виджет со строками записей</DL>
 </DD>
 </DL>
 <HR>
 
-<A NAME="bindDragAndDropListeners()"><!-- --></A><H3>
-bindDragAndDropListeners</H3>
+<A NAME="isDndEnabled()"><!-- --></A><H3>
+isDndEnabled</H3>
 <PRE>
-private void <B>bindDragAndDropListeners</B>()</PRE>
+boolean <B>isDndEnabled</B>()</PRE>
 <DL>
+<DD>Возвращает флаг доступности переноса строк на таблице данных
+<P>
 <DD><DL>
-</DL>
+
+<DT><B>Returns:</B><DD>флаг доступности переноса строк</DL>
 </DD>
 </DL>
 <HR>
 
-<A NAME="isDNDEnabled()"><!-- --></A><H3>
-isDNDEnabled</H3>
+<A NAME="setWrapHeaders(boolean)"><!-- --></A><H3>
+setWrapHeaders</H3>
 <PRE>
-boolean <B>isDNDEnabled</B>()</PRE>
+public void <B>setWrapHeaders</B>(boolean&nbsp;wrapHeaders)</PRE>
 <DL>
+<DD>Установка или отключение возможности переноса наименований колонок.
+<P>
 <DD><DL>
+<DT><B>Parameters:</B><DD><CODE>wrapHeaders</CODE> - флаг допустимости переноса наменований колонок</DL>
+</DD>
 </DL>
+<HR>
+
+<A NAME="setColumnConfigurable(boolean)"><!-- --></A><H3>
+setColumnConfigurable</H3>
+<PRE>
+public void <B>setColumnConfigurable</B>(boolean&nbsp;isColumnConfigurable)</PRE>
+<DL>
+<DD>Установка или отключение возможности конфигурирования характеристик колонок.
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>isColumnConfigurable</CODE> - флаг возможности конфигурирования колонок</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setDndEnabled(boolean)"><!-- --></A><H3>
+setDndEnabled</H3>
+<PRE>
+public void <B>setDndEnabled</B>(boolean&nbsp;dndEnabled)</PRE>
+<DL>
+<DD>Установка или отключение возможности переноса строк в таблице данных.
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>dndEnabled</CODE> - флаг допустимости переноса строк колонок</DL>
 </DD>
 </DL>
 <HR>
@@ -1165,8 +1249,11 @@ isCursorAboveElementCenter</H3>
 private boolean <B>isCursorAboveElementCenter</B>(com.google.gwt.dom.client.Element&nbsp;rowElement,
                                            com.google.gwt.dom.client.NativeEvent&nbsp;event)</PRE>
 <DL>
+<DD>Определяет находится ли курсор мыши в верхней или нижней части строки таблица при перетаскивании.
+<P>
 <DD><DL>
-</DL>
+<DT><B>Parameters:</B><DD><CODE>rowElement</CODE> - текущая строка таблицы<DD><CODE>event</CODE> - событие перетаскивания
+<DT><B>Returns:</B><DD>флаг нахождения курсора в верхней части элемента</DL>
 </DD>
 </DL>
 <HR>
@@ -1204,6 +1291,53 @@ protected void <B>replaceChildren</B>(java.util.List&lt;<A HREF="../../../../../
 <DD><DL>
 <DT><B>Overrides:</B><DD><CODE>replaceChildren</CODE> in class <CODE>com.google.gwt.user.cellview.client.AbstractCellTable&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html" title="type parameter in JepGrid">T</A>&gt;</CODE></DL>
 </DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="onLoad()"><!-- --></A><H3>
+onLoad</H3>
+<PRE>
+protected void <B>onLoad</B>()</PRE>
+<DL>
+<DD>
+ 
+ Особенности:<br/>
+ Конфигурирование виджета происходит в момент его добавления к DOM-дереву и единожды.
+<P>
+<DD><DL>
+<DT><B>Overrides:</B><DD><CODE>onLoad</CODE> in class <CODE>com.google.gwt.user.client.ui.Widget</CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="initialize()"><!-- --></A><H3>
+initialize</H3>
+<PRE>
+protected void <B>initialize</B>()</PRE>
+<DL>
+<DD>Инициализируется список колонок грида и в случае необходимости добавляются слушатели 
+ событий <A HREF="../../../../../../../com/technology/jep/jepria/client/widget/event/JepEventType.html#DRAG_START_EVENT"><CODE>JepEventType.DRAG_START_EVENT</CODE></A>, <A HREF="../../../../../../../com/technology/jep/jepria/client/widget/event/JepEventType.html#DRAG_OVER_EVENT"><CODE>JepEventType.DRAG_OVER_EVENT</CODE></A>,
+ <A HREF="../../../../../../../com/technology/jep/jepria/client/widget/event/JepEventType.html#DRAG_LEAVE_EVENT"><CODE>JepEventType.DRAG_LEAVE_EVENT</CODE></A>, <A HREF="../../../../../../../com/technology/jep/jepria/client/widget/event/JepEventType.html#DROP_EVENT"><CODE>JepEventType.DROP_EVENT</CODE></A>
+<P>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="bindDragAndDropListeners()"><!-- --></A><H3>
+bindDragAndDropListeners</H3>
+<PRE>
+private void <B>bindDragAndDropListeners</B>()</PRE>
+<DL>
+<DD>Привязка слушателей переноса строк к таблице данных.
+<P>
 <DD><DL>
 </DL>
 </DD>

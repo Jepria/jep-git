@@ -90,7 +90,7 @@ public class PagingManager<W extends AbstractHasData<JepRecord>, P extends Pagin
 		// добавляется возможность изменения позиций строк.
 		if (widget instanceof JepGrid<?>){
 			JepGrid<?> grid = (JepGrid<?>) widget;
-			if (grid.isDNDEnabled()) {
+			if (grid.isDndEnabled()) {
 				grid.addRowOrderChangerHandler(new RowOrderChangeEvent.Handler() {
 					@Override
 					public void onRowOrderChange(RowOrderChangeEvent event) {

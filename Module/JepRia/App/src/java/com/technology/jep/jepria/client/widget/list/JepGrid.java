@@ -47,54 +47,132 @@ import com.technology.jep.jepria.client.widget.list.event.RowOrderChangeEvent;
 import com.technology.jep.jepria.client.widget.list.header.ResizableHeader;
 import com.technology.jep.jepria.shared.util.JepRiaUtil;
 
+/**
+ * Класс для создания таблиц данных, в качестве строк которых выступают записи указанного типа T
+ * 
+ * @param <T>		тип записей строк таблицы
+ */
 @SuppressWarnings({"rawtypes", "unchecked"})
 public class JepGrid<T> extends DataGrid<T> {
 	
+	/**
+	 * Виджет со строками таблицы
+	 */
 	private ScrollPanel contentWidget;
-	private String gridId = null;
-	private List<JepColumn> columns;
-	private boolean wrapHeaders;
-	private boolean isColumnConfigurable;
 	
+	/**
+	 * Идентификатор таблица данных
+	 */
+	private String gridId = null;
+	
+	/**
+	 * Список колонок таблица данных
+	 */
+	private List<JepColumn> columns;
+	
+	/**
+	 * Флаг допустимости переноса наименований колонок грида
+	 */
+	private boolean wrapHeaders;
+	
+	/**
+	 * Флаг допустимости настройки порядка следования колонок и их отображения в таблице данных 
+	 */
+	private boolean isColumnConfigurable = true;
+	
+	/**
+	 * Флаг доступности переноса строк таблицы данных
+	 */
+	private boolean dndEnabled = false;
+	
+	/**
+	 * Флаг полной инициализации виджета
+	 */
+	private boolean initialized = false;
+	
+	/**
+	 * Разделитель в строке, хранящей информацию о характеристиках таблицы
+	 */
 	private static final String CHARACTERISTIC_SEPARATOR = "=";
+	
+	/**
+	 * Линейный градиент перехода от голубого цвета к белому
+	 */
 	private static final String LINEAR_GRADIENT_FROM_TOP_TO_BOTTOM = "linear-gradient(#D0DEF0, #FFFFFF)";
+	
+	/**
+	 * Линейный градиент перехода от белого цвета к голубому
+	 */
 	private static final String LINEAR_GRADIENT_FROM_BOTTOM_TO_TOP = "linear-gradient(#FFFFFF, #D0DEF0)";
 	
+	/**
+	 * Обработчик системного события начала переноса строки таблицы
+	 */
 	protected HandlerRegistration dragStartHandler;
+	
+	/**
+	 * Обработчик системного события нахождения строки таблицы над другой строкой
+	 */
 	protected HandlerRegistration dragOverHandler;
+	
+	/**
+	 * Обработчик системного события покидания строки таблицы другой строки
+	 */
 	protected HandlerRegistration dragLeaveHandler;
+	
+	/**
+	 * Обработчик системного события завершения переноса строки таблицы
+	 */
 	protected HandlerRegistration dropHandler;
 	
+	/**
+	 * Интерфейс для стилизации виджета
+	 */
 	public interface MyStyle extends DataGrid.Style {
 	}
 
+	/**
+	 * Интерфейс ресурсов для кастомизации внешнего отображения виджета
+	 */
 	public interface DataGridResource extends DataGrid.Resources {
 		@Source({ DataGrid.Style.DEFAULT_CSS, "DataGridOverride.css" })
 		MyStyle dataGridStyle();
 	}
 
+	/**
+	 * Создает таблицу данных на списочной форме.
+	 * 
+	 * @param gridId			идентификатор грида
+	 * @param columns			список колонок
+	 */
 	public JepGrid(String gridId, List<JepColumn> columns) {
-		this(gridId, columns, false);
+		this(gridId, columns, false, null);
 	}
 
+	/**
+	 * Создает таблицу данных на списочной форме.
+	 * 
+	 * @param gridId			идентификатор грида
+	 * @param columns			список колонок
+	 * @param wrapHeaders		допустимость переноса наименования колонок
+	 * 
+	 * Особенность: следует использовать альтернативные перегруженные конструкторы 
+	 */
+	@Deprecated
 	public JepGrid(String gridId, final List<JepColumn> columns, boolean wrapHeaders) {
-		this(gridId, columns, wrapHeaders, true);
+		this(gridId, columns, wrapHeaders, null);
 	}
 	
-	public JepGrid(String gridId, final List<JepColumn> columns, boolean wrapHeaders, boolean isColumnConfigurable) {
-		this(gridId, columns, wrapHeaders, isColumnConfigurable, null);
-	}
-	
-	public JepGrid(String gridId, final List<JepColumn> columns, boolean wrapHeaders, boolean isColumnConfigurable, boolean dndEnabled) {
-		this(gridId, columns, wrapHeaders, isColumnConfigurable, dndEnabled, null);
-	}
-
-	public JepGrid(String gridId, final List<JepColumn> columns, boolean wrapHeaders, boolean isColumnConfigurable, ProvidesKey<T> keyProvider) {
-		this(gridId, columns, wrapHeaders, isColumnConfigurable, false, keyProvider);
-	}
-	
-	public JepGrid(String gridId, final List<JepColumn> columns, boolean wrapHeaders, boolean isColumnConfigurable, boolean dndEnabled, ProvidesKey<T> keyProvider) {
-		this(DEFAULT_PAGE_SIZE, dndEnabled, keyProvider);
+	/**
+	 * Создает таблицу данных на списочной форме.
+	 * 
+	 * @param gridId			идентификатор грида
+	 * @param columns			список колонок
+	 * @param wrapHeaders		допустимость переноса наименования колонок
+	 * @param keyProvider		провайдер ключей грида
+	 */
+	public JepGrid(String gridId, final List<JepColumn> columns, boolean wrapHeaders, ProvidesKey<T> keyProvider) {
+		super(DEFAULT_PAGE_SIZE, (DataGridResource) GWT.create(DataGridResource.class), keyProvider);
 
 		this.gridId = gridId;
 		this.getElement().setId(gridId);
@@ -102,38 +180,23 @@ public class JepGrid<T> extends DataGrid<T> {
 		this.columns = columns;
 		this.wrapHeaders = wrapHeaders;
 		
-		this.isColumnConfigurable = isColumnConfigurable;
-		
-		final Map<String, ColumnCharasteristic> customColumnCharacteristics = parseColumnCharacteristics(Cookies.getCookie(gridId));
-		
-		if (!customColumnCharacteristics.isEmpty()){
-			Collections.sort(columns, new Comparator<JepColumn>() {
-				@Override
-				public int compare(JepColumn col1, JepColumn col2) {
-					ColumnCharasteristic characteristicCol1 = customColumnCharacteristics.get(col1.getDataStoreName()),
-							characteristicCol2 = customColumnCharacteristics.get(col2.getDataStoreName());
-					return (JepRiaUtil.isEmpty(characteristicCol1) ? columns.indexOf(col1) : characteristicCol1.order) - 
-								(JepRiaUtil.isEmpty(characteristicCol2) ? columns.indexOf(col2) : characteristicCol2.order);
-				}
-			});
-		}
-		
-		for (JepColumn col : columns) {
-			ColumnCharasteristic characteristic = customColumnCharacteristics.get(col.getDataStoreName());
-			if (characteristic != null) {
-				setColumnWidth(col, characteristic.width);
-				if (characteristic.visible) {
-					addColumnWithHeader(col, false);
-				}
-			}
-			else {
-				setColumnWidth(col, col.getWidth(), Unit.PX);
-				addColumnWithHeader(col, false);
-			}
-		}
+		this.contentWidget = (ScrollPanel) ((HeaderPanel) getWidget()).getContentWidget();
 
-		// последний столбец-заглушка, для корректного отображения ширины столбцов
-		addColumn(new JepColumn<T, String>(new TextCell()));
+		setAutoHeaderRefreshDisabled(true);
+		setMinimumTableWidth(300, Unit.PX);
+		setHeight("100%");
+		
+		addCellPreviewHandler(new Handler<T>() {
+			@Override
+			public void onCellPreview(CellPreviewEvent<T> event) {
+				if (BrowserEvents.MOUSEOVER.equals(event.getNativeEvent().getType())) {
+					onMouseOver(event);
+				}
+			}
+		});
+		
+		final SelectionModel<T> selectionModel = new MultiSelectionModel<T>();
+		setSelectionModel(selectionModel);
 	}
 
 	/**
@@ -143,9 +206,9 @@ public class JepGrid<T> extends DataGrid<T> {
 	 * @param toggle		признак переключения
 	 */
 	public void addColumnWithHeader(JepColumn col, boolean toggle) {
-		Header<String> header = new ResizableHeader<T>(col.getHeaderText(), this, col, isColumnConfigurable);
+		Header<String> header = new ResizableHeader<T>(col.getHeaderText(), this, col, this.isColumnConfigurable);
 		
-		if (wrapHeaders)
+		if (this.wrapHeaders)
 			header.setHeaderStyleNames(JepColumn.NORMAL_WRAP_STYLE);
 		
 		int currentIndex = indexOf(col), columnCount = getColumnCount();
@@ -175,32 +238,6 @@ public class JepGrid<T> extends DataGrid<T> {
 			addColumnWithHeader(currentColumn, true);
 		}
 		return unchecked;
-	}
-	
-	protected JepGrid(int pageSize, boolean dndEnabled, ProvidesKey<T> keyProvider) {
-		super(pageSize, (DataGridResource) GWT.create(DataGridResource.class), keyProvider);
-		this.contentWidget = (ScrollPanel) ((HeaderPanel) getWidget()).getContentWidget();
-
-		setAutoHeaderRefreshDisabled(true);
-		setMinimumTableWidth(300, Unit.PX);
-		setHeight("100%");
-		
-		addCellPreviewHandler(new Handler<T>() {
-			@Override
-			public void onCellPreview(CellPreviewEvent<T> event) {
-				if (BrowserEvents.MOUSEOVER.equals(event.getNativeEvent().getType())) {
-					onMouseOver(event);
-				}
-			}
-		});
-		
-		// добавим системных слушателей DragAndDrop события
-		if (dndEnabled){
-			bindDragAndDropListeners();
-		}
-		
-		final SelectionModel<T> selectionModel = new MultiSelectionModel<T>();
-		setSelectionModel(selectionModel);
 	}
 	
 	/**
@@ -333,20 +370,6 @@ public class JepGrid<T> extends DataGrid<T> {
 		cellElement.setTitle(JepClientUtil.jsTrim(toolTip)); // убираем первые пробелы для древовидного справочника
 	}
 	
-	class ColumnCharasteristic {
-		String fieldName;
-		String width;
-		int order;
-		boolean visible;
-		
-		public ColumnCharasteristic(String fieldName, String width, int order, boolean visible) {
-			this.fieldName = fieldName;
-			this.width = width;
-			this.order = order;
-			this.visible = visible;
-		}
-	}
-	
 	/**
 	 * Add a handler to handle {@link com.technology.jep.jepria.client.widget.list.event.RowOrderChangeEvent}s.
 	 * 
@@ -357,6 +380,12 @@ public class JepGrid<T> extends DataGrid<T> {
 		return addHandler(handler, RowOrderChangeEvent.getType());
 	}
 
+	/**
+	 * Перегруженная версия получения индекса строки таблицы по DOM-событию
+	 * 
+	 * @param event			случившееся DOM-событие
+	 * @return		индекс строки таблицы данных
+	 */
 	public int getRowIndexByEvent(DomEvent<?> event) {
 		Element tableRow = Element.as(event.getNativeEvent().getEventTarget());
 		// index by default which corresponds an unmatched row
@@ -371,31 +400,207 @@ public class JepGrid<T> extends DataGrid<T> {
 		return selectedIndexRow;
 	}
 	
+	/**
+	 * Получение строки таблицы по DOM-событию
+	 * 
+	 * @param event			случившееся DOM-событие
+	 * @return DOM-элемент строки таблицы данных
+	 */
 	public TableRowElement getRowElement(DomEvent<?> event){
 		int rowIndex = getRowIndexByEvent(event);
 		return rowIndex == -1 ? null : getRowElement(rowIndex);
 	}
 	
+	/**
+	 * Add a handler to handle {@link com.google.gwt.event.dom.client.DragStartEvent}s.
+	 * 
+	 * @param handler the {@link com.google.gwt.event.dom.client.DragStartHandler} to add
+	 * @return a {@link com.google.gwt.event.shared.HandlerRegistration} to remove the handler
+	 */
 	public HandlerRegistration addDragStartHandler(DragStartHandler handler){
 		return contentWidget.addDomHandler(handler, DragStartEvent.getType());
 	}
 	
+	/**
+	 * Add a handler to handle {@link com.google.gwt.event.dom.client.DragOverEvent}s.
+	 * 
+	 * @param handler the {@link com.google.gwt.event.dom.client.DragOverHandler} to add
+	 * @return a {@link com.google.gwt.event.shared.HandlerRegistration} to remove the handler
+	 */
 	public HandlerRegistration addDragOverHandler(DragOverHandler handler){
 		return contentWidget.addDomHandler(handler, DragOverEvent.getType());
 	}
 	
+	/**
+	 * Add a handler to handle {@link com.google.gwt.event.dom.client.DragLeaveEvent}s.
+	 * 
+	 * @param handler the {@link com.google.gwt.event.dom.client.DragLeaveHandler} to add
+	 * @return a {@link com.google.gwt.event.shared.HandlerRegistration} to remove the handler
+	 */
 	public HandlerRegistration addDragLeaveHandler(DragLeaveHandler handler){
 		return contentWidget.addDomHandler(handler, DragLeaveEvent.getType());
 	}
 	
+	/**
+	 * Add a handler to handle {@link com.google.gwt.event.dom.client.DropEvent}s.
+	 * 
+	 * @param handler the {@link com.google.gwt.event.dom.client.DropHandler} to add
+	 * @return a {@link com.google.gwt.event.shared.HandlerRegistration} to remove the handler
+	 */
 	public HandlerRegistration addDropHandler(DropHandler handler){
 		return contentWidget.addDomHandler(handler, DropEvent.getType());
 	}
 	
+	/**
+	 * Получить ссылку на виджет со строками таблицы
+	 * 
+	 * @return	виджет со строками записей
+	 */
 	public ScrollPanel getContentWidget(){
 		return contentWidget;
 	}
 	
+	/**
+	 * Возвращает флаг доступности переноса строк на таблице данных 
+	 * 
+	 * @return	флаг доступности переноса строк
+	 */
+	boolean isDndEnabled(){
+		return this.dndEnabled;
+	}
+	
+	/**
+	 * Установка или отключение возможности переноса наименований колонок.
+	 * 
+	 * @param wrapHeaders		флаг допустимости переноса наменований колонок
+	 */
+	public void setWrapHeaders(boolean wrapHeaders) {
+		this.wrapHeaders = wrapHeaders;
+	}
+	
+	/**
+	 * Установка или отключение возможности конфигурирования характеристик колонок.
+	 * 
+	 * @param isColumnConfigurable		флаг возможности конфигурирования колонок
+	 */
+	public void setColumnConfigurable(boolean isColumnConfigurable) {
+		this.isColumnConfigurable = isColumnConfigurable;
+	}
+
+	/**
+	 * Установка или отключение возможности переноса строк в таблице данных.
+	 * 
+	 * @param dndEnabled флаг допустимости переноса строк колонок
+	 */
+	public void setDndEnabled(boolean dndEnabled) {
+		this.dndEnabled = dndEnabled;
+	}
+
+	/**
+	 * Определяет находится ли курсор мыши в верхней или нижней части строки таблица при перетаскивании.
+	 * 
+	 * @param rowElement			текущая строка таблицы
+	 * @param event					событие перетаскивания
+	 * @return флаг нахождения курсора в верхней части элемента
+	 */
+	private boolean isCursorAboveElementCenter(Element rowElement, NativeEvent event){
+		// Calculate top position for the popup
+        int top = rowElement.getAbsoluteTop(), height = rowElement.getOffsetHeight(), 
+        	clientY = event.getClientY();
+        return clientY - top < height / 2;	
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 * Особенности:<br/>
+	 * После переинициализации новых данных, каждая строка грида становится доступной для перетаскивания.
+	 */
+	@Override
+	protected void replaceAllChildren(List<T> values, SafeHtml html) {
+		super.replaceAllChildren(values, html);
+		if (isDndEnabled()) {
+			for (int row = 0; row < getRowCount(); row++){
+				final TableRowElement tableRow = getRowElement(row);
+				tableRow.setDraggable(Element.DRAGGABLE_TRUE);
+			}
+		}
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 * Особенности:<br/>
+	 * После выбора строки, выбранная строка вновь доступна для перетаскивания.
+	 */
+	@Override
+	protected void replaceChildren(List<T> values, int start, SafeHtml html) {
+		super.replaceChildren(values, start, html);
+		if (isDndEnabled()) {
+			getRowElement(start).setDraggable(Element.DRAGGABLE_TRUE);
+		}
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 * 
+	 * Особенности:<br/>
+	 * Конфигурирование виджета происходит в момент его добавления к DOM-дереву и единожды.
+	 */
+	@Override
+	protected void onLoad() {
+		super.onLoad();
+				
+		if (!initialized){
+			initialize();
+			initialized = true;
+		}
+	}
+	
+	/**
+	 * Инициализируется список колонок грида и в случае необходимости добавляются слушатели 
+	 * событий {@link com.technology.jep.jepria.client.widget.event.JepEventType#DRAG_START_EVENT}, {@link com.technology.jep.jepria.client.widget.event.JepEventType#DRAG_OVER_EVENT},
+	 * {@link com.technology.jep.jepria.client.widget.event.JepEventType#DRAG_LEAVE_EVENT}, {@link com.technology.jep.jepria.client.widget.event.JepEventType#DROP_EVENT}
+	 */
+	protected void initialize(){
+		final Map<String, ColumnCharasteristic> customColumnCharacteristics = parseColumnCharacteristics(Cookies.getCookie(gridId));
+		
+		if (!customColumnCharacteristics.isEmpty()){
+			Collections.sort(columns, new Comparator<JepColumn>() {
+				@Override
+				public int compare(JepColumn col1, JepColumn col2) {
+					ColumnCharasteristic characteristicCol1 = customColumnCharacteristics.get(col1.getDataStoreName()),
+							characteristicCol2 = customColumnCharacteristics.get(col2.getDataStoreName());
+					return (JepRiaUtil.isEmpty(characteristicCol1) ? columns.indexOf(col1) : characteristicCol1.order) - 
+								(JepRiaUtil.isEmpty(characteristicCol2) ? columns.indexOf(col2) : characteristicCol2.order);
+				}
+			});
+		}
+		
+		for (JepColumn col : columns) {
+			ColumnCharasteristic characteristic = customColumnCharacteristics.get(col.getDataStoreName());
+			if (characteristic != null) {
+				setColumnWidth(col, characteristic.width);
+				if (characteristic.visible) {
+					addColumnWithHeader(col, false);
+				}
+			}
+			else {
+				setColumnWidth(col, col.getWidth(), Unit.PX);
+				addColumnWithHeader(col, false);
+			}
+		}
+
+		// последний столбец-заглушка, для корректного отображения ширины столбцов
+		addColumn(new JepColumn<T, String>(new TextCell()));
+		
+		// добавим системных слушателей DragAndDrop события
+		if (isDndEnabled()){
+			bindDragAndDropListeners();
+		}
+	}
+	
+	/**
+	 * Привязка слушателей переноса строк к таблице данных. 
+	 */
 	private void bindDragAndDropListeners(){
 		// grid content divided into rows 
 		this.dragStartHandler = addDragStartHandler(new DragStartHandler() {
@@ -458,44 +663,21 @@ public class JepGrid<T> extends DataGrid<T> {
 		    }
 		});
 	}
-	
-	boolean isDNDEnabled(){
-		return this.dragStartHandler != null;
-	}
-	
-	private boolean isCursorAboveElementCenter(Element rowElement, NativeEvent event){
-		// Calculate top position for the popup
-        int top = rowElement.getAbsoluteTop(), height = rowElement.getOffsetHeight(), 
-        	clientY = event.getClientY();
-        return clientY - top < height / 2;	
-	}
-	
+
 	/**
-	 * {@inheritDoc}
-	 * Особенности:<br/>
-	 * После переинициализации новых данных, каждая строка грида становится доступной для перетаскивания.
+	 * Класс для хранения характеристик колонки таблица данных
 	 */
-	@Override
-	protected void replaceAllChildren(List<T> values, SafeHtml html) {
-		super.replaceAllChildren(values, html);
-		if (isDNDEnabled()) {
-			for (int row = 0; row < getRowCount(); row++){
-				final TableRowElement tableRow = getRowElement(row);
-				tableRow.setDraggable(Element.DRAGGABLE_TRUE);
-			}
-		}
-	}
-	
-	/**
-	 * {@inheritDoc}
-	 * Особенности:<br/>
-	 * После выбора строки, выбранная строка вновь доступна для перетаскивания.
-	 */
-	@Override
-	protected void replaceChildren(List<T> values, int start, SafeHtml html) {
-		super.replaceChildren(values, start, html);
-		if (isDNDEnabled()) {
-			getRowElement(start).setDraggable(Element.DRAGGABLE_TRUE);
+	class ColumnCharasteristic {
+		String fieldName;
+		String width;
+		int order;
+		boolean visible;
+		
+		public ColumnCharasteristic(String fieldName, String width, int order, boolean visible) {
+			this.fieldName = fieldName;
+			this.width = width;
+			this.order = order;
+			this.visible = visible;
 		}
 	}
 }

@@ -120,7 +120,7 @@ public class EditTreeCell extends AbstractEditableCell<String, EditTreeCell.View
 	/**
 	 * Convert the cell to edit mode.
 	 *
-	 * @param context the {@link com.google.gwt.cell.client.Context} of the cell
+	 * @param context the {@link com.google.gwt.cell.client.Cell.Context} of the cell
 	 * @param parent the parent element
 	 * @param value the current value
 	 */
