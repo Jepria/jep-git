@@ -511,6 +511,15 @@ public interface JepRiaText extends com.google.gwt.i18n.client.Constants {
   String errors_file_uploadFileSizeError();
 
   /**
+   * Translated "Конфигурация виджета должна быть настроена до ее отрисовки.".
+   * 
+   * @return translated "Конфигурация виджета должна быть настроена до ее отрисовки."
+   */
+  @DefaultStringValue("Конфигурация виджета должна быть настроена до ее отрисовки.")
+  @Key("errors.list.preConfigurationError")
+  String errors_list_preConfigurationError();
+
+  /**
    * Translated "Значение параметра refreshDelay должно быть положительным целым.".
    * 
    * @return translated "Значение параметра refreshDelay должно быть положительным целым."

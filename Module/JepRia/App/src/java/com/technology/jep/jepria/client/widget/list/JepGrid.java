@@ -1,6 +1,7 @@
 package com.technology.jep.jepria.client.widget.list;
 
 import static com.technology.jep.jepria.client.JepRiaClientConstant.DND_DATA_PROPERTY;
+import static com.technology.jep.jepria.client.JepRiaClientConstant.JepTexts;
 import static com.technology.jep.jepria.shared.load.PagingConfig.DEFAULT_PAGE_SIZE;
 
 import java.util.Collections;
@@ -490,8 +491,7 @@ public class JepGrid<T> extends DataGrid<T> {
 	 */
 	public void setWrapHeaders(boolean wrapHeaders) {
 		if (initialized) {
-			throw new IllegalStateException(
-					"Should only call before attaching widget to the browser's document");
+			throw new IllegalStateException(JepTexts.errors_list_preConfigurationError());
 		}
 		this.wrapHeaders = wrapHeaders;
 	}
@@ -503,8 +503,7 @@ public class JepGrid<T> extends DataGrid<T> {
 	 */
 	public void setColumnConfigurable(boolean isColumnConfigurable) {
 		if (initialized) {
-			throw new IllegalStateException(
-					"Should only call before attaching widget to the browser's document");
+			throw new IllegalStateException(JepTexts.errors_list_preConfigurationError());
 		}
 		this.isColumnConfigurable = isColumnConfigurable;
 	}
@@ -516,8 +515,7 @@ public class JepGrid<T> extends DataGrid<T> {
 	 */
 	public void setDndEnabled(boolean dndEnabled) {
 		if (initialized) {
-			throw new IllegalStateException(
-					"Should only call before attaching widget to the browser's document");
+			throw new IllegalStateException(JepTexts.errors_list_preConfigurationError());
 		}
 		this.dndEnabled = dndEnabled;
 	}
@@ -587,8 +585,7 @@ public class JepGrid<T> extends DataGrid<T> {
 	 */
 	protected void initialize(){
 		if (initialized) {
-			throw new IllegalStateException(
-					"Should only call before attaching widget to the browser's document");
+			throw new IllegalStateException(JepTexts.errors_list_preConfigurationError());
 		}
 		
 		initialized = true;
