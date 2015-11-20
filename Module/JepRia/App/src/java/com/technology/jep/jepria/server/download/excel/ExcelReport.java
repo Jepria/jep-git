@@ -246,13 +246,13 @@ public class ExcelReport {
 	 */
 	protected String createCell(JepRecord record, String field) {
 		JepTypeEnum type = recordDefinition.getType(field);
+        if (type == null) {
+            throw new IllegalStateException(resourceBundle.getString("errors.excel.fieldTypeNotDefined") + field);
+        }
 		Object value = record.get(field);
 		if (isEmpty(value)) {
 			return createEmptyCell();
 		}
-        if(type==null){
-            return createDefaultCell(value);
-        }
 		else {
 			switch (type) {
 				case DATE:return createDateCell((Date) value);

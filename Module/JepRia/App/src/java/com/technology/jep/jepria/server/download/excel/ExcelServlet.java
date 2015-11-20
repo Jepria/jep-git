@@ -125,18 +125,23 @@ public class ExcelServlet extends HttpServlet {
 		
 		PrintWriter pw = response.getWriter();		
 		
-		ExcelReport report = createExcelReport(
-			reportFields, 
-			reportHeaders, 
-			selectedRecords != null ? selectedRecords : resultRecords);
-		report.print(pw);
-		
-		pw.flush();
-		response.flushBuffer();
+		try {
+			ExcelReport report = createExcelReport(
+				reportFields, 
+				reportHeaders, 
+				selectedRecords != null ? selectedRecords : resultRecords);
+			report.print(pw);
+			
+			pw.flush();
+			response.flushBuffer();
+		}
+		catch (Throwable th) {
+			onError(response, th);
+		}
 		
 		logger.trace("END Generate Excel Report");
 	}
-	
+
 	/**
 	 * Фабричный метод, формирующий объект Excel-отчёта.<br/>
 	 * По умолчанию создаёт объект класса ExcelReport. Если в прикладном модуле для этих цедей
@@ -155,5 +160,19 @@ public class ExcelServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		doPost(request, response);
+	}
+	
+	/**
+	 * Отправка сообщения об ошибке в случае её возникновения.<br/>
+	 * При необходимости данный метод может быть переопределён в классе-наследнике.
+	 * @param response результат работы сервлета (ответ)
+	 * @param th возникшее исключение
+	 * @throws IOException
+	 */
+	protected void onError(HttpServletResponse response, Throwable th) throws IOException {
+		logger.error(th.getMessage(), th);
+		response.setContentType("text/html; charset=UTF-8");
+		response.setHeader("Content-Disposition", "");
+		response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, th.getMessage());
 	}
 }

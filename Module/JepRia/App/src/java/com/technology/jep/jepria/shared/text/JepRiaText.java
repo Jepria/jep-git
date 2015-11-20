@@ -2,7 +2,7 @@ package com.technology.jep.jepria.shared.text;
 
 /**
  * Interface to represent the constants contained in resource bundle:
- * 	'D:/Project/JEPGit/Module/JepRia/App/src/java/com/technology/jep/jepria/shared/text/JepRiaText.properties'.
+ * 	'E:/git/javaenterpriseplatform/Module/JepRia/App/src/java/com/technology/jep/jepria/shared/text/JepRiaText.properties'.
  */
 public interface JepRiaText extends com.google.gwt.i18n.client.Constants {
   
@@ -491,6 +491,15 @@ public interface JepRiaText extends com.google.gwt.i18n.client.Constants {
   @DefaultStringValue("Ошибка")
   @Key("errors.dialog.title")
   String errors_dialog_title();
+
+  /**
+   * Translated "В recordDefinition не определён тип поля ".
+   * 
+   * @return translated "В recordDefinition не определён тип поля "
+   */
+  @DefaultStringValue("В recordDefinition не определён тип поля ")
+  @Key("errors.excel.fieldTypeNotDefined")
+  String errors_excel_fieldTypeNotDefined();
 
   /**
    * Translated "При загрузке файла произошла ошибка.".
