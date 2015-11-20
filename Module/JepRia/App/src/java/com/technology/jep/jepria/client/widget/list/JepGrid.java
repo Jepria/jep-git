@@ -489,6 +489,10 @@ public class JepGrid<T> extends DataGrid<T> {
 	 * @param wrapHeaders		флаг допустимости переноса наменований колонок
 	 */
 	public void setWrapHeaders(boolean wrapHeaders) {
+		if (initialized) {
+			throw new IllegalStateException(
+					"Should only call before attaching widget to the browser's document");
+		}
 		this.wrapHeaders = wrapHeaders;
 	}
 	
@@ -498,6 +502,10 @@ public class JepGrid<T> extends DataGrid<T> {
 	 * @param isColumnConfigurable		флаг возможности конфигурирования колонок
 	 */
 	public void setColumnConfigurable(boolean isColumnConfigurable) {
+		if (initialized) {
+			throw new IllegalStateException(
+					"Should only call before attaching widget to the browser's document");
+		}
 		this.isColumnConfigurable = isColumnConfigurable;
 	}
 
@@ -507,6 +515,10 @@ public class JepGrid<T> extends DataGrid<T> {
 	 * @param dndEnabled флаг допустимости переноса строк колонок
 	 */
 	public void setDndEnabled(boolean dndEnabled) {
+		if (initialized) {
+			throw new IllegalStateException(
+					"Should only call before attaching widget to the browser's document");
+		}
 		this.dndEnabled = dndEnabled;
 	}
 
@@ -565,7 +577,6 @@ public class JepGrid<T> extends DataGrid<T> {
 				
 		if (!initialized){
 			initialize();
-			initialized = true;
 		}
 	}
 	
@@ -575,6 +586,13 @@ public class JepGrid<T> extends DataGrid<T> {
 	 * {@link com.technology.jep.jepria.client.widget.event.JepEventType#DRAG_LEAVE_EVENT}, {@link com.technology.jep.jepria.client.widget.event.JepEventType#DROP_EVENT}
 	 */
 	protected void initialize(){
+		if (initialized) {
+			throw new IllegalStateException(
+					"Should only call before attaching widget to the browser's document");
+		}
+		
+		initialized = true;
+		
 		final Map<String, ColumnCharasteristic> customColumnCharacteristics = parseColumnCharacteristics(Cookies.getCookie(gridId));
 		
 		if (!customColumnCharacteristics.isEmpty()){
