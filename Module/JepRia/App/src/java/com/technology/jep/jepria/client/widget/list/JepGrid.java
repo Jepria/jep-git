@@ -73,7 +73,7 @@ public class JepGrid<T> extends DataGrid<T> {
 	/**
 	 * Флаг допустимости переноса наименований колонок грида
 	 */
-	private boolean wrapHeaders;
+	private boolean wrapHeaders = true;
 	
 	/**
 	 * Флаг допустимости настройки порядка следования колонок и их отображения в таблице данных 
@@ -146,7 +146,41 @@ public class JepGrid<T> extends DataGrid<T> {
 	 * @param columns			список колонок
 	 */
 	public JepGrid(String gridId, List<JepColumn> columns) {
-		this(gridId, columns, false, null);
+		this(gridId, columns, null);
+	}
+	
+	/**
+	 * Создает таблицу данных на списочной форме.
+	 * 
+	 * @param gridId			идентификатор грида
+	 * @param columns			список колонок
+	 * @param keyProvider		провайдер ключей грида
+	 */
+	public JepGrid(String gridId, final List<JepColumn> columns, ProvidesKey<T> keyProvider) {
+		super(DEFAULT_PAGE_SIZE, (DataGridResource) GWT.create(DataGridResource.class), keyProvider);
+
+		this.gridId = gridId;
+		this.getElement().setId(gridId);
+		
+		this.columns = columns;
+		
+		this.contentWidget = (ScrollPanel) ((HeaderPanel) getWidget()).getContentWidget();
+
+		setAutoHeaderRefreshDisabled(true);
+		setMinimumTableWidth(300, Unit.PX);
+		setHeight("100%");
+		
+		addCellPreviewHandler(new Handler<T>() {
+			@Override
+			public void onCellPreview(CellPreviewEvent<T> event) {
+				if (BrowserEvents.MOUSEOVER.equals(event.getNativeEvent().getType())) {
+					onMouseOver(event);
+				}
+			}
+		});
+		
+		final SelectionModel<T> selectionModel = new MultiSelectionModel<T>();
+		setSelectionModel(selectionModel);
 	}
 
 	/**
@@ -170,33 +204,13 @@ public class JepGrid<T> extends DataGrid<T> {
 	 * @param columns			список колонок
 	 * @param wrapHeaders		допустимость переноса наименования колонок
 	 * @param keyProvider		провайдер ключей грида
+	 * 
+	 * Особенность: следует использовать альтернативные перегруженные конструкторы
 	 */
+	@Deprecated
 	public JepGrid(String gridId, final List<JepColumn> columns, boolean wrapHeaders, ProvidesKey<T> keyProvider) {
-		super(DEFAULT_PAGE_SIZE, (DataGridResource) GWT.create(DataGridResource.class), keyProvider);
-
-		this.gridId = gridId;
-		this.getElement().setId(gridId);
-		
-		this.columns = columns;
+		this(gridId, columns, keyProvider);
 		this.wrapHeaders = wrapHeaders;
-		
-		this.contentWidget = (ScrollPanel) ((HeaderPanel) getWidget()).getContentWidget();
-
-		setAutoHeaderRefreshDisabled(true);
-		setMinimumTableWidth(300, Unit.PX);
-		setHeight("100%");
-		
-		addCellPreviewHandler(new Handler<T>() {
-			@Override
-			public void onCellPreview(CellPreviewEvent<T> event) {
-				if (BrowserEvents.MOUSEOVER.equals(event.getNativeEvent().getType())) {
-					onMouseOver(event);
-				}
-			}
-		});
-		
-		final SelectionModel<T> selectionModel = new MultiSelectionModel<T>();
-		setSelectionModel(selectionModel);
 	}
 
 	/**
