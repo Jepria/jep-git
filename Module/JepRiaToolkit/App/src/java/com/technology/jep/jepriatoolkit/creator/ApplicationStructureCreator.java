@@ -1948,7 +1948,7 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 					"		gridPanel.setHeight(\"100%\");", END_OF_LINE,
 					"		gridPanel.setWidth(\"100%\");", END_OF_LINE,
 					WHITE_SPACE, END_OF_LINE,
-					"		JepGrid<JepRecord> grid = new JepGrid<JepRecord>(getGridId(), getColumnConfigurations(), true);", END_OF_LINE,
+					"		JepGrid<JepRecord> grid = new JepGrid<JepRecord>(getGridId(), getColumnConfigurations());", END_OF_LINE,
 					"		PagingStandardBar pagingBar = new PagingStandardBar(25);", END_OF_LINE,
 					WHITE_SPACE, END_OF_LINE,
 					"		gridPanel.setContentWidget(grid);", END_OF_LINE,
