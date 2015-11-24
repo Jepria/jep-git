@@ -567,7 +567,7 @@ protected java.lang.String <B>createHeaderRow</B>()</PRE>
 <P>
 <DD><DL>
 
-<DT><B>Returns:</B><DD>XML-представление заголовочной строки документа.</DL>
+<DT><B>Returns:</B><DD>XML-представление заголовочной строки документа</DL>
 </DD>
 </DL>
 <HR>
@@ -584,7 +584,7 @@ protected java.lang.String <B>createColumns</B>()</PRE>
 <P>
 <DD><DL>
 
-<DT><B>Returns:</B><DD>XML-представление объявления столбцов.</DL>
+<DT><B>Returns:</B><DD>XML-представление объявления столбцов</DL>
 </DD>
 </DL>
 <HR>
@@ -617,7 +617,10 @@ protected java.lang.String <B>createCell</B>(<A HREF="../../../../../../../com/t
 <P>
 <DD><DL>
 <DT><B>Parameters:</B><DD><CODE>record</CODE> - запись, из которой берётся поле<DD><CODE>field</CODE> - идентификатор поля
-<DT><B>Returns:</B><DD>XML-представление ячейки</DL>
+<DT><B>Returns:</B><DD>XML-представление ячейки
+<DT><B>Throws:</B>
+<DD><CODE>java.lang.IllegalStateException</CODE> - в случае, если поле отсутствует в 
+ <A HREF="../../../../../../../com/technology/jep/jepria/shared/record/JepRecordDefinition.html" title="class in com.technology.jep.jepria.shared.record"><CODE>определении записи</CODE></A></DL>
 </DD>
 </DL>
 <HR>

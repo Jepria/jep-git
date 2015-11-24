@@ -56,6 +56,8 @@ import com.technology.jep.jepria.shared.record.JepRecordDefinition;
  *     </pre>
  *   </li>
  * </ul>
+ * <b>Важно:</b> При добавлении новых полей необходимо внести их в 
+ * {@link com.technology.jep.jepria.shared.record.JepRecordDefinition определение записи}.
  */
 @SuppressWarnings("serial")
 public class ExcelServlet extends HttpServlet {

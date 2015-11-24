@@ -186,7 +186,7 @@ public class ExcelReport {
 	 * Создание заголовка таблицы. <br/>
 	 * Формирует строку с заголовком таблицы. Имена полей обрамляются секцией CDATA. Если необходимо
 	 *  сделать "нестандартный" заголовок, данный метод переопределяется в классах-наследниках.
-	 * @return XML-представление заголовочной строки документа.
+	 * @return XML-представление заголовочной строки документа
 	 */
 	protected String createHeaderRow() {
 		StringBuilder cellsBuilder = new StringBuilder();
@@ -205,7 +205,7 @@ public class ExcelReport {
 	 * Формирует строку с описанием столбцов. По умолчанию задаётся ширина столбцов, равная 150.
 	 *  Если необходимо изменить количество столбцов, ширину или другие их параметры, данный метод
 	 *  переопределяется в наследниках.
-	 * @return XML-представление объявления столбцов.
+	 * @return XML-представление объявления столбцов
 	 */
 	protected String createColumns() {
 		StringBuilder columnsBuilder = new StringBuilder();
@@ -243,6 +243,8 @@ public class ExcelReport {
 	 * @param record запись, из которой берётся поле
 	 * @param field идентификатор поля
 	 * @return XML-представление ячейки
+	 * @throws IllegalStateException в случае, если поле отсутствует в 
+	 * {@link com.technology.jep.jepria.shared.record.JepRecordDefinition определении записи}
 	 */
 	protected String createCell(JepRecord record, String field) {
 		JepTypeEnum type = recordDefinition.getType(field);
