@@ -371,6 +371,14 @@ java.lang.Object
         com.google.gwt.view.client.ProvidesKey&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html" title="type parameter in JepGrid">T</A>&gt;&nbsp;keyProvider)</CODE>
 
 <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<B>Deprecated.</B>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#JepGrid(java.lang.String, java.util.List, com.google.gwt.view.client.ProvidesKey)">JepGrid</A></B>(java.lang.String&nbsp;gridId,
+        java.util.List&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepColumn.html" title="class in com.technology.jep.jepria.client.widget.list">JepColumn</A>&gt;&nbsp;columns,
+        com.google.gwt.view.client.ProvidesKey&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html" title="type parameter in JepGrid">T</A>&gt;&nbsp;keyProvider)</CODE>
+
+<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Создает таблицу данных на списочной форме.</TD>
 </TR>
 </TABLE>
@@ -897,6 +905,20 @@ public <B>JepGrid</B>(java.lang.String&nbsp;gridId,
 </DL>
 <HR>
 
+<A NAME="JepGrid(java.lang.String, java.util.List, com.google.gwt.view.client.ProvidesKey)"><!-- --></A><H3>
+JepGrid</H3>
+<PRE>
+public <B>JepGrid</B>(java.lang.String&nbsp;gridId,
+               java.util.List&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepColumn.html" title="class in com.technology.jep.jepria.client.widget.list">JepColumn</A>&gt;&nbsp;columns,
+               com.google.gwt.view.client.ProvidesKey&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html" title="type parameter in JepGrid">T</A>&gt;&nbsp;keyProvider)</PRE>
+<DL>
+<DD>Создает таблицу данных на списочной форме.
+<P>
+<DL>
+<DT><B>Parameters:</B><DD><CODE>gridId</CODE> - идентификатор грида<DD><CODE>columns</CODE> - список колонок<DD><CODE>keyProvider</CODE> - провайдер ключей грида</DL>
+</DL>
+<HR>
+
 <A NAME="JepGrid(java.lang.String, java.util.List, boolean)"><!-- --></A><H3>
 JepGrid</H3>
 <PRE>
@@ -919,15 +941,20 @@ JepGrid</H3>
 <A NAME="JepGrid(java.lang.String, java.util.List, boolean, com.google.gwt.view.client.ProvidesKey)"><!-- --></A><H3>
 JepGrid</H3>
 <PRE>
-public <B>JepGrid</B>(java.lang.String&nbsp;gridId,
-               java.util.List&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepColumn.html" title="class in com.technology.jep.jepria.client.widget.list">JepColumn</A>&gt;&nbsp;columns,
-               boolean&nbsp;wrapHeaders,
-               com.google.gwt.view.client.ProvidesKey&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html" title="type parameter in JepGrid">T</A>&gt;&nbsp;keyProvider)</PRE>
+<FONT SIZE="-1">@Deprecated
+</FONT>public <B>JepGrid</B>(java.lang.String&nbsp;gridId,
+                          java.util.List&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepColumn.html" title="class in com.technology.jep.jepria.client.widget.list">JepColumn</A>&gt;&nbsp;columns,
+                          boolean&nbsp;wrapHeaders,
+                          com.google.gwt.view.client.ProvidesKey&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html" title="type parameter in JepGrid">T</A>&gt;&nbsp;keyProvider)</PRE>
 <DL>
+<DD><B>Deprecated.</B>&nbsp;
+<P>
 <DD>Создает таблицу данных на списочной форме.
 <P>
 <DL>
-<DT><B>Parameters:</B><DD><CODE>gridId</CODE> - идентификатор грида<DD><CODE>columns</CODE> - список колонок<DD><CODE>wrapHeaders</CODE> - допустимость переноса наименования колонок<DD><CODE>keyProvider</CODE> - провайдер ключей грида</DL>
+<DT><B>Parameters:</B><DD><CODE>gridId</CODE> - идентификатор грида<DD><CODE>columns</CODE> - список колонок<DD><CODE>wrapHeaders</CODE> - допустимость переноса наименования колонок<DD><CODE>keyProvider</CODE> - провайдер ключей грида
+ 
+ Особенность: следует использовать альтернативные перегруженные конструкторы</DL>
 </DL>
 
 <!-- ============ METHOD DETAIL ========== -->
