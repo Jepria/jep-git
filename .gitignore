@@ -14,6 +14,15 @@ Module/JepRia/App/log/
 Module/JepRiaReport/App/lib/jepriareport.jar
 Module/JepRiaReport/App/lib/jepriareport-ejb.jar
 
+# JepRiaShowcase specific
+Module/JepRiaShowcase/App/build/
+Module/JepRiaShowcase/App/build-gwt/
+Module/JepRiaShowcase/App/build-lib/
+Module/JepRiaShowcase/App/extras/
+Module/JepRiaShowcase/App/lib/jepriashowcase.ear
+Module/JepRiaShowcase/App/lib/jepriatoolkit.jar
+Module/JepRiaShowcase/App/log/
+
 # JepRiaToolkit specific
 Module/JepRiaToolkit/App/lib/jepriatoolkit.jar
 Module/JepRiaToolkit/App/log/

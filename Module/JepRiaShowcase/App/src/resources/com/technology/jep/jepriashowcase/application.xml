@@ -4,7 +4,7 @@
   <module>
     <web>
       <web-uri>jepriashowcase.war</web-uri>
-      <context-root>info/JepRiaShowcase</context-root>
+      <context-root>JepRiaShowcase</context-root>
     </web>
   </module>
   <module>
