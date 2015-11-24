@@ -28,7 +28,7 @@
 	</target>
 	
 	<target name="compile" depends="start-log">
-		<delete includeemptydirs="true">
+		<delete includeemptydirs="true" failonerror="false">
 			<fileset dir="classes"/>			
 		</delete>
 		<mkdir dir="classes" />
