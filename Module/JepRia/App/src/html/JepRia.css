@@ -40,7 +40,7 @@
 	height: 100%;
 }
 
-/* Кнопка инструментальной панели */
+/* Кнопка инструментальной панели. */
 .jepRia-ToolBar .gwt-Button {
 	font: 11px arial,tahoma,verdana,helvetica;
 	height: 100%;
@@ -67,13 +67,13 @@
 	height: auto;
 }
 
-/* Недоступная кнопка инструментальной панели */
+/* Недоступная кнопка инструментальной панели. */
 .jepRia-ToolBar .gwt-Button.jepRia-JepButton-buttonDisabled {
-	opacity: 0.3; /* css standard. */
-	-moz-opacity: 0.3; /* very old mozilla/netscape browsers. */
-	-khtml-opacity: 0.3; /* very old safari browsers. */
-	cursor: default; /* IE */
-	filter: alpha(opacity=30); /* IE */
+	opacity: 0.3; /* Css standard. */
+	-moz-opacity: 0.3; /* Very old mozilla/netscape browsers. */
+	-khtml-opacity: 0.3; /* Very old safari browsers. */
+	cursor: default; /* IE. */
+	filter: alpha(opacity=30); /* IE. */
 }
 
 .jepRia-ToolBar .gwt-Button.jepRia-JepButton-buttonDisabled:hover {
@@ -81,13 +81,13 @@
 	background-color: transparent;
 }
 
-/* Текст на кнопке инструментальной панели */
+/* Текст на кнопке инструментальной панели. */
 .jepRia-ToolBar .gwt-Button .gwt-Label {
 	white-space: nowrap;
 	font: 11px arial,tahoma,verdana,helvetica;
 }
 
-/* Разделитель инструментальной панели */
+/* Разделитель инструментальной панели. */
 .jepRia-ToolBar .jepRia-Separator {
 	background-position: center;
 	background-repeat: repeat;
@@ -102,12 +102,12 @@
 	background-image: url(../images/themes/default/grid/grid-blue-split.gif);
 }
 
-/* Отключение кнопки очистки в IE для всех текстовых полей */
+/* Отключение кнопки очистки в IE для всех текстовых полей. */
 input[type=text]::-ms-clear {
 	display: none;
 }
 
-/* Панель постраничного листания списка */
+/* Панель постраничного листания списка. */
 .jepRia-PagingBar {
 	font: 11px arial, tahoma, helvetica, sans-serif;
 	vertical-align: middle;
@@ -154,22 +154,22 @@ input[type=text]::-ms-clear {
 	height: auto;
 }
 .jepRia-PagingBar .gwt-Button.buttonDisabled {
-	opacity: 0.3; /* css standard. */
-	-moz-opacity: 0.3; /* very old mozilla/netscape browsers. */
-	-khtml-opacity: 0.3; /* very old safari browsers. */
-	cursor: default; /* IE */
-	filter: alpha(opacity = 30); /* IE */
+	opacity: 0.3; /* Css standard. */
+	-moz-opacity: 0.3; /* Very old mozilla/netscape browsers. */
+	-khtml-opacity: 0.3; /* Very old safari browsers. */
+	cursor: default; /* IE. */
+	filter: alpha(opacity = 30); /* IE. */
 }
 .jepRia-PagingBar .gwt-Button.buttonDisabled:hover {
 	border: solid 1px transparent;
 	background-color: transparent;
 }
-/* Текст на кнопке инструментальной панели */
+/* Текст на кнопке инструментальной панели постраничного листания списка. */
 .jepRia-PagingBar .gwt-Button .gwt-Label {
 	white-space: nowrap;
 	font: 11px arial, tahoma, verdana, helvetica;
 }
-/* Разделитель инструментальной панели */
+/* Разделитель инструментальной панели постраничного листания списка. */
 .jepRia-PagingBar .jepRia-Separator {
 	background-position: center;
 	background-repeat: repeat;
@@ -184,7 +184,7 @@ input[type=text]::-ms-clear {
 	background-image: url(../images/themes/default/grid/grid-blue-split.gif);
 }
 
-/* JepGrid - включение автоматических переносов строк в ячейке */
+/* JepGrid - включение автоматических переносов строк в ячейке. */
 .jepGrid-normalWrap {
 	white-space: normal;
 }
@@ -192,7 +192,7 @@ input[type=text]::-ms-clear {
 .jepGrid-normalWrap div {
 	white-space: normal;
 }
-/* Элемент для измерения ширины текста в столбцах */
+/* Элемент для измерения ширины текста в столбцах. */
 .jepRia-ResizableHeader-measuringElement {
 	padding-left: 5px;
 	padding-right: 3px;
@@ -206,7 +206,7 @@ input[type=text]::-ms-clear {
 	top: -1000px;
 }
 
-/* Элемент, изменяющий ширину столбцов списочной формы */
+/* Элемент, изменяющий ширину столбцов списочной формы. */
 .jepRia-ResizableHeader-ruler {
 	position: absolute;
 	top: 0px;
@@ -214,14 +214,14 @@ input[type=text]::-ms-clear {
 	background-color: black;
 }
 
-/* Кнопка вызова меню настройки отображения и порядка следования столбцов списочной формы */
+/* Кнопка вызова меню настройки отображения и порядка следования столбцов списочной формы. */
 .jepRia-ResizableHeader-setupButton {
 	position: absolute;
 	border-width: 1px;
 	cursor: pointer;
 }
 
-/* Кнопка закрытия меню настройки отображения и порядка следования столбцов списочной формы */
+/* Кнопка закрытия меню настройки отображения и порядка следования столбцов списочной формы. */
 .jepRia-ResizableHeader-closeButton {
 	position: absolute;
 	right: 4px;
@@ -229,7 +229,7 @@ input[type=text]::-ms-clear {
 	cursor: pointer;
 }
 
-/* Кнопка навигации в меню настройки отображения и порядка следования столбцов списочной формы */
+/* Кнопка навигации в меню настройки отображения и порядка следования столбцов списочной формы. */
 .jepRia-ResizableHeader-navigationButton {
 	position: absolute;
 	top: 8px;
@@ -240,7 +240,7 @@ input[type=text]::-ms-clear {
 	background-color: #f0f0f0;
 }
 
-/* Кнопка вызова меню настройки отображения и порядка следования столбцов списочной формы */
+/* Кнопка вызова меню настройки отображения и порядка следования столбцов списочной формы. */
 .jepRia-ResizableHeader-menuBar {
 	background-color: #f0f0f0;
 	float: left;
@@ -283,7 +283,7 @@ input[type=text]::-ms-clear {
 	width: 100%;
 }
 
-/** Перекрытие стиля прозрачности для всплывающего окна */
+/* Перекрытие стиля прозрачности для всплывающего окна. */
 .gwt-PopupPanelGlass {
 	background-color: #000;
 	opacity: 0.2;
@@ -291,7 +291,7 @@ input[type=text]::-ms-clear {
 	z-index: 10;
 }
 
-/** Индикатор загрузки модуля */
+/* Индикатор загрузки модуля. */
 .jepRia-loadingProgress {
 	position: absolute;
 	left: 45%;
@@ -323,100 +323,99 @@ input[type=text]::-ms-clear {
 	font: normal 10px arial, tahoma, sans-serif;
 }
 
-/** Most GWT widgets already have a style name defined */
+/* Most GWT widgets already have a style name defined. */
 .gwt-DialogBox {
 	width: 400px;
 	z-index: 11;
 }
 
-/** Стиль для центрального контейнера ErrorDialog, перекрывающий умолчательный стиль GWT */
+/* Стиль для центрального контейнера ErrorDialog, перекрывающий умолчательный стиль GWT. */
 .jepRia-extras-WindowBox .dialogMiddleCenter {
 	padding: 0px;
 }
-/** Стиль для дополнительного контейнера ErrorDialog, содержащего дополнительные контролы */
+/* Стиль для дополнительного контейнера ErrorDialog, содержащего дополнительные компоненты. */
 .jepRia-extras-WindowBox .jepRia-extras-dialog-container {
 	position: relative;
 }
-/** Стиль для дополнительного контейнера ErrorDialog, содержащего кнопки сворачивания и закрытия окна */
+/* Стиль для дополнительного контейнера ErrorDialog, содержащего кнопки сворачивания и закрытия окна. */
 .jepRia-extras-WindowBox .jepRia-extras-dialog-controls {
 	position: absolute;
 	top: -22px;
 	right: 2px;
 }
-/** Стиль для кнопок сворачивания и закрытия окна дополнительного контейнера ErrorDialog */
+/* Стиль для кнопок сворачивания и закрытия окна дополнительного контейнера ErrorDialog. */
 .jepRia-extras-WindowBox .jepRia-extras-dialog-controls a {
 	cursor: pointer;
 	display: block;
 	height: 12px;
 	width: 12px;
 }
-/** Стиль для картинки кнопки закрытия ErrorDialog */
+/* Стиль для картинки кнопки закрытия ErrorDialog. */
 .jepRia-extras-WindowBox .jepRia-extras-dialog-controls a.jepRia-extras-dialog-close {
 	background: transparent url(../images/x-2panel.png) left top no-repeat;
 }
-/** Стиль для картинки кнопки закрытия ErrorDialog, на которую наведен курсор */
+/* Стиль для картинки кнопки закрытия ErrorDialog, на которую наведен курсор. */
 .jepRia-extras-WindowBox .jepRia-extras-dialog-controls a.jepRia-extras-dialog-close:hover {
 	background: transparent url(../images/x-2panel.png) right top no-repeat;
 }
-/** Стиль для картинки кнопки сворачивания ErrorDialog  */
+/* Стиль для картинки кнопки сворачивания ErrorDialog. */
 .jepRia-extras-WindowBox .jepRia-extras-dialog-controls a.jepRia-extras-dialog-minimize {
 	background: transparent url(../images/min-4panel.png) left top no-repeat;
 }
-/** Стиль для картинки кнопки сворачивания ErrorDialog, на которую наведен курсор */
+/* Стиль для картинки кнопки сворачивания ErrorDialog, на которую наведен курсор. */
 .jepRia-extras-WindowBox .jepRia-extras-dialog-controls a.jepRia-extras-dialog-minimize:hover {
 	background: transparent url(../images/min-4panel.png) right top no-repeat;
 }
-/** Стиль для картинки кнопки разворачивания ErrorDialog  */
+/* Стиль для картинки кнопки разворачивания ErrorDialog. */
 .jepRia-extras-WindowBox .jepRia-extras-dialog-controls a.jepRia-extras-dialog-maximize {
 	background: transparent url(../images/min-4panel.png) left bottom no-repeat;
 }
-/** Стиль для картинки кнопки разворачивания ErrorDialog, на которую наведен курсор */
+/* Стиль для картинки кнопки разворачивания ErrorDialog, на которую наведен курсор. */
 .jepRia-extras-WindowBox .jepRia-extras-dialog-controls a.jepRia-extras-dialog-maximize:hover {
 	background: transparent url(../images/min-4panel.png) right bottom no-repeat;
 }
 
-/** Стиль для обычной вкладки TabLayoutPanel */
+/* Стиль для обычной вкладки панели вкладок. */
 .gwt-TabLayoutPanel .jepRia-TabLayoutPanelTab-common {
 	margin-left: 2px;
 	border: 1px solid #8DB2E3;
-	
-    background-image: url(../images/themes/default/tabs/bg.png);
-    background-color: white;
-    background-repeat: repeat;
-    background-position: 0 100%;
+	background-image: url(../images/themes/default/tabs/bg.png);
+	background-color: white;
+	background-repeat: repeat;
+	background-position: 0 100%;
 }
 
-/** Стиль для корректного отображения границ у панели вкладок */
+/* Стиль для корректного отображения границ у панели вкладок. */
 .gwt-TabLayoutPanelTabs{
-    border-bottom: 1px solid #99BBE8;
+	border-bottom: 1px solid #99BBE8;
 }
 
-/** Перекрытие стиля для невыбранной вкладки TabLayoutPanel */
+/* Перекрытие стиля для невыбранной вкладки панели вкладок. */
 .gwt-TabLayoutPanel .gwt-TabLayoutPanelTab {
 	font-weight: normal;
 	z-index: 1;
 }
 
-/** Перекрытие стиля для выделенной вкладки TabLayoutPanel */
+/* Перекрытие стиля для выделенной вкладки панели вкладок. */
 .gwt-TabLayoutPanel .gwt-TabLayoutPanelTab-selected {
 	font-weight: bold;
 	border-bottom-color: #D7E4F3;
 	background: #D7E4F3;
 }
 
-/** Отключение рамки снизу у активной вкладки */
+/* Отключение рамки снизу у активной вкладки панели вкладок. */
 .gwt-TabLayoutPanel .gwt-TabLayoutPanelTab-selected :after {
-    content: " ";
-    display: block;
-    background: #D7E4F3;
-    height: 1px;
-    width: 100%;
-    position: absolute;
-    bottom: -2px;
-    left: 0;
+	content: " ";
+	display: block;
+	background: #D7E4F3;
+	height: 1px;
+	width: 100%;
+	position: absolute;
+	bottom: -2px;
+	left: 0;
 }
 
-/** Перекрытие стилей для ComboBox */
+/* Перекрытие стилей для выпадающего списка. */
 .gwt-SuggestBoxPopup .item {
 	overflow: hidden;
 	display: inline-block;
@@ -466,7 +465,7 @@ input[type=text]::-ms-clear {
 	position: absolute;
 }
 
-/** Стиль для индикаторов, располагающихся справа от поля */
+/* Стиль для индикаторов, располагающихся справа от поля. */
 .jepRia-Field-Icon {
 	vertical-align: middle;
 	margin-top: 3px;
@@ -475,20 +474,20 @@ input[type=text]::-ms-clear {
 	position: absolute;
 }
 
-/** Основной стиль шрифта приложения, применяемый ко всем элементам формы */
+/* Основной стиль шрифта приложения, применяемый ко всем элементам формы. */
 .jepRia-FontStyle {
 	font-family: tahoma, arial, helvetica, sans-serif;
 	font-size: 12px;
 }
 
-/** Стиль для JepCheckBoxField */
+/* Стиль для компонента логического выбора. */
 .jepRia-CheckBox-Input {
 	position: relative;
 	top: 4px;
 	left: 0px;
 }
 
-/** Стиль для JepTextAreaField */
+/* Стиль для поля области ввода текста. */
 .jepRia-TextArea-Input {
 	resize: none;
 	box-sizing: border-box;
@@ -496,13 +495,13 @@ input[type=text]::-ms-clear {
 	float: left;
 }
 
-/** Стиль для индикатора обязательности поля */
+/* Стиль для индикатора обязательности поля. */
 .jepRia-Field-Mandatory {
 	color: red;
 	cursor: pointer;
 }
 
-/** Стили для JepListField */
+/* Стили для поля со списком опций для логического выбора. */
 .jepRia-ListField-Input-common {
 	border: 1px solid #B5B4B4;
 	float: left;
@@ -517,8 +516,8 @@ input[type=text]::-ms-clear {
 }
 
 td.jepRia-ListField-Input:hover {
-  border: 1px dotted #B5B4B4;
-  background: #F1F1F1;	  
+	border: 1px dotted #B5B4B4;
+	background: #F1F1F1;
 }
 
 .jepRia-ListField-Input .item {
@@ -542,7 +541,7 @@ td.jepRia-ListField-Input:hover {
 	font-style: italic;
 }
 
-/** Стили для флага "Выбрать все" поля JepListField */
+/* Стили для флага "Выбрать все" поля JepListField. */
 .jepRia-ListField-SelectAllCheckBox {
 	margin-left: 2px;
 }
@@ -551,13 +550,13 @@ td.jepRia-ListField-Input:hover {
 	margin-left: 3px;
 }
 
-/** Стиль для JepTreeField */
+/* Стиль для поля древовидного логического выбора. */
 .jepRia-TreeField-Input {
 	float: left;
 	background: url(../images/loading.gif) no-repeat center center;
 }
 
-/* Стили для компонента DualListBox */
+/* Стили для компонента содержащего два списка опций. */
 .jepRia-DualListBox > tbody > tr > td {
 	height:100%;
 }
@@ -567,7 +566,7 @@ td.jepRia-ListField-Input:hover {
 	border:#b5b4b4 1px solid;
 }
 
-/* Стили для кнопок центральной панели компонента DualListBox */
+/* Стили для кнопок центральной панели компонента содержащего два списка опций. */
 .jepRia-DualListBox .gwt-Button {
 	border:none;
 	padding:1px 1px 1px 1px;
@@ -583,7 +582,7 @@ td.jepRia-ListField-Input:hover {
 	border:none;
 }
 
-/** Стиль для JepRadioField */
+/* Стиль для поля выбора только одной опции из списка. */
 .jepRia-RadioField-Input {
 	float: left;
 	border: 1px solid #ccc;
@@ -593,20 +592,20 @@ td.jepRia-ListField-Input:hover {
 	cursor: pointer;
 }
 
-/** Стиль для RichTextEditorField */
+/* Стиль для поля расширенного редактирования текста. */
 .jepRia-RichTextEditorField-Input {
 	border: 1px solid #BBBBBB;
-  	border-spacing: 0px;
-  	float: left;
+	border-spacing: 0px;
+	float: left;
 }
 
-/* Стили для рамки набора полей (FieldSet) */
+/* Стили для рамки набора полей. */
 fieldset.jepRia-FieldSet {
 	border: 1px solid #99BBE8;
 	margin: 5px;
 }
 
-/* Стиль для заголовка (legend) набора полей */
+/* Стиль для заголовка набора полей. */
 fieldset.jepRia-FieldSet legend {
 	color: #15428B;
 	font-size: 11px;
@@ -614,91 +613,91 @@ fieldset.jepRia-FieldSet legend {
 	font-family: tahoma,arial,helvetica,sans-serif;
 }
 
-/* Стиль для заголовка разворачиваемой панели */
+/* Стиль для заголовка разворачиваемой панели. */
 .gwt-DisclosurePanel .header td {
-    color: #15428B;
-    font-family: tahoma;
-    font-size: 11px;
-    font-weight: bold;
+	color: #15428B;
+	font-family: tahoma;
+	font-size: 11px;
+	font-weight: bold;
 }
 
-/* Стиль для WindowBox */
+/* Стиль для наследников "оконных" компонентов. */
 .gwt-DialogBox .Caption {
 	font-family: tahoma, arial, helvetica, sans-serif;
 }
 
-/* Main container for Test Build Message */
+/* Main container for Test Build Message. */
 div.jepRia-testBuildMessage {
-  padding: 10px;
-  z-index: 99999;
-  color: #fff;
-  font-size: 12px;
-  position: absolute;
-  right: 0px;
-  top: 0px;
+	padding: 10px;
+	z-index: 99999;
+	color: #fff;
+	font-size: 12px;
+	position: absolute;
+	right: 0px;
+	top: 0px;
 }
 
-/* Notification container for Test Build Message */
+/* Notification container for Test Build Message. */
 div.jepRia-testBuildMessage div.jepRia-testBuildMessageNotification {
-  background-color: #6690C9;
-  opacity: .85;
-  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=85)"; 
-  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=85); 
-  zoom: 1;
-  width: 235px;
-  padding: 10px;
-  margin-top: 5px;
-  margin-bottom: 5px;
-  font-family: Tahoma, Arial, Helvetica, sans-serif;
-  font-size: 1em;
-  text-align: left;
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;
-  min-height: 20px;
+	background-color: #6690C9;
+	opacity: .85;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=85)"; 
+	filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=85); 
+	zoom: 1;
+	width: 235px;
+	padding: 10px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	font-family: Tahoma, Arial, Helvetica, sans-serif;
+	font-size: 1em;
+	text-align: left;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	min-height: 20px;
 }
 
-/* Styles for Test Build error  */
+/* Styles for Test Build error. */
 div.jepRia-testBuildMessage div.jepRia-testBuildMessageNotification.error {
-  background: #ed6060;
-  color: #fff;
+	background: #ed6060;
+	color: #fff;
 }
 
-/* Styles for Test Build header  */
+/* Styles for Test Build header. */
 div.jepRia-testBuildMessage div.jepRia-testBuildMessageNotification div.jepRia-testBuildMessageHeader {
-  font-weight: bold;
+	font-weight: bold;
 }
 
-/* Styles for Test Build closer */
+/* Styles for Test Build closer. */
 div.jepRia-testBuildMessage div.jepRia-testBuildMessageNotification div.jepRia-testBuildMessageClose {
-  z-index: 99;
-  float: right;
-  font-weight: bold;
-  font-size: 1em;
-  cursor:  pointer;
+	z-index: 99;
+	float: right;
+	font-weight: bold;
+	font-size: 1em;
+	cursor: pointer;
 }
 
 img {
 	border: 0px;
 }
-/* Padding for label */
+/* Padding for label. */
 .gwt-HTML {
 	padding: 2px;
 }
-/* Styles for disabled elements */
+/* Styles for disabled elements. */
 .jepRia-Field-disabled {
 	cursor: default;
-	opacity: .6; /* css standard. */
-	-moz-opacity: .6; /* very old mozilla/netscape browsers. */
-	-khtml-opacity: 0.6; /* very old safari browsers. */
-	filter: alpha(opacity = 60); /* IE */
+	opacity: .6; /* Css standard. */
+	-moz-opacity: .6; /* Very old mozilla/netscape browsers. */
+	-khtml-opacity: 0.6; /* Very old safari browsers. */
+	filter: alpha(opacity = 60); /* IE. */
 }
-/* Styles for editable and view cards label */
+/* Styles for editable and view cards label. */
 .jepRia-MultiStateField-Label {
 	text-align: right;
 }
-/* Styles for view card */
+/* Styles for view card. */
 .jepRia-MultiStateField-ViewCard {
 }
-/* Styles for editable card */
+/* Styles for editable card. */
 .jepRia-MultiStateField-EditableCard {
 }
