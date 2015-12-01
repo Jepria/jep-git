@@ -594,7 +594,20 @@
 			<then>
 				<taskdef classname="weblogic.ant.taskdefs.management.WLDeploy" classpath="${WL_LIB_HOME}/weblogic.jar" name="wldeploy" />
 				<echo message="Deploy to Weblogic" />
-				<wldeploy action="deploy" adminurl="t3://${DEPLOYMENT_PATH}" debug="true" failonerror="${failondeploy}" name="${MODULE_NAME_IN_PACKAGE}" password="${PASSWORD}" source="lib/${MODULE_NAME_IN_PACKAGE}.ear" upload="false" user="${LOGIN}" verbose="true" />
+				<wldeploy
+					action="deploy"
+					adminurl="t3://${DEPLOYMENT_PATH}"
+					targets="${WL_DEPLOY_TARGETS}"
+					debug="true"
+					failonerror="${failondeploy}"
+					name="${MODULE_NAME_IN_PACKAGE}"
+					password="${PASSWORD}"
+					source="lib/${MODULE_NAME_IN_PACKAGE}.ear"
+					upload="true"
+					user="${LOGIN}"
+					verbose="true">
+				</wldeploy>
+
 			</then>
 			<else>
 				<echo message="Deploy to OC4J" />
