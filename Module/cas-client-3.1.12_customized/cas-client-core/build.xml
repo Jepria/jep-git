@@ -4,9 +4,9 @@
 	<property name="JAVA_DOC_DIR" value="doc" />
 	<property name="LIBS" value="{LOG4J_HOME}/log4j.jar;
 		${LOG4J_HOME}/log4j.jar;
-		../modules/opensaml-1.1.jar;
-		../modules/servlet-api-2.3.jar;
-		../modules/commons-logging-1.1.jar " />
+		lib/ext/opensaml-1.1.jar;
+		lib/ext/servlet-api-2.3.jar;
+		lib/ext/commons-logging-1.1.jar " />
 	<property name="LOG_LEVEL" value="info" />
 	
 	<target name="start-log">
