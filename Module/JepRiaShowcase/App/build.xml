@@ -482,7 +482,7 @@
 					<fileset dir="build-gwt" />
 				</copy>
 				<copy todir="temp-war/WEB-INF/lib">
-					<fileset dir="${OC4J_HOME}/jakarta-struts/lib" includes="commons-digester.jar,        commons-logging.jar,        commons-collections.jar,        commons-beanutils.jar,        commons-fileupload.jar,        commons-lang.jar,        commons-validator.jar" />
+					<fileset dir="${OC4J_HOME}/jakarta-struts/lib" includes="commons-digester.jar, commons-collections.jar, commons-beanutils.jar, commons-fileupload.jar, commons-lang.jar, commons-validator.jar" />
 				</copy>
 				<copy failonerror="false" todir="temp-war/resources/${MODULE_PACKAGE}/report">
 					<fileset dir="${RESOURCE_HOME}/report" />
@@ -523,6 +523,7 @@
 					<fileset dir="${JASPER_REPORTS_HOME}/dist" includes="jasperreports.jar" />
 					<fileset dir="${JAR_TEMP}" includes="${MODULE_NAME_IN_PACKAGE}-common.jar" />
 					<fileset dir="${GWT_HOME}" includes="gwt-servlet.jar" />
+					<fileset dir="${OC4J_HOME}/jakarta-struts/lib" includes="commons-logging.jar" />
 				</copy>
 				<if>
 					<isset Property="CAS_CLIENT_VERSION" />
@@ -590,7 +591,7 @@
 	<target name="deploy" depends="save-version-application">
 		<echo message="Deploying to:${DEPLOYMENT_PATH}"/>
 		<if>
-			<isset Property="DEPLOY_TO_WEBLOGIC" />
+			<isset Property="WL_DEPLOY_TARGETS" />
 			<then>
 				<taskdef classname="weblogic.ant.taskdefs.management.WLDeploy" classpath="${WL_LIB_HOME}/weblogic.jar" name="wldeploy" />
 				<echo message="Deploy to Weblogic" />
