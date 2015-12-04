@@ -549,17 +549,40 @@
 
 	<target name="build-and-deploy" depends="ear, release-doc">
 		<echo message="Deploying to:${DEPLOYMENT_PATH}"/>
-		<java fork="yes" jar="${J2EE_HOME}/admin_client.jar">
-			<arg value="deployer:oc4j:${DEPLOYMENT_PATH}" />
-			<arg value="${LOGIN}" />
-			<arg value="${PASSWORD}" />
-			<arg value="-deploy" />
-			<arg value="-file" />
-			<arg value="lib/${MODULE_NAME_IN_PACKAGE}.ear" />
-			<arg value="-deploymentName" />
-			<arg value="${MODULE_NAME_IN_PACKAGE}" />
-			<arg value="-bindAllWebApps" />
-		</java>
+		<if>
+			<isset Property="WL_DEPLOY_TARGETS" />
+			<then>
+				<taskdef classname="weblogic.ant.taskdefs.management.WLDeploy" classpath="${WL_LIB_HOME}/weblogic.jar" name="wldeploy" />
+				<echo message="Deploy to Weblogic" />
+				<wldeploy
+					action="deploy"
+					adminurl="t3://${DEPLOYMENT_PATH}"
+					targets="${WL_DEPLOY_TARGETS}"
+					debug="true"
+					failonerror="${failondeploy}"
+					name="${MODULE_NAME_IN_PACKAGE}"
+					password="${PASSWORD}"
+					source="lib/${MODULE_NAME_IN_PACKAGE}.ear"
+					upload="true"
+					user="${LOGIN}"
+					verbose="true">
+				</wldeploy>
+			</then>
+			<else>
+				<echo message="Deploy to OC4J" />
+					<java fork="yes" jar="${J2EE_HOME}/admin_client.jar">
+						<arg value="deployer:oc4j:${DEPLOYMENT_PATH}" />
+						<arg value="${LOGIN}" />
+						<arg value="${PASSWORD}" />
+						<arg value="-deploy" />
+						<arg value="-file" />
+						<arg value="lib/${MODULE_NAME_IN_PACKAGE}.ear" />
+						<arg value="-deploymentName" />
+						<arg value="${MODULE_NAME_IN_PACKAGE}" />
+						<arg value="-bindAllWebApps" />
+					</java>
+			</else>
+		</if>
 	</target>
 
 	<target name="svn-version">
