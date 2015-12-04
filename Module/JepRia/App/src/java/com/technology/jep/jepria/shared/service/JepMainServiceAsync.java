@@ -17,7 +17,8 @@ public interface JepMainServiceAsync {
 	/**
 	 * Выход из приложения
 	 * 
+	 * @param callback currentUrl - текущий Url (куда возвращаться после Login)
 	 * @param callback Url, по которому нужно перейти в результате Logout
 	 */
-	void logout(AsyncCallback<String> callback);
+	void logout(String currentUrl, AsyncCallback<String> callback);
 }

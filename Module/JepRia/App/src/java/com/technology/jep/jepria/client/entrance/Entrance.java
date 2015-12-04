@@ -1,5 +1,6 @@
 package com.technology.jep.jepria.client.entrance;
 
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.technology.jep.jepria.shared.service.JepMainServiceAsync;
 
@@ -12,8 +13,7 @@ public class Entrance {
 	}
 	
 	public static void logout() {
-
-		mainService.logout(new AsyncCallback<String>() {
+		mainService.logout(Window.Location.getHref(), new AsyncCallback<String>() {
 			public void onFailure(Throwable caught) {
 				reload();
 			}

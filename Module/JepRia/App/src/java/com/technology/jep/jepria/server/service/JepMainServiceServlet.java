@@ -39,10 +39,10 @@ public class JepMainServiceServlet extends JepServiceServlet implements JepMainS
 		return userData;
 	}
 	
-	public String logout() throws Exception {
+	public String logout(String currentUrl) throws Exception {
 		logger.debug("logout()");
 		HttpServletRequest request = getThreadLocalRequest();
 		HttpServletResponse response =  getThreadLocalResponse();
-		return ServerFactory.getSecurityModule(request).logout(request, response);
+		return ServerFactory.getSecurityModule(request).logout(request, response, currentUrl);
 	}
 }
