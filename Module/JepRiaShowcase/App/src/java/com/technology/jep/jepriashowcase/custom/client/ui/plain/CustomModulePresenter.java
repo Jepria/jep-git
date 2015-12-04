@@ -25,6 +25,7 @@ import com.google.gwt.http.client.Response;
 import com.google.gwt.http.client.URL;
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.user.client.Cookies;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.technology.jep.jepria.client.async.JepAsyncCallback;
 import com.technology.jep.jepria.client.history.scope.JepScopeStack;
@@ -185,7 +186,7 @@ public class CustomModulePresenter<V extends CustomModuleView, E extends PlainEv
 			public void onClick(ClickEvent event) {
 				view.clearCredential();
 				// Самостоятельный выход.
-				mainService.logout(new AsyncCallback<String>() {
+				mainService.logout(Window.Location.getHref(), new AsyncCallback<String>() {
 					public void onFailure(Throwable caught) {
 						view.toggleAuthorizationPanel();
 					}
