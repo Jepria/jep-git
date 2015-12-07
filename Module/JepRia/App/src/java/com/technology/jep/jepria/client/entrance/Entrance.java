@@ -19,20 +19,11 @@ public class Entrance {
 			}
 
 			public void onSuccess(String logoutUrl) {
-				if(isFrameElement() && isJSSO_CAS_Integrated()) {
-						reload();
+				if(logoutUrl != null) {
+					goTo(logoutUrl);
 				} else {
-					if(logoutUrl != null) {
-						casLogout(logoutUrl);
-					} else {
-						reload();
-					}
+					reload();
 				}
-			}
-
-			private boolean isJSSO_CAS_Integrated() {
-				return false; // TODO Убрать времянку после внедрения интегрированного решения JSSO_CAS
-//				return true;
 			}
 		});
 	}
@@ -46,8 +37,8 @@ public class Entrance {
 		}
 	}-*/;
 
-	private native static void casLogout(String logoutUrl) /*-{
-		$wnd.location = logoutUrl;
+	private native static void goTo(String url) /*-{
+		$wnd.location = url;
 	}-*/;
 	
 	private native static boolean isFrameElement() /*-{
