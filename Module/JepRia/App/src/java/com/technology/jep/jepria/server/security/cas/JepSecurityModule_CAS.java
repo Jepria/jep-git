@@ -20,6 +20,9 @@ import com.technology.jep.jepria.server.security.JepAbstractSecurityModule;
 import com.technology.jep.jepria.server.security.JepSecurityModule;
 import com.technology.jep.jepria.shared.exceptions.SystemException;
 
+/**
+ * Модуль поддержки безопасности для CAS
+ */
 public class JepSecurityModule_CAS extends JepAbstractSecurityModule {
 
 	static {
@@ -116,6 +119,17 @@ public class JepSecurityModule_CAS extends JepAbstractSecurityModule {
 		logger.trace(this.getClass() + ".updateSubject() END");
 	}
 
+	/**
+	 * TODO Вынести в интерфейс JepSecurityModule
+	 * 
+	 * Проверка "свежести" объекта securityModule, закешированного в Http-сессии
+	 * Выполняется на основе сравнения значений operatorId principal-а и объекта jepSecurityModule. 
+	 * 
+	 * @param securityModule объект типа JepSecurityModule из сессии
+	 * @param principal принципал
+	 * @param currentOperatorId текущий операторId
+	 * @return true, если объект jepSecurityModule устарел, иначе - false
+	 */
 	private static boolean isObsolete(Db db, Principal principal, Integer currentOperatorId) {
 		boolean result = true;
 		try {

@@ -77,17 +77,6 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 -->	
-	
-<!-- CORS Filter, required for CAS-JavaSSO integration
-	<filter>
-	  <filter-name>CorsFilter</filter-name>
- 	  <filter-class>com.technology.jep.jepria.server.cors.CORSFilter</filter-class>
-	</filter>
-	<filter-mapping>
-	  <filter-name>CorsFilter</filter-name>
-	  <url-pattern>/*</url-pattern>
-	</filter-mapping> 
--->
 	<servlet>
 		<servlet-name>remoteLoggerServiceImpl</servlet-name>
 		<servlet-class>com.allen_sauer.gwt.log.server.RemoteLoggerServiceImpl</servlet-class>

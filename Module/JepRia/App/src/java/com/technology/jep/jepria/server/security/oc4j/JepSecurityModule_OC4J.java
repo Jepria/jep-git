@@ -22,7 +22,7 @@ import com.technology.jep.jepria.server.security.JepSecurityModule;
 import com.technology.jep.jepria.shared.exceptions.SystemException;
 
 /**
- * Модуль поддержки безопасности
+ * Модуль поддержки безопасности для OC4J
  */
 public class JepSecurityModule_OC4J extends JepAbstractSecurityModule {
 
@@ -102,7 +102,7 @@ public class JepSecurityModule_OC4J extends JepAbstractSecurityModule {
 	}
 
 	public String logout(HttpServletRequest request, HttpServletResponse response, String currentUrl) {
-		logout_oc4j(request, response);
+		logout(request, response);
 		return null;
 	}
 
@@ -137,6 +137,8 @@ public class JepSecurityModule_OC4J extends JepAbstractSecurityModule {
 	}
 
 	/**
+	 * TODO Вынести в интерфейс JepSecurityModule
+	 * 
 	 * Проверка "свежести" объекта securityModule, закешированного в Http-сессии
 	 * Выполняется на основе сравнения значений operatorId principal-а и объекта jepSecurityModule. 
 	 * 
@@ -168,7 +170,7 @@ public class JepSecurityModule_OC4J extends JepAbstractSecurityModule {
 		return result;
 	}
 
-	private void logout_oc4j(HttpServletRequest request, HttpServletResponse response) {
+	private void logout(HttpServletRequest request, HttpServletResponse response) {
 		JAZNUserAdaptor jaznuser = (JAZNUserAdaptor) request.getUserPrincipal();
 		if (jaznuser != null) {
 			try {
