@@ -99,6 +99,12 @@ java.lang.Object
 </PRE>
 
 <P>
+TODO Напрашивается переименование
+ 
+ Класс обработки Logout
+<P>
+
+<P>
 <HR>
 
 <P>
@@ -147,18 +153,10 @@ java.lang.Object
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>private static&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/client/entrance/Entrance.html#casLogout(java.lang.String)">casLogout</A></B>(java.lang.String&nbsp;logoutUrl)</CODE>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/client/entrance/Entrance.html#goTo(java.lang.String)">goTo</A></B>(java.lang.String&nbsp;url)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>private static&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/client/entrance/Entrance.html#isFrameElement()">isFrameElement</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Переход по заданному Url</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -166,7 +164,7 @@ java.lang.Object
 <TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/client/entrance/Entrance.html#logout()">logout</A></B>()</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Выход из приложения</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -174,7 +172,7 @@ java.lang.Object
 <TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/client/entrance/Entrance.html#reload()">reload</A></B>()</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Перезагрузка страницы (с учётом окружения - с Navigation или без)</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -259,6 +257,8 @@ logout</H3>
 <PRE>
 public static void <B>logout</B>()</PRE>
 <DL>
+<DD>Выход из приложения
+<P>
 <DD><DL>
 </DL>
 </DD>
@@ -270,30 +270,23 @@ reload</H3>
 <PRE>
 private static void <B>reload</B>()</PRE>
 <DL>
+<DD>Перезагрузка страницы (с учётом окружения - с Navigation или без)
+<P>
 <DD><DL>
 </DL>
 </DD>
 </DL>
 <HR>
 
-<A NAME="casLogout(java.lang.String)"><!-- --></A><H3>
-casLogout</H3>
+<A NAME="goTo(java.lang.String)"><!-- --></A><H3>
+goTo</H3>
 <PRE>
-private static void <B>casLogout</B>(java.lang.String&nbsp;logoutUrl)</PRE>
+private static void <B>goTo</B>(java.lang.String&nbsp;url)</PRE>
 <DL>
+<DD>Переход по заданному Url
+<P>
 <DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="isFrameElement()"><!-- --></A><H3>
-isFrameElement</H3>
-<PRE>
-private static boolean <B>isFrameElement</B>()</PRE>
-<DL>
-<DD><DL>
-</DL>
+<DT><B>Parameters:</B><DD><CODE>url</CODE> - </DL>
 </DD>
 </DL>
 <!-- ========= END OF CLASS DATA ========= -->

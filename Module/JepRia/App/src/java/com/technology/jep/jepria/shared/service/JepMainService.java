@@ -20,7 +20,6 @@ public interface JepMainService extends RemoteService {
 	/**
 	 * Выход (logout) текущего пользователя из SSO.
 	 * 
-	 * @param callback currentUrl - текущий Url (куда возвращаться после Login)
 	 * @return Url, по которому нужно перейти в результате Logout
 	 * @throws Exception 
 	 */

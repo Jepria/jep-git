@@ -119,7 +119,7 @@ Interface JepSecurityModule</H2>
 <TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/security/JepSecurityModule.html#getJepPrincipalOperatorId(java.security.Principal)">getJepPrincipalOperatorId</A></B>(java.security.Principal&nbsp;principal)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Возвращает идентификатор оператора залогинившегося через JavaSSO.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -127,7 +127,7 @@ Interface JepSecurityModule</H2>
 <TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/security/JepSecurityModule.html#getOperatorId()">getOperatorId</A></B>()</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Получение Id пользователя</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -135,7 +135,7 @@ Interface JepSecurityModule</H2>
 <TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/security/JepSecurityModule.html#getRoles()">getRoles</A></B>()</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Получение ролей</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -143,7 +143,7 @@ Interface JepSecurityModule</H2>
 <TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/security/JepSecurityModule.html#getUsername()">getUsername</A></B>()</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Получение username</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -152,16 +152,17 @@ Interface JepSecurityModule</H2>
        boolean&nbsp;makeError)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Проверка роли</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;java.lang.String</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/security/JepSecurityModule.html#logout(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)">logout</A></B>(javax.servlet.http.HttpServletRequest&nbsp;request,
-       javax.servlet.http.HttpServletResponse&nbsp;response)</CODE>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/security/JepSecurityModule.html#logout(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.lang.String)">logout</A></B>(javax.servlet.http.HttpServletRequest&nbsp;request,
+       javax.servlet.http.HttpServletResponse&nbsp;response,
+       java.lang.String&nbsp;currentUrl)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Выход из приложения</TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_javax.servlet.http.HttpSessionBindingListener"><!-- --></A>
@@ -191,11 +192,14 @@ getOperatorId</H3>
 <PRE>
 java.lang.Integer <B>getOperatorId</B>()</PRE>
 <DL>
+<DD>Получение Id пользователя
+<P>
 <DD><DL>
 </DL>
 </DD>
 <DD><DL>
-</DL>
+
+<DT><B>Returns:</B><DD>Id пользователя</DL>
 </DD>
 </DL>
 <HR>
@@ -205,11 +209,14 @@ getRoles</H3>
 <PRE>
 java.util.List&lt;java.lang.String&gt; <B>getRoles</B>()</PRE>
 <DL>
+<DD>Получение ролей
+<P>
 <DD><DL>
 </DL>
 </DD>
 <DD><DL>
-</DL>
+
+<DT><B>Returns:</B><DD>роли</DL>
 </DD>
 </DL>
 <HR>
@@ -219,27 +226,34 @@ getUsername</H3>
 <PRE>
 java.lang.String <B>getUsername</B>()</PRE>
 <DL>
+<DD>Получение username
+<P>
 <DD><DL>
 </DL>
 </DD>
 <DD><DL>
-</DL>
+
+<DT><B>Returns:</B><DD>username</DL>
 </DD>
 </DL>
 <HR>
 
-<A NAME="logout(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)"><!-- --></A><H3>
+<A NAME="logout(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.lang.String)"><!-- --></A><H3>
 logout</H3>
 <PRE>
 java.lang.String <B>logout</B>(javax.servlet.http.HttpServletRequest&nbsp;request,
-                        javax.servlet.http.HttpServletResponse&nbsp;response)
+                        javax.servlet.http.HttpServletResponse&nbsp;response,
+                        java.lang.String&nbsp;currentUrl)
                         throws java.lang.Exception</PRE>
 <DL>
+<DD>Выход из приложения
+<P>
 <DD><DL>
 </DL>
 </DD>
 <DD><DL>
-
+<DT><B>Parameters:</B><DD><CODE>request</CODE> - HTTP-запрос<DD><CODE>response</CODE> - HTTP-ответ<DD><CODE>currentUrl</CODE> - Url, с которого выполняется Logout (используется для возврата после Login)
+<DT><B>Returns:</B><DD>Url, на который нужно перейти клиенту после выполнения Logout на сервере
 <DT><B>Throws:</B>
 <DD><CODE>java.lang.Exception</CODE></DL>
 </DD>
@@ -253,11 +267,15 @@ boolean <B>isRole</B>(java.lang.String&nbsp;role,
                boolean&nbsp;makeError)
                throws java.lang.Exception</PRE>
 <DL>
+<DD>Проверка роли
+<P>
 <DD><DL>
 </DL>
 </DD>
 <DD><DL>
-
+<DT><B>Parameters:</B><DD><CODE>role</CODE> - проверяемая роль<DD><CODE>makeError</CODE> - признак: выбрасывать исключение (значение true) или нет (значение false)
+<DT><B>Returns:</B><DD>true - если текущему оператору принадлежит роль role, false или исключение
+ (в зависимости от параметра makeError) в противном случае
 <DT><B>Throws:</B>
 <DD><CODE>java.lang.Exception</CODE></DL>
 </DD>
@@ -269,11 +287,15 @@ getJepPrincipalOperatorId</H3>
 <PRE>
 java.lang.Integer <B>getJepPrincipalOperatorId</B>(java.security.Principal&nbsp;principal)</PRE>
 <DL>
+<DD>Возвращает идентификатор оператора залогинившегося через JavaSSO. Если
+ пользователь не логинился через javaSSO, то возвращает null.
+<P>
 <DD><DL>
 </DL>
 </DD>
 <DD><DL>
-</DL>
+<DT><B>Parameters:</B><DD><CODE>principal</CODE> - пользователь, залогинившийся через javaSSO
+<DT><B>Returns:</B><DD>идентификатор оператора, залогинившегося через JavaSSO</DL>
 </DD>
 </DL>
 <!-- ========= END OF CLASS DATA ========= -->

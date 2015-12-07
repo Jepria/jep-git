@@ -103,7 +103,7 @@ java.lang.Object
 </PRE>
 
 <P>
-Модуль поддержки безопасности
+Модуль поддержки безопасности для OC4J
 <P>
 
 <P>
@@ -178,14 +178,16 @@ java.lang.Object
            java.security.Principal&nbsp;principal)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Проверка "свежести" объекта securityModule, закешированного в Http-сессии
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TODO Вынести в интерфейс JepSecurityModule
+ 
+ Проверка "свежести" объекта securityModule, закешированного в Http-сессии
  Выполняется на основе сравнения значений operatorId principal-а и объекта jepSecurityModule.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>private &nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/server/security/oc4j/JepSecurityModule_OC4J.html#logout_oc4j(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)">logout_oc4j</A></B>(javax.servlet.http.HttpServletRequest&nbsp;request,
-            javax.servlet.http.HttpServletResponse&nbsp;response)</CODE>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/server/security/oc4j/JepSecurityModule_OC4J.html#logout(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)">logout</A></B>(javax.servlet.http.HttpServletRequest&nbsp;request,
+       javax.servlet.http.HttpServletResponse&nbsp;response)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -193,11 +195,12 @@ java.lang.Object
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;java.lang.String</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/server/security/oc4j/JepSecurityModule_OC4J.html#logout(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)">logout</A></B>(javax.servlet.http.HttpServletRequest&nbsp;request,
-       javax.servlet.http.HttpServletResponse&nbsp;response)</CODE>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/server/security/oc4j/JepSecurityModule_OC4J.html#logout(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.lang.String)">logout</A></B>(javax.servlet.http.HttpServletRequest&nbsp;request,
+       javax.servlet.http.HttpServletResponse&nbsp;response,
+       java.lang.String&nbsp;currentUrl)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Выход из приложения</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -289,14 +292,19 @@ public java.lang.Integer <B>getJepPrincipalOperatorId</B>(java.security.Principa
 </DL>
 <HR>
 
-<A NAME="logout(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)"><!-- --></A><H3>
+<A NAME="logout(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.lang.String)"><!-- --></A><H3>
 logout</H3>
 <PRE>
 public java.lang.String <B>logout</B>(javax.servlet.http.HttpServletRequest&nbsp;request,
-                               javax.servlet.http.HttpServletResponse&nbsp;response)</PRE>
+                               javax.servlet.http.HttpServletResponse&nbsp;response,
+                               java.lang.String&nbsp;currentUrl)</PRE>
 <DL>
+<DD><B>Description copied from interface: <CODE><A HREF="../../../../../../../com/technology/jep/jepria/server/security/JepSecurityModule.html#logout(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.lang.String)">JepSecurityModule</A></CODE></B></DD>
+<DD>Выход из приложения
+<P>
 <DD><DL>
-</DL>
+<DT><B>Parameters:</B><DD><CODE>request</CODE> - HTTP-запрос<DD><CODE>response</CODE> - HTTP-ответ<DD><CODE>currentUrl</CODE> - Url, с которого выполняется Logout (используется для возврата после Login)
+<DT><B>Returns:</B><DD>Url, на который нужно перейти клиенту после выполнения Logout на сервере</DL>
 </DD>
 </DL>
 <HR>
@@ -325,7 +333,9 @@ isObsolete</H3>
 protected static boolean <B>isObsolete</B>(<A HREF="../../../../../../../com/technology/jep/jepria/server/security/JepSecurityModule.html" title="interface in com.technology.jep.jepria.server.security">JepSecurityModule</A>&nbsp;securityModule,
                                     java.security.Principal&nbsp;principal)</PRE>
 <DL>
-<DD>Проверка "свежести" объекта securityModule, закешированного в Http-сессии
+<DD>TODO Вынести в интерфейс JepSecurityModule
+ 
+ Проверка "свежести" объекта securityModule, закешированного в Http-сессии
  Выполняется на основе сравнения значений operatorId principal-а и объекта jepSecurityModule.
 <P>
 <DD><DL>
@@ -335,11 +345,11 @@ protected static boolean <B>isObsolete</B>(<A HREF="../../../../../../../com/tec
 </DL>
 <HR>
 
-<A NAME="logout_oc4j(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)"><!-- --></A><H3>
-logout_oc4j</H3>
+<A NAME="logout(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)"><!-- --></A><H3>
+logout</H3>
 <PRE>
-private void <B>logout_oc4j</B>(javax.servlet.http.HttpServletRequest&nbsp;request,
-                         javax.servlet.http.HttpServletResponse&nbsp;response)</PRE>
+private void <B>logout</B>(javax.servlet.http.HttpServletRequest&nbsp;request,
+                    javax.servlet.http.HttpServletResponse&nbsp;response)</PRE>
 <DL>
 <DD><DL>
 </DL>

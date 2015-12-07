@@ -15,7 +15,6 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 
 import com.technology.jep.jepcommon.security.pkg_Operator;
-import com.technology.jep.jepria.server.db.Db;
 import com.technology.jep.jepria.server.security.JepAbstractSecurityModule;
 import com.technology.jep.jepria.server.security.JepSecurityModule;
 import com.technology.jep.jepria.shared.exceptions.SystemException;
@@ -55,7 +54,7 @@ public class JepSecurityModule_CAS extends JepAbstractSecurityModule {
 			}
 		} else {	// Входили через SSO
 			securityModule = (JepSecurityModule_CAS) session.getAttribute(JEP_SECURITY_MODULE_ATTRIBUTE_NAME);
-			if (securityModule == null || isObsolete(securityModule.db, principal, securityModule.operatorId)) {
+			if (securityModule == null || isObsolete(securityModule, principal, securityModule.operatorId)) {
 				securityModule = new JepSecurityModule_CAS();
 				session.setAttribute(JEP_SECURITY_MODULE_ATTRIBUTE_NAME, securityModule);
 				securityModule.updateSubject(principal);
@@ -130,10 +129,10 @@ public class JepSecurityModule_CAS extends JepAbstractSecurityModule {
 	 * @param currentOperatorId текущий операторId
 	 * @return true, если объект jepSecurityModule устарел, иначе - false
 	 */
-	private static boolean isObsolete(Db db, Principal principal, Integer currentOperatorId) {
+	private static boolean isObsolete(JepSecurityModule_CAS securityModule, Principal principal, Integer currentOperatorId) {
 		boolean result = true;
 		try {
-			Integer _operatorId = pkg_Operator.logon(db, principal.getName());
+			Integer _operatorId = pkg_Operator.logon(securityModule.db, principal.getName());
 			if(_operatorId != null) {
 				if(_operatorId.equals(currentOperatorId)) {	// Если operatorID совпадают, значит объект "свежий"
 					result = false;

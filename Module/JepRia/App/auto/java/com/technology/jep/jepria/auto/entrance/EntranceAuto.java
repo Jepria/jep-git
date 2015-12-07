@@ -9,8 +9,8 @@ public interface EntranceAuto extends AutoBase {
 	/**
 	 * Вход в систему
 	 * 
-	 * @param USERNAME_KEY
-	 * @param PASSWORD_KEY
+	 * @param username - идентификатор пользователя
+	 * @param password - пароль
 	 */
 	void login(String username, String password);
 	

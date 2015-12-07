@@ -103,6 +103,10 @@ java.lang.Object
 </PRE>
 
 <P>
+Модуль поддержки безопасности для CAS
+<P>
+
+<P>
 <HR>
 
 <P>
@@ -153,15 +157,6 @@ java.lang.Object
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>private &nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/server/security/cas/JepSecurityModule_CAS.html#deleteCookie(javax.servlet.http.Cookie, javax.servlet.http.HttpServletResponse)">deleteCookie</A></B>(javax.servlet.http.Cookie&nbsp;cookie,
-             javax.servlet.http.HttpServletResponse&nbsp;response)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;<A HREF="../../../../../../../com/technology/jep/jepria/server/security/JepSecurityModule.html" title="interface in com.technology.jep.jepria.server.security">JepSecurityModule</A></CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/server/security/cas/JepSecurityModule_CAS.html#getInstance(javax.servlet.http.HttpServletRequest)">getInstance</A></B>(javax.servlet.http.HttpServletRequest&nbsp;request)</CODE>
 
@@ -174,43 +169,30 @@ java.lang.Object
 <TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/server/security/cas/JepSecurityModule_CAS.html#getJepPrincipalOperatorId(java.security.Principal)">getJepPrincipalOperatorId</A></B>(java.security.Principal&nbsp;principal)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>private static&nbsp;javax.servlet.http.Cookie</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/server/security/cas/JepSecurityModule_CAS.html#getOC4JSsoCookie(javax.servlet.http.HttpServletRequest)">getOC4JSsoCookie</A></B>(javax.servlet.http.HttpServletRequest&nbsp;request)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Возвращает идентификатор оператора залогинившегося через JavaSSO.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>private static&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/server/security/cas/JepSecurityModule_CAS.html#isObsolete(com.technology.jep.jepria.server.db.Db, java.security.Principal, java.lang.Integer)">isObsolete</A></B>(<A HREF="../../../../../../../com/technology/jep/jepria/server/db/Db.html" title="class in com.technology.jep.jepria.server.db">Db</A>&nbsp;db,
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/server/security/cas/JepSecurityModule_CAS.html#isObsolete(com.technology.jep.jepria.server.security.cas.JepSecurityModule_CAS, java.security.Principal, java.lang.Integer)">isObsolete</A></B>(<A HREF="../../../../../../../com/technology/jep/jepria/server/security/cas/JepSecurityModule_CAS.html" title="class in com.technology.jep.jepria.server.security.cas">JepSecurityModule_CAS</A>&nbsp;securityModule,
            java.security.Principal&nbsp;principal,
            java.lang.Integer&nbsp;currentOperatorId)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TODO Вынести в интерфейс JepSecurityModule
+ 
+ Проверка "свежести" объекта securityModule, закешированного в Http-сессии
+ Выполняется на основе сравнения значений operatorId principal-а и объекта jepSecurityModule.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;java.lang.String</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/server/security/cas/JepSecurityModule_CAS.html#logout(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)">logout</A></B>(javax.servlet.http.HttpServletRequest&nbsp;request,
-       javax.servlet.http.HttpServletResponse&nbsp;response)</CODE>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/server/security/cas/JepSecurityModule_CAS.html#logout(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.lang.String)">logout</A></B>(javax.servlet.http.HttpServletRequest&nbsp;request,
+       javax.servlet.http.HttpServletResponse&nbsp;response,
+       java.lang.String&nbsp;currentUrl)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>private &nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/server/security/cas/JepSecurityModule_CAS.html#removeJavaSSOCookie(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)">removeJavaSSOCookie</A></B>(javax.servlet.http.HttpServletRequest&nbsp;request,
-                    javax.servlet.http.HttpServletResponse&nbsp;response)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Выход из приложения</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -286,52 +268,22 @@ public static <A HREF="../../../../../../../com/technology/jep/jepria/server/sec
 </DL>
 <HR>
 
-<A NAME="logout(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)"><!-- --></A><H3>
+<A NAME="logout(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.lang.String)"><!-- --></A><H3>
 logout</H3>
 <PRE>
 public java.lang.String <B>logout</B>(javax.servlet.http.HttpServletRequest&nbsp;request,
-                               javax.servlet.http.HttpServletResponse&nbsp;response)
+                               javax.servlet.http.HttpServletResponse&nbsp;response,
+                               java.lang.String&nbsp;currentUrl)
                         throws java.lang.Exception</PRE>
 <DL>
+<DD><B>Description copied from interface: <CODE><A HREF="../../../../../../../com/technology/jep/jepria/server/security/JepSecurityModule.html#logout(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.lang.String)">JepSecurityModule</A></CODE></B></DD>
+<DD>Выход из приложения
+<P>
 <DD><DL>
-
+<DT><B>Parameters:</B><DD><CODE>request</CODE> - HTTP-запрос<DD><CODE>response</CODE> - HTTP-ответ<DD><CODE>currentUrl</CODE> - Url, с которого выполняется Logout (используется для возврата после Login)
+<DT><B>Returns:</B><DD>Url, на который нужно перейти клиенту после выполнения Logout на сервере
 <DT><B>Throws:</B>
 <DD><CODE>java.lang.Exception</CODE></DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="removeJavaSSOCookie(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)"><!-- --></A><H3>
-removeJavaSSOCookie</H3>
-<PRE>
-private void <B>removeJavaSSOCookie</B>(javax.servlet.http.HttpServletRequest&nbsp;request,
-                                 javax.servlet.http.HttpServletResponse&nbsp;response)</PRE>
-<DL>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="deleteCookie(javax.servlet.http.Cookie, javax.servlet.http.HttpServletResponse)"><!-- --></A><H3>
-deleteCookie</H3>
-<PRE>
-private void <B>deleteCookie</B>(javax.servlet.http.Cookie&nbsp;cookie,
-                          javax.servlet.http.HttpServletResponse&nbsp;response)</PRE>
-<DL>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="getOC4JSsoCookie(javax.servlet.http.HttpServletRequest)"><!-- --></A><H3>
-getOC4JSsoCookie</H3>
-<PRE>
-private static javax.servlet.http.Cookie <B>getOC4JSsoCookie</B>(javax.servlet.http.HttpServletRequest&nbsp;request)</PRE>
-<DL>
-<DD><DL>
-</DL>
 </DD>
 </DL>
 <HR>
@@ -341,8 +293,13 @@ getJepPrincipalOperatorId</H3>
 <PRE>
 public java.lang.Integer <B>getJepPrincipalOperatorId</B>(java.security.Principal&nbsp;principal)</PRE>
 <DL>
+<DD><B>Description copied from interface: <CODE><A HREF="../../../../../../../com/technology/jep/jepria/server/security/JepSecurityModule.html#getJepPrincipalOperatorId(java.security.Principal)">JepSecurityModule</A></CODE></B></DD>
+<DD>Возвращает идентификатор оператора залогинившегося через JavaSSO. Если
+ пользователь не логинился через javaSSO, то возвращает null.
+<P>
 <DD><DL>
-</DL>
+<DT><B>Parameters:</B><DD><CODE>principal</CODE> - пользователь, залогинившийся через javaSSO
+<DT><B>Returns:</B><DD>идентификатор оператора, залогинившегося через JavaSSO</DL>
 </DD>
 </DL>
 <HR>
@@ -361,15 +318,21 @@ protected void <B>updateSubject</B>(java.security.Principal&nbsp;principal)</PRE
 </DL>
 <HR>
 
-<A NAME="isObsolete(com.technology.jep.jepria.server.db.Db, java.security.Principal, java.lang.Integer)"><!-- --></A><H3>
+<A NAME="isObsolete(com.technology.jep.jepria.server.security.cas.JepSecurityModule_CAS, java.security.Principal, java.lang.Integer)"><!-- --></A><H3>
 isObsolete</H3>
 <PRE>
-private static boolean <B>isObsolete</B>(<A HREF="../../../../../../../com/technology/jep/jepria/server/db/Db.html" title="class in com.technology.jep.jepria.server.db">Db</A>&nbsp;db,
+private static boolean <B>isObsolete</B>(<A HREF="../../../../../../../com/technology/jep/jepria/server/security/cas/JepSecurityModule_CAS.html" title="class in com.technology.jep.jepria.server.security.cas">JepSecurityModule_CAS</A>&nbsp;securityModule,
                                   java.security.Principal&nbsp;principal,
                                   java.lang.Integer&nbsp;currentOperatorId)</PRE>
 <DL>
+<DD>TODO Вынести в интерфейс JepSecurityModule
+ 
+ Проверка "свежести" объекта securityModule, закешированного в Http-сессии
+ Выполняется на основе сравнения значений operatorId principal-а и объекта jepSecurityModule.
+<P>
 <DD><DL>
-</DL>
+<DT><B>Parameters:</B><DD><CODE>securityModule</CODE> - объект типа JepSecurityModule из сессии<DD><CODE>principal</CODE> - принципал<DD><CODE>currentOperatorId</CODE> - текущий операторId
+<DT><B>Returns:</B><DD>true, если объект jepSecurityModule устарел, иначе - false</DL>
 </DD>
 </DL>
 <!-- ========= END OF CLASS DATA ========= -->
