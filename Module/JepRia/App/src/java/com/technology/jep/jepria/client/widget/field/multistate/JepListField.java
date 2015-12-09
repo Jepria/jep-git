@@ -211,13 +211,12 @@ public class JepListField extends JepMultiStateField<CheckBoxListField<JepOption
 	 * {@inheritDoc}
 	 * 
 	 * Особенности:<br/>
-	 * Обновляем данные в {@link JepMultiStateField#editableCard} при смене состояния.
+	 * Обновляем данные в {@link JepMultiStateField#editableCard} после показа виджета, если он редактируем.
 	 */
 	@Override
-	protected void onChangeWorkstate(WorkstateEnum newWorkstate) {
-		super.onChangeWorkstate(newWorkstate);
-		// DataGrid при отображении необходимо обновить
-		if(WorkstateEnum.isEditableState(newWorkstate) && editable) {
+	public void setVisible(boolean visible){
+		super.setVisible(visible);
+		if (visible && editable){
 			editableCard.refreshData();
 		}
 	}
