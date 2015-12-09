@@ -1,0 +1,130 @@
+
+body { 
+  background-color: white;
+	margin: 3px;
+}
+
+body.applet { 
+	margin: 0px;
+}
+
+a { 
+  color: navy;
+}
+
+a.nounderline { 
+  text-decoration: none; 
+}
+
+a.nounderlineblack { 
+  text-decoration: none; 
+  color: Black; 
+}
+
+a.current { 
+  color: white;
+  background-color: navy;
+}
+
+img { 
+  border: none;
+}
+
+select, input {
+  font-size: 12px;
+  font-weight: normal;
+  font-family: Arial;
+}
+
+tr.selectedrow { 
+  background-color: navy; 
+  color: white;
+}
+
+td.error { 
+  color: red;
+  font-weight: bold;
+}
+
+table { 
+  table-layout: fixed;
+  border-collapse: collapse;
+  border: none;
+  text-align: left;
+  vertical-align: middle;
+  color: black;
+  font-weight: normal;
+  font-size: 12px;
+  font-family: Arial;
+}
+table th { 
+  text-align: center;
+  color: navy;
+  font-weight: bold;
+  border-bottom: 1px solid;
+  border-bottom-color: navy;
+}
+
+table.errors { 
+  color: red;
+  font-weight: bold;
+}
+table.errors td { 
+  vertical-align: top;
+}
+
+table.navigation { 
+  table-layout: fixed;
+  border: none;
+  color: black;
+  text-align: left;
+  vertical-align: middle;
+  font-size: 12px;
+  font-weight: normal;
+  font-family: Arial;
+}
+table.navigation th { 
+  text-align: center;
+  color: navy;
+  font-weight: bold;
+  border-bottom: 1px solid;
+  border-bottom-color: navy;
+}
+
+table.searchedresult {
+  border-left: 1px dashed;
+  border-left-color: #B0C4DE;
+}
+
+table.searchedresult th {
+  border-right: 1px dashed;
+  border-right-color: #B0C4DE;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  padding-left: 4px;
+  padding-right: 4px;
+  background-color: #CFDDEE;
+}
+
+table.searchedresult td { 
+  border-bottom: 1px solid;
+  border-bottom-color: navy;
+  padding-left: 4px; 
+  border-right: 1px dashed;
+  border-right-color: #B0C4DE;
+  padding-right: 4px;
+  padding-top: 2px;
+  padding-bottom: 2px;  
+}
+
+col.searchcaption { 
+  text-align: right;
+}
+col.searchvalue { 
+  text-align: left;
+}
+
+tr.selectedrow td a { 
+  background-color: navy; 
+  color: white;
+}
