@@ -33,6 +33,17 @@ public interface JepSecurityModule extends HttpSessionBindingListener {
 	 * 
 	 * @param request HTTP-запрос
 	 * @param response HTTP-ответ
+	 * 
+	 * @return Url, на который нужно перейти клиенту после выполнения Logout на сервере
+	 * @throws Exception
+	 */
+	String logout(HttpServletRequest request, HttpServletResponse response) throws Exception;
+	
+	/**
+	 * Выход из приложения
+	 * 
+	 * @param request HTTP-запрос
+	 * @param response HTTP-ответ
 	 * @param currentUrl Url, с которого выполняется Logout (используется для возврата после Login)
 	 * 
 	 * @return Url, на который нужно перейти клиенту после выполнения Logout на сервере
@@ -58,5 +69,35 @@ public interface JepSecurityModule extends HttpSessionBindingListener {
 	 * @param principal пользователь, залогинившийся через javaSSO
 	 * @return идентификатор оператора, залогинившегося через JavaSSO
 	 */
-	Integer getJepPrincipalOperatorId(Principal principal);	
+	Integer getJepPrincipalOperatorId(Principal principal);
+
+	/**
+	 * Изменение пароля
+	 * 
+	 * @param operatorId operatorId пользователя
+	 * @param password старый пароль
+	 * @param newPassword новый пароль
+	 * @param newPasswordConfirm подтверждение пароля
+	 */
+	void changePassword(Integer operatorId, String password, String newPassword, String newPasswordConfirm);
+
+	/**
+	 * Проверка необходимости изменения пароля пользователя operatorId
+	 * 
+	 * @return true, если пароль пора менять
+	 */
+	boolean isChangePassword(Integer operatorId);
+
+	/**
+	 * Получение ролей гостя
+	 * 
+	 * @return роли гостя
+	 */
+	List<String> getGuestRoles();
+
+	/**
+	 * Проверка авторизации в SSO
+	 * @return true, если авторизация уже была
+	 */
+	boolean isAuthorizedBySso();
 }

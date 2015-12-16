@@ -150,7 +150,7 @@ java.lang.Object
 <TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html#guestOperatorId">guestOperatorId</A></B></CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Идентификатор пользователя Гость</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -158,7 +158,15 @@ java.lang.Object
 <TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html#guestRoles">guestRoles</A></B></CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Список ролей пользователя Гость</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html#isAuthorizedBySso">isAuthorizedBySso</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Признак того, что был вход через SSO</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -174,7 +182,7 @@ java.lang.Object
 <TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html#operatorId">operatorId</A></B></CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Текущий идентификатор пользователя</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -182,7 +190,7 @@ java.lang.Object
 <TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html#roles">roles</A></B></CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Список ролей текущего пользователя</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -190,7 +198,7 @@ java.lang.Object
 <TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html#username">username</A></B></CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Логин пользователя</TD>
 </TR>
 </TABLE>
 &nbsp;
@@ -203,6 +211,8 @@ java.lang.Object
 <B>Constructor Summary</B></FONT></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected </CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html#JepAbstractSecurityModule()">JepAbstractSecurityModule</A></B>()</CODE>
 
 <BR>
@@ -220,19 +230,30 @@ java.lang.Object
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html#changePassword(java.lang.Integer, java.lang.String, java.lang.String, java.lang.String)">changePassword</A></B>(java.lang.Integer&nbsp;operatorId,
+               java.lang.String&nbsp;password,
+               java.lang.String&nbsp;newPassword,
+               java.lang.String&nbsp;newPasswordConfirm)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Изменение пароля пользователя.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>protected &nbsp;void</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html#doLogonByGuest()">doLogonByGuest</A></B>()</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Вход в систему с правами пользователя Гость</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;java.lang.Integer</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html#getCurrentUserId()">getCurrentUserId</A></B>()</CODE>
+<CODE>&nbsp;java.util.List&lt;java.lang.String&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html#getGuestRoles()">getGuestRoles</A></B>()</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Возвращает идентификатор текущего пользователя.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Получение ролей гостя</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -269,11 +290,44 @@ java.lang.Object
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html#isAuthorizedBySso()">isAuthorizedBySso</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Проверка авторизации в SSO</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html#isChangePassword(java.lang.Integer)">isChangePassword</A></B>(java.lang.Integer&nbsp;operatorId)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Функция определяет необходимость смены пароля пользователем.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected abstract &nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html#isObsolete(java.security.Principal)">isObsolete</A></B>(java.security.Principal&nbsp;principal)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Проверка на устаревания принципала</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;boolean</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html#isRole(java.lang.String, boolean)">isRole</A></B>(java.lang.String&nbsp;role,
        boolean&nbsp;makeError)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Определяет: принадлежит ли указанная роль role текущему оператору.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html#logout(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)">logout</A></B>(javax.servlet.http.HttpServletRequest&nbsp;request,
+       javax.servlet.http.HttpServletResponse&nbsp;response)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Выход из приложения</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -297,7 +351,7 @@ java.lang.Object
 <TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html#updateSubject(java.security.Principal)">updateSubject</A></B>(java.security.Principal&nbsp;principal)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Обновление полномочий пользователя в соответствии с указанным принципалом</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -372,6 +426,8 @@ roles</H3>
 <PRE>
 protected java.util.List&lt;java.lang.String&gt; <B>roles</B></PRE>
 <DL>
+<DD>Список ролей текущего пользователя
+<P>
 <DL>
 </DL>
 </DL>
@@ -382,6 +438,8 @@ operatorId</H3>
 <PRE>
 protected java.lang.Integer <B>operatorId</B></PRE>
 <DL>
+<DD>Текущий идентификатор пользователя
+<P>
 <DL>
 </DL>
 </DL>
@@ -392,6 +450,8 @@ username</H3>
 <PRE>
 protected java.lang.String <B>username</B></PRE>
 <DL>
+<DD>Логин пользователя
+<P>
 <DL>
 </DL>
 </DL>
@@ -402,6 +462,8 @@ guestRoles</H3>
 <PRE>
 private static java.util.List&lt;java.lang.String&gt; <B>guestRoles</B></PRE>
 <DL>
+<DD>Список ролей пользователя Гость
+<P>
 <DL>
 </DL>
 </DL>
@@ -412,6 +474,8 @@ guestOperatorId</H3>
 <PRE>
 private static java.lang.Integer <B>guestOperatorId</B></PRE>
 <DL>
+<DD>Идентификатор пользователя Гость
+<P>
 <DL>
 </DL>
 </DL>
@@ -435,6 +499,18 @@ private static final int <B>GUEST_REFRESH_TIME_DEFAULT</B></PRE>
 <DL>
 <DT><B>See Also:</B><DD><A HREF="../../../../../../constant-values.html#com.technology.jep.jepria.server.security.JepAbstractSecurityModule.GUEST_REFRESH_TIME_DEFAULT">Constant Field Values</A></DL>
 </DL>
+<HR>
+
+<A NAME="isAuthorizedBySso"><!-- --></A><H3>
+isAuthorizedBySso</H3>
+<PRE>
+protected boolean <B>isAuthorizedBySso</B></PRE>
+<DL>
+<DD>Признак того, что был вход через SSO
+<P>
+<DL>
+</DL>
+</DL>
 
 <!-- ========= CONSTRUCTOR DETAIL ======== -->
 
@@ -449,7 +525,7 @@ private static final int <B>GUEST_REFRESH_TIME_DEFAULT</B></PRE>
 <A NAME="JepAbstractSecurityModule()"><!-- --></A><H3>
 JepAbstractSecurityModule</H3>
 <PRE>
-public <B>JepAbstractSecurityModule</B>()</PRE>
+protected <B>JepAbstractSecurityModule</B>()</PRE>
 <DL>
 </DL>
 
@@ -482,11 +558,29 @@ updateSubject</H3>
 <PRE>
 protected abstract void <B>updateSubject</B>(java.security.Principal&nbsp;principal)</PRE>
 <DL>
+<DD>Обновление полномочий пользователя в соответствии с указанным принципалом
+<P>
 <DD><DL>
 </DL>
 </DD>
 <DD><DL>
+<DT><B>Parameters:</B><DD><CODE>principal</CODE> - принципал, содержащий информацию об Id оператора и его ролях</DL>
+</DD>
 </DL>
+<HR>
+
+<A NAME="isObsolete(java.security.Principal)"><!-- --></A><H3>
+isObsolete</H3>
+<PRE>
+protected abstract boolean <B>isObsolete</B>(java.security.Principal&nbsp;principal)</PRE>
+<DL>
+<DD>Проверка на устаревания принципала
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>principal</CODE> - проверяемый принципал</DL>
 </DD>
 </DL>
 <HR>
@@ -594,27 +688,13 @@ public void <B>valueUnbound</B>(javax.servlet.http.HttpSessionBindingEvent&nbsp;
 </DL>
 <HR>
 
-<A NAME="getCurrentUserId()"><!-- --></A><H3>
-getCurrentUserId</H3>
-<PRE>
-public java.lang.Integer <B>getCurrentUserId</B>()</PRE>
-<DL>
-<DD>Возвращает идентификатор текущего пользователя.
-<P>
-<DD><DL>
-</DL>
-</DD>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
 <A NAME="doLogonByGuest()"><!-- --></A><H3>
 doLogonByGuest</H3>
 <PRE>
 protected void <B>doLogonByGuest</B>()</PRE>
 <DL>
+<DD>Вход в систему с правами пользователя Гость
+<P>
 <DD><DL>
 </DL>
 </DD>
@@ -648,6 +728,97 @@ private void <B>onExpiredSession</B>(java.lang.String&nbsp;sessionId)</PRE>
 </DD>
 <DD><DL>
 </DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="isChangePassword(java.lang.Integer)"><!-- --></A><H3>
+isChangePassword</H3>
+<PRE>
+public boolean <B>isChangePassword</B>(java.lang.Integer&nbsp;operatorId)</PRE>
+<DL>
+<DD>Функция определяет необходимость смены пароля пользователем.
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../com/technology/jep/jepria/server/security/JepSecurityModule.html#isChangePassword(java.lang.Integer)">isChangePassword</A></CODE> in interface <CODE><A HREF="../../../../../../com/technology/jep/jepria/server/security/JepSecurityModule.html" title="interface in com.technology.jep.jepria.server.security">JepSecurityModule</A></CODE></DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>operatorId</CODE> - идентификатор пользователя
+<DT><B>Returns:</B><DD>true - если пользователю необходимо сменить пароль, false - в противном случае.</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="changePassword(java.lang.Integer, java.lang.String, java.lang.String, java.lang.String)"><!-- --></A><H3>
+changePassword</H3>
+<PRE>
+public void <B>changePassword</B>(java.lang.Integer&nbsp;operatorId,
+                           java.lang.String&nbsp;password,
+                           java.lang.String&nbsp;newPassword,
+                           java.lang.String&nbsp;newPasswordConfirm)</PRE>
+<DL>
+<DD>Изменение пароля пользователя.
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../com/technology/jep/jepria/server/security/JepSecurityModule.html#changePassword(java.lang.Integer, java.lang.String, java.lang.String, java.lang.String)">changePassword</A></CODE> in interface <CODE><A HREF="../../../../../../com/technology/jep/jepria/server/security/JepSecurityModule.html" title="interface in com.technology.jep.jepria.server.security">JepSecurityModule</A></CODE></DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>operatorId</CODE> - идентификатор пользователя<DD><CODE>password</CODE> - пароль пользователя<DD><CODE>newPassword</CODE> - новый пароль пользователя<DD><CODE>newPasswordConfirm</CODE> - подтверждение нового пароля пользователя</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getGuestRoles()"><!-- --></A><H3>
+getGuestRoles</H3>
+<PRE>
+public java.util.List&lt;java.lang.String&gt; <B>getGuestRoles</B>()</PRE>
+<DL>
+<DD>Получение ролей гостя
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../com/technology/jep/jepria/server/security/JepSecurityModule.html#getGuestRoles()">getGuestRoles</A></CODE> in interface <CODE><A HREF="../../../../../../com/technology/jep/jepria/server/security/JepSecurityModule.html" title="interface in com.technology.jep.jepria.server.security">JepSecurityModule</A></CODE></DL>
+</DD>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>роли гостя</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="isAuthorizedBySso()"><!-- --></A><H3>
+isAuthorizedBySso</H3>
+<PRE>
+public boolean <B>isAuthorizedBySso</B>()</PRE>
+<DL>
+<DD>Проверка авторизации в SSO
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../com/technology/jep/jepria/server/security/JepSecurityModule.html#isAuthorizedBySso()">isAuthorizedBySso</A></CODE> in interface <CODE><A HREF="../../../../../../com/technology/jep/jepria/server/security/JepSecurityModule.html" title="interface in com.technology.jep.jepria.server.security">JepSecurityModule</A></CODE></DL>
+</DD>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>true, если авторизация уже была</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="logout(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)"><!-- --></A><H3>
+logout</H3>
+<PRE>
+public java.lang.String <B>logout</B>(javax.servlet.http.HttpServletRequest&nbsp;request,
+                               javax.servlet.http.HttpServletResponse&nbsp;response)
+                        throws java.lang.Exception</PRE>
+<DL>
+<DD>Выход из приложения
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../com/technology/jep/jepria/server/security/JepSecurityModule.html#logout(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)">logout</A></CODE> in interface <CODE><A HREF="../../../../../../com/technology/jep/jepria/server/security/JepSecurityModule.html" title="interface in com.technology.jep.jepria.server.security">JepSecurityModule</A></CODE></DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>request</CODE> - HTTP-запрос<DD><CODE>response</CODE> - HTTP-ответ
+<DT><B>Returns:</B><DD>Url, на который нужно перейти клиенту после выполнения Logout на сервере
+<DT><B>Throws:</B>
+<DD><CODE>java.lang.Exception</CODE></DL>
 </DD>
 </DL>
 <!-- ========= END OF CLASS DATA ========= -->

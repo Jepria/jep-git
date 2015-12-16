@@ -10,6 +10,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSessionBindingEvent;
 
 import org.apache.log4j.Logger;
@@ -26,23 +28,60 @@ public abstract class JepAbstractSecurityModule implements JepSecurityModule {
 	protected static Logger logger;
 	
 	protected Db db = null;
+	
+	/**
+	 * Список ролей текущего пользователя 
+	 */
 	protected List<String> roles = new ArrayList<String>();
+	
+	/**
+	 * Текущий идентификатор пользователя 
+	 */
 	protected Integer operatorId = null;
+	
+	/**
+	 * Логин пользователя 
+	 */
 	protected String username;
 
-	/*
-	 * Кеширование данных гостя.
+	/**
+	 * Список ролей пользователя Гость
 	 */
 	private static List<String> guestRoles = new ArrayList<String>();
+	
+	/**
+	 * Идентификатор пользователя Гость
+	 */
 	private static Integer guestOperatorId = null;
 	private static long guestCacheTime = 0;
 	private static final int GUEST_REFRESH_TIME_DEFAULT = 900;		// 15 минут.
+	
+	/**
+	 * Признак того, что был вход через SSO
+	 */
+	protected boolean isAuthorizedBySso = false;
 
 	protected void init() {
 		db = new Db(DATA_SOURCE_JNDI_NAME);
 	}
 
+	protected JepAbstractSecurityModule(){
+		init();
+	}
+	
+	/**
+	 * Обновление полномочий пользователя в соответствии с указанным принципалом 
+	 * 
+	 * @param principal		принципал, содержащий информацию об Id оператора и его ролях
+	 */
 	abstract protected void updateSubject(Principal principal);
+	
+	/**
+	 * Проверка на устаревания принципала 
+	 * 
+	 * @param principal		 проверяемый принципал
+	 */
+	abstract protected boolean isObsolete(Principal principal);
 	
 	/**
 	 * Определяет: принадлежит ли указанная роль role текущему оператору. Если
@@ -68,6 +107,7 @@ public abstract class JepAbstractSecurityModule implements JepSecurityModule {
 	/**
 	 * Возвращает идентификатор текущего пользователя.
 	 */
+	@Override
 	public Integer getOperatorId() {
 		return operatorId;
 	}
@@ -75,6 +115,7 @@ public abstract class JepAbstractSecurityModule implements JepSecurityModule {
 	/**
 	 * Возвращает имя (username) текущего пользователя.
 	 */
+	@Override
 	public String getUsername() {
 		return username;
 	}
@@ -82,10 +123,12 @@ public abstract class JepAbstractSecurityModule implements JepSecurityModule {
 	/**
 	 * Возвращает роли текущего пользователя.
 	 */
+	@Override
 	public List<String> getRoles() {
 		return roles;
 	}
 
+	@Override
 	public void valueBound(HttpSessionBindingEvent bindingEvent) {
 		if(JEP_SECURITY_MODULE_ATTRIBUTE_NAME.equals(bindingEvent.getName())) {
 			onStartSession(bindingEvent.getSession().getId());
@@ -95,19 +138,16 @@ public abstract class JepAbstractSecurityModule implements JepSecurityModule {
 	/*
 	 * Оставлено для подстраховочной очистки ресурсов (закрытия соединений с БД)
 	 */
+	@Override
 	public void valueUnbound(HttpSessionBindingEvent bindingEvent) {
 		if(JEP_SECURITY_MODULE_ATTRIBUTE_NAME.equals(bindingEvent.getName())) {
 			onExpiredSession(bindingEvent.getSession().getId());
 		}
 	}
-
+	
 	/**
-	 * Возвращает идентификатор текущего пользователя.
+	 * Вход в систему с правами пользователя Гость
 	 */
-	public Integer getCurrentUserId() {
-		return operatorId;
-	}
-
 	protected void doLogonByGuest() {
 		logger.trace("doLogonByGuest()");
 
@@ -139,5 +179,61 @@ public abstract class JepAbstractSecurityModule implements JepSecurityModule {
 	private void onExpiredSession(String sessionId) {
 		logger.trace("onExpiredSession(): sessionId = " + sessionId);
 		db.closeAll();
+	}
+		
+	/**
+	 * Функция определяет необходимость смены пароля пользователем.
+	 * 
+	 * @param operatorId идентификатор пользователя
+	 * @return true - если пользователю необходимо сменить пароль, false - в противном случае.
+	 */
+	@Override
+	public boolean isChangePassword(Integer operatorId) {
+		try {
+			return pkg_Operator.isChangePassword(this.db, operatorId);
+		} catch (SQLException ex) {
+			throw new SystemException("Password change check error", ex);
+		}
+	}
+	
+	/**
+	 * Изменение пароля пользователя.
+	 * 
+	 * @param operatorId идентификатор пользователя
+	 * @param password пароль пользователя
+	 * @param newPassword новый пароль пользователя
+	 * @param newPasswordConfirm подтверждение нового пароля пользователя
+	 */
+	@Override
+	public void changePassword(Integer operatorId, String password, String newPassword, String newPasswordConfirm) {
+		try {
+			pkg_Operator.changePassword(this.db, operatorId, password, newPassword, newPasswordConfirm);
+		} catch (SQLException ex) {
+			throw new SystemException("Wrong authentication", ex);
+		}
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public List<String> getGuestRoles(){
+		return guestRoles;
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public boolean isAuthorizedBySso() {
+		return isAuthorizedBySso;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public String logout(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		return logout(request, response, null);
 	}
 }

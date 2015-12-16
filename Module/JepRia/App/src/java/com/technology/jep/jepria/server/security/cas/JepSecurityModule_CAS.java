@@ -28,10 +28,6 @@ public class JepSecurityModule_CAS extends JepAbstractSecurityModule {
 		logger = Logger.getLogger(JepSecurityModule_CAS.class.getName());
 	}
 
-	private JepSecurityModule_CAS() {
-		init();
-	}
-
 	/**
 	 * Возвращает объект типа JepSecurityModule из сессии. Если объект не
 	 * найден в сессии или устаревший (например, оставшийся в сессии модуля после logout()),
@@ -54,7 +50,7 @@ public class JepSecurityModule_CAS extends JepAbstractSecurityModule {
 			}
 		} else {	// Входили через SSO
 			securityModule = (JepSecurityModule_CAS) session.getAttribute(JEP_SECURITY_MODULE_ATTRIBUTE_NAME);
-			if (securityModule == null || isObsolete(securityModule, principal, securityModule.operatorId)) {
+			if (securityModule == null || securityModule.isObsolete(principal)) {
 				securityModule = new JepSecurityModule_CAS();
 				session.setAttribute(JEP_SECURITY_MODULE_ATTRIBUTE_NAME, securityModule);
 				securityModule.updateSubject(principal);
@@ -62,7 +58,10 @@ public class JepSecurityModule_CAS extends JepAbstractSecurityModule {
 		}
 		return securityModule;
 	}
-
+	
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public String logout(HttpServletRequest request, HttpServletResponse response, String currentUrl) throws Exception {
 		request.getSession().invalidate();
@@ -81,6 +80,9 @@ public class JepSecurityModule_CAS extends JepAbstractSecurityModule {
         }
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Integer getJepPrincipalOperatorId(Principal principal) {
 		Integer result = null;
@@ -98,6 +100,9 @@ public class JepSecurityModule_CAS extends JepAbstractSecurityModule {
 		return result;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	protected void updateSubject(Principal principal) {
 		logger.trace(this.getClass() + ".updateSubject() BEGIN");
@@ -119,22 +124,18 @@ public class JepSecurityModule_CAS extends JepAbstractSecurityModule {
 	}
 
 	/**
-	 * TODO Вынести в интерфейс JepSecurityModule
-	 * 
 	 * Проверка "свежести" объекта securityModule, закешированного в Http-сессии
 	 * Выполняется на основе сравнения значений operatorId principal-а и объекта jepSecurityModule. 
 	 * 
-	 * @param securityModule объект типа JepSecurityModule из сессии
 	 * @param principal принципал
-	 * @param currentOperatorId текущий операторId
 	 * @return true, если объект jepSecurityModule устарел, иначе - false
 	 */
-	private static boolean isObsolete(JepSecurityModule_CAS securityModule, Principal principal, Integer currentOperatorId) {
+	protected boolean isObsolete(Principal principal) {
 		boolean result = true;
 		try {
-			Integer _operatorId = pkg_Operator.logon(securityModule.db, principal.getName());
+			Integer _operatorId = pkg_Operator.logon(db, principal.getName());
 			if(_operatorId != null) {
-				if(_operatorId.equals(currentOperatorId)) {	// Если operatorID совпадают, значит объект "свежий"
+				if(_operatorId.equals(getOperatorId())) {	// Если operatorID совпадают, значит объект "свежий"
 					result = false;
 				}
 			}

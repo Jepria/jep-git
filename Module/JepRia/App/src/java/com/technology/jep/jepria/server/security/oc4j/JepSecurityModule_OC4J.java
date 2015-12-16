@@ -2,11 +2,13 @@ package com.technology.jep.jepria.server.security.oc4j;
 
 import static com.technology.jep.jepria.server.security.JepSecurityConstant.JEP_SECURITY_MODULE_ATTRIBUTE_NAME;
 
+import java.io.IOException;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Set;
 
 import javax.security.auth.Subject;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -28,10 +30,6 @@ public class JepSecurityModule_OC4J extends JepAbstractSecurityModule {
 
 	static {
 		logger = Logger.getLogger(JepSecurityModule_OC4J.class.getName());	
-	}
-	
-	private JepSecurityModule_OC4J() {
-		init();
 	}
 	
 	/**
@@ -61,7 +59,7 @@ public class JepSecurityModule_OC4J extends JepAbstractSecurityModule {
 		} else {	// Входили через SSO
 			// TODO Разобраться с множественностью сессий
 			securityModule = (JepSecurityModule_OC4J) session.getAttribute(JEP_SECURITY_MODULE_ATTRIBUTE_NAME);
-			if (securityModule == null || isObsolete(securityModule, principal)) {
+			if (securityModule == null || securityModule.isObsolete(principal)) {
 				securityModule = new JepSecurityModule_OC4J();
 				session.setAttribute(JEP_SECURITY_MODULE_ATTRIBUTE_NAME, securityModule);
 				securityModule.updateSubject(principal);
@@ -94,15 +92,31 @@ public class JepSecurityModule_OC4J extends JepAbstractSecurityModule {
 						updateSubject(jaznuser);	// TODO выпрямить, оптимизировать						
 					}
 					result = this.operatorId;
+					break;
 				}
 			}
 		}
 
 		return result;
 	}
-
-	public String logout(HttpServletRequest request, HttpServletResponse response, String currentUrl) {
-		logout(request, response);
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public String logout(HttpServletRequest request, HttpServletResponse response, String targetUrl) {
+		JAZNUserAdaptor jaznuser = (JAZNUserAdaptor) request.getUserPrincipal();
+		if (jaznuser != null) {
+			try {
+				JSSOUtil.logout(response, targetUrl); // targetUrl требуется для локальных OC4J, "не понимающих" свойства custom.sso.app.url.default файла jazn.xml		
+			} catch (Throwable th) {
+				throw new SystemException("Logout error", th);
+			}
+		}
+		
+		this.updateSubject(null);
+		request.getSession().setAttribute(JEP_SECURITY_MODULE_ATTRIBUTE_NAME, null);
+		
 		return null;
 	}
 
@@ -117,7 +131,8 @@ public class JepSecurityModule_OC4J extends JepAbstractSecurityModule {
 		logger.trace("BEGIN updateSubject()");
 		
 		roles = new ArrayList<String>();
-		if(principal != null) { // principal есть, значит зашли по Java SSO
+		isAuthorizedBySso = principal != null;
+		if(isAuthorizedBySso) { // principal есть, значит зашли по Java SSO
 			// Извлечение ролей и operatorId из принципала
 			JAZNUserAdaptor jaznuser = (JAZNUserAdaptor)principal; 
 			Subject subject = jaznuser.getSubject();
@@ -137,27 +152,24 @@ public class JepSecurityModule_OC4J extends JepAbstractSecurityModule {
 	}
 
 	/**
-	 * TODO Вынести в интерфейс JepSecurityModule
-	 * 
 	 * Проверка "свежести" объекта securityModule, закешированного в Http-сессии
 	 * Выполняется на основе сравнения значений operatorId principal-а и объекта jepSecurityModule. 
 	 * 
-	 * @param securityModule объект типа JepSecurityModule из сессии
 	 * @param principal принципал
 	 * @return true, если объект jepSecurityModule устарел, иначе - false
 	 */
-	protected static boolean isObsolete(JepSecurityModule securityModule, Principal principal) {
+	protected boolean isObsolete(Principal principal) {
 		boolean result = true;
-		JAZNUserAdaptor jaznuser = (JAZNUserAdaptor)principal;
+		JAZNUserAdaptor jaznuser = (JAZNUserAdaptor) principal;
 		Subject subject = jaznuser.getSubject();
 		if(subject != null) {
 			Set<Principal> principals = subject.getPrincipals();
-			if(principals.size() - 1 == securityModule.getRoles().size()) {	// Если число ролей не совпадает, значит объект точно "несвежий" 
+			if(principals.size() - 1 == getRoles().size()) {	// Если число ролей не совпадает, значит объект точно "несвежий" 
 				for (Principal subjectPrincipal : principals) {
 					JepPrincipal jepPrincipal = (JepPrincipal) subjectPrincipal;
 					Integer _operatorId = jepPrincipal.getOperatorId();
 					if(_operatorId != null) {
-						if(_operatorId.equals(securityModule.getOperatorId())) {	// Если operatorID совпадают, значит объект "свежий"
+						if(_operatorId.equals(getOperatorId())) {	// Если operatorID совпадают, значит объект "свежий"
 							result = false;
 						}
 						break;
@@ -168,19 +180,5 @@ public class JepSecurityModule_OC4J extends JepAbstractSecurityModule {
 		
 		logger.trace("isObsolete() = " + result);
 		return result;
-	}
-
-	private void logout(HttpServletRequest request, HttpServletResponse response) {
-		JAZNUserAdaptor jaznuser = (JAZNUserAdaptor) request.getUserPrincipal();
-		if (jaznuser != null) {
-			try {
-				JSSOUtil.logout(response, null);		// Появляется домашняя страница сервера: "Overview ..."
-			} catch (Throwable th) {
-				throw new SystemException("Logout error", th);
-			}
-		}
-		
-		this.updateSubject(null);
-		request.getSession().setAttribute(JEP_SECURITY_MODULE_ATTRIBUTE_NAME, null);
 	}
 }

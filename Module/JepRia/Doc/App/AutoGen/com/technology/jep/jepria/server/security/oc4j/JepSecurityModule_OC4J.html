@@ -125,7 +125,7 @@ java.lang.Object
 <TH ALIGN="left"><B>Fields inherited from class com.technology.jep.jepria.server.security.<A HREF="../../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html" title="class in com.technology.jep.jepria.server.security">JepAbstractSecurityModule</A></B></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><A HREF="../../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html#db">db</A>, <A HREF="../../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html#logger">logger</A>, <A HREF="../../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html#operatorId">operatorId</A>, <A HREF="../../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html#roles">roles</A>, <A HREF="../../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html#username">username</A></CODE></TD>
+<TD><CODE><A HREF="../../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html#db">db</A>, <A HREF="../../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html#isAuthorizedBySso">isAuthorizedBySso</A>, <A HREF="../../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html#logger">logger</A>, <A HREF="../../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html#operatorId">operatorId</A>, <A HREF="../../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html#roles">roles</A>, <A HREF="../../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html#username">username</A></CODE></TD>
 </TR>
 </TABLE>
 &nbsp;
@@ -138,8 +138,6 @@ java.lang.Object
 <B>Constructor Summary</B></FONT></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>private </CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/server/security/oc4j/JepSecurityModule_OC4J.html#JepSecurityModule_OC4J()">JepSecurityModule_OC4J</A></B>()</CODE>
 
 <BR>
@@ -173,31 +171,19 @@ java.lang.Object
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>protected static&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/server/security/oc4j/JepSecurityModule_OC4J.html#isObsolete(com.technology.jep.jepria.server.security.JepSecurityModule, java.security.Principal)">isObsolete</A></B>(<A HREF="../../../../../../../com/technology/jep/jepria/server/security/JepSecurityModule.html" title="interface in com.technology.jep.jepria.server.security">JepSecurityModule</A>&nbsp;securityModule,
-           java.security.Principal&nbsp;principal)</CODE>
+<CODE>protected &nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/server/security/oc4j/JepSecurityModule_OC4J.html#isObsolete(java.security.Principal)">isObsolete</A></B>(java.security.Principal&nbsp;principal)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TODO Вынести в интерфейс JepSecurityModule
- 
- Проверка "свежести" объекта securityModule, закешированного в Http-сессии
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Проверка "свежести" объекта securityModule, закешированного в Http-сессии
  Выполняется на основе сравнения значений operatorId principal-а и объекта jepSecurityModule.</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>private &nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/server/security/oc4j/JepSecurityModule_OC4J.html#logout(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)">logout</A></B>(javax.servlet.http.HttpServletRequest&nbsp;request,
-       javax.servlet.http.HttpServletResponse&nbsp;response)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;java.lang.String</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/server/security/oc4j/JepSecurityModule_OC4J.html#logout(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.lang.String)">logout</A></B>(javax.servlet.http.HttpServletRequest&nbsp;request,
        javax.servlet.http.HttpServletResponse&nbsp;response,
-       java.lang.String&nbsp;currentUrl)</CODE>
+       java.lang.String&nbsp;targetUrl)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Выход из приложения</TD>
@@ -218,7 +204,7 @@ java.lang.Object
 <TH ALIGN="left"><B>Methods inherited from class com.technology.jep.jepria.server.security.<A HREF="../../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html" title="class in com.technology.jep.jepria.server.security">JepAbstractSecurityModule</A></B></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><A HREF="../../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html#doLogonByGuest()">doLogonByGuest</A>, <A HREF="../../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html#getCurrentUserId()">getCurrentUserId</A>, <A HREF="../../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html#getOperatorId()">getOperatorId</A>, <A HREF="../../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html#getRoles()">getRoles</A>, <A HREF="../../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html#getUsername()">getUsername</A>, <A HREF="../../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html#init()">init</A>, <A HREF="../../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html#isRole(java.lang.String, boolean)">isRole</A>, <A HREF="../../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html#valueBound(javax.servlet.http.HttpSessionBindingEvent)">valueBound</A>, <A HREF="../../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html#valueUnbound(javax.servlet.http.HttpSessionBindingEvent)">valueUnbound</A></CODE></TD>
+<TD><CODE><A HREF="../../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html#changePassword(java.lang.Integer, java.lang.String, java.lang.String, java.lang.String)">changePassword</A>, <A HREF="../../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html#doLogonByGuest()">doLogonByGuest</A>, <A HREF="../../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html#getGuestRoles()">getGuestRoles</A>, <A HREF="../../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html#getOperatorId()">getOperatorId</A>, <A HREF="../../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html#getRoles()">getRoles</A>, <A HREF="../../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html#getUsername()">getUsername</A>, <A HREF="../../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html#init()">init</A>, <A HREF="../../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html#isAuthorizedBySso()">isAuthorizedBySso</A>, <A HREF="../../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html#isChangePassword(java.lang.Integer)">isChangePassword</A>, <A HREF="../../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html#isRole(java.lang.String, boolean)">isRole</A>, <A HREF="../../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html#logout(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)">logout</A>, <A HREF="../../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html#valueBound(javax.servlet.http.HttpSessionBindingEvent)">valueBound</A>, <A HREF="../../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html#valueUnbound(javax.servlet.http.HttpSessionBindingEvent)">valueUnbound</A></CODE></TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>
@@ -246,7 +232,7 @@ java.lang.Object
 <A NAME="JepSecurityModule_OC4J()"><!-- --></A><H3>
 JepSecurityModule_OC4J</H3>
 <PRE>
-private <B>JepSecurityModule_OC4J</B>()</PRE>
+public <B>JepSecurityModule_OC4J</B>()</PRE>
 <DL>
 </DL>
 
@@ -297,13 +283,12 @@ logout</H3>
 <PRE>
 public java.lang.String <B>logout</B>(javax.servlet.http.HttpServletRequest&nbsp;request,
                                javax.servlet.http.HttpServletResponse&nbsp;response,
-                               java.lang.String&nbsp;currentUrl)</PRE>
+                               java.lang.String&nbsp;targetUrl)</PRE>
 <DL>
-<DD><B>Description copied from interface: <CODE><A HREF="../../../../../../../com/technology/jep/jepria/server/security/JepSecurityModule.html#logout(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.lang.String)">JepSecurityModule</A></CODE></B></DD>
 <DD>Выход из приложения
 <P>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>request</CODE> - HTTP-запрос<DD><CODE>response</CODE> - HTTP-ответ<DD><CODE>currentUrl</CODE> - Url, с которого выполняется Logout (используется для возврата после Login)
+<DT><B>Parameters:</B><DD><CODE>request</CODE> - HTTP-запрос<DD><CODE>response</CODE> - HTTP-ответ<DD><CODE>targetUrl</CODE> - Url, с которого выполняется Logout (используется для возврата после Login)
 <DT><B>Returns:</B><DD>Url, на который нужно перейти клиенту после выполнения Logout на сервере</DL>
 </DD>
 </DL>
@@ -327,32 +312,20 @@ protected void <B>updateSubject</B>(java.security.Principal&nbsp;principal)</PRE
 </DL>
 <HR>
 
-<A NAME="isObsolete(com.technology.jep.jepria.server.security.JepSecurityModule, java.security.Principal)"><!-- --></A><H3>
+<A NAME="isObsolete(java.security.Principal)"><!-- --></A><H3>
 isObsolete</H3>
 <PRE>
-protected static boolean <B>isObsolete</B>(<A HREF="../../../../../../../com/technology/jep/jepria/server/security/JepSecurityModule.html" title="interface in com.technology.jep.jepria.server.security">JepSecurityModule</A>&nbsp;securityModule,
-                                    java.security.Principal&nbsp;principal)</PRE>
+protected boolean <B>isObsolete</B>(java.security.Principal&nbsp;principal)</PRE>
 <DL>
-<DD>TODO Вынести в интерфейс JepSecurityModule
- 
- Проверка "свежести" объекта securityModule, закешированного в Http-сессии
+<DD>Проверка "свежести" объекта securityModule, закешированного в Http-сессии
  Выполняется на основе сравнения значений operatorId principal-а и объекта jepSecurityModule.
 <P>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>securityModule</CODE> - объект типа JepSecurityModule из сессии<DD><CODE>principal</CODE> - принципал
-<DT><B>Returns:</B><DD>true, если объект jepSecurityModule устарел, иначе - false</DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html#isObsolete(java.security.Principal)">isObsolete</A></CODE> in class <CODE><A HREF="../../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html" title="class in com.technology.jep.jepria.server.security">JepAbstractSecurityModule</A></CODE></DL>
 </DD>
-</DL>
-<HR>
-
-<A NAME="logout(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)"><!-- --></A><H3>
-logout</H3>
-<PRE>
-private void <B>logout</B>(javax.servlet.http.HttpServletRequest&nbsp;request,
-                    javax.servlet.http.HttpServletResponse&nbsp;response)</PRE>
-<DL>
 <DD><DL>
-</DL>
+<DT><B>Parameters:</B><DD><CODE>principal</CODE> - принципал
+<DT><B>Returns:</B><DD>true, если объект jepSecurityModule устарел, иначе - false</DL>
 </DD>
 </DL>
 <!-- ========= END OF CLASS DATA ========= -->

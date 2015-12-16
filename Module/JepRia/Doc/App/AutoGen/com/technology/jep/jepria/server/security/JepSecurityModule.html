@@ -115,6 +115,25 @@ Interface JepSecurityModule</H2>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/security/JepSecurityModule.html#changePassword(java.lang.Integer, java.lang.String, java.lang.String, java.lang.String)">changePassword</A></B>(java.lang.Integer&nbsp;operatorId,
+               java.lang.String&nbsp;password,
+               java.lang.String&nbsp;newPassword,
+               java.lang.String&nbsp;newPasswordConfirm)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Изменение пароля</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;java.util.List&lt;java.lang.String&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/security/JepSecurityModule.html#getGuestRoles()">getGuestRoles</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Получение ролей гостя</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;java.lang.Integer</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/security/JepSecurityModule.html#getJepPrincipalOperatorId(java.security.Principal)">getJepPrincipalOperatorId</A></B>(java.security.Principal&nbsp;principal)</CODE>
 
@@ -148,11 +167,36 @@ Interface JepSecurityModule</H2>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/security/JepSecurityModule.html#isAuthorizedBySso()">isAuthorizedBySso</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Проверка авторизации в SSO</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/security/JepSecurityModule.html#isChangePassword(java.lang.Integer)">isChangePassword</A></B>(java.lang.Integer&nbsp;operatorId)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Проверка необходимости изменения пароля пользователя operatorId</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;boolean</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/security/JepSecurityModule.html#isRole(java.lang.String, boolean)">isRole</A></B>(java.lang.String&nbsp;role,
        boolean&nbsp;makeError)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Проверка роли</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/security/JepSecurityModule.html#logout(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)">logout</A></B>(javax.servlet.http.HttpServletRequest&nbsp;request,
+       javax.servlet.http.HttpServletResponse&nbsp;response)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Выход из приложения</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -238,6 +282,27 @@ java.lang.String <B>getUsername</B>()</PRE>
 </DL>
 <HR>
 
+<A NAME="logout(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)"><!-- --></A><H3>
+logout</H3>
+<PRE>
+java.lang.String <B>logout</B>(javax.servlet.http.HttpServletRequest&nbsp;request,
+                        javax.servlet.http.HttpServletResponse&nbsp;response)
+                        throws java.lang.Exception</PRE>
+<DL>
+<DD>Выход из приложения
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>request</CODE> - HTTP-запрос<DD><CODE>response</CODE> - HTTP-ответ
+<DT><B>Returns:</B><DD>Url, на который нужно перейти клиенту после выполнения Logout на сервере
+<DT><B>Throws:</B>
+<DD><CODE>java.lang.Exception</CODE></DL>
+</DD>
+</DL>
+<HR>
+
 <A NAME="logout(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.lang.String)"><!-- --></A><H3>
 logout</H3>
 <PRE>
@@ -296,6 +361,76 @@ java.lang.Integer <B>getJepPrincipalOperatorId</B>(java.security.Principal&nbsp;
 <DD><DL>
 <DT><B>Parameters:</B><DD><CODE>principal</CODE> - пользователь, залогинившийся через javaSSO
 <DT><B>Returns:</B><DD>идентификатор оператора, залогинившегося через JavaSSO</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="changePassword(java.lang.Integer, java.lang.String, java.lang.String, java.lang.String)"><!-- --></A><H3>
+changePassword</H3>
+<PRE>
+void <B>changePassword</B>(java.lang.Integer&nbsp;operatorId,
+                    java.lang.String&nbsp;password,
+                    java.lang.String&nbsp;newPassword,
+                    java.lang.String&nbsp;newPasswordConfirm)</PRE>
+<DL>
+<DD>Изменение пароля
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>operatorId</CODE> - operatorId пользователя<DD><CODE>password</CODE> - старый пароль<DD><CODE>newPassword</CODE> - новый пароль<DD><CODE>newPasswordConfirm</CODE> - подтверждение пароля</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="isChangePassword(java.lang.Integer)"><!-- --></A><H3>
+isChangePassword</H3>
+<PRE>
+boolean <B>isChangePassword</B>(java.lang.Integer&nbsp;operatorId)</PRE>
+<DL>
+<DD>Проверка необходимости изменения пароля пользователя operatorId
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>true, если пароль пора менять</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getGuestRoles()"><!-- --></A><H3>
+getGuestRoles</H3>
+<PRE>
+java.util.List&lt;java.lang.String&gt; <B>getGuestRoles</B>()</PRE>
+<DL>
+<DD>Получение ролей гостя
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>роли гостя</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="isAuthorizedBySso()"><!-- --></A><H3>
+isAuthorizedBySso</H3>
+<PRE>
+boolean <B>isAuthorizedBySso</B>()</PRE>
+<DL>
+<DD>Проверка авторизации в SSO
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>true, если авторизация уже была</DL>
 </DD>
 </DL>
 <!-- ========= END OF CLASS DATA ========= -->
