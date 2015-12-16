@@ -39,8 +39,8 @@ public class JepRiaUtil {
 			return isEmpty((String)obj);
 		} else if(obj instanceof Integer) {
 			return isEmpty((Integer)obj);
-		} else if (obj instanceof ArrayList){
-			return ((ArrayList)obj).size()==0;
+		} else if (obj instanceof List){
+			return isEmpty((List<?>)obj);
 		}
 		return false;
 	}
