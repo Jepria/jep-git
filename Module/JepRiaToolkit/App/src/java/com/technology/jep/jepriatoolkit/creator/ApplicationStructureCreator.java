@@ -2461,19 +2461,16 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 						break;
 					case OPTION:
 						String optionNameFieldId = fieldId.endsWith("CODE") ? fieldId.replace("CODE", "NAME") : fieldId.replace("ID", "NAME"); 
-						resultSet = JepRiaToolkitUtil.multipleConcat("new JepOption(rs.getString(", optionNameFieldId, "), rs.getString(", fieldId, "))");
+						resultSet = JepRiaToolkitUtil.multipleConcat("getOption(rs, ", fieldId, ", ", optionNameFieldId, ")");
 						break;
 					case BINARY_FILE:
 					case TEXT_FILE:
 					case CLOB:
 						hasLOBField = true;
 						resultSet = JepRiaToolkitUtil.multipleConcat(
-								"new JepFileReference(",
-								(hasFileNameField ? JepRiaToolkitUtil.multipleConcat("rs.getString(", FILE_NAME_FIELD_ID, ")") : "null"),
-								", ",
-								(keyType.equals(JepTypeEnum.INTEGER) ? JepRiaToolkitUtil.multipleConcat("getInteger(rs, ", primaryKey, ")") : JepRiaToolkitUtil
-										.multipleConcat("rs.getString(", primaryKey, ")")), ", rs.getString(", EXTENSION_FIELD_ID,
-								"), rs.getString(", MIME_TYPE_FIELD_ID, "))");
+								"getFileReference(rs, ",
+								(hasFileNameField ? FILE_NAME_FIELD_ID : "null"),
+								", ", primaryKey, ", ", EXTENSION_FIELD_ID, ", ", MIME_TYPE_FIELD_ID, ")");
 						break;
 					default:
 						resultSet = JepRiaToolkitUtil.multipleConcat("rs.getString(", fieldId, ")");
@@ -2616,7 +2613,6 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 				"import com.technology.jep.jepria.shared.util.Mutable;", END_OF_LINE,
 				"import com.technology.", packageModuleFormName, ".server.ejb.", formName, ";", END_OF_LINE,
 				"import com.technology.jep.jepria.server.dao.ResultSetMapper;", END_OF_LINE,
-				(hasLOBField ? JepRiaToolkitUtil.multipleConcat("import com.technology.jep.jepria.shared.record.lob.JepFileReference;", END_OF_LINE) : ""),
 				(hasOptionField ? JepRiaToolkitUtil.multipleConcat("import com.technology.jep.jepria.shared.field.option.JepOption;", END_OF_LINE) : ""), jepRiaResourceBundleImport);
 
 			for (String subtractFieldId : subtractFieldIds)
