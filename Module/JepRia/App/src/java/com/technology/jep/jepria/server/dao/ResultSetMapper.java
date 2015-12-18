@@ -10,8 +10,12 @@ import java.util.Calendar;
 
 import org.apache.log4j.Logger;
 
+import com.technology.jep.jepria.shared.field.option.JepOption;
+import com.technology.jep.jepria.shared.record.lob.JepFileReference;
+import com.technology.jep.jepria.shared.util.JepRiaUtil;
+
 /**
- * Используется для мэппинга данных из ResultSet в Dto.
+ * Используется для мэппинга данных из {@code ResultSet} в {@code Dto}.
  *
  * @param <T> тип объекта Dto
  */
@@ -21,19 +25,60 @@ public abstract class ResultSetMapper<T> {
 	private static Calendar DEFAULT_CALENDAR = Calendar.getInstance();
 	
 	/**
-	 * Данный метод осуществляет мэппинг полей между объектом dto и ResultSet.
+	 * Данный метод осуществляет мэппинг полей между объектом {@code dto} и {@code ResultSet}.
 	 * 
-	 * @param rs     экземпляр класса ResultSet
-	 * @param dto    экземпляр dto
+	 * @param rs     экземпляр класса {@code ResultSet}
+	 * @param dto    экземпляр {@code dto}
 	 * @throws SQLException
 	 */
 	public abstract void map(ResultSet rs, T dto) throws SQLException;
 	
 	/**
-	 * Получение Boolean из ResultSet. Если значение == null, то метод возвращает null,
-	 * а не false, как rs.getBoolean(...).
+	 * Получение объекта {@link com.technology.jep.jepria.shared.field.option.JepOption} из {@code ResultSet}. Если значение {@code == null}, то метод возвращает {@code EMPTY_OPTION}.
 	 * 
-	 * @param rs                ResultSet
+	 * @param rs                	{@code ResultSet}
+	 * @param columnOptionValue     Имя столбца для значения опции
+	 * @param columnOptionName  	Имя столбца для наименования опции 
+	 * @return опция из указанных значений имени и значения
+	 * @throws SQLException
+	 */
+	public static JepOption getOption(ResultSet rs, String columnOptionValue, String columnOptionName) throws SQLException {
+		Object optionValue = rs.getObject(columnOptionValue);
+		if (rs.wasNull()) {
+			return JepOption.EMPTY_OPTION;
+		}
+		else {
+			return new JepOption(rs.getString(columnOptionName), optionValue);
+		}
+	}
+	
+	/**
+	 * Получение файловой ссылки {@link com.technology.jep.jepria.shared.record.lob.JepFileReference} из {@code ResultSet}. Если значение {@code == null}, то метод возвращает {@code null},
+	 * а не объект ссылки.
+	 * 
+	 * @param rs                	{@code ResultSet}
+	 * @param columnFileName		Имя колонки для имени файла (может быть {@code null})
+	 * @param columnKey       		Имя колонки для первичного ключа записи
+	 * @param columnFileExtension   Имя колонки для расширения файла
+	 * @param columnMimeType   		Имя колонки для mime-type файла
+	 * @return опция из указанных значений имени и значения
+	 * @throws SQLException
+	 */
+	public static JepFileReference getFileReference(ResultSet rs, String columnFileName, String columnKey, String columnFileExtension, String columnMimeType) throws SQLException {
+		String fileExtension = rs.getString(columnFileExtension); // важно получить значение перед проверкой rs.wasNull()
+		JepFileReference fileReference = null;
+		if (!rs.wasNull()) {
+			fileReference = JepRiaUtil.isEmpty(columnFileName) ? new JepFileReference(rs.getObject(columnKey), fileExtension, rs.getString(columnMimeType)) : 
+					new JepFileReference(rs.getString(columnFileName), rs.getObject(columnKey), rs.getString(columnFileExtension), rs.getString(columnMimeType));
+		}
+		return fileReference;
+	}
+	
+	/**
+	 * Получение {@code Boolean} из {@code ResultSet}. Если значение {@code == null}, то метод возвращает {@code null},
+	 * а не {@code false}, как {@code rs.getBoolean(...)}.
+	 * 
+	 * @param rs                {@code ResultSet}
 	 * @param columnName        Имя столбца
 	 * @return значение столбца
 	 * @throws SQLException
@@ -50,10 +95,10 @@ public abstract class ResultSetMapper<T> {
 
     
 	/**
-	 * Получение Integer из ResultSet. Если значение == null, то метод возвращает null,
+	 * Получение {@code Integer} из {@code ResultSet}. Если значение {@code == null}, то метод возвращает {@code null},
 	 * а не 0, как rs.getInt(...).
 	 * 
-	 * @param rs                ResultSet
+	 * @param rs                {@code ResultSet}
 	 * @param columnName        Имя столбца
 	 * @return значение столбца
 	 * @throws SQLException
@@ -69,9 +114,9 @@ public abstract class ResultSetMapper<T> {
 	}
 	
 	/**
-	 * Данный метод решает проблему получения дат 01.04.1981-01.04.1984 из ResultSet.
+	 * Данный метод решает проблему получения дат 01.04.1981-01.04.1984 из {@code ResultSet}.
 	 * 
-	 * @param rs           ResultSet
+	 * @param rs           {@code ResultSet}
 	 * @param columnName   Имя столбца
 	 * @return значение столбца
 	 * @throws SQLException
@@ -81,9 +126,9 @@ public abstract class ResultSetMapper<T> {
 	}
 	
 	/**
-	 * Данный метод решает проблему получения дат 01.04.1981-01.04.1984 из ResultSet.
+	 * Данный метод решает проблему получения дат 01.04.1981-01.04.1984 из {@code ResultSet}.
 	 * 
-	 * @param rs           ResultSet
+	 * @param rs           {@code ResultSet}
 	 * @param columnName   Имя столбца
 	 * @return значение столбца
 	 * @throws SQLException

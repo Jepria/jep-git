@@ -1,6 +1,5 @@
 package com.technology.jep.jepria.shared.dto;
 
-import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
@@ -37,34 +36,6 @@ public class JepDto extends HashMap<String, Object> implements IsSerializable {
 	private Boolean booleanFake;
 	
 	/**
-	 * Фейк-поле для типа {@link java.lang.Long}.<br/>
-	 * Обязательно должно присутствовать данное поле (во избежание проблем с сериализацией при установке его как значение бина ({@link com.technology.jep.jepria.shared.dto.JepDto}))<br/>
-	 * http://www.sencha.com/forum/archive/index.php/t-114607.html
-	 */
-	private Long longFake;
-	
-	/**
-	 * Фейк-поле для типа {@link java.lang.Double}.<br/>
-	 * Обязательно должно присутствовать данное поле (во избежание проблем с сериализацией при установке его как значение бина ({@link com.technology.jep.jepria.shared.dto.JepDto}))<br/>
-	 * http://www.sencha.com/forum/archive/index.php/t-114607.html
-	 */
-	private Double doubleFake;
-	
-	/**
-	 * Фейк-поле для типа {@link java.lang.Float}.<br/>
-	 * Обязательно должно присутствовать данное поле (во избежание проблем с сериализацией при установке его как значение бина ({@link com.technology.jep.jepria.shared.dto.JepDto}))<br/>
-	 * http://www.sencha.com/forum/archive/index.php/t-114607.html
-	 */
-	private Float floatFake;
-	
-	/**
-	 * Фейк-поле для типа {@link java.lang.Integer}.<br/>
-	 * Обязательно должно присутствовать данное поле (во избежание проблем с сериализацией при установке его как значение бина ({@link com.technology.jep.jepria.shared.dto.JepDto}))<br/>
-	 * http://www.sencha.com/forum/archive/index.php/t-114607.html
-	 */
-	private Integer integerFake;
-	
-	/**
 	 * Фейк-поле для типа {@link java.lang.String}.<br/>
 	 * Обязательно должно присутствовать данное поле (во избежание проблем с сериализацией при установке его как значение бина ({@link com.technology.jep.jepria.shared.dto.JepDto}))<br/>
 	 * http://www.sencha.com/forum/archive/index.php/t-114607.html
@@ -72,11 +43,11 @@ public class JepDto extends HashMap<String, Object> implements IsSerializable {
 	private String stringFake;
 	
 	/**
-	 * Фейк-поле для типа {@link java.math.BigDecimal}.<br/>
+	 * Фейк-поле для типа {@link java.lang.Number} и его наследников : {@link java.math.BigDecimal}, {@link java.math.BigInteger}, {@link java.lang.Byte}, {@link java.lang.Double}, {@link java.lang.Float}, {@link java.lang.Integer}, {@link java.lang.Long}, а также {@link java.lang.Short}<br/>
 	 * Обязательно должно присутствовать данное поле (во избежание проблем с сериализацией при установке его как значение бина ({@link com.technology.jep.jepria.shared.dto.JepDto}))<br/>
 	 * http://www.sencha.com/forum/archive/index.php/t-114607.html
 	 */
-	private BigDecimal bigDecimalFake;
+	private Number numberFake;
 
 	/**
 	 * Создает объект JepDto.

@@ -134,7 +134,6 @@ public class DaoSupport {
 			} else if (resultTypeClass.equals(Timestamp.class)) {
 				callableStatement.registerOutParameter(1, Types.TIMESTAMP);
 			} else if (resultTypeClass.equals(BigDecimal.class)) {
-//				callableStatement.registerOutParameter(1, Types.DOUBLE);
 				callableStatement.registerOutParameter(1, Types.NUMERIC);
 			} else {
 				throw new ApplicationException("Unknown result type", null);

@@ -13,7 +13,7 @@ public class JepFileReference implements IsSerializable {
 	
 	private String fileName;
 	private String recordKey;
-	private Integer recKey;
+	private Number recKey;
 	
 	private String fileExtension;
 	private String mimeType;
@@ -21,7 +21,7 @@ public class JepFileReference implements IsSerializable {
 	public JepFileReference() {}
 	
 	public JepFileReference(
-			String key,
+			Object key,
 			String fileExtension,
 			String mimeType) {
 		this(
@@ -33,37 +33,21 @@ public class JepFileReference implements IsSerializable {
 	
 	public JepFileReference(
 			String fileName,
-			String key,
+			Object key,
 			String fileExtension,
 			String mimeType) {
 		this.fileName = fileName;
-		this.recordKey = key;
 		this.fileExtension = fileExtension;
 		this.mimeType = mimeType;
-	}	
-	
-	public JepFileReference(
-			Integer key,
-			String fileExtension,
-			String mimeType) {
-		this(
-			null,
-			key,
-			fileExtension,
-			mimeType);
+		
+		if (key instanceof Number){
+			this.recKey = (Number) key;
+		}
+		else if (key instanceof String){
+			this.recordKey = (String) key;
+		}
 	}
-
-	public JepFileReference(
-			String fileName,
-			Integer key,
-			String fileExtension,
-			String mimeType) {
-		this.fileName = fileName;
-		this.recKey = key;
-		this.fileExtension = fileExtension;
-		this.mimeType = mimeType;
-	}
-	
+		
 	/**
 	 * Получение значения имени файла из объекта типа {@link com.technology.jep.jepria.shared.record.lob.JepFileReference}.<br/>
 	 * Если в качестве параметра передан null или переданный параметр не является наследником 

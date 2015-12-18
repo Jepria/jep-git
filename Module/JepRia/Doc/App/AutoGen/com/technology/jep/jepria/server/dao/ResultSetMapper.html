@@ -104,7 +104,7 @@ java.lang.Object
 </PRE>
 
 <P>
-Используется для мэппинга данных из ResultSet в Dto.
+Используется для мэппинга данных из <code>ResultSet</code> в <code>Dto</code>.
 <P>
 
 <P>
@@ -192,7 +192,7 @@ java.lang.Object
            java.lang.String&nbsp;columnName)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Получение Boolean из ResultSet.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Получение <code>Boolean</code> из <code>ResultSet</code>.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -201,7 +201,19 @@ java.lang.Object
         java.lang.String&nbsp;columnName)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Данный метод решает проблему получения дат 01.04.1981-01.04.1984 из ResultSet.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Данный метод решает проблему получения дат 01.04.1981-01.04.1984 из <code>ResultSet</code>.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="../../../../../../com/technology/jep/jepria/shared/record/lob/JepFileReference.html" title="class in com.technology.jep.jepria.shared.record.lob">JepFileReference</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/dao/ResultSetMapper.html#getFileReference(java.sql.ResultSet, java.lang.String, java.lang.String, java.lang.String, java.lang.String)">getFileReference</A></B>(java.sql.ResultSet&nbsp;rs,
+                 java.lang.String&nbsp;columnFileName,
+                 java.lang.String&nbsp;columnKey,
+                 java.lang.String&nbsp;columnFileExtension,
+                 java.lang.String&nbsp;columnMimeType)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Получение файловой ссылки <A HREF="../../../../../../com/technology/jep/jepria/shared/record/lob/JepFileReference.html" title="class in com.technology.jep.jepria.shared.record.lob"><CODE>JepFileReference</CODE></A> из <code>ResultSet</code>.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -210,7 +222,17 @@ java.lang.Object
            java.lang.String&nbsp;columnName)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Получение Integer из ResultSet.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Получение <code>Integer</code> из <code>ResultSet</code>.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/dao/ResultSetMapper.html#getOption(java.sql.ResultSet, java.lang.String, java.lang.String)">getOption</A></B>(java.sql.ResultSet&nbsp;rs,
+          java.lang.String&nbsp;columnOptionValue,
+          java.lang.String&nbsp;columnOptionName)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Получение объекта <A HREF="../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option"><CODE>JepOption</CODE></A> из <code>ResultSet</code>.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -219,7 +241,7 @@ java.lang.Object
              java.lang.String&nbsp;columnName)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Данный метод решает проблему получения дат 01.04.1981-01.04.1984 из ResultSet.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Данный метод решает проблему получения дат 01.04.1981-01.04.1984 из <code>ResultSet</code>.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -228,7 +250,7 @@ java.lang.Object
     <A HREF="../../../../../../com/technology/jep/jepria/server/dao/ResultSetMapper.html" title="type parameter in ResultSetMapper">T</A>&nbsp;dto)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Данный метод осуществляет мэппинг полей между объектом dto и ResultSet.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Данный метод осуществляет мэппинг полей между объектом <code>dto</code> и <code>ResultSet</code>.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -345,10 +367,51 @@ public abstract void <B>map</B>(java.sql.ResultSet&nbsp;rs,
                          <A HREF="../../../../../../com/technology/jep/jepria/server/dao/ResultSetMapper.html" title="type parameter in ResultSetMapper">T</A>&nbsp;dto)
                   throws java.sql.SQLException</PRE>
 <DL>
-<DD>Данный метод осуществляет мэппинг полей между объектом dto и ResultSet.
+<DD>Данный метод осуществляет мэппинг полей между объектом <code>dto</code> и <code>ResultSet</code>.
 <P>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>rs</CODE> - экземпляр класса ResultSet<DD><CODE>dto</CODE> - экземпляр dto
+<DT><B>Parameters:</B><DD><CODE>rs</CODE> - экземпляр класса <code>ResultSet</code><DD><CODE>dto</CODE> - экземпляр <code>dto</code>
+<DT><B>Throws:</B>
+<DD><CODE>java.sql.SQLException</CODE></DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getOption(java.sql.ResultSet, java.lang.String, java.lang.String)"><!-- --></A><H3>
+getOption</H3>
+<PRE>
+public static <A HREF="../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A> <B>getOption</B>(java.sql.ResultSet&nbsp;rs,
+                                  java.lang.String&nbsp;columnOptionValue,
+                                  java.lang.String&nbsp;columnOptionName)
+                           throws java.sql.SQLException</PRE>
+<DL>
+<DD>Получение объекта <A HREF="../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option"><CODE>JepOption</CODE></A> из <code>ResultSet</code>. Если значение <code>== null</code>, то метод возвращает <code>EMPTY_OPTION</code>.
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>rs</CODE> - <code>ResultSet</code><DD><CODE>columnOptionValue</CODE> - Имя столбца для значения опции<DD><CODE>columnOptionName</CODE> - Имя столбца для наименования опции
+<DT><B>Returns:</B><DD>опция из указанных значений имени и значения
+<DT><B>Throws:</B>
+<DD><CODE>java.sql.SQLException</CODE></DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getFileReference(java.sql.ResultSet, java.lang.String, java.lang.String, java.lang.String, java.lang.String)"><!-- --></A><H3>
+getFileReference</H3>
+<PRE>
+public static <A HREF="../../../../../../com/technology/jep/jepria/shared/record/lob/JepFileReference.html" title="class in com.technology.jep.jepria.shared.record.lob">JepFileReference</A> <B>getFileReference</B>(java.sql.ResultSet&nbsp;rs,
+                                                java.lang.String&nbsp;columnFileName,
+                                                java.lang.String&nbsp;columnKey,
+                                                java.lang.String&nbsp;columnFileExtension,
+                                                java.lang.String&nbsp;columnMimeType)
+                                         throws java.sql.SQLException</PRE>
+<DL>
+<DD>Получение файловой ссылки <A HREF="../../../../../../com/technology/jep/jepria/shared/record/lob/JepFileReference.html" title="class in com.technology.jep.jepria.shared.record.lob"><CODE>JepFileReference</CODE></A> из <code>ResultSet</code>. Если значение <code>== null</code>, то метод возвращает <code>null</code>,
+ а не объект ссылки.
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>rs</CODE> - <code>ResultSet</code><DD><CODE>columnFileName</CODE> - Имя колонки для имени файла (может быть <code>null</code>)<DD><CODE>columnKey</CODE> - Имя колонки для первичного ключа записи<DD><CODE>columnFileExtension</CODE> - Имя колонки для расширения файла<DD><CODE>columnMimeType</CODE> - Имя колонки для mime-type файла
+<DT><B>Returns:</B><DD>опция из указанных значений имени и значения
 <DT><B>Throws:</B>
 <DD><CODE>java.sql.SQLException</CODE></DL>
 </DD>
@@ -362,11 +425,11 @@ public static java.lang.Boolean <B>getBoolean</B>(java.sql.ResultSet&nbsp;rs,
                                            java.lang.String&nbsp;columnName)
                                     throws java.sql.SQLException</PRE>
 <DL>
-<DD>Получение Boolean из ResultSet. Если значение == null, то метод возвращает null,
- а не false, как rs.getBoolean(...).
+<DD>Получение <code>Boolean</code> из <code>ResultSet</code>. Если значение <code>== null</code>, то метод возвращает <code>null</code>,
+ а не <code>false</code>, как <code>rs.getBoolean(...)</code>.
 <P>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>rs</CODE> - ResultSet<DD><CODE>columnName</CODE> - Имя столбца
+<DT><B>Parameters:</B><DD><CODE>rs</CODE> - <code>ResultSet</code><DD><CODE>columnName</CODE> - Имя столбца
 <DT><B>Returns:</B><DD>значение столбца
 <DT><B>Throws:</B>
 <DD><CODE>java.sql.SQLException</CODE></DL>
@@ -381,11 +444,11 @@ public static java.lang.Integer <B>getInteger</B>(java.sql.ResultSet&nbsp;rs,
                                            java.lang.String&nbsp;columnName)
                                     throws java.sql.SQLException</PRE>
 <DL>
-<DD>Получение Integer из ResultSet. Если значение == null, то метод возвращает null,
+<DD>Получение <code>Integer</code> из <code>ResultSet</code>. Если значение <code>== null</code>, то метод возвращает <code>null</code>,
  а не 0, как rs.getInt(...).
 <P>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>rs</CODE> - ResultSet<DD><CODE>columnName</CODE> - Имя столбца
+<DT><B>Parameters:</B><DD><CODE>rs</CODE> - <code>ResultSet</code><DD><CODE>columnName</CODE> - Имя столбца
 <DT><B>Returns:</B><DD>значение столбца
 <DT><B>Throws:</B>
 <DD><CODE>java.sql.SQLException</CODE></DL>
@@ -400,10 +463,10 @@ public static java.sql.Timestamp <B>getTimestamp</B>(java.sql.ResultSet&nbsp;rs,
                                               java.lang.String&nbsp;columnName)
                                        throws java.sql.SQLException</PRE>
 <DL>
-<DD>Данный метод решает проблему получения дат 01.04.1981-01.04.1984 из ResultSet.
+<DD>Данный метод решает проблему получения дат 01.04.1981-01.04.1984 из <code>ResultSet</code>.
 <P>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>rs</CODE> - ResultSet<DD><CODE>columnName</CODE> - Имя столбца
+<DT><B>Parameters:</B><DD><CODE>rs</CODE> - <code>ResultSet</code><DD><CODE>columnName</CODE> - Имя столбца
 <DT><B>Returns:</B><DD>значение столбца
 <DT><B>Throws:</B>
 <DD><CODE>java.sql.SQLException</CODE></DL>
@@ -418,10 +481,10 @@ public static java.util.Date <B>getDate</B>(java.sql.ResultSet&nbsp;rs,
                                      java.lang.String&nbsp;columnName)
                               throws java.sql.SQLException</PRE>
 <DL>
-<DD>Данный метод решает проблему получения дат 01.04.1981-01.04.1984 из ResultSet.
+<DD>Данный метод решает проблему получения дат 01.04.1981-01.04.1984 из <code>ResultSet</code>.
 <P>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>rs</CODE> - ResultSet<DD><CODE>columnName</CODE> - Имя столбца
+<DT><B>Parameters:</B><DD><CODE>rs</CODE> - <code>ResultSet</code><DD><CODE>columnName</CODE> - Имя столбца
 <DT><B>Returns:</B><DD>значение столбца
 <DT><B>Throws:</B>
 <DD><CODE>java.sql.SQLException</CODE></DL>

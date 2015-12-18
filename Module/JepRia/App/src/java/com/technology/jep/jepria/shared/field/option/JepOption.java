@@ -19,6 +19,11 @@ public class JepOption extends JepDto {
 	public static final String UNDEFINED_OPTION_NAME = "undefined_option_name";
 	public static final String UNDEFINED_OPTION_VALUE = "undefined_option_value";
 	
+	/**
+	 * Пустая опция.
+	 */
+	public static final JepOption EMPTY_OPTION = new JepOption(null, null);
+	
 	public JepOption() {
 	}
 	

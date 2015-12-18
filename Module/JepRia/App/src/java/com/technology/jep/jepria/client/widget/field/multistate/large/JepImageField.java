@@ -8,6 +8,8 @@ import com.google.gwt.user.client.ui.Image;
 @SuppressWarnings("unchecked")
 public class JepImageField extends JepLargeField<Image> {
 
+	private static final String DATA_IMAGE_BASE64_SRC_ATTRIBUTE = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";
+
 	public JepImageField(){
 		this("");
 	}
@@ -34,7 +36,8 @@ public class JepImageField extends JepLargeField<Image> {
 		if(downloadUrl != null) {
 			viewCard.setUrl(downloadUrl);
 		} else {
-			viewCard.setUrl("");
+			// 1px transparent image
+			viewCard.setUrl(DATA_IMAGE_BASE64_SRC_ATTRIBUTE);
 		}
 	}
 	

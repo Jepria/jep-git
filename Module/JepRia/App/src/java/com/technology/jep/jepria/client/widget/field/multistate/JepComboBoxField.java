@@ -5,6 +5,7 @@ import static com.technology.jep.jepria.client.JepRiaClientConstant.JepTexts;
 import static com.technology.jep.jepria.client.JepRiaClientConstant.MAIN_FONT_STYLE;
 import static com.technology.jep.jepria.client.widget.event.JepEventType.CHANGE_SELECTION_EVENT;
 import static com.technology.jep.jepria.client.widget.event.JepEventType.FIRST_TIME_USE_EVENT;
+import static com.technology.jep.jepria.shared.field.option.JepOption.EMPTY_OPTION;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,11 +50,6 @@ import com.technology.jep.jepria.shared.util.JepRiaUtil;
  * </dl>
  */
 public class JepComboBoxField extends JepBaseTextField<ComboBox<JepOption>> implements JepOptionField {
-	
-	/**
-	 * Пустая опция.
-	 */
-	public static final JepOption EMPTY_CHOICE_OPTION = new JepOption("", null);
 	
 	/**
 	 * Последняя для вывода в списке опция
@@ -154,8 +150,8 @@ public class JepComboBoxField extends JepBaseTextField<ComboBox<JepOption>> impl
 		List<JepOption> unfilteredOptions = new ArrayList<JepOption>();
 		// Если пустой выбор необходим, то вставляем пустую опцию в начало списка.
 		if(hasEmptyChoice) {
-			options.add(0, EMPTY_CHOICE_OPTION);
-			unfilteredOptions.add(EMPTY_CHOICE_OPTION);
+			options.add(0, EMPTY_OPTION);
+			unfilteredOptions.add(EMPTY_OPTION);
 		}
 		// Если последняя опция определена, то добавим ее в конец списка.
 		if(lastOption != null) {
