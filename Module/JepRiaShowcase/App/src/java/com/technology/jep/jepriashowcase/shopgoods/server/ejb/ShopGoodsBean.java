@@ -44,11 +44,11 @@ public class ShopGoodsBean extends JepDataStandardBean implements ShopGoods {
 					public void map(ResultSet rs, JepRecord record) throws SQLException {
 						record.set(SHOP_GOODS_ID, getInteger(rs, SHOP_GOODS_ID));
 						
-						JepOption option = new JepOption(rs.getString(SHOP_NAME), getInteger(rs, SHOP_ID));
+						JepOption option = getOption(rs, SHOP_ID, SHOP_NAME);
 						record.set(SHOP_ID, option);
 						record.set(SHOP_NAME, option.getName());
 						
-						option = new JepOption(rs.getString(GOODS_NAME), getInteger(rs, GOODS_ID));
+						option = getOption(rs,  GOODS_ID, GOODS_NAME);
 						record.set(GOODS_ID, option.getValue());
 						record.set(GOODS_NAME, option.getName());
 						

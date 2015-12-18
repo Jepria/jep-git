@@ -775,6 +775,7 @@ log4j.logger.com.technology.jep.jepcommon=<b>INFO</b>, FILE, gwt-log
   <li><a href="#toolkitUpdate">Создание приложения и расширение сборщика с помощью JepRiaToolkit</a></li>
   <li><a href="#buildConfig">Конфигурации сборки</a></li>
   <li><a href="#passwordField">Реализация поля с паролем</a></li>
+  <li><a href="#publicPages">Использование public-страниц в приложениях, размещенных на Application-сервере OC4J</a></li>
 </ul>
 
 <h4><a name="parameterPassing">Передача параметров между модулями приложения</a></h4>
@@ -2382,6 +2383,30 @@ BUILD_CONFIG=debug
                 }
         };
 </pre>
+<br/>
+
+<h4><a name="publicPages">Использование public-страниц в приложениях, размещенных на Application-сервере OC4J</a></h4>
+Для случаев, когда в прикладных модулях требуется использование страниц для доступа неавторизованных пользователей (public-страниц) следует учесть важный момент в работе Сервера приложений Oracle AS.<br/>
+Как и в случае защищенных авторизацией страниц, данные ресурсы требуют определения в дескрипторе развертывания <strong>web.xml</strong> с целью использования функционала управлением доступа.
+В противном случае, при размещении кода по определению идентификатора текущего оператора, а также прочие возможности <CODE>com.technology.jep.jepria.server.security.JepSecurityModule</CODE> окажутся неработоспособными на данных страницах после разрыва пользовательской сессии.<br/>
+Для того, чтобы в прикладном модуле определить список общедоступных ресурсов приложения, в конце конфигурационного файла <strong>web.xml</strong> следует добавить отдельный блок <em>security-constraint</em> как показано ниже:  
+<pre>
+        &lt;web-app ... &gt;
+                ...
+                &lt;security-constraint&gt;
+                        &lt;web-resource-collection&gt;
+                            &lt;web-resource-name&gt;The list of public pages&lt;/web-resource-name&gt;
+                            &lt;url-pattern&gt;<em>yourPage1.jsp</em>&lt;/url-pattern&gt;
+                            ...
+                            &lt;url-pattern&gt;<em>yourPageN.jsp</em>&lt;/url-pattern&gt;
+                        &lt;/web-resource-collection&gt;
+                        &lt;!-- No auth-constraint means public access! --&gt;
+                &lt;/security-constraint&gt;
+                
+        &lt;/web-app&gt;
+</pre>
+В таком случае, сервер приложений, анализируя списки ограничений по безопасности (<em>security-constraint</em>), ищет наиболее точное совпадение с именем ресурса и разрешает доступ к ресурсу согласно ограничениям авторизации, указанных в блоке <em>auth-constraint</em>.<br> 
+Для подобных ресурсов этот блок следует опустить, тем самым допуская доступ без авторизации. Однако следует заметить, что пользователи, прошедшие авторизацию, будут определяться корректно в системе с нужными полномочиями. 
 <br/>
 
 <h3><a name="refactoringNeeded">Косвенные признаки необходимости рефакторинга</a></h3>

@@ -65,7 +65,7 @@ public class RequestBean extends JepDataStandardBean implements Request {
 						record.set(GOODS_NAME, rs.getString(GOODS_NAME));
 						record.set(REQUEST_DATE, getDate(rs, REQUEST_DATE));
 						
-						JepOption option = new JepOption(rs.getString(REQUEST_STATUS_NAME), rs.getString(REQUEST_STATUS_CODE));
+						JepOption option = getOption(rs, REQUEST_STATUS_CODE, REQUEST_STATUS_NAME);
 						record.set(REQUEST_STATUS_CODE, option);
 						record.set(REQUEST_STATUS_NAME, option.getName());
 						

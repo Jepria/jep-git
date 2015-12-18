@@ -63,22 +63,22 @@ public class GoodsBean extends JepDataStandardBean implements Goods {
 						record.set(SUPPLIER_ID, getInteger(rs, SUPPLIER_ID));
 						record.set(GOODS_NAME, rs.getString(GOODS_NAME));
 						
-						JepOption option = new JepOption(rs.getString(GOODS_TYPE_NAME), rs.getString(GOODS_TYPE_CODE));
+						JepOption option = getOption(rs, GOODS_TYPE_CODE, GOODS_TYPE_NAME);
 						record.set(GOODS_TYPE_CODE, option);
 						record.set(GOODS_TYPE_NAME, option.getName());
 						
-						option = new JepOption(rs.getString(UNIT_NAME), rs.getString(UNIT_CODE));
+						option = getOption(rs, UNIT_CODE, UNIT_NAME);
 						record.set(UNIT_CODE, option);
 						record.set(UNIT_NAME, option.getName());
 						
-						option = new JepOption(rs.getString(MOTIVATION_TYPE_NAME), rs.getString(MOTIVATION_TYPE_CODE));
+						option = getOption(rs, MOTIVATION_TYPE_CODE, MOTIVATION_TYPE_NAME);
 						record.set(MOTIVATION_TYPE_CODE, option);
 						record.set(MOTIVATION_TYPE_NAME, option.getName());
 						
 						record.set(PURCHASING_PRICE, rs.getBigDecimal(PURCHASING_PRICE));
 						
-						record.set(GOODS_PHOTO, new JepFileReference(rs.getString(GOODS_PHOTO), goodsId, rs.getString(GOODS_PHOTO_EXTENSION), rs.getString(GOODS_PHOTO_MIME_TYPE)));
-						record.set(GOODS_PORTFOLIO, new JepFileReference(rs.getString(GOODS_PORTFOLIO), goodsId, rs.getString(GOODS_PORTFOLIO_EXTENSION), rs.getString(GOODS_PORTFOLIO_MIME_TYPE)));
+						record.set(GOODS_PHOTO, getFileReference(rs, null, GOODS_ID, GOODS_PHOTO_EXTENSION, GOODS_PHOTO_MIME_TYPE));
+						record.set(GOODS_PORTFOLIO, getFileReference(rs, null, GOODS_ID, GOODS_PORTFOLIO_EXTENSION, GOODS_PORTFOLIO_MIME_TYPE));
 						
 						List<JepOption> expandedNodes = new ArrayList<JepOption>();
 						List<JepOption> checkedNodes = new ArrayList<JepOption>();
