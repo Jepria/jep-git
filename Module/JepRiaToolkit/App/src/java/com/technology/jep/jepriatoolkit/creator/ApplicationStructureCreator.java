@@ -1948,7 +1948,7 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 					"		gridPanel.setHeight(\"100%\");", END_OF_LINE,
 					"		gridPanel.setWidth(\"100%\");", END_OF_LINE,
 					WHITE_SPACE, END_OF_LINE,
-					"		JepGrid<JepRecord> grid = new JepGrid<JepRecord>(getGridId(), getColumnConfigurations());", END_OF_LINE,
+					"		JepGrid<JepRecord> grid = new JepGrid<JepRecord>(getClass().getCanonicalName(), getColumnConfigurations());", END_OF_LINE,
 					"		PagingStandardBar pagingBar = new PagingStandardBar(25);", END_OF_LINE,
 					WHITE_SPACE, END_OF_LINE,
 					"		gridPanel.setContentWidget(grid);", END_OF_LINE,
@@ -1964,10 +1964,6 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 					"		final List<JepColumn> columns = new ArrayList<JepColumn>();", END_OF_LINE, 
 					columnConfiguration,
 					"		return columns;", END_OF_LINE, 
-					"	}", END_OF_LINE, 
-					WHITE_SPACE, END_OF_LINE,
-					"	private String getGridId() {", END_OF_LINE,
-					"		return this.getClass().toString().replace(\"class \", \"\");", END_OF_LINE,
 					"	}", END_OF_LINE,
 					"}");
 

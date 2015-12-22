@@ -5,6 +5,7 @@ import java.util.List;
 import com.google.gwt.cell.client.AbstractCell;
 import com.google.gwt.cell.client.Cell;
 import com.google.gwt.cell.client.Cell.Context;
+import com.google.gwt.dom.client.BrowserEvents;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.NativeEvent;
 import com.google.gwt.dom.client.NodeList;
@@ -31,6 +32,7 @@ import com.google.gwt.user.client.ui.DecoratedPopupPanel;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.client.ui.PopupPanel.AnimationType;
+import com.technology.jep.jepria.client.util.JepClientUtil;
 import com.technology.jep.jepria.client.widget.list.JepColumn;
 import com.technology.jep.jepria.client.widget.list.JepGrid;
 import com.technology.jep.jepria.client.widget.list.header.menu.GridHeaderMenuBar;
@@ -58,7 +60,7 @@ public class ResizableHeader<T> extends Header<String> {
 	 */
 	private static final int MENU_ITEM_HEIGHT = 27;
 	
-	private Element setupButton;
+	private static Element setupButton;
 	private PopupPanel panel;
 	private int popupHeight;
 	
@@ -110,9 +112,11 @@ public class ResizableHeader<T> extends Header<String> {
 	@Override
 	public void onBrowserEvent(Context context, Element target, NativeEvent event) {
 		String eventType = event.getType();
-
-		if (eventType.equals("mousemove")) {
+		if (BrowserEvents.MOUSEMOVE.equals(eventType)) {
 			new ColumnResizeHelper<T>(cellTable, column, target);
+		}
+		else if (BrowserEvents.MOUSEOVER.equals(eventType)){
+			target.setTitle(JepClientUtil.jsTrim(((JepColumn) column).getHeaderText()));
 		}
 	}
 
@@ -305,16 +309,12 @@ public class ResizableHeader<T> extends Header<String> {
 					// setting cursor
 					if (grabZone) {
 						setCursor(el, Cursor.COL_RESIZE);
-//					} else if (buttonZone) {
-//						setCursor(el, Cursor.POINTER);
 					} else {
 						resetCursor(el);
 					}
 
 					if (buttonZone && isConfigurable) {
 						showButton(offsetLeft + offsetWidth, el);
-//					} else {
-//						hideButton();
 					}
 				}
 			}
@@ -322,14 +322,10 @@ public class ResizableHeader<T> extends Header<String> {
 			if (eventType.equals("mouseout")) {
 				blockEvent(event);
 
-//				if (!buttonZone)
-//					hideButton();
-
 				if (mousedown) {
 					//
 				} else {
-//					if (!buttonZone)
-						removeHandler();
+					removeHandler();
 				}
 			}
 
@@ -376,11 +372,7 @@ public class ResizableHeader<T> extends Header<String> {
 					blockEvent(event);
 					skipClick = false;
 				} else {
-					if (grabZone) {
-						// пропускаем дальше для поддержки dblclick
-//					} else if (buttonZone) {
-//						createContextMenu();
-					} else {
+					if (!grabZone) {
 						blockEvent(event);
 
 						ColumnSortList sortList = table.getColumnSortList();
@@ -415,8 +407,6 @@ public class ResizableHeader<T> extends Header<String> {
 			}
 		}
 
-		
-
 		private void startMeasuring() {
 			measuringElement = DOM.createDiv();
 			measuringElement.addClassName(RESIZABLE_HEADER_MEASURING_ELEMENT_STYLE);
@@ -450,7 +440,7 @@ public class ResizableHeader<T> extends Header<String> {
 
 	static class HeaderCell extends AbstractCell<String> {
 		public HeaderCell() {
-			super("click", "mousedown", "mousemove", "dblclick");
+			super("click", "mousedown", "mousemove", "mouseover", "dblclick");
 		}
 
 		@Override

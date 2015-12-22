@@ -126,6 +126,8 @@ public class JepGrid<T> extends DataGrid<T> {
 	 */
 	protected HandlerRegistration dropHandler;
 	
+	protected static String RESIZABLE_HEADER_LABEL_STYLE = "jepRia-ResizableHeader-Label";
+	
 	/**
 	 * Интерфейс для стилизации виджета
 	 */
@@ -139,7 +141,7 @@ public class JepGrid<T> extends DataGrid<T> {
 		@Source({ DataGrid.Style.DEFAULT_CSS, "DataGridOverride.css" })
 		MyStyle dataGridStyle();
 	}
-
+	
 	/**
 	 * Создает таблицу данных на списочной форме.
 	 * 
@@ -157,7 +159,7 @@ public class JepGrid<T> extends DataGrid<T> {
 	 * @param columns			список колонок
 	 * @param keyProvider		провайдер ключей грида
 	 */
-	public JepGrid(String gridId, final List<JepColumn> columns, ProvidesKey<T> keyProvider) {
+	public JepGrid(String gridId, List<JepColumn> columns, ProvidesKey<T> keyProvider) {
 		super(DEFAULT_PAGE_SIZE, (DataGridResource) GWT.create(DataGridResource.class), keyProvider);
 
 		this.gridId = gridId;
@@ -194,7 +196,7 @@ public class JepGrid<T> extends DataGrid<T> {
 	 * Особенность: следует использовать альтернативные перегруженные конструкторы 
 	 */
 	@Deprecated
-	public JepGrid(String gridId, final List<JepColumn> columns, boolean wrapHeaders) {
+	public JepGrid(String gridId, List<JepColumn> columns, boolean wrapHeaders) {
 		this(gridId, columns, wrapHeaders, null);
 	}
 	
@@ -209,7 +211,7 @@ public class JepGrid<T> extends DataGrid<T> {
 	 * Особенность: следует использовать альтернативные перегруженные конструкторы
 	 */
 	@Deprecated
-	public JepGrid(String gridId, final List<JepColumn> columns, boolean wrapHeaders, ProvidesKey<T> keyProvider) {
+	public JepGrid(String gridId, List<JepColumn> columns, boolean wrapHeaders, ProvidesKey<T> keyProvider) {
 		this(gridId, columns, keyProvider);
 		this.wrapHeaders = wrapHeaders;
 	}
@@ -222,9 +224,11 @@ public class JepGrid<T> extends DataGrid<T> {
 	 */
 	public void addColumnWithHeader(JepColumn col, boolean toggle) {
 		Header<String> header = new ResizableHeader<T>(col.getHeaderText(), this, col, this.isColumnConfigurable);
-		
-		if (this.wrapHeaders)
-			header.setHeaderStyleNames(JepColumn.NORMAL_WRAP_STYLE);
+		String headerStyles = RESIZABLE_HEADER_LABEL_STYLE;
+		if (this.wrapHeaders){
+			headerStyles += " " + JepColumn.NORMAL_WRAP_STYLE;
+		}
+		header.setHeaderStyleNames(headerStyles);
 		
 		int currentIndex = indexOf(col), columnCount = getColumnCount();
 		if (toggle) columnCount--;

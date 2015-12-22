@@ -8,6 +8,7 @@ import java.util.List;
 
 import com.google.gwt.cell.client.NumberCell;
 import com.google.gwt.i18n.client.NumberFormat;
+import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HeaderPanel;
 import com.technology.jep.jepria.client.ui.form.list.ListFormViewImpl;
 import com.technology.jep.jepria.client.widget.list.GridManager;
@@ -28,7 +29,7 @@ public class AllShopGoodsListFormViewImpl extends ListFormViewImpl<GridManager> 
 		gridPanel.setHeight("100%");
 		gridPanel.setWidth("100%");
  
-		JepGrid<JepRecord> grid = new JepGrid<JepRecord>(getGridId(), getColumnConfigurations());
+		JepGrid<JepRecord> grid = new JepGrid<JepRecord>(getClass().getCanonicalName(), getColumnConfigurations());
 		grid.setWrapHeaders(true);
 		grid.setDndEnabled(true);
 		PagingStandardBar pagingBar = new PagingStandardBar(25);
@@ -50,9 +51,5 @@ public class AllShopGoodsListFormViewImpl extends ListFormViewImpl<GridManager> 
 		columns.add(new JepColumn(GOODS_ID, allShopGoodsText.allShopGoods_list_goods_id(), 150, new NumberCell(defaultNumberFormatter)));
 		columns.add(new JepColumn(GOODS_NAME, allShopGoodsText.allShopGoods_list_goods_name(), 150));
 		return columns;
-	}
- 
-	private String getGridId() {
-		return this.getClass().toString().replace("class ", "");
 	}
 }

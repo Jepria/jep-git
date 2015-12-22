@@ -116,4 +116,85 @@ public class JepRiaUtil {
 			return false;
 		}
 	}
+	
+	/**
+	 * Добавление строки в конец основной (если она не содержит добавляемую).  
+	 * 
+	 * @param baseLine			основная строка
+	 * @param newLine			добавляемая строка
+	 * @return строка с прибавлением новой
+	 */
+	public final static String appendStr(String baseLine, String newLine){
+		if (JepRiaUtil.isEmpty(baseLine)) baseLine = "";
+		int idx = indexOfLine(baseLine, newLine);
+
+		// Only add the style if it's not already present.
+		if (idx == -1) {
+			if (baseLine.length() > 0) {
+				return baseLine + " " + newLine;
+			} 
+			else {
+				return newLine;
+			}
+		}
+		return baseLine; 
+	}
+	
+	/**
+	 * Определение индекса вхождения строки в строке
+	 * 
+	 * @param nameList			основная строка
+	 * @param name				проверяемая на вхождение строка
+	 * @return индекс вхождения строки
+	 */
+	public final static int indexOfLine(String nameList, String name) {
+		int idx = nameList.indexOf(name);
+
+		// Calculate matching index.
+		while (idx != -1) {
+			if (idx == 0 || nameList.charAt(idx - 1) == ' ') {
+				int last = idx + name.length();
+				int lastPos = nameList.length();
+				if ((last == lastPos)
+						|| ((last < lastPos) && (nameList.charAt(last) == ' '))) {
+					break;
+				}
+			}
+			idx = nameList.indexOf(name, idx + 1);
+		}
+
+		return idx;
+	}
+	
+	/**
+	 * Добавление строки из основной (если она содержит удаляемую).  
+	 * 
+	 * @param baseLine				основная строка
+	 * @param newremovedLineLine	удаляемая строка
+	 * @return новая строка
+	 */
+	public final static String removeStr(String baseLine, String removedLine) {
+		if (JepRiaUtil.isEmpty(baseLine)) {
+			return baseLine;
+		}
+		int idx = indexOfLine(baseLine, removedLine);
+		// Don't try to remove the style if it's not there.
+		if (idx != -1) {
+			// Get the leading and trailing parts, without the removed name.
+			String begin = baseLine.substring(0, idx).trim();
+			String end = baseLine.substring(idx + removedLine.length()).trim();
+
+			// Some contortions to make sure we don't leave extra spaces.
+			String newClassName;
+			if (begin.length() == 0) {
+				newClassName = end;
+			} else if (end.length() == 0) {
+				newClassName = begin;
+			} else {
+				newClassName = begin + " " + end;
+			}
+			return newClassName;
+		}
+		return baseLine;
+	}
 }

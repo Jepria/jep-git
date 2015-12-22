@@ -185,13 +185,41 @@ input[type=text]::-ms-clear {
 }
 
 /* JepGrid - включение автоматических переносов строк в ячейке. */
-.jepGrid-normalWrap {
+.jepRia-Grid-normalWrap {
 	white-space: normal;
 }
 
-.jepGrid-normalWrap div {
+.jepRia-Grid-normalWrap div {
 	white-space: normal;
 }
+/* JepGrid - стиль для всех ячеек данных. */
+.jepRia-Grid-Cell div {
+}
+/* JepGrid - стиль для ячеек данных с выравниванием по левому краю. */
+.jepRia-Grid-Cell-AlignLeft div {
+	text-align: left;
+}	
+/* JepGrid - стиль для ячеек данных с выравниванием по правому краю. */
+.jepRia-Grid-Cell-AlignRight div {
+	text-align: right;
+}
+/* JepGrid - стиль для ячеек данных с выравниванием по центру. */
+.jepRia-Grid-Cell-AlignCenter div {
+	text-align: center;
+}
+/* JepGrid - стиль для ячеек данных с вертикальным выравниванием по центру. */
+.jepRia-Grid-Cell-VAlignMiddle div {
+	vertical-align: middle;
+}	
+/* JepGrid - стиль для ячеек данных с вертикальным выравниванием по верхнему краю. */
+.jepRia-Grid-Cell-VAlignTop div {
+	vertical-align: top;
+}
+/* JepGrid - стиль для ячеек данных с вертикальным выравниванием по нижнему краю. */
+.jepRia-Grid-Cell-VAlignBottom div {
+	vertical-align: bottom;
+}
+
 /* Элемент для измерения ширины текста в столбцах. */
 .jepRia-ResizableHeader-measuringElement {
 	padding-left: 5px;

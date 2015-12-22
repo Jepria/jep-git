@@ -5,9 +5,9 @@ import static com.technology.jep.jepriashowcase.supplier.client.SupplierClientCo
 import static com.technology.jep.jepriashowcase.supplier.shared.field.SupplierFieldNames.BANKNAME;
 import static com.technology.jep.jepriashowcase.supplier.shared.field.SupplierFieldNames.CONTRACT_FINISH_DATE;
 import static com.technology.jep.jepriashowcase.supplier.shared.field.SupplierFieldNames.EXCLUSIVE_SUPPLIER_FLAG;
-import static com.technology.jep.jepriashowcase.supplier.shared.field.SupplierFieldNames.PRIVILEGE_SUPPLIER_FLAG;
 import static com.technology.jep.jepriashowcase.supplier.shared.field.SupplierFieldNames.FAX_NUMBER;
 import static com.technology.jep.jepriashowcase.supplier.shared.field.SupplierFieldNames.PHONE_NUMBER;
+import static com.technology.jep.jepriashowcase.supplier.shared.field.SupplierFieldNames.PRIVILEGE_SUPPLIER_FLAG;
 import static com.technology.jep.jepriashowcase.supplier.shared.field.SupplierFieldNames.RECIPIENT_NAME;
 import static com.technology.jep.jepriashowcase.supplier.shared.field.SupplierFieldNames.SETTLEMENT_ACCOUNT;
 import static com.technology.jep.jepriashowcase.supplier.shared.field.SupplierFieldNames.SUPPLIER_DESCRIPTION;
@@ -23,6 +23,7 @@ import com.google.gwt.cell.client.NumberCell;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.i18n.client.NumberFormat;
 import com.google.gwt.user.cellview.client.RowStyles;
+import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HeaderPanel;
 import com.technology.jep.jepria.client.ui.form.list.ListFormViewImpl;
 import com.technology.jep.jepria.client.widget.list.GridManager;
@@ -45,7 +46,7 @@ public class SupplierListFormViewImpl extends ListFormViewImpl<GridManager> {
 		gridPanel.setHeight("100%");
 		gridPanel.setWidth("100%");
  
-		JepGrid<JepRecord> grid = new JepGrid<JepRecord>(getGridId(), getColumnConfigurations(), true);
+		JepGrid<JepRecord> grid = new JepGrid<JepRecord>(getClass().getCanonicalName(), getColumnConfigurations());
 		// Подтягиваем css-ресурс как инлайн стиль
 		ApplicationResource.instance.resource().ensureInjected();
 		// Строки списочной формы, у которых CONTACT_FINISH_DATE истек, выделяем красным
@@ -75,7 +76,9 @@ public class SupplierListFormViewImpl extends ListFormViewImpl<GridManager> {
 		final List<JepColumn> columns = new ArrayList<JepColumn>();
 		columns.add(new JepColumn(SUPPLIER_ID, supplierText.supplier_list_supplier_id(), 150, new NumberCell(defaultNumberFormatter)));
 		columns.add(new JepColumn(SUPPLIER_NAME, supplierText.supplier_list_supplier_name(), 150));
-		columns.add(new JepColumn(CONTRACT_FINISH_DATE, supplierText.supplier_list_contract_finish_date(), 150, new DateCell(defaultDateFormatter)));
+		JepColumn contractFinishDateColumn = new JepColumn(CONTRACT_FINISH_DATE, supplierText.supplier_list_contract_finish_date(), 150, new DateCell(defaultDateFormatter));
+		contractFinishDateColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
+		columns.add(contractFinishDateColumn);
 		columns.add(new JepColumn(EXCLUSIVE_SUPPLIER_FLAG, supplierText.supplier_list_exclusive_supplier_flag(), 150, new JepCheckBoxCell()));
 		columns.add(new JepColumn(PRIVILEGE_SUPPLIER_FLAG, supplierText.supplier_list_privilege_supplier_flag(), 150, new BooleanCell()));
 		columns.add(new JepColumn(SUPPLIER_DESCRIPTION, supplierText.supplier_list_supplier_description(), 150));
@@ -85,9 +88,5 @@ public class SupplierListFormViewImpl extends ListFormViewImpl<GridManager> {
 		columns.add(new JepColumn(RECIPIENT_NAME, supplierText.supplier_list_recipientName(), 200));
 		columns.add(new JepColumn(SETTLEMENT_ACCOUNT, supplierText.supplier_list_settlementAccount(), 150));
 		return columns;
-	}
- 
-	private String getGridId() {
-		return this.getClass().toString().replace("class ", "");
 	}
 }

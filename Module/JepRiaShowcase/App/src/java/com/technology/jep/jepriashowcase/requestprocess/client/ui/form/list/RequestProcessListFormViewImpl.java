@@ -30,7 +30,7 @@ public class RequestProcessListFormViewImpl extends ListFormViewImpl<GridManager
 		gridPanel.setHeight("100%");
 		gridPanel.setWidth("100%");
  
-		JepGrid<JepRecord> grid = new JepGrid<JepRecord>(getGridId(), getColumnConfigurations(), true);
+		JepGrid<JepRecord> grid = new JepGrid<JepRecord>(getClass().getCanonicalName(), getColumnConfigurations(), true);
 		PagingStandardBar pagingBar = new PagingStandardBar(25);
  
 		gridPanel.setContentWidget(grid);
@@ -52,9 +52,5 @@ public class RequestProcessListFormViewImpl extends ListFormViewImpl<GridManager
 		columns.add(new JepColumn(OPERATOR_ID, requestProcessText.requestProcess_list_operator_id(), 150, new NumberCell(defaultNumberFormatter)));
 		columns.add(new JepColumn(OPERATOR_NAME, requestProcessText.requestProcess_list_operator_name(), 150));
 		return columns;
-	}
- 
-	private String getGridId() {
-		return this.getClass().toString().replace("class ", "");
 	}
 }

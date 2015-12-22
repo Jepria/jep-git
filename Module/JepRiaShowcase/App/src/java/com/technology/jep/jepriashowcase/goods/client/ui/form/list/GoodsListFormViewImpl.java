@@ -27,7 +27,7 @@ public class GoodsListFormViewImpl extends ListFormViewImpl<GridManager> {
 		gridPanel.setHeight("100%");
 		gridPanel.setWidth("100%");
  
-		JepGrid<JepRecord> grid = new JepGrid<JepRecord>(getGridId(), getColumnConfigurations(), true);
+		JepGrid<JepRecord> grid = new JepGrid<JepRecord>(getClass().getCanonicalName(), getColumnConfigurations(), true);
 		PagingStandardBar pagingBar = new PagingStandardBar(25);
  
 		gridPanel.setContentWidget(grid);
@@ -50,9 +50,5 @@ public class GoodsListFormViewImpl extends ListFormViewImpl<GridManager> {
 		
 		columns.add(column);
 		return columns;
-	}
- 
-	private String getGridId() {
-		return this.getClass().toString().replace("class ", "");
 	}
 }
