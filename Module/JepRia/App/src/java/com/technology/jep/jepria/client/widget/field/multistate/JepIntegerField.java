@@ -18,7 +18,17 @@ public class JepIntegerField extends JepBaseNumberField<ValueBox<? extends Numbe
 	public JepIntegerField(String fieldLabel) {
 		super(fieldLabel);
 	}
-		
+
+    /**
+     * Перегруженный конструктор для добавления указанного ID в DOM
+     * @param fieldId ID в DOM
+     * @param fieldLabel Текстовая метка перед полем
+     */
+    public JepIntegerField(String fieldId, String fieldLabel) {
+        this(fieldLabel);
+        this.getElement().setId(fieldId);
+        this.getInputElement().setId(fieldId + "_INPUT");
+    }
 	/**
 	 * {@inheritDoc}
 	 */

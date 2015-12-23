@@ -1,8 +1,10 @@
 package com.technology.jep.jepria.shared.util;
 
-import static com.technology.jep.jepria.shared.JepRiaConstant.UNDEFINED_INT;
+import com.technology.jep.jepria.shared.field.option.JepOption;
 
 import java.util.List;
+
+import static com.technology.jep.jepria.shared.JepRiaConstant.UNDEFINED_INT;
 
 public class JepRiaUtil {
 
@@ -41,7 +43,9 @@ public class JepRiaUtil {
 			return isEmpty((Integer)obj);
 		} else if (obj instanceof List){
 			return isEmpty((List<?>)obj);
-		}
+		} else if (obj instanceof JepOption) {
+            return isEmpty((JepOption) obj);
+        }
 		return false;
 	}
 
@@ -71,8 +75,17 @@ public class JepRiaUtil {
 	public static boolean isEmpty(int sourceInt) {
 		return (sourceInt == UNDEFINED_INT) ? true : false;
 	}
-	
-	/**
+    /**
+     * Определяет, является ли переданный элемент пустым.<br>
+     * Возвращает true, если передано null либо если передан пустой элемент.
+     * @param option {@link com.technology.jep.jepria.shared.field.option.JepOption#JepOption}
+     * @return true, если значение пусто, false - в противном случае
+     */
+    public static boolean isEmpty(JepOption option) {
+        return (option == null || option.equals(JepOption.EMPTY_OPTION)) ? true : false;
+    }
+
+    /**
 	 * Определяет, является ли переданный список пустым.<br>
 	 * Возвращает true, если передано null либо если передан пустой список.
 	 * @param sourceList список
