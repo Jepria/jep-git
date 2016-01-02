@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="static com.technology.jep.jepriashowcase.custom.shared.ui.JepRiaShowcaseCustomPageElements.*"%>
+<%@ page import="com.technology.jep.jepriashowcase.custom.shared.ui.JepRiaShowcaseCustomPageElements"%>
 <%@ page import="com.technology.jep.jepriashowcase.main.shared.JepRiaShowcaseConstant" %>
 
 <html style="width: 100%; height: 100%;">
@@ -80,13 +80,13 @@
 						</colgroup>
 						<tr>
 							<td style="height: 100%; text-align: left;">
-								<div id="<%= SEARCH_ELEMENT %>" style="width: 100%; height: 100%; position: relative;"></div>
+								<div id="<%= JepRiaShowcaseCustomPageElements.SEARCH_ELEMENT %>" style="width: 100%; height: 100%; position: relative;"></div>
 							</td>
 							<td style="height: 100%; text-align: left;">
 								<div style="width: 100%; height: 100%; position: relative;"></div>
 							</td>
 							<td style="height: 100%; text-align: right;">
-								<div id="<%= FULL_SCREEN_ELEMENT %>" style="width: 100%; height: 100%; position: relative;"></div>
+								<div id="<%= JepRiaShowcaseCustomPageElements.FULL_SCREEN_ELEMENT %>" style="width: 100%; height: 100%; position: relative;"></div>
 							</td>
 						</tr>
 					</table>
@@ -94,13 +94,13 @@
 			</tr>
 			<tr>
 				<td style="height: 70%;">
-					<div id="<%= TOP_ELEMENT %>" style="width: 100%; height: 100%; position: relative;"></div>
+					<div id="<%= JepRiaShowcaseCustomPageElements.TOP_ELEMENT %>" style="width: 100%; height: 100%; position: relative;"></div>
 				</td>
 				<td style="height: 70%;">
 					<table style="width: 100%; height: 100%;">
 						<tr>
 							<td style="height: 30px; text-align: right;">
-								<div id="<%= EMBEDDED_ELEMENT %>" style="width: 100%; height: 100%; position: relative;"></div>
+								<div id="<%= JepRiaShowcaseCustomPageElements.EMBEDDED_ELEMENT %>" style="width: 100%; height: 100%; position: relative;"></div>
 							</td>
 						</tr>
 						<tr>
@@ -116,7 +116,7 @@
 					</table>
 				</td>
 				<td style="height: 70%;">
-					<div id="<%= RIGHT_ELEMENT %>" style="width: 100%; height: 100%; position: relative;"></div>
+					<div id="<%= JepRiaShowcaseCustomPageElements.RIGHT_ELEMENT %>" style="width: 100%; height: 100%; position: relative;"></div>
 				</td>
 			</tr>
 			<tr>
@@ -128,10 +128,10 @@
 						</colgroup>
 						<tr>
 							<td style="height: 100%; text-align: left;">
-								<div id="<%= CURRENT_USER_ELEMENT %>" style="width: 100%; height: 100%; position: relative;"></div>
+								<div id="<%= JepRiaShowcaseCustomPageElements.CURRENT_USER_ELEMENT %>" style="width: 100%; height: 100%; position: relative;"></div>
 							</td>
 							<td style="height: 100%; text-align: right;">
-								<div id="<%= BOTTOM_ELEMENT %>" style="width: 100%; height: 100%; position: relative;"></div>
+								<div id="<%= JepRiaShowcaseCustomPageElements.BOTTOM_ELEMENT %>" style="width: 100%; height: 100%; position: relative;"></div>
 							</td>
 						</tr>
 					</table>
