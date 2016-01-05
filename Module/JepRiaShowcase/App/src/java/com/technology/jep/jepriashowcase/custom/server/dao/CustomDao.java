@@ -1,14 +1,12 @@
-package com.technology.jep.jepriashowcase.custom.shared.service;
+package com.technology.jep.jepriashowcase.custom.server.dao;
 
-import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
+import com.technology.jep.jepria.server.ejb.JepDataStandard;
 import com.technology.jep.jepria.shared.exceptions.ApplicationException;
-import com.technology.jep.jepria.shared.service.data.JepDataService;
 
 /**
- * Интерфейс gwt-сервиса.
+ * Интерфейс для Custom.
  */
-@RemoteServiceRelativePath("CustomService")
-public interface CustomService  extends JepDataService {
+public interface CustomDao extends JepDataStandard {
 
 	/**
 	 * Получение имени пользователя по его идентификатору.
@@ -22,5 +20,5 @@ public interface CustomService  extends JepDataService {
 		throws ApplicationException;
 
 	void transaction() throws ApplicationException;
-
+	
 }

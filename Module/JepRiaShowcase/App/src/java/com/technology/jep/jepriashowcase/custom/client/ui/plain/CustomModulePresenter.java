@@ -197,6 +197,17 @@ public class CustomModulePresenter<V extends CustomModuleView, E extends PlainEv
 				});
 			}
 		});
+		
+		((CustomModuleViewImpl)view).button.addClickHandler(new ClickHandler() {			
+			@Override
+			public void onClick(ClickEvent event) {
+				service.transaction(new JepAsyncCallback<Void>(){
+					@Override
+					public void onSuccess(Void result) {
+						messageBox.alert("Транзакция выполнена");
+					}});
+			}
+		});
 	}
 	
 	private void sendRequest(String requestUrl, RequestBuilder.Method method, RequestCallback callback){

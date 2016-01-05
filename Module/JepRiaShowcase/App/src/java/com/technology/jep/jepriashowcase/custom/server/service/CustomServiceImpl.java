@@ -7,7 +7,10 @@ import static com.technology.jep.jepriashowcase.custom.server.CustomServerConsta
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 import com.technology.jep.jepria.server.service.JepDataServiceServlet;
 import com.technology.jep.jepria.server.util.JepServerUtil;
+import com.technology.jep.jepria.shared.exceptions.ApplicationException;
 import com.technology.jep.jepria.shared.exceptions.SystemException;
+import com.technology.jep.jepriashowcase.custom.server.dao.CustomDao;
+import com.technology.jep.jepriashowcase.custom.server.dao.CustomDaoImpl;
 import com.technology.jep.jepriashowcase.custom.server.ejb.Custom;
 import com.technology.jep.jepriashowcase.custom.shared.service.CustomService;
 
@@ -32,13 +35,24 @@ public class CustomServiceImpl extends JepDataServiceServlet implements CustomSe
 		String result = null;
 
 		try {
-			Custom custom = (Custom) JepServerUtil.ejbLookup(ejbName);
+//			Custom custom = (Custom) JepServerUtil.ejbLookup(ejbName);
+			CustomDao custom = new CustomDaoImpl();
 			result = custom.getOperatorName(operatorId);
 		} catch (Throwable th) {
 			throw new SystemException(th.getLocalizedMessage(), th);
 		}
 
 		return result;
+	}
+	
+	@Override
+	public void transaction() throws ApplicationException {
+		try {
+			CustomDao custom = new CustomDaoImpl();
+			custom.transaction();
+		} catch (Throwable th) {
+			throw new ApplicationException(th.getLocalizedMessage(), th);
+		}
 	}
 	
 }

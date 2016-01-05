@@ -15,4 +15,5 @@ public interface CustomServiceAsync  extends JepDataServiceAsync {
 		Integer operatorId
 		, AsyncCallback<String> callback);
 	
+	void transaction(AsyncCallback<Void> callback);
 }
