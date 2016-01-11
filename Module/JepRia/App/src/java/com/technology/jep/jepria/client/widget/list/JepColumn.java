@@ -193,7 +193,7 @@ public class JepColumn<T, C> extends Column<T, C> {
 	 */
 	public final boolean addClassName(String className) {
 		String oldStyle = getCellStyleNames(null, null);
-		String appendedStyle = JepRiaUtil.appendStr(oldStyle, className);
+		String appendedStyle = JepRiaUtil.appendStrIfNotPresent(oldStyle, className);
 		if (!JepRiaUtil.equalWithNull(oldStyle, appendedStyle)){
 			setCellStyleNames(appendedStyle);
 			return true;
@@ -210,7 +210,7 @@ public class JepColumn<T, C> extends Column<T, C> {
 	 */
 	public final boolean removeClassName(String className) {
 		String oldStyle = getCellStyleNames(null, null);
-		String removedStyle = JepRiaUtil.removeStr(oldStyle, className);
+		String removedStyle = JepRiaUtil.removeStrIfPresent(oldStyle, className);
 		if (!JepRiaUtil.equalWithNull(oldStyle, removedStyle)){
 			setCellStyleNames(removedStyle);
 			return true;

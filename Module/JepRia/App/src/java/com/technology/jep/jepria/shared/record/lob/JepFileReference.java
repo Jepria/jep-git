@@ -1,6 +1,7 @@
 package com.technology.jep.jepria.shared.record.lob;
 
 import static com.technology.jep.jepria.shared.util.JepRiaUtil.isEmpty;
+import static com.technology.jep.jepria.client.JepRiaClientConstant.JepTexts;
 
 import com.google.gwt.user.client.rpc.IsSerializable;
 
@@ -11,15 +12,43 @@ public class JepFileReference implements IsSerializable {
 	
 	private static final long serialVersionUID = 1L;
 	
+	/**
+	 * Свойство для хранения имени файла
+	 */
 	private String fileName;
+	
+	/**
+	 * Свойство для хранения строкового значения ключа записи
+	 */
 	private String recordKey;
+	
+	/**
+	 * Свойство для хранения числового значения ключа записи
+	 */
 	private Number recKey;
 	
+	/**
+	 * Свойство для хранения расширения файла
+	 */
 	private String fileExtension;
+	
+	/**
+	 * Свойство для хранения mime-type файла
+	 */
 	private String mimeType;
 	
 	public JepFileReference() {}
 	
+	/**
+	 * Создает файловую ссылку для LOB-поля
+	 * 
+	 * @param key				значение ключа
+	 * @param fileExtension		расширение файла
+	 * @param mimeType			mime-type файла
+	 * 
+	 * @throws выбрасывается исключение, если значение ключа отличается от строкового 
+	 * или числового
+	 */
 	public JepFileReference(
 			Object key,
 			String fileExtension,
@@ -31,6 +60,17 @@ public class JepFileReference implements IsSerializable {
 			mimeType);
 	}
 	
+	/**
+	 * Создает файловую ссылку для LOB-поля
+	 * 
+	 * @param fileName			значение имени файла
+	 * @param key				значение ключа
+	 * @param fileExtension		расширение файла
+	 * @param mimeType			mime-type файла
+	 * 
+	 * @throws выбрасывается исключение, если значение ключа отличается от строкового 
+	 * или числового
+	 */
 	public JepFileReference(
 			String fileName,
 			Object key,
@@ -45,6 +85,9 @@ public class JepFileReference implements IsSerializable {
 		}
 		else if (key instanceof String){
 			this.recordKey = (String) key;
+		}
+		else {
+			throw new IllegalArgumentException(JepTexts.fileReference_errorKey());
 		}
 	}
 		

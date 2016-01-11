@@ -2,7 +2,7 @@ package com.technology.jep.jepria.shared.text;
 
 /**
  * Interface to represent the constants contained in resource bundle:
- * 	'E:/git/javaenterpriseplatform/Module/JepRia/App/src/java/com/technology/jep/jepria/shared/text/JepRiaText.properties'.
+ * 	'D:/Project/JEPGit/Module/JepRia/App/src/java/com/technology/jep/jepria/shared/text/JepRiaText.properties'.
  */
 public interface JepRiaText extends com.google.gwt.i18n.client.Constants {
   
@@ -734,6 +734,15 @@ public interface JepRiaText extends com.google.gwt.i18n.client.Constants {
   @DefaultStringValue("Некорректный идентификатор поля: {0}")
   @Key("fieldManager.idNotFoundError")
   String fieldManager_idNotFoundError();
+
+  /**
+   * Translated "Ключ должен иметь тип String или Number.".
+   * 
+   * @return translated "Ключ должен иметь тип String или Number."
+   */
+  @DefaultStringValue("Ключ должен иметь тип String или Number.")
+  @Key("fileReference.errorKey")
+  String fileReference_errorKey();
 
   /**
    * Translated "Ошибка при удалении".

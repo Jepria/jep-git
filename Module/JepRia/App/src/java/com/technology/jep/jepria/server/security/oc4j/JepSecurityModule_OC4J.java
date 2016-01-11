@@ -139,9 +139,9 @@ public class JepSecurityModule_OC4J extends JepAbstractSecurityModule {
 			Set<Principal> principals = subject.getPrincipals();
 			for (Principal subjectPrincipal : principals) {
 				JepPrincipal jepPrincipal = (JepPrincipal) subjectPrincipal;
-				Integer _operatorId = jepPrincipal.getOperatorId();
-				if(_operatorId != null) {
-					this.operatorId = _operatorId;
+				Integer logonOperatorId = jepPrincipal.getOperatorId();
+				if(logonOperatorId != null) {
+					this.operatorId = logonOperatorId;
 					this.username = jepPrincipal.getName();
 				} else {
 					roles.add(jepPrincipal.getName());
@@ -167,9 +167,9 @@ public class JepSecurityModule_OC4J extends JepAbstractSecurityModule {
 			if(principals.size() - 1 == getRoles().size()) {	// Если число ролей не совпадает, значит объект точно "несвежий" 
 				for (Principal subjectPrincipal : principals) {
 					JepPrincipal jepPrincipal = (JepPrincipal) subjectPrincipal;
-					Integer _operatorId = jepPrincipal.getOperatorId();
-					if(_operatorId != null) {
-						if(_operatorId.equals(getOperatorId())) {	// Если operatorID совпадают, значит объект "свежий"
+					Integer logonOperatorId = jepPrincipal.getOperatorId();
+					if(logonOperatorId != null) {
+						if(logonOperatorId.equals(getOperatorId())) {	// Если operatorID совпадают, значит объект "свежий"
 							result = false;
 						}
 						break;

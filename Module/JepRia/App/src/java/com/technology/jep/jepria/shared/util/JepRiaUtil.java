@@ -137,7 +137,7 @@ public class JepRiaUtil {
 	 * @param newLine			добавляемая строка
 	 * @return строка с прибавлением новой
 	 */
-	public final static String appendStr(String baseLine, String newLine){
+	public final static String appendStrIfNotPresent(String baseLine, String newLine){
 		if (JepRiaUtil.isEmpty(baseLine)) baseLine = "";
 		int idx = indexOfLine(baseLine, newLine);
 
@@ -180,13 +180,13 @@ public class JepRiaUtil {
 	}
 	
 	/**
-	 * Добавление строки из основной (если она содержит удаляемую).  
+	 * Удаление строки из основной (если она содержит удаляемую).  
 	 * 
 	 * @param baseLine				основная строка
-	 * @param newremovedLineLine	удаляемая строка
+	 * @param removedLine			удаляемая строка
 	 * @return новая строка
 	 */
-	public final static String removeStr(String baseLine, String removedLine) {
+	public final static String removeStrIfPresent(String baseLine, String removedLine) {
 		if (JepRiaUtil.isEmpty(baseLine)) {
 			return baseLine;
 		}

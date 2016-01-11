@@ -129,6 +129,15 @@ java.lang.Object
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/shared/util/JepRiaUtil.html#appendStrIfNotPresent(java.lang.String, java.lang.String)">appendStrIfNotPresent</A></B>(java.lang.String&nbsp;baseLine,
+                      java.lang.String&nbsp;newLine)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Добавление строки в конец основной (если она не содержит добавляемую).</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;java.lang.Object[]</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/shared/util/JepRiaUtil.html#cloneArray(java.lang.Object[])">cloneArray</A></B>(java.lang.Object[]&nbsp;array)</CODE>
 
@@ -143,6 +152,15 @@ java.lang.Object
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Сравнение объектов на равенство.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;int</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/shared/util/JepRiaUtil.html#indexOfLine(java.lang.String, java.lang.String)">indexOfLine</A></B>(java.lang.String&nbsp;nameList,
+            java.lang.String&nbsp;name)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Определение индекса вхождения строки в строке</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -161,6 +179,14 @@ java.lang.Object
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Функция определяет: является ли переданная ей величина пустой
  (неопределенной).</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/shared/util/JepRiaUtil.html#isEmpty(com.technology.jep.jepria.shared.field.option.JepOption)">isEmpty</A></B>(<A HREF="../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A>&nbsp;option)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Определяет, является ли переданный элемент пустым.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -194,6 +220,15 @@ java.lang.Object
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Функция определяет: может ли переданная ей строка быть преобразована 
  к типу Integer.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/shared/util/JepRiaUtil.html#removeStrIfPresent(java.lang.String, java.lang.String)">removeStrIfPresent</A></B>(java.lang.String&nbsp;baseLine,
+                   java.lang.String&nbsp;removedLine)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Удаление строки из основной (если она содержит удаляемую).</TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>
@@ -307,6 +342,21 @@ public static boolean <B>isEmpty</B>(int&nbsp;sourceInt)</PRE>
 </DL>
 <HR>
 
+<A NAME="isEmpty(com.technology.jep.jepria.shared.field.option.JepOption)"><!-- --></A><H3>
+isEmpty</H3>
+<PRE>
+public static boolean <B>isEmpty</B>(<A HREF="../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A>&nbsp;option)</PRE>
+<DL>
+<DD>Определяет, является ли переданный элемент пустым.<br>
+ Возвращает true, если передано null либо если передан пустой элемент.
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>option</CODE> - <A HREF="../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html#JepOption(java.lang.String)"><CODE>JepOption.JepOption(java.lang.String)</CODE></A>
+<DT><B>Returns:</B><DD>true, если значение пусто, false - в противном случае</DL>
+</DD>
+</DL>
+<HR>
+
 <A NAME="isEmpty(java.util.List)"><!-- --></A><H3>
 isEmpty</H3>
 <PRE>
@@ -349,6 +399,51 @@ public static boolean <B>isInteger</B>(java.lang.String&nbsp;value)</PRE>
 <DT><B>Parameters:</B><DD><CODE>value</CODE> - строка, которую проверяем
 <DT><B>Returns:</B><DD>возвращает true, если переданная строка может быть преобразована  
          к типу Integer.</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="appendStrIfNotPresent(java.lang.String, java.lang.String)"><!-- --></A><H3>
+appendStrIfNotPresent</H3>
+<PRE>
+public static final java.lang.String <B>appendStrIfNotPresent</B>(java.lang.String&nbsp;baseLine,
+                                                           java.lang.String&nbsp;newLine)</PRE>
+<DL>
+<DD>Добавление строки в конец основной (если она не содержит добавляемую).
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>baseLine</CODE> - основная строка<DD><CODE>newLine</CODE> - добавляемая строка
+<DT><B>Returns:</B><DD>строка с прибавлением новой</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="indexOfLine(java.lang.String, java.lang.String)"><!-- --></A><H3>
+indexOfLine</H3>
+<PRE>
+public static final int <B>indexOfLine</B>(java.lang.String&nbsp;nameList,
+                                    java.lang.String&nbsp;name)</PRE>
+<DL>
+<DD>Определение индекса вхождения строки в строке
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>nameList</CODE> - основная строка<DD><CODE>name</CODE> - проверяемая на вхождение строка
+<DT><B>Returns:</B><DD>индекс вхождения строки</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="removeStrIfPresent(java.lang.String, java.lang.String)"><!-- --></A><H3>
+removeStrIfPresent</H3>
+<PRE>
+public static final java.lang.String <B>removeStrIfPresent</B>(java.lang.String&nbsp;baseLine,
+                                                        java.lang.String&nbsp;removedLine)</PRE>
+<DL>
+<DD>Удаление строки из основной (если она содержит удаляемую).
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>baseLine</CODE> - основная строка<DD><CODE>removedLine</CODE> - удаляемая строка
+<DT><B>Returns:</B><DD>новая строка</DL>
 </DD>
 </DL>
 <!-- ========= END OF CLASS DATA ========= -->

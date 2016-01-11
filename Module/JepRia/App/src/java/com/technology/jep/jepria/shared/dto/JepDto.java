@@ -16,7 +16,7 @@ import com.google.gwt.user.client.rpc.IsSerializable;
  * Особенности:<br/>
  * Dto принимает участие в Rpc-вызовах, поэтому требует сериализации, для проведения которой требуется не только пометить
  * данный класс интерфейсом {@link com.google.gwt.user.client.rpc.IsSerializable}, но и указать в качестве полей все возможные ссылки на типы передаваемых значений 
- * (Gwt-компилятор создаст rpcPolicyMap, в который поместит информацию об указанных типах и позволит избежать {@link com.google.gwt.user.client.rpc.SerializationException}).
+ * (для этого требуется использование fake-полей, на основе которых Gwt-компилятор создаст rpcPolicyMap, в который поместит информацию об указанных типах и позволит избежать {@link com.google.gwt.user.client.rpc.SerializationException}).
  */
 public class JepDto extends HashMap<String, Object> implements IsSerializable {
 	private static final long serialVersionUID = 1L;

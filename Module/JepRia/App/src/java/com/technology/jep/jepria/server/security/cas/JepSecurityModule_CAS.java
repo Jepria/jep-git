@@ -88,8 +88,8 @@ public class JepSecurityModule_CAS extends JepAbstractSecurityModule {
 		Integer result = null;
 		String principalName = principal.getName();
 		try {
-			Integer _operatorId = pkg_Operator.logon(db, principalName);
-			if(!_operatorId.equals(operatorId)) {	// Обновить свойства, если operatorId изменялся
+			Integer logonOperatorId = pkg_Operator.logon(db, principalName);
+			if(!logonOperatorId.equals(operatorId)) {	// Обновить свойства, если operatorId изменялся
 				updateSubject(principal);	// TODO выпрямить, оптимизировать
 			}
 			result = operatorId;
@@ -112,9 +112,9 @@ public class JepSecurityModule_CAS extends JepAbstractSecurityModule {
 
 		try {
 			roles = pkg_Operator.getRoles(db, principalName);
-			Integer _operatorId = pkg_Operator.logon(db, principalName);
-			if(_operatorId != null) {
-				operatorId = _operatorId;
+			Integer logonOperatorId = pkg_Operator.logon(db, principalName);
+			if(logonOperatorId != null) {
+				operatorId = logonOperatorId;
 			}
 		} catch (SQLException ex) {
 			logger.error("pkg_Operator error", ex);
@@ -133,9 +133,9 @@ public class JepSecurityModule_CAS extends JepAbstractSecurityModule {
 	protected boolean isObsolete(Principal principal) {
 		boolean result = true;
 		try {
-			Integer _operatorId = pkg_Operator.logon(db, principal.getName());
-			if(_operatorId != null) {
-				if(_operatorId.equals(getOperatorId())) {	// Если operatorID совпадают, значит объект "свежий"
+			Integer logonOperatorId = pkg_Operator.logon(db, principal.getName());
+			if(logonOperatorId != null) {
+				if(logonOperatorId.equals(getOperatorId())) {	// Если operatorID совпадают, значит объект "свежий"
 					result = false;
 				}
 			}

@@ -123,7 +123,7 @@ java.lang.Object
 <TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/shared/record/lob/JepFileReference.html#fileExtension">fileExtension</A></B></CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Свойство для хранения расширения файла</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -131,7 +131,7 @@ java.lang.Object
 <TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/shared/record/lob/JepFileReference.html#fileName">fileName</A></B></CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Свойство для хранения имени файла</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -139,7 +139,7 @@ java.lang.Object
 <TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/shared/record/lob/JepFileReference.html#mimeType">mimeType</A></B></CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Свойство для хранения mime-type файла</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -147,7 +147,7 @@ java.lang.Object
 <TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/shared/record/lob/JepFileReference.html#recKey">recKey</A></B></CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Свойство для хранения числового значения ключа записи</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -155,7 +155,7 @@ java.lang.Object
 <TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/shared/record/lob/JepFileReference.html#recordKey">recordKey</A></B></CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Свойство для хранения строкового значения ключа записи</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -187,7 +187,7 @@ java.lang.Object
                  java.lang.String&nbsp;mimeType)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Создает файловую ссылку для LOB-поля</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/shared/record/lob/JepFileReference.html#JepFileReference(java.lang.String, java.lang.Object, java.lang.String, java.lang.String)">JepFileReference</A></B>(java.lang.String&nbsp;fileName,
@@ -196,7 +196,7 @@ java.lang.Object
                  java.lang.String&nbsp;mimeType)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Создает файловую ссылку для LOB-поля</TD>
 </TR>
 </TABLE>
 &nbsp;
@@ -310,6 +310,8 @@ fileName</H3>
 <PRE>
 private java.lang.String <B>fileName</B></PRE>
 <DL>
+<DD>Свойство для хранения имени файла
+<P>
 <DL>
 </DL>
 </DL>
@@ -320,6 +322,8 @@ recordKey</H3>
 <PRE>
 private java.lang.String <B>recordKey</B></PRE>
 <DL>
+<DD>Свойство для хранения строкового значения ключа записи
+<P>
 <DL>
 </DL>
 </DL>
@@ -330,6 +334,8 @@ recKey</H3>
 <PRE>
 private java.lang.Number <B>recKey</B></PRE>
 <DL>
+<DD>Свойство для хранения числового значения ключа записи
+<P>
 <DL>
 </DL>
 </DL>
@@ -340,6 +346,8 @@ fileExtension</H3>
 <PRE>
 private java.lang.String <B>fileExtension</B></PRE>
 <DL>
+<DD>Свойство для хранения расширения файла
+<P>
 <DL>
 </DL>
 </DL>
@@ -350,6 +358,8 @@ mimeType</H3>
 <PRE>
 private java.lang.String <B>mimeType</B></PRE>
 <DL>
+<DD>Свойство для хранения mime-type файла
+<P>
 <DL>
 </DL>
 </DL>
@@ -379,6 +389,13 @@ public <B>JepFileReference</B>(java.lang.Object&nbsp;key,
                         java.lang.String&nbsp;fileExtension,
                         java.lang.String&nbsp;mimeType)</PRE>
 <DL>
+<DD>Создает файловую ссылку для LOB-поля
+<P>
+<DL>
+<DT><B>Parameters:</B><DD><CODE>key</CODE> - значение ключа<DD><CODE>fileExtension</CODE> - расширение файла<DD><CODE>mimeType</CODE> - mime-type файла
+<DT><B>Throws:</B>
+<DD><CODE>выбрасывается</CODE> - исключение, если значение ключа отличается от строкового 
+ или числового</DL>
 </DL>
 <HR>
 
@@ -390,6 +407,13 @@ public <B>JepFileReference</B>(java.lang.String&nbsp;fileName,
                         java.lang.String&nbsp;fileExtension,
                         java.lang.String&nbsp;mimeType)</PRE>
 <DL>
+<DD>Создает файловую ссылку для LOB-поля
+<P>
+<DL>
+<DT><B>Parameters:</B><DD><CODE>fileName</CODE> - значение имени файла<DD><CODE>key</CODE> - значение ключа<DD><CODE>fileExtension</CODE> - расширение файла<DD><CODE>mimeType</CODE> - mime-type файла
+<DT><B>Throws:</B>
+<DD><CODE>выбрасывается</CODE> - исключение, если значение ключа отличается от строкового 
+ или числового</DL>
 </DL>
 
 <!-- ============ METHOD DETAIL ========== -->
