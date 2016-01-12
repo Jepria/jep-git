@@ -95,6 +95,8 @@ public class JepSecurityModule_CAS extends JepAbstractSecurityModule {
 			result = operatorId;
 		} catch (SQLException ex) {
 			logger.error("pkg_Operator.getJepPrincipalOperatorId() error", ex);
+		} finally {
+			db.closeAll(); // освобождение соединения, берущегося в logon->db.prepare
 		}
 
 		return result;
@@ -118,6 +120,8 @@ public class JepSecurityModule_CAS extends JepAbstractSecurityModule {
 			}
 		} catch (SQLException ex) {
 			logger.error("pkg_Operator error", ex);
+		} finally {
+			db.closeAll(); // освобождение соединения, берущегося в logon->db.prepare
 		}
 		
 		logger.trace(this.getClass() + ".updateSubject() END");
@@ -141,6 +145,8 @@ public class JepSecurityModule_CAS extends JepAbstractSecurityModule {
 			}
 		} catch (SQLException ex) {
 			logger.error("pkg_Operator.logon() error", ex);
+		} finally {
+			db.closeAll(); // освобождение соединения, берущегося в logon->db.prepare
 		}
 		
 		return result;
