@@ -1,6 +1,7 @@
 package com.technology.jep.jepriashowcase.custom.server.dao;
 
-import static com.technology.jep.jepriashowcase.custom.server.CustomServerConstant.*;
+import static com.technology.jep.jepriashowcase.custom.server.CustomServerConstant.DATA_SOURCE_JNDI_NAME;
+import static com.technology.jep.jepriashowcase.custom.server.CustomServerConstant.RESOURCE_BUNDLE_NAME;
 
 import java.util.List;
 import java.util.Random;
@@ -9,6 +10,8 @@ import com.technology.jep.jepria.shared.exceptions.ApplicationException;
 import com.technology.jep.jepria.shared.exceptions.SystemException;
 import com.technology.jep.jepria.shared.record.JepRecord;
 import com.technology.jep.jepria.shared.util.Mutable;
+import com.technology.jep.jepriashowcase.custom.server.dao.annotation.MultipleTransactional;
+import com.technology.jep.jepriashowcase.custom.server.dao.annotation.TransactionMethod;
 
 public class CustomDaoImpl extends JepDaoImpl implements CustomDao {
 	
@@ -30,20 +33,11 @@ public class CustomDaoImpl extends JepDaoImpl implements CustomDao {
 	}
 
 	@Override
-	public void transaction() throws ApplicationException {
-		startTransaction();
-		
-		try {
-			for (int i = 0; i < 3; i++) {
-				testQuery(i);
-			}
-			commit();
-		} catch (Throwable th) {
-			rollback();
-			throw new ApplicationException(th.getMessage(), th);
-		} finally {
-			endTransaction();			
-		}		
+	@MultipleTransactional
+	public void transaction() throws ApplicationException {		
+		for (int i = 0; i < 3; i++) {
+			testQuery(i);
+		}
 	}
 	
 	public void testQuery(Integer value) throws ApplicationException {
@@ -79,11 +73,28 @@ public class CustomDaoImpl extends JepDaoImpl implements CustomDao {
 			throws ApplicationException {
 		throw new UnsupportedOperationException();
 	}
-
+	
+	
 	@Override
 	public void delete(JepRecord record, Integer operatorId)
 			throws ApplicationException {
 		throw new UnsupportedOperationException();
+	}
+	
+	
+	@TransactionMethod(runOrder = 1)
+	public void someQuery1(){
+		System.out.println("someQuery1");
+	}
+	
+	@TransactionMethod(runOrder = 2)
+	public void someQuery2(){
+		System.out.println("someQuery2");
+	}
+	
+	@TransactionMethod(runOrder = 3)
+	public void someQuery3(){
+		System.out.println("someQuery3");
 	}
 
 }

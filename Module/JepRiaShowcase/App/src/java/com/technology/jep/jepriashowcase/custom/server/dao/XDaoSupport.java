@@ -21,9 +21,6 @@ class XDaoSupport {
 		logger.trace("execute1(..., " + dataSourceJndiName + ", ...)");
 
 		try {
-			if (!XCallContext.isTransaction()) {
-				XCallContext.begin(dataSourceJndiName, resourceBundleName);
-			}
 			XDb db = XCallContext.getDb();
 			
 			CallableStatement callableStatement = db.prepare(query);
@@ -35,11 +32,6 @@ class XDaoSupport {
 
 		} catch (Throwable th) {
 			throw new ApplicationException(th.getMessage(), th);
-		} finally {
-			// Вызов XCallContext.end() в случае транзакции берёт на себя коннектор
-			if (!XCallContext.isTransaction()) {
-				XCallContext.end();
-			}
 		}
 	}
 	
@@ -56,9 +48,6 @@ class XDaoSupport {
 		T result = null;
 
 		try {
-			if (!XCallContext.isTransaction()) {
-				XCallContext.begin(dataSourceJndiName, resourceBundleName);
-			}
 			XDb db = XCallContext.getDb();
 			
 			CallableStatement callableStatement = db.prepare(query);
@@ -79,11 +68,6 @@ class XDaoSupport {
 
 		} catch (Throwable th) {
 			throw new ApplicationException(th.getMessage(), th);
-		} finally {
-			// Вызов XCallContext.end() в случае транзакции берёт на себя коннектор
-			if (!XCallContext.isTransaction()) {
-				XCallContext.end();
-			}
 		}
 		
 		return result;

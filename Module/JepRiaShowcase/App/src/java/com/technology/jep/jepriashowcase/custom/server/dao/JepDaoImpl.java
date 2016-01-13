@@ -1,7 +1,5 @@
 package com.technology.jep.jepriashowcase.custom.server.dao;
 
-import java.sql.SQLException;
-
 import com.technology.jep.jepria.shared.exceptions.ApplicationException;
 
 public class JepDaoImpl {
@@ -34,6 +32,7 @@ public class JepDaoImpl {
 				params);
 	}
 
+	/*
 	protected final void startTransaction() throws ApplicationException {
 		XCallContext.begin(dataSourceJndiName, resourceBundleName, true);
 	}
@@ -48,6 +47,6 @@ public class JepDaoImpl {
 
 	protected final void endTransaction() {
 		XCallContext.end();
-	}
+	}*/
 
 }
