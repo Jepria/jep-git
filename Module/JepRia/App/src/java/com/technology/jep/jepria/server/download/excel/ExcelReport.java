@@ -33,6 +33,7 @@ import java.io.PrintWriter;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -249,7 +250,8 @@ public class ExcelReport {
 	protected String createCell(JepRecord record, String field) {
 		JepTypeEnum type = recordDefinition.getType(field);
         if (type == null) {
-            throw new IllegalStateException(resourceBundle.getString("errors.excel.fieldTypeNotDefined") + field);
+            throw new IllegalStateException(
+            	MessageFormat.format(resourceBundle.getString("errors.excel.fieldTypeNotDefined"), field));
         }
 		Object value = record.get(field);
 		if (isEmpty(value)) {
