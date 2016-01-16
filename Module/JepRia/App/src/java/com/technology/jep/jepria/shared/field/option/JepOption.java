@@ -65,16 +65,15 @@ public class JepOption extends JepDto {
 	 *
 	 * @param option опция, значение которой необходимо получить
 	 * @return значение опции
+	 * @throws ClassCastException если передан объект не класса {@link JepOption}
 	 */
 	@SuppressWarnings("unchecked")
 	public static <X> X getValue(Object option) {
-		X value = null;
-
-		if (option != null && (option instanceof JepOption)) {
-			value = (X)((JepOption)option).getValue();
+		if (option instanceof JepOption) {
+			return (X)((JepOption)option).getValue();
 		}
 
-		return value;
+		return (X) option;
 	}
 
 	public Object getValue() {

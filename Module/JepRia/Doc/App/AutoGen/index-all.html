@@ -3299,7 +3299,7 @@ Method in interface com.technology.jep.jepria.shared.text.<A HREF="./com/technol
 <DD>Translated "Ошибка".
 <DT><A HREF="./com/technology/jep/jepria/shared/text/JepRiaText.html#errors_excel_fieldTypeNotDefined()"><B>errors_excel_fieldTypeNotDefined()</B></A> - 
 Method in interface com.technology.jep.jepria.shared.text.<A HREF="./com/technology/jep/jepria/shared/text/JepRiaText.html" title="interface in com.technology.jep.jepria.shared.text">JepRiaText</A>
-<DD>Translated "В recordDefinition не определён тип поля ".
+<DD>Translated "В recordDefinition не определён тип поля {0}".
 <DT><A HREF="./com/technology/jep/jepria/shared/text/JepRiaText.html#errors_file_uploadError()"><B>errors_file_uploadError()</B></A> - 
 Method in interface com.technology.jep.jepria.shared.text.<A HREF="./com/technology/jep/jepria/shared/text/JepRiaText.html" title="interface in com.technology.jep.jepria.shared.text">JepRiaText</A>
 <DD>Translated "При загрузке файла произошла ошибка.".
@@ -5439,7 +5439,19 @@ Method in class com.technology.jep.jepria.client.widget.field.<A HREF="./com/tec
 <DD>&nbsp;
 <DT><A HREF="./com/technology/jep/jepria/server/ejb/JepDataBean.html#getValueFromOption(java.lang.Object)"><B>getValueFromOption(Object)</B></A> - 
 Method in class com.technology.jep.jepria.server.ejb.<A HREF="./com/technology/jep/jepria/server/ejb/JepDataBean.html" title="class in com.technology.jep.jepria.server.ejb">JepDataBean</A>
-<DD>Получение значения из опции <A HREF="./com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option"><CODE>JepOption</CODE></A>.
+<DD><B>Deprecated.</B>&nbsp;<I>Данный метод будет удалён в JepRia 9. Вместо него следует использовать
+ метод <A HREF="./com/technology/jep/jepria/shared/field/option/JepOption.html#getValue(java.lang.Object)"><CODE>JepOption.getValue(Object option)</CODE></A>
+ <br>
+ Получение значения из опции <A HREF="./com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option"><CODE>JepOption</CODE></A>.<br/>
+ В реализации метод вызывает <A HREF="./com/technology/jep/jepria/shared/field/option/JepOption.html#getValue(java.lang.Object)"><CODE>JepOption.getValue(Object option)</CODE></A>.<br/>
+ Пример использования в прикладном модуле:
+ <pre>
+   ...
+   &lt;Integer&gt;getFieldValueFromOption(template.get(CITY_ID)); // Получение значения типа Integer или null.
+   ...
+   &lt;String&gt;getFieldValueFromOption(template.get(COMPANY_CODE)); // Получение значения типа String или null.
+   ...
+ </pre></I>
 <DT><A HREF="./com/technology/jep/jepria/client/widget/field/FieldManager.html#getValues()"><B>getValues()</B></A> - 
 Method in class com.technology.jep.jepria.client.widget.field.<A HREF="./com/technology/jep/jepria/client/widget/field/FieldManager.html" title="class in com.technology.jep.jepria.client.widget.field">FieldManager</A>
 <DD>Получение значений <strong>видимых</strong> полей в виде записи JepRecord.
@@ -6862,7 +6874,7 @@ Constructor for class com.technology.jep.jepria.auto.<A HREF="./com/technology/j
 Constructor for class com.technology.jep.jepria.server.<A HREF="./com/technology/jep/jepria/server/JepRiaServerConstant.html" title="class in com.technology.jep.jepria.server">JepRiaServerConstant</A>
 <DD>&nbsp;
 <DT><A HREF="./com/technology/jep/jepria/shared/text/JepRiaText.html" title="interface in com.technology.jep.jepria.shared.text"><B>JepRiaText</B></A> - Interface in <A HREF="./com/technology/jep/jepria/shared/text/package-summary.html">com.technology.jep.jepria.shared.text</A><DD>Interface to represent the constants contained in resource bundle:
-        'D:/Project/JEPGit/Module/JepRia/App/src/java/com/technology/jep/jepria/shared/text/JepRiaText.properties'.<DT><A HREF="./com/technology/jep/jepria/shared/util/JepRiaUtil.html" title="class in com.technology.jep.jepria.shared.util"><B>JepRiaUtil</B></A> - Class in <A HREF="./com/technology/jep/jepria/shared/util/package-summary.html">com.technology.jep.jepria.shared.util</A><DD>&nbsp;<DT><A HREF="./com/technology/jep/jepria/shared/util/JepRiaUtil.html#JepRiaUtil()"><B>JepRiaUtil()</B></A> - 
+        'E:/git/javaenterpriseplatform/Module/JepRia/App/src/java/com/technology/jep/jepria/shared/text/JepRiaText.properties'.<DT><A HREF="./com/technology/jep/jepria/shared/util/JepRiaUtil.html" title="class in com.technology.jep.jepria.shared.util"><B>JepRiaUtil</B></A> - Class in <A HREF="./com/technology/jep/jepria/shared/util/package-summary.html">com.technology.jep.jepria.shared.util</A><DD>&nbsp;<DT><A HREF="./com/technology/jep/jepria/shared/util/JepRiaUtil.html#JepRiaUtil()"><B>JepRiaUtil()</B></A> - 
 Constructor for class com.technology.jep.jepria.shared.util.<A HREF="./com/technology/jep/jepria/shared/util/JepRiaUtil.html" title="class in com.technology.jep.jepria.shared.util">JepRiaUtil</A>
 <DD>&nbsp;
 <DT><A HREF="./com/technology/jep/jepria/client/widget/field/multistate/JepRichTextEditorField.html" title="class in com.technology.jep.jepria.client.widget.field.multistate"><B>JepRichTextEditorField</B></A> - Class in <A HREF="./com/technology/jep/jepria/client/widget/field/multistate/package-summary.html">com.technology.jep.jepria.client.widget.field.multistate</A><DD>Поле, позволяющее производить форматирование текста пользователем.<DT><A HREF="./com/technology/jep/jepria/client/widget/field/multistate/JepRichTextEditorField.html#JepRichTextEditorField()"><B>JepRichTextEditorField()</B></A> - 

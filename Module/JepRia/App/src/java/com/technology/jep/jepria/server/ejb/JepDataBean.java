@@ -166,8 +166,11 @@ public class JepDataBean extends JepDataStandardBean {
 				JepRecord.class,
 				params); 
 	}
-	
+
 	/**
+	 * @deprecated Данный метод будет удалён в JepRia 9. Вместо него следует использовать
+	 * метод {@link com.technology.jep.jepria.shared.field.option.JepOption#getValue(Object option)}
+	 * <br>
 	 * Получение значения из опции {@link com.technology.jep.jepria.shared.field.option.JepOption}.<br/>
 	 * В реализации метод вызывает {@link com.technology.jep.jepria.shared.field.option.JepOption#getValue(Object option)}.<br/>
 	 * Пример использования в прикладном модуле:
@@ -178,20 +181,10 @@ public class JepDataBean extends JepDataStandardBean {
 	 *   &lt;String&gt;getFieldValueFromOption(template.get(COMPANY_CODE)); // Получение значения типа String или null.
 	 *   ...
 	 * </pre>
-	 * <b>Внимание!!!</b><br/>
-	 * При работе с методами DaoSupport (find, create, update, delete, getOptions и т.п.) можно не указывать тип возвращаемого занчения.<br/>
-	 * Таким образом, в прикладном модуле можно сократить запись:
-	 * <pre>
-	 *   ...
-	 *   getFieldValueFromOption(template.get(CITY_ID)); // Получение значения типа Integer или null.
-	 *   ...
-	 *   getFieldValueFromOption(template.get(COMPANY_CODE)); // Получение значения типа String или null.
-	 *   ...
-	 * </pre>
-	 * 
 	 * @param option опция {@link com.technology.jep.jepria.shared.field.option.JepOption}
 	 * @return значение опции {@link com.technology.jep.jepria.shared.field.option.JepOption#getValue(Object option)}
-	 */
+	 */	
+	@Deprecated
 	protected <X> X getValueFromOption(Object option) {
 		return JepOption.<X>getValue(option);
 	}

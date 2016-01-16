@@ -276,7 +276,19 @@ java.lang.Object
 <TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/ejb/JepDataBean.html#getValueFromOption(java.lang.Object)">getValueFromOption</A></B>(java.lang.Object&nbsp;option)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Получение значения из опции <A HREF="../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option"><CODE>JepOption</CODE></A>.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<B>Deprecated.</B>&nbsp;<I>Данный метод будет удалён в JepRia 9. Вместо него следует использовать
+ метод <A HREF="../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html#getValue(java.lang.Object)"><CODE>JepOption.getValue(Object option)</CODE></A>
+ <br>
+ Получение значения из опции <A HREF="../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option"><CODE>JepOption</CODE></A>.<br/>
+ В реализации метод вызывает <A HREF="../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html#getValue(java.lang.Object)"><CODE>JepOption.getValue(Object option)</CODE></A>.<br/>
+ Пример использования в прикладном модуле:
+ <pre>
+   ...
+   &lt;Integer&gt;getFieldValueFromOption(template.get(CITY_ID)); // Получение значения типа Integer или null.
+   ...
+   &lt;String&gt;getFieldValueFromOption(template.get(COMPANY_CODE)); // Получение значения типа String или null.
+   ...
+ </pre></I></TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -558,9 +570,13 @@ public java.util.List&lt;<A HREF="../../../../../../com/technology/jep/jepria/sh
 <A NAME="getValueFromOption(java.lang.Object)"><!-- --></A><H3>
 getValueFromOption</H3>
 <PRE>
-protected &lt;X&gt; X <B>getValueFromOption</B>(java.lang.Object&nbsp;option)</PRE>
+<FONT SIZE="-1">@Deprecated
+</FONT>protected &lt;X&gt; X <B>getValueFromOption</B>(java.lang.Object&nbsp;option)</PRE>
 <DL>
-<DD>Получение значения из опции <A HREF="../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option"><CODE>JepOption</CODE></A>.<br/>
+<DD><B>Deprecated.</B>&nbsp;<I>Данный метод будет удалён в JepRia 9. Вместо него следует использовать
+ метод <A HREF="../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html#getValue(java.lang.Object)"><CODE>JepOption.getValue(Object option)</CODE></A>
+ <br>
+ Получение значения из опции <A HREF="../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option"><CODE>JepOption</CODE></A>.<br/>
  В реализации метод вызывает <A HREF="../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html#getValue(java.lang.Object)"><CODE>JepOption.getValue(Object option)</CODE></A>.<br/>
  Пример использования в прикладном модуле:
  <pre>
@@ -569,17 +585,7 @@ protected &lt;X&gt; X <B>getValueFromOption</B>(java.lang.Object&nbsp;option)</P
    ...
    &lt;String&gt;getFieldValueFromOption(template.get(COMPANY_CODE)); // Получение значения типа String или null.
    ...
- </pre>
- <b>Внимание!!!</b><br/>
- При работе с методами DaoSupport (find, create, update, delete, getOptions и т.п.) можно не указывать тип возвращаемого занчения.<br/>
- Таким образом, в прикладном модуле можно сократить запись:
- <pre>
-   ...
-   getFieldValueFromOption(template.get(CITY_ID)); // Получение значения типа Integer или null.
-   ...
-   getFieldValueFromOption(template.get(COMPANY_CODE)); // Получение значения типа String или null.
-   ...
- </pre>
+ </pre></I>
 <P>
 <DD><DL>
 <DT><B>Parameters:</B><DD><CODE>option</CODE> - опция <A HREF="../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option"><CODE>JepOption</CODE></A>
