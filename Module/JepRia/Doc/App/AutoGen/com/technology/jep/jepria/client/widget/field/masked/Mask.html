@@ -367,6 +367,16 @@ java.lang.Object
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private static&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/masked/Mask.html#inRange(int, int, int)">inRange</A></B>(int&nbsp;value,
+        int&nbsp;min,
+        int&nbsp;max)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Проверяет, входит ли заданное число в диапазон, включая границы.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>(package private) &nbsp;char[]</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/masked/Mask.html#insertChar(char[], int, char)">insertChar</A></B>(char[]&nbsp;chars,
            int&nbsp;position,
@@ -374,6 +384,22 @@ java.lang.Object
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Возвращает результат вставки символа в массив в заданной позиции.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private static&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/masked/Mask.html#isLetter(char)">isLetter</A></B>(char&nbsp;ch)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Проверяет, является ли переданный символ буквой.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private static&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/masked/Mask.html#isLetterOrDigit(char)">isLetterOrDigit</A></B>(char&nbsp;ch)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Проверяет, является ли переданный символ буквой или цифрой.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -1027,6 +1053,54 @@ private java.lang.String <B>getMaskChar</B>(<A HREF="../../../../../../../../com
 <DD><DL>
 <DT><B>Parameters:</B><DD><CODE>item</CODE> - элемент маски
 <DT><B>Returns:</B><DD>символ</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="inRange(int, int, int)"><!-- --></A><H3>
+inRange</H3>
+<PRE>
+private static boolean <B>inRange</B>(int&nbsp;value,
+                               int&nbsp;min,
+                               int&nbsp;max)</PRE>
+<DL>
+<DD>Проверяет, входит ли заданное число в диапазон, включая границы.
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>value</CODE> - проверяемое значение<DD><CODE>min</CODE> - нижняя граница диапазона<DD><CODE>max</CODE> - верхняя граница диапазона
+<DT><B>Returns:</B><DD>true, если значение входит в диапазон, false в противном случае</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="isLetter(char)"><!-- --></A><H3>
+isLetter</H3>
+<PRE>
+private static boolean <B>isLetter</B>(char&nbsp;ch)</PRE>
+<DL>
+<DD>Проверяет, является ли переданный символ буквой.
+ Использование данного метода вместо <CODE>Character.isDigit(char)</CODE>
+ обусловлено неполноценной реализацией данного метода в GWT.
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>ch</CODE> - символ
+<DT><B>Returns:</B><DD>true, если символ является буквой, false в противном случае<DT><B>See Also:</B><DD><a href="https://github.com/gwtproject/gwt/issues/1989">https://github.com/gwtproject/gwt/issues/1989</a></DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="isLetterOrDigit(char)"><!-- --></A><H3>
+isLetterOrDigit</H3>
+<PRE>
+private static boolean <B>isLetterOrDigit</B>(char&nbsp;ch)</PRE>
+<DL>
+<DD>Проверяет, является ли переданный символ буквой или цифрой.
+ Использование данного метода вместо <CODE>Character.isLetterOrDigit(char)</CODE>
+ обусловлено неполноценной реализацией данного метода в GWT.
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>ch</CODE> - символ
+<DT><B>Returns:</B><DD>true, если символ является буквой или цифрой, false в противном случае<DT><B>See Also:</B><DD><a href="https://github.com/gwtproject/gwt/issues/1989">https://github.com/gwtproject/gwt/issues/1989</a></DL>
 </DD>
 </DL>
 <!-- ========= END OF CLASS DATA ========= -->

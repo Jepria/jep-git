@@ -88,8 +88,8 @@ public class Mask {
 			if (itemType == LITERAL) return ch == literal || ch == '\0';
 			if (ch == '\0') return !mandatory || allowEmptyChars;
 			switch (itemType) {
-				case LETTER_OR_DIGIT: return Character.isLetterOrDigit(ch);
-				case LETTER: return Character.isLetter(ch);
+				case LETTER_OR_DIGIT: return isLetterOrDigit(ch);
+				case LETTER: return isLetter(ch);
 				case DIGIT: return Character.isDigit(ch);
 				case SIGN_OR_DIGIT: return Character.isDigit(ch) || ch == '-' || ch == '+';
 				default: return true;
@@ -737,6 +737,45 @@ public class Mask {
 		else {
 			return String.valueOf(mandatory ? mandatoryChar : optionalChar);
 		}
+	}
+	
+	/**
+	 * Проверяет, входит ли заданное число в диапазон, включая границы.
+	 * @param value проверяемое значение
+	 * @param min нижняя граница диапазона
+	 * @param max верхняя граница диапазона
+	 * @return true, если значение входит в диапазон, false в противном случае
+	 */
+	private static boolean inRange(int value, int min, int max) {
+		return (value <= max) & (value >= min);
+	}
+
+	/**
+	 * Проверяет, является ли переданный символ буквой.
+	 * Использование данного метода вместо {@link Character#isDigit(char)}
+	 * обусловлено неполноценной реализацией данного метода в GWT.
+	 * @param ch символ
+	 * @return true, если символ является буквой, false в противном случае
+	 * @see <a href="https://github.com/gwtproject/gwt/issues/1989">https://github.com/gwtproject/gwt/issues/1989</a>
+	 */
+	private static boolean isLetter(char ch) {
+		int val = (int) ch;
+
+		return inRange(val, 65, 90) || inRange(val, 97, 122) || inRange(val, 192, 687) 
+				|| inRange(val, 900, 1159) || inRange(val, 1162, 1315) || inRange(val, 1329, 1366) 
+				|| inRange(val, 1377, 1415) || inRange(val, 1425, 1610);
+	}
+	
+	/**
+	 * Проверяет, является ли переданный символ буквой или цифрой.
+	 * Использование данного метода вместо {@link Character#isLetterOrDigit(char)}
+	 * обусловлено неполноценной реализацией данного метода в GWT.
+	 * @param ch символ
+	 * @return true, если символ является буквой или цифрой, false в противном случае
+	 * @see <a href="https://github.com/gwtproject/gwt/issues/1989">https://github.com/gwtproject/gwt/issues/1989</a>
+	 */
+	private static boolean isLetterOrDigit(char ch) {
+		return Character.isDigit(ch) || isLetter(ch);
 	}
 	
 }
