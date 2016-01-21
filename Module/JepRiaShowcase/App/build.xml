@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <project default="build-and-deploy" name="Jep Module Building">
 	<taskdef resource="net/sf/antcontrib/antlib.xml" />
 	<property file="local.properties" />
@@ -618,20 +618,30 @@
 			<then>
 				<taskdef classname="weblogic.ant.taskdefs.management.WLDeploy" classpath="${WL_LIB_HOME}/weblogic.jar" name="wldeploy" />
 				<echo message="Deploy to Weblogic" />
-				<wldeploy
-					action="deploy"
-					adminurl="t3://${DEPLOYMENT_PATH}"
-					targets="${WL_DEPLOY_TARGETS}"
-					debug="true"
-					failonerror="${failondeploy}"
-					name="${MODULE_NAME_IN_PACKAGE}"
-					password="${PASSWORD}"
-					source="lib/${MODULE_NAME_IN_PACKAGE}.ear"
-					upload="true"
-					user="${LOGIN}"
-					verbose="true">
-				</wldeploy>
-
+				<trycatch>
+					<try>
+						<wldeploy
+							action="deploy"
+							adminurl="t3://${DEPLOYMENT_PATH}"
+							targets="${WL_DEPLOY_TARGETS}"
+							debug="true"
+							failonerror="true"
+							name="${MODULE_NAME_IN_PACKAGE}"
+							password="${PASSWORD}"
+							source="lib/${MODULE_NAME_IN_PACKAGE}.ear"
+							upload="true"
+							user="${LOGIN}"
+							verbose="true"
+							>
+						</wldeploy>
+						<property name="javaReturnCode" value="0" />
+						<property name="errorMessage" value="" />
+					</try>
+					<catch>
+						<property name="javaReturnCode" value="1" />
+						<property name="errorMessage" value="Deploy to Weblogic failed, see log for details" />
+					</catch>
+				</trycatch>
 			</then>
 			<else>
 				<echo message="Deploy to OC4J" />
