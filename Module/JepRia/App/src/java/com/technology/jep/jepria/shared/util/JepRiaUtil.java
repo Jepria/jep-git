@@ -26,7 +26,7 @@ public class JepRiaUtil {
 	 *         строка состоит только из пробелов.
 	 */
 	public static boolean isEmpty(String sourceString) {
-		return (sourceString == null || sourceString.trim().length() == 0) ? true : false;
+		return sourceString == null || sourceString.trim().length() == 0;
 	}
 
 	/**
@@ -60,7 +60,7 @@ public class JepRiaUtil {
 	 *         {@link com.technology.jep.jepria.shared.JepRiaConstant#UNDEFINED_INT}.
 	 */
 	public static boolean isEmpty(Integer sourceInteger) {
-		return (sourceInteger == null || sourceInteger.intValue() == UNDEFINED_INT) ? true : false;
+		return sourceInteger == null || sourceInteger.intValue() == UNDEFINED_INT;
 	}
 
 	/**
@@ -73,7 +73,7 @@ public class JepRiaUtil {
 	 *         {@link com.technology.jep.jepria.shared.JepRiaConstant#UNDEFINED_INT}.
 	 */
 	public static boolean isEmpty(int sourceInt) {
-		return (sourceInt == UNDEFINED_INT) ? true : false;
+		return sourceInt == UNDEFINED_INT;
 	}
     /**
      * Определяет, является ли переданный элемент пустым.<br>
@@ -82,7 +82,7 @@ public class JepRiaUtil {
      * @return true, если значение пусто, false - в противном случае
      */
     public static boolean isEmpty(JepOption option) {
-        return (option == null || option.equals(JepOption.EMPTY_OPTION)) ? true : false;
+        return option == null || option.equals(JepOption.EMPTY_OPTION);
     }
 
     /**

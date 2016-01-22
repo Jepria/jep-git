@@ -52,6 +52,11 @@ import com.technology.jep.jepria.shared.util.JepRiaUtil;
 public class JepComboBoxField extends JepBaseTextField<ComboBox<JepOption>> implements JepOptionField {
 	
 	/**
+	 * Пустая опция, выводимая первой в списке опция
+	 */
+	protected JepOption emptyOption = EMPTY_OPTION;
+	
+	/**
 	 * Последняя для вывода в списке опция
 	 */
 	protected JepOption lastOption = null;
@@ -150,8 +155,8 @@ public class JepComboBoxField extends JepBaseTextField<ComboBox<JepOption>> impl
 		List<JepOption> unfilteredOptions = new ArrayList<JepOption>();
 		// Если пустой выбор необходим, то вставляем пустую опцию в начало списка.
 		if(hasEmptyChoice) {
-			options.add(0, EMPTY_OPTION);
-			unfilteredOptions.add(EMPTY_OPTION);
+			options.add(0, emptyOption);
+			unfilteredOptions.add(emptyOption);
 		}
 		// Если последняя опция определена, то добавим ее в конец списка.
 		if(lastOption != null) {
@@ -320,6 +325,18 @@ public class JepComboBoxField extends JepBaseTextField<ComboBox<JepOption>> impl
 		lastOption = !JepRiaUtil.isEmpty(lastOptionText) ? new JepOption(lastOptionText, null) : null;
 		addLastOptionSelectCancelListener();
 	}
+	
+	/**
+	 * Установка наименования пустой опции.
+	 * 
+	 * @param emptyOptionText новое наименование пустой опции
+	 */
+	public void setEmptyOptionText(String emptyOptionText) {
+		if (!JepRiaUtil.equalWithNull(this.emptyOption.getName(), emptyOptionText)){
+			this.emptyOption = new JepOption(this.emptyOption);
+			this.emptyOption.setName(emptyOptionText);
+		}
+	}
 
 	/**
 	 * Получение режима фильтрации.
@@ -353,16 +370,14 @@ public class JepComboBoxField extends JepBaseTextField<ComboBox<JepOption>> impl
 	public boolean isValid() {
 		clearInvalid();
 		JepOption value = getValue();
-		// flag specifies that no one option is chosen
+		// flag specifies that no one option is chosen or option is empty one
 		boolean isNotChosen = JepRiaUtil.isEmpty(value);
 		String rawValue = getRawValue();
 		if (isNotChosen ? !JepRiaUtil.isEmpty(rawValue) : !value.getName().equals(rawValue)) {
 			markInvalid(JepTexts.errors_tooltip_field_option_incorrectOption());
 			return false;
 		}
-		// flag specifies that no one option is chosen or option value is null
-		boolean isEmptyOptionOrNotChosen = isNotChosen || JepRiaUtil.isEmpty(JepOption.getValue(value));
-		if (isEmptyOptionOrNotChosen && !allowBlank) {
+		if (isNotChosen && !allowBlank) {
 			markInvalid(JepTexts.field_blankText());
 			return false;
 		}
