@@ -13,6 +13,9 @@ com.technology.jep.jepriashowcase.custom.client
 com.technology.jep.jepriashowcase.custom.client.ui.auto
 com.technology.jep.jepriashowcase.custom.client.ui.plain
 com.technology.jep.jepriashowcase.custom.server
+com.technology.jep.jepriashowcase.custom.server.dao
+com.technology.jep.jepriashowcase.custom.server.dao.annotation
+com.technology.jep.jepriashowcase.custom.server.dao.annotation.handler
 com.technology.jep.jepriashowcase.custom.server.ejb
 com.technology.jep.jepriashowcase.custom.server.service
 com.technology.jep.jepriashowcase.custom.shared

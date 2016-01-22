@@ -46,6 +46,7 @@ public class GoodsDetailFormViewImpl extends DetailFormViewImpl implements Goods
 		JepTextField goodsNameTextField = new JepTextField(JRSC_GOODS_NAME_TEXT_FIELD_ID, goodsText.goods_detail_goods_name());
 		goodsNameTextField.setMaxLength(255);
 		JepComboBoxField goodsTypeComboBoxField = new JepComboBoxField(JRSC_GOODS_TYPE_COMBOBOX_FIELD_ID, goodsText.goods_detail_goods_type());
+		goodsTypeComboBoxField.setEmptyOptionText(goodsText.goods_detail_goods_type_empty_option_text()); 
 		JepComboBoxField unitComboBoxField = new JepComboBoxField(JRSC_GOODS_UNIT_COMBOBOX_FIELD_ID, goodsText.goods_detail_unit());
 		JepRadioField motivationTypeRadioField = new JepRadioField(JRSC_GOODS_MOTIVATION_RADIO_FIELD_ID, goodsText.goods_detail_motivation_type());
 
