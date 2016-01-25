@@ -4,7 +4,6 @@ import static com.technology.jep.jepria.client.ui.WorkstateEnum.CREATE;
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.EDIT;
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.SEARCH;
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.VIEW_DETAILS;
-import static com.technology.jep.jepria.shared.JepRiaConstant.UNDEFINED_INT;
 import static com.technology.jep.jepria.shared.field.JepTypeEnum.BIGDECIMAL;
 import static com.technology.jep.jepria.shared.field.JepTypeEnum.BINARY_FILE;
 import static com.technology.jep.jepria.shared.field.JepTypeEnum.BOOLEAN;

@@ -777,6 +777,11 @@ public interface JepRiaToolkitConstant {
 	String PKG_PREFIX = "pkg_";
 	
 	/**
+	 * Целочисленная величина, значение которой считаем неопределенным.
+	 */
+	int UNDEFINED_INT = Integer.MIN_VALUE;
+	
+	/**
 	 * Нижнее подчеркивание
 	 */
 	String UNDERSCORE = "_";

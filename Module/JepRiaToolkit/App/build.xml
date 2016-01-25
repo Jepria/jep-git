@@ -1,14 +1,10 @@
 <project default="jar">
 	<property file="build.properties"/>        
-	<property name="J2EE_HOME" value="${OC4J_HOME}/j2ee/home" />
-	<property name="ANT_HOME" value="${OC4J_HOME}/ant/lib" />
-	<property name="JEP_RIA" value="${COMMON_HOME}/Module/JepRia/${JEP_RIA_VERSION}/App" />
-	<property name="JEP_RIA_SOURCE" value="${JEP_RIA}/src/java" />
 	<property name="MODULE_PACKAGE" value="com/technology/${PROJECT_NAME_IN_PACKAGE}/${MODULE_NAME_IN_PACKAGE}" />
 	<property name="JAVA_DOC_DIR" value="../Doc/App/AutoGen" />
 	<property name="LIBS" 
-		value="${JEP_RIA}/lib/jepria.jar;${PROJECT_COMMON}/lib/${PROJECT_NAME_IN_PACKAGE}common.jar;
-		${ANT_HOME}/ant.jar;classes"/>
+		value="${PROJECT_COMMON}/lib/${PROJECT_NAME_IN_PACKAGE}common.jar;
+		${ANT_HOME}/lib/ant.jar;classes"/>
 
 	<property name="LOG_LEVEL" value="info" />
 	
@@ -32,16 +28,7 @@
 			<fileset dir="classes"/>			
 		</delete>
 		<mkdir dir="classes" />
-
-        	<copy todir="src/java" overwrite="true">
-            		<fileset dir="${JEP_RIA_SOURCE}" includes="**/client/**/WorkstateEnum.java"/>
-            		<fileset dir="${JEP_RIA_SOURCE}" includes="**/shared/**/JepTypeEnum.java"/>
-        	</copy>
 		<javac srcdir="src/java" destdir="classes" classpath="${LIBS}" debug="on" encoding="utf-8" target="1.5" includeantruntime="false" />			
-
-		<delete includeemptydirs="true">
-			<fileset dir="src/java" includes="**/jepria/**"/>
-		</delete>
 	</target>
 
 	<target name="jar-update-check" depends="compile">
