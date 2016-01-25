@@ -2,7 +2,7 @@ package com.technology.jep.jepriashowcase.goods.shared.text;
 
 /**
  * Interface to represent the constants contained in resource bundle:
- * 	'D:/Project/JEPGit/Module/JepRiaShowcase/App/src/java/com/technology/jep/jepriashowcase/goods/shared/text/GoodsText.properties'.
+ * 	'D:/git/Jep/Module/JepRiaShowcase/App/src/java/com/technology/jep/jepriashowcase/goods/shared/text/GoodsText.properties'.
  */
 public interface GoodsText extends com.google.gwt.i18n.client.Constants {
   
@@ -68,15 +68,6 @@ public interface GoodsText extends com.google.gwt.i18n.client.Constants {
   @DefaultStringValue("Тип товара")
   @Key("goods.detail.goods_type")
   String goods_detail_goods_type();
-
-  /**
-   * Translated "Все".
-   * 
-   * @return translated "Все"
-   */
-  @DefaultStringValue("Все")
-  @Key("goods.detail.goods_type.empty_option_text")
-  String goods_detail_goods_type_empty_option_text();
 
   /**
    * Translated "Мотивация".
