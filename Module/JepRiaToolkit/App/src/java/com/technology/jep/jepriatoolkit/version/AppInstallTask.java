@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.text.MessageFormat;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPath;
@@ -35,8 +36,6 @@ public class AppInstallTask extends Task implements JepRiaToolkitConstant {
 	private String appInstallResultId = "";
 	
 	private ApplicationSetting appSetting;
-	
-	private String VERSION_SERVLET_URL = "";
 	
 	PropertyHelper ph;
 
@@ -82,30 +81,20 @@ public class AppInstallTask extends Task implements JepRiaToolkitConstant {
 				checkParameter(svnPath, "Incorrect argument: svnPath!");
 				checkParameter(svnVersionInfo, "Incorrect argument: svnVersionInfo!");
 				
-				VERSION_SERVLET_URL = JepRiaToolkitUtil.multipleConcat(
-					"{REPLACE_SERVER_URL}?"
-					, "action=startAppInstall"
-					, "&svnRoot={REPLACE_SVN_ROOT}"
-					, "&initPath={REPLACE_INIT_PATH}"
-					, "&modVersion={REPLACE_MODULE_VERSION}"
-					, "&instVersion={REPLACE_INSTALL_VERSION}"
-					, "&deployPath={REPLACE_DEPLOYMENT_PATH}"
-					, "&svnPath={REPLACE_SVN_PATH}"
-					, "&svnVersionInfo={REPLACE_SVN_VERSION_INFO}"
-					, "&login={REPLACE_LOGIN}"
-					, "&password={REPLACE_PASSWORD}");
-				
-				url = new URL(VERSION_SERVLET_URL
-					.replaceAll("\\{REPLACE_SERVER_URL\\}", JepRiaToolkitUtil.multipleConcat(JepRiaToolkitUtil.prepareServerUrl(HTTP_PROTOCOL, serverName, port), "/ModuleInfo/versionServlet"))
-					.replaceAll("\\{REPLACE_SVN_ROOT\\}", appSetting.getSvnRoot())
-					.replaceAll("\\{REPLACE_INIT_PATH\\}", appSetting.getInitialPath())
-					.replaceAll("\\{REPLACE_MODULE_VERSION\\}", appSetting.getModuleVersion())
-					.replaceAll("\\{REPLACE_DEPLOYMENT_PATH\\}", deploymentPath)
-					.replaceAll("\\{REPLACE_INSTALL_VERSION\\}", appSetting.getInstallVersion())
-					.replaceAll("\\{REPLACE_SVN_PATH\\}", svnPath)
-					.replaceAll("\\{REPLACE_SVN_VERSION_INFO\\}", svnVersionInfo)
-					.replaceAll("\\{REPLACE_LOGIN\\}", appSetting.getLogin())
-					.replaceAll("\\{REPLACE_PASSWORD\\}", appSetting.getPassword()));
+				url = new URL(
+					MessageFormat.format("{0}?action=startAppInstall&svnRoot={1}&initPath={2}"
+							+ "&modVersion={3}&instVersion={4}&deployPath={5}&svnPath={6}&svnVersionInfo={7}"
+							+ "&login={8}&password={9}",
+						JepRiaToolkitUtil.prepareServerUrl(HTTP_PROTOCOL, serverName, port) + "/ModuleInfo/versionServlet",
+						appSetting.getSvnRoot(),
+						appSetting.getInitialPath(),
+						appSetting.getModuleVersion(),
+						appSetting.getInstallVersion(),
+						deploymentPath,
+						svnPath,
+						svnVersionInfo,
+						appSetting.getLogin(),
+						appSetting.getPassword()));
 			}
 			
 			if ("finishAppInstall".equals(action)) {
@@ -119,26 +108,18 @@ public class AppInstallTask extends Task implements JepRiaToolkitConstant {
 						.substring(loadOperatorId.indexOf(PATH_SEPARATOR) + 1)
 						: loginAndPass[0];
 				serverName = JepRiaToolkitUtil.getServerName(deploymentPath.replace("\\", PATH_SEPARATOR));
-	
-				VERSION_SERVLET_URL = JepRiaToolkitUtil.multipleConcat(
-					"{REPLACE_SERVER_URL}?", 
-					"action=finishAppInstall",
-					"&appInstallResultId={REPLACE_APP_INSTALL_RESULT_ID}",
-					"&javaReturnCode={REPLACE_JAVA_RETURN_CODE}",
-					"&errorMessage={REPLACE_ERROR_MESSAGE}", 
-					"&login={REPLACE_LOGIN}",
-					"&password={REPLACE_PASSWORD}");
-						
-				url = new URL(VERSION_SERVLET_URL
-					.replaceAll("\\{REPLACE_SERVER_URL\\}", JepRiaToolkitUtil.multipleConcat(JepRiaToolkitUtil.prepareServerUrl(HTTP_PROTOCOL, serverName, port), "/ModuleInfo/versionServlet"))
-					.replaceAll("\\{REPLACE_DEPLOYMENT_PATH\\}", deploymentPath)
-					.replaceAll("\\{REPLACE_APP_INSTALL_RESULT_ID\\}", appInstallResultId)
-					.replaceAll("\\{REPLACE_JAVA_RETURN_CODE\\}", javaReturnCode)
-					.replaceAll("\\{REPLACE_ERROR_MESSAGE\\}", URLEncoder.encode(errorMessage, "UTF-8"))
-					.replaceAll("\\{REPLACE_LOGIN\\}", JepRiaToolkitUtil.encode(login))
-					.replaceAll("\\{REPLACE_PASSWORD\\}", JepRiaToolkitUtil.encode(password)));
-			}		
-			
+				
+				url = new URL(MessageFormat.format("{0}?action=finishAppInstall&appInstallResultId={1}&javaReturnCode={2}&errorMessage={3}"
+							+ "&login={4}&password={5}",
+						JepRiaToolkitUtil.prepareServerUrl(HTTP_PROTOCOL, serverName, port) + "/ModuleInfo/versionServlet",
+						appInstallResultId,
+						javaReturnCode,
+						URLEncoder.encode(errorMessage, "UTF-8"),
+						JepRiaToolkitUtil.encode(login),
+						JepRiaToolkitUtil.encode(password)
+						)
+					);
+			}
 			
 			HttpURLConnection versionServletConnection = getVersionServletConnection(url);
 			responseCode = versionServletConnection.getResponseCode();
@@ -181,11 +162,11 @@ public class AppInstallTask extends Task implements JepRiaToolkitConstant {
 		} 
 		catch (IOException e) {
 			//e.printStackTrace();
-			throw new BuildException("Connection refused. Check DEPLOYMENT_PATH & PORT parameters!");
+			throw new BuildException("Connection refused. Check DEPLOYMENT_PATH & PORT parameters! Details: " + e.getMessage(), e);
 		} 
 		catch (Exception e) {
 		//e.printStackTrace();
-		throw new BuildException(e.getMessage());
+		throw new BuildException(e.getMessage(), e);
 	} 
 
 	}
