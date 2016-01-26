@@ -550,6 +550,7 @@ JepRia API Reference
 <h3><a name="releaseNotes">Замечания к версиям</a></h3>
 <h4>Версии</h4>
 <ul>
+  <li><a href="#8.9.0">8.9.0 (2016-01-26)</a></li>
   <li><a href="#8.8.0">8.8.0 (2015-11-24)</a></li>
   <li><a href="#8.7.0">8.7.0 (2015-10-06)</a></li>
   <li><a href="#8.6.0">8.6.0 (2015-08-05)</a></li>
@@ -643,6 +644,39 @@ JepRia API Reference
   <li><a href="#2.1.0">2.1.0 (2011-03-11)</a></li>
   <li><a href="#2.0.0">2.0.0 (2011-03-03)</a></li>
   <li><a href="#1.0.0">1.0.0 (2010-11-01)</a></li>
+</ul>
+<h5><a name="8.9.0">8.9.0 (2016-01-26)</a></h5>
+<ul>
+  <li><b>fix:</b> Доработка и рефакторинг функционала CAS.</li>
+  <li><b>fix:</b> (JepRia_CR100) Устранена проблема с JepImageField: при пустом значении FireFox выводил &quot;отсутствующую картинку&quot;.</li>
+  <li><b>fix:</b> Добавлена поддержка русских букв в JepMaskedTextField.</li>
+  <li><b>fix:</b> JepListField: устранена проблема с отображением данных при динамическом изменении видимости поля.</li>
+  <li><b>feat:</b> JepIntegerField: добавлен конструктор с возможностью указания DOM ID.</li>
+  <li><b>feat:</b> (JepRia_CR147) Доработка JepGrid:
+    <ul>
+      <li>Добавлена всплывающая подсказка к заголовкам столбцов.</li>
+      <li>Обеспечено корректное выравнивание числовых и логических значений.</li>
+      <li>Для заголовка и ячеек созданы отдельные стили.</li>
+      <li>Стиль jepGrid-normalWrap переименован в jepRia-Grid-normalWrap.</li>
+    </ul>
+  </li>
+  <li><b>feat:</b> Реализована поддержка &quot;пустых&quot; значений JepOption и JepFileReference.</li>
+  <li><b>feat:</b> Изменение порядка обработки JepOption в EJB:.
+    <ul>
+      <li>Метод JepDataBean.getValueFromOption() помечен как deprecated.</li>
+      <li>Реализация JepOption.getValue() модифицирована таким образом, чтобы в случае, когда в качестве параметра передан объект, 
+      не являющийся JepOption, выбрасывалось исключение ClassCastException.</li>
+    </ul>
+  </li>
+  <li><b>fix:</b> Метод JepRiaUtil.isEmpty() доработан с учётом поддержки List и JepOption.</li>  
+  <li><b>feat:</b> Доработка JepClientUtil:
+    <ul>
+      <li>В метод goToUrl() добавлена поддержка FTP.</li>
+      <li>Обеспечена корректная работа goToUrl() для абсолютных ссылок.</li>
+      <li>Добавлен метод getElementValue().</li>
+      <li>Рефакторинг и документирование.</li>
+    </ul>
+  </li>
 </ul>
 <h5><a name="8.8.0">8.8.0 (2015-11-24)</a></h5>
 <ul>

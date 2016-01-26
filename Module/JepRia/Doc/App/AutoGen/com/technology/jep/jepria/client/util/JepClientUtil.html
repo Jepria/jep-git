@@ -273,7 +273,7 @@ java.lang.Object
 <TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/client/util/JepClientUtil.html#goToUrl(java.lang.String)">goToUrl</A></B>(java.lang.String&nbsp;url)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Функция для перехода по ссылке</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -501,8 +501,10 @@ goToUrl</H3>
 <PRE>
 public static void <B>goToUrl</B>(java.lang.String&nbsp;url)</PRE>
 <DL>
+<DD>Функция для перехода по ссылке
+<P>
 <DD><DL>
-</DL>
+<DT><B>Parameters:</B><DD><CODE>url</CODE> - ссылка в любов формате (прямая, относительная, без указания протокола)</DL>
 </DD>
 </DL>
 <HR>
@@ -677,7 +679,7 @@ private static java.lang.String <B>safeRegexReplacement</B>(java.lang.String&nbs
 <DD><DL>
 <DT><B>Parameters:</B><DD><CODE>replacement</CODE> - the regular expression replacement text
 <DT><B>Returns:</B><DD>null if replacement is null or the result of escaping all \ and $
-         characters</DL>
+ characters</DL>
 </DD>
 </DL>
 <HR>
@@ -693,7 +695,7 @@ public static double <B>extractLengthValue</B>(java.lang.String&nbsp;s)</PRE>
 <DD><DL>
 <DT><B>Parameters:</B><DD><CODE>s</CODE> - The CSS length string to extract
 <DT><B>Returns:</B><DD>The leading numeric portion of <code>s</code>, or 0 if "auto" or
-         "inherit" are passed in.</DL>
+ "inherit" are passed in.</DL>
 </DD>
 </DL>
 <HR>
@@ -764,8 +766,8 @@ adjustToTop</H3>
 public static void <B>adjustToTop</B>(com.google.gwt.dom.client.Element&nbsp;elem)</PRE>
 <DL>
 <DD>Поддержание активного элемента списка видимым при прокручивании списка мышью.<br/>
- 
- Если в выпадающем меню содержится такое количество опций, что пользователю приходится прокручивать список мышью, 
+
+ Если в выпадающем меню содержится такое количество опций, что пользователю приходится прокручивать список мышью,
  то возникает необходимость выравнивать элемент по высоте так, чтобы активный элемент списка стал видимым.<br/>
  Данная операция используется в таких виджетах, как <A HREF="../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.html" title="class in com.technology.jep.jepria.client.widget.field"><CODE>ComboBox</CODE></A> и <A HREF="../../../../../../com/technology/jep/jepria/client/widget/list/header/menu/GridHeaderMenuBar.html" title="class in com.technology.jep.jepria.client.widget.list.header.menu"><CODE>GridHeaderMenuBar</CODE></A>.
 <P>
@@ -780,8 +782,8 @@ jsTrim</H3>
 <PRE>
 public static java.lang.String <B>jsTrim</B>(java.lang.String&nbsp;s)</PRE>
 <DL>
-<DD>String.trim() is limited for using in all cases.        
- Particularly, it doesn't include such html-entity as &nbsp ( ), 
+<DD>String.trim() is limited for using in all cases.
+ Particularly, it doesn't include such html-entity as &nbsp ( ),
  To solve that, add the unicode to the RegEx.
 <P>
 <DD><DL>
@@ -800,7 +802,7 @@ private static java.lang.String <B>getElementValue</B>(java.lang.String&nbsp;id)
 <P>
 <DD><DL>
 <DT><B>Parameters:</B><DD><CODE>id</CODE> - в DOM
-<DT><B>Returns:</B><DD>значение в виде строки</DL>
+<DT><B>Returns:</B><DD>значение в виде строки, если элемент не найден возвращается null, если элемент пустой возращается пустая строка</DL>
 </DD>
 </DL>
 <!-- ========= END OF CLASS DATA ========= -->
