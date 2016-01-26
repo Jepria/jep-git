@@ -529,7 +529,7 @@
 					<isset Property="CAS_CLIENT_VERSION" />
 					<then>
 						<copy todir="temp-ear/lib">
-							<fileset dir="${COMMON_HOME}/Module/cas-client-3.1.12_customized/${CAS_CLIENT_VERSION}/cas-client-core/lib" includes="cas-client-core-3.1.12-customized.jar" />
+							<fileset dir="${COMMON_HOME}/Module/cas-client-3.1.12_customized/${CAS_CLIENT_VERSION}/App/lib" includes="cas-client-core-3.1.12-customized.jar" />
 						</copy>
 					</then>
 				</if>
@@ -552,7 +552,7 @@
 		<if>
 			<isset Property="WL_DEPLOY_TARGETS" />
 			<then>
-				<taskdef classname="weblogic.ant.taskdefs.management.WLDeploy" classpath="${WL_LIB_HOME}/weblogic.jar" name="wldeploy" />
+				<taskdef classname="weblogic.ant.taskdefs.management.WLDeploy" classpath="${WL_LIB_HOME}/wlfullclient.jar" name="wldeploy" />
 				<echo message="Deploy to Weblogic" />
 				<wldeploy
 					action="deploy"
@@ -616,7 +616,7 @@
 		<if>
 			<isset Property="WL_DEPLOY_TARGETS" />
 			<then>
-				<taskdef classname="weblogic.ant.taskdefs.management.WLDeploy" classpath="${WL_LIB_HOME}/weblogic.jar" name="wldeploy" />
+				<taskdef classname="weblogic.ant.taskdefs.management.WLDeploy" classpath="${WL_LIB_HOME}/wlfullclient.jar" name="wldeploy" />
 				<echo message="Deploy to Weblogic" />
 				<trycatch>
 					<try>
