@@ -6,7 +6,6 @@ import javax.transaction.HeuristicMixedException;
 import javax.transaction.HeuristicRollbackException;
 import javax.transaction.RollbackException;
 import javax.transaction.Status;
-import javax.transaction.UserTransaction;
 
 import com.technology.jep.jepria.server.db.LargeObject;
 import com.technology.jep.jepria.server.ejb.CallContext;
@@ -45,7 +44,9 @@ public abstract class AbstractFileDownloadBean implements FileDownload {
 		CallContext.attach(storedContext);
 		try {
 			largeObject.endRead();
-			sessionContext.getUserTransaction().commit();
+			if (isActiveUserTransaction()) { 
+				sessionContext.getUserTransaction().commit();
+			}
 		} catch (SpaceException ex) {
 			cancel();
 			throw ex;
@@ -76,9 +77,8 @@ public abstract class AbstractFileDownloadBean implements FileDownload {
 			if (largeObject != null) {
 				largeObject.cancel();
 			}
-			UserTransaction transaction = sessionContext.getUserTransaction();
-			if (transaction.getStatus() == Status.STATUS_ACTIVE) {
-				transaction.rollback();
+			if (isActiveUserTransaction()) {
+				sessionContext.getUserTransaction().rollback();
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -89,5 +89,15 @@ public abstract class AbstractFileDownloadBean implements FileDownload {
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	/**
+	 * Проверка активности транзакции
+	 * 
+	 * @return признак активности текущей транзакции
+	 * @throws javax.transaction.SystemException
+	 */
+	protected boolean isActiveUserTransaction() throws javax.transaction.SystemException {
+		return sessionContext.getUserTransaction().getStatus() == Status.STATUS_ACTIVE;
 	}
 }
