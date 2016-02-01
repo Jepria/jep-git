@@ -79,7 +79,7 @@ public class NavigationGenerator extends Task implements JepRiaToolkitConstant {
 	    	
 	    	for(int i = 0; i < app.forms.size(); i++){
 	    		String formName = (String)app.forms.get(i);
-	    		if (!JepRiaToolkitUtil.isEmpty(app.isDependentForm(formName))) continue;
+	    		if (!JepRiaToolkitUtil.isEmpty(app.getMainFormNameIfExist(formName))) continue;
 	    		
 		    	Element menuElement = doc.createElement("menu");
 		    	menuElement.setAttribute("name", 
@@ -136,7 +136,7 @@ public class NavigationGenerator extends Task implements JepRiaToolkitConstant {
 		    	
     	for(int i = 0; i < app.forms.size(); i++){
     		String formName = (String)app.forms.get(i);
-    		if (!JepRiaToolkitUtil.isEmpty(app.isDependentForm(formName))) continue;
+    		if (!JepRiaToolkitUtil.isEmpty(app.getMainFormNameIfExist(formName))) continue;
     		Map<Module, List<ModuleField>> hm = app.getModuleWithFieldsById(formName);
 			Module module = hm.keySet().iterator().next();
     		content += JepRiaToolkitUtil.multipleConcat(END_OF_LINE, "navigation.", packageName.toLowerCase(), ".",  moduleName.toLowerCase(), ".", formName.toLowerCase(), "=", module.getModuleName());

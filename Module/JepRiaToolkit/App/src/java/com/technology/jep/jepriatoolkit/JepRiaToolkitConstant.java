@@ -1,5 +1,7 @@
 package com.technology.jep.jepriatoolkit;
 
+import java.util.ResourceBundle;
+
 import com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil;
 
 public interface JepRiaToolkitConstant {	
@@ -154,9 +156,9 @@ public interface JepRiaToolkitConstant {
 	String APPLICATION_TAG_NAME = "application";
 	
 	/**
-	 * Наименование файла по сборке приложения
+	 * Окончание в наименовании конфигурационного файла приложения, хранящего его структуру
 	 */
-	String APPLICATION_SETTING_XML = "JepApplication.xml";
+	String APPLICATION_SETTING_FILE_ENDING = "Definition.xml";
 	
 	/**
 	 * Наименование атрибута, отвечающего за наименование приложения
@@ -801,9 +803,144 @@ public interface JepRiaToolkitConstant {
 	 */
 	String WARNING_PREFIX = "[WARNING] ";
 	
-	public static String BUILD_CONFIG_PATH_PREFIX = "config\\"; 
-	public static String BUILD_CONFIG_FILE_NAME = "build.config";
-	public static String DEBUG_BUILD_CONFIG_NAME = "debug";
-	public static String RELEASE_BUILD_CONFIG_NAME = "production";
-
+	String BUILD_CONFIG_PATH_PREFIX = "config\\"; 
+	String BUILD_CONFIG_FILE_NAME = "build.config";
+	String DEBUG_BUILD_CONFIG_NAME = "debug";
+	String RELEASE_BUILD_CONFIG_NAME = "production";
+	
+	String APPLICATION_DEFINITION_RESOURCE_BUNDLE_NAME = "com.technology.jep.jepriatoolkit.creator.ApplicationDefinition";
+	
+	ResourceBundle applicationResourceBundle = ResourceBundle.getBundle(APPLICATION_DEFINITION_RESOURCE_BUNDLE_NAME);
+	
+	String LIB_DIRECTORY_PROPERTY = "fileStructure.libraryDirectory";
+	String HTML_DIRECTORY_PROPERTY = "fileStructure.htmlDirectory";
+	String RESOURCE_DIRECTORY_PROPERTY = "fileStructure.resourceDirectory";
+	String MAIN_MODULE_DIRECTORY_PROPERTY = "fileStructure.mainModuleDirectory";
+	String ENTRANCE_DIRECTORY_PROPERTY = "fileStructure.entranceDirectory";
+	String MAIN_TEXT_RESOURCE_DIRECTORY_PROPERTY = "fileStructure.mainTextResourceDirectory";
+	String CLIENT_MODULE_PLAIN_FORM_DIRECTORY_PROPERTY = "fileStructure.clientModulePlainFormDirectory";
+	String CLIENT_MODULE_DETAIL_FORM_DIRECTORY_PROPERTY = "fileStructure.clientModuleDetailFormDirectory";
+	String CLIENT_MODULE_LIST_FORM_DIRECTORY_PROPERTY = "fileStructure.clientModuleListFormDirectory";
+	String CLIENT_MODULE_EJB_DIRECTORY_PROPERTY = "fileStructure.clientModuleEjbDirectory";
+	String CLIENT_MODULE_SERVICE_IMPL_DIRECTORY_PROPERTY = "fileStructure.clientModuleServiceImplDirectory";
+	String CLIENT_MODULE_FIELD_DIRECTORY_PROPERTY = "fileStructure.clientModuleFieldDirectory";
+	String CLIENT_MODULE_RECORD_DIRECTORY_PROPERTY = "fileStructure.clientModuleRecordDirectory";
+	String CLIENT_MODULE_SERVICE_DIRECTORY_PROPERTY = "fileStructure.clientModuleServiceDirectory";
+	String CLIENT_MODULE_TEXT_RESOURCE_DIRECTORY_PROPERTY = "fileStructure.clientTextResourceDirectory";
+	String CONFIG_HTML_DIRECTORY_PROPERTY = "fileStructure.configHtmlDirectory";
+	String CONFIG_MAIN_PACKAGE_DIRECTORY_PROPERTY = "fileStructure.configMainPackageDirectory";
+	
+	String WEB_XML_TEMPLATE_PROPERTY = "fileTemplate.webXml";
+	String WEB_XML_PATH_TEMPLATE_PROPERTY = "fileTemplate.webXml.path";
+	
+	String APPLICATION_XML_TEMPLATE_PROPERTY = "fileTemplate.applicationXml";
+	String APPLICATION_XML_PATH_TEMPLATE_PROPERTY = "fileTemplate.applicationXml.path";
+	
+	String ORION_APPLICATION_XML_TEMPLATE_PROPERTY = "fileTemplate.orionApplicationXml";
+	String ORION_APPLICATION_XML_PATH_TEMPLATE_PROPERTY = "fileTemplate.orionApplicationXml.path";
+	
+	String MAIN_GWT_XML_DEBUG_TEMPLATE_PROPERTY = "fileTemplate.mainGwtXml.debug";
+	String MAIN_GWT_XML_PRODUCTION_TEMPLATE_PROPERTY = "fileTemplate.mainGwtXml.production";
+	String MAIN_GWT_XML_PATH_TEMPLATE_PROPERTY = "fileTemplate.mainGwtXml.path";
+	
+	String CLIENT_MODULE_GWT_XML_TEMPLATE_PROPERTY = "fileTemplate.clientModuleGwtXml";
+	String CLIENT_MODULE_GWT_XML_PATH_TEMPLATE_PROPERTY = "fileTemplate.clientModuleGwtXml.path";
+	
+	String APPLICATION_JSP_TEMPLATE_PROPERTY = "fileTemplate.applicationJsp";
+	String APPLICATION_JSP_PATH_TEMPLATE_PROPERTY = "fileTemplate.applicationJsp.path";
+	
+	String APPLICATION_CSS_PATH_TEMPLATE_PROPERTY = "fileTemplate.applicationCss.path";
+	
+	String MAIN_TEXT_RESOURCE_TEMPLATE_PROPERTY = "fileTemplate.mainText";
+	String MAIN_TEXT_RESOURCE_PATH_TEMPLATE_PROPERTY = "fileTemplate.mainText.path";
+	
+	String MAIN_TEXT_RESOURCE_EN_TEMPLATE_PROPERTY = "fileTemplate.mainTextEn";
+	String MAIN_TEXT_RESOURCE_EN_PATH_TEMPLATE_PROPERTY = "fileTemplate.mainTextEn.path";
+	
+	String CLIENT_MODULE_TEXT_RESOURCE_TEMPLATE_PROPERTY = "fileTemplate.clientModuleText";
+	String CLIENT_MODULE_TEXT_RESOURCE_PATH_TEMPLATE_PROPERTY = "fileTemplate.clientModuleText.path";
+	
+	String CLIENT_MODULE_TEXT_RESOURCE_EN_TEMPLATE_PROPERTY = "fileTemplate.clientModuleTextEn";
+	String CLIENT_MODULE_TEXT_RESOURCE_EN_PATH_TEMPLATE_PROPERTY = "fileTemplate.clientModuleTextEn.path";
+	
+	String OVERVIEW_TEMPLATE_PROPERTY = "fileTemplate.overview";
+	String OVERVIEW_PATH_TEMPLATE_PROPERTY = "fileTemplate.overview.path";
+	
+	String CLIENT_MODULE_CONSTANT_TEMPLATE_PROPERTY = "fileTemplate.clientConstant";
+	String CLIENT_MODULE_CONSTANT_PATH_TEMPLATE_PROPERTY = "fileTemplate.clientConstant.path";
+	
+	String MAIN_MODULE_CONSTANT_TEMPLATE_PROPERTY = "fileTemplate.mainConstant";
+	String MAIN_MODULE_CONSTANT_PATH_TEMPLATE_PROPERTY = "fileTemplate.mainConstant.path";
+	
+	String CLIENT_MODULE_FACTORY_TEMPLATE_PROPERTY = "fileTemplate.clientFactory";
+	String CLIENT_MODULE_FACTORY_PATH_TEMPLATE_PROPERTY = "fileTemplate.clientFactory.path";
+	
+	String MAIN_MODULE_FACTORY_TEMPLATE_PROPERTY = "fileTemplate.mainFactory";
+	String MAIN_MODULE_FACTORY_PATH_TEMPLATE_PROPERTY = "fileTemplate.mainFactory.path";
+	
+	String MODULE_ENTRY_POINT_TEMPLATE_PROPERTY = "fileTemplate.moduleEntryPoint";
+	String MODULE_ENTRY_POINT_PATH_TEMPLATE_PROPERTY = "fileTemplate.moduleEntryPoint.path";
+	
+	String CLIENT_MODULE_DETAIL_FORM_PRESENTER_TEMPLATE_PROPERTY = "fileTemplate.clientModuleDetailFormPresenter";
+	String CLIENT_MODULE_DETAIL_FORM_PRESENTER_PATH_TEMPLATE_PROPERTY = "fileTemplate.clientModuleDetailFormPresenter.path";
+	
+	String CLIENT_MODULE_DETAIL_FORM_VIEW_TEMPLATE_PROPERTY = "fileTemplate.clientModuleDetailFormView";
+	String CLIENT_MODULE_DETAIL_FORM_VIEW_PATH_TEMPLATE_PROPERTY = "fileTemplate.clientModuleDetailFormView.path";
+	
+	String CLIENT_MODULE_DETAIL_FORM_VIEW_IMPL_TEMPLATE_PROPERTY = "fileTemplate.clientModuleDetailFormViewImpl";
+	String CLIENT_MODULE_DETAIL_FORM_VIEW_IMPL_PATH_TEMPLATE_PROPERTY = "fileTemplate.clientModuleDetailFormViewImpl.path";
+	
+	String CLIENT_MODULE_LIST_FORM_PRESENTER_TEMPLATE_PROPERTY = "fileTemplate.clientModuleListFormPresenter";
+	String CLIENT_MODULE_LIST_FORM_PRESENTER_PATH_TEMPLATE_PROPERTY = "fileTemplate.clientModuleListFormPresenter.path";
+	
+	String CLIENT_MODULE_LIST_FORM_VIEW_IMPL_TEMPLATE_PROPERTY = "fileTemplate.clientModuleListFormViewImpl";
+	String CLIENT_MODULE_LIST_FORM_VIEW_IMPL_PATH_TEMPLATE_PROPERTY = "fileTemplate.clientModuleListFormViewImpl.path";
+	
+	String CLIENT_MODULE_PRESENTER_TEMPLATE_PROPERTY = "fileTemplate.clientModulePresenter";
+	String CLIENT_MODULE_PRESENTER_PATH_TEMPLATE_PROPERTY = "fileTemplate.clientModulePresenter.path";
+	
+	String MAIN_MODULE_PRESENTER_TEMPLATE_PROPERTY = "fileTemplate.mainModulePresenter";
+	String MAIN_MODULE_PRESENTER_PATH_TEMPLATE_PROPERTY = "fileTemplate.mainModulePresenter.path";
+	
+	String CLIENT_MODULE_SERVICE_IMPL_TEMPLATE_PROPERTY = "fileTemplate.clientModuleServiceImpl";
+	String CLIENT_MODULE_SERVICE_IMPL_PATH_TEMPLATE_PROPERTY = "fileTemplate.clientModuleServiceImpl.path";
+	
+	String CLIENT_MODULE_UPLOAD_SERVICE_IMPL_TEMPLATE_PROPERTY = "fileTemplate.clientModuleUploadServiceImpl";
+	String CLIENT_MODULE_UPLOAD_SERVICE_IMPL_PATH_TEMPLATE_PROPERTY = "fileTemplate.clientModuleUploadServiceImpl.path";
+	
+	String CLIENT_MODULE_DOWNLOAD_SERVICE_IMPL_TEMPLATE_PROPERTY = "fileTemplate.clientModuleDownloadServiceImpl";
+	String CLIENT_MODULE_DOWNLOAD_SERVICE_IMPL_PATH_TEMPLATE_PROPERTY = "fileTemplate.clientModuleDownloadServiceImpl.path";
+	
+	String CLIENT_MODULE_EXCEL_SERVICE_IMPL_TEMPLATE_PROPERTY = "fileTemplate.clientModuleExcelServiceImpl";
+	String CLIENT_MODULE_EXCEL_SERVICE_IMPL_PATH_TEMPLATE_PROPERTY = "fileTemplate.clientModuleExcelServiceImpl.path";
+	
+	String CLIENT_MODULE_SERVER_CONSTANT_TEMPLATE_PROPERTY = "fileTemplate.clientModuleServerConstant";
+	String CLIENT_MODULE_SERVER_CONSTANT_PATH_TEMPLATE_PROPERTY = "fileTemplate.clientModuleServerConstant.path";
+	
+	String CLIENT_MODULE_LOCAL_EJB_TEMPLATE_PROPERTY = "fileTemplate.clientModuleLocalEjb";
+	String CLIENT_MODULE_LOCAL_EJB_PATH_TEMPLATE_PROPERTY = "fileTemplate.clientModuleLocalEjb.path";
+	
+	String CLIENT_MODULE_REMOTE_EJB_TEMPLATE_PROPERTY = "fileTemplate.clientModuleRemoteEjb";
+	String CLIENT_MODULE_REMOTE_EJB_PATH_TEMPLATE_PROPERTY = "fileTemplate.clientModuleRemoteEjb.path";
+	
+	String CLIENT_MODULE_EJB_INTERFACE_TEMPLATE_PROPERTY = "fileTemplate.clientModuleEjbInterface";
+	String CLIENT_MODULE_EJB_INTERFACE_PATH_TEMPLATE_PROPERTY = "fileTemplate.clientModuleEjbInterface.path";
+	
+	String CLIENT_MODULE_FIELDS_TEMPLATE_PROPERTY = "fileTemplate.clientModuleFields";
+	String CLIENT_MODULE_FIELDS_PATH_TEMPLATE_PROPERTY = "fileTemplate.clientModuleFields.path";
+	
+	String CLIENT_MODULE_OPTIONS_TEMPLATE_PROPERTY = "fileTemplate.clientModuleOptions";
+	String CLIENT_MODULE_OPTIONS_PATH_TEMPLATE_PROPERTY = "fileTemplate.clientModuleOptions.path";
+	
+	String CURRENT_DIRECTORY_ENVIRONMENT_VARIABLE = "user.dir";
+	
+	String MODULE_NAME_TEMPLATE_PARAMETER = "moduleName";
+	String PACKAGE_NAME_TEMPLATE_PARAMETER = "packageName";
+	String SECURITY_ROLES_TEMPLATE_PARAMETER = "securityRoles";
+	String FORMS_TEMPLATE_PARAMETER = "forms";
+	String FORM_TEMPLATE_PARAMETER = "form";
+	String FIELD_TEMPLATE_PARAMETER = "field";
+	String HAS_TEXT_FILE_TEMPLATE_PARAMETER = "hasTextFile";
+	String HAS_BINARY_FILE_TEMPLATE_PARAMETER = "hasBinaryFile";
+	String FORM_NAME_TEMPLATE_PARAMETER = "formName";
 }

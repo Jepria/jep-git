@@ -74,18 +74,32 @@ public class Module implements JepRiaToolkitConstant {
 		   				detailFormButtons = new ArrayList<ModuleButton>();
 		try {
 			for (ModuleButton customButton : customButtons){
-				if (form.equals(customButton.isAvailableOnForm())){
+				if (form.equals(customButton.getPlacedForm())){
 					detailFormButtons.add(customButton);
 				}
 			}
 		}
 		catch(UnsupportedDataTypeException e){
-			//e.printStackTrace();
-			JepRiaToolkitUtil.echoMessage(
-					JepRiaToolkitUtil.multipleConcat(ERROR_PREFIX, e.getLocalizedMessage()));
+			JepRiaToolkitUtil.echoMessage(JepRiaToolkitUtil.multipleConcat(ERROR_PREFIX, e.getLocalizedMessage()));
 		}
 		return detailFormButtons;
-	}	
+	}
+	public static List<ModuleButton> getToolBarCustomButtonsForForm(List<ModuleButton> customButtons, FORM form) {
+		if (JepRiaToolkitUtil.isEmpty(customButtons)) return customButtons;
+		
+		List<ModuleButton> detailFormButtons = new ArrayList<ModuleButton>();
+		try {
+			for (ModuleButton customButton : customButtons){
+				if (form.equals(customButton.getPlacedForm())){
+					detailFormButtons.add(customButton);
+				}
+			}
+		}
+		catch(UnsupportedDataTypeException e){
+			JepRiaToolkitUtil.echoMessage(JepRiaToolkitUtil.multipleConcat(ERROR_PREFIX, e.getLocalizedMessage()));
+		}
+		return detailFormButtons;
+	}
 	public void setToolBarButtons(List<ModuleButton> toolbarButtons) {
 		this.toolbarButtons = toolbarButtons;
 	}
@@ -222,6 +236,8 @@ public class Module implements JepRiaToolkitConstant {
 		return fieldLabelWidth;
 	}
 	public void setFieldLabelWidth(String fieldLabelWidth) {
-		this.fieldLabelWidth = fieldLabelWidth;
+		if (!JepRiaToolkitUtil.isEmpty(fieldLabelWidth)) {
+			this.fieldLabelWidth = fieldLabelWidth;
+		}
 	}
 }

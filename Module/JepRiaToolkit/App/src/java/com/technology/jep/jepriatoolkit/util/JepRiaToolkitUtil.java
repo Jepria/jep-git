@@ -4,6 +4,7 @@ import static com.technology.jep.jepria.client.ui.WorkstateEnum.CREATE;
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.EDIT;
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.SEARCH;
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.VIEW_DETAILS;
+import static com.technology.jep.jepria.shared.JepRiaConstant.UNDEFINED_INT;
 import static com.technology.jep.jepria.shared.field.JepTypeEnum.BIGDECIMAL;
 import static com.technology.jep.jepria.shared.field.JepTypeEnum.BINARY_FILE;
 import static com.technology.jep.jepria.shared.field.JepTypeEnum.BOOLEAN;
@@ -11,8 +12,11 @@ import static com.technology.jep.jepria.shared.field.JepTypeEnum.DATE;
 import static com.technology.jep.jepria.shared.field.JepTypeEnum.INTEGER;
 import static com.technology.jep.jepria.shared.field.JepTypeEnum.STRING;
 import static com.technology.jep.jepria.shared.field.JepTypeEnum.TIME;
+import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.getTemplateConfiguration;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileFilter;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -21,6 +25,7 @@ import java.io.InputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.io.Writer;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.nio.channels.FileChannel;
@@ -28,6 +33,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.ResourceBundle;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 import java.util.regex.Pattern;
@@ -58,10 +66,19 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import com.technology.jep.jepriatoolkit.creator.module.ModuleField;
 import com.technology.jep.jepria.client.ui.WorkstateEnum;
 import com.technology.jep.jepria.shared.field.JepTypeEnum;
 import com.technology.jep.jepriatoolkit.JepRiaToolkitConstant;
+import com.technology.jep.jepriatoolkit.creator.module.ModuleField;
+
+import freemarker.core.ParseException;
+import freemarker.template.Configuration;
+import freemarker.template.MalformedTemplateNameException;
+import freemarker.template.ObjectWrapper;
+import freemarker.template.Template;
+import freemarker.template.TemplateException;
+import freemarker.template.TemplateExceptionHandler;
+import freemarker.template.TemplateNotFoundException;
 
 public final class JepRiaToolkitUtil implements JepRiaToolkitConstant {
 
@@ -686,6 +703,19 @@ public final class JepRiaToolkitUtil implements JepRiaToolkitConstant {
 	public static boolean isEmpty(Integer sourceInteger) {
 		return sourceInteger == null || sourceInteger.intValue() == UNDEFINED_INT;
 	}
+	
+	/**
+	 * Функция определяет: является ли переданное ей число пустым или неопределенным.
+	 * 
+	 * @param sourceList
+	 *            исходное число, которое проверяем
+	 * 
+	 * @return возвращает true, если передано значение null или переданное
+	 *         значение не определено
+	 */
+	public static boolean isEmpty(List<?> sourceList) {
+		return sourceList == null || sourceList.isEmpty();
+	}
 
 	/**
 	 * Функция определяет: является ли переданный объект пустым.
@@ -699,6 +729,12 @@ public final class JepRiaToolkitUtil implements JepRiaToolkitConstant {
 			return isEmpty((String) obj);
 		} else if (obj instanceof Integer) {
 			return isEmpty((Integer) obj);
+		}
+		else if (obj instanceof Integer) {
+			return isEmpty((Integer) obj);
+		}
+		else if (obj instanceof List) {
+			return isEmpty((List<?>) obj);
 		}
 		return false;
 	}
@@ -852,6 +888,88 @@ public final class JepRiaToolkitUtil implements JepRiaToolkitConstant {
 	public static void checkParameter(String paramName, String errorMessage) {
 		if (isEmptyOrNotInitializedParameter(paramName)) {
 			throw new BuildException(errorMessage);
+		}
+	}
+	
+	public static String getDefinitionProperty(String property, String defaultValue, ResourceBundle... appResourceBundles){
+		String value = (appResourceBundles.length == 0 ? applicationResourceBundle : appResourceBundles[0]).getString(property);
+		return isEmpty(value) ? defaultValue : value;
+	}
+	
+	public static String getApplicationDefinitionFile(){
+		File file = new File(System.getProperty(CURRENT_DIRECTORY_ENVIRONMENT_VARIABLE));
+		// filter files in current directory which match the requirements
+		File[] appropriateFiles = file.listFiles(new FileFilter() {
+			@Override
+			public boolean accept(File pathname) {
+				return pathname.getName().endsWith(APPLICATION_SETTING_FILE_ENDING);
+			}
+		});
+		if (appropriateFiles.length > 1){
+			throw new BuildException("You should directly determine file for application definition with help -DAPPLICATION_STRUCTURE_FILE_PATH argument in command line!");
+		}
+		else if (appropriateFiles.length == 0){
+			throw new BuildException("File of application definition not found in current directory!");
+		}
+		else {
+			return appropriateFiles[0].getName();
+		}
+	}
+	
+	private static Configuration cfg = null;
+	
+	public static Configuration getTemplateConfiguration(){
+		if (cfg == null) {
+			// Create your Configuration instance, and specify if up to what FreeMarker
+			// version (here 2.3.22) do you want to apply the fixes that are not 100%
+			// backward-compatible. See the Configuration JavaDoc for details.
+			cfg = new Configuration(Configuration.VERSION_2_3_23);
+	
+			// Specify the source where the template files come from. Here I set a
+			// plain directory for it, but non-file-system sources are possible too:
+			cfg.setClassForTemplateLoading(JepRiaToolkitUtil.class, "/com/technology/jep/jepriatoolkit/creator/template");
+			// Set the preferred charset template files are stored in. UTF-8 is
+			// a good choice in most applications:
+			cfg.setDefaultEncoding(UTF_8);
+			//charset of the output
+			cfg.setOutputEncoding(UTF_8);
+			//default locale
+		    cfg.setLocale(Locale.US);
+			// Sets how errors will appear.
+			// During web page *development* TemplateExceptionHandler.HTML_DEBUG_HANDLER is better.
+			cfg.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
+		}
+		return cfg;
+	}
+	
+	public static void convertTemplateToFile(String templateFile, Map<String, Object> dataToMap, String resultFile){
+		try {
+			Template webXmlTemplate = getTemplateConfiguration().getTemplate(templateFile);
+			Writer bufferedWriter = new BufferedWriter(
+				new OutputStreamWriter(
+					new FileOutputStream(
+						resultFile
+					), 
+					UTF_8
+				)
+			);
+			try {
+				webXmlTemplate.process(dataToMap, bufferedWriter);
+			}
+			finally {
+				bufferedWriter.close();
+			}
+			
+		} catch (TemplateNotFoundException e) {
+			e.printStackTrace();
+		} catch (MalformedTemplateNameException e) {
+			e.printStackTrace();
+		} catch (ParseException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (TemplateException e) {
+			e.printStackTrace();
 		}
 	}
 }

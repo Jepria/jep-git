@@ -24,7 +24,6 @@ public class ModuleButton implements JepRiaToolkitConstant {
 	private String buttonId;
 	private WorkstateEnum[] workStates;
 	private String image;
-	private String imageDisabled;
 	private String event;
 	private String text;
 	private String name;
@@ -39,41 +38,35 @@ public class ModuleButton implements JepRiaToolkitConstant {
 				ADD_BUTTON_ID
 				, new WorkstateEnum[]{ SELECTED, EDIT, VIEW_LIST, VIEW_DETAILS, SEARCH }
 				, "add"
-				, null
 				, "add();"
 				, "button_add_alt"));
 		STANDARD_TOOLBAR.put(SAVE_BUTTON_ID, new ModuleButton(
 				SAVE_BUTTON_ID
 				, new WorkstateEnum[]{ CREATE, EDIT }
 				, "save"
-				, null
 				, "save();"
 				, "button_save_alt"));
 		STANDARD_TOOLBAR.put(EDIT_BUTTON_ID, new ModuleButton(
 				EDIT_BUTTON_ID
 				, new WorkstateEnum[]{ SELECTED, VIEW_DETAILS }
 				, "edit"
-				, null
 				, "edit();"
 				, "button_edit_alt"));
 		STANDARD_TOOLBAR.put(DELETE_BUTTON_ID, new ModuleButton(
 				DELETE_BUTTON_ID
 				, new WorkstateEnum[]{ SELECTED, EDIT, VIEW_DETAILS }
 				, "delete"
-				, null
 				, "delete();"
 				, "button_delete_alt"));
 		STANDARD_TOOLBAR.put(VIEW_DETAILS_BUTTON_ID, new ModuleButton(
 				VIEW_DETAILS_BUTTON_ID
 				, new WorkstateEnum[]{ SELECTED, EDIT }
 				, "view"
-				, null
 				, "viewDetails();"
 				, "button_view_alt"));
 		STANDARD_TOOLBAR.put(LIST_BUTTON_ID, new ModuleButton(
 				LIST_BUTTON_ID
 				, new WorkstateEnum[]{ CREATE, EDIT, VIEW_DETAILS }
-				, null
 				, null
 				, "list();"
 				, "button_list_alt"));
@@ -81,13 +74,11 @@ public class ModuleButton implements JepRiaToolkitConstant {
 				SEARCH_BUTTON_ID
 				, new WorkstateEnum[]{ CREATE, EDIT, VIEW_LIST, VIEW_DETAILS, SELECTED }
 				, "search"
-				, null
 				, "search();"
 				, "button_search_alt"));
 		STANDARD_TOOLBAR.put(FIND_BUTTON_ID, new ModuleButton(
 				FIND_BUTTON_ID
 				, new WorkstateEnum[]{ SEARCH } 
-				, null
 				, null
 				, "doSearch();"
 				, "button_find_alt"));
@@ -95,20 +86,17 @@ public class ModuleButton implements JepRiaToolkitConstant {
 				REFRESH_BUTTON_ID
 				, new WorkstateEnum[]{SELECTED, VIEW_LIST}
 				, "refresh"
-				, null
 				, "refresh();"
 				, "button_refresh_alt"));
 		STANDARD_TOOLBAR.put(SELECT_BUTTON_ID, new ModuleButton(
 				SELECT_BUTTON_ID
 				, new WorkstateEnum[]{ VIEW_LIST }
 				, "select"
-				, null
 				, "select();"
 				, "button_select_alt"));
 		STANDARD_TOOLBAR.put(REPORT_BUTTON_ID, new ModuleButton(
 				REPORT_BUTTON_ID
 				, new WorkstateEnum[]{ EDIT, VIEW_DETAILS, SELECTED }
-				, "report"
 				, "report"
 				, "report();"
 				, "button_report_alt"));
@@ -116,21 +104,18 @@ public class ModuleButton implements JepRiaToolkitConstant {
 				EXCEL_BUTTON_ID
 				, new WorkstateEnum[]{ VIEW_LIST, SELECTED }
 				, "excel"
-				, null
 				, "excel();"
 				, "button_excel_alt"));
 		STANDARD_TOOLBAR.put(PRINT_BUTTON_ID, new ModuleButton(
 				PRINT_BUTTON_ID
 				, new WorkstateEnum[]{ VIEW_LIST, VIEW_DETAILS }
 				, "print"
-				, null
 				, "print();"
 				, "button_print_alt"));
 		STANDARD_TOOLBAR.put(HELP_BUTTON_ID, new ModuleButton(
 				HELP_BUTTON_ID
 				, new WorkstateEnum[]{ CREATE, EDIT, VIEW_LIST, VIEW_DETAILS, SEARCH }
 				, "help"
-				, null
 				, "help();"
 				, "button_help_alt"));
 		
@@ -174,14 +159,12 @@ public class ModuleButton implements JepRiaToolkitConstant {
 	 * @param buttonId				идентификатор кнопки
 	 * @param workStates			список рабочих состояний, разделенных запятой
 	 * @param image					активная кнопка
-	 * @param imageDisabled			пассивная кнопка
 	 * @param event					событие на реакцию кнопки
 	 * @param text					тултип кнопки
 	 */
-	private ModuleButton(String buttonId, WorkstateEnum[] workStates, String image, String imageDisabled, String event, String text){
+	private ModuleButton(String buttonId, WorkstateEnum[] workStates, String image, String event, String text){
 		this(buttonId, workStates);
 		setImage(image);
-		setImageDisabled(imageDisabled);
 		setEvent(event);
 		setText(text);
 	}
@@ -189,8 +172,8 @@ public class ModuleButton implements JepRiaToolkitConstant {
 	/**
 	 * Конструктор для кнопок инструментальной панели
 	 */ 
-	public ModuleButton(String buttonId, WorkstateEnum[] workStates, String image, String imageDisabled, String event, String text, String name, String nameEn){
-		this(buttonId, workStates, image, imageDisabled, event, text);
+	public ModuleButton(String buttonId, WorkstateEnum[] workStates, String image, String event, String text, String name, String nameEn){
+		this(buttonId, workStates, image, event, text);
 		setName(name);
 		setNameEn(nameEn);
 	}
@@ -232,12 +215,6 @@ public class ModuleButton implements JepRiaToolkitConstant {
 	public void setImage(String image) {
 		this.image = image;
 	}
-	public String getImageDisabled() {
-		return imageDisabled;
-	}
-	public void setImageDisabled(String imageDisabled) {
-		this.imageDisabled = imageDisabled;
-	}
 	public String getEvent() {
 		if (isCustomButton() && JepRiaToolkitUtil.isEmpty(event)){
 			event = JepRiaToolkitUtil.multipleConcat(JepRiaToolkitUtil.getFieldIdAsParameter(buttonId, "do"), LEFT_BRACKET, RIGHT_BRACKET);
@@ -276,7 +253,7 @@ public class ModuleButton implements JepRiaToolkitConstant {
 		return isSeparator && JepRiaToolkitUtil.isEmpty(STANDARD_SEPARATOR.get(this.buttonId))
 							&& JepRiaToolkitUtil.isEmpty(STANDARD_TOOLBAR.get(this.buttonId));
 	}
-	public FORM isAvailableOnForm() throws UnsupportedDataTypeException {
+	public FORM getPlacedForm() throws UnsupportedDataTypeException {
 		List<WorkstateEnum> workstateList = Arrays.asList(this.workStates);
 		boolean isDetailForm = false, isListForm = false;
 		if ((isDetailForm = !Collections.disjoint(workstateList, Arrays.asList(SEARCH, CREATE, EDIT, VIEW_DETAILS))) & 

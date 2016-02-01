@@ -1,8 +1,15 @@
 package com.technology.jep.jepriatoolkit.creator.module;
 
+import static com.technology.jep.jepria.shared.field.JepTypeEnum.BIGDECIMAL;
 import static com.technology.jep.jepria.shared.field.JepTypeEnum.BINARY_FILE;
+import static com.technology.jep.jepria.shared.field.JepTypeEnum.BOOLEAN;
 import static com.technology.jep.jepria.shared.field.JepTypeEnum.CLOB;
+import static com.technology.jep.jepria.shared.field.JepTypeEnum.DATE;
+import static com.technology.jep.jepria.shared.field.JepTypeEnum.DATE_TIME;
+import static com.technology.jep.jepria.shared.field.JepTypeEnum.INTEGER;
 import static com.technology.jep.jepria.shared.field.JepTypeEnum.TEXT_FILE;
+import static com.technology.jep.jepria.shared.field.JepTypeEnum.TIME;
+import static com.technology.jep.jepriatoolkit.creator.ApplicationStructureCreator.FIELD_WIDGET;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -75,6 +82,14 @@ public class ModuleField implements JepRiaToolkitConstant {
 	public void setFieldId(String fieldId) {
 		this.fieldId = fieldId;
 	}
+	public String getFieldIdAsParameter() {
+		return JepRiaToolkitUtil.initCap(JepRiaToolkitUtil.getFieldIdAsParameter(
+				JepRiaToolkitUtil.subtractFieldSuffix(fieldId), null));
+	}
+	public String getFieldName() {
+		return JepRiaToolkitUtil.multipleConcat(JepRiaToolkitUtil.getFieldIdAsParameter(fieldId, null),
+				fieldWidget.substring(JEP_FIELD_PREFIX.length()));
+	}
 	public String getFieldType() {
 		return fieldType;
 	}
@@ -129,7 +144,7 @@ public class ModuleField implements JepRiaToolkitConstant {
 	public void setListFormField(boolean isListFormField) {
 		this.isListFormField = isListFormField;
 	}
-	public boolean isDetailFormField() {
+	public boolean getIsDetailFormField() {
 		return isDetailFormField;
 	}
 	public void setDetailFormField(boolean isDetailFormField) {
@@ -209,16 +224,20 @@ public class ModuleField implements JepRiaToolkitConstant {
 		return fieldMaxLength;
 	}
 	public void setFieldMaxLength(String fieldMaxLength) {
-		this.fieldMaxLength = fieldMaxLength;
+		if (!JepRiaToolkitUtil.isEmpty(fieldMaxLength)) {
+			this.fieldMaxLength = fieldMaxLength;
+		}
 	}
 	public String getFieldWidth() {
 		return fieldWidth;
 	}
 	public void setFieldWidth(String fieldWidth) {
-		this.fieldWidth = fieldWidth;
+		if (!JepRiaToolkitUtil.isEmpty(fieldWidth)) {
+			this.fieldWidth = fieldWidth;
+		}
 	}
 	public String getColumnWidth() {
-		return columnWidth;
+		return JepRiaToolkitUtil.isEmpty(columnWidth) ? Integer.toString(150) : columnWidth;
 	}
 	public void setColumnWidth(String columnWidth) {
 		this.columnWidth = columnWidth;
@@ -227,7 +246,9 @@ public class ModuleField implements JepRiaToolkitConstant {
 		return labelWidth;
 	}
 	public void setLabelWidth(String labelWidth) {
-		this.labelWidth = labelWidth;
+		if (!JepRiaToolkitUtil.isEmpty(labelWidth)) {
+			this.labelWidth = labelWidth;
+		}
 	}
 	public boolean isCLOB(){
 		return (JepRiaToolkitUtil.isEmpty(fieldType) ? 
@@ -245,6 +266,15 @@ public class ModuleField implements JepRiaToolkitConstant {
 	}
 	public boolean isLOB(){
 		return isCLOB() || isBLOB();
+	}
+	public boolean getIsComboBoxField(){
+		return JEP_COMBOBOX_FIELD.equalsIgnoreCase(fieldWidget);
+	}
+	public boolean getIsOptionField(){
+		return getIsComboBoxField()
+				|| JEP_LIST_FIELD.equalsIgnoreCase(fieldWidget)
+				|| JEP_DUAL_LIST_FIELD.equalsIgnoreCase(fieldWidget)
+				|| JEP_TREE_FIELD.equalsIgnoreCase(fieldWidget);
 	}
 	public String getFieldHeight() {
 		return fieldHeight;
@@ -266,13 +296,96 @@ public class ModuleField implements JepRiaToolkitConstant {
 	}
 	public Integer getFormIndex(boolean isDetailForm){
 		return isDetailForm ? 
-				(isDetailFormField() ? getDetailFormIndex() : null) : 
+				(getIsDetailFormField() ? getDetailFormIndex() : null) : 
 				(isListFormField() ? getListFormIndex() : null);
 	}
-	public boolean isEditable() {
+	public boolean getIsEditable() {
 		return isEditable;
 	}
-	public void setEditable(boolean isEditable) {
+	public void setIsEditable(boolean isEditable) {
 		this.isEditable = isEditable;
+	}
+	private static final String orWithDoubleWhiteSpace = JepRiaToolkitUtil.multipleConcat(WHITE_SPACE, OR, WHITE_SPACE);
+	public String getVisibility(){
+		if (JepRiaToolkitUtil.isEmpty(visibleWorkStates)) return null;
+		String visibleWorkstateOr = new String();
+		for (WorkstateEnum state : visibleWorkStates) {
+			visibleWorkstateOr += JepRiaToolkitUtil.multipleConcat((JepRiaToolkitUtil.isEmpty(visibleWorkstateOr) ? "" : orWithDoubleWhiteSpace),
+					JepRiaToolkitUtil.getWorkStateAsString(state), ".equals(workstate)");
+		}
+		return JepRiaToolkitUtil.multipleConcat("fields.setFieldVisible(", fieldId, ", ", visibleWorkstateOr, ");", END_OF_LINE);
+	}
+	public String getMandatory(){
+		if (JepRiaToolkitUtil.isEmpty(mandatoryWorkStates)) return null;
+		String mandatoryWorkstateOr = new String();
+		for (WorkstateEnum state : mandatoryWorkStates) {
+			mandatoryWorkstateOr += JepRiaToolkitUtil.multipleConcat((JepRiaToolkitUtil.isEmpty(mandatoryWorkstateOr) ? "" : orWithDoubleWhiteSpace),
+					JepRiaToolkitUtil.getWorkStateAsString(state), ".equals(workstate)");
+		}
+		return JepRiaToolkitUtil.multipleConcat("fields.setFieldAllowBlank(", fieldId, ", !",
+				(mandatoryWorkstateOr.contains(orWithDoubleWhiteSpace) ? "(" : ""), mandatoryWorkstateOr,
+				(mandatoryWorkstateOr.contains(orWithDoubleWhiteSpace) ? ")" : ""), ");", END_OF_LINE);
+	}
+	public String getEditable(){
+		if (getIsDetailFormField() && !getIsEditable()) {
+			return JepRiaToolkitUtil.multipleConcat("fields.setFieldEditable(", fieldId, ", false);", END_OF_LINE);
+		}
+		else {
+			if (JepRiaToolkitUtil.isEmpty(editableWorkStates)) return null;
+			String editableWorkstateOr = new String();
+			for (WorkstateEnum state : editableWorkStates){
+				editableWorkstateOr += JepRiaToolkitUtil.multipleConcat((JepRiaToolkitUtil.isEmpty(editableWorkstateOr) ? "" : orWithDoubleWhiteSpace),
+						JepRiaToolkitUtil.getWorkStateAsString(state), ".equals(workstate)");
+			}
+			return JepRiaToolkitUtil.multipleConcat("fields.setFieldEditable(", fieldId, ", ", editableWorkstateOr, ");", END_OF_LINE);
+		}
+	}
+	public String getEnabled(){
+		if (JepRiaToolkitUtil.isEmpty(enableWorkStates)) return null;
+		String enableWorkstateOr = new String();
+		if (!JepRiaToolkitUtil.isEmpty(enableWorkStates)) {
+			for (WorkstateEnum state : enableWorkStates) {
+				enableWorkstateOr += JepRiaToolkitUtil.multipleConcat((JepRiaToolkitUtil.isEmpty(enableWorkstateOr) ? "" : orWithDoubleWhiteSpace),
+						JepRiaToolkitUtil.getWorkStateAsString(state), ".equals(workstate)");
+			}
+			return JepRiaToolkitUtil.multipleConcat("fields.setFieldEnabled(", fieldId, ", ", enableWorkstateOr, ");",  END_OF_LINE);
+		}
+		return null;
+	}
+	public String getHeight(){
+		if (!JepRiaToolkitUtil.isEmpty(fieldHeight)) {
+			return JepRiaToolkitUtil.multipleConcat("fields.setFieldHeight(", fieldId, ", ", fieldHeight, ");", END_OF_LINE);
+		}
+		return null;
+	}
+	public String getImportString(){
+		return FIELD_WIDGET.get(fieldWidget);
+	}
+	public boolean getIsBigDecimalNumberField(){
+		return JEP_NUMBER_FIELD.equalsIgnoreCase(fieldWidget) && BIGDECIMAL.name().equalsIgnoreCase(fieldType);
+	}
+	public boolean getIsMaskedTextField(){
+		return JEP_MASKED_TEXT_FIELD.equalsIgnoreCase(fieldWidget);
+	}
+	public boolean getIsIntegerType(){
+		return INTEGER.name().equalsIgnoreCase(fieldType);
+	}
+	public boolean getIsBigDecimalType(){
+		return BIGDECIMAL.name().equalsIgnoreCase(fieldType);
+	}
+	public boolean getIsBooleanType(){
+		return BOOLEAN.name().equalsIgnoreCase(fieldType);
+	}
+	public boolean getIsDateType(){
+		return DATE.name().equalsIgnoreCase(fieldType);
+	}
+	public boolean getIsTimeType(){
+		return TIME.name().equalsIgnoreCase(fieldType);
+	}
+	public boolean getIsDateTimeType(){
+		return DATE_TIME.name().equalsIgnoreCase(fieldType);
+	}
+	public String getDisplayValueForComboBox(){
+		return JepRiaToolkitUtil.getDisplayValueForComboBox(fieldId);
 	}
 }
