@@ -13,7 +13,7 @@ public class SearchServerConstant extends JepRiaServerConstant {
 	/**
 	 * JNDI-имя источника данных модуля.
 	 */
-	public static final String DATA_SOURCE_JNDI_NAME = "jdbc/RFInfoDS";
+	public static final String DATA_SOURCE_JNDI_NAME = "jdbc/ITMDS";
 
 	/**
 	 * Идентификатор файла ресурсов.

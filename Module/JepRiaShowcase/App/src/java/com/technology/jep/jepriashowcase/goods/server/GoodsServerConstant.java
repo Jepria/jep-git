@@ -8,6 +8,6 @@ public class GoodsServerConstant extends JepRiaServerConstant {
  
 	public static final String RESOURCE_BUNDLE_NAME = "com.technology.jep.jepriashowcase.goods.shared.text.GoodsText";
  
-	public static final String DATA_SOURCE_JNDI_NAME = "jdbc/RFInfoDS";
+	public static final String DATA_SOURCE_JNDI_NAME = "jdbc/ITMDS";
  
 }
