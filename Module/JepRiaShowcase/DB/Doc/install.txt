@@ -25,7 +25,7 @@ group: 8.6.0
 
 (code)
 
-$ make install INSTALL_VERSION=8.6.0 LOAD_USERID=information/???@RFInfoP LOAD_OPERATORID=???/???
+$ make install INSTALL_VERSION=8.6.0 LOAD_USERID=itm/???@RFInfoP LOAD_OPERATORID=???/???
 
 (end)
 
@@ -37,7 +37,7 @@ group: 8.3.0
 
 (code)
 
-$ make install INSTALL_VERSION=8.3.0 LOAD_USERID=information/???@RFInfoP LOAD_OPERATORID=???/???
+$ make install INSTALL_VERSION=8.3.0 LOAD_USERID=itm/???@RFInfoP LOAD_OPERATORID=???/???
 
 (end)
 
@@ -49,7 +49,7 @@ group: Первоначальная установка
 
 (code)
 
-$ make install INSTALL_VERSION=Last LOAD_USERID=information/???@RFInfoP LOAD_OPERATORID=???/???
+$ make install INSTALL_VERSION=Last LOAD_USERID=itm/???@RFInfoP LOAD_OPERATORID=???/???
 
 (end)
 
