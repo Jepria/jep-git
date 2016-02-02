@@ -60,7 +60,7 @@ public class ResizableHeader<T> extends Header<String> {
 	 */
 	private static final int MENU_ITEM_HEIGHT = 27;
 	
-	private static Element setupButton;
+	private Element setupButton;
 	private PopupPanel panel;
 	private int popupHeight;
 	
