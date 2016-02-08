@@ -12,12 +12,14 @@ import java.util.List;
 import javax.ejb.SessionContext;
 
 import oracle.jdbc.driver.OracleTypes;
+import oracle.jdbc.internal.OracleCallableStatement;
 
 import org.apache.log4j.Logger;
 
 import com.technology.jep.jepria.server.db.Db;
 import com.technology.jep.jepria.server.ejb.CallContext;
 import com.technology.jep.jepria.shared.exceptions.ApplicationException;
+import com.technology.jep.jepria.shared.record.lob.JepClob;
 import com.technology.jep.jepria.shared.util.JepRiaUtil;
 
 /**
@@ -531,6 +533,8 @@ public class DaoSupport {
 						setBigDecimalParameter(callableStatement, (BigDecimal)param, i);
 					} else if (clazz.equals(java.util.Date.class)) {
 						setDateParameter(callableStatement, (java.util.Date)param, i);
+					} else if (clazz.equals(JepClob.class)) {
+						setClobParameter(callableStatement, (JepClob)param, i);
 					} else {
 						callableStatement.setObject(i, param);
 					}
@@ -643,6 +647,22 @@ public class DaoSupport {
 		}
 	}
 	
+	/**
+	 * Вспомогательный метод. Используется для задания параметра типа Clob объекту callableStatement. 
+	 * 
+	 * @param callableStatement    экземпляр callableStatement
+	 * @param parameter            параметр
+	 * @param place                место вставки параметра
+	 * @throws SQLException
+	 */
+	private static void setClobParameter(CallableStatement callableStatement, JepClob parameter, int place) 
+			throws SQLException {
+		if (JepRiaUtil.isEmpty(parameter)) {
+			callableStatement.setNull(place, Types.CLOB);
+		} else if (callableStatement instanceof OracleCallableStatement){
+			((OracleCallableStatement) callableStatement).setStringForClob(place, parameter.getBigText());
+		}
+	}
 	/**
 	 * Данный перечислимый тип содержит тип, определяющий работаем мы с
 	 * sql-выражением или sql-запросом. Используется в методе setParamsAndExecute.

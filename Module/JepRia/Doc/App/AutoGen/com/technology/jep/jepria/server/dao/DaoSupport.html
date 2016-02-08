@@ -417,6 +417,16 @@ java.lang.Object
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>private static&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/dao/DaoSupport.html#setClobParameter(java.sql.CallableStatement, com.technology.jep.jepria.shared.record.lob.JepClob, int)">setClobParameter</A></B>(java.sql.CallableStatement&nbsp;callableStatement,
+                 <A HREF="../../../../../../com/technology/jep/jepria/shared/record/lob/JepClob.html" title="class in com.technology.jep.jepria.shared.record.lob">JepClob</A>&nbsp;parameter,
+                 int&nbsp;place)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Вспомогательный метод.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private static&nbsp;void</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/dao/DaoSupport.html#setDateParameter(java.sql.CallableStatement, java.util.Date, int)">setDateParameter</A></B>(java.sql.CallableStatement&nbsp;callableStatement,
                  java.util.Date&nbsp;parameter,
                  int&nbsp;place)</CODE>
@@ -898,6 +908,24 @@ private static void <B>setDateParameter</B>(java.sql.CallableStatement&nbsp;call
                               throws java.sql.SQLException</PRE>
 <DL>
 <DD>Вспомогательный метод. Используется для задания параметра типа Date объекту callableStatement.
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>callableStatement</CODE> - экземпляр callableStatement<DD><CODE>parameter</CODE> - параметр<DD><CODE>place</CODE> - место вставки параметра
+<DT><B>Throws:</B>
+<DD><CODE>java.sql.SQLException</CODE></DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setClobParameter(java.sql.CallableStatement, com.technology.jep.jepria.shared.record.lob.JepClob, int)"><!-- --></A><H3>
+setClobParameter</H3>
+<PRE>
+private static void <B>setClobParameter</B>(java.sql.CallableStatement&nbsp;callableStatement,
+                                     <A HREF="../../../../../../com/technology/jep/jepria/shared/record/lob/JepClob.html" title="class in com.technology.jep.jepria.shared.record.lob">JepClob</A>&nbsp;parameter,
+                                     int&nbsp;place)
+                              throws java.sql.SQLException</PRE>
+<DL>
+<DD>Вспомогательный метод. Используется для задания параметра типа Clob объекту callableStatement.
 <P>
 <DD><DL>
 <DT><B>Parameters:</B><DD><CODE>callableStatement</CODE> - экземпляр callableStatement<DD><CODE>parameter</CODE> - параметр<DD><CODE>place</CODE> - место вставки параметра
