@@ -1465,210 +1465,32 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 				}
 			}
 		}
-		/*
-		for (int i = 0; i < forms.size(); i++) {
-			String formName = (String) forms.get(i);
-			String packageModuleFormName = JepRiaToolkitUtil.multipleConcat(packageName.toLowerCase(), ".", moduleName.toLowerCase(), ".", formName.toLowerCase());
-			Module module = getModuleWithFieldsById(formName).keySet().iterator().next();
-			boolean hasLOBField = false, hasMimeType = false, hasExtension = false;
-
-			String content = JepRiaToolkitUtil.multipleConcat(
-					"package com.technology.", packageModuleFormName, ".shared.field;", END_OF_LINE, 
-					WHITE_SPACE, END_OF_LINE,
-					"import com.technology.jep.jepria.shared.field.JepRecordFieldNames;", END_OF_LINE, 
-					WHITE_SPACE, END_OF_LINE, 
-					"public class ", formName, "FieldNames extends JepRecordFieldNames {", END_OF_LINE);
-			String mainFormIfExist = getMainFormNameIfExist(formName);
-			if (!JepRiaToolkitUtil.isEmpty(mainFormIfExist)) {
-				String mainFormParentKey = getPrimaryKeyById(mainFormIfExist);
-				mainFormParentKey = JepRiaToolkitUtil.isEmpty(mainFormParentKey) ? JepRiaToolkitUtil.multipleConcat(mainFormIfExist, IDENTIFICATOR_SUFFIX)
-						: mainFormParentKey;
-				// TODO: обработать составной ключ!
-				String[] mainFormParentKeyFields = mainFormParentKey.split(",");
-				for (String mainFormParentKeyField : mainFormParentKeyFields) {
-					content += JepRiaToolkitUtil.multipleConcat("	public static final String ", mainFormParentKeyField.trim().toUpperCase(), " = \"",
-							mainFormParentKeyField.trim().toLowerCase(), "\";", END_OF_LINE);
-				}
-			}
-			Map<Module, List<ModuleField>> hm = getModuleWithFieldsById(formName);
-
-			List<ModuleField> fFields = hm.values().iterator().next();
-			for (int j = 0; j < fFields.size(); j++) {
-				ModuleField formFieldType = fFields.get(j);
-				if (formFieldType.isLOB() && !hasLOBField)
-					hasLOBField = true;
-				if (MIME_TYPE_FIELD_ID.equalsIgnoreCase(formFieldType.getFieldId()) && !hasMimeType)
-					hasMimeType = true;
-				if (EXTENSION_FIELD_ID.equalsIgnoreCase(formFieldType.getFieldId()) && !hasExtension)
-					hasExtension = true;
-
-				String field = formFieldType.getFieldId().toUpperCase();
-				String fieldDescription = JepRiaToolkitUtil.multipleConcat("	public static final String ", field, " = \"", field.toLowerCase(), "\";",
-						END_OF_LINE);
-				content += content.contains(fieldDescription) ? "" : fieldDescription;
-
-				// create file structure
-				boolean isOptionField = formFieldType.getIsOptionField();
-				if (isOptionField) {
-					String subtractFieldId = JepRiaToolkitUtil.initCap(JepRiaToolkitUtil.getFieldIdAsParameter(JepRiaToolkitUtil.subtractFieldSuffix(field), null));
-					String fieldContent = JepRiaToolkitUtil.multipleConcat(
-							"package com.technology.", packageModuleFormName, ".shared.field;", END_OF_LINE, 
-							WHITE_SPACE, END_OF_LINE,
-							"import com.technology.jep.jepria.shared.field.JepRecordFieldNames;", END_OF_LINE, 
-							WHITE_SPACE, END_OF_LINE,
-							"public class ", subtractFieldId, "Options extends JepRecordFieldNames {", END_OF_LINE, 
-							"	public static final String ", field, " = \"", field.toLowerCase(), "\";", END_OF_LINE, 
-							"	public static final String ", formFieldType.getDisplayValueForComboBox().toUpperCase(), " = \"", formFieldType.getDisplayValueForComboBox().toLowerCase(), "\";", END_OF_LINE, "}");
-
-					if (module.isNotRebuild())
-						continue;
-					JepRiaToolkitUtil.writeToFile(fieldContent, JepRiaToolkitUtil.multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/", packageName.toLowerCase(),
-							"/", moduleName.toLowerCase(), "/", formName.toLowerCase(), "/shared/field/", subtractFieldId, "Options.java"));
-				}
-			}
-
-			if (hasLOBField) {
-				if (!hasMimeType) {
-					content += JepRiaToolkitUtil.multipleConcat("	public static final String ", MIME_TYPE_FIELD_ID, " = \"", MIME_TYPE_FIELD_ID.toLowerCase(), "\";", END_OF_LINE);
-				}
-				if (!hasExtension) {
-					content += JepRiaToolkitUtil.multipleConcat("	public static final String ", EXTENSION_FIELD_ID, " = \"", EXTENSION_FIELD_ID.toLowerCase(), "\";", END_OF_LINE);
-				}
-			}
-			content += "}";
-
-			if (module.isNotRebuild())
-				continue;
-			JepRiaToolkitUtil.writeToFile(content, JepRiaToolkitUtil.multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/", packageName.toLowerCase(), "/",
-					moduleName.toLowerCase(), "/", formName.toLowerCase(), "/shared/field/", formName, "FieldNames.java"));
-		}*/
 	}
 
 	/**
 	 * Создание классов описания записей
 	 */
 	private void createRecordDefinition() {
-		for (int i = 0; i < forms.size(); i++) {
-			String formName = (String) forms.get(i);
-			String packageModuleFormName = JepRiaToolkitUtil.multipleConcat(packageName.toLowerCase(), ".", moduleName.toLowerCase(), ".", formName.toLowerCase());
-			Map<Module, List<ModuleField>> hm = getModuleWithFieldsById(formName);
-			Module currentModule = hm.keySet().iterator().next();
-			List<ModuleField> fFields = hm.values().iterator().next();
-			String lobField = new String();
-			for (ModuleField moduleField : fFields) {
-				if (moduleField.isLOB()) {
-					lobField = moduleField.getFieldId();
-					break;
-				}
-			}
-			boolean hasLOBField = !JepRiaToolkitUtil.isEmpty(lobField);
-
-			String primaryKey = getPrimaryKeyById(formName);
-
-			String content = JepRiaToolkitUtil.multipleConcat(
-					"package com.technology.", packageModuleFormName, ".shared.record;", END_OF_LINE, 
-					WHITE_SPACE, END_OF_LINE, 
-					"import static com.technology.", packageModuleFormName, ".shared.field.", formName, "FieldNames.*;", END_OF_LINE, 
-					"import static com.technology.jep.jepria.shared.field.JepTypeEnum.*;", END_OF_LINE,
-					"import com.technology.jep.jepria.shared.field.JepTypeEnum;", END_OF_LINE);
-			if (currentModule.hasLikeFields()) {
-				content += JepRiaToolkitUtil.multipleConcat(
-						"import static com.technology.jep.jepria.shared.field.JepLikeEnum.*;", END_OF_LINE,
-						"import com.technology.jep.jepria.shared.field.JepLikeEnum;", END_OF_LINE);
-			}
-			content += JepRiaToolkitUtil.multipleConcat(
-					"import com.technology.jep.jepria.shared.record", (hasLOBField ? ".lob" : ""), ".Jep", (hasLOBField ? "Lob" : ""), "RecordDefinition;", END_OF_LINE,
-					WHITE_SPACE, END_OF_LINE,
-					"import java.util.HashMap;", END_OF_LINE,
-					"import java.util.Map;", END_OF_LINE,
-					WHITE_SPACE, END_OF_LINE,
-					"public class ", formName, "RecordDefinition extends Jep", (hasLOBField ? "Lob" : ""), "RecordDefinition {", END_OF_LINE,
-					WHITE_SPACE, END_OF_LINE,
-					"	private static final long serialVersionUID = 1L;", END_OF_LINE,
-					WHITE_SPACE, END_OF_LINE,
-					"	public static final ", formName, "RecordDefinition instance = new ", formName, "RecordDefinition();", END_OF_LINE,
-					WHITE_SPACE, END_OF_LINE,
-					"	private ", formName, "RecordDefinition() {", END_OF_LINE,
-					"		super(buildTypeMap()", END_OF_LINE,
-					(JepRiaToolkitUtil.multipleConcat("			, new String[]{", 
-						(JepRiaToolkitUtil.isEmpty(primaryKey) ? "" : primaryKey),
-						"}", END_OF_LINE)),
-					(hasLOBField ? JepRiaToolkitUtil.multipleConcat("			, \"", (JepRiaToolkitUtil.isEmpty(currentModule.getTable()) ? "table_name"
-							: currentModule.getTable()), "\"", (JepRiaToolkitUtil.isEmpty(currentModule.getTable()) ? "//TODO: rename table!" : ""), "",
-							END_OF_LINE, 
-							"			, buildFieldMap()") : ""), (hasLOBField ? "" : "		"), ");", 
-					END_OF_LINE);
-
-			if (currentModule.hasLikeFields()) {
-				content += JepRiaToolkitUtil.multipleConcat(
-						"		super.setLikeMap(buildLikeMap());", END_OF_LINE);
-			}
-			content += JepRiaToolkitUtil.multipleConcat(
-					"	}", END_OF_LINE, WHITE_SPACE, END_OF_LINE,
-					"	private static Map<String, JepTypeEnum> buildTypeMap() {", END_OF_LINE,
-					"		Map<String, JepTypeEnum> typeMap = new HashMap<String, JepTypeEnum>();", END_OF_LINE);
-			String likeContent = new String();
-			boolean hasExtension = false;
-			boolean hasMimeType = false;
-			for (int j = 0; j < fFields.size(); j++) {
-				ModuleField formFieldType = fFields.get(j);
-				String field = formFieldType.getFieldId().toUpperCase();
-				if (MIME_TYPE_FIELD_ID.equalsIgnoreCase(field) && !hasMimeType)
-					hasMimeType = true;
-				if (EXTENSION_FIELD_ID.equalsIgnoreCase(field) && !hasExtension)
-					hasExtension = true;
-				String fieldType = JepRiaToolkitUtil.isEmpty(formFieldType.getFieldType()) ? JepRiaToolkitUtil.getAppropriateFieldType(formFieldType
-						.getFieldWidget()) : formFieldType.getFieldType().toUpperCase();
-				String fieldLike = null;
-				if (!JepRiaToolkitUtil.isEmpty(fieldLike = formFieldType.getFieldLike())) {
-					likeContent += JepRiaToolkitUtil.multipleConcat("		likeMap.put(", field, ", ", fieldLike.toUpperCase(), ");", END_OF_LINE);
-				}
-				content += JepRiaToolkitUtil.multipleConcat("		typeMap.put(", field, ", ", fieldType, ");", END_OF_LINE);
-			}
-
-			if (hasLOBField) {
-				if (!hasExtension) {
-					content += JepRiaToolkitUtil.multipleConcat("		typeMap.put(", EXTENSION_FIELD_ID, ", ", STRING.name(), ");", END_OF_LINE);
-				}
-				if (!hasMimeType) {
-					content += JepRiaToolkitUtil.multipleConcat("		typeMap.put(", MIME_TYPE_FIELD_ID, ", ", STRING.name(), ");", END_OF_LINE);
-				}
-			}
-
-			content += JepRiaToolkitUtil.multipleConcat(
-					"		return typeMap;", END_OF_LINE, 
-					"	}", END_OF_LINE);
-			if (currentModule.hasLikeFields()) {
-				content += JepRiaToolkitUtil.multipleConcat(
-						WHITE_SPACE, END_OF_LINE, 
-						"	private static Map<String, JepLikeEnum> buildLikeMap() {", END_OF_LINE, 
-						"		Map<String, JepLikeEnum> likeMap = new HashMap<String, JepLikeEnum>();", END_OF_LINE, 
-						likeContent,
-						"		return likeMap;", END_OF_LINE, 
-						"	}", END_OF_LINE);
-			}
-
-			if (hasLOBField) {
-				content += JepRiaToolkitUtil.multipleConcat(
-						WHITE_SPACE, END_OF_LINE, 
-						"	private static Map<String, String> buildFieldMap() {", END_OF_LINE,
-						"		Map<String, String> fieldMap = new HashMap<String, String>();", END_OF_LINE, 
-						(JepRiaToolkitUtil.isEmpty(primaryKey) ? "" :
-							JepRiaToolkitUtil.multipleConcat(
-								"		fieldMap.put(", primaryKey, ", ", primaryKey, ");", END_OF_LINE )), 
-						
-						"		fieldMap.put(", lobField, ", ", lobField, ");", END_OF_LINE, 
-						"		return fieldMap;", END_OF_LINE, 
-						"	}", END_OF_LINE, 
-						WHITE_SPACE, END_OF_LINE);
-			}
-
-			content += "}";
-
-			if (currentModule.isNotRebuild())
-				continue;
-			JepRiaToolkitUtil.writeToFile(content, JepRiaToolkitUtil.multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/", packageName.toLowerCase(), "/",
-					moduleName.toLowerCase(), "/", formName.toLowerCase(), "/shared/record/", formName, "RecordDefinition.java"));
+		Map<String, Object> data = prepareData();
+		List<ModuleInfo> moduleInfos = (List<ModuleInfo>) data.get(FORMS_TEMPLATE_PARAMETER);
+		for (ModuleInfo moduleInfo : moduleInfos) {
+			if (moduleInfo.isNotRebuild()) continue;
+			Map<String, Object> innerData = new HashMap<String, Object>();
+			innerData.put(FORM_TEMPLATE_PARAMETER, moduleInfo);
+			innerData.put(PACKAGE_NAME_TEMPLATE_PARAMETER, data.get(PACKAGE_NAME_TEMPLATE_PARAMETER));
+			innerData.put(MODULE_NAME_TEMPLATE_PARAMETER, data.get(MODULE_NAME_TEMPLATE_PARAMETER));
+			
+			String formName = moduleInfo.getFormName();
+			
+			JepRiaToolkitUtil.convertTemplateToFile(
+				getDefinitionProperty(CLIENT_MODULE_RECORD_DEFINITION_TEMPLATE_PROPERTY, "clientModuleRecordDefinition.ftl"),
+				innerData, 
+				format(
+					getDefinitionProperty(CLIENT_MODULE_RECORD_DEFINITION_PATH_TEMPLATE_PROPERTY, 
+							JepRiaToolkitUtil.multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/shared/record/{3}RecordDefinition.java")),
+					packageName.toLowerCase(), moduleName.toLowerCase(), formName.toLowerCase(), formName
+				)
+			);
 		}
 	}
 
@@ -1676,60 +1498,36 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 	 * Создание классов сервисов модуля
 	 */
 	private void createService() {
-		for (int i = 0; i < forms.size(); i++) {
-			String formName = (String) forms.get(i);
-			String packageModuleFormName = JepRiaToolkitUtil.multipleConcat(packageName.toLowerCase(), ".", moduleName.toLowerCase(), ".", formName.toLowerCase());
-			Map<Module, List<ModuleField>> hm = getModuleWithFieldsById(formName);
-			List<ModuleField> moduleFields = hm.values().iterator().next();
-			String gettersForService = new String();
-			String gettersForAsyncService = new String();
-			for (ModuleField moduleField : moduleFields) {
-				boolean isOptionField = JEP_COMBOBOX_FIELD.equalsIgnoreCase(moduleField.getFieldWidget())
-						|| JEP_LIST_FIELD.equalsIgnoreCase(moduleField.getFieldWidget())
-						|| JEP_DUAL_LIST_FIELD.equalsIgnoreCase(moduleField.getFieldWidget())
-						|| JEP_TREE_FIELD.equalsIgnoreCase(moduleField.getFieldWidget());
-				if (isOptionField) {
-					String subtractFieldId = JepRiaToolkitUtil.initCap(JepRiaToolkitUtil.getFieldIdAsParameter(
-							JepRiaToolkitUtil.subtractFieldSuffix(moduleField.getFieldId()), null));
-					gettersForService += JepRiaToolkitUtil.multipleConcat(
-							"	List<JepOption> get", subtractFieldId, "() throws ApplicationException;", END_OF_LINE);
-					gettersForAsyncService += JepRiaToolkitUtil.multipleConcat(
-							"	void get", subtractFieldId, "(AsyncCallback<List<JepOption>> callback);", END_OF_LINE);
-				}
-			}
-			String content = JepRiaToolkitUtil.multipleConcat(
-					"package com.technology.", packageModuleFormName, ".shared.service;", END_OF_LINE,
-					WHITE_SPACE, END_OF_LINE,
-					"import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;", END_OF_LINE,
-					(JepRiaToolkitUtil.isEmpty(gettersForService) ? "" : JepRiaToolkitUtil.multipleConcat(
-							"import com.technology.jep.jepria.shared.field.option.JepOption;", END_OF_LINE,
-							"import com.technology.jep.jepria.shared.exceptions.ApplicationException;", END_OF_LINE, 
-							"import java.util.List;", END_OF_LINE)), 
-					"import com.technology.jep.jepria.shared.service.data.JepDataService;", END_OF_LINE, 
-					WHITE_SPACE, END_OF_LINE, 
-					"@RemoteServiceRelativePath(\"", formName, "Service\")", END_OF_LINE, 
-					"public interface ", formName, "Service extends JepDataService {", END_OF_LINE, 
-					JepRiaToolkitUtil.isEmpty(gettersForService) ? "" : gettersForService, "}");
-
-			Module module = hm.keySet().iterator().next();
-			if (module.isNotRebuild())
-				continue;
-			JepRiaToolkitUtil.writeToFile(content, JepRiaToolkitUtil.multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/", packageName.toLowerCase(), "/",
-					moduleName.toLowerCase(), "/", formName.toLowerCase(), "/shared/service/", formName, "Service.java"));
-
-			content = JepRiaToolkitUtil.multipleConcat(
-					"package com.technology.", packageModuleFormName, ".shared.service;", END_OF_LINE,
-					WHITE_SPACE, END_OF_LINE,
-					(JepRiaToolkitUtil.isEmpty(gettersForAsyncService) ? "" : JepRiaToolkitUtil.multipleConcat(
-							"import com.technology.jep.jepria.shared.field.option.JepOption;", END_OF_LINE,
-							"import com.google.gwt.user.client.rpc.AsyncCallback;", END_OF_LINE, "import java.util.List;", END_OF_LINE)),
-					"import com.technology.jep.jepria.shared.service.data.JepDataServiceAsync;", END_OF_LINE, 
-					WHITE_SPACE, END_OF_LINE,
-					"public interface ", formName, "ServiceAsync extends JepDataServiceAsync {", END_OF_LINE, JepRiaToolkitUtil
-							.isEmpty(gettersForAsyncService) ? "" : gettersForAsyncService, "}");
-			// выйдет из цикла раньше
-			JepRiaToolkitUtil.writeToFile(content, JepRiaToolkitUtil.multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/", packageName.toLowerCase(), "/",
-					moduleName.toLowerCase(), "/", formName.toLowerCase(), "/shared/service/", formName, "ServiceAsync.java"));
+		Map<String, Object> data = prepareData();
+		List<ModuleInfo> moduleInfos = (List<ModuleInfo>) data.get(FORMS_TEMPLATE_PARAMETER);
+		for (ModuleInfo moduleInfo : moduleInfos) {
+			if (moduleInfo.isNotRebuild()) continue;
+			Map<String, Object> innerData = new HashMap<String, Object>();
+			innerData.put(FORM_TEMPLATE_PARAMETER, moduleInfo);
+			innerData.put(PACKAGE_NAME_TEMPLATE_PARAMETER, data.get(PACKAGE_NAME_TEMPLATE_PARAMETER));
+			innerData.put(MODULE_NAME_TEMPLATE_PARAMETER, data.get(MODULE_NAME_TEMPLATE_PARAMETER));
+			
+			String formName = moduleInfo.getFormName();
+			
+			JepRiaToolkitUtil.convertTemplateToFile(
+				getDefinitionProperty(CLIENT_MODULE_SERVICE_TEMPLATE_PROPERTY, "clientModuleService.ftl"),
+				innerData, 
+				format(
+					getDefinitionProperty(CLIENT_MODULE_SERVICE_PATH_TEMPLATE_PROPERTY, 
+							JepRiaToolkitUtil.multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/shared/service/{3}Service.java")),
+					packageName.toLowerCase(), moduleName.toLowerCase(), formName.toLowerCase(), formName
+				)
+			);
+			
+			JepRiaToolkitUtil.convertTemplateToFile(
+				getDefinitionProperty(CLIENT_MODULE_SERVICE_ASYNC_TEMPLATE_PROPERTY, "clientModuleServiceAsync.ftl"),
+				innerData, 
+				format(
+					getDefinitionProperty(CLIENT_MODULE_SERVICE_ASYNC_PATH_TEMPLATE_PROPERTY, 
+							JepRiaToolkitUtil.multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/shared/service/{3}ServiceAsync.java")),
+					packageName.toLowerCase(), moduleName.toLowerCase(), formName.toLowerCase(), formName
+				)
+			);
 		}
 	}
 
@@ -1737,6 +1535,39 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 	 * Создание классов разделяемых констант (клиентско-серверных)
 	 */
 	private void createSharedConstant() {
+		Map<String, Object> data = prepareData();
+		List<ModuleInfo> moduleInfos = (List<ModuleInfo>) data.get(FORMS_TEMPLATE_PARAMETER);
+		
+		JepRiaToolkitUtil.convertTemplateToFile(
+			getDefinitionProperty(MAIN_MODULE_SHARED_CONSTANT_TEMPLATE_PROPERTY, "mainModuleSharedConstant.ftl"),
+			data, 
+			format(
+				getDefinitionProperty(MAIN_MODULE_SHARED_CONSTANT_PATH_TEMPLATE_PROPERTY, 
+						JepRiaToolkitUtil.multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/main/shared/{2}Constant.java")),
+				packageName.toLowerCase(), moduleName.toLowerCase(), moduleName
+			)
+		);
+		
+		for (ModuleInfo moduleInfo : moduleInfos) {
+			if (moduleInfo.isNotRebuild()) continue;
+			
+			Map<String, Object> innerData = new HashMap<String, Object>();
+			innerData.put(FORM_TEMPLATE_PARAMETER, moduleInfo);
+			innerData.put(PACKAGE_NAME_TEMPLATE_PARAMETER, data.get(PACKAGE_NAME_TEMPLATE_PARAMETER));
+			innerData.put(MODULE_NAME_TEMPLATE_PARAMETER, data.get(MODULE_NAME_TEMPLATE_PARAMETER));
+			
+			String formName = moduleInfo.getFormName();
+			JepRiaToolkitUtil.convertTemplateToFile(
+				getDefinitionProperty(CLIENT_MODULE_SHARED_CONSTANT_TEMPLATE_PROPERTY, "clientModuleSharedConstant.ftl"),
+				innerData, 
+				format(
+					getDefinitionProperty(CLIENT_MODULE_SHARED_CONSTANT_PATH_TEMPLATE_PROPERTY, 
+							JepRiaToolkitUtil.multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/shared/{3}Constant.java")),
+					packageName.toLowerCase(), moduleName.toLowerCase(), formName.toLowerCase(), formName
+				)
+			);
+		}
+		/*
 		for (int i = 0; i < forms.size(); i++) {
 			String formName = (String) forms.get(i);
 			String packageModuleFormName = JepRiaToolkitUtil.multipleConcat(packageName.toLowerCase(), ".", moduleName.toLowerCase(), ".", formName.toLowerCase());
@@ -1767,8 +1598,7 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 
 		JepRiaToolkitUtil.writeToFile(mainContent, JepRiaToolkitUtil.multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/", packageName.toLowerCase(), "/",
 				moduleName.toLowerCase(), "/main/shared/", moduleName, "Constant.java"));
-		
-		
+		*/
 	}
 
 	/**
@@ -2936,6 +2766,8 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 				modInfo.setFormTitleEn(module.getModuleNameEn());
 				modInfo.setFieldLabelWidth(module.getFieldLabelWidth());
 				modInfo.setDataSource(module.getModuleDataSource());
+				modInfo.setPrimaryKey(getPrimaryKeyById(formName));
+				modInfo.setTable(module.getTable());
 				modInfo.setIsExcelAvailable(module.isExcelAvailable());
 				modInfo.setNotRebuild(module.isNotRebuild());
 				String mainFormIfExist = getMainFormNameIfExist(formName);
@@ -2950,6 +2782,7 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 				modInfo.setIsJepToolBarView(isJepToolBar && !module.hasToolBarView());
 				modInfo.setIsDblClickOff(module.isDblClickOff());
 				modInfo.setIsToolBarOff(module.isToolBarOff());
+				modInfo.setHasLikeField(module.hasLikeFields());
 				modInfo.setScopeModuleIds(getDependencyNodesIfExists(formName));
 				modInfo.setToolBarCustomButtons(module.getToolBarCustomButtons());
 				modInfo.setModuleRoleNames(module.getModuleRoleNames());
@@ -2962,7 +2795,7 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 						hasTextFile = true;
 					if (moduleField.isBLOB())
 						hasBinaryFile = true;
-					if (moduleField.isLOB())
+					if (moduleField.getIsLOB())
 						hasLobFields = true;	
 					if (moduleField.getIsOptionField()){
 						hasOptionField = true;

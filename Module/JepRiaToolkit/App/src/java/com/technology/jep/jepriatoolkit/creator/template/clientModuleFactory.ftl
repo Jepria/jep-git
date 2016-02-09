@@ -76,7 +76,7 @@ public class ${form.formName}ClientFactoryImpl<E extends <#if hasCustomButtons>$
 	
  	<#if !form.isJepToolBarPresenter>
 	public JepPresenter createToolBarPresenter(Place place) {
-		return new <#if hasCustomButtons || form.isToolBarOff>${form.formName}</#if>ToolBarPresenter(place, this);
+		return new ${form.formName}ToolBarPresenter(place, this);<#--if hasCustomButtons || form.isToolBarOff-->
 	}
 	</#if>
  

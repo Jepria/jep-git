@@ -14,8 +14,10 @@ public class ModuleInfo {
 	private String formTitleEn;
 	private String fieldLabelWidth;
 	private String dataSource;
+	private String primaryKey;
 	private String mainFormName;
 	private String mainFormParentKey;
+	private String table;
 	private boolean hasLobFields;
 	private boolean isExcelAvailable;
 	private boolean isNotRebuild;
@@ -24,6 +26,7 @@ public class ModuleInfo {
 	private boolean isDblClickOff;
 	private boolean isToolBarOff;
 	private boolean hasOptionField;
+	private boolean hasLikeField;
 	private List<ModuleField> fields = new ArrayList<ModuleField>(); 
 	private List<ModuleButton> toolBarCustomButtons = new ArrayList<ModuleButton>();
 	private List<String> scopeModuleIds = new ArrayList<String>();
@@ -61,6 +64,12 @@ public class ModuleInfo {
 	public void setDataSource(String dataSource) {
 		this.dataSource = dataSource;
 	}
+	public String getPrimaryKey() {
+		return primaryKey;
+	}
+	public void setPrimaryKey(String primaryKey) {
+		this.primaryKey = primaryKey;
+	}
 	public String getMainFormName() {
 		return mainFormName;
 	}
@@ -72,6 +81,12 @@ public class ModuleInfo {
 	}
 	public void setMainFormParentKey(String mainFormParentKey) {
 		this.mainFormParentKey = mainFormParentKey;
+	}
+	public String getTable() {
+		return table;
+	}
+	public void setTable(String table) {
+		this.table = table;
 	}
 	public boolean getHasLobFields() {
 		return hasLobFields;
@@ -117,6 +132,12 @@ public class ModuleInfo {
 	}
 	public void setHasOptionField(boolean hasOptionField) {
 		this.hasOptionField = hasOptionField;
+	}
+	public boolean getHasLikeField() {
+		return hasLikeField;
+	}
+	public void setHasLikeField(boolean hasLikeField) {
+		this.hasLikeField = hasLikeField;
 	}
 	public boolean getIsMain() {
 		return scopeModuleIds.size() > 0;

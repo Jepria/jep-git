@@ -91,7 +91,7 @@ public class ModuleField implements JepRiaToolkitConstant {
 				fieldWidget.substring(JEP_FIELD_PREFIX.length()));
 	}
 	public String getFieldType() {
-		return fieldType;
+		return JepRiaToolkitUtil.isEmpty(fieldType) ? JepRiaToolkitUtil.getAppropriateFieldType(fieldWidget) : fieldType;
 	}
 	public void setFieldType(String fieldType) {
 		this.fieldType = fieldType;
@@ -124,7 +124,9 @@ public class ModuleField implements JepRiaToolkitConstant {
 		return fieldLike;
 	}
 	public void setFieldLike(String fieldLike) {
-		this.fieldLike = fieldLike;
+		if (!JepRiaToolkitUtil.isEmpty(fieldLike)){
+			this.fieldLike = fieldLike;
+		}
 	}
 	public String getFieldWidget() {
 		return fieldWidget;
@@ -264,7 +266,7 @@ public class ModuleField implements JepRiaToolkitConstant {
 							JEP_IMAGE_FIELD.equalsIgnoreCase(fieldWidget))) :
 					BINARY_FILE.name().equalsIgnoreCase(fieldType));
 	}
-	public boolean isLOB(){
+	public boolean getIsLOB(){
 		return isCLOB() || isBLOB();
 	}
 	public boolean getIsComboBoxField(){

@@ -932,6 +932,21 @@ public interface JepRiaToolkitConstant {
 	String CLIENT_MODULE_OPTIONS_TEMPLATE_PROPERTY = "fileTemplate.clientModuleOptions";
 	String CLIENT_MODULE_OPTIONS_PATH_TEMPLATE_PROPERTY = "fileTemplate.clientModuleOptions.path";
 	
+	String CLIENT_MODULE_RECORD_DEFINITION_TEMPLATE_PROPERTY = "fileTemplate.clientModuleRecordDefinition";
+	String CLIENT_MODULE_RECORD_DEFINITION_PATH_TEMPLATE_PROPERTY = "fileTemplate.clientModuleRecordDefinition.path";
+	
+	String CLIENT_MODULE_SERVICE_TEMPLATE_PROPERTY = "fileTemplate.clientModuleService";
+	String CLIENT_MODULE_SERVICE_PATH_TEMPLATE_PROPERTY = "fileTemplate.clientModuleService.path";
+	
+	String CLIENT_MODULE_SERVICE_ASYNC_TEMPLATE_PROPERTY = "fileTemplate.clientModuleServiceAsync";
+	String CLIENT_MODULE_SERVICE_ASYNC_PATH_TEMPLATE_PROPERTY = "fileTemplate.clientModuleServiceAsync.path";
+	
+	String CLIENT_MODULE_SHARED_CONSTANT_TEMPLATE_PROPERTY = "fileTemplate.clientModuleSharedConstant";
+	String CLIENT_MODULE_SHARED_CONSTANT_PATH_TEMPLATE_PROPERTY = "fileTemplate.clientModuleSharedConstant.path";
+	
+	String MAIN_MODULE_SHARED_CONSTANT_TEMPLATE_PROPERTY = "fileTemplate.mainModuleSharedConstant";
+	String MAIN_MODULE_SHARED_CONSTANT_PATH_TEMPLATE_PROPERTY = "fileTemplate.mainModuleSharedConstant.path";
+	
 	String CURRENT_DIRECTORY_ENVIRONMENT_VARIABLE = "user.dir";
 	
 	String MODULE_NAME_TEMPLATE_PARAMETER = "moduleName";
