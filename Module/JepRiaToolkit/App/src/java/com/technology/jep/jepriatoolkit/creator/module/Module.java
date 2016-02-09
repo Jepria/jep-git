@@ -44,7 +44,7 @@ public class Module implements JepRiaToolkitConstant {
 		setDbPackageName(dbPackage);
 	}	
 	
-	public boolean isStatusbarOff() {
+	public boolean isStatusBarOff() {
 		return isStatusbarOff;
 	}
 	public void setStatusbarOff(boolean isStatusbarOff) {

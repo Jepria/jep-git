@@ -947,6 +947,9 @@ public interface JepRiaToolkitConstant {
 	String MAIN_MODULE_SHARED_CONSTANT_TEMPLATE_PROPERTY = "fileTemplate.mainModuleSharedConstant";
 	String MAIN_MODULE_SHARED_CONSTANT_PATH_TEMPLATE_PROPERTY = "fileTemplate.mainModuleSharedConstant.path";
 	
+	String CLIENT_MODULE_STATUSBAR_TEMPLATE_PROPERTY = "fileTemplate.clientModuleStatusBar";
+	String CLIENT_MODULE_STATUSBAR_PATH_TEMPLATE_PROPERTY = "fileTemplate.clientModuleStatusBar.path";
+	
 	String CURRENT_DIRECTORY_ENVIRONMENT_VARIABLE = "user.dir";
 	
 	String MODULE_NAME_TEMPLATE_PARAMETER = "moduleName";

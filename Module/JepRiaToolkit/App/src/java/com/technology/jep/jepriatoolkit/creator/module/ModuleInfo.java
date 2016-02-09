@@ -25,6 +25,7 @@ public class ModuleInfo {
 	private boolean isJepToolBarView;
 	private boolean isDblClickOff;
 	private boolean isToolBarOff;
+	private boolean isStatusBarOff;
 	private boolean hasOptionField;
 	private boolean hasLikeField;
 	private List<ModuleField> fields = new ArrayList<ModuleField>(); 
@@ -126,6 +127,12 @@ public class ModuleInfo {
 	}
 	public void setIsToolBarOff(boolean isToolBarOff) {
 		this.isToolBarOff = isToolBarOff;
+	}
+	public boolean getIsStatusBarOff() {
+		return isStatusBarOff;
+	}
+	public void setIsStatusBarOff(boolean isStatusBarOff) {
+		this.isStatusBarOff = isStatusBarOff;
 	}
 	public boolean getHasOptionField() {
 		return hasOptionField;

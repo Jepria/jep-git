@@ -1,6 +1,5 @@
 package com.technology.jep.jepriatoolkit.creator;
 
-import static com.technology.jep.jepria.shared.field.JepTypeEnum.STRING;
 import static com.technology.jep.jepriatoolkit.creator.module.ModuleButton.STANDARD_TOOLBAR;
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.getApplicationDefinitionFile;
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.getDefinitionProperty;
@@ -1567,38 +1566,6 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 				)
 			);
 		}
-		/*
-		for (int i = 0; i < forms.size(); i++) {
-			String formName = (String) forms.get(i);
-			String packageModuleFormName = JepRiaToolkitUtil.multipleConcat(packageName.toLowerCase(), ".", moduleName.toLowerCase(), ".", formName.toLowerCase());
-			String content = JepRiaToolkitUtil.multipleConcat(
-					"package com.technology.", packageModuleFormName, ".shared;", END_OF_LINE, 
-					WHITE_SPACE, END_OF_LINE,
-					"import com.technology.jep.jepria.shared.JepRiaConstant;", END_OF_LINE, 
-					WHITE_SPACE, END_OF_LINE, 
-					"public class ", formName, "Constant extends JepRiaConstant  {", END_OF_LINE, 
-					WHITE_SPACE, END_OF_LINE, "}");
-
-			Module module = getModuleWithFieldsById(formName).keySet().iterator().next();
-			if (module.isNotRebuild())
-				continue;
-			
-			JepRiaToolkitUtil.writeToFile(content, JepRiaToolkitUtil.multipleConcat(
-					PREFIX_DESTINATION_SOURCE_CODE, "/", packageName.toLowerCase(), "/", moduleName.toLowerCase(), "/", formName.toLowerCase(), "/shared/", formName, "Constant.java"));
-		}
-		
-		String mainContent = JepRiaToolkitUtil.multipleConcat(
-				"package com.technology.", packageName.toLowerCase(), ".", moduleName.toLowerCase(), ".main.shared;", END_OF_LINE, 
-				WHITE_SPACE, END_OF_LINE,
-				"import com.technology.jep.jepria.shared.JepRiaConstant;", END_OF_LINE, 
-				WHITE_SPACE, END_OF_LINE, 
-				"public class ", moduleName, "Constant extends JepRiaConstant  {", END_OF_LINE, 
-				WHITE_SPACE, END_OF_LINE, 
-				"}");
-
-		JepRiaToolkitUtil.writeToFile(mainContent, JepRiaToolkitUtil.multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/", packageName.toLowerCase(), "/",
-				moduleName.toLowerCase(), "/main/shared/", moduleName, "Constant.java"));
-		*/
 	}
 
 	/**
@@ -1891,47 +1858,30 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 	 * Создание классов статусной панели
 	 */
 	private void createStatusbar() {
-		for (int i = 0; i < forms.size(); i++) {
-			String formName = (String) forms.get(i);
-			Map<Module, List<ModuleField>> hm = getModuleWithFieldsById(formName);
-			Module module = hm.keySet().iterator().next();
-			boolean isStatusbarOff = module.isStatusbarOff();
-			if (isStatusbarOff) {
-				// create file structure
-				JepRiaToolkitUtil.makeDir(JepRiaToolkitUtil.multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, packageName.toLowerCase(), "/",
-						moduleName.toLowerCase(), "/", formName, "/client/ui/statusbar"));
-				// statusbar view
-				String contentView = JepRiaToolkitUtil.multipleConcat(
-						"package com.technology.", packageName.toLowerCase(), ".", moduleName.toLowerCase(), ".", formName.toLowerCase(), ".client.ui.statusbar;", END_OF_LINE, 
-						WHITE_SPACE, END_OF_LINE,
-						"import com.technology.jep.jepria.client.ui.statusbar.StatusBarView;", END_OF_LINE, 
-						WHITE_SPACE, END_OF_LINE,
-						"public class ", formName, "StatusbarView extends StatusBarView {", END_OF_LINE, 
-						WHITE_SPACE, END_OF_LINE, 
-						"	public ", formName, "StatusbarView() {", END_OF_LINE, 
-						"		super();", END_OF_LINE, 
-						WHITE_SPACE, END_OF_LINE,
-						"		asWidget().setVisible(false);", END_OF_LINE, 
-						"	}", END_OF_LINE, "}");
-
-				if (module.isNotRebuild())
-					continue;
-				JepRiaToolkitUtil.writeToFile(contentView, JepRiaToolkitUtil.multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/", packageName.toLowerCase(), "/",
-						moduleName.toLowerCase(), "/", formName.toLowerCase(), "/client/ui/statusbar/", formName, "StatusbarView.java"));
-
-				// statusbar presenter
-				String contentPresenter = JepRiaToolkitUtil.multipleConcat(
-					"package com.technology.", packageName.toLowerCase(), ".", moduleName.toLowerCase(), ".", formName.toLowerCase(), ".client.ui.statusbar;", END_OF_LINE, 
-					WHITE_SPACE, END_OF_LINE,
-					"import com.technology.jep.jepria.client.ui.statusbar.JepStatusBarPresenter;", END_OF_LINE, 
-					WHITE_SPACE, END_OF_LINE,
-					"public class ", formName, "StatusbarPresenter extends JepStatusBarPresenter {", END_OF_LINE, 
-					"}");
-
-				JepRiaToolkitUtil.writeToFile(contentPresenter, JepRiaToolkitUtil.multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/", packageName.toLowerCase(),
-					"/", moduleName.toLowerCase(), "/", formName.toLowerCase(), "/client/ui/statusbar/", formName, "StatusbarPresenter.java"));
-
-			}
+		Map<String, Object> data = prepareData();
+		List<ModuleInfo> moduleInfos = (List<ModuleInfo>) data.get(FORMS_TEMPLATE_PARAMETER);
+		for (ModuleInfo moduleInfo : moduleInfos) {
+			if (moduleInfo.isNotRebuild() || !moduleInfo.getIsStatusBarOff()) continue;
+			
+			String formName = moduleInfo.getFormName();
+			
+			JepRiaToolkitUtil.makeDir(JepRiaToolkitUtil.multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, packageName.toLowerCase(), "/",
+					moduleName.toLowerCase(), "/", formName, "/client/ui/statusbar"));
+			
+			Map<String, Object> innerData = new HashMap<String, Object>();
+			innerData.put(FORM_TEMPLATE_PARAMETER, moduleInfo);
+			innerData.put(PACKAGE_NAME_TEMPLATE_PARAMETER, data.get(PACKAGE_NAME_TEMPLATE_PARAMETER));
+			innerData.put(MODULE_NAME_TEMPLATE_PARAMETER, data.get(MODULE_NAME_TEMPLATE_PARAMETER));
+			
+			JepRiaToolkitUtil.convertTemplateToFile(
+				getDefinitionProperty(CLIENT_MODULE_STATUSBAR_TEMPLATE_PROPERTY, "clientModuleStatusBar.ftl"),
+				innerData, 
+				format(
+					getDefinitionProperty(CLIENT_MODULE_STATUSBAR_PATH_TEMPLATE_PROPERTY, 
+							JepRiaToolkitUtil.multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/client/ui/statusbar/{3}StatusBarViewImpl.java")),
+					packageName.toLowerCase(), moduleName.toLowerCase(), formName.toLowerCase(), formName
+				)
+			);
 		}
 	}
 
@@ -1956,13 +1906,6 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 	 */
 	private void encodeTextResources() {
 		JepRiaToolkitUtil.runAntTarget("all-text-encode");
-	}
-
-	/**
-	 * Перевод приложения (его настроек) в режим дебага
-	 */
-	private void convertApplicationInDebugMode() {
-		JepRiaToolkitUtil.runAntTarget("build-config");
 	}
 
 	/**
@@ -2020,7 +1963,6 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 			XPathExpression expr = xpath.compile(JepRiaToolkitUtil.multipleConcat("//", MODULE_TAG_NAME));
 			nodes = (NodeList) expr.evaluate(jepApplicationDoc, XPathConstants.NODESET);
 		} catch (Exception e) {
-			// e.printStackTrace();
 			JepRiaToolkitUtil.echoMessage(JepRiaToolkitUtil.multipleConcat(ERROR_PREFIX, e.getLocalizedMessage()));
 		}
 		for (int i = 0; i < nodes.getLength(); i++) {
@@ -2053,7 +1995,6 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 					") = '", moduleId, "']/", MODULE_TAG_NAME));
 			nodes = (NodeList) expr.evaluate(jepApplicationDoc, XPathConstants.NODESET);
 		} catch (Exception e) {
-			// e.printStackTrace();
 			JepRiaToolkitUtil.echoMessage(JepRiaToolkitUtil.multipleConcat(ERROR_PREFIX, e.getLocalizedMessage()));
 		}
 		if (nodes.getLength() > 0) {
@@ -2088,7 +2029,6 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 					") = '", moduleId, "']"));
 			module = (Element) expr.evaluate(jepApplicationDoc, XPathConstants.NODE);
 		} catch (Exception e) {
-			// e.printStackTrace();
 			JepRiaToolkitUtil.echoMessage(JepRiaToolkitUtil.multipleConcat(ERROR_PREFIX, e.getLocalizedMessage()));
 		}
 		return module;
@@ -2111,7 +2051,6 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 					") = '", moduleId, "']/record/field"));
 			fields = (NodeList) expr.evaluate(jepApplicationDoc, XPathConstants.NODESET);
 		} catch (Exception e) {
-			// e.printStackTrace();
 			JepRiaToolkitUtil.echoMessage(JepRiaToolkitUtil.multipleConcat(ERROR_PREFIX, e.getLocalizedMessage()));
 		}
 		if (fields.getLength() > 0) {
@@ -2139,7 +2078,6 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 					") = '", moduleId, "']/record[@", MODULE_PRIMARY_KEY_ATTRIBUTE, "]/@", MODULE_PRIMARY_KEY_ATTRIBUTE));
 			result = (String) expr.evaluate(jepApplicationDoc, XPathConstants.STRING);
 		} catch (Exception e) {
-			// e.printStackTrace();
 			JepRiaToolkitUtil.echoMessage(JepRiaToolkitUtil.multipleConcat(ERROR_PREFIX, e.getLocalizedMessage()));
 		}
 		return !JepRiaToolkitUtil.isEmpty(result) ? result.trim().toUpperCase() : null;
@@ -2161,7 +2099,6 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 					") = '", moduleId, "']/record[@", MODULE_TABLE_NAME_ATTRIBUTE, "]/@", MODULE_TABLE_NAME_ATTRIBUTE));
 			result = (String) expr.evaluate(jepApplicationDoc, XPathConstants.STRING);
 		} catch (Exception e) {
-			// e.printStackTrace();
 			JepRiaToolkitUtil.echoMessage(JepRiaToolkitUtil.multipleConcat(ERROR_PREFIX, e.getLocalizedMessage()));
 		}
 		return !JepRiaToolkitUtil.isEmpty(result) ? result.trim().toLowerCase() : null;
@@ -2188,7 +2125,6 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 			}
 
 		} catch (Exception e) {
-			// e.printStackTrace();
 			JepRiaToolkitUtil.echoMessage(JepRiaToolkitUtil.multipleConcat(ERROR_PREFIX, e.getLocalizedMessage()));
 		}
 		return moduleRoles;
@@ -2210,7 +2146,6 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 					") = '", moduleId, "']/", DATABASE_TAG_NAME, "[@", MODULE_DATASOURCE_ATTRIBUTE, "]/@", MODULE_DATASOURCE_ATTRIBUTE));
 			result = (String) expr.evaluate(jepApplicationDoc, XPathConstants.STRING);
 		} catch (Exception e) {
-			// e.printStackTrace();
 			JepRiaToolkitUtil.echoMessage(JepRiaToolkitUtil.multipleConcat(ERROR_PREFIX, e.getLocalizedMessage()));
 		}
 		return !JepRiaToolkitUtil.isEmpty(result) ? result.trim() : null;
@@ -2232,7 +2167,6 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 					") = '", moduleId, "']/", DATABASE_TAG_NAME, "[@", DB_PACKAGE_ATTRIBUTE, "]/@", DB_PACKAGE_ATTRIBUTE));
 			result = (String) expr.evaluate(jepApplicationDoc, XPathConstants.STRING);
 		} catch (Exception e) {
-			// e.printStackTrace();
 			JepRiaToolkitUtil.echoMessage(JepRiaToolkitUtil.multipleConcat(ERROR_PREFIX, e.getLocalizedMessage()));
 		}
 		return !JepRiaToolkitUtil.isEmpty(result) ? result.trim() : null;
@@ -2265,7 +2199,6 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 					"']", "/", TOOLBAR_TAG_NAME));
 			toolbar = (Element) expr.evaluate(jepApplicationDoc, XPathConstants.NODE);
 		} catch (Exception e) {
-			// e.printStackTrace();
 			JepRiaToolkitUtil.echoMessage(JepRiaToolkitUtil.multipleConcat(ERROR_PREFIX, e.getLocalizedMessage()));
 		}
 		if (!JepRiaToolkitUtil.isEmpty(toolbar)) {
@@ -2334,7 +2267,6 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 					ALPHABET_LOWER_CASE, "','", ALPHABET_UPPER_CASE, "') = '", fieldId.toUpperCase(), "']"));
 			return !JepRiaToolkitUtil.isEmpty((Element) expr.evaluate(jepApplicationDoc, XPathConstants.NODE));
 		} catch (Exception e) {
-			// e.printStackTrace();
 			JepRiaToolkitUtil.echoMessage(JepRiaToolkitUtil.multipleConcat(ERROR_PREFIX, e.getLocalizedMessage()));
 		}
 		return false;
@@ -2356,7 +2288,6 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 					") = '", moduleId, "']", "/", FORMS_TAG_NAME, "/", DETAIL_FORM_TAG_NAME));
 			return (Element) expr.evaluate(jepApplicationDoc, XPathConstants.NODE);
 		} catch (Exception e) {
-			// e.printStackTrace();
 			JepRiaToolkitUtil.echoMessage(JepRiaToolkitUtil.multipleConcat(ERROR_PREFIX, e.getLocalizedMessage()));
 		}
 		return null;
@@ -2380,7 +2311,6 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 					FIELD_ID_ATTRIBUTE, "),'", ALPHABET_LOWER_CASE, "','", ALPHABET_UPPER_CASE, "') = '", fieldId.toUpperCase(), "']"));
 			field = (Element) expr.evaluate(jepApplicationDoc, XPathConstants.NODE);
 		} catch (Exception e) {
-			// e.printStackTrace();
 			JepRiaToolkitUtil.echoMessage(JepRiaToolkitUtil.multipleConcat(ERROR_PREFIX, e.getLocalizedMessage()));
 		}
 		if (!JepRiaToolkitUtil.isEmpty(formDetailElement) && JepRiaToolkitUtil.isEmpty(module.getFieldLabelWidth())) {
@@ -2470,7 +2400,6 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 					") = '", moduleId, "']", "/", FORMS_TAG_NAME, "/", LIST_FORM_TAG_NAME));
 			return (Element) expr.evaluate(jepApplicationDoc, XPathConstants.NODE);
 		} catch (Exception e) {
-			// e.printStackTrace();
 			JepRiaToolkitUtil.echoMessage(JepRiaToolkitUtil.multipleConcat(ERROR_PREFIX, e.getLocalizedMessage()));
 		}
 		return null;
@@ -2494,7 +2423,6 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 					FIELD_ID_ATTRIBUTE, "),'", ALPHABET_LOWER_CASE, "','", ALPHABET_UPPER_CASE, "') = '", fieldId.toUpperCase(), "']"));
 			field = (Element) expr.evaluate(jepApplicationDoc, XPathConstants.NODE);
 		} catch (Exception e) {
-			// e.printStackTrace();
 			JepRiaToolkitUtil.echoMessage(JepRiaToolkitUtil.multipleConcat(ERROR_PREFIX, e.getLocalizedMessage()));
 		}
 		if (!JepRiaToolkitUtil.isEmpty(formList)) {
@@ -2580,7 +2508,6 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 
 			recordField.setDeleteParameter(recordField.isPrimaryKey());
 		} catch (Exception e) {
-			// e.printStackTrace();
 			JepRiaToolkitUtil.echoMessage(JepRiaToolkitUtil.multipleConcat(ERROR_PREFIX, e.getLocalizedMessage()));
 		}
 	}
@@ -2625,7 +2552,6 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 			if (!JepRiaToolkitUtil.isEmpty(findParameterPrefix))
 				module.setFindParameterPrefix(findParameterPrefix);
 		} catch (Exception e) {
-			// e.printStackTrace();
 			JepRiaToolkitUtil.echoMessage(JepRiaToolkitUtil.multipleConcat(ERROR_PREFIX, e.getLocalizedMessage()));
 		}
 	}
@@ -2782,6 +2708,7 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 				modInfo.setIsJepToolBarView(isJepToolBar && !module.hasToolBarView());
 				modInfo.setIsDblClickOff(module.isDblClickOff());
 				modInfo.setIsToolBarOff(module.isToolBarOff());
+				modInfo.setIsStatusBarOff(module.isStatusBarOff());
 				modInfo.setHasLikeField(module.hasLikeFields());
 				modInfo.setScopeModuleIds(getDependencyNodesIfExists(formName));
 				modInfo.setToolBarCustomButtons(module.getToolBarCustomButtons());
