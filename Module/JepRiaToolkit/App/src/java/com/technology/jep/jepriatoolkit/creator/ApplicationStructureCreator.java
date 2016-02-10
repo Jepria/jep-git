@@ -1017,7 +1017,7 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 				innerData, 
 				format(
 					getDefinitionProperty(CLIENT_MODULE_REMOTE_EJB_PATH_TEMPLATE_PROPERTY, 
-							JepRiaToolkitUtil.multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/server/{3}Remote.java")),
+							JepRiaToolkitUtil.multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/server/ejb/{3}Remote.java")),
 					packageName.toLowerCase(), moduleName.toLowerCase(), formName.toLowerCase(), formName
 				)
 			);
@@ -1044,7 +1044,7 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 				innerData, 
 				format(
 					getDefinitionProperty(CLIENT_MODULE_LOCAL_EJB_PATH_TEMPLATE_PROPERTY, 
-							JepRiaToolkitUtil.multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/server/{3}Local.java")),
+							JepRiaToolkitUtil.multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/server/ejb/{3}Local.java")),
 					packageName.toLowerCase(), moduleName.toLowerCase(), formName.toLowerCase(), formName
 				)
 			);
@@ -1055,343 +1055,26 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 	 * Создание классов реализаций EJB
 	 */
 	private void createEjbClass() {
-		for (int i = 0; i < forms.size(); i++) {
-			String formName = (String) forms.get(i);
-			String packageModuleFormName = JepRiaToolkitUtil.multipleConcat(packageName.toLowerCase(), ".", moduleName.toLowerCase(), ".", formName.toLowerCase());
-			String primaryKey = getPrimaryKeyById(formName);
-
-			Map<Module, List<ModuleField>> hm = getModuleWithFieldsById(formName);
-			Module module = hm.keySet().iterator().next();
-			String dbPackage = module.getDbPackageName();
-
-			String findResultSetMapper = new String();
-			String findParameters = new String();
-			String findParametersAsList = new String();
-			String createParameters = new String();
-			String createParametersAsList = new String();
-			String updateParameters = new String();
-			String updateParametersAsList = new String();
-			String deleteParameters = new String();
-			String deleteParametersAsList = new String();
-			String getters = new String();
-
-			List<ModuleField> moduleFields = hm.values().iterator().next();
-			List<String> subtractFieldIds = new ArrayList<String>();
-			List<ModuleField> optionFields = JepRiaToolkitUtil.getOptionField(moduleFields);
-
-			boolean hasOptionField = false;
-			boolean hasFileNameField = false;
-
-			List<ModuleButton> buttons = module.getToolBarButtons();
-			boolean hasViewDetailsWS = false;
-			for (ModuleButton button : buttons) {
-				if (VIEW_DETAILS_BUTTON_ID.equalsIgnoreCase(button.getButtonId())) {
-					hasViewDetailsWS = true;
-					break;
-				}
-			}
-			for (ModuleField moduleField : moduleFields) {
-				if (FILE_NAME_FIELD_ID.equalsIgnoreCase(moduleField.getFieldId())) {
-					hasFileNameField = true;
-				}
-			}
-
-			String jepRiaResourceBundleImport = new String();
-
-			for (ModuleField moduleField : moduleFields) {
-				boolean isOptionField = moduleField.getIsComboBoxField();
-				boolean isOptionListField = moduleField.getIsOptionField() && !moduleField.getIsComboBoxField();
-				if (isOptionField || isOptionListField)
-					hasOptionField = true;
-				boolean isKeyOption = false;
-				if (!isOptionField) {
-					for (ModuleField optionField : optionFields) {
-						if (moduleField.getFieldId().equalsIgnoreCase(JepRiaToolkitUtil.getDisplayValueForComboBox(optionField.getFieldId())))
-							isKeyOption = moduleField.isListFormField()
-									|| (!JepRiaToolkitUtil.isEmpty(moduleField.getVisibleWorkStates()) ? moduleField.getVisibleWorkStates().contains(
-											WorkstateEnum.VIEW_DETAILS) : moduleField.getIsDetailFormField() && hasViewDetailsWS);
-					}
-				}
-
-				if (moduleField.isListFormField()
-						|| moduleField.isPrimaryKey()
-						|| (!JepRiaToolkitUtil.isEmpty(moduleField.getVisibleWorkStates()) ? moduleField.getVisibleWorkStates().contains(
-								WorkstateEnum.VIEW_DETAILS) : moduleField.getIsDetailFormField() && hasViewDetailsWS) || isKeyOption) {
-					String fieldId = moduleField.getFieldId().toUpperCase();
-					JepTypeEnum fieldType = JepRiaToolkitUtil.getFieldTypeAsEnum(moduleField.getFieldType());
-					String resultSet = "null";
-					switch (fieldType) {
-					case STRING:
-						resultSet = JepRiaToolkitUtil.multipleConcat("rs.getString(", fieldId, ")");
-						break;
-					case INTEGER:
-						resultSet = JepRiaToolkitUtil.multipleConcat("getInteger(rs, ", fieldId, ")");
-						break;
-					case FLOAT:
-						resultSet = JepRiaToolkitUtil.multipleConcat("rs.getFloat(", fieldId, ")");
-						break;
-					case DOUBLE:
-						resultSet = JepRiaToolkitUtil.multipleConcat("rs.getDouble(", fieldId, ")");
-						break;
-					case BIGDECIMAL:
-						resultSet = JepRiaToolkitUtil.multipleConcat("rs.getBigDecimal(", fieldId, ")");
-						break;
-					case BOOLEAN:
-						resultSet = JepRiaToolkitUtil.multipleConcat("rs.getBoolean(", fieldId, ")");
-						break;
-					case DATE:
-					case DATE_TIME:
-						resultSet = JepRiaToolkitUtil.multipleConcat("getDate(rs, ", fieldId, ")");
-						break;
-					case TIME:
-						resultSet = JepRiaToolkitUtil.multipleConcat("getTimestamp(rs, ", fieldId, ")");
-						break;
-					case OPTION:
-						String optionNameFieldId = fieldId.endsWith("CODE") ? fieldId.replace("CODE", "NAME") : fieldId.replace("ID", "NAME"); 
-						resultSet = JepRiaToolkitUtil.multipleConcat("getOption(rs, ", fieldId, ", ", optionNameFieldId, ")");
-						break;
-					case BINARY_FILE:
-					case TEXT_FILE:
-					case CLOB:
-						resultSet = JepRiaToolkitUtil.multipleConcat(
-								"getFileReference(rs, ",
-								(hasFileNameField ? FILE_NAME_FIELD_ID : "null"),
-								", ", primaryKey, ", ", EXTENSION_FIELD_ID, ", ", MIME_TYPE_FIELD_ID, ")");
-						break;
-					default:
-						resultSet = JepRiaToolkitUtil.multipleConcat("rs.getString(", fieldId, ")");
-						break;
-					}
-					findResultSetMapper += JepRiaToolkitUtil.multipleConcat("						record.set(", fieldId, ", ", resultSet, ");", END_OF_LINE);
-				}
-				
-				String fieldIdAsParameter = null;
-				if (moduleField.isFindParameter()) {
-					fieldIdAsParameter = JepRiaToolkitUtil.getFieldIdAsParameter(moduleField.getFieldId(), module.getFindParameterPrefix());
-					findParameters += JepRiaToolkitUtil.multipleConcat("				  	+ \"", (JepRiaToolkitUtil.isEmpty(findParameters) ? "" : ", "),
-							fieldIdAsParameter, " => ? \" ", END_OF_LINE);
-					findParametersAsList += JepRiaToolkitUtil.multipleConcat(
-						"				, ", 
-						(isOptionField ? "JepOption.<String>getValue(" : ""),
-						(isOptionListField ? "JepOption.getOptionValuesAsString((List<JepOption>)" : ""),
-						"templateRecord.get(",
-						moduleField.getFieldId().toUpperCase(), ")", 
-						(isOptionField || isOptionListField ? ")" : ""), END_OF_LINE);
-				}
-				
-				if (moduleField.isCreateParameter()) {
-					fieldIdAsParameter = JepRiaToolkitUtil.getFieldIdAsParameter(moduleField.getFieldId(), module.getCreateParameterPrefix());
-					createParameters += JepRiaToolkitUtil.multipleConcat("				  	+ \"", (JepRiaToolkitUtil.isEmpty(createParameters) ? "" : ", "),
-							fieldIdAsParameter, " => ? \" ", END_OF_LINE);
-					createParametersAsList += JepRiaToolkitUtil.multipleConcat("				, ", 
-						(isOptionField ? "JepOption.<String>getValue(" : ""), 
-						(isOptionListField ? "JepOption.getOptionValuesAsString((List<JepOption>)" : ""),
-						"record.get(", moduleField.getFieldId().toUpperCase(), ")", 
-						(isOptionField || isOptionListField ? ")" : ""), END_OF_LINE);
-				}
-				
-				if (moduleField.isUpdateParameter()) {
-					fieldIdAsParameter = JepRiaToolkitUtil.getFieldIdAsParameter(moduleField.getFieldId(), module.getUpdateParameterPrefix());
-					updateParameters += JepRiaToolkitUtil.multipleConcat("				  	+ \"", (JepRiaToolkitUtil.isEmpty(updateParameters) ? "" : ", "),
-							fieldIdAsParameter, " => ? \" ", END_OF_LINE);
-					updateParametersAsList += JepRiaToolkitUtil.multipleConcat("				, ", 
-						(isOptionField ? "JepOption.<String>getValue(" : ""), 
-						(isOptionListField ? "JepOption.getOptionValuesAsString((List<JepOption>)" : ""),
-						"record.get(", moduleField.getFieldId().toUpperCase(), ")", 
-						(isOptionField || isOptionListField ? ")" : ""), END_OF_LINE);
-				}
-				
-				if (moduleField.isDeleteParameter()) {
-					fieldIdAsParameter = JepRiaToolkitUtil.getFieldIdAsParameter(moduleField.getFieldId(), module.getDefaultParameterPrefix());
-					deleteParameters += JepRiaToolkitUtil.multipleConcat("				  	+ \"", (JepRiaToolkitUtil.isEmpty(deleteParameters) ? "" : ", "),
-							fieldIdAsParameter, " => ? \" ", END_OF_LINE);
-					deleteParametersAsList += JepRiaToolkitUtil.multipleConcat("				, record.get(", moduleField.getFieldId().toUpperCase(), ") ",
-							END_OF_LINE);
-				}
-
-				if (isOptionField || isOptionListField) {
-					String subtractFieldId = JepRiaToolkitUtil.initCap(JepRiaToolkitUtil.getFieldIdAsParameter(
-							JepRiaToolkitUtil.subtractFieldSuffix(moduleField.getFieldId()), null));
-					subtractFieldIds.add(subtractFieldId);
-					boolean isBooleanType = moduleField.getIsBooleanType();
-					if (isBooleanType && JepRiaToolkitUtil.isEmpty(jepRiaResourceBundleImport)) {
-						jepRiaResourceBundleImport = JepRiaToolkitUtil.multipleConcat(
-								"import static com.technology.jep.jepria.server.JepRiaServerConstant.JEP_RIA_RESOURCE_BUNDLE_NAME;", END_OF_LINE,
-								"import java.util.ResourceBundle;", END_OF_LINE, 
-								"import java.util.ArrayList;", END_OF_LINE);
-					}
-					getters += JepRiaToolkitUtil.multipleConcat(
-						WHITE_SPACE, END_OF_LINE,
-						"	public List<JepOption> get", subtractFieldId, "() throws ApplicationException {", END_OF_LINE,
-						isBooleanType ? JepRiaToolkitUtil.multipleConcat(
-							"		ResourceBundle resource = ResourceBundle.getBundle(JEP_RIA_RESOURCE_BUNDLE_NAME);", END_OF_LINE,
-							"		List<JepOption> result = new ArrayList<JepOption>();", END_OF_LINE, 
-							WHITE_SPACE, END_OF_LINE,
-							"		JepOption option = new JepOption();", END_OF_LINE, 
-							"		option.set(", subtractFieldId, "Options.", moduleField.getFieldId(), ", 0);", END_OF_LINE, 
-							"		option.set(", subtractFieldId, "Options.", JepRiaToolkitUtil.getDisplayValueForComboBox(moduleField.getFieldId()), ", resource.getString(\"no\"));", END_OF_LINE,
-							"		result.add(option);", END_OF_LINE, 
-							WHITE_SPACE, END_OF_LINE, 
-							"		option = new JepOption();", END_OF_LINE,
-							"		option.set(", subtractFieldId, "Options.", moduleField.getFieldId(), ", 1);", END_OF_LINE, 
-							"		option.set(", subtractFieldId, "Options.", JepRiaToolkitUtil.getDisplayValueForComboBox(moduleField.getFieldId()), ", resource.getString(\"yes\"));", END_OF_LINE, 
-							"		result.add(option);", END_OF_LINE, 
-							WHITE_SPACE, END_OF_LINE,
-							"		return result;", END_OF_LINE) : JepRiaToolkitUtil.multipleConcat("		String sqlQuery = ", END_OF_LINE,
-							"			\" begin \" ", END_OF_LINE, 
-							"			+ \" ? := ", dbPackage, ".get", subtractFieldId, ";\" ", END_OF_LINE,
-							"			+ \" end;\";", END_OF_LINE, 
-							WHITE_SPACE, END_OF_LINE, 
-							"		return super.getOptions(", END_OF_LINE,
-							"				sqlQuery,", END_OF_LINE, 
-							"				new ResultSetMapper<JepOption>() {", END_OF_LINE,
-							"					public void map(ResultSet rs, JepOption dto) throws SQLException {", END_OF_LINE, 
-							"						dto.setValue(", (JepTypeEnum.INTEGER.equals(JepRiaToolkitUtil.getFieldTypeAsEnum(moduleField.getFieldType())) ? 
-									"getInteger(rs, "
-									: "rs.getString("), subtractFieldId, "Options.", moduleField.getFieldId(), "));", END_OF_LINE,
-							"						dto.setName(rs.getString(", subtractFieldId, "Options.", JepRiaToolkitUtil.getDisplayValueForComboBox(moduleField.getFieldId()), "));", END_OF_LINE, 
-							"					}", END_OF_LINE,
-							"				}", END_OF_LINE, 
-							"		);", END_OF_LINE), 
-							"	}", END_OF_LINE);
-				}
-			}
-
-			String mainFormIfExist = getMainFormNameIfExist(formName);
-			if (!JepRiaToolkitUtil.isEmpty(mainFormIfExist)) {
-				String dependencyPrimaryKey = getPrimaryKeyById(mainFormIfExist);
-				dependencyPrimaryKey = JepRiaToolkitUtil.isEmpty(dependencyPrimaryKey) ? (JepRiaToolkitUtil.multipleConcat(mainFormIfExist, IDENTIFICATOR_SUFFIX))
-						: dependencyPrimaryKey;
-
-				// определим: имеется ли идентификатор первичного ключа уже в
-				// списке записей модуля
-				boolean hasField = false;
-				for (ModuleField field : moduleFields) {
-					if (field.getFieldId().equalsIgnoreCase(dependencyPrimaryKey)) {
-						hasField = true;
-						break;
-					}
-				}
-
-				if (!hasField) {
-					String fieldIdAsParameter = JepRiaToolkitUtil
-							.getFieldIdAsParameter(dependencyPrimaryKey.toUpperCase(), module.getFindParameterPrefix());
-					findParameters += JepRiaToolkitUtil.multipleConcat("				  	// + \"", (JepRiaToolkitUtil.isEmpty(findParameters) ? "" : ", "),
-							fieldIdAsParameter, " => ? \" ", END_OF_LINE);
-					findParametersAsList += JepRiaToolkitUtil.multipleConcat("				//, templateRecord.get(", dependencyPrimaryKey.toUpperCase(), ") ",
-							END_OF_LINE);
-				}
-			}
-
-			String content = JepRiaToolkitUtil.multipleConcat(
-				"package com.technology.", packageModuleFormName, ".server.ejb;", END_OF_LINE,
-				WHITE_SPACE, END_OF_LINE,
-				"import static com.technology.", packageModuleFormName, ".server.", formName, "ServerConstant.DATA_SOURCE_JNDI_NAME;", END_OF_LINE,
-				"import static com.technology.", packageModuleFormName, ".server.", formName, "ServerConstant.RESOURCE_BUNDLE_NAME;", END_OF_LINE,
-				"import static com.technology.", packageModuleFormName, ".shared.field.", formName, "FieldNames.*;", END_OF_LINE,
-				"import javax.ejb.Local;", END_OF_LINE,
-				"import javax.ejb.Remote;", END_OF_LINE,
-				"import javax.ejb.Stateless;", END_OF_LINE,
-				"import oracle.j2ee.ejb.StatelessDeployment;", END_OF_LINE,
-				"import com.technology.jep.jepria.server.ejb.JepDataBean;", END_OF_LINE,
-				"import com.technology.jep.jepria.shared.exceptions.ApplicationException;", END_OF_LINE,
-				"import com.technology.jep.jepria.shared.record.JepRecord;", END_OF_LINE,
-				"import com.technology.jep.jepria.shared.util.Mutable;", END_OF_LINE,
-				"import com.technology.", packageModuleFormName, ".server.ejb.", formName, ";", END_OF_LINE,
-				"import com.technology.jep.jepria.server.dao.ResultSetMapper;", END_OF_LINE,
-				(hasOptionField ? JepRiaToolkitUtil.multipleConcat("import com.technology.jep.jepria.shared.field.option.JepOption;", END_OF_LINE) : ""), jepRiaResourceBundleImport);
-
-			for (String subtractFieldId : subtractFieldIds)
-				content += JepRiaToolkitUtil.multipleConcat(JepRiaToolkitUtil.multipleConcat(
-						"import com.technology.", packageModuleFormName, ".shared.field.", subtractFieldId, "Options;", END_OF_LINE));
-
-			content += JepRiaToolkitUtil.multipleConcat(
-				"import java.sql.ResultSet;", END_OF_LINE, 
-				"import java.sql.SQLException;", END_OF_LINE,
-				"import java.util.List;", END_OF_LINE, 
-				WHITE_SPACE, END_OF_LINE, 
-				"@Local( { ", formName, "Local.class })", END_OF_LINE,
-				"@Remote( { ", formName, "Remote.class })", END_OF_LINE, 
-				"@StatelessDeployment", END_OF_LINE, 
-				"@Stateless", END_OF_LINE,
-				"public class ", formName, "Bean extends JepDataBean implements ", formName, " {", END_OF_LINE, 
-				WHITE_SPACE, END_OF_LINE, 
-				"	public ", formName, "Bean() {", END_OF_LINE, 
-				"		super(DATA_SOURCE_JNDI_NAME, RESOURCE_BUNDLE_NAME);", END_OF_LINE, 
-				"	}", END_OF_LINE, 
-				WHITE_SPACE, END_OF_LINE);
-
-			content += JepRiaToolkitUtil.multipleConcat(
-				"	public List<JepRecord> find(JepRecord templateRecord, Mutable<Boolean> autoRefreshFlag, Integer maxRowCount, Integer operatorId) throws ApplicationException {", END_OF_LINE,
-				(!JepRiaToolkitUtil.isEmpty(findParameters) && !JepRiaToolkitUtil.isEmpty(findParametersAsList) ? JepRiaToolkitUtil.multipleConcat(
-						"		String sqlQuery = ", END_OF_LINE, 
-						"			\"begin  \" ", END_OF_LINE, 
-						"			  +	\"? := ", dbPackage, ".find", formName, "(\" ", END_OF_LINE, 
-						findParameters, "					+ \", maxRowCount => ? \" ", END_OF_LINE,
-						"					+ \", operatorId => ? \" ", END_OF_LINE, 
-						"			  + \");\"", END_OF_LINE, 
-						"		 + \" end;\";", END_OF_LINE,
-						"		return super.find(sqlQuery,", END_OF_LINE, 
-						"				new ResultSetMapper<JepRecord>() {", END_OF_LINE,
-						"					public void map(ResultSet rs, JepRecord record) throws SQLException {", END_OF_LINE, 
-						findResultSetMapper,
-						"					}", END_OF_LINE, 
-						"				}", END_OF_LINE, 
-						findParametersAsList, "				, maxRowCount ", END_OF_LINE,
-						"				, operatorId);", END_OF_LINE) : JepRiaToolkitUtil.multipleConcat("		throw new UnsupportedOperationException();", END_OF_LINE)),
-				"	}", END_OF_LINE,
-				WHITE_SPACE, END_OF_LINE,
-				"	public void delete(JepRecord record, Integer operatorId) throws ApplicationException {", END_OF_LINE,
-				(!JepRiaToolkitUtil.isEmpty(deleteParameters) && !JepRiaToolkitUtil.isEmpty(deleteParametersAsList) ? JepRiaToolkitUtil.multipleConcat(
-						"		String sqlQuery = ", END_OF_LINE,
-						"			\"begin \" ", END_OF_LINE,
-						"			  + \"", dbPackage, ".delete", formName, "(\" ", END_OF_LINE,
-						deleteParameters,
-						"					+ \", operatorId => ? \" ", END_OF_LINE,
-						"			  + \");\"", END_OF_LINE,
-						"		  + \"end;\";", END_OF_LINE,
-						"		super.delete(sqlQuery ", END_OF_LINE,
-						deleteParametersAsList, 
-						"				, operatorId);", END_OF_LINE) : JepRiaToolkitUtil.multipleConcat("		throw new UnsupportedOperationException();", END_OF_LINE)),
-				"	}", 
-				END_OF_LINE,
-				WHITE_SPACE, END_OF_LINE,
-				"	public void update(JepRecord record, Integer operatorId) throws ApplicationException {", END_OF_LINE,
-				(!JepRiaToolkitUtil.isEmpty(updateParameters) && !JepRiaToolkitUtil.isEmpty(updateParametersAsList) ? JepRiaToolkitUtil.multipleConcat(
-						"		String sqlQuery = ", END_OF_LINE, 
-						"			\"begin \" ", END_OF_LINE, 
-						"			+	\"", dbPackage, ".update", formName, "(\" ", END_OF_LINE, 
-						updateParameters, "					+ \", operatorId => ? \" ", END_OF_LINE, 
-						"			+ \");\"", END_OF_LINE, 
-						"		 + \"end;\";", END_OF_LINE, 
-						"		super.update(sqlQuery ", END_OF_LINE, 
-						updateParametersAsList,
-						"				, operatorId);", END_OF_LINE) : JepRiaToolkitUtil.multipleConcat("		throw new UnsupportedOperationException();", END_OF_LINE)),
-				"	}",
-				END_OF_LINE,
-				WHITE_SPACE, END_OF_LINE,
-				"	public Integer create(JepRecord record, Integer operatorId) throws ApplicationException {", END_OF_LINE,
-				(!JepRiaToolkitUtil.isEmpty(createParameters) && !JepRiaToolkitUtil.isEmpty(createParametersAsList) ? JepRiaToolkitUtil.multipleConcat(
-						"		String sqlQuery = ", END_OF_LINE, 
-						"			\"begin \" ", END_OF_LINE, 
-						"			  + \"? := ", dbPackage, ".create", formName, "(\" ", END_OF_LINE, 
-						createParameters, "					+ \", operatorId => ? \" ", END_OF_LINE, 
-						"			  + \");\"", END_OF_LINE, 
-						"			+ \"end;\";", END_OF_LINE, 
-						"		return super.create(sqlQuery, ", END_OF_LINE,
-						"				Integer.class ", END_OF_LINE, 
-						createParametersAsList, 
-						"				, operatorId);", END_OF_LINE) : JepRiaToolkitUtil.multipleConcat("		throw new UnsupportedOperationException();", END_OF_LINE)), 
-						"	}", END_OF_LINE, 
-						WHITE_SPACE, END_OF_LINE, 
-						(JepRiaToolkitUtil.isEmpty(getters) ? "" : getters), 
-						"}"
-					);
-
-			if (module.isNotRebuild())
-				continue;
-			JepRiaToolkitUtil.writeToFile(content, JepRiaToolkitUtil.multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/", packageName.toLowerCase(), "/",
-					moduleName.toLowerCase(), "/", formName.toLowerCase(), "/server/ejb/", formName, "Bean.java"));
+		Map<String, Object> data = prepareData();
+		List<ModuleInfo> moduleInfos = (List<ModuleInfo>) data.get(FORMS_TEMPLATE_PARAMETER);
+		for (ModuleInfo moduleInfo : moduleInfos) {
+			if (moduleInfo.isNotRebuild()) continue;
+			Map<String, Object> innerData = new HashMap<String, Object>();
+			innerData.put(FORM_TEMPLATE_PARAMETER, moduleInfo);
+			innerData.put(PACKAGE_NAME_TEMPLATE_PARAMETER, data.get(PACKAGE_NAME_TEMPLATE_PARAMETER));
+			innerData.put(MODULE_NAME_TEMPLATE_PARAMETER, data.get(MODULE_NAME_TEMPLATE_PARAMETER));
+			
+			String formName = moduleInfo.getFormName();
+			
+			JepRiaToolkitUtil.convertTemplateToFile(
+				getDefinitionProperty(CLIENT_MODULE_EJB_TEMPLATE_PROPERTY, "clientModuleEjb.ftl"),
+				innerData, 
+				format(
+					getDefinitionProperty(CLIENT_MODULE_EJB_PATH_TEMPLATE_PROPERTY, 
+							JepRiaToolkitUtil.multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/server/ejb/{3}Bean.java")),
+					packageName.toLowerCase(), moduleName.toLowerCase(), formName.toLowerCase(), formName
+				)
+			);
 		}
 	}
 
@@ -1415,7 +1098,7 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 				innerData, 
 				format(
 					getDefinitionProperty(CLIENT_MODULE_EJB_INTERFACE_PATH_TEMPLATE_PROPERTY, 
-							JepRiaToolkitUtil.multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/server/{3}.java")),
+							JepRiaToolkitUtil.multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/server/ejb/{3}.java")),
 					packageName.toLowerCase(), moduleName.toLowerCase(), formName.toLowerCase(), formName
 				)
 			);
@@ -2506,7 +2189,7 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 			parameters = Arrays.asList(updateParameters.replaceAll(WHITE_SPACE, "").toUpperCase().split(SEPARATOR));
 			recordField.setUpdateParameter(!JepRiaToolkitUtil.isEmpty(updateParameters) && parameters.contains(fieldId));
 
-			recordField.setDeleteParameter(recordField.isPrimaryKey());
+			recordField.setDeleteParameter(recordField.getIsPrimaryKey());
 		} catch (Exception e) {
 			JepRiaToolkitUtil.echoMessage(JepRiaToolkitUtil.multipleConcat(ERROR_PREFIX, e.getLocalizedMessage()));
 		}
@@ -2694,8 +2377,13 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 				modInfo.setDataSource(module.getModuleDataSource());
 				modInfo.setPrimaryKey(getPrimaryKeyById(formName));
 				modInfo.setTable(module.getTable());
+				modInfo.setDbPackage(module.getDbPackageName());
 				modInfo.setIsExcelAvailable(module.isExcelAvailable());
 				modInfo.setNotRebuild(module.isNotRebuild());
+				modInfo.setDefaultParameterPrefix(module.getDefaultParameterPrefix());
+				modInfo.setCreateParameterPrefix(module.getCreateParameterPrefix());
+				modInfo.setFindParameterPrefix(module.getFindParameterPrefix());
+				modInfo.setUpdateParameterPrefix(module.getUpdateParameterPrefix());
 				String mainFormIfExist = getMainFormNameIfExist(formName);
 				modInfo.setMainFormName(mainFormIfExist);
 				if (!JepRiaToolkitUtil.isEmpty(mainFormIfExist)) {
@@ -2711,6 +2399,7 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 				modInfo.setIsStatusBarOff(module.isStatusBarOff());
 				modInfo.setHasLikeField(module.hasLikeFields());
 				modInfo.setScopeModuleIds(getDependencyNodesIfExists(formName));
+				modInfo.setToolBarButtons(module.getToolBarButtons());
 				modInfo.setToolBarCustomButtons(module.getToolBarCustomButtons());
 				modInfo.setModuleRoleNames(module.getModuleRoleNames());
 				

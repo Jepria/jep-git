@@ -86,6 +86,12 @@ public class ModuleField implements JepRiaToolkitConstant {
 		return JepRiaToolkitUtil.initCap(JepRiaToolkitUtil.getFieldIdAsParameter(
 				JepRiaToolkitUtil.subtractFieldSuffix(fieldId), null));
 	}
+	public String getFieldIdWithPrefix(String prefix){
+		return JepRiaToolkitUtil.getFieldIdAsParameter(fieldId, prefix);
+	}
+	public String getFieldIdWithPrefix(String id, String prefix){
+		return JepRiaToolkitUtil.getFieldIdAsParameter(id, prefix);
+	}
 	public String getFieldName() {
 		return JepRiaToolkitUtil.multipleConcat(JepRiaToolkitUtil.getFieldIdAsParameter(fieldId, null),
 				fieldWidget.substring(JEP_FIELD_PREFIX.length()));
@@ -134,13 +140,13 @@ public class ModuleField implements JepRiaToolkitConstant {
 	public void setFieldWidget(String fieldWidget) {
 		this.fieldWidget = fieldWidget;
 	}
-	public boolean isPrimaryKey() {
+	public boolean getIsPrimaryKey() {
 		return isPrimaryKey;
 	}
 	public void setPrimaryKey(boolean isPrimaryKey) {
 		this.isPrimaryKey = isPrimaryKey;
 	}
-	public boolean isListFormField() {
+	public boolean getIsListFormField() {
 		return isListFormField;
 	}
 	public void setListFormField(boolean isListFormField) {
@@ -152,25 +158,25 @@ public class ModuleField implements JepRiaToolkitConstant {
 	public void setDetailFormField(boolean isDetailFormField) {
 		this.isDetailFormField = isDetailFormField;
 	}
-	public boolean isFindParameter() {
+	public boolean getIsFindParameter() {
 		return isFindParameter;
 	}
 	public void setFindParameter(boolean isFindParameter) {
 		this.isFindParameter = isFindParameter;
 	}
-	public boolean isCreateParameter() {
+	public boolean getIsCreateParameter() {
 		return isCreateParameter;
 	}
 	public void setCreateParameter(boolean isCreateParameter) {
 		this.isCreateParameter = isCreateParameter;
 	}
-	public boolean isUpdateParameter() {
+	public boolean getIsUpdateParameter() {
 		return isUpdateParameter;
 	}
 	public void setUpdateParameter(boolean isUpdateParameter) {
 		this.isUpdateParameter = isUpdateParameter;
 	}
-	public boolean isDeleteParameter() {
+	public boolean getIsDeleteParameter() {
 		return isDeleteParameter;
 	}
 	public void setDeleteParameter(boolean isDeleteParameter) {
@@ -299,7 +305,7 @@ public class ModuleField implements JepRiaToolkitConstant {
 	public Integer getFormIndex(boolean isDetailForm){
 		return isDetailForm ? 
 				(getIsDetailFormField() ? getDetailFormIndex() : null) : 
-				(isListFormField() ? getListFormIndex() : null);
+				(getIsListFormField() ? getListFormIndex() : null);
 	}
 	public boolean getIsEditable() {
 		return isEditable;
@@ -389,5 +395,85 @@ public class ModuleField implements JepRiaToolkitConstant {
 	}
 	public String getDisplayValueForComboBox(){
 		return JepRiaToolkitUtil.getDisplayValueForComboBox(fieldId);
+	}
+	public String getResultSet(boolean hasFileNameField, String primaryKey){
+		String resultSet = "null";
+		switch (JepRiaToolkitUtil.getFieldTypeAsEnum(fieldType)) {
+			case STRING:
+				resultSet = JepRiaToolkitUtil.multipleConcat("rs.getString(", fieldId, ")");
+				break;
+			case INTEGER:
+				resultSet = JepRiaToolkitUtil.multipleConcat("getInteger(rs, ", fieldId, ")");
+				break;
+			case FLOAT:
+				resultSet = JepRiaToolkitUtil.multipleConcat("rs.getFloat(", fieldId, ")");
+				break;
+			case DOUBLE:
+				resultSet = JepRiaToolkitUtil.multipleConcat("rs.getDouble(", fieldId, ")");
+				break;
+			case BIGDECIMAL:
+				resultSet = JepRiaToolkitUtil.multipleConcat("rs.getBigDecimal(", fieldId, ")");
+				break;
+			case BOOLEAN:
+				resultSet = JepRiaToolkitUtil.multipleConcat("rs.getBoolean(", fieldId, ")");
+				break;
+			case DATE:
+			case DATE_TIME:
+				resultSet = JepRiaToolkitUtil.multipleConcat("getDate(rs, ", fieldId, ")");
+				break;
+			case TIME:
+				resultSet = JepRiaToolkitUtil.multipleConcat("getTimestamp(rs, ", fieldId, ")");
+				break;
+			case OPTION:
+				String optionNameFieldId = fieldId.endsWith("CODE") ? fieldId.replace("CODE", "NAME") : fieldId.replace("ID", "NAME"); 
+				resultSet = JepRiaToolkitUtil.multipleConcat("getOption(rs, ", fieldId, ", ", optionNameFieldId, ")");
+				break;
+			case BINARY_FILE:
+			case TEXT_FILE:
+			case CLOB:
+				resultSet = JepRiaToolkitUtil.multipleConcat(
+						"getFileReference(rs, ",
+							(hasFileNameField ? FILE_NAME_FIELD_ID : "null"),
+								", ", primaryKey, ", ", EXTENSION_FIELD_ID, ", ", MIME_TYPE_FIELD_ID, ")");
+				break;
+			default:
+				resultSet = JepRiaToolkitUtil.multipleConcat("rs.getString(", fieldId, ")");
+				break;
+		}
+		return resultSet;
+	}
+	
+	public String getOption(){
+		String bufferFieldId = new String(this.fieldId);
+		this.fieldId = JepRiaToolkitUtil.multipleConcat(getFieldIdAsParameter(), "Options.", fieldId);
+		String result = getResultSet(false, null);
+		this.fieldId = bufferFieldId;
+		return result;
+	}
+	
+	public boolean getEnabledOnViewDetails(boolean hasViewDetailsWS){
+		return !JepRiaToolkitUtil.isEmpty(visibleWorkStates) ? 
+				visibleWorkStates.contains(WorkstateEnum.VIEW_DETAILS) : 
+					isDetailFormField && hasViewDetailsWS;
+	}
+	
+	public boolean getIsKeyOption(List<ModuleField> moduleFields, boolean hasViewDetailsWS){
+		boolean isKeyOption = false;
+		if (!getIsComboBoxField()) {
+			for (ModuleField optionField : JepRiaToolkitUtil.getOptionField(moduleFields)) {
+				if (fieldId.equalsIgnoreCase(JepRiaToolkitUtil.getDisplayValueForComboBox(optionField.getFieldId())))
+					isKeyOption = getIsListFormField() || getEnabledOnViewDetails(hasViewDetailsWS);
+			}
+		}
+		return isKeyOption;
+	}
+	
+	public String getParameter(boolean isFind){
+		boolean isOptionField = getIsComboBoxField() ;
+		boolean isOptionListField = getIsOptionField() && !isOptionField; 
+		return 
+			JepRiaToolkitUtil.multipleConcat((isOptionField ? "JepOption.<String>getValue(" : ""),
+					(isOptionListField ? "JepOption.getOptionValuesAsString((List<JepOption>)" : ""),
+						(isFind ? "templateRecord" : "record"), ".get(", fieldId.toUpperCase(), ")", (isOptionField || isOptionListField ? ")" : ""));
 	}
 }

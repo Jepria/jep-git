@@ -18,6 +18,11 @@ public class ModuleInfo {
 	private String mainFormName;
 	private String mainFormParentKey;
 	private String table;
+	private String dbPackage;
+	private String defaultParameterPrefix;
+	private String findParameterPrefix;
+	private String createParameterPrefix;
+	private String updateParameterPrefix;
 	private boolean hasLobFields;
 	private boolean isExcelAvailable;
 	private boolean isNotRebuild;
@@ -30,6 +35,7 @@ public class ModuleInfo {
 	private boolean hasLikeField;
 	private List<ModuleField> fields = new ArrayList<ModuleField>(); 
 	private List<ModuleButton> toolBarCustomButtons = new ArrayList<ModuleButton>();
+	private List<ModuleButton> toolBarButtons = new ArrayList<ModuleButton>();
 	private List<String> scopeModuleIds = new ArrayList<String>();
 	private List<String> moduleRoleNames  = new ArrayList<String>();
 	
@@ -88,6 +94,36 @@ public class ModuleInfo {
 	}
 	public void setTable(String table) {
 		this.table = table;
+	}
+	public String getDbPackage() {
+		return dbPackage;
+	}
+	public void setDbPackage(String dbPackage) {
+		this.dbPackage = dbPackage;
+	}
+	public String getDefaultParameterPrefix() {
+		return defaultParameterPrefix;
+	}
+	public void setDefaultParameterPrefix(String defaultParameterPrefix) {
+		this.defaultParameterPrefix = defaultParameterPrefix;
+	}
+	public String getFindParameterPrefix() {
+		return findParameterPrefix;
+	}
+	public void setFindParameterPrefix(String findParameterPrefix) {
+		this.findParameterPrefix = findParameterPrefix;
+	}
+	public String getCreateParameterPrefix() {
+		return createParameterPrefix;
+	}
+	public void setCreateParameterPrefix(String createParameterPrefix) {
+		this.createParameterPrefix = createParameterPrefix;
+	}
+	public String getUpdateParameterPrefix() {
+		return updateParameterPrefix;
+	}
+	public void setUpdateParameterPrefix(String updateParameterPrefix) {
+		this.updateParameterPrefix = updateParameterPrefix;
 	}
 	public boolean getHasLobFields() {
 		return hasLobFields;
@@ -158,11 +194,22 @@ public class ModuleInfo {
 	public void setFields(List<ModuleField> fields){
 		this.fields = fields;
 	}
+	public List<ModuleField> getOptionFields(){
+		return JepRiaToolkitUtil.getOptionField(fields);
+	}
 	public List<ModuleField> getSortDetailFormFields(){
 		return JepRiaToolkitUtil.sortFields(fields, true);
 	}
 	public List<ModuleField> getSortListFormFields(){
 		return JepRiaToolkitUtil.sortFields(fields, false);
+	}
+	public List<ModuleButton> getToolBarButtons() {
+		return toolBarButtons;
+	}
+	public void setToolBarButtons(List<ModuleButton> toolbarButtons) {
+		if (!JepRiaToolkitUtil.isEmpty(toolbarButtons)){
+			this.toolBarButtons = toolbarButtons;
+		}
 	}
 	public List<ModuleButton> getToolBarCustomButtons() {
 		return toolBarCustomButtons;

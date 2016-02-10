@@ -16,9 +16,27 @@ import com.technology.jep.jepria.server.dao.ResultSetMapper;
 <#if form.hasOptionField>
 import com.technology.jep.jepria.shared.field.option.JepOption;
 </#if>
+<#assign hasBooleanType=false hasFileNameField=false hasViewDetailsWS=false hasMainParentKey=false>
+<#list form.toolBarButtons as button>
+<#if button.buttonId == "VIEW_DETAILS_BUTTON_ID">
+<#assign hasViewDetailsWS=true>
+</#if>
+</#list>
 <#list form.fields as field><#t>
 <#if field.isOptionField>
 import com.technology.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.shared.field.${field.fieldIdAsParameter}Options;
+</#if>
+<#if !hasBooleanType && field.isBooleanType>
+<#assign hasBooleanType=true>
+import static com.technology.jep.jepria.server.JepRiaServerConstant.JEP_RIA_RESOURCE_BUNDLE_NAME;
+import java.util.ResourceBundle;
+import java.util.ArrayList;
+</#if>
+<#if field.fieldId == "FILE_NAME">
+<#assign hasFileNameField=true>
+</#if>
+<#if form.mainFormParentKey?? && field.fieldId == form.mainFormParentKey>
+<#assign hasMainParentKey=true>
 </#if>
 </#list>
 import java.sql.ResultSet;
@@ -38,18 +56,17 @@ public class ${form.formName}Bean extends JepDataBean implements ${form.formName
 	public List<JepRecord> find(JepRecord templateRecord, Mutable<Boolean> autoRefreshFlag, Integer maxRowCount, Integer operatorId) throws ApplicationException {
 		String sqlQuery = 
 			"begin  " 
-			  +	"? := pkg_evaluation.find${form.formName}(" 
-				  	+ "interviewId => ? " 
-				  	+ ", interviewBeginDateFrom => ? " 
-				  	+ ", interviewBeginDateTo => ? " 
-				  	+ ", interviewEndDateFrom => ? " 
-				  	+ ", interviewEndDateTo => ? " 
-				  	+ ", departmentId => ? " 
-				  	+ ", positionId => ? " 
-				  	+ ", employeeId => ? " 
-				  	+ ", categoryId => ? " 
-				  	+ ", isActivate => ? " 
-				  	+ ", isClose => ? " 
+			  +	"? := ${form.dbPackage}.find${form.formName}(" 
+				    <#assign first = true hasParentKey = hasMainParentKey>
+			  		<#list form.fields as field><#t>
+					<#if field.isFindParameter>
+					+ "<#if first><#assign first = false><#else>, </#if>${field.getFieldIdWithPrefix(form.findParameterPrefix)} => ?"
+					</#if>
+					<#if form.mainFormParentKey?? && !hasParentKey>
+					<#assign hasParentKey = true>
+					// + "<#if first><#assign first = false><#else>, </#if>${field.getFieldIdWithPrefix(form.mainFormParentKey, form.findParameterPrefix)} => ?"
+					</#if>
+					</#list> 
 					+ ", maxRowCount => ? " 
 					+ ", operatorId => ? " 
 			  + ");"
@@ -57,30 +74,21 @@ public class ${form.formName}Bean extends JepDataBean implements ${form.formName
 		return super.find(sqlQuery,
 				new ResultSetMapper<JepRecord>() {
 					public void map(ResultSet rs, JepRecord record) throws SQLException {
-						record.set(INTERVIEW_ID, getInteger(rs, INTERVIEW_ID));
-						record.set(INTERVIEW_BEGIN_DATE, getDate(rs, INTERVIEW_BEGIN_DATE));
-						record.set(INTERVIEW_END_DATE, getDate(rs, INTERVIEW_END_DATE));
-						record.set(DEPARTMENT_NAME, rs.getString(DEPARTMENT_NAME));
-						record.set(POSITION_NAME, rs.getString(POSITION_NAME));
-						record.set(EMPLOYEE_NAME, rs.getString(EMPLOYEE_NAME));
-						record.set(WORK_CITY_NAME, rs.getString(WORK_CITY_NAME));
-						record.set(CATEGORY_NAME, rs.getString(CATEGORY_NAME));
-						record.set(ACTIVATE_STATUS, rs.getString(ACTIVATE_STATUS));
-						record.set(STATUS_PERCENT, rs.getString(STATUS_PERCENT));
-						record.set(CLOSE_STATUS, rs.getString(CLOSE_STATUS));
+						<#list form.fields as field><#t>
+						<#if field.isListFormField || field.isPrimaryKey || field.getEnabledOnViewDetails(hasViewDetailsWS) || field.getIsKeyOption(form.optionFields, hasViewDetailsWS)>
+						record.set(${field.fieldId?upper_case}, ${field.getResultSet(hasFileNameField, form.primaryKey)});
+						</#if>
+						</#list>
 					}
 				}
-				, templateRecord.get(INTERVIEW_ID)
-				, templateRecord.get(INTERVIEW_BEGIN_DATE_FROM)
-				, templateRecord.get(INTERVIEW_BEGIN_DATE_TO)
-				, templateRecord.get(INTERVIEW_END_DATE_FROM)
-				, templateRecord.get(INTERVIEW_END_DATE_TO)
-				, JepOption.<String>getValue(templateRecord.get(DEPARTMENT_ID))
-				, JepOption.<String>getValue(templateRecord.get(POSITION_ID))
-				, JepOption.<String>getValue(templateRecord.get(EMPLOYEE_ID))
-				, JepOption.<String>getValue(templateRecord.get(CATEGORY_ID))
-				, JepOption.<String>getValue(templateRecord.get(IS_ACTIVATE))
-				, JepOption.<String>getValue(templateRecord.get(IS_CLOSE))
+				<#list form.fields as field><#t>
+				<#if field.isFindParameter>
+				, ${field.getParameter(true)}
+				</#if>
+				</#list> 
+				<#if form.mainFormParentKey?? && !hasMainParentKey>
+				// , templateRecord.get(${form.mainFormParentKey?upper_case})
+				</#if>
 				, maxRowCount 
 				, operatorId);
 	}
@@ -88,170 +96,105 @@ public class ${form.formName}Bean extends JepDataBean implements ${form.formName
 	public void delete(JepRecord record, Integer operatorId) throws ApplicationException {
 		String sqlQuery = 
 			"begin " 
-			  + "pkg_evaluation.delete${form.formName}(" 
-				  	+ "interviewId => ? " 
+			  + "${form.dbPackage}.delete${form.formName}(" 
+				  	<#assign first = true>
+			  		<#list form.fields as field><#t>
+					<#if field.isDeleteParameter>
+					+ "<#if first><#assign first = false><#else>, </#if>${field.getFieldIdWithPrefix(form.defaultParameterPrefix)} => ?"
+					</#if>
+					</#list>  
 					+ ", operatorId => ? " 
 			  + ");"
 		  + "end;";
 		super.delete(sqlQuery 
-				, record.get(INTERVIEW_ID) 
+				<#list form.fields as field><#t>
+				<#if field.isDeleteParameter>
+				, ${field.getParameter(false)}
+				</#if>
+				</#list>
 				, operatorId);
 	}
  
 	public void update(JepRecord record, Integer operatorId) throws ApplicationException {
 		String sqlQuery = 
 			"begin " 
-			+	"pkg_evaluation.update${form.formName}(" 
-				  	+ "interviewId => ? " 
-				  	+ ", interviewBeginDate => ? " 
-				  	+ ", interviewEndDate => ? " 
+			+	"${form.dbPackage}.update${form.formName}(" 
+				  	<#assign first = true>
+			  		<#list form.fields as field><#t>
+					<#if field.isUpdateParameter>
+					+ "<#if first><#assign first = false><#else>, </#if>${field.getFieldIdWithPrefix(form.updateParameterPrefix)} => ?"
+					</#if>
+					</#list>   
 					+ ", operatorId => ? " 
 			+ ");"
 		 + "end;";
 		super.update(sqlQuery 
-				, record.get(INTERVIEW_ID)
-				, record.get(INTERVIEW_BEGIN_DATE)
-				, record.get(INTERVIEW_END_DATE)
+				<#list form.fields as field><#t>
+				<#if field.isUpdateParameter>
+				, ${field.getParameter(false)}
+				</#if>
+				</#list>
 				, operatorId);
 	}
  
 	public Integer create(JepRecord record, Integer operatorId) throws ApplicationException {
 		String sqlQuery = 
 			"begin " 
-			  + "? := pkg_evaluation.create${form.formName}(" 
-				  	+ "interviewBeginDate => ? " 
-				  	+ ", interviewEndDate => ? " 
-				  	+ ", employeeId => ? " 
-				  	+ ", categoryId => ? " 
+			  + "? := ${form.dbPackage}.create${form.formName}(" 
+				  	<#assign first = true>
+			  		<#list form.fields as field><#t>
+					<#if field.isCreateParameter>
+					+ "<#if first><#assign first = false><#else>, </#if>${field.getFieldIdWithPrefix(form.createParameterPrefix)} => ?"
+					</#if>
+					</#list>    
 					+ ", operatorId => ? " 
 			  + ");"
 			+ "end;";
-		return super.create(sqlQuery, 
+		return super.create(sqlQuery,
 				Integer.class 
-				, record.get(INTERVIEW_BEGIN_DATE)
-				, record.get(INTERVIEW_END_DATE)
-				, JepOption.<String>getValue(record.get(EMPLOYEE_ID))
-				, JepOption.<String>getValue(record.get(CATEGORY_ID))
+				<#list form.fields as field><#t>
+				<#if field.isCreateParameter>
+				, ${field.getParameter(false)}
+				</#if>
+				</#list>
 				, operatorId);
 	}
- 
- 
-	public List<JepOption> getDepartment() throws ApplicationException {
+ 	<#list form.fields as field><#t>
+	<#if field.isOptionField>
+	
+	public List<JepOption> get${field.fieldIdAsParameter}() throws ApplicationException {
+		<#if field.isBooleanType>
+		ResourceBundle resource = ResourceBundle.getBundle(JEP_RIA_RESOURCE_BUNDLE_NAME);
+		List<JepOption> result = new ArrayList<JepOption>();
+		
+		JepOption option = new JepOption();
+		option.set(${field.fieldIdAsParameter}Options.${field.fieldId}, 0);
+		option.set(${field.fieldIdAsParameter}Options.${field.displayValueForComboBox}, resource.getString("no"));
+		result.add(option);
+		
+		option = new JepOption();
+		option.set(${field.fieldIdAsParameter}Options.${field.fieldId}, 1);
+		option.set(${field.fieldIdAsParameter}Options.${field.displayValueForComboBox}, resource.getString("yes"));
+		result.add(option);
+		
+		return result;
+		<#else>
 		String sqlQuery = 
 			" begin " 
-			+ " ? := pkg_evaluation.getDepartment;" 
+			+ " ? := ${form.dbPackage}.get${field.fieldIdAsParameter};" 
 			+ " end;";
  
 		return super.getOptions(
 				sqlQuery,
 				new ResultSetMapper<JepOption>() {
 					public void map(ResultSet rs, JepOption dto) throws SQLException {
-						dto.setValue(getInteger(rs, DepartmentOptions.DEPARTMENT_ID));
-						dto.setName(rs.getString(DepartmentOptions.DEPARTMENT_NAME));
+						dto.setValue(${field.option});
+						dto.setName(rs.getString(${field.fieldIdAsParameter}Options.${field.displayValueForComboBox}));
 					}
 				}
 		);
+		</#if>		
 	}
- 
-	public List<JepOption> getPosition() throws ApplicationException {
-		String sqlQuery = 
-			" begin " 
-			+ " ? := pkg_evaluation.getPosition;" 
-			+ " end;";
- 
-		return super.getOptions(
-				sqlQuery,
-				new ResultSetMapper<JepOption>() {
-					public void map(ResultSet rs, JepOption dto) throws SQLException {
-						dto.setValue(getInteger(rs, PositionOptions.POSITION_ID));
-						dto.setName(rs.getString(PositionOptions.POSITION_NAME));
-					}
-				}
-		);
-	}
- 
-	public List<JepOption> getEmployee() throws ApplicationException {
-		String sqlQuery = 
-			" begin " 
-			+ " ? := pkg_evaluation.getEmployee;" 
-			+ " end;";
- 
-		return super.getOptions(
-				sqlQuery,
-				new ResultSetMapper<JepOption>() {
-					public void map(ResultSet rs, JepOption dto) throws SQLException {
-						dto.setValue(getInteger(rs, EmployeeOptions.EMPLOYEE_ID));
-						dto.setName(rs.getString(EmployeeOptions.EMPLOYEE_NAME));
-					}
-				}
-		);
-	}
- 
-	public List<JepOption> getWorkCityName() throws ApplicationException {
-		String sqlQuery = 
-			" begin " 
-			+ " ? := pkg_evaluation.getWorkCityName;" 
-			+ " end;";
- 
-		return super.getOptions(
-				sqlQuery,
-				new ResultSetMapper<JepOption>() {
-					public void map(ResultSet rs, JepOption dto) throws SQLException {
-						dto.setValue(rs.getString(WorkCityNameOptions.WORK_CITY_NAME));
-						dto.setName(rs.getString(WorkCityNameOptions.WORK_CITY_NAME_NAME));
-					}
-				}
-		);
-	}
- 
-	public List<JepOption> getCategory() throws ApplicationException {
-		String sqlQuery = 
-			" begin " 
-			+ " ? := pkg_evaluation.getCategory;" 
-			+ " end;";
- 
-		return super.getOptions(
-				sqlQuery,
-				new ResultSetMapper<JepOption>() {
-					public void map(ResultSet rs, JepOption dto) throws SQLException {
-						dto.setValue(getInteger(rs, CategoryOptions.CATEGORY_ID));
-						dto.setName(rs.getString(CategoryOptions.CATEGORY_NAME));
-					}
-				}
-		);
-	}
- 
-	public List<JepOption> getIsActivate() throws ApplicationException {
-		String sqlQuery = 
-			" begin " 
-			+ " ? := pkg_evaluation.getIsActivate;" 
-			+ " end;";
- 
-		return super.getOptions(
-				sqlQuery,
-				new ResultSetMapper<JepOption>() {
-					public void map(ResultSet rs, JepOption dto) throws SQLException {
-						dto.setValue(getInteger(rs, IsActivateOptions.IS_ACTIVATE));
-						dto.setName(rs.getString(IsActivateOptions.IS_ACTIVATE_NAME));
-					}
-				}
-		);
-	}
- 
-	public List<JepOption> getIsClose() throws ApplicationException {
-		String sqlQuery = 
-			" begin " 
-			+ " ? := pkg_evaluation.getIsClose;" 
-			+ " end;";
- 
-		return super.getOptions(
-				sqlQuery,
-				new ResultSetMapper<JepOption>() {
-					public void map(ResultSet rs, JepOption dto) throws SQLException {
-						dto.setValue(getInteger(rs, IsCloseOptions.IS_CLOSE));
-						dto.setName(rs.getString(IsCloseOptions.IS_CLOSE_NAME));
-					}
-				}
-		);
-	}
+	</#if>
+	</#list>
 }

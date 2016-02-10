@@ -926,6 +926,9 @@ public interface JepRiaToolkitConstant {
 	String CLIENT_MODULE_EJB_INTERFACE_TEMPLATE_PROPERTY = "fileTemplate.clientModuleEjbInterface";
 	String CLIENT_MODULE_EJB_INTERFACE_PATH_TEMPLATE_PROPERTY = "fileTemplate.clientModuleEjbInterface.path";
 	
+	String CLIENT_MODULE_EJB_TEMPLATE_PROPERTY = "fileTemplate.clientModuleEjb";
+	String CLIENT_MODULE_EJB_PATH_TEMPLATE_PROPERTY = "fileTemplate.clientModuleEjb.path";
+	
 	String CLIENT_MODULE_FIELDS_TEMPLATE_PROPERTY = "fileTemplate.clientModuleFields";
 	String CLIENT_MODULE_FIELDS_PATH_TEMPLATE_PROPERTY = "fileTemplate.clientModuleFields.path";
 	
