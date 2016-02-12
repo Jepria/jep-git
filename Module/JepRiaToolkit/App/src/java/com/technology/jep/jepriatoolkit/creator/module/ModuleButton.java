@@ -6,7 +6,11 @@ import static com.technology.jep.jepria.client.ui.WorkstateEnum.SEARCH;
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.SELECTED;
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.VIEW_DETAILS;
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.VIEW_LIST;
-import static com.technology.jep.jepriatoolkit.creator.module.ModuleButton.STANDARD_TOOLBAR;
+import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.getFieldIdAsParameter;
+import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.initCap;
+import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.initSmall;
+import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.isEmpty;
+import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.multipleConcat;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -18,7 +22,6 @@ import javax.activation.UnsupportedDataTypeException;
 
 import com.technology.jep.jepria.client.ui.WorkstateEnum;
 import com.technology.jep.jepriatoolkit.JepRiaToolkitConstant;
-import com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil;
 
 public class ModuleButton implements JepRiaToolkitConstant {
 	
@@ -211,29 +214,29 @@ public class ModuleButton implements JepRiaToolkitConstant {
 		this.buttonId = buttonId;
 	}
 	public String getButtonIdAsParameter() {
-		return JepRiaToolkitUtil.getFieldIdAsParameter(buttonId, null);
+		return getFieldIdAsParameter(buttonId, null);
 	}
 	public String getImage() {
-		return JepRiaToolkitUtil.isEmpty(image) && getIsCustomButton() ? buttonId.toLowerCase() : image;
+		return isEmpty(image) && getIsCustomButton() ? buttonId.toLowerCase() : image;
 	}
 	public void setImage(String image) {
 		this.image = image;
 	}
 	public String getEvent() {
-		if (getIsCustomButton() && JepRiaToolkitUtil.isEmpty(event)){
-			event = JepRiaToolkitUtil.multipleConcat(JepRiaToolkitUtil.getFieldIdAsParameter(buttonId, "do"), LEFT_BRACKET, RIGHT_BRACKET);
+		if (getIsCustomButton() && isEmpty(event)){
+			event = multipleConcat(getFieldIdAsParameter(buttonId, "do"), LEFT_BRACKET, RIGHT_BRACKET);
 		}
 		return event;
 	}
 	public String getHandler(){
-		return JepRiaToolkitUtil.isEmpty(getEvent()) ? (getIsCustomButton() ? "" : STANDARD_TOOLBAR.get(buttonId).getEvent()) : !getIsCustomButton()
-				&& getEvent().toLowerCase().startsWith("changeworkstate") ? STANDARD_TOOLBAR.get(buttonId).getEvent() : JepRiaToolkitUtil.multipleConcat(
+		return isEmpty(getEvent()) ? (getIsCustomButton() ? "" : STANDARD_TOOLBAR.get(buttonId).getEvent()) : !getIsCustomButton()
+				&& getEvent().toLowerCase().startsWith("changeworkstate") ? STANDARD_TOOLBAR.get(buttonId).getEvent() : multipleConcat(
 						(getEvent().toLowerCase().startsWith("placecontroller") ? "" : "eventBus."), getEvent(), (getEvent().endsWith(";") ? "" : ";"));
 	}
 	public String getCustomEvent(){
 		String customEvent = "";
-		if (!JepRiaToolkitUtil.isEmpty(getEvent())){
-			customEvent = JepRiaToolkitUtil.initCap(getEvent()).trim();
+		if (!isEmpty(getEvent())){
+			customEvent = initCap(getEvent()).trim();
 			int indexOfBracket;
 			if ((indexOfBracket = customEvent.indexOf(LEFT_BRACKET)) != -1){
 				customEvent = customEvent.substring(0, indexOfBracket);
@@ -242,13 +245,13 @@ public class ModuleButton implements JepRiaToolkitConstant {
 		return customEvent;
 	}	
 	public void setEvent(String event) {
-		this.event = !JepRiaToolkitUtil.isEmpty(event) ?  JepRiaToolkitUtil.multipleConcat(event, (event.indexOf(LEFT_BRACKET) == -1 ? JepRiaToolkitUtil.multipleConcat(LEFT_BRACKET, RIGHT_BRACKET) : "")) : null;
+		this.event = !isEmpty(event) ?  multipleConcat(event, (event.indexOf(LEFT_BRACKET) == -1 ? multipleConcat(LEFT_BRACKET, RIGHT_BRACKET) : "")) : null;
 	}		
 	public String getWorkStatesAsString() {
 		String workStatesAsString = "";
-		if (!JepRiaToolkitUtil.isEmpty(workStates)){
+		if (!isEmpty(workStates)){
 			for (WorkstateEnum workstate : workStates){
-				workStatesAsString += (!JepRiaToolkitUtil.isEmpty(workStatesAsString) ? ", " : "") + workstate.name(); 
+				workStatesAsString += (!isEmpty(workStatesAsString) ? ", " : "") + workstate.name(); 
 			}
 		}
 		else {
@@ -260,11 +263,11 @@ public class ModuleButton implements JepRiaToolkitConstant {
 		this.workStates = workStates;
 	}	
 	public boolean getIsCustomButton(){
-		return !isSeparator && JepRiaToolkitUtil.isEmpty(STANDARD_TOOLBAR.get(this.buttonId));
+		return !isSeparator && isEmpty(STANDARD_TOOLBAR.get(this.buttonId));
 	}	
 	public boolean isCustomSeparator(){
-		return isSeparator && JepRiaToolkitUtil.isEmpty(STANDARD_SEPARATOR.get(this.buttonId))
-							&& JepRiaToolkitUtil.isEmpty(STANDARD_TOOLBAR.get(this.buttonId));
+		return isSeparator && isEmpty(STANDARD_SEPARATOR.get(this.buttonId))
+							&& isEmpty(STANDARD_TOOLBAR.get(this.buttonId));
 	}
 	public FORM getPlacedForm() throws UnsupportedDataTypeException {
 		List<WorkstateEnum> workstateList = Arrays.asList(this.workStates);
@@ -283,20 +286,20 @@ public class ModuleButton implements JepRiaToolkitConstant {
 	}
 
 	public String getImageAsString(String formName) {
-		return JepRiaToolkitUtil.isEmpty(getImage()) ? (getIsCustomButton() ? "" : JepRiaToolkitUtil.isEmpty(STANDARD_TOOLBAR.get(
-				getButtonId()).getImage()) ? null : JepRiaToolkitUtil.multipleConcat("JepImages.",
-				STANDARD_TOOLBAR.get(getButtonId()).getImage(), "()")) : JepRiaToolkitUtil.multipleConcat(
-				(getIsCustomButton() ? JepRiaToolkitUtil.initSmall(formName) : "Jep"), "Images.", getImage(),
+		return isEmpty(getImage()) ? (getIsCustomButton() ? "" : isEmpty(STANDARD_TOOLBAR.get(
+				getButtonId()).getImage()) ? null : multipleConcat("JepImages.",
+				STANDARD_TOOLBAR.get(getButtonId()).getImage(), "()")) : multipleConcat(
+				(getIsCustomButton() ? initSmall(formName) : "Jep"), "Images.", getImage(),
 				"()");
 	}
 	
 	public String getTextAsString(String formName){
-		return JepRiaToolkitUtil.isEmpty(getText()) ? 
+		return isEmpty(getText()) ? 
 					(getIsCustomButton() ? 
-							JepRiaToolkitUtil.multipleConcat("\"\"") : JepRiaToolkitUtil.multipleConcat("JepTexts.",
+							multipleConcat("\"\"") : multipleConcat("JepTexts.",
 					STANDARD_TOOLBAR.get(getButtonId()).getText(), "()")) : 
-					JepRiaToolkitUtil.multipleConcat(
-							(getIsCustomButton() ? JepRiaToolkitUtil.multipleConcat(JepRiaToolkitUtil.initSmall(formName), "Text.")
+					multipleConcat(
+							(getIsCustomButton() ? multipleConcat(initSmall(formName), "Text.")
 									: "JepTexts."), getText(), "()");
 	}
 }

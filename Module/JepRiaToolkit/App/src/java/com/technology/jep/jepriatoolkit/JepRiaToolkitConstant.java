@@ -821,6 +821,9 @@ public interface JepRiaToolkitConstant {
 	String CLIENT_MODULE_PLAIN_FORM_DIRECTORY_PROPERTY = "fileStructure.clientModulePlainFormDirectory";
 	String CLIENT_MODULE_DETAIL_FORM_DIRECTORY_PROPERTY = "fileStructure.clientModuleDetailFormDirectory";
 	String CLIENT_MODULE_LIST_FORM_DIRECTORY_PROPERTY = "fileStructure.clientModuleListFormDirectory";
+	String CLIENT_MODULE_EVENTBUS_DIRECTORY_PROPERTY = "fileStructure.clientModuleEventBusDirectory";
+	String CLIENT_MODULE_TOOLBAR_DIRECTORY_PROPERTY = "fileStructure.clientModuleToolBarDirectory";
+	String CLIENT_MODULE_STATUSBAR_DIRECTORY_PROPERTY = "fileStructure.clientModuleStatusBarDirectory";
 	String CLIENT_MODULE_EJB_DIRECTORY_PROPERTY = "fileStructure.clientModuleEjbDirectory";
 	String CLIENT_MODULE_SERVICE_IMPL_DIRECTORY_PROPERTY = "fileStructure.clientModuleServiceImplDirectory";
 	String CLIENT_MODULE_FIELD_DIRECTORY_PROPERTY = "fileStructure.clientModuleFieldDirectory";
@@ -829,6 +832,13 @@ public interface JepRiaToolkitConstant {
 	String CLIENT_MODULE_TEXT_RESOURCE_DIRECTORY_PROPERTY = "fileStructure.clientTextResourceDirectory";
 	String CONFIG_HTML_DIRECTORY_PROPERTY = "fileStructure.configHtmlDirectory";
 	String CONFIG_MAIN_PACKAGE_DIRECTORY_PROPERTY = "fileStructure.configMainPackageDirectory";
+	
+	String DEPLOY_PROPERTIES_SOURCE_PATH_TEMPLATE_PROPERTY = "fileTemplate.deployProperties.path.source";
+	String DEPLOY_PROPERTIES_DESTINATION_PATH_TEMPLATE_PROPERTY = "fileTemplate.deployProperties.path.destination";
+	
+	String LOG4J_PROPERTIES_SOURCE_PATH_TEMPLATE_PROPERTY = "fileTemplate.log4jProperties.path.source";
+	String LOG4J_PROPERTIES_DESTINATION_PATH_TEMPLATE_PROPERTY = "fileTemplate.log4jProperties.path.destination";
+	String LOG4J_PROPERTIES_CODE_DESTINATION_PATH_TEMPLATE_PROPERTY = "fileTemplate.log4jProperties.path.codeDestination";
 	
 	String WEB_XML_TEMPLATE_PROPERTY = "fileTemplate.webXml";
 	String WEB_XML_PATH_TEMPLATE_PROPERTY = "fileTemplate.webXml.path";

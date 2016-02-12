@@ -1,11 +1,12 @@
 package com.technology.jep.jepriatoolkit.creator.module;
 
 import static com.technology.jep.jepriatoolkit.creator.module.Module.getToolBarCustomButtonsForForm;
+import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.getOptionField;
+import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.isEmpty;
+import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.sortFields;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil;
 
 public class ModuleInfo {
 
@@ -189,7 +190,7 @@ public class ModuleInfo {
 		return scopeModuleIds.size() > 0;
 	}
 	public boolean getIsDependent(){
-		return !JepRiaToolkitUtil.isEmpty(mainFormName);
+		return !isEmpty(mainFormName);
 	}
 	public List<ModuleField> getFields(){
 		return fields;
@@ -198,19 +199,19 @@ public class ModuleInfo {
 		this.fields = fields;
 	}
 	public List<ModuleField> getOptionFields(){
-		return JepRiaToolkitUtil.getOptionField(fields);
+		return getOptionField(fields);
 	}
 	public List<ModuleField> getSortDetailFormFields(){
-		return JepRiaToolkitUtil.sortFields(fields, true);
+		return sortFields(fields, true);
 	}
 	public List<ModuleField> getSortListFormFields(){
-		return JepRiaToolkitUtil.sortFields(fields, false);
+		return sortFields(fields, false);
 	}
 	public List<ModuleButton> getToolBarButtons() {
 		return toolBarButtons;
 	}
 	public void setToolBarButtons(List<ModuleButton> toolbarButtons) {
-		if (!JepRiaToolkitUtil.isEmpty(toolbarButtons)){
+		if (!isEmpty(toolbarButtons)){
 			this.toolBarButtons = toolbarButtons;
 		}
 	}
