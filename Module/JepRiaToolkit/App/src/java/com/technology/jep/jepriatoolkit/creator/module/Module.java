@@ -64,7 +64,7 @@ public class Module implements JepRiaToolkitConstant {
 			customToolBarButtons = new ArrayList<ModuleButton>();
 			if (!JepRiaToolkitUtil.isEmpty(toolbarButtons))
 				for (ModuleButton button : toolbarButtons)
-					if (button.isCustomButton())
+					if (button.getIsCustomButton())
 						customToolBarButtons.add(button);			
 		}		
 		return customToolBarButtons;

@@ -24,12 +24,15 @@ public class ModuleInfo {
 	private String createParameterPrefix;
 	private String updateParameterPrefix;
 	private boolean hasLobFields;
+	private boolean isStandardToolBar;
 	private boolean isExcelAvailable;
 	private boolean isNotRebuild;
 	private boolean isJepToolBarPresenter;
 	private boolean isJepToolBarView;
 	private boolean isDblClickOff;
 	private boolean isToolBarOff;
+	private boolean hasToolBarPresenter;
+	private boolean hasToolBarView;
 	private boolean isStatusBarOff;
 	private boolean hasOptionField;
 	private boolean hasLikeField;
@@ -243,5 +246,23 @@ public class ModuleInfo {
 	}
 	public void setModuleRoleNames(List<String> moduleRoleNames) {
 		this.moduleRoleNames = moduleRoleNames;
+	}
+	public boolean getHasToolBarView() {
+		return hasToolBarView;
+	}
+	public void setHasToolBarView(boolean hasToolBarView) {
+		this.hasToolBarView = hasToolBarView;
+	}
+	public boolean getIsStandardToolBar() {
+		return isStandardToolBar;
+	}
+	public void setStandardToolBar(boolean isStandardToolBar) {
+		this.isStandardToolBar = isStandardToolBar;
+	}
+	public boolean getHasToolBarPresenter() {
+		return hasToolBarPresenter;
+	}
+	public void setHasToolBarPresenter(boolean hasToolBarPresenter) {
+		this.hasToolBarPresenter = hasToolBarPresenter;
 	}
 }

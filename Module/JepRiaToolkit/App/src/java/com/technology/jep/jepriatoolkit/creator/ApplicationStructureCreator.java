@@ -1,6 +1,5 @@
 package com.technology.jep.jepriatoolkit.creator;
 
-import static com.technology.jep.jepriatoolkit.creator.module.ModuleButton.STANDARD_TOOLBAR;
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.getApplicationDefinitionFile;
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.getDefinitionProperty;
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.isEmptyOrNotInitializedParameter;
@@ -29,7 +28,6 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import com.technology.jep.jepria.client.ui.WorkstateEnum;
-import com.technology.jep.jepria.shared.field.JepTypeEnum;
 import com.technology.jep.jepriatoolkit.JepRiaToolkitConstant;
 import com.technology.jep.jepriatoolkit.creator.module.FORM;
 import com.technology.jep.jepriatoolkit.creator.module.Module;
@@ -1255,17 +1253,20 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 	 * Создание классов инструментальной панели
 	 */
 	private void createToolBar() {
-		for (int i = 0; i < forms.size(); i++) {
-			String formName = (String) forms.get(i);
-			String packageModuleFormName = JepRiaToolkitUtil.multipleConcat(packageName.toLowerCase(), ".", moduleName.toLowerCase(), ".", formName.toLowerCase());
-			Map<Module, List<ModuleField>> hm = getModuleWithFieldsById(formName);
-			Module module = hm.keySet().iterator().next();
-			boolean isStandardToolBar = module.isStandardToolBar();
-			boolean isToolBarOff = module.isToolBarOff();
-			boolean hasCustomButtons = module.hasCustomButtons();
-			boolean hasToolBarPresenter = module.hasToolBarPresenter();
-			boolean hasToolBarView = module.hasToolBarView();
+		Map<String, Object> data = prepareData();
+		List<ModuleInfo> moduleInfos = (List<ModuleInfo>) data.get(FORMS_TEMPLATE_PARAMETER);
+		for (ModuleInfo moduleInfo : moduleInfos) {
+			if (moduleInfo.isNotRebuild()) continue;
+			
+			boolean isStandardToolBar = moduleInfo.getIsStandardToolBar();
+			boolean isToolBarOff = moduleInfo.getIsToolBarOff();
+			List<ModuleButton> toolBarCustomButtons = moduleInfo.getToolBarCustomButtons();
+			boolean hasCustomButtons = toolBarCustomButtons.size() > 0;
+			boolean hasToolBarPresenter = moduleInfo.getHasToolBarPresenter();
+			boolean hasToolBarView = moduleInfo.getHasToolBarView();
+			
 			if (!isStandardToolBar || isToolBarOff || hasToolBarPresenter || hasToolBarView) {
+				String formName = moduleInfo.getFormName();
 				// create file structure
 				JepRiaToolkitUtil.makeDir(JepRiaToolkitUtil.multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, packageName.toLowerCase(), "/",
 						moduleName.toLowerCase(), "/", formName, "/client/ui/toolbar", (hasCustomButtons ? "/images" : "")));
@@ -1273,268 +1274,339 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 					JepRiaToolkitUtil.makeDir(JepRiaToolkitUtil.multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, packageName.toLowerCase(), "/",
 							moduleName.toLowerCase(), "/", formName, "/client/ui/eventbus/event"));
 				}
-
-				String additionalStringInPresenter = new String();
-				String additionalStringInView = new String();
-				List<ModuleButton> toolbarButtons = module.getToolBarButtons();
-
-				String customButtonDescription = ""; 
-				for (ModuleButton button : module.getToolBarCustomButtons()) {
-					customButtonDescription += JepRiaToolkitUtil.multipleConcat(WHITE_SPACE, END_OF_LINE, "	final static String ", button.getButtonId()
-							.toUpperCase(), " = \"", JepRiaToolkitUtil.getFieldIdAsParameter(button.getButtonId(), null), "\";");
+				
+				Map<String, Object> innerData = new HashMap<String, Object>();
+				innerData.put(FORM_TEMPLATE_PARAMETER, moduleInfo);
+				innerData.put(PACKAGE_NAME_TEMPLATE_PARAMETER, data.get(PACKAGE_NAME_TEMPLATE_PARAMETER));
+				innerData.put(MODULE_NAME_TEMPLATE_PARAMETER, data.get(MODULE_NAME_TEMPLATE_PARAMETER));
+				
+				if (!isStandardToolBar || isToolBarOff || hasToolBarView){
+					JepRiaToolkitUtil.convertTemplateToFile(
+						getDefinitionProperty(CLIENT_MODULE_TOOLBAR_VIEW_TEMPLATE_PROPERTY, "clientModuleToolBarView.ftl"),
+						innerData, 
+						format(
+							getDefinitionProperty(CLIENT_MODULE_TOOLBAR_VIEW_PATH_TEMPLATE_PROPERTY, 
+									JepRiaToolkitUtil.multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/client/ui/toolbar/{3}ToolBarView.java")),
+							packageName.toLowerCase(), moduleName.toLowerCase(), formName.toLowerCase(), formName
+						)
+					);
+					
+					JepRiaToolkitUtil.convertTemplateToFile(
+						getDefinitionProperty(CLIENT_MODULE_TOOLBAR_VIEW_IMPL_TEMPLATE_PROPERTY, "clientModuleToolBarViewImpl.ftl"),
+						innerData, 
+						format(
+							getDefinitionProperty(CLIENT_MODULE_TOOLBAR_VIEW_IMPL_PATH_TEMPLATE_PROPERTY, 
+									JepRiaToolkitUtil.multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/client/ui/toolbar/{3}ToolBarViewImpl.java")),
+							packageName.toLowerCase(), moduleName.toLowerCase(), formName.toLowerCase(), formName
+						)
+					);
 				}
-
-				if (!isToolBarOff) {
-					for (ModuleButton button : toolbarButtons) {
-						boolean isCustomToolBarButton = button.isCustomButton();
-						if (!button.isSeparator()) {
-							additionalStringInPresenter += JepRiaToolkitUtil.multipleConcat(
-									"		bindButton(", END_OF_LINE,
-									"			", button.getButtonId(), ", ", END_OF_LINE,
-									"			new WorkstateEnum[]{",
-									(JepRiaToolkitUtil.isEmpty(button.getWorkStatesAsString()) ? (isCustomToolBarButton ? "" : STANDARD_TOOLBAR.get(
-											button.getButtonId()).getWorkStatesAsString()) : button.getWorkStatesAsString()),
-									"},", END_OF_LINE,
-									"			new ClickHandler() {", END_OF_LINE,
-									"				public void onClick(ClickEvent event) {",END_OF_LINE,
-									"					",
-									(JepRiaToolkitUtil.isEmpty(button.getEvent()) ? (isCustomToolBarButton ? "" : STANDARD_TOOLBAR.get(button.getButtonId()).getEvent()) : !isCustomToolBarButton
-											&& button.getEvent().toLowerCase().startsWith("changeworkstate") ? STANDARD_TOOLBAR.get(button.getButtonId()).getEvent() : JepRiaToolkitUtil.multipleConcat(
-													(button.getEvent().toLowerCase().startsWith("placecontroller") ? "" : "eventBus."), button.getEvent(), (button.getEvent().endsWith(";") ? "" : ";"))), END_OF_LINE, 
-									"				}", END_OF_LINE, 
-									"			});", END_OF_LINE,
-									WHITE_SPACE, END_OF_LINE);
-						} else if (button.isCustomSeparator()) {
-							customButtonDescription += JepRiaToolkitUtil.multipleConcat(
-									WHITE_SPACE, END_OF_LINE, 
-									"	final static String ", button.getButtonId().toUpperCase(), " = \"", JepRiaToolkitUtil.getFieldIdAsParameter(button.getButtonId(), null), "\";");
-						}
-
-						additionalStringInView += button.isSeparator() ? JepRiaToolkitUtil.multipleConcat(
-								"		addSeparator(", button.getButtonId().toUpperCase(), ");", END_OF_LINE) : JepRiaToolkitUtil.multipleConcat(
-								"		addButton(",END_OF_LINE,
-								"			", button.getButtonId().toUpperCase(), ", ", END_OF_LINE,
-								(JepRiaToolkitUtil.isEmpty(button.getImage()) ? (isCustomToolBarButton ? "" : JepRiaToolkitUtil.isEmpty(STANDARD_TOOLBAR.get(
-										button.getButtonId()).getImage()) ? "" : JepRiaToolkitUtil.multipleConcat("			JepImages.",
-										STANDARD_TOOLBAR.get(button.getButtonId()).getImage(), "(),", END_OF_LINE)) : JepRiaToolkitUtil.multipleConcat(
-										"			", (isCustomToolBarButton ? JepRiaToolkitUtil.initSmall(formName) : "Jep"), "Images.", button.getImage(),
-										"(),", END_OF_LINE)),
-//								(JepRiaToolkitUtil.isEmpty(button.getImageDisabled()) || !isCustomToolBarButton ? "" : JepRiaToolkitUtil.multipleConcat("			",
-//										JepRiaToolkitUtil.initSmall(formName), "Images.", button.getImageDisabled(), "(),", END_OF_LINE)),
-								(JepRiaToolkitUtil.isEmpty(button.getText()) ? (isCustomToolBarButton ? JepRiaToolkitUtil
-										.multipleConcat("			\"\");", END_OF_LINE) : JepRiaToolkitUtil.multipleConcat("			JepTexts.",
-										STANDARD_TOOLBAR.get(button.getButtonId()).getText(), "());", END_OF_LINE)) : JepRiaToolkitUtil.multipleConcat(
-										"			", (isCustomToolBarButton ? JepRiaToolkitUtil.multipleConcat(JepRiaToolkitUtil.initSmall(formName), "Text.")
-												: "JepTexts."), button.getText(), "());", END_OF_LINE)));
+				if (!isStandardToolBar || isToolBarOff || hasToolBarPresenter) {
+					JepRiaToolkitUtil.convertTemplateToFile(
+						getDefinitionProperty(CLIENT_MODULE_TOOLBAR_PRESENTER_TEMPLATE_PROPERTY, "clientModuleToolBarView.ftl"),
+						innerData, 
+						format(
+							getDefinitionProperty(CLIENT_MODULE_TOOLBAR_PRESENTER_PATH_TEMPLATE_PROPERTY, 
+									JepRiaToolkitUtil.multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/client/ui/toolbar/{3}ToolBarPresenter.java")),
+							packageName.toLowerCase(), moduleName.toLowerCase(), formName.toLowerCase(), formName
+						)
+					);
+				}
+				
+				if (hasCustomButtons) {
+					JepRiaToolkitUtil.convertTemplateToFile(
+						getDefinitionProperty(CLIENT_MODULE_IMAGES_TEMPLATE_PROPERTY, "clientModuleToolBarImages.ftl"),
+						innerData, 
+						format(
+							getDefinitionProperty(CLIENT_MODULE_IMAGES_PATH_TEMPLATE_PROPERTY, 
+									JepRiaToolkitUtil.multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/client/ui/toolbar/images/{3}Images.java")),
+							packageName.toLowerCase(), moduleName.toLowerCase(), formName.toLowerCase(), formName
+						)
+					);
+					JepRiaToolkitUtil.convertTemplateToFile(
+						getDefinitionProperty(CLIENT_MODULE_EVENTBUS_TEMPLATE_PROPERTY, "clientModuleEventBus.ftl"),
+						innerData, 
+						format(
+							getDefinitionProperty(CLIENT_MODULE_EVENTBUS_PATH_TEMPLATE_PROPERTY, 
+									JepRiaToolkitUtil.multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/client/ui/eventbus/{3}EventBus.java")),
+							packageName.toLowerCase(), moduleName.toLowerCase(), formName.toLowerCase(), formName
+						)
+					);
+					for (ModuleButton button : toolBarCustomButtons) {
+						innerData.put(BUTTON_TEMPLATE_PARAMETER, button);
+						JepRiaToolkitUtil.convertTemplateToFile(
+							getDefinitionProperty(CLIENT_MODULE_EVENT_TEMPLATE_PROPERTY, "clientModuleEvent.ftl"),
+							innerData, 
+							format(
+								getDefinitionProperty(CLIENT_MODULE_EVENT_PATH_TEMPLATE_PROPERTY, 
+										JepRiaToolkitUtil.multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/client/ui/eventbus/event/{3}Event.java")),
+								packageName.toLowerCase(), moduleName.toLowerCase(), formName.toLowerCase(), button.getCustomEvent()
+							)
+						);
 					}
 				}
-
-				if (!JepRiaToolkitUtil.isEmpty(customButtonDescription)) {
-					customButtonDescription += JepRiaToolkitUtil.multipleConcat(WHITE_SPACE, END_OF_LINE);
-				}
-
-				// toolbar view
-				String contentView = JepRiaToolkitUtil.multipleConcat(
-						"package com.technology.", packageModuleFormName, ".client.ui.toolbar;",  END_OF_LINE,
-						WHITE_SPACE, END_OF_LINE,
-						"import com.technology.jep.jepria.client.ui.toolbar.ToolBarView;", END_OF_LINE,
-						WHITE_SPACE, END_OF_LINE,
-						"public interface ", formName, "ToolBarView extends ToolBarView {", END_OF_LINE,
-						WHITE_SPACE,
-						customButtonDescription,
-						END_OF_LINE, "}");
-
-				if (module.isNotRebuild())
-					continue;
-				if (!isStandardToolBar || isToolBarOff || hasToolBarView)
-					JepRiaToolkitUtil.writeToFile(contentView, JepRiaToolkitUtil.multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/", packageName.toLowerCase(),
-							"/", moduleName.toLowerCase(), "/", formName.toLowerCase(), "/client/ui/toolbar/", formName, "ToolBarView.java"));
-
-				// toolbar view impl
-				String contentViewImpl = JepRiaToolkitUtil.multipleConcat(
-						"package com.technology.", packageModuleFormName, ".client.ui.toolbar;",  END_OF_LINE,
-						WHITE_SPACE, END_OF_LINE,
-						"import static com.technology.jep.jepria.client.ui.toolbar.ToolBarConstant.*;", END_OF_LINE,
-						"import com.technology.jep.jepria.client.ui.toolbar.ToolBarViewImpl;", END_OF_LINE,
-						(hasCustomButtons ? JepRiaToolkitUtil.multipleConcat(
-							"import static com.technology.", packageModuleFormName, ".client.", formName, "ClientConstant.", JepRiaToolkitUtil.initSmall(formName), "Text;", END_OF_LINE, 
-							"import com.google.gwt.core.client.GWT;", END_OF_LINE,
-							"import com.technology.", packageModuleFormName, ".client.ui.toolbar.images.", formName, "Images;", END_OF_LINE) : ""),
-						"import static com.technology.jep.jepria.client.JepRiaClientConstant.JepTexts;", END_OF_LINE,
-						"import static com.technology.jep.jepria.client.JepRiaClientConstant.JepImages;", END_OF_LINE,
-						WHITE_SPACE, END_OF_LINE,
-						"public class ", formName, "ToolBarViewImpl extends ToolBarViewImpl implements ", formName, "ToolBarView {", END_OF_LINE,
-						WHITE_SPACE, END_OF_LINE,
-						hasCustomButtons ?
-						JepRiaToolkitUtil.multipleConcat(WHITE_SPACE, END_OF_LINE, "	public static final ",
-								formName, "Images ", JepRiaToolkitUtil.initSmall(formName), "Images = GWT.create(", formName, "Images.class);", END_OF_LINE) : "",
-						WHITE_SPACE, END_OF_LINE,
-
-						"	public ", formName, "ToolBarViewImpl() {", END_OF_LINE,
-						"		super();", END_OF_LINE,
-						hasToolBarView && module.getToolBarButtons().size() == 0 ? "" : JepRiaToolkitUtil.multipleConcat(
-								"		removeAll();", END_OF_LINE, 
-								WHITE_SPACE, END_OF_LINE),
-						isToolBarOff ? JepRiaToolkitUtil.multipleConcat("		asWidget().setVisible(false);", END_OF_LINE) : additionalStringInView, "	}", END_OF_LINE, "}");
-
-				if (module.isNotRebuild())
-					continue;
-				if (!isStandardToolBar || isToolBarOff || hasToolBarView)
-					JepRiaToolkitUtil.writeToFile(contentViewImpl, JepRiaToolkitUtil.multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/", packageName.toLowerCase(),
-							"/", moduleName.toLowerCase(), "/", formName.toLowerCase(), "/client/ui/toolbar/", formName, "ToolBarViewImpl.java"));
-
-				String customButtonImport = "";
-				for (ModuleButton button : module.getToolBarCustomButtons()) {
-					customButtonImport += JepRiaToolkitUtil.multipleConcat("import static com.technology.", packageName.toLowerCase(), ".", moduleName
-							.toLowerCase(), ".", formName.toLowerCase(), ".client.ui.toolbar.", formName, "ToolBarView.", button.getButtonId()
-							.toUpperCase(), ";", END_OF_LINE);
-				}
-				// toolbar presenter
-				String contentPresenter = JepRiaToolkitUtil.multipleConcat(
-						"package com.technology.", packageModuleFormName, ".client.ui.toolbar;", END_OF_LINE,
-						WHITE_SPACE, END_OF_LINE,
-						customButtonImport,
-						"import com.google.gwt.place.shared.Place;", END_OF_LINE,
-						"import static com.technology.jep.jepria.client.ui.WorkstateEnum.*;", END_OF_LINE,
-						"import static com.technology.jep.jepria.client.ui.toolbar.ToolBarView.*;", END_OF_LINE,
-						"import static com.technology.jep.jepria.client.ui.toolbar.ToolBarConstant.*;", END_OF_LINE,
-						
-						"import com.technology.jep.jepria.client.ui.plain.StandardClientFactory;", END_OF_LINE,
-						"import com.technology.jep.jepria.client.ui.toolbar.ToolBarView;", END_OF_LINE,
-						"import com.technology.jep.jepria.client.ui.toolbar.ToolBarPresenter;", END_OF_LINE,
-						"import com.google.gwt.event.dom.client.ClickEvent;", END_OF_LINE,
-						"import com.google.gwt.event.dom.client.ClickHandler;", END_OF_LINE,
-						"import com.technology.jep.jepria.client.ui.WorkstateEnum;", END_OF_LINE, 
-
-						(hasCustomButtons ? JepRiaToolkitUtil.multipleConcat("import com.technology.", packageName.toLowerCase(), ".",
-								moduleName.toLowerCase(), ".", formName.toLowerCase(), ".client.ui.eventbus.", formName, "EventBus;", END_OF_LINE)
-								: JepRiaToolkitUtil.multipleConcat("import com.technology.jep.jepria.client.ui.eventbus.plain.PlainEventBus;", END_OF_LINE)),
-						"import com.technology.jep.jepria.client.ui.plain.PlainClientFactory;", END_OF_LINE,
-						(isToolBarOff ? "" : JepRiaToolkitUtil.multipleConcat("import com.technology.jep.jepria.client.history.place.*;", END_OF_LINE)),
-						"import com.technology.", packageModuleFormName, ".shared.service.", formName, "ServiceAsync;", END_OF_LINE,
-						WHITE_SPACE, END_OF_LINE,
-						"public class ", formName, "ToolBarPresenter<V extends ToolBarView, E extends ", (hasCustomButtons ? formName : "Plain"), "EventBus, S extends ", formName, "ServiceAsync, F extends StandardClientFactory<E, S>>", END_OF_LINE,
-						"	extends ToolBarPresenter<V, E, S, F> {", END_OF_LINE,
-						WHITE_SPACE, END_OF_LINE,
-						" 	public ", formName, "ToolBarPresenter(Place place, F clientFactory) {", END_OF_LINE,
-						"		super(place, clientFactory);", END_OF_LINE,
-						"	}", END_OF_LINE,
-						WHITE_SPACE, END_OF_LINE,
-						(isToolBarOff || hasToolBarPresenter ? "" : JepRiaToolkitUtil.multipleConcat(
-								"	public void bind() {", END_OF_LINE,
-								additionalStringInPresenter, "	}", END_OF_LINE)), "}");
-
-				if (module.isNotRebuild())
-					continue;
-				if (!isStandardToolBar || isToolBarOff || hasToolBarPresenter)
-					JepRiaToolkitUtil.writeToFile(contentPresenter, JepRiaToolkitUtil.multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/",
-							packageName.toLowerCase(), "/", moduleName.toLowerCase(), "/", formName.toLowerCase(), "/client/ui/toolbar/", formName,
-							"ToolBarPresenter.java"));
-
 			}
-			// Если есть пользовательские кнопки, создадим необходимые
-			// изменения:
-			// файл ресурсов, кастомные EventBus, события
-			if (hasCustomButtons) {
-				String resource = "";
-				String importEvent = "";
-				String event = "";
-
-				for (ModuleButton button : module.getToolBarCustomButtons()) {
-					resource += JepRiaToolkitUtil.multipleConcat(
-							WHITE_SPACE, END_OF_LINE,
-							"	@Source(\"", button.getImage(), ".png\")", END_OF_LINE,
-							"	ImageResource ", button.getImage(), "();", END_OF_LINE
-//							(JepRiaToolkitUtil.isEmpty(button.getImageDisabled()) ? "" : JepRiaToolkitUtil.multipleConcat(WHITE_SPACE, END_OF_LINE,
-//									"	@Resource(\"", button.getImageDisabled(), ".png\")", END_OF_LINE, 
-//									"	ImageResource ", button.getImageDisabled(), "();", END_OF_LINE))
-							);
-
-					importEvent += JepRiaToolkitUtil.multipleConcat(
-							"import com.technology.", packageModuleFormName, ".client.ui.eventbus.event.", button.getCustomEvent(), "Event;", END_OF_LINE);
-
-					event += JepRiaToolkitUtil.multipleConcat(
-							WHITE_SPACE, END_OF_LINE, 
-							"	public void ", button.getEvent(), " { ", END_OF_LINE,
-							"		fireEvent(new ", button.getCustomEvent(), "Event());", END_OF_LINE, 
-							"	}", END_OF_LINE);
-
-					if (!module.isNotRebuild()) {
-						String contentEvent = JepRiaToolkitUtil.multipleConcat(
-								"package com.technology.", packageModuleFormName, ".client.ui.eventbus.event;", END_OF_LINE, 
-								WHITE_SPACE, END_OF_LINE, 
-								"import com.google.gwt.event.shared.EventHandler;", END_OF_LINE,
-								"import com.technology.jep.jepria.client.ui.eventbus.BusEvent;", END_OF_LINE, 
-								WHITE_SPACE, END_OF_LINE,
-								"public class ", button.getCustomEvent(), "Event extends BusEvent<", button.getCustomEvent(), "Event.Handler> {", END_OF_LINE, 
-								WHITE_SPACE, END_OF_LINE, 
-								"	public interface Handler extends EventHandler {", END_OF_LINE, 
-								"		void on", button.getCustomEvent(), "Event(", button.getCustomEvent(), "Event event);", END_OF_LINE, 
-								"	}", END_OF_LINE,
-								WHITE_SPACE, END_OF_LINE, 
-								"	public static final Type<Handler> TYPE = new Type<Handler>();", END_OF_LINE, 
-								WHITE_SPACE, END_OF_LINE, 
-								"	@Override", END_OF_LINE, 
-								"	public Type<Handler> getAssociatedType() {", END_OF_LINE, 
-								"		return TYPE;", END_OF_LINE, 
-								"	}", END_OF_LINE, 
-								WHITE_SPACE, END_OF_LINE, 
-								"	@Override", END_OF_LINE,
-								"	protected void dispatch(Handler handler) {", END_OF_LINE, 
-								"		handler.on", button.getCustomEvent(), "Event(this);", END_OF_LINE, 
-								"	}", END_OF_LINE, 
-								"}");
-
-						JepRiaToolkitUtil.writeToFile(contentEvent, JepRiaToolkitUtil.multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/",
-								packageName.toLowerCase(), "/", moduleName.toLowerCase(), "/", formName.toLowerCase(), "/client/ui/eventbus/event/",
-								button.getCustomEvent(), "Event.java"));
-					}
-
-				}
-				// image bundle
-				String contentImages = JepRiaToolkitUtil.multipleConcat(
-						"package com.technology.", packageModuleFormName, ".client.ui.toolbar.images;", END_OF_LINE, 
-						WHITE_SPACE, END_OF_LINE,
-						"import com.google.gwt.resources.client.ImageResource;", END_OF_LINE,
-						"import com.technology.jep.jepria.client.images.JepImages;", END_OF_LINE, 
-						WHITE_SPACE, END_OF_LINE,
-						"public interface ", formName, "Images extends JepImages {", END_OF_LINE, 
-						WHITE_SPACE, 
-						resource, 
-						WHITE_SPACE, END_OF_LINE,
-						"}");
-
-				if (module.isNotRebuild())
-					continue;
-				JepRiaToolkitUtil.writeToFile(contentImages, JepRiaToolkitUtil.multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/", packageName.toLowerCase(),
-						"/", moduleName.toLowerCase(), "/", formName.toLowerCase(), "/client/ui/toolbar/images/", formName, "Images.java"));
-
-				// ----
-
-				String contentEventBus = JepRiaToolkitUtil.multipleConcat(
-						"package com.technology.", packageModuleFormName, ".client.ui.eventbus;", END_OF_LINE, 
-						WHITE_SPACE, END_OF_LINE,
-						"import com.technology.jep.jepria.client.ui.eventbus.plain.PlainEventBus;", END_OF_LINE,
-						"import com.technology.jep.jepria.client.ui.plain.PlainClientFactory;", END_OF_LINE, 
-						importEvent, 
-						WHITE_SPACE, END_OF_LINE,
-						"public class ", formName, "EventBus extends PlainEventBus {", END_OF_LINE, 
-						WHITE_SPACE, END_OF_LINE, 
-						"	public ", formName, "EventBus(PlainClientFactory<?, ?> clientFactory) {", END_OF_LINE, 
-						"		super(clientFactory);", END_OF_LINE, 
-						"	}", END_OF_LINE,
-						event, 
-						WHITE_SPACE, END_OF_LINE, 
-						"}");
-
-				if (module.isNotRebuild())
-					continue;
-				JepRiaToolkitUtil.writeToFile(contentEventBus, JepRiaToolkitUtil.multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/", packageName.toLowerCase(),
-						"/", moduleName.toLowerCase(), "/", formName.toLowerCase(), "/client/ui/eventbus/", formName, "EventBus.java"));
-
-			}
-
 		}
+//		for (int i = 0; i < forms.size(); i++) {
+//			String formName = (String) forms.get(i);
+//			String packageModuleFormName = JepRiaToolkitUtil.multipleConcat(packageName.toLowerCase(), ".", moduleName.toLowerCase(), ".", formName.toLowerCase());
+//			Map<Module, List<ModuleField>> hm = getModuleWithFieldsById(formName);
+//			Module module = hm.keySet().iterator().next();
+//			boolean isStandardToolBar = module.isStandardToolBar();
+//			boolean isToolBarOff = module.isToolBarOff();
+//			boolean hasCustomButtons = module.hasCustomButtons();
+//			boolean hasToolBarPresenter = module.hasToolBarPresenter();
+//			boolean hasToolBarView = module.hasToolBarView();
+//			if (!isStandardToolBar || isToolBarOff || hasToolBarPresenter || hasToolBarView) {
+//				// create file structure
+//				JepRiaToolkitUtil.makeDir(JepRiaToolkitUtil.multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, packageName.toLowerCase(), "/",
+//						moduleName.toLowerCase(), "/", formName, "/client/ui/toolbar", (hasCustomButtons ? "/images" : "")));
+//				if (hasCustomButtons) {
+//					JepRiaToolkitUtil.makeDir(JepRiaToolkitUtil.multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, packageName.toLowerCase(), "/",
+//							moduleName.toLowerCase(), "/", formName, "/client/ui/eventbus/event"));
+//				}
+//
+//				String additionalStringInPresenter = new String();
+//				String additionalStringInView = new String();
+//				List<ModuleButton> toolbarButtons = module.getToolBarButtons();
+//
+//				String customButtonDescription = ""; 
+//				for (ModuleButton button : module.getToolBarCustomButtons()) {
+//					customButtonDescription += JepRiaToolkitUtil.multipleConcat(WHITE_SPACE, END_OF_LINE, "	final static String ", button.getButtonId()
+//							.toUpperCase(), " = \"", button.getButtonIdAsParameter(), "\";");
+//				}
+//
+//				if (!isToolBarOff) {
+//					for (ModuleButton button : toolbarButtons) {
+//						if (!button.getIsSeparator()) {
+//							additionalStringInPresenter += JepRiaToolkitUtil.multipleConcat(
+//									"		bindButton(", END_OF_LINE,
+//									"			", button.getButtonId(), ", ", END_OF_LINE,
+//									"			new WorkstateEnum[]{",
+//									button.getWorkStatesAsString(),
+//									"},", END_OF_LINE,
+//									"			new ClickHandler() {", END_OF_LINE,
+//									"				public void onClick(ClickEvent event) {",END_OF_LINE,
+//									"					",
+//									button.getEvent(), END_OF_LINE, 
+//									"				}", END_OF_LINE, 
+//									"			});", END_OF_LINE,
+//									WHITE_SPACE, END_OF_LINE);
+//						} else if (button.isCustomSeparator()) {
+//							customButtonDescription += JepRiaToolkitUtil.multipleConcat(
+//									WHITE_SPACE, END_OF_LINE, 
+//									"	final static String ", button.getButtonId().toUpperCase(), " = \"", button.getButtonIdAsParameter(), "\";");
+//						}
+//
+//						additionalStringInView += button.getIsSeparator() ? JepRiaToolkitUtil.multipleConcat(
+//								"		addSeparator(", button.getButtonId().toUpperCase(), ");", END_OF_LINE) : JepRiaToolkitUtil.multipleConcat(
+//								"		addButton(",END_OF_LINE,
+//								"			", button.getButtonId().toUpperCase(), ", ", END_OF_LINE,
+//								"			", button.getImageAsString(formName),
+//								"			", button.getTextAsString(formName)
+//								);
+//					}
+//				}
+//
+//				if (!JepRiaToolkitUtil.isEmpty(customButtonDescription)) {
+//					customButtonDescription += JepRiaToolkitUtil.multipleConcat(WHITE_SPACE, END_OF_LINE);
+//				}
+//
+//				// toolbar view
+//				String contentView = JepRiaToolkitUtil.multipleConcat(
+//						"package com.technology.", packageModuleFormName, ".client.ui.toolbar;",  END_OF_LINE,
+//						WHITE_SPACE, END_OF_LINE,
+//						"import com.technology.jep.jepria.client.ui.toolbar.ToolBarView;", END_OF_LINE,
+//						WHITE_SPACE, END_OF_LINE,
+//						"public interface ", formName, "ToolBarView extends ToolBarView {", END_OF_LINE,
+//						WHITE_SPACE,
+//						customButtonDescription,
+//						END_OF_LINE, "}");
+//
+//				if (module.isNotRebuild())
+//					continue;
+//				if (!isStandardToolBar || isToolBarOff || hasToolBarView)
+//					JepRiaToolkitUtil.writeToFile(contentView, JepRiaToolkitUtil.multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/", packageName.toLowerCase(),
+//							"/", moduleName.toLowerCase(), "/", formName.toLowerCase(), "/client/ui/toolbar/", formName, "ToolBarView.java"));
+//
+//				// toolbar view impl
+//				String contentViewImpl = JepRiaToolkitUtil.multipleConcat(
+//						"package com.technology.", packageModuleFormName, ".client.ui.toolbar;",  END_OF_LINE,
+//						WHITE_SPACE, END_OF_LINE,
+//						"import static com.technology.jep.jepria.client.ui.toolbar.ToolBarConstant.*;", END_OF_LINE,
+//						"import com.technology.jep.jepria.client.ui.toolbar.ToolBarViewImpl;", END_OF_LINE,
+//						(hasCustomButtons ? JepRiaToolkitUtil.multipleConcat(
+//							"import static com.technology.", packageModuleFormName, ".client.", formName, "ClientConstant.", JepRiaToolkitUtil.initSmall(formName), "Text;", END_OF_LINE, 
+//							"import com.google.gwt.core.client.GWT;", END_OF_LINE,
+//							"import com.technology.", packageModuleFormName, ".client.ui.toolbar.images.", formName, "Images;", END_OF_LINE) : ""),
+//						"import static com.technology.jep.jepria.client.JepRiaClientConstant.JepTexts;", END_OF_LINE,
+//						"import static com.technology.jep.jepria.client.JepRiaClientConstant.JepImages;", END_OF_LINE,
+//						WHITE_SPACE, END_OF_LINE,
+//						"public class ", formName, "ToolBarViewImpl extends ToolBarViewImpl implements ", formName, "ToolBarView {", END_OF_LINE,
+//						WHITE_SPACE, END_OF_LINE,
+//						hasCustomButtons ?
+//						JepRiaToolkitUtil.multipleConcat(WHITE_SPACE, END_OF_LINE, "	public static final ",
+//								formName, "Images ", JepRiaToolkitUtil.initSmall(formName), "Images = GWT.create(", formName, "Images.class);", END_OF_LINE) : "",
+//						WHITE_SPACE, END_OF_LINE,
+//
+//						"	public ", formName, "ToolBarViewImpl() {", END_OF_LINE,
+//						"		super();", END_OF_LINE,
+//						hasToolBarView && module.getToolBarButtons().size() == 0 ? "" : JepRiaToolkitUtil.multipleConcat(
+//								"		removeAll();", END_OF_LINE, 
+//								WHITE_SPACE, END_OF_LINE),
+//						isToolBarOff ? JepRiaToolkitUtil.multipleConcat("		asWidget().setVisible(false);", END_OF_LINE) : additionalStringInView, "	}", END_OF_LINE, "}");
+//
+//				if (module.isNotRebuild())
+//					continue;
+//				if (!isStandardToolBar || isToolBarOff || hasToolBarView)
+//					JepRiaToolkitUtil.writeToFile(contentViewImpl, JepRiaToolkitUtil.multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/", packageName.toLowerCase(),
+//							"/", moduleName.toLowerCase(), "/", formName.toLowerCase(), "/client/ui/toolbar/", formName, "ToolBarViewImpl.java"));
+//
+//				String customButtonImport = "";
+//				for (ModuleButton button : module.getToolBarCustomButtons()) {
+//					customButtonImport += JepRiaToolkitUtil.multipleConcat("import static com.technology.", packageName.toLowerCase(), ".", moduleName
+//							.toLowerCase(), ".", formName.toLowerCase(), ".client.ui.toolbar.", formName, "ToolBarView.", button.getButtonId()
+//							.toUpperCase(), ";", END_OF_LINE);
+//				}
+//				// toolbar presenter
+//				String contentPresenter = JepRiaToolkitUtil.multipleConcat(
+//						"package com.technology.", packageModuleFormName, ".client.ui.toolbar;", END_OF_LINE,
+//						WHITE_SPACE, END_OF_LINE,
+//						customButtonImport,
+//						"import com.google.gwt.place.shared.Place;", END_OF_LINE,
+//						"import static com.technology.jep.jepria.client.ui.WorkstateEnum.*;", END_OF_LINE,
+//						"import static com.technology.jep.jepria.client.ui.toolbar.ToolBarView.*;", END_OF_LINE,
+//						"import static com.technology.jep.jepria.client.ui.toolbar.ToolBarConstant.*;", END_OF_LINE,
+//						
+//						"import com.technology.jep.jepria.client.ui.plain.StandardClientFactory;", END_OF_LINE,
+//						"import com.technology.jep.jepria.client.ui.toolbar.ToolBarView;", END_OF_LINE,
+//						"import com.technology.jep.jepria.client.ui.toolbar.ToolBarPresenter;", END_OF_LINE,
+//						"import com.google.gwt.event.dom.client.ClickEvent;", END_OF_LINE,
+//						"import com.google.gwt.event.dom.client.ClickHandler;", END_OF_LINE,
+//						"import com.technology.jep.jepria.client.ui.WorkstateEnum;", END_OF_LINE, 
+//
+//						(hasCustomButtons ? JepRiaToolkitUtil.multipleConcat("import com.technology.", packageName.toLowerCase(), ".",
+//								moduleName.toLowerCase(), ".", formName.toLowerCase(), ".client.ui.eventbus.", formName, "EventBus;", END_OF_LINE)
+//								: JepRiaToolkitUtil.multipleConcat("import com.technology.jep.jepria.client.ui.eventbus.plain.PlainEventBus;", END_OF_LINE)),
+//						"import com.technology.jep.jepria.client.ui.plain.PlainClientFactory;", END_OF_LINE,
+//						(isToolBarOff ? "" : JepRiaToolkitUtil.multipleConcat("import com.technology.jep.jepria.client.history.place.*;", END_OF_LINE)),
+//						"import com.technology.", packageModuleFormName, ".shared.service.", formName, "ServiceAsync;", END_OF_LINE,
+//						WHITE_SPACE, END_OF_LINE,
+//						"public class ", formName, "ToolBarPresenter<V extends ToolBarView, E extends ", (hasCustomButtons ? formName : "Plain"), "EventBus, S extends ", formName, "ServiceAsync, F extends StandardClientFactory<E, S>>", END_OF_LINE,
+//						"	extends ToolBarPresenter<V, E, S, F> {", END_OF_LINE,
+//						WHITE_SPACE, END_OF_LINE,
+//						" 	public ", formName, "ToolBarPresenter(Place place, F clientFactory) {", END_OF_LINE,
+//						"		super(place, clientFactory);", END_OF_LINE,
+//						"	}", END_OF_LINE,
+//						WHITE_SPACE, END_OF_LINE,
+//						(isToolBarOff || hasToolBarPresenter ? "" : JepRiaToolkitUtil.multipleConcat(
+//								"	public void bind() {", END_OF_LINE,
+//								additionalStringInPresenter, "	}", END_OF_LINE)), "}");
+//
+//				if (module.isNotRebuild())
+//					continue;
+//				if (!isStandardToolBar || isToolBarOff || hasToolBarPresenter)
+//					JepRiaToolkitUtil.writeToFile(contentPresenter, JepRiaToolkitUtil.multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/",
+//							packageName.toLowerCase(), "/", moduleName.toLowerCase(), "/", formName.toLowerCase(), "/client/ui/toolbar/", formName,
+//							"ToolBarPresenter.java"));
+//
+//			}
+//			// Если есть пользовательские кнопки, создадим необходимые
+//			// изменения:
+//			// файл ресурсов, кастомные EventBus, события
+//			if (hasCustomButtons) {
+//				String resource = "";
+//				String importEvent = "";
+//				String event = "";
+//
+//				for (ModuleButton button : module.getToolBarCustomButtons()) {
+//					resource += JepRiaToolkitUtil.multipleConcat(
+//							WHITE_SPACE, END_OF_LINE,
+//							"	@Source(\"", button.getImage(), ".png\")", END_OF_LINE,
+//							"	ImageResource ", button.getImage(), "();", END_OF_LINE
+//					);
+//
+//					importEvent += JepRiaToolkitUtil.multipleConcat(
+//							"import com.technology.", packageModuleFormName, ".client.ui.eventbus.event.", button.getCustomEvent(), "Event;", END_OF_LINE);
+//
+//					event += JepRiaToolkitUtil.multipleConcat(
+//							WHITE_SPACE, END_OF_LINE, 
+//							"	public void ", button.getEvent(), " { ", END_OF_LINE,
+//							"		fireEvent(new ", button.getCustomEvent(), "Event());", END_OF_LINE, 
+//							"	}", END_OF_LINE);
+//
+//					if (!module.isNotRebuild()) {
+//						String contentEvent = JepRiaToolkitUtil.multipleConcat(
+//								"package com.technology.", packageModuleFormName, ".client.ui.eventbus.event;", END_OF_LINE, 
+//								WHITE_SPACE, END_OF_LINE, 
+//								"import com.google.gwt.event.shared.EventHandler;", END_OF_LINE,
+//								"import com.technology.jep.jepria.client.ui.eventbus.BusEvent;", END_OF_LINE, 
+//								WHITE_SPACE, END_OF_LINE,
+//								"public class ", button.getCustomEvent(), "Event extends BusEvent<", button.getCustomEvent(), "Event.Handler> {", END_OF_LINE, 
+//								WHITE_SPACE, END_OF_LINE, 
+//								"	public interface Handler extends EventHandler {", END_OF_LINE, 
+//								"		void on", button.getCustomEvent(), "Event(", button.getCustomEvent(), "Event event);", END_OF_LINE, 
+//								"	}", END_OF_LINE,
+//								WHITE_SPACE, END_OF_LINE, 
+//								"	public static final Type<Handler> TYPE = new Type<Handler>();", END_OF_LINE, 
+//								WHITE_SPACE, END_OF_LINE, 
+//								"	@Override", END_OF_LINE, 
+//								"	public Type<Handler> getAssociatedType() {", END_OF_LINE, 
+//								"		return TYPE;", END_OF_LINE, 
+//								"	}", END_OF_LINE, 
+//								WHITE_SPACE, END_OF_LINE, 
+//								"	@Override", END_OF_LINE,
+//								"	protected void dispatch(Handler handler) {", END_OF_LINE, 
+//								"		handler.on", button.getCustomEvent(), "Event(this);", END_OF_LINE, 
+//								"	}", END_OF_LINE, 
+//								"}");
+//
+//						JepRiaToolkitUtil.writeToFile(contentEvent, JepRiaToolkitUtil.multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/",
+//								packageName.toLowerCase(), "/", moduleName.toLowerCase(), "/", formName.toLowerCase(), "/client/ui/eventbus/event/",
+//								button.getCustomEvent(), "Event.java"));
+//					}
+//
+//				}
+//				// image bundle
+//				String contentImages = JepRiaToolkitUtil.multipleConcat(
+//						"package com.technology.", packageModuleFormName, ".client.ui.toolbar.images;", END_OF_LINE, 
+//						WHITE_SPACE, END_OF_LINE,
+//						"import com.google.gwt.resources.client.ImageResource;", END_OF_LINE,
+//						"import com.technology.jep.jepria.client.images.JepImages;", END_OF_LINE, 
+//						WHITE_SPACE, END_OF_LINE,
+//						"public interface ", formName, "Images extends JepImages {", END_OF_LINE, 
+//						WHITE_SPACE, 
+//						resource, 
+//						WHITE_SPACE, END_OF_LINE,
+//						"}");
+//
+//				if (module.isNotRebuild())
+//					continue;
+//				JepRiaToolkitUtil.writeToFile(contentImages, JepRiaToolkitUtil.multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/", packageName.toLowerCase(),
+//						"/", moduleName.toLowerCase(), "/", formName.toLowerCase(), "/client/ui/toolbar/images/", formName, "Images.java"));
+//				// ----
+//				String contentEventBus = JepRiaToolkitUtil.multipleConcat(
+//						"package com.technology.", packageModuleFormName, ".client.ui.eventbus;", END_OF_LINE, 
+//						WHITE_SPACE, END_OF_LINE,
+//						"import com.technology.jep.jepria.client.ui.eventbus.plain.PlainEventBus;", END_OF_LINE,
+//						"import com.technology.jep.jepria.client.ui.plain.PlainClientFactory;", END_OF_LINE, 
+//						importEvent, 
+//						WHITE_SPACE, END_OF_LINE,
+//						"public class ", formName, "EventBus extends PlainEventBus {", END_OF_LINE, 
+//						WHITE_SPACE, END_OF_LINE, 
+//						"	public ", formName, "EventBus(PlainClientFactory<?, ?> clientFactory) {", END_OF_LINE, 
+//						"		super(clientFactory);", END_OF_LINE, 
+//						"	}", END_OF_LINE,
+//						event, 
+//						WHITE_SPACE, END_OF_LINE, 
+//						"}");
+//
+//				if (module.isNotRebuild())
+//					continue;
+//				JepRiaToolkitUtil.writeToFile(contentEventBus, JepRiaToolkitUtil.multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/", packageName.toLowerCase(),
+//						"/", moduleName.toLowerCase(), "/", formName.toLowerCase(), "/client/ui/eventbus/", formName, "EventBus.java"));
+//			}
+//		}
 	}
 
 	/**
@@ -2395,8 +2467,11 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 				modInfo.setIsJepToolBarPresenter(isJepToolBar && !module.hasToolBarPresenter());
 				modInfo.setIsJepToolBarView(isJepToolBar && !module.hasToolBarView());
 				modInfo.setIsDblClickOff(module.isDblClickOff());
+				modInfo.setStandardToolBar(module.isStandardToolBar());
 				modInfo.setIsToolBarOff(module.isToolBarOff());
 				modInfo.setIsStatusBarOff(module.isStatusBarOff());
+				modInfo.setHasToolBarView(module.hasToolBarView());
+				modInfo.setHasToolBarPresenter(module.hasToolBarPresenter());
 				modInfo.setHasLikeField(module.hasLikeFields());
 				modInfo.setScopeModuleIds(getDependencyNodesIfExists(formName));
 				modInfo.setToolBarButtons(module.getToolBarButtons());
