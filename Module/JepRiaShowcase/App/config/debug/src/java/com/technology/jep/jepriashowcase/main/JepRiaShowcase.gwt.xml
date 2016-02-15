@@ -24,8 +24,4 @@
   <servlet class="com.technology.jep.jepria.server.service.JepMainServiceServletTest" path="/MainService"/>
   <source path="client"/>
   <source path="shared"/>
-
-  <extend-property name="locale" values="ru"/>
-  <extend-property name="locale" values="en"/>
-  <set-property-fallback name="locale" value="ru"/>
 </module>
