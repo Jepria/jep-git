@@ -5,10 +5,6 @@ import com.technology.jep.jepria.server.JepRiaServerConstant;
  * Константы для Custom.
  */
 public class CustomServerConstant extends JepRiaServerConstant {
-	/**
-	 * JNDI-имя EJB модуля.
-	 */
-	public static final String BEAN_JNDI_NAME = "CustomBean";
 	
 	/**
 	 * JNDI-имя источника данных модуля.

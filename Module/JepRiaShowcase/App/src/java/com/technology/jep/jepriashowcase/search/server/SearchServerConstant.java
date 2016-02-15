@@ -5,10 +5,6 @@ import com.technology.jep.jepria.server.JepRiaServerConstant;
  * Константы для Search.
  */
 public class SearchServerConstant extends JepRiaServerConstant {
-	/**
-	 * JNDI-имя EJB модуля.
-	 */
-	public static final String BEAN_JNDI_NAME = "SearchBean";
 	
 	/**
 	 * JNDI-имя источника данных модуля.
