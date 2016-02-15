@@ -1,9 +1,6 @@
-package com.technology.jep.jepria.server.ejb;
+package com.technology.jep.jepria.server.dao;
 
 import java.util.List;
-
-import javax.annotation.Resource;
-import javax.ejb.SessionContext;
 
 import com.technology.jep.jepria.server.dao.DaoSupport;
 import com.technology.jep.jepria.server.dao.ResultSetMapper;
@@ -14,14 +11,12 @@ import com.technology.jep.jepria.shared.record.JepRecord;
 /**
  * Общий предок EJB стандартной работы с данными.
  */
-public class JepDataStandardBean {
-	@Resource
-	protected SessionContext sessionContext;
+public class JepDaoStandard {
 
-	protected String dataSourceJndiName;
-	protected String resourceBundleName;
+	protected final String dataSourceJndiName;
+	protected final String resourceBundleName;
 
-	public JepDataStandardBean(String dataSourceJndiName, String resourceBundleName) {
+	public JepDaoStandard(String dataSourceJndiName, String resourceBundleName) {
 		this.dataSourceJndiName = dataSourceJndiName;
 		this.resourceBundleName = resourceBundleName;
 	}
@@ -32,9 +27,7 @@ public class JepDataStandardBean {
 			Object... params) throws ApplicationException {
 		return DaoSupport.find(
 				sqlQuery,
-				sessionContext,
 				dataSourceJndiName,
-				resourceBundleName,
 				resultSetMapper,
 				JepRecord.class,
 				params); 
@@ -46,9 +39,7 @@ public class JepDataStandardBean {
 			Object... params) throws ApplicationException {
 		return DaoSupport.find(
 				sqlQuery,
-				sessionContext,
 				dataSourceJndiName,
-				resourceBundleName,
 				resultSetMapper,
 				JepOption.class,
 				params); 
@@ -59,9 +50,7 @@ public class JepDataStandardBean {
 			Class<T> resultTypeClass,			
 			Object... params) throws ApplicationException {
 		return DaoSupport.<T> create(sqlQuery,
-				sessionContext,
 				dataSourceJndiName,
-				resourceBundleName,
 				resultTypeClass,
 				params);
 	}
@@ -71,9 +60,7 @@ public class JepDataStandardBean {
 			Object... params) throws ApplicationException {
 		DaoSupport.update(
 				sqlQuery,
-				sessionContext,
 				dataSourceJndiName,
-				resourceBundleName,
 				params);
 	}
 
@@ -82,9 +69,7 @@ public class JepDataStandardBean {
 			Object... params) throws ApplicationException {
 		DaoSupport.delete(
 				sqlQuery,
-				sessionContext,
 				dataSourceJndiName,
-				resourceBundleName,
 				params);
 	}
 

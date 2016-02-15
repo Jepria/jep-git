@@ -34,26 +34,27 @@ public class JepVersionBean implements JepVersion {
 			, String installVersion
 			, String installDate
 			, Integer operatorId) throws ApplicationException {
-		return DaoSupport.<Integer>execute(
-				"begin " 
-				  + " ? := pkg_moduleinfo.createAppInstallResult(" 
-						+ "moduleSvnRoot => ? " 
-					  + ", moduleInitialSvnPath => ? " 
-						+ ", moduleVersion => ? "
-						+ ", deploymentPath => ? "
-						+ ", installVersion => ? "
-						+ ", installDate => ? "
-						+ ", operatorId => ? "
-				  + ");"
-			    + "end;",
-				sessionContext, DATA_SOURCE_JNDI_NAME, JEP_RIA_RESOURCE_BUNDLE_NAME, Integer.class,
-				moduleSvnRoot,
-				moduleInitialSvnPath, 
-				moduleVersion, 
-				deploymentPath,
-				installVersion,
-				installDate,
-				operatorId);
+//		return DaoSupport.<Integer>execute(
+//				"begin " 
+//				  + " ? := pkg_moduleinfo.createAppInstallResult(" 
+//						+ "moduleSvnRoot => ? " 
+//					  + ", moduleInitialSvnPath => ? " 
+//						+ ", moduleVersion => ? "
+//						+ ", deploymentPath => ? "
+//						+ ", installVersion => ? "
+//						+ ", installDate => ? "
+//						+ ", operatorId => ? "
+//				  + ");"
+//			    + "end;",
+//				sessionContext, DATA_SOURCE_JNDI_NAME, JEP_RIA_RESOURCE_BUNDLE_NAME, Integer.class,
+//				moduleSvnRoot,
+//				moduleInitialSvnPath, 
+//				moduleVersion, 
+//				deploymentPath,
+//				installVersion,
+//				installDate,
+//				operatorId);
+		return null;
 		
 	}
 }

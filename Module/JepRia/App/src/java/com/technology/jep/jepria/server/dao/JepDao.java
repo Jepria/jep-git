@@ -1,4 +1,4 @@
-package com.technology.jep.jepria.server.ejb;
+package com.technology.jep.jepria.server.dao;
 
 import static com.technology.jep.jepria.server.JepRiaServerConstant.JEP_RIA_RESOURCE_BUNDLE_NAME;
 
@@ -15,9 +15,9 @@ import com.technology.jep.jepria.shared.record.JepRecord;
 /**
  * Общий предок EJB, требующих расширенную работу с данными.
  */
-public class JepDataBean extends JepDataStandardBean {
+public class JepDao extends JepDaoStandard {
 
-	public JepDataBean(String dataSourceJndiName, String resourceBundleName) {
+	public JepDao(String dataSourceJndiName, String resourceBundleName) {
 		super(dataSourceJndiName, resourceBundleName);
 	}
 
@@ -28,9 +28,7 @@ public class JepDataBean extends JepDataStandardBean {
 			Object... params) throws ApplicationException {
 		return DaoSupport.find(
 				sqlQuery,
-				sessionContext,
 				dataSourceJndiName,
-				resourceBundleName,
 				resultSetMapper,
 				JepRecord.class,
 				params); 
@@ -43,9 +41,7 @@ public class JepDataBean extends JepDataStandardBean {
 			Object... params) throws ApplicationException {
 		return DaoSupport.find(
 				sqlQuery,
-				sessionContext,
 				dataSourceJndiName,
-				resourceBundleName,
 				resultSetMapper,
 				JepOption.class,
 				params); 
@@ -57,9 +53,7 @@ public class JepDataBean extends JepDataStandardBean {
 			Class<T> resultTypeClass,			
 			Object... params) throws ApplicationException {
 		return DaoSupport.<T> create(sqlQuery,
-				sessionContext,
 				dataSourceJndiName,
-				resourceBundleName,
 				resultTypeClass,
 				params);
 	}
@@ -70,9 +64,7 @@ public class JepDataBean extends JepDataStandardBean {
 			Object... params) throws ApplicationException {
 		DaoSupport.update(
 				sqlQuery,
-				sessionContext,
 				dataSourceJndiName,
-				resourceBundleName,
 				params);
 	}
 
@@ -82,9 +74,7 @@ public class JepDataBean extends JepDataStandardBean {
 			Object... params) throws ApplicationException {
 		DaoSupport.delete(
 				sqlQuery,
-				sessionContext,
 				dataSourceJndiName,
-				resourceBundleName,
 				params);
 	}
 
@@ -93,9 +83,7 @@ public class JepDataBean extends JepDataStandardBean {
 			Object... params) throws ApplicationException {
 		DaoSupport.execute(
 				sqlQuery,
-				sessionContext,
 				dataSourceJndiName,
-				resourceBundleName,
 				params);
 	}
 
@@ -105,9 +93,7 @@ public class JepDataBean extends JepDataStandardBean {
 			Object... params) throws ApplicationException {
 		DaoSupport.execute(
 				sqlQuery,
-				sessionContext,
 				dataSourceJndiName,
-				resourceBundleName,
 				params);
 	}
 
@@ -117,9 +103,7 @@ public class JepDataBean extends JepDataStandardBean {
 			Object... params) throws ApplicationException {
 		return DaoSupport.execute(
 				sqlQuery,
-				sessionContext,
 				dataSourceJndiName,
-				resourceBundleName,
 				resultTypeClass,
 				params);
 	}
@@ -131,9 +115,7 @@ public class JepDataBean extends JepDataStandardBean {
 			Object... params) throws ApplicationException {
 		return DaoSupport.execute(
 				sqlQuery,
-				sessionContext,
 				dataSourceJndiName,
-				resourceBundleName,
 				resultTypeClass,
 				params);
 	}
@@ -144,9 +126,7 @@ public class JepDataBean extends JepDataStandardBean {
 			Object... params) throws ApplicationException {
 		return DaoSupport.select(
 				sqlQuery,
-				sessionContext,
 				dataSourceJndiName,
-				resourceBundleName,
 				resultSetMapper,
 				JepRecord.class,
 				params); 
@@ -159,34 +139,10 @@ public class JepDataBean extends JepDataStandardBean {
 			Object... params) throws ApplicationException {
 		return DaoSupport.select(
 				sqlQuery,
-				sessionContext,
 				dataSourceJndiName,
-				resourceBundleName,
 				resultSetMapper,
 				JepRecord.class,
 				params); 
-	}
-
-	/**
-	 * @deprecated Данный метод будет удалён в JepRia 9. Вместо него следует использовать
-	 * метод {@link com.technology.jep.jepria.shared.field.option.JepOption#getValue(Object option)}
-	 * <br>
-	 * Получение значения из опции {@link com.technology.jep.jepria.shared.field.option.JepOption}.<br/>
-	 * В реализации метод вызывает {@link com.technology.jep.jepria.shared.field.option.JepOption#getValue(Object option)}.<br/>
-	 * Пример использования в прикладном модуле:
-	 * <pre>
-	 *   ...
-	 *   &lt;Integer&gt;getFieldValueFromOption(template.get(CITY_ID)); // Получение значения типа Integer или null.
-	 *   ...
-	 *   &lt;String&gt;getFieldValueFromOption(template.get(COMPANY_CODE)); // Получение значения типа String или null.
-	 *   ...
-	 * </pre>
-	 * @param option опция {@link com.technology.jep.jepria.shared.field.option.JepOption}
-	 * @return значение опции {@link com.technology.jep.jepria.shared.field.option.JepOption#getValue(Object option)}
-	 */	
-	@Deprecated
-	protected <X> X getValueFromOption(Object option) {
-		return JepOption.<X>getValue(option);
 	}
 
 	/**

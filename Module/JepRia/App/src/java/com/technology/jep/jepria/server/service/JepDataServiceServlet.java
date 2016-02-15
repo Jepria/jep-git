@@ -59,19 +59,19 @@ import com.technology.jep.jepria.shared.util.SimplePaging;
  * Абстрактный предок сервисов данных Jep
  */
 @SuppressWarnings("serial")
-abstract public class JepDataServiceServlet extends JepServiceServlet implements JepDataService {
+abstract public class JepDataServiceServlet<D extends JepDataStandard> extends JepServiceServlet implements JepDataService {
 	protected static Logger logger = Logger.getLogger(JepDataServiceServlet.class.getName());	
 	
 	protected JepRecordDefinition recordDefinition = null;
 	protected JepSorter sorter = null;
-	protected String ejbName = null;
 	protected String dataSourceJndiName = null;
+	protected final D dao;
 	protected String resourceBundleName = null;
 	
-	protected JepDataServiceServlet(JepRecordDefinition recordDefinition, String ejbName) {
+	protected JepDataServiceServlet(JepRecordDefinition recordDefinition, D dao) {
 		this.recordDefinition = recordDefinition;
 		this.sorter = new JepSorter<JepRecord>();
-		this.ejbName = ejbName;
+		this.dao = dao;
 	}
 	
 	/**
@@ -84,10 +84,10 @@ abstract public class JepDataServiceServlet extends JepServiceServlet implements
 	 */
 	protected JepDataServiceServlet(
 			JepRecordDefinition recordDefinition,
-			String ejbName,
+			D dao,
 			String dataSourceJndiName,
 			String resourceBundleName) {
-		this(recordDefinition, ejbName);
+		this(recordDefinition, dao);
 		this.dataSourceJndiName = dataSourceJndiName;
 		this.resourceBundleName = resourceBundleName;
 	}
@@ -101,8 +101,7 @@ abstract public class JepDataServiceServlet extends JepServiceServlet implements
 		prepareFileFields(record);
 		
 		try {
-			JepDataStandard ejb = (JepDataStandard) JepServerUtil.ejbLookup(ejbName);
-			ejb.update(record, getOperatorId());
+			dao.update(record, getOperatorId());
 			updateLobFields(record);
 			resultRecord = findByPrimaryKey(recordDefinition.buildPrimaryKeyMap(record));
 			clearFoundRecords(updateConfig);
@@ -125,8 +124,7 @@ abstract public class JepDataServiceServlet extends JepServiceServlet implements
 		prepareFileFields(record);
 		
 		try {
-			JepDataStandard ejb = (JepDataStandard) JepServerUtil.ejbLookup(ejbName);
-			Object recordId = ejb.create(record, getOperatorId());
+			Object recordId = dao.create(record, getOperatorId());
 			String[] primaryKey = recordDefinition.getPrimaryKey();
 			if(recordId != null) {
 				if(primaryKey.length == 1) {
@@ -174,8 +172,7 @@ abstract public class JepDataServiceServlet extends JepServiceServlet implements
 		logger.trace("BEGIN delete(" + record + ")");
 		
 		try {
-			JepDataStandard ejb = (JepDataStandard) JepServerUtil.ejbLookup(ejbName);
-			ejb.delete(record, getOperatorId());
+			dao.delete(record, getOperatorId());
 			clearFoundRecords(deleteConfig);			
 		} catch (Throwable th) {
 			String message = "Delete error";
@@ -209,8 +206,7 @@ abstract public class JepDataServiceServlet extends JepServiceServlet implements
 		
 		Mutable<Boolean> autoRefreshFlag = new Mutable<Boolean>(false);
 		try {
-			JepDataStandard ejb = (JepDataStandard) JepServerUtil.ejbLookup(ejbName);
-			resultRecords = ejb.find(
+			resultRecords = dao.find(
 					findModel,
 					autoRefreshFlag,
 					maxRowCount,
