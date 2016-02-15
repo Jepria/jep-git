@@ -821,6 +821,9 @@ public interface JepRiaToolkitConstant {
 	String CLIENT_MODULE_PLAIN_FORM_DIRECTORY_PROPERTY = "fileStructure.clientModulePlainFormDirectory";
 	String CLIENT_MODULE_DETAIL_FORM_DIRECTORY_PROPERTY = "fileStructure.clientModuleDetailFormDirectory";
 	String CLIENT_MODULE_LIST_FORM_DIRECTORY_PROPERTY = "fileStructure.clientModuleListFormDirectory";
+	String CLIENT_MODULE_EVENTBUS_DIRECTORY_PROPERTY = "fileStructure.clientModuleEventBusDirectory";
+	String CLIENT_MODULE_TOOLBAR_DIRECTORY_PROPERTY = "fileStructure.clientModuleToolBarDirectory";
+	String CLIENT_MODULE_STATUSBAR_DIRECTORY_PROPERTY = "fileStructure.clientModuleStatusBarDirectory";
 	String CLIENT_MODULE_EJB_DIRECTORY_PROPERTY = "fileStructure.clientModuleEjbDirectory";
 	String CLIENT_MODULE_SERVICE_IMPL_DIRECTORY_PROPERTY = "fileStructure.clientModuleServiceImplDirectory";
 	String CLIENT_MODULE_FIELD_DIRECTORY_PROPERTY = "fileStructure.clientModuleFieldDirectory";
@@ -829,6 +832,13 @@ public interface JepRiaToolkitConstant {
 	String CLIENT_MODULE_TEXT_RESOURCE_DIRECTORY_PROPERTY = "fileStructure.clientTextResourceDirectory";
 	String CONFIG_HTML_DIRECTORY_PROPERTY = "fileStructure.configHtmlDirectory";
 	String CONFIG_MAIN_PACKAGE_DIRECTORY_PROPERTY = "fileStructure.configMainPackageDirectory";
+	
+	String DEPLOY_PROPERTIES_SOURCE_PATH_TEMPLATE_PROPERTY = "fileTemplate.deployProperties.path.source";
+	String DEPLOY_PROPERTIES_DESTINATION_PATH_TEMPLATE_PROPERTY = "fileTemplate.deployProperties.path.destination";
+	
+	String LOG4J_PROPERTIES_SOURCE_PATH_TEMPLATE_PROPERTY = "fileTemplate.log4jProperties.path.source";
+	String LOG4J_PROPERTIES_DESTINATION_PATH_TEMPLATE_PROPERTY = "fileTemplate.log4jProperties.path.destination";
+	String LOG4J_PROPERTIES_CODE_DESTINATION_PATH_TEMPLATE_PROPERTY = "fileTemplate.log4jProperties.path.codeDestination";
 	
 	String WEB_XML_TEMPLATE_PROPERTY = "fileTemplate.webXml";
 	String WEB_XML_PATH_TEMPLATE_PROPERTY = "fileTemplate.webXml.path";
@@ -926,6 +936,9 @@ public interface JepRiaToolkitConstant {
 	String CLIENT_MODULE_EJB_INTERFACE_TEMPLATE_PROPERTY = "fileTemplate.clientModuleEjbInterface";
 	String CLIENT_MODULE_EJB_INTERFACE_PATH_TEMPLATE_PROPERTY = "fileTemplate.clientModuleEjbInterface.path";
 	
+	String CLIENT_MODULE_EJB_TEMPLATE_PROPERTY = "fileTemplate.clientModuleEjb";
+	String CLIENT_MODULE_EJB_PATH_TEMPLATE_PROPERTY = "fileTemplate.clientModuleEjb.path";
+	
 	String CLIENT_MODULE_FIELDS_TEMPLATE_PROPERTY = "fileTemplate.clientModuleFields";
 	String CLIENT_MODULE_FIELDS_PATH_TEMPLATE_PROPERTY = "fileTemplate.clientModuleFields.path";
 	
@@ -947,6 +960,27 @@ public interface JepRiaToolkitConstant {
 	String MAIN_MODULE_SHARED_CONSTANT_TEMPLATE_PROPERTY = "fileTemplate.mainModuleSharedConstant";
 	String MAIN_MODULE_SHARED_CONSTANT_PATH_TEMPLATE_PROPERTY = "fileTemplate.mainModuleSharedConstant.path";
 	
+	String CLIENT_MODULE_STATUSBAR_TEMPLATE_PROPERTY = "fileTemplate.clientModuleStatusBar";
+	String CLIENT_MODULE_STATUSBAR_PATH_TEMPLATE_PROPERTY = "fileTemplate.clientModuleStatusBar.path";
+	
+	String CLIENT_MODULE_TOOLBAR_VIEW_TEMPLATE_PROPERTY = "fileTemplate.clientModuleToolBarView";
+	String CLIENT_MODULE_TOOLBAR_VIEW_PATH_TEMPLATE_PROPERTY = "fileTemplate.clientModuleToolBarView.path";
+	
+	String CLIENT_MODULE_TOOLBAR_VIEW_IMPL_TEMPLATE_PROPERTY = "fileTemplate.clientModuleToolBarViewImpl";
+	String CLIENT_MODULE_TOOLBAR_VIEW_IMPL_PATH_TEMPLATE_PROPERTY = "fileTemplate.clientModuleToolBarViewImpl.path";
+	
+	String CLIENT_MODULE_TOOLBAR_PRESENTER_TEMPLATE_PROPERTY = "fileTemplate.clientModuleToolBarPresenter";
+	String CLIENT_MODULE_TOOLBAR_PRESENTER_PATH_TEMPLATE_PROPERTY = "fileTemplate.clientModuleToolBarPresenter.path";
+	
+	String CLIENT_MODULE_EVENTBUS_TEMPLATE_PROPERTY = "fileTemplate.clientModuleEventBus";
+	String CLIENT_MODULE_EVENTBUS_PATH_TEMPLATE_PROPERTY = "fileTemplate.clientModuleEventBus.path";
+	
+	String CLIENT_MODULE_EVENT_TEMPLATE_PROPERTY = "fileTemplate.clientModuleEvent";
+	String CLIENT_MODULE_EVENT_PATH_TEMPLATE_PROPERTY = "fileTemplate.clientModuleEvent.path";
+	
+	String CLIENT_MODULE_IMAGES_TEMPLATE_PROPERTY = "fileTemplate.clientModuleToolBarImages";
+	String CLIENT_MODULE_IMAGES_PATH_TEMPLATE_PROPERTY = "fileTemplate.clientModuleToolBarImages.path";
+	
 	String CURRENT_DIRECTORY_ENVIRONMENT_VARIABLE = "user.dir";
 	
 	String MODULE_NAME_TEMPLATE_PARAMETER = "moduleName";
@@ -955,6 +989,7 @@ public interface JepRiaToolkitConstant {
 	String FORMS_TEMPLATE_PARAMETER = "forms";
 	String FORM_TEMPLATE_PARAMETER = "form";
 	String FIELD_TEMPLATE_PARAMETER = "field";
+	String BUTTON_TEMPLATE_PARAMETER = "button";
 	String HAS_TEXT_FILE_TEMPLATE_PARAMETER = "hasTextFile";
 	String HAS_BINARY_FILE_TEMPLATE_PARAMETER = "hasBinaryFile";
 	String FORM_NAME_TEMPLATE_PARAMETER = "formName";

@@ -1,11 +1,12 @@
 package com.technology.jep.jepriatoolkit.creator.module;
 
 import static com.technology.jep.jepriatoolkit.creator.module.Module.getToolBarCustomButtonsForForm;
+import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.getOptionField;
+import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.isEmpty;
+import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.sortFields;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil;
 
 public class ModuleInfo {
 
@@ -18,17 +19,27 @@ public class ModuleInfo {
 	private String mainFormName;
 	private String mainFormParentKey;
 	private String table;
+	private String dbPackage;
+	private String defaultParameterPrefix;
+	private String findParameterPrefix;
+	private String createParameterPrefix;
+	private String updateParameterPrefix;
 	private boolean hasLobFields;
+	private boolean isStandardToolBar;
 	private boolean isExcelAvailable;
 	private boolean isNotRebuild;
 	private boolean isJepToolBarPresenter;
 	private boolean isJepToolBarView;
 	private boolean isDblClickOff;
 	private boolean isToolBarOff;
+	private boolean hasToolBarPresenter;
+	private boolean hasToolBarView;
+	private boolean isStatusBarOff;
 	private boolean hasOptionField;
 	private boolean hasLikeField;
 	private List<ModuleField> fields = new ArrayList<ModuleField>(); 
 	private List<ModuleButton> toolBarCustomButtons = new ArrayList<ModuleButton>();
+	private List<ModuleButton> toolBarButtons = new ArrayList<ModuleButton>();
 	private List<String> scopeModuleIds = new ArrayList<String>();
 	private List<String> moduleRoleNames  = new ArrayList<String>();
 	
@@ -88,6 +99,36 @@ public class ModuleInfo {
 	public void setTable(String table) {
 		this.table = table;
 	}
+	public String getDbPackage() {
+		return dbPackage;
+	}
+	public void setDbPackage(String dbPackage) {
+		this.dbPackage = dbPackage;
+	}
+	public String getDefaultParameterPrefix() {
+		return defaultParameterPrefix;
+	}
+	public void setDefaultParameterPrefix(String defaultParameterPrefix) {
+		this.defaultParameterPrefix = defaultParameterPrefix;
+	}
+	public String getFindParameterPrefix() {
+		return findParameterPrefix;
+	}
+	public void setFindParameterPrefix(String findParameterPrefix) {
+		this.findParameterPrefix = findParameterPrefix;
+	}
+	public String getCreateParameterPrefix() {
+		return createParameterPrefix;
+	}
+	public void setCreateParameterPrefix(String createParameterPrefix) {
+		this.createParameterPrefix = createParameterPrefix;
+	}
+	public String getUpdateParameterPrefix() {
+		return updateParameterPrefix;
+	}
+	public void setUpdateParameterPrefix(String updateParameterPrefix) {
+		this.updateParameterPrefix = updateParameterPrefix;
+	}
 	public boolean getHasLobFields() {
 		return hasLobFields;
 	}
@@ -127,6 +168,12 @@ public class ModuleInfo {
 	public void setIsToolBarOff(boolean isToolBarOff) {
 		this.isToolBarOff = isToolBarOff;
 	}
+	public boolean getIsStatusBarOff() {
+		return isStatusBarOff;
+	}
+	public void setIsStatusBarOff(boolean isStatusBarOff) {
+		this.isStatusBarOff = isStatusBarOff;
+	}
 	public boolean getHasOptionField() {
 		return hasOptionField;
 	}
@@ -143,7 +190,7 @@ public class ModuleInfo {
 		return scopeModuleIds.size() > 0;
 	}
 	public boolean getIsDependent(){
-		return !JepRiaToolkitUtil.isEmpty(mainFormName);
+		return !isEmpty(mainFormName);
 	}
 	public List<ModuleField> getFields(){
 		return fields;
@@ -151,11 +198,22 @@ public class ModuleInfo {
 	public void setFields(List<ModuleField> fields){
 		this.fields = fields;
 	}
+	public List<ModuleField> getOptionFields(){
+		return getOptionField(fields);
+	}
 	public List<ModuleField> getSortDetailFormFields(){
-		return JepRiaToolkitUtil.sortFields(fields, true);
+		return sortFields(fields, true);
 	}
 	public List<ModuleField> getSortListFormFields(){
-		return JepRiaToolkitUtil.sortFields(fields, false);
+		return sortFields(fields, false);
+	}
+	public List<ModuleButton> getToolBarButtons() {
+		return toolBarButtons;
+	}
+	public void setToolBarButtons(List<ModuleButton> toolbarButtons) {
+		if (!isEmpty(toolbarButtons)){
+			this.toolBarButtons = toolbarButtons;
+		}
 	}
 	public List<ModuleButton> getToolBarCustomButtons() {
 		return toolBarCustomButtons;
@@ -189,5 +247,23 @@ public class ModuleInfo {
 	}
 	public void setModuleRoleNames(List<String> moduleRoleNames) {
 		this.moduleRoleNames = moduleRoleNames;
+	}
+	public boolean getHasToolBarView() {
+		return hasToolBarView;
+	}
+	public void setHasToolBarView(boolean hasToolBarView) {
+		this.hasToolBarView = hasToolBarView;
+	}
+	public boolean getIsStandardToolBar() {
+		return isStandardToolBar;
+	}
+	public void setStandardToolBar(boolean isStandardToolBar) {
+		this.isStandardToolBar = isStandardToolBar;
+	}
+	public boolean getHasToolBarPresenter() {
+		return hasToolBarPresenter;
+	}
+	public void setHasToolBarPresenter(boolean hasToolBarPresenter) {
+		this.hasToolBarPresenter = hasToolBarPresenter;
 	}
 }

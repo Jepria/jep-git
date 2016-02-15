@@ -1,12 +1,15 @@
 package com.technology.jep.jepriatoolkit.creator.module;
 
+import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.echoMessage;
+import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.isEmpty;
+import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.multipleConcat;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.activation.UnsupportedDataTypeException;
 
 import com.technology.jep.jepriatoolkit.JepRiaToolkitConstant;
-import com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil;
 
 public class Module implements JepRiaToolkitConstant {
 
@@ -44,7 +47,7 @@ public class Module implements JepRiaToolkitConstant {
 		setDbPackageName(dbPackage);
 	}	
 	
-	public boolean isStatusbarOff() {
+	public boolean isStatusBarOff() {
 		return isStatusbarOff;
 	}
 	public void setStatusbarOff(boolean isStatusbarOff) {
@@ -60,11 +63,11 @@ public class Module implements JepRiaToolkitConstant {
 		return toolbarButtons;
 	}	
 	public List<ModuleButton> getToolBarCustomButtons() {
-		if (JepRiaToolkitUtil.isEmpty(customToolBarButtons)){		
+		if (isEmpty(customToolBarButtons)){		
 			customToolBarButtons = new ArrayList<ModuleButton>();
-			if (!JepRiaToolkitUtil.isEmpty(toolbarButtons))
+			if (!isEmpty(toolbarButtons))
 				for (ModuleButton button : toolbarButtons)
-					if (button.isCustomButton())
+					if (button.getIsCustomButton())
 						customToolBarButtons.add(button);			
 		}		
 		return customToolBarButtons;
@@ -80,12 +83,12 @@ public class Module implements JepRiaToolkitConstant {
 			}
 		}
 		catch(UnsupportedDataTypeException e){
-			JepRiaToolkitUtil.echoMessage(JepRiaToolkitUtil.multipleConcat(ERROR_PREFIX, e.getLocalizedMessage()));
+			echoMessage(multipleConcat(ERROR_PREFIX, e.getLocalizedMessage()));
 		}
 		return detailFormButtons;
 	}
 	public static List<ModuleButton> getToolBarCustomButtonsForForm(List<ModuleButton> customButtons, FORM form) {
-		if (JepRiaToolkitUtil.isEmpty(customButtons)) return customButtons;
+		if (isEmpty(customButtons)) return customButtons;
 		
 		List<ModuleButton> detailFormButtons = new ArrayList<ModuleButton>();
 		try {
@@ -96,7 +99,7 @@ public class Module implements JepRiaToolkitConstant {
 			}
 		}
 		catch(UnsupportedDataTypeException e){
-			JepRiaToolkitUtil.echoMessage(JepRiaToolkitUtil.multipleConcat(ERROR_PREFIX, e.getLocalizedMessage()));
+			echoMessage(multipleConcat(ERROR_PREFIX, e.getLocalizedMessage()));
 		}
 		return detailFormButtons;
 	}
@@ -173,7 +176,7 @@ public class Module implements JepRiaToolkitConstant {
 		String moduleRoles = new String();
 		
 		for (String role : moduleRoleNames){
-			moduleRoles += JepRiaToolkitUtil.multipleConcat(JepRiaToolkitUtil.isEmpty(moduleRoles) ? "" : ", ", role);
+			moduleRoles += multipleConcat(isEmpty(moduleRoles) ? "" : ", ", role);
 		}
 		
 		return moduleRoles;
@@ -182,19 +185,19 @@ public class Module implements JepRiaToolkitConstant {
 		return toolbarButtons.size() == 0;
 	}
 	public String getFindParameterPrefix() {
-		return !JepRiaToolkitUtil.isEmpty(findParameterPrefix) ? findParameterPrefix : defaultParameterPrefix;
+		return !isEmpty(findParameterPrefix) ? findParameterPrefix : defaultParameterPrefix;
 	}
 	public void setFindParameterPrefix(String findParameterPrefix) {
 		this.findParameterPrefix = findParameterPrefix;
 	}
 	public String getCreateParameterPrefix() {
-		return !JepRiaToolkitUtil.isEmpty(createParameterPrefix) ? createParameterPrefix : defaultParameterPrefix;
+		return !isEmpty(createParameterPrefix) ? createParameterPrefix : defaultParameterPrefix;
 	}
 	public void setCreateParameterPrefix(String createParameterPrefix) {
 		this.createParameterPrefix = createParameterPrefix;
 	}
 	public String getUpdateParameterPrefix() {
-		return !JepRiaToolkitUtil.isEmpty(updateParameterPrefix) ? updateParameterPrefix : defaultParameterPrefix;
+		return !isEmpty(updateParameterPrefix) ? updateParameterPrefix : defaultParameterPrefix;
 	}
 	public void setUpdateParameterPrefix(String updateParameterPrefix) {
 		this.updateParameterPrefix = updateParameterPrefix;
@@ -236,7 +239,7 @@ public class Module implements JepRiaToolkitConstant {
 		return fieldLabelWidth;
 	}
 	public void setFieldLabelWidth(String fieldLabelWidth) {
-		if (!JepRiaToolkitUtil.isEmpty(fieldLabelWidth)) {
+		if (!isEmpty(fieldLabelWidth)) {
 			this.fieldLabelWidth = fieldLabelWidth;
 		}
 	}

@@ -28,7 +28,10 @@ import com.technology.${packageName?lower_case}.${moduleName?lower_case}.${form.
 import com.technology.jep.jepria.client.ui.toolbar.ToolBarViewImpl;
 <#else>
 import com.technology.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.client.ui.toolbar.${form.formName}ToolBarViewImpl;
- </#if>
+</#if>
+<#if form.isStatusBarOff>
+import com.technology.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.client.ui.statusbar.${form.formName}StatusBarViewImpl;
+</#if>
 import com.technology.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.client.ui.form.detail.${form.formName}DetailFormPresenter;
 import com.technology.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.client.ui.form.detail.${form.formName}DetailFormViewImpl;
 import com.technology.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.client.ui.form.list.${form.formName}ListFormViewImpl;
@@ -45,7 +48,12 @@ public class ${form.formName}ClientFactoryImpl<E extends <#if hasCustomButtons>$
 	extends com.technology.jep.jepria.client.ui.plain.StandardClientFactoryImpl<E, S> {
  
 	private static final IsWidget ${form.formName?uncap_first}DetailFormView = new ${form.formName}DetailFormViewImpl();
-	<#if !form.isJepToolBarView>private static final IsWidget ${form.formName?uncap_first}ToolBarView = new ${form.formName}ToolBarViewImpl();</#if>
+	<#if !form.isJepToolBarView>
+	private static final IsWidget ${form.formName?uncap_first}ToolBarView = new ${form.formName}ToolBarViewImpl();
+	</#if>
+	<#if form.isStatusBarOff>
+	private static final IsWidget ${form.formName?uncap_first}StatusBarView = new ${form.formName}StatusBarViewImpl();
+	</#if>
 	private static final IsWidget ${form.formName?uncap_first}ListFormView = new ${form.formName}ListFormViewImpl();
  
 	public static PlainClientFactoryImpl<PlainEventBus, JepDataServiceAsync> instance = null;
@@ -73,16 +81,22 @@ public class ${form.formName}ClientFactoryImpl<E extends <#if hasCustomButtons>$
 	public JepPresenter createListFormPresenter(Place place) {
 		return new <#if form.hasCustomListFormPresenter>${form.formName}</#if>ListFormPresenter(place, this);
 	}
+	<#if !form.isJepToolBarPresenter>
 	
- 	<#if !form.isJepToolBarPresenter>
 	public JepPresenter createToolBarPresenter(Place place) {
 		return new ${form.formName}ToolBarPresenter(place, this);<#--if hasCustomButtons || form.isToolBarOff-->
 	}
 	</#if>
- 
  	<#if !form.isJepToolBarView>
+ 	
 	public IsWidget getToolBarView() {
 		return ${form.formName?uncap_first}ToolBarView;
+	}
+ 	</#if>
+ 	<#if form.isStatusBarOff>
+ 	
+ 	public IsWidget getStatusBarView() {
+		return ${form.formName?uncap_first}StatusBarView;
 	}
  	</#if>
  	
@@ -101,6 +115,7 @@ public class ${form.formName}ClientFactoryImpl<E extends <#if hasCustomButtons>$
 		return dataService;
 	}
 	<#if hasCustomButtons>
+	
 	public E getEventBus() {
 		if(eventBus == null) {
 			eventBus = new ${form.formName}EventBus(this);
