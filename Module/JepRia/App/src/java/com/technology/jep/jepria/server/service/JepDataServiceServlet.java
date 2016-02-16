@@ -32,6 +32,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
+import com.technology.jep.jepria.server.ServerFactory;
 import com.technology.jep.jepria.server.download.blob.BinaryFileDownloadLocal;
 import com.technology.jep.jepria.server.download.blob.FileDownloadStream;
 import com.technology.jep.jepria.server.ejb.JepDataStandard;
@@ -68,26 +69,26 @@ abstract public class JepDataServiceServlet<D extends JepDataStandard> extends J
 	protected final D dao;
 	protected String resourceBundleName = null;
 	
-	protected JepDataServiceServlet(JepRecordDefinition recordDefinition, D dao) {
+	protected JepDataServiceServlet(JepRecordDefinition recordDefinition, ServerFactory<D> serverFactory) {
 		this.recordDefinition = recordDefinition;
 		this.sorter = new JepSorter<JepRecord>();
-		this.dao = dao;
+		this.dao = serverFactory.getDao();
 	}
 	
 	/**
 	 * Конструктор необходим при использовании download 
 	 * 
 	 * @param recordDefinition
-	 * @param ejbName
+	 * @param serverFactory
 	 * @param dataSourceJndiName
 	 * @param resourceBundleName
 	 */
 	protected JepDataServiceServlet(
 			JepRecordDefinition recordDefinition,
-			D dao,
+			ServerFactory<D> serverFactory,
 			String dataSourceJndiName,
 			String resourceBundleName) {
-		this(recordDefinition, dao);
+		this(recordDefinition, serverFactory);
 		this.dataSourceJndiName = dataSourceJndiName;
 		this.resourceBundleName = resourceBundleName;
 	}
