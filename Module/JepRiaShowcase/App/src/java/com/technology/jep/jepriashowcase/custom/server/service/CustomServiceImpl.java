@@ -4,12 +4,11 @@ import static com.technology.jep.jepriashowcase.custom.server.CustomServerConsta
 import static com.technology.jep.jepriashowcase.custom.server.CustomServerConstant.RESOURCE_BUNDLE_NAME;
 
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
-import com.technology.jep.jepria.server.dao.transaction.TransactionFactory;
 import com.technology.jep.jepria.server.service.JepDataServiceServlet;
 import com.technology.jep.jepria.shared.exceptions.ApplicationException;
 import com.technology.jep.jepria.shared.exceptions.SystemException;
+import com.technology.jep.jepriashowcase.custom.server.CustomServerFactory;
 import com.technology.jep.jepriashowcase.custom.server.dao.Custom;
-import com.technology.jep.jepriashowcase.custom.server.dao.CustomDao;
 import com.technology.jep.jepriashowcase.custom.shared.service.CustomService;
 
 /**
@@ -22,7 +21,7 @@ public class CustomServiceImpl extends JepDataServiceServlet<Custom> implements 
 	public CustomServiceImpl() {
 		super(
 			null // TODO 8.0: CustomRecordDefinition.instance
-			, TransactionFactory.process(new CustomDao(), DATA_SOURCE_JNDI_NAME)
+			, CustomServerFactory.instance
 			,	DATA_SOURCE_JNDI_NAME
 			,	RESOURCE_BUNDLE_NAME);
 	}
