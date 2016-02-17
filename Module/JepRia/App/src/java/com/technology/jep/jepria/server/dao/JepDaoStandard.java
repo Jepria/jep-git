@@ -15,7 +15,7 @@ public class JepDaoStandard {
 			String sqlQuery,
 			ResultSetMapper<JepRecord> resultSetMapper,
 			Object... params) throws ApplicationException {
-		return NewDaoSupport.find(
+		return DaoSupport.find(
 				sqlQuery,
 				resultSetMapper,
 				JepRecord.class,
@@ -26,7 +26,7 @@ public class JepDaoStandard {
 			String sqlQuery,
 			ResultSetMapper<JepOption> resultSetMapper,
 			Object... params) throws ApplicationException {
-		return NewDaoSupport.find(
+		return DaoSupport.find(
 				sqlQuery,
 				resultSetMapper,
 				JepOption.class,
@@ -37,7 +37,7 @@ public class JepDaoStandard {
 			String sqlQuery,
 			Class<T> resultTypeClass,			
 			Object... params) throws ApplicationException {
-		return NewDaoSupport.<T> create(sqlQuery,
+		return DaoSupport.<T> create(sqlQuery,
 				resultTypeClass,
 				params);
 	}
@@ -45,7 +45,7 @@ public class JepDaoStandard {
 	public void update(
 			String sqlQuery,
 			Object... params) throws ApplicationException {
-		NewDaoSupport.update(
+		DaoSupport.update(
 				sqlQuery,
 				params);
 	}
@@ -53,7 +53,7 @@ public class JepDaoStandard {
 	public void delete(
 			String sqlQuery,
 			Object... params) throws ApplicationException {
-		NewDaoSupport.delete(
+		DaoSupport.delete(
 				sqlQuery,
 				params);
 	}

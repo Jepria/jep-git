@@ -95,7 +95,6 @@ public class DaoSupport {
 	 * 
 	 * @param <T> 								тип возвращаемого значения
 	 * @param query 							текст запроса
-	 * @param dataSourceJndiName  jndi-имя источника данных
 	 * @param params              параметры sql-выражения
 	 * @param resultTypeClass     Тип возвращаемого значения
 	 * @return идентификатор (первичный ключ) созданной записи
@@ -104,12 +103,9 @@ public class DaoSupport {
 	@SuppressWarnings("unchecked")
 	public static <T> T create(
 			String query
-			, String dataSourceJndiName
 			, Class<T> resultTypeClass
 			, Object... params)
 			throws ApplicationException {
-		
-		logger.trace("create(..., " + dataSourceJndiName + ", ...)");
 		
 		T result = null;
 
@@ -149,17 +145,13 @@ public class DaoSupport {
 	 * Данный метод выполняет sql-выражение без возвращаемого значения.
 	 * 
 	 * @param query 							текст запроса
-	 * @param dataSourceJndiName  jndi-имя источника данных
 	 * @param params              параметры sql-выражения
 	 * @throws ApplicationException
 	 */
 	public static void execute(
 			String query
-			, String dataSourceJndiName
 			, Object... params)
 			throws ApplicationException {
-		
-		logger.trace("execute1(..., " + dataSourceJndiName + ", ...)");
 
 		try {
 			Db db = CallContext.getDb();
@@ -181,7 +173,6 @@ public class DaoSupport {
 	 * 
 	 * @param <T>					тип возвращаемого значения
 	 * @param query					текст запроса
-	 * @param dataSourceJndiName	jndi-имя источника данных
 	 * @param mapper				экземпляр класса, осуществляющего мэппинг полей dto и ResultSet
 	 * @param recordClass				класс dto
 	 * @param params				параметры sql-выражения
@@ -190,13 +181,12 @@ public class DaoSupport {
 	 */
 	public static <T> List<T> find(
 			String query
-			, String dataSourceJndiName
 			, ResultSetMapper<T> mapper
 			, Class<T> recordClass
 			, Object... params) 
 			throws ApplicationException {
 			
-		return findOrSelect(query, dataSourceJndiName, mapper,
+		return findOrSelect(query, mapper,
 				recordClass, ExecutionType.CALLABLE_STATEMENT, params);
 	}
 	
@@ -205,7 +195,6 @@ public class DaoSupport {
 	 * 
 	 * @param <T>					тип возвращаемого значения
 	 * @param query					текст запроса
-	 * @param dataSourceJndiName	jndi-имя источника данных
 	 * @param resultTypeClass		тип возвращаемого значения; для возврата нескольких значений используется массив типов - Object[].
 	 *								Пример параметра, передаваемого при вызове: <code>new Object[] {Integer.class, String.class, Float.class}</code> 
 	 * @param params				параметры sql-выражения
@@ -214,12 +203,9 @@ public class DaoSupport {
 	 */
 	public static <T> T execute(
 			String query
-			, String dataSourceJndiName
 			, Class<T> resultTypeClass
 			, Object... params) 
 			throws ApplicationException {
-		
-		logger.trace("execute2(..., " + dataSourceJndiName + ", ...)");
 
 		T result = null;
 
@@ -309,7 +295,6 @@ public class DaoSupport {
 	 * 
 	 * @param <T>					тип возвращаемого значения
 	 * @param query					текст запроса
-	 * @param dataSourceJndiName	jndi-имя источника данных
 	 * @param mapper				экземпляр класса, осуществляющего мэппинг полей dto и ResultSet
 	 * @param modelClass            класс dto
 	 * @param params				параметры sql-запрос
@@ -318,13 +303,12 @@ public class DaoSupport {
 	 */
 	public static <T> List<T> select(
 			String query
-			, String dataSourceJndiName
 			, ResultSetMapper<T> mapper
 			, Class<T> modelClass
 			, Object... params) 
 			throws ApplicationException {
 			
-		return findOrSelect(query, dataSourceJndiName, mapper,
+		return findOrSelect(query, mapper,
 				modelClass, ExecutionType.QUERY, params);
 	}
 	
@@ -332,42 +316,32 @@ public class DaoSupport {
 	 * Данный метод выполняет sql-выражение, изменяющее запись в БД.
 	 * 
 	 * @param query 							текст запроса
-	 * @param dataSourceJndiName  jndi-имя источника данных
 	 * @param params              параметры sql-выражения
 	 * @throws ApplicationException
 	 */
 	public static void update(
 			String query
-			, String dataSourceJndiName
 			, Object... params)
 			throws ApplicationException {
-		
-		logger.trace("BEGIN update(..., " + dataSourceJndiName + ", ...)");
 			
-		execute(query, dataSourceJndiName, params);
+		execute(query, params);
 		
-		logger.trace("END update(..., " + dataSourceJndiName + ", ...)");
 	}
 	
 	/**
 	 * Данный метод выполняет sql-выражение, удаляющее запись из БД.
 	 * 
 	 * @param query 							текст запроса
-	 * @param dataSourceJndiName  jndi-имя источника данных
 	 * @param params              параметры sql-выражения
 	 * @throws ApplicationException
 	 */
 	public static void delete(
 			String query
-			, String dataSourceJndiName
 			, Object... params)
 			throws ApplicationException {
 		
-		logger.trace("BEGIN delete(..., " + dataSourceJndiName + ", ...)");
-		
-		execute(query, dataSourceJndiName, params);
+		execute(query, params);
 
-		logger.trace("END delete(..., " + dataSourceJndiName + ", ...)");
 	}
 	
 	/**
@@ -375,7 +349,6 @@ public class DaoSupport {
 	 * 
 	 * @param <T> 								тип возвращаемого значения
 	 * @param query 							текст запроса
-	 * @param dataSourceJndiName  jndi-имя источника данных
 	 * @param mapper              экземпляр класса, осуществляющего мэппинг полей dto и ResultSet
 	 * @param recordClass класс записи
 	 * @param params параметры sql-запроса или sql-выражения
@@ -384,14 +357,11 @@ public class DaoSupport {
 	 */
 	private static <T> List<T> findOrSelect(
 			String query
-			, String dataSourceJndiName
 			, ResultSetMapper<T> mapper
 			, Class<T> recordClass
 			, ExecutionType executionType
 			, Object... params)
 			throws ApplicationException {
-		
-		logger.trace("BEGIN findOrSelect(..., " + dataSourceJndiName + ", ...)");
 			
 		List<T> result = new ArrayList<T>();
 	
@@ -411,8 +381,6 @@ public class DaoSupport {
 			}
 		} catch (Throwable th) {
 			throw new ApplicationException(th.getMessage(), th);
-		} finally {
-			logger.trace("END findOrSelect(..., " + dataSourceJndiName + ", ...)");
 		}
 		
 		return result;

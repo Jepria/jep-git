@@ -19,7 +19,7 @@ public class JepDao extends JepDaoStandard {
 			String sqlQuery,
 			ResultSetMapper<JepRecord> resultSetMapper,
 			Object... params) throws ApplicationException {
-		return NewDaoSupport.find(
+		return DaoSupport.find(
 				sqlQuery,
 				resultSetMapper,
 				JepRecord.class,
@@ -30,7 +30,7 @@ public class JepDao extends JepDaoStandard {
 			String sqlQuery,
 			ResultSetMapper<JepOption> resultSetMapper,
 			Object... params) throws ApplicationException {
-		return NewDaoSupport.find(
+		return DaoSupport.find(
 				sqlQuery,
 				resultSetMapper,
 				JepOption.class,
@@ -41,7 +41,7 @@ public class JepDao extends JepDaoStandard {
 			String sqlQuery,
 			Class<T> resultTypeClass,			
 			Object... params) throws ApplicationException {
-		return NewDaoSupport.<T> create(sqlQuery,
+		return DaoSupport.<T> create(sqlQuery,
 				resultTypeClass,
 				params);
 	}
@@ -49,7 +49,7 @@ public class JepDao extends JepDaoStandard {
 	public void update(
 			String sqlQuery,
 			Object... params) throws ApplicationException {
-		NewDaoSupport.update(
+		DaoSupport.update(
 				sqlQuery,
 				params);
 	}
@@ -57,7 +57,7 @@ public class JepDao extends JepDaoStandard {
 	public void delete(
 			String sqlQuery,
 			Object... params) throws ApplicationException {
-		NewDaoSupport.delete(
+		DaoSupport.delete(
 				sqlQuery,
 				params);
 	}
@@ -65,7 +65,7 @@ public class JepDao extends JepDaoStandard {
 	public void execute(
 			String sqlQuery,
 			Object... params) throws ApplicationException {
-		NewDaoSupport.execute(
+		DaoSupport.execute(
 				sqlQuery,
 				params);
 	}
@@ -74,7 +74,7 @@ public class JepDao extends JepDaoStandard {
 			String sqlQuery,
 			Class<T> resultTypeClass,
 			Object... params) throws ApplicationException {
-		return NewDaoSupport.execute(
+		return DaoSupport.execute(
 				sqlQuery,
 				resultTypeClass,
 				params);
@@ -84,7 +84,7 @@ public class JepDao extends JepDaoStandard {
 			String sqlQuery,
 			ResultSetMapper<JepRecord> resultSetMapper,
 			Object... params) throws ApplicationException {
-		return NewDaoSupport.select(
+		return DaoSupport.select(
 				sqlQuery,
 				resultSetMapper,
 				JepRecord.class,
