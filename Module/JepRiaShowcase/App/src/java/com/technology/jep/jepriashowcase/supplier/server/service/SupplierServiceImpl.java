@@ -1,15 +1,17 @@
 package com.technology.jep.jepriashowcase.supplier.server.service;
  
+import static com.technology.jep.jepriashowcase.supplier.server.SupplierServerConstant.DATA_SOURCE_JNDI_NAME;
 import java.util.List;
 
-import com.technology.jep.jepriashowcase.supplier.server.SupplierServerFactory;
-import com.technology.jep.jepriashowcase.supplier.server.dao.Supplier;
-import com.technology.jep.jepriashowcase.supplier.shared.service.SupplierService;
+import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
+import com.technology.jep.jepria.server.ServerFactory;
 import com.technology.jep.jepria.server.service.JepDataServiceServlet;
 import com.technology.jep.jepria.shared.exceptions.ApplicationException;
 import com.technology.jep.jepria.shared.field.option.JepOption;
+import com.technology.jep.jepriashowcase.supplier.server.dao.Supplier;
+import com.technology.jep.jepriashowcase.supplier.server.dao.SupplierDao;
 import com.technology.jep.jepriashowcase.supplier.shared.record.SupplierRecordDefinition;
-import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
+import com.technology.jep.jepriashowcase.supplier.shared.service.SupplierService;
  
 @RemoteServiceRelativePath("SupplierService")
 public class SupplierServiceImpl extends JepDataServiceServlet<Supplier> implements SupplierService  {
@@ -17,8 +19,7 @@ public class SupplierServiceImpl extends JepDataServiceServlet<Supplier> impleme
 	private static final long serialVersionUID = 1L;
  
 	public SupplierServiceImpl() {
-		super(SupplierRecordDefinition.instance, 
-				SupplierServerFactory.instance);
+		super(SupplierRecordDefinition.instance, new ServerFactory<Supplier>(new SupplierDao(), DATA_SOURCE_JNDI_NAME));
 	}
 
 	@Override

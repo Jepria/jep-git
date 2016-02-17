@@ -1,28 +1,36 @@
 package com.technology.jep.jepriashowcase.supplier.server.dao;
  
-import static com.technology.jep.jepriashowcase.supplier.server.SupplierServerConstant.DATA_SOURCE_JNDI_NAME;
-import static com.technology.jep.jepriashowcase.supplier.server.SupplierServerConstant.RESOURCE_BUNDLE_NAME;
-import static com.technology.jep.jepriashowcase.supplier.shared.field.SupplierFieldNames.*;
+import static com.technology.jep.jepriashowcase.supplier.shared.field.SupplierFieldNames.BANKNAME;
+import static com.technology.jep.jepriashowcase.supplier.shared.field.SupplierFieldNames.BANK_BIC;
+import static com.technology.jep.jepriashowcase.supplier.shared.field.SupplierFieldNames.CONTRACT_FINISH_DATE;
+import static com.technology.jep.jepriashowcase.supplier.shared.field.SupplierFieldNames.CONTRACT_FINISH_DATE_FROM;
+import static com.technology.jep.jepriashowcase.supplier.shared.field.SupplierFieldNames.CONTRACT_FINISH_DATE_TO;
+import static com.technology.jep.jepriashowcase.supplier.shared.field.SupplierFieldNames.EXCLUSIVE_SUPPLIER_FLAG;
+import static com.technology.jep.jepriashowcase.supplier.shared.field.SupplierFieldNames.EXCLUSIVE_SUPPLIER_OPTION;
+import static com.technology.jep.jepriashowcase.supplier.shared.field.SupplierFieldNames.FAX_NUMBER;
+import static com.technology.jep.jepriashowcase.supplier.shared.field.SupplierFieldNames.KS;
+import static com.technology.jep.jepriashowcase.supplier.shared.field.SupplierFieldNames.PHONE_NUMBER;
+import static com.technology.jep.jepriashowcase.supplier.shared.field.SupplierFieldNames.PRIVILEGE_SUPPLIER_FLAG;
+import static com.technology.jep.jepriashowcase.supplier.shared.field.SupplierFieldNames.RECIPIENT_NAME;
+import static com.technology.jep.jepriashowcase.supplier.shared.field.SupplierFieldNames.SETTLEMENT_ACCOUNT;
+import static com.technology.jep.jepriashowcase.supplier.shared.field.SupplierFieldNames.SUPPLIER_DESCRIPTION;
+import static com.technology.jep.jepriashowcase.supplier.shared.field.SupplierFieldNames.SUPPLIER_ID;
+import static com.technology.jep.jepriashowcase.supplier.shared.field.SupplierFieldNames.SUPPLIER_NAME;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.List;
+
+import com.technology.jep.jepria.server.dao.JepDaoStandard;
+import com.technology.jep.jepria.server.dao.ResultSetMapper;
 import com.technology.jep.jepria.shared.exceptions.ApplicationException;
 import com.technology.jep.jepria.shared.field.option.JepOption;
 import com.technology.jep.jepria.shared.record.JepRecord;
 import com.technology.jep.jepria.shared.util.JepRiaUtil;
 import com.technology.jep.jepria.shared.util.Mutable;
-import com.technology.jep.jepriashowcase.supplier.server.dao.Supplier;
 import com.technology.jep.jepriashowcase.supplier.shared.field.BankOptions;
-import com.technology.jep.jepria.server.dao.JepDaoStandard;
-import com.technology.jep.jepria.server.dao.ResultSetMapper;
-
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.List;
  
 public class SupplierDao extends JepDaoStandard implements Supplier {
- 
-	public SupplierDao() {
-		super(DATA_SOURCE_JNDI_NAME, RESOURCE_BUNDLE_NAME);
-	}
  
 	public List<JepRecord> find(JepRecord templateRecord, Mutable<Boolean> autoRefreshFlag, Integer maxRowCount, Integer operatorId) throws ApplicationException {
 		String sqlQuery = 

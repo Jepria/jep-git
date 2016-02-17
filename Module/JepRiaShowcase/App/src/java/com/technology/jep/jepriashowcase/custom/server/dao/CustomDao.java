@@ -1,6 +1,5 @@
 package com.technology.jep.jepriashowcase.custom.server.dao;
 
-import static com.technology.jep.jepriashowcase.custom.server.CustomServerConstant.DATA_SOURCE_JNDI_NAME;
 import static com.technology.jep.jepriashowcase.custom.server.CustomServerConstant.RESOURCE_BUNDLE_NAME;
 
 import java.util.List;
@@ -14,10 +13,6 @@ import com.technology.jep.jepria.shared.util.Mutable;
 
 public class CustomDao extends JepDao implements Custom {
 	
-	public CustomDao() {
-		super(DATA_SOURCE_JNDI_NAME, RESOURCE_BUNDLE_NAME);
-	}
-
 	@Override
 	public String getOperatorName(Integer operatorId) throws ApplicationException {
 		String sqlQuery = 

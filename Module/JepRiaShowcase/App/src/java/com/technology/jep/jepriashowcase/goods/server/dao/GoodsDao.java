@@ -1,14 +1,37 @@
 package com.technology.jep.jepriashowcase.goods.server.dao;
  
-import static com.technology.jep.jepriashowcase.goods.server.GoodsServerConstant.DATA_SOURCE_JNDI_NAME;
-import static com.technology.jep.jepriashowcase.goods.server.GoodsServerConstant.RESOURCE_BUNDLE_NAME;
-import static com.technology.jep.jepriashowcase.goods.shared.field.GoodsFieldNames.*;
+import static com.technology.jep.jepriashowcase.goods.shared.field.GoodsFieldNames.DESCENDANT_GOODS_LINK;
+import static com.technology.jep.jepriashowcase.goods.shared.field.GoodsFieldNames.GOODS_CATALOG_ID;
+import static com.technology.jep.jepriashowcase.goods.shared.field.GoodsFieldNames.GOODS_CATALOG_ID_LIST;
+import static com.technology.jep.jepriashowcase.goods.shared.field.GoodsFieldNames.GOODS_CATALOG_ID_LIST_FOR_CHECKED;
+import static com.technology.jep.jepriashowcase.goods.shared.field.GoodsFieldNames.GOODS_CATALOG_ID_LIST_FOR_EXPAND;
+import static com.technology.jep.jepriashowcase.goods.shared.field.GoodsFieldNames.GOODS_CATALOG_NAME;
+import static com.technology.jep.jepriashowcase.goods.shared.field.GoodsFieldNames.GOODS_ID;
+import static com.technology.jep.jepriashowcase.goods.shared.field.GoodsFieldNames.GOODS_ID_LIST;
+import static com.technology.jep.jepriashowcase.goods.shared.field.GoodsFieldNames.GOODS_LINK;
+import static com.technology.jep.jepriashowcase.goods.shared.field.GoodsFieldNames.GOODS_NAME;
+import static com.technology.jep.jepriashowcase.goods.shared.field.GoodsFieldNames.GOODS_PHOTO;
+import static com.technology.jep.jepriashowcase.goods.shared.field.GoodsFieldNames.GOODS_PHOTO_EXTENSION;
+import static com.technology.jep.jepriashowcase.goods.shared.field.GoodsFieldNames.GOODS_PHOTO_MIME_TYPE;
+import static com.technology.jep.jepriashowcase.goods.shared.field.GoodsFieldNames.GOODS_PORTFOLIO;
+import static com.technology.jep.jepriashowcase.goods.shared.field.GoodsFieldNames.GOODS_PORTFOLIO_EXTENSION;
+import static com.technology.jep.jepriashowcase.goods.shared.field.GoodsFieldNames.GOODS_PORTFOLIO_MIME_TYPE;
+import static com.technology.jep.jepriashowcase.goods.shared.field.GoodsFieldNames.GOODS_SEGMENT_CODE;
+import static com.technology.jep.jepriashowcase.goods.shared.field.GoodsFieldNames.GOODS_SEGMENT_CODE_LIST;
+import static com.technology.jep.jepriashowcase.goods.shared.field.GoodsFieldNames.GOODS_SEGMENT_NAME;
+import static com.technology.jep.jepriashowcase.goods.shared.field.GoodsFieldNames.GOODS_TYPE_CODE;
+import static com.technology.jep.jepriashowcase.goods.shared.field.GoodsFieldNames.GOODS_TYPE_NAME;
+import static com.technology.jep.jepriashowcase.goods.shared.field.GoodsFieldNames.HAS_CHILD;
+import static com.technology.jep.jepriashowcase.goods.shared.field.GoodsFieldNames.MOTIVATION_TYPE_CODE;
+import static com.technology.jep.jepriashowcase.goods.shared.field.GoodsFieldNames.MOTIVATION_TYPE_NAME;
+import static com.technology.jep.jepriashowcase.goods.shared.field.GoodsFieldNames.PURCHASING_PRICE;
+import static com.technology.jep.jepriashowcase.goods.shared.field.GoodsFieldNames.SUPPLIER_ID;
+import static com.technology.jep.jepriashowcase.goods.shared.field.GoodsFieldNames.UNIT_CODE;
+import static com.technology.jep.jepriashowcase.goods.shared.field.GoodsFieldNames.UNIT_NAME;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import com.technology.jep.jepria.server.dao.JepDaoStandard;
@@ -18,14 +41,9 @@ import com.technology.jep.jepria.shared.field.option.JepOption;
 import com.technology.jep.jepria.shared.field.option.JepParentOption;
 import com.technology.jep.jepria.shared.record.JepRecord;
 import com.technology.jep.jepria.shared.record.lob.JepFileReference;
-import com.technology.jep.jepria.shared.util.JepRiaUtil;
 import com.technology.jep.jepria.shared.util.Mutable;
 
 public class GoodsDao extends JepDaoStandard implements Goods {
- 
-	public GoodsDao() {
-		super(DATA_SOURCE_JNDI_NAME, RESOURCE_BUNDLE_NAME);
-	}
  
 	@SuppressWarnings("unchecked")
 	public List<JepRecord> find(JepRecord templateRecord, Mutable<Boolean> autoRefreshFlag, Integer maxRowCount, Integer operatorId) throws ApplicationException {

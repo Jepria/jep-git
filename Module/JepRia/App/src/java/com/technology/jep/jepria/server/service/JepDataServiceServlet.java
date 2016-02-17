@@ -7,7 +7,15 @@ import static com.technology.jep.jepria.server.JepRiaServerConstant.FOUND_RECORD
 import static com.technology.jep.jepria.server.JepRiaServerConstant.IS_REFRESH_NEEDED;
 import static com.technology.jep.jepria.server.JepRiaServerConstant.SELECTED_RECORDS_SESSION_ATTRIBUTE;
 import static com.technology.jep.jepria.server.JepRiaServerConstant.TEXT_FILE_UPLOAD_BEAN_JNDI_NAME;
-import static com.technology.jep.jepria.shared.JepRiaConstant.*;
+import static com.technology.jep.jepria.shared.JepRiaConstant.DEFAULT_MAX_ROW_COUNT;
+import static com.technology.jep.jepria.shared.JepRiaConstant.DOWNLOAD_CONTENT_DISPOSITION;
+import static com.technology.jep.jepria.shared.JepRiaConstant.DOWNLOAD_CONTENT_DISPOSITION_ATTACHMENT;
+import static com.technology.jep.jepria.shared.JepRiaConstant.DOWNLOAD_EXTENSION;
+import static com.technology.jep.jepria.shared.JepRiaConstant.DOWNLOAD_FIELD_NAME;
+import static com.technology.jep.jepria.shared.JepRiaConstant.DOWNLOAD_FILE_NAME;
+import static com.technology.jep.jepria.shared.JepRiaConstant.DOWNLOAD_FILE_NAME_PREFIX;
+import static com.technology.jep.jepria.shared.JepRiaConstant.DOWNLOAD_MIME_TYPE;
+import static com.technology.jep.jepria.shared.JepRiaConstant.DOWNLOAD_RECORD_KEY;
 import static com.technology.jep.jepria.shared.field.JepFieldNames.MAX_ROW_COUNT;
 import static com.technology.jep.jepria.shared.field.JepTypeEnum.BINARY_FILE;
 import static com.technology.jep.jepria.shared.field.JepTypeEnum.CLOB;
@@ -32,7 +40,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
-import com.technology.jep.jepria.server.ServerFactory;
+import com.technology.jep.jepria.server.DaoProvider;
 import com.technology.jep.jepria.server.download.blob.BinaryFileDownloadLocal;
 import com.technology.jep.jepria.server.download.blob.FileDownloadStream;
 import com.technology.jep.jepria.server.ejb.JepDataStandard;
@@ -64,12 +72,12 @@ abstract public class JepDataServiceServlet<D extends JepDataStandard> extends J
 	protected static Logger logger = Logger.getLogger(JepDataServiceServlet.class.getName());	
 	
 	protected JepRecordDefinition recordDefinition = null;
-	protected JepSorter sorter = null;
+	protected JepSorter<JepRecord> sorter = null;
 	protected String dataSourceJndiName = null;
 	protected final D dao;
 	protected String resourceBundleName = null;
 	
-	protected JepDataServiceServlet(JepRecordDefinition recordDefinition, ServerFactory<D> serverFactory) {
+	protected JepDataServiceServlet(JepRecordDefinition recordDefinition, DaoProvider<D> serverFactory) {
 		this.recordDefinition = recordDefinition;
 		this.sorter = new JepSorter<JepRecord>();
 		this.dao = serverFactory.getDao();
@@ -85,11 +93,10 @@ abstract public class JepDataServiceServlet<D extends JepDataStandard> extends J
 	 */
 	protected JepDataServiceServlet(
 			JepRecordDefinition recordDefinition,
-			ServerFactory<D> serverFactory,
-			String dataSourceJndiName,
+			DaoProvider<D> serverFactory,
 			String resourceBundleName) {
 		this(recordDefinition, serverFactory);
-		this.dataSourceJndiName = dataSourceJndiName;
+		this.dataSourceJndiName = serverFactory.getDataSourceJndiName();
 		this.resourceBundleName = resourceBundleName;
 	}
 

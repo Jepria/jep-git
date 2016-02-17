@@ -1,7 +1,5 @@
 package com.technology.jep.jepriashowcase.request.server.dao;
  
-import static com.technology.jep.jepriashowcase.request.server.RequestServerConstant.DATA_SOURCE_JNDI_NAME;
-import static com.technology.jep.jepriashowcase.request.server.RequestServerConstant.RESOURCE_BUNDLE_NAME;
 import static com.technology.jep.jepriashowcase.request.shared.field.RequestFieldNames.GOODS_ID;
 import static com.technology.jep.jepriashowcase.request.shared.field.RequestFieldNames.GOODS_NAME;
 import static com.technology.jep.jepriashowcase.request.shared.field.RequestFieldNames.GOODS_QUANTITY;
@@ -26,10 +24,6 @@ import com.technology.jep.jepria.shared.record.JepRecord;
 import com.technology.jep.jepria.shared.util.Mutable;
 
 public class RequestDao extends JepDaoStandard implements Request {
- 
-	public RequestDao() {
-		super(DATA_SOURCE_JNDI_NAME, RESOURCE_BUNDLE_NAME);
-	}
  
 	public List<JepRecord> find( JepRecord templateRecord, Mutable<Boolean> autoRefreshFlag, Integer maxRowCount, Integer operatorId) throws ApplicationException {
 		String sqlQuery = 

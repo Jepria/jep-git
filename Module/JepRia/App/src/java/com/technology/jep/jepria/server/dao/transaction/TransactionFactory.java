@@ -10,11 +10,10 @@ import com.technology.jep.jepria.server.dao.transaction.handler.EndTransactionHa
 import com.technology.jep.jepria.server.dao.transaction.handler.EndTransactionHandlerImpl;
 import com.technology.jep.jepria.server.dao.transaction.handler.StartTransactionHandler;
 import com.technology.jep.jepria.server.dao.transaction.handler.StartTransactionHandlerImpl;
-import com.technology.jep.jepria.server.ejb.JepDataStandard;
 
 public class TransactionFactory {
 
-	private static class TransactionInvocationHandler<D extends JepDataStandard> implements InvocationHandler {
+	private static class TransactionInvocationHandler<D> implements InvocationHandler {
 
 		private final D dao;
 		private final String dataSourceJndiName;
@@ -26,7 +25,7 @@ public class TransactionFactory {
 
 		@Override
 		public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-			Class<? extends JepDataStandard> daoClass = dao.getClass();
+			Class<?> daoClass = dao.getClass();
 			Method implementingMethod = daoClass.getMethod(
 					method.getName(), method.getParameterTypes());
 			
@@ -60,7 +59,7 @@ public class TransactionFactory {
 	}
 
 	@SuppressWarnings("unchecked")
-	public static <D extends JepDataStandard> D process(D dao, String dataSourceJndiName) {
+	public static <D> D process(D dao, String dataSourceJndiName) {
 		Class<?> daoClass = dao.getClass();
 		return (D) Proxy.newProxyInstance(
 				TransactionFactory.class.getClassLoader(),

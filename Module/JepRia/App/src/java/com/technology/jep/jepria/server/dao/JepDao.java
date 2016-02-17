@@ -6,8 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import com.technology.jep.jepria.server.dao.DaoSupport;
-import com.technology.jep.jepria.server.dao.ResultSetMapper;
 import com.technology.jep.jepria.shared.exceptions.ApplicationException;
 import com.technology.jep.jepria.shared.field.option.JepOption;
 import com.technology.jep.jepria.shared.record.JepRecord;
@@ -17,18 +15,12 @@ import com.technology.jep.jepria.shared.record.JepRecord;
  */
 public class JepDao extends JepDaoStandard {
 
-	public JepDao(String dataSourceJndiName, String resourceBundleName) {
-		super(dataSourceJndiName, resourceBundleName);
-	}
-
 	public List<JepRecord> find(
 			String sqlQuery,
-			String dataSourceJndiName,
 			ResultSetMapper<JepRecord> resultSetMapper,
 			Object... params) throws ApplicationException {
-		return DaoSupport.find(
+		return NewDaoSupport.find(
 				sqlQuery,
-				dataSourceJndiName,
 				resultSetMapper,
 				JepRecord.class,
 				params); 
@@ -36,12 +28,10 @@ public class JepDao extends JepDaoStandard {
 	
 	public List<JepOption> getOptions(
 			String sqlQuery,
-			String dataSourceJndiName,
 			ResultSetMapper<JepOption> resultSetMapper,
 			Object... params) throws ApplicationException {
-		return DaoSupport.find(
+		return NewDaoSupport.find(
 				sqlQuery,
-				dataSourceJndiName,
 				resultSetMapper,
 				JepOption.class,
 				params); 
@@ -49,51 +39,34 @@ public class JepDao extends JepDaoStandard {
 
 	public <T> T create(
 			String sqlQuery,
-			String dataSourceJndiName,
 			Class<T> resultTypeClass,			
 			Object... params) throws ApplicationException {
-		return DaoSupport.<T> create(sqlQuery,
-				dataSourceJndiName,
+		return NewDaoSupport.<T> create(sqlQuery,
 				resultTypeClass,
 				params);
 	}
 
 	public void update(
 			String sqlQuery,
-			String dataSourceJndiName,
 			Object... params) throws ApplicationException {
-		DaoSupport.update(
+		NewDaoSupport.update(
 				sqlQuery,
-				dataSourceJndiName,
 				params);
 	}
 
 	public void delete(
 			String sqlQuery,
-			String dataSourceJndiName,
 			Object... params) throws ApplicationException {
-		DaoSupport.delete(
+		NewDaoSupport.delete(
 				sqlQuery,
-				dataSourceJndiName,
 				params);
 	}
 
 	public void execute(
 			String sqlQuery,
 			Object... params) throws ApplicationException {
-		DaoSupport.execute(
+		NewDaoSupport.execute(
 				sqlQuery,
-				dataSourceJndiName,
-				params);
-	}
-
-	public void execute(
-			String sqlQuery,
-			String dataSourceJndiName,
-			Object... params) throws ApplicationException {
-		DaoSupport.execute(
-				sqlQuery,
-				dataSourceJndiName,
 				params);
 	}
 
@@ -101,21 +74,8 @@ public class JepDao extends JepDaoStandard {
 			String sqlQuery,
 			Class<T> resultTypeClass,
 			Object... params) throws ApplicationException {
-		return DaoSupport.execute(
+		return NewDaoSupport.execute(
 				sqlQuery,
-				dataSourceJndiName,
-				resultTypeClass,
-				params);
-	}
-	
-	public <T> T execute(
-			String sqlQuery,
-			String dataSourceJndiName,
-			Class<T> resultTypeClass,
-			Object... params) throws ApplicationException {
-		return DaoSupport.execute(
-				sqlQuery,
-				dataSourceJndiName,
 				resultTypeClass,
 				params);
 	}
@@ -124,22 +84,8 @@ public class JepDao extends JepDaoStandard {
 			String sqlQuery,
 			ResultSetMapper<JepRecord> resultSetMapper,
 			Object... params) throws ApplicationException {
-		return DaoSupport.select(
+		return NewDaoSupport.select(
 				sqlQuery,
-				dataSourceJndiName,
-				resultSetMapper,
-				JepRecord.class,
-				params); 
-	}
-
-	public List<JepRecord> select(
-			String sqlQuery,
-			String dataSourceJndiName,
-			ResultSetMapper<JepRecord> resultSetMapper,
-			Object... params) throws ApplicationException {
-		return DaoSupport.select(
-				sqlQuery,
-				dataSourceJndiName,
 				resultSetMapper,
 				JepRecord.class,
 				params); 

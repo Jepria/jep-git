@@ -1,25 +1,25 @@
 package com.technology.jep.jepriashowcase.allshopgoods.server.dao;
  
-import static com.technology.jep.jepriashowcase.allshopgoods.server.AllShopGoodsServerConstant.DATA_SOURCE_JNDI_NAME;
-import static com.technology.jep.jepriashowcase.allshopgoods.server.AllShopGoodsServerConstant.RESOURCE_BUNDLE_NAME;
-import static com.technology.jep.jepriashowcase.allshopgoods.shared.field.AllShopGoodsFieldNames.*;
-
-import com.technology.jep.jepria.shared.exceptions.ApplicationException;
-import com.technology.jep.jepria.shared.record.JepRecord;
-import com.technology.jep.jepria.shared.util.Mutable;
-import com.technology.jep.jepriashowcase.allshopgoods.server.dao.AllShopGoods;
-import com.technology.jep.jepria.server.dao.JepDaoStandard;
-import com.technology.jep.jepria.server.dao.ResultSetMapper;
+import static com.technology.jep.jepriashowcase.allshopgoods.shared.field.AllShopGoodsFieldNames.ALL_SHOP_GOODS_ID;
+import static com.technology.jep.jepriashowcase.allshopgoods.shared.field.AllShopGoodsFieldNames.GOODS_ID;
+import static com.technology.jep.jepriashowcase.allshopgoods.shared.field.AllShopGoodsFieldNames.GOODS_NAME;
+import static com.technology.jep.jepriashowcase.allshopgoods.shared.field.AllShopGoodsFieldNames.GOODS_QUANTITY;
+import static com.technology.jep.jepriashowcase.allshopgoods.shared.field.AllShopGoodsFieldNames.SELL_PRICE;
+import static com.technology.jep.jepriashowcase.allshopgoods.shared.field.AllShopGoodsFieldNames.SHOP_GOODS_ID;
+import static com.technology.jep.jepriashowcase.allshopgoods.shared.field.AllShopGoodsFieldNames.SHOP_ID;
+import static com.technology.jep.jepriashowcase.allshopgoods.shared.field.AllShopGoodsFieldNames.SHOP_NAME;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+import com.technology.jep.jepria.server.dao.JepDaoStandard;
+import com.technology.jep.jepria.server.dao.ResultSetMapper;
+import com.technology.jep.jepria.shared.exceptions.ApplicationException;
+import com.technology.jep.jepria.shared.record.JepRecord;
+import com.technology.jep.jepria.shared.util.Mutable;
+
 public class AllShopGoodsDao extends JepDaoStandard implements AllShopGoods {
- 
-	public AllShopGoodsDao() {
-		super(DATA_SOURCE_JNDI_NAME, RESOURCE_BUNDLE_NAME);
-	}
  
 	public List<JepRecord> find(JepRecord templateRecord, Mutable<Boolean> autoRefreshFlag, Integer maxRowCount, Integer operatorId) throws ApplicationException {
 		String sqlQuery = 

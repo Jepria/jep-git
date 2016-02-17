@@ -1,25 +1,23 @@
 package com.technology.jep.jepriashowcase.requestprocess.server.dao;
  
-import static com.technology.jep.jepriashowcase.requestprocess.server.RequestProcessServerConstant.DATA_SOURCE_JNDI_NAME;
-import static com.technology.jep.jepriashowcase.requestprocess.server.RequestProcessServerConstant.RESOURCE_BUNDLE_NAME;
-import static com.technology.jep.jepriashowcase.requestprocess.shared.field.RequestProcessFieldNames.*;
-
-import com.technology.jep.jepria.shared.exceptions.ApplicationException;
-import com.technology.jep.jepria.shared.record.JepRecord;
-import com.technology.jep.jepria.shared.util.Mutable;
-import com.technology.jep.jepriashowcase.requestprocess.server.dao.RequestProcess;
-import com.technology.jep.jepria.server.dao.JepDaoStandard;
-import com.technology.jep.jepria.server.dao.ResultSetMapper;
+import static com.technology.jep.jepriashowcase.requestprocess.shared.field.RequestProcessFieldNames.DATE_INS;
+import static com.technology.jep.jepriashowcase.requestprocess.shared.field.RequestProcessFieldNames.OPERATOR_ID;
+import static com.technology.jep.jepriashowcase.requestprocess.shared.field.RequestProcessFieldNames.OPERATOR_NAME;
+import static com.technology.jep.jepriashowcase.requestprocess.shared.field.RequestProcessFieldNames.PROCESS_COMMENT;
+import static com.technology.jep.jepriashowcase.requestprocess.shared.field.RequestProcessFieldNames.REQUEST_ID;
+import static com.technology.jep.jepriashowcase.requestprocess.shared.field.RequestProcessFieldNames.REQUEST_PROCESS_ID;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+
+import com.technology.jep.jepria.server.dao.JepDaoStandard;
+import com.technology.jep.jepria.server.dao.ResultSetMapper;
+import com.technology.jep.jepria.shared.exceptions.ApplicationException;
+import com.technology.jep.jepria.shared.record.JepRecord;
+import com.technology.jep.jepria.shared.util.Mutable;
  
 public class RequestProcessDao extends JepDaoStandard implements RequestProcess {
- 
-	public RequestProcessDao() {
-		super(DATA_SOURCE_JNDI_NAME, RESOURCE_BUNDLE_NAME);
-	}
  
 	public List<JepRecord> find( JepRecord templateRecord, Mutable<Boolean> autoRefreshFlag, Integer maxRowCount, Integer operatorId) throws ApplicationException {
 		String sqlQuery = 

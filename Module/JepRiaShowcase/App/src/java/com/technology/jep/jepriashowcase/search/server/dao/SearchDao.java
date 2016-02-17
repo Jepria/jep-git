@@ -1,8 +1,6 @@
 package com.technology.jep.jepriashowcase.search.server.dao;
 
 import static com.technology.jep.jepriashowcase.search.shared.field.SearchFieldNames.*;
-import static com.technology.jep.jepriashowcase.search.server.SearchServerConstant.DATA_SOURCE_JNDI_NAME;
-import static com.technology.jep.jepriashowcase.search.server.SearchServerConstant.RESOURCE_BUNDLE_NAME;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -21,10 +19,6 @@ import com.technology.jep.jepria.shared.util.Mutable;
 public class SearchDao extends JepDao implements Search {
 	protected static Logger logger = Logger.getLogger(SearchDao.class.getName());	
 
-	public SearchDao() {
-		super(DATA_SOURCE_JNDI_NAME, RESOURCE_BUNDLE_NAME);
-	}
-	
 	/**
 	 * Создание // TODO 8.0: 
 	 * 

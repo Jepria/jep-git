@@ -2,8 +2,6 @@ package com.technology.jep.jepria.server.dao;
 
 import java.util.List;
 
-import com.technology.jep.jepria.server.dao.DaoSupport;
-import com.technology.jep.jepria.server.dao.ResultSetMapper;
 import com.technology.jep.jepria.shared.exceptions.ApplicationException;
 import com.technology.jep.jepria.shared.field.option.JepOption;
 import com.technology.jep.jepria.shared.record.JepRecord;
@@ -13,21 +11,12 @@ import com.technology.jep.jepria.shared.record.JepRecord;
  */
 public class JepDaoStandard {
 
-	protected final String dataSourceJndiName;
-	protected final String resourceBundleName;
-
-	public JepDaoStandard(String dataSourceJndiName, String resourceBundleName) {
-		this.dataSourceJndiName = dataSourceJndiName;
-		this.resourceBundleName = resourceBundleName;
-	}
-
 	public List<JepRecord> find(
 			String sqlQuery,
 			ResultSetMapper<JepRecord> resultSetMapper,
 			Object... params) throws ApplicationException {
-		return DaoSupport.find(
+		return NewDaoSupport.find(
 				sqlQuery,
-				dataSourceJndiName,
 				resultSetMapper,
 				JepRecord.class,
 				params); 
@@ -37,9 +26,8 @@ public class JepDaoStandard {
 			String sqlQuery,
 			ResultSetMapper<JepOption> resultSetMapper,
 			Object... params) throws ApplicationException {
-		return DaoSupport.find(
+		return NewDaoSupport.find(
 				sqlQuery,
-				dataSourceJndiName,
 				resultSetMapper,
 				JepOption.class,
 				params); 
@@ -49,8 +37,7 @@ public class JepDaoStandard {
 			String sqlQuery,
 			Class<T> resultTypeClass,			
 			Object... params) throws ApplicationException {
-		return DaoSupport.<T> create(sqlQuery,
-				dataSourceJndiName,
+		return NewDaoSupport.<T> create(sqlQuery,
 				resultTypeClass,
 				params);
 	}
@@ -58,18 +45,16 @@ public class JepDaoStandard {
 	public void update(
 			String sqlQuery,
 			Object... params) throws ApplicationException {
-		DaoSupport.update(
+		NewDaoSupport.update(
 				sqlQuery,
-				dataSourceJndiName,
 				params);
 	}
 
 	public void delete(
 			String sqlQuery,
 			Object... params) throws ApplicationException {
-		DaoSupport.delete(
+		NewDaoSupport.delete(
 				sqlQuery,
-				dataSourceJndiName,
 				params);
 	}
 
