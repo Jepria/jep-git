@@ -59,7 +59,7 @@ public class TransactionFactory {
 	}
 
 	@SuppressWarnings("unchecked")
-	public static <D> D process(D dao, String dataSourceJndiName) {
+	public static <D> D createProxy(D dao, String dataSourceJndiName) {
 		Class<?> daoClass = dao.getClass();
 		return (D) Proxy.newProxyInstance(
 				TransactionFactory.class.getClassLoader(),

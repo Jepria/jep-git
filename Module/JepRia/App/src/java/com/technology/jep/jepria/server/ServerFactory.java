@@ -16,7 +16,7 @@ public class ServerFactory<D> implements DaoProvider<D> {
 	@Override
 	public D getDao(){ // в случае необходимости, можно вернуть исходное dao, переопределив данный метод
 		if (proxyDao == null) {
-			proxyDao = TransactionFactory.process(dao, dataSourceJndiName);
+			proxyDao = TransactionFactory.createProxy(dao, dataSourceJndiName);
 		}
 		return proxyDao;
 	}
