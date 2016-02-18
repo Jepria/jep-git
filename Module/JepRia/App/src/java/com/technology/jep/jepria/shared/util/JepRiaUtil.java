@@ -1,6 +1,7 @@
 package com.technology.jep.jepria.shared.util;
 
 import com.technology.jep.jepria.shared.field.option.JepOption;
+import com.technology.jep.jepria.shared.record.lob.JepClob;
 
 import java.util.List;
 
@@ -45,6 +46,8 @@ public class JepRiaUtil {
 			return isEmpty((List<?>)obj);
 		} else if (obj instanceof JepOption) {
             return isEmpty((JepOption) obj);
+        } else if (obj instanceof JepClob) {
+            return isEmpty((JepClob) obj);
         }
 		return false;
 	}
@@ -85,6 +88,16 @@ public class JepRiaUtil {
         return (option == null || option.equals(JepOption.EMPTY_OPTION)) ? true : false;
     }
 
+    /**
+     * Определяет, является ли переданный элемент пустым.<br>
+     * Возвращает true, если передано null либо если передан пустой элемент.
+     * @param clob {@link com.technology.jep.jepria.shared.record.lob.JepClob}
+     * @return true, если значение пусто, false - в противном случае
+     */
+    public static boolean isEmpty(JepClob clob) {
+        return (clob == null || JepRiaUtil.isEmpty(clob.getBigText())) ? true : false;
+    }
+    
     /**
 	 * Определяет, является ли переданный список пустым.<br>
 	 * Возвращает true, если передано null либо если передан пустой список.

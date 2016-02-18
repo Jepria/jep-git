@@ -1,37 +1,29 @@
 package com.technology.jep.jepriashowcase.custom.server.service;
 
-import static com.technology.jep.jepriashowcase.custom.server.CustomServerConstant.BEAN_JNDI_NAME;
 import static com.technology.jep.jepriashowcase.custom.server.CustomServerConstant.DATA_SOURCE_JNDI_NAME;
 import static com.technology.jep.jepriashowcase.custom.server.CustomServerConstant.RESOURCE_BUNDLE_NAME;
 
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
+import com.technology.jep.jepria.server.ServerFactory;
 import com.technology.jep.jepria.server.service.JepDataServiceServlet;
-import com.technology.jep.jepria.server.util.JepServerUtil;
 import com.technology.jep.jepria.shared.exceptions.ApplicationException;
 import com.technology.jep.jepria.shared.exceptions.SystemException;
+import com.technology.jep.jepriashowcase.custom.server.dao.Custom;
 import com.technology.jep.jepriashowcase.custom.server.dao.CustomDao;
-import com.technology.jep.jepriashowcase.custom.server.dao.CustomDaoImpl;
-import com.technology.jep.jepriashowcase.custom.server.dao.annotation.TransactionFactory;
-import com.technology.jep.jepriashowcase.custom.server.ejb.Custom;
 import com.technology.jep.jepriashowcase.custom.shared.service.CustomService;
 
 /**
  * Реализация gwt-сервиса для Модуля с произвольным располажением элементов.
  */
 @RemoteServiceRelativePath("CustomService")
-public class CustomServiceImpl extends JepDataServiceServlet implements CustomService {
+public class CustomServiceImpl extends JepDataServiceServlet<Custom> implements CustomService {
 	private static final long serialVersionUID = 1L;
-
-	private CustomDao custom;
 	
 	public CustomServiceImpl() {
 		super(
 			null // TODO 8.0: CustomRecordDefinition.instance
-			, BEAN_JNDI_NAME
-			,	DATA_SOURCE_JNDI_NAME
-			,	RESOURCE_BUNDLE_NAME);
-		
-		this.custom = TransactionFactory.process(new CustomDaoImpl());
+			, new ServerFactory<Custom>(new CustomDao(), DATA_SOURCE_JNDI_NAME)
+			, RESOURCE_BUNDLE_NAME);
 	}
 
 	public String getOperatorName(
@@ -39,7 +31,7 @@ public class CustomServiceImpl extends JepDataServiceServlet implements CustomSe
 		String result = null;
 		try {
 			logger.trace("BEGIN TRANSACTION getOperatorName(" + operatorId + ")");
-			result = custom.getOperatorName(operatorId);
+			result = dao.getOperatorName(operatorId);
 			
 		} catch (Throwable th) {
 			throw new SystemException(th.getLocalizedMessage(), th);
@@ -51,10 +43,10 @@ public class CustomServiceImpl extends JepDataServiceServlet implements CustomSe
 	@Override
 	public void transaction() throws ApplicationException {
 		try {
-//			CustomDao custom = TransactionFactory.process(new CustomDaoImpl());
 			logger.trace("BEGIN TRANSACTION transaction()");
-			custom.transaction();
+			dao.transaction();
 		} catch (Throwable th) {
+			logger.error(th.getLocalizedMessage(), th);
 			throw new ApplicationException(th.getLocalizedMessage(), th);
 		}
 		logger.trace("END TRANSACTION transaction()");

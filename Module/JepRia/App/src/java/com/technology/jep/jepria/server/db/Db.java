@@ -26,12 +26,17 @@ public class Db {
 	private static Logger logger = Logger.getLogger(Db.class.getName());
 	
 	private static Map<String, DataSource> dataSourceMap = new HashMap<String, DataSource>();
+	private boolean autoCommit;
 	private Connection connection;
 	private String dataSourceJndiName;
 	// Здесь по ключу - текст sql лежит открытый курсор.
 	private ConcurrentHashMap<String, CallableStatement> statementsMap = new ConcurrentHashMap<String, CallableStatement>();
 
 	public Db(String dataSourceJndiName) {
+		this(dataSourceJndiName, true);
+	}
+	
+	public Db(String dataSourceJndiName, boolean autoCommit) {
 		this.dataSourceJndiName = dataSourceJndiName;
 	}
 
@@ -65,7 +70,7 @@ public class Db {
 			try {
 				cs.close();
 			} catch (Exception e) {
-				e.printStackTrace();
+				logger.error(e.getMessage(), e);
 			}
 		}
 		statementsMap.clear();
@@ -75,7 +80,7 @@ public class Db {
 				connection.close();
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error(e.getMessage(), e);
 		}
 		connection = null;
 	}
@@ -106,13 +111,13 @@ public class Db {
 	
 	private Connection getConnection() {
 		if(this.isClosed()) {
-			connection = createConnection(dataSourceJndiName);
+			connection = createConnection(dataSourceJndiName, autoCommit);
 		}
 		return connection;
 	}
 
-	private synchronized static Connection createConnection(String dataSourceJndiName) {
-		logger.trace("BEGIN createConnection(" + dataSourceJndiName + ")");
+	private synchronized static Connection createConnection(String dataSourceJndiName, boolean autoCommit) {
+		logger.trace("BEGIN createConnection(" + dataSourceJndiName + ", " + autoCommit + ")");
 		
 		try {
 			DataSource dataSource = dataSourceMap.get(dataSourceJndiName);
@@ -122,6 +127,7 @@ public class Db {
 				dataSourceMap.put(dataSourceJndiName, dataSource);
 			}
 			Connection con = dataSource.getConnection();
+			con.setAutoCommit(autoCommit);
 			return con;
 		} catch (NamingException ex) {
 			logger.error(ex);

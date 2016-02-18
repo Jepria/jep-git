@@ -9,15 +9,14 @@ import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.ejb.SessionContext;
-
 import oracle.jdbc.driver.OracleTypes;
+import oracle.jdbc.internal.OracleCallableStatement;
 
 import org.apache.log4j.Logger;
 
 import com.technology.jep.jepria.server.db.Db;
-import com.technology.jep.jepria.server.ejb.CallContext;
 import com.technology.jep.jepria.shared.exceptions.ApplicationException;
+import com.technology.jep.jepria.shared.record.lob.JepClob;
 import com.technology.jep.jepria.shared.util.JepRiaUtil;
 
 /**
@@ -28,24 +27,23 @@ import com.technology.jep.jepria.shared.util.JepRiaUtil;
  * 
  * 1. Пример использования метода create.
  * 
- *     Integer recordId = DaoSupport.<Integer>create(sqlQuery, sessionContext, DATA_SOURCE_JNDI_NAME,
- *       RESOURCE_BUNDLE_NAME, divisionId, branchId, employeeId, periodTypeCode, periodNumber, periodYear,
+ *     Integer recordId = DaoSupport.<Integer>create(sqlQuery, DATA_SOURCE_JNDI_NAME,
+ *       divisionId, branchId, employeeId, periodTypeCode, periodNumber, periodYear,
  *       operatorId);
  *
  * 2. Пример использования метода execute.
  * 
- *     DaoSupport.execute(sqlQuery, sessionContext, DATA_SOURCE_JNDI_NAME,
- *       RESOURCE_BUNDLE_NAME, divisionId, branchId, employeeId, periodTypeCode, periodNumber, periodYear,
+ *     DaoSupport.execute(sqlQuery, DATA_SOURCE_JNDI_NAME,
+ *       divisionId, branchId, employeeId, periodTypeCode, periodNumber, periodYear,
  *       operatorId);
  *       
- *     String result = DaoSupport.execute(sqlQuery, sessionContext, DATA_SOURCE_JNDI_NAME,
- *       RESOURCE_BUNDLE_NAME, String.class, divisionId, branchId, employeeId, periodTypeCode, periodNumber, periodYear,
+ *     String result = DaoSupport.execute(sqlQuery, DATA_SOURCE_JNDI_NAME,
+ *       String.class, divisionId, branchId, employeeId, periodTypeCode, periodNumber, periodYear,
  *       operatorId);
  * 
  * 3. Пример использования метода find.
  * 
- *     List<ExportTaskDto> exportTaskList = DaoSupport.find(sqlQuery, sessionContext, DATA_SOURCE_JNDI_NAME,
- *       RESOURCE_BUNDLE_NAME, 
+ *     List<ExportTaskDto> exportTaskList = DaoSupport.find(sqlQuery, DATA_SOURCE_JNDI_NAME,
  *        new ResultSetMapper<ExportTaskDto>() {
  *        public void map(ResultSet rs, ExportTaskDto dto) throws SQLException {
  *          dto.setTaskId(getInteger(rs, "task_id")); // Обратите внимание на то, как достается значение типа Integer из ResultSet
@@ -54,7 +52,7 @@ import com.technology.jep.jepria.shared.util.JepRiaUtil;
  *          dto.setFormNameRus(rs.getString("form_name_rus"));
  *          dto.setTaskStatusCode(rs.getString("task_status_code"));
  *          dto.setTaskStatusName(rs.getString("task_status_name"));
- *          dto.setTaskCreateDate(getTimestamp(rs, "task_create_date")); // Обратите внимание на то, как достается значение типа Timestamp из ResultSet
+ *          dto.setTaskCreateDate(getDate(rs, "task_create_date")); // Обратите внимание на то, как достается значение типа Timestamp из ResultSet
  *          dto.setTaskOperatorId(getInteger(rs, "task_operator_id"));
  *          dto.setTaskOperatorName(rs.getString("task_operator_name"));
  *          dto.setTaskParamsStr(rs.getString("task_params_str"));
@@ -63,16 +61,16 @@ import com.technology.jep.jepria.shared.util.JepRiaUtil;
  *        }
  *      }, ExportTaskDto.class, taskId, exportTaskTypeId, processName, beginDate, endDate, operatorId);
  *      
- *    Использование методов getInteger и getTimestamp необходимо для корректного получение данных из ResultSet (см. JavaDoc к данным методам).
+ *    Использование методов getInteger и getDate необходимо для корректного получения данных из ResultSet (см. JavaDoc к данным методам).
  *
  * 4. Пример использования метода select.
  * 
- *     List<PositionTypeDto> positionTypeList = DaoSupport.<PositionTypeDto>select(sqlQuery, sessionContext,
- *      DATA_SOURCE_JNDI_NAME, RESOURCE_BUNDLE_NAME,
+ *     List<PositionTypeDto> positionTypeList = DaoSupport.<PositionTypeDto>select(sqlQuery,
+ *      DATA_SOURCE_JNDI_NAME,
  *      new ResultSetMapper<PositionTypeDto>() {
  *        public void map(ResultSet rs, PositionTypeDto dto)
  *            throws SQLException {
- *          dto.setPositionTypeId(rs.getInt("position_type_id"));
+ *          dto.setPositionTypeId(getInteger(rs, "position_type_id"));
  *          dto.setPositionTypeNameRus(rs.getString("position_type_name_rus"));
  *          dto.setPositionTypeNameEng(rs.getString("position_type_name_eng"));
  *        }
@@ -80,12 +78,12 @@ import com.technology.jep.jepria.shared.util.JepRiaUtil;
  * 
  * 5. Пример использования метода update.
  * 
- *     DaoSupport.update(sqlQuery, sessionContext, DATA_SOURCE_JNDI_NAME, RESOURCE_BUNDLE_NAME, 
+ *     DaoSupport.update(sqlQuery, DATA_SOURCE_JNDI_NAME, 
  *      taskId, operatorId);
  *        
  * 6. Пример использования метода delete.
  * 
- *     DaoSupport.delete(sqlQuery, sessionContext, DATA_SOURCE_JNDI_NAME, RESOURCE_BUNDLE_NAME, 
+ *     DaoSupport.delete(sqlQuery, DATA_SOURCE_JNDI_NAME, 
  *      taskId, operatorId);
  * </pre>
  */
@@ -97,9 +95,6 @@ public class DaoSupport {
 	 * 
 	 * @param <T> 								тип возвращаемого значения
 	 * @param query 							текст запроса
-	 * @param sessionContext      контекст
-	 * @param dataSourceJndiName  jndi-имя источника данных
-	 * @param resourceBundleName  идентификатор файла ресурсов
 	 * @param params              параметры sql-выражения
 	 * @param resultTypeClass     Тип возвращаемого значения
 	 * @return идентификатор (первичный ключ) созданной записи
@@ -108,19 +103,13 @@ public class DaoSupport {
 	@SuppressWarnings("unchecked")
 	public static <T> T create(
 			String query
-			, SessionContext sessionContext
-			, String dataSourceJndiName
-			, String resourceBundleName
 			, Class<T> resultTypeClass
 			, Object... params)
 			throws ApplicationException {
 		
-		logger.trace("create(..., " + dataSourceJndiName + ", ...)");
-		
 		T result = null;
 
 		try {
-			CallContext.begin(sessionContext, dataSourceJndiName, resourceBundleName);
 			Db db = CallContext.getDb();
 			
 			CallableStatement callableStatement = db.prepare(query);
@@ -146,10 +135,7 @@ public class DaoSupport {
 			if (callableStatement.wasNull())result = null;
 
 		} catch (Throwable th) {
-			sessionContext.setRollbackOnly();
 			throw new ApplicationException(th.getMessage(), th);
-		} finally {
-			CallContext.end();
 		}
 		
 		return result;
@@ -159,24 +145,15 @@ public class DaoSupport {
 	 * Данный метод выполняет sql-выражение без возвращаемого значения.
 	 * 
 	 * @param query 							текст запроса
-	 * @param sessionContext      контекст
-	 * @param dataSourceJndiName  jndi-имя источника данных
-	 * @param resourceBundleName  идентификатор файла ресурсов
 	 * @param params              параметры sql-выражения
 	 * @throws ApplicationException
 	 */
 	public static void execute(
 			String query
-			, SessionContext sessionContext
-			, String dataSourceJndiName
-			, String resourceBundleName
 			, Object... params)
 			throws ApplicationException {
-		
-		logger.trace("execute1(..., " + dataSourceJndiName + ", ...)");
 
 		try {
-			CallContext.begin(sessionContext, dataSourceJndiName, resourceBundleName);
 			Db db = CallContext.getDb();
 			
 			CallableStatement callableStatement = db.prepare(query);
@@ -187,10 +164,7 @@ public class DaoSupport {
 			callableStatement.execute();
 
 		} catch (Throwable th) {
-			sessionContext.setRollbackOnly();
 			throw new ApplicationException(th.getMessage(), th);
-		} finally {
-			CallContext.end();
 		}
 	}
 	
@@ -199,9 +173,6 @@ public class DaoSupport {
 	 * 
 	 * @param <T>					тип возвращаемого значения
 	 * @param query					текст запроса
-	 * @param sessionContext		контекст
-	 * @param dataSourceJndiName	jndi-имя источника данных
-	 * @param resourceBundleName	идентификатор файла ресурсов
 	 * @param mapper				экземпляр класса, осуществляющего мэппинг полей dto и ResultSet
 	 * @param recordClass				класс dto
 	 * @param params				параметры sql-выражения
@@ -210,15 +181,12 @@ public class DaoSupport {
 	 */
 	public static <T> List<T> find(
 			String query
-			, SessionContext sessionContext
-			, String dataSourceJndiName
-			, String resourceBundleName
 			, ResultSetMapper<T> mapper
 			, Class<T> recordClass
 			, Object... params) 
 			throws ApplicationException {
 			
-		return findOrSelect(query, sessionContext, dataSourceJndiName, resourceBundleName, mapper,
+		return findOrSelect(query, mapper,
 				recordClass, ExecutionType.CALLABLE_STATEMENT, params);
 	}
 	
@@ -227,9 +195,6 @@ public class DaoSupport {
 	 * 
 	 * @param <T>					тип возвращаемого значения
 	 * @param query					текст запроса
-	 * @param sessionContext		контекст
-	 * @param dataSourceJndiName	jndi-имя источника данных
-	 * @param resourceBundleName	идентификатор файла ресурсов
 	 * @param resultTypeClass		тип возвращаемого значения; для возврата нескольких значений используется массив типов - Object[].
 	 *								Пример параметра, передаваемого при вызове: <code>new Object[] {Integer.class, String.class, Float.class}</code> 
 	 * @param params				параметры sql-выражения
@@ -238,19 +203,13 @@ public class DaoSupport {
 	 */
 	public static <T> T execute(
 			String query
-			, SessionContext sessionContext
-			, String dataSourceJndiName
-			, String resourceBundleName
 			, Class<T> resultTypeClass
 			, Object... params) 
 			throws ApplicationException {
-		
-		logger.trace("execute2(..., " + dataSourceJndiName + ", ...)");
 
 		T result = null;
 
 		try {
-			CallContext.begin(sessionContext, dataSourceJndiName, resourceBundleName);
 			Db db = CallContext.getDb();
 			
 			CallableStatement callableStatement = db.prepare(query);
@@ -271,10 +230,7 @@ public class DaoSupport {
 			result = getResult(callableStatement, resultTypeClass, params);
 
 		} catch (Throwable th) {
-			sessionContext.setRollbackOnly();
 			throw new ApplicationException(th.getMessage(), th);
-		} finally {
-			CallContext.end();
 		}
 		
 		return result;
@@ -339,9 +295,6 @@ public class DaoSupport {
 	 * 
 	 * @param <T>					тип возвращаемого значения
 	 * @param query					текст запроса
-	 * @param sessionContext		контекст
-	 * @param dataSourceJndiName	jndi-имя источника данных
-	 * @param resourceBundleName	идентификатор файла ресурсов
 	 * @param mapper				экземпляр класса, осуществляющего мэппинг полей dto и ResultSet
 	 * @param modelClass            класс dto
 	 * @param params				параметры sql-запрос
@@ -350,15 +303,12 @@ public class DaoSupport {
 	 */
 	public static <T> List<T> select(
 			String query
-			, SessionContext sessionContext
-			, String dataSourceJndiName
-			, String resourceBundleName
 			, ResultSetMapper<T> mapper
 			, Class<T> modelClass
 			, Object... params) 
 			throws ApplicationException {
 			
-		return findOrSelect(query, sessionContext, dataSourceJndiName, resourceBundleName, mapper,
+		return findOrSelect(query, mapper,
 				modelClass, ExecutionType.QUERY, params);
 	}
 	
@@ -366,50 +316,32 @@ public class DaoSupport {
 	 * Данный метод выполняет sql-выражение, изменяющее запись в БД.
 	 * 
 	 * @param query 							текст запроса
-	 * @param sessionContext      контекст
-	 * @param dataSourceJndiName  jndi-имя источника данных
-	 * @param resourceBundleName  идентификатор файла ресурсов
 	 * @param params              параметры sql-выражения
 	 * @throws ApplicationException
 	 */
 	public static void update(
 			String query
-			, SessionContext sessionContext
-			, String dataSourceJndiName
-			, String resourceBundleName
 			, Object... params)
 			throws ApplicationException {
-		
-		logger.trace("BEGIN update(..., " + dataSourceJndiName + ", ...)");
 			
-		execute(query, sessionContext, dataSourceJndiName, resourceBundleName, params);
+		execute(query, params);
 		
-		logger.trace("END update(..., " + dataSourceJndiName + ", ...)");
 	}
 	
 	/**
 	 * Данный метод выполняет sql-выражение, удаляющее запись из БД.
 	 * 
 	 * @param query 							текст запроса
-	 * @param sessionContext      контекст
-	 * @param dataSourceJndiName  jndi-имя источника данных
-	 * @param resourceBundleName  идентификатор файла ресурсов
 	 * @param params              параметры sql-выражения
 	 * @throws ApplicationException
 	 */
 	public static void delete(
 			String query
-			, SessionContext sessionContext
-			, String dataSourceJndiName
-			, String resourceBundleName
 			, Object... params)
 			throws ApplicationException {
 		
-		logger.trace("BEGIN delete(..., " + dataSourceJndiName + ", ...)");
-		
-		execute(query, sessionContext, dataSourceJndiName, resourceBundleName, params);
+		execute(query, params);
 
-		logger.trace("END delete(..., " + dataSourceJndiName + ", ...)");
 	}
 	
 	/**
@@ -417,9 +349,6 @@ public class DaoSupport {
 	 * 
 	 * @param <T> 								тип возвращаемого значения
 	 * @param query 							текст запроса
-	 * @param sessionContext      контекст
-	 * @param dataSourceJndiName  jndi-имя источника данных
-	 * @param resourceBundleName  идентификатор файла ресурсов
 	 * @param mapper              экземпляр класса, осуществляющего мэппинг полей dto и ResultSet
 	 * @param recordClass класс записи
 	 * @param params параметры sql-запроса или sql-выражения
@@ -428,21 +357,15 @@ public class DaoSupport {
 	 */
 	private static <T> List<T> findOrSelect(
 			String query
-			, SessionContext sessionContext
-			, String dataSourceJndiName
-			, String resourceBundleName
 			, ResultSetMapper<T> mapper
 			, Class<T> recordClass
 			, ExecutionType executionType
 			, Object... params)
 			throws ApplicationException {
-		
-		logger.trace("BEGIN findOrSelect(..., " + dataSourceJndiName + ", ...)");
 			
 		List<T> result = new ArrayList<T>();
 	
 		try {
-			CallContext.begin(sessionContext, dataSourceJndiName, resourceBundleName);
 			Db db = CallContext.getDb();
 			
 			CallableStatement callableStatement = db.prepare(query);
@@ -457,11 +380,7 @@ public class DaoSupport {
 				result.add(resultModel);
 			}
 		} catch (Throwable th) {
-			sessionContext.setRollbackOnly();
 			throw new ApplicationException(th.getMessage(), th);
-		} finally {
-			CallContext.end();
-			logger.trace("END findOrSelect(..., " + dataSourceJndiName + ", ...)");
 		}
 		
 		return result;
@@ -531,6 +450,8 @@ public class DaoSupport {
 						setBigDecimalParameter(callableStatement, (BigDecimal)param, i);
 					} else if (clazz.equals(java.util.Date.class)) {
 						setDateParameter(callableStatement, (java.util.Date)param, i);
+					} else if (clazz.equals(JepClob.class)) {
+						setClobParameter(callableStatement, (JepClob)param, i);
 					} else {
 						callableStatement.setObject(i, param);
 					}
@@ -640,6 +561,23 @@ public class DaoSupport {
 			callableStatement.setNull(place, Types.TIMESTAMP);
 		} else {
 			callableStatement.setTimestamp(place, new java.sql.Timestamp(parameter.getTime()));
+		}
+	}
+	
+	/**
+	 * Вспомогательный метод. Используется для задания параметра типа Clob объекту callableStatement. 
+	 * 
+	 * @param callableStatement    экземпляр callableStatement
+	 * @param parameter            параметр
+	 * @param place                место вставки параметра
+	 * @throws SQLException
+	 */
+	private static void setClobParameter(CallableStatement callableStatement, JepClob parameter, int place) 
+			throws SQLException {
+		if (JepRiaUtil.isEmpty(parameter)) {
+			callableStatement.setNull(place, Types.CLOB);
+		} else if (callableStatement instanceof OracleCallableStatement){
+			((OracleCallableStatement) callableStatement).setStringForClob(place, parameter.getBigText());
 		}
 	}
 	

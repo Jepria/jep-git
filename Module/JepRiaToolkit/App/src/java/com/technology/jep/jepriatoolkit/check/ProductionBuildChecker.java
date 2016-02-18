@@ -18,14 +18,13 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import com.technology.jep.jepriatoolkit.JepRiaToolkitConstant;
-import com.technology.jep.jepriatoolkit.creator.ApplicationStructureCreator;
 import com.technology.jep.jepriatoolkit.switcher.BuildConfigSwitcher;
 import com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil;
 
 public class ProductionBuildChecker extends Task implements JepRiaToolkitConstant {
 	
 	//атрибуты таска
-	private String packageName, moduleName, commonHome, riaVersion;
+	private String packageName, moduleName;
 	//выходной атрибут, куда помещается результат выполненных проверок
 	private String property = "";
 
@@ -37,8 +36,6 @@ public class ProductionBuildChecker extends Task implements JepRiaToolkitConstan
 	public void execute() throws BuildException {
 		String currentConfig = BuildConfigSwitcher.getCurrentConfigName();
 		//JepRiaToolkitUtil.echoMessage("CONFIG: " + currentConfig);
-
-		ApplicationStructureCreator creator = new ApplicationStructureCreator();
 		boolean isProductionBuild = isProductionBuild();
 		
 		if (RELEASE_BUILD_CONFIG_NAME.equalsIgnoreCase(currentConfig) && !isProductionBuild) {
@@ -144,34 +141,6 @@ public class ProductionBuildChecker extends Task implements JepRiaToolkitConstan
 				ph.setNewProperty(PRODUCTION_BUILD_CHECKER_ERROR, "There doesn't exist XML-node 'set-property-fallback' with attribute 'name' which has value 'locale' and attribute 'value' which has value 'ru'! For production build you have to define locales (Russian and English)!");
 				return false;
 			}
-			//--- проверка build.xml
-			/*
-			Document buildXmlDocument = JepRiaToolkitUtil.getDOM(BUILD_FILE);
-			nodes = buildXmlDocument.getElementsByTagName(JAVA_BUILD_XML_TAG_NAME);
-			if (!JepRiaToolkitUtil.isEmpty(nodes)) {
-				for (int counter = 0; counter < nodes.getLength(); counter++){
-					Node tempNode = nodes.item(counter);
-					if (tempNode.getNodeType() == ELEMENT_NODE) {
-						Element node = (Element) tempNode;
-						if (node.getAttribute("classname").equals("com.google.gwt.dev.Compiler")){
-							nodes = node.getChildNodes();
-							for (int innerCounter = 0; innerCounter < nodes.getLength(); innerCounter++){
-								Node innerNode = nodes.item(innerCounter);
-								if (innerNode.getNodeType() == ELEMENT_NODE && 
-										innerNode.getNodeName().equals(ARG_BUILD_XML_TAG_NAME)){
-									Element nodeEl = (Element) innerNode;
-									if (nodeEl.getAttribute(VALUE_ATTRIBUTE).equals("-draftCompile")){
-										ph.setProperty(property, false, true);
-										ph.setNewProperty(PRODUCTION_BUILD_CHECKER_ERROR, "For production build you have to switch option '-draftCompile' off!");
-										return false;
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-			*/
 			//--- проверка log4j.properties на вхождение DEBUG или TRACE в параметры, начинающиеся "с log4j.logger."  
 			Properties log4jProperties = new Properties();
 			
@@ -226,14 +195,6 @@ public class ProductionBuildChecker extends Task implements JepRiaToolkitConstan
 
 	public void setModuleName(String moduleName) {
 		this.moduleName = moduleName;
-	}
-	
-	public void setCommonHome(String commonHome) {
-		this.commonHome = commonHome;
-	}
-	
-	public void setRiaVersion(String riaVersion){
-		this.riaVersion = riaVersion;
 	}
 	
 	/**

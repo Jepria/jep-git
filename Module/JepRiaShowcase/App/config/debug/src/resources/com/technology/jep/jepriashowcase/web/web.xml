@@ -105,12 +105,6 @@
 		<url-pattern>/JepRiaShowcase/CustomService</url-pattern>
 	</servlet-mapping>
 
-	<ejb-local-ref>
-		<ejb-ref-name>ejb/CustomBean</ejb-ref-name>
-		<ejb-ref-type>Session</ejb-ref-type>
-		<local>com.technology.jep.jepriashowcase.custom.server.ejb.CustomLocal</local>
-	</ejb-local-ref>
-
 	<servlet>
 		<servlet-name>SearchServlet</servlet-name>
 		<servlet-class>com.technology.jep.jepriashowcase.search.server.service.SearchServiceImpl</servlet-class>
@@ -120,12 +114,6 @@
 		<url-pattern>/JepRiaShowcase/SearchService</url-pattern>
 	</servlet-mapping>
 
-	<ejb-local-ref>
-		<ejb-ref-name>ejb/SearchBean</ejb-ref-name>
-		<ejb-ref-type>Session</ejb-ref-type>
-		<local>com.technology.jep.jepriashowcase.search.server.ejb.SearchLocal</local>
-	</ejb-local-ref>
-
 	<servlet>
 		<servlet-name>SupplierServlet</servlet-name>
 		<servlet-class>com.technology.jep.jepriashowcase.supplier.server.service.SupplierServiceImpl</servlet-class>
@@ -134,11 +122,7 @@
 		<servlet-name>SupplierServlet</servlet-name>
 		<url-pattern>/JepRiaShowcase/SupplierService</url-pattern>
 	</servlet-mapping>
-	<ejb-local-ref>
-		<ejb-ref-name>ejb/SupplierBean</ejb-ref-name>
-		<ejb-ref-type>Session</ejb-ref-type>
-		<local>com.technology.jep.jepriashowcase.supplier.server.ejb.SupplierLocal</local>
-	</ejb-local-ref>
+	
 	<servlet>
 		<servlet-name>GoodsServlet</servlet-name>
 		<servlet-class>com.technology.jep.jepriashowcase.goods.server.service.GoodsServiceImpl</servlet-class>
@@ -147,11 +131,7 @@
 		<servlet-name>GoodsServlet</servlet-name>
 		<url-pattern>/JepRiaShowcase/GoodsService</url-pattern>
 	</servlet-mapping>
-	<ejb-local-ref>
-		<ejb-ref-name>ejb/GoodsBean</ejb-ref-name>
-		<ejb-ref-type>Session</ejb-ref-type>
-		<local>com.technology.jep.jepriashowcase.goods.server.ejb.GoodsLocal</local>
-	</ejb-local-ref>
+
 	<servlet>
 		<servlet-name>uploadServlet</servlet-name>
 		<servlet-class>com.technology.jep.jepriashowcase.goods.server.service.UploadServiceImpl</servlet-class>
@@ -186,11 +166,7 @@
 		<servlet-name>ShopGoodsServlet</servlet-name>
 		<url-pattern>/JepRiaShowcase/ShopGoodsService</url-pattern>
 	</servlet-mapping>
-	<ejb-local-ref>
-		<ejb-ref-name>ejb/ShopGoodsBean</ejb-ref-name>
-		<ejb-ref-type>Session</ejb-ref-type>
-		<local>com.technology.jep.jepriashowcase.shopgoods.server.ejb.ShopGoodsLocal</local>
-	</ejb-local-ref>
+
 	<servlet>
 		<servlet-name>AllShopGoodsServlet</servlet-name>
 		<servlet-class>com.technology.jep.jepriashowcase.allshopgoods.server.service.AllShopGoodsServiceImpl</servlet-class>
@@ -199,11 +175,7 @@
 		<servlet-name>AllShopGoodsServlet</servlet-name>
 		<url-pattern>/JepRiaShowcase/AllShopGoodsService</url-pattern>
 	</servlet-mapping>
-	<ejb-local-ref>
-		<ejb-ref-name>ejb/AllShopGoodsBean</ejb-ref-name>
-		<ejb-ref-type>Session</ejb-ref-type>
-		<local>com.technology.jep.jepriashowcase.allshopgoods.server.ejb.AllShopGoodsLocal</local>
-	</ejb-local-ref>
+
 	<servlet>
 		<servlet-name>RequestServlet</servlet-name>
 		<servlet-class>com.technology.jep.jepriashowcase.request.server.service.RequestServiceImpl</servlet-class>
@@ -212,11 +184,7 @@
 		<servlet-name>RequestServlet</servlet-name>
 		<url-pattern>/JepRiaShowcase/RequestService</url-pattern>
 	</servlet-mapping>
-	<ejb-local-ref>
-		<ejb-ref-name>ejb/RequestBean</ejb-ref-name>
-		<ejb-ref-type>Session</ejb-ref-type>
-		<local>com.technology.jep.jepriashowcase.request.server.ejb.RequestLocal</local>
-	</ejb-local-ref>
+
 	<servlet>
 		<servlet-name>RequestProcessServlet</servlet-name>
 		<servlet-class>com.technology.jep.jepriashowcase.requestprocess.server.service.RequestProcessServiceImpl</servlet-class>
@@ -225,24 +193,6 @@
 		<servlet-name>RequestProcessServlet</servlet-name>
 		<url-pattern>/JepRiaShowcase/RequestProcessService</url-pattern>
 	</servlet-mapping>
-	<ejb-local-ref>
-		<ejb-ref-name>ejb/RequestProcessBean</ejb-ref-name>
-		<ejb-ref-type>Session</ejb-ref-type>
-		<local>com.technology.jep.jepriashowcase.requestprocess.server.ejb.RequestProcessLocal</local>
-	</ejb-local-ref>
-	<servlet>
-	  <servlet-name>VersionServlet</servlet-name>
-	  <servlet-class>com.technology.jep.jepria.server.version.VersionServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-	  <servlet-name>VersionServlet</servlet-name>
-	  <url-pattern>/versionServlet</url-pattern>
-	</servlet-mapping>
-	<ejb-local-ref>
-	  <ejb-ref-name>ejb/VersionBean</ejb-ref-name>
-	  <ejb-ref-type>Session</ejb-ref-type>
-	  <local>com.technology.jep.jepria.server.version.ejb.JepVersionLocal</local>
-	</ejb-local-ref>
 
 	<welcome-file-list>
 		<welcome-file>JepRiaShowcaseCustom.jsp</welcome-file>

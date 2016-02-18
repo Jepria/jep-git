@@ -6,6 +6,11 @@ import static com.technology.jep.jepria.client.ui.WorkstateEnum.SEARCH;
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.SELECTED;
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.VIEW_DETAILS;
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.VIEW_LIST;
+import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.getFieldIdAsParameter;
+import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.initCap;
+import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.initSmall;
+import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.isEmpty;
+import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.multipleConcat;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -17,14 +22,12 @@ import javax.activation.UnsupportedDataTypeException;
 
 import com.technology.jep.jepria.client.ui.WorkstateEnum;
 import com.technology.jep.jepriatoolkit.JepRiaToolkitConstant;
-import com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil;
 
 public class ModuleButton implements JepRiaToolkitConstant {
 	
 	private String buttonId;
 	private WorkstateEnum[] workStates;
 	private String image;
-	private String imageDisabled;
 	private String event;
 	private String text;
 	private String name;
@@ -39,41 +42,35 @@ public class ModuleButton implements JepRiaToolkitConstant {
 				ADD_BUTTON_ID
 				, new WorkstateEnum[]{ SELECTED, EDIT, VIEW_LIST, VIEW_DETAILS, SEARCH }
 				, "add"
-				, null
 				, "add();"
 				, "button_add_alt"));
 		STANDARD_TOOLBAR.put(SAVE_BUTTON_ID, new ModuleButton(
 				SAVE_BUTTON_ID
 				, new WorkstateEnum[]{ CREATE, EDIT }
 				, "save"
-				, null
 				, "save();"
 				, "button_save_alt"));
 		STANDARD_TOOLBAR.put(EDIT_BUTTON_ID, new ModuleButton(
 				EDIT_BUTTON_ID
 				, new WorkstateEnum[]{ SELECTED, VIEW_DETAILS }
 				, "edit"
-				, null
 				, "edit();"
 				, "button_edit_alt"));
 		STANDARD_TOOLBAR.put(DELETE_BUTTON_ID, new ModuleButton(
 				DELETE_BUTTON_ID
 				, new WorkstateEnum[]{ SELECTED, EDIT, VIEW_DETAILS }
 				, "delete"
-				, null
 				, "delete();"
 				, "button_delete_alt"));
 		STANDARD_TOOLBAR.put(VIEW_DETAILS_BUTTON_ID, new ModuleButton(
 				VIEW_DETAILS_BUTTON_ID
 				, new WorkstateEnum[]{ SELECTED, EDIT }
 				, "view"
-				, null
 				, "viewDetails();"
 				, "button_view_alt"));
 		STANDARD_TOOLBAR.put(LIST_BUTTON_ID, new ModuleButton(
 				LIST_BUTTON_ID
 				, new WorkstateEnum[]{ CREATE, EDIT, VIEW_DETAILS }
-				, null
 				, null
 				, "list();"
 				, "button_list_alt"));
@@ -81,13 +78,11 @@ public class ModuleButton implements JepRiaToolkitConstant {
 				SEARCH_BUTTON_ID
 				, new WorkstateEnum[]{ CREATE, EDIT, VIEW_LIST, VIEW_DETAILS, SELECTED }
 				, "search"
-				, null
 				, "search();"
 				, "button_search_alt"));
 		STANDARD_TOOLBAR.put(FIND_BUTTON_ID, new ModuleButton(
 				FIND_BUTTON_ID
 				, new WorkstateEnum[]{ SEARCH } 
-				, null
 				, null
 				, "doSearch();"
 				, "button_find_alt"));
@@ -95,20 +90,17 @@ public class ModuleButton implements JepRiaToolkitConstant {
 				REFRESH_BUTTON_ID
 				, new WorkstateEnum[]{SELECTED, VIEW_LIST}
 				, "refresh"
-				, null
 				, "refresh();"
 				, "button_refresh_alt"));
 		STANDARD_TOOLBAR.put(SELECT_BUTTON_ID, new ModuleButton(
 				SELECT_BUTTON_ID
 				, new WorkstateEnum[]{ VIEW_LIST }
 				, "select"
-				, null
 				, "select();"
 				, "button_select_alt"));
 		STANDARD_TOOLBAR.put(REPORT_BUTTON_ID, new ModuleButton(
 				REPORT_BUTTON_ID
 				, new WorkstateEnum[]{ EDIT, VIEW_DETAILS, SELECTED }
-				, "report"
 				, "report"
 				, "report();"
 				, "button_report_alt"));
@@ -116,21 +108,18 @@ public class ModuleButton implements JepRiaToolkitConstant {
 				EXCEL_BUTTON_ID
 				, new WorkstateEnum[]{ VIEW_LIST, SELECTED }
 				, "excel"
-				, null
 				, "excel();"
 				, "button_excel_alt"));
 		STANDARD_TOOLBAR.put(PRINT_BUTTON_ID, new ModuleButton(
 				PRINT_BUTTON_ID
 				, new WorkstateEnum[]{ VIEW_LIST, VIEW_DETAILS }
 				, "print"
-				, null
 				, "print();"
 				, "button_print_alt"));
 		STANDARD_TOOLBAR.put(HELP_BUTTON_ID, new ModuleButton(
 				HELP_BUTTON_ID
 				, new WorkstateEnum[]{ CREATE, EDIT, VIEW_LIST, VIEW_DETAILS, SEARCH }
 				, "help"
-				, null
 				, "help();"
 				, "button_help_alt"));
 		
@@ -174,14 +163,12 @@ public class ModuleButton implements JepRiaToolkitConstant {
 	 * @param buttonId				идентификатор кнопки
 	 * @param workStates			список рабочих состояний, разделенных запятой
 	 * @param image					активная кнопка
-	 * @param imageDisabled			пассивная кнопка
 	 * @param event					событие на реакцию кнопки
 	 * @param text					тултип кнопки
 	 */
-	private ModuleButton(String buttonId, WorkstateEnum[] workStates, String image, String imageDisabled, String event, String text){
+	private ModuleButton(String buttonId, WorkstateEnum[] workStates, String image, String event, String text){
 		this(buttonId, workStates);
 		setImage(image);
-		setImageDisabled(imageDisabled);
 		setEvent(event);
 		setText(text);
 	}
@@ -189,8 +176,8 @@ public class ModuleButton implements JepRiaToolkitConstant {
 	/**
 	 * Конструктор для кнопок инструментальной панели
 	 */ 
-	public ModuleButton(String buttonId, WorkstateEnum[] workStates, String image, String imageDisabled, String event, String text, String name, String nameEn){
-		this(buttonId, workStates, image, imageDisabled, event, text);
+	public ModuleButton(String buttonId, WorkstateEnum[] workStates, String image, String event, String text, String name, String nameEn){
+		this(buttonId, workStates, image, event, text);
 		setName(name);
 		setNameEn(nameEn);
 	}
@@ -213,7 +200,7 @@ public class ModuleButton implements JepRiaToolkitConstant {
 	public void setNameEn(String nameEn) {
 		this.nameEn = nameEn;
 	}
-	public boolean isSeparator() {
+	public boolean getIsSeparator() {
 		return isSeparator;
 	}
 	public ModuleButton setSeparator(boolean isSeparator) {
@@ -226,28 +213,30 @@ public class ModuleButton implements JepRiaToolkitConstant {
 	public void setButtonId(String buttonId) {
 		this.buttonId = buttonId;
 	}
+	public String getButtonIdAsParameter() {
+		return getFieldIdAsParameter(buttonId, null);
+	}
 	public String getImage() {
-		return JepRiaToolkitUtil.isEmpty(image) && isCustomButton() ? buttonId.toLowerCase() : image;
+		return isEmpty(image) && getIsCustomButton() ? buttonId.toLowerCase() : image;
 	}
 	public void setImage(String image) {
 		this.image = image;
 	}
-	public String getImageDisabled() {
-		return imageDisabled;
-	}
-	public void setImageDisabled(String imageDisabled) {
-		this.imageDisabled = imageDisabled;
-	}
 	public String getEvent() {
-		if (isCustomButton() && JepRiaToolkitUtil.isEmpty(event)){
-			event = JepRiaToolkitUtil.multipleConcat(JepRiaToolkitUtil.getFieldIdAsParameter(buttonId, "do"), LEFT_BRACKET, RIGHT_BRACKET);
+		if (getIsCustomButton() && isEmpty(event)){
+			event = multipleConcat(getFieldIdAsParameter(buttonId, "do"), LEFT_BRACKET, RIGHT_BRACKET);
 		}
 		return event;
 	}
+	public String getHandler(){
+		return isEmpty(getEvent()) ? (getIsCustomButton() ? "" : STANDARD_TOOLBAR.get(buttonId).getEvent()) : !getIsCustomButton()
+				&& getEvent().toLowerCase().startsWith("changeworkstate") ? STANDARD_TOOLBAR.get(buttonId).getEvent() : multipleConcat(
+						(getEvent().toLowerCase().startsWith("placecontroller") ? "" : "eventBus."), getEvent(), (getEvent().endsWith(";") ? "" : ";"));
+	}
 	public String getCustomEvent(){
 		String customEvent = "";
-		if (!JepRiaToolkitUtil.isEmpty(getEvent())){
-			customEvent = JepRiaToolkitUtil.initCap(getEvent()).trim();
+		if (!isEmpty(getEvent())){
+			customEvent = initCap(getEvent()).trim();
 			int indexOfBracket;
 			if ((indexOfBracket = customEvent.indexOf(LEFT_BRACKET)) != -1){
 				customEvent = customEvent.substring(0, indexOfBracket);
@@ -256,27 +245,31 @@ public class ModuleButton implements JepRiaToolkitConstant {
 		return customEvent;
 	}	
 	public void setEvent(String event) {
-		this.event = !JepRiaToolkitUtil.isEmpty(event) ?  JepRiaToolkitUtil.multipleConcat(event, (event.indexOf(LEFT_BRACKET) == -1 ? JepRiaToolkitUtil.multipleConcat(LEFT_BRACKET, RIGHT_BRACKET) : "")) : null;
+		this.event = !isEmpty(event) ?  multipleConcat(event, (event.indexOf(LEFT_BRACKET) == -1 ? multipleConcat(LEFT_BRACKET, RIGHT_BRACKET) : "")) : null;
 	}		
 	public String getWorkStatesAsString() {
 		String workStatesAsString = "";
-		if (!JepRiaToolkitUtil.isEmpty(workStates))
+		if (!isEmpty(workStates)){
 			for (WorkstateEnum workstate : workStates){
-				workStatesAsString += (!JepRiaToolkitUtil.isEmpty(workStatesAsString) ? ", " : "") + workstate.name(); 
+				workStatesAsString += (!isEmpty(workStatesAsString) ? ", " : "") + workstate.name(); 
 			}
+		}
+		else {
+			return getIsCustomButton() ? "" : STANDARD_TOOLBAR.get(buttonId).getWorkStatesAsString();
+		}
 		return workStatesAsString;
 	}
 	public void setWorkStates(WorkstateEnum[] workStates) {
 		this.workStates = workStates;
 	}	
-	public boolean isCustomButton(){
-		return !isSeparator && JepRiaToolkitUtil.isEmpty(STANDARD_TOOLBAR.get(this.buttonId));
+	public boolean getIsCustomButton(){
+		return !isSeparator && isEmpty(STANDARD_TOOLBAR.get(this.buttonId));
 	}	
 	public boolean isCustomSeparator(){
-		return isSeparator && JepRiaToolkitUtil.isEmpty(STANDARD_SEPARATOR.get(this.buttonId))
-							&& JepRiaToolkitUtil.isEmpty(STANDARD_TOOLBAR.get(this.buttonId));
+		return isSeparator && isEmpty(STANDARD_SEPARATOR.get(this.buttonId))
+							&& isEmpty(STANDARD_TOOLBAR.get(this.buttonId));
 	}
-	public FORM isAvailableOnForm() throws UnsupportedDataTypeException {
+	public FORM getPlacedForm() throws UnsupportedDataTypeException {
 		List<WorkstateEnum> workstateList = Arrays.asList(this.workStates);
 		boolean isDetailForm = false, isListForm = false;
 		if ((isDetailForm = !Collections.disjoint(workstateList, Arrays.asList(SEARCH, CREATE, EDIT, VIEW_DETAILS))) & 
@@ -290,5 +283,23 @@ public class ModuleButton implements JepRiaToolkitConstant {
 			return FORM.LIST_FORM;
 		}
 		throw new UnsupportedDataTypeException("Specify workstates " + workstateList + " with attribute '" + BUTTON_ENABLE_STATES_ATTRIBUTE + "' for button '" + buttonId + "'");
+	}
+
+	public String getImageAsString(String formName) {
+		return isEmpty(getImage()) ? (getIsCustomButton() ? "" : isEmpty(STANDARD_TOOLBAR.get(
+				getButtonId()).getImage()) ? null : multipleConcat("JepImages.",
+				STANDARD_TOOLBAR.get(getButtonId()).getImage(), "()")) : multipleConcat(
+				(getIsCustomButton() ? initSmall(formName) : "Jep"), "Images.", getImage(),
+				"()");
+	}
+	
+	public String getTextAsString(String formName){
+		return isEmpty(getText()) ? 
+					(getIsCustomButton() ? 
+							multipleConcat("\"\"") : multipleConcat("JepTexts.",
+					STANDARD_TOOLBAR.get(getButtonId()).getText(), "()")) : 
+					multipleConcat(
+							(getIsCustomButton() ? multipleConcat(initSmall(formName), "Text.")
+									: "JepTexts."), getText(), "()");
 	}
 }

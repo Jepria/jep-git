@@ -7,7 +7,15 @@ import static com.technology.jep.jepria.server.JepRiaServerConstant.FOUND_RECORD
 import static com.technology.jep.jepria.server.JepRiaServerConstant.IS_REFRESH_NEEDED;
 import static com.technology.jep.jepria.server.JepRiaServerConstant.SELECTED_RECORDS_SESSION_ATTRIBUTE;
 import static com.technology.jep.jepria.server.JepRiaServerConstant.TEXT_FILE_UPLOAD_BEAN_JNDI_NAME;
-import static com.technology.jep.jepria.shared.JepRiaConstant.*;
+import static com.technology.jep.jepria.shared.JepRiaConstant.DEFAULT_MAX_ROW_COUNT;
+import static com.technology.jep.jepria.shared.JepRiaConstant.DOWNLOAD_CONTENT_DISPOSITION;
+import static com.technology.jep.jepria.shared.JepRiaConstant.DOWNLOAD_CONTENT_DISPOSITION_ATTACHMENT;
+import static com.technology.jep.jepria.shared.JepRiaConstant.DOWNLOAD_EXTENSION;
+import static com.technology.jep.jepria.shared.JepRiaConstant.DOWNLOAD_FIELD_NAME;
+import static com.technology.jep.jepria.shared.JepRiaConstant.DOWNLOAD_FILE_NAME;
+import static com.technology.jep.jepria.shared.JepRiaConstant.DOWNLOAD_FILE_NAME_PREFIX;
+import static com.technology.jep.jepria.shared.JepRiaConstant.DOWNLOAD_MIME_TYPE;
+import static com.technology.jep.jepria.shared.JepRiaConstant.DOWNLOAD_RECORD_KEY;
 import static com.technology.jep.jepria.shared.field.JepFieldNames.MAX_ROW_COUNT;
 import static com.technology.jep.jepria.shared.field.JepTypeEnum.BINARY_FILE;
 import static com.technology.jep.jepria.shared.field.JepTypeEnum.CLOB;
@@ -32,6 +40,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
+import com.technology.jep.jepria.server.DaoProvider;
 import com.technology.jep.jepria.server.download.blob.BinaryFileDownloadLocal;
 import com.technology.jep.jepria.server.download.blob.FileDownloadStream;
 import com.technology.jep.jepria.server.ejb.JepDataStandard;
@@ -59,36 +68,35 @@ import com.technology.jep.jepria.shared.util.SimplePaging;
  * Абстрактный предок сервисов данных Jep
  */
 @SuppressWarnings("serial")
-abstract public class JepDataServiceServlet extends JepServiceServlet implements JepDataService {
+abstract public class JepDataServiceServlet<D extends JepDataStandard> extends JepServiceServlet implements JepDataService {
 	protected static Logger logger = Logger.getLogger(JepDataServiceServlet.class.getName());	
 	
 	protected JepRecordDefinition recordDefinition = null;
-	protected JepSorter sorter = null;
-	protected String ejbName = null;
+	protected JepSorter<JepRecord> sorter = null;
 	protected String dataSourceJndiName = null;
+	protected final D dao;
 	protected String resourceBundleName = null;
 	
-	protected JepDataServiceServlet(JepRecordDefinition recordDefinition, String ejbName) {
+	protected JepDataServiceServlet(JepRecordDefinition recordDefinition, DaoProvider<D> serverFactory) {
 		this.recordDefinition = recordDefinition;
 		this.sorter = new JepSorter<JepRecord>();
-		this.ejbName = ejbName;
+		this.dao = serverFactory.getDao();
 	}
 	
 	/**
 	 * Конструктор необходим при использовании download 
 	 * 
 	 * @param recordDefinition
-	 * @param ejbName
+	 * @param serverFactory
 	 * @param dataSourceJndiName
 	 * @param resourceBundleName
 	 */
 	protected JepDataServiceServlet(
 			JepRecordDefinition recordDefinition,
-			String ejbName,
-			String dataSourceJndiName,
+			DaoProvider<D> serverFactory,
 			String resourceBundleName) {
-		this(recordDefinition, ejbName);
-		this.dataSourceJndiName = dataSourceJndiName;
+		this(recordDefinition, serverFactory);
+		this.dataSourceJndiName = serverFactory.getDataSourceJndiName();
 		this.resourceBundleName = resourceBundleName;
 	}
 
@@ -101,8 +109,7 @@ abstract public class JepDataServiceServlet extends JepServiceServlet implements
 		prepareFileFields(record);
 		
 		try {
-			JepDataStandard ejb = (JepDataStandard) JepServerUtil.ejbLookup(ejbName);
-			ejb.update(record, getOperatorId());
+			dao.update(record, getOperatorId());
 			updateLobFields(record);
 			resultRecord = findByPrimaryKey(recordDefinition.buildPrimaryKeyMap(record));
 			clearFoundRecords(updateConfig);
@@ -125,8 +132,7 @@ abstract public class JepDataServiceServlet extends JepServiceServlet implements
 		prepareFileFields(record);
 		
 		try {
-			JepDataStandard ejb = (JepDataStandard) JepServerUtil.ejbLookup(ejbName);
-			Object recordId = ejb.create(record, getOperatorId());
+			Object recordId = dao.create(record, getOperatorId());
 			String[] primaryKey = recordDefinition.getPrimaryKey();
 			if(recordId != null) {
 				if(primaryKey.length == 1) {
@@ -174,8 +180,7 @@ abstract public class JepDataServiceServlet extends JepServiceServlet implements
 		logger.trace("BEGIN delete(" + record + ")");
 		
 		try {
-			JepDataStandard ejb = (JepDataStandard) JepServerUtil.ejbLookup(ejbName);
-			ejb.delete(record, getOperatorId());
+			dao.delete(record, getOperatorId());
 			clearFoundRecords(deleteConfig);			
 		} catch (Throwable th) {
 			String message = "Delete error";
@@ -209,8 +214,7 @@ abstract public class JepDataServiceServlet extends JepServiceServlet implements
 		
 		Mutable<Boolean> autoRefreshFlag = new Mutable<Boolean>(false);
 		try {
-			JepDataStandard ejb = (JepDataStandard) JepServerUtil.ejbLookup(ejbName);
-			resultRecords = ejb.find(
+			resultRecords = dao.find(
 					findModel,
 					autoRefreshFlag,
 					maxRowCount,

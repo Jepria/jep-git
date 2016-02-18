@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
-import com.technology.jep.jepria.server.ServerFactory;
 import com.technology.jep.jepria.server.security.JepSecurityModule;
+import com.technology.jep.jepria.server.security.SecurityFactory;
 import com.technology.jep.jepria.shared.dto.JepDto;
 import com.technology.jep.jepria.shared.service.JepMainService;
 
@@ -32,7 +32,7 @@ public class JepMainServiceServlet extends JepServiceServlet implements JepMainS
 		logger.debug("getUserData()");
 		JepDto userData = new JepDto();
 		
-		JepSecurityModule securityModule = ServerFactory.getSecurityModule(getThreadLocalRequest());
+		JepSecurityModule securityModule = SecurityFactory.getSecurityModule(getThreadLocalRequest());
 		userData.set(JEP_USER_NAME_FIELD_NAME, securityModule.getUsername());
 		userData.set(OPERATOR_ID, getOperatorId());
 		userData.set(JEP_USER_ROLES_FIELD_NAME, securityModule.getRoles());
@@ -43,6 +43,6 @@ public class JepMainServiceServlet extends JepServiceServlet implements JepMainS
 		logger.debug("logout()");
 		HttpServletRequest request = getThreadLocalRequest();
 		HttpServletResponse response =  getThreadLocalResponse();
-		return ServerFactory.getSecurityModule(request).logout(request, response, currentUrl);
+		return SecurityFactory.getSecurityModule(request).logout(request, response, currentUrl);
 	}
 }

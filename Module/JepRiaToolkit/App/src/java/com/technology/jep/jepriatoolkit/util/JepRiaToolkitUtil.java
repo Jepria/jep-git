@@ -11,8 +11,11 @@ import static com.technology.jep.jepria.shared.field.JepTypeEnum.DATE;
 import static com.technology.jep.jepria.shared.field.JepTypeEnum.INTEGER;
 import static com.technology.jep.jepria.shared.field.JepTypeEnum.STRING;
 import static com.technology.jep.jepria.shared.field.JepTypeEnum.TIME;
+import static org.w3c.dom.Node.ELEMENT_NODE;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileFilter;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -21,13 +24,18 @@ import java.io.InputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.io.Writer;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.nio.channels.FileChannel;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.ResourceBundle;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 import java.util.regex.Pattern;
@@ -42,6 +50,7 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
+import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathException;
 import javax.xml.xpath.XPathExpression;
@@ -54,14 +63,25 @@ import org.apache.tools.ant.taskdefs.Delete;
 import org.apache.tools.ant.taskdefs.Echo;
 import org.apache.tools.ant.taskdefs.Mkdir;
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import com.technology.jep.jepriatoolkit.creator.module.ModuleField;
 import com.technology.jep.jepria.client.ui.WorkstateEnum;
 import com.technology.jep.jepria.shared.field.JepTypeEnum;
 import com.technology.jep.jepriatoolkit.JepRiaToolkitConstant;
+import com.technology.jep.jepriatoolkit.creator.module.Module;
+import com.technology.jep.jepriatoolkit.creator.module.ModuleButton;
+import com.technology.jep.jepriatoolkit.creator.module.ModuleField;
+
+import freemarker.core.ParseException;
+import freemarker.template.Configuration;
+import freemarker.template.MalformedTemplateNameException;
+import freemarker.template.Template;
+import freemarker.template.TemplateException;
+import freemarker.template.TemplateExceptionHandler;
+import freemarker.template.TemplateNotFoundException;
 
 public final class JepRiaToolkitUtil implements JepRiaToolkitConstant {
 
@@ -95,7 +115,6 @@ public final class JepRiaToolkitUtil implements JepRiaToolkitConstant {
 	 * @throws FileNotFoundException
 	 */
 	public static String readFromJar(String jarPath, String charset) {
-		
 		InputStream stream = JepRiaToolkitUtil.class.getResourceAsStream(jarPath);
 		Scanner br = new Scanner(stream, isEmpty(charset) ? UTF_8 : charset);
 		StringBuilder sb = new StringBuilder();
@@ -686,6 +705,19 @@ public final class JepRiaToolkitUtil implements JepRiaToolkitConstant {
 	public static boolean isEmpty(Integer sourceInteger) {
 		return sourceInteger == null || sourceInteger.intValue() == UNDEFINED_INT;
 	}
+	
+	/**
+	 * Функция определяет: является ли переданное ей число пустым или неопределенным.
+	 * 
+	 * @param sourceList
+	 *            исходное число, которое проверяем
+	 * 
+	 * @return возвращает true, если передано значение null или переданное
+	 *         значение не определено
+	 */
+	public static boolean isEmpty(List<?> sourceList) {
+		return sourceList == null || sourceList.isEmpty();
+	}
 
 	/**
 	 * Функция определяет: является ли переданный объект пустым.
@@ -699,6 +731,12 @@ public final class JepRiaToolkitUtil implements JepRiaToolkitConstant {
 			return isEmpty((String) obj);
 		} else if (obj instanceof Integer) {
 			return isEmpty((Integer) obj);
+		}
+		else if (obj instanceof Integer) {
+			return isEmpty((Integer) obj);
+		}
+		else if (obj instanceof List) {
+			return isEmpty((List<?>) obj);
 		}
 		return false;
 	}
@@ -854,4 +892,769 @@ public final class JepRiaToolkitUtil implements JepRiaToolkitConstant {
 			throw new BuildException(errorMessage);
 		}
 	}
+	
+	public static String getDefinitionProperty(String property, String defaultValue, ResourceBundle... appResourceBundles){
+		String value = (appResourceBundles.length == 0 ? applicationResourceBundle : appResourceBundles[0]).getString(property);
+		return isEmpty(value) ? defaultValue : value;
+	}
+	
+	public static String getApplicationDefinitionFile(){
+		File file = new File(System.getProperty(CURRENT_DIRECTORY_ENVIRONMENT_VARIABLE));
+		// filter files in current directory which match the requirements
+		File[] appropriateFiles = file.listFiles(new FileFilter() {
+			@Override
+			public boolean accept(File pathname) {
+				return pathname.getName().endsWith(APPLICATION_SETTING_FILE_ENDING);
+			}
+		});
+		if (appropriateFiles.length > 1){
+			throw new BuildException("You should directly determine file for application definition with help -DAPPLICATION_STRUCTURE_FILE_PATH argument in command line!");
+		}
+		else if (appropriateFiles.length == 0){
+			throw new BuildException("File of application definition not found in current directory!");
+		}
+		else {
+			return appropriateFiles[0].getName();
+		}
+	}
+	
+	private static Configuration cfg = null;
+	
+	public static Configuration getTemplateConfiguration(){
+		if (cfg == null) {
+			// Create your Configuration instance, and specify if up to what FreeMarker
+			// version (here 2.3.22) do you want to apply the fixes that are not 100%
+			// backward-compatible. See the Configuration JavaDoc for details.
+			cfg = new Configuration(Configuration.VERSION_2_3_23);
+	
+			// Specify the source where the template files come from. Here I set a
+			// plain directory for it, but non-file-system sources are possible too:
+			cfg.setClassForTemplateLoading(JepRiaToolkitUtil.class, "/com/technology/jep/jepriatoolkit/creator/template");
+			// Set the preferred charset template files are stored in. UTF-8 is
+			// a good choice in most applications:
+			cfg.setDefaultEncoding(UTF_8);
+			//charset of the output
+			cfg.setOutputEncoding(UTF_8);
+			//default locale
+		    cfg.setLocale(Locale.US);
+			// Sets how errors will appear.
+			// During web page *development* TemplateExceptionHandler.HTML_DEBUG_HANDLER is better.
+			cfg.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
+		}
+		return cfg;
+	}
+	
+	public static void convertTemplateToFile(String templateFile, Map<String, Object> dataToMap, String resultFile){
+		try {
+			Template webXmlTemplate = getTemplateConfiguration().getTemplate(templateFile);
+			Writer bufferedWriter = new BufferedWriter(
+				new OutputStreamWriter(
+					new FileOutputStream(
+						resultFile
+					), 
+					UTF_8
+				)
+			);
+			try {
+				webXmlTemplate.process(dataToMap, bufferedWriter);
+			}
+			finally {
+				bufferedWriter.close();
+			}
+			
+		} catch (TemplateNotFoundException e) {
+			e.printStackTrace();
+		} catch (MalformedTemplateNameException e) {
+			e.printStackTrace();
+		} catch (ParseException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (TemplateException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Получение списка идентификаторов полей, отсутствующих в списке
+	 * перечисления record'ов, но указанных среди полей списочной или детальной
+	 * форм
+	 * 
+	 * @param jepApplicationDoc Файл структуры проекта
+	 * @param moduleId Идентификатор модуля
+	 * @param mfList Имеющийся список полей данного модуля
+	 * @return список идентификаторов отсутствующих полей
+	 */
+	public static List<String> getListOfAbsentFieldNameByModuleId(Document jepApplicationDoc, String moduleId, List<ModuleField> mfList) {
+		List<String> result = new ArrayList<String>();
+		Element formDetailElement = getFormDetailElementByModuleId(jepApplicationDoc, moduleId);
+		Element formListElement = getFormListElementByModuleId(jepApplicationDoc, moduleId);
+
+		if (!isEmpty(formDetailElement)) {
+			NodeList formDetailNodes = formDetailElement.getChildNodes();
+			for (int i = 0; i < formDetailNodes.getLength(); i++) {
+				if (formDetailNodes.item(i).getNodeType() == ELEMENT_NODE) {
+					Element formDetailNode = (Element) formDetailNodes.item(i);
+					String formDetailNodeId = formDetailNode.getAttribute(FIELD_ID_ATTRIBUTE).toUpperCase();
+					boolean existSuchNode = false;
+					for (ModuleField field : mfList) {
+						if (field.getFieldId().equalsIgnoreCase(formDetailNodeId)) {
+							existSuchNode = true;
+							break;
+						}
+					}
+					if (!existSuchNode && !result.contains(formDetailNodeId)) {
+						result.add(formDetailNodeId);
+					}
+				}
+			}
+		}
+
+		if (!isEmpty(formListElement)) {
+			NodeList formListNodes = formListElement.getChildNodes();
+			for (int i = 0; i < formListNodes.getLength(); i++) {
+				if (formListNodes.item(i).getNodeType() == ELEMENT_NODE) {
+					Element formListNode = (Element) formListNodes.item(i);
+					String formListNodeId = formListNode.getAttribute(FIELD_ID_ATTRIBUTE).toUpperCase();
+					boolean existSuchNode = false;
+					for (ModuleField field : mfList) {
+						if (field.getFieldId().equalsIgnoreCase(formListNodeId)) {
+							existSuchNode = true;
+							break;
+						}
+					}
+					if (!existSuchNode && !result.contains(formListNodeId)) {
+						result.add(formListNodeId);
+					}
+				}
+			}
+		}
+
+		return result;
+	}
+	
+	/**
+	 * Получение ссылки на узел детальной формы по указанному идентификатору
+	 * модуля
+	 * @param jepApplicationDoc Файл структуры проекта
+	 * @param moduleId Идентификатор модуля
+	 * 
+	 * @return XML-узел в JepApplication.xml
+	 */
+	public static Element getFormDetailElementByModuleId(Document jepApplicationDoc, String moduleId) {
+		try {
+			XPathFactory factory = XPathFactory.newInstance();
+			XPath xpath = factory.newXPath();
+			XPathExpression expr = xpath.compile(multipleConcat("//", MODULE_TAG_NAME, "[normalize-space(@", MODULE_ID_ATTRIBUTE,
+					") = '", moduleId, "']", "/", FORMS_TAG_NAME, "/", DETAIL_FORM_TAG_NAME));
+			return (Element) expr.evaluate(jepApplicationDoc, XPathConstants.NODE);
+		} catch (Exception e) {
+			echoMessage(multipleConcat(ERROR_PREFIX, e.getLocalizedMessage()));
+		}
+		return null;
+	}
+	
+	/**
+	 * Получение ссылки на узел списочной формы по указанному идентификатору
+	 * модуля
+	 * @param jepApplicationDoc Файл структуры проекта
+	 * @param moduleId Идентификатор модуля
+	 * 
+	 * @return XML-узел в JepApplication.xml
+	 */
+	public static Element getFormListElementByModuleId(Document jepApplicationDoc, String moduleId) {
+		try {
+			XPathFactory factory = XPathFactory.newInstance();
+			XPath xpath = factory.newXPath();
+			XPathExpression expr = xpath.compile(multipleConcat("//", MODULE_TAG_NAME, "[normalize-space(@", MODULE_ID_ATTRIBUTE,
+					") = '", moduleId, "']", "/", FORMS_TAG_NAME, "/", LIST_FORM_TAG_NAME));
+			return (Element) expr.evaluate(jepApplicationDoc, XPathConstants.NODE);
+		} catch (Exception e) {
+			echoMessage(multipleConcat(ERROR_PREFIX, e.getLocalizedMessage()));
+		}
+		return null;
+	}
+	
+	/**
+	 * Детализация элемента-поля GWT-модуля как представителя списочной формы
+	 * 
+	 * @param jepApplicationDoc Файл структуры проекта
+	 * @param recordField Элемент-поле
+	 */
+	private static void detailizedModuleFieldAsDetailed(Document jepApplicationDoc, Module module, ModuleField recordField) {
+		Element field = null;
+		String fieldId = recordField.getFieldId();
+		String moduleId = recordField.getModuleId();
+		Element formDetailElement = getFormDetailElementByModuleId(jepApplicationDoc, moduleId);
+		try {
+			XPathFactory factory = XPathFactory.newInstance();
+			XPath xpath = factory.newXPath();
+			XPathExpression expr = xpath.compile(multipleConcat("//", MODULE_TAG_NAME, "[normalize-space(@", MODULE_ID_ATTRIBUTE,
+					") = '", moduleId, "']", "/", FORMS_TAG_NAME, "/", DETAIL_FORM_TAG_NAME, "/", FIELD_TAG_NAME, "[translate(normalize-space(@",
+					FIELD_ID_ATTRIBUTE, "),'", ALPHABET_LOWER_CASE, "','", ALPHABET_UPPER_CASE, "') = '", fieldId.toUpperCase(), "']"));
+			field = (Element) expr.evaluate(jepApplicationDoc, XPathConstants.NODE);
+		} catch (Exception e) {
+			echoMessage(multipleConcat(ERROR_PREFIX, e.getLocalizedMessage()));
+		}
+		if (!isEmpty(formDetailElement) && isEmpty(module.getFieldLabelWidth())) {
+			module.setFieldLabelWidth(formDetailElement.getAttribute(FIELD_LABEL_WIDTH_ATTRIBUTE));
+		}
+		if (!isEmpty(field)) {
+			recordField.setDetailFormField(true);
+			String fieldWidget = isEmpty(field.getAttribute(FIELD_WIDGET_ATTRIBUTE)) ? null : field.getAttribute(FIELD_WIDGET_ATTRIBUTE)
+					.trim();
+			if (!isEmpty(fieldWidget)) {
+				recordField.setFieldWidget(fieldWidget);
+			}
+			String name = new String();
+			if (!isEmpty(name = field.getAttribute(FIELD_NAME_ATTRIBUTE))) {
+				recordField.setFieldDetailFormName(name.trim());
+			}
+			if (!isEmpty(name = field.getAttribute(FIELD_NAME_EN_ATTRIBUTE))) {
+				recordField.setFieldDetailFormNameEn(name.trim());
+			}
+			if (isEmpty(recordField.getFieldType())) {
+				recordField.setFieldType(isEmpty(field.getAttribute(FIELD_TYPE_ATTRIBUTE)) ? null : field.getAttribute(
+						FIELD_TYPE_ATTRIBUTE).trim());
+			}
+			if (!isEmpty(name = field.getAttribute(FIELD_MAX_LENGTH_ATTRIBUTE))) {
+				recordField.setFieldMaxLength(name.trim());
+			}
+			if (!isEmpty(name = field.getAttribute(FIELD_WIDTH_ATTRIBUTE))) {
+				recordField.setFieldWidth(name.trim());
+			}
+			String labelWidth = module.getFieldLabelWidth();
+			if (!isEmpty(name = field.getAttribute(FIELD_LABEL_WIDTH_ATTRIBUTE))) {
+				recordField.setLabelWidth(name.trim());
+			} else if (isEmpty(recordField.getLabelWidth()) && !isEmpty(labelWidth)) {
+				recordField.setLabelWidth(labelWidth);
+			}
+			if (!isEmpty(name = field.getAttribute(FIELD_HEIGHT_ATTRIBUTE))) {
+				recordField.setFieldHeight(name.trim());
+			}
+			if (!isEmpty(name = field.getAttribute(FIELD_VISIBLE_WORKSTATES_ATTRIBUTE))) {
+				recordField.setVisibleWorkStates(name.trim().toUpperCase());
+			}
+			if (!isEmpty(name = field.getAttribute(FIELD_MANDATORY_WORKSTATES_ATTRIBUTE))) {
+				recordField.setMandatoryWorkStates(name.trim().toUpperCase());
+			}
+			
+			if (!isEmpty(name = field.getAttribute(FIELD_EDITABLE_WORKSTATES_ATTRIBUTE))) {
+				recordField.setEditableWorkStates(name.trim().toUpperCase());
+			} else if (field.hasAttribute(FIELD_EDITABLE_WORKSTATES_ATTRIBUTE) 
+					&& isEmpty(field.getAttribute(FIELD_EDITABLE_WORKSTATES_ATTRIBUTE)))
+			{
+				recordField.setIsEditable(false);
+			}
+				
+			if (!isEmpty(name = field.getAttribute(FIELD_ENABLE_WORKSTATES_ATTRIBUTE))) {
+				recordField.setEnableWorkStates(name.trim().toUpperCase());
+			}
+
+			NodeList detailFormNodeList = field.getParentNode().getChildNodes();
+			int counter = 0;
+			for (int index = 0; index < detailFormNodeList.getLength(); index++) {
+				Node node = detailFormNodeList.item(index);
+				if (node.getNodeType() == ELEMENT_NODE) {
+					Element nodeEl = (Element) node;
+					if (fieldId.equalsIgnoreCase(nodeEl.getAttribute(FIELD_ID_ATTRIBUTE))) {
+						recordField.setDetailFormIndex(counter);
+					} else if (isRecordField(jepApplicationDoc, moduleId, nodeEl.getAttribute(FIELD_ID_ATTRIBUTE))) {
+						counter++;
+					}
+				}
+			}
+		}
+	}
+
+	
+
+	/**
+	 * Детализация элемента-поля GWT-модуля как представителя детальной формы
+	 * 
+	 * @param jepApplicationDoc Файл структуры проекта
+	 * @param recordField Элемент-поле
+	 */
+	private static void detailizedModuleFieldAsListed(Document jepApplicationDoc, Module module, ModuleField recordField) {
+		Element field = null;
+		String fieldId = recordField.getFieldId();
+		String moduleId = recordField.getModuleId();
+		Element formList = getFormListElementByModuleId(jepApplicationDoc, moduleId);
+		try {
+			XPathFactory factory = XPathFactory.newInstance();
+			XPath xpath = factory.newXPath();
+			XPathExpression expr = xpath.compile(multipleConcat("//", MODULE_TAG_NAME, "[normalize-space(@", MODULE_ID_ATTRIBUTE,
+					") = '", moduleId, "']", "/", FORMS_TAG_NAME, "/", LIST_FORM_TAG_NAME, "/", FIELD_TAG_NAME, "[translate(normalize-space(@",
+					FIELD_ID_ATTRIBUTE, "),'", ALPHABET_LOWER_CASE, "','", ALPHABET_UPPER_CASE, "') = '", fieldId.toUpperCase(), "']"));
+			field = (Element) expr.evaluate(jepApplicationDoc, XPathConstants.NODE);
+		} catch (Exception e) {
+			echoMessage(multipleConcat(ERROR_PREFIX, e.getLocalizedMessage()));
+		}
+		if (!isEmpty(formList)) {
+			String groupFieldName = formList.getAttribute(LIST_FORM_GROUP_FIELD_NAME_ATTRIBUTE);
+			recordField.setGroupFormField(recordField.getFieldId().equalsIgnoreCase(groupFieldName));
+
+			if (module.isDNDOff())
+				module.setDNDOff(isEmpty(formList.getAttribute(LIST_FORM_DND_NAME_ATTRIBUTE))
+						|| OFF.equalsIgnoreCase(formList.getAttribute(LIST_FORM_DND_NAME_ATTRIBUTE)));
+
+			if (!module.isDblClickOff())
+				module.setDblClickOff(OFF.equalsIgnoreCase(formList.getAttribute(DBL_CLICK_NAME_ATTRIBUTE)));
+
+			String presenterAttribute = formList.getAttribute(LIST_FORM_PRESENTER_ATTRIBUTE);
+			if (!module.hasListFormPresenter() && !isEmpty(presenterAttribute))
+				module.setHasListFormPresenter(!OFF.equalsIgnoreCase(presenterAttribute));
+		}
+		if (!isEmpty(field)) {
+			recordField.setListFormField(true);
+			String name = new String();
+			if (!isEmpty(name = field.getAttribute(FIELD_NAME_ATTRIBUTE))) {
+				recordField.setFieldListFormName(name.trim());
+			}
+			if (!isEmpty(name = field.getAttribute(FIELD_NAME_EN_ATTRIBUTE))) {
+				recordField.setFieldListFormNameEn(name.trim());
+			}
+			if (isEmpty(recordField.getFieldType())) {
+				recordField.setFieldType(isEmpty(field.getAttribute(FIELD_TYPE_ATTRIBUTE)) ? null : field.getAttribute(
+						FIELD_TYPE_ATTRIBUTE).trim());
+			}
+			if (!isEmpty(name = field.getAttribute(FIELD_WIDTH_ATTRIBUTE))) {
+				recordField.setColumnWidth(name.trim());
+			}
+		}
+
+		NodeList listFormNodeList = formList.getChildNodes();
+		int counter = 0;
+		for (int index = 0; index < listFormNodeList.getLength(); index++) {
+			Node node = listFormNodeList.item(index);
+			if (node.getNodeType() == ELEMENT_NODE) {
+				Element nodeEl = (Element) node;
+				if (fieldId.equalsIgnoreCase(nodeEl.getAttribute(FIELD_ID_ATTRIBUTE))) {
+					recordField.setListFormIndex(counter);
+				} else if (isRecordField(jepApplicationDoc, moduleId, nodeEl.getAttribute(FIELD_ID_ATTRIBUTE))) {
+					counter++;
+				}
+			}
+		}
+	}
+
+	/**
+	 * Детализация элемента-поля GWT-модуля как параметра для EJB-методов
+	 * 
+	 * @param jepApplicationDoc Файл структуры проекта
+	 * @param recordField Элемент-поле
+	 */
+	private static void detailizedModuleFieldAsParameters(Document jepApplicationDoc, ModuleField recordField) {
+		String fieldId = recordField.getFieldId();
+		String moduleId = recordField.getModuleId();
+		try {
+			XPathFactory factory = XPathFactory.newInstance();
+			XPath xpath = factory.newXPath();
+			XPathExpression expr = xpath.compile(JepRiaToolkitUtil
+					.multipleConcat("//", MODULE_TAG_NAME, "[normalize-space(@", MODULE_ID_ATTRIBUTE, ") = '", moduleId, "']", "/",
+							DATABASE_TAG_NAME, "/find[@", DATABASE_PARAMETERS_TAG_NAME, "]", "/@", DATABASE_PARAMETERS_TAG_NAME));
+			String findParameters = (String) expr.evaluate(jepApplicationDoc, XPathConstants.STRING);
+			List<String> parameters = Arrays.asList(findParameters.replaceAll(WHITE_SPACE, "").toUpperCase().split(SEPARATOR));
+
+			recordField.setFindParameter(!isEmpty(findParameters) && parameters.contains(fieldId));
+
+			xpath.reset();
+			expr = xpath.compile(multipleConcat("//", MODULE_TAG_NAME, "[normalize-space(@", MODULE_ID_ATTRIBUTE, ") = '", moduleId,
+					"']", "/", DATABASE_TAG_NAME, "/create[@", DATABASE_PARAMETERS_TAG_NAME, "]", "/@", DATABASE_PARAMETERS_TAG_NAME));
+			String createParameters = (String) expr.evaluate(jepApplicationDoc, XPathConstants.STRING);
+			parameters = Arrays.asList(createParameters.replaceAll(WHITE_SPACE, "").toUpperCase().split(SEPARATOR));
+			recordField.setCreateParameter(!isEmpty(createParameters) && parameters.contains(fieldId));
+
+			xpath.reset();
+			expr = xpath.compile(multipleConcat("//", MODULE_TAG_NAME, "[normalize-space(@", MODULE_ID_ATTRIBUTE, ") = '", moduleId,
+					"']", "/", DATABASE_TAG_NAME, "/update[@", DATABASE_PARAMETERS_TAG_NAME, "]", "/@", DATABASE_PARAMETERS_TAG_NAME));
+			String updateParameters = (String) expr.evaluate(jepApplicationDoc, XPathConstants.STRING);
+			parameters = Arrays.asList(updateParameters.replaceAll(WHITE_SPACE, "").toUpperCase().split(SEPARATOR));
+			recordField.setUpdateParameter(!isEmpty(updateParameters) && parameters.contains(fieldId));
+
+			recordField.setDeleteParameter(recordField.getIsPrimaryKey());
+		} catch (Exception e) {
+			echoMessage(multipleConcat(ERROR_PREFIX, e.getLocalizedMessage()));
+		}
+	}
+
+	/**
+	 * Детализация префиксов для параметров полей
+	 * 
+	 * @param jepApplicationDoc Файл структуры проекта
+	 * @param recordField Элемент поле
+	 */
+	private static void detailizedPrefixModuleFieldParameters(Document jepApplicationDoc, Module module) {
+		String defaultPrefix = null;
+		String moduleId = module.getModuleId();
+		try {
+			XPathFactory factory = XPathFactory.newInstance();
+			XPath xpath = factory.newXPath();
+			XPathExpression expr = xpath.compile(multipleConcat("//", MODULE_TAG_NAME, "[normalize-space(@", MODULE_ID_ATTRIBUTE,
+					") = '", moduleId, "']/", DATABASE_TAG_NAME, "[@", DATABASE_PREFIX_ATTRIBUTE_NAME, "]/@", DATABASE_PREFIX_ATTRIBUTE_NAME));
+			defaultPrefix = (String) expr.evaluate(jepApplicationDoc, XPathConstants.STRING);
+			defaultPrefix = !isEmpty(defaultPrefix) ? defaultPrefix.trim() : null;
+			module.setDefaultParameterPrefix(defaultPrefix);
+
+			xpath.reset();
+			expr = xpath.compile(multipleConcat("//", MODULE_TAG_NAME, "[normalize-space(@", MODULE_ID_ATTRIBUTE, ") = '", moduleId,
+					"']/", DATABASE_TAG_NAME, "/create[@", DATABASE_PREFIX_ATTRIBUTE_NAME, "]/@", DATABASE_PREFIX_ATTRIBUTE_NAME));
+			String createParameterPrefix = (String) expr.evaluate(jepApplicationDoc, XPathConstants.STRING);
+			createParameterPrefix = !isEmpty(createParameterPrefix) ? createParameterPrefix.trim() : defaultPrefix;
+			if (!isEmpty(createParameterPrefix))
+				module.setCreateParameterPrefix(createParameterPrefix);
+
+			xpath.reset();
+			expr = xpath.compile(multipleConcat("//", MODULE_TAG_NAME, "[normalize-space(@", MODULE_ID_ATTRIBUTE, ") = '", moduleId,
+					"']/", DATABASE_TAG_NAME, "/update[@", DATABASE_PREFIX_ATTRIBUTE_NAME, "]/@", DATABASE_PREFIX_ATTRIBUTE_NAME));
+			String updateParameterPrefix = (String) expr.evaluate(jepApplicationDoc, XPathConstants.STRING);
+			updateParameterPrefix = !isEmpty(updateParameterPrefix) ? updateParameterPrefix.trim() : defaultPrefix;
+			if (!isEmpty(updateParameterPrefix))
+				module.setUpdateParameterPrefix(updateParameterPrefix);
+
+			xpath.reset();
+			expr = xpath.compile(multipleConcat("//", MODULE_TAG_NAME, "[normalize-space(@", MODULE_ID_ATTRIBUTE, ") = '", moduleId,
+					"']/", DATABASE_TAG_NAME, "/find[@", DATABASE_PREFIX_ATTRIBUTE_NAME, "]/@", DATABASE_PREFIX_ATTRIBUTE_NAME));
+			String findParameterPrefix = (String) expr.evaluate(jepApplicationDoc, XPathConstants.STRING);
+			findParameterPrefix = !isEmpty(findParameterPrefix) ? findParameterPrefix.trim() : defaultPrefix;
+			if (!isEmpty(findParameterPrefix))
+				module.setFindParameterPrefix(findParameterPrefix);
+		} catch (Exception e) {
+			echoMessage(multipleConcat(ERROR_PREFIX, e.getLocalizedMessage()));
+		}
+	}
+	
+	/**
+	 * Является ли поле с указанным ID рекорд дефинишном
+	 * 
+	 * @param jepApplicationDoc Файл структуры проекта
+	 * @param moduleId Идентификатор модуля
+	 * @param fieldId Идентификатор поля
+	 * 
+	 * @return флаг, указывающий является ли поле рекорд дефинишном
+	 */
+	private static boolean isRecordField(Document jepApplicationDoc, String moduleId, String fieldId) {
+		try {
+			XPathFactory factory = XPathFactory.newInstance();
+			XPath xpath = factory.newXPath();
+			XPathExpression expr = xpath.compile(multipleConcat("//", MODULE_TAG_NAME, "[normalize-space(@", MODULE_ID_ATTRIBUTE,
+					") = '", moduleId, "']", "/record/", FIELD_TAG_NAME, "[translate(normalize-space(@", FIELD_ID_ATTRIBUTE, "),'",
+					ALPHABET_LOWER_CASE, "','", ALPHABET_UPPER_CASE, "') = '", fieldId.toUpperCase(), "']"));
+			return !isEmpty((Element) expr.evaluate(jepApplicationDoc, XPathConstants.NODE));
+		} catch (Exception e) {
+			echoMessage(multipleConcat(ERROR_PREFIX, e.getLocalizedMessage()));
+		}
+		return false;
+	}
+	
+	/**
+	 * Детализация элемента-поля GWT-модуля
+	 * 
+	 * @param jepApplicationDoc Файл структуры проекта
+	 * @param recordField  Элемент-поле
+	 */
+	public static void detailizedModuleField(Document jepApplicationDoc, Module module, ModuleField recordField) {
+		try {
+			detailizedModuleFieldAsDetailed(jepApplicationDoc, module, recordField);
+			detailizedModuleFieldAsListed(jepApplicationDoc, module, recordField);
+			detailizedModuleFieldAsParameters(jepApplicationDoc, recordField);
+			detailizedPrefixModuleFieldParameters(jepApplicationDoc, module);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Детализация элемента-поля GWT-модуля как параметра для EJB-методов
+	 * 
+	 * @param jepApplicationDoc Файл структуры проекта
+	 * @param module Элемент-модуль
+	 * @param moduleNode DOM-элемент модуля
+	 */
+	public static void detailizedModuleForToolBar(Document jepApplicationDoc, Module module, Element moduleNode) {
+
+		module.setToolBarOff(OFF.equalsIgnoreCase(moduleNode.getAttribute(MODULE_TOOLBAR_ATTRIBUTE)));
+		module.setStatusbarOff(OFF.equalsIgnoreCase(moduleNode.getAttribute(MODULE_STATUSBAR_ATTRIBUTE)));
+
+		String moduleId = module.getModuleId();
+		NodeList nodes = null;
+		Element toolbar = null;
+		try {
+			XPathFactory factory = XPathFactory.newInstance();
+			XPath xpath = factory.newXPath();
+			XPathExpression expr = xpath.compile(multipleConcat("//", MODULE_TAG_NAME, "[normalize-space(@", MODULE_ID_ATTRIBUTE,
+					") = '", moduleId, "']", "/", TOOLBAR_TAG_NAME, "/", BUTTON_TAG_NAME, " | ", "//", MODULE_TAG_NAME, "[normalize-space(@",
+					MODULE_ID_ATTRIBUTE, ") = '", moduleId, "']", "/", TOOLBAR_TAG_NAME, "/", SEPARATOR_TAG_NAME));
+			nodes = (NodeList) expr.evaluate(jepApplicationDoc, XPathConstants.NODESET);
+
+			expr = xpath.compile(multipleConcat("//", MODULE_TAG_NAME, "[normalize-space(@", MODULE_ID_ATTRIBUTE, ") = '", moduleId,
+					"']", "/", TOOLBAR_TAG_NAME));
+			toolbar = (Element) expr.evaluate(jepApplicationDoc, XPathConstants.NODE);
+		} catch (Exception e) {
+			echoMessage(multipleConcat(ERROR_PREFIX, e.getLocalizedMessage()));
+		}
+		if (!isEmpty(toolbar)) {
+			String toolbarPresenter = toolbar.getAttribute(TOOLBAR_PRESENTER_ATTRIBUTE), toolbarView = toolbar.getAttribute(TOOLBAR_VIEW_ATTRIBUTE);
+			if (!module.hasToolBarPresenter() && !isEmpty(toolbarPresenter))
+				module.setHasToolBarPresenter(!OFF.equalsIgnoreCase(toolbarPresenter));
+			if (!module.hasToolBarView() && !isEmpty(toolbarView))
+				module.setHasToolBarView(!OFF.equalsIgnoreCase(toolbarView));
+		}
+		if (!isEmpty(nodes)) {
+			for (int i = 0; i < nodes.getLength(); i++) {
+				if (nodes.item(i).getNodeType() == ELEMENT_NODE) {
+					Element node = (Element) nodes.item(i);
+					String buttonId = node.getAttribute(BUTTON_ID_ATTRIBUTE);
+					if (EXCEL_BUTTON_ID.equals(buttonId)) {
+						module.setExcelAvailable(true);
+					}
+					String buttonEnableStatesAttribute = node.getAttribute(BUTTON_ENABLE_STATES_ATTRIBUTE);
+					buttonEnableStatesAttribute = isEmpty(buttonEnableStatesAttribute) ? buttonEnableStatesAttribute
+							: buttonEnableStatesAttribute.toUpperCase();
+
+					List<WorkstateEnum> workstates = getWorkStates(buttonEnableStatesAttribute);
+					module.getToolBarButtons().add(
+							new ModuleButton(buttonId, !isEmpty(workstates) ? workstates.toArray(new WorkstateEnum[workstates.size()])
+									: new WorkstateEnum[] {}, node.getAttribute(BUTTON_IMAGE_ATTRIBUTE), node.getAttribute(BUTTON_EVENT_ATTRIBUTE), node
+									.getAttribute(BUTTON_TEXT_ATTRIBUTE), node.getAttribute(BUTTON_NAME_ATTRIBUTE), node
+									.getAttribute(BUTTON_NAME_EN_ATTRIBUTE)).setSeparator(!nodes.item(i).getNodeName()
+									.equalsIgnoreCase(BUTTON_TAG_NAME)));
+				}
+			}
+		}
+	}
+	
+	/**
+	 * Получение списка всех модулей, описанных в файле настроек сборщика
+	 * приложения
+	 * 
+	 * @param jepApplicationDoc Файл структуры проекта
+	 * @return список всех описанных модулей
+	 */
+	public static List<String> getAllModuleNodes(Document jepApplicationDoc) {
+		NodeList nodes = null;
+		List<String> result = new ArrayList<String>();
+		try {
+			XPathFactory factory = XPathFactory.newInstance();
+			XPath xpath = factory.newXPath();
+			XPathExpression expr = xpath.compile(multipleConcat("//", MODULE_TAG_NAME));
+			nodes = (NodeList) expr.evaluate(jepApplicationDoc, XPathConstants.NODESET);
+		} catch (Exception e) {
+			echoMessage(multipleConcat(ERROR_PREFIX, e.getLocalizedMessage()));
+		}
+		for (int i = 0; i < nodes.getLength(); i++) {
+			Element node = (Element) nodes.item(i);
+			String moduleId = node.getAttribute(MODULE_ID_ATTRIBUTE);
+			if (!isEmpty(moduleId)) {
+				if (!result.contains(moduleId)) // avgrishaev: lets try to skip duplicated...
+					result.add(moduleId);
+			}
+		}
+
+		return result;
+	}
+	
+	/**
+	 * Получение списка модулей одного Scope
+	 * 
+	 * @param jepApplicationDoc Файл структуры проекта
+	 * @param moduleId идентификатор модуля, для которого имеется множество вложенных подмодулей
+	 * 
+	 * @return список модулей
+	 */
+	public static List<String> getNodesWithChildren(Document jepApplicationDoc, String moduleId) {
+		NodeList nodes = null;
+		List<String> result = null;
+		try {
+			XPathFactory factory = XPathFactory.newInstance();
+			XPath xpath = factory.newXPath();
+			XPathExpression expr = xpath.compile(multipleConcat("//", MODULE_TAG_NAME, "[normalize-space(@", MODULE_ID_ATTRIBUTE,
+					") = '", moduleId, "']/", MODULE_TAG_NAME));
+			nodes = (NodeList) expr.evaluate(jepApplicationDoc, XPathConstants.NODESET);
+		} catch (Exception e) {
+			echoMessage(multipleConcat(ERROR_PREFIX, e.getLocalizedMessage()));
+		}
+		if (nodes.getLength() > 0) {
+			result = new ArrayList<String>();
+			result.add(moduleId.trim());
+			for (int i = 0; i < nodes.getLength(); i++) {
+				String modulId = ((Element) nodes.item(i)).getAttribute(MODULE_ID_ATTRIBUTE);
+				if (isEmpty(modulId))
+					echoMessage(multipleConcat(ERROR_PREFIX, "Attribute ", MODULE_ID_ATTRIBUTE,
+							" is mandatory! Please fill it."));
+				else
+					result.add(modulId.trim());
+			}
+		}
+
+		return result;
+	}
+
+	/**
+	 * Получение XML-элемента, являющегося GWT-модулем по его ID
+	 * 
+	 * @param jepApplicationDoc Файл структуры проекта
+	 * @param moduleId идентификатор модуля
+	 * 
+	 * @return элемент-модуль
+	 */
+	public static Element getModuleNodeById(Document jepApplicationDoc, String moduleId) {
+		Element module = null;
+		try {
+			XPathFactory factory = XPathFactory.newInstance();
+			XPath xpath = factory.newXPath();
+			XPathExpression expr = xpath.compile(multipleConcat("//", MODULE_TAG_NAME, "[normalize-space(@", MODULE_ID_ATTRIBUTE,
+					") = '", moduleId, "']"));
+			module = (Element) expr.evaluate(jepApplicationDoc, XPathConstants.NODE);
+		} catch (Exception e) {
+			echoMessage(multipleConcat(ERROR_PREFIX, e.getLocalizedMessage()));
+		}
+		return module;
+	}
+
+	/**
+	 * Получение списка элементов-полей для модуля
+	 * 
+	 * @param jepApplicationDoc Файл структуры проекта
+	 * @param moduleId идентификатор модуля
+	 * 
+	 * @return список элементов-полей
+	 */
+	public static List<Element> getModuleFieldsById(Document jepApplicationDoc, String moduleId) {
+		NodeList fields = null;
+		List<Element> result = null;
+		try {
+			XPathFactory factory = XPathFactory.newInstance();
+			XPath xpath = factory.newXPath();
+			XPathExpression expr = xpath.compile(multipleConcat("//", MODULE_TAG_NAME, "[normalize-space(@", MODULE_ID_ATTRIBUTE,
+					") = '", moduleId, "']/record/field"));
+			fields = (NodeList) expr.evaluate(jepApplicationDoc, XPathConstants.NODESET);
+		} catch (Exception e) {
+			echoMessage(multipleConcat(ERROR_PREFIX, e.getLocalizedMessage()));
+		}
+		if (fields.getLength() > 0) {
+			result = new ArrayList<Element>();
+			for (int i = 0; i < fields.getLength(); i++) {
+				result.add((Element) fields.item(i));
+			}
+		}
+		return result;
+	}
+
+	/**
+	 * Получение первичного ключа для модуля
+	 * 
+	 * @param jepApplicationDoc Файл структуры проекта
+	 * @param moduleId идентификатор модуля
+	 * 
+	 * @return значение первичного ключа
+	 */
+	public static String getPrimaryKeyById(Document jepApplicationDoc, String moduleId) {
+		String result = null;
+		try {
+			XPathFactory factory = XPathFactory.newInstance();
+			XPath xpath = factory.newXPath();
+			XPathExpression expr = xpath.compile(multipleConcat("//", MODULE_TAG_NAME, "[normalize-space(@", MODULE_ID_ATTRIBUTE,
+					") = '", moduleId, "']/record[@", MODULE_PRIMARY_KEY_ATTRIBUTE, "]/@", MODULE_PRIMARY_KEY_ATTRIBUTE));
+			result = (String) expr.evaluate(jepApplicationDoc, XPathConstants.STRING);
+		} catch (Exception e) {
+			echoMessage(multipleConcat(ERROR_PREFIX, e.getLocalizedMessage()));
+		}
+		return !isEmpty(result) ? result.trim().toUpperCase() : null;
+	}
+
+	/**
+	 * Получение наименования таблицы для модуля
+	 * 
+	 * @param jepApplicationDoc Файл структуры проекта
+	 * @param moduleId идентификатор модуля
+	 * 
+	 * @return наименование таблицы
+	 */
+	public static String getTableById(Document jepApplicationDoc, String moduleId) {
+		String result = null;
+		try {
+			XPathFactory factory = XPathFactory.newInstance();
+			XPath xpath = factory.newXPath();
+			XPathExpression expr = xpath.compile(multipleConcat("//", MODULE_TAG_NAME, "[normalize-space(@", MODULE_ID_ATTRIBUTE,
+					") = '", moduleId, "']/record[@", MODULE_TABLE_NAME_ATTRIBUTE, "]/@", MODULE_TABLE_NAME_ATTRIBUTE));
+			result = (String) expr.evaluate(jepApplicationDoc, XPathConstants.STRING);
+		} catch (Exception e) {
+			echoMessage(multipleConcat(ERROR_PREFIX, e.getLocalizedMessage()));
+		}
+		return !isEmpty(result) ? result.trim().toLowerCase() : null;
+	}
+
+	/**
+	 * Получение списка ролей GWT-модуля
+	 * 
+	 * @param jepApplicationDoc Файл структуры проекта
+	 * @param moduleId идентификатор модуля
+	 * 
+	 * @return список ролей
+	 */
+	public static List<String> getModuleSecurityRoles(Document jepApplicationDoc, String moduleId) {
+		NodeList result = null;
+		List<String> moduleRoles = new ArrayList<String>();
+		try {
+			XPathFactory factory = XPathFactory.newInstance();
+			XPath xpath = factory.newXPath();
+			XPathExpression expr = xpath.compile(multipleConcat("//", MODULE_TAG_NAME, "[normalize-space(@", MODULE_ID_ATTRIBUTE,
+					") = '", moduleId, "']/", MODULE_ROLES_ATTRIBUTE, "/", MODULE_ROLE_ATTRIBUTE));
+			result = (NodeList) expr.evaluate(jepApplicationDoc, XPathConstants.NODESET);
+			for (int i = 0; i < result.getLength(); i++) {
+				moduleRoles.add(((Node) result.item(i)).getTextContent().trim());
+			}
+
+		} catch (Exception e) {
+			echoMessage(multipleConcat(ERROR_PREFIX, e.getLocalizedMessage()));
+		}
+		return moduleRoles;
+	}
+
+	/**
+	 * Получение источника данных для GWT-модуля
+	 * 
+	 * @param jepApplicationDoc Файл структуры проекта
+	 * @param moduleId идентификатор модуля
+	 * 
+	 * @return источник данных
+	 */
+	public static String getDataSourceById(Document jepApplicationDoc, String moduleId) {
+		String result = null;
+		try {
+			XPathFactory factory = XPathFactory.newInstance();
+			XPath xpath = factory.newXPath();
+			XPathExpression expr = xpath.compile(multipleConcat("//", MODULE_TAG_NAME, "[normalize-space(@", MODULE_ID_ATTRIBUTE,
+					") = '", moduleId, "']/", DATABASE_TAG_NAME, "[@", MODULE_DATASOURCE_ATTRIBUTE, "]/@", MODULE_DATASOURCE_ATTRIBUTE));
+			result = (String) expr.evaluate(jepApplicationDoc, XPathConstants.STRING);
+		} catch (Exception e) {
+			echoMessage(multipleConcat(ERROR_PREFIX, e.getLocalizedMessage()));
+		}
+		return !isEmpty(result) ? result.trim() : null;
+	}
+
+	/**
+	 * Получение наименования пакета для GWT-модуля
+	 * 
+	 * @param jepApplicationDoc Файл структуры проекта
+	 * @param moduleId идентификатор модуля
+	 * 
+	 * @return наименование пакета
+	 */
+	public static String getPackageById(Document jepApplicationDoc, String moduleId) {
+		String result = null;
+		try {
+			XPathFactory factory = XPathFactory.newInstance();
+			XPath xpath = factory.newXPath();
+			XPathExpression expr = xpath.compile(multipleConcat("//", MODULE_TAG_NAME, "[normalize-space(@", MODULE_ID_ATTRIBUTE,
+					") = '", moduleId, "']/", DATABASE_TAG_NAME, "[@", DB_PACKAGE_ATTRIBUTE, "]/@", DB_PACKAGE_ATTRIBUTE));
+			result = (String) expr.evaluate(jepApplicationDoc, XPathConstants.STRING);
+		} catch (Exception e) {
+			echoMessage(multipleConcat(ERROR_PREFIX, e.getLocalizedMessage()));
+		}
+		return !isEmpty(result) ? result.trim() : null;
+	}
+
 }

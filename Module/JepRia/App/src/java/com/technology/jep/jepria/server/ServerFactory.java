@@ -1,29 +1,28 @@
 package com.technology.jep.jepria.server;
 
-import javax.servlet.http.HttpServletRequest;
+import com.technology.jep.jepria.server.dao.transaction.TransactionFactory;
 
-import org.apache.log4j.Logger;
-
-import com.google.gwt.user.server.rpc.UnexpectedException;
-import com.technology.jep.jepria.server.security.JepSecurityModule;
-import com.technology.jep.jepria.server.security.cas.JepSecurityModule_CAS;
-import com.technology.jep.jepria.server.security.oc4j.JepSecurityModule_OC4J;
-import com.technology.jep.jepria.server.util.JepServerUtil;
-
-public class ServerFactory {
-	protected static Logger logger = Logger.getLogger(ServerFactory.class.getName());	
-
-	static public JepSecurityModule getSecurityModule(HttpServletRequest request) {
-		JepSecurityModule result = null;
-		
-		if(JepServerUtil.isJavaSSO(request)) {
-			result = JepSecurityModule_OC4J.getInstance(request);
-		} else if(JepServerUtil.isCASEnvironment(request)) {
-			result = JepSecurityModule_CAS.getInstance(request);
-		} else {
-			throw new UnexpectedException("Unknown SSO Type", null);
+public class ServerFactory<D> implements DaoProvider<D> {
+	
+	protected D dao;
+	private D proxyDao;
+	private String dataSourceJndiName;
+	
+	public ServerFactory(D dao, String dataSourceJndiName){
+		this.dao = dao;
+		this.dataSourceJndiName = dataSourceJndiName;
+	}
+	
+	@Override
+	public D getDao(){ // в случае необходимости, можно вернуть исходное dao, переопределив данный метод
+		if (proxyDao == null) {
+			proxyDao = TransactionFactory.process(dao, dataSourceJndiName);
 		}
-		
-		return result;
+		return proxyDao;
+	}
+	
+	@Override
+	public String getDataSourceJndiName() { // может быть пустым
+		return dataSourceJndiName;
 	}
 }
