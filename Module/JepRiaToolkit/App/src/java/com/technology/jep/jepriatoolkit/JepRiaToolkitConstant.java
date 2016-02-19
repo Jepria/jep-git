@@ -993,4 +993,10 @@ public interface JepRiaToolkitConstant {
 	String HAS_TEXT_FILE_TEMPLATE_PARAMETER = "hasTextFile";
 	String HAS_BINARY_FILE_TEMPLATE_PARAMETER = "hasBinaryFile";
 	String FORM_NAME_TEMPLATE_PARAMETER = "formName";
+	
+	String FILE_STRUCTURE_PATTERN = "\\{([^}]*.?)\\}";
+	
+	String LEFT_CURLY_BRACKET = "{";
+	
+	String DEFAULT_CHARSET = "windows-1251";
 }

@@ -3,19 +3,29 @@ package com.technology.jep.jepriatoolkit.creator.module;
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.echoMessage;
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.isEmpty;
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.multipleConcat;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.activation.UnsupportedDataTypeException;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import com.technology.jep.jepriatoolkit.JepRiaToolkitConstant;
 
+@XmlRootElement(name=MODULE_TAG_NAME)
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Module implements JepRiaToolkitConstant {
 
 	private String table;
+	@XmlAttribute(name=ID_ATTRIBUTE)
 	private String moduleId;
+	@XmlAttribute(name=NAME_ATTRIBUTE)
 	private String moduleName;
+	@XmlAttribute(name=NAME_EN_ATTRIBUTE)
 	private String moduleNameEn;
 	private String moduleDataSource;
 	private String dbPackageName;
@@ -37,6 +47,8 @@ public class Module implements JepRiaToolkitConstant {
 	private boolean isDblClickOff = false;
 	private boolean isExcelAvailable = false;
 	private boolean isNotRebuild = false;
+	
+	public Module(){}
 	
 	public Module(String moduleId, String moduleName, String moduleNameEn, String moduleDataSource, List<String> moduleRoleNames, String dbPackage){
 		setModuleId(moduleId);

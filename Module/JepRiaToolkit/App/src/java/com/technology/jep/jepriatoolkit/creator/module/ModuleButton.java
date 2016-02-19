@@ -143,6 +143,8 @@ public class ModuleButton implements JepRiaToolkitConstant {
 				new ModuleButton(HELP_SEPARATOR_ID).setSeparator(true));
 	}
 	
+	public ModuleButton(){}
+	
 	/**
 	 * Конструктор для разделителей тулбара
 	 * 

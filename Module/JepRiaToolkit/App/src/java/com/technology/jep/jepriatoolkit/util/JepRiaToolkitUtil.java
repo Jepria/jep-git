@@ -11,6 +11,7 @@ import static com.technology.jep.jepria.shared.field.JepTypeEnum.DATE;
 import static com.technology.jep.jepria.shared.field.JepTypeEnum.INTEGER;
 import static com.technology.jep.jepria.shared.field.JepTypeEnum.STRING;
 import static com.technology.jep.jepria.shared.field.JepTypeEnum.TIME;
+import static java.text.MessageFormat.format;
 import static org.w3c.dom.Node.ELEMENT_NODE;
 
 import java.io.BufferedWriter;
@@ -38,8 +39,12 @@ import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 import java.util.StringTokenizer;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -222,6 +227,7 @@ public final class JepRiaToolkitUtil implements JepRiaToolkitConstant {
 	public static final DocumentBuilder createDocumentBuilder()
 			throws ParserConfigurationException {
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+		dbf.setNamespaceAware(true); // never forget this!
 		dbf.setIgnoringElementContentWhitespace(true);
 		DocumentBuilder db = dbf.newDocumentBuilder();
 		return db;
@@ -894,7 +900,11 @@ public final class JepRiaToolkitUtil implements JepRiaToolkitConstant {
 	}
 	
 	public static String getDefinitionProperty(String property, String defaultValue, ResourceBundle... appResourceBundles){
-		String value = (appResourceBundles.length == 0 ? applicationResourceBundle : appResourceBundles[0]).getString(property);
+		String value = null;
+		try {
+			value = (appResourceBundles.length == 0 ? applicationResourceBundle : appResourceBundles[0]).getString(property);
+		}
+		catch(Exception e){}
 		return isEmpty(value) ? defaultValue : value;
 	}
 	
@@ -1045,8 +1055,8 @@ public final class JepRiaToolkitUtil implements JepRiaToolkitConstant {
 		try {
 			XPathFactory factory = XPathFactory.newInstance();
 			XPath xpath = factory.newXPath();
-			XPathExpression expr = xpath.compile(multipleConcat("//", MODULE_TAG_NAME, "[normalize-space(@", MODULE_ID_ATTRIBUTE,
-					") = '", moduleId, "']", "/", FORMS_TAG_NAME, "/", DETAIL_FORM_TAG_NAME));
+			XPathExpression expr = xpath.compile(multipleConcat(PATH_SEPARATOR, PATH_SEPARATOR, MODULE_TAG_NAME, "[normalize-space(@", MODULE_ID_ATTRIBUTE,
+					") = '", moduleId, "']", PATH_SEPARATOR, FORMS_TAG_NAME, PATH_SEPARATOR, DETAIL_FORM_TAG_NAME));
 			return (Element) expr.evaluate(jepApplicationDoc, XPathConstants.NODE);
 		} catch (Exception e) {
 			echoMessage(multipleConcat(ERROR_PREFIX, e.getLocalizedMessage()));
@@ -1066,8 +1076,8 @@ public final class JepRiaToolkitUtil implements JepRiaToolkitConstant {
 		try {
 			XPathFactory factory = XPathFactory.newInstance();
 			XPath xpath = factory.newXPath();
-			XPathExpression expr = xpath.compile(multipleConcat("//", MODULE_TAG_NAME, "[normalize-space(@", MODULE_ID_ATTRIBUTE,
-					") = '", moduleId, "']", "/", FORMS_TAG_NAME, "/", LIST_FORM_TAG_NAME));
+			XPathExpression expr = xpath.compile(multipleConcat(PATH_SEPARATOR, PATH_SEPARATOR, MODULE_TAG_NAME, "[normalize-space(@", MODULE_ID_ATTRIBUTE,
+					") = '", moduleId, "']", PATH_SEPARATOR, FORMS_TAG_NAME, PATH_SEPARATOR, LIST_FORM_TAG_NAME));
 			return (Element) expr.evaluate(jepApplicationDoc, XPathConstants.NODE);
 		} catch (Exception e) {
 			echoMessage(multipleConcat(ERROR_PREFIX, e.getLocalizedMessage()));
@@ -1089,8 +1099,8 @@ public final class JepRiaToolkitUtil implements JepRiaToolkitConstant {
 		try {
 			XPathFactory factory = XPathFactory.newInstance();
 			XPath xpath = factory.newXPath();
-			XPathExpression expr = xpath.compile(multipleConcat("//", MODULE_TAG_NAME, "[normalize-space(@", MODULE_ID_ATTRIBUTE,
-					") = '", moduleId, "']", "/", FORMS_TAG_NAME, "/", DETAIL_FORM_TAG_NAME, "/", FIELD_TAG_NAME, "[translate(normalize-space(@",
+			XPathExpression expr = xpath.compile(multipleConcat(PATH_SEPARATOR, PATH_SEPARATOR, MODULE_TAG_NAME, "[normalize-space(@", MODULE_ID_ATTRIBUTE,
+					") = '", moduleId, "']", PATH_SEPARATOR, FORMS_TAG_NAME, PATH_SEPARATOR, DETAIL_FORM_TAG_NAME, PATH_SEPARATOR, FIELD_TAG_NAME, "[translate(normalize-space(@",
 					FIELD_ID_ATTRIBUTE, "),'", ALPHABET_LOWER_CASE, "','", ALPHABET_UPPER_CASE, "') = '", fieldId.toUpperCase(), "']"));
 			field = (Element) expr.evaluate(jepApplicationDoc, XPathConstants.NODE);
 		} catch (Exception e) {
@@ -1183,8 +1193,8 @@ public final class JepRiaToolkitUtil implements JepRiaToolkitConstant {
 		try {
 			XPathFactory factory = XPathFactory.newInstance();
 			XPath xpath = factory.newXPath();
-			XPathExpression expr = xpath.compile(multipleConcat("//", MODULE_TAG_NAME, "[normalize-space(@", MODULE_ID_ATTRIBUTE,
-					") = '", moduleId, "']", "/", FORMS_TAG_NAME, "/", LIST_FORM_TAG_NAME, "/", FIELD_TAG_NAME, "[translate(normalize-space(@",
+			XPathExpression expr = xpath.compile(multipleConcat(PATH_SEPARATOR, PATH_SEPARATOR, MODULE_TAG_NAME, "[normalize-space(@", MODULE_ID_ATTRIBUTE,
+					") = '", moduleId, "']", PATH_SEPARATOR, FORMS_TAG_NAME, PATH_SEPARATOR, LIST_FORM_TAG_NAME, PATH_SEPARATOR, FIELD_TAG_NAME, "[translate(normalize-space(@",
 					FIELD_ID_ATTRIBUTE, "),'", ALPHABET_LOWER_CASE, "','", ALPHABET_UPPER_CASE, "') = '", fieldId.toUpperCase(), "']"));
 			field = (Element) expr.evaluate(jepApplicationDoc, XPathConstants.NODE);
 		} catch (Exception e) {
@@ -1251,7 +1261,7 @@ public final class JepRiaToolkitUtil implements JepRiaToolkitConstant {
 			XPathFactory factory = XPathFactory.newInstance();
 			XPath xpath = factory.newXPath();
 			XPathExpression expr = xpath.compile(JepRiaToolkitUtil
-					.multipleConcat("//", MODULE_TAG_NAME, "[normalize-space(@", MODULE_ID_ATTRIBUTE, ") = '", moduleId, "']", "/",
+					.multipleConcat(PATH_SEPARATOR, PATH_SEPARATOR, MODULE_TAG_NAME, "[normalize-space(@", MODULE_ID_ATTRIBUTE, ") = '", moduleId, "']", PATH_SEPARATOR,
 							DATABASE_TAG_NAME, "/find[@", DATABASE_PARAMETERS_TAG_NAME, "]", "/@", DATABASE_PARAMETERS_TAG_NAME));
 			String findParameters = (String) expr.evaluate(jepApplicationDoc, XPathConstants.STRING);
 			List<String> parameters = Arrays.asList(findParameters.replaceAll(WHITE_SPACE, "").toUpperCase().split(SEPARATOR));
@@ -1259,15 +1269,15 @@ public final class JepRiaToolkitUtil implements JepRiaToolkitConstant {
 			recordField.setFindParameter(!isEmpty(findParameters) && parameters.contains(fieldId));
 
 			xpath.reset();
-			expr = xpath.compile(multipleConcat("//", MODULE_TAG_NAME, "[normalize-space(@", MODULE_ID_ATTRIBUTE, ") = '", moduleId,
-					"']", "/", DATABASE_TAG_NAME, "/create[@", DATABASE_PARAMETERS_TAG_NAME, "]", "/@", DATABASE_PARAMETERS_TAG_NAME));
+			expr = xpath.compile(multipleConcat(PATH_SEPARATOR, PATH_SEPARATOR, MODULE_TAG_NAME, "[normalize-space(@", MODULE_ID_ATTRIBUTE, ") = '", moduleId,
+					"']", PATH_SEPARATOR, DATABASE_TAG_NAME, "/create[@", DATABASE_PARAMETERS_TAG_NAME, "]", "/@", DATABASE_PARAMETERS_TAG_NAME));
 			String createParameters = (String) expr.evaluate(jepApplicationDoc, XPathConstants.STRING);
 			parameters = Arrays.asList(createParameters.replaceAll(WHITE_SPACE, "").toUpperCase().split(SEPARATOR));
 			recordField.setCreateParameter(!isEmpty(createParameters) && parameters.contains(fieldId));
 
 			xpath.reset();
-			expr = xpath.compile(multipleConcat("//", MODULE_TAG_NAME, "[normalize-space(@", MODULE_ID_ATTRIBUTE, ") = '", moduleId,
-					"']", "/", DATABASE_TAG_NAME, "/update[@", DATABASE_PARAMETERS_TAG_NAME, "]", "/@", DATABASE_PARAMETERS_TAG_NAME));
+			expr = xpath.compile(multipleConcat(PATH_SEPARATOR, PATH_SEPARATOR, MODULE_TAG_NAME, "[normalize-space(@", MODULE_ID_ATTRIBUTE, ") = '", moduleId,
+					"']", PATH_SEPARATOR, DATABASE_TAG_NAME, "/update[@", DATABASE_PARAMETERS_TAG_NAME, "]", "/@", DATABASE_PARAMETERS_TAG_NAME));
 			String updateParameters = (String) expr.evaluate(jepApplicationDoc, XPathConstants.STRING);
 			parameters = Arrays.asList(updateParameters.replaceAll(WHITE_SPACE, "").toUpperCase().split(SEPARATOR));
 			recordField.setUpdateParameter(!isEmpty(updateParameters) && parameters.contains(fieldId));
@@ -1290,14 +1300,14 @@ public final class JepRiaToolkitUtil implements JepRiaToolkitConstant {
 		try {
 			XPathFactory factory = XPathFactory.newInstance();
 			XPath xpath = factory.newXPath();
-			XPathExpression expr = xpath.compile(multipleConcat("//", MODULE_TAG_NAME, "[normalize-space(@", MODULE_ID_ATTRIBUTE,
+			XPathExpression expr = xpath.compile(multipleConcat(PATH_SEPARATOR, PATH_SEPARATOR, MODULE_TAG_NAME, "[normalize-space(@", MODULE_ID_ATTRIBUTE,
 					") = '", moduleId, "']/", DATABASE_TAG_NAME, "[@", DATABASE_PREFIX_ATTRIBUTE_NAME, "]/@", DATABASE_PREFIX_ATTRIBUTE_NAME));
 			defaultPrefix = (String) expr.evaluate(jepApplicationDoc, XPathConstants.STRING);
 			defaultPrefix = !isEmpty(defaultPrefix) ? defaultPrefix.trim() : null;
 			module.setDefaultParameterPrefix(defaultPrefix);
 
 			xpath.reset();
-			expr = xpath.compile(multipleConcat("//", MODULE_TAG_NAME, "[normalize-space(@", MODULE_ID_ATTRIBUTE, ") = '", moduleId,
+			expr = xpath.compile(multipleConcat(PATH_SEPARATOR, PATH_SEPARATOR, MODULE_TAG_NAME, "[normalize-space(@", MODULE_ID_ATTRIBUTE, ") = '", moduleId,
 					"']/", DATABASE_TAG_NAME, "/create[@", DATABASE_PREFIX_ATTRIBUTE_NAME, "]/@", DATABASE_PREFIX_ATTRIBUTE_NAME));
 			String createParameterPrefix = (String) expr.evaluate(jepApplicationDoc, XPathConstants.STRING);
 			createParameterPrefix = !isEmpty(createParameterPrefix) ? createParameterPrefix.trim() : defaultPrefix;
@@ -1305,7 +1315,7 @@ public final class JepRiaToolkitUtil implements JepRiaToolkitConstant {
 				module.setCreateParameterPrefix(createParameterPrefix);
 
 			xpath.reset();
-			expr = xpath.compile(multipleConcat("//", MODULE_TAG_NAME, "[normalize-space(@", MODULE_ID_ATTRIBUTE, ") = '", moduleId,
+			expr = xpath.compile(multipleConcat(PATH_SEPARATOR, PATH_SEPARATOR, MODULE_TAG_NAME, "[normalize-space(@", MODULE_ID_ATTRIBUTE, ") = '", moduleId,
 					"']/", DATABASE_TAG_NAME, "/update[@", DATABASE_PREFIX_ATTRIBUTE_NAME, "]/@", DATABASE_PREFIX_ATTRIBUTE_NAME));
 			String updateParameterPrefix = (String) expr.evaluate(jepApplicationDoc, XPathConstants.STRING);
 			updateParameterPrefix = !isEmpty(updateParameterPrefix) ? updateParameterPrefix.trim() : defaultPrefix;
@@ -1313,7 +1323,7 @@ public final class JepRiaToolkitUtil implements JepRiaToolkitConstant {
 				module.setUpdateParameterPrefix(updateParameterPrefix);
 
 			xpath.reset();
-			expr = xpath.compile(multipleConcat("//", MODULE_TAG_NAME, "[normalize-space(@", MODULE_ID_ATTRIBUTE, ") = '", moduleId,
+			expr = xpath.compile(multipleConcat(PATH_SEPARATOR, PATH_SEPARATOR, MODULE_TAG_NAME, "[normalize-space(@", MODULE_ID_ATTRIBUTE, ") = '", moduleId,
 					"']/", DATABASE_TAG_NAME, "/find[@", DATABASE_PREFIX_ATTRIBUTE_NAME, "]/@", DATABASE_PREFIX_ATTRIBUTE_NAME));
 			String findParameterPrefix = (String) expr.evaluate(jepApplicationDoc, XPathConstants.STRING);
 			findParameterPrefix = !isEmpty(findParameterPrefix) ? findParameterPrefix.trim() : defaultPrefix;
@@ -1337,7 +1347,7 @@ public final class JepRiaToolkitUtil implements JepRiaToolkitConstant {
 		try {
 			XPathFactory factory = XPathFactory.newInstance();
 			XPath xpath = factory.newXPath();
-			XPathExpression expr = xpath.compile(multipleConcat("//", MODULE_TAG_NAME, "[normalize-space(@", MODULE_ID_ATTRIBUTE,
+			XPathExpression expr = xpath.compile(multipleConcat(PATH_SEPARATOR, PATH_SEPARATOR, MODULE_TAG_NAME, "[normalize-space(@", MODULE_ID_ATTRIBUTE,
 					") = '", moduleId, "']", "/record/", FIELD_TAG_NAME, "[translate(normalize-space(@", FIELD_ID_ATTRIBUTE, "),'",
 					ALPHABET_LOWER_CASE, "','", ALPHABET_UPPER_CASE, "') = '", fieldId.toUpperCase(), "']"));
 			return !isEmpty((Element) expr.evaluate(jepApplicationDoc, XPathConstants.NODE));
@@ -1383,13 +1393,13 @@ public final class JepRiaToolkitUtil implements JepRiaToolkitConstant {
 		try {
 			XPathFactory factory = XPathFactory.newInstance();
 			XPath xpath = factory.newXPath();
-			XPathExpression expr = xpath.compile(multipleConcat("//", MODULE_TAG_NAME, "[normalize-space(@", MODULE_ID_ATTRIBUTE,
-					") = '", moduleId, "']", "/", TOOLBAR_TAG_NAME, "/", BUTTON_TAG_NAME, " | ", "//", MODULE_TAG_NAME, "[normalize-space(@",
-					MODULE_ID_ATTRIBUTE, ") = '", moduleId, "']", "/", TOOLBAR_TAG_NAME, "/", SEPARATOR_TAG_NAME));
+			XPathExpression expr = xpath.compile(multipleConcat(PATH_SEPARATOR, PATH_SEPARATOR, MODULE_TAG_NAME, "[normalize-space(@", MODULE_ID_ATTRIBUTE,
+					") = '", moduleId, "']", PATH_SEPARATOR, TOOLBAR_TAG_NAME, PATH_SEPARATOR, BUTTON_TAG_NAME, " | ", PATH_SEPARATOR, PATH_SEPARATOR, MODULE_TAG_NAME, "[normalize-space(@",
+					MODULE_ID_ATTRIBUTE, ") = '", moduleId, "']", PATH_SEPARATOR, TOOLBAR_TAG_NAME, PATH_SEPARATOR, SEPARATOR_TAG_NAME));
 			nodes = (NodeList) expr.evaluate(jepApplicationDoc, XPathConstants.NODESET);
 
-			expr = xpath.compile(multipleConcat("//", MODULE_TAG_NAME, "[normalize-space(@", MODULE_ID_ATTRIBUTE, ") = '", moduleId,
-					"']", "/", TOOLBAR_TAG_NAME));
+			expr = xpath.compile(multipleConcat(PATH_SEPARATOR, PATH_SEPARATOR, MODULE_TAG_NAME, "[normalize-space(@", MODULE_ID_ATTRIBUTE, ") = '", moduleId,
+					"']", PATH_SEPARATOR, TOOLBAR_TAG_NAME));
 			toolbar = (Element) expr.evaluate(jepApplicationDoc, XPathConstants.NODE);
 		} catch (Exception e) {
 			echoMessage(multipleConcat(ERROR_PREFIX, e.getLocalizedMessage()));
@@ -1438,7 +1448,7 @@ public final class JepRiaToolkitUtil implements JepRiaToolkitConstant {
 		try {
 			XPathFactory factory = XPathFactory.newInstance();
 			XPath xpath = factory.newXPath();
-			XPathExpression expr = xpath.compile(multipleConcat("//", MODULE_TAG_NAME));
+			XPathExpression expr = xpath.compile(multipleConcat(PATH_SEPARATOR, PATH_SEPARATOR, MODULE_TAG_NAME));
 			nodes = (NodeList) expr.evaluate(jepApplicationDoc, XPathConstants.NODESET);
 		} catch (Exception e) {
 			echoMessage(multipleConcat(ERROR_PREFIX, e.getLocalizedMessage()));
@@ -1469,7 +1479,7 @@ public final class JepRiaToolkitUtil implements JepRiaToolkitConstant {
 		try {
 			XPathFactory factory = XPathFactory.newInstance();
 			XPath xpath = factory.newXPath();
-			XPathExpression expr = xpath.compile(multipleConcat("//", MODULE_TAG_NAME, "[normalize-space(@", MODULE_ID_ATTRIBUTE,
+			XPathExpression expr = xpath.compile(multipleConcat(PATH_SEPARATOR, PATH_SEPARATOR, MODULE_TAG_NAME, "[normalize-space(@", MODULE_ID_ATTRIBUTE,
 					") = '", moduleId, "']/", MODULE_TAG_NAME));
 			nodes = (NodeList) expr.evaluate(jepApplicationDoc, XPathConstants.NODESET);
 		} catch (Exception e) {
@@ -1504,7 +1514,7 @@ public final class JepRiaToolkitUtil implements JepRiaToolkitConstant {
 		try {
 			XPathFactory factory = XPathFactory.newInstance();
 			XPath xpath = factory.newXPath();
-			XPathExpression expr = xpath.compile(multipleConcat("//", MODULE_TAG_NAME, "[normalize-space(@", MODULE_ID_ATTRIBUTE,
+			XPathExpression expr = xpath.compile(multipleConcat(PATH_SEPARATOR, PATH_SEPARATOR, MODULE_TAG_NAME, "[normalize-space(@", MODULE_ID_ATTRIBUTE,
 					") = '", moduleId, "']"));
 			module = (Element) expr.evaluate(jepApplicationDoc, XPathConstants.NODE);
 		} catch (Exception e) {
@@ -1527,7 +1537,7 @@ public final class JepRiaToolkitUtil implements JepRiaToolkitConstant {
 		try {
 			XPathFactory factory = XPathFactory.newInstance();
 			XPath xpath = factory.newXPath();
-			XPathExpression expr = xpath.compile(multipleConcat("//", MODULE_TAG_NAME, "[normalize-space(@", MODULE_ID_ATTRIBUTE,
+			XPathExpression expr = xpath.compile(multipleConcat(PATH_SEPARATOR, PATH_SEPARATOR, MODULE_TAG_NAME, "[normalize-space(@", MODULE_ID_ATTRIBUTE,
 					") = '", moduleId, "']/record/field"));
 			fields = (NodeList) expr.evaluate(jepApplicationDoc, XPathConstants.NODESET);
 		} catch (Exception e) {
@@ -1555,7 +1565,7 @@ public final class JepRiaToolkitUtil implements JepRiaToolkitConstant {
 		try {
 			XPathFactory factory = XPathFactory.newInstance();
 			XPath xpath = factory.newXPath();
-			XPathExpression expr = xpath.compile(multipleConcat("//", MODULE_TAG_NAME, "[normalize-space(@", MODULE_ID_ATTRIBUTE,
+			XPathExpression expr = xpath.compile(multipleConcat(PATH_SEPARATOR, PATH_SEPARATOR, MODULE_TAG_NAME, "[normalize-space(@", MODULE_ID_ATTRIBUTE,
 					") = '", moduleId, "']/record[@", MODULE_PRIMARY_KEY_ATTRIBUTE, "]/@", MODULE_PRIMARY_KEY_ATTRIBUTE));
 			result = (String) expr.evaluate(jepApplicationDoc, XPathConstants.STRING);
 		} catch (Exception e) {
@@ -1577,7 +1587,7 @@ public final class JepRiaToolkitUtil implements JepRiaToolkitConstant {
 		try {
 			XPathFactory factory = XPathFactory.newInstance();
 			XPath xpath = factory.newXPath();
-			XPathExpression expr = xpath.compile(multipleConcat("//", MODULE_TAG_NAME, "[normalize-space(@", MODULE_ID_ATTRIBUTE,
+			XPathExpression expr = xpath.compile(multipleConcat(PATH_SEPARATOR, PATH_SEPARATOR, MODULE_TAG_NAME, "[normalize-space(@", MODULE_ID_ATTRIBUTE,
 					") = '", moduleId, "']/record[@", MODULE_TABLE_NAME_ATTRIBUTE, "]/@", MODULE_TABLE_NAME_ATTRIBUTE));
 			result = (String) expr.evaluate(jepApplicationDoc, XPathConstants.STRING);
 		} catch (Exception e) {
@@ -1600,8 +1610,8 @@ public final class JepRiaToolkitUtil implements JepRiaToolkitConstant {
 		try {
 			XPathFactory factory = XPathFactory.newInstance();
 			XPath xpath = factory.newXPath();
-			XPathExpression expr = xpath.compile(multipleConcat("//", MODULE_TAG_NAME, "[normalize-space(@", MODULE_ID_ATTRIBUTE,
-					") = '", moduleId, "']/", MODULE_ROLES_ATTRIBUTE, "/", MODULE_ROLE_ATTRIBUTE));
+			XPathExpression expr = xpath.compile(multipleConcat(PATH_SEPARATOR, PATH_SEPARATOR, MODULE_TAG_NAME, "[normalize-space(@", MODULE_ID_ATTRIBUTE,
+					") = '", moduleId, "']/", MODULE_ROLES_ATTRIBUTE, PATH_SEPARATOR, MODULE_ROLE_ATTRIBUTE));
 			result = (NodeList) expr.evaluate(jepApplicationDoc, XPathConstants.NODESET);
 			for (int i = 0; i < result.getLength(); i++) {
 				moduleRoles.add(((Node) result.item(i)).getTextContent().trim());
@@ -1626,7 +1636,7 @@ public final class JepRiaToolkitUtil implements JepRiaToolkitConstant {
 		try {
 			XPathFactory factory = XPathFactory.newInstance();
 			XPath xpath = factory.newXPath();
-			XPathExpression expr = xpath.compile(multipleConcat("//", MODULE_TAG_NAME, "[normalize-space(@", MODULE_ID_ATTRIBUTE,
+			XPathExpression expr = xpath.compile(multipleConcat(PATH_SEPARATOR, PATH_SEPARATOR, MODULE_TAG_NAME, "[normalize-space(@", MODULE_ID_ATTRIBUTE,
 					") = '", moduleId, "']/", DATABASE_TAG_NAME, "[@", MODULE_DATASOURCE_ATTRIBUTE, "]/@", MODULE_DATASOURCE_ATTRIBUTE));
 			result = (String) expr.evaluate(jepApplicationDoc, XPathConstants.STRING);
 		} catch (Exception e) {
@@ -1648,7 +1658,7 @@ public final class JepRiaToolkitUtil implements JepRiaToolkitConstant {
 		try {
 			XPathFactory factory = XPathFactory.newInstance();
 			XPath xpath = factory.newXPath();
-			XPathExpression expr = xpath.compile(multipleConcat("//", MODULE_TAG_NAME, "[normalize-space(@", MODULE_ID_ATTRIBUTE,
+			XPathExpression expr = xpath.compile(multipleConcat(PATH_SEPARATOR, PATH_SEPARATOR, MODULE_TAG_NAME, "[normalize-space(@", MODULE_ID_ATTRIBUTE,
 					") = '", moduleId, "']/", DATABASE_TAG_NAME, "[@", DB_PACKAGE_ATTRIBUTE, "]/@", DB_PACKAGE_ATTRIBUTE));
 			result = (String) expr.evaluate(jepApplicationDoc, XPathConstants.STRING);
 		} catch (Exception e) {
@@ -1657,4 +1667,139 @@ public final class JepRiaToolkitUtil implements JepRiaToolkitConstant {
 		return !isEmpty(result) ? result.trim() : null;
 	}
 
+	/**
+	 * Извлечение на основе регулярного выражения недостающих директорий файловой структуры и имени файлов
+	 * 
+	 * @param regexpPattern	шаблон регулярного выражения
+	 * @return список директорий и имен файлов
+	 */
+	public static List<String> extractFileNamesByPattern(String regexpPattern){
+		String[] parts = regexpPattern.split(PATH_SEPARATOR);
+		List<String> result = new ArrayList<String>();
+		String currentPath = multipleConcat(System.getProperty(CURRENT_DIRECTORY_ENVIRONMENT_VARIABLE), PATH_SEPARATOR);
+		Integer currentIndex = 0;
+		for (int i = 0; i < parts.length; i++){
+			String part = parts[i];
+			if (part.matches(FILE_STRUCTURE_PATTERN)){
+				Pattern directoryPattern = Pattern.compile(FILE_STRUCTURE_PATTERN);
+				Matcher m = directoryPattern.matcher(part);
+				if (m.find()){
+					Integer index = Integer.decode(m.group(1));
+					if (index == currentIndex) {
+						currentIndex++;
+					}
+					else {
+						echoMessage(multipleConcat(ERROR_PREFIX, "Regexp '", regexpPattern, "' is incorrect. Check conditions!"));
+						break;
+					}
+				}
+				File[] files = new File(currentPath).listFiles(new FileFilter() {
+					@Override
+					public boolean accept(File file) {
+						return file.isDirectory();
+					}
+				});
+				part = files[0].getName();
+				result.add(part);
+			}
+			else if (i == parts.length - 1 && part.contains(LEFT_CURLY_BRACKET)){
+				final boolean isPart = !part.matches(FILE_STRUCTURE_PATTERN);
+				if (isPart){
+					Pattern directoryPattern = Pattern.compile(FILE_STRUCTURE_PATTERN);
+					Matcher m = directoryPattern.matcher(part);
+					while (m.find()){
+						Integer index = Integer.decode(m.group(1));
+						if (index == currentIndex) {
+							currentIndex++;
+						}
+						else {
+							echoMessage(multipleConcat(ERROR_PREFIX, "Regexp '", regexpPattern, "' is incorrect. Check conditions!"));
+							break;
+						}
+					}
+				}
+				final String patt = part;
+				File[] files = new File(currentPath).listFiles(new FileFilter() {
+					@Override
+					public boolean accept(File file) {
+						String convertValue = patt.replaceAll("\\{(.*?)\\}", "(.*)");
+						return isPart ? file.isFile() && file.getName().matches(convertValue) : file.isDirectory();
+					}
+				});
+				if (files.length > 0){
+					part = files[0].getName();
+					if (isPart){
+						Pattern directoryPattern = Pattern.compile(patt.replaceAll("\\{(.*?)\\}", "(.*)"));
+						Matcher m = directoryPattern.matcher(part);
+						while (m.find()){
+							for (int ind = 1; ind <= m.groupCount(); ind++){
+								String value = m.group(ind);
+								result.add(value);
+							}
+						}
+					}
+					else {
+						result.add(part);
+					}
+				}
+			}
+			currentPath += part + PATH_SEPARATOR;
+		}
+		return result;
+	}
+	
+	/**
+	 * Подстановка значений директорий и имен файлов в передаваемом шаблоне
+	 * 
+	 * @param pattern		шаблон регулярного выражения
+	 * @return путь файловой системы
+	 */
+	public static String convertPatternInRealPath(String pattern){
+		return format(pattern, extractFileNamesByPattern(pattern).toArray());
+	}
+	
+	/**
+	 * Получение имени приложения из конфигурационного файла application.xml
+	 * 
+	 * @param applicationXmlPath путь до конфигурационного файла application.xml
+	 * 
+	 * @return наименование приложения
+	 */
+	public static String getApplicationName(String applicationXmlPath) {
+		Document doc;
+		try {
+			doc = getDOM(multipleConcat(System.getProperty(CURRENT_DIRECTORY_ENVIRONMENT_VARIABLE), PATH_SEPARATOR, applicationXmlPath));
+			XPathFactory factory = XPathFactory.newInstance();
+			XPath xpath = factory.newXPath();
+			XPathExpression expr = xpath.compile(multipleConcat(PATH_SEPARATOR, PATH_SEPARATOR, MODULE_TAG_NAME, PATH_SEPARATOR, "web", PATH_SEPARATOR, "context-root//text()"));
+			return (String) expr.evaluate(doc, XPathConstants.STRING);
+		} catch (Exception e) {
+			echoMessage(multipleConcat(ERROR_PREFIX, e.getLocalizedMessage()));
+		}
+		finally {
+			doc = null;
+		}
+		return null;
+	}
+	
+	/**
+	 * Преобразование объектной модели в виде XML-файла 
+	 * 
+	 * @param object			преобразуемый объект
+	 * @param fileNameOrPath	путь до файла
+	 */
+	public static void convertToXml(Object object, String fileNameOrPath){
+		try {
+			File file = new File(fileNameOrPath);
+			JAXBContext jaxbContext = JAXBContext.newInstance(object.getClass());
+			Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
+			// output pretty printed
+			jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+			jaxbMarshaller.setProperty(Marshaller.JAXB_ENCODING, "windows-1251");
+			jaxbMarshaller.marshal(object, file);
+		} catch (JAXBException e) {
+			e.printStackTrace();
+		}
+
+	}
 }

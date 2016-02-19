@@ -83,6 +83,8 @@ public class ModuleField implements JepRiaToolkitConstant {
 		FIELD_WIDGET.put(JEP_DUAL_LIST_FIELD, multipleConcat(FIELD_PREFIX, JEP_DUAL_LIST_FIELD));
 	}
 	
+	public ModuleField(){}
+	
 	public ModuleField(String moduleId, String fieldId, String fieldType, String fieldName, String fieldNameEn, String fieldLike, String fieldWidget, String fieldMaxLength, String fieldWidth, String labelWidth, String fieldHeight, String visibleWorkstates, String mandatoryWorkstates, String editableWorkstates, String enableWorkstates){
 		setModuleId(moduleId);
 		setFieldId(fieldId);
