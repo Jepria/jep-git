@@ -361,6 +361,11 @@ public interface JepRiaToolkitConstant {
 	String DATABASE_TAG_NAME = "db";
 	
 	/**
+	 * Наименование тэга, отвечающего за описание записей модуля
+	 */
+	String RECORD_TAG_NAME = "record";
+	
+	/**
 	 * Наименование атрибута, отвечающего за префикс параметра EJB
 	 */
 	String DATABASE_PREFIX_ATTRIBUTE_NAME = "prefix";
@@ -993,4 +998,10 @@ public interface JepRiaToolkitConstant {
 	String HAS_TEXT_FILE_TEMPLATE_PARAMETER = "hasTextFile";
 	String HAS_BINARY_FILE_TEMPLATE_PARAMETER = "hasBinaryFile";
 	String FORM_NAME_TEMPLATE_PARAMETER = "formName";
+	
+	String FILE_STRUCTURE_PATTERN = "\\{([^}]*.?)\\}";
+	
+	String LEFT_CURLY_BRACKET = "{";
+	
+	String DEFAULT_CHARSET = "windows-1251";
 }

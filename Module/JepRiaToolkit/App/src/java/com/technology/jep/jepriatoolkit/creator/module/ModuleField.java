@@ -9,6 +9,7 @@ import static com.technology.jep.jepria.shared.field.JepTypeEnum.DATE_TIME;
 import static com.technology.jep.jepria.shared.field.JepTypeEnum.INTEGER;
 import static com.technology.jep.jepria.shared.field.JepTypeEnum.TEXT_FILE;
 import static com.technology.jep.jepria.shared.field.JepTypeEnum.TIME;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.FIELD_TAG_NAME;
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.getAppropriateFieldType;
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.getFieldTypeAsEnum;
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.getOptionField;
@@ -25,40 +26,77 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+
 import com.technology.jep.jepria.client.ui.WorkstateEnum;
 import com.technology.jep.jepriatoolkit.JepRiaToolkitConstant;
 import com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil;
 
+@XmlRootElement(name = FIELD_TAG_NAME)
+@XmlAccessorType(XmlAccessType.FIELD)
 public class ModuleField implements JepRiaToolkitConstant {
 	
+	@XmlTransient
 	private String moduleId;
+	@XmlAttribute(name=FIELD_ID_ATTRIBUTE)
 	private String fieldId;
+	@XmlAttribute(name=FIELD_TYPE_ATTRIBUTE)
 	private String fieldType;
+	@XmlTransient
 	private String fieldListFormName;
+	@XmlTransient
 	private String fieldListFormNameEn;
+	@XmlTransient
 	private String fieldDetailFormName;
+	@XmlTransient
 	private String fieldDetailFormNameEn;
+	@XmlTransient
 	private String fieldLike;
+	@XmlTransient
 	private String fieldWidget;
+	@XmlTransient
 	private String fieldMaxLength;
+	@XmlTransient
 	private String fieldWidth;
+	@XmlTransient
 	private String columnWidth;
+	@XmlTransient
 	private String fieldHeight;
+	@XmlTransient
 	private String labelWidth;
+	@XmlTransient
 	private Integer listFormIndex;
+	@XmlTransient
 	private Integer detailFormIndex;
+	@XmlTransient
 	private boolean isEditable = true;
+	@XmlTransient
 	private boolean isPrimaryKey = false;
+	@XmlTransient
 	private boolean isListFormField = false;
-	private boolean isDetailFormField = false;	
-	private boolean isFindParameter = false;	
-	private boolean isCreateParameter = false;	
+	@XmlTransient
+	private boolean isDetailFormField = false;
+	@XmlTransient
+	private boolean isFindParameter = false;
+	@XmlTransient
+	private boolean isCreateParameter = false;
+	@XmlTransient
 	private boolean isUpdateParameter = false;
+	@XmlTransient
 	private boolean isDeleteParameter = false;
-	private boolean isGroupFormField = false;	
+	@XmlTransient
+	private boolean isGroupFormField = false;
+	@XmlTransient
 	private List<WorkstateEnum> visibleWorkStates;
+	@XmlTransient
 	private List<WorkstateEnum> mandatoryWorkStates;
+	@XmlTransient
 	private List<WorkstateEnum> editableWorkStates;
+	@XmlTransient
 	private List<WorkstateEnum> enableWorkStates;
 	
 	public static final Map<String, String> FIELD_WIDGET = new HashMap<String, String>();
@@ -82,6 +120,9 @@ public class ModuleField implements JepRiaToolkitConstant {
 		FIELD_WIDGET.put(JEP_TREE_FIELD, multipleConcat(FIELD_PREFIX, JEP_TREE_FIELD));
 		FIELD_WIDGET.put(JEP_DUAL_LIST_FIELD, multipleConcat(FIELD_PREFIX, JEP_DUAL_LIST_FIELD));
 	}
+	
+	@SuppressWarnings("unused")
+	private ModuleField(){}
 	
 	public ModuleField(String moduleId, String fieldId, String fieldType, String fieldName, String fieldNameEn, String fieldLike, String fieldWidget, String fieldMaxLength, String fieldWidth, String labelWidth, String fieldHeight, String visibleWorkstates, String mandatoryWorkstates, String editableWorkstates, String enableWorkstates){
 		setModuleId(moduleId);
