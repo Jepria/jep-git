@@ -35,7 +35,6 @@ public class ProductionBuildChecker extends Task implements JepRiaToolkitConstan
 	@Override
 	public void execute() throws BuildException {
 		String currentConfig = BuildConfigSwitcher.getCurrentConfigName();
-		//JepRiaToolkitUtil.echoMessage("CONFIG: " + currentConfig);
 		boolean isProductionBuild = isProductionBuild();
 		
 		if (RELEASE_BUILD_CONFIG_NAME.equalsIgnoreCase(currentConfig) && !isProductionBuild) {
@@ -146,12 +145,9 @@ public class ProductionBuildChecker extends Task implements JepRiaToolkitConstan
 			
 			log4jProperties.load(new FileInputStream(JepRiaToolkitUtil.multipleConcat(PREFIX_DESTINATION_JAVA_CODE, "/log4j.properties")));
 			
-			//String packageModuleName = packageName.toLowerCase() +  "." + moduleName.toLowerCase();
 			String propVal;
 			for (String propName : log4jProperties.stringPropertyNames()) {
 				if (propName.startsWith(LOG4J_LOGGER_PREFIX)) {
-					//JepRiaToolkitUtil.echoMessage(propName);
-					
 					propVal = log4jProperties.getProperty(propName);
 					
 					if (propVal != null &&

@@ -45,6 +45,7 @@ import org.xml.sax.SAXException;
 
 import com.technology.jep.jepriatoolkit.JepRiaToolkitConstant;
 import com.technology.jep.jepriatoolkit.creator.module.Application;
+import com.technology.jep.jepriatoolkit.creator.module.Db;
 import com.technology.jep.jepriatoolkit.creator.module.Module;
 import com.technology.jep.jepriatoolkit.creator.module.ModuleButton;
 import com.technology.jep.jepriatoolkit.creator.module.ModuleField;
@@ -64,6 +65,8 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 	private static Map<Module, List<ModuleField>> formFields = new HashMap<Module, List<ModuleField>>();
 	// Ссылка на <ApplicationName>Definition.xml
 	private static Document jepApplicationDoc = null;
+	// Данные для шаблонизатора
+	private Map<String, Object> resultData = null; 
 
 	/**
 	 * Основной метод, который выполняет Task
@@ -75,7 +78,7 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 			
 			notifyAboutAbsentFields();
 
-			echoMessage("Create Application Structure for '" + application.getProjectPackage().toLowerCase() + "." + application.getName().toLowerCase() + "' module");
+			echoMessage(multipleConcat("Create Application Structure for '", application.getProjectPackage().toLowerCase(), ".", application.getName().toLowerCase(), "' module"));
 			createApplicationFileStructure();
 			echoMessage("Generate web.xml");
 			generateWebXML();
@@ -189,8 +192,7 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 				
 				Element module = getModuleNodeById(jepApplicationDoc, formName);
 				List<String> moduleRoles = getModuleSecurityRoles(jepApplicationDoc, formName);
-				// заполнение общего списка ролей, необходимого для генерации
-				// web.xml
+				// заполнение общего списка ролей, необходимого для генерации web.xml
 				for (String moduleRole : moduleRoles) {
 					if (!securityRoles.contains(moduleRole))
 						securityRoles.add(moduleRole);
@@ -199,11 +201,11 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 				String moduleDataSource = getDataSourceById(jepApplicationDoc, formName);
 				String modulePackage = getPackageById(jepApplicationDoc, formName);
 
+				Db db = new Db(isEmpty(modulePackage) ? multipleConcat(PKG_PREFIX, application.getName().toLowerCase())
+						: modulePackage, isEmpty(moduleDataSource) ? defaultDataSource : moduleDataSource);
 				Module m = new Module(formName, isEmpty(module.getAttribute(MODULE_NAME_ATTRIBUTE)) ? NO_NAME : module.getAttribute(
 						MODULE_NAME_ATTRIBUTE).trim(), isEmpty(module.getAttribute(MODULE_NAME_EN_ATTRIBUTE)) ? NO_NAME : module
-						.getAttribute(MODULE_NAME_EN_ATTRIBUTE).trim(), isEmpty(moduleDataSource) ? defaultDataSource : moduleDataSource,
-						moduleRoles, isEmpty(modulePackage) ? multipleConcat(PKG_PREFIX, application.getName().toLowerCase())
-								: modulePackage);
+						.getAttribute(MODULE_NAME_EN_ATTRIBUTE).trim(), db, moduleRoles);
 				m.setNotRebuild(OFF.equalsIgnoreCase(module.getAttribute(MODULE_BUILD_ATTRIBUTE)));
 				m.setTable(getTableById(jepApplicationDoc, formName));
 				// Инициализация данных о тулбаре
@@ -242,8 +244,7 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 							m.setHasLikeFields(true);
 						}
 						mf.setPrimaryKey(fieldId.equalsIgnoreCase(getPrimaryKeyById(jepApplicationDoc, formName)));
-						// детализируем поле после парсинга форм: детальной и
-						// списочной
+						// детализируем поле после парсинга форм: детальной и списочной
 						detailizedModuleField(jepApplicationDoc, m, mf);
 						mfList.add(mf);
 					}
@@ -281,7 +282,7 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 			List<ModuleField> moduleFields = hm.values().iterator().next();
 			List<String> absentFields = getListOfAbsentFieldNameByModuleId(jepApplicationDoc, formName, moduleFields);
 			if (!absentFields.isEmpty()) {
-				echoMessage(multipleConcat(WARNING_PREFIX, "Field", (absentFields.size() > 1 ? "s" : ""), " " + absentFields
+				echoMessage(multipleConcat(WARNING_PREFIX, "Field", (absentFields.size() > 1 ? "s" : ""), " ", absentFields
 						+ " ", (absentFields.size() > 1 ? "are" : "is"), " absent in 'record' section for module with ID : '", formName, "'"));
 			}
 		}
@@ -566,7 +567,7 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 		);
 		
 		//CSS debug
-		String cssTemplateDebugContent = readFromJar("/templates/config/" + DEBUG_BUILD_CONFIG_NAME + "/src/html/" + CSS_TEMPLATE_NAME, UTF_8);
+		String cssTemplateDebugContent = readFromJar(multipleConcat("/templates/config/", DEBUG_BUILD_CONFIG_NAME, "/src/html/", CSS_TEMPLATE_NAME), UTF_8);
 		writeToFile(cssTemplateDebugContent,
 			format(
 				getDefinitionProperty(APPLICATION_CSS_PATH_TEMPLATE_PROPERTY, 
@@ -577,7 +578,7 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 		writeToFile(cssTemplateDebugContent, multipleConcat("config/", DEBUG_BUILD_CONFIG_NAME, "/", WELCOME_PAGE_DIR_NAME, "/", application.getName(), ".css"), UTF_8, false);
 
 		//CSS release
-		String cssTemplateReleaseContent = readFromJar("/templates/config/" + RELEASE_BUILD_CONFIG_NAME + "/src/html/" + CSS_TEMPLATE_NAME, UTF_8);
+		String cssTemplateReleaseContent = readFromJar(multipleConcat("/templates/config/", RELEASE_BUILD_CONFIG_NAME, "/src/html/", CSS_TEMPLATE_NAME), UTF_8);
 		writeToFile(cssTemplateReleaseContent, multipleConcat("config/", RELEASE_BUILD_CONFIG_NAME, "/", WELCOME_PAGE_DIR_NAME, "/", application.getName(), ".css"), UTF_8, false);
 	}
 
@@ -1506,8 +1507,11 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 		ApplicationStructureCreator.applicationStructureFile = applicationStructureFile;
 	}
 
-	private Map<String, Object> resultData = null; 
-	
+	/**
+	 * Подготовка данных для мэппинга на подготовленные шаблоны 
+	 * 
+	 * @return данные для мэпирования
+	 */
 	private Map<String, Object> prepareData(){
 		if (resultData == null){
 			resultData = new HashMap<String, Object>();
@@ -1527,10 +1531,10 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 				modInfo.setFormTitle(module.getModuleName());
 				modInfo.setFormTitleEn(module.getModuleNameEn());
 				modInfo.setFieldLabelWidth(module.getFieldLabelWidth());
-				modInfo.setDataSource(module.getModuleDataSource());
+				modInfo.setDataSource(module.getDb().getDatasource());
 				modInfo.setPrimaryKey(getPrimaryKeyById(jepApplicationDoc, formName));
 				modInfo.setTable(module.getTable());
-				modInfo.setDbPackage(module.getDbPackageName());
+				modInfo.setDbPackage(module.getDb().getPackageName());
 				modInfo.setIsExcelAvailable(module.isExcelAvailable());
 				modInfo.setNotRebuild(module.isNotRebuild());
 				modInfo.setDefaultParameterPrefix(module.getDefaultParameterPrefix());
@@ -1557,7 +1561,7 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 				modInfo.setScopeModuleIds(getDependencyNodesIfExists(formName));
 				modInfo.setToolBarButtons(module.getToolBarButtons());
 				modInfo.setToolBarCustomButtons(module.getToolBarCustomButtons());
-				modInfo.setModuleRoleNames(module.getModuleRoleNames());
+				modInfo.setModuleRoleNames(module.getModuleRoleNamesAsStrings());
 				
 				List<ModuleField> moduleFields = hm.values().iterator().next();
 				boolean hasLobFields = false;

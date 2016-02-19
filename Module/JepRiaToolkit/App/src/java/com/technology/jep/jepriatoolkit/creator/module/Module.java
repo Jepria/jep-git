@@ -12,14 +12,18 @@ import javax.activation.UnsupportedDataTypeException;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import com.technology.jep.jepriatoolkit.JepRiaToolkitConstant;
+import com.technology.jep.jepriatoolkit.creator.module.adapter.BooleanAdapter;
 
 @XmlRootElement(name=MODULE_TAG_NAME)
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Module implements JepRiaToolkitConstant {
-
+	@XmlTransient
 	private String table;
 	@XmlAttribute(name=ID_ATTRIBUTE)
 	private String moduleId;
@@ -27,36 +31,58 @@ public class Module implements JepRiaToolkitConstant {
 	private String moduleName;
 	@XmlAttribute(name=NAME_EN_ATTRIBUTE)
 	private String moduleNameEn;
-	private String moduleDataSource;
-	private String dbPackageName;
+	@XmlElement(name=DATABASE_TAG_NAME)
+	private Db db;
+	@XmlTransient
 	private String defaultParameterPrefix;
+	@XmlTransient
 	private String findParameterPrefix;
+	@XmlTransient
 	private String createParameterPrefix;
+	@XmlTransient
 	private String updateParameterPrefix;
+	@XmlTransient
 	private String fieldLabelWidth;
-	private List<String> moduleRoleNames;
+	@XmlElement(name=MODULE_ROLES_ATTRIBUTE)
+	private List<Role> moduleRoles;
+	@XmlTransient
 	private List<ModuleButton> toolbarButtons = new ArrayList<ModuleButton>();
+	@XmlTransient
 	private List<ModuleButton> customToolBarButtons = null;
+	@XmlTransient
 	private boolean hasLikeFields = false;
+	@XmlTransient
 	private boolean hasListFormPresenter = false;
+	@XmlTransient
 	private boolean hasToolBarPresenter = false;
+	@XmlTransient
 	private boolean hasToolBarView = false;
-	private boolean isToolBarOff = false;
-	private boolean isStatusbarOff = false;
+	@XmlAttribute(name=MODULE_TOOLBAR_ATTRIBUTE)
+	@XmlJavaTypeAdapter(BooleanAdapter.class)
+	private Boolean isToolBarOff = false;
+	@XmlAttribute(name=MODULE_STATUSBAR_ATTRIBUTE)
+	@XmlJavaTypeAdapter(BooleanAdapter.class)
+	private Boolean isStatusbarOff = false;
+	@XmlTransient
 	private boolean isDNDOff = true;
+	@XmlTransient
 	private boolean isDblClickOff = false;
+	@XmlTransient
 	private boolean isExcelAvailable = false;
+	@XmlTransient
 	private boolean isNotRebuild = false;
+	@XmlElement(name=RECORD_TAG_NAME)
+	private Record record;
 	
-	public Module(){}
+	@SuppressWarnings("unused")
+	private Module(){}
 	
-	public Module(String moduleId, String moduleName, String moduleNameEn, String moduleDataSource, List<String> moduleRoleNames, String dbPackage){
+	public Module(String moduleId, String moduleName, String moduleNameEn, Db db, List<String> moduleRoleNames){
 		setModuleId(moduleId);
 		setModuleName(moduleName);
 		setModuleNameEn(moduleNameEn);
-		setModuleDataSource(moduleDataSource);
-		setModuleRoleNames(moduleRoleNames);
-		setDbPackageName(dbPackage);
+		setDb(db);
+		setModuleRoleNames(moduleRoleNames);		
 	}	
 	
 	public boolean isStatusBarOff() {
@@ -118,17 +144,27 @@ public class Module implements JepRiaToolkitConstant {
 	public void setToolBarButtons(List<ModuleButton> toolbarButtons) {
 		this.toolbarButtons = toolbarButtons;
 	}
-	public String getDbPackageName() {
-		return dbPackageName;
+	public List<Role> getModuleRoleNames() {
+		return moduleRoles;
 	}
-	public void setDbPackageName(String dbPackageName) {
-		this.dbPackageName = dbPackageName;
+	public List<String> getModuleRoleNamesAsStrings() {
+		List<String> result = null;
+		if (!isEmpty(moduleRoles)){
+			result = new ArrayList<String>(moduleRoles.size());
+			for (Role role : moduleRoles) {
+				result.add(role.getName());
+			}
+		}
+		return result;
 	}
-	public List<String> getModuleRoleNames() {
-		return moduleRoleNames;
-	}	
 	public void setModuleRoleNames(List<String> moduleRoleNames) {
-		this.moduleRoleNames = moduleRoleNames;
+		this.moduleRoles = null;
+		if (!isEmpty(moduleRoleNames)){
+			this.moduleRoles = new ArrayList<Role>(moduleRoleNames.size());
+			for (String roleName : moduleRoleNames) {
+				this.moduleRoles.add(new Role(roleName));
+			}
+		}
 	}
 	public boolean hasLikeFields() {
 		return hasLikeFields;
@@ -178,20 +214,14 @@ public class Module implements JepRiaToolkitConstant {
 	public void setModuleNameEn(String moduleNameEn) {
 		this.moduleNameEn = moduleNameEn;
 	}
-	public String getModuleDataSource() {
-		return moduleDataSource;
-	}
-	public void setModuleDataSource(String moduleDataSource) {
-		this.moduleDataSource = moduleDataSource;
-	}	
 	public String getModuleSecurityRolesAsString(){
-		String moduleRoles = new String();
+		String moduleRoleNames = new String();
 		
-		for (String role : moduleRoleNames){
-			moduleRoles += multipleConcat(isEmpty(moduleRoles) ? "" : ", ", role);
+		for (Role role : moduleRoles){
+			moduleRoleNames += multipleConcat(isEmpty(moduleRoleNames) ? "" : ", ", role.getName());
 		}
 		
-		return moduleRoles;
+		return moduleRoleNames;
 	}	
 	public boolean isStandardToolBar(){
 		return toolbarButtons.size() == 0;
@@ -254,5 +284,17 @@ public class Module implements JepRiaToolkitConstant {
 		if (!isEmpty(fieldLabelWidth)) {
 			this.fieldLabelWidth = fieldLabelWidth;
 		}
+	}
+	public Db getDb() {
+		return db;
+	}
+	public void setDb(Db db) {
+		this.db = db;
+	}
+	public Record getRecord() {
+		return record;
+	}
+	public void setRecord(Record record) {
+		this.record = record;
 	}
 }

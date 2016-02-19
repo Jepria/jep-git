@@ -361,6 +361,11 @@ public interface JepRiaToolkitConstant {
 	String DATABASE_TAG_NAME = "db";
 	
 	/**
+	 * Наименование тэга, отвечающего за описание записей модуля
+	 */
+	String RECORD_TAG_NAME = "record";
+	
+	/**
 	 * Наименование атрибута, отвечающего за префикс параметра EJB
 	 */
 	String DATABASE_PREFIX_ATTRIBUTE_NAME = "prefix";
