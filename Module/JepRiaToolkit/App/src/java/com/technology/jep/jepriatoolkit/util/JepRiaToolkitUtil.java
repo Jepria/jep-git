@@ -1232,17 +1232,19 @@ public final class JepRiaToolkitUtil implements JepRiaToolkitConstant {
 				recordField.setColumnWidth(name.trim());
 			}
 		}
-
-		NodeList listFormNodeList = formList.getChildNodes();
-		int counter = 0;
-		for (int index = 0; index < listFormNodeList.getLength(); index++) {
-			Node node = listFormNodeList.item(index);
-			if (node.getNodeType() == ELEMENT_NODE) {
-				Element nodeEl = (Element) node;
-				if (fieldId.equalsIgnoreCase(nodeEl.getAttribute(FIELD_ID_ATTRIBUTE))) {
-					recordField.setListFormIndex(counter);
-				} else if (isRecordField(jepApplicationDoc, moduleId, nodeEl.getAttribute(FIELD_ID_ATTRIBUTE))) {
-					counter++;
+		
+		if (!isEmpty(formList)) {
+			NodeList listFormNodeList = formList.getChildNodes();
+			int counter = 0;
+			for (int index = 0; index < listFormNodeList.getLength(); index++) {
+				Node node = listFormNodeList.item(index);
+				if (node.getNodeType() == ELEMENT_NODE) {
+					Element nodeEl = (Element) node;
+					if (fieldId.equalsIgnoreCase(nodeEl.getAttribute(FIELD_ID_ATTRIBUTE))) {
+						recordField.setListFormIndex(counter);
+					} else if (isRecordField(jepApplicationDoc, moduleId, nodeEl.getAttribute(FIELD_ID_ATTRIBUTE))) {
+						counter++;
+					}
 				}
 			}
 		}
@@ -1680,29 +1682,7 @@ public final class JepRiaToolkitUtil implements JepRiaToolkitConstant {
 		Integer currentIndex = 0;
 		for (int i = 0; i < parts.length; i++){
 			String part = parts[i];
-			if (part.matches(FILE_STRUCTURE_PATTERN)){
-				Pattern directoryPattern = Pattern.compile(FILE_STRUCTURE_PATTERN);
-				Matcher m = directoryPattern.matcher(part);
-				if (m.find()){
-					Integer index = Integer.decode(m.group(1));
-					if (index == currentIndex) {
-						currentIndex++;
-					}
-					else {
-						echoMessage(multipleConcat(ERROR_PREFIX, "Regexp '", regexpPattern, "' is incorrect. Check conditions!"));
-						break;
-					}
-				}
-				File[] files = new File(currentPath).listFiles(new FileFilter() {
-					@Override
-					public boolean accept(File file) {
-						return file.isDirectory();
-					}
-				});
-				part = files[0].getName();
-				result.add(part);
-			}
-			else if (i == parts.length - 1 && part.contains(LEFT_CURLY_BRACKET)){
+			if (i == parts.length - 1 && part.contains(LEFT_CURLY_BRACKET)){
 				final boolean isPart = !part.matches(FILE_STRUCTURE_PATTERN);
 				if (isPart){
 					Pattern directoryPattern = Pattern.compile(FILE_STRUCTURE_PATTERN);
@@ -1742,6 +1722,28 @@ public final class JepRiaToolkitUtil implements JepRiaToolkitConstant {
 						result.add(part);
 					}
 				}
+			}
+			else if (part.matches(FILE_STRUCTURE_PATTERN)){
+				Pattern directoryPattern = Pattern.compile(FILE_STRUCTURE_PATTERN);
+				Matcher m = directoryPattern.matcher(part);
+				if (m.find()){
+					Integer index = Integer.decode(m.group(1));
+					if (index == currentIndex) {
+						currentIndex++;
+					}
+					else {
+						echoMessage(multipleConcat(ERROR_PREFIX, "Regexp '", regexpPattern, "' is incorrect. Check conditions!"));
+						break;
+					}
+				}
+				File[] files = new File(currentPath).listFiles(new FileFilter() {
+					@Override
+					public boolean accept(File file) {
+						return file.isDirectory();
+					}
+				});
+				part = files[0].getName();
+				result.add(part);
 			}
 			currentPath += part + PATH_SEPARATOR;
 		}

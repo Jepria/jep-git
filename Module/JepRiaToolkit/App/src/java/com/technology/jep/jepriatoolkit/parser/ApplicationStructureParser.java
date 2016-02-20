@@ -50,9 +50,7 @@ public class ApplicationStructureParser extends Task implements JepRiaToolkitCon
 		mod.setRecord(rec);
 		structure.setModules(Arrays.asList(mod));
 		
-		
-		
-		convertToXml(structure, "JepApplication.xml");
+		convertToXml(structure, multipleConcat(applicationName, "Definition2.xml"));
 		
 		echoMessage("ProjectPackage: " + projectPackage);
 		echoMessage("Application XML Path: " + applicationXmlPath);

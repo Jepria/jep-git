@@ -160,21 +160,21 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 			application.setProjectPackage(packageName);
 			if (isEmpty(application.getProjectPackage())) {
 				echoMessage(multipleConcat(ERROR_PREFIX,
-						"Application setting XML is not correct! There is no mandatory attribute ", PROJECT_PACKAGE_ATTRIBUTE,
-						" of tag 'application'!"));
+						"Application setting XML is not correct! There is no mandatory attribute '", PROJECT_PACKAGE_ATTRIBUTE,
+						"' of tag 'application'!"));
 				return false;
 			}
 			String moduleName = applicationNode.getAttribute(APPLICATION_NAME_ATTRIBUTE);
 			application.setName(moduleName);
 			if (isEmpty(moduleName)) {
 				echoMessage(multipleConcat(ERROR_PREFIX,
-						"Application setting XML is not correct! There is no mandatory attribute ", APPLICATION_NAME_ATTRIBUTE,
-						" of tag 'application'!"));
+						"Application setting XML is not correct! There is no mandatory attribute '", APPLICATION_NAME_ATTRIBUTE,
+						"' of tag 'application'!"));
 				return false;
 			}
 			else if (!moduleName.equals(applicationStructureFile.split(APPLICATION_SETTING_FILE_ENDING)[0])){
 				echoMessage(multipleConcat(ERROR_PREFIX,
-						"Application setting XML is not correct! The attribute ", APPLICATION_NAME_ATTRIBUTE, " '", application.getName(),
+						"Application setting XML is not correct! The attribute '", APPLICATION_NAME_ATTRIBUTE, "'=", application.getName(),
 						"' doesn't match the file name '", applicationStructureFile, "'!"));
 				return false;
 			}
