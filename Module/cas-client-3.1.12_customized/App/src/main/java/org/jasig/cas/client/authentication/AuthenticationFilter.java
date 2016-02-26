@@ -155,13 +155,14 @@ public class AuthenticationFilter extends AbstractCasFilter {
 				        logger.error("Autologon error"); // TODO Нужно ли выдавать сообщение на Web-странице ?
 					}
 				} else if(isAutoLogonSucceededWLAState(wlaStateCookie)) { // На случай параллельного входа последующих приложений (уже успевших получить login-страницу CAS)
-					if(isEnteringIntoApplication(request)) {
+					if(isEnteringIntoApplication(request)) { // Нормальный вход после успешного автологона
 						filterChain.doFilter(request, response);
 						return;
-					} else {
+					} else { // Переход на login.jsp должен быть заменён переход по ранее сохранённому адресу целевой страницы
 				        String targetURL = (String) request.getSession().getAttribute(WLA_TARGET_URL);
 						request.getSession().removeAttribute(WLA_TARGET_URL);
 						
+						deleteCookie(CAS_CREDENTIALS_COOKIE_NAME, response); // Удаляем Cookie здесь, поскольку прохода через автологон не будет 
 				        response.sendRedirect(targetURL);
 					}
 				}
@@ -180,14 +181,10 @@ public class AuthenticationFilter extends AbstractCasFilter {
 					return;
 				} else if (isLoginRequestWLAState(wlaStateCookie)) { // Был запрос от WebLogic на CAS-логин ?
 					setWLAState(WL_AUTOLOGON_REQUEST_WLA_STATE_COOKIE_VALUE, response);
-					
-					// Сохраняем targetUrl для последующего перехода (на случай коллизии при параллельной работе)
-					String targetUrl = ServletAuthentication.getTargetURLForFormAuthentication(request.getSession());
-					request.getSession().setAttribute(WLA_TARGET_URL, targetUrl);
-					
-					serviceUrl = constructServiceUrl(request, response);	// Для redirect на cas/login
-					goToCasLogin(request, response, serviceUrl);
-					return;
+					goToCasLogin(request, response);
+				} else if(isAutoLogonRequestWLAState(wlaStateCookie) && request.getSession().getAttribute(WLA_TARGET_URL) == null) {
+					// Автологон уже был запрошен другими приложениями
+					goToCasLogin(request, response);
 				}
 			}
 			
@@ -205,8 +202,14 @@ public class AuthenticationFilter extends AbstractCasFilter {
 		}
     }
 
-	private boolean isEnteringIntoApplication(HttpServletRequest request) {
-		return request.getRequestURL().indexOf("login.jsp") == -1; // TODO Желательно убрать зависимость от login.jsp 
+	private void goToCasLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// Сохраняем targetUrl для последующего перехода (на случай коллизии при параллельной работе)
+		String targetUrl = ServletAuthentication.getTargetURLForFormAuthentication(request.getSession());
+		request.getSession().setAttribute(WLA_TARGET_URL, targetUrl);
+		
+		String serviceUrl = constructServiceUrl(request, response);	// Для redirect на cas/login
+		goToCasLogin(request, response, serviceUrl);
+		return;
 	}
 
 	private void goToCasLogin(HttpServletRequest request, HttpServletResponse response, String serviceUrl) throws IOException {
@@ -335,12 +338,11 @@ public class AuthenticationFilter extends AbstractCasFilter {
 		return result;
 	}
 
-	private void deleteCookie(Cookie cookie, HttpServletResponse response) {
-		if(cookie != null) {
-			cookie.setMaxAge(0);
-			cookie.setPath("/");
-			response.addCookie(cookie);
-		}
+	private void deleteCookie(String cookieName, HttpServletResponse response) {
+		Cookie cookie = new Cookie(cookieName, "toDelete");
+		cookie.setMaxAge(0);
+		cookie.setPath("/");
+		response.addCookie(cookie);
 	}
 
 	private void setWLAState(String wlaState, HttpServletResponse response) {
@@ -371,5 +373,9 @@ public class AuthenticationFilter extends AbstractCasFilter {
 
 	private boolean wasAutoLogonAttemptedWLAState(Cookie wlaStateCookie) {
 		return wlaStateCookie != null && WL_AUTOLOGON_WAS_ATTEMPTED_WLA_STATE_COOKIE_VALUE.equals(wlaStateCookie.getValue());
+	}
+
+	private boolean isEnteringIntoApplication(HttpServletRequest request) {
+		return request.getRequestURL().indexOf("login.jsp") == -1; // TODO Желательно убрать зависимость от login.jsp 
 	}
 }

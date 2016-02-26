@@ -77,7 +77,7 @@ public abstract class AbstractCasFilter extends AbstractConfigurationFilter {
 	/**
 	 * Имя cas credentials cookie 
 	 */
-	public static final String CAS_CREDENTIALS_COOKIE_NAME = "CasCredentialsCookieName";
+	public static final String CAS_CREDENTIALS_COOKIE_NAME = "CasCredentials";
 
     /** Имя параметра, содержащего контекстную часть URL CAS-сервера */
     public static final String CAS_SERVER_NAME_CONTEXT_PARAMETER = "casServerName";
