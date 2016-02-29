@@ -6,7 +6,9 @@
 		${LOG4J_HOME}/log4j.jar;
 		lib/ext/opensaml-1.1.jar;
 		lib/ext/servlet-api-2.3.jar;
-		lib/ext/commons-logging-1.1.jar " />
+		lib/ext/commons-logging-1.1.jar;
+		${WL_SERVER_LIB}/wls-api.jar " />
+
 	<property name="LOG_LEVEL" value="info" />
 	
 	<target name="start-log">
@@ -22,6 +24,7 @@
 	<target name="compile" depends="start-log">
 		<mkdir dir="build" />
 		<javac srcdir="src/main/java" destdir="build" classpath="${LIBS}" debug="on" encoding="UTF-8" target="1.6" includeantruntime="false" />
+		<copy file="src/main/java/log4j.properties" todir="build"/>
 	</target>
 
 	<target name="build" depends="compile">

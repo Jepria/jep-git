@@ -20,7 +20,7 @@ public class ${form.formName}RecordDefinition extends Jep<#if form.hasLobFields>
  
 	private ${form.formName}RecordDefinition() {
 		super(buildTypeMap()
-			, new String[]{${form.primaryKey}}
+			, new String[]{${form.primaryKey!''}}
 			<#if form.hasLobFields>
 			, "<#if form.table??>${form.table}<#else>table_name</#if>"
 			, buildFieldMap()

@@ -5,9 +5,17 @@
  */
 package org.jasig.cas.client.util;
 
-import org.jasig.cas.client.authentication.AttributePrincipal;
-import org.jasig.cas.client.validation.Assertion;
+import java.io.IOException;
+import java.security.AccessController;
+import java.security.Principal;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
+import javax.security.auth.Subject;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
@@ -16,10 +24,12 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
-import java.security.Principal;
-import java.util.Collection;
-import java.util.Iterator;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.jasig.cas.client.authentication.AttributePrincipal;
+import org.jasig.cas.client.authentication.AttributePrincipalImpl;
+import org.jasig.cas.client.validation.Assertion;
 
 /**
  * Implementation of a filter that wraps the normal HttpServletRequest with a
@@ -46,6 +56,8 @@ public final class HttpServletRequestWrapperFilter extends AbstractConfiguration
    
     /** Whether or not to ignore case in role membership queries */
     private boolean ignoreCase;
+    
+    protected static Log logger = LogFactory.getLog(HttpServletRequestWrapperFilter.class);
 
     public void destroy() {
         // nothing to do
@@ -58,11 +70,36 @@ public final class HttpServletRequestWrapperFilter extends AbstractConfiguration
      */
     public void doFilter(final ServletRequest servletRequest, final ServletResponse servletResponse, final FilterChain filterChain) throws IOException, ServletException {
         final AttributePrincipal principal = retrievePrincipalFromSessionOrRequest(servletRequest);
+//        final AttributePrincipal principal = getTestNagornyySPrincipal();
+
+        // TODO Убрать отладочный код
+        logger.debug(this.getClass() + ".doFilter(): " + "principal = " + principal);
+        if(principal != null) {
+            logger.debug(this.getClass() + ".doFilter(): " + "principal.getName() = " + principal.getName());
+            logger.debug(this.getClass() + ".doFilter(): " + "principal.getAttributes() = " + principal.getAttributes());
+        }
+
+        Subject subject = Subject.getSubject(AccessController.getContext());
+        logger.debug(this.getClass() + "doFilter()" + ".subject: " + subject);
+        if(subject != null) {
+            logger.debug(this.getClass() + ".doFilter()" + ".subject.toString(): " + subject.toString());
+            logger.debug(this.getClass() + ".doFilter()" + ".subject.getPrincipals(): " + subject.getPrincipals());
+            logger.debug(this.getClass() + ".doFilter()" + ".subject.getPrivateCredentials(): " + subject.getPrivateCredentials());
+            logger.debug(this.getClass() + ".doFilter()" + ".subject.getPublicCredentials(): " + subject.getPublicCredentials());
+        }
 
         filterChain.doFilter(new CasHttpServletRequestWrapper((HttpServletRequest) servletRequest, principal), servletResponse);
     }
 
-    protected AttributePrincipal retrievePrincipalFromSessionOrRequest(final ServletRequest servletRequest) {
+    private AttributePrincipal getTestNagornyySPrincipal() {
+        List<String> roles = Arrays.asList("JrsEditSupplier", "JrsEditGoods", "JrsEditShopGoods", "JrsEditRequest", "JrsEditRequestProcess");
+        Map<String, Object> attributes = new HashMap<String, Object>(1);
+        attributes.put("roleAttribute", roles);
+
+		return new AttributePrincipalImpl("NagornyyS", attributes);
+	}
+
+	protected AttributePrincipal retrievePrincipalFromSessionOrRequest(final ServletRequest servletRequest) {
         final HttpServletRequest request = (HttpServletRequest) servletRequest;
         final HttpSession session = request.getSession(false);
         final Assertion assertion = (Assertion) (session == null ? request.getAttribute(AbstractCasFilter.CONST_CAS_ASSERTION) : session.getAttribute(AbstractCasFilter.CONST_CAS_ASSERTION));
@@ -94,17 +131,17 @@ public final class HttpServletRequestWrapperFilter extends AbstractConfiguration
 
         public boolean isUserInRole(final String role) {
             if (CommonUtils.isBlank(role)) {
-                log.debug("No valid role provided.  Returning false.");
+                logger.debug("No valid role provided.  Returning false.");
                 return false;
             }
 
             if (this.principal == null) {
-                log.debug("No Principal in Request.  Returning false.");
+                logger.debug("No Principal in Request.  Returning false.");
                 return false;
             }
 
             if (CommonUtils.isBlank(roleAttribute)) {
-                log.debug("No Role Attribute Configured. Returning false.");
+                logger.debug("No Role Attribute Configured. Returning false.");
                 return false;
             }
 
@@ -113,14 +150,14 @@ public final class HttpServletRequestWrapperFilter extends AbstractConfiguration
             if (value instanceof Collection) {
                 for (final Iterator iter = ((Collection) value).iterator(); iter.hasNext();) {
                     if (rolesEqual(role, iter.next())) {
-                        log.debug("User [" + getRemoteUser() + "] is in role [" + role + "]: " + true);
+                        logger.debug("User [" + getRemoteUser() + "] is in role [" + role + "]: " + true);
                         return true;
                     }
                 }
             }
-
+            
             final boolean isMember = rolesEqual(role, value);
-            log.debug("User [" + getRemoteUser() + "] is in role [" + role + "]: " + isMember);
+            logger.debug("User [" + getRemoteUser() + "] is in role [" + role + "]: " + isMember);
             return isMember;
         }
         

@@ -5,14 +5,6 @@
  */
 package org.jasig.cas.client.validation;
 
-import org.jasig.cas.client.authentication.AttributePrincipal;
-import org.jasig.cas.client.authentication.AttributePrincipalImpl;
-import org.jasig.cas.client.proxy.Cas20ProxyRetriever;
-import org.jasig.cas.client.proxy.ProxyGrantingTicketStorage;
-import org.jasig.cas.client.proxy.ProxyRetriever;
-import org.jasig.cas.client.util.CommonUtils;
-import org.jasig.cas.client.util.XmlUtils;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.StringReader;
@@ -25,6 +17,16 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.jasig.cas.client.authentication.AttributePrincipal;
+import org.jasig.cas.client.authentication.AttributePrincipalImpl;
+import org.jasig.cas.client.proxy.Cas20ProxyRetriever;
+import org.jasig.cas.client.proxy.ProxyGrantingTicketStorage;
+import org.jasig.cas.client.proxy.ProxyRetriever;
+import org.jasig.cas.client.util.CommonUtils;
+import org.jasig.cas.client.util.XmlUtils;
+
 /**
  * Implementation of the TicketValidator that will validate Service Tickets in compliance with the CAS 2.
  *
@@ -33,6 +35,8 @@ import javax.servlet.http.HttpServletRequest;
  * @since 3.1
  */
 public class Cas20ServiceTicketValidator extends AbstractCasProtocolUrlBasedTicketValidator {
+    
+    private static Log logger = LogFactory.getLog(Cas20ServiceTicketValidator.class);
 
     /** The CAS 2.0 protocol proxy callback url. */
     private String proxyCallbackUrl;
@@ -78,8 +82,7 @@ public class Cas20ServiceTicketValidator extends AbstractCasProtocolUrlBasedTick
         }
 
         final String principal = XmlUtils.getTextForElement(response, "user");
-        final String proxyGrantingTicketIou = XmlUtils.getTextForElement(
-                response, "proxyGrantingTicket");
+        final String proxyGrantingTicketIou = XmlUtils.getTextForElement(response, "proxyGrantingTicket");
         final String proxyGrantingTicket = this.proxyGrantingTicketStorage != null ? this.proxyGrantingTicketStorage.retrieve(proxyGrantingTicketIou) : null;
 
         if (CommonUtils.isEmpty(principal)) {

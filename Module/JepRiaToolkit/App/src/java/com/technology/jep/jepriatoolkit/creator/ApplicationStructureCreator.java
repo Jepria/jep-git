@@ -44,6 +44,8 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import com.technology.jep.jepriatoolkit.JepRiaToolkitConstant;
+import com.technology.jep.jepriatoolkit.creator.module.Application;
+import com.technology.jep.jepriatoolkit.creator.module.Db;
 import com.technology.jep.jepriatoolkit.creator.module.Module;
 import com.technology.jep.jepriatoolkit.creator.module.ModuleButton;
 import com.technology.jep.jepriatoolkit.creator.module.ModuleField;
@@ -53,17 +55,18 @@ import com.technology.jep.jepriatoolkit.creator.module.ModuleInfo;
 public class ApplicationStructureCreator extends Task implements JepRiaToolkitConstant {
 
 	// Атрибут таска
-	private String applicationStructureFile;
-	// характеристики приложения, извлекаемые из конфигурационного файла приложения
-	public String moduleName, packageName, defaultDataSource;	
-	
-	public List<String> forms = new ArrayList<String>();
-	private List<List<String>> formWithTheirDependencies = new ArrayList<List<String>>();
-	private List<String> securityRoles = new ArrayList<String>();
+	private static String applicationStructureFile;
+	// объект, хранящий характеристики приложения, извлекаемые из конфигурационного файла приложения	
+	public static Application application;
+	public static List<String> forms = new ArrayList<String>();
+	private static List<List<String>> formWithTheirDependencies = new ArrayList<List<String>>();
+	private static List<String> securityRoles = new ArrayList<String>();
 	// Соответствие формы списку полей, где указано наименование поля и его тип
-	private Map<Module, List<ModuleField>> formFields = new HashMap<Module, List<ModuleField>>();
-	// Ссылка на JepApplication.xml
-	private Document jepApplicationDoc = null;
+	private static Map<Module, List<ModuleField>> formFields = new HashMap<Module, List<ModuleField>>();
+	// Ссылка на <ApplicationName>Definition.xml
+	private static Document jepApplicationDoc = null;
+	// Данные для шаблонизатора
+	private Map<String, Object> resultData = null; 
 
 	/**
 	 * Основной метод, который выполняет Task
@@ -71,14 +74,11 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 	@Override
 	public void execute() throws BuildException {
 		try {
-			echoMessage("Parsing JepApplication.xml...");
-
-			if (!parseApplicationSettingXML())
-				return;
+			if (!parseApplicationSettingXML()) return;
 			
 			notifyAboutAbsentFields();
 
-			echoMessage("Create Application Structure for '" + packageName.toLowerCase() + "." + moduleName.toLowerCase() + "' module");
+			echoMessage(multipleConcat("Create Application Structure for '", application.getProjectPackage().toLowerCase(), ".", application.getName().toLowerCase(), "' module"));
 			createApplicationFileStructure();
 			echoMessage("Generate web.xml");
 			generateWebXML();
@@ -143,11 +143,12 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 	 * @return флаг успешности/неуспешности парсинга JepApplication.xml
 	 * @throws ParserConfigurationException
 	 */
-	public boolean parseApplicationSettingXML() throws ParserConfigurationException {
+	public static boolean parseApplicationSettingXML() throws ParserConfigurationException {
 		applicationStructureFile = isEmptyOrNotInitializedParameter(applicationStructureFile) ? getApplicationDefinitionFile() : applicationStructureFile;
+		echoMessage(multipleConcat("Parsing ", applicationStructureFile, "..."));
 		try {
 			jepApplicationDoc = getDOM(applicationStructureFile);
-
+			application = new Application();
 			NodeList nodes = jepApplicationDoc.getElementsByTagName(APPLICATION_TAG_NAME);
 			if (isEmpty(nodes)) {
 				echoMessage(multipleConcat(ERROR_PREFIX,
@@ -155,27 +156,30 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 				return false;
 			}
 			Element applicationNode = (Element) nodes.item(0);
-			packageName = applicationNode.getAttribute(PROJECT_PACKAGE_ATTRIBUTE);
-			if (isEmpty(packageName)) {
+			String packageName = applicationNode.getAttribute(PROJECT_PACKAGE_ATTRIBUTE);
+			application.setProjectPackage(packageName);
+			if (isEmpty(application.getProjectPackage())) {
 				echoMessage(multipleConcat(ERROR_PREFIX,
-						"Application setting XML is not correct! There is no mandatory attribute ", PROJECT_PACKAGE_ATTRIBUTE,
-						" of tag 'application'!"));
+						"Application setting XML is not correct! There is no mandatory attribute '", PROJECT_PACKAGE_ATTRIBUTE,
+						"' of tag 'application'!"));
 				return false;
 			}
-			moduleName = applicationNode.getAttribute(APPLICATION_NAME_ATTRIBUTE);
+			String moduleName = applicationNode.getAttribute(APPLICATION_NAME_ATTRIBUTE);
+			application.setName(moduleName);
 			if (isEmpty(moduleName)) {
 				echoMessage(multipleConcat(ERROR_PREFIX,
-						"Application setting XML is not correct! There is no mandatory attribute ", APPLICATION_NAME_ATTRIBUTE,
-						" of tag 'application'!"));
+						"Application setting XML is not correct! There is no mandatory attribute '", APPLICATION_NAME_ATTRIBUTE,
+						"' of tag 'application'!"));
 				return false;
 			}
 			else if (!moduleName.equals(applicationStructureFile.split(APPLICATION_SETTING_FILE_ENDING)[0])){
 				echoMessage(multipleConcat(ERROR_PREFIX,
-						"Application setting XML is not correct! The attribute ", APPLICATION_NAME_ATTRIBUTE, " '", moduleName,
-						"' doesn't match the file name '", this.applicationStructureFile, "'!"));
+						"Application setting XML is not correct! The attribute '", APPLICATION_NAME_ATTRIBUTE, "'=", application.getName(),
+						"' doesn't match the file name '", applicationStructureFile, "'!"));
 				return false;
 			}
-			defaultDataSource = applicationNode.getAttribute(APPLICATION_DATASOURCE_ATTRIBUTE);
+			String defaultDataSource = applicationNode.getAttribute(APPLICATION_DATASOURCE_ATTRIBUTE);
+			application.setDefaultDatasource(defaultDataSource);
 			if (isEmpty(defaultDataSource)) {
 				defaultDataSource = DEFAULT_DATASOURCE;
 			}
@@ -184,12 +188,11 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 			forms = getAllModuleNodes(jepApplicationDoc);
 			for (int index = 0; index < forms.size(); index++) {
 				String formName = forms.get(index);
-				echoMessage(multipleConcat("Gather information about module '", packageName.toLowerCase(), ".", moduleName.toLowerCase(), ".", formName, "'"));
+				echoMessage(multipleConcat("Gather information about module '", application.getProjectPackage().toLowerCase(), ".", application.getName().toLowerCase(), ".", formName, "'"));
 				
 				Element module = getModuleNodeById(jepApplicationDoc, formName);
 				List<String> moduleRoles = getModuleSecurityRoles(jepApplicationDoc, formName);
-				// заполнение общего списка ролей, необходимого для генерации
-				// web.xml
+				// заполнение общего списка ролей, необходимого для генерации web.xml
 				for (String moduleRole : moduleRoles) {
 					if (!securityRoles.contains(moduleRole))
 						securityRoles.add(moduleRole);
@@ -198,11 +201,11 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 				String moduleDataSource = getDataSourceById(jepApplicationDoc, formName);
 				String modulePackage = getPackageById(jepApplicationDoc, formName);
 
+				Db db = new Db(isEmpty(modulePackage) ? multipleConcat(PKG_PREFIX, application.getName().toLowerCase())
+						: modulePackage, isEmpty(moduleDataSource) ? defaultDataSource : moduleDataSource);
 				Module m = new Module(formName, isEmpty(module.getAttribute(MODULE_NAME_ATTRIBUTE)) ? NO_NAME : module.getAttribute(
 						MODULE_NAME_ATTRIBUTE).trim(), isEmpty(module.getAttribute(MODULE_NAME_EN_ATTRIBUTE)) ? NO_NAME : module
-						.getAttribute(MODULE_NAME_EN_ATTRIBUTE).trim(), isEmpty(moduleDataSource) ? defaultDataSource : moduleDataSource,
-						moduleRoles, isEmpty(modulePackage) ? multipleConcat(PKG_PREFIX, moduleName.toLowerCase())
-								: modulePackage);
+						.getAttribute(MODULE_NAME_EN_ATTRIBUTE).trim(), db, moduleRoles);
 				m.setNotRebuild(OFF.equalsIgnoreCase(module.getAttribute(MODULE_BUILD_ATTRIBUTE)));
 				m.setTable(getTableById(jepApplicationDoc, formName));
 				// Инициализация данных о тулбаре
@@ -241,8 +244,7 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 							m.setHasLikeFields(true);
 						}
 						mf.setPrimaryKey(fieldId.equalsIgnoreCase(getPrimaryKeyById(jepApplicationDoc, formName)));
-						// детализируем поле после парсинга форм: детальной и
-						// списочной
+						// детализируем поле после парсинга форм: детальной и списочной
 						detailizedModuleField(jepApplicationDoc, m, mf);
 						mfList.add(mf);
 					}
@@ -280,7 +282,7 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 			List<ModuleField> moduleFields = hm.values().iterator().next();
 			List<String> absentFields = getListOfAbsentFieldNameByModuleId(jepApplicationDoc, formName, moduleFields);
 			if (!absentFields.isEmpty()) {
-				echoMessage(multipleConcat(WARNING_PREFIX, "Field", (absentFields.size() > 1 ? "s" : ""), " " + absentFields
+				echoMessage(multipleConcat(WARNING_PREFIX, "Field", (absentFields.size() > 1 ? "s" : ""), " ", absentFields
 						+ " ", (absentFields.size() > 1 ? "are" : "is"), " absent in 'record' section for module with ID : '", formName, "'"));
 			}
 		}
@@ -299,28 +301,28 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 			format(
 				getDefinitionProperty(RESOURCE_DIRECTORY_PROPERTY, 
 					multipleConcat(PREFIX_DESTINATION_RESOURCE, "{0}/{1}/web")),
-				packageName.toLowerCase(), moduleName.toLowerCase() 	
+				application.getProjectPackage().toLowerCase(), application.getName().toLowerCase() 	
 			)
 		);
 		makeDir(
 			format(
 				getDefinitionProperty(MAIN_MODULE_DIRECTORY_PROPERTY,
 					multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "{0}/{1}/main/client/ui/main")),
-				packageName.toLowerCase(), moduleName.toLowerCase()
+				application.getProjectPackage().toLowerCase(), application.getName().toLowerCase()
 			)
 		);
 		makeDir(
 			format(
 				getDefinitionProperty(ENTRANCE_DIRECTORY_PROPERTY,
 					multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "{0}/{1}/main/client/entrance")),
-				packageName.toLowerCase(), moduleName.toLowerCase()
+				application.getProjectPackage().toLowerCase(), application.getName().toLowerCase()
 			)
 		);
 		makeDir(
 			format(
 				getDefinitionProperty(MAIN_TEXT_RESOURCE_DIRECTORY_PROPERTY,
 					multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "{0}/{1}/main/shared/text")),
-				packageName.toLowerCase(), moduleName.toLowerCase()
+				application.getProjectPackage().toLowerCase(), application.getName().toLowerCase()
 			)
 		);
 
@@ -336,56 +338,56 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 				format(
 					getDefinitionProperty(CLIENT_MODULE_DETAIL_FORM_DIRECTORY_PROPERTY,
 							multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "{0}/{1}/{2}/client/ui/form/detail")),
-					packageName.toLowerCase(), moduleName.toLowerCase(), formName
+					application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName
 				)
 			);
 			makeDir(
 				format(
 					getDefinitionProperty(CLIENT_MODULE_LIST_FORM_DIRECTORY_PROPERTY,
 						multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "{0}/{1}/{2}/client/ui/form/list")),
-					packageName.toLowerCase(), moduleName.toLowerCase(), formName
+					application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName
 				)
 			);
 			makeDir(
 				format(
 					getDefinitionProperty(CLIENT_MODULE_EJB_DIRECTORY_PROPERTY,
 						multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "{0}/{1}/{2}/server/ejb")),
-					packageName.toLowerCase(), moduleName.toLowerCase(), formName
+					application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName
 				)
 			);
 			makeDir(
 				format(
 					getDefinitionProperty(CLIENT_MODULE_SERVICE_IMPL_DIRECTORY_PROPERTY,
 						multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "{0}/{1}/{2}/server/service")),
-					packageName.toLowerCase(), moduleName.toLowerCase(), formName
+					application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName
 				)
 			);
 			makeDir(
 				format(
 					getDefinitionProperty(CLIENT_MODULE_FIELD_DIRECTORY_PROPERTY,	
 						multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "{0}/{1}/{2}/shared/field")),
-					packageName.toLowerCase(), moduleName.toLowerCase(), formName
+					application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName
 				)
 			);
 			makeDir(
 				format(
 					getDefinitionProperty(CLIENT_MODULE_RECORD_DIRECTORY_PROPERTY,	
 						multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "{0}/{1}/{2}/shared/record")),
-					packageName.toLowerCase(), moduleName.toLowerCase(), formName
+					application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName
 				)
 			);
 			makeDir(
 				format(
 					getDefinitionProperty(CLIENT_MODULE_SERVICE_DIRECTORY_PROPERTY,	
 						multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "{0}/{1}/{2}/shared/service")),
-					packageName.toLowerCase(), moduleName.toLowerCase(), formName
+					application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName
 				)
 			);
 			makeDir(
 				format(
 					getDefinitionProperty(CLIENT_MODULE_TEXT_RESOURCE_DIRECTORY_PROPERTY,	
 						multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "{0}/{1}/{2}/shared/text")),
-					packageName.toLowerCase(), moduleName.toLowerCase(), formName
+					application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName
 				)
 			);
 		}
@@ -400,7 +402,7 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 			format(
 				getDefinitionProperty(CONFIG_MAIN_PACKAGE_DIRECTORY_PROPERTY, 
 					multipleConcat("config/{0}/", PREFIX_DESTINATION_SOURCE_CODE, "{1}/{2}/main/")),
-				DEBUG_BUILD_CONFIG_NAME, packageName.toLowerCase(), moduleName.toLowerCase()
+				DEBUG_BUILD_CONFIG_NAME, application.getProjectPackage().toLowerCase(), application.getName().toLowerCase()
 			)
 		);
 		
@@ -425,7 +427,7 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 			format(
 				getDefinitionProperty(CONFIG_MAIN_PACKAGE_DIRECTORY_PROPERTY, 
 					multipleConcat("config/{0}/", PREFIX_DESTINATION_SOURCE_CODE, "{1}/{2}/main/")),
-				RELEASE_BUILD_CONFIG_NAME, packageName.toLowerCase(), moduleName.toLowerCase()
+				RELEASE_BUILD_CONFIG_NAME, application.getProjectPackage().toLowerCase(), application.getName().toLowerCase()
 			)
 		);
 		deployPropContent = 
@@ -453,7 +455,7 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 				getDefinitionProperty(WEB_XML_PATH_TEMPLATE_PROPERTY, 
 					multipleConcat(PREFIX_DESTINATION_RESOURCE, "{0}/{1}/web/web.xml")
 				), 
-				packageName.toLowerCase(), moduleName.toLowerCase()
+				application.getProjectPackage().toLowerCase(), application.getName().toLowerCase()
 			)
 		);
 	}
@@ -469,7 +471,7 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 				getDefinitionProperty(APPLICATION_XML_PATH_TEMPLATE_PROPERTY, 
 					multipleConcat(PREFIX_DESTINATION_RESOURCE, "{0}/{1}/application.xml")
 				), 
-				packageName.toLowerCase(), moduleName.toLowerCase()
+				application.getProjectPackage().toLowerCase(), application.getName().toLowerCase()
 			)
 		);
 	}
@@ -485,7 +487,7 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 				getDefinitionProperty(ORION_APPLICATION_XML_PATH_TEMPLATE_PROPERTY, 
 					multipleConcat(PREFIX_DESTINATION_RESOURCE, "{0}/{1}/orion-application.xml")
 				), 
-				packageName.toLowerCase(), moduleName.toLowerCase()
+				application.getProjectPackage().toLowerCase(), application.getName().toLowerCase()
 			)
 		);
 	}
@@ -502,7 +504,7 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 				getDefinitionProperty(MAIN_GWT_XML_PATH_TEMPLATE_PROPERTY, 
 					multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "{0}/{1}/main/{3}.gwt.xml")
 				), 
-				packageName.toLowerCase(), moduleName.toLowerCase(), moduleName
+				application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), application.getName()
 			)
 		);
 		
@@ -511,8 +513,8 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 			prepareData(),
 			multipleConcat(
 				"config/", DEBUG_BUILD_CONFIG_NAME, "/", PREFIX_DESTINATION_SOURCE_CODE,
-				packageName.toLowerCase(),  "/", moduleName.toLowerCase(),
-				"/main/", moduleName, ".gwt.xml")
+				application.getProjectPackage().toLowerCase(),  "/", application.getName().toLowerCase(),
+				"/main/", application.getName(), ".gwt.xml")
 		);
 		
 		convertTemplateToFile(
@@ -520,8 +522,8 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 			prepareData(),
 			multipleConcat(
 				"config/", RELEASE_BUILD_CONFIG_NAME, "/", PREFIX_DESTINATION_SOURCE_CODE,
-				packageName.toLowerCase(),  "/", moduleName.toLowerCase(),
-				"/main/", moduleName, ".gwt.xml")
+				application.getProjectPackage().toLowerCase(),  "/", application.getName().toLowerCase(),
+				"/main/", application.getName(), ".gwt.xml")
 		);
 	}
 
@@ -542,7 +544,7 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 					getDefinitionProperty(CLIENT_MODULE_GWT_XML_PATH_TEMPLATE_PROPERTY, 
 						multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "{0}/{1}/{2}/{3}.gwt.xml")
 					),
-					packageName.toLowerCase(), moduleName.toLowerCase(), formName.toLowerCase(), formName
+					application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName.toLowerCase(), formName
 				)
 			);
 		}
@@ -560,24 +562,24 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 			format(
 				getDefinitionProperty(APPLICATION_JSP_PATH_TEMPLATE_PROPERTY, 
 					multipleConcat(WELCOME_PAGE_DIR_NAME, "/{0}.jsp")),
-				moduleName
+				application.getName()
 			)
 		);
 		
 		//CSS debug
-		String cssTemplateDebugContent = readFromJar("/templates/config/" + DEBUG_BUILD_CONFIG_NAME + "/src/html/" + CSS_TEMPLATE_NAME, UTF_8);
+		String cssTemplateDebugContent = readFromJar(multipleConcat("/templates/config/", DEBUG_BUILD_CONFIG_NAME, "/src/html/", CSS_TEMPLATE_NAME), UTF_8);
 		writeToFile(cssTemplateDebugContent,
 			format(
 				getDefinitionProperty(APPLICATION_CSS_PATH_TEMPLATE_PROPERTY, 
 					multipleConcat(WELCOME_PAGE_DIR_NAME, "/{0}.css")
 				),
-				moduleName
+				application.getName()
 			), UTF_8, false);
-		writeToFile(cssTemplateDebugContent, multipleConcat("config/", DEBUG_BUILD_CONFIG_NAME, "/", WELCOME_PAGE_DIR_NAME, "/", moduleName, ".css"), UTF_8, false);
+		writeToFile(cssTemplateDebugContent, multipleConcat("config/", DEBUG_BUILD_CONFIG_NAME, "/", WELCOME_PAGE_DIR_NAME, "/", application.getName(), ".css"), UTF_8, false);
 
 		//CSS release
-		String cssTemplateReleaseContent = readFromJar("/templates/config/" + RELEASE_BUILD_CONFIG_NAME + "/src/html/" + CSS_TEMPLATE_NAME, UTF_8);
-		writeToFile(cssTemplateReleaseContent, multipleConcat("config/", RELEASE_BUILD_CONFIG_NAME, "/", WELCOME_PAGE_DIR_NAME, "/", moduleName, ".css"), UTF_8, false);
+		String cssTemplateReleaseContent = readFromJar(multipleConcat("/templates/config/", RELEASE_BUILD_CONFIG_NAME, "/src/html/", CSS_TEMPLATE_NAME), UTF_8);
+		writeToFile(cssTemplateReleaseContent, multipleConcat("config/", RELEASE_BUILD_CONFIG_NAME, "/", WELCOME_PAGE_DIR_NAME, "/", application.getName(), ".css"), UTF_8, false);
 	}
 
 	/**
@@ -592,7 +594,7 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 			format(
 				getDefinitionProperty(MAIN_TEXT_RESOURCE_PATH_TEMPLATE_PROPERTY, 
 					multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/main/shared/text/{2}Text_Source.properties")),
-				packageName.toLowerCase(), moduleName.toLowerCase(), moduleName
+				application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), application.getName()
 			)
 		);
 		
@@ -602,7 +604,7 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 			format(
 				getDefinitionProperty(MAIN_TEXT_RESOURCE_EN_PATH_TEMPLATE_PROPERTY, 
 					multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/main/shared/text/{2}Text_en.properties")),
-				packageName.toLowerCase(), moduleName.toLowerCase(), moduleName
+				application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), application.getName()
 			)
 		);
 		
@@ -620,7 +622,7 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 				format(
 					getDefinitionProperty(CLIENT_MODULE_TEXT_RESOURCE_PATH_TEMPLATE_PROPERTY, 
 							multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/shared/text/{3}Text_Source.properties")),
-					packageName.toLowerCase(), moduleName.toLowerCase(), formName.toLowerCase(), formName
+					application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName.toLowerCase(), formName
 				)
 			);
 			
@@ -630,7 +632,7 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 				format(
 					getDefinitionProperty(CLIENT_MODULE_TEXT_RESOURCE_EN_PATH_TEMPLATE_PROPERTY, 
 							multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/shared/text/{3}Text_en.properties")),
-					packageName.toLowerCase(), moduleName.toLowerCase(), formName.toLowerCase(), formName
+					application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName.toLowerCase(), formName
 				)
 			);
 		}
@@ -645,7 +647,7 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 			prepareData(),
 			format(
 				getDefinitionProperty(OVERVIEW_PATH_TEMPLATE_PROPERTY, "src/java/com/technology/{0}/{1}/overview.html"),
-				packageName.toLowerCase(), moduleName.toLowerCase()
+				application.getProjectPackage().toLowerCase(), application.getName().toLowerCase()
 			)
 		);
 	}
@@ -663,7 +665,7 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 			format(
 				getDefinitionProperty(MAIN_MODULE_CONSTANT_PATH_TEMPLATE_PROPERTY, 
 						multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/main/client/{2}ClientConstant.java")),
-				packageName.toLowerCase(), moduleName.toLowerCase(), moduleName
+				application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), application.getName()
 			)
 		);
 		
@@ -682,7 +684,7 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 				format(
 					getDefinitionProperty(CLIENT_MODULE_CONSTANT_PATH_TEMPLATE_PROPERTY, 
 							multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/client/{3}ClientConstant.java")),
-					packageName.toLowerCase(), moduleName.toLowerCase(), formName.toLowerCase(), formName
+					application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName.toLowerCase(), formName
 				)
 			);
 		}
@@ -710,7 +712,7 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 				format(
 					getDefinitionProperty(CLIENT_MODULE_FACTORY_PATH_TEMPLATE_PROPERTY, 
 							multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/client/{3}ClientFactoryImpl.java")),
-					packageName.toLowerCase(), moduleName.toLowerCase(), formName.toLowerCase(), formName
+					application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName.toLowerCase(), formName
 				)
 			);
 		}
@@ -721,7 +723,7 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 			format(
 				getDefinitionProperty(MAIN_MODULE_FACTORY_PATH_TEMPLATE_PROPERTY, 
 						multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/main/client/{3}ClientFactoryImpl.java")),
-				packageName.toLowerCase(), moduleName.toLowerCase(), moduleName
+				application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), application.getName()
 			)
 		);
 	}
@@ -736,7 +738,7 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 			format(
 				getDefinitionProperty(MODULE_ENTRY_POINT_PATH_TEMPLATE_PROPERTY, 
 						multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/main/client/entrance/{3}EntryPoint.java")),
-				packageName.toLowerCase(), moduleName.toLowerCase(), moduleName
+				application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), application.getName()
 			)
 		);
 	}
@@ -762,7 +764,7 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 				format(
 					getDefinitionProperty(CLIENT_MODULE_DETAIL_FORM_PRESENTER_PATH_TEMPLATE_PROPERTY, 
 							multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/client/ui/form/detail/{3}DetailFormPresenter.java")),
-					packageName.toLowerCase(), moduleName.toLowerCase(), formName.toLowerCase(), formName
+					application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName.toLowerCase(), formName
 				)
 			);
 		}
@@ -789,7 +791,7 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 				format(
 					getDefinitionProperty(CLIENT_MODULE_DETAIL_FORM_VIEW_PATH_TEMPLATE_PROPERTY, 
 							multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/client/ui/form/detail/{3}DetailFormView.java")),
-					packageName.toLowerCase(), moduleName.toLowerCase(), formName.toLowerCase(), formName
+					application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName.toLowerCase(), formName
 				)
 			);
 			
@@ -799,7 +801,7 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 				format(
 					getDefinitionProperty(CLIENT_MODULE_DETAIL_FORM_VIEW_IMPL_PATH_TEMPLATE_PROPERTY, 
 							multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/client/ui/form/detail/{3}DetailFormViewImpl.java")),
-					packageName.toLowerCase(), moduleName.toLowerCase(), formName.toLowerCase(), formName
+					application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName.toLowerCase(), formName
 				)
 			);
 		}
@@ -826,7 +828,7 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 				format(
 					getDefinitionProperty(CLIENT_MODULE_LIST_FORM_PRESENTER_PATH_TEMPLATE_PROPERTY, 
 							multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/client/ui/form/list/{3}ListFormPresenter.java")),
-					packageName.toLowerCase(), moduleName.toLowerCase(), formName.toLowerCase(), formName
+					application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName.toLowerCase(), formName
 				)
 			);
 		}
@@ -853,7 +855,7 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 				format(
 					getDefinitionProperty(CLIENT_MODULE_LIST_FORM_VIEW_IMPL_PATH_TEMPLATE_PROPERTY, 
 							multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/client/ui/form/list/{3}ListFormViewImpl.java")),
-					packageName.toLowerCase(), moduleName.toLowerCase(), formName.toLowerCase(), formName
+					application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName.toLowerCase(), formName
 				)
 			);
 		}
@@ -879,7 +881,7 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 				format(
 					getDefinitionProperty(CLIENT_MODULE_PLAIN_FORM_DIRECTORY_PROPERTY,
 							multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "{0}/{1}/{2}/client/ui/plain")),
-					packageName.toLowerCase(), moduleName.toLowerCase(), formName
+					application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName
 				)
 			);
 			convertTemplateToFile(
@@ -888,7 +890,7 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 				format(
 					getDefinitionProperty(CLIENT_MODULE_PRESENTER_PATH_TEMPLATE_PROPERTY, 
 							multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/client/ui/plain/{3}ModulePresenter.java")),
-					packageName.toLowerCase(), moduleName.toLowerCase(), formName.toLowerCase(), formName
+					application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName.toLowerCase(), formName
 				)
 			);
 		}
@@ -899,7 +901,7 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 			format(
 				getDefinitionProperty(MAIN_MODULE_PRESENTER_PATH_TEMPLATE_PROPERTY, 
 						multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/main/client/ui/main/{2}MainModulePresenter.java")),
-				packageName.toLowerCase(), moduleName.toLowerCase(), moduleName
+				application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), application.getName()
 			)
 		);
 	}
@@ -925,7 +927,7 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 				format(
 					getDefinitionProperty(CLIENT_MODULE_SERVICE_IMPL_PATH_TEMPLATE_PROPERTY, 
 							multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/server/service/{3}ServiceImpl.java")),
-					packageName.toLowerCase(), moduleName.toLowerCase(), formName.toLowerCase(), formName
+					application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName.toLowerCase(), formName
 				)
 			);
 			
@@ -936,7 +938,7 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 					format(
 						getDefinitionProperty(CLIENT_MODULE_UPLOAD_SERVICE_IMPL_PATH_TEMPLATE_PROPERTY, 
 								multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/server/service/UploadServiceImpl.java")),
-						packageName.toLowerCase(), moduleName.toLowerCase(), formName.toLowerCase()
+						application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName.toLowerCase()
 					)
 				);
 				
@@ -946,7 +948,7 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 					format(
 						getDefinitionProperty(CLIENT_MODULE_DOWNLOAD_SERVICE_IMPL_PATH_TEMPLATE_PROPERTY, 
 								multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/server/service/DownloadServiceImpl.java")),
-						packageName.toLowerCase(), moduleName.toLowerCase(), formName.toLowerCase()
+						application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName.toLowerCase()
 					)
 				);
 			}
@@ -958,7 +960,7 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 					format(
 						getDefinitionProperty(CLIENT_MODULE_EXCEL_SERVICE_IMPL_PATH_TEMPLATE_PROPERTY, 
 								multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/server/service/ShowExcelServlet.java")),
-						packageName.toLowerCase(), moduleName.toLowerCase(), formName.toLowerCase()
+						application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName.toLowerCase()
 					)
 				);
 			}
@@ -986,7 +988,7 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 				format(
 					getDefinitionProperty(CLIENT_MODULE_SERVER_CONSTANT_PATH_TEMPLATE_PROPERTY, 
 							multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/server/{3}ServerConstant.java")),
-					packageName.toLowerCase(), moduleName.toLowerCase(), formName.toLowerCase(), formName
+					application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName.toLowerCase(), formName
 				)
 			);
 		}
@@ -1023,7 +1025,7 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 				format(
 					getDefinitionProperty(CLIENT_MODULE_REMOTE_EJB_PATH_TEMPLATE_PROPERTY, 
 							multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/server/ejb/{3}Remote.java")),
-					packageName.toLowerCase(), moduleName.toLowerCase(), formName.toLowerCase(), formName
+					application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName.toLowerCase(), formName
 				)
 			);
 		}
@@ -1050,7 +1052,7 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 				format(
 					getDefinitionProperty(CLIENT_MODULE_LOCAL_EJB_PATH_TEMPLATE_PROPERTY, 
 							multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/server/ejb/{3}Local.java")),
-					packageName.toLowerCase(), moduleName.toLowerCase(), formName.toLowerCase(), formName
+					application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName.toLowerCase(), formName
 				)
 			);
 		}
@@ -1077,7 +1079,7 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 				format(
 					getDefinitionProperty(CLIENT_MODULE_EJB_PATH_TEMPLATE_PROPERTY, 
 							multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/server/ejb/{3}Bean.java")),
-					packageName.toLowerCase(), moduleName.toLowerCase(), formName.toLowerCase(), formName
+					application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName.toLowerCase(), formName
 				)
 			);
 		}
@@ -1104,7 +1106,7 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 				format(
 					getDefinitionProperty(CLIENT_MODULE_EJB_INTERFACE_PATH_TEMPLATE_PROPERTY, 
 							multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/server/ejb/{3}.java")),
-					packageName.toLowerCase(), moduleName.toLowerCase(), formName.toLowerCase(), formName
+					application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName.toLowerCase(), formName
 				)
 			);
 		}
@@ -1131,7 +1133,7 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 				format(
 					getDefinitionProperty(CLIENT_MODULE_FIELDS_PATH_TEMPLATE_PROPERTY, 
 							multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/shared/field/{3}FieldNames.java")),
-					packageName.toLowerCase(), moduleName.toLowerCase(), formName.toLowerCase(), formName
+					application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName.toLowerCase(), formName
 				)
 			);
 			
@@ -1145,7 +1147,7 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 							format(
 								getDefinitionProperty(CLIENT_MODULE_OPTIONS_PATH_TEMPLATE_PROPERTY, 
 										multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/shared/field/{3}Options.java")),
-								packageName.toLowerCase(), moduleName.toLowerCase(), formName.toLowerCase(), field.getFieldIdAsParameter()
+								application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName.toLowerCase(), field.getFieldIdAsParameter()
 							)
 						);
 					}
@@ -1175,7 +1177,7 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 				format(
 					getDefinitionProperty(CLIENT_MODULE_RECORD_DEFINITION_PATH_TEMPLATE_PROPERTY, 
 							multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/shared/record/{3}RecordDefinition.java")),
-					packageName.toLowerCase(), moduleName.toLowerCase(), formName.toLowerCase(), formName
+					application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName.toLowerCase(), formName
 				)
 			);
 		}
@@ -1202,7 +1204,7 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 				format(
 					getDefinitionProperty(CLIENT_MODULE_SERVICE_PATH_TEMPLATE_PROPERTY, 
 							multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/shared/service/{3}Service.java")),
-					packageName.toLowerCase(), moduleName.toLowerCase(), formName.toLowerCase(), formName
+					application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName.toLowerCase(), formName
 				)
 			);
 			
@@ -1212,7 +1214,7 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 				format(
 					getDefinitionProperty(CLIENT_MODULE_SERVICE_ASYNC_PATH_TEMPLATE_PROPERTY, 
 							multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/shared/service/{3}ServiceAsync.java")),
-					packageName.toLowerCase(), moduleName.toLowerCase(), formName.toLowerCase(), formName
+					application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName.toLowerCase(), formName
 				)
 			);
 		}
@@ -1231,7 +1233,7 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 			format(
 				getDefinitionProperty(MAIN_MODULE_SHARED_CONSTANT_PATH_TEMPLATE_PROPERTY, 
 						multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/main/shared/{2}Constant.java")),
-				packageName.toLowerCase(), moduleName.toLowerCase(), moduleName
+				application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), application.getName()
 			)
 		);
 		
@@ -1250,7 +1252,7 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 				format(
 					getDefinitionProperty(CLIENT_MODULE_SHARED_CONSTANT_PATH_TEMPLATE_PROPERTY, 
 							multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/shared/{3}Constant.java")),
-					packageName.toLowerCase(), moduleName.toLowerCase(), formName.toLowerCase(), formName
+					application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName.toLowerCase(), formName
 				)
 			);
 		}
@@ -1279,7 +1281,7 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 					format(
 						getDefinitionProperty(CLIENT_MODULE_TOOLBAR_DIRECTORY_PROPERTY, 
 								multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "{0}/{1}/{2}/client/ui/toolbar/{3}")),
-						packageName.toLowerCase(), moduleName.toLowerCase(), formName, (hasCustomButtons ? "/images" : "")
+						application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName, (hasCustomButtons ? "/images" : "")
 					)
 				);
 				if (hasCustomButtons) {
@@ -1287,7 +1289,7 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 						format(
 							getDefinitionProperty(CLIENT_MODULE_EVENTBUS_DIRECTORY_PROPERTY, 
 									multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "{0}/{1}/{2}/client/ui/eventbus/event")),
-							packageName.toLowerCase(), moduleName.toLowerCase(), formName
+							application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName
 						)
 					);
 				}
@@ -1304,7 +1306,7 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 						format(
 							getDefinitionProperty(CLIENT_MODULE_TOOLBAR_VIEW_PATH_TEMPLATE_PROPERTY, 
 									multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/client/ui/toolbar/{3}ToolBarView.java")),
-							packageName.toLowerCase(), moduleName.toLowerCase(), formName.toLowerCase(), formName
+							application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName.toLowerCase(), formName
 						)
 					);
 					
@@ -1314,7 +1316,7 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 						format(
 							getDefinitionProperty(CLIENT_MODULE_TOOLBAR_VIEW_IMPL_PATH_TEMPLATE_PROPERTY, 
 									multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/client/ui/toolbar/{3}ToolBarViewImpl.java")),
-							packageName.toLowerCase(), moduleName.toLowerCase(), formName.toLowerCase(), formName
+							application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName.toLowerCase(), formName
 						)
 					);
 				}
@@ -1325,7 +1327,7 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 						format(
 							getDefinitionProperty(CLIENT_MODULE_TOOLBAR_PRESENTER_PATH_TEMPLATE_PROPERTY, 
 									multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/client/ui/toolbar/{3}ToolBarPresenter.java")),
-							packageName.toLowerCase(), moduleName.toLowerCase(), formName.toLowerCase(), formName
+							application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName.toLowerCase(), formName
 						)
 					);
 				}
@@ -1337,7 +1339,7 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 						format(
 							getDefinitionProperty(CLIENT_MODULE_IMAGES_PATH_TEMPLATE_PROPERTY, 
 									multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/client/ui/toolbar/images/{3}Images.java")),
-							packageName.toLowerCase(), moduleName.toLowerCase(), formName.toLowerCase(), formName
+							application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName.toLowerCase(), formName
 						)
 					);
 					convertTemplateToFile(
@@ -1346,7 +1348,7 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 						format(
 							getDefinitionProperty(CLIENT_MODULE_EVENTBUS_PATH_TEMPLATE_PROPERTY, 
 									multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/client/ui/eventbus/{3}EventBus.java")),
-							packageName.toLowerCase(), moduleName.toLowerCase(), formName.toLowerCase(), formName
+							application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName.toLowerCase(), formName
 						)
 					);
 					for (ModuleButton button : toolBarCustomButtons) {
@@ -1357,7 +1359,7 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 							format(
 								getDefinitionProperty(CLIENT_MODULE_EVENT_PATH_TEMPLATE_PROPERTY, 
 										multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/client/ui/eventbus/event/{3}Event.java")),
-								packageName.toLowerCase(), moduleName.toLowerCase(), formName.toLowerCase(), button.getCustomEvent()
+								application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName.toLowerCase(), button.getCustomEvent()
 							)
 						);
 					}
@@ -1381,7 +1383,7 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 				format(
 					getDefinitionProperty(CLIENT_MODULE_STATUSBAR_DIRECTORY_PROPERTY, 
 							multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "{0}/{1}/{2}/client/ui/statusbar")),
-					packageName.toLowerCase(), moduleName.toLowerCase(), formName
+					application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName
 				)
 			);
 			
@@ -1396,7 +1398,7 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 				format(
 					getDefinitionProperty(CLIENT_MODULE_STATUSBAR_PATH_TEMPLATE_PROPERTY, 
 							multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/client/ui/statusbar/{3}StatusBarViewImpl.java")),
-					packageName.toLowerCase(), moduleName.toLowerCase(), formName.toLowerCase(), formName
+					application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName.toLowerCase(), formName
 				)
 			);
 		}
@@ -1412,7 +1414,7 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 				getDefinitionProperty(LOG4J_PROPERTIES_SOURCE_PATH_TEMPLATE_PROPERTY, "/templates/config/{0}/src/java/log4j.properties"),
 				DEBUG_BUILD_CONFIG_NAME
 			), UTF_8);
-		log4jDebugTemplateContent = replacePackageModuleNames(log4jDebugTemplateContent, packageName, moduleName);
+		log4jDebugTemplateContent = replacePackageModuleNames(log4jDebugTemplateContent, application.getProjectPackage(), application.getName());
 		writeToFile(log4jDebugTemplateContent, 
 				getDefinitionProperty(LOG4J_PROPERTIES_CODE_DESTINATION_PATH_TEMPLATE_PROPERTY, "src/java/log4j.properties")
 				, UTF_8, false);
@@ -1428,7 +1430,7 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 				getDefinitionProperty(LOG4J_PROPERTIES_SOURCE_PATH_TEMPLATE_PROPERTY, "/templates/config/{0}/src/java/log4j.properties"),
 				RELEASE_BUILD_CONFIG_NAME
 			), UTF_8);
-		log4jReleaseTemplateContent = replacePackageModuleNames(log4jReleaseTemplateContent, packageName, moduleName);
+		log4jReleaseTemplateContent = replacePackageModuleNames(log4jReleaseTemplateContent, application.getProjectPackage(), application.getName());
 		writeToFile(log4jReleaseTemplateContent, 
 			format(
 				getDefinitionProperty(LOG4J_PROPERTIES_DESTINATION_PATH_TEMPLATE_PROPERTY, "config/{0}/src/java/log4j.properties"),
@@ -1449,7 +1451,7 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 	 * @param formName наименование проверяемой на зависимость формы
 	 * @return наименование главной формы
 	 */
-	public String getMainFormNameIfExist(String formName) {
+	public static String getMainFormNameIfExist(String formName) {
 		for (int index = 0; index < formWithTheirDependencies.size(); index++) {
 			List<String> list = formWithTheirDependencies.get(index);
 			String mainFormName = list.get(0);
@@ -1466,8 +1468,7 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 	/**
 	 * Получение списка зависимых узлов (форм) для требуемой
 	 * 
-	 * @param formName
-	 *            требуемая форма
+	 * @param formName требуемая форма
 	 * @return список имеющихся зависимостей
 	 */
 	private List<String> getDependencyNodesIfExists(String formName) {
@@ -1489,7 +1490,7 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 	 * @param moduleId идентификатор модуля
 	 * @return хэшмэп модуля и списка полей
 	 */
-	public Map<Module, List<ModuleField>> getModuleWithFieldsById(String moduleId) {
+	public static Map<Module, List<ModuleField>> getModuleWithFieldsById(String moduleId) {
 		Map<Module, List<ModuleField>> hm = new HashMap<Module, List<ModuleField>>();
 
 		for (Module module : formFields.keySet()) {
@@ -1503,16 +1504,19 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 
 	// сетеры для соответствующих атрибутов Task
 	public void setApplicationStructureFile(String applicationStructureFile) {
-		this.applicationStructureFile = applicationStructureFile;
+		ApplicationStructureCreator.applicationStructureFile = applicationStructureFile;
 	}
 
-	private Map<String, Object> resultData = null; 
-	
+	/**
+	 * Подготовка данных для мэппинга на подготовленные шаблоны 
+	 * 
+	 * @return данные для мэпирования
+	 */
 	private Map<String, Object> prepareData(){
 		if (resultData == null){
 			resultData = new HashMap<String, Object>();
-			resultData.put(MODULE_NAME_TEMPLATE_PARAMETER, moduleName);
-			resultData.put(PACKAGE_NAME_TEMPLATE_PARAMETER, packageName);
+			resultData.put(MODULE_NAME_TEMPLATE_PARAMETER, application.getName());
+			resultData.put(PACKAGE_NAME_TEMPLATE_PARAMETER, application.getProjectPackage());
 			resultData.put(SECURITY_ROLES_TEMPLATE_PARAMETER, securityRoles);
 			List<ModuleInfo> mods = new ArrayList<ModuleInfo>(forms.size());
 			boolean hasTextFile = false;
@@ -1527,10 +1531,10 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 				modInfo.setFormTitle(module.getModuleName());
 				modInfo.setFormTitleEn(module.getModuleNameEn());
 				modInfo.setFieldLabelWidth(module.getFieldLabelWidth());
-				modInfo.setDataSource(module.getModuleDataSource());
+				modInfo.setDataSource(module.getDb().getDatasource());
 				modInfo.setPrimaryKey(getPrimaryKeyById(jepApplicationDoc, formName));
 				modInfo.setTable(module.getTable());
-				modInfo.setDbPackage(module.getDbPackageName());
+				modInfo.setDbPackage(module.getDb().getPackageName());
 				modInfo.setIsExcelAvailable(module.isExcelAvailable());
 				modInfo.setNotRebuild(module.isNotRebuild());
 				modInfo.setDefaultParameterPrefix(module.getDefaultParameterPrefix());
@@ -1557,7 +1561,7 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 				modInfo.setScopeModuleIds(getDependencyNodesIfExists(formName));
 				modInfo.setToolBarButtons(module.getToolBarButtons());
 				modInfo.setToolBarCustomButtons(module.getToolBarCustomButtons());
-				modInfo.setModuleRoleNames(module.getModuleRoleNames());
+				modInfo.setModuleRoleNames(module.getModuleRoleNamesAsStrings());
 				
 				List<ModuleField> moduleFields = hm.values().iterator().next();
 				boolean hasLobFields = false;

@@ -5,13 +5,7 @@
  */
 package org.jasig.cas.client.authentication;
 
-import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -20,12 +14,10 @@ import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-import javax.servlet.ServletInputStream;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletRequestWrapper;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletResponseWrapper;
 import javax.servlet.http.HttpSession;
@@ -35,6 +27,8 @@ import org.apache.commons.logging.LogFactory;
 import org.jasig.cas.client.util.AbstractCasFilter;
 import org.jasig.cas.client.util.CommonUtils;
 import org.jasig.cas.client.validation.Assertion;
+
+import weblogic.servlet.security.ServletAuthentication;
 
 /**
  * Filter implementation to intercept all requests and attempt to authenticate
@@ -54,6 +48,7 @@ import org.jasig.cas.client.validation.Assertion;
  * @since 3.0
  */
 public class AuthenticationFilter extends AbstractCasFilter {
+	
 	/**
      * The URL to the CAS Server login.
      */
@@ -68,6 +63,11 @@ public class AuthenticationFilter extends AbstractCasFilter {
      * Whether to send the gateway request or not.
      */
     private boolean gateway = false;
+
+    /**
+     * Whether webLogicAuthorization required on not.
+     */
+    private boolean webLogicAuthorization = true; 
     
     private GatewayResolver gatewayStorage = new DefaultGatewayResolverImpl();
     
@@ -95,7 +95,9 @@ public class AuthenticationFilter extends AbstractCasFilter {
             logger.trace("Loaded renew parameter: " + this.renew);
             setGateway(parseBoolean(getPropertyFromInitParams(filterConfig, "gateway", "false")));
             logger.trace("Loaded gateway parameter: " + this.gateway);
-            
+            setWebLogicAuthorization(parseBoolean(getPropertyFromInitParams(filterConfig, "webLogicAuthorization", "true")));
+            logger.trace("Loaded webLogicAuthorization parameter: " + this.renew);
+                        
             final String gatewayStorageClass = getPropertyFromInitParams(filterConfig, "gatewayStorageClass", null);
 
             if (gatewayStorageClass != null) {
@@ -120,28 +122,99 @@ public class AuthenticationFilter extends AbstractCasFilter {
 			throws IOException, ServletException {
 		final HttpServletRequest request = (HttpServletRequest) servletRequest;
 		HttpServletResponse response = (HttpServletResponse) servletResponse;
+        
+		response = new DebugResponseWrapper(response);
+		
+		// TODO Выяснить, почему по факту у WebLogic фильтры срабатывают раньше security-constraint (данный код базируется на этой особенности) 
+		final String serviceUrl;
 		final HttpSession session = request.getSession(false);
 		final Assertion assertion = session != null ? (Assertion) session.getAttribute(CONST_CAS_ASSERTION) : null;
-
-        logger.debug(this.getClass() + ".doFilter() request.getAuthType() = " + request.getAuthType());
 		
-		response = new DebugResponseWrapper(response);
-		if (assertion != null) {
-			filterChain.doFilter(request, response);
-			return;
+		if(assertion != null) {
+			if(this.webLogicAuthorization) {
+				Cookie wlaStateCookie = getWlaStateCookie(request);
+				if(wlaStateCookie == null) {
+					wlaStateCookie = new Cookie(WLA_STATE_COOKIE_NAME, INITIAL_WLA_STATE_COOKIE_VALUE);
+					wlaStateCookie.setPath("/");
+					response.addCookie(wlaStateCookie);
+				}
+				
+				if (isInitialWLAState(wlaStateCookie)) { // TODO поддержать logout, session expiration c установкой InitialState 
+					filterChain.doFilter(request, response);
+					return;
+				} else if(isAutoLogonRequestWLAState(wlaStateCookie)) { // Вход после CAS-логина (username, password - в cookies)
+					filterChain.doFilter(request, response);
+					return;
+				} else if(wasAutoLogonAttemptedWLAState(wlaStateCookie)) {
+					if(isEnteringIntoApplication(request)) {
+						setWLAState(WL_AUTOLOGON_SUCCEEDED_WLA_STATE_COOKIE_VALUE, response);
+						filterChain.doFilter(request, response);
+						return;
+					} else {
+						// Автологон по какой-то причине не прошёл, возможно по-разному сработали логин-модули на CAS и на AS
+				        logger.error("Autologon error"); // TODO Нужно ли выдавать сообщение на Web-странице ?
+					}
+				} else if(isAutoLogonSucceededWLAState(wlaStateCookie)) { // На случай параллельного входа последующих приложений (уже успевших получить login-страницу CAS)
+					if(isEnteringIntoApplication(request)) { // Нормальный вход после успешного автологона
+						filterChain.doFilter(request, response);
+						return;
+					} else { // Переход на login.jsp должен быть заменён переход по ранее сохранённому адресу целевой страницы
+				        String targetURL = (String) request.getSession().getAttribute(WLA_TARGET_URL);
+						request.getSession().removeAttribute(WLA_TARGET_URL);
+						
+						deleteCookie(CAS_CREDENTIALS_COOKIE_NAME, response); // Удаляем Cookie здесь, поскольку прохода через автологон не будет 
+				        response.sendRedirect(targetURL);
+					}
+				}
+			} else {
+				filterChain.doFilter(request, response);
+				return;
+			}
+		} else {
+			if(this.webLogicAuthorization) {
+				Cookie wlaStateCookie = getWlaStateCookie(request);
+				if(wlaStateCookie == null) {
+					setWLAState(INITIAL_WLA_STATE_COOKIE_VALUE, response);
+				}
+				if (isInitialWLAState(wlaStateCookie)) {
+					filterChain.doFilter(request, response);
+					return;
+				} else if (isLoginRequestWLAState(wlaStateCookie)) { // Был запрос от WebLogic на CAS-логин ?
+					setWLAState(WL_AUTOLOGON_REQUEST_WLA_STATE_COOKIE_VALUE, response);
+					goToCasLogin(request, response);
+				} else if(isAutoLogonRequestWLAState(wlaStateCookie) && request.getSession().getAttribute(WLA_TARGET_URL) == null) {
+					// Автологон уже был запрошен другими приложениями
+					goToCasLogin(request, response);
+				}
+			}
+			
+			serviceUrl = constructServiceUrl(request, response);
+			
+			final String ticket = CommonUtils.safeGetParameter(request, getArtifactParameterName());
+			final boolean wasGatewayed = this.gatewayStorage.hasGatewayedAlready(request, serviceUrl);
+
+			if (CommonUtils.isNotBlank(ticket) || wasGatewayed) {
+				filterChain.doFilter(request, response);
+				return;
+			}
+			
+			goToCasLogin(request, response, serviceUrl);
 		}
+    }
 
-		final String serviceUrl = constructServiceUrl(request, response);
-		final String ticket = CommonUtils.safeGetParameter(request, getArtifactParameterName());
-		final boolean wasGatewayed = this.gatewayStorage.hasGatewayedAlready(request, serviceUrl);
+	private void goToCasLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// Сохраняем targetUrl для последующего перехода (на случай коллизии при параллельной работе)
+		String targetUrl = ServletAuthentication.getTargetURLForFormAuthentication(request.getSession());
+		request.getSession().setAttribute(WLA_TARGET_URL, targetUrl);
+		
+		String serviceUrl = constructServiceUrl(request, response);	// Для redirect на cas/login
+		goToCasLogin(request, response, serviceUrl);
+		return;
+	}
 
-		if (CommonUtils.isNotBlank(ticket) || wasGatewayed) {
-			filterChain.doFilter(request, response);
-			return;
-		}
-
-        final String modifiedServiceUrl;
-
+	private void goToCasLogin(HttpServletRequest request, HttpServletResponse response, String serviceUrl) throws IOException {
+		final String modifiedServiceUrl;
+        
         logger.debug("no ticket and no assertion found");
         if (this.gateway) {
             logger.debug("setting gateway attribute in session");
@@ -160,8 +233,10 @@ public class AuthenticationFilter extends AbstractCasFilter {
             logger.debug("redirecting to \"" + urlToRedirectTo + "\"");
         }
 
-        response.sendRedirect(urlToRedirectTo);
-    }
+        response.sendRedirect(urlToRedirectTo); // Redirect на CAS-сервер
+        
+        logger.trace(this.getClass() + ".doFilter().goToCasLogin() END");
+	}
 
 	public final void setRenew(final boolean renew) {
         this.renew = renew;
@@ -171,137 +246,16 @@ public class AuthenticationFilter extends AbstractCasFilter {
         this.gateway = gateway;
     }
 
+    public void setWebLogicAuthorization(boolean webLogicAuthorization) {
+        this.webLogicAuthorization = webLogicAuthorization;
+	}
+
     public final void setCasServerLoginUrl(final String casServerLoginUrl) {
         this.casServerLoginUrl = casServerLoginUrl;
     }
     
     public final void setGatewayStorage(final GatewayResolver gatewayStorage) {
     	this.gatewayStorage = gatewayStorage;
-    }
-
-//    private void printRequestAndResponse(HttpServletRequest request, DebugResponseWrapper debugResponseWrapper, String message) throws IOException {
-    private void printRequestAndResponse(HttpServletRequest request, HttpServletResponse response, String message) throws IOException {
-    	DebugResponseWrapper debugResponseWrapper = null;
-    	if(!(response instanceof DebugResponseWrapper)) {
-    			return;
-    		} else {
-    			debugResponseWrapper = (DebugResponseWrapper) response;
-    		}
-    		
-    	  Map<String, String> requestMap = this.getTypesafeRequestMap(request);
-    	  BufferedRequestWrapper bufferedRequest = new BufferedRequestWrapper(request);
-    	  
-    	  final StringBuilder requestLogMessage = new StringBuilder("Request - ")
-    		.append("[HTTP METHOD:")
-            .append(request.getMethod())                                      
-            .append("] [PATH INFO:")
-            .append(request.getPathInfo())                              
-            .append("] [REQUEST PARAMETERS:")
-            .append(requestMap)
-            .append("] [REQUEST BODY:")
-            .append(bufferedRequest.getRequestBody())                                        
-            .append("] [REMOTE ADDRESS:")
-            .append(request.getRemoteAddr())
-            .append("]");
-    	  
-    	  final StringBuilder responseLogMessage = new StringBuilder("Response - ")
-    		.append("] [CHARACTER_ENCODING:")
-            .append(debugResponseWrapper.getCharacterEncoding())                                      
-    		.append("] [BUFFER_SIZE:")
-            .append(debugResponseWrapper.getBufferSize())                                      
-    		.append("] [LOCALE:")
-            .append(debugResponseWrapper.getLocale())                                      
-    		.append("] [HEADERS:")
-            .append(debugResponseWrapper.getHeaders())                                      
-    		.append("] [COOKIES:")
-            .append(debugResponseWrapper.getCookies())                                      
-            .append("]");
-    	  
-          logger.debug(message + ":\n" + requestLogMessage + "\n" + responseLogMessage);
-          
-          logger.debug("request.isUserInRole(\"\")\n" + requestLogMessage + "\n" + responseLogMessage);
-    }
-
-    private Map<String, String> getTypesafeRequestMap(HttpServletRequest request) {
-		Map<String, String> typesafeRequestMap = new HashMap<String, String>();
-		Enumeration<?> requestParamNames = request.getParameterNames();
-		while (requestParamNames.hasMoreElements()) {
-			String requestParamName = (String)requestParamNames.nextElement();
-			String requestParamValue = request.getParameter(requestParamName);
-			typesafeRequestMap.put(requestParamName, requestParamValue);
-		}
-		return typesafeRequestMap;
-	}	
-
-	private static final class BufferedRequestWrapper extends HttpServletRequestWrapper {
-
-        private ByteArrayInputStream bais = null;
-        private ByteArrayOutputStream baos = null;
-        private BufferedServletInputStream bsis = null;
-        private byte[] buffer = null;
- 
-
-        public BufferedRequestWrapper(HttpServletRequest req) throws IOException {
-            super(req);
-            // Read InputStream and store its content in a buffer.
-            InputStream is = req.getInputStream();
-            this.baos = new ByteArrayOutputStream();
-            byte buf[] = new byte[1024];
-            int letti;
-            while ((letti = is.read(buf)) > 0) {
-                this.baos.write(buf, 0, letti);
-            }
-            this.buffer = this.baos.toByteArray();
-        }
-
-        
-        @Override
-        public ServletInputStream getInputStream() {
-            this.bais = new ByteArrayInputStream(this.buffer);
-            this.bsis = new BufferedServletInputStream(this.bais);
-            return this.bsis;
-        }
-
-        
-
-        String getRequestBody() throws IOException  {
-            BufferedReader reader = new BufferedReader(new InputStreamReader(this.getInputStream()));
-            String line = null;
-            StringBuilder inputBuffer = new StringBuilder();
-            do {
-            	line = reader.readLine();
-            	if (null != line) {
-            		inputBuffer.append(line.trim());
-            	}
-            } while (line != null);
-            reader.close();
-            return inputBuffer.toString().trim();
-        }
-
-    }
-
-    private static final class BufferedServletInputStream extends ServletInputStream {
-
-        private ByteArrayInputStream bais;
-
-        public BufferedServletInputStream(ByteArrayInputStream bais) {
-            this.bais = bais;
-        }
-
-        @Override
-        public int available() {
-            return this.bais.available();
-        }
-
-        @Override
-        public int read() {
-            return this.bais.read();
-        }
-
-        @Override
-        public int read(byte[] buf, int off, int len) {
-            return this.bais.read(buf, off, len);
-        }
     }
 	
     class DebugResponseWrapper extends HttpServletResponseWrapper {
@@ -363,5 +317,65 @@ public class AuthenticationFilter extends AbstractCasFilter {
 		long getDateHeaderDate() {
 			return dateHeaderDate;
 		}
-    }    
+    }
+    
+	private static Cookie getCookie(HttpServletRequest request, String cookieName) {
+		Cookie result = null;
+		if(cookieName != null) {
+			Cookie[] cookies = request.getCookies();
+			if(cookies != null) {
+				for(int i = 0; i < cookies.length; i++) {
+				  String ckName = cookies[i].getName();
+				  String path = cookies[i].getPath();
+				  if((path == null || "/".equals(path)) && cookieName.equals(ckName)) {
+					  result = cookies[i];
+					  break;
+				  }
+				}
+			}
+		}
+		
+		return result;
+	}
+
+	private void deleteCookie(String cookieName, HttpServletResponse response) {
+		Cookie cookie = new Cookie(cookieName, "toDelete");
+		cookie.setMaxAge(0);
+		cookie.setPath("/");
+		response.addCookie(cookie);
+	}
+
+	private void setWLAState(String wlaState, HttpServletResponse response) {
+		Cookie wlaStateCookie = new Cookie(WLA_STATE_COOKIE_NAME, wlaState);
+		wlaStateCookie.setPath("/");
+		response.addCookie(wlaStateCookie);
+	}
+
+	private Cookie getWlaStateCookie(HttpServletRequest request) {
+		return getCookie(request, WLA_STATE_COOKIE_NAME);
+	}
+
+	private boolean isInitialWLAState(Cookie wlaStateCookie) {
+		return wlaStateCookie == null || INITIAL_WLA_STATE_COOKIE_VALUE.equals(wlaStateCookie.getValue());
+	}
+
+	private boolean isLoginRequestWLAState(Cookie wlaStateCookie) {
+		return wlaStateCookie != null && LOGIN_REQUEST_WLA_STATE_COOKIE_VALUE.equals(wlaStateCookie.getValue());
+	}
+
+	private boolean isAutoLogonRequestWLAState(Cookie wlaStateCookie) {
+		return wlaStateCookie != null && WL_AUTOLOGON_REQUEST_WLA_STATE_COOKIE_VALUE.equals(wlaStateCookie.getValue());
+	}
+
+	private boolean isAutoLogonSucceededWLAState(Cookie wlaStateCookie) {
+		return wlaStateCookie != null && WL_AUTOLOGON_SUCCEEDED_WLA_STATE_COOKIE_VALUE.equals(wlaStateCookie.getValue());
+	}
+
+	private boolean wasAutoLogonAttemptedWLAState(Cookie wlaStateCookie) {
+		return wlaStateCookie != null && WL_AUTOLOGON_WAS_ATTEMPTED_WLA_STATE_COOKIE_VALUE.equals(wlaStateCookie.getValue());
+	}
+
+	private boolean isEnteringIntoApplication(HttpServletRequest request) {
+		return request.getRequestURL().indexOf("login.jsp") == -1; // TODO Желательно убрать зависимость от login.jsp 
+	}
 }

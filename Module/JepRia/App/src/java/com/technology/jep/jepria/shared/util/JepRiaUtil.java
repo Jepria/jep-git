@@ -23,8 +23,7 @@ public class JepRiaUtil {
 	 * 
 	 * @param sourceString исходная строка, которую проверяем
 	 * 
-	 * @return возвращает true, если передано занчение null или переданная
-	 *         строка состоит только из пробелов.
+	 * @return возвращает true, если передано занчение null или переданная строка состоит только из пробелов.
 	 */
 	public static boolean isEmpty(String sourceString) {
 		return (sourceString == null || sourceString.trim().length() == 0) ? true : false;
@@ -45,10 +44,10 @@ public class JepRiaUtil {
 		} else if (obj instanceof List){
 			return isEmpty((List<?>)obj);
 		} else if (obj instanceof JepOption) {
-            return isEmpty((JepOption) obj);
-        } else if (obj instanceof JepClob) {
-            return isEmpty((JepClob) obj);
-        }
+			return isEmpty((JepOption) obj);
+		} else if (obj instanceof JepClob) {
+			return isEmpty((JepClob) obj);
+		}
 		return false;
 	}
 
@@ -58,9 +57,8 @@ public class JepRiaUtil {
 	 * 
 	 * @param sourceInteger исходная величина, которую проверяем
 	 * 
-	 * @return возвращает true, если передано занчение null или переданная
-	 *         величина равна
-	 *         {@link com.technology.jep.jepria.shared.JepRiaConstant#UNDEFINED_INT}.
+	 * @return возвращает true, если передано занчение null или переданная величина равна
+	 * {@link com.technology.jep.jepria.shared.JepRiaConstant#UNDEFINED_INT}.
 	 */
 	public static boolean isEmpty(Integer sourceInteger) {
 		return (sourceInteger == null || sourceInteger.intValue() == UNDEFINED_INT) ? true : false;
@@ -72,33 +70,32 @@ public class JepRiaUtil {
 	 * 
 	 * @param sourceInt исходная величина, которую проверяем
 	 * 
-	 * @return возвращает true, если переданная величина равна
-	 *         {@link com.technology.jep.jepria.shared.JepRiaConstant#UNDEFINED_INT}.
+	 * @return возвращает true, если переданная величина равна {@link com.technology.jep.jepria.shared.JepRiaConstant#UNDEFINED_INT}.
 	 */
 	public static boolean isEmpty(int sourceInt) {
 		return (sourceInt == UNDEFINED_INT) ? true : false;
 	}
-    /**
-     * Определяет, является ли переданный элемент пустым.<br>
-     * Возвращает true, если передано null либо если передан пустой элемент.
-     * @param option {@link com.technology.jep.jepria.shared.field.option.JepOption#JepOption}
-     * @return true, если значение пусто, false - в противном случае
-     */
-    public static boolean isEmpty(JepOption option) {
-        return (option == null || option.equals(JepOption.EMPTY_OPTION)) ? true : false;
-    }
+	/**
+	 * Определяет, является ли переданный элемент пустым.<br>
+	 * Возвращает true, если передано null либо если передан пустой элемент.
+	 * @param option {@link com.technology.jep.jepria.shared.field.option.JepOption#JepOption}
+	 * @return true, если значение пусто, false - в противном случае
+	 */
+	public static boolean isEmpty(JepOption option) {
+		return (option == null || option.equals(JepOption.EMPTY_OPTION)) ? true : false;
+	}
 
-    /**
-     * Определяет, является ли переданный элемент пустым.<br>
-     * Возвращает true, если передано null либо если передан пустой элемент.
-     * @param clob {@link com.technology.jep.jepria.shared.record.lob.JepClob}
-     * @return true, если значение пусто, false - в противном случае
-     */
-    public static boolean isEmpty(JepClob clob) {
-        return (clob == null || JepRiaUtil.isEmpty(clob.getBigText())) ? true : false;
-    }
-    
-    /**
+	/**
+	 * Определяет, является ли переданный элемент пустым.<br>
+	 * Возвращает true, если передано null либо если передан пустой элемент.
+	 * @param clob {@link com.technology.jep.jepria.shared.record.lob.JepClob}
+	 * @return true, если значение пусто, false - в противном случае
+	 */
+	public static boolean isEmpty(JepClob clob) {
+		return (clob == null || JepRiaUtil.isEmpty(clob.getBigText())) ? true : false;
+	}
+	
+	/**
 	 * Определяет, является ли переданный список пустым.<br>
 	 * Возвращает true, если передано null либо если передан пустой список.
 	 * @param sourceList список
@@ -131,8 +128,7 @@ public class JepRiaUtil {
 	 * 
 	 * @param value строка, которую проверяем
 	 * 
-	 * @return возвращает true, если переданная строка может быть преобразована  
-	 *         к типу Integer.
+	 * @return возвращает true, если переданная строка может быть преобразована к типу Integer.
 	 */
 	public static boolean isInteger(String value) {
 		try {
@@ -144,7 +140,7 @@ public class JepRiaUtil {
 	}
 	
 	/**
-	 * Добавление строки в конец основной (если она не содержит добавляемую).  
+	 * Добавление строки в конец основной (если она не содержит добавляемую).
 	 * 
 	 * @param baseLine			основная строка
 	 * @param newLine			добавляемая строка
@@ -193,10 +189,10 @@ public class JepRiaUtil {
 	}
 	
 	/**
-	 * Удаление строки из основной (если она содержит удаляемую).  
+	 * Удаление строки из основной (если она содержит удаляемую).
 	 * 
-	 * @param baseLine				основная строка
-	 * @param removedLine			удаляемая строка
+	 * @param baseLine основная строка
+	 * @param removedLine удаляемая строка
 	 * @return новая строка
 	 */
 	public final static String removeStrIfPresent(String baseLine, String removedLine) {
