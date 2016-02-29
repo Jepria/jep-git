@@ -1,23 +1,4 @@
-﻿ <%--
-
-    Licensed to Jasig under one or more contributor license
-    agreements. See the NOTICE file distributed with this work
-    for additional information regarding copyright ownership.
-    Jasig licenses this file to you under the Apache License,
-    Version 2.0 (the "License"); you may not use this file
-    except in compliance with the License.  You may obtain a
-    copy of the License at the following location:
-
-      http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing,
-    software distributed under the License is distributed on an
-    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-    KIND, either express or implied.  See the License for the
-    specific language governing permissions and limitations
-    under the License.
---%>
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 
 <%@ page pageEncoding="UTF-8" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
@@ -40,7 +21,8 @@
  private static final String MAX_LOGIN_ATTEMPTS = "max-login-attempts";
  private int _maxLoginAttempts = 3;
  private int _sessionTimeout;
- /*
+
+/*
  private SSOServletConfig _config;
  
  public void jspInit()
@@ -55,7 +37,8 @@
        _sessionTimeout = var.intValue();
     }
  } 
- */
+*/
+
 </jsp:declaration>
 <jsp:scriptlet>
 	FrameworkResourceBundle _bundle = FrameworkResourceBundle.getResourceBundle(request.getLocales());
@@ -78,68 +61,11 @@
 <html lang="<%=_bundle.getResourceLocale().getLanguage()%>"    dir="<%=dir%>">
 <head>
 	<meta charset="UTF-8" />
+    <script src="javascript/jquery-1.10.2.js"></script>
+    <script src="javascript/jquery.cookie.js"></script>
 	
 	<title><%= resourceBundle.getString("login.title") %></title>
 	<link href="resources/com/technology/jep/jepcommon/styles/Default.css" rel="stylesheet" type="text/css">
-	
-    <script language="javascript">
-	
-      //Функция очистки указанных элиментов документа.
-      function clearErrors(){
-/*	  
-        var ArgumentsCount = clearErrors.arguments.length;
-
-        for (var i = 0; i < ArgumentsCount; i++)
-        document.getElementById(clearErrors.arguments[i]).innerHTML = '';
-*/		
-      }
-
-      //Функция проверки обязательного символьного поля.
-      function checkMandatoryStringField(FieldName, ErrorObjectID, ErrorMessage){
-        var Value = document.getElementsByName(FieldName)[0].value;
-      
-        if(Value.replace(/ /g,'').length == 0){
-        if(checkMandatoryStringField.arguments.length >= 3)document.getElementById(ErrorObjectID).innerHTML = ErrorMessage;
-        else document.getElementById(ErrorObjectID).innerHTML = document.getElementsByName('checkForm.mandatoryField')[0].value;
-        return false;
-        } 
-        else return true;
-      }
-
-      //Функция проверки данных формы аутентификации.
-      function validateAuthorizationForm(){
-        var errorsCount = 0;//Количесво ошибок.
-        //Предварительно очисти все сообщения об ошибках.
-        clearErrors(
-        'loginError'                
-        ,'passwordError'
-        );                
-        //Проверим поля на корректность введенной информации.        
-        if(!checkMandatoryStringField('username', 'loginError')) errorsCount++;        
-        if(!checkMandatoryStringField('password', 'passwordError')) errorsCount++;        
-        //Проверим - появились ли ошибки.
-        if(errorsCount == 0)return true;
-        else return false;
-      }
-
-      //Произвести авторизацию.
-      function authorization(pForm){
-        var lForm;//Указатель на форму.
-        
-        //Если конкретно указана форма, то работаем с ней.
-        if(authorization.arguments.length >= 1)lForm = pForm; 
-        //Иначе - считаем, что форма в документе одна.
-        else lForm = document.forms[0];
-
-        //Если данные формы корректны, то отправим изменения на сервер.
-        if(validateAuthorizationForm()) {
-			lForm.btnSubmit.click();
-        } //Если нет - сообщим об этом пользователю.
-        else trace(document.getElementsByName('action.incorrectInputData')[0].value);
-      }
-
-    </script>
-	
 </head>
 
 <body id="cas">
@@ -210,27 +136,45 @@
         </tr>
         <tr>
           <td style=" text-align: right; "></td>
-	  <td style=" text-align: left; ">
-		<section>
-		  <input type="hidden" name="lt" value="${loginTicket}" />
-		  <input type="hidden" name="execution" value="${flowExecutionKey}" />
-		  <input type="hidden" name="_eventId" value="submit" />
-		  <input type="hidden" name="url" value="<%=System.getenv("OAS_INSTANCE_ADDRESS")%>/Navigation/welcomeInput.do" /> <!-- TODO Разобраться, почему без этого в хроме бесконечный редирект  -->
+		  <td style=" text-align: left; ">
+			<section>
+			  <input type="hidden" name="lt" value="${loginTicket}" />
+			  <input type="hidden" name="execution" value="${flowExecutionKey}" />
+			  <input type="hidden" name="_eventId" value="submit" />
+			  <input type="hidden" name="url" value="http://www.yandex.ru" /> <!-- TODO Разобраться, почему без этого в хроме бесконечный редирект  -->
 
-		  <input name="btnSubmit" tabindex="3" type="submit" />
-		</section>
-	  </td>
+			  <input name="btnSubmit" tabindex="3" type="submit" />
+			</section>
+		  </td>
           <td style=" text-align: right; "></td>
         </tr>
 
       </table>
 
     <form:errors path="*" id="msg" cssClass="errors" element="div" htmlEscape="false" />
-
-	  
-      <spring:message code="screen.welcome.label.password.accesskey" var="passwordAccessKey" />
+    <spring:message code="screen.welcome.label.password.accesskey" var="passwordAccessKey" />
     
   </form:form>
+
+    <script language="javascript">
+		function trace(message) {
+//		    alert("casLoginView.jsp: " + message);
+		}
+
+		$(document).ready(function() {
+			var $form = $('#fm1');
+			$form.bind('submit', function(e) {
+				saveCredentialsForCasClient();
+			});
+		});
+		
+		function saveCredentialsForCasClient() {
+			var username = document.getElementById('username').value;
+			var password = document.getElementById('password').value;
+			var credentials = username + '/' + password;
+			$.cookie('CasCredentials', credentials, { path: '/' });
+		}
+    </script>
   </body>
 </html>
 
