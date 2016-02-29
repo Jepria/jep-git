@@ -44,7 +44,7 @@ public class JepClientUtil {
 		if (url.startsWith("//")){
 			//absolute url without protocol
 			url = Window.Location.getProtocol() + url;
-		} else if (!url.matches("(?i)^((https?|ftp|file)://|mailto:).*")){
+		} else if (!url.toLowerCase().matches("^((https?|ftp|file)://|mailto:).*")){
 			//relative path
 			url = GWT.getHostPageBaseURL() + url.replaceFirst("/","");
 		}
