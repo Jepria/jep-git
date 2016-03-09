@@ -1,4 +1,4 @@
-package com.technology.jep.jepria.server.ejb;
+package com.technology.jep.jepria.server.dao;
 
 import java.util.List;
 

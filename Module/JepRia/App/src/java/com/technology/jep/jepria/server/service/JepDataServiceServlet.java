@@ -41,9 +41,9 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 
 import com.technology.jep.jepria.server.DaoProvider;
+import com.technology.jep.jepria.server.dao.JepDataStandard;
 import com.technology.jep.jepria.server.download.blob.BinaryFileDownloadLocal;
 import com.technology.jep.jepria.server.download.blob.FileDownloadStream;
-import com.technology.jep.jepria.server.ejb.JepDataStandard;
 import com.technology.jep.jepria.server.upload.clob.FileUploadWriter;
 import com.technology.jep.jepria.server.upload.clob.TextFileUploadLocal;
 import com.technology.jep.jepria.server.util.JepServerUtil;
