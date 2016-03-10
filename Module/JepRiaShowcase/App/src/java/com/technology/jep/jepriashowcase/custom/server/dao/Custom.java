@@ -1,6 +1,6 @@
 package com.technology.jep.jepriashowcase.custom.server.dao;
 
-import com.technology.jep.jepria.server.ejb.JepDataStandard;
+import com.technology.jep.jepria.server.dao.JepDataStandard;
 import com.technology.jep.jepria.shared.exceptions.ApplicationException;
 
 /**
