@@ -6,6 +6,7 @@
 	<property file="config/${BUILD_CONFIG}/deploy.properties"/>
 	
 	<property name="J2EE_HOME" value="${OC4J_HOME}/j2ee/home" />
+
 	<property name="JEP_RIA" value="${COMMON_HOME}/Module/JepRia/${JEP_RIA_VERSION}/App" />
 	
 	<property name="JEP_GXT" value="${COMMON_HOME}/Module/JepGxt/${JEP_GXT_VERSION}/App" />
@@ -523,11 +524,7 @@
 					<isset Property="CAS_CLIENT_VERSION" />
 					<then>
 						<copy todir="temp-ear/lib">
-<!--						
 							<fileset dir="${COMMON_HOME}/Module/cas-client-3.1.12_customized/${CAS_CLIENT_VERSION}/App/lib" includes="cas-client-core-3.1.12-customized.jar" />
--->							
-							<fileset dir="D:/GitSourceForge3/javaenterpriseplatform-git/Module/cas-client-3.1.12_customized/App/lib" includes="cas-client-core-3.1.12-customized.jar" />
-
 						</copy>
 					</then>
 				</if>
