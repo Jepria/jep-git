@@ -2,7 +2,7 @@ package com.technology.jep.jepriashowcase.custom.shared.text;
 
 /**
  * Interface to represent the constants contained in resource bundle:
- * 	'D:/Project/JEPGit/Module/JepRiaShowcase/App/src/java/com/technology/jep/jepriashowcase/custom/shared/text/CustomText.properties'.
+ * 	'D:/GitSourceForge3/javaenterpriseplatform-git/Module/JepRiaShowcase/App/src/java/com/technology/jep/jepriashowcase/custom/shared/text/CustomText.properties'.
  */
 public interface CustomText extends com.google.gwt.i18n.client.Constants {
   

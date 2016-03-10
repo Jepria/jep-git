@@ -8,9 +8,6 @@
     </web>
   </module>
   <module>
-     <ejb>jepriashowcase-ejb.jar</ejb>
-  </module>
-  <module>
      <ejb>jepria-ejb.jar</ejb>
   </module>
 </application>

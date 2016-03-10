@@ -2,7 +2,7 @@ package com.technology.jep.jepriashowcase.request.shared.text;
 
 /**
  * Interface to represent the constants contained in resource bundle:
- * 	'D:/Project/JEPGit/Module/JepRiaShowcase/App/src/java/com/technology/jep/jepriashowcase/request/shared/text/RequestText.properties'.
+ * 	'D:/GitSourceForge3/javaenterpriseplatform-git/Module/JepRiaShowcase/App/src/java/com/technology/jep/jepriashowcase/request/shared/text/RequestText.properties'.
  */
 public interface RequestText extends com.google.gwt.i18n.client.Constants {
   

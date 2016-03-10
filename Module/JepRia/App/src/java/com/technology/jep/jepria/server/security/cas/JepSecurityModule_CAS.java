@@ -19,6 +19,8 @@ import com.technology.jep.jepria.server.security.JepAbstractSecurityModule;
 import com.technology.jep.jepria.server.security.JepSecurityModule;
 import com.technology.jep.jepria.shared.exceptions.SystemException;
 
+import weblogic.servlet.security.ServletAuthentication;
+
 /**
  * Модуль поддержки безопасности для CAS
  */
@@ -64,20 +66,23 @@ public class JepSecurityModule_CAS extends JepAbstractSecurityModule {
 	 */
 	@Override
 	public String logout(HttpServletRequest request, HttpServletResponse response, String currentUrl) throws Exception {
-		request.getSession().invalidate();
-		
-        String casServerAddress = System.getProperty(CAS_SERVER_ADDRESS_PROPERTY);
-		
-        ServletContext context = request.getSession().getServletContext();
-        String casServerContextName = context.getInitParameter(CAS_SERVER_NAME_CONTEXT_PARAMETER);
-        if(casServerContextName != null) {
-    		final String casLogoutPath = casServerContextName + "/logout";
-    		String casLogoutAdress = casServerAddress + "/" + casLogoutPath;
-    		String logoutUrl = casLogoutAdress + "?service=" + currentUrl;
-    		return logoutUrl;
-        } else {
-        	throw new SystemException("casServerName context parameter not found");
-        }
+//		request.getSession().invalidate();
+//		
+//        String casServerAddress = System.getProperty(CAS_SERVER_ADDRESS_PROPERTY);
+//		
+//        ServletContext context = request.getSession().getServletContext();
+//        String casServerContextName = context.getInitParameter(CAS_SERVER_NAME_CONTEXT_PARAMETER);
+//        if(casServerContextName != null) {
+//    		final String casLogoutPath = casServerContextName + "/logout";
+//    		String casLogoutAdress = casServerAddress + "/" + casLogoutPath;
+//    		String logoutUrl = casLogoutAdress + "?service=" + currentUrl;
+//    		return logoutUrl;
+//        } else {
+//        	throw new SystemException("casServerName context parameter not found");
+//        }
+        
+        weblogic.servlet.security.ServletAuthentication.invalidateAll(request);
+        return currentUrl;
 	}
 	
 	/**

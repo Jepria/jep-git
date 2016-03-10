@@ -106,6 +106,8 @@
 		<include name="**/images/*.gif" />
 		<include name="**/${MODULE_NAME}Text.properties" />
 		<include name="**/${MODULE_NAME}Text_??.properties" />
+		<include name="**/LoginText.properties" />
+		<include name="**/LoginText_??.properties" />
 		<include name="**/${MODULE_NAME}.gwt.xml" />
 	</fileset>
 

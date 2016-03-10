@@ -6,7 +6,11 @@
 	<property file="config/${BUILD_CONFIG}/deploy.properties"/>
 	
 	<property name="J2EE_HOME" value="${OC4J_HOME}/j2ee/home" />
+<!--	
 	<property name="JEP_RIA" value="${COMMON_HOME}/Module/JepRia/${JEP_RIA_VERSION}/App" />
+-->	
+	<property name="JEP_RIA" value="D:/GitSourceForge3/javaenterpriseplatform-git/Module/JepRia/App" />
+	
 	<property name="JEP_GXT" value="${COMMON_HOME}/Module/JepGxt/${JEP_GXT_VERSION}/App" />
 	<property name="JEP_RIA_REPORT" value="${COMMON_HOME}/Module/JepRiaReport/${JEP_RIA_REPORT_VERSION}/App" />
 	<property name="JEP_REPORT_COMPILER" value="${COMMON_HOME}/Module/JrCompiler/${JEP_REPORT_COMPILER_VERSION}/App" />
@@ -19,6 +23,7 @@
 	<property environment="env" />
 	<property name="cores.count" value="${env.NUMBER_OF_PROCESSORS}"/>
 	<property name="JAR_TEMP" value="build-lib"/>
+	<property name="SECURITY_RESOURCES" value="${JEP_RIA}/src/html/security" />
 
 	<!-- Общие наборы файлов -->
 	<path id="libs">
@@ -119,10 +124,6 @@
 	<fileset dir="src/java" id="src-common-jar">
 		<include name="**/*Text.properties" />
 		<include name="**/*Text_??.properties" />
-	</fileset>
-
-	<fileset dir="build" id="class-ejb-jar">
-		<include name="**/*Bean*.class" />
 	</fileset>
 
 	<fileset dir="build" id="class-web-jar">
@@ -415,20 +416,6 @@
 		</outofdate>
 	</target>
 
-	<target name="ejb-jar" depends="encode-and-compile">
-		<outofdate>
-			<sourcefiles>
-				<fileset refid="class-ejb-jar" />
-			</sourcefiles>
-			<targetfiles path="${JAR_TEMP}/${MODULE_NAME_IN_PACKAGE}-ejb.jar" />
-			<sequential>
-				<jar destfile="${JAR_TEMP}/${MODULE_NAME_IN_PACKAGE}-ejb.jar">
-					<fileset refid="class-ejb-jar" />
-				</jar>
-			</sequential>
-		</outofdate>
-	</target>
-
 	<target name="web-jar" depends="encode-and-compile">
 		<outofdate>
 			<sourcefiles>
@@ -447,6 +434,7 @@
 		<outofdate>
 			<sourcefiles>
 				<fileset file="${JAR_TEMP}/${MODULE_NAME_IN_PACKAGE}-web.jar" />
+				<fileset file="src/html/*.gif" />
 				<fileset file="src/html/*.css" />
 				<fileset file="src/html/*.jsp" />
 				<fileset file="src/resources/${MODULE_PACKAGE}/web/web.xml" />
@@ -474,9 +462,13 @@
 				<copy todir="temp-war/css">
 					<fileset file="src/html/*.css" />
 				</copy>
+				<copy todir="temp-war/security">
+					<fileset file="${SECURITY_RESOURCES}/**/" />
+				</copy>
 				<copy todir="temp-war">
 					<fileset file="src/html/*.jsp" />
 				</copy>
+				
 				<copy file="src/resources/${MODULE_PACKAGE}/web/web.xml" todir="temp-war/WEB-INF" />
 				<copy todir="temp-war">
 					<fileset dir="build-gwt" />
@@ -487,13 +479,17 @@
 				<copy failonerror="false" todir="temp-war/resources/${MODULE_PACKAGE}/report">
 					<fileset dir="${RESOURCE_HOME}/report" />
 				</copy>
+				<copy todir="temp-war/WEB-INF/classes">
+					<fileset dir="${OC4J_HOME}/jakarta-taglibs/jstl-1.1/lib" includes="jstl.jar, standard.jar" />
+				</copy>
+				
 				<jar basedir="temp-war" destfile="${JAR_TEMP}/${MODULE_NAME_IN_PACKAGE}.war" />
 				<delete dir="temp-war" />
 			</sequential>
 		</outofdate>
 	</target>
 
-	<target name="ear" depends="war, common-jar, ejb-jar">
+	<target name="ear" depends="war, common-jar">
 		<outofdate>
 			<sourcefiles>
 				<fileset dir="${RESOURCE_HOME}" includes="application.xml, orion-application.xml" />
@@ -503,7 +499,7 @@
 				<fileset dir="${JEP_RIA_REPORT}/lib" includes="jepriareport.jar" />
 				<fileset dir="${JEP_RIA}/lib" includes="jepria-oc4j.jar" />
 				<fileset dir="${JEP_RIA}/lib" includes="jepria-weblogic.jar" />
-				<fileset dir="${JAR_TEMP}" includes="${MODULE_NAME_IN_PACKAGE}-common.jar, ${MODULE_NAME_IN_PACKAGE}-ejb.jar" />
+				<fileset dir="${JAR_TEMP}" includes="${MODULE_NAME_IN_PACKAGE}-common.jar" />
 				<fileset file="${JAR_TEMP}/${MODULE_NAME_IN_PACKAGE}.war" />
 			</sourcefiles>
 			<targetfiles path="lib/${MODULE_NAME_IN_PACKAGE}.ear" />
@@ -524,18 +520,23 @@
 					<fileset dir="${JAR_TEMP}" includes="${MODULE_NAME_IN_PACKAGE}-common.jar" />
 					<fileset dir="${GWT_HOME}" includes="gwt-servlet.jar" />
 					<fileset dir="${OC4J_HOME}/jakarta-struts/lib" includes="commons-logging.jar" />
+					<fileset dir="${J2EE_HOME}" includes="jazncore.jar" /> <!-- для login.jsp TODO отвязать от OC4J -->
 				</copy>
 				<if>
 					<isset Property="CAS_CLIENT_VERSION" />
 					<then>
 						<copy todir="temp-ear/lib">
+<!--						
 							<fileset dir="${COMMON_HOME}/Module/cas-client-3.1.12_customized/${CAS_CLIENT_VERSION}/App/lib" includes="cas-client-core-3.1.12-customized.jar" />
+-->							
+							<fileset dir="D:/GitSourceForge3/javaenterpriseplatform-git/Module/cas-client-3.1.12_customized/App/lib" includes="cas-client-core-3.1.12-customized.jar" />
+
 						</copy>
 					</then>
 				</if>
 				
 				<copy todir="temp-ear">
-					<fileset dir="${JAR_TEMP}" includes="${MODULE_NAME_IN_PACKAGE}.war, ${MODULE_NAME_IN_PACKAGE}-ejb.jar" />
+					<fileset dir="${JAR_TEMP}" includes="${MODULE_NAME_IN_PACKAGE}.war" />
 					<fileset dir="${JEP_RIA}/lib" includes="jepria-ejb.jar" />
 				</copy>
 				<copy todir="temp-ear/lib">
@@ -552,7 +553,7 @@
 		<if>
 			<isset Property="WL_DEPLOY_TARGETS" />
 			<then>
-				<taskdef classname="weblogic.ant.taskdefs.management.WLDeploy" classpath="${WL_LIB_HOME}/wlfullclient.jar" name="wldeploy" />
+				<taskdef classname="weblogic.ant.taskdefs.management.WLDeploy" classpath="${WL_LIB_HOME}/weblogic.jar" name="wldeploy" />
 				<echo message="Deploy to Weblogic" />
 				<wldeploy
 					action="deploy"
