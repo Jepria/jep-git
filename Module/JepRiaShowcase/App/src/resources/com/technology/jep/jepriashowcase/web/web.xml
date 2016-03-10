@@ -166,15 +166,6 @@
 	
 	<security-constraint>
 		<web-resource-collection>
-	    	<web-resource-name>Version Servlet entry point</web-resource-name>
-	      	<url-pattern>/versionServlet</url-pattern>
-	      	<http-method>GET</http-method>
-	      	<http-method>POST</http-method>
-	   	</web-resource-collection>
-	</security-constraint>
-	
-	<security-constraint>
-		<web-resource-collection>
 			<web-resource-name>Login page resources</web-resource-name>
 			<url-pattern>/security/*</url-pattern>
 		</web-resource-collection>
