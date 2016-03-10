@@ -6,10 +6,7 @@
 	<property file="config/${BUILD_CONFIG}/deploy.properties"/>
 	
 	<property name="J2EE_HOME" value="${OC4J_HOME}/j2ee/home" />
-<!--	
 	<property name="JEP_RIA" value="${COMMON_HOME}/Module/JepRia/${JEP_RIA_VERSION}/App" />
--->	
-	<property name="JEP_RIA" value="D:/GitSourceForge3/javaenterpriseplatform-git/Module/JepRia/App" />
 	
 	<property name="JEP_GXT" value="${COMMON_HOME}/Module/JepGxt/${JEP_GXT_VERSION}/App" />
 	<property name="JEP_RIA_REPORT" value="${COMMON_HOME}/Module/JepRiaReport/${JEP_RIA_REPORT_VERSION}/App" />
