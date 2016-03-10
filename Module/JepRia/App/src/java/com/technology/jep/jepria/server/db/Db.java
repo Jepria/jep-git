@@ -104,7 +104,13 @@ public class Db {
 	public void rollback() {
 		logger.trace("rollback()");
 		try {
-			connection.rollback();
+			/*
+			 * Соединение может ещё не быть инициализировано, если вызвавшая rollback ошибка
+			 * возникла до выполнения первого запроса.
+			 */
+			if (connection != null) {
+				connection.rollback();
+			}
 		} catch (SQLException ex) {
 		}
 	}
