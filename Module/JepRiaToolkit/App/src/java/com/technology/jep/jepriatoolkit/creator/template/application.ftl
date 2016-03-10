@@ -8,9 +8,6 @@
     </web>
   </module>
   <module>
-    <ejb>${moduleName?lower_case}-ejb.jar</ejb>
-  </module>
-  <module>
     <ejb>jepria-ejb.jar</ejb>
   </module>
 </application>

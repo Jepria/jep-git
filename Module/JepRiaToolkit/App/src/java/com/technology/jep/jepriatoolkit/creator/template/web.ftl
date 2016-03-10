@@ -6,7 +6,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>remoteLoggerServiceImpl</servlet-name>
-    <url-pattern>/DSAppNoteReport/gwt-log</url-pattern>
+    <url-pattern>/${moduleName}/gwt-log</url-pattern>
   </servlet-mapping>
   <servlet>
     <servlet-name>MainServiceServlet</servlet-name>
@@ -16,7 +16,6 @@
     <servlet-name>MainServiceServlet</servlet-name>
     <url-pattern>/${moduleName}/MainService</url-pattern>
   </servlet-mapping>
-  
   <#list forms as form>
   <servlet>
     <servlet-name>${form.formName}Servlet</servlet-name>
@@ -26,11 +25,6 @@
     <servlet-name>${form.formName}Servlet</servlet-name>
     <url-pattern>/${moduleName}/${form.formName}Service</url-pattern>
   </servlet-mapping>
-  <ejb-local-ref>
-    <ejb-ref-name>ejb/${form.formName}Bean</ejb-ref-name>
-    <ejb-ref-type>Session</ejb-ref-type>
-    <local>com.technology.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.server.ejb.${form.formName}Local</local>
-  </ejb-local-ref>
   <#if form.hasLobFields>
   <servlet>
     <servlet-name>uploadServlet</servlet-name>
@@ -84,19 +78,6 @@
     <local>com.technology.jep.jepria.server.download.blob.BinaryFileDownloadLocal</local>
   </ejb-local-ref>
   </#if>
-  <servlet>
-    <servlet-name>VersionServlet</servlet-name>
-    <servlet-class>com.technology.jep.jepria.server.version.VersionServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>VersionServlet</servlet-name>
-    <url-pattern>/versionServlet</url-pattern>
-  </servlet-mapping>
-  <ejb-local-ref>
-    <ejb-ref-name>ejb/VersionBean</ejb-ref-name>
-    <ejb-ref-type>Session</ejb-ref-type>
-    <local>com.technology.jep.jepria.server.version.ejb.JepVersionLocal</local>
-  </ejb-local-ref>
   <welcome-file-list>
     <welcome-file>${moduleName}.jsp</welcome-file>
   </welcome-file-list>
@@ -116,13 +97,5 @@
       <role-name>${roleName}</role-name>
     </#list> 
     </auth-constraint>
-  </security-constraint>
-  <security-constraint>
-    <web-resource-collection>
-      <web-resource-name>Version Servlet entry point</web-resource-name>
-      <url-pattern>/versionServlet</url-pattern>
-      <http-method>GET</http-method>
-      <http-method>POST</http-method>
-    </web-resource-collection>
   </security-constraint>
 </web-app>

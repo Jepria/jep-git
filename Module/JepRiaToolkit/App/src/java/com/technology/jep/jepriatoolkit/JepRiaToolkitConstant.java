@@ -366,7 +366,7 @@ public interface JepRiaToolkitConstant {
 	String RECORD_TAG_NAME = "record";
 	
 	/**
-	 * Наименование атрибута, отвечающего за префикс параметра EJB
+	 * Наименование атрибута, отвечающего за префикс параметра DAO
 	 */
 	String DATABASE_PREFIX_ATTRIBUTE_NAME = "prefix";
 	
@@ -829,7 +829,7 @@ public interface JepRiaToolkitConstant {
 	String CLIENT_MODULE_EVENTBUS_DIRECTORY_PROPERTY = "fileStructure.clientModuleEventBusDirectory";
 	String CLIENT_MODULE_TOOLBAR_DIRECTORY_PROPERTY = "fileStructure.clientModuleToolBarDirectory";
 	String CLIENT_MODULE_STATUSBAR_DIRECTORY_PROPERTY = "fileStructure.clientModuleStatusBarDirectory";
-	String CLIENT_MODULE_EJB_DIRECTORY_PROPERTY = "fileStructure.clientModuleEjbDirectory";
+	String CLIENT_MODULE_DAO_DIRECTORY_PROPERTY = "fileStructure.clientModuleDaoDirectory";
 	String CLIENT_MODULE_SERVICE_IMPL_DIRECTORY_PROPERTY = "fileStructure.clientModuleServiceImplDirectory";
 	String CLIENT_MODULE_FIELD_DIRECTORY_PROPERTY = "fileStructure.clientModuleFieldDirectory";
 	String CLIENT_MODULE_RECORD_DIRECTORY_PROPERTY = "fileStructure.clientModuleRecordDirectory";
@@ -932,17 +932,11 @@ public interface JepRiaToolkitConstant {
 	String CLIENT_MODULE_SERVER_CONSTANT_TEMPLATE_PROPERTY = "fileTemplate.clientModuleServerConstant";
 	String CLIENT_MODULE_SERVER_CONSTANT_PATH_TEMPLATE_PROPERTY = "fileTemplate.clientModuleServerConstant.path";
 	
-	String CLIENT_MODULE_LOCAL_EJB_TEMPLATE_PROPERTY = "fileTemplate.clientModuleLocalEjb";
-	String CLIENT_MODULE_LOCAL_EJB_PATH_TEMPLATE_PROPERTY = "fileTemplate.clientModuleLocalEjb.path";
+	String CLIENT_MODULE_DAO_INTERFACE_TEMPLATE_PROPERTY = "fileTemplate.clientModuleDaoInterface";
+	String CLIENT_MODULE_DAO_INTERFACE_PATH_TEMPLATE_PROPERTY = "fileTemplate.clientModuleDaoInterface.path";
 	
-	String CLIENT_MODULE_REMOTE_EJB_TEMPLATE_PROPERTY = "fileTemplate.clientModuleRemoteEjb";
-	String CLIENT_MODULE_REMOTE_EJB_PATH_TEMPLATE_PROPERTY = "fileTemplate.clientModuleRemoteEjb.path";
-	
-	String CLIENT_MODULE_EJB_INTERFACE_TEMPLATE_PROPERTY = "fileTemplate.clientModuleEjbInterface";
-	String CLIENT_MODULE_EJB_INTERFACE_PATH_TEMPLATE_PROPERTY = "fileTemplate.clientModuleEjbInterface.path";
-	
-	String CLIENT_MODULE_EJB_TEMPLATE_PROPERTY = "fileTemplate.clientModuleEjb";
-	String CLIENT_MODULE_EJB_PATH_TEMPLATE_PROPERTY = "fileTemplate.clientModuleEjb.path";
+	String CLIENT_MODULE_DAO_TEMPLATE_PROPERTY = "fileTemplate.clientModuleDao";
+	String CLIENT_MODULE_DAO_PATH_TEMPLATE_PROPERTY = "fileTemplate.clientModuleDao.path";
 	
 	String CLIENT_MODULE_FIELDS_TEMPLATE_PROPERTY = "fileTemplate.clientModuleFields";
 	String CLIENT_MODULE_FIELDS_PATH_TEMPLATE_PROPERTY = "fileTemplate.clientModuleFields.path";

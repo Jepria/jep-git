@@ -1,6 +1,6 @@
-package com.technology.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.server.ejb;
+package com.technology.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.server.dao;
  
-import com.technology.jep.jepria.server.ejb.JepDataStandard;
+import com.technology.jep.jepria.server.dao.JepDataStandard;
 <#if form.hasOptionField>
 import java.util.List;
 import com.technology.jep.jepria.shared.exceptions.ApplicationException;

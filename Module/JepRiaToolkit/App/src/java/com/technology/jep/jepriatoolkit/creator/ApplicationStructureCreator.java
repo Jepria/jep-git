@@ -114,8 +114,8 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 			createServiceImpl();
 			echoMessage("Create Java Classes Of Server Constant");
 			createServerConstant();
-			echoMessage("Create Java Classes Of EJB");
-			createEJB();
+			echoMessage("Create Java Classes Of DAO");
+			createDao();
 			echoMessage("Create Java Classes Of Field Names");
 			createFieldNames();
 			echoMessage("Create Java Classes Of Record Definition");
@@ -350,8 +350,8 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 			);
 			makeDir(
 				format(
-					getDefinitionProperty(CLIENT_MODULE_EJB_DIRECTORY_PROPERTY,
-						multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "{0}/{1}/{2}/server/ejb")),
+					getDefinitionProperty(CLIENT_MODULE_DAO_DIRECTORY_PROPERTY,
+						multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "{0}/{1}/{2}/server/dao")),
 					application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName
 				)
 			);
@@ -995,19 +995,17 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 	}
 
 	/**
-	 * Создание классов EJB приложения
+	 * Создание классов DAO приложения
 	 */
-	private void createEJB() {
-		createEjbInterface();
-		createLocalEjb();
-		createRemoteEjb();
-		createEjbClass();
+	private void createDao() {
+		createDaoInterface();
+		createDaoClass();
 	}
 
 	/**
-	 * Создание классов EJB удаленного интерфейса
+	 * Создание классов реализаций DAO
 	 */
-	private void createRemoteEjb() {
+	private void createDaoClass() {
 		Map<String, Object> data = prepareData();
 		List<ModuleInfo> moduleInfos = (List<ModuleInfo>) data.get(FORMS_TEMPLATE_PARAMETER);
 		for (ModuleInfo moduleInfo : moduleInfos) {
@@ -1020,11 +1018,11 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 			String formName = moduleInfo.getFormName();
 			
 			convertTemplateToFile(
-				getDefinitionProperty(CLIENT_MODULE_REMOTE_EJB_TEMPLATE_PROPERTY, "clientModuleRemote.ftl"),
+				getDefinitionProperty(CLIENT_MODULE_DAO_TEMPLATE_PROPERTY, "clientModuleDao.ftl"),
 				innerData, 
 				format(
-					getDefinitionProperty(CLIENT_MODULE_REMOTE_EJB_PATH_TEMPLATE_PROPERTY, 
-							multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/server/ejb/{3}Remote.java")),
+					getDefinitionProperty(CLIENT_MODULE_DAO_PATH_TEMPLATE_PROPERTY, 
+							multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/server/dao/{3}Dao.java")),
 					application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName.toLowerCase(), formName
 				)
 			);
@@ -1032,9 +1030,9 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 	}
 
 	/**
-	 * Создание классов EJB локального интерфейса
+	 * Создание классов DAO домашнего интерфейса
 	 */
-	private void createLocalEjb() {
+	private void createDaoInterface() {
 		Map<String, Object> data = prepareData();
 		List<ModuleInfo> moduleInfos = (List<ModuleInfo>) data.get(FORMS_TEMPLATE_PARAMETER);
 		for (ModuleInfo moduleInfo : moduleInfos) {
@@ -1047,65 +1045,11 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 			String formName = moduleInfo.getFormName();
 			
 			convertTemplateToFile(
-				getDefinitionProperty(CLIENT_MODULE_LOCAL_EJB_TEMPLATE_PROPERTY, "clientModuleLocal.ftl"),
+				getDefinitionProperty(CLIENT_MODULE_DAO_INTERFACE_TEMPLATE_PROPERTY, "clientModuleDaoInterface.ftl"),
 				innerData, 
 				format(
-					getDefinitionProperty(CLIENT_MODULE_LOCAL_EJB_PATH_TEMPLATE_PROPERTY, 
-							multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/server/ejb/{3}Local.java")),
-					application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName.toLowerCase(), formName
-				)
-			);
-		}
-	}
-
-	/**
-	 * Создание классов реализаций EJB
-	 */
-	private void createEjbClass() {
-		Map<String, Object> data = prepareData();
-		List<ModuleInfo> moduleInfos = (List<ModuleInfo>) data.get(FORMS_TEMPLATE_PARAMETER);
-		for (ModuleInfo moduleInfo : moduleInfos) {
-			if (moduleInfo.isNotRebuild()) continue;
-			Map<String, Object> innerData = new HashMap<String, Object>();
-			innerData.put(FORM_TEMPLATE_PARAMETER, moduleInfo);
-			innerData.put(PACKAGE_NAME_TEMPLATE_PARAMETER, data.get(PACKAGE_NAME_TEMPLATE_PARAMETER));
-			innerData.put(MODULE_NAME_TEMPLATE_PARAMETER, data.get(MODULE_NAME_TEMPLATE_PARAMETER));
-			
-			String formName = moduleInfo.getFormName();
-			
-			convertTemplateToFile(
-				getDefinitionProperty(CLIENT_MODULE_EJB_TEMPLATE_PROPERTY, "clientModuleEjb.ftl"),
-				innerData, 
-				format(
-					getDefinitionProperty(CLIENT_MODULE_EJB_PATH_TEMPLATE_PROPERTY, 
-							multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/server/ejb/{3}Bean.java")),
-					application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName.toLowerCase(), formName
-				)
-			);
-		}
-	}
-
-	/**
-	 * Создание классов EJB домашнего интерфейса
-	 */
-	private void createEjbInterface() {
-		Map<String, Object> data = prepareData();
-		List<ModuleInfo> moduleInfos = (List<ModuleInfo>) data.get(FORMS_TEMPLATE_PARAMETER);
-		for (ModuleInfo moduleInfo : moduleInfos) {
-			if (moduleInfo.isNotRebuild()) continue;
-			Map<String, Object> innerData = new HashMap<String, Object>();
-			innerData.put(FORM_TEMPLATE_PARAMETER, moduleInfo);
-			innerData.put(PACKAGE_NAME_TEMPLATE_PARAMETER, data.get(PACKAGE_NAME_TEMPLATE_PARAMETER));
-			innerData.put(MODULE_NAME_TEMPLATE_PARAMETER, data.get(MODULE_NAME_TEMPLATE_PARAMETER));
-			
-			String formName = moduleInfo.getFormName();
-			
-			convertTemplateToFile(
-				getDefinitionProperty(CLIENT_MODULE_EJB_INTERFACE_TEMPLATE_PROPERTY, "clientModuleEjbInterface.ftl"),
-				innerData, 
-				format(
-					getDefinitionProperty(CLIENT_MODULE_EJB_INTERFACE_PATH_TEMPLATE_PROPERTY, 
-							multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/server/ejb/{3}.java")),
+					getDefinitionProperty(CLIENT_MODULE_DAO_INTERFACE_PATH_TEMPLATE_PROPERTY, 
+							multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/server/dao/{3}.java")),
 					application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName.toLowerCase(), formName
 				)
 			);

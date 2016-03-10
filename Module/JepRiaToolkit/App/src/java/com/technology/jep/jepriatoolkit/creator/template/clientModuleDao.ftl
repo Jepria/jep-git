@@ -1,17 +1,12 @@
-package com.technology.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.server.ejb;
+package com.technology.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.server.dao;
  
-import static com.technology.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.server.${form.formName}ServerConstant.DATA_SOURCE_JNDI_NAME;
-import static com.technology.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.server.${form.formName}ServerConstant.RESOURCE_BUNDLE_NAME;
 import static com.technology.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.shared.field.${form.formName}FieldNames.*;
-import javax.ejb.Local;
-import javax.ejb.Remote;
-import javax.ejb.Stateless;
-import oracle.j2ee.ejb.StatelessDeployment;
-import com.technology.jep.jepria.server.ejb.JepDataBean;
+
+import com.technology.jep.jepria.server.dao.JepDao;
 import com.technology.jep.jepria.shared.exceptions.ApplicationException;
 import com.technology.jep.jepria.shared.record.JepRecord;
 import com.technology.jep.jepria.shared.util.Mutable;
-import com.technology.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.server.ejb.${form.formName};
+import com.technology.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.server.dao.${form.formName};
 import com.technology.jep.jepria.server.dao.ResultSetMapper;
 <#if form.hasOptionField>
 import com.technology.jep.jepria.shared.field.option.JepOption;
@@ -42,17 +37,10 @@ import java.util.ArrayList;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
- 
-@Local( { ${form.formName}Local.class })
-@Remote( { ${form.formName}Remote.class })
-@StatelessDeployment
-@Stateless
-public class ${form.formName}Bean extends JepDataBean implements ${form.formName} {
- 
-	public ${form.formName}Bean() {
-		super(DATA_SOURCE_JNDI_NAME, RESOURCE_BUNDLE_NAME);
-	}
- 
+
+public class ${form.formName}Dao extends JepDao implements ${form.formName} {
+
+	@Override
 	public List<JepRecord> find(JepRecord templateRecord, Mutable<Boolean> autoRefreshFlag, Integer maxRowCount, Integer operatorId) throws ApplicationException {
 		String sqlQuery = 
 			"begin  " 
@@ -92,7 +80,8 @@ public class ${form.formName}Bean extends JepDataBean implements ${form.formName
 				, maxRowCount 
 				, operatorId);
 	}
- 
+
+	@Override
 	public void delete(JepRecord record, Integer operatorId) throws ApplicationException {
 		String sqlQuery = 
 			"begin " 
@@ -114,7 +103,8 @@ public class ${form.formName}Bean extends JepDataBean implements ${form.formName
 				</#list>
 				, operatorId);
 	}
- 
+
+	@Override
 	public void update(JepRecord record, Integer operatorId) throws ApplicationException {
 		String sqlQuery = 
 			"begin " 
@@ -136,7 +126,8 @@ public class ${form.formName}Bean extends JepDataBean implements ${form.formName
 				</#list>
 				, operatorId);
 	}
- 
+
+	@Override
 	public Integer create(JepRecord record, Integer operatorId) throws ApplicationException {
 		String sqlQuery = 
 			"begin " 
