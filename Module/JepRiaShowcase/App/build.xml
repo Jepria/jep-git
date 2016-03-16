@@ -112,25 +112,9 @@
 		<path refid="weblogic-libs" />
 	</path>
 
-	<fileset dir="build" id="class-common-jar">
-		<include name="**/shared/exceptions/*.class" />
-		<include name="**/shared/service/*.class" />
-		<include name="**/server/ejb/*.class" />
-		<exclude name="**/*Bean*.class" />
-	</fileset>
-
-	<fileset dir="src/java" id="src-common-jar">
-		<include name="**/*Text.properties" />
-		<include name="**/*Text_??.properties" />
-	</fileset>
-
 	<fileset dir="build" id="class-web-jar">
-		<include name="**/shared/*Constant.class" />
-		<include name="**/shared/field/*.class" />
-		<include name="**/shared/record/*.class" />
-		<include name="**/shared/ui/*.class" />
+		<include name="**/shared/" />
 		<include name="**/server/" />
-		<exclude name="**/server/ejb/" />
 	</fileset>
 
 	<target name="prepare-toolkit">
@@ -396,24 +380,6 @@
 		</outofdate>
 	</target>
 
-	<target name="common-jar" depends="encode-and-compile">
-		<outofdate>
-			<sourcefiles>
-				<fileset refid="class-common-jar" />
-				<fileset refid="src-common-jar" />
-				<fileset dir="./src/java/" includes="log4j.properties" />
-			</sourcefiles>
-			<targetfiles path="${JAR_TEMP}/${MODULE_NAME_IN_PACKAGE}-common.jar" />
-			<sequential>
-				<jar destfile="${JAR_TEMP}/${MODULE_NAME_IN_PACKAGE}-common.jar">
-					<fileset refid="class-common-jar" />
-					<fileset refid="src-common-jar" />
-					<fileset dir="./src/java/" includes="log4j.properties" />
-				</jar>
-			</sequential>
-		</outofdate>
-	</target>
-
 	<target name="web-jar" depends="encode-and-compile">
 		<outofdate>
 			<sourcefiles>
@@ -487,7 +453,7 @@
 		</outofdate>
 	</target>
 
-	<target name="ear" depends="war, common-jar">
+	<target name="ear" depends="war">
 		<outofdate>
 			<sourcefiles>
 				<fileset dir="${RESOURCE_HOME}" includes="application.xml, orion-application.xml" />
@@ -497,7 +463,6 @@
 				<fileset dir="${JEP_RIA_REPORT}/lib" includes="jepriareport.jar" />
 				<fileset dir="${JEP_RIA}/lib" includes="jepria-oc4j.jar" />
 				<fileset dir="${JEP_RIA}/lib" includes="jepria-weblogic.jar" />
-				<fileset dir="${JAR_TEMP}" includes="${MODULE_NAME_IN_PACKAGE}-common.jar" />
 				<fileset file="${JAR_TEMP}/${MODULE_NAME_IN_PACKAGE}.war" />
 			</sourcefiles>
 			<targetfiles path="lib/${MODULE_NAME_IN_PACKAGE}.ear" />
@@ -515,7 +480,6 @@
 					<fileset dir="${JEP_RIA_REPORT}/lib" includes="jepriareport.jar" />
 					<fileset dir="${JEP_RIA_REPORT}/lib" includes="commons-digester-1.7.jar" />
 					<fileset dir="${JASPER_REPORTS_HOME}/dist" includes="jasperreports.jar" />
-					<fileset dir="${JAR_TEMP}" includes="${MODULE_NAME_IN_PACKAGE}-common.jar" />
 					<fileset dir="${GWT_HOME}" includes="gwt-servlet.jar" />
 					<fileset dir="${OC4J_HOME}/jakarta-struts/lib" includes="commons-logging.jar" />
 					<fileset dir="${J2EE_HOME}" includes="jazncore.jar" /> <!-- для login.jsp TODO отвязать от OC4J -->
