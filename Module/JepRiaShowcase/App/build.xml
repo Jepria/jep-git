@@ -147,7 +147,7 @@
 	</target>
 
 	<target name="create-structure" depends="prepare-toolkit, define-toolkit">
-		<applicationstructurecreator commonHome="${COMMON_HOME}" riaVersion="${JEP_RIA_VERSION}" />
+		<applicationstructurecreator applicationStructureFile="${APPLICATION_STRUCTURE_FILE_PATH}"/>
 	</target>
 
 	<!-- Инициализация переменных модуля	-->
@@ -235,7 +235,7 @@
 	</target>
 
 	<target name="production-builder-check" depends="all-text-encode, define-toolkit">
-		<productionbuildchecker commonHome="${COMMON_HOME}" moduleName="${MODULE_NAME}" packageName="${PROJECT_NAME_IN_PACKAGE}" property="productionBuildCheck" riaVersion="${JEP_RIA_VERSION}" />
+		<productionbuildchecker moduleName="${MODULE_NAME}" packageName="${PROJECT_NAME_IN_PACKAGE}" property="productionBuildCheck" />
 		<!-- Если непонятно почему сборка не соответствует продукционной, то соответствующее сообщение можно получить из свойства productionBuildCheckerError -->
 		<!-- echo message="${productionBuildCheckerError}" /-->
 	</target>
