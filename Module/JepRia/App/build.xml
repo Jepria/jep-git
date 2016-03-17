@@ -64,7 +64,6 @@
 
 	<path id="oc4j-libs">
 		<pathelement location="${J2EE_HOME}/lib/servlet.jar" />
-		<pathelement location="${J2EE_HOME}/lib/ejb30.jar" />
 		<pathelement location="${J2EE_HOME}/lib/jta.jar" />
 		<pathelement location="${J2EE_HOME}/lib/oc4j-internal.jar" />
 		<pathelement location="${J2EE_HOME}/jazncore.jar" />
@@ -83,12 +82,7 @@
 
 	<fileset id="class-jar" dir="build">
 		<include name="**/*.class" />
-		<exclude name="**/*Bean*.class"/>
 		<exclude name="**/JepSecurityModule_OC4J.class" />
-	</fileset>
-
-	<fileset id="ejb-jar" dir="build">
-		<include name="**/*Bean*.class" />
 	</fileset>
 
 	<fileset id="oc4j-jar" dir="build">
@@ -222,24 +216,11 @@
 		</jar>
 	</target>
 
-	<target name="ejb-jar-update-check" depends="java-compile">
-		<uptodate targetfile="lib/${MODULE_NAME_IN_PACKAGE}-ejb.jar" property="ejb-jar-is-uptodate">
-			<srcfiles refid="ejb-jar" />
-		</uptodate>
-	</target>
-
 	<target name="oc4j-jar-update-check" depends="java-compile">
 		<uptodate targetfile="lib/${MODULE_NAME_IN_PACKAGE}-oc4j.jar" property="oc4j-jar-is-uptodate">
 			<srcfiles refid="oc4j-jar" />
 		</uptodate>
 	</target>
-
-	<target name="ejb-jar" depends="ejb-jar-update-check" unless="ejb-jar-is-uptodate">
-		<jar destfile="lib/${MODULE_NAME_IN_PACKAGE}-ejb.jar">
-			<fileset refid="ejb-jar" />
-		</jar>
-	</target>
-
 
 	<target name="oc4j-jar" depends="oc4j-jar-update-check" unless="oc4j-jar-is-uptodate">
 		<jar destfile="lib/${MODULE_NAME_IN_PACKAGE}-oc4j.jar">
@@ -247,7 +228,7 @@
 		</jar>
 	</target>
 
-	<target name="build" depends="jar, ejb-jar, oc4j-jar, jar-auto, jar-test" />
+	<target name="build" depends="jar, oc4j-jar, jar-auto, jar-test" />
 
 	<target name="doc" depends="java-compile, java-auto-compile">
 		<javadoc sourcepath="src/java;auto/java"
