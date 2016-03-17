@@ -75,11 +75,6 @@
 		<ejb-ref-type>Session</ejb-ref-type>
 		<local>com.technology.jep.jepria.server.upload.blob.BinaryFileUploadLocal</local>
 	</ejb-local-ref>
-	<ejb-local-ref>
-		<ejb-ref-name>ejb/BinaryFileDownloadBean</ejb-ref-name>
-		<ejb-ref-type>Session</ejb-ref-type>
-		<local>com.technology.jep.jepria.server.download.blob.BinaryFileDownloadLocal</local>
-	</ejb-local-ref>
 	<servlet>
 		<servlet-name>ShopGoodsServlet</servlet-name>
 		<servlet-class>com.technology.jep.jepriashowcase.shopgoods.server.service.ShopGoodsServiceImpl</servlet-class>
