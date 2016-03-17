@@ -34,12 +34,10 @@
 		<pathelement location="${LOG4J_HOME}/log4j.jar" />
 		<pathelement location="${COMMONS-FILEUPLOAD_HOME}/commons-fileupload.jar" />
 		<pathelement location="${J2EE_HOME}/lib/servlet.jar" />
-		<pathelement location="${J2EE_HOME}/lib/ejb30.jar" />
 		<pathelement location="${J2EE_HOME}/lib/oc4j-internal.jar" />
 		<pathelement location="${OC4J_HOME}/jdbc/lib/ojdbc14dms.jar" />
 		<pathelement location="${GWT_HOME}/gwt-servlet.jar" />
 		<pathelement location="${JEP_RIA}/lib/jepria.jar" />
-		<pathelement location="${JEP_RIA}/lib/jepria-ejb.jar" />
 		<pathelement location="${JEP_RIA}/lib/jepria-auto.jar" />
 		<pathelement location="${JEP_RIA}/lib/jepria-test.jar" />
 		<pathelement location="${JEP_RIA}/lib/gwt-theme.jar" />
@@ -458,7 +456,6 @@
 			<sourcefiles>
 				<fileset dir="${RESOURCE_HOME}" includes="application.xml, orion-application.xml" />
 				<fileset dir="${JEP_RIA}/lib" includes="jepria.jar" />
-				<fileset dir="${JEP_RIA}/lib" includes="jepria-ejb.jar" />
 				<fileset dir="${JEP_GXT}/lib" includes="jepgxt.jar" />
 				<fileset dir="${JEP_RIA_REPORT}/lib" includes="jepriareport.jar" />
 				<fileset dir="${JEP_RIA}/lib" includes="jepria-oc4j.jar" />
@@ -495,7 +492,6 @@
 				
 				<copy todir="temp-ear">
 					<fileset dir="${JAR_TEMP}" includes="${MODULE_NAME_IN_PACKAGE}.war" />
-					<fileset dir="${JEP_RIA}/lib" includes="jepria-ejb.jar" />
 				</copy>
 				<copy todir="temp-ear/lib">
 					<fileset dir="${JASPER_REPORTS_HOME}/lib" includes="spring-core-2.5.5.jar, spring-beans-2.5.5.jar, jfreechart-1.0.12.jar, groovy-all-1.5.5.jar, jcommon-1.0.15.jar, iText-2.1.0.jar, commons-digester-1.7.jar" />
