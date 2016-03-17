@@ -1,30 +1,15 @@
 package com.technology.jep.jepria.server.download.blob;
 
-import javax.ejb.Local;
-import javax.ejb.Remote;
-import javax.ejb.Stateful;
-import javax.ejb.TransactionManagement;
-import javax.ejb.TransactionManagementType;
-import javax.transaction.NotSupportedException;
-
-import oracle.j2ee.ejb.StatefulDeployment;
-
+import com.technology.jep.jepria.server.dao.CallContext;
 import com.technology.jep.jepria.server.db.blob.BinaryLargeObject;
-import com.technology.jep.jepria.server.download.AbstractFileDownloadBean;
-import com.technology.jep.jepria.server.ejb.CallContext;
+import com.technology.jep.jepria.server.download.AbstractFileDownload;
 import com.technology.jep.jepria.server.exceptions.SpaceException;
 import com.technology.jep.jepria.shared.exceptions.ApplicationException;
-import com.technology.jep.jepria.shared.exceptions.SystemException;
 
 /**
  * FileDownload Stateful Session EJB 3 для чтения из BINARY_FILE.
  */
-@Local( { BinaryFileDownloadLocal.class })
-@Remote( { BinaryFileDownloadRemote.class })
-@StatefulDeployment
-@Stateful
-@TransactionManagement(TransactionManagementType.BEAN)
-public class BinaryFileDownloadBean extends AbstractFileDownloadBean implements BinaryFileDownload {
+public class BinaryFileDownloadImpl extends AbstractFileDownload implements BinaryFileDownload {
 	
 	/**
 	 * Метод начинает чтение данных из LOB. 
@@ -44,22 +29,13 @@ public class BinaryFileDownloadBean extends AbstractFileDownloadBean implements 
 
 		int result = -1;
 		try {
-			sessionContext.getUserTransaction().begin();
-			CallContext.begin(sessionContext, dataSourceJndiName, resourceBundleName);
+			CallContext.begin(dataSourceJndiName);
 
 			super.largeObject = new BinaryLargeObject(tableName, fileFieldName, keyFieldName, rowId);
 			result = ((BinaryLargeObject)super.largeObject).beginRead();
 		} catch (ApplicationException ex) {
 			cancel();
 			throw ex;
-		} catch (javax.transaction.SystemException ex) {
-			throw new SystemException("begin write error", ex);
-		} catch (IllegalStateException ex) {
-			ex.printStackTrace();
-			throw new SystemException("begin write error", ex);
-		} catch (NotSupportedException ex) {
-			ex.printStackTrace();
-			throw new SystemException("begin write error", ex);
 		} finally {
 			storedContext = CallContext.detach();
 		}

@@ -9,7 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.technology.jep.jepria.server.db.LargeObject;
-import com.technology.jep.jepria.server.ejb.CallContext;
+import com.technology.jep.jepria.server.dao.CallContext;
 import com.technology.jep.jepria.server.exceptions.SpaceException;
 import com.technology.jep.jepria.shared.exceptions.ApplicationException;
 import com.technology.jep.jepria.shared.exceptions.SystemException;

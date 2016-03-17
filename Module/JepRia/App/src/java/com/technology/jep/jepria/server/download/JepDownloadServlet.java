@@ -1,7 +1,5 @@
 package com.technology.jep.jepria.server.download;
 
-import static com.technology.jep.jepria.server.JepRiaServerConstant.BINARY_FILE_DOWNLOAD_BEAN_JNDI_NAME;
-import static com.technology.jep.jepria.server.JepRiaServerConstant.TEXT_FILE_DOWNLOAD_BEAN_JNDI_NAME;
 import static com.technology.jep.jepria.server.download.clob.FileDownloadReader.DEFAULT_ENCODING;
 import static com.technology.jep.jepria.shared.JepRiaConstant.DOWNLOAD_CONTENT_DISPOSITION_ATTACHMENT;
 import static com.technology.jep.jepria.shared.JepRiaConstant.DOWNLOAD_CONTENT_DISPOSITION_INLINE;
@@ -32,10 +30,8 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
-import com.technology.jep.jepria.server.download.blob.BinaryFileDownloadLocal;
-import com.technology.jep.jepria.server.download.blob.FileDownloadStream;
-import com.technology.jep.jepria.server.download.clob.FileDownloadReader;
-import com.technology.jep.jepria.server.download.clob.TextFileDownloadLocal;
+import com.technology.jep.jepria.server.download.blob.*;
+import com.technology.jep.jepria.server.download.clob.*;
 import com.technology.jep.jepria.server.util.JepServerUtil;
 import com.technology.jep.jepria.shared.exceptions.UnsupportedException;
 import com.technology.jep.jepria.shared.field.JepTypeEnum;
@@ -263,7 +259,7 @@ public class JepDownloadServlet extends HttpServlet {
 		
 		FileDownloadStream.downloadFile(
 			outputStream,
-			(BinaryFileDownloadLocal) JepServerUtil.ejbLookup(BINARY_FILE_DOWNLOAD_BEAN_JNDI_NAME),
+			new BinaryFileDownloadImpl(),
 			tableName,
 			fileFieldName,
 			fileRecordDefinition.getKeyFieldName(),
@@ -290,7 +286,7 @@ public class JepDownloadServlet extends HttpServlet {
 		
 		FileDownloadReader.downloadFile(
 			outputStream,
-			(TextFileDownloadLocal) JepServerUtil.ejbLookup(TEXT_FILE_DOWNLOAD_BEAN_JNDI_NAME),
+			new TextFileDownloadImpl(),
 			tableName,
 			fileFieldName,
 			fileRecordDefinition.getKeyFieldName(),

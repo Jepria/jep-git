@@ -1,6 +1,5 @@
 package com.technology.jep.jepria.server.service;
 
-import static com.technology.jep.jepria.server.JepRiaServerConstant.BINARY_FILE_DOWNLOAD_BEAN_JNDI_NAME;
 import static com.technology.jep.jepria.server.JepRiaServerConstant.EXCEL_REPORT_FIELDS_SESSION_ATTRIBUTE;
 import static com.technology.jep.jepria.server.JepRiaServerConstant.EXCEL_REPORT_HEADERS_SESSION_ATTRIBUTE;
 import static com.technology.jep.jepria.server.JepRiaServerConstant.FOUND_RECORDS_SESSION_ATTRIBUTE;
@@ -42,7 +41,7 @@ import org.apache.log4j.Logger;
 
 import com.technology.jep.jepria.server.DaoProvider;
 import com.technology.jep.jepria.server.dao.JepDataStandard;
-import com.technology.jep.jepria.server.download.blob.BinaryFileDownloadLocal;
+import com.technology.jep.jepria.server.download.blob.BinaryFileDownloadImpl;
 import com.technology.jep.jepria.server.download.blob.FileDownloadStream;
 import com.technology.jep.jepria.server.upload.clob.FileUploadWriter;
 import com.technology.jep.jepria.server.upload.clob.TextFileUploadLocal;
@@ -429,7 +428,7 @@ abstract public class JepDataServiceServlet<D extends JepDataStandard> extends J
 			ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 			FileDownloadStream.downloadFile(
 					outputStream,
-					(BinaryFileDownloadLocal) JepServerUtil.ejbLookup(BINARY_FILE_DOWNLOAD_BEAN_JNDI_NAME),
+					new BinaryFileDownloadImpl(),
 					tableName,
 					fileFieldName,
 					keyFieldName,

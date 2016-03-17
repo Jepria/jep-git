@@ -26,11 +26,7 @@ public class JepRiaServerConstant extends JepRiaConstant {
 	
 	public static final String BINARY_FILE_UPLOAD_BEAN_JNDI_NAME = "BinaryFileUploadBean";
 
-	public static final String BINARY_FILE_DOWNLOAD_BEAN_JNDI_NAME = "BinaryFileDownloadBean";
-
 	public static final String TEXT_FILE_UPLOAD_BEAN_JNDI_NAME = "TextFileUploadBean";
-	
-	public static final String TEXT_FILE_DOWNLOAD_BEAN_JNDI_NAME = "TextFileDownloadBean";
 	
 	/**
 	 * Префикс имени аттрибута сессии, в котором сохраняется найденный набор записей. 

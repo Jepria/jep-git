@@ -1,17 +1,8 @@
 package com.technology.jep.jepria.server.download.clob;
 
-import javax.ejb.Local;
-import javax.ejb.Remote;
-import javax.ejb.Stateful;
-import javax.ejb.TransactionManagement;
-import javax.ejb.TransactionManagementType;
-import javax.transaction.NotSupportedException;
-
-import oracle.j2ee.ejb.StatefulDeployment;
-
 import com.technology.jep.jepria.server.db.clob.TextLargeObject;
-import com.technology.jep.jepria.server.download.AbstractFileDownloadBean;
-import com.technology.jep.jepria.server.ejb.CallContext;
+import com.technology.jep.jepria.server.download.AbstractFileDownload;
+import com.technology.jep.jepria.server.dao.CallContext;
 import com.technology.jep.jepria.server.exceptions.SpaceException;
 import com.technology.jep.jepria.shared.exceptions.ApplicationException;
 import com.technology.jep.jepria.shared.exceptions.SystemException;
@@ -19,12 +10,7 @@ import com.technology.jep.jepria.shared.exceptions.SystemException;
 /**
  * FileDownload Stateful Session EJB 3 для записи в CLOB.
  */
-@Local( { TextFileDownloadLocal.class })
-@Remote( { TextFileDownloadRemote.class })
-@StatefulDeployment
-@Stateful
-@TransactionManagement(TransactionManagementType.BEAN)
-public class TextFileDownloadBean extends AbstractFileDownloadBean implements TextFileDownload {
+public class TextFileDownloadImpl extends AbstractFileDownload implements TextFileDownload {
 	/**
 	 * Метод начинает чтение данных из LOB. 
 	 * 
@@ -43,20 +29,14 @@ public class TextFileDownloadBean extends AbstractFileDownloadBean implements Te
 
 		int result = -1;
 		try {
-			sessionContext.getUserTransaction().begin();
-			CallContext.begin(sessionContext, dataSourceJndiName, resourceBundleName);
+			CallContext.begin(dataSourceJndiName);
 
 			super.largeObject = new TextLargeObject(tableName, fileFieldName, keyFieldName, rowId);
 			result = ((TextLargeObject)super.largeObject).beginRead();
 		} catch (ApplicationException ex) {
 			cancel();
 			throw ex;
-		} catch (javax.transaction.SystemException ex) {
-			throw new SystemException("begin write error", ex);
 		} catch (IllegalStateException ex) {
-			ex.printStackTrace();
-			throw new SystemException("begin write error", ex);
-		} catch (NotSupportedException ex) {
 			ex.printStackTrace();
 			throw new SystemException("begin write error", ex);
 		} finally {
