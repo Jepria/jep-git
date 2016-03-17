@@ -1,7 +1,5 @@
 package com.technology.jep.jepria.server.upload;
 
-import javax.ejb.Remove;
-
 import com.technology.jep.jepria.server.exceptions.SpaceException;
 import com.technology.jep.jepria.shared.exceptions.ApplicationException;
 
@@ -59,7 +57,6 @@ public interface FileUpload {
 	 *
 	 * @throws SpaceException
 	 */
-	@Remove
 	void endWrite() throws SpaceException;
 
 	/**
@@ -67,6 +64,5 @@ public interface FileUpload {
 	 * После выполнения этого метода stateful bean должен быть удалён. 
 	 * Для удаления bean необходимо в классе реализации перед методом указать декларацию Remove.
 	 */
-	@Remove
 	void cancel();
 }
