@@ -191,7 +191,7 @@ public class FileUploadStream extends OutputStream {
 	 */
 	public static void uploadFile(
 			InputStream inputStream,
-			BinaryFileUploadLocal ejbLookup,
+			BinaryFileUpload fileUpload,
 			String tableName,
 			String fileFieldName,
 			Map<String, Object> primaryKeyMap,

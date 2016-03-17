@@ -5,7 +5,6 @@ import static com.technology.jep.jepria.server.JepRiaServerConstant.EXCEL_REPORT
 import static com.technology.jep.jepria.server.JepRiaServerConstant.FOUND_RECORDS_SESSION_ATTRIBUTE;
 import static com.technology.jep.jepria.server.JepRiaServerConstant.IS_REFRESH_NEEDED;
 import static com.technology.jep.jepria.server.JepRiaServerConstant.SELECTED_RECORDS_SESSION_ATTRIBUTE;
-import static com.technology.jep.jepria.server.JepRiaServerConstant.TEXT_FILE_UPLOAD_BEAN_JNDI_NAME;
 import static com.technology.jep.jepria.shared.JepRiaConstant.DEFAULT_MAX_ROW_COUNT;
 import static com.technology.jep.jepria.shared.JepRiaConstant.DOWNLOAD_CONTENT_DISPOSITION;
 import static com.technology.jep.jepria.shared.JepRiaConstant.DOWNLOAD_CONTENT_DISPOSITION_ATTACHMENT;
@@ -44,7 +43,7 @@ import com.technology.jep.jepria.server.dao.JepDataStandard;
 import com.technology.jep.jepria.server.download.blob.BinaryFileDownloadImpl;
 import com.technology.jep.jepria.server.download.blob.FileDownloadStream;
 import com.technology.jep.jepria.server.upload.clob.FileUploadWriter;
-import com.technology.jep.jepria.server.upload.clob.TextFileUploadLocal;
+import com.technology.jep.jepria.server.upload.clob.TextFileUploadImpl;
 import com.technology.jep.jepria.server.util.JepServerUtil;
 import com.technology.jep.jepria.shared.dto.JepSorter;
 import com.technology.jep.jepria.shared.exceptions.SystemException;
@@ -560,7 +559,7 @@ abstract public class JepDataServiceServlet<D extends JepDataStandard> extends J
 		if(primaryKeyMap.size() == 1) {
 			FileUploadWriter.uploadFile(
 					reader,
-					(TextFileUploadLocal) JepServerUtil.ejbLookup(TEXT_FILE_UPLOAD_BEAN_JNDI_NAME),
+					new TextFileUploadImpl(),
 					tableName,
 					fileFieldName,
 					((JepLobRecordDefinition)recordDefinition).getKeyFieldName(),
@@ -570,7 +569,7 @@ abstract public class JepDataServiceServlet<D extends JepDataStandard> extends J
 		} else {
 			FileUploadWriter.uploadFile(
 					reader,
-					(TextFileUploadLocal) JepServerUtil.ejbLookup(TEXT_FILE_UPLOAD_BEAN_JNDI_NAME),
+					new TextFileUploadImpl(),
 					tableName,
 					fileFieldName,
 					primaryKeyMap,

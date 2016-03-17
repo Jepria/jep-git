@@ -1,30 +1,15 @@
 package com.technology.jep.jepria.server.upload.clob;
 
-import javax.ejb.Local;
-import javax.ejb.Remote;
-import javax.ejb.Stateful;
-import javax.ejb.TransactionManagement;
-import javax.ejb.TransactionManagementType;
-import javax.transaction.NotSupportedException;
-
-import oracle.j2ee.ejb.StatefulDeployment;
-
 import com.technology.jep.jepria.server.db.clob.TextLargeObject;
-import com.technology.jep.jepria.server.ejb.CallContext;
+import com.technology.jep.jepria.server.dao.CallContext;
 import com.technology.jep.jepria.server.exceptions.SpaceException;
-import com.technology.jep.jepria.server.upload.AbstractFileUploadBean;
+import com.technology.jep.jepria.server.upload.AbstractFileUpload;
 import com.technology.jep.jepria.shared.exceptions.ApplicationException;
-import com.technology.jep.jepria.shared.exceptions.SystemException;
 
 /**
  * FileUpload Stateful Session EJB 3 для записи в CLOB.
  */
-@Local( { TextFileUploadLocal.class })
-@Remote( { TextFileUploadRemote.class })
-@StatefulDeployment
-@Stateful
-@TransactionManagement(TransactionManagementType.BEAN)
-public class TextFileUploadBean extends AbstractFileUploadBean implements TextFileUpload {
+public class TextFileUploadImpl extends AbstractFileUpload implements TextFileUpload {
 
 	public int beginWrite(
 		String tableName
@@ -37,22 +22,13 @@ public class TextFileUploadBean extends AbstractFileUploadBean implements TextFi
 
 		int result = -1;
 		try {
-			sessionContext.getUserTransaction().begin();
-			CallContext.begin(sessionContext, dataSourceJndiName, resourceBundleName);
+			CallContext.begin(dataSourceJndiName);
 
 			super.largeObject = new TextLargeObject(tableName, fileFieldName, keyFieldName, rowId);
 			result = ((TextLargeObject)super.largeObject).beginWrite();
 		} catch (ApplicationException ex) {
 			cancel();
 			throw ex;
-		} catch (javax.transaction.SystemException ex) {
-			throw new SystemException("begin write error", ex);
-		} catch (IllegalStateException ex) {
-			ex.printStackTrace();
-			throw new SystemException("begin write error", ex);
-		} catch (NotSupportedException ex) {
-			ex.printStackTrace();
-			throw new SystemException("begin write error", ex);
 		} finally {
 			storedContext = CallContext.detach();
 		}

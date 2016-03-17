@@ -1,7 +1,5 @@
 package com.technology.jep.jepria.server.upload;
 
-import static com.technology.jep.jepria.server.JepRiaServerConstant.BINARY_FILE_UPLOAD_BEAN_JNDI_NAME;
-import static com.technology.jep.jepria.server.JepRiaServerConstant.TEXT_FILE_UPLOAD_BEAN_JNDI_NAME;
 import static com.technology.jep.jepria.shared.field.JepTypeEnum.BINARY_FILE;
 import static com.technology.jep.jepria.shared.field.JepTypeEnum.TEXT_FILE;
 import static com.technology.jep.jepria.server.JepRiaServerConstant.JEP_RIA_RESOURCE_BUNDLE_NAME;
@@ -26,10 +24,10 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.log4j.Logger;
 
-import com.technology.jep.jepria.server.upload.blob.BinaryFileUploadLocal;
+import com.technology.jep.jepria.server.upload.blob.BinaryFileUploadImpl;
 import com.technology.jep.jepria.server.upload.blob.FileUploadStream;
 import com.technology.jep.jepria.server.upload.clob.FileUploadWriter;
-import com.technology.jep.jepria.server.upload.clob.TextFileUploadLocal;
+import com.technology.jep.jepria.server.upload.clob.TextFileUploadImpl;
 import com.technology.jep.jepria.server.util.JepServerUtil;
 import com.technology.jep.jepria.shared.exceptions.UnsupportedException;
 import com.technology.jep.jepria.shared.field.JepTypeEnum;
@@ -195,7 +193,7 @@ public class JepUploadServlet extends HttpServlet {
 			if(primaryKeyMap.size() == 1) {
 				FileUploadStream.uploadFile(
 					fileItem.getInputStream(),
-					(BinaryFileUploadLocal) JepServerUtil.ejbLookup(BINARY_FILE_UPLOAD_BEAN_JNDI_NAME),
+					new BinaryFileUploadImpl(),
 					tableName,
 					fileFieldName,
 					fileRecordDefinition.getKeyFieldName(),
@@ -205,7 +203,7 @@ public class JepUploadServlet extends HttpServlet {
 			} else {
 				FileUploadStream.uploadFile(
 					fileItem.getInputStream(),
-					(BinaryFileUploadLocal) JepServerUtil.ejbLookup(BINARY_FILE_UPLOAD_BEAN_JNDI_NAME),
+					new BinaryFileUploadImpl(),
 					tableName,
 					fileFieldName,
 					primaryKeyMap,
@@ -234,7 +232,7 @@ public class JepUploadServlet extends HttpServlet {
 			if(primaryKeyMap.size() == 1) {
 				FileUploadWriter.uploadFile(
 					new InputStreamReader(fileItem.getInputStream()),
-					(TextFileUploadLocal) JepServerUtil.ejbLookup(TEXT_FILE_UPLOAD_BEAN_JNDI_NAME),
+					new TextFileUploadImpl(),
 					tableName,
 					fileFieldName,
 					fileRecordDefinition.getKeyFieldName(),
@@ -244,7 +242,7 @@ public class JepUploadServlet extends HttpServlet {
 			} else {
 				FileUploadWriter.uploadFile(
 					new InputStreamReader(fileItem.getInputStream()),
-					(TextFileUploadLocal) JepServerUtil.ejbLookup(TEXT_FILE_UPLOAD_BEAN_JNDI_NAME),
+					new TextFileUploadImpl(),
 					tableName,
 					fileFieldName,
 					primaryKeyMap,

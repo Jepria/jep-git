@@ -1,15 +1,7 @@
 package com.technology.jep.jepria.server.upload;
 
-import javax.annotation.Resource;
-import javax.ejb.SessionContext;
-import javax.transaction.HeuristicMixedException;
-import javax.transaction.HeuristicRollbackException;
-import javax.transaction.RollbackException;
-import javax.transaction.Status;
-import javax.transaction.UserTransaction;
-
 import com.technology.jep.jepria.server.db.LargeObject;
-import com.technology.jep.jepria.server.ejb.CallContext;
+import com.technology.jep.jepria.server.dao.CallContext;
 import com.technology.jep.jepria.server.exceptions.SpaceException;
 import com.technology.jep.jepria.shared.exceptions.ApplicationException;
 import com.technology.jep.jepria.shared.exceptions.SystemException;
@@ -18,9 +10,8 @@ import com.technology.jep.jepria.shared.exceptions.SystemException;
  * Абстрактный базовый класс для FileUpload Stateful Session EJB 3
  * 
  */
-public abstract class AbstractFileUploadBean implements FileUpload {
-	@Resource
-	protected SessionContext sessionContext;
+public abstract class AbstractFileUpload implements FileUpload {
+
 	protected CallContext storedContext;
 	protected LargeObject largeObject = null;
 
@@ -59,18 +50,10 @@ public abstract class AbstractFileUploadBean implements FileUpload {
 		CallContext.attach(storedContext);
 		try {
 			largeObject.endWrite();
-			sessionContext.getUserTransaction().commit();
+			CallContext.commit();
 		} catch (SpaceException ex) {
 			cancel();
 			throw ex;
-		} catch (javax.transaction.SystemException ex) {
-			throw new SystemException("end write error", ex);
-		} catch (HeuristicRollbackException ex) {
-			throw new SystemException("end write error", ex);
-		} catch (HeuristicMixedException ex) {
-			throw new SystemException("end write error", ex);
-		} catch (RollbackException ex) {
-			throw new SystemException("end write error", ex);
 		} catch (Throwable th) {
 			th.printStackTrace();
 			throw new SystemException("end write error", new RuntimeException(th));
@@ -92,10 +75,7 @@ public abstract class AbstractFileUploadBean implements FileUpload {
 			if (largeObject != null) {
 				largeObject.cancel();
 			}
-			UserTransaction transaction = sessionContext.getUserTransaction();
-			if (transaction.getStatus() == Status.STATUS_ACTIVE) {
-				transaction.rollback();
-			}
+			CallContext.rollback();
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		} finally {

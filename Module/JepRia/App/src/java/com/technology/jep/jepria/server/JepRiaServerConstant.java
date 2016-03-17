@@ -24,10 +24,6 @@ public class JepRiaServerConstant extends JepRiaConstant {
 	 */
 	public static final String HTTP_REQUEST_PARAMETER_LOCALE = "locale";
 	
-	public static final String BINARY_FILE_UPLOAD_BEAN_JNDI_NAME = "BinaryFileUploadBean";
-
-	public static final String TEXT_FILE_UPLOAD_BEAN_JNDI_NAME = "TextFileUploadBean";
-	
 	/**
 	 * Префикс имени аттрибута сессии, в котором сохраняется найденный набор записей. 
 	 */
