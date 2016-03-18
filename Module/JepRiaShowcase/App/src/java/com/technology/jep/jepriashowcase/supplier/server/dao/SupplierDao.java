@@ -170,5 +170,16 @@ public class SupplierDao extends JepDaoStandard implements Supplier {
 			bankBic,
 			maxRowCount);
 	}
+	
+	public String getSupplierNameById(Integer id, Integer operatorId) throws ApplicationException {
+		JepRecord templateRecord = new JepRecord();
+		templateRecord.set(SUPPLIER_ID, id);
+		String result = null;
+		List<JepRecord> supplierList = this.find(templateRecord, null, 1, operatorId);
+		if (supplierList.size() > 0){
+			result = supplierList.iterator().next().get(SUPPLIER_NAME);
+		}
+		return result;
+	}
  
 }
