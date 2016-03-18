@@ -1,6 +1,7 @@
 package com.technology.jep.jepriashowcase.supplier.server.service;
  
 import static com.technology.jep.jepriashowcase.supplier.server.SupplierServerConstant.DATA_SOURCE_JNDI_NAME;
+
 import java.util.List;
 
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
@@ -27,6 +28,17 @@ public class SupplierServiceImpl extends JepDataServiceServlet<Supplier> impleme
 		List<JepOption> result = null;
 		try {
 			result = dao.getBank(bankBic, maxRowCount);					
+		} catch (Throwable th) {
+			throw new ApplicationException(th.getLocalizedMessage(), th);
+		}
+		return result;
+	}
+	
+	@Override
+	public String getSupplierNameById(Integer id) throws ApplicationException {
+		String result = null;
+		try {
+			result = dao.getSupplierNameById(id, super.getOperatorId());					
 		} catch (Throwable th) {
 			throw new ApplicationException(th.getLocalizedMessage(), th);
 		}

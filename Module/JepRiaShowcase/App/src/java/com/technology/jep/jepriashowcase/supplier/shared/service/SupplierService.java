@@ -10,4 +10,5 @@ import com.technology.jep.jepria.shared.service.data.JepDataService;
 @RemoteServiceRelativePath("SupplierService")
 public interface SupplierService extends JepDataService {
 	List<JepOption> getBank(String bankBic, Integer maxRowCount) throws ApplicationException;
+	String getSupplierNameById(Integer id) throws ApplicationException;
 }

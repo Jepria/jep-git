@@ -2,7 +2,7 @@ package com.technology.jep.jepriashowcase.supplier.shared.text;
 
 /**
  * Interface to represent the constants contained in resource bundle:
- * 	'D:/GitSourceForge3/javaenterpriseplatform-git/Module/JepRiaShowcase/App/src/java/com/technology/jep/jepriashowcase/supplier/shared/text/SupplierText.properties'.
+ * 	'D:/Project/JEPGit/Module/JepRiaShowcase/App/src/java/com/technology/jep/jepriashowcase/supplier/shared/text/SupplierText.properties'.
  */
 public interface SupplierText extends com.google.gwt.i18n.client.Constants {
   
@@ -365,4 +365,13 @@ public interface SupplierText extends com.google.gwt.i18n.client.Constants {
   @DefaultStringValue("Поставщик")
   @Key("supplier.title")
   String supplier_title();
+
+  /**
+   * Translated "Пожалуйста дождитесь загрузки значений, зависимых от поля «{0}»".
+   * 
+   * @return translated "Пожалуйста дождитесь загрузки значений, зависимых от поля «{0}»"
+   */
+  @DefaultStringValue("Пожалуйста дождитесь загрузки значений, зависимых от поля «{0}»")
+  @Key("waiting_for_error")
+  String waiting_for_error();
 }
