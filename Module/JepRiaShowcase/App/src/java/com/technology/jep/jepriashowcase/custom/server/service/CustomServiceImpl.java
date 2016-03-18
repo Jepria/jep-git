@@ -1,7 +1,6 @@
 package com.technology.jep.jepriashowcase.custom.server.service;
 
 import static com.technology.jep.jepriashowcase.custom.server.CustomServerConstant.DATA_SOURCE_JNDI_NAME;
-import static com.technology.jep.jepriashowcase.custom.server.CustomServerConstant.RESOURCE_BUNDLE_NAME;
 
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 import com.technology.jep.jepria.server.ServerFactory;
@@ -22,8 +21,7 @@ public class CustomServiceImpl extends JepDataServiceServlet<Custom> implements 
 	public CustomServiceImpl() {
 		super(
 			null // TODO 8.0: CustomRecordDefinition.instance
-			, new ServerFactory<Custom>(new CustomDao(), DATA_SOURCE_JNDI_NAME)
-			, RESOURCE_BUNDLE_NAME);
+			, new ServerFactory<Custom>(new CustomDao(), DATA_SOURCE_JNDI_NAME));
 	}
 
 	public String getOperatorName(

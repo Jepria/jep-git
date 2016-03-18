@@ -16,7 +16,6 @@ public interface FileUpload {
 	 * @param keyFieldName 	имя поля, идентифицирующего строку таблицы
 	 * @param rowId 				идентификатор строки таблицы
 	 * @param dataSourceJndiName	JNDI-имя источника данных модуля
-	 * @param resourceBundleName	идентификатор файла ресурсов
 	 * @return рекомендуемый размер буфера
 	 * @throws ApplicationException 
 	 */
@@ -25,8 +24,7 @@ public interface FileUpload {
 		, String fileFieldName
 		, String keyFieldName
 		, Object rowId
-		, String dataSourceJndiName
-		, String resourceBundleName) 
+		, String dataSourceJndiName) 
 		throws ApplicationException;
 
 	/**

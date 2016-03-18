@@ -57,10 +57,6 @@ public class JepDownloadServlet extends HttpServlet {
 	 */
 	private String dataSourceJndiName;
 	/**
-	 * Имя текстовых ресурсов.
-	 */
-	private String resourceBundleName;
-	/**
 	 * Кодировка текстовых файлов.
 	 */
 	private final Charset textFileCharset;
@@ -103,18 +99,15 @@ public class JepDownloadServlet extends HttpServlet {
 	 * Создаёт сервлет для загрузки файлов с сервера.
 	 * @param fileRecordDefinition определение записи
 	 * @param dataSourceJndiName JNDI-имя источника данных
-	 * @param resourceBundleName имя текстовых ресурсов
 	 * @param textFileCharset кодировка текстовых файлов
 	 */
 	public JepDownloadServlet(
 		JepLobRecordDefinition fileRecordDefinition,
 		String dataSourceJndiName,
-		String resourceBundleName,
 		Charset textFileCharset) {
 		
 		this.fileRecordDefinition = fileRecordDefinition;
 		this.dataSourceJndiName = dataSourceJndiName;
-		this.resourceBundleName = resourceBundleName;
 		this.textFileCharset = textFileCharset;
 	}
 
@@ -123,14 +116,13 @@ public class JepDownloadServlet extends HttpServlet {
 	 * Для текстовых файлов используется кодировка по умолчанию - UTF-8.
 	 * @param fileRecordDefinition определение записи
 	 * @param dataSourceJndiName JNDI-имя источника данных
-	 * @param resourceBundleName имя текстовых ресурсов
 	 */
 	public JepDownloadServlet(
 		JepLobRecordDefinition fileRecordDefinition,
 		String dataSourceJndiName,
 		String resourceBundleName){
 		
-		this(fileRecordDefinition, dataSourceJndiName, resourceBundleName, DEFAULT_ENCODING);
+		this(fileRecordDefinition, dataSourceJndiName, DEFAULT_ENCODING);
 	}
 
 	@Override
@@ -264,8 +256,7 @@ public class JepDownloadServlet extends HttpServlet {
 			fileFieldName,
 			fileRecordDefinition.getKeyFieldName(),
 			recordKey,
-			this.dataSourceJndiName,
-			this.resourceBundleName);
+			this.dataSourceJndiName);
 	}
 
 	/**
@@ -292,7 +283,6 @@ public class JepDownloadServlet extends HttpServlet {
 			fileRecordDefinition.getKeyFieldName(),
 			recordKey,
 			this.dataSourceJndiName,
-			this.resourceBundleName,
 			textFileCharset);
 	}
 	

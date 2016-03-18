@@ -1,7 +1,6 @@
 package com.technology.jep.jepriashowcase.search.server.service;
 
 import static com.technology.jep.jepriashowcase.search.server.SearchServerConstant.DATA_SOURCE_JNDI_NAME;
-import static com.technology.jep.jepriashowcase.search.server.SearchServerConstant.RESOURCE_BUNDLE_NAME;
 
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 import com.technology.jep.jepria.server.ServerFactory;
@@ -22,8 +21,7 @@ public class SearchServiceImpl extends JepDataServiceServlet<Search> implements 
 	public SearchServiceImpl() {
 		super(
 			SearchRecordDefinition.instance
-			, new ServerFactory<Search>(new SearchDao(), DATA_SOURCE_JNDI_NAME)
-			,	RESOURCE_BUNDLE_NAME);
+			, new ServerFactory<Search>(new SearchDao(), DATA_SOURCE_JNDI_NAME));
 	}
 
 	public String getOperatorName(

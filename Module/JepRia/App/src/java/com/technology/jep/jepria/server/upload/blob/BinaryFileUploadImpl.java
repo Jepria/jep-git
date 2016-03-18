@@ -16,8 +16,7 @@ public class BinaryFileUploadImpl extends AbstractFileUpload implements BinaryFi
 		, String fileFieldName
 		, String keyFieldName
 		, Object rowId
-		, String dataSourceJndiName
-		, String resourceBundleName) 
+		, String dataSourceJndiName) 
 		throws ApplicationException {
 
 		int result = -1;

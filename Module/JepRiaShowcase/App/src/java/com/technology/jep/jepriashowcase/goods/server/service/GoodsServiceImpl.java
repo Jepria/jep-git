@@ -1,7 +1,6 @@
 package com.technology.jep.jepriashowcase.goods.server.service;
  
 import static com.technology.jep.jepriashowcase.goods.server.GoodsServerConstant.DATA_SOURCE_JNDI_NAME;
-import static com.technology.jep.jepriashowcase.goods.server.GoodsServerConstant.RESOURCE_BUNDLE_NAME;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -30,7 +29,7 @@ public class GoodsServiceImpl extends JepDataServiceServlet<Goods> implements Go
  
 	public GoodsServiceImpl() {
 		super(GoodsRecordDefinition.instance, 
-				new ServerFactory<Goods>(new GoodsDao(), DATA_SOURCE_JNDI_NAME), RESOURCE_BUNDLE_NAME);
+				new ServerFactory<Goods>(new GoodsDao(), DATA_SOURCE_JNDI_NAME));
 		this.comparator = DefaultComparator.instance;
 	}
 	

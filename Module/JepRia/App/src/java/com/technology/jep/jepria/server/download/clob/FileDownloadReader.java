@@ -81,7 +81,6 @@ public class FileDownloadReader extends Reader {
 	 * @param keyFieldName  			PK в таблице tableName
 	 * @param rowId 							идентификатор строки таблицы
 	 * @param dataSourceJndiName 	имя источника данных
-	 * @param resourceBundleName 	имя ресурсов
 	 * @param encoding            кодировка, в который пишем в выходной поток
 	 * @throws IOException
 	 */
@@ -93,7 +92,6 @@ public class FileDownloadReader extends Reader {
 			, String keyFieldName
 			, Object rowId
 			, String dataSourceJndiName
-			, String resourceBundleName
 			, Charset encoding) 
 			throws IOException {
 
@@ -107,8 +105,7 @@ public class FileDownloadReader extends Reader {
 					, fileFieldName
 					, keyFieldName
 					, rowId
-					, dataSourceJndiName
-					, resourceBundleName);
+					, dataSourceJndiName);
 			readStream = new FileDownloadReader((TextFileDownload)fileDownload);
 			char[] readBuffer = new char[WRITE_LENGTH];
 			while (true) {
@@ -160,7 +157,6 @@ public class FileDownloadReader extends Reader {
 	 * @param keyFieldName  			PK в таблице tableName
 	 * @param rowId 							идентификатор строки таблицы
 	 * @param dataSourceJndiName 	имя источника данных
-	 * @param resourceBundleName 	имя ресурсов
 	 * @throws IOException
 	 */
 	public static void downloadFile(
@@ -170,10 +166,9 @@ public class FileDownloadReader extends Reader {
 			, String fileFieldName
 			, String keyFieldName
 			, Object rowId
-			, String dataSourceJndiName
-			, String resourceBundleName) 
+			, String dataSourceJndiName) 
 			throws IOException {
 		downloadFile(fileStream, fileDownload, tableName, fileFieldName, keyFieldName, rowId, dataSourceJndiName,
-				resourceBundleName, DEFAULT_ENCODING);
+				DEFAULT_ENCODING);
 	}
 }

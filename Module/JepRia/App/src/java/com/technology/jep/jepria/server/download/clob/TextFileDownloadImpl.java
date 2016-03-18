@@ -23,8 +23,7 @@ public class TextFileDownloadImpl extends AbstractFileDownload implements TextFi
 			, String fileFieldName
 			, String keyFieldName
 			, Object rowId
-			, String dataSourceJndiName
-			, String resourceBundleName) 
+			, String dataSourceJndiName) 
 			throws ApplicationException {
 
 		int result = -1;

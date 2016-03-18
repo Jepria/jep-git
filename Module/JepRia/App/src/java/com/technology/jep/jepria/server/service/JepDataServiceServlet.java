@@ -73,29 +73,11 @@ abstract public class JepDataServiceServlet<D extends JepDataStandard> extends J
 	protected JepSorter<JepRecord> sorter = null;
 	protected String dataSourceJndiName = null;
 	protected final D dao;
-	protected String resourceBundleName = null;
 	
 	protected JepDataServiceServlet(JepRecordDefinition recordDefinition, DaoProvider<D> serverFactory) {
 		this.recordDefinition = recordDefinition;
 		this.sorter = new JepSorter<JepRecord>();
 		this.dao = serverFactory.getDao();
-	}
-	
-	/**
-	 * Конструктор необходим при использовании download 
-	 * 
-	 * @param recordDefinition
-	 * @param serverFactory
-	 * @param dataSourceJndiName
-	 * @param resourceBundleName
-	 */
-	protected JepDataServiceServlet(
-			JepRecordDefinition recordDefinition,
-			DaoProvider<D> serverFactory,
-			String resourceBundleName) {
-		this(recordDefinition, serverFactory);
-		this.dataSourceJndiName = serverFactory.getDataSourceJndiName();
-		this.resourceBundleName = resourceBundleName;
 	}
 
 	public JepRecord update(FindConfig updateConfig) {
@@ -432,8 +414,7 @@ abstract public class JepDataServiceServlet<D extends JepDataStandard> extends J
 					fileFieldName,
 					keyFieldName,
 					recordId,
-					this.dataSourceJndiName,
-					this.resourceBundleName);
+					this.dataSourceJndiName);
 
 			result = outputStream;
 		} catch (Throwable th) {
@@ -564,8 +545,7 @@ abstract public class JepDataServiceServlet<D extends JepDataStandard> extends J
 					fileFieldName,
 					((JepLobRecordDefinition)recordDefinition).getKeyFieldName(),
 					primaryKeyMap.values().toArray()[0],
-					this.dataSourceJndiName,
-					this.resourceBundleName);
+					this.dataSourceJndiName);
 		} else {
 			FileUploadWriter.uploadFile(
 					reader,
@@ -573,8 +553,7 @@ abstract public class JepDataServiceServlet<D extends JepDataStandard> extends J
 					tableName,
 					fileFieldName,
 					primaryKeyMap,
-					this.dataSourceJndiName,
-					this.resourceBundleName);
+					this.dataSourceJndiName);
 		}
 	}
 	

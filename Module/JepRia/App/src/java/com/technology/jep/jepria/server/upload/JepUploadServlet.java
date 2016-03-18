@@ -54,25 +54,18 @@ public class JepUploadServlet extends HttpServlet {
 	 * JNDI-имя источника данных.
 	 */
 	private String dataSourceJndiName;
-	/**
-	 * Имя текстовых ресурсов.
-	 */
-	private String resourceBundleName;
 	
 	/**
 	 * Создаёт сервлет загрузки файлов на сервер.
 	 * @param fileRecordDefinition определение записи
 	 * @param dataSourceJndiName JNDI-наименование источника данных
-	 * @param resourceBundleName наименование текстовых ресурсов
 	 */
 	public JepUploadServlet(
 		JepLobRecordDefinition fileRecordDefinition,
-		String dataSourceJndiName,
-		String resourceBundleName) {
+		String dataSourceJndiName) {
 		
 		this.fileRecordDefinition = fileRecordDefinition;
 		this.dataSourceJndiName = dataSourceJndiName;
-		this.resourceBundleName = resourceBundleName;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -198,8 +191,7 @@ public class JepUploadServlet extends HttpServlet {
 					fileFieldName,
 					fileRecordDefinition.getKeyFieldName(),
 					primaryKeyMap.values().toArray()[0],
-					this.dataSourceJndiName,
-					this.resourceBundleName);
+					this.dataSourceJndiName);
 			} else {
 				FileUploadStream.uploadFile(
 					fileItem.getInputStream(),
@@ -207,8 +199,7 @@ public class JepUploadServlet extends HttpServlet {
 					tableName,
 					fileFieldName,
 					primaryKeyMap,
-					this.dataSourceJndiName,
-					this.resourceBundleName);
+					this.dataSourceJndiName);
 			}
 		
 	}
@@ -237,8 +228,7 @@ public class JepUploadServlet extends HttpServlet {
 					fileFieldName,
 					fileRecordDefinition.getKeyFieldName(),
 					primaryKeyMap.values().toArray()[0],
-					this.dataSourceJndiName,
-					this.resourceBundleName);
+					this.dataSourceJndiName);
 			} else {
 				FileUploadWriter.uploadFile(
 					new InputStreamReader(fileItem.getInputStream()),
@@ -246,8 +236,7 @@ public class JepUploadServlet extends HttpServlet {
 					tableName,
 					fileFieldName,
 					primaryKeyMap,
-					this.dataSourceJndiName,
-					this.resourceBundleName);
+					this.dataSourceJndiName);
 			}
 		
 	}

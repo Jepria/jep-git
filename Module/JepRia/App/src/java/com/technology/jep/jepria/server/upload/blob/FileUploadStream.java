@@ -109,7 +109,6 @@ public class FileUploadStream extends OutputStream {
 	 * @param keyFieldName  			PK в таблице tableName
 	 * @param rowId 							идентификатор строки таблицы
 	 * @param dataSourceJndiName 	имя источника данных
-	 * @param resourceBundleName 	имя ресурсов
 	 * @throws IOException
 	 */
 	public static void uploadFile(
@@ -119,8 +118,7 @@ public class FileUploadStream extends OutputStream {
 		, String fileFieldName
 		, String keyFieldName
 		, Object rowId
-		, String dataSourceJndiName
-		, String resourceBundleName) 
+		, String dataSourceJndiName) 
 		throws IOException {
 		if(tableName == null) {
 			throw new SystemException("tableName is empty");
@@ -143,8 +141,7 @@ public class FileUploadStream extends OutputStream {
 					, fileFieldName
 					, keyFieldName
 					, rowId
-					, dataSourceJndiName
-					, resourceBundleName);
+					, dataSourceJndiName);
 			writeStream = new FileUploadStream((BinaryFileUpload)fileUpload);
 			byte[] readBuffer = new byte[WRITE_LENGTH];
 			while (true) {
@@ -186,7 +183,6 @@ public class FileUploadStream extends OutputStream {
 	 * @param fileFieldName  		имя атрибута в таблице, откуда берем BINARY_FILE
 	 * @param primaryKeyMap 		PK в таблице tableName
 	 * @param dataSourceJndiName 	имя источника данных
-	 * @param resourceBundleName 	имя ресурсов
 	 * @throws IOException
 	 */
 	public static void uploadFile(
@@ -195,8 +191,7 @@ public class FileUploadStream extends OutputStream {
 			String tableName,
 			String fileFieldName,
 			Map<String, Object> primaryKeyMap,
-			String dataSourceJndiName,
-			String resourceBundleName) {
+			String dataSourceJndiName) {
 		throw new NotImplementedYetException();
 	}
 

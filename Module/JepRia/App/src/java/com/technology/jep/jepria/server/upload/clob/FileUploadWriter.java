@@ -100,8 +100,7 @@ public class FileUploadWriter extends Writer {
 			, String fileFieldName
 			, String keyFieldName
 			, Object rowId
-			, String dataSourceJndiName
-			, String resourceBundleName) 
+			, String dataSourceJndiName) 
 			throws IOException {
 
 		Writer writeStream = null;
@@ -114,8 +113,7 @@ public class FileUploadWriter extends Writer {
 					, fileFieldName
 					, keyFieldName
 					, rowId
-					, dataSourceJndiName
-					, resourceBundleName);
+					, dataSourceJndiName);
 			writeStream = new FileUploadWriter((TextFileUpload)fileUpload);
 			char[] readBuffer = new char[WRITE_LENGTH];
 			while (true) {
@@ -157,7 +155,6 @@ public class FileUploadWriter extends Writer {
 	 * @param fileFieldName  			имя атрибута в таблице, откуда берем СLOB
 	 * @param primaryKeyMap  			PK в таблице tableName
 	 * @param dataSourceJndiName 	имя источника данных
-	 * @param resourceBundleName 	имя ресурсов
 	 */
 	public static void uploadFile(
 			Reader reader
@@ -165,8 +162,7 @@ public class FileUploadWriter extends Writer {
 			, String tableName
 			, String fileFieldName
 			, Map<String, Object> primaryKeyMap
-			, String dataSourceJndiName
-			, String resourceBundleName) {
+			, String dataSourceJndiName) {
 		throw new NotImplementedYetException();
 	}
 

@@ -23,8 +23,7 @@ public class BinaryFileDownloadImpl extends AbstractFileDownload implements Bina
 			, String fileFieldName
 			, String keyFieldName
 			, Object rowId
-			, String dataSourceJndiName
-			, String resourceBundleName) 
+			, String dataSourceJndiName) 
 			throws ApplicationException {
 
 		int result = -1;
