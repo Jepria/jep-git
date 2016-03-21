@@ -1,4 +1,4 @@
-﻿﻿﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <%@ page contentType="text/html;charset=utf-8"%>
 
@@ -8,6 +8,7 @@
 <jsp:directive.page import="oracle.security.jazn.util.Resources" />
 
 <jsp:directive.page import="java.util.ResourceBundle" />
+<jsp:directive.page import="com.technology.jep.jepria.server.security.cas.LoginRedirectFilter" />
 
 <jsp:declaration>
  private static final String MAX_LOGIN_ATTEMPTS = "max-login-attempts";
@@ -34,6 +35,9 @@
 
 <html lang="<%=_bundle.getResourceLocale().getLanguage()%>"    dir="<%=dir%>">
   <head>
+    <script src="javascript/jquery-1.10.2.js"></script>
+    <script src="javascript/jquery.cookie.js"></script>
+  
     <title><%= resourceBundle.getString("login.title") %></title>
     <link href="com/technology/jep/jepcommon/styles/Default.css" rel="stylesheet" type="text/css">
 
@@ -179,11 +183,18 @@
 
       <input type="hidden" name="checkForm.mandatoryField" value='<%= resourceBundle.getString("checkForm.mandatoryField") %>'/>
       <input type="hidden" name="action.incorrectInputData" value='<%= resourceBundle.getString("action.incorrectInputData") %>'/>
-      <input type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;"/>	  
+      <input type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;"/>
     </form>
 
     <script language="javascript">
 	<!--
+		var targetUrlCookieName = '<%=request.getContextPath()%>' + '_' + '<%=LoginRedirectFilter.TARGET_URL_COOKIE_NAME%>';
+		targetUrlCookieName = targetUrlCookieName.substring(1);
+		var targetUrl = '<%=weblogic.servlet.security.ServletAuthentication.getTargetURLForFormAuthentication(request.getSession())%>';
+		if(targetUrl != 'null') {
+			$.cookie(targetUrlCookieName, targetUrl, { path: '/' });
+		}
+
 		document.loginForm.j_username.focus(); 
 		localize(); 
 	//-->
