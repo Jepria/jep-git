@@ -440,8 +440,8 @@
 				<copy failonerror="false" todir="temp-war/resources/${MODULE_PACKAGE}/report">
 					<fileset dir="${RESOURCE_HOME}/report" />
 				</copy>
-				<copy todir="temp-war/WEB-INF/classes">
-					<fileset dir="${OC4J_HOME}/jakarta-taglibs/jstl-1.1/lib" includes="jstl.jar, standard.jar" />
+				<copy todir="temp-war/security/javascript">
+					<fileset dir="${JEP_RIA}/src/javascript" includes="jquery-1.10.2.js, jquery.cookie.js" />
 				</copy>
 				
 				<jar basedir="temp-war" destfile="${JAR_TEMP}/${MODULE_NAME_IN_PACKAGE}.war" />
@@ -480,14 +480,6 @@
 					<fileset dir="${OC4J_HOME}/jakarta-struts/lib" includes="commons-logging.jar" />
 					<fileset dir="${J2EE_HOME}" includes="jazncore.jar" /> <!-- для login.jsp TODO отвязать от OC4J -->
 				</copy>
-				<if>
-					<isset Property="CAS_CLIENT_VERSION" />
-					<then>
-						<copy todir="temp-ear/lib">
-							<fileset dir="${COMMON_HOME}/Module/cas-client-3.1.12_customized/${CAS_CLIENT_VERSION}/App/lib" includes="cas-client-core-3.1.12-customized.jar" />
-						</copy>
-					</then>
-				</if>
 				
 				<copy todir="temp-ear">
 					<fileset dir="${JAR_TEMP}" includes="${MODULE_NAME_IN_PACKAGE}.war" />

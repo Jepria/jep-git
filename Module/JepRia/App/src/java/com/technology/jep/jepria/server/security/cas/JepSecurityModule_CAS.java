@@ -1,13 +1,10 @@
 package com.technology.jep.jepria.server.security.cas;
 
-import static com.technology.jep.jepria.server.JepRiaServerConstant.CAS_SERVER_ADDRESS_PROPERTY;
-import static com.technology.jep.jepria.server.JepRiaServerConstant.CAS_SERVER_NAME_CONTEXT_PARAMETER;
 import static com.technology.jep.jepria.server.security.JepSecurityConstant.JEP_SECURITY_MODULE_ATTRIBUTE_NAME;
 
 import java.security.Principal;
 import java.sql.SQLException;
 
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -17,9 +14,6 @@ import org.apache.log4j.Logger;
 import com.technology.jep.jepcommon.security.pkg_Operator;
 import com.technology.jep.jepria.server.security.JepAbstractSecurityModule;
 import com.technology.jep.jepria.server.security.JepSecurityModule;
-import com.technology.jep.jepria.shared.exceptions.SystemException;
-
-import weblogic.servlet.security.ServletAuthentication;
 
 /**
  * Модуль поддержки безопасности для CAS
@@ -66,21 +60,7 @@ public class JepSecurityModule_CAS extends JepAbstractSecurityModule {
 	 */
 	@Override
 	public String logout(HttpServletRequest request, HttpServletResponse response, String currentUrl) throws Exception {
-//		request.getSession().invalidate();
-//		
-//        String casServerAddress = System.getProperty(CAS_SERVER_ADDRESS_PROPERTY);
-//		
-//        ServletContext context = request.getSession().getServletContext();
-//        String casServerContextName = context.getInitParameter(CAS_SERVER_NAME_CONTEXT_PARAMETER);
-//        if(casServerContextName != null) {
-//    		final String casLogoutPath = casServerContextName + "/logout";
-//    		String casLogoutAdress = casServerAddress + "/" + casLogoutPath;
-//    		String logoutUrl = casLogoutAdress + "?service=" + currentUrl;
-//    		return logoutUrl;
-//        } else {
-//        	throw new SystemException("casServerName context parameter not found");
-//        }
-        
+		logger.info(this.getClass() + ".logout(request, response, " + currentUrl + ")");
         weblogic.servlet.security.ServletAuthentication.invalidateAll(request);
         return currentUrl;
 	}
