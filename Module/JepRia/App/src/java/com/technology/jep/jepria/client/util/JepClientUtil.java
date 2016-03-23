@@ -398,11 +398,12 @@ public class JepClientUtil {
 	}-*/;
 
 	/**
-	 * Получаем значение по переданному id
-	 * @param id в DOM
-	 * @return значение в виде строки, если элемент не найден возвращается null, если элемент пустой возращается пустая строка
+	 * Получение значения элемента DOM с заданным идентификатором.
+	 * 
+	 * @param id идентификатор элемента в DOM
+	 * @return значение в виде строки: если элемент не найден - возвращается null, если элемент пустой или не найден - возвращается пустая строка
 	 */
-	private static native String getElementValue(String id) /*-{
+	public static native String getElementValue(String id) /*-{
 		var value = null;
 		var elementById = $wnd.document.getElementById(id);
 		if(elementById && elementById.value !== undefined) {

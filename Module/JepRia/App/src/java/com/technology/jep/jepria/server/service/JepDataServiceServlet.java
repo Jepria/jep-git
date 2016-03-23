@@ -67,7 +67,7 @@ import com.technology.jep.jepria.shared.util.SimplePaging;
  */
 @SuppressWarnings("serial")
 abstract public class JepDataServiceServlet<D extends JepDataStandard> extends JepServiceServlet implements JepDataService {
-	protected static Logger logger = Logger.getLogger(JepDataServiceServlet.class.getName());	
+	protected static Logger logger = Logger.getLogger(JepDataServiceServlet.class.getName());	 
 	
 	protected JepRecordDefinition recordDefinition = null;
 	protected JepSorter<JepRecord> sorter = null;
@@ -430,6 +430,7 @@ abstract public class JepDataServiceServlet<D extends JepDataStandard> extends J
 	 * Заполнение полей расширений имен файлов на основе имен файлов (передается как строковое значение в Lob-поле).
 	 * Заполнение mime-type полей на основе значений полей расширений имен файлов.
 	 */
+	@SuppressWarnings("rawtypes")
 	protected void prepareFileFields(JepRecord record) {
 		if(recordDefinition instanceof JepLobRecordDefinition) {
 			Map<String, String> fieldMap = ((JepLobRecordDefinition)recordDefinition).getFieldMap();
@@ -446,15 +447,7 @@ abstract public class JepDataServiceServlet<D extends JepDataStandard> extends J
 							String mimeType = JepServerUtil.detectMimeType(fileExtension);
 							// Запись в поля расширений файлов (если они есть)
 							String primaryKey = recordDefinition.getPrimaryKey()[0];
-							Object key = record.get(primaryKey);
-							JepFileReference fileReference = null;
-							if (JepTypeEnum.INTEGER.equals(typeMap.get(primaryKey))) {
-								fileReference = new JepFileReference(fileName, (Integer)key, fileExtension, mimeType);
-							}
-							else {
-								fileReference = new JepFileReference(fileName, (String)key, fileExtension, mimeType);
-							}
-							record.set(fieldName, fileReference);
+							record.set(fieldName, new JepFileReference(fileName, record.get(primaryKey), fileExtension, mimeType));
 						}
 					}
 				}

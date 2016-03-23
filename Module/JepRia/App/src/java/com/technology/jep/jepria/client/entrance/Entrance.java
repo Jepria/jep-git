@@ -29,6 +29,7 @@ public class Entrance {
 			public void onSuccess(String logoutUrl) {
 				if(logoutUrl != null) {
 					goTo(logoutUrl);
+					reload();
 				} else {
 					reload();
 				}
@@ -40,11 +41,10 @@ public class Entrance {
 	 * Перезагрузка страницы (с учётом окружения - с Navigation или без)
 	 */
 	private native static void reload() /*-{
-		document.domain = document.domain;
-		if(window.frameElement != null) {
-			$wnd.parent.location.reload(true)
-		} else {
-			$wnd.location.reload(true)
+		try {
+			$wnd.parent.location.reload(true); // Сначала пробуем reload для фреймовой конфигурации
+		} catch(error) {
+			$wnd.location.reload(true); // На фреймах не сработало, значит у нас standalone-страница
 		}
 	}-*/;
 

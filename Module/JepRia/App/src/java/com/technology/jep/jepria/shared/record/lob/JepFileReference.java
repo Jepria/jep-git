@@ -1,16 +1,11 @@
 package com.technology.jep.jepria.shared.record.lob;
 
-import static com.technology.jep.jepria.shared.util.JepRiaUtil.isEmpty;
-import static com.technology.jep.jepria.client.JepRiaClientConstant.JepTexts;
-
 import com.google.gwt.user.client.rpc.IsSerializable;
 
 /**
  * Ссылка на *_LOB-поле, идентифицирующая его в пределах таблицы БД.
  */
-public class JepFileReference implements IsSerializable {
-	
-	private static final long serialVersionUID = 1L;
+public class JepFileReference<T> implements IsSerializable {
 	
 	/**
 	 * Свойство для хранения имени файла
@@ -18,14 +13,9 @@ public class JepFileReference implements IsSerializable {
 	private String fileName;
 	
 	/**
-	 * Свойство для хранения строкового значения ключа записи
+	 * Свойство для хранения значения ключа записи
 	 */
-	private String recordKey;
-	
-	/**
-	 * Свойство для хранения числового значения ключа записи
-	 */
-	private Number recKey;
+	private T recordKey;
 	
 	/**
 	 * Свойство для хранения расширения файла
@@ -36,7 +26,7 @@ public class JepFileReference implements IsSerializable {
 	 * Свойство для хранения mime-type файла
 	 */
 	private String mimeType;
-	
+		
 	public JepFileReference() {}
 	
 	/**
@@ -71,6 +61,7 @@ public class JepFileReference implements IsSerializable {
 	 * @throws выбрасывается исключение, если значение ключа отличается от строкового 
 	 * или числового
 	 */
+	@SuppressWarnings("unchecked")
 	public JepFileReference(
 			String fileName,
 			Object key,
@@ -79,16 +70,7 @@ public class JepFileReference implements IsSerializable {
 		this.fileName = fileName;
 		this.fileExtension = fileExtension;
 		this.mimeType = mimeType;
-		
-		if (key instanceof Number){
-			this.recKey = (Number) key;
-		}
-		else if (key instanceof String){
-			this.recordKey = (String) key;
-		}
-		else {
-			throw new IllegalArgumentException(JepTexts.fileReference_errorKey());
-		}
+		this.recordKey = (T) key;
 	}
 		
 	/**
@@ -110,7 +92,7 @@ public class JepFileReference implements IsSerializable {
 		String fileName = null;
 
 		if (value != null && (value instanceof JepFileReference)) {
-			fileName = ((JepFileReference)value).getFileName();
+			fileName = ((JepFileReference<?>)value).getFileName();
 		}
 
 		return fileName;
@@ -124,8 +106,8 @@ public class JepFileReference implements IsSerializable {
 		this.fileName = fileName;
 	}
 
-	public Object getRecordKey() {
-		return isEmpty(recordKey) ? recKey : recordKey;
+	public T getRecordKey() {
+		return recordKey;
 	}
 
 	/**
@@ -147,7 +129,7 @@ public class JepFileReference implements IsSerializable {
 		String fileExtension = null;
 
 		if (value != null && (value instanceof JepFileReference)) {
-			fileExtension = ((JepFileReference)value).getFileExtension();
+			fileExtension = ((JepFileReference<?>)value).getFileExtension();
 		}
 
 		return fileExtension;
@@ -176,7 +158,7 @@ public class JepFileReference implements IsSerializable {
 		String mimeType = null;
 
 		if (value != null && (value instanceof JepFileReference)) {
-			mimeType = ((JepFileReference)value).getMimeType();
+			mimeType = ((JepFileReference<?>)value).getMimeType();
 		}
 
 		return mimeType;

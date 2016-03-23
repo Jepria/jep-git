@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import com.google.gwt.user.client.rpc.IsSerializable;
 import com.technology.jep.jepria.shared.dto.JepDto;
 import com.technology.jep.jepria.shared.field.option.JepOption;
 import com.technology.jep.jepria.shared.record.lob.JepFileReference;
@@ -19,7 +20,7 @@ public class JepRecord extends JepDto {
 	 * Обязательно должно присутствовать данное поле (во избежание проблем с сериализацией при установке его как значение бина ({@link com.technology.jep.jepria.shared.record.JepRecord}))<br/>
 	 * http://www.sencha.com/forum/archive/index.php/t-114607.html
 	 */
-	private JepFileReference fileReference;
+	private JepFileReference<IsSerializable> fileReference;
 	
 	/**
 	 * Фейк-поле для типа {@link com.technology.jep.jepria.shared.field.option.JepOption}, необходимое для передачи и получения значений из полей формы {@link com.technology.jep.jepria.client.widget.field.multistate.JepComboBoxField}.<br/>

@@ -163,7 +163,7 @@ public class JepFileField extends JepLargeField<HTML> {
 			
 		if(downloadUrl != null) {
 			StringBuilder sbRef = new StringBuilder();
-			String fileExtension = ((JepFileReference)reference).getFileExtension();
+			String fileExtension = ((JepFileReference<?>)reference).getFileExtension();
 			
 			sbRef.append(downloadUrl);
 			sbRef.append("&");

@@ -55,6 +55,7 @@ Module/JepRiaShowcase/App/lib/jepriatoolkit.jar
 Module/JepRiaShowcase/App/log/
 Module/JepRiaShowcase/App/war/
 Module/JepRiaShowcase/bin/
+Module/JepRiaShowcase/App/temp-war/
 
 # JepRiaToolkit specific
 Module/JepRiaToolkit/.classpath
