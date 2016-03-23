@@ -24,29 +24,16 @@ import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.i18n.client.NumberFormat;
 import com.google.gwt.user.cellview.client.RowStyles;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
-import com.google.gwt.user.client.ui.HeaderPanel;
-import com.technology.jep.jepria.client.ui.form.list.ListFormViewImpl;
-import com.technology.jep.jepria.client.widget.list.GridManager;
+import com.technology.jep.jepria.client.ui.form.list.StandardListFormViewImpl;
 import com.technology.jep.jepria.client.widget.list.JepColumn;
-import com.technology.jep.jepria.client.widget.list.JepGrid;
 import com.technology.jep.jepria.client.widget.list.cell.BooleanCell;
 import com.technology.jep.jepria.client.widget.list.cell.JepCheckBoxCell;
-import com.technology.jep.jepria.client.widget.toolbar.PagingStandardBar;
 import com.technology.jep.jepria.shared.record.JepRecord;
 import com.technology.jep.jepriashowcase.main.client.style.ApplicationResource;
  
-public class SupplierListFormViewImpl extends ListFormViewImpl<GridManager> {
+public class SupplierListFormViewImpl extends StandardListFormViewImpl {
  
 	public SupplierListFormViewImpl() {
-		super(new GridManager());
- 
-		HeaderPanel gridPanel = new HeaderPanel();
-		setWidget(gridPanel);
- 
-		gridPanel.setHeight("100%");
-		gridPanel.setWidth("100%");
- 
-		JepGrid<JepRecord> grid = new JepGrid<JepRecord>(getClass().getCanonicalName(), getColumnConfigurations());
 		// Подтягиваем css-ресурс как инлайн стиль
 		ApplicationResource.instance.resource().ensureInjected();
 		// Строки списочной формы, у которых CONTACT_FINISH_DATE истек, выделяем красным
@@ -60,19 +47,14 @@ public class SupplierListFormViewImpl extends ListFormViewImpl<GridManager> {
 		        return null;
 		    }
 		});
-		PagingStandardBar pagingBar = new PagingStandardBar(25);
- 
-		gridPanel.setContentWidget(grid);
-		gridPanel.setFooterWidget(pagingBar);
- 
-		list.setWidget(grid);
-		list.setPagingToolBar(pagingBar);
 	}
  
 	private static NumberFormat defaultNumberFormatter = NumberFormat.getFormat("#");
 	private static DateTimeFormat defaultDateFormatter = DateTimeFormat.getFormat(DEFAULT_DATE_FORMAT);
  
-	private static List<JepColumn> getColumnConfigurations() {
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@Override
+	protected List<JepColumn> getColumnConfigurations() {
 		final List<JepColumn> columns = new ArrayList<JepColumn>();
 		columns.add(new JepColumn(SUPPLIER_ID, supplierText.supplier_list_supplier_id(), 150, new NumberCell(defaultNumberFormatter)));
 		columns.add(new JepColumn(SUPPLIER_NAME, supplierText.supplier_list_supplier_name(), 150));

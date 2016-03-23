@@ -1,45 +1,28 @@
 package com.technology.jep.jepriashowcase.goods.client.ui.form.list;
  
 import static com.technology.jep.jepriashowcase.goods.client.GoodsClientConstant.goodsText;
-import static com.technology.jep.jepriashowcase.goods.shared.field.GoodsFieldNames.*;
+import static com.technology.jep.jepriashowcase.goods.shared.field.GoodsFieldNames.GOODS_ID;
+import static com.technology.jep.jepriashowcase.goods.shared.field.GoodsFieldNames.GOODS_NAME;
+import static com.technology.jep.jepriashowcase.goods.shared.field.GoodsFieldNames.GOODS_TYPE_NAME;
+import static com.technology.jep.jepriashowcase.goods.shared.field.GoodsFieldNames.PURCHASING_PRICE;
+import static com.technology.jep.jepriashowcase.goods.shared.field.GoodsFieldNames.SUPPLIER_ID;
+import static com.technology.jep.jepriashowcase.goods.shared.field.GoodsFieldNames.UNIT_NAME;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gwt.cell.client.NumberCell;
 import com.google.gwt.i18n.client.NumberFormat;
-import com.google.gwt.user.client.ui.HeaderPanel;
-import com.technology.jep.jepria.client.ui.form.list.ListFormViewImpl;
-import com.technology.jep.jepria.client.widget.list.GridManager;
+import com.technology.jep.jepria.client.ui.form.list.StandardListFormViewImpl;
 import com.technology.jep.jepria.client.widget.list.JepColumn;
-import com.technology.jep.jepria.client.widget.list.JepGrid;
-import com.technology.jep.jepria.client.widget.toolbar.PagingStandardBar;
-import com.technology.jep.jepria.shared.record.JepRecord;
  
-public class GoodsListFormViewImpl extends ListFormViewImpl<GridManager> {
- 
-	public GoodsListFormViewImpl() {
-		super(new GridManager());
- 
-		HeaderPanel gridPanel = new HeaderPanel();
-		setWidget(gridPanel);
- 
-		gridPanel.setHeight("100%");
-		gridPanel.setWidth("100%");
- 
-		JepGrid<JepRecord> grid = new JepGrid<JepRecord>(getClass().getCanonicalName(), getColumnConfigurations(), true);
-		PagingStandardBar pagingBar = new PagingStandardBar(25);
- 
-		gridPanel.setContentWidget(grid);
-		gridPanel.setFooterWidget(pagingBar);
- 
-		list.setWidget(grid);
-		list.setPagingToolBar(pagingBar);
-	}
+public class GoodsListFormViewImpl extends StandardListFormViewImpl {
  
 	private static NumberFormat defaultNumberFormatter = NumberFormat.getFormat("#");
  
-	private static List<JepColumn> getColumnConfigurations() {
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@Override
+	protected List<JepColumn> getColumnConfigurations() {
 		final List<JepColumn> columns = new ArrayList<JepColumn>();
 		columns.add(new JepColumn(SUPPLIER_ID, goodsText.goods_list_supplier_id(), 150, new NumberCell(defaultNumberFormatter)));
 		columns.add(new JepColumn(GOODS_ID, goodsText.goods_list_goods_id(), 150, new NumberCell(defaultNumberFormatter)));

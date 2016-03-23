@@ -2,7 +2,12 @@ package com.technology.jep.jepriashowcase.requestprocess.client.ui.form.list;
  
 import static com.technology.jep.jepria.shared.JepRiaConstant.DEFAULT_DATE_FORMAT;
 import static com.technology.jep.jepriashowcase.requestprocess.client.RequestProcessClientConstant.requestProcessText;
-import static com.technology.jep.jepriashowcase.requestprocess.shared.field.RequestProcessFieldNames.*;
+import static com.technology.jep.jepriashowcase.requestprocess.shared.field.RequestProcessFieldNames.DATE_INS;
+import static com.technology.jep.jepriashowcase.requestprocess.shared.field.RequestProcessFieldNames.OPERATOR_ID;
+import static com.technology.jep.jepriashowcase.requestprocess.shared.field.RequestProcessFieldNames.OPERATOR_NAME;
+import static com.technology.jep.jepriashowcase.requestprocess.shared.field.RequestProcessFieldNames.PROCESS_COMMENT;
+import static com.technology.jep.jepriashowcase.requestprocess.shared.field.RequestProcessFieldNames.REQUEST_ID;
+import static com.technology.jep.jepriashowcase.requestprocess.shared.field.RequestProcessFieldNames.REQUEST_PROCESS_ID;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,39 +16,17 @@ import com.google.gwt.cell.client.DateCell;
 import com.google.gwt.cell.client.NumberCell;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.i18n.client.NumberFormat;
-import com.google.gwt.user.client.ui.HeaderPanel;
-import com.technology.jep.jepria.client.ui.form.list.ListFormViewImpl;
-import com.technology.jep.jepria.client.widget.list.GridManager;
+import com.technology.jep.jepria.client.ui.form.list.StandardListFormViewImpl;
 import com.technology.jep.jepria.client.widget.list.JepColumn;
-import com.technology.jep.jepria.client.widget.list.JepGrid;
-import com.technology.jep.jepria.client.widget.toolbar.PagingStandardBar;
-import com.technology.jep.jepria.shared.record.JepRecord;
  
-public class RequestProcessListFormViewImpl extends ListFormViewImpl<GridManager> {
- 
-	public RequestProcessListFormViewImpl() {
-		super(new GridManager());
- 
-		HeaderPanel gridPanel = new HeaderPanel();
-		setWidget(gridPanel);
- 
-		gridPanel.setHeight("100%");
-		gridPanel.setWidth("100%");
- 
-		JepGrid<JepRecord> grid = new JepGrid<JepRecord>(getClass().getCanonicalName(), getColumnConfigurations(), true);
-		PagingStandardBar pagingBar = new PagingStandardBar(25);
- 
-		gridPanel.setContentWidget(grid);
-		gridPanel.setFooterWidget(pagingBar);
- 
-		list.setWidget(grid);
-		list.setPagingToolBar(pagingBar);
-	}
+public class RequestProcessListFormViewImpl extends StandardListFormViewImpl { 
  
 	private static NumberFormat defaultNumberFormatter = NumberFormat.getFormat("#");
 	private static DateTimeFormat defaultDateFormatter = DateTimeFormat.getFormat(DEFAULT_DATE_FORMAT);
  
-	private static List<JepColumn> getColumnConfigurations() {
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@Override
+	protected List<JepColumn> getColumnConfigurations() {
 		final List<JepColumn> columns = new ArrayList<JepColumn>();
 		columns.add(new JepColumn(REQUEST_PROCESS_ID, requestProcessText.requestProcess_list_request_process_id(), 150, new NumberCell(defaultNumberFormatter)));
 		columns.add(new JepColumn(REQUEST_ID, requestProcessText.requestProcess_list_request_id(), 150, new NumberCell(defaultNumberFormatter)));
