@@ -1,7 +1,8 @@
 package com.technology.jep.jepria.client.ui.form.list;
 
 import static com.technology.jep.jepria.client.JepRiaClientConstant.JepTexts;
-import static com.technology.jep.jepria.client.ui.WorkstateEnum.*;
+import static com.technology.jep.jepria.client.ui.WorkstateEnum.SELECTED;
+import static com.technology.jep.jepria.client.ui.WorkstateEnum.VIEW_LIST;
 import static com.technology.jep.jepria.client.widget.event.JepEventType.CHANGE_SORT_EVENT;
 import static com.technology.jep.jepria.client.widget.event.JepEventType.PAGING_GOTO_EVENT;
 import static com.technology.jep.jepria.client.widget.event.JepEventType.PAGING_REFRESH_EVENT;
@@ -26,7 +27,6 @@ import com.technology.jep.jepria.client.async.JepAsyncCallback;
 import com.technology.jep.jepria.client.history.place.JepSelectedPlace;
 import com.technology.jep.jepria.client.history.place.JepViewDetailPlace;
 import com.technology.jep.jepria.client.history.place.JepViewListPlace;
-import com.technology.jep.jepria.client.history.place.JepWorkstatePlace;
 import com.technology.jep.jepria.client.history.place.PlainPlaceController;
 import com.technology.jep.jepria.client.message.ConfirmCallback;
 import com.technology.jep.jepria.client.ui.JepPresenter;
@@ -46,7 +46,6 @@ import com.technology.jep.jepria.client.widget.event.JepEvent;
 import com.technology.jep.jepria.client.widget.event.JepListener;
 import com.technology.jep.jepria.client.widget.list.GridManager;
 import com.technology.jep.jepria.client.widget.list.JepColumnConfig;
-import com.technology.jep.jepria.client.widget.list.ListManager;
 import com.technology.jep.jepria.shared.load.FindConfig;
 import com.technology.jep.jepria.shared.load.PagingConfig;
 import com.technology.jep.jepria.shared.load.PagingResult;
@@ -54,6 +53,7 @@ import com.technology.jep.jepria.shared.load.SortConfig;
 import com.technology.jep.jepria.shared.record.JepRecord;
 import com.technology.jep.jepria.shared.service.data.JepDataServiceAsync;
 
+@SuppressWarnings({"rawtypes", "unchecked"})
 public class ListFormPresenter<V extends ListFormView, E extends PlainEventBus, S extends JepDataServiceAsync, 
 		F extends StandardClientFactory<E, S>>
 	extends JepPresenter<E, F>
@@ -206,13 +206,11 @@ public class ListFormPresenter<V extends ListFormView, E extends PlainEventBus, 
 			searchTemplate.setPageSize(list.getPageSize()); // Выставим размер получаемой страницы набора данных.
 			clientFactory.getService().find(searchTemplate, new JepAsyncCallback<PagingResult<JepRecord>>() {
 				public void onSuccess(PagingResult<JepRecord> pagingResult) {
-					list.set(pagingResult); // Установим в список полученные от сервиса данные.
-					list.unmask(); // Скроем индикатор "Загрузка данных...".
-					processRefreshTimeout();
+					onRefreshSuccess(pagingResult);
 				}
 
 				public void onFailure(Throwable caught) {
-					list.unmask(); // Скроем индикатор "Загрузка данных...".
+					onRefreshFailure(caught);
 					super.onFailure(caught);
 				}
 
@@ -221,10 +219,28 @@ public class ListFormPresenter<V extends ListFormView, E extends PlainEventBus, 
 	}
 	
 	/**
+	 * Hook-метод, вызываемый при успешном обновлении (в частности, после поиска) списка. <br/>
+	 * Предназначен для переопределения в наследниках.
+	 */
+	protected void onRefreshSuccess(PagingResult<JepRecord> pagingResult) {
+		list.set(pagingResult); // Установим в список полученные от сервиса данные.
+		list.unmask(); // Скроем индикатор "Загрузка данных...".
+		processRefresh();
+	}
+	
+	/**
+	 * Hook-метод, вызываемый при неуспешном обновлении (в частности, после поиска) списка. <br/>
+	 * Предназначен для переопределения в наследниках.
+	 */
+	protected void onRefreshFailure(Throwable caught) {
+		list.unmask(); // Скроем индикатор "Загрузка данных...".
+	}
+	
+	/**
 	 * Hook-метод для проверки автообновления. <br/>
 	 * Предназначен для переопределения в наследниках.
 	 */
-	protected void processRefreshTimeout() {		
+	protected void processRefresh() {		
 	}
 
 	/**
@@ -242,17 +258,32 @@ public class ListFormPresenter<V extends ListFormView, E extends PlainEventBus, 
 			sortConfig.setPageSize(list.getPageSize()); // Выставим размер получаемой страницы набора данных.
 			clientFactory.getService().sort(sortConfig, new JepAsyncCallback<PagingResult<JepRecord>>() {
 				public void onSuccess(PagingResult<JepRecord> pagingResult) {
-					list.set(pagingResult); // Установим в список полученные от сервиса данные.
-					list.unmask(); // Скроем индикатор "Сортировка данных...".
+					onSortSuccess(pagingResult);
 				}
-
 				public void onFailure(Throwable caught) {
-					list.unmask(); // Скроем индикатор "Сортировка данных...".
+					onSortFailure(caught);
 					super.onFailure(caught);
 				}
 
 			});
 		}
+	}
+	
+	/**
+	 * Hook-метод, вызываемый при успешной сортировке списка. <br/>
+	 * Предназначен для переопределения в наследниках.
+	 */
+	protected void onSortSuccess(PagingResult<JepRecord> pagingResult) {
+		list.set(pagingResult); // Установим в список полученные от сервиса данные.
+		list.unmask(); // Скроем индикатор "Сортировка данных...".
+	}
+	
+	/**
+	 * Hook-метод, вызываемый при неуспешной сортировке списка. <br/>
+	 * Предназначен для переопределения в наследниках.
+	 */
+	protected void onSortFailure(Throwable caught) {
+		list.unmask(); // Скроем индикатор "Сортировка данных...".
 	}
 	
 	/**
@@ -269,17 +300,32 @@ public class ListFormPresenter<V extends ListFormView, E extends PlainEventBus, 
 			pagingConfig.setTemplateRecord(searchTemplate.getTemplateRecord()); // Выставим параметры поиска на случай отсутствия списка в серверной сессии.
 			clientFactory.getService().paging(pagingConfig, new JepAsyncCallback<PagingResult<JepRecord>>() {
 				public void onSuccess(PagingResult<JepRecord> pagingResult) {
-					list.set(pagingResult); // Установим в список полученные от сервиса данные.
-					list.unmask(); // Скроем индикатор "Загрузка данных...".
+					onPagingSuccess(pagingResult);
 				}
 
 				public void onFailure(Throwable caught) {
-					list.unmask(); // Скроем индикатор "Загрузка данных...".
+					onPagingFailure(caught);
 					super.onFailure(caught);
 				}
 
 			});
 		}
+	}
+	/**
+	 * Hook-метод, вызываемый при успешном листании списка. <br/>
+	 * Предназначен для переопределения в наследниках.
+	 */
+	protected void onPagingSuccess(PagingResult<JepRecord> pagingResult) {
+		list.set(pagingResult); // Установим в список полученные от сервиса данные.
+		list.unmask(); // Скроем индикатор "Загрузка данных...".
+	}
+	
+	/**
+	 * Hook-метод, вызываемый при неуспешном листании списка. <br/>
+	 * Предназначен для переопределения в наследниках.
+	 */
+	protected void onPagingFailure(Throwable caught) {
+		list.unmask(); // Скроем индикатор "Загрузка данных...".
 	}
 	
 	public void onSetListUID(SetListUIDEvent event) {

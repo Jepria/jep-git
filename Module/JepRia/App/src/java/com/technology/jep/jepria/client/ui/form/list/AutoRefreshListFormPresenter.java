@@ -14,7 +14,7 @@ import com.technology.jep.jepria.client.ui.plain.StandardClientFactory;
 import com.technology.jep.jepria.shared.service.data.JepDataServiceAsync;
 
 /**
- * Презентер списочной формы, предоставляющий возможность автообновления.
+ * РџСЂРµР·РµРЅС‚РµСЂ СЃРїРёСЃРѕС‡РЅРѕР№ С„РѕСЂРјС‹, РїСЂРµРґРѕСЃС‚Р°РІР»СЏСЋС‰РёР№ РІРѕР·РјРѕР¶РЅРѕСЃС‚СЊ Р°РІС‚РѕРѕР±РЅРѕРІР»РµРЅРёСЏ.
  */
 public class AutoRefreshListFormPresenter<
 	V extends ListFormView,
@@ -24,17 +24,17 @@ public class AutoRefreshListFormPresenter<
 	extends ListFormPresenter<V, E , S, F> {
 
 	/**
-	 * Флаг, показывающий, активен или нет таймер автообновления.
+	 * Р¤Р»Р°Рі, РїРѕРєР°Р·С‹РІР°СЋС‰РёР№, Р°РєС‚РёРІРµРЅ РёР»Рё РЅРµС‚ С‚Р°Р№РјРµСЂ Р°РІС‚РѕРѕР±РЅРѕРІР»РµРЅРёСЏ.
 	 */
 	protected boolean refreshTimerActive = false;
 	
 	/**
-	 * Таймер автообновления.
+	 * РўР°Р№РјРµСЂ Р°РІС‚РѕРѕР±РЅРѕРІР»РµРЅРёСЏ.
 	 */
 	protected Timer refreshTimer;
 
 	/**
-	 * Интервал между автообновлениями в миллисекундах.
+	 * Р�РЅС‚РµСЂРІР°Р» РјРµР¶РґСѓ Р°РІС‚РѕРѕР±РЅРѕРІР»РµРЅРёСЏРјРё РІ РјРёР»Р»РёСЃРµРєСѓРЅРґР°С….
 	 */
 	private int refreshDelay = DEFAULT_REFRESH_DELAY;
 	
@@ -44,8 +44,8 @@ public class AutoRefreshListFormPresenter<
 	}
 
 	/**
-	 * Устанавливает интервал между автообновлениями.
-	 * @param refreshDelay интервал в миллисекундах (должен быть положительным)
+	 * РЈСЃС‚Р°РЅР°РІР»РёРІР°РµС‚ РёРЅС‚РµСЂРІР°Р» РјРµР¶РґСѓ Р°РІС‚РѕРѕР±РЅРѕРІР»РµРЅРёСЏРјРё.
+	 * @param refreshDelay РёРЅС‚РµСЂРІР°Р» РІ РјРёР»Р»РёСЃРµРєСѓРЅРґР°С… (РґРѕР»Р¶РµРЅ Р±С‹С‚СЊ РїРѕР»РѕР¶РёС‚РµР»СЊРЅС‹Рј)
 	 */
 	public void setRefreshDelay(int refreshDelay) {
 		if (refreshDelay <= 0) {
@@ -55,38 +55,38 @@ public class AutoRefreshListFormPresenter<
 	}
 
 	/**
-	 * Возвращает интервал между автообновлениями.
-	 * @return интервал в миллисекундах
+	 * Р’РѕР·РІСЂР°С‰Р°РµС‚ РёРЅС‚РµСЂРІР°Р» РјРµР¶РґСѓ Р°РІС‚РѕРѕР±РЅРѕРІР»РµРЅРёСЏРјРё.
+	 * @return РёРЅС‚РµСЂРІР°Р» РІ РјРёР»Р»РёСЃРµРєСѓРЅРґР°С…
 	 */
 	public int getRefreshDelay() {
 		return refreshDelay;
 	}
 
 	/**
-	 * Метод, проверяющий необходимость автообновления и при необходимости устанавливающий таймер.
+	 * РњРµС‚РѕРґ, РїСЂРѕРІРµСЂСЏСЋС‰РёР№ РЅРµРѕР±С…РѕРґРёРјРѕСЃС‚СЊ Р°РІС‚РѕРѕР±РЅРѕРІР»РµРЅРёСЏ Рё РїСЂРё РЅРµРѕР±С…РѕРґРёРјРѕСЃС‚Рё СѓСЃС‚Р°РЅР°РІР»РёРІР°СЋС‰РёР№ С‚Р°Р№РјРµСЂ.
 	 */
 	@Override
-	protected void processRefreshTimeout() {
+	protected void processRefresh() {
 		/*
-		 * Проверяем необходимость обновления, если таймер ещё не создан.
+		 * РџСЂРѕРІРµСЂСЏРµРј РЅРµРѕР±С…РѕРґРёРјРѕСЃС‚СЊ РѕР±РЅРѕРІР»РµРЅРёСЏ, РµСЃР»Рё С‚Р°Р№РјРµСЂ РµС‰С‘ РЅРµ СЃРѕР·РґР°РЅ.
 		 */
 		if (!refreshTimerActive) {
 			clientFactory.getService().isRefreshNeeded(listUID, new JepAsyncCallback<Boolean>() {
 				public void onSuccess(Boolean result) {
 					/*
-					 * При необходимости ставим таймер, обновляющий списочную форму.
+					 * РџСЂРё РЅРµРѕР±С…РѕРґРёРјРѕСЃС‚Рё СЃС‚Р°РІРёРј С‚Р°Р№РјРµСЂ, РѕР±РЅРѕРІР»СЏСЋС‰РёР№ СЃРїРёСЃРѕС‡РЅСѓСЋ С„РѕСЂРјСѓ.
 					 */
 					if (result) {
 						refreshTimer = new Timer() {
 							public void run() {
-								refreshTimerActive = false; // таймер сработал
+								refreshTimerActive = false; // С‚Р°Р№РјРµСЂ СЃСЂР°Р±РѕС‚Р°Р»
 								if ((VIEW_LIST.equals(_workstate)) || (SELECTED.equals(_workstate))) {
 									eventBus.refresh();
 								}
 							}
 						};
 						/*
-						 * Запретим создавать новые таймеры, пока не сработал существующий.
+						 * Р—Р°РїСЂРµС‚РёРј СЃРѕР·РґР°РІР°С‚СЊ РЅРѕРІС‹Рµ С‚Р°Р№РјРµСЂС‹, РїРѕРєР° РЅРµ СЃСЂР°Р±РѕС‚Р°Р» СЃСѓС‰РµСЃС‚РІСѓСЋС‰РёР№.
 						 */
 						refreshTimerActive = true;
 						refreshTimer.schedule(refreshDelay);
@@ -97,12 +97,12 @@ public class AutoRefreshListFormPresenter<
 	}
 
 	/**
-	 * Переопределённый метод, отключающий таймер автообновления при уходе со списочной формы.
+	 * РџРµСЂРµРѕРїСЂРµРґРµР»С‘РЅРЅС‹Р№ РјРµС‚РѕРґ, РѕС‚РєР»СЋС‡Р°СЋС‰РёР№ С‚Р°Р№РјРµСЂ Р°РІС‚РѕРѕР±РЅРѕРІР»РµРЅРёСЏ РїСЂРё СѓС…РѕРґРµ СЃРѕ СЃРїРёСЃРѕС‡РЅРѕР№ С„РѕСЂРјС‹.
 	 */
 	@Override
 	public void onChangeWorkstate(WorkstateEnum newWorkstate) {
 		/*
-		 * Если уходим со списочной формы, таймер необходимо отключить.
+		 * Р•СЃР»Рё СѓС…РѕРґРёРј СЃРѕ СЃРїРёСЃРѕС‡РЅРѕР№ С„РѕСЂРјС‹, С‚Р°Р№РјРµСЂ РЅРµРѕР±С…РѕРґРёРјРѕ РѕС‚РєР»СЋС‡РёС‚СЊ.
 		 */
 		if (!(SELECTED.equals(newWorkstate) || VIEW_LIST.equals(newWorkstate)) && refreshTimerActive){
 			refreshTimer.cancel();
