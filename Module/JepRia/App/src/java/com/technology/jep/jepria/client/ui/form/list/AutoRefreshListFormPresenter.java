@@ -11,6 +11,8 @@ import com.technology.jep.jepria.client.async.JepAsyncCallback;
 import com.technology.jep.jepria.client.ui.WorkstateEnum;
 import com.technology.jep.jepria.client.ui.eventbus.plain.PlainEventBus;
 import com.technology.jep.jepria.client.ui.plain.StandardClientFactory;
+import com.technology.jep.jepria.shared.load.PagingResult;
+import com.technology.jep.jepria.shared.record.JepRecord;
 import com.technology.jep.jepria.shared.service.data.JepDataServiceAsync;
 
 /**
@@ -66,7 +68,8 @@ public class AutoRefreshListFormPresenter<
 	 * РњРµС‚РѕРґ, РїСЂРѕРІРµСЂСЏСЋС‰РёР№ РЅРµРѕР±С…РѕРґРёРјРѕСЃС‚СЊ Р°РІС‚РѕРѕР±РЅРѕРІР»РµРЅРёСЏ Рё РїСЂРё РЅРµРѕР±С…РѕРґРёРјРѕСЃС‚Рё СѓСЃС‚Р°РЅР°РІР»РёРІР°СЋС‰РёР№ С‚Р°Р№РјРµСЂ.
 	 */
 	@Override
-	protected void processRefresh() {
+	protected void onRefreshSuccess(PagingResult<JepRecord> pagingResult) {
+		super.onRefreshSuccess(pagingResult);
 		/*
 		 * РџСЂРѕРІРµСЂСЏРµРј РЅРµРѕР±С…РѕРґРёРјРѕСЃС‚СЊ РѕР±РЅРѕРІР»РµРЅРёСЏ, РµСЃР»Рё С‚Р°Р№РјРµСЂ РµС‰С‘ РЅРµ СЃРѕР·РґР°РЅ.
 		 */

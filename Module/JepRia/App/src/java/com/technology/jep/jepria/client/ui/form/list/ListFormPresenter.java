@@ -225,7 +225,6 @@ public class ListFormPresenter<V extends ListFormView, E extends PlainEventBus, 
 	protected void onRefreshSuccess(PagingResult<JepRecord> pagingResult) {
 		list.set(pagingResult); // Установим в список полученные от сервиса данные.
 		list.unmask(); // Скроем индикатор "Загрузка данных...".
-		processRefresh();
 	}
 	
 	/**
@@ -236,13 +235,6 @@ public class ListFormPresenter<V extends ListFormView, E extends PlainEventBus, 
 		list.unmask(); // Скроем индикатор "Загрузка данных...".
 	}
 	
-	/**
-	 * Hook-метод для проверки автообновления. <br/>
-	 * Предназначен для переопределения в наследниках.
-	 */
-	protected void processRefresh() {		
-	}
-
 	/**
 	 * Обработчик события сортировки.
 	 *
