@@ -2,7 +2,7 @@ package com.technology.jep.jepria.shared.text;
 
 /**
  * Interface to represent the constants contained in resource bundle:
- * 	'D:/Project/JEPGit/Module/JepRia/App/src/java/com/technology/jep/jepria/shared/text/JepRiaText.properties'.
+ * 	'D:/workspace/git/JEP/Module/JepRia/App/src/java/com/technology/jep/jepria/shared/text/JepRiaText.properties'.
  */
 public interface JepRiaText extends com.google.gwt.i18n.client.Constants {
   
@@ -1222,6 +1222,15 @@ public interface JepRiaText extends com.google.gwt.i18n.client.Constants {
   String toolbar_paging_linesPerPage();
 
   /**
+   * Translated "Записей не найдено".
+   * 
+   * @return translated "Записей не найдено"
+   */
+  @DefaultStringValue("Записей не найдено")
+  @Key("toolbar.paging.no_record")
+  String toolbar_paging_no_record();
+
+  /**
    * Translated "Стр.".
    * 
    * @return translated "Стр."
@@ -1238,6 +1247,15 @@ public interface JepRiaText extends com.google.gwt.i18n.client.Constants {
   @DefaultStringValue("Записи")
   @Key("toolbar.paging.records")
   String toolbar_paging_records();
+
+  /**
+   * Translated "Найдена одна запись".
+   * 
+   * @return translated "Найдена одна запись"
+   */
+  @DefaultStringValue("Найдена одна запись")
+  @Key("toolbar.paging.single_record")
+  String toolbar_paging_single_record();
 
   /**
    * Translated "Пусто".
@@ -1704,6 +1722,6 @@ public interface JepRiaText extends com.google.gwt.i18n.client.Constants {
    * @return translated ""
    */
   @DefaultStringValue("")
-  @Key("\uFEFF")
-  String _();
+  @Key("\uFEFF\uFEFF")
+  String _﻿();
 }

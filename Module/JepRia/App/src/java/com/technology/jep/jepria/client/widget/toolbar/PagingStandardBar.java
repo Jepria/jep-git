@@ -353,17 +353,26 @@ public class PagingStandardBar extends SimplePanel implements PagingToolBar {
 		last.setEnabled(activePage != pages);
 		refresh.setEnabled(true);
 
-		int pageEnd = activePage == pages ? totalLength : start + pageSize;
 		StringBuilder displayTextBuffer = new StringBuilder();
-		displayTextBuffer.append(JepTexts.toolbar_paging_records());
-		displayTextBuffer.append(htmlSpace);
-		displayTextBuffer.append(start + 1);
-		displayTextBuffer.append(" - ");
-		displayTextBuffer.append(pageEnd);
-		displayTextBuffer.append(htmlSpace);
-		displayTextBuffer.append(JepTexts.toolbar_paging_from());
-		displayTextBuffer.append(htmlSpace);
-		displayTextBuffer.append(totalLength);
+		switch (totalLength) {
+		case 0:
+			displayTextBuffer.append(JepTexts.toolbar_paging_no_record());
+			break;
+		case 1:
+			displayTextBuffer.append(JepTexts.toolbar_paging_single_record());
+			break;
+		default:
+			int pageEnd = activePage == pages ? totalLength : start + pageSize;
+			displayTextBuffer.append(JepTexts.toolbar_paging_records());
+			displayTextBuffer.append(htmlSpace);
+			displayTextBuffer.append(start + 1);
+			displayTextBuffer.append(" - ");
+			displayTextBuffer.append(pageEnd);
+			displayTextBuffer.append(htmlSpace);
+			displayTextBuffer.append(JepTexts.toolbar_paging_from());
+			displayTextBuffer.append(htmlSpace);
+			displayTextBuffer.append(totalLength);
+		}
 
 		displayText.setText(displayTextBuffer.toString());
 		displayText.getElement().getStyle().setTextAlign(TextAlign.CENTER);
