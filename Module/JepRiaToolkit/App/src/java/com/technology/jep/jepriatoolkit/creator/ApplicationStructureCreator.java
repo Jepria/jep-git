@@ -1,6 +1,6 @@
 package com.technology.jep.jepriatoolkit.creator;
 
-import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.convertTemplateToFile;
+import static com.technology.jep.jepriatoolkit.creator.ApplicationStructureCreatorUtil.convertTemplateToFile;
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.detailizedModuleField;
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.detailizedModuleForToolBar;
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.echoMessage;
