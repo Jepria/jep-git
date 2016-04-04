@@ -261,7 +261,7 @@ public class DaoSupport {
 	/**
 	 * Служебный метод, устанавливающий выходной параметр в statement
 	 * @param callableStatement шаблон SQL-инструкции
-	 * @param paramNumber номер параметра, начиная с 0
+	 * @param paramNumber номер параметра
 	 * @param resultTypeClass тип параметра
 	 * @throws SQLException при возникновении ошибки JDBC
 	 */
@@ -287,8 +287,7 @@ public class DaoSupport {
 	 * Поддерживается как извлечение единственного параметра, так и нескольких параметров.
 	 * @param callableStatement SQL-выражение
 	 * @param resultTypeClass тип возвращаемого значения или массив типов
-	 * @param params параметры вызова (если выходных параметров несколько, 
-	 *                                 то они должны быть предварены массивом их типов)
+	 * @param params параметры вызова
 	 * @return выходной параметр (или массив выходных параметров)
 	 * @throws SQLException
 	 */
