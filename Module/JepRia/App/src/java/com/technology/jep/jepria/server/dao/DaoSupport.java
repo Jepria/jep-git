@@ -20,30 +20,30 @@ import com.technology.jep.jepria.shared.record.lob.JepClob;
 import com.technology.jep.jepria.shared.util.JepRiaUtil;
 
 /**
- * <pre>
- * Класс предназначен для облегчения работы с jdbc.
+ * Класс предназначен для облегчения работы с jdbc.<br/>
  * 
+ * <pre>
  * Примеры использования:
  * 
  * 1. Пример использования метода create.
  * 
- *     Integer recordId = DaoSupport.<Integer>create(sqlQuery, DATA_SOURCE_JNDI_NAME,
+ *     Integer recordId = DaoSupport.<Integer>create(sqlQuery,
  *       divisionId, branchId, employeeId, periodTypeCode, periodNumber, periodYear,
  *       operatorId);
  *
  * 2. Пример использования метода execute.
  * 
- *     DaoSupport.execute(sqlQuery, DATA_SOURCE_JNDI_NAME,
+ *     DaoSupport.execute(sqlQuery,
  *       divisionId, branchId, employeeId, periodTypeCode, periodNumber, periodYear,
  *       operatorId);
  *       
- *     String result = DaoSupport.execute(sqlQuery, DATA_SOURCE_JNDI_NAME,
+ *     String result = DaoSupport.execute(sqlQuery,
  *       String.class, divisionId, branchId, employeeId, periodTypeCode, periodNumber, periodYear,
  *       operatorId);
  * 
  * 3. Пример использования метода find.
  * 
- *     List<ExportTaskDto> exportTaskList = DaoSupport.find(sqlQuery, DATA_SOURCE_JNDI_NAME,
+ *     List<ExportTaskDto> exportTaskList = DaoSupport.find(sqlQuery,
  *        new ResultSetMapper<ExportTaskDto>() {
  *        public void map(ResultSet rs, ExportTaskDto dto) throws SQLException {
  *          dto.setTaskId(getInteger(rs, "task_id")); // Обратите внимание на то, как достается значение типа Integer из ResultSet
@@ -66,7 +66,6 @@ import com.technology.jep.jepria.shared.util.JepRiaUtil;
  * 4. Пример использования метода select.
  * 
  *     List<PositionTypeDto> positionTypeList = DaoSupport.<PositionTypeDto>select(sqlQuery,
- *      DATA_SOURCE_JNDI_NAME,
  *      new ResultSetMapper<PositionTypeDto>() {
  *        public void map(ResultSet rs, PositionTypeDto dto)
  *            throws SQLException {
@@ -78,14 +77,17 @@ import com.technology.jep.jepria.shared.util.JepRiaUtil;
  * 
  * 5. Пример использования метода update.
  * 
- *     DaoSupport.update(sqlQuery, DATA_SOURCE_JNDI_NAME, 
- *      taskId, operatorId);
+ *     DaoSupport.update(sqlQuery, taskId, operatorId);
  *        
  * 6. Пример использования метода delete.
  * 
- *     DaoSupport.delete(sqlQuery, DATA_SOURCE_JNDI_NAME, 
- *      taskId, operatorId);
+ *     DaoSupport.delete(sqlQuery, taskId, operatorId);
  * </pre>
+ *     
+ * ВАЖНО: Перед использованием методов необходимо предварительно
+ * вызвать {@link CallContext#begin(String)} для старта транзакции, далее
+ * {@link CallContext#commit()} либо {@link CallContext#rollback()}. После завершения
+ * необходимо освободить ресурсы с помощью {@link CallContext#end()}.
  */
 public class DaoSupport {
 	protected static Logger logger = Logger.getLogger(DaoSupport.class.getName());	
@@ -223,8 +225,7 @@ public class DaoSupport {
 					callableStatement,
 					resultTypeClass,
 					params);
-			
-			// Выполнение запроса		
+	
 			callableStatement.execute();
 
 			result = getResult(callableStatement, resultTypeClass, params);
@@ -236,10 +237,17 @@ public class DaoSupport {
 		return result;
 	}
 
+	/**
+	 * Служебный метод, устанавливающий выходные параметры в statement.
+	 * @param callableStatement шаблон SQL-инструкции
+	 * @param resultTypeClass тип параметра
+	 * @param params массив параметров
+	 * @throws SQLException при возникновении ошибки JDBC
+	 */
 	private static <T> void setOutputParamsToStatement(
 			CallableStatement callableStatement,
 			Class<T> resultTypeClass,
-			Object[] params) throws SQLException, ApplicationException {
+			Object[] params) throws SQLException {
 		if(resultTypeClass.isArray()) {
 			Object[] outputParamTypes = (Object[]) params[0];
 			for(int i = 0; i < outputParamTypes.length; i++) {
@@ -250,10 +258,17 @@ public class DaoSupport {
 		}
 	}
 
+	/**
+	 * Служебный метод, устанавливающий выходной параметр в statement
+	 * @param callableStatement шаблон SQL-инструкции
+	 * @param paramNumber номер параметра, начиная с 0
+	 * @param resultTypeClass тип параметра
+	 * @throws SQLException при возникновении ошибки JDBC
+	 */
 	private static <T> void registerParameter(
 			CallableStatement callableStatement,
 			int paramNumber,
-			Class<T> resultTypeClass) throws SQLException, ApplicationException {
+			Class<T> resultTypeClass) throws SQLException {
 		if (resultTypeClass.equals(Integer.class)) {
 			callableStatement.registerOutParameter(paramNumber, Types.INTEGER);
 		} else if (resultTypeClass.equals(String.class)) {
@@ -261,13 +276,22 @@ public class DaoSupport {
 		} else if (resultTypeClass.equals(Timestamp.class)) {
 			callableStatement.registerOutParameter(paramNumber, Types.TIMESTAMP);
 		} else if (resultTypeClass.equals(BigDecimal.class)) {
-//			callableStatement.registerOutParameter(paramNumber, Types.DOUBLE);
 			callableStatement.registerOutParameter(paramNumber, Types.NUMERIC);
 		} else {
-			throw new ApplicationException("Unknown result type", null);
+			throw new IllegalArgumentException("Unknown result type");
 		}
 	}
 
+	/**
+	 * Служебный метод, осушествляющий извлечение выходных параметров.<br/>
+	 * Поддерживается как извлечение единственного параметра, так и нескольких параметров.
+	 * @param callableStatement SQL-выражение
+	 * @param resultTypeClass тип возвращаемого значения или массив типов
+	 * @param params параметры вызова (если выходных параметров несколько, 
+	 *                                 то они должны быть предварены массивом их типов)
+	 * @return выходной параметр (или массив выходных параметров)
+	 * @throws SQLException
+	 */
 	private static <T> T getResult(
 			CallableStatement callableStatement,
 			Class<T> resultTypeClass,
