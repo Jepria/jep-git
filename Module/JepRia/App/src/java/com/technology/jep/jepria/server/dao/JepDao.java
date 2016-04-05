@@ -11,10 +11,13 @@ import com.technology.jep.jepria.shared.field.option.JepOption;
 import com.technology.jep.jepria.shared.record.JepRecord;
 
 /**
- * Общий предок EJB, требующих расширенную работу с данными.
+ * Общий предок DAO, требующих расширенную работу с данными.
  */
 public class JepDao extends JepDaoStandard {
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public List<JepRecord> find(
 			String sqlQuery,
 			ResultSetMapper<JepRecord> resultSetMapper,
@@ -26,6 +29,9 @@ public class JepDao extends JepDaoStandard {
 				params); 
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 */
 	public List<JepOption> getOptions(
 			String sqlQuery,
 			ResultSetMapper<JepOption> resultSetMapper,
@@ -37,6 +43,9 @@ public class JepDao extends JepDaoStandard {
 				params); 
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public <T> T create(
 			String sqlQuery,
 			Class<T> resultTypeClass,			
@@ -46,6 +55,9 @@ public class JepDao extends JepDaoStandard {
 				params);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public void update(
 			String sqlQuery,
 			Object... params) throws ApplicationException {
@@ -54,6 +66,9 @@ public class JepDao extends JepDaoStandard {
 				params);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public void delete(
 			String sqlQuery,
 			Object... params) throws ApplicationException {
@@ -62,6 +77,12 @@ public class JepDao extends JepDaoStandard {
 				params);
 	}
 
+	/**
+	 * Обеспечивает выполнение update-запроса, не предусматривающего возвращаемого значения.
+	 * @param sqlQuery шаблон запроса
+	 * @param params входные параметры
+	 * @throws ApplicationException в случае возникновения ошибки при взаимодействии с базой данных
+	 */
 	public void execute(
 			String sqlQuery,
 			Object... params) throws ApplicationException {
@@ -70,6 +91,16 @@ public class JepDao extends JepDaoStandard {
 				params);
 	}
 
+	/**
+	 * Обеспечивает выполнение запроса с возвращаемым значением.
+	 * @param sqlQuery шаблон запроса
+	 * @param resultTypeClass тип возвращаемого значения или массив типов
+	 *                   (например, <code>new Object[] {Integer.class, String.class, Float.class}</code>)
+	 * @param params параметры вызова (при наличии нескольких выходных параметров
+	 *                                 первым в этом списке идёт массив)
+	 * @return результат вызова
+	 * @throws ApplicationException в случае возникновения ошибки при взаимодействии с базой данных
+	 */
 	public <T> T execute(
 			String sqlQuery,
 			Class<T> resultTypeClass,
@@ -80,6 +111,14 @@ public class JepDao extends JepDaoStandard {
 				params);
 	}
 	
+	/**
+	 * Вызов select-запроса (без использования курсора).
+	 * @param sqlQuery шаблон запроса
+	 * @param resultSetMapper объект, выполняющий отображение содержимого <code>ResultSet</code> на {@link JepRecord}
+	 * @param params параметры вызова
+	 * @return результат выполнения запроса
+	 * @throws ApplicationException в случае возникновения ошибки при взаимодействии с базой данных
+	 */
 	public List<JepRecord> select(
 			String sqlQuery,
 			ResultSetMapper<JepRecord> resultSetMapper,

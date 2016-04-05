@@ -93,6 +93,21 @@ public class DaoSupport {
 	protected static Logger logger = Logger.getLogger(DaoSupport.class.getName());	
 	
 	/**
+	 * Возможные типы выполнения запроса в методе {@link DaoSupport#setParamsAndExecute}.
+	 */
+	private enum ExecutionType {
+		/**
+		 * SQL-запрос.
+		 */
+		QUERY, 
+		
+		/**
+		 * SQL-выражение (специфичный для Oracle тип, результат исполнения &mdash; курсор).
+		 */
+		CALLABLE_STATEMENT
+	}
+	
+	/**
 	 * Данный метод выполняет sql-выражение, создающее запись в БД.
 	 * 
 	 * @param <T> 								тип возвращаемого значения
@@ -602,13 +617,5 @@ public class DaoSupport {
 		} else if (callableStatement instanceof OracleCallableStatement){
 			((OracleCallableStatement) callableStatement).setStringForClob(place, parameter.getBigText());
 		}
-	}
-	
-	/**
-	 * Данный перечислимый тип содержит тип, определяющий работаем мы с
-	 * sql-выражением или sql-запросом. Используется в методе setParamsAndExecute.
-	 */
-	private enum ExecutionType {
-		QUERY, CALLABLE_STATEMENT
 	}
 }
