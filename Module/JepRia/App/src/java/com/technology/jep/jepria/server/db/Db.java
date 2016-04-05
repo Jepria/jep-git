@@ -15,7 +15,6 @@ import javax.sql.DataSource;
 
 import org.apache.log4j.Logger;
 
-import com.google.gwt.user.server.rpc.UnexpectedException;
 import com.technology.jep.jepria.shared.exceptions.SystemException;
 
 /**
@@ -25,25 +24,51 @@ import com.technology.jep.jepria.shared.exceptions.SystemException;
 public class Db {
 	private static Logger logger = Logger.getLogger(Db.class.getName());
 	
+	/**
+	 * Хэш-таблица источников данных по их JNDI-именам.
+	 */
 	private static Map<String, DataSource> dataSourceMap = new HashMap<String, DataSource>();
-	private boolean autoCommit;
+	
+	/**
+	 * Объект соединения.
+	 * Не должен быть доступен извне.
+	 */
 	private Connection connection;
+	
+	/**
+	 * JNDI-имя источника данных.
+	 */
 	private String dataSourceJndiName;
-	// Здесь по ключу - текст sql лежит открытый курсор.
+	
+	/**
+	 * Хэш-таблица statement'ов по SQL-тексту.
+	 * Необходима для хранения открытых курсоров.
+	 */
 	private ConcurrentHashMap<String, CallableStatement> statementsMap = new ConcurrentHashMap<String, CallableStatement>();
 
+	/**
+	 * Создаёт объект соединения с базой с автоматическим коммитом.
+	 * @param dataSourceJndiName JNDI-имя источника данных
+	 */
 	public Db(String dataSourceJndiName) {
 		this(dataSourceJndiName, true);
 	}
 	
+	/**
+	 * Создаёт объект соединения с базой.
+	 * @param dataSourceJndiName JNDI-имя источника данных
+	 * @param autoCommit если true, все изменения автоматически коммитятся
+	 */
 	public Db(String dataSourceJndiName, boolean autoCommit) {
 		this.dataSourceJndiName = dataSourceJndiName;
 	}
 
 	/**
-	 * Подготавливает Statement
+	 * Извлекает statement из хэш-таблицы или создаёт при отсутствии.
+	 * @param sql SQL-шаблон
+	 * @return объект statement
 	 */
-	public CallableStatement prepare(String sql) throws SQLException {
+	public CallableStatement prepare(String sql) {
 		CallableStatement cs = (CallableStatement) statementsMap.get(sql);
 		if (cs == null) {
 			try {
@@ -58,8 +83,8 @@ public class Db {
 	}
 
 	/**
-	 * Метод закрывает все ресурсы связанные с данным Db: connection и все курсоры из statementsMap.
-	 * Метод должен вызываться в конце сессии пользователя
+	 * Метод закрывает все ресурсы, связанные с данным Db: connection и все курсоры из statementsMap.
+	 * Должен вызываться в конце сессии пользователя.
 	 */
 	public void closeAll() {
 		logger.trace("closeAll()");
@@ -74,7 +99,6 @@ public class Db {
 			}
 		}
 		statementsMap.clear();
-//		statementsMap = null;
 		try {
 			if(connection != null) {
 				connection.close();
@@ -85,22 +109,48 @@ public class Db {
 		connection = null;
 	}
 
+	/**
+	 * Закрытие statement.<br/>
+	 * При возникновении исключения <code>SQLException</code> оно лишь логгируется.
+	 * @param sql SQL-код
+	 * @return <code>true</code>, если соединение существовало, <code>false</code> в противном случае
+	 */
 	public boolean closeStatement(String sql) {
 		logger.trace("closeStatement()");
 		
 		Statement st = (Statement) statementsMap.get(sql);
 		boolean existsFlag = st != null;
 		try {
+			/*
+			 * TODO: Если statement не удалось найти, вероятно, это свидетельствует об ошибке
+			 * в вызывающем коде. Возможно, в данной ситуации нужно выбрасывать IllegalArgumentException,
+			 * а тип метода изменить на void.
+			 */
 			if(existsFlag) {
 				st.close();
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			logger.error(e);
 		}
 		statementsMap.remove(sql);
 		return existsFlag;
 	}
 
+	/**
+	 * Фиксация (commit) транзакции.
+	 * @throws SQLException в случае возникновения ошибки взаимодействия с базой
+	 */
+	public void commit() throws SQLException {
+		logger.trace("commit()");
+		getConnection().commit();
+	}
+
+	/**
+	 * Откат (rollback) транзакции.<br/>
+	 * В случае возникновения ошибки исключение не выбрасывается, а лишь записывается в лог.
+	 * Откат сам по себе происходит в результате некоей ошибки. Если вызов отката
+	 * привёл ещё к одному исключению, не остаётся уже ничего, кроме как закрыть соединение.
+	 */
 	public void rollback() {
 		logger.trace("rollback()");
 		try {
@@ -112,18 +162,32 @@ public class Db {
 				connection.rollback();
 			}
 		} catch (SQLException ex) {
+			logger.error(ex);
 		}
 	}
 	
+	/**
+	 * Получение соединения JDBC.<br/>
+	 * Если соединение закрыто или не создано, оно создаётся.
+	 * @return соединение JDBC
+	 */
 	private Connection getConnection() {
 		if(this.isClosed()) {
-			connection = createConnection(dataSourceJndiName, autoCommit);
+			connection = createConnection(dataSourceJndiName);
 		}
 		return connection;
 	}
 
-	private synchronized static Connection createConnection(String dataSourceJndiName, boolean autoCommit) {
-		logger.trace("BEGIN createConnection(" + dataSourceJndiName + ", " + autoCommit + ")");
+	/**
+	 * Фабричный метод, создающий соединение JDBC.
+	 * Поиск источника данных JDBC осуществляется по JNDI. Найденный источник заносится
+	 * в хэш-таблицу и при повторном вызове берётся из неё, поэтому метод имеет
+	 * модификатор <code>synchronized</code>.
+	 * @param dataSourceJndiName JNDI-имя источника данных
+	 * @return соединение JDBC
+	 */
+	private synchronized static Connection createConnection(String dataSourceJndiName) {
+		logger.trace("BEGIN createConnection(" + dataSourceJndiName + ")");
 		
 		try {
 			DataSource dataSource = dataSourceMap.get(dataSourceJndiName);
@@ -133,7 +197,7 @@ public class Db {
 				dataSourceMap.put(dataSourceJndiName, dataSource);
 			}
 			Connection con = dataSource.getConnection();
-			con.setAutoCommit(autoCommit);
+			con.setAutoCommit(false);
 			return con;
 		} catch (NamingException ex) {
 			logger.error(ex);
@@ -146,6 +210,10 @@ public class Db {
 		}
 	}
 
+	/**
+	 * Проверяет, содержит ли данный объект открытое подключение JDBC.
+	 * @return <code>true</code>, если соединение не создано или закрыто, <code>false</code> в противном случае
+	 */
 	private boolean isClosed() {
 		try {
 			return connection == null || connection.isClosed();
@@ -154,39 +222,4 @@ public class Db {
 		}
 	}
 
-	/*
-	 * Ниже - методы, не используемые ни в JepRia, ни в JepCommon.
-	 * TODO Удалять ? 
-	 */
-	public void commit() throws SQLException {
-		logger.trace("commit()");
-		getConnection().commit();
-	}
-
-	public static void closeConnection(Connection dbConnection) {
-		if (dbConnection != null) {
-			try {
-				dbConnection.close();
-			} catch (Exception e) {
-				// ignore it
-			}
-		}
-	}
-
-	public synchronized static void closeConnection(String dataSourceJndiName) {
-		DataSource dataSource = dataSourceMap.get(dataSourceJndiName);
-		try {
-			if (dataSource != null) {
-				Connection connection = dataSource.getConnection();
-				if(connection != null) {
-					connection.close();
-				}
-				dataSourceMap.remove(dataSourceJndiName);
-			} else {
-				throw new UnexpectedException("dataSource '" + dataSourceJndiName + "' not found", null);
-			}
-		} catch (SQLException ex) {
-			throw new SystemException("Connection close error for '" + dataSourceJndiName + "' dataSource", ex);
-		}
-	}
 };
