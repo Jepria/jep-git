@@ -7,8 +7,6 @@
 	
 	<property name="J2EE_HOME" value="${OC4J_HOME}/j2ee/home" />
 	<property name="JEP_RIA" value="${COMMON_HOME}/Module/JepRia/${JEP_RIA_VERSION}/App" />
-	
-	<property name="JEP_GXT" value="${COMMON_HOME}/Module/JepGxt/${JEP_GXT_VERSION}/App" />
 	<property name="JEP_RIA_REPORT" value="${COMMON_HOME}/Module/JepRiaReport/${JEP_RIA_REPORT_VERSION}/App" />
 	<property name="JEP_REPORT_COMPILER" value="${COMMON_HOME}/Module/JrCompiler/${JEP_REPORT_COMPILER_VERSION}/App" />
 	<property name="JEP_RIA_TOOLKIT" value="${COMMON_HOME}/Module/JepRiaToolkit/${JEP_RIA_TOOLKIT_VERSION}/App" />
@@ -29,7 +27,6 @@
 		<pathelement location="${GWT_HOME}/validation-api.jar" />
 		<pathelement location="${GWT_HOME}/validation-api-sources.jar" />
 		<pathelement location="${GWT_LOG_HOME}/gwt-log.jar" />
-		<!-- <pathelement location="${GXT_HOME}/gxt.jar"/> -->
 		<pathelement location="${LOG4J_HOME}/log4j.jar" />
 		<pathelement location="${COMMONS-FILEUPLOAD_HOME}/commons-fileupload.jar" />
 		<pathelement location="${J2EE_HOME}/lib/servlet.jar" />
@@ -40,7 +37,6 @@
 		<pathelement location="${JEP_RIA}/lib/jepria-auto.jar" />
 		<pathelement location="${JEP_RIA}/lib/jepria-test.jar" />
 		<pathelement location="${JEP_RIA}/lib/gwt-theme.jar" />
-		<pathelement location="${JEP_GXT}/lib/jepgxt.jar" />
 		<pathelement location="${JASPER_REPORTS_HOME}/dist/jasperreports.jar" />
 		<pathelement location="${JEP_RIA_REPORT}/lib/jepriareport.jar" />
 		<pathelement location="${JUNIT_HOME}/junit.jar" />
@@ -246,7 +242,6 @@
 			<classpath refid="libs" />
 			<classpath>
 				<pathelement location="${JUNIT_HOME}/junit.jar" />
-				<!-- <pathelement location="${GXT_HOME}/gxt.jar"/> -->
 				<pathelement location="build" />
 				<pathelement location="build-test" />
 				<pathelement location="test-gwt/java" />
@@ -288,7 +283,6 @@
 				<fileset dir="src/java" includes="**/${MODULE_NAME_IN_PACKAGE}/**/shared/**/*.java" />
 				<fileset dir="src/java" includes="**/${MODULE_NAME_IN_PACKAGE}/**/*.gwt.xml" />
 				<fileset file="${JEP_RIA}/lib/jepria.jar" />
-				<fileset file="${JEP_GXT}/lib/jepgxt.jar" />
 			</sourcefiles>
 			<!-- В GWT 2.7.0 при компиляции файлу Application.nocache.js выставляется дата изменения,
 			совпадающая с датой Application.gwt.xml. Подробнее: https://gwt-review.googlesource.com/#/c/10520/
@@ -363,10 +357,8 @@
 						<path location="${JEP_REPORT_COMPILER}/lib/jrcompiler.jar" />
 						<path location="${JASPER_REPORTS_HOME}/lib/jfreechart-1.0.12.jar" />
 						<path location="${JASPER_REPORTS_HOME}/lib/groovy-all-1.5.5.jar" />
-						<!-- <path location="${GXT_HOME}/gxt.jar"/> -->
 						<path location="${GWT_HOME}/gwt-servlet.jar" />
 						<path location="${JEP_RIA}/lib/jepria.jar" />
-						<path location="${JEP_GXT}/lib/jepgxt.jar" />
 						<path location="${JEP_RIA_REPORT}/lib/jepriareport.jar" />
 						<path location="${JASPER_REPORTS_HOME}/lib/spring-beans-2.5.5.jar" />
 						<path location="${JASPER_REPORTS_HOME}/lib/spring-core-2.5.5.jar" />
@@ -411,11 +403,8 @@
 				<copy file="${GWT_LOG_HOME}/gwt-log.jar" todir="temp-war/WEB-INF/lib" />
 				<copy file="${COMMONS-FILEUPLOAD_HOME}/commons-fileupload.jar" todir="temp-war/WEB-INF/lib" />
 				<copy file="${COMMONS-IO_HOME}/commons-io.jar" todir="temp-war/WEB-INF/lib" />
-				<!-- <copy file="${GXT_HOME}/gxt.jar" todir="temp-war/WEB-INF/lib"/> -->
 				<copy file="${JEP_RIA}/src/html/JepRia.css" todir="temp-war/css" />
-				<!-- // TODO 8.0: <copy file="${GXT_HOME}/resources/css/gxt-all.css" todir="temp-war/css" /> -->
 				<copy failonerror="false" todir="temp-war/images">
-					<!-- // TODO 8.0: <fileset dir="${GXT_HOME}/resources/images" /> -->
 					<fileset dir="${JEP_RIA}/src/resources/com/technology/jep/jepria/images" />
 					<fileset dir="${RESOURCE_HOME}/images" />
 				</copy>
@@ -455,7 +444,6 @@
 			<sourcefiles>
 				<fileset dir="${RESOURCE_HOME}" includes="application.xml, orion-application.xml" />
 				<fileset dir="${JEP_RIA}/lib" includes="jepria.jar" />
-				<fileset dir="${JEP_GXT}/lib" includes="jepgxt.jar" />
 				<fileset dir="${JEP_RIA_REPORT}/lib" includes="jepriareport.jar" />
 				<fileset dir="${JEP_RIA}/lib" includes="jepria-oc4j.jar" />
 				<fileset dir="${JEP_RIA}/lib" includes="jepria-weblogic.jar" />
@@ -472,7 +460,6 @@
 					<fileset dir="${JEP_RIA}/lib" includes="jepria.jar" />
 					<fileset dir="${JEP_RIA}/lib" includes="jepria-weblogic.jar" />
 					<fileset dir="${JEP_RIA}/lib" includes="jepria-oc4j.jar" />
-					<fileset dir="${JEP_GXT}/lib" includes="jepgxt.jar" />
 					<fileset dir="${JEP_RIA_REPORT}/lib" includes="jepriareport.jar" />
 					<fileset dir="${JEP_RIA_REPORT}/lib" includes="commons-digester-1.7.jar" />
 					<fileset dir="${JASPER_REPORTS_HOME}/dist" includes="jasperreports.jar" />
