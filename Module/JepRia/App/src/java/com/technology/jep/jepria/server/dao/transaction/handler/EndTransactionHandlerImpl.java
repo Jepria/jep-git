@@ -17,7 +17,7 @@ public class EndTransactionHandlerImpl implements EndTransactionHandler {
 	 * <ul>
 	 *   <li>Если в ходе транзакции не возникло исключения, то транзакция фиксируется
 	 *   ({@link CallContext#commit()}).</li>
-	 *   <li>Есди было перехвачено исключение (<code>caught != null</code>), транзакция
+	 *   <li>Если было перехвачено исключение (<code>caught != null</code>), транзакция
 	 *   откатывается ({@link CallContext#rollback()}).</li>
 	 *   <li>С помощью {@link CallContext#end()} освобождаются ресурсы.
 	 *   <li>Если в ходе транзакции возникло исключение, или же оно возникло во время
