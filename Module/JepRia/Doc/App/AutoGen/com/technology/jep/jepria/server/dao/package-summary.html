@@ -54,7 +54,7 @@ function windowTitle()
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
 &nbsp;<A HREF="../../../../../../com/technology/jep/jepria/server/package-summary.html"><B>PREV PACKAGE</B></A>&nbsp;
-&nbsp;<A HREF="../../../../../../com/technology/jep/jepria/server/db/package-summary.html"><B>NEXT PACKAGE</B></A></FONT></TD>
+&nbsp;<A HREF="../../../../../../com/technology/jep/jepria/server/dao/transaction/package-summary.html"><B>NEXT PACKAGE</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../../../../../index.html?com/technology/jep/jepria/server/dao/package-summary.html" target="_top"><B>FRAMES</B></A>  &nbsp;
 &nbsp;<A HREF="package-summary.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
@@ -84,6 +84,20 @@ Package com.technology.jep.jepria.server.dao
 <TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
 <TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
 <TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Interface Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../../com/technology/jep/jepria/server/dao/JepDataStandard.html" title="interface in com.technology.jep.jepria.server.dao">JepDataStandard</A></B></TD>
+<TD>Базовый интерфейс работы с данными БД.</TD>
+</TR>
+</TABLE>
+&nbsp;
+
+<P>
+
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
 <B>Class Summary</B></FONT></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
@@ -91,9 +105,20 @@ Package com.technology.jep.jepria.server.dao
 <TD>Используется для мэппинга данных из ResultSet в Dto.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../../com/technology/jep/jepria/server/dao/CallContext.html" title="class in com.technology.jep.jepria.server.dao">CallContext</A></B></TD>
+<TD>Класс, реализующий получение соединения, управление транзакцией и освобождение ресурсов.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
 <TD WIDTH="15%"><B><A HREF="../../../../../../com/technology/jep/jepria/server/dao/DaoSupport.html" title="class in com.technology.jep.jepria.server.dao">DaoSupport</A></B></TD>
-<TD>
- Класс предназначен для облегчения работы с jdbc.</TD>
+<TD>Класс предназначен для облегчения работы с jdbc.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../../com/technology/jep/jepria/server/dao/JepDao.html" title="class in com.technology.jep.jepria.server.dao">JepDao</A></B></TD>
+<TD>Общий предок DAO, требующих расширенную работу с данными.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="15%"><B><A HREF="../../../../../../com/technology/jep/jepria/server/dao/JepDaoStandard.html" title="class in com.technology.jep.jepria.server.dao">JepDaoStandard</A></B></TD>
+<TD>Общий предок DAO стандартной работы с данными.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD WIDTH="15%"><B><A HREF="../../../../../../com/technology/jep/jepria/server/dao/ResultSetMapper.html" title="class in com.technology.jep.jepria.server.dao">ResultSetMapper&lt;T&gt;</A></B></TD>
@@ -111,8 +136,7 @@ Package com.technology.jep.jepria.server.dao
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD WIDTH="15%"><B><A HREF="../../../../../../com/technology/jep/jepria/server/dao/DaoSupport.ExecutionType.html" title="enum in com.technology.jep.jepria.server.dao">DaoSupport.ExecutionType</A></B></TD>
-<TD>Данный перечислимый тип содержит тип, определяющий работаем мы с
- sql-выражением или sql-запросом.</TD>
+<TD>Возможные типы выполнения запроса в методе <A HREF="../../../../../../com/technology/jep/jepria/server/dao/DaoSupport.html#setParamsAndExecute(java.sql.CallableStatement, com.technology.jep.jepria.server.dao.DaoSupport.ExecutionType, java.lang.Object...)"><CODE>DaoSupport.setParamsAndExecute(java.sql.CallableStatement, com.technology.jep.jepria.server.dao.DaoSupport.ExecutionType, java.lang.Object...)</CODE></A>.</TD>
 </TR>
 </TABLE>
 &nbsp;
@@ -150,7 +174,7 @@ Package com.technology.jep.jepria.server.dao
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
 &nbsp;<A HREF="../../../../../../com/technology/jep/jepria/server/package-summary.html"><B>PREV PACKAGE</B></A>&nbsp;
-&nbsp;<A HREF="../../../../../../com/technology/jep/jepria/server/db/package-summary.html"><B>NEXT PACKAGE</B></A></FONT></TD>
+&nbsp;<A HREF="../../../../../../com/technology/jep/jepria/server/dao/transaction/package-summary.html"><B>NEXT PACKAGE</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../../../../../index.html?com/technology/jep/jepria/server/dao/package-summary.html" target="_top"><B>FRAMES</B></A>  &nbsp;
 &nbsp;<A HREF="package-summary.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;

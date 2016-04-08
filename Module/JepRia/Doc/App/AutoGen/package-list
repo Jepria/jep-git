@@ -67,6 +67,9 @@ com.technology.jep.jepria.client.widget.list.header.menu.images
 com.technology.jep.jepria.client.widget.toolbar
 com.technology.jep.jepria.server
 com.technology.jep.jepria.server.dao
+com.technology.jep.jepria.server.dao.transaction
+com.technology.jep.jepria.server.dao.transaction.annotation
+com.technology.jep.jepria.server.dao.transaction.handler
 com.technology.jep.jepria.server.db
 com.technology.jep.jepria.server.db.blob
 com.technology.jep.jepria.server.db.clob
@@ -74,7 +77,6 @@ com.technology.jep.jepria.server.download
 com.technology.jep.jepria.server.download.blob
 com.technology.jep.jepria.server.download.clob
 com.technology.jep.jepria.server.download.excel
-com.technology.jep.jepria.server.ejb
 com.technology.jep.jepria.server.exceptions
 com.technology.jep.jepria.server.i18n
 com.technology.jep.jepria.server.security
@@ -85,8 +87,6 @@ com.technology.jep.jepria.server.upload
 com.technology.jep.jepria.server.upload.blob
 com.technology.jep.jepria.server.upload.clob
 com.technology.jep.jepria.server.util
-com.technology.jep.jepria.server.version
-com.technology.jep.jepria.server.version.ejb
 com.technology.jep.jepria.shared
 com.technology.jep.jepria.shared.dto
 com.technology.jep.jepria.shared.exceptions

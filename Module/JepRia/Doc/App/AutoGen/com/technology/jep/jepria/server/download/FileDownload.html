@@ -53,7 +53,7 @@ function windowTitle()
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="../../../../../../com/technology/jep/jepria/server/download/AbstractFileDownloadBean.html" title="class in com.technology.jep.jepria.server.download"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../../../../com/technology/jep/jepria/server/download/AbstractFileDownload.html" title="class in com.technology.jep.jepria.server.download"><B>PREV CLASS</B></A>&nbsp;
 &nbsp;<A HREF="../../../../../../com/technology/jep/jepria/server/download/JepDownloadServlet.html" title="class in com.technology.jep.jepria.server.download"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../../../../../index.html?com/technology/jep/jepria/server/download/FileDownload.html" target="_top"><B>FRAMES</B></A>  &nbsp;
@@ -90,10 +90,10 @@ com.technology.jep.jepria.server.download</FONT>
 <BR>
 Interface FileDownload</H2>
 <DL>
-<DT><B>All Known Subinterfaces:</B> <DD><A HREF="../../../../../../com/technology/jep/jepria/server/download/blob/BinaryFileDownload.html" title="interface in com.technology.jep.jepria.server.download.blob">BinaryFileDownload</A>, <A HREF="../../../../../../com/technology/jep/jepria/server/download/blob/BinaryFileDownloadLocal.html" title="interface in com.technology.jep.jepria.server.download.blob">BinaryFileDownloadLocal</A>, <A HREF="../../../../../../com/technology/jep/jepria/server/download/blob/BinaryFileDownloadRemote.html" title="interface in com.technology.jep.jepria.server.download.blob">BinaryFileDownloadRemote</A>, <A HREF="../../../../../../com/technology/jep/jepria/server/download/clob/TextFileDownload.html" title="interface in com.technology.jep.jepria.server.download.clob">TextFileDownload</A>, <A HREF="../../../../../../com/technology/jep/jepria/server/download/clob/TextFileDownloadLocal.html" title="interface in com.technology.jep.jepria.server.download.clob">TextFileDownloadLocal</A>, <A HREF="../../../../../../com/technology/jep/jepria/server/download/clob/TextFileDownloadRemote.html" title="interface in com.technology.jep.jepria.server.download.clob">TextFileDownloadRemote</A></DD>
+<DT><B>All Known Subinterfaces:</B> <DD><A HREF="../../../../../../com/technology/jep/jepria/server/download/blob/BinaryFileDownload.html" title="interface in com.technology.jep.jepria.server.download.blob">BinaryFileDownload</A>, <A HREF="../../../../../../com/technology/jep/jepria/server/download/clob/TextFileDownload.html" title="interface in com.technology.jep.jepria.server.download.clob">TextFileDownload</A></DD>
 </DL>
 <DL>
-<DT><B>All Known Implementing Classes:</B> <DD><A HREF="../../../../../../com/technology/jep/jepria/server/download/AbstractFileDownloadBean.html" title="class in com.technology.jep.jepria.server.download">AbstractFileDownloadBean</A>, <A HREF="../../../../../../com/technology/jep/jepria/server/download/blob/BinaryFileDownloadBean.html" title="class in com.technology.jep.jepria.server.download.blob">BinaryFileDownloadBean</A>, <A HREF="../../../../../../com/technology/jep/jepria/server/download/clob/TextFileDownloadBean.html" title="class in com.technology.jep.jepria.server.download.clob">TextFileDownloadBean</A></DD>
+<DT><B>All Known Implementing Classes:</B> <DD><A HREF="../../../../../../com/technology/jep/jepria/server/download/AbstractFileDownload.html" title="class in com.technology.jep.jepria.server.download">AbstractFileDownload</A>, <A HREF="../../../../../../com/technology/jep/jepria/server/download/blob/BinaryFileDownloadImpl.html" title="class in com.technology.jep.jepria.server.download.blob">BinaryFileDownloadImpl</A>, <A HREF="../../../../../../com/technology/jep/jepria/server/download/clob/TextFileDownloadImpl.html" title="class in com.technology.jep.jepria.server.download.clob">TextFileDownloadImpl</A></DD>
 </DL>
 <HR>
 <DL>
@@ -120,12 +120,19 @@ Interface FileDownload</H2>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;int</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/download/FileDownload.html#beginRead(java.lang.String, java.lang.String, java.lang.String, java.lang.Object, java.lang.String, java.lang.String)">beginRead</A></B>(java.lang.String&nbsp;tableName,
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/download/FileDownload.html#beginRead(java.lang.Object)">beginRead</A></B>(java.lang.Object&nbsp;rowId)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Метод начинает чтение данных из LOB.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;int</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/download/FileDownload.html#beginRead(java.lang.String, java.lang.String, java.lang.String, java.lang.Object, java.lang.String)">beginRead</A></B>(java.lang.String&nbsp;tableName,
           java.lang.String&nbsp;fileFieldName,
           java.lang.String&nbsp;keyFieldName,
           java.lang.Object&nbsp;rowId,
-          java.lang.String&nbsp;dataSourceJndiName,
-          java.lang.String&nbsp;resourceBundleName)</CODE>
+          java.lang.String&nbsp;dataSourceJndiName)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Начало длинной транзакции чтения файла из LOB.</TD>
@@ -160,22 +167,38 @@ Interface FileDownload</H2>
 </TR>
 </TABLE>
 
-<A NAME="beginRead(java.lang.String, java.lang.String, java.lang.String, java.lang.Object, java.lang.String, java.lang.String)"><!-- --></A><H3>
+<A NAME="beginRead(java.lang.String, java.lang.String, java.lang.String, java.lang.Object, java.lang.String)"><!-- --></A><H3>
 beginRead</H3>
 <PRE>
 int <B>beginRead</B>(java.lang.String&nbsp;tableName,
               java.lang.String&nbsp;fileFieldName,
               java.lang.String&nbsp;keyFieldName,
               java.lang.Object&nbsp;rowId,
-              java.lang.String&nbsp;dataSourceJndiName,
-              java.lang.String&nbsp;resourceBundleName)
+              java.lang.String&nbsp;dataSourceJndiName)
               throws <A HREF="../../../../../../com/technology/jep/jepria/shared/exceptions/ApplicationException.html" title="class in com.technology.jep.jepria.shared.exceptions">ApplicationException</A></PRE>
 <DL>
 <DD>Начало длинной транзакции чтения файла из LOB.
 <P>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>tableName</CODE> - имя таблицы, из которой выполняется чтение<DD><CODE>fileFieldName</CODE> - имя поля, из которого выполняется чтение<DD><CODE>keyFieldName</CODE> - имя поля, идентифицирующего строку таблицы<DD><CODE>rowId</CODE> - идентификатор строки таблицы<DD><CODE>dataSourceJndiName</CODE> - JNDI-имя источника данных модуля<DD><CODE>resourceBundleName</CODE> - идентификатор файла ресурсов
+<DT><B>Parameters:</B><DD><CODE>tableName</CODE> - имя таблицы, из которой выполняется чтение<DD><CODE>fileFieldName</CODE> - имя поля, из которого выполняется чтение<DD><CODE>keyFieldName</CODE> - имя поля, идентифицирующего строку таблицы<DD><CODE>rowId</CODE> - идентификатор строки таблицы<DD><CODE>dataSourceJndiName</CODE> - JNDI-имя источника данных модуля
 <DT><B>Returns:</B><DD>рекомендуемый размер буфера
+<DT><B>Throws:</B>
+<DD><CODE><A HREF="../../../../../../com/technology/jep/jepria/shared/exceptions/ApplicationException.html" title="class in com.technology.jep.jepria.shared.exceptions">ApplicationException</A></CODE></DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="beginRead(java.lang.Object)"><!-- --></A><H3>
+beginRead</H3>
+<PRE>
+int <B>beginRead</B>(java.lang.Object&nbsp;rowId)
+              throws <A HREF="../../../../../../com/technology/jep/jepria/shared/exceptions/ApplicationException.html" title="class in com.technology.jep.jepria.shared.exceptions">ApplicationException</A></PRE>
+<DL>
+<DD>Метод начинает чтение данных из LOB.
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>rowId</CODE> - идентификатор строки таблицы
+<DT><B>Returns:</B><DD>рекомендуемая величина буфера
 <DT><B>Throws:</B>
 <DD><CODE><A HREF="../../../../../../com/technology/jep/jepria/shared/exceptions/ApplicationException.html" title="class in com.technology.jep.jepria.shared.exceptions">ApplicationException</A></CODE></DL>
 </DD>
@@ -243,7 +266,7 @@ void <B>cancel</B>()</PRE>
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="../../../../../../com/technology/jep/jepria/server/download/AbstractFileDownloadBean.html" title="class in com.technology.jep.jepria.server.download"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../../../../com/technology/jep/jepria/server/download/AbstractFileDownload.html" title="class in com.technology.jep.jepria.server.download"><B>PREV CLASS</B></A>&nbsp;
 &nbsp;<A HREF="../../../../../../com/technology/jep/jepria/server/download/JepDownloadServlet.html" title="class in com.technology.jep.jepria.server.download"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../../../../../index.html?com/technology/jep/jepria/server/download/FileDownload.html" target="_top"><B>FRAMES</B></A>  &nbsp;

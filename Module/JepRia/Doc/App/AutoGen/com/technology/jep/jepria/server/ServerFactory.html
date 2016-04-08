@@ -88,15 +88,24 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
 <FONT SIZE="-1">
 com.technology.jep.jepria.server</FONT>
 <BR>
-Class ServerFactory</H2>
+Class ServerFactory&lt;D&gt;</H2>
 <PRE>
 java.lang.Object
-  <IMG SRC="../../../../../resources/inherit.gif" ALT="extended by "><B>com.technology.jep.jepria.server.security.SecurityFactory</B>
+  <IMG SRC="../../../../../resources/inherit.gif" ALT="extended by "><B>com.technology.jep.jepria.server.ServerFactory&lt;D&gt;</B>
 </PRE>
+<DL>
+<DT><DT><B>Type Parameters:</B><DD><CODE>D</CODE> - интерфейс Dao</DL>
+<DL>
+<DT><B>All Implemented Interfaces:</B> <DD><A HREF="../../../../../com/technology/jep/jepria/server/DaoProvider.html" title="interface in com.technology.jep.jepria.server">DaoProvider</A>&lt;D&gt;</DD>
+</DL>
 <HR>
 <DL>
-<DT><PRE>public class <B>ServerFactory</B><DT>extends java.lang.Object</DL>
+<DT><PRE>public class <B>ServerFactory&lt;D&gt;</B><DT>extends java.lang.Object<DT>implements <A HREF="../../../../../com/technology/jep/jepria/server/DaoProvider.html" title="interface in com.technology.jep.jepria.server">DaoProvider</A>&lt;D&gt;</DL>
 </PRE>
+
+<P>
+Серверная фабрика.
+<P>
 
 <P>
 <HR>
@@ -112,11 +121,27 @@ java.lang.Object
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>protected static&nbsp;org.apache.log4j.Logger</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepria/server/ServerFactory.html#logger">logger</A></B></CODE>
+<CODE>protected &nbsp;<A HREF="../../../../../com/technology/jep/jepria/server/ServerFactory.html" title="type parameter in ServerFactory">D</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepria/server/ServerFactory.html#dao">dao</A></B></CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Исходный объект Dao.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepria/server/ServerFactory.html#dataSourceJndiName">dataSourceJndiName</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;JNDI-имя источника данных.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;<A HREF="../../../../../com/technology/jep/jepria/server/ServerFactory.html" title="type parameter in ServerFactory">D</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepria/server/ServerFactory.html#proxyDao">proxyDao</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Прокси для Dao, обеспечивающий транзакционность.</TD>
 </TR>
 </TABLE>
 &nbsp;
@@ -129,10 +154,11 @@ java.lang.Object
 <B>Constructor Summary</B></FONT></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepria/server/ServerFactory.html#ServerFactory()">ServerFactory</A></B>()</CODE>
+<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepria/server/ServerFactory.html#ServerFactory(D, java.lang.String)">ServerFactory</A></B>(<A HREF="../../../../../com/technology/jep/jepria/server/ServerFactory.html" title="type parameter in ServerFactory">D</A>&nbsp;dao,
+              java.lang.String&nbsp;dataSourceJndiName)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Создаёт серверную фабрику.</TD>
 </TR>
 </TABLE>
 &nbsp;
@@ -146,11 +172,19 @@ java.lang.Object
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;<A HREF="../../../../../com/technology/jep/jepria/server/security/JepSecurityModule.html" title="interface in com.technology.jep.jepria.server.security">JepSecurityModule</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepria/server/ServerFactory.html#getSecurityModule(javax.servlet.http.HttpServletRequest)">getSecurityModule</A></B>(javax.servlet.http.HttpServletRequest&nbsp;request)</CODE>
+<CODE>&nbsp;<A HREF="../../../../../com/technology/jep/jepria/server/ServerFactory.html" title="type parameter in ServerFactory">D</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepria/server/ServerFactory.html#getDao()">getDao</A></B>()</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Возвращает прокси для Dao, обеспечивающий транзакционность.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepria/server/ServerFactory.html#getDataSourceJndiName()">getDataSourceJndiName</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Возвращает JNDI-имя источника данных.</TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>
@@ -175,11 +209,37 @@ java.lang.Object
 </TR>
 </TABLE>
 
-<A NAME="logger"><!-- --></A><H3>
-logger</H3>
+<A NAME="dao"><!-- --></A><H3>
+dao</H3>
 <PRE>
-protected static org.apache.log4j.Logger <B>logger</B></PRE>
+protected <A HREF="../../../../../com/technology/jep/jepria/server/ServerFactory.html" title="type parameter in ServerFactory">D</A> <B>dao</B></PRE>
 <DL>
+<DD>Исходный объект Dao.
+<P>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="proxyDao"><!-- --></A><H3>
+proxyDao</H3>
+<PRE>
+private <A HREF="../../../../../com/technology/jep/jepria/server/ServerFactory.html" title="type parameter in ServerFactory">D</A> <B>proxyDao</B></PRE>
+<DL>
+<DD>Прокси для Dao, обеспечивающий транзакционность.
+<P>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="dataSourceJndiName"><!-- --></A><H3>
+dataSourceJndiName</H3>
+<PRE>
+private java.lang.String <B>dataSourceJndiName</B></PRE>
+<DL>
+<DD>JNDI-имя источника данных.
+<P>
 <DL>
 </DL>
 </DL>
@@ -194,11 +254,16 @@ protected static org.apache.log4j.Logger <B>logger</B></PRE>
 </TR>
 </TABLE>
 
-<A NAME="ServerFactory()"><!-- --></A><H3>
+<A NAME="ServerFactory(java.lang.Object,java.lang.String)"><!-- --></A><A NAME="ServerFactory(D, java.lang.String)"><!-- --></A><H3>
 ServerFactory</H3>
 <PRE>
-public <B>ServerFactory</B>()</PRE>
+public <B>ServerFactory</B>(<A HREF="../../../../../com/technology/jep/jepria/server/ServerFactory.html" title="type parameter in ServerFactory">D</A>&nbsp;dao,
+                     java.lang.String&nbsp;dataSourceJndiName)</PRE>
 <DL>
+<DD>Создаёт серверную фабрику.
+<P>
+<DL>
+<DT><B>Parameters:</B><DD><CODE>dao</CODE> - объект Dao<DD><CODE>dataSourceJndiName</CODE> - JNDI-имя источника данных</DL>
 </DL>
 
 <!-- ============ METHOD DETAIL ========== -->
@@ -211,13 +276,36 @@ public <B>ServerFactory</B>()</PRE>
 </TR>
 </TABLE>
 
-<A NAME="getSecurityModule(javax.servlet.http.HttpServletRequest)"><!-- --></A><H3>
-getSecurityModule</H3>
+<A NAME="getDao()"><!-- --></A><H3>
+getDao</H3>
 <PRE>
-public static <A HREF="../../../../../com/technology/jep/jepria/server/security/JepSecurityModule.html" title="interface in com.technology.jep.jepria.server.security">JepSecurityModule</A> <B>getSecurityModule</B>(javax.servlet.http.HttpServletRequest&nbsp;request)</PRE>
+public <A HREF="../../../../../com/technology/jep/jepria/server/ServerFactory.html" title="type parameter in ServerFactory">D</A> <B>getDao</B>()</PRE>
 <DL>
+<DD>Возвращает прокси для Dao, обеспечивающий транзакционность.
+<P>
 <DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../com/technology/jep/jepria/server/DaoProvider.html#getDao()">getDao</A></CODE> in interface <CODE><A HREF="../../../../../com/technology/jep/jepria/server/DaoProvider.html" title="interface in com.technology.jep.jepria.server">DaoProvider</A>&lt;<A HREF="../../../../../com/technology/jep/jepria/server/ServerFactory.html" title="type parameter in ServerFactory">D</A>&gt;</CODE></DL>
+</DD>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>объект Dao или прокси</DL>
+</DD>
 </DL>
+<HR>
+
+<A NAME="getDataSourceJndiName()"><!-- --></A><H3>
+getDataSourceJndiName</H3>
+<PRE>
+public java.lang.String <B>getDataSourceJndiName</B>()</PRE>
+<DL>
+<DD>Возвращает JNDI-имя источника данных.
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../com/technology/jep/jepria/server/DaoProvider.html#getDataSourceJndiName()">getDataSourceJndiName</A></CODE> in interface <CODE><A HREF="../../../../../com/technology/jep/jepria/server/DaoProvider.html" title="interface in com.technology.jep.jepria.server">DaoProvider</A>&lt;<A HREF="../../../../../com/technology/jep/jepria/server/ServerFactory.html" title="type parameter in ServerFactory">D</A>&gt;</CODE></DL>
+</DD>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>JNDI-имя источника данных.</DL>
 </DD>
 </DL>
 <!-- ========= END OF CLASS DATA ========= -->

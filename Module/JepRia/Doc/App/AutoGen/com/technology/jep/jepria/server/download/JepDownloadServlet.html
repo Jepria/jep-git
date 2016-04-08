@@ -151,14 +151,6 @@ java.lang.Object
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>private &nbsp;java.lang.String</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/download/JepDownloadServlet.html#resourceBundleName">resourceBundleName</A></B></CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Имя текстовых ресурсов.</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>private &nbsp;java.nio.charset.Charset</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/download/JepDownloadServlet.html#textFileCharset">textFileCharset</A></B></CODE>
 
@@ -176,18 +168,17 @@ java.lang.Object
 <B>Constructor Summary</B></FONT></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/download/JepDownloadServlet.html#JepDownloadServlet(com.technology.jep.jepria.shared.record.lob.JepLobRecordDefinition, java.lang.String, java.lang.String)">JepDownloadServlet</A></B>(<A HREF="../../../../../../com/technology/jep/jepria/shared/record/lob/JepLobRecordDefinition.html" title="class in com.technology.jep.jepria.shared.record.lob">JepLobRecordDefinition</A>&nbsp;fileRecordDefinition,
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/download/JepDownloadServlet.html#JepDownloadServlet(com.technology.jep.jepria.shared.record.lob.JepLobRecordDefinition, java.lang.String, java.nio.charset.Charset)">JepDownloadServlet</A></B>(<A HREF="../../../../../../com/technology/jep/jepria/shared/record/lob/JepLobRecordDefinition.html" title="class in com.technology.jep.jepria.shared.record.lob">JepLobRecordDefinition</A>&nbsp;fileRecordDefinition,
                    java.lang.String&nbsp;dataSourceJndiName,
-                   java.lang.String&nbsp;resourceBundleName)</CODE>
+                   java.nio.charset.Charset&nbsp;textFileCharset)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Создаёт сервлет для загрузки файлов с сервера.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/download/JepDownloadServlet.html#JepDownloadServlet(com.technology.jep.jepria.shared.record.lob.JepLobRecordDefinition, java.lang.String, java.lang.String, java.nio.charset.Charset)">JepDownloadServlet</A></B>(<A HREF="../../../../../../com/technology/jep/jepria/shared/record/lob/JepLobRecordDefinition.html" title="class in com.technology.jep.jepria.shared.record.lob">JepLobRecordDefinition</A>&nbsp;fileRecordDefinition,
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/download/JepDownloadServlet.html#JepDownloadServlet(com.technology.jep.jepria.shared.record.lob.JepLobRecordDefinition, java.lang.String, java.lang.String)">JepDownloadServlet</A></B>(<A HREF="../../../../../../com/technology/jep/jepria/shared/record/lob/JepLobRecordDefinition.html" title="class in com.technology.jep.jepria.shared.record.lob">JepLobRecordDefinition</A>&nbsp;fileRecordDefinition,
                    java.lang.String&nbsp;dataSourceJndiName,
-                   java.lang.String&nbsp;resourceBundleName,
-                   java.nio.charset.Charset&nbsp;textFileCharset)</CODE>
+                   java.lang.String&nbsp;resourceBundleName)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Создаёт сервлет для загрузки файлов с сервера.</TD>
@@ -368,18 +359,6 @@ private java.lang.String <B>dataSourceJndiName</B></PRE>
 </DL>
 <HR>
 
-<A NAME="resourceBundleName"><!-- --></A><H3>
-resourceBundleName</H3>
-<PRE>
-private java.lang.String <B>resourceBundleName</B></PRE>
-<DL>
-<DD>Имя текстовых ресурсов.
-<P>
-<DL>
-</DL>
-</DL>
-<HR>
-
 <A NAME="textFileCharset"><!-- --></A><H3>
 textFileCharset</H3>
 <PRE>
@@ -401,18 +380,17 @@ private final java.nio.charset.Charset <B>textFileCharset</B></PRE>
 </TR>
 </TABLE>
 
-<A NAME="JepDownloadServlet(com.technology.jep.jepria.shared.record.lob.JepLobRecordDefinition, java.lang.String, java.lang.String, java.nio.charset.Charset)"><!-- --></A><H3>
+<A NAME="JepDownloadServlet(com.technology.jep.jepria.shared.record.lob.JepLobRecordDefinition, java.lang.String, java.nio.charset.Charset)"><!-- --></A><H3>
 JepDownloadServlet</H3>
 <PRE>
 public <B>JepDownloadServlet</B>(<A HREF="../../../../../../com/technology/jep/jepria/shared/record/lob/JepLobRecordDefinition.html" title="class in com.technology.jep.jepria.shared.record.lob">JepLobRecordDefinition</A>&nbsp;fileRecordDefinition,
                           java.lang.String&nbsp;dataSourceJndiName,
-                          java.lang.String&nbsp;resourceBundleName,
                           java.nio.charset.Charset&nbsp;textFileCharset)</PRE>
 <DL>
 <DD>Создаёт сервлет для загрузки файлов с сервера.
 <P>
 <DL>
-<DT><B>Parameters:</B><DD><CODE>fileRecordDefinition</CODE> - определение записи<DD><CODE>dataSourceJndiName</CODE> - JNDI-имя источника данных<DD><CODE>resourceBundleName</CODE> - имя текстовых ресурсов<DD><CODE>textFileCharset</CODE> - кодировка текстовых файлов</DL>
+<DT><B>Parameters:</B><DD><CODE>fileRecordDefinition</CODE> - определение записи<DD><CODE>dataSourceJndiName</CODE> - JNDI-имя источника данных<DD><CODE>textFileCharset</CODE> - кодировка текстовых файлов</DL>
 </DL>
 <HR>
 
@@ -427,7 +405,7 @@ public <B>JepDownloadServlet</B>(<A HREF="../../../../../../com/technology/jep/j
  Для текстовых файлов используется кодировка по умолчанию - UTF-8.
 <P>
 <DL>
-<DT><B>Parameters:</B><DD><CODE>fileRecordDefinition</CODE> - определение записи<DD><CODE>dataSourceJndiName</CODE> - JNDI-имя источника данных<DD><CODE>resourceBundleName</CODE> - имя текстовых ресурсов</DL>
+<DT><B>Parameters:</B><DD><CODE>fileRecordDefinition</CODE> - определение записи<DD><CODE>dataSourceJndiName</CODE> - JNDI-имя источника данных</DL>
 </DL>
 
 <!-- ============ METHOD DETAIL ========== -->

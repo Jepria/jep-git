@@ -20,9 +20,9 @@ All Classes (JepRia JavaDoc)
 
 <TABLE BORDER="0" WIDTH="100%" SUMMARY="">
 <TR>
-<TD NOWRAP><FONT CLASS="FrameItemFont"><A HREF="com/technology/jep/jepria/server/download/AbstractFileDownloadBean.html" title="class in com.technology.jep.jepria.server.download" target="classFrame">AbstractFileDownloadBean</A>
+<TD NOWRAP><FONT CLASS="FrameItemFont"><A HREF="com/technology/jep/jepria/server/download/AbstractFileDownload.html" title="class in com.technology.jep.jepria.server.download" target="classFrame">AbstractFileDownload</A>
 <BR>
-<A HREF="com/technology/jep/jepria/server/upload/AbstractFileUploadBean.html" title="class in com.technology.jep.jepria.server.upload" target="classFrame">AbstractFileUploadBean</A>
+<A HREF="com/technology/jep/jepria/server/upload/AbstractFileUpload.html" title="class in com.technology.jep.jepria.server.upload" target="classFrame">AbstractFileUpload</A>
 <BR>
 <A HREF="com/technology/jep/jepria/auto/pages/AbstractPage.html" title="class in com.technology.jep.jepria.auto.pages" target="classFrame">AbstractPage</A>
 <BR>
@@ -33,6 +33,8 @@ All Classes (JepRia JavaDoc)
 <A HREF="com/technology/jep/jepria/client/ui/eventbus/plain/event/AdjustExitScopeEvent.html" title="class in com.technology.jep.jepria.client.ui.eventbus.plain.event" target="classFrame">AdjustExitScopeEvent</A>
 <BR>
 <A HREF="com/technology/jep/jepria/client/ui/eventbus/plain/event/AdjustExitScopeEvent.Handler.html" title="interface in com.technology.jep.jepria.client.ui.eventbus.plain.event" target="classFrame"><I>AdjustExitScopeEvent.Handler</I></A>
+<BR>
+<A HREF="com/technology/jep/jepria/server/dao/transaction/annotation/After.html" title="annotation in com.technology.jep.jepria.server.dao.transaction.annotation" target="classFrame">After</A>
 <BR>
 <A HREF="com/technology/jep/jepria/client/widget/field/multistate/event/AfterExpandEvent.html" title="class in com.technology.jep.jepria.client.widget.field.multistate.event" target="classFrame">AfterExpandEvent</A>
 <BR>
@@ -66,6 +68,8 @@ All Classes (JepRia JavaDoc)
 <BR>
 <A HREF="com/technology/jep/jepria/server/dao/AutoRefreshResultSetMapper.html" title="class in com.technology.jep.jepria.server.dao" target="classFrame">AutoRefreshResultSetMapper</A>
 <BR>
+<A HREF="com/technology/jep/jepria/server/dao/transaction/annotation/Before.html" title="annotation in com.technology.jep.jepria.server.dao.transaction.annotation" target="classFrame">Before</A>
+<BR>
 <A HREF="com/technology/jep/jepria/client/widget/field/multistate/event/BeforeExpandEvent.html" title="class in com.technology.jep.jepria.client.widget.field.multistate.event" target="classFrame">BeforeExpandEvent</A>
 <BR>
 <A HREF="com/technology/jep/jepria/client/widget/field/multistate/event/BeforeExpandEvent.BeforeExpandHandler.html" title="interface in com.technology.jep.jepria.client.widget.field.multistate.event" target="classFrame"><I>BeforeExpandEvent.BeforeExpandHandler</I></A>
@@ -86,19 +90,11 @@ All Classes (JepRia JavaDoc)
 <BR>
 <A HREF="com/technology/jep/jepria/server/download/blob/BinaryFileDownload.html" title="interface in com.technology.jep.jepria.server.download.blob" target="classFrame"><I>BinaryFileDownload</I></A>
 <BR>
-<A HREF="com/technology/jep/jepria/server/download/blob/BinaryFileDownloadBean.html" title="class in com.technology.jep.jepria.server.download.blob" target="classFrame">BinaryFileDownloadBean</A>
-<BR>
-<A HREF="com/technology/jep/jepria/server/download/blob/BinaryFileDownloadLocal.html" title="interface in com.technology.jep.jepria.server.download.blob" target="classFrame"><I>BinaryFileDownloadLocal</I></A>
-<BR>
-<A HREF="com/technology/jep/jepria/server/download/blob/BinaryFileDownloadRemote.html" title="interface in com.technology.jep.jepria.server.download.blob" target="classFrame"><I>BinaryFileDownloadRemote</I></A>
+<A HREF="com/technology/jep/jepria/server/download/blob/BinaryFileDownloadImpl.html" title="class in com.technology.jep.jepria.server.download.blob" target="classFrame">BinaryFileDownloadImpl</A>
 <BR>
 <A HREF="com/technology/jep/jepria/server/upload/blob/BinaryFileUpload.html" title="interface in com.technology.jep.jepria.server.upload.blob" target="classFrame"><I>BinaryFileUpload</I></A>
 <BR>
-<A HREF="com/technology/jep/jepria/server/upload/blob/BinaryFileUploadBean.html" title="class in com.technology.jep.jepria.server.upload.blob" target="classFrame">BinaryFileUploadBean</A>
-<BR>
-<A HREF="com/technology/jep/jepria/server/upload/blob/BinaryFileUploadLocal.html" title="interface in com.technology.jep.jepria.server.upload.blob" target="classFrame"><I>BinaryFileUploadLocal</I></A>
-<BR>
-<A HREF="com/technology/jep/jepria/server/upload/blob/BinaryFileUploadRemote.html" title="interface in com.technology.jep.jepria.server.upload.blob" target="classFrame"><I>BinaryFileUploadRemote</I></A>
+<A HREF="com/technology/jep/jepria/server/upload/blob/BinaryFileUploadImpl.html" title="class in com.technology.jep.jepria.server.upload.blob" target="classFrame">BinaryFileUploadImpl</A>
 <BR>
 <A HREF="com/technology/jep/jepria/server/db/blob/BinaryLargeObject.html" title="class in com.technology.jep.jepria.server.db.blob" target="classFrame">BinaryLargeObject</A>
 <BR>
@@ -138,7 +134,7 @@ All Classes (JepRia JavaDoc)
 <BR>
 <A HREF="com/technology/jep/jepria/client/ui/eventbus/BusEvent.html" title="class in com.technology.jep.jepria.client.ui.eventbus" target="classFrame">BusEvent</A>
 <BR>
-<A HREF="com/technology/jep/jepria/server/ejb/CallContext.html" title="class in com.technology.jep.jepria.server.ejb" target="classFrame">CallContext</A>
+<A HREF="com/technology/jep/jepria/server/dao/CallContext.html" title="class in com.technology.jep.jepria.server.dao" target="classFrame">CallContext</A>
 <BR>
 <A HREF="com/technology/jep/jepria/client/widget/field/multistate/event/CancellableEvent.html" title="interface in com.technology.jep.jepria.client.widget.field.multistate.event" target="classFrame"><I>CancellableEvent</I></A>
 <BR>
@@ -173,6 +169,8 @@ All Classes (JepRia JavaDoc)
 <A HREF="com/technology/jep/jepria/client/message/ConfirmCallback.html" title="interface in com.technology.jep.jepria.client.message" target="classFrame"><I>ConfirmCallback</I></A>
 <BR>
 <A HREF="com/technology/jep/jepria/client/message/ConfirmMessageBox.html" title="class in com.technology.jep.jepria.client.message" target="classFrame">ConfirmMessageBox</A>
+<BR>
+<A HREF="com/technology/jep/jepria/server/DaoProvider.html" title="interface in com.technology.jep.jepria.server" target="classFrame"><I>DaoProvider</I></A>
 <BR>
 <A HREF="com/technology/jep/jepria/server/dao/DaoSupport.html" title="class in com.technology.jep.jepria.server.dao" target="classFrame">DaoSupport</A>
 <BR>
@@ -233,6 +231,10 @@ All Classes (JepRia JavaDoc)
 <A HREF="com/technology/jep/jepria/client/widget/list/cell/EditTreeCell.ViewData.html" title="class in com.technology.jep.jepria.client.widget.list.cell" target="classFrame">EditTreeCell.ViewData</A>
 <BR>
 <A HREF="com/technology/jep/jepria/client/widget/container/ElementSimplePanel.html" title="class in com.technology.jep.jepria.client.widget.container" target="classFrame">ElementSimplePanel</A>
+<BR>
+<A HREF="com/technology/jep/jepria/server/dao/transaction/handler/EndTransactionHandler.html" title="interface in com.technology.jep.jepria.server.dao.transaction.handler" target="classFrame"><I>EndTransactionHandler</I></A>
+<BR>
+<A HREF="com/technology/jep/jepria/server/dao/transaction/handler/EndTransactionHandlerImpl.html" title="class in com.technology.jep.jepria.server.dao.transaction.handler" target="classFrame">EndTransactionHandlerImpl</A>
 <BR>
 <A HREF="com/technology/jep/jepria/client/ui/eventbus/main/event/EnterFromHistoryEvent.html" title="class in com.technology.jep.jepria.client.ui.eventbus.main.event" target="classFrame">EnterFromHistoryEvent</A>
 <BR>
@@ -362,7 +364,9 @@ All Classes (JepRia JavaDoc)
 <BR>
 <A HREF="com/technology/jep/jepria/client/history/place/JepCreatePlace.Tokenizer.html" title="class in com.technology.jep.jepria.client.history.place" target="classFrame">JepCreatePlace.Tokenizer</A>
 <BR>
-<A HREF="com/technology/jep/jepria/server/ejb/JepDataBean.html" title="class in com.technology.jep.jepria.server.ejb" target="classFrame">JepDataBean</A>
+<A HREF="com/technology/jep/jepria/server/dao/JepDao.html" title="class in com.technology.jep.jepria.server.dao" target="classFrame">JepDao</A>
+<BR>
+<A HREF="com/technology/jep/jepria/server/dao/JepDaoStandard.html" title="class in com.technology.jep.jepria.server.dao" target="classFrame">JepDaoStandard</A>
 <BR>
 <A HREF="com/technology/jep/jepria/shared/service/data/JepDataService.html" title="interface in com.technology.jep.jepria.shared.service.data" target="classFrame"><I>JepDataService</I></A>
 <BR>
@@ -370,9 +374,7 @@ All Classes (JepRia JavaDoc)
 <BR>
 <A HREF="com/technology/jep/jepria/server/service/JepDataServiceServlet.html" title="class in com.technology.jep.jepria.server.service" target="classFrame">JepDataServiceServlet</A>
 <BR>
-<A HREF="com/technology/jep/jepria/server/ejb/JepDataStandard.html" title="interface in com.technology.jep.jepria.server.ejb" target="classFrame"><I>JepDataStandard</I></A>
-<BR>
-<A HREF="com/technology/jep/jepria/server/ejb/JepDataStandardBean.html" title="class in com.technology.jep.jepria.server.ejb" target="classFrame">JepDataStandardBean</A>
+<A HREF="com/technology/jep/jepria/server/dao/JepDataStandard.html" title="interface in com.technology.jep.jepria.server.dao" target="classFrame"><I>JepDataStandard</I></A>
 <BR>
 <A HREF="com/technology/jep/jepria/client/widget/list/JepDataWidgetList.html" title="class in com.technology.jep.jepria.client.widget.list" target="classFrame">JepDataWidgetList</A>
 <BR>
@@ -562,16 +564,6 @@ All Classes (JepRia JavaDoc)
 <BR>
 <A HREF="com/technology/jep/jepria/server/upload/JepUploadServlet.html" title="class in com.technology.jep.jepria.server.upload" target="classFrame">JepUploadServlet</A>
 <BR>
-<A HREF="com/technology/jep/jepria/server/ejb/JepUser.html" title="class in com.technology.jep.jepria.server.ejb" target="classFrame">JepUser</A>
-<BR>
-<A HREF="com/technology/jep/jepria/server/version/ejb/JepVersion.html" title="interface in com.technology.jep.jepria.server.version.ejb" target="classFrame"><I>JepVersion</I></A>
-<BR>
-<A HREF="com/technology/jep/jepria/server/version/ejb/JepVersionBean.html" title="class in com.technology.jep.jepria.server.version.ejb" target="classFrame">JepVersionBean</A>
-<BR>
-<A HREF="com/technology/jep/jepria/server/version/ejb/JepVersionLocal.html" title="interface in com.technology.jep.jepria.server.version.ejb" target="classFrame"><I>JepVersionLocal</I></A>
-<BR>
-<A HREF="com/technology/jep/jepria/server/version/ejb/JepVersionRemote.html" title="interface in com.technology.jep.jepria.server.version.ejb" target="classFrame"><I>JepVersionRemote</I></A>
-<BR>
 <A HREF="com/technology/jep/jepria/client/ui/JepView.html" title="interface in com.technology.jep.jepria.client.ui" target="classFrame"><I>JepView</I></A>
 <BR>
 <A HREF="com/technology/jep/jepria/client/history/place/JepViewDetailPlace.html" title="class in com.technology.jep.jepria.client.history.place" target="classFrame">JepViewDetailPlace</A>
@@ -609,6 +601,8 @@ All Classes (JepRia JavaDoc)
 <A HREF="com/technology/jep/jepria/client/async/LoadPlainClientFactory.html" title="class in com.technology.jep.jepria.client.async" target="classFrame">LoadPlainClientFactory</A>
 <BR>
 <A HREF="com/technology/jep/jepria/auto/entrance/pages/LoginPage.html" title="interface in com.technology.jep.jepria.auto.entrance.pages" target="classFrame"><I>LoginPage</I></A>
+<BR>
+<A HREF="com/technology/jep/jepria/server/security/cas/LoginRedirectFilter.html" title="class in com.technology.jep.jepria.server.security.cas" target="classFrame">LoginRedirectFilter</A>
 <BR>
 <A HREF="com/technology/jep/jepria/client/ui/main/MainActivityManager.html" title="class in com.technology.jep.jepria.client.ui.main" target="classFrame">MainActivityManager</A>
 <BR>
@@ -748,6 +742,8 @@ All Classes (JepRia JavaDoc)
 <BR>
 <A HREF="com/technology/jep/jepria/client/ui/eventbus/plain/event/SearchEvent.Handler.html" title="interface in com.technology.jep.jepria.client.ui.eventbus.plain.event" target="classFrame"><I>SearchEvent.Handler</I></A>
 <BR>
+<A HREF="com/technology/jep/jepria/server/security/SecurityFactory.html" title="class in com.technology.jep.jepria.server.security" target="classFrame">SecurityFactory</A>
+<BR>
 <A HREF="com/technology/jep/jepria/client/widget/button/Separator.html" title="class in com.technology.jep.jepria.client.widget.button" target="classFrame">Separator</A>
 <BR>
 <A HREF="com/technology/jep/jepria/server/ServerFactory.html" title="class in com.technology.jep.jepria.server" target="classFrame">ServerFactory</A>
@@ -800,6 +796,8 @@ All Classes (JepRia JavaDoc)
 <BR>
 <A HREF="com/technology/jep/jepria/client/ui/plain/StandardClientFactoryImpl.html" title="class in com.technology.jep.jepria.client.ui.plain" target="classFrame">StandardClientFactoryImpl</A>
 <BR>
+<A HREF="com/technology/jep/jepria/client/ui/form/list/StandardListFormViewImpl.html" title="class in com.technology.jep.jepria.client.ui.form.list" target="classFrame">StandardListFormViewImpl</A>
+<BR>
 <A HREF="com/technology/jep/jepria/client/ui/plain/StandardModulePresenter.html" title="class in com.technology.jep.jepria.client.ui.plain" target="classFrame">StandardModulePresenter</A>
 <BR>
 <A HREF="com/technology/jep/jepria/client/ui/plain/StandardModuleView.html" title="interface in com.technology.jep.jepria.client.ui.plain" target="classFrame"><I>StandardModuleView</I></A>
@@ -809,6 +807,10 @@ All Classes (JepRia JavaDoc)
 <A HREF="com/technology/jep/jepria/client/ui/eventbus/main/event/StartEvent.html" title="class in com.technology.jep.jepria.client.ui.eventbus.main.event" target="classFrame">StartEvent</A>
 <BR>
 <A HREF="com/technology/jep/jepria/client/ui/eventbus/main/event/StartEvent.Handler.html" title="interface in com.technology.jep.jepria.client.ui.eventbus.main.event" target="classFrame"><I>StartEvent.Handler</I></A>
+<BR>
+<A HREF="com/technology/jep/jepria/server/dao/transaction/handler/StartTransactionHandler.html" title="interface in com.technology.jep.jepria.server.dao.transaction.handler" target="classFrame"><I>StartTransactionHandler</I></A>
+<BR>
+<A HREF="com/technology/jep/jepria/server/dao/transaction/handler/StartTransactionHandlerImpl.html" title="class in com.technology.jep.jepria.server.dao.transaction.handler" target="classFrame">StartTransactionHandlerImpl</A>
 <BR>
 <A HREF="com/technology/jep/jepria/auto/widget/statusbar/StatusBar.html" title="interface in com.technology.jep.jepria.auto.widget.statusbar" target="classFrame"><I>StatusBar</I></A>
 <BR>
@@ -828,19 +830,11 @@ All Classes (JepRia JavaDoc)
 <BR>
 <A HREF="com/technology/jep/jepria/server/download/clob/TextFileDownload.html" title="interface in com.technology.jep.jepria.server.download.clob" target="classFrame"><I>TextFileDownload</I></A>
 <BR>
-<A HREF="com/technology/jep/jepria/server/download/clob/TextFileDownloadBean.html" title="class in com.technology.jep.jepria.server.download.clob" target="classFrame">TextFileDownloadBean</A>
-<BR>
-<A HREF="com/technology/jep/jepria/server/download/clob/TextFileDownloadLocal.html" title="interface in com.technology.jep.jepria.server.download.clob" target="classFrame"><I>TextFileDownloadLocal</I></A>
-<BR>
-<A HREF="com/technology/jep/jepria/server/download/clob/TextFileDownloadRemote.html" title="interface in com.technology.jep.jepria.server.download.clob" target="classFrame"><I>TextFileDownloadRemote</I></A>
+<A HREF="com/technology/jep/jepria/server/download/clob/TextFileDownloadImpl.html" title="class in com.technology.jep.jepria.server.download.clob" target="classFrame">TextFileDownloadImpl</A>
 <BR>
 <A HREF="com/technology/jep/jepria/server/upload/clob/TextFileUpload.html" title="interface in com.technology.jep.jepria.server.upload.clob" target="classFrame"><I>TextFileUpload</I></A>
 <BR>
-<A HREF="com/technology/jep/jepria/server/upload/clob/TextFileUploadBean.html" title="class in com.technology.jep.jepria.server.upload.clob" target="classFrame">TextFileUploadBean</A>
-<BR>
-<A HREF="com/technology/jep/jepria/server/upload/clob/TextFileUploadLocal.html" title="interface in com.technology.jep.jepria.server.upload.clob" target="classFrame"><I>TextFileUploadLocal</I></A>
-<BR>
-<A HREF="com/technology/jep/jepria/server/upload/clob/TextFileUploadRemote.html" title="interface in com.technology.jep.jepria.server.upload.clob" target="classFrame"><I>TextFileUploadRemote</I></A>
+<A HREF="com/technology/jep/jepria/server/upload/clob/TextFileUploadImpl.html" title="class in com.technology.jep.jepria.server.upload.clob" target="classFrame">TextFileUploadImpl</A>
 <BR>
 <A HREF="com/technology/jep/jepria/server/db/clob/TextLargeObject.html" title="class in com.technology.jep.jepria.server.db.clob" target="classFrame">TextLargeObject</A>
 <BR>
@@ -853,6 +847,10 @@ All Classes (JepRia JavaDoc)
 <A HREF="com/technology/jep/jepria/client/ui/toolbar/ToolBarView.html" title="interface in com.technology.jep.jepria.client.ui.toolbar" target="classFrame"><I>ToolBarView</I></A>
 <BR>
 <A HREF="com/technology/jep/jepria/client/ui/toolbar/ToolBarViewImpl.html" title="class in com.technology.jep.jepria.client.ui.toolbar" target="classFrame">ToolBarViewImpl</A>
+<BR>
+<A HREF="com/technology/jep/jepria/server/dao/transaction/TransactionFactory.html" title="class in com.technology.jep.jepria.server.dao.transaction" target="classFrame">TransactionFactory</A>
+<BR>
+<A HREF="com/technology/jep/jepria/server/dao/transaction/TransactionFactory.TransactionInvocationHandler.html" title="class in com.technology.jep.jepria.server.dao.transaction" target="classFrame">TransactionFactory.TransactionInvocationHandler</A>
 <BR>
 <A HREF="com/technology/jep/jepria/client/widget/list/cell/TreeCell.html" title="class in com.technology.jep.jepria.client.widget.list.cell" target="classFrame">TreeCell</A>
 <BR>
@@ -887,8 +885,6 @@ All Classes (JepRia JavaDoc)
 <A HREF="com/technology/jep/jepria/auto/Util.html" title="class in com.technology.jep.jepria.auto" target="classFrame">Util</A>
 <BR>
 <A HREF="com/technology/jep/jepria/client/widget/field/validation/Validator.html" title="interface in com.technology.jep.jepria.client.widget.field.validation" target="classFrame"><I>Validator</I></A>
-<BR>
-<A HREF="com/technology/jep/jepria/server/version/VersionServlet.html" title="class in com.technology.jep.jepria.server.version" target="classFrame">VersionServlet</A>
 <BR>
 <A HREF="com/technology/jep/jepria/auto/manager/WDAuto.html" title="interface in com.technology.jep.jepria.auto.manager" target="classFrame"><I>WDAuto</I></A>
 <BR>

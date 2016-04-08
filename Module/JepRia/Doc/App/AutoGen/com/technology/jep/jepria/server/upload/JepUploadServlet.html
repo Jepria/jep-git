@@ -146,14 +146,6 @@ java.lang.Object
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Логгер.</TD>
 </TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>private &nbsp;java.lang.String</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/upload/JepUploadServlet.html#resourceBundleName">resourceBundleName</A></B></CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Имя текстовых ресурсов.</TD>
-</TR>
 </TABLE>
 &nbsp;
 <!-- ======== CONSTRUCTOR SUMMARY ======== -->
@@ -165,9 +157,8 @@ java.lang.Object
 <B>Constructor Summary</B></FONT></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/upload/JepUploadServlet.html#JepUploadServlet(com.technology.jep.jepria.shared.record.lob.JepLobRecordDefinition, java.lang.String, java.lang.String)">JepUploadServlet</A></B>(<A HREF="../../../../../../com/technology/jep/jepria/shared/record/lob/JepLobRecordDefinition.html" title="class in com.technology.jep.jepria.shared.record.lob">JepLobRecordDefinition</A>&nbsp;fileRecordDefinition,
-                 java.lang.String&nbsp;dataSourceJndiName,
-                 java.lang.String&nbsp;resourceBundleName)</CODE>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/upload/JepUploadServlet.html#JepUploadServlet(com.technology.jep.jepria.shared.record.lob.JepLobRecordDefinition, java.lang.String)">JepUploadServlet</A></B>(<A HREF="../../../../../../com/technology/jep/jepria/shared/record/lob/JepLobRecordDefinition.html" title="class in com.technology.jep.jepria.shared.record.lob">JepLobRecordDefinition</A>&nbsp;fileRecordDefinition,
+                 java.lang.String&nbsp;dataSourceJndiName)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Создаёт сервлет загрузки файлов на сервер.</TD>
@@ -307,18 +298,6 @@ private java.lang.String <B>dataSourceJndiName</B></PRE>
 <DL>
 </DL>
 </DL>
-<HR>
-
-<A NAME="resourceBundleName"><!-- --></A><H3>
-resourceBundleName</H3>
-<PRE>
-private java.lang.String <B>resourceBundleName</B></PRE>
-<DL>
-<DD>Имя текстовых ресурсов.
-<P>
-<DL>
-</DL>
-</DL>
 
 <!-- ========= CONSTRUCTOR DETAIL ======== -->
 
@@ -330,17 +309,16 @@ private java.lang.String <B>resourceBundleName</B></PRE>
 </TR>
 </TABLE>
 
-<A NAME="JepUploadServlet(com.technology.jep.jepria.shared.record.lob.JepLobRecordDefinition, java.lang.String, java.lang.String)"><!-- --></A><H3>
+<A NAME="JepUploadServlet(com.technology.jep.jepria.shared.record.lob.JepLobRecordDefinition, java.lang.String)"><!-- --></A><H3>
 JepUploadServlet</H3>
 <PRE>
 public <B>JepUploadServlet</B>(<A HREF="../../../../../../com/technology/jep/jepria/shared/record/lob/JepLobRecordDefinition.html" title="class in com.technology.jep.jepria.shared.record.lob">JepLobRecordDefinition</A>&nbsp;fileRecordDefinition,
-                        java.lang.String&nbsp;dataSourceJndiName,
-                        java.lang.String&nbsp;resourceBundleName)</PRE>
+                        java.lang.String&nbsp;dataSourceJndiName)</PRE>
 <DL>
 <DD>Создаёт сервлет загрузки файлов на сервер.
 <P>
 <DL>
-<DT><B>Parameters:</B><DD><CODE>fileRecordDefinition</CODE> - определение записи<DD><CODE>dataSourceJndiName</CODE> - JNDI-наименование источника данных<DD><CODE>resourceBundleName</CODE> - наименование текстовых ресурсов</DL>
+<DT><B>Parameters:</B><DD><CODE>fileRecordDefinition</CODE> - определение записи<DD><CODE>dataSourceJndiName</CODE> - JNDI-наименование источника данных</DL>
 </DL>
 
 <!-- ============ METHOD DETAIL ========== -->

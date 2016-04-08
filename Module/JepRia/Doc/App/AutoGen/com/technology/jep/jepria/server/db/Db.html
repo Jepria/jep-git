@@ -121,7 +121,7 @@ java.lang.Object
 <TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/db/Db.html#connection">connection</A></B></CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Объект соединения.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -129,7 +129,7 @@ java.lang.Object
 <TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/db/Db.html#dataSourceJndiName">dataSourceJndiName</A></B></CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;JNDI-имя источника данных.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -137,7 +137,7 @@ java.lang.Object
 <TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/db/Db.html#dataSourceMap">dataSourceMap</A></B></CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Хэш-таблица источников данных по их JNDI-именам.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -153,7 +153,7 @@ java.lang.Object
 <TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/db/Db.html#statementsMap">statementsMap</A></B></CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Хэш-таблица statement'ов по SQL-тексту.</TD>
 </TR>
 </TABLE>
 &nbsp;
@@ -169,7 +169,14 @@ java.lang.Object
 <TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/db/Db.html#Db(java.lang.String)">Db</A></B>(java.lang.String&nbsp;dataSourceJndiName)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Создаёт объект соединения с базой с автоматическим коммитом.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/db/Db.html#Db(java.lang.String, boolean)">Db</A></B>(java.lang.String&nbsp;dataSourceJndiName,
+   boolean&nbsp;autoCommit)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Создаёт объект соединения с базой.</TD>
 </TR>
 </TABLE>
 &nbsp;
@@ -187,23 +194,7 @@ java.lang.Object
 <TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/db/Db.html#closeAll()">closeAll</A></B>()</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Метод закрывает все ресурсы связанные с данным Db: connection и все курсоры из statementsMap.</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/db/Db.html#closeConnection(java.sql.Connection)">closeConnection</A></B>(java.sql.Connection&nbsp;dbConnection)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/db/Db.html#closeConnection(java.lang.String)">closeConnection</A></B>(java.lang.String&nbsp;dataSourceJndiName)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Метод закрывает все ресурсы, связанные с данным Db: connection и все курсоры из statementsMap.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -211,7 +202,7 @@ java.lang.Object
 <TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/db/Db.html#closeStatement(java.lang.String)">closeStatement</A></B>(java.lang.String&nbsp;sql)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Закрытие statement.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -219,7 +210,7 @@ java.lang.Object
 <TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/db/Db.html#commit()">commit</A></B>()</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Фиксация (commit) транзакции.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -227,7 +218,7 @@ java.lang.Object
 <TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/db/Db.html#createConnection(java.lang.String)">createConnection</A></B>(java.lang.String&nbsp;dataSourceJndiName)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Фабричный метод, создающий соединение JDBC.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -235,7 +226,7 @@ java.lang.Object
 <TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/db/Db.html#getConnection()">getConnection</A></B>()</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Получение соединения JDBC.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -243,7 +234,7 @@ java.lang.Object
 <TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/db/Db.html#isClosed()">isClosed</A></B>()</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Проверяет, содержит ли данный объект открытое подключение JDBC.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -251,7 +242,7 @@ java.lang.Object
 <TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/db/Db.html#prepare(java.lang.String)">prepare</A></B>(java.lang.String&nbsp;sql)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Подготавливает Statement</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Извлекает statement из хэш-таблицы или создаёт при отсутствии.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -259,7 +250,7 @@ java.lang.Object
 <TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/db/Db.html#rollback()">rollback</A></B>()</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Откат (rollback) транзакции.</TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>
@@ -299,6 +290,8 @@ dataSourceMap</H3>
 <PRE>
 private static java.util.Map&lt;java.lang.String,javax.sql.DataSource&gt; <B>dataSourceMap</B></PRE>
 <DL>
+<DD>Хэш-таблица источников данных по их JNDI-именам.
+<P>
 <DL>
 </DL>
 </DL>
@@ -309,6 +302,9 @@ connection</H3>
 <PRE>
 private java.sql.Connection <B>connection</B></PRE>
 <DL>
+<DD>Объект соединения.
+ Не должен быть доступен извне.
+<P>
 <DL>
 </DL>
 </DL>
@@ -319,6 +315,8 @@ dataSourceJndiName</H3>
 <PRE>
 private java.lang.String <B>dataSourceJndiName</B></PRE>
 <DL>
+<DD>JNDI-имя источника данных.
+<P>
 <DL>
 </DL>
 </DL>
@@ -329,6 +327,9 @@ statementsMap</H3>
 <PRE>
 private java.util.concurrent.ConcurrentHashMap&lt;java.lang.String,java.sql.CallableStatement&gt; <B>statementsMap</B></PRE>
 <DL>
+<DD>Хэш-таблица statement'ов по SQL-тексту.
+ Необходима для хранения открытых курсоров.
+<P>
 <DL>
 </DL>
 </DL>
@@ -348,6 +349,23 @@ Db</H3>
 <PRE>
 public <B>Db</B>(java.lang.String&nbsp;dataSourceJndiName)</PRE>
 <DL>
+<DD>Создаёт объект соединения с базой с автоматическим коммитом.
+<P>
+<DL>
+<DT><B>Parameters:</B><DD><CODE>dataSourceJndiName</CODE> - JNDI-имя источника данных</DL>
+</DL>
+<HR>
+
+<A NAME="Db(java.lang.String, boolean)"><!-- --></A><H3>
+Db</H3>
+<PRE>
+public <B>Db</B>(java.lang.String&nbsp;dataSourceJndiName,
+          boolean&nbsp;autoCommit)</PRE>
+<DL>
+<DD>Создаёт объект соединения с базой.
+<P>
+<DL>
+<DT><B>Parameters:</B><DD><CODE>dataSourceJndiName</CODE> - JNDI-имя источника данных<DD><CODE>autoCommit</CODE> - если true, все изменения автоматически коммитятся</DL>
 </DL>
 
 <!-- ============ METHOD DETAIL ========== -->
@@ -363,15 +381,13 @@ public <B>Db</B>(java.lang.String&nbsp;dataSourceJndiName)</PRE>
 <A NAME="prepare(java.lang.String)"><!-- --></A><H3>
 prepare</H3>
 <PRE>
-public java.sql.CallableStatement <B>prepare</B>(java.lang.String&nbsp;sql)
-                                   throws java.sql.SQLException</PRE>
+public java.sql.CallableStatement <B>prepare</B>(java.lang.String&nbsp;sql)</PRE>
 <DL>
-<DD>Подготавливает Statement
+<DD>Извлекает statement из хэш-таблицы или создаёт при отсутствии.
 <P>
 <DD><DL>
-
-<DT><B>Throws:</B>
-<DD><CODE>java.sql.SQLException</CODE></DL>
+<DT><B>Parameters:</B><DD><CODE>sql</CODE> - SQL-шаблон
+<DT><B>Returns:</B><DD>объект statement</DL>
 </DD>
 </DL>
 <HR>
@@ -381,8 +397,8 @@ closeAll</H3>
 <PRE>
 public void <B>closeAll</B>()</PRE>
 <DL>
-<DD>Метод закрывает все ресурсы связанные с данным Db: connection и все курсоры из statementsMap.
- Метод должен вызываться в конце сессии пользователя
+<DD>Метод закрывает все ресурсы, связанные с данным Db: connection и все курсоры из statementsMap.
+ Должен вызываться в конце сессии пользователя.
 <P>
 <DD><DL>
 </DL>
@@ -395,8 +411,28 @@ closeStatement</H3>
 <PRE>
 public boolean <B>closeStatement</B>(java.lang.String&nbsp;sql)</PRE>
 <DL>
+<DD>Закрытие statement.<br/>
+ При возникновении исключения <code>SQLException</code> оно лишь логгируется.
+<P>
 <DD><DL>
+<DT><B>Parameters:</B><DD><CODE>sql</CODE> - SQL-код
+<DT><B>Returns:</B><DD><code>true</code>, если соединение существовало, <code>false</code> в противном случае</DL>
+</DD>
 </DL>
+<HR>
+
+<A NAME="commit()"><!-- --></A><H3>
+commit</H3>
+<PRE>
+public void <B>commit</B>()
+            throws java.sql.SQLException</PRE>
+<DL>
+<DD>Фиксация (commit) транзакции.
+<P>
+<DD><DL>
+
+<DT><B>Throws:</B>
+<DD><CODE>java.sql.SQLException</CODE> - в случае возникновения ошибки взаимодействия с базой</DL>
 </DD>
 </DL>
 <HR>
@@ -406,6 +442,11 @@ rollback</H3>
 <PRE>
 public void <B>rollback</B>()</PRE>
 <DL>
+<DD>Откат (rollback) транзакции.<br/>
+ В случае возникновения ошибки исключение не выбрасывается, а лишь записывается в лог.
+ Откат сам по себе происходит в результате некоей ошибки. Если вызов отката
+ привёл ещё к одному исключению, не остаётся уже ничего, кроме как закрыть соединение.
+<P>
 <DD><DL>
 </DL>
 </DD>
@@ -417,8 +458,12 @@ getConnection</H3>
 <PRE>
 private java.sql.Connection <B>getConnection</B>()</PRE>
 <DL>
+<DD>Получение соединения JDBC.<br/>
+ Если соединение закрыто или не создано, оно создаётся.
+<P>
 <DD><DL>
-</DL>
+
+<DT><B>Returns:</B><DD>соединение JDBC</DL>
 </DD>
 </DL>
 <HR>
@@ -428,8 +473,14 @@ createConnection</H3>
 <PRE>
 private static java.sql.Connection <B>createConnection</B>(java.lang.String&nbsp;dataSourceJndiName)</PRE>
 <DL>
+<DD>Фабричный метод, создающий соединение JDBC.
+ Поиск источника данных JDBC осуществляется по JNDI. Найденный источник заносится
+ в хэш-таблицу и при повторном вызове берётся из неё, поэтому метод имеет
+ модификатор <code>synchronized</code>.
+<P>
 <DD><DL>
-</DL>
+<DT><B>Parameters:</B><DD><CODE>dataSourceJndiName</CODE> - JNDI-имя источника данных
+<DT><B>Returns:</B><DD>соединение JDBC</DL>
 </DD>
 </DL>
 <HR>
@@ -439,44 +490,11 @@ isClosed</H3>
 <PRE>
 private boolean <B>isClosed</B>()</PRE>
 <DL>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="commit()"><!-- --></A><H3>
-commit</H3>
-<PRE>
-public void <B>commit</B>()
-            throws java.sql.SQLException</PRE>
-<DL>
+<DD>Проверяет, содержит ли данный объект открытое подключение JDBC.
+<P>
 <DD><DL>
 
-<DT><B>Throws:</B>
-<DD><CODE>java.sql.SQLException</CODE></DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="closeConnection(java.sql.Connection)"><!-- --></A><H3>
-closeConnection</H3>
-<PRE>
-public static void <B>closeConnection</B>(java.sql.Connection&nbsp;dbConnection)</PRE>
-<DL>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="closeConnection(java.lang.String)"><!-- --></A><H3>
-closeConnection</H3>
-<PRE>
-public static void <B>closeConnection</B>(java.lang.String&nbsp;dataSourceJndiName)</PRE>
-<DL>
-<DD><DL>
-</DL>
+<DT><B>Returns:</B><DD><code>true</code>, если соединение не создано или закрыто, <code>false</code> в противном случае</DL>
 </DD>
 </DL>
 <!-- ========= END OF CLASS DATA ========= -->

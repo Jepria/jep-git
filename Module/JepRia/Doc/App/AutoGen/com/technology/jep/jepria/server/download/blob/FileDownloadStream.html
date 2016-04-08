@@ -53,7 +53,7 @@ function windowTitle()
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="../../../../../../../com/technology/jep/jepria/server/download/blob/BinaryFileDownloadRemote.html" title="interface in com.technology.jep.jepria.server.download.blob"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../../../../../com/technology/jep/jepria/server/download/blob/BinaryFileDownloadImpl.html" title="class in com.technology.jep.jepria.server.download.blob"><B>PREV CLASS</B></A>&nbsp;
 &nbsp;NEXT CLASS</FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../../../../../../index.html?com/technology/jep/jepria/server/download/blob/FileDownloadStream.html" target="_top"><B>FRAMES</B></A>  &nbsp;
@@ -110,7 +110,7 @@ java.lang.Object
  Пример использования:
  
  // Получим объект, реализующий интерфейс FileDownload
- BinaryFileDownloadLocal download = (BinaryFileDownloadLocal) new InitialContext().lookup(DOWNLOAD_BEAN_JNDI_NAME);
+ BinaryFileDownload download = new BinaryFileDownloadImpl();
  
  // Передаем в метод поток для записи в файл, объект download,
  // имя таблицы, имя поля LOB, имя ключевого поля, значение ключа
@@ -122,8 +122,7 @@ java.lang.Object
                                 , LOB_FIELD_NAME
                                 , KEY_FIELD_NAME
                                 , new BigDecimal(loadTaskId.intValue())
-                                , DATA_SOURCE_JNDI_NAME
-                                , RESOURCE_BUNDLE_NAME);
+                                , DATA_SOURCE_JNDI_NAME);
  </pre>
 <P>
 
@@ -184,14 +183,13 @@ java.lang.Object
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/server/download/blob/FileDownloadStream.html#downloadFile(java.io.OutputStream, com.technology.jep.jepria.server.download.FileDownload, java.lang.String, java.lang.String, java.lang.String, java.lang.Object, java.lang.String, java.lang.String)">downloadFile</A></B>(java.io.OutputStream&nbsp;fileStream,
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/server/download/blob/FileDownloadStream.html#downloadFile(java.io.OutputStream, com.technology.jep.jepria.server.download.FileDownload, java.lang.String, java.lang.String, java.lang.String, java.lang.Object, java.lang.String)">downloadFile</A></B>(java.io.OutputStream&nbsp;fileStream,
              <A HREF="../../../../../../../com/technology/jep/jepria/server/download/FileDownload.html" title="interface in com.technology.jep.jepria.server.download">FileDownload</A>&nbsp;fileDownload,
              java.lang.String&nbsp;tableName,
              java.lang.String&nbsp;fileFieldName,
              java.lang.String&nbsp;keyFieldName,
              java.lang.Object&nbsp;rowId,
-             java.lang.String&nbsp;dataSourceJndiName,
-             java.lang.String&nbsp;resourceBundleName)</CODE>
+             java.lang.String&nbsp;dataSourceJndiName)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Выгрузка файла в выходной поток из поля BINARY_FILE таблицы базы данных.</TD>
@@ -202,7 +200,7 @@ java.lang.Object
 <TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/server/download/blob/FileDownloadStream.html#read()">read</A></B>()</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -210,7 +208,7 @@ java.lang.Object
 <TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/server/download/blob/FileDownloadStream.html#read(byte[])">read</A></B>(byte[]&nbsp;b)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -220,7 +218,7 @@ java.lang.Object
      int&nbsp;len)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_java.io.InputStream"><!-- --></A>
@@ -326,6 +324,8 @@ public int <B>read</B>(byte[]&nbsp;b,
                 int&nbsp;len)
          throws java.io.IOException</PRE>
 <DL>
+<DD>
+<P>
 <DD><DL>
 <DT><B>Overrides:</B><DD><CODE>read</CODE> in class <CODE>java.io.InputStream</CODE></DL>
 </DD>
@@ -343,6 +343,8 @@ read</H3>
 public int <B>read</B>(byte[]&nbsp;b)
          throws java.io.IOException</PRE>
 <DL>
+<DD>
+<P>
 <DD><DL>
 <DT><B>Overrides:</B><DD><CODE>read</CODE> in class <CODE>java.io.InputStream</CODE></DL>
 </DD>
@@ -360,6 +362,8 @@ read</H3>
 public int <B>read</B>()
          throws java.io.IOException</PRE>
 <DL>
+<DD>
+<P>
 <DD><DL>
 <DT><B>Specified by:</B><DD><CODE>read</CODE> in class <CODE>java.io.InputStream</CODE></DL>
 </DD>
@@ -371,7 +375,7 @@ public int <B>read</B>()
 </DL>
 <HR>
 
-<A NAME="downloadFile(java.io.OutputStream, com.technology.jep.jepria.server.download.FileDownload, java.lang.String, java.lang.String, java.lang.String, java.lang.Object, java.lang.String, java.lang.String)"><!-- --></A><H3>
+<A NAME="downloadFile(java.io.OutputStream, com.technology.jep.jepria.server.download.FileDownload, java.lang.String, java.lang.String, java.lang.String, java.lang.Object, java.lang.String)"><!-- --></A><H3>
 downloadFile</H3>
 <PRE>
 public static void <B>downloadFile</B>(java.io.OutputStream&nbsp;fileStream,
@@ -380,14 +384,13 @@ public static void <B>downloadFile</B>(java.io.OutputStream&nbsp;fileStream,
                                 java.lang.String&nbsp;fileFieldName,
                                 java.lang.String&nbsp;keyFieldName,
                                 java.lang.Object&nbsp;rowId,
-                                java.lang.String&nbsp;dataSourceJndiName,
-                                java.lang.String&nbsp;resourceBundleName)
+                                java.lang.String&nbsp;dataSourceJndiName)
                          throws java.io.IOException</PRE>
 <DL>
 <DD>Выгрузка файла в выходной поток из поля BINARY_FILE таблицы базы данных.
 <P>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>fileStream</CODE> - выходной поток записи файла<DD><CODE>fileDownload</CODE> - интерфейс выгрузки файла<DD><CODE>tableName</CODE> - имя таблицы, откуда берем BINARY_FILE<DD><CODE>fileFieldName</CODE> - имя атрибута в таблице, откуда берем BINARY_FILE<DD><CODE>keyFieldName</CODE> - PK в таблице tableName<DD><CODE>rowId</CODE> - идентификатор строки таблицы<DD><CODE>dataSourceJndiName</CODE> - имя источника данных<DD><CODE>resourceBundleName</CODE> - имя ресурсов
+<DT><B>Parameters:</B><DD><CODE>fileStream</CODE> - выходной поток записи файла<DD><CODE>fileDownload</CODE> - интерфейс выгрузки файла<DD><CODE>tableName</CODE> - имя таблицы, откуда берем BINARY_FILE<DD><CODE>fileFieldName</CODE> - имя атрибута в таблице, откуда берем BINARY_FILE<DD><CODE>keyFieldName</CODE> - PK в таблице tableName<DD><CODE>rowId</CODE> - идентификатор строки таблицы<DD><CODE>dataSourceJndiName</CODE> - имя источника данных
 <DT><B>Throws:</B>
 <DD><CODE>java.io.IOException</CODE></DL>
 </DD>
@@ -422,7 +425,7 @@ public static void <B>downloadFile</B>(java.io.OutputStream&nbsp;fileStream,
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="../../../../../../../com/technology/jep/jepria/server/download/blob/BinaryFileDownloadRemote.html" title="interface in com.technology.jep.jepria.server.download.blob"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../../../../../com/technology/jep/jepria/server/download/blob/BinaryFileDownloadImpl.html" title="class in com.technology.jep.jepria.server.download.blob"><B>PREV CLASS</B></A>&nbsp;
 &nbsp;NEXT CLASS</FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../../../../../../index.html?com/technology/jep/jepria/server/download/blob/FileDownloadStream.html" target="_top"><B>FRAMES</B></A>  &nbsp;

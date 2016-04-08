@@ -53,7 +53,7 @@ function windowTitle()
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="../../../../../../com/technology/jep/jepria/server/upload/AbstractFileUploadBean.html" title="class in com.technology.jep.jepria.server.upload"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../../../../com/technology/jep/jepria/server/upload/AbstractFileUpload.html" title="class in com.technology.jep.jepria.server.upload"><B>PREV CLASS</B></A>&nbsp;
 &nbsp;<A HREF="../../../../../../com/technology/jep/jepria/server/upload/JepUploadServlet.html" title="class in com.technology.jep.jepria.server.upload"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../../../../../index.html?com/technology/jep/jepria/server/upload/FileUpload.html" target="_top"><B>FRAMES</B></A>  &nbsp;
@@ -90,10 +90,10 @@ com.technology.jep.jepria.server.upload</FONT>
 <BR>
 Interface FileUpload</H2>
 <DL>
-<DT><B>All Known Subinterfaces:</B> <DD><A HREF="../../../../../../com/technology/jep/jepria/server/upload/blob/BinaryFileUpload.html" title="interface in com.technology.jep.jepria.server.upload.blob">BinaryFileUpload</A>, <A HREF="../../../../../../com/technology/jep/jepria/server/upload/blob/BinaryFileUploadLocal.html" title="interface in com.technology.jep.jepria.server.upload.blob">BinaryFileUploadLocal</A>, <A HREF="../../../../../../com/technology/jep/jepria/server/upload/blob/BinaryFileUploadRemote.html" title="interface in com.technology.jep.jepria.server.upload.blob">BinaryFileUploadRemote</A>, <A HREF="../../../../../../com/technology/jep/jepria/server/upload/clob/TextFileUpload.html" title="interface in com.technology.jep.jepria.server.upload.clob">TextFileUpload</A>, <A HREF="../../../../../../com/technology/jep/jepria/server/upload/clob/TextFileUploadLocal.html" title="interface in com.technology.jep.jepria.server.upload.clob">TextFileUploadLocal</A>, <A HREF="../../../../../../com/technology/jep/jepria/server/upload/clob/TextFileUploadRemote.html" title="interface in com.technology.jep.jepria.server.upload.clob">TextFileUploadRemote</A></DD>
+<DT><B>All Known Subinterfaces:</B> <DD><A HREF="../../../../../../com/technology/jep/jepria/server/upload/blob/BinaryFileUpload.html" title="interface in com.technology.jep.jepria.server.upload.blob">BinaryFileUpload</A>, <A HREF="../../../../../../com/technology/jep/jepria/server/upload/clob/TextFileUpload.html" title="interface in com.technology.jep.jepria.server.upload.clob">TextFileUpload</A></DD>
 </DL>
 <DL>
-<DT><B>All Known Implementing Classes:</B> <DD><A HREF="../../../../../../com/technology/jep/jepria/server/upload/AbstractFileUploadBean.html" title="class in com.technology.jep.jepria.server.upload">AbstractFileUploadBean</A>, <A HREF="../../../../../../com/technology/jep/jepria/server/upload/blob/BinaryFileUploadBean.html" title="class in com.technology.jep.jepria.server.upload.blob">BinaryFileUploadBean</A>, <A HREF="../../../../../../com/technology/jep/jepria/server/upload/clob/TextFileUploadBean.html" title="class in com.technology.jep.jepria.server.upload.clob">TextFileUploadBean</A></DD>
+<DT><B>All Known Implementing Classes:</B> <DD><A HREF="../../../../../../com/technology/jep/jepria/server/upload/AbstractFileUpload.html" title="class in com.technology.jep.jepria.server.upload">AbstractFileUpload</A>, <A HREF="../../../../../../com/technology/jep/jepria/server/upload/blob/BinaryFileUploadImpl.html" title="class in com.technology.jep.jepria.server.upload.blob">BinaryFileUploadImpl</A>, <A HREF="../../../../../../com/technology/jep/jepria/server/upload/clob/TextFileUploadImpl.html" title="class in com.technology.jep.jepria.server.upload.clob">TextFileUploadImpl</A></DD>
 </DL>
 <HR>
 <DL>
@@ -120,12 +120,19 @@ Interface FileUpload</H2>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;int</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/upload/FileUpload.html#beginWrite(java.lang.String, java.lang.String, java.lang.String, java.lang.Object, java.lang.String, java.lang.String)">beginWrite</A></B>(java.lang.String&nbsp;tableName,
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/upload/FileUpload.html#beginWrite(java.lang.Object)">beginWrite</A></B>(java.lang.Object&nbsp;rowId)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Функция-обертка для <A HREF="../../../../../../com/technology/jep/jepria/server/upload/FileUpload.html#beginWrite(java.lang.String, java.lang.String, java.lang.String, java.lang.Object, java.lang.String)"><CODE>beginWrite(String tableName, String fileFieldName, String keyFieldName, Object rowId, String dataSourceJndiName)</CODE></A>.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;int</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/upload/FileUpload.html#beginWrite(java.lang.String, java.lang.String, java.lang.String, java.lang.Object, java.lang.String)">beginWrite</A></B>(java.lang.String&nbsp;tableName,
            java.lang.String&nbsp;fileFieldName,
            java.lang.String&nbsp;keyFieldName,
            java.lang.Object&nbsp;rowId,
-           java.lang.String&nbsp;dataSourceJndiName,
-           java.lang.String&nbsp;resourceBundleName)</CODE>
+           java.lang.String&nbsp;dataSourceJndiName)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Начало длинной транзакции записи файла в LOB.</TD>
@@ -160,21 +167,46 @@ Interface FileUpload</H2>
 </TR>
 </TABLE>
 
-<A NAME="beginWrite(java.lang.String, java.lang.String, java.lang.String, java.lang.Object, java.lang.String, java.lang.String)"><!-- --></A><H3>
+<A NAME="beginWrite(java.lang.String, java.lang.String, java.lang.String, java.lang.Object, java.lang.String)"><!-- --></A><H3>
 beginWrite</H3>
 <PRE>
 int <B>beginWrite</B>(java.lang.String&nbsp;tableName,
                java.lang.String&nbsp;fileFieldName,
                java.lang.String&nbsp;keyFieldName,
                java.lang.Object&nbsp;rowId,
-               java.lang.String&nbsp;dataSourceJndiName,
-               java.lang.String&nbsp;resourceBundleName)
+               java.lang.String&nbsp;dataSourceJndiName)
                throws <A HREF="../../../../../../com/technology/jep/jepria/shared/exceptions/ApplicationException.html" title="class in com.technology.jep.jepria.shared.exceptions">ApplicationException</A></PRE>
 <DL>
 <DD>Начало длинной транзакции записи файла в LOB.
 <P>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>tableName</CODE> - имя таблицы, в которую выполняется запись<DD><CODE>fileFieldName</CODE> - имя поля, в которое выполняется запись<DD><CODE>keyFieldName</CODE> - имя поля, идентифицирующего строку таблицы<DD><CODE>rowId</CODE> - идентификатор строки таблицы<DD><CODE>dataSourceJndiName</CODE> - JNDI-имя источника данных модуля<DD><CODE>resourceBundleName</CODE> - идентификатор файла ресурсов
+<DT><B>Parameters:</B><DD><CODE>tableName</CODE> - имя таблицы, в которую выполняется запись<DD><CODE>fileFieldName</CODE> - имя поля, в которое выполняется запись<DD><CODE>keyFieldName</CODE> - имя поля, идентифицирующего строку таблицы<DD><CODE>rowId</CODE> - идентификатор строки таблицы<DD><CODE>dataSourceJndiName</CODE> - JNDI-имя источника данных модуля
+<DT><B>Returns:</B><DD>рекомендуемый размер буфера
+<DT><B>Throws:</B>
+<DD><CODE><A HREF="../../../../../../com/technology/jep/jepria/shared/exceptions/ApplicationException.html" title="class in com.technology.jep.jepria.shared.exceptions">ApplicationException</A></CODE></DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="beginWrite(java.lang.Object)"><!-- --></A><H3>
+beginWrite</H3>
+<PRE>
+int <B>beginWrite</B>(java.lang.Object&nbsp;rowId)
+               throws <A HREF="../../../../../../com/technology/jep/jepria/shared/exceptions/ApplicationException.html" title="class in com.technology.jep.jepria.shared.exceptions">ApplicationException</A></PRE>
+<DL>
+<DD>Функция-обертка для <A HREF="../../../../../../com/technology/jep/jepria/server/upload/FileUpload.html#beginWrite(java.lang.String, java.lang.String, java.lang.String, java.lang.Object, java.lang.String)"><CODE>beginWrite(String tableName, String fileFieldName, String keyFieldName, Object rowId, String dataSourceJndiName)</CODE></A>.
+ В классе реализации в конкретном модуле данный метод перегружаем вызывая в нем 
+ <A HREF="../../../../../../com/technology/jep/jepria/server/upload/FileUpload.html#beginWrite(java.lang.String, java.lang.String, java.lang.String, java.lang.Object, java.lang.String)"><CODE>beginWrite(String tableName, String fileFieldName, String keyFieldName, Object rowId, String dataSourceJndiName)</CODE></A>
+ с подставленными из констант класса реализации параметрами:<br/>
+ <code>
+ tableName,<br/>
+ fileFieldName,<br/>
+ keyFieldName,<br/>
+ dataSourceJndiName<br/>
+ </code>.
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>rowId</CODE> - идентификатор строки таблицы
 <DT><B>Returns:</B><DD>рекомендуемый размер буфера
 <DT><B>Throws:</B>
 <DD><CODE><A HREF="../../../../../../com/technology/jep/jepria/shared/exceptions/ApplicationException.html" title="class in com.technology.jep.jepria.shared.exceptions">ApplicationException</A></CODE></DL>
@@ -206,8 +238,6 @@ cancel</H3>
 void <B>cancel</B>()</PRE>
 <DL>
 <DD>Откат длинной транзакции.
- После выполнения этого метода stateful bean должен быть удалён. 
- Для удаления bean необходимо в классе реализации перед методом указать декларацию Remove.
 <P>
 <DD><DL>
 </DL>
@@ -243,7 +273,7 @@ void <B>cancel</B>()</PRE>
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="../../../../../../com/technology/jep/jepria/server/upload/AbstractFileUploadBean.html" title="class in com.technology.jep.jepria.server.upload"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../../../../com/technology/jep/jepria/server/upload/AbstractFileUpload.html" title="class in com.technology.jep.jepria.server.upload"><B>PREV CLASS</B></A>&nbsp;
 &nbsp;<A HREF="../../../../../../com/technology/jep/jepria/server/upload/JepUploadServlet.html" title="class in com.technology.jep.jepria.server.upload"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../../../../../index.html?com/technology/jep/jepria/server/upload/FileUpload.html" target="_top"><B>FRAMES</B></A>  &nbsp;

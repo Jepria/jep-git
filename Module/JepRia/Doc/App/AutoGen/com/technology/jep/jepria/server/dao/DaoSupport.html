@@ -53,7 +53,7 @@ function windowTitle()
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="../../../../../../com/technology/jep/jepria/server/dao/AutoRefreshResultSetMapper.html" title="class in com.technology.jep.jepria.server.dao"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../../../../com/technology/jep/jepria/server/dao/CallContext.html" title="class in com.technology.jep.jepria.server.dao"><B>PREV CLASS</B></A>&nbsp;
 &nbsp;<A HREF="../../../../../../com/technology/jep/jepria/server/dao/DaoSupport.ExecutionType.html" title="enum in com.technology.jep.jepria.server.dao"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../../../../../index.html?com/technology/jep/jepria/server/dao/DaoSupport.html" target="_top"><B>FRAMES</B></A>  &nbsp;
@@ -99,31 +99,30 @@ java.lang.Object
 </PRE>
 
 <P>
-<pre>
- Класс предназначен для облегчения работы с jdbc.
+Класс предназначен для облегчения работы с jdbc.<br/>
  
+ <pre>
  Примеры использования:
  
  1. Пример использования метода create.
  
-     Integer recordId = DaoSupport.<Integer>create(sqlQuery, sessionContext, DATA_SOURCE_JNDI_NAME,
-       RESOURCE_BUNDLE_NAME, divisionId, branchId, employeeId, periodTypeCode, periodNumber, periodYear,
+     Integer recordId = DaoSupport.<Integer>create(sqlQuery,
+       divisionId, branchId, employeeId, periodTypeCode, periodNumber, periodYear,
        operatorId);
 
  2. Пример использования метода execute.
  
-     DaoSupport.execute(sqlQuery, sessionContext, DATA_SOURCE_JNDI_NAME,
-       RESOURCE_BUNDLE_NAME, divisionId, branchId, employeeId, periodTypeCode, periodNumber, periodYear,
+     DaoSupport.execute(sqlQuery,
+       divisionId, branchId, employeeId, periodTypeCode, periodNumber, periodYear,
        operatorId);
        
-     String result = DaoSupport.execute(sqlQuery, sessionContext, DATA_SOURCE_JNDI_NAME,
-       RESOURCE_BUNDLE_NAME, String.class, divisionId, branchId, employeeId, periodTypeCode, periodNumber, periodYear,
+     String result = DaoSupport.execute(sqlQuery,
+       String.class, divisionId, branchId, employeeId, periodTypeCode, periodNumber, periodYear,
        operatorId);
  
  3. Пример использования метода find.
  
-     List<ExportTaskDto> exportTaskList = DaoSupport.find(sqlQuery, sessionContext, DATA_SOURCE_JNDI_NAME,
-       RESOURCE_BUNDLE_NAME, 
+     List<ExportTaskDto> exportTaskList = DaoSupport.find(sqlQuery,
         new ResultSetMapper<ExportTaskDto>() {
         public void map(ResultSet rs, ExportTaskDto dto) throws SQLException {
           dto.setTaskId(getInteger(rs, "task_id")); // Обратите внимание на то, как достается значение типа Integer из ResultSet
@@ -132,7 +131,7 @@ java.lang.Object
           dto.setFormNameRus(rs.getString("form_name_rus"));
           dto.setTaskStatusCode(rs.getString("task_status_code"));
           dto.setTaskStatusName(rs.getString("task_status_name"));
-          dto.setTaskCreateDate(getTimestamp(rs, "task_create_date")); // Обратите внимание на то, как достается значение типа Timestamp из ResultSet
+          dto.setTaskCreateDate(getDate(rs, "task_create_date")); // Обратите внимание на то, как достается значение типа Timestamp из ResultSet
           dto.setTaskOperatorId(getInteger(rs, "task_operator_id"));
           dto.setTaskOperatorName(rs.getString("task_operator_name"));
           dto.setTaskParamsStr(rs.getString("task_params_str"));
@@ -141,16 +140,15 @@ java.lang.Object
         }
       }, ExportTaskDto.class, taskId, exportTaskTypeId, processName, beginDate, endDate, operatorId);
       
-    Использование методов getInteger и getTimestamp необходимо для корректного получение данных из ResultSet (см. JavaDoc к данным методам).
+    Использование методов getInteger и getDate необходимо для корректного получения данных из ResultSet (см. JavaDoc к данным методам).
 
  4. Пример использования метода select.
  
-     List<PositionTypeDto> positionTypeList = DaoSupport.<PositionTypeDto>select(sqlQuery, sessionContext,
-      DATA_SOURCE_JNDI_NAME, RESOURCE_BUNDLE_NAME,
+     List<PositionTypeDto> positionTypeList = DaoSupport.<PositionTypeDto>select(sqlQuery,
       new ResultSetMapper<PositionTypeDto>() {
         public void map(ResultSet rs, PositionTypeDto dto)
             throws SQLException {
-          dto.setPositionTypeId(rs.getInt("position_type_id"));
+          dto.setPositionTypeId(getInteger(rs, "position_type_id"));
           dto.setPositionTypeNameRus(rs.getString("position_type_name_rus"));
           dto.setPositionTypeNameEng(rs.getString("position_type_name_eng"));
         }
@@ -158,14 +156,17 @@ java.lang.Object
  
  5. Пример использования метода update.
  
-     DaoSupport.update(sqlQuery, sessionContext, DATA_SOURCE_JNDI_NAME, RESOURCE_BUNDLE_NAME, 
-      taskId, operatorId);
+     DaoSupport.update(sqlQuery, taskId, operatorId);
         
  6. Пример использования метода delete.
  
-     DaoSupport.delete(sqlQuery, sessionContext, DATA_SOURCE_JNDI_NAME, RESOURCE_BUNDLE_NAME, 
-      taskId, operatorId);
+     DaoSupport.delete(sqlQuery, taskId, operatorId);
  </pre>
+     
+ ВАЖНО: Перед использованием методов необходимо предварительно
+ вызвать <A HREF="../../../../../../com/technology/jep/jepria/server/dao/CallContext.html#begin(java.lang.String)"><CODE>CallContext.begin(String)</CODE></A> для старта транзакции, далее
+ <A HREF="../../../../../../com/technology/jep/jepria/server/dao/CallContext.html#commit()"><CODE>CallContext.commit()</CODE></A> либо <A HREF="../../../../../../com/technology/jep/jepria/server/dao/CallContext.html#rollback()"><CODE>CallContext.rollback()</CODE></A>. После завершения
+ необходимо освободить ресурсы с помощью <A HREF="../../../../../../com/technology/jep/jepria/server/dao/CallContext.html#end()"><CODE>CallContext.end()</CODE></A>.
 <P>
 
 <P>
@@ -186,8 +187,7 @@ java.lang.Object
 <TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/dao/DaoSupport.ExecutionType.html" title="enum in com.technology.jep.jepria.server.dao">DaoSupport.ExecutionType</A></B></CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Данный перечислимый тип содержит тип, определяющий работаем мы с
- sql-выражением или sql-запросом.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Возможные типы выполнения запроса в методе <A HREF="../../../../../../com/technology/jep/jepria/server/dao/DaoSupport.html#setParamsAndExecute(java.sql.CallableStatement, com.technology.jep.jepria.server.dao.DaoSupport.ExecutionType, java.lang.Object...)"><CODE>setParamsAndExecute(java.sql.CallableStatement, com.technology.jep.jepria.server.dao.DaoSupport.ExecutionType, java.lang.Object...)</CODE></A>.</TD>
 </TR>
 </TABLE>
 &nbsp;<!-- =========== FIELD SUMMARY =========== -->
@@ -242,10 +242,7 @@ java.lang.Object
 </TR>
 </TABLE>
 </CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/dao/DaoSupport.html#create(java.lang.String, javax.ejb.SessionContext, java.lang.String, java.lang.String, java.lang.Class, java.lang.Object...)">create</A></B>(java.lang.String&nbsp;query,
-       javax.ejb.SessionContext&nbsp;sessionContext,
-       java.lang.String&nbsp;dataSourceJndiName,
-       java.lang.String&nbsp;resourceBundleName,
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/dao/DaoSupport.html#create(java.lang.String, java.lang.Class, java.lang.Object...)">create</A></B>(java.lang.String&nbsp;query,
        java.lang.Class&lt;T&gt;&nbsp;resultTypeClass,
        java.lang.Object...&nbsp;params)</CODE>
 
@@ -255,10 +252,7 @@ java.lang.Object
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/dao/DaoSupport.html#delete(java.lang.String, javax.ejb.SessionContext, java.lang.String, java.lang.String, java.lang.Object...)">delete</A></B>(java.lang.String&nbsp;query,
-       javax.ejb.SessionContext&nbsp;sessionContext,
-       java.lang.String&nbsp;dataSourceJndiName,
-       java.lang.String&nbsp;resourceBundleName,
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/dao/DaoSupport.html#delete(java.lang.String, java.lang.Object...)">delete</A></B>(java.lang.String&nbsp;query,
        java.lang.Object...&nbsp;params)</CODE>
 
 <BR>
@@ -274,10 +268,7 @@ java.lang.Object
 </TR>
 </TABLE>
 </CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/dao/DaoSupport.html#execute(java.lang.String, javax.ejb.SessionContext, java.lang.String, java.lang.String, java.lang.Class, java.lang.Object...)">execute</A></B>(java.lang.String&nbsp;query,
-        javax.ejb.SessionContext&nbsp;sessionContext,
-        java.lang.String&nbsp;dataSourceJndiName,
-        java.lang.String&nbsp;resourceBundleName,
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/dao/DaoSupport.html#execute(java.lang.String, java.lang.Class, java.lang.Object...)">execute</A></B>(java.lang.String&nbsp;query,
         java.lang.Class&lt;T&gt;&nbsp;resultTypeClass,
         java.lang.Object...&nbsp;params)</CODE>
 
@@ -287,10 +278,7 @@ java.lang.Object
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/dao/DaoSupport.html#execute(java.lang.String, javax.ejb.SessionContext, java.lang.String, java.lang.String, java.lang.Object...)">execute</A></B>(java.lang.String&nbsp;query,
-        javax.ejb.SessionContext&nbsp;sessionContext,
-        java.lang.String&nbsp;dataSourceJndiName,
-        java.lang.String&nbsp;resourceBundleName,
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/dao/DaoSupport.html#execute(java.lang.String, java.lang.Object...)">execute</A></B>(java.lang.String&nbsp;query,
         java.lang.Object...&nbsp;params)</CODE>
 
 <BR>
@@ -306,10 +294,7 @@ java.lang.Object
 </TR>
 </TABLE>
 </CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/dao/DaoSupport.html#find(java.lang.String, javax.ejb.SessionContext, java.lang.String, java.lang.String, com.technology.jep.jepria.server.dao.ResultSetMapper, java.lang.Class, java.lang.Object...)">find</A></B>(java.lang.String&nbsp;query,
-     javax.ejb.SessionContext&nbsp;sessionContext,
-     java.lang.String&nbsp;dataSourceJndiName,
-     java.lang.String&nbsp;resourceBundleName,
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/dao/DaoSupport.html#find(java.lang.String, com.technology.jep.jepria.server.dao.ResultSetMapper, java.lang.Class, java.lang.Object...)">find</A></B>(java.lang.String&nbsp;query,
      <A HREF="../../../../../../com/technology/jep/jepria/server/dao/ResultSetMapper.html" title="class in com.technology.jep.jepria.server.dao">ResultSetMapper</A>&lt;T&gt;&nbsp;mapper,
      java.lang.Class&lt;T&gt;&nbsp;recordClass,
      java.lang.Object...&nbsp;params)</CODE>
@@ -327,10 +312,7 @@ java.lang.Object
 </TR>
 </TABLE>
 </CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/dao/DaoSupport.html#findOrSelect(java.lang.String, javax.ejb.SessionContext, java.lang.String, java.lang.String, com.technology.jep.jepria.server.dao.ResultSetMapper, java.lang.Class, com.technology.jep.jepria.server.dao.DaoSupport.ExecutionType, java.lang.Object...)">findOrSelect</A></B>(java.lang.String&nbsp;query,
-             javax.ejb.SessionContext&nbsp;sessionContext,
-             java.lang.String&nbsp;dataSourceJndiName,
-             java.lang.String&nbsp;resourceBundleName,
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/dao/DaoSupport.html#findOrSelect(java.lang.String, com.technology.jep.jepria.server.dao.ResultSetMapper, java.lang.Class, com.technology.jep.jepria.server.dao.DaoSupport.ExecutionType, java.lang.Object...)">findOrSelect</A></B>(java.lang.String&nbsp;query,
              <A HREF="../../../../../../com/technology/jep/jepria/server/dao/ResultSetMapper.html" title="class in com.technology.jep.jepria.server.dao">ResultSetMapper</A>&lt;T&gt;&nbsp;mapper,
              java.lang.Class&lt;T&gt;&nbsp;recordClass,
              <A HREF="../../../../../../com/technology/jep/jepria/server/dao/DaoSupport.ExecutionType.html" title="enum in com.technology.jep.jepria.server.dao">DaoSupport.ExecutionType</A>&nbsp;executionType,
@@ -354,7 +336,7 @@ java.lang.Object
           java.lang.Object[]&nbsp;params)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Служебный метод, осушествляющий извлечение выходных параметров.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -371,7 +353,7 @@ java.lang.Object
                   java.lang.Class&lt;T&gt;&nbsp;resultTypeClass)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Служебный метод, устанавливающий выходной параметр в statement</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -383,10 +365,7 @@ java.lang.Object
 </TR>
 </TABLE>
 </CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/dao/DaoSupport.html#select(java.lang.String, javax.ejb.SessionContext, java.lang.String, java.lang.String, com.technology.jep.jepria.server.dao.ResultSetMapper, java.lang.Class, java.lang.Object...)">select</A></B>(java.lang.String&nbsp;query,
-       javax.ejb.SessionContext&nbsp;sessionContext,
-       java.lang.String&nbsp;dataSourceJndiName,
-       java.lang.String&nbsp;resourceBundleName,
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/dao/DaoSupport.html#select(java.lang.String, com.technology.jep.jepria.server.dao.ResultSetMapper, java.lang.Class, java.lang.Object...)">select</A></B>(java.lang.String&nbsp;query,
        <A HREF="../../../../../../com/technology/jep/jepria/server/dao/ResultSetMapper.html" title="class in com.technology.jep.jepria.server.dao">ResultSetMapper</A>&lt;T&gt;&nbsp;mapper,
        java.lang.Class&lt;T&gt;&nbsp;modelClass,
        java.lang.Object...&nbsp;params)</CODE>
@@ -469,7 +448,7 @@ java.lang.Object
                            java.lang.Object[]&nbsp;params)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Служебный метод, устанавливающий выходные параметры в statement.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -494,10 +473,7 @@ java.lang.Object
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/dao/DaoSupport.html#update(java.lang.String, javax.ejb.SessionContext, java.lang.String, java.lang.String, java.lang.Object...)">update</A></B>(java.lang.String&nbsp;query,
-       javax.ejb.SessionContext&nbsp;sessionContext,
-       java.lang.String&nbsp;dataSourceJndiName,
-       java.lang.String&nbsp;resourceBundleName,
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/dao/DaoSupport.html#update(java.lang.String, java.lang.Object...)">update</A></B>(java.lang.String&nbsp;query,
        java.lang.Object...&nbsp;params)</CODE>
 
 <BR>
@@ -562,13 +538,10 @@ public <B>DaoSupport</B>()</PRE>
 </TR>
 </TABLE>
 
-<A NAME="create(java.lang.String, javax.ejb.SessionContext, java.lang.String, java.lang.String, java.lang.Class, java.lang.Object...)"><!-- --></A><H3>
+<A NAME="create(java.lang.String, java.lang.Class, java.lang.Object...)"><!-- --></A><H3>
 create</H3>
 <PRE>
 public static &lt;T&gt; T <B>create</B>(java.lang.String&nbsp;query,
-                           javax.ejb.SessionContext&nbsp;sessionContext,
-                           java.lang.String&nbsp;dataSourceJndiName,
-                           java.lang.String&nbsp;resourceBundleName,
                            java.lang.Class&lt;T&gt;&nbsp;resultTypeClass,
                            java.lang.Object...&nbsp;params)
                 throws <A HREF="../../../../../../com/technology/jep/jepria/shared/exceptions/ApplicationException.html" title="class in com.technology.jep.jepria.shared.exceptions">ApplicationException</A></PRE>
@@ -576,7 +549,7 @@ public static &lt;T&gt; T <B>create</B>(java.lang.String&nbsp;query,
 <DD>Данный метод выполняет sql-выражение, создающее запись в БД.
 <P>
 <DD><DL>
-<DT><B>Type Parameters:</B><DD><CODE>T</CODE> - тип возвращаемого значения<DT><B>Parameters:</B><DD><CODE>query</CODE> - текст запроса<DD><CODE>sessionContext</CODE> - контекст<DD><CODE>dataSourceJndiName</CODE> - jndi-имя источника данных<DD><CODE>resourceBundleName</CODE> - идентификатор файла ресурсов<DD><CODE>params</CODE> - параметры sql-выражения<DD><CODE>resultTypeClass</CODE> - Тип возвращаемого значения
+<DT><B>Type Parameters:</B><DD><CODE>T</CODE> - тип возвращаемого значения<DT><B>Parameters:</B><DD><CODE>query</CODE> - текст запроса<DD><CODE>params</CODE> - параметры sql-выражения<DD><CODE>resultTypeClass</CODE> - Тип возвращаемого значения
 <DT><B>Returns:</B><DD>идентификатор (первичный ключ) созданной записи
 <DT><B>Throws:</B>
 <DD><CODE><A HREF="../../../../../../com/technology/jep/jepria/shared/exceptions/ApplicationException.html" title="class in com.technology.jep.jepria.shared.exceptions">ApplicationException</A></CODE></DL>
@@ -584,33 +557,27 @@ public static &lt;T&gt; T <B>create</B>(java.lang.String&nbsp;query,
 </DL>
 <HR>
 
-<A NAME="execute(java.lang.String, javax.ejb.SessionContext, java.lang.String, java.lang.String, java.lang.Object...)"><!-- --></A><H3>
+<A NAME="execute(java.lang.String, java.lang.Object...)"><!-- --></A><H3>
 execute</H3>
 <PRE>
 public static void <B>execute</B>(java.lang.String&nbsp;query,
-                           javax.ejb.SessionContext&nbsp;sessionContext,
-                           java.lang.String&nbsp;dataSourceJndiName,
-                           java.lang.String&nbsp;resourceBundleName,
                            java.lang.Object...&nbsp;params)
                     throws <A HREF="../../../../../../com/technology/jep/jepria/shared/exceptions/ApplicationException.html" title="class in com.technology.jep.jepria.shared.exceptions">ApplicationException</A></PRE>
 <DL>
 <DD>Данный метод выполняет sql-выражение без возвращаемого значения.
 <P>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>query</CODE> - текст запроса<DD><CODE>sessionContext</CODE> - контекст<DD><CODE>dataSourceJndiName</CODE> - jndi-имя источника данных<DD><CODE>resourceBundleName</CODE> - идентификатор файла ресурсов<DD><CODE>params</CODE> - параметры sql-выражения
+<DT><B>Parameters:</B><DD><CODE>query</CODE> - текст запроса<DD><CODE>params</CODE> - параметры sql-выражения
 <DT><B>Throws:</B>
 <DD><CODE><A HREF="../../../../../../com/technology/jep/jepria/shared/exceptions/ApplicationException.html" title="class in com.technology.jep.jepria.shared.exceptions">ApplicationException</A></CODE></DL>
 </DD>
 </DL>
 <HR>
 
-<A NAME="find(java.lang.String, javax.ejb.SessionContext, java.lang.String, java.lang.String, com.technology.jep.jepria.server.dao.ResultSetMapper, java.lang.Class, java.lang.Object...)"><!-- --></A><H3>
+<A NAME="find(java.lang.String, com.technology.jep.jepria.server.dao.ResultSetMapper, java.lang.Class, java.lang.Object...)"><!-- --></A><H3>
 find</H3>
 <PRE>
 public static &lt;T&gt; java.util.List&lt;T&gt; <B>find</B>(java.lang.String&nbsp;query,
-                                         javax.ejb.SessionContext&nbsp;sessionContext,
-                                         java.lang.String&nbsp;dataSourceJndiName,
-                                         java.lang.String&nbsp;resourceBundleName,
                                          <A HREF="../../../../../../com/technology/jep/jepria/server/dao/ResultSetMapper.html" title="class in com.technology.jep.jepria.server.dao">ResultSetMapper</A>&lt;T&gt;&nbsp;mapper,
                                          java.lang.Class&lt;T&gt;&nbsp;recordClass,
                                          java.lang.Object...&nbsp;params)
@@ -619,7 +586,7 @@ public static &lt;T&gt; java.util.List&lt;T&gt; <B>find</B>(java.lang.String&nbs
 <DD>Данный метод выполняет sql-выражение, возвращающее курсор.
 <P>
 <DD><DL>
-<DT><B>Type Parameters:</B><DD><CODE>T</CODE> - тип возвращаемого значения<DT><B>Parameters:</B><DD><CODE>query</CODE> - текст запроса<DD><CODE>sessionContext</CODE> - контекст<DD><CODE>dataSourceJndiName</CODE> - jndi-имя источника данных<DD><CODE>resourceBundleName</CODE> - идентификатор файла ресурсов<DD><CODE>mapper</CODE> - экземпляр класса, осуществляющего мэппинг полей dto и ResultSet<DD><CODE>recordClass</CODE> - класс dto<DD><CODE>params</CODE> - параметры sql-выражения
+<DT><B>Type Parameters:</B><DD><CODE>T</CODE> - тип возвращаемого значения<DT><B>Parameters:</B><DD><CODE>query</CODE> - текст запроса<DD><CODE>mapper</CODE> - экземпляр класса, осуществляющего мэппинг полей dto и ResultSet<DD><CODE>recordClass</CODE> - класс dto<DD><CODE>params</CODE> - параметры sql-выражения
 <DT><B>Returns:</B><DD>список объектов в виде List&lt;T&gt;
 <DT><B>Throws:</B>
 <DD><CODE><A HREF="../../../../../../com/technology/jep/jepria/shared/exceptions/ApplicationException.html" title="class in com.technology.jep.jepria.shared.exceptions">ApplicationException</A></CODE></DL>
@@ -627,13 +594,10 @@ public static &lt;T&gt; java.util.List&lt;T&gt; <B>find</B>(java.lang.String&nbs
 </DL>
 <HR>
 
-<A NAME="execute(java.lang.String, javax.ejb.SessionContext, java.lang.String, java.lang.String, java.lang.Class, java.lang.Object...)"><!-- --></A><H3>
+<A NAME="execute(java.lang.String, java.lang.Class, java.lang.Object...)"><!-- --></A><H3>
 execute</H3>
 <PRE>
 public static &lt;T&gt; T <B>execute</B>(java.lang.String&nbsp;query,
-                            javax.ejb.SessionContext&nbsp;sessionContext,
-                            java.lang.String&nbsp;dataSourceJndiName,
-                            java.lang.String&nbsp;resourceBundleName,
                             java.lang.Class&lt;T&gt;&nbsp;resultTypeClass,
                             java.lang.Object...&nbsp;params)
                  throws <A HREF="../../../../../../com/technology/jep/jepria/shared/exceptions/ApplicationException.html" title="class in com.technology.jep.jepria.shared.exceptions">ApplicationException</A></PRE>
@@ -641,7 +605,7 @@ public static &lt;T&gt; T <B>execute</B>(java.lang.String&nbsp;query,
 <DD>Данный метод выполняет sql-выражение, возвращающее объект типа T.
 <P>
 <DD><DL>
-<DT><B>Type Parameters:</B><DD><CODE>T</CODE> - тип возвращаемого значения<DT><B>Parameters:</B><DD><CODE>query</CODE> - текст запроса<DD><CODE>sessionContext</CODE> - контекст<DD><CODE>dataSourceJndiName</CODE> - jndi-имя источника данных<DD><CODE>resourceBundleName</CODE> - идентификатор файла ресурсов<DD><CODE>resultTypeClass</CODE> - тип возвращаемого значения; для возврата нескольких значений используется массив типов - Object[].
+<DT><B>Type Parameters:</B><DD><CODE>T</CODE> - тип возвращаемого значения<DT><B>Parameters:</B><DD><CODE>query</CODE> - текст запроса<DD><CODE>resultTypeClass</CODE> - тип возвращаемого значения; для возврата нескольких значений используется массив типов - Object[].
                                                                 Пример параметра, передаваемого при вызове: <code>new Object[] {Integer.class, String.class, Float.class}</code><DD><CODE>params</CODE> - параметры sql-выражения
 <DT><B>Returns:</B><DD>объект типа T
 <DT><B>Throws:</B>
@@ -656,14 +620,14 @@ setOutputParamsToStatement</H3>
 private static &lt;T&gt; void <B>setOutputParamsToStatement</B>(java.sql.CallableStatement&nbsp;callableStatement,
                                                    java.lang.Class&lt;T&gt;&nbsp;resultTypeClass,
                                                    java.lang.Object[]&nbsp;params)
-                                        throws java.sql.SQLException,
-                                               <A HREF="../../../../../../com/technology/jep/jepria/shared/exceptions/ApplicationException.html" title="class in com.technology.jep.jepria.shared.exceptions">ApplicationException</A></PRE>
+                                        throws java.sql.SQLException</PRE>
 <DL>
+<DD>Служебный метод, устанавливающий выходные параметры в statement.
+<P>
 <DD><DL>
-
+<DT><B>Parameters:</B><DD><CODE>callableStatement</CODE> - шаблон SQL-инструкции<DD><CODE>resultTypeClass</CODE> - тип параметра<DD><CODE>params</CODE> - массив параметров
 <DT><B>Throws:</B>
-<DD><CODE>java.sql.SQLException</CODE>
-<DD><CODE><A HREF="../../../../../../com/technology/jep/jepria/shared/exceptions/ApplicationException.html" title="class in com.technology.jep.jepria.shared.exceptions">ApplicationException</A></CODE></DL>
+<DD><CODE>java.sql.SQLException</CODE> - при возникновении ошибки JDBC</DL>
 </DD>
 </DL>
 <HR>
@@ -674,14 +638,14 @@ registerParameter</H3>
 private static &lt;T&gt; void <B>registerParameter</B>(java.sql.CallableStatement&nbsp;callableStatement,
                                           int&nbsp;paramNumber,
                                           java.lang.Class&lt;T&gt;&nbsp;resultTypeClass)
-                               throws java.sql.SQLException,
-                                      <A HREF="../../../../../../com/technology/jep/jepria/shared/exceptions/ApplicationException.html" title="class in com.technology.jep.jepria.shared.exceptions">ApplicationException</A></PRE>
+                               throws java.sql.SQLException</PRE>
 <DL>
+<DD>Служебный метод, устанавливающий выходной параметр в statement
+<P>
 <DD><DL>
-
+<DT><B>Parameters:</B><DD><CODE>callableStatement</CODE> - шаблон SQL-инструкции<DD><CODE>paramNumber</CODE> - номер параметра<DD><CODE>resultTypeClass</CODE> - тип параметра
 <DT><B>Throws:</B>
-<DD><CODE>java.sql.SQLException</CODE>
-<DD><CODE><A HREF="../../../../../../com/technology/jep/jepria/shared/exceptions/ApplicationException.html" title="class in com.technology.jep.jepria.shared.exceptions">ApplicationException</A></CODE></DL>
+<DD><CODE>java.sql.SQLException</CODE> - при возникновении ошибки JDBC</DL>
 </DD>
 </DL>
 <HR>
@@ -694,21 +658,22 @@ private static &lt;T&gt; T <B>getResult</B>(java.sql.CallableStatement&nbsp;call
                                java.lang.Object[]&nbsp;params)
                     throws java.sql.SQLException</PRE>
 <DL>
+<DD>Служебный метод, осушествляющий извлечение выходных параметров.<br/>
+ Поддерживается как извлечение единственного параметра, так и нескольких параметров.
+<P>
 <DD><DL>
-
+<DT><B>Parameters:</B><DD><CODE>callableStatement</CODE> - SQL-выражение<DD><CODE>resultTypeClass</CODE> - тип возвращаемого значения или массив типов<DD><CODE>params</CODE> - параметры вызова
+<DT><B>Returns:</B><DD>выходной параметр (или массив выходных параметров)
 <DT><B>Throws:</B>
 <DD><CODE>java.sql.SQLException</CODE></DL>
 </DD>
 </DL>
 <HR>
 
-<A NAME="select(java.lang.String, javax.ejb.SessionContext, java.lang.String, java.lang.String, com.technology.jep.jepria.server.dao.ResultSetMapper, java.lang.Class, java.lang.Object...)"><!-- --></A><H3>
+<A NAME="select(java.lang.String, com.technology.jep.jepria.server.dao.ResultSetMapper, java.lang.Class, java.lang.Object...)"><!-- --></A><H3>
 select</H3>
 <PRE>
 public static &lt;T&gt; java.util.List&lt;T&gt; <B>select</B>(java.lang.String&nbsp;query,
-                                           javax.ejb.SessionContext&nbsp;sessionContext,
-                                           java.lang.String&nbsp;dataSourceJndiName,
-                                           java.lang.String&nbsp;resourceBundleName,
                                            <A HREF="../../../../../../com/technology/jep/jepria/server/dao/ResultSetMapper.html" title="class in com.technology.jep.jepria.server.dao">ResultSetMapper</A>&lt;T&gt;&nbsp;mapper,
                                            java.lang.Class&lt;T&gt;&nbsp;modelClass,
                                            java.lang.Object...&nbsp;params)
@@ -717,7 +682,7 @@ public static &lt;T&gt; java.util.List&lt;T&gt; <B>select</B>(java.lang.String&n
 <DD>Данный метод выполняет sql-запрос.
 <P>
 <DD><DL>
-<DT><B>Type Parameters:</B><DD><CODE>T</CODE> - тип возвращаемого значения<DT><B>Parameters:</B><DD><CODE>query</CODE> - текст запроса<DD><CODE>sessionContext</CODE> - контекст<DD><CODE>dataSourceJndiName</CODE> - jndi-имя источника данных<DD><CODE>resourceBundleName</CODE> - идентификатор файла ресурсов<DD><CODE>mapper</CODE> - экземпляр класса, осуществляющего мэппинг полей dto и ResultSet<DD><CODE>modelClass</CODE> - класс dto<DD><CODE>params</CODE> - параметры sql-запрос
+<DT><B>Type Parameters:</B><DD><CODE>T</CODE> - тип возвращаемого значения<DT><B>Parameters:</B><DD><CODE>query</CODE> - текст запроса<DD><CODE>mapper</CODE> - экземпляр класса, осуществляющего мэппинг полей dto и ResultSet<DD><CODE>modelClass</CODE> - класс dto<DD><CODE>params</CODE> - параметры sql-запрос
 <DT><B>Returns:</B><DD>список объектов в виде List&lt;T&gt;
 <DT><B>Throws:</B>
 <DD><CODE><A HREF="../../../../../../com/technology/jep/jepria/shared/exceptions/ApplicationException.html" title="class in com.technology.jep.jepria.shared.exceptions">ApplicationException</A></CODE></DL>
@@ -725,53 +690,44 @@ public static &lt;T&gt; java.util.List&lt;T&gt; <B>select</B>(java.lang.String&n
 </DL>
 <HR>
 
-<A NAME="update(java.lang.String, javax.ejb.SessionContext, java.lang.String, java.lang.String, java.lang.Object...)"><!-- --></A><H3>
+<A NAME="update(java.lang.String, java.lang.Object...)"><!-- --></A><H3>
 update</H3>
 <PRE>
 public static void <B>update</B>(java.lang.String&nbsp;query,
-                          javax.ejb.SessionContext&nbsp;sessionContext,
-                          java.lang.String&nbsp;dataSourceJndiName,
-                          java.lang.String&nbsp;resourceBundleName,
                           java.lang.Object...&nbsp;params)
                    throws <A HREF="../../../../../../com/technology/jep/jepria/shared/exceptions/ApplicationException.html" title="class in com.technology.jep.jepria.shared.exceptions">ApplicationException</A></PRE>
 <DL>
 <DD>Данный метод выполняет sql-выражение, изменяющее запись в БД.
 <P>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>query</CODE> - текст запроса<DD><CODE>sessionContext</CODE> - контекст<DD><CODE>dataSourceJndiName</CODE> - jndi-имя источника данных<DD><CODE>resourceBundleName</CODE> - идентификатор файла ресурсов<DD><CODE>params</CODE> - параметры sql-выражения
+<DT><B>Parameters:</B><DD><CODE>query</CODE> - текст запроса<DD><CODE>params</CODE> - параметры sql-выражения
 <DT><B>Throws:</B>
 <DD><CODE><A HREF="../../../../../../com/technology/jep/jepria/shared/exceptions/ApplicationException.html" title="class in com.technology.jep.jepria.shared.exceptions">ApplicationException</A></CODE></DL>
 </DD>
 </DL>
 <HR>
 
-<A NAME="delete(java.lang.String, javax.ejb.SessionContext, java.lang.String, java.lang.String, java.lang.Object...)"><!-- --></A><H3>
+<A NAME="delete(java.lang.String, java.lang.Object...)"><!-- --></A><H3>
 delete</H3>
 <PRE>
 public static void <B>delete</B>(java.lang.String&nbsp;query,
-                          javax.ejb.SessionContext&nbsp;sessionContext,
-                          java.lang.String&nbsp;dataSourceJndiName,
-                          java.lang.String&nbsp;resourceBundleName,
                           java.lang.Object...&nbsp;params)
                    throws <A HREF="../../../../../../com/technology/jep/jepria/shared/exceptions/ApplicationException.html" title="class in com.technology.jep.jepria.shared.exceptions">ApplicationException</A></PRE>
 <DL>
 <DD>Данный метод выполняет sql-выражение, удаляющее запись из БД.
 <P>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>query</CODE> - текст запроса<DD><CODE>sessionContext</CODE> - контекст<DD><CODE>dataSourceJndiName</CODE> - jndi-имя источника данных<DD><CODE>resourceBundleName</CODE> - идентификатор файла ресурсов<DD><CODE>params</CODE> - параметры sql-выражения
+<DT><B>Parameters:</B><DD><CODE>query</CODE> - текст запроса<DD><CODE>params</CODE> - параметры sql-выражения
 <DT><B>Throws:</B>
 <DD><CODE><A HREF="../../../../../../com/technology/jep/jepria/shared/exceptions/ApplicationException.html" title="class in com.technology.jep.jepria.shared.exceptions">ApplicationException</A></CODE></DL>
 </DD>
 </DL>
 <HR>
 
-<A NAME="findOrSelect(java.lang.String, javax.ejb.SessionContext, java.lang.String, java.lang.String, com.technology.jep.jepria.server.dao.ResultSetMapper, java.lang.Class, com.technology.jep.jepria.server.dao.DaoSupport.ExecutionType, java.lang.Object...)"><!-- --></A><H3>
+<A NAME="findOrSelect(java.lang.String, com.technology.jep.jepria.server.dao.ResultSetMapper, java.lang.Class, com.technology.jep.jepria.server.dao.DaoSupport.ExecutionType, java.lang.Object...)"><!-- --></A><H3>
 findOrSelect</H3>
 <PRE>
 private static &lt;T&gt; java.util.List&lt;T&gt; <B>findOrSelect</B>(java.lang.String&nbsp;query,
-                                                  javax.ejb.SessionContext&nbsp;sessionContext,
-                                                  java.lang.String&nbsp;dataSourceJndiName,
-                                                  java.lang.String&nbsp;resourceBundleName,
                                                   <A HREF="../../../../../../com/technology/jep/jepria/server/dao/ResultSetMapper.html" title="class in com.technology.jep.jepria.server.dao">ResultSetMapper</A>&lt;T&gt;&nbsp;mapper,
                                                   java.lang.Class&lt;T&gt;&nbsp;recordClass,
                                                   <A HREF="../../../../../../com/technology/jep/jepria/server/dao/DaoSupport.ExecutionType.html" title="enum in com.technology.jep.jepria.server.dao">DaoSupport.ExecutionType</A>&nbsp;executionType,
@@ -781,7 +737,7 @@ private static &lt;T&gt; java.util.List&lt;T&gt; <B>findOrSelect</B>(java.lang.S
 <DD>Вспомогательный метод, объединящий в себе логику работы методов find и select.
 <P>
 <DD><DL>
-<DT><B>Type Parameters:</B><DD><CODE>T</CODE> - тип возвращаемого значения<DT><B>Parameters:</B><DD><CODE>query</CODE> - текст запроса<DD><CODE>sessionContext</CODE> - контекст<DD><CODE>dataSourceJndiName</CODE> - jndi-имя источника данных<DD><CODE>resourceBundleName</CODE> - идентификатор файла ресурсов<DD><CODE>mapper</CODE> - экземпляр класса, осуществляющего мэппинг полей dto и ResultSet<DD><CODE>recordClass</CODE> - класс записи<DD><CODE>params</CODE> - параметры sql-запроса или sql-выражения
+<DT><B>Type Parameters:</B><DD><CODE>T</CODE> - тип возвращаемого значения<DT><B>Parameters:</B><DD><CODE>query</CODE> - текст запроса<DD><CODE>mapper</CODE> - экземпляр класса, осуществляющего мэппинг полей dto и ResultSet<DD><CODE>recordClass</CODE> - класс записи<DD><CODE>params</CODE> - параметры sql-запроса или sql-выражения
 <DT><B>Returns:</B><DD>список объектов в виде List&lt;T&gt;
 <DT><B>Throws:</B>
 <DD><CODE><A HREF="../../../../../../com/technology/jep/jepria/shared/exceptions/ApplicationException.html" title="class in com.technology.jep.jepria.shared.exceptions">ApplicationException</A></CODE></DL>
@@ -963,7 +919,7 @@ private static void <B>setClobParameter</B>(java.sql.CallableStatement&nbsp;call
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="../../../../../../com/technology/jep/jepria/server/dao/AutoRefreshResultSetMapper.html" title="class in com.technology.jep.jepria.server.dao"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../../../../com/technology/jep/jepria/server/dao/CallContext.html" title="class in com.technology.jep.jepria.server.dao"><B>PREV CLASS</B></A>&nbsp;
 &nbsp;<A HREF="../../../../../../com/technology/jep/jepria/server/dao/DaoSupport.ExecutionType.html" title="enum in com.technology.jep.jepria.server.dao"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../../../../../index.html?com/technology/jep/jepria/server/dao/DaoSupport.html" target="_top"><B>FRAMES</B></A>  &nbsp;

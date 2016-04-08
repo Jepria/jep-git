@@ -286,11 +286,43 @@ java.lang.Object
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormPresenter.html#onPagingFailure(java.lang.Throwable)">onPagingFailure</A></B>(java.lang.Throwable&nbsp;caught)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hook-метод, вызываемый при неуспешном листании списка.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormPresenter.html#onPagingSuccess(com.technology.jep.jepria.shared.load.PagingResult)">onPagingSuccess</A></B>(<A HREF="../../../../../../../../com/technology/jep/jepria/shared/load/PagingResult.html" title="class in com.technology.jep.jepria.shared.load">PagingResult</A>&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</A>&gt;&nbsp;pagingResult)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hook-метод, вызываемый при успешном листании списка.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormPresenter.html#onRefresh(com.technology.jep.jepria.client.ui.eventbus.plain.event.RefreshEvent)">onRefresh</A></B>(<A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/eventbus/plain/event/RefreshEvent.html" title="class in com.technology.jep.jepria.client.ui.eventbus.plain.event">RefreshEvent</A>&nbsp;event)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Обработчик события обновления списка.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormPresenter.html#onRefreshFailure(java.lang.Throwable)">onRefreshFailure</A></B>(java.lang.Throwable&nbsp;caught)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hook-метод, вызываемый при неуспешном обновлении (в частности, после поиска) списка.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormPresenter.html#onRefreshSuccess(com.technology.jep.jepria.shared.load.PagingResult)">onRefreshSuccess</A></B>(<A HREF="../../../../../../../../com/technology/jep/jepria/shared/load/PagingResult.html" title="class in com.technology.jep.jepria.shared.load">PagingResult</A>&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</A>&gt;&nbsp;pagingResult)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hook-метод, вызываемый при успешном обновлении (в частности, после поиска) списка.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -334,6 +366,22 @@ java.lang.Object
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormPresenter.html#onSortFailure(java.lang.Throwable)">onSortFailure</A></B>(java.lang.Throwable&nbsp;caught)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hook-метод, вызываемый при неуспешной сортировке списка.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormPresenter.html#onSortSuccess(com.technology.jep.jepria.shared.load.PagingResult)">onSortSuccess</A></B>(<A HREF="../../../../../../../../com/technology/jep/jepria/shared/load/PagingResult.html" title="class in com.technology.jep.jepria.shared.load">PagingResult</A>&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</A>&gt;&nbsp;pagingResult)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hook-метод, вызываемый при успешной сортировке списка.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormPresenter.html#pagingGoto(com.technology.jep.jepria.client.widget.event.JepEvent)">pagingGoto</A></B>(<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/event/JepEvent.html" title="class in com.technology.jep.jepria.client.widget.event">JepEvent</A>&nbsp;event)</CODE>
 
@@ -355,14 +403,6 @@ java.lang.Object
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>protected &nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormPresenter.html#processRefreshTimeout()">processRefreshTimeout</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hook-метод для проверки автообновления.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -629,12 +669,29 @@ public void <B>onRefresh</B>(<A HREF="../../../../../../../../com/technology/jep
 </DL>
 <HR>
 
-<A NAME="processRefreshTimeout()"><!-- --></A><H3>
-processRefreshTimeout</H3>
+<A NAME="onRefreshSuccess(com.technology.jep.jepria.shared.load.PagingResult)"><!-- --></A><H3>
+onRefreshSuccess</H3>
 <PRE>
-protected void <B>processRefreshTimeout</B>()</PRE>
+protected void <B>onRefreshSuccess</B>(<A HREF="../../../../../../../../com/technology/jep/jepria/shared/load/PagingResult.html" title="class in com.technology.jep.jepria.shared.load">PagingResult</A>&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</A>&gt;&nbsp;pagingResult)</PRE>
 <DL>
-<DD>Hook-метод для проверки автообновления. <br/>
+<DD>Hook-метод, вызываемый при успешном обновлении (в частности, после поиска) списка. <br/>
+ Предназначен для переопределения в наследниках.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="onRefreshFailure(java.lang.Throwable)"><!-- --></A><H3>
+onRefreshFailure</H3>
+<PRE>
+protected void <B>onRefreshFailure</B>(java.lang.Throwable&nbsp;caught)</PRE>
+<DL>
+<DD>Hook-метод, вызываемый при неуспешном обновлении (в частности, после поиска) списка. <br/>
  Предназначен для переопределения в наследниках.
 <P>
 <DD><DL>
@@ -662,6 +719,40 @@ public void <B>onSort</B>(<A HREF="../../../../../../../../com/technology/jep/je
 </DL>
 <HR>
 
+<A NAME="onSortSuccess(com.technology.jep.jepria.shared.load.PagingResult)"><!-- --></A><H3>
+onSortSuccess</H3>
+<PRE>
+protected void <B>onSortSuccess</B>(<A HREF="../../../../../../../../com/technology/jep/jepria/shared/load/PagingResult.html" title="class in com.technology.jep.jepria.shared.load">PagingResult</A>&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</A>&gt;&nbsp;pagingResult)</PRE>
+<DL>
+<DD>Hook-метод, вызываемый при успешной сортировке списка. <br/>
+ Предназначен для переопределения в наследниках.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="onSortFailure(java.lang.Throwable)"><!-- --></A><H3>
+onSortFailure</H3>
+<PRE>
+protected void <B>onSortFailure</B>(java.lang.Throwable&nbsp;caught)</PRE>
+<DL>
+<DD>Hook-метод, вызываемый при неуспешной сортировке списка. <br/>
+ Предназначен для переопределения в наследниках.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
 <A NAME="onPaging(com.technology.jep.jepria.client.ui.eventbus.plain.event.PagingEvent)"><!-- --></A><H3>
 onPaging</H3>
 <PRE>
@@ -674,6 +765,40 @@ public void <B>onPaging</B>(<A HREF="../../../../../../../../com/technology/jep/
 </DD>
 <DD><DL>
 <DT><B>Parameters:</B><DD><CODE>event</CODE> - событие листания набора данных</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="onPagingSuccess(com.technology.jep.jepria.shared.load.PagingResult)"><!-- --></A><H3>
+onPagingSuccess</H3>
+<PRE>
+protected void <B>onPagingSuccess</B>(<A HREF="../../../../../../../../com/technology/jep/jepria/shared/load/PagingResult.html" title="class in com.technology.jep.jepria.shared.load">PagingResult</A>&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</A>&gt;&nbsp;pagingResult)</PRE>
+<DL>
+<DD>Hook-метод, вызываемый при успешном листании списка. <br/>
+ Предназначен для переопределения в наследниках.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="onPagingFailure(java.lang.Throwable)"><!-- --></A><H3>
+onPagingFailure</H3>
+<PRE>
+protected void <B>onPagingFailure</B>(java.lang.Throwable&nbsp;caught)</PRE>
+<DL>
+<DD>Hook-метод, вызываемый при неуспешном листании списка. <br/>
+ Предназначен для переопределения в наследниках.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
 </DD>
 </DL>
 <HR>

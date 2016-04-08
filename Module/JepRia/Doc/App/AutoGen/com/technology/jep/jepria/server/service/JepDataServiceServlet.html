@@ -88,7 +88,7 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
 <FONT SIZE="-1">
 com.technology.jep.jepria.server.service</FONT>
 <BR>
-Class JepDataServiceServlet</H2>
+Class JepDataServiceServlet&lt;D extends <A HREF="../../../../../../com/technology/jep/jepria/server/dao/JepDataStandard.html" title="interface in com.technology.jep.jepria.server.dao">JepDataStandard</A>&gt;</H2>
 <PRE>
 java.lang.Object
   <IMG SRC="../../../../../../resources/inherit.gif" ALT="extended by ">javax.servlet.GenericServlet
@@ -96,14 +96,14 @@ java.lang.Object
           <IMG SRC="../../../../../../resources/inherit.gif" ALT="extended by ">com.google.gwt.user.server.rpc.AbstractRemoteServiceServlet
               <IMG SRC="../../../../../../resources/inherit.gif" ALT="extended by ">com.google.gwt.user.server.rpc.RemoteServiceServlet
                   <IMG SRC="../../../../../../resources/inherit.gif" ALT="extended by "><A HREF="../../../../../../com/technology/jep/jepria/server/service/JepServiceServlet.html" title="class in com.technology.jep.jepria.server.service">com.technology.jep.jepria.server.service.JepServiceServlet</A>
-                      <IMG SRC="../../../../../../resources/inherit.gif" ALT="extended by "><B>com.technology.jep.jepria.server.service.JepDataServiceServlet</B>
+                      <IMG SRC="../../../../../../resources/inherit.gif" ALT="extended by "><B>com.technology.jep.jepria.server.service.JepDataServiceServlet&lt;D&gt;</B>
 </PRE>
 <DL>
 <DT><B>All Implemented Interfaces:</B> <DD>com.google.gwt.user.client.rpc.RemoteService, com.google.gwt.user.server.rpc.SerializationPolicyProvider, <A HREF="../../../../../../com/technology/jep/jepria/shared/service/data/JepDataService.html" title="interface in com.technology.jep.jepria.shared.service.data">JepDataService</A>, java.io.Serializable, javax.servlet.Servlet, javax.servlet.ServletConfig</DD>
 </DL>
 <HR>
 <DL>
-<DT><PRE>public abstract class <B>JepDataServiceServlet</B><DT>extends <A HREF="../../../../../../com/technology/jep/jepria/server/service/JepServiceServlet.html" title="class in com.technology.jep.jepria.server.service">JepServiceServlet</A><DT>implements <A HREF="../../../../../../com/technology/jep/jepria/shared/service/data/JepDataService.html" title="interface in com.technology.jep.jepria.shared.service.data">JepDataService</A></DL>
+<DT><PRE>public abstract class <B>JepDataServiceServlet&lt;D extends <A HREF="../../../../../../com/technology/jep/jepria/server/dao/JepDataStandard.html" title="interface in com.technology.jep.jepria.server.dao">JepDataStandard</A>&gt;</B><DT>extends <A HREF="../../../../../../com/technology/jep/jepria/server/service/JepServiceServlet.html" title="class in com.technology.jep.jepria.server.service">JepServiceServlet</A><DT>implements <A HREF="../../../../../../com/technology/jep/jepria/shared/service/data/JepDataService.html" title="interface in com.technology.jep.jepria.shared.service.data">JepDataService</A></DL>
 </PRE>
 
 <P>
@@ -126,8 +126,8 @@ java.lang.Object
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>protected &nbsp;java.lang.String</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/service/JepDataServiceServlet.html#dataSourceJndiName">dataSourceJndiName</A></B></CODE>
+<CODE>protected &nbsp;<A HREF="../../../../../../com/technology/jep/jepria/server/service/JepDataServiceServlet.html" title="type parameter in JepDataServiceServlet">D</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/service/JepDataServiceServlet.html#dao">dao</A></B></CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -135,7 +135,7 @@ java.lang.Object
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>protected &nbsp;java.lang.String</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/service/JepDataServiceServlet.html#ejbName">ejbName</A></B></CODE>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/service/JepDataServiceServlet.html#dataSourceJndiName">dataSourceJndiName</A></B></CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -158,15 +158,7 @@ java.lang.Object
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>protected &nbsp;java.lang.String</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/service/JepDataServiceServlet.html#resourceBundleName">resourceBundleName</A></B></CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>protected &nbsp;<A HREF="../../../../../../com/technology/jep/jepria/shared/dto/JepSorter.html" title="class in com.technology.jep.jepria.shared.dto">JepSorter</A></CODE></FONT></TD>
+<CODE>protected &nbsp;<A HREF="../../../../../../com/technology/jep/jepria/shared/dto/JepSorter.html" title="class in com.technology.jep.jepria.shared.dto">JepSorter</A>&lt;<A HREF="../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</A>&gt;</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/service/JepDataServiceServlet.html#sorter">sorter</A></B></CODE>
 
 <BR>
@@ -194,22 +186,11 @@ java.lang.Object
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>protected </CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/service/JepDataServiceServlet.html#JepDataServiceServlet(com.technology.jep.jepria.shared.record.JepRecordDefinition, java.lang.String)">JepDataServiceServlet</A></B>(<A HREF="../../../../../../com/technology/jep/jepria/shared/record/JepRecordDefinition.html" title="class in com.technology.jep.jepria.shared.record">JepRecordDefinition</A>&nbsp;recordDefinition,
-                      java.lang.String&nbsp;ejbName)</CODE>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/service/JepDataServiceServlet.html#JepDataServiceServlet(com.technology.jep.jepria.shared.record.JepRecordDefinition, com.technology.jep.jepria.server.DaoProvider)">JepDataServiceServlet</A></B>(<A HREF="../../../../../../com/technology/jep/jepria/shared/record/JepRecordDefinition.html" title="class in com.technology.jep.jepria.shared.record">JepRecordDefinition</A>&nbsp;recordDefinition,
+                      <A HREF="../../../../../../com/technology/jep/jepria/server/DaoProvider.html" title="interface in com.technology.jep.jepria.server">DaoProvider</A>&lt;<A HREF="../../../../../../com/technology/jep/jepria/server/service/JepDataServiceServlet.html" title="type parameter in JepDataServiceServlet">D</A>&gt;&nbsp;serverFactory)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>protected </CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/service/JepDataServiceServlet.html#JepDataServiceServlet(com.technology.jep.jepria.shared.record.JepRecordDefinition, java.lang.String, java.lang.String, java.lang.String)">JepDataServiceServlet</A></B>(<A HREF="../../../../../../com/technology/jep/jepria/shared/record/JepRecordDefinition.html" title="class in com.technology.jep.jepria.shared.record">JepRecordDefinition</A>&nbsp;recordDefinition,
-                      java.lang.String&nbsp;ejbName,
-                      java.lang.String&nbsp;dataSourceJndiName,
-                      java.lang.String&nbsp;resourceBundleName)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Конструктор необходим при использовании download</TD>
 </TR>
 </TABLE>
 &nbsp;
@@ -475,17 +456,7 @@ protected <A HREF="../../../../../../com/technology/jep/jepria/shared/record/Jep
 <A NAME="sorter"><!-- --></A><H3>
 sorter</H3>
 <PRE>
-protected <A HREF="../../../../../../com/technology/jep/jepria/shared/dto/JepSorter.html" title="class in com.technology.jep.jepria.shared.dto">JepSorter</A> <B>sorter</B></PRE>
-<DL>
-<DL>
-</DL>
-</DL>
-<HR>
-
-<A NAME="ejbName"><!-- --></A><H3>
-ejbName</H3>
-<PRE>
-protected java.lang.String <B>ejbName</B></PRE>
+protected <A HREF="../../../../../../com/technology/jep/jepria/shared/dto/JepSorter.html" title="class in com.technology.jep.jepria.shared.dto">JepSorter</A>&lt;<A HREF="../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</A>&gt; <B>sorter</B></PRE>
 <DL>
 <DL>
 </DL>
@@ -502,10 +473,10 @@ protected java.lang.String <B>dataSourceJndiName</B></PRE>
 </DL>
 <HR>
 
-<A NAME="resourceBundleName"><!-- --></A><H3>
-resourceBundleName</H3>
+<A NAME="dao"><!-- --></A><H3>
+dao</H3>
 <PRE>
-protected java.lang.String <B>resourceBundleName</B></PRE>
+protected final <A HREF="../../../../../../com/technology/jep/jepria/server/service/JepDataServiceServlet.html" title="type parameter in JepDataServiceServlet">D</A> extends <A HREF="../../../../../../com/technology/jep/jepria/server/dao/JepDataStandard.html" title="interface in com.technology.jep.jepria.server.dao">JepDataStandard</A> <B>dao</B></PRE>
 <DL>
 <DL>
 </DL>
@@ -521,27 +492,12 @@ protected java.lang.String <B>resourceBundleName</B></PRE>
 </TR>
 </TABLE>
 
-<A NAME="JepDataServiceServlet(com.technology.jep.jepria.shared.record.JepRecordDefinition, java.lang.String)"><!-- --></A><H3>
+<A NAME="JepDataServiceServlet(com.technology.jep.jepria.shared.record.JepRecordDefinition, com.technology.jep.jepria.server.DaoProvider)"><!-- --></A><H3>
 JepDataServiceServlet</H3>
 <PRE>
 protected <B>JepDataServiceServlet</B>(<A HREF="../../../../../../com/technology/jep/jepria/shared/record/JepRecordDefinition.html" title="class in com.technology.jep.jepria.shared.record">JepRecordDefinition</A>&nbsp;recordDefinition,
-                                java.lang.String&nbsp;ejbName)</PRE>
+                                <A HREF="../../../../../../com/technology/jep/jepria/server/DaoProvider.html" title="interface in com.technology.jep.jepria.server">DaoProvider</A>&lt;<A HREF="../../../../../../com/technology/jep/jepria/server/service/JepDataServiceServlet.html" title="type parameter in JepDataServiceServlet">D</A>&gt;&nbsp;serverFactory)</PRE>
 <DL>
-</DL>
-<HR>
-
-<A NAME="JepDataServiceServlet(com.technology.jep.jepria.shared.record.JepRecordDefinition, java.lang.String, java.lang.String, java.lang.String)"><!-- --></A><H3>
-JepDataServiceServlet</H3>
-<PRE>
-protected <B>JepDataServiceServlet</B>(<A HREF="../../../../../../com/technology/jep/jepria/shared/record/JepRecordDefinition.html" title="class in com.technology.jep.jepria.shared.record">JepRecordDefinition</A>&nbsp;recordDefinition,
-                                java.lang.String&nbsp;ejbName,
-                                java.lang.String&nbsp;dataSourceJndiName,
-                                java.lang.String&nbsp;resourceBundleName)</PRE>
-<DL>
-<DD>Конструктор необходим при использовании download
-<P>
-<DL>
-<DT><B>Parameters:</B><DD><CODE>recordDefinition</CODE> - <DD><CODE>ejbName</CODE> - <DD><CODE>dataSourceJndiName</CODE> - <DD><CODE>resourceBundleName</CODE> - </DL>
 </DL>
 
 <!-- ============ METHOD DETAIL ========== -->

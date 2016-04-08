@@ -110,7 +110,7 @@ java.lang.Object
  Пример использования:
  
  // Получим объект, реализующий интерфейс FileDownload
- TextFileDownloadLocal download = (TextFileDownloadLocal) new InitialContext().lookup(DOWNLOAD_BEAN_JNDI_NAME);
+ TextFileDownload download = new TextFileDownloadImpl();
  
  // Передаем в метод поток для записи в файл, объект download,
  // имя таблицы, имя поля LOB, имя ключевого поля, значение ключа
@@ -122,8 +122,7 @@ java.lang.Object
                                 , LOB_FIELD_NAME
                                 , KEY_FIELD_NAME
                                 , new BigDecimal(loadTaskId.intValue())
-                                , DATA_SOURCE_JNDI_NAME
-                                , RESOURCE_BUNDLE_NAME);
+                                , DATA_SOURCE_JNDI_NAME);
  </pre>
 <P>
 
@@ -201,14 +200,13 @@ java.lang.Object
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/server/download/clob/FileDownloadReader.html#downloadFile(java.io.OutputStream, com.technology.jep.jepria.server.download.FileDownload, java.lang.String, java.lang.String, java.lang.String, java.lang.Object, java.lang.String, java.lang.String)">downloadFile</A></B>(java.io.OutputStream&nbsp;fileStream,
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/server/download/clob/FileDownloadReader.html#downloadFile(java.io.OutputStream, com.technology.jep.jepria.server.download.FileDownload, java.lang.String, java.lang.String, java.lang.String, java.lang.Object, java.lang.String)">downloadFile</A></B>(java.io.OutputStream&nbsp;fileStream,
              <A HREF="../../../../../../../com/technology/jep/jepria/server/download/FileDownload.html" title="interface in com.technology.jep.jepria.server.download">FileDownload</A>&nbsp;fileDownload,
              java.lang.String&nbsp;tableName,
              java.lang.String&nbsp;fileFieldName,
              java.lang.String&nbsp;keyFieldName,
              java.lang.Object&nbsp;rowId,
-             java.lang.String&nbsp;dataSourceJndiName,
-             java.lang.String&nbsp;resourceBundleName)</CODE>
+             java.lang.String&nbsp;dataSourceJndiName)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Загрузка файла в выходной поток из поля Clob таблицы базы данных.</TD>
@@ -216,14 +214,13 @@ java.lang.Object
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/server/download/clob/FileDownloadReader.html#downloadFile(java.io.OutputStream, com.technology.jep.jepria.server.download.FileDownload, java.lang.String, java.lang.String, java.lang.String, java.lang.Object, java.lang.String, java.lang.String, java.nio.charset.Charset)">downloadFile</A></B>(java.io.OutputStream&nbsp;fileStream,
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/server/download/clob/FileDownloadReader.html#downloadFile(java.io.OutputStream, com.technology.jep.jepria.server.download.FileDownload, java.lang.String, java.lang.String, java.lang.String, java.lang.Object, java.lang.String, java.nio.charset.Charset)">downloadFile</A></B>(java.io.OutputStream&nbsp;fileStream,
              <A HREF="../../../../../../../com/technology/jep/jepria/server/download/FileDownload.html" title="interface in com.technology.jep.jepria.server.download">FileDownload</A>&nbsp;fileDownload,
              java.lang.String&nbsp;tableName,
              java.lang.String&nbsp;fileFieldName,
              java.lang.String&nbsp;keyFieldName,
              java.lang.Object&nbsp;rowId,
              java.lang.String&nbsp;dataSourceJndiName,
-             java.lang.String&nbsp;resourceBundleName,
              java.nio.charset.Charset&nbsp;encoding)</CODE>
 
 <BR>
@@ -364,7 +361,7 @@ public int <B>read</B>(char[]&nbsp;cbuf,
 </DL>
 <HR>
 
-<A NAME="downloadFile(java.io.OutputStream, com.technology.jep.jepria.server.download.FileDownload, java.lang.String, java.lang.String, java.lang.String, java.lang.Object, java.lang.String, java.lang.String, java.nio.charset.Charset)"><!-- --></A><H3>
+<A NAME="downloadFile(java.io.OutputStream, com.technology.jep.jepria.server.download.FileDownload, java.lang.String, java.lang.String, java.lang.String, java.lang.Object, java.lang.String, java.nio.charset.Charset)"><!-- --></A><H3>
 downloadFile</H3>
 <PRE>
 public static void <B>downloadFile</B>(java.io.OutputStream&nbsp;fileStream,
@@ -374,21 +371,20 @@ public static void <B>downloadFile</B>(java.io.OutputStream&nbsp;fileStream,
                                 java.lang.String&nbsp;keyFieldName,
                                 java.lang.Object&nbsp;rowId,
                                 java.lang.String&nbsp;dataSourceJndiName,
-                                java.lang.String&nbsp;resourceBundleName,
                                 java.nio.charset.Charset&nbsp;encoding)
                          throws java.io.IOException</PRE>
 <DL>
 <DD>Загрузка файла в выходной поток из поля Clob таблицы базы данных.
 <P>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>fileStream</CODE> - выходной поток записи файла<DD><CODE>fileDownload</CODE> - интерфейс загрузки файла<DD><CODE>tableName</CODE> - имя таблицы, откуда берем СLOB<DD><CODE>fileFieldName</CODE> - имя атрибута в таблице, откуда берем СLOB<DD><CODE>keyFieldName</CODE> - PK в таблице tableName<DD><CODE>rowId</CODE> - идентификатор строки таблицы<DD><CODE>dataSourceJndiName</CODE> - имя источника данных<DD><CODE>resourceBundleName</CODE> - имя ресурсов<DD><CODE>encoding</CODE> - кодировка, в который пишем в выходной поток
+<DT><B>Parameters:</B><DD><CODE>fileStream</CODE> - выходной поток записи файла<DD><CODE>fileDownload</CODE> - интерфейс загрузки файла<DD><CODE>tableName</CODE> - имя таблицы, откуда берем СLOB<DD><CODE>fileFieldName</CODE> - имя атрибута в таблице, откуда берем СLOB<DD><CODE>keyFieldName</CODE> - PK в таблице tableName<DD><CODE>rowId</CODE> - идентификатор строки таблицы<DD><CODE>dataSourceJndiName</CODE> - имя источника данных<DD><CODE>encoding</CODE> - кодировка, в который пишем в выходной поток
 <DT><B>Throws:</B>
 <DD><CODE>java.io.IOException</CODE></DL>
 </DD>
 </DL>
 <HR>
 
-<A NAME="downloadFile(java.io.OutputStream, com.technology.jep.jepria.server.download.FileDownload, java.lang.String, java.lang.String, java.lang.String, java.lang.Object, java.lang.String, java.lang.String)"><!-- --></A><H3>
+<A NAME="downloadFile(java.io.OutputStream, com.technology.jep.jepria.server.download.FileDownload, java.lang.String, java.lang.String, java.lang.String, java.lang.Object, java.lang.String)"><!-- --></A><H3>
 downloadFile</H3>
 <PRE>
 public static void <B>downloadFile</B>(java.io.OutputStream&nbsp;fileStream,
@@ -397,14 +393,13 @@ public static void <B>downloadFile</B>(java.io.OutputStream&nbsp;fileStream,
                                 java.lang.String&nbsp;fileFieldName,
                                 java.lang.String&nbsp;keyFieldName,
                                 java.lang.Object&nbsp;rowId,
-                                java.lang.String&nbsp;dataSourceJndiName,
-                                java.lang.String&nbsp;resourceBundleName)
+                                java.lang.String&nbsp;dataSourceJndiName)
                          throws java.io.IOException</PRE>
 <DL>
 <DD>Загрузка файла в выходной поток из поля Clob таблицы базы данных.
 <P>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>fileStream</CODE> - выходной поток записи файла<DD><CODE>fileDownload</CODE> - интерфейс загрузки файла<DD><CODE>tableName</CODE> - имя таблицы, откуда берем СLOB<DD><CODE>fileFieldName</CODE> - имя атрибута в таблице, откуда берем СLOB<DD><CODE>keyFieldName</CODE> - PK в таблице tableName<DD><CODE>rowId</CODE> - идентификатор строки таблицы<DD><CODE>dataSourceJndiName</CODE> - имя источника данных<DD><CODE>resourceBundleName</CODE> - имя ресурсов
+<DT><B>Parameters:</B><DD><CODE>fileStream</CODE> - выходной поток записи файла<DD><CODE>fileDownload</CODE> - интерфейс загрузки файла<DD><CODE>tableName</CODE> - имя таблицы, откуда берем СLOB<DD><CODE>fileFieldName</CODE> - имя атрибута в таблице, откуда берем СLOB<DD><CODE>keyFieldName</CODE> - PK в таблице tableName<DD><CODE>rowId</CODE> - идентификатор строки таблицы<DD><CODE>dataSourceJndiName</CODE> - имя источника данных
 <DT><B>Throws:</B>
 <DD><CODE>java.io.IOException</CODE></DL>
 </DD>

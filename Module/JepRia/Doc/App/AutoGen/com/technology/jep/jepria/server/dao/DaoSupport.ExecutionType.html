@@ -54,7 +54,7 @@ function windowTitle()
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
 &nbsp;<A HREF="../../../../../../com/technology/jep/jepria/server/dao/DaoSupport.html" title="class in com.technology.jep.jepria.server.dao"><B>PREV CLASS</B></A>&nbsp;
-&nbsp;<A HREF="../../../../../../com/technology/jep/jepria/server/dao/ResultSetMapper.html" title="class in com.technology.jep.jepria.server.dao"><B>NEXT CLASS</B></A></FONT></TD>
+&nbsp;<A HREF="../../../../../../com/technology/jep/jepria/server/dao/JepDao.html" title="class in com.technology.jep.jepria.server.dao"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../../../../../index.html?com/technology/jep/jepria/server/dao/DaoSupport.ExecutionType.html" target="_top"><B>FRAMES</B></A>  &nbsp;
 &nbsp;<A HREF="DaoSupport.ExecutionType.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
@@ -106,8 +106,7 @@ java.lang.Object
 </PRE>
 
 <P>
-Данный перечислимый тип содержит тип, определяющий работаем мы с
- sql-выражением или sql-запросом. Используется в методе setParamsAndExecute.
+Возможные типы выполнения запроса в методе <A HREF="../../../../../../com/technology/jep/jepria/server/dao/DaoSupport.html#setParamsAndExecute(java.sql.CallableStatement, com.technology.jep.jepria.server.dao.DaoSupport.ExecutionType, java.lang.Object...)"><CODE>DaoSupport.setParamsAndExecute(java.sql.CallableStatement, com.technology.jep.jepria.server.dao.DaoSupport.ExecutionType, java.lang.Object...)</CODE></A>.
 <P>
 
 <P>
@@ -126,13 +125,13 @@ java.lang.Object
 <TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/dao/DaoSupport.ExecutionType.html#CALLABLE_STATEMENT">CALLABLE_STATEMENT</A></B></CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SQL-выражение (специфичный для Oracle тип, результат исполнения &mdash; курсор).</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/dao/DaoSupport.ExecutionType.html#QUERY">QUERY</A></B></CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SQL-запрос.</TD>
 </TR>
 </TABLE>
 &nbsp;
@@ -198,6 +197,8 @@ QUERY</H3>
 <PRE>
 public static final <A HREF="../../../../../../com/technology/jep/jepria/server/dao/DaoSupport.ExecutionType.html" title="enum in com.technology.jep.jepria.server.dao">DaoSupport.ExecutionType</A> <B>QUERY</B></PRE>
 <DL>
+<DD>SQL-запрос.
+<P>
 <DL>
 </DL>
 </DL>
@@ -208,6 +209,8 @@ CALLABLE_STATEMENT</H3>
 <PRE>
 public static final <A HREF="../../../../../../com/technology/jep/jepria/server/dao/DaoSupport.ExecutionType.html" title="enum in com.technology.jep.jepria.server.dao">DaoSupport.ExecutionType</A> <B>CALLABLE_STATEMENT</B></PRE>
 <DL>
+<DD>SQL-выражение (специфичный для Oracle тип, результат исполнения &mdash; курсор).
+<P>
 <DL>
 </DL>
 </DL>
@@ -293,7 +296,7 @@ with the specified name
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
 &nbsp;<A HREF="../../../../../../com/technology/jep/jepria/server/dao/DaoSupport.html" title="class in com.technology.jep.jepria.server.dao"><B>PREV CLASS</B></A>&nbsp;
-&nbsp;<A HREF="../../../../../../com/technology/jep/jepria/server/dao/ResultSetMapper.html" title="class in com.technology.jep.jepria.server.dao"><B>NEXT CLASS</B></A></FONT></TD>
+&nbsp;<A HREF="../../../../../../com/technology/jep/jepria/server/dao/JepDao.html" title="class in com.technology.jep.jepria.server.dao"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../../../../../index.html?com/technology/jep/jepria/server/dao/DaoSupport.ExecutionType.html" target="_top"><B>FRAMES</B></A>  &nbsp;
 &nbsp;<A HREF="DaoSupport.ExecutionType.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
