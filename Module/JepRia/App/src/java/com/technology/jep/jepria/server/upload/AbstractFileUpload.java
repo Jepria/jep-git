@@ -7,7 +7,7 @@ import com.technology.jep.jepria.shared.exceptions.ApplicationException;
 import com.technology.jep.jepria.shared.exceptions.SystemException;
 
 /**
- * Абстрактный базовый класс для FileUpload Stateful Session EJB 3
+ * Абстрактный базовый класс для загрузки файла на сервер.
  * 
  */
 public abstract class AbstractFileUpload implements FileUpload {
@@ -16,16 +16,15 @@ public abstract class AbstractFileUpload implements FileUpload {
 	protected LargeObject largeObject = null;
 
 	/**
-	 * Функция-обертка для {@link #beginWrite(String tableName, String fileFieldName, String keyFieldName, Object rowId, String dataSourceJndiName, String resourceBundleName)}.
+	 * Функция-обертка для {@link #beginWrite(String tableName, String fileFieldName, String keyFieldName, Object rowId, String dataSourceJndiName)}.
 	 * В классе реализации в конкретном модуле данный метод перегружаем вызывая в нем 
-	 * {@link #beginWrite(String tableName, String fileFieldName, String keyFieldName, Object rowId, String dataSourceJndiName, String resourceBundleName)}
+	 * {@link #beginWrite(String tableName, String fileFieldName, String keyFieldName, Object rowId, String dataSourceJndiName)}
 	 * с подставленными из констант класса реализации параметрами:<br/>
 	 * <code>
 	 * tableName,<br/>
 	 * fileFieldName,<br/>
 	 * keyFieldName,<br/>
-	 * dataSourceJndiName,<br/>
-	 * resourceBundleName<br/>
+	 * dataSourceJndiName<br/>
 	 * </code>.
 	 * В данном базовом классе содержит пустую реализацию, возвращающую 0.
 	 * 

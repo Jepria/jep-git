@@ -28,7 +28,6 @@ import com.technology.jep.jepria.server.upload.blob.BinaryFileUploadImpl;
 import com.technology.jep.jepria.server.upload.blob.FileUploadStream;
 import com.technology.jep.jepria.server.upload.clob.FileUploadWriter;
 import com.technology.jep.jepria.server.upload.clob.TextFileUploadImpl;
-import com.technology.jep.jepria.server.util.JepServerUtil;
 import com.technology.jep.jepria.shared.exceptions.UnsupportedException;
 import com.technology.jep.jepria.shared.field.JepTypeEnum;
 import com.technology.jep.jepria.shared.history.JepHistoryToken;

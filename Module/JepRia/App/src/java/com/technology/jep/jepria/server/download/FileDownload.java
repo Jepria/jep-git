@@ -33,9 +33,9 @@ public interface FileDownload {
 	 * @return рекомендуемая величина буфера
 	 * @throws ApplicationException
 	 */
-	//int beginRead(
-	//		Object rowId) 
-	//		throws ApplicationException;
+	int beginRead(
+			Object rowId) 
+			throws ApplicationException;
 	
 	/**
 	 * Окончание загрузки.

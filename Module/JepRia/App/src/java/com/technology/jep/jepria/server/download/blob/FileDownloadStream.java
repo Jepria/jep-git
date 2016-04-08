@@ -18,7 +18,7 @@ import com.technology.jep.jepria.shared.exceptions.SystemException;
  * Пример использования:
  * 
  * // Получим объект, реализующий интерфейс FileDownload
- * BinaryFileDownloadLocal download = (BinaryFileDownloadLocal) new InitialContext().lookup(DOWNLOAD_BEAN_JNDI_NAME);
+ * BinaryFileDownload download = new BinaryFileDownloadImpl();
  * 
  * // Передаем в метод поток для записи в файл, объект download,
  * // имя таблицы, имя поля LOB, имя ключевого поля, значение ключа
@@ -30,8 +30,7 @@ import com.technology.jep.jepria.shared.exceptions.SystemException;
  *				, LOB_FIELD_NAME
  *				, KEY_FIELD_NAME
  *				, new BigDecimal(loadTaskId.intValue())
- *				, DATA_SOURCE_JNDI_NAME
- *				, RESOURCE_BUNDLE_NAME);
+ *				, DATA_SOURCE_JNDI_NAME);
  * </pre>
  */
 public class FileDownloadStream extends InputStream {
@@ -58,6 +57,9 @@ public class FileDownloadStream extends InputStream {
 	public void close() throws IOException {
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 */
 	public int read(byte[] b, int off, int len) throws IOException {
 		if (b == null) {
 			return -1;
@@ -70,6 +72,9 @@ public class FileDownloadStream extends InputStream {
 		return read(b);
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 */
 	public int read(byte[] b) throws IOException {
 		try {
 			return fileDownload.continueRead(b);
@@ -78,6 +83,9 @@ public class FileDownloadStream extends InputStream {
 		}
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 */
 	public int read() throws IOException {
 		byte[] bytes = new byte[1];
 		try {
@@ -99,7 +107,6 @@ public class FileDownloadStream extends InputStream {
 	 * @param keyFieldName  		PK в таблице tableName
 	 * @param rowId 				идентификатор строки таблицы
 	 * @param dataSourceJndiName 	имя источника данных
-	 * @param resourceBundleName 	имя ресурсов
 	 * @throws IOException
 	 */
 	public static void downloadFile(

@@ -7,10 +7,13 @@ import com.technology.jep.jepria.server.upload.AbstractFileUpload;
 import com.technology.jep.jepria.shared.exceptions.ApplicationException;
 
 /**
- * FileUpload Stateful Session EJB 3 для записи в CLOB.
+ * Класс, реализующий загрузку (upload) файла в CLOB.
  */
 public class TextFileUploadImpl extends AbstractFileUpload implements TextFileUpload {
-
+	
+	/**
+	 * {@inheritDoc}
+	 */
 	public int beginWrite(
 		String tableName
 		, String fileFieldName
@@ -35,6 +38,9 @@ public class TextFileUploadImpl extends AbstractFileUpload implements TextFileUp
 		return result;
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 */
 	public void continueWrite(char[] dataBlock) throws SpaceException {
 		CallContext.attach(storedContext);
 		boolean cancelled = false;

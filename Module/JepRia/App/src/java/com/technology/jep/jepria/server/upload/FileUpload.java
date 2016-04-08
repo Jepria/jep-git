@@ -28,25 +28,24 @@ public interface FileUpload {
 		throws ApplicationException;
 
 	/**
-	 * Функция-обертка для {@link #beginWrite(String tableName, String fileFieldName, String keyFieldName, Object rowId, String dataSourceJndiName, String resourceBundleName)}.
+	 * Функция-обертка для {@link #beginWrite(String tableName, String fileFieldName, String keyFieldName, Object rowId, String dataSourceJndiName)}.
 	 * В классе реализации в конкретном модуле данный метод перегружаем вызывая в нем 
-	 * {@link #beginWrite(String tableName, String fileFieldName, String keyFieldName, Object rowId, String dataSourceJndiName, String resourceBundleName)}
+	 * {@link #beginWrite(String tableName, String fileFieldName, String keyFieldName, Object rowId, String dataSourceJndiName)}
 	 * с подставленными из констант класса реализации параметрами:<br/>
 	 * <code>
 	 * tableName,<br/>
 	 * fileFieldName,<br/>
 	 * keyFieldName,<br/>
-	 * dataSourceJndiName,<br/>
-	 * resourceBundleName<br/>
+	 * dataSourceJndiName<br/>
 	 * </code>.
 	 * 
 	 * @param rowId 				идентификатор строки таблицы
 	 * @return рекомендуемый размер буфера
 	 * @throws ApplicationException 
 	 */
-	//int beginWrite(
-	//	Object rowId) 
-	//	throws ApplicationException;
+	int beginWrite(
+		Object rowId) 
+		throws ApplicationException;
 
 	/**
 	 * Окончание выгрузки.
@@ -59,8 +58,6 @@ public interface FileUpload {
 
 	/**
 	 * Откат длинной транзакции.
-	 * После выполнения этого метода stateful bean должен быть удалён. 
-	 * Для удаления bean необходимо в классе реализации перед методом указать декларацию Remove.
 	 */
 	void cancel();
 }

@@ -8,7 +8,7 @@ import com.technology.jep.jepria.shared.exceptions.ApplicationException;
 import com.technology.jep.jepria.shared.exceptions.SystemException;
 
 /**
- * FileDownload Stateful Session EJB 3 для записи в CLOB.
+ * Реализует запись в CLOB.
  */
 public class TextFileDownloadImpl extends AbstractFileDownload implements TextFileDownload {
 	/**

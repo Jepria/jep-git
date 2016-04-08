@@ -21,7 +21,7 @@ import com.technology.jep.jepria.shared.exceptions.SystemException;
  * Пример использования:
  * 
  * // Получим объект, реализующий интерфейс FileUpload
- * TextFileUploadLocal upload = (TextFileUploadLocal) new InitialContext().lookup(UPLOAD_BEAN_JNDI_NAME);
+ * TextFileUpload upload = new TextFileUploadImpl();
  * 
  * // Передаем в метод поток для чтения из файла, объект upload,
  * // имя таблицы, имя поля LOB, имя ключевого поля, значение ключа
@@ -33,8 +33,7 @@ import com.technology.jep.jepria.shared.exceptions.SystemException;
  *				, LOB_FIELD_NAME
  *				, KEY_FIELD_NAME
  *				, new BigDecimal(loadTaskId.intValue())
- *				, DATA_SOURCE_JNDI_NAME
- *				, RESOURCE_BUNDLE_NAME);
+ *				, DATA_SOURCE_JNDI_NAME);
  * </pre>
  */
 public class FileUploadWriter extends Writer {
@@ -90,7 +89,6 @@ public class FileUploadWriter extends Writer {
 	 * @param keyFieldName  			PK в таблице tableName
 	 * @param rowId 							идентификатор строки таблицы
 	 * @param dataSourceJndiName 	имя источника данных
-	 * @param resourceBundleName 	имя ресурсов
 	 * @throws IOException
 	 */
 	public static void uploadFile(

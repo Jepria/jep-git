@@ -4,7 +4,7 @@ import com.technology.jep.jepria.server.download.FileDownload;
 import com.technology.jep.jepria.server.exceptions.SpaceException;
 
 /**
- * Интерфейс загрузки бинарного файла.
+ * Интерфейс выгрузки бинарного файла.
  */
 public interface BinaryFileDownload extends FileDownload {
 	/**

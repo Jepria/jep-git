@@ -20,7 +20,7 @@ import com.technology.jep.jepria.shared.exceptions.SystemException;
  * Пример использования:
  * 
  * // Получим объект, реализующий интерфейс FileUpload
- * BinaryFileUploadLocal upload = (BinaryFileUploadLocal) new InitialContext().lookup(UPLOAD_BEAN_JNDI_NAME);
+ * BinaryFileUpload upload = new BinaryFileUploadImpl();
  * 
  * // Передаем в метод поток для чтения из файла, объект upload,
  * // имя таблицы, имя поля LOB, имя ключевого поля, значение ключа
@@ -32,8 +32,7 @@ import com.technology.jep.jepria.shared.exceptions.SystemException;
  *				, LOB_FIELD_NAME
  *				, KEY_FIELD_NAME
  *				, new BigDecimal(loadTaskId.intValue())
- *				, DATA_SOURCE_JNDI_NAME
- *				, RESOURCE_BUNDLE_NAME);
+ *				, DATA_SOURCE_JNDI_NAME);
  * </pre>
  */
 public class FileUploadStream extends OutputStream {
@@ -69,7 +68,9 @@ public class FileUploadStream extends OutputStream {
 	public void flush() throws IOException {
 		throw new UnsupportedOperationException("Not impemented yet");
 	}
-
+	/**
+	 * {@inheritDoc}
+	 */
 	public void write(byte[] b, int off, int len) throws IOException {
 		if (b == null) {
 			return;
@@ -81,7 +82,10 @@ public class FileUploadStream extends OutputStream {
 		}
 			write(b);
 	}
-
+	
+	/**
+	 * {@inheritDoc}
+	 */
 	public void write(byte[] b) throws IOException {
 		try {
 			fileUpload.continueWrite(b);
@@ -89,7 +93,10 @@ public class FileUploadStream extends OutputStream {
 			throw new RuntimeException("Exception ocuccured on the remote side", e);
 		}
 	}
-
+	
+	/**
+	 * {@inheritDoc}
+	 */
 	public void write(int b) throws IOException {
 		try {
 			byte bytes[] = new byte[] { (byte) b };
@@ -178,7 +185,7 @@ public class FileUploadStream extends OutputStream {
 	 * Загрузка файла из входного потока в поле Blob таблицы базы данных по сложному первичному ключу.
 	 * 
 	 * @param inputStream 			входной поток чтения файла
-	 * @param ejbLookup				ejb, выполняющий загрузку
+	 * @param fileUpload			объект, выполняющий загрузку
 	 * @param tableName     		имя таблицы, откуда берем BINARY_FILE
 	 * @param fileFieldName  		имя атрибута в таблице, откуда берем BINARY_FILE
 	 * @param primaryKeyMap 		PK в таблице tableName

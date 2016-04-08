@@ -4,7 +4,7 @@ import com.technology.jep.jepria.server.exceptions.SpaceException;
 import com.technology.jep.jepria.server.upload.FileUpload;
 
 /**
- * Интерфейс выгрузки бинарного файла
+ * Интерфейс загрузки бинарного файла
  */
 public interface BinaryFileUpload extends FileUpload {
 

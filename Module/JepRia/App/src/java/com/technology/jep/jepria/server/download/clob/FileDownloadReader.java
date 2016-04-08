@@ -20,7 +20,7 @@ import com.technology.jep.jepria.shared.exceptions.SystemException;
  * Пример использования:
  * 
  * // Получим объект, реализующий интерфейс FileDownload
- * TextFileDownloadLocal download = (TextFileDownloadLocal) new InitialContext().lookup(DOWNLOAD_BEAN_JNDI_NAME);
+ * TextFileDownload download = new TextFileDownloadImpl();
  * 
  * // Передаем в метод поток для записи в файл, объект download,
  * // имя таблицы, имя поля LOB, имя ключевого поля, значение ключа
@@ -32,8 +32,7 @@ import com.technology.jep.jepria.shared.exceptions.SystemException;
  *				, LOB_FIELD_NAME
  *				, KEY_FIELD_NAME
  *				, new BigDecimal(loadTaskId.intValue())
- *				, DATA_SOURCE_JNDI_NAME
- *				, RESOURCE_BUNDLE_NAME);
+ *				, DATA_SOURCE_JNDI_NAME);
  * </pre>
  */
 public class FileDownloadReader extends Reader {

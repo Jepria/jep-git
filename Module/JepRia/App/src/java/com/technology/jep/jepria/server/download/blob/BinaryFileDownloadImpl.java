@@ -7,7 +7,7 @@ import com.technology.jep.jepria.server.exceptions.SpaceException;
 import com.technology.jep.jepria.shared.exceptions.ApplicationException;
 
 /**
- * FileDownload Stateful Session EJB 3 для чтения из BINARY_FILE.
+ * Класс, реализующий выгрузку (download) бинарного файла.
  */
 public class BinaryFileDownloadImpl extends AbstractFileDownload implements BinaryFileDownload {
 	

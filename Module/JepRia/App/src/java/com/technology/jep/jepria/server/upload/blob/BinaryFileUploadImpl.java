@@ -7,10 +7,13 @@ import com.technology.jep.jepria.server.upload.AbstractFileUpload;
 import com.technology.jep.jepria.shared.exceptions.ApplicationException;
 
 /**
- * FileUpload Stateful Session EJB 3 для записи в BINARY_FILE
+ * Реализует загрузку (upload) бинарного файла.
  */
 public class BinaryFileUploadImpl extends AbstractFileUpload implements BinaryFileUpload {
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public int beginWrite(
 		String tableName
 		, String fileFieldName
@@ -35,6 +38,9 @@ public class BinaryFileUploadImpl extends AbstractFileUpload implements BinaryFi
 		return result;
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 */
 	public void continueWrite(byte[] dataBlock) throws SpaceException {
 		CallContext.attach(storedContext);
 		boolean cancelled = false;

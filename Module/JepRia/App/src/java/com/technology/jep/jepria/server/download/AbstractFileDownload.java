@@ -9,7 +9,7 @@ import com.technology.jep.jepria.shared.exceptions.ApplicationException;
 import com.technology.jep.jepria.shared.exceptions.SystemException;
 
 /**
- * Абстрактный базовый класс для FileDownload Stateful Session EJB 3
+ * Абстрактный базовый класс для реализаций выгрузки файла.
  */
 public abstract class AbstractFileDownload implements FileDownload {
 
@@ -70,14 +70,5 @@ public abstract class AbstractFileDownload implements FileDownload {
 			CallContext.end();
 		}
 	}
-	
-//	/**
-//	 * Проверка активности транзакции
-//	 * 
-//	 * @return признак активности текущей транзакции
-//	 * @throws javax.transaction.SystemException
-//	 */
-//	protected boolean isActiveUserTransaction() throws javax.transaction.SystemException {
-//		return sessionContext.getUserTransaction().getStatus() == Status.STATUS_ACTIVE;
-//	}
+
 }
