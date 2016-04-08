@@ -192,9 +192,19 @@ public class Db {
 		try {
 			DataSource dataSource = dataSourceMap.get(dataSourceJndiName);
 			if (dataSource == null) {
-				InitialContext ic = new InitialContext();
-				dataSource = (DataSource) ic.lookup(dataSourceJndiName);
-				dataSourceMap.put(dataSourceJndiName, dataSource);
+				if (dataSource == null) {
+					InitialContext ic = new InitialContext();
+					try {
+						dataSource = (DataSource) ic.lookup(dataSourceJndiName);	// Для oc4j и weblogic
+					} catch(NamingException nex) { // Теперь пробуем в другом контексте (для Tomcat)
+						logger.trace("Failed lookup for '" + dataSourceJndiName + "', try now '" + "java:/comp/env/" + dataSourceJndiName + "'");
+						dataSourceJndiName = "java:/comp/env/" + dataSourceJndiName;
+						dataSource = (DataSource) ic.lookup(dataSourceJndiName);
+					}
+					logger.trace("Successfull lookup for " + dataSourceJndiName);
+					
+					dataSourceMap.put(dataSourceJndiName, dataSource);
+				}
 			}
 			Connection con = dataSource.getConnection();
 			con.setAutoCommit(false);
