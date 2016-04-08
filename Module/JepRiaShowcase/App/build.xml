@@ -383,7 +383,9 @@
 		</outofdate>
 	</target>
 
-	<target name="war" depends="web-jar">
+	<!-- Создание модуля war, входящего в ear -->
+	<!-- TODO устранить дублирование в war и war-module -->
+	<target name="war-module" depends="web-jar">
 		<outofdate>
 			<sourcefiles>
 				<fileset file="${JAR_TEMP}/${MODULE_NAME_IN_PACKAGE}-web.jar" />
@@ -439,7 +441,7 @@
 		</outofdate>
 	</target>
 
-	<target name="ear" depends="war">
+	<target name="ear" depends="war-module">
 		<outofdate>
 			<sourcefiles>
 				<fileset dir="${RESOURCE_HOME}" includes="application.xml, orion-application.xml" />
@@ -476,6 +478,74 @@
 				</copy>
 				<jar basedir="temp-ear" destfile="lib/${MODULE_NAME_IN_PACKAGE}.ear" />
 				<delete dir="temp-ear" />
+			</sequential>
+		</outofdate>
+	</target>
+	
+	<!-- Создание приложения war -->
+	<!-- TODO устранить дублирование в war и war-module -->
+	<target name="war" depends="web-jar">
+		<outofdate>
+			<sourcefiles>
+				<fileset file="${JAR_TEMP}/${MODULE_NAME_IN_PACKAGE}-web.jar" />
+				<fileset file="src/html/*.gif" />
+				<fileset file="src/html/*.css" />
+				<fileset file="src/html/*.jsp" />
+				<fileset file="src/resources/${MODULE_PACKAGE}/web/web.xml" />
+				<fileset file="build-gwt/${MODULE_NAME}/*.*" />
+			</sourcefiles>
+			<targetfiles path="${JAR_TEMP}/${MODULE_NAME_IN_PACKAGE}.war" />
+			<sequential>
+				<mkdir dir="temp-war" />
+				<copy todir="temp-war/WEB-INF/lib">
+					<fileset dir="${OC4J_HOME}/jakarta-taglibs/jstl-1.1/lib" includes="jstl.jar, standard.jar" />
+					<fileset dir="${LOG4J_HOME}" includes="log4j.jar" />
+					<fileset dir="${JEP_RIA}/lib" includes="jepria.jar" />
+					<fileset dir="${JEP_RIA}/lib" includes="jepria-oc4j.jar" />
+					<fileset dir="${JEP_RIA_REPORT}/lib" includes="jepriareport.jar" />
+					<fileset dir="${JEP_RIA_REPORT}/lib" includes="commons-digester-1.7.jar" />
+					<fileset dir="${JASPER_REPORTS_HOME}/dist" includes="jasperreports.jar" />
+					<fileset dir="${GWT_HOME}" includes="gwt-servlet.jar" />
+					<fileset dir="${OC4J_HOME}/jakarta-struts/lib" includes="commons-logging.jar" />
+					<fileset dir="${GWT_LOG_HOME}" includes="gwt-log.jar" />
+					<fileset dir="${COMMONS-FILEUPLOAD_HOME}" includes="commons-fileupload.jar" />
+					<fileset dir="${COMMONS-IO_HOME}" includes="commons-io.jar" />
+					<fileset dir="${JAR_TEMP}" includes="${MODULE_NAME_IN_PACKAGE}-web.jar" />
+					<fileset dir="${OC4J_HOME}/jakarta-struts/lib" includes="commons-digester.jar, commons-collections.jar, commons-beanutils.jar, commons-fileupload.jar, commons-lang.jar, commons-validator.jar" />
+					<fileset dir="${J2EE_HOME}" includes="jazncore.jar" /> <!-- для login.jsp TODO отвязать от OC4J -->
+					<fileset dir="${JASPER_REPORTS_HOME}/lib" includes="spring-core-2.5.5.jar, spring-beans-2.5.5.jar, jfreechart-1.0.12.jar, groovy-all-1.5.5.jar, jcommon-1.0.15.jar, iText-2.1.0.jar, commons-digester-1.7.jar" />
+					<fileset dir="${BIN_REPO}/com/oracle/ojdbc14/10.1.0.5.0" includes="ojdbc14.jar" />
+				</copy>
+				
+				<copy file="${OC4J_HOME}/jakarta-taglibs/jstl-1.1/tld/c.tld" todir="temp-war/WEB-INF/tld" />
+				<copy file="${JEP_RIA}/src/html/JepRia.css" todir="temp-war/css" />
+				<copy failonerror="false" todir="temp-war/images">
+					<fileset dir="${JEP_RIA}/src/resources/com/technology/jep/jepria/images" />
+					<fileset dir="${RESOURCE_HOME}/images" />
+				</copy>
+				<copy todir="temp-war/css">
+					<fileset file="src/html/*.css" />
+				</copy>
+				<copy todir="temp-war/security">
+					<fileset file="${SECURITY_RESOURCES}/**/" />
+				</copy>
+				<copy todir="temp-war">
+					<fileset file="src/html/*.jsp" />
+				</copy>
+				
+				<copy file="src/resources/${MODULE_PACKAGE}/web/web.xml" todir="temp-war/WEB-INF" />
+				<copy todir="temp-war">
+					<fileset dir="build-gwt" />
+				</copy>
+				<copy failonerror="false" todir="temp-war/resources/${MODULE_PACKAGE}/report">
+					<fileset dir="${RESOURCE_HOME}/report" />
+				</copy>
+				<copy todir="temp-war/security/javascript">
+					<fileset dir="${JEP_RIA}/src/javascript" includes="jquery-1.10.2.js, jquery.cookie.js" />
+				</copy>
+				
+				<jar basedir="temp-war" destfile="lib/${MODULE_NAME_IN_PACKAGE}.war" />
+				<delete dir="temp-war" />
 			</sequential>
 		</outofdate>
 	</target>
