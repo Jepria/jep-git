@@ -151,6 +151,7 @@
       <li>Упразднён файл jepria-ejb.jar.</li>
     </ul>
   </li>
+  <li><b>chore:</b> Удалён метод <code>JepDao.getValueFromOption()</code>.</li>
   <li><b>chore:</b> Удалены неиспользуемые методы в <code>CallContext</code>.</li>
   <li><b>refactor:</b> &quot;Старый&quot; класс <code>ServerFactory</code> переименован в 
   <code>SecurityFactory</code> и перенесён в пакет <code>server.security</code>. Новый класс
@@ -182,9 +183,104 @@
   </li>
   <li><b>feat:</b> Текст &quot;Записи 1 - 0 из 0&quot; на тулбаре списочной формы 
   (<code>PagingStandardBar</code>, <code>PagingSimpleBar</code>) изменён на 
-  &quot;Записей не найдено&quot;</li>
-  
-  
+  &quot;Записей не найдено&quot;</li>  
+</ul>
+Основные шаги для перехода с JepRia 8.X.X на 9.0.0:
+<ul>
+  <li>Использовать build.xml из JepRiaShowcase 9.0.0.</li>
+  <li>Переименовать JepApplication.xml в <i>ApplicationName</i>Definition.xml</li>
+  <li>Из application.xml удалить объявления EJB-модулей:
+<pre>&lt;module&gt;
+  &lt;ejb&gt;applicationname-ejb.jar&lt;/ejb&gt;
+&lt;/module&gt;
+&lt;module&gt;
+  &lt;ejb&gt;jepria-ejb.jar&lt;/ejb&gt;
+&lt;/module&gt;</pre>
+  </li>
+  <li>Из web.xml удалить определение сервлета и бина поддержки версионности:
+<pre>
+  &lt;servlet&gt;
+    &lt;servlet-name&gt;VersionServlet&lt;/servlet-name&gt;
+    &lt;servlet-class&gt;com.technology.jep.jepria.server.version.VersionServlet&lt;/servlet-class&gt;
+  &lt;/servlet&gt;
+  &lt;servlet-mapping&gt;
+    &lt;servlet-name&gt;VersionServlet&lt;/servlet-name&gt;
+    &lt;url-pattern&gt;/versionServlet&lt;/url-pattern&gt;
+  &lt;/servlet-mapping&gt;
+  &lt;ejb-local-ref&gt;
+    &lt;ejb-ref-name&gt;ejb/VersionBean&lt;/ejb-ref-name&gt;
+    &lt;ejb-ref-type&gt;Session&lt;/ejb-ref-type&gt;
+    &lt;local&gt;com.technology.jep.jepria.server.version.ejb.JepVersionLocal&lt;/local&gt;
+  &lt;/ejb-local-ref&gt;
+  . . .
+  &lt;security-constraint&gt;
+    &lt;web-resource-collection&gt;
+      &lt;web-resource-name&gt;Version Servlet entry point&lt;/web-resource-name&gt;
+      &lt;url-pattern&gt;/versionServlet&lt;/url-pattern&gt;
+      &lt;http-method&gt;GET&lt;/http-method&gt;
+      &lt;http-method&gt;POST&lt;/http-method&gt;
+    &lt;/web-resource-collection&gt;
+  &lt;/security-constraint&gt;
+</pre>
+  </li>
+  <li>Из web.xml удалить <b>все</b> определения EJB (в том числе <code>TextFileUploadBean</code>,
+  <code>TextFileDownloadBean</code>, <code>BinaryFileUploadBean</code>,
+  <code>BinaryFileDownloadBean</code>) вида:
+<pre>&lt;ejb-local-ref&gt;
+  &lt;ejb-ref-name&gt;ejb/CompetencyBean&lt;/ejb-ref-name&gt;
+  &lt;ejb-ref-type&gt;Session&lt;/ejb-ref-type&gt;
+  &lt;local>com.technology.rfi.timesheet.competency.server.ejb.CompetencyLocal&lt;/local&gt;
+&lt;/ejb-local-ref&gt;</pre>
+  </li>
+  <li>Из пакетов <code><i>module_name</i>.server.ejb</code> удалить local- и remote-интерфейсы EJB.</li>
+  <li>Переименовать пакеты <code><i>module_name</i>.server.ejb</code> в
+  <code><i>module_name</i>.server.dao</code>.</li>
+  <li>Переименовать бывшую реализацию бина <code><i>ModuleName</i>Bean</code> 
+  &mdash; в <code><i>ModuleName</i>Dao</code>. Внести следующие изменения:
+    <ul>
+      <li>унаследовать <code>JepDao</code> вместо <code>JepDataBean</code>;</li>
+	  <li>удалить конструктор;</li>
+	  <li>удалить связанные с EJB импорты и аннотации:
+<pre>
+import javax.ejb.*;
+import oracle.j2ee.ejb.StatelessDeployment;
+. . .
+{@literal @}Local( { ClaimLocal.class })
+{@literal @}Remote( { ClaimRemote.class })
+{@literal @}StatelessDeployment
+{@literal @}Stateless</pre>
+	  </li>
+	  <li>вместо <code>getValueFromOption()</code> использовать <code>JepOption.getValue()</code>.</li>
+    </ul>
+  </li>
+  <li>Из <code><i>ModuleName</i>ServerConstant</code> удалить константу <code>BEAN_JNDI_NAME</code>.</li>
+  <li>Внести изменения в <code><i>ModuleName</i>ServiceImpl</code>:
+    <ul>
+      <li>в объявлении класса параметризовать наследуемый класс <code>JepDataServiceServlet</code>
+      интерфейсом Dao (бывшим интерфейсом бина):<br/>
+      <code>public class <i>ModuleName</i>ServiceImpl extends 
+      <i>ModuleName</i>ServiceServlet&lt;<i>ModuleName</i>&gt; implements 
+      <i>ModuleName</i>Service</code>
+      <li>изменить вызов конструктора родительского класса по образцу:
+<pre>public ModuleNameServiceImpl() {
+  super(ModuleNameRecordDefinition.instance, 
+      new ServerFactory&lt;ModuleName&gt;(new ModuleNameDao(), DATA_SOURCE_JNDI_NAME));
+}</pre>
+      </li>
+      <li>перед вызовом методов EJB удалить lookup бина. Метод вызывается у переменной <code>dao</code>:
+<pre>{@literal @}Override
+public List&lt;JepOption&gt; getBank(String bankBic, Integer maxRowCount) throws ApplicationException {
+  List&lt;JepOption&gt; result = null;
+  try {
+    result = dao.getBank(bankBic, maxRowCount);					
+  } catch (Throwable th) {
+    throw new ApplicationException(th.getLocalizedMessage(), th);
+  }
+  return result;
+}</pre>
+      </li>
+    </ul>
+  </li>
 </ul>
 <h5><a name="8.9.2">8.9.2 (2016-02-02)</a></h5>
 <ul>
