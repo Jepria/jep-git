@@ -36,6 +36,7 @@
 <h3><a name="releaseNotes">Замечания к версиям</a></h3>
 <h4>Версии</h4>
 <ul>
+  <li><a href="#9.0.0">9.0.0 (2016-04-12)</a></li>
   <li><a href="#8.9.2">8.9.2 (2016-02-02)</a></li>
   <li><a href="#8.9.1">8.9.1 (2016-01-26)</a></li>
   <li><a href="#8.9.0">8.9.0 (2016-01-26)</a></li>
@@ -132,6 +133,58 @@
   <li><a href="#2.1.0">2.1.0 (2011-03-11)</a></li>
   <li><a href="#2.0.0">2.0.0 (2011-03-03)</a></li>
   <li><a href="#1.0.0">1.0.0 (2010-11-01)</a></li>
+</ul>
+<h5><a name="9.0.0">9.0.0 (2016-04-12)</a></h5>
+<ul>
+  <li><b>feat:</b> Добавлена возможность передачи значения типа <code>OracleTypes.CLOB</code>
+  в качестве аргумента хранимой процедуры или функции.</li>
+  <li><b>feat:</b> (JepRia_CR88) Отказ от EJB при взаимодействии с DB:
+    <ul>
+      <li>Удалены все зависимости от EJB в коде JepRia.</li>
+      <li>Обусловленная отказом от EJB доработка <code>DaoSupport</code>, <code>CallContext</code>, 
+      <code>Db</code>.</li>
+      <li>Место <code>JepDataBean</code>, <code>JepDataStandardBean</code> заняли классы
+      <code>JepDao</code>, <code>JepDaoStandard</code> в пакете <code>server.dao</code>.</li>
+      <li>Классы, необходимые для поддержки взаимодействия с DB, перенесены в пакет
+      <code>server.dao</code>.</li>
+      <li>В процессе сборки не используется библиотека ejb30.jar</li>
+      <li>Упразднён файл jepria-ejb.jar.</li>
+    </ul>
+  </li>
+  <li><b>chore:</b> Удалены неиспользуемые методы в <code>CallContext</code>.</li>
+  <li><b>refactor:</b> &quot;Старый&quot; класс <code>ServerFactory</code> переименован в 
+  <code>SecurityFactory</code> и перенесён в пакет <code>server.security</code>. Новый класс
+  с аналогичным именем выполняет задачу создания транзакционного прокси для Dao.</li>
+  <li><b>chore:</b> Удалён функционал поддержки версионности.</li>
+  <li><b>chore:</b> Удалён неиспользуемый класс <code>JepUser</code>.</li>
+  <li><b>refactor:</b> Имя текстовых ресурсов не используется при взаимодействии с DB, в том числе
+  в процессе загрузки и выгрузки файлов.</li>
+  <li><b>chore:</b> Отказ от CAS SSO.</li>
+  <li><b>feat:</b> В классе <code>Db</code> добавлена поддержка поиска источников данных
+  в контексте <code>java:/comp/env/</code> (необходимо, в частности, для Tomcat).</li>
+  <li><b>docs:</b> Документирование серверного кода.</li>
+  <li><b>fix:</b> Метод <code>JepClientUtil.goToUrl()</code> не учитывает регистр.</li>
+  <li><b>feat:</b> В <code>JepFileReference</code> вместо явного указания типа первичного ключа
+  используется generic.</li>
+  <li><b>fix:</b> Модификатор доступа метода <code>JepClientUtil.getElementValue()</code> изменён
+  на <code>public</code>.</li>
+  <li><b>feat:</b> Добавлена стандартная реализация списочной формы: 
+  <code>StandardListFormViewImpl</code>.</li>
+  <li><b>refactor:</b> Рефакторинг <code>ListFormPresenter</code>,
+  <code>AutoRefreshListFormPresenter</code>:
+    <ul>
+      <li>Добавлены hook-методы <code>onRefreshSuccess()</code>, <code>onRefreshFailure()</code>, 
+      <code>onSortSuccess()</code>, <code>onSortFailure()</code>, <code>onPagingSuccess()</code>, 
+      <code>onPagingFailure()</code>. </li>
+      <li>Метод <code>processRefreshTimeout()</code> упразднён в пользу 
+      <code>onRefreshSuccess()</code>.</li>
+    </ul>  
+  </li>
+  <li><b>feat:</b> Текст &quot;Записи 1 - 0 из 0&quot; на тулбаре списочной формы 
+  (<code>PagingStandardBar</code>, <code>PagingSimpleBar</code>) изменён на 
+  &quot;Записей не найдено&quot;</li>
+  
+  
 </ul>
 <h5><a name="8.9.2">8.9.2 (2016-02-02)</a></h5>
 <ul>
