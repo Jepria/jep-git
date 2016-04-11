@@ -197,6 +197,9 @@
   &lt;ejb&gt;jepria-ejb.jar&lt;/ejb&gt;
 &lt;/module&gt;</pre>
   </li>
+  <li>Из orion-application.xml удалить объявление EJB-модуля приложения:
+  <code>&lt;ejb-module path=&quot;lib/<i>applicationname</i>-ejb.jar&quot; remote=&quot;false&quot;/&gt;</code>
+  </li>
   <li>Из web.xml удалить определение сервлета и бина поддержки версионности:
 <pre>
   &lt;servlet&gt;
