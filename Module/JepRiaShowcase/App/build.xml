@@ -105,6 +105,12 @@
 		<path refid="weblogic-libs" />
 	</path>
 
+	<path id="tomcat-libs">
+		<pathelement location="${TOMCAT_HOME}/lib/catalina-ant.jar" />
+		<pathelement location="${TOMCAT_HOME}/lib/tomcat-coyote.jar" />
+		<pathelement location="${TOMCAT_HOME}/lib/tomcat-util.jar" />
+	</path>
+
 	<fileset dir="build" id="class-web-jar">
 		<include name="**/shared/" />
 		<include name="**/server/" />
@@ -142,6 +148,7 @@
 				<echo message="PROJECT_NAME_IN_PACKAGE: ${PROJECT_NAME_IN_PACKAGE}" />
 				<property name="MODULE_PACKAGE" value="com/technology/${PROJECT_NAME_IN_PACKAGE}/${MODULE_NAME_IN_PACKAGE}" />
 				<property name="RESOURCE_HOME" value="src/resources/${MODULE_PACKAGE}" />
+				<property name="WAR_FILE_NAME" value="${MODULE_NAME}.war" />
 			</sequential>
 		</for>
 	</target>
@@ -384,8 +391,8 @@
 	</target>
 
 	<!-- Создание модуля war, входящего в ear -->
-	<!-- TODO устранить дублирование в war и war-module -->
-	<target name="war-module" depends="web-jar">
+	<!-- TODO устранить дублирование в war и web-module -->
+	<target name="web-module" depends="web-jar">
 		<outofdate>
 			<sourcefiles>
 				<fileset file="${JAR_TEMP}/${MODULE_NAME_IN_PACKAGE}-web.jar" />
@@ -441,7 +448,7 @@
 		</outofdate>
 	</target>
 
-	<target name="ear" depends="war-module">
+	<target name="ear" depends="web-module">
 		<outofdate>
 			<sourcefiles>
 				<fileset dir="${RESOURCE_HOME}" includes="application.xml, orion-application.xml" />
@@ -483,7 +490,7 @@
 	</target>
 	
 	<!-- Создание приложения war -->
-	<!-- TODO устранить дублирование в war и war-module -->
+	<!-- TODO устранить дублирование в war и web-module -->
 	<target name="war" depends="web-jar">
 		<outofdate>
 			<sourcefiles>
@@ -495,6 +502,7 @@
 				<fileset file="build-gwt/${MODULE_NAME}/*.*" />
 			</sourcefiles>
 			<targetfiles path="${JAR_TEMP}/${MODULE_NAME_IN_PACKAGE}.war" />
+			
 			<sequential>
 				<mkdir dir="temp-war" />
 				<copy todir="temp-war/WEB-INF/lib">
@@ -514,7 +522,7 @@
 					<fileset dir="${OC4J_HOME}/jakarta-struts/lib" includes="commons-digester.jar, commons-collections.jar, commons-beanutils.jar, commons-fileupload.jar, commons-lang.jar, commons-validator.jar" />
 					<fileset dir="${J2EE_HOME}" includes="jazncore.jar" /> <!-- для login.jsp TODO отвязать от OC4J -->
 					<fileset dir="${JASPER_REPORTS_HOME}/lib" includes="spring-core-2.5.5.jar, spring-beans-2.5.5.jar, jfreechart-1.0.12.jar, groovy-all-1.5.5.jar, jcommon-1.0.15.jar, iText-2.1.0.jar, commons-digester-1.7.jar" />
-					<fileset dir="${BIN_REPO}/com/oracle/ojdbc14/10.1.0.5.0" includes="ojdbc14.jar" />
+					<fileset dir="${JDBC_HOME}/ojdbc14/10.1.0.5.0" includes="ojdbc14.jar" />
 				</copy>
 				
 				<copy file="${OC4J_HOME}/jakarta-taglibs/jstl-1.1/tld/c.tld" todir="temp-war/WEB-INF/tld" />
@@ -614,58 +622,89 @@
         -->
 	</target>
 
-	<target name="deploy" depends="save-version-application">
-		<echo message="Deploying to:${DEPLOYMENT_PATH}"/>
-		<if>
-			<isset Property="WL_DEPLOY_TARGETS" />
-			<then>
-				<taskdef classname="weblogic.ant.taskdefs.management.WLDeploy" classpath="${WL_LIB_HOME}/wlfullclient.jar" name="wldeploy" />
-				<echo message="Deploy to Weblogic" />
-				<trycatch>
-					<try>
-						<wldeploy
-							action="deploy"
-							adminurl="t3://${DEPLOYMENT_PATH}"
-							targets="${WL_DEPLOY_TARGETS}"
-							debug="true"
-							failonerror="true"
-							name="${MODULE_NAME_IN_PACKAGE}"
-							password="${PASSWORD}"
-							source="lib/${MODULE_NAME_IN_PACKAGE}.ear"
-							upload="true"
-							user="${LOGIN}"
-							verbose="true"
-							>
-						</wldeploy>
-						<property name="javaReturnCode" value="0" />
-						<property name="errorMessage" value="" />
-					</try>
-					<catch>
-						<property name="javaReturnCode" value="1" />
-						<property name="errorMessage" value="Deploy to Weblogic failed, see log for details" />
-					</catch>
-				</trycatch>
-			</then>
-			<else>
-				<echo message="Deploy to OC4J" />
+	<target name="oc4j.deploy" depends="save-version-application">
+		<echo message="Deploying to OC4J at ${DEPLOYMENT_PATH}"/>
 
-				<java fork="yes" jar="${J2EE_HOME}/admin_client.jar" failonerror="false" resultproperty="javaReturnCode" errorproperty="errorMessage">
-					<arg value="deployer:oc4j:${DEPLOYMENT_PATH}" />
-					<arg value="${LOGIN}" />
-					<arg value="${PASSWORD}" />
-					<arg value="-deploy" />
-					<arg value="-file" />
-					<arg value="lib/${MODULE_NAME_IN_PACKAGE}.ear" />
-					<arg value="-deploymentName" />
-					<arg value="${MODULE_NAME_IN_PACKAGE}" />
-					<arg value="-bindAllWebApps" />
-				</java>
-
-			</else>
-		</if>
+		<java fork="yes" jar="${J2EE_HOME}/admin_client.jar" failonerror="false" resultproperty="javaReturnCode" errorproperty="errorMessage">
+			<arg value="deployer:oc4j:${DEPLOYMENT_PATH}" />
+			<arg value="${LOGIN}" />
+			<arg value="${PASSWORD}" />
+			<arg value="-deploy" />
+			<arg value="-file" />
+			<arg value="lib/${MODULE_NAME_IN_PACKAGE}.ear" />
+			<arg value="-deploymentName" />
+			<arg value="${MODULE_NAME_IN_PACKAGE}" />
+			<arg value="-bindAllWebApps" />
+		</java>
 		
 		<appInstall action="finishAppInstall" deploymentPath="${DEPLOYMENT_PATH}" port="${PORT}" loadOperatorId="${LOAD_OPERATORID}" appInstallResultId="${appInstallResultId}" javaReturnCode="${javaReturnCode}" errorMessage="${errorMessage}" skipSaveInstallInfo="${SKIP_SAVE_INSTALL_INFO}" />
 	</target>
+
+	<target name="deploy" depends="oc4j.deploy"/> <!-- Для обеспечения совместимости с текущим интерфейсом -->
+	
+	<target name="weblogic.deploy" depends="save-version-application">
+		<echo message="Deploying to WebLogic at ${DEPLOYMENT_PATH}"/>
+		<taskdef classname="weblogic.ant.taskdefs.management.WLDeploy" classpath="${WL_LIB_HOME}/weblogic.jar" name="wldeploy" />
+		<trycatch>
+			<try>
+				<wldeploy
+					action="deploy"
+					adminurl="t3://${DEPLOYMENT_PATH}"
+					targets="${WL_DEPLOY_TARGETS}"
+					debug="true"
+					failonerror="true"
+					name="${MODULE_NAME_IN_PACKAGE}"
+					password="${PASSWORD}"
+					source="lib/${MODULE_NAME_IN_PACKAGE}.ear"
+					upload="true"
+					user="${LOGIN}"
+					verbose="true"
+					>
+				</wldeploy>
+				
+				<property name="javaReturnCode" value="0" />
+				<property name="errorMessage" value="" />
+			</try>
+			<catch>
+				<property name="javaReturnCode" value="1" />
+				<property name="errorMessage" value="Deploy to Weblogic failed, see log for details" />
+			</catch>
+		</trycatch>
+		
+		<appInstall action="finishAppInstall" deploymentPath="${DEPLOYMENT_PATH}" port="${PORT}" loadOperatorId="${LOAD_OPERATORID}" appInstallResultId="${appInstallResultId}" javaReturnCode="${javaReturnCode}" errorMessage="${errorMessage}" skipSaveInstallInfo="${SKIP_SAVE_INSTALL_INFO}" />
+	</target>
+
+	<taskdef name="tomcat.deploy" classname="org.apache.catalina.ant.DeployTask" classpathref="tomcat-libs" />
+	<taskdef name="tomcat.undeploy" classname="org.apache.catalina.ant.UndeployTask" classpathref="tomcat-libs" />
+	
+	<target name="tomcat.undeploy" description="Undeploy from Tomcat" depends="init">
+		<tomcat.undeploy 
+			failonerror="no"
+			url="${DEPLOYMENT_PATH}"
+			username="${LOGIN}"
+			password="${PASSWORD}"
+			path="/${MODULE_NAME}"
+		/>
+	</target>
+	
+	<!-- TODO Нужен рефакторинг по устранению дублирования кода deploy и build-and-deploy -->
+	<target name="tomcat.deploy" description="Deploy to Tomcat" depends="init, tomcat.undeploy">
+		
+		<echo message="Deploying lib/${MODULE_NAME_IN_PACKAGE}.war to:${DEPLOYMENT_PATH}"/>
+		<echo message="Deploy to Tomcat..." />
+		<echo message="LOGIN: ${LOGIN}" />
+		<echo message="PASSWORD: ${PASSWORD}" />
+		
+		<tomcat.deploy 
+			url="${DEPLOYMENT_PATH}"
+			username="${LOGIN}"
+			password="${PASSWORD}"
+			path="/${MODULE_NAME}"
+			war="file:lib/${MODULE_NAME_IN_PACKAGE}.war"
+			update="true"
+		/>
+	</target>
+
 
 	<target name="doc" depends="start-log">
 		<javadoc Doctitle="${MODULE_NAME} API Reference" Windowtitle="${MODULE_NAME} JavaDoc" access="private" additionalparam="-notimestamp" charset="UTF-8" destdir="${JAVA_DOC_DIR}" docencoding="UTF-8" encoding="UTF-8" includenosourcepackages="true" overview="src/java/${MODULE_PACKAGE}/overview.html" packagenames="*" sourcepath="src/java">
