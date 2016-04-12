@@ -53,7 +53,7 @@ function windowTitle()
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/wysiwyg/toolbar/ColorPicker.html" title="class in com.technology.jep.jepria.client.widget.field.wysiwyg.toolbar"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/wysiwyg/toolbar/CustomRichTextArea.html" title="class in com.technology.jep.jepria.client.widget.field.wysiwyg.toolbar"><B>PREV CLASS</B></A>&nbsp;
 &nbsp;<A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/wysiwyg/toolbar/RichTextToolbar.EventHandler.html" title="class in com.technology.jep.jepria.client.widget.field.wysiwyg.toolbar"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../../../../../../../../index.html?com/technology/jep/jepria/client/widget/field/wysiwyg/toolbar/RichTextToolbar.html" target="_top"><B>FRAMES</B></A>  &nbsp;
@@ -224,14 +224,6 @@ A sample toolbar for use with <CODE>RichTextArea</CODE>. It provides a simple UI
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>private static&nbsp;com.google.gwt.user.client.ui.RichTextArea.FontSize[]</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/wysiwyg/toolbar/RichTextToolbar.html#fontSizesConstants">fontSizesConstants</A></B></CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>private &nbsp;com.google.gwt.user.client.ui.PushButton</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/wysiwyg/toolbar/RichTextToolbar.html#foreColors">foreColors</A></B></CODE>
 
@@ -384,7 +376,7 @@ A sample toolbar for use with <CODE>RichTextArea</CODE>. It provides a simple UI
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>private &nbsp;com.google.gwt.user.client.ui.RichTextArea</CODE></FONT></TD>
+<CODE>private &nbsp;<A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/wysiwyg/toolbar/CustomRichTextArea.html" title="class in com.technology.jep.jepria.client.widget.field.wysiwyg.toolbar">CustomRichTextArea</A></CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/wysiwyg/toolbar/RichTextToolbar.html#richText">richText</A></B></CODE>
 
 <BR>
@@ -458,7 +450,7 @@ A sample toolbar for use with <CODE>RichTextArea</CODE>. It provides a simple UI
 <B>Constructor Summary</B></FONT></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><B><A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/wysiwyg/toolbar/RichTextToolbar.html#RichTextToolbar(com.google.gwt.user.client.ui.RichTextArea)">RichTextToolbar</A></B>(com.google.gwt.user.client.ui.RichTextArea&nbsp;richText)</CODE>
+<TD><CODE><B><A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/wysiwyg/toolbar/RichTextToolbar.html#RichTextToolbar(com.technology.jep.jepria.client.widget.field.wysiwyg.toolbar.CustomRichTextArea)">RichTextToolbar</A></B>(<A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/wysiwyg/toolbar/CustomRichTextArea.html" title="class in com.technology.jep.jepria.client.widget.field.wysiwyg.toolbar">CustomRichTextArea</A>&nbsp;richText)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates a new toolbar that drives the given rich text area.</TD>
@@ -479,7 +471,7 @@ A sample toolbar for use with <CODE>RichTextArea</CODE>. It provides a simple UI
 <TD><CODE><B><A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/wysiwyg/toolbar/RichTextToolbar.html#createColorMenu(com.google.gwt.user.client.ui.Widget)">createColorMenu</A></B>(com.google.gwt.user.client.ui.Widget&nbsp;button)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates pop-up menu for choosing appropriate color.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -487,17 +479,19 @@ A sample toolbar for use with <CODE>RichTextArea</CODE>. It provides a simple UI
 <TD><CODE><B><A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/wysiwyg/toolbar/RichTextToolbar.html#createColorPickerButton(java.lang.String)">createColorPickerButton</A></B>(java.lang.String&nbsp;caption)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates a color picker to style the selected text.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>private &nbsp;<A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepComboBoxField.html" title="class in com.technology.jep.jepria.client.widget.field.multistate">JepComboBoxField</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/wysiwyg/toolbar/RichTextToolbar.html#createComboBox(java.lang.String, com.technology.jep.jepria.client.widget.event.JepListener, com.technology.jep.jepria.shared.field.option.JepOption...)">createComboBox</A></B>(java.lang.String&nbsp;emptyText,
+<TD><CODE><B><A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/wysiwyg/toolbar/RichTextToolbar.html#createComboBox(java.lang.String, com.technology.jep.jepria.client.widget.event.JepListener, java.lang.String, boolean, com.technology.jep.jepria.shared.field.option.JepOption...)">createComboBox</A></B>(java.lang.String&nbsp;emptyText,
                <A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/event/JepListener.html" title="interface in com.technology.jep.jepria.client.widget.event">JepListener</A>&nbsp;changeSelectionListener,
+               java.lang.String&nbsp;lastOptionText,
+               boolean&nbsp;readonly,
                <A HREF="../../../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A>...&nbsp;options)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Helper method to incapsulate creating a combobox.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -505,7 +499,7 @@ A sample toolbar for use with <CODE>RichTextArea</CODE>. It provides a simple UI
 <TD><CODE><B><A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/wysiwyg/toolbar/RichTextToolbar.html#createFontList()">createFontList</A></B>()</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates a combobox to choose appropriate font family for selected text.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -513,7 +507,7 @@ A sample toolbar for use with <CODE>RichTextArea</CODE>. It provides a simple UI
 <TD><CODE><B><A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/wysiwyg/toolbar/RichTextToolbar.html#createFontSizes()">createFontSizes</A></B>()</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates a combobox to choose appropriate font size for selected text.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -521,7 +515,7 @@ A sample toolbar for use with <CODE>RichTextArea</CODE>. It provides a simple UI
 <TD><CODE><B><A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/wysiwyg/toolbar/RichTextToolbar.html#createImageMenu()">createImageMenu</A></B>()</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates pop-up menu for uploading images.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -529,7 +523,7 @@ A sample toolbar for use with <CODE>RichTextArea</CODE>. It provides a simple UI
 <TD><CODE><B><A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/wysiwyg/toolbar/RichTextToolbar.html#createImageUpload()">createImageUpload</A></B>()</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates a image uploading file.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -538,7 +532,7 @@ A sample toolbar for use with <CODE>RichTextArea</CODE>. It provides a simple UI
                  java.lang.String&nbsp;tip)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Helper method to incapsulate creating a push button.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -547,7 +541,7 @@ A sample toolbar for use with <CODE>RichTextArea</CODE>. It provides a simple UI
                    java.lang.String&nbsp;tip)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Helper method to incapsulate creating a toggle button.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -555,7 +549,7 @@ A sample toolbar for use with <CODE>RichTextArea</CODE>. It provides a simple UI
 <TD><CODE><B><A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/wysiwyg/toolbar/RichTextToolbar.html#getImageUploadFile(java.lang.String)">getImageUploadFile</A></B>(java.lang.String&nbsp;id)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Gets html component for image uploading by specified id-attribute.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -563,7 +557,7 @@ A sample toolbar for use with <CODE>RichTextArea</CODE>. It provides a simple UI
 <TD><CODE><B><A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/wysiwyg/toolbar/RichTextToolbar.html#handleUploadIfValid(com.technology.jep.jepria.client.widget.field.multistate.large.JepImageField)">handleUploadIfValid</A></B>(<A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/large/JepImageField.html" title="class in com.technology.jep.jepria.client.widget.field.multistate.large">JepImageField</A>&nbsp;imageField)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creates a handler for image uploading widget.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -703,16 +697,6 @@ private com.google.gwt.user.client.ui.PopupPanel <B>imagePopupPanel</B></PRE>
 </DL>
 <HR>
 
-<A NAME="fontSizesConstants"><!-- --></A><H3>
-fontSizesConstants</H3>
-<PRE>
-private static final com.google.gwt.user.client.ui.RichTextArea.FontSize[] <B>fontSizesConstants</B></PRE>
-<DL>
-<DL>
-</DL>
-</DL>
-<HR>
-
 <A NAME="images"><!-- --></A><H3>
 images</H3>
 <PRE>
@@ -736,7 +720,7 @@ private <A HREF="../../../../../../../../../com/technology/jep/jepria/client/wid
 <A NAME="richText"><!-- --></A><H3>
 richText</H3>
 <PRE>
-private com.google.gwt.user.client.ui.RichTextArea <B>richText</B></PRE>
+private <A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/wysiwyg/toolbar/CustomRichTextArea.html" title="class in com.technology.jep.jepria.client.widget.field.wysiwyg.toolbar">CustomRichTextArea</A> <B>richText</B></PRE>
 <DL>
 <DL>
 </DL>
@@ -1012,10 +996,10 @@ private <A HREF="../../../../../../../../../com/technology/jep/jepria/client/wid
 </TR>
 </TABLE>
 
-<A NAME="RichTextToolbar(com.google.gwt.user.client.ui.RichTextArea)"><!-- --></A><H3>
+<A NAME="RichTextToolbar(com.technology.jep.jepria.client.widget.field.wysiwyg.toolbar.CustomRichTextArea)"><!-- --></A><H3>
 RichTextToolbar</H3>
 <PRE>
-public <B>RichTextToolbar</B>(com.google.gwt.user.client.ui.RichTextArea&nbsp;richText)</PRE>
+public <B>RichTextToolbar</B>(<A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/wysiwyg/toolbar/CustomRichTextArea.html" title="class in com.technology.jep.jepria.client.widget.field.wysiwyg.toolbar">CustomRichTextArea</A>&nbsp;richText)</PRE>
 <DL>
 <DD>Creates a new toolbar that drives the given rich text area.
 <P>
@@ -1038,8 +1022,11 @@ createColorPickerButton</H3>
 <PRE>
 private com.google.gwt.user.client.ui.PushButton <B>createColorPickerButton</B>(java.lang.String&nbsp;caption)</PRE>
 <DL>
+<DD>Creates a color picker to style the selected text.
+<P>
 <DD><DL>
-</DL>
+<DT><B>Parameters:</B><DD><CODE>caption</CODE> - caption for a button
+<DT><B>Returns:</B><DD>button to show a color picker</DL>
 </DD>
 </DL>
 <HR>
@@ -1049,8 +1036,11 @@ createFontList</H3>
 <PRE>
 private <A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepComboBoxField.html" title="class in com.technology.jep.jepria.client.widget.field.multistate">JepComboBoxField</A> <B>createFontList</B>()</PRE>
 <DL>
+<DD>Creates a combobox to choose appropriate font family for selected text.
+<P>
 <DD><DL>
-</DL>
+
+<DT><B>Returns:</B><DD>combobox to choose a font family</DL>
 </DD>
 </DL>
 <HR>
@@ -1060,21 +1050,29 @@ createFontSizes</H3>
 <PRE>
 private <A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepComboBoxField.html" title="class in com.technology.jep.jepria.client.widget.field.multistate">JepComboBoxField</A> <B>createFontSizes</B>()</PRE>
 <DL>
+<DD>Creates a combobox to choose appropriate font size for selected text.
+<P>
 <DD><DL>
-</DL>
+
+<DT><B>Returns:</B><DD>combobox to choose a font size</DL>
 </DD>
 </DL>
 <HR>
 
-<A NAME="createComboBox(java.lang.String, com.technology.jep.jepria.client.widget.event.JepListener, com.technology.jep.jepria.shared.field.option.JepOption...)"><!-- --></A><H3>
+<A NAME="createComboBox(java.lang.String, com.technology.jep.jepria.client.widget.event.JepListener, java.lang.String, boolean, com.technology.jep.jepria.shared.field.option.JepOption...)"><!-- --></A><H3>
 createComboBox</H3>
 <PRE>
 private <A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepComboBoxField.html" title="class in com.technology.jep.jepria.client.widget.field.multistate">JepComboBoxField</A> <B>createComboBox</B>(java.lang.String&nbsp;emptyText,
                                         <A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/event/JepListener.html" title="interface in com.technology.jep.jepria.client.widget.event">JepListener</A>&nbsp;changeSelectionListener,
+                                        java.lang.String&nbsp;lastOptionText,
+                                        boolean&nbsp;readonly,
                                         <A HREF="../../../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A>...&nbsp;options)</PRE>
 <DL>
+<DD>Helper method to incapsulate creating a combobox.
+<P>
 <DD><DL>
-</DL>
+
+<DT><B>Returns:</B><DD>combobox for choosing</DL>
 </DD>
 </DL>
 <HR>
@@ -1085,8 +1083,11 @@ createPushButton</H3>
 private com.google.gwt.user.client.ui.PushButton <B>createPushButton</B>(com.google.gwt.resources.client.ImageResource&nbsp;img,
                                                                   java.lang.String&nbsp;tip)</PRE>
 <DL>
+<DD>Helper method to incapsulate creating a push button.
+<P>
 <DD><DL>
-</DL>
+
+<DT><B>Returns:</B><DD>push button</DL>
 </DD>
 </DL>
 <HR>
@@ -1097,8 +1098,11 @@ createToggleButton</H3>
 private com.google.gwt.user.client.ui.ToggleButton <B>createToggleButton</B>(com.google.gwt.resources.client.ImageResource&nbsp;img,
                                                                       java.lang.String&nbsp;tip)</PRE>
 <DL>
+<DD>Helper method to incapsulate creating a toggle button.
+<P>
 <DD><DL>
-</DL>
+
+<DT><B>Returns:</B><DD>toggle button</DL>
 </DD>
 </DL>
 <HR>
@@ -1134,8 +1138,11 @@ createColorMenu</H3>
 <PRE>
 protected com.google.gwt.user.client.ui.PopupPanel <B>createColorMenu</B>(com.google.gwt.user.client.ui.Widget&nbsp;button)</PRE>
 <DL>
+<DD>Creates pop-up menu for choosing appropriate color.
+<P>
 <DD><DL>
-</DL>
+
+<DT><B>Returns:</B><DD>pop-up panel</DL>
 </DD>
 </DL>
 <HR>
@@ -1145,8 +1152,11 @@ createImageUpload</H3>
 <PRE>
 private <A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/large/JepImageField.html" title="class in com.technology.jep.jepria.client.widget.field.multistate.large">JepImageField</A> <B>createImageUpload</B>()</PRE>
 <DL>
+<DD>Creates a image uploading file.
+<P>
 <DD><DL>
-</DL>
+
+<DT><B>Returns:</B><DD>widget for uploading images</DL>
 </DD>
 </DL>
 <HR>
@@ -1156,8 +1166,11 @@ createImageMenu</H3>
 <PRE>
 private com.google.gwt.user.client.ui.PopupPanel <B>createImageMenu</B>()</PRE>
 <DL>
+<DD>Creates pop-up menu for uploading images.
+<P>
 <DD><DL>
-</DL>
+
+<DT><B>Returns:</B><DD>pop-up panel</DL>
 </DD>
 </DL>
 <HR>
@@ -1167,8 +1180,11 @@ getImageUploadFile</H3>
 <PRE>
 private <A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/wysiwyg/toolbar/upload/ImageUploadFile.html" title="class in com.technology.jep.jepria.client.widget.field.wysiwyg.toolbar.upload">ImageUploadFile</A> <B>getImageUploadFile</B>(java.lang.String&nbsp;id)</PRE>
 <DL>
+<DD>Gets html component for image uploading by specified id-attribute.
+<P>
 <DD><DL>
-</DL>
+<DT><B>Parameters:</B><DD><CODE>id</CODE> - value of ID-attribute
+<DT><B>Returns:</B><DD>html component</DL>
 </DD>
 </DL>
 <HR>
@@ -1178,8 +1194,11 @@ handleUploadIfValid</H3>
 <PRE>
 private boolean <B>handleUploadIfValid</B>(<A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/large/JepImageField.html" title="class in com.technology.jep.jepria.client.widget.field.multistate.large">JepImageField</A>&nbsp;imageField)</PRE>
 <DL>
+<DD>Creates a handler for image uploading widget.
+<P>
 <DD><DL>
-</DL>
+<DT><B>Parameters:</B><DD><CODE>imageField</CODE> - widget for handling
+<DT><B>Returns:</B><DD>success flag of handling</DL>
 </DD>
 </DL>
 <!-- ========= END OF CLASS DATA ========= -->
@@ -1212,7 +1231,7 @@ private boolean <B>handleUploadIfValid</B>(<A HREF="../../../../../../../../../c
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/wysiwyg/toolbar/ColorPicker.html" title="class in com.technology.jep.jepria.client.widget.field.wysiwyg.toolbar"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/wysiwyg/toolbar/CustomRichTextArea.html" title="class in com.technology.jep.jepria.client.widget.field.wysiwyg.toolbar"><B>PREV CLASS</B></A>&nbsp;
 &nbsp;<A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/wysiwyg/toolbar/RichTextToolbar.EventHandler.html" title="class in com.technology.jep.jepria.client.widget.field.wysiwyg.toolbar"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../../../../../../../../index.html?com/technology/jep/jepria/client/widget/field/wysiwyg/toolbar/RichTextToolbar.html" target="_top"><B>FRAMES</B></A>  &nbsp;

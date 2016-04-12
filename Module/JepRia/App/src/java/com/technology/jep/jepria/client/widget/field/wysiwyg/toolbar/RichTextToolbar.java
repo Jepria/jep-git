@@ -69,12 +69,12 @@ import com.technology.jep.jepria.shared.util.JepRiaUtil;
  * functionality.
  */
 public class RichTextToolbar extends Composite {
-	
+
 	/**
 	 * Наименование идентификатора загрузчика картинок в DOM-дереве.
 	 */
 	private static final String IMAGE_UPLOAD_FIELD_ID = "iconUploadWidget";
-	
+
 	/**
 	 * HTML Pattern for options of font choice.
 	 */
@@ -84,12 +84,12 @@ public class RichTextToolbar extends Composite {
 	 * Default value of URL to insert object.
 	 */
 	private static final String PREFIX_URL = "http://";
-	
+
 	/**
 	 * No label for choice of formatting.
 	 */
 	private static final int CHOICE_LABEL_WIDTH = 1; // zero caused exception in IE
-	
+
 	/**
 	 * Choice width.
 	 */
@@ -241,7 +241,7 @@ public class RichTextToolbar extends Composite {
 		topPanel.add(createLink = createPushButton(images.createLink(), JepTexts.wysiwyg_toolbar_createLink()));
 		topPanel.add(removeLink = createPushButton(images.removeLink(), JepTexts.wysiwyg_toolbar_removeLink()));
 		topPanel.add(removeFormat = createPushButton(images.removeFormat(), JepTexts.wysiwyg_toolbar_removeFormat()));
-	
+
 		// background color choice
 		bottomPanel.add(backColors = createColorPickerButton(JepTexts.wysiwyg_toolbar_backgroundcolor()));
 		// font color
@@ -255,6 +255,12 @@ public class RichTextToolbar extends Composite {
 		richText.addClickHandler(handler);
 	}
 
+	/**
+	 * Creates a color picker to style the selected text.
+	 * 
+	 * @param caption		caption for a button
+	 * @return button to show a color picker
+	 */
 	private PushButton createColorPickerButton(String caption) {
 		PushButton pb = new PushButton(caption);
 		pb.getElement().getStyle().setTextAlign(TextAlign.CENTER);
@@ -264,6 +270,11 @@ public class RichTextToolbar extends Composite {
 		return pb;
 	}
 
+	/**
+	 * Creates a combobox to choose appropriate font family for selected text.
+	 * 
+	 * @return combobox to choose a font family
+	 */
 	private JepComboBoxField createFontList() {		
 		return 
 			createComboBox(JepTexts.wysiwyg_toolbar_font(), 
@@ -311,6 +322,11 @@ public class RichTextToolbar extends Composite {
 				});
 	}
 
+	/**
+	 * Creates a combobox to choose appropriate font size for selected text.
+	 * 
+	 * @return combobox to choose a font size
+	 */
 	private JepComboBoxField createFontSizes() {
 		return
 			createComboBox(JepTexts.wysiwyg_toolbar_size(), 
@@ -349,7 +365,12 @@ public class RichTextToolbar extends Composite {
 				}
 			);
 	}
-	
+
+	/**
+	 * Helper method to incapsulate creating a combobox.
+	 * 
+	 * @return combobox for choosing
+	 */
 	private JepComboBoxField createComboBox(String emptyText, JepListener changeSelectionListener, String lastOptionText, boolean readonly, JepOption... options){
 		final JepComboBoxField lb = new JepComboBoxField();
 
@@ -435,10 +456,15 @@ public class RichTextToolbar extends Composite {
 				}
 			});
 		}
-	    
+		
 		return lb;
 	}
 
+	/**
+	 * Helper method to incapsulate creating a push button.
+	 * 
+	 * @return push button
+	 */
 	private PushButton createPushButton(ImageResource img, String tip) {
 		PushButton pb = new PushButton(new Image(img));
 		pb.addClickHandler(handler);
@@ -446,6 +472,11 @@ public class RichTextToolbar extends Composite {
 		return pb;
 	}
 
+	/**
+	 * Helper method to incapsulate creating a toggle button.
+	 * 
+	 * @return toggle button
+	 */
 	private ToggleButton createToggleButton(ImageResource img, String tip) {
 		ToggleButton tb = new ToggleButton(new Image(img));
 		tb.addClickHandler(handler);
@@ -464,7 +495,7 @@ public class RichTextToolbar extends Composite {
 		superscript.setDown(formatter.isSuperscript());
 		strikethrough.setDown(formatter.isStrikethrough());
 	}
-	
+
 	/**
 	 * Restore default state of toolbar and its widgets
 	 */
@@ -477,16 +508,21 @@ public class RichTextToolbar extends Composite {
 		backColors.getElement().getStyle().setColor(BLACK);
 		foreColors.getElement().getStyle().setColor(BLACK);
 	}
-	
+
+	/**
+	 * Creates pop-up menu for choosing appropriate color.
+	 * 
+	 * @return pop-up panel
+	 */
 	protected PopupPanel createColorMenu(final Widget button) {
 		final PopupPanel panel = new DecoratedPopupPanel(true);
-	    panel.setPreviewingAllNativeEvents(true);
-	    panel.setAnimationType(AnimationType.ROLL_DOWN);
-	    panel.getElement().getStyle().setZIndex(10);
-	    final boolean isBackground = button == backColors;
-	    
-	    ColorPicker colorPicker = new ColorPicker(isBackground ? "#FFFFFF" : BLACK); // black and white
-	    colorPicker.addSelectionHandler(new SelectionHandler<String>() {
+		panel.setPreviewingAllNativeEvents(true);
+		panel.setAnimationType(AnimationType.ROLL_DOWN);
+		panel.getElement().getStyle().setZIndex(10);
+		final boolean isBackground = button == backColors;
+		
+		ColorPicker colorPicker = new ColorPicker(isBackground ? "#FFFFFF" : BLACK); // black and white
+		colorPicker.addSelectionHandler(new SelectionHandler<String>() {
 			@Override
 			public void onSelection(SelectionEvent<String> event) {
 				String color = event.getSelectedItem();
@@ -501,40 +537,50 @@ public class RichTextToolbar extends Composite {
 			}
 		});
 		panel.setWidget(colorPicker);
-	    return panel;
+		return panel;
 	}
-	
+
+	/**
+	 * Creates a image uploading file.
+	 * 
+	 * @return widget for uploading images
+	 */
 	private JepImageField createImageUpload() {
 		final JepImageField imageField = new JepImageField();
 		imageField.setLabelWidth(1);
 		final FileUpload imageUpload = imageField.getEditableCard();
 		imageUpload.getElement().setId(IMAGE_UPLOAD_FIELD_ID);
-	    final Element imageUploadElement = imageUpload.getElement();
-	    imageUploadElement.setAttribute("accept", "image/*");
-	    // handle change event
-	    imageUpload.addChangeHandler(new ChangeHandler() {
+		final Element imageUploadElement = imageUpload.getElement();
+		imageUploadElement.setAttribute("accept", "image/*");
+		// handle change event
+		imageUpload.addChangeHandler(new ChangeHandler() {
 			@Override
 			public void onChange(ChangeEvent event) {
 				Scheduler.get().scheduleDeferred(new Scheduler.ScheduledCommand() {
-		            @Override
-		            public void execute() {
-		            	imageField.clearInvalid();
-		                if (!handleUploadIfValid(imageField)){
-		                	imageField.markInvalid(JepClientUtil.substitute(JepTexts.wysiwyg_toolbar_insertImage_fileExtensionOrSizeError(), Arrays.toString(AVAILABLE_IMAGE_EXTENSION), MAX_IMAGE_SIZE));
-		                	return;
-		                }
-	                	// hide and clear popup panel
-		                if (imagePopupPanel != null) {
-		                	imagePopupPanel.hide();
-		                	imagePopupPanel = null;
-		                }
-		            }
-		        });
+					@Override
+					public void execute() {
+						imageField.clearInvalid();
+						if (!handleUploadIfValid(imageField)){
+							imageField.markInvalid(JepClientUtil.substitute(JepTexts.wysiwyg_toolbar_insertImage_fileExtensionOrSizeError(), Arrays.toString(AVAILABLE_IMAGE_EXTENSION), MAX_IMAGE_SIZE));
+							return;
+						}
+						// hide and clear popup panel
+						if (imagePopupPanel != null) {
+							imagePopupPanel.hide();
+							imagePopupPanel = null;
+						}
+					}
+				});
 			}
 		});
-	    return imageField;
+		return imageField;
 	}
-	
+
+	/**
+	 * Creates pop-up menu for uploading images.
+	 * 
+	 * @return pop-up panel
+	 */
 	private PopupPanel createImageMenu() {
 		final JepImageField imageUploadField = createImageUpload();
 		if (imagePopupPanel == null) {
@@ -546,11 +592,23 @@ public class RichTextToolbar extends Composite {
 		imagePopupPanel.setWidget(imageUploadField);
 		return imagePopupPanel;
 	}
-	
+
+	/**
+	 * Gets html component for image uploading by specified id-attribute.
+	 * 
+	 * @param id	value of ID-attribute
+	 * @return html component
+	 */
 	private native ImageUploadFile getImageUploadFile(String id) /*-{
 		return $wnd.document.getElementById(id).files[0];
 	}-*/;
 
+	/**
+	 * Creates a handler for image uploading widget.
+	 * 
+	 * @param imageField		widget for handling
+	 * @return success flag of handling
+	 */
 	private boolean handleUploadIfValid(final JepImageField imageField) {
 		ImageUploadFile file = getImageUploadFile(imageField.getEditableCard().getElement().getId());
 		
@@ -559,13 +617,13 @@ public class RichTextToolbar extends Composite {
 		FileReader reader = FileReader.create();
 		reader.readAsDataURL(file, new ProgressCallback() {
 			@Override
-		    public void onError(ProgressEvent e) {
+			public void onError(ProgressEvent e) {
 				GWT.log("Error with upload");
-		    }
-		    @Override
-		    public void onLoad(ProgressEvent e) {
-		    	formatter.insertImage(e.getResult());
-		    }
+			}
+			@Override
+			public void onLoad(ProgressEvent e) {
+				formatter.insertImage(e.getResult());
+			}
 		});
 		return true;
 	}

@@ -550,6 +550,7 @@ JepRia API Reference
 <h3><a name="releaseNotes">Замечания к версиям</a></h3>
 <h4>Версии</h4>
 <ul>
+  <li><a href="#9.0.0">9.0.0 (2016-04-12)</a></li>
   <li><a href="#8.9.2">8.9.2 (2016-02-02)</a></li>
   <li><a href="#8.9.1">8.9.1 (2016-01-26)</a></li>
   <li><a href="#8.9.0">8.9.0 (2016-01-26)</a></li>
@@ -646,6 +647,160 @@ JepRia API Reference
   <li><a href="#2.1.0">2.1.0 (2011-03-11)</a></li>
   <li><a href="#2.0.0">2.0.0 (2011-03-03)</a></li>
   <li><a href="#1.0.0">1.0.0 (2010-11-01)</a></li>
+</ul>
+<h5><a name="9.0.0">9.0.0 (2016-04-12)</a></h5>
+<ul>
+  <li><b>feat:</b> Добавлена возможность передачи значения типа <code>OracleTypes.CLOB</code>
+  в качестве аргумента хранимой процедуры или функции.</li>
+  <li><b>feat:</b> (JepRia_CR88) Отказ от EJB при взаимодействии с DB:
+    <ul>
+      <li>Удалены все зависимости от EJB в коде JepRia.</li>
+      <li>Обусловленная отказом от EJB доработка <code>DaoSupport</code>, <code>CallContext</code>, 
+      <code>Db</code>.</li>
+      <li>Место <code>JepDataBean</code>, <code>JepDataStandardBean</code> заняли классы
+      <code>JepDao</code>, <code>JepDaoStandard</code> в пакете <code>server.dao</code>.</li>
+      <li>Классы, необходимые для поддержки взаимодействия с DB, перенесены в пакет
+      <code>server.dao</code>.</li>
+      <li>В процессе сборки не используется библиотека ejb30.jar</li>
+      <li>Упразднён файл jepria-ejb.jar.</li>
+    </ul>
+  </li>
+  <li><b>chore:</b> Удалён метод <code>JepDao.getValueFromOption()</code>.</li>
+  <li><b>chore:</b> Удалены неиспользуемые методы в <code>CallContext</code>.</li>
+  <li><b>refactor:</b> &quot;Старый&quot; класс <code>ServerFactory</code> переименован в 
+  <code>SecurityFactory</code> и перенесён в пакет <code>server.security</code>. Новый класс
+  с аналогичным именем выполняет задачу создания транзакционного прокси для Dao.</li>
+  <li><b>chore:</b> Удалён функционал поддержки версионности.</li>
+  <li><b>chore:</b> Удалён неиспользуемый класс <code>JepUser</code>.</li>
+  <li><b>refactor:</b> Имя текстовых ресурсов не используется при взаимодействии с DB, в том числе
+  в процессе загрузки и выгрузки файлов.</li>
+  <li><b>chore:</b> Отказ от CAS SSO.</li>
+  <li><b>feat:</b> Добавлена поддержка SSO WebLogic.</li>
+  <li><b>fix:</b> Исправлена проблема с logout на клиентской стороне.</li>
+  <li><b>feat:</b> В классе <code>Db</code> добавлена поддержка поиска источников данных
+  в контексте <code>java:/comp/env/</code> (необходимо, в частности, для Tomcat).</li>
+  <li><b>docs:</b> Документирование серверного кода.</li>
+  <li><b>fix:</b> Метод <code>JepClientUtil.goToUrl()</code> не учитывает регистр.</li>
+  <li><b>feat:</b> В <code>JepFileReference</code> вместо явного указания типа первичного ключа
+  используется generic.</li>
+  <li><b>fix:</b> Модификатор доступа метода <code>JepClientUtil.getElementValue()</code> изменён
+  на <code>public</code>.</li>
+  <li><b>feat:</b> Добавлена стандартная реализация списочной формы: 
+  <code>StandardListFormViewImpl</code>.</li>
+  <li><b>refactor:</b> Рефакторинг <code>ListFormPresenter</code>,
+  <code>AutoRefreshListFormPresenter</code>:
+    <ul>
+      <li>Добавлены hook-методы <code>onRefreshSuccess()</code>, <code>onRefreshFailure()</code>, 
+      <code>onSortSuccess()</code>, <code>onSortFailure()</code>, <code>onPagingSuccess()</code>, 
+      <code>onPagingFailure()</code>. </li>
+      <li>Метод <code>processRefreshTimeout()</code> упразднён в пользу 
+      <code>onRefreshSuccess()</code>.</li>
+    </ul>  
+  </li>
+  <li><b>feat:</b> Текст &quot;Записи 1 - 0 из 0&quot; на тулбаре списочной формы 
+  (<code>PagingStandardBar</code>, <code>PagingSimpleBar</code>) изменён на 
+  &quot;Записей не найдено&quot;</li> 
+  <li><b>feat:</b> В WYSIWYG-редактор добавлена возможность выбора произвольного размера шрифта в пикселях.</li>  
+</ul>
+Основные шаги для перехода с JepRia 8.X.X на 9.0.0:
+<ul>
+  <li>Использовать build.xml из JepRiaShowcase 9.0.0.</li>
+  <li>Переименовать JepApplication.xml в <i>ApplicationName</i>Definition.xml</li>
+  <li>Из application.xml удалить объявления EJB-модулей:
+<pre>&lt;module&gt;
+  &lt;ejb&gt;applicationname-ejb.jar&lt;/ejb&gt;
+&lt;/module&gt;
+&lt;module&gt;
+  &lt;ejb&gt;jepria-ejb.jar&lt;/ejb&gt;
+&lt;/module&gt;</pre>
+  </li>
+  <li>Из orion-application.xml удалить объявление EJB-модуля приложения:
+  <code>&lt;ejb-module path=&quot;lib/<i>applicationname</i>-ejb.jar&quot; remote=&quot;false&quot;/&gt;</code>
+  </li>
+  <li>Из web.xml удалить определение сервлета и бина поддержки версионности:
+<pre>
+  &lt;servlet&gt;
+    &lt;servlet-name&gt;VersionServlet&lt;/servlet-name&gt;
+    &lt;servlet-class&gt;com.technology.jep.jepria.server.version.VersionServlet&lt;/servlet-class&gt;
+  &lt;/servlet&gt;
+  &lt;servlet-mapping&gt;
+    &lt;servlet-name&gt;VersionServlet&lt;/servlet-name&gt;
+    &lt;url-pattern&gt;/versionServlet&lt;/url-pattern&gt;
+  &lt;/servlet-mapping&gt;
+  &lt;ejb-local-ref&gt;
+    &lt;ejb-ref-name&gt;ejb/VersionBean&lt;/ejb-ref-name&gt;
+    &lt;ejb-ref-type&gt;Session&lt;/ejb-ref-type&gt;
+    &lt;local&gt;com.technology.jep.jepria.server.version.ejb.JepVersionLocal&lt;/local&gt;
+  &lt;/ejb-local-ref&gt;
+  . . .
+  &lt;security-constraint&gt;
+    &lt;web-resource-collection&gt;
+      &lt;web-resource-name&gt;Version Servlet entry point&lt;/web-resource-name&gt;
+      &lt;url-pattern&gt;/versionServlet&lt;/url-pattern&gt;
+      &lt;http-method&gt;GET&lt;/http-method&gt;
+      &lt;http-method&gt;POST&lt;/http-method&gt;
+    &lt;/web-resource-collection&gt;
+  &lt;/security-constraint&gt;
+</pre>
+  </li>
+  <li>Из web.xml удалить <b>все</b> определения EJB (в том числе <code>TextFileUploadBean</code>,
+  <code>TextFileDownloadBean</code>, <code>BinaryFileUploadBean</code>,
+  <code>BinaryFileDownloadBean</code>) вида:
+<pre>&lt;ejb-local-ref&gt;
+  &lt;ejb-ref-name&gt;ejb/CompetencyBean&lt;/ejb-ref-name&gt;
+  &lt;ejb-ref-type&gt;Session&lt;/ejb-ref-type&gt;
+  &lt;local>com.technology.rfi.timesheet.competency.server.ejb.CompetencyLocal&lt;/local&gt;
+&lt;/ejb-local-ref&gt;</pre>
+  </li>
+  <li>Из пакетов <code><i>module_name</i>.server.ejb</code> удалить local- и remote-интерфейсы EJB.</li>
+  <li>Переименовать пакеты <code><i>module_name</i>.server.ejb</code> в
+  <code><i>module_name</i>.server.dao</code>.</li>
+  <li>Переименовать бывшую реализацию бина <code><i>ModuleName</i>Bean</code> 
+  &mdash; в <code><i>ModuleName</i>Dao</code>. Внести следующие изменения:
+    <ul>
+      <li>унаследовать <code>JepDao</code> вместо <code>JepDataBean</code>;</li>
+          <li>удалить конструктор;</li>
+          <li>удалить связанные с EJB импорты и аннотации:
+<pre>
+import javax.ejb.*;
+import oracle.j2ee.ejb.StatelessDeployment;
+. . .
+@Local( { ClaimLocal.class })
+@Remote( { ClaimRemote.class })
+@StatelessDeployment
+@Stateless</pre>
+          </li>
+          <li>вместо <code>getValueFromOption()</code> использовать <code>JepOption.getValue()</code>.</li>
+    </ul>
+  </li>
+  <li>Из <code><i>ModuleName</i>ServerConstant</code> удалить константу <code>BEAN_JNDI_NAME</code>.</li>
+  <li>Внести изменения в <code><i>ModuleName</i>ServiceImpl</code>:
+    <ul>
+      <li>в объявлении класса параметризовать наследуемый класс <code>JepDataServiceServlet</code>
+      интерфейсом Dao (бывшим интерфейсом бина):<br/>
+      <code>public class <i>ModuleName</i>ServiceImpl extends 
+      <i>ModuleName</i>ServiceServlet&lt;<i>ModuleName</i>&gt; implements 
+      <i>ModuleName</i>Service</code>
+      <li>изменить вызов конструктора родительского класса по образцу:
+<pre>public ModuleNameServiceImpl() {
+  super(ModuleNameRecordDefinition.instance, 
+      new ServerFactory&lt;ModuleName&gt;(new ModuleNameDao(), DATA_SOURCE_JNDI_NAME));
+}</pre>
+      </li>
+      <li>перед вызовом методов EJB удалить lookup бина. Метод вызывается у переменной <code>dao</code>:
+<pre>@Override
+public List&lt;JepOption&gt; getBank(String bankBic, Integer maxRowCount) throws ApplicationException {
+  List&lt;JepOption&gt; result = null;
+  try {
+    result = dao.getBank(bankBic, maxRowCount);                                 
+  } catch (Throwable th) {
+    throw new ApplicationException(th.getLocalizedMessage(), th);
+  }
+  return result;
+}</pre>
+      </li>
+    </ul>
+  </li>
 </ul>
 <h5><a name="8.9.2">8.9.2 (2016-02-02)</a></h5>
 <ul>
