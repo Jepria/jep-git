@@ -1,22 +1,30 @@
 package com.technology.jep.jepria.client.widget.field.wysiwyg.toolbar;
 
-import static com.technology.jep.jepria.client.widget.field.wysiwyg.toolbar.upload.ImageUploadFile.*;
 import static com.technology.jep.jepria.client.JepRiaClientConstant.FIELD_DEFAULT_HEIGHT;
 import static com.technology.jep.jepria.client.JepRiaClientConstant.JepTexts;
+import static com.technology.jep.jepria.client.util.JepClientUtil.getChar;
 import static com.technology.jep.jepria.client.widget.field.wysiwyg.toolbar.ColorPicker.BLACK;
+import static com.technology.jep.jepria.client.widget.field.wysiwyg.toolbar.upload.ImageUploadFile.AVAILABLE_IMAGE_EXTENSION;
+import static com.technology.jep.jepria.client.widget.field.wysiwyg.toolbar.upload.ImageUploadFile.MAX_IMAGE_SIZE;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
+import java.util.Set;
+import java.util.TreeSet;
 
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.dom.client.Element;
+import com.google.gwt.dom.client.NativeEvent;
 import com.google.gwt.dom.client.Style.TextAlign;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.KeyPressEvent;
+import com.google.gwt.event.dom.client.KeyPressHandler;
 import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.event.logical.shared.SelectionEvent;
@@ -35,6 +43,7 @@ import com.google.gwt.user.client.ui.RichTextArea;
 import com.google.gwt.user.client.ui.RichTextArea.FontSize;
 import com.google.gwt.user.client.ui.RichTextArea.Formatter;
 import com.google.gwt.user.client.ui.ToggleButton;
+import com.google.gwt.user.client.ui.ValueBoxBase;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.technology.jep.jepria.client.util.JepClientUtil;
@@ -52,6 +61,7 @@ import com.technology.jep.jepria.client.widget.field.wysiwyg.toolbar.upload.Imag
 import com.technology.jep.jepria.client.widget.field.wysiwyg.toolbar.upload.ProgressCallback;
 import com.technology.jep.jepria.client.widget.field.wysiwyg.toolbar.upload.ProgressEvent;
 import com.technology.jep.jepria.shared.field.option.JepOption;
+import com.technology.jep.jepria.shared.util.JepRiaUtil;
 
 /**
  * A sample toolbar for use with {@link RichTextArea}. It provides a simple UI
@@ -141,6 +151,7 @@ public class RichTextToolbar extends Composite {
 				PopupPanel p = createColorMenu(sender);
 				p.showRelativeTo(sender);
 			} else if (sender == removeFormat) {
+				reset();
 				formatter.removeFormat();
 			} else if (sender == richText) {
 				// We use the RichTextArea's onKeyUp event to update the toolbar status.
@@ -161,20 +172,10 @@ public class RichTextToolbar extends Composite {
 		}
 	}
 
-	private static final FontSize[] fontSizesConstants = new FontSize[] {
-			FontSize.XX_SMALL, 
-			FontSize.X_SMALL, 
-			FontSize.SMALL,
-			FontSize.MEDIUM, 
-			FontSize.LARGE, 
-			FontSize.X_LARGE,
-			FontSize.XX_LARGE 
-	};
-
 	private RichTextToolbarImages images = GWT.create(RichTextToolbarImages.class);
 	private EventHandler handler = new EventHandler();
 
-	private RichTextArea richText;
+	private CustomRichTextArea richText;
 	private Formatter formatter;
 
 	private VerticalPanel outer = new VerticalPanel();
@@ -208,7 +209,7 @@ public class RichTextToolbar extends Composite {
 	 * 
 	 * @param richText the rich text area to be controlled
 	 */
-	public RichTextToolbar(RichTextArea richText) {
+	public RichTextToolbar(CustomRichTextArea richText) {
 		this.richText = richText;
 		this.formatter = richText.getFormatter();
 
@@ -273,11 +274,13 @@ public class RichTextToolbar extends Composite {
 						JepOption selectedOption = comboBox.getValue();
 						String fontName = JepOption.<String> getValue(selectedOption);
 						formatter.setFontName(fontName);
-						
-						comboBox.getEditableCard().setValue(selectedOption, false);
-						comboBox.getEditableCard().getValueBoxBase().setText(selectedOption.getName().replaceAll("\\<.*?>", ""));
+						comboBox.getEditableCard().setValue(null, false);
+						comboBox.getEditableCard().getValueBoxBase().setText(null);
 					}
-				}, new JepOption[]{
+				}
+				, null
+				, true
+				, new JepOption[]{
 						new JepOption(
 								JepClientUtil.substitute(FONT_NAME_PATTERN_OPTION, JepTexts.wysiwyg_toolbar_normal()), 
 								"inherit"),
@@ -316,23 +319,38 @@ public class RichTextToolbar extends Composite {
 					public void handleEvent(JepEvent event) {
 						JepComboBoxField comboBox = (JepComboBoxField) event.getSource();
 						JepOption selectedOption = comboBox.getValue();
-						formatter.setFontSize(fontSizesConstants[JepOption.<Integer>getValue(selectedOption) - 1]);
-						comboBox.getEditableCard().setValue(selectedOption, false);
-						comboBox.getEditableCard().getValueBoxBase().setText(selectedOption.getName());
+						final Integer fontSize = JepOption.<Integer>getValue(selectedOption);
+						FontSize oldSize = FontSize.X_SMALL;
+						formatter.setFontSize(oldSize);
+						richText.changeSize(oldSize.getNumber() + "", fontSize);
+						comboBox.getEditableCard().setValue(null, false);
+						comboBox.getEditableCard().getValueBoxBase().setText(null);
 					}
-				}, new JepOption[]{
-						new JepOption(JepTexts.wysiwyg_toolbar_xxsmall(), 1),
-						new JepOption(JepTexts.wysiwyg_toolbar_xsmall(), 2),
-						new JepOption(JepTexts.wysiwyg_toolbar_small(), 3),
-						new JepOption(JepTexts.wysiwyg_toolbar_medium(), 4),
-						new JepOption(JepTexts.wysiwyg_toolbar_large(), 5),
-						new JepOption(JepTexts.wysiwyg_toolbar_xlarge(), 6),
-						new JepOption(JepTexts.wysiwyg_toolbar_xxlarge(), 7)
+				}
+				, JepTexts.wysiwyg_toolbar_manualInput()
+				, false
+				, new JepOption[]{
+						new JepOption("8", 8),
+						new JepOption("9", 9), 
+						new JepOption("10", 10),
+						new JepOption("11", 11),
+						new JepOption("12", 12),
+						new JepOption("14", 14),
+						new JepOption("16", 16),
+						new JepOption("18", 18),
+						new JepOption("20", 20),
+						new JepOption("22", 22),
+						new JepOption("24", 24),
+						new JepOption("26", 26),
+						new JepOption("28", 28),
+						new JepOption("36", 36),
+						new JepOption("48", 48),
+						new JepOption("72", 72)
 				}
 			);
 	}
 	
-	private JepComboBoxField createComboBox(String emptyText, JepListener changeSelectionListener, JepOption... options){
+	private JepComboBoxField createComboBox(String emptyText, JepListener changeSelectionListener, String lastOptionText, boolean readonly, JepOption... options){
 		final JepComboBoxField lb = new JepComboBoxField();
 
 		// уберем занимаемое лейблом местом
@@ -340,12 +358,13 @@ public class RichTextToolbar extends Composite {
 		// выставим длину поля
 		lb.setFieldWidth(CHOICE_WIDTH);
 		lb.setEmptyText(emptyText);
+		if (!JepRiaUtil.isEmpty(lastOptionText)) lb.setLastOptionText(lastOptionText);
 		// уберем пустую опцию из списка значений
 		lb.setOptions(new ArrayList<JepOption>(Arrays.asList(options)), false);
 		// навесим слушателя смены опции
 		lb.addListener(JepEventType.CHANGE_SELECTION_EVENT, changeSelectionListener);
 
-		ComboBox<JepOption> comboBox = lb.getEditableCard();
+		final ComboBox<JepOption> comboBox = lb.getEditableCard();
 		comboBox.addBeforeSelectHandler(
 			new BeforeSelectHandler<JepOption>() {
 				@Override
@@ -356,9 +375,67 @@ public class RichTextToolbar extends Composite {
 					}
 				}
 			});
+		final ValueBoxBase<String> box = comboBox.getValueBoxBase();
 		// отключаем возможность фильтра в комбобоксе
-		comboBox.getValueBoxBase().setReadOnly(true);
-
+		box.setReadOnly(readonly);
+		if (!JepRiaUtil.isEmpty(lastOptionText)) {
+			box.addKeyPressHandler(new KeyPressHandler() {
+				@Override
+				public void onKeyPress(KeyPressEvent event) {
+					NativeEvent nativeEvent = event.getNativeEvent();
+					if (nativeEvent.getCharCode() == 0){
+						return;
+					}
+					/*
+					 * Не реагируем, если нажата одна из клавиш Alt, Ctrl или Meta, 
+					 * иначе не будут работать сочетания клавиш наподобие Ctrl-C, Ctrl-V.
+					 */
+					if (nativeEvent.getAltKey() || nativeEvent.getCtrlKey() || nativeEvent.getMetaKey()) {
+						return;
+					}
+					String currentCharacter = String.valueOf(getChar(nativeEvent));
+					
+					if(!currentCharacter.matches("\\d")) {
+						event.preventDefault();
+						return;
+					}
+					final StringBuilder sb = new StringBuilder();
+					sb.append(box.getValue());
+					sb.insert(box.getCursorPos(), currentCharacter);
+					String currentText = sb.toString();
+					
+					JepOption chosenOption = null;
+					try {
+						chosenOption = new JepOption(currentText, Integer.decode(currentText));
+					}
+					catch(NumberFormatException e){
+						event.preventDefault();
+						return;
+					}
+					Set<JepOption> options = new TreeSet<JepOption>(new Comparator<JepOption>() {
+						@Override
+						public int compare(JepOption o1, JepOption o2) {
+							Integer value1 = JepOption.<Integer>getValue(o1), value2 = JepOption.<Integer>getValue(o2);
+							if (JepRiaUtil.isEmpty(value1)) {
+								return 1;
+							}
+							if (JepRiaUtil.isEmpty(value2)) {
+								return -1;
+							}
+							return  value1 - value2;
+						}
+					});
+					options.addAll(comboBox.getOptions());
+					if (!options.contains(chosenOption)){
+						options.add(chosenOption);
+					}
+					lb.setOptions(new ArrayList<JepOption>(options), false);
+					comboBox.setValue(chosenOption, false);
+					event.preventDefault();
+				}
+			});
+		}
+	    
 		return lb;
 	}
 

@@ -2,7 +2,7 @@ package com.technology.jep.jepria.shared.text;
 
 /**
  * Interface to represent the constants contained in resource bundle:
- * 	'D:/workspace/git/JEP/Module/JepRia/App/src/java/com/technology/jep/jepria/shared/text/JepRiaText.properties'.
+ * 	'D:/Project/JEPGit/Module/JepRia/App/src/java/com/technology/jep/jepria/shared/text/JepRiaText.properties'.
  */
 public interface JepRiaText extends com.google.gwt.i18n.client.Constants {
   
@@ -1528,22 +1528,13 @@ public interface JepRiaText extends com.google.gwt.i18n.client.Constants {
   String wysiwyg_toolbar_justifyRight();
 
   /**
-   * Translated "Большой".
+   * Translated "ручной ввод".
    * 
-   * @return translated "Большой"
+   * @return translated "ручной ввод"
    */
-  @DefaultStringValue("Большой")
-  @Key("wysiwyg.toolbar.large")
-  String wysiwyg_toolbar_large();
-
-  /**
-   * Translated "Средний".
-   * 
-   * @return translated "Средний"
-   */
-  @DefaultStringValue("Средний")
-  @Key("wysiwyg.toolbar.medium")
-  String wysiwyg_toolbar_medium();
+  @DefaultStringValue("ручной ввод")
+  @Key("wysiwyg.toolbar.manualInput")
+  String wysiwyg_toolbar_manualInput();
 
   /**
    * Translated "Normal".
@@ -1618,15 +1609,6 @@ public interface JepRiaText extends com.google.gwt.i18n.client.Constants {
   String wysiwyg_toolbar_size();
 
   /**
-   * Translated "Маленький".
-   * 
-   * @return translated "Маленький"
-   */
-  @DefaultStringValue("Маленький")
-  @Key("wysiwyg.toolbar.small")
-  String wysiwyg_toolbar_small();
-
-  /**
    * Translated "Зачеркнутый".
    * 
    * @return translated "Зачеркнутый"
@@ -1670,42 +1652,6 @@ public interface JepRiaText extends com.google.gwt.i18n.client.Constants {
   @DefaultStringValue("Подчеркнутый")
   @Key("wysiwyg.toolbar.underline")
   String wysiwyg_toolbar_underline();
-
-  /**
-   * Translated "Огромный".
-   * 
-   * @return translated "Огромный"
-   */
-  @DefaultStringValue("Огромный")
-  @Key("wysiwyg.toolbar.xlarge")
-  String wysiwyg_toolbar_xlarge();
-
-  /**
-   * Translated "Мелкий".
-   * 
-   * @return translated "Мелкий"
-   */
-  @DefaultStringValue("Мелкий")
-  @Key("wysiwyg.toolbar.xsmall")
-  String wysiwyg_toolbar_xsmall();
-
-  /**
-   * Translated "Гигантский".
-   * 
-   * @return translated "Гигантский"
-   */
-  @DefaultStringValue("Гигантский")
-  @Key("wysiwyg.toolbar.xxlarge")
-  String wysiwyg_toolbar_xxlarge();
-
-  /**
-   * Translated "Очень мелкий".
-   * 
-   * @return translated "Очень мелкий"
-   */
-  @DefaultStringValue("Очень мелкий")
-  @Key("wysiwyg.toolbar.xxsmall")
-  String wysiwyg_toolbar_xxsmall();
 
   /**
    * Translated "Да".
