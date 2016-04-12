@@ -6,8 +6,8 @@ import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.HasValue;
-import com.google.gwt.user.client.ui.RichTextArea;
 import com.technology.jep.jepria.client.util.JepClientUtil;
+import com.technology.jep.jepria.client.widget.field.wysiwyg.toolbar.CustomRichTextArea;
 import com.technology.jep.jepria.client.widget.field.wysiwyg.toolbar.RichTextToolbar;
 
 /**
@@ -16,9 +16,14 @@ import com.technology.jep.jepria.client.widget.field.wysiwyg.toolbar.RichTextToo
 public class RichTextEditorField extends Grid implements HasValue<String> {
 
 	/**
+	 * Непечатаемый символ.
+	 */
+	public static final String NONPRINTABLE_ELEMENT = "\u200B"; 
+	
+	/**
 	 * Текстовая область, в которой размещается форматируемый пользователем текст.
 	 */
-	private RichTextArea textArea;
+	private CustomRichTextArea textArea;
 	
 	/**
 	 * Панель форматирования текста.
@@ -39,7 +44,7 @@ public class RichTextEditorField extends Grid implements HasValue<String> {
 		super(2, 1); // Grid with 1 column and 2 rows
 		
 		// Create the text area and toolbar
-		textArea = new RichTextArea();
+		textArea = new CustomRichTextArea();
 		textArea.setSize("100%", DEFAULT_RICHTEXTEDITOR_FIELD_HEIGHT + Unit.PX.getType());
 		
 	    toolbar = new RichTextToolbar(textArea);
@@ -58,7 +63,8 @@ public class RichTextEditorField extends Grid implements HasValue<String> {
 	 */
 	@Override
 	public String getValue(){
-		return textArea.getHTML();
+		// erase unprinted symbols
+		return textArea.getHTML().replaceAll(NONPRINTABLE_ELEMENT, "").trim();
 	}
 
 	/**
@@ -104,6 +110,9 @@ public class RichTextEditorField extends Grid implements HasValue<String> {
 		super.setHeight((newWidth + 2) + Unit.PX.getType());
 	}
 	
+	/**
+	 * Сброс состояния поля
+	 */
 	public void reset(){
 		toolbar.reset();
 	}
