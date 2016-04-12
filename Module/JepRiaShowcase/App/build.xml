@@ -6,7 +6,11 @@
 	<property file="config/${BUILD_CONFIG}/deploy.properties"/>
 	
 	<property name="J2EE_HOME" value="${OC4J_HOME}/j2ee/home" />
+<!--	
 	<property name="JEP_RIA" value="${COMMON_HOME}/Module/JepRia/${JEP_RIA_VERSION}/App" />
+-->	
+	<property name="JEP_RIA" value="../../JepRia/App" />
+	
 	<property name="JEP_RIA_REPORT" value="${COMMON_HOME}/Module/JepRiaReport/${JEP_RIA_REPORT_VERSION}/App" />
 	<property name="JEP_REPORT_COMPILER" value="${COMMON_HOME}/Module/JrCompiler/${JEP_REPORT_COMPILER_VERSION}/App" />
 	<property name="JEP_RIA_TOOLKIT" value="${COMMON_HOME}/Module/JepRiaToolkit/${JEP_RIA_TOOLKIT_VERSION}/App" />
@@ -674,10 +678,12 @@
 		<appInstall action="finishAppInstall" deploymentPath="${DEPLOYMENT_PATH}" port="${PORT}" loadOperatorId="${LOAD_OPERATORID}" appInstallResultId="${appInstallResultId}" javaReturnCode="${javaReturnCode}" errorMessage="${errorMessage}" skipSaveInstallInfo="${SKIP_SAVE_INSTALL_INFO}" />
 	</target>
 
-	<taskdef name="tomcat.deploy" classname="org.apache.catalina.ant.DeployTask" classpathref="tomcat-libs" />
-	<taskdef name="tomcat.undeploy" classname="org.apache.catalina.ant.UndeployTask" classpathref="tomcat-libs" />
+	<target name="define-tomcat">
+		<taskdef name="tomcat.deploy" classname="org.apache.catalina.ant.DeployTask" classpathref="tomcat-libs" />
+		<taskdef name="tomcat.undeploy" classname="org.apache.catalina.ant.UndeployTask" classpathref="tomcat-libs" />
+	</target>
 	
-	<target name="tomcat.undeploy" description="Undeploy from Tomcat" depends="init">
+	<target name="tomcat.undeploy" description="Undeploy from Tomcat" depends="init, define-tomcat">
 		<tomcat.undeploy 
 			failonerror="no"
 			url="${DEPLOYMENT_PATH}"
@@ -688,7 +694,7 @@
 	</target>
 	
 	<!-- TODO Нужен рефакторинг по устранению дублирования кода deploy и build-and-deploy -->
-	<target name="tomcat.deploy" description="Deploy to Tomcat" depends="init, tomcat.undeploy">
+	<target name="tomcat.deploy" description="Deploy to Tomcat" depends="init, define-tomcat, tomcat.undeploy">
 		
 		<echo message="Deploying lib/${MODULE_NAME_IN_PACKAGE}.war to:${DEPLOYMENT_PATH}"/>
 		<echo message="Deploy to Tomcat..." />
