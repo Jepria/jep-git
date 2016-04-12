@@ -2722,11 +2722,48 @@ Path=.....D:\WINDOWS\system32;D:\WINDOWS;<i>D:\oracle\jdev101330\ant\bin</i>
 <h3><a name="releaseNotes">Замечания к версиям</a></h3>
 <h4>Версии</h4>
 <ul>
+  <li><a href="#9.0.0">9.0.0 (2016-04-12)</a></li>
   <li><a href="#8.9.2">8.9.2 (2016-02-02)</a></li>
   <li><a href="#8.9.1">8.9.1 (2016-01-26)</a></li>
   <li><a href="#8.9.0">8.9.0 (2016-01-26)</a></li>
   <li><a href="#8.8.0">8.8.0 (2015-11-24)</a></li>
   <li><a href="#8.0.0">8.0.0 (2014-05-14)</a></li>
+</ul>
+
+<h5><a name="9.0.0">Версия 9.0.0 (2016-04-12)</a></h5>
+<ul>
+  <li><b>chore:</b> Переход на JepRia 9.0.0, JepRiaToolkit 7.0.0.</li>
+  <li><b>refactor:</b> Полный отказ от EJB:
+    <ul>
+      <li>EJB более не используется при взаимодействии с DB, в том числе
+      в процессе загрузки и выгрузки файлов.</li>
+      <li>Упоминания EJB исключены из application.xml, orion-application.xml, web.xml.</li>
+      <li>Из процесса сборки исключены библиотеки jepria-ejb.jar и ejb30.jar.</li>
+    </ul>
+  </li>
+  <li><b>chore:</b> Изменения в процессе сборки:
+    <ul>
+      <li>упразднён файл jepriashowcase-common.jar;</li>
+      <li>изменены параметры вызова тасков applicationstructurecreator, productionbuildchecker;</li>
+      <li>JepApplication.xml переименован в JepRiaShowcaseDefinition.xml;</li>
+      <li>прекращено использование JepGxt;</li>
+      <li>цель <code>war</code> переименована в <code>web-module</code>;</li>
+      <li>создана новая цель <code>war</code> для сборки самодостаточного web-приложения.</li>
+    </ul>
+  </li>
+  <li><b>chore:</b> В конфигурации <code>debug</code> отключены локали.</li>
+  <li><b>chore:</b> Отказ от использования CAS SSO.</li>
+  <li><b>feat:</b> Поддержка SSO WebLogic.</li>
+  <li><b>chore:</b> Из web.xml удалена конфигурация бина и сервлета версионности.</li>
+  <li><b>refactor:</b> Имя текстовых ресурсов удалено из серверного кода в соответствии с изменениями в JepRia.</li>
+  <li><b>feat:</b> В модуле Supplier добавлен &quot;синтетический&quot; пример невозможности
+  отправки формы поиска до полной загрузки зависимых полей.</li>
+  <li><b>feat:</b> В модуле Custom добавлен пример кастомных обработчиков  начала и завершения 
+  транзакции.</li>
+  <li><b>refactor:</b> Везде, где возможно, списочные формы модулей наследуют 
+  <code>StandardListFormViewImpl</code></li>
+  <li><b>docs:</b> В <a href="#standardSolutions">Типовые решения</a> добавлен раздел 
+  <a href="#fullLoadingCheck">Проверка полной загрузки данных в цепочке зависимых полей</a>.</li>
 </ul>
 
 <h5><a name="8.9.2">Версия 8.9.2 (2016-02-02)</a></h5>
