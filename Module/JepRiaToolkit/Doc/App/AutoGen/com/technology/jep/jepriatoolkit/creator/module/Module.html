@@ -53,7 +53,7 @@ function windowTitle()
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/FORM.html" title="enum in com.technology.jep.jepriatoolkit.creator.module"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/ListForm.html" title="class in com.technology.jep.jepriatoolkit.creator.module"><B>PREV CLASS</B></A>&nbsp;
 &nbsp;<A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/ModuleButton.html" title="class in com.technology.jep.jepriatoolkit.creator.module"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../../../../../index.html?com/technology/jep/jepriatoolkit/creator/module/Module.html" target="_top"><B>FRAMES</B></A>  &nbsp;
@@ -131,8 +131,8 @@ java.lang.Object
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>private &nbsp;java.lang.String</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/Module.html#dbPackageName">dbPackageName</A></B></CODE>
+<CODE>private &nbsp;<A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/Db.html" title="class in com.technology.jep.jepriatoolkit.creator.module">Db</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/Module.html#db">db</A></B></CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -227,7 +227,7 @@ java.lang.Object
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>private &nbsp;boolean</CODE></FONT></TD>
+<CODE>private &nbsp;java.lang.Boolean</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/Module.html#isStatusbarOff">isStatusbarOff</A></B></CODE>
 
 <BR>
@@ -235,16 +235,8 @@ java.lang.Object
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>private &nbsp;boolean</CODE></FONT></TD>
+<CODE>private &nbsp;java.lang.Boolean</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/Module.html#isToolBarOff">isToolBarOff</A></B></CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>private &nbsp;java.lang.String</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/Module.html#moduleDataSource">moduleDataSource</A></B></CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -275,8 +267,16 @@ java.lang.Object
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>private &nbsp;java.util.List&lt;java.lang.String&gt;</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/Module.html#moduleRoleNames">moduleRoleNames</A></B></CODE>
+<CODE>private &nbsp;java.util.List&lt;<A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/Role.html" title="class in com.technology.jep.jepriatoolkit.creator.module">Role</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/Module.html#moduleRoles">moduleRoles</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;<A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/Record.html" title="class in com.technology.jep.jepriatoolkit.creator.module">Record</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/Module.html#record">record</A></B></CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -312,7 +312,7 @@ java.lang.Object
 <TH ALIGN="left"><B>Fields inherited from interface com.technology.jep.jepriatoolkit.<A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html" title="interface in com.technology.jep.jepriatoolkit">JepRiaToolkitConstant</A></B></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#ADD_BUTTON_ID">ADD_BUTTON_ID</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#ADD_SEPARATOR_ID">ADD_SEPARATOR_ID</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#ALPHABET_LOWER_CASE">ALPHABET_LOWER_CASE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#ALPHABET_UPPER_CASE">ALPHABET_UPPER_CASE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#APPLICATION_DATASOURCE_ATTRIBUTE">APPLICATION_DATASOURCE_ATTRIBUTE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#APPLICATION_NAME_ATTRIBUTE">APPLICATION_NAME_ATTRIBUTE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#APPLICATION_SETTING_XML">APPLICATION_SETTING_XML</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#APPLICATION_TAG_NAME">APPLICATION_TAG_NAME</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#ARG_BUILD_XML_TAG_NAME">ARG_BUILD_XML_TAG_NAME</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#BACK_BUTTON_ID">BACK_BUTTON_ID</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#BACK_RIGHT_SEPARATOR_ID">BACK_RIGHT_SEPARATOR_ID</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#BUILD_CONFIG_FILE_NAME">BUILD_CONFIG_FILE_NAME</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#BUILD_CONFIG_PATH_PREFIX">BUILD_CONFIG_PATH_PREFIX</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#BUILD_FILE">BUILD_FILE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#BUTTON_ENABLE_STATES_ATTRIBUTE">BUTTON_ENABLE_STATES_ATTRIBUTE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#BUTTON_EVENT_ATTRIBUTE">BUTTON_EVENT_ATTRIBUTE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#BUTTON_ID_ATTRIBUTE">BUTTON_ID_ATTRIBUTE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#BUTTON_IDENTIFICATOR_SUFFIX">BUTTON_IDENTIFICATOR_SUFFIX</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#BUTTON_IMAGE_ATTRIBUTE">BUTTON_IMAGE_ATTRIBUTE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#BUTTON_IMAGE_DISABLED_ATTRIBUTE">BUTTON_IMAGE_DISABLED_ATTRIBUTE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#BUTTON_NAME_ATTRIBUTE">BUTTON_NAME_ATTRIBUTE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#BUTTON_NAME_EN_ATTRIBUTE">BUTTON_NAME_EN_ATTRIBUTE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#BUTTON_TAG_NAME">BUTTON_TAG_NAME</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#BUTTON_TEXT_ATTRIBUTE">BUTTON_TEXT_ATTRIBUTE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#CSS_TEMPLATE_NAME">CSS_TEMPLATE_NAME</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#DATABASE_PARAMETERS_TAG_NAME">DATABASE_PARAMETERS_TAG_NAME</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#DATABASE_PREFIX_ATTRIBUTE_NAME">DATABASE_PREFIX_ATTRIBUTE_NAME</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#DATABASE_TAG_NAME">DATABASE_TAG_NAME</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#DB_PACKAGE_ATTRIBUTE">DB_PACKAGE_ATTRIBUTE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#DBL_CLICK_NAME_ATTRIBUTE">DBL_CLICK_NAME_ATTRIBUTE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#DEBUG_BUILD_CONFIG_NAME">DEBUG_BUILD_CONFIG_NAME</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#DEBUG_LOG_LEVEL">DEBUG_LOG_LEVEL</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#DEFAULT_DATASOURCE">DEFAULT_DATASOURCE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#DEFAULT_HTTP_PORT">DEFAULT_HTTP_PORT</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#DEFAULT_WIDGET">DEFAULT_WIDGET</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#DELETE_BUTTON_ID">DELETE_BUTTON_ID</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#DELETE_SEPARATOR_ID">DELETE_SEPARATOR_ID</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#DETAIL_FORM_TAG_NAME">DETAIL_FORM_TAG_NAME</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#DISPLAY_VALUE_SUFFIX">DISPLAY_VALUE_SUFFIX</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#EDIT_BUTTON_ID">EDIT_BUTTON_ID</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#END_OF_LINE">END_OF_LINE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#ERROR_PREFIX">ERROR_PREFIX</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#EXCEL_BUTTON_ID">EXCEL_BUTTON_ID</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#EXTEND_PROPERTY_MAIN_GWT_XML_TAG_NAME">EXTEND_PROPERTY_MAIN_GWT_XML_TAG_NAME</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#EXTENSION_FIELD_ID">EXTENSION_FIELD_ID</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#FIELD_EDITABLE_WORKSTATES_ATTRIBUTE">FIELD_EDITABLE_WORKSTATES_ATTRIBUTE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#FIELD_ENABLE_WORKSTATES_ATTRIBUTE">FIELD_ENABLE_WORKSTATES_ATTRIBUTE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#FIELD_HEIGHT_ATTRIBUTE">FIELD_HEIGHT_ATTRIBUTE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#FIELD_ID_ATTRIBUTE">FIELD_ID_ATTRIBUTE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#FIELD_LABEL_WIDTH_ATTRIBUTE">FIELD_LABEL_WIDTH_ATTRIBUTE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#FIELD_LIKE_ATTRIBUTE">FIELD_LIKE_ATTRIBUTE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#FIELD_MANDATORY_WORKSTATES_ATTRIBUTE">FIELD_MANDATORY_WORKSTATES_ATTRIBUTE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#FIELD_MAX_LENGTH_ATTRIBUTE">FIELD_MAX_LENGTH_ATTRIBUTE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#FIELD_NAME_ATTRIBUTE">FIELD_NAME_ATTRIBUTE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#FIELD_NAME_EN_ATTRIBUTE">FIELD_NAME_EN_ATTRIBUTE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#FIELD_PREFIX">FIELD_PREFIX</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#FIELD_TAG_NAME">FIELD_TAG_NAME</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#FIELD_TYPE_ATTRIBUTE">FIELD_TYPE_ATTRIBUTE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#FIELD_VISIBLE_WORKSTATES_ATTRIBUTE">FIELD_VISIBLE_WORKSTATES_ATTRIBUTE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#FIELD_WIDGET_ATTRIBUTE">FIELD_WIDGET_ATTRIBUTE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#FIELD_WIDTH_ATTRIBUTE">FIELD_WIDTH_ATTRIBUTE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#FILE_NAME_FIELD_ID">FILE_NAME_FIELD_ID</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#FIND_BUTTON_ID">FIND_BUTTON_ID</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#FORMS_TAG_NAME">FORMS_TAG_NAME</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#HELP_BUTTON_ID">HELP_BUTTON_ID</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#HELP_SEPARATOR_ID">HELP_SEPARATOR_ID</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#HTTP_PROTOCOL">HTTP_PROTOCOL</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#ID_ATTRIBUTE">ID_ATTRIBUTE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#IDENTIFICATOR_CODE_SUFFIX">IDENTIFICATOR_CODE_SUFFIX</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#IDENTIFICATOR_SUFFIX">IDENTIFICATOR_SUFFIX</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#INDENT_AMOUNT">INDENT_AMOUNT</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#INFO_LOG_LEVEL">INFO_LOG_LEVEL</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#INHERITS_MAIN_GWT_XML_TAG_NAME">INHERITS_MAIN_GWT_XML_TAG_NAME</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#JAVA_BUILD_XML_TAG_NAME">JAVA_BUILD_XML_TAG_NAME</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#JEP_CHECKBOX_FIELD">JEP_CHECKBOX_FIELD</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#JEP_CHECKBOX_GROUP_FIELD">JEP_CHECKBOX_GROUP_FIELD</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#JEP_COMBOBOX_FIELD">JEP_COMBOBOX_FIELD</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#JEP_DATE_FIELD">JEP_DATE_FIELD</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#JEP_DUAL_LIST_FIELD">JEP_DUAL_LIST_FIELD</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#JEP_FIELD_PREFIX">JEP_FIELD_PREFIX</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#JEP_FILE_FIELD">JEP_FILE_FIELD</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#JEP_IMAGE_FIELD">JEP_IMAGE_FIELD</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#JEP_INTEGER_FIELD">JEP_INTEGER_FIELD</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#JEP_LIST_FIELD">JEP_LIST_FIELD</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#JEP_LONG_FIELD">JEP_LONG_FIELD</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#JEP_MASKED_TEXT_FIELD">JEP_MASKED_TEXT_FIELD</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#JEP_MONEY_FIELD">JEP_MONEY_FIELD</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#JEP_NUMBER_FIELD">JEP_NUMBER_FIELD</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#JEP_TEXT_AREA_FIELD">JEP_TEXT_AREA_FIELD</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#JEP_TEXT_FIELD">JEP_TEXT_FIELD</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#JEP_TIME_FIELD">JEP_TIME_FIELD</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#JEP_TREE_FIELD">JEP_TREE_FIELD</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#JSP_TEMPLATE_NAME">JSP_TEMPLATE_NAME</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#LEFT_BRACKET">LEFT_BRACKET</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#LIB_DIR_NAME">LIB_DIR_NAME</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#LIST_BUTTON_ID">LIST_BUTTON_ID</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#LIST_FORM_DND_NAME_ATTRIBUTE">LIST_FORM_DND_NAME_ATTRIBUTE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#LIST_FORM_GROUP_FIELD_NAME_ATTRIBUTE">LIST_FORM_GROUP_FIELD_NAME_ATTRIBUTE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#LIST_FORM_PRESENTER_ATTRIBUTE">LIST_FORM_PRESENTER_ATTRIBUTE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#LIST_FORM_TAG_NAME">LIST_FORM_TAG_NAME</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#LOADING_DIV_ID">LOADING_DIV_ID</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#LOG4J_APPENDER_PREFIX">LOG4J_APPENDER_PREFIX</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#LOG4J_LOGGER_PREFIX">LOG4J_LOGGER_PREFIX</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#LOG4J_LOGGER_VALUE">LOG4J_LOGGER_VALUE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#LOGGER_SERVLET_CLASS">LOGGER_SERVLET_CLASS</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#LOGGER_SERVLET_NAME">LOGGER_SERVLET_NAME</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#MAIN_SERVICE_SERVLET_CLASS">MAIN_SERVICE_SERVLET_CLASS</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#MAIN_SERVICE_SERVLET_NAME">MAIN_SERVICE_SERVLET_NAME</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#MIME_TYPE_FIELD_ID">MIME_TYPE_FIELD_ID</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#MODULE_BUILD_ATTRIBUTE">MODULE_BUILD_ATTRIBUTE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#MODULE_DATASOURCE_ATTRIBUTE">MODULE_DATASOURCE_ATTRIBUTE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#MODULE_ID_ATTRIBUTE">MODULE_ID_ATTRIBUTE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#MODULE_NAME_ATTRIBUTE">MODULE_NAME_ATTRIBUTE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#MODULE_NAME_EN_ATTRIBUTE">MODULE_NAME_EN_ATTRIBUTE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#MODULE_PRIMARY_KEY_ATTRIBUTE">MODULE_PRIMARY_KEY_ATTRIBUTE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#MODULE_ROLE_ATTRIBUTE">MODULE_ROLE_ATTRIBUTE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#MODULE_ROLES_ATTRIBUTE">MODULE_ROLES_ATTRIBUTE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#MODULE_STATUSBAR_ATTRIBUTE">MODULE_STATUSBAR_ATTRIBUTE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#MODULE_TABLE_NAME_ATTRIBUTE">MODULE_TABLE_NAME_ATTRIBUTE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#MODULE_TAG_NAME">MODULE_TAG_NAME</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#MODULE_TOOLBAR_ATTRIBUTE">MODULE_TOOLBAR_ATTRIBUTE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#NAME_ATTRIBUTE">NAME_ATTRIBUTE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#NAME_EN_ATTRIBUTE">NAME_EN_ATTRIBUTE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#NAVIGATION_MENU_DIR_NAME">NAVIGATION_MENU_DIR_NAME</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#NAVIGATION_TEXT_DIR_NAME">NAVIGATION_TEXT_DIR_NAME</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#NO_NAME">NO_NAME</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#OFF">OFF</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#OPMN_PROTOCOL">OPMN_PROTOCOL</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#OR">OR</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#PATH_SEPARATOR">PATH_SEPARATOR</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#PKG_PREFIX">PKG_PREFIX</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#PREFIX_DESTINATION_JAVA_CODE">PREFIX_DESTINATION_JAVA_CODE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#PREFIX_DESTINATION_RESOURCE">PREFIX_DESTINATION_RESOURCE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#PREFIX_DESTINATION_SOURCE_CODE">PREFIX_DESTINATION_SOURCE_CODE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#PRINT_BUTTON_ID">PRINT_BUTTON_ID</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#PRODUCTION_BUILD_CHECKER_ERROR">PRODUCTION_BUILD_CHECKER_ERROR</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#PROJECT_PACKAGE_ATTRIBUTE">PROJECT_PACKAGE_ATTRIBUTE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#RECORD_ID">RECORD_ID</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#REFRESH_BUTTON_ID">REFRESH_BUTTON_ID</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#REFRESH_SEPARATOR_ID">REFRESH_SEPARATOR_ID</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#REGEXP_FOR_BLANK">REGEXP_FOR_BLANK</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#RELEASE_BUILD_CONFIG_NAME">RELEASE_BUILD_CONFIG_NAME</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#REPORT_BUTTON_ID">REPORT_BUTTON_ID</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#RIGHT_BRACKET">RIGHT_BRACKET</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#SAVE_BUTTON_ID">SAVE_BUTTON_ID</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#SEARCH_BUTTON_ID">SEARCH_BUTTON_ID</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#SEARCH_SEPARATOR_ID">SEARCH_SEPARATOR_ID</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#SELECT_BUTTON_ID">SELECT_BUTTON_ID</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#SEPARATOR">SEPARATOR</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#SEPARATOR_TAG_NAME">SEPARATOR_TAG_NAME</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#SET_PROPERTY_FALLBACK_MAIN_GWT_XML_TAG_NAME">SET_PROPERTY_FALLBACK_MAIN_GWT_XML_TAG_NAME</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#SET_PROPERTY_MAIN_GWT_XML_TAG_NAME">SET_PROPERTY_MAIN_GWT_XML_TAG_NAME</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#SOURCE_DIR_NAME">SOURCE_DIR_NAME</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#TAB">TAB</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#TEST_BUILD_MESSAGE">TEST_BUILD_MESSAGE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#TEST_BUILD_MESSAGE_DIV_ID">TEST_BUILD_MESSAGE_DIV_ID</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#TEST_BUILD_MESSAGE_STYLE_HIDDEN">TEST_BUILD_MESSAGE_STYLE_HIDDEN</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#TEST_BUILD_MESSAGE_STYLE_VISIBLE">TEST_BUILD_MESSAGE_STYLE_VISIBLE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#TOOLBAR_PRESENTER_ATTRIBUTE">TOOLBAR_PRESENTER_ATTRIBUTE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#TOOLBAR_TAG_NAME">TOOLBAR_TAG_NAME</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#TOOLBAR_VIEW_ATTRIBUTE">TOOLBAR_VIEW_ATTRIBUTE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#UNDEFINED_INT">UNDEFINED_INT</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#UNDERSCORE">UNDERSCORE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#UTF_8">UTF_8</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#VALUE_ATTRIBUTE">VALUE_ATTRIBUTE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#VALUES_ATTRIBUTE">VALUES_ATTRIBUTE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#VERSION_SERVLET_CLASS">VERSION_SERVLET_CLASS</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#VERSION_SERVLET_NAME">VERSION_SERVLET_NAME</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#VIEW_DETAILS_BUTTON_ID">VIEW_DETAILS_BUTTON_ID</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#WARNING_PREFIX">WARNING_PREFIX</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#WELCOME_PAGE_DIR_NAME">WELCOME_PAGE_DIR_NAME</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#WHITE_SPACE">WHITE_SPACE</A></CODE></TD>
+<TD><CODE><A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#ADD_BUTTON_ID">ADD_BUTTON_ID</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#ADD_SEPARATOR_ID">ADD_SEPARATOR_ID</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#ALPHABET_LOWER_CASE">ALPHABET_LOWER_CASE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#ALPHABET_UPPER_CASE">ALPHABET_UPPER_CASE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#APPLICATION_CSS_PATH_TEMPLATE_PROPERTY">APPLICATION_CSS_PATH_TEMPLATE_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#APPLICATION_DATASOURCE_ATTRIBUTE">APPLICATION_DATASOURCE_ATTRIBUTE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#APPLICATION_DEFINITION_RESOURCE_BUNDLE_NAME">APPLICATION_DEFINITION_RESOURCE_BUNDLE_NAME</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#APPLICATION_JSP_PATH_TEMPLATE_PROPERTY">APPLICATION_JSP_PATH_TEMPLATE_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#APPLICATION_JSP_TEMPLATE_PROPERTY">APPLICATION_JSP_TEMPLATE_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#APPLICATION_NAME_ATTRIBUTE">APPLICATION_NAME_ATTRIBUTE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#APPLICATION_SETTING_FILE_ENDING">APPLICATION_SETTING_FILE_ENDING</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#APPLICATION_TAG_NAME">APPLICATION_TAG_NAME</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#APPLICATION_XML_PATH_TEMPLATE_PROPERTY">APPLICATION_XML_PATH_TEMPLATE_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#APPLICATION_XML_TEMPLATE_PROPERTY">APPLICATION_XML_TEMPLATE_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#applicationResourceBundle">applicationResourceBundle</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#ARG_BUILD_XML_TAG_NAME">ARG_BUILD_XML_TAG_NAME</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#BACK_BUTTON_ID">BACK_BUTTON_ID</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#BACK_RIGHT_SEPARATOR_ID">BACK_RIGHT_SEPARATOR_ID</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#BUILD_CONFIG_FILE_NAME">BUILD_CONFIG_FILE_NAME</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#BUILD_CONFIG_PATH_PREFIX">BUILD_CONFIG_PATH_PREFIX</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#BUILD_FILE">BUILD_FILE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#BUTTON_ENABLE_STATES_ATTRIBUTE">BUTTON_ENABLE_STATES_ATTRIBUTE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#BUTTON_EVENT_ATTRIBUTE">BUTTON_EVENT_ATTRIBUTE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#BUTTON_ID_ATTRIBUTE">BUTTON_ID_ATTRIBUTE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#BUTTON_IDENTIFICATOR_SUFFIX">BUTTON_IDENTIFICATOR_SUFFIX</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#BUTTON_IMAGE_ATTRIBUTE">BUTTON_IMAGE_ATTRIBUTE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#BUTTON_IMAGE_DISABLED_ATTRIBUTE">BUTTON_IMAGE_DISABLED_ATTRIBUTE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#BUTTON_NAME_ATTRIBUTE">BUTTON_NAME_ATTRIBUTE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#BUTTON_NAME_EN_ATTRIBUTE">BUTTON_NAME_EN_ATTRIBUTE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#BUTTON_TAG_NAME">BUTTON_TAG_NAME</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#BUTTON_TEMPLATE_PARAMETER">BUTTON_TEMPLATE_PARAMETER</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#BUTTON_TEXT_ATTRIBUTE">BUTTON_TEXT_ATTRIBUTE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#CLIENT_MODULE_CONSTANT_PATH_TEMPLATE_PROPERTY">CLIENT_MODULE_CONSTANT_PATH_TEMPLATE_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#CLIENT_MODULE_CONSTANT_TEMPLATE_PROPERTY">CLIENT_MODULE_CONSTANT_TEMPLATE_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#CLIENT_MODULE_DAO_DIRECTORY_PROPERTY">CLIENT_MODULE_DAO_DIRECTORY_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#CLIENT_MODULE_DAO_INTERFACE_PATH_TEMPLATE_PROPERTY">CLIENT_MODULE_DAO_INTERFACE_PATH_TEMPLATE_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#CLIENT_MODULE_DAO_INTERFACE_TEMPLATE_PROPERTY">CLIENT_MODULE_DAO_INTERFACE_TEMPLATE_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#CLIENT_MODULE_DAO_PATH_TEMPLATE_PROPERTY">CLIENT_MODULE_DAO_PATH_TEMPLATE_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#CLIENT_MODULE_DAO_TEMPLATE_PROPERTY">CLIENT_MODULE_DAO_TEMPLATE_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#CLIENT_MODULE_DETAIL_FORM_DIRECTORY_PROPERTY">CLIENT_MODULE_DETAIL_FORM_DIRECTORY_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#CLIENT_MODULE_DETAIL_FORM_PRESENTER_PATH_TEMPLATE_PROPERTY">CLIENT_MODULE_DETAIL_FORM_PRESENTER_PATH_TEMPLATE_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#CLIENT_MODULE_DETAIL_FORM_PRESENTER_TEMPLATE_PROPERTY">CLIENT_MODULE_DETAIL_FORM_PRESENTER_TEMPLATE_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#CLIENT_MODULE_DETAIL_FORM_VIEW_IMPL_PATH_TEMPLATE_PROPERTY">CLIENT_MODULE_DETAIL_FORM_VIEW_IMPL_PATH_TEMPLATE_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#CLIENT_MODULE_DETAIL_FORM_VIEW_IMPL_TEMPLATE_PROPERTY">CLIENT_MODULE_DETAIL_FORM_VIEW_IMPL_TEMPLATE_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#CLIENT_MODULE_DETAIL_FORM_VIEW_PATH_TEMPLATE_PROPERTY">CLIENT_MODULE_DETAIL_FORM_VIEW_PATH_TEMPLATE_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#CLIENT_MODULE_DETAIL_FORM_VIEW_TEMPLATE_PROPERTY">CLIENT_MODULE_DETAIL_FORM_VIEW_TEMPLATE_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#CLIENT_MODULE_DOWNLOAD_SERVICE_IMPL_PATH_TEMPLATE_PROPERTY">CLIENT_MODULE_DOWNLOAD_SERVICE_IMPL_PATH_TEMPLATE_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#CLIENT_MODULE_DOWNLOAD_SERVICE_IMPL_TEMPLATE_PROPERTY">CLIENT_MODULE_DOWNLOAD_SERVICE_IMPL_TEMPLATE_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#CLIENT_MODULE_EVENT_PATH_TEMPLATE_PROPERTY">CLIENT_MODULE_EVENT_PATH_TEMPLATE_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#CLIENT_MODULE_EVENT_TEMPLATE_PROPERTY">CLIENT_MODULE_EVENT_TEMPLATE_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#CLIENT_MODULE_EVENTBUS_DIRECTORY_PROPERTY">CLIENT_MODULE_EVENTBUS_DIRECTORY_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#CLIENT_MODULE_EVENTBUS_PATH_TEMPLATE_PROPERTY">CLIENT_MODULE_EVENTBUS_PATH_TEMPLATE_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#CLIENT_MODULE_EVENTBUS_TEMPLATE_PROPERTY">CLIENT_MODULE_EVENTBUS_TEMPLATE_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#CLIENT_MODULE_EXCEL_SERVICE_IMPL_PATH_TEMPLATE_PROPERTY">CLIENT_MODULE_EXCEL_SERVICE_IMPL_PATH_TEMPLATE_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#CLIENT_MODULE_EXCEL_SERVICE_IMPL_TEMPLATE_PROPERTY">CLIENT_MODULE_EXCEL_SERVICE_IMPL_TEMPLATE_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#CLIENT_MODULE_FACTORY_PATH_TEMPLATE_PROPERTY">CLIENT_MODULE_FACTORY_PATH_TEMPLATE_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#CLIENT_MODULE_FACTORY_TEMPLATE_PROPERTY">CLIENT_MODULE_FACTORY_TEMPLATE_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#CLIENT_MODULE_FIELD_DIRECTORY_PROPERTY">CLIENT_MODULE_FIELD_DIRECTORY_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#CLIENT_MODULE_FIELDS_PATH_TEMPLATE_PROPERTY">CLIENT_MODULE_FIELDS_PATH_TEMPLATE_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#CLIENT_MODULE_FIELDS_TEMPLATE_PROPERTY">CLIENT_MODULE_FIELDS_TEMPLATE_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#CLIENT_MODULE_GWT_XML_PATH_TEMPLATE_PROPERTY">CLIENT_MODULE_GWT_XML_PATH_TEMPLATE_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#CLIENT_MODULE_GWT_XML_TEMPLATE_PROPERTY">CLIENT_MODULE_GWT_XML_TEMPLATE_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#CLIENT_MODULE_IMAGES_PATH_TEMPLATE_PROPERTY">CLIENT_MODULE_IMAGES_PATH_TEMPLATE_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#CLIENT_MODULE_IMAGES_TEMPLATE_PROPERTY">CLIENT_MODULE_IMAGES_TEMPLATE_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#CLIENT_MODULE_LIST_FORM_DIRECTORY_PROPERTY">CLIENT_MODULE_LIST_FORM_DIRECTORY_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#CLIENT_MODULE_LIST_FORM_PRESENTER_PATH_TEMPLATE_PROPERTY">CLIENT_MODULE_LIST_FORM_PRESENTER_PATH_TEMPLATE_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#CLIENT_MODULE_LIST_FORM_PRESENTER_TEMPLATE_PROPERTY">CLIENT_MODULE_LIST_FORM_PRESENTER_TEMPLATE_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#CLIENT_MODULE_LIST_FORM_VIEW_IMPL_PATH_TEMPLATE_PROPERTY">CLIENT_MODULE_LIST_FORM_VIEW_IMPL_PATH_TEMPLATE_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#CLIENT_MODULE_LIST_FORM_VIEW_IMPL_TEMPLATE_PROPERTY">CLIENT_MODULE_LIST_FORM_VIEW_IMPL_TEMPLATE_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#CLIENT_MODULE_OPTIONS_PATH_TEMPLATE_PROPERTY">CLIENT_MODULE_OPTIONS_PATH_TEMPLATE_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#CLIENT_MODULE_OPTIONS_TEMPLATE_PROPERTY">CLIENT_MODULE_OPTIONS_TEMPLATE_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#CLIENT_MODULE_PLAIN_FORM_DIRECTORY_PROPERTY">CLIENT_MODULE_PLAIN_FORM_DIRECTORY_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#CLIENT_MODULE_PRESENTER_PATH_TEMPLATE_PROPERTY">CLIENT_MODULE_PRESENTER_PATH_TEMPLATE_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#CLIENT_MODULE_PRESENTER_TEMPLATE_PROPERTY">CLIENT_MODULE_PRESENTER_TEMPLATE_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#CLIENT_MODULE_RECORD_DEFINITION_PATH_TEMPLATE_PROPERTY">CLIENT_MODULE_RECORD_DEFINITION_PATH_TEMPLATE_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#CLIENT_MODULE_RECORD_DEFINITION_TEMPLATE_PROPERTY">CLIENT_MODULE_RECORD_DEFINITION_TEMPLATE_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#CLIENT_MODULE_RECORD_DIRECTORY_PROPERTY">CLIENT_MODULE_RECORD_DIRECTORY_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#CLIENT_MODULE_SERVER_CONSTANT_PATH_TEMPLATE_PROPERTY">CLIENT_MODULE_SERVER_CONSTANT_PATH_TEMPLATE_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#CLIENT_MODULE_SERVER_CONSTANT_TEMPLATE_PROPERTY">CLIENT_MODULE_SERVER_CONSTANT_TEMPLATE_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#CLIENT_MODULE_SERVICE_ASYNC_PATH_TEMPLATE_PROPERTY">CLIENT_MODULE_SERVICE_ASYNC_PATH_TEMPLATE_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#CLIENT_MODULE_SERVICE_ASYNC_TEMPLATE_PROPERTY">CLIENT_MODULE_SERVICE_ASYNC_TEMPLATE_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#CLIENT_MODULE_SERVICE_DIRECTORY_PROPERTY">CLIENT_MODULE_SERVICE_DIRECTORY_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#CLIENT_MODULE_SERVICE_IMPL_DIRECTORY_PROPERTY">CLIENT_MODULE_SERVICE_IMPL_DIRECTORY_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#CLIENT_MODULE_SERVICE_IMPL_PATH_TEMPLATE_PROPERTY">CLIENT_MODULE_SERVICE_IMPL_PATH_TEMPLATE_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#CLIENT_MODULE_SERVICE_IMPL_TEMPLATE_PROPERTY">CLIENT_MODULE_SERVICE_IMPL_TEMPLATE_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#CLIENT_MODULE_SERVICE_PATH_TEMPLATE_PROPERTY">CLIENT_MODULE_SERVICE_PATH_TEMPLATE_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#CLIENT_MODULE_SERVICE_TEMPLATE_PROPERTY">CLIENT_MODULE_SERVICE_TEMPLATE_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#CLIENT_MODULE_SHARED_CONSTANT_PATH_TEMPLATE_PROPERTY">CLIENT_MODULE_SHARED_CONSTANT_PATH_TEMPLATE_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#CLIENT_MODULE_SHARED_CONSTANT_TEMPLATE_PROPERTY">CLIENT_MODULE_SHARED_CONSTANT_TEMPLATE_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#CLIENT_MODULE_STATUSBAR_DIRECTORY_PROPERTY">CLIENT_MODULE_STATUSBAR_DIRECTORY_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#CLIENT_MODULE_STATUSBAR_PATH_TEMPLATE_PROPERTY">CLIENT_MODULE_STATUSBAR_PATH_TEMPLATE_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#CLIENT_MODULE_STATUSBAR_TEMPLATE_PROPERTY">CLIENT_MODULE_STATUSBAR_TEMPLATE_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#CLIENT_MODULE_TEXT_RESOURCE_DIRECTORY_PROPERTY">CLIENT_MODULE_TEXT_RESOURCE_DIRECTORY_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#CLIENT_MODULE_TEXT_RESOURCE_EN_PATH_TEMPLATE_PROPERTY">CLIENT_MODULE_TEXT_RESOURCE_EN_PATH_TEMPLATE_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#CLIENT_MODULE_TEXT_RESOURCE_EN_TEMPLATE_PROPERTY">CLIENT_MODULE_TEXT_RESOURCE_EN_TEMPLATE_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#CLIENT_MODULE_TEXT_RESOURCE_PATH_TEMPLATE_PROPERTY">CLIENT_MODULE_TEXT_RESOURCE_PATH_TEMPLATE_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#CLIENT_MODULE_TEXT_RESOURCE_TEMPLATE_PROPERTY">CLIENT_MODULE_TEXT_RESOURCE_TEMPLATE_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#CLIENT_MODULE_TOOLBAR_DIRECTORY_PROPERTY">CLIENT_MODULE_TOOLBAR_DIRECTORY_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#CLIENT_MODULE_TOOLBAR_PRESENTER_PATH_TEMPLATE_PROPERTY">CLIENT_MODULE_TOOLBAR_PRESENTER_PATH_TEMPLATE_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#CLIENT_MODULE_TOOLBAR_PRESENTER_TEMPLATE_PROPERTY">CLIENT_MODULE_TOOLBAR_PRESENTER_TEMPLATE_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#CLIENT_MODULE_TOOLBAR_VIEW_IMPL_PATH_TEMPLATE_PROPERTY">CLIENT_MODULE_TOOLBAR_VIEW_IMPL_PATH_TEMPLATE_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#CLIENT_MODULE_TOOLBAR_VIEW_IMPL_TEMPLATE_PROPERTY">CLIENT_MODULE_TOOLBAR_VIEW_IMPL_TEMPLATE_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#CLIENT_MODULE_TOOLBAR_VIEW_PATH_TEMPLATE_PROPERTY">CLIENT_MODULE_TOOLBAR_VIEW_PATH_TEMPLATE_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#CLIENT_MODULE_TOOLBAR_VIEW_TEMPLATE_PROPERTY">CLIENT_MODULE_TOOLBAR_VIEW_TEMPLATE_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#CLIENT_MODULE_UPLOAD_SERVICE_IMPL_PATH_TEMPLATE_PROPERTY">CLIENT_MODULE_UPLOAD_SERVICE_IMPL_PATH_TEMPLATE_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#CLIENT_MODULE_UPLOAD_SERVICE_IMPL_TEMPLATE_PROPERTY">CLIENT_MODULE_UPLOAD_SERVICE_IMPL_TEMPLATE_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#CONFIG_HTML_DIRECTORY_PROPERTY">CONFIG_HTML_DIRECTORY_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#CONFIG_MAIN_PACKAGE_DIRECTORY_PROPERTY">CONFIG_MAIN_PACKAGE_DIRECTORY_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#CSS_TEMPLATE_NAME">CSS_TEMPLATE_NAME</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#CURRENT_DIRECTORY_ENVIRONMENT_VARIABLE">CURRENT_DIRECTORY_ENVIRONMENT_VARIABLE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#DATABASE_PARAMETERS_TAG_NAME">DATABASE_PARAMETERS_TAG_NAME</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#DATABASE_PREFIX_ATTRIBUTE_NAME">DATABASE_PREFIX_ATTRIBUTE_NAME</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#DATABASE_TAG_NAME">DATABASE_TAG_NAME</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#DB_PACKAGE_ATTRIBUTE">DB_PACKAGE_ATTRIBUTE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#DBL_CLICK_NAME_ATTRIBUTE">DBL_CLICK_NAME_ATTRIBUTE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#DEBUG_BUILD_CONFIG_NAME">DEBUG_BUILD_CONFIG_NAME</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#DEBUG_LOG_LEVEL">DEBUG_LOG_LEVEL</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#DEFAULT_CHARSET">DEFAULT_CHARSET</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#DEFAULT_DATASOURCE">DEFAULT_DATASOURCE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#DEFAULT_HTTP_PORT">DEFAULT_HTTP_PORT</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#DEFAULT_WIDGET">DEFAULT_WIDGET</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#DELETE_BUTTON_ID">DELETE_BUTTON_ID</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#DELETE_SEPARATOR_ID">DELETE_SEPARATOR_ID</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#DEPLOY_PROPERTIES_DESTINATION_PATH_TEMPLATE_PROPERTY">DEPLOY_PROPERTIES_DESTINATION_PATH_TEMPLATE_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#DEPLOY_PROPERTIES_SOURCE_PATH_TEMPLATE_PROPERTY">DEPLOY_PROPERTIES_SOURCE_PATH_TEMPLATE_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#DETAIL_FORM_TAG_NAME">DETAIL_FORM_TAG_NAME</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#DISPLAY_VALUE_SUFFIX">DISPLAY_VALUE_SUFFIX</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#EDIT_BUTTON_ID">EDIT_BUTTON_ID</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#END_OF_LINE">END_OF_LINE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#ENTRANCE_DIRECTORY_PROPERTY">ENTRANCE_DIRECTORY_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#ERROR_PREFIX">ERROR_PREFIX</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#EXCEL_BUTTON_ID">EXCEL_BUTTON_ID</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#EXTEND_PROPERTY_MAIN_GWT_XML_TAG_NAME">EXTEND_PROPERTY_MAIN_GWT_XML_TAG_NAME</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#EXTENSION_FIELD_ID">EXTENSION_FIELD_ID</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#FIELD_EDITABLE_WORKSTATES_ATTRIBUTE">FIELD_EDITABLE_WORKSTATES_ATTRIBUTE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#FIELD_ENABLE_WORKSTATES_ATTRIBUTE">FIELD_ENABLE_WORKSTATES_ATTRIBUTE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#FIELD_HEIGHT_ATTRIBUTE">FIELD_HEIGHT_ATTRIBUTE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#FIELD_ID_ATTRIBUTE">FIELD_ID_ATTRIBUTE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#FIELD_LABEL_WIDTH_ATTRIBUTE">FIELD_LABEL_WIDTH_ATTRIBUTE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#FIELD_LIKE_ATTRIBUTE">FIELD_LIKE_ATTRIBUTE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#FIELD_MANDATORY_WORKSTATES_ATTRIBUTE">FIELD_MANDATORY_WORKSTATES_ATTRIBUTE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#FIELD_MAX_LENGTH_ATTRIBUTE">FIELD_MAX_LENGTH_ATTRIBUTE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#FIELD_NAME_ATTRIBUTE">FIELD_NAME_ATTRIBUTE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#FIELD_NAME_EN_ATTRIBUTE">FIELD_NAME_EN_ATTRIBUTE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#FIELD_PREFIX">FIELD_PREFIX</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#FIELD_TAG_NAME">FIELD_TAG_NAME</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#FIELD_TEMPLATE_PARAMETER">FIELD_TEMPLATE_PARAMETER</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#FIELD_TYPE_ATTRIBUTE">FIELD_TYPE_ATTRIBUTE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#FIELD_VISIBLE_WORKSTATES_ATTRIBUTE">FIELD_VISIBLE_WORKSTATES_ATTRIBUTE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#FIELD_WIDGET_ATTRIBUTE">FIELD_WIDGET_ATTRIBUTE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#FIELD_WIDTH_ATTRIBUTE">FIELD_WIDTH_ATTRIBUTE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#FILE_NAME_FIELD_ID">FILE_NAME_FIELD_ID</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#FILE_STRUCTURE_PATTERN">FILE_STRUCTURE_PATTERN</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#FIND_BUTTON_ID">FIND_BUTTON_ID</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#FORM_NAME_TEMPLATE_PARAMETER">FORM_NAME_TEMPLATE_PARAMETER</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#FORM_TEMPLATE_PARAMETER">FORM_TEMPLATE_PARAMETER</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#FORMS_TAG_NAME">FORMS_TAG_NAME</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#FORMS_TEMPLATE_PARAMETER">FORMS_TEMPLATE_PARAMETER</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#HAS_BINARY_FILE_TEMPLATE_PARAMETER">HAS_BINARY_FILE_TEMPLATE_PARAMETER</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#HAS_TEXT_FILE_TEMPLATE_PARAMETER">HAS_TEXT_FILE_TEMPLATE_PARAMETER</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#HELP_BUTTON_ID">HELP_BUTTON_ID</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#HELP_SEPARATOR_ID">HELP_SEPARATOR_ID</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#HTML_DIRECTORY_PROPERTY">HTML_DIRECTORY_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#HTTP_PROTOCOL">HTTP_PROTOCOL</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#ID_ATTRIBUTE">ID_ATTRIBUTE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#IDENTIFICATOR_CODE_SUFFIX">IDENTIFICATOR_CODE_SUFFIX</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#IDENTIFICATOR_SUFFIX">IDENTIFICATOR_SUFFIX</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#INDENT_AMOUNT">INDENT_AMOUNT</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#INFO_LOG_LEVEL">INFO_LOG_LEVEL</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#INHERITS_MAIN_GWT_XML_TAG_NAME">INHERITS_MAIN_GWT_XML_TAG_NAME</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#JAVA_BUILD_XML_TAG_NAME">JAVA_BUILD_XML_TAG_NAME</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#JEP_CHECKBOX_FIELD">JEP_CHECKBOX_FIELD</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#JEP_CHECKBOX_GROUP_FIELD">JEP_CHECKBOX_GROUP_FIELD</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#JEP_COMBOBOX_FIELD">JEP_COMBOBOX_FIELD</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#JEP_DATE_FIELD">JEP_DATE_FIELD</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#JEP_DUAL_LIST_FIELD">JEP_DUAL_LIST_FIELD</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#JEP_FIELD_PREFIX">JEP_FIELD_PREFIX</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#JEP_FILE_FIELD">JEP_FILE_FIELD</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#JEP_IMAGE_FIELD">JEP_IMAGE_FIELD</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#JEP_INTEGER_FIELD">JEP_INTEGER_FIELD</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#JEP_LIST_FIELD">JEP_LIST_FIELD</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#JEP_LONG_FIELD">JEP_LONG_FIELD</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#JEP_MASKED_TEXT_FIELD">JEP_MASKED_TEXT_FIELD</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#JEP_MONEY_FIELD">JEP_MONEY_FIELD</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#JEP_NUMBER_FIELD">JEP_NUMBER_FIELD</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#JEP_TEXT_AREA_FIELD">JEP_TEXT_AREA_FIELD</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#JEP_TEXT_FIELD">JEP_TEXT_FIELD</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#JEP_TIME_FIELD">JEP_TIME_FIELD</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#JEP_TREE_FIELD">JEP_TREE_FIELD</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#JSP_TEMPLATE_NAME">JSP_TEMPLATE_NAME</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#LEFT_BRACKET">LEFT_BRACKET</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#LEFT_CURLY_BRACKET">LEFT_CURLY_BRACKET</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#LIB_DIR_NAME">LIB_DIR_NAME</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#LIB_DIRECTORY_PROPERTY">LIB_DIRECTORY_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#LIST_BUTTON_ID">LIST_BUTTON_ID</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#LIST_FORM_DND_NAME_ATTRIBUTE">LIST_FORM_DND_NAME_ATTRIBUTE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#LIST_FORM_GROUP_FIELD_NAME_ATTRIBUTE">LIST_FORM_GROUP_FIELD_NAME_ATTRIBUTE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#LIST_FORM_PRESENTER_ATTRIBUTE">LIST_FORM_PRESENTER_ATTRIBUTE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#LIST_FORM_TAG_NAME">LIST_FORM_TAG_NAME</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#LOADING_DIV_ID">LOADING_DIV_ID</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#LOG4J_APPENDER_PREFIX">LOG4J_APPENDER_PREFIX</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#LOG4J_LOGGER_PREFIX">LOG4J_LOGGER_PREFIX</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#LOG4J_LOGGER_VALUE">LOG4J_LOGGER_VALUE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#LOG4J_PROPERTIES_CODE_DESTINATION_PATH_TEMPLATE_PROPERTY">LOG4J_PROPERTIES_CODE_DESTINATION_PATH_TEMPLATE_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#LOG4J_PROPERTIES_DESTINATION_PATH_TEMPLATE_PROPERTY">LOG4J_PROPERTIES_DESTINATION_PATH_TEMPLATE_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#LOG4J_PROPERTIES_SOURCE_PATH_TEMPLATE_PROPERTY">LOG4J_PROPERTIES_SOURCE_PATH_TEMPLATE_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#LOGGER_SERVLET_CLASS">LOGGER_SERVLET_CLASS</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#LOGGER_SERVLET_NAME">LOGGER_SERVLET_NAME</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#MAIN_GWT_XML_DEBUG_TEMPLATE_PROPERTY">MAIN_GWT_XML_DEBUG_TEMPLATE_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#MAIN_GWT_XML_PATH_TEMPLATE_PROPERTY">MAIN_GWT_XML_PATH_TEMPLATE_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#MAIN_GWT_XML_PRODUCTION_TEMPLATE_PROPERTY">MAIN_GWT_XML_PRODUCTION_TEMPLATE_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#MAIN_MODULE_CONSTANT_PATH_TEMPLATE_PROPERTY">MAIN_MODULE_CONSTANT_PATH_TEMPLATE_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#MAIN_MODULE_CONSTANT_TEMPLATE_PROPERTY">MAIN_MODULE_CONSTANT_TEMPLATE_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#MAIN_MODULE_DIRECTORY_PROPERTY">MAIN_MODULE_DIRECTORY_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#MAIN_MODULE_FACTORY_PATH_TEMPLATE_PROPERTY">MAIN_MODULE_FACTORY_PATH_TEMPLATE_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#MAIN_MODULE_FACTORY_TEMPLATE_PROPERTY">MAIN_MODULE_FACTORY_TEMPLATE_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#MAIN_MODULE_PRESENTER_PATH_TEMPLATE_PROPERTY">MAIN_MODULE_PRESENTER_PATH_TEMPLATE_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#MAIN_MODULE_PRESENTER_TEMPLATE_PROPERTY">MAIN_MODULE_PRESENTER_TEMPLATE_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#MAIN_MODULE_SHARED_CONSTANT_PATH_TEMPLATE_PROPERTY">MAIN_MODULE_SHARED_CONSTANT_PATH_TEMPLATE_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#MAIN_MODULE_SHARED_CONSTANT_TEMPLATE_PROPERTY">MAIN_MODULE_SHARED_CONSTANT_TEMPLATE_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#MAIN_SERVICE_SERVLET_CLASS">MAIN_SERVICE_SERVLET_CLASS</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#MAIN_SERVICE_SERVLET_NAME">MAIN_SERVICE_SERVLET_NAME</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#MAIN_TEXT_RESOURCE_DIRECTORY_PROPERTY">MAIN_TEXT_RESOURCE_DIRECTORY_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#MAIN_TEXT_RESOURCE_EN_PATH_TEMPLATE_PROPERTY">MAIN_TEXT_RESOURCE_EN_PATH_TEMPLATE_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#MAIN_TEXT_RESOURCE_EN_TEMPLATE_PROPERTY">MAIN_TEXT_RESOURCE_EN_TEMPLATE_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#MAIN_TEXT_RESOURCE_PATH_TEMPLATE_PROPERTY">MAIN_TEXT_RESOURCE_PATH_TEMPLATE_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#MAIN_TEXT_RESOURCE_TEMPLATE_PROPERTY">MAIN_TEXT_RESOURCE_TEMPLATE_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#MIME_TYPE_FIELD_ID">MIME_TYPE_FIELD_ID</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#MODULE_BUILD_ATTRIBUTE">MODULE_BUILD_ATTRIBUTE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#MODULE_DATASOURCE_ATTRIBUTE">MODULE_DATASOURCE_ATTRIBUTE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#MODULE_ENTRY_POINT_PATH_TEMPLATE_PROPERTY">MODULE_ENTRY_POINT_PATH_TEMPLATE_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#MODULE_ENTRY_POINT_TEMPLATE_PROPERTY">MODULE_ENTRY_POINT_TEMPLATE_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#MODULE_ID_ATTRIBUTE">MODULE_ID_ATTRIBUTE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#MODULE_NAME_ATTRIBUTE">MODULE_NAME_ATTRIBUTE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#MODULE_NAME_EN_ATTRIBUTE">MODULE_NAME_EN_ATTRIBUTE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#MODULE_NAME_TEMPLATE_PARAMETER">MODULE_NAME_TEMPLATE_PARAMETER</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#MODULE_PRIMARY_KEY_ATTRIBUTE">MODULE_PRIMARY_KEY_ATTRIBUTE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#MODULE_ROLE_ATTRIBUTE">MODULE_ROLE_ATTRIBUTE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#MODULE_ROLES_ATTRIBUTE">MODULE_ROLES_ATTRIBUTE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#MODULE_STATUSBAR_ATTRIBUTE">MODULE_STATUSBAR_ATTRIBUTE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#MODULE_TABLE_NAME_ATTRIBUTE">MODULE_TABLE_NAME_ATTRIBUTE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#MODULE_TAG_NAME">MODULE_TAG_NAME</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#MODULE_TOOLBAR_ATTRIBUTE">MODULE_TOOLBAR_ATTRIBUTE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#NAME_ATTRIBUTE">NAME_ATTRIBUTE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#NAME_EN_ATTRIBUTE">NAME_EN_ATTRIBUTE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#NAVIGATION_MENU_DIR_NAME">NAVIGATION_MENU_DIR_NAME</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#NAVIGATION_TEXT_DIR_NAME">NAVIGATION_TEXT_DIR_NAME</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#NO_NAME">NO_NAME</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#OFF">OFF</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#OPMN_PROTOCOL">OPMN_PROTOCOL</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#OR">OR</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#ORION_APPLICATION_XML_PATH_TEMPLATE_PROPERTY">ORION_APPLICATION_XML_PATH_TEMPLATE_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#ORION_APPLICATION_XML_TEMPLATE_PROPERTY">ORION_APPLICATION_XML_TEMPLATE_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#OVERVIEW_PATH_TEMPLATE_PROPERTY">OVERVIEW_PATH_TEMPLATE_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#OVERVIEW_TEMPLATE_PROPERTY">OVERVIEW_TEMPLATE_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#PACKAGE_NAME_TEMPLATE_PARAMETER">PACKAGE_NAME_TEMPLATE_PARAMETER</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#PATH_SEPARATOR">PATH_SEPARATOR</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#PKG_PREFIX">PKG_PREFIX</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#PREFIX_DESTINATION_JAVA_CODE">PREFIX_DESTINATION_JAVA_CODE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#PREFIX_DESTINATION_RESOURCE">PREFIX_DESTINATION_RESOURCE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#PREFIX_DESTINATION_SOURCE_CODE">PREFIX_DESTINATION_SOURCE_CODE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#PRINT_BUTTON_ID">PRINT_BUTTON_ID</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#PRODUCTION_BUILD_CHECKER_ERROR">PRODUCTION_BUILD_CHECKER_ERROR</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#PROJECT_PACKAGE_ATTRIBUTE">PROJECT_PACKAGE_ATTRIBUTE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#RECORD_ID">RECORD_ID</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#RECORD_TAG_NAME">RECORD_TAG_NAME</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#REFRESH_BUTTON_ID">REFRESH_BUTTON_ID</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#REFRESH_SEPARATOR_ID">REFRESH_SEPARATOR_ID</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#REGEXP_FOR_BLANK">REGEXP_FOR_BLANK</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#RELEASE_BUILD_CONFIG_NAME">RELEASE_BUILD_CONFIG_NAME</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#REPORT_BUTTON_ID">REPORT_BUTTON_ID</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#RESOURCE_DIRECTORY_PROPERTY">RESOURCE_DIRECTORY_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#RIGHT_BRACKET">RIGHT_BRACKET</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#SAVE_BUTTON_ID">SAVE_BUTTON_ID</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#SEARCH_BUTTON_ID">SEARCH_BUTTON_ID</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#SEARCH_SEPARATOR_ID">SEARCH_SEPARATOR_ID</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#SECURITY_ROLES_TEMPLATE_PARAMETER">SECURITY_ROLES_TEMPLATE_PARAMETER</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#SELECT_BUTTON_ID">SELECT_BUTTON_ID</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#SEPARATOR">SEPARATOR</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#SEPARATOR_TAG_NAME">SEPARATOR_TAG_NAME</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#SET_PROPERTY_FALLBACK_MAIN_GWT_XML_TAG_NAME">SET_PROPERTY_FALLBACK_MAIN_GWT_XML_TAG_NAME</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#SET_PROPERTY_MAIN_GWT_XML_TAG_NAME">SET_PROPERTY_MAIN_GWT_XML_TAG_NAME</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#SOURCE_DIR_NAME">SOURCE_DIR_NAME</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#TAB">TAB</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#TEST_BUILD_MESSAGE">TEST_BUILD_MESSAGE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#TEST_BUILD_MESSAGE_DIV_ID">TEST_BUILD_MESSAGE_DIV_ID</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#TEST_BUILD_MESSAGE_STYLE_HIDDEN">TEST_BUILD_MESSAGE_STYLE_HIDDEN</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#TEST_BUILD_MESSAGE_STYLE_VISIBLE">TEST_BUILD_MESSAGE_STYLE_VISIBLE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#TOOLBAR_PRESENTER_ATTRIBUTE">TOOLBAR_PRESENTER_ATTRIBUTE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#TOOLBAR_TAG_NAME">TOOLBAR_TAG_NAME</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#TOOLBAR_VIEW_ATTRIBUTE">TOOLBAR_VIEW_ATTRIBUTE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#UNDEFINED_INT">UNDEFINED_INT</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#UNDERSCORE">UNDERSCORE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#UTF_8">UTF_8</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#VALUE_ATTRIBUTE">VALUE_ATTRIBUTE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#VALUES_ATTRIBUTE">VALUES_ATTRIBUTE</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#VERSION_SERVLET_CLASS">VERSION_SERVLET_CLASS</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#VERSION_SERVLET_NAME">VERSION_SERVLET_NAME</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#VIEW_DETAILS_BUTTON_ID">VIEW_DETAILS_BUTTON_ID</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#WARNING_PREFIX">WARNING_PREFIX</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#WEB_XML_PATH_TEMPLATE_PROPERTY">WEB_XML_PATH_TEMPLATE_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#WEB_XML_TEMPLATE_PROPERTY">WEB_XML_TEMPLATE_PROPERTY</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#WELCOME_PAGE_DIR_NAME">WELCOME_PAGE_DIR_NAME</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#WHITE_SPACE">WHITE_SPACE</A></CODE></TD>
 </TR>
 </TABLE>
 &nbsp;
@@ -325,12 +325,21 @@ java.lang.Object
 <B>Constructor Summary</B></FONT></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/Module.html#Module(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.util.List, java.lang.String)">Module</A></B>(java.lang.String&nbsp;moduleId,
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private </CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/Module.html#Module()">Module</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/Module.html#Module(java.lang.String, java.lang.String, java.lang.String, com.technology.jep.jepriatoolkit.creator.module.Db, java.util.List)">Module</A></B>(java.lang.String&nbsp;moduleId,
        java.lang.String&nbsp;moduleName,
        java.lang.String&nbsp;moduleNameEn,
-       java.lang.String&nbsp;moduleDataSource,
-       java.util.List&lt;java.lang.String&gt;&nbsp;moduleRoleNames,
-       java.lang.String&nbsp;dbPackage)</CODE>
+       <A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/Db.html" title="class in com.technology.jep.jepriatoolkit.creator.module">Db</A>&nbsp;db,
+       java.util.List&lt;java.lang.String&gt;&nbsp;moduleRoleNames)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -355,8 +364,8 @@ java.lang.Object
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;java.lang.String</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/Module.html#getDbPackageName()">getDbPackageName</A></B>()</CODE>
+<CODE>&nbsp;<A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/Db.html" title="class in com.technology.jep.jepriatoolkit.creator.module">Db</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/Module.html#getDb()">getDb</A></B>()</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -388,14 +397,6 @@ java.lang.Object
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;java.lang.String</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/Module.html#getModuleDataSource()">getModuleDataSource</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;java.lang.String</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/Module.html#getModuleId()">getModuleId</A></B>()</CODE>
 
 <BR>
@@ -419,8 +420,16 @@ java.lang.Object
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;java.util.List&lt;java.lang.String&gt;</CODE></FONT></TD>
+<CODE>&nbsp;java.util.List&lt;<A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/Role.html" title="class in com.technology.jep.jepriatoolkit.creator.module">Role</A>&gt;</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/Module.html#getModuleRoleNames()">getModuleRoleNames</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;java.util.List&lt;java.lang.String&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/Module.html#getModuleRoleNamesAsStrings()">getModuleRoleNamesAsStrings</A></B>()</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -429,6 +438,14 @@ java.lang.Object
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;java.lang.String</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/Module.html#getModuleSecurityRolesAsString()">getModuleSecurityRolesAsString</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/Record.html" title="class in com.technology.jep.jepriatoolkit.creator.module">Record</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/Module.html#getRecord()">getRecord</A></B>()</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -461,6 +478,15 @@ java.lang.Object
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;java.util.List&lt;<A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/ModuleButton.html" title="class in com.technology.jep.jepriatoolkit.creator.module">ModuleButton</A>&gt;</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/Module.html#getToolBarCustomButtonsForForm(com.technology.jep.jepriatoolkit.creator.module.FORM)">getToolBarCustomButtonsForForm</A></B>(<A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/FORM.html" title="enum in com.technology.jep.jepriatoolkit.creator.module">FORM</A>&nbsp;form)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;java.util.List&lt;<A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/ModuleButton.html" title="class in com.technology.jep.jepriatoolkit.creator.module">ModuleButton</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/Module.html#getToolBarCustomButtonsForForm(java.util.List, com.technology.jep.jepriatoolkit.creator.module.FORM)">getToolBarCustomButtonsForForm</A></B>(java.util.List&lt;<A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/ModuleButton.html" title="class in com.technology.jep.jepriatoolkit.creator.module">ModuleButton</A>&gt;&nbsp;customButtons,
+                               <A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/FORM.html" title="enum in com.technology.jep.jepriatoolkit.creator.module">FORM</A>&nbsp;form)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -556,7 +582,7 @@ java.lang.Object
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/Module.html#isStatusbarOff()">isStatusbarOff</A></B>()</CODE>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/Module.html#isStatusBarOff()">isStatusBarOff</A></B>()</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -580,7 +606,7 @@ java.lang.Object
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/Module.html#setDblClickOff(boolean)">setDblClickOff</A></B>(boolean&nbsp;isDblClickOff)</CODE>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/Module.html#setDb(com.technology.jep.jepriatoolkit.creator.module.Db)">setDb</A></B>(<A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/Db.html" title="class in com.technology.jep.jepriatoolkit.creator.module">Db</A>&nbsp;db)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -588,7 +614,7 @@ java.lang.Object
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/Module.html#setDbPackageName(java.lang.String)">setDbPackageName</A></B>(java.lang.String&nbsp;dbPackageName)</CODE>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/Module.html#setDblClickOff(boolean)">setDblClickOff</A></B>(boolean&nbsp;isDblClickOff)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -668,14 +694,6 @@ java.lang.Object
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/Module.html#setModuleDataSource(java.lang.String)">setModuleDataSource</A></B>(java.lang.String&nbsp;moduleDataSource)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/Module.html#setModuleId(java.lang.String)">setModuleId</A></B>(java.lang.String&nbsp;moduleId)</CODE>
 
 <BR>
@@ -709,6 +727,14 @@ java.lang.Object
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/Module.html#setNotRebuild(boolean)">setNotRebuild</A></B>(boolean&nbsp;isNotRebuild)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/Module.html#setRecord(com.technology.jep.jepriatoolkit.creator.module.Record)">setRecord</A></B>(<A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/Record.html" title="class in com.technology.jep.jepriatoolkit.creator.module">Record</A>&nbsp;record)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -816,20 +842,10 @@ private java.lang.String <B>moduleNameEn</B></PRE>
 </DL>
 <HR>
 
-<A NAME="moduleDataSource"><!-- --></A><H3>
-moduleDataSource</H3>
+<A NAME="db"><!-- --></A><H3>
+db</H3>
 <PRE>
-private java.lang.String <B>moduleDataSource</B></PRE>
-<DL>
-<DL>
-</DL>
-</DL>
-<HR>
-
-<A NAME="dbPackageName"><!-- --></A><H3>
-dbPackageName</H3>
-<PRE>
-private java.lang.String <B>dbPackageName</B></PRE>
+private <A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/Db.html" title="class in com.technology.jep.jepriatoolkit.creator.module">Db</A> <B>db</B></PRE>
 <DL>
 <DL>
 </DL>
@@ -886,10 +902,10 @@ private java.lang.String <B>fieldLabelWidth</B></PRE>
 </DL>
 <HR>
 
-<A NAME="moduleRoleNames"><!-- --></A><H3>
-moduleRoleNames</H3>
+<A NAME="moduleRoles"><!-- --></A><H3>
+moduleRoles</H3>
 <PRE>
-private java.util.List&lt;java.lang.String&gt; <B>moduleRoleNames</B></PRE>
+private java.util.List&lt;<A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/Role.html" title="class in com.technology.jep.jepriatoolkit.creator.module">Role</A>&gt; <B>moduleRoles</B></PRE>
 <DL>
 <DL>
 </DL>
@@ -959,7 +975,7 @@ private boolean <B>hasToolBarView</B></PRE>
 <A NAME="isToolBarOff"><!-- --></A><H3>
 isToolBarOff</H3>
 <PRE>
-private boolean <B>isToolBarOff</B></PRE>
+private java.lang.Boolean <B>isToolBarOff</B></PRE>
 <DL>
 <DL>
 </DL>
@@ -969,7 +985,7 @@ private boolean <B>isToolBarOff</B></PRE>
 <A NAME="isStatusbarOff"><!-- --></A><H3>
 isStatusbarOff</H3>
 <PRE>
-private boolean <B>isStatusbarOff</B></PRE>
+private java.lang.Boolean <B>isStatusbarOff</B></PRE>
 <DL>
 <DL>
 </DL>
@@ -1014,6 +1030,16 @@ private boolean <B>isNotRebuild</B></PRE>
 <DL>
 </DL>
 </DL>
+<HR>
+
+<A NAME="record"><!-- --></A><H3>
+record</H3>
+<PRE>
+private <A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/Record.html" title="class in com.technology.jep.jepriatoolkit.creator.module">Record</A> <B>record</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
 
 <!-- ========= CONSTRUCTOR DETAIL ======== -->
 
@@ -1025,15 +1051,22 @@ private boolean <B>isNotRebuild</B></PRE>
 </TR>
 </TABLE>
 
-<A NAME="Module(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.util.List, java.lang.String)"><!-- --></A><H3>
+<A NAME="Module()"><!-- --></A><H3>
+Module</H3>
+<PRE>
+private <B>Module</B>()</PRE>
+<DL>
+</DL>
+<HR>
+
+<A NAME="Module(java.lang.String, java.lang.String, java.lang.String, com.technology.jep.jepriatoolkit.creator.module.Db, java.util.List)"><!-- --></A><H3>
 Module</H3>
 <PRE>
 public <B>Module</B>(java.lang.String&nbsp;moduleId,
               java.lang.String&nbsp;moduleName,
               java.lang.String&nbsp;moduleNameEn,
-              java.lang.String&nbsp;moduleDataSource,
-              java.util.List&lt;java.lang.String&gt;&nbsp;moduleRoleNames,
-              java.lang.String&nbsp;dbPackage)</PRE>
+              <A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/Db.html" title="class in com.technology.jep.jepriatoolkit.creator.module">Db</A>&nbsp;db,
+              java.util.List&lt;java.lang.String&gt;&nbsp;moduleRoleNames)</PRE>
 <DL>
 </DL>
 
@@ -1047,10 +1080,10 @@ public <B>Module</B>(java.lang.String&nbsp;moduleId,
 </TR>
 </TABLE>
 
-<A NAME="isStatusbarOff()"><!-- --></A><H3>
-isStatusbarOff</H3>
+<A NAME="isStatusBarOff()"><!-- --></A><H3>
+isStatusBarOff</H3>
 <PRE>
-public boolean <B>isStatusbarOff</B>()</PRE>
+public boolean <B>isStatusBarOff</B>()</PRE>
 <DL>
 <DD><DL>
 </DL>
@@ -1145,6 +1178,21 @@ public java.util.List&lt;<A HREF="../../../../../../com/technology/jep/jepriatoo
 </DL>
 <HR>
 
+<A NAME="getToolBarCustomButtonsForForm(java.util.List, com.technology.jep.jepriatoolkit.creator.module.FORM)"><!-- --></A><H3>
+getToolBarCustomButtonsForForm</H3>
+<PRE>
+public static java.util.List&lt;<A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/ModuleButton.html" title="class in com.technology.jep.jepriatoolkit.creator.module">ModuleButton</A>&gt; <B>getToolBarCustomButtonsForForm</B>(java.util.List&lt;<A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/ModuleButton.html" title="class in com.technology.jep.jepriatoolkit.creator.module">ModuleButton</A>&gt;&nbsp;customButtons,
+                                                                          <A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/FORM.html" title="enum in com.technology.jep.jepriatoolkit.creator.module">FORM</A>&nbsp;form)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
 <A NAME="setToolBarButtons(java.util.List)"><!-- --></A><H3>
 setToolBarButtons</H3>
 <PRE>
@@ -1159,38 +1207,24 @@ public void <B>setToolBarButtons</B>(java.util.List&lt;<A HREF="../../../../../.
 </DL>
 <HR>
 
-<A NAME="getDbPackageName()"><!-- --></A><H3>
-getDbPackageName</H3>
-<PRE>
-public java.lang.String <B>getDbPackageName</B>()</PRE>
-<DL>
-<DD><DL>
-</DL>
-</DD>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="setDbPackageName(java.lang.String)"><!-- --></A><H3>
-setDbPackageName</H3>
-<PRE>
-public void <B>setDbPackageName</B>(java.lang.String&nbsp;dbPackageName)</PRE>
-<DL>
-<DD><DL>
-</DL>
-</DD>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
 <A NAME="getModuleRoleNames()"><!-- --></A><H3>
 getModuleRoleNames</H3>
 <PRE>
-public java.util.List&lt;java.lang.String&gt; <B>getModuleRoleNames</B>()</PRE>
+public java.util.List&lt;<A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/Role.html" title="class in com.technology.jep.jepriatoolkit.creator.module">Role</A>&gt; <B>getModuleRoleNames</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getModuleRoleNamesAsStrings()"><!-- --></A><H3>
+getModuleRoleNamesAsStrings</H3>
+<PRE>
+public java.util.List&lt;java.lang.String&gt; <B>getModuleRoleNamesAsStrings</B>()</PRE>
 <DL>
 <DD><DL>
 </DL>
@@ -1429,34 +1463,6 @@ public java.lang.String <B>getModuleNameEn</B>()</PRE>
 setModuleNameEn</H3>
 <PRE>
 public void <B>setModuleNameEn</B>(java.lang.String&nbsp;moduleNameEn)</PRE>
-<DL>
-<DD><DL>
-</DL>
-</DD>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="getModuleDataSource()"><!-- --></A><H3>
-getModuleDataSource</H3>
-<PRE>
-public java.lang.String <B>getModuleDataSource</B>()</PRE>
-<DL>
-<DD><DL>
-</DL>
-</DD>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="setModuleDataSource(java.lang.String)"><!-- --></A><H3>
-setModuleDataSource</H3>
-<PRE>
-public void <B>setModuleDataSource</B>(java.lang.String&nbsp;moduleDataSource)</PRE>
 <DL>
 <DD><DL>
 </DL>
@@ -1759,6 +1765,62 @@ public void <B>setFieldLabelWidth</B>(java.lang.String&nbsp;fieldLabelWidth)</PR
 </DL>
 </DD>
 </DL>
+<HR>
+
+<A NAME="getDb()"><!-- --></A><H3>
+getDb</H3>
+<PRE>
+public <A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/Db.html" title="class in com.technology.jep.jepriatoolkit.creator.module">Db</A> <B>getDb</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setDb(com.technology.jep.jepriatoolkit.creator.module.Db)"><!-- --></A><H3>
+setDb</H3>
+<PRE>
+public void <B>setDb</B>(<A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/Db.html" title="class in com.technology.jep.jepriatoolkit.creator.module">Db</A>&nbsp;db)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getRecord()"><!-- --></A><H3>
+getRecord</H3>
+<PRE>
+public <A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/Record.html" title="class in com.technology.jep.jepriatoolkit.creator.module">Record</A> <B>getRecord</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setRecord(com.technology.jep.jepriatoolkit.creator.module.Record)"><!-- --></A><H3>
+setRecord</H3>
+<PRE>
+public void <B>setRecord</B>(<A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/Record.html" title="class in com.technology.jep.jepriatoolkit.creator.module">Record</A>&nbsp;record)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
 <!-- ========= END OF CLASS DATA ========= -->
 <HR>
 
@@ -1789,7 +1851,7 @@ public void <B>setFieldLabelWidth</B>(java.lang.String&nbsp;fieldLabelWidth)</PR
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/FORM.html" title="enum in com.technology.jep.jepriatoolkit.creator.module"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/ListForm.html" title="class in com.technology.jep.jepriatoolkit.creator.module"><B>PREV CLASS</B></A>&nbsp;
 &nbsp;<A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/ModuleButton.html" title="class in com.technology.jep.jepriatoolkit.creator.module"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../../../../../index.html?com/technology/jep/jepriatoolkit/creator/module/Module.html" target="_top"><B>FRAMES</B></A>  &nbsp;
