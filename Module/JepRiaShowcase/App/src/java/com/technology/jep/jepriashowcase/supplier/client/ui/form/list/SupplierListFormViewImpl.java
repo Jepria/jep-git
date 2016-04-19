@@ -38,14 +38,14 @@ public class SupplierListFormViewImpl extends StandardListFormViewImpl {
 		ApplicationResource.instance.resource().ensureInjected();
 		// Строки списочной формы, у которых CONTACT_FINISH_DATE истек, выделяем красным
 		grid.setRowStyles(new RowStyles<JepRecord>() {
-		    @Override
-		    public String getStyleNames(JepRecord rowObject, int rowIndex) {
-		    	Date currentDate = new Date();
-		        if (rowObject.get(CONTRACT_FINISH_DATE) != null && currentDate.after((Date) rowObject.get(CONTRACT_FINISH_DATE))) {
-		            return ApplicationResource.instance.resource().red();
-		        }
-		        return null;
-		    }
+			@Override
+			public String getStyleNames(JepRecord rowObject, int rowIndex) {
+				Date currentDate = new Date();
+				if (rowObject.get(CONTRACT_FINISH_DATE) != null && currentDate.after((Date) rowObject.get(CONTRACT_FINISH_DATE))) {
+					return ApplicationResource.instance.resource().red();
+				}
+				return null;
+			}
 		});
 	}
  
