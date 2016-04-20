@@ -26,4 +26,8 @@ public class JRSCCustomAutomationConstant {
 	 * Идентификатор кнопки отображения Текущего Пользователя
 	 */
 	public static final String JRSC_MAINPAGE_CURRENT_USER_BUTTON_ID = "JRSC_MP_CUR_USR_BTN";
+	/**
+	 * Идентификатор кнопки демонстрации z-индексов
+	 */
+	public static final String JRSC_Z_INDICES_DIALOG_BUTTON_ID = "JRSC_ZIND_DLG_BTN";
 }

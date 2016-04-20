@@ -96,6 +96,12 @@ public class RichTextToolbar extends Composite {
 	private static final int CHOICE_WIDTH = 123;
 	
 	/**
+	 * Наименование селекторов (классов стилей) всплывающих окошек: выбора цвета и изображения.
+	 */
+	private static final String RICH_TEXT_TOOLBAR_COLOR_MENU_STYLE = "jepRia-RichTextToolbarColorMenu";
+	private static final String RICH_TEXT_TOOLBAR_IMAGE_MENU_STYLE = "jepRia-RichTextToolbarImageMenu";
+	
+	/**
 	 * Popup panel for image uploading.
 	 */
 	private PopupPanel imagePopupPanel = null;
@@ -518,7 +524,7 @@ public class RichTextToolbar extends Composite {
 		final PopupPanel panel = new DecoratedPopupPanel(true);
 		panel.setPreviewingAllNativeEvents(true);
 		panel.setAnimationType(AnimationType.ROLL_DOWN);
-		panel.getElement().getStyle().setZIndex(10);
+		panel.setStyleName(RICH_TEXT_TOOLBAR_COLOR_MENU_STYLE);
 		final boolean isBackground = button == backColors;
 		
 		ColorPicker colorPicker = new ColorPicker(isBackground ? "#FFFFFF" : BLACK); // black and white
@@ -587,7 +593,7 @@ public class RichTextToolbar extends Composite {
 			this.imagePopupPanel = new DecoratedPopupPanel(true);
 			this.imagePopupPanel.setPreviewingAllNativeEvents(true);
 			this.imagePopupPanel.setAnimationType(AnimationType.ROLL_DOWN);
-			this.imagePopupPanel.getElement().getStyle().setZIndex(10);
+			this.imagePopupPanel.setStyleName(RICH_TEXT_TOOLBAR_IMAGE_MENU_STYLE);
 		}
 		imagePopupPanel.setWidget(imageUploadField);
 		return imagePopupPanel;

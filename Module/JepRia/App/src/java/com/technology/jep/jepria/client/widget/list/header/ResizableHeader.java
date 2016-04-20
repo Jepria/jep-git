@@ -47,6 +47,7 @@ public class ResizableHeader<T> extends Header<String> {
 	protected static String RESIZABLE_HEADER_RULER_STYLE = "jepRia-ResizableHeader-ruler";
 	protected static String RESIZABLE_HEADER_SETUP_BUTTON_STYLE = "jepRia-ResizableHeader-setupButton";
 	protected static String RESIZABLE_HEADER_MEASURING_ELEMENT_STYLE = "jepRia-ResizableHeader-measuringElement";
+	protected static String RESIZABLE_HEADER_MENU_STYLE = "jepRia-ResizableHeader-menu";
 	
 	private Column<T, ?> column = null;
 	private JepGrid<T> cellTable;
@@ -172,7 +173,7 @@ public class ResizableHeader<T> extends Header<String> {
 			final List<JepColumn> columns = cellTable.getColumns();
 			panel = new DecoratedPopupPanel(true);
 		    panel.setGlassEnabled(true);
-		    panel.getElement().getStyle().setZIndex(15);
+		    panel.setStyleName(RESIZABLE_HEADER_MENU_STYLE);
 		    panel.setPreviewingAllNativeEvents(true);
 		    panel.setAnimationType(AnimationType.ROLL_DOWN);
 		    panel.addCloseHandler(new CloseHandler<PopupPanel>() {
