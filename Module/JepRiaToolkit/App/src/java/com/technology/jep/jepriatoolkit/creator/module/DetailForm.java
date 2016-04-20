@@ -17,6 +17,9 @@ public class DetailForm {
 	@XmlAttribute(name=FIELD_LABEL_WIDTH_ATTRIBUTE)
 	private String labelWidth;
 	
+	@XmlElement(name=PRESENTER_BOBY_TAG_NAME)
+	private String presenterBody;
+	
 	@XmlElement(name = FIELD_TAG_NAME)
 	private List<ModuleField> fields = null;
 
@@ -34,5 +37,13 @@ public class DetailForm {
 
 	public void setFields(List<ModuleField> fields) {
 		this.fields = fields;
+	}
+
+	public String getPresenterBody() {
+		return presenterBody;
+	}
+	
+	public void setPresenterBody(String presenterBody) {
+		this.presenterBody = presenterBody;
 	}
 }

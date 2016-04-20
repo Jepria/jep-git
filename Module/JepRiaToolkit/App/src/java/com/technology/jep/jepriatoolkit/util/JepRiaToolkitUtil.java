@@ -22,6 +22,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
@@ -67,6 +68,8 @@ import org.apache.tools.ant.ProjectHelper;
 import org.apache.tools.ant.taskdefs.Delete;
 import org.apache.tools.ant.taskdefs.Echo;
 import org.apache.tools.ant.taskdefs.Mkdir;
+import org.apache.xml.serialize.OutputFormat;
+import org.apache.xml.serialize.XMLSerializer;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -82,6 +85,8 @@ import com.technology.jep.jepriatoolkit.creator.module.ModuleField;
 
 public final class JepRiaToolkitUtil implements JepRiaToolkitConstant {
 
+	private static final String WIN_CHARSET = "windows-1251";
+	
 	/**
 	 * Функция чтения из файла
 	 * 
@@ -1720,6 +1725,45 @@ public final class JepRiaToolkitUtil implements JepRiaToolkitConstant {
 	}
 	
 	/**
+	 * Получение списка модулей приложения из main.gwt.xml
+	 * 
+	 * @param mainGwtXmlPath путь до main.gwt.xml
+	 * 
+	 * @return список модулей
+	 */
+	public static List<String> getModuleNames(String mainGwtXmlPath) {
+		Document doc;
+		List<String> result = new ArrayList<String>();
+		try {
+			doc = getDOM(multipleConcat(System.getProperty(CURRENT_DIRECTORY_ENVIRONMENT_VARIABLE), PATH_SEPARATOR, mainGwtXmlPath));
+			XPathFactory factory = XPathFactory.newInstance();
+			XPath xpath = factory.newXPath();
+			XPathExpression expr = xpath.compile(multipleConcat(PATH_SEPARATOR, PATH_SEPARATOR, INHERITS_MAIN_GWT_XML_TAG_NAME, "[starts-with(@name,'com.technology')]"));
+			NodeList nodes = (NodeList) expr.evaluate(doc, XPathConstants.NODESET);
+			if (nodes != null){
+				for (int i = 0; i < nodes.getLength(); i++){
+					Node node = nodes.item(i); 
+					if (node.getNodeType() == Node.ELEMENT_NODE){
+						Element el = (Element) node;
+						String nameAttr = el.getAttribute("name");
+						if (nameAttr.startsWith("com.technology") && 
+								!nameAttr.equalsIgnoreCase("com.technology.jep.jepria.JepRia")){
+							echoMessage(nameAttr);
+							result.add(nameAttr.substring(nameAttr.lastIndexOf(DOT) + 1));
+						}
+					}
+				}
+			}
+		} catch (Exception e) {
+			echoMessage(multipleConcat(ERROR_PREFIX, e.getLocalizedMessage()));
+		}
+		finally {
+			doc = null;
+		}
+		return result;
+	}
+	
+	/**
 	 * Преобразование объектной модели в виде XML-файла 
 	 * 
 	 * @param object			преобразуемый объект
@@ -1727,16 +1771,42 @@ public final class JepRiaToolkitUtil implements JepRiaToolkitConstant {
 	 */
 	public static void convertToXml(Object object, String fileNameOrPath){
 		try {
-			File file = new File(fileNameOrPath);
 			JAXBContext jaxbContext = JAXBContext.newInstance(object.getClass());
 			Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
 			// output pretty printed
 			jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-			jaxbMarshaller.setProperty(Marshaller.JAXB_ENCODING, "windows-1251");
-			jaxbMarshaller.marshal(object, file);
+			jaxbMarshaller.setProperty(Marshaller.JAXB_ENCODING, WIN_CHARSET);
+			jaxbMarshaller.marshal(object, getXMLSerializer(fileNameOrPath).asContentHandler());
 		} catch (JAXBException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private static XMLSerializer getXMLSerializer(String fileNameOrPath) throws FileNotFoundException {
+        // configure an OutputFormat to handle CDATA
+        OutputFormat of = new OutputFormat();
+
+        // specify which of your elements you want to be handled as CDATA.
+        // The use of the '^' between the namespaceURI and the localname
+        // seems to be an implementation detail of the xerces code.
+        // When processing xml that doesn't use namespaces, simply omit the
+        // namespace prefix as shown in the third CDataElement below.
+        of.setCDataElements(new String[] {"^".concat(PRESENTER_BOBY_TAG_NAME) });   // <presenterBody>
+        of.setEncoding(WIN_CHARSET);
+        // set any other options you'd like
+        of.setIndenting(true);
+
+        // create the serializer
+        XMLSerializer serializer = new XMLSerializer(of);
+        try {
+			serializer.setOutputCharStream(new OutputStreamWriter(new FileOutputStream(fileNameOrPath), WIN_CHARSET));
+		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
 
-	}
+        return serializer;
+    }
+	
 }

@@ -351,6 +351,11 @@ public interface JepRiaToolkitConstant {
 	String DETAIL_FORM_TAG_NAME = "form-detail";
 	
 	/**
+	 * Наименование тэга, отвечающего за тело презентера детальной формы
+	 */
+	String PRESENTER_BOBY_TAG_NAME = "presenterBody";
+	
+	/**
 	 * Если не задано значение наименования, то выводим вопросы
 	 */
 	String NO_NAME = "???";
@@ -998,4 +1003,6 @@ public interface JepRiaToolkitConstant {
 	String LEFT_CURLY_BRACKET = "{";
 	
 	String DEFAULT_CHARSET = "windows-1251";
+	
+	String DOT = ".";
 }

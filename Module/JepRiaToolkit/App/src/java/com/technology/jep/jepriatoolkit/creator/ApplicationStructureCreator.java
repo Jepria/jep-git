@@ -78,7 +78,7 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 			
 			notifyAboutAbsentFields();
 
-			echoMessage(multipleConcat("Create Application Structure for '", application.getProjectPackage().toLowerCase(), ".", application.getName().toLowerCase(), "' module"));
+			echoMessage(multipleConcat("Create Application Structure for '", application.getProjectPackage().toLowerCase(), DOT, application.getName().toLowerCase(), "' module"));
 			createApplicationFileStructure();
 			echoMessage("Generate web.xml");
 			generateWebXML();
@@ -188,7 +188,7 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 			forms = getAllModuleNodes(jepApplicationDoc);
 			for (int index = 0; index < forms.size(); index++) {
 				String formName = forms.get(index);
-				echoMessage(multipleConcat("Gather information about module '", application.getProjectPackage().toLowerCase(), ".", application.getName().toLowerCase(), ".", formName, "'"));
+				echoMessage(multipleConcat("Gather information about module '", application.getProjectPackage().toLowerCase(), DOT, application.getName().toLowerCase(), DOT, formName, "'"));
 				
 				Element module = getModuleNodeById(jepApplicationDoc, formName);
 				List<String> moduleRoles = getModuleSecurityRoles(jepApplicationDoc, formName);
