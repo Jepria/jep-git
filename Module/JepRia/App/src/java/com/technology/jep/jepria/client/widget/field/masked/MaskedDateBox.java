@@ -188,6 +188,12 @@ public class MaskedDateBox extends Composite implements HasEnabled,
 	 * Default style name.
 	 */
 	public static final String DATE_BOX_DEFAULT_STYLE = "gwt-DateBox";
+	
+	/**
+	 * Datebox popup style name.
+	 */
+	public static final String DATE_BOX_POPUP_STYLE = "jepRia-dateBoxPopup";
+	
 	private static final XDefaultFormat DEFAULT_FORMAT = GWT.create(XDefaultFormat.class);
 	private final PopupPanel popup;
 	
@@ -225,7 +231,7 @@ public class MaskedDateBox extends Composite implements HasEnabled,
 
 		popup.addAutoHidePartner(box.getElement());
 		popup.setWidget(picker);
-		popup.setStyleName("dateBoxPopup");
+		popup.setStyleName(DATE_BOX_POPUP_STYLE);
 
 		initWidget(box);
 		/*

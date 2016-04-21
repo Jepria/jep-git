@@ -9,6 +9,8 @@ public interface CustomModuleView extends PlainModuleView {
 	
 	void addErrorButtonClickHandler(ClickHandler clickHandler);
 	
+	void addZIndexButtonClickHandler(ClickHandler clickHandler);
+	
 	void addEmbeddedButtonClickHandler(ClickHandler clickHandler);
 
 	void addSearchButtonClickHandler(ClickHandler clickHandler);

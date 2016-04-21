@@ -144,7 +144,7 @@ public class BuildConfigSwitcher extends Task implements
 
 		try {
 			for (String element : updateConfigFiles) {
-				JepRiaToolkitUtil.copyFile(new File(BUILD_CONFIG_PATH_PREFIX + targetConfig + "\\" + element), new File("." + "\\" + element));
+				JepRiaToolkitUtil.copyFile(new File(BUILD_CONFIG_PATH_PREFIX + targetConfig + "\\" + element), new File(DOT + "\\" + element));
 			}
 		} catch (IOException e) {
 			// e.printStackTrace();

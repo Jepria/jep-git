@@ -25,6 +25,7 @@ import com.technology.jep.jepriashowcase.custom.client.ui.auto.IdentifiedButton;
 public class CustomModuleViewImpl extends PlainModuleViewImpl implements CustomModuleView {
 	private IdentifiedButton fullScreenButton;
 	private IdentifiedButton errorButton;
+	private IdentifiedButton zIndexDialog;
 	private IdentifiedButton embeddedButton;
 	private IdentifiedButton authorizationButton;
 	private IdentifiedButton exitButton;
@@ -55,6 +56,12 @@ public class CustomModuleViewImpl extends PlainModuleViewImpl implements CustomM
 				JRSCCustomAutomationConstant.JRSC_MAINPAGE_ERROR_DIALOG_BUTTON_ID);
 		
 		add(errorButton, TOP_ELEMENT);
+		
+		zIndexDialog = new IdentifiedButton(
+				customText.custom_zindexDialog_button(),
+				JRSCCustomAutomationConstant.JRSC_Z_INDICES_DIALOG_BUTTON_ID);
+		
+		add(zIndexDialog, TOP_ELEMENT);
 		
 		embeddedButton = new IdentifiedButton(
 				customText.custom_embeddedButton(),
@@ -103,6 +110,11 @@ public class CustomModuleViewImpl extends PlainModuleViewImpl implements CustomM
 	@Override
 	public void addErrorButtonClickHandler(ClickHandler clickHandler) {
 		errorButton.addClickHandler(clickHandler);
+	}
+	
+	@Override
+	public void addZIndexButtonClickHandler(ClickHandler clickHandler) {
+		zIndexDialog.addClickHandler(clickHandler);
 	}
 
 	@Override

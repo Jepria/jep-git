@@ -106,7 +106,7 @@ java.lang.Object
 </PRE>
 
 <P>
-РџСЂРµР·РµРЅС‚РµСЂ СЃРїРёСЃРѕС‡РЅРѕР№ С„РѕСЂРјС‹, РїСЂРµРґРѕСЃС‚Р°РІР»СЏСЋС‰РёР№ РІРѕР·РјРѕР¶РЅРѕСЃС‚СЊ Р°РІС‚РѕРѕР±РЅРѕРІР»РµРЅРёСЏ.
+Презентер списочной формы, предоставляющий возможность автообновления.
 <P>
 
 <P>
@@ -127,7 +127,7 @@ java.lang.Object
 <TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/AutoRefreshListFormPresenter.html#refreshDelay">refreshDelay</A></B></CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Р�РЅС‚РµСЂРІР°Р» РјРµР¶РґСѓ Р°РІС‚РѕРѕР±РЅРѕРІР»РµРЅРёСЏРјРё РІ РјРёР»Р»РёСЃРµРєСѓРЅРґР°С….</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Интервал между автообновлениями в миллисекундах.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -135,7 +135,7 @@ java.lang.Object
 <TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/AutoRefreshListFormPresenter.html#refreshTimer">refreshTimer</A></B></CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;РўР°Р№РјРµСЂ Р°РІС‚РѕРѕР±РЅРѕРІР»РµРЅРёСЏ.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Таймер автообновления.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -143,7 +143,7 @@ java.lang.Object
 <TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/AutoRefreshListFormPresenter.html#refreshTimerActive">refreshTimerActive</A></B></CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Р¤Р»Р°Рі, РїРѕРєР°Р·С‹РІР°СЋС‰РёР№, Р°РєС‚РёРІРµРЅ РёР»Рё РЅРµС‚ С‚Р°Р№РјРµСЂ Р°РІС‚РѕРѕР±РЅРѕРІР»РµРЅРёСЏ.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Флаг, показывающий, активен или нет таймер автообновления.</TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="fields_inherited_from_class_com.technology.jep.jepria.client.ui.form.list.ListFormPresenter"><!-- --></A>
@@ -205,7 +205,7 @@ java.lang.Object
 <TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/AutoRefreshListFormPresenter.html#getRefreshDelay()">getRefreshDelay</A></B>()</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Р’РѕР·РІСЂР°С‰Р°РµС‚ РёРЅС‚РµСЂРІР°Р» РјРµР¶РґСѓ Р°РІС‚РѕРѕР±РЅРѕРІР»РµРЅРёСЏРјРё.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Возвращает интервал между автообновлениями.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -213,7 +213,7 @@ java.lang.Object
 <TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/AutoRefreshListFormPresenter.html#onChangeWorkstate(com.technology.jep.jepria.client.ui.WorkstateEnum)">onChangeWorkstate</A></B>(<A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/WorkstateEnum.html" title="enum in com.technology.jep.jepria.client.ui">WorkstateEnum</A>&nbsp;newWorkstate)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;РџРµСЂРµРѕРїСЂРµРґРµР»С‘РЅРЅС‹Р№ РјРµС‚РѕРґ, РѕС‚РєР»СЋС‡Р°СЋС‰РёР№ С‚Р°Р№РјРµСЂ Р°РІС‚РѕРѕР±РЅРѕРІР»РµРЅРёСЏ РїСЂРё СѓС…РѕРґРµ СЃРѕ СЃРїРёСЃРѕС‡РЅРѕР№ С„РѕСЂРјС‹.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Переопределённый метод, отключающий таймер автообновления при уходе со списочной формы.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -221,7 +221,7 @@ java.lang.Object
 <TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/AutoRefreshListFormPresenter.html#onRefreshSuccess(com.technology.jep.jepria.shared.load.PagingResult)">onRefreshSuccess</A></B>(<A HREF="../../../../../../../../com/technology/jep/jepria/shared/load/PagingResult.html" title="class in com.technology.jep.jepria.shared.load">PagingResult</A>&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</A>&gt;&nbsp;pagingResult)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;РњРµС‚РѕРґ, РїСЂРѕРІРµСЂСЏСЋС‰РёР№ РЅРµРѕР±С…РѕРґРёРјРѕСЃС‚СЊ Р°РІС‚РѕРѕР±РЅРѕРІР»РµРЅРёСЏ Рё РїСЂРё РЅРµРѕР±С…РѕРґРёРјРѕСЃС‚Рё СѓСЃС‚Р°РЅР°РІР»РёРІР°СЋС‰РёР№ С‚Р°Р№РјРµСЂ.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Метод, проверяющий необходимость автообновления и при необходимости устанавливающий таймер.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -229,7 +229,7 @@ java.lang.Object
 <TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/AutoRefreshListFormPresenter.html#setRefreshDelay(int)">setRefreshDelay</A></B>(int&nbsp;refreshDelay)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;РЈСЃС‚Р°РЅР°РІР»РёРІР°РµС‚ РёРЅС‚РµСЂРІР°Р» РјРµР¶РґСѓ Р°РІС‚РѕРѕР±РЅРѕРІР»РµРЅРёСЏРјРё.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Устанавливает интервал между автообновлениями.</TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_com.technology.jep.jepria.client.ui.form.list.ListFormPresenter"><!-- --></A>
@@ -286,7 +286,7 @@ refreshTimerActive</H3>
 <PRE>
 protected boolean <B>refreshTimerActive</B></PRE>
 <DL>
-<DD>Р¤Р»Р°Рі, РїРѕРєР°Р·С‹РІР°СЋС‰РёР№, Р°РєС‚РёРІРµРЅ РёР»Рё РЅРµС‚ С‚Р°Р№РјРµСЂ Р°РІС‚РѕРѕР±РЅРѕРІР»РµРЅРёСЏ.
+<DD>Флаг, показывающий, активен или нет таймер автообновления.
 <P>
 <DL>
 </DL>
@@ -298,7 +298,7 @@ refreshTimer</H3>
 <PRE>
 protected com.google.gwt.user.client.Timer <B>refreshTimer</B></PRE>
 <DL>
-<DD>РўР°Р№РјРµСЂ Р°РІС‚РѕРѕР±РЅРѕРІР»РµРЅРёСЏ.
+<DD>Таймер автообновления.
 <P>
 <DL>
 </DL>
@@ -310,7 +310,7 @@ refreshDelay</H3>
 <PRE>
 private int <B>refreshDelay</B></PRE>
 <DL>
-<DD>Р�РЅС‚РµСЂРІР°Р» РјРµР¶РґСѓ Р°РІС‚РѕРѕР±РЅРѕРІР»РµРЅРёСЏРјРё РІ РјРёР»Р»РёСЃРµРєСѓРЅРґР°С….
+<DD>Интервал между автообновлениями в миллисекундах.
 <P>
 <DL>
 </DL>
@@ -349,10 +349,10 @@ setRefreshDelay</H3>
 <PRE>
 public void <B>setRefreshDelay</B>(int&nbsp;refreshDelay)</PRE>
 <DL>
-<DD>РЈСЃС‚Р°РЅР°РІР»РёРІР°РµС‚ РёРЅС‚РµСЂРІР°Р» РјРµР¶РґСѓ Р°РІС‚РѕРѕР±РЅРѕРІР»РµРЅРёСЏРјРё.
+<DD>Устанавливает интервал между автообновлениями.
 <P>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>refreshDelay</CODE> - РёРЅС‚РµСЂРІР°Р» РІ РјРёР»Р»РёСЃРµРєСѓРЅРґР°С… (РґРѕР»Р¶РµРЅ Р±С‹С‚СЊ РїРѕР»РѕР¶РёС‚РµР»СЊРЅС‹Рј)</DL>
+<DT><B>Parameters:</B><DD><CODE>refreshDelay</CODE> - интервал в миллисекундах (должен быть положительным)</DL>
 </DD>
 </DL>
 <HR>
@@ -362,11 +362,11 @@ getRefreshDelay</H3>
 <PRE>
 public int <B>getRefreshDelay</B>()</PRE>
 <DL>
-<DD>Р’РѕР·РІСЂР°С‰Р°РµС‚ РёРЅС‚РµСЂРІР°Р» РјРµР¶РґСѓ Р°РІС‚РѕРѕР±РЅРѕРІР»РµРЅРёСЏРјРё.
+<DD>Возвращает интервал между автообновлениями.
 <P>
 <DD><DL>
 
-<DT><B>Returns:</B><DD>РёРЅС‚РµСЂРІР°Р» РІ РјРёР»Р»РёСЃРµРєСѓРЅРґР°С…</DL>
+<DT><B>Returns:</B><DD>интервал в миллисекундах</DL>
 </DD>
 </DL>
 <HR>
@@ -376,7 +376,7 @@ onRefreshSuccess</H3>
 <PRE>
 protected void <B>onRefreshSuccess</B>(<A HREF="../../../../../../../../com/technology/jep/jepria/shared/load/PagingResult.html" title="class in com.technology.jep.jepria.shared.load">PagingResult</A>&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</A>&gt;&nbsp;pagingResult)</PRE>
 <DL>
-<DD>РњРµС‚РѕРґ, РїСЂРѕРІРµСЂСЏСЋС‰РёР№ РЅРµРѕР±С…РѕРґРёРјРѕСЃС‚СЊ Р°РІС‚РѕРѕР±РЅРѕРІР»РµРЅРёСЏ Рё РїСЂРё РЅРµРѕР±С…РѕРґРёРјРѕСЃС‚Рё СѓСЃС‚Р°РЅР°РІР»РёРІР°СЋС‰РёР№ С‚Р°Р№РјРµСЂ.
+<DD>Метод, проверяющий необходимость автообновления и при необходимости устанавливающий таймер.
 <P>
 <DD><DL>
 <DT><B>Overrides:</B><DD><CODE><A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormPresenter.html#onRefreshSuccess(com.technology.jep.jepria.shared.load.PagingResult)">onRefreshSuccess</A></CODE> in class <CODE><A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormPresenter.html" title="class in com.technology.jep.jepria.client.ui.form.list">ListFormPresenter</A>&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/AutoRefreshListFormPresenter.html" title="type parameter in AutoRefreshListFormPresenter">V</A> extends <A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormView.html" title="interface in com.technology.jep.jepria.client.ui.form.list">ListFormView</A>,<A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/AutoRefreshListFormPresenter.html" title="type parameter in AutoRefreshListFormPresenter">E</A> extends <A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/eventbus/plain/PlainEventBus.html" title="class in com.technology.jep.jepria.client.ui.eventbus.plain">PlainEventBus</A>,<A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/AutoRefreshListFormPresenter.html" title="type parameter in AutoRefreshListFormPresenter">S</A> extends <A HREF="../../../../../../../../com/technology/jep/jepria/shared/service/data/JepDataServiceAsync.html" title="interface in com.technology.jep.jepria.shared.service.data">JepDataServiceAsync</A>,<A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/AutoRefreshListFormPresenter.html" title="type parameter in AutoRefreshListFormPresenter">F</A> extends <A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/plain/StandardClientFactory.html" title="interface in com.technology.jep.jepria.client.ui.plain">StandardClientFactory</A>&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/AutoRefreshListFormPresenter.html" title="type parameter in AutoRefreshListFormPresenter">E</A>,<A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/AutoRefreshListFormPresenter.html" title="type parameter in AutoRefreshListFormPresenter">S</A>&gt;&gt;</CODE></DL>
@@ -392,7 +392,7 @@ onChangeWorkstate</H3>
 <PRE>
 public void <B>onChangeWorkstate</B>(<A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/WorkstateEnum.html" title="enum in com.technology.jep.jepria.client.ui">WorkstateEnum</A>&nbsp;newWorkstate)</PRE>
 <DL>
-<DD>РџРµСЂРµРѕРїСЂРµРґРµР»С‘РЅРЅС‹Р№ РјРµС‚РѕРґ, РѕС‚РєР»СЋС‡Р°СЋС‰РёР№ С‚Р°Р№РјРµСЂ Р°РІС‚РѕРѕР±РЅРѕРІР»РµРЅРёСЏ РїСЂРё СѓС…РѕРґРµ СЃРѕ СЃРїРёСЃРѕС‡РЅРѕР№ С„РѕСЂРјС‹.
+<DD>Переопределённый метод, отключающий таймер автообновления при уходе со списочной формы.
 <P>
 <DD><DL>
 <DT><B>Overrides:</B><DD><CODE><A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormPresenter.html#onChangeWorkstate(com.technology.jep.jepria.client.ui.WorkstateEnum)">onChangeWorkstate</A></CODE> in class <CODE><A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormPresenter.html" title="class in com.technology.jep.jepria.client.ui.form.list">ListFormPresenter</A>&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/AutoRefreshListFormPresenter.html" title="type parameter in AutoRefreshListFormPresenter">V</A> extends <A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormView.html" title="interface in com.technology.jep.jepria.client.ui.form.list">ListFormView</A>,<A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/AutoRefreshListFormPresenter.html" title="type parameter in AutoRefreshListFormPresenter">E</A> extends <A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/eventbus/plain/PlainEventBus.html" title="class in com.technology.jep.jepria.client.ui.eventbus.plain">PlainEventBus</A>,<A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/AutoRefreshListFormPresenter.html" title="type parameter in AutoRefreshListFormPresenter">S</A> extends <A HREF="../../../../../../../../com/technology/jep/jepria/shared/service/data/JepDataServiceAsync.html" title="interface in com.technology.jep.jepria.shared.service.data">JepDataServiceAsync</A>,<A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/AutoRefreshListFormPresenter.html" title="type parameter in AutoRefreshListFormPresenter">F</A> extends <A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/plain/StandardClientFactory.html" title="interface in com.technology.jep.jepria.client.ui.plain">StandardClientFactory</A>&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/AutoRefreshListFormPresenter.html" title="type parameter in AutoRefreshListFormPresenter">E</A>,<A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/AutoRefreshListFormPresenter.html" title="type parameter in AutoRefreshListFormPresenter">S</A>&gt;&gt;</CODE></DL>

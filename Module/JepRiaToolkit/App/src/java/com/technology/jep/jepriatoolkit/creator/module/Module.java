@@ -31,6 +31,8 @@ public class Module implements JepRiaToolkitConstant {
 	private String moduleName;
 	@XmlAttribute(name=NAME_EN_ATTRIBUTE)
 	private String moduleNameEn;
+	@XmlElement(name=MODULE_ROLES_ATTRIBUTE)
+	private List<Role> moduleRoles;
 	@XmlElement(name=DATABASE_TAG_NAME)
 	private Db db;
 	@XmlTransient
@@ -43,8 +45,6 @@ public class Module implements JepRiaToolkitConstant {
 	private String updateParameterPrefix;
 	@XmlTransient
 	private String fieldLabelWidth;
-	@XmlElement(name=MODULE_ROLES_ATTRIBUTE)
-	private List<Role> moduleRoles;
 	@XmlTransient
 	private List<ModuleButton> toolbarButtons = new ArrayList<ModuleButton>();
 	@XmlTransient
@@ -73,6 +73,8 @@ public class Module implements JepRiaToolkitConstant {
 	private boolean isNotRebuild = false;
 	@XmlElement(name=RECORD_TAG_NAME)
 	private Record record;
+	@XmlElement(name=FORMS_TAG_NAME)
+	private Forms forms;
 	
 	@SuppressWarnings("unused")
 	private Module(){}
@@ -296,5 +298,11 @@ public class Module implements JepRiaToolkitConstant {
 	}
 	public void setRecord(Record record) {
 		this.record = record;
+	}
+	public Forms getForms(){
+		return forms;
+	}
+	public void setForms(DetailForm detailForm, ListForm listForm){
+		this.forms = new Forms(detailForm, listForm);
 	}
 }

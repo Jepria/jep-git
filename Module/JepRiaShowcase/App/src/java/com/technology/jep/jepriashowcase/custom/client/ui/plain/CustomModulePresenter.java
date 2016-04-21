@@ -38,6 +38,7 @@ import com.technology.jep.jepria.client.util.JepClientUtil;
 import com.technology.jep.jepria.shared.dto.JepDto;
 import com.technology.jep.jepria.shared.service.JepMainServiceAsync;
 import com.technology.jep.jepria.shared.util.JepRiaUtil;
+import com.technology.jep.jepriashowcase.custom.client.ui.ZIndexDialog;
 import com.technology.jep.jepriashowcase.custom.shared.service.CustomServiceAsync;
 import com.technology.jep.jepriashowcase.main.shared.JepRiaShowcaseConstant;
 
@@ -46,6 +47,8 @@ public class CustomModulePresenter<V extends CustomModuleView, E extends PlainEv
 	extends PlainModulePresenter<V, E, S, F> {
 	
 	private JepMainServiceAsync mainService = clientFactory.getMainClientFactory().getMainService();
+	
+	private final ZIndexDialog zIndexDialog = new ZIndexDialog();
 	
 	public CustomModulePresenter(String moduleId, Place place, F clientFactory) {
 		super(moduleId, place, clientFactory);
@@ -79,6 +82,13 @@ public class CustomModulePresenter<V extends CustomModuleView, E extends PlainEv
 				errorDialog.show();
 			}
 		});
+		
+		view.addZIndexButtonClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				zIndexDialog.show();
+			}
+		});
+		
 		
 		view.addCurrentUserClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {

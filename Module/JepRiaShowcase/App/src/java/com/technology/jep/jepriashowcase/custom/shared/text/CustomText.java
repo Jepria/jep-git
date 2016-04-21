@@ -2,7 +2,7 @@ package com.technology.jep.jepriashowcase.custom.shared.text;
 
 /**
  * Interface to represent the constants contained in resource bundle:
- * 	'D:/GitSourceForge3/javaenterpriseplatform-git/Module/JepRiaShowcase/App/src/java/com/technology/jep/jepriashowcase/custom/shared/text/CustomText.properties'.
+ * 	'D:/workspace/git/JEP/Module/JepRiaShowcase/App/src/java/com/technology/jep/jepriashowcase/custom/shared/text/CustomText.properties'.
  */
 public interface CustomText extends com.google.gwt.i18n.client.Constants {
   
@@ -140,6 +140,51 @@ public interface CustomText extends com.google.gwt.i18n.client.Constants {
   @DefaultStringValue("Поисковая форма")
   @Key("custom.searchButton")
   String custom_searchButton();
+
+  /**
+   * Translated "Демонстрация z-индексов".
+   * 
+   * @return translated "Демонстрация z-индексов"
+   */
+  @DefaultStringValue("Демонстрация z-индексов")
+  @Key("custom.zindexDialog.button")
+  String custom_zindexDialog_button();
+
+  /**
+   * Translated "Это окно демонстрирует z-индексы различных элементов<br>(перечислены в порядке приближения к пользователю):<br>Сама форма с виджетами; маска формы при открытом диалоговом окне;<br>диалоговое окно с виджетами; всплывающие (popup) элементы виджетов<br>(datepicker, combobox, \"Цвет фона\", \"Цвет текста\", окошко выбора изображения);<br>панель загрузки, завешивающая всё окно (по нажатию на кнопку);<br>уведомление о тестовой сборке.".
+   * 
+   * @return translated "Это окно демонстрирует z-индексы различных элементов<br>(перечислены в порядке приближения к пользователю):<br>Сама форма с виджетами; маска формы при открытом диалоговом окне;<br>диалоговое окно с виджетами; всплывающие (popup) элементы виджетов<br>(datepicker, combobox, \"Цвет фона\", \"Цвет текста\", окошко выбора изображения);<br>панель загрузки, завешивающая всё окно (по нажатию на кнопку);<br>уведомление о тестовой сборке."
+   */
+  @DefaultStringValue("Это окно демонстрирует z-индексы различных элементов<br>(перечислены в порядке приближения к пользователю):<br>Сама форма с виджетами; маска формы при открытом диалоговом окне;<br>диалоговое окно с виджетами; всплывающие (popup) элементы виджетов<br>(datepicker, combobox, \"Цвет фона\", \"Цвет текста\", окошко выбора изображения);<br>панель загрузки, завешивающая всё окно (по нажатию на кнопку);<br>уведомление о тестовой сборке.")
+  @Key("custom.zindexDialog.info")
+  String custom_zindexDialog_info();
+
+  /**
+   * Translated "Завесить окно на 2 секунды".
+   * 
+   * @return translated "Завесить окно на 2 секунды"
+   */
+  @DefaultStringValue("Завесить окно на 2 секунды")
+  @Key("custom.zindexDialog.loadingPanel.button")
+  String custom_zindexDialog_loadingPanel_button();
+
+  /**
+   * Translated "Ждите".
+   * 
+   * @return translated "Ждите"
+   */
+  @DefaultStringValue("Ждите")
+  @Key("custom.zindexDialog.loadingPanel.header")
+  String custom_zindexDialog_loadingPanel_header();
+
+  /**
+   * Translated "2 секунды".
+   * 
+   * @return translated "2 секунды"
+   */
+  @DefaultStringValue("2 секунды")
+  @Key("custom.zindexDialog.loadingPanel.text")
+  String custom_zindexDialog_loadingPanel_text();
 
   /**
    * Translated "".

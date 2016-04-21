@@ -1,21 +1,30 @@
 package com.technology.jep.jepriatoolkit.creator.module;
 
-import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.*;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.DETAIL_FORM_TAG_NAME;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.FORMS_TAG_NAME;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.LIST_FORM_TAG_NAME;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name = FORMS_TAG_NAME)
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Forms {
 
-	@XmlAttribute(name = DETAIL_FORM_TAG_NAME)
+	@XmlElement(name = DETAIL_FORM_TAG_NAME)
 	private DetailForm detailForm;
-	@XmlAttribute(name = LIST_FORM_TAG_NAME)
+	@XmlElement(name = LIST_FORM_TAG_NAME)
 	private ListForm listForm;
 	
+	@SuppressWarnings("unused")
+	private Forms(){}
+	
+	public Forms(DetailForm detailForm, ListForm listForm) {
+		setDetailForm(detailForm);
+		setListForm(listForm);
+	}
 	public DetailForm getDetailForm() {
 		return detailForm;
 	}

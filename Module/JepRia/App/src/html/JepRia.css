@@ -1,3 +1,11 @@
+/* Соглашение об использовании Z-индексов (слой и допустимые для него значения):
+ * Слой маски				1000 ... 1999
+ * Слой диалогового окна	3000 ... 3999
+ * Слой всплыв. элементов	5000 ... 5999
+ * Слой завешивания 		7000 ... 7999
+ * Слой тестовой сборки 	9000 ... 9999
+ */
+
 /* Панель состояния. */
 .jepRia-StatusBar {
 	font: 11px arial,tahoma,helvetica,sans-serif;
@@ -268,6 +276,11 @@ input[type=text]::-ms-clear {
 	background-color: #f0f0f0;
 }
 
+/* Меню настройки отображения и порядка следования столбцов списочной формы. */
+.jepRia-ResizableHeader-menu {
+	z-index:3200;
+}
+
 /* Кнопка вызова меню настройки отображения и порядка следования столбцов списочной формы. */
 .jepRia-ResizableHeader-menuBar {
 	background-color: #f0f0f0;
@@ -309,6 +322,7 @@ input[type=text]::-ms-clear {
 	left: 0px;
 	height: 100%;
 	width: 100%;
+	z-index: 7100;
 }
 
 /* Перекрытие стиля прозрачности для всплывающего окна. */
@@ -316,7 +330,7 @@ input[type=text]::-ms-clear {
 	background-color: #000;
 	opacity: 0.2;
 	filter: alpha(opacity = 20);
-	z-index: 10;
+	z-index: 1100;
 }
 
 /* Индикатор загрузки модуля. */
@@ -326,7 +340,7 @@ input[type=text]::-ms-clear {
 	top: 40%;
 	margin-left: -45px;
 	background: white;
-	z-index: 20001;
+	z-index: 7100;
 	border: 1px solid #ccc;
 	font-family: arial, helvetica, tahoma, sans-serif;
 	text-align: left;
@@ -354,7 +368,7 @@ input[type=text]::-ms-clear {
 /* Most GWT widgets already have a style name defined. */
 .gwt-DialogBox {
 	width: 400px;
-	z-index: 11;
+	z-index: 3100;
 }
 
 /* Стиль для центрального контейнера ErrorDialog, перекрывающий умолчательный стиль GWT. */
@@ -444,6 +458,10 @@ input[type=text]::-ms-clear {
 }
 
 /* Перекрытие стилей для выпадающего списка. */
+.gwt-SuggestBoxPopup {
+	z-index: 5100;
+}
+
 .gwt-SuggestBoxPopup .item {
 	overflow: hidden;
 	display: inline-block;
@@ -627,6 +645,19 @@ td.jepRia-ListField-Input:hover {
 	float: left;
 }
 
+/* Стили для всплывающих окон тулбара поля расширенного редактирования текста. */
+.jepRia-RichTextToolbarColorMenu {
+	border: 1px solid #BBBBBB;
+	background-color: white;
+	z-index: 5100;
+}
+.jepRia-RichTextToolbarImageMenu {
+	border: 1px solid #BBBBBB;
+	background-color: white;
+	z-index: 5100;
+}
+
+
 /* Стили для рамки набора полей. */
 fieldset.jepRia-FieldSet {
 	border: 1px solid #99BBE8;
@@ -657,7 +688,7 @@ fieldset.jepRia-FieldSet legend {
 /* Main container for Test Build Message. */
 div.jepRia-testBuildMessage {
 	padding: 10px;
-	z-index: 99999;
+	z-index: 9100;
 	color: #fff;
 	font-size: 12px;
 	position: absolute;
@@ -697,7 +728,7 @@ div.jepRia-testBuildMessage div.jepRia-testBuildMessageNotification div.jepRia-t
 
 /* Styles for Test Build closer. */
 div.jepRia-testBuildMessage div.jepRia-testBuildMessageNotification div.jepRia-testBuildMessageClose {
-	z-index: 99;
+	z-index: 9100;
 	float: right;
 	font-weight: bold;
 	font-size: 1em;
@@ -728,4 +759,9 @@ img {
 }
 /* Styles for editable card. */
 .jepRia-MultiStateField-EditableCard {
+}
+
+/* Style for datebox popup window. */
+.jepRia-dateBoxPopup {
+    z-index: 5100;
 }

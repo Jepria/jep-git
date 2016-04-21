@@ -1,14 +1,28 @@
 package com.technology.jep.jepria.client.util;
 
+import java.util.Map;
+import java.util.Stack;
+
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.dom.client.*;
+import com.google.gwt.dom.client.BodyElement;
+import com.google.gwt.dom.client.Document;
+import com.google.gwt.dom.client.Element;
+import com.google.gwt.dom.client.NativeEvent;
+import com.google.gwt.dom.client.Node;
+import com.google.gwt.dom.client.NodeList;
 import com.google.gwt.dom.client.Style.Display;
 import com.google.gwt.event.dom.client.DomEvent;
 import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.Window;
-import com.technology.jep.jepria.client.history.place.*;
+import com.technology.jep.jepria.client.history.place.JepCreatePlace;
+import com.technology.jep.jepria.client.history.place.JepEditPlace;
+import com.technology.jep.jepria.client.history.place.JepSearchPlace;
+import com.technology.jep.jepria.client.history.place.JepSelectedPlace;
+import com.technology.jep.jepria.client.history.place.JepViewDetailPlace;
+import com.technology.jep.jepria.client.history.place.JepViewListPlace;
+import com.technology.jep.jepria.client.history.place.JepWorkstatePlace;
 import com.technology.jep.jepria.client.history.scope.JepScope;
 import com.technology.jep.jepria.client.history.scope.JepScopeStack;
 import com.technology.jep.jepria.client.ui.WorkstateEnum;
@@ -16,10 +30,6 @@ import com.technology.jep.jepria.client.widget.field.ComboBox;
 import com.technology.jep.jepria.client.widget.list.header.menu.GridHeaderMenuBar;
 import com.technology.jep.jepria.shared.record.JepRecord;
 import com.technology.jep.jepria.shared.util.JepRiaUtil;
-
-
-import java.util.Map;
-import java.util.Stack;
 
 public class JepClientUtil {
 
@@ -133,9 +143,7 @@ public class JepClientUtil {
 			disabledLayer = DOM.createDiv();
 			disabledLayer.setId(disabledLayerId);
 
-			Style disabledLayerStyle = disabledLayer.getStyle();
 			disabledLayer.addClassName(DISABLED_LAYER_STYLE);
-			disabledLayerStyle.setZIndex(99);
 		}
 
 		return disabledLayer;
