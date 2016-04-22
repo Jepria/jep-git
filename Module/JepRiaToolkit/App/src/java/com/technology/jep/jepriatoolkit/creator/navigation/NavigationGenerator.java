@@ -88,7 +88,7 @@ public class NavigationGenerator extends Task implements JepRiaToolkitConstant {
 				Module module = hm.keySet().iterator().next();
 				
 				Element rolesElement = null;
-				List<String> moduleRoles = module.getModuleRoleNamesAsStrings();
+				List<String> moduleRoles = module.getModuleRoleNames();
 				if (moduleRoles.size() > 0){
 					rolesElement = doc.createElement("roles");
 					for (String role : moduleRoles){

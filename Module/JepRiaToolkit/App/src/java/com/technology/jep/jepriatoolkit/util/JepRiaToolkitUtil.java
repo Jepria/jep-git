@@ -14,7 +14,7 @@ import static com.technology.jep.jepria.shared.field.JepTypeEnum.TIME;
 import static java.text.MessageFormat.format;
 import static org.w3c.dom.Node.ELEMENT_NODE;
 
-import java.io.BufferedWriter;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.FileInputStream;
@@ -26,7 +26,6 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
-import java.io.Writer;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.nio.channels.FileChannel;
@@ -35,8 +34,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Locale;
-import java.util.Map;
+import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 import java.util.StringTokenizer;
@@ -318,39 +316,30 @@ public final class JepRiaToolkitUtil implements JepRiaToolkitConstant {
 	 * 
 	 * @param sourceFile файл-источник, из которого будет производиться копирование
 	 * @param destinationFile файл, в который будет производиться копирование
+	 * 
+	 * @throws IOException в случае отсутствия файла-источника или файла-приемника
 	 */
-	public static void copyFile(String sourceFile, String destinationFile) {
-//		try {
-//			File source = new File(sourceFile);
-//			File destination = new File(destinationFile);
-//			InputStream in = new FileInputStream(source);
-//
-//			OutputStream out = new FileOutputStream(destination);
-//
-//			byte[] buf = new byte[1024];
-//			int len;
-//			while ((len = in.read(buf)) > 0) {
-//				out.write(buf, 0, len);
-//			}
-//			in.close();
-//			out.close();
-//		} catch (Exception ex) {
-//			echoMessage("File '" + sourceFile
-//					+ "' didn't copy! Please check COMMON_HOME parameter!");
-//		}
-		FileChannel sourceChannel = null, destChannel = null;
+	public static void copyFile(String sourceFile, String destinationFile) throws IOException {
+		copyFile(new File(sourceFile), new File(destinationFile));
+	}
+	
+	/**
+	 * Функция копирования файла в файл
+	 * 
+	 * @param sourceFile файл-источник, из которого будет производиться копирование
+	 * @param destinationFile файл, в который будет производиться копирование
+	 */
+	public static void copyFile(File source, File dest) throws IOException {
+		FileChannel sourceChannel = null;
+		FileChannel destChannel = null;
 		try {
-			sourceChannel = new FileInputStream(sourceFile).getChannel();
-            destChannel = new FileOutputStream(destinationFile).getChannel();
-            destChannel.transferFrom(sourceChannel, 0, sourceChannel.size());
-            sourceChannel.close();
-            destChannel.close();
-        }
-        catch(Exception e){
-        	echoMessage(
-        			multipleConcat(ERROR_PREFIX, "File '", sourceFile,
-						"' didn't copy! Please check COMMON_HOME parameter!"));
-        }     
+			sourceChannel = new FileInputStream(source).getChannel();
+			destChannel = new FileOutputStream(dest).getChannel();
+			destChannel.transferFrom(sourceChannel, 0, sourceChannel.size());
+		} finally {
+			sourceChannel.close();
+			destChannel.close();
+		}
 	}
 
 	/**
@@ -877,19 +866,6 @@ public final class JepRiaToolkitUtil implements JepRiaToolkitConstant {
 		return source;
 	}
 	
-	public static void copyFile(File source, File dest) throws IOException {
-		FileChannel sourceChannel = null;
-		FileChannel destChannel = null;
-		try {
-			sourceChannel = new FileInputStream(source).getChannel();
-			destChannel = new FileOutputStream(dest).getChannel();
-			destChannel.transferFrom(sourceChannel, 0, sourceChannel.size());
-		} finally {
-			sourceChannel.close();
-			destChannel.close();
-		}
-	}
-
 	public static void checkParameter(String paramName, String errorMessage) {
 		if (isEmptyOrNotInitializedParameter(paramName)) {
 			throw new BuildException(errorMessage);
@@ -906,7 +882,7 @@ public final class JepRiaToolkitUtil implements JepRiaToolkitConstant {
 	}
 	
 	public static String getApplicationDefinitionFile(){
-		File file = new File(System.getProperty(CURRENT_DIRECTORY_ENVIRONMENT_VARIABLE));
+		File file = new File(currentSourceDirectory());
 		// filter files in current directory which match the requirements
 		File[] appropriateFiles = file.listFiles(new FileFilter() {
 			@Override
@@ -945,6 +921,8 @@ public final class JepRiaToolkitUtil implements JepRiaToolkitConstant {
 			for (int i = 0; i < formDetailNodes.getLength(); i++) {
 				if (formDetailNodes.item(i).getNodeType() == ELEMENT_NODE) {
 					Element formDetailNode = (Element) formDetailNodes.item(i);
+					if (!FIELD_TAG_NAME.equalsIgnoreCase(formDetailNode.getTagName())) continue;
+					
 					String formDetailNodeId = formDetailNode.getAttribute(FIELD_ID_ATTRIBUTE).toUpperCase();
 					boolean existSuchNode = false;
 					for (ModuleField field : mfList) {
@@ -965,6 +943,8 @@ public final class JepRiaToolkitUtil implements JepRiaToolkitConstant {
 			for (int i = 0; i < formListNodes.getLength(); i++) {
 				if (formListNodes.item(i).getNodeType() == ELEMENT_NODE) {
 					Element formListNode = (Element) formListNodes.item(i);
+					if (!FIELD_TAG_NAME.equalsIgnoreCase(formListNode.getTagName())) continue;
+					
 					String formListNodeId = formListNode.getAttribute(FIELD_ID_ATTRIBUTE).toUpperCase();
 					boolean existSuchNode = false;
 					for (ModuleField field : mfList) {
@@ -1618,7 +1598,7 @@ public final class JepRiaToolkitUtil implements JepRiaToolkitConstant {
 	public static List<String> extractFileNamesByPattern(String regexpPattern){
 		String[] parts = regexpPattern.split(PATH_SEPARATOR);
 		List<String> result = new ArrayList<String>();
-		String currentPath = multipleConcat(System.getProperty(CURRENT_DIRECTORY_ENVIRONMENT_VARIABLE), PATH_SEPARATOR);
+		String currentPath = multipleConcat(currentSourceDirectory(), PATH_SEPARATOR);
 		Integer currentIndex = 0;
 		for (int i = 0; i < parts.length; i++){
 			String part = parts[i];
@@ -1710,7 +1690,7 @@ public final class JepRiaToolkitUtil implements JepRiaToolkitConstant {
 	public static String getApplicationName(String applicationXmlPath) {
 		Document doc;
 		try {
-			doc = getDOM(multipleConcat(System.getProperty(CURRENT_DIRECTORY_ENVIRONMENT_VARIABLE), PATH_SEPARATOR, applicationXmlPath));
+			doc = getDOM(multipleConcat(currentSourceDirectory(), PATH_SEPARATOR, applicationXmlPath));
 			XPathFactory factory = XPathFactory.newInstance();
 			XPath xpath = factory.newXPath();
 			XPathExpression expr = xpath.compile(multipleConcat(PATH_SEPARATOR, PATH_SEPARATOR, MODULE_TAG_NAME, PATH_SEPARATOR, "web", PATH_SEPARATOR, "context-root//text()"));
@@ -1735,7 +1715,7 @@ public final class JepRiaToolkitUtil implements JepRiaToolkitConstant {
 		Document doc;
 		List<String> result = new ArrayList<String>();
 		try {
-			doc = getDOM(multipleConcat(System.getProperty(CURRENT_DIRECTORY_ENVIRONMENT_VARIABLE), PATH_SEPARATOR, mainGwtXmlPath));
+			doc = getDOM(multipleConcat(currentSourceDirectory(), PATH_SEPARATOR, mainGwtXmlPath));
 			XPathFactory factory = XPathFactory.newInstance();
 			XPath xpath = factory.newXPath();
 			XPathExpression expr = xpath.compile(multipleConcat(PATH_SEPARATOR, PATH_SEPARATOR, INHERITS_MAIN_GWT_XML_TAG_NAME, "[starts-with(@name,'com.technology')]"));
@@ -1784,10 +1764,16 @@ public final class JepRiaToolkitUtil implements JepRiaToolkitConstant {
 		}
 	}
 	
+	/**
+	 * Получение потока для мэппинга состояния объекта к xml-файлу.
+	 * 
+	 * @param fileNameOrPath		путь до xml-файла
+	 * @return поток для сериализации
+	 * @throws FileNotFoundException ошибка при сохранении объекта во внешний файл
+	 */
 	private static XMLSerializer getXMLSerializer(String fileNameOrPath) throws FileNotFoundException {
         // configure an OutputFormat to handle CDATA
         OutputFormat of = new OutputFormat();
-
         // specify which of your elements you want to be handled as CDATA.
         // The use of the '^' between the namespaceURI and the localname
         // seems to be an implementation detail of the xerces code.
@@ -1797,7 +1783,6 @@ public final class JepRiaToolkitUtil implements JepRiaToolkitConstant {
         of.setEncoding(WIN_CHARSET);
         // set any other options you'd like
         of.setIndenting(true);
-
         // create the serializer
         XMLSerializer serializer = new XMLSerializer(of);
         try {
@@ -1809,4 +1794,45 @@ public final class JepRiaToolkitUtil implements JepRiaToolkitConstant {
         return serializer;
     }
 	
+	/**
+	 * Нормализация пути к файлу.
+	 * 
+	 * @param path	нормализуемый путь
+	 * @return нормализованный путь до файла
+	 */
+	public static String normalizePath(String path){
+		return new File(path).toURI().normalize().toString();
+	}
+	
+	/**
+	 * Получение абсолютного пути на директории исходных кодов проекта.
+	 * 
+	 * @return абсолютный путь до директории src
+	 */
+	public static String currentSourceDirectory(){
+		return System.getProperty(CURRENT_DIRECTORY_ENVIRONMENT_VARIABLE);
+	}
+	
+	public static ResourceBundle getResourceByPath(String filePath){
+		BufferedReader reader = null;
+		try {
+			reader = new BufferedReader(new InputStreamReader(new FileInputStream(filePath), UTF_8));
+			return new PropertyResourceBundle(reader);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		finally {
+			if (reader != null)
+				try {
+					reader.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+		}
+		return null;
+	}
+	
+	public static String extractStringFromQuotes(String strWithQuotes){
+		return strWithQuotes.replaceAll("\"", "");
+	}
 }

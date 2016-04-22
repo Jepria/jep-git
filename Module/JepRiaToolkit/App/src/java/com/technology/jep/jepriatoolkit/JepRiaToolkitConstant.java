@@ -186,6 +186,11 @@ public interface JepRiaToolkitConstant {
 	String MODULE_ROLE_ATTRIBUTE = "role";
 	
 	/**
+	 * Наименование тэга, отвечающего за определение списка GWT-модулей в приложении
+	 */
+	String MODULES_TAG_NAME = "modules";
+	
+	/**
 	 * Наименование тэга, отвечающего за идентификацию GWT-модуля
 	 */
 	String MODULE_TAG_NAME = "module";

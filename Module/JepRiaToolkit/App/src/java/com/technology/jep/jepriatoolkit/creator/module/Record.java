@@ -9,7 +9,10 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 
+//Указание атрибутов тэга происходит в обратном порядке, вложенных элементов/тэгов - в прямом.
+@XmlType(propOrder = {"fields", "table", "primaryKey"})
 @XmlRootElement(name=RECORD_TAG_NAME)
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Record {
@@ -26,8 +29,14 @@ public class Record {
 	@SuppressWarnings("unused")
 	private Record(){}
 	
-	public Record(String primaryKey){
-		setPrimaryKey(primaryKey);
+	public Record(String[] primaryKeyAndTableName){
+		int arrayLength = primaryKeyAndTableName.length;
+		if(arrayLength >= 1){
+			setPrimaryKey(primaryKeyAndTableName[0]);
+			if (arrayLength == 2){
+				setTable(primaryKeyAndTableName[1]);
+			}
+		}
 	}
 
 	public String getPrimaryKey() {

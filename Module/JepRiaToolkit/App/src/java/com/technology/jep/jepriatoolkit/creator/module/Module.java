@@ -1,9 +1,19 @@
 package com.technology.jep.jepriatoolkit.creator.module;
 
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.DATABASE_TAG_NAME;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.ERROR_PREFIX;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.FORMS_TAG_NAME;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.ID_ATTRIBUTE;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.MODULE_ROLES_ATTRIBUTE;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.MODULE_STATUSBAR_ATTRIBUTE;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.MODULE_TAG_NAME;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.MODULE_TOOLBAR_ATTRIBUTE;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.NAME_ATTRIBUTE;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.NAME_EN_ATTRIBUTE;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.RECORD_TAG_NAME;
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.echoMessage;
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.isEmpty;
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.multipleConcat;
-import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,24 +25,26 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-import com.technology.jep.jepriatoolkit.JepRiaToolkitConstant;
 import com.technology.jep.jepriatoolkit.creator.module.adapter.BooleanAdapter;
 
+// Указание атрибутов тэга происходит в обратном порядке, вложенных элементов/тэгов - в прямом.
+@XmlType(propOrder = {"moduleRoles", "db", "record", "forms", "isStatusbarOff", "isToolBarOff", "moduleNameEn", "moduleName", "moduleId"})
 @XmlRootElement(name=MODULE_TAG_NAME)
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Module implements JepRiaToolkitConstant {
+public class Module {
 	@XmlTransient
 	private String table;
-	@XmlAttribute(name=ID_ATTRIBUTE)
+	@XmlAttribute(name=ID_ATTRIBUTE, required = true)
 	private String moduleId;
 	@XmlAttribute(name=NAME_ATTRIBUTE)
 	private String moduleName;
 	@XmlAttribute(name=NAME_EN_ATTRIBUTE)
 	private String moduleNameEn;
 	@XmlElement(name=MODULE_ROLES_ATTRIBUTE)
-	private List<Role> moduleRoles;
+	private Roles moduleRoles;
 	@XmlElement(name=DATABASE_TAG_NAME)
 	private Db db;
 	@XmlTransient
@@ -146,26 +158,13 @@ public class Module implements JepRiaToolkitConstant {
 	public void setToolBarButtons(List<ModuleButton> toolbarButtons) {
 		this.toolbarButtons = toolbarButtons;
 	}
-	public List<Role> getModuleRoleNames() {
-		return moduleRoles;
-	}
-	public List<String> getModuleRoleNamesAsStrings() {
-		List<String> result = null;
-		if (!isEmpty(moduleRoles)){
-			result = new ArrayList<String>(moduleRoles.size());
-			for (Role role : moduleRoles) {
-				result.add(role.getName());
-			}
-		}
-		return result;
+	public List<String> getModuleRoleNames() {
+		return moduleRoles == null ? null : moduleRoles.getRoles();
 	}
 	public void setModuleRoleNames(List<String> moduleRoleNames) {
 		this.moduleRoles = null;
 		if (!isEmpty(moduleRoleNames)){
-			this.moduleRoles = new ArrayList<Role>(moduleRoleNames.size());
-			for (String roleName : moduleRoleNames) {
-				this.moduleRoles.add(new Role(roleName));
-			}
+			this.moduleRoles = new Roles(moduleRoleNames);
 		}
 	}
 	public boolean hasLikeFields() {
@@ -219,9 +218,10 @@ public class Module implements JepRiaToolkitConstant {
 	public String getModuleSecurityRolesAsString(){
 		String moduleRoleNames = new String();
 		
-		for (Role role : moduleRoles){
-			moduleRoleNames += multipleConcat(isEmpty(moduleRoleNames) ? "" : ", ", role.getName());
-		}
+		if (moduleRoles != null)
+			for (String role : moduleRoles.getRoles()){
+				moduleRoleNames += multipleConcat(isEmpty(moduleRoleNames) ? "" : ", ", role);
+			}
 		
 		return moduleRoleNames;
 	}	

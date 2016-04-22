@@ -10,11 +10,13 @@ import java.util.List;
 import com.github.javaparser.JavaParser;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
+import com.github.javaparser.ast.body.ConstructorDeclaration;
+import com.github.javaparser.ast.body.FieldDeclaration;
 import com.github.javaparser.ast.body.MethodDeclaration;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
+import com.technology.jep.jepriatoolkit.creator.module.ModuleDeclaration;
 
 public class ApplicationStructureParserUtil {
-
 
 	/**
 	 * Получение ссылки на модуль компиляции для указанного пути к файлу
@@ -38,18 +40,32 @@ public class ApplicationStructureParserUtil {
 	 * @return список методов модуля компиляции
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public static List<MethodDeclaration> getMethods(String complitionUnitPath){
+	public static ModuleDeclaration getModuleDeclaration(String complitionUnitPath){
 		CompilationUnit compilationUnit = getCompilationUnit(complitionUnitPath);
-		final List<MethodDeclaration> methodBodies = new ArrayList<MethodDeclaration>();
+		final ModuleDeclaration module = new ModuleDeclaration();
 		compilationUnit.accept(new VoidVisitorAdapter() {
 			@Override
 		    public void visit(MethodDeclaration m, Object arg) {
 				if (m.getParentNode().getClass().equals(ClassOrInterfaceDeclaration.class)){
-					methodBodies.add(m);
+					module.getMethods().add(m);
 				}
 				super.visit(m, arg);
 			}
+			@Override
+		    public void visit(FieldDeclaration f, Object arg) {
+				if (f.getParentNode().getClass().equals(ClassOrInterfaceDeclaration.class)){
+					module.getFields().add(f);
+				}
+				super.visit(f, arg);
+			}
+			@Override
+		    public void visit(ConstructorDeclaration f, Object arg) {
+				if (f.getParentNode().getClass().equals(ClassOrInterfaceDeclaration.class)){
+					module.getConstructors().add(f);
+				}
+				super.visit(f, arg);
+			}
 		}, null);
-		return methodBodies;
+		return module;
 	}
 }

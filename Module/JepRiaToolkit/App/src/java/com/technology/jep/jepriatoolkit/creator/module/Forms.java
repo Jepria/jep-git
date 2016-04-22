@@ -8,7 +8,10 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 
+//Указание атрибутов тэга происходит в обратном порядке, вложенных элементов/тэгов - в прямом.
+@XmlType(propOrder = {"detailForm", "listForm"})
 @XmlRootElement(name = FORMS_TAG_NAME)
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Forms {

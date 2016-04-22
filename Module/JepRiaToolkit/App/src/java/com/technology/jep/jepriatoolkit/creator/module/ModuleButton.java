@@ -6,6 +6,7 @@ import static com.technology.jep.jepria.client.ui.WorkstateEnum.SEARCH;
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.SELECTED;
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.VIEW_DETAILS;
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.VIEW_LIST;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.*;
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.getFieldIdAsParameter;
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.initCap;
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.initSmall;
@@ -19,21 +20,40 @@ import java.util.List;
 import java.util.Map;
 
 import javax.activation.UnsupportedDataTypeException;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlType;
 
 import com.technology.jep.jepria.client.ui.WorkstateEnum;
-import com.technology.jep.jepriatoolkit.JepRiaToolkitConstant;
 
-public class ModuleButton implements JepRiaToolkitConstant {
+//Указание атрибутов тэга происходит в обратном порядке, вложенных элементов/тэгов - в прямом.
+@XmlType(propOrder = {"image", "event", "workStatesAsString", "nameEn", "name", "buttonId"})
+@XmlRootElement(name=BUTTON_TAG_NAME)
+@XmlAccessorType(XmlAccessType.FIELD)
+public class ModuleButton {
 	
+	@XmlAttribute(required=true, name=BUTTON_ID_ATTRIBUTE)
 	private String buttonId;
+	@XmlTransient
 	private WorkstateEnum[] workStates;
+	@XmlAttribute(name=BUTTON_IMAGE_ATTRIBUTE)
 	private String image;
+	@XmlAttribute(name=BUTTON_EVENT_ATTRIBUTE)
 	private String event;
+	@XmlAttribute(name=BUTTON_TEXT_ATTRIBUTE)
 	private String text;
+	@XmlAttribute(name=BUTTON_NAME_ATTRIBUTE)
 	private String name;
+	@XmlAttribute(name=BUTTON_NAME_EN_ATTRIBUTE)
 	private String nameEn;
-	private boolean isSeparator = false;	
+	@XmlTransient
+	private boolean isSeparator = false;
+	@XmlTransient
 	public static Map<String, ModuleButton> STANDARD_TOOLBAR = new HashMap<String, ModuleButton>();
+	@XmlTransient
 	public static Map<String, ModuleButton> STANDARD_SEPARATOR = new HashMap<String, ModuleButton>();
 	
 	static{
@@ -250,6 +270,7 @@ public class ModuleButton implements JepRiaToolkitConstant {
 	public void setEvent(String event) {
 		this.event = !isEmpty(event) ?  multipleConcat(event, (event.indexOf(LEFT_BRACKET) == -1 ? multipleConcat(LEFT_BRACKET, RIGHT_BRACKET) : "")) : null;
 	}		
+	@XmlAttribute(name=BUTTON_ENABLE_STATES_ATTRIBUTE)
 	public String getWorkStatesAsString() {
 		String workStatesAsString = "";
 		if (!isEmpty(workStates)){

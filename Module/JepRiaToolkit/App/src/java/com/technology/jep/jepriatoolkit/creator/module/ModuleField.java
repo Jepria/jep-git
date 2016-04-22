@@ -9,7 +9,7 @@ import static com.technology.jep.jepria.shared.field.JepTypeEnum.DATE_TIME;
 import static com.technology.jep.jepria.shared.field.JepTypeEnum.INTEGER;
 import static com.technology.jep.jepria.shared.field.JepTypeEnum.TEXT_FILE;
 import static com.technology.jep.jepria.shared.field.JepTypeEnum.TIME;
-import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.FIELD_TAG_NAME;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.*;
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.getAppropriateFieldType;
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.getFieldTypeAsEnum;
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.getOptionField;
@@ -31,30 +31,32 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlType;
 
 import com.technology.jep.jepria.client.ui.WorkstateEnum;
-import com.technology.jep.jepriatoolkit.JepRiaToolkitConstant;
 import com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil;
 
+//Указание атрибутов тэга происходит в обратном порядке, вложенных элементов/тэгов - в прямом.
+@XmlType(propOrder = {"fieldType", "fieldId"})
 @XmlRootElement(name = FIELD_TAG_NAME)
-@XmlAccessorType(XmlAccessType.FIELD)
-public class ModuleField implements JepRiaToolkitConstant {
+@XmlAccessorType(XmlAccessType.NONE)
+public class ModuleField {
 	
 	@XmlTransient
 	private String moduleId;
-	@XmlAttribute(name=FIELD_ID_ATTRIBUTE)
+	@XmlAttribute(name=FIELD_ID_ATTRIBUTE, required=true)
 	private String fieldId;
 	@XmlAttribute(name=FIELD_TYPE_ATTRIBUTE)
 	private String fieldType;
-	@XmlTransient
+	@XmlAttribute(name=FIELD_NAME_ATTRIBUTE)
 	private String fieldListFormName;
-	@XmlTransient
+	@XmlAttribute(name=FIELD_NAME_EN_ATTRIBUTE)
 	private String fieldListFormNameEn;
-	@XmlTransient
+	@XmlAttribute(name=FIELD_NAME_ATTRIBUTE)
 	private String fieldDetailFormName;
-	@XmlTransient
+	@XmlAttribute(name=FIELD_NAME_EN_ATTRIBUTE)
 	private String fieldDetailFormNameEn;
-	@XmlTransient
+	@XmlAttribute(name=FIELD_LIKE_ATTRIBUTE)
 	private String fieldLike;
 	@XmlTransient
 	private String fieldWidget;
@@ -124,9 +126,18 @@ public class ModuleField implements JepRiaToolkitConstant {
 	@SuppressWarnings("unused")
 	private ModuleField(){}
 	
-	public ModuleField(String moduleId, String fieldId, String fieldType, String fieldName, String fieldNameEn, String fieldLike, String fieldWidget, String fieldMaxLength, String fieldWidth, String labelWidth, String fieldHeight, String visibleWorkstates, String mandatoryWorkstates, String editableWorkstates, String enableWorkstates){
+	public ModuleField(String moduleId, String fieldId){
 		setModuleId(moduleId);
 		setFieldId(fieldId);
+	}
+	
+	public ModuleField(ModuleField mf){
+		this(mf.moduleId, mf.fieldId);
+	}
+	
+	public ModuleField(String moduleId, String fieldId, String fieldType, String fieldName, String fieldNameEn, String fieldLike, String fieldWidget, String fieldMaxLength, String fieldWidth, String labelWidth, String fieldHeight, String visibleWorkstates, String mandatoryWorkstates, String editableWorkstates, String enableWorkstates){
+		this(moduleId, fieldId);
+		
 		setFieldType(fieldType);
 		setFieldListFormName(fieldName);
 		setFieldListFormNameEn(fieldNameEn);
@@ -208,6 +219,7 @@ public class ModuleField implements JepRiaToolkitConstant {
 			this.fieldLike = fieldLike;
 		}
 	}
+	@XmlAttribute(name=FIELD_WIDGET_ATTRIBUTE)
 	public String getFieldWidget() {
 		return fieldWidget;
 	}

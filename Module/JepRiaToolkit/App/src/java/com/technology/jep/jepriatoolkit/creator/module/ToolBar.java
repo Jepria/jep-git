@@ -4,12 +4,20 @@ import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.*;
 
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import com.technology.jep.jepriatoolkit.creator.module.adapter.BooleanAdapter;
 
+//Указание атрибутов тэга происходит в обратном порядке, вложенных элементов/тэгов - в прямом.
+@XmlType(propOrder = {"buttons", "view", "presenter"})
+@XmlRootElement(name=TOOLBAR_TAG_NAME)
+@XmlAccessorType(XmlAccessType.FIELD)
 public class ToolBar {
 
 	@XmlAttribute(name=TOOLBAR_PRESENTER_ATTRIBUTE)

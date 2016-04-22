@@ -1,15 +1,18 @@
 package com.technology.jep.jepriatoolkit.creator.module;
 
-import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.*;
-
-import java.util.List;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.APPLICATION_TAG_NAME;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.MODULES_TAG_NAME;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.NAME_ATTRIBUTE;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 
+// Указание атрибутов тэга происходит в обратном порядке, вложенных элементов/тэгов - в прямом.
+@XmlType(propOrder = {"modules", "projectPackage", "defaultDatasource", "name"})
 @XmlRootElement(name = APPLICATION_TAG_NAME)
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Application {
@@ -23,8 +26,8 @@ public class Application {
 	@XmlAttribute(required=true)
 	private String projectPackage;
 	
-	@XmlElement(name = MODULE_TAG_NAME)
-	private List<Module> modules = null;
+	@XmlElement(name = MODULES_TAG_NAME)
+	private Modules modules;
 	
 	public String getName() {
 		return name;
@@ -44,10 +47,10 @@ public class Application {
 	public void setProjectPackage(String projectPackage) {
 		this.projectPackage = projectPackage;
 	}
-	public List<Module> getModules() {
+	public Modules getModules() {
 		return modules;
 	}
-	public void setModules(List<Module> modules) {
+	public void setModules(Modules modules) {
 		this.modules = modules;
 	}
 }

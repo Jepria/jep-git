@@ -9,10 +9,13 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import com.technology.jep.jepriatoolkit.creator.module.adapter.BooleanAdapter;
 
+//Указание атрибутов тэга происходит в обратном порядке, вложенных элементов/тэгов - в прямом.
+@XmlType(propOrder = {"fields", "dnd", "presenter", "dblClick", "groupField"})
 @XmlRootElement(name = LIST_FORM_TAG_NAME)
 @XmlAccessorType(XmlAccessType.FIELD)
 public class ListForm {

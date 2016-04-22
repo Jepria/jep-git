@@ -30,6 +30,7 @@ import static java.text.MessageFormat.format;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -282,8 +283,8 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 			List<ModuleField> moduleFields = hm.values().iterator().next();
 			List<String> absentFields = getListOfAbsentFieldNameByModuleId(jepApplicationDoc, formName, moduleFields);
 			if (!absentFields.isEmpty()) {
-				echoMessage(multipleConcat(WARNING_PREFIX, "Field", (absentFields.size() > 1 ? "s" : ""), " ", absentFields
-						+ " ", (absentFields.size() > 1 ? "are" : "is"), " absent in 'record' section for module with ID : '", formName, "'"));
+				echoMessage(multipleConcat(WARNING_PREFIX, "Field", (absentFields.size() > 1 ? "s" : ""), WHITE_SPACE, Arrays.toString(absentFields.toArray()), WHITE_SPACE, 
+						(absentFields.size() > 1 ? "are" : "is"), " absent in 'record' section for module with ID : '", formName, "'"));
 			}
 		}
 	}
@@ -502,7 +503,7 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 			prepareData(),
 			format(
 				getDefinitionProperty(MAIN_GWT_XML_PATH_TEMPLATE_PROPERTY, 
-					multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "{0}/{1}/main/{3}.gwt.xml")
+					multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "{0}/{1}/main/{2}.gwt.xml")
 				), 
 				application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), application.getName()
 			)
@@ -1505,7 +1506,7 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 				modInfo.setScopeModuleIds(getDependencyNodesIfExists(formName));
 				modInfo.setToolBarButtons(module.getToolBarButtons());
 				modInfo.setToolBarCustomButtons(module.getToolBarCustomButtons());
-				modInfo.setModuleRoleNames(module.getModuleRoleNamesAsStrings());
+				modInfo.setModuleRoleNames(module.getModuleRoleNames());
 				
 				List<ModuleField> moduleFields = hm.values().iterator().next();
 				boolean hasLobFields = false;
