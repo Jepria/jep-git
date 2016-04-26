@@ -1,8 +1,8 @@
 package com.technology.jep.jepria.client.widget.toolbar;
 
-import static com.technology.jep.jepria.client.JepRiaClientConstant.MAIN_FONT_STYLE;
 import static com.technology.jep.jepria.client.JepRiaClientConstant.JepImages;
 import static com.technology.jep.jepria.client.JepRiaClientConstant.JepTexts;
+import static com.technology.jep.jepria.client.JepRiaClientConstant.MAIN_FONT_STYLE;
 import static com.technology.jep.jepria.client.widget.event.JepEventType.PAGING_GOTO_EVENT;
 import static com.technology.jep.jepria.client.widget.event.JepEventType.PAGING_REFRESH_EVENT;
 import static com.technology.jep.jepria.client.widget.event.JepEventType.PAGING_SIZE_EVENT;
@@ -86,8 +86,8 @@ public class PagingStandardBar extends SimplePanel implements PagingToolBar {
 	 * Горизонтальная панель, на которой размещаются кнопки.
 	 */
 	private HorizontalPanel panel;
-	private HorizontalPanel buttonsPanel;
-	private HorizontalPanel pageSizePanel;
+	protected HorizontalPanel buttonsPanel;
+	protected HorizontalPanel pageSizePanel;
 
 	/**
 	 * Создает инструментальную панель управления листанием набора данных.
@@ -119,13 +119,36 @@ public class PagingStandardBar extends SimplePanel implements PagingToolBar {
 	/**
 	 * Заполнение тулбара стандартными элементами.
 	 */
-	private void addItems() {
+	protected void addItems() {
+		addButtonsAtLeft();
+		buttonsPanel.add(new Separator());
+		addPageNumberPanel();
+		buttonsPanel.add(new Separator());
+		addButtonsAtRight();
+		addDisplayText();
+		addPageSize();
+
+		panel.add(buttonsPanel);
+		panel.add(displayText);
+		panel.add(pageSizePanel);
+		panel.setWidth("100%");
+		
+		panel.setCellHorizontalAlignment(buttonsPanel, HasHorizontalAlignment.ALIGN_LEFT);
+		panel.setCellHorizontalAlignment(displayText, HasHorizontalAlignment.ALIGN_CENTER);
+		panel.setCellHorizontalAlignment(pageSizePanel, HasHorizontalAlignment.ALIGN_RIGHT);
+	}
+	
+	/**
+	 * Добавление кнопок слева: "в начало", "предыдущая".
+	 */
+	protected void addButtonsAtLeft() {
 		first = makeButton("first_button_id", JepImages.first(), JepTexts.button_beginning_alt(), new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
 				first();
 			}
 		}, false);
+		buttonsPanel.add(first);
 
 		prev = makeButton("prev_button_id", JepImages.prev(), JepTexts.button_previous_alt(), new ClickHandler() {
 			@Override
@@ -133,7 +156,13 @@ public class PagingStandardBar extends SimplePanel implements PagingToolBar {
 				previous();
 			}
 		}, false);
-
+		buttonsPanel.add(prev);
+	}
+	
+	/**
+	 * Добавление панели номера страницы: "Стр. n из m".
+	 */
+	protected void addPageNumberPanel() {
 		pageNumberPrefix = new Label(JepTexts.toolbar_paging_pageNumberPrefix());
 		pageNumberPostfix = new Label();
 		pageNumberText = new TextBox();
@@ -149,13 +178,23 @@ public class PagingStandardBar extends SimplePanel implements PagingToolBar {
 				}
 			}
 		});
-
+		
+		buttonsPanel.add(pageNumberPrefix);
+		buttonsPanel.add(pageNumberText);
+		buttonsPanel.add(pageNumberPostfix);
+	}
+	
+	/**
+	 * Добавление кнопок справа: "следующая", "в конец", "обновить".
+	 */
+	protected void addButtonsAtRight() {
 		next = makeButton("next_button_id", JepImages.next(), JepTexts.button_next_alt(), new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
 				next();
 			}
 		}, false);
+		buttonsPanel.add(next);
 
 		last = makeButton("last_button_id", JepImages.last(), JepTexts.button_ending_alt(), new ClickHandler() {
 			@Override
@@ -163,6 +202,9 @@ public class PagingStandardBar extends SimplePanel implements PagingToolBar {
 				last();
 			}
 		}, false);
+		buttonsPanel.add(last);
+		
+		buttonsPanel.add(new Separator());
 
 		refresh = makeButton("refresh_button_id", JepImages.refresh(), JepTexts.button_refresh_alt(), new ClickHandler() {
 			@Override
@@ -170,23 +212,21 @@ public class PagingStandardBar extends SimplePanel implements PagingToolBar {
 				refresh();
 			}
 		}, false);
-
-		
-		buttonsPanel.add(first);
-		buttonsPanel.add(prev);
-		buttonsPanel.add(new Separator());
-		buttonsPanel.add(pageNumberPrefix);
-		buttonsPanel.add(pageNumberText);
-		buttonsPanel.add(pageNumberPostfix);
-		buttonsPanel.add(new Separator());
-		buttonsPanel.add(next);
-		buttonsPanel.add(last);
-		buttonsPanel.add(new Separator());
 		buttonsPanel.add(refresh);
-		
+	}
+	
+	/**
+	 * Добавление панели отображаемых записей: "записи a-b из n".
+	 */
+	protected void addDisplayText() {
 		displayText = new Label();
 		displayText.setWordWrap(false);
-		
+	}
+	
+	/**
+	 * Добавление панели количества записей на странице: "записей на странице: k".
+	 */
+	protected void addPageSize() {
 		pageSizePrefix = new Label(JepTexts.toolbar_paging_linesPerPage());
 		pageSizeText = new TextBox();
 		pageSizeText.addStyleName(MAIN_FONT_STYLE);
@@ -207,15 +247,6 @@ public class PagingStandardBar extends SimplePanel implements PagingToolBar {
 		pageSizePrefix.getElement().getStyle().setTextAlign(TextAlign.RIGHT);
 		pageSizePanel.setCellWidth(pageSizeText, 30 + Unit.PX.getType());
 		pageSizePanel.setWidth("100%");
-
-		panel.add(buttonsPanel);
-		panel.add(displayText);
-		panel.add(pageSizePanel);
-		panel.setWidth("100%");
-		
-		panel.setCellHorizontalAlignment(buttonsPanel, HasHorizontalAlignment.ALIGN_LEFT);
-		panel.setCellHorizontalAlignment(displayText, HasHorizontalAlignment.ALIGN_CENTER);
-		panel.setCellHorizontalAlignment(pageSizePanel, HasHorizontalAlignment.ALIGN_RIGHT);
 	}
 
 	public Button makeButton(String buttonId, ImageResource icon, String name, ClickHandler handler) {
@@ -223,8 +254,7 @@ public class PagingStandardBar extends SimplePanel implements PagingToolBar {
 	}
 
 	public Button makeButton(String buttonId, ImageResource icon, String name, ClickHandler handler, Boolean enabled) {
-		JepButton button = new JepButton(buttonId, null, icon);
-		button.setTitle(name);
+		JepButton button = new JepButton(buttonId, name, icon);
 		button.addClickHandler(handler);
 		button.setEnabled(enabled);
 		return button;

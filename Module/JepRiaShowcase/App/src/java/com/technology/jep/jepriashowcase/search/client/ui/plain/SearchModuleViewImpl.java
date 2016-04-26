@@ -17,9 +17,9 @@ import com.technology.jep.jepria.client.ui.plain.PlainModuleViewImpl;
 import com.technology.jep.jepria.client.widget.list.JepDataWidgetList;
 import com.technology.jep.jepria.client.widget.list.ListManager;
 import com.technology.jep.jepria.client.widget.list.PagingManager;
-import com.technology.jep.jepria.client.widget.toolbar.PagingSimpleBar;
 import com.technology.jep.jepria.shared.record.JepRecord;
 import com.technology.jep.jepriashowcase.search.client.shop.ShoppingCart;
+import com.technology.jep.jepriashowcase.search.client.ui.pagingtoolbar.PagingSimpleBar;
 import com.technology.jep.jepriashowcase.search.client.widget.list.ListItemViewImpl;
 
 public class SearchModuleViewImpl extends PlainModuleViewImpl implements SearchModuleView {
