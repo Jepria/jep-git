@@ -1,6 +1,8 @@
 package com.technology.jep.jepriatoolkit.creator.module;
 
-import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.*;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.DETAIL_FORM_TAG_NAME;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.FIELD_LABEL_WIDTH_ATTRIBUTE;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.PRESENTER_BOBY_TAG_NAME;
 
 import java.util.List;
 
@@ -12,10 +14,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 //Указание атрибутов тэга происходит в обратном порядке, вложенных элементов/тэгов - в прямом.
-@XmlType(propOrder = {"fields", "presenterBody", "labelWidth"})
+@XmlType(propOrder = {"presenterBody", "labelWidth"})
 @XmlRootElement(name = DETAIL_FORM_TAG_NAME)
 @XmlAccessorType(XmlAccessType.FIELD)
-public class DetailForm {
+public class DetailForm extends ModuleForm {
 
 	@XmlAttribute(name=FIELD_LABEL_WIDTH_ATTRIBUTE)
 	private String labelWidth;
@@ -23,8 +25,12 @@ public class DetailForm {
 	@XmlElement(name=PRESENTER_BOBY_TAG_NAME)
 	private String presenterBody;
 	
-	@XmlElement(name = FIELD_TAG_NAME)
-	private List<ModuleField> fields = null;
+	@SuppressWarnings("unused")
+	private DetailForm(){}
+	
+	public DetailForm(List<ModuleField> listFormFields) {
+		super(listFormFields);
+	}
 
 	public String getLabelWidth() {
 		return labelWidth;
@@ -32,14 +38,6 @@ public class DetailForm {
 
 	public void setLabelWidth(String labelWidth) {
 		this.labelWidth = labelWidth;
-	}
-
-	public List<ModuleField> getFields() {
-		return fields;
-	}
-
-	public void setFields(List<ModuleField> fields) {
-		this.fields = fields;
 	}
 
 	public String getPresenterBody() {

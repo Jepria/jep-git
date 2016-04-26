@@ -11,6 +11,7 @@ import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.MODULE_TOOL
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.NAME_ATTRIBUTE;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.NAME_EN_ATTRIBUTE;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.RECORD_TAG_NAME;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.TOOLBAR_TAG_NAME;
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.echoMessage;
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.isEmpty;
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.multipleConcat;
@@ -31,7 +32,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import com.technology.jep.jepriatoolkit.creator.module.adapter.BooleanAdapter;
 
 // Указание атрибутов тэга происходит в обратном порядке, вложенных элементов/тэгов - в прямом.
-@XmlType(propOrder = {"moduleRoles", "db", "record", "forms", "isStatusbarOff", "isToolBarOff", "moduleNameEn", "moduleName", "moduleId"})
+@XmlType(propOrder = {"moduleRoles", "db", "record", "forms", "toolbar", "isStatusbarOff", "isToolBarOff", "moduleNameEn", "moduleName", "moduleId"})
 @XmlRootElement(name=MODULE_TAG_NAME)
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Module {
@@ -87,6 +88,8 @@ public class Module {
 	private Record record;
 	@XmlElement(name=FORMS_TAG_NAME)
 	private Forms forms;
+	@XmlElement(name=TOOLBAR_TAG_NAME)
+	private ToolBar toolbar;
 	
 	@SuppressWarnings("unused")
 	private Module(){}
@@ -304,5 +307,11 @@ public class Module {
 	}
 	public void setForms(DetailForm detailForm, ListForm listForm){
 		this.forms = new Forms(detailForm, listForm);
+	}
+	public ToolBar getToolbar() {
+		return toolbar;
+	}
+	public void setToolbar(ToolBar toolbar) {
+		this.toolbar = toolbar;
 	}
 }

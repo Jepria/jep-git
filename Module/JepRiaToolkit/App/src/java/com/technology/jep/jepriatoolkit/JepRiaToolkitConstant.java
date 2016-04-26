@@ -289,6 +289,11 @@ public interface JepRiaToolkitConstant {
 	 * Наименование атрибута, отвечающего за ширину поля детальной формы
 	 */
 	String FIELD_WIDTH_ATTRIBUTE = "width";
+	
+	/**
+	 * Значение умолчательного значения ширины колонки списочной формы формы
+	 */
+	String DEFAULT_FIELD_WIDTH = Integer.toString(150);
 		
 	/**
 	 * Наименование атрибута, отвечающего за высоту поля детальной формы
@@ -440,15 +445,15 @@ public interface JepRiaToolkitConstant {
 	 */
 	String BUTTON_TEXT_ATTRIBUTE = "text";
 	
-	/**
-	 * Наименование атрибута, отвечающего за русскоязычное значение надписи на кнопке тулбара
-	 */
-	String BUTTON_NAME_ATTRIBUTE = NAME_ATTRIBUTE;
-	
-	/**
-	 * Наименование атрибута, отвечающего за англоязычное значение надписи на кнопке тулбара
-	 */
-	String BUTTON_NAME_EN_ATTRIBUTE = NAME_EN_ATTRIBUTE;
+//	/**
+//	 * Наименование атрибута, отвечающего за русскоязычное значение надписи на кнопке тулбара
+//	 */
+//	String BUTTON_NAME_ATTRIBUTE = NAME_ATTRIBUTE;
+//	
+//	/**
+//	 * Наименование атрибута, отвечающего за англоязычное значение надписи на кнопке тулбара
+//	 */
+//	String BUTTON_NAME_EN_ATTRIBUTE = NAME_EN_ATTRIBUTE;
 	
 	/**
 	 * Идентификатор поля, необходимого при работе с фаловой загрузкой/выгрузкой
@@ -731,7 +736,7 @@ public interface JepRiaToolkitConstant {
 	/**
 	 * Стандартный порт http-протокола
 	 */
-	String DEFAULT_HTTP_PORT = "80";
+	String DEFAULT_HTTP_PORT = "80";	
 	
 	/**
 	 * OPMN-протокол

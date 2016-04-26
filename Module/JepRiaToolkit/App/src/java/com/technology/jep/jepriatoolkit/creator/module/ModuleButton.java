@@ -30,7 +30,7 @@ import javax.xml.bind.annotation.XmlType;
 import com.technology.jep.jepria.client.ui.WorkstateEnum;
 
 //Указание атрибутов тэга происходит в обратном порядке, вложенных элементов/тэгов - в прямом.
-@XmlType(propOrder = {"image", "event", "workStatesAsString", "nameEn", "name", "buttonId"})
+@XmlType(propOrder = {"workStatesAsString", "image", "event", "text", "buttonId"})
 @XmlRootElement(name=BUTTON_TAG_NAME)
 @XmlAccessorType(XmlAccessType.FIELD)
 public class ModuleButton {
@@ -45,10 +45,6 @@ public class ModuleButton {
 	private String event;
 	@XmlAttribute(name=BUTTON_TEXT_ATTRIBUTE)
 	private String text;
-	@XmlAttribute(name=BUTTON_NAME_ATTRIBUTE)
-	private String name;
-	@XmlAttribute(name=BUTTON_NAME_EN_ATTRIBUTE)
-	private String nameEn;
 	@XmlTransient
 	private boolean isSeparator = false;
 	@XmlTransient
@@ -189,20 +185,11 @@ public class ModuleButton {
 	 * @param event					событие на реакцию кнопки
 	 * @param text					тултип кнопки
 	 */
-	private ModuleButton(String buttonId, WorkstateEnum[] workStates, String image, String event, String text){
+	public ModuleButton(String buttonId, WorkstateEnum[] workStates, String image, String event, String text){
 		this(buttonId, workStates);
 		setImage(image);
 		setEvent(event);
 		setText(text);
-	}
-	
-	/**
-	 * Конструктор для кнопок инструментальной панели
-	 */ 
-	public ModuleButton(String buttonId, WorkstateEnum[] workStates, String image, String event, String text, String name, String nameEn){
-		this(buttonId, workStates, image, event, text);
-		setName(name);
-		setNameEn(nameEn);
 	}
 	
 	public String getText() {
@@ -210,18 +197,6 @@ public class ModuleButton {
 	}
 	public void setText(String text) {
 		this.text = text;
-	}
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	public String getNameEn() {
-		return nameEn;
-	}
-	public void setNameEn(String nameEn) {
-		this.nameEn = nameEn;
 	}
 	public boolean getIsSeparator() {
 		return isSeparator;
@@ -269,13 +244,14 @@ public class ModuleButton {
 	}	
 	public void setEvent(String event) {
 		this.event = !isEmpty(event) ?  multipleConcat(event, (event.indexOf(LEFT_BRACKET) == -1 ? multipleConcat(LEFT_BRACKET, RIGHT_BRACKET) : "")) : null;
-	}		
+	}	
+	
 	@XmlAttribute(name=BUTTON_ENABLE_STATES_ATTRIBUTE)
 	public String getWorkStatesAsString() {
 		String workStatesAsString = "";
 		if (!isEmpty(workStates)){
 			for (WorkstateEnum workstate : workStates){
-				workStatesAsString += (!isEmpty(workStatesAsString) ? ", " : "") + workstate.name(); 
+				workStatesAsString += (!isEmpty(workStatesAsString) ? multipleConcat(SEPARATOR, WHITE_SPACE) : "") + workstate.name(); 
 			}
 		}
 		else {
@@ -285,6 +261,18 @@ public class ModuleButton {
 	}
 	public void setWorkStates(WorkstateEnum[] workStates) {
 		this.workStates = workStates;
+	}
+	public void setWorkStatesAsString(String workStates) {
+		if (!isEmpty(workStates)){
+			String[] arrays = workStates.split(SEPARATOR);
+			this.workStates = new WorkstateEnum[arrays.length];
+			for (int i = 0; i < arrays.length; i++){
+				this.workStates[i] = Enum.valueOf(WorkstateEnum.class, arrays[i].trim());
+			}
+		}
+		else {
+			this.workStates = null;
+		}
 	}	
 	public boolean getIsCustomButton(){
 		return !isSeparator && isEmpty(STANDARD_TOOLBAR.get(this.buttonId));

@@ -36,6 +36,8 @@ import com.github.javaparser.ast.body.ConstructorDeclaration;
 import com.github.javaparser.ast.body.FieldDeclaration;
 import com.github.javaparser.ast.body.MethodDeclaration;
 import com.github.javaparser.ast.body.VariableDeclarator;
+import com.github.javaparser.ast.stmt.Statement;
+import com.technology.jep.jepria.shared.field.JepTypeEnum;
 import com.technology.jep.jepriatoolkit.JepRiaToolkitConstant;
 import com.technology.jep.jepriatoolkit.creator.module.Application;
 import com.technology.jep.jepriatoolkit.creator.module.Db;
@@ -43,10 +45,12 @@ import com.technology.jep.jepriatoolkit.creator.module.DetailForm;
 import com.technology.jep.jepriatoolkit.creator.module.FunctionParameters;
 import com.technology.jep.jepriatoolkit.creator.module.ListForm;
 import com.technology.jep.jepriatoolkit.creator.module.Module;
+import com.technology.jep.jepriatoolkit.creator.module.ModuleButton;
 import com.technology.jep.jepriatoolkit.creator.module.ModuleDeclaration;
 import com.technology.jep.jepriatoolkit.creator.module.ModuleField;
 import com.technology.jep.jepriatoolkit.creator.module.Modules;
 import com.technology.jep.jepriatoolkit.creator.module.Record;
+import com.technology.jep.jepriatoolkit.creator.module.ToolBar;
 import com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil;
 
 public class ApplicationStructureParser extends Task implements JepRiaToolkitConstant {
@@ -216,21 +220,96 @@ public class ApplicationStructureParser extends Task implements JepRiaToolkitCon
 			List<ModuleField> listFormFields = new ArrayList<ModuleField>();
 			for (FieldDeclaration fieldDeclaration : module.getFields()){
 				String fieldId = extractStringFromQuotes(fieldDeclaration.getVariables().iterator().next().getInit().toString()).toUpperCase();
-				ModuleField field = new ModuleField(moduleId, fieldId);
+				ModuleField field = new ModuleField(moduleId, fieldId, JepTypeEnum.STRING.name());
 				recordFields.add(field);
-//				, JepTypeEnum.STRING.name(), "Test", "Test", null, "JepNumberField", null, null, null, null, "CREATE, VIEW_LIST", "CREATE", "CREATE", "CREATE");
-				detailFormFields.add(prepareDetailFormModuleField(moduleId, field));
-				listFormFields.add(prepareListFormModuleField(moduleId, field));
+				ModuleField detailFormField = prepareDetailFormModuleField(moduleId, field);
+				if (detailFormField != null){
+					field.setFieldType(detailFormField.getFieldType());
+					detailFormField.setFieldType(null);
+					detailFormFields.add(detailFormField);
+				}
+				ModuleField listFormField = prepareListFormModuleField(moduleId, field);
+				if (listFormField != null) {
+					listFormField.setFieldType(null);
+					listFormFields.add(listFormField);
+				}
 			}
 			rec.setFields(recordFields);
 			mod.setRecord(rec);
-			DetailForm detailForm = new DetailForm();
-			detailForm.setPresenterBody(Arrays.toString(getModuleDeclaration("D:/Project/JEPGit/Module/JepRiaShowcase/App/src/java/com/technology/jep/jepriashowcase/allshopgoods/client/ui/form/detail/AllShopGoodsDetailFormPresenter.java").getMethods().toArray()));
-			detailForm.setFields(detailFormFields);
-			ListForm listForm = new ListForm();
-			listForm.setFields(listFormFields);
 			
+			String clientModuleDetailPresenterPath = convertPatternInRealPath(
+					replacePathWithModuleId(
+							getDefinitionProperty(CLIENT_MODULE_DETAIL_FORM_PRESENTER_PATH_TEMPLATE_PROPERTY, 
+									multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/client/ui/form/detail/{3}DetailFormPresenter.java")), moduleId
+					));
+			ModuleDeclaration clientModuleDetailPresenter = getModuleDeclaration(clientModuleDetailPresenterPath);
+			String presenterBody = multipleConcat(Arrays.toString(clientModuleDetailPresenter.getFields().toArray()),
+					END_OF_LINE, Arrays.toString(clientModuleDetailPresenter.getMethods().toArray()));
+			DetailForm detailForm = new DetailForm(detailFormFields);
+			detailForm.setPresenterBody(presenterBody);
+			
+			ListForm listForm = new ListForm(listFormFields);
 			mod.setForms(detailForm, listForm);
+			
+			String clientModuleToolBarViewPath = convertPatternInRealPath(
+					replacePathWithModuleId(
+							getDefinitionProperty(CLIENT_MODULE_TOOLBAR_VIEW_IMPL_PATH_TEMPLATE_PROPERTY, 
+									multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/client/ui/toolbar/{3}ToolBarViewImpl.java")), moduleId
+					));
+			ModuleDeclaration clientModuleToolBarView = getModuleDeclaration(clientModuleToolBarViewPath);
+			ToolBar toolBar = new ToolBar();
+			ConstructorDeclaration constructor = clientModuleToolBarView.getConstructors().iterator().next();
+			List<ModuleButton> buttons = new ArrayList<ModuleButton>();
+			for (Statement st : constructor.getBlock().getStmts()){
+				String line = st.toString();
+				if (line.startsWith("addButton")){
+					Pattern p = Pattern.compile("addButton\\s*\\(\\s*(.*?)\\s*,\\s*(.*?)\\s*(?:,\\s*(.*?)\\s*)?\\);");
+					Matcher m = p.matcher(line);
+					if (m.find()){
+						ModuleButton button = new ModuleButton(m.group(1));
+						if (button.getIsCustomButton()) {
+							String imageOrText = m.group(2);
+							String text = m.group(3);
+							if (!JepRiaToolkitUtil.isEmpty(text)){
+								button.setImage(imageOrText);
+								button.setText(text);
+							}
+							else {
+								button.setText(imageOrText);
+							}
+						}
+						buttons.add(button);
+					}
+				}
+			}
+			
+			String clientModuleToolBarPresenterPath = convertPatternInRealPath(
+					replacePathWithModuleId(
+							getDefinitionProperty(CLIENT_MODULE_TOOLBAR_PRESENTER_PATH_TEMPLATE_PROPERTY, 
+									multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/client/ui/toolbar/{3}ToolBarPresenter.java")), moduleId
+					));
+			ModuleDeclaration clientModuleToolBarPresenter = getModuleDeclaration(clientModuleToolBarPresenterPath);
+			for (MethodDeclaration md : clientModuleToolBarPresenter.getMethods()){
+				if ("bind".equalsIgnoreCase(md.getName())){
+					for (ModuleButton button : buttons){
+						if (button.getIsCustomButton()) {
+							Pattern p = Pattern.compile(multipleConcat("bindButton\\s*\\(\\s*", button.getButtonId(), "\\s*,\\s*new\\s*WorkstateEnum\\s*\\[\\s*\\]\\s*\\{(.*?)\\}\\s*,\\s*new\\s*ClickHandler\\s*\\(\\s*\\)\\s*\\{\\s*public\\s*void\\s*onClick\\s*\\(\\s*ClickEvent\\s*event\\s*\\)\\s*\\{\\s*(.*?)\\s*\\}\\s*\\}\\s*\\)"));
+							Matcher m = p.matcher(md.toString());
+							if (m.find()){
+								String workstateAsString = m.group(1);
+								if (!JepRiaToolkitUtil.isEmpty(workstateAsString)){
+									button.setWorkStatesAsString(workstateAsString);
+								}
+								button.setEvent(m.group(2));
+							}
+						}
+					}
+					break;
+				}
+			}
+			
+			toolBar.setButtons(buttons);
+			mod.setToolbar(toolBar);
 			
 			modules.add(mod);
 		}
@@ -257,20 +336,34 @@ public class ApplicationStructureParser extends Task implements JepRiaToolkitCon
 	}
 	
 	public static ModuleField prepareDetailFormModuleField(String moduleId, ModuleField field){
+		String clientModuleDetailFormViewImplPath = convertPatternInRealPath(
+				replacePathWithModuleId(getDefinitionProperty(CLIENT_MODULE_DETAIL_FORM_VIEW_IMPL_PATH_TEMPLATE_PROPERTY, 
+						multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "src/java/com/technology/{0}/{1}/{2}/client/ui/form/detail/{3}DetailFormViewImpl.java")
+				), moduleId));
+		String fieldId = field.getFieldId();
+		ModuleDeclaration clientModuleDetailFormDeclaration = getModuleDeclaration(clientModuleDetailFormViewImplPath);
+		ConstructorDeclaration clientModuleDetailFormConstructor = clientModuleDetailFormDeclaration.getConstructors().iterator().next();
+		
+		Pattern p = Pattern.compile(multipleConcat("fields\\s*\\.\\s*put\\s*\\(\\s*", fieldId.toUpperCase(), "\\s*,\\s*", JepRiaToolkitUtil.getFieldIdAsParameter(fieldId, null), "(.*?)\\s*\\);"));
+		Matcher m = p.matcher(clientModuleDetailFormConstructor.getBlock().toString());
+		if (!m.find()){
+			return null;
+		}
+		
 		ModuleField result = new ModuleField(field);
 		ModuleDeclaration clientModuleDeclaration = getClientModuleRecordDefinition(moduleId);
-		String fieldId = result.getFieldId();
+		
 		for (MethodDeclaration method : clientModuleDeclaration.getMethods()){
 			if ("buildtypemap".equalsIgnoreCase(method.getName())){
-				Pattern p = Pattern.compile(multipleConcat("put\\(\\s*", fieldId.toUpperCase(), "\\s*,\\s*(.*?)\\)"));
-				Matcher m = p.matcher(method.getBody().toString());
+				p = Pattern.compile(multipleConcat("put\\(\\s*", fieldId.toUpperCase(), "\\s*,\\s*(.*?)\\)"));
+				m = p.matcher(method.getBody().toString());
 				if (m.find()){
 					result.setFieldType(m.group(1));
 				}
 			}
 			else if ("buildlikemap".equalsIgnoreCase(method.getName())){
-				Pattern p = Pattern.compile(multipleConcat("put\\(\\s*", fieldId.toUpperCase(), "\\s*,\\s*(.*?)\\)"));
-				Matcher m = p.matcher(method.getBody().toString());
+				p = Pattern.compile(multipleConcat("put\\(\\s*", fieldId.toUpperCase(), "\\s*,\\s*(.*?)\\)"));
+				m = p.matcher(method.getBody().toString());
 				if (m.find()){
 					result.setFieldLike(m.group(1));
 				}
@@ -296,33 +389,62 @@ public class ApplicationStructureParser extends Task implements JepRiaToolkitCon
 		String fieldDetailFormNameEn = clientModuleResourceBundleEn.getString(multipleConcat(initSmall(moduleId), ".detail.", fieldId.toLowerCase()));
 		result.setFieldDetailFormNameEn(NO_NAME.equalsIgnoreCase(fieldDetailFormNameEn) ? null : fieldDetailFormNameEn);
 		
-		result.setFieldListFormName(null);
-		result.setFieldListFormNameEn(null);
-		
-		String clientModuleDetailFormViewImplPath = convertPatternInRealPath(
-				replacePathWithModuleId(getDefinitionProperty(CLIENT_MODULE_DETAIL_FORM_VIEW_IMPL_PATH_TEMPLATE_PROPERTY, 
-						multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "src/java/com/technology/{0}/{1}/{2}/client/ui/form/detail/{3}DetailFormViewImpl.java")
-				), moduleId));
-		
-		ModuleDeclaration clientModuleDetailFormDeclaration = getModuleDeclaration(clientModuleDetailFormViewImplPath);
-		ConstructorDeclaration clientModuleDetailFormConstructor = clientModuleDetailFormDeclaration.getConstructors().iterator().next();
-		
-		Pattern p = Pattern.compile(multipleConcat("(.*?)\\s*", JepRiaToolkitUtil.getFieldIdAsParameter(fieldId, null), "(.*?)\\s*=\\s*new\\s*(.*?)\\("));
-		Matcher m = p.matcher(clientModuleDetailFormConstructor.getBlock().toString());
+		p = Pattern.compile(multipleConcat("(.*?)\\s*", JepRiaToolkitUtil.getFieldIdAsParameter(fieldId, null), "(.*?)\\s*=\\s*new\\s*(.*?)\\("));
+		m = p.matcher(clientModuleDetailFormConstructor.getBlock().toString());
 		if (m.find()){
-			field.setFieldWidget(m.group(3));
+			result.setFieldWidget(m.group(3));
+		}
+		p = Pattern.compile(multipleConcat(JepRiaToolkitUtil.getFieldIdAsParameter(fieldId, null), "(.*?)\\.setFieldWidth\\((.*?)\\);"));
+		m = p.matcher(clientModuleDetailFormConstructor.getBlock().toString());
+		if (m.find()){
+			result.setFieldWidth(m.group(2));
+		}
+		p = Pattern.compile(multipleConcat(JepRiaToolkitUtil.getFieldIdAsParameter(fieldId, null), "(.*?)\\.setLabelWidth\\((.*?)\\);"));
+		m = p.matcher(clientModuleDetailFormConstructor.getBlock().toString());
+		if (m.find()){
+			result.setLabelWidth(m.group(2));
+		}
+		p = Pattern.compile(multipleConcat("setFieldMaxLength\\(", fieldId.toUpperCase(),",\\s*(.*?)\\);"));
+		m = p.matcher(clientModuleDetailFormConstructor.getBlock().toString());
+		if (m.find()){
+			result.setFieldMaxLength(m.group(1));
 		}
 		
 		return result;
 	}
 	
 	public static ModuleField prepareListFormModuleField(String moduleId, ModuleField field){
+		
+		String clientModuleListFormViewImplPath = convertPatternInRealPath(
+				replacePathWithModuleId(getDefinitionProperty(CLIENT_MODULE_LIST_FORM_VIEW_IMPL_PATH_TEMPLATE_PROPERTY, 
+						multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "src/java/com/technology/{0}/{1}/{2}/client/ui/form/list/{3}ListFormViewImpl.java")
+				), moduleId));
+		
+		ModuleDeclaration clientModuleListFormDeclaration = getModuleDeclaration(clientModuleListFormViewImplPath);
+		
+		String columnConfiguration = null;
+		for (MethodDeclaration method : clientModuleListFormDeclaration.getMethods()){
+			if ("getColumnConfigurations".equalsIgnoreCase(method.getName())){
+				columnConfiguration = method.toString();
+				break;
+			}
+		}
+		String fieldId = field.getFieldId();
 		ModuleField result = new ModuleField(field);
-		String fieldId = result.getFieldId();
+		Pattern p = Pattern.compile(multipleConcat("new\\s*JepColumn\\s*\\(\\s*", fieldId.toUpperCase(),",\\s*", initSmall(moduleId),"Text\\.", initSmall(moduleId), "_list_", fieldId.toLowerCase(), "\\s*\\(\\s*\\)\\s*,\\s*(.*?)\\s*,"));
+		Matcher m = p.matcher(columnConfiguration);
+		if (m.find()){
+			String columnWidth = m.group(1);
+			result.setColumnWidth(DEFAULT_FIELD_WIDTH.equalsIgnoreCase(columnWidth) ? null : columnWidth);
+		}
+		else { 
+			return null;
+		}
+		
 		String clientModuleResourcePath = convertPatternInRealPath(
-					replacePathWithModuleId(getDefinitionProperty(CLIENT_MODULE_TEXT_RESOURCE_PATH_TEMPLATE_PROPERTY, 
-							multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/shared/text/{3}Text_Source.properties")
-					), moduleId));
+				replacePathWithModuleId(getDefinitionProperty(CLIENT_MODULE_TEXT_RESOURCE_PATH_TEMPLATE_PROPERTY, 
+						multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/shared/text/{3}Text_Source.properties")
+				), moduleId));
 		
 		String clientModuleResourceEnPath = convertPatternInRealPath(
 				replacePathWithModuleId(getDefinitionProperty(CLIENT_MODULE_TEXT_RESOURCE_EN_PATH_TEMPLATE_PROPERTY, 
@@ -337,9 +459,6 @@ public class ApplicationStructureParser extends Task implements JepRiaToolkitCon
 		
 		String fieldListFormNameEn = clientModuleResourceBundleEn.getString(multipleConcat(initSmall(moduleId), ".list.", fieldId.toLowerCase()));
 		result.setFieldListFormNameEn(NO_NAME.equalsIgnoreCase(fieldListFormNameEn) ? null : fieldListFormNameEn);
-		
-		result.setFieldDetailFormName(null);
-		result.setFieldDetailFormNameEn(null);
 		
 		return result;
 	}

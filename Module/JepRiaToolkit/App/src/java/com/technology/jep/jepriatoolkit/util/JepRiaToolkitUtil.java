@@ -1349,8 +1349,10 @@ public final class JepRiaToolkitUtil implements JepRiaToolkitConstant {
 					module.getToolBarButtons().add(
 							new ModuleButton(buttonId, !isEmpty(workstates) ? workstates.toArray(new WorkstateEnum[workstates.size()])
 									: new WorkstateEnum[] {}, node.getAttribute(BUTTON_IMAGE_ATTRIBUTE), node.getAttribute(BUTTON_EVENT_ATTRIBUTE), node
-									.getAttribute(BUTTON_TEXT_ATTRIBUTE), node.getAttribute(BUTTON_NAME_ATTRIBUTE), node
-									.getAttribute(BUTTON_NAME_EN_ATTRIBUTE)).setSeparator(!nodes.item(i).getNodeName()
+									.getAttribute(BUTTON_TEXT_ATTRIBUTE)
+//									, node.getAttribute(BUTTON_NAME_ATTRIBUTE)
+//									, node.getAttribute(BUTTON_NAME_EN_ATTRIBUTE)
+									).setSeparator(!nodes.item(i).getNodeName()
 									.equalsIgnoreCase(BUTTON_TAG_NAME)));
 				}
 			}

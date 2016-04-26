@@ -37,7 +37,7 @@ import com.technology.jep.jepria.client.ui.WorkstateEnum;
 import com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil;
 
 //Указание атрибутов тэга происходит в обратном порядке, вложенных элементов/тэгов - в прямом.
-@XmlType(propOrder = {"fieldType", "fieldId"})
+@XmlType(propOrder = {"fieldMaxLength", "labelWidth", "columnWidth", "fieldWidth", "fieldWidget", "fieldLike", "fieldType", "fieldDetailFormNameEn", "fieldDetailFormName", "fieldListFormNameEn", "fieldListFormName", "fieldId"})
 @XmlRootElement(name = FIELD_TAG_NAME)
 @XmlAccessorType(XmlAccessType.NONE)
 public class ModuleField {
@@ -60,15 +60,15 @@ public class ModuleField {
 	private String fieldLike;
 	@XmlTransient
 	private String fieldWidget;
-	@XmlTransient
+	@XmlAttribute(name=FIELD_MAX_LENGTH_ATTRIBUTE)
 	private String fieldMaxLength;
-	@XmlTransient
+	@XmlAttribute(name=FIELD_WIDTH_ATTRIBUTE)
 	private String fieldWidth;
-	@XmlTransient
+	@XmlAttribute(name=FIELD_WIDTH_ATTRIBUTE)
 	private String columnWidth;
 	@XmlTransient
 	private String fieldHeight;
-	@XmlTransient
+	@XmlAttribute(name=FIELD_LABEL_WIDTH_ATTRIBUTE)
 	private String labelWidth;
 	@XmlTransient
 	private Integer listFormIndex;
@@ -126,19 +126,19 @@ public class ModuleField {
 	@SuppressWarnings("unused")
 	private ModuleField(){}
 	
-	public ModuleField(String moduleId, String fieldId){
+	public ModuleField(String moduleId, String fieldId, String fieldType){
 		setModuleId(moduleId);
 		setFieldId(fieldId);
+		setFieldType(fieldType);
 	}
 	
 	public ModuleField(ModuleField mf){
-		this(mf.moduleId, mf.fieldId);
+		this(mf.moduleId, mf.fieldId, mf.fieldType);
 	}
 	
 	public ModuleField(String moduleId, String fieldId, String fieldType, String fieldName, String fieldNameEn, String fieldLike, String fieldWidget, String fieldMaxLength, String fieldWidth, String labelWidth, String fieldHeight, String visibleWorkstates, String mandatoryWorkstates, String editableWorkstates, String enableWorkstates){
-		this(moduleId, fieldId);
+		this(moduleId, fieldId, fieldType);
 		
-		setFieldType(fieldType);
 		setFieldListFormName(fieldName);
 		setFieldListFormNameEn(fieldNameEn);
 		setFieldDetailFormName(fieldName);
@@ -331,7 +331,7 @@ public class ModuleField {
 		}
 	}
 	public String getColumnWidth() {
-		return isEmpty(columnWidth) ? Integer.toString(150) : columnWidth;
+		return isEmpty(columnWidth) ? DEFAULT_FIELD_WIDTH : columnWidth;
 	}
 	public void setColumnWidth(String columnWidth) {
 		this.columnWidth = columnWidth;
