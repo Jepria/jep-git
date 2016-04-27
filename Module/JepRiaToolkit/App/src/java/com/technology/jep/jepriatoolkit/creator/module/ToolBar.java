@@ -1,6 +1,9 @@
 package com.technology.jep.jepriatoolkit.creator.module;
 
-import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.*;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.BUTTON_TAG_NAME;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.TOOLBAR_PRESENTER_ATTRIBUTE;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.TOOLBAR_TAG_NAME;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.TOOLBAR_VIEW_ATTRIBUTE;
 
 import java.util.List;
 
@@ -12,7 +15,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-import com.technology.jep.jepriatoolkit.creator.module.adapter.BooleanAdapter;
+import com.technology.jep.jepriatoolkit.creator.module.adapter.ReverseBooleanAdapter;
 
 //Указание атрибутов тэга происходит в обратном порядке, вложенных элементов/тэгов - в прямом.
 @XmlType(propOrder = {"buttons", "view", "presenter"})
@@ -21,11 +24,11 @@ import com.technology.jep.jepriatoolkit.creator.module.adapter.BooleanAdapter;
 public class ToolBar {
 
 	@XmlAttribute(name=TOOLBAR_PRESENTER_ATTRIBUTE)
-	@XmlJavaTypeAdapter(BooleanAdapter.class)
+	@XmlJavaTypeAdapter(ReverseBooleanAdapter.class)
 	private Boolean presenter;
 	
 	@XmlAttribute(name=TOOLBAR_VIEW_ATTRIBUTE)
-	@XmlJavaTypeAdapter(BooleanAdapter.class)
+	@XmlJavaTypeAdapter(ReverseBooleanAdapter.class)
 	private Boolean view;
 	
 	@XmlElement(name = BUTTON_TAG_NAME)

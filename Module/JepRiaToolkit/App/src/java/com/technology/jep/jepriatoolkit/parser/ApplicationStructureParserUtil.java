@@ -42,6 +42,8 @@ public class ApplicationStructureParserUtil {
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public static ModuleDeclaration getModuleDeclaration(String complitionUnitPath){
 		CompilationUnit compilationUnit = getCompilationUnit(complitionUnitPath);
+		if (compilationUnit == null) return null;
+		
 		final ModuleDeclaration module = new ModuleDeclaration();
 		compilationUnit.accept(new VoidVisitorAdapter() {
 			@Override

@@ -11,6 +11,90 @@ import static com.technology.jep.jepria.shared.field.JepTypeEnum.DATE;
 import static com.technology.jep.jepria.shared.field.JepTypeEnum.INTEGER;
 import static com.technology.jep.jepria.shared.field.JepTypeEnum.STRING;
 import static com.technology.jep.jepria.shared.field.JepTypeEnum.TIME;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.ALPHABET_LOWER_CASE;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.ALPHABET_UPPER_CASE;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.APPLICATION_SETTING_FILE_ENDING;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.BUILD_FILE;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.BUTTON_ENABLE_STATES_ATTRIBUTE;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.BUTTON_EVENT_ATTRIBUTE;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.BUTTON_IDENTIFICATOR_SUFFIX;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.BUTTON_ID_ATTRIBUTE;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.BUTTON_IMAGE_ATTRIBUTE;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.BUTTON_TAG_NAME;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.BUTTON_TEXT_ATTRIBUTE;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.CURRENT_DIRECTORY_ENVIRONMENT_VARIABLE;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.DATABASE_PARAMETERS_TAG_NAME;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.DATABASE_PREFIX_ATTRIBUTE_NAME;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.DATABASE_TAG_NAME;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.DBL_CLICK_NAME_ATTRIBUTE;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.DB_PACKAGE_ATTRIBUTE;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.DEFAULT_HTTP_PORT;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.DETAIL_FORM_TAG_NAME;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.DISPLAY_VALUE_SUFFIX;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.DOT;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.END_OF_LINE;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.ERROR_PREFIX;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.EXCEL_BUTTON_ID;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.FIELD_EDITABLE_WORKSTATES_ATTRIBUTE;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.FIELD_ENABLE_WORKSTATES_ATTRIBUTE;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.FIELD_HEIGHT_ATTRIBUTE;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.FIELD_ID_ATTRIBUTE;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.FIELD_LABEL_WIDTH_ATTRIBUTE;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.FIELD_MANDATORY_WORKSTATES_ATTRIBUTE;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.FIELD_MAX_LENGTH_ATTRIBUTE;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.FIELD_NAME_ATTRIBUTE;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.FIELD_NAME_EN_ATTRIBUTE;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.FIELD_TAG_NAME;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.FIELD_TYPE_ATTRIBUTE;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.FIELD_VISIBLE_WORKSTATES_ATTRIBUTE;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.FIELD_WIDGET_ATTRIBUTE;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.FIELD_WIDTH_ATTRIBUTE;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.FILE_STRUCTURE_PATTERN;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.FORMS_TAG_NAME;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.HTTP_PROTOCOL;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.IDENTIFICATOR_CODE_SUFFIX;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.IDENTIFICATOR_SUFFIX;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.INHERITS_MAIN_GWT_XML_TAG_NAME;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.JEP_CHECKBOX_FIELD;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.JEP_COMBOBOX_FIELD;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.JEP_DATE_FIELD;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.JEP_FILE_FIELD;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.JEP_IMAGE_FIELD;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.JEP_LIST_FIELD;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.JEP_MONEY_FIELD;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.JEP_NUMBER_FIELD;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.JEP_TEXT_AREA_FIELD;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.JEP_TEXT_FIELD;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.JEP_TIME_FIELD;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.LEFT_CURLY_BRACKET;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.LIST_FORM_DND_NAME_ATTRIBUTE;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.LIST_FORM_GROUP_FIELD_NAME_ATTRIBUTE;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.LIST_FORM_PRESENTER_ATTRIBUTE;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.LIST_FORM_TAG_NAME;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.MODULE_DATASOURCE_ATTRIBUTE;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.MODULE_ID_ATTRIBUTE;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.MODULE_PRIMARY_KEY_ATTRIBUTE;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.MODULE_ROLES_ATTRIBUTE;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.MODULE_ROLE_ATTRIBUTE;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.MODULE_STATUSBAR_ATTRIBUTE;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.MODULE_TABLE_NAME_ATTRIBUTE;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.MODULE_TAG_NAME;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.MODULE_TOOLBAR_ATTRIBUTE;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.OFF;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.OPMN_PROTOCOL;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.PATH_SEPARATOR;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.PRESENTER_BOBY_TAG_NAME;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.REGEXP_FOR_BLANK;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.SEPARATOR;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.SEPARATOR_TAG_NAME;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.TOOLBAR_PRESENTER_ATTRIBUTE;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.TOOLBAR_TAG_NAME;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.TOOLBAR_VIEW_ATTRIBUTE;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.UNDEFINED_INT;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.UNDERSCORE;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.UTF_8;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.WHITE_SPACE;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.applicationResourceBundle;
 import static java.text.MessageFormat.format;
 import static org.w3c.dom.Node.ELEMENT_NODE;
 
@@ -76,12 +160,13 @@ import org.xml.sax.SAXException;
 
 import com.technology.jep.jepria.client.ui.WorkstateEnum;
 import com.technology.jep.jepria.shared.field.JepTypeEnum;
-import com.technology.jep.jepriatoolkit.JepRiaToolkitConstant;
+import com.technology.jep.jepriatoolkit.creator.module.Db;
+import com.technology.jep.jepriatoolkit.creator.module.FunctionParameters;
 import com.technology.jep.jepriatoolkit.creator.module.Module;
 import com.technology.jep.jepriatoolkit.creator.module.ModuleButton;
 import com.technology.jep.jepriatoolkit.creator.module.ModuleField;
 
-public final class JepRiaToolkitUtil implements JepRiaToolkitConstant {
+public final class JepRiaToolkitUtil {
 
 	private static final String WIN_CHARSET = "windows-1251";
 	
@@ -166,9 +251,7 @@ public final class JepRiaToolkitUtil implements JepRiaToolkitConstant {
 
 			writer.close();
 		} catch (Exception e) {
-			//e.printStackTrace();
-			echoMessage(
-					multipleConcat(ERROR_PREFIX, e.getLocalizedMessage()));
+			echoMessage(multipleConcat(ERROR_PREFIX, e.getLocalizedMessage()));
 		}
 	}
 
@@ -842,11 +925,11 @@ public final class JepRiaToolkitUtil implements JepRiaToolkitConstant {
 	public static String getNameFromID(String fieldId){
 		if (isEmpty(fieldId)) return "";
 		
-		String[] results = fieldId.toLowerCase().replaceAll(UNDERSCORE, " ").split(REGEXP_FOR_BLANK);
+		String[] results = fieldId.toLowerCase().replaceAll(UNDERSCORE, WHITE_SPACE).split(REGEXP_FOR_BLANK);
 		StringBuilder result = new StringBuilder();
 		for (String res : results){
 			result
-				.append(isEmpty(result.toString()) ? "" : " ")
+				.append(isEmpty(result.toString()) ? "" : WHITE_SPACE)
 				.append(initCap(res));
 		}
 		return result.toString();
@@ -1176,7 +1259,7 @@ public final class JepRiaToolkitUtil implements JepRiaToolkitConstant {
 	 * @param jepApplicationDoc Файл структуры проекта
 	 * @param recordField Элемент-поле
 	 */
-	private static void detailizedModuleFieldAsParameters(Document jepApplicationDoc, ModuleField recordField) {
+	private static void detailizedModuleFieldAsParameters(Document jepApplicationDoc, Module module, ModuleField recordField) {
 		String fieldId = recordField.getFieldId();
 		String moduleId = recordField.getModuleId();
 		try {
@@ -1187,7 +1270,8 @@ public final class JepRiaToolkitUtil implements JepRiaToolkitConstant {
 							DATABASE_TAG_NAME, "/find[@", DATABASE_PARAMETERS_TAG_NAME, "]", "/@", DATABASE_PARAMETERS_TAG_NAME));
 			String findParameters = (String) expr.evaluate(jepApplicationDoc, XPathConstants.STRING);
 			List<String> parameters = Arrays.asList(findParameters.replaceAll(WHITE_SPACE, "").toUpperCase().split(SEPARATOR));
-
+			Db db = module.getDb();
+			if (!isEmpty(findParameters)) db.setFind(new FunctionParameters(findParameters));
 			recordField.setFindParameter(!isEmpty(findParameters) && parameters.contains(fieldId));
 
 			xpath.reset();
@@ -1195,6 +1279,7 @@ public final class JepRiaToolkitUtil implements JepRiaToolkitConstant {
 					"']", PATH_SEPARATOR, DATABASE_TAG_NAME, "/create[@", DATABASE_PARAMETERS_TAG_NAME, "]", "/@", DATABASE_PARAMETERS_TAG_NAME));
 			String createParameters = (String) expr.evaluate(jepApplicationDoc, XPathConstants.STRING);
 			parameters = Arrays.asList(createParameters.replaceAll(WHITE_SPACE, "").toUpperCase().split(SEPARATOR));
+			if (!isEmpty(createParameters)) db.setCreate(new FunctionParameters(createParameters));
 			recordField.setCreateParameter(!isEmpty(createParameters) && parameters.contains(fieldId));
 
 			xpath.reset();
@@ -1202,6 +1287,7 @@ public final class JepRiaToolkitUtil implements JepRiaToolkitConstant {
 					"']", PATH_SEPARATOR, DATABASE_TAG_NAME, "/update[@", DATABASE_PARAMETERS_TAG_NAME, "]", "/@", DATABASE_PARAMETERS_TAG_NAME));
 			String updateParameters = (String) expr.evaluate(jepApplicationDoc, XPathConstants.STRING);
 			parameters = Arrays.asList(updateParameters.replaceAll(WHITE_SPACE, "").toUpperCase().split(SEPARATOR));
+			if (!isEmpty(updateParameters)) db.setUpdate(new FunctionParameters(updateParameters));
 			recordField.setUpdateParameter(!isEmpty(updateParameters) && parameters.contains(fieldId));
 
 			recordField.setDeleteParameter(recordField.getIsPrimaryKey());
@@ -1289,7 +1375,7 @@ public final class JepRiaToolkitUtil implements JepRiaToolkitConstant {
 		try {
 			detailizedModuleFieldAsDetailed(jepApplicationDoc, module, recordField);
 			detailizedModuleFieldAsListed(jepApplicationDoc, module, recordField);
-			detailizedModuleFieldAsParameters(jepApplicationDoc, recordField);
+			detailizedModuleFieldAsParameters(jepApplicationDoc, module, recordField);
 			detailizedPrefixModuleFieldParameters(jepApplicationDoc, module);
 		}
 		catch (Exception e) {
@@ -1349,11 +1435,8 @@ public final class JepRiaToolkitUtil implements JepRiaToolkitConstant {
 					module.getToolBarButtons().add(
 							new ModuleButton(buttonId, !isEmpty(workstates) ? workstates.toArray(new WorkstateEnum[workstates.size()])
 									: new WorkstateEnum[] {}, node.getAttribute(BUTTON_IMAGE_ATTRIBUTE), node.getAttribute(BUTTON_EVENT_ATTRIBUTE), node
-									.getAttribute(BUTTON_TEXT_ATTRIBUTE)
-//									, node.getAttribute(BUTTON_NAME_ATTRIBUTE)
-//									, node.getAttribute(BUTTON_NAME_EN_ATTRIBUTE)
-									).setSeparator(!nodes.item(i).getNodeName()
-									.equalsIgnoreCase(BUTTON_TAG_NAME)));
+									.getAttribute(BUTTON_TEXT_ATTRIBUTE))
+									.setSeparator(!nodes.item(i).getNodeName().equalsIgnoreCase(BUTTON_TAG_NAME)));
 				}
 			}
 		}
@@ -1730,7 +1813,6 @@ public final class JepRiaToolkitUtil implements JepRiaToolkitConstant {
 						String nameAttr = el.getAttribute("name");
 						if (nameAttr.startsWith("com.technology") && 
 								!nameAttr.equalsIgnoreCase("com.technology.jep.jepria.JepRia")){
-							echoMessage(nameAttr);
 							result.add(nameAttr.substring(nameAttr.lastIndexOf(DOT) + 1));
 						}
 					}
@@ -1836,5 +1918,22 @@ public final class JepRiaToolkitUtil implements JepRiaToolkitConstant {
 	
 	public static String extractStringFromQuotes(String strWithQuotes){
 		return strWithQuotes.replaceAll("\"", "");
+	}
+	
+	/**
+	 * Сравнение объектов на равенство.
+	 * 
+	 * @param obj1			первый сравниваемый объект
+	 * @param obj2			второй сравниваемый объект
+	 * @return признак равенства сравниваемых объектов
+	 */
+	public static boolean equalWithNull(Object obj1, Object obj2) {
+		if (obj1 == obj2) {
+			return true;
+		} else if (obj1 == null) {
+			return false;
+		} else {
+			return obj1.equals(obj2);
+		}
 	}
 }

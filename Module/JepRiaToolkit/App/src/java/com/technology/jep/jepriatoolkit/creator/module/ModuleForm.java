@@ -1,6 +1,6 @@
 package com.technology.jep.jepriatoolkit.creator.module;
 
-import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.FIELD_TAG_NAME;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.*;
 
 import java.util.List;
 
@@ -26,5 +26,22 @@ public abstract class ModuleForm {
 
 	public void setFields(List<ModuleField> fields) {
 		this.fields = fields;
+	}
+	
+	public boolean contains(String fieldId){
+		for (ModuleField field : fields){
+			if (fieldId.equalsIgnoreCase(field.getFieldId())){
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public String getFieldIds(){
+		StringBuilder sb = new StringBuilder();
+		for (ModuleField field : fields){
+			sb.append(field.getFieldId()).append(SEPARATOR);
+		}
+		return sb.toString();
 	}
 }

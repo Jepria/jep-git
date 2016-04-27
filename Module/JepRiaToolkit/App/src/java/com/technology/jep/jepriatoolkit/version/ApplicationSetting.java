@@ -1,8 +1,6 @@
 package com.technology.jep.jepriatoolkit.version;
 
-import com.technology.jep.jepriatoolkit.JepRiaToolkitConstant;
-
-public class ApplicationSetting implements JepRiaToolkitConstant {
+public class ApplicationSetting {
 	
 	private String svnRoot;
 	private String initialPath;

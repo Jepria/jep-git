@@ -1,5 +1,11 @@
 package com.technology.jep.jepriatoolkit.version;
 
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.BUILD_FILE;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.END_OF_LINE;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.ERROR_PREFIX;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.HTTP_PROTOCOL;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.PATH_SEPARATOR;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.TAB;
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.checkParameter;
 
 import java.io.IOException;
@@ -21,10 +27,9 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
 
-import com.technology.jep.jepriatoolkit.JepRiaToolkitConstant;
 import com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil;
 
-public class AppInstallTask extends Task implements JepRiaToolkitConstant {
+public class AppInstallTask extends Task {
 
 	// атрибуты таска
 	private String action, port, deploymentPath, loadOperatorId, 

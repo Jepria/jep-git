@@ -1,5 +1,10 @@
 package com.technology.jep.jepriatoolkit.creator.navigation;
 
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.DOT;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.END_OF_LINE;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.ERROR_PREFIX;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.NAVIGATION_MENU_DIR_NAME;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.NAVIGATION_TEXT_DIR_NAME;
 import static com.technology.jep.jepriatoolkit.creator.ApplicationStructureCreator.application;
 import static com.technology.jep.jepriatoolkit.creator.ApplicationStructureCreator.forms;
 import static com.technology.jep.jepriatoolkit.creator.ApplicationStructureCreator.getMainFormNameIfExist;
@@ -17,12 +22,11 @@ import org.apache.tools.ant.Task;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import com.technology.jep.jepriatoolkit.JepRiaToolkitConstant;
 import com.technology.jep.jepriatoolkit.creator.module.Module;
 import com.technology.jep.jepriatoolkit.creator.module.ModuleField;
 import com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil;
 
-public class NavigationGenerator extends Task implements JepRiaToolkitConstant {
+public class NavigationGenerator extends Task {
 	
 	/**
 	 * Основной метод, который выполняет Task 

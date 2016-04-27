@@ -10,16 +10,7 @@ import static com.technology.jep.jepria.shared.field.JepTypeEnum.INTEGER;
 import static com.technology.jep.jepria.shared.field.JepTypeEnum.TEXT_FILE;
 import static com.technology.jep.jepria.shared.field.JepTypeEnum.TIME;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.*;
-import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.getAppropriateFieldType;
-import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.getFieldTypeAsEnum;
-import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.getOptionField;
-import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.getWorkStateAsString;
-import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.getWorkStates;
-import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.initCap;
-import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.isEditFormState;
-import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.isEmpty;
-import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.multipleConcat;
-import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.subtractFieldSuffix;
+import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -126,19 +117,44 @@ public class ModuleField {
 	@SuppressWarnings("unused")
 	private ModuleField(){}
 	
-	public ModuleField(String moduleId, String fieldId, String fieldType){
+	public ModuleField(String moduleId, String fieldId){
 		setModuleId(moduleId);
 		setFieldId(fieldId);
-		setFieldType(fieldType);
 	}
 	
-	public ModuleField(ModuleField mf){
-		this(mf.moduleId, mf.fieldId, mf.fieldType);
+	public ModuleField(ModuleField mf, FieldType type){
+		setModuleId(mf.moduleId);
+		setFieldId(mf.fieldId);
+		
+		switch (type) {
+			case FORM_DETAIL : {
+				setFieldDetailFormName(equalWithNull(mf.fieldDetailFormName, mf.fieldListFormName) || NO_NAME.equalsIgnoreCase(mf.fieldDetailFormName) ? null : mf.fieldDetailFormName);
+				setFieldDetailFormNameEn(equalWithNull(mf.fieldDetailFormNameEn, mf.fieldListFormNameEn) || NO_NAME.equalsIgnoreCase(mf.fieldDetailFormNameEn) ? null : mf.fieldDetailFormNameEn);
+				setFieldLike(mf.fieldLike);
+				setFieldWidget(mf.fieldWidget);
+				setFieldMaxLength(mf.fieldMaxLength);
+				setFieldWidth(mf.fieldWidth);
+				setLabelWidth(mf.labelWidth);
+				break;
+			}
+			case FORM_LIST : {
+				setFieldListFormName(equalWithNull(mf.fieldDetailFormName, mf.fieldListFormName) || NO_NAME.equalsIgnoreCase(mf.fieldListFormName) ? null : mf.fieldListFormName);
+				setFieldListFormNameEn(equalWithNull(mf.fieldDetailFormNameEn, mf.fieldListFormNameEn) || NO_NAME.equalsIgnoreCase(mf.fieldListFormNameEn) ? null : mf.fieldListFormNameEn);
+				setColumnWidth(JepRiaToolkitUtil.isEmpty(mf.columnWidth) ? null : mf.columnWidth);
+				break;
+			}
+			case RECORD : {
+				setFieldListFormName(equalWithNull(mf.fieldDetailFormName, mf.fieldListFormName) && !NO_NAME.equalsIgnoreCase(mf.fieldListFormName) ? mf.fieldListFormName : null);
+				setFieldListFormNameEn(equalWithNull(mf.fieldDetailFormNameEn, mf.fieldListFormNameEn)  && !NO_NAME.equalsIgnoreCase(mf.fieldListFormNameEn) ? mf.fieldListFormNameEn : null);
+				setFieldType(mf.fieldType);
+				break;
+			}
+		}
 	}
 	
 	public ModuleField(String moduleId, String fieldId, String fieldType, String fieldName, String fieldNameEn, String fieldLike, String fieldWidget, String fieldMaxLength, String fieldWidth, String labelWidth, String fieldHeight, String visibleWorkstates, String mandatoryWorkstates, String editableWorkstates, String enableWorkstates){
-		this(moduleId, fieldId, fieldType);
-		
+		this(moduleId, fieldId);
+		setFieldType(fieldType);
 		setFieldListFormName(fieldName);
 		setFieldListFormNameEn(fieldNameEn);
 		setFieldDetailFormName(fieldName);

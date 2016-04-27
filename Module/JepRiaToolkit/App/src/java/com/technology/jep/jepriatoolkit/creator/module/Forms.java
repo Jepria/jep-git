@@ -21,8 +21,7 @@ public class Forms {
 	@XmlElement(name = LIST_FORM_TAG_NAME)
 	private ListForm listForm;
 	
-	@SuppressWarnings("unused")
-	private Forms(){}
+	public Forms(){}
 	
 	public Forms(DetailForm detailForm, ListForm listForm) {
 		setDetailForm(detailForm);

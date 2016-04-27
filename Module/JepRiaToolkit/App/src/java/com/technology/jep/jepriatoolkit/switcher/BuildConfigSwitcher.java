@@ -1,5 +1,11 @@
 package com.technology.jep.jepriatoolkit.switcher;
 
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.BUILD_CONFIG_FILE_NAME;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.BUILD_CONFIG_PATH_PREFIX;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.DOT;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.ERROR_PREFIX;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.WARNING_PREFIX;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.File;
@@ -15,11 +21,9 @@ import java.util.List;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Task;
 
-import com.technology.jep.jepriatoolkit.JepRiaToolkitConstant;
 import com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil;
 
-public class BuildConfigSwitcher extends Task implements
-		JepRiaToolkitConstant {
+public class BuildConfigSwitcher extends Task {
 
 	private String packageName, moduleName;
 	private String currentConfig, targetConfig;

@@ -1,5 +1,6 @@
 package com.technology.jep.jepriatoolkit.check;
 
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.*;
 import static org.w3c.dom.Node.ELEMENT_NODE;
 
 import java.io.FileInputStream;
@@ -21,7 +22,7 @@ import com.technology.jep.jepriatoolkit.JepRiaToolkitConstant;
 import com.technology.jep.jepriatoolkit.switcher.BuildConfigSwitcher;
 import com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil;
 
-public class ProductionBuildChecker extends Task implements JepRiaToolkitConstant {
+public class ProductionBuildChecker extends Task {
 	
 	//атрибуты таска
 	private String packageName, moduleName;

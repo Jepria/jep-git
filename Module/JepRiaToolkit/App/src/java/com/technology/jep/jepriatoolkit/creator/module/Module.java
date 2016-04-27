@@ -1,6 +1,7 @@
 package com.technology.jep.jepriatoolkit.creator.module;
 
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.DATABASE_TAG_NAME;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.END_OF_LINE;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.ERROR_PREFIX;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.FORMS_TAG_NAME;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.ID_ATTRIBUTE;
@@ -17,6 +18,7 @@ import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.isEmpty;
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.multipleConcat;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.activation.UnsupportedDataTypeException;
@@ -30,6 +32,7 @@ import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import com.technology.jep.jepriatoolkit.creator.module.adapter.BooleanAdapter;
+import com.technology.jep.jepriatoolkit.log.Logger;
 
 // Указание атрибутов тэга происходит в обратном порядке, вложенных элементов/тэгов - в прямом.
 @XmlType(propOrder = {"moduleRoles", "db", "record", "forms", "toolbar", "isStatusbarOff", "isToolBarOff", "moduleNameEn", "moduleName", "moduleId"})
@@ -88,8 +91,6 @@ public class Module {
 	private Record record;
 	@XmlElement(name=FORMS_TAG_NAME)
 	private Forms forms;
-	@XmlElement(name=TOOLBAR_TAG_NAME)
-	private ToolBar toolbar;
 	
 	@SuppressWarnings("unused")
 	private Module(){}
@@ -308,10 +309,94 @@ public class Module {
 	public void setForms(DetailForm detailForm, ListForm listForm){
 		this.forms = new Forms(detailForm, listForm);
 	}
+	
+	@XmlElement(name=TOOLBAR_TAG_NAME)
 	public ToolBar getToolbar() {
-		return toolbar;
+		ToolBar toolBar = new ToolBar();
+		toolBar.setButtons(toolbarButtons);
+		toolBar.setPresenter(hasToolBarPresenter);
+		toolBar.setView(hasToolBarView);
+		return toolBar;
 	}
-	public void setToolbar(ToolBar toolbar) {
-		this.toolbar = toolbar;
+	
+	public void uptodate(Module newModule){
+		List<ModuleField> fields = newModule.record.getFields();
+		for (ModuleField field : fields){
+			boolean exists = false;
+			String fieldId = field.getFieldId();
+			List<ModuleField> recordFields = record.getFields();
+			for (ModuleField originField : recordFields){
+				exists = fieldId.equalsIgnoreCase(originField.getFieldId()); 
+				if (exists){
+					break;
+				}
+			}
+			if (!exists){
+				Logger.appendMessage(multipleConcat("The record field '", fieldId, "' was added to application structure!"));
+				recordFields.add(field);
+			}
+		}
+		fields = newModule.forms.getListForm().getFields();
+		for (ModuleField field : fields){
+			boolean exists = false;
+			String fieldId = field.getFieldId();
+			List<ModuleField> listFields = forms.getListForm().getFields();
+			for (ModuleField originField : listFields){
+				exists = fieldId.equalsIgnoreCase(originField.getFieldId()); 
+				if (exists){
+					break;
+				}
+			}
+			if (!exists){
+				Logger.appendMessage(multipleConcat("The list form field '", fieldId, "' was added to application structure!"));
+				listFields.add(field);
+			}
+		}
+		fields = newModule.forms.getDetailForm().getFields();
+		for (ModuleField field : fields){
+			boolean exists = false;
+			String fieldId = field.getFieldId();
+			List<ModuleField> detailFields = forms.getDetailForm().getFields();
+			for (ModuleField originField : detailFields){
+				exists = fieldId.equalsIgnoreCase(originField.getFieldId()); 
+				if (exists){
+					break;
+				}
+			}
+			if (!exists){
+				Logger.appendMessage(multipleConcat("The detail form field '", fieldId, "' was added to application structure!"));
+				detailFields.add(field);
+			}
+		}
+		
+		List<ModuleField> currentFields = record.getFields();
+		ModuleForm currentForm = newModule.getRecord();
+		// check if all fields in xml presents in source code or maybe were deleted
+		for (ModuleField originmodulefield : currentFields){
+			String originModuleFieldId = originmodulefield.getFieldId();
+			if (!currentForm.contains(originModuleFieldId)){
+				Logger.appendMessage(multipleConcat("Pay attention that record field '", originModuleFieldId, "' has no source code! If you need, you can remove it manually!"));
+			}
+		}
+		
+		currentFields = forms.getDetailForm().getFields();
+		currentForm = newModule.getForms().getDetailForm();
+		// check if all fields in xml presents in source code or maybe were deleted
+		for (ModuleField originmodulefield : currentFields){
+			String originModuleFieldId = originmodulefield.getFieldId();
+			if (!currentForm.contains(originModuleFieldId)){
+				Logger.appendMessage(multipleConcat("Pay attention that detail form field '", originModuleFieldId, "' has no source code! If you need, you can remove it manually!"));
+			}
+		}
+		
+		currentFields = forms.getListForm().getFields();
+		currentForm = newModule.getForms().getListForm();
+		// check if all fields in xml presents in source code or maybe were deleted
+		for (ModuleField originmodulefield : currentFields){
+			String originModuleFieldId = originmodulefield.getFieldId();
+			if (!currentForm.contains(originModuleFieldId)){
+				Logger.appendMessage(multipleConcat("Pay attention that list form field '", originModuleFieldId, "' has no source code! If you need, you can remove it manually!"));
+			}
+		}
 	}
 }

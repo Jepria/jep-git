@@ -1,5 +1,6 @@
 package com.technology.jep.jepriatoolkit.creator;
 
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.*;
 import static com.technology.jep.jepriatoolkit.creator.ApplicationStructureCreatorUtil.convertTemplateToFile;
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.detailizedModuleField;
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.detailizedModuleForToolBar;
@@ -9,6 +10,7 @@ import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.getApplica
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.getDOM;
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.getDataSourceById;
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.getDefinitionProperty;
+import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.getFormDetailElementByModuleId;
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.getListOfAbsentFieldNameByModuleId;
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.getModuleFieldsById;
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.getModuleNodeById;
@@ -28,6 +30,7 @@ import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.runAntTarg
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.writeToFile;
 import static java.text.MessageFormat.format;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -44,19 +47,23 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import com.technology.jep.jepriatoolkit.JepRiaToolkitConstant;
 import com.technology.jep.jepriatoolkit.creator.module.Application;
 import com.technology.jep.jepriatoolkit.creator.module.Db;
+import com.technology.jep.jepriatoolkit.creator.module.DetailForm;
+import com.technology.jep.jepriatoolkit.creator.module.FieldType;
+import com.technology.jep.jepriatoolkit.creator.module.ListForm;
 import com.technology.jep.jepriatoolkit.creator.module.Module;
 import com.technology.jep.jepriatoolkit.creator.module.ModuleButton;
 import com.technology.jep.jepriatoolkit.creator.module.ModuleField;
 import com.technology.jep.jepriatoolkit.creator.module.ModuleInfo;
+import com.technology.jep.jepriatoolkit.creator.module.Modules;
+import com.technology.jep.jepriatoolkit.creator.module.Record;
 
 @SuppressWarnings("unchecked")
-public class ApplicationStructureCreator extends Task implements JepRiaToolkitConstant {
+public class ApplicationStructureCreator extends Task {
 
 	// Атрибут таска
-	private static String applicationStructureFile;
+	public static String applicationStructureFile;
 	// объект, хранящий характеристики приложения, извлекаемые из конфигурационного файла приложения	
 	public static Application application;
 	public static List<String> forms = new ArrayList<String>();
@@ -173,9 +180,9 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 						"' of tag 'application'!"));
 				return false;
 			}
-			else if (!moduleName.equals(applicationStructureFile.split(APPLICATION_SETTING_FILE_ENDING)[0])){
+			else if (!moduleName.equals(new File(applicationStructureFile).getName().split(APPLICATION_SETTING_FILE_ENDING)[0])){
 				echoMessage(multipleConcat(ERROR_PREFIX,
-						"Application setting XML is not correct! The attribute '", APPLICATION_NAME_ATTRIBUTE, "'=", application.getName(),
+						"Application setting XML is not correct! The attribute '", APPLICATION_NAME_ATTRIBUTE, "'='", moduleName,
 						"' doesn't match the file name '", applicationStructureFile, "'!"));
 				return false;
 			}
@@ -187,6 +194,8 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 
 			// инициализация списка форм с их потомками
 			forms = getAllModuleNodes(jepApplicationDoc);
+			application.setModuleIds(forms);
+			List<Module> modules = new ArrayList<Module>(forms.size());
 			for (int index = 0; index < forms.size(); index++) {
 				String formName = forms.get(index);
 				echoMessage(multipleConcat("Gather information about module '", application.getProjectPackage().toLowerCase(), DOT, application.getName().toLowerCase(), DOT, formName, "'"));
@@ -214,7 +223,8 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 
 				List<ModuleField> mfList = new ArrayList<ModuleField>();
 				List<Element> fields = getModuleFieldsById(jepApplicationDoc, formName);
-				if (!isEmpty(fields))
+				if (!isEmpty(fields)){
+					String primaryKey = getPrimaryKeyById(jepApplicationDoc, formName);
 					for (int i = 0; i < fields.size(); i++) {
 						Element field = (Element) fields.get(i);
 						String fieldId = isEmpty(field.getAttribute(FIELD_ID_ATTRIBUTE)) ? new String() : field
@@ -244,16 +254,44 @@ public class ApplicationStructureCreator extends Task implements JepRiaToolkitCo
 						if (!isEmpty(field.getAttribute(FIELD_LIKE_ATTRIBUTE)) && !m.hasLikeFields()) {
 							m.setHasLikeFields(true);
 						}
-						mf.setPrimaryKey(fieldId.equalsIgnoreCase(getPrimaryKeyById(jepApplicationDoc, formName)));
+						mf.setPrimaryKey(fieldId.equalsIgnoreCase(primaryKey));
 						// детализируем поле после парсинга форм: детальной и списочной
 						detailizedModuleField(jepApplicationDoc, m, mf);
 						mfList.add(mf);
 					}
-
+					
+					List<ModuleField> recordFields = new ArrayList<ModuleField>(mfList.size());
+					List<ModuleField> listFormFields = new ArrayList<ModuleField>();
+					List<ModuleField> detailFormFields = new ArrayList<ModuleField>();
+					for (ModuleField mf : mfList){
+						recordFields.add(new ModuleField(mf, FieldType.RECORD));
+						if (mf.getIsListFormField()){
+							listFormFields.add(new ModuleField(mf, FieldType.FORM_LIST));
+						}
+						if (mf.getIsDetailFormField()){
+							detailFormFields.add(new ModuleField(mf, FieldType.FORM_DETAIL));
+						}
+					}
+					Record record = new Record(recordFields);
+					record.setPrimaryKeyAndTableName(new String[]{primaryKey, m.getTable()});
+					m.setRecord(record);
+					// --- 
+					DetailForm detailForm = new DetailForm(detailFormFields);
+					Element formDetailElement = getFormDetailElementByModuleId(jepApplicationDoc, m.getModuleId());
+					if (formDetailElement != null){
+						NodeList presenterBodyNodes = formDetailElement.getElementsByTagName(PRESENTER_BOBY_TAG_NAME);
+						if (presenterBodyNodes != null && presenterBodyNodes.getLength() > 0){
+							detailForm.setPresenterBody(presenterBodyNodes.item(0).getTextContent());
+						}
+					}
+					
+					m.setForms(detailForm, new ListForm(listFormFields));
+				}
+				modules.add(m);
 				// добавляем соответствие модуля его списку полей
 				formFields.put(m, mfList);
 			}
-
+			application.setModules(new Modules(modules));
 			for (int i = 0; i < forms.size(); i++) {
 				List<String> nodesWithChildren = getNodesWithChildren(jepApplicationDoc, forms.get(i));
 				if (!isEmpty(nodesWithChildren))
