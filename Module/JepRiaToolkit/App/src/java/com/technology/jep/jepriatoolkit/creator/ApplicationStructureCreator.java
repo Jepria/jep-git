@@ -1254,8 +1254,8 @@ public class ApplicationStructureCreator extends Task {
 			boolean isToolBarOff = moduleInfo.getIsToolBarOff();
 			List<ModuleButton> toolBarCustomButtons = moduleInfo.getToolBarCustomButtons();
 			boolean hasCustomButtons = toolBarCustomButtons.size() > 0;
-			boolean hasToolBarPresenter = moduleInfo.getHasToolBarPresenter();
-			boolean hasToolBarView = moduleInfo.getHasToolBarView();
+			boolean hasToolBarPresenter = Boolean.TRUE.equals(moduleInfo.getHasToolBarPresenter());
+			boolean hasToolBarView = Boolean.TRUE.equals(moduleInfo.getHasToolBarView());
 			
 			if (!isStandardToolBar || isToolBarOff || hasToolBarPresenter || hasToolBarView) {
 				String formName = moduleInfo.getFormName();
@@ -1532,8 +1532,8 @@ public class ApplicationStructureCreator extends Task {
 					modInfo.setMainFormParentKey(mainFormParentKey);
 				}
 				boolean isJepToolBar = module.isStandardToolBar() && !module.isToolBarOff();
-				modInfo.setIsJepToolBarPresenter(isJepToolBar && !module.hasToolBarPresenter());
-				modInfo.setIsJepToolBarView(isJepToolBar && !module.hasToolBarView());
+				modInfo.setIsJepToolBarPresenter(isJepToolBar && Boolean.FALSE.equals(module.hasToolBarPresenter()));
+				modInfo.setIsJepToolBarView(isJepToolBar && Boolean.FALSE.equals(module.hasToolBarView()));
 				modInfo.setIsDblClickOff(module.isDblClickOff());
 				modInfo.setStandardToolBar(module.isStandardToolBar());
 				modInfo.setIsToolBarOff(module.isToolBarOff());

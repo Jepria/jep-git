@@ -32,7 +32,7 @@ public class ${form.formName}ToolBarPresenter<V extends ToolBarView, E extends <
 		super(place, clientFactory);
 	}
  
- 	<#if !form.isToolBarOff && !form.hasToolBarPresenter>
+ 	<#if !form.isToolBarOff && !form.hasToolBarPresenter??>
 	public void bind() {
 		<#list form.toolBarButtons as button>
 		<#if !button.isSeparator>

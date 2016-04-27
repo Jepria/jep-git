@@ -101,7 +101,6 @@ public class ApplicationStructureParser extends Task {
 	@Override
 	public void execute() throws BuildException {
 		
-		Logger.clearMessages();
 		// Obtain info about application from configuration file application.xml
 		String relativeApplicationXmlPath = getDefinitionProperty(APPLICATION_XML_PATH_TEMPLATE_PROPERTY, "src/resources/com/technology/{0}/{1}/application.xml");
 		List<String> names = extractFileNamesByPattern(relativeApplicationXmlPath);
@@ -406,6 +405,9 @@ public class ApplicationStructureParser extends Task {
 				if (m.find()){
 					// устанавливаем тип поля в исходном поле
 					field.setFieldType(m.group(1));
+				}
+				else {
+					Logger.appendMessageToTheEndOfForm(moduleId, multipleConcat("You should define type for field '", fieldId, "'"));
 				}
 			}
 			else if ("buildlikemap".equalsIgnoreCase(method.getName())){

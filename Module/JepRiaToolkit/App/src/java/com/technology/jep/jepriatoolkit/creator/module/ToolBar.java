@@ -25,28 +25,28 @@ public class ToolBar {
 
 	@XmlAttribute(name=TOOLBAR_PRESENTER_ATTRIBUTE)
 	@XmlJavaTypeAdapter(ReverseBooleanAdapter.class)
-	private Boolean presenter;
+	private Boolean presenter = null;
 	
 	@XmlAttribute(name=TOOLBAR_VIEW_ATTRIBUTE)
 	@XmlJavaTypeAdapter(ReverseBooleanAdapter.class)
-	private Boolean view;
+	private Boolean view = null;
 	
 	@XmlElement(name = BUTTON_TAG_NAME)
 	private List<ModuleButton> buttons = null;
 
-	public boolean isPresenter() {
+	public Boolean isPresenter() {
 		return presenter;
 	}
 
-	public void setPresenter(boolean presenter) {
+	public void setPresenter(Boolean presenter) {
 		this.presenter = presenter;
 	}
 
-	public boolean isView() {
+	public Boolean isView() {
 		return view;
 	}
 
-	public void setView(boolean view) {
+	public void setView(Boolean view) {
 		this.view = view;
 	}
 

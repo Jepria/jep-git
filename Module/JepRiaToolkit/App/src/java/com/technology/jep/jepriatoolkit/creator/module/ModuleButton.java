@@ -28,6 +28,7 @@ import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 
 import com.technology.jep.jepria.client.ui.WorkstateEnum;
+import com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil;
 
 //Указание атрибутов тэга происходит в обратном порядке, вложенных элементов/тэгов - в прямом.
 @XmlType(propOrder = {"workStatesAsString", "image", "event", "text", "buttonId"})
@@ -187,9 +188,9 @@ public class ModuleButton {
 	 */
 	public ModuleButton(String buttonId, WorkstateEnum[] workStates, String image, String event, String text){
 		this(buttonId, workStates);
-		setImage(image);
-		setEvent(event);
-		setText(text);
+		if (!JepRiaToolkitUtil.isEmpty(image)) setImage(image);
+		if (!JepRiaToolkitUtil.isEmpty(event)) setEvent(event);
+		if (!JepRiaToolkitUtil.isEmpty(text)) setText(text);
 	}
 	
 	public String getText() {

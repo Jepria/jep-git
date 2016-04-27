@@ -70,9 +70,9 @@ public class Module {
 	@XmlTransient
 	private boolean hasListFormPresenter = false;
 	@XmlTransient
-	private boolean hasToolBarPresenter = false;
+	private Boolean hasToolBarPresenter = null;
 	@XmlTransient
-	private boolean hasToolBarView = false;
+	private Boolean hasToolBarView = null;
 	@XmlAttribute(name=MODULE_TOOLBAR_ATTRIBUTE)
 	@XmlJavaTypeAdapter(BooleanAdapter.class)
 	private Boolean isToolBarOff = false;
@@ -183,16 +183,16 @@ public class Module {
 	public void setHasListFormPresenter(boolean hasListFormPresenter) {
 		this.hasListFormPresenter = hasListFormPresenter;
 	}
-	public boolean hasToolBarPresenter() {
+	public Boolean hasToolBarPresenter() {
 		return hasToolBarPresenter;
 	}
-	public void setHasToolBarPresenter(boolean hasToolBarPresenter) {
+	public void setHasToolBarPresenter(Boolean hasToolBarPresenter) {
 		this.hasToolBarPresenter = hasToolBarPresenter;
 	}
-	public boolean hasToolBarView() {
+	public Boolean hasToolBarView() {
 		return hasToolBarView;
 	}
-	public void setHasToolBarView(boolean hasToolBarView) {
+	public void setHasToolBarView(Boolean hasToolBarView) {
 		this.hasToolBarView = hasToolBarView;
 	}
 	public boolean isDNDOff() {
@@ -312,11 +312,14 @@ public class Module {
 	
 	@XmlElement(name=TOOLBAR_TAG_NAME)
 	public ToolBar getToolbar() {
-		ToolBar toolBar = new ToolBar();
-		toolBar.setButtons(toolbarButtons);
-		toolBar.setPresenter(hasToolBarPresenter);
-		toolBar.setView(hasToolBarView);
-		return toolBar;
+		if (!toolbarButtons.isEmpty() || hasToolBarPresenter != null || hasToolBarView != null) {
+			ToolBar toolBar = new ToolBar();
+			toolBar.setButtons(toolbarButtons);
+			toolBar.setPresenter(hasToolBarPresenter);
+			toolBar.setView(hasToolBarView);
+			return toolBar;
+		}
+		return null;
 	}
 	
 	public void uptodate(Module newModule){
@@ -332,7 +335,7 @@ public class Module {
 				}
 			}
 			if (!exists){
-				Logger.appendMessage(multipleConcat("The record field '", fieldId, "' was added to application structure!"));
+				Logger.appendMessageToForm(newModule.getModuleId(), multipleConcat("The record field '", fieldId, "' was added to application structure!"));
 				recordFields.add(field);
 			}
 		}
@@ -348,7 +351,7 @@ public class Module {
 				}
 			}
 			if (!exists){
-				Logger.appendMessage(multipleConcat("The list form field '", fieldId, "' was added to application structure!"));
+				Logger.appendMessageToForm(newModule.getModuleId(), multipleConcat("The list form field '", fieldId, "' was added to application structure!"));
 				listFields.add(field);
 			}
 		}
@@ -364,7 +367,7 @@ public class Module {
 				}
 			}
 			if (!exists){
-				Logger.appendMessage(multipleConcat("The detail form field '", fieldId, "' was added to application structure!"));
+				Logger.appendMessageToForm(newModule.getModuleId(), multipleConcat("The detail form field '", fieldId, "' was added to application structure!"));
 				detailFields.add(field);
 			}
 		}
@@ -375,7 +378,7 @@ public class Module {
 		for (ModuleField originmodulefield : currentFields){
 			String originModuleFieldId = originmodulefield.getFieldId();
 			if (!currentForm.contains(originModuleFieldId)){
-				Logger.appendMessage(multipleConcat("Pay attention that record field '", originModuleFieldId, "' has no source code! If you need, you can remove it manually!"));
+				Logger.appendMessageToForm(newModule.getModuleId(), multipleConcat("Pay attention that record field '", originModuleFieldId, "' has no source code! If you need, you can remove it manually!"));
 			}
 		}
 		
@@ -385,7 +388,7 @@ public class Module {
 		for (ModuleField originmodulefield : currentFields){
 			String originModuleFieldId = originmodulefield.getFieldId();
 			if (!currentForm.contains(originModuleFieldId)){
-				Logger.appendMessage(multipleConcat("Pay attention that detail form field '", originModuleFieldId, "' has no source code! If you need, you can remove it manually!"));
+				Logger.appendMessageToForm(newModule.getModuleId(), multipleConcat("Pay attention that detail form field '", originModuleFieldId, "' has no source code! If you need, you can remove it manually!"));
 			}
 		}
 		
@@ -395,7 +398,7 @@ public class Module {
 		for (ModuleField originmodulefield : currentFields){
 			String originModuleFieldId = originmodulefield.getFieldId();
 			if (!currentForm.contains(originModuleFieldId)){
-				Logger.appendMessage(multipleConcat("Pay attention that list form field '", originModuleFieldId, "' has no source code! If you need, you can remove it manually!"));
+				Logger.appendMessageToForm(newModule.getModuleId(), multipleConcat("Pay attention that list form field '", originModuleFieldId, "' has no source code! If you need, you can remove it manually!"));
 			}
 		}
 	}

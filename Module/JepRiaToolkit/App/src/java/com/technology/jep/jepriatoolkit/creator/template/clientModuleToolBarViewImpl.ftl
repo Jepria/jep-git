@@ -20,7 +20,7 @@ public class ${form.formName}ToolBarViewImpl extends ToolBarViewImpl implements 
 	public ${form.formName}ToolBarViewImpl() {
 		super();
 		
-		<#if !form.hasToolBarView || form.toolBarButtons?size != 0>
+		<#if !form.hasToolBarView?? || form.toolBarButtons?size != 0>
 		removeAll();
 		</#if>
 		<#if form.isToolBarOff>

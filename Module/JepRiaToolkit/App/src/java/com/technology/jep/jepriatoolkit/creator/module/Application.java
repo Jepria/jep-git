@@ -75,14 +75,14 @@ public class Application {
 					String originalModuleId = originmodule.getModuleId();
 					exists = moduleId.equalsIgnoreCase(originalModuleId);
 					if (exists){
-						Logger.appendMessage(multipleConcat("Start analysis of module '", moduleId, "'"));
+						Logger.appendMessageToForm(moduleId, multipleConcat("Start analysis of module '", moduleId, "'"));
 						originmodule.uptodate(module);
-						Logger.appendMessage(multipleConcat("Stop analysis of module '", moduleId, "'"));
+						Logger.appendMessageToTheEndOfForm(moduleId, multipleConcat("Stop analysis of module '", moduleId, "'"));
 						break;
 					}
 				}
 				if (!exists){
-					Logger.appendMessage(multipleConcat("The module '", moduleId, "' was added to application structure!"));
+					Logger.appendMessageToForm(moduleId, multipleConcat("The module '", moduleId, "' was added to application structure!"));
 					originModules.add(module);
 				}
 			}
@@ -90,7 +90,7 @@ public class Application {
 			for (Module originmodule : originModules){
 				String originModuleId = originmodule.getModuleId();
 				if (!newApplication.moduleIds.contains(originModuleId)){
-					Logger.appendMessage(multipleConcat("Pay attention that module '", originModuleId, "' has no source code! If you need, you can remove this module description manually!"));
+					Logger.appendMessageToForm(originModuleId, multipleConcat("Pay attention that module '", originModuleId, "' has no source code! If you need, you can remove this module description manually!"));
 				}
 			}
 		}

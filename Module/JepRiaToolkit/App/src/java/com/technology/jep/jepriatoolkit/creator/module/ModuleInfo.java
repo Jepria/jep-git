@@ -32,8 +32,8 @@ public class ModuleInfo {
 	private boolean isJepToolBarView;
 	private boolean isDblClickOff;
 	private boolean isToolBarOff;
-	private boolean hasToolBarPresenter;
-	private boolean hasToolBarView;
+	private Boolean hasToolBarPresenter;
+	private Boolean hasToolBarView;
 	private boolean isStatusBarOff;
 	private boolean hasOptionField;
 	private boolean hasLikeField;
@@ -248,10 +248,10 @@ public class ModuleInfo {
 	public void setModuleRoleNames(List<String> moduleRoleNames) {
 		this.moduleRoleNames = moduleRoleNames;
 	}
-	public boolean getHasToolBarView() {
+	public Boolean getHasToolBarView() {
 		return hasToolBarView;
 	}
-	public void setHasToolBarView(boolean hasToolBarView) {
+	public void setHasToolBarView(Boolean hasToolBarView) {
 		this.hasToolBarView = hasToolBarView;
 	}
 	public boolean getIsStandardToolBar() {
@@ -260,10 +260,10 @@ public class ModuleInfo {
 	public void setStandardToolBar(boolean isStandardToolBar) {
 		this.isStandardToolBar = isStandardToolBar;
 	}
-	public boolean getHasToolBarPresenter() {
+	public Boolean getHasToolBarPresenter() {
 		return hasToolBarPresenter;
 	}
-	public void setHasToolBarPresenter(boolean hasToolBarPresenter) {
+	public void setHasToolBarPresenter(Boolean hasToolBarPresenter) {
 		this.hasToolBarPresenter = hasToolBarPresenter;
 	}
 }

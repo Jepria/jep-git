@@ -10,7 +10,7 @@ public class ReverseBooleanAdapter extends BooleanAdapter {
 
 	@Override
 	public String marshal(Boolean c) {
-		return !Boolean.TRUE.equals(c) ? OFF : null;
+		return Boolean.FALSE.equals(c) ? OFF : null;
 	}
 
 }

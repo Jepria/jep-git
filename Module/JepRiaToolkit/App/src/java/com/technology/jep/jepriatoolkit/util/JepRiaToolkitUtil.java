@@ -1414,9 +1414,9 @@ public final class JepRiaToolkitUtil {
 		}
 		if (!isEmpty(toolbar)) {
 			String toolbarPresenter = toolbar.getAttribute(TOOLBAR_PRESENTER_ATTRIBUTE), toolbarView = toolbar.getAttribute(TOOLBAR_VIEW_ATTRIBUTE);
-			if (!module.hasToolBarPresenter() && !isEmpty(toolbarPresenter))
+			if (Boolean.FALSE.equals(module.hasToolBarPresenter()) && !isEmpty(toolbarPresenter))
 				module.setHasToolBarPresenter(!OFF.equalsIgnoreCase(toolbarPresenter));
-			if (!module.hasToolBarView() && !isEmpty(toolbarView))
+			if (Boolean.FALSE.equals(module.hasToolBarView()) && !isEmpty(toolbarView))
 				module.setHasToolBarView(!OFF.equalsIgnoreCase(toolbarView));
 		}
 		if (!isEmpty(nodes)) {
