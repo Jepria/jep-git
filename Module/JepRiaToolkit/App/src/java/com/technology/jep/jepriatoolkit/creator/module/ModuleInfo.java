@@ -24,6 +24,7 @@ public class ModuleInfo {
 	private String findParameterPrefix;
 	private String createParameterPrefix;
 	private String updateParameterPrefix;
+	private String presenterBody;
 	private boolean hasLobFields;
 	private boolean isStandardToolBar;
 	private boolean isExcelAvailable;
@@ -128,6 +129,12 @@ public class ModuleInfo {
 	}
 	public void setUpdateParameterPrefix(String updateParameterPrefix) {
 		this.updateParameterPrefix = updateParameterPrefix;
+	}
+	public String getPresenterBody() {
+		return presenterBody;
+	}
+	public void setPresenterBody(String presenterBody) {
+		this.presenterBody = presenterBody;
 	}
 	public boolean getHasLobFields() {
 		return hasLobFields;

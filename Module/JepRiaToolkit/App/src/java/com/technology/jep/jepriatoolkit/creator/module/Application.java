@@ -6,6 +6,7 @@ import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.NAME_ATTRIB
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.*;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;

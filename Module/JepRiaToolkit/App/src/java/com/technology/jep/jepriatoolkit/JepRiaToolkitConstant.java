@@ -1,7 +1,5 @@
 package com.technology.jep.jepriatoolkit;
 
-import java.util.ResourceBundle;
-
 import com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil;
 
 public class JepRiaToolkitConstant {	
@@ -834,9 +832,9 @@ public class JepRiaToolkitConstant {
 	public static final String DEBUG_BUILD_CONFIG_NAME = "debug";
 	public static final String RELEASE_BUILD_CONFIG_NAME = "production";
 	
-	public static final String APPLICATION_DEFINITION_RESOURCE_BUNDLE_NAME = "com.technology.jep.jepriatoolkit.creator.ApplicationDefinition";
-	
-	public static final ResourceBundle applicationResourceBundle = ResourceBundle.getBundle(APPLICATION_DEFINITION_RESOURCE_BUNDLE_NAME);
+	public static final String JEPRIA9_APPLICATION_DEFINITION_RESOURCE_BUNDLE_NAME = "com.technology.jep.jepriatoolkit.creator.release.jepria9.ApplicationDefinition";
+	public static final String JEPRIA8_APPLICATION_DEFINITION_RESOURCE_BUNDLE_NAME = "com.technology.jep.jepriatoolkit.creator.release.jepria8.ApplicationDefinition";
+	public static final String JEPRIA7_APPLICATION_DEFINITION_RESOURCE_BUNDLE_NAME = "com.technology.jep.jepriatoolkit.creator.release.jepria7.ApplicationDefinition";
 	
 	public static final String LIB_DIRECTORY_PROPERTY = "fileStructure.libraryDirectory";
 	public static final String HTML_DIRECTORY_PROPERTY = "fileStructure.htmlDirectory";

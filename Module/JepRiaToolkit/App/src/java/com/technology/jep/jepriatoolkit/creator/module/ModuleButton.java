@@ -188,16 +188,18 @@ public class ModuleButton {
 	 */
 	public ModuleButton(String buttonId, WorkstateEnum[] workStates, String image, String event, String text){
 		this(buttonId, workStates);
-		if (!JepRiaToolkitUtil.isEmpty(image)) setImage(image);
-		if (!JepRiaToolkitUtil.isEmpty(event)) setEvent(event);
-		if (!JepRiaToolkitUtil.isEmpty(text)) setText(text);
+		setImage(image);
+		setEvent(event);
+		setText(text);
 	}
 	
 	public String getText() {
 		return text;
 	}
 	public void setText(String text) {
-		this.text = text;
+		if (!JepRiaToolkitUtil.isEmpty(text)) {
+			this.text = text;
+		}
 	}
 	public boolean getIsSeparator() {
 		return isSeparator;
@@ -219,7 +221,9 @@ public class ModuleButton {
 		return isEmpty(image) && getIsCustomButton() ? buttonId.toLowerCase() : image;
 	}
 	public void setImage(String image) {
-		this.image = image;
+		if (!JepRiaToolkitUtil.isEmpty(image)) {
+			this.image = image;
+		}
 	}
 	public String getEvent() {
 		if (getIsCustomButton() && isEmpty(event)){

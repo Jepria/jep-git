@@ -15,7 +15,7 @@ import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.CLIENT_MODU
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.CLIENT_MODULE_TOOLBAR_VIEW_IMPL_PATH_TEMPLATE_PROPERTY;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.DEFAULT_DATASOURCE;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.DEFAULT_FIELD_WIDTH;
-import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.END_OF_LINE;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.ERROR_PREFIX;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.MAIN_GWT_XML_PATH_TEMPLATE_PROPERTY;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.MAIN_MODULE_PRESENTER_PATH_TEMPLATE_PROPERTY;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.MAIN_TEXT_RESOURCE_EN_PATH_TEMPLATE_PROPERTY;
@@ -28,11 +28,9 @@ import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.SEPARATOR;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.UTF_8;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.WARNING_PREFIX;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.WHITE_SPACE;
-import static com.technology.jep.jepriatoolkit.creator.ApplicationStructureCreator.application;
-import static com.technology.jep.jepriatoolkit.creator.ApplicationStructureCreator.applicationStructureFile;
-import static com.technology.jep.jepriatoolkit.creator.ApplicationStructureCreator.parseApplicationSettingXML;
 import static com.technology.jep.jepriatoolkit.parser.ApplicationStructureParserUtil.getModuleDeclaration;
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.convertPatternInRealPath;
+import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.convertPatternInRealPathSupressException;
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.convertToXml;
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.copyFile;
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.currentSourceDirectory;
@@ -44,6 +42,7 @@ import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.getDefinit
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.getModuleNames;
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.getResourceByPath;
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.initSmall;
+import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.isEmptyOrNotInitializedParameter;
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.multipleConcat;
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.normalizePath;
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.readFromFile;
@@ -55,6 +54,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -70,6 +70,7 @@ import com.github.javaparser.ast.body.FieldDeclaration;
 import com.github.javaparser.ast.body.MethodDeclaration;
 import com.github.javaparser.ast.body.VariableDeclarator;
 import com.github.javaparser.ast.stmt.Statement;
+import com.technology.jep.jepriatoolkit.ApplicationDefinition;
 import com.technology.jep.jepriatoolkit.creator.module.Application;
 import com.technology.jep.jepriatoolkit.creator.module.Db;
 import com.technology.jep.jepriatoolkit.creator.module.DetailForm;
@@ -98,55 +99,29 @@ public class ApplicationStructureParser extends Task {
 	private static final String NO = "n";
 	private static final String XML_EXTENSION = ".xml";
 
+	private String jepRiaVersion;
+	
 	@Override
 	public void execute() throws BuildException {
 		
-		// Obtain info about application from configuration file application.xml
-		String relativeApplicationXmlPath = getDefinitionProperty(APPLICATION_XML_PATH_TEMPLATE_PROPERTY, "src/resources/com/technology/{0}/{1}/application.xml");
-		List<String> names = extractFileNamesByPattern(relativeApplicationXmlPath);
-		String projectPackage = names.get(0);
-		String applicationXmlPath = convertPatternInRealPath(relativeApplicationXmlPath);
-		String applicationName = getApplicationName(applicationXmlPath);
-		String fileName = multipleConcat(currentSourceDirectory(), PATH_SEPARATOR, applicationName, APPLICATION_SETTING_FILE_ENDING);
+		ResourceBundle resource = ApplicationDefinition.LAST.getResource();
 		
-		if (new File(fileName).exists()){
-			echoMessage(multipleConcat(WARNING_PREFIX, "The file '", normalizePath(fileName), "' has already existed!\n", 
-					WARNING_PREFIX, "Do you want to replace this file (", YES, " / ", NO, ") or just choose new file name to save the application structure? Please type your answer: "));
-			Scanner scanner = new Scanner(System.in);
-			try {
-				while (scanner.hasNext()){
-					String line = scanner.next();
-					if (NO.equalsIgnoreCase(line)){
-						return;
-					}
-					else {
-						if (YES.equalsIgnoreCase(line)){
-							break;
-						}
-						else {
-							fileName = multipleConcat(currentSourceDirectory(), PATH_SEPARATOR, line);
-							if (!fileName.endsWith(XML_EXTENSION)){
-								fileName = multipleConcat(fileName, XML_EXTENSION);
-							}
-							break;
-						}
-					}
-				}
+		if (!isEmptyOrNotInitializedParameter(jepRiaVersion)){
+			Pattern p = Pattern.compile("Tag/(\\d+)\\.(\\d+)\\.(\\d+)");
+			Matcher m = p.matcher(jepRiaVersion);
+			if (m.find()){
+				resource = ApplicationDefinition.valueOf(multipleConcat("JEPRIA_", m.group(1))).getResource();
 			}
-			finally {
-				scanner.close();	
-			}
-		}
-		else if (new File(multipleConcat(currentSourceDirectory(), PATH_SEPARATOR, JEP_APPLICATION_XML)).exists()){
-			try {
-				echoMessage(multipleConcat("Content from '", JEP_APPLICATION_XML, "' was copied to file '", fileName, "'"));
-				copyFile(JEP_APPLICATION_XML, fileName);
-			}
-			catch(IOException e){
-				echoMessage(e.getLocalizedMessage());
+			else {
+				echoMessage(multipleConcat(ERROR_PREFIX, "The Version is '", jepRiaVersion, "' isn't supported!"));
 				return;
 			}
 		}
+		// Obtain info about application from configuration file application.xml
+		String relativeApplicationXmlPath = getDefinitionProperty(APPLICATION_XML_PATH_TEMPLATE_PROPERTY, "src/resources/com/technology/{0}/{1}/application.xml", resource);
+		String applicationName = getApplicationName(convertPatternInRealPath(relativeApplicationXmlPath));
+		String fileName = getApplicationFileName(applicationName);
+		if (JepRiaToolkitUtil.isEmpty(fileName)) return;
 		
 		echoMessage(multipleConcat("Generate ", normalizePath(fileName), "..."));
 		
@@ -154,20 +129,20 @@ public class ApplicationStructureParser extends Task {
 		Application structure = new Application();
 		structure.setName(applicationName);
 		structure.setDefaultDatasource(applicationDataSource);
-		structure.setProjectPackage(projectPackage);
+		structure.setProjectPackage(extractFileNamesByPattern(relativeApplicationXmlPath).iterator().next());
 		// The information about modules will be given from main.gwt.xml
 		String mainGwtXmlPropertyPath = convertPatternInRealPath(getDefinitionProperty(MAIN_GWT_XML_PATH_TEMPLATE_PROPERTY, 
-			multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "{0}/{1}/main/{2}.gwt.xml")
+			multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "{0}/{1}/main/{2}.gwt.xml"), resource
 		));
 		List<String> moduleNames = getModuleNames(mainGwtXmlPropertyPath);
 		structure.setModuleIds(moduleNames);
 		List<Module> modules = new ArrayList<Module>(moduleNames.size());
 		
 		String mainModuleResourcePath = convertPatternInRealPath(getDefinitionProperty(MAIN_TEXT_RESOURCE_PATH_TEMPLATE_PROPERTY, 
-				multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/main/shared/text/{2}Text_Source.properties")));
+				multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/main/shared/text/{2}Text_Source.properties"), resource));
 		
 		String mainModuleResourceEnPath = convertPatternInRealPath(getDefinitionProperty(MAIN_TEXT_RESOURCE_EN_PATH_TEMPLATE_PROPERTY, 
-				multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/main/shared/text/{2}Text_en.properties")));
+				multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/main/shared/text/{2}Text_en.properties"), resource));
 		
 		ResourceBundle mainModuleResourceBundle = getResourceByPath(mainModuleResourcePath);
 		ResourceBundle mainModuleResourceBundleEn = getResourceByPath(mainModuleResourceEnPath);
@@ -176,7 +151,7 @@ public class ApplicationStructureParser extends Task {
 			String clientModuleDaoPath = convertPatternInRealPath(
 					replacePathWithModuleId(
 						getDefinitionProperty(CLIENT_MODULE_DAO_PATH_TEMPLATE_PROPERTY, 
-								multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/server/dao/{3}Dao.java")
+								multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/server/dao/{3}Dao.java"), resource
 						), moduleId
 					));
 			String packageName = null;
@@ -216,7 +191,7 @@ public class ApplicationStructureParser extends Task {
 			String clientModuleServerConstantPath = convertPatternInRealPath(
 					replacePathWithModuleId(
 							getDefinitionProperty(CLIENT_MODULE_SERVER_CONSTANT_PATH_TEMPLATE_PROPERTY, 
-									multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/server/{3}ServerConstant.java"))
+									multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/server/{3}ServerConstant.java"), resource)
 					, moduleId));
 			declaration = getModuleDeclaration(clientModuleServerConstantPath);
 			if (declaration != null)
@@ -244,11 +219,25 @@ public class ApplicationStructureParser extends Task {
 				db.setUpdate(new FunctionParameters(updateParameters.toString()));
 			
 			String submoduleResourceKey = multipleConcat("submodule.", moduleId.toLowerCase(), ".title");
-			Module mod = new Module(moduleId, mainModuleResourceBundle.getString(submoduleResourceKey), mainModuleResourceBundleEn.getString(submoduleResourceKey), db, Arrays.asList(getRoles(moduleId).split("\\s*,\\s*")));
+			
+			String moduleText = null, moduleTextEn = null;
+			try {
+				moduleText = mainModuleResourceBundle.getString(submoduleResourceKey);
+			}
+		 	catch(MissingResourceException e){
+				Logger.appendMessageToTheEndOfForm(moduleId, e.getLocalizedMessage());
+			}
+			try {
+				moduleTextEn = mainModuleResourceBundleEn.getString(submoduleResourceKey);
+			}
+		 	catch(MissingResourceException e){
+				Logger.appendMessageToTheEndOfForm(moduleId, e.getLocalizedMessage());
+			}
+			Module mod = new Module(moduleId, moduleText, moduleTextEn, db, Arrays.asList(getRoles(moduleId, resource).split("\\s*,\\s*")));
 			String clientModuleFieldNamesPath = convertPatternInRealPath(
 					replacePathWithModuleId(
 							getDefinitionProperty(CLIENT_MODULE_FIELDS_PATH_TEMPLATE_PROPERTY, 
-									multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/shared/field/{3}FieldNames.java")), moduleId
+									multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/shared/field/{3}FieldNames.java"), resource), moduleId
 					));
 			declaration = getModuleDeclaration(clientModuleFieldNamesPath);
 			List<ModuleField> recordFields = new ArrayList<ModuleField>();
@@ -258,8 +247,8 @@ public class ApplicationStructureParser extends Task {
 				for (FieldDeclaration fieldDeclaration : declaration.getFields()){
 					String fieldId = extractStringFromQuotes(fieldDeclaration.getVariables().iterator().next().getInit().toStringWithoutComments()).toUpperCase();
 					ModuleField field = new ModuleField(moduleId, fieldId);
-					prepareDetailFormModuleField(moduleId, field);
-					prepareListFormModuleField(moduleId, field);
+					prepareDetailFormModuleField(moduleId, field, resource);
+					prepareListFormModuleField(moduleId, field, resource);
 					recordFields.add(new ModuleField(field, FieldType.RECORD));
 					if (field.getIsDetailFormField())
 						detailFormFields.add(new ModuleField(field, FieldType.FORM_DETAIL));
@@ -268,28 +257,27 @@ public class ApplicationStructureParser extends Task {
 				}
 			}
 			Record rec = new Record(recordFields);
-			rec.setPrimaryKeyAndTableName(getPrimaryKeyAndTableName(moduleId));
+			rec.setPrimaryKeyAndTableName(getPrimaryKeyAndTableName(moduleId, resource));
 			mod.setRecord(rec);
 			
-			String clientModuleDetailPresenterPath = convertPatternInRealPath(
+			String clientModuleDetailPresenterPath = convertPatternInRealPathSupressException(
 					replacePathWithModuleId(
 							getDefinitionProperty(CLIENT_MODULE_DETAIL_FORM_PRESENTER_PATH_TEMPLATE_PROPERTY, 
-									multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/client/ui/form/detail/{3}DetailFormPresenter.java")), moduleId
+									multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/client/ui/form/detail/{3}DetailFormPresenter.java"), resource), moduleId
 					));
+			
 			declaration = getModuleDeclaration(clientModuleDetailPresenterPath);
 			DetailForm detailForm = new DetailForm(detailFormFields);
 			if (declaration != null) {
-				String presenterBody = multipleConcat(Arrays.toString(declaration.getFields().toArray()),
-						END_OF_LINE, Arrays.toString(declaration.getMethods().toArray()));
-				detailForm.setPresenterBody(presenterBody);
+				detailForm.setPresenterBody(declaration.getBusinessLogic());
 			}
 			ListForm listForm = new ListForm(listFormFields);
 			mod.setForms(detailForm, listForm);
 			
-			String clientModuleToolBarViewPath = convertPatternInRealPath(
+			String clientModuleToolBarViewPath = convertPatternInRealPathSupressException(
 					replacePathWithModuleId(
 							getDefinitionProperty(CLIENT_MODULE_TOOLBAR_VIEW_IMPL_PATH_TEMPLATE_PROPERTY, 
-									multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/client/ui/toolbar/{3}ToolBarViewImpl.java")), moduleId
+									multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/client/ui/toolbar/{3}ToolBarViewImpl.java"), resource), moduleId
 					));
 			declaration = getModuleDeclaration(clientModuleToolBarViewPath);
 			List<ModuleButton> buttons = new ArrayList<ModuleButton>();
@@ -320,10 +308,10 @@ public class ApplicationStructureParser extends Task {
 					}
 				}
 			}
-			String clientModuleToolBarPresenterPath = convertPatternInRealPath(
+			String clientModuleToolBarPresenterPath = convertPatternInRealPathSupressException(
 					replacePathWithModuleId(
 							getDefinitionProperty(CLIENT_MODULE_TOOLBAR_PRESENTER_PATH_TEMPLATE_PROPERTY, 
-									multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/client/ui/toolbar/{3}ToolBarPresenter.java")), moduleId
+									multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/client/ui/toolbar/{3}ToolBarPresenter.java"), resource), moduleId
 					));
 			declaration = getModuleDeclaration(clientModuleToolBarPresenterPath);
 			boolean hasToolBarPresenter = declaration != null;
@@ -353,21 +341,65 @@ public class ApplicationStructureParser extends Task {
 		structure.setModules(new Modules(modules));
 		
 		if (new File(fileName).exists()){
-			applicationStructureFile = normalizePath(fileName);
 			try {
-				if (!parseApplicationSettingXML()) return;
+				ApplicationSettingParser applicationParser = ApplicationSettingParser.getInstance(normalizePath(fileName));
+				Application application = applicationParser.getApplication();
+				application.uptodate(structure);
+				structure = application;
 			} catch (ParserConfigurationException e) {
-				echoMessage(e.getLocalizedMessage());
+				echoMessage(multipleConcat(ERROR_PREFIX, e.getLocalizedMessage()));
 			}
-			application.uptodate(structure);
-			structure = application;
 		}
 		convertToXml(structure, fileName);
 		Logger.printMessages(OUTPUT_LOG_FILE);
 	}
 
-	public String[] getPrimaryKeyAndTableName(String moduleId) {
-		ModuleDeclaration clientModuleDeclaration = getClientModuleRecordDefinition(moduleId);
+	public static String getApplicationFileName(String applicationName) {
+		String fileName = multipleConcat(currentSourceDirectory(), PATH_SEPARATOR, applicationName, APPLICATION_SETTING_FILE_ENDING);
+		
+		if (new File(fileName).exists()){
+			echoMessage(multipleConcat(WARNING_PREFIX, "The file '", normalizePath(fileName), "' has already existed!\n", 
+					WARNING_PREFIX, "Do you want to replace this file (", YES, " / ", NO, ") or just choose new file name to save the application structure? Please type your answer: "));
+			Scanner scanner = new Scanner(System.in);
+			try {
+				while (scanner.hasNext()){
+					String line = scanner.next();
+					if (NO.equalsIgnoreCase(line)){
+						return null;
+					}
+					else {
+						if (YES.equalsIgnoreCase(line)){
+							break;
+						}
+						else {
+							fileName = multipleConcat(currentSourceDirectory(), PATH_SEPARATOR, line);
+							if (!fileName.endsWith(XML_EXTENSION)){
+								fileName = multipleConcat(fileName, XML_EXTENSION);
+							}
+							break;
+						}
+					}
+				}
+			}
+			finally {
+				scanner.close();	
+			}
+		}
+		else if (new File(multipleConcat(currentSourceDirectory(), PATH_SEPARATOR, JEP_APPLICATION_XML)).exists()){
+			try {
+				echoMessage(multipleConcat("Content from '", JEP_APPLICATION_XML, "' was copied to file '", fileName, "'"));
+				copyFile(JEP_APPLICATION_XML, fileName);
+			}
+			catch(IOException e){
+				echoMessage(multipleConcat(ERROR_PREFIX, e.getLocalizedMessage()));
+				return null;
+			}
+		}
+		return fileName;
+	}
+
+	public String[] getPrimaryKeyAndTableName(String moduleId, ResourceBundle resource) {
+		ModuleDeclaration clientModuleDeclaration = getClientModuleRecordDefinition(moduleId, resource);
 		String superClassInConstructorBody = clientModuleDeclaration.getConstructors().iterator().next().getBlock().getStmts().iterator().next().toStringWithoutComments();
 		Pattern p = Pattern.compile("new\\s*String\\s*\\[\\s*\\]\\s*\\{\\s*(.*?)\\s*\\}(\\s*,\\s*\\\"(.*?)\\\")*");
 		Matcher m = p.matcher(superClassInConstructorBody);
@@ -382,26 +414,50 @@ public class ApplicationStructureParser extends Task {
 		return null;
 	}
 	
-	public static void prepareDetailFormModuleField(String moduleId, ModuleField field){
-		String clientModuleDetailFormViewImplPath = convertPatternInRealPath(
+	public static void prepareDetailFormModuleField(String moduleId, ModuleField field, ResourceBundle resource){
+		String clientModuleDetailFormViewImplPath = convertPatternInRealPathSupressException(
 				replacePathWithModuleId(getDefinitionProperty(CLIENT_MODULE_DETAIL_FORM_VIEW_IMPL_PATH_TEMPLATE_PROPERTY, 
-						multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "src/java/com/technology/{0}/{1}/{2}/client/ui/form/detail/{3}DetailFormViewImpl.java")
+						multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "src/java/com/technology/{0}/{1}/{2}/client/ui/form/detail/{3}DetailFormViewImpl.java"), resource
 				), moduleId));
 		String fieldId = field.getFieldId();
 		ModuleDeclaration clientModuleDetailFormDeclaration = getModuleDeclaration(clientModuleDetailFormViewImplPath);
-		ConstructorDeclaration clientModuleDetailFormConstructor = clientModuleDetailFormDeclaration.getConstructors().iterator().next();
-		
-		Pattern p = Pattern.compile(multipleConcat("fields\\s*\\.\\s*put\\s*\\(\\s*", fieldId.toUpperCase(), "\\s*,\\s*", JepRiaToolkitUtil.getFieldIdAsParameter(fieldId, null), "(.*?)\\s*\\);"));
-		Matcher m = p.matcher(clientModuleDetailFormConstructor.getBlock().toStringWithoutComments());
-		if (!m.find()){
-			return;
+		if (clientModuleDetailFormDeclaration != null) {
+			ConstructorDeclaration clientModuleDetailFormConstructor = clientModuleDetailFormDeclaration.getConstructors().iterator().next();
+			
+			Pattern p = Pattern.compile(multipleConcat("fields\\s*\\.\\s*put\\s*\\(\\s*", fieldId.toUpperCase(), "\\s*,\\s*", JepRiaToolkitUtil.getFieldIdAsParameter(fieldId, null), "(.*?)\\s*\\);"));
+			Matcher m = p.matcher(clientModuleDetailFormConstructor.getBlock().toStringWithoutComments());
+			if (!m.find()){
+				return;
+			}
+			
+			p = Pattern.compile(multipleConcat("(.*?)\\s*", JepRiaToolkitUtil.getFieldIdAsParameter(fieldId, null), "(.*?)\\s*=\\s*new\\s*(.*?)\\("));
+			m = p.matcher(clientModuleDetailFormConstructor.getBlock().toStringWithoutComments());
+			if (m.find()){
+				field.setFieldWidget(m.group(3));
+			}
+			p = Pattern.compile(multipleConcat(JepRiaToolkitUtil.getFieldIdAsParameter(fieldId, null), "(.*?)\\.setFieldWidth\\((.*?)\\);"));
+			m = p.matcher(clientModuleDetailFormConstructor.getBlock().toStringWithoutComments());
+			if (m.find()){
+				field.setFieldWidth(m.group(2));
+			}
+			p = Pattern.compile(multipleConcat(JepRiaToolkitUtil.getFieldIdAsParameter(fieldId, null), "(.*?)\\.setLabelWidth\\((.*?)\\);"));
+			m = p.matcher(clientModuleDetailFormConstructor.getBlock().toStringWithoutComments());
+			if (m.find()){
+				field.setLabelWidth(m.group(2));
+			}
+			p = Pattern.compile(multipleConcat("setFieldMaxLength\\(", fieldId.toUpperCase(),",\\s*(.*?)\\);"));
+			m = p.matcher(clientModuleDetailFormConstructor.getBlock().toStringWithoutComments());
+			if (m.find()){
+				field.setFieldMaxLength(m.group(1));
+			}
 		}
-		ModuleDeclaration clientModuleDeclaration = getClientModuleRecordDefinition(moduleId);
+		
+		ModuleDeclaration clientModuleDeclaration = getClientModuleRecordDefinition(moduleId, resource);
 		field.setDetailFormField(true);
 		for (MethodDeclaration method : clientModuleDeclaration.getMethods()){
 			if ("buildtypemap".equalsIgnoreCase(method.getName())){
-				p = Pattern.compile(multipleConcat("put\\(\\s*", fieldId.toUpperCase(), "\\s*,\\s*(.*?)\\)"));
-				m = p.matcher(method.getBody().toStringWithoutComments());
+				Pattern p = Pattern.compile(multipleConcat("put\\(\\s*", fieldId.toUpperCase(), "\\s*,\\s*(.*?)\\)"));
+				Matcher m = p.matcher(method.getBody().toStringWithoutComments());
 				if (m.find()){
 					// устанавливаем тип поля в исходном поле
 					field.setFieldType(m.group(1));
@@ -411,8 +467,8 @@ public class ApplicationStructureParser extends Task {
 				}
 			}
 			else if ("buildlikemap".equalsIgnoreCase(method.getName())){
-				p = Pattern.compile(multipleConcat("put\\(\\s*", fieldId.toUpperCase(), "\\s*,\\s*(.*?)\\)"));
-				m = p.matcher(method.getBody().toStringWithoutComments());
+				Pattern p = Pattern.compile(multipleConcat("put\\(\\s*", fieldId.toUpperCase(), "\\s*,\\s*(.*?)\\)"));
+				Matcher m = p.matcher(method.getBody().toStringWithoutComments());
 				if (m.find()){
 					field.setFieldLike(m.group(1));
 				}
@@ -421,50 +477,39 @@ public class ApplicationStructureParser extends Task {
 		
 		String clientModuleResourcePath = convertPatternInRealPath(
 					replacePathWithModuleId(getDefinitionProperty(CLIENT_MODULE_TEXT_RESOURCE_PATH_TEMPLATE_PROPERTY, 
-							multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/shared/text/{3}Text_Source.properties")
+							multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/shared/text/{3}Text_Source.properties"), resource
 					), moduleId));
 		
 		String clientModuleResourceEnPath = convertPatternInRealPath(
 				replacePathWithModuleId(getDefinitionProperty(CLIENT_MODULE_TEXT_RESOURCE_EN_PATH_TEMPLATE_PROPERTY, 
-						multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/shared/text/{3}Text_en.properties")
+						multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/shared/text/{3}Text_en.properties"), resource
 				), moduleId));
 		
 		ResourceBundle clientModuleResourceBundle = getResourceByPath(clientModuleResourcePath);
 		ResourceBundle clientModuleResourceBundleEn = getResourceByPath(clientModuleResourceEnPath);
 		
-		String fieldDetailFormName = clientModuleResourceBundle.getString(multipleConcat(initSmall(moduleId), ".detail.", fieldId.toLowerCase()));
-		field.setFieldDetailFormName(NO_NAME.equalsIgnoreCase(fieldDetailFormName) ? null : fieldDetailFormName);
+		try {
+			String fieldDetailFormName = clientModuleResourceBundle.getString(multipleConcat(initSmall(moduleId), ".detail.", fieldId.toLowerCase()));
+			field.setFieldDetailFormName(NO_NAME.equalsIgnoreCase(fieldDetailFormName) ? null : fieldDetailFormName);
+		}
+		catch(MissingResourceException e){
+			Logger.appendMessageToTheEndOfForm(moduleId, e.getLocalizedMessage());
+		}
 		
-		String fieldDetailFormNameEn = clientModuleResourceBundleEn.getString(multipleConcat(initSmall(moduleId), ".detail.", fieldId.toLowerCase()));
-		field.setFieldDetailFormNameEn(NO_NAME.equalsIgnoreCase(fieldDetailFormNameEn) ? null : fieldDetailFormNameEn);
-		
-		p = Pattern.compile(multipleConcat("(.*?)\\s*", JepRiaToolkitUtil.getFieldIdAsParameter(fieldId, null), "(.*?)\\s*=\\s*new\\s*(.*?)\\("));
-		m = p.matcher(clientModuleDetailFormConstructor.getBlock().toStringWithoutComments());
-		if (m.find()){
-			field.setFieldWidget(m.group(3));
+		try {
+			String fieldDetailFormNameEn = clientModuleResourceBundleEn.getString(multipleConcat(initSmall(moduleId), ".detail.", fieldId.toLowerCase()));
+			field.setFieldDetailFormNameEn(NO_NAME.equalsIgnoreCase(fieldDetailFormNameEn) ? null : fieldDetailFormNameEn);
 		}
-		p = Pattern.compile(multipleConcat(JepRiaToolkitUtil.getFieldIdAsParameter(fieldId, null), "(.*?)\\.setFieldWidth\\((.*?)\\);"));
-		m = p.matcher(clientModuleDetailFormConstructor.getBlock().toStringWithoutComments());
-		if (m.find()){
-			field.setFieldWidth(m.group(2));
-		}
-		p = Pattern.compile(multipleConcat(JepRiaToolkitUtil.getFieldIdAsParameter(fieldId, null), "(.*?)\\.setLabelWidth\\((.*?)\\);"));
-		m = p.matcher(clientModuleDetailFormConstructor.getBlock().toStringWithoutComments());
-		if (m.find()){
-			field.setLabelWidth(m.group(2));
-		}
-		p = Pattern.compile(multipleConcat("setFieldMaxLength\\(", fieldId.toUpperCase(),",\\s*(.*?)\\);"));
-		m = p.matcher(clientModuleDetailFormConstructor.getBlock().toStringWithoutComments());
-		if (m.find()){
-			field.setFieldMaxLength(m.group(1));
+		catch(MissingResourceException e){
+			Logger.appendMessageToTheEndOfForm(moduleId, e.getLocalizedMessage());
 		}
 	}
 	
-	public static void prepareListFormModuleField(String moduleId, ModuleField field){
+	public static void prepareListFormModuleField(String moduleId, ModuleField field, ResourceBundle resource){
 		
-		String clientModuleListFormViewImplPath = convertPatternInRealPath(
+		String clientModuleListFormViewImplPath = convertPatternInRealPathSupressException(
 				replacePathWithModuleId(getDefinitionProperty(CLIENT_MODULE_LIST_FORM_VIEW_IMPL_PATH_TEMPLATE_PROPERTY, 
-						multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "src/java/com/technology/{0}/{1}/{2}/client/ui/form/list/{3}ListFormViewImpl.java")
+						multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "src/java/com/technology/{0}/{1}/{2}/client/ui/form/list/{3}ListFormViewImpl.java"), resource
 				), moduleId));
 		
 		ModuleDeclaration clientModuleListFormDeclaration = getModuleDeclaration(clientModuleListFormViewImplPath);
@@ -489,29 +534,39 @@ public class ApplicationStructureParser extends Task {
 		field.setListFormField(true);
 		String clientModuleResourcePath = convertPatternInRealPath(
 				replacePathWithModuleId(getDefinitionProperty(CLIENT_MODULE_TEXT_RESOURCE_PATH_TEMPLATE_PROPERTY, 
-						multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/shared/text/{3}Text_Source.properties")
+						multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/shared/text/{3}Text_Source.properties"), resource
 				), moduleId));
 		
 		String clientModuleResourceEnPath = convertPatternInRealPath(
 				replacePathWithModuleId(getDefinitionProperty(CLIENT_MODULE_TEXT_RESOURCE_EN_PATH_TEMPLATE_PROPERTY, 
-						multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/shared/text/{3}Text_en.properties")
+						multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/shared/text/{3}Text_en.properties"), resource
 				), moduleId));
 		
 		ResourceBundle clientModuleResourceBundle = getResourceByPath(clientModuleResourcePath);
 		ResourceBundle clientModuleResourceBundleEn = getResourceByPath(clientModuleResourceEnPath);
 		
-		String fieldListFormName = clientModuleResourceBundle.getString(multipleConcat(initSmall(moduleId), ".list.", fieldId.toLowerCase()));
-		field.setFieldListFormName(NO_NAME.equalsIgnoreCase(fieldListFormName) ? null : fieldListFormName);
+		try {
+			String fieldListFormName = clientModuleResourceBundle.getString(multipleConcat(initSmall(moduleId), ".list.", fieldId.toLowerCase()));
+			field.setFieldListFormName(NO_NAME.equalsIgnoreCase(fieldListFormName) ? null : fieldListFormName);
+		} 
+		catch(MissingResourceException e){
+			Logger.appendMessageToTheEndOfForm(moduleId, e.getLocalizedMessage());
+		}
 		
-		String fieldListFormNameEn = clientModuleResourceBundleEn.getString(multipleConcat(initSmall(moduleId), ".list.", fieldId.toLowerCase()));
-		field.setFieldListFormNameEn(NO_NAME.equalsIgnoreCase(fieldListFormNameEn) ? null : fieldListFormNameEn);
+		try {
+			String fieldListFormNameEn = clientModuleResourceBundleEn.getString(multipleConcat(initSmall(moduleId), ".list.", fieldId.toLowerCase()));
+			field.setFieldListFormNameEn(NO_NAME.equalsIgnoreCase(fieldListFormNameEn) ? null : fieldListFormNameEn);
+		} 
+		catch(MissingResourceException e){
+			Logger.appendMessageToTheEndOfForm(moduleId, e.getLocalizedMessage());
+		}
 	}
 	
-	private static ModuleDeclaration getClientModuleRecordDefinition(String moduleId){
+	private static ModuleDeclaration getClientModuleRecordDefinition(String moduleId, ResourceBundle resource){
 		String clientModuleRecordDefinitionPath = convertPatternInRealPath(
 				replacePathWithModuleId(
 					getDefinitionProperty(CLIENT_MODULE_RECORD_DEFINITION_PATH_TEMPLATE_PROPERTY, 
-							multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/shared/record/{3}RecordDefinition.java")
+							multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/shared/record/{3}RecordDefinition.java"), resource
 					),
 				moduleId));
 		ModuleDeclaration clientModuleDeclaration = getModuleDeclaration(clientModuleRecordDefinitionPath);
@@ -522,16 +577,16 @@ public class ApplicationStructureParser extends Task {
 		return format(path, "{0}", "{1}", moduleId.toLowerCase(), "{2}");
 	}
 	
-	public static String getRoles(String moduleId){
+	public static String getRoles(String moduleId, ResourceBundle resource){
 		String mainModulePresenterFilePath = convertPatternInRealPath(getDefinitionProperty(MAIN_MODULE_PRESENTER_PATH_TEMPLATE_PROPERTY, 
-				multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/main/client/ui/main/{2}MainModulePresenter.java")));
+				multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/main/client/ui/main/{2}MainModulePresenter.java"), resource));
 		
 		Pattern p = Pattern.compile(multipleConcat(moduleId.toUpperCase(), "_MODULE_ID,\\s*\"(.*?)\""));
 		String methodBody;
 		try {
 			methodBody = readFromFile(mainModulePresenterFilePath, UTF_8);
 		} catch (FileNotFoundException e) {
-			echoMessage(e.getLocalizedMessage());
+			echoMessage(multipleConcat(ERROR_PREFIX, e.getLocalizedMessage()));
 			return "";
 		}
 		Matcher m = p.matcher(methodBody);
@@ -539,5 +594,9 @@ public class ApplicationStructureParser extends Task {
 			return m.group(1);
 		}
 		return "";
+	}
+
+	public void setJepRiaVersion(String jepRiaVersion) {
+		this.jepRiaVersion = jepRiaVersion;
 	}
 }

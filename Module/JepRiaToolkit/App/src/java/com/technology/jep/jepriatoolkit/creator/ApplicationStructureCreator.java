@@ -2,24 +2,9 @@ package com.technology.jep.jepriatoolkit.creator;
 
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.*;
 import static com.technology.jep.jepriatoolkit.creator.ApplicationStructureCreatorUtil.convertTemplateToFile;
-import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.detailizedModuleField;
-import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.detailizedModuleForToolBar;
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.echoMessage;
-import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.getAllModuleNodes;
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.getApplicationDefinitionFile;
-import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.getDOM;
-import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.getDataSourceById;
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.getDefinitionProperty;
-import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.getFormDetailElementByModuleId;
-import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.getListOfAbsentFieldNameByModuleId;
-import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.getModuleFieldsById;
-import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.getModuleNodeById;
-import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.getModuleSecurityRoles;
-import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.getNameFromID;
-import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.getNodesWithChildren;
-import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.getPackageById;
-import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.getPrimaryKeyById;
-import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.getTableById;
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.isEmpty;
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.isEmptyOrNotInitializedParameter;
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.makeDir;
@@ -30,51 +15,32 @@ import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.runAntTarg
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.writeToFile;
 import static java.text.MessageFormat.format;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.xml.parsers.ParserConfigurationException;
-
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Task;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
 
 import com.technology.jep.jepriatoolkit.creator.module.Application;
-import com.technology.jep.jepriatoolkit.creator.module.Db;
-import com.technology.jep.jepriatoolkit.creator.module.DetailForm;
-import com.technology.jep.jepriatoolkit.creator.module.FieldType;
-import com.technology.jep.jepriatoolkit.creator.module.ListForm;
 import com.technology.jep.jepriatoolkit.creator.module.Module;
 import com.technology.jep.jepriatoolkit.creator.module.ModuleButton;
 import com.technology.jep.jepriatoolkit.creator.module.ModuleField;
 import com.technology.jep.jepriatoolkit.creator.module.ModuleInfo;
-import com.technology.jep.jepriatoolkit.creator.module.Modules;
-import com.technology.jep.jepriatoolkit.creator.module.Record;
+import com.technology.jep.jepriatoolkit.parser.ApplicationSettingParser;
 
 @SuppressWarnings("unchecked")
 public class ApplicationStructureCreator extends Task {
-
 	// Атрибут таска
-	public static String applicationStructureFile;
+	public String applicationStructureFile;
 	// объект, хранящий характеристики приложения, извлекаемые из конфигурационного файла приложения	
-	public static Application application;
-	public static List<String> forms = new ArrayList<String>();
-	private static List<List<String>> formWithTheirDependencies = new ArrayList<List<String>>();
-	private static List<String> securityRoles = new ArrayList<String>();
-	// Соответствие формы списку полей, где указано наименование поля и его тип
-	private static Map<Module, List<ModuleField>> formFields = new HashMap<Module, List<ModuleField>>();
-	// Ссылка на <ApplicationName>Definition.xml
-	private static Document jepApplicationDoc = null;
+	private Application application;
+	private List<String> forms = new ArrayList<String>();
 	// Данные для шаблонизатора
-	private Map<String, Object> resultData = null; 
+	private Map<String, Object> resultData = null;
+	// Парсер настроек приложения
+	private ApplicationSettingParser applicationParser = null;
 
 	/**
 	 * Основной метод, который выполняет Task
@@ -82,9 +48,12 @@ public class ApplicationStructureCreator extends Task {
 	@Override
 	public void execute() throws BuildException {
 		try {
-			if (!parseApplicationSettingXML()) return;
+			// Разбор и проверка applicationStructureFile (по умолчанию, <ApplicationName>Definition.xml)
+			applicationParser = ApplicationSettingParser.getInstance(isEmptyOrNotInitializedParameter(applicationStructureFile) ? getApplicationDefinitionFile() : applicationStructureFile);
+			application = applicationParser.getApplication();
+			forms = applicationParser.getForms();
 			
-			notifyAboutAbsentFields();
+			applicationParser.notifyAboutAbsentFields();
 
 			echoMessage(multipleConcat("Create Application Structure for '", application.getProjectPackage().toLowerCase(), DOT, application.getName().toLowerCase(), "' module"));
 			createApplicationFileStructure();
@@ -144,188 +113,7 @@ public class ApplicationStructureCreator extends Task {
 			throw new BuildException(e);
 		}
 	}
-
-	/**
-	 * Разбор и проверка JepApplication.xml
-	 * 
-	 * @return флаг успешности/неуспешности парсинга JepApplication.xml
-	 * @throws ParserConfigurationException
-	 */
-	public static boolean parseApplicationSettingXML() throws ParserConfigurationException {
-		applicationStructureFile = isEmptyOrNotInitializedParameter(applicationStructureFile) ? getApplicationDefinitionFile() : applicationStructureFile;
-		echoMessage(multipleConcat("Parsing ", applicationStructureFile, "..."));
-		try {
-			jepApplicationDoc = getDOM(applicationStructureFile);
-			application = new Application();
-			NodeList nodes = jepApplicationDoc.getElementsByTagName(APPLICATION_TAG_NAME);
-			if (isEmpty(nodes)) {
-				echoMessage(multipleConcat(ERROR_PREFIX,
-						"Application setting XML is not correct! There is no mandatory tag 'application'!"));
-				return false;
-			}
-			Element applicationNode = (Element) nodes.item(0);
-			String packageName = applicationNode.getAttribute(PROJECT_PACKAGE_ATTRIBUTE);
-			application.setProjectPackage(packageName);
-			if (isEmpty(application.getProjectPackage())) {
-				echoMessage(multipleConcat(ERROR_PREFIX,
-						"Application setting XML is not correct! There is no mandatory attribute '", PROJECT_PACKAGE_ATTRIBUTE,
-						"' of tag 'application'!"));
-				return false;
-			}
-			String moduleName = applicationNode.getAttribute(APPLICATION_NAME_ATTRIBUTE);
-			application.setName(moduleName);
-			if (isEmpty(moduleName)) {
-				echoMessage(multipleConcat(ERROR_PREFIX,
-						"Application setting XML is not correct! There is no mandatory attribute '", APPLICATION_NAME_ATTRIBUTE,
-						"' of tag 'application'!"));
-				return false;
-			}
-			else if (!moduleName.equals(new File(applicationStructureFile).getName().split(APPLICATION_SETTING_FILE_ENDING)[0])){
-				echoMessage(multipleConcat(ERROR_PREFIX,
-						"Application setting XML is not correct! The attribute '", APPLICATION_NAME_ATTRIBUTE, "'='", moduleName,
-						"' doesn't match the file name '", applicationStructureFile, "'!"));
-				return false;
-			}
-			String defaultDataSource = applicationNode.getAttribute(APPLICATION_DATASOURCE_ATTRIBUTE);
-			application.setDefaultDatasource(defaultDataSource);
-			if (isEmpty(defaultDataSource)) {
-				defaultDataSource = DEFAULT_DATASOURCE;
-			}
-
-			// инициализация списка форм с их потомками
-			forms = getAllModuleNodes(jepApplicationDoc);
-			application.setModuleIds(forms);
-			List<Module> modules = new ArrayList<Module>(forms.size());
-			for (int index = 0; index < forms.size(); index++) {
-				String formName = forms.get(index);
-				echoMessage(multipleConcat("Gather information about module '", application.getProjectPackage().toLowerCase(), DOT, application.getName().toLowerCase(), DOT, formName, "'"));
-				
-				Element module = getModuleNodeById(jepApplicationDoc, formName);
-				List<String> moduleRoles = getModuleSecurityRoles(jepApplicationDoc, formName);
-				// заполнение общего списка ролей, необходимого для генерации web.xml
-				for (String moduleRole : moduleRoles) {
-					if (!securityRoles.contains(moduleRole))
-						securityRoles.add(moduleRole);
-				}
-
-				String moduleDataSource = getDataSourceById(jepApplicationDoc, formName);
-				String modulePackage = getPackageById(jepApplicationDoc, formName);
-
-				Db db = new Db(isEmpty(modulePackage) ? multipleConcat(PKG_PREFIX, application.getName().toLowerCase())
-						: modulePackage, isEmpty(moduleDataSource) ? defaultDataSource : moduleDataSource);
-				Module m = new Module(formName, isEmpty(module.getAttribute(MODULE_NAME_ATTRIBUTE)) ? NO_NAME : module.getAttribute(
-						MODULE_NAME_ATTRIBUTE).trim(), isEmpty(module.getAttribute(MODULE_NAME_EN_ATTRIBUTE)) ? NO_NAME : module
-						.getAttribute(MODULE_NAME_EN_ATTRIBUTE).trim(), db, moduleRoles);
-				m.setNotRebuild(OFF.equalsIgnoreCase(module.getAttribute(MODULE_BUILD_ATTRIBUTE)));
-				m.setTable(getTableById(jepApplicationDoc, formName));
-				// Инициализация данных о тулбаре
-				detailizedModuleForToolBar(jepApplicationDoc, m, module);
-
-				List<ModuleField> mfList = new ArrayList<ModuleField>();
-				List<Element> fields = getModuleFieldsById(jepApplicationDoc, formName);
-				if (!isEmpty(fields)){
-					String primaryKey = getPrimaryKeyById(jepApplicationDoc, formName);
-					for (int i = 0; i < fields.size(); i++) {
-						Element field = (Element) fields.get(i);
-						String fieldId = isEmpty(field.getAttribute(FIELD_ID_ATTRIBUTE)) ? new String() : field
-								.getAttribute(FIELD_ID_ATTRIBUTE).trim().toUpperCase();
-						ModuleField mf = new ModuleField(formName, fieldId, field.getAttribute(FIELD_TYPE_ATTRIBUTE).trim(),
-								isEmpty(field.getAttribute(FIELD_NAME_ATTRIBUTE)) ? NO_NAME : field.getAttribute(FIELD_NAME_ATTRIBUTE)
-										.trim(),
-								isEmpty(field.getAttribute(FIELD_NAME_EN_ATTRIBUTE)) ? getNameFromID(fieldId) : field
-										.getAttribute(FIELD_NAME_EN_ATTRIBUTE).trim(),
-								isEmpty(field.getAttribute(FIELD_LIKE_ATTRIBUTE)) ? new String() : field.getAttribute(
-										FIELD_LIKE_ATTRIBUTE).trim(),
-								isEmpty(field.getAttribute(FIELD_WIDGET_ATTRIBUTE)) ? DEFAULT_WIDGET : field.getAttribute(
-										FIELD_WIDGET_ATTRIBUTE).trim(),
-								isEmpty(field.getAttribute(FIELD_MAX_LENGTH_ATTRIBUTE)) ? new String() : field.getAttribute(
-										FIELD_MAX_LENGTH_ATTRIBUTE).trim(),
-								isEmpty(field.getAttribute(FIELD_WIDTH_ATTRIBUTE)) ? new String() : field.getAttribute(
-										FIELD_WIDTH_ATTRIBUTE).trim(),
-								isEmpty(field.getAttribute(FIELD_LABEL_WIDTH_ATTRIBUTE)) ? new String() : field.getAttribute(
-										FIELD_LABEL_WIDTH_ATTRIBUTE).trim(),
-								isEmpty(field.getAttribute(FIELD_HEIGHT_ATTRIBUTE)) ? new String() : field.getAttribute(
-										FIELD_HEIGHT_ATTRIBUTE).trim(),
-								isEmpty(field.getAttribute(FIELD_VISIBLE_WORKSTATES_ATTRIBUTE)) ? new String() : field.getAttribute(FIELD_VISIBLE_WORKSTATES_ATTRIBUTE).trim().toUpperCase(), 
-								isEmpty(field.getAttribute(FIELD_MANDATORY_WORKSTATES_ATTRIBUTE)) ? new String() : field.getAttribute(FIELD_MANDATORY_WORKSTATES_ATTRIBUTE).trim().toUpperCase(), 
-								isEmpty(field.getAttribute(FIELD_EDITABLE_WORKSTATES_ATTRIBUTE)) ? new String() : field.getAttribute(FIELD_EDITABLE_WORKSTATES_ATTRIBUTE).trim().toUpperCase(),
-								isEmpty(field.getAttribute(FIELD_ENABLE_WORKSTATES_ATTRIBUTE)) ? new String() : field.getAttribute(FIELD_ENABLE_WORKSTATES_ATTRIBUTE).trim().toUpperCase());
-						
-						if (!isEmpty(field.getAttribute(FIELD_LIKE_ATTRIBUTE)) && !m.hasLikeFields()) {
-							m.setHasLikeFields(true);
-						}
-						mf.setPrimaryKey(fieldId.equalsIgnoreCase(primaryKey));
-						// детализируем поле после парсинга форм: детальной и списочной
-						detailizedModuleField(jepApplicationDoc, m, mf);
-						mfList.add(mf);
-					}
-					
-					List<ModuleField> recordFields = new ArrayList<ModuleField>(mfList.size());
-					List<ModuleField> listFormFields = new ArrayList<ModuleField>();
-					List<ModuleField> detailFormFields = new ArrayList<ModuleField>();
-					for (ModuleField mf : mfList){
-						recordFields.add(new ModuleField(mf, FieldType.RECORD));
-						if (mf.getIsListFormField()){
-							listFormFields.add(new ModuleField(mf, FieldType.FORM_LIST));
-						}
-						if (mf.getIsDetailFormField()){
-							detailFormFields.add(new ModuleField(mf, FieldType.FORM_DETAIL));
-						}
-					}
-					Record record = new Record(recordFields);
-					record.setPrimaryKeyAndTableName(new String[]{primaryKey, m.getTable()});
-					m.setRecord(record);
-					// --- 
-					DetailForm detailForm = new DetailForm(detailFormFields);
-					Element formDetailElement = getFormDetailElementByModuleId(jepApplicationDoc, m.getModuleId());
-					if (formDetailElement != null){
-						NodeList presenterBodyNodes = formDetailElement.getElementsByTagName(PRESENTER_BOBY_TAG_NAME);
-						if (presenterBodyNodes != null && presenterBodyNodes.getLength() > 0){
-							detailForm.setPresenterBody(presenterBodyNodes.item(0).getTextContent());
-						}
-					}
-					
-					m.setForms(detailForm, new ListForm(listFormFields));
-				}
-				modules.add(m);
-				// добавляем соответствие модуля его списку полей
-				formFields.put(m, mfList);
-			}
-			application.setModules(new Modules(modules));
-			for (int i = 0; i < forms.size(); i++) {
-				List<String> nodesWithChildren = getNodesWithChildren(jepApplicationDoc, forms.get(i));
-				if (!isEmpty(nodesWithChildren))
-					formWithTheirDependencies.add(nodesWithChildren);
-			}
-
-			return true;
-		} catch (IOException e) {
-			echoMessage(multipleConcat(ERROR_PREFIX, "File ", applicationStructureFile,
-					" is not found!! Fill and put it in Application Directory!"));
-			return false;
-		} catch (SAXException e) {
-			echoMessage(multipleConcat(ERROR_PREFIX, "File ", applicationStructureFile,
-					" is not valid!! Check and correct it!"));
-			return false;
-		}
-	}
-
-	/**
-	 * Оповещение о полях, присутствующих на детальной или списочной формах, но
-	 * не указанных в секции &lt;record&gt;
-	 */
-	private void notifyAboutAbsentFields() {
-		for (int i = 0; i < forms.size(); i++) {
-			String formName = forms.get(i);
-			Map<Module, List<ModuleField>> hm = getModuleWithFieldsById(formName);
-			List<ModuleField> moduleFields = hm.values().iterator().next();
-			List<String> absentFields = getListOfAbsentFieldNameByModuleId(jepApplicationDoc, formName, moduleFields);
-			if (!absentFields.isEmpty()) {
-				echoMessage(multipleConcat(WARNING_PREFIX, "Field", (absentFields.size() > 1 ? "s" : ""), WHITE_SPACE, Arrays.toString(absentFields.toArray()), WHITE_SPACE, 
-						(absentFields.size() > 1 ? "are" : "is"), " absent in 'record' section for module with ID : '", formName, "'"));
-			}
-		}
-	}
+	
 
 	/**
 	 * Создание файловой структуры приложения
@@ -1428,66 +1216,9 @@ public class ApplicationStructureCreator extends Task {
 		runAntTarget("all-text-encode");
 	}
 
-	/**
-	 * Функция, определяющая является ли форма зависимой. Если да, то от какой
-	 * 
-	 * @param formName наименование проверяемой на зависимость формы
-	 * @return наименование главной формы
-	 */
-	public static String getMainFormNameIfExist(String formName) {
-		for (int index = 0; index < formWithTheirDependencies.size(); index++) {
-			List<String> list = formWithTheirDependencies.get(index);
-			String mainFormName = list.get(0);
-			for (int j = 1; j < list.size(); j++) {
-				String dependentForm = list.get(j);
-				if (dependentForm.equals(formName))
-					return mainFormName;
-			}
-
-		}
-		return null;
-	}
-
-	/**
-	 * Получение списка зависимых узлов (форм) для требуемой
-	 * 
-	 * @param formName требуемая форма
-	 * @return список имеющихся зависимостей
-	 */
-	private List<String> getDependencyNodesIfExists(String formName) {
-		List<String> result = new ArrayList<String>();
-		for (int index = 0; index < formWithTheirDependencies.size(); index++) {
-			List<String> list = formWithTheirDependencies.get(index);
-			String mainFormName = list.get(0);
-			if (mainFormName.equals(formName)) {
-				result = list.subList(1, list.size());
-				break;
-			}
-		}
-		return result;
-	}
-
-	/**
-	 * Получение хэшмэпа модуля и списка его полей по идентификатору
-	 * 
-	 * @param moduleId идентификатор модуля
-	 * @return хэшмэп модуля и списка полей
-	 */
-	public static Map<Module, List<ModuleField>> getModuleWithFieldsById(String moduleId) {
-		Map<Module, List<ModuleField>> hm = new HashMap<Module, List<ModuleField>>();
-
-		for (Module module : formFields.keySet()) {
-			if (module.getModuleId().equalsIgnoreCase(moduleId)) {
-				hm.put(module, formFields.get(module));
-				break;
-			}
-		}
-		return hm;
-	}
-
 	// сетеры для соответствующих атрибутов Task
 	public void setApplicationStructureFile(String applicationStructureFile) {
-		ApplicationStructureCreator.applicationStructureFile = applicationStructureFile;
+		this.applicationStructureFile = applicationStructureFile;
 	}
 
 	/**
@@ -1500,13 +1231,13 @@ public class ApplicationStructureCreator extends Task {
 			resultData = new HashMap<String, Object>();
 			resultData.put(MODULE_NAME_TEMPLATE_PARAMETER, application.getName());
 			resultData.put(PACKAGE_NAME_TEMPLATE_PARAMETER, application.getProjectPackage());
-			resultData.put(SECURITY_ROLES_TEMPLATE_PARAMETER, securityRoles);
+			resultData.put(SECURITY_ROLES_TEMPLATE_PARAMETER, applicationParser.getRoles());
 			List<ModuleInfo> mods = new ArrayList<ModuleInfo>(forms.size());
 			boolean hasTextFile = false;
 			boolean hasBinaryFile = false;
 			for (int i = 0; i < forms.size(); i++) {
 				String formName = (String) forms.get(i);
-				Map<Module, List<ModuleField>> hm = getModuleWithFieldsById(formName);
+				Map<Module, List<ModuleField>> hm = applicationParser.getModuleWithFieldsById(formName);
 				Module module = hm.keySet().iterator().next();
 				
 				ModuleInfo modInfo = new ModuleInfo();
@@ -1515,7 +1246,7 @@ public class ApplicationStructureCreator extends Task {
 				modInfo.setFormTitleEn(module.getModuleNameEn());
 				modInfo.setFieldLabelWidth(module.getFieldLabelWidth());
 				modInfo.setDataSource(module.getDb().getDatasource());
-				modInfo.setPrimaryKey(getPrimaryKeyById(jepApplicationDoc, formName));
+				modInfo.setPrimaryKey(applicationParser.getPrimaryKeyById(formName));
 				modInfo.setTable(module.getTable());
 				modInfo.setDbPackage(module.getDb().getPackageName());
 				modInfo.setIsExcelAvailable(module.isExcelAvailable());
@@ -1524,10 +1255,11 @@ public class ApplicationStructureCreator extends Task {
 				modInfo.setCreateParameterPrefix(module.getCreateParameterPrefix());
 				modInfo.setFindParameterPrefix(module.getFindParameterPrefix());
 				modInfo.setUpdateParameterPrefix(module.getUpdateParameterPrefix());
-				String mainFormIfExist = getMainFormNameIfExist(formName);
+				modInfo.setPresenterBody(module.getForms().getDetailForm().getPresenterBody());
+				String mainFormIfExist = applicationParser.getMainFormNameIfExist(formName);
 				modInfo.setMainFormName(mainFormIfExist);
 				if (!isEmpty(mainFormIfExist)) {
-					String mainFormParentKey = getPrimaryKeyById(jepApplicationDoc, mainFormIfExist);
+					String mainFormParentKey = applicationParser.getPrimaryKeyById(mainFormIfExist);
 					mainFormParentKey = isEmpty(mainFormParentKey) ? multipleConcat(mainFormIfExist, IDENTIFICATOR_SUFFIX) : mainFormParentKey;
 					modInfo.setMainFormParentKey(mainFormParentKey);
 				}
@@ -1541,7 +1273,7 @@ public class ApplicationStructureCreator extends Task {
 				modInfo.setHasToolBarView(module.hasToolBarView());
 				modInfo.setHasToolBarPresenter(module.hasToolBarPresenter());
 				modInfo.setHasLikeField(module.hasLikeFields());
-				modInfo.setScopeModuleIds(getDependencyNodesIfExists(formName));
+				modInfo.setScopeModuleIds(applicationParser.getDependencyNodesIfExists(formName));
 				modInfo.setToolBarButtons(module.getToolBarButtons());
 				modInfo.setToolBarCustomButtons(module.getToolBarCustomButtons());
 				modInfo.setModuleRoleNames(module.getModuleRoleNames());

@@ -5,13 +5,9 @@ import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.END_OF_LINE
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.ERROR_PREFIX;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.NAVIGATION_MENU_DIR_NAME;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.NAVIGATION_TEXT_DIR_NAME;
-import static com.technology.jep.jepriatoolkit.creator.ApplicationStructureCreator.application;
-import static com.technology.jep.jepriatoolkit.creator.ApplicationStructureCreator.forms;
-import static com.technology.jep.jepriatoolkit.creator.ApplicationStructureCreator.getMainFormNameIfExist;
-import static com.technology.jep.jepriatoolkit.creator.ApplicationStructureCreator.getModuleWithFieldsById;
-import static com.technology.jep.jepriatoolkit.creator.ApplicationStructureCreator.parseApplicationSettingXML;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -22,19 +18,28 @@ import org.apache.tools.ant.Task;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import com.technology.jep.jepriatoolkit.creator.module.Application;
 import com.technology.jep.jepriatoolkit.creator.module.Module;
 import com.technology.jep.jepriatoolkit.creator.module.ModuleField;
+import com.technology.jep.jepriatoolkit.parser.ApplicationSettingParser;
 import com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil;
 
 public class NavigationGenerator extends Task {
 	
+	// объект, хранящий характеристики приложения, извлекаемые из конфигурационного файла приложения	
+	private Application application;
+	private List<String> forms = new ArrayList<String>();
+	// Парсер настроек приложения
+	private ApplicationSettingParser applicationParser;
+		
 	/**
 	 * Основной метод, который выполняет Task 
 	 */
 	@Override
 	public void execute() throws BuildException {
 		try{
-			if (!parseApplicationSettingXML()) return;
+			// Разбор и проверка <ApplicationName>Definition.xml
+			this.applicationParser = ApplicationSettingParser.getInstance();
 			
 			JepRiaToolkitUtil.echoMessage(
 					JepRiaToolkitUtil.multipleConcat("Create Navigation Structure for '", application.getProjectPackage().toLowerCase(), DOT, application.getName().toLowerCase(), "' module"));
@@ -81,14 +86,14 @@ public class NavigationGenerator extends Task {
 	    	
 	    	for(int i = 0; i < forms.size(); i++){
 	    		String formName = (String)forms.get(i);
-	    		if (!JepRiaToolkitUtil.isEmpty(getMainFormNameIfExist(formName))) continue;
+	    		if (!JepRiaToolkitUtil.isEmpty(applicationParser.getMainFormNameIfExist(formName))) continue;
 	    		
 		    	Element menuElement = doc.createElement("menu");
 		    	menuElement.setAttribute("name", 
 		    			JepRiaToolkitUtil.multipleConcat("navigation.", application.getProjectPackage().toLowerCase(), DOT, application.getName().toLowerCase(), DOT, formName.toLowerCase()));
 		    	menuElement.setAttribute("frame", "content");
 		    	
-		    	Map<Module, List<ModuleField>> hm = getModuleWithFieldsById(formName);
+		    	Map<Module, List<ModuleField>> hm = applicationParser.getModuleWithFieldsById(formName);
 				Module module = hm.keySet().iterator().next();
 				
 				Element rolesElement = null;
@@ -138,8 +143,8 @@ public class NavigationGenerator extends Task {
 		
     	for(int i = 0; i < forms.size(); i++){
     		String formName = (String)forms.get(i);
-    		if (!JepRiaToolkitUtil.isEmpty(getMainFormNameIfExist(formName))) continue;
-    		Map<Module, List<ModuleField>> hm = getModuleWithFieldsById(formName);
+    		if (!JepRiaToolkitUtil.isEmpty(applicationParser.getMainFormNameIfExist(formName))) continue;
+    		Map<Module, List<ModuleField>> hm = applicationParser.getModuleWithFieldsById(formName);
 			Module module = hm.keySet().iterator().next();
     		content += JepRiaToolkitUtil.multipleConcat(END_OF_LINE, "navigation.", application.getProjectPackage().toLowerCase(), DOT,  application.getName().toLowerCase(), DOT, formName.toLowerCase(), "=", module.getModuleName());
     		contentEn += JepRiaToolkitUtil.multipleConcat(END_OF_LINE, "navigation.", application.getProjectPackage().toLowerCase(), DOT,  application.getName().toLowerCase(), DOT, formName.toLowerCase(), "=" , module.getModuleNameEn());

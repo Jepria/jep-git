@@ -1,10 +1,10 @@
 package com.technology.jep.jepriatoolkit.creator.module;
 
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.DATABASE_TAG_NAME;
-import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.END_OF_LINE;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.ERROR_PREFIX;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.FORMS_TAG_NAME;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.ID_ATTRIBUTE;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.MODULE_BUILD_ATTRIBUTE;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.MODULE_ROLES_ATTRIBUTE;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.MODULE_STATUSBAR_ATTRIBUTE;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.MODULE_TAG_NAME;
@@ -18,7 +18,6 @@ import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.isEmpty;
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.multipleConcat;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.activation.UnsupportedDataTypeException;
@@ -85,8 +84,9 @@ public class Module {
 	private boolean isDblClickOff = false;
 	@XmlTransient
 	private boolean isExcelAvailable = false;
-	@XmlTransient
-	private boolean isNotRebuild = false;
+	@XmlAttribute(name=MODULE_BUILD_ATTRIBUTE)
+	@XmlJavaTypeAdapter(BooleanAdapter.class)
+	private Boolean isNotRebuild = false;
 	@XmlElement(name=RECORD_TAG_NAME)
 	private Record record;
 	@XmlElement(name=FORMS_TAG_NAME)

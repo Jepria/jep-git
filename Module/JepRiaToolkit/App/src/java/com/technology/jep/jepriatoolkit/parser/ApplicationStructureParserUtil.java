@@ -1,13 +1,17 @@
 package com.technology.jep.jepriatoolkit.parser;
 
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.ERROR_PREFIX;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.UTF_8;
+import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.echoMessage;
+import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.multipleConcat;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.UnsupportedEncodingException;
 
 import com.github.javaparser.JavaParser;
+import com.github.javaparser.ParseException;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
 import com.github.javaparser.ast.body.ConstructorDeclaration;
@@ -23,13 +27,19 @@ public class ApplicationStructureParserUtil {
 	 * 
 	 * @param fileNameOrPath	путь до файла	
 	 * @return модуль компиляции
+	 * @throws FileNotFoundException 
+	 * @throws UnsupportedEncodingException 
 	 */
 	public static CompilationUnit getCompilationUnit(String fileNameOrPath) {
         try {
             return JavaParser.parse(new InputStreamReader(new FileInputStream(fileNameOrPath), UTF_8), true);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        } catch (ParseException e) {
+            echoMessage(multipleConcat(ERROR_PREFIX, "Check the file '", fileNameOrPath, "'! It contains compilation errors!"));
+        } catch (FileNotFoundException e) {
+            echoMessage(multipleConcat(ERROR_PREFIX, "File '", fileNameOrPath, "' is not found!"));
+        } catch (UnsupportedEncodingException e) {
+            echoMessage(multipleConcat(ERROR_PREFIX, e.getLocalizedMessage()));
+        } 
         return null;
     }
 	
@@ -41,6 +51,7 @@ public class ApplicationStructureParserUtil {
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public static ModuleDeclaration getModuleDeclaration(String complitionUnitPath){
+		if (complitionUnitPath == null) return null;
 		CompilationUnit compilationUnit = getCompilationUnit(complitionUnitPath);
 		if (compilationUnit == null) return null;
 		
