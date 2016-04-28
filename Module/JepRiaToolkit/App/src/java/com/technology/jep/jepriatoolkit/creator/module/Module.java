@@ -34,7 +34,7 @@ import com.technology.jep.jepriatoolkit.creator.module.adapter.BooleanAdapter;
 import com.technology.jep.jepriatoolkit.log.Logger;
 
 // Указание атрибутов тэга происходит в обратном порядке, вложенных элементов/тэгов - в прямом.
-@XmlType(propOrder = {"moduleRoles", "db", "record", "forms", "toolbar", "isStatusbarOff", "isToolBarOff", "moduleNameEn", "moduleName", "moduleId"})
+@XmlType(propOrder = {"moduleRoles", "db", "record", "forms", "toolbar", "isNotRebuild", "isStatusbarOff", "isToolBarOff", "moduleNameEn", "moduleName", "moduleId"})
 @XmlRootElement(name=MODULE_TAG_NAME)
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Module {

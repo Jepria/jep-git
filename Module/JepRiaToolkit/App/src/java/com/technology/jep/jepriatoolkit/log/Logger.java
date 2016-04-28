@@ -17,7 +17,7 @@ public class Logger {
 	private static Map<String, String> messages = new LinkedHashMap<String, String>();
 	private static Map<String, String> lazyMessages = new LinkedHashMap<String, String>();
 	
-	private static final String ALL_INFO_ABOUT_APPLICATION = "ALL_INFO_ABOUT_APPLICATION";
+	private static final String ALL_INFO_ABOUT_APPLICATION = null;
 	
 	private Logger(){}
 	
@@ -54,7 +54,7 @@ public class Logger {
 		echoMessage(multipleConcat(INFO_PREFIX, "Please look into the file '", fileName, "' to get all process information!"));
 		StringBuilder builder = new StringBuilder();
 		for (Entry<String, String> entry : messages.entrySet()){
-			builder.append("****************").append(END_OF_LINE);
+			builder.append(builder.toString().isEmpty() ? "" : "****************").append(END_OF_LINE);
 			builder.append(entry.getValue()).append(END_OF_LINE);
 			String key = entry.getKey();
 			if (lazyMessages.containsKey(key)){

@@ -4,6 +4,7 @@ import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.ERROR_PREFI
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.UTF_8;
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.echoMessage;
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.multipleConcat;
+import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.isEmpty;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -30,13 +31,12 @@ public class ApplicationStructureParserUtil {
 	 * @throws FileNotFoundException 
 	 * @throws UnsupportedEncodingException 
 	 */
-	public static CompilationUnit getCompilationUnit(String fileNameOrPath) {
-        try {
-            return JavaParser.parse(new InputStreamReader(new FileInputStream(fileNameOrPath), UTF_8), true);
+	public static CompilationUnit getCompilationUnit(String fileNameOrPath) throws FileNotFoundException {
+		try {
+			if (!isEmpty(fileNameOrPath))
+				return JavaParser.parse(new InputStreamReader(new FileInputStream(fileNameOrPath), UTF_8), true);
         } catch (ParseException e) {
             echoMessage(multipleConcat(ERROR_PREFIX, "Check the file '", fileNameOrPath, "'! It contains compilation errors!"));
-        } catch (FileNotFoundException e) {
-            echoMessage(multipleConcat(ERROR_PREFIX, "File '", fileNameOrPath, "' is not found!"));
         } catch (UnsupportedEncodingException e) {
             echoMessage(multipleConcat(ERROR_PREFIX, e.getLocalizedMessage()));
         } 
@@ -50,8 +50,7 @@ public class ApplicationStructureParserUtil {
 	 * @return список методов модуля компиляции
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public static ModuleDeclaration getModuleDeclaration(String complitionUnitPath){
-		if (complitionUnitPath == null) return null;
+	public static ModuleDeclaration getModuleDeclaration(String complitionUnitPath) throws FileNotFoundException {
 		CompilationUnit compilationUnit = getCompilationUnit(complitionUnitPath);
 		if (compilationUnit == null) return null;
 		
@@ -80,5 +79,13 @@ public class ApplicationStructureParserUtil {
 			}
 		}, null);
 		return module;
+	}
+	
+	public static ModuleDeclaration getModuleDeclarationSuppressException(String complitionUnitPath){
+		try {
+			return getModuleDeclaration(complitionUnitPath);
+		}
+		catch(FileNotFoundException e){}		
+		return null;
 	}
 }

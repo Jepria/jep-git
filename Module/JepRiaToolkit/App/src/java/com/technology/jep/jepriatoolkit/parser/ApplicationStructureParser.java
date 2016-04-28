@@ -29,6 +29,7 @@ import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.UTF_8;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.WARNING_PREFIX;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.WHITE_SPACE;
 import static com.technology.jep.jepriatoolkit.parser.ApplicationStructureParserUtil.getModuleDeclaration;
+import static com.technology.jep.jepriatoolkit.parser.ApplicationStructureParserUtil.getModuleDeclarationSuppressException;
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.convertPatternInRealPath;
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.convertPatternInRealPathSupressException;
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.convertToXml;
@@ -113,7 +114,7 @@ public class ApplicationStructureParser extends Task {
 				resource = ApplicationDefinition.valueOf(multipleConcat("JEPRIA_", m.group(1))).getResource();
 			}
 			else {
-				echoMessage(multipleConcat(ERROR_PREFIX, "The Version is '", jepRiaVersion, "' isn't supported!"));
+				log(multipleConcat(ERROR_PREFIX, "The Version is '", jepRiaVersion, "' isn't supported!"), null);
 				return;
 			}
 		}
@@ -159,50 +160,61 @@ public class ApplicationStructureParser extends Task {
 			StringBuilder findParameters = new StringBuilder();
 			StringBuilder createParameters = new StringBuilder();
 			StringBuilder updateParameters = new StringBuilder();
-			ModuleDeclaration declaration = getModuleDeclaration(clientModuleDaoPath);
-			if (declaration != null)
-				for (MethodDeclaration method : declaration.getMethods()){
-					String methodName = method.getName();
-					if (FIND_DAO_FUNCTION.equalsIgnoreCase(methodName) || 
-							CREATE_DAO_FUNCTION.equalsIgnoreCase(methodName) ||
-								UPDATE_DAO_FUNCTION.equalsIgnoreCase(methodName)){
-						
-						Pattern p = Pattern.compile("get\\((.*?)\\)");
-						String methodBody = method.getBody().toStringWithoutComments();
-						Matcher m = p.matcher(methodBody);
-						while(m.find()){
-							String value = m.group(1);
-							if (FIND_DAO_FUNCTION.equalsIgnoreCase(methodName))
-								findParameters.append(findParameters.toString().isEmpty() ? "" : SEPARATOR.concat(WHITE_SPACE)).append(value);
-							else if (CREATE_DAO_FUNCTION.equalsIgnoreCase(methodName))
-								createParameters.append(createParameters.toString().isEmpty() ? "" : SEPARATOR.concat(WHITE_SPACE)).append(value);
-							else if (UPDATE_DAO_FUNCTION.equalsIgnoreCase(methodName))
-								updateParameters.append(updateParameters.toString().isEmpty() ? "" : SEPARATOR.concat(WHITE_SPACE)).append(value);
-						}
-						
-						p = Pattern.compile(multipleConcat(":=\\s*(.*?)\\.", FIND_DAO_FUNCTION));
-						m = p.matcher(methodBody);
-						if (m.find()){
-							packageName = m.group(1);
-						}
+			ModuleDeclaration declaration;
+			try {
+				declaration = getModuleDeclaration(clientModuleDaoPath);
+			}
+			catch(FileNotFoundException e){
+				log(multipleConcat(ERROR_PREFIX, "File '", clientModuleDaoPath, "' is not found!"), moduleId);
+				continue;
+			}
+			for (MethodDeclaration method : declaration.getMethods()){
+				String methodName = method.getName();
+				if (FIND_DAO_FUNCTION.equalsIgnoreCase(methodName) || 
+						CREATE_DAO_FUNCTION.equalsIgnoreCase(methodName) ||
+							UPDATE_DAO_FUNCTION.equalsIgnoreCase(methodName)){
+					
+					Pattern p = Pattern.compile("get\\((.*?)\\)");
+					String methodBody = method.getBody().toStringWithoutComments();
+					Matcher m = p.matcher(methodBody);
+					while(m.find()){
+						String value = m.group(1);
+						if (FIND_DAO_FUNCTION.equalsIgnoreCase(methodName))
+							findParameters.append(findParameters.toString().isEmpty() ? "" : SEPARATOR.concat(WHITE_SPACE)).append(value);
+						else if (CREATE_DAO_FUNCTION.equalsIgnoreCase(methodName))
+							createParameters.append(createParameters.toString().isEmpty() ? "" : SEPARATOR.concat(WHITE_SPACE)).append(value);
+						else if (UPDATE_DAO_FUNCTION.equalsIgnoreCase(methodName))
+							updateParameters.append(updateParameters.toString().isEmpty() ? "" : SEPARATOR.concat(WHITE_SPACE)).append(value);
+					}
+					
+					p = Pattern.compile(multipleConcat(":=\\s*(.*?)\\.", FIND_DAO_FUNCTION));
+					m = p.matcher(methodBody);
+					if (m.find()){
+						packageName = m.group(1);
 					}
 				}
+			}
 			
 			String clientModuleServerConstantPath = convertPatternInRealPath(
 					replacePathWithModuleId(
 							getDefinitionProperty(CLIENT_MODULE_SERVER_CONSTANT_PATH_TEMPLATE_PROPERTY, 
 									multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/server/{3}ServerConstant.java"), resource)
 					, moduleId));
-			declaration = getModuleDeclaration(clientModuleServerConstantPath);
-			if (declaration != null)
-				for (FieldDeclaration field : declaration.getFields()){
-					VariableDeclarator var = field.getVariables().iterator().next();
-					String fieldName = var.getId().getName();
-					if (DATA_SOURCE_JNDI_NAME_CONSTANT_NAME.equalsIgnoreCase(fieldName)){
-						moduleDataSource = extractStringFromQuotes(var.getInit().toStringWithoutComments()).split(JDBC_JNDI_PREFIX)[1];
-						break;
-					}
+			try {
+				declaration = getModuleDeclaration(clientModuleServerConstantPath);
+			}
+			catch(FileNotFoundException e){
+				log(multipleConcat(ERROR_PREFIX, "File '", clientModuleServerConstantPath, "' is not found!"), moduleId);
+				continue;
+			}
+			for (FieldDeclaration field : declaration.getFields()){
+				VariableDeclarator var = field.getVariables().iterator().next();
+				String fieldName = var.getId().getName();
+				if (DATA_SOURCE_JNDI_NAME_CONSTANT_NAME.equalsIgnoreCase(fieldName)){
+					moduleDataSource = extractStringFromQuotes(var.getInit().toStringWithoutComments()).split(JDBC_JNDI_PREFIX)[1];
+					break;
 				}
+			}
 			
 			Db db = new Db();
 			if (!JepRiaToolkitUtil.isEmpty(packageName) && !packageName.equalsIgnoreCase(multipleConcat(PKG_PREFIX, applicationName))){
@@ -239,7 +251,13 @@ public class ApplicationStructureParser extends Task {
 							getDefinitionProperty(CLIENT_MODULE_FIELDS_PATH_TEMPLATE_PROPERTY, 
 									multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/shared/field/{3}FieldNames.java"), resource), moduleId
 					));
-			declaration = getModuleDeclaration(clientModuleFieldNamesPath);
+			try {
+				declaration = getModuleDeclaration(clientModuleFieldNamesPath);
+			}
+			catch(FileNotFoundException e){
+				log(multipleConcat(ERROR_PREFIX, "File '", clientModuleFieldNamesPath, "' is not found!"), moduleId);
+				continue;
+			}
 			List<ModuleField> recordFields = new ArrayList<ModuleField>();
 			List<ModuleField> detailFormFields = new ArrayList<ModuleField>();
 			List<ModuleField> listFormFields = new ArrayList<ModuleField>();
@@ -257,7 +275,13 @@ public class ApplicationStructureParser extends Task {
 				}
 			}
 			Record rec = new Record(recordFields);
-			rec.setPrimaryKeyAndTableName(getPrimaryKeyAndTableName(moduleId, resource));
+			try {
+				rec.setPrimaryKeyAndTableName(getPrimaryKeyAndTableName(moduleId, resource));
+			}
+			catch(FileNotFoundException e){
+				log(multipleConcat(ERROR_PREFIX, "File '", getClientModuleRecordDefinitionPath(moduleId, resource), "' is not found!"), moduleId);
+				continue;		
+			}
 			mod.setRecord(rec);
 			
 			String clientModuleDetailPresenterPath = convertPatternInRealPathSupressException(
@@ -266,7 +290,7 @@ public class ApplicationStructureParser extends Task {
 									multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/client/ui/form/detail/{3}DetailFormPresenter.java"), resource), moduleId
 					));
 			
-			declaration = getModuleDeclaration(clientModuleDetailPresenterPath);
+			declaration = getModuleDeclarationSuppressException(clientModuleDetailPresenterPath);
 			DetailForm detailForm = new DetailForm(detailFormFields);
 			if (declaration != null) {
 				detailForm.setPresenterBody(declaration.getBusinessLogic());
@@ -279,7 +303,7 @@ public class ApplicationStructureParser extends Task {
 							getDefinitionProperty(CLIENT_MODULE_TOOLBAR_VIEW_IMPL_PATH_TEMPLATE_PROPERTY, 
 									multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/client/ui/toolbar/{3}ToolBarViewImpl.java"), resource), moduleId
 					));
-			declaration = getModuleDeclaration(clientModuleToolBarViewPath);
+			declaration = getModuleDeclarationSuppressException(clientModuleToolBarViewPath);
 			List<ModuleButton> buttons = new ArrayList<ModuleButton>();
 			boolean hasToolBarView = declaration != null;
 			mod.setHasToolBarView(hasToolBarView);
@@ -313,7 +337,7 @@ public class ApplicationStructureParser extends Task {
 							getDefinitionProperty(CLIENT_MODULE_TOOLBAR_PRESENTER_PATH_TEMPLATE_PROPERTY, 
 									multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/client/ui/toolbar/{3}ToolBarPresenter.java"), resource), moduleId
 					));
-			declaration = getModuleDeclaration(clientModuleToolBarPresenterPath);
+			declaration = getModuleDeclarationSuppressException(clientModuleToolBarPresenterPath);
 			boolean hasToolBarPresenter = declaration != null;
 			mod.setHasToolBarPresenter(hasToolBarPresenter);
 			if (declaration != null)
@@ -347,14 +371,14 @@ public class ApplicationStructureParser extends Task {
 				application.uptodate(structure);
 				structure = application;
 			} catch (ParserConfigurationException e) {
-				echoMessage(multipleConcat(ERROR_PREFIX, e.getLocalizedMessage()));
+				log(multipleConcat(ERROR_PREFIX, e.getLocalizedMessage()), null);
 			}
 		}
 		convertToXml(structure, fileName);
 		Logger.printMessages(OUTPUT_LOG_FILE);
 	}
 
-	public static String getApplicationFileName(String applicationName) {
+	public String getApplicationFileName(String applicationName) {
 		String fileName = multipleConcat(currentSourceDirectory(), PATH_SEPARATOR, applicationName, APPLICATION_SETTING_FILE_ENDING);
 		
 		if (new File(fileName).exists()){
@@ -387,18 +411,18 @@ public class ApplicationStructureParser extends Task {
 		}
 		else if (new File(multipleConcat(currentSourceDirectory(), PATH_SEPARATOR, JEP_APPLICATION_XML)).exists()){
 			try {
-				echoMessage(multipleConcat("Content from '", JEP_APPLICATION_XML, "' was copied to file '", fileName, "'"));
+				log(multipleConcat("Content from '", JEP_APPLICATION_XML, "' was copied to file '", fileName, "'"), null);
 				copyFile(JEP_APPLICATION_XML, fileName);
 			}
 			catch(IOException e){
-				echoMessage(multipleConcat(ERROR_PREFIX, e.getLocalizedMessage()));
+				log(multipleConcat(ERROR_PREFIX, e.getLocalizedMessage()), null);
 				return null;
 			}
 		}
 		return fileName;
 	}
 
-	public String[] getPrimaryKeyAndTableName(String moduleId, ResourceBundle resource) {
+	public String[] getPrimaryKeyAndTableName(String moduleId, ResourceBundle resource) throws FileNotFoundException {
 		ModuleDeclaration clientModuleDeclaration = getClientModuleRecordDefinition(moduleId, resource);
 		String superClassInConstructorBody = clientModuleDeclaration.getConstructors().iterator().next().getBlock().getStmts().iterator().next().toStringWithoutComments();
 		Pattern p = Pattern.compile("new\\s*String\\s*\\[\\s*\\]\\s*\\{\\s*(.*?)\\s*\\}(\\s*,\\s*\\\"(.*?)\\\")*");
@@ -414,13 +438,13 @@ public class ApplicationStructureParser extends Task {
 		return null;
 	}
 	
-	public static void prepareDetailFormModuleField(String moduleId, ModuleField field, ResourceBundle resource){
+	public void prepareDetailFormModuleField(String moduleId, ModuleField field, ResourceBundle resource){
 		String clientModuleDetailFormViewImplPath = convertPatternInRealPathSupressException(
 				replacePathWithModuleId(getDefinitionProperty(CLIENT_MODULE_DETAIL_FORM_VIEW_IMPL_PATH_TEMPLATE_PROPERTY, 
 						multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "src/java/com/technology/{0}/{1}/{2}/client/ui/form/detail/{3}DetailFormViewImpl.java"), resource
 				), moduleId));
 		String fieldId = field.getFieldId();
-		ModuleDeclaration clientModuleDetailFormDeclaration = getModuleDeclaration(clientModuleDetailFormViewImplPath);
+		ModuleDeclaration clientModuleDetailFormDeclaration = getModuleDeclarationSuppressException(clientModuleDetailFormViewImplPath);
 		if (clientModuleDetailFormDeclaration != null) {
 			ConstructorDeclaration clientModuleDetailFormConstructor = clientModuleDetailFormDeclaration.getConstructors().iterator().next();
 			
@@ -452,7 +476,14 @@ public class ApplicationStructureParser extends Task {
 			}
 		}
 		
-		ModuleDeclaration clientModuleDeclaration = getClientModuleRecordDefinition(moduleId, resource);
+		ModuleDeclaration clientModuleDeclaration;
+		try {
+			clientModuleDeclaration = getClientModuleRecordDefinition(moduleId, resource);
+		}
+		catch(FileNotFoundException e){
+			log(multipleConcat(ERROR_PREFIX, "File '", getClientModuleRecordDefinitionPath(moduleId, resource), "' is not found!"), moduleId);
+			return;
+		}
 		field.setDetailFormField(true);
 		for (MethodDeclaration method : clientModuleDeclaration.getMethods()){
 			if ("buildtypemap".equalsIgnoreCase(method.getName())){
@@ -512,7 +543,7 @@ public class ApplicationStructureParser extends Task {
 						multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "src/java/com/technology/{0}/{1}/{2}/client/ui/form/list/{3}ListFormViewImpl.java"), resource
 				), moduleId));
 		
-		ModuleDeclaration clientModuleListFormDeclaration = getModuleDeclaration(clientModuleListFormViewImplPath);
+		ModuleDeclaration clientModuleListFormDeclaration = getModuleDeclarationSuppressException(clientModuleListFormViewImplPath);
 		
 		String columnConfiguration = null;
 		for (MethodDeclaration method : clientModuleListFormDeclaration.getMethods()){
@@ -562,22 +593,25 @@ public class ApplicationStructureParser extends Task {
 		}
 	}
 	
-	private static ModuleDeclaration getClientModuleRecordDefinition(String moduleId, ResourceBundle resource){
-		String clientModuleRecordDefinitionPath = convertPatternInRealPath(
+	private static ModuleDeclaration getClientModuleRecordDefinition(String moduleId, ResourceBundle resource) throws FileNotFoundException {
+		ModuleDeclaration clientModuleDeclaration = getModuleDeclaration(getClientModuleRecordDefinitionPath(moduleId, resource));
+		return clientModuleDeclaration;
+	}
+
+	public static String getClientModuleRecordDefinitionPath(String moduleId, ResourceBundle resource) {
+		return convertPatternInRealPath(
 				replacePathWithModuleId(
 					getDefinitionProperty(CLIENT_MODULE_RECORD_DEFINITION_PATH_TEMPLATE_PROPERTY, 
 							multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/shared/record/{3}RecordDefinition.java"), resource
 					),
 				moduleId));
-		ModuleDeclaration clientModuleDeclaration = getModuleDeclaration(clientModuleRecordDefinitionPath);
-		return clientModuleDeclaration;
 	}
 	
 	private static String replacePathWithModuleId(String path, String moduleId){
 		return format(path, "{0}", "{1}", moduleId.toLowerCase(), "{2}");
 	}
 	
-	public static String getRoles(String moduleId, ResourceBundle resource){
+	public String getRoles(String moduleId, ResourceBundle resource){
 		String mainModulePresenterFilePath = convertPatternInRealPath(getDefinitionProperty(MAIN_MODULE_PRESENTER_PATH_TEMPLATE_PROPERTY, 
 				multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/main/client/ui/main/{2}MainModulePresenter.java"), resource));
 		
@@ -586,7 +620,7 @@ public class ApplicationStructureParser extends Task {
 		try {
 			methodBody = readFromFile(mainModulePresenterFilePath, UTF_8);
 		} catch (FileNotFoundException e) {
-			echoMessage(multipleConcat(ERROR_PREFIX, e.getLocalizedMessage()));
+			log(multipleConcat(ERROR_PREFIX, e.getLocalizedMessage()), null);
 			return "";
 		}
 		Matcher m = p.matcher(methodBody);
@@ -598,5 +632,10 @@ public class ApplicationStructureParser extends Task {
 
 	public void setJepRiaVersion(String jepRiaVersion) {
 		this.jepRiaVersion = jepRiaVersion;
+	}
+	
+	private void log(String message, String moduleId){
+		echoMessage(message);
+		Logger.appendMessageToTheEndOfForm(moduleId, message);
 	}
 }
