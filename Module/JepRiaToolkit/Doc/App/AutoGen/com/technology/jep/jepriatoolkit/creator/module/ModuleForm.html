@@ -4,7 +4,7 @@
 <HEAD>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <TITLE>
-NavigationGenerator (JepRiaToolkit JavaDoc)
+ModuleForm (JepRiaToolkit JavaDoc)
 </TITLE>
 
 
@@ -14,7 +14,7 @@ NavigationGenerator (JepRiaToolkit JavaDoc)
 function windowTitle()
 {
     if (location.href.indexOf('is-external=true') == -1) {
-        parent.document.title="NavigationGenerator (JepRiaToolkit JavaDoc)";
+        parent.document.title="ModuleForm (JepRiaToolkit JavaDoc)";
     }
 }
 </SCRIPT>
@@ -53,11 +53,11 @@ function windowTitle()
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;PREV CLASS&nbsp;
-&nbsp;NEXT CLASS</FONT></TD>
+&nbsp;<A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/ModuleField.html" title="class in com.technology.jep.jepriatoolkit.creator.module"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/ModuleInfo.html" title="class in com.technology.jep.jepriatoolkit.creator.module"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-  <A HREF="../../../../../../index.html?com/technology/jep/jepriatoolkit/creator/navigation/NavigationGenerator.html" target="_top"><B>FRAMES</B></A>  &nbsp;
-&nbsp;<A HREF="NavigationGenerator.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+  <A HREF="../../../../../../index.html?com/technology/jep/jepriatoolkit/creator/module/ModuleForm.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="ModuleForm.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
 &nbsp;<SCRIPT type="text/javascript">
   <!--
   if(window==top) {
@@ -86,21 +86,19 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
 <!-- ======== START OF CLASS DATA ======== -->
 <H2>
 <FONT SIZE="-1">
-com.technology.jep.jepriatoolkit.creator.navigation</FONT>
+com.technology.jep.jepriatoolkit.creator.module</FONT>
 <BR>
-Class NavigationGenerator</H2>
+Class ModuleForm</H2>
 <PRE>
 java.lang.Object
-  <IMG SRC="../../../../../../resources/inherit.gif" ALT="extended by ">org.apache.tools.ant.ProjectComponent
-      <IMG SRC="../../../../../../resources/inherit.gif" ALT="extended by ">org.apache.tools.ant.Task
-          <IMG SRC="../../../../../../resources/inherit.gif" ALT="extended by "><B>com.technology.jep.jepriatoolkit.creator.navigation.NavigationGenerator</B>
+  <IMG SRC="../../../../../../resources/inherit.gif" ALT="extended by "><B>com.technology.jep.jepriatoolkit.creator.module.ModuleForm</B>
 </PRE>
 <DL>
-<DT><B>All Implemented Interfaces:</B> <DD>java.lang.Cloneable</DD>
+<DT><B>Direct Known Subclasses:</B> <DD><A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/DetailForm.html" title="class in com.technology.jep.jepriatoolkit.creator.module">DetailForm</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/ListForm.html" title="class in com.technology.jep.jepriatoolkit.creator.module">ListForm</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/Record.html" title="class in com.technology.jep.jepriatoolkit.creator.module">Record</A></DD>
 </DL>
 <HR>
 <DL>
-<DT><PRE>public class <B>NavigationGenerator</B><DT>extends org.apache.tools.ant.Task</DL>
+<DT><PRE>public abstract class <B>ModuleForm</B><DT>extends java.lang.Object</DL>
 </PRE>
 
 <P>
@@ -117,45 +115,11 @@ java.lang.Object
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>private &nbsp;<A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/Application.html" title="class in com.technology.jep.jepriatoolkit.creator.module">Application</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/navigation/NavigationGenerator.html#application">application</A></B></CODE>
+<CODE>private &nbsp;java.util.List&lt;<A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/ModuleField.html" title="class in com.technology.jep.jepriatoolkit.creator.module">ModuleField</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/ModuleForm.html#fields">fields</A></B></CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>private &nbsp;<A HREF="../../../../../../com/technology/jep/jepriatoolkit/parser/ApplicationSettingParser.html" title="class in com.technology.jep.jepriatoolkit.parser">ApplicationSettingParser</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/navigation/NavigationGenerator.html#applicationParser">applicationParser</A></B></CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>private &nbsp;java.util.List&lt;java.lang.String&gt;</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/navigation/NavigationGenerator.html#forms">forms</A></B></CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-</TABLE>
-&nbsp;<A NAME="fields_inherited_from_class_org.apache.tools.ant.Task"><!-- --></A>
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
-<TH ALIGN="left"><B>Fields inherited from class org.apache.tools.ant.Task</B></TH>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE>target, taskName, taskType, wrapper</CODE></TD>
-</TR>
-</TABLE>
-&nbsp;<A NAME="fields_inherited_from_class_org.apache.tools.ant.ProjectComponent"><!-- --></A>
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
-<TH ALIGN="left"><B>Fields inherited from class org.apache.tools.ant.ProjectComponent</B></TH>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE>description, location, project</CODE></TD>
 </TR>
 </TABLE>
 &nbsp;
@@ -168,7 +132,17 @@ java.lang.Object
 <B>Constructor Summary</B></FONT></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/navigation/NavigationGenerator.html#NavigationGenerator()">NavigationGenerator</A></B>()</CODE>
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected </CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/ModuleForm.html#ModuleForm()">ModuleForm</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/ModuleForm.html#ModuleForm(java.util.List)">ModuleForm</A></B>(java.util.List&lt;<A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/ModuleField.html" title="class in com.technology.jep.jepriatoolkit.creator.module">ModuleField</A>&gt;&nbsp;fields)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -185,53 +159,35 @@ java.lang.Object
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/navigation/NavigationGenerator.html#createNavigationFileStructure()">createNavigationFileStructure</A></B>()</CODE>
+<CODE>&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/ModuleForm.html#contains(java.lang.String)">contains</A></B>(java.lang.String&nbsp;fieldId)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Создание файловой структуры для навигации</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/ModuleForm.html#getFieldIds()">getFieldIds</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;java.util.List&lt;<A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/ModuleField.html" title="class in com.technology.jep.jepriatoolkit.creator.module">ModuleField</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/ModuleForm.html#getFields()">getFields</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/navigation/NavigationGenerator.html#createTextResource()">createTextResource</A></B>()</CODE>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/ModuleForm.html#setFields(java.util.List)">setFields</A></B>(java.util.List&lt;<A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/ModuleField.html" title="class in com.technology.jep.jepriatoolkit.creator.module">ModuleField</A>&gt;&nbsp;fields)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Создание текстовых ресурсов с наименованиями соответствующих пунктов меню</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/navigation/NavigationGenerator.html#createXMLStructure()">createXMLStructure</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Создание xml-документа, хранящего навигационную структуру модуля</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/navigation/NavigationGenerator.html#execute()">execute</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Основной метод, который выполняет Task</TD>
-</TR>
-</TABLE>
-&nbsp;<A NAME="methods_inherited_from_class_org.apache.tools.ant.Task"><!-- --></A>
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
-<TH ALIGN="left"><B>Methods inherited from class org.apache.tools.ant.Task</B></TH>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE>bindToOwner, getOwningTarget, getRuntimeConfigurableWrapper, getTaskName, getTaskType, getWrapper, handleErrorFlush, handleErrorOutput, handleFlush, handleInput, handleOutput, init, isInvalid, log, log, log, log, maybeConfigure, perform, reconfigure, setOwningTarget, setRuntimeConfigurableWrapper, setTaskName, setTaskType</CODE></TD>
-</TR>
-</TABLE>
-&nbsp;<A NAME="methods_inherited_from_class_org.apache.tools.ant.ProjectComponent"><!-- --></A>
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
-<TH ALIGN="left"><B>Methods inherited from class org.apache.tools.ant.ProjectComponent</B></TH>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE>clone, getDescription, getLocation, getProject, setDescription, setLocation, setProject</CODE></TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>
@@ -240,7 +196,7 @@ java.lang.Object
 <TH ALIGN="left"><B>Methods inherited from class java.lang.Object</B></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE>equals, finalize, getClass, hashCode, notify, notifyAll, toString, wait, wait, wait</CODE></TD>
+<TD><CODE>clone, equals, finalize, getClass, hashCode, notify, notifyAll, toString, wait, wait, wait</CODE></TD>
 </TR>
 </TABLE>
 &nbsp;
@@ -256,30 +212,10 @@ java.lang.Object
 </TR>
 </TABLE>
 
-<A NAME="application"><!-- --></A><H3>
-application</H3>
+<A NAME="fields"><!-- --></A><H3>
+fields</H3>
 <PRE>
-private <A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/Application.html" title="class in com.technology.jep.jepriatoolkit.creator.module">Application</A> <B>application</B></PRE>
-<DL>
-<DL>
-</DL>
-</DL>
-<HR>
-
-<A NAME="forms"><!-- --></A><H3>
-forms</H3>
-<PRE>
-private java.util.List&lt;java.lang.String&gt; <B>forms</B></PRE>
-<DL>
-<DL>
-</DL>
-</DL>
-<HR>
-
-<A NAME="applicationParser"><!-- --></A><H3>
-applicationParser</H3>
-<PRE>
-private <A HREF="../../../../../../com/technology/jep/jepriatoolkit/parser/ApplicationSettingParser.html" title="class in com.technology.jep.jepriatoolkit.parser">ApplicationSettingParser</A> <B>applicationParser</B></PRE>
+private java.util.List&lt;<A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/ModuleField.html" title="class in com.technology.jep.jepriatoolkit.creator.module">ModuleField</A>&gt; <B>fields</B></PRE>
 <DL>
 <DL>
 </DL>
@@ -295,10 +231,18 @@ private <A HREF="../../../../../../com/technology/jep/jepriatoolkit/parser/Appli
 </TR>
 </TABLE>
 
-<A NAME="NavigationGenerator()"><!-- --></A><H3>
-NavigationGenerator</H3>
+<A NAME="ModuleForm()"><!-- --></A><H3>
+ModuleForm</H3>
 <PRE>
-public <B>NavigationGenerator</B>()</PRE>
+protected <B>ModuleForm</B>()</PRE>
+<DL>
+</DL>
+<HR>
+
+<A NAME="ModuleForm(java.util.List)"><!-- --></A><H3>
+ModuleForm</H3>
+<PRE>
+public <B>ModuleForm</B>(java.util.List&lt;<A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/ModuleField.html" title="class in com.technology.jep.jepriatoolkit.creator.module">ModuleField</A>&gt;&nbsp;fields)</PRE>
 <DL>
 </DL>
 
@@ -312,63 +256,46 @@ public <B>NavigationGenerator</B>()</PRE>
 </TR>
 </TABLE>
 
-<A NAME="execute()"><!-- --></A><H3>
-execute</H3>
+<A NAME="getFields()"><!-- --></A><H3>
+getFields</H3>
 <PRE>
-public void <B>execute</B>()
-             throws org.apache.tools.ant.BuildException</PRE>
+public java.util.List&lt;<A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/ModuleField.html" title="class in com.technology.jep.jepriatoolkit.creator.module">ModuleField</A>&gt; <B>getFields</B>()</PRE>
 <DL>
-<DD>Основной метод, который выполняет Task
-<P>
-<DD><DL>
-<DT><B>Overrides:</B><DD><CODE>execute</CODE> in class <CODE>org.apache.tools.ant.Task</CODE></DL>
-</DD>
-<DD><DL>
-
-<DT><B>Throws:</B>
-<DD><CODE>org.apache.tools.ant.BuildException</CODE></DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="createNavigationFileStructure()"><!-- --></A><H3>
-createNavigationFileStructure</H3>
-<PRE>
-public void <B>createNavigationFileStructure</B>()</PRE>
-<DL>
-<DD>Создание файловой структуры для навигации
-<P>
 <DD><DL>
 </DL>
 </DD>
 </DL>
 <HR>
 
-<A NAME="createXMLStructure()"><!-- --></A><H3>
-createXMLStructure</H3>
+<A NAME="setFields(java.util.List)"><!-- --></A><H3>
+setFields</H3>
 <PRE>
-public void <B>createXMLStructure</B>()</PRE>
+public void <B>setFields</B>(java.util.List&lt;<A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/ModuleField.html" title="class in com.technology.jep.jepriatoolkit.creator.module">ModuleField</A>&gt;&nbsp;fields)</PRE>
 <DL>
-<DD>Создание xml-документа, хранящего навигационную структуру модуля
-<P>
 <DD><DL>
 </DL>
 </DD>
 </DL>
 <HR>
 
-<A NAME="createTextResource()"><!-- --></A><H3>
-createTextResource</H3>
+<A NAME="contains(java.lang.String)"><!-- --></A><H3>
+contains</H3>
 <PRE>
-public void <B>createTextResource</B>()
-                        throws java.io.IOException</PRE>
+public boolean <B>contains</B>(java.lang.String&nbsp;fieldId)</PRE>
 <DL>
-<DD>Создание текстовых ресурсов с наименованиями соответствующих пунктов меню
-<P>
 <DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
 
-<DT><B>Throws:</B>
-<DD><CODE>java.io.IOException</CODE></DL>
+<A NAME="getFieldIds()"><!-- --></A><H3>
+getFieldIds</H3>
+<PRE>
+public java.lang.String <B>getFieldIds</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
 </DD>
 </DL>
 <!-- ========= END OF CLASS DATA ========= -->
@@ -401,11 +328,11 @@ public void <B>createTextResource</B>()
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;PREV CLASS&nbsp;
-&nbsp;NEXT CLASS</FONT></TD>
+&nbsp;<A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/ModuleField.html" title="class in com.technology.jep.jepriatoolkit.creator.module"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/ModuleInfo.html" title="class in com.technology.jep.jepriatoolkit.creator.module"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-  <A HREF="../../../../../../index.html?com/technology/jep/jepriatoolkit/creator/navigation/NavigationGenerator.html" target="_top"><B>FRAMES</B></A>  &nbsp;
-&nbsp;<A HREF="NavigationGenerator.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+  <A HREF="../../../../../../index.html?com/technology/jep/jepriatoolkit/creator/module/ModuleForm.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="ModuleForm.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
 &nbsp;<SCRIPT type="text/javascript">
   <!--
   if(window==top) {

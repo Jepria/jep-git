@@ -139,17 +139,17 @@ public class ApplicationStructureParser extends Task {
 		structure.setModuleIds(moduleNames);
 		List<Module> modules = new ArrayList<Module>(moduleNames.size());
 		
-		String mainModuleResourcePath = convertPatternInRealPath(getDefinitionProperty(MAIN_TEXT_RESOURCE_PATH_TEMPLATE_PROPERTY, 
+		String mainModuleResourcePath = convertPatternInRealPathSupressException(getDefinitionProperty(MAIN_TEXT_RESOURCE_PATH_TEMPLATE_PROPERTY, 
 				multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/main/shared/text/{2}Text_Source.properties"), resource));
 		
-		String mainModuleResourceEnPath = convertPatternInRealPath(getDefinitionProperty(MAIN_TEXT_RESOURCE_EN_PATH_TEMPLATE_PROPERTY, 
+		String mainModuleResourceEnPath = convertPatternInRealPathSupressException(getDefinitionProperty(MAIN_TEXT_RESOURCE_EN_PATH_TEMPLATE_PROPERTY, 
 				multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/main/shared/text/{2}Text_en.properties"), resource));
 		
 		ResourceBundle mainModuleResourceBundle = getResourceByPath(mainModuleResourcePath);
 		ResourceBundle mainModuleResourceBundleEn = getResourceByPath(mainModuleResourceEnPath);
 		
 		for(String moduleId : moduleNames){
-			String clientModuleDaoPath = convertPatternInRealPath(
+			String clientModuleDaoPath = convertPatternInRealPathSupressException(
 					replacePathWithModuleId(
 						getDefinitionProperty(CLIENT_MODULE_DAO_PATH_TEMPLATE_PROPERTY, 
 								multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/server/dao/{3}Dao.java"), resource
@@ -195,7 +195,7 @@ public class ApplicationStructureParser extends Task {
 				}
 			}
 			
-			String clientModuleServerConstantPath = convertPatternInRealPath(
+			String clientModuleServerConstantPath = convertPatternInRealPathSupressException(
 					replacePathWithModuleId(
 							getDefinitionProperty(CLIENT_MODULE_SERVER_CONSTANT_PATH_TEMPLATE_PROPERTY, 
 									multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/server/{3}ServerConstant.java"), resource)
@@ -246,7 +246,7 @@ public class ApplicationStructureParser extends Task {
 				Logger.appendMessageToTheEndOfForm(moduleId, e.getLocalizedMessage());
 			}
 			Module mod = new Module(moduleId, moduleText, moduleTextEn, db, Arrays.asList(getRoles(moduleId, resource).split("\\s*,\\s*")));
-			String clientModuleFieldNamesPath = convertPatternInRealPath(
+			String clientModuleFieldNamesPath = convertPatternInRealPathSupressException(
 					replacePathWithModuleId(
 							getDefinitionProperty(CLIENT_MODULE_FIELDS_PATH_TEMPLATE_PROPERTY, 
 									multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/shared/field/{3}FieldNames.java"), resource), moduleId
@@ -366,7 +366,7 @@ public class ApplicationStructureParser extends Task {
 		
 		if (new File(fileName).exists()){
 			try {
-				ApplicationSettingParser applicationParser = ApplicationSettingParser.getInstance(normalizePath(fileName));
+				ApplicationSettingParser applicationParser = ApplicationSettingParser.getInstance(normalizePath(fileName), true);
 				Application application = applicationParser.getApplication();
 				application.uptodate(structure);
 				structure = application;
@@ -506,12 +506,12 @@ public class ApplicationStructureParser extends Task {
 			}
 		}
 		
-		String clientModuleResourcePath = convertPatternInRealPath(
+		String clientModuleResourcePath = convertPatternInRealPathSupressException(
 					replacePathWithModuleId(getDefinitionProperty(CLIENT_MODULE_TEXT_RESOURCE_PATH_TEMPLATE_PROPERTY, 
 							multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/shared/text/{3}Text_Source.properties"), resource
 					), moduleId));
 		
-		String clientModuleResourceEnPath = convertPatternInRealPath(
+		String clientModuleResourceEnPath = convertPatternInRealPathSupressException(
 				replacePathWithModuleId(getDefinitionProperty(CLIENT_MODULE_TEXT_RESOURCE_EN_PATH_TEMPLATE_PROPERTY, 
 						multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/shared/text/{3}Text_en.properties"), resource
 				), moduleId));
@@ -544,8 +544,10 @@ public class ApplicationStructureParser extends Task {
 				), moduleId));
 		
 		ModuleDeclaration clientModuleListFormDeclaration = getModuleDeclarationSuppressException(clientModuleListFormViewImplPath);
+		if (clientModuleListFormDeclaration == null) return;
 		
 		String columnConfiguration = null;
+		
 		for (MethodDeclaration method : clientModuleListFormDeclaration.getMethods()){
 			if ("getColumnConfigurations".equalsIgnoreCase(method.getName())){
 				columnConfiguration = method.toStringWithoutComments();
@@ -563,12 +565,12 @@ public class ApplicationStructureParser extends Task {
 			return;
 		}
 		field.setListFormField(true);
-		String clientModuleResourcePath = convertPatternInRealPath(
+		String clientModuleResourcePath = convertPatternInRealPathSupressException(
 				replacePathWithModuleId(getDefinitionProperty(CLIENT_MODULE_TEXT_RESOURCE_PATH_TEMPLATE_PROPERTY, 
 						multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/shared/text/{3}Text_Source.properties"), resource
 				), moduleId));
 		
-		String clientModuleResourceEnPath = convertPatternInRealPath(
+		String clientModuleResourceEnPath = convertPatternInRealPathSupressException(
 				replacePathWithModuleId(getDefinitionProperty(CLIENT_MODULE_TEXT_RESOURCE_EN_PATH_TEMPLATE_PROPERTY, 
 						multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/shared/text/{3}Text_en.properties"), resource
 				), moduleId));
@@ -599,7 +601,7 @@ public class ApplicationStructureParser extends Task {
 	}
 
 	public static String getClientModuleRecordDefinitionPath(String moduleId, ResourceBundle resource) {
-		return convertPatternInRealPath(
+		return convertPatternInRealPathSupressException(
 				replacePathWithModuleId(
 					getDefinitionProperty(CLIENT_MODULE_RECORD_DEFINITION_PATH_TEMPLATE_PROPERTY, 
 							multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/shared/record/{3}RecordDefinition.java"), resource
@@ -612,7 +614,7 @@ public class ApplicationStructureParser extends Task {
 	}
 	
 	public String getRoles(String moduleId, ResourceBundle resource){
-		String mainModulePresenterFilePath = convertPatternInRealPath(getDefinitionProperty(MAIN_MODULE_PRESENTER_PATH_TEMPLATE_PROPERTY, 
+		String mainModulePresenterFilePath = convertPatternInRealPathSupressException(getDefinitionProperty(MAIN_MODULE_PRESENTER_PATH_TEMPLATE_PROPERTY, 
 				multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/main/client/ui/main/{2}MainModulePresenter.java"), resource));
 		
 		Pattern p = Pattern.compile(multipleConcat(moduleId.toUpperCase(), "_MODULE_ID,\\s*\"(.*?)\""));

@@ -19,7 +19,8 @@
   <li><a href="#deploy">Установка</a>
   <li><a href="#use">Использование</a> :
 	<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- <a href="#applicationStructureCreator"><em>Создание структуры приложения</em></a>
-	<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- <a href="#navigationGenerator"><em>Создание блока навигации</em></a>
+	<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- <a href="#applicationStructureParser"><em>Парсинг структуры приложения</em></a>
+	<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- <a href="#navigationGenerator"><em>Создание блока навигации</em></a>	
 	<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- <a href="#applicationVersionIndicator"><em>Поддержка версионности приложения</em></a>
 	<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- <a href="#productionBuildChecker"><em>Соответствие продукционной сборке</em></a>
 	<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- <a href="#productionModeSwitcher"><em>Применение конфигурации сборки</em></a>
@@ -42,11 +43,11 @@
 <h4><a name="applicationStructureCreator">Создание структуры приложения</a></h4>
 Для того, чтобы автоматизировать процесс создания каркаса новоого приложения необходимо выполнить следующие действия:<br/>
 <ol>
-	<li>необходимо скопировать шаблонные файлы build.xml, build.properties и JepApplication.xml из JepRiaShowcase<br/></li>
-	<li>в <strong>JepApplication.xml</strong> внести необходимые изменения</li>
+	<li>необходимо скопировать шаблонные файлы build.xml, build.properties и &lt;APP_NAME&gt;Definition.xml из JepRiaShowcase<br/></li>
+	<li>в <strong>&lt;APP_NAME&gt;Definition.xml</strong> внести необходимые изменения</li>
 	<li>из коммандной строки перейти в предполагаемую App-директорию нового модуля и выполнить комманду: <br/> <b>ant create-structure</b><br/></li>
 </ol>
-Перечислим основные атрибуты, используемых тэгов JepApplication.xml (* обозначены обязательные):
+Перечислим основные атрибуты, используемых тэгов &lt;APP_NAME&gt;Definition.xml (* обозначены обязательные):
 <ol>
 	<li>тэг <strong>application</strong> (является корневым):
 		<ul>
@@ -154,12 +155,19 @@
 		</ul>
 	</li>
 </ol>
+<h4><a name="applicationStructureParser">Парсинг структуры приложения</a></h4>
+Для того, чтобы сгенерировать файл структуры приложения &lt;APP_NAME&gt;Definition.xml следует выполнить действия ниже:<br/>
+<ol>
+	<li>проверить, что в конфигурационном файле сборки build.xml предусмотрена задача create-xml (в командной строке App-директории существующего модуля выполнить команду <strong>ant -projecthelp | find &quot;create-xml&quot; /с</strong> и убедиться, что вывод равен 1)</li>
+	<li>если данного таска не существует, то необходимые объявления задачи из приложения JepRiaShowcase</li>
+	<li>в коммандной строке перейти в App-директорию существующего модуля и выполнить комманду: <br/> <b>ant create-xml</b><br/></li>
+</ol>
 
 <h4><a name="navigationGenerator">Создание блока навигации</a></h4>
 Для того, чтобы сгенерировать блок навигации для разрабатываемого приложения необходимо выполнить следующие действия:<br/>
 <ol>
-	<li>необходимо скопировать шаблонные файлы build.xml, build.properties и JepApplication.xml из JepRiaShowcase<br/></li>
-	<li>в <strong>JepApplication.xml</strong> внести необходимые изменения</li>
+	<li>необходимо скопировать шаблонные файлы build.xml, build.properties и &lt;APP_NAME&gt;Definition.xml из JepRiaShowcase<br/></li>
+	<li>в <strong>&lt;APP_NAME&gt;Definition.xml</strong> внести необходимые изменения</li>
 	<li>из коммандной строки перейти в предполагаемую App-директорию нового модуля и выполнить комманду: <br/> <b>ant create-navigation</b><br/></li>
 </ol>
 

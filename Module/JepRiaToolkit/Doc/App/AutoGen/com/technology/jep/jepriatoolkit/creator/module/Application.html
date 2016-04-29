@@ -120,7 +120,15 @@ java.lang.Object
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>private &nbsp;java.util.List&lt;<A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/Module.html" title="class in com.technology.jep.jepriatoolkit.creator.module">Module</A>&gt;</CODE></FONT></TD>
+<CODE>private &nbsp;java.util.List&lt;java.lang.String&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/Application.html#moduleIds">moduleIds</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;<A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/Modules.html" title="class in com.technology.jep.jepriatoolkit.creator.module">Modules</A></CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/Application.html#modules">modules</A></B></CODE>
 
 <BR>
@@ -178,7 +186,7 @@ java.lang.Object
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;java.util.List&lt;<A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/Module.html" title="class in com.technology.jep.jepriatoolkit.creator.module">Module</A>&gt;</CODE></FONT></TD>
+<CODE>&nbsp;<A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/Modules.html" title="class in com.technology.jep.jepriatoolkit.creator.module">Modules</A></CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/Application.html#getModules()">getModules</A></B>()</CODE>
 
 <BR>
@@ -211,7 +219,15 @@ java.lang.Object
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/Application.html#setModules(java.util.List)">setModules</A></B>(java.util.List&lt;<A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/Module.html" title="class in com.technology.jep.jepriatoolkit.creator.module">Module</A>&gt;&nbsp;modules)</CODE>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/Application.html#setModuleIds(java.util.List)">setModuleIds</A></B>(java.util.List&lt;java.lang.String&gt;&nbsp;modules)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/Application.html#setModules(com.technology.jep.jepriatoolkit.creator.module.Modules)">setModules</A></B>(<A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/Modules.html" title="class in com.technology.jep.jepriatoolkit.creator.module">Modules</A>&nbsp;modules)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -228,6 +244,14 @@ java.lang.Object
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/Application.html#setProjectPackage(java.lang.String)">setProjectPackage</A></B>(java.lang.String&nbsp;projectPackage)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/Application.html#uptodate(com.technology.jep.jepriatoolkit.creator.module.Application)">uptodate</A></B>(<A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/Application.html" title="class in com.technology.jep.jepriatoolkit.creator.module">Application</A>&nbsp;newApplication)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -288,7 +312,17 @@ private java.lang.String <B>projectPackage</B></PRE>
 <A NAME="modules"><!-- --></A><H3>
 modules</H3>
 <PRE>
-private java.util.List&lt;<A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/Module.html" title="class in com.technology.jep.jepriatoolkit.creator.module">Module</A>&gt; <B>modules</B></PRE>
+private <A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/Modules.html" title="class in com.technology.jep.jepriatoolkit.creator.module">Modules</A> <B>modules</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="moduleIds"><!-- --></A><H3>
+moduleIds</H3>
+<PRE>
+private java.util.List&lt;java.lang.String&gt; <B>moduleIds</B></PRE>
 <DL>
 <DL>
 </DL>
@@ -390,7 +424,7 @@ public void <B>setProjectPackage</B>(java.lang.String&nbsp;projectPackage)</PRE>
 <A NAME="getModules()"><!-- --></A><H3>
 getModules</H3>
 <PRE>
-public java.util.List&lt;<A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/Module.html" title="class in com.technology.jep.jepriatoolkit.creator.module">Module</A>&gt; <B>getModules</B>()</PRE>
+public <A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/Modules.html" title="class in com.technology.jep.jepriatoolkit.creator.module">Modules</A> <B>getModules</B>()</PRE>
 <DL>
 <DD><DL>
 </DL>
@@ -398,10 +432,32 @@ public java.util.List&lt;<A HREF="../../../../../../com/technology/jep/jepriatoo
 </DL>
 <HR>
 
-<A NAME="setModules(java.util.List)"><!-- --></A><H3>
+<A NAME="setModules(com.technology.jep.jepriatoolkit.creator.module.Modules)"><!-- --></A><H3>
 setModules</H3>
 <PRE>
-public void <B>setModules</B>(java.util.List&lt;<A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/Module.html" title="class in com.technology.jep.jepriatoolkit.creator.module">Module</A>&gt;&nbsp;modules)</PRE>
+public void <B>setModules</B>(<A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/Modules.html" title="class in com.technology.jep.jepriatoolkit.creator.module">Modules</A>&nbsp;modules)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setModuleIds(java.util.List)"><!-- --></A><H3>
+setModuleIds</H3>
+<PRE>
+public void <B>setModuleIds</B>(java.util.List&lt;java.lang.String&gt;&nbsp;modules)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="uptodate(com.technology.jep.jepriatoolkit.creator.module.Application)"><!-- --></A><H3>
+uptodate</H3>
+<PRE>
+public void <B>uptodate</B>(<A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/Application.html" title="class in com.technology.jep.jepriatoolkit.creator.module">Application</A>&nbsp;newApplication)</PRE>
 <DL>
 <DD><DL>
 </DL>

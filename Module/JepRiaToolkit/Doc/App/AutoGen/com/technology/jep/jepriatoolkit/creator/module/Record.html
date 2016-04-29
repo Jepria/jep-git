@@ -53,8 +53,8 @@ function windowTitle()
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/ModuleInfo.html" title="class in com.technology.jep.jepriatoolkit.creator.module"><B>PREV CLASS</B></A>&nbsp;
-&nbsp;<A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/Role.html" title="class in com.technology.jep.jepriatoolkit.creator.module"><B>NEXT CLASS</B></A></FONT></TD>
+&nbsp;<A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/Modules.html" title="class in com.technology.jep.jepriatoolkit.creator.module"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/Roles.html" title="class in com.technology.jep.jepriatoolkit.creator.module"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../../../../../index.html?com/technology/jep/jepriatoolkit/creator/module/Record.html" target="_top"><B>FRAMES</B></A>  &nbsp;
 &nbsp;<A HREF="Record.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
@@ -91,11 +91,12 @@ com.technology.jep.jepriatoolkit.creator.module</FONT>
 Class Record</H2>
 <PRE>
 java.lang.Object
-  <IMG SRC="../../../../../../resources/inherit.gif" ALT="extended by "><B>com.technology.jep.jepriatoolkit.creator.module.Record</B>
+  <IMG SRC="../../../../../../resources/inherit.gif" ALT="extended by "><A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/ModuleForm.html" title="class in com.technology.jep.jepriatoolkit.creator.module">com.technology.jep.jepriatoolkit.creator.module.ModuleForm</A>
+      <IMG SRC="../../../../../../resources/inherit.gif" ALT="extended by "><B>com.technology.jep.jepriatoolkit.creator.module.Record</B>
 </PRE>
 <HR>
 <DL>
-<DT><PRE>public class <B>Record</B><DT>extends java.lang.Object</DL>
+<DT><PRE>public class <B>Record</B><DT>extends <A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/ModuleForm.html" title="class in com.technology.jep.jepriatoolkit.creator.module">ModuleForm</A></DL>
 </PRE>
 
 <P>
@@ -109,14 +110,6 @@ java.lang.Object
 <TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
 <TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
 <B>Field Summary</B></FONT></TH>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>private &nbsp;java.util.List&lt;<A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/ModuleField.html" title="class in com.technology.jep.jepriatoolkit.creator.module">ModuleField</A>&gt;</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/Record.html#fields">fields</A></B></CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -155,7 +148,7 @@ java.lang.Object
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/Record.html#Record(java.lang.String)">Record</A></B>(java.lang.String&nbsp;primaryKey)</CODE>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/Record.html#Record(java.util.List)">Record</A></B>(java.util.List&lt;<A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/ModuleField.html" title="class in com.technology.jep.jepriatoolkit.creator.module">ModuleField</A>&gt;&nbsp;recordFields)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -169,14 +162,6 @@ java.lang.Object
 <TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
 <TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
 <B>Method Summary</B></FONT></TH>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;java.util.List&lt;<A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/ModuleField.html" title="class in com.technology.jep.jepriatoolkit.creator.module">ModuleField</A>&gt;</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/Record.html#getFields()">getFields</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -197,7 +182,7 @@ java.lang.Object
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/Record.html#setFields(java.util.List)">setFields</A></B>(java.util.List&lt;<A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/ModuleField.html" title="class in com.technology.jep.jepriatoolkit.creator.module">ModuleField</A>&gt;&nbsp;fields)</CODE>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/Record.html#setPrimaryKey(java.lang.String)">setPrimaryKey</A></B>(java.lang.String&nbsp;primaryKey)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -205,7 +190,7 @@ java.lang.Object
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/Record.html#setPrimaryKey(java.lang.String)">setPrimaryKey</A></B>(java.lang.String&nbsp;primaryKey)</CODE>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/Record.html#setPrimaryKeyAndTableName(java.lang.String[])">setPrimaryKeyAndTableName</A></B>(java.lang.String[]&nbsp;primaryKeyAndTableName)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -217,6 +202,15 @@ java.lang.Object
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_com.technology.jep.jepriatoolkit.creator.module.ModuleForm"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from class com.technology.jep.jepriatoolkit.creator.module.<A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/ModuleForm.html" title="class in com.technology.jep.jepriatoolkit.creator.module">ModuleForm</A></B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/ModuleForm.html#contains(java.lang.String)">contains</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/ModuleForm.html#getFieldIds()">getFieldIds</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/ModuleForm.html#getFields()">getFields</A>, <A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/ModuleForm.html#setFields(java.util.List)">setFields</A></CODE></TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>
@@ -259,16 +253,6 @@ private java.lang.String <B>table</B></PRE>
 <DL>
 </DL>
 </DL>
-<HR>
-
-<A NAME="fields"><!-- --></A><H3>
-fields</H3>
-<PRE>
-private java.util.List&lt;<A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/ModuleField.html" title="class in com.technology.jep.jepriatoolkit.creator.module">ModuleField</A>&gt; <B>fields</B></PRE>
-<DL>
-<DL>
-</DL>
-</DL>
 
 <!-- ========= CONSTRUCTOR DETAIL ======== -->
 
@@ -288,10 +272,10 @@ private <B>Record</B>()</PRE>
 </DL>
 <HR>
 
-<A NAME="Record(java.lang.String)"><!-- --></A><H3>
+<A NAME="Record(java.util.List)"><!-- --></A><H3>
 Record</H3>
 <PRE>
-public <B>Record</B>(java.lang.String&nbsp;primaryKey)</PRE>
+public <B>Record</B>(java.util.List&lt;<A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/ModuleField.html" title="class in com.technology.jep.jepriatoolkit.creator.module">ModuleField</A>&gt;&nbsp;recordFields)</PRE>
 <DL>
 </DL>
 
@@ -304,6 +288,17 @@ public <B>Record</B>(java.lang.String&nbsp;primaryKey)</PRE>
 <B>Method Detail</B></FONT></TH>
 </TR>
 </TABLE>
+
+<A NAME="setPrimaryKeyAndTableName(java.lang.String[])"><!-- --></A><H3>
+setPrimaryKeyAndTableName</H3>
+<PRE>
+public void <B>setPrimaryKeyAndTableName</B>(java.lang.String[]&nbsp;primaryKeyAndTableName)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
 
 <A NAME="getPrimaryKey()"><!-- --></A><H3>
 getPrimaryKey</H3>
@@ -347,28 +342,6 @@ public void <B>setPrimaryKey</B>(java.lang.String&nbsp;primaryKey)</PRE>
 </DL>
 </DD>
 </DL>
-<HR>
-
-<A NAME="getFields()"><!-- --></A><H3>
-getFields</H3>
-<PRE>
-public java.util.List&lt;<A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/ModuleField.html" title="class in com.technology.jep.jepriatoolkit.creator.module">ModuleField</A>&gt; <B>getFields</B>()</PRE>
-<DL>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="setFields(java.util.List)"><!-- --></A><H3>
-setFields</H3>
-<PRE>
-public void <B>setFields</B>(java.util.List&lt;<A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/ModuleField.html" title="class in com.technology.jep.jepriatoolkit.creator.module">ModuleField</A>&gt;&nbsp;fields)</PRE>
-<DL>
-<DD><DL>
-</DL>
-</DD>
-</DL>
 <!-- ========= END OF CLASS DATA ========= -->
 <HR>
 
@@ -399,8 +372,8 @@ public void <B>setFields</B>(java.util.List&lt;<A HREF="../../../../../../com/te
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/ModuleInfo.html" title="class in com.technology.jep.jepriatoolkit.creator.module"><B>PREV CLASS</B></A>&nbsp;
-&nbsp;<A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/Role.html" title="class in com.technology.jep.jepriatoolkit.creator.module"><B>NEXT CLASS</B></A></FONT></TD>
+&nbsp;<A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/Modules.html" title="class in com.technology.jep.jepriatoolkit.creator.module"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/Roles.html" title="class in com.technology.jep.jepriatoolkit.creator.module"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../../../../../index.html?com/technology/jep/jepriatoolkit/creator/module/Record.html" target="_top"><B>FRAMES</B></A>  &nbsp;
 &nbsp;<A HREF="Record.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;

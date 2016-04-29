@@ -6,6 +6,7 @@ com.technology.jep.jepriatoolkit.creator
 com.technology.jep.jepriatoolkit.creator.module
 com.technology.jep.jepriatoolkit.creator.module.adapter
 com.technology.jep.jepriatoolkit.creator.navigation
+com.technology.jep.jepriatoolkit.log
 com.technology.jep.jepriatoolkit.parser
 com.technology.jep.jepriatoolkit.switcher
 com.technology.jep.jepriatoolkit.util

@@ -359,12 +359,12 @@ public final class JepRiaToolkitUtil {
 	 * @param sourceFile файл-источник, из которого будет производиться копирование
 	 * @param destinationFile файл, в который будет производиться копирование
 	 */
-	public static void copyFile(File source, File dest) throws IOException {
+	public static void copyFile(File sourceFile, File destinationFile) throws IOException {
 		FileChannel sourceChannel = null;
 		FileChannel destChannel = null;
 		try {
-			sourceChannel = new FileInputStream(source).getChannel();
-			destChannel = new FileOutputStream(dest).getChannel();
+			sourceChannel = new FileInputStream(sourceFile).getChannel();
+			destChannel = new FileOutputStream(destinationFile).getChannel();
 			destChannel.transferFrom(sourceChannel, 0, sourceChannel.size());
 		} finally {
 			sourceChannel.close();
@@ -1037,7 +1037,7 @@ public final class JepRiaToolkitUtil {
 			return format(pattern, extractFileNamesByPattern(pattern).toArray());
 		}
 		catch(BuildException e){
-			return null;
+			return pattern;
 		}
 	}
 	/**

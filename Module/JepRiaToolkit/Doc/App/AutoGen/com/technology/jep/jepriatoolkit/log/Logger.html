@@ -4,7 +4,7 @@
 <HEAD>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <TITLE>
-ProductionBuildChecker (JepRiaToolkit JavaDoc)
+Logger (JepRiaToolkit JavaDoc)
 </TITLE>
 
 
@@ -14,7 +14,7 @@ ProductionBuildChecker (JepRiaToolkit JavaDoc)
 function windowTitle()
 {
     if (location.href.indexOf('is-external=true') == -1) {
-        parent.document.title="ProductionBuildChecker (JepRiaToolkit JavaDoc)";
+        parent.document.title="Logger (JepRiaToolkit JavaDoc)";
     }
 }
 </SCRIPT>
@@ -56,8 +56,8 @@ function windowTitle()
 &nbsp;PREV CLASS&nbsp;
 &nbsp;NEXT CLASS</FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-  <A HREF="../../../../../index.html?com/technology/jep/jepriatoolkit/check/ProductionBuildChecker.html" target="_top"><B>FRAMES</B></A>  &nbsp;
-&nbsp;<A HREF="ProductionBuildChecker.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+  <A HREF="../../../../../index.html?com/technology/jep/jepriatoolkit/log/Logger.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="Logger.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
 &nbsp;<SCRIPT type="text/javascript">
   <!--
   if(window==top) {
@@ -86,21 +86,16 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
 <!-- ======== START OF CLASS DATA ======== -->
 <H2>
 <FONT SIZE="-1">
-com.technology.jep.jepriatoolkit.check</FONT>
+com.technology.jep.jepriatoolkit.log</FONT>
 <BR>
-Class ProductionBuildChecker</H2>
+Class Logger</H2>
 <PRE>
 java.lang.Object
-  <IMG SRC="../../../../../resources/inherit.gif" ALT="extended by ">org.apache.tools.ant.ProjectComponent
-      <IMG SRC="../../../../../resources/inherit.gif" ALT="extended by ">org.apache.tools.ant.Task
-          <IMG SRC="../../../../../resources/inherit.gif" ALT="extended by "><B>com.technology.jep.jepriatoolkit.check.ProductionBuildChecker</B>
+  <IMG SRC="../../../../../resources/inherit.gif" ALT="extended by "><B>com.technology.jep.jepriatoolkit.log.Logger</B>
 </PRE>
-<DL>
-<DT><B>All Implemented Interfaces:</B> <DD>java.lang.Cloneable</DD>
-</DL>
 <HR>
 <DL>
-<DT><PRE>public class <B>ProductionBuildChecker</B><DT>extends org.apache.tools.ant.Task</DL>
+<DT><PRE>public class <B>Logger</B><DT>extends java.lang.Object</DL>
 </PRE>
 
 <P>
@@ -117,53 +112,27 @@ java.lang.Object
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>private &nbsp;java.lang.String</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepriatoolkit/check/ProductionBuildChecker.html#moduleName">moduleName</A></B></CODE>
+<CODE>private static&nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepriatoolkit/log/Logger.html#ALL_INFO_ABOUT_APPLICATION">ALL_INFO_ABOUT_APPLICATION</A></B></CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>private &nbsp;java.lang.String</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepriatoolkit/check/ProductionBuildChecker.html#packageName">packageName</A></B></CODE>
+<CODE>private static&nbsp;java.util.Map&lt;java.lang.String,java.lang.String&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepriatoolkit/log/Logger.html#lazyMessages">lazyMessages</A></B></CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>(package private) &nbsp;org.apache.tools.ant.PropertyHelper</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepriatoolkit/check/ProductionBuildChecker.html#ph">ph</A></B></CODE>
+<CODE>private static&nbsp;java.util.Map&lt;java.lang.String,java.lang.String&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepriatoolkit/log/Logger.html#messages">messages</A></B></CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>private &nbsp;java.lang.String</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepriatoolkit/check/ProductionBuildChecker.html#property">property</A></B></CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-</TABLE>
-&nbsp;<A NAME="fields_inherited_from_class_org.apache.tools.ant.Task"><!-- --></A>
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
-<TH ALIGN="left"><B>Fields inherited from class org.apache.tools.ant.Task</B></TH>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE>target, taskName, taskType, wrapper</CODE></TD>
-</TR>
-</TABLE>
-&nbsp;<A NAME="fields_inherited_from_class_org.apache.tools.ant.ProjectComponent"><!-- --></A>
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
-<TH ALIGN="left"><B>Fields inherited from class org.apache.tools.ant.ProjectComponent</B></TH>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE>description, location, project</CODE></TD>
 </TR>
 </TABLE>
 &nbsp;
@@ -176,7 +145,9 @@ java.lang.Object
 <B>Constructor Summary</B></FONT></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepriatoolkit/check/ProductionBuildChecker.html#ProductionBuildChecker()">ProductionBuildChecker</A></B>()</CODE>
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private </CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepriatoolkit/log/Logger.html#Logger()">Logger</A></B>()</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -193,62 +164,45 @@ java.lang.Object
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepriatoolkit/check/ProductionBuildChecker.html#execute()">execute</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Основной метод, который выполняет данный Task</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepriatoolkit/check/ProductionBuildChecker.html#isProductionBuild()">isProductionBuild</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Метод проверки приложения на продукционность сборки</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepriatoolkit/check/ProductionBuildChecker.html#setModuleName(java.lang.String)">setModuleName</A></B>(java.lang.String&nbsp;moduleName)</CODE>
+<CODE>static&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepriatoolkit/log/Logger.html#appendMessage(java.lang.String)">appendMessage</A></B>(java.lang.String&nbsp;content)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepriatoolkit/check/ProductionBuildChecker.html#setPackageName(java.lang.String)">setPackageName</A></B>(java.lang.String&nbsp;packageName)</CODE>
+<CODE>static&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepriatoolkit/log/Logger.html#appendMessageToForm(java.lang.String, java.lang.String)">appendMessageToForm</A></B>(java.lang.String&nbsp;moduleId,
+                    java.lang.String&nbsp;content)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepriatoolkit/check/ProductionBuildChecker.html#setProperty(java.lang.String)">setProperty</A></B>(java.lang.String&nbsp;property)</CODE>
+<CODE>static&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepriatoolkit/log/Logger.html#appendMessageToTheEndOfForm(java.lang.String, java.lang.String)">appendMessageToTheEndOfForm</A></B>(java.lang.String&nbsp;moduleId,
+                            java.lang.String&nbsp;content)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Set the name of the property which will be set if JepRia-application meets all requirements
- for production build.</TD>
-</TR>
-</TABLE>
-&nbsp;<A NAME="methods_inherited_from_class_org.apache.tools.ant.Task"><!-- --></A>
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
-<TH ALIGN="left"><B>Methods inherited from class org.apache.tools.ant.Task</B></TH>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE>bindToOwner, getOwningTarget, getRuntimeConfigurableWrapper, getTaskName, getTaskType, getWrapper, handleErrorFlush, handleErrorOutput, handleFlush, handleInput, handleOutput, init, isInvalid, log, log, log, log, maybeConfigure, perform, reconfigure, setOwningTarget, setRuntimeConfigurableWrapper, setTaskName, setTaskType</CODE></TD>
-</TR>
-</TABLE>
-&nbsp;<A NAME="methods_inherited_from_class_org.apache.tools.ant.ProjectComponent"><!-- --></A>
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
-<TH ALIGN="left"><B>Methods inherited from class org.apache.tools.ant.ProjectComponent</B></TH>
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepriatoolkit/log/Logger.html#clearMessages()">clearMessages</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE>clone, getDescription, getLocation, getProject, setDescription, setLocation, setProject</CODE></TD>
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepriatoolkit/log/Logger.html#printMessages(java.lang.String)">printMessages</A></B>(java.lang.String&nbsp;fileName)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>
@@ -257,7 +211,7 @@ java.lang.Object
 <TH ALIGN="left"><B>Methods inherited from class java.lang.Object</B></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE>equals, finalize, getClass, hashCode, notify, notifyAll, toString, wait, wait, wait</CODE></TD>
+<TD><CODE>clone, equals, finalize, getClass, hashCode, notify, notifyAll, toString, wait, wait, wait</CODE></TD>
 </TR>
 </TABLE>
 &nbsp;
@@ -273,40 +227,30 @@ java.lang.Object
 </TR>
 </TABLE>
 
-<A NAME="packageName"><!-- --></A><H3>
-packageName</H3>
+<A NAME="messages"><!-- --></A><H3>
+messages</H3>
 <PRE>
-private java.lang.String <B>packageName</B></PRE>
+private static java.util.Map&lt;java.lang.String,java.lang.String&gt; <B>messages</B></PRE>
 <DL>
 <DL>
 </DL>
 </DL>
 <HR>
 
-<A NAME="moduleName"><!-- --></A><H3>
-moduleName</H3>
+<A NAME="lazyMessages"><!-- --></A><H3>
+lazyMessages</H3>
 <PRE>
-private java.lang.String <B>moduleName</B></PRE>
+private static java.util.Map&lt;java.lang.String,java.lang.String&gt; <B>lazyMessages</B></PRE>
 <DL>
 <DL>
 </DL>
 </DL>
 <HR>
 
-<A NAME="property"><!-- --></A><H3>
-property</H3>
+<A NAME="ALL_INFO_ABOUT_APPLICATION"><!-- --></A><H3>
+ALL_INFO_ABOUT_APPLICATION</H3>
 <PRE>
-private java.lang.String <B>property</B></PRE>
-<DL>
-<DL>
-</DL>
-</DL>
-<HR>
-
-<A NAME="ph"><!-- --></A><H3>
-ph</H3>
-<PRE>
-org.apache.tools.ant.PropertyHelper <B>ph</B></PRE>
+private static final java.lang.String <B>ALL_INFO_ABOUT_APPLICATION</B></PRE>
 <DL>
 <DL>
 </DL>
@@ -322,10 +266,10 @@ org.apache.tools.ant.PropertyHelper <B>ph</B></PRE>
 </TR>
 </TABLE>
 
-<A NAME="ProductionBuildChecker()"><!-- --></A><H3>
-ProductionBuildChecker</H3>
+<A NAME="Logger()"><!-- --></A><H3>
+Logger</H3>
 <PRE>
-public <B>ProductionBuildChecker</B>()</PRE>
+private <B>Logger</B>()</PRE>
 <DL>
 </DL>
 
@@ -339,43 +283,10 @@ public <B>ProductionBuildChecker</B>()</PRE>
 </TR>
 </TABLE>
 
-<A NAME="execute()"><!-- --></A><H3>
-execute</H3>
+<A NAME="clearMessages()"><!-- --></A><H3>
+clearMessages</H3>
 <PRE>
-public void <B>execute</B>()
-             throws org.apache.tools.ant.BuildException</PRE>
-<DL>
-<DD>Основной метод, который выполняет данный Task
-<P>
-<DD><DL>
-<DT><B>Overrides:</B><DD><CODE>execute</CODE> in class <CODE>org.apache.tools.ant.Task</CODE></DL>
-</DD>
-<DD><DL>
-
-<DT><B>Throws:</B>
-<DD><CODE>org.apache.tools.ant.BuildException</CODE></DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="isProductionBuild()"><!-- --></A><H3>
-isProductionBuild</H3>
-<PRE>
-public boolean <B>isProductionBuild</B>()</PRE>
-<DL>
-<DD>Метод проверки приложения на продукционность сборки
-<P>
-<DD><DL>
-
-<DT><B>Returns:</B><DD>флаг продукционности текущей сборки</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="setPackageName(java.lang.String)"><!-- --></A><H3>
-setPackageName</H3>
-<PRE>
-public void <B>setPackageName</B>(java.lang.String&nbsp;packageName)</PRE>
+public static void <B>clearMessages</B>()</PRE>
 <DL>
 <DD><DL>
 </DL>
@@ -383,10 +294,10 @@ public void <B>setPackageName</B>(java.lang.String&nbsp;packageName)</PRE>
 </DL>
 <HR>
 
-<A NAME="setModuleName(java.lang.String)"><!-- --></A><H3>
-setModuleName</H3>
+<A NAME="appendMessage(java.lang.String)"><!-- --></A><H3>
+appendMessage</H3>
 <PRE>
-public void <B>setModuleName</B>(java.lang.String&nbsp;moduleName)</PRE>
+public static void <B>appendMessage</B>(java.lang.String&nbsp;content)</PRE>
 <DL>
 <DD><DL>
 </DL>
@@ -394,16 +305,37 @@ public void <B>setModuleName</B>(java.lang.String&nbsp;moduleName)</PRE>
 </DL>
 <HR>
 
-<A NAME="setProperty(java.lang.String)"><!-- --></A><H3>
-setProperty</H3>
+<A NAME="appendMessageToForm(java.lang.String, java.lang.String)"><!-- --></A><H3>
+appendMessageToForm</H3>
 <PRE>
-public void <B>setProperty</B>(java.lang.String&nbsp;property)</PRE>
+public static void <B>appendMessageToForm</B>(java.lang.String&nbsp;moduleId,
+                                       java.lang.String&nbsp;content)</PRE>
 <DL>
-<DD>Set the name of the property which will be set if JepRia-application meets all requirements
- for production build.
-<P>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>property</CODE> - the name of the property to set.</DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="appendMessageToTheEndOfForm(java.lang.String, java.lang.String)"><!-- --></A><H3>
+appendMessageToTheEndOfForm</H3>
+<PRE>
+public static void <B>appendMessageToTheEndOfForm</B>(java.lang.String&nbsp;moduleId,
+                                               java.lang.String&nbsp;content)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="printMessages(java.lang.String)"><!-- --></A><H3>
+printMessages</H3>
+<PRE>
+public static void <B>printMessages</B>(java.lang.String&nbsp;fileName)</PRE>
+<DL>
+<DD><DL>
+</DL>
 </DD>
 </DL>
 <!-- ========= END OF CLASS DATA ========= -->
@@ -439,8 +371,8 @@ public void <B>setProperty</B>(java.lang.String&nbsp;property)</PRE>
 &nbsp;PREV CLASS&nbsp;
 &nbsp;NEXT CLASS</FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-  <A HREF="../../../../../index.html?com/technology/jep/jepriatoolkit/check/ProductionBuildChecker.html" target="_top"><B>FRAMES</B></A>  &nbsp;
-&nbsp;<A HREF="ProductionBuildChecker.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+  <A HREF="../../../../../index.html?com/technology/jep/jepriatoolkit/log/Logger.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="Logger.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
 &nbsp;<SCRIPT type="text/javascript">
   <!--
   if(window==top) {

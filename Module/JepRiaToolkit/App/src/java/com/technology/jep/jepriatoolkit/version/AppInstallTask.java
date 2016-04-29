@@ -202,7 +202,6 @@ public class AppInstallTask extends Task {
 	/**
      * Получение служебной информации 
      * 
-     * @param mapXML				документ
      * @return флаг успешности парсинга
      */
     private boolean parseMapXML()
@@ -343,13 +342,6 @@ public class AppInstallTask extends Task {
 	public void setSvnPath(String svnPath) {
 		this.svnPath = svnPath;
 	}
-	
-	/**
-     * Set the name of the property which will be set if JepRia-application meets all requirements
-     * for deployment.
-     *
-     * @param property the name of the property to set.
-     */
 	
     public void setAppInstallResultId(String appInstallResultId) {
         this.appInstallResultId = appInstallResultId;

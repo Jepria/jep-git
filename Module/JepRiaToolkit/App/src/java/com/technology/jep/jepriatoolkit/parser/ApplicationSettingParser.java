@@ -129,9 +129,9 @@ public class ApplicationSettingParser {
 		return getInstance(getApplicationDefinitionFile());
 	}
 	
-	public static ApplicationSettingParser getInstance(String applicationStructureFile) throws ParserConfigurationException {
+	public static ApplicationSettingParser getInstance(String applicationStructureFile, Boolean... isPossibleAnotherFile) throws ParserConfigurationException {
 		ApplicationSettingParser parser = new ApplicationSettingParser();
-		if (parser.parseApplicationSettingXML(applicationStructureFile)){
+		if (parser.parseApplicationSettingXML(applicationStructureFile, isPossibleAnotherFile)){
 			return parser;
 		}
 		throw new ParserConfigurationException();
@@ -143,7 +143,7 @@ public class ApplicationSettingParser {
 	 * @return флаг успешности/неуспешности парсинга <ApplicationName>Definition.xml
 	 * @throws ParserConfigurationException
 	 */
-	public boolean parseApplicationSettingXML(String applicationStructureFile) throws ParserConfigurationException {
+	public boolean parseApplicationSettingXML(String applicationStructureFile, Boolean... isPossibleAnotherFile) throws ParserConfigurationException {
 		applicationStructureFile = isEmptyOrNotInitializedParameter(applicationStructureFile) ? getApplicationDefinitionFile() : applicationStructureFile;
 		echoMessage(multipleConcat("Parsing ", applicationStructureFile, "..."));
 		try {
@@ -172,7 +172,7 @@ public class ApplicationSettingParser {
 						"' of tag 'application'!"));
 				return false;
 			}
-			else if (!moduleName.equals(new File(applicationStructureFile).getName().split(APPLICATION_SETTING_FILE_ENDING)[0])){
+			else if (isPossibleAnotherFile.length == 1 && isPossibleAnotherFile[0] ? false : !moduleName.equals(new File(applicationStructureFile).getName().split(APPLICATION_SETTING_FILE_ENDING)[0])){
 				echoMessage(multipleConcat(ERROR_PREFIX,
 						"Application setting XML is not correct! The attribute '", APPLICATION_NAME_ATTRIBUTE, "'='", moduleName,
 						"' doesn't match the file name '", applicationStructureFile, "'!"));
@@ -185,7 +185,7 @@ public class ApplicationSettingParser {
 			}
 
 			// инициализация списка форм с их потомками
-			forms = getAllModuleNodes(jepApplicationDoc);
+			forms = getAllModuleNodes();
 			application.setModuleIds(forms);
 			List<Module> modules = new ArrayList<Module>(forms.size());
 			for (int index = 0; index < forms.size(); index++) {
@@ -333,7 +333,6 @@ public class ApplicationSettingParser {
 	 * перечисления record'ов, но указанных среди полей списочной или детальной
 	 * форм
 	 * 
-	 * @param jepApplicationDoc Файл структуры проекта
 	 * @param moduleId Идентификатор модуля
 	 * @param mfList Имеющийся список полей данного модуля
 	 * @return список идентификаторов отсутствующих полей
@@ -393,7 +392,6 @@ public class ApplicationSettingParser {
 	/**
 	 * Получение ссылки на узел детальной формы по указанному идентификатору
 	 * модуля
-	 * @param jepApplicationDoc Файл структуры проекта
 	 * @param moduleId Идентификатор модуля
 	 * 
 	 * @return XML-узел в <ApplicationName>Definition.xml
@@ -414,7 +412,6 @@ public class ApplicationSettingParser {
 	/**
 	 * Получение ссылки на узел списочной формы по указанному идентификатору
 	 * модуля
-	 * @param jepApplicationDoc Файл структуры проекта
 	 * @param moduleId Идентификатор модуля
 	 * 
 	 * @return XML-узел в <ApplicationName>Definition.xml
@@ -435,7 +432,7 @@ public class ApplicationSettingParser {
 	/**
 	 * Детализация элемента-поля GWT-модуля как представителя списочной формы
 	 * 
-	 * @param jepApplicationDoc Файл структуры проекта
+	 * @param module Ссылка на модуль
 	 * @param recordField Элемент-поле
 	 */
 	private void detailizedModuleFieldAsDetailed(Module module, ModuleField recordField) {
@@ -529,7 +526,7 @@ public class ApplicationSettingParser {
 	/**
 	 * Детализация элемента-поля GWT-модуля как представителя детальной формы
 	 * 
-	 * @param jepApplicationDoc Файл структуры проекта
+	 * @param module Ссылка на модуль
 	 * @param recordField Элемент-поле
 	 */
 	private void detailizedModuleFieldAsListed(Module module, ModuleField recordField) {
@@ -600,7 +597,7 @@ public class ApplicationSettingParser {
 	/**
 	 * Детализация элемента-поля GWT-модуля как параметра для EJB-методов
 	 * 
-	 * @param jepApplicationDoc Файл структуры проекта
+	 * @param module Ссылка на модуль
 	 * @param recordField Элемент-поле
 	 */
 	private void detailizedModuleFieldAsParameters(Module module, ModuleField recordField) {
@@ -643,8 +640,7 @@ public class ApplicationSettingParser {
 	/**
 	 * Детализация префиксов для параметров полей
 	 * 
-	 * @param jepApplicationDoc Файл структуры проекта
-	 * @param recordField Элемент поле
+	 * @param module Ссылка на модуль
 	 */
 	private void detailizedPrefixModuleFieldParameters(Module module) {
 		String defaultPrefix = null;
@@ -689,7 +685,6 @@ public class ApplicationSettingParser {
 	/**
 	 * Является ли поле с указанным ID рекорд дефинишном
 	 * 
-	 * @param jepApplicationDoc Файл структуры проекта
 	 * @param moduleId Идентификатор модуля
 	 * @param fieldId Идентификатор поля
 	 * 
@@ -712,7 +707,7 @@ public class ApplicationSettingParser {
 	/**
 	 * Детализация элемента-поля GWT-модуля
 	 * 
-	 * @param jepApplicationDoc Файл структуры проекта
+	 * @param module Ссылка на модуль
 	 * @param recordField  Элемент-поле
 	 */
 	public void detailizedModuleField(Module module, ModuleField recordField) {
@@ -730,7 +725,6 @@ public class ApplicationSettingParser {
 	/**
 	 * Детализация элемента-поля GWT-модуля как параметра для EJB-методов
 	 * 
-	 * @param jepApplicationDoc Файл структуры проекта
 	 * @param module Элемент-модуль
 	 * @param moduleNode DOM-элемент модуля
 	 */
@@ -790,10 +784,9 @@ public class ApplicationSettingParser {
 	 * Получение списка всех модулей, описанных в файле настроек сборщика
 	 * приложения
 	 * 
-	 * @param jepApplicationDoc Файл структуры проекта
 	 * @return список всех описанных модулей
 	 */
-	public List<String> getAllModuleNodes(Document jepApplicationDoc) {
+	public List<String> getAllModuleNodes() {
 		NodeList nodes = null;
 		List<String> result = new ArrayList<String>();
 		try {
@@ -819,7 +812,6 @@ public class ApplicationSettingParser {
 	/**
 	 * Получение списка модулей одного Scope
 	 * 
-	 * @param jepApplicationDoc Файл структуры проекта
 	 * @param moduleId идентификатор модуля, для которого имеется множество вложенных подмодулей
 	 * 
 	 * @return список модулей
@@ -855,7 +847,6 @@ public class ApplicationSettingParser {
 	/**
 	 * Получение XML-элемента, являющегося GWT-модулем по его ID
 	 * 
-	 * @param jepApplicationDoc Файл структуры проекта
 	 * @param moduleId идентификатор модуля
 	 * 
 	 * @return элемент-модуль
@@ -877,7 +868,6 @@ public class ApplicationSettingParser {
 	/**
 	 * Получение списка элементов-полей для модуля
 	 * 
-	 * @param jepApplicationDoc Файл структуры проекта
 	 * @param moduleId идентификатор модуля
 	 * 
 	 * @return список элементов-полей
@@ -906,7 +896,6 @@ public class ApplicationSettingParser {
 	/**
 	 * Получение первичного ключа для модуля
 	 * 
-	 * @param jepApplicationDoc Файл структуры проекта
 	 * @param moduleId идентификатор модуля
 	 * 
 	 * @return значение первичного ключа
@@ -928,7 +917,6 @@ public class ApplicationSettingParser {
 	/**
 	 * Получение наименования таблицы для модуля
 	 * 
-	 * @param jepApplicationDoc Файл структуры проекта
 	 * @param moduleId идентификатор модуля
 	 * 
 	 * @return наименование таблицы
@@ -950,7 +938,6 @@ public class ApplicationSettingParser {
 	/**
 	 * Получение списка ролей GWT-модуля
 	 * 
-	 * @param jepApplicationDoc Файл структуры проекта
 	 * @param moduleId идентификатор модуля
 	 * 
 	 * @return список ролей
@@ -977,7 +964,6 @@ public class ApplicationSettingParser {
 	/**
 	 * Получение источника данных для GWT-модуля
 	 * 
-	 * @param jepApplicationDoc Файл структуры проекта
 	 * @param moduleId идентификатор модуля
 	 * 
 	 * @return источник данных
@@ -999,7 +985,6 @@ public class ApplicationSettingParser {
 	/**
 	 * Получение наименования пакета для GWT-модуля
 	 * 
-	 * @param jepApplicationDoc Файл структуры проекта
 	 * @param moduleId идентификатор модуля
 	 * 
 	 * @return наименование пакета
