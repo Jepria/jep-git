@@ -3,10 +3,9 @@ package com.technology.jep.jepriatoolkit.creator.module;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.APPLICATION_TAG_NAME;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.MODULES_TAG_NAME;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.NAME_ATTRIBUTE;
-import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.*;
+import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.multipleConcat;
 
 import java.util.List;
-import java.util.Map;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
