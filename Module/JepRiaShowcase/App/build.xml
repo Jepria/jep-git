@@ -6,7 +6,11 @@
 	<property file="config/${BUILD_CONFIG}/deploy.properties"/>
 	
 	<property name="J2EE_HOME" value="${OC4J_HOME}/j2ee/home" />
+<!--	
 	<property name="JEP_RIA" value="${COMMON_HOME}/Module/JepRia/${JEP_RIA_VERSION}/App" />
+-->	
+	<property name="JEP_RIA" value="../../JepRia/App" />
+	
 	<property name="JEP_RIA_REPORT" value="${COMMON_HOME}/Module/JepRiaReport/${JEP_RIA_REPORT_VERSION}/App" />
 	<property name="JEP_REPORT_COMPILER" value="${COMMON_HOME}/Module/JrCompiler/${JEP_REPORT_COMPILER_VERSION}/App" />
 	<!--<property name="JEP_RIA_TOOLKIT" value="${COMMON_HOME}/Module/JepRiaToolkit/${JEP_RIA_TOOLKIT_VERSION}/App" />-->
@@ -96,6 +100,10 @@
 		<pathelement location="${SELENIUM_HOME}/libs/xalan-2.7.1.jar" />
 		<pathelement location="${SELENIUM_HOME}/libs/xercesImpl-2.11.0.jar" />
 		<pathelement location="${SELENIUM_HOME}/libs/xml-apis-1.4.01.jar" />
+	</path>
+	
+	<path id="test.classes.dir">
+		<pathelement location="${test.java}" />
 	</path>
 
 	<path id="run-testng-libs">
@@ -290,6 +298,25 @@
 		</taskdef>
 
 		<echo message="test" />
+	</target>
+
+	<target name="test-by-selenium" depends="testng-compile">
+		<taskdef classname="org.testng.TestNGAntTask" name="testng">
+			<classpath>
+				<pathelement location="${SELENIUM_HOME}/libs/testng-6.8.5.jar" />
+			</classpath>
+		</taskdef>
+
+		<testng classpathref="test.classes.dir" outputDir="${testng.report.dir}" haltOnFailure="true" verbose="2">
+			<classpath location="${test.src.dir}" />
+			<classpath location="${JEP_RIA}/lib/jepria-test.jar" />
+			<classpath refid="selenium-libs" />
+			<classpath refid="run-testng-libs" />
+<!--
+			<xmlfileset dir="${test.conf.dir}" includes="**/auto/**/*AutoTest.xml"/>
+-->			
+			<xmlfileset dir="${test.conf.dir}" includes="**/auto/**/GoodsAutoTest.xml"/>
+		</testng>
 	</target>
 
 	<!-- Gwt-компиляция -->

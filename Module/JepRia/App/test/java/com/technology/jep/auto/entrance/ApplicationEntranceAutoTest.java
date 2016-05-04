@@ -18,17 +18,18 @@ public class ApplicationEntranceAutoTest {
 	private ApplicationEntranceAppAuto automationManager;
 	private EntranceAuto cut;
 	
-	@Parameters({"baseUrl", "browserName", "browserVersion", "browserPlatform", "jepriaVersion", "username", "password"})
+	@Parameters({"baseUrl", "browserName", "browserVersion", "browserPlatform", "browserPath", "jepriaVersion", "username", "password"})
 	@BeforeMethod
 	public void setUp(String baseUrl,
 			String browserName,
 			String browserVersion,
 			String browserPlatform,
+			String browserPath,
 			String jepriaVersion,
 			String username,
 			String password) {
 		
-		automationManager = new ApplicationEntranceAppAuto(baseUrl, browserName, browserVersion, browserPlatform, jepriaVersion, username, password);
+		automationManager = new ApplicationEntranceAppAuto(baseUrl, browserName, browserVersion, browserPlatform, browserPath, jepriaVersion, username, password);
 		automationManager.start(baseUrl);
     	cut = automationManager.getEntranceAuto();
 	}

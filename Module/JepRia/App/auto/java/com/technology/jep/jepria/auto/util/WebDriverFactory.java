@@ -1,12 +1,12 @@
 package com.technology.jep.jepria.auto.util;
 
-import static com.technology.jep.jepria.auto.JepAutoProperties.*;
+import static com.technology.jep.jepria.auto.JepAutoProperties.BROWSER_NAME_KEY;
+import static com.technology.jep.jepria.auto.JepAutoProperties.get;
 
 import java.io.File;
 
 import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxBinary;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -27,6 +27,8 @@ public class WebDriverFactory {
     public static final String FIREFOX = "firefox";
     public static final String INTERNET_EXPLORER = "ie";
 
+	private static final String FIREFOX_LOCATION = "D:\\Firefox-33\\firefox.exe"; // TODO Параметризовать, убрать hardcode
+
     private static WebDriver webDriver = null;
 
     //public static WebDriver getInstance(Browser browser, String username, String password) {
@@ -35,7 +37,7 @@ public class WebDriverFactory {
         if (webDriver != null) {
             return webDriver;
         }
-        
+
         Browser browser = new Browser();
         browser.setName(get(BROWSER_NAME_KEY));
 
@@ -51,17 +53,21 @@ public class WebDriverFactory {
 //            }
             ffProfile.setPreference("network.http.phishy-userpass-length", 255);
 
-			try {
-				webDriver = new FirefoxDriver();
-			} catch (WebDriverException wdex) {
-				// TODO ������� ���� � ���������
-				FirefoxBinary binary = new FirefoxBinary(new File("D:\\Program Files (x86)\\Mozilla Firefox\\firefox.exe"));
-				webDriver = new FirefoxDriver(binary, new FirefoxProfile());
+//			try {
+//				webDriver = new FirefoxDriver();
+//			} catch (WebDriverException wdex) {
+////				FirefoxBinary binary = new FirefoxBinary(new File("D:\\Program Files (x86)\\Mozilla Firefox\\firefox.exe"));
+////				FirefoxBinary binary = new FirefoxBinary(new File("D:\\Firefox-33\\firefox.exe"));
+//				FirefoxBinary binary = new FirefoxBinary(new File(FIREFOX_LOCATION));
+//				webDriver = new FirefoxDriver(binary, new FirefoxProfile());
+//
+//				// driver = new InternetExplorerDriver();
+//			} catch (Throwable th) {
+//				th.printStackTrace();
+//			}
 
-				// driver = new InternetExplorerDriver();
-			} catch (Throwable th) {
-				th.printStackTrace();
-			}
+			FirefoxBinary binary = new FirefoxBinary(new File(FIREFOX_LOCATION));
+			webDriver = new FirefoxDriver(binary, new FirefoxProfile());
 			
             logger.info("FirefoxDriver has created");
         } else if (INTERNET_EXPLORER.equals(browser.getName())) {

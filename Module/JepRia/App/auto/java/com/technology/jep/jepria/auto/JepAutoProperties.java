@@ -20,6 +20,7 @@ public class JepAutoProperties {
 	public static String BROWSER_NAME_KEY = "BROWSER_NAME_KEY";
 	public static String BROWSER_VERSION_KEY = "BROWSER_VERSION_KEY";
 	public static String BROWSER_PLATFORM_KEY = "BROWSER_PLATFORM_KEY";
+	public static String BROWSER_PATH_KEY = "BROWSER_PATH_KEY"; // Используется для указания на конкретное место установки
     public static String JEPRIA_VERSION_KEY = "JEPRIA_VERSION_KEY";
     public static String USERNAME_KEY = "USERNAME_KEY";
     public static String PASSWORD_KEY = "PASSWORD_KEY";

@@ -75,3 +75,4 @@ Module/JrCompiler/App/lib/jrcompiler.jar
 .classpath
 .project
 .settings
+/Module/JepRiaShowcase/App/test-output

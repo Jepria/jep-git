@@ -2,6 +2,7 @@ package com.technology.jep.jepria.auto.manager;
 
 import static com.technology.jep.jepria.auto.JepAutoProperties.BASE_URL_KEY;
 import static com.technology.jep.jepria.auto.JepAutoProperties.BROWSER_NAME_KEY;
+import static com.technology.jep.jepria.auto.JepAutoProperties.BROWSER_PATH_KEY;
 import static com.technology.jep.jepria.auto.JepAutoProperties.BROWSER_PLATFORM_KEY;
 import static com.technology.jep.jepria.auto.JepAutoProperties.BROWSER_VERSION_KEY;
 import static com.technology.jep.jepria.auto.JepAutoProperties.JEPRIA_VERSION_KEY;
@@ -24,6 +25,7 @@ public abstract class WDAutoAbstract implements JepRiaAuto {
     			String browserName,
     			String browserVersion,
     			String browserPlatform,
+    			String browserPath,
     			String jepriaVersion,
     			String username,
     			String password) {
@@ -32,6 +34,7 @@ public abstract class WDAutoAbstract implements JepRiaAuto {
 		set(BROWSER_NAME_KEY, browserName);
 		set(BROWSER_VERSION_KEY, browserVersion);
 		set(BROWSER_PLATFORM_KEY, browserPlatform);
+		set(BROWSER_PATH_KEY, browserPath);
 		set(JEPRIA_VERSION_KEY, jepriaVersion);
 		set(USERNAME_KEY, username);
 		set(PASSWORD_KEY, password);
