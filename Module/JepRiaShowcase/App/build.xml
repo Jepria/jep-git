@@ -101,10 +101,6 @@
 		<pathelement location="${SELENIUM_HOME}/libs/xercesImpl-2.11.0.jar" />
 		<pathelement location="${SELENIUM_HOME}/libs/xml-apis-1.4.01.jar" />
 	</path>
-	
-	<path id="test.classes.dir">
-		<pathelement location="${test.java}" />
-	</path>
 
 	<path id="run-testng-libs">
 		<pathelement location="build-test" />
@@ -288,6 +284,7 @@
 			<classpath refid="weblogic-libs" />
 			<classpath refid="selenium-libs" />
 		</javac>
+		<copy file="src/java/log4j.properties" todir="build-test" />
 	</target>
 
 	<target name="test" depends="test-gwt">
@@ -307,14 +304,14 @@
 			</classpath>
 		</taskdef>
 
-		<testng classpathref="test.classes.dir" outputDir="${testng.report.dir}" haltOnFailure="true" verbose="2">
+		<testng classpathref="run-testng-libs"
+				outputDir="${testng.report.dir}"
+				haltOnFailure="true"
+				verbose="2">
 			<classpath location="${test.src.dir}" />
 			<classpath location="${JEP_RIA}/lib/jepria-test.jar" />
 			<classpath refid="selenium-libs" />
-			<classpath refid="run-testng-libs" />
-<!--
-			<xmlfileset dir="${test.conf.dir}" includes="**/auto/**/*AutoTest.xml"/>
--->			
+			
 			<xmlfileset dir="${test.conf.dir}" includes="**/auto/**/GoodsAutoTest.xml"/>
 		</testng>
 	</target>

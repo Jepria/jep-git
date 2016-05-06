@@ -1,7 +1,7 @@
 package com.technology.jep.jepria.auto.util;
 
 /*
- * Bean representing a browser. It contains name, version and platform fields.
+ * Bean representing a browser. It contains name, version, platform fields and path.
  *
  * @author Sebastiano Armeli-Battana
  */
@@ -10,6 +10,7 @@ public class Browser {
     private String name;
     private String version;
     private String platform;
+    private String path;
 
     public String getName() {
         return name;
@@ -34,5 +35,13 @@ public class Browser {
     public void setPlatform(String platform) {
         this.platform = platform;
     }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
+
+	public String getPath() {
+        return path;
+	}
 
 }

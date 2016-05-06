@@ -1,6 +1,7 @@
 package com.technology.jep.jepria.auto;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 
 public class JepAutoProperties {
     public static String JEPRIA_LOGIN_PAGE_TYPE = "jepria";
@@ -31,5 +32,21 @@ public class JepAutoProperties {
     
     public static String get(String key) {
     	return properties.get(key);
+    }
+    
+    public static String asString() {
+    	StringBuilder result = new StringBuilder();
+    	
+    	for(Entry<String, String> entry: properties.entrySet()) {
+    		if(result.length() > 0) {
+    			result.append(",\n");
+    		}
+    		result.append(entry.getKey());
+    		result.append(" = ");
+    		result.append('"');
+    		result.append(entry.getValue());
+    		result.append('"');
+    	}
+    	return result.toString();
     }
 }

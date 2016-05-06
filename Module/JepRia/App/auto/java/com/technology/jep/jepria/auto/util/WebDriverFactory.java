@@ -1,18 +1,22 @@
 package com.technology.jep.jepria.auto.util;
 
 import static com.technology.jep.jepria.auto.JepAutoProperties.BROWSER_NAME_KEY;
+import static com.technology.jep.jepria.auto.JepAutoProperties.BROWSER_PATH_KEY;
 import static com.technology.jep.jepria.auto.JepAutoProperties.get;
 
 import java.io.File;
 
 import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxBinary;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import com.technology.jep.jepria.auto.JepAutoProperties;
 
 /*
  * Factory to instantiate a WebDriver object. It returns an instance of the driver (local invocation) or an instance of RemoteWebDriver
@@ -27,8 +31,6 @@ public class WebDriverFactory {
     public static final String FIREFOX = "firefox";
     public static final String INTERNET_EXPLORER = "ie";
 
-	private static final String FIREFOX_LOCATION = "D:\\Firefox-33\\firefox.exe"; // TODO Параметризовать, убрать hardcode
-
     private static WebDriver webDriver = null;
 
     //public static WebDriver getInstance(Browser browser, String username, String password) {
@@ -37,9 +39,12 @@ public class WebDriverFactory {
         if (webDriver != null) {
             return webDriver;
         }
+        
+        logger.info("JepAutoProperties = " + JepAutoProperties.asString());
 
         Browser browser = new Browser();
         browser.setName(get(BROWSER_NAME_KEY));
+        browser.setPath(get(BROWSER_PATH_KEY));
 
         if (CHROME.equals(browser.getName())) {
             webDriver = new ChromeDriver();
@@ -53,21 +58,20 @@ public class WebDriverFactory {
 //            }
             ffProfile.setPreference("network.http.phishy-userpass-length", 255);
 
-//			try {
-//				webDriver = new FirefoxDriver();
-//			} catch (WebDriverException wdex) {
-////				FirefoxBinary binary = new FirefoxBinary(new File("D:\\Program Files (x86)\\Mozilla Firefox\\firefox.exe"));
-////				FirefoxBinary binary = new FirefoxBinary(new File("D:\\Firefox-33\\firefox.exe"));
-//				FirefoxBinary binary = new FirefoxBinary(new File(FIREFOX_LOCATION));
-//				webDriver = new FirefoxDriver(binary, new FirefoxProfile());
-//
-//				// driver = new InternetExplorerDriver();
-//			} catch (Throwable th) {
-//				th.printStackTrace();
-//			}
-
-			FirefoxBinary binary = new FirefoxBinary(new File(FIREFOX_LOCATION));
-			webDriver = new FirefoxDriver(binary, new FirefoxProfile());
+            String browserPath = browser.getPath();
+            if(browserPath != null) {
+    			FirefoxBinary binary = new FirefoxBinary(new File(browserPath));
+    			webDriver = new FirefoxDriver(binary, new FirefoxProfile());
+            } else {
+	    		try {
+					webDriver = new FirefoxDriver();
+				} catch (WebDriverException wdex) {
+					FirefoxBinary binary = new FirefoxBinary(new File("D:\\Program Files (x86)\\Mozilla Firefox\\firefox.exe"));
+					webDriver = new FirefoxDriver(binary, new FirefoxProfile());
+				} catch (Throwable th) {
+					th.printStackTrace();
+				}
+            }
 			
             logger.info("FirefoxDriver has created");
         } else if (INTERNET_EXPLORER.equals(browser.getName())) {
