@@ -2,16 +2,14 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="GoodsAutoTestSuite" parallel="none">
 	<test name="GoodsAutoTest">
-		<parameter name="baseUrl" value="http://srvt16.d.t/JepRiaShowcase/JepRiaShowcase.jsp?em=Goods"/>
-		<parameter name="browserName" value="firefox"/>
-		<parameter name="browserPath" value="D:/Firefox-33/firefox.exe"/>
-		<parameter name="jepriaVersion" value="8.0.0"/>
-<!-- 		<parameter name="forceNewBrowser" value="Yes"/> -->
-<!-- 		<parameter name="forceLogin" value="Yes"/> -->
+		<parameter name="baseUrl" value="http://${host}/JepRiaShowcase/JepRiaShowcase.jsp?em=Goods"/>
+		<parameter name="browserName" value="${browserName}"/>
+		<parameter name="browserPath" value="${browserPath}"/>
+		<parameter name="username" value="${testUsername}"/>
+		<parameter name="password" value="${testPassword}"/>
+		<parameter name="jepriaVersion" value="${jepriaVersion}"/>
 		<parameter name="forceNewBrowser" value="No"/>
 		<parameter name="forceLogin" value="No"/>
-		<parameter name="username" value="NagornyyS"/>
-		<parameter name="password" value="123"/>
 
 		<groups>
 			<define name="all">
@@ -32,7 +30,7 @@
 		
 		<classes>
 			<class name="com.technology.jep.jepriashowcase.goods.auto.GoodsAutoTest">
-		      <methods>
+		      <methods> <!-- Чтобы протестировать один или несколько конкретных методов, их нужно перечислить во вложенных тегах <include> -->
 <!-- 			        <include name="setAndGetGoodsNameOnCreate" /> -->
 <!-- 			        <include name="setAndGetTypeOnCreate" /> -->
 <!-- 			        <include name="setWrongTypeOnCreate" /> -->
@@ -42,11 +40,8 @@
 <!-- 			        <include name="setWrongMotivationOnCreate" /> -->
 <!-- 			        <include name="setPurchasingPriceOnCreate" /> -->
 <!-- 			        <include name="setWrongPurchasingPriceOnCreate" /> -->
-			        
 <!--	 		        <include name="fillCreateForm" /> -->
-
 <!-- 			        <include name="setAndGetGoodsNameOnSearch" /> -->
-			        
 <!-- 			        <include name="setAndGetGoodsNameOnEdit" /> -->
 <!-- 			        <include name="setAndGetTypeOnEdit" /> -->
 <!-- 			        <include name="setWrongTypeOnEdit" /> -->

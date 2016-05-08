@@ -17,14 +17,14 @@ public class JepAutoProperties {
 //    public static final String USERNAME_KEY = PropertyLoader.loadProperty("user.username");
 //    public static final String PASSWORD_KEY = PropertyLoader.loadProperty("user.password");
 
-	public static String BASE_URL_KEY = "BASE_URL_KEY";
-	public static String BROWSER_NAME_KEY = "BROWSER_NAME_KEY";
-	public static String BROWSER_VERSION_KEY = "BROWSER_VERSION_KEY";
-	public static String BROWSER_PLATFORM_KEY = "BROWSER_PLATFORM_KEY";
-	public static String BROWSER_PATH_KEY = "BROWSER_PATH_KEY"; // Используется для указания на конкретное место установки
-    public static String JEPRIA_VERSION_KEY = "JEPRIA_VERSION_KEY";
-    public static String USERNAME_KEY = "USERNAME_KEY";
-    public static String PASSWORD_KEY = "PASSWORD_KEY";
+	public static String BASE_URL_KEY = "baseUrl";
+	public static String BROWSER_NAME_KEY = "browserName";
+	public static String BROWSER_VERSION_KEY = "browserVersion";
+	public static String BROWSER_PLATFORM_KEY = "browserPlatform";
+	public static String BROWSER_PATH_KEY = "browserPath"; // Используется для указания на конкретное место установки браузера (если их может быть несколько, как у FireFox)
+    public static String JEPRIA_VERSION_KEY = "jepRiaVersion";
+    public static String USERNAME_KEY = "username";
+    public static String PASSWORD_KEY = "password";
     
     public static void set(String key, String value) {
     	properties.put(key, value);

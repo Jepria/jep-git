@@ -3,6 +3,7 @@
 	<taskdef resource="net/sf/antcontrib/antlib.xml" />
 	<property file="local.properties" />
 	<property file="build.properties" />
+	<property file="test.properties" />
 	<property file="config/${BUILD_CONFIG}/deploy.properties"/>
 	
 	<property name="J2EE_HOME" value="${OC4J_HOME}/j2ee/home" />
@@ -307,11 +308,19 @@
 		<testng classpathref="run-testng-libs"
 				outputDir="${testng.report.dir}"
 				haltOnFailure="true"
-				verbose="2">
+				verbose="2"
+				delegateCommandSystemProperties="true">
 			<classpath location="${test.src.dir}" />
 			<classpath location="${JEP_RIA}/lib/jepria-test.jar" />
 			<classpath refid="selenium-libs" />
 			
+			<sysproperty key="host" value="${host}"/>
+			<sysproperty key="browserName" value="${browserName}"/>
+			<sysproperty key="browserPath" value="${browserPath}"/>
+			<sysproperty key="jepriaVersion" value="${jepriaVersion}"/>
+			<sysproperty key="testUsername" value="${testUsername}"/>
+			<sysproperty key="testPassword" value="${testPassword}"/>
+
 			<xmlfileset dir="${test.conf.dir}" includes="**/auto/**/GoodsAutoTest.xml"/>
 		</testng>
 	</target>
