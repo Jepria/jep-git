@@ -5,10 +5,13 @@ import com.technology.jep.jepriashowcase.custom.auto.CustomAuto;
 import com.technology.jep.jepriashowcase.custom.auto.CustomAutoImpl;
 import com.technology.jep.jepriashowcase.goods.auto.GoodsAuto;
 import com.technology.jep.jepriashowcase.goods.auto.GoodsAutoImpl;
+import com.technology.jep.jepriashowcase.requestfunct.auto.RequestFunctAuto;
+import com.technology.jep.jepriashowcase.requestfunct.auto.RequestFunctAutoImpl;
 
 public class JepRiaShowcaseAutoImpl extends ApplicationEntranceAppAuto implements JepRiaShowcaseAuto {
 	private CustomAuto customAuto;
 	private GoodsAuto goodsAuto;
+	private RequestFunctAuto requestFunctAuto;
 
 	public JepRiaShowcaseAutoImpl(String baseUrl,
 			String browserName,
@@ -22,6 +25,7 @@ public class JepRiaShowcaseAutoImpl extends ApplicationEntranceAppAuto implement
 		
 		customAuto = new CustomAutoImpl<JepRiaShowcaseAuto>(this, new JepRiaShowcasePageManager());
 		goodsAuto = getGoodsAuto(true);
+		requestFunctAuto = getRequestFunctAuto(true);
 	}
 	
 	@Override
@@ -42,5 +46,13 @@ public class JepRiaShowcaseAutoImpl extends ApplicationEntranceAppAuto implement
 			goodsAuto = new GoodsAutoImpl<JepRiaShowcaseAuto, JepRiaShowcasePageManager>(this, new JepRiaShowcasePageManager());
 		}
 		return goodsAuto;
+	}
+
+	@Override
+	public RequestFunctAuto getRequestFunctAuto(boolean newInstance) {
+		if(requestFunctAuto == null || newInstance) {
+			requestFunctAuto = new RequestFunctAutoImpl<JepRiaShowcaseAuto, JepRiaShowcasePageManager>(this, new JepRiaShowcasePageManager());
+		}
+		return requestFunctAuto;
 	}
 }
