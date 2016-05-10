@@ -48,6 +48,7 @@ public class WebDriverFactory {
         browser.setPath(get(BROWSER_PATH_KEY));
 
         if (CHROME.equals(browser.getName())) {
+        	System.setProperty("webdriver.chrome.driver", "C:/Program Files (x86)/Google/Chrome/Application/chromedriver.exe");
             webDriver = new ChromeDriver();
             logger.info("ChromeDriver has created");
         } else if (FIREFOX.equals(browser.getName())) {
@@ -59,20 +60,8 @@ public class WebDriverFactory {
 //            }
             ffProfile.setPreference("network.http.phishy-userpass-length", 255);
 
-            String browserPath = browser.getPath();
-            if(!JepRiaUtil.isEmpty(browserPath)) {
-    			FirefoxBinary binary = new FirefoxBinary(new File(browserPath));
-    			webDriver = new FirefoxDriver(binary, new FirefoxProfile());
-            } else {
-	    		try {
-					webDriver = new FirefoxDriver();
-				} catch (WebDriverException wdex) {
-					FirefoxBinary binary = new FirefoxBinary(new File("D:\\Program Files (x86)\\Mozilla Firefox\\firefox.exe"));
-					webDriver = new FirefoxDriver(binary, new FirefoxProfile());
-				} catch (Throwable th) {
-					th.printStackTrace();
-				}
-            }
+			FirefoxBinary binary = new FirefoxBinary(new File(get(BROWSER_PATH_KEY)));
+			webDriver = new FirefoxDriver(binary, new FirefoxProfile());
 			
             logger.info("FirefoxDriver has created");
         } else if (INTERNET_EXPLORER.equals(browser.getName())) {

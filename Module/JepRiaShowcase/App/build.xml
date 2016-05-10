@@ -301,24 +301,33 @@
 			</classpath>
 		</taskdef>
 
-		<testng classpathref="run-testng-libs"
-				outputDir="${testng.report.dir}"
-				haltOnFailure="true"
-				verbose="2"
-				delegateCommandSystemProperties="true">
-			<classpath location="${test.src.dir}" />
-			<classpath location="${JEP_RIA}/lib/jepria-test.jar" />
-			<classpath refid="selenium-libs" />
-			
-			<sysproperty key="host" value="${host}"/>
-			<sysproperty key="browserName" value="${browserName}"/>
-			<sysproperty key="browserPath" value="${browserPath}"/>
-			<sysproperty key="jepriaVersion" value="${jepriaVersion}"/>
-			<sysproperty key="testUsername" value="${testUsername}"/>
-			<sysproperty key="testPassword" value="${testPassword}"/>
+		<propertyselector property="modules" match="testModule(.*)" select="\1"/>
+		<for list="${modules}" param="suiteId">
+			<sequential>
+				<testng classpathref="run-testng-libs"
+						outputDir="${testng.report.dir}"
+						haltOnFailure="true"
+						verbose="2"
+						delegateCommandSystemProperties="true">
+					<classpath location="${test.src.dir}" />
+					<classpath location="${JEP_RIA}/lib/jepria-test.jar" />
+					<classpath refid="selenium-libs" />
 
-			<xmlfileset dir="${test.conf.dir}" includes="**/auto/**/GoodsAutoTest.xml"/>
-		</testng>
+					<sysproperty key="browserName" value="${browserName}"/>
+					<sysproperty key="browserPath" value="${browserPath}"/>
+					<sysproperty key="jepriaVersion" value="${jepriaVersion}"/>
+					<sysproperty key="host" value="${host}"/>
+					<sysproperty key="appName" value="${appName}"/>
+					
+					<sysproperty key="testModule" value="${testModule@{suiteId}}"/>
+					<sysproperty key="testUsername" value="${testUsername@{suiteId}}"/>
+					<sysproperty key="testPassword" value="${testPassword@{suiteId}}"/>
+					
+					<xmlfileset dir="${test.conf.dir}" includes="${testSuite@{suiteId}}"/>
+				</testng>
+			</sequential>
+		</for>
+		
 	</target>
 
 	<!-- Gwt-компиляция -->

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="GoodsAutoTestSuite" parallel="none">
+<suite name="GoodsAutoTestSuite" parallel="false">
 	<test name="GoodsAutoTest">
-		<parameter name="baseUrl" value="http://${host}/JepRiaShowcase/JepRiaShowcase.jsp?em=Goods"/>
+		<parameter name="baseUrl" value="http://${host}/${appName}${testModule}"/>
 		<parameter name="browserName" value="${browserName}"/>
 		<parameter name="browserPath" value="${browserPath}"/>
 		<parameter name="username" value="${testUsername}"/>
