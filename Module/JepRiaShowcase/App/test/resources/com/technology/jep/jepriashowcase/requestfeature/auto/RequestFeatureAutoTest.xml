@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="GoodsAutoTestSuite" parallel="false">
-	<test name="GoodsAutoTest">
+<suite name="RequestFeatureAutoTestSuite" parallel="false">
+	<test name="RequestFeatureAutoTest">
 		<parameter name="baseUrl" value="http://${host}/${appName}${testModule}"/>
 		<parameter name="browserName" value="${browserName}"/>
 		<parameter name="browserPath" value="${browserPath}"/>
@@ -29,7 +29,7 @@
 		</groups>
 		
 		<classes>
-			<class name="com.technology.jep.jepriashowcase.requestfunct.auto.RequestFunctAutoTest">
+			<class name="com.technology.jep.jepriashowcase.requestfeature.auto.RequestFeatureAutoTest">
 		      <methods>
 		      </methods>
 			</class>

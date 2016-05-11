@@ -5,13 +5,13 @@ import com.technology.jep.jepriashowcase.custom.auto.CustomAuto;
 import com.technology.jep.jepriashowcase.custom.auto.CustomAutoImpl;
 import com.technology.jep.jepriashowcase.goods.auto.GoodsAuto;
 import com.technology.jep.jepriashowcase.goods.auto.GoodsAutoImpl;
-import com.technology.jep.jepriashowcase.requestfunct.auto.RequestFunctAuto;
-import com.technology.jep.jepriashowcase.requestfunct.auto.RequestFunctAutoImpl;
+import com.technology.jep.jepriashowcase.requestfeature.auto.RequestFeatureAuto;
+import com.technology.jep.jepriashowcase.requestfeature.auto.RequestFeatureAutoImpl;
 
 public class JepRiaShowcaseAutoImpl extends ApplicationEntranceAppAuto implements JepRiaShowcaseAuto {
 	private CustomAuto customAuto;
 	private GoodsAuto goodsAuto;
-	private RequestFunctAuto requestFunctAuto;
+	private RequestFeatureAuto requestFeatureAuto;
 
 	public JepRiaShowcaseAutoImpl(String baseUrl,
 			String browserName,
@@ -25,7 +25,7 @@ public class JepRiaShowcaseAutoImpl extends ApplicationEntranceAppAuto implement
 		
 		customAuto = new CustomAutoImpl<JepRiaShowcaseAuto>(this, new JepRiaShowcasePageManager());
 		goodsAuto = getGoodsAuto(true);
-		requestFunctAuto = getRequestFunctAuto(true);
+		requestFeatureAuto = getRequestFeatureAuto(true);
 	}
 	
 	@Override
@@ -49,10 +49,10 @@ public class JepRiaShowcaseAutoImpl extends ApplicationEntranceAppAuto implement
 	}
 
 	@Override
-	public RequestFunctAuto getRequestFunctAuto(boolean newInstance) {
-		if(requestFunctAuto == null || newInstance) {
-			requestFunctAuto = new RequestFunctAutoImpl<JepRiaShowcaseAuto, JepRiaShowcasePageManager>(this, new JepRiaShowcasePageManager());
+	public RequestFeatureAuto getRequestFeatureAuto(boolean newInstance) {
+		if(requestFeatureAuto == null || newInstance) {
+			requestFeatureAuto = new RequestFeatureAutoImpl<JepRiaShowcaseAuto, JepRiaShowcasePageManager>(this, new JepRiaShowcasePageManager());
 		}
-		return requestFunctAuto;
+		return requestFeatureAuto;
 	}
 }

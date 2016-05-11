@@ -1,4 +1,4 @@
-package com.technology.jep.jepriashowcase.requestfunct.auto;
+package com.technology.jep.jepriashowcase.requestfeature.auto;
 
 import static com.technology.jep.jepria.client.AutomationConstant.ERROR_MESSAGE_BOX_OK_BUTTON_ID;
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.CREATE;
@@ -10,15 +10,16 @@ import com.technology.jep.jepria.auto.SaveResultEnum;
 import com.technology.jep.jepria.auto.manager.JepRiaAuto;
 import com.technology.jep.jepria.auto.test.JepAutoTest;
 import com.technology.jep.jepriashowcase.auto.JepRiaShowcaseAutoImpl;
+import com.technology.jep.jepriashowcase.requestfeature.auto.RequestFeatureAuto;
 import com.technology.jep.test.util.DataProviderArguments;
 import com.technology.jep.test.util.JepFileDataProvider;
 
-public class RequestFunctAutoTest extends JepAutoTest<RequestFunctAuto> {
-	private static Logger logger = Logger.getLogger(RequestFunctAutoTest.class.getName());
+public class RequestFeatureAutoTest extends JepAutoTest<RequestFeatureAuto> {
+	private static Logger logger = Logger.getLogger(RequestFeatureAutoTest.class.getName());
 	
 	@Override
-	protected RequestFunctAuto getCut() {
-		return ((JepRiaShowcaseAutoImpl)automationManager).getRequestFunctAuto(true);
+	protected RequestFeatureAuto getCut() {
+		return ((JepRiaShowcaseAutoImpl)automationManager).getRequestFeatureAuto(true);
 	}
 
 	@Override
@@ -63,12 +64,12 @@ public class RequestFunctAutoTest extends JepAutoTest<RequestFunctAuto> {
 	/**
 	 * Тест установки/получения поля featureName на форме создания
 	 */
-	@DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/requestfunct/auto/RequestFunctAutoTest.setAndGetFeatureName.group.data")
+	@DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/requestfeature/auto/RequestFeatureAutoTest.setAndGetFeatureName.group.data")
 	@Test(groups={"create", "setAndGetTextField"}, dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
 	public void setAndGetFeatureNameOnCreate(String featureNameNewValue) {
 		cut.setWorkstate(CREATE);
 		
-        ((RequestFunctAuto)cut).setFeatureName(featureNameNewValue);
+        ((RequestFeatureAuto)cut).setFeatureName(featureNameNewValue);
         
         assertEquals(featureNameNewValue, cut.getFeatureName());
 	}
@@ -76,12 +77,12 @@ public class RequestFunctAutoTest extends JepAutoTest<RequestFunctAuto> {
 	/**
 	 * Тест установки/получения поля featureNameEn на форме создания
 	 */
-	@DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/requestfunct/auto/RequestFunctAutoTest.setAndGetFeatureNameEn.group.data")
+	@DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/requestfeature/auto/RequestFeatureAutoTest.setAndGetFeatureNameEn.group.data")
 	@Test(groups={"create", "setAndGetTextField"}, dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
 	public void setAndGetFeatureNameEnOnCreate(String featureNameEnNewValue) {
 		cut.setWorkstate(CREATE);
 		
-        ((RequestFunctAuto)cut).setFeatureNameEn(featureNameEnNewValue);
+        ((RequestFeatureAuto)cut).setFeatureNameEn(featureNameEnNewValue);
         
         assertEquals(featureNameEnNewValue, cut.getFeatureNameEn());
 	}
@@ -89,12 +90,12 @@ public class RequestFunctAutoTest extends JepAutoTest<RequestFunctAuto> {
 	/**
 	 * Тест установки/получения поля description на форме создания
 	 */
-	@DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/requestfunct/auto/RequestFunctAutoTest.setAndGetDescription.group.data")
+	@DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/requestfeature/auto/RequestFeatureAutoTest.setAndGetDescription.group.data")
 	@Test(groups={"create", "setAndGetTextField"}, dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
 	public void setAndGetDescriptionOnCreate(String descriptionNewValue) {
 		cut.setWorkstate(CREATE);
 		
-        ((RequestFunctAuto)cut).setDescription(descriptionNewValue);
+        ((RequestFeatureAuto)cut).setDescription(descriptionNewValue);
         
         assertEquals(descriptionNewValue, cut.getDescription());
 	}
@@ -102,7 +103,7 @@ public class RequestFunctAutoTest extends JepAutoTest<RequestFunctAuto> {
 	/**
 	 * Тест заполнения формы создания
 	 */
-	@DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/requestfunct/auto/RequestFunctAutoTest.fillCreateForm.method.data")
+	@DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/requestfeature/auto/RequestFeatureAutoTest.fillCreateForm.method.data")
 	@Test(groups="create", dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
 	public void fillCreateForm(String featureName, String featureNameEn, String description) {
 		cut.setWorkstate(CREATE);

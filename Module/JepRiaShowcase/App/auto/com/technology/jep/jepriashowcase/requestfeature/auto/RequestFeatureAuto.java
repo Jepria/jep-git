@@ -1,8 +1,8 @@
-package com.technology.jep.jepriashowcase.requestfunct.auto;
+package com.technology.jep.jepriashowcase.requestfeature.auto;
 
 import com.technology.jep.jepria.auto.JepRiaModuleAuto;
 
-public interface RequestFunctAuto extends JepRiaModuleAuto {
+public interface RequestFeatureAuto extends JepRiaModuleAuto {
 
 	/**
 	 * Заполнение полей и получение их значений 
