@@ -2,6 +2,7 @@ package com.technology.jep.jepriashowcase.main.client.ui.main;
 
 import static com.technology.jep.jepriashowcase.main.client.JepRiaShowcaseClientConstant.ALLSHOPGOODS_MODULE_ID;
 import static com.technology.jep.jepriashowcase.main.client.JepRiaShowcaseClientConstant.GOODS_MODULE_ID;
+import static com.technology.jep.jepriashowcase.main.client.JepRiaShowcaseClientConstant.REQUESTFEATURE_MODULE_ID;
 import static com.technology.jep.jepriashowcase.main.client.JepRiaShowcaseClientConstant.REQUESTPROCESS_MODULE_ID;
 import static com.technology.jep.jepriashowcase.main.client.JepRiaShowcaseClientConstant.REQUEST_MODULE_ID;
 import static com.technology.jep.jepriashowcase.main.client.JepRiaShowcaseClientConstant.SHOPGOODS_MODULE_ID;
@@ -25,6 +26,7 @@ public class JepRiaShowcaseMainModulePresenter<E extends MainEventBus, S extends
 		addModuleProtection(ALLSHOPGOODS_MODULE_ID, "JrsEditShopGoods");
 		addModuleProtection(REQUEST_MODULE_ID, "JrsEditRequest");
 		addModuleProtection(REQUESTPROCESS_MODULE_ID, "JrsEditRequestProcess");
+//		addModuleProtection(REQUESTFEATURE_MODULE_ID, "JrsFeatureRequest");//TODO раскомментировать когда роль появится в DB
 		
 		setProtectedModuleItemsVisibility(false);
 	}

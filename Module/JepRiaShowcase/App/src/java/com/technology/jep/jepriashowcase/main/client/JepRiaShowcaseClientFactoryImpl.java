@@ -1,6 +1,16 @@
 package com.technology.jep.jepriashowcase.main.client;
 
-import static com.technology.jep.jepriashowcase.main.client.JepRiaShowcaseClientConstant.*;
+import static com.technology.jep.jepriashowcase.main.client.JepRiaShowcaseClientConstant.ALLSHOPGOODS_MODULE_ID;
+import static com.technology.jep.jepriashowcase.main.client.JepRiaShowcaseClientConstant.CUSTOM_MODULE_ID;
+import static com.technology.jep.jepriashowcase.main.client.JepRiaShowcaseClientConstant.GOODS_MODULE_ID;
+import static com.technology.jep.jepriashowcase.main.client.JepRiaShowcaseClientConstant.REQUESTFEATURE_MODULE_ID;
+import static com.technology.jep.jepriashowcase.main.client.JepRiaShowcaseClientConstant.REQUESTPROCESS_MODULE_ID;
+import static com.technology.jep.jepriashowcase.main.client.JepRiaShowcaseClientConstant.REQUEST_MODULE_ID;
+import static com.technology.jep.jepriashowcase.main.client.JepRiaShowcaseClientConstant.SEARCH_MODULE_ID;
+import static com.technology.jep.jepriashowcase.main.client.JepRiaShowcaseClientConstant.SHOPGOODS_MODULE_ID;
+import static com.technology.jep.jepriashowcase.main.client.JepRiaShowcaseClientConstant.SIMPLE_MODULE_ID;
+import static com.technology.jep.jepriashowcase.main.client.JepRiaShowcaseClientConstant.SUPPLIER_MODULE_ID;
+import static com.technology.jep.jepriashowcase.main.client.JepRiaShowcaseClientConstant.jepRiaShowcaseText;
 
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.activity.shared.Activity;
@@ -17,9 +27,9 @@ import com.technology.jep.jepria.shared.service.data.JepDataServiceAsync;
 import com.technology.jep.jepriashowcase.allshopgoods.client.AllShopGoodsClientFactoryImpl;
 import com.technology.jep.jepriashowcase.custom.client.CustomClientFactoryImpl;
 import com.technology.jep.jepriashowcase.goods.client.GoodsClientFactoryImpl;
-import com.technology.jep.jepriashowcase.main.client.JepRiaShowcaseClientFactoryImpl;
 import com.technology.jep.jepriashowcase.main.client.ui.main.JepRiaShowcaseMainModulePresenter;
 import com.technology.jep.jepriashowcase.request.client.RequestClientFactoryImpl;
+import com.technology.jep.jepriashowcase.requestfeature.client.RequestFeatureClientFactoryImpl;
 import com.technology.jep.jepriashowcase.requestprocess.client.RequestProcessClientFactoryImpl;
 import com.technology.jep.jepriashowcase.search.client.SearchClientFactoryImpl;
 import com.technology.jep.jepriashowcase.shopgoods.client.ShopGoodsClientFactoryImpl;
@@ -48,6 +58,7 @@ public class JepRiaShowcaseClientFactoryImpl<E extends MainEventBus, S extends J
 				, ALLSHOPGOODS_MODULE_ID
 				, REQUEST_MODULE_ID
 				, REQUESTPROCESS_MODULE_ID
+				, REQUESTFEATURE_MODULE_ID
 
 			},
 			new String[] {
@@ -60,6 +71,7 @@ public class JepRiaShowcaseClientFactoryImpl<E extends MainEventBus, S extends J
 				, jepRiaShowcaseText.submodule_allshopgoods_title()
 				, jepRiaShowcaseText.submodule_request_title()
 				, jepRiaShowcaseText.submodule_requestprocess_title()
+				, jepRiaShowcaseText.submodule_requestfeature_title()
 			}
 		);
 		
@@ -142,6 +154,14 @@ public class JepRiaShowcaseClientFactoryImpl<E extends MainEventBus, S extends J
 				public PlainClientFactory<PlainEventBus, JepDataServiceAsync> getPlainClientFactory() {
 					Log.trace(JepRiaShowcaseClientFactoryImpl.this.getClass() + ".getPlainClientFactory: moduleId = " + REQUESTPROCESS_MODULE_ID);
 					return RequestProcessClientFactoryImpl.getInstance();
+				}
+			});
+		}
+		else if(REQUESTFEATURE_MODULE_ID.equals(moduleId)) {
+			GWT.runAsync(new LoadPlainClientFactory(callback) {
+				public PlainClientFactory<PlainEventBus, JepDataServiceAsync> getPlainClientFactory() {
+					Log.trace(JepRiaShowcaseClientFactoryImpl.this.getClass() + ".getPlainClientFactory: moduleId = " + REQUESTFEATURE_MODULE_ID);
+					return RequestFeatureClientFactoryImpl.getInstance();
 				}
 			});
 		}

@@ -2,7 +2,7 @@ package com.technology.jep.jepriashowcase.main.shared.text;
 
 /**
  * Interface to represent the constants contained in resource bundle:
- * 	'D:/GitSourceForge3/javaenterpriseplatform-git/Module/JepRiaShowcase/App/src/java/com/technology/jep/jepriashowcase/main/shared/text/JepRiaShowcaseText.properties'.
+ * 	'D:/workspace/git/JEP/Module/JepRiaShowcase/App/src/java/com/technology/jep/jepriashowcase/main/shared/text/JepRiaShowcaseText.properties'.
  */
 public interface JepRiaShowcaseText extends com.google.gwt.i18n.client.Constants {
   
@@ -41,6 +41,15 @@ public interface JepRiaShowcaseText extends com.google.gwt.i18n.client.Constants
   @DefaultStringValue("Запрос на закупку")
   @Key("submodule.request.title")
   String submodule_request_title();
+
+  /**
+   * Translated "Запрос функционала".
+   * 
+   * @return translated "Запрос функционала"
+   */
+  @DefaultStringValue("Запрос функционала")
+  @Key("submodule.requestfeature.title")
+  String submodule_requestfeature_title();
 
   /**
    * Translated "Обработка запроса".

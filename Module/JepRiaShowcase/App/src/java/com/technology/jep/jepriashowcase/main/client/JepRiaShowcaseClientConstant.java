@@ -15,6 +15,7 @@ public class JepRiaShowcaseClientConstant extends JepRiaShowcaseConstant {
 	public static final String ALLSHOPGOODS_MODULE_ID = "AllShopGoods";
 	public static final String REQUEST_MODULE_ID = "Request";
 	public static final String REQUESTPROCESS_MODULE_ID = "RequestProcess";
+	public static final String REQUESTFEATURE_MODULE_ID = "RequestFeature";
 	
 	/**
 	 * Тексты клиентской части JepRiaShowcase.
@@ -30,6 +31,7 @@ public class JepRiaShowcaseClientConstant extends JepRiaShowcaseConstant {
 	public static final String URL_ALLSHOPGOODS_MODULE = "JepRiaShowcase.jsp?em=AllShopGoods&es=sh";
 	public static final String URL_REQUEST_MODULE = "JepRiaShowcase.jsp?em=Request&es=sh";
 	public static final String URL_REQUESTPROCESS_MODULE = "JepRiaShowcase.jsp?em=RequestProcess&es=sh";
+	public static final String URL_REQUESTFEATURE_MODULE = "JepRiaShowcase.jsp?em=RequestFeature&es=sh";
 	
 
 	/**
