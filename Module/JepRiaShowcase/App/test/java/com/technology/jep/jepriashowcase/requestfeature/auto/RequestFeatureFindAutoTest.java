@@ -100,7 +100,7 @@ public class RequestFeatureFindAutoTest extends RequestFeatureBasicAutoTest {
 	 * @param featureId - устанавливаемое значение поля featureId
 	 */
 	@DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/requestfeature/auto/featureId.field.data")
-	@Test(groups= "setAndGetFields", dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
+	@Test(groups= "setAndGetTextField", dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
 	public void setAndGetFeatureIdOnSearch(String featureId) {
 		cut.setWorkstate(SEARCH);
 		
@@ -115,7 +115,7 @@ public class RequestFeatureFindAutoTest extends RequestFeatureBasicAutoTest {
 	 * @param featureName - устанавливаемое значение поля featureName
 	 */
 	@DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/requestfeature/auto/featureName.field.data")
-	@Test(groups= "setAndGetFields", dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
+	@Test(groups= "setAndGetTextField", dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
 	public void setAndGetFeatureNameOnSearch(String featureName) {
 		cut.setWorkstate(SEARCH);
 		
@@ -130,7 +130,7 @@ public class RequestFeatureFindAutoTest extends RequestFeatureBasicAutoTest {
 	 * @param featureNameEn - устанавливаемое значение поля featureNameEn
 	 */
 	@DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/requestfeature/auto/featureNameEn.field.data")
-	@Test(groups= "setAndGetFields", dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
+	@Test(groups= "setAndGetTextField", dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
 	public void setAndGetFeatureNameEnOnSearch(String featureNameEn) {
 		cut.setWorkstate(SEARCH);
 		
@@ -145,7 +145,7 @@ public class RequestFeatureFindAutoTest extends RequestFeatureBasicAutoTest {
 	 * @param fromDateIns - устанавливаемое значение поля fromDateIns
 	 */
 	@DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/requestfeature/auto/fromDateIns.field.data")
-	@Test(groups= "setAndGetFields", dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
+	@Test(groups= "setAndGetTextField", dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
 	public void setAndGetFromDateInsOnSearch(String fromDateIns) {
 		cut.setWorkstate(SEARCH);
 		
@@ -160,7 +160,7 @@ public class RequestFeatureFindAutoTest extends RequestFeatureBasicAutoTest {
 	 * @param toDateIns - устанавливаемое значение поля toDateIns
 	 */
 	@DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/requestfeature/auto/toDateIns.field.data")
-	@Test(groups= "setAndGetFields", dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
+	@Test(groups= "setAndGetTextField", dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
 	public void setAndGetToDateInsOnSearch(String toDateIns) {
 		cut.setWorkstate(SEARCH);
 		
@@ -175,7 +175,7 @@ public class RequestFeatureFindAutoTest extends RequestFeatureBasicAutoTest {
 	 * @param rowCount - устанавливаемое значение поля rowCount
 	 */
 	@DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/requestfeature/auto/rowCount.field.data")
-	@Test(groups= "setAndGetFields", dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
+	@Test(groups= "setAndGetTextField", dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
 	public void setAndGetRowCountOnSearch(String rowCount) {
 		cut.setWorkstate(SEARCH);
 		

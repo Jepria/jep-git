@@ -5,6 +5,8 @@ import static com.technology.jep.jepria.client.ui.WorkstateEnum.CREATE;
 import static com.technology.jep.jepriashowcase.requestfeature.client.RequestFeatureAutomationConstant.REQUESTFEATURE_FEATURENAME_DETAILFORM_FIELD_INPUT_ID;
 
 import org.apache.log4j.Logger;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import com.technology.jep.jepria.auto.SaveResultEnum;
@@ -43,7 +45,6 @@ public class RequestFeatureBasicAutoTest extends JepAutoTest<RequestFeatureAuto>
 
 	
 	
-	
 	/**
 	 * Создание тестовой записи
 	 * 
@@ -74,13 +75,60 @@ public class RequestFeatureBasicAutoTest extends JepAutoTest<RequestFeatureAuto>
 		super.deleteTestRecord(REQUESTFEATURE_FEATURENAME_DETAILFORM_FIELD_INPUT_ID, featureName);
 	}
 	
+	//=============below copy-paste from RequestFeatureCreateAutoTest====================
+	
+	/**
+	 * Тест установки/получения поля featureName на форме создания
+	 * 
+	 * @param featureName - устанавливаемое значение поля featureName
+	 */
+	@DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/requestfeature/auto/featureName.field.data")
+	@Test(groups={"create", "setAndGetTextField"}, dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
+	public void setAndGetGoodsNameOnCreate(String featureName) {
+		cut.setWorkstate(CREATE);
+		
+        cut.setFeatureName(featureName);
+        
+        assertEquals(featureName, cut.getFeatureName());
+	}
+	
+	/**
+	 * Тест установки/получения поля featureNameEn на форме создания
+	 * 
+	 * @param featureNameEn - устанавливаемое значение поля featureNameEn
+	 */
+	@DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/requestfeature/auto/featureNameEn.field.data")
+	@Test(groups={"create", "setAndGetTextField"}, dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
+	public void setAndGetFeatureNameEnOnCreate(String featureNameEn) {
+		cut.setWorkstate(CREATE);
+		
+        cut.setFeatureNameEn(featureNameEn);
+        
+        assertEquals(featureNameEn, cut.getFeatureNameEn());
+	}
+	
+	/**
+	 * Тест установки/получения поля description на форме создания
+	 * 
+	 * @param description - устанавливаемое значение поля description
+	 */
+	@DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/requestfeature/auto/description.field.data")
+	@Test(groups={"create", "setAndGetTextField"}, dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
+	public void setAndGetDescriptionOnCreate(String description) {
+		cut.setWorkstate(CREATE);
+		
+		cut.setDescription(description);
+		
+		assertEquals(description, cut.getDescription());
+	}
+	//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 	
 	//TODO вынести как абстракный метод на уровень выше?
 	/**
 	 * Тест заполнения формы создания
 	 */
 	@DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/requestfeature/auto/createForm.fields.data")
-	@Test(groups="create", dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
+	@Test(groups={"create", "setAndGetTextField"}, dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
 	public void fillCreateForm(String featureName, String featureNameEn, String description) {
 		cut.setWorkstate(CREATE);
 		

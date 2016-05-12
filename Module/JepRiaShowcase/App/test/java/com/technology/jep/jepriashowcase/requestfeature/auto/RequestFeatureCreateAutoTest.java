@@ -32,50 +32,50 @@ public class RequestFeatureCreateAutoTest extends RequestFeatureBasicAutoTest {
 	}
 	
 
-	/**
-	 * Тест установки/получения поля featureName на форме создания
-	 * 
-	 * @param featureName - устанавливаемое значение поля featureName
-	 */
-	@DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/requestfeature/auto/featureName.field.data")
-	@Test(groups={"create", "setAndGetFields"}, dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
-	public void setAndGetGoodsNameOnCreate(String featureName) {
-		cut.setWorkstate(CREATE);
-		
-        cut.setFeatureName(featureName);
-        
-        assertEquals(featureName, cut.getFeatureName());
-	}
-	
-	/**
-	 * Тест установки/получения поля featureNameEn на форме создания
-	 * 
-	 * @param featureNameEn - устанавливаемое значение поля featureNameEn
-	 */
-	@DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/requestfeature/auto/featureNameEn.field.data")
-	@Test(groups={"create", "setAndGetFields"}, dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
-	public void setAndGetFeatureNameEnOnCreate(String featureNameEn) {
-		cut.setWorkstate(CREATE);
-		
-        cut.setFeatureNameEn(featureNameEn);
-        
-        assertEquals(featureNameEn, cut.getFeatureNameEn());
-	}
-	
-	/**
-	 * Тест установки/получения поля description на форме создания
-	 * 
-	 * @param description - устанавливаемое значение поля description
-	 */
-	@DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/requestfeature/auto/description.field.data")
-	@Test(groups={"create", "setAndGetFields"}, dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
-	public void setAndGetDescriptionOnCreate(String description) {
-		cut.setWorkstate(CREATE);
-		
-		cut.setDescription(description);
-		
-		assertEquals(description, cut.getDescription());
-	}
+//	/**
+//	 * Тест установки/получения поля featureName на форме создания
+//	 * 
+//	 * @param featureName - устанавливаемое значение поля featureName
+//	 */
+//	@DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/requestfeature/auto/featureName.field.data")
+//	@Test(groups={"create", "setAndGetTextField"}, dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
+//	public void setAndGetGoodsNameOnCreate(String featureName) {
+//		cut.setWorkstate(CREATE);
+//		
+//        cut.setFeatureName(featureName);
+//        
+//        assertEquals(featureName, cut.getFeatureName());
+//	}
+//	
+//	/**
+//	 * Тест установки/получения поля featureNameEn на форме создания
+//	 * 
+//	 * @param featureNameEn - устанавливаемое значение поля featureNameEn
+//	 */
+//	@DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/requestfeature/auto/featureNameEn.field.data")
+//	@Test(groups={"create", "setAndGetTextField"}, dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
+//	public void setAndGetFeatureNameEnOnCreate(String featureNameEn) {
+//		cut.setWorkstate(CREATE);
+//		
+//        cut.setFeatureNameEn(featureNameEn);
+//        
+//        assertEquals(featureNameEn, cut.getFeatureNameEn());
+//	}
+//	
+//	/**
+//	 * Тест установки/получения поля description на форме создания
+//	 * 
+//	 * @param description - устанавливаемое значение поля description
+//	 */
+//	@DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/requestfeature/auto/description.field.data")
+//	@Test(groups={"create", "setAndGetTextField"}, dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
+//	public void setAndGetDescriptionOnCreate(String description) {
+//		cut.setWorkstate(CREATE);
+//		
+//		cut.setDescription(description);
+//		
+//		assertEquals(description, cut.getDescription());
+//	}
 	
 	
 	//TODO похожие, но различные для create, edit?

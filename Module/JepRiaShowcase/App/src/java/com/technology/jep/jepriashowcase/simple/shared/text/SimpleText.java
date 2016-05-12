@@ -2,7 +2,7 @@ package com.technology.jep.jepriashowcase.simple.shared.text;
 
 /**
  * Interface to represent the constants contained in resource bundle:
- * 	'D:/GitSourceForge3/javaenterpriseplatform-git/Module/JepRiaShowcase/App/src/java/com/technology/jep/jepriashowcase/simple/shared/text/SimpleText.properties'.
+ * 	'D:/workspace/git/JEP/Module/JepRiaShowcase/App/src/java/com/technology/jep/jepriashowcase/simple/shared/text/SimpleText.properties'.
  */
 public interface SimpleText extends com.google.gwt.i18n.client.Constants {
   
