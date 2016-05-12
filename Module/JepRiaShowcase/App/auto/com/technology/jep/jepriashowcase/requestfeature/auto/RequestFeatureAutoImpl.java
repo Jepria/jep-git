@@ -134,5 +134,4 @@ public class RequestFeatureAutoImpl<A extends JepRiaShowcaseAuto, P extends JepR
 		setFeatureNameEn(featureNameEn);
 		setDescription(description);
 	}
-
 }

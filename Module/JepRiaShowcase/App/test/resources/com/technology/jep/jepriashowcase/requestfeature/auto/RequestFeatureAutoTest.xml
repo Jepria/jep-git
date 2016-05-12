@@ -13,26 +13,20 @@
 
 		<groups>
 			<define name="all">
+				<include name="setAndGetFields" />
  				<include name="find" />
  				<include name="create" />
 				<include name="delete" />
 				<include name="edit" />
-				<include name="goto" />
-				<include name="list" />
 			</define>
 		
 			<run>
-<!-- 				<include name="all" /> -->
-				<include name="setAndGetTextField" />
-<!-- 				<include name="edit" /> -->
+				<include name="all" />
 			</run>
 		</groups>
 		
 		<classes>
-			<class name="com.technology.jep.jepriashowcase.requestfeature.auto.RequestFeatureAutoTest">
-		      <methods>
-		      </methods>
-			</class>
+			<class name="com.technology.jep.jepriashowcase.requestfeature.auto.RequestFeatureSetAndGetFieldsAutoTest"/>
 		</classes>
 	</test> <!-- Test -->
 </suite> <!-- Suite -->
