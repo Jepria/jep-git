@@ -26,7 +26,7 @@
 		</groups>
 		
 		<classes>
-			<class name="com.technology.jep.jepriashowcase.requestfeature.auto.RequestFeatureBasicAutoTest"/>
+			<class name="com.technology.jep.jepriashowcase.requestfeature.auto.RequestFeatureAutoTest"/>
 		</classes>
 	</test> <!-- Test -->
 </suite> <!-- Suite -->
