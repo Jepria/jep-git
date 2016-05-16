@@ -7,7 +7,4 @@
       <context-root>${moduleName}</context-root>
     </web>
   </module>
-  <module>
-    <ejb>jepria-ejb.jar</ejb>
-  </module>
 </application>
