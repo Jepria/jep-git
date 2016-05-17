@@ -10,16 +10,12 @@ public interface RequestFeatureAuto extends JepRiaModuleAuto {
 	void setFeatureId(String featureId);
 	void setFeatureName(String featureName);
 	void setFeatureNameEn(String featureNameEn);
-	void setFromDateIns(String fromDateIns);
-	void setToDateIns(String toDateIns);
 	void setRowCount(String rowCount);
 	void setDescription(String description);
 	
 	String getFeatureId();
 	String getFeatureName();
 	String getFeatureNameEn();
-	String getFromDateIns();
-	String getToDateIns();
 	String getRowCount();
 	String getDescription();
 
@@ -30,8 +26,6 @@ public interface RequestFeatureAuto extends JepRiaModuleAuto {
 			String featureId,
 			String featureName,
 			String featureNameEn,
-			String fromDateIns,
-			String toDateIns,
 			String rowCount);
 	
 	void fillCreateForm(

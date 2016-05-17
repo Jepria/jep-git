@@ -22,12 +22,14 @@ import com.technology.jep.jepria.client.widget.list.GridManager;
 import com.technology.jep.jepria.client.widget.list.JepColumn;
 import com.technology.jep.jepria.shared.service.data.JepDataService;
 import com.technology.jep.jepria.shared.service.data.JepDataServiceAsync;
+import com.technology.jep.jepriashowcase.requestfeature.client.ui.form.detail.RequestFeatureDetailFormPresenter;
+import com.technology.jep.jepriashowcase.requestfeature.client.ui.form.detail.RequestFeatureDetailFormViewImpl;
 import com.technology.jep.jepriashowcase.requestfeature.shared.record.RequestFeatureRecordDefinition;
  
 public class RequestFeatureClientFactoryImpl<E extends PlainEventBus, S extends JepDataServiceAsync/*TODO change to RequestFeatureServiceAsync*/>
 	extends com.technology.jep.jepria.client.ui.plain.StandardClientFactoryImpl<E, S> {
  
-	private static final IsWidget requestFeatureDetailFormView = new DetailFormViewImpl(new FieldManager()){}/*TODO change to RequestFeatureDetailFormViewImpl*/;
+	private static final IsWidget requestFeatureDetailFormView = new RequestFeatureDetailFormViewImpl();
 	private static final IsWidget requestFeatureListFormView = new StandardListFormViewImpl/*TODO change to RequestFeatureListFormViewImpl*/(){
 		@Override
 		protected List<JepColumn> getColumnConfigurations() {
@@ -49,12 +51,12 @@ public class RequestFeatureClientFactoryImpl<E extends PlainEventBus, S extends 
 	}
  
  
-public JepPresenter createPlainModulePresenter(Place place) {
-	return new StandardModulePresenter(REQUESTFEATURE_MODULE_ID, place, this);
-}
+	public JepPresenter createPlainModulePresenter(Place place) {
+		return new StandardModulePresenter(REQUESTFEATURE_MODULE_ID, place, this);
+	}
  
 	public JepPresenter createDetailFormPresenter(Place place) {
-		return new DetailFormPresenter/*TODO change to RequestFeatureDetailFormPresenter*/(place, this);
+		return new RequestFeatureDetailFormPresenter(place, this);
 	}
  
 	public JepPresenter createListFormPresenter(Place place) {

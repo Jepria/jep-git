@@ -105,6 +105,15 @@
 		<servlet-name>RequestServlet</servlet-name>
 		<url-pattern>/JepRiaShowcase/RequestService</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>RequestFeatureServlet</servlet-name>
+		<servlet-class>com.technology.jep.jepriashowcase.requestfeature.server.service.RequestFeatureServiceImpl</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>RequestFeatureServlet</servlet-name>
+		<url-pattern>/JepRiaShowcase/RequestFeatureService</url-pattern>
+	</servlet-mapping>
 
 	<servlet>
 		<servlet-name>RequestProcessServlet</servlet-name>
