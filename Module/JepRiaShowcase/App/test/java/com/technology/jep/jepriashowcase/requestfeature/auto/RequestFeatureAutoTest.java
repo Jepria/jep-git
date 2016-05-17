@@ -2,10 +2,11 @@ package com.technology.jep.jepriashowcase.requestfeature.auto;
 
 import static com.technology.jep.jepria.client.AutomationConstant.ERROR_MESSAGE_BOX_OK_BUTTON_ID;
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.CREATE;
+import static com.technology.jep.jepria.client.ui.WorkstateEnum.EDIT;
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.SEARCH;
-import static com.technology.jep.jepriashowcase.requestfeature.client.RequestFeatureAutomationConstant.REQUESTFEATURE_FEATUREID_DETAILFORM_FIELD_INPUT_ID;
-import static com.technology.jep.jepriashowcase.requestfeature.client.RequestFeatureAutomationConstant.REQUESTFEATURE_FEATURENAMEEN_DETAILFORM_FIELD_INPUT_ID;
-import static com.technology.jep.jepriashowcase.requestfeature.client.RequestFeatureAutomationConstant.REQUESTFEATURE_FEATURENAME_DETAILFORM_FIELD_INPUT_ID;
+import static com.technology.jep.jepriashowcase.requestfeature.client.RequestFeatureAutomationConstant.REQUESTFEATURE_FEATUREID_DETAILFORM_FIELD_ID_INPUT;
+import static com.technology.jep.jepriashowcase.requestfeature.client.RequestFeatureAutomationConstant.REQUESTFEATURE_FEATURENAMEEN_DETAILFORM_FIELD_ID_INPUT;
+import static com.technology.jep.jepriashowcase.requestfeature.client.RequestFeatureAutomationConstant.REQUESTFEATURE_FEATURENAME_DETAILFORM_FIELD_ID_INPUT;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -102,7 +103,7 @@ public class RequestFeatureAutoTest extends JepAutoTest<RequestFeatureAuto> {
 	 * 
 	 * @param featureName - устанавливаемое значение поля featureName
 	 */
-	@DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/requestfeature/auto/featureName.field.data")
+	@DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/requestfeature/auto/field.featureName.data")
 	@Test(groups={"create", "setAndGetTextField"}, dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
 	public void setAndGetGoodsNameOnCreate(String featureName) {
 		cut.setWorkstate(CREATE);
@@ -117,7 +118,7 @@ public class RequestFeatureAutoTest extends JepAutoTest<RequestFeatureAuto> {
 	 * 
 	 * @param featureNameEn - устанавливаемое значение поля featureNameEn
 	 */
-	@DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/requestfeature/auto/featureNameEn.field.data")
+	@DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/requestfeature/auto/field.featureNameEn.data")
 	@Test(groups={"create", "setAndGetTextField"}, dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
 	public void setAndGetFeatureNameEnOnCreate(String featureNameEn) {
 		cut.setWorkstate(CREATE);
@@ -132,7 +133,7 @@ public class RequestFeatureAutoTest extends JepAutoTest<RequestFeatureAuto> {
 	 * 
 	 * @param description - устанавливаемое значение поля description
 	 */
-	@DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/requestfeature/auto/description.field.data")
+	@DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/requestfeature/auto/field.description.data")
 	@Test(groups={"create", "setAndGetTextField"}, dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
 	public void setAndGetDescriptionOnCreate(String description) {
 		cut.setWorkstate(CREATE);
@@ -146,7 +147,7 @@ public class RequestFeatureAutoTest extends JepAutoTest<RequestFeatureAuto> {
 	/**
 	 * Тест заполнения формы создания
 	 */
-	@DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/requestfeature/auto/createForm.fields.data")
+	@DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/requestfeature/auto/form.create.data")
 	@Test(groups={"create", "setAndGetTextField"}, dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
 	public void fillCreateForm(String featureName, String featureNameEn, String description) {
 		cut.setWorkstate(CREATE);
@@ -176,7 +177,7 @@ public class RequestFeatureAutoTest extends JepAutoTest<RequestFeatureAuto> {
 	/**
 	 * Собственно тест создания
 	 */
-	@DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/requestfeature/auto/createForm.fields.data")
+	@DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/requestfeature/auto/form.create.data")
 	@Test(groups={"create"}, dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
 	public void create(String featureName, String featureNameEn, String description) {
 		cut.setWorkstate(CREATE);
@@ -241,24 +242,20 @@ public class RequestFeatureAutoTest extends JepAutoTest<RequestFeatureAuto> {
 	/**
 	 * Тест заполнения формы поиска
 	 */
-	@DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/requestfeature/auto/searchForm.fields.data")
+	@DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/requestfeature/auto/form.search.data")
 	@Test(groups="find", dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
-	public void fillSearchForm(String featureId, String featureName, String featureNameEn, String fromDateIns, String toDateIns, String maxRowCount) {
+	public void fillSearchForm(String featureId, String featureName, String featureNameEn, String maxRowCount) {
 		cut.setWorkstate(SEARCH);
         
         cut.fillSearchForm(
         		featureId,
         		featureName,
         		featureNameEn,
-        		fromDateIns,
-        		toDateIns,
         		maxRowCount);
         
         assertEquals(featureId, cut.getFeatureId());
         assertEquals(featureName, cut.getFeatureName());
         assertEquals(featureNameEn, cut.getFeatureNameEn());
-        assertEquals(fromDateIns, cut.getFromDateIns());
-        assertEquals(toDateIns, cut.getToDateIns());
         assertEquals(maxRowCount, cut.getRowCount());
 	}
 
@@ -270,7 +267,7 @@ public class RequestFeatureAutoTest extends JepAutoTest<RequestFeatureAuto> {
 	 * 
 	 * @param featureId - устанавливаемое значение поля featureId
 	 */
-	@DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/requestfeature/auto/featureId.field.data")
+	@DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/requestfeature/auto/field.featureId.data")
 	@Test(groups= "setAndGetTextField", dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
 	public void setAndGetFeatureIdOnSearch(String featureId) {
 		cut.setWorkstate(SEARCH);
@@ -285,7 +282,7 @@ public class RequestFeatureAutoTest extends JepAutoTest<RequestFeatureAuto> {
 	 * 
 	 * @param featureName - устанавливаемое значение поля featureName
 	 */
-	@DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/requestfeature/auto/featureName.field.data")
+	@DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/requestfeature/auto/field.featureName.data")
 	@Test(groups= "setAndGetTextField", dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
 	public void setAndGetFeatureNameOnSearch(String featureName) {
 		cut.setWorkstate(SEARCH);
@@ -300,7 +297,7 @@ public class RequestFeatureAutoTest extends JepAutoTest<RequestFeatureAuto> {
 	 * 
 	 * @param featureNameEn - устанавливаемое значение поля featureNameEn
 	 */
-	@DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/requestfeature/auto/featureNameEn.field.data")
+	@DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/requestfeature/auto/field.featureNameEn.data")
 	@Test(groups= "setAndGetTextField", dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
 	public void setAndGetFeatureNameEnOnSearch(String featureNameEn) {
 		cut.setWorkstate(SEARCH);
@@ -311,41 +308,11 @@ public class RequestFeatureAutoTest extends JepAutoTest<RequestFeatureAuto> {
 	}
 	
 	/**
-	 * Тест установки/получения поля fromDateIns на форме поиска
-	 * 
-	 * @param fromDateIns - устанавливаемое значение поля fromDateIns
-	 */
-	@DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/requestfeature/auto/fromDateIns.field.data")
-	@Test(groups= "setAndGetTextField", dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
-	public void setAndGetFromDateInsOnSearch(String fromDateIns) {
-		cut.setWorkstate(SEARCH);
-		
-		cut.setFromDateIns(fromDateIns);
-		
-		assertEquals(fromDateIns, cut.getFromDateIns());
-	}
-	
-	/**
-	 * Тест установки/получения поля toDateIns на форме поиска
-	 * 
-	 * @param toDateIns - устанавливаемое значение поля toDateIns
-	 */
-	@DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/requestfeature/auto/toDateIns.field.data")
-	@Test(groups= "setAndGetTextField", dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
-	public void setAndGetToDateInsOnSearch(String toDateIns) {
-		cut.setWorkstate(SEARCH);
-		
-		cut.setToDateIns(toDateIns);
-		
-		assertEquals(toDateIns, cut.getToDateIns());
-	}
-	
-	/**
 	 * Тест установки/получения поля rowCount на форме поиска
 	 * 
 	 * @param rowCount - устанавливаемое значение поля rowCount
 	 */
-	@DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/requestfeature/auto/rowCount.field.data")
+	@DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/requestfeature/auto/field.rowCount.data")
 	@Test(groups= "setAndGetTextField", dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
 	public void setAndGetRowCountOnSearch(String rowCount) {
 		cut.setWorkstate(SEARCH);
@@ -367,7 +334,7 @@ public class RequestFeatureAutoTest extends JepAutoTest<RequestFeatureAuto> {
 	@Parameters({"KEY_FIELD_VALUE"})
 	public void goToList(final String featureName) {
 		cut.find(new HashMap<String, String>(){{
-			put(REQUESTFEATURE_FEATURENAME_DETAILFORM_FIELD_INPUT_ID, featureName);
+			put(REQUESTFEATURE_FEATURENAME_DETAILFORM_FIELD_ID_INPUT, featureName);
 		}});
         
 		assertEquals(
@@ -384,7 +351,7 @@ public class RequestFeatureAutoTest extends JepAutoTest<RequestFeatureAuto> {
 	@Parameters({"KEY_FIELD_VALUE"})
 	public void selectFirstItem(final String featureName) {
 		cut.find(new HashMap<String, String>(){{
-			put(REQUESTFEATURE_FEATURENAME_DETAILFORM_FIELD_INPUT_ID, featureName);
+			put(REQUESTFEATURE_FEATURENAME_DETAILFORM_FIELD_ID_INPUT, featureName);
 		}});
 		
 		cut.selectItem(0);
@@ -399,37 +366,42 @@ public class RequestFeatureAutoTest extends JepAutoTest<RequestFeatureAuto> {
 	
 	/*============================= DELETE BLOCK ================================*/@SuppressWarnings("unused")private void _________DELETE_BLOCK_________(){/*A useless method to visually split blocks in Outline*/}
 	
-	/**
-	 * Тест удаления записи
-	 * 
-	 * @param featureName - значение ключевого поля featureName, идентифицирующего тестовую запись
-	 */
-	@DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/requestfeature/auto/deleteRecord.fields.data")
-	@Test(groups = "delete", dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile", expectedExceptions = IndexOutOfBoundsException.class)
-	public void delete(final String featureName) {
-		try {
-			createTestRecord(featureName);
-			
-			Map<String, String> key = new HashMap<String, String>() {{put(REQUESTFEATURE_FEATURENAME_DETAILFORM_FIELD_INPUT_ID, featureName);}};
-			cut.find(key);
-			
-			try {
-				cut.selectItem(key);
-			} catch(IndexOutOfBoundsException ex) {
-		        fail("Элемент с ключом " + key + " отсутствует в списке");
-			}
-			
-			cut.delete(key);
-			
-			cut.selectItem(key); // Должно вызвать IndexOutOfBoundsException
-		} finally {
-	        deleteTestRecord(featureName); // На случай, если cut.delete не сработал
-		}
-	}
+	//TODO restore, consider fields in data provider
+//	/**
+//	 * Тест удаления записи
+//	 * 
+//	 * @param featureName - значение ключевого поля featureName, идентифицирующего тестовую запись
+//	 */
+//	@DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/requestfeature/auto/form.delete.data")
+//	@Test(groups = "delete", dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile", expectedExceptions = IndexOutOfBoundsException.class)
+//	public void delete(final String featureName) {
+//		try {
+//			createTestRecord(featureName);
+//			
+//			Map<String, String> key = new HashMap<String, String>() {{put(REQUESTFEATURE_FEATURENAME_DETAILFORM_FIELD_ID_INPUT, featureName);}};
+//			cut.find(key);
+//			
+//			try {
+//				cut.selectItem(key);
+//			} catch(IndexOutOfBoundsException ex) {
+//		        fail("Элемент с ключом " + key + " отсутствует в списке");
+//			}
+//			
+//			cut.delete(key);
+//			
+//			cut.selectItem(key); // Должно вызвать IndexOutOfBoundsException
+//		} finally {
+//	        deleteTestRecord(featureName); // На случай, если cut.delete не сработал
+//		}
+//	}
 		
 	//TODO вынести как абстракный метод на уровень выше?
+	/**
+	 * Тест удаления тестовой записи
+	 */
+	@Test(groups = "delete")
 	protected void deleteTestRecord(String featureName) {
-		super.deleteTestRecord(REQUESTFEATURE_FEATURENAME_DETAILFORM_FIELD_INPUT_ID, featureName);
+		super.deleteTestRecord(REQUESTFEATURE_FEATURENAME_DETAILFORM_FIELD_ID_INPUT, featureName);
 	}
 	
 	/*============================= end of DELETE BLOCK ================================*/
@@ -440,7 +412,7 @@ public class RequestFeatureAutoTest extends JepAutoTest<RequestFeatureAuto> {
 	/**
 	 * Тест заполнения формы редактирования
 	 */
-	@DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/requestfeature/auto/editForm.fields.data")
+	@DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/requestfeature/auto/form.edit.data")
 	@Test(groups="edit", dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
 	public void fillEditForm(String featureId, final String featureName, String featureNameEn, String desription) {
 
@@ -448,7 +420,7 @@ public class RequestFeatureAutoTest extends JepAutoTest<RequestFeatureAuto> {
 			createTestRecord(featureName);
 			
 			cut.edit(new HashMap<String, String>() {{
-				put(REQUESTFEATURE_FEATURENAME_DETAILFORM_FIELD_INPUT_ID, featureName);
+				put(REQUESTFEATURE_FEATURENAME_DETAILFORM_FIELD_ID_INPUT, featureName);
 			}});
 			
 	        
@@ -474,9 +446,9 @@ public class RequestFeatureAutoTest extends JepAutoTest<RequestFeatureAuto> {
 	 */
 	@Test(groups = "edit")
 	@Parameters({"KEY_FIELD_VALUE"})
-	public void edit(String featureName) {
+	public void goToEdit(String featureName) {
 		Map<String, String> key = new HashMap<String, String>();
-		key.put(REQUESTFEATURE_FEATURENAME_DETAILFORM_FIELD_INPUT_ID, featureName);
+		key.put(REQUESTFEATURE_FEATURENAME_DETAILFORM_FIELD_ID_INPUT, featureName);
 		cut.edit(key);
         
 		assertEquals(
@@ -492,11 +464,11 @@ public class RequestFeatureAutoTest extends JepAutoTest<RequestFeatureAuto> {
 	 * 
 	 * @param featureId - устанавливаемое значение поля featureId
 	 */
-	@DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/requestfeature/auto/featureId.field.data")
+	@DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/requestfeature/auto/field.featureId.data")
 	@Test(groups={"edit"}, dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
 	public void setAndGetFeatureIdOnEdit(String featureId) {
 		testSetAndGetTextFieldValueOnEdit(
-				REQUESTFEATURE_FEATUREID_DETAILFORM_FIELD_INPUT_ID,
+				REQUESTFEATURE_FEATUREID_DETAILFORM_FIELD_ID_INPUT,
 				featureId);
 	}
 	
@@ -505,11 +477,11 @@ public class RequestFeatureAutoTest extends JepAutoTest<RequestFeatureAuto> {
 	 * 
 	 * @param featureName - устанавливаемое значение поля featureName
 	 */
-	@DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/requestfeature/auto/featureName.field.data")
+	@DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/requestfeature/auto/field.featureName.data")
 	@Test(groups={"edit"}, dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
 	public void setAndGetFeatureNameOnEdit(String featureName) {
 		testSetAndGetTextFieldValueOnEdit(
-				REQUESTFEATURE_FEATURENAME_DETAILFORM_FIELD_INPUT_ID,
+				REQUESTFEATURE_FEATURENAME_DETAILFORM_FIELD_ID_INPUT,
 				featureName);
 	}
 	
@@ -518,11 +490,11 @@ public class RequestFeatureAutoTest extends JepAutoTest<RequestFeatureAuto> {
 	 * 
 	 * @param featureNameEn - устанавливаемое значение поля featureNameEn
 	 */
-	@DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/requestfeature/auto/featureNameEn.field.data")
+	@DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/requestfeature/auto/field.featureNameEn.data")
 	@Test(groups={"edit"}, dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
 	public void setAndGetFeatureNameEnOnEdit(String featureNameEn) {
 		testSetAndGetTextFieldValueOnEdit(
-				REQUESTFEATURE_FEATURENAMEEN_DETAILFORM_FIELD_INPUT_ID,
+				REQUESTFEATURE_FEATURENAMEEN_DETAILFORM_FIELD_ID_INPUT,
 				featureNameEn);
 	}
 	
@@ -531,22 +503,39 @@ public class RequestFeatureAutoTest extends JepAutoTest<RequestFeatureAuto> {
 	 * 
 	 * @param wrondFeatureId - значение поля featureId
 	 */
-	@DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/requestfeature/auto/featureId.wrong.field.data")
+	@DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/requestfeature/auto/field.featureId.wrong.data")
 	@Test(groups = "edit", dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile", expectedExceptions = WrongOptionException.class)
 	public void setWrongFeatureIdOnEdit(String wrondFeatureId) {
 		testSetAndGetTextFieldValueOnEdit(
-				REQUESTFEATURE_FEATUREID_DETAILFORM_FIELD_INPUT_ID,
+				REQUESTFEATURE_FEATUREID_DETAILFORM_FIELD_ID_INPUT,
 				wrondFeatureId);
 	}
 
 	private void testSetAndGetTextFieldValueOnEdit(String testFieldId, String testFieldNewValue) {
 		testSetAndGetTextFieldValueOnEdit(
 				cut,
-				REQUESTFEATURE_FEATURENAME_DETAILFORM_FIELD_INPUT_ID,
+				REQUESTFEATURE_FEATURENAME_DETAILFORM_FIELD_ID_INPUT,
 				KEY_FIELD_VALUE,
 				testFieldId,
 				testFieldNewValue,
 				true);
+	}
+	
+	/**
+	 * Собственно тест редактирования
+	 */
+	@DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/requestfeature/auto/form.edit.data")
+	@Test(groups={"edit"}, dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
+	public void edit(String featureId, String featureName, String featureNameEn, String description) {
+		cut.setWorkstate(EDIT);
+		
+        cut.fillEditForm(
+        		featureId,
+        		featureName,
+        		featureNameEn,
+        		description);
+        
+        assertEquals(SaveResultEnum.STATUS_HAS_CHANGED, cut.save());
 	}
 	
 	/*============================= end of EDIT BLOCK ================================*/

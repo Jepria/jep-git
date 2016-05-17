@@ -9,25 +9,23 @@ import com.google.gwt.place.shared.Place;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.technology.jep.jepria.client.ui.JepPresenter;
 import com.technology.jep.jepria.client.ui.eventbus.plain.PlainEventBus;
-import com.technology.jep.jepria.client.ui.form.detail.DetailFormPresenter;
-import com.technology.jep.jepria.client.ui.form.detail.DetailFormViewImpl;
 import com.technology.jep.jepria.client.ui.form.list.ListFormPresenter;
-import com.technology.jep.jepria.client.ui.form.list.ListFormViewImpl;
 import com.technology.jep.jepria.client.ui.form.list.StandardListFormViewImpl;
 import com.technology.jep.jepria.client.ui.plain.PlainClientFactory;
 import com.technology.jep.jepria.client.ui.plain.PlainClientFactoryImpl;
 import com.technology.jep.jepria.client.ui.plain.StandardModulePresenter;
-import com.technology.jep.jepria.client.widget.field.FieldManager;
-import com.technology.jep.jepria.client.widget.list.GridManager;
 import com.technology.jep.jepria.client.widget.list.JepColumn;
-import com.technology.jep.jepria.shared.service.data.JepDataService;
 import com.technology.jep.jepria.shared.service.data.JepDataServiceAsync;
+import com.technology.jep.jepriashowcase.requestfeature.client.ui.form.detail.RequestFeatureDetailFormPresenter;
+import com.technology.jep.jepriashowcase.requestfeature.client.ui.form.detail.RequestFeatureDetailFormViewImpl;
 import com.technology.jep.jepriashowcase.requestfeature.shared.record.RequestFeatureRecordDefinition;
+import com.technology.jep.jepriashowcase.requestfeature.shared.service.RequestFeatureService;
+import com.technology.jep.jepriashowcase.requestfeature.shared.service.RequestFeatureServiceAsync;
  
-public class RequestFeatureClientFactoryImpl<E extends PlainEventBus, S extends JepDataServiceAsync/*TODO change to RequestFeatureServiceAsync*/>
+public class RequestFeatureClientFactoryImpl<E extends PlainEventBus, S extends RequestFeatureServiceAsync>
 	extends com.technology.jep.jepria.client.ui.plain.StandardClientFactoryImpl<E, S> {
  
-	private static final IsWidget requestFeatureDetailFormView = new DetailFormViewImpl(new FieldManager()){}/*TODO change to RequestFeatureDetailFormViewImpl*/;
+	private static final IsWidget requestFeatureDetailFormView = new RequestFeatureDetailFormViewImpl();
 	private static final IsWidget requestFeatureListFormView = new StandardListFormViewImpl/*TODO change to RequestFeatureListFormViewImpl*/(){
 		@Override
 		protected List<JepColumn> getColumnConfigurations() {
@@ -49,12 +47,12 @@ public class RequestFeatureClientFactoryImpl<E extends PlainEventBus, S extends 
 	}
  
  
-public JepPresenter createPlainModulePresenter(Place place) {
-	return new StandardModulePresenter(REQUESTFEATURE_MODULE_ID, place, this);
-}
+	public JepPresenter createPlainModulePresenter(Place place) {
+		return new StandardModulePresenter(REQUESTFEATURE_MODULE_ID, place, this);
+	}
  
 	public JepPresenter createDetailFormPresenter(Place place) {
-		return new DetailFormPresenter/*TODO change to RequestFeatureDetailFormPresenter*/(place, this);
+		return new RequestFeatureDetailFormPresenter(place, this);
 	}
  
 	public JepPresenter createListFormPresenter(Place place) {
@@ -71,7 +69,7 @@ public JepPresenter createPlainModulePresenter(Place place) {
  
 	public S getService() {
 		if(dataService == null) {
-			dataService = (S) GWT.create(JepDataService/*TODO change to RequestFeatureService*/.class);
+			dataService = (S) GWT.create(RequestFeatureService.class);
 		}
 		return dataService;
 	}

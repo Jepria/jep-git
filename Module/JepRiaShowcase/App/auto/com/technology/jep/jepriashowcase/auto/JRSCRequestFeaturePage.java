@@ -11,25 +11,26 @@ import com.technology.jep.jepria.auto.pages.JepRiaApplicationPage;
 public class JRSCRequestFeaturePage<P extends JepRiaShowcasePageManager> extends JepRiaApplicationPage<P> {
 	private static Logger logger = Logger.getLogger(JRSCRequestFeaturePage.class.getName());
 	
-	@FindBy(id = REQUESTFEATURE_FEATUREID_DETAILFORM_FIELD_INPUT_ID)
+	@FindBy(id = REQUESTFEATURE_FEATUREID_DETAILFORM_FIELD_ID)
 	public WebElement featureIdField;
 	
-	@FindBy(id = REQUESTFEATURE_FEATURENAME_DETAILFORM_FIELD_INPUT_ID)
+	@FindBy(id = REQUESTFEATURE_FEATURENAME_DETAILFORM_FIELD_ID)
 	public WebElement featureNameField;
 	
-	@FindBy(id = REQUESTFEATURE_FEATURENAMEEN_DETAILFORM_FIELD_INPUT_ID)
+	@FindBy(id = REQUESTFEATURE_FEATURENAMEEN_DETAILFORM_FIELD_ID)
 	public WebElement featureNameEnField;
 	
-	@FindBy(id = REQUESTFEATURE_FROMDATEINS_DETAILFORM_FIELD_INPUT_ID)
-	public WebElement fromDateInsField;
+// TODO implement DOM ID of a JepDateField
+//	@FindBy(id = REQUESTFEATURE_FROMDATEINS_DETAILFORM_FIELD_ID)
+//	public WebElement fromDateInsField;
+//	
+//	@FindBy(id = REQUESTFEATURE_TODATEINS_DETAILFORM_FIELD_ID)
+//	public WebElement toDateInsField;
 	
-	@FindBy(id = REQUESTFEATURE_TODATEINS_DETAILFORM_FIELD_INPUT_ID)
-	public WebElement toDateInsField;
-	
-	@FindBy(id = REQUESTFEATURE_ROWCOUNT_DETAILFORM_FIELD_INPUT_ID)
+	@FindBy(id = REQUESTFEATURE_MAXROWCOUNT_DETAILFORM_FIELD_ID)
 	public WebElement rowCountField;
 	
-	@FindBy(id = REQUESTFEATURE_DESCRIPTION_DETAILFORM_FIELD_INPUT_ID)
+	@FindBy(id = REQUESTFEATURE_DESCRIPTION_DETAILFORM_FIELD_ID)
 	public WebElement descriptionField;
 	
 	// Singleton

@@ -21,8 +21,10 @@
 			</define>
 		
 			<run>
-				<include name="setAndGetTextField" />
-				<include name="create" />
+				<include name="find" />
+ 				<include name="create" />
+				<include name="delete" />
+				<include name="edit" />
 			</run>
 		</groups>
 		

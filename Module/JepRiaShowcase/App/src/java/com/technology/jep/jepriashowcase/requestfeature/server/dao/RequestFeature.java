@@ -1,0 +1,11 @@
+package com.technology.jep.jepriashowcase.requestfeature.server.dao;
+ 
+import java.util.List;
+
+import com.technology.jep.jepria.server.dao.JepDataStandard;
+import com.technology.jep.jepria.shared.exceptions.ApplicationException;
+import com.technology.jep.jepria.shared.field.option.JepOption;
+ 
+public interface RequestFeature extends JepDataStandard {
+//	List<JepOption> getRequestStatus() throws ApplicationException;
+}
