@@ -37,9 +37,11 @@ Module/JepRia/bin/
 Module/JepRiaReport/.classpath
 Module/JepRiaReport/.project
 Module/JepRiaReport/.settings/
+Module/JepRiaReport/App/build/
 Module/JepRiaReport/App/lib/jepriareport.jar
 Module/JepRiaReport/App/lib/jepriareport-ejb.jar
 Module/JepRiaReport/bin/
+
 
 # JepRiaShowcase specific
 Module/JepRiaShowcase/.classpath
