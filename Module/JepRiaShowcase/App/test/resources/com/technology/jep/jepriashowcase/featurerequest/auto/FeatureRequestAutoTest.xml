@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="FeatureRequestAutoTestSuite" parallel="false">
+	<test name="FeatureRequestAutoTest">
+		<parameter name="baseUrl" value="http://${host}/${appName}${testModule}"/>
+		<parameter name="browserName" value="${browserName}"/>
+		<parameter name="browserPath" value="${browserPath}"/>
+		<parameter name="username" value="${testUsername}"/>
+		<parameter name="password" value="${testPassword}"/>
+		<parameter name="jepriaVersion" value="${jepriaVersion}"/>
+		<parameter name="forceNewBrowser" value="No"/>
+		<parameter name="forceLogin" value="No"/>
+
+		<groups>
+			<define name="all">
+				<include name="setAndGetTextField" />
+ 				<include name="find" />
+ 				<include name="create" />
+				<include name="delete" />
+				<include name="edit" />
+			</define>
+		
+			<run>
+				<include name="find" />
+ 				<include name="create" />
+				<include name="delete" />
+				<include name="edit" />
+			</run>
+		</groups>
+		
+		<classes>
+			<class name="com.technology.jep.jepriashowcase.featurerequest.auto.FeatureRequestAutoTest"/>
+		</classes>
+	</test> <!-- Test -->
+</suite> <!-- Suite -->

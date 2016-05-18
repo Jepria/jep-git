@@ -25,6 +25,15 @@ public interface JepRiaShowcaseText extends com.google.gwt.i18n.client.Constants
   String submodule_custom_title();
 
   /**
+   * Translated "Запрос функционала".
+   * 
+   * @return translated "Запрос функционала"
+   */
+  @DefaultStringValue("Запрос функционала")
+  @Key("submodule.featurerequest.title")
+  String submodule_featurerequest_title();
+
+  /**
    * Translated "Товар".
    * 
    * @return translated "Товар"
@@ -41,15 +50,6 @@ public interface JepRiaShowcaseText extends com.google.gwt.i18n.client.Constants
   @DefaultStringValue("Запрос на закупку")
   @Key("submodule.request.title")
   String submodule_request_title();
-
-  /**
-   * Translated "Запрос функционала".
-   * 
-   * @return translated "Запрос функционала"
-   */
-  @DefaultStringValue("Запрос функционала")
-  @Key("submodule.requestfeature.title")
-  String submodule_requestfeature_title();
 
   /**
    * Translated "Обработка запроса".

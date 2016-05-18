@@ -107,12 +107,12 @@
 	</servlet-mapping>
 	
 	<servlet>
-		<servlet-name>RequestFeatureServlet</servlet-name>
-		<servlet-class>com.technology.jep.jepriashowcase.requestfeature.server.service.RequestFeatureServiceImpl</servlet-class>
+		<servlet-name>FeatureRequestServlet</servlet-name>
+		<servlet-class>com.technology.jep.jepriashowcase.featurerequest.server.service.FeatureRequestServiceImpl</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>RequestFeatureServlet</servlet-name>
-		<url-pattern>/JepRiaShowcase/RequestFeatureService</url-pattern>
+		<servlet-name>FeatureRequestServlet</servlet-name>
+		<url-pattern>/JepRiaShowcase/FeatureRequestService</url-pattern>
 	</servlet-mapping>
 
 	<servlet>

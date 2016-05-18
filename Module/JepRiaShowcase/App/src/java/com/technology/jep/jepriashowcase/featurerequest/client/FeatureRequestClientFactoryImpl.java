@@ -1,0 +1,76 @@
+package com.technology.jep.jepriashowcase.featurerequest.client;
+ 
+import static com.technology.jep.jepriashowcase.main.client.JepRiaShowcaseClientConstant.FEATUREREQUEST_MODULE_ID;
+
+import java.util.List;
+
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.place.shared.Place;
+import com.google.gwt.user.client.ui.IsWidget;
+import com.technology.jep.jepria.client.ui.JepPresenter;
+import com.technology.jep.jepria.client.ui.eventbus.plain.PlainEventBus;
+import com.technology.jep.jepria.client.ui.form.list.ListFormPresenter;
+import com.technology.jep.jepria.client.ui.form.list.StandardListFormViewImpl;
+import com.technology.jep.jepria.client.ui.plain.PlainClientFactory;
+import com.technology.jep.jepria.client.ui.plain.PlainClientFactoryImpl;
+import com.technology.jep.jepria.client.ui.plain.StandardModulePresenter;
+import com.technology.jep.jepria.client.widget.list.JepColumn;
+import com.technology.jep.jepria.shared.service.data.JepDataServiceAsync;
+import com.technology.jep.jepriashowcase.featurerequest.client.ui.form.detail.FeatureRequestDetailFormPresenter;
+import com.technology.jep.jepriashowcase.featurerequest.client.ui.form.detail.FeatureRequestDetailFormViewImpl;
+import com.technology.jep.jepriashowcase.featurerequest.shared.record.FeatureRequestRecordDefinition;
+import com.technology.jep.jepriashowcase.featurerequest.shared.service.FeatureRequestService;
+import com.technology.jep.jepriashowcase.featurerequest.shared.service.FeatureRequestServiceAsync;
+ 
+public class FeatureRequestClientFactoryImpl<E extends PlainEventBus, S extends FeatureRequestServiceAsync>
+	extends com.technology.jep.jepria.client.ui.plain.StandardClientFactoryImpl<E, S> {
+ 
+	private static final IsWidget featureRequestDetailFormView = new FeatureRequestDetailFormViewImpl();
+	private static final IsWidget featureRequestListFormView = new StandardListFormViewImpl/*TODO change to FeatureRequestListFormViewImpl*/(){
+		@Override
+		protected List<JepColumn> getColumnConfigurations() {
+			return null;
+		}};
+ 
+	public static PlainClientFactoryImpl<PlainEventBus, JepDataServiceAsync> instance = null;
+ 
+	public FeatureRequestClientFactoryImpl() {
+		super(FeatureRequestRecordDefinition.instance);
+		initActivityMappers(this);
+	}
+ 
+	static public PlainClientFactory<PlainEventBus, JepDataServiceAsync> getInstance() {
+		if(instance == null) {
+			instance = GWT.create(FeatureRequestClientFactoryImpl.class);
+		}
+		return instance;
+	}
+ 
+ 
+	public JepPresenter createPlainModulePresenter(Place place) {
+		return new StandardModulePresenter(FEATUREREQUEST_MODULE_ID, place, this);
+	}
+ 
+	public JepPresenter createDetailFormPresenter(Place place) {
+		return new FeatureRequestDetailFormPresenter(place, this);
+	}
+ 
+	public JepPresenter createListFormPresenter(Place place) {
+		return new ListFormPresenter/*TODO change to FeatureRequestListFormPresenter*/(place, this);
+	}
+ 
+	public IsWidget getDetailFormView() {
+		return featureRequestDetailFormView;
+	}
+ 
+	public IsWidget getListFormView() {
+		return featureRequestListFormView;
+	}
+ 
+	public S getService() {
+		if(dataService == null) {
+			dataService = (S) GWT.create(FeatureRequestService.class);
+		}
+		return dataService;
+	}
+}
