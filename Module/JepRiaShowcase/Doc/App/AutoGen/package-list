@@ -10,6 +10,7 @@ com.technology.jep.jepriashowcase.allshopgoods.shared.record
 com.technology.jep.jepriashowcase.allshopgoods.shared.service
 com.technology.jep.jepriashowcase.allshopgoods.shared.text
 com.technology.jep.jepriashowcase.custom.client
+com.technology.jep.jepriashowcase.custom.client.ui
 com.technology.jep.jepriashowcase.custom.client.ui.auto
 com.technology.jep.jepriashowcase.custom.client.ui.plain
 com.technology.jep.jepriashowcase.custom.server
@@ -21,6 +22,14 @@ com.technology.jep.jepriashowcase.custom.shared.record
 com.technology.jep.jepriashowcase.custom.shared.service
 com.technology.jep.jepriashowcase.custom.shared.text
 com.technology.jep.jepriashowcase.custom.shared.ui
+com.technology.jep.jepriashowcase.featurerequest.client
+com.technology.jep.jepriashowcase.featurerequest.client.ui.form.detail
+com.technology.jep.jepriashowcase.featurerequest.server
+com.technology.jep.jepriashowcase.featurerequest.server.dao
+com.technology.jep.jepriashowcase.featurerequest.server.service
+com.technology.jep.jepriashowcase.featurerequest.shared.field
+com.technology.jep.jepriashowcase.featurerequest.shared.record
+com.technology.jep.jepriashowcase.featurerequest.shared.service
 com.technology.jep.jepriashowcase.goods.client
 com.technology.jep.jepriashowcase.goods.client.ui.form.detail
 com.technology.jep.jepriashowcase.goods.client.ui.form.list
@@ -62,6 +71,7 @@ com.technology.jep.jepriashowcase.requestprocess.shared.service
 com.technology.jep.jepriashowcase.requestprocess.shared.text
 com.technology.jep.jepriashowcase.search.client
 com.technology.jep.jepriashowcase.search.client.shop
+com.technology.jep.jepriashowcase.search.client.ui.pagingtoolbar
 com.technology.jep.jepriashowcase.search.client.ui.plain
 com.technology.jep.jepriashowcase.search.client.widget.list
 com.technology.jep.jepriashowcase.search.server

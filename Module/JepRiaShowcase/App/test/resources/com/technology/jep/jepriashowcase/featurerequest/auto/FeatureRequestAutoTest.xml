@@ -21,10 +21,10 @@
 			</define>
 		
 			<run>
-				<include name="find" />
+				<!--<include name="find" />-->
  				<include name="create" />
-				<include name="delete" />
-				<include name="edit" />
+				<!--<include name="delete" />-->
+				<!--<include name="edit" />-->
 			</run>
 		</groups>
 		
