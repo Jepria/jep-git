@@ -10,8 +10,7 @@
 	<property name="JEP_RIA" value="${COMMON_HOME}/Module/JepRia/${JEP_RIA_VERSION}/App" />
 	<property name="JEP_RIA_REPORT" value="${COMMON_HOME}/Module/JepRiaReport/${JEP_RIA_REPORT_VERSION}/App" />
 	<property name="JEP_REPORT_COMPILER" value="${COMMON_HOME}/Module/JrCompiler/${JEP_REPORT_COMPILER_VERSION}/App" />
-	<!--<property name="JEP_RIA_TOOLKIT" value="${COMMON_HOME}/Module/JepRiaToolkit/${JEP_RIA_TOOLKIT_VERSION}/App" />-->
-	<property name="JEP_RIA_TOOLKIT" value="D:/Project/JEPGit/Module/JepRiaToolkit/App" />
+	<property name="JEP_RIA_TOOLKIT" value="${COMMON_HOME}/Module/JepRiaToolkit/${JEP_RIA_TOOLKIT_VERSION}/App" />
 	<property name="JAVA_DOC_DIR" value="../Doc/App/AutoGen" />
 	<property name="LOG_LEVEL" value="info" />
 	<property name="test.src.dir" value="src/java;test/java" />
@@ -116,6 +115,7 @@
 	<fileset dir="build" id="class-web-jar">
 		<include name="**/shared/" />
 		<include name="**/server/" />
+		<include name="**/log4j.properties" />
 	</fileset>
 
 	<target name="prepare-toolkit">
@@ -244,6 +244,7 @@
 			<classpath refid="oc4j-libs" />
 			<classpath refid="weblogic-libs" />
 		</javac>
+		<copy file="src/java/log4j.properties" todir="build" />
 	</target>
 
 	<target name="java-compile-test-gwt" depends="java-compile">
@@ -591,6 +592,8 @@
 				</copy>
 				
 				<copy file="src/resources/${MODULE_PACKAGE}/web/web.xml" todir="temp-war/WEB-INF" />
+				<copy file="src/resources/${MODULE_PACKAGE}/tomcat/context.xml" todir="temp-war/META-INF" />
+				 				
 				<copy todir="temp-war">
 					<fileset dir="build-gwt" />
 				</copy>
@@ -794,6 +797,9 @@
 			<fileset dir="temp-war" />
 			<fileset dir="temp-ear" />
 		</delete>
+		
+		<delete file="lib/${MODULE_NAME_IN_PACKAGE}.war"/>
+		
 		<antcall target="for-each-client-module">
 			<param name="action" value="client-module-clean" />
 		</antcall>

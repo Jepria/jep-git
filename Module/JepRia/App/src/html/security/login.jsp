@@ -35,11 +35,10 @@
 
 <html lang="<%=_bundle.getResourceLocale().getLanguage()%>"    dir="<%=dir%>">
   <head>
-    <script src="javascript/jquery-1.10.2.js"></script>
-    <script src="javascript/jquery.cookie.js"></script>
+    <script src="security/javascript/jquery-1.10.2.js"></script>
   
     <title><%= resourceBundle.getString("login.title") %></title>
-    <link href="com/technology/jep/jepcommon/styles/Default.css" rel="stylesheet" type="text/css">
+    <link href="security/com/technology/jep/jepcommon/styles/Default.css" rel="stylesheet" type="text/css">
 
     <script language="javascript">
       //Приходится реализовывать отличным от JEP подходом, т.к. не удалось передать разумным/надежным методом язык/mtSID struts/JEP в приложение JavaSSO.
@@ -139,7 +138,7 @@
       <table style=" width: 100%; ">
         <tr style=" height: 30px ">
           <th style=" width: 5px ">&nbsp;
-          <th style=" width: 25px "><a style="cursor: pointer;" onclick="authorization()"><img id="login.registration" src="com/technology/jep/jepcommon/images/authorization.gif" title='<%= resourceBundle.getString("login.registration") %>' /></a>
+          <th style=" width: 25px "><a style="cursor: pointer;" onclick="authorization()"><img id="login.registration" src="security/com/technology/jep/jepcommon/images/authorization.gif" title='<%= resourceBundle.getString("login.registration") %>' /></a>
           <th style=" width: 100%; ">&nbsp;
         <tr><td colspan="3"><% if(loginAttempts > 0){ %>
 
@@ -185,16 +184,8 @@
       <input type="hidden" name="action.incorrectInputData" value='<%= resourceBundle.getString("action.incorrectInputData") %>'/>
       <input type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;"/>
     </form>
-
     <script language="javascript">
 	<!--
-		var targetUrlCookieName = '<%=request.getContextPath()%>' + '_' + '<%=LoginRedirectFilter.TARGET_URL_COOKIE_NAME%>';
-		targetUrlCookieName = targetUrlCookieName.substring(1);
-		var targetUrl = '<%=weblogic.servlet.security.ServletAuthentication.getTargetURLForFormAuthentication(request.getSession())%>';
-		if(targetUrl != 'null') {
-			$.cookie(targetUrlCookieName, targetUrl, { path: '/' });
-		}
-
 		document.loginForm.j_username.focus(); 
 		localize(); 
 	//-->
