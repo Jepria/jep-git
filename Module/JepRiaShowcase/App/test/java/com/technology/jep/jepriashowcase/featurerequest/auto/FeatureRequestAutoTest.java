@@ -4,12 +4,13 @@ import static com.technology.jep.jepria.client.AutomationConstant.ERROR_MESSAGE_
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.CREATE;
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.EDIT;
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.SEARCH;
-import static com.technology.jep.jepriashowcase.featurerequest.client.FeatureRequestAutomationConstant.FEATUREREQUEST_FEATURENAME_DETAILFORM_FIELD_ID_INPUT;
+import static com.technology.jep.jepriashowcase.featurerequest.client.FeatureRequestAutomationConstant.*;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
@@ -94,33 +95,33 @@ public class FeatureRequestAutoTest extends JepAutoTest<FeatureRequestAuto> {
 				cut.getStatusBar().getText());
 		
 		// Заполняем форму создания
-        cut.fillCreateForm(
-        		featureName,
-        		featureNameEn,
-        		description);
-        
-        // Проверяем, что поля заполненны именно теми значениями, которыми мы их заполнили
-        assertEquals(featureName, cut.getFeatureName());
-        assertEquals(featureNameEn, cut.getFeatureNameEn());
-        assertEquals(description, cut.getDescription());
-        
-        // Проверяем корректность сохранения записи
-        SaveResultEnum saveResult = cut.save();
-        assertEquals(SaveResultEnum.STATUS_HAS_CHANGED, saveResult);
-        
-        //TODO работает без строчки ниже, однако по хорошему она должна присутствовать, но почему то с ней не работает
-//        // Ждем перехода на форму просмотра после успешного создания
-//        cut.waitTextToBeChanged(cut.getStatusBar(), Util.getResourceString("workstate.viewDetails"));
-        
-        // Проверяем, что осуществился переход на форму просмотра после создания
+		cut.fillCreateForm(
+				featureName,
+				featureNameEn,
+				description);
+		
+		// Проверяем, что поля заполненны именно теми значениями, которыми мы их заполнили
+		assertEquals(featureName, cut.getFeatureName());
+		assertEquals(featureNameEn, cut.getFeatureNameEn());
+		assertEquals(description, cut.getDescription());
+		
+		// Осуществляем сохранение записи
+		SaveResultEnum saveResult = cut.save();
+		assertEquals(SaveResultEnum.STATUS_HAS_CHANGED, saveResult);
+		
+		//TODO работает без строчки ниже, однако по хорошему она должна присутствовать, но почему то с ней не работает
+//		// Ждем перехода на форму просмотра после успешного создания
+//		cut.waitTextToBeChanged(cut.getStatusBar(), Util.getResourceString("workstate.viewDetails"));
+		
+		// Проверяем, что осуществился переход на форму просмотра после создания
  		assertEquals(
  				Util.getResourceString("workstate.viewDetails"),
  				cut.getStatusBar().getText());
  		
  		// Проверяем, что поля созданной записи имеют такие же значения, как и те, которыми мы их заполнили
-        assertEquals(featureName, cut.getFeatureName());
-        assertEquals(featureNameEn, cut.getFeatureNameEn());
-        assertEquals(description, cut.getDescription());
+		assertEquals(featureName, cut.getFeatureName());
+		assertEquals(featureNameEn, cut.getFeatureNameEn());
+		assertEquals(description, cut.getDescription());
 	}
 	
 	/*============================= end of CREATE BLOCK ================================*/
@@ -129,19 +130,43 @@ public class FeatureRequestAutoTest extends JepAutoTest<FeatureRequestAuto> {
 	/*============================= FIND BLOCK ================================*/
 	
 	/**
-	 * Тест операции поиска по заданному шаблону
+	 * Тест операции поиска по шаблону
 	 */
-	@Test(groups = "find")
-	public void findByTemplate(Map<String, String> template) {
+	@DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/featurerequest/auto/form.search.data")
+	@Test(groups={"find"}, dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
+	public void findByTemplate(String featureId, String featureName, String featureNameEn, String maxRowCount) {
 		cut.setWorkstate(SEARCH);
 		
-		String statusBarTextBefore = cut.getStatusBar().getText();
-		cut.find(template);
-        cut.waitTextToBeChanged(cut.getStatusBar(), statusBarTextBefore);
-        
+		// Проверяем, что осуществился переход на форму поиска
 		assertEquals(
-				Util.getResourceString("workstate.viewList"),
+				Util.getResourceString("workstate.search"),
 				cut.getStatusBar().getText());
+		
+		// Заполняем форму поиска
+		cut.fillSearchForm(
+				featureId,
+				featureName,
+				featureNameEn,
+				maxRowCount);
+		
+		// Проверяем, что поля заполненны именно теми значениями, которыми мы их заполнили
+		assertEquals(featureId, cut.getFeatureId());
+		assertEquals(featureName, cut.getFeatureName());
+		assertEquals(featureNameEn, cut.getFeatureNameEn());
+		assertEquals(maxRowCount, cut.getRowCount());
+			
+		// Осуществляем поиск
+		String statusBarTextBefore = cut.getStatusBar().getText();
+		cut.find();
+		cut.waitTextToBeChanged(cut.getStatusBar(), statusBarTextBefore);
+		
+		// Проверяем, что осуществился переход на форму списка после поиска
+ 		assertEquals(
+ 				Util.getResourceString("workstate.viewList"),
+ 				cut.getStatusBar().getText());
+ 		
+ 		// Проверяем, что данные в списке имеют значения, соответствующие поисковому шаблону
+ 		// TODO obtain data from list cells and assert they are equal with original
 	}
 
 	/**
@@ -186,20 +211,20 @@ public class FeatureRequestAutoTest extends JepAutoTest<FeatureRequestAuto> {
 //			try {
 //				cut.selectItem(key);
 //			} catch(IndexOutOfBoundsException ex) {
-//		        fail("Элемент с ключом " + key + " отсутствует в списке");
+//				fail("Элемент с ключом " + key + " отсутствует в списке");
 //			}
 //			
 //			cut.delete(key);
 //			
 //			cut.selectItem(key); // Должно вызвать IndexOutOfBoundsException
 //		} finally {
-//	        deleteTestRecord(featureName); // На случай, если cut.delete не сработал
+//			deleteTestRecord(featureName); // На случай, если cut.delete не сработал
 //		}
 //	}
 		
 	//TODO вынести как абстракный метод на уровень выше?
 	/**
-	 * Тест удаления тестовой записи
+	 * Удаление тестовой записи
 	 */
 	@Test(groups = "delete")
 	protected void deleteTestRecord(String featureName) {
@@ -217,23 +242,40 @@ public class FeatureRequestAutoTest extends JepAutoTest<FeatureRequestAuto> {
 	@DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/featurerequest/auto/form.edit.data")
 	@Test(groups={"edit"}, dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
 	public void edit(String featureId, String featureName, String featureNameEn, String description) {
+		createTestRecord("ABCDE");
+		
 		cut.setWorkstate(EDIT);
 		
-        cut.fillEditForm(
-        		featureId,
-        		featureName,
-        		featureNameEn,
-        		description);
-        
-        // Проверяем, что поля заполненны именно теми значениями, которыми мы их заполнили
-        assertEquals(featureId, cut.getFeatureId());
-        assertEquals(featureName, cut.getFeatureName());
-        assertEquals(featureNameEn, cut.getFeatureNameEn());
-        assertEquals(description, cut.getDescription());
-        
-        // Проверяем корректность сохранения записи
-        SaveResultEnum saveResult = cut.save();
-        assertEquals(SaveResultEnum.STATUS_HAS_CHANGED, saveResult);
+		cut.fillEditForm(
+				featureId,
+				featureName,
+				featureNameEn,
+				description);
+		
+		// Проверяем, что поля заполненны именно теми значениями, которыми мы их заполнили
+		assertEquals(featureId, cut.getFeatureId());
+		assertEquals(featureName, cut.getFeatureName());
+		assertEquals(featureNameEn, cut.getFeatureNameEn());
+		assertEquals(description, cut.getDescription());
+		
+		// Осуществляем сохранение записи
+		SaveResultEnum saveResult = cut.save();
+		assertEquals(SaveResultEnum.STATUS_HAS_CHANGED, saveResult);
+		
+	  //TODO работает без строчки ниже, однако по хорошему она должна присутствовать, но почему то с ней не работает
+//	  // Ждем перехода на форму просмотра после успешного создания
+//	  cut.waitTextToBeChanged(cut.getStatusBar(), Util.getResourceString("workstate.viewDetails"));
+	  
+		// Проверяем, что осуществился переход на форму просмотра после редактирования
+		assertEquals(
+				Util.getResourceString("workstate.viewDetails"),
+				cut.getStatusBar().getText());
+		
+		// Проверяем, что поля отредактированной записи имеют такие же значения, как и те, которыми мы их заполнили
+		assertEquals(featureId, cut.getFeatureId());
+		assertEquals(featureName, cut.getFeatureName());
+		assertEquals(featureNameEn, cut.getFeatureNameEn());
+		assertEquals(description, cut.getDescription());
 	}
 	
 	/*============================= end of EDIT BLOCK ================================*/
