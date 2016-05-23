@@ -144,7 +144,7 @@
 
           <table style=" width: 100%; " class="errors">
             <tr>
-              <td style=" width: 22px; "><img src="com/technology/jep/jepcommon/images/warning.gif"></td>
+              <td style=" width: 22px; "><img src="security/com/technology/jep/jepcommon/images/warning.gif"></td>
               <td id="login.error"><%= resourceBundle.getString("login.error") %></td>
             </tr>
           </table>

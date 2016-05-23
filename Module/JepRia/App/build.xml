@@ -73,6 +73,10 @@
 	<path id="weblogic-libs">
 		<pathelement location="${WL_LIB_HOME}/wls-api.jar" />
 	</path>
+	
+	<path id="tomcat-libs">
+		<pathelement location="${TOMCAT_CATALINA_JAR}" />
+	</path>
 
 	<path id="gwt-libs">
 		<pathelement location="${GWT_HOME}/gwt-user.jar" />
@@ -150,6 +154,7 @@
 		<mkdir dir="build" />
 		<javac srcdir="src/java" destdir="build" debug="on" encoding="utf-8" target="1.5" includeantruntime="false">
 			<classpath refid="weblogic-libs" />
+			<classpath refid="tomcat-libs" />
 			<classpath refid="libs" />
 			<classpath refid="oc4j-libs" />
 		</javac>
@@ -246,6 +251,7 @@
 			<classpath refid="libs" />
 			<classpath refid="oc4j-libs" />
 			<classpath refid="weblogic-libs" />
+			<classpath refid="tomcat-libs" />
 			<classpath refid="selenium-libs" />
 		</javadoc>
 	</target>
@@ -266,6 +272,7 @@
 			<classpath refid="libs" />
 			<classpath refid="oc4j-libs" />
 			<classpath refid="weblogic-libs" />
+			<classpath refid="tomcat-libs" />
 			<classpath refid="selenium-libs" />
 		</javadoc>
 	</target>
