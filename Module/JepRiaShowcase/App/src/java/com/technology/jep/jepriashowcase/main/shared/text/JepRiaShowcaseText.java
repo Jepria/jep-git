@@ -30,8 +30,8 @@ public interface JepRiaShowcaseText extends com.google.gwt.i18n.client.Constants
    * @return translated "Запрос функционала"
    */
   @DefaultStringValue("Запрос функционала")
-  @Key("submodule.featurerequest.title")
-  String submodule_featurerequest_title();
+  @Key("submodule.feature.title")
+  String submodule_feature_title();
 
   /**
    * Translated "Товар".

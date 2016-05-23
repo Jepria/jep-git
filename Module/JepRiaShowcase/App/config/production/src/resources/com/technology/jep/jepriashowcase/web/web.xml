@@ -112,12 +112,12 @@
 	</servlet-mapping>
 
 	<servlet>
-		<servlet-name>FeatureRequestServlet</servlet-name>
-		<servlet-class>com.technology.jep.jepriashowcase.featurerequest.server.service.FeatureRequestServiceImpl</servlet-class>
+		<servlet-name>FeatureServlet</servlet-name>
+		<servlet-class>com.technology.jep.jepriashowcase.feature.server.service.FeatureServiceImpl</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>FeatureRequestServlet</servlet-name>
-		<url-pattern>/JepRiaShowcase/FeatureRequestService</url-pattern>
+		<servlet-name>FeatureServlet</servlet-name>
+		<url-pattern>/JepRiaShowcase/FeatureService</url-pattern>
 	</servlet-mapping>
 	
 	<servlet>

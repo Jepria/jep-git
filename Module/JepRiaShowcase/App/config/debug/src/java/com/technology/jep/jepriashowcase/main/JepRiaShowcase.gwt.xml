@@ -16,7 +16,7 @@
   <inherits name="com.technology.jep.jepriashowcase.allshopgoods.AllShopGoods"/>
   <inherits name="com.technology.jep.jepriashowcase.request.Request"/>
   <inherits name="com.technology.jep.jepriashowcase.requestprocess.RequestProcess"/>
-  <inherits name="com.technology.jep.jepriashowcase.featurerequest.FeatureRequest"/>
+  <inherits name="com.technology.jep.jepriashowcase.feature.Feature"/>
 
   <entry-point class="com.technology.jep.jepriashowcase.main.client.entrance.JepRiaShowcaseEntryPoint"/>
  
