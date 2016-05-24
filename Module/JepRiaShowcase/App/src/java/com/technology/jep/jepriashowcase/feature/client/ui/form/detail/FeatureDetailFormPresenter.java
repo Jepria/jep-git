@@ -24,8 +24,8 @@ public class FeatureDetailFormPresenter<E extends PlainEventBus, S extends JepDa
 		super.adjustToWorkstate(workstate);
 		
 		fields.setFieldVisible(FEATURE_ID, SEARCH.equals(workstate) || EDIT.equals(workstate) || VIEW_DETAILS.equals(workstate));
-		fields.setFieldVisible(FROM_DATE_INS, SEARCH.equals(workstate));
-		fields.setFieldVisible(TO_DATE_INS, SEARCH.equals(workstate));
+		fields.setFieldVisible(DATE_INS_FROM, SEARCH.equals(workstate));
+		fields.setFieldVisible(DATE_INS_TO, SEARCH.equals(workstate));
 		fields.setFieldVisible(DATE_INS, VIEW_DETAILS.equals(workstate));
 		fields.setFieldVisible(DESCRIPTION, !SEARCH.equals(workstate));
 		fields.setFieldVisible(OPERATOR_NAME, VIEW_DETAILS.equals(workstate));

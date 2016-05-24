@@ -37,9 +37,9 @@ public class FeatureAutoImpl<A extends JepRiaShowcaseAuto, P extends JepRiaShowc
 	}
 
 	@Override
-	public void setRowCount(String rowCount) {
+	public void setMaxRowCount(String maxRowCount) {
 		pages.featurePage.ensurePageLoaded();
-		setFieldValue(FEATURE_MAXROWCOUNT_DETAILFORM_FIELD_ID_INPUT, rowCount);
+		setFieldValue(FEATURE_MAXROWCOUNT_DETAILFORM_FIELD_ID_INPUT, maxRowCount);
 	}
 
 	@Override
@@ -64,7 +64,7 @@ public class FeatureAutoImpl<A extends JepRiaShowcaseAuto, P extends JepRiaShowc
 	}
 
 	@Override
-	public String getRowCount() {
+	public String getMaxRowCount() {
 		return getFieldValue(FEATURE_MAXROWCOUNT_DETAILFORM_FIELD_ID_INPUT);
 	}
 
@@ -78,11 +78,11 @@ public class FeatureAutoImpl<A extends JepRiaShowcaseAuto, P extends JepRiaShowc
 			String featureId,
 			String featureName,
 			String featureNameEn,
-			String rowCount) {
+			String maxRowCount) {
 		setFeatureId(featureId);
 		setFeatureName(featureName);
 		setFeatureNameEn(featureNameEn);
-		setRowCount(rowCount);
+		setMaxRowCount(maxRowCount);
 	}
 
 	@Override

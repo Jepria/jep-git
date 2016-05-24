@@ -10,13 +10,13 @@ public interface FeatureAuto extends JepRiaModuleAuto {
 	void setFeatureId(String featureId);
 	void setFeatureName(String featureName);
 	void setFeatureNameEn(String featureNameEn);
-	void setRowCount(String rowCount);
+	void setMaxRowCount(String maxRowCount);
 	void setDescription(String description);
 	
 	String getFeatureId();
 	String getFeatureName();
 	String getFeatureNameEn();
-	String getRowCount();
+	String getMaxRowCount();
 	String getDescription();
 
 	/**
@@ -26,7 +26,7 @@ public interface FeatureAuto extends JepRiaModuleAuto {
 			String featureId,
 			String featureName,
 			String featureNameEn,
-			String rowCount);
+			String maxRowCount);
 	
 	void fillCreateForm(
 			String featureName,

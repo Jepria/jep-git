@@ -6,9 +6,9 @@ import static com.technology.jep.jepriashowcase.feature.shared.field.FeatureFiel
 import static com.technology.jep.jepriashowcase.feature.shared.field.FeatureFieldNames.FEATURE_ID;
 import static com.technology.jep.jepriashowcase.feature.shared.field.FeatureFieldNames.FEATURE_NAME;
 import static com.technology.jep.jepriashowcase.feature.shared.field.FeatureFieldNames.FEATURE_NAME_EN;
-import static com.technology.jep.jepriashowcase.feature.shared.field.FeatureFieldNames.FROM_DATE_INS;
+import static com.technology.jep.jepriashowcase.feature.shared.field.FeatureFieldNames.DATE_INS_FROM;
 import static com.technology.jep.jepriashowcase.feature.shared.field.FeatureFieldNames.OPERATOR_NAME;
-import static com.technology.jep.jepriashowcase.feature.shared.field.FeatureFieldNames.TO_DATE_INS;
+import static com.technology.jep.jepriashowcase.feature.shared.field.FeatureFieldNames.DATE_INS_TO;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -50,8 +50,8 @@ public class FeatureDao extends JepDaoStandard implements Feature {
 				, templateRecord.get(FEATURE_ID)
 				, templateRecord.get(FEATURE_NAME)
 				, templateRecord.get(FEATURE_NAME_EN)
-				, templateRecord.get(FROM_DATE_INS)
-				, templateRecord.get(TO_DATE_INS)
+				, templateRecord.get(DATE_INS_FROM)
+				, templateRecord.get(DATE_INS_TO)
 				, maxRowCount 
 				, operatorId);
 	}

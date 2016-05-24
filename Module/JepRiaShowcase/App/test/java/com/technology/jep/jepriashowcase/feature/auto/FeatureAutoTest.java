@@ -151,7 +151,7 @@ public class FeatureAutoTest extends JepAutoTest<FeatureAuto> {
 		assertEquals(featureId, cut.getFeatureId());
 		assertEquals(featureName, cut.getFeatureName());
 		assertEquals(featureNameEn, cut.getFeatureNameEn());
-		assertEquals(maxRowCount, cut.getRowCount());
+		assertEquals(maxRowCount, cut.getMaxRowCount());
 			
 		// Осуществляем поиск
 		String statusBarTextBefore = cut.getStatusBar().getText();

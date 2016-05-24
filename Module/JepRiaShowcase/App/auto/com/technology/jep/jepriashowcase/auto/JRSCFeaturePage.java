@@ -28,7 +28,7 @@ public class JRSCFeaturePage<P extends JepRiaShowcasePageManager> extends JepRia
 //	public WebElement toDateInsField;
 	
 	@FindBy(id = FEATURE_MAXROWCOUNT_DETAILFORM_FIELD_ID)
-	public WebElement rowCountField;
+	public WebElement maxRowCountField;
 	
 	@FindBy(id = FEATURE_DESCRIPTION_DETAILFORM_FIELD_ID)
 	public WebElement descriptionField;

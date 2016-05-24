@@ -5,15 +5,16 @@ import static com.technology.jep.jepriashowcase.feature.client.FeatureAutomation
 import static com.technology.jep.jepriashowcase.feature.client.FeatureAutomationConstant.FEATURE_FEATURENAMEEN_DETAILFORM_FIELD_ID;
 import static com.technology.jep.jepriashowcase.feature.client.FeatureAutomationConstant.FEATURE_FEATURENAME_DETAILFORM_FIELD_ID;
 import static com.technology.jep.jepriashowcase.feature.client.FeatureAutomationConstant.FEATURE_MAXROWCOUNT_DETAILFORM_FIELD_ID;
+import static com.technology.jep.jepriashowcase.feature.client.FeatureClientConstant.featureText;
 import static com.technology.jep.jepriashowcase.feature.shared.field.FeatureFieldNames.DATE_INS;
+import static com.technology.jep.jepriashowcase.feature.shared.field.FeatureFieldNames.DATE_INS_FROM;
+import static com.technology.jep.jepriashowcase.feature.shared.field.FeatureFieldNames.DATE_INS_TO;
 import static com.technology.jep.jepriashowcase.feature.shared.field.FeatureFieldNames.DESCRIPTION;
 import static com.technology.jep.jepriashowcase.feature.shared.field.FeatureFieldNames.FEATURE_ID;
 import static com.technology.jep.jepriashowcase.feature.shared.field.FeatureFieldNames.FEATURE_NAME;
 import static com.technology.jep.jepriashowcase.feature.shared.field.FeatureFieldNames.FEATURE_NAME_EN;
-import static com.technology.jep.jepriashowcase.feature.shared.field.FeatureFieldNames.FROM_DATE_INS;
 import static com.technology.jep.jepriashowcase.feature.shared.field.FeatureFieldNames.MAX_ROW_COUNT;
 import static com.technology.jep.jepriashowcase.feature.shared.field.FeatureFieldNames.OPERATOR_NAME;
-import static com.technology.jep.jepriashowcase.feature.shared.field.FeatureFieldNames.TO_DATE_INS;
 
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.user.client.ui.ScrollPanel;
@@ -36,21 +37,21 @@ public class FeatureDetailFormViewImpl extends DetailFormViewImpl {
 		panel.getElement().getStyle().setMarginTop(5, Unit.PX);
 		scrollPanel.add(panel);
  
-		JepIntegerField featureIdIntegerField = new JepIntegerField(FEATURE_FEATUREID_DETAILFORM_FIELD_ID, "TODO featureId");
-		JepTextField featureNameTextField = new JepTextField(FEATURE_FEATURENAME_DETAILFORM_FIELD_ID, "TODO featureName");
-		JepTextField featureNameEnTextField = new JepTextField(FEATURE_FEATURENAMEEN_DETAILFORM_FIELD_ID, "TODO featureNameEn");
-		JepDateField fromDateInsTextField = new JepDateField("TODO fromDateIns");
-		JepDateField toDateInsTextField = new JepDateField("TODO toDateIns");
-		JepDateField dateInsTextField = new JepDateField("TODO dateIns");
-		JepTextField descriptionTextField = new JepTextField(FEATURE_DESCRIPTION_DETAILFORM_FIELD_ID, "TODO description");
-		JepTextField operatorNameTextField = new JepTextField("TODO operatorName");
-		JepIntegerField maxRowCountIntegerField = new JepIntegerField(FEATURE_MAXROWCOUNT_DETAILFORM_FIELD_ID, "TODO maxRowCount");
+		JepIntegerField featureIdIntegerField = new JepIntegerField(FEATURE_FEATUREID_DETAILFORM_FIELD_ID, featureText.feature_detail_feature_id());
+		JepTextField featureNameTextField = new JepTextField(FEATURE_FEATURENAME_DETAILFORM_FIELD_ID, featureText.feature_detail_feature_name());
+		JepTextField featureNameEnTextField = new JepTextField(FEATURE_FEATURENAMEEN_DETAILFORM_FIELD_ID, featureText.feature_detail_feature_name_en());
+		JepDateField dateInsFromTextField = new JepDateField(featureText.feature_detail_date_ins_from());
+		JepDateField dateInsToTextField = new JepDateField(featureText.feature_detail_date_ins_to());
+		JepDateField dateInsTextField = new JepDateField(featureText.feature_detail_date_ins());
+		JepTextField descriptionTextField = new JepTextField(FEATURE_DESCRIPTION_DETAILFORM_FIELD_ID, featureText.feature_detail_description());
+		JepTextField operatorNameTextField = new JepTextField(featureText.feature_detail_operator_name());
+		JepIntegerField maxRowCountIntegerField = new JepIntegerField(FEATURE_MAXROWCOUNT_DETAILFORM_FIELD_ID, featureText.feature_detail_max_row_count());
 		
 		panel.add(featureIdIntegerField);
 		panel.add(featureNameTextField);
 		panel.add(featureNameEnTextField);
-		panel.add(fromDateInsTextField);
-		panel.add(toDateInsTextField);
+		panel.add(dateInsFromTextField);
+		panel.add(dateInsToTextField);
 		panel.add(dateInsTextField);
 		panel.add(descriptionTextField);
 		panel.add(operatorNameTextField);
@@ -61,8 +62,8 @@ public class FeatureDetailFormViewImpl extends DetailFormViewImpl {
 		fields.put(FEATURE_ID, featureIdIntegerField);
 		fields.put(FEATURE_NAME, featureNameTextField);
 		fields.put(FEATURE_NAME_EN, featureNameEnTextField);
-		fields.put(FROM_DATE_INS, fromDateInsTextField);
-		fields.put(TO_DATE_INS, toDateInsTextField);
+		fields.put(DATE_INS_FROM, dateInsFromTextField);
+		fields.put(DATE_INS_TO, dateInsToTextField);
 		fields.put(DATE_INS, dateInsTextField);
 		fields.put(DESCRIPTION, descriptionTextField);
 		fields.put(OPERATOR_NAME, operatorNameTextField);
