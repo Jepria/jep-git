@@ -38,3 +38,7 @@ div.jepRia-testBuildMessage { display: block; }
 	text-align: right;
 	vertical-align: top;
 }
+
+.boldButton {
+	font-weight: bold !important;
+}

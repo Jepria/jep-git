@@ -767,7 +767,7 @@ procedure deleteRequestProcess(
 
   Параметры:
   requestProcessId            - Id записи по обработке запроса
-                                ( по умолчанию без ограничений)
+  featureId                   - Id записи программной функции
   requestId                    - Id запроса
                                 ( по умолчанию без ограничений)
   dateInsFrom                 - дата добавления записи, от
@@ -801,6 +801,113 @@ function findRequestProcess(
   , dateInsFrom date := null
   , dateInsTo date := null
   , insertOperatorId integer := null
+  , maxRowCount integer := null
+  , operatorId integer := null
+)
+return sys_refcursor;
+
+
+
+/* group: Программная функция */
+
+/* pfunc: createFeature
+  Создаёт запись программной функции.
+
+  Параметры:
+  featureName                 - наименование программной функции на языке
+                                по-умолчанию
+  featureNameEn               - наименование программной функции на английском
+                                языке
+  operatorId                  - Id оператора, выполняющего операцию
+                                ( по умолчанию текущий)
+
+  ( <body::createFeature>)
+*/
+function createFeature(
+  featureName varchar2
+  , featureNameEn varchar2
+  , operatorId integer
+)
+return integer;
+
+/* pproc: updateFeature
+  Обновляет запись программной функции.
+
+  Параметры:
+  featureId                   - Id записи программной функции
+  featureName                 - наименование программной функции на языке
+                                по-умолчанию
+  featureNameEn               - наименование программной функции на английском
+                                языке
+  operatorId                  - Id оператора, выполняющего операцию
+                                ( по умолчанию текущий)
+
+  ( <body::updateFeature>)
+*/
+procedure updateFeature(
+  featureId integer
+  , featureName varchar2
+  , featureNameEn varchar2
+  , operatorId integer
+);
+
+/* pproc: deleteFeature
+  Удаляет запись программной функции.
+
+  Параметры:
+  featureId                   - Id записи программной функции
+  operatorId                  - Id оператора, выполняющего операцию
+                                ( по умолчанию текущий)
+
+  ( <body::deleteFeature>)
+*/
+procedure deleteFeature(
+  featureId integer
+  , operatorId integer
+);
+
+/* pfunc: findFeature
+  Поиск записей программной функции.
+
+  Параметры:
+  featureId                   - Id записи программной функции
+                                ( по умолчанию без ограничений)
+  featureName                 - наименование программной функции на языке
+                                по-умолчанию ( по умолчанию без ограничений)
+  featureNameEn               - наименование программной функции на английском
+                                языке ( по умолчанию без ограничений, при
+                                одновременном задании параметра featureName
+                                используется условие "ИЛИ")
+  dateInsFrom                 - дата добавления записи, от
+                                ( с точностью до дня, включительно)
+                                ( по умолчанию без ограничений)
+  dateInsTo                   - дата добавления записи, до
+                                ( с точностью до дня, включительно)
+                                ( по умолчанию без ограничений)
+  operatorId                  - Id оператора, выполняющего операцию
+                                ( по умолчанию текущий)
+
+  Возврат ( курсор):
+  feature_id                  - Id записи программной функции
+  feature_name                - наименование программной функции на языке
+                                по-умолчанию
+  feature_name_en             - наименование программной функции на английском
+                                языке
+  description                 - описание запроса
+  date_ins                    - дата добавления записи
+  operator_id                 - Id оператора, добавившего запись
+  operator_name               - ФИО оператора, добавившего запись
+  operator_name_en            - ФИО оператора, добавившего запись на
+                                английском языке
+
+  ( <body::findFeature>)
+*/
+function findFeature(
+  featureId integer := null
+  , featureName varchar2 := null
+  , featureNameEn varchar2 := null
+  , dateInsFrom date := null
+  , dateInsTo date := null
   , maxRowCount integer := null
   , operatorId integer := null
 )

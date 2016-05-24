@@ -141,8 +141,8 @@ Language: PLSQL
    Database Index Prototype Enders: ; /
    Function public Prototype Enders: , ; ) as As AS is Is IS
    Database Table Prototype Enders: ; /
-   Database Sequence Prototype Enders: ; /
    Variable internal Prototype Enders: , ; ) := default Default DEFAULT
+   Database Sequence Prototype Enders: ; /
    Database Trigger Prototype Enders: begin Begin BEGIN declare Declare DECLARE
    Database Type Prototype Enders: ; /
    Perl Package: NaturalDocs::Languages::PLSQL

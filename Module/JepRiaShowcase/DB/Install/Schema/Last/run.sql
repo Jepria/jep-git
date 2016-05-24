@@ -8,6 +8,7 @@
 
 -- Таблицы
 
+@oms-run jrs_feature.tab
 @oms-run jrs_goods.tab
 @oms-run jrs_goods_catalog.tab
 @oms-run jrs_goods_catalog_link.tab
@@ -26,6 +27,7 @@
 
 -- Outline-ограничения целостности
 
+@oms-run jrs_feature.con
 @oms-run jrs_goods.con
 @oms-run jrs_goods_catalog.con
 @oms-run jrs_goods_catalog_link.con
@@ -44,6 +46,7 @@
 
 -- Последовательности
 
+@oms-run jrs_feature_seq.sqs
 @oms-run jrs_goods_catalog_seq.sqs
 @oms-run jrs_goods_seq.sqs
 @oms-run jrs_request_process_seq.sqs

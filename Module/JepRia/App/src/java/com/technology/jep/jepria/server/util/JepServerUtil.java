@@ -267,6 +267,7 @@ public class JepServerUtil {
 		
 		return result;
 	}
+
 	
 	/**
 	 * Возвращает имя приложения, указанное в web.xml.
@@ -285,5 +286,14 @@ public class JepServerUtil {
 			throw new IllegalStateException(resources.getString("errors.server.missingApplicationName"));
 		}
 		return applicationName;
+
+	public static boolean isTomcat(HttpServletRequest request) {
+		boolean result = false;
+		try {
+			result = request instanceof org.apache.catalina.connector.RequestFacade;
+		} catch(java.lang.NoClassDefFoundError ex) {
+		}
+		
+		return result;
 	}
 }
