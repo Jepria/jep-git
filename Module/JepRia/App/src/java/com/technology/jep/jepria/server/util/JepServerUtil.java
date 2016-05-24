@@ -286,6 +286,7 @@ public class JepServerUtil {
 			throw new IllegalStateException(resources.getString("errors.server.missingApplicationName"));
 		}
 		return applicationName;
+	}
 
 	public static boolean isTomcat(HttpServletRequest request) {
 		boolean result = false;
