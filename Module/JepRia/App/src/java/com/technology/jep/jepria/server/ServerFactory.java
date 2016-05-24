@@ -20,6 +20,10 @@ public class ServerFactory<D> implements DaoProvider<D> {
 	 * JNDI-имя источника данных.
 	 */
 	private String dataSourceJndiName;
+	/**
+	 * Имя модуля (module_name), передаваемое в DB.
+	 */
+	private String moduleName;
 	
 	/**
 	 * Создаёт серверную фабрику.
@@ -37,7 +41,7 @@ public class ServerFactory<D> implements DaoProvider<D> {
 	@Override
 	public D getDao() {
 		if (proxyDao == null) {
-			proxyDao = TransactionFactory.createProxy(dao, dataSourceJndiName);
+			proxyDao = TransactionFactory.createProxy(dao, dataSourceJndiName, moduleName);
 		}
 		return proxyDao;
 	}
@@ -48,5 +52,21 @@ public class ServerFactory<D> implements DaoProvider<D> {
 	@Override
 	public String getDataSourceJndiName() {
 		return dataSourceJndiName;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public String getModuleName() {
+		return moduleName;
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void setModuleName(String moduleName) {
+		this.moduleName = moduleName;
 	}
 }

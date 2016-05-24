@@ -37,15 +37,21 @@ public class TransactionFactory {
 		 * JNDI-имя источника данных.
 		 */
 		private final String dataSourceJndiName;
+		/**
+		 * Имя модуля для передачи в DB.
+		 */
+		private final String moduleName;
 
 		/**
 		 * Создаёт экземпляр транзакционного обработчика.
 		 * @param dao объект Dao
 		 * @param dataSourceJndiName JNDI-имя источника данных
+		 * @param moduleName имя модуля для передачи в DB
 		 */
-		public TransactionInvocationHandler(D dao, String dataSourceJndiName) {
+		public TransactionInvocationHandler(D dao, String dataSourceJndiName, String moduleName) {
 			this.dao = dao;
 			this.dataSourceJndiName = dataSourceJndiName;
+			this.moduleName = moduleName;
 		}
 
 		/**
@@ -65,7 +71,7 @@ public class TransactionFactory {
 			Class<? extends EndTransactionHandler> endTransactionHandlerClass =
 					after != null ? after.endTransactionHandler() : EndTransactionHandlerImpl.class;
 					
-			startTransactionHandlerClass.newInstance().handle(dataSourceJndiName);
+			startTransactionHandlerClass.newInstance().handle(dataSourceJndiName, moduleName);
 						
 			Throwable caught = null;
 			Object result = null;
@@ -90,14 +96,15 @@ public class TransactionFactory {
 	 * Создаёт прокси для переданного Dao.
 	 * @param dao объект Dao
 	 * @param dataSourceJndiName JNDI-имя источника данных
+	 * @param moduleName имя модуля
 	 * @return созданный прокси
 	 */
 	@SuppressWarnings("unchecked")
-	public static <D> D createProxy(D dao, String dataSourceJndiName) {
+	public static <D> D createProxy(D dao, String dataSourceJndiName, String moduleName) {
 		Class<?> daoClass = dao.getClass();
 		return (D) Proxy.newProxyInstance(
 				TransactionFactory.class.getClassLoader(),
 				daoClass.getInterfaces(),
-				new TransactionInvocationHandler<D>(dao, dataSourceJndiName));
+				new TransactionInvocationHandler<D>(dao, dataSourceJndiName, moduleName));
 	}
 }

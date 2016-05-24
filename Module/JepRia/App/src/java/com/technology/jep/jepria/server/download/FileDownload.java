@@ -23,7 +23,8 @@ public interface FileDownload {
 			, String fileFieldName
 			, String keyFieldName
 			, Object rowId
-			, String dataSourceJndiName) 
+			, String dataSourceJndiName
+			, String moduleName) 
 			throws ApplicationException;
 	
 	/**

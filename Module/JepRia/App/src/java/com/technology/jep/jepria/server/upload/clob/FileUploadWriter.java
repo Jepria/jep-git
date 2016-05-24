@@ -33,7 +33,8 @@ import com.technology.jep.jepria.shared.exceptions.SystemException;
  *				, LOB_FIELD_NAME
  *				, KEY_FIELD_NAME
  *				, new BigDecimal(loadTaskId.intValue())
- *				, DATA_SOURCE_JNDI_NAME);
+ *				, DATA_SOURCE_JNDI_NAME
+ *				, moduleName);
  * </pre>
  */
 public class FileUploadWriter extends Writer {
@@ -89,6 +90,7 @@ public class FileUploadWriter extends Writer {
 	 * @param keyFieldName  			PK в таблице tableName
 	 * @param rowId 							идентификатор строки таблицы
 	 * @param dataSourceJndiName 	имя источника данных
+	 * @param moduleName		 	имя модуля
 	 * @throws IOException
 	 */
 	public static void uploadFile(
@@ -98,7 +100,8 @@ public class FileUploadWriter extends Writer {
 			, String fileFieldName
 			, String keyFieldName
 			, Object rowId
-			, String dataSourceJndiName) 
+			, String dataSourceJndiName
+			, String moduleName) 
 			throws IOException {
 
 		Writer writeStream = null;
@@ -111,7 +114,8 @@ public class FileUploadWriter extends Writer {
 					, fileFieldName
 					, keyFieldName
 					, rowId
-					, dataSourceJndiName);
+					, dataSourceJndiName
+					, moduleName);
 			writeStream = new FileUploadWriter((TextFileUpload)fileUpload);
 			char[] readBuffer = new char[WRITE_LENGTH];
 			while (true) {
@@ -152,7 +156,8 @@ public class FileUploadWriter extends Writer {
 	 * @param tableName     			имя таблицы, откуда берем СLOB
 	 * @param fileFieldName  			имя атрибута в таблице, откуда берем СLOB
 	 * @param primaryKeyMap  			PK в таблице tableName
-	 * @param dataSourceJndiName 	имя источника данных
+	 * @param dataSourceJndiName 		имя источника данных
+	 * @param moduleName		 		имя модуля
 	 */
 	public static void uploadFile(
 			Reader reader
@@ -160,7 +165,8 @@ public class FileUploadWriter extends Writer {
 			, String tableName
 			, String fileFieldName
 			, Map<String, Object> primaryKeyMap
-			, String dataSourceJndiName) {
+			, String dataSourceJndiName
+			, String moduleName) {
 		throw new NotImplementedYetException();
 	}
 

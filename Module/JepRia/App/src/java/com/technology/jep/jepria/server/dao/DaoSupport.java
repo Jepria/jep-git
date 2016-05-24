@@ -145,11 +145,14 @@ public class DaoSupport {
 				throw new ApplicationException("Unknown result type", null);
 			}
 			
+			setApplicationInfo(query);
 			// Выполнение запроса		
 			callableStatement.execute();
 
 			result = (T)callableStatement.getObject(1);
-			if (callableStatement.wasNull())result = null;
+			if (callableStatement.wasNull()) {
+				result = null;
+			}
 
 		} catch (Throwable th) {
 			throw new ApplicationException(th.getMessage(), th);
@@ -177,6 +180,7 @@ public class DaoSupport {
 			
 			setInputParamsToStatement(callableStatement, 1, params);
 
+			setApplicationInfo(query);
 			// Выполнение запроса		
 			callableStatement.execute();
 
@@ -241,6 +245,7 @@ public class DaoSupport {
 					resultTypeClass,
 					params);
 	
+			setApplicationInfo(query);
 			callableStatement.execute();
 
 			result = getResult(callableStatement, resultTypeClass, params);
@@ -408,6 +413,7 @@ public class DaoSupport {
 			
 			CallableStatement callableStatement = db.prepare(query);
 		
+			setApplicationInfo(query);
 			ResultSet resultSet = setParamsAndExecute(callableStatement, executionType, params);
 			
 			while (resultSet.next()) {
@@ -422,6 +428,68 @@ public class DaoSupport {
 		}
 		
 		return result;
+	}
+	
+	/**
+	 * Установка информации о вызывающем модуле.
+	 * Использует встроенный функционал Oracle для установки трёх параметров сессии.
+	 * Значение module_name (имя модуля) извлекается из {@link CallContext}, action_name
+	 * (название действия) - из шаблона SQL-выражения. client_info заполняется пустым значением.
+	 * @param queryToExecute шаблон запроса
+	 * @throws SQLException при ошибке взаимодействия с базой
+	 */
+	private static void setApplicationInfo(String queryToExecute) throws SQLException {
+		setModule(CallContext.getModuleName(), getAction(queryToExecute));
+	}
+	
+	/**
+	 * Установка имени модуля (module name) и названия действия (action_name).
+	 * Кроме того, метод сбрасывает установленное значение client_info.
+	 * @param moduleName имя модуля (Oracle обрезает значение до 48 байт)
+	 * @param actionName название действия (Oracle обрезает значение до 32 байт)
+	 * @throws SQLException при ошибке взаимодействия с базой
+	 */
+	public static void setModule(String moduleName, String actionName) throws SQLException {
+		/*
+		 * TODO: Найти способ передать в client_info полезную информацию
+		 * (например, id или логин вызывающего оператора).
+		 */
+		String query = 
+				"begin  " 
+				  +	"dbms_application_info.set_module(" 
+					  	+ "module_name => ? " 
+					  	+ ", action_name => ? " 
+				  + ");" 
+				  +	"dbms_application_info.set_client_info(" 
+				  		+ "client_info => null "
+				  + ");"
+			 + " end;";
+		Db db = CallContext.getDb();
+		CallableStatement statement = db.prepare(query);
+		setInputParamsToStatement(statement, 1, moduleName, actionName);
+		statement.execute();
+	}
+	
+	/**
+	 * Получение названия действия (action_name) из шаблона SQL-выражения.
+	 * Если запрос содержит имя функции или процедуры, то метод возвращает данное имя.
+	 * В противном случае (например, если это SQL-запрос) в качестве названия действия
+	 * возвращается сам шаблон запроса.
+	 * @param query шаблон запроса
+	 * @return название действия
+	 */
+	private static String getAction(String query) {
+		int leftDelimiterIndex = query.indexOf('.');
+		int rightDelimiterIndex = query.indexOf('(');
+		if (rightDelimiterIndex == -1) {
+			rightDelimiterIndex = query.indexOf(';');
+		}
+		if (leftDelimiterIndex != -1 && rightDelimiterIndex > leftDelimiterIndex) {
+			return query.substring(leftDelimiterIndex + 1, rightDelimiterIndex);
+		}
+		else {
+			return query;
+		}
 	}
 	
 	/**

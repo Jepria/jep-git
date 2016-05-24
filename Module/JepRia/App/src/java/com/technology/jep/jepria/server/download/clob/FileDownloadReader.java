@@ -91,6 +91,7 @@ public class FileDownloadReader extends Reader {
 			, String keyFieldName
 			, Object rowId
 			, String dataSourceJndiName
+			, String moduleName
 			, Charset encoding) 
 			throws IOException {
 
@@ -104,7 +105,8 @@ public class FileDownloadReader extends Reader {
 					, fileFieldName
 					, keyFieldName
 					, rowId
-					, dataSourceJndiName);
+					, dataSourceJndiName
+					, moduleName);
 			readStream = new FileDownloadReader((TextFileDownload)fileDownload);
 			char[] readBuffer = new char[WRITE_LENGTH];
 			while (true) {
@@ -165,9 +167,10 @@ public class FileDownloadReader extends Reader {
 			, String fileFieldName
 			, String keyFieldName
 			, Object rowId
-			, String dataSourceJndiName) 
+			, String dataSourceJndiName
+			, String moduleName) 
 			throws IOException {
 		downloadFile(fileStream, fileDownload, tableName, fileFieldName, keyFieldName, rowId, dataSourceJndiName,
-				DEFAULT_ENCODING);
+				moduleName, DEFAULT_ENCODING);
 	}
 }

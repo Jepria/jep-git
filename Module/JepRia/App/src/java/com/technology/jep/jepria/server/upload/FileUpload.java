@@ -16,6 +16,7 @@ public interface FileUpload {
 	 * @param keyFieldName 	имя поля, идентифицирующего строку таблицы
 	 * @param rowId 				идентификатор строки таблицы
 	 * @param dataSourceJndiName	JNDI-имя источника данных модуля
+	 * @param moduleName	имя модуля для передачи в DB
 	 * @return рекомендуемый размер буфера
 	 * @throws ApplicationException 
 	 */
@@ -24,13 +25,14 @@ public interface FileUpload {
 		, String fileFieldName
 		, String keyFieldName
 		, Object rowId
-		, String dataSourceJndiName) 
+		, String dataSourceJndiName
+		, String moduleName) 
 		throws ApplicationException;
 
 	/**
-	 * Функция-обертка для {@link #beginWrite(String tableName, String fileFieldName, String keyFieldName, Object rowId, String dataSourceJndiName)}.
+	 * Функция-обертка для {@link #beginWrite(String tableName, String fileFieldName, String keyFieldName, Object rowId, String dataSourceJndiName, String moduleName)}.
 	 * В классе реализации в конкретном модуле данный метод перегружаем вызывая в нем 
-	 * {@link #beginWrite(String tableName, String fileFieldName, String keyFieldName, Object rowId, String dataSourceJndiName)}
+	 * {@link #beginWrite(String, String, String, Object, String, String)}
 	 * с подставленными из констант класса реализации параметрами:<br/>
 	 * <code>
 	 * tableName,<br/>
@@ -49,8 +51,6 @@ public interface FileUpload {
 
 	/**
 	 * Окончание выгрузки.
-	 * После выполнения этого метода stateful bean должен быть удалён. 
-	 * Для удаления bean необходимо в классе реализации перед методом указать декларацию Remove.
 	 *
 	 * @throws SpaceException
 	 */

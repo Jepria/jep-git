@@ -34,6 +34,7 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
@@ -69,17 +70,54 @@ import com.technology.jep.jepria.shared.util.SimplePaging;
 abstract public class JepDataServiceServlet<D extends JepDataStandard> extends JepServiceServlet implements JepDataService {
 	protected static Logger logger = Logger.getLogger(JepDataServiceServlet.class.getName());	 
 	
+	/**
+	 * Определение записи.
+	 */
 	protected JepRecordDefinition recordDefinition = null;
+	/**
+	 * Объект-обёртка компаратора для сравнения записей.
+	 */
 	protected JepSorter<JepRecord> sorter = null;
+	/**
+	 * JNDI-имя источника данных.
+	 */
 	protected String dataSourceJndiName = null;
-	protected final D dao;
+	/**
+	 * Ссылка на DAO модуля.
+	 */
+	protected D dao;
+	/**
+	 * Имя текущего модуля.
+	 */
+	private String moduleName;
+	/**
+	 * Серверная фабрика.
+	 * Переменная нужна для того, чтобы в методе {@link #init()} установить фабрике имя модуля
+	 * и получить из фабрики прокси.
+	 */
+	private final DaoProvider<D> serverFactory;
 	
 	protected JepDataServiceServlet(JepRecordDefinition recordDefinition, DaoProvider<D> serverFactory) {
 		this.recordDefinition = recordDefinition;
+		this.serverFactory = serverFactory;
 		this.sorter = new JepSorter<JepRecord>();
-		this.dao = serverFactory.getDao();
 	}
 
+	/**
+	 * Инициализация сервлета.
+	 * Переопределение метода обусловлено установкой имени модуля. Выполнить данную операцию
+	 * в конструкторе невозможно, т.к. <code>getServletContext()</code> в конструкторе 
+	 * выбрасывает <code>NullPointerException</code>.
+	 */
+	@Override
+	public void init() throws ServletException {
+		super.init();
+		moduleName = getModuleName();
+		serverFactory.setModuleName(moduleName);
+		dao = serverFactory.getDao();
+	}
+
+	@Override
 	public JepRecord update(FindConfig updateConfig) {
 		JepRecord record = updateConfig.getTemplateRecord();
 		
@@ -103,6 +141,7 @@ abstract public class JepDataServiceServlet<D extends JepDataStandard> extends J
 		return resultRecord;
 	}
 
+	@Override
 	public JepRecord create(FindConfig createConfig) {
 		JepRecord record = createConfig.getTemplateRecord();
 		
@@ -155,6 +194,7 @@ abstract public class JepDataServiceServlet<D extends JepDataStandard> extends J
 		return result;
 	}
 
+	@Override
 	public void delete(FindConfig deleteConfig) {
 		JepRecord record = deleteConfig.getTemplateRecord();
 		logger.trace("BEGIN delete(" + record + ")");
@@ -178,6 +218,7 @@ abstract public class JepDataServiceServlet<D extends JepDataStandard> extends J
 	 * @param pagingConfig конфигурация поиска
 	 * @return результаты поиска
 	 */
+	@Override
 	public PagingResult<JepRecord> find(PagingConfig pagingConfig) {
 		logger.trace("BEGIN find(" + pagingConfig + ")");
 		
@@ -414,7 +455,8 @@ abstract public class JepDataServiceServlet<D extends JepDataStandard> extends J
 					fileFieldName,
 					keyFieldName,
 					recordId,
-					this.dataSourceJndiName);
+					this.dataSourceJndiName,
+					moduleName);
 
 			result = outputStream;
 		} catch (Throwable th) {
@@ -490,6 +532,8 @@ abstract public class JepDataServiceServlet<D extends JepDataStandard> extends J
 							case LAST:
 								fieldValue = "%" + fieldValue;
 								break;
+							case EXACT:
+								break;
 						}
 						record.set(fieldName, fieldValue);
 					}
@@ -538,7 +582,8 @@ abstract public class JepDataServiceServlet<D extends JepDataStandard> extends J
 					fileFieldName,
 					((JepLobRecordDefinition)recordDefinition).getKeyFieldName(),
 					primaryKeyMap.values().toArray()[0],
-					this.dataSourceJndiName);
+					this.dataSourceJndiName,
+					null);
 		} else {
 			FileUploadWriter.uploadFile(
 					reader,
@@ -546,7 +591,8 @@ abstract public class JepDataServiceServlet<D extends JepDataStandard> extends J
 					tableName,
 					fileFieldName,
 					primaryKeyMap,
-					this.dataSourceJndiName);
+					this.dataSourceJndiName,
+					moduleName);
 		}
 	}
 	
@@ -558,6 +604,19 @@ abstract public class JepDataServiceServlet<D extends JepDataStandard> extends J
 	private void clearFoundRecords(FindConfig findConfig) {
 		HttpSession session = getThreadLocalRequest().getSession();
 		session.removeAttribute(FOUND_RECORDS_SESSION_ATTRIBUTE + findConfig.getListUID());
+	}
+	
+	/**
+	 * Возвращает имя модуля, предназначенное для передачи в базу.
+	 * Имя модуля формируется из имени приложения и имени сервлета,
+	 * из которого вырезано слово &quot;Servlet&quot;.
+	 * @return имя модуля
+	 */
+	private String getModuleName() {
+		String applicationName = JepServerUtil.getApplicationName(getServletContext());
+		String servletName = getServletConfig().getServletName();
+		String applicationModuleName = servletName.replace("Servlet", "");
+		return applicationName + "." + applicationModuleName;
 	}
 
 	/**

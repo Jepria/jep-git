@@ -30,8 +30,10 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
-import com.technology.jep.jepria.server.download.blob.*;
-import com.technology.jep.jepria.server.download.clob.*;
+import com.technology.jep.jepria.server.download.blob.FileDownloadStream;
+import com.technology.jep.jepria.server.download.blob.BinaryFileDownloadImpl;
+import com.technology.jep.jepria.server.download.clob.FileDownloadReader;
+import com.technology.jep.jepria.server.download.clob.TextFileDownloadImpl;
 import com.technology.jep.jepria.server.util.JepServerUtil;
 import com.technology.jep.jepria.shared.exceptions.UnsupportedException;
 import com.technology.jep.jepria.shared.field.JepTypeEnum;
@@ -56,6 +58,10 @@ public class JepDownloadServlet extends HttpServlet {
 	 * JNDI-имя источника данных.
 	 */
 	private String dataSourceJndiName;
+	/**
+	 * Имя модуля, передаваемое в DB.
+	 */
+	private String moduleName;
 	/**
 	 * Кодировка текстовых файлов.
 	 */
@@ -119,10 +125,21 @@ public class JepDownloadServlet extends HttpServlet {
 	 */
 	public JepDownloadServlet(
 		JepLobRecordDefinition fileRecordDefinition,
-		String dataSourceJndiName,
-		String resourceBundleName){
+		String dataSourceJndiName){
 		
 		this(fileRecordDefinition, dataSourceJndiName, DEFAULT_ENCODING);
+	}
+
+	/**
+	 * Инициализация сервлета.
+	 * Переопределение метода обусловлено установкой имени модуля. Выполнить данную операцию
+	 * в конструкторе невозможно, т.к. <code>getServletContext()</code> в конструкторе 
+	 * выбрасывает <code>NullPointerException</code>.
+	 */
+	@Override
+	public void init() throws ServletException {
+		super.init();
+		moduleName = getModuleName();
 	}
 
 	@Override
@@ -256,7 +273,8 @@ public class JepDownloadServlet extends HttpServlet {
 			fileFieldName,
 			fileRecordDefinition.getKeyFieldName(),
 			recordKey,
-			this.dataSourceJndiName);
+			this.dataSourceJndiName,
+			this.moduleName);
 	}
 
 	/**
@@ -283,7 +301,21 @@ public class JepDownloadServlet extends HttpServlet {
 			fileRecordDefinition.getKeyFieldName(),
 			recordKey,
 			this.dataSourceJndiName,
+			this.moduleName,
 			textFileCharset);
+	}
+	
+	/**
+	 * Возвращает имя модуля, предназначенное для передачи в базу.
+	 * Имя модуля формируется из имени приложения и имени сервлета,
+	 * из которого вырезано слово &quot;Servlet&quot;.
+	 * @return имя модуля
+	 */
+	private String getModuleName() {
+		String applicationName = JepServerUtil.getApplicationName(getServletContext());
+		String servletName = getServletConfig().getServletName();
+		String applicationModuleName = servletName.replace("Servlet", "");
+		return applicationName + "." + applicationModuleName;
 	}
 	
 	/**
