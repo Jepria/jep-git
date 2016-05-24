@@ -16,6 +16,41 @@ LOAD_OPERATORID               - логин и пароль оператора, выполняющего установку
                                 ( формат: login/password)
 LOAD_USERID                   - основной пользователь для установки в БД
                                 ( формат: username/password@dbName)
+LOAD_USERID2                  - пользователь с привилегией DBA ( например,
+                                sys);
+
+
+
+
+group: 9.1.0
+
+Команда для создания пользователей itm, itm_user в произвольной БД:
+
+(code)
+
+$ make install INSTALL_VERSION=Last LOAD_USERID2=sys/???@??? LOAD_OPERATORID=???/???
+
+(end)
+
+Замечание:
+- вместо команды можно выполнить скрипт
+  <Install/Schema/Last/Dba/run.sql>;
+
+Команда для установки:
+
+(code)
+
+$ make install INSTALL_VERSION=9.1.0 LOAD_USERID=itm/???@??? LOAD_OPERATORID=???/???
+
+(end)
+
+Команда выдачи прав пользователю itm_user:
+
+(code)
+
+$ make grant LOAD_USERID=itm/???@??? TO_USERNAME=itm_user LOAD_OPERATORID=???/???
+
+(end)
 
 
 
@@ -25,7 +60,7 @@ group: 8.6.0
 
 (code)
 
-$ make install INSTALL_VERSION=8.6.0 LOAD_USERID=itm/???@RFInfoP LOAD_OPERATORID=???/???
+$ make install INSTALL_VERSION=8.6.0 LOAD_USERID=itm/???@??? LOAD_OPERATORID=???/???
 
 (end)
 
@@ -37,7 +72,7 @@ group: 8.3.0
 
 (code)
 
-$ make install INSTALL_VERSION=8.3.0 LOAD_USERID=itm/???@RFInfoP LOAD_OPERATORID=???/???
+$ make install INSTALL_VERSION=8.3.0 LOAD_USERID=itm/???@??? LOAD_OPERATORID=???/???
 
 (end)
 
@@ -45,11 +80,44 @@ $ make install INSTALL_VERSION=8.3.0 LOAD_USERID=itm/???@RFInfoP LOAD_OPERATORID
 
 group: Первоначальная установка
 
+
+Команда для создания пользователей itm, itm_user в произвольной БД:
+
+(code)
+
+$ make install INSTALL_VERSION=Last LOAD_USERID2=sys/???@??? LOAD_OPERATORID=???/???
+
+(end)
+
+Замечание:
+- вместо команды можно выполнить скрипт
+  <Install/Schema/Last/Dba/create_user.sql>;
+
 Команда для установки:
 
 (code)
 
-$ make install INSTALL_VERSION=Last LOAD_USERID=itm/???@RFInfoP LOAD_OPERATORID=???/???
+$ make install INSTALL_VERSION=Last LOAD_USERID=itm/???@??? LOAD_OPERATORID=???/???
+
+(end)
+
+Команда выдачи прав пользовалею itm_user:
+
+(code)
+
+$ make grant LOAD_USERID=itm/???@??? TO_USERNAME=itm_user LOAD_OPERATORID=???/???
+
+(end)
+
+
+
+group: Тестирование
+
+Выполнение всех тестов модуля:
+
+(code)
+
+$ make test LOAD_USERID=itm/???@??? LOAD_OPERATORID=???/???
 
 (end)
 

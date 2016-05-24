@@ -2,7 +2,7 @@ Format: 1.5
 
 
 Title: JepRiaShowcase
-SubTitle: Версия 8.6.0
+SubTitle: Версия 9.1.0
 
 # You can add a footer to your documentation like this:
 # Footer: [text]
@@ -83,8 +83,16 @@ Group: Скрипты  {
 
          Group: Last  {
 
+            Group: Dba  {
+
+               File: run  (no auto-title, Install/Schema/Last/Dba/run.sql)
+               }  # Group: Dba
+
             File: run  (no auto-title, Install/Schema/Last/run.sql)
             File: revert  (no auto-title, Install/Schema/Last/revert.sql)
+            File: jrs_feature  (no auto-title, Install/Schema/Last/jrs_feature.tab)
+            File: jrs_feature_bi_define  (no auto-title, Install/Schema/Last/jrs_feature_bi_define.trg)
+            File: jrs_feature_seq  (no auto-title, Install/Schema/Last/jrs_feature_seq.sqs)
             File: jrs_goods  (no auto-title, Install/Schema/Last/jrs_goods.tab)
             File: jrs_goods_bi_define  (no auto-title, Install/Schema/Last/jrs_goods_bi_define.trg)
             File: jrs_goods_catalog  (no auto-title, Install/Schema/Last/jrs_goods_catalog.tab)
@@ -120,7 +128,13 @@ Group: Скрипты  {
             File: jrs_supplier_seq  (no auto-title, Install/Schema/Last/jrs_supplier_seq.sqs)
             File: jrs_unit  (no auto-title, Install/Schema/Last/jrs_unit.tab)
             File: jrs_unit_bi_define  (no auto-title, Install/Schema/Last/jrs_unit_bi_define.trg)
+            File: v_jrs_feature_job  (no auto-title, Install/Schema/Last/v_jrs_feature_job.vw)
             }  # Group: Last
+
+         Group: 9.1.0  {
+
+            File: run  (no auto-title, Install/Schema/9.1.0/run.sql)
+            }  # Group: 9.1.0
 
          Group: 8.6.0  {
 
@@ -147,6 +161,7 @@ Group: Индекс  {
 
    Group: Объекты БД  {
 
+      Database View Index: Представления
       Database Table Index: Таблицы
       Database Trigger Index: Триггеры
       Database Index Index: Индексы
