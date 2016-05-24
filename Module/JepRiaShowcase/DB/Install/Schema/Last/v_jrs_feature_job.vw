@@ -6,10 +6,10 @@ create or replace force view
 as
 select
   -- SVN root: JEP/Module/JepRiaShowcase
-  to_number( null) as feature_id
-  , to_clob( null) as description
+  feature_id
+  , description
 from
-  dual
+  jrs_feature
 /
 
 
