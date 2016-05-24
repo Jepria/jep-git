@@ -262,4 +262,14 @@ public class JepServerUtil {
 		
 		return result;
 	}
+
+	public static boolean isTomcat(HttpServletRequest request) {
+		boolean result = false;
+		try {
+			result = request instanceof org.apache.catalina.connector.RequestFacade;
+		} catch(java.lang.NoClassDefFoundError ex) {
+		}
+		
+		return result;
+	}
 }
