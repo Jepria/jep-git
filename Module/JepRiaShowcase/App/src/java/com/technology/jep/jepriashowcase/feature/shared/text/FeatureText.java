@@ -16,20 +16,20 @@ public interface FeatureText extends com.google.gwt.i18n.client.Constants {
   String feature_detail_date_ins();
 
   /**
-   * Translated "Дата создания запроса «От»".
+   * Translated "Дата создания запроса, от".
    * 
-   * @return translated "Дата создания запроса «От»"
+   * @return translated "Дата создания запроса, от"
    */
-  @DefaultStringValue("Дата создания запроса «От»")
+  @DefaultStringValue("Дата создания запроса, от")
   @Key("feature.detail.date_ins_from")
   String feature_detail_date_ins_from();
 
   /**
-   * Translated "Дата создания запроса «До»".
+   * Translated "Дата создания запроса, до".
    * 
-   * @return translated "Дата создания запроса «До»"
+   * @return translated "Дата создания запроса, до"
    */
-  @DefaultStringValue("Дата создания запроса «До»")
+  @DefaultStringValue("Дата создания запроса, до")
   @Key("feature.detail.date_ins_to")
   String feature_detail_date_ins_to();
 
@@ -61,11 +61,11 @@ public interface FeatureText extends com.google.gwt.i18n.client.Constants {
   String feature_detail_feature_name();
 
   /**
-   * Translated "Наименование англ.".
+   * Translated "Наименование (англ.)".
    * 
-   * @return translated "Наименование англ."
+   * @return translated "Наименование (англ.)"
    */
-  @DefaultStringValue("Наименование англ.")
+  @DefaultStringValue("Наименование (англ.)")
   @Key("feature.detail.feature_name_en")
   String feature_detail_feature_name_en();
 

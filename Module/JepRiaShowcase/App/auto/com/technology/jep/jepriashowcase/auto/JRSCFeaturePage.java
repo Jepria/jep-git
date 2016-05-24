@@ -30,9 +30,6 @@ public class JRSCFeaturePage<P extends JepRiaShowcasePageManager> extends JepRia
 	@FindBy(id = FEATURE_MAXROWCOUNT_DETAILFORM_FIELD_ID)
 	public WebElement maxRowCountField;
 	
-	@FindBy(id = FEATURE_DESCRIPTION_DETAILFORM_FIELD_ID)
-	public WebElement descriptionField;
-	
 	// Singleton
     static private JRSCFeaturePage<JepRiaShowcasePageManager> instance;
     static public JRSCFeaturePage<JepRiaShowcasePageManager> getInstance(JepRiaShowcasePageManager pageManager) {

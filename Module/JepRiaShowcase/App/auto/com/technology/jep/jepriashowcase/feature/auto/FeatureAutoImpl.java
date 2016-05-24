@@ -1,6 +1,5 @@
 package com.technology.jep.jepriashowcase.feature.auto;
 
-import static com.technology.jep.jepriashowcase.feature.client.FeatureAutomationConstant.FEATURE_DESCRIPTION_DETAILFORM_FIELD_ID_INPUT;
 import static com.technology.jep.jepriashowcase.feature.client.FeatureAutomationConstant.FEATURE_FEATUREID_DETAILFORM_FIELD_ID_INPUT;
 import static com.technology.jep.jepriashowcase.feature.client.FeatureAutomationConstant.FEATURE_FEATURENAMEEN_DETAILFORM_FIELD_ID_INPUT;
 import static com.technology.jep.jepriashowcase.feature.client.FeatureAutomationConstant.FEATURE_FEATURENAME_DETAILFORM_FIELD_ID_INPUT;
@@ -43,12 +42,6 @@ public class FeatureAutoImpl<A extends JepRiaShowcaseAuto, P extends JepRiaShowc
 	}
 
 	@Override
-	public void setDescription(String description) {
-		pages.featurePage.ensurePageLoaded();
-		setFieldValue(FEATURE_DESCRIPTION_DETAILFORM_FIELD_ID_INPUT, description);
-	}
-
-	@Override
 	public String getFeatureId() {
 		return getFieldValue(FEATURE_FEATUREID_DETAILFORM_FIELD_ID_INPUT);
 	}
@@ -69,11 +62,6 @@ public class FeatureAutoImpl<A extends JepRiaShowcaseAuto, P extends JepRiaShowc
 	}
 
 	@Override
-	public String getDescription() {
-		return getFieldValue(FEATURE_DESCRIPTION_DETAILFORM_FIELD_ID_INPUT);
-	}
-
-	@Override
 	public void fillSearchForm(
 			String featureId,
 			String featureName,
@@ -88,22 +76,18 @@ public class FeatureAutoImpl<A extends JepRiaShowcaseAuto, P extends JepRiaShowc
 	@Override
 	public void fillCreateForm(
 			String featureName,
-			String featureNameEn,
-			String description) {
+			String featureNameEn) {
 		setFeatureName(featureName);
 		setFeatureNameEn(featureNameEn);
-		setDescription(description);
 	}
 
 	@Override
 	public void fillEditForm(
 			String featureId,
 			String featureName,
-			String featureNameEn,
-			String description) {
+			String featureNameEn) {
 		setFeatureId(featureId);
 		setFeatureName(featureName);
 		setFeatureNameEn(featureNameEn);
-		setDescription(description);
 	}
 }

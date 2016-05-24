@@ -1,14 +1,13 @@
 package com.technology.jep.jepriashowcase.feature.server.dao;
  
-import static com.technology.jep.jepria.shared.field.JepFieldNames.OPERATOR_ID;
 import static com.technology.jep.jepriashowcase.feature.shared.field.FeatureFieldNames.DATE_INS;
+import static com.technology.jep.jepriashowcase.feature.shared.field.FeatureFieldNames.DATE_INS_FROM;
+import static com.technology.jep.jepriashowcase.feature.shared.field.FeatureFieldNames.DATE_INS_TO;
 import static com.technology.jep.jepriashowcase.feature.shared.field.FeatureFieldNames.DESCRIPTION;
 import static com.technology.jep.jepriashowcase.feature.shared.field.FeatureFieldNames.FEATURE_ID;
 import static com.technology.jep.jepriashowcase.feature.shared.field.FeatureFieldNames.FEATURE_NAME;
 import static com.technology.jep.jepriashowcase.feature.shared.field.FeatureFieldNames.FEATURE_NAME_EN;
-import static com.technology.jep.jepriashowcase.feature.shared.field.FeatureFieldNames.DATE_INS_FROM;
 import static com.technology.jep.jepriashowcase.feature.shared.field.FeatureFieldNames.OPERATOR_NAME;
-import static com.technology.jep.jepriashowcase.feature.shared.field.FeatureFieldNames.DATE_INS_TO;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -43,7 +42,6 @@ public class FeatureDao extends JepDaoStandard implements Feature {
 						record.set(FEATURE_NAME_EN, rs.getString(FEATURE_NAME_EN));
 						record.set(DESCRIPTION, rs.getString(DESCRIPTION));
 						record.set(DATE_INS, getDate(rs, DATE_INS));
-						record.set(OPERATOR_ID, getInteger(rs, OPERATOR_ID));
 						record.set(OPERATOR_NAME, rs.getString(OPERATOR_NAME));
 					}
 				}

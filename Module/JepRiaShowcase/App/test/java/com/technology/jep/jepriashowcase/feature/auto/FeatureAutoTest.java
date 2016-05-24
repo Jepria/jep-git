@@ -66,7 +66,7 @@ public class FeatureAutoTest extends JepAutoTest<FeatureAuto> {
 		
 		// arbitrary values. //TODO get rid of hardcode, fill by dataProvider
 		int random = (int)Math.random();
-		cut.fillCreateForm(featureName, "featureNameEn_"+random, "This is a description #"+random);
+		cut.fillCreateForm(featureName, "featureNameEn_"+random);
 		
 		SaveResultEnum saveResult = cut.save();
 		if(saveResult != SaveResultEnum.STATUS_HAS_CHANGED) {
@@ -84,7 +84,7 @@ public class FeatureAutoTest extends JepAutoTest<FeatureAuto> {
 	 */
 	@DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/feature/auto/form.create.data")
 	@Test(groups={"create"}, dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
-	public void create(String featureName, String featureNameEn, String description) {
+	public void create(String featureName, String featureNameEn) {
 		cut.setWorkstate(CREATE);
 		
 		// Проверяем, что осуществился переход на форму создания
@@ -95,13 +95,11 @@ public class FeatureAutoTest extends JepAutoTest<FeatureAuto> {
 		// Заполняем форму создания
 		cut.fillCreateForm(
 				featureName,
-				featureNameEn,
-				description);
+				featureNameEn);
 		
 		// Проверяем, что поля заполненны именно теми значениями, которыми мы их заполнили
 		assertEquals(featureName, cut.getFeatureName());
 		assertEquals(featureNameEn, cut.getFeatureNameEn());
-		assertEquals(description, cut.getDescription());
 		
 		// Осуществляем сохранение записи
 		SaveResultEnum saveResult = cut.save();
@@ -119,7 +117,6 @@ public class FeatureAutoTest extends JepAutoTest<FeatureAuto> {
  		// Проверяем, что поля созданной записи имеют такие же значения, как и те, которыми мы их заполнили
 		assertEquals(featureName, cut.getFeatureName());
 		assertEquals(featureNameEn, cut.getFeatureNameEn());
-		assertEquals(description, cut.getDescription());
 	}
 	
 	/*============================= end of CREATE BLOCK ================================*/
@@ -192,20 +189,16 @@ public class FeatureAutoTest extends JepAutoTest<FeatureAuto> {
 	/*============================= DELETE BLOCK ================================*/
 	
 	//TODO restore, consider fields in data provider
-//	/**
-//	 * Тест удаления записи
-//	 * 
-//	 * @param featureName - значение ключевого поля featureName, идентифицирующего тестовую запись
-//	 */
-//	@DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/feature/auto/form.delete.data")
-//	@Test(groups = "delete", dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile", expectedExceptions = IndexOutOfBoundsException.class)
-//	public void delete(final String featureName) {
+	/**
+	 * Тест удаления записи
+	 * 
+	 * @param featureName - значение ключевого поля featureName, идентифицирующего тестовую запись
+	 */
+	@Test(groups = "delete")
+	public void delete() {
 //		try {
-//			createTestRecord(featureName);
-//			
-//			Map<String, String> key = new HashMap<String, String>() {{put(FEATURE_FEATURENAME_DETAILFORM_FIELD_ID_INPUT, featureName);}};
-//			cut.find(key);
-//			
+			createTestRecord(KEY_FIELD_VALUE);
+			
 //			try {
 //				cut.selectItem(key);
 //			} catch(IndexOutOfBoundsException ex) {
@@ -218,16 +211,9 @@ public class FeatureAutoTest extends JepAutoTest<FeatureAuto> {
 //		} finally {
 //			deleteTestRecord(featureName); // На случай, если cut.delete не сработал
 //		}
-//	}
-		
-	//TODO вынести как абстракный метод на уровень выше?
-	/**
-	 * Удаление тестовой записи
-	 */
-	@Test(groups = "delete")
-	protected void deleteTestRecord(String featureName) {
-		super.deleteTestRecord(FEATURE_FEATURENAME_DETAILFORM_FIELD_ID_INPUT, featureName);
 	}
+	
+	//TODO create a test method that deletes a particular record of a list 
 	
 	/*============================= end of DELETE BLOCK ================================*/
 	
@@ -239,7 +225,7 @@ public class FeatureAutoTest extends JepAutoTest<FeatureAuto> {
 	 */
 	@DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/feature/auto/form.edit.data")
 	@Test(groups={"edit"}, dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
-	public void edit(String featureId, String featureName, String featureNameEn, String description) {
+	public void edit(String featureId, String featureName, String featureNameEn) {
 		createTestRecord("ABCDE");
 		
 		cut.setWorkstate(EDIT);
@@ -247,14 +233,12 @@ public class FeatureAutoTest extends JepAutoTest<FeatureAuto> {
 		cut.fillEditForm(
 				featureId,
 				featureName,
-				featureNameEn,
-				description);
+				featureNameEn);
 		
 		// Проверяем, что поля заполненны именно теми значениями, которыми мы их заполнили
 		assertEquals(featureId, cut.getFeatureId());
 		assertEquals(featureName, cut.getFeatureName());
 		assertEquals(featureNameEn, cut.getFeatureNameEn());
-		assertEquals(description, cut.getDescription());
 		
 		// Осуществляем сохранение записи
 		SaveResultEnum saveResult = cut.save();
@@ -273,7 +257,6 @@ public class FeatureAutoTest extends JepAutoTest<FeatureAuto> {
 		assertEquals(featureId, cut.getFeatureId());
 		assertEquals(featureName, cut.getFeatureName());
 		assertEquals(featureNameEn, cut.getFeatureNameEn());
-		assertEquals(description, cut.getDescription());
 	}
 	
 	/*============================= end of EDIT BLOCK ================================*/
