@@ -61,6 +61,7 @@ Group: Пакеты  {
 
       File: Спецификация  (no auto-title, pkg_JepRiaShowcase.pks)
       File: Реализация  (no auto-title, pkg_JepRiaShowcase.pkb)
+      File: run.sql  (Install/Grant/Last/run.sql)
       }  # Group: pkg_JepRiaShowcase
 
    Group: Test  {
