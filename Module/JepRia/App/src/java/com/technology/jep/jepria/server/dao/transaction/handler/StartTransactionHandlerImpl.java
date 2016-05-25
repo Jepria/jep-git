@@ -10,10 +10,10 @@ public class StartTransactionHandlerImpl implements StartTransactionHandler {
 
 	/**
 	 * Стандартная реализация обработки начала транзакции.<br/>
-	 * Единственное действие &mdash; вызов {@link CallContext#begin(String)}.
+	 * Единственное действие &mdash; вызов {@link CallContext#begin(String, String)}.
 	 */
 	@Override
-	public void handle(String dataSourceJndiName) throws ApplicationException {
-		CallContext.begin(dataSourceJndiName);
+	public void handle(String dataSourceJndiName, String moduleName) throws ApplicationException {
+		CallContext.begin(dataSourceJndiName, moduleName);
 	}
 }

@@ -32,7 +32,8 @@ import com.technology.jep.jepria.shared.exceptions.SystemException;
  *				, LOB_FIELD_NAME
  *				, KEY_FIELD_NAME
  *				, new BigDecimal(loadTaskId.intValue())
- *				, DATA_SOURCE_JNDI_NAME);
+ *				, DATA_SOURCE_JNDI_NAME
+ *				, moduleName);
  * </pre>
  */
 public class FileUploadStream extends OutputStream {
@@ -116,6 +117,7 @@ public class FileUploadStream extends OutputStream {
 	 * @param keyFieldName  			PK в таблице tableName
 	 * @param rowId 							идентификатор строки таблицы
 	 * @param dataSourceJndiName 	имя источника данных
+	 * @param moduleName		 	имя модуля
 	 * @throws IOException
 	 */
 	public static void uploadFile(
@@ -125,7 +127,8 @@ public class FileUploadStream extends OutputStream {
 		, String fileFieldName
 		, String keyFieldName
 		, Object rowId
-		, String dataSourceJndiName) 
+		, String dataSourceJndiName
+		, String moduleName) 
 		throws IOException {
 		if(tableName == null) {
 			throw new SystemException("tableName is empty");
@@ -148,7 +151,8 @@ public class FileUploadStream extends OutputStream {
 					, fileFieldName
 					, keyFieldName
 					, rowId
-					, dataSourceJndiName);
+					, dataSourceJndiName
+					, moduleName);
 			writeStream = new FileUploadStream((BinaryFileUpload)fileUpload);
 			byte[] readBuffer = new byte[WRITE_LENGTH];
 			while (true) {
@@ -190,6 +194,7 @@ public class FileUploadStream extends OutputStream {
 	 * @param fileFieldName  		имя атрибута в таблице, откуда берем BINARY_FILE
 	 * @param primaryKeyMap 		PK в таблице tableName
 	 * @param dataSourceJndiName 	имя источника данных
+	 * @param moduleName		 	имя модуля
 	 * @throws IOException
 	 */
 	public static void uploadFile(
@@ -198,7 +203,8 @@ public class FileUploadStream extends OutputStream {
 			String tableName,
 			String fileFieldName,
 			Map<String, Object> primaryKeyMap,
-			String dataSourceJndiName) {
+			String dataSourceJndiName,
+			String moduleName) {
 		throw new NotImplementedYetException();
 	}
 

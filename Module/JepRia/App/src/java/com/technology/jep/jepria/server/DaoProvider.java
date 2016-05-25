@@ -15,4 +15,16 @@ public interface DaoProvider<D> {
 	 * @return JNDI-имя источника данных.
 	 */
 	String getDataSourceJndiName();
+	
+	/**
+	 * Возвращает имя модуля для передачи в DB.
+	 * @return
+	 */
+	String getModuleName();
+	
+	/**
+	 * Устанавливает имя модуля для передачи в DB.
+	 * @param moduleName имя модуля.
+	 */
+	void setModuleName(String moduleName);
 }

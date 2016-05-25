@@ -1,5 +1,10 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
 <web-app>
+	<context-param>
+		<param-name>applicationName</param-name>
+		<param-value>JepRiaShowcase</param-value>
+	</context-param>
+	
 	<filter>
 	  <filter-name>WebLogicLoginRedirectFilter</filter-name>
 	  <filter-class>com.technology.jep.jepria.server.security.cas.LoginRedirectFilter</filter-class>

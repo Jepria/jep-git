@@ -28,6 +28,7 @@ import com.technology.jep.jepria.server.upload.blob.BinaryFileUploadImpl;
 import com.technology.jep.jepria.server.upload.blob.FileUploadStream;
 import com.technology.jep.jepria.server.upload.clob.FileUploadWriter;
 import com.technology.jep.jepria.server.upload.clob.TextFileUploadImpl;
+import com.technology.jep.jepria.server.util.JepServerUtil;
 import com.technology.jep.jepria.shared.exceptions.UnsupportedException;
 import com.technology.jep.jepria.shared.field.JepTypeEnum;
 import com.technology.jep.jepria.shared.history.JepHistoryToken;
@@ -53,6 +54,10 @@ public class JepUploadServlet extends HttpServlet {
 	 * JNDI-имя источника данных.
 	 */
 	private String dataSourceJndiName;
+	/**
+	 * Имя модуля, передаваемое в DB.
+	 */
+	private String moduleName;
 	
 	/**
 	 * Создаёт сервлет загрузки файлов на сервер.
@@ -65,6 +70,18 @@ public class JepUploadServlet extends HttpServlet {
 		
 		this.fileRecordDefinition = fileRecordDefinition;
 		this.dataSourceJndiName = dataSourceJndiName;
+	}
+
+	/**
+	 * Инициализация сервлета.
+	 * Переопределение метода обусловлено установкой имени модуля. Выполнить данную операцию
+	 * в конструкторе невозможно, т.к. <code>getServletContext()</code> в конструкторе 
+	 * выбрасывает <code>NullPointerException</code>.
+	 */
+	@Override
+	public void init() throws ServletException {
+		super.init();
+		moduleName = getModuleName();
 	}
 
 	@SuppressWarnings("unchecked")
@@ -190,7 +207,8 @@ public class JepUploadServlet extends HttpServlet {
 					fileFieldName,
 					fileRecordDefinition.getKeyFieldName(),
 					primaryKeyMap.values().toArray()[0],
-					this.dataSourceJndiName);
+					this.dataSourceJndiName,
+					this.moduleName);
 			} else {
 				FileUploadStream.uploadFile(
 					fileItem.getInputStream(),
@@ -198,7 +216,8 @@ public class JepUploadServlet extends HttpServlet {
 					tableName,
 					fileFieldName,
 					primaryKeyMap,
-					this.dataSourceJndiName);
+					this.dataSourceJndiName,
+					this.moduleName);
 			}
 		
 	}
@@ -227,7 +246,8 @@ public class JepUploadServlet extends HttpServlet {
 					fileFieldName,
 					fileRecordDefinition.getKeyFieldName(),
 					primaryKeyMap.values().toArray()[0],
-					this.dataSourceJndiName);
+					this.dataSourceJndiName,
+					this.moduleName);
 			} else {
 				FileUploadWriter.uploadFile(
 					new InputStreamReader(fileItem.getInputStream()),
@@ -235,7 +255,8 @@ public class JepUploadServlet extends HttpServlet {
 					tableName,
 					fileFieldName,
 					primaryKeyMap,
-					this.dataSourceJndiName);
+					this.dataSourceJndiName,
+					this.moduleName);
 			}
 		
 	}
@@ -253,6 +274,19 @@ public class JepUploadServlet extends HttpServlet {
 					}
 				}
 		return null;
+	}
+	
+	/**
+	 * Возвращает имя модуля, предназначенное для передачи в базу.
+	 * Имя модуля формируется из имени приложения и имени сервлета,
+	 * из которого вырезано слово &quot;Servlet&quot;.
+	 * @return имя модуля
+	 */
+	private String getModuleName() {
+		String applicationName = JepServerUtil.getApplicationName(getServletContext());
+		String servletName = getServletConfig().getServletName();
+		String applicationModuleName = servletName.replace("Servlet", "");
+		return applicationName + "." + applicationModuleName;
 	}
 
 	/**

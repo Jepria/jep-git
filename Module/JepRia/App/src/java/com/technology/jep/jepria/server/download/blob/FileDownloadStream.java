@@ -116,7 +116,8 @@ public class FileDownloadStream extends InputStream {
 			, String fileFieldName
 			, String keyFieldName
 			, Object rowId
-			, String dataSourceJndiName) 
+			, String dataSourceJndiName
+			, String moduleName) 
 			throws IOException {
 
 		OutputStream writeStream = null;
@@ -128,7 +129,8 @@ public class FileDownloadStream extends InputStream {
 					, fileFieldName
 					, keyFieldName
 					, rowId
-					, dataSourceJndiName);
+					, dataSourceJndiName
+					, moduleName);
 			readStream = new FileDownloadStream((BinaryFileDownload)fileDownload);
 			byte[] readBuffer = new byte[WRITE_LENGTH];
 			while (true) {

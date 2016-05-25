@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.technology.jep.jepria.server.dao.CallContext;
+import com.technology.jep.jepria.server.dao.DaoSupport;
 import com.technology.jep.jepria.server.db.LargeObject;
 import com.technology.jep.jepria.server.exceptions.SpaceException;
 import com.technology.jep.jepria.shared.exceptions.ApplicationException;
@@ -51,6 +52,7 @@ public class BinaryLargeObject extends LargeObject {
 			database = CallContext.getDb();
 			// Сбрасываем значение поля
 			CallableStatement cs = database.prepare(super.sqlClearLob);
+			DaoSupport.setModule(CallContext.getModuleName(), "UploadBLOB");
 			cs.execute();
 			
 			// Получаем поток для записи поля BINARY_FILE
@@ -84,6 +86,7 @@ public class BinaryLargeObject extends LargeObject {
 			
 			// Получаем поток для записи поля BINARY_FILE
 			CallableStatement cs = database.prepare(super.sqlObtainInputStream);
+			DaoSupport.setModule(CallContext.getModuleName(), "DownloadBLOB");
 			ResultSet rs = cs.executeQuery();
 			if(rs.next()) {
 			      Blob blob = (Blob) rs.getBlob(1);

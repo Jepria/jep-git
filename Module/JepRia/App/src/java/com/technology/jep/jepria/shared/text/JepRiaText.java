@@ -2,7 +2,7 @@ package com.technology.jep.jepria.shared.text;
 
 /**
  * Interface to represent the constants contained in resource bundle:
- * 	'D:/GitSourceForge5/javaenterpriseplatform-git/Module/JepRia/App/src/java/com/technology/jep/jepria/shared/text/JepRiaText.properties'.
+ * 	'E:/git/javaenterpriseplatform/Module/JepRia/App/src/java/com/technology/jep/jepria/shared/text/JepRiaText.properties'.
  */
 public interface JepRiaText extends com.google.gwt.i18n.client.Constants {
   
@@ -698,6 +698,15 @@ public interface JepRiaText extends com.google.gwt.i18n.client.Constants {
   @DefaultStringValue("Номер дня недели должен иметь значение от 1 до 7.")
   @Key("errors.server.illegalWeekDayNumber")
   String errors_server_illegalWeekDayNumber();
+
+  /**
+   * Translated "В web.xml не указан параметр applicationName.".
+   * 
+   * @return translated "В web.xml не указан параметр applicationName."
+   */
+  @DefaultStringValue("В web.xml не указан параметр applicationName.")
+  @Key("errors.server.missingApplicationName")
+  String errors_server_missingApplicationName();
 
   /**
    * Translated "Значение отсутствует в списке!".
