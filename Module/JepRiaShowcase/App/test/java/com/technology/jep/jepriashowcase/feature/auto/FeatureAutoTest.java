@@ -1,15 +1,15 @@
 package com.technology.jep.jepriashowcase.feature.auto;
 
+import static com.technology.jep.jepria.client.AutomationConstant.CONFIRM_MESSAGEBOX_ID;
+import static com.technology.jep.jepria.client.AutomationConstant.CONFIRM_MESSAGE_BOX_YES_BUTTON_ID;
 import static com.technology.jep.jepria.client.AutomationConstant.ERROR_MESSAGE_BOX_OK_BUTTON_ID;
+import static com.technology.jep.jepria.client.AutomationConstant.TOOLBAR_DELETE_BUTTON_ID;
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.CREATE;
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.EDIT;
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.SEARCH;
-import static com.technology.jep.jepriashowcase.feature.client.FeatureAutomationConstant.FEATURE_FEATURENAME_DETAILFORM_FIELD_ID_INPUT;
-
-import java.util.HashMap;
+import static com.technology.jep.jepria.client.ui.WorkstateEnum.VIEW_LIST;
 
 import org.apache.log4j.Logger;
-import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import com.technology.jep.jepria.auto.SaveResultEnum;
@@ -24,7 +24,6 @@ import com.technology.jep.test.util.JepFileDataProvider;
  * Below, every single newline has its meaning to somehow increase readability of the code!
  * @author RomanovAS
  */
-@SuppressWarnings("serial")
 public class FeatureAutoTest extends JepAutoTest<FeatureAuto> {
 	private static Logger logger = Logger.getLogger(FeatureAutoTest.class.getName());
 	
@@ -151,9 +150,7 @@ public class FeatureAutoTest extends JepAutoTest<FeatureAuto> {
 		assertEquals(maxRowCount, cut.getMaxRowCount());
 			
 		// Осуществляем поиск
-		String statusBarTextBefore = cut.getStatusBar().getText();
-		cut.find();
-		cut.waitTextToBeChanged(cut.getStatusBar(), statusBarTextBefore);
+		cut.setWorkstate(VIEW_LIST);
 		
 		// Проверяем, что осуществился переход на форму списка после поиска
  		assertEquals(
@@ -164,25 +161,6 @@ public class FeatureAutoTest extends JepAutoTest<FeatureAuto> {
  		// TODO obtain data from list cells and assert they are equal with original
 	}
 
-	/**
-	 * Тест выделения первого элемента списка списочной формы
-	 * 
-	 * @param featureName - значение ключевого поля featureName, идентифицирующего тестовую запись
-	 */
-	@Test(groups = "list")
-	@Parameters({"KEY_FIELD_VALUE"})
-	public void selectFirstItem(final String featureName) {
-		cut.find(new HashMap<String, String>(){{
-			put(FEATURE_FEATURENAME_DETAILFORM_FIELD_ID_INPUT, featureName);
-		}});
-		
-		cut.selectItem(0);
-		
-		assertEquals(
-				Util.getResourceString("workstate.selected"),
-				cut.getStatusBar().getText());
-	}
-	
 	/*============================= end of FIND BLOCK ================================*/
 	
 	
@@ -196,23 +174,31 @@ public class FeatureAutoTest extends JepAutoTest<FeatureAuto> {
 	 */
 	@Test(groups = "delete")
 	public void delete() {
-//		try {
-			createTestRecord(KEY_FIELD_VALUE);
-			
-//			try {
-//				cut.selectItem(key);
-//			} catch(IndexOutOfBoundsException ex) {
-//				fail("Элемент с ключом " + key + " отсутствует в списке");
-//			}
-//			
-//			cut.delete(key);
-//			
-//			cut.selectItem(key); // Должно вызвать IndexOutOfBoundsException
-//		} finally {
-//			deleteTestRecord(featureName); // На случай, если cut.delete не сработал
-//		}
+		createTestRecord(KEY_FIELD_VALUE);
+		
+		// Проверяем, что мы находимся на форме просмотра после создания
+ 		assertEquals(
+ 				Util.getResourceString("workstate.viewDetails"),
+ 				cut.getStatusBar().getText());
+ 		
+ 		// Запоминаем feature_id созданной записи, чтобы далее проверить корректность удаления
+ 		final String feature_id = cut.getFeatureId();
+ 		
+ 		// Нажимаем на кнопку удаление, подтверждаем удаление
+ 		cut.clickButton(TOOLBAR_DELETE_BUTTON_ID);
+ 		assertEquals(true, cut.checkMessageBox(CONFIRM_MESSAGEBOX_ID));
+		cut.clickButton(CONFIRM_MESSAGE_BOX_YES_BUTTON_ID);
+		
+		// Проверяем корректность удаления: пытаемся найти запись по сохраненному feature_id
+		
+		cut.setWorkstate(SEARCH);
+		cut.setFeatureId(feature_id);
+		// Осуществляем поиск
+		cut.setWorkstate(VIEW_LIST);
+		
+		//TODO убедиться что список пуст
 	}
-	
+	 		
 	//TODO create a test method that deletes a particular record of a list 
 	
 	/*============================= end of DELETE BLOCK ================================*/
@@ -225,36 +211,41 @@ public class FeatureAutoTest extends JepAutoTest<FeatureAuto> {
 	 */
 	@DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/feature/auto/form.edit.data")
 	@Test(groups={"edit"}, dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
-	public void edit(String featureId, String featureName, String featureNameEn) {
+	public void edit(String featureName, String featureNameEn) {
+		// создаем запись, которую собираемся редактировать
 		createTestRecord("ABCDE");
 		
+		// переходим в состояние редактирования
 		cut.setWorkstate(EDIT);
 		
+		// Проверяем, что осуществился переход на форму редактирования
+		assertEquals(
+				Util.getResourceString("workstate.edit"),
+				cut.getStatusBar().getText());
+		
+		// Редактируем поля
 		cut.fillEditForm(
-				featureId,
 				featureName,
 				featureNameEn);
 		
-		// Проверяем, что поля заполненны именно теми значениями, которыми мы их заполнили
-		assertEquals(featureId, cut.getFeatureId());
+		// Проверяем, что поля заполнены именно теми значениями, которыми мы их заполнили
 		assertEquals(featureName, cut.getFeatureName());
 		assertEquals(featureNameEn, cut.getFeatureNameEn());
 		
 		// Осуществляем сохранение записи
 		SaveResultEnum saveResult = cut.save();
 		assertEquals(SaveResultEnum.STATUS_HAS_CHANGED, saveResult);
-		
-	  //TODO работает без строчки ниже, однако по хорошему она должна присутствовать, но почему то с ней не работает
-//	  // Ждем перехода на форму просмотра после успешного создания
-//	  cut.waitTextToBeChanged(cut.getStatusBar(), Util.getResourceString("workstate.viewDetails"));
-	  
+//		
+//	  //TODO работает без строчки ниже, однако по хорошему она должна присутствовать, но почему то с ней не работает
+////	  // Ждем перехода на форму просмотра после успешного создания
+////	  cut.waitTextToBeChanged(cut.getStatusBar(), Util.getResourceString("workstate.viewDetails"));
+//	  
 		// Проверяем, что осуществился переход на форму просмотра после редактирования
 		assertEquals(
 				Util.getResourceString("workstate.viewDetails"),
 				cut.getStatusBar().getText());
 		
 		// Проверяем, что поля отредактированной записи имеют такие же значения, как и те, которыми мы их заполнили
-		assertEquals(featureId, cut.getFeatureId());
 		assertEquals(featureName, cut.getFeatureName());
 		assertEquals(featureNameEn, cut.getFeatureNameEn());
 	}

@@ -31,7 +31,6 @@ public interface FeatureAuto extends JepRiaModuleAuto {
 			String featureNameEn);
 
 	void fillEditForm(
-			String featureId,
 			String featureName,
 			String featureNameEn);
 }

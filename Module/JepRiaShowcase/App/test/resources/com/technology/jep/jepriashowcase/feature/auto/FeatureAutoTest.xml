@@ -13,7 +13,6 @@
 
 		<groups>
 			<define name="all">
-				<include name="setAndGetTextField" />
  				<include name="find" />
  				<include name="create" />
 				<include name="delete" />
@@ -21,10 +20,7 @@
 			</define>
 		
 			<run>
-				<include name="find" />
- 				<include name="create" />
-				<include name="delete" />
-				<include name="edit" />
+				<include name="all" />
 			</run>
 		</groups>
 		

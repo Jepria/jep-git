@@ -26,7 +26,7 @@ public class JepRiaShowcaseMainModulePresenter<E extends MainEventBus, S extends
 		addModuleProtection(ALLSHOPGOODS_MODULE_ID, "JrsEditShopGoods");
 		addModuleProtection(REQUEST_MODULE_ID, "JrsEditRequest");
 		addModuleProtection(REQUESTPROCESS_MODULE_ID, "JrsEditRequestProcess");
-//		addModuleProtection(FEATURE_MODULE_ID, "JrsFeature");//TODO restore
+		addModuleProtection(FEATURE_MODULE_ID, "JrsEditFeature");//TODO restore
 		
 		setProtectedModuleItemsVisibility(false);
 	}

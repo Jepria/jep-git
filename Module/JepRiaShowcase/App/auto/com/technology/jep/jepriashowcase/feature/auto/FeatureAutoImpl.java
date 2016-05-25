@@ -83,10 +83,8 @@ public class FeatureAutoImpl<A extends JepRiaShowcaseAuto, P extends JepRiaShowc
 
 	@Override
 	public void fillEditForm(
-			String featureId,
 			String featureName,
 			String featureNameEn) {
-		setFeatureId(featureId);
 		setFeatureName(featureName);
 		setFeatureNameEn(featureNameEn);
 	}

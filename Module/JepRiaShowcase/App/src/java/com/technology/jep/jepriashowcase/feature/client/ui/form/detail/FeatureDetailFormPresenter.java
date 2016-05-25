@@ -1,5 +1,6 @@
 package com.technology.jep.jepriashowcase.feature.client.ui.form.detail;
 
+import static com.technology.jep.jepria.client.ui.WorkstateEnum.CREATE;
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.EDIT;
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.SEARCH;
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.VIEW_DETAILS;
@@ -41,10 +42,11 @@ public class FeatureDetailFormPresenter<E extends PlainEventBus, S extends JepDa
 		fields.setFieldVisible(OPERATOR_NAME, VIEW_DETAILS.equals(workstate));
 		fields.setFieldVisible(MAX_ROW_COUNT, SEARCH.equals(workstate));
 		
-		fields.setFieldAllowBlank(FEATURE_NAME, !EDIT.equals(workstate));
+		fields.setFieldAllowBlank(FEATURE_NAME, !(EDIT.equals(workstate) || CREATE.equals(workstate)));
 		fields.setFieldAllowBlank(MAX_ROW_COUNT, !SEARCH.equals(workstate));
 		fields.setFieldValue(MAX_ROW_COUNT, 25);
 		
+		fields.setFieldEditable(FEATURE_ID, SEARCH.equals(workstate));
 		
 		Date theeMonthBack = new Date();
 		CalendarUtil.addMonthsToDate(theeMonthBack, -3);

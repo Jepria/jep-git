@@ -18,6 +18,7 @@ import com.technology.jep.jepria.client.widget.list.JepColumn;
 import com.technology.jep.jepria.shared.service.data.JepDataServiceAsync;
 import com.technology.jep.jepriashowcase.feature.client.ui.form.detail.FeatureDetailFormPresenter;
 import com.technology.jep.jepriashowcase.feature.client.ui.form.detail.FeatureDetailFormViewImpl;
+import com.technology.jep.jepriashowcase.feature.client.ui.form.list.FeatureListFormViewImpl;
 import com.technology.jep.jepriashowcase.feature.shared.record.FeatureRecordDefinition;
 import com.technology.jep.jepriashowcase.feature.shared.service.FeatureService;
 import com.technology.jep.jepriashowcase.feature.shared.service.FeatureServiceAsync;
@@ -26,11 +27,7 @@ public class FeatureClientFactoryImpl<E extends PlainEventBus, S extends Feature
 	extends com.technology.jep.jepria.client.ui.plain.StandardClientFactoryImpl<E, S> {
  
 	private static final IsWidget featureDetailFormView = new FeatureDetailFormViewImpl();
-	private static final IsWidget featureListFormView = new StandardListFormViewImpl/*TODO change to FeatureListFormViewImpl*/(){
-		@Override
-		protected List<JepColumn> getColumnConfigurations() {
-			return null;
-		}};
+	private static final IsWidget featureListFormView = new FeatureListFormViewImpl();
  
 	public static PlainClientFactoryImpl<PlainEventBus, JepDataServiceAsync> instance = null;
  

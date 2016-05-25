@@ -77,6 +77,7 @@ abstract public class JepDataServiceServlet<D extends JepDataStandard> extends J
 	protected JepDataServiceServlet(JepRecordDefinition recordDefinition, DaoProvider<D> serverFactory) {
 		this.recordDefinition = recordDefinition;
 		this.sorter = new JepSorter<JepRecord>();
+		this.dataSourceJndiName = serverFactory.getDataSourceJndiName();
 		this.dao = serverFactory.getDao();
 	}
 
