@@ -16,14 +16,14 @@ define toUserName = "&1"
 grant
   select, update
 on
-  v_jrs_feature_job
+  v_jrs_feature_lob
 to
   &toUserName
 /
 create or replace synonym
-  &toUserName..v_jrs_feature_job
+  &toUserName..v_jrs_feature_lob
 for
-  v_jrs_feature_job
+  v_jrs_feature_lob
 /
 
 grant execute on

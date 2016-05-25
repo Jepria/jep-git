@@ -1060,12 +1060,12 @@ and feature_name_en = ''$TEST-Request-en'''
 'createFeature: запись не создана или некорректна'
     );
     pkg_TestUtility.compareRowCount(
-      tableName           => 'jrs_feature'
+      tableName           => 'v_jrs_feature_lob'
       , filterCondition   => '
 feature_id = ' || coalesce( to_char( featureId), 'null')
        , expectedRowCount  => 1
        , failMessageText   =>
-'v_jrs_feature_job: не найдена запись'
+'v_jrs_feature_lob: не найдена запись'
     );
     pkg_JepRiaShowcase.updateFeature(
       featureId        => featureId
