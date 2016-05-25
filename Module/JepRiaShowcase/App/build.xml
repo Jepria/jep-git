@@ -115,8 +115,14 @@
 	<fileset dir="build" id="class-web-jar">
 		<include name="**/shared/" />
 		<include name="**/server/" />
-		<include name="**/log4j.properties" />
+		<exclude name="**/text/*.class" />
 	</fileset>
+
+	<fileset dir="src/java" id="properties-web-jar">
+		<include name="**/*Text.properties" />
+		<include name="**/*Text_??.properties" />
+		<include name="**/log4j.properties" />
+    </fileset>
 
 	<target name="prepare-toolkit">
 		<copy failonerror="false" file="${JEP_RIA_TOOLKIT}/lib/jepriatoolkit.jar" todir="lib" />
@@ -430,11 +436,13 @@
 		<outofdate>
 			<sourcefiles>
 				<fileset refid="class-web-jar" />
+				<fileset refid="properties-web-jar" />
 			</sourcefiles>
 			<targetfiles path="${JAR_TEMP}/${MODULE_NAME_IN_PACKAGE}-web.jar" />
 			<sequential>
 				<jar destfile="${JAR_TEMP}/${MODULE_NAME_IN_PACKAGE}-web.jar">
 					<fileset refid="class-web-jar" />
+					<fileset refid="properties-web-jar" />
 				</jar>
 			</sequential>
 		</outofdate>
