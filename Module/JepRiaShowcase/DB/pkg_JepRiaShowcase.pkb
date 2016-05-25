@@ -2202,6 +2202,40 @@ end findRequestProcess;
 
 /* group: Запрос функционала */
 
+/* iproc: lockFeature
+  Блокирует и возвращает запись с данными запроса функционала.
+
+  Параметры:
+  dataRec                     - данные запроса ( возврат)
+  featureId                   - идентификатор запроса функционала
+*/
+procedure lockFeature(
+  dataRec out nocopy jrs_feature%rowtype
+  , featureId integer
+)
+is
+-- lockFeature
+begin
+  select
+    t.*
+  into dataRec
+  from
+    jrs_feature t
+  where
+    t.feature_id = featureId
+  for update nowait;
+exception when others then
+  raise_application_error(
+    pkg_Error.ErrorStackInfo
+    , logger.errorStack(
+        'Ошибка при блокировке записи с данными запроса функционала ('
+        || ' featureId="' || to_char( featureId)
+        || ').'
+      )
+    , true
+  );
+end lockFeature;
+
 /* func: createFeature
   Создаёт запись запроса функционала.
 
@@ -2212,6 +2246,9 @@ end findRequestProcess;
                                 языке
   operatorId                  - идентификатор пользователя, выполняющего операцию
                                 ( по умолчанию текущий)
+
+  Возврат:
+  - идентификатор созданной записи;
 */
 function createFeature(
   featureName varchar2
@@ -2220,9 +2257,45 @@ function createFeature(
 )
 return integer
 is
+
+  -- Идентификатор созданной записи
+  featureId integer;
+
 -- createFeature
 begin
-  return null;
+  pkg_Operator.isRole(
+    coalesce( operatorId, pkg_Operator.getCurrentUserId())
+    , Feature_RoleSName
+  );
+  insert into
+    jrs_feature
+  (
+    feature_name
+    , feature_name_en
+    , operator_id
+  )
+  values (
+    featureName
+    , featureNameEn
+    , operatorId
+  )
+  returning
+    feature_id
+  into
+    featureId
+  ;
+  return featureId;
+exception when others then
+  raise_application_error(
+    pkg_Error.ErrorStackInfo
+    , logger.errorStack(
+        'Ошибка при создании запроса функционала ('
+        || ' featureName="' || featureName || '"'
+        || ', featureNameEn="' || featureNameEn || '"'
+        || ')'
+      )
+    , true
+  );
 end createFeature;
 
 /* proc: updateFeature
@@ -2244,9 +2317,38 @@ procedure updateFeature(
   , operatorId integer
 )
 is
+
+  -- Данные запроса функционала
+  rec jrs_feature%rowtype;
+
 -- updateFeature
 begin
-  null;
+  pkg_Operator.isRole(
+    coalesce( operatorId, pkg_Operator.getCurrentUserId())
+    , Feature_RoleSName
+  );
+  lockFeature(
+    dataRec             => rec
+    , featureId         => featureId
+  );
+  update
+    jrs_feature d
+  set
+    d.feature_name      = featureName
+    , d.feature_name_en = featureNameEn
+  where
+    d.feature_id = featureId
+  ;
+exception when others then
+  raise_application_error(
+    pkg_Error.ErrorStackInfo
+    , logger.errorStack(
+        'Ошибка при изменения данных запроса функционала ('
+        || ' featureId=' || to_char( featureId)
+        || ').'
+      )
+    , true
+  );
 end updateFeature;
 
 /* proc: deleteFeature
@@ -2262,9 +2364,34 @@ procedure deleteFeature(
   , operatorId integer
 )
 is
+
+  -- Данные записи
+  rec jrs_feature%rowtype;
 -- deleteFeature
 begin
-  null;
+  pkg_Operator.isRole(
+    coalesce( operatorId, pkg_Operator.getCurrentUserId())
+    , Feature_RoleSName
+  );
+  lockFeature(
+    dataRec             => rec
+    , featureId         => featureId
+  );
+  delete
+    jrs_feature d
+  where
+    d.feature_id = featureId
+  ;
+exception when others then
+  raise_application_error(
+    pkg_Error.ErrorStackInfo
+    , logger.errorStack(
+        'Ошибка при удалении запроса функционала ('
+        || ' featureId=' || to_char( featureId)
+        || ')'
+      )
+    , true
+  );
 end deleteFeature;
 
 /* func: findFeature
@@ -2315,15 +2442,71 @@ is
   -- Возвращаемый курсор
   rc sys_refcursor;
 
+  -- Динамически формируемый текст запроса
+  dsql dyn_dynamic_sql_t := dyn_dynamic_sql_t( '
+select
+  t.feature_id
+  , t.feature_name
+  , t.feature_name_en
+  , t.description
+  , t.date_ins
+  , t.operator_id
+  , op.operator_name
+  , op.operator_name_en
+from
+  jrs_feature t
+inner join op_operator op
+  on op.operator_id = t.operator_id
+where
+  $(condition)
+  ');
+
 -- findFeature
 begin
-  open
-    rc
-  for
-  select
-    1 as a
-  from
-    all_objects
+  pkg_Operator.isRole(
+    coalesce( operatorId, pkg_Operator.getCurrentUserId())
+    , Feature_RoleSName
+  );
+  dsql.addCondition(
+    't.feature_id =', featureId is null
+  );
+  if featureName is not null and featureNameEn is not null then
+    dsql.addCondition(
+      'upper( t.feature_name) like upper( :featureName) escape ''\''
+       or upper( t.feature_name_en) like upper( :featureNameEn) escape ''\'''
+      , false
+    );
+  else
+    dsql.addCondition(
+      'upper( t.feature_name) like upper( :featureName) escape ''\'''
+      , featureName is null
+    );
+    dsql.addCondition(
+      'upper( t.feature_name_en) like upper( :featureNameEn) escape ''\'''
+      , featureNameEn is null
+    );
+  end if;
+  dsql.addCondition(
+    't.date_ins >= trunc( :dateInsFrom)'
+    , dateInsFrom is null
+  );
+  dsql.addCondition(
+    't.date_ins <= trunc( :dateInsTo) + ( 1 - 1/86400)'
+    , dateInsTo is null
+  );
+  dsql.addCondition(
+    'rownum <= :maxRowCount', maxRowCount is null
+  );
+  dsql.useCondition( 'condition');
+  open rc for
+    dsql.getSqlText()
+  using
+    featureId
+    , featureName
+    , featureNameEn
+    , dateInsFrom
+    , dateInsTo
+    , maxRowCount
   ;
   return rc;
 exception when others then

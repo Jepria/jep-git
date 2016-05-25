@@ -1053,7 +1053,7 @@ request_process_id = ''' || requestProcessId || '''
       tableName           => 'jrs_feature'
       , filterCondition   => '
 feature_id = ' || coalesce( to_char( featureId), 'null') || '
-and feature_name = ''TEST''
+and feature_name = ''$TEST-Запрос''
 and feature_name_en = ''$TEST-Request-en'''
        , expectedRowCount  => 1
        , failMessageText   =>
@@ -1158,7 +1158,7 @@ or feature_id = ' || coalesce( to_char( featureId3), 'null')
       , failMessageText   =>
 'updateFeature: записи не удалены'
     );
-    for i in 1..1000000 loop
+    for i in 1..1000 loop
       featureId := pkg_JepRiaShowcase.createFeature(
         featureName     => '$TEST-Запрос' || to_char( i)
         , featureNameEn => '$TEST-Request-en' || to_char( i)
@@ -1166,7 +1166,7 @@ or feature_id = ' || coalesce( to_char( featureId3), 'null')
       );
     end loop;
     rc := pkg_JepRiaShowcase.findFeature(
-      featureName => '$TEST-Запрос' || to_char( 100000)
+      featureName => '$TEST-Запрос1'
     );
     checkCursor( 'findFeature: find performance: count', 1);
     for testFeature in (

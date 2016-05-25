@@ -25,9 +25,9 @@ declare
       min( t.role_id)
     into roleId
     from
-      op_role t
+      v_op_role t
     where
-      t.short_name = shortName
+      t.role_short_name = shortName
     ;
     if roleId is null then
       roleId := pkg_AccessOperator.createRole(
@@ -50,6 +50,15 @@ declare
 
 -- main
 begin
+  addRole(
+    shortName     => pkg_JepRiaShowcase.Feature_RoleSName
+    , roleName    =>
+        'JepRiaShowcase: Редактирование данных по запросам на функционал'
+    , roleNameEn  =>
+        'JepRiaShowcase: Access to edit features data'
+    , description =>
+        'Пользователь с данной ролью имеет доступ к управлению запросами на новый функционал'
+  );
   addRole(
     shortName     => pkg_JepRiaShowcase.Goods_RoleSName
     , roleName    =>

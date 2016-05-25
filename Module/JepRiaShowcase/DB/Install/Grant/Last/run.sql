@@ -1,4 +1,4 @@
--- script: DB\Install\Grant\Last\run.sql
+-- script: Install/Grant/Last/run.sql
 -- Выдает права на использование модуля.
 --
 -- Параметры:
