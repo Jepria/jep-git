@@ -18,6 +18,13 @@ Module_Name constant varchar2(30) := 'JepRiaShowcase';
 
 /* group: Роли */
 
+/* const: Feature_RoleSName
+  Короткое название роли "Редактирование данных по запросам на функционал".
+*/
+Feature_RoleSName constant varchar2(50) :=
+  'JrsEditFeature'
+;
+
 /* const: Goods_RoleSName
   Короткое название роли "Редактирование данных по товарам".
 */
