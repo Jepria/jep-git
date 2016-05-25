@@ -12,9 +12,6 @@ create table
   , constraint jrs_feature_pk primary key
     ( feature_id)
     using index tablespace &indexTablespace
-  , constraint jrs_feature_uk unique
-    ( feature_name)
-    using index tablespace &indexTablespace
 )
 /
 
