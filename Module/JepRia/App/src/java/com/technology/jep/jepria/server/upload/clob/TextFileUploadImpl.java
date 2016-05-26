@@ -19,12 +19,13 @@ public class TextFileUploadImpl extends AbstractFileUpload implements TextFileUp
 		, String fileFieldName
 		, String keyFieldName
 		, Object rowId
-		, String dataSourceJndiName) 
+		, String dataSourceJndiName
+		, String moduleName) 
 		throws ApplicationException {
 
 		int result = -1;
 		try {
-			CallContext.begin(dataSourceJndiName);
+			CallContext.begin(dataSourceJndiName, moduleName);
 
 			super.largeObject = new TextLargeObject(tableName, fileFieldName, keyFieldName, rowId);
 			result = ((TextLargeObject)super.largeObject).beginWrite();

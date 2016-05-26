@@ -17,14 +17,21 @@ public class CallContext {
 	/**
 	 * Обёртка соединения с базой.
 	 */
-	private Db db = null;
+	private Db db;
+	
+	/**
+	 * Имя модуля для передачи в DB.
+	 */
+	private String moduleName;
 	
 	/**
 	 * Создаёт объект контекста.
 	 * @param dataSourceJndiName JNDI-имя источника данных
+	 * @param modileName имя модуля
 	 */
-	private CallContext(String dataSourceJndiName) {
+	private CallContext(String dataSourceJndiName, String moduleName) {
 		db = new Db(dataSourceJndiName, false);
+		this.moduleName = moduleName;
 	}
 	
 	/**
@@ -32,8 +39,8 @@ public class CallContext {
 	 * Создаёт новый экземпляр контекста и помещает в {@code ThreadLocal}.
 	 * @param dataSourceJndiName JNDI-имя источника данных
 	 */
-	public static void begin(String dataSourceJndiName) {
-		CallContext callContext = new CallContext(dataSourceJndiName);
+	public static void begin(String dataSourceJndiName, String moduleName) {
+		CallContext callContext = new CallContext(dataSourceJndiName, moduleName);
 		context.set(callContext);
 	}
 	
@@ -44,6 +51,15 @@ public class CallContext {
 	public static Db getDb() {
 		CallContext c = (CallContext) context.get();
 		return c.db;
+	}
+	
+	/**
+	 * Возвращает имя модуля для передачи в DB
+	 * @return имя модуля
+	 */
+	public static String getModuleName() {
+		CallContext c = (CallContext) context.get();
+		return c.moduleName;
 	}
 
 	/**

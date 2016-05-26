@@ -19,12 +19,13 @@ public class BinaryFileUploadImpl extends AbstractFileUpload implements BinaryFi
 		, String fileFieldName
 		, String keyFieldName
 		, Object rowId
-		, String dataSourceJndiName) 
+		, String dataSourceJndiName
+		, String moduleName) 
 		throws ApplicationException {
 
 		int result = -1;
 		try {
-			CallContext.begin(dataSourceJndiName);
+			CallContext.begin(dataSourceJndiName, moduleName);
 
 			super.largeObject = new BinaryLargeObject(tableName, fileFieldName, keyFieldName, rowId);
 			result = ((BinaryLargeObject)super.largeObject).beginWrite();

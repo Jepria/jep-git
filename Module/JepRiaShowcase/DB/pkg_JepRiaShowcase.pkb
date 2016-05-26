@@ -85,8 +85,8 @@ end lockSupplier;
                                 ( по умолчанию отсутствует)
   settlementAccount           - расчетный счет
                                 ( по умолчанию отсутствует)
-  operatorId                  - Id оператора, выполняющего операцию
-                                ( по умолчанию текущий)
+  operatorId                  - идентификатор пользователя, выполняющего
+                                операцию ( по умолчанию текущий)
 
   Возврат:
   Id созданной записи.
@@ -176,8 +176,8 @@ end createSupplier;
   bankBic                     - банк
   recipientName               - получатель
   settlementAccount           - расчетный счет
-  operatorId                  - Id оператора, выполняющего операцию
-                                ( по умолчанию текущий)
+  operatorId                  - идентификатор пользователя, выполняющего
+                                операцию ( по умолчанию текущий)
 */
 procedure updateSupplier(
   supplierId integer
@@ -238,8 +238,8 @@ end updateSupplier;
 
   Параметры:
   supplierId                  - Id поставщика
-  operatorId                  - Id оператора, выполняющего операцию
-                                ( по умолчанию текущий)
+  operatorId                  - идентификатор пользователя, выполняющего
+                                операцию ( по умолчанию текущий)
 */
 procedure deleteSupplier(
   supplierId integer
@@ -297,8 +297,8 @@ end deleteSupplier;
                                 ( по умолчанию без ограничений)
   maxRowCount                 - максимальное число возвращаемых записей
                                 ( по умолчанию без ограничений)
-  operatorId                  - Id оператора, выполняющего операцию
-                                ( по умолчанию текущий)
+  operatorId                  - идентификатор пользователя, выполняющего
+                                операцию ( по умолчанию текущий)
 
   Возврат ( курсор):
   supplier_id                 - Id поставщика
@@ -474,8 +474,8 @@ end lockGoods;
   goodsPhotoExtension         - расширение файла с фотографией товара
   goodsPortfolioMimeType      - MIME-тип файла со спецификацией товара
   goodsPortfolioExtension     - расширение файла со спецификацией товара
-  operatorId                  - Id оператора, выполняющего операцию
-                                ( по умолчанию текущий)
+  operatorId                  - идентификатор пользователя, выполняющего
+                                операцию ( по умолчанию текущий)
 
   Возврат:
   Id созданной записи.
@@ -567,8 +567,8 @@ end createGoods;
   goodsPhotoExtension         - расширение файла с фотографией товара
   goodsPortfolioMimeType      - MIME-тип файла со спецификацией товара
   goodsPortfolioExtension     - расширение файла со спецификацией товара
-  operatorId                  - Id оператора, выполняющего операцию
-                                ( по умолчанию текущий)
+  operatorId                  - идентификатор пользователя, выполняющего
+                                операцию ( по умолчанию текущий)
 */
 procedure updateGoods(
   goodsId integer
@@ -631,8 +631,8 @@ end updateGoods;
 
   Параметры:
   goodsId                     - Id товара
-  operatorId                  - Id оператора, выполняющего операцию
-                                ( по умолчанию текущий)
+  operatorId                  - идентификатор пользователя, выполняющего
+                                операцию ( по умолчанию текущий)
 */
 procedure deleteGoods(
   goodsId integer
@@ -690,8 +690,8 @@ end deleteGoods;
                                 ( по умолчанию без ограничений)
   maxRowCount                 - максимальное число возвращаемых записей
                                 ( по умолчанию без ограничений)
-  operatorId                  - Id оператора, выполняющего операцию
-                                ( по умолчанию текущий)
+  operatorId                  - идентификатор пользователя, выполняющего
+                                операцию ( по умолчанию текущий)
 
   Возврат ( курсор):
   goods_id                    - Id товара
@@ -952,8 +952,8 @@ end getGoods;
   Параметры:
   goodsId                     - Id товара
   goodsSegmentCode            - код сегмента товара
-  operatorId                  - Id оператора, выполняющего операцию
-                                ( по умолчанию текущий)
+  operatorId                  - идентификатор пользователя, выполняющего
+                                операцию ( по умолчанию текущий)
 */
 procedure createGoodsSegmentLink(
   goodsId integer
@@ -998,8 +998,8 @@ end createGoodsSegmentLink;
   Параметры:
   goodsId                     - Id товара
   goodsSegmentCode            - код сегмента товара
-  operatorId                  - Id оператора, выполняющего операцию
-                                ( по умолчанию текущий)
+  operatorId                  - идентификатор пользователя, выполняющего
+                                операцию ( по умолчанию текущий)
 */
 procedure deleteGoodsSegmentLink(
   goodsId integer
@@ -1042,8 +1042,8 @@ end deleteGoodsSegmentLink;
 
   Параметры:
   goodsId                     - Id товара
-  operatorId                  - Id оператора, выполняющего операцию
-                                ( по умолчанию текущий)
+  operatorId                  - идентификатор пользователя, выполняющего
+                                операцию ( по умолчанию текущий)
 
   Возврат ( курсор):
   goods_id                    - Id товара
@@ -1107,8 +1107,8 @@ end getGoodsSegmentLink;
   goodsCatalogIdList          - Id разделов каталога, к которым относится
                                 товар ( список через запятую, null при
                                 отсутствии разделов)
-  operatorId                  - Id оператора, выполняющего операцию
-                                ( по умолчанию текущий)
+  operatorId                  - идентификатор пользователя, выполняющего
+                                операцию ( по умолчанию текущий)
 */
 procedure setGoodsCatalogLink(
   goodsId integer
@@ -1336,8 +1336,8 @@ end lockShopGoods;
   goodsId                     - Id товара
   goodsQuantity               - количество товара
   sellPrice                   - отпускная цена
-  operatorId                  - Id оператора, выполняющего операцию
-                                ( по умолчанию текущий)
+  operatorId                  - идентификатор пользователя, выполняющего
+                                операцию ( по умолчанию текущий)
 
   Возврат:
   Id созданной записи.
@@ -1405,8 +1405,8 @@ end createShopGoods;
   shopGoodsId                 - Id товара в магазине
   goodsQuantity               - количество товара
   sellPrice                   - отпускная цена
-  operatorId                  - Id оператора, выполняющего операцию
-                                ( по умолчанию текущий)
+  operatorId                  - идентификатор пользователя, выполняющего
+                                операцию ( по умолчанию текущий)
 */
 procedure updateShopGoods(
   shopGoodsId integer
@@ -1455,8 +1455,8 @@ end updateShopGoods;
 
   Параметры:
   shopGoodsId                 - Id товара в магазине
-  operatorId                  - Id оператора, выполняющего операцию
-                                ( по умолчанию текущий)
+  operatorId                  - идентификатор пользователя, выполняющего
+                                операцию ( по умолчанию текущий)
 */
 procedure deleteShopGoods(
   shopGoodsId integer
@@ -1505,8 +1505,8 @@ end deleteShopGoods;
                                 ( по умолчанию без ограничений)
   maxRowCount                 - максимальное число возвращаемых записей
                                 ( по умолчанию без ограничений)
-  operatorId                  - Id оператора, выполняющего операцию
-                                ( по умолчанию текущий)
+  operatorId                  - идентификатор пользователя, выполняющего
+                                операцию ( по умолчанию текущий)
 
   Возврат ( курсор):
   shop_goods_id               - Id товара в магазине
@@ -1659,8 +1659,8 @@ end lockRequest;
   shopId                      - Id магазина
   goodsId                     - Id товара
   goodsQuantity               - количество товара
-  operatorId                  - Id оператора, выполняющего операцию
-                                ( по умолчанию текущий)
+  operatorId                  - идентификатор пользователя, выполняющего
+                                операцию ( по умолчанию текущий)
 
   Возврат:
   Id созданной записи.
@@ -1725,8 +1725,8 @@ end createRequest;
   requestStatusCode           - код статуса запроса
   goodsId                     - Id товара
   goodsQuantity               - количество товара
-  operatorId                  - Id оператора, выполняющего операцию
-                                ( по умолчанию текущий)
+  operatorId                  - идентификатор пользователя, выполняющего
+                                операцию ( по умолчанию текущий)
 */
 procedure updateRequest(
   requestId integer
@@ -1775,8 +1775,8 @@ end updateRequest;
 
   Параметры:
   requestId                   - Id запроса
-  operatorId                  - Id оператора, выполняющего операцию
-                                ( по умолчанию текущий)
+  operatorId                  - идентификатор пользователя, выполняющего
+                                операцию ( по умолчанию текущий)
 */
 procedure deleteRequest(
   requestId integer
@@ -1833,8 +1833,8 @@ end deleteRequest;
                                 ( по умолчанию без ограничений)
   maxRowCount                 - максимальное число возвращаемых записей
                                 ( по умолчанию без ограничений)
-  operatorId                  - Id оператора, выполняющего операцию
-                                ( по умолчанию текущий)
+  operatorId                  - идентификатор пользователя, выполняющего
+                                операцию ( по умолчанию текущий)
 
   Возврат ( курсор):
   request_id                  - Id запроса
@@ -1975,8 +1975,8 @@ end findRequest;
 
   Параметры:
   requestId                   - Id запроса
-  operatorId                  - Id оператора, выполняющего операцию
-                                ( по умолчанию текущий)
+  operatorId                  - идентификатор пользователя, выполняющего
+                                операцию ( по умолчанию текущий)
 
   Возврат:
   Id созданной записи.
@@ -2030,8 +2030,8 @@ end createRequestProcess;
 
   Параметры:
   requestProcessId            - Id записи по обработке запроса
-  operatorId                  - Id оператора, выполняющего операцию
-                                ( по умолчанию текущий)
+  operatorId                  - идентификатор пользователя, выполняющего
+                                операцию ( по умолчанию текущий)
 */
 procedure deleteRequestProcess(
   requestProcessId integer
@@ -2071,7 +2071,6 @@ end deleteRequestProcess;
 
   Параметры:
   requestProcessId            - Id записи по обработке запроса
-                                ( по умолчанию без ограничений)
   requestId                    - Id запроса
                                 ( по умолчанию без ограничений)
   dateInsFrom                 - дата добавления записи, от
@@ -2080,19 +2079,19 @@ end deleteRequestProcess;
   dateInsTo                   - дата добавления записи, до
                                 ( с точностью до дня, включительно)
                                 ( по умолчанию без ограничений)
-  insertOperatorId            - Id оператора, добавившего запись
+  insertOperatorId            - идентификатор пользователя, добавившего запись
                                 ( по умолчанию без ограничений)
   maxRowCount                 - максимальное число возвращаемых записей
                                 ( по умолчанию без ограничений)
-  operatorId                  - Id оператора, выполняющего операцию
+  operatorId                  - идентификатор пользователя, выполняющего операцию
                                 ( по умолчанию текущий)
 
   Возврат ( курсор):
   request_process_id          - Id записи по обработке запроса
   process_comment             - комментарий к обработке запроса
   date_ins                    - дата добавления записи
-  operator_id                 - Id оператора, добавившего запись
-  operator_name               - ФИО оператора, добавившего запись
+  operator_id                 - идентификатор пользователя, добавившего запись
+  operator_name               - имя пользователя, добавившего запись
 
   Замечания:
   - возвращаемые записи отсортированы по request_process_id;
@@ -2198,6 +2197,327 @@ exception when others then
     , true
   );
 end findRequestProcess;
+
+
+
+/* group: Запрос функционала */
+
+/* iproc: lockFeature
+  Блокирует и возвращает запись с данными запроса функционала.
+
+  Параметры:
+  dataRec                     - данные запроса ( возврат)
+  featureId                   - идентификатор запроса функционала
+*/
+procedure lockFeature(
+  dataRec out nocopy jrs_feature%rowtype
+  , featureId integer
+)
+is
+-- lockFeature
+begin
+  select
+    t.*
+  into dataRec
+  from
+    jrs_feature t
+  where
+    t.feature_id = featureId
+  for update nowait;
+exception when others then
+  raise_application_error(
+    pkg_Error.ErrorStackInfo
+    , logger.errorStack(
+        'Ошибка при блокировке записи с данными запроса функционала ('
+        || ' featureId="' || to_char( featureId)
+        || ').'
+      )
+    , true
+  );
+end lockFeature;
+
+/* func: createFeature
+  Создаёт запись запроса функционала.
+
+  Параметры:
+  featureName                 - наименование запроса функционала на языке
+                                по-умолчанию
+  featureNameEn               - наименование запроса функционала на английском
+                                языке
+  operatorId                  - идентификатор пользователя, выполняющего операцию
+                                ( по умолчанию текущий)
+
+  Возврат:
+  - идентификатор созданной записи;
+*/
+function createFeature(
+  featureName varchar2
+  , featureNameEn varchar2
+  , operatorId integer
+)
+return integer
+is
+
+  -- Идентификатор созданной записи
+  featureId integer;
+
+-- createFeature
+begin
+  pkg_Operator.isRole(
+    coalesce( operatorId, pkg_Operator.getCurrentUserId())
+    , Feature_RoleSName
+  );
+  insert into
+    jrs_feature
+  (
+    feature_name
+    , feature_name_en
+    , operator_id
+  )
+  values (
+    featureName
+    , featureNameEn
+    , operatorId
+  )
+  returning
+    feature_id
+  into
+    featureId
+  ;
+  return featureId;
+exception when others then
+  raise_application_error(
+    pkg_Error.ErrorStackInfo
+    , logger.errorStack(
+        'Ошибка при создании запроса функционала ('
+        || ' featureName="' || featureName || '"'
+        || ', featureNameEn="' || featureNameEn || '"'
+        || ')'
+      )
+    , true
+  );
+end createFeature;
+
+/* proc: updateFeature
+  Обновляет запись запроса функционала.
+
+  Параметры:
+  featureId                   - идентификатор записи запроса функционала
+  featureName                 - наименование запроса функционала на языке
+                                по-умолчанию
+  featureNameEn               - наименование запроса функционала на английском
+                                языке
+  operatorId                  - идентификатор пользователя, выполняющего
+                                операцию ( по умолчанию текущий)
+*/
+procedure updateFeature(
+  featureId integer
+  , featureName varchar2
+  , featureNameEn varchar2
+  , operatorId integer
+)
+is
+
+  -- Данные запроса функционала
+  rec jrs_feature%rowtype;
+
+-- updateFeature
+begin
+  pkg_Operator.isRole(
+    coalesce( operatorId, pkg_Operator.getCurrentUserId())
+    , Feature_RoleSName
+  );
+  lockFeature(
+    dataRec             => rec
+    , featureId         => featureId
+  );
+  update
+    jrs_feature d
+  set
+    d.feature_name      = featureName
+    , d.feature_name_en = featureNameEn
+  where
+    d.feature_id = featureId
+  ;
+exception when others then
+  raise_application_error(
+    pkg_Error.ErrorStackInfo
+    , logger.errorStack(
+        'Ошибка при изменения данных запроса функционала ('
+        || ' featureId=' || to_char( featureId)
+        || ').'
+      )
+    , true
+  );
+end updateFeature;
+
+/* proc: deleteFeature
+  Удаляет запись запроса функционала.
+
+  Параметры:
+  featureId                   - идентификатор запроса фунционала
+  operatorId                  - идентификатор пользователя, выполняющего
+                                операцию ( по умолчанию текущий)
+*/
+procedure deleteFeature(
+  featureId integer
+  , operatorId integer
+)
+is
+
+  -- Данные записи
+  rec jrs_feature%rowtype;
+-- deleteFeature
+begin
+  pkg_Operator.isRole(
+    coalesce( operatorId, pkg_Operator.getCurrentUserId())
+    , Feature_RoleSName
+  );
+  lockFeature(
+    dataRec             => rec
+    , featureId         => featureId
+  );
+  delete
+    jrs_feature d
+  where
+    d.feature_id = featureId
+  ;
+exception when others then
+  raise_application_error(
+    pkg_Error.ErrorStackInfo
+    , logger.errorStack(
+        'Ошибка при удалении запроса функционала ('
+        || ' featureId=' || to_char( featureId)
+        || ')'
+      )
+    , true
+  );
+end deleteFeature;
+
+/* func: findFeature
+  Поиск записей запроса функционала.
+
+  Параметры:
+  featureId                   - идентификатор записи запроса функционала
+                                ( по умолчанию без ограничений)
+  featureName                 - наименование запроса функционала на языке
+                                по-умолчанию ( по умолчанию без ограничений)
+  featureNameEn               - наименование запроса функционала на английском
+                                языке ( по умолчанию без ограничений, при
+                                одновременном задании параметра featureName
+                                используется условие "ИЛИ")
+  dateInsFrom                 - дата добавления записи, от
+                                ( с точностью до дня, включительно)
+                                ( по умолчанию без ограничений)
+  dateInsTo                   - дата добавления записи, до
+                                ( с точностью до дня, включительно)
+                                ( по умолчанию без ограничений)
+  operatorId                  - идентификатор пользователя, выполняющего операцию
+                                ( по умолчанию текущий)
+
+  Возврат ( курсор):
+  feature_id                  - идентификатор запроса функционала
+  feature_name                - наименование запроса функционала на языке
+                                по-умолчанию
+  feature_name_en             - наименование запроса функционала на английском
+                                языке
+  description                 - описание запроса
+  date_ins                    - дата добавления записи
+  operator_id                 - идентификатор пользователя, добавившего запись
+  operator_name               - имя пользователя, добавившего запись
+  operator_name_en            - имя пользователя, добавившего запись на
+                                английском языке
+*/
+function findFeature(
+  featureId integer := null
+  , featureName varchar2 := null
+  , featureNameEn varchar2 := null
+  , dateInsFrom date := null
+  , dateInsTo date := null
+  , maxRowCount integer := null
+  , operatorId integer := null
+)
+return sys_refcursor
+is
+  -- Возвращаемый курсор
+  rc sys_refcursor;
+
+  -- Динамически формируемый текст запроса
+  dsql dyn_dynamic_sql_t := dyn_dynamic_sql_t( '
+select
+  t.feature_id
+  , t.feature_name
+  , t.feature_name_en
+  , t.description
+  , t.date_ins
+  , t.operator_id
+  , op.operator_name
+  , op.operator_name_en
+from
+  jrs_feature t
+inner join op_operator op
+  on op.operator_id = t.operator_id
+where
+  $(condition)
+  ');
+
+-- findFeature
+begin
+  pkg_Operator.isRole(
+    coalesce( operatorId, pkg_Operator.getCurrentUserId())
+    , Feature_RoleSName
+  );
+  dsql.addCondition(
+    't.feature_id =', featureId is null
+  );
+  if featureName is not null and featureNameEn is not null then
+    dsql.addCondition(
+      'upper( t.feature_name) like upper( :featureName) escape ''\''
+       or upper( t.feature_name_en) like upper( :featureNameEn) escape ''\'''
+      , false
+    );
+  else
+    dsql.addCondition(
+      'upper( t.feature_name) like upper( :featureName) escape ''\'''
+      , featureName is null
+    );
+    dsql.addCondition(
+      'upper( t.feature_name_en) like upper( :featureNameEn) escape ''\'''
+      , featureNameEn is null
+    );
+  end if;
+  dsql.addCondition(
+    't.date_ins >= trunc( :dateInsFrom)'
+    , dateInsFrom is null
+  );
+  dsql.addCondition(
+    't.date_ins <= trunc( :dateInsTo) + ( 1 - 1/86400)'
+    , dateInsTo is null
+  );
+  dsql.addCondition(
+    'rownum <= :maxRowCount', maxRowCount is null
+  );
+  dsql.useCondition( 'condition');
+  open rc for
+    dsql.getSqlText()
+  using
+    featureId
+    , featureName
+    , featureNameEn
+    , dateInsFrom
+    , dateInsTo
+    , maxRowCount
+  ;
+  return rc;
+exception when others then
+  raise_application_error(
+    pkg_Error.ErrorStackInfo
+    , logger.errorStack(
+        'Ошибка поиска записей по запросам функционала'
+      )
+    , true
+  );
+end findFeature;
 
 
 

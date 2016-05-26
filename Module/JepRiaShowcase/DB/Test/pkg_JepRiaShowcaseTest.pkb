@@ -1032,6 +1032,176 @@ request_process_id = ''' || requestProcessId || '''
 
 
 
+  /*
+    Тест функций %Feature.
+  */
+  procedure testFeature
+  is
+
+     featureId integer;
+
+     featureId3 integer;
+
+
+  begin
+    featureId := pkg_JepRiaShowcase.createFeature(
+      featureName     => '$TEST-Запрос'
+      , featureNameEn => '$TEST-Request-en'
+      , operatorId    => operatorId
+    );
+    pkg_TestUtility.compareRowCount(
+      tableName           => 'jrs_feature'
+      , filterCondition   => '
+feature_id = ' || coalesce( to_char( featureId), 'null') || '
+and feature_name = ''$TEST-Запрос''
+and feature_name_en = ''$TEST-Request-en'''
+       , expectedRowCount  => 1
+       , failMessageText   =>
+'createFeature: запись не создана или некорректна'
+    );
+    pkg_TestUtility.compareRowCount(
+      tableName           => 'v_jrs_feature_lob'
+      , filterCondition   => '
+feature_id = ' || coalesce( to_char( featureId), 'null')
+       , expectedRowCount  => 1
+       , failMessageText   =>
+'v_jrs_feature_lob: не найдена запись'
+    );
+    pkg_JepRiaShowcase.updateFeature(
+      featureId        => featureId
+      , featureName    => '$TEST-Запрос2'
+      , featureNameEn  => '$TEST-Request2-en'
+      , operatorId     => operatorId
+    );
+    pkg_TestUtility.compareRowCount(
+      tableName           => 'jrs_feature'
+      , filterCondition   => '
+feature_id = ' || coalesce( to_char( featureId), 'null') || '
+and feature_name = ''$TEST-Запрос2''
+and feature_name_en = ''$TEST-Request2-en'''
+       , expectedRowCount  => 1
+       , failMessageText   =>
+'updateFeature: запись не изменена или некорректна'
+    );
+    featureId3 := pkg_JepRiaShowcase.createFeature(
+      featureName     => '$TEST-Запрос3'
+      , featureNameEn => '$TEST-Request3-en'
+      , operatorId    => operatorId
+    );
+
+    -- Поиск по id
+    rc := pkg_JepRiaShowcase.findFeature(
+      featureId           => featureId
+    );
+    checkCursor( 'findFeature: featureId', 1);
+    -- Поиск по наименованию на английском ( проверка условия "ИЛИ")
+    rc := pkg_JepRiaShowcase.findFeature(
+      featureName         => '$%$%$%$%$%$'
+      , featureNameEn     => '$TEST-Request2-en'
+      , dateInsFrom       => sysdate - 1
+      , dateInsTo         => sysdate + 1
+      , operatorId        => operatorId
+    );
+    checkCursor( 'findFeature: featureNameEn: OR', 1);
+    -- Поиск по наименованию ( проверка условия "И")
+    rc := pkg_JepRiaShowcase.findFeature(
+      featureId           => featureId
+      , featureName       => '$%$%$%$%$%$'
+      , operatorId        => operatorId
+    );
+    checkCursor( 'findFeature: featureName: AND', 0);
+    -- Поиск по date_ins
+    rc := pkg_JepRiaShowcase.findFeature(
+      dateInsFrom         => sysdate + 1
+      , featureName       => ''
+      , operatorId        => operatorId
+    );
+    checkCursor( 'findFeature: fromDateIns', 0);
+    -- Поиск по date_ins
+    rc := pkg_JepRiaShowcase.findFeature(
+      dateInsTo           => sysdate - 1
+      , featureName       => '$TEST-Запрос2'
+      , operatorId        => operatorId
+    );
+    checkCursor( 'findFeature: toDateIns', 0);
+    -- Поиск по date_ins и featureName
+    rc := pkg_JepRiaShowcase.findFeature(
+      dateInsTo           => sysdate + 1
+      , featureName       => '$TEST-Запрос2'
+      , operatorId        => operatorId
+    );
+    checkCursor( 'findFeature: toDateIns', 1);
+    rc := pkg_JepRiaShowcase.findFeature(
+      dateInsTo           => sysdate + 1
+      , featureName       => '$TEST-Запрос2'
+      , operatorId        => operatorId
+    );
+    checkCursor( 'findFeature: toDateIns', 1);
+    rc := pkg_JepRiaShowcase.findFeature(
+      maxRowCount         => 1
+    );
+    checkCursor( 'findFeature: rowCount', 1);
+    pkg_JepRiaShowcase.deleteFeature(
+      featureId           => featureId
+      , operatorId        => operatorId
+    );
+    pkg_JepRiaShowcase.deleteFeature(
+      featureId           => featureId3
+      , operatorId        => operatorId
+    );
+    pkg_TestUtility.compareRowCount(
+      tableName           => 'jrs_feature'
+      , filterCondition   => '
+feature_id = ' || coalesce( to_char( featureId), 'null') || '
+or feature_id = ' || coalesce( to_char( featureId3), 'null')
+      , expectedRowCount  => 0
+      , failMessageText   =>
+'updateFeature: записи не удалены'
+    );
+    for i in 1..1000 loop
+      featureId := pkg_JepRiaShowcase.createFeature(
+        featureName     => '$TEST-Запрос' || to_char( i)
+        , featureNameEn => '$TEST-Request-en' || to_char( i)
+        , operatorId    => operatorId
+      );
+    end loop;
+    rc := pkg_JepRiaShowcase.findFeature(
+      featureName => '$TEST-Запрос1'
+    );
+    checkCursor( 'findFeature: find performance: count', 1);
+    for testFeature in (
+    select
+      feature_id
+    from
+      jrs_feature
+    where
+      feature_name like '$TEST-Запрос%'
+    )
+    loop
+      pkg_JepRiaShowcase.deleteFeature(
+        featureId    => testFeature.feature_id
+        , operatorId => operatorId
+      );
+    end loop;
+    -- Одна секунда на все тесты
+    if pkg_TestUtility.getTestTimeSecond() > 1 then
+      pkg_TestUtility.failTest(
+        failMessageText =>
+          'find performance test : '
+          || to_char( pkg_TestUtility.getTestTimeSecond(), 'FM9990.000') || ' сек.'
+      );
+    end if;
+  exception when others then
+    raise_application_error(
+      pkg_Error.ErrorStackInfo
+      , logger.errorStack(
+          'Ошибка при тестировании функций %Feature.'
+        )
+      , true
+    );
+  end testFeature;
+
+
 -- testUserApi
 begin
   pkg_TestUtility.beginTest(
@@ -1043,6 +1213,7 @@ begin
   testRequestApi();
   testRequestProcessApi();
   testGetFunction();
+  testFeature();
   pkg_TestUtility.endTest();
   rollback;
 exception when others then

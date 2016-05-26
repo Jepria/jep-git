@@ -502,6 +502,7 @@ installSchemaTarget =                   \
     $(wildcard Install/Schema/$(INSTALL_VERSION)/run.sql)      \
   )                                      \
   $(addsuffix .$(lu2),                  \
+    $(wildcard Install/Schema/$(INSTALL_VERSION)/Dba/run.sql)      \
   )                                      \
   $(addsuffix .$(lu3),                  \
   )                                      \
@@ -579,6 +580,7 @@ getInstallDataFile = \
 installDataTarget = \
   $(addsuffix .$(lu), \
     $(call getInstallDataFile) \
+	  $(wildcard Install/Data/Last/AccessOperator/*.sql) \
   ) \
   $(addsuffix .$(lu2), \
   ) \

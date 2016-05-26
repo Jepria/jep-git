@@ -30,9 +30,9 @@ public class CustomDao extends JepDao implements Custom {
 	public static class CustomStartTransactionHandler implements StartTransactionHandler{
 		
 		@Override
-		public void handle(String dataSourceJndiName)
+		public void handle(String dataSourceJndiName, String moduleName)
 				throws ApplicationException {
-			CallContext.begin(dataSourceJndiName);
+			CallContext.begin(dataSourceJndiName, moduleName);
 			log.trace("Начало транзакции");
 		}
 	};

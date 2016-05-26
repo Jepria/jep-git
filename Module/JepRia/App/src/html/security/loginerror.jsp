@@ -1,3 +1,4 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <%@ page contentType="text/html;charset=utf-8"%>
 <jsp:directive.page import="oracle.security.jazn.sso.app.*" />
 <jsp:directive.page import="oracle.security.jazn.util.Env" />
@@ -11,7 +12,7 @@
 	private int _sessionTimeout;
  </jsp:declaration>
  
-<jsp:scriptlet>
+<%
 	FrameworkResourceBundle _bundle = FrameworkResourceBundle.getResourceBundle(request.getLocales());
 	ResourceBundle resourceBundle = ResourceBundle.getBundle("com.technology.jep.jepria.shared.text.LoginText", request.getLocale());
 
@@ -25,11 +26,11 @@
 	}
 	int a = attempts.intValue();
 	if (a < _maxLoginAttempts){
-		RequestDispatcher rd = application.getRequestDispatcher("/WEB-INF/login.jsp");
+		RequestDispatcher rd = application.getRequestDispatcher("/security/login.jsp");
 		rd.forward(request, response);
 	}
-</jsp:scriptlet>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+%>
+
 <html lang="<%=_bundle.getResourceLocale().getLanguage()%>">
   <head>
     <title><%= resourceBundle.getString("loginError.title") %></title>

@@ -8,8 +8,15 @@ drop package pkg_JepRiaShowcase
 /
 
 
+-- Представления
+
+drop view v_jrs_feature_job
+/
+
+
 -- Внешние ключи
 
+@oms-drop-foreign-key jrs_feature
 @oms-drop-foreign-key jrs_goods
 @oms-drop-foreign-key jrs_goods_catalog
 @oms-drop-foreign-key jrs_goods_catalog_link
@@ -28,6 +35,8 @@ drop package pkg_JepRiaShowcase
 
 -- Таблицы
 
+drop table jrs_feature
+/
 drop table jrs_goods
 /
 drop table jrs_goods_catalog
@@ -60,6 +69,8 @@ drop table jrs_unit
 
 -- Последовательности
 
+drop sequence jrs_feature_seq
+/
 drop sequence jrs_goods_catalog_seq
 /
 drop sequence jrs_goods_seq

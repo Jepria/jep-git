@@ -1,19 +1,24 @@
 package com.technology.jep.jepria.server.util;
 
+import static com.technology.jep.jepria.server.JepRiaServerConstant.APPLICATION_NAME_CONTEXT_PARAMETER;
 import static com.technology.jep.jepria.server.JepRiaServerConstant.HTTP_REQUEST_PARAMETER_LANG;
+import static com.technology.jep.jepria.server.JepRiaServerConstant.JEP_RIA_RESOURCE_BUNDLE_NAME;
 import static com.technology.jep.jepria.server.JepRiaServerConstant.LOCALE_KEY;
 import static com.technology.jep.jepria.shared.JepRiaConstant.DEFAULT_DATE_FORMAT;
 import static com.technology.jep.jepria.shared.JepRiaConstant.LOCAL_LANG;
+import static com.technology.jep.jepria.shared.util.JepRiaUtil.isEmpty;
 
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Locale;
 import java.util.Map;
+import java.util.ResourceBundle;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
 import oracle.security.jazn.oc4j.JAZNServletRequest;
@@ -258,6 +263,36 @@ public class JepServerUtil {
 			result = request instanceof JAZNServletRequest;
 		} catch(java.lang.NoClassDefFoundError ex) {
 			// Не JavaSSO, значит - CAS
+		}
+		
+		return result;
+	}
+
+	
+	/**
+	 * Возвращает имя приложения, указанное в web.xml.
+	 * Имя приложения задаётся в контекстном параметре <code>applicationName</code>.
+	 * Использование именно такого способа связано с тем, что OC4J не поддерживает Servlet 2.4,
+	 * поэтому имя приложения нельзя получить с помощью {@link ServletContext#getContextPath()}.
+	 * См. {@link http://stackoverflow.com/a/8611825 }.
+	 * @param context контекст сервлета
+	 * @return имя приложения
+	 * @throws IllegalStateException если в web.xml не определено имя приложения
+	 */
+	public static String getApplicationName(ServletContext context) {
+		String applicationName = context.getInitParameter(APPLICATION_NAME_CONTEXT_PARAMETER);
+		if (isEmpty(applicationName)) {
+			ResourceBundle resources = ResourceBundle.getBundle(JEP_RIA_RESOURCE_BUNDLE_NAME);
+			throw new IllegalStateException(resources.getString("errors.server.missingApplicationName"));
+		}
+		return applicationName;
+	}
+
+	public static boolean isTomcat(HttpServletRequest request) {
+		boolean result = false;
+		try {
+			result = request instanceof org.apache.catalina.connector.RequestFacade;
+		} catch(java.lang.NoClassDefFoundError ex) {
 		}
 		
 		return result;
