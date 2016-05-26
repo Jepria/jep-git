@@ -4,11 +4,11 @@ import com.technology.jep.jepria.auto.entrance.EntranceAppAuto;
 import com.technology.jep.jepria.auto.manager.JepRiaAuto;
 import com.technology.jep.jepriashowcase.custom.auto.CustomAuto;
 import com.technology.jep.jepriashowcase.goods.auto.GoodsAuto;
-import com.technology.jep.jepriashowcase.featurerequest.auto.FeatureRequestAuto;
+import com.technology.jep.jepriashowcase.feature.auto.FeatureAuto;
 
 public interface JepRiaShowcaseAuto extends JepRiaAuto, EntranceAppAuto {
 	CustomAuto getCustomAuto();
 	
 	GoodsAuto getGoodsAuto(boolean newInstance);
-	FeatureRequestAuto getFeatureRequestAuto(boolean newInstance);
+	FeatureAuto getFeatureAuto(boolean newInstance);
 }

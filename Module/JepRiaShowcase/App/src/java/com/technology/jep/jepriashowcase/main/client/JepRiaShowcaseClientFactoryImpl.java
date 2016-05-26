@@ -3,7 +3,7 @@ package com.technology.jep.jepriashowcase.main.client;
 import static com.technology.jep.jepriashowcase.main.client.JepRiaShowcaseClientConstant.ALLSHOPGOODS_MODULE_ID;
 import static com.technology.jep.jepriashowcase.main.client.JepRiaShowcaseClientConstant.CUSTOM_MODULE_ID;
 import static com.technology.jep.jepriashowcase.main.client.JepRiaShowcaseClientConstant.GOODS_MODULE_ID;
-import static com.technology.jep.jepriashowcase.main.client.JepRiaShowcaseClientConstant.FEATUREREQUEST_MODULE_ID;
+import static com.technology.jep.jepriashowcase.main.client.JepRiaShowcaseClientConstant.FEATURE_MODULE_ID;
 import static com.technology.jep.jepriashowcase.main.client.JepRiaShowcaseClientConstant.REQUESTPROCESS_MODULE_ID;
 import static com.technology.jep.jepriashowcase.main.client.JepRiaShowcaseClientConstant.REQUEST_MODULE_ID;
 import static com.technology.jep.jepriashowcase.main.client.JepRiaShowcaseClientConstant.SEARCH_MODULE_ID;
@@ -29,7 +29,7 @@ import com.technology.jep.jepriashowcase.custom.client.CustomClientFactoryImpl;
 import com.technology.jep.jepriashowcase.goods.client.GoodsClientFactoryImpl;
 import com.technology.jep.jepriashowcase.main.client.ui.main.JepRiaShowcaseMainModulePresenter;
 import com.technology.jep.jepriashowcase.request.client.RequestClientFactoryImpl;
-import com.technology.jep.jepriashowcase.featurerequest.client.FeatureRequestClientFactoryImpl;
+import com.technology.jep.jepriashowcase.feature.client.FeatureClientFactoryImpl;
 import com.technology.jep.jepriashowcase.requestprocess.client.RequestProcessClientFactoryImpl;
 import com.technology.jep.jepriashowcase.search.client.SearchClientFactoryImpl;
 import com.technology.jep.jepriashowcase.shopgoods.client.ShopGoodsClientFactoryImpl;
@@ -58,7 +58,7 @@ public class JepRiaShowcaseClientFactoryImpl<E extends MainEventBus, S extends J
 				, ALLSHOPGOODS_MODULE_ID
 				, REQUEST_MODULE_ID
 				, REQUESTPROCESS_MODULE_ID
-				, FEATUREREQUEST_MODULE_ID
+				, FEATURE_MODULE_ID
 
 			},
 			new String[] {
@@ -71,7 +71,7 @@ public class JepRiaShowcaseClientFactoryImpl<E extends MainEventBus, S extends J
 				, jepRiaShowcaseText.submodule_allshopgoods_title()
 				, jepRiaShowcaseText.submodule_request_title()
 				, jepRiaShowcaseText.submodule_requestprocess_title()
-				, jepRiaShowcaseText.submodule_featurerequest_title()
+				, jepRiaShowcaseText.submodule_feature_title()
 			}
 		);
 		
@@ -157,11 +157,11 @@ public class JepRiaShowcaseClientFactoryImpl<E extends MainEventBus, S extends J
 				}
 			});
 		}
-		else if(FEATUREREQUEST_MODULE_ID.equals(moduleId)) {
+		else if(FEATURE_MODULE_ID.equals(moduleId)) {
 			GWT.runAsync(new LoadPlainClientFactory(callback) {
 				public PlainClientFactory<PlainEventBus, JepDataServiceAsync> getPlainClientFactory() {
-					Log.trace(JepRiaShowcaseClientFactoryImpl.this.getClass() + ".getPlainClientFactory: moduleId = " + FEATUREREQUEST_MODULE_ID);
-					return FeatureRequestClientFactoryImpl.getInstance();
+					Log.trace(JepRiaShowcaseClientFactoryImpl.this.getClass() + ".getPlainClientFactory: moduleId = " + FEATURE_MODULE_ID);
+					return FeatureClientFactoryImpl.getInstance();
 				}
 			});
 		}
