@@ -190,12 +190,9 @@ public class FeatureAutoTest extends JepAutoTest<FeatureAuto> {
 		cut.clickButton(CONFIRM_MESSAGE_BOX_YES_BUTTON_ID);
 		
 		// Проверяем корректность удаления: пытаемся найти запись по сохраненному feature_id
-		
-		cut.setWorkstate(SEARCH);
 		cut.setFeatureId(feature_id);
 		// Осуществляем поиск
-		cut.setWorkstate(VIEW_LIST);
-		
+		cut.find();
 		//TODO убедиться что список пуст
 	}
 	 		
