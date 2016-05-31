@@ -5,6 +5,7 @@
 		<parameter name="baseUrl" value="http://${host}/${appName}${testModule}"/>
 		<parameter name="browserName" value="${browserName}"/>
 		<parameter name="browserPath" value="${browserPath}"/>
+		<parameter name="driverPath" value="${driverPath}"/>
 		<parameter name="username" value="${testUsername}"/>
 		<parameter name="password" value="${testPassword}"/>
 		<parameter name="jepriaVersion" value="${jepriaVersion}"/>

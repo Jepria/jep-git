@@ -13,19 +13,20 @@ public class JepRiaShowcaseAutoTest {
 
 	private JepRiaShowcaseAutoImpl cut;
 
-	@Parameters({"baseUrl", "browserName", "browserVersion", "browserPlatform", "browserPath", "jepriaVersion", "username", "password"})
+	@Parameters({"baseUrl", "browserName", "browserVersion", "browserPlatform", "browserPath", "driverPath", "jepriaVersion", "username", "password"})
 	@BeforeMethod
 	public void setUp(String baseUrl,
 			String browserName,
 			@Optional("fake") String browserVersion,
 			@Optional("fake") String browserPlatform,
 			String browserPath,
+			String driverPath,
 			String jepriaVersion,
 			String username,
 			String password) {
 		logger.info(this.getClass() + ".setUp(" + baseUrl + ")");
 		
-		cut = new JepRiaShowcaseAutoImpl(baseUrl, browserName, browserVersion, browserPlatform, browserPath, jepriaVersion, username, password);
+		cut = new JepRiaShowcaseAutoImpl(baseUrl, browserName, browserVersion, browserPlatform, browserPath, driverPath, jepriaVersion, username, password);
 		cut.start(baseUrl);
 	}
 	

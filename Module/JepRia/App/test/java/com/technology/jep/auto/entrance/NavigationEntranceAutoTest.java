@@ -16,17 +16,18 @@ public class NavigationEntranceAutoTest {
 	private NavigationEntranceAuto automationManager;
 	private EntranceAuto cut;
 
-	@Parameters({"baseUrl", "browserName", "browserVersion", "browserPlatform", "browserPath", "jepriaVersion", "username", "password"})
+	@Parameters({"baseUrl", "browserName", "browserVersion", "browserPlatform", "browserPath", "driverPath", "jepriaVersion", "username", "password"})
 	@BeforeMethod
 	public void setUp(String baseUrl,
 			String browserName,
 			String browserVersion,
 			String browserPlatform,
 			String browserPath,
+			String driverPath,
 			String jepriaVersion,
 			String username,
 			String password) {
-		automationManager = new  NavigationEntranceAuto(baseUrl, browserName, browserVersion, browserPlatform, browserPath, jepriaVersion, username, password);
+		automationManager = new  NavigationEntranceAuto(baseUrl, browserName, browserVersion, browserPlatform, browserPath, driverPath, jepriaVersion, username, password);
 		automationManager.start(baseUrl);
 		
     	cut = automationManager.getEntranceAuto();

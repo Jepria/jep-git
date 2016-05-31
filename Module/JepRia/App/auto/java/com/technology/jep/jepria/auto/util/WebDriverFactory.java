@@ -1,6 +1,6 @@
 package com.technology.jep.jepria.auto.util;
 
-import static com.technology.jep.jepria.auto.JepAutoProperties.BROWSER_NAME_KEY;
+import static com.technology.jep.jepria.auto.JepAutoProperties.*;
 import static com.technology.jep.jepria.auto.JepAutoProperties.BROWSER_PATH_KEY;
 import static com.technology.jep.jepria.auto.JepAutoProperties.get;
 
@@ -48,7 +48,7 @@ public class WebDriverFactory {
         browser.setPath(get(BROWSER_PATH_KEY));
 
         if (CHROME.equals(browser.getName())) {
-        	System.setProperty("webdriver.chrome.driver", "C:/Program Files (x86)/Google/Chrome/Application/chromedriver.exe");
+        	System.setProperty("webdriver.chrome.driver", get(DRIVER_PATH_KEY));
             webDriver = new ChromeDriver();
             logger.info("ChromeDriver has created");
         } else if (FIREFOX.equals(browser.getName())) {

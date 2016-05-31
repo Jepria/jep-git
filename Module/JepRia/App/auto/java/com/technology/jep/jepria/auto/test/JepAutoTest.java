@@ -30,6 +30,7 @@ public abstract class JepAutoTest<C extends JepRiaModuleAuto> extends AssertJUni
 			String browserVersion,
 			String browserPlatform,
 			String browserPath,
+			String driverPath,
 			String jepriaVersion,
 			String username,
 			String password);
@@ -55,6 +56,7 @@ public abstract class JepAutoTest<C extends JepRiaModuleAuto> extends AssertJUni
 		"browserVersion",
 		"browserPlatform",
 		"browserPath",
+		"driverPath",
 		"jepriaVersion",
 		"forceNewBrowser",
 		"forceLogin",
@@ -68,13 +70,14 @@ public abstract class JepAutoTest<C extends JepRiaModuleAuto> extends AssertJUni
 			@Optional("fake") String browserVersion,
 			@Optional("fake") String browserPlatform,
 			String browserPath,
+			@Optional String driverPath,
 			String jepriaVersion,
 			@Optional("No") String forceNewBrowser,
 			@Optional("No") String forceLogin,
 			String username,
 			String password) {
 		
-		automationManager = startAutomationManager(automationManager, baseUrl, browserName, browserVersion, browserPlatform, browserPath, jepriaVersion, forceNewBrowser, forceLogin, username, password);
+		automationManager = startAutomationManager(automationManager, baseUrl, browserName, browserVersion, browserPlatform, browserPath, driverPath, jepriaVersion, forceNewBrowser, forceLogin, username, password);
     	cut = getCut();
     	if("Yes".equalsIgnoreCase(forceLogin) || !cut.isLoggedIn()) {
     		cut.login(username, password);
@@ -195,6 +198,7 @@ public abstract class JepAutoTest<C extends JepRiaModuleAuto> extends AssertJUni
 			String browserVersion,
 			String browserPlatform,
 			String browserPath,
+			String driverPath,
 			String jepriaVersion,
 			String forceNewBrowser,
 			String forceLogin,
@@ -202,7 +206,7 @@ public abstract class JepAutoTest<C extends JepRiaModuleAuto> extends AssertJUni
 			String password) {
 		
 		if(automationManager == null || "Yes".equalsIgnoreCase(forceNewBrowser)) {
-			automationManager = getAutomationManager(baseUrl, browserName, browserVersion, browserPlatform, browserPath, jepriaVersion, username, password);
+			automationManager = getAutomationManager(baseUrl, browserName, browserVersion, browserPlatform, browserPath, driverPath, jepriaVersion, username, password);
 		}
 		
 		if(!automationManager.isStarted()) {

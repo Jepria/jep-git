@@ -322,6 +322,7 @@
 
 					<sysproperty key="browserName" value="${browserName}"/>
 					<sysproperty key="browserPath" value="${browserPath}"/>
+					<sysproperty key="driverPath" value="${driverPath}"/>
 					<sysproperty key="jepriaVersion" value="${jepriaVersion}"/>
 					<sysproperty key="host" value="${host}"/>
 					<sysproperty key="appName" value="${appName}"/>

@@ -11,10 +11,11 @@ public class ApplicationEntranceAppAuto extends WDAutoAbstract implements Entran
 			String browserVersion,
 			String browserPlatform,
 			String browserPath,
+			String driverPath,
 			String jepriaVersion,
 			String username,
 			String password) {
-		super(baseUrl, browserName, browserVersion, browserPlatform, browserPath, jepriaVersion, username, password);
+		super(baseUrl, browserName, browserVersion, browserPlatform, browserPath, driverPath, jepriaVersion, username, password);
 		entranceAuto = new ApplicationEntranceAuto<EntranceAppAuto, ApplicationEntrancePageManager>(this, new ApplicationEntrancePageManager());
 	}
 

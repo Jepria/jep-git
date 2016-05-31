@@ -23,6 +23,7 @@ public class GoodsEntranceAutoTest {
 		"browserVersion",
 		"browserPlatform",
 		"browserPath",
+		"driverPath",
 		"jepriaVersion",
 		"username",
 		"password"})
@@ -32,11 +33,12 @@ public class GoodsEntranceAutoTest {
 			@Optional("fake") String browserVersion,
 			@Optional("fake") String browserPlatform,
 			String browserPath,
+			String driverPath,
 			String jepriaVersion,
 			String username,
 			String password) {
 		
-		automationManager = new JepRiaShowcaseAutoImpl(baseUrl, browserName, browserVersion, browserPlatform, browserPath, jepriaVersion, username, password);
+		automationManager = new JepRiaShowcaseAutoImpl(baseUrl, browserName, browserVersion, browserPlatform, browserPath, driverPath, jepriaVersion, username, password);
 		automationManager.start(baseUrl);
 		
     	cut = automationManager.getGoodsAuto(true); // TODO Вернуть оптимизацию

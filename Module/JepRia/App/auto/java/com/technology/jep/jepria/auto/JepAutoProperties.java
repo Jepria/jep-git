@@ -22,6 +22,7 @@ public class JepAutoProperties {
 	public static String BROWSER_VERSION_KEY = "browserVersion";
 	public static String BROWSER_PLATFORM_KEY = "browserPlatform";
 	public static String BROWSER_PATH_KEY = "browserPath"; // Используется для указания на конкретное место установки браузера (если их может быть несколько, как у FireFox)
+	public static String DRIVER_PATH_KEY = "driverPath"; // Используется для указания на конкретное место установки драйвера (для некоторых браузеров, таких как firefox, не нужен)
     public static String JEPRIA_VERSION_KEY = "jepRiaVersion";
     public static String USERNAME_KEY = "username";
     public static String PASSWORD_KEY = "password";

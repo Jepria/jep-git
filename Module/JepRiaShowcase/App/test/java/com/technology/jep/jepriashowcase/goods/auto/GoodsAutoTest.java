@@ -53,11 +53,12 @@ public class GoodsAutoTest extends JepAutoTest<GoodsAuto> {
 			String browserVersion,
 			String browserPlatform,
 			String browserPath,
+			String driverPath,
 			String jepriaVersion,
 			String username,
 			String password) {
 		
-		return new JepRiaShowcaseAutoImpl(baseUrl, browserName, browserVersion, browserPlatform, browserPath, jepriaVersion, username, password);
+		return new JepRiaShowcaseAutoImpl(baseUrl, browserName, browserVersion, browserPlatform, browserPath, driverPath, jepriaVersion, username, password);
 	}
 
 	/**
