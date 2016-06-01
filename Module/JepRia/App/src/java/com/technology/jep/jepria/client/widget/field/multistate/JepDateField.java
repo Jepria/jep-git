@@ -2,7 +2,6 @@ package com.technology.jep.jepria.client.widget.field.multistate;
 
 import static com.technology.jep.jepria.client.JepRiaClientConstant.DEFAULT_DATE_FORMAT_MASK;
 import static com.technology.jep.jepria.client.JepRiaClientConstant.JepTexts;
-import static com.technology.jep.jepria.client.widget.event.JepEventType.CHANGE_VALUE_EVENT;
 import static com.technology.jep.jepria.shared.JepRiaConstant.DEFAULT_DATE_FORMAT;
 
 import java.util.Date;
@@ -56,7 +55,7 @@ public class JepDateField extends JepMultiStateField<MaskedDateBox, HTML> {
 	 * Создаёт поле для ввода даты с пустой меткой в стандартном формате (dd.MM.yyyy).
 	 */
 	public JepDateField() {
-		this("");
+		this(null);
 	}
 	
 	/**
@@ -64,7 +63,11 @@ public class JepDateField extends JepMultiStateField<MaskedDateBox, HTML> {
 	 * @param fieldLabel метка
 	 */
 	public JepDateField(String fieldLabel) {
-		super(fieldLabel);
+		this(null, fieldLabel);
+	}
+	
+	public JepDateField(String fieldId, String fieldLabel) {
+		super(fieldId, fieldLabel);
 	}
 
 	/**
@@ -139,6 +142,8 @@ public class JepDateField extends JepMultiStateField<MaskedDateBox, HTML> {
 			case CHANGE_VALUE_EVENT:
 				addChangeValueListener();
 				break;
+				
+			default:;
 		}
 		
 		super.addListener(eventType, listener);

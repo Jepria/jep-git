@@ -3,10 +3,10 @@ package com.technology.jep.jepriashowcase.goods.auto;
 import static com.technology.jep.jepria.client.AutomationConstant.ERROR_MESSAGE_BOX_OK_BUTTON_ID;
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.CREATE;
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.SEARCH;
-import static com.technology.jep.jepriashowcase.goods.client.JRSCGoodsAutomationConstant.JRSC_GOODS_NAME_DETAILFORM_FIELD_INPUT_ID;
-import static com.technology.jep.jepriashowcase.goods.client.JRSCGoodsAutomationConstant.JRSC_GOODS_PURCHASING_PRICE_DETAILFORM_FIELD_INPUT_ID;
-import static com.technology.jep.jepriashowcase.goods.client.JRSCGoodsAutomationConstant.JRSC_GOODS_TYPE_DETAILFORM_FIELD_INPUT_ID;
-import static com.technology.jep.jepriashowcase.goods.client.JRSCGoodsAutomationConstant.JRSC_GOODS_UNIT_DETAILFORM_FIELD_INPUT_ID;
+import static com.technology.jep.jepriashowcase.goods.client.JRSCGoodsAutomationConstant.JRSC_GOODS_NAME_TEXT_FIELD_ID;
+import static com.technology.jep.jepriashowcase.goods.client.JRSCGoodsAutomationConstant.JRSC_GOODS_PURCHASING_PRICE_NUMBER_FIELD_ID;
+import static com.technology.jep.jepriashowcase.goods.client.JRSCGoodsAutomationConstant.JRSC_GOODS_TYPE_COMBOBOX_FIELD_ID;
+import static com.technology.jep.jepriashowcase.goods.client.JRSCGoodsAutomationConstant.JRSC_GOODS_UNIT_COMBOBOX_FIELD_ID;
 
 import java.util.HashMap;
 import java.util.List;
@@ -34,7 +34,7 @@ public class GoodsAutoTest extends JepAutoTest<GoodsAuto> {
 	/**
 	 * ID Web-элемента идентифицирующего поля записи - 'Наименование товара' 
 	 */
-	private final String KEY_FIELD_WEB_ELEMENT_ID = JRSC_GOODS_NAME_DETAILFORM_FIELD_INPUT_ID;
+	private final String KEY_FIELD_WEB_ELEMENT_ID = JRSC_GOODS_NAME_TEXT_FIELD_ID;
 	/**
 	 * Значение идентифицирующего поля записи (псевдо-ID, используется вместо PrimaryKey) 
 	 */
@@ -321,7 +321,7 @@ public class GoodsAutoTest extends JepAutoTest<GoodsAuto> {
 	@Parameters({"KEY_FIELD_VALUE"})
 	public void edit(String goodsName) {
 		Map<String, String> key = new HashMap<String, String>();
-		key.put("JRSC_GOODS_NAME_DETAILFORM_FIELD_INPUT", goodsName);
+		key.put("JRSC_GOODS_NAME_TEXT_FIELD_ID", goodsName);
 		cut.edit(key);
         
 		assertEquals(
@@ -337,7 +337,7 @@ public class GoodsAutoTest extends JepAutoTest<GoodsAuto> {
 //	@Parameters({"KEY_FIELD_VALUE"})
 	public void goToList(final String goodsName) {
 		cut.find(new HashMap<String, String>(){{
-			put("JRSC_GOODS_NAME_DETAILFORM_FIELD_INPUT", goodsName);
+			put("JRSC_GOODS_NAME_TEXT_FIELD_ID", goodsName);
 		}});
         
 		assertEquals(
@@ -353,7 +353,7 @@ public class GoodsAutoTest extends JepAutoTest<GoodsAuto> {
 //	@Parameters({"KEY_FIELD_VALUE"})
 	public void selectFirstItem(final String goodsName) {
 		cut.find(new HashMap<String, String>(){{
-			put(JRSC_GOODS_NAME_DETAILFORM_FIELD_INPUT_ID, goodsName);
+			put(JRSC_GOODS_NAME_TEXT_FIELD_ID, goodsName);
 		}});
 		
 		cut.selectItem(0);
@@ -373,7 +373,7 @@ public class GoodsAutoTest extends JepAutoTest<GoodsAuto> {
 	public void setAndGetGoodsNameOnEdit(String goodsNameNewValue) {
 		
 		testSetAndGetTextFieldValueOnEdit(
-				JRSC_GOODS_NAME_DETAILFORM_FIELD_INPUT_ID,
+				JRSC_GOODS_NAME_TEXT_FIELD_ID,
 				goodsNameNewValue);
 	}
 	
@@ -387,7 +387,7 @@ public class GoodsAutoTest extends JepAutoTest<GoodsAuto> {
 	public void setAndGetTypeOnEdit(String typeFieldValue) {
 		
 		testSetAndGetComboBoxFieldValueOnEdit(
-				JRSC_GOODS_TYPE_DETAILFORM_FIELD_INPUT_ID,
+				JRSC_GOODS_TYPE_COMBOBOX_FIELD_ID,
 				typeFieldValue);
 	}
 
@@ -401,7 +401,7 @@ public class GoodsAutoTest extends JepAutoTest<GoodsAuto> {
 	public void setWrongTypeOnEdit(String wrongTypeFieldValue) {
 		
 		testSetAndGetComboBoxFieldValueOnEdit(
-				JRSC_GOODS_TYPE_DETAILFORM_FIELD_INPUT_ID,
+				JRSC_GOODS_TYPE_COMBOBOX_FIELD_ID,
 				wrongTypeFieldValue);
 	}
 	
@@ -415,7 +415,7 @@ public class GoodsAutoTest extends JepAutoTest<GoodsAuto> {
 	public void setAndGetUnitOnEdit(String unitFieldValue) {
 		
 		testSetAndGetComboBoxFieldValueOnEdit(
-				JRSC_GOODS_UNIT_DETAILFORM_FIELD_INPUT_ID,
+				JRSC_GOODS_UNIT_COMBOBOX_FIELD_ID,
 				unitFieldValue);
 		
 	}
@@ -430,7 +430,7 @@ public class GoodsAutoTest extends JepAutoTest<GoodsAuto> {
 	public void setWrongUnitOnEdit(String wrongUnitFieldValue) {
 		
 		testSetAndGetComboBoxFieldValueOnEdit(
-				JRSC_GOODS_UNIT_DETAILFORM_FIELD_INPUT_ID,
+				JRSC_GOODS_UNIT_COMBOBOX_FIELD_ID,
 				wrongUnitFieldValue);
 	}
 
@@ -487,7 +487,7 @@ public class GoodsAutoTest extends JepAutoTest<GoodsAuto> {
 	public void setAndGetPurchasingPriceOnEdit(String purchasingPriceNewValue) {
 		
 		testSetAndGetTextFieldValueOnEdit(
-				JRSC_GOODS_PURCHASING_PRICE_DETAILFORM_FIELD_INPUT_ID,
+				JRSC_GOODS_PURCHASING_PRICE_NUMBER_FIELD_ID,
 				purchasingPriceNewValue);
 	}
 	
@@ -504,7 +504,7 @@ public class GoodsAutoTest extends JepAutoTest<GoodsAuto> {
 				cut,
 				KEY_FIELD_WEB_ELEMENT_ID,
 				KEY_FIELD_VALUE,
-				JRSC_GOODS_PURCHASING_PRICE_DETAILFORM_FIELD_INPUT_ID,
+				JRSC_GOODS_PURCHASING_PRICE_NUMBER_FIELD_ID,
 				purchasingPriceNewValue,
 				false);
 	}
@@ -521,7 +521,7 @@ public class GoodsAutoTest extends JepAutoTest<GoodsAuto> {
 			createTestRecord(goodsName);
 			
 			cut.edit(new HashMap<String, String>() {{
-				put(JRSC_GOODS_NAME_DETAILFORM_FIELD_INPUT_ID, goodsName);
+				put(JRSC_GOODS_NAME_TEXT_FIELD_ID, goodsName);
 			}});
 			
 	        final String GOODS_PHOTO = "...";			// TODO Поддержать выбор файла
@@ -606,7 +606,7 @@ public class GoodsAutoTest extends JepAutoTest<GoodsAuto> {
 		try {
 			createTestRecord(goodsNameFieldValue);
 			
-			Map<String, String> key = new HashMap<String, String>() {{put(JRSC_GOODS_NAME_DETAILFORM_FIELD_INPUT_ID, goodsNameFieldValue);}};
+			Map<String, String> key = new HashMap<String, String>() {{put(JRSC_GOODS_NAME_TEXT_FIELD_ID, goodsNameFieldValue);}};
 			cut.find(key);
 			
 			try {
@@ -661,13 +661,13 @@ public class GoodsAutoTest extends JepAutoTest<GoodsAuto> {
 	
 	
 	private void deleteTestRecord(String testFieldValue) {
-		super.deleteTestRecord(JRSC_GOODS_NAME_DETAILFORM_FIELD_INPUT_ID, testFieldValue);
+		super.deleteTestRecord(JRSC_GOODS_NAME_TEXT_FIELD_ID, testFieldValue);
 	}
 
 	private void testSetAndGetTextFieldValueOnEdit(String testFieldId, String testFieldNewValue) {
 		testSetAndGetTextFieldValueOnEdit(
 				cut,
-				JRSC_GOODS_NAME_DETAILFORM_FIELD_INPUT_ID,
+				JRSC_GOODS_NAME_TEXT_FIELD_ID,
 				KEY_FIELD_VALUE,
 				testFieldId,
 				testFieldNewValue,
@@ -677,7 +677,7 @@ public class GoodsAutoTest extends JepAutoTest<GoodsAuto> {
 	private void testSetAndGetComboBoxFieldValueOnEdit(String testFieldId, String testFieldNewValue) {
 		testSetAndGetComboBoxFieldValueOnEdit(
 				cut,
-				JRSC_GOODS_NAME_DETAILFORM_FIELD_INPUT_ID,
+				JRSC_GOODS_NAME_TEXT_FIELD_ID,
 				KEY_FIELD_VALUE,
 				testFieldId,
 				testFieldNewValue);

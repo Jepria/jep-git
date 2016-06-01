@@ -1,5 +1,6 @@
 package com.technology.jep.jepriashowcase.feature.client.ui.form.detail;
 
+import static com.technology.jep.jepriashowcase.feature.client.FeatureAutomationConstant.*;
 import static com.technology.jep.jepriashowcase.feature.client.FeatureAutomationConstant.FEATURE_FEATUREID_DETAILFORM_FIELD_ID;
 import static com.technology.jep.jepriashowcase.feature.client.FeatureAutomationConstant.FEATURE_FEATURENAMEEN_DETAILFORM_FIELD_ID;
 import static com.technology.jep.jepriashowcase.feature.client.FeatureAutomationConstant.FEATURE_FEATURENAME_DETAILFORM_FIELD_ID;
@@ -42,10 +43,10 @@ public class FeatureDetailFormViewImpl extends DetailFormViewImpl {
 		featureNameTextField.setMaxLength(255);
 		JepTextField featureNameEnTextField = new JepTextField(FEATURE_FEATURENAMEEN_DETAILFORM_FIELD_ID, featureText.feature_detail_feature_name_en());
 		featureNameEnTextField.setMaxLength(255);
-		JepDateField dateInsFromTextField = new JepDateField(featureText.feature_detail_date_ins_from());
-		JepDateField dateInsToTextField = new JepDateField(featureText.feature_detail_date_ins_to());
+		JepDateField dateInsFromTextField = new JepDateField(FEATURE_FROMDATEINS_DETAILFORM_FIELD_ID, featureText.feature_detail_date_ins_from());
+		JepDateField dateInsToTextField = new JepDateField(FEATURE_TODATEINS_DETAILFORM_FIELD_ID, featureText.feature_detail_date_ins_to());
 		JepDateField dateInsTextField = new JepDateField(featureText.feature_detail_date_ins());
-		JepTextAreaField descriptionTextAreaField = new JepTextAreaField(featureText.feature_detail_description());
+		JepTextAreaField descriptionTextAreaField = new JepTextAreaField(FEATURE_DESCRIPTION_DETAILFORM_FIELD_ID, featureText.feature_detail_description());
 		descriptionTextAreaField.setFieldHeight(120);
 		descriptionTextAreaField.setFieldWidth(400);
 		JepTextField operatorNameTextField = new JepTextField(featureText.feature_detail_operator_name());

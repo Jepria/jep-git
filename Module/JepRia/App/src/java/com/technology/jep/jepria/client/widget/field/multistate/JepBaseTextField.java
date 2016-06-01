@@ -62,13 +62,19 @@ public abstract class JepBaseTextField<E extends Widget & HasValue> extends JepM
 	 * Обработчики событий нажатия клавиш клавиатуры
 	 */
 	protected HandlerRegistration keyDownHandler, keyPressHandler, keyUpHandler;
-		
+	
+	@Deprecated
 	public JepBaseTextField() {
-		this("");
+		this(null);
 	}
 	
+	@Deprecated
 	public JepBaseTextField(String fieldLabel) {
-		super(fieldLabel);
+		this(null, fieldLabel);
+	}
+	
+	public JepBaseTextField(String fieldId, String fieldLabel) {
+		super(fieldId, fieldLabel);
 	}
 	
 	/**

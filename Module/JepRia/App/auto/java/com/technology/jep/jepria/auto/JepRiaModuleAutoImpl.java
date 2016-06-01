@@ -47,6 +47,7 @@ import com.technology.jep.jepria.auto.widget.field.Field;
 import com.technology.jep.jepria.auto.widget.statusbar.StatusBar;
 import com.technology.jep.jepria.auto.widget.statusbar.StatusBarImpl;
 import com.technology.jep.jepria.client.ui.WorkstateEnum;
+import com.technology.jep.jepria.client.widget.field.multistate.JepMultiStateField;
 import com.technology.jep.jepria.shared.exceptions.NotImplementedYetException;
 import com.technology.jep.jepria.shared.exceptions.UnsupportedException;
 
@@ -206,10 +207,10 @@ public class JepRiaModuleAutoImpl<A extends EntranceAppAuto, P extends JepRiaApp
 	}
 
 	@Override
-	public void setFieldValue(String fieldInputId, String value) {
+	public void setFieldValue(String fieldId, String value) {
 		pages.getApplicationPage().ensurePageLoaded();
 		
-		WebElement fieldInput = pages.getApplicationPage().getWebDriver().findElement(By.id(fieldInputId)); 
+		WebElement fieldInput = pages.getApplicationPage().getWebDriver().findElement(By.id(fieldId + "_INPUT")); 
 		getWait().until(elementToBeClickable(fieldInput));
 		
 		String del = Keys.chord(Keys.CONTROL, "a") + Keys.DELETE; 
@@ -217,10 +218,10 @@ public class JepRiaModuleAutoImpl<A extends EntranceAppAuto, P extends JepRiaApp
 	}
 
 	@Override
-	public String getFieldValue(String fieldInputId) {
+	public String getFieldValue(String fieldId) {
 		pages.getApplicationPage().ensurePageLoaded();
 		
-		WebElement fieldInput = pages.getApplicationPage().getWebDriver().findElement(By.id(fieldInputId)); 
+		WebElement fieldInput = pages.getApplicationPage().getWebDriver().findElement(By.id(fieldId + "_INPUT")); 
 		return fieldInput.getAttribute("value");
 	}
 

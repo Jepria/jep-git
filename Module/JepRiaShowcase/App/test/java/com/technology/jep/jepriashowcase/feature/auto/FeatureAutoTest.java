@@ -52,8 +52,6 @@ public class FeatureAutoTest extends JepAutoTest<FeatureAuto> {
 		return new JepRiaShowcaseAutoImpl(baseUrl, browserName, browserVersion, browserPlatform, browserPath, driverPath, jepriaVersion, username, password);
 	}
 
-	/*============================= CREATE BLOCK ================================*/
-	
 	/**
 	 * Создание тестовой записи
 	 * 
@@ -66,7 +64,7 @@ public class FeatureAutoTest extends JepAutoTest<FeatureAuto> {
 		
 		// arbitrary values. //TODO get rid of hardcode, fill by dataProvider
 		int random = (int)Math.random();
-		cut.fillCreateForm(featureName, "featureNameEn_"+random);
+		cut.fillCreateForm(featureName, "featureNameEn_"+random, null);
 		
 		SaveResultEnum saveResult = cut.save();
 		if(saveResult != SaveResultEnum.STATUS_HAS_CHANGED) {
@@ -84,7 +82,7 @@ public class FeatureAutoTest extends JepAutoTest<FeatureAuto> {
 	 */
 	@DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/feature/auto/form.create.data")
 	@Test(groups={"create"}, dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
-	public void create(String featureName, String featureNameEn) {
+	public void create(String featureName, String featureNameEn, String description) {
 		cut.setWorkstate(CREATE);
 		
 		// Проверяем, что осуществился переход на форму создания
@@ -95,11 +93,13 @@ public class FeatureAutoTest extends JepAutoTest<FeatureAuto> {
 		// Заполняем форму создания
 		cut.fillCreateForm(
 				featureName,
-				featureNameEn);
+				featureNameEn,
+				description);
 		
 		// Проверяем, что поля заполненны именно теми значениями, которыми мы их заполнили
 		assertEquals(featureName, cut.getFeatureName());
 		assertEquals(featureNameEn, cut.getFeatureNameEn());
+		assertEquals(description, cut.getDescription());
 		
 		// Осуществляем сохранение записи
 		SaveResultEnum saveResult = cut.save();
@@ -117,19 +117,15 @@ public class FeatureAutoTest extends JepAutoTest<FeatureAuto> {
  		// Проверяем, что поля созданной записи имеют такие же значения, как и те, которыми мы их заполнили
 		assertEquals(featureName, cut.getFeatureName());
 		assertEquals(featureNameEn, cut.getFeatureNameEn());
+		assertEquals(description, cut.getDescription());
 	}
-	
-	/*============================= end of CREATE BLOCK ================================*/
-	
-	
-	/*============================= FIND BLOCK ================================*/
 	
 	/**
 	 * Тест операции поиска по шаблону
 	 */
 	@DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/feature/auto/form.search.data")
 	@Test(groups={"find"}, dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
-	public void findByTemplate(String featureId, String featureName, String featureNameEn, String maxRowCount) {
+	public void findByTemplate(String featureId, String featureName, String featureNameEn, String fromDateIns, String toDateIns, String maxRowCount) {
 		cut.setWorkstate(SEARCH);
 		
 		// Проверяем, что осуществился переход на форму поиска
@@ -142,12 +138,16 @@ public class FeatureAutoTest extends JepAutoTest<FeatureAuto> {
 				featureId,
 				featureName,
 				featureNameEn,
+				fromDateIns,
+				toDateIns,
 				maxRowCount);
 		
 		// Проверяем, что поля заполненны именно теми значениями, которыми мы их заполнили
 		assertEquals(featureId, cut.getFeatureId());
 		assertEquals(featureName, cut.getFeatureName());
 		assertEquals(featureNameEn, cut.getFeatureNameEn());
+		assertEquals(fromDateIns, cut.getFromDateIns());
+		assertEquals(toDateIns, cut.getToDateIns());
 		assertEquals(maxRowCount, cut.getMaxRowCount());
 			
 		// Осуществляем поиск
@@ -162,11 +162,6 @@ public class FeatureAutoTest extends JepAutoTest<FeatureAuto> {
  		// TODO obtain data from list cells and assert they are equal with original
 	}
 
-	/*============================= end of FIND BLOCK ================================*/
-	
-	
-	/*============================= DELETE BLOCK ================================*/
-	
 	//TODO restore, consider fields in data provider
 	/**
 	 * Тест удаления записи
@@ -198,11 +193,6 @@ public class FeatureAutoTest extends JepAutoTest<FeatureAuto> {
 	}
 	 		
 	//TODO create a test method that deletes a particular record of a list 
-	
-	/*============================= end of DELETE BLOCK ================================*/
-	
-	
-	/*============================= EDIT BLOCK ================================*/
 	
 	/**
 	 * Собственно тест редактирования
@@ -247,7 +237,4 @@ public class FeatureAutoTest extends JepAutoTest<FeatureAuto> {
 		assertEquals(featureName, cut.getFeatureName());
 		assertEquals(featureNameEn, cut.getFeatureNameEn());
 	}
-	
-	/*============================= end of EDIT BLOCK ================================*/
-	
 }

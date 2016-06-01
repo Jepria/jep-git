@@ -155,11 +155,22 @@ public abstract class JepMultiStateField<E extends Widget, V extends Widget> ext
 	 */
 	public static final String ALIGN_ATTRIBUTE_NAME = "align";
 	
+	@Deprecated
 	public JepMultiStateField() {
-		this("");
+		this(null);
 	}
 	
+	@Deprecated
 	public JepMultiStateField(String fieldLabel) {
+		this(null, fieldLabel);
+	}
+	
+	public JepMultiStateField(String fieldId, String fieldLabel) {
+		// Корректировка параметров
+		fieldLabel = (fieldLabel != null) ? fieldLabel : "";
+		// Если ID поля явно не задано, указываем в качестве ID его подпись + набор цифр
+		fieldId = (fieldId != null) ? fieldId : (fieldLabel + "_" + System.currentTimeMillis());
+		
 		viewCardLabel = new HTML();
 		viewCardLabel.getElement().addClassName(MAIN_FONT_STYLE);
 		editableCardLabel = new HTML();
@@ -218,6 +229,11 @@ public abstract class JepMultiStateField<E extends Widget, V extends Widget> ext
 		applyStyle();
 		
 		changeWorkstate(SEARCH);
+		
+		
+		// Установка ID самого поля как Web-элемента и его Input-элемента
+		this.getElement().setId(fieldId);
+		this.getInputElement().setId(fieldId + "_INPUT");
 	}
 	
 	/**

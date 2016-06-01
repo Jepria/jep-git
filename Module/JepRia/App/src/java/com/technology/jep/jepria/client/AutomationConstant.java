@@ -7,22 +7,22 @@ public class AutomationConstant {
 	/**
 	 * ID тестового поля ввода username для Login-страницы JavaSSO
 	 */
-	public static final String JAVASSO_LOGIN_USERNAME_INPUT_FIELD_ID = "j_username";
+	public static final String JAVASSO_LOGIN_USERNAME_FIELD_ID = "j_username";
 	
 	/**
 	 * ID тестового поля ввода пароля для Login-страницы JavaSSO
 	 */
-	public static final String JAVASSO_LOGIN_PASSWORD_INPUT_FIELD_ID = "j_password";
+	public static final String JAVASSO_LOGIN_PASSWORD_FIELD_ID = "j_password";
 	
 	/**
 	 * ID тестового поля ввода username для login
 	 */
-	public static final String LOGIN_USERNAME_INPUT_FIELD_ID = "LOGIN_USERNAME_INPUT_FIELD";
+	public static final String LOGIN_USERNAME_FIELD_ID = "LOGIN_USERNAME_FIELD";
 	
 	/**
 	 * ID тестового поля ввода пароля для login
 	 */
-	public static final String LOGIN_PASSWORD_INPUT_FIELD_ID = "LOGIN_PASSWORD_INPUT_FIELD";
+	public static final String LOGIN_PASSWORD_FIELD_ID = "LOGIN_PASSWORD_FIELD";
 	
 	/**
 	 * ID кнопки входа (login)

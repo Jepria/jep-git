@@ -1,2 +1,2 @@
-#featureId|featureName|featureNameEn|maxRowCount
-1|фича 1|feature 1|25
+#featureId|featureName|featureNameEn|fromDateIns|toDateIns|maxRowCount
+1|фича 1|feature 1|27.05.2016|28.05.2016|25

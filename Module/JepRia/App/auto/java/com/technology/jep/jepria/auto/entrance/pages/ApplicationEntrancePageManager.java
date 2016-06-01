@@ -40,8 +40,8 @@ public class ApplicationEntrancePageManager extends PageManagerBase {
   	    		
   	    		loginPage = initElements(new DefaultLoginPage<ApplicationEntrancePageManager>(this));
   			} catch (NoSuchElementException ex) {
-		        getWait().until(presenceOfElementLocated(By.id(AutomationConstant.LOGIN_USERNAME_INPUT_FIELD_ID)));
-		        getWait().until(presenceOfElementLocated(By.id(AutomationConstant.LOGIN_PASSWORD_INPUT_FIELD_ID)));
+		        getWait().until(presenceOfElementLocated(By.id(AutomationConstant.LOGIN_USERNAME_FIELD_ID)));
+		        getWait().until(presenceOfElementLocated(By.id(AutomationConstant.LOGIN_PASSWORD_FIELD_ID)));
 	            loginPage = initElements(new JepRiaLoginPage<ApplicationEntrancePageManager>(this));
   			}
     	}

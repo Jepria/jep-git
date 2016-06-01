@@ -98,20 +98,20 @@ public interface JepRiaModuleAuto extends EntranceAuto {
 	void clickButton(String buttonId);
 	
 	/**
-	 * Установка заданного значения полю по заданному id элемента ввода 
+	 * Установка заданного значения элементу ввода поля по заданному id поля 
 	 * 
-	 * @param fieldInputId id элемента ввода
+	 * @param fieldId id поля, id элемента ввода которого будет использовано для задания значения
 	 * @param value устанавливаемое значение
 	 */
-	void setFieldValue(String fieldInputId, String value);
+	void setFieldValue(String fieldId, String value);
 
 	/**
-	 * Получение значения поля по заданному id элемента ввода
+	 * Получение значения элемента ввода поля по заданному id поля
 	 *  
-	 * @param fieldInputId id элемента ввода
+	 * @param fieldId id поля, id элемента ввода которого будет использовано для получения значения
 	 * @return значение поля
 	 */
-	String getFieldValue(String fieldInputId);
+	String getFieldValue(String fieldId);
 	
 	/**
 	 * Проверка отображения MessageBox

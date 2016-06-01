@@ -4,8 +4,8 @@ import static com.technology.jep.jepria.auto.util.WebDriverFactory.getWait;
 import static com.technology.jep.jepria.client.AutomationConstant.ENTRANCE_PANEL_LOGOUT_BUTTON_ID;
 import static com.technology.jep.jepria.client.AutomationConstant.LOGGED_IN_USER_ID;
 import static com.technology.jep.jepria.client.AutomationConstant.LOGIN_BUTTON_ID;
-import static com.technology.jep.jepria.client.AutomationConstant.LOGIN_PASSWORD_INPUT_FIELD_ID;
-import static com.technology.jep.jepria.client.AutomationConstant.LOGIN_USERNAME_INPUT_FIELD_ID;
+import static com.technology.jep.jepria.client.AutomationConstant.LOGIN_PASSWORD_FIELD_ID;
+import static com.technology.jep.jepria.client.AutomationConstant.LOGIN_USERNAME_FIELD_ID;
 import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
 
 import org.apache.log4j.Logger;
@@ -52,10 +52,10 @@ public class JRSCCustomerPage<P extends JepRiaShowcasePageManager> extends JepRi
     
     // ...
 
-    @FindBy(id = LOGIN_USERNAME_INPUT_FIELD_ID)
+    @FindBy(id = LOGIN_USERNAME_FIELD_ID)
     public WebElement usernameField;
     
-    @FindBy(id = LOGIN_PASSWORD_INPUT_FIELD_ID)
+    @FindBy(id = LOGIN_PASSWORD_FIELD_ID)
     public WebElement passwordField;
     
     @FindBy(id = LOGIN_BUTTON_ID)
