@@ -1,19 +1,7 @@
 package com.technology.jep.jepria.auto;
 
 import static com.technology.jep.jepria.auto.util.WebDriverFactory.getWait;
-import static com.technology.jep.jepria.client.AutomationConstant.ALERT_MESSAGEBOX_ID;
-import static com.technology.jep.jepria.client.AutomationConstant.CONFIRM_MESSAGEBOX_ID;
-import static com.technology.jep.jepria.client.AutomationConstant.CONFIRM_MESSAGE_BOX_YES_BUTTON_ID;
-import static com.technology.jep.jepria.client.AutomationConstant.DETAIL_FORM_COMBOBOX_MENU_ITEM_PREFIX;
-import static com.technology.jep.jepria.client.AutomationConstant.ERROR_MESSAGEBOX_ID;
-import static com.technology.jep.jepria.client.AutomationConstant.TOOLBAR_ADD_BUTTON_ID;
-import static com.technology.jep.jepria.client.AutomationConstant.TOOLBAR_DELETE_BUTTON_ID;
-import static com.technology.jep.jepria.client.AutomationConstant.TOOLBAR_EDIT_BUTTON_ID;
-import static com.technology.jep.jepria.client.AutomationConstant.TOOLBAR_FIND_BUTTON_ID;
-import static com.technology.jep.jepria.client.AutomationConstant.TOOLBAR_LIST_BUTTON_ID;
-import static com.technology.jep.jepria.client.AutomationConstant.TOOLBAR_SAVE_BUTTON_ID;
-import static com.technology.jep.jepria.client.AutomationConstant.TOOLBAR_SEARCH_BUTTON_ID;
-import static com.technology.jep.jepria.client.AutomationConstant.TOOLBAR_VIEW_DETAILS_BUTTON_ID;
+import static com.technology.jep.jepria.client.AutomationConstant.*;
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.EDIT;
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.SEARCH;
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.SELECTED;
@@ -21,6 +9,7 @@ import static com.technology.jep.jepria.client.ui.WorkstateEnum.VIEW_DETAILS;
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.VIEW_LIST;
 import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
 import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
+import static org.openqa.selenium.support.ui.ExpectedConditions.invisibilityOfElementLocated;
 
 import java.util.List;
 import java.util.Map;
@@ -34,6 +23,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import com.google.common.base.Predicate;
 import com.technology.jep.jepria.auto.conditions.ConditionChecker;
 import com.technology.jep.jepria.auto.conditions.DisplayChecker;
 import com.technology.jep.jepria.auto.conditions.ExpectedConditions;
@@ -210,7 +200,7 @@ public class JepRiaModuleAutoImpl<A extends EntranceAppAuto, P extends JepRiaApp
 	public void setFieldValue(String fieldId, String value) {
 		pages.getApplicationPage().ensurePageLoaded();
 		
-		WebElement fieldInput = pages.getApplicationPage().getWebDriver().findElement(By.id(fieldId + "_INPUT")); 
+		WebElement fieldInput = pages.getApplicationPage().getWebDriver().findElement(By.id(fieldId + FIELD_INPUT_POSTFIX)); 
 		getWait().until(elementToBeClickable(fieldInput));
 		
 		String del = Keys.chord(Keys.CONTROL, "a") + Keys.DELETE; 
@@ -221,28 +211,55 @@ public class JepRiaModuleAutoImpl<A extends EntranceAppAuto, P extends JepRiaApp
 	public String getFieldValue(String fieldId) {
 		pages.getApplicationPage().ensurePageLoaded();
 		
-		WebElement fieldInput = pages.getApplicationPage().getWebDriver().findElement(By.id(fieldId + "_INPUT")); 
+		WebElement fieldInput = pages.getApplicationPage().getWebDriver().findElement(By.id(fieldId + FIELD_INPUT_POSTFIX)); 
 		return fieldInput.getAttribute("value");
 	}
 
 	//TODO унифицировать простые и сложные поля через get/set-FieldValue() - Нужна иерархия полей ! 
 	@Override
-	public void selectComboBoxMenuItem(String comboBoxFieldInputId, String menuItemText) { // TODO Поддержать локализацию
-		String comboBoxButtonXPath = "//input[@id='"
-				+ comboBoxFieldInputId
-				+ "']/following-sibling::img";
+	public void selectComboBoxMenuItem(String comboBoxFieldId, String menuItemText) { // TODO Поддержать локализацию
+		pages.getApplicationPage().ensurePageLoaded();
 		
-		WebElement comboBoxButton = pages.getApplicationPage().getWebDriver().findElement(By.xpath(comboBoxButtonXPath));
-		comboBoxButton.click();
+		// Подготовка: в случае, если на данный JepComboBoxField навешена загрузка опций по первому использованию,
+		// то нажимаем на кнопку 'развернуть' для того, чтобы загрузка произошла, и ждём окончания загрузки опций.
+		WebElement dropDownButton = pages.getApplicationPage().getWebDriver().findElement(By.id(comboBoxFieldId + DETAIL_FORM_COMBOBOX_DROPDOWN_BTN_POSTFIX)); 
+		getWait().until(elementToBeClickable(dropDownButton));
+		dropDownButton.click();
 		
+		// Отслеживаем появление suggestBoxPopup, то есть когда опции загрузятся.
+		String comboBoxSuggestBoxPopupXPath = "//div[@class='gwt-SuggestBoxPopup']";
+		getWait().until(presenceOfElementLocated(By.xpath(comboBoxSuggestBoxPopupXPath)));
+		
+		// Непосредственно поиск и выбор элемента в списке:
+
+		// Очистим поле ввода.
+		WebElement fieldInput = pages.getApplicationPage().getWebDriver().findElement(By.id(comboBoxFieldId + FIELD_INPUT_POSTFIX)); 
+		getWait().until(elementToBeClickable(fieldInput));
+		String del = Keys.chord(Keys.CONTROL, "a") + Keys.DELETE; 
+		fieldInput.sendKeys(del);
+		
+		// Будем вводить буквы по одной до тех пор, пока искомый элемент не появится в выпадающем списке.
 		WebElement comboBoxMenuItem;
-		// TODO Нормально обработать ситуацию установки некорректных значений (сейчас сваливаемся на ожидание полного timeout с последующим TimeoutException)
-		try {
-			comboBoxMenuItem = getWait().until(presenceOfElementLocated(By.id(DETAIL_FORM_COMBOBOX_MENU_ITEM_PREFIX + menuItemText)));
-		} catch(Exception ex) {
-			throw new WrongOptionException("Wrong combobox option", ex);			
+		int ind = 0;
+		while (true) {
+			try {
+				comboBoxMenuItem = pages.getApplicationPage().getWebDriver().findElement(By.id(DETAIL_FORM_COMBOBOX_MENU_ITEM_PREFIX + menuItemText));
+				// No exception was thrown, i.e. the option has been found.
+				break;
+			} catch (NoSuchElementException e) {
+				
+				// Continue the loop with the next letter
+				if (ind < menuItemText.length()) {
+					fieldInput.sendKeys(Character.toString(menuItemText.charAt(ind++)));
+					sleep(500);// TODO Костыль! Здесь, после ввода очередной буквы, нужно ждать обновления опций в выпадающем списке, но как? 
+				} else {
+					// No letters left, i.e. no such menu item is in ComboBox
+					throw new WrongOptionException("Wrong combobox option: [" + menuItemText + "]");
+				}
+			}
 		}
 		
+		// Select the option that was found.
 		getWait().until(elementToBeClickable(comboBoxMenuItem));
 		comboBoxMenuItem.click();
 	}

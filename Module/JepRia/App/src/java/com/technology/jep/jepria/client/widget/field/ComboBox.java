@@ -219,6 +219,15 @@ public class ComboBox<T extends JepOption> extends Composite
 			}
 	    });
 	}
+
+	/**
+	 * Установка ID внутренних компонентов Комбобокса: поля ввода и кнопки 'развернуть'
+	 * @param baseFieldId ID JepComboBoxField'а, который берется за основу ID внутренних компонентов
+	 */
+	public void setInnerIds(String baseFieldId) {
+		suggestBox.getElement().setId(baseFieldId + AutomationConstant.FIELD_INPUT_POSTFIX);
+		selectImage.getElement().setId(baseFieldId + AutomationConstant.DETAIL_FORM_COMBOBOX_DROPDOWN_BTN_POSTFIX);
+	}
 	
 	/**
 	 * Установка опций компонента.

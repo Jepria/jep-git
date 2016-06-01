@@ -171,11 +171,11 @@ public class GoodsAutoTest extends JepAutoTest<GoodsAuto> {
 	 * @param goodsNameNewValue - устанавливаемое значение поля 'Наименование товара'
 	 */
 	@DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/goods/auto/GoodsAutoTest.setAndGetGoodsName.group.data")
-	@Test(groups= "setAndGetTextField", dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
+	@Test(groups= "setAndGetTextFiel1d", dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
 	public void setAndGetGoodsNameOnSearch(String goodsNameNewValue) {
 		cut.setWorkstate(SEARCH);
 		
-        ((GoodsAuto)cut).setGoodsName(goodsNameNewValue);
+        cut.setGoodsName(goodsNameNewValue);
         
         assertEquals(goodsNameNewValue, cut.getGoodsName());
 	}
@@ -186,13 +186,26 @@ public class GoodsAutoTest extends JepAutoTest<GoodsAuto> {
 	 * @param goodsNameNewValue - устанавливаемое значение поля 'Наименование товара'
 	 */
 	@DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/goods/auto/GoodsAutoTest.setAndGetGoodsName.group.data")
-	@Test(groups={"create", "setAndGetTextField"}, dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
+	@Test(groups={"create", "setAndGetTextFiel1d"}, dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
 	public void setAndGetGoodsNameOnCreate(String goodsNameNewValue) {
 		cut.setWorkstate(CREATE);
 		
-        ((GoodsAuto)cut).setGoodsName(goodsNameNewValue);
+        cut.setGoodsName(goodsNameNewValue);
         
         assertEquals(goodsNameNewValue, cut.getGoodsName());
+	}
+	
+	/**
+	 * Тест установки/получения поля 'Тип товара' на форме создания
+	 */
+	@DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/goods/auto/GoodsAutoTest.setAndGetGoodsType.group.data")
+	@Test(groups={"create", "setAndGetTextField"}, dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
+	public void setAndGetGoodsTypeOnCreate(String goodsTypeNewValue) {
+		cut.setWorkstate(CREATE);
+		
+        cut.setGoodsType(goodsTypeNewValue);
+        
+        assertEquals(goodsTypeNewValue, cut.getGoodsType());
 	}
 	
 	
@@ -369,7 +382,7 @@ public class GoodsAutoTest extends JepAutoTest<GoodsAuto> {
 	 * @param goodsNameNewValue - значение поля 'Наименование товара'
 	 */
 	@DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/goods/auto/GoodsAutoTest.setAndGetGoodsName.group.data")
-	@Test(groups = {"edit", "setAndGetTextField"}, dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
+	@Test(groups = {"edit", "setAndGetTextFiel1d"}, dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
 	public void setAndGetGoodsNameOnEdit(String goodsNameNewValue) {
 		
 		testSetAndGetTextFieldValueOnEdit(

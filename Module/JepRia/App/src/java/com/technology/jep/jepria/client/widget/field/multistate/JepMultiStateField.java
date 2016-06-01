@@ -21,6 +21,7 @@ import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Widget;
+import com.technology.jep.jepria.client.AutomationConstant;
 import com.technology.jep.jepria.client.ui.WorkstateEnum;
 import com.technology.jep.jepria.client.widget.event.JepEvent;
 import com.technology.jep.jepria.client.widget.event.JepEventType;
@@ -233,7 +234,15 @@ public abstract class JepMultiStateField<E extends Widget, V extends Widget> ext
 		
 		// Установка ID самого поля как Web-элемента и его Input-элемента
 		this.getElement().setId(fieldId);
-		this.getInputElement().setId(fieldId + "_INPUT");
+		setInnerIds(fieldId);
+	}
+	
+	/**
+	 * Установка ID внутренних компонентов Jep-поля.
+	 * @param baseFieldId ID Jep-поля, который берется за основу ID внутренних компонентов
+	 */
+	protected void setInnerIds(String baseFieldId) {
+		this.getInputElement().setId(baseFieldId + AutomationConstant.FIELD_INPUT_POSTFIX);
 	}
 	
 	/**

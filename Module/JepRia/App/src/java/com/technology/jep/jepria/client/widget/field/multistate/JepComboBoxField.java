@@ -62,20 +62,23 @@ public class JepComboBoxField extends JepBaseTextField<ComboBox<JepOption>> impl
 	private String firstTimeUsedQuery = null;
 	
 	public JepComboBoxField(){
-		this("");
+		this(null);
 	}
 	
 	public JepComboBoxField(String fieldLabel) {
-		super(fieldLabel);
+		this(null, fieldLabel);
+	}
+	
+	public JepComboBoxField(String fieldId, String fieldLabel) {
+		super(fieldId, fieldLabel);
 		// Выставляем высоту компонента + 1px граница
 		setFieldHeight(FIELD_DEFAULT_HEIGHT + 2);
 		loadEmptyOptionList();
 	}
 	
-	public JepComboBoxField(String fieldId, String fieldLabel) {
-		this(fieldLabel);
-		this.getElement().setId(fieldId);
-		this.getInputElement().setId(fieldId + "_INPUT");
+	@Override
+	protected void setInnerIds(String baseFieldId) {
+		editableCard.setInnerIds(baseFieldId);
 	}
 
 	/**

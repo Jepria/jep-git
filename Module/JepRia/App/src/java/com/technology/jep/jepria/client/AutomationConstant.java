@@ -194,7 +194,17 @@ public class AutomationConstant {
 	 * Префикс элементов меню комбобоксов
 	 */
 	public static final String DETAIL_FORM_COMBOBOX_MENU_ITEM_PREFIX = "DETAIL_FORM_COMBOBOX_MENU_ITEM_";
-
+	
+	/**
+	 * Постфикс input-поля комбобоксов
+	 */
+	public static final String FIELD_INPUT_POSTFIX = "_INPUT";
+	
+	/**
+	 * Постфикс кнопки 'развернуть' комбобоксов
+	 */
+	public static final String DETAIL_FORM_COMBOBOX_DROPDOWN_BTN_POSTFIX = "_SELECT-BTN";
+	
 	/**
 	 * ID первой строки списка списочной формы
 	 */
