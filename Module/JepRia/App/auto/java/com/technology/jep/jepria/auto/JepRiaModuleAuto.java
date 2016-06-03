@@ -3,6 +3,7 @@ package com.technology.jep.jepria.auto;
 import java.util.Map;
 
 import com.technology.jep.jepria.auto.entrance.EntranceAuto;
+import com.technology.jep.jepria.auto.exceptions.WrongOptionException;
 import com.technology.jep.jepria.auto.widget.field.Field;
 import com.technology.jep.jepria.auto.widget.statusbar.StatusBar;
 import com.technology.jep.jepria.client.ui.WorkstateEnum;
@@ -118,12 +119,25 @@ public interface JepRiaModuleAuto extends EntranceAuto {
 	 * @return true, если MessageBox отображается
 	 */
 	boolean checkMessageBox(String messageBoxId);
-
+	
 	/**
-	 * Установка заданного значения полю по заданному id элемента ввода 
-	 * 
-	 * @param comboBoxFieldInputId
-	 * @param menuItemText
+	 * Простой выбор элемента Комбо-бокса по заданному id.
+	 * Предполагается, что если элемент есть в выпадающем списке, то он становится доступным при первой загрузке опций.
+	 * Если искомой опции нет в выпадающем списке, выбрасывается исключение WrongOptionException.
+	 * @param comboBoxFieldId id ComboBox-поля
+	 * @param menuItemText Имя опции, которую необходимо выбрать
 	 */
-	void selectComboBoxMenuItem(String comboBoxFieldInputId, String menuItemText);
+	void selectComboBoxMenuItem(String comboBoxFieldId, String menuItemText);
+	
+	/**
+	 * Сложный выбор элемента Комбо-бокса по заданному id.
+	 * Предполагается, что при первой загрузке опций не все опции появляются в списке (например, список слишком длинный),
+	 * и искомая опция может стать доступной о мере ввода текста.
+	 * Если искомой опции нет в выпадающем списке после введения всего текста, выбрасывается исключение WrongOptionException.
+	 * @param comboBoxFieldId id ComboBox-поля
+	 * @param menuItemText Имя опции, которую необходимо выбрать
+	 * @param firstInputLength Минимальное количество символов, которые необходимо ввести для того, чтобы в данном Комбо-боксе
+	 * началась загрузка опций (например, при поиске оператора, часто опции загружаются при вводе мимнимум 3 символов).
+	 */
+	void selectComboBoxMenuItemWithCharByCharReloadingOptions(String comboBoxFieldId, String menuItemText, int firstInputLength);
 }
