@@ -7,7 +7,8 @@
 	<property file="config/${BUILD_CONFIG}/deploy.properties"/>
 	
 	<property name="J2EE_HOME" value="${OC4J_HOME}/j2ee/home" />
-	<property name="JEP_RIA" value="${COMMON_HOME}/Module/JepRia/${JEP_RIA_VERSION}/App" />
+<!--	<property name="JEP_RIA" value="${COMMON_HOME}/Module/JepRia/${JEP_RIA_VERSION}/App" /> -->
+	<property name="JEP_RIA" value="../../JepRia/App" />
 	<property name="JEP_RIA_REPORT" value="${COMMON_HOME}/Module/JepRiaReport/${JEP_RIA_REPORT_VERSION}/App" />
 	<property name="JEP_REPORT_COMPILER" value="${COMMON_HOME}/Module/JrCompiler/${JEP_REPORT_COMPILER_VERSION}/App" />
 	<property name="JEP_RIA_TOOLKIT" value="${COMMON_HOME}/Module/JepRiaToolkit/${JEP_RIA_TOOLKIT_VERSION}/App" />
@@ -581,7 +582,7 @@
 					<fileset dir="${OC4J_HOME}/jakarta-struts/lib" includes="commons-digester.jar, commons-collections.jar, commons-beanutils.jar, commons-fileupload.jar, commons-lang.jar, commons-validator.jar" />
 					<fileset dir="${J2EE_HOME}" includes="jazncore.jar" /> <!-- для login.jsp TODO отвязать от OC4J -->
 					<fileset dir="${JASPER_REPORTS_HOME}/lib" includes="spring-core-2.5.5.jar, spring-beans-2.5.5.jar, jfreechart-1.0.12.jar, groovy-all-1.5.5.jar, jcommon-1.0.15.jar, iText-2.1.0.jar, commons-digester-1.7.jar" />
-					<fileset dir="${JDBC_HOME}/ojdbc14/10.1.0.5.0" includes="ojdbc14.jar" />
+					<fileset dir="${JDBC_HOME}/ojdbc14/10.1.0.5.0" includes="ojdbc14-10.1.0.5.0.jar" />
 				</copy>
 				
 				<copy file="${OC4J_HOME}/jakarta-taglibs/jstl-1.1/tld/c.tld" todir="temp-war/WEB-INF/tld" />
