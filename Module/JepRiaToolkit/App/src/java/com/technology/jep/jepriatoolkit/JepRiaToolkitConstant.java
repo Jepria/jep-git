@@ -145,6 +145,11 @@ public class JepRiaToolkitConstant {
 	public static final String DEFAULT_DATASOURCE = "RFInfoDS";
 	
 	/**
+	 * Пакет для исходных кодов по умолчанию
+	 */
+	public static final String DEFAULT_PROJECT_PACKAGE = "rfi";
+	
+	/**
 	 * Значения атрибута, выключающего некое свойство (доступность тулбара, статусбара и т.д.)
 	 */
 	public static final String OFF = "off";
@@ -1019,4 +1024,19 @@ public class JepRiaToolkitConstant {
 	public static final String DEFAULT_CHARSET = "windows-1251";
 	
 	public static final String DOT = ".";
+	
+	public static final String MODULE_NAME_TASK_ATTRIBUTE = "MODULE_NAME";
+	public static final String PARENT_MODULE_NAME_TASK_ATTRIBUTE = "PARENT_MODULE_NAME";
+	public static final String APPLICATION_NAME_TASK_ATTRIBUTE = "APPLICATION_NAME";
+	public static final String APPLICATION_STRUCTURE_FILE_PATH_TASK_ATTRIBUTE = "APPLICATION_STRUCTURE_FILE_PATH";
+	
+	public static final String ALL_TEXT_ENCODE_TASK_TARGET = "all-text-encode";
+	public static final String CREATE_STRUCTURE_TASK_TARGET = "create-structure";
+	public static final String BUILD_AND_DEPLOY_TASK_TARGET = "build-and-deploy";
+	
+	public static final String OUTPUT_LOG_FILE = "createStucture.log";
+	public static final String JEP_APPLICATION_XML = "JepApplication.xml";
+	public static final String YES = "y";
+	public static final String NO = "n";
+	public static final String XML_EXTENSION = ".xml";
 }

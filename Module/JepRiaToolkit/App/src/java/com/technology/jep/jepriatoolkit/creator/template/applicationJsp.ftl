@@ -38,27 +38,27 @@
 				in order for this application to display correctly.
 			</div>
 		</noscript>
-		<div id="testBuildMessage" class="testBuildMessage"> 
-            <div class="testBuildMessage-notification error"> 
-                <div class="testBuildMessage-close" onclick="document.getElementById('testBuildMessage').style.display = 'none';">
+		<div id="testBuildMessage" class="jepRia-testBuildMessage"> 
+            <div class="jepRia-testBuildMessageNotification error"> 
+                <div class="jepRia-testBuildMessageClose" onclick="document.getElementById('testBuildMessage').style.display = 'none';">
                     X
                 </div> 
-                <div class="testBuildMessage-header">
+                <div class="jepRia-testBuildMessageHeader">
                     Attention please!
                 </div> 
-                <div class="testBuildMessage-message">
+                <div class="jepRia-testBuildMessageInfo">
                     This is test build!
                 </div> 
             </div> 
-        </div> 
-		<div id="loading">
-			<div class="loading-indicator">
+        </div>
+		<div id="loading" class="jepRia-loadingProgress">
+			<div class="jepRia-loadingIndicator">
 				<img src="images/loading.gif" width="32" height="32" alt="Loading..."/>
 				<div>
-					<p style="margin:0px;">
-						<span id="loading-header">${moduleName}</span>
+					<p>
+						<span id="loadingHeader">${moduleName}</span>
 					</p>
-					<span id="loading-msg">Loading&nbsp;Application,&nbsp;please&nbsp;wait...</span>
+					<span id="loadingMessage" class="jepRia-loadingMessage">Loading&nbsp;Application,&nbsp;please&nbsp;wait...</span>
 				</div>
 			</div>
 		</div>

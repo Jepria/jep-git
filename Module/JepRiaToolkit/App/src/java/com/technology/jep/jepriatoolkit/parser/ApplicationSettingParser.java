@@ -75,6 +75,7 @@ import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.getNameFro
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.isEmpty;
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.isEmptyOrNotInitializedParameter;
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.multipleConcat;
+import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.normalizePath;
 import static org.w3c.dom.Node.ELEMENT_NODE;
 
 import java.io.File;
@@ -82,6 +83,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -145,7 +147,7 @@ public class ApplicationSettingParser {
 	 */
 	public boolean parseApplicationSettingXML(String applicationStructureFile, Boolean... isPossibleAnotherFile) throws ParserConfigurationException {
 		applicationStructureFile = isEmptyOrNotInitializedParameter(applicationStructureFile) ? getApplicationDefinitionFile() : applicationStructureFile;
-		echoMessage(multipleConcat("Parsing ", applicationStructureFile, "..."));
+		echoMessage(multipleConcat("Parsing ", normalizePath(applicationStructureFile), "..."));
 		try {
 			jepApplicationDoc = getDOM(applicationStructureFile);
 			application = new Application();
@@ -287,12 +289,15 @@ public class ApplicationSettingParser {
 				// добавляем соответствие модуля его списку полей
 				formFields.put(m, mfList);
 			}
-			application.setModules(new Modules(modules));
+			
 			for (int i = 0; i < forms.size(); i++) {
 				List<String> nodesWithChildren = getNodesWithChildren(forms.get(i));
 				if (!isEmpty(nodesWithChildren))
 					formWithTheirDependencies.add(nodesWithChildren);
 			}
+			// определим зависимости между модулями
+			modules = prepareModulesToInheritance(modules);
+			application.setModules(new Modules(modules));
 
 			return true;
 		} catch (IOException e) {
@@ -304,6 +309,32 @@ public class ApplicationSettingParser {
 					" is not valid!! Check and correct it!"));
 			return false;
 		}
+	}
+
+	public List<Module> prepareModulesToInheritance(List<Module> modules) {
+		List<Module> preparedModules = new ArrayList<Module>(modules);
+		for (Module module : modules) {
+			preparedModules = prepareModuleToInheritance(module, preparedModules);
+		}
+		return preparedModules;
+	}
+	
+	public List<Module> prepareModuleToInheritance(Module mod, List<Module> allModules){
+		String moduleId = mod.getModuleId();
+		List<String> dependentForms = getDependencyNodesIfExists(moduleId);
+		if (!isEmpty(dependentForms)) {
+			List<Module> dependentModules = new ArrayList<Module>(dependentForms.size());
+			for (Iterator<Module> iter = allModules.iterator(); iter.hasNext();){
+				Module module = iter.next();
+				String newModuleId = module.getModuleId();
+				if (dependentForms.contains(newModuleId)){
+					dependentModules.add(module);
+					iter.remove();
+				}
+			}
+			mod.setChildModules(dependentModules);
+		}
+		return new ArrayList<Module>(allModules);
 	}
 	
 	/**
@@ -864,6 +895,27 @@ public class ApplicationSettingParser {
 		}
 		return module;
 	}
+	
+	/**
+	 * Получение XML-элемента, являющегося GWT-модулем по его ID, игнорируя регистр букв
+	 * 
+	 * @param moduleId идентификатор модуля
+	 * 
+	 * @return элемент-модуль
+	 */
+	public Element getModuleNodeByIdIgnoringCase(String moduleId) {
+		Element module = null;
+		try {
+			XPathFactory factory = XPathFactory.newInstance();
+			XPath xpath = factory.newXPath();
+			XPathExpression expr = xpath.compile(multipleConcat(PATH_SEPARATOR, PATH_SEPARATOR, MODULE_TAG_NAME, 
+					"[translate(normalize-space(@", MODULE_ID_ATTRIBUTE, "),'", ALPHABET_LOWER_CASE, "','", ALPHABET_UPPER_CASE, "') = '", moduleId.toUpperCase(), "']"));
+			module = (Element) expr.evaluate(jepApplicationDoc, XPathConstants.NODE);
+		} catch (Exception e) {
+			echoMessage(multipleConcat(ERROR_PREFIX, e.getLocalizedMessage()));
+		}
+		return module;
+	}
 
 	/**
 	 * Получение списка элементов-полей для модуля
@@ -1067,5 +1119,13 @@ public class ApplicationSettingParser {
 
 	public List<String> getRoles() {
 		return securityRoles;
+	}
+	
+	public Document getDocument(){
+		return jepApplicationDoc;
+	}
+	
+	public void reloadDocument(Document doc){
+		this.jepApplicationDoc = doc;
 	}
 }

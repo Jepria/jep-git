@@ -2,6 +2,7 @@ package com.technology.jep.jepriatoolkit.creator.module;
 
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.*;
 
+import java.util.Arrays;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -21,6 +22,10 @@ public class Modules {
 	
 	public Modules(List<Module> modules) {
 		this.modules = modules;
+	}
+	
+	public Modules(Module... modules) {
+		this.modules = Arrays.asList(modules);
 	}
 
 	public List<Module> getModules() {

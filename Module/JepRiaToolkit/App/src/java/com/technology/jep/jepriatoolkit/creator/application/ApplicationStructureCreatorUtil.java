@@ -1,4 +1,4 @@
-package com.technology.jep.jepriatoolkit.creator;
+package com.technology.jep.jepriatoolkit.creator.application;
 
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.UTF_8;
 
@@ -9,8 +9,6 @@ import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.util.Locale;
 import java.util.Map;
-
-import com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil;
 
 import freemarker.core.ParseException;
 import freemarker.template.Configuration;
@@ -33,7 +31,7 @@ public class ApplicationStructureCreatorUtil {
 	
 			// Specify the source where the template files come from. Here I set a
 			// plain directory for it, but non-file-system sources are possible too:
-			cfg.setClassForTemplateLoading(JepRiaToolkitUtil.class, "/com/technology/jep/jepriatoolkit/creator/template");
+			cfg.setClassForTemplateLoading(ApplicationStructureCreatorUtil.class, "/com/technology/jep/jepriatoolkit/creator/template");
 			// Set the preferred charset template files are stored in. UTF-8 is
 			// a good choice in most applications:
 			cfg.setDefaultEncoding(UTF_8);

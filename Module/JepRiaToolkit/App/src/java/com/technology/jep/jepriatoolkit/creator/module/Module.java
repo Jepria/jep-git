@@ -6,6 +6,7 @@ import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.FORMS_TAG_N
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.ID_ATTRIBUTE;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.MODULE_BUILD_ATTRIBUTE;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.MODULE_ROLES_ATTRIBUTE;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.MODULE_ROLE_ATTRIBUTE;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.MODULE_STATUSBAR_ATTRIBUTE;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.MODULE_TAG_NAME;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.MODULE_TOOLBAR_ATTRIBUTE;
@@ -34,7 +35,7 @@ import com.technology.jep.jepriatoolkit.creator.module.adapter.BooleanAdapter;
 import com.technology.jep.jepriatoolkit.log.Logger;
 
 // Указание атрибутов тэга происходит в обратном порядке, вложенных элементов/тэгов - в прямом.
-@XmlType(propOrder = {"moduleRoles", "db", "record", "forms", "toolbar", "isNotRebuild", "isStatusbarOff", "isToolBarOff", "moduleNameEn", "moduleName", "moduleId"})
+@XmlType(propOrder = {"moduleRoles", "db", "record", "forms", "toolbar", "childModules", "isNotRebuild", "isStatusbarOff", "isToolBarOff", "moduleNameEn", "moduleName", "moduleId"})
 @XmlRootElement(name=MODULE_TAG_NAME)
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Module {
@@ -91,18 +92,24 @@ public class Module {
 	private Record record;
 	@XmlElement(name=FORMS_TAG_NAME)
 	private Forms forms;
+	@XmlElement(name=MODULE_TAG_NAME)
+	private List<Module> childModules;
 	
 	@SuppressWarnings("unused")
 	private Module(){}
 	
-	public Module(String moduleId, String moduleName, String moduleNameEn, Db db, List<String> moduleRoleNames){
+	public Module(String moduleId) {
 		setModuleId(moduleId);
+	}
+	
+	public Module(String moduleId, String moduleName, String moduleNameEn, Db db, List<String> moduleRoleNames){
+		this(moduleId);
 		setModuleName(moduleName);
 		setModuleNameEn(moduleNameEn);
 		setDb(db);
 		setModuleRoleNames(moduleRoleNames);		
-	}	
-	
+	}
+
 	public boolean isStatusBarOff() {
 		return isStatusbarOff;
 	}
@@ -309,7 +316,6 @@ public class Module {
 	public void setForms(DetailForm detailForm, ListForm listForm){
 		this.forms = new Forms(detailForm, listForm);
 	}
-	
 	@XmlElement(name=TOOLBAR_TAG_NAME)
 	public ToolBar getToolbar() {
 		if (!toolbarButtons.isEmpty() || hasToolBarPresenter != null || hasToolBarView != null) {
@@ -321,7 +327,12 @@ public class Module {
 		}
 		return null;
 	}
-	
+	public List<Module> getChildModules() {
+		return childModules;
+	}
+	public void setChildModules(List<Module> childModules) {
+		this.childModules = childModules;
+	}
 	public void uptodate(Module newModule){
 		List<ModuleField> fields = newModule.record.getFields();
 		for (ModuleField field : fields){

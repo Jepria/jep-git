@@ -96,10 +96,12 @@
       <url-pattern>/*</url-pattern>
       <http-method>*</http-method>
     </web-resource-collection>
+    <#if securityRoles?has_content>
     <auth-constraint>
     <#list securityRoles as roleName>
       <role-name>${roleName}</role-name>
     </#list> 
     </auth-constraint>
+    </#if>
   </security-constraint>
 </web-app>

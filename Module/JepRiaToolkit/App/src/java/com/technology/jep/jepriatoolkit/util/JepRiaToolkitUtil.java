@@ -11,10 +11,15 @@ import static com.technology.jep.jepria.shared.field.JepTypeEnum.DATE;
 import static com.technology.jep.jepria.shared.field.JepTypeEnum.INTEGER;
 import static com.technology.jep.jepria.shared.field.JepTypeEnum.STRING;
 import static com.technology.jep.jepria.shared.field.JepTypeEnum.TIME;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.ALL_TEXT_ENCODE_TASK_TARGET;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.APPLICATION_SETTING_FILE_ENDING;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.APPLICATION_STRUCTURE_FILE_PATH_TASK_ATTRIBUTE;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.BUILD_AND_DEPLOY_TASK_TARGET;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.BUILD_FILE;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.BUTTON_IDENTIFICATOR_SUFFIX;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.CREATE_STRUCTURE_TASK_TARGET;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.CURRENT_DIRECTORY_ENVIRONMENT_VARIABLE;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.DEFAULT_DATASOURCE;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.DEFAULT_HTTP_PORT;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.DISPLAY_VALUE_SUFFIX;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.DOT;
@@ -38,8 +43,10 @@ import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.JEP_TEXT_FI
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.JEP_TIME_FIELD;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.LEFT_CURLY_BRACKET;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.MODULE_TAG_NAME;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.NO_NAME;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.OPMN_PROTOCOL;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.PATH_SEPARATOR;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.PKG_PREFIX;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.PRESENTER_BOBY_TAG_NAME;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.REGEXP_FOR_BLANK;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.SEPARATOR;
@@ -95,6 +102,7 @@ import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathFactory;
 
 import org.apache.tools.ant.BuildException;
+import org.apache.tools.ant.DefaultLogger;
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.ProjectHelper;
 import org.apache.tools.ant.taskdefs.Delete;
@@ -111,8 +119,12 @@ import org.xml.sax.SAXException;
 import com.technology.jep.jepria.client.ui.WorkstateEnum;
 import com.technology.jep.jepria.shared.field.JepTypeEnum;
 import com.technology.jep.jepriatoolkit.ApplicationDefinition;
+import com.technology.jep.jepriatoolkit.creator.module.Application;
+import com.technology.jep.jepriatoolkit.creator.module.Db;
+import com.technology.jep.jepriatoolkit.creator.module.Module;
 import com.technology.jep.jepriatoolkit.creator.module.ModuleField;
 
+@SuppressWarnings("unchecked")
 public final class JepRiaToolkitUtil {
 
 	private static final String WIN_CHARSET = "windows-1251";
@@ -685,18 +697,33 @@ public final class JepRiaToolkitUtil {
 	 * Запуск цели Ant по ее наименованию
 	 * 
 	 * @param targetName   наименование цели
+	 * @param properties   указание необходимых пользовательских свойств для выполнения данной цели
 	 */
-	public static void runAntTarget(String targetName) {
+	public static void runAntTarget(String targetName, Pair<String, String>... properties) {
 		File buildFile = new File(BUILD_FILE);
 		Project p = new Project();
 		p.setUserProperty("ant.file", buildFile.getAbsolutePath());
+		// инициализируем кастомные системные свойства, необходимые для выполнения таска
+		for (Pair<String, String> prop : properties) {
+			p.setUserProperty(prop.getKey(), prop.getValue());
+		}
+		boolean defaultTarget = isEmpty(targetName) || 
+				BUILD_AND_DEPLOY_TASK_TARGET.equalsIgnoreCase(targetName);
+		// для умолчательной цели делаем детальный вывод в консоль (для возможности отслеживания операций)
+		if (defaultTarget) {
+			DefaultLogger consoleLogger = new DefaultLogger();
+			consoleLogger.setErrorPrintStream(System.err);
+			consoleLogger.setOutputPrintStream(System.out);
+			consoleLogger.setMessageOutputLevel(Project.MSG_INFO);
+			p.addBuildListener(consoleLogger);
+		}
 		try {
 			p.fireBuildStarted();
 			p.init();
 			ProjectHelper helper = ProjectHelper.getProjectHelper();
 			p.addReference("ant.projectHelper", helper);
 			helper.parse(p, buildFile);
-			p.executeTarget(targetName);
+			p.executeTarget(defaultTarget ? p.getDefaultTarget() : targetName);
 			p.fireBuildFinished(null);
 		} catch (BuildException e) {
 			p.fireBuildFinished(e);
@@ -774,8 +801,11 @@ public final class JepRiaToolkitUtil {
 	 *         параметром Ant. Пример, ${PORT}, ${MODULE_NAME} и т.д.
 	 */
 	public static boolean isEmptyOrNotInitializedParameter(String sourceString) {
-		return isEmpty(sourceString) ? true : sourceString.startsWith("${")
-				&& sourceString.endsWith("}");
+		return isEmpty(sourceString) ? true : isNotInitializedParameter(sourceString);
+	}
+	
+	public static boolean isNotInitializedParameter(String sourceString) {
+		return !isEmpty(sourceString) && sourceString.startsWith("${") && sourceString.endsWith("}");
 	}
 
 	/**
@@ -1154,6 +1184,31 @@ public final class JepRiaToolkitUtil {
     }
 	
 	/**
+	 * Преобразование объектной модели к DOM-представлению
+	 * 
+	 * @param object			преобразуемый объект
+	 * @param doc				существующее DOM-дерево
+	 */
+	public static Document appendModuleToApplication(Application application, Module newModule){
+		try {
+			JAXBContext jaxbContext = JAXBContext.newInstance(application.getClass());
+			Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
+			// output pretty printed
+			jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+			jaxbMarshaller.setProperty(Marshaller.JAXB_ENCODING, WIN_CHARSET);
+			Document doc = createDOM();
+			application.getModules().getModules().add(newModule);
+			jaxbMarshaller.marshal(application, doc);
+			return doc;
+		} catch (JAXBException e) {
+			e.printStackTrace();
+		} catch (ParserConfigurationException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	/**
 	 * Нормализация пути к файлу.
 	 * 
 	 * @param path	нормализуемый путь
@@ -1210,5 +1265,45 @@ public final class JepRiaToolkitUtil {
 		} else {
 			return obj1.equals(obj2);
 		}
+	}	
+
+	/**
+	 * Конвертация текстовых ресурсов
+	 */
+	public static void encodeTextResources() {
+		runAntTarget(ALL_TEXT_ENCODE_TASK_TARGET);
+	}
+	
+	/**
+	 * Создание структуры приложения с указанием файла для сборки
+	 * 
+	 * @param fileName		наименование файла сборки
+	 */
+	public static void createApplicationStructure(String fileName) {
+		runAntTarget(CREATE_STRUCTURE_TASK_TARGET, new Pair<String, String>(APPLICATION_STRUCTURE_FILE_PATH_TASK_ATTRIBUTE, fileName));
+	}
+	
+	/**
+	 * Сборка и развертывание приложения
+	 */
+	public static void buildAndDeploy() {
+//		runAntTarget(BUILD_AND_DEPLOY_TASK_TARGET);
+		runAntTarget(null);
+	}
+	
+	/**
+	 * Создание модуля с пустой списочной и детальной формами
+	 * 
+	 * @param moduleId			идентификатор модуля
+	 * @param applicationName	наименование приложения
+	 * @return пустой модуль
+	 */
+	public static Module createBlankModule(String moduleId, String applicationName){
+		Module module = new Module(moduleId);
+		module.setModuleName(NO_NAME);
+		module.setModuleNameEn(NO_NAME);
+		Db db = new Db(multipleConcat(PKG_PREFIX, applicationName.toLowerCase()), DEFAULT_DATASOURCE);
+		module.setDb(db);
+		return module;
 	}
 }

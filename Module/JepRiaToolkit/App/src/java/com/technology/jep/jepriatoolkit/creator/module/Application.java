@@ -5,6 +5,7 @@ import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.MODULES_TAG
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.NAME_ATTRIBUTE;
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.multipleConcat;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -68,28 +69,33 @@ public class Application {
 	public void uptodate(Application newApplication){
 		if (modules != null) {
 			List<Module> originModules = modules.getModules();
-			for (Module module : newApplication.modules.getModules()){
-				boolean exists = false;
-				String moduleId = module.getModuleId();
-				for (Module originmodule : originModules){
-					String originalModuleId = originmodule.getModuleId();
-					exists = moduleId.equalsIgnoreCase(originalModuleId);
-					if (exists){
-						Logger.appendMessageToForm(moduleId, multipleConcat("Start analysis of module '", moduleId, "'"));
-						originmodule.uptodate(module);
-						Logger.appendMessageToTheEndOfForm(moduleId, multipleConcat("Stop analysis of module '", moduleId, "'"));
-						break;
+			if (originModules == null){
+				originModules = new ArrayList<Module>();
+			}
+			if (newApplication.modules != null)
+				for (Module module : newApplication.modules.getModules()){
+					boolean exists = false;
+					String moduleId = module.getModuleId();
+					for (Module originmodule : originModules){
+						String originalModuleId = originmodule.getModuleId();
+						exists = moduleId.equalsIgnoreCase(originalModuleId);
+						if (exists){
+							Logger.appendMessageToForm(moduleId, multipleConcat("Start analysis of module '", moduleId, "'"));
+							originmodule.uptodate(module);
+							Logger.appendMessageToTheEndOfForm(moduleId, multipleConcat("Stop analysis of module '", moduleId, "'"));
+							break;
+						}
+					}
+					if (!exists){
+						Logger.appendMessageToForm(moduleId, multipleConcat("The module '", moduleId, "' was added to application structure!"));
+						originModules.add(module);
 					}
 				}
-				if (!exists){
-					Logger.appendMessageToForm(moduleId, multipleConcat("The module '", moduleId, "' was added to application structure!"));
-					originModules.add(module);
-				}
-			}
 			// check if all modules in xml has source code or maybe were deleted
 			for (Module originmodule : originModules){
 				String originModuleId = originmodule.getModuleId();
-				if (!newApplication.moduleIds.contains(originModuleId)){
+				if (newApplication.moduleIds != null && 
+						!newApplication.moduleIds.contains(originModuleId)){
 					Logger.appendMessageToForm(originModuleId, multipleConcat("Pay attention that module '", originModuleId, "' has no source code! If you need, you can remove this module description manually!"));
 				}
 			}

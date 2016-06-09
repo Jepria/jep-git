@@ -1,17 +1,18 @@
-package com.technology.jep.jepriatoolkit.creator;
+package com.technology.jep.jepriatoolkit.creator.application;
 
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.*;
-import static com.technology.jep.jepriatoolkit.creator.ApplicationStructureCreatorUtil.convertTemplateToFile;
+import static com.technology.jep.jepriatoolkit.creator.application.ApplicationStructureCreatorUtil.convertTemplateToFile;
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.echoMessage;
+import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.encodeTextResources;
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.getApplicationDefinitionFile;
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.getDefinitionProperty;
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.isEmpty;
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.isEmptyOrNotInitializedParameter;
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.makeDir;
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.multipleConcat;
+import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.normalizePath;
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.readFromJar;
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.replacePackageModuleNames;
-import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.runAntTarget;
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.writeToFile;
 import static java.text.MessageFormat.format;
 
@@ -24,6 +25,8 @@ import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Task;
 
 import com.technology.jep.jepriatoolkit.creator.module.Application;
+import com.technology.jep.jepriatoolkit.creator.module.DetailForm;
+import com.technology.jep.jepriatoolkit.creator.module.Forms;
 import com.technology.jep.jepriatoolkit.creator.module.Module;
 import com.technology.jep.jepriatoolkit.creator.module.ModuleButton;
 import com.technology.jep.jepriatoolkit.creator.module.ModuleField;
@@ -155,68 +158,68 @@ public class ApplicationStructureCreator extends Task {
 
 		if (forms.size() == 0) {
 			echoMessage(multipleConcat(WARNING_PREFIX, "Tag-parameter '", MODULE_TAG_NAME,
-					"' is desirable. To create structure for forms, fill this parameter in ", applicationStructureFile, "!"));
-			return;
+					"' is desirable. To create structure for forms, fill this parameter in ", normalizePath(applicationStructureFile), "!"));
 		}
-
-		for (int i = 0; i < forms.size(); i++) {
-			String formName = ((String) forms.get(i)).toLowerCase();
-			makeDir(
-				format(
-					getDefinitionProperty(CLIENT_MODULE_DETAIL_FORM_DIRECTORY_PROPERTY,
-							multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "{0}/{1}/{2}/client/ui/form/detail")),
-					application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName
-				)
-			);
-			makeDir(
-				format(
-					getDefinitionProperty(CLIENT_MODULE_LIST_FORM_DIRECTORY_PROPERTY,
-						multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "{0}/{1}/{2}/client/ui/form/list")),
-					application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName
-				)
-			);
-			makeDir(
-				format(
-					getDefinitionProperty(CLIENT_MODULE_DAO_DIRECTORY_PROPERTY,
-						multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "{0}/{1}/{2}/server/dao")),
-					application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName
-				)
-			);
-			makeDir(
-				format(
-					getDefinitionProperty(CLIENT_MODULE_SERVICE_IMPL_DIRECTORY_PROPERTY,
-						multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "{0}/{1}/{2}/server/service")),
-					application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName
-				)
-			);
-			makeDir(
-				format(
-					getDefinitionProperty(CLIENT_MODULE_FIELD_DIRECTORY_PROPERTY,	
-						multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "{0}/{1}/{2}/shared/field")),
-					application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName
-				)
-			);
-			makeDir(
-				format(
-					getDefinitionProperty(CLIENT_MODULE_RECORD_DIRECTORY_PROPERTY,	
-						multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "{0}/{1}/{2}/shared/record")),
-					application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName
-				)
-			);
-			makeDir(
-				format(
-					getDefinitionProperty(CLIENT_MODULE_SERVICE_DIRECTORY_PROPERTY,	
-						multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "{0}/{1}/{2}/shared/service")),
-					application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName
-				)
-			);
-			makeDir(
-				format(
-					getDefinitionProperty(CLIENT_MODULE_TEXT_RESOURCE_DIRECTORY_PROPERTY,	
-						multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "{0}/{1}/{2}/shared/text")),
-					application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName
-				)
-			);
+		else {
+			for (int i = 0; i < forms.size(); i++) {
+				String formName = ((String) forms.get(i)).toLowerCase();
+				makeDir(
+					format(
+						getDefinitionProperty(CLIENT_MODULE_DETAIL_FORM_DIRECTORY_PROPERTY,
+								multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "{0}/{1}/{2}/client/ui/form/detail")),
+						application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName
+					)
+				);
+				makeDir(
+					format(
+						getDefinitionProperty(CLIENT_MODULE_LIST_FORM_DIRECTORY_PROPERTY,
+							multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "{0}/{1}/{2}/client/ui/form/list")),
+						application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName
+					)
+				);
+				makeDir(
+					format(
+						getDefinitionProperty(CLIENT_MODULE_DAO_DIRECTORY_PROPERTY,
+							multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "{0}/{1}/{2}/server/dao")),
+						application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName
+					)
+				);
+				makeDir(
+					format(
+						getDefinitionProperty(CLIENT_MODULE_SERVICE_IMPL_DIRECTORY_PROPERTY,
+							multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "{0}/{1}/{2}/server/service")),
+						application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName
+					)
+				);
+				makeDir(
+					format(
+						getDefinitionProperty(CLIENT_MODULE_FIELD_DIRECTORY_PROPERTY,	
+							multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "{0}/{1}/{2}/shared/field")),
+						application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName
+					)
+				);
+				makeDir(
+					format(
+						getDefinitionProperty(CLIENT_MODULE_RECORD_DIRECTORY_PROPERTY,	
+							multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "{0}/{1}/{2}/shared/record")),
+						application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName
+					)
+				);
+				makeDir(
+					format(
+						getDefinitionProperty(CLIENT_MODULE_SERVICE_DIRECTORY_PROPERTY,	
+							multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "{0}/{1}/{2}/shared/service")),
+						application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName
+					)
+				);
+				makeDir(
+					format(
+						getDefinitionProperty(CLIENT_MODULE_TEXT_RESOURCE_DIRECTORY_PROPERTY,	
+							multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "{0}/{1}/{2}/shared/text")),
+						application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName
+					)
+				);
+			}
 		}
 		
 		makeDir(
@@ -1209,13 +1212,6 @@ public class ApplicationStructureCreator extends Task {
 			), UTF_8, false);
 	}
 
-	/**
-	 * Конвертация текстовых ресурсов
-	 */
-	private void encodeTextResources() {
-		runAntTarget("all-text-encode");
-	}
-
 	// сетеры для соответствующих атрибутов Task
 	public void setApplicationStructureFile(String applicationStructureFile) {
 		this.applicationStructureFile = applicationStructureFile;
@@ -1255,7 +1251,13 @@ public class ApplicationStructureCreator extends Task {
 				modInfo.setCreateParameterPrefix(module.getCreateParameterPrefix());
 				modInfo.setFindParameterPrefix(module.getFindParameterPrefix());
 				modInfo.setUpdateParameterPrefix(module.getUpdateParameterPrefix());
-				modInfo.setPresenterBody(module.getForms().getDetailForm().getPresenterBody());
+				Forms fms = module.getForms();
+				if (!isEmpty(fms)) {
+					DetailForm detailForm = fms.getDetailForm();
+					if(!isEmpty(detailForm)) {
+						modInfo.setPresenterBody(detailForm.getPresenterBody());
+					}
+				}
 				String mainFormIfExist = applicationParser.getMainFormNameIfExist(formName);
 				modInfo.setMainFormName(mainFormIfExist);
 				if (!isEmpty(mainFormIfExist)) {
@@ -1264,8 +1266,8 @@ public class ApplicationStructureCreator extends Task {
 					modInfo.setMainFormParentKey(mainFormParentKey);
 				}
 				boolean isJepToolBar = module.isStandardToolBar() && !module.isToolBarOff();
-				modInfo.setIsJepToolBarPresenter(isJepToolBar && Boolean.FALSE.equals(module.hasToolBarPresenter()));
-				modInfo.setIsJepToolBarView(isJepToolBar && Boolean.FALSE.equals(module.hasToolBarView()));
+				modInfo.setIsJepToolBarPresenter(isJepToolBar && !Boolean.TRUE.equals(module.hasToolBarPresenter()));
+				modInfo.setIsJepToolBarView(isJepToolBar && !Boolean.TRUE.equals(module.hasToolBarView()));
 				modInfo.setIsDblClickOff(module.isDblClickOff());
 				modInfo.setStandardToolBar(module.isStandardToolBar());
 				modInfo.setIsToolBarOff(module.isToolBarOff());

@@ -4,12 +4,17 @@ import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.APPLICATION
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.APPLICATION_XML_PATH_TEMPLATE_PROPERTY;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.DEFAULT_DATASOURCE;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.ERROR_PREFIX;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.JEP_APPLICATION_XML;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.MAIN_GWT_XML_PATH_TEMPLATE_PROPERTY;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.MAIN_TEXT_RESOURCE_EN_PATH_TEMPLATE_PROPERTY;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.MAIN_TEXT_RESOURCE_PATH_TEMPLATE_PROPERTY;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.NO;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.OUTPUT_LOG_FILE;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.PATH_SEPARATOR;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.PREFIX_DESTINATION_SOURCE_CODE;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.WARNING_PREFIX;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.XML_EXTENSION;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.YES;
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.convertPatternInRealPath;
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.convertPatternInRealPathSupressException;
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.convertToXml;
@@ -55,12 +60,6 @@ import com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil;
 
 public class ApplicationStructureParser extends Task {
 	
-	private static final String OUTPUT_LOG_FILE = "createStucture.log";
-	private static final String JEP_APPLICATION_XML = "JepApplication.xml";
-	private static final String YES = "y";
-	private static final String NO = "n";
-	private static final String XML_EXTENSION = ".xml";
-
 	private String jepRiaVersion;
 	
 	@Override
@@ -110,30 +109,32 @@ public class ApplicationStructureParser extends Task {
 		ResourceBundle mainModuleResourceBundle = getResourceByPath(mainModuleResourcePath);
 		ResourceBundle mainModuleResourceBundleEn = getResourceByPath(mainModuleResourceEnPath);
 		
-		ExecutorService service = Executors.newFixedThreadPool(moduleCount);
-		
-		CompletionService<Module> completionService = new ExecutorCompletionService<Module>(service);
-		
-		for(String moduleId : moduleNames){
-			completionService.submit(new ModuleParser(structure, moduleId, resource, mainModuleResourceBundle, mainModuleResourceBundleEn));
-		}
-		//now retrieve the futures after computation (auto wait for it)
-		int received = 0;
-		while (received < moduleCount) {
-			Future<Module> resultFuture = null;
-			try {
-				resultFuture = completionService.take();
-				modules.add(resultFuture.get());
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			} catch (ExecutionException e) {
-				e.printStackTrace();
+		if (moduleCount > 0) {
+			ExecutorService service = Executors.newFixedThreadPool(moduleCount);
+			
+			CompletionService<Module> completionService = new ExecutorCompletionService<Module>(service);
+			
+			for(String moduleId : moduleNames){
+				completionService.submit(new ModuleParser(structure, moduleId, resource, mainModuleResourceBundle, mainModuleResourceBundleEn));
 			}
-			received++;
+			//now retrieve the futures after computation (auto wait for it)
+			int received = 0;
+			while (received < moduleCount) {
+				Future<Module> resultFuture = null;
+				try {
+					resultFuture = completionService.take();
+					modules.add(resultFuture.get());
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				} catch (ExecutionException e) {
+					e.printStackTrace();
+				}
+				received++;
+			}
+			// important: shutdown your ExecutorService
+			service.shutdown();
+			structure.setModules(new Modules(modules));
 		}
-		// important: shutdown your ExecutorService
-		service.shutdown();
-		structure.setModules(new Modules(modules));
 		
 		if (new File(fileName).exists()){
 			try {

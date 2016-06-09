@@ -15,7 +15,9 @@ public class ${moduleName}MainModulePresenter<E extends MainEventBus, S extends 
 	public ${moduleName}MainModulePresenter(MainClientFactory<E, S> clientFactory) {
 		super(clientFactory);
 		<#list forms![] as form>
+		<#if form.moduleRoleNames![]?has_content>
  		addModuleProtection(${form.formName?upper_case}_MODULE_ID, "<#list form.moduleRoleNames![] as roleName>${roleName}<#if roleName_has_next>, </#if></#list>", CHECK_ROLES_BY_OR);
+ 		</#if>
 		</#list>
 	}
 }

@@ -29,8 +29,8 @@ public class ModuleInfo {
 	private boolean isStandardToolBar;
 	private boolean isExcelAvailable;
 	private boolean isNotRebuild;
-	private boolean isJepToolBarPresenter;
-	private boolean isJepToolBarView;
+	private boolean isJepToolBarPresenter = true;
+	private boolean isJepToolBarView = true;
 	private boolean isDblClickOff;
 	private boolean isToolBarOff;
 	private Boolean hasToolBarPresenter;
