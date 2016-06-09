@@ -1,9 +1,10 @@
 package com.technology.jep.jepriashowcase.main.client;
 
 import static com.technology.jep.jepriashowcase.main.client.JepRiaShowcaseClientConstant.ALLSHOPGOODS_MODULE_ID;
+import static com.technology.jep.jepriashowcase.main.client.JepRiaShowcaseClientConstant.ARSENIC_MODULE_ID;
 import static com.technology.jep.jepriashowcase.main.client.JepRiaShowcaseClientConstant.CUSTOM_MODULE_ID;
-import static com.technology.jep.jepriashowcase.main.client.JepRiaShowcaseClientConstant.GOODS_MODULE_ID;
 import static com.technology.jep.jepriashowcase.main.client.JepRiaShowcaseClientConstant.FEATURE_MODULE_ID;
+import static com.technology.jep.jepriashowcase.main.client.JepRiaShowcaseClientConstant.GOODS_MODULE_ID;
 import static com.technology.jep.jepriashowcase.main.client.JepRiaShowcaseClientConstant.REQUESTPROCESS_MODULE_ID;
 import static com.technology.jep.jepriashowcase.main.client.JepRiaShowcaseClientConstant.REQUEST_MODULE_ID;
 import static com.technology.jep.jepriashowcase.main.client.JepRiaShowcaseClientConstant.SEARCH_MODULE_ID;
@@ -25,11 +26,12 @@ import com.technology.jep.jepria.client.ui.plain.PlainClientFactory;
 import com.technology.jep.jepria.shared.service.JepMainServiceAsync;
 import com.technology.jep.jepria.shared.service.data.JepDataServiceAsync;
 import com.technology.jep.jepriashowcase.allshopgoods.client.AllShopGoodsClientFactoryImpl;
+import com.technology.jep.jepriashowcase.arsenic.client.ArsenicClientFactoryImpl;
 import com.technology.jep.jepriashowcase.custom.client.CustomClientFactoryImpl;
+import com.technology.jep.jepriashowcase.feature.client.FeatureClientFactoryImpl;
 import com.technology.jep.jepriashowcase.goods.client.GoodsClientFactoryImpl;
 import com.technology.jep.jepriashowcase.main.client.ui.main.JepRiaShowcaseMainModulePresenter;
 import com.technology.jep.jepriashowcase.request.client.RequestClientFactoryImpl;
-import com.technology.jep.jepriashowcase.feature.client.FeatureClientFactoryImpl;
 import com.technology.jep.jepriashowcase.requestprocess.client.RequestProcessClientFactoryImpl;
 import com.technology.jep.jepriashowcase.search.client.SearchClientFactoryImpl;
 import com.technology.jep.jepriashowcase.shopgoods.client.ShopGoodsClientFactoryImpl;
@@ -54,6 +56,7 @@ public class JepRiaShowcaseClientFactoryImpl<E extends MainEventBus, S extends J
 				, SIMPLE_MODULE_ID
 				, SUPPLIER_MODULE_ID
 				, GOODS_MODULE_ID
+				, ARSENIC_MODULE_ID
 				, SHOPGOODS_MODULE_ID
 				, ALLSHOPGOODS_MODULE_ID
 				, REQUEST_MODULE_ID
@@ -67,6 +70,7 @@ public class JepRiaShowcaseClientFactoryImpl<E extends MainEventBus, S extends J
 				, jepRiaShowcaseText.submodule_search_title()
 				, jepRiaShowcaseText.submodule_supplier_title()
 				, jepRiaShowcaseText.submodule_goods_title()
+				, jepRiaShowcaseText.submodule_arsenic_title()
 				, jepRiaShowcaseText.submodule_shopgoods_title()
 				, jepRiaShowcaseText.submodule_allshopgoods_title()
 				, jepRiaShowcaseText.submodule_request_title()
@@ -122,6 +126,14 @@ public class JepRiaShowcaseClientFactoryImpl<E extends MainEventBus, S extends J
 				public PlainClientFactory<PlainEventBus, JepDataServiceAsync> getPlainClientFactory() {
 					Log.trace(JepRiaShowcaseClientFactoryImpl.this.getClass() + ".getPlainClientFactory: moduleId = " + GOODS_MODULE_ID);
 					return GoodsClientFactoryImpl.getInstance();
+				}
+			});
+		}
+		else if(ARSENIC_MODULE_ID.equals(moduleId)) {
+			GWT.runAsync(new LoadPlainClientFactory(callback) {
+				public PlainClientFactory<PlainEventBus, JepDataServiceAsync> getPlainClientFactory() {
+					Log.trace(JepRiaShowcaseClientFactoryImpl.this.getClass() + ".getPlainClientFactory: moduleId = " + ARSENIC_MODULE_ID);
+					return ArsenicClientFactoryImpl.getInstance();
 				}
 			});
 		}

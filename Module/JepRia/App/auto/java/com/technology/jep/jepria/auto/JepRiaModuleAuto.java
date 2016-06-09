@@ -3,7 +3,6 @@ package com.technology.jep.jepria.auto;
 import java.util.Map;
 
 import com.technology.jep.jepria.auto.entrance.EntranceAuto;
-import com.technology.jep.jepria.auto.exceptions.WrongOptionException;
 import com.technology.jep.jepria.auto.widget.field.Field;
 import com.technology.jep.jepria.auto.widget.statusbar.StatusBar;
 import com.technology.jep.jepria.client.ui.WorkstateEnum;
@@ -136,8 +135,9 @@ public interface JepRiaModuleAuto extends EntranceAuto {
 	 * Если искомой опции нет в выпадающем списке после введения всего текста, выбрасывается исключение WrongOptionException.
 	 * @param comboBoxFieldId id ComboBox-поля
 	 * @param menuItemText Имя опции, которую необходимо выбрать
-	 * @param firstInputLength Минимальное количество символов, которые необходимо ввести для того, чтобы в данном Комбо-боксе
-	 * началась загрузка опций (например, при поиске оператора, часто опции загружаются при вводе мимнимум 3 символов).
+	 * @param minInputLength Минимальное количество символов, которые необходимо ввести для того, чтобы в данном Комбо-боксе
+	 * началась загрузка опций (например, при поиске оператора, часто опции загружаются при вводе мимнимум 3 символов). 
+	 * Минимально допустимое значение = 1 (устанавливается автоматически при задании меньшего значения).
 	 */
-	void selectComboBoxMenuItemWithCharByCharReloadingOptions(String comboBoxFieldId, String menuItemText, int firstInputLength);
+	void selectComboBoxMenuItemWithCharByCharReloadingOptions(String comboBoxFieldId, String menuItemText, int minInputLength);
 }

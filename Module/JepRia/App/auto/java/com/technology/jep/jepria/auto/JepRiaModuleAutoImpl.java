@@ -229,16 +229,18 @@ public class JepRiaModuleAutoImpl<A extends EntranceAppAuto, P extends JepRiaApp
 
 	@Override
 	public void selectComboBoxMenuItem(String comboBoxFieldId, String menuItemText) {
-		selectComboBoxMenuItem(comboBoxFieldId, menuItemText, menuItemText.length());
+		selectComboBoxMenuItem(comboBoxFieldId, menuItemText, false, menuItemText.length());
 	}
 	
 	@Override
-	public void selectComboBoxMenuItemWithCharByCharReloadingOptions(String comboBoxFieldId, String menuItemText, int firstInputLength) {
-		selectComboBoxMenuItem(comboBoxFieldId, menuItemText, firstInputLength);
+	public void selectComboBoxMenuItemWithCharByCharReloadingOptions(String comboBoxFieldId, String menuItemText, int minInputLength) {
+		// 1 is the minimal possible value
+		selectComboBoxMenuItem(comboBoxFieldId, menuItemText, true, Math.max(1, minInputLength));
 	}
 	
 	//TODO унифицировать простые и сложные поля через get/set-FieldValue() - Нужна иерархия полей ! 
-	private void selectComboBoxMenuItem(String comboBoxFieldId, String menuItemText, int firstInputLength) { // TODO Поддержать локализацию
+	private void selectComboBoxMenuItem(String comboBoxFieldId, String menuItemText,
+			final boolean charByCharReloadingOptions, final int minInputLength) { // TODO Поддержать локализацию
 		pages.getApplicationPage().ensurePageLoaded();
 		
 		// Подготовка: в случае, если на данный JepComboBoxField навешена загрузка опций по первому использованию,
@@ -260,16 +262,31 @@ public class JepRiaModuleAutoImpl<A extends EntranceAppAuto, P extends JepRiaApp
 		
 		WebElement comboBoxMenuItem;
 		
-		// Корректируем minLength
-		firstInputLength = Math.min(firstInputLength, menuItemText.length());
+		// Если menuItemText короче firstInputLength, сообщаем об ошибке
+		if (minInputLength > menuItemText.length()) {
+			// Закроем открытый список опций.
+			dropDownButton.click();
+			
+			throw new WrongOptionException("Wrong combobox option: [" + menuItemText + "], "
+					+ "the input must be at least " + minInputLength + " chars.");
+		}
 		// Пишем в поле Комбо-бокса начальные символы (в случае с простой однократной загрузкой списка опций - весь текст сразу).
-		fieldInput.sendKeys(menuItemText.substring(0, firstInputLength));
+		fieldInput.sendKeys(menuItemText.substring(0, minInputLength));
 		
-		int ind = firstInputLength;
+		if (charByCharReloadingOptions) {
+			// Закроем открытый список опций.
+			dropDownButton.click();
+			
+			// Отслеживаем появление suggestBoxPopup, то есть когда список опций загрузится.
+			getWait().until(presenceOfElementLocated(By.xpath(comboBoxSuggestBoxPopupXPath)));
+		}
+		
+		int ind = minInputLength;
 		// Продолжаем набирать оставшийся текст по одной букве, ожидая подгрузки списка, до тех пор пока либо не закончатся буквы,
 		// либо опция не будет найдена в списке (в случае с простой однократной загрузкой списка опций - выход из цикла происходит сразу).
 		while (true) {
 			try {
+				
 				comboBoxMenuItem = pages.getApplicationPage().getWebDriver().findElement(By.id(DETAIL_FORM_COMBOBOX_MENU_ITEM_PREFIX + menuItemText));
 				// Исключения не было - значит, опция найдена в списке на данном шаге.
 				break;
@@ -285,6 +302,9 @@ public class JepRiaModuleAutoImpl<A extends EntranceAppAuto, P extends JepRiaApp
 					// Отслеживаем появление suggestBoxPopup, то есть когда список опций загрузится.
 					getWait().until(presenceOfElementLocated(By.xpath(comboBoxSuggestBoxPopupXPath)));
 				} else {
+					// Закроем открытый список опций.
+					dropDownButton.click();
+					
 					// Букв не осталось - значит, опции в списке нет.
 					throw new WrongOptionException("Wrong combobox option: [" + menuItemText + "]");
 				}
@@ -295,7 +315,7 @@ public class JepRiaModuleAutoImpl<A extends EntranceAppAuto, P extends JepRiaApp
 		getWait().until(elementToBeClickable(comboBoxMenuItem));
 		comboBoxMenuItem.click();
 	}
-
+	
 	@Override
 	public SaveResultEnum save() {
 		SaveResultEnum result = null;
