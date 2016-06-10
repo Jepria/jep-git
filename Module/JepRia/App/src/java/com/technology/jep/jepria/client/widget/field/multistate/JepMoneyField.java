@@ -32,8 +32,8 @@ public class JepMoneyField extends JepBaseNumberField<BigDecimalBox> {
 		this(null, fieldLabel);
 	}
 	
-	public JepMoneyField(String fieldId, String fieldLabel) {
-		super(fieldId, fieldLabel);
+	public JepMoneyField(String fieldIdAsWebEl, String fieldLabel) {
+		super(fieldIdAsWebEl, fieldLabel);
 		// Установка формата числа.
 		setNumberFormat(NumberFormat.getFormat(DEFAULT_DECIMAL_FORMAT));
 	}

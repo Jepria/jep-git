@@ -29,8 +29,8 @@ public class JepRadioField extends JepMultiStateField<RadioListField<JepOption>,
 		this(null, fieldLabel);
 	}
 	
-	public JepRadioField(String fieldId, String fieldLabel) {
-		super(fieldId, fieldLabel);
+	public JepRadioField(String fieldIdAsWebEl, String fieldLabel) {
+		super(fieldIdAsWebEl, fieldLabel);
 	}
 
 	/**

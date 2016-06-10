@@ -7,31 +7,67 @@ package com.technology.jep.jepriashowcase.arsenic.shared.text;
 public interface ArsenicText extends com.google.gwt.i18n.client.Constants {
   
   /**
-   * Translated "JepComboBoxField с обновлением опций по мере ввода текста (минимум 3 символа)".
+   * Translated "Обновляемый JepComboBoxField (минимум 3 символа)".
    * 
-   * @return translated "JepComboBoxField с обновлением опций по мере ввода текста (минимум 3 символа)"
+   * @return translated "Обновляемый JepComboBoxField (минимум 3 символа)"
    */
-  @DefaultStringValue("JepComboBoxField с обновлением опций по мере ввода текста (минимум 3 символа)")
+  @DefaultStringValue("Обновляемый JepComboBoxField (минимум 3 символа)")
   @Key("detail.jepComboBoxField.3ch_reloading")
   String detail_jepComboBoxField_3ch_reloading();
 
   /**
-   * Translated "JepComboBoxField с долгой загрузкой опций".
+   * Translated "Тяжелый JepComboBoxField".
    * 
-   * @return translated "JepComboBoxField с долгой загрузкой опций"
+   * @return translated "Тяжелый JepComboBoxField"
    */
-  @DefaultStringValue("JepComboBoxField с долгой загрузкой опций")
+  @DefaultStringValue("Тяжелый JepComboBoxField")
   @Key("detail.jepComboBoxField.durable")
   String detail_jepComboBoxField_durable();
 
   /**
-   * Translated "JepComboBoxField с обновлением опций по мере ввода текста".
+   * Translated "JepComboBoxField с долгой (1-2 с) загрузкой опций по FIRST_TIME_USE_EVENT".
    * 
-   * @return translated "JepComboBoxField с обновлением опций по мере ввода текста"
+   * @return translated "JepComboBoxField с долгой (1-2 с) загрузкой опций по FIRST_TIME_USE_EVENT"
    */
-  @DefaultStringValue("JepComboBoxField с обновлением опций по мере ввода текста")
+  @DefaultStringValue("JepComboBoxField с долгой (1-2 с) загрузкой опций по FIRST_TIME_USE_EVENT")
+  @Key("detail.jepComboBoxField.durable.hint")
+  String detail_jepComboBoxField_durable_hint();
+
+  /**
+   * Translated "Неленивый JepComboBoxField".
+   * 
+   * @return translated "Неленивый JepComboBoxField"
+   */
+  @DefaultStringValue("Неленивый JepComboBoxField")
+  @Key("detail.jepComboBoxField.notlazy")
+  String detail_jepComboBoxField_notlazy();
+
+  /**
+   * Translated "JepComboBoxField с неленивой загрузкой опций (опции загружаются при загрузке приложения, а не по FIRST_TIME_USE_EVENT или TYPING_TIMEOUT_EVENT, как обычно).".
+   * 
+   * @return translated "JepComboBoxField с неленивой загрузкой опций (опции загружаются при загрузке приложения, а не по FIRST_TIME_USE_EVENT или TYPING_TIMEOUT_EVENT, как обычно)."
+   */
+  @DefaultStringValue("JepComboBoxField с неленивой загрузкой опций (опции загружаются при загрузке приложения, а не по FIRST_TIME_USE_EVENT или TYPING_TIMEOUT_EVENT, как обычно).")
+  @Key("detail.jepComboBoxField.notlazy.hint")
+  String detail_jepComboBoxField_notlazy_hint();
+
+  /**
+   * Translated "Обновляемый JepComboBoxField".
+   * 
+   * @return translated "Обновляемый JepComboBoxField"
+   */
+  @DefaultStringValue("Обновляемый JepComboBoxField")
   @Key("detail.jepComboBoxField.reloading")
   String detail_jepComboBoxField_reloading();
+
+  /**
+   * Translated "JepComboBoxField с обновлением списка опций по мере ввода текста. Принцип обновления списка опций: допустимой опцией является любое слово, оканчивающееся буквой a-z.".
+   * 
+   * @return translated "JepComboBoxField с обновлением списка опций по мере ввода текста. Принцип обновления списка опций: допустимой опцией является любое слово, оканчивающееся буквой a-z."
+   */
+  @DefaultStringValue("JepComboBoxField с обновлением списка опций по мере ввода текста. Принцип обновления списка опций: допустимой опцией является любое слово, оканчивающееся буквой a-z.")
+  @Key("detail.jepComboBoxField.reloading.hint")
+  String detail_jepComboBoxField_reloading_hint();
 
   /**
    * Translated "Простой JepComboBoxField".
@@ -43,6 +79,15 @@ public interface ArsenicText extends com.google.gwt.i18n.client.Constants {
   String detail_jepComboBoxField_simple();
 
   /**
+   * Translated "Обычный JepComboBoxField c загрузкой опций по FIRST_TIME_USE_EVENT. ".
+   * 
+   * @return translated "Обычный JepComboBoxField c загрузкой опций по FIRST_TIME_USE_EVENT. "
+   */
+  @DefaultStringValue("Обычный JepComboBoxField c загрузкой опций по FIRST_TIME_USE_EVENT. ")
+  @Key("detail.jepComboBoxField.simple.hint")
+  String detail_jepComboBoxField_simple_hint();
+
+  /**
    * Translated "Простой JepDateField".
    * 
    * @return translated "Простой JepDateField"
@@ -50,6 +95,15 @@ public interface ArsenicText extends com.google.gwt.i18n.client.Constants {
   @DefaultStringValue("Простой JepDateField")
   @Key("detail.jepDateField")
   String detail_jepDateField();
+
+  /**
+   * Translated "Простой JepDualListField".
+   * 
+   * @return translated "Простой JepDualListField"
+   */
+  @DefaultStringValue("Простой JepDualListField")
+  @Key("detail.jepDualListField")
+  String detail_jepDualListField();
 
   /**
    * Translated "Простой JepIntegerField".
@@ -124,11 +178,11 @@ public interface ArsenicText extends com.google.gwt.i18n.client.Constants {
   String startTyping3ch();
 
   /**
-   * Translated "Модуль демонстрирует приемы тестирования web-элементов форм с помощью Selenium.<br/><br/>За ненадобностью, DB-часть у данного модуля отсутствует, а взаимодействие с сервером лишь имитируется временн<i>о</i>й задержкой,<br/>при этом демонстрационные данные формируются также на клиенте.".
+   * Translated "<b>Модуль демонстрирует приемы тестирования web-элементов форм с помощью Selenium.</b><br/><br/>За ненадобностью, DB-часть у данного модуля отсутствует, а взаимодействие с сервером лишь имитируется временн<i>о</i>й задержкой,<br/>при этом демонстрационные данные полей формируются также на клиенте.".
    * 
-   * @return translated "Модуль демонстрирует приемы тестирования web-элементов форм с помощью Selenium.<br/><br/>За ненадобностью, DB-часть у данного модуля отсутствует, а взаимодействие с сервером лишь имитируется временн<i>о</i>й задержкой,<br/>при этом демонстрационные данные формируются также на клиенте."
+   * @return translated "<b>Модуль демонстрирует приемы тестирования web-элементов форм с помощью Selenium.</b><br/><br/>За ненадобностью, DB-часть у данного модуля отсутствует, а взаимодействие с сервером лишь имитируется временн<i>о</i>й задержкой,<br/>при этом демонстрационные данные полей формируются также на клиенте."
    */
-  @DefaultStringValue("Модуль демонстрирует приемы тестирования web-элементов форм с помощью Selenium.<br/><br/>За ненадобностью, DB-часть у данного модуля отсутствует, а взаимодействие с сервером лишь имитируется временн<i>о</i>й задержкой,<br/>при этом демонстрационные данные формируются также на клиенте.")
+  @DefaultStringValue("<b>Модуль демонстрирует приемы тестирования web-элементов форм с помощью Selenium.</b><br/><br/>За ненадобностью, DB-часть у данного модуля отсутствует, а взаимодействие с сервером лишь имитируется временн<i>о</i>й задержкой,<br/>при этом демонстрационные данные полей формируются также на клиенте.")
   @Key("titleText")
   String titleText();
 }

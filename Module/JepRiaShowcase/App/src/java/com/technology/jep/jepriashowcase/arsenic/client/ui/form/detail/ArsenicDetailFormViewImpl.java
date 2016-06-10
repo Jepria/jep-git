@@ -1,10 +1,13 @@
 package com.technology.jep.jepriashowcase.arsenic.client.ui.form.detail;
  
+import static com.technology.jep.jepria.client.JepRiaClientConstant.JepImages;
 import static com.technology.jep.jepriashowcase.arsenic.client.ArsenicAutomationConstant.ARSENIC_JEP_COMBOBOX_FIELD_3CH_RELOADING_ID;
 import static com.technology.jep.jepriashowcase.arsenic.client.ArsenicAutomationConstant.ARSENIC_JEP_COMBOBOX_FIELD_DURABLE_ID;
+import static com.technology.jep.jepriashowcase.arsenic.client.ArsenicAutomationConstant.ARSENIC_JEP_COMBOBOX_FIELD_NOTLAZY_ID;
 import static com.technology.jep.jepriashowcase.arsenic.client.ArsenicAutomationConstant.ARSENIC_JEP_COMBOBOX_FIELD_RELOADING_ID;
 import static com.technology.jep.jepriashowcase.arsenic.client.ArsenicAutomationConstant.ARSENIC_JEP_COMBOBOX_FIELD_SIMPLE_ID;
 import static com.technology.jep.jepriashowcase.arsenic.client.ArsenicAutomationConstant.ARSENIC_JEP_DATE_FIELD_ID;
+import static com.technology.jep.jepriashowcase.arsenic.client.ArsenicAutomationConstant.ARSENIC_JEP_DUAL_LIST_FIELD_ID;
 import static com.technology.jep.jepriashowcase.arsenic.client.ArsenicAutomationConstant.ARSENIC_JEP_INTEGER_FIELD_ID;
 import static com.technology.jep.jepriashowcase.arsenic.client.ArsenicAutomationConstant.ARSENIC_JEP_LONG_FIELD_ID;
 import static com.technology.jep.jepriashowcase.arsenic.client.ArsenicAutomationConstant.ARSENIC_JEP_MONEY_FIELD_ID;
@@ -15,9 +18,11 @@ import static com.technology.jep.jepriashowcase.arsenic.client.ArsenicClientCons
 import static com.technology.jep.jepriashowcase.arsenic.client.ArsenicClientConstant.arsenicText;
 import static com.technology.jep.jepriashowcase.arsenic.shared.field.ArsenicFieldNames.DETAILFORM_JEP_COMBOBOX_FIELD_3CH_RELOADING;
 import static com.technology.jep.jepriashowcase.arsenic.shared.field.ArsenicFieldNames.DETAILFORM_JEP_COMBOBOX_FIELD_DURABLE;
+import static com.technology.jep.jepriashowcase.arsenic.shared.field.ArsenicFieldNames.DETAILFORM_JEP_COMBOBOX_FIELD_NOTLAZY;
 import static com.technology.jep.jepriashowcase.arsenic.shared.field.ArsenicFieldNames.DETAILFORM_JEP_COMBOBOX_FIELD_RELOADING;
 import static com.technology.jep.jepriashowcase.arsenic.shared.field.ArsenicFieldNames.DETAILFORM_JEP_COMBOBOX_FIELD_SIMPLE;
 import static com.technology.jep.jepriashowcase.arsenic.shared.field.ArsenicFieldNames.DETAILFORM_JEP_DATE_FIELD;
+import static com.technology.jep.jepriashowcase.arsenic.shared.field.ArsenicFieldNames.DETAILFORM_JEP_DUAL_LIST_FIELD;
 import static com.technology.jep.jepriashowcase.arsenic.shared.field.ArsenicFieldNames.DETAILFORM_JEP_INTEGER_FIELD;
 import static com.technology.jep.jepriashowcase.arsenic.shared.field.ArsenicFieldNames.DETAILFORM_JEP_LONG_FIELD;
 import static com.technology.jep.jepriashowcase.arsenic.shared.field.ArsenicFieldNames.DETAILFORM_JEP_MONEY_FIELD;
@@ -28,14 +33,17 @@ import static com.technology.jep.jepriashowcase.arsenic.shared.field.ArsenicFiel
 import java.util.LinkedHashMap;
 
 import com.google.gwt.dom.client.Style.Unit;
+import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
+import com.google.gwt.user.client.ui.InlineHTML;
 import com.google.gwt.user.client.ui.Widget;
 import com.technology.jep.jepria.client.ui.form.detail.DetailFormView;
 import com.technology.jep.jepria.client.ui.form.detail.StandardDetailFormViewImpl;
 import com.technology.jep.jepria.client.widget.field.multistate.JepComboBoxField;
 import com.technology.jep.jepria.client.widget.field.multistate.JepDateField;
+import com.technology.jep.jepria.client.widget.field.multistate.JepDualListField;
 import com.technology.jep.jepria.client.widget.field.multistate.JepIntegerField;
 import com.technology.jep.jepria.client.widget.field.multistate.JepLongField;
 import com.technology.jep.jepria.client.widget.field.multistate.JepMoneyField;
@@ -66,26 +74,59 @@ public class ArsenicDetailFormViewImpl extends StandardDetailFormViewImpl implem
 			put(DETAILFORM_JEP_MONEY_FIELD, new JepMoneyField(ARSENIC_JEP_MONEY_FIELD_ID, arsenicText.detail_jepMoneyField()));
 			put(DETAILFORM_JEP_NUMBER_FIELD, new JepNumberField(ARSENIC_JEP_NUMBER_FIELD_ID, arsenicText.detail_jepNumberField()));
 			put(DETAILFORM_JEP_DATE_FIELD, new JepDateField(ARSENIC_JEP_DATE_FIELD_ID, arsenicText.detail_jepDateField()));
+			
+			put(DETAILFORM_JEP_COMBOBOX_FIELD_NOTLAZY, 
+					new JepComboBoxField(ARSENIC_JEP_COMBOBOX_FIELD_NOTLAZY_ID,
+							createInfoIcon(arsenicText.detail_jepComboBoxField_notlazy_hint()) + new InlineHTML("&nbsp;") +
+							arsenicText.detail_jepComboBoxField_notlazy()) {{
+						getElement().getStyle().setPaddingTop(30, Unit.PX);
+						setLabelWidth(220);
+					}});
 			put(DETAILFORM_JEP_COMBOBOX_FIELD_SIMPLE, 
-					new JepComboBoxField(ARSENIC_JEP_COMBOBOX_FIELD_SIMPLE_ID, arsenicText.detail_jepComboBoxField_simple()) {{
-				getElement().getStyle().setPaddingTop(30, Unit.PX);
-				setLabelWidth(300);
+					new JepComboBoxField(ARSENIC_JEP_COMBOBOX_FIELD_SIMPLE_ID,
+							createInfoIcon(arsenicText.detail_jepComboBoxField_simple_hint()) + new InlineHTML("&nbsp;") +
+							arsenicText.detail_jepComboBoxField_simple()) {{
+						setLabelWidth(220);
 			}});
 			put(DETAILFORM_JEP_COMBOBOX_FIELD_DURABLE, 
-					new JepComboBoxField(ARSENIC_JEP_COMBOBOX_FIELD_DURABLE_ID, arsenicText.detail_jepComboBoxField_durable()) {{
-				setLabelWidth(300);
+					new JepComboBoxField(ARSENIC_JEP_COMBOBOX_FIELD_DURABLE_ID,
+							createInfoIcon(arsenicText.detail_jepComboBoxField_durable_hint()) + new InlineHTML("&nbsp;") +
+							arsenicText.detail_jepComboBoxField_durable()) {{
+						setLabelWidth(220);
 			}});
 			put(DETAILFORM_JEP_COMBOBOX_FIELD_RELOADING, 
-					new JepComboBoxField(ARSENIC_JEP_COMBOBOX_FIELD_RELOADING_ID, arsenicText.detail_jepComboBoxField_reloading()) {{
-				setLabelWidth(300);
-				setEmptyText(arsenicText.startTyping());
+					new JepComboBoxField(ARSENIC_JEP_COMBOBOX_FIELD_RELOADING_ID,
+							createInfoIcon(arsenicText.detail_jepComboBoxField_reloading_hint()) + new InlineHTML("&nbsp;") +
+							arsenicText.detail_jepComboBoxField_reloading()) {{
+						setLabelWidth(220);
+						setEmptyText(arsenicText.startTyping());
 			}});
 			put(DETAILFORM_JEP_COMBOBOX_FIELD_3CH_RELOADING, 
-					new JepComboBoxField(ARSENIC_JEP_COMBOBOX_FIELD_3CH_RELOADING_ID, arsenicText.detail_jepComboBoxField_3ch_reloading()) {{
-				setLabelWidth(300);
-				setEmptyText(arsenicText.startTyping3ch());
+					new JepComboBoxField(ARSENIC_JEP_COMBOBOX_FIELD_3CH_RELOADING_ID,
+							createInfoIcon(arsenicText.detail_jepComboBoxField_reloading_hint()) + new InlineHTML("&nbsp;") + 
+							arsenicText.detail_jepComboBoxField_3ch_reloading()) {{
+						setLabelWidth(220);
+						setEmptyText(arsenicText.startTyping3ch());
+			}});
+			
+			put(DETAILFORM_JEP_DUAL_LIST_FIELD, new JepDualListField(ARSENIC_JEP_DUAL_LIST_FIELD_ID, arsenicText.detail_jepDualListField()) {{
+				getElement().getStyle().setPaddingTop(30, Unit.PX);
+				setFieldWidth(420);
 			}});
 		}};
+	}
+	
+	private String createInfoIcon(String title){
+		Anchor link = new Anchor();
+		link.setTitle(title);
+		//выравнивание ссылки по правому краю (на ссылки не распространяется действие text-align)
+		//необходимо использовать атрибут float
+		link.addStyleName("x-tool-expand-north");
+		Image copyImage = new Image(JepImages.help());
+		copyImage.getElement().getStyle().setMarginBottom(-4, Unit.PX);
+		link.getElement().appendChild(copyImage.getElement());
+		
+		return link.toString();
 	}
  
 }

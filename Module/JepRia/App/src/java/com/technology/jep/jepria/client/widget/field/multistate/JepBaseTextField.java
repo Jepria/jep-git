@@ -73,8 +73,8 @@ public abstract class JepBaseTextField<E extends Widget & HasValue> extends JepM
 		this(null, fieldLabel);
 	}
 	
-	public JepBaseTextField(String fieldId, String fieldLabel) {
-		super(fieldId, fieldLabel);
+	public JepBaseTextField(String fieldIdAsWebEl, String fieldLabel) {
+		super(fieldIdAsWebEl, fieldLabel);
 	}
 	
 	/**

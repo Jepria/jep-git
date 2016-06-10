@@ -22,8 +22,8 @@ public class JepTextAreaField extends JepBaseTextField<TextArea> {
 		this(null, fieldLabel);
 	}
 	
-	public JepTextAreaField(String fieldId, String fieldLabel) {
-		super(fieldId, fieldLabel);
+	public JepTextAreaField(String fieldIdAsWebEl, String fieldLabel) {
+		super(fieldIdAsWebEl, fieldLabel);
 		// установка высоты по умолчанию
 		setFieldHeight(DEFAULT_TEXTAREA_FIELD_HEIGHT);
 	}

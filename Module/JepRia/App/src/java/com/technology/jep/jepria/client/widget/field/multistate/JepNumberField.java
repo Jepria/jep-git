@@ -17,8 +17,8 @@ public class JepNumberField extends JepBaseNumberField<DoubleBox> {
 		this(null, fieldLabel);
 	}
 	
-	public JepNumberField(String fieldId, String fieldLabel) {
-		super(fieldId, fieldLabel);
+	public JepNumberField(String fieldIdAsWebEl, String fieldLabel) {
+		super(fieldIdAsWebEl, fieldLabel);
 	}
 
 	/**

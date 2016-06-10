@@ -82,8 +82,8 @@ public abstract class JepBaseNumberField<E extends ValueBox<? extends Number>> e
 		this(null, fieldLabel);
 	}
 	
-	public JepBaseNumberField(String fieldId, String fieldLabel) {
-		super(fieldId, fieldLabel);
+	public JepBaseNumberField(String fieldIdAsWebEl, String fieldLabel) {
+		super(fieldIdAsWebEl, fieldLabel);
 
 		// Проинициализируем список допустимых символов.
 		initAllowedInputCharacters();

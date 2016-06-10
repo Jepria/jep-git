@@ -193,7 +193,7 @@ public class AutomationConstant {
 	/**
 	 * Префикс элементов меню комбобоксов
 	 */
-	public static final String DETAIL_FORM_COMBOBOX_MENU_ITEM_PREFIX = "DETAIL_FORM_COMBOBOX_MENU_ITEM_";
+	public static final String DETAIL_FORM_COMBOBOX_MENU_ITEM_INFIX = "_DETAIL_FORM_COMBOBOX_MENU_ITEM_";
 	
 	/**
 	 * Постфикс input-поля комбобоксов
@@ -203,7 +203,20 @@ public class AutomationConstant {
 	/**
 	 * Постфикс кнопки 'развернуть' комбобоксов
 	 */
-	public static final String DETAIL_FORM_COMBOBOX_DROPDOWN_BTN_POSTFIX = "_SELECT-BTN";
+	public static final String DETAIL_FORM_COMBOBOX_DROPDOWN_BTN_POSTFIX = "_DETAIL_FORM_COMBOBOX_SELECT_BTN";
+	
+	/**
+	 * Префикс элементов меню DualListField
+	 */
+	public static final String DETAIL_FORM_DUALLIST_MENU_ITEM_INFIX = "_DETAIL_FORM_DUALLIST_MENU_ITEM_";
+	
+	/**
+	 * Идентификаторы кнопок перемещения опций между двумя списками DualListField
+	 */
+	public static final String DETAIL_FORM_DUALLIST_MOVERIGHT_BTN_POSTFIX = "_DETAIL_FORM_DUALLIST_MOVERIGHT_BTN";
+	public static final String DETAIL_FORM_DUALLIST_MOVELEFT_BTN_POSTFIX = "_DETAIL_FORM_DUALLIST_MOVELEFT_BTN";
+	public static final String DETAIL_FORM_DUALLIST_MOVEALLRIGHT_BTN_POSTFIX = "_DETAIL_FORM_DUALLIST_MOVEALLRIGHT_BTN";
+	public static final String DETAIL_FORM_DUALLIST_MOVEALLLEFT_BTN_POSTFIX = "_DETAIL_FORM_DUALLIST_MOVEALLLEFT_BTN";
 	
 	/**
 	 * ID первой строки списка списочной формы

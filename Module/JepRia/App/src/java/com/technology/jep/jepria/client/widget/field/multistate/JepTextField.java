@@ -15,8 +15,8 @@ public class JepTextField extends JepBaseTextField<TextBox> {
 		this(null, fieldLabel);
 	}
 	
-	public JepTextField(String fieldId, String fieldLabel) {
-		super(fieldId, fieldLabel);
+	public JepTextField(String fieldIdAsWebEl, String fieldLabel) {
+		super(fieldIdAsWebEl, fieldLabel);
 	}
 	
 	/**

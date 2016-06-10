@@ -17,8 +17,8 @@ public class JepLongField extends JepIntegerField {
 		this(null, fieldLabel);
 	}
 	
-	public JepLongField(String fieldId, String fieldLabel) {
-		super(fieldId, fieldLabel);
+	public JepLongField(String fieldIdAsWebEl, String fieldLabel) {
+		super(fieldIdAsWebEl, fieldLabel);
 	}
 	
 	/**

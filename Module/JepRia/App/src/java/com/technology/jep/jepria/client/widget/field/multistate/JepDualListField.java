@@ -16,7 +16,6 @@ import com.technology.jep.jepria.client.widget.event.JepEventType;
 import com.technology.jep.jepria.client.widget.event.JepListener;
 import com.technology.jep.jepria.client.widget.field.DualListBox;
 import com.technology.jep.jepria.client.widget.field.JepOptionField;
-import com.technology.jep.jepria.client.widget.field.multistate.JepMultiStateField;
 import com.technology.jep.jepria.shared.field.option.JepOption;
 import com.technology.jep.jepria.shared.util.JepRiaUtil;
 
@@ -29,12 +28,21 @@ import com.technology.jep.jepria.shared.util.JepRiaUtil;
 public class JepDualListField extends JepMultiStateField<DualListBox, HTML> implements JepOptionField {	
 	
 	public JepDualListField() {
-		this("");
+		this(null);
 	}
 
 	public JepDualListField(String fieldLabel) {
-		super(fieldLabel);
-		setFieldHeight(5 * (FIELD_DEFAULT_HEIGHT + 2));
+		this(null, fieldLabel);
+	}
+	
+	public JepDualListField(String fieldIdAsWebEl, String fieldLabel) {
+        super(fieldIdAsWebEl, fieldLabel);
+        setFieldHeight(5 * (FIELD_DEFAULT_HEIGHT + 2));
+    }
+	
+	@Override
+	protected void setInnerIds(String fieldIdAsWebEl) {
+		editableCard.setInnerIds(fieldIdAsWebEl);
 	}
 	
 	/**
@@ -140,7 +148,7 @@ public class JepDualListField extends JepMultiStateField<DualListBox, HTML> impl
 	 */
 	@Override
 	protected void addEditableCard() {
-		editableCard = new DualListBox();
+		editableCard = new DualListBox(fieldIdAsWebEl);
 		editablePanel.add(editableCard);
 	}
 

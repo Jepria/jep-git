@@ -18,8 +18,8 @@ public class JepRichTextEditorField extends JepMultiStateField<RichTextEditorFie
 		this(null, fieldLabel);
 	}
 	
-	public JepRichTextEditorField(String fieldId, String fieldLabel) {
-		super(fieldId, fieldLabel);
+	public JepRichTextEditorField(String fieldIdAsWebEl, String fieldLabel) {
+		super(fieldIdAsWebEl, fieldLabel);
 	}
 	
 	/**

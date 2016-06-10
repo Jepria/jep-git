@@ -66,8 +66,8 @@ public class JepDateField extends JepMultiStateField<MaskedDateBox, HTML> {
 		this(null, fieldLabel);
 	}
 	
-	public JepDateField(String fieldId, String fieldLabel) {
-		super(fieldId, fieldLabel);
+	public JepDateField(String fieldIdAsWebEl, String fieldLabel) {
+		super(fieldIdAsWebEl, fieldLabel);
 	}
 
 	/**

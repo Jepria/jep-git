@@ -114,6 +114,16 @@ public interface JepRiaModuleAuto extends EntranceAuto {
 	String getFieldValue(String fieldId);
 	
 	/**
+	 * Получение значений правого списка поля JepDualListField
+	 *  
+	 * @param fieldId id JepDualListField'а
+	 * @return массив имён находящихся в правой части (выбранных) опций.
+	 * Имена в полученном массиве располагаются в порядке их отображения в правой части JepDualList'а,
+	 * поэтому assert в классе *AutoTest необходимо производить по элементам без учета порядка!  
+	 */
+	String[] getDualListFieldValues(String jepDualListFieldId);
+	
+	/**
 	 * Проверка отображения MessageBox
 	 * @return true, если MessageBox отображается
 	 */
@@ -140,4 +150,12 @@ public interface JepRiaModuleAuto extends EntranceAuto {
 	 * Минимально допустимое значение = 1 (устанавливается автоматически при задании меньшего значения).
 	 */
 	void selectComboBoxMenuItemWithCharByCharReloadingOptions(String comboBoxFieldId, String menuItemText, int minInputLength);
+	
+	/**
+	 * Выбор элементов DualListField по заданному Id.
+	 * @param dualListFieldId id DualList-поля
+	 * @param menuItems массив непустых имён опций, которые следует выбрать из левой части DualList-поля в правую.
+	 * В случае если в левой части отсутствует хотя бы одна из требуемых опций, выбрасывается исключение WrongOptionException.
+	 */
+	void selectDualListMenuItems(String dualListFieldId, String menuItems[]);
 }

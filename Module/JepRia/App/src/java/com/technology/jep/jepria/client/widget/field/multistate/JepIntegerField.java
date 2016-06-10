@@ -19,8 +19,8 @@ public class JepIntegerField extends JepBaseNumberField<ValueBox<? extends Numbe
 		this(null, fieldLabel);
 	}
 
-    public JepIntegerField(String fieldId, String fieldLabel) {
-        super(fieldId, fieldLabel);
+    public JepIntegerField(String fieldIdAsWebEl, String fieldLabel) {
+        super(fieldIdAsWebEl, fieldLabel);
     }
     
 	/**

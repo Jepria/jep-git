@@ -127,6 +127,11 @@ public abstract class JepMultiStateField<E extends Widget, V extends Widget> ext
 	private String fieldLabel;
 	
 	/**
+	 * ID данного Jep-поля как Web-элемента.
+	 */
+	protected final String fieldIdAsWebEl;
+	
+	/**
 	 * Разделитель для метки поля (по умолчанию, двоеточие). 
 	 */
 	private String labelSeparator = ":";
@@ -166,11 +171,12 @@ public abstract class JepMultiStateField<E extends Widget, V extends Widget> ext
 		this(null, fieldLabel);
 	}
 	
-	public JepMultiStateField(String fieldId, String fieldLabel) {
+	public JepMultiStateField(String fieldIdAsWebEl, String fieldLabel) {
 		// Корректировка параметров
 		fieldLabel = (fieldLabel != null) ? fieldLabel : "";
 		// Если ID поля явно не задано, указываем в качестве ID его подпись + набор цифр
-		fieldId = (fieldId != null) ? fieldId : (fieldLabel + "_" + System.currentTimeMillis());
+		fieldIdAsWebEl = (fieldIdAsWebEl != null) ? fieldIdAsWebEl : (fieldLabel + "_" + System.currentTimeMillis());
+		this.fieldIdAsWebEl = fieldIdAsWebEl;
 		
 		viewCardLabel = new HTML();
 		viewCardLabel.getElement().addClassName(MAIN_FONT_STYLE);
@@ -233,16 +239,16 @@ public abstract class JepMultiStateField<E extends Widget, V extends Widget> ext
 		
 		
 		// Установка ID самого поля как Web-элемента и его Input-элемента
-		this.getElement().setId(fieldId);
-		setInnerIds(fieldId);
+		this.getElement().setId(this.fieldIdAsWebEl);
+		setInnerIds(this.fieldIdAsWebEl);
 	}
 	
 	/**
 	 * Установка ID внутренних компонентов Jep-поля.
-	 * @param baseFieldId ID Jep-поля, который берется за основу ID внутренних компонентов
+	 * @param fieldIdAsWebEl ID Jep-поля, который берется за основу ID внутренних компонентов
 	 */
-	protected void setInnerIds(String baseFieldId) {
-		this.getInputElement().setId(baseFieldId + AutomationConstant.FIELD_INPUT_POSTFIX);
+	protected void setInnerIds(String fieldIdAsWebEl) {
+		this.getInputElement().setId(fieldIdAsWebEl + AutomationConstant.FIELD_INPUT_POSTFIX);
 	}
 	
 	/**

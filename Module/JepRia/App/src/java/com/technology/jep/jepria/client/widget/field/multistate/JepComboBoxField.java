@@ -69,16 +69,16 @@ public class JepComboBoxField extends JepBaseTextField<ComboBox<JepOption>> impl
 		this(null, fieldLabel);
 	}
 	
-	public JepComboBoxField(String fieldId, String fieldLabel) {
-		super(fieldId, fieldLabel);
+	public JepComboBoxField(String fieldIdAsWebEl, String fieldLabel) {
+		super(fieldIdAsWebEl, fieldLabel);
 		// Выставляем высоту компонента + 1px граница
 		setFieldHeight(FIELD_DEFAULT_HEIGHT + 2);
 		loadEmptyOptionList();
 	}
 	
 	@Override
-	protected void setInnerIds(String baseFieldId) {
-		editableCard.setInnerIds(baseFieldId);
+	protected void setInnerIds(String fieldIdAsWebEl) {
+		editableCard.setInnerIds(fieldIdAsWebEl);
 	}
 
 	/**
@@ -92,7 +92,7 @@ public class JepComboBoxField extends JepBaseTextField<ComboBox<JepOption>> impl
 	 */
 	@Override
 	protected void addEditableCard() {
-		editableCard = new ComboBox<JepOption>();
+		editableCard = new ComboBox<JepOption>(fieldIdAsWebEl);
 		editablePanel.add(editableCard);
 	}
 

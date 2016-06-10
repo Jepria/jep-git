@@ -2,11 +2,12 @@ package com.technology.jep.jepriashowcase.arsenic.auto;
 
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.SEARCH;
 
+import java.util.Arrays;
+
 import org.testng.annotations.Test;
 
 import com.technology.jep.jepria.auto.manager.JepRiaAuto;
 import com.technology.jep.jepria.auto.test.JepAutoTest;
-import com.technology.jep.jepriashowcase.arsenic.auto.ArsenicAuto;
 import com.technology.jep.jepriashowcase.auto.JepRiaShowcaseAuto;
 import com.technology.jep.jepriashowcase.auto.JepRiaShowcaseAutoImpl;
 import com.technology.jep.test.util.DataProviderArguments;
@@ -93,6 +94,14 @@ public class ArsenicAutoTest extends JepAutoTest<ArsenicAuto> {
 	
 	@DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/arsenic/auto/field.jepComboBoxField_1.data")
 	@Test(groups="setAndGetTextField", dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
+	public void setAndGetJepComboBoxFieldNotLazy(String value) {
+		cut.setWorkstate(SEARCH);
+		cut.setJepComboBoxFieldNotLazy(value);
+		assertEquals(value, cut.getJepComboBoxFieldNotLazy());
+	}
+	
+	@DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/arsenic/auto/field.jepComboBoxField_1.data")
+	@Test(groups="setAndGetTextField", dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
 	public void setAndGetJepComboBoxFieldSimple(String value) {
 		cut.setWorkstate(SEARCH);
 		cut.setJepComboBoxFieldSimple(value);
@@ -123,7 +132,21 @@ public class ArsenicAutoTest extends JepAutoTest<ArsenicAuto> {
 		assertEquals(value, cut.getJepComboBoxField3chReloading());
 	}
 	
-	
+	@DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/arsenic/auto/field.jepDualListField.data")
+	@Test(groups="setAndGetTextField", dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
+	public void setAndGetJepDualListField(String value) {
+		cut.setWorkstate(SEARCH);
+		String[] values = value.split(";");
+		cut.setJepDualListField(values);
+
+		// Поскольку getJepDualListField возвращает опции в порядке, определяемом самим полем JepDualListField,
+		// то следует производить assert без учета порядка.
+		String[] actualValues = cut.getJepDualListField();
+		assertEquals(values.length, actualValues.length);
+		Arrays.sort(values);
+		Arrays.sort(actualValues);
+		assertArrayEquals(values, actualValues);
+	}
 	
 	@Override
 	protected void createTestRecord(String keyFieldValue) {

@@ -5,7 +5,12 @@ import static com.technology.jep.jepria.client.JepRiaClientConstant.FIELD_DEFAUL
 import static com.technology.jep.jepria.client.JepRiaClientConstant.JepImages;
 import static com.technology.jep.jepria.client.JepRiaClientConstant.MAIN_FONT_STYLE;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 import com.google.gwt.dom.client.NodeList;
 import com.google.gwt.dom.client.OptionElement;
@@ -27,6 +32,7 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
+import com.technology.jep.jepria.client.AutomationConstant;
 import com.technology.jep.jepria.client.widget.button.JepButton;
 import com.technology.jep.jepria.shared.field.option.JepOption;
 
@@ -37,12 +43,6 @@ import com.technology.jep.jepria.shared.field.option.JepOption;
  * блока кнопок, либо двойным кликом.
  */
 public class DualListBox extends Composite implements HasWidgets, HasValueChangeHandlers<List<JepOption>> {
-	// Идентификаторы кнопок списка
-	private static final String DUALLIST_MOVE_RIGHT_BUTTON_ID		=	"DUALLIST_MOVE_RIGHT_BUTTON";
-	private static final String DUALLIST_MOVE_LEFT_BUTTON_ID		=	"DUALLIST_MOVE_LEFT_BUTTON";
-	private static final String DUALLIST_MOVE_ALL_RIGHT_BUTTON_ID	=	"DUALLIST_MOVE_ALL_RIGHT_BUTTON";
-	private static final String DUALLIST_MOVE_ALL_LEFT_BUTTON_ID	=	"DUALLIST_MOVE_ALL_LEFT_BUTTON";
-
 	/**
 	 * Ширина центральной панели с кнопками.
 	 */
@@ -73,32 +73,32 @@ public class DualListBox extends Composite implements HasWidgets, HasValueChange
 	/**
 	 * Левый список опций.
 	 */
-	private final ListBox left = new ListBox(true);
+	private final ListBox left = new ListBox();
 	
 	/**
 	 * Правый список опций.
 	 */
-	private final ListBox right = new ListBox(true);	
+	private final ListBox right = new ListBox();	
 	
 	/**
 	 * Кнопка переноса элемента из левого списка в правый.
 	 */
-	private final JepButton moveRight = new JepButton(DUALLIST_MOVE_RIGHT_BUTTON_ID, null, JepImages.right());
+	private final JepButton moveRight = new JepButton("", null, JepImages.right());//ID кнопке присваивается в {@link #setInnerIds(String)}
 	
 	/**
 	 * Кнопка переноса элемента из правого списка в левый.
 	 */
-	private final JepButton moveLeft = new JepButton(DUALLIST_MOVE_LEFT_BUTTON_ID, null, JepImages.left());
+	private final JepButton moveLeft = new JepButton("", null, JepImages.left());//ID кнопке присваивается в {@link #setInnerIds(String)}
 	
 	/**
 	 * Кнопка переноса всех элементов в правый список.
 	 */
-	private final JepButton moveAllRight = new JepButton(DUALLIST_MOVE_ALL_RIGHT_BUTTON_ID, null, JepImages.doubleRight());
+	private final JepButton moveAllRight = new JepButton("", null, JepImages.doubleRight());//ID кнопке присваивается в {@link #setInnerIds(String)}
 	
 	/**
 	 * Кнопка переноса всех элементов в левый список.
 	 */
-	private final JepButton moveAllLeft = new JepButton(DUALLIST_MOVE_ALL_LEFT_BUTTON_ID, null, JepImages.doubleLeft());
+	private final JepButton moveAllLeft = new JepButton("", null, JepImages.doubleLeft());//ID кнопке присваивается в {@link #setInnerIds(String)}
 
 	/**
 	 * Компаратор, сравнивающий опции при добавлении элементов в левый и правый список.
@@ -131,7 +131,22 @@ public class DualListBox extends Composite implements HasWidgets, HasValueChange
 	 */
 	private Map<JepOption, String> optionToId = new HashMap<JepOption, String>();
 	
+	/**
+	 * ID объемлющего Jep-поля как Web-элемента.
+	 */
+	private final String fieldIdAsWebEl;
+	
+	@Deprecated
 	public DualListBox() {
+		this("");
+	}
+	
+	public DualListBox(String fieldIdAsWebEl) {
+		this.fieldIdAsWebEl = fieldIdAsWebEl;
+		
+		left.setMultipleSelect(true);
+		right.setMultipleSelect(true);
+		
 		panel.add(left);
 		VerticalPanel buttonPanel = new VerticalPanel();
 		buttonPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_TOP);
@@ -182,6 +197,18 @@ public class DualListBox extends Composite implements HasWidgets, HasValueChange
 		initWidget(panel);
 		setListBoxWidth(FIELD_DEFAULT_WIDTH + Unit.PX.getType());
 		setHeight(10 * (FIELD_DEFAULT_HEIGHT + 2) + Unit.PX.getType());
+	}
+	
+	/**
+	 * Установка ID внутренних компонентов DualListBox: правого списка как INPUT и кнопок перемещения опций между двумя списками.
+	 * @param fieldIdAsWebEl ID JepDualListField'а, который берется за основу ID внутренних компонентов
+	 */
+	public void setInnerIds(String fieldIdAsWebEl) {
+		right.getElement().setId(fieldIdAsWebEl + AutomationConstant.FIELD_INPUT_POSTFIX);
+		moveRight.getElement().setId(fieldIdAsWebEl + AutomationConstant.DETAIL_FORM_DUALLIST_MOVERIGHT_BTN_POSTFIX);
+		moveLeft.getElement().setId(fieldIdAsWebEl + AutomationConstant.DETAIL_FORM_DUALLIST_MOVELEFT_BTN_POSTFIX);
+		moveAllRight.getElement().setId(fieldIdAsWebEl + AutomationConstant.DETAIL_FORM_DUALLIST_MOVEALLRIGHT_BTN_POSTFIX);
+		moveAllLeft.getElement().setId(fieldIdAsWebEl + AutomationConstant.DETAIL_FORM_DUALLIST_MOVEALLLEFT_BTN_POSTFIX);
 	}
 
 	/**
@@ -310,7 +337,6 @@ public class DualListBox extends Composite implements HasWidgets, HasValueChange
 		for (JepOption option : options) {
 			if (!value.contains(option)) {
 				addItem(left, option, optionToId.get(option));
-				setItemTitle(left, optionToId.get(option), getItemTitle(option));
 			}
 		}
 	}
@@ -338,11 +364,9 @@ public class DualListBox extends Composite implements HasWidgets, HasValueChange
 		for (JepOption option : options) {
 			if (value.contains(option)) {
 				addItem(right, option, optionToId.get(option));
-				setItemTitle(right, optionToId.get(option), getItemTitle(option));
 			}			
 			else {
 				addItem(left, option, optionToId.get(option));
-				setItemTitle(left, optionToId.get(option), getItemTitle(option));
 			}
 		}
 		
@@ -350,13 +374,13 @@ public class DualListBox extends Composite implements HasWidgets, HasValueChange
 	}
 	
 	/**
-	 * Служебный метод, добавляющий элемент в список.<br>
+	 * Служебный метод, добавляющий элемент в список и устанавливающий для него подсказку (title) и ID.<br>
 	 * При добавлении элементы сортируются с использованием поля {@link #optionComparator}.
 	 * @param listBox список
 	 * @param item добавляемый элемент
 	 * @param value значение элемента
 	 */
-	private void addItem(ListBox listBox, JepOption item, String value) {
+	private void addItem(final ListBox listBox, final JepOption item, final String value) {
 		SelectElement selectElement = SelectElement.as(listBox.getElement());
 		NodeList<OptionElement> options = selectElement.getOptions();
 		int index = 0;
@@ -371,6 +395,16 @@ public class DualListBox extends Composite implements HasWidgets, HasValueChange
 			}
 		}
 		listBox.insertItem(name, value, index);
+		
+		// Установка подсказки (title) элемента и его ID
+		for (int i = 0; i < options.getLength(); i++) {
+			OptionElement optionElement = options.getItem(i);
+			if (value.equals(optionElement.getValue())) {
+				optionElement.setTitle(getItemTitle(item));
+				optionElement.setId(fieldIdAsWebEl + AutomationConstant.DETAIL_FORM_DUALLIST_MENU_ITEM_INFIX + name);
+				return;
+			}
+		}
 	}
 
 	/**
@@ -419,7 +453,6 @@ public class DualListBox extends Composite implements HasWidgets, HasValueChange
 		String key = optionToId.get(option);
 		removeByValue(right, key);
 		addItem(left, option, key);
-		setItemTitle(left, key, getItemTitle(option));
 	}
 	
 	/**
@@ -432,7 +465,6 @@ public class DualListBox extends Composite implements HasWidgets, HasValueChange
 		String key = optionToId.get(option);
 		removeByValue(left, key);
 		addItem(right, option, key);
-		setItemTitle(right, key, getItemTitle(option));
 	}
 
 	/**
@@ -497,23 +529,4 @@ public class DualListBox extends Composite implements HasWidgets, HasValueChange
 			}
 		}
 	}
-
-	/**
-	 * Служебный метод, устанавливающий подсказку для элемента компонента по его значению (value).
-	 * @param listBox компонент
-	 * @param value значение
-	 * @param title подсказка
-	 */
-	private static void setItemTitle(ListBox listBox, String value, String title) {
-		SelectElement selectElement = SelectElement.as(listBox.getElement());
-		NodeList<OptionElement> options = selectElement.getOptions();
-		for (int i = 0; i < options.getLength(); i++) {
-			OptionElement optionElement = options.getItem(i);
-			if (value.equals(optionElement.getValue())) {
-				optionElement.setTitle(title);
-				return;
-			}
-		}
-	}
-	
 }

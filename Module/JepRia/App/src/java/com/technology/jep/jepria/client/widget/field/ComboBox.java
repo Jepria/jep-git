@@ -149,7 +149,19 @@ public class ComboBox<T extends JepOption> extends Composite
 	 */
 	private boolean enabled = true;
 	
+	/**
+	 * ID объемлющего Jep-поля как Web-элемента.
+	 */
+	private final String fieldIdAsWebEl;
+	
+	@Deprecated
 	public ComboBox() {
+		this("");
+	}
+	
+	public ComboBox(String fieldIdAsWebEl) {
+		this.fieldIdAsWebEl = fieldIdAsWebEl;
+		
 		suggestBox = new SuggestBox(new JepOptionSuggestOracle<T>(), new TextBox(), new JepOptionSuggestionDisplay<T>());
 		
 		//не выставляем по умолчанию выделенную первую опцию
@@ -222,11 +234,11 @@ public class ComboBox<T extends JepOption> extends Composite
 
 	/**
 	 * Установка ID внутренних компонентов Комбобокса: поля ввода и кнопки 'развернуть'
-	 * @param baseFieldId ID JepComboBoxField'а, который берется за основу ID внутренних компонентов
+	 * @param fieldIdAsWebEl ID JepComboBoxField'а, который берется за основу ID внутренних компонентов
 	 */
-	public void setInnerIds(String baseFieldId) {
-		suggestBox.getElement().setId(baseFieldId + AutomationConstant.FIELD_INPUT_POSTFIX);
-		selectImage.getElement().setId(baseFieldId + AutomationConstant.DETAIL_FORM_COMBOBOX_DROPDOWN_BTN_POSTFIX);
+	public void setInnerIds(String fieldIdAsWebEl) {
+		suggestBox.getElement().setId(fieldIdAsWebEl + AutomationConstant.FIELD_INPUT_POSTFIX);
+		selectImage.getElement().setId(fieldIdAsWebEl + AutomationConstant.DETAIL_FORM_COMBOBOX_DROPDOWN_BTN_POSTFIX);
 	}
 	
 	/**
@@ -1021,7 +1033,7 @@ public class ComboBox<T extends JepOption> extends Composite
 
 	    public SuggestionMenuItem(Suggestion suggestion, boolean asHTML) {
 	      super(suggestion.getDisplayString(), asHTML, (ScheduledCommand) null);
-	      getElement().setId(AutomationConstant.DETAIL_FORM_COMBOBOX_MENU_ITEM_PREFIX + suggestion.getDisplayString()); // TODO Сделать строже (DisplayString не обязаны быть уникальными)
+	      getElement().setId(fieldIdAsWebEl + AutomationConstant.DETAIL_FORM_COMBOBOX_MENU_ITEM_INFIX + suggestion.getDisplayString());
 	      
 	      // Each suggestion should be placed in a single row in the suggestion
 	      // menu. If the window is resized and the suggestion cannot fit on a

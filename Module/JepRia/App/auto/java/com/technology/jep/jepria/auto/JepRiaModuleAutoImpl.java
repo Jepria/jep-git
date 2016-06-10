@@ -5,7 +5,10 @@ import static com.technology.jep.jepria.client.AutomationConstant.ALERT_MESSAGEB
 import static com.technology.jep.jepria.client.AutomationConstant.CONFIRM_MESSAGEBOX_ID;
 import static com.technology.jep.jepria.client.AutomationConstant.CONFIRM_MESSAGE_BOX_YES_BUTTON_ID;
 import static com.technology.jep.jepria.client.AutomationConstant.DETAIL_FORM_COMBOBOX_DROPDOWN_BTN_POSTFIX;
-import static com.technology.jep.jepria.client.AutomationConstant.DETAIL_FORM_COMBOBOX_MENU_ITEM_PREFIX;
+import static com.technology.jep.jepria.client.AutomationConstant.DETAIL_FORM_COMBOBOX_MENU_ITEM_INFIX;
+import static com.technology.jep.jepria.client.AutomationConstant.DETAIL_FORM_DUALLIST_MENU_ITEM_INFIX;
+import static com.technology.jep.jepria.client.AutomationConstant.DETAIL_FORM_DUALLIST_MOVEALLLEFT_BTN_POSTFIX;
+import static com.technology.jep.jepria.client.AutomationConstant.DETAIL_FORM_DUALLIST_MOVERIGHT_BTN_POSTFIX;
 import static com.technology.jep.jepria.client.AutomationConstant.ERROR_MESSAGEBOX_ID;
 import static com.technology.jep.jepria.client.AutomationConstant.FIELD_INPUT_POSTFIX;
 import static com.technology.jep.jepria.client.AutomationConstant.TOOLBAR_ADD_BUTTON_ID;
@@ -24,6 +27,7 @@ import static com.technology.jep.jepria.client.ui.WorkstateEnum.VIEW_LIST;
 import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
 import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -51,6 +55,7 @@ import com.technology.jep.jepria.auto.widget.statusbar.StatusBarImpl;
 import com.technology.jep.jepria.client.ui.WorkstateEnum;
 import com.technology.jep.jepria.shared.exceptions.NotImplementedYetException;
 import com.technology.jep.jepria.shared.exceptions.UnsupportedException;
+import com.technology.jep.jepria.shared.util.JepRiaUtil;
 
 /**
  * Реализация JepRiaModuleAuto
@@ -60,6 +65,12 @@ public class JepRiaModuleAutoImpl<A extends EntranceAppAuto, P extends JepRiaApp
 	private static Logger logger = Logger.getLogger(JepRiaModuleAutoImpl.class.getName());
 	private WorkstateEnum currentWorkstate;
 	private StatusBar statusBar;
+	
+	/**
+	 * XPath-путь, определяющий (глобально!) активный выпадающий список ComboBox-поля
+	 * (предполагается, что только один выпадающий список может быть активен одновременно).
+	 */
+	private static final String COMBOBOX_SUGGESTBOX_POPUP_XPATH = "//div[@class='gwt-SuggestBoxPopup']";//TODO данный файл - не лучшее место для этой константы...
 
 	public JepRiaModuleAutoImpl(A app, P pageManager) {
 		super(app, pageManager);
@@ -223,12 +234,27 @@ public class JepRiaModuleAutoImpl<A extends EntranceAppAuto, P extends JepRiaApp
 	public String getFieldValue(String fieldId) {
 		pages.getApplicationPage().ensurePageLoaded();
 		
-		WebElement fieldInput = pages.getApplicationPage().getWebDriver().findElement(By.id(fieldId + FIELD_INPUT_POSTFIX)); 
+		WebElement fieldInput = pages.getApplicationPage().getWebDriver().findElement(By.id(fieldId + FIELD_INPUT_POSTFIX));
 		return fieldInput.getAttribute("value");
 	}
-
+	
+	@Override
+	public String[] getDualListFieldValues(String jepDualListFieldId) {
+		WebElement rightListBox = pages.getApplicationPage().getWebDriver().findElement(By.id(jepDualListFieldId + FIELD_INPUT_POSTFIX));
+	    rightListBox.click();
+	    List<WebElement> options = rightListBox.findElements(By.xpath(".//option"));
+	    List<String> res = new ArrayList<String>();
+	    for (WebElement option: options) { 
+	        res.add(option.getAttribute("text"));
+	    }
+	    return res.toArray(new String[res.size()]);
+	}
+	
 	@Override
 	public void selectComboBoxMenuItem(String comboBoxFieldId, String menuItemText) {
+		// FIXME А что если опции комбо-бокса загружаются не лениво, а не лениво? То есть возможно, тестирование комбо-бокса начнется
+		// до того (например, если оно стоит первым в сценарии), как успеют загрузиться опции... Ведь в этом методе завязка идет на то,
+		// что опции грузятся лениво.
 		selectComboBoxMenuItem(comboBoxFieldId, menuItemText, false, menuItemText.length());
 	}
 	
@@ -249,9 +275,8 @@ public class JepRiaModuleAutoImpl<A extends EntranceAppAuto, P extends JepRiaApp
 		getWait().until(elementToBeClickable(dropDownButton));
 		dropDownButton.click();
 		
-		final String comboBoxSuggestBoxPopupXPath = "//div[@class='gwt-SuggestBoxPopup']";
 		// Отслеживаем появление suggestBoxPopup, то есть когда список опций загрузится.
-		getWait().until(presenceOfElementLocated(By.xpath(comboBoxSuggestBoxPopupXPath)));
+		getWait().until(presenceOfElementLocated(By.xpath(COMBOBOX_SUGGESTBOX_POPUP_XPATH)));
 		
 		// Непосредственно поиск и выбор элемента в списке.
 		// Очистим поле ввода.
@@ -278,7 +303,7 @@ public class JepRiaModuleAutoImpl<A extends EntranceAppAuto, P extends JepRiaApp
 			dropDownButton.click();
 			
 			// Отслеживаем появление suggestBoxPopup, то есть когда список опций загрузится.
-			getWait().until(presenceOfElementLocated(By.xpath(comboBoxSuggestBoxPopupXPath)));
+			getWait().until(presenceOfElementLocated(By.xpath(COMBOBOX_SUGGESTBOX_POPUP_XPATH)));
 		}
 		
 		int ind = minInputLength;
@@ -287,7 +312,7 @@ public class JepRiaModuleAutoImpl<A extends EntranceAppAuto, P extends JepRiaApp
 		while (true) {
 			try {
 				
-				comboBoxMenuItem = pages.getApplicationPage().getWebDriver().findElement(By.id(DETAIL_FORM_COMBOBOX_MENU_ITEM_PREFIX + menuItemText));
+				comboBoxMenuItem = pages.getApplicationPage().getWebDriver().findElement(By.id(comboBoxFieldId + DETAIL_FORM_COMBOBOX_MENU_ITEM_INFIX + menuItemText));
 				// Исключения не было - значит, опция найдена в списке на данном шаге.
 				break;
 			} catch (NoSuchElementException e) {
@@ -300,7 +325,7 @@ public class JepRiaModuleAutoImpl<A extends EntranceAppAuto, P extends JepRiaApp
 					dropDownButton.click();
 					
 					// Отслеживаем появление suggestBoxPopup, то есть когда список опций загрузится.
-					getWait().until(presenceOfElementLocated(By.xpath(comboBoxSuggestBoxPopupXPath)));
+					getWait().until(presenceOfElementLocated(By.xpath(COMBOBOX_SUGGESTBOX_POPUP_XPATH)));
 				} else {
 					// Закроем открытый список опций.
 					dropDownButton.click();
@@ -314,6 +339,38 @@ public class JepRiaModuleAutoImpl<A extends EntranceAppAuto, P extends JepRiaApp
 		// Выбираем найденную опцию.
 		getWait().until(elementToBeClickable(comboBoxMenuItem));
 		comboBoxMenuItem.click();
+	}
+	
+	@Override
+	public void selectDualListMenuItems(String dualListFieldId, String[] menuItems) {
+		pages.getApplicationPage().ensurePageLoaded();
+		
+		// Очищаем правый список (переносим все влево)
+		final WebElement moveAllLeftButton = pages.getApplicationPage().getWebDriver().
+				findElement(By.id(dualListFieldId + DETAIL_FORM_DUALLIST_MOVEALLLEFT_BTN_POSTFIX));
+		getWait().until(elementToBeClickable(moveAllLeftButton));
+		moveAllLeftButton.click();
+		
+		// Определяем кнопку "выбрать опцию" (переместить вправо)
+		final WebElement moveRightButton = pages.getApplicationPage().getWebDriver().
+				findElement(By.id(dualListFieldId + DETAIL_FORM_DUALLIST_MOVERIGHT_BTN_POSTFIX));
+		
+		WebElement option;
+		// Последовательно выбираем все опции из необходимых и перемещаем в правую часть
+		for (String menuItem: menuItems) {
+			if (!JepRiaUtil.isEmpty(menuItem)) {
+				try {
+					option = pages.getApplicationPage().getWebDriver().findElement(By.id(dualListFieldId + DETAIL_FORM_DUALLIST_MENU_ITEM_INFIX + menuItem));
+					getWait().until(elementToBeClickable(option));
+					option.click();
+					
+					getWait().until(elementToBeClickable(moveRightButton));
+					moveRightButton.click();
+				} catch (NoSuchElementException e) {
+					throw new WrongOptionException("Wrong dualList option: [" + menuItem + "]");
+				}
+			}
+		}
 	}
 	
 	@Override

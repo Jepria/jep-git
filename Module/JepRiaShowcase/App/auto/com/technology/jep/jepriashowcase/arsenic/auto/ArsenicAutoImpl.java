@@ -1,6 +1,18 @@
 package com.technology.jep.jepriashowcase.arsenic.auto;
 
-import static com.technology.jep.jepriashowcase.arsenic.client.ArsenicAutomationConstant.*;
+import static com.technology.jep.jepriashowcase.arsenic.client.ArsenicAutomationConstant.ARSENIC_JEP_COMBOBOX_FIELD_3CH_RELOADING_ID;
+import static com.technology.jep.jepriashowcase.arsenic.client.ArsenicAutomationConstant.ARSENIC_JEP_COMBOBOX_FIELD_DURABLE_ID;
+import static com.technology.jep.jepriashowcase.arsenic.client.ArsenicAutomationConstant.ARSENIC_JEP_COMBOBOX_FIELD_NOTLAZY_ID;
+import static com.technology.jep.jepriashowcase.arsenic.client.ArsenicAutomationConstant.ARSENIC_JEP_COMBOBOX_FIELD_RELOADING_ID;
+import static com.technology.jep.jepriashowcase.arsenic.client.ArsenicAutomationConstant.ARSENIC_JEP_COMBOBOX_FIELD_SIMPLE_ID;
+import static com.technology.jep.jepriashowcase.arsenic.client.ArsenicAutomationConstant.ARSENIC_JEP_DATE_FIELD_ID;
+import static com.technology.jep.jepriashowcase.arsenic.client.ArsenicAutomationConstant.ARSENIC_JEP_DUAL_LIST_FIELD_ID;
+import static com.technology.jep.jepriashowcase.arsenic.client.ArsenicAutomationConstant.ARSENIC_JEP_INTEGER_FIELD_ID;
+import static com.technology.jep.jepriashowcase.arsenic.client.ArsenicAutomationConstant.ARSENIC_JEP_LONG_FIELD_ID;
+import static com.technology.jep.jepriashowcase.arsenic.client.ArsenicAutomationConstant.ARSENIC_JEP_MONEY_FIELD_ID;
+import static com.technology.jep.jepriashowcase.arsenic.client.ArsenicAutomationConstant.ARSENIC_JEP_NUMBER_FIELD_ID;
+import static com.technology.jep.jepriashowcase.arsenic.client.ArsenicAutomationConstant.ARSENIC_JEP_TEXT_AREA_FIELD_ID;
+import static com.technology.jep.jepriashowcase.arsenic.client.ArsenicAutomationConstant.ARSENIC_JEP_TEXT_FIELD_ID;
 
 import com.technology.jep.jepria.auto.JepRiaModuleAutoImpl;
 import com.technology.jep.jepriashowcase.auto.JepRiaShowcaseAuto;
@@ -48,6 +60,11 @@ public class ArsenicAutoImpl<A extends JepRiaShowcaseAuto, P extends JepRiaShowc
 	}
 
 	@Override
+	public void setJepComboBoxFieldNotLazy(String value) {
+		selectComboBoxMenuItem(ARSENIC_JEP_COMBOBOX_FIELD_NOTLAZY_ID, value);
+	}
+	
+	@Override
 	public void setJepComboBoxFieldSimple(String value) {
 		selectComboBoxMenuItem(ARSENIC_JEP_COMBOBOX_FIELD_SIMPLE_ID, value);
 	}
@@ -66,7 +83,17 @@ public class ArsenicAutoImpl<A extends JepRiaShowcaseAuto, P extends JepRiaShowc
 	public void setJepComboBoxField3chReloading(String value) {
 		selectComboBoxMenuItemWithCharByCharReloadingOptions(ARSENIC_JEP_COMBOBOX_FIELD_3CH_RELOADING_ID, value, 3);
 	}
+	
+	@Override
+	public void setJepDualListField(String[] value) {
+		selectDualListMenuItems(ARSENIC_JEP_DUAL_LIST_FIELD_ID, value);
+	}
 
+	
+	
+	
+	
+	
 	@Override
 	public String getJepTextField() {
 		return getFieldValue(ARSENIC_JEP_TEXT_FIELD_ID);
@@ -101,6 +128,11 @@ public class ArsenicAutoImpl<A extends JepRiaShowcaseAuto, P extends JepRiaShowc
 	public String getJepDateField() {
 		return getFieldValue(ARSENIC_JEP_DATE_FIELD_ID);
 	}
+	
+	@Override
+	public String getJepComboBoxFieldNotLazy() {
+		return getFieldValue(ARSENIC_JEP_COMBOBOX_FIELD_NOTLAZY_ID);
+	}
 
 	@Override
 	public String getJepComboBoxFieldSimple() {
@@ -120,6 +152,11 @@ public class ArsenicAutoImpl<A extends JepRiaShowcaseAuto, P extends JepRiaShowc
 	@Override
 	public String getJepComboBoxField3chReloading() {
 		return getFieldValue(ARSENIC_JEP_COMBOBOX_FIELD_3CH_RELOADING_ID);
+	}
+	
+	@Override
+	public String[] getJepDualListField() {
+		return getDualListFieldValues(ARSENIC_JEP_DUAL_LIST_FIELD_ID);
 	}
 
 }

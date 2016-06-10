@@ -10,10 +10,12 @@ public interface ArsenicAuto extends JepRiaModuleAuto {
 	void setJepMoneyField(String value);
 	void setJepNumberField(String value);
 	void setJepDateField(String value);
+	void setJepComboBoxFieldNotLazy(String value);
 	void setJepComboBoxFieldSimple(String value);
 	void setJepComboBoxFieldDurable(String value);
 	void setJepComboBoxFieldReloading(String value);
 	void setJepComboBoxField3chReloading(String value);
+	void setJepDualListField(String[] value);
 	
 	String getJepTextField();
 	String getJepTextAreaField();
@@ -22,8 +24,10 @@ public interface ArsenicAuto extends JepRiaModuleAuto {
 	String getJepMoneyField();
 	String getJepNumberField();
 	String getJepDateField();
+	String getJepComboBoxFieldNotLazy();
 	String getJepComboBoxFieldSimple();
 	String getJepComboBoxFieldDurable();
 	String getJepComboBoxFieldReloading();
 	String getJepComboBoxField3chReloading();
+	String[] getJepDualListField();
 }
