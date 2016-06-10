@@ -1,6 +1,11 @@
 package com.technology.jep.jepriashowcase.arsenic.client.ui.form.detail;
  
-import static com.technology.jep.jepriashowcase.arsenic.shared.field.ArsenicFieldNames.*;
+import static com.technology.jep.jepriashowcase.arsenic.shared.field.ArsenicFieldNames.DETAILFORM_JEP_COMBOBOX_FIELD_3CH_RELOADING;
+import static com.technology.jep.jepriashowcase.arsenic.shared.field.ArsenicFieldNames.DETAILFORM_JEP_COMBOBOX_FIELD_DURABLE;
+import static com.technology.jep.jepriashowcase.arsenic.shared.field.ArsenicFieldNames.DETAILFORM_JEP_COMBOBOX_FIELD_NOTLAZY;
+import static com.technology.jep.jepriashowcase.arsenic.shared.field.ArsenicFieldNames.DETAILFORM_JEP_COMBOBOX_FIELD_RELOADING;
+import static com.technology.jep.jepriashowcase.arsenic.shared.field.ArsenicFieldNames.DETAILFORM_JEP_COMBOBOX_FIELD_SIMPLE;
+import static com.technology.jep.jepriashowcase.arsenic.shared.field.ArsenicFieldNames.DETAILFORM_JEP_DUAL_LIST_FIELD;
 
 import java.util.ArrayList;
 
@@ -19,6 +24,7 @@ import com.technology.jep.jepria.client.widget.field.multistate.JepDualListField
 import com.technology.jep.jepria.shared.field.option.JepOption;
 import com.technology.jep.jepriashowcase.arsenic.shared.service.ArsenicServiceAsync;
 
+@SuppressWarnings("serial")
 public class ArsenicDetailFormPresenter<E extends PlainEventBus, S extends ArsenicServiceAsync> 
 		extends DetailFormPresenter<ArsenicDetailFormViewImpl, E, S, StandardClientFactory<E, S>> { 
  

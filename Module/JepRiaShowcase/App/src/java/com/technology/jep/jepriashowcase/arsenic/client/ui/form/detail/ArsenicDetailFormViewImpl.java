@@ -53,6 +53,7 @@ import com.technology.jep.jepria.client.widget.field.multistate.JepTextField;
 
 public class ArsenicDetailFormViewImpl extends StandardDetailFormViewImpl implements DetailFormView {	
  
+	@SuppressWarnings("serial")
 	@Override
 	protected LinkedHashMap<String, Widget> getFieldConfigurations() {
 		return new LinkedHashMap<String, Widget>() {{
