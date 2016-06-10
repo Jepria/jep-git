@@ -6,6 +6,7 @@ import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.ERROR_PREFI
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.HTTP_PROTOCOL;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.PATH_SEPARATOR;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.TAB;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.TRUE_TASK_ATTRIBUTE;
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.checkParameter;
 
 import java.io.IOException;
@@ -59,7 +60,7 @@ public class AppInstallTask extends Task {
 		}
 
 		// если параметр skipSaveInstallInfo принимает значение 1, то версию не пишем
-		if ("1".equals(skipSaveInstallInfo)
+		if (TRUE_TASK_ATTRIBUTE.equals(skipSaveInstallInfo)
 				&& !(ph.getProperty("sun.java.command") != null 
 					&& ((String) ph.getProperty("sun.java.command")).contains("-DLOAD_OPERATORID")
 					)
@@ -189,12 +190,11 @@ public class AppInstallTask extends Task {
 		
 		System.setProperty("java.net.useSystemProxies", "true");
 		HttpURLConnection urlConn = (HttpURLConnection) url.openConnection();
-		boolean isAllRight = Boolean.FALSE;
 		int responseCode = 0;
 		
 		urlConn.connect();
 		responseCode = urlConn.getResponseCode();
-		isAllRight = new Integer(HttpURLConnection.HTTP_OK).equals(responseCode);
+		boolean isAllRight = new Integer(HttpURLConnection.HTTP_OK).equals(responseCode);
 		
 		return urlConn;
 	}

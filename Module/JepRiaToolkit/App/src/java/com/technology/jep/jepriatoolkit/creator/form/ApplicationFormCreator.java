@@ -13,6 +13,7 @@ import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.PARENT_MODU
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.PATH_SEPARATOR;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.WARNING_PREFIX;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.YES;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.TRUE_TASK_ATTRIBUTE;
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.buildAndDeploy;
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.convertToXml;
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.createApplicationStructure;
@@ -47,6 +48,7 @@ public class ApplicationFormCreator extends Task {
 	private String applicationName;
 	private String moduleName, parentModuleName;
 	private String applicationStructureFile;
+	private String skipBuildAndDeploy;
 	// Тип операции, производимой в данном таске
 	private OperationType type;
 	
@@ -81,7 +83,77 @@ public class ApplicationFormCreator extends Task {
 			Application application;
 			String fileName;
 			switch(type) {
-				case CREATE : {
+				case ADD : {
+					// проверка обязательности наименования модуля
+					if (isNotInitializedParameter(moduleName)){
+						echoMessage(multipleConcat(ERROR_PREFIX,
+								"Application definition XML wouldn't modify! Please specify the attribute '-D", MODULE_NAME_TASK_ATTRIBUTE, "' in command line to add new module!"));
+						return;
+					}
+					// определяем файл структуры приложения
+					fileName = isEmptyOrNotInitializedParameter(applicationStructureFile) ? getApplicationDefinitionFile() : applicationStructureFile;
+					ApplicationSettingParser applicationParser = ApplicationSettingParser.getInstance(fileName);
+					application = applicationParser.getApplication();
+					Element module = applicationParser.getModuleNodeByIdIgnoringCase(moduleName);
+					// если такой модуль еще не определен в имеющейся структуре
+					if (module == null){
+						Element parentModule = null;
+						// проверяем родительский на существование
+						if (!isEmptyOrNotInitializedParameter(parentModuleName)){
+							parentModule = applicationParser.getModuleNodeByIdIgnoringCase(parentModuleName);
+							if (parentModule == null){
+								echoMessage(multipleConcat(ERROR_PREFIX,
+										"Application definition XML wouldn't modify! The parent module '", parentModuleName, "' not found! Please specify correct value for the attribute '-D", PARENT_MODULE_NAME_TASK_ATTRIBUTE, "'"));
+								return;
+							}
+						}
+						echoMessage(multipleConcat("Modify ", normalizePath(fileName), "..."));
+						
+						// Ссылка на список дочерних узлов: если родительский узел не определен как параметр, то добавляем в корень структуры,
+						// иначе найдем дочерние узлы искомого модуля
+						List<Module> childModules = application.getModules().getModules();
+						
+						// проставим всем модуля признак не пересборки
+						initNotRebuildProperty(childModules);
+						
+						if (parentModule != null){
+							// составим путь для поиска родительского модуля
+							List<String> pathToParentModule = new ArrayList<String>();
+							
+							String parentMName = parentModuleName;
+							pathToParentModule.add(parentMName);
+							// ищем все родительские узлы указанного родителя (вероятно он находится не на первом уровне вложения)
+							while ((parentMName = applicationParser.getMainFormNameIfExist(parentMName)) != null){
+								pathToParentModule.add(parentMName);
+							}
+							// изменяем порядок следования родительских узлов для возможности обхода модулей в прямом направлении
+							Collections.reverse(pathToParentModule);
+							for (String parentName : pathToParentModule){
+								List<Module> childrenModules = childModules;
+								for (Module childModule : childrenModules){
+									if (parentName.equalsIgnoreCase(childModule.getModuleId())){
+										// если дочерних узлов еще не добавлено, то создадим таковые и добавлять будем к ним
+										if (isEmpty(childModule.getChildModules())) {
+											childModule.setChildModules(new ArrayList<Module>());
+										}
+										childModules = childModule.getChildModules();
+										break;
+									}
+								}
+							}
+						}
+						
+						childModules.add(createBlankModule(moduleName, application.getName()));
+					}
+					else {
+						echoMessage(multipleConcat(ERROR_PREFIX,
+								"Application definition XML wouldn't modify! The module '", module.getAttribute(MODULE_ID_ATTRIBUTE), "' has already existed! Please specify correct value for the attribute '-D", MODULE_NAME_TASK_ATTRIBUTE, "'"));
+						return;
+					}
+					break;
+				}
+				case CREATE : 
+				default : {
 					if (isNotInitializedParameter(applicationName) || isNotInitializedParameter(moduleName)){
 						echoMessage(multipleConcat(ERROR_PREFIX, "Application definition XML wouldn't generate! Please define the mandatory attributes '-D", APPLICATION_NAME_TASK_ATTRIBUTE, "' and '-D", MODULE_NAME_TASK_ATTRIBUTE, "' in command line to do it!"));
 						return;
@@ -125,88 +197,31 @@ public class ApplicationFormCreator extends Task {
 					}
 					
 					echoMessage(multipleConcat("Generate ", normalizePath(fileName), "..."));
-					convertToXml(application, fileName);
 					
-					createApplicationStructure(fileName);
-					
-					buildAndDeploy();
-					break;
-				}
-				case ADD : {
-					// проверка обязательности наименования модуля
-					if (isNotInitializedParameter(moduleName)){
-						echoMessage(multipleConcat(ERROR_PREFIX,
-								"Application definition XML wouldn't modify! Please specify the attribute '-D", MODULE_NAME_TASK_ATTRIBUTE, "' in command line to add new module!"));
-						return;
-					}
-					// определяем файл структуры приложения
-					fileName = isEmptyOrNotInitializedParameter(applicationStructureFile) ? getApplicationDefinitionFile() : applicationStructureFile;
-					ApplicationSettingParser applicationParser = ApplicationSettingParser.getInstance(fileName);
-					application = applicationParser.getApplication();
-					Element module = applicationParser.getModuleNodeByIdIgnoringCase(moduleName);
-					// если такой модуль еще не определен в имеющейся структуре
-					if (module == null){
-						Element parentModule = null;
-						// проверяем родительский на существование
-						if (!isEmptyOrNotInitializedParameter(parentModuleName)){
-							parentModule = applicationParser.getModuleNodeByIdIgnoringCase(parentModuleName);
-							if (parentModule == null){
-								echoMessage(multipleConcat(ERROR_PREFIX,
-										"Application definition XML wouldn't modify! The parent module '", parentModuleName, "' not found! Please specify correct value for the attribute '-D", PARENT_MODULE_NAME_TASK_ATTRIBUTE, "'"));
-								return;
-							}
-						}
-						echoMessage(multipleConcat("Modify ", normalizePath(fileName), "..."));
-						
-						// Ссылка на список дочерних узлов: если родительский узел не определен как параметр, то добавляем в корень структуры,
-						// иначе найдем дочерние узлы искомого модуля
-						List<Module> childModules = application.getModules().getModules();
-						
-						if (parentModule != null){
-							// составим путь для поиска родительского модуля
-							List<String> pathToParentModule = new ArrayList<String>();
-							
-							String parentMName = parentModuleName;
-							pathToParentModule.add(parentMName);
-							// ищем все родительские узлы указанного родителя (вероятно он находится не на первом уровне вложения)
-							while ((parentMName = applicationParser.getMainFormNameIfExist(parentMName)) != null){
-								pathToParentModule.add(parentMName);
-							}
-							// изменяем порядок следования родительских узлов для возможности обхода модулей в прямом направлении
-							Collections.reverse(pathToParentModule);
-							for (String parentName : pathToParentModule){
-								List<Module> childrenModules = childModules;
-								for (Module childModule : childrenModules){
-									if (parentName.equalsIgnoreCase(childModule.getModuleId())){
-										// если дочерних узлов еще не добавлено, то создадим таковые и добавлять будем к ним
-										if (isEmpty(childModule.getChildModules())) {
-											childModule.setChildModules(new ArrayList<Module>());
-										}
-										childModules = childModule.getChildModules();
-										break;
-									}
-								}
-							}
-						}
-						
-						childModules.add(createBlankModule(moduleName, application.getName()));
-						convertToXml(application, fileName);
-					}
-					else {
-						echoMessage(multipleConcat(ERROR_PREFIX,
-								"Application definition XML wouldn't modify! The module '", module.getAttribute(MODULE_ID_ATTRIBUTE), "' has already existed! Please specify correct value for the attribute '-D", MODULE_NAME_TASK_ATTRIBUTE, "'"));
-						return;
-					}
 					break;
 				}
 			}
 			
+			convertToXml(application, fileName);
+			createApplicationStructure(fileName);
+			if (!TRUE_TASK_ATTRIBUTE.equals(skipBuildAndDeploy)) {
+				buildAndDeploy();
+			}
 		}
 		catch(Exception e){
 			throw new BuildException(e);
 		}
 	}
 	
+	private void initNotRebuildProperty(List<Module> childModules) {
+		for (Module mod : childModules){
+			mod.setNotRebuild(true);
+			if (!isEmpty(mod.getChildModules())){
+				initNotRebuildProperty(mod.getChildModules());
+			}
+		}
+	}
+
 	public void setApplicationName(String applicationName) {
 		this.applicationName = applicationName;
 	}
@@ -221,5 +236,9 @@ public class ApplicationFormCreator extends Task {
 
 	public void setApplicationStructureFile(String applicationStructureFile) {
 		this.applicationStructureFile = applicationStructureFile;
+	}
+	
+	public void setSkipBuildAndDeploy(String skipBuildAndDeploy){
+		this.skipBuildAndDeploy = skipBuildAndDeploy;
 	}
 }
