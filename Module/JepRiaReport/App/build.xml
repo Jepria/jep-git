@@ -1,10 +1,9 @@
 ﻿<project name="Jep Module Building" default="build">
 
 	<property file="build.properties"/>
+	<property file="dependency.properties"/>
         
 	<property name="J2EE_HOME" value="${OC4J_HOME}/j2ee/home" />
-	
-	<property name="JEP_RIA" value="${COMMON_HOME}/Module/JepRia/${JEP_RIA_VERSION}/App" />
 	
 	<property name="PROJECT_COMMON" value="${PROJECT_HOME}/Module/${PROJECT_NAME}Common/${PROJECT_COMMON_VERSION}/App" />
 	<property name="MODULE_PACKAGE" value="com/technology/${PROJECT_NAME_IN_PACKAGE}/${MODULE_NAME_IN_PACKAGE}" />
@@ -14,16 +13,16 @@
 	<property name="LOG_LEVEL" value="info" />
 
 	<path id="libs">
-		<pathelement location="${JEP_RIA}/lib/jepria.jar" />
-		<pathelement location="${GWT_HOME}/gwt-user.jar" />
-		<pathelement location="${GWT_HOME}/gwt-servlet.jar" />
+		<pathelement location="${JEPRIA_LIB}" />
+		<pathelement location="${GWT_USER_LIB}" />
+		<pathelement location="${GWT_SERVLET_LIB}" />
 		<pathelement location="${GXT_HOME}/gxt.jar" />
 		<pathelement location="${J2EE_HOME}/lib/servlet.jar" />
 		<pathelement location="${J2EE_HOME}/lib/ejb30.jar" />
 		<pathelement location="${J2EE_HOME}/lib/jta.jar" />
 		<pathelement location="${J2EE_HOME}/lib/oc4j-internal.jar" />
 		<pathelement location="${J2EE_HOME}/jazncore.jar" />
-		<pathelement location="${OC4J_HOME}/jdbc/lib/ojdbc14dms.jar" />
+		<pathelement location="${OJDBC14DMS_LIB}" />
 		<pathelement location="${LOG4J_HOME}/log4j.jar" />
 		<pathelement location="${JASPER_REPORTS_HOME}/jasperreports.jar" />
 	</path>
@@ -53,7 +52,7 @@
 	</fileset>
 
 	<target name="start-log">
-		<echo>JEP_RIA: ${JEP_RIA}</echo>		
+		<echo>JEPRIA_LIB: ${JEPRIA_LIB}</echo>		
 		<mkdir dir="log" />
 			<tstamp>
 				<format property="timestamp" pattern="yyyyMMdd_HHmmss"/>
