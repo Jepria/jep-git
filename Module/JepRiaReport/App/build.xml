@@ -2,10 +2,7 @@
 
 	<property file="build.properties"/>
 	<property file="dependency.properties"/>
-        
-	<property name="J2EE_HOME" value="${OC4J_HOME}/j2ee/home" />
 	
-	<property name="PROJECT_COMMON" value="${PROJECT_HOME}/Module/${PROJECT_NAME}Common/${PROJECT_COMMON_VERSION}/App" />
 	<property name="MODULE_PACKAGE" value="com/technology/${PROJECT_NAME_IN_PACKAGE}/${MODULE_NAME_IN_PACKAGE}" />
 	<property name="RESOURCE_HOME" value="src/resources/${MODULE_PACKAGE}" />
 	<property name="JAVA_DOC_DIR" value="../Doc/App/AutoGen" />
@@ -16,15 +13,15 @@
 		<pathelement location="${JEPRIA_LIB}" />
 		<pathelement location="${GWT_USER_LIB}" />
 		<pathelement location="${GWT_SERVLET_LIB}" />
-		<pathelement location="${GXT_HOME}/gxt.jar" />
-		<pathelement location="${J2EE_HOME}/lib/servlet.jar" />
-		<pathelement location="${J2EE_HOME}/lib/ejb30.jar" />
-		<pathelement location="${J2EE_HOME}/lib/jta.jar" />
-		<pathelement location="${J2EE_HOME}/lib/oc4j-internal.jar" />
-		<pathelement location="${J2EE_HOME}/jazncore.jar" />
+		<pathelement location="${GXT_LIB}" />
+		<pathelement location="${SERVLET-API_LIB}" />
+		<pathelement location="${EJB30_LIB}" />
+		<pathelement location="${OC4J-JTA_LIB}" />
+		<pathelement location="${OC4J-INTERNAL_LIB}" />
+		<pathelement location="${JAZNCORE_LIB}" />
 		<pathelement location="${OJDBC14DMS_LIB}" />
-		<pathelement location="${LOG4J_HOME}/log4j.jar" />
-		<pathelement location="${JASPER_REPORTS_HOME}/jasperreports.jar" />
+		<pathelement location="${LOG4J_LIB}" />
+		<pathelement location="${JASPERREPORTS_LIB}" />
 	</path>
 	
 	<fileset id="class-jar" dir="build">
