@@ -1,2 +1,0 @@
-Генератор стилей для GWT:
-http://gwt-theme-generator.appspot.com/

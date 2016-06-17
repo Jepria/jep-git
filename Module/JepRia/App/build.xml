@@ -1,9 +1,6 @@
 ﻿<project name="Jep Module Building" default="build">
-
 	<property file="build.properties" />
-
-	<property name="J2EE_HOME" value="${OC4J_HOME}/j2ee/home" />
-
+	<property file="dependency.properties" />
 	<property name="MODULE_PACKAGE" value="com/technology/${PROJECT_NAME_IN_PACKAGE}/${MODULE_NAME_IN_PACKAGE}" />
 	<property name="RESOURCE_HOME" value="src/resources/${MODULE_PACKAGE}" />
 	<property name="JAVA_DOC_DIR" value="../Doc/App/AutoGen" />
@@ -11,77 +8,77 @@
 	<property name="LOG_LEVEL" value="info" />
 
 	<path id="libs">
-		<pathelement location="${GWT_HOME}/gwt-user.jar" />
-		<pathelement location="${GWT_HOME}/gwt-dev.jar" />
-		<pathelement location="${GWT_LOG_HOME}/gwt-log.jar" />
+		<pathelement location="${GWT-USER_LIB}" />
+		<pathelement location="${GWT-DEV_LIB}" />
+		<pathelement location="${GWT-LOG_LIB}" />
 
-		<pathelement location="${GWT_HOME}/gwt-servlet.jar" />
-		<pathelement location="${LOG4J_HOME}/log4j.jar" />
-		<pathelement location="${COMMONS-FILEUPLOAD_HOME}/commons-fileupload.jar" />
-		<pathelement location="${JUNIT_HOME}/junit.jar" />
+		<pathelement location="${GWT-SERVLET_LIB}" />
+		<pathelement location="${LOG4J_LIB}" />
+		<pathelement location="${COMMONS-FILEUPLOAD_LIB}" />
+		<pathelement location="${JUNIT_LIB}" />
 	</path>
-
 	<path id="selenium-libs">
-		<pathelement location="${SELENIUM_HOME}/selenium-java-2.43.1.jar" />
-		<pathelement location="${SELENIUM_HOME}/libs/apache-mime4j-0.6.jar" />
-		<pathelement location="${SELENIUM_HOME}/libs/bsh-1.3.0.jar" />
-		<pathelement location="${SELENIUM_HOME}/libs/cglib-nodep-2.1_3.jar" />
-		<pathelement location="${SELENIUM_HOME}/libs/commons-codec-1.9.jar" />
-		<pathelement location="${SELENIUM_HOME}/libs/commons-collections-3.2.1.jar" />
-		<pathelement location="${SELENIUM_HOME}/libs/commons-exec-1.1.jar" />
-		<pathelement location="${SELENIUM_HOME}/libs/commons-io-2.4.jar" />
-		<pathelement location="${SELENIUM_HOME}/libs/commons-jxpath-1.3.jar" />
-		<pathelement location="${SELENIUM_HOME}/libs/commons-lang3-3.3.2.jar" />
-		<pathelement location="${SELENIUM_HOME}/libs/commons-logging-1.1.3.jar" />
-		<pathelement location="${SELENIUM_HOME}/libs/cssparser-0.9.14.jar" />
-		<pathelement location="${SELENIUM_HOME}/libs/guava-15.0.jar" />
-		<pathelement location="${SELENIUM_HOME}/libs/hamcrest-core-1.3.jar" />
-		<pathelement location="${SELENIUM_HOME}/libs/hamcrest-library-1.3.jar" />
-		<pathelement location="${SELENIUM_HOME}/libs/htmlunit-2.15.jar" />
-		<pathelement location="${SELENIUM_HOME}/libs/htmlunit-core-js-2.15.jar" />
-		<pathelement location="${SELENIUM_HOME}/libs/httpclient-4.3.4.jar" />
-		<pathelement location="${SELENIUM_HOME}/libs/httpcore-4.3.2.jar" />
-		<pathelement location="${SELENIUM_HOME}/libs/httpmime-4.3.4.jar" />
-		<pathelement location="${SELENIUM_HOME}/libs/ini4j-0.5.2.jar" />
-		<pathelement location="${SELENIUM_HOME}/libs/jcommander-1.29.jar" />
-		<pathelement location="${SELENIUM_HOME}/libs/jetty-websocket-8.1.8.jar" />
-		<pathelement location="${SELENIUM_HOME}/libs/jna-3.4.0.jar" />
-		<pathelement location="${SELENIUM_HOME}/libs/jna-platform-3.4.0.jar" />
-		<pathelement location="${SELENIUM_HOME}/libs/json-20080701.jar" />
-		<pathelement location="${SELENIUM_HOME}/libs/junit-dep-4.11.jar" />
-		<pathelement location="${SELENIUM_HOME}/libs/nekohtml-1.9.21.jar" />
-		<pathelement location="${SELENIUM_HOME}/libs/netty-3.5.7.Final.jar" />
-		<pathelement location="${SELENIUM_HOME}/libs/operadriver-1.5.jar" />
-		<pathelement location="${SELENIUM_HOME}/libs/phantomjsdriver-1.1.0.jar" />
-		<pathelement location="${SELENIUM_HOME}/libs/protobuf-java-2.4.1.jar" />
-		<pathelement location="${SELENIUM_HOME}/libs/sac-1.3.jar" />
-		<pathelement location="${SELENIUM_HOME}/libs/serializer-2.7.1.jar" />
-		<pathelement location="${SELENIUM_HOME}/libs/testng-6.8.5.jar" />
-		<pathelement location="${SELENIUM_HOME}/libs/xalan-2.7.1.jar" />
-		<pathelement location="${SELENIUM_HOME}/libs/xercesImpl-2.11.0.jar" />
-		<pathelement location="${SELENIUM_HOME}/libs/xml-apis-1.4.01.jar" />
+		<pathelement location="${SELENIUM_LIB}" />
+		
+		<pathelement location="${APACHE-MIME4J_LIB}" />
+		<pathelement location="${BEANSHELL_LIB}" />
+		<pathelement location="${CGLIB-NODEP_LIB}" />
+		<pathelement location="${COMMONS-CODEC_LIB}" />
+		<pathelement location="${COMMONS-COLLECTIONS-3.2.1_LIB}" />
+		<pathelement location="${COMMONS-EXEC_LIB}" />
+		<pathelement location="${COMMONS-IO-2.4_LIB}" />
+		<pathelement location="${COMMONS-JXPATH_LIB}" />
+		<pathelement location="${COMMONS-LANG3_LIB}" />
+		<pathelement location="${COMMONS-LOGGING-1.1.3_LIB}" />
+		<pathelement location="${CSSPARSER_LIB}" />
+		<pathelement location="${GUAVA_LIB}" />
+		<pathelement location="${HAMCREST-CORE_LIB}" />
+		<pathelement location="${HAMCREST-LIBRARY_LIB}" />
+		<pathelement location="${HTMLUNIT_LIB}" />
+		<pathelement location="${HTMLUNIT-CORE-JS_LIB}" />
+		<pathelement location="${HTTPCLIENT_LIB}" />
+		<pathelement location="${HTTPCORE_LIB}" />
+		<pathelement location="${HTTPMIME_LIB}" />
+		<pathelement location="${INI4J_LIB}" />
+		<pathelement location="${JCOMMANDER_LIB}" />
+		<pathelement location="${JETTY-WEBSOCKET_LIB}" />
+		<pathelement location="${JNA_LIB}" />
+		<pathelement location="${JNA-PLATFORM_LIB}" />
+		<pathelement location="${JSON_LIB}" />
+		<pathelement location="${JUNIT-DEP_LIB}" />
+		<pathelement location="${NEKOHTML_LIB}" />
+		<pathelement location="${NETTY_LIB}" />
+		<pathelement location="${OPERADRIVER_LIB}" />
+		<pathelement location="${PHANTOMJSDRIVER_LIB}" />
+		<pathelement location="${PROTOBUF-JAVA_LIB}" />
+		<pathelement location="${SAC_LIB}" />
+		<pathelement location="${SERIALIZER_LIB}" />
+		<pathelement location="${TESTNG_LIB}" />
+		<pathelement location="${XALAN_LIB}" />
+		<pathelement location="${XERCESIMPL_LIB}" />
+		<pathelement location="${XML-APIS_LIB}" />
 	</path>
 
 	<path id="oc4j-libs">
-		<pathelement location="${J2EE_HOME}/lib/servlet.jar" />
-		<pathelement location="${J2EE_HOME}/lib/jta.jar" />
-		<pathelement location="${J2EE_HOME}/lib/oc4j-internal.jar" />
-		<pathelement location="${J2EE_HOME}/jazncore.jar" />
-		<pathelement location="${OC4J_HOME}/jdbc/lib/ojdbc14dms.jar" />
+		<pathelement location="${SERVLET-API_LIB}" />
+		<pathelement location="${OC4J-JTA_LIB}" />
+		<pathelement location="${OC4J-INTERNAL_LIB}" />
+		<pathelement location="${JAZNCORE_LIB}" />
+		<pathelement location="${OJDBC14DMS_LIB}" />
 	</path>
 
 	<path id="weblogic-libs">
-		<pathelement location="${WL_LIB_HOME}/wls-api.jar" />
+		<pathelement location="${WLS-API_LIB}" />
 	</path>
 	
 	<path id="tomcat-libs">
-		<pathelement location="${TOMCAT_CATALINA_JAR}" />
+		<pathelement location="${TOMCAT-CATALINA_LIB}" />
 	</path>
 
 	<path id="gwt-libs">
-		<pathelement location="${GWT_HOME}/gwt-user.jar" />
-		<pathelement location="${GWT_HOME}/gwt-dev.jar" />
-		<pathelement location="${GWT_LOG_HOME}/gwt-log.jar" />
+		<pathelement location="${GWT-USER_LIB}" />
+		<pathelement location="${GWT-DEV_LIB}" />
+		<pathelement location="${GWT-LOG_LIB}" />
 	</path>
 
 	<fileset id="class-jar" dir="build">
