@@ -122,10 +122,6 @@
 		<include name="**/log4j.properties" />
     </fileset>
 
-	<target name="prepare-toolkit">
-		<copy failonerror="false" file="${JEPRIA-TOOLKIT_LIB}" todir="lib" />
-	</target>
-
 	<!-- Объявление таска по созданию структуры модуля -->
 	<target name="define-toolkit">
 		<taskdef classname="com.technology.jep.jepriatoolkit.creator.ApplicationStructureCreator" classpath="${JEPRIA-TOOLKIT_LIB}" name="applicationstructurecreator" />
@@ -135,16 +131,16 @@
 		<taskdef name="appInstall" classname="com.technology.jep.jepriatoolkit.version.AppInstallTask" classpath="${JEPRIA-TOOLKIT_LIB}" />
 	</target>
 	
-	<target name="define-toolkit-appinstall" depends="prepare-toolkit">
+	<target name="define-toolkit-appinstall">
 		<taskdef name="appInstall" classname="com.technology.jep.jepriatoolkit.version.AppInstallTask" classpath="${JEPRIA-TOOLKIT_LIB}" />
 	</target>
 	
 
-	<target name="create-structure" depends="prepare-toolkit, define-toolkit">
+	<target name="create-structure" depends="define-toolkit">
 		<applicationstructurecreator applicationStructureFile="${APPLICATION_STRUCTURE_FILE_PATH}"/>
 	</target>
 	
-	<target name="create-xml" depends="prepare-toolkit, define-toolkit">
+	<target name="create-xml" depends="define-toolkit">
 		<applicationstructureparser jepRiaVersion="${JEPRIA_VERSION}"/>
 	</target>
 
@@ -841,9 +837,8 @@
 	</target>
 
 	<!-- Применение произвольной конфигурации сборки -->
-	<target name="build-config" depends="start-log, prepare-toolkit, define-toolkit">
+	<target name="build-config" depends="start-log, define-toolkit">
 		<!--echo message="BUILD_CONFIG: ${BUILD_CONFIG}" /-->
 		<buildconfigswitcher moduleName="${MODULE_NAME}" packageName="${PROJECT_NAME_IN_PACKAGE}" targetConfig="${BUILD_CONFIG}" />
 	</target>
 </project>
-
