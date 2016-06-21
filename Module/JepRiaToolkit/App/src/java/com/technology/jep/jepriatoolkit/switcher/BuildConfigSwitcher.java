@@ -5,6 +5,7 @@ import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.BUILD_CONFI
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.DOT;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.ERROR_PREFIX;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.WARNING_PREFIX;
+import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.getFileList;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -37,7 +38,7 @@ public class BuildConfigSwitcher extends Task {
 	public void execute() throws BuildException {
 
 		// получаем список файлов target конфигурации, если конфиг не найден (null) - критическая ошибка!
-		targetConfigFiles = getFileList(BUILD_CONFIG_PATH_PREFIX + targetConfig);
+		targetConfigFiles = getFileList(BUILD_CONFIG_PATH_PREFIX + targetConfig, targetConfig);
 		if (targetConfigFiles == null) {
 			throw new BuildException(JepRiaToolkitUtil.multipleConcat(
 					ERROR_PREFIX, "Target configuration \"", targetConfig, "\" not found!"));
@@ -157,41 +158,6 @@ public class BuildConfigSwitcher extends Task {
 
 		// Сохраняем в build.config полный список файлов target конфигурации
 		saveConfigFileList(targetConfig, targetConfigFiles);
-	}
-
-	/*
-	 * Получение списка файлов по указанному пути
-	 */
-	private List<String> getFileList(String path) {
-
-		ArrayList<String> resultList = new ArrayList<String>();
-
-		try {
-			File pathFile = new File(path);
-			String[] folderFiles = pathFile.list();
-
-			if (folderFiles != null) {
-				File element;
-
-				for (String folderFile : folderFiles) {
-					element = new File(path + "\\" + folderFile);
-
-					if (element.isDirectory()) {
-						resultList.addAll(getFileList(element.getPath()));
-					} else if (element.isFile()) {
-						resultList.add(element.getPath().replace(BUILD_CONFIG_PATH_PREFIX + targetConfig + "\\", ""));
-					}
-				}
-			} else {
-				// path not found
-				resultList = null;
-			}
-		} catch (Exception e) {
-			// e.printStackTrace();
-			JepRiaToolkitUtil.echoMessage(JepRiaToolkitUtil.multipleConcat(ERROR_PREFIX, e.getLocalizedMessage()));
-		}
-
-		return resultList;
 	}
 
 	/*

@@ -2,6 +2,7 @@ package com.technology.jep.jepriatoolkit.creator.application;
 
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.*;
 import static com.technology.jep.jepriatoolkit.creator.application.ApplicationStructureCreatorUtil.convertTemplateToFile;
+import static com.technology.jep.jepriatoolkit.creator.application.ApplicationStructureCreatorUtil.prepareData;
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.echoMessage;
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.encodeTextResources;
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.getApplicationDefinitionFile;
@@ -25,9 +26,6 @@ import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Task;
 
 import com.technology.jep.jepriatoolkit.creator.module.Application;
-import com.technology.jep.jepriatoolkit.creator.module.DetailForm;
-import com.technology.jep.jepriatoolkit.creator.module.Forms;
-import com.technology.jep.jepriatoolkit.creator.module.Module;
 import com.technology.jep.jepriatoolkit.creator.module.ModuleButton;
 import com.technology.jep.jepriatoolkit.creator.module.ModuleField;
 import com.technology.jep.jepriatoolkit.creator.module.ModuleInfo;
@@ -55,6 +53,7 @@ public class ApplicationStructureCreator extends Task {
 			applicationParser = ApplicationSettingParser.getInstance(isEmptyOrNotInitializedParameter(applicationStructureFile) ? getApplicationDefinitionFile() : applicationStructureFile);
 			application = applicationParser.getApplication();
 			forms = applicationParser.getForms();
+			resultData = prepareData(applicationParser);
 			
 			applicationParser.notifyAboutAbsentFields();
 
@@ -250,26 +249,26 @@ public class ApplicationStructureCreator extends Task {
 		makeDir(
 			format(
 				getDefinitionProperty(CONFIG_HTML_DIRECTORY_PROPERTY, "config/{0}/src/html"),
-				RELEASE_BUILD_CONFIG_NAME
+				PRODUCTION_BUILD_CONFIG_NAME
 			)
 		);
 		makeDir(
 			format(
 				getDefinitionProperty(CONFIG_MAIN_PACKAGE_DIRECTORY_PROPERTY, 
 					multipleConcat("config/{0}/", PREFIX_DESTINATION_SOURCE_CODE, "{1}/{2}/main/")),
-				RELEASE_BUILD_CONFIG_NAME, application.getProjectPackage().toLowerCase(), application.getName().toLowerCase()
+				PRODUCTION_BUILD_CONFIG_NAME, application.getProjectPackage().toLowerCase(), application.getName().toLowerCase()
 			)
 		);
 		deployPropContent = 
 			readFromJar(
 					format(
 						getDefinitionProperty(DEPLOY_PROPERTIES_SOURCE_PATH_TEMPLATE_PROPERTY, "/templates/config/{0}/deploy.properties"),
-						RELEASE_BUILD_CONFIG_NAME
+						PRODUCTION_BUILD_CONFIG_NAME
 					), UTF_8);
 		writeToFile(deployPropContent, 
 				format(
 					getDefinitionProperty(DEPLOY_PROPERTIES_DESTINATION_PATH_TEMPLATE_PROPERTY, "config/{0}/deploy.properties"),
-					RELEASE_BUILD_CONFIG_NAME
+					PRODUCTION_BUILD_CONFIG_NAME
 				), UTF_8, false);
 
 	}
@@ -280,7 +279,7 @@ public class ApplicationStructureCreator extends Task {
 	private void generateWebXML() {
 		convertTemplateToFile(
 			getDefinitionProperty(WEB_XML_TEMPLATE_PROPERTY, "web.ftl"), 
-			prepareData(),
+			resultData,
 			format(
 				getDefinitionProperty(WEB_XML_PATH_TEMPLATE_PROPERTY, 
 					multipleConcat(PREFIX_DESTINATION_RESOURCE, "{0}/{1}/web/web.xml")
@@ -296,7 +295,7 @@ public class ApplicationStructureCreator extends Task {
 	private void generateApplicationXML() {
 		convertTemplateToFile(
 			getDefinitionProperty(APPLICATION_XML_TEMPLATE_PROPERTY, "application.ftl"), 
-			prepareData(),
+			resultData,
 			format(
 				getDefinitionProperty(APPLICATION_XML_PATH_TEMPLATE_PROPERTY, 
 					multipleConcat(PREFIX_DESTINATION_RESOURCE, "{0}/{1}/application.xml")
@@ -312,7 +311,7 @@ public class ApplicationStructureCreator extends Task {
 	private void generateOrionApplicationXML() {
 		convertTemplateToFile(
 			getDefinitionProperty(ORION_APPLICATION_XML_TEMPLATE_PROPERTY, "orion-application.ftl"), 
-			prepareData(),
+			resultData,
 			format(
 				getDefinitionProperty(ORION_APPLICATION_XML_PATH_TEMPLATE_PROPERTY, 
 					multipleConcat(PREFIX_DESTINATION_RESOURCE, "{0}/{1}/orion-application.xml")
@@ -329,7 +328,7 @@ public class ApplicationStructureCreator extends Task {
 	private void generateMainGwtXML() {
 		convertTemplateToFile(
 			getDefinitionProperty(MAIN_GWT_XML_DEBUG_TEMPLATE_PROPERTY, "mainDebug.gwt.ftl"), 
-			prepareData(),
+			resultData,
 			format(
 				getDefinitionProperty(MAIN_GWT_XML_PATH_TEMPLATE_PROPERTY, 
 					multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "{0}/{1}/main/{2}.gwt.xml")
@@ -340,7 +339,7 @@ public class ApplicationStructureCreator extends Task {
 		
 		convertTemplateToFile(
 			getDefinitionProperty(MAIN_GWT_XML_DEBUG_TEMPLATE_PROPERTY, "mainDebug.gwt.ftl"), 
-			prepareData(),
+			resultData,
 			multipleConcat(
 				"config/", DEBUG_BUILD_CONFIG_NAME, "/", PREFIX_DESTINATION_SOURCE_CODE,
 				application.getProjectPackage().toLowerCase(),  "/", application.getName().toLowerCase(),
@@ -349,9 +348,9 @@ public class ApplicationStructureCreator extends Task {
 		
 		convertTemplateToFile(
 			getDefinitionProperty(MAIN_GWT_XML_PRODUCTION_TEMPLATE_PROPERTY, "mainProduction.gwt.ftl"), 
-			prepareData(),
+			resultData,
 			multipleConcat(
-				"config/", RELEASE_BUILD_CONFIG_NAME, "/", PREFIX_DESTINATION_SOURCE_CODE,
+				"config/", PRODUCTION_BUILD_CONFIG_NAME, "/", PREFIX_DESTINATION_SOURCE_CODE,
 				application.getProjectPackage().toLowerCase(),  "/", application.getName().toLowerCase(),
 				"/main/", application.getName(), ".gwt.xml")
 		);
@@ -365,7 +364,7 @@ public class ApplicationStructureCreator extends Task {
 		generateMainGwtXML();
 		for (int i = 0; i < forms.size(); i++) {
 			String formName = (String) forms.get(i);
-			Map<String, Object> data = prepareData();
+			Map<String, Object> data = resultData;
 			data.put(FORM_NAME_TEMPLATE_PARAMETER, formName);
 			convertTemplateToFile(
 				getDefinitionProperty(CLIENT_MODULE_GWT_XML_TEMPLATE_PROPERTY, "module.gwt.ftl"), 
@@ -388,7 +387,7 @@ public class ApplicationStructureCreator extends Task {
 		// JSP
 		convertTemplateToFile(
 			getDefinitionProperty(APPLICATION_JSP_TEMPLATE_PROPERTY, "applicationJsp.ftl"), 
-			prepareData(), 
+			resultData, 
 			format(
 				getDefinitionProperty(APPLICATION_JSP_PATH_TEMPLATE_PROPERTY, 
 					multipleConcat(WELCOME_PAGE_DIR_NAME, "/{0}.jsp")),
@@ -408,15 +407,15 @@ public class ApplicationStructureCreator extends Task {
 		writeToFile(cssTemplateDebugContent, multipleConcat("config/", DEBUG_BUILD_CONFIG_NAME, "/", WELCOME_PAGE_DIR_NAME, "/", application.getName(), ".css"), UTF_8, false);
 
 		//CSS release
-		String cssTemplateReleaseContent = readFromJar(multipleConcat("/templates/config/", RELEASE_BUILD_CONFIG_NAME, "/src/html/", CSS_TEMPLATE_NAME), UTF_8);
-		writeToFile(cssTemplateReleaseContent, multipleConcat("config/", RELEASE_BUILD_CONFIG_NAME, "/", WELCOME_PAGE_DIR_NAME, "/", application.getName(), ".css"), UTF_8, false);
+		String cssTemplateReleaseContent = readFromJar(multipleConcat("/templates/config/", PRODUCTION_BUILD_CONFIG_NAME, "/src/html/", CSS_TEMPLATE_NAME), UTF_8);
+		writeToFile(cssTemplateReleaseContent, multipleConcat("config/", PRODUCTION_BUILD_CONFIG_NAME, "/", WELCOME_PAGE_DIR_NAME, "/", application.getName(), ".css"), UTF_8, false);
 	}
 
 	/**
 	 * Создание текстовых ресурсов
 	 */
 	private void createTextFile() {
-		Map<String, Object> data = prepareData();
+		Map<String, Object> data = resultData;
 		
 		convertTemplateToFile(
 			getDefinitionProperty(MAIN_TEXT_RESOURCE_TEMPLATE_PROPERTY, "mainText.ftl"),
@@ -474,7 +473,7 @@ public class ApplicationStructureCreator extends Task {
 	private void createOverview() {
 		convertTemplateToFile(
 			getDefinitionProperty(OVERVIEW_TEMPLATE_PROPERTY, "overview.ftl"),
-			prepareData(),
+			resultData,
 			format(
 				getDefinitionProperty(OVERVIEW_PATH_TEMPLATE_PROPERTY, "src/java/com/technology/{0}/{1}/overview.html"),
 				application.getProjectPackage().toLowerCase(), application.getName().toLowerCase()
@@ -486,7 +485,7 @@ public class ApplicationStructureCreator extends Task {
 	 * Создание классов клиенстких констант
 	 */
 	private void createClientConstant() {
-		Map<String, Object> data = prepareData();
+		Map<String, Object> data = resultData;
 		List<ModuleInfo> moduleInfos = (List<ModuleInfo>) data.get(FORMS_TEMPLATE_PARAMETER);
 		
 		convertTemplateToFile(
@@ -524,7 +523,7 @@ public class ApplicationStructureCreator extends Task {
 	 * Создание классов клиентских фабрик
 	 */
 	private void createClientFactoryImpl() {
-		Map<String, Object> data = prepareData();
+		Map<String, Object> data = resultData;
 		List<ModuleInfo> moduleInfos = (List<ModuleInfo>) data.get(FORMS_TEMPLATE_PARAMETER);
 		for (ModuleInfo moduleInfo : moduleInfos) {
 			if (moduleInfo.isNotRebuild()) continue;
@@ -564,7 +563,7 @@ public class ApplicationStructureCreator extends Task {
 	private void createEntryPoint() {
 		convertTemplateToFile(
 			getDefinitionProperty(MODULE_ENTRY_POINT_TEMPLATE_PROPERTY, "moduleEntryPoint.ftl"),
-			prepareData(),
+			resultData,
 			format(
 				getDefinitionProperty(MODULE_ENTRY_POINT_PATH_TEMPLATE_PROPERTY, 
 						multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/main/client/entrance/{3}EntryPoint.java")),
@@ -577,7 +576,7 @@ public class ApplicationStructureCreator extends Task {
 	 * Создание классов презентеров детальных форм
 	 */
 	private void createDetailFormPresenter() {
-		Map<String, Object> data = prepareData();
+		Map<String, Object> data = resultData;
 		List<ModuleInfo> moduleInfos = (List<ModuleInfo>) data.get(FORMS_TEMPLATE_PARAMETER);
 		for (ModuleInfo moduleInfo : moduleInfos) {
 			if (moduleInfo.isNotRebuild()) continue;
@@ -604,7 +603,7 @@ public class ApplicationStructureCreator extends Task {
 	 * Создание классов представлений детальных форм
 	 */
 	private void createDetailFormView() {
-		Map<String, Object> data = prepareData();
+		Map<String, Object> data = resultData;
 		List<ModuleInfo> moduleInfos = (List<ModuleInfo>) data.get(FORMS_TEMPLATE_PARAMETER);
 		for (ModuleInfo moduleInfo : moduleInfos) {
 			if (moduleInfo.isNotRebuild()) continue;
@@ -641,7 +640,7 @@ public class ApplicationStructureCreator extends Task {
 	 * Создание классов презентеров списочных форм
 	 */
 	private void createListFormPresenter() {
-		Map<String, Object> data = prepareData();
+		Map<String, Object> data = resultData;
 		List<ModuleInfo> moduleInfos = (List<ModuleInfo>) data.get(FORMS_TEMPLATE_PARAMETER);
 		for (ModuleInfo moduleInfo : moduleInfos) {
 			if (moduleInfo.isNotRebuild() || !moduleInfo.getHasCustomListFormPresenter()) continue;
@@ -668,7 +667,7 @@ public class ApplicationStructureCreator extends Task {
 	 * Создание классов представлений списочных форм
 	 */
 	private void createListFormView() {
-		Map<String, Object> data = prepareData();
+		Map<String, Object> data = resultData;
 		List<ModuleInfo> moduleInfos = (List<ModuleInfo>) data.get(FORMS_TEMPLATE_PARAMETER);
 		for (ModuleInfo moduleInfo : moduleInfos) {
 			if (moduleInfo.isNotRebuild()) continue;
@@ -695,7 +694,7 @@ public class ApplicationStructureCreator extends Task {
 	 * Создание классов презентеров модулей
 	 */
 	private void createModulePresenter() {
-		Map<String, Object> data = prepareData();
+		Map<String, Object> data = resultData;
 		List<ModuleInfo> moduleInfos = (List<ModuleInfo>) data.get(FORMS_TEMPLATE_PARAMETER);
 		for (ModuleInfo moduleInfo : moduleInfos) {
 			if (moduleInfo.isNotRebuild() || isEmpty(moduleInfo.getToolBarCustomButtonsOnBothForms())) continue;
@@ -740,7 +739,7 @@ public class ApplicationStructureCreator extends Task {
 	 * Создание классов реализаций сервисов приложения
 	 */
 	private void createServiceImpl() {
-		Map<String, Object> data = prepareData();
+		Map<String, Object> data = resultData;
 		List<ModuleInfo> moduleInfos = (List<ModuleInfo>) data.get(FORMS_TEMPLATE_PARAMETER);
 		for (ModuleInfo moduleInfo : moduleInfos) {
 			if (moduleInfo.isNotRebuild()) continue;
@@ -801,7 +800,7 @@ public class ApplicationStructureCreator extends Task {
 	 * Создание классов серверных констант
 	 */
 	private void createServerConstant() {
-		Map<String, Object> data = prepareData();
+		Map<String, Object> data = resultData;
 		List<ModuleInfo> moduleInfos = (List<ModuleInfo>) data.get(FORMS_TEMPLATE_PARAMETER);
 		for (ModuleInfo moduleInfo : moduleInfos) {
 			if (moduleInfo.isNotRebuild()) continue;
@@ -836,7 +835,7 @@ public class ApplicationStructureCreator extends Task {
 	 * Создание классов реализаций DAO
 	 */
 	private void createDaoClass() {
-		Map<String, Object> data = prepareData();
+		Map<String, Object> data = resultData;
 		List<ModuleInfo> moduleInfos = (List<ModuleInfo>) data.get(FORMS_TEMPLATE_PARAMETER);
 		for (ModuleInfo moduleInfo : moduleInfos) {
 			if (moduleInfo.isNotRebuild()) continue;
@@ -863,7 +862,7 @@ public class ApplicationStructureCreator extends Task {
 	 * Создание классов DAO домашнего интерфейса
 	 */
 	private void createDaoInterface() {
-		Map<String, Object> data = prepareData();
+		Map<String, Object> data = resultData;
 		List<ModuleInfo> moduleInfos = (List<ModuleInfo>) data.get(FORMS_TEMPLATE_PARAMETER);
 		for (ModuleInfo moduleInfo : moduleInfos) {
 			if (moduleInfo.isNotRebuild()) continue;
@@ -890,7 +889,7 @@ public class ApplicationStructureCreator extends Task {
 	 * Создание классов, содержащих имена полей модулей
 	 */
 	private void createFieldNames() {
-		Map<String, Object> data = prepareData();
+		Map<String, Object> data = resultData;
 		List<ModuleInfo> moduleInfos = (List<ModuleInfo>) data.get(FORMS_TEMPLATE_PARAMETER);
 		for (ModuleInfo moduleInfo : moduleInfos) {
 			if (moduleInfo.isNotRebuild()) continue;
@@ -934,7 +933,7 @@ public class ApplicationStructureCreator extends Task {
 	 * Создание классов описания записей
 	 */
 	private void createRecordDefinition() {
-		Map<String, Object> data = prepareData();
+		Map<String, Object> data = resultData;
 		List<ModuleInfo> moduleInfos = (List<ModuleInfo>) data.get(FORMS_TEMPLATE_PARAMETER);
 		for (ModuleInfo moduleInfo : moduleInfos) {
 			if (moduleInfo.isNotRebuild()) continue;
@@ -961,7 +960,7 @@ public class ApplicationStructureCreator extends Task {
 	 * Создание классов сервисов модуля
 	 */
 	private void createService() {
-		Map<String, Object> data = prepareData();
+		Map<String, Object> data = resultData;
 		List<ModuleInfo> moduleInfos = (List<ModuleInfo>) data.get(FORMS_TEMPLATE_PARAMETER);
 		for (ModuleInfo moduleInfo : moduleInfos) {
 			if (moduleInfo.isNotRebuild()) continue;
@@ -998,7 +997,7 @@ public class ApplicationStructureCreator extends Task {
 	 * Создание классов разделяемых констант (клиентско-серверных)
 	 */
 	private void createSharedConstant() {
-		Map<String, Object> data = prepareData();
+		Map<String, Object> data = resultData;
 		List<ModuleInfo> moduleInfos = (List<ModuleInfo>) data.get(FORMS_TEMPLATE_PARAMETER);
 		
 		convertTemplateToFile(
@@ -1036,7 +1035,7 @@ public class ApplicationStructureCreator extends Task {
 	 * Создание классов инструментальной панели
 	 */
 	private void createToolBar() {
-		Map<String, Object> data = prepareData();
+		Map<String, Object> data = resultData;
 		List<ModuleInfo> moduleInfos = (List<ModuleInfo>) data.get(FORMS_TEMPLATE_PARAMETER);
 		for (ModuleInfo moduleInfo : moduleInfos) {
 			if (moduleInfo.isNotRebuild()) continue;
@@ -1146,7 +1145,7 @@ public class ApplicationStructureCreator extends Task {
 	 * Создание классов статусной панели
 	 */
 	private void createStatusbar() {
-		Map<String, Object> data = prepareData();
+		Map<String, Object> data = resultData;
 		List<ModuleInfo> moduleInfos = (List<ModuleInfo>) data.get(FORMS_TEMPLATE_PARAMETER);
 		for (ModuleInfo moduleInfo : moduleInfos) {
 			if (moduleInfo.isNotRebuild() || !moduleInfo.getIsStatusBarOff()) continue;
@@ -1202,107 +1201,18 @@ public class ApplicationStructureCreator extends Task {
 		String log4jReleaseTemplateContent = readFromJar(
 			format(
 				getDefinitionProperty(LOG4J_PROPERTIES_SOURCE_PATH_TEMPLATE_PROPERTY, "/templates/config/{0}/src/java/log4j.properties"),
-				RELEASE_BUILD_CONFIG_NAME
+				PRODUCTION_BUILD_CONFIG_NAME
 			), UTF_8);
 		log4jReleaseTemplateContent = replacePackageModuleNames(log4jReleaseTemplateContent, application.getProjectPackage(), application.getName());
 		writeToFile(log4jReleaseTemplateContent, 
 			format(
 				getDefinitionProperty(LOG4J_PROPERTIES_DESTINATION_PATH_TEMPLATE_PROPERTY, "config/{0}/src/java/log4j.properties"),
-				RELEASE_BUILD_CONFIG_NAME
+				PRODUCTION_BUILD_CONFIG_NAME
 			), UTF_8, false);
 	}
 
 	// сетеры для соответствующих атрибутов Task
 	public void setApplicationStructureFile(String applicationStructureFile) {
 		this.applicationStructureFile = applicationStructureFile;
-	}
-
-	/**
-	 * Подготовка данных для мэппинга на подготовленные шаблоны 
-	 * 
-	 * @return данные для мэпирования
-	 */
-	private Map<String, Object> prepareData(){
-		if (resultData == null){
-			resultData = new HashMap<String, Object>();
-			resultData.put(MODULE_NAME_TEMPLATE_PARAMETER, application.getName());
-			resultData.put(PACKAGE_NAME_TEMPLATE_PARAMETER, application.getProjectPackage());
-			resultData.put(SECURITY_ROLES_TEMPLATE_PARAMETER, applicationParser.getRoles());
-			List<ModuleInfo> mods = new ArrayList<ModuleInfo>(forms.size());
-			boolean hasTextFile = false;
-			boolean hasBinaryFile = false;
-			for (int i = 0; i < forms.size(); i++) {
-				String formName = (String) forms.get(i);
-				Map<Module, List<ModuleField>> hm = applicationParser.getModuleWithFieldsById(formName);
-				Module module = hm.keySet().iterator().next();
-				
-				ModuleInfo modInfo = new ModuleInfo();
-				modInfo.setFormName(formName);
-				modInfo.setFormTitle(module.getModuleName());
-				modInfo.setFormTitleEn(module.getModuleNameEn());
-				modInfo.setFieldLabelWidth(module.getFieldLabelWidth());
-				modInfo.setDataSource(module.getDb().getDatasource());
-				modInfo.setPrimaryKey(applicationParser.getPrimaryKeyById(formName));
-				modInfo.setTable(module.getTable());
-				modInfo.setDbPackage(module.getDb().getPackageName());
-				modInfo.setIsExcelAvailable(module.isExcelAvailable());
-				modInfo.setNotRebuild(module.isNotRebuild());
-				modInfo.setDefaultParameterPrefix(module.getDefaultParameterPrefix());
-				modInfo.setCreateParameterPrefix(module.getCreateParameterPrefix());
-				modInfo.setFindParameterPrefix(module.getFindParameterPrefix());
-				modInfo.setUpdateParameterPrefix(module.getUpdateParameterPrefix());
-				Forms fms = module.getForms();
-				if (!isEmpty(fms)) {
-					DetailForm detailForm = fms.getDetailForm();
-					if(!isEmpty(detailForm)) {
-						modInfo.setPresenterBody(detailForm.getPresenterBody());
-					}
-				}
-				String mainFormIfExist = applicationParser.getMainFormNameIfExist(formName);
-				modInfo.setMainFormName(mainFormIfExist);
-				if (!isEmpty(mainFormIfExist)) {
-					String mainFormParentKey = applicationParser.getPrimaryKeyById(mainFormIfExist);
-					mainFormParentKey = isEmpty(mainFormParentKey) ? multipleConcat(mainFormIfExist, IDENTIFICATOR_SUFFIX) : mainFormParentKey;
-					modInfo.setMainFormParentKey(mainFormParentKey);
-				}
-				boolean isJepToolBar = module.isStandardToolBar() && !module.isToolBarOff();
-				modInfo.setIsJepToolBarPresenter(isJepToolBar && !Boolean.TRUE.equals(module.hasToolBarPresenter()));
-				modInfo.setIsJepToolBarView(isJepToolBar && !Boolean.TRUE.equals(module.hasToolBarView()));
-				modInfo.setIsDblClickOff(module.isDblClickOff());
-				modInfo.setStandardToolBar(module.isStandardToolBar());
-				modInfo.setIsToolBarOff(module.isToolBarOff());
-				modInfo.setIsStatusBarOff(module.isStatusBarOff());
-				modInfo.setHasToolBarView(module.hasToolBarView());
-				modInfo.setHasToolBarPresenter(module.hasToolBarPresenter());
-				modInfo.setHasLikeField(module.hasLikeFields());
-				modInfo.setScopeModuleIds(applicationParser.getDependencyNodesIfExists(formName));
-				modInfo.setToolBarButtons(module.getToolBarButtons());
-				modInfo.setToolBarCustomButtons(module.getToolBarCustomButtons());
-				modInfo.setModuleRoleNames(module.getModuleRoleNames());
-				
-				List<ModuleField> moduleFields = hm.values().iterator().next();
-				boolean hasLobFields = false;
-				boolean hasOptionField = false;
-				for (ModuleField moduleField : moduleFields) {
-					if (moduleField.isCLOB())
-						hasTextFile = true;
-					if (moduleField.isBLOB())
-						hasBinaryFile = true;
-					if (moduleField.getIsLOB())
-						hasLobFields = true;	
-					if (moduleField.getIsOptionField()){
-						hasOptionField = true;
-					}
-				}
-				modInfo.setHasLobFields(hasLobFields);
-				modInfo.setHasOptionField(hasOptionField);
-				modInfo.setFields(moduleFields);
-				mods.add(modInfo);
-			}
-			resultData.put(HAS_TEXT_FILE_TEMPLATE_PARAMETER, hasTextFile);
-			resultData.put(HAS_BINARY_FILE_TEMPLATE_PARAMETER, hasBinaryFile);
-			resultData.put(FORMS_TEMPLATE_PARAMETER, mods);
-		}
-		return resultData;
 	}
 }

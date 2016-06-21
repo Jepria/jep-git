@@ -38,7 +38,7 @@ public class ProductionBuildChecker extends Task {
 		String currentConfig = BuildConfigSwitcher.getCurrentConfigName();
 		boolean isProductionBuild = isProductionBuild();
 		
-		if (RELEASE_BUILD_CONFIG_NAME.equalsIgnoreCase(currentConfig) && !isProductionBuild) {
+		if (PRODUCTION_BUILD_CONFIG_NAME.equalsIgnoreCase(currentConfig) && !isProductionBuild) {
 			throw new BuildException("PRODUCTION build not valid: " + ph.getProperty(PRODUCTION_BUILD_CHECKER_ERROR).toString());
 		} 
 	}

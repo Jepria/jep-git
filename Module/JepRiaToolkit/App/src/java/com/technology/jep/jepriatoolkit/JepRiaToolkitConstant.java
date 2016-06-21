@@ -835,7 +835,7 @@ public class JepRiaToolkitConstant {
 	public static final String BUILD_CONFIG_PATH_PREFIX = "config\\"; 
 	public static final String BUILD_CONFIG_FILE_NAME = "build.config";
 	public static final String DEBUG_BUILD_CONFIG_NAME = "debug";
-	public static final String RELEASE_BUILD_CONFIG_NAME = "production";
+	public static final String PRODUCTION_BUILD_CONFIG_NAME = "production";
 	
 	public static final String JEPRIA9_APPLICATION_DEFINITION_RESOURCE_BUNDLE_NAME = "com.technology.jep.jepriatoolkit.creator.release.jepria9.ApplicationDefinition";
 	public static final String JEPRIA8_APPLICATION_DEFINITION_RESOURCE_BUNDLE_NAME = "com.technology.jep.jepriatoolkit.creator.release.jepria8.ApplicationDefinition";
@@ -1030,11 +1030,13 @@ public class JepRiaToolkitConstant {
 	public static final String APPLICATION_NAME_TASK_ATTRIBUTE = "APPLICATION_NAME";
 	public static final String APPLICATION_STRUCTURE_FILE_PATH_TASK_ATTRIBUTE = "APPLICATION_STRUCTURE_FILE_PATH";
 	public static final String SKIP_BUILD_AND_DEPLOY_TASK_ATTRIBUTE = "SKIP_BUILD_AND_DEPLOY";
+	public static final String FORMS_TASK_ATTRIBUTE = "FORMS";
 	public static final String TRUE_TASK_ATTRIBUTE = "1";
 	
 	
 	public static final String ALL_TEXT_ENCODE_TASK_TARGET = "all-text-encode";
 	public static final String CREATE_STRUCTURE_TASK_TARGET = "create-structure";
+	public static final String CLEAN_TASK_TARGET = "clean";
 	public static final String BUILD_AND_DEPLOY_TASK_TARGET = "build-and-deploy";
 	
 	public static final String OUTPUT_LOG_FILE = "createStucture.log";

@@ -39,6 +39,9 @@ public class Application {
 	@XmlTransient
 	private List<String> moduleIds;
 	
+	@XmlTransient
+	private String applicationFileName;
+	
 	public String getName() {
 		return name;
 	}
@@ -63,8 +66,17 @@ public class Application {
 	public void setModules(Modules modules) {
 		this.modules = modules;
 	}
+	public List<String> getModuleIds(){
+		return this.moduleIds;
+	}
 	public void setModuleIds(List<String> modules){
 		this.moduleIds = modules;
+	}
+	public String getApplicationFileName() {
+		return applicationFileName;
+	}
+	public void setApplicationFileName(String applicationFileName) {
+		this.applicationFileName = applicationFileName;
 	}
 	public void uptodate(Application newApplication){
 		if (modules != null) {
