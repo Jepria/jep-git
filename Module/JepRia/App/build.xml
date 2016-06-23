@@ -1,4 +1,4 @@
-﻿<project name="Jep Module Building" default="build">
+<project name="Jep Module Building" default="build">
 	<property file="build.properties" />
 	<property file="dependency.properties" />
 	<property name="MODULE_PACKAGE" value="com/technology/${PROJECT_NAME_IN_PACKAGE}/${MODULE_NAME_IN_PACKAGE}" />
@@ -57,6 +57,16 @@
 		<pathelement location="${XALAN_LIB}" />
 		<pathelement location="${XERCESIMPL_LIB}" />
 		<pathelement location="${XML-APIS_LIB}" />
+	</path>
+	
+	<path id="powermock-libs">
+		<pathelement location="${CGLIB_NODEP22_LIB}" />
+		<pathelement location="${HAMCREST-CORE_LIB}" />
+		<pathelement location="${JAVASSIST_LIB}" />
+		<pathelement location="${MOCKITO-CORE_LIB}" />
+		<pathelement location="${OBJENESIS_LIB}" />
+		<pathelement location="${POWERMOCK-API-MOCKITO-COMMON_LIB}" />
+		<pathelement location="${POWERMOCK-MOCKITO-LIB}" />
 	</path>
 
 	<path id="oc4j-libs">
@@ -173,6 +183,7 @@
 		<javac srcdir="test/java" destdir="build-test" debug="on" encoding="utf-8" target="1.5" includeantruntime="false">
 			<classpath refid="libs" />
 			<classpath refid="selenium-libs" />
+			<classpath refid="powermock-libs" />
 			<classpath>
 				<pathelement location="build" />
 				<pathelement location="build-auto" />
@@ -217,6 +228,20 @@
 			<fileset refid="class-test-jar" />
 		</jar>
 	</target>
+	
+	<target name="test" depends = "jar-test">
+		<echo message="test"/>
+		<junit fork="yes" printsummary="yes">
+			<classpath refid="libs" />
+			<classpath refid="powermock-libs" />
+			<classpath>
+				<pathelement location="build" />
+				<pathelement location="build-test" />
+			</classpath>
+			<formatter type="plain" usefile="false" />
+			<test name="com.technology.jep.jepria.client.util.JepClientUtilTest"/>
+		</junit>
+	</target>
 
 	<target name="oc4j-jar-update-check" depends="java-compile">
 		<uptodate targetfile="lib/${MODULE_NAME_IN_PACKAGE}-oc4j.jar" property="oc4j-jar-is-uptodate">
@@ -250,6 +275,7 @@
 			<classpath refid="weblogic-libs" />
 			<classpath refid="tomcat-libs" />
 			<classpath refid="selenium-libs" />
+			<classpath refid="powermock-libs" />
 		</javadoc>
 	</target>
 
@@ -271,6 +297,7 @@
 			<classpath refid="weblogic-libs" />
 			<classpath refid="tomcat-libs" />
 			<classpath refid="selenium-libs" />
+			<classpath refid="powermock-libs" />
 		</javadoc>
 	</target>
 
