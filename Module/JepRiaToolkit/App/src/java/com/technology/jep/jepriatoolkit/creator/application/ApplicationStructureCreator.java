@@ -1,6 +1,6 @@
 package com.technology.jep.jepriatoolkit.creator.application;
 
-import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.*;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.*;	
 import static com.technology.jep.jepriatoolkit.creator.application.ApplicationStructureCreatorUtil.convertTemplateToFile;
 import static com.technology.jep.jepriatoolkit.creator.application.ApplicationStructureCreatorUtil.prepareData;
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.echoMessage;
@@ -17,6 +17,7 @@ import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.replacePac
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.writeToFile;
 import static java.text.MessageFormat.format;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -30,6 +31,7 @@ import com.technology.jep.jepriatoolkit.creator.module.ModuleButton;
 import com.technology.jep.jepriatoolkit.creator.module.ModuleField;
 import com.technology.jep.jepriatoolkit.creator.module.ModuleInfo;
 import com.technology.jep.jepriatoolkit.parser.ApplicationSettingParser;
+import com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil;
 
 @SuppressWarnings("unchecked")
 public class ApplicationStructureCreator extends Task {
@@ -229,8 +231,8 @@ public class ApplicationStructureCreator extends Task {
 		);
 		makeDir(
 			format(
-				getDefinitionProperty(CONFIG_MAIN_PACKAGE_DIRECTORY_PROPERTY, 
-					multipleConcat("config/{0}/", PREFIX_DESTINATION_SOURCE_CODE, "{1}/{2}/main/")),
+				multipleConcat(getDefinitionProperty(CONFIG_MAIN_PACKAGE_DIRECTORY_PROPERTY, 
+					multipleConcat("config/{0}/", PREFIX_DESTINATION_SOURCE_CODE, "{1}/{2}/main/")), "/client"),
 				DEBUG_BUILD_CONFIG_NAME, application.getProjectPackage().toLowerCase(), application.getName().toLowerCase()
 			)
 		);
@@ -254,8 +256,8 @@ public class ApplicationStructureCreator extends Task {
 		);
 		makeDir(
 			format(
-				getDefinitionProperty(CONFIG_MAIN_PACKAGE_DIRECTORY_PROPERTY, 
-					multipleConcat("config/{0}/", PREFIX_DESTINATION_SOURCE_CODE, "{1}/{2}/main/")),
+				multipleConcat(getDefinitionProperty(CONFIG_MAIN_PACKAGE_DIRECTORY_PROPERTY, 
+					multipleConcat("config/{0}/", PREFIX_DESTINATION_SOURCE_CODE, "{1}/{2}/main/")), "/client"),
 				PRODUCTION_BUILD_CONFIG_NAME, application.getProjectPackage().toLowerCase(), application.getName().toLowerCase()
 			)
 		);
@@ -270,7 +272,6 @@ public class ApplicationStructureCreator extends Task {
 					getDefinitionProperty(DEPLOY_PROPERTIES_DESTINATION_PATH_TEMPLATE_PROPERTY, "config/{0}/deploy.properties"),
 					PRODUCTION_BUILD_CONFIG_NAME
 				), UTF_8, false);
-
 	}
 
 	/**
@@ -326,33 +327,37 @@ public class ApplicationStructureCreator extends Task {
 	 * структуру
 	 */
 	private void generateMainGwtXML() {
+		
+		String mainGwtXmlPath = format(
+			getDefinitionProperty(MAIN_GWT_XML_PATH_TEMPLATE_PROPERTY, 
+				multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "{0}/{1}/main/{2}.gwt.xml")
+			), 
+			application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), application.getName()
+		);
 		convertTemplateToFile(
 			getDefinitionProperty(MAIN_GWT_XML_DEBUG_TEMPLATE_PROPERTY, "mainDebug.gwt.ftl"), 
 			resultData,
-			format(
-				getDefinitionProperty(MAIN_GWT_XML_PATH_TEMPLATE_PROPERTY, 
-					multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "{0}/{1}/main/{2}.gwt.xml")
-				), 
-				application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), application.getName()
-			)
+			mainGwtXmlPath
 		);
 		
+		String mainDebugGwtXmlPath = multipleConcat(
+			"config/", DEBUG_BUILD_CONFIG_NAME, "/", PREFIX_DESTINATION_SOURCE_CODE,
+			application.getProjectPackage().toLowerCase(),  "/", application.getName().toLowerCase(),
+			"/main/", application.getName(), ".gwt.xml");
 		convertTemplateToFile(
 			getDefinitionProperty(MAIN_GWT_XML_DEBUG_TEMPLATE_PROPERTY, "mainDebug.gwt.ftl"), 
 			resultData,
-			multipleConcat(
-				"config/", DEBUG_BUILD_CONFIG_NAME, "/", PREFIX_DESTINATION_SOURCE_CODE,
-				application.getProjectPackage().toLowerCase(),  "/", application.getName().toLowerCase(),
-				"/main/", application.getName(), ".gwt.xml")
+			mainDebugGwtXmlPath
 		);
 		
+		String mainProductionGwtXmlPath = multipleConcat(
+			"config/", PRODUCTION_BUILD_CONFIG_NAME, "/", PREFIX_DESTINATION_SOURCE_CODE,
+			application.getProjectPackage().toLowerCase(),  "/", application.getName().toLowerCase(),
+			"/main/", application.getName(), ".gwt.xml");
 		convertTemplateToFile(
 			getDefinitionProperty(MAIN_GWT_XML_PRODUCTION_TEMPLATE_PROPERTY, "mainProduction.gwt.ftl"), 
 			resultData,
-			multipleConcat(
-				"config/", PRODUCTION_BUILD_CONFIG_NAME, "/", PREFIX_DESTINATION_SOURCE_CODE,
-				application.getProjectPackage().toLowerCase(),  "/", application.getName().toLowerCase(),
-				"/main/", application.getName(), ".gwt.xml")
+			mainProductionGwtXmlPath
 		);
 	}
 
@@ -546,15 +551,23 @@ public class ApplicationStructureCreator extends Task {
 			);
 		}
 
+		String mainClientFactoryPath = format(
+			getDefinitionProperty(MAIN_MODULE_FACTORY_PATH_TEMPLATE_PROPERTY, 
+					multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/main/client/{3}ClientFactoryImpl.java")),
+			application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), application.getName()
+		);
 		convertTemplateToFile(
 			getDefinitionProperty(MAIN_MODULE_FACTORY_TEMPLATE_PROPERTY, "mainFactory.ftl"),
 			data,
-			format(
-				getDefinitionProperty(MAIN_MODULE_FACTORY_PATH_TEMPLATE_PROPERTY, 
-						multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/main/client/{3}ClientFactoryImpl.java")),
-				application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), application.getName()
-			)
+			mainClientFactoryPath
 		);
+		
+		try {
+			JepRiaToolkitUtil.copyFile(mainClientFactoryPath, multipleConcat("config/", DEBUG_BUILD_CONFIG_NAME, "/", mainClientFactoryPath));
+			JepRiaToolkitUtil.copyFile(mainClientFactoryPath, multipleConcat("config/", PRODUCTION_BUILD_CONFIG_NAME, "/", mainClientFactoryPath));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**

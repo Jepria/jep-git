@@ -1,5 +1,6 @@
 package com.technology.jep.jepriatoolkit.switcher;
 
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.BUILD_CONFIG_FILE_NAME;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.BUILD_CONFIG_PATH_PREFIX;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.DOT;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.ERROR_PREFIX;
@@ -9,7 +10,6 @@ import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.INFO_PREFIX
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.INHERITS_MAIN_GWT_XML_TAG_NAME;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.MAIN_GWT_XML_PATH_TEMPLATE_PROPERTY;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.MAIN_MODULE_FACTORY_PATH_TEMPLATE_PROPERTY;
-import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.MAIN_MODULE_FACTORY_TEMPLATE_PROPERTY;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.PATH_SEPARATOR;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.PREFIX_DESTINATION_SOURCE_CODE;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.REGEXP_FOR_BLANK;
@@ -17,26 +17,23 @@ import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.SEPARATOR;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.TRUE_TASK_ATTRIBUTE;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.WARNING_PREFIX;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.WHITE_SPACE;
-import static com.technology.jep.jepriatoolkit.creator.application.ApplicationStructureCreatorUtil.convertTemplateToFile;
-import static com.technology.jep.jepriatoolkit.creator.application.ApplicationStructureCreatorUtil.prepareData;
 import static com.technology.jep.jepriatoolkit.parser.ApplicationStructureParserUtil.getApplicationBySourceCode;
 import static com.technology.jep.jepriatoolkit.parser.ApplicationStructureParserUtil.getModuleDeclarationSuppressException;
 import static com.technology.jep.jepriatoolkit.parser.ApplicationStructureParserUtil.saveToFile;
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.antClean;
-import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.buildAndDeploy;
+import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.buildAndDeployWithCustomConfigName;
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.convertPatternInRealPath;
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.currentSourceDirectory;
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.echoMessage;
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.getDOM;
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.getDefinitionProperty;
-import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.getFileList;
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.isEmpty;
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.isEmptyOrNotInitializedParameter;
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.multipleConcat;
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.normalizePath;
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.prettyPrint;
-import static java.text.MessageFormat.format;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -44,12 +41,10 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.xpath.XPath;
@@ -75,7 +70,6 @@ import com.github.javaparser.ast.stmt.Statement;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 import com.technology.jep.jepriatoolkit.creator.module.Application;
 import com.technology.jep.jepriatoolkit.creator.module.ModuleDeclaration;
-import com.technology.jep.jepriatoolkit.parser.ApplicationSettingParser;
 import com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil;
 import com.technology.jep.jepriatoolkit.util.Pair;
 
@@ -86,7 +80,6 @@ public class PartialFormBuilder extends Task {
 	
 	private String forms;
 	private String jepRiaVersion;
-	private String applicationStructureFile;
 	private String skipBuildAndDeploy;
 	private String targetConfig;
 	
@@ -105,40 +98,47 @@ public class PartialFormBuilder extends Task {
 				
 			Collections.sort(fms);
 			Set<String> buildedForms = new HashSet<String>(fms);
-			Application application = getApplicationBySourceCode(jepRiaVersion);
-			List<String> applicationForms = new ArrayList<String>(application.getModuleIds());
-			applicationForms.retainAll(buildedForms);
-			boolean same = applicationForms.size() == buildedForms.size();
 			// The information about modules will be given from main.gwt.xml
 			String mainGwtXmlPropertyPath = convertPatternInRealPath(getDefinitionProperty(MAIN_GWT_XML_PATH_TEMPLATE_PROPERTY, 
 				multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "{0}/{1}/main/{2}.gwt.xml")
 			));
+			String mainClientFactoryPath = convertPatternInRealPath(getDefinitionProperty(MAIN_MODULE_FACTORY_PATH_TEMPLATE_PROPERTY, 
+				multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "{0}/{1}/main/client/{2}ClientFactoryImpl.java"))
+			);
+			
+			String targetConfigMainGwtXmlPath = multipleConcat(BUILD_CONFIG_PATH_PREFIX, targetConfig, "/", mainGwtXmlPropertyPath);
+			try {
+				JepRiaToolkitUtil.copyFile(new File(targetConfigMainGwtXmlPath), new File(mainGwtXmlPropertyPath));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			String targetConfigMainClientFactoryPath = multipleConcat(BUILD_CONFIG_PATH_PREFIX, targetConfig, "/", mainClientFactoryPath);
+			try {
+				JepRiaToolkitUtil.copyFile(new File(targetConfigMainClientFactoryPath), new File(mainClientFactoryPath));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+			Application application = getApplicationBySourceCode(jepRiaVersion);
+			List<String> applicationForms = new ArrayList<String>(application.getModuleIds());
+			applicationForms.retainAll(buildedForms);
+			boolean same = applicationForms.size() == buildedForms.size();
 			
 			if (same) {
+				// создадим сперва нужную конфигурацию для частичной сборки
+				String newPartialConfigName = multipleConcat("partial", Long.toString(System.currentTimeMillis()));
+				File copyOfMainGwtXml = new File(multipleConcat(BUILD_CONFIG_PATH_PREFIX, newPartialConfigName,"/", mainGwtXmlPropertyPath));
+				if (!copyOfMainGwtXml.exists()){
+					copyOfMainGwtXml.getParentFile().mkdirs();
+				}
+				
+				File copyOfMainClientFactory = new File(multipleConcat(BUILD_CONFIG_PATH_PREFIX, newPartialConfigName,"/", mainClientFactoryPath));
+				if (!copyOfMainClientFactory.exists()){
+					copyOfMainClientFactory.getParentFile().mkdirs();
+				}
+				
 				applicationForms = new ArrayList<String>(application.getModuleIds());
 				applicationForms.removeAll(buildedForms);
-				ApplicationSettingParser parser = null;
-				try {
-					String fileName = isEmptyOrNotInitializedParameter(applicationStructureFile) ? application.getApplicationFileName() : applicationStructureFile;
-					parser = ApplicationSettingParser.getInstance(fileName);
-				} catch (ParserConfigurationException e) {
-					e.printStackTrace();
-				}
-				
-				String definitionProperty = getDefinitionProperty(MAIN_MODULE_FACTORY_PATH_TEMPLATE_PROPERTY, "src/java/com/technology/{0}/{1}/main/client/{2}ClientFactoryImpl.java");
-				Map<String, Object> resultData = prepareData(parser);
-				if (parser != null) {
-					convertTemplateToFile(
-						getDefinitionProperty(MAIN_MODULE_FACTORY_TEMPLATE_PROPERTY, "mainFactory.ftl"),
-						resultData,
-						format(
-							definitionProperty,
-							application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), application.getName()
-						)
-					);
-				}
-				
-				String mainClientFactoryPath = convertPatternInRealPath(definitionProperty);
 				
 				ModuleDeclaration mainClientFactory = getModuleDeclarationSuppressException(mainClientFactoryPath);
 				List<ImportDeclaration> newImports = new ArrayList<ImportDeclaration>();
@@ -180,6 +180,11 @@ public class PartialFormBuilder extends Task {
 				echoMessage(multipleConcat(INFO_PREFIX, "File '", normalizePath(mainClientFactoryPath), "' was modified"));
 				//после модификаций необходимо содержимое пересохранить в файле MainClientFactory
 				saveToFile(compilationUnit, mainClientFactoryPath);
+				try {
+					JepRiaToolkitUtil.copyFile(new File(mainClientFactoryPath), copyOfMainClientFactory);
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
 								
 				List<Pair<String, Element>> moduleNames = getDomModules(mainGwtXmlPropertyPath);
 				Document ownerDocument = null;
@@ -205,28 +210,18 @@ public class PartialFormBuilder extends Task {
 					try {
 						echoMessage(multipleConcat(INFO_PREFIX, "File '", normalizePath(mainGwtXmlPropertyPath), "' was modified"));
 						prettyPrint(ownerDocument, mainGwtXmlPropertyPath);
-						String destinationFile = null;
-						echoMessage(getFileList(BUILD_CONFIG_PATH_PREFIX + targetConfig, targetConfig).size() + "");
-						for (String fileName : getFileList(BUILD_CONFIG_PATH_PREFIX + targetConfig, targetConfig)){
-							echoMessage(fileName);
-							if (fileName.toLowerCase().endsWith("gwt.xml")){
-								destinationFile = BUILD_CONFIG_PATH_PREFIX + targetConfig + "//" + fileName;
-								break;
-							}
-						}
-						echoMessage(multipleConcat(INFO_PREFIX, "File '", normalizePath(destinationFile), "' was modified"));
-						JepRiaToolkitUtil.copyFile(mainGwtXmlPropertyPath, destinationFile);
+						JepRiaToolkitUtil.copyFile(new File(mainGwtXmlPropertyPath), copyOfMainGwtXml);
 					} catch (TransformerConfigurationException e) {
 						e.printStackTrace();
 					} catch (TransformerException e) {
 						e.printStackTrace();
 					} catch (IOException e) {
 						e.printStackTrace();
-					}
-				
+					} 
 				if (!TRUE_TASK_ATTRIBUTE.equals(skipBuildAndDeploy)) {
 					antClean();
-					buildAndDeploy();
+					new File(BUILD_CONFIG_FILE_NAME).delete();
+					buildAndDeployWithCustomConfigName(newPartialConfigName);
 				}
 			}
 			else {
@@ -242,10 +237,6 @@ public class PartialFormBuilder extends Task {
 	
 	public void setJepRiaVersion(String jepRiaVersion) {
 		this.jepRiaVersion = jepRiaVersion;
-	}
-	
-	public void setApplicationStructureFile(String applicationStructureFile) {
-		this.applicationStructureFile = applicationStructureFile;
 	}
 
 	public void setSkipBuildAndDeploy(String skipBuildAndDeploy){

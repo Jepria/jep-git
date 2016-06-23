@@ -7,22 +7,22 @@ import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
 
 /**
- * Компилятор отчётов <I>JasperReports</I>.
+ * РљРѕРјРїРёР»СЏС‚РѕСЂ РѕС‚С‡С‘С‚РѕРІ <I>JasperReports</I>.
  * <p>
- * Предназначен для преобразования исходного файла определения отчёта в формате XML (как правило, имеющего расширение <code>*.jrxml</code>)
- * в результирующий файл, содержащий сериализованный вид объектного представления. Результирующий файл имеет расширение <code>*.jasper</code>,
- * размещается в той же директории, что исходный файл, и имеет такое же имя.
+ * РџСЂРµРґРЅР°Р·РЅР°С‡РµРЅ РґР»СЏ РїСЂРµРѕР±СЂР°Р·РѕРІР°РЅРёСЏ РёСЃС…РѕРґРЅРѕРіРѕ С„Р°Р№Р»Р° РѕРїСЂРµРґРµР»РµРЅРёСЏ РѕС‚С‡С‘С‚Р° РІ С„РѕСЂРјР°С‚Рµ XML (РєР°Рє РїСЂР°РІРёР»Рѕ, РёРјРµСЋС‰РµРіРѕ СЂР°СЃС€РёСЂРµРЅРёРµ <code>*.jrxml</code>)
+ * РІ СЂРµР·СѓР»СЊС‚РёСЂСѓСЋС‰РёР№ С„Р°Р№Р», СЃРѕРґРµСЂР¶Р°С‰РёР№ СЃРµСЂРёР°Р»РёР·РѕРІР°РЅРЅС‹Р№ РІРёРґ РѕР±СЉРµРєС‚РЅРѕРіРѕ РїСЂРµРґСЃС‚Р°РІР»РµРЅРёСЏ. Р РµР·СѓР»СЊС‚РёСЂСѓСЋС‰РёР№ С„Р°Р№Р» РёРјРµРµС‚ СЂР°СЃС€РёСЂРµРЅРёРµ <code>*.jasper</code>,
+ * СЂР°Р·РјРµС‰Р°РµС‚СЃСЏ РІ С‚РѕР№ Р¶Рµ РґРёСЂРµРєС‚РѕСЂРёРё, С‡С‚Рѕ РёСЃС…РѕРґРЅС‹Р№ С„Р°Р№Р», Рё РёРјРµРµС‚ С‚Р°РєРѕРµ Р¶Рµ РёРјСЏ.
  * 
  * <p>
- * <u>Правила вызова:</u><br>
+ * <u>РџСЂР°РІРёР»Р° РІС‹Р·РѕРІР°:</u><br>
  * <p>
  * <I><code>java -cp &lt;ScriptletAndDataSourceClasses&gt;;jrcompiler.jar com.technology.jep.jrcompiler.JRCompiler Report.jrxml</code></I>
  * <I><code>java -cp &lt;ScriptletAndDataSourceClasses&gt;;jrcompiler.jar com.technology.jep.jrcompiler.JRCompiler report_directory</code></I>
  * 
  * <p>
- * <u>Примеры использования:</u>
+ * <u>РџСЂРёРјРµСЂС‹ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёСЏ:</u>
  * <p>
- * Компиляция отчёта модуля <I>&lt;ModuleName&gt;</I> из <I>make.bat</I><br>
+ * РљРѕРјРїРёР»СЏС†РёСЏ РѕС‚С‡С‘С‚Р° РјРѕРґСѓР»СЏ <I>&lt;ModuleName&gt;</I> РёР· <I>make.bat</I><br>
  * <I><code>
  * ...<br>
  * %JAVA_HOME%\bin\java -cp %CLASSES%;%JEP_REPORT_COMPILER%\lib\jrcompiler.jar com.technology.jep.jrcompiler.JRCompiler %RESOURCE_HOME%\%MODULE_PACKAGE%\report\%MODULE_NAME%Report.jrxml<br>
@@ -38,7 +38,7 @@ import net.sf.jasperreports.engine.JasperCompileManager;
 public class JRCompiler {
 
 	/**
-	 * @param args параметры запуска
+	 * @param args РїР°СЂР°РјРµС‚СЂС‹ Р·Р°РїСѓСЃРєР°
 	 */
 	public static void main(String[] args) {
 		if(args.length < 1) {
@@ -54,15 +54,15 @@ public class JRCompiler {
 
 	private static void compile(File srcFile) throws JRException {
 		if (srcFile.isFile()) {
-			// Передали 1 файл
+			// РџРµСЂРµРґР°Р»Рё 1 С„Р°Р№Р»
 			String srcFileName = srcFile.getAbsolutePath();
 			try {
 				JasperCompileManager.compileReportToFile(srcFileName);
 			} catch (JRException e) {
 				showError(e.getMessage());
 			}
-		} else { // передали директорию
-			// Создание списка файлов, состоящих из исходников текущей директории и вложенных директорий
+		} else { // РїРµСЂРµРґР°Р»Рё РґРёСЂРµРєС‚РѕСЂРёСЋ
+			// РЎРѕР·РґР°РЅРёРµ СЃРїРёСЃРєР° С„Р°Р№Р»РѕРІ, СЃРѕСЃС‚РѕСЏС‰РёС… РёР· РёСЃС…РѕРґРЅРёРєРѕРІ С‚РµРєСѓС‰РµР№ РґРёСЂРµРєС‚РѕСЂРёРё Рё РІР»РѕР¶РµРЅРЅС‹С… РґРёСЂРµРєС‚РѕСЂРёР№
 			File[] files = srcFile.listFiles(new FilenameFilter() {
 				public boolean accept(File dir, String name) {
 					String path = dir + "/" + name;
