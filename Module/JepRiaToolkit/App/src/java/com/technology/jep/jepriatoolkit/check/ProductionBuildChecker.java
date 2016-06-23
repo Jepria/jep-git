@@ -3,6 +3,7 @@ package com.technology.jep.jepriatoolkit.check;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.*;
 import static org.w3c.dom.Node.ELEMENT_NODE;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
@@ -40,7 +41,7 @@ public class ProductionBuildChecker extends Task {
 		
 		if (PRODUCTION_BUILD_CONFIG_NAME.equalsIgnoreCase(currentConfig) && !isProductionBuild) {
 			throw new BuildException("PRODUCTION build not valid: " + ph.getProperty(PRODUCTION_BUILD_CHECKER_ERROR).toString());
-		} 
+		}
 	}
 	
 	/**
@@ -167,12 +168,12 @@ public class ProductionBuildChecker extends Task {
 		}
 		catch (ParserConfigurationException e) {
 			JepRiaToolkitUtil.echoMessage(
-					JepRiaToolkitUtil.multipleConcat(ERROR_PREFIX, "File ", mainGwtXml, " is not found!! Fill and put it in Application Directory!"));
+					JepRiaToolkitUtil.multipleConcat(ERROR_PREFIX, "File ", mainGwtXml, " can't be parsed!"));
 			ph.setProperty(property, false, true);
 		}
 		catch (IOException e) {
 			JepRiaToolkitUtil.echoMessage(
-					JepRiaToolkitUtil.multipleConcat(ERROR_PREFIX, "File ", mainGwtXml, " is not found!! Fill and put it in Application Directory!"));
+					JepRiaToolkitUtil.multipleConcat(ERROR_PREFIX, "File ", e.getLocalizedMessage()));
 			ph.setProperty(property, false, true);
 		} 
 		catch (SAXException e) {

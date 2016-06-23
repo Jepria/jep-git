@@ -1033,6 +1033,8 @@ public class JepRiaToolkitConstant {
 	public static final String FORMS_TASK_ATTRIBUTE = "FORMS";
 	public static final String TRUE_TASK_ATTRIBUTE = "1";
 	
+	public static final String BUILD_CONFIG_PROPERTY = "BUILD_CONFIG";
+	
 	
 	public static final String ALL_TEXT_ENCODE_TASK_TARGET = "all-text-encode";
 	public static final String CREATE_STRUCTURE_TASK_TARGET = "create-structure";

@@ -2,6 +2,7 @@ package com.technology.jep.jepriatoolkit.creator.form;
 
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.APPLICATION_NAME_TASK_ATTRIBUTE;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.APPLICATION_SETTING_FILE_ENDING;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.BUILD_CONFIG_FILE_NAME;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.DEFAULT_DATASOURCE;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.DEFAULT_PROJECT_PACKAGE;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.ERROR_PREFIX;
@@ -205,6 +206,7 @@ public class ApplicationFormCreator extends Task {
 			convertToXml(application, fileName);
 			createApplicationStructure(fileName);
 			if (!TRUE_TASK_ATTRIBUTE.equals(skipBuildAndDeploy)) {
+				new File(BUILD_CONFIG_FILE_NAME).delete();
 				buildAndDeploy();
 			}
 		}

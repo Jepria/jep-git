@@ -15,8 +15,8 @@ import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.ALL_TEXT_EN
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.APPLICATION_SETTING_FILE_ENDING;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.APPLICATION_STRUCTURE_FILE_PATH_TASK_ATTRIBUTE;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.BUILD_AND_DEPLOY_TASK_TARGET;
-import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.BUILD_CONFIG_PATH_PREFIX;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.BUILD_FILE;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.BUILD_CONFIG_PROPERTY;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.BUTTON_IDENTIFICATOR_SUFFIX;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.CLEAN_TASK_TARGET;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.CREATE_STRUCTURE_TASK_TARGET;
@@ -77,6 +77,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Properties;
 import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
 import java.util.Scanner;
@@ -705,6 +706,10 @@ public final class JepRiaToolkitUtil {
 		File buildFile = new File(BUILD_FILE);
 		Project p = new Project();
 		p.setUserProperty("ant.file", buildFile.getAbsolutePath());
+		
+		loadPropertiesFromFile(p, "build.properties");
+		loadPropertiesFromFile(p, "deploy.properties");
+		loadPropertiesFromFile(p, "local.properties");
 		// инициализируем кастомные системные свойства, необходимые для выполнения таска
 		for (Pair<String, String> prop : properties) {
 			p.setUserProperty(prop.getKey(), prop.getValue());
@@ -730,6 +735,26 @@ public final class JepRiaToolkitUtil {
 		} catch (BuildException e) {
 			p.fireBuildFinished(e);
 		}
+	}
+
+	public static void loadPropertiesFromFile(Project p, String fileName) {
+		File buildPropertiesFile = new File(fileName);
+		if (buildPropertiesFile.exists())
+			try {
+				Properties props = new Properties();
+				props.load(new FileInputStream(buildPropertiesFile));
+				for (Object k : props.keySet()){
+					String key = (String) k; 
+					String value = props.getProperty(key);
+					if (!JepRiaToolkitUtil.isEmptyOrNotInitializedParameter(value.split("/")[0])) {
+						p.setUserProperty(key, value);
+					}
+				}
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 	}
 
 	/**
@@ -1289,8 +1314,11 @@ public final class JepRiaToolkitUtil {
 	 * Сборка и развертывание приложения
 	 */
 	public static void buildAndDeploy() {
-//		runAntTarget(BUILD_AND_DEPLOY_TASK_TARGET);
 		runAntTarget(null);
+	}
+	
+	public static void buildAndDeployWithCustomConfigName(String configName) {
+		runAntTarget(BUILD_AND_DEPLOY_TASK_TARGET, new Pair<String, String>(BUILD_CONFIG_PROPERTY, configName));
 	}
 	
 	/**
@@ -1314,40 +1342,5 @@ public final class JepRiaToolkitUtil {
 		Db db = new Db(multipleConcat(PKG_PREFIX, applicationName.toLowerCase()), DEFAULT_DATASOURCE);
 		module.setDb(db);
 		return module;
-	}
-	
-	/**
-	 * Получение списка файлов по указанному пути в зависимости от конфигурации
-	 */
-	public static List<String> getFileList(String path, String targetConfig) {
-		List<String> resultList = new ArrayList<String>();
-		try {
-			File pathFile = new File(path);
-			String[] folderFiles = pathFile.list();
-
-			if (folderFiles != null) {
-				File element;
-
-				for (String folderFile : folderFiles) {
-					element = new File(path + "\\" + folderFile);
-
-					if (element.isDirectory()) {
-						resultList.addAll(getFileList(element.getPath(), targetConfig));
-					} else if (element.isFile()) {
-						resultList.add(//element.getName()
-								element.getPath().replace(BUILD_CONFIG_PATH_PREFIX + targetConfig + "\\", "")
-							);
-					}
-				}
-			} else {
-				// path not found
-				resultList = null;
-			}
-		} catch (Exception e) {
-			// e.printStackTrace();
-			echoMessage(multipleConcat(ERROR_PREFIX, "File '", normalizePath(path), "' is incorrect! ", e.getLocalizedMessage()));
-		}
-
-		return resultList;
 	}
 }
