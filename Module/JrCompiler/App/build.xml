@@ -1,0 +1,74 @@
+<project default="jar">
+	<property file="local.properties" />
+	<property file="dependency.properties" />
+	<property file="build.properties" />
+	<property name="RESOURCE_HOME" value="src/resources" />
+	<property name="BUILD_DIR" value="build"/>
+	<property name="CLASSES_DIR" value="${BUILD_DIR}/classes" />
+	<property name="JAVA_DOC_DIR" value="../Doc/App/AutoGen" />
+	<property name="LIBS" value="${JASPERREPORTS_LIB}"/>
+
+	<fileset id="class-jar" dir="${CLASSES_DIR}">
+	</fileset>
+
+	<target name="start-log">				
+		<record name="build.log" loglevel="info" />
+	</target>
+	
+	<target name="compile" depends="start-log">
+		<delete includeemptydirs="true" failonerror="false">
+			<fileset dir="${CLASSES_DIR}"/>			
+		</delete>
+		<mkdir dir="${CLASSES_DIR}" />
+		<javac srcdir="src/java/${MODULE_PACKAGE}" destdir="${CLASSES_DIR}" classpath="${LIBS}" />
+	</target>
+
+	<target name="jar-update-check" depends="compile">
+		<uptodate targetfile="lib/${MODULE_NAME_IN_PACKAGE}.jar" property="jar-is-uptodate">
+			<srcfiles refid="class-jar" />
+		</uptodate>
+	</target>
+	
+	<target name="extract-libs">
+		<unzip src="${COMMONS-BEANUTILS_LIB}" dest="${CLASSES_DIR}"/>
+		<unzip src="${COMMONS-COLLECTIONS-2.1_LIB}" dest="${CLASSES_DIR}"/>
+		<unzip src="${COMMONS-DIGESTER-1.7_LIB}" dest="${CLASSES_DIR}"/>
+		<unzip src="${COMMONS-LOGGING-1.0.4_LIB}" dest="${CLASSES_DIR}"/>
+		<unzip src="${JASPERREPORTS_LIB}" dest="${CLASSES_DIR}"/>
+	</target>
+        
+	<target name="jar" depends="jar-update-check, extract-libs" unless="jar-is-uptodate">
+		<jar  manifest="${RESOURCE_HOME}/META-INF/manifest.mf" destfile="lib/${MODULE_NAME}.jar">
+			<fileset refid="class-jar" />
+		</jar>
+	</target>
+
+	<target name="doc" depends="start-log">
+        <javadoc 
+        	Doctitle="${MODULE_NAME} API Reference" 
+        	Windowtitle="${MODULE_NAME} JavaDoc" 
+        	access="private" 
+        	additionalparam="-notimestamp" 
+        	charset="UTF-8" 
+        	destdir="${JAVA_DOC_DIR}" 
+        	docencoding="UTF-8" 
+        	encoding="UTF-8" 
+        	includenosourcepackages="true" 
+        	overview="src/java/${MODULE_PACKAGE}/overview.html" 
+        	packagenames="*" 
+        	sourcepath="src/java" classpath="${LIBS}" />
+	</target>
+        
+	<target name="clean">
+		<delete includeemptydirs="true" failonerror="No">
+			<fileset file="build.log"/>			
+			<fileset dir="${BUILD_DIR}"/>			
+		</delete>
+		<delete includeemptydirs="true">
+			<fileset dir="lib" includes="${MODULE_NAME_IN_PACKAGE}.jar"/>			
+		</delete>
+		<delete includeemptydirs="true">
+			<fileset dir="${JAVA_DOC_DIR}"/>
+		</delete>
+	</target>
+</project>

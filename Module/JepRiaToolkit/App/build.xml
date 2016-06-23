@@ -2,7 +2,10 @@
 	<property file="local.properties" />
 	<property file="build.properties" />
 	<property environment="env"/>
+<!--	
 	<property name="JEP_RIA" value="${COMMON_HOME}/Module/JepRia/${JEP_RIA_VERSION}/App" />
+-->	
+	<property name="JEP_RIA" value="../../JepRia/App" />
 	<property name="JEP_RIA_SOURCE" value="${JEP_RIA}/src/java" />
 	<property name="MODULE_PACKAGE" value="com/technology/${PROJECT_NAME_IN_PACKAGE}/${MODULE_NAME_IN_PACKAGE}" />
 	<property name="JAVA_DOC_DIR" value="../Doc/App/AutoGen" />

@@ -12,7 +12,7 @@ rem DEPLOYMENT_PATH: адрес установки модуля
 rem LOGIN: логин пользователя, под которым происходит установка модуля
 rem PASSWORD: пароль пользователя, под которым происходит установка модуля
 rem ----------------------------------------------------------------------------------------------------
-set JDEV_HOME=D:\Java\Tools\jdev101330
+set JDEV_HOME=D:\Java\Tools\jdev101330_Talyshev
 set JASPER_REPORTS_HOME=D:\Java\Tools\jasperreports-3.6.0
 set COMMON_HOME=D:\JEP
 set PROJECT_HOME=D:\JEP
