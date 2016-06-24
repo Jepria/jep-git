@@ -129,6 +129,22 @@ java.lang.Object
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="../../../../../com/technology/jep/jepriatoolkit/creator/module/Application.html" title="class in com.technology.jep.jepriatoolkit.creator.module">Application</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepriatoolkit/parser/ApplicationStructureParserUtil.html#getApplicationBySourceCode(java.lang.String)">getApplicationBySourceCode</A></B>(java.lang.String&nbsp;jepRiaVersion)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Получение структуры приложения по исходному коду, ориентируясь на ресурсный файл структуры нужного версии JepRia</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private static&nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepriatoolkit/parser/ApplicationStructureParserUtil.html#getApplicationFileName(java.lang.String)">getApplicationFileName</A></B>(java.lang.String&nbsp;applicationName)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;com.github.javaparser.ast.CompilationUnit</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../com/technology/jep/jepriatoolkit/parser/ApplicationStructureParserUtil.html#getCompilationUnit(java.lang.String)">getCompilationUnit</A></B>(java.lang.String&nbsp;fileNameOrPath)</CODE>
 
@@ -149,7 +165,25 @@ java.lang.Object
 <TD><CODE><B><A HREF="../../../../../com/technology/jep/jepriatoolkit/parser/ApplicationStructureParserUtil.html#getModuleDeclarationSuppressException(java.lang.String)">getModuleDeclarationSuppressException</A></B>(java.lang.String&nbsp;complitionUnitPath)</CODE>
 
 <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Получение информации о модуле компиляции, игнорируя исключительные ситуации</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepriatoolkit/parser/ApplicationStructureParserUtil.html#log(java.lang.String, java.lang.String)">log</A></B>(java.lang.String&nbsp;message,
+    java.lang.String&nbsp;moduleId)</CODE>
+
+<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepriatoolkit/parser/ApplicationStructureParserUtil.html#saveToFile(com.github.javaparser.ast.CompilationUnit, java.lang.String)">saveToFile</A></B>(com.github.javaparser.ast.CompilationUnit&nbsp;cu,
+           java.lang.String&nbsp;filePath)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Функция записи строки в файл</TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>
@@ -231,8 +265,62 @@ getModuleDeclarationSuppressException</H3>
 <PRE>
 public static <A HREF="../../../../../com/technology/jep/jepriatoolkit/creator/module/ModuleDeclaration.html" title="class in com.technology.jep.jepriatoolkit.creator.module">ModuleDeclaration</A> <B>getModuleDeclarationSuppressException</B>(java.lang.String&nbsp;complitionUnitPath)</PRE>
 <DL>
+<DD>Получение информации о модуле компиляции, игнорируя исключительные ситуации
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>complitionUnitPath</CODE> - исследуемый модуль компиляции
+<DT><B>Returns:</B><DD>информация о модуле компиляции</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getApplicationBySourceCode(java.lang.String)"><!-- --></A><H3>
+getApplicationBySourceCode</H3>
+<PRE>
+public static <A HREF="../../../../../com/technology/jep/jepriatoolkit/creator/module/Application.html" title="class in com.technology.jep.jepriatoolkit.creator.module">Application</A> <B>getApplicationBySourceCode</B>(java.lang.String&nbsp;jepRiaVersion)</PRE>
+<DL>
+<DD>Получение структуры приложения по исходному коду, ориентируясь на ресурсный файл структуры нужного версии JepRia
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>jepRiaVersion</CODE> - используемая версия JepRia
+<DT><B>Returns:</B><DD>структура приложения</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getApplicationFileName(java.lang.String)"><!-- --></A><H3>
+getApplicationFileName</H3>
+<PRE>
+private static java.lang.String <B>getApplicationFileName</B>(java.lang.String&nbsp;applicationName)</PRE>
+<DL>
 <DD><DL>
 </DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="log(java.lang.String, java.lang.String)"><!-- --></A><H3>
+log</H3>
+<PRE>
+public static void <B>log</B>(java.lang.String&nbsp;message,
+                       java.lang.String&nbsp;moduleId)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="saveToFile(com.github.javaparser.ast.CompilationUnit, java.lang.String)"><!-- --></A><H3>
+saveToFile</H3>
+<PRE>
+public static void <B>saveToFile</B>(com.github.javaparser.ast.CompilationUnit&nbsp;cu,
+                              java.lang.String&nbsp;filePath)</PRE>
+<DL>
+<DD>Функция записи строки в файл
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>cu</CODE> - содержимое модуля компиляции<DD><CODE>filePath</CODE> - путь до файла, в который будет произведена запись содержимого</DL>
 </DD>
 </DL>
 <!-- ========= END OF CLASS DATA ========= -->

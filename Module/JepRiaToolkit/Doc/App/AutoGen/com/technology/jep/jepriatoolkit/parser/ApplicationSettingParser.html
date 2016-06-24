@@ -274,6 +274,14 @@ java.lang.Object
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;org.w3c.dom.Document</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepriatoolkit/parser/ApplicationSettingParser.html#getDocument()">getDocument</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;org.w3c.dom.Element</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../com/technology/jep/jepriatoolkit/parser/ApplicationSettingParser.html#getFormDetailElementByModuleId(java.lang.String)">getFormDetailElementByModuleId</A></B>(java.lang.String&nbsp;moduleId)</CODE>
 
@@ -309,7 +317,8 @@ java.lang.Object
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;<A HREF="../../../../../com/technology/jep/jepriatoolkit/parser/ApplicationSettingParser.html" title="class in com.technology.jep.jepriatoolkit.parser">ApplicationSettingParser</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepriatoolkit/parser/ApplicationSettingParser.html#getInstance(java.lang.String)">getInstance</A></B>(java.lang.String&nbsp;applicationStructureFile)</CODE>
+<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepriatoolkit/parser/ApplicationSettingParser.html#getInstance(java.lang.String, java.lang.Boolean...)">getInstance</A></B>(java.lang.String&nbsp;applicationStructureFile,
+            java.lang.Boolean...&nbsp;isPossibleAnotherFile)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -348,6 +357,14 @@ java.lang.Object
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Получение XML-элемента, являющегося GWT-модулем по его ID</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;org.w3c.dom.Element</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepriatoolkit/parser/ApplicationSettingParser.html#getModuleNodeByIdIgnoringCase(java.lang.String)">getModuleNodeByIdIgnoringCase</A></B>(java.lang.String&nbsp;moduleId)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Получение XML-элемента, являющегося GWT-модулем по его ID, игнорируя регистр букв</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -426,10 +443,36 @@ java.lang.Object
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepriatoolkit/parser/ApplicationSettingParser.html#parseApplicationSettingXML(java.lang.String)">parseApplicationSettingXML</A></B>(java.lang.String&nbsp;applicationStructureFile)</CODE>
+<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepriatoolkit/parser/ApplicationSettingParser.html#parseApplicationSettingXML(java.lang.String, java.lang.Boolean...)">parseApplicationSettingXML</A></B>(java.lang.String&nbsp;applicationStructureFile,
+                           java.lang.Boolean...&nbsp;isPossibleAnotherFile)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Разбор и проверка <ApplicationName>Definition.xml</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;java.util.List&lt;<A HREF="../../../../../com/technology/jep/jepriatoolkit/creator/module/Module.html" title="class in com.technology.jep.jepriatoolkit.creator.module">Module</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepriatoolkit/parser/ApplicationSettingParser.html#prepareModulesToInheritance(java.util.List)">prepareModulesToInheritance</A></B>(java.util.List&lt;<A HREF="../../../../../com/technology/jep/jepriatoolkit/creator/module/Module.html" title="class in com.technology.jep.jepriatoolkit.creator.module">Module</A>&gt;&nbsp;modules)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;java.util.List&lt;<A HREF="../../../../../com/technology/jep/jepriatoolkit/creator/module/Module.html" title="class in com.technology.jep.jepriatoolkit.creator.module">Module</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepriatoolkit/parser/ApplicationSettingParser.html#prepareModuleToInheritance(com.technology.jep.jepriatoolkit.creator.module.Module, java.util.List)">prepareModuleToInheritance</A></B>(<A HREF="../../../../../com/technology/jep/jepriatoolkit/creator/module/Module.html" title="class in com.technology.jep.jepriatoolkit.creator.module">Module</A>&nbsp;mod,
+                           java.util.List&lt;<A HREF="../../../../../com/technology/jep/jepriatoolkit/creator/module/Module.html" title="class in com.technology.jep.jepriatoolkit.creator.module">Module</A>&gt;&nbsp;allModules)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepriatoolkit/parser/ApplicationSettingParser.html#reloadDocument(org.w3c.dom.Document)">reloadDocument</A></B>(org.w3c.dom.Document&nbsp;doc)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>
@@ -554,10 +597,11 @@ public static <A HREF="../../../../../com/technology/jep/jepriatoolkit/parser/Ap
 </DL>
 <HR>
 
-<A NAME="getInstance(java.lang.String)"><!-- --></A><H3>
+<A NAME="getInstance(java.lang.String, java.lang.Boolean...)"><!-- --></A><H3>
 getInstance</H3>
 <PRE>
-public static <A HREF="../../../../../com/technology/jep/jepriatoolkit/parser/ApplicationSettingParser.html" title="class in com.technology.jep.jepriatoolkit.parser">ApplicationSettingParser</A> <B>getInstance</B>(java.lang.String&nbsp;applicationStructureFile)
+public static <A HREF="../../../../../com/technology/jep/jepriatoolkit/parser/ApplicationSettingParser.html" title="class in com.technology.jep.jepriatoolkit.parser">ApplicationSettingParser</A> <B>getInstance</B>(java.lang.String&nbsp;applicationStructureFile,
+                                                   java.lang.Boolean...&nbsp;isPossibleAnotherFile)
                                             throws javax.xml.parsers.ParserConfigurationException</PRE>
 <DL>
 <DD><DL>
@@ -568,10 +612,11 @@ public static <A HREF="../../../../../com/technology/jep/jepriatoolkit/parser/Ap
 </DL>
 <HR>
 
-<A NAME="parseApplicationSettingXML(java.lang.String)"><!-- --></A><H3>
+<A NAME="parseApplicationSettingXML(java.lang.String, java.lang.Boolean...)"><!-- --></A><H3>
 parseApplicationSettingXML</H3>
 <PRE>
-public boolean <B>parseApplicationSettingXML</B>(java.lang.String&nbsp;applicationStructureFile)
+public boolean <B>parseApplicationSettingXML</B>(java.lang.String&nbsp;applicationStructureFile,
+                                          java.lang.Boolean...&nbsp;isPossibleAnotherFile)
                                    throws javax.xml.parsers.ParserConfigurationException</PRE>
 <DL>
 <DD>Разбор и проверка <ApplicationName>Definition.xml
@@ -581,6 +626,29 @@ public boolean <B>parseApplicationSettingXML</B>(java.lang.String&nbsp;applicati
 <DT><B>Returns:</B><DD>флаг успешности/неуспешности парсинга <ApplicationName>Definition.xml
 <DT><B>Throws:</B>
 <DD><CODE>javax.xml.parsers.ParserConfigurationException</CODE></DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="prepareModulesToInheritance(java.util.List)"><!-- --></A><H3>
+prepareModulesToInheritance</H3>
+<PRE>
+public java.util.List&lt;<A HREF="../../../../../com/technology/jep/jepriatoolkit/creator/module/Module.html" title="class in com.technology.jep.jepriatoolkit.creator.module">Module</A>&gt; <B>prepareModulesToInheritance</B>(java.util.List&lt;<A HREF="../../../../../com/technology/jep/jepriatoolkit/creator/module/Module.html" title="class in com.technology.jep.jepriatoolkit.creator.module">Module</A>&gt;&nbsp;modules)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="prepareModuleToInheritance(com.technology.jep.jepriatoolkit.creator.module.Module, java.util.List)"><!-- --></A><H3>
+prepareModuleToInheritance</H3>
+<PRE>
+public java.util.List&lt;<A HREF="../../../../../com/technology/jep/jepriatoolkit/creator/module/Module.html" title="class in com.technology.jep.jepriatoolkit.creator.module">Module</A>&gt; <B>prepareModuleToInheritance</B>(<A HREF="../../../../../com/technology/jep/jepriatoolkit/creator/module/Module.html" title="class in com.technology.jep.jepriatoolkit.creator.module">Module</A>&nbsp;mod,
+                                                         java.util.List&lt;<A HREF="../../../../../com/technology/jep/jepriatoolkit/creator/module/Module.html" title="class in com.technology.jep.jepriatoolkit.creator.module">Module</A>&gt;&nbsp;allModules)</PRE>
+<DL>
+<DD><DL>
+</DL>
 </DD>
 </DL>
 <HR>
@@ -787,6 +855,20 @@ public org.w3c.dom.Element <B>getModuleNodeById</B>(java.lang.String&nbsp;module
 </DL>
 <HR>
 
+<A NAME="getModuleNodeByIdIgnoringCase(java.lang.String)"><!-- --></A><H3>
+getModuleNodeByIdIgnoringCase</H3>
+<PRE>
+public org.w3c.dom.Element <B>getModuleNodeByIdIgnoringCase</B>(java.lang.String&nbsp;moduleId)</PRE>
+<DL>
+<DD>Получение XML-элемента, являющегося GWT-модулем по его ID, игнорируя регистр букв
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>moduleId</CODE> - идентификатор модуля
+<DT><B>Returns:</B><DD>элемент-модуль</DL>
+</DD>
+</DL>
+<HR>
+
 <A NAME="getModuleFieldsById(java.lang.String)"><!-- --></A><H3>
 getModuleFieldsById</H3>
 <PRE>
@@ -939,6 +1021,28 @@ public java.util.List&lt;java.lang.String&gt; <B>getForms</B>()</PRE>
 getRoles</H3>
 <PRE>
 public java.util.List&lt;java.lang.String&gt; <B>getRoles</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getDocument()"><!-- --></A><H3>
+getDocument</H3>
+<PRE>
+public org.w3c.dom.Document <B>getDocument</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="reloadDocument(org.w3c.dom.Document)"><!-- --></A><H3>
+reloadDocument</H3>
+<PRE>
+public void <B>reloadDocument</B>(org.w3c.dom.Document&nbsp;doc)</PRE>
 <DL>
 <DD><DL>
 </DL>

@@ -43,6 +43,13 @@
 	<path id="oc4j-libs">
 		<pathelement location="${JEPRIA-OC4J_LIB}" />
 	</path>
+	
+	<path id="jepria-toolkit-libs">
+		<pathelement location="${FREEMARKER_LIB}" />
+		<pathelement location="${JAVAPARSER-CORE_LIB}" />
+		<pathelement location="${JEPRIA-TOOLKIT_LIB}" />
+		<pathelement location="${XERCESIMPL_LIB}" />
+	</path>
 
 	<path id="weblogic-libs">
 		<pathelement location="${JEPRIA-WEBLOGIC_LIB}" />
@@ -121,26 +128,18 @@
 		<include name="**/*Text_??.properties" />
 		<include name="**/log4j.properties" />
     </fileset>
-
-	<!-- Объявление таска по созданию структуры модуля -->
-	<target name="define-toolkit">
-		<taskdef classname="com.technology.jep.jepriatoolkit.creator.ApplicationStructureCreator" classpath="${JEPRIA-TOOLKIT_LIB}" name="applicationstructurecreator" />
-		<taskdef classname="com.technology.jep.jepriatoolkit.parser.ApplicationStructureParser" classpath="${JEPRIA-TOOLKIT_LIB}" name="applicationstructureparser" />
-		<taskdef classname="com.technology.jep.jepriatoolkit.check.ProductionBuildChecker" classpath="${JEPRIA-TOOLKIT_LIB}" name="productionbuildchecker" />
-		<taskdef name="buildconfigswitcher" classname="com.technology.jep.jepriatoolkit.switcher.BuildConfigSwitcher" classpath="${JEPRIA-TOOLKIT_LIB}" />
-		<taskdef name="appInstall" classname="com.technology.jep.jepriatoolkit.version.AppInstallTask" classpath="${JEPRIA-TOOLKIT_LIB}" />
-	</target>
 	
 	<target name="define-toolkit-appinstall">
 		<taskdef name="appInstall" classname="com.technology.jep.jepriatoolkit.version.AppInstallTask" classpath="${JEPRIA-TOOLKIT_LIB}" />
 	</target>
 	
-
-	<target name="create-structure" depends="define-toolkit">
+	<target name="create-structure">
+		<taskdef classpathref="jepria-toolkit-libs" classname="com.technology.jep.jepriatoolkit.creator.application.ApplicationStructureCreator" name="applicationstructurecreator"/>
 		<applicationstructurecreator applicationStructureFile="${APPLICATION_STRUCTURE_FILE_PATH}"/>
 	</target>
 	
-	<target name="create-xml" depends="define-toolkit">
+	<target name="create-xml">
+		<taskdef classpathref="jepria-toolkit-libs" classname="com.technology.jep.jepriatoolkit.parser.ApplicationStructureParser" name="applicationstructureparser"/>
 		<applicationstructureparser jepRiaVersion="${JEPRIA_VERSION}"/>
 	</target>
 
@@ -229,7 +228,8 @@
 		</outofdate>
 	</target>
 
-	<target name="production-builder-check" depends="all-text-encode, define-toolkit">
+	<target name="production-builder-check" depends="all-text-encode">
+		<taskdef classname="com.technology.jep.jepriatoolkit.check.ProductionBuildChecker" classpath="${JEPRIA-TOOLKIT_LIB}" name="productionbuildchecker" />
 		<productionbuildchecker moduleName="${MODULE_NAME}" packageName="${PROJECT_NAME_IN_PACKAGE}" property="productionBuildCheck" />
 		<!-- Если непонятно почему сборка не соответствует продукционной, то соответствующее сообщение можно получить из свойства productionBuildCheckerError -->
 		<!-- echo message="${productionBuildCheckerError}" /-->
@@ -692,10 +692,11 @@
 		<echo message="${svnPath}" />
 	</target>
 
-	<target name="save-version-application" depends="start-log, define-toolkit, svn-version, svn-info">
+	<target name="save-version-application" depends="start-log, svn-version, svn-info">
 		<dirname file="." property="pdir" />
 		<basename file="${pdir}" property="VERSION" />
 
+		<taskdef name="appInstall" classname="com.technology.jep.jepriatoolkit.version.AppInstallTask" classpath="${JEPRIA-TOOLKIT_LIB}" />
 		<appInstall action="startAppInstall" appInstallResultId="appInstallResultId" skipSaveInstallInfo="${SKIP_SAVE_INSTALL_INFO}" deploymentPath="${DEPLOYMENT_PATH}" loadOperatorId="${LOAD_OPERATORID}" moduleName="${MODULE_NAME}" packageName="${PROJECT_NAME_IN_PACKAGE}" port="${PORT}" svnPath="${svnPath}" svnVersionInfo="${svnVersionInfo}" version="${VERSION}" />
 		<!--
         <echo message="${startAppInstallResult}" />
@@ -720,6 +721,8 @@
 			<arg value="${MODULE_NAME_IN_PACKAGE}" />
 			<arg value="-bindAllWebApps" />
 		</java>
+
+		<taskdef name="appInstall" classname="com.technology.jep.jepriatoolkit.version.AppInstallTask" classpath="${JEPRIA-TOOLKIT_LIB}" />
 		<appInstall action="finishAppInstall" deploymentPath="${DEPLOYMENT_PATH}" port="${PORT}" loadOperatorId="${LOAD_OPERATORID}" appInstallResultId="${appInstallResultId}" javaReturnCode="${javaReturnCode}" errorMessage="${errorMessage}" skipSaveInstallInfo="${SKIP_SAVE_INSTALL_INFO}" />
 	</target>
 
@@ -754,6 +757,7 @@
 			</catch>
 		</trycatch>
 		
+		<taskdef name="appInstall" classname="com.technology.jep.jepriatoolkit.version.AppInstallTask" classpath="${JEPRIA-TOOLKIT_LIB}" />
 		<appInstall action="finishAppInstall" deploymentPath="${DEPLOYMENT_PATH}" port="${PORT}" loadOperatorId="${LOAD_OPERATORID}" appInstallResultId="${appInstallResultId}" javaReturnCode="${javaReturnCode}" errorMessage="${errorMessage}" skipSaveInstallInfo="${SKIP_SAVE_INSTALL_INFO}" />
 	</target>
 
@@ -837,8 +841,9 @@
 	</target>
 
 	<!-- Применение произвольной конфигурации сборки -->
-	<target name="build-config" depends="start-log, define-toolkit">
+	<target name="build-config" depends="start-log">
 		<!--echo message="BUILD_CONFIG: ${BUILD_CONFIG}" /-->
+		<taskdef name="buildconfigswitcher" classname="com.technology.jep.jepriatoolkit.switcher.BuildConfigSwitcher" classpath="${JEPRIA-TOOLKIT_LIB}" />
 		<buildconfigswitcher moduleName="${MODULE_NAME}" packageName="${PROJECT_NAME_IN_PACKAGE}" targetConfig="${BUILD_CONFIG}" />
 	</target>
 </project>

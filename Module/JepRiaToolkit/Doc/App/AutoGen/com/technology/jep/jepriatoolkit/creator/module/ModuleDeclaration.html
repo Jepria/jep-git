@@ -112,6 +112,14 @@ java.lang.Object
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;com.github.javaparser.ast.CompilationUnit</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/ModuleDeclaration.html#compilationUnit">compilationUnit</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>private &nbsp;java.util.List&lt;com.github.javaparser.ast.body.ConstructorDeclaration&gt;</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/ModuleDeclaration.html#constructors">constructors</A></B></CODE>
 
@@ -122,6 +130,14 @@ java.lang.Object
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>private &nbsp;java.util.List&lt;com.github.javaparser.ast.body.FieldDeclaration&gt;</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/ModuleDeclaration.html#fields">fields</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;java.util.List&lt;com.github.javaparser.ast.ImportDeclaration&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/ModuleDeclaration.html#imports">imports</A></B></CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -145,7 +161,7 @@ java.lang.Object
 <B>Constructor Summary</B></FONT></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/ModuleDeclaration.html#ModuleDeclaration()">ModuleDeclaration</A></B>()</CODE>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/ModuleDeclaration.html#ModuleDeclaration(com.github.javaparser.ast.CompilationUnit)">ModuleDeclaration</A></B>(com.github.javaparser.ast.CompilationUnit&nbsp;unit)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -170,6 +186,14 @@ java.lang.Object
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;com.github.javaparser.ast.CompilationUnit</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/ModuleDeclaration.html#getCompilationUnit()">getCompilationUnit</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;java.util.List&lt;com.github.javaparser.ast.body.ConstructorDeclaration&gt;</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/ModuleDeclaration.html#getConstructors()">getConstructors</A></B>()</CODE>
 
@@ -188,6 +212,14 @@ java.lang.Object
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>private &nbsp;java.lang.String</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/ModuleDeclaration.html#getFieldsAsString()">getFieldsAsString</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;java.util.List&lt;com.github.javaparser.ast.ImportDeclaration&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/ModuleDeclaration.html#getImports()">getImports</A></B>()</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -231,6 +263,16 @@ java.lang.Object
 </TR>
 </TABLE>
 
+<A NAME="compilationUnit"><!-- --></A><H3>
+compilationUnit</H3>
+<PRE>
+private com.github.javaparser.ast.CompilationUnit <B>compilationUnit</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
 <A NAME="fields"><!-- --></A><H3>
 fields</H3>
 <PRE>
@@ -259,6 +301,16 @@ private java.util.List&lt;com.github.javaparser.ast.body.ConstructorDeclaration&
 <DL>
 </DL>
 </DL>
+<HR>
+
+<A NAME="imports"><!-- --></A><H3>
+imports</H3>
+<PRE>
+private java.util.List&lt;com.github.javaparser.ast.ImportDeclaration&gt; <B>imports</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
 
 <!-- ========= CONSTRUCTOR DETAIL ======== -->
 
@@ -270,10 +322,10 @@ private java.util.List&lt;com.github.javaparser.ast.body.ConstructorDeclaration&
 </TR>
 </TABLE>
 
-<A NAME="ModuleDeclaration()"><!-- --></A><H3>
+<A NAME="ModuleDeclaration(com.github.javaparser.ast.CompilationUnit)"><!-- --></A><H3>
 ModuleDeclaration</H3>
 <PRE>
-public <B>ModuleDeclaration</B>()</PRE>
+public <B>ModuleDeclaration</B>(com.github.javaparser.ast.CompilationUnit&nbsp;unit)</PRE>
 <DL>
 </DL>
 
@@ -286,6 +338,17 @@ public <B>ModuleDeclaration</B>()</PRE>
 <B>Method Detail</B></FONT></TH>
 </TR>
 </TABLE>
+
+<A NAME="getCompilationUnit()"><!-- --></A><H3>
+getCompilationUnit</H3>
+<PRE>
+public com.github.javaparser.ast.CompilationUnit <B>getCompilationUnit</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
 
 <A NAME="getFields()"><!-- --></A><H3>
 getFields</H3>
@@ -313,6 +376,17 @@ public java.util.List&lt;com.github.javaparser.ast.body.MethodDeclaration&gt; <B
 getConstructors</H3>
 <PRE>
 public java.util.List&lt;com.github.javaparser.ast.body.ConstructorDeclaration&gt; <B>getConstructors</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getImports()"><!-- --></A><H3>
+getImports</H3>
+<PRE>
+public java.util.List&lt;com.github.javaparser.ast.ImportDeclaration&gt; <B>getImports</B>()</PRE>
 <DL>
 <DD><DL>
 </DL>

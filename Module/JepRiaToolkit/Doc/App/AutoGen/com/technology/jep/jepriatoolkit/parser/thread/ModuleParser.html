@@ -1,0 +1,662 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!--NewPage-->
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<TITLE>
+ModuleParser (JepRiaToolkit JavaDoc)
+</TITLE>
+
+
+<LINK REL ="stylesheet" TYPE="text/css" HREF="../../../../../../stylesheet.css" TITLE="Style">
+
+<SCRIPT type="text/javascript">
+function windowTitle()
+{
+    if (location.href.indexOf('is-external=true') == -1) {
+        parent.document.title="ModuleParser (JepRiaToolkit JavaDoc)";
+    }
+}
+</SCRIPT>
+<NOSCRIPT>
+</NOSCRIPT>
+
+</HEAD>
+
+<BODY BGCOLOR="white" onload="windowTitle();">
+<HR>
+
+
+<!-- ========= START OF TOP NAVBAR ======= -->
+<A NAME="navbar_top"><!-- --></A>
+<A HREF="#skip-navbar_top" title="Skip navigation links"></A>
+<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
+<TR>
+<TD COLSPAN=2 BGCOLOR="#EEEEFF" CLASS="NavBarCell1">
+<A NAME="navbar_top_firstrow"><!-- --></A>
+<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3" SUMMARY="">
+  <TR ALIGN="center" VALIGN="top">
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-summary.html"><FONT CLASS="NavBarFont1"><B>Package</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../index-all.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../help-doc.html"><FONT CLASS="NavBarFont1"><B>Help</B></FONT></A>&nbsp;</TD>
+  </TR>
+</TABLE>
+</TD>
+<TD ALIGN="right" VALIGN="top" ROWSPAN=3><EM>
+</EM>
+</TD>
+</TR>
+
+<TR>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+&nbsp;PREV CLASS&nbsp;
+&nbsp;NEXT CLASS</FONT></TD>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+  <A HREF="../../../../../../index.html?com/technology/jep/jepriatoolkit/parser/thread/ModuleParser.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="ModuleParser.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+&nbsp;<SCRIPT type="text/javascript">
+  <!--
+  if(window==top) {
+    document.writeln('<A HREF="../../../../../../allclasses-noframe.html"><B>All Classes</B></A>');
+  }
+  //-->
+</SCRIPT>
+<NOSCRIPT>
+  <A HREF="../../../../../../allclasses-noframe.html"><B>All Classes</B></A>
+</NOSCRIPT>
+
+
+</FONT></TD>
+</TR>
+<TR>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+  SUMMARY:&nbsp;NESTED&nbsp;|&nbsp;<A HREF="#field_summary">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
+</TR>
+</TABLE>
+<A NAME="skip-navbar_top"></A>
+<!-- ========= END OF TOP NAVBAR ========= -->
+
+<HR>
+<!-- ======== START OF CLASS DATA ======== -->
+<H2>
+<FONT SIZE="-1">
+com.technology.jep.jepriatoolkit.parser.thread</FONT>
+<BR>
+Class ModuleParser</H2>
+<PRE>
+java.lang.Object
+  <IMG SRC="../../../../../../resources/inherit.gif" ALT="extended by "><B>com.technology.jep.jepriatoolkit.parser.thread.ModuleParser</B>
+</PRE>
+<DL>
+<DT><B>All Implemented Interfaces:</B> <DD>java.util.concurrent.Callable&lt;<A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/Module.html" title="class in com.technology.jep.jepriatoolkit.creator.module">Module</A>&gt;</DD>
+</DL>
+<HR>
+<DL>
+<DT><PRE>public class <B>ModuleParser</B><DT>extends java.lang.Object<DT>implements java.util.concurrent.Callable&lt;<A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/Module.html" title="class in com.technology.jep.jepriatoolkit.creator.module">Module</A>&gt;</DL>
+</PRE>
+
+<P>
+<HR>
+
+<P>
+<!-- =========== FIELD SUMMARY =========== -->
+
+<A NAME="field_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Field Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;<A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/Application.html" title="class in com.technology.jep.jepriatoolkit.creator.module">Application</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepriatoolkit/parser/thread/ModuleParser.html#application">application</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private static&nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepriatoolkit/parser/thread/ModuleParser.html#CREATE_DAO_FUNCTION">CREATE_DAO_FUNCTION</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private static&nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepriatoolkit/parser/thread/ModuleParser.html#DATA_SOURCE_JNDI_NAME_CONSTANT_NAME">DATA_SOURCE_JNDI_NAME_CONSTANT_NAME</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private static&nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepriatoolkit/parser/thread/ModuleParser.html#FIND_DAO_FUNCTION">FIND_DAO_FUNCTION</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private static&nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepriatoolkit/parser/thread/ModuleParser.html#JDBC_JNDI_PREFIX">JDBC_JNDI_PREFIX</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;java.util.ResourceBundle</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepriatoolkit/parser/thread/ModuleParser.html#jepRiaResourceBundle">jepRiaResourceBundle</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;java.util.ResourceBundle</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepriatoolkit/parser/thread/ModuleParser.html#mainModuleResourceBundle">mainModuleResourceBundle</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;java.util.ResourceBundle</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepriatoolkit/parser/thread/ModuleParser.html#mainModuleResourceBundleEn">mainModuleResourceBundleEn</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepriatoolkit/parser/thread/ModuleParser.html#moduleId">moduleId</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private static&nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepriatoolkit/parser/thread/ModuleParser.html#UPDATE_DAO_FUNCTION">UPDATE_DAO_FUNCTION</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;
+<!-- ======== CONSTRUCTOR SUMMARY ======== -->
+
+<A NAME="constructor_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Constructor Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepriatoolkit/parser/thread/ModuleParser.html#ModuleParser(com.technology.jep.jepriatoolkit.creator.module.Application, java.lang.String, java.util.ResourceBundle...)">ModuleParser</A></B>(<A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/Application.html" title="class in com.technology.jep.jepriatoolkit.creator.module">Application</A>&nbsp;application,
+             java.lang.String&nbsp;moduleId,
+             java.util.ResourceBundle...&nbsp;resources)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;
+<!-- ========== METHOD SUMMARY =========== -->
+
+<A NAME="method_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Method Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/Module.html" title="class in com.technology.jep.jepriatoolkit.creator.module">Module</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepriatoolkit/parser/thread/ModuleParser.html#call()">call</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private static&nbsp;<A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/ModuleDeclaration.html" title="class in com.technology.jep.jepriatoolkit.creator.module">ModuleDeclaration</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepriatoolkit/parser/thread/ModuleParser.html#getClientModuleRecordDefinition(java.lang.String, java.util.ResourceBundle)">getClientModuleRecordDefinition</A></B>(java.lang.String&nbsp;moduleId,
+                                java.util.ResourceBundle&nbsp;resource)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepriatoolkit/parser/thread/ModuleParser.html#getClientModuleRecordDefinitionPath(java.lang.String, java.util.ResourceBundle)">getClientModuleRecordDefinitionPath</A></B>(java.lang.String&nbsp;moduleId,
+                                    java.util.ResourceBundle&nbsp;resource)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;java.lang.String[]</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepriatoolkit/parser/thread/ModuleParser.html#getPrimaryKeyAndTableName(java.lang.String, java.util.ResourceBundle)">getPrimaryKeyAndTableName</A></B>(java.lang.String&nbsp;moduleId,
+                          java.util.ResourceBundle&nbsp;resource)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepriatoolkit/parser/thread/ModuleParser.html#getRoles(java.lang.String, java.util.ResourceBundle)">getRoles</A></B>(java.lang.String&nbsp;moduleId,
+         java.util.ResourceBundle&nbsp;resource)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private static&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepriatoolkit/parser/thread/ModuleParser.html#log(java.lang.String, java.lang.String)">log</A></B>(java.lang.String&nbsp;message,
+    java.lang.String&nbsp;moduleId)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepriatoolkit/parser/thread/ModuleParser.html#prepareDetailFormModuleField(java.lang.String, com.technology.jep.jepriatoolkit.creator.module.ModuleField, java.util.ResourceBundle)">prepareDetailFormModuleField</A></B>(java.lang.String&nbsp;moduleId,
+                             <A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/ModuleField.html" title="class in com.technology.jep.jepriatoolkit.creator.module">ModuleField</A>&nbsp;field,
+                             java.util.ResourceBundle&nbsp;resource)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepriatoolkit/parser/thread/ModuleParser.html#prepareListFormModuleField(java.lang.String, com.technology.jep.jepriatoolkit.creator.module.ModuleField, java.util.ResourceBundle)">prepareListFormModuleField</A></B>(java.lang.String&nbsp;moduleId,
+                           <A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/ModuleField.html" title="class in com.technology.jep.jepriatoolkit.creator.module">ModuleField</A>&nbsp;field,
+                           java.util.ResourceBundle&nbsp;resource)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private static&nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepriatoolkit/parser/thread/ModuleParser.html#replacePathWithModuleId(java.lang.String, java.lang.String)">replacePathWithModuleId</A></B>(java.lang.String&nbsp;path,
+                        java.lang.String&nbsp;moduleId)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from class java.lang.Object</B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE>clone, equals, finalize, getClass, hashCode, notify, notifyAll, toString, wait, wait, wait</CODE></TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
+<!-- ============ FIELD DETAIL =========== -->
+
+<A NAME="field_detail"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
+<B>Field Detail</B></FONT></TH>
+</TR>
+</TABLE>
+
+<A NAME="JDBC_JNDI_PREFIX"><!-- --></A><H3>
+JDBC_JNDI_PREFIX</H3>
+<PRE>
+private static final java.lang.String <B>JDBC_JNDI_PREFIX</B></PRE>
+<DL>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../../constant-values.html#com.technology.jep.jepriatoolkit.parser.thread.ModuleParser.JDBC_JNDI_PREFIX">Constant Field Values</A></DL>
+</DL>
+<HR>
+
+<A NAME="UPDATE_DAO_FUNCTION"><!-- --></A><H3>
+UPDATE_DAO_FUNCTION</H3>
+<PRE>
+private static final java.lang.String <B>UPDATE_DAO_FUNCTION</B></PRE>
+<DL>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../../constant-values.html#com.technology.jep.jepriatoolkit.parser.thread.ModuleParser.UPDATE_DAO_FUNCTION">Constant Field Values</A></DL>
+</DL>
+<HR>
+
+<A NAME="CREATE_DAO_FUNCTION"><!-- --></A><H3>
+CREATE_DAO_FUNCTION</H3>
+<PRE>
+private static final java.lang.String <B>CREATE_DAO_FUNCTION</B></PRE>
+<DL>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../../constant-values.html#com.technology.jep.jepriatoolkit.parser.thread.ModuleParser.CREATE_DAO_FUNCTION">Constant Field Values</A></DL>
+</DL>
+<HR>
+
+<A NAME="FIND_DAO_FUNCTION"><!-- --></A><H3>
+FIND_DAO_FUNCTION</H3>
+<PRE>
+private static final java.lang.String <B>FIND_DAO_FUNCTION</B></PRE>
+<DL>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../../constant-values.html#com.technology.jep.jepriatoolkit.parser.thread.ModuleParser.FIND_DAO_FUNCTION">Constant Field Values</A></DL>
+</DL>
+<HR>
+
+<A NAME="DATA_SOURCE_JNDI_NAME_CONSTANT_NAME"><!-- --></A><H3>
+DATA_SOURCE_JNDI_NAME_CONSTANT_NAME</H3>
+<PRE>
+private static final java.lang.String <B>DATA_SOURCE_JNDI_NAME_CONSTANT_NAME</B></PRE>
+<DL>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../../constant-values.html#com.technology.jep.jepriatoolkit.parser.thread.ModuleParser.DATA_SOURCE_JNDI_NAME_CONSTANT_NAME">Constant Field Values</A></DL>
+</DL>
+<HR>
+
+<A NAME="application"><!-- --></A><H3>
+application</H3>
+<PRE>
+private <A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/Application.html" title="class in com.technology.jep.jepriatoolkit.creator.module">Application</A> <B>application</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="moduleId"><!-- --></A><H3>
+moduleId</H3>
+<PRE>
+private java.lang.String <B>moduleId</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="jepRiaResourceBundle"><!-- --></A><H3>
+jepRiaResourceBundle</H3>
+<PRE>
+private java.util.ResourceBundle <B>jepRiaResourceBundle</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="mainModuleResourceBundle"><!-- --></A><H3>
+mainModuleResourceBundle</H3>
+<PRE>
+private java.util.ResourceBundle <B>mainModuleResourceBundle</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="mainModuleResourceBundleEn"><!-- --></A><H3>
+mainModuleResourceBundleEn</H3>
+<PRE>
+private java.util.ResourceBundle <B>mainModuleResourceBundleEn</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+
+<!-- ========= CONSTRUCTOR DETAIL ======== -->
+
+<A NAME="constructor_detail"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
+<B>Constructor Detail</B></FONT></TH>
+</TR>
+</TABLE>
+
+<A NAME="ModuleParser(com.technology.jep.jepriatoolkit.creator.module.Application, java.lang.String, java.util.ResourceBundle...)"><!-- --></A><H3>
+ModuleParser</H3>
+<PRE>
+public <B>ModuleParser</B>(<A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/Application.html" title="class in com.technology.jep.jepriatoolkit.creator.module">Application</A>&nbsp;application,
+                    java.lang.String&nbsp;moduleId,
+                    java.util.ResourceBundle...&nbsp;resources)</PRE>
+<DL>
+</DL>
+
+<!-- ============ METHOD DETAIL ========== -->
+
+<A NAME="method_detail"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
+<B>Method Detail</B></FONT></TH>
+</TR>
+</TABLE>
+
+<A NAME="call()"><!-- --></A><H3>
+call</H3>
+<PRE>
+public <A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/Module.html" title="class in com.technology.jep.jepriatoolkit.creator.module">Module</A> <B>call</B>()
+            throws java.lang.Exception</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE>call</CODE> in interface <CODE>java.util.concurrent.Callable&lt;<A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/Module.html" title="class in com.technology.jep.jepriatoolkit.creator.module">Module</A>&gt;</CODE></DL>
+</DD>
+<DD><DL>
+
+<DT><B>Throws:</B>
+<DD><CODE>java.lang.Exception</CODE></DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getPrimaryKeyAndTableName(java.lang.String, java.util.ResourceBundle)"><!-- --></A><H3>
+getPrimaryKeyAndTableName</H3>
+<PRE>
+public java.lang.String[] <B>getPrimaryKeyAndTableName</B>(java.lang.String&nbsp;moduleId,
+                                                    java.util.ResourceBundle&nbsp;resource)
+                                             throws java.io.FileNotFoundException</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+
+<DT><B>Throws:</B>
+<DD><CODE>java.io.FileNotFoundException</CODE></DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="prepareDetailFormModuleField(java.lang.String, com.technology.jep.jepriatoolkit.creator.module.ModuleField, java.util.ResourceBundle)"><!-- --></A><H3>
+prepareDetailFormModuleField</H3>
+<PRE>
+public void <B>prepareDetailFormModuleField</B>(java.lang.String&nbsp;moduleId,
+                                         <A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/ModuleField.html" title="class in com.technology.jep.jepriatoolkit.creator.module">ModuleField</A>&nbsp;field,
+                                         java.util.ResourceBundle&nbsp;resource)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="prepareListFormModuleField(java.lang.String, com.technology.jep.jepriatoolkit.creator.module.ModuleField, java.util.ResourceBundle)"><!-- --></A><H3>
+prepareListFormModuleField</H3>
+<PRE>
+public static void <B>prepareListFormModuleField</B>(java.lang.String&nbsp;moduleId,
+                                              <A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/ModuleField.html" title="class in com.technology.jep.jepriatoolkit.creator.module">ModuleField</A>&nbsp;field,
+                                              java.util.ResourceBundle&nbsp;resource)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getRoles(java.lang.String, java.util.ResourceBundle)"><!-- --></A><H3>
+getRoles</H3>
+<PRE>
+public java.lang.String <B>getRoles</B>(java.lang.String&nbsp;moduleId,
+                                 java.util.ResourceBundle&nbsp;resource)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getClientModuleRecordDefinition(java.lang.String, java.util.ResourceBundle)"><!-- --></A><H3>
+getClientModuleRecordDefinition</H3>
+<PRE>
+private static <A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/ModuleDeclaration.html" title="class in com.technology.jep.jepriatoolkit.creator.module">ModuleDeclaration</A> <B>getClientModuleRecordDefinition</B>(java.lang.String&nbsp;moduleId,
+                                                                 java.util.ResourceBundle&nbsp;resource)
+                                                          throws java.io.FileNotFoundException</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+
+<DT><B>Throws:</B>
+<DD><CODE>java.io.FileNotFoundException</CODE></DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getClientModuleRecordDefinitionPath(java.lang.String, java.util.ResourceBundle)"><!-- --></A><H3>
+getClientModuleRecordDefinitionPath</H3>
+<PRE>
+public static java.lang.String <B>getClientModuleRecordDefinitionPath</B>(java.lang.String&nbsp;moduleId,
+                                                                   java.util.ResourceBundle&nbsp;resource)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="replacePathWithModuleId(java.lang.String, java.lang.String)"><!-- --></A><H3>
+replacePathWithModuleId</H3>
+<PRE>
+private static java.lang.String <B>replacePathWithModuleId</B>(java.lang.String&nbsp;path,
+                                                        java.lang.String&nbsp;moduleId)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="log(java.lang.String, java.lang.String)"><!-- --></A><H3>
+log</H3>
+<PRE>
+private static void <B>log</B>(java.lang.String&nbsp;message,
+                        java.lang.String&nbsp;moduleId)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<!-- ========= END OF CLASS DATA ========= -->
+<HR>
+
+
+<!-- ======= START OF BOTTOM NAVBAR ====== -->
+<A NAME="navbar_bottom"><!-- --></A>
+<A HREF="#skip-navbar_bottom" title="Skip navigation links"></A>
+<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
+<TR>
+<TD COLSPAN=2 BGCOLOR="#EEEEFF" CLASS="NavBarCell1">
+<A NAME="navbar_bottom_firstrow"><!-- --></A>
+<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3" SUMMARY="">
+  <TR ALIGN="center" VALIGN="top">
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-summary.html"><FONT CLASS="NavBarFont1"><B>Package</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../index-all.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../help-doc.html"><FONT CLASS="NavBarFont1"><B>Help</B></FONT></A>&nbsp;</TD>
+  </TR>
+</TABLE>
+</TD>
+<TD ALIGN="right" VALIGN="top" ROWSPAN=3><EM>
+</EM>
+</TD>
+</TR>
+
+<TR>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+&nbsp;PREV CLASS&nbsp;
+&nbsp;NEXT CLASS</FONT></TD>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+  <A HREF="../../../../../../index.html?com/technology/jep/jepriatoolkit/parser/thread/ModuleParser.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="ModuleParser.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+&nbsp;<SCRIPT type="text/javascript">
+  <!--
+  if(window==top) {
+    document.writeln('<A HREF="../../../../../../allclasses-noframe.html"><B>All Classes</B></A>');
+  }
+  //-->
+</SCRIPT>
+<NOSCRIPT>
+  <A HREF="../../../../../../allclasses-noframe.html"><B>All Classes</B></A>
+</NOSCRIPT>
+
+
+</FONT></TD>
+</TR>
+<TR>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+  SUMMARY:&nbsp;NESTED&nbsp;|&nbsp;<A HREF="#field_summary">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
+</TR>
+</TABLE>
+<A NAME="skip-navbar_bottom"></A>
+<!-- ======== END OF BOTTOM NAVBAR ======= -->
+
+<HR>
+
+</BODY>
+</HTML>
