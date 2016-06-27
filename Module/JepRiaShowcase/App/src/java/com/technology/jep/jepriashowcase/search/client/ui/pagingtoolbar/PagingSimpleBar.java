@@ -17,7 +17,7 @@ public class PagingSimpleBar extends PagingStandardBar {
 	
 	@Override
 	protected void addButtonsAtLeft() {
-		first = makeButton(null, null, JepTexts.button_beginning_alt(), new ClickHandler() {
+		first = makeButton(null, null, null, JepTexts.button_beginning_alt(), new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
 				first();
@@ -27,7 +27,7 @@ public class PagingSimpleBar extends PagingStandardBar {
 		
 		buttonsPanel.add(first);
 
-		prev = makeButton(null, null, JepTexts.button_previous_alt(), new ClickHandler() {
+		prev = makeButton(null, null, null, JepTexts.button_previous_alt(), new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
 				previous();
@@ -38,7 +38,7 @@ public class PagingSimpleBar extends PagingStandardBar {
 	
 	@Override
 	protected void addButtonsAtRight() {
-		next = makeButton(null, null, JepTexts.button_next_alt(), new ClickHandler() {
+		next = makeButton(null, null, null, JepTexts.button_next_alt(), new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
 				next();
@@ -46,7 +46,7 @@ public class PagingSimpleBar extends PagingStandardBar {
 		}, false);
 		buttonsPanel.add(next);
 
-		last = makeButton(null, null, JepTexts.button_ending_alt(), new ClickHandler() {
+		last = makeButton(null, null, null, JepTexts.button_ending_alt(), new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
 				last();
@@ -57,7 +57,7 @@ public class PagingSimpleBar extends PagingStandardBar {
 		
 		buttonsPanel.add(new Separator());
 
-		refresh = makeButton(null, null, JepTexts.button_refresh_alt(), new ClickHandler() {
+		refresh = makeButton(null, null, null, JepTexts.button_refresh_alt(), new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
 				refresh();

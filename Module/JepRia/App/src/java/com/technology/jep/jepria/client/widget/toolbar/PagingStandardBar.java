@@ -142,7 +142,7 @@ public class PagingStandardBar extends SimplePanel implements PagingToolBar {
 	 * Добавление кнопок слева: "в начало", "предыдущая".
 	 */
 	protected void addButtonsAtLeft() {
-		first = makeButton("first_button_id", JepImages.first(), JepTexts.button_beginning_alt(), new ClickHandler() {
+		first = makeButton("first_button_id", JepImages.first(), null, JepTexts.button_beginning_alt(), new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
 				first();
@@ -150,7 +150,7 @@ public class PagingStandardBar extends SimplePanel implements PagingToolBar {
 		}, false);
 		buttonsPanel.add(first);
 
-		prev = makeButton("prev_button_id", JepImages.prev(), JepTexts.button_previous_alt(), new ClickHandler() {
+		prev = makeButton("prev_button_id", JepImages.prev(), null, JepTexts.button_previous_alt(), new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
 				previous();
@@ -188,7 +188,7 @@ public class PagingStandardBar extends SimplePanel implements PagingToolBar {
 	 * Добавление кнопок справа: "следующая", "в конец", "обновить".
 	 */
 	protected void addButtonsAtRight() {
-		next = makeButton("next_button_id", JepImages.next(), JepTexts.button_next_alt(), new ClickHandler() {
+		next = makeButton("next_button_id", JepImages.next(), null, JepTexts.button_next_alt(), new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
 				next();
@@ -196,7 +196,7 @@ public class PagingStandardBar extends SimplePanel implements PagingToolBar {
 		}, false);
 		buttonsPanel.add(next);
 
-		last = makeButton("last_button_id", JepImages.last(), JepTexts.button_ending_alt(), new ClickHandler() {
+		last = makeButton("last_button_id", JepImages.last(), null, JepTexts.button_ending_alt(), new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
 				last();
@@ -206,7 +206,7 @@ public class PagingStandardBar extends SimplePanel implements PagingToolBar {
 		
 		buttonsPanel.add(new Separator());
 
-		refresh = makeButton("refresh_button_id", JepImages.refresh(), JepTexts.button_refresh_alt(), new ClickHandler() {
+		refresh = makeButton("refresh_button_id", JepImages.refresh(), null, JepTexts.button_refresh_alt(), new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
 				refresh();
@@ -249,12 +249,13 @@ public class PagingStandardBar extends SimplePanel implements PagingToolBar {
 		pageSizePanel.setWidth("100%");
 	}
 
-	public Button makeButton(String buttonId, ImageResource icon, String name, ClickHandler handler) {
-		return makeButton(buttonId, icon, name, handler, true);
+	public Button makeButton(String buttonId, ImageResource icon, String name, String title, ClickHandler handler) {
+		return makeButton(buttonId, icon, name, title, handler, true);
 	}
 
-	public Button makeButton(String buttonId, ImageResource icon, String name, ClickHandler handler, Boolean enabled) {
+	public Button makeButton(String buttonId, ImageResource icon, String name, String title, ClickHandler handler, Boolean enabled) {
 		JepButton button = new JepButton(buttonId, name, icon);
+		button.setTitle(title);
 		button.addClickHandler(handler);
 		button.setEnabled(enabled);
 		return button;
