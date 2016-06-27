@@ -17,7 +17,7 @@
 	<property name="cores.count" value="${env.NUMBER_OF_PROCESSORS}"/>
 	<property name="JAR_TEMP" value="build-lib"/>
 	<property name="SECURITY_RESOURCES" value="${JEPRIA}/src/html/security" />
-
+	
 	<!-- Общие наборы файлов -->
 	<path id="libs">
 		<pathelement location="${COMMONS-FILEUPLOAD_LIB}" />
@@ -128,6 +128,43 @@
 		<include name="**/*Text_??.properties" />
 		<include name="**/log4j.properties" />
     </fileset>
+
+	
+	<!-- Проверка наличия всех используемых библиотек (зависимостей) -->
+    <target name="check-dependencies" >
+		<propertyselector
+				property="pack.list"
+				delimiter=","
+				match="([^\s]+(\_(?i)(lib|jslib))$)"
+				select="\1"
+				casesensitive="false" />
+								 
+		<echo message="Dependency checking..."/>
+		<for list="${pack.list}" param="lib-path">
+			<sequential>
+				<if>
+					<available file="${@{lib-path}}"/>
+					<then/>
+					<else>
+						<echo>Required library '${@{lib-path}}' is absent</echo>
+						<fail message="Required library '${@{lib-path}}' is absent"/>
+					</else>
+				</if>
+			</sequential>
+		</for>
+		<echo message="Dependency checking succeeded"/>
+    </target>
+
+	<target name="check-lib">
+		<echo>${lib}</echo>
+		<if>
+			<available file="${lib}"/>
+			<then/>
+			<else>
+				<echo>Required library '${lib}' is absent</echo>
+			</else>
+		</if>
+	</target>
 	
 	<target name="define-toolkit-appinstall">
 		<taskdef name="appInstall" classname="com.technology.jep.jepriatoolkit.version.AppInstallTask" classpath="${JEPRIA-TOOLKIT_LIB}" />
@@ -144,7 +181,7 @@
 	</target>
 
 	<!-- Инициализация переменных модуля	-->
-	<target name="init">
+	<target name="init" depends="check-dependencies">
 		<for param="file">
 			<path>
 				<fileset dir="src/java" includes="**/main/*.gwt.xml" />
