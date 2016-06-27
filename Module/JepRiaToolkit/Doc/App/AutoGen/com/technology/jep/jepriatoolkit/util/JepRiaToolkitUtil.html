@@ -54,7 +54,7 @@ function windowTitle()
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
 &nbsp;PREV CLASS&nbsp;
-&nbsp;NEXT CLASS</FONT></TD>
+&nbsp;<A HREF="../../../../../com/technology/jep/jepriatoolkit/util/Pair.html" title="class in com.technology.jep.jepriatoolkit.util"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../../../../index.html?com/technology/jep/jepriatoolkit/util/JepRiaToolkitUtil.html" target="_top"><B>FRAMES</B></A>  &nbsp;
 &nbsp;<A HREF="JepRiaToolkitUtil.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
@@ -146,9 +146,42 @@ java.lang.Object
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepriatoolkit/util/JepRiaToolkitUtil.html#antClean()">antClean</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Сборка и развертывание приложения</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;java.lang.String</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../com/technology/jep/jepriatoolkit/util/JepRiaToolkitUtil.html#appendIfHasNot(java.lang.String, java.lang.String)">appendIfHasNot</A></B>(java.lang.String&nbsp;base,
                java.lang.String&nbsp;fragment)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;org.w3c.dom.Document</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepriatoolkit/util/JepRiaToolkitUtil.html#appendModuleToApplication(com.technology.jep.jepriatoolkit.creator.module.Application, com.technology.jep.jepriatoolkit.creator.module.Module)">appendModuleToApplication</A></B>(<A HREF="../../../../../com/technology/jep/jepriatoolkit/creator/module/Application.html" title="class in com.technology.jep.jepriatoolkit.creator.module">Application</A>&nbsp;application,
+                          <A HREF="../../../../../com/technology/jep/jepriatoolkit/creator/module/Module.html" title="class in com.technology.jep.jepriatoolkit.creator.module">Module</A>&nbsp;newModule)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Преобразование объектной модели к DOM-представлению</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepriatoolkit/util/JepRiaToolkitUtil.html#buildAndDeploy()">buildAndDeploy</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Сборка и развертывание приложения</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepriatoolkit/util/JepRiaToolkitUtil.html#buildAndDeployWithCustomConfigName(java.lang.String)">buildAndDeployWithCustomConfigName</A></B>(java.lang.String&nbsp;configName)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -216,6 +249,23 @@ java.lang.Object
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepriatoolkit/util/JepRiaToolkitUtil.html#createApplicationStructure(java.lang.String)">createApplicationStructure</A></B>(java.lang.String&nbsp;fileName)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Создание структуры приложения с указанием файла для сборки</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="../../../../../com/technology/jep/jepriatoolkit/creator/module/Module.html" title="class in com.technology.jep.jepriatoolkit.creator.module">Module</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepriatoolkit/util/JepRiaToolkitUtil.html#createBlankModule(java.lang.String, java.lang.String)">createBlankModule</A></B>(java.lang.String&nbsp;moduleId,
+                  java.lang.String&nbsp;applicationName)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Создание модуля с пустой списочной и детальной формами</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;javax.xml.parsers.DocumentBuilder</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../com/technology/jep/jepriatoolkit/util/JepRiaToolkitUtil.html#createDocumentBuilder()">createDocumentBuilder</A></B>()</CODE>
 
@@ -269,6 +319,14 @@ java.lang.Object
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Кодирование строки</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepriatoolkit/util/JepRiaToolkitUtil.html#encodeTextResources()">encodeTextResources</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Конвертация текстовых ресурсов</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -509,6 +567,23 @@ java.lang.Object
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepriatoolkit/util/JepRiaToolkitUtil.html#isNotInitializedParameter(java.lang.String)">isNotInitializedParameter</A></B>(java.lang.String&nbsp;sourceString)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepriatoolkit/util/JepRiaToolkitUtil.html#loadPropertiesFromFile(org.apache.tools.ant.Project, java.lang.String)">loadPropertiesFromFile</A></B>(org.apache.tools.ant.Project&nbsp;p,
+                       java.lang.String&nbsp;fileName)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;void</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../com/technology/jep/jepriatoolkit/util/JepRiaToolkitUtil.html#makeDir(java.lang.String)">makeDir</A></B>(java.lang.String&nbsp;dirName)</CODE>
 
@@ -591,7 +666,8 @@ java.lang.Object
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepriatoolkit/util/JepRiaToolkitUtil.html#runAntTarget(java.lang.String)">runAntTarget</A></B>(java.lang.String&nbsp;targetName)</CODE>
+<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepriatoolkit/util/JepRiaToolkitUtil.html#runAntTarget(java.lang.String, com.technology.jep.jepriatoolkit.util.Pair...)">runAntTarget</A></B>(java.lang.String&nbsp;targetName,
+             <A HREF="../../../../../com/technology/jep/jepriatoolkit/util/Pair.html" title="class in com.technology.jep.jepriatoolkit.util">Pair</A>&lt;java.lang.String,java.lang.String&gt;...&nbsp;properties)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Запуск цели Ant по ее наименованию</TD>
@@ -1197,15 +1273,28 @@ public static java.lang.String <B>getInstallVersion</B>(java.lang.String&nbsp;ve
 </DL>
 <HR>
 
-<A NAME="runAntTarget(java.lang.String)"><!-- --></A><H3>
+<A NAME="runAntTarget(java.lang.String, com.technology.jep.jepriatoolkit.util.Pair...)"><!-- --></A><H3>
 runAntTarget</H3>
 <PRE>
-public static void <B>runAntTarget</B>(java.lang.String&nbsp;targetName)</PRE>
+public static void <B>runAntTarget</B>(java.lang.String&nbsp;targetName,
+                                <A HREF="../../../../../com/technology/jep/jepriatoolkit/util/Pair.html" title="class in com.technology.jep.jepriatoolkit.util">Pair</A>&lt;java.lang.String,java.lang.String&gt;...&nbsp;properties)</PRE>
 <DL>
 <DD>Запуск цели Ant по ее наименованию
 <P>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>targetName</CODE> - наименование цели</DL>
+<DT><B>Parameters:</B><DD><CODE>targetName</CODE> - наименование цели<DD><CODE>properties</CODE> - указание необходимых пользовательских свойств для выполнения данной цели</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="loadPropertiesFromFile(org.apache.tools.ant.Project, java.lang.String)"><!-- --></A><H3>
+loadPropertiesFromFile</H3>
+<PRE>
+public static void <B>loadPropertiesFromFile</B>(org.apache.tools.ant.Project&nbsp;p,
+                                          java.lang.String&nbsp;fileName)</PRE>
+<DL>
+<DD><DL>
+</DL>
 </DD>
 </DL>
 <HR>
@@ -1281,6 +1370,17 @@ public static boolean <B>isEmptyOrNotInitializedParameter</B>(java.lang.String&n
 <DT><B>Returns:</B><DD>возвращает true, если передано значение null или переданная
          строка состоит только из пробелов, а также строка является
          параметром Ant. Пример, ${PORT}, ${MODULE_NAME} и т.д.</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="isNotInitializedParameter(java.lang.String)"><!-- --></A><H3>
+isNotInitializedParameter</H3>
+<PRE>
+public static boolean <B>isNotInitializedParameter</B>(java.lang.String&nbsp;sourceString)</PRE>
+<DL>
+<DD><DL>
+</DL>
 </DD>
 </DL>
 <HR>
@@ -1539,6 +1639,20 @@ private static org.apache.xml.serialize.XMLSerializer <B>getXMLSerializer</B>(ja
 </DL>
 <HR>
 
+<A NAME="appendModuleToApplication(com.technology.jep.jepriatoolkit.creator.module.Application, com.technology.jep.jepriatoolkit.creator.module.Module)"><!-- --></A><H3>
+appendModuleToApplication</H3>
+<PRE>
+public static org.w3c.dom.Document <B>appendModuleToApplication</B>(<A HREF="../../../../../com/technology/jep/jepriatoolkit/creator/module/Application.html" title="class in com.technology.jep.jepriatoolkit.creator.module">Application</A>&nbsp;application,
+                                                             <A HREF="../../../../../com/technology/jep/jepriatoolkit/creator/module/Module.html" title="class in com.technology.jep.jepriatoolkit.creator.module">Module</A>&nbsp;newModule)</PRE>
+<DL>
+<DD>Преобразование объектной модели к DOM-представлению
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>object</CODE> - преобразуемый объект<DD><CODE>doc</CODE> - существующее DOM-дерево</DL>
+</DD>
+</DL>
+<HR>
+
 <A NAME="normalizePath(java.lang.String)"><!-- --></A><H3>
 normalizePath</H3>
 <PRE>
@@ -1602,6 +1716,84 @@ public static boolean <B>equalWithNull</B>(java.lang.Object&nbsp;obj1,
 <DT><B>Returns:</B><DD>признак равенства сравниваемых объектов</DL>
 </DD>
 </DL>
+<HR>
+
+<A NAME="encodeTextResources()"><!-- --></A><H3>
+encodeTextResources</H3>
+<PRE>
+public static void <B>encodeTextResources</B>()</PRE>
+<DL>
+<DD>Конвертация текстовых ресурсов
+<P>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="createApplicationStructure(java.lang.String)"><!-- --></A><H3>
+createApplicationStructure</H3>
+<PRE>
+public static void <B>createApplicationStructure</B>(java.lang.String&nbsp;fileName)</PRE>
+<DL>
+<DD>Создание структуры приложения с указанием файла для сборки
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>fileName</CODE> - наименование файла сборки</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="buildAndDeploy()"><!-- --></A><H3>
+buildAndDeploy</H3>
+<PRE>
+public static void <B>buildAndDeploy</B>()</PRE>
+<DL>
+<DD>Сборка и развертывание приложения
+<P>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="buildAndDeployWithCustomConfigName(java.lang.String)"><!-- --></A><H3>
+buildAndDeployWithCustomConfigName</H3>
+<PRE>
+public static void <B>buildAndDeployWithCustomConfigName</B>(java.lang.String&nbsp;configName)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="antClean()"><!-- --></A><H3>
+antClean</H3>
+<PRE>
+public static void <B>antClean</B>()</PRE>
+<DL>
+<DD>Сборка и развертывание приложения
+<P>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="createBlankModule(java.lang.String, java.lang.String)"><!-- --></A><H3>
+createBlankModule</H3>
+<PRE>
+public static <A HREF="../../../../../com/technology/jep/jepriatoolkit/creator/module/Module.html" title="class in com.technology.jep.jepriatoolkit.creator.module">Module</A> <B>createBlankModule</B>(java.lang.String&nbsp;moduleId,
+                                       java.lang.String&nbsp;applicationName)</PRE>
+<DL>
+<DD>Создание модуля с пустой списочной и детальной формами
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>moduleId</CODE> - идентификатор модуля<DD><CODE>applicationName</CODE> - наименование приложения
+<DT><B>Returns:</B><DD>пустой модуль</DL>
+</DD>
+</DL>
 <!-- ========= END OF CLASS DATA ========= -->
 <HR>
 
@@ -1633,7 +1825,7 @@ public static boolean <B>equalWithNull</B>(java.lang.Object&nbsp;obj1,
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
 &nbsp;PREV CLASS&nbsp;
-&nbsp;NEXT CLASS</FONT></TD>
+&nbsp;<A HREF="../../../../../com/technology/jep/jepriatoolkit/util/Pair.html" title="class in com.technology.jep.jepriatoolkit.util"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../../../../index.html?com/technology/jep/jepriatoolkit/util/JepRiaToolkitUtil.html" target="_top"><B>FRAMES</B></A>  &nbsp;
 &nbsp;<A HREF="JepRiaToolkitUtil.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;

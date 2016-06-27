@@ -49,7 +49,6 @@
 	</fileset>
 
 	<target name="start-log">
-		<echo>JEPRIA_LIB: ${JEPRIA_LIB}</echo>		
 		<mkdir dir="log" />
 			<tstamp>
 				<format property="timestamp" pattern="yyyyMMdd_HHmmss"/>

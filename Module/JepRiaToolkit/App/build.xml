@@ -1,17 +1,14 @@
 <project default="jar">
 	<property file="local.properties" />
+	<property file="dependency.properties" />
 	<property file="build.properties" />
 	<property environment="env"/>
-<!--	
-	<property name="JEP_RIA" value="${COMMON_HOME}/Module/JepRia/${JEP_RIA_VERSION}/App" />
--->	
 	<property name="JEP_RIA" value="../../JepRia/App" />
 	<property name="JEP_RIA_SOURCE" value="${JEP_RIA}/src/java" />
 	<property name="MODULE_PACKAGE" value="com/technology/${PROJECT_NAME_IN_PACKAGE}/${MODULE_NAME_IN_PACKAGE}" />
 	<property name="JAVA_DOC_DIR" value="../Doc/App/AutoGen" />
-	<property name="LIBS" 
-		value="${JEP_RIA}/lib/jepria.jar;${PROJECT_COMMON}/lib/${PROJECT_NAME_IN_PACKAGE}common.jar;
-		${env.ANT_HOME}/lib/ant.jar;classes;${env.ANT_HOME}/lib/freemarker.jar;${env.ANT_HOME}/lib/javaparser.jar"/>
+	<property name="LIBS"
+		value="${JEPRIA_LIB};${env.ANT_HOME}/lib/ant.jar;classes;${FREEMARKER_LIB};${JAVAPARSER-CORE_LIB};${XERCESIMPL_LIB}"/>
 
 	<property name="LOG_LEVEL" value="info" />
 	
@@ -40,12 +37,6 @@
 				<fileset dir="${JEP_RIA_SOURCE}" includes="**/client/**/WorkstateConstant.java"/>
 				<fileset dir="${JEP_RIA_SOURCE}" includes="**/shared/**/JepTypeEnum.java"/>
 		</copy>
-		
-		<copy todir="${env.ANT_HOME}/lib" overwrite="true">
-				<fileset dir="${FREEMARKER_HOME}" includes="freemarker.jar"/>
-				<fileset dir="${JAVAPARSER_HOME}" includes="javaparser.jar"/>
-		</copy>
-		
 		<javac srcdir="src/java" destdir="classes" classpath="${LIBS}" debug="on" encoding="utf-8" target="1.5" includeantruntime="false" />			
 		
 	</target>
