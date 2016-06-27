@@ -18,4 +18,5 @@ public class ArsenicFieldNames extends JepRecordFieldNames {
 	public static final String DETAILFORM_JEP_COMBOBOX_FIELD_3CH_RELOADING = "detailform_jep_combobox_field_3ch_reloading";
 	
 	public static final String DETAILFORM_JEP_DUAL_LIST_FIELD = "detailform_jep_dual_list_field";
+	public static final String DETAILFORM_JEP_CHECKBOX_FIELD = "detailform_jep_checkbox_field";
 }

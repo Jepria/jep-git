@@ -1,6 +1,6 @@
 package com.technology.jep.jepriashowcase.arsenic.auto;
 
-import static com.technology.jep.jepriashowcase.arsenic.client.ArsenicAutomationConstant.ARSENIC_JEP_COMBOBOX_FIELD_3CH_RELOADING_ID;
+import static com.technology.jep.jepriashowcase.arsenic.client.ArsenicAutomationConstant.*;
 import static com.technology.jep.jepriashowcase.arsenic.client.ArsenicAutomationConstant.ARSENIC_JEP_COMBOBOX_FIELD_DURABLE_ID;
 import static com.technology.jep.jepriashowcase.arsenic.client.ArsenicAutomationConstant.ARSENIC_JEP_COMBOBOX_FIELD_NOTLAZY_ID;
 import static com.technology.jep.jepriashowcase.arsenic.client.ArsenicAutomationConstant.ARSENIC_JEP_COMBOBOX_FIELD_RELOADING_ID;
@@ -89,6 +89,15 @@ public class ArsenicAutoImpl<A extends JepRiaShowcaseAuto, P extends JepRiaShowc
 		selectDualListMenuItems(ARSENIC_JEP_DUAL_LIST_FIELD_ID, value);
 	}
 
+	@Override
+	public void setJepCheckBoxField(boolean value) {
+		setCheckBoxFieldValue(ARSENIC_JEP_CHECKBOX_FIELD_ID, value);
+	}
+	
+	@Override
+	public void changeJepCheckBoxField() {
+		changeCheckBoxFieldValue(ARSENIC_JEP_CHECKBOX_FIELD_ID);
+	}
 	
 	
 	
@@ -157,6 +166,11 @@ public class ArsenicAutoImpl<A extends JepRiaShowcaseAuto, P extends JepRiaShowc
 	@Override
 	public String[] getJepDualListField() {
 		return getDualListFieldValues(ARSENIC_JEP_DUAL_LIST_FIELD_ID);
+	}
+
+	@Override
+	public boolean getJepCheckBoxField() {
+		return getCheckBoxFieldValue(ARSENIC_JEP_CHECKBOX_FIELD_ID);
 	}
 
 }

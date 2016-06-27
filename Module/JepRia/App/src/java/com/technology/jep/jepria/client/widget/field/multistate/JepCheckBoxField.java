@@ -3,13 +3,16 @@ package com.technology.jep.jepria.client.widget.field.multistate;
 import static com.technology.jep.jepria.client.JepRiaClientConstant.JepTexts;
 import static com.technology.jep.jepria.client.widget.event.JepEventType.CHANGE_CHECK_EVENT;
 
+import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.InputElement;
 import com.google.gwt.dom.client.Node;
 import com.google.gwt.dom.client.Style.Display;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
+import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.HTML;
+import com.technology.jep.jepria.client.AutomationConstant;
 import com.technology.jep.jepria.client.widget.event.JepEvent;
 import com.technology.jep.jepria.client.widget.event.JepEventType;
 import com.technology.jep.jepria.client.widget.event.JepListener;
@@ -31,12 +34,24 @@ public class JepCheckBoxField extends JepMultiStateField<CheckBox, HTML> {
 	 */
 	private static final String CHECK_BOX_FIELD_STYLE = "jepRia-CheckBox-Input";
 	
+	private Element inputCheck;
+	
 	public JepCheckBoxField() {
-		this("");
+		this(null, null);
 	}
 	
 	public JepCheckBoxField(String fieldLabel) {
-		super(fieldLabel);
+		this(null, fieldLabel);
+	}
+	
+	public JepCheckBoxField(String fieldIdAsWebEl, String fieldLabel) {
+		super(fieldIdAsWebEl, fieldLabel);
+	}
+	
+	private class CheckBox2 extends CheckBox {
+		protected CheckBox2(Element elem) {
+			super(elem);
+		}
 	}
 	
 	/**
@@ -44,8 +59,14 @@ public class JepCheckBoxField extends JepMultiStateField<CheckBox, HTML> {
 	 */
 	@Override
 	protected void addEditableCard() {
-		editableCard = new CheckBox();
+		inputCheck = DOM.createInputCheck();
+		editableCard = new CheckBox2(inputCheck);
 		editablePanel.add(editableCard);
+	}
+	
+	@Override
+	protected void setInnerIds(String fieldIdAsWebEl) {
+		inputCheck.setId(fieldIdAsWebEl + AutomationConstant.FIELD_INPUT_POSTFIX);
 	}
 	
 	/**

@@ -7,6 +7,15 @@ package com.technology.jep.jepriashowcase.arsenic.shared.text;
 public interface ArsenicText extends com.google.gwt.i18n.client.Constants {
   
   /**
+   * Translated "Простой JepCheckBoxField".
+   * 
+   * @return translated "Простой JepCheckBoxField"
+   */
+  @DefaultStringValue("Простой JepCheckBoxField")
+  @Key("detail.jepCheckBoxField")
+  String detail_jepCheckBoxField();
+
+  /**
    * Translated "Обновляемый JepComboBoxField (минимум 3 символа)".
    * 
    * @return translated "Обновляемый JepComboBoxField (минимум 3 символа)"

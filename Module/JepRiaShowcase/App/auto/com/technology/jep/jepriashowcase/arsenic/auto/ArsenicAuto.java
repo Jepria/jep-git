@@ -16,6 +16,8 @@ public interface ArsenicAuto extends JepRiaModuleAuto {
 	void setJepComboBoxFieldReloading(String value);
 	void setJepComboBoxField3chReloading(String value);
 	void setJepDualListField(String[] value);
+	void setJepCheckBoxField(boolean value);
+	void changeJepCheckBoxField();
 	
 	String getJepTextField();
 	String getJepTextAreaField();
@@ -30,4 +32,5 @@ public interface ArsenicAuto extends JepRiaModuleAuto {
 	String getJepComboBoxFieldReloading();
 	String getJepComboBoxField3chReloading();
 	String[] getJepDualListField();
+	boolean getJepCheckBoxField();
 }

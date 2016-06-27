@@ -158,4 +158,24 @@ public interface JepRiaModuleAuto extends EntranceAuto {
 	 * В случае если в левой части отсутствует хотя бы одна из требуемых опций, выбрасывается исключение WrongOptionException.
 	 */
 	void selectDualListMenuItems(String dualListFieldId, String menuItems[]);
+	
+	/**
+	 * Простановка флажка CheckBoxField по заданному Id.
+	 * @param checkBoxFieldId id CheckBox-поля
+	 * @param checked требуемое для установки значение
+	 */
+	void setCheckBoxFieldValue(String checkBoxFieldId, boolean checked);
+	
+	/**
+	 * Изменение значения флажка CheckBoxField по заданному Id на противоположное.
+	 * @param checkBoxFieldId id CheckBox-поля
+	 */
+	void changeCheckBoxFieldValue(String checkBoxFieldId);
+	
+	/**
+	 * Получение значения поля  CheckBoxField.
+	 * 
+	 * @param checkBoxFieldId id CheckBox-поля
+	 */
+	boolean getCheckBoxFieldValue(String checkBoxFieldId);
 }

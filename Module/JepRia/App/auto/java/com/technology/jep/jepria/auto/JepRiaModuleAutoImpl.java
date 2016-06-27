@@ -479,4 +479,34 @@ public class JepRiaModuleAutoImpl<A extends EntranceAppAuto, P extends JepRiaApp
 	public void edit(String idFieldName, String id) {
 		throw new NotImplementedYetException();
 	}
+
+	@Override
+	public void setCheckBoxFieldValue(String checkBoxFieldId, boolean checked) {
+		pages.getApplicationPage().ensurePageLoaded();
+		
+		WebElement fieldInput = pages.getApplicationPage().getWebDriver().findElement(By.id(checkBoxFieldId + FIELD_INPUT_POSTFIX)); 
+		
+		if (fieldInput.isSelected() != checked) {
+			getWait().until(elementToBeClickable(fieldInput));
+			fieldInput.click();
+		}
+	}
+
+	@Override
+	public void changeCheckBoxFieldValue(String checkBoxFieldId) {
+		pages.getApplicationPage().ensurePageLoaded();
+		
+		WebElement fieldInput = pages.getApplicationPage().getWebDriver().findElement(By.id(checkBoxFieldId + FIELD_INPUT_POSTFIX)); 
+		
+		getWait().until(elementToBeClickable(fieldInput));
+		fieldInput.click();
+	}
+
+	@Override
+	public boolean getCheckBoxFieldValue(String checkBoxFieldId) {
+		pages.getApplicationPage().ensurePageLoaded();
+		
+		WebElement fieldInput = pages.getApplicationPage().getWebDriver().findElement(By.id(checkBoxFieldId + FIELD_INPUT_POSTFIX));
+		return fieldInput.isSelected();
+	}
 }
