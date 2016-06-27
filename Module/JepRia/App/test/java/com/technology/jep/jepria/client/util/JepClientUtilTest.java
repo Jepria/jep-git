@@ -24,7 +24,7 @@ public class JepClientUtilTest {
 	public ExpectedException thrown = ExpectedException.none();
 			
 	@Test
-	public void goToUrlTestRelativeUrlWithoutLeadingSlash() throws Exception {
+	public void goToUrlTestRelativeUrlWithoutLeadingSlash(){
 		mockDocumentGetBody();
 		PowerMockito.mockStatic(GWT.class, Window.Location.class);
 		
@@ -39,7 +39,7 @@ public class JepClientUtilTest {
 	}
 	
 	@Test
-	public void goToUrlTestRelativeUrlWithLeadingSlash() throws Exception {
+	public void goToUrlTestRelativeUrlWithLeadingSlash(){
 		mockDocumentGetBody();		
 		PowerMockito.mockStatic(GWT.class, Window.Location.class);
 		
@@ -54,7 +54,7 @@ public class JepClientUtilTest {
 	}
 	
 	@Test
-	public void goToUrlTestAbsoluteUrlWithoutProtocol() throws Exception {
+	public void goToUrlTestAbsoluteUrlWithoutProtocol(){
 		mockDocumentGetBody();
 		PowerMockito.mockStatic(Window.Location.class);
 		
@@ -69,7 +69,7 @@ public class JepClientUtilTest {
 	}
 	
 	@Test
-	public void goToUrlTestAbsoluteUrlHttp() throws Exception {
+	public void goToUrlTestAbsoluteUrlHttp(){
 		mockDocumentGetBody();
 		PowerMockito.mockStatic(GWT.class, Window.Location.class);
 		
@@ -81,7 +81,7 @@ public class JepClientUtilTest {
 	}
 	
 	@Test
-	public void goToUrlTestAbsoluteUrlHttps() throws Exception {
+	public void goToUrlTestAbsoluteUrlHttps(){
 		mockDocumentGetBody();
 		PowerMockito.mockStatic(GWT.class, Window.Location.class);
 		
@@ -93,7 +93,7 @@ public class JepClientUtilTest {
 	}
 	
 	@Test
-	public void goToUrlTestAbsoluteUrlFtp() throws Exception {
+	public void goToUrlTestAbsoluteUrlFtp(){
 		mockDocumentGetBody();
 		PowerMockito.mockStatic(GWT.class, Window.Location.class);
 		
@@ -105,7 +105,7 @@ public class JepClientUtilTest {
 	}
 	
 	@Test
-	public void goToUrlTestAbsoluteUrlEmail() throws Exception {
+	public void goToUrlTestAbsoluteUrlEmail(){
 		mockDocumentGetBody();
 		PowerMockito.mockStatic(GWT.class, Window.Location.class);
 		
@@ -114,6 +114,21 @@ public class JepClientUtilTest {
 		
 		thrown.expect(StubException.class);
 		JepClientUtil.goToUrl("mailto:test@example.com");
+	}
+	
+	@Test
+	public void goToUrlTestCyrillicUrl(){
+		mockDocumentGetBody();
+		PowerMockito.mockStatic(Window.Location.class);
+		
+		PowerMockito.doReturn("protocol:").when(Window.Location.class); 
+		Window.Location.getProtocol();
+		
+		PowerMockito.doThrow(new StubException()).when(Window.Location.class);
+		Window.Location.assign("protocol://русскоязычный-урл.рф");
+		
+		thrown.expect(StubException.class);
+		JepClientUtil.goToUrl("//русскоязычный-урл.рф");
 	}
 
 	/**
