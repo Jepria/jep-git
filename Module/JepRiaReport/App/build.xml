@@ -80,14 +80,14 @@
 	</target>
 
 	<target name="jar-update-check" depends="compile-java">
-		<uptodate targetfile="lib/${MODULE_NAME_IN_PACKAGE}.jar" property="jar-is-uptodate">
+		<uptodate targetfile="${DISTR_DIR}/${MODULE_NAME_IN_PACKAGE}-${VERSION}.jar" property="jar-is-uptodate">
 			<srcfiles refid="class-jar" />
 			<srcfiles refid="src-jar" />
 		</uptodate>
 	</target>
         
 	<target name="jar" depends="jar-update-check" unless="jar-is-uptodate">
-		<jar destfile="lib/${MODULE_NAME_IN_PACKAGE}.jar">
+		<jar destfile="${DISTR_DIR}/${MODULE_NAME_IN_PACKAGE}-${VERSION}.jar">
 			<fileset refid="class-jar" />
 			<fileset refid="src-jar" />
 			<fileset refid="font-jar" />
@@ -95,13 +95,13 @@
 	</target>
 	
 	<target name="ejb-jar-update-check" depends="compile-java">
-		<uptodate targetfile="lib/${MODULE_NAME_IN_PACKAGE}-ejb.jar" property="ejb-jar-is-uptodate">
+		<uptodate targetfile="${DISTR_DIR}/${MODULE_NAME_IN_PACKAGE}-ejb-${VERSION}.jar" property="ejb-jar-is-uptodate">
 			<srcfiles dir="build" includes="**/*Bean*.class" />
 		</uptodate>
 	</target>
         
 	<target name="ejb-jar" depends="ejb-jar-update-check" unless="ejb-jar-is-uptodate">
-		<jar destfile="lib/${MODULE_NAME_IN_PACKAGE}-ejb.jar" basedir="build" includes="**/*Bean*.class" />
+		<jar destfile="${DISTR_DIR}/${MODULE_NAME_IN_PACKAGE}-ejb-${VERSION}.jar" basedir="build" includes="**/*Bean*.class" />
 	</target>
 	
 	<target name="build" depends="jar, ejb-jar"/>
