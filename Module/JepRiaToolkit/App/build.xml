@@ -42,13 +42,14 @@
 	</target>
 
 	<target name="jar-update-check" depends="compile">
-		<uptodate targetfile="lib/${MODULE_NAME_IN_PACKAGE}.jar" property="jar-is-uptodate">
+		<uptodate targetfile="${DISTR_DIR}/${DISTR_NAME}.jar" property="jar-is-uptodate">
 			<srcfiles refid="class-jar" />
 		</uptodate>
 	</target>
         
 	<target name="jar" depends="jar-update-check" unless="jar-is-uptodate">
-		<jar destfile="lib/${MODULE_NAME_IN_PACKAGE}.jar">
+		<echo message="Distr = ${DISTR_DIR}/${DISTR_NAME}.jar"/>
+		<jar destfile="${DISTR_DIR}/${DISTR_NAME}.jar">
 			<fileset refid="class-jar" />
 			<fileset dir="src" includes="templates/**"/>
 			<fileset dir="src/java" includes="**/ApplicationDefinition.properties"/>
@@ -88,7 +89,7 @@
 
 	<target name="cleanJar">
 		<delete includeemptydirs="true">
-			<fileset dir="lib" includes="${MODULE_NAME_IN_PACKAGE}.jar"/>			
+			<fileset dir="${DISTR_DIR}" includes="${DISTR_NAME}.jar"/>			
 		</delete>
 	</target>
 </project>
