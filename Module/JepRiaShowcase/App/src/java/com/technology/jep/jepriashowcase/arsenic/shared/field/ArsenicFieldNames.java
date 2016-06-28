@@ -19,4 +19,5 @@ public class ArsenicFieldNames extends JepRecordFieldNames {
 	
 	public static final String DETAILFORM_JEP_DUAL_LIST_FIELD = "detailform_jep_dual_list_field";
 	public static final String DETAILFORM_JEP_CHECKBOX_FIELD = "detailform_jep_checkbox_field";
+	public static final String DETAILFORM_JEP_LIST_FIELD = "detailform_jep_list_field";
 }

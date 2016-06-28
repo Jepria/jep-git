@@ -37,7 +37,7 @@ public class JepCheckBoxField extends JepMultiStateField<CheckBox, HTML> {
 	private Element inputCheck;
 	
 	public JepCheckBoxField() {
-		this(null, null);
+		this(null);
 	}
 	
 	public JepCheckBoxField(String fieldLabel) {

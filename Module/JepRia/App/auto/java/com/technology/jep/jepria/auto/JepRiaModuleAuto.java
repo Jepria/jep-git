@@ -116,10 +116,10 @@ public interface JepRiaModuleAuto extends EntranceAuto {
 	/**
 	 * Получение значений правого списка поля JepDualListField
 	 *  
-	 * @param fieldId id JepDualListField'а
+	 * @param jepDualListFieldId id JepDualListField'а
 	 * @return массив имён находящихся в правой части (выбранных) опций.
-	 * Имена в полученном массиве располагаются в порядке их отображения в правой части JepDualList'а,
-	 * поэтому assert в классе *AutoTest необходимо производить по элементам без учета порядка!  
+	 * Имена в полученном массиве располагаются в порядке их отображения в правой части JepDualListField'а,
+	 * поэтому сравнение массивов в классе *AutoTest необходимо производить без учета порядка!  
 	 */
 	String[] getDualListFieldValues(String jepDualListFieldId);
 	
@@ -178,4 +178,22 @@ public interface JepRiaModuleAuto extends EntranceAuto {
 	 * @param checkBoxFieldId id CheckBox-поля
 	 */
 	boolean getCheckBoxFieldValue(String checkBoxFieldId);
+	
+	/**
+	 * Выбор элементов JepListField по заданному Id.
+	 * @param listFieldId id JepList-поля
+	 * @param menuItems массив непустых имён опций, которые следует отметить в списке.
+	 * В случае если в списке отсутствует хотя бы одна из требуемых опций, выбрасывается исключение WrongOptionException.
+	 */
+	void selectListMenuItems(String listFieldId, String menuItems[]);
+	
+	/**
+	 * Получение отмеченных значений списка поля JepListField
+	 *  
+	 * @param jepListFieldId id JepListField'а
+	 * @return массив имён отмеченных (выбранных) опций.
+	 * Имена в полученном массиве располагаются в порядке их отображения в списке JepListField'а,
+	 * поэтому сравнение массивов в классе *AutoTest необходимо производить без учета порядка!  
+	 */
+	String[] getListFieldValues(String jepListFieldId);
 }

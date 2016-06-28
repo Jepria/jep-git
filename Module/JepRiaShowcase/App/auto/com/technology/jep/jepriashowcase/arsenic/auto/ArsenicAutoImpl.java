@@ -1,18 +1,6 @@
 package com.technology.jep.jepriashowcase.arsenic.auto;
 
 import static com.technology.jep.jepriashowcase.arsenic.client.ArsenicAutomationConstant.*;
-import static com.technology.jep.jepriashowcase.arsenic.client.ArsenicAutomationConstant.ARSENIC_JEP_COMBOBOX_FIELD_DURABLE_ID;
-import static com.technology.jep.jepriashowcase.arsenic.client.ArsenicAutomationConstant.ARSENIC_JEP_COMBOBOX_FIELD_NOTLAZY_ID;
-import static com.technology.jep.jepriashowcase.arsenic.client.ArsenicAutomationConstant.ARSENIC_JEP_COMBOBOX_FIELD_RELOADING_ID;
-import static com.technology.jep.jepriashowcase.arsenic.client.ArsenicAutomationConstant.ARSENIC_JEP_COMBOBOX_FIELD_SIMPLE_ID;
-import static com.technology.jep.jepriashowcase.arsenic.client.ArsenicAutomationConstant.ARSENIC_JEP_DATE_FIELD_ID;
-import static com.technology.jep.jepriashowcase.arsenic.client.ArsenicAutomationConstant.ARSENIC_JEP_DUAL_LIST_FIELD_ID;
-import static com.technology.jep.jepriashowcase.arsenic.client.ArsenicAutomationConstant.ARSENIC_JEP_INTEGER_FIELD_ID;
-import static com.technology.jep.jepriashowcase.arsenic.client.ArsenicAutomationConstant.ARSENIC_JEP_LONG_FIELD_ID;
-import static com.technology.jep.jepriashowcase.arsenic.client.ArsenicAutomationConstant.ARSENIC_JEP_MONEY_FIELD_ID;
-import static com.technology.jep.jepriashowcase.arsenic.client.ArsenicAutomationConstant.ARSENIC_JEP_NUMBER_FIELD_ID;
-import static com.technology.jep.jepriashowcase.arsenic.client.ArsenicAutomationConstant.ARSENIC_JEP_TEXT_AREA_FIELD_ID;
-import static com.technology.jep.jepriashowcase.arsenic.client.ArsenicAutomationConstant.ARSENIC_JEP_TEXT_FIELD_ID;
 
 import com.technology.jep.jepria.auto.JepRiaModuleAutoImpl;
 import com.technology.jep.jepriashowcase.auto.JepRiaShowcaseAuto;
@@ -99,6 +87,12 @@ public class ArsenicAutoImpl<A extends JepRiaShowcaseAuto, P extends JepRiaShowc
 		changeCheckBoxFieldValue(ARSENIC_JEP_CHECKBOX_FIELD_ID);
 	}
 	
+	@Override
+	public void setJepListField(String[] value) {
+		selectListMenuItems(ARSENIC_JEP_LIST_FIELD_ID, value);
+	}
+
+	
 	
 	
 	
@@ -171,6 +165,11 @@ public class ArsenicAutoImpl<A extends JepRiaShowcaseAuto, P extends JepRiaShowc
 	@Override
 	public boolean getJepCheckBoxField() {
 		return getCheckBoxFieldValue(ARSENIC_JEP_CHECKBOX_FIELD_ID);
+	}
+
+	@Override
+	public String[] getJepListField() {
+		return getListFieldValues(ARSENIC_JEP_LIST_FIELD_ID);
 	}
 
 }

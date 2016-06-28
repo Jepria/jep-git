@@ -22,6 +22,7 @@ import com.technology.jep.jepria.client.widget.field.multistate.JepComboBoxField
 import com.technology.jep.jepria.client.widget.field.multistate.JepDateField;
 import com.technology.jep.jepria.client.widget.field.multistate.JepDualListField;
 import com.technology.jep.jepria.client.widget.field.multistate.JepIntegerField;
+import com.technology.jep.jepria.client.widget.field.multistate.JepListField;
 import com.technology.jep.jepria.client.widget.field.multistate.JepLongField;
 import com.technology.jep.jepria.client.widget.field.multistate.JepMoneyField;
 import com.technology.jep.jepria.client.widget.field.multistate.JepNumberField;
@@ -93,6 +94,7 @@ public class ArsenicDetailFormViewImpl extends StandardDetailFormViewImpl implem
 			}});
 			
 			put(DETAILFORM_JEP_CHECKBOX_FIELD, new JepCheckBoxField(ARSENIC_JEP_CHECKBOX_FIELD_ID, arsenicText.detail_jepCheckBoxField()));
+			put(DETAILFORM_JEP_LIST_FIELD, new JepListField(ARSENIC_JEP_LIST_FIELD_ID, arsenicText.detail_jepListField()));
 		}};
 	}
 	

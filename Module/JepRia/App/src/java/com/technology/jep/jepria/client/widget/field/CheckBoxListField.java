@@ -2,6 +2,7 @@ package com.technology.jep.jepria.client.widget.field;
 
 import static com.technology.jep.jepria.client.JepRiaClientConstant.JepTexts;
 import static com.technology.jep.jepria.client.JepRiaClientConstant.MAIN_FONT_STYLE;
+import static com.technology.jep.jepria.client.AutomationConstant.*;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -34,6 +35,7 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.MultiSelectionModel;
+import com.technology.jep.jepria.client.AutomationConstant;
 import com.technology.jep.jepria.client.util.JepClientUtil;
 import com.technology.jep.jepria.shared.field.option.JepOption;
  
@@ -62,7 +64,7 @@ public class CheckBoxListField<T extends JepOption> extends Composite implements
 	 */
 	private HorizontalPanel panel;
 	
-	private int inc = 0, fieldId = Random.nextInt();
+	private int fieldId = Random.nextInt();
 	protected DataGrid<T> table;
 	private HasCell<T, String> textCell;
 	private List<T> data = new ArrayList<T>();
@@ -73,14 +75,9 @@ public class CheckBoxListField<T extends JepOption> extends Composite implements
 	private MultiSelectionModel<T> selectionModel = new MultiSelectionModel<T>();
 	
 	/**
-	 * Prefix for checkBox's attribute ID
-	 */
-	private static final String CHECKBOX_PREFIX_ID = "checkbox_";
-	
-	/**
 	 * An html string representation of a checked input box.
 	 */
-	private static final String CHECKBOX_HTML = "<input type=\"checkbox\" tabindex=\"-1\" id=\"{0}\" style='float:left;cursor:pointer;' {1}/>";
+	private static final String CHECKBOX_HTML = "<input type=\"checkbox\" tabindex=\"-1\" id=\"{0}\" optiontext=\"{1}\" style='float:left;cursor:pointer;' {2}/>";
 	
 	/**
 	 * Наименование селектора (класса стилей) компонента, в который помещен чекбокс и текстовый лейбл.
@@ -101,19 +98,32 @@ public class CheckBoxListField<T extends JepOption> extends Composite implements
 	 * Default text layout
 	 */
 	public interface DefaultRenderer extends SafeHtmlTemplates {
-		@Template("<label for='" + CHECKBOX_PREFIX_ID + "{1}' title='{0}' class='item " + MAIN_FONT_STYLE + "'>&nbsp;{0}</label>")
+		@Template("<label for='" + DETAIL_FORM_LIST_ITEM_CHECKBOX_INFIX + "{1}' title='{0}' class='item " + MAIN_FONT_STYLE + "'>&nbsp;{0}</label>")
 			public SafeHtml render(String pName, String index);
+	}
+	
+	/**
+	 * ID объемлющего Jep-поля как Web-элемента.
+	 */
+	private final String fieldIdAsWebEl;
+	
+	@Deprecated
+	public CheckBoxListField() {
+		this("");
 	}
 	
 	/**
 	 * Default constructor. Uses default text cell implementation of this class
 	 */
-	public CheckBoxListField() {
+	public CheckBoxListField(String fieldIdAsWebEl) {
+		this.fieldIdAsWebEl = fieldIdAsWebEl;
+		
 		textCell = new TextCellImpl();
 		
 		// Now create a Table which takes an object i.e BaseDataMode
 		table = new DataGrid<T>();
 		table.addStyleName(LIST_FIELD_COMMON_STYLE);
+		table.getElement().setId(fieldIdAsWebEl);
 		
 		// Create a list of cell. These cells will make up the composite cell
 		// Here I am constructing a composite cell with 2 parts that includes a checkbox.
@@ -381,7 +391,7 @@ public class CheckBoxListField<T extends JepOption> extends Composite implements
 			@Override
 			public void render(Context context, SafeHtml value, SafeHtmlBuilder sb) {
 				if (value == null) return;
-				SafeHtml rendered = cellRenderer.render(value.asString(), fieldId + "_" + inc++);
+				SafeHtml rendered = cellRenderer.render(value.asString(), fieldId + "_???_" + inc++);
 				sb.append(rendered);
 			}
 		};
@@ -401,7 +411,7 @@ public class CheckBoxListField<T extends JepOption> extends Composite implements
 	}
 	
 	/**
-	 * Implementation of Chechbox Cell.
+	 * Implementation of Checkbox Cell.
 	 */
 	class CheckBoxCellImpl extends CheckboxCell {
 		
@@ -421,11 +431,19 @@ public class CheckBoxListField<T extends JepOption> extends Composite implements
 			
 			String checkBoxString;
 			if (value != null && ((viewData != null) ? viewData : value)) {
-				checkBoxString = JepClientUtil.substitute(CHECKBOX_HTML, CHECKBOX_PREFIX_ID + fieldId + "_" + inc++, "checked");
+				checkBoxString = JepClientUtil.substitute(CHECKBOX_HTML, fieldIdAsWebEl + DETAIL_FORM_LIST_ITEM_CHECKBOX_INFIX + ((JepOption)key).getName(), ((JepOption)key).getName(), "checked");
 			} else {
-			checkBoxString = JepClientUtil.substitute(CHECKBOX_HTML, CHECKBOX_PREFIX_ID + fieldId + "_" + inc++, "");
+				checkBoxString = JepClientUtil.substitute(CHECKBOX_HTML, fieldIdAsWebEl + DETAIL_FORM_LIST_ITEM_CHECKBOX_INFIX + ((JepOption)key).getName(), ((JepOption)key).getName(), "");
 			}
 			sb.append(SafeHtmlUtils.fromSafeConstant(checkBoxString));
 		}
+	}
+	
+	/**
+	 * Установка ID внутренних компонентов CheckBoxListField: table-списка как INPUT
+	 * @param fieldIdAsWebEl ID JepListField'а, который берется за основу ID внутренних компонентов
+	 */
+	public void setInnerIds(String fieldIdAsWebEl) {
+		table.getElement().setId(fieldIdAsWebEl + AutomationConstant.FIELD_INPUT_POSTFIX);
 	}
 }

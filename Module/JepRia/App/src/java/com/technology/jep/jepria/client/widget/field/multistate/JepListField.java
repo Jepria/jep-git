@@ -30,24 +30,33 @@ public class JepListField extends JepMultiStateField<CheckBoxListField<JepOption
 	public static final String LIST_FIELD_EMPTYTEXT_STYLE = "jepRia-ListField-emptyText";
 	
 	public JepListField() {
-		this("");
+		this(null);
 	}
 	
 	public JepListField(String fieldLabel){
-		super(fieldLabel);
-		
-		// Установка высоты карты редактирования, по умолчанию видны 5 опций.
-		// Высота каждой опции складывается из обычной высоты и по 1px границы сверху и снизу + 1.5px верхний отступ.
-		setFieldHeight(5 * (FIELD_DEFAULT_HEIGHT + 3.5));
+		this(null, fieldLabel);
 	}
+	
+	public JepListField(String fieldIdAsWebEl, String fieldLabel) {
+        super(fieldIdAsWebEl, fieldLabel);
+        
+        // Установка высоты карты редактирования, по умолчанию видны 5 опций.
+ 		// Высота каждой опции складывается из обычной высоты и по 1px границы сверху и снизу + 1.5px верхний отступ.
+ 		setFieldHeight(5 * (FIELD_DEFAULT_HEIGHT + 3.5));
+    }
 	
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
 	protected void addEditableCard() {
-		editableCard = new CheckBoxListField<JepOption>();
+		editableCard = new CheckBoxListField<JepOption>(fieldIdAsWebEl);
 		editablePanel.add(editableCard);
+	}
+	
+	@Override
+	protected void setInnerIds(String fieldIdAsWebEl) {
+		editableCard.setInnerIds(fieldIdAsWebEl);
 	}
 	
 	/**

@@ -18,4 +18,5 @@ public class ArsenicAutomationConstant {
 	
 	public static final String ARSENIC_JEP_DUAL_LIST_FIELD_ID = "ARSENIC_JEP_DUAL_LIST_FIELD";
 	public static final String ARSENIC_JEP_CHECKBOX_FIELD_ID = "ARSENIC_JEP_CHECKBOX_FIELD";
+	public static final String ARSENIC_JEP_LIST_FIELD_ID = "ARSENIC_JEP_LIST_FIELD";
 }

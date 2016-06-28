@@ -6,6 +6,7 @@ import static com.technology.jep.jepriashowcase.arsenic.shared.field.ArsenicFiel
 import static com.technology.jep.jepriashowcase.arsenic.shared.field.ArsenicFieldNames.DETAILFORM_JEP_COMBOBOX_FIELD_RELOADING;
 import static com.technology.jep.jepriashowcase.arsenic.shared.field.ArsenicFieldNames.DETAILFORM_JEP_COMBOBOX_FIELD_SIMPLE;
 import static com.technology.jep.jepriashowcase.arsenic.shared.field.ArsenicFieldNames.DETAILFORM_JEP_DUAL_LIST_FIELD;
+import static com.technology.jep.jepriashowcase.arsenic.shared.field.ArsenicFieldNames.DETAILFORM_JEP_LIST_FIELD;
 
 import java.util.ArrayList;
 
@@ -21,6 +22,7 @@ import com.technology.jep.jepria.client.widget.event.JepEventType;
 import com.technology.jep.jepria.client.widget.event.JepListener;
 import com.technology.jep.jepria.client.widget.field.multistate.JepComboBoxField;
 import com.technology.jep.jepria.client.widget.field.multistate.JepDualListField;
+import com.technology.jep.jepria.client.widget.field.multistate.JepListField;
 import com.technology.jep.jepria.shared.field.option.JepOption;
 import com.technology.jep.jepriashowcase.arsenic.shared.service.ArsenicServiceAsync;
 
@@ -133,6 +135,18 @@ public class ArsenicDetailFormPresenter<E extends PlainEventBus, S extends Arsen
 			@Override
 			public void onSuccess(Void result) {
 				((JepDualListField)fields.get(DETAILFORM_JEP_DUAL_LIST_FIELD)).setOptions(new ArrayList<JepOption>() {{
+					add(new JepOption("Option1", "1"));
+					add(new JepOption("Option2", "2"));
+					add(new JepOption("Option3", "3"));
+					add(new JepOption("Option4", "4"));
+					add(new JepOption("Option5", "5"));
+					add(new JepOption("Option6", "6"));
+					add(new JepOption("Option7", "7"));
+					add(new JepOption("Option8", "8"));
+					add(new JepOption("Option9", "9"));
+				}});
+				
+				((JepListField)fields.get(DETAILFORM_JEP_LIST_FIELD)).setOptions(new ArrayList<JepOption>() {{
 					add(new JepOption("Option1", "1"));
 					add(new JepOption("Option2", "2"));
 					add(new JepOption("Option3", "3"));

@@ -124,6 +124,15 @@ public interface ArsenicText extends com.google.gwt.i18n.client.Constants {
   String detail_jepIntegerField();
 
   /**
+   * Translated "Простой JepListField".
+   * 
+   * @return translated "Простой JepListField"
+   */
+  @DefaultStringValue("Простой JepListField")
+  @Key("detail.jepListField")
+  String detail_jepListField();
+
+  /**
    * Translated "Простой JepLongField".
    * 
    * @return translated "Простой JepLongField"

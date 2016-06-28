@@ -1,31 +1,13 @@
 package com.technology.jep.jepria.auto;
 
 import static com.technology.jep.jepria.auto.util.WebDriverFactory.getWait;
-import static com.technology.jep.jepria.client.AutomationConstant.ALERT_MESSAGEBOX_ID;
-import static com.technology.jep.jepria.client.AutomationConstant.CONFIRM_MESSAGEBOX_ID;
-import static com.technology.jep.jepria.client.AutomationConstant.CONFIRM_MESSAGE_BOX_YES_BUTTON_ID;
-import static com.technology.jep.jepria.client.AutomationConstant.DETAIL_FORM_COMBOBOX_DROPDOWN_BTN_POSTFIX;
-import static com.technology.jep.jepria.client.AutomationConstant.DETAIL_FORM_COMBOBOX_MENU_ITEM_INFIX;
-import static com.technology.jep.jepria.client.AutomationConstant.DETAIL_FORM_DUALLIST_MENU_ITEM_INFIX;
-import static com.technology.jep.jepria.client.AutomationConstant.DETAIL_FORM_DUALLIST_MOVEALLLEFT_BTN_POSTFIX;
-import static com.technology.jep.jepria.client.AutomationConstant.DETAIL_FORM_DUALLIST_MOVERIGHT_BTN_POSTFIX;
-import static com.technology.jep.jepria.client.AutomationConstant.ERROR_MESSAGEBOX_ID;
-import static com.technology.jep.jepria.client.AutomationConstant.FIELD_INPUT_POSTFIX;
-import static com.technology.jep.jepria.client.AutomationConstant.TOOLBAR_ADD_BUTTON_ID;
-import static com.technology.jep.jepria.client.AutomationConstant.TOOLBAR_DELETE_BUTTON_ID;
-import static com.technology.jep.jepria.client.AutomationConstant.TOOLBAR_EDIT_BUTTON_ID;
-import static com.technology.jep.jepria.client.AutomationConstant.TOOLBAR_FIND_BUTTON_ID;
-import static com.technology.jep.jepria.client.AutomationConstant.TOOLBAR_LIST_BUTTON_ID;
-import static com.technology.jep.jepria.client.AutomationConstant.TOOLBAR_SAVE_BUTTON_ID;
-import static com.technology.jep.jepria.client.AutomationConstant.TOOLBAR_SEARCH_BUTTON_ID;
-import static com.technology.jep.jepria.client.AutomationConstant.TOOLBAR_VIEW_DETAILS_BUTTON_ID;
+import static com.technology.jep.jepria.client.AutomationConstant.*;
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.EDIT;
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.SEARCH;
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.SELECTED;
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.VIEW_DETAILS;
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.VIEW_LIST;
-import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
-import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
+import static org.openqa.selenium.support.ui.ExpectedConditions.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +15,7 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
@@ -52,6 +35,7 @@ import com.technology.jep.jepria.auto.exceptions.WrongOptionException;
 import com.technology.jep.jepria.auto.widget.field.Field;
 import com.technology.jep.jepria.auto.widget.statusbar.StatusBar;
 import com.technology.jep.jepria.auto.widget.statusbar.StatusBarImpl;
+import com.technology.jep.jepria.client.AutomationConstant;
 import com.technology.jep.jepria.client.ui.WorkstateEnum;
 import com.technology.jep.jepria.shared.exceptions.NotImplementedYetException;
 import com.technology.jep.jepria.shared.exceptions.UnsupportedException;
@@ -245,6 +229,7 @@ public class JepRiaModuleAutoImpl<A extends EntranceAppAuto, P extends JepRiaApp
 	    List<WebElement> options = rightListBox.findElements(By.xpath(".//option"));
 	    List<String> res = new ArrayList<String>();
 	    for (WebElement option: options) { 
+	    	//TODO почему здесь идет выбор по тексту?
 	        res.add(option.getAttribute("text"));
 	    }
 	    return res.toArray(new String[res.size()]);
@@ -508,5 +493,48 @@ public class JepRiaModuleAutoImpl<A extends EntranceAppAuto, P extends JepRiaApp
 		
 		WebElement fieldInput = pages.getApplicationPage().getWebDriver().findElement(By.id(checkBoxFieldId + FIELD_INPUT_POSTFIX));
 		return fieldInput.isSelected();
+	}
+
+	@Override
+	public void selectListMenuItems(String listFieldId, String[] menuItems) {
+		pages.getApplicationPage().ensurePageLoaded();
+		
+		// Снимаем все флажки
+		List<WebElement> allItems = pages.getApplicationPage().getWebDriver().
+				findElements(By.xpath("//input[starts-with(@id, '" + 
+						listFieldId+ DETAIL_FORM_LIST_ITEM_CHECKBOX_INFIX + "')]"));
+		for (WebElement option: allItems ) {
+			if (option.isSelected()) {
+				((JavascriptExecutor) pages.getApplicationPage().getWebDriver()).executeScript("arguments[0].click();", option);
+			}
+		}
+		
+		WebElement option;
+		// Последовательно отмечаем все опции из необходимых
+		for (String menuItem: menuItems) {
+			if (!JepRiaUtil.isEmpty(menuItem)) {
+				try {
+					option = pages.getApplicationPage().getWebDriver().findElement(By.id(
+							listFieldId + DETAIL_FORM_LIST_ITEM_CHECKBOX_INFIX + menuItem));
+					((JavascriptExecutor) pages.getApplicationPage().getWebDriver()).executeScript("arguments[0].click();", option);
+				
+				} catch (NoSuchElementException e) {
+					throw new WrongOptionException("Wrong list option: [" + menuItem + "]");
+				}
+			}
+		}
+	}
+
+	@Override
+	public String[] getListFieldValues(String jepListFieldId) {
+		WebElement listBox = pages.getApplicationPage().getWebDriver().findElement(By.id(jepListFieldId + AutomationConstant.FIELD_INPUT_POSTFIX));
+	    List<WebElement> checkboxes = listBox.findElements(By.xpath(".//input"));
+	    List<String> res = new ArrayList<String>();
+	    for (WebElement checkbox: checkboxes) {
+	    	if (checkbox.isSelected()) {
+	    		res.add(checkbox.getAttribute("optiontext"));
+	    	}
+	    }
+	    return res.toArray(new String[res.size()]);
 	}
 }

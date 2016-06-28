@@ -206,9 +206,14 @@ public class AutomationConstant {
 	public static final String DETAIL_FORM_COMBOBOX_DROPDOWN_BTN_POSTFIX = "_DETAIL_FORM_COMBOBOX_SELECT_BTN";
 	
 	/**
-	 * Префикс элементов меню DualListField
+	 * Инфикс элементов меню DualListField
 	 */
 	public static final String DETAIL_FORM_DUALLIST_MENU_ITEM_INFIX = "_DETAIL_FORM_DUALLIST_MENU_ITEM_";
+	
+	/**
+	 * Инфикс элементов меню ListField
+	 */
+	public static final String DETAIL_FORM_LIST_ITEM_CHECKBOX_INFIX = "_DETAIL_FORM_LIST_ITEM_CHECKBOX_";
 	
 	/**
 	 * Идентификаторы кнопок перемещения опций между двумя списками DualListField
