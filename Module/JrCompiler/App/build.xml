@@ -24,7 +24,7 @@
 	</target>
 
 	<target name="jar-update-check" depends="compile">
-		<uptodate targetfile="lib/${MODULE_NAME_IN_PACKAGE}.jar" property="jar-is-uptodate">
+		<uptodate targetfile="${DISTR_DIR}/${MODULE_NAME_IN_PACKAGE}-${VERSION}.jar" property="jar-is-uptodate">
 			<srcfiles refid="class-jar" />
 		</uptodate>
 	</target>
@@ -38,7 +38,7 @@
 	</target>
         
 	<target name="jar" depends="jar-update-check, extract-libs" unless="jar-is-uptodate">
-		<jar  manifest="${RESOURCE_HOME}/META-INF/manifest.mf" destfile="lib/${MODULE_NAME}.jar">
+		<jar  manifest="${RESOURCE_HOME}/META-INF/manifest.mf" destfile="${DISTR_DIR}/${MODULE_NAME}-${VERSION}.jar">
 			<fileset refid="class-jar" />
 		</jar>
 	</target>
@@ -65,7 +65,7 @@
 			<fileset dir="${BUILD_DIR}"/>			
 		</delete>
 		<delete includeemptydirs="true">
-			<fileset dir="lib" includes="${MODULE_NAME_IN_PACKAGE}.jar"/>			
+			<fileset dir="${DISTR_DIR}" includes="${MODULE_NAME_IN_PACKAGE}-${VERSION}.jar"/>			
 		</delete>
 		<delete includeemptydirs="true">
 			<fileset dir="${JAVA_DOC_DIR}"/>
