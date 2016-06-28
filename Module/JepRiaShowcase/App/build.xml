@@ -142,29 +142,23 @@
 		<echo message="Dependency checking..."/>
 		<for list="${pack.list}" param="lib-path">
 			<sequential>
-				<if>
-					<available file="${@{lib-path}}"/>
+				<if> <available file="${@{lib-path}}"/>
 					<then/>
 					<else>
 						<echo>Required library '${@{lib-path}}' is absent</echo>
-						<fail message="Required library '${@{lib-path}}' is absent"/>
+						<property name="DEPENDENCY_ABSENCE" value="true" />
 					</else>
 				</if>
 			</sequential>
 		</for>
+		<if> <equals arg1="${DEPENDENCY_ABSENCE}" arg2="true" />
+			<then>
+				<echo>Dependency checking failed</echo>
+				<fail message="BINARY REPOSITORY PROBABLY SHOULD BE UPDATED"/>
+			</then>
+		</if>
 		<echo message="Dependency checking succeeded"/>
     </target>
-
-	<target name="check-lib">
-		<echo>${lib}</echo>
-		<if>
-			<available file="${lib}"/>
-			<then/>
-			<else>
-				<echo>Required library '${lib}' is absent</echo>
-			</else>
-		</if>
-	</target>
 	
 	<target name="define-toolkit-appinstall">
 		<taskdef name="appInstall" classname="com.technology.jep.jepriatoolkit.version.AppInstallTask" classpath="${JEPRIA-TOOLKIT_LIB}" />
