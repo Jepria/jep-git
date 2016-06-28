@@ -548,7 +548,7 @@
 				<fileset file="${JEPRIA-REPORT_LIB}" />
 				<fileset file="${JAR_TEMP}/${MODULE_NAME_IN_PACKAGE}.war" />
 			</sourcefiles>
-			<targetfiles path="lib/${MODULE_NAME_IN_PACKAGE}.ear" />
+			<targetfiles path="${DISTR_DIR}/${DISTR_NAME}.ear" />
 			<sequential>
 				<mkdir dir="temp-ear" />
 				<copy todir="temp-ear/META-INF">
@@ -580,7 +580,7 @@
 					<fileset file="${SPRING-CORE_LIB}" />
 				</copy>
 			
-				<jar basedir="temp-ear" destfile="lib/${MODULE_NAME_IN_PACKAGE}.ear" />
+				<jar basedir="temp-ear" destfile="${DISTR_DIR}/${DISTR_NAME}.ear" />
 				<delete dir="temp-ear" />
 			</sequential>
 		</outofdate>
@@ -664,7 +664,7 @@
 					<fileset file="${JQUERY-COOKIE_JSLIB}" />
 				</copy>
 				
-				<jar basedir="temp-war" destfile="lib/${MODULE_NAME_IN_PACKAGE}.war" />
+				<jar basedir="temp-war" destfile="${DISTR_DIR}/${DISTR_NAME}.war" />
 				<delete dir="temp-war" />
 			</sequential>
 		</outofdate>
@@ -685,7 +685,7 @@
 					failonerror="${failondeploy}"
 					name="${MODULE_NAME_IN_PACKAGE}"
 					password="${PASSWORD}"
-					source="lib/${MODULE_NAME_IN_PACKAGE}.ear"
+					source="${DISTR_DIR}/${DISTR_NAME}.ear"
 					upload="true"
 					user="${LOGIN}"
 					verbose="true">
@@ -699,7 +699,7 @@
 						<arg value="${PASSWORD}" />
 						<arg value="-deploy" />
 						<arg value="-file" />
-						<arg value="lib/${MODULE_NAME_IN_PACKAGE}.ear" />
+						<arg value="${DISTR_DIR}/${DISTR_NAME}.ear" />
 						<arg value="-deploymentName" />
 						<arg value="${MODULE_NAME_IN_PACKAGE}" />
 						<arg value="-bindAllWebApps" />
@@ -747,7 +747,7 @@
 			<arg value="${PASSWORD}" />
 			<arg value="-deploy" />
 			<arg value="-file" />
-			<arg value="lib/${MODULE_NAME_IN_PACKAGE}.ear" />
+			<arg value="${DISTR_DIR}/${DISTR_NAME}.ear" />
 			<arg value="-deploymentName" />
 			<arg value="${MODULE_NAME_IN_PACKAGE}" />
 			<arg value="-bindAllWebApps" />
@@ -772,7 +772,7 @@
 					failonerror="true"
 					name="${MODULE_NAME_IN_PACKAGE}"
 					password="${PASSWORD}"
-					source="lib/${MODULE_NAME_IN_PACKAGE}.ear"
+					source="${DISTR_DIR}/${DISTR_NAME}.ear"
 					upload="true"
 					user="${LOGIN}"
 					verbose="true"
@@ -810,7 +810,7 @@
 	<!-- TODO Нужен рефакторинг по устранению дублирования кода deploy и build-and-deploy -->
 	<target name="tomcat.deploy" description="Deploy to Tomcat" depends="init, define-tomcat, tomcat.undeploy">
 		
-		<echo message="Deploying lib/${MODULE_NAME_IN_PACKAGE}.war to:${DEPLOYMENT_PATH}"/>
+		<echo message="Deploying ${DISTR_DIR}/${DISTR_NAME}.war to:${DEPLOYMENT_PATH}"/>
 		<echo message="Deploy to Tomcat..." />
 		<echo message="LOGIN: ${LOGIN}" />
 		<echo message="PASSWORD: ${PASSWORD}" />
@@ -820,7 +820,7 @@
 			username="${LOGIN}"
 			password="${PASSWORD}"
 			path="/${MODULE_NAME}"
-			war="file:lib/${MODULE_NAME_IN_PACKAGE}.war"
+			war="file:${DISTR_DIR}/${DISTR_NAME}.war"
 			update="true"
 		/>
 	</target>
@@ -864,7 +864,8 @@
 			<fileset dir="temp-ear" />
 		</delete>
 		
-		<delete file="lib/${MODULE_NAME_IN_PACKAGE}.war"/>
+		<delete file="${DISTR_DIR}/${DISTR_NAME}.war"/>
+		<delete file="${DISTR_DIR}/${DISTR_NAME}.ear"/>
 		
 		<antcall target="for-each-client-module">
 			<param name="action" value="client-module-clean" />
