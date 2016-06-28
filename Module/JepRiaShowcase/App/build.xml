@@ -153,7 +153,8 @@
 		</for>
 		<if> <equals arg1="${DEPENDENCY_ABSENCE}" arg2="true" />
 			<then>
-				<fail message="Dependency checking failed"/>
+				<echo>Dependency checking failed</echo>
+				<fail message="BINARY REPOSITORY PROBABLY SHOULD BE UPDATED"/>
 			</then>
 		</if>
 		<echo message="Dependency checking succeeded"/>
