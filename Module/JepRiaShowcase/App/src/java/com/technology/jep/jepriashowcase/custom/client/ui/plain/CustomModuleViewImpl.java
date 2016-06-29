@@ -14,6 +14,7 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.FocusEvent;
 import com.google.gwt.event.dom.client.FocusHandler;
+import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.*;
 import com.technology.jep.jepria.client.ui.plain.PlainModuleViewImpl;
@@ -41,7 +42,7 @@ public class CustomModuleViewImpl extends PlainModuleViewImpl implements CustomM
 	
 	private final static String LAYER_ID = DOM.createUniqueId();
 	
-	public Button button = new Button("Транзакция");
+	private Button transactionButton = new Button("Транзакция");
 	
 	public CustomModuleViewImpl() {
 		
@@ -77,7 +78,7 @@ public class CustomModuleViewImpl extends PlainModuleViewImpl implements CustomM
 				JRSCCustomAutomationConstant.JRSC_MAINPAGE_CURRENT_USER_BUTTON_ID);
 		
 		add(currentUserButton, CURRENT_USER_ELEMENT);
-		add(button, CURRENT_USER_ELEMENT);
+		add(transactionButton, CURRENT_USER_ELEMENT);
 
 		searchButton = new IdentifiedButton(
 				customText.custom_searchButton(),
@@ -145,6 +146,11 @@ public class CustomModuleViewImpl extends PlainModuleViewImpl implements CustomM
 	@Override
 	public void addExitButtonClickHandler(ClickHandler clickHandler) {
 		exitButton.addClickHandler(clickHandler);
+	}
+
+	@Override
+	public HandlerRegistration addTransactionButtonClickHandler(ClickHandler clickHandler) {
+		return transactionButton.addClickHandler(clickHandler);
 	}
 	
 	@Override

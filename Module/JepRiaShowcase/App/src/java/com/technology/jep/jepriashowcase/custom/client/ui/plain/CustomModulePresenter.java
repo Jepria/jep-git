@@ -208,7 +208,7 @@ public class CustomModulePresenter<V extends CustomModuleView, E extends PlainEv
 			}
 		});
 		
-		((CustomModuleViewImpl)view).button.addClickHandler(new ClickHandler() {			
+		view.addTransactionButtonClickHandler(new ClickHandler() {			
 			@Override
 			public void onClick(ClickEvent event) {
 				service.transaction(new JepAsyncCallback<Void>(){

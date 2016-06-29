@@ -1,6 +1,7 @@
 package com.technology.jep.jepriashowcase.custom.client.ui.plain;
 
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.shared.HandlerRegistration;
 import com.technology.jep.jepria.client.ui.plain.PlainModuleView;
 
 public interface CustomModuleView extends PlainModuleView {
@@ -34,4 +35,6 @@ public interface CustomModuleView extends PlainModuleView {
 	void clearCredential();
 	
 	void addCurrentUserClickHandler(ClickHandler clickHandler);
+	
+	HandlerRegistration addTransactionButtonClickHandler(ClickHandler clickHandler);
 }
