@@ -1,6 +1,6 @@
 package com.technology.jep.jepriashowcase.arsenic.client.ui.form.detail;
  
-import static com.technology.jep.jepriashowcase.arsenic.shared.field.ArsenicFieldNames.DETAILFORM_JEP_COMBOBOX_FIELD_3CH_RELOADING;
+import static com.technology.jep.jepriashowcase.arsenic.shared.field.ArsenicFieldNames.*;
 import static com.technology.jep.jepriashowcase.arsenic.shared.field.ArsenicFieldNames.DETAILFORM_JEP_COMBOBOX_FIELD_DURABLE;
 import static com.technology.jep.jepriashowcase.arsenic.shared.field.ArsenicFieldNames.DETAILFORM_JEP_COMBOBOX_FIELD_NOTLAZY;
 import static com.technology.jep.jepriashowcase.arsenic.shared.field.ArsenicFieldNames.DETAILFORM_JEP_COMBOBOX_FIELD_RELOADING;
@@ -147,6 +147,18 @@ public class ArsenicDetailFormPresenter<E extends PlainEventBus, S extends Arsen
 				}});
 				
 				((JepListField)fields.get(DETAILFORM_JEP_LIST_FIELD)).setOptions(new ArrayList<JepOption>() {{
+					add(new JepOption("Option1", "1"));
+					add(new JepOption("Option2", "2"));
+					add(new JepOption("Option3", "3"));
+					add(new JepOption("Option4", "4"));
+					add(new JepOption("Option5", "5"));
+					add(new JepOption("Option6", "6"));
+					add(new JepOption("Option7", "7"));
+					add(new JepOption("Option8", "8"));
+					add(new JepOption("Option9", "9"));
+				}});
+				
+				((JepListField)fields.get(DETAILFORM_JEP_LIST_FIELD_CHECKALL)).setOptions(new ArrayList<JepOption>() {{
 					add(new JepOption("Option1", "1"));
 					add(new JepOption("Option2", "2"));
 					add(new JepOption("Option3", "3"));

@@ -211,17 +211,23 @@ public class AutomationConstant {
 	public static final String DETAIL_FORM_DUALLIST_MENU_ITEM_INFIX = "_DETAIL_FORM_DUALLIST_MENU_ITEM_";
 	
 	/**
-	 * Инфикс элементов меню ListField
-	 */
-	public static final String DETAIL_FORM_LIST_ITEM_CHECKBOX_INFIX = "_DETAIL_FORM_LIST_ITEM_CHECKBOX_";
-	
-	/**
-	 * Идентификаторы кнопок перемещения опций между двумя списками DualListField
+	 * Постфикс-идентификаторы кнопок перемещения опций между двумя списками DualListField
 	 */
 	public static final String DETAIL_FORM_DUALLIST_MOVERIGHT_BTN_POSTFIX = "_DETAIL_FORM_DUALLIST_MOVERIGHT_BTN";
 	public static final String DETAIL_FORM_DUALLIST_MOVELEFT_BTN_POSTFIX = "_DETAIL_FORM_DUALLIST_MOVELEFT_BTN";
 	public static final String DETAIL_FORM_DUALLIST_MOVEALLRIGHT_BTN_POSTFIX = "_DETAIL_FORM_DUALLIST_MOVEALLRIGHT_BTN";
 	public static final String DETAIL_FORM_DUALLIST_MOVEALLLEFT_BTN_POSTFIX = "_DETAIL_FORM_DUALLIST_MOVEALLLEFT_BTN";
+	
+	/**
+	 * Инфикс элементов списка поля JepListField
+	 */
+	public static final String DETAIL_FORM_LIST_ITEM_CHECKBOX_INFIX = "_DETAIL_FORM_LIST_ITEM_CHECKBOX_";
+	
+	/**
+	 * Постфикс-идентификатор флажка "Выделить все" поля JepListField
+	 */
+	public static final String DETAIL_FORM_LIST_CHECKALL_POSTFIX = "_DETAIL_FORM_LIST_CHECKALL";
+	
 	
 	/**
 	 * ID первой строки списка списочной формы

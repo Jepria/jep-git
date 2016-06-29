@@ -188,6 +188,13 @@ public interface JepRiaModuleAuto extends EntranceAuto {
 	void selectListMenuItems(String listFieldId, String menuItems[]);
 	
 	/**
+	 * Выбор всех элементов JepListField по заданному Id.
+	 * @param listFieldId id JepList-поля
+	 * @param selectAll true для выбора всех элементов, false для снятия всех флажков.
+	 */
+	void selectAllListMenuItems(String listFieldId, boolean selectAll);
+	
+	/**
 	 * Получение отмеченных значений списка поля JepListField
 	 *  
 	 * @param jepListFieldId id JepListField'а

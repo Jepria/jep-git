@@ -1,13 +1,33 @@
 package com.technology.jep.jepria.auto;
 
 import static com.technology.jep.jepria.auto.util.WebDriverFactory.getWait;
-import static com.technology.jep.jepria.client.AutomationConstant.*;
+import static com.technology.jep.jepria.client.AutomationConstant.ALERT_MESSAGEBOX_ID;
+import static com.technology.jep.jepria.client.AutomationConstant.CONFIRM_MESSAGEBOX_ID;
+import static com.technology.jep.jepria.client.AutomationConstant.CONFIRM_MESSAGE_BOX_YES_BUTTON_ID;
+import static com.technology.jep.jepria.client.AutomationConstant.DETAIL_FORM_COMBOBOX_DROPDOWN_BTN_POSTFIX;
+import static com.technology.jep.jepria.client.AutomationConstant.DETAIL_FORM_COMBOBOX_MENU_ITEM_INFIX;
+import static com.technology.jep.jepria.client.AutomationConstant.DETAIL_FORM_DUALLIST_MENU_ITEM_INFIX;
+import static com.technology.jep.jepria.client.AutomationConstant.DETAIL_FORM_DUALLIST_MOVEALLLEFT_BTN_POSTFIX;
+import static com.technology.jep.jepria.client.AutomationConstant.DETAIL_FORM_DUALLIST_MOVERIGHT_BTN_POSTFIX;
+import static com.technology.jep.jepria.client.AutomationConstant.DETAIL_FORM_LIST_CHECKALL_POSTFIX;
+import static com.technology.jep.jepria.client.AutomationConstant.DETAIL_FORM_LIST_ITEM_CHECKBOX_INFIX;
+import static com.technology.jep.jepria.client.AutomationConstant.ERROR_MESSAGEBOX_ID;
+import static com.technology.jep.jepria.client.AutomationConstant.FIELD_INPUT_POSTFIX;
+import static com.technology.jep.jepria.client.AutomationConstant.TOOLBAR_ADD_BUTTON_ID;
+import static com.technology.jep.jepria.client.AutomationConstant.TOOLBAR_DELETE_BUTTON_ID;
+import static com.technology.jep.jepria.client.AutomationConstant.TOOLBAR_EDIT_BUTTON_ID;
+import static com.technology.jep.jepria.client.AutomationConstant.TOOLBAR_FIND_BUTTON_ID;
+import static com.technology.jep.jepria.client.AutomationConstant.TOOLBAR_LIST_BUTTON_ID;
+import static com.technology.jep.jepria.client.AutomationConstant.TOOLBAR_SAVE_BUTTON_ID;
+import static com.technology.jep.jepria.client.AutomationConstant.TOOLBAR_SEARCH_BUTTON_ID;
+import static com.technology.jep.jepria.client.AutomationConstant.TOOLBAR_VIEW_DETAILS_BUTTON_ID;
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.EDIT;
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.SEARCH;
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.SELECTED;
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.VIEW_DETAILS;
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.VIEW_LIST;
-import static org.openqa.selenium.support.ui.ExpectedConditions.*;
+import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
+import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -230,7 +250,7 @@ public class JepRiaModuleAutoImpl<A extends EntranceAppAuto, P extends JepRiaApp
 	    List<String> res = new ArrayList<String>();
 	    for (WebElement option: options) { 
 	    	//TODO почему здесь идет выбор по тексту?
-	        res.add(option.getAttribute("text"));
+	        res.add(option.getText());
 	    }
 	    return res.toArray(new String[res.size()]);
 	}
@@ -496,26 +516,66 @@ public class JepRiaModuleAutoImpl<A extends EntranceAppAuto, P extends JepRiaApp
 	}
 
 	@Override
+	public void selectAllListMenuItems(String listFieldId, boolean selectAll) {
+		pages.getApplicationPage().ensurePageLoaded();
+		
+		// Cначала пробуем сделать это кнопкой "выделить все"
+		try {
+			WebElement selectAllCheckBox = pages.getApplicationPage().getWebDriver().
+					findElement(By.id(listFieldId + DETAIL_FORM_LIST_CHECKALL_POSTFIX));
+			
+			// Кнопка "выделить все" найдена.
+			
+			if (selectAllCheckBox.isSelected()) {
+				if (!selectAll) {
+					getWait().until(elementToBeClickable(selectAllCheckBox));
+					selectAllCheckBox.click();
+				}
+			} else {
+				// устанавливаем флажок
+				getWait().until(elementToBeClickable(selectAllCheckBox));
+				selectAllCheckBox.click();
+				
+				if (!selectAll) {
+					// далее при необходимости его снимаем
+					getWait().until(elementToBeClickable(selectAllCheckBox));
+					selectAllCheckBox.click();
+				}
+			}
+			
+		} catch (NoSuchElementException e) {
+			// Кнопка "выделить все" не найдена, значит, нужно снимать выделение с каждого элемента.
+			
+			// Получаем список всех чекбоксов внутри INPUT'а заданного поля 
+			WebElement listBox = pages.getApplicationPage().getWebDriver().findElement(By.id(listFieldId + AutomationConstant.FIELD_INPUT_POSTFIX));
+			List<WebElement> allCheckBoxes = listBox.findElements(By.xpath(
+					".//*[starts-with(@id, '" + listFieldId+DETAIL_FORM_LIST_ITEM_CHECKBOX_INFIX + "')]"));
+			// Кликаем на необходимые
+			for (WebElement option: allCheckBoxes ) {
+				if (option.isSelected() && !selectAll || !option.isSelected() && selectAll) {
+					((JavascriptExecutor) pages.getApplicationPage().getWebDriver()).executeScript("arguments[0].click();", option);
+				}
+			}
+		}
+	}
+	
+	@Override
 	public void selectListMenuItems(String listFieldId, String[] menuItems) {
 		pages.getApplicationPage().ensurePageLoaded();
 		
 		// Снимаем все флажки
-		List<WebElement> allItems = pages.getApplicationPage().getWebDriver().
-				findElements(By.xpath("//input[starts-with(@id, '" + 
-						listFieldId+ DETAIL_FORM_LIST_ITEM_CHECKBOX_INFIX + "')]"));
-		for (WebElement option: allItems ) {
-			if (option.isSelected()) {
-				((JavascriptExecutor) pages.getApplicationPage().getWebDriver()).executeScript("arguments[0].click();", option);
-			}
-		}
+		selectAllListMenuItems(listFieldId, false);
+		
 		
 		WebElement option;
+		WebElement listBox = pages.getApplicationPage().getWebDriver().findElement(By.id(listFieldId + AutomationConstant.FIELD_INPUT_POSTFIX));
 		// Последовательно отмечаем все опции из необходимых
 		for (String menuItem: menuItems) {
 			if (!JepRiaUtil.isEmpty(menuItem)) {
 				try {
-					option = pages.getApplicationPage().getWebDriver().findElement(By.id(
-							listFieldId + DETAIL_FORM_LIST_ITEM_CHECKBOX_INFIX + menuItem));
+					// Ищем чекбокс с соответствующим искомому значению value.
+					option = listBox.findElement(By.xpath(
+							".//*[starts-with(@id, '" + listFieldId+DETAIL_FORM_LIST_ITEM_CHECKBOX_INFIX + "') and @value='" + menuItem + "']"));
 					((JavascriptExecutor) pages.getApplicationPage().getWebDriver()).executeScript("arguments[0].click();", option);
 				
 				} catch (NoSuchElementException e) {
@@ -527,14 +587,20 @@ public class JepRiaModuleAutoImpl<A extends EntranceAppAuto, P extends JepRiaApp
 
 	@Override
 	public String[] getListFieldValues(String jepListFieldId) {
+		// Получаем список всех чекбоксов внутри INPUT'а заданного поля 
 		WebElement listBox = pages.getApplicationPage().getWebDriver().findElement(By.id(jepListFieldId + AutomationConstant.FIELD_INPUT_POSTFIX));
-	    List<WebElement> checkboxes = listBox.findElements(By.xpath(".//input"));
-	    List<String> res = new ArrayList<String>();
-	    for (WebElement checkbox: checkboxes) {
+	    List<WebElement> allCheckBoxes = listBox.findElements(By.xpath(
+	    		".//*[starts-with(@id, '" + jepListFieldId+DETAIL_FORM_LIST_ITEM_CHECKBOX_INFIX + "')]"));
+	    
+	    List<String> ret = new ArrayList<String>();
+	    
+	    // Проходим по полученному списку, и, для отмеченных чекбоксов, получаем их value
+	    for (WebElement checkbox: allCheckBoxes) {
 	    	if (checkbox.isSelected()) {
-	    		res.add(checkbox.getAttribute("optiontext"));
+	    		ret.add(checkbox.getAttribute("value"));
 	    	}
 	    }
-	    return res.toArray(new String[res.size()]);
+	    return ret.toArray(new String[ret.size()]);
 	}
+
 }

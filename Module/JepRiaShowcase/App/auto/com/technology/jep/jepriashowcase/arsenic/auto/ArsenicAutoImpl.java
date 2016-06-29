@@ -91,6 +91,11 @@ public class ArsenicAutoImpl<A extends JepRiaShowcaseAuto, P extends JepRiaShowc
 	public void setJepListField(String[] value) {
 		selectListMenuItems(ARSENIC_JEP_LIST_FIELD_ID, value);
 	}
+	
+	@Override
+	public void setJepListFieldCheckAll(String[] value) {
+		selectListMenuItems(ARSENIC_JEP_LIST_FIELD_CHECKALL_ID, value);
+	}
 
 	
 	
@@ -170,6 +175,11 @@ public class ArsenicAutoImpl<A extends JepRiaShowcaseAuto, P extends JepRiaShowc
 	@Override
 	public String[] getJepListField() {
 		return getListFieldValues(ARSENIC_JEP_LIST_FIELD_ID);
+	}
+	
+	@Override
+	public String[] getJepListFieldCheckAll() {
+		return getListFieldValues(ARSENIC_JEP_LIST_FIELD_CHECKALL_ID);
 	}
 
 }

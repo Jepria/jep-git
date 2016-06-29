@@ -95,6 +95,9 @@ public class ArsenicDetailFormViewImpl extends StandardDetailFormViewImpl implem
 			
 			put(DETAILFORM_JEP_CHECKBOX_FIELD, new JepCheckBoxField(ARSENIC_JEP_CHECKBOX_FIELD_ID, arsenicText.detail_jepCheckBoxField()));
 			put(DETAILFORM_JEP_LIST_FIELD, new JepListField(ARSENIC_JEP_LIST_FIELD_ID, arsenicText.detail_jepListField()));
+			put(DETAILFORM_JEP_LIST_FIELD_CHECKALL, new JepListField(ARSENIC_JEP_LIST_FIELD_CHECKALL_ID, arsenicText.detail_jepListField_checkAll()) {{
+				setSelectAllCheckBoxVisible(true);
+			}});
 		}};
 	}
 	

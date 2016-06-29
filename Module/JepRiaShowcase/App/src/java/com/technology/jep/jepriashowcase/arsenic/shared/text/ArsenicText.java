@@ -133,6 +133,15 @@ public interface ArsenicText extends com.google.gwt.i18n.client.Constants {
   String detail_jepListField();
 
   /**
+   * Translated "JepListField с функцией полного выбора".
+   * 
+   * @return translated "JepListField с функцией полного выбора"
+   */
+  @DefaultStringValue("JepListField с функцией полного выбора")
+  @Key("detail.jepListField_checkAll")
+  String detail_jepListField_checkAll();
+
+  /**
    * Translated "Простой JepLongField".
    * 
    * @return translated "Простой JepLongField"

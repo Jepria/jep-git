@@ -187,6 +187,22 @@ public class ArsenicAutoTest extends JepAutoTest<ArsenicAuto> {
 		assertArrayEquals(values, actualValues);
 	}
 	
+	@DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/arsenic/auto/field.jepDualListField.data")
+	@Test(groups="setAndGetTextField", dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
+	public void setAndGetJepListFieldCheckAll(String value) {
+		cut.setWorkstate(SEARCH);
+		String[] values = value.split(";");
+		cut.setJepListFieldCheckAll(values);
+		
+		// Поскольку getJepListField возвращает опции в порядке, определяемом самим полем JepListField,
+		// то следует производить сравнение без учета порядка.
+		String[] actualValues = cut.getJepListFieldCheckAll();
+		assertEquals(values.length, actualValues.length);
+		Arrays.sort(values);
+		Arrays.sort(actualValues);
+		assertArrayEquals(values, actualValues);
+	}
+	
 	@Override
 	protected void createTestRecord(String keyFieldValue) {
 		//TODO

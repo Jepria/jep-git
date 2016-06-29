@@ -10,7 +10,6 @@ import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.user.client.ui.HTML;
-import com.technology.jep.jepria.client.ui.WorkstateEnum;
 import com.technology.jep.jepria.client.widget.event.JepEvent;
 import com.technology.jep.jepria.client.widget.event.JepEventType;
 import com.technology.jep.jepria.client.widget.event.JepListener;
@@ -54,7 +53,6 @@ public class JepListField extends JepMultiStateField<CheckBoxListField<JepOption
 		editablePanel.add(editableCard);
 	}
 	
-	@Override
 	protected void setInnerIds(String fieldIdAsWebEl) {
 		editableCard.setInnerIds(fieldIdAsWebEl);
 	}
