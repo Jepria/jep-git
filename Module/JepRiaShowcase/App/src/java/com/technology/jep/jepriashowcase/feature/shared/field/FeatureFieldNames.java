@@ -11,5 +11,4 @@ public class FeatureFieldNames extends JepRecordFieldNames {
 	public static final String DATE_INS = "date_ins";
 	public static final String OPERATOR_NAME = "operator_name";
 	public static final String DESCRIPTION = "description";
-	public static final String MAX_ROW_COUNT = "max_row_count";
 }
