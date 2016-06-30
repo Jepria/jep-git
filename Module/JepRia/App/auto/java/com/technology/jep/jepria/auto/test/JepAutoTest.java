@@ -215,4 +215,8 @@ public abstract class JepAutoTest<C extends JepRiaModuleAuto> extends AssertJUni
 		
 		return automationManager;
 	}
+	
+	protected void setWorkstate(WorkstateEnum workstate) {
+		cut.setWorkstate(workstate);
+	}
 }
