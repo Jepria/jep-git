@@ -5,7 +5,7 @@ import static com.technology.jep.jepria.client.AutomationConstant.ALERT_MESSAGEB
 import static com.technology.jep.jepria.client.AutomationConstant.CONFIRM_MESSAGEBOX_ID;
 import static com.technology.jep.jepria.client.AutomationConstant.CONFIRM_MESSAGE_BOX_YES_BUTTON_ID;
 import static com.technology.jep.jepria.client.AutomationConstant.DETAIL_FORM_COMBOBOX_DROPDOWN_BTN_POSTFIX;
-import static com.technology.jep.jepria.client.AutomationConstant.DETAIL_FORM_COMBOBOX_MENU_ITEM_INFIX;
+import static com.technology.jep.jepria.client.AutomationConstant.*;
 import static com.technology.jep.jepria.client.AutomationConstant.DETAIL_FORM_DUALLIST_MENU_ITEM_INFIX;
 import static com.technology.jep.jepria.client.AutomationConstant.DETAIL_FORM_DUALLIST_MOVEALLLEFT_BTN_POSTFIX;
 import static com.technology.jep.jepria.client.AutomationConstant.DETAIL_FORM_DUALLIST_MOVERIGHT_BTN_POSTFIX;
@@ -70,12 +70,6 @@ public class JepRiaModuleAutoImpl<A extends EntranceAppAuto, P extends JepRiaApp
 	private WorkstateEnum currentWorkstate;
 	private StatusBar statusBar;
 	
-	/**
-	 * XPath-путь, определяющий (глобально!) активный выпадающий список ComboBox-поля
-	 * (предполагается, что только один выпадающий список может быть активен одновременно).
-	 */
-	private static final String COMBOBOX_SUGGESTBOX_POPUP_XPATH = "//div[@class='gwt-SuggestBoxPopup']";//TODO данный файл - не лучшее место для этой константы...
-
 	public JepRiaModuleAutoImpl(A app, P pageManager) {
 		super(app, pageManager);
 	}
@@ -244,33 +238,36 @@ public class JepRiaModuleAutoImpl<A extends EntranceAppAuto, P extends JepRiaApp
 	
 	@Override
 	public String[] getDualListFieldValues(String jepDualListFieldId) {
+		// Получаем список всех опций внутри INPUT'а заданного поля (INPUT это правый список)
 		WebElement rightListBox = pages.getApplicationPage().getWebDriver().findElement(By.id(jepDualListFieldId + FIELD_INPUT_POSTFIX));
 	    rightListBox.click();
 	    List<WebElement> options = rightListBox.findElements(By.xpath(".//option"));
-	    List<String> res = new ArrayList<String>();
+	    
+	    List<String> ret = new ArrayList<String>();
+	    
+	    // Проходим по полученному списку, и, для каждой опции, получаем ее option-value
 	    for (WebElement option: options) { 
-	    	//TODO почему здесь идет выбор по тексту?
-	        res.add(option.getText());
+	        ret.add(option.getAttribute(OPTION_VALUE_HTML_ATTR));
 	    }
-	    return res.toArray(new String[res.size()]);
+	    return ret.toArray(new String[ret.size()]);
 	}
 	
 	@Override
-	public void selectComboBoxMenuItem(String comboBoxFieldId, String menuItemText) {
+	public void selectComboBoxMenuItem(String comboBoxFieldId, String menuItem) {
 		// FIXME А что если опции комбо-бокса загружаются не лениво, а не лениво? То есть возможно, тестирование комбо-бокса начнется
 		// до того (например, если оно стоит первым в сценарии), как успеют загрузиться опции... Ведь в этом методе завязка идет на то,
 		// что опции грузятся лениво.
-		selectComboBoxMenuItem(comboBoxFieldId, menuItemText, false, menuItemText.length());
+		selectComboBoxMenuItem(comboBoxFieldId, menuItem, false, menuItem.length());
 	}
 	
 	@Override
-	public void selectComboBoxMenuItemWithCharByCharReloadingOptions(String comboBoxFieldId, String menuItemText, int minInputLength) {
+	public void selectComboBoxMenuItemWithCharByCharReloadingOptions(String comboBoxFieldId, String menuItem, int minInputLength) {
 		// 1 is the minimal possible value
-		selectComboBoxMenuItem(comboBoxFieldId, menuItemText, true, Math.max(1, minInputLength));
+		selectComboBoxMenuItem(comboBoxFieldId, menuItem, true, Math.max(1, minInputLength));
 	}
 	
 	//TODO унифицировать простые и сложные поля через get/set-FieldValue() - Нужна иерархия полей ! 
-	private void selectComboBoxMenuItem(String comboBoxFieldId, String menuItemText,
+	private void selectComboBoxMenuItem(String comboBoxFieldId, String menuItem,
 			final boolean charByCharReloadingOptions, final int minInputLength) { // TODO Поддержать локализацию
 		pages.getApplicationPage().ensurePageLoaded();
 		
@@ -281,7 +278,9 @@ public class JepRiaModuleAutoImpl<A extends EntranceAppAuto, P extends JepRiaApp
 		dropDownButton.click();
 		
 		// Отслеживаем появление suggestBoxPopup, то есть когда список опций загрузится.
-		getWait().until(presenceOfElementLocated(By.xpath(COMBOBOX_SUGGESTBOX_POPUP_XPATH)));
+		final By comboBoxPopupPanelBy = By.id(comboBoxFieldId + DETAIL_FORM_COMBOBOX_POPUP_POSTFIX);
+		getWait().until(presenceOfElementLocated(comboBoxPopupPanelBy));
+		
 		
 		// Непосредственно поиск и выбор элемента в списке.
 		// Очистим поле ввода.
@@ -290,53 +289,58 @@ public class JepRiaModuleAutoImpl<A extends EntranceAppAuto, P extends JepRiaApp
 		String del = Keys.chord(Keys.CONTROL, "a") + Keys.DELETE; 
 		fieldInput.sendKeys(del);
 		
-		WebElement comboBoxMenuItem;
-		
 		// Если menuItemText короче firstInputLength, сообщаем об ошибке
-		if (minInputLength > menuItemText.length()) {
+		if (minInputLength > menuItem.length()) {
 			// Закроем открытый список опций.
 			dropDownButton.click();
 			
-			throw new WrongOptionException("Wrong combobox option: [" + menuItemText + "], "
+			throw new WrongOptionException("Wrong combobox option: [" + menuItem + "], "
 					+ "the input must be at least " + minInputLength + " chars.");
 		}
 		// Пишем в поле Комбо-бокса начальные символы (в случае с простой однократной загрузкой списка опций - весь текст сразу).
-		fieldInput.sendKeys(menuItemText.substring(0, minInputLength));
+		fieldInput.sendKeys(menuItem.substring(0, minInputLength));
 		
 		if (charByCharReloadingOptions) {
 			// Закроем открытый список опций.
 			dropDownButton.click();
 			
 			// Отслеживаем появление suggestBoxPopup, то есть когда список опций загрузится.
-			getWait().until(presenceOfElementLocated(By.xpath(COMBOBOX_SUGGESTBOX_POPUP_XPATH)));
+			getWait().until(presenceOfElementLocated(comboBoxPopupPanelBy));
 		}
 		
 		int ind = minInputLength;
+		WebElement comboBoxMenuItem;
+		 
 		// Продолжаем набирать оставшийся текст по одной букве, ожидая подгрузки списка, до тех пор пока либо не закончатся буквы,
 		// либо опция не будет найдена в списке (в случае с простой однократной загрузкой списка опций - выход из цикла происходит сразу).
 		while (true) {
 			try {
-				
-				comboBoxMenuItem = pages.getApplicationPage().getWebDriver().findElement(By.id(comboBoxFieldId + DETAIL_FORM_COMBOBOX_MENU_ITEM_INFIX + menuItemText));
+				// Важно! лоцировать comboBoxPopupPanel нужно именно в каждой итерации цикла, несмотря на то, что элемент вроде не изменяется внутри цикла.
+				WebElement comboBoxPopupPanel = pages.getApplicationPage().getWebDriver().findElement(By.id(comboBoxFieldId + DETAIL_FORM_COMBOBOX_POPUP_POSTFIX));
+				comboBoxMenuItem = comboBoxPopupPanel.findElement(By.xpath(
+						String.format(".//*[starts-with(@id, '%s') and @%s='%s']",
+								comboBoxFieldId + AutomationConstant.DETAIL_FORM_COMBOBOX_MENU_ITEM_INFIX,
+								OPTION_VALUE_HTML_ATTR,
+								menuItem)));
 				// Исключения не было - значит, опция найдена в списке на данном шаге.
 				break;
 			} catch (NoSuchElementException e) {
 				
 				// Опции не найдено в списке на данном шаге - значит, вводим следующую букву.
-				if (ind < menuItemText.length()) {
-					fieldInput.sendKeys(Character.toString(menuItemText.charAt(ind++)));
+				if (ind < menuItem.length()) {
+					fieldInput.sendKeys(Character.toString(menuItem.charAt(ind++)));
 					
 					// Закроем открытый список опций.
 					dropDownButton.click();
 					
 					// Отслеживаем появление suggestBoxPopup, то есть когда список опций загрузится.
-					getWait().until(presenceOfElementLocated(By.xpath(COMBOBOX_SUGGESTBOX_POPUP_XPATH)));
+					getWait().until(presenceOfElementLocated(comboBoxPopupPanelBy));
 				} else {
 					// Закроем открытый список опций.
 					dropDownButton.click();
 					
 					// Букв не осталось - значит, опции в списке нет.
-					throw new WrongOptionException("Wrong combobox option: [" + menuItemText + "]");
+					throw new WrongOptionException("Wrong combobox option: [" + menuItem + "]");
 				}
 			}
 		}
@@ -361,11 +365,17 @@ public class JepRiaModuleAutoImpl<A extends EntranceAppAuto, P extends JepRiaApp
 				findElement(By.id(dualListFieldId + DETAIL_FORM_DUALLIST_MOVERIGHT_BTN_POSTFIX));
 		
 		WebElement option;
+		final WebElement leftListBox = pages.getApplicationPage().getWebDriver().
+				findElement(By.id(dualListFieldId + DETAIL_FORM_DUALLIST_LEFTPART_POSTFIX));
 		// Последовательно выбираем все опции из необходимых и перемещаем в правую часть
 		for (String menuItem: menuItems) {
 			if (!JepRiaUtil.isEmpty(menuItem)) {
 				try {
-					option = pages.getApplicationPage().getWebDriver().findElement(By.id(dualListFieldId + DETAIL_FORM_DUALLIST_MENU_ITEM_INFIX + menuItem));
+					option = leftListBox.findElement(By.xpath(
+							String.format(".//*[starts-with(@id, '%s') and @%s='%s']",
+									dualListFieldId + DETAIL_FORM_DUALLIST_MENU_ITEM_INFIX,
+									OPTION_VALUE_HTML_ATTR,
+									menuItem)));
 					getWait().until(elementToBeClickable(option));
 					option.click();
 					
@@ -549,7 +559,8 @@ public class JepRiaModuleAutoImpl<A extends EntranceAppAuto, P extends JepRiaApp
 			// Получаем список всех чекбоксов внутри INPUT'а заданного поля 
 			WebElement listBox = pages.getApplicationPage().getWebDriver().findElement(By.id(listFieldId + AutomationConstant.FIELD_INPUT_POSTFIX));
 			List<WebElement> allCheckBoxes = listBox.findElements(By.xpath(
-					".//*[starts-with(@id, '" + listFieldId+DETAIL_FORM_LIST_ITEM_CHECKBOX_INFIX + "')]"));
+					String.format(".//*[starts-with(@id, '%s')]",
+							listFieldId + DETAIL_FORM_LIST_ITEM_CHECKBOX_INFIX)));
 			// Кликаем на необходимые
 			for (WebElement option: allCheckBoxes ) {
 				if (option.isSelected() && !selectAll || !option.isSelected() && selectAll) {
@@ -573,9 +584,12 @@ public class JepRiaModuleAutoImpl<A extends EntranceAppAuto, P extends JepRiaApp
 		for (String menuItem: menuItems) {
 			if (!JepRiaUtil.isEmpty(menuItem)) {
 				try {
-					// Ищем чекбокс с соответствующим искомому значению value.
+					// Ищем чекбокс с соответствующим искомому значению option-value.
 					option = listBox.findElement(By.xpath(
-							".//*[starts-with(@id, '" + listFieldId+DETAIL_FORM_LIST_ITEM_CHECKBOX_INFIX + "') and @value='" + menuItem + "']"));
+							String.format(".//*[starts-with(@id, '%s') and @%s='%s']",
+									listFieldId + DETAIL_FORM_LIST_ITEM_CHECKBOX_INFIX,
+									OPTION_VALUE_HTML_ATTR,
+									menuItem)));
 					((JavascriptExecutor) pages.getApplicationPage().getWebDriver()).executeScript("arguments[0].click();", option);
 				
 				} catch (NoSuchElementException e) {
@@ -590,14 +604,15 @@ public class JepRiaModuleAutoImpl<A extends EntranceAppAuto, P extends JepRiaApp
 		// Получаем список всех чекбоксов внутри INPUT'а заданного поля 
 		WebElement listBox = pages.getApplicationPage().getWebDriver().findElement(By.id(jepListFieldId + AutomationConstant.FIELD_INPUT_POSTFIX));
 	    List<WebElement> allCheckBoxes = listBox.findElements(By.xpath(
-	    		".//*[starts-with(@id, '" + jepListFieldId+DETAIL_FORM_LIST_ITEM_CHECKBOX_INFIX + "')]"));
+	    		String.format(".//*[starts-with(@id, '%s')]",
+	    				jepListFieldId + DETAIL_FORM_LIST_ITEM_CHECKBOX_INFIX)));
 	    
 	    List<String> ret = new ArrayList<String>();
 	    
-	    // Проходим по полученному списку, и, для отмеченных чекбоксов, получаем их value
+	    // Проходим по полученному списку, и, для отмеченных чекбоксов, получаем их option-value
 	    for (WebElement checkbox: allCheckBoxes) {
 	    	if (checkbox.isSelected()) {
-	    		ret.add(checkbox.getAttribute("value"));
+	    		ret.add(checkbox.getAttribute(OPTION_VALUE_HTML_ATTR));
 	    	}
 	    }
 	    return ret.toArray(new String[ret.size()]);

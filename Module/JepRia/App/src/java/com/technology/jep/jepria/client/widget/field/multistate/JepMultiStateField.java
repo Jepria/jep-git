@@ -240,14 +240,15 @@ public abstract class JepMultiStateField<E extends Widget, V extends Widget> ext
 		
 		// Установка ID самого поля как Web-элемента и его Input-элемента
 		this.getElement().setId(this.fieldIdAsWebEl);
-		setInnerIds(this.fieldIdAsWebEl);
+		setInnerIds();
 	}
 	
 	/**
-	 * Установка ID внутренних компонентов Jep-поля.
-	 * @param fieldIdAsWebEl ID Jep-поля, который берется за основу ID внутренних компонентов
+	 * Установка ID различных внутренних компонентов различных Jep-полей.
+	 * Метод предназначен для перекрытия потомками. За основу назначаемых идентификаторов следует брать поле класса
+	 * this.fieldIdAsWebEl .
 	 */
-	protected void setInnerIds(String fieldIdAsWebEl) {
+	protected void setInnerIds() {
 		this.getInputElement().setId(fieldIdAsWebEl + AutomationConstant.FIELD_INPUT_POSTFIX);
 	}
 	

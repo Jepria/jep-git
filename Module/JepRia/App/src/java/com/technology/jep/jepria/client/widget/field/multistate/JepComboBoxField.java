@@ -77,8 +77,8 @@ public class JepComboBoxField extends JepBaseTextField<ComboBox<JepOption>> impl
 	}
 	
 	@Override
-	protected void setInnerIds(String fieldIdAsWebEl) {
-		editableCard.setInnerIds(fieldIdAsWebEl);
+	protected void setInnerIds() {
+		editableCard.setCompositeIds(fieldIdAsWebEl);
 	}
 
 	/**

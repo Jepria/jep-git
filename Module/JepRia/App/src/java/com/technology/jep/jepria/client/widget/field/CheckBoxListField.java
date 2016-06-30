@@ -1,6 +1,7 @@
 package com.technology.jep.jepria.client.widget.field;
 
 import static com.technology.jep.jepria.client.AutomationConstant.DETAIL_FORM_LIST_ITEM_CHECKBOX_INFIX;
+import static com.technology.jep.jepria.client.AutomationConstant.OPTION_VALUE_HTML_ATTR;
 import static com.technology.jep.jepria.client.JepRiaClientConstant.JepTexts;
 import static com.technology.jep.jepria.client.JepRiaClientConstant.MAIN_FONT_STYLE;
 
@@ -75,7 +76,7 @@ public class CheckBoxListField<T extends JepOption> extends Composite implements
 	 * An html string representation of a checked input box with a label.
 	 */
 	private static final String CHECKBOX_HTML = 
-			"<input type='checkbox' tabindex='-1' id='{0}' value='{1}' style='float:left;cursor:pointer;' {2}/>" +
+			"<input type='checkbox' tabindex='-1' id='{0}' " + OPTION_VALUE_HTML_ATTR + "='{1}' style='float:left;cursor:pointer;' {2}/>" +
 			"<label for='{0}' title='{1}' class='item " + MAIN_FONT_STYLE + "'>&nbsp;{1}</label>";
 	
 	/**
@@ -466,7 +467,7 @@ public class CheckBoxListField<T extends JepOption> extends Composite implements
 	 * Установка ID внутренних компонентов CheckBoxListField: table-списка как INPUT
 	 * @param fieldIdAsWebEl ID JepListField'а, который берется за основу ID внутренних компонентов
 	 */
-	public void setInnerIds(String fieldIdAsWebEl) {
+	public void setCompositeIds(String fieldIdAsWebEl) {
 		table.getElement().setId(fieldIdAsWebEl + AutomationConstant.FIELD_INPUT_POSTFIX);
 		// TODO здесь же должен устанавливаться ID selectAllCheckBox,
 		// но пока что это происходит динамически в методе setSelectAllCheckBoxVisible

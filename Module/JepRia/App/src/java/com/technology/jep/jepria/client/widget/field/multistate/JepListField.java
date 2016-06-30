@@ -53,8 +53,9 @@ public class JepListField extends JepMultiStateField<CheckBoxListField<JepOption
 		editablePanel.add(editableCard);
 	}
 	
-	protected void setInnerIds(String fieldIdAsWebEl) {
-		editableCard.setInnerIds(fieldIdAsWebEl);
+	@Override
+	protected void setInnerIds() {
+		editableCard.setCompositeIds(fieldIdAsWebEl);
 	}
 	
 	/**

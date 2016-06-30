@@ -134,9 +134,9 @@ public interface JepRiaModuleAuto extends EntranceAuto {
 	 * Предполагается, что если элемент есть в выпадающем списке, то он становится доступным при первой загрузке опций.
 	 * Если искомой опции нет в выпадающем списке, выбрасывается исключение WrongOptionException.
 	 * @param comboBoxFieldId id ComboBox-поля
-	 * @param menuItemText Имя опции, которую необходимо выбрать
+	 * @param menuItem Имя опции, которую необходимо выбрать
 	 */
-	void selectComboBoxMenuItem(String comboBoxFieldId, String menuItemText);
+	void selectComboBoxMenuItem(String comboBoxFieldId, String menuItem);
 	
 	/**
 	 * Сложный выбор элемента Комбо-бокса по заданному id.
@@ -144,12 +144,12 @@ public interface JepRiaModuleAuto extends EntranceAuto {
 	 * и искомая опция может стать доступной о мере ввода текста.
 	 * Если искомой опции нет в выпадающем списке после введения всего текста, выбрасывается исключение WrongOptionException.
 	 * @param comboBoxFieldId id ComboBox-поля
-	 * @param menuItemText Имя опции, которую необходимо выбрать
+	 * @param menuItem Имя опции, которую необходимо выбрать
 	 * @param minInputLength Минимальное количество символов, которые необходимо ввести для того, чтобы в данном Комбо-боксе
 	 * началась загрузка опций (например, при поиске оператора, часто опции загружаются при вводе мимнимум 3 символов). 
 	 * Минимально допустимое значение = 1 (устанавливается автоматически при задании меньшего значения).
 	 */
-	void selectComboBoxMenuItemWithCharByCharReloadingOptions(String comboBoxFieldId, String menuItemText, int minInputLength);
+	void selectComboBoxMenuItemWithCharByCharReloadingOptions(String comboBoxFieldId, String menuItem, int minInputLength);
 	
 	/**
 	 * Выбор элементов DualListField по заданному Id.

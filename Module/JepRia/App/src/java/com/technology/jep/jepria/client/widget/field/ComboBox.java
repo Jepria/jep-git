@@ -1,5 +1,6 @@
 package com.technology.jep.jepria.client.widget.field;
 
+import static com.technology.jep.jepria.client.AutomationConstant.OPTION_VALUE_HTML_ATTR;
 import static com.technology.jep.jepria.client.JepRiaClientConstant.FIELD_DEFAULT_HEIGHT;
 import static com.technology.jep.jepria.client.JepRiaClientConstant.JepImages;
 import static com.technology.jep.jepria.shared.field.JepLikeEnum.FIRST;
@@ -159,10 +160,14 @@ public class ComboBox<T extends JepOption> extends Composite
 		this("");
 	}
 	
+	private JepOptionSuggestionDisplay<T> suggestionDisplay;
+	
 	public ComboBox(String fieldIdAsWebEl) {
 		this.fieldIdAsWebEl = fieldIdAsWebEl;
 		
-		suggestBox = new SuggestBox(new JepOptionSuggestOracle<T>(), new TextBox(), new JepOptionSuggestionDisplay<T>());
+		suggestionDisplay = new JepOptionSuggestionDisplay<T>();
+		
+		suggestBox = new SuggestBox(new JepOptionSuggestOracle<T>(), new TextBox(), suggestionDisplay);
 		
 		//не выставляем по умолчанию выделенную первую опцию
 		suggestBox.setAutoSelectEnabled(false);
@@ -233,12 +238,13 @@ public class ComboBox<T extends JepOption> extends Composite
 	}
 
 	/**
-	 * Установка ID внутренних компонентов Комбобокса: поля ввода и кнопки 'развернуть'
+	 * Установка ID внутренних компонентов Комбобокса: поля ввода, кнопки 'развернуть', PopupPanel всплывающего меню.
 	 * @param fieldIdAsWebEl ID JepComboBoxField'а, который берется за основу ID внутренних компонентов
 	 */
-	public void setInnerIds(String fieldIdAsWebEl) {
+	public void setCompositeIds(String fieldIdAsWebEl) {
 		suggestBox.getElement().setId(fieldIdAsWebEl + AutomationConstant.FIELD_INPUT_POSTFIX);
 		selectImage.getElement().setId(fieldIdAsWebEl + AutomationConstant.DETAIL_FORM_COMBOBOX_DROPDOWN_BTN_POSTFIX);
+		suggestionDisplay.setPopupPanelId(fieldIdAsWebEl + AutomationConstant.DETAIL_FORM_COMBOBOX_POPUP_POSTFIX);
 	}
 	
 	/**
@@ -1020,6 +1026,13 @@ public class ComboBox<T extends JepOption> extends Composite
 				return value;
 			}
 		}
+		
+		/**
+		 * Установка ID PopupPanel всплывающего меню.
+		 */
+		public void setPopupPanelId(String id) {
+			getPopupPanel().getElement().setId(id);
+		}
 	}
 	
 	/**
@@ -1034,6 +1047,7 @@ public class ComboBox<T extends JepOption> extends Composite
 	    public SuggestionMenuItem(Suggestion suggestion, boolean asHTML) {
 	      super(suggestion.getDisplayString(), asHTML, (ScheduledCommand) null);
 	      getElement().setId(fieldIdAsWebEl + AutomationConstant.DETAIL_FORM_COMBOBOX_MENU_ITEM_INFIX + suggestion.getDisplayString());
+	      getElement().setAttribute(OPTION_VALUE_HTML_ATTR, suggestion.getDisplayString());
 	      
 	      // Each suggestion should be placed in a single row in the suggestion
 	      // menu. If the window is resized and the suggestion cannot fit on a

@@ -1,5 +1,6 @@
 package com.technology.jep.jepria.client.widget.field;
 
+import static com.technology.jep.jepria.client.AutomationConstant.OPTION_VALUE_HTML_ATTR;
 import static com.technology.jep.jepria.client.JepRiaClientConstant.FIELD_DEFAULT_HEIGHT;
 import static com.technology.jep.jepria.client.JepRiaClientConstant.FIELD_DEFAULT_WIDTH;
 import static com.technology.jep.jepria.client.JepRiaClientConstant.JepImages;
@@ -205,6 +206,7 @@ public class DualListBox extends Composite implements HasWidgets, HasValueChange
 	 */
 	public void setInnerIds(String fieldIdAsWebEl) {
 		right.getElement().setId(fieldIdAsWebEl + AutomationConstant.FIELD_INPUT_POSTFIX);
+		left.getElement().setId(fieldIdAsWebEl + AutomationConstant.DETAIL_FORM_DUALLIST_LEFTPART_POSTFIX);
 		moveRight.getElement().setId(fieldIdAsWebEl + AutomationConstant.DETAIL_FORM_DUALLIST_MOVERIGHT_BTN_POSTFIX);
 		moveLeft.getElement().setId(fieldIdAsWebEl + AutomationConstant.DETAIL_FORM_DUALLIST_MOVELEFT_BTN_POSTFIX);
 		moveAllRight.getElement().setId(fieldIdAsWebEl + AutomationConstant.DETAIL_FORM_DUALLIST_MOVEALLRIGHT_BTN_POSTFIX);
@@ -402,6 +404,7 @@ public class DualListBox extends Composite implements HasWidgets, HasValueChange
 			if (value.equals(optionElement.getValue())) {
 				optionElement.setTitle(getItemTitle(item));
 				optionElement.setId(fieldIdAsWebEl + AutomationConstant.DETAIL_FORM_DUALLIST_MENU_ITEM_INFIX + name);
+				optionElement.setAttribute(OPTION_VALUE_HTML_ATTR, name);
 				return;
 			}
 		}

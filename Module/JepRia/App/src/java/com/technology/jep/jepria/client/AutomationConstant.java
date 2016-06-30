@@ -191,24 +191,34 @@ public class AutomationConstant {
 	public static final String ERROR_MESSAGE_BOX_NO_BUTTON_ID = "ERROR_MESSAGE_BOX_NO_BUTTON";
 
 	/**
-	 * Префикс элементов меню комбобоксов
+	 * Инфикс-идентификатор элементов меню комбобоксов
 	 */
 	public static final String DETAIL_FORM_COMBOBOX_MENU_ITEM_INFIX = "_DETAIL_FORM_COMBOBOX_MENU_ITEM_";
 	
 	/**
-	 * Постфикс input-поля комбобоксов
+	 * Постфикс-идентификатор input-поля комбобоксов
 	 */
 	public static final String FIELD_INPUT_POSTFIX = "_INPUT";
 	
 	/**
-	 * Постфикс кнопки 'развернуть' комбобоксов
+	 * Постфикс-идентификатор кнопки 'развернуть' комбобоксов
 	 */
-	public static final String DETAIL_FORM_COMBOBOX_DROPDOWN_BTN_POSTFIX = "_DETAIL_FORM_COMBOBOX_SELECT_BTN";
+	public static final String DETAIL_FORM_COMBOBOX_DROPDOWN_BTN_POSTFIX = "_DETAIL_FORM_COMBOBOX_DROPDOWN_BTN";
+	
+	/**
+	 * Постфикс-идентификатор PopupPanel всплывающего меню комбобоксов
+	 */
+	public static final String DETAIL_FORM_COMBOBOX_POPUP_POSTFIX = "_DETAIL_FORM_COMBOBOX_POPUP";
 	
 	/**
 	 * Инфикс элементов меню DualListField
 	 */
 	public static final String DETAIL_FORM_DUALLIST_MENU_ITEM_INFIX = "_DETAIL_FORM_DUALLIST_MENU_ITEM_";
+	
+	/**
+	 * Постфикс-идентификатор левого списка DualListField
+	 */
+	public static final String DETAIL_FORM_DUALLIST_LEFTPART_POSTFIX = "_DETAIL_FORM_DUALLIST_LEFTPART";
 	
 	/**
 	 * Постфикс-идентификаторы кнопок перемещения опций между двумя списками DualListField
@@ -233,4 +243,9 @@ public class AutomationConstant {
 	 * ID первой строки списка списочной формы
 	 */
 	public static final String LIST_FORM_GRID_ROW_ID = "LIST_FORM_GRID_ROW_ID";
+	
+	/**
+	 * HTML-атрибут элемента, который требует хранения значения опции, которой он однозначно соответствует.
+	 */
+	public static final String OPTION_VALUE_HTML_ATTR = "option-value";
 }
