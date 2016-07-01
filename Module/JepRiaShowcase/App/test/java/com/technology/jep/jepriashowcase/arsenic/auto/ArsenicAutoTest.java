@@ -57,8 +57,8 @@ public class ArsenicAutoTest extends JepAutoTest<ArsenicAuto> {
 	@Test(groups="setAndGetTextField", dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
 	public void setAndGetJepIntegerField(String value) {
 		setWorkstate(SEARCH);
-		cut.setJepIntegerField(value);
-		assertEquals(value, cut.getJepIntegerField());
+		cut.setJepIntegerField_maxRowCount(value);
+		assertEquals(value, cut.getJepIntegerField_maxRowCount());
 	}
 	
 	@DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/arsenic/auto/field.jepLongField.data")
@@ -201,6 +201,30 @@ public class ArsenicAutoTest extends JepAutoTest<ArsenicAuto> {
 		Arrays.sort(values);
 		Arrays.sort(actualValues);
 		assertArrayEquals(values, actualValues);
+	}
+	
+	// С осторожностью: оставить visiblity=true в конце!
+	@Test(groups="setAndGetTextField")
+	public void testSwitchVisiblity() {
+		setWorkstate(SEARCH);
+		
+		cut.setCheckBox_switchVsbl(false);
+		assertEquals(true, cut.checkAllFieldsVisibility(false));
+		
+		cut.setCheckBox_switchVsbl(true);
+		assertEquals(true, cut.checkAllFieldsVisibility(true));
+	}
+	
+	// С осторожностью: оставить enability=true в конце!
+	@Test(groups="setAndGetTextField")
+	public void testSwitchEnability() {
+		setWorkstate(SEARCH);
+		
+		cut.setCheckBox_switchEnbl(false);
+		assertEquals(true, cut.checkAllFieldsEnability(false));
+		
+		cut.setCheckBox_switchEnbl(true);
+		assertEquals(true, cut.checkAllFieldsEnability(true));
 	}
 	
 	@Override

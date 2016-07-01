@@ -216,9 +216,10 @@ public class AutomationConstant {
 	public static final String DETAIL_FORM_DUALLIST_MENU_ITEM_INFIX = "_DETAIL_FORM_DUALLIST_MENU_ITEM_";
 	
 	/**
-	 * Постфикс-идентификатор левого списка DualListField
+	 * Постфикс-идентификаторы списков DualListField
 	 */
 	public static final String DETAIL_FORM_DUALLIST_LEFTPART_POSTFIX = "_DETAIL_FORM_DUALLIST_LEFTPART";
+	public static final String DETAIL_FORM_DUALLIST_RIGHTPART_POSTFIX = "_DETAIL_FORM_DUALLIST_RIGHTPART";
 	
 	/**
 	 * Постфикс-идентификаторы кнопок перемещения опций между двумя списками DualListField

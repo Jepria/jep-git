@@ -46,9 +46,15 @@ public class ArsenicDetailFormViewImpl extends StandardDetailFormViewImpl implem
 			title.add(new HTML(arsenicText.titleText()));
 			put("", title);
 			
+			put(DETAILFORM_CHECKBOX_SWITCH_VSBL, new JepCheckBoxField(
+					ARSENIC_CHECKBOX_SWITCH_VSBL_ID, arsenicText.detail_jepCheckBox_switch_vsbl()));
+			put(DETAILFORM_CHECKBOX_SWITCH_ENBL, new JepCheckBoxField(
+					ARSENIC_CHECKBOX_SWITCH_ENBL_ID, arsenicText.detail_jepCheckBox_switch_enbl()));
+			put(DETAILFORM_CHECKBOX_SWITCH_EDTB, new JepCheckBoxField(
+					ARSENIC_CHECKBOX_SWITCH_EDTB_ID, arsenicText.detail_jepCheckBox_switch_edtb()));
+			
 			put(DETAILFORM_JEP_TEXT_FIELD, new JepTextField(ARSENIC_JEP_TEXT_FIELD_ID, arsenicText.detail_jepTextField()));
 			put(DETAILFORM_JEP_TEXT_AREA_FIELD, new JepTextAreaField(ARSENIC_JEP_TEXT_AREA_FIELD_ID, arsenicText.detail_jepTextAreaField()));
-			put(DETAILFORM_JEP_INTEGER_FIELD, new JepIntegerField(ARSENIC_JEP_INTEGER_FIELD_ID, arsenicText.detail_jepIntegerField()));
 			put(DETAILFORM_JEP_LONG_FIELD, new JepLongField(ARSENIC_JEP_LONG_FIELD_ID, arsenicText.detail_jepLongField()));
 			put(DETAILFORM_JEP_MONEY_FIELD, new JepMoneyField(ARSENIC_JEP_MONEY_FIELD_ID, arsenicText.detail_jepMoneyField()));
 			put(DETAILFORM_JEP_NUMBER_FIELD, new JepNumberField(ARSENIC_JEP_NUMBER_FIELD_ID, arsenicText.detail_jepNumberField()));
@@ -98,6 +104,8 @@ public class ArsenicDetailFormViewImpl extends StandardDetailFormViewImpl implem
 			put(DETAILFORM_JEP_LIST_FIELD_CHECKALL, new JepListField(ARSENIC_JEP_LIST_FIELD_CHECKALL_ID, arsenicText.detail_jepListField_checkAll()) {{
 				setSelectAllCheckBoxVisible(true);
 			}});
+			
+			put(MAX_ROW_COUNT, new JepIntegerField(ARSENIC_MAX_ROW_COUNT_ID, arsenicText.detail_maxRowCount()));
 		}};
 	}
 	

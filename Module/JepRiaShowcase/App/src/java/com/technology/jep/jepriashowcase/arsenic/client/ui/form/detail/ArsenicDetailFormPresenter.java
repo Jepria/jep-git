@@ -1,12 +1,6 @@
 package com.technology.jep.jepriashowcase.arsenic.client.ui.form.detail;
  
 import static com.technology.jep.jepriashowcase.arsenic.shared.field.ArsenicFieldNames.*;
-import static com.technology.jep.jepriashowcase.arsenic.shared.field.ArsenicFieldNames.DETAILFORM_JEP_COMBOBOX_FIELD_DURABLE;
-import static com.technology.jep.jepriashowcase.arsenic.shared.field.ArsenicFieldNames.DETAILFORM_JEP_COMBOBOX_FIELD_NOTLAZY;
-import static com.technology.jep.jepriashowcase.arsenic.shared.field.ArsenicFieldNames.DETAILFORM_JEP_COMBOBOX_FIELD_RELOADING;
-import static com.technology.jep.jepriashowcase.arsenic.shared.field.ArsenicFieldNames.DETAILFORM_JEP_COMBOBOX_FIELD_SIMPLE;
-import static com.technology.jep.jepriashowcase.arsenic.shared.field.ArsenicFieldNames.DETAILFORM_JEP_DUAL_LIST_FIELD;
-import static com.technology.jep.jepriashowcase.arsenic.shared.field.ArsenicFieldNames.DETAILFORM_JEP_LIST_FIELD;
 
 import java.util.ArrayList;
 
@@ -14,12 +8,14 @@ import com.google.gwt.place.shared.Place;
 import com.technology.jep.jepria.client.async.FirstTimeUseAsyncCallback;
 import com.technology.jep.jepria.client.async.JepAsyncCallback;
 import com.technology.jep.jepria.client.async.TypingTimeoutAsyncCallback;
+import com.technology.jep.jepria.client.ui.WorkstateEnum;
 import com.technology.jep.jepria.client.ui.eventbus.plain.PlainEventBus;
 import com.technology.jep.jepria.client.ui.form.detail.DetailFormPresenter;
 import com.technology.jep.jepria.client.ui.plain.StandardClientFactory;
 import com.technology.jep.jepria.client.widget.event.JepEvent;
 import com.technology.jep.jepria.client.widget.event.JepEventType;
 import com.technology.jep.jepria.client.widget.event.JepListener;
+import com.technology.jep.jepria.client.widget.field.multistate.JepCheckBoxField;
 import com.technology.jep.jepria.client.widget.field.multistate.JepComboBoxField;
 import com.technology.jep.jepria.client.widget.field.multistate.JepDualListField;
 import com.technology.jep.jepria.client.widget.field.multistate.JepListField;
@@ -37,6 +33,81 @@ public class ArsenicDetailFormPresenter<E extends PlainEventBus, S extends Arsen
 	public void bind() {
 		super.bind();
 		// Здесь размещается код связывания presenter-а и view
+		
+		fields.addFieldListener(DETAILFORM_CHECKBOX_SWITCH_VSBL, JepEventType.CHANGE_CHECK_EVENT, new JepListener() {
+			@Override
+			public void handleEvent(JepEvent event) {
+				Boolean checked = ((JepCheckBoxField)event.getSource()).getValue();
+				boolean b = checked != null && checked;
+				
+				fields.setFieldVisible(DETAILFORM_JEP_TEXT_FIELD, b);
+				fields.setFieldVisible(DETAILFORM_JEP_TEXT_AREA_FIELD, b);
+				fields.setFieldVisible(DETAILFORM_JEP_LONG_FIELD, b);
+				fields.setFieldVisible(DETAILFORM_JEP_MONEY_FIELD, b);
+				fields.setFieldVisible(DETAILFORM_JEP_NUMBER_FIELD, b);
+				fields.setFieldVisible(DETAILFORM_JEP_DATE_FIELD, b);
+				fields.setFieldVisible(DETAILFORM_JEP_COMBOBOX_FIELD_NOTLAZY, b);
+				fields.setFieldVisible(DETAILFORM_JEP_COMBOBOX_FIELD_SIMPLE, b);
+				fields.setFieldVisible(DETAILFORM_JEP_COMBOBOX_FIELD_DURABLE, b);
+				fields.setFieldVisible(DETAILFORM_JEP_COMBOBOX_FIELD_RELOADING, b);
+				fields.setFieldVisible(DETAILFORM_JEP_COMBOBOX_FIELD_3CH_RELOADING, b);
+				fields.setFieldVisible(DETAILFORM_JEP_DUAL_LIST_FIELD, b);
+				fields.setFieldVisible(DETAILFORM_JEP_CHECKBOX_FIELD, b);
+				fields.setFieldVisible(DETAILFORM_JEP_LIST_FIELD, b);
+				fields.setFieldVisible(DETAILFORM_JEP_LIST_FIELD_CHECKALL, b);
+				fields.setFieldVisible(MAX_ROW_COUNT, b);
+			}
+		});
+		
+		fields.addFieldListener(DETAILFORM_CHECKBOX_SWITCH_ENBL, JepEventType.CHANGE_CHECK_EVENT, new JepListener() {
+			@Override
+			public void handleEvent(JepEvent event) {
+				Boolean checked = ((JepCheckBoxField)event.getSource()).getValue();
+				boolean b = checked != null && checked;
+				
+				fields.setFieldEnabled(DETAILFORM_JEP_TEXT_FIELD, b);
+				fields.setFieldEnabled(DETAILFORM_JEP_TEXT_AREA_FIELD, b);
+				fields.setFieldEnabled(DETAILFORM_JEP_LONG_FIELD, b);
+				fields.setFieldEnabled(DETAILFORM_JEP_MONEY_FIELD, b);
+				fields.setFieldEnabled(DETAILFORM_JEP_NUMBER_FIELD, b);
+				fields.setFieldEnabled(DETAILFORM_JEP_DATE_FIELD, b);
+				fields.setFieldEnabled(DETAILFORM_JEP_COMBOBOX_FIELD_NOTLAZY, b);
+				fields.setFieldEnabled(DETAILFORM_JEP_COMBOBOX_FIELD_SIMPLE, b);
+				fields.setFieldEnabled(DETAILFORM_JEP_COMBOBOX_FIELD_DURABLE, b);
+				fields.setFieldEnabled(DETAILFORM_JEP_COMBOBOX_FIELD_RELOADING, b);
+				fields.setFieldEnabled(DETAILFORM_JEP_COMBOBOX_FIELD_3CH_RELOADING, b);
+				fields.setFieldEnabled(DETAILFORM_JEP_DUAL_LIST_FIELD, b);
+				fields.setFieldEnabled(DETAILFORM_JEP_CHECKBOX_FIELD, b);
+				fields.setFieldEnabled(DETAILFORM_JEP_LIST_FIELD, b);
+				fields.setFieldEnabled(DETAILFORM_JEP_LIST_FIELD_CHECKALL, b);
+				fields.setFieldEnabled(MAX_ROW_COUNT, b);
+			}
+		});
+		
+		fields.addFieldListener(DETAILFORM_CHECKBOX_SWITCH_EDTB, JepEventType.CHANGE_CHECK_EVENT, new JepListener() {
+			@Override
+			public void handleEvent(JepEvent event) {
+				Boolean checked = ((JepCheckBoxField)event.getSource()).getValue();
+				boolean b = checked != null && checked;
+				
+				fields.setFieldEditable(DETAILFORM_JEP_TEXT_FIELD, b);
+				fields.setFieldEditable(DETAILFORM_JEP_TEXT_AREA_FIELD, b);
+				fields.setFieldEditable(DETAILFORM_JEP_LONG_FIELD, b);
+				fields.setFieldEditable(DETAILFORM_JEP_MONEY_FIELD, b);
+				fields.setFieldEditable(DETAILFORM_JEP_NUMBER_FIELD, b);
+				fields.setFieldEditable(DETAILFORM_JEP_DATE_FIELD, b);
+				fields.setFieldEditable(DETAILFORM_JEP_COMBOBOX_FIELD_NOTLAZY, b);
+				fields.setFieldEditable(DETAILFORM_JEP_COMBOBOX_FIELD_SIMPLE, b);
+				fields.setFieldEditable(DETAILFORM_JEP_COMBOBOX_FIELD_DURABLE, b);
+				fields.setFieldEditable(DETAILFORM_JEP_COMBOBOX_FIELD_RELOADING, b);
+				fields.setFieldEditable(DETAILFORM_JEP_COMBOBOX_FIELD_3CH_RELOADING, b);
+				fields.setFieldEditable(DETAILFORM_JEP_DUAL_LIST_FIELD, b);
+				fields.setFieldEditable(DETAILFORM_JEP_CHECKBOX_FIELD, b);
+				fields.setFieldEditable(DETAILFORM_JEP_LIST_FIELD, b);
+				fields.setFieldEditable(DETAILFORM_JEP_LIST_FIELD_CHECKALL, b);
+				fields.setFieldEditable(MAX_ROW_COUNT, b);
+			}
+		});
 		
 		service.durableFetch(0, new JepAsyncCallback<Void>() {
 			@Override
@@ -171,5 +242,15 @@ public class ArsenicDetailFormPresenter<E extends PlainEventBus, S extends Arsen
 				}});
 			}
 		});
+	}
+	
+	@Override
+	protected void adjustToWorkstate(WorkstateEnum workstate) {
+		super.adjustToWorkstate(workstate);
+		
+		fields.get(DETAILFORM_CHECKBOX_SWITCH_VSBL).setValue(true);
+		fields.get(DETAILFORM_CHECKBOX_SWITCH_ENBL).setValue(true);
+		fields.get(DETAILFORM_CHECKBOX_SWITCH_EDTB).setValue(true);
+		
 	}
 }

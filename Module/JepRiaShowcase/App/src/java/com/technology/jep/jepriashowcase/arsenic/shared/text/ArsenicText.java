@@ -16,6 +16,33 @@ public interface ArsenicText extends com.google.gwt.i18n.client.Constants {
   String detail_jepCheckBoxField();
 
   /**
+   * Translated "Установить редактируемость всех полей".
+   * 
+   * @return translated "Установить редактируемость всех полей"
+   */
+  @DefaultStringValue("Установить редактируемость всех полей")
+  @Key("detail.jepCheckBox_switch_edtb")
+  String detail_jepCheckBox_switch_edtb();
+
+  /**
+   * Translated "Установить enability всех полей".
+   * 
+   * @return translated "Установить enability всех полей"
+   */
+  @DefaultStringValue("Установить enability всех полей")
+  @Key("detail.jepCheckBox_switch_enbl")
+  String detail_jepCheckBox_switch_enbl();
+
+  /**
+   * Translated "Уставновить visiblity всех полей".
+   * 
+   * @return translated "Уставновить visiblity всех полей"
+   */
+  @DefaultStringValue("Уставновить visiblity всех полей")
+  @Key("detail.jepCheckBox_switch_vsbl")
+  String detail_jepCheckBox_switch_vsbl();
+
+  /**
    * Translated "Обновляемый JepComboBoxField (минимум 3 символа)".
    * 
    * @return translated "Обновляемый JepComboBoxField (минимум 3 символа)"
@@ -115,15 +142,6 @@ public interface ArsenicText extends com.google.gwt.i18n.client.Constants {
   String detail_jepDualListField();
 
   /**
-   * Translated "Простой JepIntegerField".
-   * 
-   * @return translated "Простой JepIntegerField"
-   */
-  @DefaultStringValue("Простой JepIntegerField")
-  @Key("detail.jepIntegerField")
-  String detail_jepIntegerField();
-
-  /**
    * Translated "Простой JepListField".
    * 
    * @return translated "Простой JepListField"
@@ -185,6 +203,15 @@ public interface ArsenicText extends com.google.gwt.i18n.client.Constants {
   @DefaultStringValue("Простой JepTextField")
   @Key("detail.jepTextField")
   String detail_jepTextField();
+
+  /**
+   * Translated "Количество записей (Простой JepIntegerField)".
+   * 
+   * @return translated "Количество записей (Простой JepIntegerField)"
+   */
+  @DefaultStringValue("Количество записей (Простой JepIntegerField)")
+  @Key("detail.maxRowCount")
+  String detail_maxRowCount();
 
   /**
    * Translated "Начните ввод...".

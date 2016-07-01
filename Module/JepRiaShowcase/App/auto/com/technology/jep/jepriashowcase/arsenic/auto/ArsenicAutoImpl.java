@@ -13,6 +13,33 @@ public class ArsenicAutoImpl<A extends JepRiaShowcaseAuto, P extends JepRiaShowc
 	}
 
 	@Override
+	public void setCheckBox_switchVsbl(boolean checked) {
+		setCheckBoxFieldValue(ARSENIC_CHECKBOX_SWITCH_VSBL_ID, checked);
+	}
+	
+	@Override
+	public boolean getCheckBox_switchVsbl() {
+		return getCheckBoxFieldValue(ARSENIC_CHECKBOX_SWITCH_VSBL_ID);
+	}
+	
+	
+	@Override
+	public void setCheckBox_switchEnbl(boolean checked) {
+		setCheckBoxFieldValue(ARSENIC_CHECKBOX_SWITCH_ENBL_ID, checked);
+	}
+
+	@Override
+	public boolean getCheckBox_switchEnbl() {
+		return getCheckBoxFieldValue(ARSENIC_CHECKBOX_SWITCH_ENBL_ID);
+	}
+	
+	
+	
+	
+	
+	
+	
+	@Override
 	public void setJepTextField(String value) {
 		setFieldValue(ARSENIC_JEP_TEXT_FIELD_ID, value);
 	}
@@ -23,8 +50,8 @@ public class ArsenicAutoImpl<A extends JepRiaShowcaseAuto, P extends JepRiaShowc
 	}
 
 	@Override
-	public void setJepIntegerField(String value) {
-		setFieldValue(ARSENIC_JEP_INTEGER_FIELD_ID, value);
+	public void setJepIntegerField_maxRowCount(String value) {
+		setFieldValue(ARSENIC_MAX_ROW_COUNT_ID, value);
 	}
 
 	@Override
@@ -76,17 +103,17 @@ public class ArsenicAutoImpl<A extends JepRiaShowcaseAuto, P extends JepRiaShowc
 	public void setJepDualListField(String[] value) {
 		selectDualListMenuItems(ARSENIC_JEP_DUAL_LIST_FIELD_ID, value);
 	}
-
-	@Override
-	public void setJepCheckBoxField(boolean value) {
-		setCheckBoxFieldValue(ARSENIC_JEP_CHECKBOX_FIELD_ID, value);
-	}
 	
+	@Override
+	public void setJepCheckBoxField(boolean checked) {
+		setCheckBoxFieldValue(ARSENIC_JEP_CHECKBOX_FIELD_ID, checked);
+	}
+
 	@Override
 	public void changeJepCheckBoxField() {
 		changeCheckBoxFieldValue(ARSENIC_JEP_CHECKBOX_FIELD_ID);
 	}
-	
+
 	@Override
 	public void setJepListField(String[] value) {
 		selectListMenuItems(ARSENIC_JEP_LIST_FIELD_ID, value);
@@ -97,7 +124,6 @@ public class ArsenicAutoImpl<A extends JepRiaShowcaseAuto, P extends JepRiaShowc
 		selectListMenuItems(ARSENIC_JEP_LIST_FIELD_CHECKALL_ID, value);
 	}
 
-	
 	
 	
 	
@@ -113,8 +139,8 @@ public class ArsenicAutoImpl<A extends JepRiaShowcaseAuto, P extends JepRiaShowc
 	}
 
 	@Override
-	public String getJepIntegerField() {
-		return getFieldValue(ARSENIC_JEP_INTEGER_FIELD_ID);
+	public String getJepIntegerField_maxRowCount() {
+		return getFieldValue(ARSENIC_MAX_ROW_COUNT_ID);
 	}
 
 	@Override
@@ -166,7 +192,7 @@ public class ArsenicAutoImpl<A extends JepRiaShowcaseAuto, P extends JepRiaShowc
 	public String[] getJepDualListField() {
 		return getDualListFieldValues(ARSENIC_JEP_DUAL_LIST_FIELD_ID);
 	}
-
+	
 	@Override
 	public boolean getJepCheckBoxField() {
 		return getCheckBoxFieldValue(ARSENIC_JEP_CHECKBOX_FIELD_ID);
@@ -181,5 +207,87 @@ public class ArsenicAutoImpl<A extends JepRiaShowcaseAuto, P extends JepRiaShowc
 	public String[] getJepListFieldCheckAll() {
 		return getListFieldValues(ARSENIC_JEP_LIST_FIELD_CHECKALL_ID);
 	}
+
+	
+	
+	
+	@Override
+	public boolean checkAllFieldsVisibility(boolean expected) {
+		if (expected) {
+			return isFieldVisible(ARSENIC_JEP_TEXT_FIELD_ID) &&
+					isFieldVisible(ARSENIC_JEP_TEXT_AREA_FIELD_ID) &&
+					isFieldVisible(ARSENIC_JEP_LONG_FIELD_ID) &&
+					isFieldVisible(ARSENIC_JEP_MONEY_FIELD_ID) &&
+					isFieldVisible(ARSENIC_JEP_NUMBER_FIELD_ID) &&
+					isFieldVisible(ARSENIC_JEP_DATE_FIELD_ID) &&
+					isFieldVisible(ARSENIC_JEP_COMBOBOX_FIELD_NOTLAZY_ID) &&
+					isFieldVisible(ARSENIC_JEP_COMBOBOX_FIELD_SIMPLE_ID) &&
+					isFieldVisible(ARSENIC_JEP_COMBOBOX_FIELD_DURABLE_ID) &&
+					isFieldVisible(ARSENIC_JEP_COMBOBOX_FIELD_RELOADING_ID) &&
+					isFieldVisible(ARSENIC_JEP_COMBOBOX_FIELD_3CH_RELOADING_ID) &&
+					isFieldVisible(ARSENIC_JEP_DUAL_LIST_FIELD_ID) &&
+					isFieldVisible(ARSENIC_JEP_CHECKBOX_FIELD_ID) &&
+					isFieldVisible(ARSENIC_JEP_LIST_FIELD_ID) &&
+					isFieldVisible(ARSENIC_JEP_LIST_FIELD_CHECKALL_ID) &&
+					isFieldVisible(ARSENIC_MAX_ROW_COUNT_ID);
+		} else {
+			return !isFieldVisible(ARSENIC_JEP_TEXT_FIELD_ID) &&
+					!isFieldVisible(ARSENIC_JEP_TEXT_AREA_FIELD_ID) &&
+					!isFieldVisible(ARSENIC_JEP_LONG_FIELD_ID) &&
+					!isFieldVisible(ARSENIC_JEP_MONEY_FIELD_ID) &&
+					!isFieldVisible(ARSENIC_JEP_NUMBER_FIELD_ID) &&
+					!isFieldVisible(ARSENIC_JEP_DATE_FIELD_ID) &&
+					!isFieldVisible(ARSENIC_JEP_COMBOBOX_FIELD_NOTLAZY_ID) &&
+					!isFieldVisible(ARSENIC_JEP_COMBOBOX_FIELD_SIMPLE_ID) &&
+					!isFieldVisible(ARSENIC_JEP_COMBOBOX_FIELD_DURABLE_ID) &&
+					!isFieldVisible(ARSENIC_JEP_COMBOBOX_FIELD_RELOADING_ID) &&
+					!isFieldVisible(ARSENIC_JEP_COMBOBOX_FIELD_3CH_RELOADING_ID) &&
+					!isFieldVisible(ARSENIC_JEP_DUAL_LIST_FIELD_ID) &&
+					!isFieldVisible(ARSENIC_JEP_CHECKBOX_FIELD_ID) &&
+					!isFieldVisible(ARSENIC_JEP_LIST_FIELD_ID) &&
+					!isFieldVisible(ARSENIC_JEP_LIST_FIELD_CHECKALL_ID) &&
+					!isFieldVisible(ARSENIC_MAX_ROW_COUNT_ID);
+		}
+	}
+	
+	@Override
+	public boolean checkAllFieldsEnability(boolean expected) {
+		if (expected) {
+			return isFieldEnabled(ARSENIC_JEP_TEXT_FIELD_ID) &&
+					isFieldEnabled(ARSENIC_JEP_TEXT_AREA_FIELD_ID) &&
+					isFieldEnabled(ARSENIC_JEP_LONG_FIELD_ID) &&
+					isFieldEnabled(ARSENIC_JEP_MONEY_FIELD_ID) &&
+					isFieldEnabled(ARSENIC_JEP_NUMBER_FIELD_ID) &&
+					isFieldEnabled(ARSENIC_JEP_DATE_FIELD_ID) &&
+					isFieldEnabled(ARSENIC_JEP_COMBOBOX_FIELD_NOTLAZY_ID) &&
+					isFieldEnabled(ARSENIC_JEP_COMBOBOX_FIELD_SIMPLE_ID) &&
+					isFieldEnabled(ARSENIC_JEP_COMBOBOX_FIELD_DURABLE_ID) &&
+					isFieldEnabled(ARSENIC_JEP_COMBOBOX_FIELD_RELOADING_ID) &&
+					isFieldEnabled(ARSENIC_JEP_COMBOBOX_FIELD_3CH_RELOADING_ID) &&
+					isFieldEnabled(ARSENIC_JEP_DUAL_LIST_FIELD_ID) &&
+					isFieldEnabled(ARSENIC_JEP_CHECKBOX_FIELD_ID) &&
+					isFieldEnabled(ARSENIC_JEP_LIST_FIELD_ID) && //TODO setEnabled JepListField'а не поддерживается!
+					isFieldEnabled(ARSENIC_JEP_LIST_FIELD_CHECKALL_ID) && //TODO setEnabled JepListField'а не поддерживается!
+					isFieldEnabled(ARSENIC_MAX_ROW_COUNT_ID);
+		} else {
+			return !isFieldEnabled(ARSENIC_JEP_TEXT_FIELD_ID) &&
+					!isFieldEnabled(ARSENIC_JEP_TEXT_AREA_FIELD_ID) &&
+					!isFieldEnabled(ARSENIC_JEP_LONG_FIELD_ID) &&
+					!isFieldEnabled(ARSENIC_JEP_MONEY_FIELD_ID) &&
+					!isFieldEnabled(ARSENIC_JEP_NUMBER_FIELD_ID) &&
+					!isFieldEnabled(ARSENIC_JEP_DATE_FIELD_ID) &&
+					!isFieldEnabled(ARSENIC_JEP_COMBOBOX_FIELD_NOTLAZY_ID) &&
+					!isFieldEnabled(ARSENIC_JEP_COMBOBOX_FIELD_SIMPLE_ID) &&
+					!isFieldEnabled(ARSENIC_JEP_COMBOBOX_FIELD_DURABLE_ID) &&
+					!isFieldEnabled(ARSENIC_JEP_COMBOBOX_FIELD_RELOADING_ID) &&
+					!isFieldEnabled(ARSENIC_JEP_COMBOBOX_FIELD_3CH_RELOADING_ID) &&
+					!isFieldEnabled(ARSENIC_JEP_DUAL_LIST_FIELD_ID) &&
+					!isFieldEnabled(ARSENIC_JEP_CHECKBOX_FIELD_ID) &&
+					!isFieldEnabled(ARSENIC_JEP_LIST_FIELD_ID) && //TODO setEnabled JepListField'а не поддерживается!
+					!isFieldEnabled(ARSENIC_JEP_LIST_FIELD_CHECKALL_ID) && //TODO setEnabled JepListField'а не поддерживается!
+					!isFieldEnabled(ARSENIC_MAX_ROW_COUNT_ID);
+		}
+	}
+
 
 }

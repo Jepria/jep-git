@@ -68,6 +68,11 @@ public class CheckBoxListField<T extends JepOption> extends Composite implements
 	private List<T> data = new ArrayList<T>();
 	
 	/**
+	 * Флаг свойства disabled данного поля. Необходимо хранить это значение, поскольку оно используется при каждом рендеринге.
+	 */
+	private boolean disabled = false;
+	
+	/**
 	 * Multi Selection Model. 
 	 */
 	private MultiSelectionModel<T> selectionModel = new MultiSelectionModel<T>();
@@ -76,7 +81,7 @@ public class CheckBoxListField<T extends JepOption> extends Composite implements
 	 * An html string representation of a checked input box with a label.
 	 */
 	private static final String CHECKBOX_HTML = 
-			"<input type='checkbox' tabindex='-1' id='{0}' " + OPTION_VALUE_HTML_ATTR + "='{1}' style='float:left;cursor:pointer;' {2}/>" +
+			"<input type='checkbox' tabindex='-1' id='{0}' " + OPTION_VALUE_HTML_ATTR + "='{1}' style='float:left;cursor:pointer;' {2} {3}/>" +
 			"<label for='{0}' title='{1}' class='item " + MAIN_FONT_STYLE + "'>&nbsp;{1}</label>";
 	
 	/**
@@ -235,7 +240,18 @@ public class CheckBoxListField<T extends JepOption> extends Composite implements
 	 * @param enabled доступность компонента
 	 */
 	public void setEnabled(boolean enabled) {
-		// TODO реализовать блокировку списка
+		disabled = !enabled;
+		
+		// Свойство ниже является маркером того, что поле неактивно, при Selenium-тестировании;
+		// функционально оно не является необходимым.
+		if (disabled) {
+			table.getElement().setAttribute("disabled", "true");
+		} else {
+			table.getElement().removeAttribute("disabled");
+		}
+		
+		table.redraw();
+		
 		selectAllCheckBox.setEnabled(enabled);
 	}
 	
@@ -454,11 +470,10 @@ public class CheckBoxListField<T extends JepOption> extends Composite implements
 			final String checkBoxHtmlString;
 			String checkBoxIdAsWebEl = fieldIdAsWebEl + DETAIL_FORM_LIST_ITEM_CHECKBOX_INFIX + value.label;
 			
-			if (value.checked != null && ((viewData != null) ? viewData : value.checked)) {
-				checkBoxHtmlString = JepClientUtil.substitute(CHECKBOX_HTML, checkBoxIdAsWebEl, value.label, "checked");
-			} else {
-				checkBoxHtmlString = JepClientUtil.substitute(CHECKBOX_HTML, checkBoxIdAsWebEl, value.label, "");
-			}
+			boolean checked = value.checked != null && ((viewData != null) ? viewData : value.checked);
+			checkBoxHtmlString = JepClientUtil.substitute(CHECKBOX_HTML, checkBoxIdAsWebEl, value.label,
+					checked ? "checked" : "", disabled ? "disabled" : "");
+			
 			sb.append(SafeHtmlUtils.fromSafeConstant(checkBoxHtmlString));
 		}
 	}

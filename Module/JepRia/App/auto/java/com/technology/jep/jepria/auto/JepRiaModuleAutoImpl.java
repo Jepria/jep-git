@@ -5,7 +5,8 @@ import static com.technology.jep.jepria.client.AutomationConstant.ALERT_MESSAGEB
 import static com.technology.jep.jepria.client.AutomationConstant.CONFIRM_MESSAGEBOX_ID;
 import static com.technology.jep.jepria.client.AutomationConstant.CONFIRM_MESSAGE_BOX_YES_BUTTON_ID;
 import static com.technology.jep.jepria.client.AutomationConstant.DETAIL_FORM_COMBOBOX_DROPDOWN_BTN_POSTFIX;
-import static com.technology.jep.jepria.client.AutomationConstant.*;
+import static com.technology.jep.jepria.client.AutomationConstant.DETAIL_FORM_COMBOBOX_POPUP_POSTFIX;
+import static com.technology.jep.jepria.client.AutomationConstant.DETAIL_FORM_DUALLIST_LEFTPART_POSTFIX;
 import static com.technology.jep.jepria.client.AutomationConstant.DETAIL_FORM_DUALLIST_MENU_ITEM_INFIX;
 import static com.technology.jep.jepria.client.AutomationConstant.DETAIL_FORM_DUALLIST_MOVEALLLEFT_BTN_POSTFIX;
 import static com.technology.jep.jepria.client.AutomationConstant.DETAIL_FORM_DUALLIST_MOVERIGHT_BTN_POSTFIX;
@@ -13,6 +14,7 @@ import static com.technology.jep.jepria.client.AutomationConstant.DETAIL_FORM_LI
 import static com.technology.jep.jepria.client.AutomationConstant.DETAIL_FORM_LIST_ITEM_CHECKBOX_INFIX;
 import static com.technology.jep.jepria.client.AutomationConstant.ERROR_MESSAGEBOX_ID;
 import static com.technology.jep.jepria.client.AutomationConstant.FIELD_INPUT_POSTFIX;
+import static com.technology.jep.jepria.client.AutomationConstant.OPTION_VALUE_HTML_ATTR;
 import static com.technology.jep.jepria.client.AutomationConstant.TOOLBAR_ADD_BUTTON_ID;
 import static com.technology.jep.jepria.client.AutomationConstant.TOOLBAR_DELETE_BUTTON_ID;
 import static com.technology.jep.jepria.client.AutomationConstant.TOOLBAR_EDIT_BUTTON_ID;
@@ -238,6 +240,8 @@ public class JepRiaModuleAutoImpl<A extends EntranceAppAuto, P extends JepRiaApp
 	
 	@Override
 	public String[] getDualListFieldValues(String jepDualListFieldId) {
+		pages.getApplicationPage().ensurePageLoaded();
+		
 		// Получаем список всех опций внутри INPUT'а заданного поля (INPUT это правый список)
 		WebElement rightListBox = pages.getApplicationPage().getWebDriver().findElement(By.id(jepDualListFieldId + FIELD_INPUT_POSTFIX));
 	    rightListBox.click();
@@ -601,6 +605,8 @@ public class JepRiaModuleAutoImpl<A extends EntranceAppAuto, P extends JepRiaApp
 
 	@Override
 	public String[] getListFieldValues(String jepListFieldId) {
+		pages.getApplicationPage().ensurePageLoaded();
+		
 		// Получаем список всех чекбоксов внутри INPUT'а заданного поля 
 		WebElement listBox = pages.getApplicationPage().getWebDriver().findElement(By.id(jepListFieldId + AutomationConstant.FIELD_INPUT_POSTFIX));
 	    List<WebElement> allCheckBoxes = listBox.findElements(By.xpath(
@@ -616,6 +622,26 @@ public class JepRiaModuleAutoImpl<A extends EntranceAppAuto, P extends JepRiaApp
 	    	}
 	    }
 	    return ret.toArray(new String[ret.size()]);
+	}
+
+	
+	@Override
+	public boolean isFieldVisible(String fieldId) {
+		pages.getApplicationPage().ensurePageLoaded();
+		
+		// visiblity can be determined by "aria-hidden" attribute of the entire field element
+		WebElement element = pages.getApplicationPage().getWebDriver().findElement(By.id(fieldId));
+		return !"true".equals(element.getAttribute("aria-hidden"));
+	}
+
+	
+	@Override
+	public boolean isFieldEnabled(String fieldId) {
+		pages.getApplicationPage().ensurePageLoaded();
+		
+		// enability can be determined by "disabled" attribute of the field's INPUT element
+		WebElement element = pages.getApplicationPage().getWebDriver().findElement(By.id(fieldId + FIELD_INPUT_POSTFIX));
+		return !"true".equals(element.getAttribute("disabled"));
 	}
 
 }

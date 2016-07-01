@@ -203,4 +203,16 @@ public interface JepRiaModuleAuto extends EntranceAuto {
 	 * поэтому сравнение массивов в классе *AutoTest необходимо производить без учета порядка!  
 	 */
 	String[] getListFieldValues(String jepListFieldId);
+	
+	/**
+	 * Проверка свойства visible Jep-поля по заданному ID (фактически, проверка атрибута aria-hidden)
+	 * @param fieldId id Jep-поля
+	 */
+	boolean isFieldVisible(String fieldId);
+	
+	/**
+	 * Проверка свойства enables Jep-поля по заданному ID (фактически, проверка атрибута disabled)
+	 * @param fieldId id Jep-поля
+	 */
+	boolean isFieldEnabled(String fieldId);
 }

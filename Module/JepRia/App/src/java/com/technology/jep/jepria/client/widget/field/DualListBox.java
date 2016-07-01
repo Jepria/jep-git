@@ -205,6 +205,9 @@ public class DualListBox extends Composite implements HasWidgets, HasValueChange
 	 * @param fieldIdAsWebEl ID JepDualListField'а, который берется за основу ID внутренних компонентов
 	 */
 	public void setInnerIds(String fieldIdAsWebEl) {
+		// Правой части присваивается INPUT_POSTFIX, а не RIGHTPART_POSTFIX потому что:
+		// 1) удобнее из общего INPUT брать значение поля
+		// 2) enability Jep-полей определяется в общем случае по INPUT
 		right.getElement().setId(fieldIdAsWebEl + AutomationConstant.FIELD_INPUT_POSTFIX);
 		left.getElement().setId(fieldIdAsWebEl + AutomationConstant.DETAIL_FORM_DUALLIST_LEFTPART_POSTFIX);
 		moveRight.getElement().setId(fieldIdAsWebEl + AutomationConstant.DETAIL_FORM_DUALLIST_MOVERIGHT_BTN_POSTFIX);

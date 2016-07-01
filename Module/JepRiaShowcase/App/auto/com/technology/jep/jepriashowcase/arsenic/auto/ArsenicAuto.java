@@ -3,9 +3,15 @@ package com.technology.jep.jepriashowcase.arsenic.auto;
 import com.technology.jep.jepria.auto.JepRiaModuleAuto;
 
 public interface ArsenicAuto extends JepRiaModuleAuto {
+	void setCheckBox_switchVsbl(boolean checked);
+	boolean getCheckBox_switchVsbl();
+	
+	void setCheckBox_switchEnbl(boolean checked);
+	boolean getCheckBox_switchEnbl();
+	
 	void setJepTextField(String value);
 	void setJepTextAreaField(String value);
-	void setJepIntegerField(String value);
+	void setJepIntegerField_maxRowCount(String value);
 	void setJepLongField(String value);
 	void setJepMoneyField(String value);
 	void setJepNumberField(String value);
@@ -16,14 +22,14 @@ public interface ArsenicAuto extends JepRiaModuleAuto {
 	void setJepComboBoxFieldReloading(String value);
 	void setJepComboBoxField3chReloading(String value);
 	void setJepDualListField(String[] value);
-	void setJepCheckBoxField(boolean value);
+	void setJepCheckBoxField(boolean checked);
 	void changeJepCheckBoxField();
 	void setJepListField(String[] value);
 	void setJepListFieldCheckAll(String[] value);
 	
 	String getJepTextField();
 	String getJepTextAreaField();
-	String getJepIntegerField();
+	String getJepIntegerField_maxRowCount();
 	String getJepLongField();
 	String getJepMoneyField();
 	String getJepNumberField();
@@ -37,4 +43,18 @@ public interface ArsenicAuto extends JepRiaModuleAuto {
 	boolean getJepCheckBoxField();
 	String[] getJepListField();
 	String[] getJepListFieldCheckAll();
+	
+	/**
+	 * Проверяет, действительно ли все заданные поля имеют visiblity=expected?
+	 * @param expected
+	 * @return
+	 */
+	boolean checkAllFieldsVisibility(boolean expected);
+	
+	/**
+	 * Проверяет, действительно ли все заданные поля имеют enability=expected?
+	 * @param expected
+	 * @return
+	 */
+	boolean checkAllFieldsEnability(boolean expected);
 }
