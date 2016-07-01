@@ -80,3 +80,5 @@ Module/JrCompiler/App/lib/jrcompiler.jar
 /Module/JepRiaShowcase/App/test-output
 /Module/JepRiaShowcase/App/build-test
 /Module/JepRiaReport/App/log
+/Module/JepRiaShowcase/App/dist/*.ear
+/Module/JepRiaShowcase/App/dist/*.war
