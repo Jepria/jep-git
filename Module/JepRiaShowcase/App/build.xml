@@ -6,7 +6,7 @@
 	<property file="build.properties" />
 	<property file="test.properties" />
 	<property file="config/${BUILD_CONFIG}/deploy.properties"/>
-	
+
 	<property name="JEPRIA" value="../../JepRia/App" />
 	<property name="JAVA_DOC_DIR" value="../Doc/App/AutoGen" />
 	<property name="LOG_LEVEL" value="info" />
@@ -127,7 +127,7 @@
 		<include name="**/*Text.properties" />
 		<include name="**/*Text_??.properties" />
 		<include name="**/log4j.properties" />
-    </fileset>
+	</fileset>
 
 	
 	<!-- Проверка наличия всех используемых библиотек (зависимостей) -->
@@ -158,7 +158,7 @@
 			</then>
 		</if>
 		<echo message="Dependency checking succeeded"/>
-    </target>
+	</target>
 	
 	<target name="define-toolkit-appinstall">
 		<taskdef name="appInstall" classname="com.technology.jep.jepriatoolkit.version.AppInstallTask" classpath="${JEPRIA-TOOLKIT_LIB}" />
@@ -441,7 +441,7 @@
 			</sourcefiles>
 			<mapper from="*.jrxml" to="*.jasper" type="glob" />
 			<sequential>
-				<java classname="com.technology.jep.jrcompiler.JRCompiler" fork="true" jvm="${OC4J_HOME}/jdk/bin/java">
+				<java classname="com.technology.jep.jrcompiler.JRCompiler" fork="true" jvm="${JAVA_HOME}/jdk/bin/java">
 					<classpath>
 						<path location="${GROOVY-ALL_LIB}" />
 						<path location="${GWT-SERVLET_LIB}" />
@@ -584,6 +584,19 @@
 				<delete dir="temp-ear" />
 			</sequential>
 		</outofdate>
+	</target>
+	
+	<!-- Копирование дистрибутивов в бинарный репозиторий -->
+	<target name="to-bin" depends="war, ear">
+		<copy todir="${BIN_REPO_DIR}">
+			<fileset dir="${DISTR_DIR}"/>
+		</copy>
+	</target>
+	<!-- Получение дистрибутивов из бинарного репозитория -->
+	<target name="from-bin">
+		<copy todir="${DISTR_DIR}">
+			<fileset dir="${BIN_REPO_DIR}" excludes="**/*.properties"/>
+		</copy>
 	</target>
 	
 	<!-- Создание приложения war -->
@@ -730,9 +743,9 @@
 		<taskdef name="appInstall" classname="com.technology.jep.jepriatoolkit.version.AppInstallTask" classpath="${JEPRIA-TOOLKIT_LIB}" />
 		<appInstall action="startAppInstall" appInstallResultId="appInstallResultId" skipSaveInstallInfo="${SKIP_SAVE_INSTALL_INFO}" deploymentPath="${DEPLOYMENT_PATH}" loadOperatorId="${LOAD_OPERATORID}" moduleName="${MODULE_NAME}" packageName="${PROJECT_NAME_IN_PACKAGE}" port="${PORT}" svnPath="${svnPath}" svnVersionInfo="${svnVersionInfo}" version="${VERSION}" />
 		<!--
-        <echo message="${startAppInstallResult}" />
-        <echo message="${appInstallResultId}" />
-        -->
+		<echo message="${startAppInstallResult}" />
+		<echo message="${appInstallResultId}" />
+		-->
 	</target>
 <!--
 	<target name="oc4j.deploy" depends="save-version-application">
@@ -860,6 +873,7 @@
 			<fileset dir="build-gwt" />
 			<fileset dir="${JAR_TEMP}" />
 			<fileset dir="build-test" />
+			<fileset dir="build-lib" />
 			<fileset dir="temp-war" />
 			<fileset dir="temp-ear" />
 		</delete>
