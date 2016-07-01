@@ -193,51 +193,58 @@ public class AutomationConstant {
 	/**
 	 * Инфикс-идентификатор элементов меню комбобоксов
 	 */
-	public static final String DETAIL_FORM_COMBOBOX_MENU_ITEM_INFIX = "_DETAIL_FORM_COMBOBOX_MENU_ITEM_";
+	public static final String JEP_COMBO_BOX_FIELD_MENU_ITEM_INFIX = "_JEP_COMBOBOX_MENU_ITEM_";
 	
 	/**
-	 * Постфикс-идентификатор input-поля комбобоксов
+	 * Постфикс-идентификатор input-поля Jep-полей
 	 */
-	public static final String FIELD_INPUT_POSTFIX = "_INPUT";
+	public static final String JEP_FIELD_INPUT_POSTFIX = "_JEP_FIELD_INPUT";
+	
+	/**
+	 * HTML-атрибут и его значения editableCard и viewCard Jep-полей
+	 */
+	public static final String JEP_CARD_TYPE_HTML_ATTR = "jep-card-type";
+	public static final String JEP_CARD_TYPE_VALUE_EDTB = "editable";
+	public static final String JEP_CARD_TYPE_VALUE_VIEW = "view";
 	
 	/**
 	 * Постфикс-идентификатор кнопки 'развернуть' комбобоксов
 	 */
-	public static final String DETAIL_FORM_COMBOBOX_DROPDOWN_BTN_POSTFIX = "_DETAIL_FORM_COMBOBOX_DROPDOWN_BTN";
+	public static final String JEP_COMBO_BOX_FIELD_DROPDOWN_BTN_POSTFIX = "_JEP_COMBO_BOX_FIELD_DROPDOWN_BTN";
 	
 	/**
 	 * Постфикс-идентификатор PopupPanel всплывающего меню комбобоксов
 	 */
-	public static final String DETAIL_FORM_COMBOBOX_POPUP_POSTFIX = "_DETAIL_FORM_COMBOBOX_POPUP";
+	public static final String JEP_COMBO_BOX_FIELD_POPUP_POSTFIX = "_JEP_COMBO_BOX_FIELD_POPUP";
 	
 	/**
 	 * Инфикс элементов меню DualListField
 	 */
-	public static final String DETAIL_FORM_DUALLIST_MENU_ITEM_INFIX = "_DETAIL_FORM_DUALLIST_MENU_ITEM_";
+	public static final String JEP_DUAL_LIST_FIELD_MENU_ITEM_INFIX = "_JEP_DUAL_LIST_FIELD_MENU_ITEM_";
 	
 	/**
 	 * Постфикс-идентификаторы списков DualListField
 	 */
-	public static final String DETAIL_FORM_DUALLIST_LEFTPART_POSTFIX = "_DETAIL_FORM_DUALLIST_LEFTPART";
-	public static final String DETAIL_FORM_DUALLIST_RIGHTPART_POSTFIX = "_DETAIL_FORM_DUALLIST_RIGHTPART";
+	public static final String JEP_DUAL_LIST_FIELD_LEFTPART_POSTFIX = "_JEP_DUAL_LIST_FIELD_LEFTPART";
+	public static final String JEP_DUAL_LIST_FIELD_RIGHTPART_POSTFIX = "_JEP_DUAL_LIST_FIELD_RIGHTPART";
 	
 	/**
 	 * Постфикс-идентификаторы кнопок перемещения опций между двумя списками DualListField
 	 */
-	public static final String DETAIL_FORM_DUALLIST_MOVERIGHT_BTN_POSTFIX = "_DETAIL_FORM_DUALLIST_MOVERIGHT_BTN";
-	public static final String DETAIL_FORM_DUALLIST_MOVELEFT_BTN_POSTFIX = "_DETAIL_FORM_DUALLIST_MOVELEFT_BTN";
-	public static final String DETAIL_FORM_DUALLIST_MOVEALLRIGHT_BTN_POSTFIX = "_DETAIL_FORM_DUALLIST_MOVEALLRIGHT_BTN";
-	public static final String DETAIL_FORM_DUALLIST_MOVEALLLEFT_BTN_POSTFIX = "_DETAIL_FORM_DUALLIST_MOVEALLLEFT_BTN";
+	public static final String JEP_DUAL_LIST_FIELD_MOVERIGHT_BTN_POSTFIX = "_JEP_DUAL_LIST_FIELD_MOVERIGHT_BTN";
+	public static final String JEP_DUAL_LIST_FIELD_MOVELEFT_BTN_POSTFIX = "_JEP_DUAL_LIST_FIELD_MOVELEFT_BTN";
+	public static final String JEP_DUAL_LIST_FIELD_MOVEALLRIGHT_BTN_POSTFIX = "_JEP_DUAL_LIST_FIELD_MOVEALLRIGHT_BTN";
+	public static final String JEP_DUAL_LIST_FIELD_MOVEALLLEFT_BTN_POSTFIX = "_JEP_DUAL_LIST_FIELD_MOVEALLLEFT_BTN";
 	
 	/**
 	 * Инфикс элементов списка поля JepListField
 	 */
-	public static final String DETAIL_FORM_LIST_ITEM_CHECKBOX_INFIX = "_DETAIL_FORM_LIST_ITEM_CHECKBOX_";
+	public static final String JEP_LIST_FIELD_ITEM_CHECKBOX_INFIX = "_JEP_LIST_FIELD_ITEM_CHECKBOX_";
 	
 	/**
 	 * Постфикс-идентификатор флажка "Выделить все" поля JepListField
 	 */
-	public static final String DETAIL_FORM_LIST_CHECKALL_POSTFIX = "_DETAIL_FORM_LIST_CHECKALL";
+	public static final String JEP_LIST_FIELD_CHECKALL_POSTFIX = "_JEP_LIST_FIELD_CHECKALL";
 	
 	
 	/**
@@ -248,5 +255,5 @@ public class AutomationConstant {
 	/**
 	 * HTML-атрибут элемента, который требует хранения значения опции, которой он однозначно соответствует.
 	 */
-	public static final String OPTION_VALUE_HTML_ATTR = "option-value";
+	public static final String JEP_OPTION_VALUE_HTML_ATTR = "jep-option-value";
 }

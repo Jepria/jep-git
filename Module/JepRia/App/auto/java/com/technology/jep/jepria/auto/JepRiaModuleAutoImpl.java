@@ -4,17 +4,21 @@ import static com.technology.jep.jepria.auto.util.WebDriverFactory.getWait;
 import static com.technology.jep.jepria.client.AutomationConstant.ALERT_MESSAGEBOX_ID;
 import static com.technology.jep.jepria.client.AutomationConstant.CONFIRM_MESSAGEBOX_ID;
 import static com.technology.jep.jepria.client.AutomationConstant.CONFIRM_MESSAGE_BOX_YES_BUTTON_ID;
-import static com.technology.jep.jepria.client.AutomationConstant.DETAIL_FORM_COMBOBOX_DROPDOWN_BTN_POSTFIX;
-import static com.technology.jep.jepria.client.AutomationConstant.DETAIL_FORM_COMBOBOX_POPUP_POSTFIX;
-import static com.technology.jep.jepria.client.AutomationConstant.DETAIL_FORM_DUALLIST_LEFTPART_POSTFIX;
-import static com.technology.jep.jepria.client.AutomationConstant.DETAIL_FORM_DUALLIST_MENU_ITEM_INFIX;
-import static com.technology.jep.jepria.client.AutomationConstant.DETAIL_FORM_DUALLIST_MOVEALLLEFT_BTN_POSTFIX;
-import static com.technology.jep.jepria.client.AutomationConstant.DETAIL_FORM_DUALLIST_MOVERIGHT_BTN_POSTFIX;
-import static com.technology.jep.jepria.client.AutomationConstant.DETAIL_FORM_LIST_CHECKALL_POSTFIX;
-import static com.technology.jep.jepria.client.AutomationConstant.DETAIL_FORM_LIST_ITEM_CHECKBOX_INFIX;
 import static com.technology.jep.jepria.client.AutomationConstant.ERROR_MESSAGEBOX_ID;
-import static com.technology.jep.jepria.client.AutomationConstant.FIELD_INPUT_POSTFIX;
-import static com.technology.jep.jepria.client.AutomationConstant.OPTION_VALUE_HTML_ATTR;
+import static com.technology.jep.jepria.client.AutomationConstant.JEP_CARD_TYPE_HTML_ATTR;
+import static com.technology.jep.jepria.client.AutomationConstant.JEP_CARD_TYPE_VALUE_EDTB;
+import static com.technology.jep.jepria.client.AutomationConstant.JEP_CARD_TYPE_VALUE_VIEW;
+import static com.technology.jep.jepria.client.AutomationConstant.JEP_COMBO_BOX_FIELD_DROPDOWN_BTN_POSTFIX;
+import static com.technology.jep.jepria.client.AutomationConstant.JEP_COMBO_BOX_FIELD_MENU_ITEM_INFIX;
+import static com.technology.jep.jepria.client.AutomationConstant.JEP_COMBO_BOX_FIELD_POPUP_POSTFIX;
+import static com.technology.jep.jepria.client.AutomationConstant.JEP_DUAL_LIST_FIELD_LEFTPART_POSTFIX;
+import static com.technology.jep.jepria.client.AutomationConstant.JEP_DUAL_LIST_FIELD_MENU_ITEM_INFIX;
+import static com.technology.jep.jepria.client.AutomationConstant.JEP_DUAL_LIST_FIELD_MOVEALLLEFT_BTN_POSTFIX;
+import static com.technology.jep.jepria.client.AutomationConstant.JEP_DUAL_LIST_FIELD_MOVERIGHT_BTN_POSTFIX;
+import static com.technology.jep.jepria.client.AutomationConstant.JEP_FIELD_INPUT_POSTFIX;
+import static com.technology.jep.jepria.client.AutomationConstant.JEP_LIST_FIELD_CHECKALL_POSTFIX;
+import static com.technology.jep.jepria.client.AutomationConstant.JEP_LIST_FIELD_ITEM_CHECKBOX_INFIX;
+import static com.technology.jep.jepria.client.AutomationConstant.JEP_OPTION_VALUE_HTML_ATTR;
 import static com.technology.jep.jepria.client.AutomationConstant.TOOLBAR_ADD_BUTTON_ID;
 import static com.technology.jep.jepria.client.AutomationConstant.TOOLBAR_DELETE_BUTTON_ID;
 import static com.technology.jep.jepria.client.AutomationConstant.TOOLBAR_EDIT_BUTTON_ID;
@@ -52,12 +56,12 @@ import com.technology.jep.jepria.auto.conditions.TextChangeChecker;
 import com.technology.jep.jepria.auto.entrance.ApplicationEntranceAuto;
 import com.technology.jep.jepria.auto.entrance.EntranceAppAuto;
 import com.technology.jep.jepria.auto.entrance.pages.JepRiaApplicationPageManager;
+import com.technology.jep.jepria.auto.exceptions.AutomationException;
 import com.technology.jep.jepria.auto.exceptions.NotExpectedException;
 import com.technology.jep.jepria.auto.exceptions.WrongOptionException;
 import com.technology.jep.jepria.auto.widget.field.Field;
 import com.technology.jep.jepria.auto.widget.statusbar.StatusBar;
 import com.technology.jep.jepria.auto.widget.statusbar.StatusBarImpl;
-import com.technology.jep.jepria.client.AutomationConstant;
 import com.technology.jep.jepria.client.ui.WorkstateEnum;
 import com.technology.jep.jepria.shared.exceptions.NotImplementedYetException;
 import com.technology.jep.jepria.shared.exceptions.UnsupportedException;
@@ -223,7 +227,7 @@ public class JepRiaModuleAutoImpl<A extends EntranceAppAuto, P extends JepRiaApp
 	public void setFieldValue(String fieldId, String value) {
 		pages.getApplicationPage().ensurePageLoaded();
 		
-		WebElement fieldInput = pages.getApplicationPage().getWebDriver().findElement(By.id(fieldId + FIELD_INPUT_POSTFIX)); 
+		WebElement fieldInput = pages.getApplicationPage().getWebDriver().findElement(By.id(fieldId + JEP_FIELD_INPUT_POSTFIX)); 
 		getWait().until(elementToBeClickable(fieldInput));
 		
 		String del = Keys.chord(Keys.CONTROL, "a") + Keys.DELETE; 
@@ -234,7 +238,7 @@ public class JepRiaModuleAutoImpl<A extends EntranceAppAuto, P extends JepRiaApp
 	public String getFieldValue(String fieldId) {
 		pages.getApplicationPage().ensurePageLoaded();
 		
-		WebElement fieldInput = pages.getApplicationPage().getWebDriver().findElement(By.id(fieldId + FIELD_INPUT_POSTFIX));
+		WebElement fieldInput = pages.getApplicationPage().getWebDriver().findElement(By.id(fieldId + JEP_FIELD_INPUT_POSTFIX));
 		return fieldInput.getAttribute("value");
 	}
 	
@@ -243,15 +247,15 @@ public class JepRiaModuleAutoImpl<A extends EntranceAppAuto, P extends JepRiaApp
 		pages.getApplicationPage().ensurePageLoaded();
 		
 		// Получаем список всех опций внутри INPUT'а заданного поля (INPUT это правый список)
-		WebElement rightListBox = pages.getApplicationPage().getWebDriver().findElement(By.id(jepDualListFieldId + FIELD_INPUT_POSTFIX));
-	    rightListBox.click();
-	    List<WebElement> options = rightListBox.findElements(By.xpath(".//option"));
+	    List<WebElement> options = pages.getApplicationPage().getWebDriver().findElements(By.xpath(
+	    		String.format("//*[@id='%s']//option",
+	    				jepDualListFieldId + JEP_FIELD_INPUT_POSTFIX)));
 	    
 	    List<String> ret = new ArrayList<String>();
 	    
 	    // Проходим по полученному списку, и, для каждой опции, получаем ее option-value
 	    for (WebElement option: options) { 
-	        ret.add(option.getAttribute(OPTION_VALUE_HTML_ATTR));
+	        ret.add(option.getAttribute(JEP_OPTION_VALUE_HTML_ATTR));
 	    }
 	    return ret.toArray(new String[ret.size()]);
 	}
@@ -277,18 +281,18 @@ public class JepRiaModuleAutoImpl<A extends EntranceAppAuto, P extends JepRiaApp
 		
 		// Подготовка: в случае, если на данный JepComboBoxField навешена загрузка опций по первому использованию,
 		// то нажимаем на кнопку 'развернуть' для того, чтобы загрузка произошла, и ждём окончания загрузки опций.
-		final WebElement dropDownButton = pages.getApplicationPage().getWebDriver().findElement(By.id(comboBoxFieldId + DETAIL_FORM_COMBOBOX_DROPDOWN_BTN_POSTFIX)); 
+		final WebElement dropDownButton = pages.getApplicationPage().getWebDriver().findElement(By.id(comboBoxFieldId + JEP_COMBO_BOX_FIELD_DROPDOWN_BTN_POSTFIX)); 
 		getWait().until(elementToBeClickable(dropDownButton));
 		dropDownButton.click();
 		
 		// Отслеживаем появление suggestBoxPopup, то есть когда список опций загрузится.
-		final By comboBoxPopupPanelBy = By.id(comboBoxFieldId + DETAIL_FORM_COMBOBOX_POPUP_POSTFIX);
+		final By comboBoxPopupPanelBy = By.id(comboBoxFieldId + JEP_COMBO_BOX_FIELD_POPUP_POSTFIX);
 		getWait().until(presenceOfElementLocated(comboBoxPopupPanelBy));
 		
 		
 		// Непосредственно поиск и выбор элемента в списке.
 		// Очистим поле ввода.
-		final WebElement fieldInput = pages.getApplicationPage().getWebDriver().findElement(By.id(comboBoxFieldId + FIELD_INPUT_POSTFIX)); 
+		final WebElement fieldInput = pages.getApplicationPage().getWebDriver().findElement(By.id(comboBoxFieldId + JEP_FIELD_INPUT_POSTFIX)); 
 		getWait().until(elementToBeClickable(fieldInput));
 		String del = Keys.chord(Keys.CONTROL, "a") + Keys.DELETE; 
 		fieldInput.sendKeys(del);
@@ -320,11 +324,11 @@ public class JepRiaModuleAutoImpl<A extends EntranceAppAuto, P extends JepRiaApp
 		while (true) {
 			try {
 				// Важно! лоцировать comboBoxPopupPanel нужно именно в каждой итерации цикла, несмотря на то, что элемент вроде не изменяется внутри цикла.
-				WebElement comboBoxPopupPanel = pages.getApplicationPage().getWebDriver().findElement(By.id(comboBoxFieldId + DETAIL_FORM_COMBOBOX_POPUP_POSTFIX));
-				comboBoxMenuItem = comboBoxPopupPanel.findElement(By.xpath(
-						String.format(".//*[starts-with(@id, '%s') and @%s='%s']",
-								comboBoxFieldId + AutomationConstant.DETAIL_FORM_COMBOBOX_MENU_ITEM_INFIX,
-								OPTION_VALUE_HTML_ATTR,
+				comboBoxMenuItem = pages.getApplicationPage().getWebDriver().findElement(By.xpath(
+						String.format("//*[@id='%s']//*[starts-with(@id, '%s') and @%s='%s']",
+								comboBoxFieldId + JEP_COMBO_BOX_FIELD_POPUP_POSTFIX,
+								comboBoxFieldId + JEP_COMBO_BOX_FIELD_MENU_ITEM_INFIX,
+								JEP_OPTION_VALUE_HTML_ATTR,
 								menuItem)));
 				// Исключения не было - значит, опция найдена в списке на данном шаге.
 				break;
@@ -360,25 +364,24 @@ public class JepRiaModuleAutoImpl<A extends EntranceAppAuto, P extends JepRiaApp
 		
 		// Очищаем правый список (переносим все влево)
 		final WebElement moveAllLeftButton = pages.getApplicationPage().getWebDriver().
-				findElement(By.id(dualListFieldId + DETAIL_FORM_DUALLIST_MOVEALLLEFT_BTN_POSTFIX));
+				findElement(By.id(dualListFieldId + JEP_DUAL_LIST_FIELD_MOVEALLLEFT_BTN_POSTFIX));
 		getWait().until(elementToBeClickable(moveAllLeftButton));
 		moveAllLeftButton.click();
 		
 		// Определяем кнопку "выбрать опцию" (переместить вправо)
 		final WebElement moveRightButton = pages.getApplicationPage().getWebDriver().
-				findElement(By.id(dualListFieldId + DETAIL_FORM_DUALLIST_MOVERIGHT_BTN_POSTFIX));
+				findElement(By.id(dualListFieldId + JEP_DUAL_LIST_FIELD_MOVERIGHT_BTN_POSTFIX));
 		
 		WebElement option;
-		final WebElement leftListBox = pages.getApplicationPage().getWebDriver().
-				findElement(By.id(dualListFieldId + DETAIL_FORM_DUALLIST_LEFTPART_POSTFIX));
 		// Последовательно выбираем все опции из необходимых и перемещаем в правую часть
 		for (String menuItem: menuItems) {
 			if (!JepRiaUtil.isEmpty(menuItem)) {
 				try {
-					option = leftListBox.findElement(By.xpath(
-							String.format(".//*[starts-with(@id, '%s') and @%s='%s']",
-									dualListFieldId + DETAIL_FORM_DUALLIST_MENU_ITEM_INFIX,
-									OPTION_VALUE_HTML_ATTR,
+					option = pages.getApplicationPage().getWebDriver().findElement(By.xpath(
+							String.format("//*[@id='%s']//*[starts-with(@id, '%s') and @%s='%s']",
+									dualListFieldId + JEP_DUAL_LIST_FIELD_LEFTPART_POSTFIX,
+									dualListFieldId + JEP_DUAL_LIST_FIELD_MENU_ITEM_INFIX,
+									JEP_OPTION_VALUE_HTML_ATTR,
 									menuItem)));
 					getWait().until(elementToBeClickable(option));
 					option.click();
@@ -503,7 +506,7 @@ public class JepRiaModuleAutoImpl<A extends EntranceAppAuto, P extends JepRiaApp
 	public void setCheckBoxFieldValue(String checkBoxFieldId, boolean checked) {
 		pages.getApplicationPage().ensurePageLoaded();
 		
-		WebElement fieldInput = pages.getApplicationPage().getWebDriver().findElement(By.id(checkBoxFieldId + FIELD_INPUT_POSTFIX)); 
+		WebElement fieldInput = pages.getApplicationPage().getWebDriver().findElement(By.id(checkBoxFieldId + JEP_FIELD_INPUT_POSTFIX)); 
 		
 		if (fieldInput.isSelected() != checked) {
 			getWait().until(elementToBeClickable(fieldInput));
@@ -515,7 +518,7 @@ public class JepRiaModuleAutoImpl<A extends EntranceAppAuto, P extends JepRiaApp
 	public void changeCheckBoxFieldValue(String checkBoxFieldId) {
 		pages.getApplicationPage().ensurePageLoaded();
 		
-		WebElement fieldInput = pages.getApplicationPage().getWebDriver().findElement(By.id(checkBoxFieldId + FIELD_INPUT_POSTFIX)); 
+		WebElement fieldInput = pages.getApplicationPage().getWebDriver().findElement(By.id(checkBoxFieldId + JEP_FIELD_INPUT_POSTFIX)); 
 		
 		getWait().until(elementToBeClickable(fieldInput));
 		fieldInput.click();
@@ -525,7 +528,7 @@ public class JepRiaModuleAutoImpl<A extends EntranceAppAuto, P extends JepRiaApp
 	public boolean getCheckBoxFieldValue(String checkBoxFieldId) {
 		pages.getApplicationPage().ensurePageLoaded();
 		
-		WebElement fieldInput = pages.getApplicationPage().getWebDriver().findElement(By.id(checkBoxFieldId + FIELD_INPUT_POSTFIX));
+		WebElement fieldInput = pages.getApplicationPage().getWebDriver().findElement(By.id(checkBoxFieldId + JEP_FIELD_INPUT_POSTFIX));
 		return fieldInput.isSelected();
 	}
 
@@ -535,16 +538,16 @@ public class JepRiaModuleAutoImpl<A extends EntranceAppAuto, P extends JepRiaApp
 		
 		// Cначала пробуем сделать это кнопкой "выделить все"
 		WebElement selectAllCheckBox = pages.getApplicationPage().getWebDriver().
-				findElement(By.id(listFieldId + DETAIL_FORM_LIST_CHECKALL_POSTFIX));
+				findElement(By.id(listFieldId + JEP_LIST_FIELD_CHECKALL_POSTFIX));
 		
 		if ("true".equals(selectAllCheckBox.getAttribute("aria-hidden"))) {
 			// Кнопка "выделить все" скрыта, значит, нужно снимать выделение с каждого элемента.
 			
 			// Получаем список всех чекбоксов внутри INPUT'а заданного поля 
-			WebElement listBox = pages.getApplicationPage().getWebDriver().findElement(By.id(listFieldId + AutomationConstant.FIELD_INPUT_POSTFIX));
-			List<WebElement> allCheckBoxes = listBox.findElements(By.xpath(
-					String.format(".//*[starts-with(@id, '%s')]",
-							listFieldId + DETAIL_FORM_LIST_ITEM_CHECKBOX_INFIX)));
+			List<WebElement> allCheckBoxes = pages.getApplicationPage().getWebDriver().findElements(By.xpath(
+					String.format("//*[@id='%s']//*[starts-with(@id, '%s')]",
+							listFieldId + JEP_FIELD_INPUT_POSTFIX,
+							listFieldId + JEP_LIST_FIELD_ITEM_CHECKBOX_INFIX)));
 			// Кликаем на необходимые
 			for (WebElement option: allCheckBoxes ) {
 				if (option.isSelected() && !selectAll || !option.isSelected() && selectAll) {
@@ -582,16 +585,16 @@ public class JepRiaModuleAutoImpl<A extends EntranceAppAuto, P extends JepRiaApp
 		
 		
 		WebElement option;
-		WebElement listBox = pages.getApplicationPage().getWebDriver().findElement(By.id(listFieldId + AutomationConstant.FIELD_INPUT_POSTFIX));
 		// Последовательно отмечаем все опции из необходимых
 		for (String menuItem: menuItems) {
 			if (!JepRiaUtil.isEmpty(menuItem)) {
 				try {
 					// Ищем чекбокс с соответствующим искомому значению option-value.
-					option = listBox.findElement(By.xpath(
-							String.format(".//*[starts-with(@id, '%s') and @%s='%s']",
-									listFieldId + DETAIL_FORM_LIST_ITEM_CHECKBOX_INFIX,
-									OPTION_VALUE_HTML_ATTR,
+					option = pages.getApplicationPage().getWebDriver().findElement(By.xpath(
+							String.format("//*[@id='%s']//*[starts-with(@id, '%s') and @%s='%s']",
+									listFieldId + JEP_FIELD_INPUT_POSTFIX,
+									listFieldId + JEP_LIST_FIELD_ITEM_CHECKBOX_INFIX,
+									JEP_OPTION_VALUE_HTML_ATTR,
 									menuItem)));
 					((JavascriptExecutor) pages.getApplicationPage().getWebDriver()).executeScript("arguments[0].click();", option);
 				
@@ -607,17 +610,17 @@ public class JepRiaModuleAutoImpl<A extends EntranceAppAuto, P extends JepRiaApp
 		pages.getApplicationPage().ensurePageLoaded();
 		
 		// Получаем список всех чекбоксов внутри INPUT'а заданного поля 
-		WebElement listBox = pages.getApplicationPage().getWebDriver().findElement(By.id(jepListFieldId + AutomationConstant.FIELD_INPUT_POSTFIX));
-	    List<WebElement> allCheckBoxes = listBox.findElements(By.xpath(
-	    		String.format(".//*[starts-with(@id, '%s')]",
-	    				jepListFieldId + DETAIL_FORM_LIST_ITEM_CHECKBOX_INFIX)));
+	    List<WebElement> allCheckBoxes = pages.getApplicationPage().getWebDriver().findElements(By.xpath(
+	    		String.format("//*[@id='%s']//*[starts-with(@id, '%s')]",
+	    				jepListFieldId + JEP_FIELD_INPUT_POSTFIX,
+	    				jepListFieldId + JEP_LIST_FIELD_ITEM_CHECKBOX_INFIX)));
 	    
 	    List<String> ret = new ArrayList<String>();
 	    
 	    // Проходим по полученному списку, и, для отмеченных чекбоксов, получаем их option-value
 	    for (WebElement checkbox: allCheckBoxes) {
 	    	if (checkbox.isSelected()) {
-	    		ret.add(checkbox.getAttribute(OPTION_VALUE_HTML_ATTR));
+	    		ret.add(checkbox.getAttribute(JEP_OPTION_VALUE_HTML_ATTR));
 	    	}
 	    }
 	    return ret.toArray(new String[ret.size()]);
@@ -639,8 +642,54 @@ public class JepRiaModuleAutoImpl<A extends EntranceAppAuto, P extends JepRiaApp
 		pages.getApplicationPage().ensurePageLoaded();
 		
 		// enability can be determined by "disabled" attribute of the field's INPUT element
-		WebElement element = pages.getApplicationPage().getWebDriver().findElement(By.id(fieldId + FIELD_INPUT_POSTFIX));
+		WebElement element = pages.getApplicationPage().getWebDriver().findElement(By.id(fieldId + JEP_FIELD_INPUT_POSTFIX));
 		return !"true".equals(element.getAttribute("disabled"));
+	}
+
+	@Override
+	public boolean isFieldEditable(String fieldId) {
+		pages.getApplicationPage().ensurePageLoaded();
+		
+		// get all div children (but not grandchildren) of the field
+		List<WebElement> potentialCards = pages.getApplicationPage().getWebDriver().findElements(By.xpath(
+				String.format("//*[@id='%s']/div",
+						fieldId)));
+		WebElement editableCard = null, viewCard = null;
+		
+		for (WebElement potentialCard: potentialCards) {
+			if (editableCard == null) {
+				try { 
+					potentialCard.findElement(By.xpath(
+							String.format(".//*[@%s='%s']",
+									JEP_CARD_TYPE_HTML_ATTR,
+									JEP_CARD_TYPE_VALUE_EDTB)));
+					// if no excpetion has been thrown, then the 'jep-card-type=editable' was found in a child
+					// of the current div, that means it itself is the editable card.
+					editableCard = potentialCard;
+				} catch (NoSuchElementException e) {/*continue finding*/}
+			}
+			if (viewCard == null) {
+				try { 
+					potentialCard.findElement(By.xpath(
+							String.format(".//*[@%s='%s']",
+									JEP_CARD_TYPE_HTML_ATTR,
+									JEP_CARD_TYPE_VALUE_VIEW)));
+					// if no excpetion has been thrown, then the 'jep-card-type=view' was found in a child
+					// of the current div, that means it itself is the view card.
+					viewCard = potentialCard;
+				} catch (NoSuchElementException e) {/*continue finding*/}
+			}
+		}
+		
+		if (editableCard == null) {
+			throw new AutomationException("No editable card found for the field " + fieldId + ". Check the presence by xpath.");
+		}
+		if (viewCard == null) {
+			throw new AutomationException("No view card found for the field " + fieldId + ". Check the presence by xpath.");
+		}
+		
+		return editableCard.getAttribute("aria-hidden") == null &&
+				"true".equals(viewCard.getAttribute("aria-hidden"));
 	}
 
 }

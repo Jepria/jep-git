@@ -66,7 +66,7 @@ public class JepCheckBoxField extends JepMultiStateField<CheckBox, HTML> {
 	
 	@Override
 	protected void setWebIds() {
-		inputCheck.setId(fieldIdAsWebEl + AutomationConstant.FIELD_INPUT_POSTFIX);
+		inputCheck.setId(fieldIdAsWebEl + AutomationConstant.JEP_FIELD_INPUT_POSTFIX);
 	}
 	
 	/**

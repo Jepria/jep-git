@@ -9,6 +9,9 @@ public interface ArsenicAuto extends JepRiaModuleAuto {
 	void setCheckBox_switchEnbl(boolean checked);
 	boolean getCheckBox_switchEnbl();
 	
+	void setCheckBox_switchEdtb(boolean checked);
+	boolean getCheckBox_switchEdtb();
+	
 	void setJepTextField(String value);
 	void setJepTextAreaField(String value);
 	void setJepIntegerField_maxRowCount(String value);
@@ -57,4 +60,11 @@ public interface ArsenicAuto extends JepRiaModuleAuto {
 	 * @return
 	 */
 	boolean checkAllFieldsEnability(boolean expected);
+	
+	/**
+	 * Проверяет, действительно ли все заданные поля имеют редактируемость=expected?
+	 * @param expected
+	 * @return
+	 */
+	boolean checkAllFieldsEditability(boolean expected);
 }

@@ -215,4 +215,10 @@ public interface JepRiaModuleAuto extends EntranceAuto {
 	 * @param fieldId id Jep-поля
 	 */
 	boolean isFieldEnabled(String fieldId);
+	
+	/**
+	 * Проверка редактируемости Jep-поля по заданному ID (фактически, проверка атрибута jep-card-type)
+	 * @param fieldId id Jep-поля
+	 */
+	boolean isFieldEditable(String fieldId);
 }

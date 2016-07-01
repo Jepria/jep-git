@@ -1,7 +1,7 @@
 package com.technology.jep.jepria.client.widget.field;
 
-import static com.technology.jep.jepria.client.AutomationConstant.DETAIL_FORM_LIST_ITEM_CHECKBOX_INFIX;
-import static com.technology.jep.jepria.client.AutomationConstant.OPTION_VALUE_HTML_ATTR;
+import static com.technology.jep.jepria.client.AutomationConstant.JEP_LIST_FIELD_ITEM_CHECKBOX_INFIX;
+import static com.technology.jep.jepria.client.AutomationConstant.JEP_OPTION_VALUE_HTML_ATTR;
 import static com.technology.jep.jepria.client.JepRiaClientConstant.JepTexts;
 import static com.technology.jep.jepria.client.JepRiaClientConstant.MAIN_FONT_STYLE;
 
@@ -81,7 +81,7 @@ public class CheckBoxListField<T extends JepOption> extends Composite implements
 	 * An html string representation of a checked input box with a label.
 	 */
 	private static final String CHECKBOX_HTML = 
-			"<input type='checkbox' tabindex='-1' id='{0}' " + OPTION_VALUE_HTML_ATTR + "='{1}' style='float:left;cursor:pointer;' {2} {3}/>" +
+			"<input type='checkbox' tabindex='-1' id='{0}' " + JEP_OPTION_VALUE_HTML_ATTR + "='{1}' style='float:left;cursor:pointer;' {2} {3}/>" +
 			"<label for='{0}' title='{1}' class='item " + MAIN_FONT_STYLE + "'>&nbsp;{1}</label>";
 	
 	/**
@@ -459,7 +459,7 @@ public class CheckBoxListField<T extends JepOption> extends Composite implements
 			}
 			
 			final String checkBoxHtmlString;
-			String checkBoxIdAsWebEl = fieldIdAsWebEl + DETAIL_FORM_LIST_ITEM_CHECKBOX_INFIX + value.label;
+			String checkBoxIdAsWebEl = fieldIdAsWebEl + JEP_LIST_FIELD_ITEM_CHECKBOX_INFIX + value.label;
 			
 			boolean checked = value.checked != null && ((viewData != null) ? viewData : value.checked);
 			checkBoxHtmlString = JepClientUtil.substitute(CHECKBOX_HTML, checkBoxIdAsWebEl, value.label,
@@ -474,7 +474,7 @@ public class CheckBoxListField<T extends JepOption> extends Composite implements
 	 * @param fieldIdAsWebEl ID JepListField'а, который берется за основу ID внутренних компонентов
 	 */
 	public void setCompositeWebIds(String fieldIdAsWebEl) {
-		table.getElement().setId(fieldIdAsWebEl + AutomationConstant.FIELD_INPUT_POSTFIX);
-		selectAllCheckBox.getElement().setId(fieldIdAsWebEl + AutomationConstant.DETAIL_FORM_LIST_CHECKALL_POSTFIX);
+		table.getElement().setId(fieldIdAsWebEl + AutomationConstant.JEP_FIELD_INPUT_POSTFIX);
+		selectAllCheckBox.getElement().setId(fieldIdAsWebEl + AutomationConstant.JEP_LIST_FIELD_CHECKALL_POSTFIX);
 	}
 }

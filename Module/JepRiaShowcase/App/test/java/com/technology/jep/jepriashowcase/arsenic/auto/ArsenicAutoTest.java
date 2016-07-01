@@ -94,7 +94,7 @@ public class ArsenicAutoTest extends JepAutoTest<ArsenicAuto> {
 	}
 	
 	@DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/arsenic/auto/field.jepComboBoxField_1.data")
-	@Test(groups="setAndGetTextField!", dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
+	@Test(groups="setAndGetTextField", dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
 	public void setAndGetJepComboBoxFieldNotLazy(String value) {
 		setWorkstate(SEARCH);
 		cut.setJepComboBoxFieldNotLazy(value);
@@ -102,7 +102,7 @@ public class ArsenicAutoTest extends JepAutoTest<ArsenicAuto> {
 	}
 	
 	@DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/arsenic/auto/field.jepComboBoxField_1.data")
-	@Test(groups="setAndGetTextField!", dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
+	@Test(groups="setAndGetTextField", dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
 	public void setAndGetJepComboBoxFieldSimple(String value) {
 		setWorkstate(SEARCH);
 		cut.setJepComboBoxFieldSimple(value);
@@ -110,7 +110,7 @@ public class ArsenicAutoTest extends JepAutoTest<ArsenicAuto> {
 	}
 	
 	@DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/arsenic/auto/field.jepComboBoxField_1.data")
-	@Test(groups="setAndGetTextField!", dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
+	@Test(groups="setAndGetTextField", dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
 	public void setAndGetJepComboBoxFieldDurable(String value) {
 		setWorkstate(SEARCH);
 		cut.setJepComboBoxFieldDurable(value);
@@ -118,7 +118,7 @@ public class ArsenicAutoTest extends JepAutoTest<ArsenicAuto> {
 	}
 	
 	@DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/arsenic/auto/field.jepComboBoxField_2.data")
-	@Test(groups="setAndGetTextField!", dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
+	@Test(groups="setAndGetTextField", dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
 	public void setAndGetJepComboBoxFieldReloading(String value) {
 		setWorkstate(SEARCH);
 		cut.setJepComboBoxFieldReloading(value);
@@ -126,7 +126,7 @@ public class ArsenicAutoTest extends JepAutoTest<ArsenicAuto> {
 	}
 	
 	@DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/arsenic/auto/field.jepComboBoxField_2.data")
-	@Test(groups="setAndGetTextField!", dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
+	@Test(groups="setAndGetTextField", dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
 	public void setAndGetJepComboBoxField3chReloading(String value) {
 		setWorkstate(SEARCH);
 		cut.setJepComboBoxField3chReloading(value);
@@ -225,6 +225,18 @@ public class ArsenicAutoTest extends JepAutoTest<ArsenicAuto> {
 		
 		cut.setCheckBox_switchEnbl(true);
 		assertEquals(true, cut.checkAllFieldsEnability(true));
+	}
+	
+	// С осторожностью: оставить editability=true в конце!
+	@Test(groups="setAndGetTextField")
+	public void testSwitchEditability() {
+		setWorkstate(SEARCH);
+		
+		cut.setCheckBox_switchEdtb(false);
+		assertEquals(true, cut.checkAllFieldsEditability(false));
+		
+		cut.setCheckBox_switchEdtb(true);
+		assertEquals(true, cut.checkAllFieldsEditability(true));
 	}
 	
 	@Override

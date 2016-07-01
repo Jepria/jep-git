@@ -238,18 +238,29 @@ public abstract class JepMultiStateField<E extends Widget, V extends Widget> ext
 		changeWorkstate(SEARCH);
 		
 		
-		// Установка ID самого поля как Web-элемента и его Input-элемента
+		// Установка web-ID поля
 		this.getElement().setId(this.fieldIdAsWebEl);
+		// Установка web-ID других элементов поля
 		setWebIds();
+		setCardWebAttrs();
 	}
 	
 	/**
-	 * Установка web-ID различных внутренних компонентов данного Jep-поля.
+	 * Установка web-ID двух карт данного Jep-поля.
+	 * За основу назначаемых идентификаторов следует брать значение поля this.fieldIdAsWebEl .
+	 */
+	private void setCardWebAttrs() {
+		editableCard.getElement().setAttribute(AutomationConstant.JEP_CARD_TYPE_HTML_ATTR, AutomationConstant.JEP_CARD_TYPE_VALUE_EDTB);
+		viewCard.getElement().setAttribute(AutomationConstant.JEP_CARD_TYPE_HTML_ATTR, AutomationConstant.JEP_CARD_TYPE_VALUE_VIEW);
+	}
+	
+	/**
+	 * Установка web-ID внутренних компонентов, специфичных для конкретного Jep-поля.
 	 * Метод предназначен для перекрытия потомками. За основу назначаемых идентификаторов следует брать значение поля
 	 * this.fieldIdAsWebEl .
 	 */
 	protected void setWebIds() {
-		this.getInputElement().setId(fieldIdAsWebEl + AutomationConstant.FIELD_INPUT_POSTFIX);
+		this.getInputElement().setId(fieldIdAsWebEl + AutomationConstant.JEP_FIELD_INPUT_POSTFIX);
 	}
 	
 	/**
