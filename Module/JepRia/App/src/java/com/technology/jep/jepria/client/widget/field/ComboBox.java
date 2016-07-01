@@ -241,7 +241,7 @@ public class ComboBox<T extends JepOption> extends Composite
 	 * Установка ID внутренних компонентов Комбобокса: поля ввода, кнопки 'развернуть', PopupPanel всплывающего меню.
 	 * @param fieldIdAsWebEl ID JepComboBoxField'а, который берется за основу ID внутренних компонентов
 	 */
-	public void setCompositeIds(String fieldIdAsWebEl) {
+	public void setCompositeWebIds(String fieldIdAsWebEl) {
 		suggestBox.getElement().setId(fieldIdAsWebEl + AutomationConstant.FIELD_INPUT_POSTFIX);
 		selectImage.getElement().setId(fieldIdAsWebEl + AutomationConstant.DETAIL_FORM_COMBOBOX_DROPDOWN_BTN_POSTFIX);
 		suggestionDisplay.setPopupPanelId(fieldIdAsWebEl + AutomationConstant.DETAIL_FORM_COMBOBOX_POPUP_POSTFIX);

@@ -84,22 +84,22 @@ public class DualListBox extends Composite implements HasWidgets, HasValueChange
 	/**
 	 * Кнопка переноса элемента из левого списка в правый.
 	 */
-	private final JepButton moveRight = new JepButton("", null, JepImages.right());//ID кнопке присваивается в {@link #setInnerIds(String)}
+	private final JepButton moveRight = new JepButton("", null, JepImages.right());//ID кнопке присваивается в {@link #setCompositeWebIds(String)}
 	
 	/**
 	 * Кнопка переноса элемента из правого списка в левый.
 	 */
-	private final JepButton moveLeft = new JepButton("", null, JepImages.left());//ID кнопке присваивается в {@link #setInnerIds(String)}
+	private final JepButton moveLeft = new JepButton("", null, JepImages.left());//ID кнопке присваивается в {@link #setCompositeWebIds(String)}
 	
 	/**
 	 * Кнопка переноса всех элементов в правый список.
 	 */
-	private final JepButton moveAllRight = new JepButton("", null, JepImages.doubleRight());//ID кнопке присваивается в {@link #setInnerIds(String)}
+	private final JepButton moveAllRight = new JepButton("", null, JepImages.doubleRight());//ID кнопке присваивается в {@link #setCompositeWebIds(String)}
 	
 	/**
 	 * Кнопка переноса всех элементов в левый список.
 	 */
-	private final JepButton moveAllLeft = new JepButton("", null, JepImages.doubleLeft());//ID кнопке присваивается в {@link #setInnerIds(String)}
+	private final JepButton moveAllLeft = new JepButton("", null, JepImages.doubleLeft());//ID кнопке присваивается в {@link #setCompositeWebIds(String)}
 
 	/**
 	 * Компаратор, сравнивающий опции при добавлении элементов в левый и правый список.
@@ -204,7 +204,7 @@ public class DualListBox extends Composite implements HasWidgets, HasValueChange
 	 * Установка ID внутренних компонентов DualListBox: правого списка как INPUT и кнопок перемещения опций между двумя списками.
 	 * @param fieldIdAsWebEl ID JepDualListField'а, который берется за основу ID внутренних компонентов
 	 */
-	public void setInnerIds(String fieldIdAsWebEl) {
+	public void setCompositeWebIds(String fieldIdAsWebEl) {
 		// Правой части присваивается INPUT_POSTFIX, а не RIGHTPART_POSTFIX потому что:
 		// 1) удобнее из общего INPUT брать значение поля
 		// 2) enability Jep-полей определяется в общем случае по INPUT

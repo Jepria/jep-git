@@ -473,7 +473,7 @@ public class CheckBoxListField<T extends JepOption> extends Composite implements
 	 * Установка ID внутренних компонентов CheckBoxListField: table-списка как INPUT, кнопки "выделить все"
 	 * @param fieldIdAsWebEl ID JepListField'а, который берется за основу ID внутренних компонентов
 	 */
-	public void setCompositeIds(String fieldIdAsWebEl) {
+	public void setCompositeWebIds(String fieldIdAsWebEl) {
 		table.getElement().setId(fieldIdAsWebEl + AutomationConstant.FIELD_INPUT_POSTFIX);
 		selectAllCheckBox.getElement().setId(fieldIdAsWebEl + AutomationConstant.DETAIL_FORM_LIST_CHECKALL_POSTFIX);
 	}

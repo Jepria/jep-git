@@ -41,8 +41,8 @@ public class JepDualListField extends JepMultiStateField<DualListBox, HTML> impl
     }
 	
 	@Override
-	protected void setInnerIds() {
-		editableCard.setInnerIds(fieldIdAsWebEl);
+	protected void setWebIds() {
+		editableCard.setCompositeWebIds(fieldIdAsWebEl);
 	}
 	
 	/**
