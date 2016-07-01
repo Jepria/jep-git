@@ -95,7 +95,7 @@ public class CheckBoxListField<T extends JepOption> extends Composite implements
 	private static final String LIST_FIELD_COMMON_STYLE = "jepRia-ListField-Input-common";
 	
 	/**
-	 * ID объемлющего Jep-поля как Web-элемента.
+	 * ID объемлющего Jep-поля как Web-элемента. Переменная нужна как поле класса для использования при реднеринге.
 	 */
 	private final String fieldIdAsWebEl;
 	
@@ -273,15 +273,6 @@ public class CheckBoxListField<T extends JepOption> extends Composite implements
 	 */
 	public void setSelectAllCheckBoxVisible(boolean visible) {
 		selectAllCheckBox.setVisible(visible);
-		
-		// FIXME TODO Для Selenium-тестирования необходимо различать ситуации,
-		// когда selectAllCheckBox показывается или нет.
-		// Придумать, как это сделать без изменения ID. (WebElement.isDisplayed() - не подходит!)
-		if (visible) {
-			selectAllCheckBox.getElement().setId(fieldIdAsWebEl + AutomationConstant.DETAIL_FORM_LIST_CHECKALL_POSTFIX);
-		} else {
-			selectAllCheckBox.getElement().setId("");
-		}
 	}
 
 	/**
@@ -479,12 +470,11 @@ public class CheckBoxListField<T extends JepOption> extends Composite implements
 	}
 	
 	/**
-	 * Установка ID внутренних компонентов CheckBoxListField: table-списка как INPUT
+	 * Установка ID внутренних компонентов CheckBoxListField: table-списка как INPUT, кнопки "выделить все"
 	 * @param fieldIdAsWebEl ID JepListField'а, который берется за основу ID внутренних компонентов
 	 */
 	public void setCompositeIds(String fieldIdAsWebEl) {
 		table.getElement().setId(fieldIdAsWebEl + AutomationConstant.FIELD_INPUT_POSTFIX);
-		// TODO здесь же должен устанавливаться ID selectAllCheckBox,
-		// но пока что это происходит динамически в методе setSelectAllCheckBoxVisible
+		selectAllCheckBox.getElement().setId(fieldIdAsWebEl + AutomationConstant.DETAIL_FORM_LIST_CHECKALL_POSTFIX);
 	}
 }

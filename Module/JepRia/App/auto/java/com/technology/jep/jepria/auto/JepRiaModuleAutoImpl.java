@@ -534,10 +534,24 @@ public class JepRiaModuleAutoImpl<A extends EntranceAppAuto, P extends JepRiaApp
 		pages.getApplicationPage().ensurePageLoaded();
 		
 		// Cначала пробуем сделать это кнопкой "выделить все"
-		try {
-			WebElement selectAllCheckBox = pages.getApplicationPage().getWebDriver().
-					findElement(By.id(listFieldId + DETAIL_FORM_LIST_CHECKALL_POSTFIX));
+		WebElement selectAllCheckBox = pages.getApplicationPage().getWebDriver().
+				findElement(By.id(listFieldId + DETAIL_FORM_LIST_CHECKALL_POSTFIX));
+		
+		if ("true".equals(selectAllCheckBox.getAttribute("aria-hidden"))) {
+			// Кнопка "выделить все" скрыта, значит, нужно снимать выделение с каждого элемента.
 			
+			// Получаем список всех чекбоксов внутри INPUT'а заданного поля 
+			WebElement listBox = pages.getApplicationPage().getWebDriver().findElement(By.id(listFieldId + AutomationConstant.FIELD_INPUT_POSTFIX));
+			List<WebElement> allCheckBoxes = listBox.findElements(By.xpath(
+					String.format(".//*[starts-with(@id, '%s')]",
+							listFieldId + DETAIL_FORM_LIST_ITEM_CHECKBOX_INFIX)));
+			// Кликаем на необходимые
+			for (WebElement option: allCheckBoxes ) {
+				if (option.isSelected() && !selectAll || !option.isSelected() && selectAll) {
+					((JavascriptExecutor) pages.getApplicationPage().getWebDriver()).executeScript("arguments[0].click();", option);
+				}
+			}
+		} else {
 			// Кнопка "выделить все" найдена.
 			
 			if (selectAllCheckBox.isSelected()) {
@@ -554,21 +568,6 @@ public class JepRiaModuleAutoImpl<A extends EntranceAppAuto, P extends JepRiaApp
 					// далее при необходимости его снимаем
 					getWait().until(elementToBeClickable(selectAllCheckBox));
 					selectAllCheckBox.click();
-				}
-			}
-			
-		} catch (NoSuchElementException e) {
-			// Кнопка "выделить все" не найдена, значит, нужно снимать выделение с каждого элемента.
-			
-			// Получаем список всех чекбоксов внутри INPUT'а заданного поля 
-			WebElement listBox = pages.getApplicationPage().getWebDriver().findElement(By.id(listFieldId + AutomationConstant.FIELD_INPUT_POSTFIX));
-			List<WebElement> allCheckBoxes = listBox.findElements(By.xpath(
-					String.format(".//*[starts-with(@id, '%s')]",
-							listFieldId + DETAIL_FORM_LIST_ITEM_CHECKBOX_INFIX)));
-			// Кликаем на необходимые
-			for (WebElement option: allCheckBoxes ) {
-				if (option.isSelected() && !selectAll || !option.isSelected() && selectAll) {
-					((JavascriptExecutor) pages.getApplicationPage().getWebDriver()).executeScript("arguments[0].click();", option);
 				}
 			}
 		}
