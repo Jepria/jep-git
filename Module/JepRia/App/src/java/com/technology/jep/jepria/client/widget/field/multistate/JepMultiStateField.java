@@ -247,7 +247,6 @@ public abstract class JepMultiStateField<E extends Widget, V extends Widget> ext
 	
 	/**
 	 * Установка web-ID двух карт данного Jep-поля.
-	 * За основу назначаемых идентификаторов следует брать значение поля this.fieldIdAsWebEl .
 	 */
 	private void setCardWebAttrs() {
 		editableCard.getElement().setAttribute(AutomationConstant.JEP_CARD_TYPE_HTML_ATTR, AutomationConstant.JEP_CARD_TYPE_VALUE_EDTB);

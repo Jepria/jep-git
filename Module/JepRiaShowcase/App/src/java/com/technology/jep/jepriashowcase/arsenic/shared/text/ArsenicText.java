@@ -214,6 +214,141 @@ public interface ArsenicText extends com.google.gwt.i18n.client.Constants {
   String detail_maxRowCount();
 
   /**
+   * Translated "CheckBox".
+   * 
+   * @return translated "CheckBox"
+   */
+  @DefaultStringValue("CheckBox")
+  @Key("list.jepCheckBoxField")
+  String list_jepCheckBoxField();
+
+  /**
+   * Translated "Обновляемый Combo (3-симв)".
+   * 
+   * @return translated "Обновляемый Combo (3-симв)"
+   */
+  @DefaultStringValue("Обновляемый Combo (3-симв)")
+  @Key("list.jepComboBoxField.3ch_reloading")
+  String list_jepComboBoxField_3ch_reloading();
+
+  /**
+   * Translated "Тяжелый Combo".
+   * 
+   * @return translated "Тяжелый Combo"
+   */
+  @DefaultStringValue("Тяжелый Combo")
+  @Key("list.jepComboBoxField.durable")
+  String list_jepComboBoxField_durable();
+
+  /**
+   * Translated "Неленивый Combo".
+   * 
+   * @return translated "Неленивый Combo"
+   */
+  @DefaultStringValue("Неленивый Combo")
+  @Key("list.jepComboBoxField.notlazy")
+  String list_jepComboBoxField_notlazy();
+
+  /**
+   * Translated "Обновляемый Combo".
+   * 
+   * @return translated "Обновляемый Combo"
+   */
+  @DefaultStringValue("Обновляемый Combo")
+  @Key("list.jepComboBoxField.reloading")
+  String list_jepComboBoxField_reloading();
+
+  /**
+   * Translated "Простой Combo".
+   * 
+   * @return translated "Простой Combo"
+   */
+  @DefaultStringValue("Простой Combo")
+  @Key("list.jepComboBoxField.simple")
+  String list_jepComboBoxField_simple();
+
+  /**
+   * Translated "Date".
+   * 
+   * @return translated "Date"
+   */
+  @DefaultStringValue("Date")
+  @Key("list.jepDateField")
+  String list_jepDateField();
+
+  /**
+   * Translated "DualList".
+   * 
+   * @return translated "DualList"
+   */
+  @DefaultStringValue("DualList")
+  @Key("list.jepDualListField")
+  String list_jepDualListField();
+
+  /**
+   * Translated "List".
+   * 
+   * @return translated "List"
+   */
+  @DefaultStringValue("List")
+  @Key("list.jepListField")
+  String list_jepListField();
+
+  /**
+   * Translated "List с \"выделить все\"".
+   * 
+   * @return translated "List с \"выделить все\""
+   */
+  @DefaultStringValue("List с \"выделить все\"")
+  @Key("list.jepListField_checkAll")
+  String list_jepListField_checkAll();
+
+  /**
+   * Translated "Long".
+   * 
+   * @return translated "Long"
+   */
+  @DefaultStringValue("Long")
+  @Key("list.jepLongField")
+  String list_jepLongField();
+
+  /**
+   * Translated "Money".
+   * 
+   * @return translated "Money"
+   */
+  @DefaultStringValue("Money")
+  @Key("list.jepMoneyField")
+  String list_jepMoneyField();
+
+  /**
+   * Translated "Number".
+   * 
+   * @return translated "Number"
+   */
+  @DefaultStringValue("Number")
+  @Key("list.jepNumberField")
+  String list_jepNumberField();
+
+  /**
+   * Translated "TextArea".
+   * 
+   * @return translated "TextArea"
+   */
+  @DefaultStringValue("TextArea")
+  @Key("list.jepTextAreaField")
+  String list_jepTextAreaField();
+
+  /**
+   * Translated "Text".
+   * 
+   * @return translated "Text"
+   */
+  @DefaultStringValue("Text")
+  @Key("list.jepTextField")
+  String list_jepTextField();
+
+  /**
    * Translated "Начните ввод...".
    * 
    * @return translated "Начните ввод..."
