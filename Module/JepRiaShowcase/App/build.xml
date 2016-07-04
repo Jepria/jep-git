@@ -6,8 +6,6 @@
 	<property file="build.properties" />
 	<property file="test.properties" />
 	<property file="config/${BUILD_CONFIG}/deploy.properties"/>
-
-	<property name="JEPRIA" value="../../JepRia/App" />
 	<property name="JAVA_DOC_DIR" value="../Doc/App/AutoGen" />
 	<property name="LOG_LEVEL" value="info" />
 	<property name="test.src.dir" value="src/java;test/java" />
@@ -16,7 +14,6 @@
 	<property environment="env" />
 	<property name="cores.count" value="${env.NUMBER_OF_PROCESSORS}"/>
 	<property name="JAR_TEMP" value="build-lib"/>
-	<property name="SECURITY_RESOURCES" value="${JEPRIA}/src/html/security" />
 	<tstamp>
 		<format pattern="yyyyMMdd_HHmmss" property="timestamp" />
 	</tstamp>
@@ -268,7 +265,6 @@
 
 	<!-- Java-компиляция -->
 	<target name="java-compile" depends="build-config, production-builder-check">
-		<echo message="JEPRIA_LIB: ${JEPRIA_LIB}" />
 		<mkdir dir="build" />
 		<javac debug="on" destdir="build" encoding="utf-8" includeantruntime="false" srcdir="src/java" target="1.5">
 			<classpath refid="libs" />
@@ -487,6 +483,7 @@
 			</sourcefiles>
 			<targetfiles path="${JAR_TEMP}/${MODULE_NAME_IN_PACKAGE}.war" />
 			<sequential>
+				<unzip src="${JEPRIA-RESOURCES_LIB}" dest="temp-jepria-resources"/>
 				<mkdir dir="temp-war" />
 				
 				<copy todir="temp-war/WEB-INF/lib">
@@ -504,16 +501,16 @@
 				</copy>
 				
 				<copy file="${JSTL_TLD_LIB_DEF}" todir="temp-war/WEB-INF/tld" />
-				<copy file="${JEPRIA}/src/html/JepRia.css" todir="temp-war/css" />
+				<copy file="temp-jepria-resources/html/JepRia.css" todir="temp-war/css" />
 				<copy failonerror="false" todir="temp-war/images">
-					<fileset dir="${JEPRIA}/src/resources/com/technology/jep/jepria/images" />
+					<fileset dir="temp-jepria-resources/resources/com/technology/jep/jepria/images" />
 					<fileset dir="${RESOURCE_HOME}/images" />
 				</copy>
 				<copy todir="temp-war/css">
 					<fileset file="src/html/*.css" />
 				</copy>
 				<copy todir="temp-war/security">
-					<fileset file="${SECURITY_RESOURCES}/**/" />
+					<fileset file="temp-jepria-resources/html/security/**/" />
 				</copy>
 				<copy todir="temp-war">
 					<fileset file="src/html/*.jsp" />
@@ -615,6 +612,7 @@
 			<targetfiles path="${JAR_TEMP}/${MODULE_NAME_IN_PACKAGE}.war" />
 			
 			<sequential>
+				<unzip src="${JEPRIA-RESOURCES_LIB}" dest="temp-jepria-resources"/>
 				<mkdir dir="temp-war" />
 				
 				<copy todir="temp-war/WEB-INF/lib">
@@ -649,16 +647,16 @@
 				
 				<copy file="${JSTL_TLD_LIB_DEF}" todir="temp-war/WEB-INF/tld" />
 				
-				<copy file="${JEPRIA}/src/html/JepRia.css" todir="temp-war/css" />
+				<copy file="temp-jepria-resources/html/JepRia.css" todir="temp-war/css" />
 				<copy failonerror="false" todir="temp-war/images">
-					<fileset dir="${JEPRIA}/src/resources/com/technology/jep/jepria/images" />
+					<fileset dir="temp-jepria-resources/resources/com/technology/jep/jepria/images" />
 					<fileset dir="${RESOURCE_HOME}/images" />
 				</copy>
 				<copy todir="temp-war/css">
 					<fileset file="src/html/*.css" />
 				</copy>
 				<copy todir="temp-war/security">
-					<fileset file="${SECURITY_RESOURCES}/**/" />
+					<fileset file="temp-jepria-resources/html/security/**/" />
 				</copy>
 				<copy todir="temp-war">
 					<fileset file="src/html/*.jsp" />
@@ -890,6 +888,7 @@
 			<fileset dir="build-lib" />
 			<fileset dir="temp-war" />
 			<fileset dir="temp-ear" />
+			<fileset dir="temp-jepria-resources" />
 		</delete>
 		
 		<delete file="${DISTR_DIR}/${DISTR_NAME}.war"/>
