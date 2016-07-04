@@ -1,5 +1,6 @@
 package com.technology.jep.jepria.auto;
 
+import java.util.List;
 import java.util.Map;
 
 import com.technology.jep.jepria.auto.entrance.EntranceAuto;
@@ -232,5 +233,17 @@ public interface JepRiaModuleAuto extends EntranceAuto {
 	
 	
 	// The methods below are for LISTFORM, not DETAILFORM! TODO extract them into another class?
-	String[] getGridHeaders(String gridId);
+	
+	List<String> getGridHeaders(String gridId);
+	
+	/**
+	 * @return a list of rows, each is a list of cell-objects.
+	 * Each object of the resultant grid may be either of a type WebElement
+	 * (if a cell contains something inside, such as input) or of a type String
+	 * (if there is only a text). The value of a particular cell can be
+	 * obtained using the row number and a column index,
+	 * known from the result of #getGridHeaders().
+	 */
+	List<List<Object>> getGridDataRowwise(String gridId); 
+	
 }

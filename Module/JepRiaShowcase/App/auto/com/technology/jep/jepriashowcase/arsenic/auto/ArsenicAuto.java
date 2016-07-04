@@ -1,5 +1,7 @@
 package com.technology.jep.jepriashowcase.arsenic.auto;
 
+import java.util.List;
+
 import com.technology.jep.jepria.auto.JepRiaModuleAuto;
 
 public interface ArsenicAuto extends JepRiaModuleAuto {
@@ -78,5 +80,6 @@ public interface ArsenicAuto extends JepRiaModuleAuto {
 	 */
 	boolean checkAllFieldsAllowBlank(boolean expected);
 	
-	String[] getGridHeaders();
+	List<String> getGridHeaders();
+	List<List<Object>> getGridData();
 }

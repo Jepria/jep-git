@@ -4,6 +4,7 @@ import static com.technology.jep.jepria.client.ui.WorkstateEnum.SEARCH;
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.VIEW_LIST;
 
 import java.util.Arrays;
+import java.util.List;
 
 import org.testng.annotations.Test;
 
@@ -267,6 +268,34 @@ public class ArsenicAutoTest extends JepAutoTest<ArsenicAuto> {
 		
 		setWorkstate(VIEW_LIST);
 		
-		assertArrayEquals(headers, cut.getGridHeaders());
+		List<String> headersL = cut.getGridHeaders();
+		
+		assertArrayEquals(headers, headersL.toArray(new String[headersL.size()]));
+	}
+	
+	@Test(groups="list")
+	public void testGridData() {
+		setWorkstate(SEARCH);
+		
+		cut.setJepTextField("abc");
+		cut.setJepTextAreaField("DEF");
+		
+		setWorkstate(VIEW_LIST);
+		
+		List<List<Object>> data = cut.getGridData();
+		List<String> headers = cut.getGridHeaders();
+		
+		final int textInd = headers.indexOf("Text");
+		final int textAreaInd = headers.indexOf("TextArea");
+		
+		for (List<Object> row: data) {
+			Object c = row.get(textInd);
+			assert c instanceof String;
+			assertTrue(((String)c).startsWith("abc"));
+			
+			Object d = row.get(textAreaInd);
+			assert d instanceof String;
+			assertTrue(((String)d).startsWith("DEF"));
+		}
 	}
 }

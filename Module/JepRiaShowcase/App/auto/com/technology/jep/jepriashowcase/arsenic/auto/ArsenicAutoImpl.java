@@ -22,6 +22,8 @@ import static com.technology.jep.jepriashowcase.arsenic.client.ArsenicAutomation
 import static com.technology.jep.jepriashowcase.arsenic.client.ArsenicAutomationConstant.ARSENIC_JEP_TEXT_FIELD_ID;
 import static com.technology.jep.jepriashowcase.arsenic.client.ArsenicAutomationConstant.ARSENIC_MAX_ROW_COUNT_ID;
 
+import java.util.List;
+
 import com.technology.jep.jepria.auto.JepRiaModuleAutoImpl;
 import com.technology.jep.jepriashowcase.auto.JepRiaShowcaseAuto;
 import com.technology.jep.jepriashowcase.auto.JepRiaShowcasePageManager;
@@ -406,8 +408,14 @@ public class ArsenicAutoImpl<A extends JepRiaShowcaseAuto, P extends JepRiaShowc
 	
 	
 	@Override
-	public String[] getGridHeaders() {
+	public List<String> getGridHeaders() {
 		return getGridHeaders(ARSENIC_GRID_ID);
+	}
+
+	
+	@Override
+	public List<List<Object>> getGridData() {
+		return getGridDataRowwise(ARSENIC_GRID_ID);
 	}
 
 

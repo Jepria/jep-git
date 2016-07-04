@@ -15,7 +15,7 @@
 		<groups>
 			<run>
 				<include name="list" />
-				<include name="setAndGetTextField" />
+				<!--<include name="setAndGetTextField" />-->
 			</run>
 		</groups>
 		

@@ -5,6 +5,7 @@ import static com.technology.jep.jepria.client.AutomationConstant.ALERT_MESSAGEB
 import static com.technology.jep.jepria.client.AutomationConstant.CONFIRM_MESSAGEBOX_ID;
 import static com.technology.jep.jepria.client.AutomationConstant.CONFIRM_MESSAGE_BOX_YES_BUTTON_ID;
 import static com.technology.jep.jepria.client.AutomationConstant.ERROR_MESSAGEBOX_ID;
+import static com.technology.jep.jepria.client.AutomationConstant.GRID_BODY_POSTFIX;
 import static com.technology.jep.jepria.client.AutomationConstant.GRID_HEADER_POSTFIX;
 import static com.technology.jep.jepria.client.AutomationConstant.JEP_CARD_TYPE_HTML_ATTR;
 import static com.technology.jep.jepria.client.AutomationConstant.JEP_CARD_TYPE_VALUE_EDTB;
@@ -16,8 +17,9 @@ import static com.technology.jep.jepria.client.AutomationConstant.JEP_DUAL_LIST_
 import static com.technology.jep.jepria.client.AutomationConstant.JEP_DUAL_LIST_FIELD_MENU_ITEM_INFIX;
 import static com.technology.jep.jepria.client.AutomationConstant.JEP_DUAL_LIST_FIELD_MOVEALLLEFT_BTN_POSTFIX;
 import static com.technology.jep.jepria.client.AutomationConstant.JEP_DUAL_LIST_FIELD_MOVERIGHT_BTN_POSTFIX;
+import static com.technology.jep.jepria.client.AutomationConstant.JEP_FIELD_ALLOW_BLANK_POSTFIX;
 import static com.technology.jep.jepria.client.AutomationConstant.JEP_FIELD_INPUT_POSTFIX;
-import static com.technology.jep.jepria.client.AutomationConstant.*;
+import static com.technology.jep.jepria.client.AutomationConstant.JEP_LIST_FIELD_CHECKALL_POSTFIX;
 import static com.technology.jep.jepria.client.AutomationConstant.JEP_LIST_FIELD_ITEM_CHECKBOX_INFIX;
 import static com.technology.jep.jepria.client.AutomationConstant.JEP_OPTION_VALUE_HTML_ATTR;
 import static com.technology.jep.jepria.client.AutomationConstant.TOOLBAR_ADD_BUTTON_ID;
@@ -63,7 +65,6 @@ import com.technology.jep.jepria.auto.exceptions.WrongOptionException;
 import com.technology.jep.jepria.auto.widget.field.Field;
 import com.technology.jep.jepria.auto.widget.statusbar.StatusBar;
 import com.technology.jep.jepria.auto.widget.statusbar.StatusBarImpl;
-import com.technology.jep.jepria.client.AutomationConstant;
 import com.technology.jep.jepria.client.ui.WorkstateEnum;
 import com.technology.jep.jepria.shared.exceptions.NotImplementedYetException;
 import com.technology.jep.jepria.shared.exceptions.UnsupportedException;
@@ -717,7 +718,7 @@ public class JepRiaModuleAutoImpl<A extends EntranceAppAuto, P extends JepRiaApp
 	
 	
 	@Override
-	public String[] getGridHeaders(String gridId) {
+	public List<String> getGridHeaders(String gridId) {
 		pages.getApplicationPage().ensurePageLoaded();
 		
 		List<String> ret = new ArrayList<String>();
@@ -725,13 +726,43 @@ public class JepRiaModuleAutoImpl<A extends EntranceAppAuto, P extends JepRiaApp
 		List<WebElement> headers = pages.getApplicationPage().getWebDriver().findElements(By.xpath(
 				String.format("//thead[@id='%s']//th",
 						gridId + GRID_HEADER_POSTFIX)));
-		//TODO will there always be an extra empty column in a grid?
-		for (int i = 0; i < headers.size() - 1; i++) {
+		
+		for (int i = 0; i < headers.size() - 1; i++) {// One extra column of a zero width to stretch the rightmost column
 			ret.add(headers.get(i).getAttribute("innerHTML"));
 		}
-		return ret.toArray(new String[ret.size()]);
+		return ret;
 	}
 
-	
+	@Override
+	public List<List<Object>> getGridDataRowwise(String gridId) {
+		pages.getApplicationPage().ensurePageLoaded();
+		
+		// TODO get rid of this sleeping, but somehow wait until the grid is loaded!
+		sleep(500);
+		
+		List<List<Object>> ret = new ArrayList<List<Object>>();
+		
+		List<WebElement> rows = pages.getApplicationPage().getWebDriver().findElements(By.xpath(
+				String.format("//tbody[@id='%s']/tr",
+						gridId + GRID_BODY_POSTFIX)));
+		
+		for (WebElement row: rows) {
+			List<Object> rowObjects = new ArrayList<Object>();
+			
+			for (WebElement cellDiv: row.findElements(By.xpath("./td/div"))) {
+				
+				try {
+					WebElement cellElement = cellDiv.findElement(By.xpath("./*"));
+					rowObjects.add(cellElement);
+				} catch (NoSuchElementException e) {
+					rowObjects.add(cellDiv.getAttribute("innerHTML"));
+				}
+			}
+			
+			ret.add(rowObjects);
+		}
+		
+		return ret;
+	}
 
 }

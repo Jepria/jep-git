@@ -32,9 +32,8 @@ public class JepFileDataProvider {
 		}
 		
 		String data = dataSb.toString().replaceAll("\\|\n", "\\|");
-		data = data.replaceAll("^\n+", "");
-		data = data.replaceAll("\n+", "\n");
-		data = data.replaceAll("\n+$", "");
+		
+		data = data.replaceAll("^\n+", "").replaceAll("\n\n+", "\n").replaceAll("\n+$", "");
 		
 		for (String argSet: data.split("\n")) {
 			ret.add(argSet.split("\\|"));
