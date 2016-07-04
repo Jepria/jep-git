@@ -14,6 +14,7 @@
 
 		<groups>
 			<run>
+				<include name="list" />
 				<include name="setAndGetTextField" />
 			</run>
 		</groups>

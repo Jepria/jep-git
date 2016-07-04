@@ -1,0 +1,15 @@
+Text|
+TextArea|
+Long|
+Money|
+Number|
+Date|
+Неленивый Combo|
+Простой Combo|
+Тяжелый Combo|
+Обновляемый Combo|
+Обновляемый Combo (3-симв)|
+DualList|
+CheckBox|
+List|
+List с "выделить все"

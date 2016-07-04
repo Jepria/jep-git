@@ -221,4 +221,16 @@ public interface JepRiaModuleAuto extends EntranceAuto {
 	 * @param fieldId id Jep-поля
 	 */
 	boolean isFieldEditable(String fieldId);
+	
+	/**
+	 * Проверка необязательности Jep-поля по заданному ID (фактически, проверка наличия маркера обязательности (*) )
+	 * @param fieldId id Jep-поля
+	 */
+	boolean isFieldAllowBlank(String fieldId);
+	
+	
+	
+	
+	// The methods below are for LISTFORM, not DETAILFORM! TODO extract them into another class?
+	String[] getGridHeaders(String gridId);
 }

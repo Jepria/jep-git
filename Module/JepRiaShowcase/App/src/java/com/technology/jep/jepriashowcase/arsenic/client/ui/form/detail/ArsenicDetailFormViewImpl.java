@@ -52,6 +52,8 @@ public class ArsenicDetailFormViewImpl extends StandardDetailFormViewImpl implem
 					ARSENIC_CHECKBOX_SWITCH_ENBL_ID, arsenicText.detail_jepCheckBox_switch_enbl()));
 			put(DETAILFORM_CHECKBOX_SWITCH_EDTB, new JepCheckBoxField(
 					ARSENIC_CHECKBOX_SWITCH_EDTB_ID, arsenicText.detail_jepCheckBox_switch_edtb()));
+			put(DETAILFORM_CHECKBOX_SWITCH_ALBL, new JepCheckBoxField(
+					ARSENIC_CHECKBOX_SWITCH_ALBL_ID, arsenicText.detail_jepCheckBox_switch_albl()));
 			
 			put(DETAILFORM_JEP_TEXT_FIELD, new JepTextField(ARSENIC_JEP_TEXT_FIELD_ID, arsenicText.detail_jepTextField()));
 			put(DETAILFORM_JEP_TEXT_AREA_FIELD, new JepTextAreaField(ARSENIC_JEP_TEXT_AREA_FIELD_ID, arsenicText.detail_jepTextAreaField()));

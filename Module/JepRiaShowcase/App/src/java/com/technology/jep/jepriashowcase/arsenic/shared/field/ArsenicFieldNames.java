@@ -6,6 +6,7 @@ public class ArsenicFieldNames extends JepRecordFieldNames {
 	public static final String DETAILFORM_CHECKBOX_SWITCH_VSBL = "detailform_checkbox_switch_vsbl";
 	public static final String DETAILFORM_CHECKBOX_SWITCH_ENBL = "detailform_checkbox_switch_enbl";
 	public static final String DETAILFORM_CHECKBOX_SWITCH_EDTB = "detailform_checkbox_switch_edtb";
+	public static final String DETAILFORM_CHECKBOX_SWITCH_ALBL = "detailform_checkbox_switch_albl";
 	
 	public static final String DETAILFORM_JEP_TEXT_FIELD = "detailform_jep_text_field";
 	public static final String DETAILFORM_JEP_TEXT_AREA_FIELD = "detailform_jep_text_area_field";

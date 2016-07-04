@@ -1,6 +1,26 @@
 package com.technology.jep.jepriashowcase.arsenic.auto;
 
-import static com.technology.jep.jepriashowcase.arsenic.client.ArsenicAutomationConstant.*;
+import static com.technology.jep.jepriashowcase.arsenic.client.ArsenicAutomationConstant.ARSENIC_CHECKBOX_SWITCH_ALBL_ID;
+import static com.technology.jep.jepriashowcase.arsenic.client.ArsenicAutomationConstant.ARSENIC_CHECKBOX_SWITCH_EDTB_ID;
+import static com.technology.jep.jepriashowcase.arsenic.client.ArsenicAutomationConstant.ARSENIC_CHECKBOX_SWITCH_ENBL_ID;
+import static com.technology.jep.jepriashowcase.arsenic.client.ArsenicAutomationConstant.ARSENIC_CHECKBOX_SWITCH_VSBL_ID;
+import static com.technology.jep.jepriashowcase.arsenic.client.ArsenicAutomationConstant.ARSENIC_GRID_ID;
+import static com.technology.jep.jepriashowcase.arsenic.client.ArsenicAutomationConstant.ARSENIC_JEP_CHECKBOX_FIELD_ID;
+import static com.technology.jep.jepriashowcase.arsenic.client.ArsenicAutomationConstant.ARSENIC_JEP_COMBOBOX_FIELD_3CH_RELOADING_ID;
+import static com.technology.jep.jepriashowcase.arsenic.client.ArsenicAutomationConstant.ARSENIC_JEP_COMBOBOX_FIELD_DURABLE_ID;
+import static com.technology.jep.jepriashowcase.arsenic.client.ArsenicAutomationConstant.ARSENIC_JEP_COMBOBOX_FIELD_NOTLAZY_ID;
+import static com.technology.jep.jepriashowcase.arsenic.client.ArsenicAutomationConstant.ARSENIC_JEP_COMBOBOX_FIELD_RELOADING_ID;
+import static com.technology.jep.jepriashowcase.arsenic.client.ArsenicAutomationConstant.ARSENIC_JEP_COMBOBOX_FIELD_SIMPLE_ID;
+import static com.technology.jep.jepriashowcase.arsenic.client.ArsenicAutomationConstant.ARSENIC_JEP_DATE_FIELD_ID;
+import static com.technology.jep.jepriashowcase.arsenic.client.ArsenicAutomationConstant.ARSENIC_JEP_DUAL_LIST_FIELD_ID;
+import static com.technology.jep.jepriashowcase.arsenic.client.ArsenicAutomationConstant.ARSENIC_JEP_LIST_FIELD_CHECKALL_ID;
+import static com.technology.jep.jepriashowcase.arsenic.client.ArsenicAutomationConstant.ARSENIC_JEP_LIST_FIELD_ID;
+import static com.technology.jep.jepriashowcase.arsenic.client.ArsenicAutomationConstant.ARSENIC_JEP_LONG_FIELD_ID;
+import static com.technology.jep.jepriashowcase.arsenic.client.ArsenicAutomationConstant.ARSENIC_JEP_MONEY_FIELD_ID;
+import static com.technology.jep.jepriashowcase.arsenic.client.ArsenicAutomationConstant.ARSENIC_JEP_NUMBER_FIELD_ID;
+import static com.technology.jep.jepriashowcase.arsenic.client.ArsenicAutomationConstant.ARSENIC_JEP_TEXT_AREA_FIELD_ID;
+import static com.technology.jep.jepriashowcase.arsenic.client.ArsenicAutomationConstant.ARSENIC_JEP_TEXT_FIELD_ID;
+import static com.technology.jep.jepriashowcase.arsenic.client.ArsenicAutomationConstant.ARSENIC_MAX_ROW_COUNT_ID;
 
 import com.technology.jep.jepria.auto.JepRiaModuleAutoImpl;
 import com.technology.jep.jepriashowcase.auto.JepRiaShowcaseAuto;
@@ -37,10 +57,20 @@ public class ArsenicAutoImpl<A extends JepRiaShowcaseAuto, P extends JepRiaShowc
 	public void setCheckBox_switchEdtb(boolean checked) {
 		setCheckBoxFieldValue(ARSENIC_CHECKBOX_SWITCH_EDTB_ID, checked);
 	}
-
+	
 	@Override
 	public boolean getCheckBox_switchEdtb() {
 		return getCheckBoxFieldValue(ARSENIC_CHECKBOX_SWITCH_EDTB_ID);
+	}
+	
+	@Override
+	public void setCheckBox_switchAlbl(boolean checked) {
+		setCheckBoxFieldValue(ARSENIC_CHECKBOX_SWITCH_ALBL_ID, checked);
+	}
+
+	@Override
+	public boolean getCheckBox_switchAlbl() {
+		return getCheckBoxFieldValue(ARSENIC_CHECKBOX_SWITCH_ALBL_ID);
 	}
 	
 	
@@ -336,6 +366,48 @@ public class ArsenicAutoImpl<A extends JepRiaShowcaseAuto, P extends JepRiaShowc
 					!isFieldEditable(ARSENIC_JEP_LIST_FIELD_CHECKALL_ID) &&
 					!isFieldEditable(ARSENIC_MAX_ROW_COUNT_ID);
 		}
+	}
+	
+	@Override
+	public boolean checkAllFieldsAllowBlank(boolean expected) {
+		if (expected) {
+			return isFieldAllowBlank(ARSENIC_JEP_TEXT_FIELD_ID) &&
+					isFieldAllowBlank(ARSENIC_JEP_TEXT_AREA_FIELD_ID) &&
+					isFieldAllowBlank(ARSENIC_JEP_LONG_FIELD_ID) &&
+					isFieldAllowBlank(ARSENIC_JEP_MONEY_FIELD_ID) &&
+					isFieldAllowBlank(ARSENIC_JEP_NUMBER_FIELD_ID) &&
+					isFieldAllowBlank(ARSENIC_JEP_DATE_FIELD_ID) &&
+					isFieldAllowBlank(ARSENIC_JEP_COMBOBOX_FIELD_NOTLAZY_ID) &&
+					isFieldAllowBlank(ARSENIC_JEP_COMBOBOX_FIELD_SIMPLE_ID) &&
+					isFieldAllowBlank(ARSENIC_JEP_COMBOBOX_FIELD_DURABLE_ID) &&
+					isFieldAllowBlank(ARSENIC_JEP_COMBOBOX_FIELD_RELOADING_ID) &&
+					isFieldAllowBlank(ARSENIC_JEP_COMBOBOX_FIELD_3CH_RELOADING_ID) &&
+					isFieldAllowBlank(ARSENIC_JEP_DUAL_LIST_FIELD_ID) &&
+					isFieldAllowBlank(ARSENIC_JEP_LIST_FIELD_ID) &&
+					isFieldAllowBlank(ARSENIC_JEP_LIST_FIELD_CHECKALL_ID);
+		} else {
+			return !isFieldAllowBlank(ARSENIC_JEP_TEXT_FIELD_ID) &&
+					!isFieldAllowBlank(ARSENIC_JEP_TEXT_AREA_FIELD_ID) &&
+					!isFieldAllowBlank(ARSENIC_JEP_LONG_FIELD_ID) &&
+					!isFieldAllowBlank(ARSENIC_JEP_MONEY_FIELD_ID) &&
+					!isFieldAllowBlank(ARSENIC_JEP_NUMBER_FIELD_ID) &&
+					!isFieldAllowBlank(ARSENIC_JEP_DATE_FIELD_ID) &&
+					!isFieldAllowBlank(ARSENIC_JEP_COMBOBOX_FIELD_NOTLAZY_ID) &&
+					!isFieldAllowBlank(ARSENIC_JEP_COMBOBOX_FIELD_SIMPLE_ID) &&
+					!isFieldAllowBlank(ARSENIC_JEP_COMBOBOX_FIELD_DURABLE_ID) &&
+					!isFieldAllowBlank(ARSENIC_JEP_COMBOBOX_FIELD_RELOADING_ID) &&
+					!isFieldAllowBlank(ARSENIC_JEP_COMBOBOX_FIELD_3CH_RELOADING_ID) &&
+					!isFieldAllowBlank(ARSENIC_JEP_DUAL_LIST_FIELD_ID) &&
+					!isFieldAllowBlank(ARSENIC_JEP_LIST_FIELD_ID) &&
+					!isFieldAllowBlank(ARSENIC_JEP_LIST_FIELD_CHECKALL_ID);
+		}
+	}
+
+	
+	
+	@Override
+	public String[] getGridHeaders() {
+		return getGridHeaders(ARSENIC_GRID_ID);
 	}
 
 

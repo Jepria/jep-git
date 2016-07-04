@@ -71,9 +71,10 @@ public class AutomationConstant {
 	public static final String DETAIL_FORM_PANEL_ID = "DETAIL_FORM_PANEL";
 
 	/**
-	 * ID панели списочной формы модуля
+	 * ID элементов HEADER и BODY грида списочной формы модуля
 	 */
-	public static final String LIST_FORM_PANEL_ID = "LIST_FORM_PANEL";
+	public static final String GRID_HEADER_POSTFIX = "_HEADER";
+	public static final String GRID_BODY_POSTFIX = "_BODY";
 	
 	/**
 	 * ID панели ToolBar модуля
@@ -201,6 +202,11 @@ public class AutomationConstant {
 	public static final String JEP_FIELD_INPUT_POSTFIX = "_JEP_FIELD_INPUT";
 	
 	/**
+	 * Постфикс-идентификатор allow-blank-маркера (*) Jep-поля
+	 */
+	public static final String JEP_FIELD_ALLOW_BLANK_POSTFIX = "_JEP_FIELD_ALLOW_BLANK";
+	
+	/**
 	 * HTML-атрибут и его значения editableCard и viewCard Jep-полей
 	 */
 	public static final String JEP_CARD_TYPE_HTML_ATTR = "jep-card-type";
@@ -246,14 +252,14 @@ public class AutomationConstant {
 	 */
 	public static final String JEP_LIST_FIELD_CHECKALL_POSTFIX = "_JEP_LIST_FIELD_CHECKALL";
 	
+	/**
+	 * HTML-атрибут элемента, который требует хранения значения опции, которой он однозначно соответствует.
+	 */
+	public static final String JEP_OPTION_VALUE_HTML_ATTR = "jep-option-value";
+	
 	
 	/**
 	 * ID первой строки списка списочной формы
 	 */
 	public static final String LIST_FORM_GRID_ROW_ID = "LIST_FORM_GRID_ROW_ID";
-	
-	/**
-	 * HTML-атрибут элемента, который требует хранения значения опции, которой он однозначно соответствует.
-	 */
-	public static final String JEP_OPTION_VALUE_HTML_ATTR = "jep-option-value";
 }

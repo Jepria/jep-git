@@ -3,6 +3,7 @@ package com.technology.jep.jepriashowcase.arsenic.client.ui.form.list;
 import static com.technology.jep.jepria.shared.JepRiaConstant.DEFAULT_DATE_FORMAT;
 import static com.technology.jep.jepriashowcase.arsenic.client.ArsenicClientConstant.arsenicText;
 import static com.technology.jep.jepriashowcase.arsenic.shared.field.ArsenicFieldNames.*;
+import static com.technology.jep.jepriashowcase.arsenic.client.ArsenicAutomationConstant.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +23,10 @@ public class ArsenicListFormViewImpl extends StandardListFormViewImpl {
 	private static NumberFormat doubleNumberFormatter = NumberFormat.getFormat("#.#");
 	private static DateTimeFormat defaultDateFormatter = DateTimeFormat.getFormat(DEFAULT_DATE_FORMAT);
  
+	public ArsenicListFormViewImpl() {
+		super(ARSENIC_GRID_ID);
+	}
+	
 	@SuppressWarnings({ "rawtypes", "unchecked", "serial" })
 	@Override
 	protected List<JepColumn> getColumnConfigurations() {

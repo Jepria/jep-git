@@ -9,6 +9,7 @@ import static com.technology.jep.jepria.client.JepRiaClientConstant.JepTexts;
 import static com.technology.jep.jepria.client.JepRiaClientConstant.MAIN_FONT_STYLE;
 import static com.technology.jep.jepria.client.JepRiaClientConstant.REQUIRED_MARKER;
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.SEARCH;
+import static com.technology.jep.jepria.client.AutomationConstant.*;
 
 import java.util.List;
 
@@ -23,6 +24,7 @@ import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Widget;
 import com.technology.jep.jepria.client.AutomationConstant;
 import com.technology.jep.jepria.client.ui.WorkstateEnum;
+import com.technology.jep.jepria.client.util.JepClientUtil;
 import com.technology.jep.jepria.client.widget.event.JepEvent;
 import com.technology.jep.jepria.client.widget.event.JepEventType;
 import com.technology.jep.jepria.client.widget.event.JepListener;
@@ -304,7 +306,12 @@ public abstract class JepMultiStateField<E extends Widget, V extends Widget> ext
 		this.fieldLabel = fieldLab;
 		
 		this.viewCardLabel.setHTML(fieldLab + this.labelSeparator);
-		this.editableCardLabel.setHTML((this.allowBlank ? "" : REQUIRED_MARKER) + fieldLab + this.labelSeparator);
+		
+		if (this.allowBlank) {
+			this.editableCardLabel.setHTML(fieldLab + this.labelSeparator);
+		} else {
+			this.editableCardLabel.setHTML(JepClientUtil.substitute(REQUIRED_MARKER, fieldIdAsWebEl + JEP_FIELD_ALLOW_BLANK_POSTFIX) + fieldLab + this.labelSeparator);
+		}
 	}
 	
 	/**

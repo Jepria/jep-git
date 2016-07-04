@@ -16,19 +16,32 @@ public class JepFileDataProvider {
 	@DataProvider(name = "dataFromFile")
 	public static Iterator<Object[]> getDataFromFile(Method testMethod) throws Exception {
 		Map<String, String> arguments = DataProviderUtils.resolveDataProviderArguments(testMethod);
-		List<String> lines = JepFileDataProvider.getRawLinesFromFile(arguments.get("filePath"));
-		List<Object[]> data = new ArrayList<Object[]>();
 		
-		for (String line : lines) {
+		List<Object[]> ret = new ArrayList<Object[]>();
+		
+		List<String> rawLines = JepFileDataProvider.getRawLinesFromFile(arguments.get("filePath"));
+		StringBuilder dataSb = new StringBuilder();
+		
+		for (String line: rawLines) {
 			line = line.trim();
-			if(line.length() == 0 || line.charAt(0) == '#') { // Пропускаем комментарий
+			if(line.length() > 0 && line.charAt(0) == '#') { // Пропускаем комментарий
 				continue;
 			}
 			
-			data.add(line.split("\\|"));
+			dataSb.append(line.toString()).append("\n");
 		}
 		
-		return data.iterator();
+		String data = dataSb.toString().replaceAll("\\|\n", "\\|");
+		data = data.replaceAll("^\n+", "");
+		data = data.replaceAll("\n+", "\n");
+		data = data.replaceAll("\n+$", "");
+		
+		for (String argSet: data.split("\n")) {
+			ret.add(argSet.split("\\|"));
+		}
+		
+		return ret.iterator();
+		
 	}
 
 	public static List<String> getRawLinesFromFile(Method testMethod) throws Exception {

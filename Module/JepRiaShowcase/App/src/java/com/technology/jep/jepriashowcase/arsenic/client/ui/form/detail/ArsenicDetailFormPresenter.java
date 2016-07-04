@@ -2,6 +2,7 @@ package com.technology.jep.jepriashowcase.arsenic.client.ui.form.detail;
  
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.SEARCH;
 import static com.technology.jep.jepria.shared.field.JepFieldNames.MAX_ROW_COUNT;
+import static com.technology.jep.jepriashowcase.arsenic.shared.field.ArsenicFieldNames.DETAILFORM_CHECKBOX_SWITCH_ALBL;
 import static com.technology.jep.jepriashowcase.arsenic.shared.field.ArsenicFieldNames.DETAILFORM_CHECKBOX_SWITCH_EDTB;
 import static com.technology.jep.jepriashowcase.arsenic.shared.field.ArsenicFieldNames.DETAILFORM_CHECKBOX_SWITCH_ENBL;
 import static com.technology.jep.jepriashowcase.arsenic.shared.field.ArsenicFieldNames.DETAILFORM_CHECKBOX_SWITCH_VSBL;
@@ -125,6 +126,29 @@ public class ArsenicDetailFormPresenter<E extends PlainEventBus, S extends Arsen
 				fields.setFieldEditable(DETAILFORM_JEP_LIST_FIELD, b);
 				fields.setFieldEditable(DETAILFORM_JEP_LIST_FIELD_CHECKALL, b);
 				fields.setFieldEditable(MAX_ROW_COUNT, b);
+			}
+		});
+		
+		fields.addFieldListener(DETAILFORM_CHECKBOX_SWITCH_ALBL, JepEventType.CHANGE_CHECK_EVENT, new JepListener() {
+			@Override
+			public void handleEvent(JepEvent event) {
+				Boolean checked = ((JepCheckBoxField)event.getSource()).getValue();
+				boolean b = checked != null && checked;
+				
+				fields.setFieldAllowBlank(DETAILFORM_JEP_TEXT_FIELD, b);
+				fields.setFieldAllowBlank(DETAILFORM_JEP_TEXT_AREA_FIELD, b);
+				fields.setFieldAllowBlank(DETAILFORM_JEP_LONG_FIELD, b);
+				fields.setFieldAllowBlank(DETAILFORM_JEP_MONEY_FIELD, b);
+				fields.setFieldAllowBlank(DETAILFORM_JEP_NUMBER_FIELD, b);
+				fields.setFieldAllowBlank(DETAILFORM_JEP_DATE_FIELD, b);
+				fields.setFieldAllowBlank(DETAILFORM_JEP_COMBOBOX_FIELD_NOTLAZY, b);
+				fields.setFieldAllowBlank(DETAILFORM_JEP_COMBOBOX_FIELD_SIMPLE, b);
+				fields.setFieldAllowBlank(DETAILFORM_JEP_COMBOBOX_FIELD_DURABLE, b);
+				fields.setFieldAllowBlank(DETAILFORM_JEP_COMBOBOX_FIELD_RELOADING, b);
+				fields.setFieldAllowBlank(DETAILFORM_JEP_COMBOBOX_FIELD_3CH_RELOADING, b);
+				fields.setFieldAllowBlank(DETAILFORM_JEP_DUAL_LIST_FIELD, b);
+				fields.setFieldAllowBlank(DETAILFORM_JEP_LIST_FIELD, b);
+				fields.setFieldAllowBlank(DETAILFORM_JEP_LIST_FIELD_CHECKALL, b);
 			}
 		});
 		
@@ -270,6 +294,7 @@ public class ArsenicDetailFormPresenter<E extends PlainEventBus, S extends Arsen
 		fields.get(DETAILFORM_CHECKBOX_SWITCH_VSBL).setValue(true);
 		fields.get(DETAILFORM_CHECKBOX_SWITCH_ENBL).setValue(true);
 		fields.get(DETAILFORM_CHECKBOX_SWITCH_EDTB).setValue(true);
+		fields.get(DETAILFORM_CHECKBOX_SWITCH_ALBL).setValue(true);
 		
 		if (SEARCH.equals(workstate)) {
 			fields.setFieldValue(MAX_ROW_COUNT, 25);
