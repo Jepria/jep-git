@@ -17,6 +17,9 @@
 	<property name="cores.count" value="${env.NUMBER_OF_PROCESSORS}"/>
 	<property name="JAR_TEMP" value="build-lib"/>
 	<property name="SECURITY_RESOURCES" value="${JEPRIA}/src/html/security" />
+	<tstamp>
+		<format pattern="yyyyMMdd_HHmmss" property="timestamp" />
+	</tstamp>
 	
 	<!-- Общие наборы файлов -->
 	<path id="libs">
@@ -197,9 +200,6 @@
 	<!-- Создание файла лога -->
 	<target name="start-log" depends="init">
 		<mkdir dir="log" />
-		<tstamp>
-			<format pattern="yyyyMMdd_HHmmss" property="timestamp" />
-		</tstamp>
 		<dirname file="." property="pdir" />
 		<basename file="${pdir}" property="version" />
 		<record loglevel="${LOG_LEVEL}" name="log/${timestamp}-${MODULE_NAME}-${version}-${PROJECT_NAME_IN_PACKAGE}.txt" />
@@ -530,7 +530,9 @@
 					<fileset file="${JQUERY_JSLIB}" />
 					<fileset file="${JQUERY-COOKIE_JSLIB}" />
 				</copy>
-				
+				<antcall target="prevent-cache-css">
+					<param name="jspDir" value="temp-war"/>
+				</antcall>
 				<jar basedir="temp-war" destfile="${JAR_TEMP}/${MODULE_NAME_IN_PACKAGE}.war" />
 				<delete dir="temp-war" />
 			</sequential>
@@ -675,11 +677,24 @@
 					<fileset file="${JQUERY_JSLIB}" />
 					<fileset file="${JQUERY-COOKIE_JSLIB}" />
 				</copy>
-				
+				<antcall target="prevent-cache-css">
+					<param name="jspDir" value="temp-war"/>
+				</antcall>
 				<jar basedir="temp-war" destfile="${DISTR_DIR}/${DISTR_NAME}.war" />
 				<delete dir="temp-war" />
 			</sequential>
 		</outofdate>
+	</target>
+	
+	<target name="prevent-cache-css">
+		<replaceregexp 
+			match="\&lt;link\s+type=&quot;text/css&quot;\s+rel=&quot;stylesheet&quot;\s+(property=[&quot;']+stylesheet[&quot;']+\s+)*href=&quot;(.*?)&quot;[\s/]*\&gt;" 
+			replace="\&lt;link type=&quot;text/css&quot; rel=&quot;stylesheet&quot; \1href=&quot;\2\?${timestamp}&quot; /\&gt;" 
+			flags="gs" 
+			byline="true"
+		>
+			<fileset dir="${jspDir}" includes="*.jsp"/>
+		</replaceregexp>
 	</target>
 
 	<target name="build-and-deploy" depends="ear, release-doc">
