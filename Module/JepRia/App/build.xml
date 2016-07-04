@@ -122,7 +122,10 @@
 	<fileset id="class-test-jar" dir="build-test">
 		<include name="**/*.class" />
 	</fileset>
-
+	<fileset id="resources-jar" dir="src">
+		<include name="**/html/**/*.*" />
+		<include name="**/resources/**/*.*" />
+	</fileset>
 
 	<target name="start-log">
 		<mkdir dir="log" />
@@ -228,6 +231,18 @@
 			<fileset refid="class-test-jar" />
 		</jar>
 	</target>
+
+	<target name="jar-resources-update-check">
+		<uptodate targetfile="${DISTR_DIR}/${MODULE_NAME_IN_PACKAGE}-resources-${VERSION}.jar" property="jar-resources-is-uptodate">
+			<srcfiles refid="resources-jar" />
+		</uptodate>
+	</target>
+
+	<target name="jar-resources" depends="jar-resources-update-check, start-log" unless="jar-resources-is-uptodate">
+		<jar destfile="${DISTR_DIR}/${MODULE_NAME_IN_PACKAGE}-resources-${VERSION}.jar">
+			<fileset refid="resources-jar" />
+		</jar>
+	</target>
 	
 	<target name="test" depends = "jar-test">
 		<echo message="test"/>
@@ -255,7 +270,7 @@
 		</jar>
 	</target>
 
-	<target name="build" depends="jar, oc4j-jar, jar-auto, jar-test" />
+	<target name="build" depends="jar, oc4j-jar, jar-auto, jar-test, jar-resources" />
 
 	<target name="doc" depends="java-compile, java-auto-compile">
 		<javadoc sourcepath="src/java;auto/java"
@@ -307,5 +322,12 @@
 			<fileset dir="build-test" />
 			<fileset dir="build-auto" />
 		</delete>
+		
+		<delete file="${DISTR_DIR}/${MODULE_NAME_IN_PACKAGE}-${VERSION}.jar"/>
+		<delete file="${DISTR_DIR}/${MODULE_NAME_IN_PACKAGE}-auto-${VERSION}.jar"/>
+		<delete file="${DISTR_DIR}/${MODULE_NAME_IN_PACKAGE}-oc4j-${VERSION}.jar"/>
+		<delete file="${DISTR_DIR}/${MODULE_NAME_IN_PACKAGE}-resources-${VERSION}.jar"/>
+		<delete file="${DISTR_DIR}/${MODULE_NAME_IN_PACKAGE}-test-${VERSION}.jar"/>
+		<delete file="${DISTR_DIR}/gwt-theme-${VERSION}.jar"/>
 	</target>
 </project>
