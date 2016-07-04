@@ -532,6 +532,7 @@
 				</antcall>
 				<jar basedir="temp-war" destfile="${JAR_TEMP}/${MODULE_NAME_IN_PACKAGE}.war" />
 				<delete dir="temp-war" />
+				<delete dir="temp-jepria-resources" />
 			</sequential>
 		</outofdate>
 	</target>
@@ -680,6 +681,7 @@
 				</antcall>
 				<jar basedir="temp-war" destfile="${DISTR_DIR}/${DISTR_NAME}.war" />
 				<delete dir="temp-war" />
+				<delete dir="temp-jepria-resources" />
 			</sequential>
 		</outofdate>
 	</target>
