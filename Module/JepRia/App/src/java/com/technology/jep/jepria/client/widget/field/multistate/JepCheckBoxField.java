@@ -48,6 +48,10 @@ public class JepCheckBoxField extends JepMultiStateField<CheckBox, HTML> {
 		super(fieldIdAsWebEl, fieldLabel);
 	}
 	
+	/**
+	 * The inner class aimed to provide access to the protected CheckBox constructor. 
+	 * @author RomanovAS
+	 */
 	private class CheckBox2 extends CheckBox {
 		protected CheckBox2(Element elem) {
 			super(elem);

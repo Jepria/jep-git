@@ -28,6 +28,8 @@ import com.technology.jep.jepria.client.widget.field.multistate.JepMoneyField;
 import com.technology.jep.jepria.client.widget.field.multistate.JepNumberField;
 import com.technology.jep.jepria.client.widget.field.multistate.JepTextAreaField;
 import com.technology.jep.jepria.client.widget.field.multistate.JepTextField;
+import com.technology.jep.jepria.client.widget.field.multistate.JepTreeField;
+import com.technology.jep.jepria.client.widget.field.tree.TreeField.CheckNodes;
 
 public class ArsenicDetailFormViewImpl extends StandardDetailFormViewImpl implements DetailFormView {	
  
@@ -131,6 +133,10 @@ public class ArsenicDetailFormViewImpl extends StandardDetailFormViewImpl implem
 			put(DETAILFORM_JEP_LIST_FIELD, new JepListField(ARSENIC_JEP_LIST_FIELD_ID, arsenicText.detail_jepListField()));
 			put(DETAILFORM_JEP_LIST_FIELD_CHECKALL, new JepListField(ARSENIC_JEP_LIST_FIELD_CHECKALL_ID, arsenicText.detail_jepListField_checkAll()) {{
 				setSelectAllCheckBoxVisible(true);
+			}});
+			
+			put(DETAILFORM_JEP_TREE_FIELD, new JepTreeField(arsenicText.detail_jepTreeField()) {{
+				setCheckNodes(CheckNodes.LEAF);
 			}});
 			
 			put(MAX_ROW_COUNT, new JepIntegerField(ARSENIC_MAX_ROW_COUNT_ID, arsenicText.detail_maxRowCount()));

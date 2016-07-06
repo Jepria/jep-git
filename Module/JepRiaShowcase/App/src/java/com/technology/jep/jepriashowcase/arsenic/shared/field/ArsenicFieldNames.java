@@ -28,4 +28,7 @@ public class ArsenicFieldNames extends JepRecordFieldNames {
 	public static final String DETAILFORM_JEP_CHECKBOX_FIELD = "detailform_jep_checkbox_field";
 	public static final String DETAILFORM_JEP_LIST_FIELD = "detailform_jep_list_field";
 	public static final String DETAILFORM_JEP_LIST_FIELD_CHECKALL = "detailform_jep_list_field_checkAll";
+	
+	public static final String DETAILFORM_JEP_TREE_FIELD = "detailform_jep_tree_field";
+	public static final String TREE_FIELD_HAS_CHILDREN_FLAG = "tree_field_has_children_flag";
 }

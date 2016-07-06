@@ -1,43 +1,30 @@
 package com.technology.jep.jepriashowcase.arsenic.client.ui.form.detail;
  
-import static com.technology.jep.jepria.client.ui.WorkstateEnum.CREATE;
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.EDIT;
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.SEARCH;
+import static com.technology.jep.jepria.client.ui.WorkstateEnum.VIEW_DETAILS;
 import static com.technology.jep.jepria.shared.field.JepFieldNames.MAX_ROW_COUNT;
-import static com.technology.jep.jepriashowcase.arsenic.shared.field.ArsenicFieldNames.DETAILFORM_CHECKBOX_SWITCH_ALBL;
-import static com.technology.jep.jepriashowcase.arsenic.shared.field.ArsenicFieldNames.DETAILFORM_CHECKBOX_SWITCH_EDTB;
-import static com.technology.jep.jepriashowcase.arsenic.shared.field.ArsenicFieldNames.DETAILFORM_CHECKBOX_SWITCH_ENBL;
-import static com.technology.jep.jepriashowcase.arsenic.shared.field.ArsenicFieldNames.DETAILFORM_CHECKBOX_SWITCH_VSBL;
-import static com.technology.jep.jepriashowcase.arsenic.shared.field.ArsenicFieldNames.DETAILFORM_JEP_CHECKBOX_FIELD;
-import static com.technology.jep.jepriashowcase.arsenic.shared.field.ArsenicFieldNames.DETAILFORM_JEP_COMBOBOX_FIELD_3CH_RELOADING;
-import static com.technology.jep.jepriashowcase.arsenic.shared.field.ArsenicFieldNames.DETAILFORM_JEP_COMBOBOX_FIELD_DURABLE;
-import static com.technology.jep.jepriashowcase.arsenic.shared.field.ArsenicFieldNames.DETAILFORM_JEP_COMBOBOX_FIELD_NOTLAZY;
-import static com.technology.jep.jepriashowcase.arsenic.shared.field.ArsenicFieldNames.DETAILFORM_JEP_COMBOBOX_FIELD_RELOADING;
-import static com.technology.jep.jepriashowcase.arsenic.shared.field.ArsenicFieldNames.DETAILFORM_JEP_COMBOBOX_FIELD_SIMPLE;
-import static com.technology.jep.jepriashowcase.arsenic.shared.field.ArsenicFieldNames.DETAILFORM_JEP_DATE_FIELD;
-import static com.technology.jep.jepriashowcase.arsenic.shared.field.ArsenicFieldNames.DETAILFORM_JEP_DUAL_LIST_FIELD;
-import static com.technology.jep.jepriashowcase.arsenic.shared.field.ArsenicFieldNames.DETAILFORM_JEP_LIST_FIELD;
-import static com.technology.jep.jepriashowcase.arsenic.shared.field.ArsenicFieldNames.DETAILFORM_JEP_LIST_FIELD_CHECKALL;
-import static com.technology.jep.jepriashowcase.arsenic.shared.field.ArsenicFieldNames.DETAILFORM_JEP_LONG_FIELD;
-import static com.technology.jep.jepriashowcase.arsenic.shared.field.ArsenicFieldNames.DETAILFORM_JEP_MONEY_FIELD;
-import static com.technology.jep.jepriashowcase.arsenic.shared.field.ArsenicFieldNames.DETAILFORM_JEP_NUMBER_FIELD;
-import static com.technology.jep.jepriashowcase.arsenic.shared.field.ArsenicFieldNames.DETAILFORM_JEP_TEXT_AREA_FIELD;
-import static com.technology.jep.jepriashowcase.arsenic.shared.field.ArsenicFieldNames.DETAILFORM_JEP_TEXT_FIELD;
+import static com.technology.jep.jepriashowcase.arsenic.shared.field.ArsenicFieldNames.*;
+import static com.technology.jep.jepriashowcase.goods.shared.field.GoodsFieldNames.DESCENDANT_GOODS_LINK;
+import static com.technology.jep.jepriashowcase.goods.shared.field.GoodsFieldNames.GOODS_CATALOG_ID_LIST;
+import static com.technology.jep.jepriashowcase.goods.shared.field.GoodsFieldNames.GOODS_ID;
+import static com.technology.jep.jepriashowcase.goods.shared.field.GoodsFieldNames.GOODS_LINK;
 
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
 
 import com.google.gwt.place.shared.Place;
+import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.technology.jep.jepria.client.async.DataLoader;
 import com.technology.jep.jepria.client.async.FirstTimeUseAsyncCallback;
 import com.technology.jep.jepria.client.async.JepAsyncCallback;
 import com.technology.jep.jepria.client.async.TypingTimeoutAsyncCallback;
-import com.technology.jep.jepria.client.history.place.JepViewDetailPlace;
-import com.technology.jep.jepria.client.history.scope.JepScopeStack;
 import com.technology.jep.jepria.client.ui.WorkstateEnum;
 import com.technology.jep.jepria.client.ui.eventbus.plain.PlainEventBus;
-import com.technology.jep.jepria.client.ui.eventbus.plain.event.SaveEvent;
 import com.technology.jep.jepria.client.ui.form.detail.DetailFormPresenter;
 import com.technology.jep.jepria.client.ui.plain.StandardClientFactory;
-import com.technology.jep.jepria.client.util.JepClientUtil;
 import com.technology.jep.jepria.client.widget.event.JepEvent;
 import com.technology.jep.jepria.client.widget.event.JepEventType;
 import com.technology.jep.jepria.client.widget.event.JepListener;
@@ -45,8 +32,10 @@ import com.technology.jep.jepria.client.widget.field.multistate.JepCheckBoxField
 import com.technology.jep.jepria.client.widget.field.multistate.JepComboBoxField;
 import com.technology.jep.jepria.client.widget.field.multistate.JepDualListField;
 import com.technology.jep.jepria.client.widget.field.multistate.JepListField;
+import com.technology.jep.jepria.client.widget.field.multistate.JepTreeField;
 import com.technology.jep.jepria.shared.field.option.JepOption;
-import com.technology.jep.jepria.shared.record.JepRecord;
+import com.technology.jep.jepria.shared.field.option.JepParentOption;
+import com.technology.jep.jepria.shared.util.JepRiaUtil;
 import com.technology.jep.jepriashowcase.arsenic.shared.service.ArsenicServiceAsync;
 
 @SuppressWarnings("serial")
@@ -82,6 +71,7 @@ public class ArsenicDetailFormPresenter<E extends PlainEventBus, S extends Arsen
 				fields.setFieldVisible(DETAILFORM_JEP_CHECKBOX_FIELD, b);
 				fields.setFieldVisible(DETAILFORM_JEP_LIST_FIELD, b);
 				fields.setFieldVisible(DETAILFORM_JEP_LIST_FIELD_CHECKALL, b);
+				fields.setFieldVisible(DETAILFORM_JEP_TREE_FIELD, b);
 			}
 		});
 		
@@ -106,6 +96,7 @@ public class ArsenicDetailFormPresenter<E extends PlainEventBus, S extends Arsen
 				fields.setFieldEnabled(DETAILFORM_JEP_CHECKBOX_FIELD, b);
 				fields.setFieldEnabled(DETAILFORM_JEP_LIST_FIELD, b);
 				fields.setFieldEnabled(DETAILFORM_JEP_LIST_FIELD_CHECKALL, b);
+				fields.setFieldEnabled(DETAILFORM_JEP_TREE_FIELD, b);
 			}
 		});
 		
@@ -130,6 +121,7 @@ public class ArsenicDetailFormPresenter<E extends PlainEventBus, S extends Arsen
 				fields.setFieldEditable(DETAILFORM_JEP_CHECKBOX_FIELD, b);
 				fields.setFieldEditable(DETAILFORM_JEP_LIST_FIELD, b);
 				fields.setFieldEditable(DETAILFORM_JEP_LIST_FIELD_CHECKALL, b);
+				fields.setFieldEditable(DETAILFORM_JEP_TREE_FIELD, b);
 			}
 		});
 		
@@ -153,6 +145,7 @@ public class ArsenicDetailFormPresenter<E extends PlainEventBus, S extends Arsen
 				fields.setFieldAllowBlank(DETAILFORM_JEP_DUAL_LIST_FIELD, b);
 				fields.setFieldAllowBlank(DETAILFORM_JEP_LIST_FIELD, b);
 				fields.setFieldAllowBlank(DETAILFORM_JEP_LIST_FIELD_CHECKALL, b);
+				fields.setFieldAllowBlank(DETAILFORM_JEP_TREE_FIELD, b);
 			}
 		});
 		
@@ -289,6 +282,43 @@ public class ArsenicDetailFormPresenter<E extends PlainEventBus, S extends Arsen
 				}});
 			}
 		});
+		
+		final JepTreeField treeField = (JepTreeField) fields.get(DETAILFORM_JEP_TREE_FIELD);
+        
+        treeField.setLoader(new DataLoader<JepOption>() {
+      		public void load(final Object loadConfig, final AsyncCallback<List<JepOption>> callback) {
+           		service.getTreeCatalog(JepOption.<Integer>getValue(loadConfig), new JepAsyncCallback<List<JepOption>>() {
+					@Override
+					public void onSuccess(List<JepOption> result) {
+						callback.onSuccess(result);
+						if (result.size() > 0) {
+							final List<JepOption> checkedNodes = new ArrayList<JepOption>();
+							final List<JepOption> expandedNodes = new ArrayList<JepOption>();
+							
+							for (JepOption treeOption : result){
+								if (Boolean.TRUE.equals(treeOption.get(GOODS_LINK))){
+									checkedNodes.add(treeOption);
+								}
+								if (Boolean.TRUE.equals(treeOption.get(DESCENDANT_GOODS_LINK))){
+									expandedNodes.add(treeOption);
+								}
+							}
+							
+							if (!JepRiaUtil.isEmpty(expandedNodes)) {
+								treeField.setExpanded(expandedNodes);
+							}
+							if (!JepRiaUtil.isEmpty(checkedNodes)) {
+								treeField.setValue(checkedNodes);
+							}
+						}
+					}
+					@Override
+					public void onFailure(Throwable th){
+						callback.onFailure(th);
+					}
+				});
+      		}
+        });	
 	}
 	
 	@Override

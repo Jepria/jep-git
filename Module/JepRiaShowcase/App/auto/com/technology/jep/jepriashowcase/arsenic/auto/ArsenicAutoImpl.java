@@ -252,7 +252,7 @@ public class ArsenicAutoImpl<A extends JepRiaShowcaseAuto, P extends JepRiaShowc
 
 	
 	
-	
+	//TODO add new fields: tree, file...
 	@Override
 	public boolean checkAllFieldsVisibility(boolean expected) {
 		if (expected) {

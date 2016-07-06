@@ -16,7 +16,6 @@ import com.technology.jep.jepria.client.ui.WorkstateEnum;
 import com.technology.jep.jepria.client.widget.event.JepEvent;
 import com.technology.jep.jepria.client.widget.event.JepEventType;
 import com.technology.jep.jepria.client.widget.event.JepListener;
-import com.technology.jep.jepria.client.widget.field.multistate.JepTreeField;
 import com.technology.jep.jepria.client.widget.field.multistate.event.CheckChangeEvent;
 import com.technology.jep.jepria.client.widget.field.multistate.event.CheckChangeEvent.CheckChangeHandler;
 import com.technology.jep.jepria.client.widget.field.tree.TreeField;
@@ -41,11 +40,15 @@ public class JepTreeField extends JepMultiStateField<TreeField<JepOption>, HTML>
 	private final static int DEFAULT_TREE_FIELD_HEIGHT = 300;
 	
 	public JepTreeField() {
-		this("");
+		this(null);
 	}
 	
 	public JepTreeField(String fieldLabel){
-		super(fieldLabel);
+		this(null, fieldLabel);
+	}
+	
+	public JepTreeField(String fieldIdAsWebEl, String fieldLabel){
+		super(fieldIdAsWebEl, fieldLabel);
 		// установка высоты по умолчанию
 		setFieldHeight(DEFAULT_TREE_FIELD_HEIGHT);
 	}

@@ -1,7 +1,10 @@
 package com.technology.jep.jepriashowcase.arsenic.server.dao;
  
+import java.util.List;
+
 import com.technology.jep.jepria.server.dao.JepDataStandard;
 import com.technology.jep.jepria.shared.exceptions.ApplicationException;
+import com.technology.jep.jepria.shared.field.option.JepOption;
  
 public interface Arsenic extends JepDataStandard {
 	/**
@@ -10,4 +13,6 @@ public interface Arsenic extends JepDataStandard {
 	 * @throws ApplicationException
 	 */
 	void durableFetch(long msec) throws ApplicationException;
+	
+	List<JepOption> getTreeCatalog(Integer parentCatalogId) throws ApplicationException;
 }
