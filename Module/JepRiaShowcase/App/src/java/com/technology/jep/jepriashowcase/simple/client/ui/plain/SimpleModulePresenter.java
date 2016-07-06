@@ -3,7 +3,6 @@ package com.technology.jep.jepriashowcase.simple.client.ui.plain;
 import com.allen_sauer.gwt.log.client.Log;
 
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.SEARCH;
-import static com.technology.jep.jepria.client.util.JepClientUtil.goToUrl;
 import static com.technology.jep.jepriashowcase.main.client.JepRiaShowcaseClientConstant.SUPPLIER_MODULE_ID;
 import static com.technology.jep.jepriashowcase.main.client.JepRiaShowcaseClientConstant.URL_CUSTOM_MODULE;
 import static com.technology.jep.jepriashowcase.simple.client.SimpleClientConstant.simpleText;
@@ -11,6 +10,7 @@ import static com.technology.jep.jepriashowcase.simple.client.SimpleClientConsta
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.place.shared.Place;
+import com.google.gwt.user.client.Window;
 import com.technology.jep.jepria.client.message.ErrorDialog;
 import com.technology.jep.jepria.client.history.scope.JepScope;
 import com.technology.jep.jepria.client.history.scope.JepScopeStack;
@@ -51,7 +51,7 @@ public class SimpleModulePresenter<V
 		
 		view.addCustomModuleClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
-				goToUrl(URL_CUSTOM_MODULE);
+				Window.Location.assign(URL_CUSTOM_MODULE);
 			}
 		});
 	}
