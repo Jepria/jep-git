@@ -47,22 +47,6 @@ public class JepClientUtil {
 	}-*/;
 
 	/**
-	 * Функция для перехода по ссылке
-	 * @param url	ссылка в любом формате (прямая, относительная, без указания протокола)
-	 */
-	public static void goToUrl(String url) {
-		if (url.startsWith("//")){
-			//absolute url without protocol
-			url = Window.Location.getProtocol() + url;
-		} else if (!url.toLowerCase().matches("^((https?|ftp|file)://|mailto:).*")){
-			//relative path
-			url = GWT.getHostPageBaseURL() + url.replaceFirst("/","");
-		}
-		//absolute url
-		Window.Location.assign(url);
-	}
-
-	/**
 	 * Показ загрузочной панели с предустановленным заголовком и сообщением
 	 *
 	 * @param header		заголовок (меняется, если он установлен)
