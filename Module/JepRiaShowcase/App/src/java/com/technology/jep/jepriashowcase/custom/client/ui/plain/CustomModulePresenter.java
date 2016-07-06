@@ -1,6 +1,5 @@
 package com.technology.jep.jepriashowcase.custom.client.ui.plain;
 
-import static com.technology.jep.jepria.client.util.JepClientUtil.goToUrl;
 import static com.technology.jep.jepria.shared.JepRiaConstant.JEP_USER_NAME_FIELD_NAME;
 import static com.technology.jep.jepria.shared.JepRiaConstant.JEP_USER_ROLES_FIELD_NAME;
 import static com.technology.jep.jepria.shared.field.JepFieldNames.OPERATOR_ID;
@@ -60,19 +59,19 @@ public class CustomModulePresenter<V extends CustomModuleView, E extends PlainEv
 				
 		view.addFullScreenButtonClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
-				goToUrl(URL_FULL_SCREEN);
+				Window.Location.assign(URL_FULL_SCREEN);
 			}
 		});
 		
 		view.addEmbeddedButtonClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
-				goToUrl(URL_EMBEDDED);
+				Window.Location.assign(URL_EMBEDDED);
 			}
 		});
 		
 		view.addSearchButtonClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
-				goToUrl(URL_SEARCH_MODULE);
+				Window.Location.assign(URL_SEARCH_MODULE);
 			}
 		});
 		
