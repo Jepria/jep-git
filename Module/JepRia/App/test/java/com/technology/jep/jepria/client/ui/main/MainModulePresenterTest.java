@@ -31,28 +31,106 @@ import com.technology.jep.jepria.shared.log.JepLogger;
 import com.technology.jep.jepria.shared.service.JepMainServiceAsync;
 import com.technology.jep.jepria.shared.text.JepRiaText;
 
+/**
+ * Пример mock-тестирования клиентского кода.<br/>
+ * Unit-тестирование в ряде случаев оказывается затруднено или вовсе невозможно
+ * в связи с одним или несколькими из следующих обстоятельств:
+ * <ul>
+ *   <li>Тестируемые методы имеют &quot;побочные эффекты&quot;, т.е. изменяют состояние своего
+ *   объекта. При этом интерфейс объекта не всегда позволяет убедиться в корректности выполненных
+ *   изменений.</li>
+ *   <li>Может возникнуть необходимость протестировать приватные методы. Менять уровень
+ *   доступа с private на package private исключительно для нужд тестирования может быть
+ *   нецелесообразно.</li>
+ *   <li>В конфигурировании тестируемого класса могут принимать участие объекты сторонних классов,
+ *   которые не представляется возможным модифицировать.</li>
+ *   <li>Код может быть невозможно протестировать без специфических условий: характерный пример
+ *   &mdash; клиентский код в GWT; вне браузера невозможно вызвать <code>GWT.create()</code>.</li>
+ *   <li>Тестируемый код может активно использовать статические методы. Одним из выходов может,
+ *   безусловно, быть модификация кода для повышения его тестируемости, однако это может потребовать
+ *   архитектурных решений и сделать его менее понятным и т.д.</li>  
+ * </ul>
+ * <p>Снять ограничение позволяет mock-тестирование. Идея mock-тестирования заключается в том, что
+ * реальные объекты подменяются фиктивными. Какие-то методы mock-объекта могут вести себя как
+ * методы реального объекта, а какие-то &mdash; ничего не делать, либо выбрасывать исключение,
+ * либо возвращать заданное извне значение в тех или иных условиях. Дополнительно возможно
+ * посчитывать количество раз, которое вызывается метод, записывать значения переданных параметров.</p>
+ * 
+ * <p>Наиболее популярным фреймворком для mock-тестирования является Mockito ({@link http://mockito.org/}),
+ * который использует для формирования mock-объектов Reflection API. С последним связано существенное
+ * ограничение Mockito: невозможность модифицировать поведение статических методов. Кроме того,
+ * Mockito не позволяет модифицировать <code>final</code>-методы. Для снятия этих ограничений 
+ * используется PowerMock ({@link https://github.com/jayway/powermock}), работающий на уровне Classloader.
+ * Использование PowerMock требует использования собственного runner'а, что обуславливает использование
+ * аннотации <code>{@literal @}RunWith(PowerMockRunner.class)</code>.</p>
+ * 
+ * В данном примере демонстрируется тестирование метода {@link MainModulePresenter#checkAccess(String)}.
+ * Метод проверяет, доступен ли модуль с заданным идентификатором. Если модуль доступен, функция
+ * должна возвращать <code>true</code>, в противном случае &mdash; <code>false</code>. Кроме того,
+ * в последнем случае функция должна выводить сообщение об ошибке и скрывать индикатор загрузки
+ * (побочные эффекты).
+ *
+ */
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({Document.class, GWT.class, JepClientUtil.class, MainModulePresenter.class})
 public class MainModulePresenterTest {
 	
+	/**
+	 * Проверяет поведение метода {@link MainModulePresenter#checkAccess(String)}, если
+	 * модуль доступен.
+	 * @throws Exception
+	 */
 	@Test
 	public void checkAccessTestAvailableModule() throws Exception {
-		MainClientFactory<?, ?> cf = createMainClientFactoryMock(null);		
+		/*
+		 * Создадим фиктивную клиентскую фабрику. Поскольку в данном тесте сообщение
+		 * об ошибке не должно быть показано, нет необходимости заглушать JepMessageBox.
+		 */
+		MainClientFactory<?, ?> cf = createMainClientFactoryMock(null);
+		/*
+		 * Создадим презентер и с помощью PowerMockito.spy() "внедряемся" в него.
+		 * Существует два подхода: mock() создаёт фиктивный объект по переданному классу,
+		 * spy() позволяет внедриться в существующий объект для модификации его поведения
+		 * и слежения за ним. Отметим необходимость использование PowerMockito.spy() вместо
+		 * Mockito.spy() в данной ситуации, т.к. мы модифицируем поведение приватного
+		 * метода getAccessibleModules().
+		 */
 		MainModulePresenter<?, ?, ?, ?> p = PowerMockito.spy(new MainModulePresenter(cf){});
+		/*
+		 * Для упрощения процесса тестирования добьёмся того, чтобы getAccessibleModules()
+		 * возвращал заданный список модулей.
+		 */
 		Set<String> modules = new HashSet<String>();
 		modules.add("Module1");
 		modules.add("Module2");
 		modules.add("Module3");	
 		PowerMockito.doReturn(modules).when(p, "getAccessibleModules");
-		boolean result = WhiteboxImpl.<Boolean>invokeMethod(p, "checkAccess", "Module1");
+		/*
+		 * Тестируемый метод checkAccess() является приватным. Для его вызова нужно либо
+		 * использовать Reflection API, либо обратиться к входящему в PowerMock классу
+		 * WhiteboxImpl.
+		 */
+		boolean result = WhiteboxImpl.invokeMethod(p, "checkAccess", "Module1");
+		/*
+		 * Предполагаем, что в данной ситуации метод checkAccess() вернёт true.
+		 */
 		assertTrue(result);
 	}
 	
+	/**
+	 * Проверяет поведение метода {@link MainModulePresenter#checkAccess(String)}, если
+	 * модуль недоступен.
+	 * @throws Exception
+	 */
 	@Test
 	public void checkAccessTestUnavailableModule() throws Exception {
+		/*
+		 * Данный тест требует существенно большее количество заглушек.
+		 */
 		mockDocumentGetBody();
 		mockJepClientUtil();		
-		mockJepTexts();	
+		mockJepTexts();			
+		mockJepRiaClientConstant();
 
 		final JepMessageBox messageBoxMock = Mockito.mock(JepMessageBox.class);
 		Mockito.when(messageBoxMock.showError(Mockito.anyString())).thenReturn(null);		
@@ -65,20 +143,28 @@ public class MainModulePresenterTest {
 		modules.add("Module3");	
 		PowerMockito.doReturn(modules).when(p, "getAccessibleModules");
 		
-		PowerMockito.doReturn("").when(GWT.class);
-		GWT.getPermutationStrongName();
-		
 		boolean result = WhiteboxImpl.<Boolean>invokeMethod(p, "checkAccess", "Module4");
+		// Проверим, что метод возвращает false.
 		assertFalse(result);
+		/*
+		 * Убедимся, что метод JepClientUtil.hideLoadingPanel(), скрывающий индикатор загрузки,
+		 * вызывается ровно 1 раз. Следует отметить характерный для Powermock двухстрочный
+		 * синтаксис, используемый для статических методов.
+		 */
 		PowerMockito.verifyStatic(Mockito.times(1));
 		JepClientUtil.hideLoadingPanel();
+		/*
+		 * Убедимся, что messageBox.showError() вызывается ровно один раз. Для простоты
+		 * не будем проверять переданный методу текст. Следует заметить, что этот вызов
+		 * не является статическим либо приватным, поэтому прибегать к Powermock не требуется.
+		 */
 		Mockito.verify(messageBoxMock, Mockito.times(1)).showError(Mockito.anyString());
 	}
 
 	/**
 	 * Создание mock для клиентской фабрики.<br/>
-	 * @param messageBoxMock
-	 * @return
+	 * @param messageBoxMock фиктивный объект для вывода сообщений
+	 * @return фиктивная клиентская фабрика главного модуля
 	 */
 	private static MainClientFactory<?, ?> createMainClientFactoryMock(final JepMessageBox messageBoxMock) {
 		MainClientFactory<?, ?> cf = new MainClientFactory(){
@@ -88,8 +174,7 @@ public class MainModulePresenterTest {
 			}
 
 			@Override
-			public void getPlainClientFactory(String moduleId,
-					LoadAsyncCallback callback) {				
+			public void getPlainClientFactory(String moduleId, LoadAsyncCallback callback) {				
 			}
 
 			@Override
@@ -102,6 +187,10 @@ public class MainModulePresenterTest {
 				return null;
 			}
 
+			/**
+			 * Создаёт mock-объект UiSecurity.
+			 * @return uiSecurityMock
+			 */
 			@Override
 			public UiSecurity getUiSecurity() {
 				UiSecurity uiSecurityMock = Mockito.mock(UiSecurity.class);
@@ -183,17 +272,31 @@ public class MainModulePresenterTest {
 		Document.get();
 	}
 
+	/**
+	 * Служебный метод, заглушаюший функции класса {@link JepClientUtil}.
+	 */
 	private static void mockJepClientUtil() {
 		PowerMockito.mockStatic(JepClientUtil.class);
 		PowerMockito.doNothing().when(JepClientUtil.class);
 		JepClientUtil.hideLoadingPanel();
 	}
 
+	/**
+	 * Служебный метод, заглушающий {@link JepRiaText} и его инстанцирование.
+	 */
 	private static void mockJepTexts() {
 		JepRiaText jepTextsMock = Mockito.mock(JepRiaText.class);
 		Mockito.when(jepTextsMock.field_blankText()).thenReturn("");		
 		PowerMockito.mockStatic(GWT.class);
 		PowerMockito.doReturn(jepTextsMock).when(GWT.class);
 		GWT.create(JepRiaText.class);
+	}
+
+	/**
+	 * Служебный метод, заглушающий GWT-вызовы в JepRiaClientConstant.
+	 */
+	private static void mockJepRiaClientConstant() {
+		PowerMockito.doReturn("").when(GWT.class);
+		GWT.getPermutationStrongName();
 	}
 }
