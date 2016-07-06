@@ -35,6 +35,7 @@ import com.technology.jep.jepria.client.ui.eventbus.plain.PlainEventBus;
 import com.technology.jep.jepria.client.ui.plain.PlainClientFactory;
 import com.technology.jep.jepria.client.ui.plain.PlainModulePresenter;
 import com.technology.jep.jepria.client.util.JepClientUtil;
+import com.technology.jep.jepria.client.widget.field.multistate.JepTextField;
 import com.technology.jep.jepria.shared.dto.JepDto;
 import com.technology.jep.jepria.shared.service.JepMainServiceAsync;
 import com.technology.jep.jepria.shared.util.JepRiaUtil;
@@ -208,13 +209,24 @@ public class CustomModulePresenter<V extends CustomModuleView, E extends PlainEv
 			}
 		});
 		
+		final JepTextField urlTextField = view.getUrlTextField();
+		urlTextField.setAllowBlank(false);
+				
+		view.addGoToUrlButtonClickHandler(new ClickHandler(){
+			@Override
+			public void onClick(ClickEvent event) {				
+				if (urlTextField.isValid()) {
+					Window.Location.assign(urlTextField.getValue());
+				}
+			}});
+		
 		view.addTransactionButtonClickHandler(new ClickHandler() {			
 			@Override
 			public void onClick(ClickEvent event) {
 				service.transaction(new JepAsyncCallback<Void>(){
 					@Override
 					public void onSuccess(Void result) {
-						messageBox.alert("Транзакция выполнена");
+						messageBox.alert(customText.custom_transactionSuccessfulAlert_message());
 					}});
 			}
 		});

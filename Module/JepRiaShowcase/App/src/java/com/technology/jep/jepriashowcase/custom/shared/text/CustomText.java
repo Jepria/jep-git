@@ -2,7 +2,7 @@ package com.technology.jep.jepriashowcase.custom.shared.text;
 
 /**
  * Interface to represent the constants contained in resource bundle:
- * 	'D:/workspace/git/JEP/Module/JepRiaShowcase/App/src/java/com/technology/jep/jepriashowcase/custom/shared/text/CustomText.properties'.
+ * 	'E:/git/javaenterpriseplatform/Module/JepRiaShowcase/App/src/java/com/technology/jep/jepriashowcase/custom/shared/text/CustomText.properties'.
  */
 public interface CustomText extends com.google.gwt.i18n.client.Constants {
   
@@ -106,6 +106,15 @@ public interface CustomText extends com.google.gwt.i18n.client.Constants {
   String custom_fullScreenButton();
 
   /**
+   * Translated "Перейти".
+   * 
+   * @return translated "Перейти"
+   */
+  @DefaultStringValue("Перейти")
+  @Key("custom.goToUrlButton")
+  String custom_goToUrlButton();
+
+  /**
    * Translated "Идёт авторизация".
    * 
    * @return translated "Идёт авторизация"
@@ -140,6 +149,33 @@ public interface CustomText extends com.google.gwt.i18n.client.Constants {
   @DefaultStringValue("Поисковая форма")
   @Key("custom.searchButton")
   String custom_searchButton();
+
+  /**
+   * Translated "Транзакция".
+   * 
+   * @return translated "Транзакция"
+   */
+  @DefaultStringValue("Транзакция")
+  @Key("custom.transactionButton")
+  String custom_transactionButton();
+
+  /**
+   * Translated "Транзакция выполнена.".
+   * 
+   * @return translated "Транзакция выполнена."
+   */
+  @DefaultStringValue("Транзакция выполнена.")
+  @Key("custom.transactionSuccessfulAlert.message")
+  String custom_transactionSuccessfulAlert_message();
+
+  /**
+   * Translated "URL".
+   * 
+   * @return translated "URL"
+   */
+  @DefaultStringValue("URL")
+  @Key("custom.urlLabel")
+  String custom_urlLabel();
 
   /**
    * Translated "Демонстрация z-индексов".

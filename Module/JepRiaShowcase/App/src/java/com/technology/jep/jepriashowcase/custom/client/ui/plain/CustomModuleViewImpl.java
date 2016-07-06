@@ -16,9 +16,19 @@ import com.google.gwt.event.dom.client.FocusEvent;
 import com.google.gwt.event.dom.client.FocusHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.DOM;
-import com.google.gwt.user.client.ui.*;
+import com.google.gwt.user.client.ui.DeckPanel;
+import com.google.gwt.user.client.ui.HasHorizontalAlignment;
+import com.google.gwt.user.client.ui.HasVerticalAlignment;
+import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.TextBox;
+import com.google.gwt.user.client.ui.PasswordTextBox;
+import com.google.gwt.user.client.ui.RootPanel;
+import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.user.client.ui.Widget;
 import com.technology.jep.jepria.client.ui.plain.PlainModuleViewImpl;
 import com.technology.jep.jepria.client.util.JepClientUtil;
+import com.technology.jep.jepria.client.widget.field.multistate.JepTextField;
 import com.technology.jep.jepria.shared.util.JepRiaUtil;
 import com.technology.jep.jepriashowcase.custom.client.JRSCCustomAutomationConstant;
 import com.technology.jep.jepriashowcase.custom.client.ui.auto.IdentifiedButton;
@@ -32,6 +42,8 @@ public class CustomModuleViewImpl extends PlainModuleViewImpl implements CustomM
 	private IdentifiedButton exitButton;
 	private IdentifiedButton currentUserButton;
 	private IdentifiedButton searchButton;
+	private IdentifiedButton transactionButton;
+	private IdentifiedButton goToUrlButton;
 	
 	private Label errorLabel, currentUserLabel;
 	private TextBox loginTextBox;
@@ -42,7 +54,8 @@ public class CustomModuleViewImpl extends PlainModuleViewImpl implements CustomM
 	
 	private final static String LAYER_ID = DOM.createUniqueId();
 	
-	private Button transactionButton = new Button("Транзакция");
+	
+	private JepTextField urlTextField;
 	
 	public CustomModuleViewImpl() {
 		
@@ -77,8 +90,27 @@ public class CustomModuleViewImpl extends PlainModuleViewImpl implements CustomM
 				customText.custom_currentUser(),
 				JRSCCustomAutomationConstant.JRSC_MAINPAGE_CURRENT_USER_BUTTON_ID);
 		
+		
+		
 		add(currentUserButton, CURRENT_USER_ELEMENT);
+		
+		transactionButton = new IdentifiedButton(
+				customText.custom_transactionButton(),
+				JRSCCustomAutomationConstant.JRSC_TRANSACTION_BUTTON_ID);
+		
 		add(transactionButton, CURRENT_USER_ELEMENT);
+		
+		urlTextField = new JepTextField(
+				JRSCCustomAutomationConstant.JRSC_URL_TEXTFIELD_ID,
+				customText.custom_urlLabel());
+		
+		add(urlTextField, CURRENT_USER_ELEMENT);
+		
+		goToUrlButton = new IdentifiedButton(
+				customText.custom_goToUrlButton(),
+				JRSCCustomAutomationConstant.JRSC_GOTOURL_BUTTON_ID);
+		
+		add(goToUrlButton, CURRENT_USER_ELEMENT);
 
 		searchButton = new IdentifiedButton(
 				customText.custom_searchButton(),
@@ -149,10 +181,20 @@ public class CustomModuleViewImpl extends PlainModuleViewImpl implements CustomM
 	}
 
 	@Override
+	public HandlerRegistration addGoToUrlButtonClickHandler(ClickHandler clickHandler) {
+		return goToUrlButton.addClickHandler(clickHandler);
+	}
+
+	@Override
 	public HandlerRegistration addTransactionButtonClickHandler(ClickHandler clickHandler) {
 		return transactionButton.addClickHandler(clickHandler);
 	}
 	
+	@Override
+	public JepTextField getUrlTextField() {
+		return urlTextField;
+	}
+
 	@Override
 	public Credential getUserCredential(){
 		String login = loginTextBox.getValue();
