@@ -73,7 +73,8 @@ import com.technology.jep.jepria.shared.util.JepRiaUtil;
 /**
  * Реализация JepRiaModuleAuto
  */
-public class JepRiaModuleAutoImpl<A extends EntranceAppAuto, P extends JepRiaApplicationPageManager> extends ApplicationEntranceAuto<A, P> implements JepRiaModuleAuto {
+public class JepRiaModuleAutoImpl<A extends EntranceAppAuto, P extends JepRiaApplicationPageManager> extends ApplicationEntranceAuto<A, P>
+		implements JepRiaModuleAuto {
 	@SuppressWarnings("unused")
 	private static Logger logger = Logger.getLogger(JepRiaModuleAutoImpl.class.getName());
 	private WorkstateEnum currentWorkstate;

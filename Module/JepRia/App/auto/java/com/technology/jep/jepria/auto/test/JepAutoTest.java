@@ -63,7 +63,7 @@ public abstract class JepAutoTest<C extends JepRiaModuleAuto> extends AssertJUni
 		"username",
 		"password"})
 //	@BeforeMethod(groups = "all") не работает для отдельно взятых групп, входящих в "all"
-	@BeforeMethod(groups = {"find", "create", "delete", "edit", "goto", "list", "setAndGetTextField"})
+	@BeforeMethod(groups = {"find", "create", "delete", "edit", "goto", "list", "setAndGetFields", "fieldStates"})
 	public void setUp(
 			String baseUrl,
 			String browserName,
@@ -90,7 +90,7 @@ public abstract class JepAutoTest<C extends JepRiaModuleAuto> extends AssertJUni
 	 * @param forceNewBrowser - условие запуска нового браузера: если true - запускать 
 	 * @param forceLogin - условие перелогинивания: если true - перелогиниваться
 	 */
-	@AfterMethod(groups = {"find", "create", "delete", "edit", "goto", "list", "setAndGetTextField"})
+	@AfterMethod(groups = {"find", "create", "delete", "edit", "goto", "list", "setAndGetFields", "fieldStates"})
 	@Parameters({
 		"forceNewBrowser",
 		"forceLogin"})

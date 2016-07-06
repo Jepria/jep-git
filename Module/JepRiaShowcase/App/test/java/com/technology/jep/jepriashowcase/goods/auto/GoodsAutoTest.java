@@ -199,7 +199,7 @@ public class GoodsAutoTest extends JepAutoTest<GoodsAuto> {
 	 * Тест установки/получения поля 'Тип товара' на форме создания
 	 */
 	@DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/goods/auto/GoodsAutoTest.setAndGetGoodsType.group.data")
-	@Test(groups={"create", "setAndGetTextField"}, dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
+	@Test(groups={"create", "setAndGetFields"}, dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
 	public void setAndGetGoodsTypeOnCreate(String goodsTypeNewValue) {
 		cut.setWorkstate(CREATE);
 		

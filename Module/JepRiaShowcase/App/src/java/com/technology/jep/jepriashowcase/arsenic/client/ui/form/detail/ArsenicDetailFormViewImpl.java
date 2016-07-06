@@ -46,14 +46,40 @@ public class ArsenicDetailFormViewImpl extends StandardDetailFormViewImpl implem
 			title.add(new HTML(arsenicText.titleText()));
 			put("", title);
 			
-			put(DETAILFORM_CHECKBOX_SWITCH_VSBL, new JepCheckBoxField(
-					ARSENIC_CHECKBOX_SWITCH_VSBL_ID, arsenicText.detail_jepCheckBox_switch_vsbl()));
-			put(DETAILFORM_CHECKBOX_SWITCH_ENBL, new JepCheckBoxField(
-					ARSENIC_CHECKBOX_SWITCH_ENBL_ID, arsenicText.detail_jepCheckBox_switch_enbl()));
-			put(DETAILFORM_CHECKBOX_SWITCH_EDTB, new JepCheckBoxField(
-					ARSENIC_CHECKBOX_SWITCH_EDTB_ID, arsenicText.detail_jepCheckBox_switch_edtb()));
-			put(DETAILFORM_CHECKBOX_SWITCH_ALBL, new JepCheckBoxField(
-					ARSENIC_CHECKBOX_SWITCH_ALBL_ID, arsenicText.detail_jepCheckBox_switch_albl()));
+			{// checkboxes switching field states
+				JepCheckBoxField checkBox_switchVsbl = new JepCheckBoxField(
+						ARSENIC_CHECKBOX_SWITCH_VSBL_ID, arsenicText.detail_jepCheckBox_switch_vsbl()) {{
+							setLabelWidth(250);
+							setFieldWidth(50);
+						}};
+				JepCheckBoxField checkBox_switchEnbl = new JepCheckBoxField(
+						ARSENIC_CHECKBOX_SWITCH_ENBL_ID, arsenicText.detail_jepCheckBox_switch_enbl()) {{
+							setLabelWidth(250);
+							setFieldWidth(50);
+						}};
+				JepCheckBoxField checkBox_switchEdtb = new JepCheckBoxField(
+						ARSENIC_CHECKBOX_SWITCH_EDTB_ID, arsenicText.detail_jepCheckBox_switch_edtb()) {{
+							setLabelWidth(250);
+							setFieldWidth(50);
+						}};
+				JepCheckBoxField checkBox_switchAlbl = new JepCheckBoxField(
+						ARSENIC_CHECKBOX_SWITCH_ALBL_ID, arsenicText.detail_jepCheckBox_switch_albl()) {{
+							setLabelWidth(250);
+							setFieldWidth(50);
+						}};
+				
+				HorizontalPanel checkBoxPanel = new HorizontalPanel();
+				checkBoxPanel.add(checkBox_switchVsbl);
+				checkBoxPanel.add(checkBox_switchEnbl);
+				checkBoxPanel.add(checkBox_switchEdtb);
+				checkBoxPanel.add(checkBox_switchAlbl);
+				put("CHECKBOX_PANEL", checkBoxPanel);
+				
+				fields.put(DETAILFORM_CHECKBOX_SWITCH_VSBL, checkBox_switchVsbl);
+				fields.put(DETAILFORM_CHECKBOX_SWITCH_ENBL, checkBox_switchEnbl);
+				fields.put(DETAILFORM_CHECKBOX_SWITCH_EDTB, checkBox_switchEdtb);
+				fields.put(DETAILFORM_CHECKBOX_SWITCH_ALBL, checkBox_switchAlbl);
+			}
 			
 			put(DETAILFORM_JEP_TEXT_FIELD, new JepTextField(ARSENIC_JEP_TEXT_FIELD_ID, arsenicText.detail_jepTextField()));
 			put(DETAILFORM_JEP_TEXT_AREA_FIELD, new JepTextAreaField(ARSENIC_JEP_TEXT_AREA_FIELD_ID, arsenicText.detail_jepTextAreaField()));

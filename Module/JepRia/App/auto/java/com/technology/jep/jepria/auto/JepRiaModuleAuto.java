@@ -206,25 +206,25 @@ public interface JepRiaModuleAuto extends EntranceAuto {
 	String[] getListFieldValues(String jepListFieldId);
 	
 	/**
-	 * Проверка свойства visible Jep-поля по заданному ID (фактически, проверка атрибута aria-hidden)
+	 * Проверка видимости Jep-поля по заданному ID (атрибута aria-hidden)
 	 * @param fieldId id Jep-поля
 	 */
 	boolean isFieldVisible(String fieldId);
 	
 	/**
-	 * Проверка свойства enables Jep-поля по заданному ID (фактически, проверка атрибута disabled)
+	 * Проверка доступности Jep-поля по заданному ID (атрибута disabled)
 	 * @param fieldId id Jep-поля
 	 */
 	boolean isFieldEnabled(String fieldId);
 	
 	/**
-	 * Проверка редактируемости Jep-поля по заданному ID (фактически, проверка атрибута jep-card-type)
+	 * Проверка редактируемости Jep-поля по заданному ID (атрибута jep-card-type)
 	 * @param fieldId id Jep-поля
 	 */
 	boolean isFieldEditable(String fieldId);
 	
 	/**
-	 * Проверка необязательности Jep-поля по заданному ID (фактически, проверка наличия маркера обязательности (*) )
+	 * Проверка необязательности Jep-поля по заданному ID (наличия маркера обязательности (*) )
 	 * @param fieldId id Jep-поля
 	 */
 	boolean isFieldAllowBlank(String fieldId);

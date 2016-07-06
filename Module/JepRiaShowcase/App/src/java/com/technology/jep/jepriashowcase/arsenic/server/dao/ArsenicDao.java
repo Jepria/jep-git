@@ -1,11 +1,22 @@
 package com.technology.jep.jepriashowcase.arsenic.server.dao;
  
+import static com.technology.jep.jepriashowcase.arsenic.shared.field.ArsenicFieldNames.DETAILFORM_JEP_CHECKBOX_FIELD;
+import static com.technology.jep.jepriashowcase.arsenic.shared.field.ArsenicFieldNames.DETAILFORM_JEP_COMBOBOX_FIELD_SIMPLE;
+import static com.technology.jep.jepriashowcase.arsenic.shared.field.ArsenicFieldNames.DETAILFORM_JEP_DATE_FIELD;
+import static com.technology.jep.jepriashowcase.arsenic.shared.field.ArsenicFieldNames.DETAILFORM_JEP_LONG_FIELD;
+import static com.technology.jep.jepriashowcase.arsenic.shared.field.ArsenicFieldNames.DETAILFORM_JEP_MONEY_FIELD;
+import static com.technology.jep.jepriashowcase.arsenic.shared.field.ArsenicFieldNames.DETAILFORM_JEP_NUMBER_FIELD;
+import static com.technology.jep.jepriashowcase.arsenic.shared.field.ArsenicFieldNames.DETAILFORM_JEP_TEXT_FIELD;
+import static com.technology.jep.jepriashowcase.arsenic.shared.field.ArsenicFieldNames.JEP_COMBOBOX_FIELD_SIMPLE_NAME;
+import static com.technology.jep.jepriashowcase.arsenic.shared.field.ArsenicFieldNames.PRIMARY_KEY;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
-
-import static com.technology.jep.jepriashowcase.arsenic.shared.field.ArsenicFieldNames.*;
+import java.util.Map;
 
 import com.technology.jep.jepria.server.dao.JepDaoStandard;
 import com.technology.jep.jepria.shared.exceptions.ApplicationException;
@@ -15,88 +26,118 @@ import com.technology.jep.jepria.shared.util.Mutable;
 
 public class ArsenicDao extends JepDaoStandard implements Arsenic {
 
+	private static int id = 1;
+	private static final Map<Integer, JepRecord> database = new HashMap<Integer, JepRecord>();
+	
 	@Override
 	public List<JepRecord> find(JepRecord templateRecord,
 			Mutable<Boolean> autoRefreshFlag, Integer maxRowCount,
 			Integer operatorId) throws ApplicationException {
+
+		Integer tmpId = templateRecord.get(PRIMARY_KEY);
+		if (tmpId != null) {
+			return Arrays.asList(database.get(tmpId));
+		}
 		
-		List<JepOption> list;
-		String h;
-		JepOption jo;
 		
 		List<JepRecord> ret = new ArrayList<JepRecord>();
-		for (int i = 0; i < maxRowCount; i++) {
-			JepRecord record = new JepRecord();
+		
+		String dbText, tmpText = templateRecord.get(DETAILFORM_JEP_TEXT_FIELD);
+		Long dbLong, tmpLong = templateRecord.get(DETAILFORM_JEP_LONG_FIELD);
+		BigDecimal dbMoney, tmpMoney = templateRecord.get(DETAILFORM_JEP_MONEY_FIELD);
+		Double dbNumber, tmpNumber = templateRecord.get(DETAILFORM_JEP_NUMBER_FIELD);
+		Date dbDate, tmpDate = templateRecord.get(DETAILFORM_JEP_DATE_FIELD);
+		JepOption dbCombo, tmpCombo = templateRecord.get(DETAILFORM_JEP_COMBOBOX_FIELD_SIMPLE);
+		Boolean dbCheck, tmpCheck = templateRecord.get(DETAILFORM_JEP_CHECKBOX_FIELD);
+		
+		for (JepRecord dbrec: database.values()) {
+			dbText = dbrec.get(DETAILFORM_JEP_TEXT_FIELD);
+			dbLong = dbrec.get(DETAILFORM_JEP_LONG_FIELD);
+			dbMoney = dbrec.get(DETAILFORM_JEP_MONEY_FIELD);
+			dbNumber = dbrec.get(DETAILFORM_JEP_NUMBER_FIELD);
+			dbDate = dbrec.get(DETAILFORM_JEP_DATE_FIELD);
+			dbCombo = dbrec.get(DETAILFORM_JEP_COMBOBOX_FIELD_SIMPLE);
+			dbCheck = dbrec.get(DETAILFORM_JEP_CHECKBOX_FIELD);
 			
-			record.put(DETAILFORM_JEP_TEXT_FIELD, templateRecord.get(DETAILFORM_JEP_TEXT_FIELD) + " ("+i+")");
-			record.put(DETAILFORM_JEP_TEXT_AREA_FIELD, templateRecord.get(DETAILFORM_JEP_TEXT_AREA_FIELD) + " ("+i+")");
+			if (tmpText != null) {
+				if (dbText == null || !dbText.contains(tmpText)) {
+					break;
+				}
+			}
+			if (tmpLong != null) {
+				if (dbLong == null || !dbLong.equals(tmpLong)) {
+					break;
+				}
+			}
+			if (tmpMoney != null) {
+				if (dbMoney == null || !dbMoney.equals(tmpMoney)) {
+					break;
+				}
+			}
+			if (tmpNumber != null) {
+				if (dbNumber == null || !dbNumber.equals(tmpNumber)) {
+					break;
+				}
+			}
+			if (tmpDate != null) {
+				if (dbDate == null || dbDate.getYear() != tmpDate.getYear() ||
+						dbDate.getMonth() != tmpDate.getMonth() || dbDate.getDay() != tmpDate.getDay()) {
+					break;
+				}
+			}
 			
-			Long loong = (Long)templateRecord.get(DETAILFORM_JEP_LONG_FIELD);
-			record.put(DETAILFORM_JEP_LONG_FIELD, loong != null ? loong + i : null);
+			if (tmpCombo != null) {
+				if (dbCombo == null || !dbCombo.equals(tmpCombo)) {
+					break;
+				}
+			}
+			if (dbCombo != null) {
+				dbrec.put(JEP_COMBOBOX_FIELD_SIMPLE_NAME, dbCombo.getName());
+			}
 			
-			BigDecimal bigDecimal = (BigDecimal)templateRecord.get(DETAILFORM_JEP_MONEY_FIELD);
-			record.put(DETAILFORM_JEP_MONEY_FIELD, bigDecimal != null ? bigDecimal.add(BigDecimal.valueOf(i)) : null);
-
-			Double doub = (Double)templateRecord.get(DETAILFORM_JEP_NUMBER_FIELD);
-			record.put(DETAILFORM_JEP_NUMBER_FIELD, doub != null ? doub + i : null);
+			if (tmpCheck != null && tmpCheck) {
+				if (dbCheck == null || !dbCheck) {
+					break;
+				}
+			}
 			
-			Date date = (Date)templateRecord.get(DETAILFORM_JEP_DATE_FIELD);
-			record.put(DETAILFORM_JEP_DATE_FIELD, date != null ? new Date(date.getTime() + i * 86400000) : null);
+			ret.add(dbrec);
 			
-			jo = templateRecord.get(DETAILFORM_JEP_COMBOBOX_FIELD_NOTLAZY);
-			record.put(DETAILFORM_JEP_COMBOBOX_FIELD_NOTLAZY, jo != null ? jo.getName() + " ("+i+")" : null);
-			
-			jo = templateRecord.get(DETAILFORM_JEP_COMBOBOX_FIELD_SIMPLE);
-			record.put(DETAILFORM_JEP_COMBOBOX_FIELD_SIMPLE, jo != null ? jo.getName() + " ("+i+")" : null);
-			
-			jo = templateRecord.get(DETAILFORM_JEP_COMBOBOX_FIELD_DURABLE);
-			record.put(DETAILFORM_JEP_COMBOBOX_FIELD_DURABLE, jo != null ? jo.getName() + " ("+i+")" : null);
-			
-			jo = templateRecord.get(DETAILFORM_JEP_COMBOBOX_FIELD_RELOADING);
-			record.put(DETAILFORM_JEP_COMBOBOX_FIELD_RELOADING, jo != null ? jo.getName() + " ("+i+")" : null);
-			
-			jo = templateRecord.get(DETAILFORM_JEP_COMBOBOX_FIELD_3CH_RELOADING);
-			record.put(DETAILFORM_JEP_COMBOBOX_FIELD_3CH_RELOADING, jo != null ? jo.getName() + " ("+i+")" : null);
-			
-			list = templateRecord.get(DETAILFORM_JEP_DUAL_LIST_FIELD);
-			h = ""; for (JepOption jo2: list) h += jo2.getName() + ";";
-			record.put(DETAILFORM_JEP_DUAL_LIST_FIELD, "".equals(h) ? null : h + " ("+i+")");
-			
-			Boolean b = (Boolean)templateRecord.get(DETAILFORM_JEP_CHECKBOX_FIELD);
-			record.put(DETAILFORM_JEP_CHECKBOX_FIELD, b != null ? b && (i % 2 == 0) || !b && !(i % 2 == 0) : false);
-			
-			list = templateRecord.get(DETAILFORM_JEP_LIST_FIELD);
-			h = ""; for (JepOption jo2: list) h += jo2.getName() + ";";
-			record.put(DETAILFORM_JEP_LIST_FIELD, "".equals(h) ? null : h + " ("+i+")");
-			
-			list = templateRecord.get(DETAILFORM_JEP_LIST_FIELD_CHECKALL);
-			h = ""; for (JepOption jo2: list) h += jo2.getName() + ";";
-			record.put(DETAILFORM_JEP_LIST_FIELD_CHECKALL, "".equals(h) ? null : h + " ("+i+")");
-			
-			ret.add(record);
+			// retrieve no more than maxRowCount records
+			if (ret.size() >= maxRowCount) {
+				break;
+			}
 		}
+		
 		return ret;
 	}
 
 	@Override
 	public Object create(JepRecord record, Integer operatorId)
 			throws ApplicationException {
-		// TODO Auto-generated method stub
-		return null;
+		final int id_ = id++;
+		record.put(PRIMARY_KEY, id_);
+		database.put(id_, record);
+		return (Integer)id_;
 	}
 
 	@Override
 	public void update(JepRecord record, Integer operatorId)
 			throws ApplicationException {
-		// TODO Auto-generated method stub
+		final Integer oldId = record.get(PRIMARY_KEY);
+		JepRecord jr = database.get(oldId);
+		if (jr != null) {
+			jr.update(record);
+			// do not change the id during update
+			jr.set(PRIMARY_KEY, oldId);
+		}
 		
 	}
 
 	@Override
 	public void delete(JepRecord record, Integer operatorId)
 			throws ApplicationException {
-		// TODO Auto-generated method stub
-		
+		database.remove(record.get(PRIMARY_KEY));
 	}
 
 	@Override

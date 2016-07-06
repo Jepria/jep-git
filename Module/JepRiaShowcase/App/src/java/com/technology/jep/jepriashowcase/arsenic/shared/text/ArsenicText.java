@@ -16,11 +16,11 @@ public interface ArsenicText extends com.google.gwt.i18n.client.Constants {
   String detail_jepCheckBoxField();
 
   /**
-   * Translated "Установить обязательность всех полей".
+   * Translated "Установить необязательность всех полей".
    * 
-   * @return translated "Установить обязательность всех полей"
+   * @return translated "Установить необязательность всех полей"
    */
-  @DefaultStringValue("Установить обязательность всех полей")
+  @DefaultStringValue("Установить необязательность всех полей")
   @Key("detail.jepCheckBox_switch_albl")
   String detail_jepCheckBox_switch_albl();
 

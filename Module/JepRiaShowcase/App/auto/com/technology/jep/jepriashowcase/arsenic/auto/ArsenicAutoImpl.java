@@ -270,8 +270,7 @@ public class ArsenicAutoImpl<A extends JepRiaShowcaseAuto, P extends JepRiaShowc
 					isFieldVisible(ARSENIC_JEP_DUAL_LIST_FIELD_ID) &&
 					isFieldVisible(ARSENIC_JEP_CHECKBOX_FIELD_ID) &&
 					isFieldVisible(ARSENIC_JEP_LIST_FIELD_ID) &&
-					isFieldVisible(ARSENIC_JEP_LIST_FIELD_CHECKALL_ID) &&
-					isFieldVisible(ARSENIC_MAX_ROW_COUNT_ID);
+					isFieldVisible(ARSENIC_JEP_LIST_FIELD_CHECKALL_ID);
 		} else {
 			return !isFieldVisible(ARSENIC_JEP_TEXT_FIELD_ID) &&
 					!isFieldVisible(ARSENIC_JEP_TEXT_AREA_FIELD_ID) &&
@@ -287,8 +286,7 @@ public class ArsenicAutoImpl<A extends JepRiaShowcaseAuto, P extends JepRiaShowc
 					!isFieldVisible(ARSENIC_JEP_DUAL_LIST_FIELD_ID) &&
 					!isFieldVisible(ARSENIC_JEP_CHECKBOX_FIELD_ID) &&
 					!isFieldVisible(ARSENIC_JEP_LIST_FIELD_ID) &&
-					!isFieldVisible(ARSENIC_JEP_LIST_FIELD_CHECKALL_ID) &&
-					!isFieldVisible(ARSENIC_MAX_ROW_COUNT_ID);
+					!isFieldVisible(ARSENIC_JEP_LIST_FIELD_CHECKALL_ID);
 		}
 	}
 	
@@ -309,8 +307,7 @@ public class ArsenicAutoImpl<A extends JepRiaShowcaseAuto, P extends JepRiaShowc
 					isFieldEnabled(ARSENIC_JEP_DUAL_LIST_FIELD_ID) &&
 					isFieldEnabled(ARSENIC_JEP_CHECKBOX_FIELD_ID) &&
 					isFieldEnabled(ARSENIC_JEP_LIST_FIELD_ID) &&
-					isFieldEnabled(ARSENIC_JEP_LIST_FIELD_CHECKALL_ID) &&
-					isFieldEnabled(ARSENIC_MAX_ROW_COUNT_ID);
+					isFieldEnabled(ARSENIC_JEP_LIST_FIELD_CHECKALL_ID);
 		} else {
 			return !isFieldEnabled(ARSENIC_JEP_TEXT_FIELD_ID) &&
 					!isFieldEnabled(ARSENIC_JEP_TEXT_AREA_FIELD_ID) &&
@@ -326,8 +323,7 @@ public class ArsenicAutoImpl<A extends JepRiaShowcaseAuto, P extends JepRiaShowc
 					!isFieldEnabled(ARSENIC_JEP_DUAL_LIST_FIELD_ID) &&
 					!isFieldEnabled(ARSENIC_JEP_CHECKBOX_FIELD_ID) &&
 					!isFieldEnabled(ARSENIC_JEP_LIST_FIELD_ID) &&
-					!isFieldEnabled(ARSENIC_JEP_LIST_FIELD_CHECKALL_ID) &&
-					!isFieldEnabled(ARSENIC_MAX_ROW_COUNT_ID);
+					!isFieldEnabled(ARSENIC_JEP_LIST_FIELD_CHECKALL_ID);
 		}
 	}
 
@@ -348,8 +344,7 @@ public class ArsenicAutoImpl<A extends JepRiaShowcaseAuto, P extends JepRiaShowc
 					isFieldEditable(ARSENIC_JEP_DUAL_LIST_FIELD_ID) &&
 					isFieldEditable(ARSENIC_JEP_CHECKBOX_FIELD_ID) &&
 					isFieldEditable(ARSENIC_JEP_LIST_FIELD_ID) &&
-					isFieldEditable(ARSENIC_JEP_LIST_FIELD_CHECKALL_ID) &&
-					isFieldEditable(ARSENIC_MAX_ROW_COUNT_ID);
+					isFieldEditable(ARSENIC_JEP_LIST_FIELD_CHECKALL_ID);
 		} else {
 			return !isFieldEditable(ARSENIC_JEP_TEXT_FIELD_ID) &&
 					!isFieldEditable(ARSENIC_JEP_TEXT_AREA_FIELD_ID) &&
@@ -365,8 +360,7 @@ public class ArsenicAutoImpl<A extends JepRiaShowcaseAuto, P extends JepRiaShowc
 					!isFieldEditable(ARSENIC_JEP_DUAL_LIST_FIELD_ID) &&
 					!isFieldEditable(ARSENIC_JEP_CHECKBOX_FIELD_ID) &&
 					!isFieldEditable(ARSENIC_JEP_LIST_FIELD_ID) &&
-					!isFieldEditable(ARSENIC_JEP_LIST_FIELD_CHECKALL_ID) &&
-					!isFieldEditable(ARSENIC_MAX_ROW_COUNT_ID);
+					!isFieldEditable(ARSENIC_JEP_LIST_FIELD_CHECKALL_ID);
 		}
 	}
 	

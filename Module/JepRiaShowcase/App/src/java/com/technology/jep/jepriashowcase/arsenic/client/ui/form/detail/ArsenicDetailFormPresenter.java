@@ -1,5 +1,7 @@
 package com.technology.jep.jepriashowcase.arsenic.client.ui.form.detail;
  
+import static com.technology.jep.jepria.client.ui.WorkstateEnum.CREATE;
+import static com.technology.jep.jepria.client.ui.WorkstateEnum.EDIT;
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.SEARCH;
 import static com.technology.jep.jepria.shared.field.JepFieldNames.MAX_ROW_COUNT;
 import static com.technology.jep.jepriashowcase.arsenic.shared.field.ArsenicFieldNames.DETAILFORM_CHECKBOX_SWITCH_ALBL;
@@ -28,10 +30,14 @@ import com.google.gwt.place.shared.Place;
 import com.technology.jep.jepria.client.async.FirstTimeUseAsyncCallback;
 import com.technology.jep.jepria.client.async.JepAsyncCallback;
 import com.technology.jep.jepria.client.async.TypingTimeoutAsyncCallback;
+import com.technology.jep.jepria.client.history.place.JepViewDetailPlace;
+import com.technology.jep.jepria.client.history.scope.JepScopeStack;
 import com.technology.jep.jepria.client.ui.WorkstateEnum;
 import com.technology.jep.jepria.client.ui.eventbus.plain.PlainEventBus;
+import com.technology.jep.jepria.client.ui.eventbus.plain.event.SaveEvent;
 import com.technology.jep.jepria.client.ui.form.detail.DetailFormPresenter;
 import com.technology.jep.jepria.client.ui.plain.StandardClientFactory;
+import com.technology.jep.jepria.client.util.JepClientUtil;
 import com.technology.jep.jepria.client.widget.event.JepEvent;
 import com.technology.jep.jepria.client.widget.event.JepEventType;
 import com.technology.jep.jepria.client.widget.event.JepListener;
@@ -40,6 +46,7 @@ import com.technology.jep.jepria.client.widget.field.multistate.JepComboBoxField
 import com.technology.jep.jepria.client.widget.field.multistate.JepDualListField;
 import com.technology.jep.jepria.client.widget.field.multistate.JepListField;
 import com.technology.jep.jepria.shared.field.option.JepOption;
+import com.technology.jep.jepria.shared.record.JepRecord;
 import com.technology.jep.jepriashowcase.arsenic.shared.service.ArsenicServiceAsync;
 
 @SuppressWarnings("serial")
@@ -75,7 +82,6 @@ public class ArsenicDetailFormPresenter<E extends PlainEventBus, S extends Arsen
 				fields.setFieldVisible(DETAILFORM_JEP_CHECKBOX_FIELD, b);
 				fields.setFieldVisible(DETAILFORM_JEP_LIST_FIELD, b);
 				fields.setFieldVisible(DETAILFORM_JEP_LIST_FIELD_CHECKALL, b);
-				fields.setFieldVisible(MAX_ROW_COUNT, b);
 			}
 		});
 		
@@ -100,7 +106,6 @@ public class ArsenicDetailFormPresenter<E extends PlainEventBus, S extends Arsen
 				fields.setFieldEnabled(DETAILFORM_JEP_CHECKBOX_FIELD, b);
 				fields.setFieldEnabled(DETAILFORM_JEP_LIST_FIELD, b);
 				fields.setFieldEnabled(DETAILFORM_JEP_LIST_FIELD_CHECKALL, b);
-				fields.setFieldEnabled(MAX_ROW_COUNT, b);
 			}
 		});
 		
@@ -125,7 +130,6 @@ public class ArsenicDetailFormPresenter<E extends PlainEventBus, S extends Arsen
 				fields.setFieldEditable(DETAILFORM_JEP_CHECKBOX_FIELD, b);
 				fields.setFieldEditable(DETAILFORM_JEP_LIST_FIELD, b);
 				fields.setFieldEditable(DETAILFORM_JEP_LIST_FIELD_CHECKALL, b);
-				fields.setFieldEditable(MAX_ROW_COUNT, b);
 			}
 		});
 		
@@ -291,15 +295,17 @@ public class ArsenicDetailFormPresenter<E extends PlainEventBus, S extends Arsen
 	protected void adjustToWorkstate(WorkstateEnum workstate) {
 		super.adjustToWorkstate(workstate);
 		
-		fields.get(DETAILFORM_CHECKBOX_SWITCH_VSBL).setValue(true);
-		fields.get(DETAILFORM_CHECKBOX_SWITCH_ENBL).setValue(true);
-		fields.get(DETAILFORM_CHECKBOX_SWITCH_EDTB).setValue(true);
-		fields.get(DETAILFORM_CHECKBOX_SWITCH_ALBL).setValue(true);
+		fields.setFieldValue(DETAILFORM_CHECKBOX_SWITCH_VSBL, true);
+		fields.setFieldValue(DETAILFORM_CHECKBOX_SWITCH_ENBL, true);
+		fields.setFieldValue(DETAILFORM_CHECKBOX_SWITCH_EDTB, true);
+		fields.setFieldValue(DETAILFORM_CHECKBOX_SWITCH_ALBL, true);
 		
+		fields.setFieldVisible(MAX_ROW_COUNT, SEARCH.equals(workstate));
 		if (SEARCH.equals(workstate)) {
 			fields.setFieldValue(MAX_ROW_COUNT, 25);
 			fields.setFieldAllowBlank(MAX_ROW_COUNT, false);
 		}
 		
 	}
+	
 }
