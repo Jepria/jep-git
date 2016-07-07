@@ -48,7 +48,6 @@ public class GoodsAutoImpl<A extends JepRiaShowcaseAuto, P extends JepRiaShowcas
 
 	@Override
 	public void setGoodsType(String goodsType) {
-		pages.goodsPage.ensurePageLoaded();
 		selectComboBoxMenuItem(JRSC_GOODS_TYPE_COMBOBOX_FIELD_ID, goodsType);
 	}
 
@@ -59,7 +58,6 @@ public class GoodsAutoImpl<A extends JepRiaShowcaseAuto, P extends JepRiaShowcas
 
 	@Override
 	public void setUnit(String unit) {
-		pages.goodsPage.ensurePageLoaded();
 		selectComboBoxMenuItem(JRSC_GOODS_UNIT_COMBOBOX_FIELD_ID, unit);
 	}
 
@@ -81,6 +79,9 @@ public class GoodsAutoImpl<A extends JepRiaShowcaseAuto, P extends JepRiaShowcas
 	
 	@Override
 	public void setMotivation(String motivation) {
+		// FIXME поддержка Selenium-тестирования элемента RadioButton пока не поддерживается,
+		// поэтому весь код, который должен располагаться в JepRiaModuleAutoImpl, располагается здесь.
+		
 		pages.goodsPage.ensurePageLoaded();
 		
 		try {
@@ -103,6 +104,9 @@ public class GoodsAutoImpl<A extends JepRiaShowcaseAuto, P extends JepRiaShowcas
 
 	@Override
 	public String getMotivation() {
+		// FIXME поддержка Selenium-тестирования элемента RadioButton пока не поддерживается,
+		// поэтому весь код, который должен располагаться в JepRiaModuleAutoImpl, располагается здесь.
+		
 		String result;
 		pages.goodsPage.ensurePageLoaded();
 		
