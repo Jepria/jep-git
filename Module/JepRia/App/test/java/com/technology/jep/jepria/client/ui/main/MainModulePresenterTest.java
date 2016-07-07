@@ -110,7 +110,7 @@ public class MainModulePresenterTest {
 		 * использовать Reflection API, либо обратиться к входящему в PowerMock классу
 		 * WhiteboxImpl.
 		 */
-		boolean result = WhiteboxImpl.invokeMethod(p, "checkAccess", "Module1");
+		boolean result = WhiteboxImpl.<Boolean>invokeMethod(p, "checkAccess", "Module1");
 		/*
 		 * Предполагаем, что в данной ситуации метод checkAccess() вернёт true.
 		 */
