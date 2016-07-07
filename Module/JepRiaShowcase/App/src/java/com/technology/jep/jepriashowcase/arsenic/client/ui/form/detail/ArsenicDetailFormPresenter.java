@@ -11,6 +11,7 @@ import static com.technology.jep.jepriashowcase.goods.shared.field.GoodsFieldNam
 import static com.technology.jep.jepriashowcase.goods.shared.field.GoodsFieldNames.GOODS_LINK;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -35,6 +36,7 @@ import com.technology.jep.jepria.client.widget.field.multistate.JepListField;
 import com.technology.jep.jepria.client.widget.field.multistate.JepTreeField;
 import com.technology.jep.jepria.shared.field.option.JepOption;
 import com.technology.jep.jepria.shared.field.option.JepParentOption;
+import com.technology.jep.jepria.shared.log.JepLoggerImpl;
 import com.technology.jep.jepria.shared.util.JepRiaUtil;
 import com.technology.jep.jepriashowcase.arsenic.shared.service.ArsenicServiceAsync;
 
@@ -291,26 +293,6 @@ public class ArsenicDetailFormPresenter<E extends PlainEventBus, S extends Arsen
 					@Override
 					public void onSuccess(List<JepOption> result) {
 						callback.onSuccess(result);
-						if (result.size() > 0) {
-							final List<JepOption> checkedNodes = new ArrayList<JepOption>();
-							final List<JepOption> expandedNodes = new ArrayList<JepOption>();
-							
-							for (JepOption treeOption : result){
-								if (Boolean.TRUE.equals(treeOption.get(GOODS_LINK))){
-									checkedNodes.add(treeOption);
-								}
-								if (Boolean.TRUE.equals(treeOption.get(DESCENDANT_GOODS_LINK))){
-									expandedNodes.add(treeOption);
-								}
-							}
-							
-							if (!JepRiaUtil.isEmpty(expandedNodes)) {
-								treeField.setExpanded(expandedNodes);
-							}
-							if (!JepRiaUtil.isEmpty(checkedNodes)) {
-								treeField.setValue(checkedNodes);
-							}
-						}
 					}
 					@Override
 					public void onFailure(Throwable th){

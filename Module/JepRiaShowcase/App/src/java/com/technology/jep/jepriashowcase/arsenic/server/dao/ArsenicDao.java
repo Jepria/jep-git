@@ -195,6 +195,8 @@ public class ArsenicDao extends JepDaoStandard implements Arsenic {
 	@Override
 	public List<JepOption> getTreeCatalog(Integer parentCatalogId) throws ApplicationException {
 		
+		durableFetch(1000);
+		
 		List<JepOption> ret = new ArrayList<JepOption>();
 		JepOption tmp;
 		
