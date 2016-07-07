@@ -158,8 +158,9 @@ java.lang.Object
 </TR>
 </TABLE>
 </CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/server/dao/transaction/TransactionFactory.html#createProxy(D, java.lang.String)">createProxy</A></B>(D&nbsp;dao,
-            java.lang.String&nbsp;dataSourceJndiName)</CODE>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/server/dao/transaction/TransactionFactory.html#createProxy(D, java.lang.String, java.lang.String)">createProxy</A></B>(D&nbsp;dao,
+            java.lang.String&nbsp;dataSourceJndiName,
+            java.lang.String&nbsp;moduleName)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Создаёт прокси для переданного Dao.</TD>
@@ -204,16 +205,17 @@ public <B>TransactionFactory</B>()</PRE>
 </TR>
 </TABLE>
 
-<A NAME="createProxy(java.lang.Object,java.lang.String)"><!-- --></A><A NAME="createProxy(D, java.lang.String)"><!-- --></A><H3>
+<A NAME="createProxy(java.lang.Object,java.lang.String,java.lang.String)"><!-- --></A><A NAME="createProxy(D, java.lang.String, java.lang.String)"><!-- --></A><H3>
 createProxy</H3>
 <PRE>
 public static &lt;D&gt; D <B>createProxy</B>(D&nbsp;dao,
-                                java.lang.String&nbsp;dataSourceJndiName)</PRE>
+                                java.lang.String&nbsp;dataSourceJndiName,
+                                java.lang.String&nbsp;moduleName)</PRE>
 <DL>
 <DD>Создаёт прокси для переданного Dao.
 <P>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>dao</CODE> - объект Dao<DD><CODE>dataSourceJndiName</CODE> - JNDI-имя источника данных
+<DT><B>Parameters:</B><DD><CODE>dao</CODE> - объект Dao<DD><CODE>dataSourceJndiName</CODE> - JNDI-имя источника данных<DD><CODE>moduleName</CODE> - имя модуля
 <DT><B>Returns:</B><DD>созданный прокси</DL>
 </DD>
 </DL>

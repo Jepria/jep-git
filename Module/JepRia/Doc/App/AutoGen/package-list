@@ -1,7 +1,9 @@
 com.google.gwt
 com.google.gwt.user.client.rpc.core.java.sql
 com.google.gwt.user.client.rpc.core.java.util
+com.technology.jep.auto.entrance
 com.technology.jep.jepcommon.security
+com.technology.jep.jepcommon.security.tomcat
 com.technology.jep.jepria.auto
 com.technology.jep.jepria.auto.conditions
 com.technology.jep.jepria.auto.entrance
@@ -82,6 +84,7 @@ com.technology.jep.jepria.server.i18n
 com.technology.jep.jepria.server.security
 com.technology.jep.jepria.server.security.cas
 com.technology.jep.jepria.server.security.oc4j
+com.technology.jep.jepria.server.security.tomcat
 com.technology.jep.jepria.server.service
 com.technology.jep.jepria.server.upload
 com.technology.jep.jepria.server.upload.blob
@@ -104,3 +107,4 @@ com.technology.jep.jepria.shared.service.report
 com.technology.jep.jepria.shared.text
 com.technology.jep.jepria.shared.time
 com.technology.jep.jepria.shared.util
+com.technology.jep.test.util

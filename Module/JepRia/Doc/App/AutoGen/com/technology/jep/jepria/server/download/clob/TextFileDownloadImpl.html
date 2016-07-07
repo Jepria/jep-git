@@ -156,11 +156,12 @@ java.lang.Object
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;int</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/server/download/clob/TextFileDownloadImpl.html#beginRead(java.lang.String, java.lang.String, java.lang.String, java.lang.Object, java.lang.String)">beginRead</A></B>(java.lang.String&nbsp;tableName,
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/server/download/clob/TextFileDownloadImpl.html#beginRead(java.lang.String, java.lang.String, java.lang.String, java.lang.Object, java.lang.String, java.lang.String)">beginRead</A></B>(java.lang.String&nbsp;tableName,
           java.lang.String&nbsp;fileFieldName,
           java.lang.String&nbsp;keyFieldName,
           java.lang.Object&nbsp;rowId,
-          java.lang.String&nbsp;dataSourceJndiName)</CODE>
+          java.lang.String&nbsp;dataSourceJndiName,
+          java.lang.String&nbsp;moduleName)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Метод начинает чтение данных из LOB.</TD>
@@ -231,20 +232,21 @@ public <B>TextFileDownloadImpl</B>()</PRE>
 </TR>
 </TABLE>
 
-<A NAME="beginRead(java.lang.String, java.lang.String, java.lang.String, java.lang.Object, java.lang.String)"><!-- --></A><H3>
+<A NAME="beginRead(java.lang.String, java.lang.String, java.lang.String, java.lang.Object, java.lang.String, java.lang.String)"><!-- --></A><H3>
 beginRead</H3>
 <PRE>
 public int <B>beginRead</B>(java.lang.String&nbsp;tableName,
                      java.lang.String&nbsp;fileFieldName,
                      java.lang.String&nbsp;keyFieldName,
                      java.lang.Object&nbsp;rowId,
-                     java.lang.String&nbsp;dataSourceJndiName)
+                     java.lang.String&nbsp;dataSourceJndiName,
+                     java.lang.String&nbsp;moduleName)
               throws <A HREF="../../../../../../../com/technology/jep/jepria/shared/exceptions/ApplicationException.html" title="class in com.technology.jep.jepria.shared.exceptions">ApplicationException</A></PRE>
 <DL>
 <DD>Метод начинает чтение данных из LOB.
 <P>
 <DD><DL>
-<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../../com/technology/jep/jepria/server/download/FileDownload.html#beginRead(java.lang.String, java.lang.String, java.lang.String, java.lang.Object, java.lang.String)">beginRead</A></CODE> in interface <CODE><A HREF="../../../../../../../com/technology/jep/jepria/server/download/FileDownload.html" title="interface in com.technology.jep.jepria.server.download">FileDownload</A></CODE></DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../../com/technology/jep/jepria/server/download/FileDownload.html#beginRead(java.lang.String, java.lang.String, java.lang.String, java.lang.Object, java.lang.String, java.lang.String)">beginRead</A></CODE> in interface <CODE><A HREF="../../../../../../../com/technology/jep/jepria/server/download/FileDownload.html" title="interface in com.technology.jep.jepria.server.download">FileDownload</A></CODE></DL>
 </DD>
 <DD><DL>
 <DT><B>Parameters:</B><DD><CODE>rowId</CODE> - идентификатор строки таблицы<DD><CODE>tableName</CODE> - имя таблицы, из которой выполняется чтение<DD><CODE>fileFieldName</CODE> - имя поля, из которого выполняется чтение<DD><CODE>keyFieldName</CODE> - имя поля, идентифицирующего строку таблицы<DD><CODE>dataSourceJndiName</CODE> - JNDI-имя источника данных модуля

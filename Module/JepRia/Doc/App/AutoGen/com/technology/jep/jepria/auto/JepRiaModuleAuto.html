@@ -119,6 +119,14 @@ Interface JepRiaModuleAuto</H2>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepria/auto/JepRiaModuleAuto.html#changeCheckBoxFieldValue(java.lang.String)">changeCheckBoxFieldValue</A></B>(java.lang.String&nbsp;checkBoxFieldId)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Изменение значения флажка CheckBoxField по заданному Id на противоположное.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;boolean</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../com/technology/jep/jepria/auto/JepRiaModuleAuto.html#checkMessageBox(java.lang.String)">checkMessageBox</A></B>(java.lang.String&nbsp;messageBoxId)</CODE>
 
@@ -186,6 +194,22 @@ Interface JepRiaModuleAuto</H2>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepria/auto/JepRiaModuleAuto.html#getCheckBoxFieldValue(java.lang.String)">getCheckBoxFieldValue</A></B>(java.lang.String&nbsp;checkBoxFieldId)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Получение значения поля  CheckBoxField.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;java.lang.String[]</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepria/auto/JepRiaModuleAuto.html#getDualListFieldValues(java.lang.String)">getDualListFieldValues</A></B>(java.lang.String&nbsp;jepDualListFieldId)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Получение значений правого списка поля JepDualListField</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../../../../com/technology/jep/jepria/auto/widget/field/Field.html" title="interface in com.technology.jep.jepria.auto.widget.field">Field</A></CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../com/technology/jep/jepria/auto/JepRiaModuleAuto.html#getField(java.lang.String)">getField</A></B>(java.lang.String&nbsp;fieldId)</CODE>
 
@@ -195,10 +219,34 @@ Interface JepRiaModuleAuto</H2>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;java.lang.String</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepria/auto/JepRiaModuleAuto.html#getFieldValue(java.lang.String)">getFieldValue</A></B>(java.lang.String&nbsp;fieldInputId)</CODE>
+<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepria/auto/JepRiaModuleAuto.html#getFieldValue(java.lang.String)">getFieldValue</A></B>(java.lang.String&nbsp;fieldId)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Получение значения поля по заданному id элемента ввода</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Получение значения элемента ввода поля по заданному id поля</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;java.util.List&lt;java.util.List&lt;java.lang.Object&gt;&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepria/auto/JepRiaModuleAuto.html#getGridDataRowwise(java.lang.String)">getGridDataRowwise</A></B>(java.lang.String&nbsp;gridId)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;java.util.List&lt;java.lang.String&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepria/auto/JepRiaModuleAuto.html#getGridHeaders(java.lang.String)">getGridHeaders</A></B>(java.lang.String&nbsp;gridId)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;java.lang.String[]</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepria/auto/JepRiaModuleAuto.html#getListFieldValues(java.lang.String)">getListFieldValues</A></B>(java.lang.String&nbsp;jepListFieldId)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Получение отмеченных значений списка поля JepListField</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -207,6 +255,38 @@ Interface JepRiaModuleAuto</H2>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Получение элемента панели состояния</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepria/auto/JepRiaModuleAuto.html#isFieldAllowBlank(java.lang.String)">isFieldAllowBlank</A></B>(java.lang.String&nbsp;fieldId)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Проверка необязательности Jep-поля по заданному ID (наличия маркера обязательности (*) )</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepria/auto/JepRiaModuleAuto.html#isFieldEditable(java.lang.String)">isFieldEditable</A></B>(java.lang.String&nbsp;fieldId)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Проверка редактируемости Jep-поля по заданному ID (атрибута jep-card-type)</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepria/auto/JepRiaModuleAuto.html#isFieldEnabled(java.lang.String)">isFieldEnabled</A></B>(java.lang.String&nbsp;fieldId)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Проверка доступности Jep-поля по заданному ID (атрибута disabled)</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepria/auto/JepRiaModuleAuto.html#isFieldVisible(java.lang.String)">isFieldVisible</A></B>(java.lang.String&nbsp;fieldId)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Проверка видимости Jep-поля по заданному ID (атрибута aria-hidden)</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -219,11 +299,39 @@ Interface JepRiaModuleAuto</H2>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepria/auto/JepRiaModuleAuto.html#selectComboBoxMenuItem(java.lang.String, java.lang.String)">selectComboBoxMenuItem</A></B>(java.lang.String&nbsp;comboBoxFieldInputId,
-                       java.lang.String&nbsp;menuItemText)</CODE>
+<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepria/auto/JepRiaModuleAuto.html#selectAllListMenuItems(java.lang.String, boolean)">selectAllListMenuItems</A></B>(java.lang.String&nbsp;listFieldId,
+                       boolean&nbsp;selectAll)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Установка заданного значения полю по заданному id элемента ввода</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Выбор всех элементов JepListField по заданному Id.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepria/auto/JepRiaModuleAuto.html#selectComboBoxMenuItem(java.lang.String, java.lang.String)">selectComboBoxMenuItem</A></B>(java.lang.String&nbsp;comboBoxFieldId,
+                       java.lang.String&nbsp;menuItem)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Простой выбор элемента Комбо-бокса по заданному id.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepria/auto/JepRiaModuleAuto.html#selectComboBoxMenuItemWithCharByCharReloadingOptions(java.lang.String, java.lang.String, int)">selectComboBoxMenuItemWithCharByCharReloadingOptions</A></B>(java.lang.String&nbsp;comboBoxFieldId,
+                                                     java.lang.String&nbsp;menuItem,
+                                                     int&nbsp;minInputLength)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Сложный выбор элемента Комбо-бокса по заданному id.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepria/auto/JepRiaModuleAuto.html#selectDualListMenuItems(java.lang.String, java.lang.String[])">selectDualListMenuItems</A></B>(java.lang.String&nbsp;dualListFieldId,
+                        java.lang.String[]&nbsp;menuItems)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Выбор элементов DualListField по заданному Id.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -244,11 +352,29 @@ Interface JepRiaModuleAuto</H2>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepria/auto/JepRiaModuleAuto.html#setFieldValue(java.lang.String, java.lang.String)">setFieldValue</A></B>(java.lang.String&nbsp;fieldInputId,
+<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepria/auto/JepRiaModuleAuto.html#selectListMenuItems(java.lang.String, java.lang.String[])">selectListMenuItems</A></B>(java.lang.String&nbsp;listFieldId,
+                    java.lang.String[]&nbsp;menuItems)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Выбор элементов JepListField по заданному Id.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepria/auto/JepRiaModuleAuto.html#setCheckBoxFieldValue(java.lang.String, boolean)">setCheckBoxFieldValue</A></B>(java.lang.String&nbsp;checkBoxFieldId,
+                      boolean&nbsp;checked)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Простановка флажка CheckBoxField по заданному Id.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepria/auto/JepRiaModuleAuto.html#setFieldValue(java.lang.String, java.lang.String)">setFieldValue</A></B>(java.lang.String&nbsp;fieldId,
               java.lang.String&nbsp;value)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Установка заданного значения полю по заданному id элемента ввода</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Установка заданного значения элементу ввода поля по заданному id поля</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -509,16 +635,16 @@ void <B>clickButton</B>(java.lang.String&nbsp;buttonId)</PRE>
 <A NAME="setFieldValue(java.lang.String, java.lang.String)"><!-- --></A><H3>
 setFieldValue</H3>
 <PRE>
-void <B>setFieldValue</B>(java.lang.String&nbsp;fieldInputId,
+void <B>setFieldValue</B>(java.lang.String&nbsp;fieldId,
                    java.lang.String&nbsp;value)</PRE>
 <DL>
-<DD>Установка заданного значения полю по заданному id элемента ввода
+<DD>Установка заданного значения элементу ввода поля по заданному id поля
 <P>
 <DD><DL>
 </DL>
 </DD>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>fieldInputId</CODE> - id элемента ввода<DD><CODE>value</CODE> - устанавливаемое значение</DL>
+<DT><B>Parameters:</B><DD><CODE>fieldId</CODE> - id поля, id элемента ввода которого будет использовано для задания значения<DD><CODE>value</CODE> - устанавливаемое значение</DL>
 </DD>
 </DL>
 <HR>
@@ -526,16 +652,35 @@ void <B>setFieldValue</B>(java.lang.String&nbsp;fieldInputId,
 <A NAME="getFieldValue(java.lang.String)"><!-- --></A><H3>
 getFieldValue</H3>
 <PRE>
-java.lang.String <B>getFieldValue</B>(java.lang.String&nbsp;fieldInputId)</PRE>
+java.lang.String <B>getFieldValue</B>(java.lang.String&nbsp;fieldId)</PRE>
 <DL>
-<DD>Получение значения поля по заданному id элемента ввода
+<DD>Получение значения элемента ввода поля по заданному id поля
 <P>
 <DD><DL>
 </DL>
 </DD>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>fieldInputId</CODE> - id элемента ввода
+<DT><B>Parameters:</B><DD><CODE>fieldId</CODE> - id поля, id элемента ввода которого будет использовано для получения значения
 <DT><B>Returns:</B><DD>значение поля</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getDualListFieldValues(java.lang.String)"><!-- --></A><H3>
+getDualListFieldValues</H3>
+<PRE>
+java.lang.String[] <B>getDualListFieldValues</B>(java.lang.String&nbsp;jepDualListFieldId)</PRE>
+<DL>
+<DD>Получение значений правого списка поля JepDualListField
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>jepDualListFieldId</CODE> - id JepDualListField'а
+<DT><B>Returns:</B><DD>массив имён находящихся в правой части (выбранных) опций.
+ Имена в полученном массиве располагаются в порядке их отображения в правой части JepDualListField'а,
+ поэтому сравнение массивов в классе *AutoTest необходимо производить без учета порядка!</DL>
 </DD>
 </DL>
 <HR>
@@ -560,16 +705,260 @@ boolean <B>checkMessageBox</B>(java.lang.String&nbsp;messageBoxId)</PRE>
 <A NAME="selectComboBoxMenuItem(java.lang.String, java.lang.String)"><!-- --></A><H3>
 selectComboBoxMenuItem</H3>
 <PRE>
-void <B>selectComboBoxMenuItem</B>(java.lang.String&nbsp;comboBoxFieldInputId,
-                            java.lang.String&nbsp;menuItemText)</PRE>
+void <B>selectComboBoxMenuItem</B>(java.lang.String&nbsp;comboBoxFieldId,
+                            java.lang.String&nbsp;menuItem)</PRE>
 <DL>
-<DD>Установка заданного значения полю по заданному id элемента ввода
+<DD>Простой выбор элемента Комбо-бокса по заданному id.
+ Предполагается, что если элемент есть в выпадающем списке, то он становится доступным при первой загрузке опций.
+ Если искомой опции нет в выпадающем списке, выбрасывается исключение WrongOptionException.
 <P>
 <DD><DL>
 </DL>
 </DD>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>comboBoxFieldInputId</CODE> - <DD><CODE>menuItemText</CODE> - </DL>
+<DT><B>Parameters:</B><DD><CODE>comboBoxFieldId</CODE> - id ComboBox-поля<DD><CODE>menuItem</CODE> - Имя опции, которую необходимо выбрать</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="selectComboBoxMenuItemWithCharByCharReloadingOptions(java.lang.String, java.lang.String, int)"><!-- --></A><H3>
+selectComboBoxMenuItemWithCharByCharReloadingOptions</H3>
+<PRE>
+void <B>selectComboBoxMenuItemWithCharByCharReloadingOptions</B>(java.lang.String&nbsp;comboBoxFieldId,
+                                                          java.lang.String&nbsp;menuItem,
+                                                          int&nbsp;minInputLength)</PRE>
+<DL>
+<DD>Сложный выбор элемента Комбо-бокса по заданному id.
+ Предполагается, что при первой загрузке опций не все опции появляются в списке (например, список слишком длинный),
+ и искомая опция может стать доступной о мере ввода текста.
+ Если искомой опции нет в выпадающем списке после введения всего текста, выбрасывается исключение WrongOptionException.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>comboBoxFieldId</CODE> - id ComboBox-поля<DD><CODE>menuItem</CODE> - Имя опции, которую необходимо выбрать<DD><CODE>minInputLength</CODE> - Минимальное количество символов, которые необходимо ввести для того, чтобы в данном Комбо-боксе
+ началась загрузка опций (например, при поиске оператора, часто опции загружаются при вводе мимнимум 3 символов). 
+ Минимально допустимое значение = 1 (устанавливается автоматически при задании меньшего значения).</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="selectDualListMenuItems(java.lang.String, java.lang.String[])"><!-- --></A><H3>
+selectDualListMenuItems</H3>
+<PRE>
+void <B>selectDualListMenuItems</B>(java.lang.String&nbsp;dualListFieldId,
+                             java.lang.String[]&nbsp;menuItems)</PRE>
+<DL>
+<DD>Выбор элементов DualListField по заданному Id.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>dualListFieldId</CODE> - id DualList-поля<DD><CODE>menuItems</CODE> - массив непустых имён опций, которые следует выбрать из левой части DualList-поля в правую.
+ В случае если в левой части отсутствует хотя бы одна из требуемых опций, выбрасывается исключение WrongOptionException.</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setCheckBoxFieldValue(java.lang.String, boolean)"><!-- --></A><H3>
+setCheckBoxFieldValue</H3>
+<PRE>
+void <B>setCheckBoxFieldValue</B>(java.lang.String&nbsp;checkBoxFieldId,
+                           boolean&nbsp;checked)</PRE>
+<DL>
+<DD>Простановка флажка CheckBoxField по заданному Id.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>checkBoxFieldId</CODE> - id CheckBox-поля<DD><CODE>checked</CODE> - требуемое для установки значение</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="changeCheckBoxFieldValue(java.lang.String)"><!-- --></A><H3>
+changeCheckBoxFieldValue</H3>
+<PRE>
+void <B>changeCheckBoxFieldValue</B>(java.lang.String&nbsp;checkBoxFieldId)</PRE>
+<DL>
+<DD>Изменение значения флажка CheckBoxField по заданному Id на противоположное.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>checkBoxFieldId</CODE> - id CheckBox-поля</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getCheckBoxFieldValue(java.lang.String)"><!-- --></A><H3>
+getCheckBoxFieldValue</H3>
+<PRE>
+boolean <B>getCheckBoxFieldValue</B>(java.lang.String&nbsp;checkBoxFieldId)</PRE>
+<DL>
+<DD>Получение значения поля  CheckBoxField.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>checkBoxFieldId</CODE> - id CheckBox-поля</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="selectListMenuItems(java.lang.String, java.lang.String[])"><!-- --></A><H3>
+selectListMenuItems</H3>
+<PRE>
+void <B>selectListMenuItems</B>(java.lang.String&nbsp;listFieldId,
+                         java.lang.String[]&nbsp;menuItems)</PRE>
+<DL>
+<DD>Выбор элементов JepListField по заданному Id.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>listFieldId</CODE> - id JepList-поля<DD><CODE>menuItems</CODE> - массив непустых имён опций, которые следует отметить в списке.
+ В случае если в списке отсутствует хотя бы одна из требуемых опций, выбрасывается исключение WrongOptionException.</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="selectAllListMenuItems(java.lang.String, boolean)"><!-- --></A><H3>
+selectAllListMenuItems</H3>
+<PRE>
+void <B>selectAllListMenuItems</B>(java.lang.String&nbsp;listFieldId,
+                            boolean&nbsp;selectAll)</PRE>
+<DL>
+<DD>Выбор всех элементов JepListField по заданному Id.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>listFieldId</CODE> - id JepList-поля<DD><CODE>selectAll</CODE> - true для выбора всех элементов, false для снятия всех флажков.</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getListFieldValues(java.lang.String)"><!-- --></A><H3>
+getListFieldValues</H3>
+<PRE>
+java.lang.String[] <B>getListFieldValues</B>(java.lang.String&nbsp;jepListFieldId)</PRE>
+<DL>
+<DD>Получение отмеченных значений списка поля JepListField
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>jepListFieldId</CODE> - id JepListField'а
+<DT><B>Returns:</B><DD>массив имён отмеченных (выбранных) опций.
+ Имена в полученном массиве располагаются в порядке их отображения в списке JepListField'а,
+ поэтому сравнение массивов в классе *AutoTest необходимо производить без учета порядка!</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="isFieldVisible(java.lang.String)"><!-- --></A><H3>
+isFieldVisible</H3>
+<PRE>
+boolean <B>isFieldVisible</B>(java.lang.String&nbsp;fieldId)</PRE>
+<DL>
+<DD>Проверка видимости Jep-поля по заданному ID (атрибута aria-hidden)
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>fieldId</CODE> - id Jep-поля</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="isFieldEnabled(java.lang.String)"><!-- --></A><H3>
+isFieldEnabled</H3>
+<PRE>
+boolean <B>isFieldEnabled</B>(java.lang.String&nbsp;fieldId)</PRE>
+<DL>
+<DD>Проверка доступности Jep-поля по заданному ID (атрибута disabled)
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>fieldId</CODE> - id Jep-поля</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="isFieldEditable(java.lang.String)"><!-- --></A><H3>
+isFieldEditable</H3>
+<PRE>
+boolean <B>isFieldEditable</B>(java.lang.String&nbsp;fieldId)</PRE>
+<DL>
+<DD>Проверка редактируемости Jep-поля по заданному ID (атрибута jep-card-type)
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>fieldId</CODE> - id Jep-поля</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="isFieldAllowBlank(java.lang.String)"><!-- --></A><H3>
+isFieldAllowBlank</H3>
+<PRE>
+boolean <B>isFieldAllowBlank</B>(java.lang.String&nbsp;fieldId)</PRE>
+<DL>
+<DD>Проверка необязательности Jep-поля по заданному ID (наличия маркера обязательности (*) )
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>fieldId</CODE> - id Jep-поля</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getGridHeaders(java.lang.String)"><!-- --></A><H3>
+getGridHeaders</H3>
+<PRE>
+java.util.List&lt;java.lang.String&gt; <B>getGridHeaders</B>(java.lang.String&nbsp;gridId)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getGridDataRowwise(java.lang.String)"><!-- --></A><H3>
+getGridDataRowwise</H3>
+<PRE>
+java.util.List&lt;java.util.List&lt;java.lang.Object&gt;&gt; <B>getGridDataRowwise</B>(java.lang.String&nbsp;gridId)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>a list of rows, each is a list of cell-objects.
+ Each object of the resultant grid may be either of a type WebElement
+ (if a cell contains something inside, such as input) or of a type String
+ (if there is only a text). The value of a particular cell can be
+ obtained using the row number and a column index,
+ known from the result of #getGridHeaders().</DL>
 </DD>
 </DL>
 <!-- ========= END OF CLASS DATA ========= -->

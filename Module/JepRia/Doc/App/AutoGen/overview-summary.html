@@ -107,7 +107,15 @@ JepRia API Reference
 <TD>&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="20%"><B><A HREF="com/technology/jep/auto/entrance/package-summary.html">com.technology.jep.auto.entrance</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
 <TD WIDTH="20%"><B><A HREF="com/technology/jep/jepcommon/security/package-summary.html">com.technology.jep.jepcommon.security</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="20%"><B><A HREF="com/technology/jep/jepcommon/security/tomcat/package-summary.html">com.technology.jep.jepcommon.security.tomcat</A></B></TD>
 <TD>&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
@@ -431,6 +439,10 @@ JepRia API Reference
 <TD>&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="20%"><B><A HREF="com/technology/jep/jepria/server/security/tomcat/package-summary.html">com.technology.jep.jepria.server.security.tomcat</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
 <TD WIDTH="20%"><B><A HREF="com/technology/jep/jepria/server/service/package-summary.html">com.technology.jep.jepria.server.service</A></B></TD>
 <TD>&nbsp;</TD>
 </TR>
@@ -516,6 +528,10 @@ JepRia API Reference
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD WIDTH="20%"><B><A HREF="com/technology/jep/jepria/shared/util/package-summary.html">com.technology.jep.jepria.shared.util</A></B></TD>
+<TD>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD WIDTH="20%"><B><A HREF="com/technology/jep/test/util/package-summary.html">com.technology.jep.test.util</A></B></TD>
 <TD>&nbsp;</TD>
 </TR>
 </TABLE>
@@ -2258,6 +2274,7 @@ FileUploadField: поле отображения имени файла стан�
 <ul>
   <li><a href="#equalsOverriding">Корректное использование метода <CODE>Object.equals(java.lang.Object)</CODE></a></li>
   <li><a href="#zIndexAgreement">Соглашение об использовании Z-индексов</a></li>
+  <li><a href="#mockTesting">Пример mock-тестирования клиентского кода</a></li>
 </ul>
 <h4><a name="equalsOverriding">Корректное использование метода <CODE>Object.equals(java.lang.Object)</CODE></a></h4>
 При разработке приложений на языке Java следует учитывать некоторые особенности платформы:
@@ -2343,6 +2360,9 @@ div.jepRia-testBuildMessage
   <li>Краткая информация по соответствию слоёв и интервалов находится также в <code>JepRia.css</code>
   </li>
 </ul>
+<h4><a name="mockTesting">Пример mock-тестирования клиентского кода</a></h4>
+Пример использования Mockito и PowerMock для тестирования метода класса MainModulePresenter находится в классе 
+<a href="com/technology/jep/jepria/client/ui/main/MainModulePresenterTest.html">MainModulePresenterTest</a>.
 <br/>
 
 <!-- Put @see and @since tags down here. -->

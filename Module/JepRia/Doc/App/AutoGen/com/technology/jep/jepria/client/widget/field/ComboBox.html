@@ -53,7 +53,7 @@ function windowTitle()
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.TextCellImpl.html" title="class in com.technology.jep.jepria.client.widget.field"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.JepCheckBoxCell.html" title="class in com.technology.jep.jepria.client.widget.field"><B>PREV CLASS</B></A>&nbsp;
 &nbsp;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.JepOptionSuggestion.html" title="class in com.technology.jep.jepria.client.widget.field"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../../../../../../index.html?com/technology/jep/jepria/client/widget/field/ComboBox.html" target="_top"><B>FRAMES</B></A>  &nbsp;
@@ -200,6 +200,14 @@ java.lang.Object
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.html#fieldIdAsWebEl">fieldIdAsWebEl</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ID объемлющего Jep-поля как Web-элемента.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>private &nbsp;<A HREF="../../../../../../../com/technology/jep/jepria/shared/field/JepLikeEnum.html" title="enum in com.technology.jep.jepria.shared.field">JepLikeEnum</A></CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.html#filterMode">filterMode</A></B></CODE>
 
@@ -281,6 +289,14 @@ java.lang.Object
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.JepOptionSuggestionDisplay.html" title="class in com.technology.jep.jepria.client.widget.field">ComboBox.JepOptionSuggestionDisplay</A>&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.html" title="type parameter in ComboBox">T</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.html#suggestionDisplay">suggestionDisplay</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>private &nbsp;java.util.List&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.html" title="type parameter in ComboBox">T</A>&gt;</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.html#unfilteredOptions">unfilteredOptions</A></B></CODE>
 
@@ -308,6 +324,12 @@ java.lang.Object
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.html#ComboBox()">ComboBox</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<B>Deprecated.</B>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.html#ComboBox(java.lang.String)">ComboBox</A></B>(java.lang.String&nbsp;fieldIdAsWebEl)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -459,6 +481,14 @@ java.lang.Object
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Проверка раскрыт ли комбобокс.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.html#setCompositeWebIds(java.lang.String)">setCompositeWebIds</A></B>(java.lang.String&nbsp;fieldIdAsWebEl)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Установка ID внутренних компонентов Комбобокса: поля ввода, кнопки 'развернуть', PopupPanel всплывающего меню.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -775,6 +805,28 @@ private boolean <B>enabled</B></PRE>
 <DL>
 </DL>
 </DL>
+<HR>
+
+<A NAME="fieldIdAsWebEl"><!-- --></A><H3>
+fieldIdAsWebEl</H3>
+<PRE>
+private final java.lang.String <B>fieldIdAsWebEl</B></PRE>
+<DL>
+<DD>ID объемлющего Jep-поля как Web-элемента.
+<P>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="suggestionDisplay"><!-- --></A><H3>
+suggestionDisplay</H3>
+<PRE>
+private <A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.JepOptionSuggestionDisplay.html" title="class in com.technology.jep.jepria.client.widget.field">ComboBox.JepOptionSuggestionDisplay</A>&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.html" title="type parameter in ComboBox">T</A> extends <A HREF="../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A>&gt; <B>suggestionDisplay</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
 
 <!-- ========= CONSTRUCTOR DETAIL ======== -->
 
@@ -789,7 +841,18 @@ private boolean <B>enabled</B></PRE>
 <A NAME="ComboBox()"><!-- --></A><H3>
 ComboBox</H3>
 <PRE>
-public <B>ComboBox</B>()</PRE>
+<FONT SIZE="-1">@Deprecated
+</FONT>public <B>ComboBox</B>()</PRE>
+<DL>
+<DD><B>Deprecated.</B>&nbsp;
+<P>
+</DL>
+<HR>
+
+<A NAME="ComboBox(java.lang.String)"><!-- --></A><H3>
+ComboBox</H3>
+<PRE>
+public <B>ComboBox</B>(java.lang.String&nbsp;fieldIdAsWebEl)</PRE>
 <DL>
 </DL>
 
@@ -802,6 +865,22 @@ public <B>ComboBox</B>()</PRE>
 <B>Method Detail</B></FONT></TH>
 </TR>
 </TABLE>
+
+<A NAME="setCompositeWebIds(java.lang.String)"><!-- --></A><H3>
+setCompositeWebIds</H3>
+<PRE>
+public void <B>setCompositeWebIds</B>(java.lang.String&nbsp;fieldIdAsWebEl)</PRE>
+<DL>
+<DD>Установка ID внутренних компонентов Комбобокса: поля ввода, кнопки 'развернуть', PopupPanel всплывающего меню.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>fieldIdAsWebEl</CODE> - ID JepComboBoxField'а, который берется за основу ID внутренних компонентов</DL>
+</DD>
+</DL>
+<HR>
 
 <A NAME="setOptions(java.util.List)"><!-- --></A><H3>
 setOptions</H3>
@@ -1295,7 +1374,7 @@ public void <B>setEnabled</B>(boolean&nbsp;enabled)</PRE>
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.TextCellImpl.html" title="class in com.technology.jep.jepria.client.widget.field"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.JepCheckBoxCell.html" title="class in com.technology.jep.jepria.client.widget.field"><B>PREV CLASS</B></A>&nbsp;
 &nbsp;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.JepOptionSuggestion.html" title="class in com.technology.jep.jepria.client.widget.field"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../../../../../../index.html?com/technology/jep/jepria/client/widget/field/ComboBox.html" target="_top"><B>FRAMES</B></A>  &nbsp;

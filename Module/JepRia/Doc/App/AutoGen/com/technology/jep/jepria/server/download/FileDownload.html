@@ -128,11 +128,12 @@ Interface FileDownload</H2>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;int</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/download/FileDownload.html#beginRead(java.lang.String, java.lang.String, java.lang.String, java.lang.Object, java.lang.String)">beginRead</A></B>(java.lang.String&nbsp;tableName,
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/download/FileDownload.html#beginRead(java.lang.String, java.lang.String, java.lang.String, java.lang.Object, java.lang.String, java.lang.String)">beginRead</A></B>(java.lang.String&nbsp;tableName,
           java.lang.String&nbsp;fileFieldName,
           java.lang.String&nbsp;keyFieldName,
           java.lang.Object&nbsp;rowId,
-          java.lang.String&nbsp;dataSourceJndiName)</CODE>
+          java.lang.String&nbsp;dataSourceJndiName,
+          java.lang.String&nbsp;moduleName)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Начало длинной транзакции чтения файла из LOB.</TD>
@@ -167,14 +168,15 @@ Interface FileDownload</H2>
 </TR>
 </TABLE>
 
-<A NAME="beginRead(java.lang.String, java.lang.String, java.lang.String, java.lang.Object, java.lang.String)"><!-- --></A><H3>
+<A NAME="beginRead(java.lang.String, java.lang.String, java.lang.String, java.lang.Object, java.lang.String, java.lang.String)"><!-- --></A><H3>
 beginRead</H3>
 <PRE>
 int <B>beginRead</B>(java.lang.String&nbsp;tableName,
               java.lang.String&nbsp;fileFieldName,
               java.lang.String&nbsp;keyFieldName,
               java.lang.Object&nbsp;rowId,
-              java.lang.String&nbsp;dataSourceJndiName)
+              java.lang.String&nbsp;dataSourceJndiName,
+              java.lang.String&nbsp;moduleName)
               throws <A HREF="../../../../../../com/technology/jep/jepria/shared/exceptions/ApplicationException.html" title="class in com.technology.jep.jepria.shared.exceptions">ApplicationException</A></PRE>
 <DL>
 <DD>Начало длинной транзакции чтения файла из LOB.

@@ -146,6 +146,14 @@ java.lang.Object
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Логгер.</TD>
 </TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/upload/JepUploadServlet.html#moduleName">moduleName</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Имя модуля, передаваемое в DB.</TD>
+</TR>
 </TABLE>
 &nbsp;
 <!-- ======== CONSTRUCTOR SUMMARY ======== -->
@@ -190,6 +198,22 @@ java.lang.Object
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Получение интерфейса выгрузки файлов.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/upload/JepUploadServlet.html#getModuleName()">getModuleName</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Возвращает имя модуля, предназначенное для передачи в базу.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/upload/JepUploadServlet.html#init()">init</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Инициализация сервлета.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -239,7 +263,7 @@ java.lang.Object
 <TH ALIGN="left"><B>Methods inherited from class javax.servlet.GenericServlet</B></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE>destroy, getInitParameter, getInitParameterNames, getServletConfig, getServletContext, getServletInfo, getServletName, init, init, log, log</CODE></TD>
+<TD><CODE>destroy, getInitParameter, getInitParameterNames, getServletConfig, getServletContext, getServletInfo, getServletName, init, log, log</CODE></TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>
@@ -298,6 +322,18 @@ private java.lang.String <B>dataSourceJndiName</B></PRE>
 <DL>
 </DL>
 </DL>
+<HR>
+
+<A NAME="moduleName"><!-- --></A><H3>
+moduleName</H3>
+<PRE>
+private java.lang.String <B>moduleName</B></PRE>
+<DL>
+<DD>Имя модуля, передаваемое в DB.
+<P>
+<DL>
+</DL>
+</DL>
 
 <!-- ========= CONSTRUCTOR DETAIL ======== -->
 
@@ -330,6 +366,28 @@ public <B>JepUploadServlet</B>(<A HREF="../../../../../../com/technology/jep/jep
 <B>Method Detail</B></FONT></TH>
 </TR>
 </TABLE>
+
+<A NAME="init()"><!-- --></A><H3>
+init</H3>
+<PRE>
+public void <B>init</B>()
+          throws javax.servlet.ServletException</PRE>
+<DL>
+<DD>Инициализация сервлета.
+ Переопределение метода обусловлено установкой имени модуля. Выполнить данную операцию
+ в конструкторе невозможно, т.к. <code>getServletContext()</code> в конструкторе 
+ выбрасывает <code>NullPointerException</code>.
+<P>
+<DD><DL>
+<DT><B>Overrides:</B><DD><CODE>init</CODE> in class <CODE>javax.servlet.GenericServlet</CODE></DL>
+</DD>
+<DD><DL>
+
+<DT><B>Throws:</B>
+<DD><CODE>javax.servlet.ServletException</CODE></DL>
+</DD>
+</DL>
+<HR>
 
 <A NAME="doPost(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)"><!-- --></A><H3>
 doPost</H3>
@@ -404,6 +462,22 @@ private org.apache.commons.fileupload.FileItem <B>getFormField</B>(java.util.Lis
 <P>
 <DD><DL>
 <DT><B>Parameters:</B><DD><CODE>items</CODE> - список интерфейсов выгрузки файлов<DD><CODE>fieldName</CODE> - наименование поля</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getModuleName()"><!-- --></A><H3>
+getModuleName</H3>
+<PRE>
+private java.lang.String <B>getModuleName</B>()</PRE>
+<DL>
+<DD>Возвращает имя модуля, предназначенное для передачи в базу.
+ Имя модуля формируется из имени приложения и имени сервлета,
+ из которого вырезано слово &quot;Servlet&quot;.
+<P>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>имя модуля</DL>
 </DD>
 </DL>
 <HR>

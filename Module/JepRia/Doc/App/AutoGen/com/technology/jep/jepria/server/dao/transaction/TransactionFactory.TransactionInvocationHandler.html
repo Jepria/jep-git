@@ -145,6 +145,14 @@ java.lang.Object
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;JNDI-имя источника данных.</TD>
 </TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/server/dao/transaction/TransactionFactory.TransactionInvocationHandler.html#moduleName">moduleName</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Имя модуля для передачи в DB.</TD>
+</TR>
 </TABLE>
 &nbsp;
 <!-- ======== CONSTRUCTOR SUMMARY ======== -->
@@ -156,8 +164,9 @@ java.lang.Object
 <B>Constructor Summary</B></FONT></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/server/dao/transaction/TransactionFactory.TransactionInvocationHandler.html#TransactionFactory.TransactionInvocationHandler(D, java.lang.String)">TransactionFactory.TransactionInvocationHandler</A></B>(<A HREF="../../../../../../../com/technology/jep/jepria/server/dao/transaction/TransactionFactory.TransactionInvocationHandler.html" title="type parameter in TransactionFactory.TransactionInvocationHandler">D</A>&nbsp;dao,
-                                                java.lang.String&nbsp;dataSourceJndiName)</CODE>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/server/dao/transaction/TransactionFactory.TransactionInvocationHandler.html#TransactionFactory.TransactionInvocationHandler(D, java.lang.String, java.lang.String)">TransactionFactory.TransactionInvocationHandler</A></B>(<A HREF="../../../../../../../com/technology/jep/jepria/server/dao/transaction/TransactionFactory.TransactionInvocationHandler.html" title="type parameter in TransactionFactory.TransactionInvocationHandler">D</A>&nbsp;dao,
+                                                java.lang.String&nbsp;dataSourceJndiName,
+                                                java.lang.String&nbsp;moduleName)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Создаёт экземпляр транзакционного обработчика.</TD>
@@ -227,6 +236,18 @@ private final java.lang.String <B>dataSourceJndiName</B></PRE>
 <DL>
 </DL>
 </DL>
+<HR>
+
+<A NAME="moduleName"><!-- --></A><H3>
+moduleName</H3>
+<PRE>
+private final java.lang.String <B>moduleName</B></PRE>
+<DL>
+<DD>Имя модуля для передачи в DB.
+<P>
+<DL>
+</DL>
+</DL>
 
 <!-- ========= CONSTRUCTOR DETAIL ======== -->
 
@@ -238,16 +259,17 @@ private final java.lang.String <B>dataSourceJndiName</B></PRE>
 </TR>
 </TABLE>
 
-<A NAME="TransactionFactory.TransactionInvocationHandler(java.lang.Object,java.lang.String)"><!-- --></A><A NAME="TransactionFactory.TransactionInvocationHandler(D, java.lang.String)"><!-- --></A><H3>
+<A NAME="TransactionFactory.TransactionInvocationHandler(java.lang.Object,java.lang.String,java.lang.String)"><!-- --></A><A NAME="TransactionFactory.TransactionInvocationHandler(D, java.lang.String, java.lang.String)"><!-- --></A><H3>
 TransactionFactory.TransactionInvocationHandler</H3>
 <PRE>
 public <B>TransactionFactory.TransactionInvocationHandler</B>(<A HREF="../../../../../../../com/technology/jep/jepria/server/dao/transaction/TransactionFactory.TransactionInvocationHandler.html" title="type parameter in TransactionFactory.TransactionInvocationHandler">D</A>&nbsp;dao,
-                                                       java.lang.String&nbsp;dataSourceJndiName)</PRE>
+                                                       java.lang.String&nbsp;dataSourceJndiName,
+                                                       java.lang.String&nbsp;moduleName)</PRE>
 <DL>
 <DD>Создаёт экземпляр транзакционного обработчика.
 <P>
 <DL>
-<DT><B>Parameters:</B><DD><CODE>dao</CODE> - объект Dao<DD><CODE>dataSourceJndiName</CODE> - JNDI-имя источника данных</DL>
+<DT><B>Parameters:</B><DD><CODE>dao</CODE> - объект Dao<DD><CODE>dataSourceJndiName</CODE> - JNDI-имя источника данных<DD><CODE>moduleName</CODE> - имя модуля для передачи в DB</DL>
 </DL>
 
 <!-- ============ METHOD DETAIL ========== -->

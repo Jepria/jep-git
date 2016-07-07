@@ -212,6 +212,17 @@ java.lang.String <B>dataSourceJndiName</B></PRE>
 </DL>
 <HR>
 <H3>
+moduleName</H3>
+<PRE>
+java.lang.String <B>moduleName</B></PRE>
+<DL>
+<DD>Имя модуля, передаваемое в DB.
+<P>
+<DL>
+</DL>
+</DL>
+<HR>
+<H3>
 textFileCharset</H3>
 <PRE>
 java.nio.charset.Charset <B>textFileCharset</B></PRE>
@@ -413,6 +424,8 @@ recordDefinition</H3>
 <PRE>
 <A HREF="com/technology/jep/jepria/shared/record/JepRecordDefinition.html" title="class in com.technology.jep.jepria.shared.record">JepRecordDefinition</A> <B>recordDefinition</B></PRE>
 <DL>
+<DD>Определение записи.
+<P>
 <DL>
 </DL>
 </DL>
@@ -422,6 +435,8 @@ sorter</H3>
 <PRE>
 <A HREF="com/technology/jep/jepria/shared/dto/JepSorter.html" title="class in com.technology.jep.jepria.shared.dto">JepSorter</A>&lt;<A HREF="com/technology/jep/jepria/shared/dto/JepSorter.html" title="type parameter in JepSorter">M</A> extends <A HREF="com/technology/jep/jepria/shared/dto/JepDto.html" title="class in com.technology.jep.jepria.shared.dto">JepDto</A>&gt; <B>sorter</B></PRE>
 <DL>
+<DD>Объект-обёртка компаратора для сравнения записей.
+<P>
 <DL>
 </DL>
 </DL>
@@ -431,6 +446,8 @@ dataSourceJndiName</H3>
 <PRE>
 java.lang.String <B>dataSourceJndiName</B></PRE>
 <DL>
+<DD>JNDI-имя источника данных.
+<P>
 <DL>
 </DL>
 </DL>
@@ -440,6 +457,32 @@ dao</H3>
 <PRE>
 <A HREF="com/technology/jep/jepria/server/dao/JepDataStandard.html" title="interface in com.technology.jep.jepria.server.dao">JepDataStandard</A> <B>dao</B></PRE>
 <DL>
+<DD>Ссылка на DAO модуля.
+<P>
+<DL>
+</DL>
+</DL>
+<HR>
+<H3>
+moduleName</H3>
+<PRE>
+java.lang.String <B>moduleName</B></PRE>
+<DL>
+<DD>Имя текущего модуля.
+<P>
+<DL>
+</DL>
+</DL>
+<HR>
+<H3>
+serverFactory</H3>
+<PRE>
+<A HREF="com/technology/jep/jepria/server/DaoProvider.html" title="interface in com.technology.jep.jepria.server">DaoProvider</A>&lt;<A HREF="com/technology/jep/jepria/server/DaoProvider.html" title="type parameter in DaoProvider">D</A>&gt; <B>serverFactory</B></PRE>
+<DL>
+<DD>Серверная фабрика.
+ Переменная нужна для того, чтобы в методе <A HREF="com/technology/jep/jepria/server/service/JepDataServiceServlet.html#init()"><CODE>JepDataServiceServlet.init()</CODE></A> установить фабрике имя модуля
+ и получить из фабрики прокси.
+<P>
 <DL>
 </DL>
 </DL>
@@ -509,6 +552,17 @@ dataSourceJndiName</H3>
 java.lang.String <B>dataSourceJndiName</B></PRE>
 <DL>
 <DD>JNDI-имя источника данных.
+<P>
+<DL>
+</DL>
+</DL>
+<HR>
+<H3>
+moduleName</H3>
+<PRE>
+java.lang.String <B>moduleName</B></PRE>
+<DL>
+<DD>Имя модуля, передаваемое в DB.
 <P>
 <DL>
 </DL>

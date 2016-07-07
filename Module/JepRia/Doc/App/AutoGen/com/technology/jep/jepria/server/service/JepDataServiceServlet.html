@@ -130,7 +130,7 @@ java.lang.Object
 <TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/service/JepDataServiceServlet.html#dao">dao</A></B></CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ссылка на DAO модуля.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -138,7 +138,7 @@ java.lang.Object
 <TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/service/JepDataServiceServlet.html#dataSourceJndiName">dataSourceJndiName</A></B></CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;JNDI-имя источника данных.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -150,11 +150,27 @@ java.lang.Object
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/service/JepDataServiceServlet.html#moduleName">moduleName</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Имя текущего модуля.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>protected &nbsp;<A HREF="../../../../../../com/technology/jep/jepria/shared/record/JepRecordDefinition.html" title="class in com.technology.jep.jepria.shared.record">JepRecordDefinition</A></CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/service/JepDataServiceServlet.html#recordDefinition">recordDefinition</A></B></CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Определение записи.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;<A HREF="../../../../../../com/technology/jep/jepria/server/DaoProvider.html" title="interface in com.technology.jep.jepria.server">DaoProvider</A>&lt;<A HREF="../../../../../../com/technology/jep/jepria/server/service/JepDataServiceServlet.html" title="type parameter in JepDataServiceServlet">D</A>&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/service/JepDataServiceServlet.html#serverFactory">serverFactory</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Серверная фабрика.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -162,7 +178,7 @@ java.lang.Object
 <TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/service/JepDataServiceServlet.html#sorter">sorter</A></B></CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Объект-обёртка компаратора для сравнения записей.</TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="fields_inherited_from_class_com.google.gwt.user.server.rpc.AbstractRemoteServiceServlet"><!-- --></A>
@@ -253,6 +269,22 @@ java.lang.Object
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Получение выходного потока из заданного Lob-поля
  Используется наследниками (классами приложений) для получения значений blob-полей</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/service/JepDataServiceServlet.html#getModuleName()">getModuleName</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Возвращает имя модуля, предназначенное для передачи в базу.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/service/JepDataServiceServlet.html#init()">init</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Инициализация сервлета.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -408,7 +440,7 @@ java.lang.Object
 <TH ALIGN="left"><B>Methods inherited from class javax.servlet.GenericServlet</B></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE>destroy, getInitParameter, getInitParameterNames, getServletConfig, getServletContext, getServletInfo, getServletName, init, log, log</CODE></TD>
+<TD><CODE>destroy, getInitParameter, getInitParameterNames, getServletConfig, getServletContext, getServletInfo, getServletName, log, log</CODE></TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>
@@ -448,6 +480,8 @@ recordDefinition</H3>
 <PRE>
 protected <A HREF="../../../../../../com/technology/jep/jepria/shared/record/JepRecordDefinition.html" title="class in com.technology.jep.jepria.shared.record">JepRecordDefinition</A> <B>recordDefinition</B></PRE>
 <DL>
+<DD>Определение записи.
+<P>
 <DL>
 </DL>
 </DL>
@@ -458,6 +492,8 @@ sorter</H3>
 <PRE>
 protected <A HREF="../../../../../../com/technology/jep/jepria/shared/dto/JepSorter.html" title="class in com.technology.jep.jepria.shared.dto">JepSorter</A>&lt;<A HREF="../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</A>&gt; <B>sorter</B></PRE>
 <DL>
+<DD>Объект-обёртка компаратора для сравнения записей.
+<P>
 <DL>
 </DL>
 </DL>
@@ -468,6 +504,8 @@ dataSourceJndiName</H3>
 <PRE>
 protected java.lang.String <B>dataSourceJndiName</B></PRE>
 <DL>
+<DD>JNDI-имя источника данных.
+<P>
 <DL>
 </DL>
 </DL>
@@ -476,8 +514,36 @@ protected java.lang.String <B>dataSourceJndiName</B></PRE>
 <A NAME="dao"><!-- --></A><H3>
 dao</H3>
 <PRE>
-protected final <A HREF="../../../../../../com/technology/jep/jepria/server/service/JepDataServiceServlet.html" title="type parameter in JepDataServiceServlet">D</A> extends <A HREF="../../../../../../com/technology/jep/jepria/server/dao/JepDataStandard.html" title="interface in com.technology.jep.jepria.server.dao">JepDataStandard</A> <B>dao</B></PRE>
+protected <A HREF="../../../../../../com/technology/jep/jepria/server/service/JepDataServiceServlet.html" title="type parameter in JepDataServiceServlet">D</A> extends <A HREF="../../../../../../com/technology/jep/jepria/server/dao/JepDataStandard.html" title="interface in com.technology.jep.jepria.server.dao">JepDataStandard</A> <B>dao</B></PRE>
 <DL>
+<DD>Ссылка на DAO модуля.
+<P>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="moduleName"><!-- --></A><H3>
+moduleName</H3>
+<PRE>
+private java.lang.String <B>moduleName</B></PRE>
+<DL>
+<DD>Имя текущего модуля.
+<P>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="serverFactory"><!-- --></A><H3>
+serverFactory</H3>
+<PRE>
+private final <A HREF="../../../../../../com/technology/jep/jepria/server/DaoProvider.html" title="interface in com.technology.jep.jepria.server">DaoProvider</A>&lt;<A HREF="../../../../../../com/technology/jep/jepria/server/service/JepDataServiceServlet.html" title="type parameter in JepDataServiceServlet">D</A> extends <A HREF="../../../../../../com/technology/jep/jepria/server/dao/JepDataStandard.html" title="interface in com.technology.jep.jepria.server.dao">JepDataStandard</A>&gt; <B>serverFactory</B></PRE>
+<DL>
+<DD>Серверная фабрика.
+ Переменная нужна для того, чтобы в методе <A HREF="../../../../../../com/technology/jep/jepria/server/service/JepDataServiceServlet.html#init()"><CODE>init()</CODE></A> установить фабрике имя модуля
+ и получить из фабрики прокси.
+<P>
 <DL>
 </DL>
 </DL>
@@ -509,6 +575,28 @@ protected <B>JepDataServiceServlet</B>(<A HREF="../../../../../../com/technology
 <B>Method Detail</B></FONT></TH>
 </TR>
 </TABLE>
+
+<A NAME="init()"><!-- --></A><H3>
+init</H3>
+<PRE>
+public void <B>init</B>()
+          throws javax.servlet.ServletException</PRE>
+<DL>
+<DD>Инициализация сервлета.
+ Переопределение метода обусловлено установкой имени модуля. Выполнить данную операцию
+ в конструкторе невозможно, т.к. <code>getServletContext()</code> в конструкторе 
+ выбрасывает <code>NullPointerException</code>.
+<P>
+<DD><DL>
+<DT><B>Overrides:</B><DD><CODE>init</CODE> in class <CODE>javax.servlet.GenericServlet</CODE></DL>
+</DD>
+<DD><DL>
+
+<DT><B>Throws:</B>
+<DD><CODE>javax.servlet.ServletException</CODE></DL>
+</DD>
+</DL>
+<HR>
 
 <A NAME="update(com.technology.jep.jepria.shared.load.FindConfig)"><!-- --></A><H3>
 update</H3>
@@ -823,6 +911,25 @@ private void <B>clearFoundRecords</B>(<A HREF="../../../../../../com/technology/
 </DD>
 <DD><DL>
 <DT><B>Parameters:</B><DD><CODE>findConfig</CODE> - конфигурация поиска</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getModuleName()"><!-- --></A><H3>
+getModuleName</H3>
+<PRE>
+private java.lang.String <B>getModuleName</B>()</PRE>
+<DL>
+<DD>Возвращает имя модуля, предназначенное для передачи в базу.
+ Имя модуля формируется из имени приложения и имени сервлета,
+ из которого вырезано слово &quot;Servlet&quot;.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>имя модуля</DL>
 </DD>
 </DL>
 <HR>
