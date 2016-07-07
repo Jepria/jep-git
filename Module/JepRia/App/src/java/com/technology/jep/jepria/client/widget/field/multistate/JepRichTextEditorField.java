@@ -11,17 +11,15 @@ import com.technology.jep.jepria.shared.util.JepRiaUtil;
 public class JepRichTextEditorField extends JepMultiStateField<RichTextEditorField, HTML> {
 	
 	public JepRichTextEditorField() {
-		this("");
+		this(null);
 	}
 	
 	public JepRichTextEditorField(String fieldLabel) {
-		super(fieldLabel);
+		this(null, fieldLabel);
 	}
 	
-	public JepRichTextEditorField(String fieldId, String fieldLabel) {
-		this(fieldLabel);
-		this.getElement().setId(fieldId);
-		this.getInputElement().setId(fieldId + "_INPUT");
+	public JepRichTextEditorField(String fieldIdAsWebEl, String fieldLabel) {
+		super(fieldIdAsWebEl, fieldLabel);
 	}
 	
 	/**

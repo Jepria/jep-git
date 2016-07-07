@@ -4,8 +4,8 @@ import static com.technology.jep.jepriashowcase.custom.shared.ui.JepRiaShowcaseC
 import static com.technology.jep.jepria.client.AutomationConstant.ENTRANCE_PANEL_LOGOUT_BUTTON_ID;
 import static com.technology.jep.jepria.client.AutomationConstant.LOGGED_IN_USER_ID;
 import static com.technology.jep.jepria.client.AutomationConstant.LOGIN_BUTTON_ID;
-import static com.technology.jep.jepria.client.AutomationConstant.LOGIN_PASSWORD_INPUT_FIELD_ID;
-import static com.technology.jep.jepria.client.AutomationConstant.LOGIN_USERNAME_INPUT_FIELD_ID;
+import static com.technology.jep.jepria.client.AutomationConstant.LOGIN_PASSWORD_FIELD_ID;
+import static com.technology.jep.jepria.client.AutomationConstant.LOGIN_USERNAME_FIELD_ID;
 import static com.technology.jep.jepriashowcase.custom.client.CustomClientConstant.customText;
 
 import com.google.gwt.dom.client.Style.FontWeight;
@@ -274,7 +274,7 @@ public class CustomModuleViewImpl extends PlainModuleViewImpl implements CustomM
 		loginLabel.setWidth(labelWidth);
 		loginPanel.add(loginLabel);
 		loginTextBox = new TextBox();
-		loginTextBox.getElement().setId(LOGIN_USERNAME_INPUT_FIELD_ID);
+		loginTextBox.getElement().setId(LOGIN_USERNAME_FIELD_ID);
 		
 		FocusHandler focusHandler = new FocusHandler() {
 			@Override
@@ -291,7 +291,7 @@ public class CustomModuleViewImpl extends PlainModuleViewImpl implements CustomM
 		passwordLabel.setWidth(labelWidth);
 		passwordPanel.add(passwordLabel);
 		passwordTextBox = new PasswordTextBox();
-		passwordTextBox.getElement().setId(LOGIN_PASSWORD_INPUT_FIELD_ID);
+		passwordTextBox.getElement().setId(LOGIN_PASSWORD_FIELD_ID);
 		
 		passwordTextBox.addFocusHandler(focusHandler);
 		passwordTextBox.setWidth(fieldWidth);

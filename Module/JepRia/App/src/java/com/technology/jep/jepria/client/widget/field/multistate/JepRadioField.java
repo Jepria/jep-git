@@ -22,17 +22,15 @@ public class JepRadioField extends JepMultiStateField<RadioListField<JepOption>,
 	private final static String RADIO_FIELD_STYLE = "jepRia-RadioField-Input";
 	
 	public JepRadioField() {
-		this("");
+		this(null);
 	}
 	
 	public JepRadioField(String fieldLabel) {
-		super(fieldLabel);
+		this(null, fieldLabel);
 	}
 	
-	public JepRadioField(String fieldId, String fieldLabel) {
-		this(fieldLabel);
-		this.getElement().setId(fieldId);
-		this.getInputElement().setId(fieldId + "_INPUT"); // TODO Сделать, отталкиваяся от главного ID
+	public JepRadioField(String fieldIdAsWebEl, String fieldLabel) {
+		super(fieldIdAsWebEl, fieldLabel);
 	}
 
 	/**

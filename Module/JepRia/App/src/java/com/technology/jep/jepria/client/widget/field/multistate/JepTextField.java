@@ -8,17 +8,15 @@ import com.google.gwt.user.client.ui.TextBox;
 public class JepTextField extends JepBaseTextField<TextBox> {
 
 	public JepTextField() {
-		this("");
+		this(null);
 	}
 	
 	public JepTextField(String fieldLabel) {
-		super(fieldLabel);
+		this(null, fieldLabel);
 	}
 	
-	public JepTextField(String fieldId, String fieldLabel) {
-		this(fieldLabel);
-		this.getElement().setId(fieldId);
-		this.getInputElement().setId(fieldId + "_INPUT");
+	public JepTextField(String fieldIdAsWebEl, String fieldLabel) {
+		super(fieldIdAsWebEl, fieldLabel);
 	}
 	
 	/**

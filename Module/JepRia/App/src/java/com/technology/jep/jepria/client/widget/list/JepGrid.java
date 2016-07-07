@@ -3,6 +3,7 @@ package com.technology.jep.jepria.client.widget.list;
 import static com.technology.jep.jepria.client.JepRiaClientConstant.DND_DATA_PROPERTY;
 import static com.technology.jep.jepria.client.JepRiaClientConstant.JepTexts;
 import static com.technology.jep.jepria.shared.load.PagingConfig.DEFAULT_PAGE_SIZE;
+import static com.technology.jep.jepria.client.AutomationConstant.*;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -162,8 +163,13 @@ public class JepGrid<T> extends DataGrid<T> {
 	public JepGrid(String gridId, List<JepColumn> columns, ProvidesKey<T> keyProvider) {
 		super(DEFAULT_PAGE_SIZE, (DataGridResource) GWT.create(DataGridResource.class), keyProvider);
 
+		// Если ID списочной формы явно не задано, указываем в качестве ID рандомное число
+		gridId = (gridId != null) ? gridId : Math.random()+"";
 		this.gridId = gridId;
 		this.getElement().setId(gridId);
+		
+		getTableHeadElement().setId(gridId + GRID_HEADER_POSTFIX);
+		getTableBodyElement().setId(gridId + GRID_BODY_POSTFIX);
 		
 		this.columns = columns;
 		

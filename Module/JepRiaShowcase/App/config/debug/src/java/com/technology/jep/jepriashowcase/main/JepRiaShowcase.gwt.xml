@@ -11,6 +11,7 @@
   <inherits name="com.technology.jep.jepriashowcase.search.Search"/>
   <inherits name="com.technology.jep.jepriashowcase.supplier.Supplier"/>
   <inherits name="com.technology.jep.jepriashowcase.goods.Goods"/>
+  <inherits name="com.technology.jep.jepriashowcase.arsenic.Arsenic"/>
   <inherits name="com.technology.jep.jepriashowcase.shopgoods.ShopGoods"/>
   <inherits name="com.technology.jep.jepriashowcase.simple.Simple"/>
   <inherits name="com.technology.jep.jepriashowcase.allshopgoods.AllShopGoods"/>

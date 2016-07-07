@@ -1,6 +1,8 @@
 package com.technology.jep.jepriashowcase.auto;
 
 import com.technology.jep.jepria.auto.entrance.ApplicationEntranceAppAuto;
+import com.technology.jep.jepriashowcase.arsenic.auto.ArsenicAuto;
+import com.technology.jep.jepriashowcase.arsenic.auto.ArsenicAutoImpl;
 import com.technology.jep.jepriashowcase.custom.auto.CustomAuto;
 import com.technology.jep.jepriashowcase.custom.auto.CustomAutoImpl;
 import com.technology.jep.jepriashowcase.goods.auto.GoodsAuto;
@@ -11,6 +13,7 @@ import com.technology.jep.jepriashowcase.feature.auto.FeatureAutoImpl;
 public class JepRiaShowcaseAutoImpl extends ApplicationEntranceAppAuto implements JepRiaShowcaseAuto {
 	private CustomAuto customAuto;
 	private GoodsAuto goodsAuto;
+	private ArsenicAuto arsenicAuto;
 	private FeatureAuto featureAuto;
 
 	public JepRiaShowcaseAutoImpl(String baseUrl,
@@ -26,6 +29,7 @@ public class JepRiaShowcaseAutoImpl extends ApplicationEntranceAppAuto implement
 		
 		customAuto = new CustomAutoImpl<JepRiaShowcaseAuto>(this, new JepRiaShowcasePageManager());
 		goodsAuto = getGoodsAuto(true);
+		arsenicAuto = getArsenicAuto(true);
 		featureAuto = getFeatureAuto(true);
 	}
 	
@@ -47,6 +51,14 @@ public class JepRiaShowcaseAutoImpl extends ApplicationEntranceAppAuto implement
 			goodsAuto = new GoodsAutoImpl<JepRiaShowcaseAuto, JepRiaShowcasePageManager>(this, new JepRiaShowcasePageManager());
 		}
 		return goodsAuto;
+	}
+	
+	@Override
+	public ArsenicAuto getArsenicAuto(boolean newInstance) {
+		if(arsenicAuto == null || newInstance) {
+			arsenicAuto = new ArsenicAutoImpl<JepRiaShowcaseAuto, JepRiaShowcasePageManager>(this, new JepRiaShowcasePageManager());
+		}
+		return arsenicAuto;
 	}
 
 	@Override

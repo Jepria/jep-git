@@ -15,11 +15,15 @@ public class JepTextAreaField extends JepBaseTextField<TextArea> {
 	private final static int DEFAULT_TEXTAREA_FIELD_HEIGHT = 90;
 	
 	public JepTextAreaField() {
-		this("");
+		this(null);
 	}
 	
 	public JepTextAreaField(String fieldLabel) {
-		super(fieldLabel);
+		this(null, fieldLabel);
+	}
+	
+	public JepTextAreaField(String fieldIdAsWebEl, String fieldLabel) {
+		super(fieldIdAsWebEl, fieldLabel);
 		// установка высоты по умолчанию
 		setFieldHeight(DEFAULT_TEXTAREA_FIELD_HEIGHT);
 	}

@@ -72,12 +72,18 @@ public abstract class JepBaseNumberField<E extends ValueBox<? extends Number>> e
 	 */
 	private static final String TEXT_FIELD_STYLE = "gwt-TextBox";
 	
+	@Deprecated
 	public JepBaseNumberField() {
-		this("");
+		this(null);
 	}
 	
+	@Deprecated
 	public JepBaseNumberField(String fieldLabel) {
-		super(fieldLabel);
+		this(null, fieldLabel);
+	}
+	
+	public JepBaseNumberField(String fieldIdAsWebEl, String fieldLabel) {
+		super(fieldIdAsWebEl, fieldLabel);
 
 		// Проинициализируем список допустимых символов.
 		initAllowedInputCharacters();

@@ -1,5 +1,7 @@
 package com.technology.jep.jepria.client.widget.field;
 
+import static com.technology.jep.jepria.client.AutomationConstant.JEP_LIST_FIELD_ITEM_CHECKBOX_INFIX;
+import static com.technology.jep.jepria.client.AutomationConstant.JEP_OPTION_VALUE_HTML_ATTR;
 import static com.technology.jep.jepria.client.JepRiaClientConstant.JepTexts;
 import static com.technology.jep.jepria.client.JepRiaClientConstant.MAIN_FONT_STYLE;
 
@@ -7,26 +9,25 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import com.google.gwt.cell.client.AbstractEditableCell;
 import com.google.gwt.cell.client.Cell;
-import com.google.gwt.cell.client.CheckboxCell;
 import com.google.gwt.cell.client.CompositeCell;
 import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.cell.client.HasCell;
-import com.google.gwt.cell.client.TextCell;
-import com.google.gwt.core.client.GWT;
+import com.google.gwt.cell.client.ValueUpdater;
+import com.google.gwt.dom.client.BrowserEvents;
+import com.google.gwt.dom.client.Element;
+import com.google.gwt.dom.client.InputElement;
+import com.google.gwt.dom.client.NativeEvent;
+import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.logical.shared.HasValueChangeHandlers;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
-import com.google.gwt.safehtml.client.SafeHtmlTemplates;
-import com.google.gwt.safehtml.shared.SafeHtml;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.safehtml.shared.SafeHtmlUtils;
-import com.google.gwt.text.shared.AbstractSafeHtmlRenderer;
-import com.google.gwt.text.shared.SafeHtmlRenderer;
 import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.DataGrid;
-import com.google.gwt.user.client.Random;
 import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasWidgets;
@@ -34,6 +35,7 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.MultiSelectionModel;
+import com.technology.jep.jepria.client.AutomationConstant;
 import com.technology.jep.jepria.client.util.JepClientUtil;
 import com.technology.jep.jepria.shared.field.option.JepOption;
  
@@ -62,10 +64,13 @@ public class CheckBoxListField<T extends JepOption> extends Composite implements
 	 */
 	private HorizontalPanel panel;
 	
-	private int inc = 0, fieldId = Random.nextInt();
 	protected DataGrid<T> table;
-	private HasCell<T, String> textCell;
 	private List<T> data = new ArrayList<T>();
+	
+	/**
+	 * Флаг свойства disabled данного поля. Необходимо хранить это значение, поскольку оно используется при каждом рендеринге.
+	 */
+	private boolean disabled = false;
 	
 	/**
 	 * Multi Selection Model. 
@@ -73,14 +78,11 @@ public class CheckBoxListField<T extends JepOption> extends Composite implements
 	private MultiSelectionModel<T> selectionModel = new MultiSelectionModel<T>();
 	
 	/**
-	 * Prefix for checkBox's attribute ID
+	 * An html string representation of a checked input box with a label.
 	 */
-	private static final String CHECKBOX_PREFIX_ID = "checkbox_";
-	
-	/**
-	 * An html string representation of a checked input box.
-	 */
-	private static final String CHECKBOX_HTML = "<input type=\"checkbox\" tabindex=\"-1\" id=\"{0}\" style='float:left;cursor:pointer;' {1}/>";
+	private static final String CHECKBOX_HTML = 
+			"<input type='checkbox' tabindex='-1' id='{0}' " + JEP_OPTION_VALUE_HTML_ATTR + "='{1}' style='float:left;cursor:pointer;' {2} {3}/>" +
+			"<label for='{0}' title='{1}' class='item " + MAIN_FONT_STYLE + "'>&nbsp;{1}</label>";
 	
 	/**
 	 * Наименование селектора (класса стилей) компонента, в который помещен чекбокс и текстовый лейбл.
@@ -93,61 +95,69 @@ public class CheckBoxListField<T extends JepOption> extends Composite implements
 	private static final String LIST_FIELD_COMMON_STYLE = "jepRia-ListField-Input-common";
 	
 	/**
-	 * Create a singleton instance of the templates used to render the cell.
+	 * ID объемлющего Jep-поля как Web-элемента. Переменная нужна как поле класса для использования при реднеринге.
 	 */
-	private DefaultRenderer cellRenderer = GWT.create(DefaultRenderer.class);
+	private final String fieldIdAsWebEl;
+	
+	@Deprecated
+	public CheckBoxListField() {
+		this("");
+	}
 	
 	/**
-	 * Default text layout
+	 * Вспомогательный класс для хранения данных, представляемых элементом списка.
+	 * По сути, пара &lt;Boolean, String&gt; = &lt;отмечен?, подпись&gt;.
+	 * @author RomanovAS
 	 */
-	public interface DefaultRenderer extends SafeHtmlTemplates {
-		@Template("<label for='" + CHECKBOX_PREFIX_ID + "{1}' title='{0}' class='item " + MAIN_FONT_STYLE + "'>&nbsp;{0}</label>")
-			public SafeHtml render(String pName, String index);
+	private class CheckBoxDataAggregator {
+		public final Boolean checked;
+		public final String label;
+		public CheckBoxDataAggregator(Boolean checked, String label) {
+			this.checked = checked;
+			this.label = label;
+		}
 	}
 	
 	/**
 	 * Default constructor. Uses default text cell implementation of this class
 	 */
-	public CheckBoxListField() {
-		textCell = new TextCellImpl();
+	public CheckBoxListField(String fieldIdAsWebEl) {
+		this.fieldIdAsWebEl = fieldIdAsWebEl;
 		
 		// Now create a Table which takes an object i.e BaseDataMode
 		table = new DataGrid<T>();
 		table.addStyleName(LIST_FIELD_COMMON_STYLE);
 		
-		// Create a list of cell. These cells will make up the composite cell
-		// Here I am constructing a composite cell with 2 parts that includes a checkbox.
+		// FIXME TODO Ниже нужно избежать использования CompositeCell, так как после рефакторинга
+		// элемент списка состоит из одного, а не двух элементов и поэтому больше не является композитным.
+		// Проблема в том, что Column не создается от HasCell (зато создается от CompositeCell(HasCell)),
+		// а использование HasCell нужно для задания в нем FieldUpdater.
+		
 		List<HasCell<T, ?>> cellComponents = new ArrayList<HasCell<T, ?>>();
 	
-		// 1st part of Composite cell - Show a checkbox and select it "selected property is true
-		cellComponents.add(new HasCell<T, Boolean>() {
+		cellComponents.add(new HasCell<T, CheckBoxDataAggregator>() {
 		
 			// These booleans (false,true) are very important for right behavior of CBCell selection.
-			private CheckboxCell cell = new CheckBoxCellImpl();
+			private Cell<CheckBoxDataAggregator> cell = new JepCheckBoxCell();
 				
-				public Cell<Boolean> getCell() {
-					return cell;
-				}
+			public Cell<CheckBoxDataAggregator> getCell() {
+				return cell;
+			}
 			
-			public FieldUpdater<T, Boolean> getFieldUpdater() {
-				return new FieldUpdater<T, Boolean>() {
-					public void update(int index, T object, Boolean isCBChecked) {
-						selectionModel.setSelected(object, isCBChecked);
+			public FieldUpdater<T, CheckBoxDataAggregator> getFieldUpdater() {
+				return new FieldUpdater<T, CheckBoxDataAggregator>() {
+					public void update(int index, T object, CheckBoxDataAggregator newData) {
+						selectionModel.setSelected(object, newData.checked);
 						ValueChangeEvent.fire(CheckBoxListField.this, object);
 					}
 				};
 			}
 			
-			public Boolean getValue(T object) {
-				return selectionModel.isSelected(object);
+			public CheckBoxDataAggregator getValue(T object) {
+				return new CheckBoxDataAggregator(selectionModel.isSelected(object), object.getName());
 			}
 		});
 		
-		// 2nd part of Composite cell - Show Text for the CB Cell
-		cellComponents.add(textCell);
-		
-		// Create a composite cell and pass the definition of
-		// individual cells that the composite cell should render.
 		CompositeCell<T> compositeCell = new CompositeCell<T>(cellComponents);
 		
 		Column<T, T> columnCell = new Column<T, T>(compositeCell) {
@@ -173,7 +183,7 @@ public class CheckBoxListField<T extends JepOption> extends Composite implements
 		selectAllCheckBox.addValueChangeHandler(new ValueChangeHandler<Boolean>() {			
 			@Override
 			public void onValueChange(ValueChangeEvent<Boolean> event) {
-				onSelectAll();
+				onSelectAll(event != null && event.getValue() != null && event.getValue());
 			}
 		});
 		
@@ -230,7 +240,18 @@ public class CheckBoxListField<T extends JepOption> extends Composite implements
 	 * @param enabled доступность компонента
 	 */
 	public void setEnabled(boolean enabled) {
-		// TODO реализовать блокировку списка
+		disabled = !enabled;
+		
+		// Свойство ниже является маркером того, что поле неактивно, при Selenium-тестировании;
+		// функционально оно не является необходимым.
+		if (disabled) {
+			table.getElement().setAttribute("disabled", "true");
+		} else {
+			table.getElement().removeAttribute("disabled");
+		}
+		
+		table.redraw();
+		
 		selectAllCheckBox.setEnabled(enabled);
 	}
 	
@@ -272,9 +293,9 @@ public class CheckBoxListField<T extends JepOption> extends Composite implements
 	 * После этого вызывается событие 
 	 * {@link com.technology.jep.jepria.client.widget.event.JepEventType#CHANGE_SELECTION_EVENT}.
 	 */
-	protected void onSelectAll() {
-		if (selectAllCheckBox.getValue()) {
-			selectAll();
+	protected void onSelectAll(boolean selectAll) {
+		if (selectAll) {
+			setSelection(data);
 		}
 		else {
 			setSelection(null);
@@ -357,75 +378,103 @@ public class CheckBoxListField<T extends JepOption> extends Composite implements
 	}
 	
 	/**
-	 * Принудительно выбирает все опции.
+	 * Данный класс является аналогом gwt-класса {@link com.google.gwt.cell.client.CheckBoxCell},
+	 * с единственной существенной разницей:
+	 * CheckBoxCell extends AbstractEditableCell<Boolean, Boolean>
+	 * JepCheckBoxCell extends AbstractEditableCell<CheckBoxDataAggregator, CheckBoxDataAggregator>
 	 */
-	public void selectAll() {
-		setSelection(data);
-	}
+	private class JepCheckBoxCell extends AbstractEditableCell<CheckBoxDataAggregator, CheckBoxDataAggregator> {
+		
+		/**
+		 * Начало блока кода, аналогичного классу com.google.gwt.cell.client.CheckBoxCell
+		 */
+		public JepCheckBoxCell() {
+			super(BrowserEvents.CHANGE, BrowserEvents.KEYDOWN);
+		}
+		
+		@Override
+		public boolean dependsOnSelection() {
+			return false;
+		}
+		@Override
+		public boolean handlesSelection() {
+			return true;
+		}
 
-	/**
-	 * This is the default TextCell implementation. Will be used if the user don't plan to customize the text cell
-	 */
-	class TextCellImpl implements HasCell<T, String> {
+		@Override
+		public boolean isEditing(Context context, Element parent, CheckBoxDataAggregator value) {
+			return false;
+		}
 		
-		private int inc = 0;
-		private SafeHtmlRenderer<String> renderer = new AbstractSafeHtmlRenderer<String>(){
-			@Override
-			public SafeHtml render(String object) {
-				return (object == null) ? SafeHtmlUtils.EMPTY_SAFE_HTML : SafeHtmlUtils.fromTrustedString(object);
-			}
+		@Override
+		public void onBrowserEvent(Context context, Element parent, CheckBoxDataAggregator value,
+				NativeEvent event, ValueUpdater<CheckBoxDataAggregator> valueUpdater) {
 			
-		};
-		
-		TextCell txtCell = new TextCell(renderer) {
-			@Override
-			public void render(Context context, SafeHtml value, SafeHtmlBuilder sb) {
-				if (value == null) return;
-				SafeHtml rendered = cellRenderer.render(value.asString(), fieldId + "_" + inc++);
-				sb.append(rendered);
+			String type = event.getType();
+			
+			boolean enterPressed = BrowserEvents.KEYDOWN.equals(type)
+					&& event.getKeyCode() == KeyCodes.KEY_ENTER;
+			if (BrowserEvents.CHANGE.equals(type) || enterPressed) {
+				InputElement input = parent.getFirstChild().cast();
+				Boolean isChecked = input.isChecked();
+
+				/*
+				* Toggle the value if the enter key was pressed and the cell handles
+				* selection or doesn't depend on selection. If the cell depends on
+				* selection but doesn't handle selection, then ignore the enter key and
+				* let the SelectionEventManager determine which keys will trigger a
+				* change.
+				*/
+				if (enterPressed && (handlesSelection() || !dependsOnSelection())) {
+					isChecked = !isChecked;
+					input.setChecked(isChecked);
+				}
+
+				/*
+				* Save the new value. However, if the cell depends on the selection, then
+				* do not save the value because we can get into an inconsistent state.
+				*/
+				if (value.checked != isChecked && !dependsOnSelection()) {
+					setViewData(context.getKey(), new CheckBoxDataAggregator(isChecked, value.label));
+				} else {
+					clearViewData(context.getKey());
+				}
+
+				if (valueUpdater != null) {
+					valueUpdater.update(new CheckBoxDataAggregator(isChecked, value.label));
+				}
 			}
-		};
-		
-		public Cell<String> getCell() {
-			return txtCell;
 		}
-		
-		public FieldUpdater<T, String> getFieldUpdater() {
-			return null;
-		}
+		/**
+		 * Конец блока кода, аналогичного классу com.google.gwt.cell.client.CheckBoxCell
+		 */
 		
 		@Override
-		public String getValue(T object) {
-			return object.getName();
-		}
-	}
-	
-	/**
-	 * Implementation of Chechbox Cell.
-	 */
-	class CheckBoxCellImpl extends CheckboxCell {
-		
-		public CheckBoxCellImpl(){
-			super(false, true);
-		}
-		
-		@Override
-		public void render(Context context, Boolean value, SafeHtmlBuilder sb) {
-			// Get the view data.
+		public void render(Context context, CheckBoxDataAggregator value, SafeHtmlBuilder sb) {
 			Object key = context.getKey();
-			Boolean viewData = getViewData(key);
-			if (viewData != null && viewData.equals(value)) {
+			Boolean viewData = getViewData(key) != null ? getViewData(key).checked : null;
+			if (viewData != null && viewData.equals(value.checked)) {
 				clearViewData(key);
 				viewData = null;
 			}
 			
-			String checkBoxString;
-			if (value != null && ((viewData != null) ? viewData : value)) {
-				checkBoxString = JepClientUtil.substitute(CHECKBOX_HTML, CHECKBOX_PREFIX_ID + fieldId + "_" + inc++, "checked");
-			} else {
-			checkBoxString = JepClientUtil.substitute(CHECKBOX_HTML, CHECKBOX_PREFIX_ID + fieldId + "_" + inc++, "");
-			}
-			sb.append(SafeHtmlUtils.fromSafeConstant(checkBoxString));
+			final String checkBoxHtmlString;
+			String checkBoxIdAsWebEl = fieldIdAsWebEl + JEP_LIST_FIELD_ITEM_CHECKBOX_INFIX + value.label;
+			
+			boolean checked = value.checked != null && ((viewData != null) ? viewData : value.checked);
+			checkBoxHtmlString = JepClientUtil.substitute(CHECKBOX_HTML, checkBoxIdAsWebEl, value.label,
+					checked ? "checked" : "", disabled ? "disabled" : "");
+			
+			sb.append(SafeHtmlUtils.fromSafeConstant(checkBoxHtmlString));
 		}
+	}
+	
+	/**
+	 * Установка ID внутренних компонентов CheckBoxListField: table-списка как INPUT, кнопки "выделить все"
+	 * @param fieldIdAsWebEl ID JepListField'а, который берется за основу ID внутренних компонентов
+	 */
+	public void setCompositeWebIds(String fieldIdAsWebEl) {
+		table.getElement().setId(fieldIdAsWebEl + AutomationConstant.JEP_FIELD_INPUT_POSTFIX);
+		selectAllCheckBox.getElement().setId(fieldIdAsWebEl + AutomationConstant.JEP_LIST_FIELD_CHECKALL_POSTFIX);
 	}
 }

@@ -89,6 +89,16 @@
 		<servlet-name>downloadServlet</servlet-name>
 		<url-pattern>/JepRiaShowcase/download</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>ArsenicServlet</servlet-name>
+		<servlet-class>com.technology.jep.jepriashowcase.arsenic.server.service.ArsenicServiceImpl</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ArsenicServlet</servlet-name>
+		<url-pattern>/JepRiaShowcase/ArsenicService</url-pattern>
+	</servlet-mapping>
+	
 	<servlet>
 		<servlet-name>ShopGoodsServlet</servlet-name>
 		<servlet-class>com.technology.jep.jepriashowcase.shopgoods.server.service.ShopGoodsServiceImpl</servlet-class>

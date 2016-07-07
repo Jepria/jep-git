@@ -1,10 +1,10 @@
 package com.technology.jep.jepriashowcase.goods.auto;
 
-import static com.technology.jep.jepriashowcase.goods.client.JRSCGoodsAutomationConstant.JRSC_GOODS_MOTIVATION_DETAILFORM_FIELD_INPUT_ID;
-import static com.technology.jep.jepriashowcase.goods.client.JRSCGoodsAutomationConstant.JRSC_GOODS_NAME_DETAILFORM_FIELD_INPUT_ID;
-import static com.technology.jep.jepriashowcase.goods.client.JRSCGoodsAutomationConstant.JRSC_GOODS_PURCHASING_PRICE_DETAILFORM_FIELD_INPUT_ID;
-import static com.technology.jep.jepriashowcase.goods.client.JRSCGoodsAutomationConstant.JRSC_GOODS_TYPE_DETAILFORM_FIELD_INPUT_ID;
-import static com.technology.jep.jepriashowcase.goods.client.JRSCGoodsAutomationConstant.JRSC_GOODS_UNIT_DETAILFORM_FIELD_INPUT_ID;
+import static com.technology.jep.jepriashowcase.goods.client.JRSCGoodsAutomationConstant.JRSC_GOODS_MOTIVATION_RADIO_FIELD_ID;
+import static com.technology.jep.jepriashowcase.goods.client.JRSCGoodsAutomationConstant.JRSC_GOODS_NAME_TEXT_FIELD_ID;
+import static com.technology.jep.jepriashowcase.goods.client.JRSCGoodsAutomationConstant.JRSC_GOODS_PURCHASING_PRICE_NUMBER_FIELD_ID;
+import static com.technology.jep.jepriashowcase.goods.client.JRSCGoodsAutomationConstant.JRSC_GOODS_TYPE_COMBOBOX_FIELD_ID;
+import static com.technology.jep.jepriashowcase.goods.client.JRSCGoodsAutomationConstant.JRSC_GOODS_UNIT_COMBOBOX_FIELD_ID;
 
 import java.util.Set;
 
@@ -28,44 +28,42 @@ public class GoodsAutoImpl<A extends JepRiaShowcaseAuto, P extends JepRiaShowcas
 
 	@Override
 	public void setGoodsName(String goodsNameValue) {
-		setFieldValue(JRSC_GOODS_NAME_DETAILFORM_FIELD_INPUT_ID, goodsNameValue);
+		setFieldValue(JRSC_GOODS_NAME_TEXT_FIELD_ID, goodsNameValue);
 	}
 
 	@Override
 	public void setPurchasingPrice(String purchasingPrice) {
-		setFieldValue(JRSC_GOODS_PURCHASING_PRICE_DETAILFORM_FIELD_INPUT_ID, purchasingPrice);
+		setFieldValue(JRSC_GOODS_PURCHASING_PRICE_NUMBER_FIELD_ID, purchasingPrice);
 	}
 
 	@Override
 	public String getGoodsName() {
-		return getFieldValue(JRSC_GOODS_NAME_DETAILFORM_FIELD_INPUT_ID);
+		return getFieldValue(JRSC_GOODS_NAME_TEXT_FIELD_ID);
 	}
 
 	@Override
 	public String getPurchasingPrice() {
-		return getFieldValue(JRSC_GOODS_PURCHASING_PRICE_DETAILFORM_FIELD_INPUT_ID);
+		return getFieldValue(JRSC_GOODS_PURCHASING_PRICE_NUMBER_FIELD_ID);
 	}
 
 	@Override
 	public void setGoodsType(String goodsType) {
-		pages.goodsPage.ensurePageLoaded();
-		selectComboBoxMenuItem(JRSC_GOODS_TYPE_DETAILFORM_FIELD_INPUT_ID, goodsType);
+		selectComboBoxMenuItem(JRSC_GOODS_TYPE_COMBOBOX_FIELD_ID, goodsType);
 	}
 
 	@Override
 	public String getGoodsType() {
-		return getFieldValue(JRSC_GOODS_TYPE_DETAILFORM_FIELD_INPUT_ID);
+		return getFieldValue(JRSC_GOODS_TYPE_COMBOBOX_FIELD_ID);
 	}
 
 	@Override
 	public void setUnit(String unit) {
-		pages.goodsPage.ensurePageLoaded();
-		selectComboBoxMenuItem(JRSC_GOODS_UNIT_DETAILFORM_FIELD_INPUT_ID, unit);
+		selectComboBoxMenuItem(JRSC_GOODS_UNIT_COMBOBOX_FIELD_ID, unit);
 	}
 
 	@Override
 	public String getUnit() {
-		return getFieldValue(JRSC_GOODS_UNIT_DETAILFORM_FIELD_INPUT_ID);
+		return getFieldValue(JRSC_GOODS_UNIT_COMBOBOX_FIELD_ID);
 	}
 
 
@@ -81,13 +79,16 @@ public class GoodsAutoImpl<A extends JepRiaShowcaseAuto, P extends JepRiaShowcas
 	
 	@Override
 	public void setMotivation(String motivation) {
+		// FIXME поддержка Selenium-тестирования элемента RadioButton пока не поддерживается,
+		// поэтому весь код, который должен располагаться в JepRiaModuleAutoImpl, располагается здесь.
+		
 		pages.goodsPage.ensurePageLoaded();
 		
 		try {
 			
 			// TODO Обработку radioButton перенести в JepRia
 			String radioButtonInputXPath = "//table[@id='"
-					+ JRSC_GOODS_MOTIVATION_DETAILFORM_FIELD_INPUT_ID +"']//span[@class='gwt-RadioButton']"
+					+ JRSC_GOODS_MOTIVATION_RADIO_FIELD_ID +"']//span[@class='gwt-RadioButton']"
 					+ "//.[contains(text(),'"
 					+ motivation
 					+ "')]/preceding-sibling::input";
@@ -103,11 +104,14 @@ public class GoodsAutoImpl<A extends JepRiaShowcaseAuto, P extends JepRiaShowcas
 
 	@Override
 	public String getMotivation() {
+		// FIXME поддержка Selenium-тестирования элемента RadioButton пока не поддерживается,
+		// поэтому весь код, который должен располагаться в JepRiaModuleAutoImpl, располагается здесь.
+		
 		String result;
 		pages.goodsPage.ensurePageLoaded();
 		
 		String checkedRadioButtonXPath = "//table[@id='"
-				+ JRSC_GOODS_MOTIVATION_DETAILFORM_FIELD_INPUT_ID
+				+ JRSC_GOODS_MOTIVATION_RADIO_FIELD_ID
 				+ "']//span[@class='gwt-RadioButton']//input[@checked]/following-sibling::label";
 		
 		try {

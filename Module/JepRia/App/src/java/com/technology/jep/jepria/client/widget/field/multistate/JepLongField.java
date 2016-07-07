@@ -10,11 +10,15 @@ import com.technology.jep.jepria.shared.util.JepRiaUtil;
 public class JepLongField extends JepIntegerField {
 
 	public JepLongField() {
-		this("");
+		this(null);
 	}
 	
 	public JepLongField(String fieldLabel) {
-		super(fieldLabel);
+		this(null, fieldLabel);
+	}
+	
+	public JepLongField(String fieldIdAsWebEl, String fieldLabel) {
+		super(fieldIdAsWebEl, fieldLabel);
 	}
 	
 	/**

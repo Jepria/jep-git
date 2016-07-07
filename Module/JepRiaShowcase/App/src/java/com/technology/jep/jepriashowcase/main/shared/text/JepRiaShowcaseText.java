@@ -16,6 +16,15 @@ public interface JepRiaShowcaseText extends com.google.gwt.i18n.client.Constants
   String submodule_allshopgoods_title();
 
   /**
+   * Translated "Мышьяк (Selenium-тестирование)".
+   * 
+   * @return translated "Мышьяк (Selenium-тестирование)"
+   */
+  @DefaultStringValue("Мышьяк (Selenium-тестирование)")
+  @Key("submodule.arsenic.title")
+  String submodule_arsenic_title();
+
+  /**
    * Translated "Произвольное расположение".
    * 
    * @return translated "Произвольное расположение"

@@ -17,10 +17,10 @@ public class DefaultLoginPage<P extends PageManagerBase> extends PlainPage<P> im
         super(pages);
     }
 
-    @FindBy(id = AutomationConstant.JAVASSO_LOGIN_USERNAME_INPUT_FIELD_ID)
+    @FindBy(id = AutomationConstant.JAVASSO_LOGIN_USERNAME_FIELD_ID)
     private WebElement loginField;
 
-    @FindBy(id = AutomationConstant.JAVASSO_LOGIN_PASSWORD_INPUT_FIELD_ID)
+    @FindBy(id = AutomationConstant.JAVASSO_LOGIN_PASSWORD_FIELD_ID)
     private WebElement pswdField;
 
     @FindBy(id = "login.registration")

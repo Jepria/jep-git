@@ -10,6 +10,7 @@ public class JepRiaShowcaseClientConstant extends JepRiaShowcaseConstant {
 	public static final String SEARCH_MODULE_ID = "Search";
 	public static final String SUPPLIER_MODULE_ID = "Supplier";
 	public static final String GOODS_MODULE_ID = "Goods";
+	public static final String ARSENIC_MODULE_ID = "Arsenic";
 	public static final String SHOPGOODS_MODULE_ID = "ShopGoods";
 	public static final String SIMPLE_MODULE_ID = "Simple";
 	public static final String ALLSHOPGOODS_MODULE_ID = "AllShopGoods";
@@ -27,6 +28,7 @@ public class JepRiaShowcaseClientConstant extends JepRiaShowcaseConstant {
 	public static final String URL_SEARCH_MODULE = "JepRiaShowcaseSearch.jsp?em=Search&es=sh#sh:sm=Search&ws=sh";
 	public static final String URL_SUPPLIER_MODULE = "JepRiaShowcase.jsp?em=Supplier&es=sh";
 	public static final String URL_GOODS_MODULE = "JepRiaShowcase.jsp?em=Goods&es=sh";
+	public static final String URL_ARSENIC_MODULE = "JepRiaShowcase.jsp?em=Arsenic&es=sh";
 	public static final String URL_SHOPGOODS_MODULE = "JepRiaShowcase.jsp?em=ShopGoods&es=sh";
 	public static final String URL_ALLSHOPGOODS_MODULE = "JepRiaShowcase.jsp?em=AllShopGoods&es=sh";
 	public static final String URL_REQUEST_MODULE = "JepRiaShowcase.jsp?em=Request&es=sh";

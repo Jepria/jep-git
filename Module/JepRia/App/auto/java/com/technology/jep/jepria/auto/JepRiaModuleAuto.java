@@ -1,5 +1,6 @@
 package com.technology.jep.jepria.auto;
 
+import java.util.List;
 import java.util.Map;
 
 import com.technology.jep.jepria.auto.entrance.EntranceAuto;
@@ -98,32 +99,151 @@ public interface JepRiaModuleAuto extends EntranceAuto {
 	void clickButton(String buttonId);
 	
 	/**
-	 * Установка заданного значения полю по заданному id элемента ввода 
+	 * Установка заданного значения элементу ввода поля по заданному id поля 
 	 * 
-	 * @param fieldInputId id элемента ввода
+	 * @param fieldId id поля, id элемента ввода которого будет использовано для задания значения
 	 * @param value устанавливаемое значение
 	 */
-	void setFieldValue(String fieldInputId, String value);
+	void setFieldValue(String fieldId, String value);
 
 	/**
-	 * Получение значения поля по заданному id элемента ввода
+	 * Получение значения элемента ввода поля по заданному id поля
 	 *  
-	 * @param fieldInputId id элемента ввода
+	 * @param fieldId id поля, id элемента ввода которого будет использовано для получения значения
 	 * @return значение поля
 	 */
-	String getFieldValue(String fieldInputId);
+	String getFieldValue(String fieldId);
+	
+	/**
+	 * Получение значений правого списка поля JepDualListField
+	 *  
+	 * @param jepDualListFieldId id JepDualListField'а
+	 * @return массив имён находящихся в правой части (выбранных) опций.
+	 * Имена в полученном массиве располагаются в порядке их отображения в правой части JepDualListField'а,
+	 * поэтому сравнение массивов в классе *AutoTest необходимо производить без учета порядка!  
+	 */
+	String[] getDualListFieldValues(String jepDualListFieldId);
 	
 	/**
 	 * Проверка отображения MessageBox
 	 * @return true, если MessageBox отображается
 	 */
 	boolean checkMessageBox(String messageBoxId);
-
+	
 	/**
-	 * Установка заданного значения полю по заданному id элемента ввода 
-	 * 
-	 * @param comboBoxFieldInputId
-	 * @param menuItemText
+	 * Простой выбор элемента Комбо-бокса по заданному id.
+	 * Предполагается, что если элемент есть в выпадающем списке, то он становится доступным при первой загрузке опций.
+	 * Если искомой опции нет в выпадающем списке, выбрасывается исключение WrongOptionException.
+	 * @param comboBoxFieldId id ComboBox-поля
+	 * @param menuItem Имя опции, которую необходимо выбрать
 	 */
-	void selectComboBoxMenuItem(String comboBoxFieldInputId, String menuItemText);
+	void selectComboBoxMenuItem(String comboBoxFieldId, String menuItem);
+	
+	/**
+	 * Сложный выбор элемента Комбо-бокса по заданному id.
+	 * Предполагается, что при первой загрузке опций не все опции появляются в списке (например, список слишком длинный),
+	 * и искомая опция может стать доступной о мере ввода текста.
+	 * Если искомой опции нет в выпадающем списке после введения всего текста, выбрасывается исключение WrongOptionException.
+	 * @param comboBoxFieldId id ComboBox-поля
+	 * @param menuItem Имя опции, которую необходимо выбрать
+	 * @param minInputLength Минимальное количество символов, которые необходимо ввести для того, чтобы в данном Комбо-боксе
+	 * началась загрузка опций (например, при поиске оператора, часто опции загружаются при вводе мимнимум 3 символов). 
+	 * Минимально допустимое значение = 1 (устанавливается автоматически при задании меньшего значения).
+	 */
+	void selectComboBoxMenuItemWithCharByCharReloadingOptions(String comboBoxFieldId, String menuItem, int minInputLength);
+	
+	/**
+	 * Выбор элементов DualListField по заданному Id.
+	 * @param dualListFieldId id DualList-поля
+	 * @param menuItems массив непустых имён опций, которые следует выбрать из левой части DualList-поля в правую.
+	 * В случае если в левой части отсутствует хотя бы одна из требуемых опций, выбрасывается исключение WrongOptionException.
+	 */
+	void selectDualListMenuItems(String dualListFieldId, String menuItems[]);
+	
+	/**
+	 * Простановка флажка CheckBoxField по заданному Id.
+	 * @param checkBoxFieldId id CheckBox-поля
+	 * @param checked требуемое для установки значение
+	 */
+	void setCheckBoxFieldValue(String checkBoxFieldId, boolean checked);
+	
+	/**
+	 * Изменение значения флажка CheckBoxField по заданному Id на противоположное.
+	 * @param checkBoxFieldId id CheckBox-поля
+	 */
+	void changeCheckBoxFieldValue(String checkBoxFieldId);
+	
+	/**
+	 * Получение значения поля  CheckBoxField.
+	 * 
+	 * @param checkBoxFieldId id CheckBox-поля
+	 */
+	boolean getCheckBoxFieldValue(String checkBoxFieldId);
+	
+	/**
+	 * Выбор элементов JepListField по заданному Id.
+	 * @param listFieldId id JepList-поля
+	 * @param menuItems массив непустых имён опций, которые следует отметить в списке.
+	 * В случае если в списке отсутствует хотя бы одна из требуемых опций, выбрасывается исключение WrongOptionException.
+	 */
+	void selectListMenuItems(String listFieldId, String menuItems[]);
+	
+	/**
+	 * Выбор всех элементов JepListField по заданному Id.
+	 * @param listFieldId id JepList-поля
+	 * @param selectAll true для выбора всех элементов, false для снятия всех флажков.
+	 */
+	void selectAllListMenuItems(String listFieldId, boolean selectAll);
+	
+	/**
+	 * Получение отмеченных значений списка поля JepListField
+	 *  
+	 * @param jepListFieldId id JepListField'а
+	 * @return массив имён отмеченных (выбранных) опций.
+	 * Имена в полученном массиве располагаются в порядке их отображения в списке JepListField'а,
+	 * поэтому сравнение массивов в классе *AutoTest необходимо производить без учета порядка!  
+	 */
+	String[] getListFieldValues(String jepListFieldId);
+	
+	/**
+	 * Проверка видимости Jep-поля по заданному ID (атрибута aria-hidden)
+	 * @param fieldId id Jep-поля
+	 */
+	boolean isFieldVisible(String fieldId);
+	
+	/**
+	 * Проверка доступности Jep-поля по заданному ID (атрибута disabled)
+	 * @param fieldId id Jep-поля
+	 */
+	boolean isFieldEnabled(String fieldId);
+	
+	/**
+	 * Проверка редактируемости Jep-поля по заданному ID (атрибута jep-card-type)
+	 * @param fieldId id Jep-поля
+	 */
+	boolean isFieldEditable(String fieldId);
+	
+	/**
+	 * Проверка необязательности Jep-поля по заданному ID (наличия маркера обязательности (*) )
+	 * @param fieldId id Jep-поля
+	 */
+	boolean isFieldAllowBlank(String fieldId);
+	
+	
+	
+	
+	// The methods below are for LISTFORM, not DETAILFORM! TODO extract them into another class?
+	
+	List<String> getGridHeaders(String gridId);
+	
+	/**
+	 * @return a list of rows, each is a list of cell-objects.
+	 * Each object of the resultant grid may be either of a type WebElement
+	 * (if a cell contains something inside, such as input) or of a type String
+	 * (if there is only a text). The value of a particular cell can be
+	 * obtained using the row number and a column index,
+	 * known from the result of #getGridHeaders().
+	 */
+	List<List<Object>> getGridDataRowwise(String gridId); 
+	
 }

@@ -9,6 +9,7 @@ import static com.technology.jep.jepria.client.JepRiaClientConstant.JepTexts;
 import static com.technology.jep.jepria.client.JepRiaClientConstant.MAIN_FONT_STYLE;
 import static com.technology.jep.jepria.client.JepRiaClientConstant.REQUIRED_MARKER;
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.SEARCH;
+import static com.technology.jep.jepria.client.AutomationConstant.*;
 
 import java.util.List;
 
@@ -21,7 +22,9 @@ import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Widget;
+import com.technology.jep.jepria.client.AutomationConstant;
 import com.technology.jep.jepria.client.ui.WorkstateEnum;
+import com.technology.jep.jepria.client.util.JepClientUtil;
 import com.technology.jep.jepria.client.widget.event.JepEvent;
 import com.technology.jep.jepria.client.widget.event.JepEventType;
 import com.technology.jep.jepria.client.widget.event.JepListener;
@@ -126,6 +129,11 @@ public abstract class JepMultiStateField<E extends Widget, V extends Widget> ext
 	private String fieldLabel;
 	
 	/**
+	 * ID данного Jep-поля как Web-элемента.
+	 */
+	protected final String fieldIdAsWebEl;
+	
+	/**
 	 * Разделитель для метки поля (по умолчанию, двоеточие). 
 	 */
 	private String labelSeparator = ":";
@@ -155,11 +163,23 @@ public abstract class JepMultiStateField<E extends Widget, V extends Widget> ext
 	 */
 	public static final String ALIGN_ATTRIBUTE_NAME = "align";
 	
+	@Deprecated
 	public JepMultiStateField() {
-		this("");
+		this(null);
 	}
 	
+	@Deprecated
 	public JepMultiStateField(String fieldLabel) {
+		this(null, fieldLabel);
+	}
+	
+	public JepMultiStateField(String fieldIdAsWebEl, String fieldLabel) {
+		// Корректировка параметров
+		fieldLabel = (fieldLabel != null) ? fieldLabel : "";
+		// Если ID поля явно не задано, указываем в качестве ID его подпись + набор цифр
+		fieldIdAsWebEl = (fieldIdAsWebEl != null) ? fieldIdAsWebEl : (fieldLabel + "_" + System.currentTimeMillis());
+		this.fieldIdAsWebEl = fieldIdAsWebEl;
+		
 		viewCardLabel = new HTML();
 		viewCardLabel.getElement().addClassName(MAIN_FONT_STYLE);
 		editableCardLabel = new HTML();
@@ -218,6 +238,30 @@ public abstract class JepMultiStateField<E extends Widget, V extends Widget> ext
 		applyStyle();
 		
 		changeWorkstate(SEARCH);
+		
+		
+		// Установка web-ID поля
+		this.getElement().setId(this.fieldIdAsWebEl);
+		// Установка web-ID других элементов поля
+		setWebIds();
+		setCardWebAttrs();
+	}
+	
+	/**
+	 * Установка web-ID двух карт данного Jep-поля.
+	 */
+	private void setCardWebAttrs() {
+		editableCard.getElement().setAttribute(AutomationConstant.JEP_CARD_TYPE_HTML_ATTR, AutomationConstant.JEP_CARD_TYPE_VALUE_EDTB);
+		viewCard.getElement().setAttribute(AutomationConstant.JEP_CARD_TYPE_HTML_ATTR, AutomationConstant.JEP_CARD_TYPE_VALUE_VIEW);
+	}
+	
+	/**
+	 * Установка web-ID внутренних компонентов, специфичных для конкретного Jep-поля.
+	 * Метод предназначен для перекрытия потомками. За основу назначаемых идентификаторов следует брать значение поля
+	 * this.fieldIdAsWebEl .
+	 */
+	protected void setWebIds() {
+		this.getInputElement().setId(fieldIdAsWebEl + AutomationConstant.JEP_FIELD_INPUT_POSTFIX);
 	}
 	
 	/**
@@ -262,7 +306,12 @@ public abstract class JepMultiStateField<E extends Widget, V extends Widget> ext
 		this.fieldLabel = fieldLab;
 		
 		this.viewCardLabel.setHTML(fieldLab + this.labelSeparator);
-		this.editableCardLabel.setHTML((this.allowBlank ? "" : REQUIRED_MARKER) + fieldLab + this.labelSeparator);
+		
+		if (this.allowBlank) {
+			this.editableCardLabel.setHTML(fieldLab + this.labelSeparator);
+		} else {
+			this.editableCardLabel.setHTML(JepClientUtil.substitute(REQUIRED_MARKER, fieldIdAsWebEl + JEP_FIELD_ALLOW_BLANK_POSTFIX) + fieldLab + this.labelSeparator);
+		}
 	}
 	
 	/**

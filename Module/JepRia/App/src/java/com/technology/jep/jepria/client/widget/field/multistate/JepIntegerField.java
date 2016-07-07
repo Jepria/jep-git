@@ -12,23 +12,17 @@ import com.technology.jep.jepria.shared.util.JepRiaUtil;
 public class JepIntegerField extends JepBaseNumberField<ValueBox<? extends Number>> {
 	
 	public JepIntegerField() {
-		this("");
+		this(null);
 	}
 	
 	public JepIntegerField(String fieldLabel) {
-		super(fieldLabel);
+		this(null, fieldLabel);
 	}
 
-    /**
-     * Перегруженный конструктор для добавления указанного ID в DOM
-     * @param fieldId ID в DOM
-     * @param fieldLabel Текстовая метка перед полем
-     */
-    public JepIntegerField(String fieldId, String fieldLabel) {
-        this(fieldLabel);
-        this.getElement().setId(fieldId);
-        this.getInputElement().setId(fieldId + "_INPUT");
+    public JepIntegerField(String fieldIdAsWebEl, String fieldLabel) {
+        super(fieldIdAsWebEl, fieldLabel);
     }
+    
 	/**
 	 * {@inheritDoc}
 	 */

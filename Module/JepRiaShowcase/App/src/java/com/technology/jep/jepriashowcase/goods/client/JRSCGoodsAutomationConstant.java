@@ -33,11 +33,6 @@ public class JRSCGoodsAutomationConstant {
 	public static final String JRSC_GOODS_NAME_TEXT_FIELD_ID = "JRSC_GOODS_NAME_DETAILFORM_FIELD";
 	
 	/**
-	 * Идентификатор тега <I>input</I> поля <I>Наименование товара</I>
-	 */
-	public static final String JRSC_GOODS_NAME_DETAILFORM_FIELD_INPUT_ID = "JRSC_GOODS_NAME_DETAILFORM_FIELD_INPUT";
-
-	/**
 	 * Идентификатор поля <I>Тип товара</I>
 	 */
 	public static final String JRSC_GOODS_TYPE_COMBOBOX_FIELD_ID = "JRSC_GOODS_TYPE_DETAILFORM_FIELD";
@@ -48,32 +43,12 @@ public class JRSCGoodsAutomationConstant {
 	public static final String JRSC_GOODS_UNIT_COMBOBOX_FIELD_ID = "JRSC_GOODS_UNIT_DETAILFORM_FIELD";
 	
 	/**
-	 * Идентификатор тега <I>input</I> поля <I>Единицы измерения</I>
-	 */
-	public static final String JRSC_GOODS_UNIT_DETAILFORM_FIELD_INPUT_ID = "JRSC_GOODS_UNIT_DETAILFORM_FIELD_INPUT";
-	
-	/**
-	 * Идентификатор тега <I>input</I> поля <I>Тип товара</I>
-	 */
-	public static final String JRSC_GOODS_TYPE_DETAILFORM_FIELD_INPUT_ID = "JRSC_GOODS_TYPE_DETAILFORM_FIELD_INPUT";
-
-	/**
 	 * Идентификатор поля "Закупочная цена"
 	 */
 	public static final String JRSC_GOODS_PURCHASING_PRICE_NUMBER_FIELD_ID = "JRSC_GOODS_PURCHASING_PRICE_DETAILFORM_FIELD";
 	
 	/**
-	 * Идентификатор тега <I>input</I> поля <I>Закупочная цена</I>
-	 */
-	public static final String JRSC_GOODS_PURCHASING_PRICE_DETAILFORM_FIELD_INPUT_ID = "JRSC_GOODS_PURCHASING_PRICE_DETAILFORM_FIELD_INPUT";
-
-	/**
 	 * Идентификатор поля <I>Мотивация</I>
 	 */
 	public static final String JRSC_GOODS_MOTIVATION_RADIO_FIELD_ID = "JRSC_GOODS_MOTIVATION_DETAILFORM_FIELD";
-	
-	/**
-	 * Идентификатор тега <I>input</I> поля <I>Мотивация</I>
-	 */
-	public static final String JRSC_GOODS_MOTIVATION_DETAILFORM_FIELD_INPUT_ID = "JRSC_GOODS_MOTIVATION_DETAILFORM_FIELD_INPUT";
 }

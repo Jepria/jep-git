@@ -21,7 +21,7 @@
 			</define>
 		
 			<run>
-				<include name="all" />
+				<include name="find" />
 			</run>
 		</groups>
 		

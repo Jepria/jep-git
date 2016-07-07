@@ -10,17 +10,15 @@ import com.google.gwt.user.client.ui.DoubleBox;
 public class JepNumberField extends JepBaseNumberField<DoubleBox> {
 	
 	public JepNumberField(){
-		this("");
+		this(null);
 	}
 	
 	public JepNumberField(String fieldLabel){
-		super(fieldLabel);
+		this(null, fieldLabel);
 	}
 	
-	public JepNumberField(String fieldId, String fieldLabel) {
-		this(fieldLabel);
-		this.getElement().setId(fieldId);
-		this.getInputElement().setId(fieldId + "_INPUT");
+	public JepNumberField(String fieldIdAsWebEl, String fieldLabel) {
+		super(fieldIdAsWebEl, fieldLabel);
 	}
 
 	/**

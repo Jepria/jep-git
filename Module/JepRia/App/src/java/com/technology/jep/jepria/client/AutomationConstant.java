@@ -7,22 +7,22 @@ public class AutomationConstant {
 	/**
 	 * ID тестового поля ввода username для Login-страницы JavaSSO
 	 */
-	public static final String JAVASSO_LOGIN_USERNAME_INPUT_FIELD_ID = "j_username";
+	public static final String JAVASSO_LOGIN_USERNAME_FIELD_ID = "j_username";
 	
 	/**
 	 * ID тестового поля ввода пароля для Login-страницы JavaSSO
 	 */
-	public static final String JAVASSO_LOGIN_PASSWORD_INPUT_FIELD_ID = "j_password";
+	public static final String JAVASSO_LOGIN_PASSWORD_FIELD_ID = "j_password";
 	
 	/**
 	 * ID тестового поля ввода username для login
 	 */
-	public static final String LOGIN_USERNAME_INPUT_FIELD_ID = "LOGIN_USERNAME_INPUT_FIELD";
+	public static final String LOGIN_USERNAME_FIELD_ID = "LOGIN_USERNAME_FIELD";
 	
 	/**
 	 * ID тестового поля ввода пароля для login
 	 */
-	public static final String LOGIN_PASSWORD_INPUT_FIELD_ID = "LOGIN_PASSWORD_INPUT_FIELD";
+	public static final String LOGIN_PASSWORD_FIELD_ID = "LOGIN_PASSWORD_FIELD";
 	
 	/**
 	 * ID кнопки входа (login)
@@ -71,9 +71,10 @@ public class AutomationConstant {
 	public static final String DETAIL_FORM_PANEL_ID = "DETAIL_FORM_PANEL";
 
 	/**
-	 * ID панели списочной формы модуля
+	 * ID элементов HEADER и BODY грида списочной формы модуля
 	 */
-	public static final String LIST_FORM_PANEL_ID = "LIST_FORM_PANEL";
+	public static final String GRID_HEADER_POSTFIX = "_HEADER";
+	public static final String GRID_BODY_POSTFIX = "_BODY";
 	
 	/**
 	 * ID панели ToolBar модуля
@@ -191,10 +192,72 @@ public class AutomationConstant {
 	public static final String ERROR_MESSAGE_BOX_NO_BUTTON_ID = "ERROR_MESSAGE_BOX_NO_BUTTON";
 
 	/**
-	 * Префикс элементов меню комбобоксов
+	 * Инфикс-идентификатор элементов меню комбобоксов
 	 */
-	public static final String DETAIL_FORM_COMBOBOX_MENU_ITEM_PREFIX = "DETAIL_FORM_COMBOBOX_MENU_ITEM_";
-
+	public static final String JEP_COMBO_BOX_FIELD_MENU_ITEM_INFIX = "_JEP_COMBOBOX_MENU_ITEM_";
+	
+	/**
+	 * Постфикс-идентификатор input-поля Jep-полей
+	 */
+	public static final String JEP_FIELD_INPUT_POSTFIX = "_JEP_FIELD_INPUT";
+	
+	/**
+	 * Постфикс-идентификатор allow-blank-маркера (*) Jep-поля
+	 */
+	public static final String JEP_FIELD_ALLOW_BLANK_POSTFIX = "_JEP_FIELD_ALLOW_BLANK";
+	
+	/**
+	 * HTML-атрибут и его значения editableCard и viewCard Jep-полей
+	 */
+	public static final String JEP_CARD_TYPE_HTML_ATTR = "jep-card-type";
+	public static final String JEP_CARD_TYPE_VALUE_EDTB = "editable";
+	public static final String JEP_CARD_TYPE_VALUE_VIEW = "view";
+	
+	/**
+	 * Постфикс-идентификатор кнопки 'развернуть' комбобоксов
+	 */
+	public static final String JEP_COMBO_BOX_FIELD_DROPDOWN_BTN_POSTFIX = "_JEP_COMBO_BOX_FIELD_DROPDOWN_BTN";
+	
+	/**
+	 * Постфикс-идентификатор PopupPanel всплывающего меню комбобоксов
+	 */
+	public static final String JEP_COMBO_BOX_FIELD_POPUP_POSTFIX = "_JEP_COMBO_BOX_FIELD_POPUP";
+	
+	/**
+	 * Инфикс элементов меню DualListField
+	 */
+	public static final String JEP_DUAL_LIST_FIELD_MENU_ITEM_INFIX = "_JEP_DUAL_LIST_FIELD_MENU_ITEM_";
+	
+	/**
+	 * Постфикс-идентификаторы списков DualListField
+	 */
+	public static final String JEP_DUAL_LIST_FIELD_LEFTPART_POSTFIX = "_JEP_DUAL_LIST_FIELD_LEFTPART";
+	public static final String JEP_DUAL_LIST_FIELD_RIGHTPART_POSTFIX = "_JEP_DUAL_LIST_FIELD_RIGHTPART";
+	
+	/**
+	 * Постфикс-идентификаторы кнопок перемещения опций между двумя списками DualListField
+	 */
+	public static final String JEP_DUAL_LIST_FIELD_MOVERIGHT_BTN_POSTFIX = "_JEP_DUAL_LIST_FIELD_MOVERIGHT_BTN";
+	public static final String JEP_DUAL_LIST_FIELD_MOVELEFT_BTN_POSTFIX = "_JEP_DUAL_LIST_FIELD_MOVELEFT_BTN";
+	public static final String JEP_DUAL_LIST_FIELD_MOVEALLRIGHT_BTN_POSTFIX = "_JEP_DUAL_LIST_FIELD_MOVEALLRIGHT_BTN";
+	public static final String JEP_DUAL_LIST_FIELD_MOVEALLLEFT_BTN_POSTFIX = "_JEP_DUAL_LIST_FIELD_MOVEALLLEFT_BTN";
+	
+	/**
+	 * Инфикс элементов списка поля JepListField
+	 */
+	public static final String JEP_LIST_FIELD_ITEM_CHECKBOX_INFIX = "_JEP_LIST_FIELD_ITEM_CHECKBOX_";
+	
+	/**
+	 * Постфикс-идентификатор флажка "Выделить все" поля JepListField
+	 */
+	public static final String JEP_LIST_FIELD_CHECKALL_POSTFIX = "_JEP_LIST_FIELD_CHECKALL";
+	
+	/**
+	 * HTML-атрибут элемента, который требует хранения значения опции, которой он однозначно соответствует.
+	 */
+	public static final String JEP_OPTION_VALUE_HTML_ATTR = "jep-option-value";
+	
+	
 	/**
 	 * ID первой строки списка списочной формы
 	 */

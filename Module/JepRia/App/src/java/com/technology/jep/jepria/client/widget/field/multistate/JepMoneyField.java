@@ -25,11 +25,15 @@ public class JepMoneyField extends JepBaseNumberField<BigDecimalBox> {
 	private Integer maxNumberCharactersAfterDecimalSeparator = 2;
 	
 	public JepMoneyField(){
-		this("");
+		this(null);
 	}
 	
 	public JepMoneyField(String fieldLabel) {
-		super(fieldLabel);
+		this(null, fieldLabel);
+	}
+	
+	public JepMoneyField(String fieldIdAsWebEl, String fieldLabel) {
+		super(fieldIdAsWebEl, fieldLabel);
 		// Установка формата числа.
 		setNumberFormat(NumberFormat.getFormat(DEFAULT_DECIMAL_FORMAT));
 	}
