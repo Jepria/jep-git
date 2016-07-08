@@ -136,7 +136,7 @@ public class ArsenicDetailFormViewImpl extends StandardDetailFormViewImpl implem
 			}});
 			
 			put(DETAILFORM_JEP_TREE_FIELD, new JepTreeField(arsenicText.detail_jepTreeField()) {{
-				setCheckNodes(CheckNodes.LEAF);
+				setCheckNodes(CheckNodes.BOTH);
 			}});
 			
 			put(MAX_ROW_COUNT, new JepIntegerField(ARSENIC_MAX_ROW_COUNT_ID, arsenicText.detail_maxRowCount()));
