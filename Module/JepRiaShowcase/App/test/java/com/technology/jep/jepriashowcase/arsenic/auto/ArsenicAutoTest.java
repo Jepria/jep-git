@@ -6,9 +6,12 @@ import static com.technology.jep.jepria.client.ui.WorkstateEnum.VIEW_LIST;
 import java.util.Arrays;
 import java.util.List;
 
+import org.testng.Assert;
+import org.testng.AssertJUnit;
 import org.testng.annotations.Test;
 
 import com.technology.jep.jepria.auto.exceptions.AutomationException;
+import com.technology.jep.jepria.auto.exceptions.WrongOptionException;
 import com.technology.jep.jepria.auto.manager.JepRiaAuto;
 import com.technology.jep.jepria.auto.test.JepAutoTest;
 import com.technology.jep.jepriashowcase.auto.JepRiaShowcaseAuto;
@@ -155,14 +158,14 @@ public class ArsenicAutoTest extends JepAutoTest<ArsenicAuto> {
 	public void setAndGetJepCheckBoxField(String value) {
 		setWorkstate(SEARCH);
 		
-		final boolean boolValue; 
-				
+		final boolean boolValue;
+		
 		if ("true".equals(value) || "1".equals(value)) {
 			boolValue = true;
 		} else if ("false".equals(value) || "0".equals(value)) {
 			boolValue = false;
 		} else {
-			throw new AutomationException("'" + value + "' is not a valid argument. Pass 'true'/'false' or '1'/'0' only.");
+			throw new IllegalArgumentException("'" + value + "' is not a valid argument. Pass 'true'/'false' or '1'/'0' only.");
 		}
 		
 		cut.setJepCheckBoxField(boolValue);
@@ -201,6 +204,100 @@ public class ArsenicAutoTest extends JepAutoTest<ArsenicAuto> {
 		Arrays.sort(actualValues);
 		assertArrayEquals(values, actualValues);
 	}
+	
+	
+	
+	
+	@DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/arsenic/auto/fields.incorrect.data")
+	@Test(groups="setAndGetFields", dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
+	public void setAndGetFieldsIncorrect(String value) {
+		setWorkstate(SEARCH);
+		
+		cut.setJepIntegerField_maxRowCount(value);
+		Assert.assertNotEquals(value, cut.getJepIntegerField_maxRowCount());
+		
+		cut.setJepLongField(value);
+		Assert.assertNotEquals(value, cut.getJepLongField());
+		
+		cut.setJepMoneyField(value);
+		Assert.assertNotEquals(value, cut.getJepMoneyField());
+		
+		cut.setJepNumberField(value);
+		Assert.assertNotEquals(value, cut.getJepNumberField());
+		
+		cut.setJepDateField(value);
+		Assert.assertNotEquals(value, cut.getJepDateField());
+		
+		try {
+			cut.setJepComboBoxFieldNotLazy(value);
+			fail();
+		} catch (WrongOptionException woe) {
+			// OK
+		}
+		
+		try {
+			cut.setJepComboBoxFieldSimple(value);
+			fail();
+		} catch (WrongOptionException woe) {
+			// OK
+		}
+		
+		try {
+			cut.setJepComboBoxFieldDurable(value);
+			fail();
+		} catch (WrongOptionException woe) {
+			// OK
+		}
+		
+		try {
+			cut.setJepComboBoxFieldReloading(value);
+			fail();
+		} catch (WrongOptionException woe) {
+			// OK
+		}
+		
+		try {
+			cut.setJepComboBoxField3chReloading(value);
+			fail();
+		} catch (WrongOptionException woe) {
+			// OK
+		}
+	}
+	
+	@DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/arsenic/auto/fields.incorrect_multiple.data")
+	@Test(groups="setAndGetFields", dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
+	public void setAndGetFieldsIncorrectMultiple(String...values) {
+		setWorkstate(SEARCH);
+		
+		try {
+			cut.setJepDualListField(values);
+			fail();
+		} catch (WrongOptionException woe) {
+			// OK
+		}
+		
+		try {
+			cut.setJepListField(values);
+			fail();
+		} catch (WrongOptionException woe) {
+			// OK
+		}
+	}
+	
+	@DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/arsenic/auto/field.jepComboBoxField_1char.data")
+	@Test(groups="setAndGetFields", dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
+	public void setAndGetJepComboBoxField3chReloadingIncorrect(String value) {
+		setWorkstate(SEARCH);
+		
+		try {
+			cut.setJepComboBoxField3chReloading(value);
+			fail();
+		} catch (WrongOptionException woe) {
+			// OK
+		}
+	}
+	
+	
 	
 	// С осторожностью: оставить visiblity=true в конце!
 	@Test(groups="fieldStates")

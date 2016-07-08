@@ -14,7 +14,6 @@ import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.PATH_SEPARA
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.PREFIX_DESTINATION_SOURCE_CODE;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.REGEXP_FOR_BLANK;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.SEPARATOR;
-import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.TRUE_TASK_ATTRIBUTE;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.WARNING_PREFIX;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.WHITE_SPACE;
 import static com.technology.jep.jepriatoolkit.parser.ApplicationStructureParserUtil.getApplicationBySourceCode;
@@ -77,10 +76,8 @@ public class PartialFormBuilder extends Task {
 
 	private static final String GET_PLAIN_CLIENT_FACTORY_METHOD_NAME = "getPlainClientFactory";
 	private static final String SUFFIX_MODULE_IDENTIFIER = "_module_id";
-	
 	private String forms;
 	private String jepRiaVersion;
-	private String skipBuildAndDeploy;
 	private String targetConfig;
 	
 	/**
@@ -218,16 +215,17 @@ public class PartialFormBuilder extends Task {
 					} catch (IOException e) {
 						e.printStackTrace();
 					} 
-				if (!TRUE_TASK_ATTRIBUTE.equals(skipBuildAndDeploy)) {
-					antClean();
-					new File(BUILD_CONFIG_FILE_NAME).delete();
-					buildAndDeployWithCustomConfigName(newPartialConfigName);
-				}
+				antClean();
+				new File(BUILD_CONFIG_FILE_NAME).delete();
+				buildAndDeployWithCustomConfigName(newPartialConfigName);
 			}
 			else {
 				buildedForms.removeAll(applicationForms);
 				echoMessage(multipleConcat(WARNING_PREFIX, "The listed form", buildedForms.size() > 1 ? "s" : "", " '", buildedForms.toString(), "' ", buildedForms.size() > 1 ? "are" : "is", "n't presented in existing application structure! Please check the file '", normalizePath(mainGwtXmlPropertyPath), "' and specify correct value of the parameter '-D", FORMS_TASK_ATTRIBUTE, "'"));
 			}
+		}
+		else {
+			echoMessage(multipleConcat(WARNING_PREFIX, "You should specify what forms you'd like to compile using the parameter '-D", FORMS_TASK_ATTRIBUTE, "' in command line!"));
 		}
 	}
 	
@@ -237,10 +235,6 @@ public class PartialFormBuilder extends Task {
 	
 	public void setJepRiaVersion(String jepRiaVersion) {
 		this.jepRiaVersion = jepRiaVersion;
-	}
-
-	public void setSkipBuildAndDeploy(String skipBuildAndDeploy){
-		this.skipBuildAndDeploy = skipBuildAndDeploy;
 	}
 	
 	public void setTargetConfig(String targetConfig){

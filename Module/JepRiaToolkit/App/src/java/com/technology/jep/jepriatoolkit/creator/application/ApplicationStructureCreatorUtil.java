@@ -42,6 +42,11 @@ public class ApplicationStructureCreatorUtil {
 	
 	private static Configuration cfg = null;
 	
+	/**
+	 * Получение конфигурации для шаблонов
+	 * 
+	 * @return конфигурация шаблонизатора
+	 */
 	public static Configuration getTemplateConfiguration(){
 		if (cfg == null) {
 			// Create your Configuration instance, and specify if up to what FreeMarker
@@ -66,6 +71,13 @@ public class ApplicationStructureCreatorUtil {
 		return cfg;
 	}
 	
+	/**
+	 * Конвертация шаблона на основании данных
+	 * 
+	 * @param templateFile		файл шаблона
+	 * @param dataToMap			данные для мэппинга
+	 * @param resultFile		результирующий файл
+	 */
 	public static void convertTemplateToFile(String templateFile, Map<String, Object> dataToMap, String resultFile){
 		try {
 			Template webXmlTemplate = getTemplateConfiguration().getTemplate(templateFile);
@@ -123,7 +135,7 @@ public class ApplicationStructureCreatorUtil {
 			modInfo.setFormTitleEn(module.getModuleNameEn());
 			modInfo.setFieldLabelWidth(module.getFieldLabelWidth());
 			modInfo.setDataSource(module.getDb().getDatasource());
-			modInfo.setPrimaryKey(applicationParser.getPrimaryKeyById(formName));
+			modInfo.setPrimaryKey(applicationParser.getDocument().getPrimaryKeyById(formName));
 			modInfo.setTable(module.getTable());
 			modInfo.setDbPackage(module.getDb().getPackageName());
 			modInfo.setIsExcelAvailable(module.isExcelAvailable());
@@ -142,7 +154,7 @@ public class ApplicationStructureCreatorUtil {
 			String mainFormIfExist = applicationParser.getMainFormNameIfExist(formName);
 			modInfo.setMainFormName(mainFormIfExist);
 			if (!isEmpty(mainFormIfExist)) {
-				String mainFormParentKey = applicationParser.getPrimaryKeyById(mainFormIfExist);
+				String mainFormParentKey = applicationParser.getDocument().getPrimaryKeyById(mainFormIfExist);
 				mainFormParentKey = isEmpty(mainFormParentKey) ? multipleConcat(mainFormIfExist, IDENTIFICATOR_SUFFIX) : mainFormParentKey;
 				modInfo.setMainFormParentKey(mainFormParentKey);
 			}

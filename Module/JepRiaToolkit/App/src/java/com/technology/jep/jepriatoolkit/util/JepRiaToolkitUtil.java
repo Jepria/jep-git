@@ -15,13 +15,12 @@ import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.ALL_TEXT_EN
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.APPLICATION_SETTING_FILE_ENDING;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.APPLICATION_STRUCTURE_FILE_PATH_TASK_ATTRIBUTE;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.BUILD_AND_DEPLOY_TASK_TARGET;
-import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.BUILD_FILE;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.BUILD_CONFIG_PROPERTY;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.BUILD_FILE;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.BUTTON_IDENTIFICATOR_SUFFIX;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.CLEAN_TASK_TARGET;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.CREATE_STRUCTURE_TASK_TARGET;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.CURRENT_DIRECTORY_ENVIRONMENT_VARIABLE;
-import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.DEFAULT_DATASOURCE;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.DEFAULT_HTTP_PORT;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.DISPLAY_VALUE_SUFFIX;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.DOT;
@@ -45,10 +44,8 @@ import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.JEP_TEXT_FI
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.JEP_TIME_FIELD;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.LEFT_CURLY_BRACKET;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.MODULE_TAG_NAME;
-import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.NO_NAME;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.OPMN_PROTOCOL;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.PATH_SEPARATOR;
-import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.PKG_PREFIX;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.PRESENTER_BOBY_TAG_NAME;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.REGEXP_FOR_BLANK;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.SEPARATOR;
@@ -59,6 +56,8 @@ import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.WHITE_SPACE
 import static java.text.MessageFormat.format;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.FileInputStream;
@@ -123,7 +122,6 @@ import com.technology.jep.jepria.client.ui.WorkstateEnum;
 import com.technology.jep.jepria.shared.field.JepTypeEnum;
 import com.technology.jep.jepriatoolkit.ApplicationDefinition;
 import com.technology.jep.jepriatoolkit.creator.module.Application;
-import com.technology.jep.jepriatoolkit.creator.module.Db;
 import com.technology.jep.jepriatoolkit.creator.module.Module;
 import com.technology.jep.jepriatoolkit.creator.module.ModuleField;
 
@@ -288,10 +286,9 @@ public final class JepRiaToolkitUtil {
 		TransformerFactory factory = TransformerFactory.newInstance();
 		Transformer xform = factory.newTransformer();
 		xform.setOutputProperty(OutputKeys.INDENT, "yes");
-		xform.setOutputProperty("{http://xml.apache.org/xslt}indent-amount",
-				"2");
-		xform.transform(new DOMSource(doc), new StreamResult(new File(
-				destination)));
+		xform.setOutputProperty(OutputKeys.ENCODING, WIN_CHARSET);
+		xform.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
+		xform.transform(new DOMSource(doc), new StreamResult(destination));
 
 	}
 	
@@ -322,9 +319,9 @@ public final class JepRiaToolkitUtil {
 		TransformerFactory factory = TransformerFactory.newInstance();
 		Transformer xform = factory.newTransformer();
 		xform.setOutputProperty(OutputKeys.INDENT, "yes");
+		xform.setOutputProperty(OutputKeys.ENCODING, WIN_CHARSET);
 		xform.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", isTab ? "4" : "2");
-		xform.transform(new DOMSource(doc), new StreamResult(new File(
-				destination)));
+		xform.transform(new DOMSource(doc), new StreamResult(destination));
 
 	}
 
@@ -1180,6 +1177,34 @@ public final class JepRiaToolkitUtil {
 		}
 	}
 	
+	public static Element convertModuleToXml(String moduleName, String applicationName){
+		try {
+			JAXBContext jaxbContext = JAXBContext.newInstance(Module.class);
+			Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
+			// output pretty printed
+			jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+			jaxbMarshaller.setProperty(Marshaller.JAXB_ENCODING, WIN_CHARSET);
+			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			jaxbMarshaller.marshal(Module.createModule(moduleName, applicationName), baos);
+			ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
+			DocumentBuilder db = createDocumentBuilder();
+			Document doc = db.parse(bais);
+			Element root = doc.getDocumentElement();
+			bais.close();
+			baos.close();
+			return root;
+		} catch (JAXBException e) {
+			e.printStackTrace();
+		} catch (ParserConfigurationException e) {
+			e.printStackTrace();
+		} catch (SAXException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 	/**
 	 * Получение потока для мэппинга состояния объекта к xml-файлу.
 	 * 
@@ -1326,21 +1351,5 @@ public final class JepRiaToolkitUtil {
 	 */
 	public static void antClean() {
 		runAntTarget(CLEAN_TASK_TARGET);
-	}
-	
-	/**
-	 * Создание модуля с пустой списочной и детальной формами
-	 * 
-	 * @param moduleId			идентификатор модуля
-	 * @param applicationName	наименование приложения
-	 * @return пустой модуль
-	 */
-	public static Module createBlankModule(String moduleId, String applicationName){
-		Module module = new Module(moduleId);
-		module.setModuleName(NO_NAME);
-		module.setModuleNameEn(NO_NAME);
-		Db db = new Db(multipleConcat(PKG_PREFIX, applicationName.toLowerCase()), DEFAULT_DATASOURCE);
-		module.setDb(db);
-		return module;
 	}
 }

@@ -73,7 +73,7 @@ public class ArsenicDetailFormPresenter<E extends PlainEventBus, S extends Arsen
 				fields.setFieldVisible(DETAILFORM_JEP_CHECKBOX_FIELD, b);
 				fields.setFieldVisible(DETAILFORM_JEP_LIST_FIELD, b);
 				fields.setFieldVisible(DETAILFORM_JEP_LIST_FIELD_CHECKALL, b);
-				fields.setFieldVisible(DETAILFORM_JEP_TREE_FIELD, b);
+//				fields.setFieldVisible(DETAILFORM_JEP_TREE_FIELD, b);
 			}
 		});
 		
@@ -98,7 +98,7 @@ public class ArsenicDetailFormPresenter<E extends PlainEventBus, S extends Arsen
 				fields.setFieldEnabled(DETAILFORM_JEP_CHECKBOX_FIELD, b);
 				fields.setFieldEnabled(DETAILFORM_JEP_LIST_FIELD, b);
 				fields.setFieldEnabled(DETAILFORM_JEP_LIST_FIELD_CHECKALL, b);
-				fields.setFieldEnabled(DETAILFORM_JEP_TREE_FIELD, b);
+//				fields.setFieldEnabled(DETAILFORM_JEP_TREE_FIELD, b);
 			}
 		});
 		
@@ -123,7 +123,7 @@ public class ArsenicDetailFormPresenter<E extends PlainEventBus, S extends Arsen
 				fields.setFieldEditable(DETAILFORM_JEP_CHECKBOX_FIELD, b);
 				fields.setFieldEditable(DETAILFORM_JEP_LIST_FIELD, b);
 				fields.setFieldEditable(DETAILFORM_JEP_LIST_FIELD_CHECKALL, b);
-				fields.setFieldEditable(DETAILFORM_JEP_TREE_FIELD, b);
+//				fields.setFieldEditable(DETAILFORM_JEP_TREE_FIELD, b);
 			}
 		});
 		
@@ -147,7 +147,7 @@ public class ArsenicDetailFormPresenter<E extends PlainEventBus, S extends Arsen
 				fields.setFieldAllowBlank(DETAILFORM_JEP_DUAL_LIST_FIELD, b);
 				fields.setFieldAllowBlank(DETAILFORM_JEP_LIST_FIELD, b);
 				fields.setFieldAllowBlank(DETAILFORM_JEP_LIST_FIELD_CHECKALL, b);
-				fields.setFieldAllowBlank(DETAILFORM_JEP_TREE_FIELD, b);
+//				fields.setFieldAllowBlank(DETAILFORM_JEP_TREE_FIELD, b);
 			}
 		});
 		
