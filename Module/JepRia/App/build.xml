@@ -273,7 +273,7 @@
 	<target name="build" depends="jar, oc4j-jar, jar-auto, jar-test, jar-resources" />
 
 	<target name="doc" depends="java-compile, java-auto-compile">
-		<javadoc sourcepath="src/java;auto/java"
+		<javadoc sourcepath="src/java;auto/java;test/java"
 			packagenames="*"
 			includenosourcepackages="true"
 			overview="src/java/${MODULE_PACKAGE}/overview.html"
