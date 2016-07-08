@@ -132,9 +132,7 @@
 		<tstamp>
 			<format property="timestamp" pattern="yyyyMMdd_HHmmss" />
 		</tstamp>
-		<dirname property="pdir" file="." />
-		<basename property="version" file="${pdir}" />
-		<record name="log/${timestamp}-${MODULE_NAME}-${version}-${PROJECT_NAME}.txt" loglevel="${LOG_LEVEL}" />
+		<record name="log/${timestamp}-${MODULE_NAME}-${CURRENT_VERSION}-${PROJECT_NAME}.txt" loglevel="${LOG_LEVEL}" />
 	</target>
 
 	<target name="text-resources-update-check" depends="start-log">
@@ -195,51 +193,51 @@
 	</target>
 
 	<target name="jar-update-check" depends="java-compile">
-		<uptodate targetfile="${DISTR_DIR}/${MODULE_NAME_IN_PACKAGE}-${VERSION}.jar" property="jar-is-uptodate">
+		<uptodate targetfile="${DISTR_DIR}/${MODULE_NAME_IN_PACKAGE}-${CURRENT_VERSION}.jar" property="jar-is-uptodate">
 			<srcfiles refid="class-jar" />
 			<srcfiles refid="src-jar" />
 		</uptodate>
 	</target>
 
 	<target name="jar" depends="jar-update-check" unless="jar-is-uptodate">
-		<jar destfile="${DISTR_DIR}/${MODULE_NAME_IN_PACKAGE}-${VERSION}.jar">
+		<jar destfile="${DISTR_DIR}/${MODULE_NAME_IN_PACKAGE}-${CURRENT_VERSION}.jar">
 			<fileset refid="class-jar" />
 			<fileset refid="src-jar" />
 		</jar>
 	</target>
 
 	<target name="jar-auto-update-check" depends="java-auto-compile">
-		<uptodate targetfile="${DISTR_DIR}/${MODULE_NAME_IN_PACKAGE}-auto-${VERSION}.jar" property="jar-auto-is-uptodate">
+		<uptodate targetfile="${DISTR_DIR}/${MODULE_NAME_IN_PACKAGE}-auto-${CURRENT_VERSION}.jar" property="jar-auto-is-uptodate">
 			<srcfiles refid="class-auto-jar" />
 		</uptodate>
 	</target>
 
 	<target name="jar-auto" depends="jar-auto-update-check" unless="jar-auto-is-uptodate">
-		<jar destfile="${DISTR_DIR}/${MODULE_NAME_IN_PACKAGE}-auto-${VERSION}.jar">
+		<jar destfile="${DISTR_DIR}/${MODULE_NAME_IN_PACKAGE}-auto-${CURRENT_VERSION}.jar">
 			<fileset refid="class-auto-jar" />
 		</jar>
 	</target>
 
 	<target name="jar-test-update-check" depends="java-test-compile">
-		<uptodate targetfile="${DISTR_DIR}/${MODULE_NAME_IN_PACKAGE}-test-${VERSION}.jar" property="jar-test-is-uptodate">
+		<uptodate targetfile="${DISTR_DIR}/${MODULE_NAME_IN_PACKAGE}-test-${CURRENT_VERSION}.jar" property="jar-test-is-uptodate">
 			<srcfiles refid="class-test-jar" />
 		</uptodate>
 	</target>
 
 	<target name="jar-test" depends="jar-test-update-check" unless="jar-test-is-uptodate">
-		<jar destfile="${DISTR_DIR}/${MODULE_NAME_IN_PACKAGE}-test-${VERSION}.jar">
+		<jar destfile="${DISTR_DIR}/${MODULE_NAME_IN_PACKAGE}-test-${CURRENT_VERSION}.jar">
 			<fileset refid="class-test-jar" />
 		</jar>
 	</target>
 
 	<target name="jar-resources-update-check">
-		<uptodate targetfile="${DISTR_DIR}/${MODULE_NAME_IN_PACKAGE}-resources-${VERSION}.jar" property="jar-resources-is-uptodate">
+		<uptodate targetfile="${DISTR_DIR}/${MODULE_NAME_IN_PACKAGE}-resources-${CURRENT_VERSION}.jar" property="jar-resources-is-uptodate">
 			<srcfiles refid="resources-jar" />
 		</uptodate>
 	</target>
 
 	<target name="jar-resources" depends="jar-resources-update-check, start-log" unless="jar-resources-is-uptodate">
-		<jar destfile="${DISTR_DIR}/${MODULE_NAME_IN_PACKAGE}-resources-${VERSION}.jar">
+		<jar destfile="${DISTR_DIR}/${MODULE_NAME_IN_PACKAGE}-resources-${CURRENT_VERSION}.jar">
 			<fileset refid="resources-jar" />
 		</jar>
 	</target>
@@ -259,13 +257,13 @@
 	</target>
 
 	<target name="oc4j-jar-update-check" depends="java-compile">
-		<uptodate targetfile="${DISTR_DIR}/${MODULE_NAME_IN_PACKAGE}-oc4j-${VERSION}.jar" property="oc4j-jar-is-uptodate">
+		<uptodate targetfile="${DISTR_DIR}/${MODULE_NAME_IN_PACKAGE}-oc4j-${CURRENT_VERSION}.jar" property="oc4j-jar-is-uptodate">
 			<srcfiles refid="oc4j-jar" />
 		</uptodate>
 	</target>
 
 	<target name="oc4j-jar" depends="oc4j-jar-update-check" unless="oc4j-jar-is-uptodate">
-		<jar destfile="${DISTR_DIR}/${MODULE_NAME_IN_PACKAGE}-oc4j-${VERSION}.jar">
+		<jar destfile="${DISTR_DIR}/${MODULE_NAME_IN_PACKAGE}-oc4j-${CURRENT_VERSION}.jar">
 			<fileset refid="oc4j-jar" />
 		</jar>
 	</target>
@@ -323,11 +321,10 @@
 			<fileset dir="build-auto" />
 		</delete>
 		
-		<delete file="${DISTR_DIR}/${MODULE_NAME_IN_PACKAGE}-${VERSION}.jar"/>
-		<delete file="${DISTR_DIR}/${MODULE_NAME_IN_PACKAGE}-auto-${VERSION}.jar"/>
-		<delete file="${DISTR_DIR}/${MODULE_NAME_IN_PACKAGE}-oc4j-${VERSION}.jar"/>
-		<delete file="${DISTR_DIR}/${MODULE_NAME_IN_PACKAGE}-resources-${VERSION}.jar"/>
-		<delete file="${DISTR_DIR}/${MODULE_NAME_IN_PACKAGE}-test-${VERSION}.jar"/>
-		<delete file="${DISTR_DIR}/gwt-theme-${VERSION}.jar"/>
+		<delete file="${DISTR_DIR}/${MODULE_NAME_IN_PACKAGE}-${CURRENT_VERSION}.jar"/>
+		<delete file="${DISTR_DIR}/${MODULE_NAME_IN_PACKAGE}-auto-${CURRENT_VERSION}.jar"/>
+		<delete file="${DISTR_DIR}/${MODULE_NAME_IN_PACKAGE}-oc4j-${CURRENT_VERSION}.jar"/>
+		<delete file="${DISTR_DIR}/${MODULE_NAME_IN_PACKAGE}-resources-${CURRENT_VERSION}.jar"/>
+		<delete file="${DISTR_DIR}/${MODULE_NAME_IN_PACKAGE}-test-${CURRENT_VERSION}.jar"/>
 	</target>
 </project>

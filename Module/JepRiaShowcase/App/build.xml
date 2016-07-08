@@ -893,12 +893,14 @@
 			<fileset dir="temp-jepria-resources" />
 		</delete>
 		
-		<delete file="${DISTR_DIR}/${DISTR_NAME}.war"/>
-		<delete file="${DISTR_DIR}/${DISTR_NAME}.ear"/>
-		
 		<antcall target="for-each-client-module">
 			<param name="action" value="client-module-clean" />
 		</antcall>
+	</target>
+	
+	<target name="clean-all" depends="clean">
+		<delete file="${DISTR_DIR}/${DISTR_NAME}.war"/>
+		<delete file="${DISTR_DIR}/${DISTR_NAME}.ear"/>
 	</target>
 
 	<!-- Применение произвольной конфигурации сборки -->

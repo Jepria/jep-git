@@ -10,6 +10,7 @@ import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.MAIN_TEXT_R
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.MAIN_TEXT_RESOURCE_PATH_TEMPLATE_PROPERTY;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.PATH_SEPARATOR;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.PREFIX_DESTINATION_SOURCE_CODE;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.THREAD_POOL_SIZE;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.UTF_8;
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.convertPatternInRealPath;
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.convertPatternInRealPathSupressException;
@@ -40,7 +41,6 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorCompletionService;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -193,29 +193,33 @@ public class ApplicationStructureParserUtil {
 		ResourceBundle mainModuleResourceBundleEn = getResourceByPath(mainModuleResourceEnPath);
 		
 		if (moduleCount > 0) {
-			ExecutorService service = Executors.newFixedThreadPool(moduleCount);
-			
-			CompletionService<Module> completionService = new ExecutorCompletionService<Module>(service);
-			
-			for(String moduleId : moduleNames){
-				completionService.submit(new ModuleParser(structure, moduleId, resource, mainModuleResourceBundle, mainModuleResourceBundleEn));
-			}
-			//now retrieve the futures after computation (auto wait for it)
-			int received = 0;
-			while (received < moduleCount) {
-				Future<Module> resultFuture = null;
-				try {
-					resultFuture = completionService.take();
-					modules.add(resultFuture.get());
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				} catch (ExecutionException e) {
-					e.printStackTrace();
+			ExecutorService service = null;
+			try {	
+				service = Executors.newFixedThreadPool(THREAD_POOL_SIZE);
+				CompletionService<Module> completionService = new ExecutorCompletionService<Module>(service);
+				
+				for(String moduleId : moduleNames){
+					completionService.submit(new ModuleParser(structure, moduleId, resource, mainModuleResourceBundle, mainModuleResourceBundleEn));
 				}
-				received++;
+				//now retrieve the futures after computation (auto wait for it)
+				int received = 0;
+				while (received < moduleCount) {
+					modules.add(completionService.take().get());
+					received++;
+				}
 			}
 			// important: shutdown your ExecutorService
-			service.shutdown();
+			catch (InterruptedException e) {
+				e.printStackTrace();
+			} catch (ExecutionException e) {
+				e.printStackTrace();
+			}
+			finally {
+				if (service != null) {
+					service.shutdown();
+				}
+			}
+			
 			structure.setModules(new Modules(modules));
 		}
 		return structure;

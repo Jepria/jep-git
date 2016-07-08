@@ -53,7 +53,7 @@ function windowTitle()
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/toolbar/PagingSimpleBar.html" title="class in com.technology.jep.jepria.client.widget.toolbar"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;PREV CLASS&nbsp;
 &nbsp;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/toolbar/PagingToolBar.html" title="interface in com.technology.jep.jepria.client.widget.toolbar"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../../../../../../index.html?com/technology/jep/jepria/client/widget/toolbar/PagingStandardBar.html" target="_top"><B>FRAMES</B></A>  &nbsp;
@@ -173,7 +173,7 @@ java.lang.Object
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>private &nbsp;com.google.gwt.user.client.ui.HorizontalPanel</CODE></FONT></TD>
+<CODE>protected &nbsp;com.google.gwt.user.client.ui.HorizontalPanel</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/toolbar/PagingStandardBar.html#buttonsPanel">buttonsPanel</A></B></CODE>
 
 <BR>
@@ -277,7 +277,7 @@ java.lang.Object
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>private &nbsp;com.google.gwt.user.client.ui.HorizontalPanel</CODE></FONT></TD>
+<CODE>protected &nbsp;com.google.gwt.user.client.ui.HorizontalPanel</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/toolbar/PagingStandardBar.html#pageSizePanel">pageSizePanel</A></B></CODE>
 
 <BR>
@@ -425,7 +425,31 @@ java.lang.Object
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>private &nbsp;void</CODE></FONT></TD>
+<CODE>protected &nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/toolbar/PagingStandardBar.html#addButtonsAtLeft()">addButtonsAtLeft</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Добавление кнопок слева: "в начало", "предыдущая".</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/toolbar/PagingStandardBar.html#addButtonsAtRight()">addButtonsAtRight</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Добавление кнопок справа: "следующая", "в конец", "обновить".</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/toolbar/PagingStandardBar.html#addDisplayText()">addDisplayText</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Добавление панели отображаемых записей: "записи a-b из n".</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;void</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/toolbar/PagingStandardBar.html#addItems()">addItems</A></B>()</CODE>
 
 <BR>
@@ -439,6 +463,22 @@ java.lang.Object
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Добавление слушателя определенного типа собитий.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/toolbar/PagingStandardBar.html#addPageNumberPanel()">addPageNumberPanel</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Добавление панели номера страницы: "Стр. n из m".</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/toolbar/PagingStandardBar.html#addPageSize()">addPageSize</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Добавление панели количества записей на странице: "записей на странице: k".</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -513,9 +553,10 @@ java.lang.Object
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;com.google.gwt.user.client.ui.Button</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/toolbar/PagingStandardBar.html#makeButton(java.lang.String, com.google.gwt.resources.client.ImageResource, java.lang.String, com.google.gwt.event.dom.client.ClickHandler)">makeButton</A></B>(java.lang.String&nbsp;buttonId,
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/toolbar/PagingStandardBar.html#makeButton(java.lang.String, com.google.gwt.resources.client.ImageResource, java.lang.String, java.lang.String, com.google.gwt.event.dom.client.ClickHandler)">makeButton</A></B>(java.lang.String&nbsp;buttonId,
            com.google.gwt.resources.client.ImageResource&nbsp;icon,
            java.lang.String&nbsp;name,
+           java.lang.String&nbsp;title,
            com.google.gwt.event.dom.client.ClickHandler&nbsp;handler)</CODE>
 
 <BR>
@@ -524,9 +565,10 @@ java.lang.Object
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;com.google.gwt.user.client.ui.Button</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/toolbar/PagingStandardBar.html#makeButton(java.lang.String, com.google.gwt.resources.client.ImageResource, java.lang.String, com.google.gwt.event.dom.client.ClickHandler, java.lang.Boolean)">makeButton</A></B>(java.lang.String&nbsp;buttonId,
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/toolbar/PagingStandardBar.html#makeButton(java.lang.String, com.google.gwt.resources.client.ImageResource, java.lang.String, java.lang.String, com.google.gwt.event.dom.client.ClickHandler, java.lang.Boolean)">makeButton</A></B>(java.lang.String&nbsp;buttonId,
            com.google.gwt.resources.client.ImageResource&nbsp;icon,
            java.lang.String&nbsp;name,
+           java.lang.String&nbsp;title,
            com.google.gwt.event.dom.client.ClickHandler&nbsp;handler,
            java.lang.Boolean&nbsp;enabled)</CODE>
 
@@ -950,7 +992,7 @@ private com.google.gwt.user.client.ui.HorizontalPanel <B>panel</B></PRE>
 <A NAME="buttonsPanel"><!-- --></A><H3>
 buttonsPanel</H3>
 <PRE>
-private com.google.gwt.user.client.ui.HorizontalPanel <B>buttonsPanel</B></PRE>
+protected com.google.gwt.user.client.ui.HorizontalPanel <B>buttonsPanel</B></PRE>
 <DL>
 <DL>
 </DL>
@@ -960,7 +1002,7 @@ private com.google.gwt.user.client.ui.HorizontalPanel <B>buttonsPanel</B></PRE>
 <A NAME="pageSizePanel"><!-- --></A><H3>
 pageSizePanel</H3>
 <PRE>
-private com.google.gwt.user.client.ui.HorizontalPanel <B>pageSizePanel</B></PRE>
+protected com.google.gwt.user.client.ui.HorizontalPanel <B>pageSizePanel</B></PRE>
 <DL>
 <DL>
 </DL>
@@ -1000,7 +1042,7 @@ public <B>PagingStandardBar</B>(int&nbsp;pgSize)</PRE>
 <A NAME="addItems()"><!-- --></A><H3>
 addItems</H3>
 <PRE>
-private void <B>addItems</B>()</PRE>
+protected void <B>addItems</B>()</PRE>
 <DL>
 <DD>Заполнение тулбара стандартными элементами.
 <P>
@@ -1013,12 +1055,93 @@ private void <B>addItems</B>()</PRE>
 </DL>
 <HR>
 
-<A NAME="makeButton(java.lang.String, com.google.gwt.resources.client.ImageResource, java.lang.String, com.google.gwt.event.dom.client.ClickHandler)"><!-- --></A><H3>
+<A NAME="addButtonsAtLeft()"><!-- --></A><H3>
+addButtonsAtLeft</H3>
+<PRE>
+protected void <B>addButtonsAtLeft</B>()</PRE>
+<DL>
+<DD>Добавление кнопок слева: "в начало", "предыдущая".
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="addPageNumberPanel()"><!-- --></A><H3>
+addPageNumberPanel</H3>
+<PRE>
+protected void <B>addPageNumberPanel</B>()</PRE>
+<DL>
+<DD>Добавление панели номера страницы: "Стр. n из m".
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="addButtonsAtRight()"><!-- --></A><H3>
+addButtonsAtRight</H3>
+<PRE>
+protected void <B>addButtonsAtRight</B>()</PRE>
+<DL>
+<DD>Добавление кнопок справа: "следующая", "в конец", "обновить".
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="addDisplayText()"><!-- --></A><H3>
+addDisplayText</H3>
+<PRE>
+protected void <B>addDisplayText</B>()</PRE>
+<DL>
+<DD>Добавление панели отображаемых записей: "записи a-b из n".
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="addPageSize()"><!-- --></A><H3>
+addPageSize</H3>
+<PRE>
+protected void <B>addPageSize</B>()</PRE>
+<DL>
+<DD>Добавление панели количества записей на странице: "записей на странице: k".
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="makeButton(java.lang.String, com.google.gwt.resources.client.ImageResource, java.lang.String, java.lang.String, com.google.gwt.event.dom.client.ClickHandler)"><!-- --></A><H3>
 makeButton</H3>
 <PRE>
 public com.google.gwt.user.client.ui.Button <B>makeButton</B>(java.lang.String&nbsp;buttonId,
                                                        com.google.gwt.resources.client.ImageResource&nbsp;icon,
                                                        java.lang.String&nbsp;name,
+                                                       java.lang.String&nbsp;title,
                                                        com.google.gwt.event.dom.client.ClickHandler&nbsp;handler)</PRE>
 <DL>
 <DD><DL>
@@ -1030,12 +1153,13 @@ public com.google.gwt.user.client.ui.Button <B>makeButton</B>(java.lang.String&n
 </DL>
 <HR>
 
-<A NAME="makeButton(java.lang.String, com.google.gwt.resources.client.ImageResource, java.lang.String, com.google.gwt.event.dom.client.ClickHandler, java.lang.Boolean)"><!-- --></A><H3>
+<A NAME="makeButton(java.lang.String, com.google.gwt.resources.client.ImageResource, java.lang.String, java.lang.String, com.google.gwt.event.dom.client.ClickHandler, java.lang.Boolean)"><!-- --></A><H3>
 makeButton</H3>
 <PRE>
 public com.google.gwt.user.client.ui.Button <B>makeButton</B>(java.lang.String&nbsp;buttonId,
                                                        com.google.gwt.resources.client.ImageResource&nbsp;icon,
                                                        java.lang.String&nbsp;name,
+                                                       java.lang.String&nbsp;title,
                                                        com.google.gwt.event.dom.client.ClickHandler&nbsp;handler,
                                                        java.lang.Boolean&nbsp;enabled)</PRE>
 <DL>
@@ -1446,7 +1570,7 @@ public void <B>unmask</B>()</PRE>
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/toolbar/PagingSimpleBar.html" title="class in com.technology.jep.jepria.client.widget.toolbar"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;PREV CLASS&nbsp;
 &nbsp;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/toolbar/PagingToolBar.html" title="interface in com.technology.jep.jepria.client.widget.toolbar"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../../../../../../index.html?com/technology/jep/jepria/client/widget/toolbar/PagingStandardBar.html" target="_top"><B>FRAMES</B></A>  &nbsp;

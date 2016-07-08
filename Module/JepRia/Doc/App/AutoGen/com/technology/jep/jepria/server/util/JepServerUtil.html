@@ -200,6 +200,14 @@ java.lang.Object
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/util/JepServerUtil.html#getApplicationName(javax.servlet.ServletContext)">getApplicationName</A></B>(javax.servlet.ServletContext&nbsp;context)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Возвращает имя приложения, указанное в web.xml.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;java.lang.String</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/util/JepServerUtil.html#getEnvironmentValue(java.lang.String)">getEnvironmentValue</A></B>(java.lang.String&nbsp;name)</CODE>
 
 <BR>
@@ -236,6 +244,14 @@ java.lang.Object
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Функция определяет: является ли текущий язык основным языком для пользователей.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/util/JepServerUtil.html#isTomcat(javax.servlet.http.HttpServletRequest)">isTomcat</A></B>(javax.servlet.http.HttpServletRequest&nbsp;request)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -480,6 +496,37 @@ public static java.lang.String <B>getServerUrl</B>(javax.servlet.http.HttpServle
 isJavaSSO</H3>
 <PRE>
 public static boolean <B>isJavaSSO</B>(javax.servlet.http.HttpServletRequest&nbsp;request)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getApplicationName(javax.servlet.ServletContext)"><!-- --></A><H3>
+getApplicationName</H3>
+<PRE>
+public static java.lang.String <B>getApplicationName</B>(javax.servlet.ServletContext&nbsp;context)</PRE>
+<DL>
+<DD>Возвращает имя приложения, указанное в web.xml.
+ Имя приложения задаётся в контекстном параметре <code>applicationName</code>.
+ Использование именно такого способа связано с тем, что OC4J не поддерживает Servlet 2.4,
+ поэтому имя приложения нельзя получить с помощью <CODE>ServletContext.getContextPath()</CODE>.
+ См. <CODE>http://stackoverflow.com/a/8611825 </CODE>.
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>context</CODE> - контекст сервлета
+<DT><B>Returns:</B><DD>имя приложения
+<DT><B>Throws:</B>
+<DD><CODE>java.lang.IllegalStateException</CODE> - если в web.xml не определено имя приложения</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="isTomcat(javax.servlet.http.HttpServletRequest)"><!-- --></A><H3>
+isTomcat</H3>
+<PRE>
+public static boolean <B>isTomcat</B>(javax.servlet.http.HttpServletRequest&nbsp;request)</PRE>
 <DL>
 <DD><DL>
 </DL>

@@ -54,7 +54,7 @@ function windowTitle()
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
 &nbsp;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/BigDecimalBox.BigDecimalRenderer.html" title="class in com.technology.jep.jepria.client.widget.field"><B>PREV CLASS</B></A>&nbsp;
-&nbsp;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.CheckBoxCellImpl.html" title="class in com.technology.jep.jepria.client.widget.field"><B>NEXT CLASS</B></A></FONT></TD>
+&nbsp;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.CheckBoxDataAggregator.html" title="class in com.technology.jep.jepria.client.widget.field"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../../../../../../index.html?com/technology/jep/jepria/client/widget/field/CheckBoxListField.html" target="_top"><B>FRAMES</B></A>  &nbsp;
 &nbsp;<A HREF="CheckBoxListField.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
@@ -122,27 +122,22 @@ This widget will create a Checkbox List view.
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>(package private) &nbsp;class</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.CheckBoxCellImpl.html" title="class in com.technology.jep.jepria.client.widget.field">CheckBoxListField.CheckBoxCellImpl</A></B></CODE>
+<CODE>private &nbsp;class</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.CheckBoxDataAggregator.html" title="class in com.technology.jep.jepria.client.widget.field">CheckBoxListField.CheckBoxDataAggregator</A></B></CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Implementation of Chechbox Cell.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Вспомогательный класс для хранения данных, представляемых элементом списка.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;interface</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.DefaultRenderer.html" title="interface in com.technology.jep.jepria.client.widget.field">CheckBoxListField.DefaultRenderer</A></B></CODE>
+<CODE>private &nbsp;class</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.JepCheckBoxCell.html" title="class in com.technology.jep.jepria.client.widget.field">CheckBoxListField.JepCheckBoxCell</A></B></CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default text layout</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>(package private) &nbsp;class</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.TextCellImpl.html" title="class in com.technology.jep.jepria.client.widget.field">CheckBoxListField.TextCellImpl</A></B></CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This is the default TextCell implementation.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Данный класс является аналогом gwt-класса <CODE>com.google.gwt.cell.client.CheckBoxCell</CODE>,
+ с единственной существенной разницей:
+ CheckBoxCell extends AbstractEditableCell<Boolean, Boolean>
+ JepCheckBoxCell extends AbstractEditableCell<CheckBoxDataAggregator, CheckBoxDataAggregator></TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="nested_classes_inherited_from_class_com.google.gwt.user.client.ui.UIObject"><!-- --></A>
@@ -175,27 +170,11 @@ This widget will create a Checkbox List view.
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>private &nbsp;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.DefaultRenderer.html" title="interface in com.technology.jep.jepria.client.widget.field">CheckBoxListField.DefaultRenderer</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.html#cellRenderer">cellRenderer</A></B></CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Create a singleton instance of the templates used to render the cell.</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>private static&nbsp;java.lang.String</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.html#CHECKBOX_HTML">CHECKBOX_HTML</A></B></CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;An html string representation of a checked input box.</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>private static&nbsp;java.lang.String</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.html#CHECKBOX_PREFIX_ID">CHECKBOX_PREFIX_ID</A></B></CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Prefix for checkBox's attribute ID</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;An html string representation of a checked input box with a label.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -207,19 +186,19 @@ This widget will create a Checkbox List view.
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>private &nbsp;int</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.html#fieldId">fieldId</A></B></CODE>
+<CODE>private &nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.html#disabled">disabled</A></B></CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Флаг свойства disabled данного поля.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>private &nbsp;int</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.html#inc">inc</A></B></CODE>
+<CODE>private &nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.html#fieldIdAsWebEl">fieldIdAsWebEl</A></B></CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ID объемлющего Jep-поля как Web-элемента.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -279,14 +258,6 @@ This widget will create a Checkbox List view.
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>private &nbsp;com.google.gwt.cell.client.HasCell&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.html" title="type parameter in CheckBoxListField">T</A>,java.lang.String&gt;</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.html#textCell">textCell</A></B></CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>protected &nbsp;com.google.gwt.user.client.ui.VerticalPanel</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.html#widgetPanel">widgetPanel</A></B></CODE>
 
@@ -314,6 +285,12 @@ This widget will create a Checkbox List view.
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.html#CheckBoxListField()">CheckBoxListField</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<B>Deprecated.</B>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.html#CheckBoxListField(java.lang.String)">CheckBoxListField</A></B>(java.lang.String&nbsp;fieldIdAsWebEl)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default constructor.</TD>
@@ -379,7 +356,7 @@ This widget will create a Checkbox List view.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>protected &nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.html#onSelectAll()">onSelectAll</A></B>()</CODE>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.html#onSelectAll(boolean)">onSelectAll</A></B>(boolean&nbsp;selectAll)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Обработчик события щелчка по флагу "Выделить все".</TD>
@@ -419,10 +396,10 @@ This widget will create a Checkbox List view.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.html#selectAll()">selectAll</A></B>()</CODE>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.html#setCompositeWebIds(java.lang.String)">setCompositeWebIds</A></B>(java.lang.String&nbsp;fieldIdAsWebEl)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Принудительно выбирает все опции.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Установка ID внутренних компонентов CheckBoxListField: table-списка как INPUT, кнопки "выделить все"</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -579,40 +556,10 @@ private com.google.gwt.user.client.ui.HorizontalPanel <B>panel</B></PRE>
 </DL>
 <HR>
 
-<A NAME="inc"><!-- --></A><H3>
-inc</H3>
-<PRE>
-private int <B>inc</B></PRE>
-<DL>
-<DL>
-</DL>
-</DL>
-<HR>
-
-<A NAME="fieldId"><!-- --></A><H3>
-fieldId</H3>
-<PRE>
-private int <B>fieldId</B></PRE>
-<DL>
-<DL>
-</DL>
-</DL>
-<HR>
-
 <A NAME="table"><!-- --></A><H3>
 table</H3>
 <PRE>
 protected com.google.gwt.user.cellview.client.DataGrid&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.html" title="type parameter in CheckBoxListField">T</A> extends <A HREF="../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A>&gt; <B>table</B></PRE>
-<DL>
-<DL>
-</DL>
-</DL>
-<HR>
-
-<A NAME="textCell"><!-- --></A><H3>
-textCell</H3>
-<PRE>
-private com.google.gwt.cell.client.HasCell&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.html" title="type parameter in CheckBoxListField">T</A> extends <A HREF="../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A>,java.lang.String&gt; <B>textCell</B></PRE>
 <DL>
 <DL>
 </DL>
@@ -624,6 +571,18 @@ data</H3>
 <PRE>
 private java.util.List&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.html" title="type parameter in CheckBoxListField">T</A> extends <A HREF="../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A>&gt; <B>data</B></PRE>
 <DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="disabled"><!-- --></A><H3>
+disabled</H3>
+<PRE>
+private boolean <B>disabled</B></PRE>
+<DL>
+<DD>Флаг свойства disabled данного поля. Необходимо хранить это значение, поскольку оно используется при каждом рендеринге.
+<P>
 <DL>
 </DL>
 </DL>
@@ -641,24 +600,12 @@ private com.google.gwt.view.client.MultiSelectionModel&lt;<A HREF="../../../../.
 </DL>
 <HR>
 
-<A NAME="CHECKBOX_PREFIX_ID"><!-- --></A><H3>
-CHECKBOX_PREFIX_ID</H3>
-<PRE>
-private static final java.lang.String <B>CHECKBOX_PREFIX_ID</B></PRE>
-<DL>
-<DD>Prefix for checkBox's attribute ID
-<P>
-<DL>
-<DT><B>See Also:</B><DD><A HREF="../../../../../../../constant-values.html#com.technology.jep.jepria.client.widget.field.CheckBoxListField.CHECKBOX_PREFIX_ID">Constant Field Values</A></DL>
-</DL>
-<HR>
-
 <A NAME="CHECKBOX_HTML"><!-- --></A><H3>
 CHECKBOX_HTML</H3>
 <PRE>
 private static final java.lang.String <B>CHECKBOX_HTML</B></PRE>
 <DL>
-<DD>An html string representation of a checked input box.
+<DD>An html string representation of a checked input box with a label.
 <P>
 <DL>
 <DT><B>See Also:</B><DD><A HREF="../../../../../../../constant-values.html#com.technology.jep.jepria.client.widget.field.CheckBoxListField.CHECKBOX_HTML">Constant Field Values</A></DL>
@@ -689,12 +636,12 @@ private static final java.lang.String <B>LIST_FIELD_COMMON_STYLE</B></PRE>
 </DL>
 <HR>
 
-<A NAME="cellRenderer"><!-- --></A><H3>
-cellRenderer</H3>
+<A NAME="fieldIdAsWebEl"><!-- --></A><H3>
+fieldIdAsWebEl</H3>
 <PRE>
-private <A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.DefaultRenderer.html" title="interface in com.technology.jep.jepria.client.widget.field">CheckBoxListField.DefaultRenderer</A> <B>cellRenderer</B></PRE>
+private final java.lang.String <B>fieldIdAsWebEl</B></PRE>
 <DL>
-<DD>Create a singleton instance of the templates used to render the cell.
+<DD>ID объемлющего Jep-поля как Web-элемента. Переменная нужна как поле класса для использования при реднеринге.
 <P>
 <DL>
 </DL>
@@ -713,7 +660,18 @@ private <A HREF="../../../../../../../com/technology/jep/jepria/client/widget/fi
 <A NAME="CheckBoxListField()"><!-- --></A><H3>
 CheckBoxListField</H3>
 <PRE>
-public <B>CheckBoxListField</B>()</PRE>
+<FONT SIZE="-1">@Deprecated
+</FONT>public <B>CheckBoxListField</B>()</PRE>
+<DL>
+<DD><B>Deprecated.</B>&nbsp;
+<P>
+</DL>
+<HR>
+
+<A NAME="CheckBoxListField(java.lang.String)"><!-- --></A><H3>
+CheckBoxListField</H3>
+<PRE>
+public <B>CheckBoxListField</B>(java.lang.String&nbsp;fieldIdAsWebEl)</PRE>
 <DL>
 <DD>Default constructor. Uses default text cell implementation of this class
 <P>
@@ -862,10 +820,10 @@ public void <B>setWidth</B>(java.lang.String&nbsp;width)</PRE>
 </DL>
 <HR>
 
-<A NAME="onSelectAll()"><!-- --></A><H3>
+<A NAME="onSelectAll(boolean)"><!-- --></A><H3>
 onSelectAll</H3>
 <PRE>
-protected void <B>onSelectAll</B>()</PRE>
+protected void <B>onSelectAll</B>(boolean&nbsp;selectAll)</PRE>
 <DL>
 <DD>Обработчик события щелчка по флагу "Выделить все".<br>
  Если флаг проставлен, выделяются все опции. В противном случае все опции сбрасываются.
@@ -1011,18 +969,18 @@ public boolean <B>isAllSelected</B>()</PRE>
 </DL>
 <HR>
 
-<A NAME="selectAll()"><!-- --></A><H3>
-selectAll</H3>
+<A NAME="setCompositeWebIds(java.lang.String)"><!-- --></A><H3>
+setCompositeWebIds</H3>
 <PRE>
-public void <B>selectAll</B>()</PRE>
+public void <B>setCompositeWebIds</B>(java.lang.String&nbsp;fieldIdAsWebEl)</PRE>
 <DL>
-<DD>Принудительно выбирает все опции.
+<DD>Установка ID внутренних компонентов CheckBoxListField: table-списка как INPUT, кнопки "выделить все"
 <P>
 <DD><DL>
 </DL>
 </DD>
 <DD><DL>
-</DL>
+<DT><B>Parameters:</B><DD><CODE>fieldIdAsWebEl</CODE> - ID JepListField'а, который берется за основу ID внутренних компонентов</DL>
 </DD>
 </DL>
 <!-- ========= END OF CLASS DATA ========= -->
@@ -1056,7 +1014,7 @@ public void <B>selectAll</B>()</PRE>
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
 &nbsp;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/BigDecimalBox.BigDecimalRenderer.html" title="class in com.technology.jep.jepria.client.widget.field"><B>PREV CLASS</B></A>&nbsp;
-&nbsp;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.CheckBoxCellImpl.html" title="class in com.technology.jep.jepria.client.widget.field"><B>NEXT CLASS</B></A></FONT></TD>
+&nbsp;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.CheckBoxDataAggregator.html" title="class in com.technology.jep.jepria.client.widget.field"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../../../../../../index.html?com/technology/jep/jepria/client/widget/field/CheckBoxListField.html" target="_top"><B>FRAMES</B></A>  &nbsp;
 &nbsp;<A HREF="CheckBoxListField.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;

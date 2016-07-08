@@ -122,7 +122,8 @@ java.lang.Object
                                 , LOB_FIELD_NAME
                                 , KEY_FIELD_NAME
                                 , new BigDecimal(loadTaskId.intValue())
-                                , DATA_SOURCE_JNDI_NAME);
+                                , DATA_SOURCE_JNDI_NAME
+                                , moduleName);
  </pre>
 <P>
 
@@ -200,12 +201,13 @@ java.lang.Object
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/server/upload/clob/FileUploadWriter.html#uploadFile(java.io.Reader, com.technology.jep.jepria.server.upload.FileUpload, java.lang.String, java.lang.String, java.util.Map, java.lang.String)">uploadFile</A></B>(java.io.Reader&nbsp;reader,
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/server/upload/clob/FileUploadWriter.html#uploadFile(java.io.Reader, com.technology.jep.jepria.server.upload.FileUpload, java.lang.String, java.lang.String, java.util.Map, java.lang.String, java.lang.String)">uploadFile</A></B>(java.io.Reader&nbsp;reader,
            <A HREF="../../../../../../../com/technology/jep/jepria/server/upload/FileUpload.html" title="interface in com.technology.jep.jepria.server.upload">FileUpload</A>&nbsp;fileUpload,
            java.lang.String&nbsp;tableName,
            java.lang.String&nbsp;fileFieldName,
            java.util.Map&lt;java.lang.String,java.lang.Object&gt;&nbsp;primaryKeyMap,
-           java.lang.String&nbsp;dataSourceJndiName)</CODE>
+           java.lang.String&nbsp;dataSourceJndiName,
+           java.lang.String&nbsp;moduleName)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Загрузка файла из входного потока в поле Clob таблицы базы данных по сложному первичному ключу.</TD>
@@ -213,13 +215,14 @@ java.lang.Object
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/server/upload/clob/FileUploadWriter.html#uploadFile(java.io.Reader, com.technology.jep.jepria.server.upload.FileUpload, java.lang.String, java.lang.String, java.lang.String, java.lang.Object, java.lang.String)">uploadFile</A></B>(java.io.Reader&nbsp;reader,
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/server/upload/clob/FileUploadWriter.html#uploadFile(java.io.Reader, com.technology.jep.jepria.server.upload.FileUpload, java.lang.String, java.lang.String, java.lang.String, java.lang.Object, java.lang.String, java.lang.String)">uploadFile</A></B>(java.io.Reader&nbsp;reader,
            <A HREF="../../../../../../../com/technology/jep/jepria/server/upload/FileUpload.html" title="interface in com.technology.jep.jepria.server.upload">FileUpload</A>&nbsp;fileUpload,
            java.lang.String&nbsp;tableName,
            java.lang.String&nbsp;fileFieldName,
            java.lang.String&nbsp;keyFieldName,
            java.lang.Object&nbsp;rowId,
-           java.lang.String&nbsp;dataSourceJndiName)</CODE>
+           java.lang.String&nbsp;dataSourceJndiName,
+           java.lang.String&nbsp;moduleName)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Загрузка файла из входного потока в поле Clob таблицы базы данных.</TD>
@@ -371,7 +374,7 @@ public void <B>write</B>(char[]&nbsp;cbuf,
 </DL>
 <HR>
 
-<A NAME="uploadFile(java.io.Reader, com.technology.jep.jepria.server.upload.FileUpload, java.lang.String, java.lang.String, java.lang.String, java.lang.Object, java.lang.String)"><!-- --></A><H3>
+<A NAME="uploadFile(java.io.Reader, com.technology.jep.jepria.server.upload.FileUpload, java.lang.String, java.lang.String, java.lang.String, java.lang.Object, java.lang.String, java.lang.String)"><!-- --></A><H3>
 uploadFile</H3>
 <PRE>
 public static void <B>uploadFile</B>(java.io.Reader&nbsp;reader,
@@ -380,20 +383,21 @@ public static void <B>uploadFile</B>(java.io.Reader&nbsp;reader,
                               java.lang.String&nbsp;fileFieldName,
                               java.lang.String&nbsp;keyFieldName,
                               java.lang.Object&nbsp;rowId,
-                              java.lang.String&nbsp;dataSourceJndiName)
+                              java.lang.String&nbsp;dataSourceJndiName,
+                              java.lang.String&nbsp;moduleName)
                        throws java.io.IOException</PRE>
 <DL>
 <DD>Загрузка файла из входного потока в поле Clob таблицы базы данных.
 <P>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>reader</CODE> - входной поток чтения файла<DD><CODE>fileUpload</CODE> - интерфейс выгрузки файла<DD><CODE>tableName</CODE> - имя таблицы, откуда берем СLOB<DD><CODE>fileFieldName</CODE> - имя атрибута в таблице, откуда берем СLOB<DD><CODE>keyFieldName</CODE> - PK в таблице tableName<DD><CODE>rowId</CODE> - идентификатор строки таблицы<DD><CODE>dataSourceJndiName</CODE> - имя источника данных
+<DT><B>Parameters:</B><DD><CODE>reader</CODE> - входной поток чтения файла<DD><CODE>fileUpload</CODE> - интерфейс выгрузки файла<DD><CODE>tableName</CODE> - имя таблицы, откуда берем СLOB<DD><CODE>fileFieldName</CODE> - имя атрибута в таблице, откуда берем СLOB<DD><CODE>keyFieldName</CODE> - PK в таблице tableName<DD><CODE>rowId</CODE> - идентификатор строки таблицы<DD><CODE>dataSourceJndiName</CODE> - имя источника данных<DD><CODE>moduleName</CODE> - имя модуля
 <DT><B>Throws:</B>
 <DD><CODE>java.io.IOException</CODE></DL>
 </DD>
 </DL>
 <HR>
 
-<A NAME="uploadFile(java.io.Reader, com.technology.jep.jepria.server.upload.FileUpload, java.lang.String, java.lang.String, java.util.Map, java.lang.String)"><!-- --></A><H3>
+<A NAME="uploadFile(java.io.Reader, com.technology.jep.jepria.server.upload.FileUpload, java.lang.String, java.lang.String, java.util.Map, java.lang.String, java.lang.String)"><!-- --></A><H3>
 uploadFile</H3>
 <PRE>
 public static void <B>uploadFile</B>(java.io.Reader&nbsp;reader,
@@ -401,12 +405,13 @@ public static void <B>uploadFile</B>(java.io.Reader&nbsp;reader,
                               java.lang.String&nbsp;tableName,
                               java.lang.String&nbsp;fileFieldName,
                               java.util.Map&lt;java.lang.String,java.lang.Object&gt;&nbsp;primaryKeyMap,
-                              java.lang.String&nbsp;dataSourceJndiName)</PRE>
+                              java.lang.String&nbsp;dataSourceJndiName,
+                              java.lang.String&nbsp;moduleName)</PRE>
 <DL>
 <DD>Загрузка файла из входного потока в поле Clob таблицы базы данных по сложному первичному ключу.
 <P>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>reader</CODE> - входной поток чтения файла<DD><CODE>fileUpload</CODE> - интерфейс выгрузки файла<DD><CODE>tableName</CODE> - имя таблицы, откуда берем СLOB<DD><CODE>fileFieldName</CODE> - имя атрибута в таблице, откуда берем СLOB<DD><CODE>primaryKeyMap</CODE> - PK в таблице tableName<DD><CODE>dataSourceJndiName</CODE> - имя источника данных</DL>
+<DT><B>Parameters:</B><DD><CODE>reader</CODE> - входной поток чтения файла<DD><CODE>fileUpload</CODE> - интерфейс выгрузки файла<DD><CODE>tableName</CODE> - имя таблицы, откуда берем СLOB<DD><CODE>fileFieldName</CODE> - имя атрибута в таблице, откуда берем СLOB<DD><CODE>primaryKeyMap</CODE> - PK в таблице tableName<DD><CODE>dataSourceJndiName</CODE> - имя источника данных<DD><CODE>moduleName</CODE> - имя модуля</DL>
 </DD>
 </DL>
 <!-- ========= END OF CLASS DATA ========= -->

@@ -200,13 +200,14 @@ java.lang.Object
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/server/download/clob/FileDownloadReader.html#downloadFile(java.io.OutputStream, com.technology.jep.jepria.server.download.FileDownload, java.lang.String, java.lang.String, java.lang.String, java.lang.Object, java.lang.String)">downloadFile</A></B>(java.io.OutputStream&nbsp;fileStream,
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/server/download/clob/FileDownloadReader.html#downloadFile(java.io.OutputStream, com.technology.jep.jepria.server.download.FileDownload, java.lang.String, java.lang.String, java.lang.String, java.lang.Object, java.lang.String, java.lang.String)">downloadFile</A></B>(java.io.OutputStream&nbsp;fileStream,
              <A HREF="../../../../../../../com/technology/jep/jepria/server/download/FileDownload.html" title="interface in com.technology.jep.jepria.server.download">FileDownload</A>&nbsp;fileDownload,
              java.lang.String&nbsp;tableName,
              java.lang.String&nbsp;fileFieldName,
              java.lang.String&nbsp;keyFieldName,
              java.lang.Object&nbsp;rowId,
-             java.lang.String&nbsp;dataSourceJndiName)</CODE>
+             java.lang.String&nbsp;dataSourceJndiName,
+             java.lang.String&nbsp;moduleName)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Загрузка файла в выходной поток из поля Clob таблицы базы данных.</TD>
@@ -214,13 +215,14 @@ java.lang.Object
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/server/download/clob/FileDownloadReader.html#downloadFile(java.io.OutputStream, com.technology.jep.jepria.server.download.FileDownload, java.lang.String, java.lang.String, java.lang.String, java.lang.Object, java.lang.String, java.nio.charset.Charset)">downloadFile</A></B>(java.io.OutputStream&nbsp;fileStream,
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/server/download/clob/FileDownloadReader.html#downloadFile(java.io.OutputStream, com.technology.jep.jepria.server.download.FileDownload, java.lang.String, java.lang.String, java.lang.String, java.lang.Object, java.lang.String, java.lang.String, java.nio.charset.Charset)">downloadFile</A></B>(java.io.OutputStream&nbsp;fileStream,
              <A HREF="../../../../../../../com/technology/jep/jepria/server/download/FileDownload.html" title="interface in com.technology.jep.jepria.server.download">FileDownload</A>&nbsp;fileDownload,
              java.lang.String&nbsp;tableName,
              java.lang.String&nbsp;fileFieldName,
              java.lang.String&nbsp;keyFieldName,
              java.lang.Object&nbsp;rowId,
              java.lang.String&nbsp;dataSourceJndiName,
+             java.lang.String&nbsp;moduleName,
              java.nio.charset.Charset&nbsp;encoding)</CODE>
 
 <BR>
@@ -361,7 +363,7 @@ public int <B>read</B>(char[]&nbsp;cbuf,
 </DL>
 <HR>
 
-<A NAME="downloadFile(java.io.OutputStream, com.technology.jep.jepria.server.download.FileDownload, java.lang.String, java.lang.String, java.lang.String, java.lang.Object, java.lang.String, java.nio.charset.Charset)"><!-- --></A><H3>
+<A NAME="downloadFile(java.io.OutputStream, com.technology.jep.jepria.server.download.FileDownload, java.lang.String, java.lang.String, java.lang.String, java.lang.Object, java.lang.String, java.lang.String, java.nio.charset.Charset)"><!-- --></A><H3>
 downloadFile</H3>
 <PRE>
 public static void <B>downloadFile</B>(java.io.OutputStream&nbsp;fileStream,
@@ -371,6 +373,7 @@ public static void <B>downloadFile</B>(java.io.OutputStream&nbsp;fileStream,
                                 java.lang.String&nbsp;keyFieldName,
                                 java.lang.Object&nbsp;rowId,
                                 java.lang.String&nbsp;dataSourceJndiName,
+                                java.lang.String&nbsp;moduleName,
                                 java.nio.charset.Charset&nbsp;encoding)
                          throws java.io.IOException</PRE>
 <DL>
@@ -384,7 +387,7 @@ public static void <B>downloadFile</B>(java.io.OutputStream&nbsp;fileStream,
 </DL>
 <HR>
 
-<A NAME="downloadFile(java.io.OutputStream, com.technology.jep.jepria.server.download.FileDownload, java.lang.String, java.lang.String, java.lang.String, java.lang.Object, java.lang.String)"><!-- --></A><H3>
+<A NAME="downloadFile(java.io.OutputStream, com.technology.jep.jepria.server.download.FileDownload, java.lang.String, java.lang.String, java.lang.String, java.lang.Object, java.lang.String, java.lang.String)"><!-- --></A><H3>
 downloadFile</H3>
 <PRE>
 public static void <B>downloadFile</B>(java.io.OutputStream&nbsp;fileStream,
@@ -393,7 +396,8 @@ public static void <B>downloadFile</B>(java.io.OutputStream&nbsp;fileStream,
                                 java.lang.String&nbsp;fileFieldName,
                                 java.lang.String&nbsp;keyFieldName,
                                 java.lang.Object&nbsp;rowId,
-                                java.lang.String&nbsp;dataSourceJndiName)
+                                java.lang.String&nbsp;dataSourceJndiName,
+                                java.lang.String&nbsp;moduleName)
                          throws java.io.IOException</PRE>
 <DL>
 <DD>Загрузка файла в выходной поток из поля Clob таблицы базы данных.

@@ -164,7 +164,7 @@ java.lang.Object
  </pre>
      
  ВАЖНО: Перед использованием методов необходимо предварительно
- вызвать <A HREF="../../../../../../com/technology/jep/jepria/server/dao/CallContext.html#begin(java.lang.String)"><CODE>CallContext.begin(String)</CODE></A> для старта транзакции, далее
+ вызвать <CODE>CallContext#begin(String)</CODE> для старта транзакции, далее
  <A HREF="../../../../../../com/technology/jep/jepria/server/dao/CallContext.html#commit()"><CODE>CallContext.commit()</CODE></A> либо <A HREF="../../../../../../com/technology/jep/jepria/server/dao/CallContext.html#rollback()"><CODE>CallContext.rollback()</CODE></A>. После завершения
  необходимо освободить ресурсы с помощью <A HREF="../../../../../../com/technology/jep/jepria/server/dao/CallContext.html#end()"><CODE>CallContext.end()</CODE></A>.
 <P>
@@ -323,6 +323,14 @@ java.lang.Object
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private static&nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/dao/DaoSupport.html#getAction(java.lang.String)">getAction</A></B>(java.lang.String&nbsp;query)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Получение названия действия (action_name) из шаблона SQL-выражения.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>private static
 <TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0" SUMMARY="">
 <TR ALIGN="right" VALIGN="">
@@ -372,6 +380,14 @@ java.lang.Object
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Данный метод выполняет sql-запрос.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private static&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/dao/DaoSupport.html#setApplicationInfo(java.lang.String)">setApplicationInfo</A></B>(java.lang.String&nbsp;queryToExecute)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Установка информации о вызывающем модуле.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -432,6 +448,15 @@ java.lang.Object
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Вспомогательный метод.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/dao/DaoSupport.html#setModule(java.lang.String, java.lang.String)">setModule</A></B>(java.lang.String&nbsp;moduleName,
+          java.lang.String&nbsp;actionName)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Установка имени модуля (module name) и названия действия (action_name).</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -741,6 +766,60 @@ private static &lt;T&gt; java.util.List&lt;T&gt; <B>findOrSelect</B>(java.lang.S
 <DT><B>Returns:</B><DD>список объектов в виде List&lt;T&gt;
 <DT><B>Throws:</B>
 <DD><CODE><A HREF="../../../../../../com/technology/jep/jepria/shared/exceptions/ApplicationException.html" title="class in com.technology.jep.jepria.shared.exceptions">ApplicationException</A></CODE></DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setApplicationInfo(java.lang.String)"><!-- --></A><H3>
+setApplicationInfo</H3>
+<PRE>
+private static void <B>setApplicationInfo</B>(java.lang.String&nbsp;queryToExecute)
+                                throws java.sql.SQLException</PRE>
+<DL>
+<DD>Установка информации о вызывающем модуле.
+ Использует встроенный функционал Oracle для установки трёх параметров сессии.
+ Значение module_name (имя модуля) извлекается из <A HREF="../../../../../../com/technology/jep/jepria/server/dao/CallContext.html" title="class in com.technology.jep.jepria.server.dao"><CODE>CallContext</CODE></A>, action_name
+ (название действия) - из шаблона SQL-выражения. client_info заполняется пустым значением.
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>queryToExecute</CODE> - шаблон запроса
+<DT><B>Throws:</B>
+<DD><CODE>java.sql.SQLException</CODE> - при ошибке взаимодействия с базой</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setModule(java.lang.String, java.lang.String)"><!-- --></A><H3>
+setModule</H3>
+<PRE>
+public static void <B>setModule</B>(java.lang.String&nbsp;moduleName,
+                             java.lang.String&nbsp;actionName)
+                      throws java.sql.SQLException</PRE>
+<DL>
+<DD>Установка имени модуля (module name) и названия действия (action_name).
+ Кроме того, метод сбрасывает установленное значение client_info.
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>moduleName</CODE> - имя модуля (Oracle обрезает значение до 48 байт)<DD><CODE>actionName</CODE> - название действия (Oracle обрезает значение до 32 байт)
+<DT><B>Throws:</B>
+<DD><CODE>java.sql.SQLException</CODE> - при ошибке взаимодействия с базой</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getAction(java.lang.String)"><!-- --></A><H3>
+getAction</H3>
+<PRE>
+private static java.lang.String <B>getAction</B>(java.lang.String&nbsp;query)</PRE>
+<DL>
+<DD>Получение названия действия (action_name) из шаблона SQL-выражения.
+ Если запрос содержит имя функции или процедуры, то метод возвращает данное имя.
+ В противном случае (например, если это SQL-запрос) в качестве названия действия
+ возвращается сам шаблон запроса.
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>query</CODE> - шаблон запроса
+<DT><B>Returns:</B><DD>название действия</DL>
 </DD>
 </DL>
 <HR>

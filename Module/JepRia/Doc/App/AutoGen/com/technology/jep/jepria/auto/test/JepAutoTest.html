@@ -182,10 +182,12 @@ java.lang.Object
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>protected abstract &nbsp;<A HREF="../../../../../../com/technology/jep/jepria/auto/manager/JepRiaAuto.html" title="interface in com.technology.jep.jepria.auto.manager">JepRiaAuto</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/test/JepAutoTest.html#getAutomationManager(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)">getAutomationManager</A></B>(java.lang.String&nbsp;baseUrl,
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/test/JepAutoTest.html#getAutomationManager(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)">getAutomationManager</A></B>(java.lang.String&nbsp;baseUrl,
                      java.lang.String&nbsp;browserName,
                      java.lang.String&nbsp;browserVersion,
                      java.lang.String&nbsp;browserPlatform,
+                     java.lang.String&nbsp;browserPath,
+                     java.lang.String&nbsp;driverPath,
                      java.lang.String&nbsp;jepriaVersion,
                      java.lang.String&nbsp;username,
                      java.lang.String&nbsp;password)</CODE>
@@ -204,10 +206,12 @@ java.lang.Object
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/test/JepAutoTest.html#setUp(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)">setUp</A></B>(java.lang.String&nbsp;baseUrl,
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/test/JepAutoTest.html#setUp(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)">setUp</A></B>(java.lang.String&nbsp;baseUrl,
       java.lang.String&nbsp;browserName,
       java.lang.String&nbsp;browserVersion,
       java.lang.String&nbsp;browserPlatform,
+      java.lang.String&nbsp;browserPath,
+      java.lang.String&nbsp;driverPath,
       java.lang.String&nbsp;jepriaVersion,
       java.lang.String&nbsp;forceNewBrowser,
       java.lang.String&nbsp;forceLogin,
@@ -220,6 +224,14 @@ java.lang.Object
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>protected &nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/test/JepAutoTest.html#setWorkstate(com.technology.jep.jepria.client.ui.WorkstateEnum)">setWorkstate</A></B>(<A HREF="../../../../../../com/technology/jep/jepria/client/ui/WorkstateEnum.html" title="enum in com.technology.jep.jepria.client.ui">WorkstateEnum</A>&nbsp;workstate)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;void</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/test/JepAutoTest.html#sleep(int)">sleep</A></B>(int&nbsp;msc)</CODE>
 
 <BR>
@@ -228,11 +240,13 @@ java.lang.Object
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>private &nbsp;<A HREF="../../../../../../com/technology/jep/jepria/auto/manager/JepRiaAuto.html" title="interface in com.technology.jep.jepria.auto.manager">JepRiaAuto</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/test/JepAutoTest.html#startAutomationManager(com.technology.jep.jepria.auto.manager.JepRiaAuto, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)">startAutomationManager</A></B>(<A HREF="../../../../../../com/technology/jep/jepria/auto/manager/JepRiaAuto.html" title="interface in com.technology.jep.jepria.auto.manager">JepRiaAuto</A>&nbsp;automationManager,
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/test/JepAutoTest.html#startAutomationManager(com.technology.jep.jepria.auto.manager.JepRiaAuto, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)">startAutomationManager</A></B>(<A HREF="../../../../../../com/technology/jep/jepria/auto/manager/JepRiaAuto.html" title="interface in com.technology.jep.jepria.auto.manager">JepRiaAuto</A>&nbsp;automationManager,
                        java.lang.String&nbsp;baseUrl,
                        java.lang.String&nbsp;browserName,
                        java.lang.String&nbsp;browserVersion,
                        java.lang.String&nbsp;browserPlatform,
+                       java.lang.String&nbsp;browserPath,
+                       java.lang.String&nbsp;driverPath,
                        java.lang.String&nbsp;jepriaVersion,
                        java.lang.String&nbsp;forceNewBrowser,
                        java.lang.String&nbsp;forceLogin,
@@ -384,13 +398,15 @@ protected abstract void <B>createTestRecord</B>(java.lang.String&nbsp;keyFieldVa
 </DL>
 <HR>
 
-<A NAME="getAutomationManager(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)"><!-- --></A><H3>
+<A NAME="getAutomationManager(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)"><!-- --></A><H3>
 getAutomationManager</H3>
 <PRE>
 protected abstract <A HREF="../../../../../../com/technology/jep/jepria/auto/manager/JepRiaAuto.html" title="interface in com.technology.jep.jepria.auto.manager">JepRiaAuto</A> <B>getAutomationManager</B>(java.lang.String&nbsp;baseUrl,
                                                    java.lang.String&nbsp;browserName,
                                                    java.lang.String&nbsp;browserVersion,
                                                    java.lang.String&nbsp;browserPlatform,
+                                                   java.lang.String&nbsp;browserPath,
+                                                   java.lang.String&nbsp;driverPath,
                                                    java.lang.String&nbsp;jepriaVersion,
                                                    java.lang.String&nbsp;username,
                                                    java.lang.String&nbsp;password)</PRE>
@@ -412,13 +428,15 @@ protected abstract <A HREF="../../../../../../com/technology/jep/jepria/auto/tes
 </DL>
 <HR>
 
-<A NAME="setUp(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)"><!-- --></A><H3>
+<A NAME="setUp(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)"><!-- --></A><H3>
 setUp</H3>
 <PRE>
 public void <B>setUp</B>(java.lang.String&nbsp;baseUrl,
                   java.lang.String&nbsp;browserName,
                   java.lang.String&nbsp;browserVersion,
                   java.lang.String&nbsp;browserPlatform,
+                  java.lang.String&nbsp;browserPath,
+                  java.lang.String&nbsp;driverPath,
                   java.lang.String&nbsp;jepriaVersion,
                   java.lang.String&nbsp;forceNewBrowser,
                   java.lang.String&nbsp;forceLogin,
@@ -505,7 +523,7 @@ protected void <B>deleteTestRecord</B>(java.lang.String&nbsp;testFieldKey,
 </DL>
 <HR>
 
-<A NAME="startAutomationManager(com.technology.jep.jepria.auto.manager.JepRiaAuto, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)"><!-- --></A><H3>
+<A NAME="startAutomationManager(com.technology.jep.jepria.auto.manager.JepRiaAuto, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)"><!-- --></A><H3>
 startAutomationManager</H3>
 <PRE>
 private <A HREF="../../../../../../com/technology/jep/jepria/auto/manager/JepRiaAuto.html" title="interface in com.technology.jep.jepria.auto.manager">JepRiaAuto</A> <B>startAutomationManager</B>(<A HREF="../../../../../../com/technology/jep/jepria/auto/manager/JepRiaAuto.html" title="interface in com.technology.jep.jepria.auto.manager">JepRiaAuto</A>&nbsp;automationManager,
@@ -513,11 +531,24 @@ private <A HREF="../../../../../../com/technology/jep/jepria/auto/manager/JepRia
                                           java.lang.String&nbsp;browserName,
                                           java.lang.String&nbsp;browserVersion,
                                           java.lang.String&nbsp;browserPlatform,
+                                          java.lang.String&nbsp;browserPath,
+                                          java.lang.String&nbsp;driverPath,
                                           java.lang.String&nbsp;jepriaVersion,
                                           java.lang.String&nbsp;forceNewBrowser,
                                           java.lang.String&nbsp;forceLogin,
                                           java.lang.String&nbsp;username,
                                           java.lang.String&nbsp;password)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setWorkstate(com.technology.jep.jepria.client.ui.WorkstateEnum)"><!-- --></A><H3>
+setWorkstate</H3>
+<PRE>
+protected void <B>setWorkstate</B>(<A HREF="../../../../../../com/technology/jep/jepria/client/ui/WorkstateEnum.html" title="enum in com.technology.jep.jepria.client.ui">WorkstateEnum</A>&nbsp;workstate)</PRE>
 <DL>
 <DD><DL>
 </DL>

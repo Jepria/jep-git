@@ -131,6 +131,14 @@ java.lang.Object
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Обёртка соединения с базой.</TD>
 </TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/dao/CallContext.html#moduleName">moduleName</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Имя модуля для передачи в DB.</TD>
+</TR>
 </TABLE>
 &nbsp;
 <!-- ======== CONSTRUCTOR SUMMARY ======== -->
@@ -144,7 +152,8 @@ java.lang.Object
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>private </CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/dao/CallContext.html#CallContext(java.lang.String)">CallContext</A></B>(java.lang.String&nbsp;dataSourceJndiName)</CODE>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/dao/CallContext.html#CallContext(java.lang.String, java.lang.String)">CallContext</A></B>(java.lang.String&nbsp;dataSourceJndiName,
+            java.lang.String&nbsp;moduleName)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Создаёт объект контекста.</TD>
@@ -170,7 +179,8 @@ java.lang.Object
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/dao/CallContext.html#begin(java.lang.String)">begin</A></B>(java.lang.String&nbsp;dataSourceJndiName)</CODE>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/dao/CallContext.html#begin(java.lang.String, java.lang.String)">begin</A></B>(java.lang.String&nbsp;dataSourceJndiName,
+      java.lang.String&nbsp;moduleName)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Метод, предваряющий начало транзакции.</TD>
@@ -214,6 +224,14 @@ java.lang.Object
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Возвращает объект соединения.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/dao/CallContext.html#getModuleName()">getModuleName</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Возвращает имя модуля для передачи в DB</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -268,6 +286,18 @@ private <A HREF="../../../../../../com/technology/jep/jepria/server/db/Db.html" 
 <DL>
 </DL>
 </DL>
+<HR>
+
+<A NAME="moduleName"><!-- --></A><H3>
+moduleName</H3>
+<PRE>
+private java.lang.String <B>moduleName</B></PRE>
+<DL>
+<DD>Имя модуля для передачи в DB.
+<P>
+<DL>
+</DL>
+</DL>
 
 <!-- ========= CONSTRUCTOR DETAIL ======== -->
 
@@ -279,15 +309,16 @@ private <A HREF="../../../../../../com/technology/jep/jepria/server/db/Db.html" 
 </TR>
 </TABLE>
 
-<A NAME="CallContext(java.lang.String)"><!-- --></A><H3>
+<A NAME="CallContext(java.lang.String, java.lang.String)"><!-- --></A><H3>
 CallContext</H3>
 <PRE>
-private <B>CallContext</B>(java.lang.String&nbsp;dataSourceJndiName)</PRE>
+private <B>CallContext</B>(java.lang.String&nbsp;dataSourceJndiName,
+                    java.lang.String&nbsp;moduleName)</PRE>
 <DL>
 <DD>Создаёт объект контекста.
 <P>
 <DL>
-<DT><B>Parameters:</B><DD><CODE>dataSourceJndiName</CODE> - JNDI-имя источника данных</DL>
+<DT><B>Parameters:</B><DD><CODE>dataSourceJndiName</CODE> - JNDI-имя источника данных<DD><CODE>modileName</CODE> - имя модуля</DL>
 </DL>
 
 <!-- ============ METHOD DETAIL ========== -->
@@ -300,10 +331,11 @@ private <B>CallContext</B>(java.lang.String&nbsp;dataSourceJndiName)</PRE>
 </TR>
 </TABLE>
 
-<A NAME="begin(java.lang.String)"><!-- --></A><H3>
+<A NAME="begin(java.lang.String, java.lang.String)"><!-- --></A><H3>
 begin</H3>
 <PRE>
-public static void <B>begin</B>(java.lang.String&nbsp;dataSourceJndiName)</PRE>
+public static void <B>begin</B>(java.lang.String&nbsp;dataSourceJndiName,
+                         java.lang.String&nbsp;moduleName)</PRE>
 <DL>
 <DD>Метод, предваряющий начало транзакции.<br/>
  Создаёт новый экземпляр контекста и помещает в <code>ThreadLocal</code>.
@@ -324,6 +356,20 @@ public static <A HREF="../../../../../../com/technology/jep/jepria/server/db/Db.
 <DD><DL>
 
 <DT><B>Returns:</B><DD>объект соединения</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getModuleName()"><!-- --></A><H3>
+getModuleName</H3>
+<PRE>
+public static java.lang.String <B>getModuleName</B>()</PRE>
+<DL>
+<DD>Возвращает имя модуля для передачи в DB
+<P>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>имя модуля</DL>
 </DD>
 </DL>
 <HR>

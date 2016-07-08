@@ -117,7 +117,8 @@ Interface StartTransactionHandler</H2>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/server/dao/transaction/handler/StartTransactionHandler.html#handle(java.lang.String)">handle</A></B>(java.lang.String&nbsp;dataSourceJndiName)</CODE>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/server/dao/transaction/handler/StartTransactionHandler.html#handle(java.lang.String, java.lang.String)">handle</A></B>(java.lang.String&nbsp;dataSourceJndiName,
+       java.lang.String&nbsp;moduleName)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Метод, предваряющий транзакцию.</TD>
@@ -136,18 +137,19 @@ Interface StartTransactionHandler</H2>
 </TR>
 </TABLE>
 
-<A NAME="handle(java.lang.String)"><!-- --></A><H3>
+<A NAME="handle(java.lang.String, java.lang.String)"><!-- --></A><H3>
 handle</H3>
 <PRE>
-void <B>handle</B>(java.lang.String&nbsp;dataSourceJndiName)
+void <B>handle</B>(java.lang.String&nbsp;dataSourceJndiName,
+            java.lang.String&nbsp;moduleName)
             throws <A HREF="../../../../../../../../com/technology/jep/jepria/shared/exceptions/ApplicationException.html" title="class in com.technology.jep.jepria.shared.exceptions">ApplicationException</A></PRE>
 <DL>
 <DD>Метод, предваряющий транзакцию.<br/>
- Требование к кастомной реализации: необходимо вызвать <A HREF="../../../../../../../../com/technology/jep/jepria/server/dao/CallContext.html#begin(java.lang.String)"><CODE>CallContext.begin(String)</CODE></A>,
+ Требование к кастомной реализации: необходимо вызвать <A HREF="../../../../../../../../com/technology/jep/jepria/server/dao/CallContext.html#begin(java.lang.String, java.lang.String)"><CODE>CallContext.begin(String, String)</CODE></A>,
  чтобы в <code>ThreadLocal</code> был размещён объект <A HREF="../../../../../../../../com/technology/jep/jepria/server/db/Db.html" title="class in com.technology.jep.jepria.server.db"><CODE>Db</CODE></A>.
 <P>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>dataSourceJndiName</CODE> - JNDI-имя источника данных
+<DT><B>Parameters:</B><DD><CODE>dataSourceJndiName</CODE> - JNDI-имя источника данных<DD><CODE>moduleName</CODE> - имя модуля для передачи в DB.
 <DT><B>Throws:</B>
 <DD><CODE><A HREF="../../../../../../../../com/technology/jep/jepria/shared/exceptions/ApplicationException.html" title="class in com.technology.jep.jepria.shared.exceptions">ApplicationException</A></CODE> - в случае ошибки</DL>
 </DD>

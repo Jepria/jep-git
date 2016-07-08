@@ -122,7 +122,8 @@ java.lang.Object
                                 , LOB_FIELD_NAME
                                 , KEY_FIELD_NAME
                                 , new BigDecimal(loadTaskId.intValue())
-                                , DATA_SOURCE_JNDI_NAME);
+                                , DATA_SOURCE_JNDI_NAME
+                                , moduleName);
  </pre>
 <P>
 
@@ -191,12 +192,13 @@ java.lang.Object
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/server/upload/blob/FileUploadStream.html#uploadFile(java.io.InputStream, com.technology.jep.jepria.server.upload.blob.BinaryFileUpload, java.lang.String, java.lang.String, java.util.Map, java.lang.String)">uploadFile</A></B>(java.io.InputStream&nbsp;inputStream,
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/server/upload/blob/FileUploadStream.html#uploadFile(java.io.InputStream, com.technology.jep.jepria.server.upload.blob.BinaryFileUpload, java.lang.String, java.lang.String, java.util.Map, java.lang.String, java.lang.String)">uploadFile</A></B>(java.io.InputStream&nbsp;inputStream,
            <A HREF="../../../../../../../com/technology/jep/jepria/server/upload/blob/BinaryFileUpload.html" title="interface in com.technology.jep.jepria.server.upload.blob">BinaryFileUpload</A>&nbsp;fileUpload,
            java.lang.String&nbsp;tableName,
            java.lang.String&nbsp;fileFieldName,
            java.util.Map&lt;java.lang.String,java.lang.Object&gt;&nbsp;primaryKeyMap,
-           java.lang.String&nbsp;dataSourceJndiName)</CODE>
+           java.lang.String&nbsp;dataSourceJndiName,
+           java.lang.String&nbsp;moduleName)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Загрузка файла из входного потока в поле Blob таблицы базы данных по сложному первичному ключу.</TD>
@@ -204,13 +206,14 @@ java.lang.Object
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/server/upload/blob/FileUploadStream.html#uploadFile(java.io.InputStream, com.technology.jep.jepria.server.upload.FileUpload, java.lang.String, java.lang.String, java.lang.String, java.lang.Object, java.lang.String)">uploadFile</A></B>(java.io.InputStream&nbsp;fileStream,
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/server/upload/blob/FileUploadStream.html#uploadFile(java.io.InputStream, com.technology.jep.jepria.server.upload.FileUpload, java.lang.String, java.lang.String, java.lang.String, java.lang.Object, java.lang.String, java.lang.String)">uploadFile</A></B>(java.io.InputStream&nbsp;fileStream,
            <A HREF="../../../../../../../com/technology/jep/jepria/server/upload/FileUpload.html" title="interface in com.technology.jep.jepria.server.upload">FileUpload</A>&nbsp;fileUpload,
            java.lang.String&nbsp;tableName,
            java.lang.String&nbsp;fileFieldName,
            java.lang.String&nbsp;keyFieldName,
            java.lang.Object&nbsp;rowId,
-           java.lang.String&nbsp;dataSourceJndiName)</CODE>
+           java.lang.String&nbsp;dataSourceJndiName,
+           java.lang.String&nbsp;moduleName)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Загрузка файла из входного потока в поле Blob таблицы базы данных по простому первичному ключу.</TD>
@@ -407,7 +410,7 @@ public void <B>write</B>(int&nbsp;b)
 </DL>
 <HR>
 
-<A NAME="uploadFile(java.io.InputStream, com.technology.jep.jepria.server.upload.FileUpload, java.lang.String, java.lang.String, java.lang.String, java.lang.Object, java.lang.String)"><!-- --></A><H3>
+<A NAME="uploadFile(java.io.InputStream, com.technology.jep.jepria.server.upload.FileUpload, java.lang.String, java.lang.String, java.lang.String, java.lang.Object, java.lang.String, java.lang.String)"><!-- --></A><H3>
 uploadFile</H3>
 <PRE>
 public static void <B>uploadFile</B>(java.io.InputStream&nbsp;fileStream,
@@ -416,20 +419,21 @@ public static void <B>uploadFile</B>(java.io.InputStream&nbsp;fileStream,
                               java.lang.String&nbsp;fileFieldName,
                               java.lang.String&nbsp;keyFieldName,
                               java.lang.Object&nbsp;rowId,
-                              java.lang.String&nbsp;dataSourceJndiName)
+                              java.lang.String&nbsp;dataSourceJndiName,
+                              java.lang.String&nbsp;moduleName)
                        throws java.io.IOException</PRE>
 <DL>
 <DD>Загрузка файла из входного потока в поле Blob таблицы базы данных по простому первичному ключу.
 <P>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>fileStream</CODE> - входной поток чтения файла<DD><CODE>fileUpload</CODE> - интерфейс выгрузки файла<DD><CODE>tableName</CODE> - имя таблицы, откуда берем BINARY_FILE<DD><CODE>fileFieldName</CODE> - имя атрибута в таблице, откуда берем BINARY_FILE<DD><CODE>keyFieldName</CODE> - PK в таблице tableName<DD><CODE>rowId</CODE> - идентификатор строки таблицы<DD><CODE>dataSourceJndiName</CODE> - имя источника данных
+<DT><B>Parameters:</B><DD><CODE>fileStream</CODE> - входной поток чтения файла<DD><CODE>fileUpload</CODE> - интерфейс выгрузки файла<DD><CODE>tableName</CODE> - имя таблицы, откуда берем BINARY_FILE<DD><CODE>fileFieldName</CODE> - имя атрибута в таблице, откуда берем BINARY_FILE<DD><CODE>keyFieldName</CODE> - PK в таблице tableName<DD><CODE>rowId</CODE> - идентификатор строки таблицы<DD><CODE>dataSourceJndiName</CODE> - имя источника данных<DD><CODE>moduleName</CODE> - имя модуля
 <DT><B>Throws:</B>
 <DD><CODE>java.io.IOException</CODE></DL>
 </DD>
 </DL>
 <HR>
 
-<A NAME="uploadFile(java.io.InputStream, com.technology.jep.jepria.server.upload.blob.BinaryFileUpload, java.lang.String, java.lang.String, java.util.Map, java.lang.String)"><!-- --></A><H3>
+<A NAME="uploadFile(java.io.InputStream, com.technology.jep.jepria.server.upload.blob.BinaryFileUpload, java.lang.String, java.lang.String, java.util.Map, java.lang.String, java.lang.String)"><!-- --></A><H3>
 uploadFile</H3>
 <PRE>
 public static void <B>uploadFile</B>(java.io.InputStream&nbsp;inputStream,
@@ -437,12 +441,13 @@ public static void <B>uploadFile</B>(java.io.InputStream&nbsp;inputStream,
                               java.lang.String&nbsp;tableName,
                               java.lang.String&nbsp;fileFieldName,
                               java.util.Map&lt;java.lang.String,java.lang.Object&gt;&nbsp;primaryKeyMap,
-                              java.lang.String&nbsp;dataSourceJndiName)</PRE>
+                              java.lang.String&nbsp;dataSourceJndiName,
+                              java.lang.String&nbsp;moduleName)</PRE>
 <DL>
 <DD>Загрузка файла из входного потока в поле Blob таблицы базы данных по сложному первичному ключу.
 <P>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>inputStream</CODE> - входной поток чтения файла<DD><CODE>fileUpload</CODE> - объект, выполняющий загрузку<DD><CODE>tableName</CODE> - имя таблицы, откуда берем BINARY_FILE<DD><CODE>fileFieldName</CODE> - имя атрибута в таблице, откуда берем BINARY_FILE<DD><CODE>primaryKeyMap</CODE> - PK в таблице tableName<DD><CODE>dataSourceJndiName</CODE> - имя источника данных
+<DT><B>Parameters:</B><DD><CODE>inputStream</CODE> - входной поток чтения файла<DD><CODE>fileUpload</CODE> - объект, выполняющий загрузку<DD><CODE>tableName</CODE> - имя таблицы, откуда берем BINARY_FILE<DD><CODE>fileFieldName</CODE> - имя атрибута в таблице, откуда берем BINARY_FILE<DD><CODE>primaryKeyMap</CODE> - PK в таблице tableName<DD><CODE>dataSourceJndiName</CODE> - имя источника данных<DD><CODE>moduleName</CODE> - имя модуля
 <DT><B>Throws:</B>
 <DD><CODE>java.io.IOException</CODE></DL>
 </DD>

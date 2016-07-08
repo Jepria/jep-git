@@ -156,11 +156,12 @@ java.lang.Object
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;int</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/server/upload/blob/BinaryFileUploadImpl.html#beginWrite(java.lang.String, java.lang.String, java.lang.String, java.lang.Object, java.lang.String)">beginWrite</A></B>(java.lang.String&nbsp;tableName,
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/server/upload/blob/BinaryFileUploadImpl.html#beginWrite(java.lang.String, java.lang.String, java.lang.String, java.lang.Object, java.lang.String, java.lang.String)">beginWrite</A></B>(java.lang.String&nbsp;tableName,
            java.lang.String&nbsp;fileFieldName,
            java.lang.String&nbsp;keyFieldName,
            java.lang.Object&nbsp;rowId,
-           java.lang.String&nbsp;dataSourceJndiName)</CODE>
+           java.lang.String&nbsp;dataSourceJndiName,
+           java.lang.String&nbsp;moduleName)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Начало длинной транзакции записи файла в LOB.</TD>
@@ -231,23 +232,24 @@ public <B>BinaryFileUploadImpl</B>()</PRE>
 </TR>
 </TABLE>
 
-<A NAME="beginWrite(java.lang.String, java.lang.String, java.lang.String, java.lang.Object, java.lang.String)"><!-- --></A><H3>
+<A NAME="beginWrite(java.lang.String, java.lang.String, java.lang.String, java.lang.Object, java.lang.String, java.lang.String)"><!-- --></A><H3>
 beginWrite</H3>
 <PRE>
 public int <B>beginWrite</B>(java.lang.String&nbsp;tableName,
                       java.lang.String&nbsp;fileFieldName,
                       java.lang.String&nbsp;keyFieldName,
                       java.lang.Object&nbsp;rowId,
-                      java.lang.String&nbsp;dataSourceJndiName)
+                      java.lang.String&nbsp;dataSourceJndiName,
+                      java.lang.String&nbsp;moduleName)
                throws <A HREF="../../../../../../../com/technology/jep/jepria/shared/exceptions/ApplicationException.html" title="class in com.technology.jep.jepria.shared.exceptions">ApplicationException</A></PRE>
 <DL>
 <DD>Начало длинной транзакции записи файла в LOB.
 <P>
 <DD><DL>
-<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../../com/technology/jep/jepria/server/upload/FileUpload.html#beginWrite(java.lang.String, java.lang.String, java.lang.String, java.lang.Object, java.lang.String)">beginWrite</A></CODE> in interface <CODE><A HREF="../../../../../../../com/technology/jep/jepria/server/upload/FileUpload.html" title="interface in com.technology.jep.jepria.server.upload">FileUpload</A></CODE></DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../../com/technology/jep/jepria/server/upload/FileUpload.html#beginWrite(java.lang.String, java.lang.String, java.lang.String, java.lang.Object, java.lang.String, java.lang.String)">beginWrite</A></CODE> in interface <CODE><A HREF="../../../../../../../com/technology/jep/jepria/server/upload/FileUpload.html" title="interface in com.technology.jep.jepria.server.upload">FileUpload</A></CODE></DL>
 </DD>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>tableName</CODE> - имя таблицы, в которую выполняется запись<DD><CODE>fileFieldName</CODE> - имя поля, в которое выполняется запись<DD><CODE>keyFieldName</CODE> - имя поля, идентифицирующего строку таблицы<DD><CODE>rowId</CODE> - идентификатор строки таблицы<DD><CODE>dataSourceJndiName</CODE> - JNDI-имя источника данных модуля
+<DT><B>Parameters:</B><DD><CODE>tableName</CODE> - имя таблицы, в которую выполняется запись<DD><CODE>fileFieldName</CODE> - имя поля, в которое выполняется запись<DD><CODE>keyFieldName</CODE> - имя поля, идентифицирующего строку таблицы<DD><CODE>rowId</CODE> - идентификатор строки таблицы<DD><CODE>dataSourceJndiName</CODE> - JNDI-имя источника данных модуля<DD><CODE>moduleName</CODE> - имя модуля для передачи в DB
 <DT><B>Returns:</B><DD>рекомендуемый размер буфера
 <DT><B>Throws:</B>
 <DD><CODE><A HREF="../../../../../../../com/technology/jep/jepria/shared/exceptions/ApplicationException.html" title="class in com.technology.jep.jepria.shared.exceptions">ApplicationException</A></CODE></DL>

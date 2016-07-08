@@ -1046,4 +1046,9 @@ public class JepRiaToolkitConstant {
 	public static final String YES = "y";
 	public static final String NO = "n";
 	public static final String XML_EXTENSION = ".xml";
+	
+	/**
+	 * Размер создаваемого пула нитей для возможности распараллеливания выполнения задач
+	 */
+	public static final int THREAD_POOL_SIZE = 5;
 }

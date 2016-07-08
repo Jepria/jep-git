@@ -170,43 +170,19 @@ java.lang.Object
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>private static&nbsp;java.lang.String</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/DualListBox.html#DUALLIST_MOVE_ALL_LEFT_BUTTON_ID">DUALLIST_MOVE_ALL_LEFT_BUTTON_ID</A></B></CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>private static&nbsp;java.lang.String</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/DualListBox.html#DUALLIST_MOVE_ALL_RIGHT_BUTTON_ID">DUALLIST_MOVE_ALL_RIGHT_BUTTON_ID</A></B></CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>private static&nbsp;java.lang.String</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/DualListBox.html#DUALLIST_MOVE_LEFT_BUTTON_ID">DUALLIST_MOVE_LEFT_BUTTON_ID</A></B></CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>private static&nbsp;java.lang.String</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/DualListBox.html#DUALLIST_MOVE_RIGHT_BUTTON_ID">DUALLIST_MOVE_RIGHT_BUTTON_ID</A></B></CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>private &nbsp;int</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/DualListBox.html#fieldId">fieldId</A></B></CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Идентификатор поля - случайное значение.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/DualListBox.html#fieldIdAsWebEl">fieldIdAsWebEl</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ID объемлющего Jep-поля как Web-элемента.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -335,6 +311,12 @@ java.lang.Object
 <TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/DualListBox.html#DualListBox()">DualListBox</A></B>()</CODE>
 
 <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<B>Deprecated.</B>&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/DualListBox.html#DualListBox(java.lang.String)">DualListBox</A></B>(java.lang.String&nbsp;fieldIdAsWebEl)</CODE>
+
+<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
 </TABLE>
@@ -363,7 +345,7 @@ java.lang.Object
         java.lang.String&nbsp;value)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Служебный метод, добавляющий элемент в список.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Служебный метод, добавляющий элемент в список и устанавливающий для него подсказку (title) и ID.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -497,6 +479,14 @@ java.lang.Object
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/DualListBox.html#setCompositeWebIds(java.lang.String)">setCompositeWebIds</A></B>(java.lang.String&nbsp;fieldIdAsWebEl)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Установка ID внутренних компонентов DualListBox: правого списка как INPUT и кнопок перемещения опций между двумя списками.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/DualListBox.html#setEnabled(boolean)">setEnabled</A></B>(boolean&nbsp;enabled)</CODE>
 
 <BR>
@@ -509,16 +499,6 @@ java.lang.Object
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Установка высоты компонента.</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>private static&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/DualListBox.html#setItemTitle(com.google.gwt.user.client.ui.ListBox, java.lang.String, java.lang.String)">setItemTitle</A></B>(com.google.gwt.user.client.ui.ListBox&nbsp;listBox,
-             java.lang.String&nbsp;value,
-             java.lang.String&nbsp;title)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Служебный метод, устанавливающий подсказку для элемента компонента по его значению (value).</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -610,46 +590,6 @@ java.lang.Object
 <B>Field Detail</B></FONT></TH>
 </TR>
 </TABLE>
-
-<A NAME="DUALLIST_MOVE_RIGHT_BUTTON_ID"><!-- --></A><H3>
-DUALLIST_MOVE_RIGHT_BUTTON_ID</H3>
-<PRE>
-private static final java.lang.String <B>DUALLIST_MOVE_RIGHT_BUTTON_ID</B></PRE>
-<DL>
-<DL>
-<DT><B>See Also:</B><DD><A HREF="../../../../../../../constant-values.html#com.technology.jep.jepria.client.widget.field.DualListBox.DUALLIST_MOVE_RIGHT_BUTTON_ID">Constant Field Values</A></DL>
-</DL>
-<HR>
-
-<A NAME="DUALLIST_MOVE_LEFT_BUTTON_ID"><!-- --></A><H3>
-DUALLIST_MOVE_LEFT_BUTTON_ID</H3>
-<PRE>
-private static final java.lang.String <B>DUALLIST_MOVE_LEFT_BUTTON_ID</B></PRE>
-<DL>
-<DL>
-<DT><B>See Also:</B><DD><A HREF="../../../../../../../constant-values.html#com.technology.jep.jepria.client.widget.field.DualListBox.DUALLIST_MOVE_LEFT_BUTTON_ID">Constant Field Values</A></DL>
-</DL>
-<HR>
-
-<A NAME="DUALLIST_MOVE_ALL_RIGHT_BUTTON_ID"><!-- --></A><H3>
-DUALLIST_MOVE_ALL_RIGHT_BUTTON_ID</H3>
-<PRE>
-private static final java.lang.String <B>DUALLIST_MOVE_ALL_RIGHT_BUTTON_ID</B></PRE>
-<DL>
-<DL>
-<DT><B>See Also:</B><DD><A HREF="../../../../../../../constant-values.html#com.technology.jep.jepria.client.widget.field.DualListBox.DUALLIST_MOVE_ALL_RIGHT_BUTTON_ID">Constant Field Values</A></DL>
-</DL>
-<HR>
-
-<A NAME="DUALLIST_MOVE_ALL_LEFT_BUTTON_ID"><!-- --></A><H3>
-DUALLIST_MOVE_ALL_LEFT_BUTTON_ID</H3>
-<PRE>
-private static final java.lang.String <B>DUALLIST_MOVE_ALL_LEFT_BUTTON_ID</B></PRE>
-<DL>
-<DL>
-<DT><B>See Also:</B><DD><A HREF="../../../../../../../constant-values.html#com.technology.jep.jepria.client.widget.field.DualListBox.DUALLIST_MOVE_ALL_LEFT_BUTTON_ID">Constant Field Values</A></DL>
-</DL>
-<HR>
 
 <A NAME="BUTTON_PANEL_WIDTH"><!-- --></A><H3>
 BUTTON_PANEL_WIDTH</H3>
@@ -844,6 +784,18 @@ private java.util.Map&lt;<A HREF="../../../../../../../com/technology/jep/jepria
 <DL>
 </DL>
 </DL>
+<HR>
+
+<A NAME="fieldIdAsWebEl"><!-- --></A><H3>
+fieldIdAsWebEl</H3>
+<PRE>
+private final java.lang.String <B>fieldIdAsWebEl</B></PRE>
+<DL>
+<DD>ID объемлющего Jep-поля как Web-элемента.
+<P>
+<DL>
+</DL>
+</DL>
 
 <!-- ========= CONSTRUCTOR DETAIL ======== -->
 
@@ -858,7 +810,18 @@ private java.util.Map&lt;<A HREF="../../../../../../../com/technology/jep/jepria
 <A NAME="DualListBox()"><!-- --></A><H3>
 DualListBox</H3>
 <PRE>
-public <B>DualListBox</B>()</PRE>
+<FONT SIZE="-1">@Deprecated
+</FONT>public <B>DualListBox</B>()</PRE>
+<DL>
+<DD><B>Deprecated.</B>&nbsp;
+<P>
+</DL>
+<HR>
+
+<A NAME="DualListBox(java.lang.String)"><!-- --></A><H3>
+DualListBox</H3>
+<PRE>
+public <B>DualListBox</B>(java.lang.String&nbsp;fieldIdAsWebEl)</PRE>
 <DL>
 </DL>
 
@@ -871,6 +834,22 @@ public <B>DualListBox</B>()</PRE>
 <B>Method Detail</B></FONT></TH>
 </TR>
 </TABLE>
+
+<A NAME="setCompositeWebIds(java.lang.String)"><!-- --></A><H3>
+setCompositeWebIds</H3>
+<PRE>
+public void <B>setCompositeWebIds</B>(java.lang.String&nbsp;fieldIdAsWebEl)</PRE>
+<DL>
+<DD>Установка ID внутренних компонентов DualListBox: правого списка как INPUT и кнопок перемещения опций между двумя списками.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>fieldIdAsWebEl</CODE> - ID JepDualListField'а, который берется за основу ID внутренних компонентов</DL>
+</DD>
+</DL>
+<HR>
 
 <A NAME="add(com.google.gwt.user.client.ui.Widget)"><!-- --></A><H3>
 add</H3>
@@ -1098,7 +1077,7 @@ private void <B>addItem</B>(com.google.gwt.user.client.ui.ListBox&nbsp;listBox,
                      <A HREF="../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A>&nbsp;item,
                      java.lang.String&nbsp;value)</PRE>
 <DL>
-<DD>Служебный метод, добавляющий элемент в список.<br>
+<DD>Служебный метод, добавляющий элемент в список и устанавливающий для него подсказку (title) и ID.<br>
  При добавлении элементы сортируются с использованием поля <A HREF="../../../../../../../com/technology/jep/jepria/client/widget/field/DualListBox.html#optionComparator"><CODE>optionComparator</CODE></A>.
 <P>
 <DD><DL>
@@ -1280,24 +1259,6 @@ private static void <B>removeByValue</B>(com.google.gwt.user.client.ui.ListBox&n
 </DD>
 <DD><DL>
 <DT><B>Parameters:</B><DD><CODE>listBox</CODE> - компонент<DD><CODE>value</CODE> - значение элемента</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="setItemTitle(com.google.gwt.user.client.ui.ListBox, java.lang.String, java.lang.String)"><!-- --></A><H3>
-setItemTitle</H3>
-<PRE>
-private static void <B>setItemTitle</B>(com.google.gwt.user.client.ui.ListBox&nbsp;listBox,
-                                 java.lang.String&nbsp;value,
-                                 java.lang.String&nbsp;title)</PRE>
-<DL>
-<DD>Служебный метод, устанавливающий подсказку для элемента компонента по его значению (value).
-<P>
-<DD><DL>
-</DL>
-</DD>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>listBox</CODE> - компонент<DD><CODE>value</CODE> - значение<DD><CODE>title</CODE> - подсказка</DL>
 </DD>
 </DL>
 <!-- ========= END OF CLASS DATA ========= -->

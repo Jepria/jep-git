@@ -137,6 +137,14 @@ java.lang.Object
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepria/server/ServerFactory.html#moduleName">moduleName</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Имя модуля (module_name), передаваемое в DB.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>private &nbsp;<A HREF="../../../../../com/technology/jep/jepria/server/ServerFactory.html" title="type parameter in ServerFactory">D</A></CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../com/technology/jep/jepria/server/ServerFactory.html#proxyDao">proxyDao</A></B></CODE>
 
@@ -185,6 +193,22 @@ java.lang.Object
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Возвращает JNDI-имя источника данных.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepria/server/ServerFactory.html#getModuleName()">getModuleName</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Возвращает имя модуля для передачи в DB.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepria/server/ServerFactory.html#setModuleName(java.lang.String)">setModuleName</A></B>(java.lang.String&nbsp;moduleName)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Устанавливает имя модуля для передачи в DB.</TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>
@@ -239,6 +263,18 @@ dataSourceJndiName</H3>
 private java.lang.String <B>dataSourceJndiName</B></PRE>
 <DL>
 <DD>JNDI-имя источника данных.
+<P>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="moduleName"><!-- --></A><H3>
+moduleName</H3>
+<PRE>
+private java.lang.String <B>moduleName</B></PRE>
+<DL>
+<DD>Имя модуля (module_name), передаваемое в DB.
 <P>
 <DL>
 </DL>
@@ -306,6 +342,39 @@ public java.lang.String <B>getDataSourceJndiName</B>()</PRE>
 <DD><DL>
 
 <DT><B>Returns:</B><DD>JNDI-имя источника данных.</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getModuleName()"><!-- --></A><H3>
+getModuleName</H3>
+<PRE>
+public java.lang.String <B>getModuleName</B>()</PRE>
+<DL>
+<DD>Возвращает имя модуля для передачи в DB.
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../com/technology/jep/jepria/server/DaoProvider.html#getModuleName()">getModuleName</A></CODE> in interface <CODE><A HREF="../../../../../com/technology/jep/jepria/server/DaoProvider.html" title="interface in com.technology.jep.jepria.server">DaoProvider</A>&lt;<A HREF="../../../../../com/technology/jep/jepria/server/ServerFactory.html" title="type parameter in ServerFactory">D</A>&gt;</CODE></DL>
+</DD>
+<DD><DL>
+
+<DT><B>Returns:</B><DD></DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setModuleName(java.lang.String)"><!-- --></A><H3>
+setModuleName</H3>
+<PRE>
+public void <B>setModuleName</B>(java.lang.String&nbsp;moduleName)</PRE>
+<DL>
+<DD>Устанавливает имя модуля для передачи в DB.
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../com/technology/jep/jepria/server/DaoProvider.html#setModuleName(java.lang.String)">setModuleName</A></CODE> in interface <CODE><A HREF="../../../../../com/technology/jep/jepria/server/DaoProvider.html" title="interface in com.technology.jep.jepria.server">DaoProvider</A>&lt;<A HREF="../../../../../com/technology/jep/jepria/server/ServerFactory.html" title="type parameter in ServerFactory">D</A>&gt;</CODE></DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>moduleName</CODE> - имя модуля.</DL>
 </DD>
 </DL>
 <!-- ========= END OF CLASS DATA ========= -->

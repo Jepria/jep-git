@@ -151,6 +151,14 @@ java.lang.Object
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/download/JepDownloadServlet.html#moduleName">moduleName</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Имя модуля, передаваемое в DB.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>private &nbsp;java.nio.charset.Charset</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/download/JepDownloadServlet.html#textFileCharset">textFileCharset</A></B></CODE>
 
@@ -168,17 +176,16 @@ java.lang.Object
 <B>Constructor Summary</B></FONT></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/download/JepDownloadServlet.html#JepDownloadServlet(com.technology.jep.jepria.shared.record.lob.JepLobRecordDefinition, java.lang.String, java.nio.charset.Charset)">JepDownloadServlet</A></B>(<A HREF="../../../../../../com/technology/jep/jepria/shared/record/lob/JepLobRecordDefinition.html" title="class in com.technology.jep.jepria.shared.record.lob">JepLobRecordDefinition</A>&nbsp;fileRecordDefinition,
-                   java.lang.String&nbsp;dataSourceJndiName,
-                   java.nio.charset.Charset&nbsp;textFileCharset)</CODE>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/download/JepDownloadServlet.html#JepDownloadServlet(com.technology.jep.jepria.shared.record.lob.JepLobRecordDefinition, java.lang.String)">JepDownloadServlet</A></B>(<A HREF="../../../../../../com/technology/jep/jepria/shared/record/lob/JepLobRecordDefinition.html" title="class in com.technology.jep.jepria.shared.record.lob">JepLobRecordDefinition</A>&nbsp;fileRecordDefinition,
+                   java.lang.String&nbsp;dataSourceJndiName)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Создаёт сервлет для загрузки файлов с сервера.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/download/JepDownloadServlet.html#JepDownloadServlet(com.technology.jep.jepria.shared.record.lob.JepLobRecordDefinition, java.lang.String, java.lang.String)">JepDownloadServlet</A></B>(<A HREF="../../../../../../com/technology/jep/jepria/shared/record/lob/JepLobRecordDefinition.html" title="class in com.technology.jep.jepria.shared.record.lob">JepLobRecordDefinition</A>&nbsp;fileRecordDefinition,
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/download/JepDownloadServlet.html#JepDownloadServlet(com.technology.jep.jepria.shared.record.lob.JepLobRecordDefinition, java.lang.String, java.nio.charset.Charset)">JepDownloadServlet</A></B>(<A HREF="../../../../../../com/technology/jep/jepria/shared/record/lob/JepLobRecordDefinition.html" title="class in com.technology.jep.jepria.shared.record.lob">JepLobRecordDefinition</A>&nbsp;fileRecordDefinition,
                    java.lang.String&nbsp;dataSourceJndiName,
-                   java.lang.String&nbsp;resourceBundleName)</CODE>
+                   java.nio.charset.Charset&nbsp;textFileCharset)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Создаёт сервлет для загрузки файлов с сервера.</TD>
@@ -242,6 +249,22 @@ java.lang.Object
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/download/JepDownloadServlet.html#getModuleName()">getModuleName</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Возвращает имя модуля, предназначенное для передачи в базу.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/download/JepDownloadServlet.html#init()">init</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Инициализация сервлета.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>protected &nbsp;void</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/download/JepDownloadServlet.html#onError(javax.servlet.http.HttpServletResponse, int, java.lang.String)">onError</A></B>(javax.servlet.http.HttpServletResponse&nbsp;response,
         int&nbsp;error,
@@ -286,7 +309,7 @@ java.lang.Object
 <TH ALIGN="left"><B>Methods inherited from class javax.servlet.GenericServlet</B></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE>destroy, getInitParameter, getInitParameterNames, getServletConfig, getServletContext, getServletInfo, getServletName, init, init, log, log</CODE></TD>
+<TD><CODE>destroy, getInitParameter, getInitParameterNames, getServletConfig, getServletContext, getServletInfo, getServletName, init, log, log</CODE></TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>
@@ -359,6 +382,18 @@ private java.lang.String <B>dataSourceJndiName</B></PRE>
 </DL>
 <HR>
 
+<A NAME="moduleName"><!-- --></A><H3>
+moduleName</H3>
+<PRE>
+private java.lang.String <B>moduleName</B></PRE>
+<DL>
+<DD>Имя модуля, передаваемое в DB.
+<P>
+<DL>
+</DL>
+</DL>
+<HR>
+
 <A NAME="textFileCharset"><!-- --></A><H3>
 textFileCharset</H3>
 <PRE>
@@ -394,12 +429,11 @@ public <B>JepDownloadServlet</B>(<A HREF="../../../../../../com/technology/jep/j
 </DL>
 <HR>
 
-<A NAME="JepDownloadServlet(com.technology.jep.jepria.shared.record.lob.JepLobRecordDefinition, java.lang.String, java.lang.String)"><!-- --></A><H3>
+<A NAME="JepDownloadServlet(com.technology.jep.jepria.shared.record.lob.JepLobRecordDefinition, java.lang.String)"><!-- --></A><H3>
 JepDownloadServlet</H3>
 <PRE>
 public <B>JepDownloadServlet</B>(<A HREF="../../../../../../com/technology/jep/jepria/shared/record/lob/JepLobRecordDefinition.html" title="class in com.technology.jep.jepria.shared.record.lob">JepLobRecordDefinition</A>&nbsp;fileRecordDefinition,
-                          java.lang.String&nbsp;dataSourceJndiName,
-                          java.lang.String&nbsp;resourceBundleName)</PRE>
+                          java.lang.String&nbsp;dataSourceJndiName)</PRE>
 <DL>
 <DD>Создаёт сервлет для загрузки файлов с сервера.<br/>
  Для текстовых файлов используется кодировка по умолчанию - UTF-8.
@@ -443,6 +477,28 @@ private static java.lang.String <B>replaceIllegalCharacters</B>(java.lang.String
 <DD><DL>
 <DT><B>Parameters:</B><DD><CODE>str</CODE> - строка
 <DT><B>Returns:</B><DD>строка с заменёнными недопустимыми символами</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="init()"><!-- --></A><H3>
+init</H3>
+<PRE>
+public void <B>init</B>()
+          throws javax.servlet.ServletException</PRE>
+<DL>
+<DD>Инициализация сервлета.
+ Переопределение метода обусловлено установкой имени модуля. Выполнить данную операцию
+ в конструкторе невозможно, т.к. <code>getServletContext()</code> в конструкторе 
+ выбрасывает <code>NullPointerException</code>.
+<P>
+<DD><DL>
+<DT><B>Overrides:</B><DD><CODE>init</CODE> in class <CODE>javax.servlet.GenericServlet</CODE></DL>
+</DD>
+<DD><DL>
+
+<DT><B>Throws:</B>
+<DD><CODE>javax.servlet.ServletException</CODE></DL>
 </DD>
 </DL>
 <HR>
@@ -539,6 +595,22 @@ private void <B>downloadText</B>(java.io.OutputStream&nbsp;outputStream,
 <DT><B>Throws:</B>
 <DD><CODE>java.io.IOException</CODE>
 <DD><CODE>javax.naming.NamingException</CODE></DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getModuleName()"><!-- --></A><H3>
+getModuleName</H3>
+<PRE>
+private java.lang.String <B>getModuleName</B>()</PRE>
+<DL>
+<DD>Возвращает имя модуля, предназначенное для передачи в базу.
+ Имя модуля формируется из имени приложения и имени сервлета,
+ из которого вырезано слово &quot;Servlet&quot;.
+<P>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>имя модуля</DL>
 </DD>
 </DL>
 <HR>
