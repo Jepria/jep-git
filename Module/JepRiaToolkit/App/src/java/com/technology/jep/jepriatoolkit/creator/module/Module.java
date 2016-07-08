@@ -1,6 +1,7 @@
 package com.technology.jep.jepriatoolkit.creator.module;
 
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.DATABASE_TAG_NAME;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.DEFAULT_DATASOURCE;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.ERROR_PREFIX;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.FORMS_TAG_NAME;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.ID_ATTRIBUTE;
@@ -12,6 +13,8 @@ import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.MODULE_TAG_
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.MODULE_TOOLBAR_ATTRIBUTE;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.NAME_ATTRIBUTE;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.NAME_EN_ATTRIBUTE;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.NO_NAME;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.PKG_PREFIX;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.RECORD_TAG_NAME;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.TOOLBAR_TAG_NAME;
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.echoMessage;
@@ -22,17 +25,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.activation.UnsupportedDataTypeException;
+import javax.xml.bind.JAXBElement;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementDecl;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import javax.xml.namespace.QName;
 
+import com.technology.jep.jepriatoolkit.JepRiaToolkitConstant;
 import com.technology.jep.jepriatoolkit.creator.module.adapter.BooleanAdapter;
 import com.technology.jep.jepriatoolkit.log.Logger;
+import com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil;
 
 // Указание атрибутов тэга происходит в обратном порядке, вложенных элементов/тэгов - в прямом.
 @XmlType(propOrder = {"moduleRoles", "db", "record", "forms", "toolbar", "childModules", "isNotRebuild", "isStatusbarOff", "isToolBarOff", "moduleNameEn", "moduleName", "moduleId"})
@@ -413,4 +421,25 @@ public class Module {
 			}
 		}
 	}
+	
+	/**
+	 * Создание модуля с пустой списочной и детальной формами
+	 * 
+	 * @param moduleId			идентификатор модуля
+	 * @param applicationName	наименование приложения
+	 * @return пустой модуль
+	 */
+	public static Module createBlankModule(String moduleId, String applicationName){
+		Module module = new Module(moduleId);
+		module.setModuleName(NO_NAME);
+		module.setModuleNameEn(NO_NAME);
+		Db db = new Db(multipleConcat(PKG_PREFIX, applicationName.toLowerCase()), DEFAULT_DATASOURCE);
+		module.setDb(db);
+		return module;
+	}
+	
+	@XmlElementDecl(name = JepRiaToolkitConstant.MODULE_TAG_NAME)
+    public static JAXBElement<Module> createModule(String moduleName, String applicationName) {
+        return new JAXBElement<Module>(new QName(null, JepRiaToolkitConstant.MODULE_TAG_NAME), Module.class, null, createBlankModule(moduleName, applicationName));
+    }
 }
