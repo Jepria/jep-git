@@ -224,6 +224,9 @@ public class PartialFormBuilder extends Task {
 				echoMessage(multipleConcat(WARNING_PREFIX, "The listed form", buildedForms.size() > 1 ? "s" : "", " '", buildedForms.toString(), "' ", buildedForms.size() > 1 ? "are" : "is", "n't presented in existing application structure! Please check the file '", normalizePath(mainGwtXmlPropertyPath), "' and specify correct value of the parameter '-D", FORMS_TASK_ATTRIBUTE, "'"));
 			}
 		}
+		else {
+			echoMessage(multipleConcat(WARNING_PREFIX, "You should specify what forms you'd like to compile using the parameter '-D", FORMS_TASK_ATTRIBUTE, "' in command line!"));
+		}
 	}
 	
 	public void setForms(String forms){
