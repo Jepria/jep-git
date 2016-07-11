@@ -63,9 +63,9 @@ public class JepGrid<T> extends DataGrid<T> {
 	private ScrollPanel contentWidget;
 	
 	/**
-	 * Идентификатор таблица данных
+	 * Идентификатор таблицы данных для сохранения в cookies
 	 */
-	private String gridId = null;
+	private final String cookieId;
 	
 	/**
 	 * Список колонок таблица данных
@@ -146,30 +146,33 @@ public class JepGrid<T> extends DataGrid<T> {
 	/**
 	 * Создает таблицу данных на списочной форме.
 	 * 
-	 * @param gridId			идентификатор грида
+	 * @param cookieId			идентификатор грида для сохранения в Cookies
+	 * @param gridIdAsWebEl		идентификатор грида как веб-элемента
 	 * @param columns			список колонок
 	 */
-	public JepGrid(String gridId, List<JepColumn> columns) {
-		this(gridId, columns, null);
+	public JepGrid(String cookieId, String gridIdAsWebEl, List<JepColumn> columns) {
+		this(cookieId, gridIdAsWebEl, columns, null);
 	}
 	
 	/**
 	 * Создает таблицу данных на списочной форме.
 	 * 
-	 * @param gridId			идентификатор грида
+	 * @param cookieId			идентификатор грида для сохранения в Cookies
+	 * @param gridIdAsWebEl		идентификатор грида как веб-элемента
 	 * @param columns			список колонок
 	 * @param keyProvider		провайдер ключей грида
 	 */
-	public JepGrid(String gridId, List<JepColumn> columns, ProvidesKey<T> keyProvider) {
+	public JepGrid(String cookieId, String gridIdAsWebEl, List<JepColumn> columns, ProvidesKey<T> keyProvider) {
 		super(DEFAULT_PAGE_SIZE, (DataGridResource) GWT.create(DataGridResource.class), keyProvider);
-
-		// Если ID списочной формы явно не задано, указываем в качестве ID рандомное число
-		gridId = (gridId != null) ? gridId : Math.random()+"";
-		this.gridId = gridId;
-		this.getElement().setId(gridId);
 		
-		getTableHeadElement().setId(gridId + GRID_HEADER_POSTFIX);
-		getTableBodyElement().setId(gridId + GRID_BODY_POSTFIX);
+		this.cookieId = cookieId;
+		
+		// Если ID списочной формы явно не задано, указываем в качестве ID рандомное число
+		gridIdAsWebEl = (gridIdAsWebEl != null) ? gridIdAsWebEl : Math.random()+"";
+		this.getElement().setId(gridIdAsWebEl);
+		
+		getTableHeadElement().setId(gridIdAsWebEl + GRID_HEADER_POSTFIX);
+		getTableBodyElement().setId(gridIdAsWebEl + GRID_BODY_POSTFIX);
 		
 		this.columns = columns;
 		
@@ -195,21 +198,23 @@ public class JepGrid<T> extends DataGrid<T> {
 	/**
 	 * Создает таблицу данных на списочной форме.
 	 * 
-	 * @param gridId			идентификатор грида
+	 * @param cookieId			идентификатор грида для сохранения в Cookies
+	 * @param gridIdAsWebEl		идентификатор грида как веб-элемента
 	 * @param columns			список колонок
 	 * @param wrapHeaders		допустимость переноса наименования колонок
 	 * 
 	 * Особенность: следует использовать альтернативные перегруженные конструкторы 
 	 */
 	@Deprecated
-	public JepGrid(String gridId, List<JepColumn> columns, boolean wrapHeaders) {
-		this(gridId, columns, wrapHeaders, null);
+	public JepGrid(String cookieId, String gridIdAsWebEl, List<JepColumn> columns, boolean wrapHeaders) {
+		this(cookieId, gridIdAsWebEl, columns, wrapHeaders, null);
 	}
 	
 	/**
 	 * Создает таблицу данных на списочной форме.
 	 * 
-	 * @param gridId			идентификатор грида
+	 * @param cookieId			идентификатор грида для сохранения в Cookies
+	 * @param gridIdAsWebEl		идентификатор грида как веб-элемента
 	 * @param columns			список колонок
 	 * @param wrapHeaders		допустимость переноса наименования колонок
 	 * @param keyProvider		провайдер ключей грида
@@ -217,8 +222,8 @@ public class JepGrid<T> extends DataGrid<T> {
 	 * Особенность: следует использовать альтернативные перегруженные конструкторы
 	 */
 	@Deprecated
-	public JepGrid(String gridId, List<JepColumn> columns, boolean wrapHeaders, ProvidesKey<T> keyProvider) {
-		this(gridId, columns, keyProvider);
+	public JepGrid(String cookieId, String gridIdAsWebEl, List<JepColumn> columns, boolean wrapHeaders, ProvidesKey<T> keyProvider) {
+		this(cookieId, gridIdAsWebEl, columns, keyProvider);
 		this.wrapHeaders = wrapHeaders;
 	}
 
@@ -298,7 +303,7 @@ public class JepGrid<T> extends DataGrid<T> {
 		Date expires = new Date();
 		expires.setYear(expires.getYear() + 1);
 
-		Cookies.setCookie(gridId, getColumnCharacteristicsAsString(), expires);
+		Cookies.setCookie(cookieId, getColumnCharacteristicsAsString(), expires);
 	}
 	
 	/**
@@ -600,7 +605,7 @@ public class JepGrid<T> extends DataGrid<T> {
 		
 		initialized = true;
 		
-		final Map<String, ColumnCharasteristic> customColumnCharacteristics = parseColumnCharacteristics(Cookies.getCookie(gridId));
+		final Map<String, ColumnCharasteristic> customColumnCharacteristics = parseColumnCharacteristics(Cookies.getCookie(cookieId));
 		
 		if (!customColumnCharacteristics.isEmpty()){
 			Collections.sort(columns, new Comparator<JepColumn>() {

@@ -18,6 +18,10 @@ import com.technology.jep.jepria.client.widget.list.JepColumn;
  
 public class GoodsListFormViewImpl extends StandardListFormViewImpl {
  
+	public GoodsListFormViewImpl() {
+		super(GoodsListFormViewImpl.class.getCanonicalName());
+	}
+
 	private static NumberFormat defaultNumberFormatter = NumberFormat.getFormat("#");
  
 	@SuppressWarnings({ "rawtypes", "unchecked" })

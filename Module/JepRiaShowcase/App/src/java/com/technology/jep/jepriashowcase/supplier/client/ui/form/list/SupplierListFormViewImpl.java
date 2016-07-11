@@ -34,6 +34,7 @@ import com.technology.jep.jepriashowcase.main.client.style.ApplicationResource;
 public class SupplierListFormViewImpl extends StandardListFormViewImpl {
  
 	public SupplierListFormViewImpl() {
+		super(SupplierListFormViewImpl.class.getCanonicalName());
 		// Подтягиваем css-ресурс как инлайн стиль
 		ApplicationResource.instance.resource().ensureInjected();
 		// Строки списочной формы, у которых CONTACT_FINISH_DATE истек, выделяем красным

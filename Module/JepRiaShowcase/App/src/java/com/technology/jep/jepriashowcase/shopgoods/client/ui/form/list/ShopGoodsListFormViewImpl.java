@@ -15,6 +15,10 @@ import com.technology.jep.jepria.client.widget.list.JepColumn;
  
 public class ShopGoodsListFormViewImpl extends StandardListFormViewImpl {
  
+	public ShopGoodsListFormViewImpl() {
+		super(ShopGoodsListFormViewImpl.class.getCanonicalName());
+	}
+
 	private static NumberFormat defaultNumberFormatter = NumberFormat.getFormat("#");
  
 	@SuppressWarnings({ "rawtypes", "unchecked" })

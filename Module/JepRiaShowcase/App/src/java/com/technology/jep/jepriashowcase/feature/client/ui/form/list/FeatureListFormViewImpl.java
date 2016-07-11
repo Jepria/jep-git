@@ -21,6 +21,10 @@ import com.technology.jep.jepria.client.widget.list.JepColumn;
  
 public class FeatureListFormViewImpl extends StandardListFormViewImpl {
  
+	public FeatureListFormViewImpl() {
+		super(FeatureListFormViewImpl.class.getCanonicalName());
+	}
+
 	private static NumberFormat defaultNumberFormatter = NumberFormat.getFormat("#");
 	private static DateTimeFormat defaultDateFormatter = DateTimeFormat.getFormat(DEFAULT_DATE_FORMAT);
  

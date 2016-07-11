@@ -18,6 +18,7 @@ import com.technology.jep.jepria.client.widget.list.JepColumn;
 public class AllShopGoodsListFormViewImpl extends StandardListFormViewImpl {
  
 	public AllShopGoodsListFormViewImpl() {
+		super(AllShopGoodsListFormViewImpl.class.getCanonicalName());
 		grid.setWrapHeaders(true);
 		grid.setDndEnabled(true);
 	}

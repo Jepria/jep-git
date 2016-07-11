@@ -22,6 +22,10 @@ import com.technology.jep.jepria.client.widget.list.JepColumn;
  
 public class RequestListFormViewImpl extends StandardListFormViewImpl {
  
+	public RequestListFormViewImpl() {
+		super(RequestListFormViewImpl.class.getCanonicalName());
+	}
+
 	private static NumberFormat defaultNumberFormatter = NumberFormat.getFormat("#");
 	private static DateTimeFormat defaultDateFormatter = DateTimeFormat.getFormat(DEFAULT_DATE_FORMAT);
  

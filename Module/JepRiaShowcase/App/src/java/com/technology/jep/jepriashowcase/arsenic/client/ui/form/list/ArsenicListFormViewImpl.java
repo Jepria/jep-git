@@ -24,7 +24,7 @@ public class ArsenicListFormViewImpl extends StandardListFormViewImpl {
 	private static DateTimeFormat defaultDateFormatter = DateTimeFormat.getFormat(DEFAULT_DATE_FORMAT);
  
 	public ArsenicListFormViewImpl() {
-		super(ARSENIC_GRID_ID);
+		super(ArsenicListFormViewImpl.class.getCanonicalName(), ARSENIC_GRID_ID);
 	}
 	
 	@SuppressWarnings({ "rawtypes", "unchecked", "serial" })
