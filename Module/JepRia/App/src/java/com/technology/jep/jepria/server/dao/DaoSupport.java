@@ -407,14 +407,16 @@ public class DaoSupport {
 			throws ApplicationException {
 			
 		List<T> result = new ArrayList<T>();
-	
+		
+		ResultSet resultSet = null;
+		
 		try {
 			Db db = CallContext.getDb();
 			
 			CallableStatement callableStatement = db.prepare(query);
 		
 			setApplicationInfo(query);
-			ResultSet resultSet = setParamsAndExecute(callableStatement, executionType, params);
+			resultSet = setParamsAndExecute(callableStatement, executionType, params);
 			
 			while (resultSet.next()) {
 				T resultModel = recordClass.newInstance();
@@ -423,8 +425,17 @@ public class DaoSupport {
 				
 				result.add(resultModel);
 			}
+			
 		} catch (Throwable th) {
 			throw new ApplicationException(th.getMessage(), th);
+		} finally {
+			try {
+				if (resultSet != null) {
+					resultSet.close();
+				}
+			} catch (SQLException e) {
+				throw new ApplicationException(e.getMessage(), e);
+			}
 		}
 		
 		return result;

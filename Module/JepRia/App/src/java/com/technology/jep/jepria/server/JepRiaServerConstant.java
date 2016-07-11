@@ -9,10 +9,6 @@ public class JepRiaServerConstant extends JepRiaConstant {
 	public static final String JEP_RIA_RESOURCE_BUNDLE_NAME = "com.technology.jep.jepria.shared.text.JepRiaText";
 	
 	/**
-	 * Имя context-параметра в файле web.xml, отвечающего за наименование приложения.
-	 */
-	public static final String APPLICATION_NAME_CONTEXT_PARAMETER = "applicationName";
-	/**
 	 * JNDI-имя источника данных модуля.
 	 */
 	public static final String DATA_SOURCE_JNDI_NAME = "jdbc/RFInfoDS";
