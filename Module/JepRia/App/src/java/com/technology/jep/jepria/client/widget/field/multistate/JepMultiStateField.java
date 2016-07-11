@@ -1,5 +1,6 @@
 package com.technology.jep.jepria.client.widget.field.multistate;
 
+import static com.technology.jep.jepria.client.AutomationConstant.JEP_FIELD_ALLOW_BLANK_POSTFIX;
 import static com.technology.jep.jepria.client.JepRiaClientConstant.FIELD_DEFAULT_HEIGHT;
 import static com.technology.jep.jepria.client.JepRiaClientConstant.FIELD_DEFAULT_WIDTH;
 import static com.technology.jep.jepria.client.JepRiaClientConstant.FIELD_INVALID_COLOR;
@@ -9,7 +10,6 @@ import static com.technology.jep.jepria.client.JepRiaClientConstant.JepTexts;
 import static com.technology.jep.jepria.client.JepRiaClientConstant.MAIN_FONT_STYLE;
 import static com.technology.jep.jepria.client.JepRiaClientConstant.REQUIRED_MARKER;
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.SEARCH;
-import static com.technology.jep.jepria.client.AutomationConstant.*;
 
 import java.util.List;
 
@@ -176,8 +176,7 @@ public abstract class JepMultiStateField<E extends Widget, V extends Widget> ext
 	public JepMultiStateField(String fieldIdAsWebEl, String fieldLabel) {
 		// Корректировка параметров
 		fieldLabel = (fieldLabel != null) ? fieldLabel : "";
-		// Если ID поля явно не задано, указываем в качестве ID его подпись + набор цифр
-		fieldIdAsWebEl = (fieldIdAsWebEl != null) ? fieldIdAsWebEl : (fieldLabel + "_" + System.currentTimeMillis());
+
 		this.fieldIdAsWebEl = fieldIdAsWebEl;
 		
 		viewCardLabel = new HTML();
@@ -241,9 +240,12 @@ public abstract class JepMultiStateField<E extends Widget, V extends Widget> ext
 		
 		
 		// Установка web-ID поля
-		this.getElement().setId(this.fieldIdAsWebEl);
-		// Установка web-ID других элементов поля
-		setWebIds();
+		if (this.fieldIdAsWebEl != null) {
+			this.getElement().setId(this.fieldIdAsWebEl);
+			// Установка web-ID других элементов поля
+			setWebIds();
+		}
+		// Установка атрибутов карт
 		setCardWebAttrs();
 	}
 	
@@ -310,7 +312,8 @@ public abstract class JepMultiStateField<E extends Widget, V extends Widget> ext
 		if (this.allowBlank) {
 			this.editableCardLabel.setHTML(fieldLab + this.labelSeparator);
 		} else {
-			this.editableCardLabel.setHTML(JepClientUtil.substitute(REQUIRED_MARKER, fieldIdAsWebEl + JEP_FIELD_ALLOW_BLANK_POSTFIX) + fieldLab + this.labelSeparator);
+			final String idAttr = fieldIdAsWebEl == null ? "" : "id='" + fieldIdAsWebEl + JEP_FIELD_ALLOW_BLANK_POSTFIX + "'";
+			this.editableCardLabel.setHTML(JepClientUtil.substitute(REQUIRED_MARKER, idAttr) + fieldLab + this.labelSeparator);
 		}
 	}
 	

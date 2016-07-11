@@ -1046,7 +1046,9 @@ public class ComboBox<T extends JepOption> extends Composite
 
 	    public SuggestionMenuItem(Suggestion suggestion, boolean asHTML) {
 	      super(suggestion.getDisplayString(), asHTML, (ScheduledCommand) null);
-	      getElement().setId(fieldIdAsWebEl + AutomationConstant.JEP_COMBO_BOX_FIELD_MENU_ITEM_INFIX + suggestion.getDisplayString());
+	      if (fieldIdAsWebEl != null) {
+	    	  getElement().setId(fieldIdAsWebEl + AutomationConstant.JEP_COMBO_BOX_FIELD_MENU_ITEM_INFIX + suggestion.getDisplayString());
+	      }
 	      getElement().setAttribute(JEP_OPTION_VALUE_HTML_ATTR, suggestion.getDisplayString());
 	      
 	      // Each suggestion should be placed in a single row in the suggestion

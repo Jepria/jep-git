@@ -94,7 +94,7 @@ public class JepRiaClientConstant extends JepRiaConstant {
 	/**
 	 * Признак обязательности в названии поля.
 	 */
-	public static final String REQUIRED_MARKER = "<span id='{0}' title='" + JepTexts.field_blankText() + "' class='" + FIELD_MANDATORY_STYLE + "'>*</span>&nbsp;";
+	public static final String REQUIRED_MARKER = "<span {0} title='" + JepTexts.field_blankText() + "' class='" + FIELD_MANDATORY_STYLE + "'>*</span>&nbsp;";
 	
 	/**
 	 * Маска, соответствующая стандартному формату представления даты.

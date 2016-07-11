@@ -1,9 +1,10 @@
 package com.technology.jep.jepria.client.widget.list;
 
+import static com.technology.jep.jepria.client.AutomationConstant.GRID_BODY_POSTFIX;
+import static com.technology.jep.jepria.client.AutomationConstant.GRID_HEADER_POSTFIX;
 import static com.technology.jep.jepria.client.JepRiaClientConstant.DND_DATA_PROPERTY;
 import static com.technology.jep.jepria.client.JepRiaClientConstant.JepTexts;
 import static com.technology.jep.jepria.shared.load.PagingConfig.DEFAULT_PAGE_SIZE;
-import static com.technology.jep.jepria.client.AutomationConstant.*;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -167,12 +168,11 @@ public class JepGrid<T> extends DataGrid<T> {
 		
 		this.cookieId = cookieId;
 		
-		// Если ID списочной формы явно не задано, указываем в качестве ID рандомное число
-		gridIdAsWebEl = (gridIdAsWebEl != null) ? gridIdAsWebEl : Math.random()+"";
-		this.getElement().setId(gridIdAsWebEl);
-		
-		getTableHeadElement().setId(gridIdAsWebEl + GRID_HEADER_POSTFIX);
-		getTableBodyElement().setId(gridIdAsWebEl + GRID_BODY_POSTFIX);
+		if (gridIdAsWebEl != null) {
+			this.getElement().setId(gridIdAsWebEl);
+			getTableHeadElement().setId(gridIdAsWebEl + GRID_HEADER_POSTFIX);
+			getTableBodyElement().setId(gridIdAsWebEl + GRID_BODY_POSTFIX);
+		}
 		
 		this.columns = columns;
 		

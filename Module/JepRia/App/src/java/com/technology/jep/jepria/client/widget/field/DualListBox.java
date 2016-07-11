@@ -406,7 +406,9 @@ public class DualListBox extends Composite implements HasWidgets, HasValueChange
 			OptionElement optionElement = options.getItem(i);
 			if (value.equals(optionElement.getValue())) {
 				optionElement.setTitle(getItemTitle(item));
-				optionElement.setId(fieldIdAsWebEl + AutomationConstant.JEP_DUAL_LIST_FIELD_MENU_ITEM_INFIX + name);
+				if (fieldIdAsWebEl != null) {
+					optionElement.setId(fieldIdAsWebEl + AutomationConstant.JEP_DUAL_LIST_FIELD_MENU_ITEM_INFIX + name);
+				}
 				optionElement.setAttribute(JEP_OPTION_VALUE_HTML_ATTR, name);
 				return;
 			}
