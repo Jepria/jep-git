@@ -75,6 +75,9 @@ import com.technology.jep.jepria.shared.util.JepRiaUtil;
  */
 public class JepRiaModuleAutoImpl<A extends EntranceAppAuto, P extends JepRiaApplicationPageManager> extends ApplicationEntranceAuto<A, P>
 		implements JepRiaModuleAuto {
+
+	private static final long WEB_DRIVER_TIMEOUT = 5;
+	
 	@SuppressWarnings("unused")
 	private static Logger logger = Logger.getLogger(JepRiaModuleAutoImpl.class.getName());
 	private WorkstateEnum currentWorkstate;
@@ -410,7 +413,7 @@ public class JepRiaModuleAutoImpl<A extends EntranceAppAuto, P extends JepRiaApp
 
 		WebDriver wd = pages.getApplicationPage().getWebDriver();
 		
-		ConditionChecker conditionChecker = new WebDriverWait(wd, 5000).until(
+		ConditionChecker conditionChecker = new WebDriverWait(wd, WEB_DRIVER_TIMEOUT).until(
 				ExpectedConditions.atLeastOneOfConditionIsSatisfied(
 						new DisplayChecker(wd, ALERT_MESSAGEBOX_ID),
 						new DisplayChecker(wd, ERROR_MESSAGEBOX_ID),
