@@ -37,59 +37,59 @@ import net.sf.jasperreports.engine.JasperCompileManager;
  */
 public class JRCompiler {
 
-	/**
-	 * @param args параметры запуска
-	 */
-	public static void main(String[] args) {
-		if(args.length < 1) {
-			showUsageError("Wrong parameter number.");
-		}
-				
-		try {
-			compile(new File(args[0]));
-		} catch (JRException e) {
-			showError(e.getMessage());
-		}
-	}
+  /**
+   * @param args параметры запуска
+   */
+  public static void main(String[] args) {
+    if(args.length < 1) {
+      showUsageError("Wrong parameter number.");
+    }
+        
+    try {
+      compile(new File(args[0]));
+    } catch (JRException e) {
+      showError(e.getMessage());
+    }
+  }
 
-	private static void compile(File srcFile) throws JRException {
-		if (srcFile.isFile()) {
-			// Передали 1 файл
-			String srcFileName = srcFile.getAbsolutePath();
-			try {
-				JasperCompileManager.compileReportToFile(srcFileName);
-			} catch (JRException e) {
-				showError(e.getMessage());
-			}
-		} else { // передали директорию
-			// Создание списка файлов, состоящих из исходников текущей директории и вложенных директорий
-			File[] files = srcFile.listFiles(new FilenameFilter() {
-				public boolean accept(File dir, String name) {
-					String path = dir + "/" + name;
-					return new File(path).isDirectory() || name.endsWith(".jrxml") ;
-				}
-			});
-			
-			if(files != null) {
-				for (File file : files) {
-					compile(file);
-				}
-			}
-		}
-	}
+  private static void compile(File srcFile) throws JRException {
+    if (srcFile.isFile()) {
+      // Передали 1 файл
+      String srcFileName = srcFile.getAbsolutePath();
+      try {
+        JasperCompileManager.compileReportToFile(srcFileName);
+      } catch (JRException e) {
+        showError(e.getMessage());
+      }
+    } else { // передали директорию
+      // Создание списка файлов, состоящих из исходников текущей директории и вложенных директорий
+      File[] files = srcFile.listFiles(new FilenameFilter() {
+        public boolean accept(File dir, String name) {
+          String path = dir + "/" + name;
+          return new File(path).isDirectory() || name.endsWith(".jrxml") ;
+        }
+      });
+      
+      if(files != null) {
+        for (File file : files) {
+          compile(file);
+        }
+      }
+    }
+  }
 
-	private static void showError(String message) {
-		System.out.println("ERROR: " + message);
-	}
+  private static void showError(String message) {
+    System.out.println("ERROR: " + message);
+  }
 
-	private static void showUsageError(String message) {
-		System.out.println(message);
-		System.out.println("Usage:");
-		System.out.println("java -jar jrcompiler <sourceFilePath>");
-		System.out.println("where:");
-		System.out.println("sourceFilePath:\t\tFull path of the file containing a report definition");
+  private static void showUsageError(String message) {
+    System.out.println(message);
+    System.out.println("Usage:");
+    System.out.println("java -jar jrcompiler <sourceFilePath>");
+    System.out.println("where:");
+    System.out.println("sourceFilePath:\t\tFull path of the file containing a report definition");
 
-		System.exit(-1);
-	}
-	
+    System.exit(-1);
+  }
+  
 }
