@@ -168,7 +168,7 @@ java.lang.Object
 <TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/upload/AbstractFileUpload.html#beginWrite(java.lang.Object)">beginWrite</A></B>(java.lang.Object&nbsp;rowId)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Функция-обертка для <CODE>#beginWrite(String tableName, String fileFieldName, String keyFieldName, Object rowId, String dataSourceJndiName)</CODE>.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Функция-обертка для <A HREF="../../../../../../com/technology/jep/jepria/server/upload/FileUpload.html#beginWrite(java.lang.String, java.lang.String, java.lang.String, java.lang.Object, java.lang.String, java.lang.String)"><CODE>FileUpload.beginWrite(String tableName, String fileFieldName, String keyFieldName, Object rowId, String dataSourceJndiName, String moduleName)</CODE></A>.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -270,9 +270,9 @@ beginWrite</H3>
 public int <B>beginWrite</B>(java.lang.Object&nbsp;rowId)
                throws <A HREF="../../../../../../com/technology/jep/jepria/shared/exceptions/ApplicationException.html" title="class in com.technology.jep.jepria.shared.exceptions">ApplicationException</A></PRE>
 <DL>
-<DD>Функция-обертка для <CODE>#beginWrite(String tableName, String fileFieldName, String keyFieldName, Object rowId, String dataSourceJndiName)</CODE>.
+<DD>Функция-обертка для <A HREF="../../../../../../com/technology/jep/jepria/server/upload/FileUpload.html#beginWrite(java.lang.String, java.lang.String, java.lang.String, java.lang.Object, java.lang.String, java.lang.String)"><CODE>FileUpload.beginWrite(String tableName, String fileFieldName, String keyFieldName, Object rowId, String dataSourceJndiName, String moduleName)</CODE></A>.
  В классе реализации в конкретном модуле данный метод перегружаем вызывая в нем 
- <CODE>#beginWrite(String tableName, String fileFieldName, String keyFieldName, Object rowId, String dataSourceJndiName)</CODE>
+ <A HREF="../../../../../../com/technology/jep/jepria/server/upload/FileUpload.html#beginWrite(java.lang.String, java.lang.String, java.lang.String, java.lang.Object, java.lang.String, java.lang.String)"><CODE>FileUpload.beginWrite(String tableName, String fileFieldName, String keyFieldName, Object rowId, String dataSourceJndiName, String moduleName)</CODE></A>
  с подставленными из констант класса реализации параметрами:<br/>
  <code>
  tableName,<br/>

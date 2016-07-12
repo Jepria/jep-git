@@ -244,6 +244,14 @@ java.lang.Object
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#cookieId">cookieId</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Идентификатор таблицы данных для сохранения в cookies</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>private &nbsp;boolean</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#dndEnabled">dndEnabled</A></B></CODE>
 
@@ -281,14 +289,6 @@ java.lang.Object
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Обработчик системного события завершения переноса строки таблицы</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>private &nbsp;java.lang.String</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#gridId">gridId</A></B></CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Идентификатор таблица данных</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -358,14 +358,16 @@ java.lang.Object
 <B>Constructor Summary</B></FONT></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#JepGrid(java.lang.String, java.util.List)">JepGrid</A></B>(java.lang.String&nbsp;gridId,
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#JepGrid(java.lang.String, java.lang.String, java.util.List)">JepGrid</A></B>(java.lang.String&nbsp;cookieId,
+        java.lang.String&nbsp;gridIdAsWebEl,
         java.util.List&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepColumn.html" title="class in com.technology.jep.jepria.client.widget.list">JepColumn</A>&gt;&nbsp;columns)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Создает таблицу данных на списочной форме.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#JepGrid(java.lang.String, java.util.List, boolean)">JepGrid</A></B>(java.lang.String&nbsp;gridId,
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#JepGrid(java.lang.String, java.lang.String, java.util.List, boolean)">JepGrid</A></B>(java.lang.String&nbsp;cookieId,
+        java.lang.String&nbsp;gridIdAsWebEl,
         java.util.List&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepColumn.html" title="class in com.technology.jep.jepria.client.widget.list">JepColumn</A>&gt;&nbsp;columns,
         boolean&nbsp;wrapHeaders)</CODE>
 
@@ -373,7 +375,8 @@ java.lang.Object
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<B>Deprecated.</B>&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#JepGrid(java.lang.String, java.util.List, boolean, com.google.gwt.view.client.ProvidesKey)">JepGrid</A></B>(java.lang.String&nbsp;gridId,
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#JepGrid(java.lang.String, java.lang.String, java.util.List, boolean, com.google.gwt.view.client.ProvidesKey)">JepGrid</A></B>(java.lang.String&nbsp;cookieId,
+        java.lang.String&nbsp;gridIdAsWebEl,
         java.util.List&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepColumn.html" title="class in com.technology.jep.jepria.client.widget.list">JepColumn</A>&gt;&nbsp;columns,
         boolean&nbsp;wrapHeaders,
         com.google.gwt.view.client.ProvidesKey&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html" title="type parameter in JepGrid">T</A>&gt;&nbsp;keyProvider)</CODE>
@@ -382,7 +385,8 @@ java.lang.Object
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<B>Deprecated.</B>&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#JepGrid(java.lang.String, java.util.List, com.google.gwt.view.client.ProvidesKey)">JepGrid</A></B>(java.lang.String&nbsp;gridId,
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#JepGrid(java.lang.String, java.lang.String, java.util.List, com.google.gwt.view.client.ProvidesKey)">JepGrid</A></B>(java.lang.String&nbsp;cookieId,
+        java.lang.String&nbsp;gridIdAsWebEl,
         java.util.List&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepColumn.html" title="class in com.technology.jep.jepria.client.widget.list">JepColumn</A>&gt;&nbsp;columns,
         com.google.gwt.view.client.ProvidesKey&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html" title="type parameter in JepGrid">T</A>&gt;&nbsp;keyProvider)</CODE>
 
@@ -735,12 +739,12 @@ private com.google.gwt.user.client.ui.ScrollPanel <B>contentWidget</B></PRE>
 </DL>
 <HR>
 
-<A NAME="gridId"><!-- --></A><H3>
-gridId</H3>
+<A NAME="cookieId"><!-- --></A><H3>
+cookieId</H3>
 <PRE>
-private java.lang.String <B>gridId</B></PRE>
+private final java.lang.String <B>cookieId</B></PRE>
 <DL>
-<DD>Идентификатор таблица данных
+<DD>Идентификатор таблицы данных для сохранения в cookies
 <P>
 <DL>
 </DL>
@@ -910,38 +914,41 @@ protected static java.lang.String <B>RESIZABLE_HEADER_LABEL_STYLE</B></PRE>
 </TR>
 </TABLE>
 
-<A NAME="JepGrid(java.lang.String, java.util.List)"><!-- --></A><H3>
+<A NAME="JepGrid(java.lang.String, java.lang.String, java.util.List)"><!-- --></A><H3>
 JepGrid</H3>
 <PRE>
-public <B>JepGrid</B>(java.lang.String&nbsp;gridId,
+public <B>JepGrid</B>(java.lang.String&nbsp;cookieId,
+               java.lang.String&nbsp;gridIdAsWebEl,
                java.util.List&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepColumn.html" title="class in com.technology.jep.jepria.client.widget.list">JepColumn</A>&gt;&nbsp;columns)</PRE>
 <DL>
 <DD>Создает таблицу данных на списочной форме.
 <P>
 <DL>
-<DT><B>Parameters:</B><DD><CODE>gridId</CODE> - идентификатор грида<DD><CODE>columns</CODE> - список колонок</DL>
+<DT><B>Parameters:</B><DD><CODE>cookieId</CODE> - идентификатор грида для сохранения в Cookies<DD><CODE>gridIdAsWebEl</CODE> - идентификатор грида как веб-элемента<DD><CODE>columns</CODE> - список колонок</DL>
 </DL>
 <HR>
 
-<A NAME="JepGrid(java.lang.String, java.util.List, com.google.gwt.view.client.ProvidesKey)"><!-- --></A><H3>
+<A NAME="JepGrid(java.lang.String, java.lang.String, java.util.List, com.google.gwt.view.client.ProvidesKey)"><!-- --></A><H3>
 JepGrid</H3>
 <PRE>
-public <B>JepGrid</B>(java.lang.String&nbsp;gridId,
+public <B>JepGrid</B>(java.lang.String&nbsp;cookieId,
+               java.lang.String&nbsp;gridIdAsWebEl,
                java.util.List&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepColumn.html" title="class in com.technology.jep.jepria.client.widget.list">JepColumn</A>&gt;&nbsp;columns,
                com.google.gwt.view.client.ProvidesKey&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html" title="type parameter in JepGrid">T</A>&gt;&nbsp;keyProvider)</PRE>
 <DL>
 <DD>Создает таблицу данных на списочной форме.
 <P>
 <DL>
-<DT><B>Parameters:</B><DD><CODE>gridId</CODE> - идентификатор грида<DD><CODE>columns</CODE> - список колонок<DD><CODE>keyProvider</CODE> - провайдер ключей грида</DL>
+<DT><B>Parameters:</B><DD><CODE>cookieId</CODE> - идентификатор грида для сохранения в Cookies<DD><CODE>gridIdAsWebEl</CODE> - идентификатор грида как веб-элемента<DD><CODE>columns</CODE> - список колонок<DD><CODE>keyProvider</CODE> - провайдер ключей грида</DL>
 </DL>
 <HR>
 
-<A NAME="JepGrid(java.lang.String, java.util.List, boolean)"><!-- --></A><H3>
+<A NAME="JepGrid(java.lang.String, java.lang.String, java.util.List, boolean)"><!-- --></A><H3>
 JepGrid</H3>
 <PRE>
 <FONT SIZE="-1">@Deprecated
-</FONT>public <B>JepGrid</B>(java.lang.String&nbsp;gridId,
+</FONT>public <B>JepGrid</B>(java.lang.String&nbsp;cookieId,
+                          java.lang.String&nbsp;gridIdAsWebEl,
                           java.util.List&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepColumn.html" title="class in com.technology.jep.jepria.client.widget.list">JepColumn</A>&gt;&nbsp;columns,
                           boolean&nbsp;wrapHeaders)</PRE>
 <DL>
@@ -950,17 +957,18 @@ JepGrid</H3>
 <DD>Создает таблицу данных на списочной форме.
 <P>
 <DL>
-<DT><B>Parameters:</B><DD><CODE>gridId</CODE> - идентификатор грида<DD><CODE>columns</CODE> - список колонок<DD><CODE>wrapHeaders</CODE> - допустимость переноса наименования колонок
+<DT><B>Parameters:</B><DD><CODE>cookieId</CODE> - идентификатор грида для сохранения в Cookies<DD><CODE>gridIdAsWebEl</CODE> - идентификатор грида как веб-элемента<DD><CODE>columns</CODE> - список колонок<DD><CODE>wrapHeaders</CODE> - допустимость переноса наименования колонок
  
  Особенность: следует использовать альтернативные перегруженные конструкторы</DL>
 </DL>
 <HR>
 
-<A NAME="JepGrid(java.lang.String, java.util.List, boolean, com.google.gwt.view.client.ProvidesKey)"><!-- --></A><H3>
+<A NAME="JepGrid(java.lang.String, java.lang.String, java.util.List, boolean, com.google.gwt.view.client.ProvidesKey)"><!-- --></A><H3>
 JepGrid</H3>
 <PRE>
 <FONT SIZE="-1">@Deprecated
-</FONT>public <B>JepGrid</B>(java.lang.String&nbsp;gridId,
+</FONT>public <B>JepGrid</B>(java.lang.String&nbsp;cookieId,
+                          java.lang.String&nbsp;gridIdAsWebEl,
                           java.util.List&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepColumn.html" title="class in com.technology.jep.jepria.client.widget.list">JepColumn</A>&gt;&nbsp;columns,
                           boolean&nbsp;wrapHeaders,
                           com.google.gwt.view.client.ProvidesKey&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html" title="type parameter in JepGrid">T</A>&gt;&nbsp;keyProvider)</PRE>
@@ -970,7 +978,7 @@ JepGrid</H3>
 <DD>Создает таблицу данных на списочной форме.
 <P>
 <DL>
-<DT><B>Parameters:</B><DD><CODE>gridId</CODE> - идентификатор грида<DD><CODE>columns</CODE> - список колонок<DD><CODE>wrapHeaders</CODE> - допустимость переноса наименования колонок<DD><CODE>keyProvider</CODE> - провайдер ключей грида
+<DT><B>Parameters:</B><DD><CODE>cookieId</CODE> - идентификатор грида для сохранения в Cookies<DD><CODE>gridIdAsWebEl</CODE> - идентификатор грида как веб-элемента<DD><CODE>columns</CODE> - список колонок<DD><CODE>wrapHeaders</CODE> - допустимость переноса наименования колонок<DD><CODE>keyProvider</CODE> - провайдер ключей грида
  
  Особенность: следует использовать альтернативные перегруженные конструкторы</DL>
 </DL>
