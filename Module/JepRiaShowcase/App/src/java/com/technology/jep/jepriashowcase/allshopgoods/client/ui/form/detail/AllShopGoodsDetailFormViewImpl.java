@@ -7,9 +7,6 @@ import static com.technology.jep.jepriashowcase.allshopgoods.shared.field.AllSho
 import static com.technology.jep.jepriashowcase.allshopgoods.shared.field.AllShopGoodsFieldNames.SHOP_ID;
 import static com.technology.jep.jepriashowcase.allshopgoods.shared.field.AllShopGoodsFieldNames.SHOP_NAME;
 
-import java.util.LinkedHashMap;
-
-import com.google.gwt.user.client.ui.Widget;
 import com.technology.jep.jepria.client.ui.form.detail.StandardDetailFormViewImpl;
 import com.technology.jep.jepria.client.widget.field.multistate.JepIntegerField;
 import com.technology.jep.jepria.client.widget.field.multistate.JepTextField;
@@ -18,15 +15,23 @@ public class AllShopGoodsDetailFormViewImpl
 	extends StandardDetailFormViewImpl 
 	implements AllShopGoodsDetailFormView {	
  
-	@Override
-	protected LinkedHashMap<String, Widget> getFieldConfigurations() {
-		return new LinkedHashMap<String, Widget>() {{
-			put(SHOP_GOODS_ID, new JepIntegerField(allShopGoodsText.allShopGoods_detail_shop_goods_id()));
-			put(SHOP_ID, new JepIntegerField(allShopGoodsText.allShopGoods_detail_shop_id()));
-			put(SHOP_NAME, new JepTextField(allShopGoodsText.allShopGoods_detail_shop_name()));
-			put(GOODS_ID, new JepIntegerField(allShopGoodsText.allShopGoods_detail_goods_id()));
-			put(GOODS_NAME, new JepTextField(allShopGoodsText.allShopGoods_detail_goods_name()));
-		}};
+	public AllShopGoodsDetailFormViewImpl() {
+		JepIntegerField shopGoodsIdIntegerField = new JepIntegerField(allShopGoodsText.allShopGoods_detail_shop_goods_id());
+		JepIntegerField shopIdIntegerField = new JepIntegerField(allShopGoodsText.allShopGoods_detail_shop_id());
+		JepTextField shopNameTextField = new JepTextField(allShopGoodsText.allShopGoods_detail_shop_name());
+		JepIntegerField goodsIdIntegerField = new JepIntegerField(allShopGoodsText.allShopGoods_detail_goods_id());
+		JepTextField goodsNameTextField = new JepTextField(allShopGoodsText.allShopGoods_detail_goods_name());
+		panel.add(shopGoodsIdIntegerField);
+		panel.add(shopIdIntegerField);
+		panel.add(shopNameTextField);
+		panel.add(goodsIdIntegerField);
+		panel.add(goodsNameTextField);
+		
+		fields.put(SHOP_GOODS_ID, shopGoodsIdIntegerField);
+		fields.put(SHOP_ID, shopIdIntegerField);
+		fields.put(SHOP_NAME, shopNameTextField);
+		fields.put(GOODS_ID, goodsIdIntegerField);
+		fields.put(GOODS_NAME, goodsNameTextField);
 	}
  
 }

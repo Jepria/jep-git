@@ -8,9 +8,6 @@ import static com.technology.jep.jepriashowcase.requestprocess.shared.field.Requ
 import static com.technology.jep.jepriashowcase.requestprocess.shared.field.RequestProcessFieldNames.REQUEST_ID;
 import static com.technology.jep.jepriashowcase.requestprocess.shared.field.RequestProcessFieldNames.REQUEST_PROCESS_ID;
 
-import java.util.LinkedHashMap;
-
-import com.google.gwt.user.client.ui.Widget;
 import com.technology.jep.jepria.client.ui.form.detail.StandardDetailFormViewImpl;
 import com.technology.jep.jepria.client.widget.field.multistate.JepDateField;
 import com.technology.jep.jepria.client.widget.field.multistate.JepIntegerField;
@@ -20,15 +17,26 @@ public class RequestProcessDetailFormViewImpl
 	extends StandardDetailFormViewImpl 
 	implements RequestProcessDetailFormView {	
  
-	@Override
-	protected LinkedHashMap<String, Widget> getFieldConfigurations() {
-		return new LinkedHashMap<String, Widget>() {{
-			put(REQUEST_PROCESS_ID, new JepIntegerField(requestProcessText.requestProcess_detail_request_process_id()));
-			put(REQUEST_ID, new JepIntegerField(requestProcessText.requestProcess_detail_request_id()));
-			put(PROCESS_COMMENT, new JepTextField(requestProcessText.requestProcess_detail_process_comment()));
-			put(DATE_INS, new JepDateField(requestProcessText.requestProcess_detail_date_ins()));
-			put(OPERATOR_ID, new JepIntegerField(requestProcessText.requestProcess_detail_operator_id()));
-			put(OPERATOR_NAME, new JepTextField(requestProcessText.requestProcess_detail_operator_name()));
-		}};
+	public RequestProcessDetailFormViewImpl() {
+		JepIntegerField requestProcessIdIntegerField = new JepIntegerField(requestProcessText.requestProcess_detail_request_process_id());
+		JepIntegerField requestIdIntegerField = new JepIntegerField(requestProcessText.requestProcess_detail_request_id());
+		JepTextField processCommentTextField = new JepTextField(requestProcessText.requestProcess_detail_process_comment());
+		JepDateField dateInsDateField = new JepDateField(requestProcessText.requestProcess_detail_date_ins());
+		JepIntegerField operatorIdIntegerField = new JepIntegerField(requestProcessText.requestProcess_detail_operator_id());
+		JepTextField operatorNameTextField = new JepTextField(requestProcessText.requestProcess_detail_operator_name());
+		panel.add(requestProcessIdIntegerField);
+		panel.add(requestIdIntegerField);
+		panel.add(processCommentTextField);
+		panel.add(dateInsDateField);
+		panel.add(operatorIdIntegerField);
+		panel.add(operatorNameTextField);
+		
+		fields.put(REQUEST_PROCESS_ID, requestProcessIdIntegerField);
+		fields.put(REQUEST_ID, requestIdIntegerField);
+		fields.put(PROCESS_COMMENT, processCommentTextField);
+		fields.put(DATE_INS, dateInsDateField);
+		fields.put(OPERATOR_ID, operatorIdIntegerField);
+		fields.put(OPERATOR_NAME, operatorNameTextField);
 	}
+ 
 }
