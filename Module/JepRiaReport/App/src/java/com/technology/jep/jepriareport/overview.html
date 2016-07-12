@@ -2,7 +2,7 @@
 <head>
 <!--
 
-  @(#)jepreport.html	1.0 08.10.2009
+  @(#)jepreport.html  1.0 08.10.2009
 
   Copyright ...
 -->
@@ -50,17 +50,17 @@
 <h4><a name="reportCreationSteps">Основные шаги разработки</a></h3>
 В общем случае разработка отчёта для прикладного модуля <i>Jep</i> состоит из следующих шагов:
 <ol>
-	<li>Разработка шаблона отчёта и, если необходимо, его подотчётов.
-	<li>Создание на jsp кнопок инструментальной панели, инициирующих запрос на построение отчёта
-	<li>Разработка класса (наследника <i>JepAction</i>), обрабатывающего запрос на построение отчёта. 
-	<li>Подготовка скриптов сборки (setEnvironment.bat и make.bat) для создания и включения  в установочный архив модуля всего, что необходимо для работы с создаваемым отчётом.
+  <li>Разработка шаблона отчёта и, если необходимо, его подотчётов.
+  <li>Создание на jsp кнопок инструментальной панели, инициирующих запрос на построение отчёта
+  <li>Разработка класса (наследника <i>JepAction</i>), обрабатывающего запрос на построение отчёта. 
+  <li>Подготовка скриптов сборки (setEnvironment.bat и make.bat) для создания и включения  в установочный архив модуля всего, что необходимо для работы с создаваемым отчётом.
 </ol>
 <h4><a name="reportKinds">Виды отчётов</a></h3>
 JepReport поддерживает разработку 3-х основных видов отчётов:
 <ul>
-	<li>Несписочная форма (бланки, письма и т.п.)
-	<li>Списочная форма
-	<li>Списочная форма для <i>больших отчётов</i>.
+  <li>Несписочная форма (бланки, письма и т.п.)
+  <li>Списочная форма
+  <li>Списочная форма для <i>больших отчётов</i>.
 <br>
 Под &quot;большими отчётами&quot; в данном случае понимаются отчёты, требующие большого объёма вычислительных ресурсов,
 главным образом, оперативной памяти сервера.
@@ -81,11 +81,11 @@ EJB-модуля, реализующего интерфейс <code>JepLargeReport</code>.
 <pre>
 ...
 &lt;action path="/welcomeOutput" type="com.technology.rfi.dswelcome.action.WelcomeOutputAction" name="welcomeForm" scope="session"&gt;
-	...
-<b>	
-	&lt;forward name="getDsSchedule" path="/WEB-INF/jsp/com/technology/rfi/dswelcome/welcome.jsp?postAction=window.open(&quot;/DSWelcome/servlets/pdf&quot;,&quot;_blank&quot;);"/&gt;
-</b>	
-	...
+  ...
+<b>  
+  &lt;forward name="getDsSchedule" path="/WEB-INF/jsp/com/technology/rfi/dswelcome/welcome.jsp?postAction=window.open(&quot;/DSWelcome/servlets/pdf&quot;,&quot;_blank&quot;);"/&gt;
+</b>  
+  ...
 &lt;/action&gt;
 ...
 </pre>
@@ -99,13 +99,13 @@ EJB-модуля, реализующего интерфейс <code>JepLargeReport</code>.
 <pre>
 ...
   &lt;servlet&gt;
-	&lt;servlet-name&gt;PdfServlet&lt;/servlet-name&gt;
-	&lt;servlet-class&gt;net.sf.jasperreports.j2ee.servlets.PdfServlet&lt;/servlet-class&gt;
+  &lt;servlet-name&gt;PdfServlet&lt;/servlet-name&gt;
+  &lt;servlet-class&gt;net.sf.jasperreports.j2ee.servlets.PdfServlet&lt;/servlet-class&gt;
   &lt;/servlet&gt;
 ...
   &lt;servlet-mapping&gt;
-	&lt;servlet-name&gt;PdfServlet&lt;/servlet-name&gt;
-	&lt;url-pattern&gt;/servlets/pdf&lt;/url-pattern&gt;
+  &lt;servlet-name&gt;PdfServlet&lt;/servlet-name&gt;
+  &lt;url-pattern&gt;/servlets/pdf&lt;/url-pattern&gt;
   &lt;/servlet-mapping&gt;
 ...
 </pre>
@@ -129,8 +129,8 @@ EJB-модуля, реализующего интерфейс <code>JepLargeReport</code>.
 <h3><a name="literature">Литература</a></h3>
 Литература по JasperReports размещена в директории <i>\\smskss1\install\!DT\JasperReports\Doc\</i><br>
 <ul>
-	<li><a href="file://smskss1/install/!DT/JasperReports/Doc/The Definitive Guide to JasperReports.pdf">The Definitive Guide to JasperReports. Teodor Danciu and Lucian Chirita</a>.
-	<li><a href="file://smskss1/install/!DT/JasperReports/Doc/JasperReports for Java Developers.pdf">JasperReports for Java Developers. David R. Heffelfinger</a>.
+  <li><a href="file://smskss1/install/!DT/JasperReports/Doc/The Definitive Guide to JasperReports.pdf">The Definitive Guide to JasperReports. Teodor Danciu and Lucian Chirita</a>.
+  <li><a href="file://smskss1/install/!DT/JasperReports/Doc/JasperReports for Java Developers.pdf">JasperReports for Java Developers. David R. Heffelfinger</a>.
 </ul>
 
 <h3><a name="error">Ошибки</a></h3>

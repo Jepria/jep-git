@@ -21,28 +21,28 @@ import com.technology.jep.jepria.shared.exceptions.SystemException;
 @SuppressWarnings("serial")
 public class HtmlServlet extends HttpServlet
 {
-	public void service(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException
-	{
-		try
-		{
-			JasperPrint jasperPrint = (JasperPrint) request.getSession().getAttribute(BaseHttpServlet.DEFAULT_JASPER_PRINT_SESSION_ATTRIBUTE);
-			JRHtmlExporter htmlExporter = new JRHtmlExporter();
-			htmlExporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
-			request.getSession().setAttribute(ImageServlet.DEFAULT_JASPER_PRINT_SESSION_ATTRIBUTE, jasperPrint);			
-		    response.setContentType("text/html; charset=UTF-8");       
-		    
-			PrintWriter out = response.getWriter();
+  public void service(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException
+  {
+    try
+    {
+      JasperPrint jasperPrint = (JasperPrint) request.getSession().getAttribute(BaseHttpServlet.DEFAULT_JASPER_PRINT_SESSION_ATTRIBUTE);
+      JRHtmlExporter htmlExporter = new JRHtmlExporter();
+      htmlExporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+      request.getSession().setAttribute(ImageServlet.DEFAULT_JASPER_PRINT_SESSION_ATTRIBUTE, jasperPrint);      
+        response.setContentType("text/html; charset=UTF-8");       
+        
+      PrintWriter out = response.getWriter();
 
-			htmlExporter.setParameter(JRExporterParameter.OUTPUT_WRITER, out);
-			htmlExporter.setParameter(JRHtmlExporterParameter.IMAGES_URI, "../servlets/image?image=");
-			
-			htmlExporter.exportReport();
-		}
-		catch (JRException jrex)
-		{
-			throw new SystemException("HtmlServlet error", jrex);
-		}			
-	}
+      htmlExporter.setParameter(JRExporterParameter.OUTPUT_WRITER, out);
+      htmlExporter.setParameter(JRHtmlExporterParameter.IMAGES_URI, "../servlets/image?image=");
+      
+      htmlExporter.exportReport();
+    }
+    catch (JRException jrex)
+    {
+      throw new SystemException("HtmlServlet error", jrex);
+    }      
+  }
 
 
 }
