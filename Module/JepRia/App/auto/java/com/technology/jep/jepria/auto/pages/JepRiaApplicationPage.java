@@ -10,7 +10,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 public class JepRiaApplicationPage<M extends PageManagerBase> extends JepRiaEntranceApplicationPage<M> {
-	private static Logger logger = Logger.getLogger(JepRiaEntranceApplicationPage.class.getName());
+  private static Logger logger = Logger.getLogger(JepRiaEntranceApplicationPage.class.getName());
 
     @FindBy(id = ENTRANCE_PANEL_ID)
     private WebElement entranceBarPanel;
@@ -57,11 +57,11 @@ public class JepRiaApplicationPage<M extends PageManagerBase> extends JepRiaEntr
     
     // Singleton
     static public JepRiaApplicationPage<PageManagerBase> getInstance(PageManagerBase pageManager) {
-    	if(instance == null) {
-    		instance = new JepRiaApplicationPage<PageManagerBase>(pageManager);
-    	}
-    	
-    	return (JepRiaApplicationPage<PageManagerBase>) instance;
+      if(instance == null) {
+        instance = new JepRiaApplicationPage<PageManagerBase>(pageManager);
+      }
+      
+      return (JepRiaApplicationPage<PageManagerBase>) instance;
     }
 
     protected JepRiaApplicationPage(M pages) {
@@ -87,16 +87,16 @@ public class JepRiaApplicationPage<M extends PageManagerBase> extends JepRiaEntr
     }
     
     
-	public boolean isEntranceBarDisplayed() {
+  public boolean isEntranceBarDisplayed() {
         return getContent().entranceBarPanel.isDisplayed();
-	}
+  }
 
-	public void clickLogoutButton() {
-		getContent().entranceBarLogoutButton.click();
-		logger.trace(this.getClass() + ".clickLogoutButton()");
-	}
+  public void clickLogoutButton() {
+    getContent().entranceBarLogoutButton.click();
+    logger.trace(this.getClass() + ".clickLogoutButton()");
+  }
 
-	public String getStatusBarText() {
-		return statusBarPanel.getText();
-	}
+  public String getStatusBarText() {
+    return statusBarPanel.getText();
+  }
 }

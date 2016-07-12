@@ -21,28 +21,28 @@ import com.technology.jep.jepria.shared.service.JepMainService;
  */
 @SuppressWarnings("serial")
 public class JepMainServiceServlet extends JepServiceServlet implements JepMainService {
-	protected static Logger logger = Logger.getLogger(JepMainServiceServlet.class.getName());
-	
-	/**
-	 * Получение данных пользователя (имени, operatorId, ролей, ...).
-	 * 
-	 * @return данные пользователя
-	 */
-	public JepDto getUserData() {
-		logger.debug("getUserData()");
-		JepDto userData = new JepDto();
-		
-		JepSecurityModule securityModule = SecurityFactory.getSecurityModule(getThreadLocalRequest());
-		userData.set(JEP_USER_NAME_FIELD_NAME, securityModule.getUsername());
-		userData.set(OPERATOR_ID, getOperatorId());
-		userData.set(JEP_USER_ROLES_FIELD_NAME, securityModule.getRoles());
-		return userData;
-	}
-	
-	public String logout(String currentUrl) throws Exception {
-		logger.debug("logout()");
-		HttpServletRequest request = getThreadLocalRequest();
-		HttpServletResponse response =  getThreadLocalResponse();
-		return SecurityFactory.getSecurityModule(request).logout(request, response, currentUrl);
-	}
+  protected static Logger logger = Logger.getLogger(JepMainServiceServlet.class.getName());
+  
+  /**
+   * Получение данных пользователя (имени, operatorId, ролей, ...).
+   * 
+   * @return данные пользователя
+   */
+  public JepDto getUserData() {
+    logger.debug("getUserData()");
+    JepDto userData = new JepDto();
+    
+    JepSecurityModule securityModule = SecurityFactory.getSecurityModule(getThreadLocalRequest());
+    userData.set(JEP_USER_NAME_FIELD_NAME, securityModule.getUsername());
+    userData.set(OPERATOR_ID, getOperatorId());
+    userData.set(JEP_USER_ROLES_FIELD_NAME, securityModule.getRoles());
+    return userData;
+  }
+  
+  public String logout(String currentUrl) throws Exception {
+    logger.debug("logout()");
+    HttpServletRequest request = getThreadLocalRequest();
+    HttpServletResponse response =  getThreadLocalResponse();
+    return SecurityFactory.getSecurityModule(request).logout(request, response, currentUrl);
+  }
 }

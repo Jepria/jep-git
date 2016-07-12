@@ -27,85 +27,85 @@ import com.technology.jep.jepria.shared.report.JepReportParameters;
 
 public class PlainEventBus extends JepEventBus {
 
-	public static final String CHANGE_WORKSTATE_EVENT_NAME = "cw";
+  public static final String CHANGE_WORKSTATE_EVENT_NAME = "cw";
 
-	public PlainEventBus(PlainClientFactory<?, ?> clientFactory) {
-		super(clientFactory);
-	}
+  public PlainEventBus(PlainClientFactory<?, ?> clientFactory) {
+    super(clientFactory);
+  }
 
-	public void setCurrentRecord(JepRecord newRecord) {
-		fireEvent(new SetCurrentRecordEvent(newRecord));
-	}
-	
-	public void setListUID(Integer uid) {
-		fireEvent(new SetListUIDEvent(uid));
-	}
+  public void setCurrentRecord(JepRecord newRecord) {
+    fireEvent(new SetCurrentRecordEvent(newRecord));
+  }
+  
+  public void setListUID(Integer uid) {
+    fireEvent(new SetListUIDEvent(uid));
+  }
 
-	public void doSearch() {
-		checkAndFireEvent(new DoSearchEvent());
-	}
+  public void doSearch() {
+    checkAndFireEvent(new DoSearchEvent());
+  }
 
-	public void search(PagingConfig pagingConfig) {
-		checkAndFireEvent(new SearchEvent(pagingConfig));
-	}
+  public void search(PagingConfig pagingConfig) {
+    checkAndFireEvent(new SearchEvent(pagingConfig));
+  }
 
-	public void sort(SortConfig sortConfig) {
-		fireEvent(new SortEvent(sortConfig));
-	}
+  public void sort(SortConfig sortConfig) {
+    fireEvent(new SortEvent(sortConfig));
+  }
 
-	public void paging(PagingConfig pagingConfig) {
-		fireEvent(new PagingEvent(pagingConfig));
-	}
+  public void paging(PagingConfig pagingConfig) {
+    fireEvent(new PagingEvent(pagingConfig));
+  }
 
-	public void list() {
-		fireEvent(new ListEvent());
-	}
+  public void list() {
+    fireEvent(new ListEvent());
+  }
 
-	public void refresh() {
-		fireEvent(new RefreshEvent());
-	}
+  public void refresh() {
+    fireEvent(new RefreshEvent());
+  }
 
-	public void save() {
-		checkAndFireEvent(new SaveEvent());
-	}
+  public void save() {
+    checkAndFireEvent(new SaveEvent());
+  }
 
-	public void doDelete() {
-		checkAndFireEvent(new DoDeleteEvent());
-	}
+  public void doDelete() {
+    checkAndFireEvent(new DoDeleteEvent());
+  }
 
-	public void delete(JepRecord record) {
-		fireEvent(new DeleteEvent(record));
-	}
+  public void delete(JepRecord record) {
+    fireEvent(new DeleteEvent(record));
+  }
 
-	public void adjustExitScope() {
-		fireEvent(new AdjustExitScopeEvent());
-	}
+  public void adjustExitScope() {
+    fireEvent(new AdjustExitScopeEvent());
+  }
 
-	public void showExcel() {
-		checkAndFireEvent(new ShowExcelEvent(null, null));
-	}
-	
-	public void showExcel(String fileName, String excelServlet) {
-		checkAndFireEvent(new ShowExcelEvent(fileName, excelServlet));
-	}
+  public void showExcel() {
+    checkAndFireEvent(new ShowExcelEvent(null, null));
+  }
+  
+  public void showExcel(String fileName, String excelServlet) {
+    checkAndFireEvent(new ShowExcelEvent(fileName, excelServlet));
+  }
 
-	public void prepareReport(JepReportParameters reportParameters, String reportServlet) {
-		checkAndFireEvent(new PrepareReportEvent(reportParameters, reportServlet));
-	}
+  public void prepareReport(JepReportParameters reportParameters, String reportServlet) {
+    checkAndFireEvent(new PrepareReportEvent(reportParameters, reportServlet));
+  }
 
-	public void showHelp() {
-		fireEvent(new ShowHelpEvent());
-	}
+  public void showHelp() {
+    fireEvent(new ShowHelpEvent());
+  }
 
-	public void doGetRecord(PagingConfig pagingConfig) {
-		fireEvent(new DoGetRecordEvent(pagingConfig));
-	}
+  public void doGetRecord(PagingConfig pagingConfig) {
+    fireEvent(new DoGetRecordEvent(pagingConfig));
+  }
 
-	public void exitScope() {
-		fireEvent(new ExitScopeEvent());
-	}
-	
-	public void setSaveButtonEnabled(boolean enabled) {
-		fireEvent(new SetSaveButtonEnabledEvent(enabled));
-	}
+  public void exitScope() {
+    fireEvent(new ExitScopeEvent());
+  }
+  
+  public void setSaveButtonEnabled(boolean enabled) {
+    fireEvent(new SetSaveButtonEnabledEvent(enabled));
+  }
 }

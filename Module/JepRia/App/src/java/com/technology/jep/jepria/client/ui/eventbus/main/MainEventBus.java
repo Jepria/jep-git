@@ -13,28 +13,28 @@ import com.technology.jep.jepria.client.ui.main.MainClientFactory;
 
 public class MainEventBus extends JepEventBus {
 
-	public MainEventBus(MainClientFactory<?, ?> clientFactory) {
-		super(clientFactory);
-	}
+  public MainEventBus(MainClientFactory<?, ?> clientFactory) {
+    super(clientFactory);
+  }
 
-	public void start() {
-		fireEvent(new StartEvent());
-	}
+  public void start() {
+    fireEvent(new StartEvent());
+  }
 
-	public void enterFromHistory(Place place) {
-		checkAndFireEvent(new EnterFromHistoryEvent(place));
-	}
+  public void enterFromHistory(Place place) {
+    checkAndFireEvent(new EnterFromHistoryEvent(place));
+  }
 
-	public void setMainView(IsWidget mainView) {
-		fireEvent(new SetMainViewEvent(mainView));
-	}
+  public void setMainView(IsWidget mainView) {
+    fireEvent(new SetMainViewEvent(mainView));
+  }
 
-	public void setMainViewBody(Widget bodyWidget) {
-		fireEvent(new SetMainViewBodyEvent(bodyWidget));
-	}
+  public void setMainViewBody(Widget bodyWidget) {
+    fireEvent(new SetMainViewBodyEvent(bodyWidget));
+  }
 
-	public void exitScope(ExitScopeEvent exitScopeEvent) {
-		fireEvent(exitScopeEvent);
-	}
+  public void exitScope(ExitScopeEvent exitScopeEvent) {
+    fireEvent(exitScopeEvent);
+  }
 
 }

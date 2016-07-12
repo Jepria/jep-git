@@ -30,9 +30,9 @@ import com.technology.jep.jepria.server.dao.transaction.handler.EndTransactionHa
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface After {
-	/**
-	 * Возвращает обработчик начала транзакции.
-	 * @return экземпляр обработчика
-	 */
-	Class<? extends EndTransactionHandler> endTransactionHandler();
+  /**
+   * Возвращает обработчик начала транзакции.
+   * @return экземпляр обработчика
+   */
+  Class<? extends EndTransactionHandler> endTransactionHandler();
 }

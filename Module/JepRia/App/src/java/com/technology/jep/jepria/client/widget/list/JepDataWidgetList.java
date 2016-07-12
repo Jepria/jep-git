@@ -16,56 +16,56 @@ import com.technology.jep.jepria.shared.record.JepRecord;
 
 public class JepDataWidgetList extends AbstractHasData<JepRecord> {
 
-	private static VerticalPanel dataPanel = new VerticalPanel();
-	private final Element childContainer;
+  private static VerticalPanel dataPanel = new VerticalPanel();
+  private final Element childContainer;
 
-	public JepDataWidgetList() {
-		super(dataPanel, DEFAULT_PAGE_SIZE, null);
-		dataPanel.setWidth("100%");
+  public JepDataWidgetList() {
+    super(dataPanel, DEFAULT_PAGE_SIZE, null);
+    dataPanel.setWidth("100%");
 
-		childContainer = Document.get().createTableElement();
-	}
+    childContainer = Document.get().createTableElement();
+  }
 
-	@Override
-	protected boolean dependsOnSelection() {
-		return false;
-	}
+  @Override
+  protected boolean dependsOnSelection() {
+    return false;
+  }
 
-	@Override
-	protected Element getChildContainer() {
-		return childContainer;
-	}
+  @Override
+  protected Element getChildContainer() {
+    return childContainer;
+  }
 
-	@Override
-	protected Element getKeyboardSelectedElement() {
-		return null;
-	}
+  @Override
+  protected Element getKeyboardSelectedElement() {
+    return null;
+  }
 
-	@Override
-	protected boolean isKeyboardNavigationSuppressed() {
-		return false;
-	}
+  @Override
+  protected boolean isKeyboardNavigationSuppressed() {
+    return false;
+  }
 
-	@Override
-	protected void renderRowValues(SafeHtmlBuilder sb, List<JepRecord> values, int start, SelectionModel<? super JepRecord> selectionModel)
-			throws UnsupportedOperationException {
+  @Override
+  protected void renderRowValues(SafeHtmlBuilder sb, List<JepRecord> values, int start, SelectionModel<? super JepRecord> selectionModel)
+      throws UnsupportedOperationException {
 
-		dataPanel.clear();
-		for (JepRecord data : values) {
-			dataPanel.add(getDataWidget(data));
-		}
-	}
+    dataPanel.clear();
+    for (JepRecord data : values) {
+      dataPanel.add(getDataWidget(data));
+    }
+  }
 
-	@Override
-	protected boolean resetFocusOnCell() {
-		return false;
-	}
+  @Override
+  protected boolean resetFocusOnCell() {
+    return false;
+  }
 
-	@Override
-	protected void setKeyboardSelected(int index, boolean selected, boolean stealFocus) {
-	}
+  @Override
+  protected void setKeyboardSelected(int index, boolean selected, boolean stealFocus) {
+  }
 
-	protected Widget getDataWidget(JepRecord data) {
-		return new Label(data.toString());
-	}
+  protected Widget getDataWidget(JepRecord data) {
+    return new Label(data.toString());
+  }
 }

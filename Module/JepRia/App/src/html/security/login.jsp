@@ -17,20 +17,20 @@
 </jsp:declaration>
 
 <jsp:scriptlet>
-	FrameworkResourceBundle _bundle = FrameworkResourceBundle.getResourceBundle(request.getLocales());
-	ResourceBundle resourceBundle = ResourceBundle.getBundle("com.technology.jep.jepria.shared.text.LoginText", request.getLocale());
+  FrameworkResourceBundle _bundle = FrameworkResourceBundle.getResourceBundle(request.getLocales());
+  ResourceBundle resourceBundle = ResourceBundle.getBundle("com.technology.jep.jepria.shared.text.LoginText", request.getLocale());
 
-	Integer attempts = (Integer)session.getAttribute(MAX_LOGIN_ATTEMPTS);
-	int loginAttempts = 0;
-	if (null != attempts){
-		loginAttempts = attempts.intValue();
-		if(loginAttempts >= _maxLoginAttempts){
-			RequestDispatcher rd = application.getRequestDispatcher("/loginerror.jsp");
-			rd.forward(request, response);   
-		}
-	}
-	session.setMaxInactiveInterval(_sessionTimeout);
-	String dir = _bundle.isLocaleRTL() ? "rtl" : "ltr"; 
+  Integer attempts = (Integer)session.getAttribute(MAX_LOGIN_ATTEMPTS);
+  int loginAttempts = 0;
+  if (null != attempts){
+    loginAttempts = attempts.intValue();
+    if(loginAttempts >= _maxLoginAttempts){
+      RequestDispatcher rd = application.getRequestDispatcher("/loginerror.jsp");
+      rd.forward(request, response);   
+    }
+  }
+  session.setMaxInactiveInterval(_sessionTimeout);
+  String dir = _bundle.isLocaleRTL() ? "rtl" : "ltr"; 
 </jsp:scriptlet>
 
 <html lang="<%=_bundle.getResourceLocale().getLanguage()%>"    dir="<%=dir%>">
@@ -118,7 +118,7 @@
 
         //Если данные формы корректны, то отправим изменения на сервер.
         if(validateAuthorizationForm()) {
-			lForm.submit();
+      lForm.submit();
         } //Если нет - сообщим об этом пользователю.
         else trace(document.getElementsByName('action.incorrectInputData')[0].value);
       }
@@ -149,11 +149,11 @@
             </tr>
           </table>
 
-        <% } %>		
+        <% } %>    
       </table>
-	  
+    
       <br/><br/><br/><br/><br/>
-	  
+    
       <table style=" width: 100%; ">
         <colgroup>
           <col style=" width: 50%; ">
@@ -185,10 +185,10 @@
       <input type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;"/>
     </form>
     <script language="javascript">
-	<!--
-		document.loginForm.j_username.focus(); 
-		localize(); 
-	//-->
+  <!--
+    document.loginForm.j_username.focus(); 
+    localize(); 
+  //-->
     </script>
   </body>
 </html>

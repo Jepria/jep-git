@@ -40,8 +40,8 @@ public class Browser {
         this.path = path;
     }
 
-	public String getPath() {
+  public String getPath() {
         return path;
-	}
+  }
 
 }

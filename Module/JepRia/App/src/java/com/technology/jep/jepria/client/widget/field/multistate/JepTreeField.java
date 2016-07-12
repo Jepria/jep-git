@@ -27,292 +27,292 @@ import com.technology.jep.jepria.shared.util.JepRiaUtil;
  */
 public class JepTreeField extends JepMultiStateField<TreeField<JepOption>, HTML> {
 
-	/**
-	 * Список узлов, которые необходимо отметить.
-	 */
-	private List<JepOption> checkedValues = null;
-	
-	/**
-	 * Список узлов, которые необходимо раскрыть.
-	 */
-	private List<JepOption> expandedValues = null;
-	
-	private final static int DEFAULT_TREE_FIELD_HEIGHT = 300;
-	
-	public JepTreeField() {
-		this(null);
-	}
-	
-	public JepTreeField(String fieldLabel){
-		this(null, fieldLabel);
-	}
-	
-	public JepTreeField(String fieldIdAsWebEl, String fieldLabel){
-		super(fieldIdAsWebEl, fieldLabel);
-		// установка высоты по умолчанию
-		setFieldHeight(DEFAULT_TREE_FIELD_HEIGHT);
-	}
-	
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	protected void addEditableCard() {
-		editableCard = new TreeField<JepOption>();
-		editablePanel.add(editableCard);
-	}
-	
-	/**
-	 * Установка загрузчика узлов нижележащего уровня.
-	 * 
-	 * @param loader загрузчик узлов нижележащего уровня
-	 */
-	public void setLoader(final DataLoader<JepOption> loader){
-		editableCard.setLoader(new DataLoader<JepOption>() {
-			public void load(Object loadConfig, final AsyncCallback<List<JepOption>> callback) {
-				loader.load(loadConfig, new JepAsyncCallback<List<JepOption>>() {
-					@Override
-					public void onSuccess(List<JepOption> result) {
-						callback.onSuccess(result);
-						processExpanding();
-						processChecking();
-					}
-					@Override
-					public void onFailure(Throwable caught) {
-						callback.onFailure(caught);
-					}
-				});
-			}
-		});
-	}
-	
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	@SuppressWarnings("unchecked")
-	public void setValue(Object value) {
-		Object oldValue = getValue();
-		if(!JepRiaUtil.equalWithNull(oldValue, value)) {
-			// Создание копии списка элементов важно, поскольку в методе processChecking
-			// происходит удаление элементов списка, что приводит к изменению состояния 
-			// currentRecord при смене рабочего состояния формы
-			this.checkedValues = new ArrayList<JepOption>((List<JepOption>)value);
-			processChecking();
-		}
-	}
+  /**
+   * Список узлов, которые необходимо отметить.
+   */
+  private List<JepOption> checkedValues = null;
+  
+  /**
+   * Список узлов, которые необходимо раскрыть.
+   */
+  private List<JepOption> expandedValues = null;
+  
+  private final static int DEFAULT_TREE_FIELD_HEIGHT = 300;
+  
+  public JepTreeField() {
+    this(null);
+  }
+  
+  public JepTreeField(String fieldLabel){
+    this(null, fieldLabel);
+  }
+  
+  public JepTreeField(String fieldIdAsWebEl, String fieldLabel){
+    super(fieldIdAsWebEl, fieldLabel);
+    // установка высоты по умолчанию
+    setFieldHeight(DEFAULT_TREE_FIELD_HEIGHT);
+  }
+  
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  protected void addEditableCard() {
+    editableCard = new TreeField<JepOption>();
+    editablePanel.add(editableCard);
+  }
+  
+  /**
+   * Установка загрузчика узлов нижележащего уровня.
+   * 
+   * @param loader загрузчик узлов нижележащего уровня
+   */
+  public void setLoader(final DataLoader<JepOption> loader){
+    editableCard.setLoader(new DataLoader<JepOption>() {
+      public void load(Object loadConfig, final AsyncCallback<List<JepOption>> callback) {
+        loader.load(loadConfig, new JepAsyncCallback<List<JepOption>>() {
+          @Override
+          public void onSuccess(List<JepOption> result) {
+            callback.onSuccess(result);
+            processExpanding();
+            processChecking();
+          }
+          @Override
+          public void onFailure(Throwable caught) {
+            callback.onFailure(caught);
+          }
+        });
+      }
+    });
+  }
+  
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  @SuppressWarnings("unchecked")
+  public void setValue(Object value) {
+    Object oldValue = getValue();
+    if(!JepRiaUtil.equalWithNull(oldValue, value)) {
+      // Создание копии списка элементов важно, поскольку в методе processChecking
+      // происходит удаление элементов списка, что приводит к изменению состояния 
+      // currentRecord при смене рабочего состояния формы
+      this.checkedValues = new ArrayList<JepOption>((List<JepOption>)value);
+      processChecking();
+    }
+  }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	@SuppressWarnings("unchecked")
-	public List<JepOption> getValue() {
-		return editableCard.getCheckedSelection();
-	}
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  @SuppressWarnings("unchecked")
+  public List<JepOption> getValue() {
+    return editableCard.getCheckedSelection();
+  }
 
-	/**
-	 * Устанавливает стиль поведения (каскадного выделения) для отмечаемых узлов.<br/>
-	 * Возможные значения:
-	 * <ul>
-	 *  <li>NONE - каскадного выделения никаких узлов не происходит</li>
-	 *  <li>PARENTS - каскадно выделяются все родители</li>
-	 *  <li>CHILDREN - каскадно выделюятся все дети</li>
-	 * </ul>
-	 * Замечание: при установке значения CHILDREN отмечаются (очевидно) только отрисованные дочерние узлы.
-	 * 
-	 * @param checkCascade стиль поведения (каскадного выделения) для отмечаемых узлов
-	 */
-	public void setCheckStyle(TreeField.CheckCascade checkCascade) {
-		editableCard.setCheckStyle(checkCascade);
-	}
-	
-	/**
-	 * Устанавливает какие узлы можно отмечать.<br/>
-	 * Возможные значения:
-	 * <ul>
-	 *  <li>BOTH - можно отмечать и узлы и конечные листья</li>
-	 *  <li>PARENT - только родительские узлы (узлы, которые содержат дочерние элементы)</li>
-	 *  <li>LEAF - только листья (узлы, которые НЕ содержат дочерних элементов)</li>
-	 * </ul>
-	 *
-	 * @param checkNodes какие узлы можно отмечать
-	 */	
-	public void setCheckNodes(TreeField.CheckNodes checkNodes) {
-		editableCard.setCheckNodes(checkNodes);
-	}
-	
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void setFieldHeight(int fieldHeight) {
-		editableCard.setHeight(fieldHeight + Unit.PX.getType());
-	}
-	
-	/**
-	 * Метод не поддерживается.
-	 */
-	@Override
-	public void setEditable(boolean editable) {
-		throw new UnsupportedOperationException();
-	}
-	
-	/**
-	 * Метод предка перегружен пустой реализацией, т.к. в данном компоненте карта Просмотра не используется.
-	 * 
-	 * @param value значение для карты Просмотра
-	 */
-	@Override
-	protected void setViewValue(Object value) {
+  /**
+   * Устанавливает стиль поведения (каскадного выделения) для отмечаемых узлов.<br/>
+   * Возможные значения:
+   * <ul>
+   *  <li>NONE - каскадного выделения никаких узлов не происходит</li>
+   *  <li>PARENTS - каскадно выделяются все родители</li>
+   *  <li>CHILDREN - каскадно выделюятся все дети</li>
+   * </ul>
+   * Замечание: при установке значения CHILDREN отмечаются (очевидно) только отрисованные дочерние узлы.
+   * 
+   * @param checkCascade стиль поведения (каскадного выделения) для отмечаемых узлов
+   */
+  public void setCheckStyle(TreeField.CheckCascade checkCascade) {
+    editableCard.setCheckStyle(checkCascade);
+  }
+  
+  /**
+   * Устанавливает какие узлы можно отмечать.<br/>
+   * Возможные значения:
+   * <ul>
+   *  <li>BOTH - можно отмечать и узлы и конечные листья</li>
+   *  <li>PARENT - только родительские узлы (узлы, которые содержат дочерние элементы)</li>
+   *  <li>LEAF - только листья (узлы, которые НЕ содержат дочерних элементов)</li>
+   * </ul>
+   *
+   * @param checkNodes какие узлы можно отмечать
+   */  
+  public void setCheckNodes(TreeField.CheckNodes checkNodes) {
+    editableCard.setCheckNodes(checkNodes);
+  }
+  
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void setFieldHeight(int fieldHeight) {
+    editableCard.setHeight(fieldHeight + Unit.PX.getType());
+  }
+  
+  /**
+   * Метод не поддерживается.
+   */
+  @Override
+  public void setEditable(boolean editable) {
+    throw new UnsupportedOperationException();
+  }
+  
+  /**
+   * Метод предка перегружен пустой реализацией, т.к. в данном компоненте карта Просмотра не используется.
+   * 
+   * @param value значение для карты Просмотра
+   */
+  @Override
+  protected void setViewValue(Object value) {
 
-	}
-	
-	/**
-	 * Проверяет: содержит ли допустимое значение поле.
-	 *
-	 * @return true - если поле содержит допустимое значение, false - в противном случае
-	 */
-	@Override
-	public boolean isValid() {
-		clearInvalid();
-		if(!allowBlank) {
-			if(getValue().size() == 0) {
-				markInvalid(JepTexts.checkForm_mandatoryField());
-				return false;
-			}
-		}
-		return true;
-	}
-	
-	/**
-	 * Указывает, какие узлы необходимо раскрыть.
-	 */
-	public void setExpanded(List<JepOption> expandedValues) {
-		// Создание копии списка элементов важно, поскольку в методе processExpanding
-		// происходит удаление элементов списка, что может привести к потенциальным ошибкам 
-		// в клиентских модулях
-		this.expandedValues = new ArrayList<JepOption>(expandedValues);
-		processExpanding();
-	}
-	
-	/**
-	 * Раскрывает отрисованные узлы и удаляет их из списка узлов, которые необходимо раскрыть 
-	 * {@link com.technology.jep.jepria.client.widget.field.multistate.JepTreeField#expandedValues}.
-	 */
-	protected void processExpanding() {
-		if(expandedValues != null && expandedValues.size() > 0) {
-			Iterator<JepOption> iterator = expandedValues.iterator();
-			while(iterator.hasNext()) {
-				JepOption option = iterator.next();
-				// Удаляем значение, т.к. открытие узлов - это разовая (в данном случае) операция
-				// и НЕ нужно повторно открывать указанные узлы (которые пользователь, возможно, уже закрыл).
-				editableCard.setExpanded(option, true);
-				iterator.remove();
-			}
-		}
-	}
+  }
+  
+  /**
+   * Проверяет: содержит ли допустимое значение поле.
+   *
+   * @return true - если поле содержит допустимое значение, false - в противном случае
+   */
+  @Override
+  public boolean isValid() {
+    clearInvalid();
+    if(!allowBlank) {
+      if(getValue().size() == 0) {
+        markInvalid(JepTexts.checkForm_mandatoryField());
+        return false;
+      }
+    }
+    return true;
+  }
+  
+  /**
+   * Указывает, какие узлы необходимо раскрыть.
+   */
+  public void setExpanded(List<JepOption> expandedValues) {
+    // Создание копии списка элементов важно, поскольку в методе processExpanding
+    // происходит удаление элементов списка, что может привести к потенциальным ошибкам 
+    // в клиентских модулях
+    this.expandedValues = new ArrayList<JepOption>(expandedValues);
+    processExpanding();
+  }
+  
+  /**
+   * Раскрывает отрисованные узлы и удаляет их из списка узлов, которые необходимо раскрыть 
+   * {@link com.technology.jep.jepria.client.widget.field.multistate.JepTreeField#expandedValues}.
+   */
+  protected void processExpanding() {
+    if(expandedValues != null && expandedValues.size() > 0) {
+      Iterator<JepOption> iterator = expandedValues.iterator();
+      while(iterator.hasNext()) {
+        JepOption option = iterator.next();
+        // Удаляем значение, т.к. открытие узлов - это разовая (в данном случае) операция
+        // и НЕ нужно повторно открывать указанные узлы (которые пользователь, возможно, уже закрыл).
+        editableCard.setExpanded(option, true);
+        iterator.remove();
+      }
+    }
+  }
 
-	/**
-	 * Отмечает отрисованные узлы и удаляет их из списка узлов, которые необходимо отметить 
-	 * {@link com.technology.jep.jepria.client.widget.field.multistate.JepTreeField#checkedValues}.
-	 */
-	protected void processChecking() {
-		if(checkedValues != null && checkedValues.size() > 0) {
-			Iterator<JepOption> iterator = checkedValues.iterator();
-			while(iterator.hasNext()) {
-				JepOption option = iterator.next();
-				// Удаляем значение, т.к. открытие узлов - это разовая (в данном случае) операция
-				// и НЕ нужно повторно открывать указанные узлы (которые пользователь, возможно, уже закрыл).
-				editableCard.setChecked(option, true);
-				iterator.remove();
-			}
-		}
-	}
-	
-	/**
-	 * Обработчик нового состояния
-	 * 
-	 * @param newWorkstate новое состояние
-	 */
-	@Override
-	protected void onChangeWorkstate(WorkstateEnum newWorkstate) {
-		
-		// В данном компоненте работаем ТОЛЬКО с картой Редактирования.
-		showWidget(getWidgetIndex(editablePanel));
-		
-		// Если карта Редактирования уже создана (первый раз метод вызывается в предке, когда карты Редактирования еще нет).
-		if(editableCard != null) {
-			// При смене состояния прокручиваем карту Редактирования наверх.
-			editableCard.scrollToTop();
-			if(WorkstateEnum.isEditableState(newWorkstate)) { // Для случая Редактирования: ...
-				editableCard.setCheckable(true);// позволим отмечать узлы дерева
-				editableCard.setBorders(true); // отобразим границы рабочей области компонента
-				editableCard.getElement().getStyle().setBackgroundColor("white"); // установим белый фон рабочей области компонента
-			} else { // Для случая Просмотра: ...
-				editableCard.setCheckable(false); // запретим отмечать узлы дерева
-				editableCard.setBorders(false); // скроем границы рабочей области компонента
-				editableCard.getElement().getStyle().setBackgroundColor("transparent"); // установим прозрачный фон рабочей области компонента
-			}			
-		}
-	
-	}
-	
-	/**
-	 * {@inheritDoc}
-	 */
-	public void setEnabled(boolean enabled) {
-		// TODO реализовать блокировку поля
-	}
-	
-	/**
-	 * Метод не поддерживается данным полем.
-	 */
-	@Override
-	public String getRawValue(){
-		throw new UnsupportedOperationException("TreeField does not have a raw value.");
-	}
-	
-	/**
-	 * Очищает значение поля.<br/>
-	 * После очистки значения поля, все узлы дерева сворачиваются.<br/>
-	 * Карта Просмотра не очищается, т.к. в данном компоненте она не используется.
-	 */
-	@Override
-	public void clear() {
-		checkedValues = null;
-		editableCard.clearSelection();
-		expandedValues = null;
-		editableCard.collapseAll();
-	}
-	
-	/**
-	 * Добавление слушателя определенного типа собитий.<br/>
-	 * Концепция поддержки обработки событий и пример реализации метода отражен в описании пакета {@link com.technology.jep.jepria.client.widget}.
-	 *
-	 * @param eventType тип события
-	 * @param listener слушатель
-	 */
-	@Override
-	public void addListener(JepEventType eventType, JepListener listener) {
-		switch(eventType) {
-			case CHANGE_CHECK_EVENT:
-				addChangeCheckListener();
-				break;
-		}
-		super.addListener(eventType, listener);
-	}
-	
-	/**
-	 * Добавление прослушивателей для реализации прослушивания события 
-	 * {@link com.technology.jep.jepria.client.widget.event.JepEventType#CHANGE_CHECK_EVENT }.
-	 */
-	protected void addChangeCheckListener() {
-		editableCard.addCheckChangeHandler(new CheckChangeHandler<JepOption>() {
-			@Override
-			public void onCheckChange(CheckChangeEvent<JepOption> event) {
-				notifyListeners(CHANGE_CHECK_EVENT, new JepEvent(JepTreeField.this, event));
-			}
-		});
-	}
+  /**
+   * Отмечает отрисованные узлы и удаляет их из списка узлов, которые необходимо отметить 
+   * {@link com.technology.jep.jepria.client.widget.field.multistate.JepTreeField#checkedValues}.
+   */
+  protected void processChecking() {
+    if(checkedValues != null && checkedValues.size() > 0) {
+      Iterator<JepOption> iterator = checkedValues.iterator();
+      while(iterator.hasNext()) {
+        JepOption option = iterator.next();
+        // Удаляем значение, т.к. открытие узлов - это разовая (в данном случае) операция
+        // и НЕ нужно повторно открывать указанные узлы (которые пользователь, возможно, уже закрыл).
+        editableCard.setChecked(option, true);
+        iterator.remove();
+      }
+    }
+  }
+  
+  /**
+   * Обработчик нового состояния
+   * 
+   * @param newWorkstate новое состояние
+   */
+  @Override
+  protected void onChangeWorkstate(WorkstateEnum newWorkstate) {
+    
+    // В данном компоненте работаем ТОЛЬКО с картой Редактирования.
+    showWidget(getWidgetIndex(editablePanel));
+    
+    // Если карта Редактирования уже создана (первый раз метод вызывается в предке, когда карты Редактирования еще нет).
+    if(editableCard != null) {
+      // При смене состояния прокручиваем карту Редактирования наверх.
+      editableCard.scrollToTop();
+      if(WorkstateEnum.isEditableState(newWorkstate)) { // Для случая Редактирования: ...
+        editableCard.setCheckable(true);// позволим отмечать узлы дерева
+        editableCard.setBorders(true); // отобразим границы рабочей области компонента
+        editableCard.getElement().getStyle().setBackgroundColor("white"); // установим белый фон рабочей области компонента
+      } else { // Для случая Просмотра: ...
+        editableCard.setCheckable(false); // запретим отмечать узлы дерева
+        editableCard.setBorders(false); // скроем границы рабочей области компонента
+        editableCard.getElement().getStyle().setBackgroundColor("transparent"); // установим прозрачный фон рабочей области компонента
+      }      
+    }
+  
+  }
+  
+  /**
+   * {@inheritDoc}
+   */
+  public void setEnabled(boolean enabled) {
+    // TODO реализовать блокировку поля
+  }
+  
+  /**
+   * Метод не поддерживается данным полем.
+   */
+  @Override
+  public String getRawValue(){
+    throw new UnsupportedOperationException("TreeField does not have a raw value.");
+  }
+  
+  /**
+   * Очищает значение поля.<br/>
+   * После очистки значения поля, все узлы дерева сворачиваются.<br/>
+   * Карта Просмотра не очищается, т.к. в данном компоненте она не используется.
+   */
+  @Override
+  public void clear() {
+    checkedValues = null;
+    editableCard.clearSelection();
+    expandedValues = null;
+    editableCard.collapseAll();
+  }
+  
+  /**
+   * Добавление слушателя определенного типа собитий.<br/>
+   * Концепция поддержки обработки событий и пример реализации метода отражен в описании пакета {@link com.technology.jep.jepria.client.widget}.
+   *
+   * @param eventType тип события
+   * @param listener слушатель
+   */
+  @Override
+  public void addListener(JepEventType eventType, JepListener listener) {
+    switch(eventType) {
+      case CHANGE_CHECK_EVENT:
+        addChangeCheckListener();
+        break;
+    }
+    super.addListener(eventType, listener);
+  }
+  
+  /**
+   * Добавление прослушивателей для реализации прослушивания события 
+   * {@link com.technology.jep.jepria.client.widget.event.JepEventType#CHANGE_CHECK_EVENT }.
+   */
+  protected void addChangeCheckListener() {
+    editableCard.addCheckChangeHandler(new CheckChangeHandler<JepOption>() {
+      @Override
+      public void onCheckChange(CheckChangeEvent<JepOption> event) {
+        notifyListeners(CHANGE_CHECK_EVENT, new JepEvent(JepTreeField.this, event));
+      }
+    });
+  }
 }

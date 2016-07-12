@@ -5,11 +5,11 @@ package com.technology.jep.jepria.client.widget.list;
  * свызываемых с реализацией {@link TreeGridManager} для управления их состоянием.
  */
 public interface HasTreeGridManager {
-	
-	/**
-	 * Устанавливается менеджер для управления состоянием колонок.
-	 * 
-	 * @param treeGridManager	менеджер древовидного справочника
-	 */
-	void setTreeGridManager(TreeGridManager<?, ?, ?> treeGridManager);
+  
+  /**
+   * Устанавливается менеджер для управления состоянием колонок.
+   * 
+   * @param treeGridManager  менеджер древовидного справочника
+   */
+  void setTreeGridManager(TreeGridManager<?, ?, ?> treeGridManager);
 }

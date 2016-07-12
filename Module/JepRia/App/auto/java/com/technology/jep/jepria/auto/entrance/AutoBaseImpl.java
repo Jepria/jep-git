@@ -17,9 +17,9 @@ import com.technology.jep.jepria.auto.HasText;
 import com.technology.jep.jepria.client.AutomationConstant;
 
 public abstract class AutoBaseImpl<A extends JepRiaAuto, P extends PageManagerBase> implements AutoBase {
-	private static Logger logger = Logger.getLogger(AutoBaseImpl.class.getName());
+  private static Logger logger = Logger.getLogger(AutoBaseImpl.class.getName());
 
-	protected A applicationManager;
+  protected A applicationManager;
     protected P pages;
 
     public AutoBaseImpl(A app, P pageManager) {
@@ -27,56 +27,56 @@ public abstract class AutoBaseImpl<A extends JepRiaAuto, P extends PageManagerBa
         pages = pageManager;
     }
 
-	public void openMainPage(String url) {
-		logger.info(this.getClass() + ": openMainPage() BEGIN");
-		
-		applicationManager.getWebDriver().get(url);
+  public void openMainPage(String url) {
+    logger.info(this.getClass() + ": openMainPage() BEGIN");
+    
+    applicationManager.getWebDriver().get(url);
 
-		logger.info(this.getClass() + ": openMainPage() END");
-	}
+    logger.info(this.getClass() + ": openMainPage() END");
+  }
 
-	public void waitTextToBeChanged(HasText hasText, String currentWorkstateDisplayText) {
+  public void waitTextToBeChanged(HasText hasText, String currentWorkstateDisplayText) {
         getWait().until(textToBeChangedInElementLocated(By.id(AutomationConstant.STATUSBAR_PANEL_ID), currentWorkstateDisplayText));        
-	}
-	
-	public static ExpectedCondition<Boolean> textToBeChangedInElementLocated(final By locator, final String currentText) {
+  }
+  
+  public static ExpectedCondition<Boolean> textToBeChangedInElementLocated(final By locator, final String currentText) {
 
-		return new ExpectedCondition<Boolean>() {
-			@Override
-			public Boolean apply(WebDriver driver) {
-				try {
-					String elementText = findElement(locator, driver).getText();
-					if(currentText != null) {
-						return !currentText.equals(elementText);
-					} else {
-						return elementText != null;
-					}
-				} catch (StaleElementReferenceException e) {
-					return null;
-				}
-			}
+    return new ExpectedCondition<Boolean>() {
+      @Override
+      public Boolean apply(WebDriver driver) {
+        try {
+          String elementText = findElement(locator, driver).getText();
+          if(currentText != null) {
+            return !currentText.equals(elementText);
+          } else {
+            return elementText != null;
+          }
+        } catch (StaleElementReferenceException e) {
+          return null;
+        }
+      }
 
-			@Override
-			public String toString() {
-				return String.format("text ('%s') to be present in element found by %s", currentText, locator);
-			}
-		};
-	}
+      @Override
+      public String toString() {
+        return String.format("text ('%s') to be present in element found by %s", currentText, locator);
+      }
+    };
+  }
 
-	/**
-	 * Looks up an element. Logs and re-throws WebDriverException if thrown.
-	 * <p/>
-	 * Method exists to gather data for
-	 * http://code.google.com/p/selenium/issues/detail?id=1800
-	 */
-	private static WebElement findElement(By by, WebDriver driver) {
-		try {
-			return driver.findElement(by);
-		} catch (NoSuchElementException e) {
-			throw e;
-		} catch (WebDriverException e) {
-//			log.log(Level.WARNING, String.format("WebDriverException thrown by findElement(%s)", by), e);
-			throw e;
-		}
-	}
+  /**
+   * Looks up an element. Logs and re-throws WebDriverException if thrown.
+   * <p/>
+   * Method exists to gather data for
+   * http://code.google.com/p/selenium/issues/detail?id=1800
+   */
+  private static WebElement findElement(By by, WebDriver driver) {
+    try {
+      return driver.findElement(by);
+    } catch (NoSuchElementException e) {
+      throw e;
+    } catch (WebDriverException e) {
+//      log.log(Level.WARNING, String.format("WebDriverException thrown by findElement(%s)", by), e);
+      throw e;
+    }
+  }
 }

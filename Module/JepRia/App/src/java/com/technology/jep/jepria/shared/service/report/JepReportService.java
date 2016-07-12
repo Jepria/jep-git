@@ -9,10 +9,10 @@ import com.technology.jep.jepria.shared.report.JepReportParameters;
  */
 public interface JepReportService {
 
-	/**
-	 * Подготовка отчёта.
-	 * 
-	 * @param reportParameters параметры отчёта
-	 */
-	void prepareReport(JepReportParameters reportParameters) throws SystemException, ApplicationException;
+  /**
+   * Подготовка отчёта.
+   * 
+   * @param reportParameters параметры отчёта
+   */
+  void prepareReport(JepReportParameters reportParameters) throws SystemException, ApplicationException;
 }

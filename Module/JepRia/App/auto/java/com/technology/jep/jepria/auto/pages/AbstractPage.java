@@ -25,7 +25,7 @@ public abstract class AbstractPage<P extends PageManagerBase> {
      * Метод должен быть переопределён потомками
      */
     public AbstractPage<P> ensurePageLoaded() {
-    	return this;
+      return this;
     }
 
     public boolean waitPageLoaded() {
@@ -37,8 +37,8 @@ public abstract class AbstractPage<P extends PageManagerBase> {
         }
     }
     
-	public boolean isElementPresent(By locator) {
-		return WebDriverFactory.getDriver().findElements(locator).size() > 0;
-	}
+  public boolean isElementPresent(By locator) {
+    return WebDriverFactory.getDriver().findElements(locator).size() > 0;
+  }
 
 }

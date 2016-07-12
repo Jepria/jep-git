@@ -8,13 +8,13 @@ import com.google.gwt.event.shared.GwtEvent;
  */
 abstract public class BusEvent<H extends EventHandler> extends GwtEvent<H> {
 
-	/**
-	 * Как правило, метод должен перекрыватся потомками.
-	 * 
-	 * @return имя события, отображаемое в сообщениях, логах, ...
-	 */
-	public String getDisplayName() {
-		return this.getClass().toString();
-	}
+  /**
+   * Как правило, метод должен перекрыватся потомками.
+   * 
+   * @return имя события, отображаемое в сообщениях, логах, ...
+   */
+  public String getDisplayName() {
+    return this.getClass().toString();
+  }
 
 }

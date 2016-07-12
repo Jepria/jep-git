@@ -7,54 +7,54 @@ import com.technology.jep.jepria.client.widget.field.multistate.event.AfterExpan
 
 public class AfterExpandEvent extends GwtEvent<AfterExpandHandler> {
 
-	/**
-	 * Handler class for {@link AfterExpandEvent} events.
-	 */
-	public interface AfterExpandHandler extends EventHandler {
+  /**
+   * Handler class for {@link AfterExpandEvent} events.
+   */
+  public interface AfterExpandHandler extends EventHandler {
 
-		void onAfterExpand(AfterExpandEvent event);
-	}
+    void onAfterExpand(AfterExpandEvent event);
+  }
 
-	/**
-	 * A widget that implements this interface is a public source of
-	 * {@link AfterExpandEvent} events.
-	 */
-	public interface HasAfterExpandHandlers {
+  /**
+   * A widget that implements this interface is a public source of
+   * {@link AfterExpandEvent} events.
+   */
+  public interface HasAfterExpandHandlers {
 
-		/**
-		 * Adds a {@link AfterExpandHandler} handler for
-		 * {@link AfterExpandEvent} events.
-		 * 
-		 * @param handler
-		 *            the handler
-		 * @return the registration for the event
-		 */
-		HandlerRegistration addAfterExpandHandler(AfterExpandHandler handler);
-	}
+    /**
+     * Adds a {@link AfterExpandHandler} handler for
+     * {@link AfterExpandEvent} events.
+     * 
+     * @param handler
+     *            the handler
+     * @return the registration for the event
+     */
+    HandlerRegistration addAfterExpandHandler(AfterExpandHandler handler);
+  }
 
-	/**
-	 * Handler type.
-	 */
-	private static Type<AfterExpandHandler> TYPE = new Type<AfterExpandHandler>();
+  /**
+   * Handler type.
+   */
+  private static Type<AfterExpandHandler> TYPE = new Type<AfterExpandHandler>();
 
-	/**
-	 * Gets the type associated with this event.
-	 * 
-	 * @return returns the handler type
-	 */
-	public static Type<AfterExpandHandler> getType() {
-		return TYPE;
-	}
+  /**
+   * Gets the type associated with this event.
+   * 
+   * @return returns the handler type
+   */
+  public static Type<AfterExpandHandler> getType() {
+    return TYPE;
+  }
 
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-	@Override
-	public Type<AfterExpandHandler> getAssociatedType() {
-		return (Type) TYPE;
-	}
+  @SuppressWarnings({ "unchecked", "rawtypes" })
+  @Override
+  public Type<AfterExpandHandler> getAssociatedType() {
+    return (Type) TYPE;
+  }
 
-	@Override
-	protected void dispatch(AfterExpandHandler handler) {
-		handler.onAfterExpand(this);
-	}
+  @Override
+  protected void dispatch(AfterExpandHandler handler) {
+    handler.onAfterExpand(this);
+  }
 
 }

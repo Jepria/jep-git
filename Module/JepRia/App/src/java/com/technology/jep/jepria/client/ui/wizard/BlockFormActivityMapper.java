@@ -8,24 +8,24 @@ import com.technology.jep.jepria.client.ui.JepPresenter;
 import com.technology.jep.jepria.client.ui.eventbus.JepEventBus;
 
 @SuppressWarnings("rawtypes")
-public class BlockFormActivityMapper<F extends BlockClientFactory<?>>	
-	extends JepActivityMapper<JepEventBus, F> implements ActivityMapper {
+public class BlockFormActivityMapper<F extends BlockClientFactory<?>>  
+  extends JepActivityMapper<JepEventBus, F> implements ActivityMapper {
 
-	/**
-	 * Презентер блока визарда.
-	 */
-	protected JepPresenter presenter = null;
+  /**
+   * Презентер блока визарда.
+   */
+  protected JepPresenter presenter = null;
 
-	public BlockFormActivityMapper(F clientFactory) {
-		super(clientFactory);
-	}
+  public BlockFormActivityMapper(F clientFactory) {
+    super(clientFactory);
+  }
 
-	public Activity getActivity(Place place) {
-		if(presenter == null) {
-			presenter = clientFactory.createPresenter(place);
-		} else {
-			presenter.setPlace(place);
-		}
-		return presenter;
-	}
+  public Activity getActivity(Place place) {
+    if(presenter == null) {
+      presenter = clientFactory.createPresenter(place);
+    } else {
+      presenter.setPlace(place);
+    }
+    return presenter;
+  }
 }

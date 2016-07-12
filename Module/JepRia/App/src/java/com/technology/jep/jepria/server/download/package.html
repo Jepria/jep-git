@@ -5,20 +5,20 @@
 <body bgcolor="white">
 
 <h3>Пример выгрузки файла из БД, хранящегося в виде CLOB.</h3>
-		
+    
 <pre>
   // Данные строки необходимы, чтоб получить экземпляр dto, содержащий id, по которому будем искать
   // строку в БД, содержащую нужный нам CLOB.
   ExportTaskForm exportTaskForm = (ExportTaskForm)form;
   SimpleViewObject exportTaskView = SimpleViewObjectImpl.getInstance(request, "exportTaskView");
   ExportTaskDto exportTaskDto = (ExportTaskDto) exportTaskView.getRow(exportTaskForm.getRecordId());
-	
+  
   // Получаем экземпляр бина.
   TextFileDownloadLocal download = (TextFileDownloadLocal) ejbLookup(TEXT_FILE_DOWNLOAD_BEAN_JNDI_NAME);
-	
+  
   // Получаем выходной поток, куда будем писать данные, полученные из CLOB.
   OutputStream outputStream = response.getOutputStream();
-  	
+    
   // Задаем параметры заголовка ответа.
   response.setHeader("Content-disposition", 
     "attachment; filename=" + exportTaskDto.getProcessName() + ".xls");
@@ -46,13 +46,13 @@
   ExportTaskForm exportTaskForm = (ExportTaskForm)form;
   SimpleViewObject exportTaskView = SimpleViewObjectImpl.getInstance(request, "exportTaskView");
   ExportTaskDto exportTaskDto = (ExportTaskDto) exportTaskView.getRow(exportTaskForm.getRecordId());
-  	
+    
   // Получаем экземпляр бина.
   BinaryFileDownloadLocal download = (BinaryFileDownloadLocal) ejbLookup(BINARY_FILE_DOWNLOAD_BEAN_JNDI_NAME);
-  	
+    
   // Получаем выходной поток, куда будем писать данные, полученные из BINARY_FILE.
   OutputStream outputStream = response.getOutputStream();
-  	
+    
   // Задаем параметры заголовка ответа.
   response.setHeader("Content-disposition", 
     "attachment; filename=" + exportTaskDto.getProcessName() + ".xls");

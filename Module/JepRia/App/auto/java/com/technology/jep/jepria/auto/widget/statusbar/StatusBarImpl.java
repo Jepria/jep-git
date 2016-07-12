@@ -4,18 +4,18 @@ import com.technology.jep.jepria.auto.entrance.pages.JepRiaApplicationPageManage
 
 public class StatusBarImpl<P extends JepRiaApplicationPageManager> implements StatusBar {
 
-	P pages;
-	
-	public StatusBarImpl(P pages) {
-		this.pages = pages;
-	}
+  P pages;
+  
+  public StatusBarImpl(P pages) {
+    this.pages = pages;
+  }
 
-	@Override
-	public String getText() {
-		return pages
-				.getApplicationPage()
-				.ensurePageLoaded()
-				.getStatusBarText();
-	}
+  @Override
+  public String getText() {
+    return pages
+        .getApplicationPage()
+        .ensurePageLoaded()
+        .getStatusBarText();
+  }
 
 }

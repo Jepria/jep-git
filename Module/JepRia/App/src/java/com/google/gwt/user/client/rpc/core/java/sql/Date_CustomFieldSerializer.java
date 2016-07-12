@@ -22,23 +22,23 @@ import com.google.gwt.user.client.rpc.SerializationStreamWriter;
  * час, минута и секунда. Информация о часовом поясе, таким образом, отбрасывается.
  */
 public final class Date_CustomFieldSerializer {
-	public static void deserialize(SerializationStreamReader streamReader, Date instance) {
-	}
+  public static void deserialize(SerializationStreamReader streamReader, Date instance) {
+  }
 
-	@SuppressWarnings("deprecation")
-	public static Date instantiate(SerializationStreamReader streamReader)
-			throws SerializationException {
-		int year = streamReader.readInt();
-		int month = streamReader.readInt();
-		int date = streamReader.readInt();
-		Date result = new Date(year, month, date);
-		return result;
-	}
+  @SuppressWarnings("deprecation")
+  public static Date instantiate(SerializationStreamReader streamReader)
+      throws SerializationException {
+    int year = streamReader.readInt();
+    int month = streamReader.readInt();
+    int date = streamReader.readInt();
+    Date result = new Date(year, month, date);
+    return result;
+  }
 
-	@SuppressWarnings("deprecation")
-	public static void serialize(SerializationStreamWriter streamWriter, Date instance) throws SerializationException {
-		streamWriter.writeInt(instance.getYear());
-		streamWriter.writeInt(instance.getMonth());
-		streamWriter.writeInt(instance.getDate());
-	}
+  @SuppressWarnings("deprecation")
+  public static void serialize(SerializationStreamWriter streamWriter, Date instance) throws SerializationException {
+    streamWriter.writeInt(instance.getYear());
+    streamWriter.writeInt(instance.getMonth());
+    streamWriter.writeInt(instance.getDate());
+  }
 }

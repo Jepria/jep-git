@@ -10,27 +10,27 @@ import com.technology.jep.jepria.client.ui.WorkstateEnum;
 
 public class JepEditPlace extends JepWorkstatePlace {
 
-	@Prefix(EDIT_WORKSTATE_ID)
-	public static class Tokenizer implements PlaceTokenizer<JepEditPlace> {
+  @Prefix(EDIT_WORKSTATE_ID)
+  public static class Tokenizer implements PlaceTokenizer<JepEditPlace> {
 
-		public JepEditPlace getPlace(String token) {
-			JepScopeStack.instance.setFromHistoryToken(token);
-			return new JepEditPlace();
-		}
+    public JepEditPlace getPlace(String token) {
+      JepScopeStack.instance.setFromHistoryToken(token);
+      return new JepEditPlace();
+    }
 
-		public String getToken(JepEditPlace place) {
-			return JepScopeStack.instance.toHistoryToken(place);
-		}
-	}
+    public String getToken(JepEditPlace place) {
+      return JepScopeStack.instance.toHistoryToken(place);
+    }
+  }
 
-	/**
-	 * Создает новый Place.
-	 */
-	public JepEditPlace() {
-		super(WorkstateEnum.EDIT);
-	}
+  /**
+   * Создает новый Place.
+   */
+  public JepEditPlace() {
+    super(WorkstateEnum.EDIT);
+  }
 
-	public String getDisplayName() {
-		return JepTexts.errors_security_action_edit();
-	}
+  public String getDisplayName() {
+    return JepTexts.errors_security_action_edit();
+  }
 }

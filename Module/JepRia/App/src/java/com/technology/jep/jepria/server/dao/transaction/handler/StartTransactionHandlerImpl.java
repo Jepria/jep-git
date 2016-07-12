@@ -8,12 +8,12 @@ import com.technology.jep.jepria.shared.exceptions.ApplicationException;
  */
 public class StartTransactionHandlerImpl implements StartTransactionHandler {
 
-	/**
-	 * Стандартная реализация обработки начала транзакции.<br/>
-	 * Единственное действие &mdash; вызов {@link CallContext#begin(String, String)}.
-	 */
-	@Override
-	public void handle(String dataSourceJndiName, String moduleName) throws ApplicationException {
-		CallContext.begin(dataSourceJndiName, moduleName);
-	}
+  /**
+   * Стандартная реализация обработки начала транзакции.<br/>
+   * Единственное действие &mdash; вызов {@link CallContext#begin(String, String)}.
+   */
+  @Override
+  public void handle(String dataSourceJndiName, String moduleName) throws ApplicationException {
+    CallContext.begin(dataSourceJndiName, moduleName);
+  }
 }

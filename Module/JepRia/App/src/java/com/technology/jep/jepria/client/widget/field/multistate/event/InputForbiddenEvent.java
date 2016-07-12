@@ -11,57 +11,57 @@ import com.technology.jep.jepria.client.widget.field.multistate.event.InputForbi
  */
 public class InputForbiddenEvent extends GwtEvent<InputForbiddenHandler> {
 
-	/**
-	 * Обработчик для событий {@link InputForbiddenEvent}.
-	 */
-	public interface InputForbiddenHandler extends EventHandler {
+  /**
+   * Обработчик для событий {@link InputForbiddenEvent}.
+   */
+  public interface InputForbiddenHandler extends EventHandler {
 
-		void onInputForbidden(InputForbiddenEvent event);
-	}
+    void onInputForbidden(InputForbiddenEvent event);
+  }
 
-	/**
-	 * Реализующий данный интерфейс виджет - источник событий {@link InputForbiddenEvent}.
-	 */
-	public interface HasInputForbiddenHandlers {
+  /**
+   * Реализующий данный интерфейс виджет - источник событий {@link InputForbiddenEvent}.
+   */
+  public interface HasInputForbiddenHandlers {
 
-		/**
-		 * Устанавливает обработчик {@link InputForbiddenHandler}для событий
-		 * {@link InputForbiddenEvent}.
-		 * @param handler обработчик
-		 * @return регистрация события
-		 */
-		HandlerRegistration addInputForbiddenHandler(InputForbiddenHandler handler);
-	}
+    /**
+     * Устанавливает обработчик {@link InputForbiddenHandler}для событий
+     * {@link InputForbiddenEvent}.
+     * @param handler обработчик
+     * @return регистрация события
+     */
+    HandlerRegistration addInputForbiddenHandler(InputForbiddenHandler handler);
+  }
 
-	/**
-	 * Тип обработчика.
-	 */
-	private static Type<InputForbiddenHandler> TYPE = new Type<InputForbiddenHandler>();
+  /**
+   * Тип обработчика.
+   */
+  private static Type<InputForbiddenHandler> TYPE = new Type<InputForbiddenHandler>();
 
-	/**
-	 * Возвращает связанный с данным событием тип.
-	 * 
-	 * @return тип обработчика
-	 */
-	public static Type<InputForbiddenHandler> getType() {
-		return TYPE;
-	}
+  /**
+   * Возвращает связанный с данным событием тип.
+   * 
+   * @return тип обработчика
+   */
+  public static Type<InputForbiddenHandler> getType() {
+    return TYPE;
+  }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-	@Override
-	public Type<InputForbiddenHandler> getAssociatedType() {
-		return (Type) TYPE;
-	}
+  /**
+   * {@inheritDoc}
+   */
+  @SuppressWarnings({ "unchecked", "rawtypes" })
+  @Override
+  public Type<InputForbiddenHandler> getAssociatedType() {
+    return (Type) TYPE;
+  }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	protected void dispatch(InputForbiddenHandler handler) {
-		handler.onInputForbidden(this);
-	}
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  protected void dispatch(InputForbiddenHandler handler) {
+    handler.onInputForbidden(this);
+  }
 
 }

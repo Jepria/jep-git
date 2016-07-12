@@ -3,8 +3,8 @@ package com.technology.jep.jepria.client.widget.field.wysiwyg.toolbar.upload;
 import com.google.gwt.dom.client.InputElement;
 
 public class ImageUploadFile extends InputElement {
-	
-	public static final int MAX_IMAGE_SIZE = 500; // in Kbs
+  
+  public static final int MAX_IMAGE_SIZE = 500; // in Kbs
     public static final String[] AVAILABLE_IMAGE_EXTENSION = {"bmp", "gif", "jpg", "jpeg", "png"}; 
     
     protected ImageUploadFile() {}
@@ -34,6 +34,6 @@ public class ImageUploadFile extends InputElement {
     }
     
     public final boolean isValid(){
-    	return hasImageExtension() && (getSize() <= MAX_IMAGE_SIZE * 1024);
+      return hasImageExtension() && (getSize() <= MAX_IMAGE_SIZE * 1024);
     }
 }

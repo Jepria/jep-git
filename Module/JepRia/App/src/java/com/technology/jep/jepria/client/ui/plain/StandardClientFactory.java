@@ -11,60 +11,60 @@ import com.technology.jep.jepria.shared.service.data.JepDataServiceAsync;
  */
 public interface StandardClientFactory<E extends PlainEventBus, S extends JepDataServiceAsync> extends PlainClientFactory<E, S> {
 
-	/**
-	 * Получение представления (View) детальной формы.
-	 *
-	 * @return представление (View) детальной формы
-	 */
-	IsWidget getDetailFormView();
-	
-	/**
-	 * Получение представления (View) списочной формы.
-	 *
-	 * @return представление (View) списочной формы
-	 */
-	IsWidget getListFormView();
-	
-	/**
-	 * Получение представления (View) инструментальной панели.
-	 *
-	 * @return представление (View) инструментальной панели
-	 */
-	IsWidget getToolBarView();
-	
-	/**
-	 * Получение представления (View) панели состояния.
-	 *
-	 * @return представление (View) панели состояния
-	 */
-	IsWidget getStatusBarView();
-	
-	/**
-	 * Создание презентера детальной формы.
-	 *
-	 * @return презентер детальной формы
-	 */
-	JepPresenter createDetailFormPresenter(Place place);
-	
-	/**
-	 * Создание презентера списочной формы.
-	 *
-	 * @return презентер списочной формы
-	 */
-	JepPresenter createListFormPresenter(Place place);
-	
-	/**
-	 * Создание презентера инструментальной панели.
-	 *
-	 * @return презентер инструментальной панели
-	 */
-	JepPresenter createToolBarPresenter(Place place);
-	
-	/**
-	 * Создание презентера панели состояния.
-	 *
-	 * @return презентер панели состояния
-	 */
-	JepPresenter createStatusBarPresenter(Place place);
-	
+  /**
+   * Получение представления (View) детальной формы.
+   *
+   * @return представление (View) детальной формы
+   */
+  IsWidget getDetailFormView();
+  
+  /**
+   * Получение представления (View) списочной формы.
+   *
+   * @return представление (View) списочной формы
+   */
+  IsWidget getListFormView();
+  
+  /**
+   * Получение представления (View) инструментальной панели.
+   *
+   * @return представление (View) инструментальной панели
+   */
+  IsWidget getToolBarView();
+  
+  /**
+   * Получение представления (View) панели состояния.
+   *
+   * @return представление (View) панели состояния
+   */
+  IsWidget getStatusBarView();
+  
+  /**
+   * Создание презентера детальной формы.
+   *
+   * @return презентер детальной формы
+   */
+  JepPresenter createDetailFormPresenter(Place place);
+  
+  /**
+   * Создание презентера списочной формы.
+   *
+   * @return презентер списочной формы
+   */
+  JepPresenter createListFormPresenter(Place place);
+  
+  /**
+   * Создание презентера инструментальной панели.
+   *
+   * @return презентер инструментальной панели
+   */
+  JepPresenter createToolBarPresenter(Place place);
+  
+  /**
+   * Создание презентера панели состояния.
+   *
+   * @return презентер панели состояния
+   */
+  JepPresenter createStatusBarPresenter(Place place);
+  
 }

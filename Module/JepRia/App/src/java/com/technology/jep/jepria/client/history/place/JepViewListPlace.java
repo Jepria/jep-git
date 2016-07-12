@@ -10,28 +10,28 @@ import com.technology.jep.jepria.client.ui.WorkstateEnum;
 
 public class JepViewListPlace extends JepWorkstatePlace {
 
-	@Prefix(VIEW_LIST_WORKSTATE_ID)
-	public static class Tokenizer implements PlaceTokenizer<JepViewListPlace> {
+  @Prefix(VIEW_LIST_WORKSTATE_ID)
+  public static class Tokenizer implements PlaceTokenizer<JepViewListPlace> {
 
-		public JepViewListPlace getPlace(String token) {
-			JepScopeStack.instance.setFromHistoryToken(token);
-			return new JepViewListPlace();
-		}
+    public JepViewListPlace getPlace(String token) {
+      JepScopeStack.instance.setFromHistoryToken(token);
+      return new JepViewListPlace();
+    }
 
-		public String getToken(JepViewListPlace place) {
-			return JepScopeStack.instance.toHistoryToken(place);
-		}
-	}
-	
-	/**
-	 * Создает новый Place.
-	 */
-	public JepViewListPlace() {
-		super(WorkstateEnum.VIEW_LIST);
-	}
+    public String getToken(JepViewListPlace place) {
+      return JepScopeStack.instance.toHistoryToken(place);
+    }
+  }
+  
+  /**
+   * Создает новый Place.
+   */
+  public JepViewListPlace() {
+    super(WorkstateEnum.VIEW_LIST);
+  }
 
-	public String getDisplayName() {
-		return JepTexts.place_name_viewList();
-	}
+  public String getDisplayName() {
+    return JepTexts.place_name_viewList();
+  }
 
 }

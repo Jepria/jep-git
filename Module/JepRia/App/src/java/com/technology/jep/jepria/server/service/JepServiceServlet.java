@@ -12,22 +12,22 @@ import com.technology.jep.jepria.shared.exceptions.SystemException;
  */
 @SuppressWarnings("serial")
 abstract public class JepServiceServlet extends RemoteServiceServlet implements RemoteService {
-	protected static Logger logger = Logger.getLogger(JepServiceServlet.class.getName());	
+  protected static Logger logger = Logger.getLogger(JepServiceServlet.class.getName());  
 
-	/**
-	 * Получение идентификатора пользователя.
-	 * 
-	 * @return идентификатор пользователя
-	 */
-	protected Integer getOperatorId() {
-		return SecurityFactory.getSecurityModule(getThreadLocalRequest()).getOperatorId();
-	}
-	
-	protected SystemException buildException(String message, Throwable th) {
-		return new SystemException(message, th);
-	}
-	
-	protected SystemException buildException(Throwable th) {
-		return buildException(null, th);
-	}
+  /**
+   * Получение идентификатора пользователя.
+   * 
+   * @return идентификатор пользователя
+   */
+  protected Integer getOperatorId() {
+    return SecurityFactory.getSecurityModule(getThreadLocalRequest()).getOperatorId();
+  }
+  
+  protected SystemException buildException(String message, Throwable th) {
+    return new SystemException(message, th);
+  }
+  
+  protected SystemException buildException(Throwable th) {
+    return buildException(null, th);
+  }
 }

@@ -22,196 +22,196 @@ import com.technology.jep.jepria.shared.service.JepMainServiceAsync;
  */
 public class JepScopeStack {
 
-	public static JepScopeStack instance = new JepScopeStack();
-	private JepScopeStack() {}
+  public static JepScopeStack instance = new JepScopeStack();
+  private JepScopeStack() {}
 
-	private Stack<JepScope> stack = new Stack<JepScope>();
+  private Stack<JepScope> stack = new Stack<JepScope>();
 
-	private MainClientFactory<MainEventBus, JepMainServiceAsync> clientFactory;
-	
-	/**
-	 * Признак завершённости входа
-	 * Используется здесь по причине глобальности стека
-	 */
-	private boolean isUserEntered = false;
+  private MainClientFactory<MainEventBus, JepMainServiceAsync> clientFactory;
+  
+  /**
+   * Признак завершённости входа
+   * Используется здесь по причине глобальности стека
+   */
+  private boolean isUserEntered = false;
 
-	private boolean isExitScope = false;
+  private boolean isExitScope = false;
 
-	public String toString() {
-		StringBuffer sbResult = new StringBuffer();
-		sbResult.append("scopeStack={\n");
-		boolean isFirst = true;
-		for(JepScope scope: stack) {
-			if(isFirst) {
-				isFirst = false;
-			} else {
-				sbResult.append(", ");
-			}
-			sbResult.append(scope);
-		}
-		sbResult.append("}\n");
-		
-		return sbResult.toString();
-	}
+  public String toString() {
+    StringBuffer sbResult = new StringBuffer();
+    sbResult.append("scopeStack={\n");
+    boolean isFirst = true;
+    for(JepScope scope: stack) {
+      if(isFirst) {
+        isFirst = false;
+      } else {
+        sbResult.append(", ");
+      }
+      sbResult.append(scope);
+    }
+    sbResult.append("}\n");
+    
+    return sbResult.toString();
+  }
 
-	/**
-	 * Метод формирует строковое представление (History Token) текущего состояния приложения 
-	 * (объекта {@link com.technology.jep.jepria.client.history.scope.JepScopeStack}).<br/>
-	 * <br/>
-	 * Формат формируемой строки:
-	 * <ul>
-	 *   <li>
-	 *     Параметры, которые описывают {@link com.technology.jep.jepria.client.history.scope.JepScope}.<br/>
-	 *     Строка формируется методом {@link com.technology.jep.jepria.client.history.scope.JepScope#toHistoryToken()}
-	 *   </li>
-	 *   <li>
-	 *     {@link com.technology.jep.jepria.shared.history.JepHistoryConstant#SCOPE_SEPARATOR} - разделитель элементов 
-	 *     {@link com.technology.jep.jepria.client.history.scope.JepScope} стека 
-	 *     {@link com.technology.jep.jepria.client.history.scope.JepScopeStack}
-	 *   </li>
-	 *   <li>
-	 *     Параметры, которые описывают {@link com.technology.jep.jepria.client.history.scope.JepScope}.<br/>
-	 *     Строка формируется методом {@link com.technology.jep.jepria.client.history.scope.JepScope#toHistoryToken()}
-	 *   </li>
-	 *   <li>
-	 *     {@link com.technology.jep.jepria.shared.history.JepHistoryConstant#SCOPE_SEPARATOR} - разделитель элементов 
-	 *     {@link com.technology.jep.jepria.client.history.scope.JepScope} стека 
-	 *     {@link com.technology.jep.jepria.client.history.scope.JepScopeStack}
-	 *   </li>
-	 *   <li>...</li>
-	 *   <li>...</li>
-	 *   <li>
-	 *     Параметры, которые описывают самый ВЕРХНИЙ (последний) элемент {@link com.technology.jep.jepria.client.history.scope.JepScope} стека.<br/>
-	 *     Строка формируется методом {@link com.technology.jep.jepria.client.history.scope.JepScope#toHistoryToken(WorkstateEnum workstate)}
-	 *   </li>
-	 * </ul>
-	 *
-	 * @param workstatePlace новый Place (History Token/строка Url изменяется только при установке нового Place'а. Смотри 
-	 * {@link com.technology.jep.jepria.client.history})
-	 * @return строковое представление (History Token) текущего состояния приложения 
-	 * (объекта {@link com.technology.jep.jepria.client.history.scope.JepScopeStack})
-	 */
-	public String toHistoryToken(JepWorkstatePlace workstatePlace) {
-		StringBuilder sb = new StringBuilder();
-		for(JepScope scope: stack) {
-			if(sb.length() > 0) {
-				sb.append(SCOPE_SEPARATOR);
-			}
-			if(scope == stack.lastElement()) {
-				sb.append(scope.toHistoryToken(workstatePlace.getWorkstate()));
-			} else {
-				sb.append(scope.toHistoryToken());
-			}
-		}
-		
-		return sb.toString();
-	}
+  /**
+   * Метод формирует строковое представление (History Token) текущего состояния приложения 
+   * (объекта {@link com.technology.jep.jepria.client.history.scope.JepScopeStack}).<br/>
+   * <br/>
+   * Формат формируемой строки:
+   * <ul>
+   *   <li>
+   *     Параметры, которые описывают {@link com.technology.jep.jepria.client.history.scope.JepScope}.<br/>
+   *     Строка формируется методом {@link com.technology.jep.jepria.client.history.scope.JepScope#toHistoryToken()}
+   *   </li>
+   *   <li>
+   *     {@link com.technology.jep.jepria.shared.history.JepHistoryConstant#SCOPE_SEPARATOR} - разделитель элементов 
+   *     {@link com.technology.jep.jepria.client.history.scope.JepScope} стека 
+   *     {@link com.technology.jep.jepria.client.history.scope.JepScopeStack}
+   *   </li>
+   *   <li>
+   *     Параметры, которые описывают {@link com.technology.jep.jepria.client.history.scope.JepScope}.<br/>
+   *     Строка формируется методом {@link com.technology.jep.jepria.client.history.scope.JepScope#toHistoryToken()}
+   *   </li>
+   *   <li>
+   *     {@link com.technology.jep.jepria.shared.history.JepHistoryConstant#SCOPE_SEPARATOR} - разделитель элементов 
+   *     {@link com.technology.jep.jepria.client.history.scope.JepScope} стека 
+   *     {@link com.technology.jep.jepria.client.history.scope.JepScopeStack}
+   *   </li>
+   *   <li>...</li>
+   *   <li>...</li>
+   *   <li>
+   *     Параметры, которые описывают самый ВЕРХНИЙ (последний) элемент {@link com.technology.jep.jepria.client.history.scope.JepScope} стека.<br/>
+   *     Строка формируется методом {@link com.technology.jep.jepria.client.history.scope.JepScope#toHistoryToken(WorkstateEnum workstate)}
+   *   </li>
+   * </ul>
+   *
+   * @param workstatePlace новый Place (History Token/строка Url изменяется только при установке нового Place'а. Смотри 
+   * {@link com.technology.jep.jepria.client.history})
+   * @return строковое представление (History Token) текущего состояния приложения 
+   * (объекта {@link com.technology.jep.jepria.client.history.scope.JepScopeStack})
+   */
+  public String toHistoryToken(JepWorkstatePlace workstatePlace) {
+    StringBuilder sb = new StringBuilder();
+    for(JepScope scope: stack) {
+      if(sb.length() > 0) {
+        sb.append(SCOPE_SEPARATOR);
+      }
+      if(scope == stack.lastElement()) {
+        sb.append(scope.toHistoryToken(workstatePlace.getWorkstate()));
+      } else {
+        sb.append(scope.toHistoryToken());
+      }
+    }
+    
+    return sb.toString();
+  }
 
-	/**
-	 * Метод восстанавливает текущее состояние приложения 
-	 * (устанавливает своийства объекта {@link com.technology.jep.jepria.client.history.scope.JepScopeStack})
-	 * из строкового представления (History Token'а) состояния приложения .<br/>
-	 * <br/>
-	 * @param token строковое представление (History Token) состояния приложения
-	 */
-	public void setFromHistoryToken(String token) {
-		Log.debug(this.getClass() + ".setFromHistoryToken(): token = " + token);
-	
-		clear();		
-		String[] scopeTokens = token.split(SCOPE_SEPARATOR_REGEXP);
-		try {
-			for(int i = 0; i < scopeTokens.length; i++) {
-				String strScope = scopeTokens[i];
-				JepScope scope = new JepScope(strScope);
+  /**
+   * Метод восстанавливает текущее состояние приложения 
+   * (устанавливает своийства объекта {@link com.technology.jep.jepria.client.history.scope.JepScopeStack})
+   * из строкового представления (History Token'а) состояния приложения .<br/>
+   * <br/>
+   * @param token строковое представление (History Token) состояния приложения
+   */
+  public void setFromHistoryToken(String token) {
+    Log.debug(this.getClass() + ".setFromHistoryToken(): token = " + token);
+  
+    clear();    
+    String[] scopeTokens = token.split(SCOPE_SEPARATOR_REGEXP);
+    try {
+      for(int i = 0; i < scopeTokens.length; i++) {
+        String strScope = scopeTokens[i];
+        JepScope scope = new JepScope(strScope);
 
-				if(clientFactory.contains(scope.getActiveModuleId())) {
-					push(scope);
-				} else {	// Кривой Url, устанавливаем умолчательное состояние.
-					setDefaultState();
-					break;
-				}
-			}
-		} catch(Throwable th) { // При любой ошибке - считаем, что проблемы с разбором Url и ...
-			setDefaultState(); // ... устанавливаем умолчательное состояние.
-		}
-	}
+        if(clientFactory.contains(scope.getActiveModuleId())) {
+          push(scope);
+        } else {  // Кривой Url, устанавливаем умолчательное состояние.
+          setDefaultState();
+          break;
+        }
+      }
+    } catch(Throwable th) { // При любой ошибке - считаем, что проблемы с разбором Url и ...
+      setDefaultState(); // ... устанавливаем умолчательное состояние.
+    }
+  }
 
-	public void setDefaultState() {
-		clear();
-		String[] moduleIds = clientFactory.getModuleIds();
-		if(moduleIds != null) {
-			String[] defaultModuleIds = new String[] {moduleIds[0]}; 
-			JepScope scope = new JepScope(defaultModuleIds);
-			push(scope);
-			clientFactory.getMessageBox().showError(JepTexts.errors_scopeStack_incorrectUrl_defaultPlace());
-		} else {
-			clientFactory.getMessageBox().showError(JepTexts.errors_scopeStack_incorrectUrl_cantStart());
-		}
-	}
+  public void setDefaultState() {
+    clear();
+    String[] moduleIds = clientFactory.getModuleIds();
+    if(moduleIds != null) {
+      String[] defaultModuleIds = new String[] {moduleIds[0]}; 
+      JepScope scope = new JepScope(defaultModuleIds);
+      push(scope);
+      clientFactory.getMessageBox().showError(JepTexts.errors_scopeStack_incorrectUrl_defaultPlace());
+    } else {
+      clientFactory.getMessageBox().showError(JepTexts.errors_scopeStack_incorrectUrl_cantStart());
+    }
+  }
 
-	/**
-	 * Очистка стека.
-	 */
-	public void clear() {
-		stack.clear();
-	}
+  /**
+   * Очистка стека.
+   */
+  public void clear() {
+    stack.clear();
+  }
 
-	/**
-	 * Продвижение стека.
-	 * 
-	 * @param scope новый уровень иерархии модулей
-	 */
-	public void push(JepScope scope) {
-		stack.push(scope);
-	}
+  /**
+   * Продвижение стека.
+   * 
+   * @param scope новый уровень иерархии модулей
+   */
+  public void push(JepScope scope) {
+    stack.push(scope);
+  }
 
-	public JepScope peek() {
-		return stack.size() > 0 ? stack.peek() : null;
-	}
+  public JepScope peek() {
+    return stack.size() > 0 ? stack.peek() : null;
+  }
 
-	public JepScope pop() {
-		return stack.size() > 0 ? stack.pop() : null;
-	}
+  public JepScope pop() {
+    return stack.size() > 0 ? stack.pop() : null;
+  }
 
-	public int size() {
-		return stack.size();
-	}
+  public int size() {
+    return stack.size();
+  }
 
-	public boolean isEmpty() {
-		return stack.empty();
-	}
+  public boolean isEmpty() {
+    return stack.empty();
+  }
 
-	public void setMainClientFactory(MainClientFactory<MainEventBus, JepMainServiceAsync> clientFactory) {
-		this.clientFactory = clientFactory;
-	}
+  public void setMainClientFactory(MainClientFactory<MainEventBus, JepMainServiceAsync> clientFactory) {
+    this.clientFactory = clientFactory;
+  }
 
-	/**
-	 * Получение главной клиентской фабрики приложения.<br/>
-	 * Используется для целей автоматизированного тестирования.
-	 *
-	 * @return главная клиентская фабрика приложения
-	 */
-	public MainClientFactory<MainEventBus, JepMainServiceAsync> getMainClientFactory() {
-		return clientFactory;
-	}
+  /**
+   * Получение главной клиентской фабрики приложения.<br/>
+   * Используется для целей автоматизированного тестирования.
+   *
+   * @return главная клиентская фабрика приложения
+   */
+  public MainClientFactory<MainEventBus, JepMainServiceAsync> getMainClientFactory() {
+    return clientFactory;
+  }
 
-	public void setUserEntered() {
-		this.isUserEntered = true;
-	}
+  public void setUserEntered() {
+    this.isUserEntered = true;
+  }
 
-	public boolean isUserEntered() {
-		return isUserEntered;
-	}
-	
-	public void setExitScope(boolean isExitScope) {
-		this.isExitScope = isExitScope;
-	}
+  public boolean isUserEntered() {
+    return isUserEntered;
+  }
+  
+  public void setExitScope(boolean isExitScope) {
+    this.isExitScope = isExitScope;
+  }
 
-	public boolean isExitScope() {
-		return isExitScope;
-	}
+  public boolean isExitScope() {
+    return isExitScope;
+  }
 
-	public Stack<JepScope> getStack() {
-		return stack;
-	}
+  public Stack<JepScope> getStack() {
+    return stack;
+  }
 }

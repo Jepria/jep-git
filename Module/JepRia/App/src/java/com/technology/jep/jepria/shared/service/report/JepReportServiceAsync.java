@@ -7,11 +7,11 @@ import com.technology.jep.jepria.shared.report.JepReportParameters;
  * Асинхронный интерфейс сервиса отчётов.
  */
 public interface JepReportServiceAsync {
-	/**
-	 * Подготовка отчёта.
-	 * 
-	 * @param reportParameters параметры отчёта
-	 * @param callback пустой обратный вызов (для сигнализации, что асинхронный метод отработал)
-	 */
-	void prepareReport(JepReportParameters reportParameters, AsyncCallback<Void> callback);
+  /**
+   * Подготовка отчёта.
+   * 
+   * @param reportParameters параметры отчёта
+   * @param callback пустой обратный вызов (для сигнализации, что асинхронный метод отработал)
+   */
+  void prepareReport(JepReportParameters reportParameters, AsyncCallback<Void> callback);
 }

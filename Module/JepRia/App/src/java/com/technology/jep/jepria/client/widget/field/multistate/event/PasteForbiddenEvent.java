@@ -11,57 +11,57 @@ import com.technology.jep.jepria.client.widget.field.multistate.event.PasteForbi
  */
 public class PasteForbiddenEvent extends GwtEvent<PasteForbiddenHandler> {
 
-	/**
-	 * Обработчик для событий {@link PasteForbiddenEvent}.
-	 */
-	public interface PasteForbiddenHandler extends EventHandler {
+  /**
+   * Обработчик для событий {@link PasteForbiddenEvent}.
+   */
+  public interface PasteForbiddenHandler extends EventHandler {
 
-		void onPasteForbidden(PasteForbiddenEvent event);
-	}
+    void onPasteForbidden(PasteForbiddenEvent event);
+  }
 
-	/**
-	 * Реализующий данный интерфейс виджет - источник событий {@link PasteForbiddenEvent}.
-	 */
-	public interface HasPasteForbiddenHandlers {
+  /**
+   * Реализующий данный интерфейс виджет - источник событий {@link PasteForbiddenEvent}.
+   */
+  public interface HasPasteForbiddenHandlers {
 
-		/**
-		 * Устанавливает обработчик {@link PasteForbiddenHandler} для событий
-		 * {@link PasteForbiddenEvent}.
-		 * @param handler обработчик
-		 * @return регистрация события
-		 */
-		HandlerRegistration addPasteForbiddenHandler(PasteForbiddenHandler handler);
-	}
+    /**
+     * Устанавливает обработчик {@link PasteForbiddenHandler} для событий
+     * {@link PasteForbiddenEvent}.
+     * @param handler обработчик
+     * @return регистрация события
+     */
+    HandlerRegistration addPasteForbiddenHandler(PasteForbiddenHandler handler);
+  }
 
-	/**
-	 * Тип обработчика.
-	 */
-	private static Type<PasteForbiddenHandler> TYPE = new Type<PasteForbiddenHandler>();
+  /**
+   * Тип обработчика.
+   */
+  private static Type<PasteForbiddenHandler> TYPE = new Type<PasteForbiddenHandler>();
 
-	/**
-	 * Возвращает связанный с данным событием тип.
-	 * 
-	 * @return тип обработчика
-	 */
-	public static Type<PasteForbiddenHandler> getType() {
-		return TYPE;
-	}
+  /**
+   * Возвращает связанный с данным событием тип.
+   * 
+   * @return тип обработчика
+   */
+  public static Type<PasteForbiddenHandler> getType() {
+    return TYPE;
+  }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-	@Override
-	public Type<PasteForbiddenHandler> getAssociatedType() {
-		return (Type) TYPE;
-	}
+  /**
+   * {@inheritDoc}
+   */
+  @SuppressWarnings({ "unchecked", "rawtypes" })
+  @Override
+  public Type<PasteForbiddenHandler> getAssociatedType() {
+    return (Type) TYPE;
+  }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	protected void dispatch(PasteForbiddenHandler handler) {
-		handler.onPasteForbidden(this);
-	}
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  protected void dispatch(PasteForbiddenHandler handler) {
+    handler.onPasteForbidden(this);
+  }
 
 }

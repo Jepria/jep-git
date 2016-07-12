@@ -19,11 +19,11 @@ public class NavigationPage<M extends NavigationEntrancePageManager> extends Fra
     // Singleton
     static private NavigationPage<NavigationEntrancePageManager> instance;
     static public NavigationPage<NavigationEntrancePageManager> getInstance(NavigationEntrancePageManager pageManager) {
-    	if(instance == null) {
-    		instance = new NavigationPage<NavigationEntrancePageManager>(pageManager);
-    	}
-    	
-    	return instance;
+      if(instance == null) {
+        instance = new NavigationPage<NavigationEntrancePageManager>(pageManager);
+      }
+      
+      return instance;
     }
 
     @Override
@@ -48,11 +48,11 @@ public class NavigationPage<M extends NavigationEntrancePageManager> extends Fra
 //    }
     
     
-	public boolean isChangePasswordNodeDisplayed() {
+  public boolean isChangePasswordNodeDisplayed() {
         return this.getNavigation().isElementPresent(By.xpath("//a[@title='Выход']"));        
-	}
+  }
 
-//	public void clickLogoutButton() {
-//		getContent().entranceBarLogoutButton.click();;
-//	}
+//  public void clickLogoutButton() {
+//    getContent().entranceBarLogoutButton.click();;
+//  }
 }

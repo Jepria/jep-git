@@ -10,61 +10,61 @@ import com.technology.jep.jepria.shared.exceptions.ApplicationException;
  * Класс, реализующий загрузку (upload) файла в CLOB.
  */
 public class TextFileUploadImpl extends AbstractFileUpload implements TextFileUpload {
-	
-	/**
-	 * {@inheritDoc}
-	 */
-	public int beginWrite(
-		String tableName
-		, String fileFieldName
-		, String keyFieldName
-		, Object rowId
-		, String dataSourceJndiName
-		, String moduleName) 
-		throws ApplicationException {
+  
+  /**
+   * {@inheritDoc}
+   */
+  public int beginWrite(
+    String tableName
+    , String fileFieldName
+    , String keyFieldName
+    , Object rowId
+    , String dataSourceJndiName
+    , String moduleName) 
+    throws ApplicationException {
 
-		int result = -1;
-		try {
-			CallContext.begin(dataSourceJndiName, moduleName);
+    int result = -1;
+    try {
+      CallContext.begin(dataSourceJndiName, moduleName);
 
-			super.largeObject = new TextLargeObject(tableName, fileFieldName, keyFieldName, rowId);
-			result = ((TextLargeObject)super.largeObject).beginWrite();
-		} catch (ApplicationException ex) {
-			cancel();
-			throw ex;
-		} finally {
-			storedContext = CallContext.detach();
-		}
+      super.largeObject = new TextLargeObject(tableName, fileFieldName, keyFieldName, rowId);
+      result = ((TextLargeObject)super.largeObject).beginWrite();
+    } catch (ApplicationException ex) {
+      cancel();
+      throw ex;
+    } finally {
+      storedContext = CallContext.detach();
+    }
 
-		return result;
-	}
-	
-	/**
-	 * {@inheritDoc}
-	 */
-	public void continueWrite(char[] dataBlock) throws SpaceException {
-		CallContext.attach(storedContext);
-		boolean cancelled = false;
-		try {
-			((TextLargeObject)super.largeObject).continueWrite(dataBlock);
-		} catch (Throwable ex) {
-			cancelled = true;
-			if (ex instanceof SpaceException) {
-				throw (SpaceException) ex;
-			} else if (ex instanceof Exception) {
-				throw new SpaceException("continue write error", (Exception) ex);
-			} else {
-				throw new SpaceException("continue write error", new RuntimeException(ex));
-			}
-		} finally {
-			if (cancelled) {
-				try {
-					cancel();
-				} catch (Throwable e) {
-					e.printStackTrace();
-				}
-			}
-			storedContext = CallContext.detach();
-		}
-	}
+    return result;
+  }
+  
+  /**
+   * {@inheritDoc}
+   */
+  public void continueWrite(char[] dataBlock) throws SpaceException {
+    CallContext.attach(storedContext);
+    boolean cancelled = false;
+    try {
+      ((TextLargeObject)super.largeObject).continueWrite(dataBlock);
+    } catch (Throwable ex) {
+      cancelled = true;
+      if (ex instanceof SpaceException) {
+        throw (SpaceException) ex;
+      } else if (ex instanceof Exception) {
+        throw new SpaceException("continue write error", (Exception) ex);
+      } else {
+        throw new SpaceException("continue write error", new RuntimeException(ex));
+      }
+    } finally {
+      if (cancelled) {
+        try {
+          cancel();
+        } catch (Throwable e) {
+          e.printStackTrace();
+        }
+      }
+      storedContext = CallContext.detach();
+    }
+  }
 }

@@ -26,11 +26,11 @@ public class UpdateScopeEvent extends BusEvent<UpdateScopeEvent.Handler> {
   private JepScope scope = null;
 
   public JepScope getScope() {
-	return scope;
+  return scope;
   }
 
   public UpdateScopeEvent(JepScope scope) {
-	  this.scope = scope;
+    this.scope = scope;
   }
 
 @Override

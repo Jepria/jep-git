@@ -4,40 +4,40 @@ import com.google.gwt.resources.client.ClientBundle;
 import com.google.gwt.resources.client.ImageResource;
 
 public interface RichTextToolbarImages extends ClientBundle {
-	
+  
     ImageResource bold();
 
-	ImageResource createLink();
+  ImageResource createLink();
 
-	ImageResource hr();
+  ImageResource hr();
 
-	ImageResource indent();
+  ImageResource indent();
 
-	ImageResource insertImage();
+  ImageResource insertImage();
 
-	ImageResource italic();
+  ImageResource italic();
 
-	ImageResource justifyCenter();
+  ImageResource justifyCenter();
 
-	ImageResource justifyLeft();
+  ImageResource justifyLeft();
 
-	ImageResource justifyRight();
+  ImageResource justifyRight();
 
-	ImageResource ol();
+  ImageResource ol();
 
-	ImageResource outdent();
+  ImageResource outdent();
 
-	ImageResource removeFormat();
+  ImageResource removeFormat();
 
-	ImageResource removeLink();
+  ImageResource removeLink();
 
-	ImageResource strikeThrough();
+  ImageResource strikeThrough();
 
-	ImageResource subscript();
+  ImageResource subscript();
 
-	ImageResource superscript();
+  ImageResource superscript();
 
-	ImageResource ul();
+  ImageResource ul();
 
-	ImageResource underline();
+  ImageResource underline();
 }

@@ -6,10 +6,10 @@ package com.technology.jep.jepria.auto.exceptions;
 @SuppressWarnings("serial")
 public class NotExpectedException extends RuntimeException {
 
-	public NotExpectedException() {
-	}
-	
-	public NotExpectedException(String message) {
-		super(message);
-	}
+  public NotExpectedException() {
+  }
+  
+  public NotExpectedException(String message) {
+    super(message);
+  }
 }

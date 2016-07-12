@@ -7,22 +7,22 @@ import com.technology.jep.jepria.client.ui.JepActivityMapper;
 import com.technology.jep.jepria.client.ui.eventbus.main.MainEventBus;
 import com.technology.jep.jepria.shared.service.JepMainServiceAsync;
 
-public class MainActivityMapper<F extends MainClientFactory<MainEventBus, JepMainServiceAsync>>	
-	extends JepActivityMapper<MainEventBus, F> implements ActivityMapper {
+public class MainActivityMapper<F extends MainClientFactory<MainEventBus, JepMainServiceAsync>>  
+  extends JepActivityMapper<MainEventBus, F> implements ActivityMapper {
 
-	/**
-	 * Главный презентер приложения.
-	 */
-	protected Activity mainModulePresenter = null;
+  /**
+   * Главный презентер приложения.
+   */
+  protected Activity mainModulePresenter = null;
 
-	public MainActivityMapper(F clientFactory) {
-		super(clientFactory);
-	}
+  public MainActivityMapper(F clientFactory) {
+    super(clientFactory);
+  }
 
-	public Activity getActivity(Place place) {
-		if(mainModulePresenter == null) {
-			mainModulePresenter = clientFactory.createMainModulePresenter();
-		}
-		return mainModulePresenter;
-	}
+  public Activity getActivity(Place place) {
+    if(mainModulePresenter == null) {
+      mainModulePresenter = clientFactory.createMainModulePresenter();
+    }
+    return mainModulePresenter;
+  }
 }

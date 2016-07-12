@@ -6,12 +6,12 @@ import com.technology.jep.jepria.auto.pages.PageManagerBase;
 
 
 public class JepRiaApplicationPageManager extends ApplicationEntrancePageManager {
-	
+  
     public JepRiaApplicationPage<PageManagerBase> getApplicationPage() {
-    	if(applicationPage == null) {
+      if(applicationPage == null) {
             applicationPage = initElements(JepRiaApplicationPage.getInstance(this));
-    	}
-    	
-		return (JepRiaApplicationPage<PageManagerBase>) applicationPage;
-	}
+      }
+      
+    return (JepRiaApplicationPage<PageManagerBase>) applicationPage;
+  }
 }

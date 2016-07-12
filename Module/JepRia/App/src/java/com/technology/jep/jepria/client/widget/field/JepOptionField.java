@@ -10,10 +10,10 @@ import com.technology.jep.jepria.shared.field.option.JepOption;
  */
 public interface JepOptionField {
 
-	/**
-	 * Установка списка опций
-	 * 
-	 * @param options	устанавливаемые опции
-	 */
-	void setOptions(List<JepOption> options);
+  /**
+   * Установка списка опций
+   * 
+   * @param options  устанавливаемые опции
+   */
+  void setOptions(List<JepOption> options);
 }

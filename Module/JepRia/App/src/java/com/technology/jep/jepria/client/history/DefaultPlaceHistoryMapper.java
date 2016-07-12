@@ -10,12 +10,12 @@ import com.technology.jep.jepria.client.history.place.JepViewDetailPlace;
 import com.technology.jep.jepria.client.history.place.JepViewListPlace;
 
 @WithTokenizers({
-	JepCreatePlace.Tokenizer.class
-	, JepEditPlace.Tokenizer.class
-	, JepSearchPlace.Tokenizer.class
-	, JepSelectedPlace.Tokenizer.class
-	, JepViewDetailPlace.Tokenizer.class
-	, JepViewListPlace.Tokenizer.class
+  JepCreatePlace.Tokenizer.class
+  , JepEditPlace.Tokenizer.class
+  , JepSearchPlace.Tokenizer.class
+  , JepSelectedPlace.Tokenizer.class
+  , JepViewDetailPlace.Tokenizer.class
+  , JepViewListPlace.Tokenizer.class
 })
 public interface DefaultPlaceHistoryMapper extends PlaceHistoryMapper {
 }

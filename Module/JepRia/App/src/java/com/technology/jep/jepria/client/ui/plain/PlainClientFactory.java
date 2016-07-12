@@ -17,45 +17,45 @@ import com.technology.jep.jepria.shared.service.data.JepDataServiceAsync;
  */
 public interface PlainClientFactory<E extends PlainEventBus, S extends JepDataServiceAsync> extends ClientFactory<E> {
 
-	/**
-	 * Получение клиентской фабрики главного модуля.
-	 *
-	 * @return клиентская фабрика главного модуля
-	 */
-	MainClientFactoryImpl<MainEventBus, JepMainServiceAsync> getMainClientFactory();
-	
-	/**
-	 * Получение объекта управления Place'ами модуля.
-	 *
-	 * @return объект управления Place'ами модуля
-	 */
-	PlainPlaceController getPlaceController();
-	
-	/**
-	 * Получение представления (View) модуля.
-	 *
-	 * @return представление (View) модуля
-	 */
-	IsWidget getModuleView();
-	
-	/**
-	 * Создание презентера модуля.
-	 *
-	 * @return презентер модуля
-	 */
-	JepPresenter createPlainModulePresenter(Place place);
-	
-	/**
-	 * Получение сервиса работы с данными.
-	 *
-	 * @return сервис работы с данными
-	 */
-	S getService();
-	
-	/**
-	 * Получение определения данных модуля.
-	 *
-	 * @return определение данных модуля
-	 */
-	JepRecordDefinition getRecordDefinition();
+  /**
+   * Получение клиентской фабрики главного модуля.
+   *
+   * @return клиентская фабрика главного модуля
+   */
+  MainClientFactoryImpl<MainEventBus, JepMainServiceAsync> getMainClientFactory();
+  
+  /**
+   * Получение объекта управления Place'ами модуля.
+   *
+   * @return объект управления Place'ами модуля
+   */
+  PlainPlaceController getPlaceController();
+  
+  /**
+   * Получение представления (View) модуля.
+   *
+   * @return представление (View) модуля
+   */
+  IsWidget getModuleView();
+  
+  /**
+   * Создание презентера модуля.
+   *
+   * @return презентер модуля
+   */
+  JepPresenter createPlainModulePresenter(Place place);
+  
+  /**
+   * Получение сервиса работы с данными.
+   *
+   * @return сервис работы с данными
+   */
+  S getService();
+  
+  /**
+   * Получение определения данных модуля.
+   *
+   * @return определение данных модуля
+   */
+  JepRecordDefinition getRecordDefinition();
 }

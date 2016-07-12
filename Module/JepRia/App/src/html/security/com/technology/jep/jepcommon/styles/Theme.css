@@ -2,47 +2,47 @@
 
 .ThemeXPTreeLevel0,.ThemeXPTreeLevel1
 {
-	cursor: default;
-	background-color: white;
+  cursor: default;
+  background-color: white;
 
-	white-space: nowrap;
+  white-space: nowrap;
 
-	border:		0;
-	padding:	0;
+  border:    0;
+  padding:  0;
 }
 
 .ThemeXPTreeLevel1
 {
-	display: none;
+  display: none;
 }
 
 .ThemeXPTable
 {
-	table-layout: auto;
+  table-layout: auto;
 
-	cursor: default;
+  cursor: default;
 
-	color:		inherit;
-	background-color:	inherit;
+  color:    inherit;
+  background-color:  inherit;
 
-	font-family:	Arial, Verdana, sans-serif;
-	font-size:	12px;
+  font-family:  Arial, Verdana, sans-serif;
+  font-size:  12px;
 
-	white-space: nowrap;
+  white-space: nowrap;
 
-	border-collapse:	separate;
+  border-collapse:  separate;
 
-	border:		0;
-	padding:	0;
+  border:    0;
+  padding:  0;
 }
 
 .ThemeXPRow,.ThemeXPRowHover,.ThemeXPRowActive,.ThemeXPRowSelected
 {
-	background-color: inherit;
-	white-space:	nowrap;
+  background-color: inherit;
+  white-space:  nowrap;
 
-	border:		0;
-	padding:	0;
+  border:    0;
+  padding:  0;
 }
 
 .ThemeXPFolderSpacer,.ThemeXPItemSpacer,
@@ -50,30 +50,30 @@
 .ThemeXPFolderText,.ThemeXPItemText,
 .ThemeXPFolderRight,.ThemeXPItemRight
 {
-	background-color: inherit;
-	white-space:	nowrap;
+  background-color: inherit;
+  white-space:  nowrap;
 
-	border:		0;
-	padding:	0;
+  border:    0;
+  padding:  0;
 }
 
 /* it would be better that child selector > would work, but IE
-	doesn't support it :( */
+  doesn't support it :( */
 
 .ThemeXPFolderText a,
 .ThemeXPItemText a
 {
-	text-decoration:	none;
-	border:			0;
-	padding:		1px;
-	background-color:	inherit;
+  text-decoration:  none;
+  border:      0;
+  padding:    1px;
+  background-color:  inherit;
 }
 
 .ThemeXPRowHover .ThemeXPItemText a,
 .ThemeXPRowHover .ThemeXPFolderText a
 {
-	color:			#000084;
-	text-decoration:	underline;
+  color:      #000084;
+  text-decoration:  underline;
 }
 
 .ThemeXPRowActive .ThemeXPItemText a,
@@ -81,9 +81,9 @@
 .ThemeXPRowSelected .ThemeXPItemText a,
 .ThemeXPRowSelected .ThemeXPFolderText a
 {
-	color:			white;
-	background-color:	#3169C6;
-	text-decoration:	none;
+  color:      white;
+  background-color:  #3169C6;
+  text-decoration:  none;
 }
 
 /* in strict mode of XHTML, this is a fix for image connections */
@@ -95,7 +95,7 @@
 .ThemeXPFolderRight img,
 .ThemeXPItemRight img
 {
-	vertical-align:	bottom;
+  vertical-align:  bottom;
 }
 
 /* no need to modify these two since they are generic. */
@@ -111,10 +111,10 @@
 
 #JSCookTreeFolderClosed .JSCookTreeFolderOpen
 {
-	display:	none;
+  display:  none;
 }
 
 #JSCookTreeFolderOpen .JSCookTreeFolderClosed
 {
-	display:	none;
+  display:  none;
 }

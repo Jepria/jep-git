@@ -9,23 +9,23 @@ import com.google.gwt.user.client.ui.CaptionPanel;
  */
 public class FieldSet extends CaptionPanel {
 
-	private static final String FIELDSET_DEFAULT_STYLE = "jepRia-FieldSet";
-	
-	public FieldSet() {
-		this("", false);
-	}
+  private static final String FIELDSET_DEFAULT_STYLE = "jepRia-FieldSet";
+  
+  public FieldSet() {
+    this("", false);
+  }
 
-	public FieldSet(SafeHtml caption) {
-		this(caption.asString(), true);
-	}
+  public FieldSet(SafeHtml caption) {
+    this(caption.asString(), true);
+  }
 
-	public FieldSet(String captionText) {
-		this(captionText, false);
-	}
+  public FieldSet(String captionText) {
+    this(captionText, false);
+  }
 
-	public FieldSet(String caption, boolean asHTML) {
-		super(caption, asHTML);
-		getElement().addClassName(FIELDSET_DEFAULT_STYLE);
-	}
+  public FieldSet(String caption, boolean asHTML) {
+    super(caption, asHTML);
+    getElement().addClassName(FIELDSET_DEFAULT_STYLE);
+  }
 
 }

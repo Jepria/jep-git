@@ -84,187 +84,187 @@ import com.technology.jep.jepria.shared.service.JepMainServiceAsync;
  * </pre>
  */
 abstract public class MainClientFactoryImpl<E extends MainEventBus, S extends JepMainServiceAsync> 
-	extends ClientFactoryImpl<E> implements MainClientFactory<E, S> {
-	
-	/**
-	 * Поле для реализации singleton'а клиентской фабрики приложения.
-	 */
-	public static MainClientFactoryImpl<MainEventBus, JepMainServiceAsync> instance = null;
-	
-	/**
-	 * Главное представление приложения.
-	 */
-	protected IsWidget mainView = null;
+  extends ClientFactoryImpl<E> implements MainClientFactory<E, S> {
+  
+  /**
+   * Поле для реализации singleton'а клиентской фабрики приложения.
+   */
+  public static MainClientFactoryImpl<MainEventBus, JepMainServiceAsync> instance = null;
+  
+  /**
+   * Главное представление приложения.
+   */
+  protected IsWidget mainView = null;
 
-	/**
-	 * Главный сервис приложения.
-	 */
-	protected S mainService = null;
+  /**
+   * Главный сервис приложения.
+   */
+  protected S mainService = null;
 
-	/**
-	 * Идентификаторы модулей приложения.
-	 */
-	private String[] moduleIds;
-	
-	/**
-	 * Наименования модулей приложения.
-	 */
-	private String[] moduleItemTitles;
-	
-	/**
-	 * Создает клиентскую фабрику главного модуля приложения.
-	 *
-	 * @param moduleIds идентификаторы модулей приложения
-	 * @param moduleItemTitles наименования модулей приложения
-	 */
-	public MainClientFactoryImpl(
-		String[] moduleIds,
-		String[] moduleItemTitles) {
-		
-		logger.debug(this.getClass() + ".MainClientFactoryImpl() moduleIds = " + moduleIds);
-		
-		if(moduleIds == null) {
-			throw new IllegalArgumentException(JepTexts.errors_mainClientFactory_illegalArgument_moduleIds());
-		}
-		
-		if(moduleItemTitles == null || moduleItemTitles.length != moduleIds.length) {
-			throw new IllegalArgumentException(JepTexts.errors_mainClientFactory_illegalArgument_moduleItemTitles());
-		}
-		
-		this.moduleIds = moduleIds;
-		this.moduleItemTitles = moduleItemTitles;
-		
-		JepScopeStack.instance.setMainClientFactory((MainClientFactory)this);
-	}
+  /**
+   * Идентификаторы модулей приложения.
+   */
+  private String[] moduleIds;
+  
+  /**
+   * Наименования модулей приложения.
+   */
+  private String[] moduleItemTitles;
+  
+  /**
+   * Создает клиентскую фабрику главного модуля приложения.
+   *
+   * @param moduleIds идентификаторы модулей приложения
+   * @param moduleItemTitles наименования модулей приложения
+   */
+  public MainClientFactoryImpl(
+    String[] moduleIds,
+    String[] moduleItemTitles) {
+    
+    logger.debug(this.getClass() + ".MainClientFactoryImpl() moduleIds = " + moduleIds);
+    
+    if(moduleIds == null) {
+      throw new IllegalArgumentException(JepTexts.errors_mainClientFactory_illegalArgument_moduleIds());
+    }
+    
+    if(moduleItemTitles == null || moduleItemTitles.length != moduleIds.length) {
+      throw new IllegalArgumentException(JepTexts.errors_mainClientFactory_illegalArgument_moduleItemTitles());
+    }
+    
+    this.moduleIds = moduleIds;
+    this.moduleItemTitles = moduleItemTitles;
+    
+    JepScopeStack.instance.setMainClientFactory((MainClientFactory)this);
+  }
 
-	/**
-	 * Получение объекта управления Place'ами приложения.<br/>
-	 * Если объект еще не создан, то метод создает его и возвращает созданный объект. 
-	 *
-	 * @return объект управления Place'ами приложения
-	 */
-	public MainPlaceController getPlaceController() {
-		if(placeController == null) {
-			placeController = new MainPlaceController((MainEventBus)getEventBus(), this);
-		}
-		return (MainPlaceController) placeController;
-	}
+  /**
+   * Получение объекта управления Place'ами приложения.<br/>
+   * Если объект еще не создан, то метод создает его и возвращает созданный объект. 
+   *
+   * @return объект управления Place'ами приложения
+   */
+  public MainPlaceController getPlaceController() {
+    if(placeController == null) {
+      placeController = new MainPlaceController((MainEventBus)getEventBus(), this);
+    }
+    return (MainPlaceController) placeController;
+  }
 
-	/**
-	 * Получение главной шины событий приложения.<br/>
-	 * Если объект еще не создан, то метод создает его и возвращает созданный объект. 
-	 *
-	 * @return шина событий приложения
-	 */
-	public E getEventBus() {
-		if(eventBus == null) {
-			eventBus = new MainEventBus(this);
-		}
-		return (E) eventBus;
-	}
+  /**
+   * Получение главной шины событий приложения.<br/>
+   * Если объект еще не создан, то метод создает его и возвращает созданный объект. 
+   *
+   * @return шина событий приложения
+   */
+  public E getEventBus() {
+    if(eventBus == null) {
+      eventBus = new MainEventBus(this);
+    }
+    return (E) eventBus;
+  }
 
-	/**
-	 * Получение Place'а по умолчанию для приложения.
-	 *
-	 * @return Place по умолчанию для приложения
-	 */
-	public Place getDefaultPlace() {
-		return new JepSearchPlace();
-	}
+  /**
+   * Получение Place'а по умолчанию для приложения.
+   *
+   * @return Place по умолчанию для приложения
+   */
+  public Place getDefaultPlace() {
+    return new JepSearchPlace();
+  }
 
-	/**
-	 * Получение главного представления (View) приложения.<br/>
-	 * Если объект еще не создан, то метод создает его и возвращает созданный объект. 
-	 *
-	 * @return главное представление (View) приложения
-	 */
-	public IsWidget getMainView() {
-		if(mainView == null) {
-			mainView = new MainViewImpl();
-		}
-		return mainView;
-	}
-	
-	/**
-	 * Получение главного сервиса приложения.<br/>
-	 * Если объект еще не создан, то метод создает его и возвращает созданный объект. 
-	 *
-	 * @return главный сервис приложения
-	 */
-	public S getMainService() {
-		if(mainService == null) {
-			mainService = (S)GWT.create(JepMainService.class);
-		}
-		return mainService;
-	}
+  /**
+   * Получение главного представления (View) приложения.<br/>
+   * Если объект еще не создан, то метод создает его и возвращает созданный объект. 
+   *
+   * @return главное представление (View) приложения
+   */
+  public IsWidget getMainView() {
+    if(mainView == null) {
+      mainView = new MainViewImpl();
+    }
+    return mainView;
+  }
+  
+  /**
+   * Получение главного сервиса приложения.<br/>
+   * Если объект еще не создан, то метод создает его и возвращает созданный объект. 
+   *
+   * @return главный сервис приложения
+   */
+  public S getMainService() {
+    if(mainService == null) {
+      mainService = (S)GWT.create(JepMainService.class);
+    }
+    return mainService;
+  }
 
-	/**
-	 * Установка идентификаторов модулей приложения.
-	 *
-	 * @param moduleIds идентификаторы модулей приложения
-	 */
-	public void setModuleIds(String[] moduleIds) {
-		this.moduleIds = moduleIds; 
-	}
+  /**
+   * Установка идентификаторов модулей приложения.
+   *
+   * @param moduleIds идентификаторы модулей приложения
+   */
+  public void setModuleIds(String[] moduleIds) {
+    this.moduleIds = moduleIds; 
+  }
 
-	/**
-	 * Получение идентификаторов модулей приложения.
-	 *
-	 * @return идентификаторы модулей приложения
-	 */
-	public String[] getModuleIds() {
-		return moduleIds; 
-	}
-	
-	/**
-	 * Проверяет наличие определенного идентификатора модуля среди идентификаторов модулей приложения.
-	 *
-	 * @param moduleId проверяемый идентификатор модуля
-	 * @return true - если запрошенный идентификатор модуля найден, false - в противном случае.
-	 */
-	public boolean contains(String moduleId) {
-		boolean result = false;
-		
-		int moduleCount = moduleIds.length;
-		for(int i = 0; i < moduleCount; i++) {
-			if(moduleIds[i].equals(moduleId)) {
-				result = true;
-				break;
-			}
-		}
-		
-		return result;
-	}
+  /**
+   * Получение идентификаторов модулей приложения.
+   *
+   * @return идентификаторы модулей приложения
+   */
+  public String[] getModuleIds() {
+    return moduleIds; 
+  }
+  
+  /**
+   * Проверяет наличие определенного идентификатора модуля среди идентификаторов модулей приложения.
+   *
+   * @param moduleId проверяемый идентификатор модуля
+   * @return true - если запрошенный идентификатор модуля найден, false - в противном случае.
+   */
+  public boolean contains(String moduleId) {
+    boolean result = false;
+    
+    int moduleCount = moduleIds.length;
+    for(int i = 0; i < moduleCount; i++) {
+      if(moduleIds[i].equals(moduleId)) {
+        result = true;
+        break;
+      }
+    }
+    
+    return result;
+  }
 
-	/**
-	 * Получение наименований модулей приложения.
-	 *
-	 * @return наименования модулей приложения
-	 */
-	public String[] getModuleItemTitles() {
-		return moduleItemTitles; 
-	}
-	
-	/**
-	 * Иннициализация ActivityMapper'ов и ActivityManager'ов.<br/>
-	 * Необходимо для возможности соответствующих презентеров (Activity в понятиях GWT) прослушивать, подписываться и обрабатывать события,
-	 * с которыми работает EventBus.
-	 *
-	 * @param clientFactory клиентская фабрика главного модуля (приложения)
-	 */
-	protected void initActivityMappers(MainClientFactory<E, S> clientFactory) {
-		/*
-		 * Создадим ActivityMapper и ActivityManager для главного модуля (приложения).
-		 */
-		ActivityManager mainActivityManager = new MainActivityManager(
-			new MainActivityMapper(clientFactory)
-			, clientFactory.getEventBus()
-		);
+  /**
+   * Получение наименований модулей приложения.
+   *
+   * @return наименования модулей приложения
+   */
+  public String[] getModuleItemTitles() {
+    return moduleItemTitles; 
+  }
+  
+  /**
+   * Иннициализация ActivityMapper'ов и ActivityManager'ов.<br/>
+   * Необходимо для возможности соответствующих презентеров (Activity в понятиях GWT) прослушивать, подписываться и обрабатывать события,
+   * с которыми работает EventBus.
+   *
+   * @param clientFactory клиентская фабрика главного модуля (приложения)
+   */
+  protected void initActivityMappers(MainClientFactory<E, S> clientFactory) {
+    /*
+     * Создадим ActivityMapper и ActivityManager для главного модуля (приложения).
+     */
+    ActivityManager mainActivityManager = new MainActivityManager(
+      new MainActivityMapper(clientFactory)
+      , clientFactory.getEventBus()
+    );
 
-		// Необходимо для предотвращения де-регистрации в EventBus и сбором garbage collection (смотри описание метода в JavaDoc GWT).
-		mainActivityManager.setDisplay(new AcceptsOneWidget() {
-			public void setWidget(IsWidget widget) {}
-		});
-	}
-	
+    // Необходимо для предотвращения де-регистрации в EventBus и сбором garbage collection (смотри описание метода в JavaDoc GWT).
+    mainActivityManager.setDisplay(new AcceptsOneWidget() {
+      public void setWidget(IsWidget widget) {}
+    });
+  }
+  
 }

@@ -7,28 +7,28 @@
 <jsp:directive.page import="java.util.ResourceBundle" />
 
 <jsp:declaration>
-	private static final String MAX_LOGIN_ATTEMPTS = "max-login-attempts";
-	private int _maxLoginAttempts = 3;
-	private int _sessionTimeout;
+  private static final String MAX_LOGIN_ATTEMPTS = "max-login-attempts";
+  private int _maxLoginAttempts = 3;
+  private int _sessionTimeout;
  </jsp:declaration>
  
 <%
-	FrameworkResourceBundle _bundle = FrameworkResourceBundle.getResourceBundle(request.getLocales());
-	ResourceBundle resourceBundle = ResourceBundle.getBundle("com.technology.jep.jepria.shared.text.LoginText", request.getLocale());
+  FrameworkResourceBundle _bundle = FrameworkResourceBundle.getResourceBundle(request.getLocales());
+  ResourceBundle resourceBundle = ResourceBundle.getBundle("com.technology.jep.jepria.shared.text.LoginText", request.getLocale());
 
-	Integer attempts = (Integer) session.getAttribute(MAX_LOGIN_ATTEMPTS);
-	if (null == attempts){
-		attempts = new Integer(0);
-	}
-	synchronized (session){
-		attempts = new Integer(attempts.intValue() + 1);
-		session.setAttribute(MAX_LOGIN_ATTEMPTS, attempts);
-	}
-	int a = attempts.intValue();
-	if (a < _maxLoginAttempts){
-		RequestDispatcher rd = application.getRequestDispatcher("/security/login.jsp");
-		rd.forward(request, response);
-	}
+  Integer attempts = (Integer) session.getAttribute(MAX_LOGIN_ATTEMPTS);
+  if (null == attempts){
+    attempts = new Integer(0);
+  }
+  synchronized (session){
+    attempts = new Integer(attempts.intValue() + 1);
+    session.setAttribute(MAX_LOGIN_ATTEMPTS, attempts);
+  }
+  int a = attempts.intValue();
+  if (a < _maxLoginAttempts){
+    RequestDispatcher rd = application.getRequestDispatcher("/security/login.jsp");
+    rd.forward(request, response);
+  }
 %>
 
 <html lang="<%=_bundle.getResourceLocale().getLanguage()%>">
@@ -53,25 +53,25 @@
   </head>
   <body>
 
-	<table style=" width: 100%; ">
-		<tr><th id="loginError.title"><%= resourceBundle.getString("loginError.title") %></th></tr>
-		<tr>
-			<td>
+  <table style=" width: 100%; ">
+    <tr><th id="loginError.title"><%= resourceBundle.getString("loginError.title") %></th></tr>
+    <tr>
+      <td>
 
-				<table style=" width: 100%; " class="errors">
-					<tr>
-						<td style=" width: 22px "><img src="resources/com/technology/jep/jepcommon/images/warning.gif"></td>
-						<td id="loginError.attemptsError"><%= resourceBundle.getString("loginError.attemptsError") %></td>
-					</tr>
-				</table>
-			</td>
-		</tr>
+        <table style=" width: 100%; " class="errors">
+          <tr>
+            <td style=" width: 22px "><img src="resources/com/technology/jep/jepcommon/images/warning.gif"></td>
+            <td id="loginError.attemptsError"><%= resourceBundle.getString("loginError.attemptsError") %></td>
+          </tr>
+        </table>
+      </td>
+    </tr>
     </table>
 
     <script language="javascript">
-	<!--
-		localize(); 
-	//-->
+  <!--
+    localize(); 
+  //-->
     </script>
   </body>
 </html>

@@ -27,35 +27,35 @@ public class DefaultLoginPage<P extends PageManagerBase> extends PlainPage<P> im
     private WebElement loginButton;
 
     /* (non-Javadoc)
-	 * @see com.technology.jep.auto.entrance.pages.LoginPage#setUsername(java.lang.String)
-	 */
+   * @see com.technology.jep.auto.entrance.pages.LoginPage#setUsername(java.lang.String)
+   */
     @Override
-	public LoginPage<P> setUsername(String login) {
+  public LoginPage<P> setUsername(String login) {
         getContent().loginField.sendKeys(login);
         return this;
     }
 
     /* (non-Javadoc)
-	 * @see com.technology.jep.auto.entrance.pages.LoginPage#setPassword(java.lang.String)
-	 */
+   * @see com.technology.jep.auto.entrance.pages.LoginPage#setPassword(java.lang.String)
+   */
     @Override
-	public LoginPage<P> setPassword(String pswd) {
+  public LoginPage<P> setPassword(String pswd) {
         pswdField.sendKeys(pswd);
         return this;
     }
 
     /* (non-Javadoc)
-	 * @see com.technology.jep.auto.entrance.pages.LoginPage#doLogin()
-	 */
+   * @see com.technology.jep.auto.entrance.pages.LoginPage#doLogin()
+   */
     @Override
-	public void doLogin() {
+  public void doLogin() {
         loginButton.click();
     }
 
     /* (non-Javadoc)
-	 * @see com.technology.jep.auto.entrance.pages.LoginPage#ensurePageLoaded()
-	 */
-	@Override
+   * @see com.technology.jep.auto.entrance.pages.LoginPage#ensurePageLoaded()
+   */
+  @Override
     public DefaultLoginPage<P> ensurePageLoaded() {
         super.ensurePageLoaded().getContent();
 
@@ -63,7 +63,7 @@ public class DefaultLoginPage<P extends PageManagerBase> extends PlainPage<P> im
         return this;
     }
 
-	@Override
+  @Override
     public DefaultLoginPage<P> getContent() {
         return (DefaultLoginPage<P>) super.getContent();
     }

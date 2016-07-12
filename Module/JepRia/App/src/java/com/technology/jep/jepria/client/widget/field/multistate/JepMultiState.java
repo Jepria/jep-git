@@ -7,12 +7,12 @@ import com.technology.jep.jepria.client.ui.WorkstateEnum;
  * рабочих состояний.
  */
 public interface JepMultiState {
-	
-	/**
-	 * Установка нового состояния
-	 * 
-	 * @param workstate новое состояние
-	 */
-	void changeWorkstate(WorkstateEnum workstate);
-	
+  
+  /**
+   * Установка нового состояния
+   * 
+   * @param workstate новое состояние
+   */
+  void changeWorkstate(WorkstateEnum workstate);
+  
 }

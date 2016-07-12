@@ -10,18 +10,18 @@ import com.technology.jep.jepria.shared.dto.JepDto;
 @RemoteServiceRelativePath("MainService")
 public interface JepMainService extends RemoteService {
 
-	/**
-	 * Получение данных о текущем (вошедшем через SSO) пользователе.
-	 * 
-	 * @return данныe о текущем (вошедшем через SSO) пользователе
-	 */
-	JepDto getUserData();
-	
-	/**
-	 * Выход (logout) текущего пользователя из SSO.
-	 * 
-	 * @return Url, по которому нужно перейти в результате Logout
-	 * @throws Exception 
-	 */
-	String logout(String currentUrl) throws Exception;
+  /**
+   * Получение данных о текущем (вошедшем через SSO) пользователе.
+   * 
+   * @return данныe о текущем (вошедшем через SSO) пользователе
+   */
+  JepDto getUserData();
+  
+  /**
+   * Выход (logout) текущего пользователя из SSO.
+   * 
+   * @return Url, по которому нужно перейти в результате Logout
+   * @throws Exception 
+   */
+  String logout(String currentUrl) throws Exception;
 }

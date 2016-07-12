@@ -6,9 +6,9 @@ import com.technology.jep.jepria.client.exception.ExceptionManagerImpl;
 
 abstract public class JepAsyncCallback<T> implements AsyncCallback<T> {
 
-	public void onFailure(Throwable caught) {
-		Log.error(caught.getLocalizedMessage(), caught);
-		ExceptionManagerImpl.instance.handleException(caught);
-	}
+  public void onFailure(Throwable caught) {
+    Log.error(caught.getLocalizedMessage(), caught);
+    ExceptionManagerImpl.instance.handleException(caught);
+  }
 
 }

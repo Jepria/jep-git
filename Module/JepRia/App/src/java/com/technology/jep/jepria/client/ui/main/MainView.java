@@ -7,17 +7,17 @@ import com.technology.jep.jepria.client.widget.event.JepListener;
 
 public interface MainView extends JepView<JepActivity> {
 
-	void setBody(Widget body);
+  void setBody(Widget body);
 
-	void addExitListener(JepListener listener);
+  void addExitListener(JepListener listener);
 
-	void addEnterModuleListener(String moduleId, JepListener listener);
+  void addEnterModuleListener(String moduleId, JepListener listener);
 
-	void setUsername(String username);
+  void setUsername(String username);
 
-	void selectModuleItem(String moduleId);
+  void selectModuleItem(String moduleId);
 
-	void setModuleItems(String[] moduleIds, String[] moduleItemTitles);
+  void setModuleItems(String[] moduleIds, String[] moduleItemTitles);
 
-	void showModuleTabs(String[] moduleIds);
+  void showModuleTabs(String[] moduleIds);
 }

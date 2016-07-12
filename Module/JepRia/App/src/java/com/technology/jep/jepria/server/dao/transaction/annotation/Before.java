@@ -30,9 +30,9 @@ import com.technology.jep.jepria.server.dao.transaction.handler.StartTransaction
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Before {
-	/**
-	 * Возвращает обработчик завершения транзакции.
-	 * @return обработчик завершения
-	 */
-	Class<? extends StartTransactionHandler> startTransactionHandler();
+  /**
+   * Возвращает обработчик завершения транзакции.
+   * @return обработчик завершения
+   */
+  Class<? extends StartTransactionHandler> startTransactionHandler();
 }

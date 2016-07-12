@@ -6,14 +6,14 @@ import com.google.gwt.resources.client.ImageResource;
 
 public interface GridMenuImages extends ClientBundle {
 
-	public static final GridMenuImages instance = GWT.create(GridMenuImages.class);
-	
-	@Source("up.gif")
-	ImageResource upButton();
-	
-	@Source("down.gif")
-	ImageResource downButton();
-	
-	@Source("setting.png")
-	ImageResource setting();
+  public static final GridMenuImages instance = GWT.create(GridMenuImages.class);
+  
+  @Source("up.gif")
+  ImageResource upButton();
+  
+  @Source("down.gif")
+  ImageResource downButton();
+  
+  @Source("setting.png")
+  ImageResource setting();
 }

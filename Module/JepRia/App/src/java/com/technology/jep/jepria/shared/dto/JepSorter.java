@@ -12,15 +12,15 @@ import com.technology.jep.jepria.shared.util.DefaultComparator;
 public class JepSorter<M extends JepDto> {
 
   /**
-	 * Схема сравнения.
-	 */
-	protected Comparator<Object> comparator;
+   * Схема сравнения.
+   */
+  protected Comparator<Object> comparator;
 
   /**
    * Создает новый сортировщик со схемой сравнения по умолчанию.
    */
   public JepSorter() {
-		this.comparator = DefaultComparator.instance;
+    this.comparator = DefaultComparator.instance;
   }
 
   /**
@@ -33,13 +33,13 @@ public class JepSorter<M extends JepDto> {
   }
 
   /**
-	 * Сравнивает значение поля из двух записей.
-	 *
-	 * @param m1 запись для сравнения первая
-	 * @param m2 запись для сравнения вторая
-	 * @param property поле сравнения
-	 * @return результат сравнения: 0 - значения равны или оба значения равны null, -1 - если первое значение меньше второго, 1 - если первое значение больше второго
-	 */
+   * Сравнивает значение поля из двух записей.
+   *
+   * @param m1 запись для сравнения первая
+   * @param m2 запись для сравнения вторая
+   * @param property поле сравнения
+   * @return результат сравнения: 0 - значения равны или оба значения равны null, -1 - если первое значение меньше второго, 1 - если первое значение больше второго
+   */
   public int compare(M m1, M m2, String property) {
     if (property != null) {
       Object v1 = m1.get(property);

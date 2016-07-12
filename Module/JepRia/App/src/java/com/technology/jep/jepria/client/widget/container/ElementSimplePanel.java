@@ -10,13 +10,13 @@ import com.google.gwt.user.client.ui.SimplePanel;
  * распоряжении имеется лишь DOM-элемент (см. {@link com.technology.jep.jepria.client.widget.field.tree.TreeField} или {@link com.technology.jep.jepria.client.widget.list.JepGrid})
  */
 public class ElementSimplePanel extends SimplePanel {
-	
-	/**
-	 * Создает панель с единичным элементом.
-	 * 
-	 * @param el		встраиваемый DOM-элемент
-	 */
-	public ElementSimplePanel(Element el){
-		super(el);
-	}
+  
+  /**
+   * Создает панель с единичным элементом.
+   * 
+   * @param el    встраиваемый DOM-элемент
+   */
+  public ElementSimplePanel(Element el){
+    super(el);
+  }
 }

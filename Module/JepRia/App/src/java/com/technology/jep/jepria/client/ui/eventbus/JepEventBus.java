@@ -9,32 +9,32 @@ import com.technology.jep.jepria.client.ui.eventbus.event.SetScopeEvent;
 import com.technology.jep.jepria.client.ui.eventbus.event.UpdateScopeEvent;
 
 public class JepEventBus extends ResettableEventBus {
-	/**
-	 * Клиентская фабрика.
-	 */
-	private ClientFactory<?> clientFactory;
-	
-	public JepEventBus(ClientFactory<?> clientFactory) {
-		super(new SimpleEventBus());
-		this.clientFactory = clientFactory;
-	}
+  /**
+   * Клиентская фабрика.
+   */
+  private ClientFactory<?> clientFactory;
+  
+  public JepEventBus(ClientFactory<?> clientFactory) {
+    super(new SimpleEventBus());
+    this.clientFactory = clientFactory;
+  }
 
-	protected void checkAndFireEvent(BusEvent<?> event) {
-		if(clientFactory.getEventFilter().checkEvent(event)) {
-			fireEvent(event);
-		}
-	}
+  protected void checkAndFireEvent(BusEvent<?> event) {
+    if(clientFactory.getEventFilter().checkEvent(event)) {
+      fireEvent(event);
+    }
+  }
 
-	public void updateScope(UpdateScopeEvent updateScopeEvent) {
-		fireEvent(updateScopeEvent);
-	}
+  public void updateScope(UpdateScopeEvent updateScopeEvent) {
+    fireEvent(updateScopeEvent);
+  }
 
-	public void setScope(JepScope scope) {
-		fireEvent(new SetScopeEvent(scope));
-	}
+  public void setScope(JepScope scope) {
+    fireEvent(new SetScopeEvent(scope));
+  }
 
-	public void enterModule(String moduleId) {
-		checkAndFireEvent(new EnterModuleEvent(moduleId));
-	}
-	
+  public void enterModule(String moduleId) {
+    checkAndFireEvent(new EnterModuleEvent(moduleId));
+  }
+  
 }

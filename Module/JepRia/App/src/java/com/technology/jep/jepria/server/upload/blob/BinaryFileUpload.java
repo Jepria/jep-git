@@ -8,11 +8,11 @@ import com.technology.jep.jepria.server.upload.FileUpload;
  */
 public interface BinaryFileUpload extends FileUpload {
 
-	/**
-	 * Добавление очередного блока данных при записи в BINARY_FILE.
-	 * 
-	 * @param dataBlock блок данных
-	 * @throws SpaceException
-	 */
-	void continueWrite(byte[] dataBlock) throws SpaceException;
+  /**
+   * Добавление очередного блока данных при записи в BINARY_FILE.
+   * 
+   * @param dataBlock блок данных
+   * @throws SpaceException
+   */
+  void continueWrite(byte[] dataBlock) throws SpaceException;
 }

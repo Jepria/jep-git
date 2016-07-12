@@ -17,35 +17,35 @@ import com.technology.jep.jepria.client.AutomationConstant;
  * TODO Нужна ли такая унификация ?
  */
 public class ApplicationEntrancePageManager extends PageManagerBase {
-	private static Logger logger = Logger.getLogger(ApplicationEntrancePageManager.class.getName());	
-	private LoginPage<ApplicationEntrancePageManager> loginPage;
+  private static Logger logger = Logger.getLogger(ApplicationEntrancePageManager.class.getName());  
+  private LoginPage<ApplicationEntrancePageManager> loginPage;
 
-	protected JepRiaEntranceApplicationPage<PageManagerBase> applicationPage;
-	
+  protected JepRiaEntranceApplicationPage<PageManagerBase> applicationPage;
+  
     public JepRiaEntranceApplicationPage<PageManagerBase> getApplicationPage() {
-    	if(applicationPage == null) {
+      if(applicationPage == null) {
             applicationPage = initElements(JepRiaEntranceApplicationPage.getInstance(this));
-    	}
-    	
-    	logger.info(this.getClass() + ": applicationPage has created");
-		return applicationPage;
-	}
+      }
+      
+      logger.info(this.getClass() + ": applicationPage has created");
+    return applicationPage;
+  }
     
     public LoginPage<ApplicationEntrancePageManager> getLoginPage() {
-    	if(loginPage == null) {
-  			try {
-  				getWait().until(presenceOfElementLocated(By.id("loginForm")));
-  	    		WebElement loginForm = getDriver().findElement(By.id("loginForm"));
-  	    		assert(loginForm != null);
-  	    		
-  	    		loginPage = initElements(new DefaultLoginPage<ApplicationEntrancePageManager>(this));
-  			} catch (NoSuchElementException ex) {
-		        getWait().until(presenceOfElementLocated(By.id(AutomationConstant.LOGIN_USERNAME_FIELD_ID)));
-		        getWait().until(presenceOfElementLocated(By.id(AutomationConstant.LOGIN_PASSWORD_FIELD_ID)));
-	            loginPage = initElements(new JepRiaLoginPage<ApplicationEntrancePageManager>(this));
-  			}
-    	}
-    	
-		return loginPage;
-	}
+      if(loginPage == null) {
+        try {
+          getWait().until(presenceOfElementLocated(By.id("loginForm")));
+            WebElement loginForm = getDriver().findElement(By.id("loginForm"));
+            assert(loginForm != null);
+            
+            loginPage = initElements(new DefaultLoginPage<ApplicationEntrancePageManager>(this));
+        } catch (NoSuchElementException ex) {
+            getWait().until(presenceOfElementLocated(By.id(AutomationConstant.LOGIN_USERNAME_FIELD_ID)));
+            getWait().until(presenceOfElementLocated(By.id(AutomationConstant.LOGIN_PASSWORD_FIELD_ID)));
+              loginPage = initElements(new JepRiaLoginPage<ApplicationEntrancePageManager>(this));
+        }
+      }
+      
+    return loginPage;
+  }
 }

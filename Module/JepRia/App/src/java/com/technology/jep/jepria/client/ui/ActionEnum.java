@@ -20,20 +20,20 @@ import static com.technology.jep.jepria.client.ui.UiSecurity.SHOW_EXCEL_EVENT_NA
  * Поэтому на системном уровне пользовательские состояния не поддерживаются.
  */
 public enum ActionEnum {
-	DELETE(DO_DELETE_EVENT_NAME),
-	PRINT(DO_PRINT_EVENT_NAME),
-	SAVE(SAVE_EVENT_NAME),			// TODO Нужно ли это ?
-	SEARCH(DO_SEARCH_EVENT_NAME),
-	SHOW_EXCEL(SHOW_EXCEL_EVENT_NAME);
+  DELETE(DO_DELETE_EVENT_NAME),
+  PRINT(DO_PRINT_EVENT_NAME),
+  SAVE(SAVE_EVENT_NAME),      // TODO Нужно ли это ?
+  SEARCH(DO_SEARCH_EVENT_NAME),
+  SHOW_EXCEL(SHOW_EXCEL_EVENT_NAME);
 
-	private String actionId = null;
+  private String actionId = null;
 
-	private ActionEnum(String actionId) {
-		this.actionId = actionId;
-	}
+  private ActionEnum(String actionId) {
+    this.actionId = actionId;
+  }
 
-	@Override
-	public String toString() {
-		return actionId;
-	}
+  @Override
+  public String toString() {
+    return actionId;
+  }
 }

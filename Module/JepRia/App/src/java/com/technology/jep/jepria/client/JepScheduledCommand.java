@@ -9,27 +9,27 @@ import com.google.gwt.core.client.Scheduler.ScheduledCommand;
  * @param <T> тип хранимых данных
  */
 abstract public class JepScheduledCommand<T> implements ScheduledCommand {
-	/**
-	 * Хранимые данные.
-	 */
-	private T data;
+  /**
+   * Хранимые данные.
+   */
+  private T data;
 
-	/**
-	 * Помещение хранимых данных.
-	 * 
-	 * @param data данные
-	 */
-	public void setData(T data) {
-		this.data = data;
-	}
+  /**
+   * Помещение хранимых данных.
+   * 
+   * @param data данные
+   */
+  public void setData(T data) {
+    this.data = data;
+  }
 
-	/**
-	 * Извлечение хранимых данных.
-	 * 
-	 * @return данные
-	 */
-	public T getData() {
-		return data;
-	}
+  /**
+   * Извлечение хранимых данных.
+   * 
+   * @return данные
+   */
+  public T getData() {
+    return data;
+  }
 
 }

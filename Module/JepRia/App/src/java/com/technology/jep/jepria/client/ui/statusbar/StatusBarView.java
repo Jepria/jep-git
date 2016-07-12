@@ -9,22 +9,22 @@ import com.technology.jep.jepria.client.ui.WorkstateEnum;
  */
 public interface StatusBarView extends JepView<JepPresenter> {
 
-	/**
-	 * Высота по умолчанию.
-	 */
-	int DEFAULT_HEIGHT = 22;
+  /**
+   * Высота по умолчанию.
+   */
+  int DEFAULT_HEIGHT = 22;
 
-	/**
-	 * Установка высоты.
-	 *
-	 * @param height высота
-	 */
-	void setHeight(int height);
+  /**
+   * Установка высоты.
+   *
+   * @param height высота
+   */
+  void setHeight(int height);
 
-	/**
-	 * Установка заголовка по заданному режиму работы.
-	 *
-	 * @param workstate состояние работы
-	 */
-	void showWorkstate(WorkstateEnum workstate);
+  /**
+   * Установка заголовка по заданному режиму работы.
+   *
+   * @param workstate состояние работы
+   */
+  void showWorkstate(WorkstateEnum workstate);
 }

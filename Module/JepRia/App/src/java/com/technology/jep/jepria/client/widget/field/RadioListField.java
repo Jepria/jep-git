@@ -23,84 +23,84 @@ import com.technology.jep.jepria.shared.field.option.JepOption;
 
 public class RadioListField<T extends JepOption> extends VerticalPanel implements HasValue<T> {
 
-	private T currentValue;
-	private Map<T, RadioButton> radios = new HashMap<T, RadioButton>();
-	private final String RADIO_GROUP_NAME = "RadioButtonGroup_" + Random.nextInt();
-	private final static String RADIO_ITEM_STYLE = "item";
-	
-	public void setOptions(List<T> options){
-		for (T option : options){
-			final RadioButton radio = new RadioButton(RADIO_GROUP_NAME, option.getName()){
-				@Override
-				public void onAttach(){
-					super.onAttach();
-					
-					Element radioButtonElement = getElement();
-					for (int i = 0; i < radioButtonElement.getChildCount(); i++){
-						Node child = radioButtonElement.getChild(i);
-						// Найдем соответствующие input-элемент и label-элемент.
-						if (child instanceof Element){
-							Element labelElement = (Element) child; 
-							if(((Element) child).getTagName().equalsIgnoreCase("label")){
-								labelElement.addClassName(RADIO_ITEM_STYLE);
-								labelElement.addClassName(MAIN_FONT_STYLE);
-							}
-							else if (((Element) child).getTagName().equalsIgnoreCase("input")){
-								Element inputElement = (Element) child; 
-								inputElement.addClassName(RADIO_ITEM_STYLE);
-							}
-						}		
-					}
-				}
-			};
-			radio.addValueChangeHandler(new ValueChangeHandler<Boolean>() {
-				@Override
-				public void onValueChange(ValueChangeEvent<Boolean> event) {
-					if (event.getValue()){
-						setValue(getValueByField(radio), true);
-					}
-				}
-			});
-			
-			radios.put(option, radio);
-			
-			add(radio);
-			setCellHeight(radio, (FIELD_DEFAULT_HEIGHT + 2) + Unit.PX.getType());
-		}
-	}
-	
-	public HandlerRegistration addValueChangeHandler(ValueChangeHandler<T> handler) {
-		return addHandler(handler, ValueChangeEvent.getType());
-	}
+  private T currentValue;
+  private Map<T, RadioButton> radios = new HashMap<T, RadioButton>();
+  private final String RADIO_GROUP_NAME = "RadioButtonGroup_" + Random.nextInt();
+  private final static String RADIO_ITEM_STYLE = "item";
+  
+  public void setOptions(List<T> options){
+    for (T option : options){
+      final RadioButton radio = new RadioButton(RADIO_GROUP_NAME, option.getName()){
+        @Override
+        public void onAttach(){
+          super.onAttach();
+          
+          Element radioButtonElement = getElement();
+          for (int i = 0; i < radioButtonElement.getChildCount(); i++){
+            Node child = radioButtonElement.getChild(i);
+            // Найдем соответствующие input-элемент и label-элемент.
+            if (child instanceof Element){
+              Element labelElement = (Element) child; 
+              if(((Element) child).getTagName().equalsIgnoreCase("label")){
+                labelElement.addClassName(RADIO_ITEM_STYLE);
+                labelElement.addClassName(MAIN_FONT_STYLE);
+              }
+              else if (((Element) child).getTagName().equalsIgnoreCase("input")){
+                Element inputElement = (Element) child; 
+                inputElement.addClassName(RADIO_ITEM_STYLE);
+              }
+            }    
+          }
+        }
+      };
+      radio.addValueChangeHandler(new ValueChangeHandler<Boolean>() {
+        @Override
+        public void onValueChange(ValueChangeEvent<Boolean> event) {
+          if (event.getValue()){
+            setValue(getValueByField(radio), true);
+          }
+        }
+      });
+      
+      radios.put(option, radio);
+      
+      add(radio);
+      setCellHeight(radio, (FIELD_DEFAULT_HEIGHT + 2) + Unit.PX.getType());
+    }
+  }
+  
+  public HandlerRegistration addValueChangeHandler(ValueChangeHandler<T> handler) {
+    return addHandler(handler, ValueChangeEvent.getType());
+  }
 
-	public T getValue() {
-		return currentValue;
-	}
+  public T getValue() {
+    return currentValue;
+  }
 
-	public void setValue(T value) {
-		setValue(value, false);
-	}
+  public void setValue(T value) {
+    setValue(value, false);
+  }
 
-	public void setValue(T value, boolean fireEvents) {
-		final T oldValue = getValue();
-		
-		this.currentValue = value;
-		for (Entry<T, RadioButton> entry: radios.entrySet()){
-			entry.getValue().setValue(entry.getKey().equals(this.currentValue));
-		}
-		
-		if (fireEvents) {
-			ValueChangeEvent.fireIfNotEqual(this, oldValue, this.currentValue);
-		}
-	}
-	
-	public T getValueByField(RadioButton button){
-		for (Entry<T, RadioButton> entry: radios.entrySet()){
-			// find checked radio button
-			if (entry.getValue().equals(button)){
-				return entry.getKey();
-			}
-		}
-		return null;
-	}
+  public void setValue(T value, boolean fireEvents) {
+    final T oldValue = getValue();
+    
+    this.currentValue = value;
+    for (Entry<T, RadioButton> entry: radios.entrySet()){
+      entry.getValue().setValue(entry.getKey().equals(this.currentValue));
+    }
+    
+    if (fireEvents) {
+      ValueChangeEvent.fireIfNotEqual(this, oldValue, this.currentValue);
+    }
+  }
+  
+  public T getValueByField(RadioButton button){
+    for (Entry<T, RadioButton> entry: radios.entrySet()){
+      // find checked radio button
+      if (entry.getValue().equals(button)){
+        return entry.getKey();
+      }
+    }
+    return null;
+  }
 }

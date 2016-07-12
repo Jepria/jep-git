@@ -9,24 +9,24 @@ import com.technology.jep.jepria.client.ui.eventbus.plain.PlainEventBus;
 import com.technology.jep.jepria.client.ui.plain.StandardClientFactory;
 import com.technology.jep.jepria.shared.service.data.JepDataServiceAsync;
 
-public class ToolBarActivityMapper<F extends StandardClientFactory<PlainEventBus, JepDataServiceAsync>>	
-	extends JepActivityMapper<PlainEventBus, F> implements ActivityMapper {
+public class ToolBarActivityMapper<F extends StandardClientFactory<PlainEventBus, JepDataServiceAsync>>  
+  extends JepActivityMapper<PlainEventBus, F> implements ActivityMapper {
 
-	/**
-	 * Презентер инструментальной панели.
-	 */
-	protected JepPresenter toolBarPresenter = null;
+  /**
+   * Презентер инструментальной панели.
+   */
+  protected JepPresenter toolBarPresenter = null;
 
-	public ToolBarActivityMapper(F clientFactory) {
-		super(clientFactory);
-	}
+  public ToolBarActivityMapper(F clientFactory) {
+    super(clientFactory);
+  }
 
-	public Activity getActivity(Place place) {
-		if(toolBarPresenter == null) {
-			toolBarPresenter = clientFactory.createToolBarPresenter(place);
-		} else {
-			toolBarPresenter.setPlace(place);
-		}
-		return toolBarPresenter;
-	}
+  public Activity getActivity(Place place) {
+    if(toolBarPresenter == null) {
+      toolBarPresenter = clientFactory.createToolBarPresenter(place);
+    } else {
+      toolBarPresenter.setPlace(place);
+    }
+    return toolBarPresenter;
+  }
 }

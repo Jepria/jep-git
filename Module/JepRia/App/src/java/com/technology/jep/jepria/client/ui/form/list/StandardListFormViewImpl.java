@@ -18,45 +18,45 @@ import com.technology.jep.jepria.shared.record.JepRecord;
  */
 @SuppressWarnings("rawtypes")
 public abstract class StandardListFormViewImpl extends ListFormViewImpl<GridManager> {
-	
-	/**
-	 * Grid для возможности управления столбцамии и строками
-	 * (например, раскраска строк или добавление/удаление столбцов).
-	 */
-	protected JepGrid<JepRecord> grid;
-	
-	@Deprecated
-	public StandardListFormViewImpl(String cookieId) {
-		this(cookieId, null);
-	}
-	
-	@SuppressWarnings("unchecked")
-	public StandardListFormViewImpl(String cookieId, String gridIdAsWebEl) {
-		super(new GridManager());
-		
-		HeaderPanel gridPanel = new HeaderPanel();
-		setWidget(gridPanel);
-		
-		gridPanel.setHeight("100%");
-		gridPanel.setWidth("100%");
-		
-		List<JepColumn> columnConfigurations = getColumnConfigurations();
-		if (columnConfigurations == null) { // эта проверка на всякий случай - ничего страшного, если тут будет null
-				columnConfigurations = new ArrayList<JepColumn>();
-		}
-		
-		grid = new JepGrid<JepRecord>(cookieId, gridIdAsWebEl, columnConfigurations);
-		PagingStandardBar pagingBar = new PagingStandardBar(25);
-		
-		gridPanel.setContentWidget(grid);
-		gridPanel.setFooterWidget(pagingBar);
+  
+  /**
+   * Grid для возможности управления столбцамии и строками
+   * (например, раскраска строк или добавление/удаление столбцов).
+   */
+  protected JepGrid<JepRecord> grid;
+  
+  @Deprecated
+  public StandardListFormViewImpl(String cookieId) {
+    this(cookieId, null);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public StandardListFormViewImpl(String cookieId, String gridIdAsWebEl) {
+    super(new GridManager());
+    
+    HeaderPanel gridPanel = new HeaderPanel();
+    setWidget(gridPanel);
+    
+    gridPanel.setHeight("100%");
+    gridPanel.setWidth("100%");
+    
+    List<JepColumn> columnConfigurations = getColumnConfigurations();
+    if (columnConfigurations == null) { // эта проверка на всякий случай - ничего страшного, если тут будет null
+        columnConfigurations = new ArrayList<JepColumn>();
+    }
+    
+    grid = new JepGrid<JepRecord>(cookieId, gridIdAsWebEl, columnConfigurations);
+    PagingStandardBar pagingBar = new PagingStandardBar(25);
+    
+    gridPanel.setContentWidget(grid);
+    gridPanel.setFooterWidget(pagingBar);
 
-		list.setWidget(grid);
-		list.setPagingToolBar(pagingBar);
-	}
-	
-	/**
-	* Метод должен быть переопределен в наследниках и возвращать список столбцов.
-	*/
-	protected abstract List<JepColumn> getColumnConfigurations();
+    list.setWidget(grid);
+    list.setPagingToolBar(pagingBar);
+  }
+  
+  /**
+  * Метод должен быть переопределен в наследниках и возвращать список столбцов.
+  */
+  protected abstract List<JepColumn> getColumnConfigurations();
 }

@@ -4,5 +4,5 @@ import com.google.gwt.event.shared.EventBus;
 
 public interface EventFilter<E extends EventBus> {
 
-	public boolean checkEvent(BusEvent<?> event);
+  public boolean checkEvent(BusEvent<?> event);
 }

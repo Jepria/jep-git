@@ -12,77 +12,77 @@ import com.technology.jep.jepria.shared.exceptions.SystemException;
  */
 public abstract class AbstractFileUpload implements FileUpload {
 
-	protected CallContext storedContext;
-	protected LargeObject largeObject = null;
+  protected CallContext storedContext;
+  protected LargeObject largeObject = null;
 
-	/**
-	 * Функция-обертка для {@link #beginWrite(String tableName, String fileFieldName, String keyFieldName, Object rowId, String dataSourceJndiName, String moduleName)}.
-	 * В классе реализации в конкретном модуле данный метод перегружаем вызывая в нем 
-	 * {@link #beginWrite(String tableName, String fileFieldName, String keyFieldName, Object rowId, String dataSourceJndiName, String moduleName)}
-	 * с подставленными из констант класса реализации параметрами:<br/>
-	 * <code>
-	 * tableName,<br/>
-	 * fileFieldName,<br/>
-	 * keyFieldName,<br/>
-	 * dataSourceJndiName<br/>
-	 * </code>.
-	 * В данном базовом классе содержит пустую реализацию, возвращающую 0.
-	 * 
-	 * @param rowId 				идентификатор строки таблицы
-	 * @return рекомендуемый размер буфера
-	 * @throws ApplicationException 
-	 */
-	public int beginWrite(Object rowId) 
-		throws ApplicationException {
+  /**
+   * Функция-обертка для {@link #beginWrite(String tableName, String fileFieldName, String keyFieldName, Object rowId, String dataSourceJndiName, String moduleName)}.
+   * В классе реализации в конкретном модуле данный метод перегружаем вызывая в нем 
+   * {@link #beginWrite(String tableName, String fileFieldName, String keyFieldName, Object rowId, String dataSourceJndiName, String moduleName)}
+   * с подставленными из констант класса реализации параметрами:<br/>
+   * <code>
+   * tableName,<br/>
+   * fileFieldName,<br/>
+   * keyFieldName,<br/>
+   * dataSourceJndiName<br/>
+   * </code>.
+   * В данном базовом классе содержит пустую реализацию, возвращающую 0.
+   * 
+   * @param rowId         идентификатор строки таблицы
+   * @return рекомендуемый размер буфера
+   * @throws ApplicationException 
+   */
+  public int beginWrite(Object rowId) 
+    throws ApplicationException {
 
-		return 0;
-	}	
+    return 0;
+  }  
 
-	/**
-	 * Окончание выгрузки.
-	 * После выполнения этого метода stateful bean должен быть удалён. 
-	 * Для удаления bean необходимо в классе реализации перед методом указать декларацию Remove.
-	 *
-	 * @throws SpaceException
-	 */
-	public void endWrite() throws SpaceException {
-		CallContext.attach(storedContext);
-		try {
-			largeObject.endWrite();
-			CallContext.commit();
-		} catch (SpaceException ex) {
-			cancel();
-			throw ex;
-		} catch (Throwable th) {
-			th.printStackTrace();
-			throw new SystemException("end write error", new RuntimeException(th));
-		} finally {
-			CallContext.end();
-		}
-	}
+  /**
+   * Окончание выгрузки.
+   * После выполнения этого метода stateful bean должен быть удалён. 
+   * Для удаления bean необходимо в классе реализации перед методом указать декларацию Remove.
+   *
+   * @throws SpaceException
+   */
+  public void endWrite() throws SpaceException {
+    CallContext.attach(storedContext);
+    try {
+      largeObject.endWrite();
+      CallContext.commit();
+    } catch (SpaceException ex) {
+      cancel();
+      throw ex;
+    } catch (Throwable th) {
+      th.printStackTrace();
+      throw new SystemException("end write error", new RuntimeException(th));
+    } finally {
+      CallContext.end();
+    }
+  }
 
-	/**
-	 * Откат длинной транзакции.
-	 * После выполнения этого метода stateful bean должен быть удалён. 
-	 * Для удаления bean необходимо в классе реализации перед методом указать декларацию Remove.
-	 */
-	public void cancel() {
-		if (storedContext != null) {
-			CallContext.attach(storedContext);
-		}
-		try {
-			if (largeObject != null) {
-				largeObject.cancel();
-			}
-			CallContext.rollback();
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		} finally {
-			try {
-				CallContext.end();
-			} catch (Throwable e) {
-				e.printStackTrace();
-			}
-		}
-	}
+  /**
+   * Откат длинной транзакции.
+   * После выполнения этого метода stateful bean должен быть удалён. 
+   * Для удаления bean необходимо в классе реализации перед методом указать декларацию Remove.
+   */
+  public void cancel() {
+    if (storedContext != null) {
+      CallContext.attach(storedContext);
+    }
+    try {
+      if (largeObject != null) {
+        largeObject.cancel();
+      }
+      CallContext.rollback();
+    } catch (Exception ex) {
+      ex.printStackTrace();
+    } finally {
+      try {
+        CallContext.end();
+      } catch (Throwable e) {
+        e.printStackTrace();
+      }
+    }
+  }
 }

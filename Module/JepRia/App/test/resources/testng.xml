@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Suite" parallel="false">
-	<test name="Test">
-<!-- 		<parameter name="baseUrl" value="http://srvt16.d.t/info/JepRiaShowcase/JepRiaShowcase.jsp?em=Goods"/> -->
-		<parameter name="baseUrl" value="http://srvt16.d.t/info/JepRiaShowcase/#sh:sm=Custom&amp;ws=sh"/>
-		<groups>
-			<run>
-				<exclude name="broken" />
-			</run>
-		</groups>
-		<classes>
-			<class name="com.technology.jep.auto.entrance.EntranceAutoTest" />
-			<class name="com.technology.jep.auto.entrance.ApplicationEntranceAutoTest" />
-			<class name="com.technology.jep.auto.entrance.NavigationEntranceAutoTest" />
-		</classes>
-	</test> <!-- Test -->
+  <test name="Test">
+<!--     <parameter name="baseUrl" value="http://srvt16.d.t/info/JepRiaShowcase/JepRiaShowcase.jsp?em=Goods"/> -->
+    <parameter name="baseUrl" value="http://srvt16.d.t/info/JepRiaShowcase/#sh:sm=Custom&amp;ws=sh"/>
+    <groups>
+      <run>
+        <exclude name="broken" />
+      </run>
+    </groups>
+    <classes>
+      <class name="com.technology.jep.auto.entrance.EntranceAutoTest" />
+      <class name="com.technology.jep.auto.entrance.ApplicationEntranceAutoTest" />
+      <class name="com.technology.jep.auto.entrance.NavigationEntranceAutoTest" />
+    </classes>
+  </test> <!-- Test -->
 </suite> <!-- Suite -->

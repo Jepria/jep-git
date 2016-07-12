@@ -20,79 +20,79 @@ import com.technology.jep.jepria.shared.service.JepMainServiceAsync;
  */
 public class JepEntryPoint implements EntryPoint {
 
-	protected MainClientFactory<MainEventBus, JepMainServiceAsync> clientFactory;
+  protected MainClientFactory<MainEventBus, JepMainServiceAsync> clientFactory;
 
-	public JepEntryPoint(MainClientFactory<MainEventBus, JepMainServiceAsync> clientFactory) {
-		this.clientFactory = clientFactory;
-	}
+  public JepEntryPoint(MainClientFactory<MainEventBus, JepMainServiceAsync> clientFactory) {
+    this.clientFactory = clientFactory;
+  }
 
-	public void onModuleLoad() {
-		Log.trace(this.getClass() + ".onModuleLoad()");
+  public void onModuleLoad() {
+    Log.trace(this.getClass() + ".onModuleLoad()");
 
-		// Set uncaught exception handler.
-		GWT.setUncaughtExceptionHandler(new GWT.UncaughtExceptionHandler() {
+    // Set uncaught exception handler.
+    GWT.setUncaughtExceptionHandler(new GWT.UncaughtExceptionHandler() {
 
-			public void onUncaughtException(Throwable th) {
-				String text = "Uncaught exception: ";
-				while (th != null) {
-					StackTraceElement[] stackTraceElements = th.getStackTrace();
-					text += th.toString() + "\n";
-					if(stackTraceElements != null) {
-						for (StackTraceElement element : stackTraceElements) {
-							text += "    at " + element + "\n";
-						}
-					}
+      public void onUncaughtException(Throwable th) {
+        String text = "Uncaught exception: ";
+        while (th != null) {
+          StackTraceElement[] stackTraceElements = th.getStackTrace();
+          text += th.toString() + "\n";
+          if(stackTraceElements != null) {
+            for (StackTraceElement element : stackTraceElements) {
+              text += "    at " + element + "\n";
+            }
+          }
 
-					th = th.getCause();
-					if (th != null) {
-						text += "Caused by: ";
-					}
-				}
-				DialogBox dialogBox = new DialogBox(true);
-				dialogBox.getElement().getStyle().setProperty("backgroundColor", "#ABCDEF");
-				System.err.print(text);
-				text = text.replaceAll(" ", "&nbsp;");
-				dialogBox.setHTML("<pre>" + text + "</pre>");
-				dialogBox.center();
-			}
-		});
+          th = th.getCause();
+          if (th != null) {
+            text += "Caused by: ";
+          }
+        }
+        DialogBox dialogBox = new DialogBox(true);
+        dialogBox.getElement().getStyle().setProperty("backgroundColor", "#ABCDEF");
+        System.err.print(text);
+        text = text.replaceAll(" ", "&nbsp;");
+        dialogBox.setHTML("<pre>" + text + "</pre>");
+        dialogBox.center();
+      }
+    });
 
-		// Use a deferred so that the handler catches onModuleLoad() exceptions.
-		Scheduler.get().scheduleDeferred(new ScheduledCommand() {
-			public void execute() {
-				initHistory();
-				Log.info("Application started");
-			}
-		});
-	}
-	
-	/**
-	 * Настраивает обработку History приложения.<br/>
-	 * Все последующие действия приложения (запуск приложения, настройка и т.п.) происходят на основе обработки History.
-	 */
-	protected void initHistory() {
-		Log.trace(this.getClass() + ".initHistory();");
-		
-		PlaceHistoryMapper historyMapper = createPlaceHistoryMapper();
-		PlaceHistoryHandler historyHandler = new PlaceHistoryHandler(historyMapper);
+    // Use a deferred so that the handler catches onModuleLoad() exceptions.
+    Scheduler.get().scheduleDeferred(new ScheduledCommand() {
+      public void execute() {
+        initHistory();
+        Log.info("Application started");
+      }
+    });
+  }
+  
+  /**
+   * Настраивает обработку History приложения.<br/>
+   * Все последующие действия приложения (запуск приложения, настройка и т.п.) происходят на основе обработки History.
+   */
+  protected void initHistory() {
+    Log.trace(this.getClass() + ".initHistory();");
+    
+    PlaceHistoryMapper historyMapper = createPlaceHistoryMapper();
+    PlaceHistoryHandler historyHandler = new PlaceHistoryHandler(historyMapper);
 
-		JepPlaceController mainModulePlaceController = clientFactory.getPlaceController();
-		MainEventBus eventBus = clientFactory.getEventBus();
-		Place defaultPlace = clientFactory.getDefaultPlace();
+    JepPlaceController mainModulePlaceController = clientFactory.getPlaceController();
+    MainEventBus eventBus = clientFactory.getEventBus();
+    Place defaultPlace = clientFactory.getDefaultPlace();
 
-		historyHandler.register(mainModulePlaceController, eventBus, defaultPlace);
+    historyHandler.register(mainModulePlaceController, eventBus, defaultPlace);
 
-		historyHandler.handleCurrentHistory();
-	}
+    historyHandler.handleCurrentHistory();
+  }
 
-	/**
-	 * Создание экземпляра объекта отображения Place'ов в/из History Token'а.<br/>
-	 * Метод переопределяется в потомках для возможности создания новых Place'ов на прикладном уровне.
-	 *
-	 * @return экземпляр объекта отображения Place'ов в/из History Token'а
-	 */
-	protected PlaceHistoryMapper createPlaceHistoryMapper() {
-		return GWT.create(DefaultPlaceHistoryMapper.class);
-	}
+  /**
+   * Создание экземпляра объекта отображения Place'ов в/из History Token'а.<br/>
+   * Метод переопределяется в потомках для возможности создания новых Place'ов на прикладном уровне.
+   *
+   * @return экземпляр объекта отображения Place'ов в/из History Token'а
+   */
+  protected PlaceHistoryMapper createPlaceHistoryMapper() {
+    return GWT.create(DefaultPlaceHistoryMapper.class);
+  }
 
 }

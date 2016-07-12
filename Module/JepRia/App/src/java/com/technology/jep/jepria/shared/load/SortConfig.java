@@ -4,55 +4,55 @@ package com.technology.jep.jepria.shared.load;
  * Класс содержащий параметры (конфигурацию) необходимые для выполнения сортировки данных списка.
  */
 public class SortConfig extends PagingConfig {
-	private static final long serialVersionUID = 1L;
-	
+  private static final long serialVersionUID = 1L;
+  
   /**
    * Поле сортировки.
    */
   private String sortField;
-	
-	/**
-	 * Направление сортировки.
-	 */
+  
+  /**
+   * Направление сортировки.
+   */
   private SortDir sortDir = SortDir.NONE;
 
-	/**
-	 * Направление сортировки.
-	 */
+  /**
+   * Направление сортировки.
+   */
   public enum SortDir {
 
-		/**
-		 * Сортировка отсутствует.
-		 */
-		NONE,
+    /**
+     * Сортировка отсутствует.
+     */
+    NONE,
 
-		/**
-		 * Сортировка по возрастанию.
-		 */
-		ASC,
+    /**
+     * Сортировка по возрастанию.
+     */
+    ASC,
 
-		/**
-		 * Сортировка по убыванию.
-		 */
-		DESC;
-	}
-	
-	/**
-	 * Создает конфигурацию сортировки с атрибутами по умолчанию.
-	 */
-	public SortConfig() {
-	}
-	
-	/**
-	 * Создает конфигурацию сортировки с заданным полем и направлением сортировки.
-	 *
-	 * @param sortField поле сортировки
-	 * @param sortDir направление сортировки
-	 */
-	public SortConfig(String sortField, SortDir sortDir) {
-		this.sortField = sortField;
-		this.sortDir = sortDir;
-	}
+    /**
+     * Сортировка по убыванию.
+     */
+    DESC;
+  }
+  
+  /**
+   * Создает конфигурацию сортировки с атрибутами по умолчанию.
+   */
+  public SortConfig() {
+  }
+  
+  /**
+   * Создает конфигурацию сортировки с заданным полем и направлением сортировки.
+   *
+   * @param sortField поле сортировки
+   * @param sortDir направление сортировки
+   */
+  public SortConfig(String sortField, SortDir sortDir) {
+    this.sortField = sortField;
+    this.sortDir = sortDir;
+  }
 
   /**
    * Возвращает поле сортировки.
@@ -90,20 +90,20 @@ public class SortConfig extends PagingConfig {
     this.sortDir = sortDir;
   }
 
-	/**
-	 * Переводит объект класса конфигурации в строковое представление.
-	 *
-	 * @return строковое представление конфигурации
-	 */
-	public String toString() {
-		StringBuffer sbResult = new StringBuffer();
-		sbResult.append("sortField=");
-		sbResult.append(sortField);
-		sbResult.append(",\n");
-		sbResult.append("sortDir=");
-		sbResult.append(sortDir);
-		sbResult.append(",\n");
-		sbResult.append(super.toString());
-		return sbResult.toString();
-	}
+  /**
+   * Переводит объект класса конфигурации в строковое представление.
+   *
+   * @return строковое представление конфигурации
+   */
+  public String toString() {
+    StringBuffer sbResult = new StringBuffer();
+    sbResult.append("sortField=");
+    sbResult.append(sortField);
+    sbResult.append(",\n");
+    sbResult.append("sortDir=");
+    sbResult.append(sortDir);
+    sbResult.append(",\n");
+    sbResult.append(super.toString());
+    return sbResult.toString();
+  }
 }

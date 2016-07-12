@@ -5,10 +5,10 @@ import com.google.gwt.event.shared.EventBus;
 
 public abstract class JepActivityMapper<E extends EventBus, F extends  ClientFactory<E>> implements ActivityMapper {
 
-	protected F clientFactory;
+  protected F clientFactory;
 
-	public JepActivityMapper(F clientFactory) {
-		this.clientFactory = clientFactory;
-	}
-	
+  public JepActivityMapper(F clientFactory) {
+    this.clientFactory = clientFactory;
+  }
+  
 }

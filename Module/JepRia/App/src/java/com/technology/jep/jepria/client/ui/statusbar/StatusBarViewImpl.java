@@ -21,54 +21,54 @@ import com.technology.jep.jepria.client.ui.WorkstateEnum;
  */
 public class StatusBarViewImpl implements StatusBarView {
 
-	protected JepPresenter presenter = null;
-	protected Label label;
-	
-	public StatusBarViewImpl() {
-		label = new Label();
-		label.getElement().setId(AutomationConstant.STATUSBAR_PANEL_ID);
-		
-		/*
-		 * Предполагаем, что look & feel аналогичен панели инструментов.
-		 */
-		label.addStyleName(STATUSBAR_DEFAULT_STYLE);
-		
-		setHeight(DEFAULT_HEIGHT);
-	}
+  protected JepPresenter presenter = null;
+  protected Label label;
+  
+  public StatusBarViewImpl() {
+    label = new Label();
+    label.getElement().setId(AutomationConstant.STATUSBAR_PANEL_ID);
+    
+    /*
+     * Предполагаем, что look & feel аналогичен панели инструментов.
+     */
+    label.addStyleName(STATUSBAR_DEFAULT_STYLE);
+    
+    setHeight(DEFAULT_HEIGHT);
+  }
 
-	public void setHeight(int height) {
-		label.setHeight(height + Unit.PX.getType());
-	}
+  public void setHeight(int height) {
+    label.setHeight(height + Unit.PX.getType());
+  }
 
-	public void setWidget(Widget widget) {
-		label = (Label)widget;
-		label.getElement().setId(AutomationConstant.STATUSBAR_PANEL_ID);
-	}
-	
-	public Widget asWidget() {
-		return label;
-	}
-	
-	public void setPresenter(JepPresenter presenter) {
-		this.presenter = presenter;
-	}
-	
-	public void showWorkstate(WorkstateEnum workstate) {
-		String displayState = "";
-		if (CREATE.equals(workstate)) {
-			displayState = JepTexts.workstate_add();
-		} else if (VIEW_DETAILS.equals(workstate)) {
-			displayState = JepTexts.workstate_viewDetails();
-		} else if (VIEW_LIST.equals(workstate)) {
-			displayState = JepTexts.workstate_viewList();
-		} else if (EDIT.equals(workstate)) {
-			displayState = JepTexts.workstate_edit();
-		} else if (SEARCH.equals(workstate)) {
-			displayState = JepTexts.workstate_search();
-		} else if (SELECTED.equals(workstate)) {
-			displayState = JepTexts.workstate_selected();
-		}
-		label.setText(displayState);
-	}
-	
+  public void setWidget(Widget widget) {
+    label = (Label)widget;
+    label.getElement().setId(AutomationConstant.STATUSBAR_PANEL_ID);
+  }
+  
+  public Widget asWidget() {
+    return label;
+  }
+  
+  public void setPresenter(JepPresenter presenter) {
+    this.presenter = presenter;
+  }
+  
+  public void showWorkstate(WorkstateEnum workstate) {
+    String displayState = "";
+    if (CREATE.equals(workstate)) {
+      displayState = JepTexts.workstate_add();
+    } else if (VIEW_DETAILS.equals(workstate)) {
+      displayState = JepTexts.workstate_viewDetails();
+    } else if (VIEW_LIST.equals(workstate)) {
+      displayState = JepTexts.workstate_viewList();
+    } else if (EDIT.equals(workstate)) {
+      displayState = JepTexts.workstate_edit();
+    } else if (SEARCH.equals(workstate)) {
+      displayState = JepTexts.workstate_search();
+    } else if (SELECTED.equals(workstate)) {
+      displayState = JepTexts.workstate_selected();
+    }
+    label.setText(displayState);
+  }
+  
 }

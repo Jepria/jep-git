@@ -34,81 +34,81 @@ import com.technology.jep.jepria.shared.record.JepRecord;
  * </dl>
  */
 public class GridManager<W extends AbstractCellTable<JepRecord>, P extends PagingToolBar, S extends SetSelectionModel<JepRecord>> extends
-		PagingManager<W, P, S> {
+    PagingManager<W, P, S> {
 
-	/**
-	 * Очистка списка значений в компоненте-списка.
-	 */
-	public void clear() {
-		super.clear();
-		
-		widget.getColumnSortList().clear();
-	}
+  /**
+   * Очистка списка значений в компоненте-списка.
+   */
+  public void clear() {
+    super.clear();
+    
+    widget.getColumnSortList().clear();
+  }
 
-	/**
-	 * Получение информации о колонках.
-	 * 
-	 * @return информация о колонках в виде
-	 *         {@link com.technology.jep.jepria.client.widget.list.JepColumnConfig};
-	 */
-	public List<JepColumnConfig> getColumnModel() {
-		List<JepColumnConfig> columnModel = new ArrayList<JepColumnConfig>();
-		for (int i = 0; i < widget.getColumnCount(); i++) {
-			Column<JepRecord, ?> column = widget.getColumn(i);
-			Header header  = widget.getHeader(i);
-			if (header != null) {
-				columnModel.add(new JepColumnConfig(header, column));
-			}
-		} 
-		return columnModel;
-	}
+  /**
+   * Получение информации о колонках.
+   * 
+   * @return информация о колонках в виде
+   *         {@link com.technology.jep.jepria.client.widget.list.JepColumnConfig};
+   */
+  public List<JepColumnConfig> getColumnModel() {
+    List<JepColumnConfig> columnModel = new ArrayList<JepColumnConfig>();
+    for (int i = 0; i < widget.getColumnCount(); i++) {
+      Column<JepRecord, ?> column = widget.getColumn(i);
+      Header header  = widget.getHeader(i);
+      if (header != null) {
+        columnModel.add(new JepColumnConfig(header, column));
+      }
+    } 
+    return columnModel;
+  }
 
-	/**
-	 * Добавление слушателя определенного типа событий.<br/>
-	 * Концепция поддержки обработки событий и пример реализации метода отражен
-	 * в описании пакета {@link com.technology.jep.jepria.client.widget}.
-	 * 
-	 * @param eventType
-	 *            тип события
-	 * @param listener
-	 *            слушатель
-	 */
-	public void addListener(JepEventType eventType, JepListener listener) {
-		switch (eventType) {
-		case CHANGE_SORT_EVENT:
-			addChangeSortListener();
-			break;
-		}
+  /**
+   * Добавление слушателя определенного типа событий.<br/>
+   * Концепция поддержки обработки событий и пример реализации метода отражен
+   * в описании пакета {@link com.technology.jep.jepria.client.widget}.
+   * 
+   * @param eventType
+   *            тип события
+   * @param listener
+   *            слушатель
+   */
+  public void addListener(JepEventType eventType, JepListener listener) {
+    switch (eventType) {
+    case CHANGE_SORT_EVENT:
+      addChangeSortListener();
+      break;
+    }
 
-		super.addListener(eventType, listener);
-	}
+    super.addListener(eventType, listener);
+  }
 
-	/**
-	 * Добавление sпрослушивателей для реализации прослушивания события
-	 * {@link com.technology.jep.jepria.client.widget.event.JepEventType#CHANGE_SORT_EVENT}
-	 * .<br/>
-	 */
-	protected void addChangeSortListener() {
+  /**
+   * Добавление sпрослушивателей для реализации прослушивания события
+   * {@link com.technology.jep.jepria.client.widget.event.JepEventType#CHANGE_SORT_EVENT}
+   * .<br/>
+   */
+  protected void addChangeSortListener() {
 
-		widget.addColumnSortHandler(new ListHandler<JepRecord>(null) {
-			@Override
-			public void onColumnSort(ColumnSortEvent event) {
-				Log.debug("PagingManager.onColumnSort");
-				Column<?, ?> column = event.getColumn();
-				String sortField = column.getDataStoreName();
-				SortConfig.SortDir jepSortDir = SortConfig.SortDir.NONE;
-				if (sortField != null) {
-					if (event.isSortAscending()) {
-						jepSortDir = SortConfig.SortDir.ASC;
-					} else {
-						jepSortDir = SortConfig.SortDir.DESC;
+    widget.addColumnSortHandler(new ListHandler<JepRecord>(null) {
+      @Override
+      public void onColumnSort(ColumnSortEvent event) {
+        Log.debug("PagingManager.onColumnSort");
+        Column<?, ?> column = event.getColumn();
+        String sortField = column.getDataStoreName();
+        SortConfig.SortDir jepSortDir = SortConfig.SortDir.NONE;
+        if (sortField != null) {
+          if (event.isSortAscending()) {
+            jepSortDir = SortConfig.SortDir.ASC;
+          } else {
+            jepSortDir = SortConfig.SortDir.DESC;
 
-					}
-				}
+          }
+        }
 
-				notifyListeners(CHANGE_SORT_EVENT, new JepEvent(widget, new SortConfig(sortField, jepSortDir)));
-			}
-		});
-	}
+        notifyListeners(CHANGE_SORT_EVENT, new JepEvent(widget, new SortConfig(sortField, jepSortDir)));
+      }
+    });
+  }
 
 }

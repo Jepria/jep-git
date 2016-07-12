@@ -8,11 +8,11 @@ import com.technology.jep.jepria.server.upload.FileUpload;
  */
 public interface TextFileUpload extends FileUpload {
 
-	/**
-	 * Добавление очередного блока данных при записи в CLOB.
-	 * 
-	 * @param dataBlock блок данных
-	 * @throws SpaceException
-	 */
-	void continueWrite(char[] dataBlock) throws SpaceException;
+  /**
+   * Добавление очередного блока данных при записи в CLOB.
+   * 
+   * @param dataBlock блок данных
+   * @throws SpaceException
+   */
+  void continueWrite(char[] dataBlock) throws SpaceException;
 }

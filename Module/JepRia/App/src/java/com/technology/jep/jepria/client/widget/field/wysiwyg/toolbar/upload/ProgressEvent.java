@@ -4,7 +4,7 @@ import com.google.gwt.dom.client.NativeEvent;
 
 public class ProgressEvent extends NativeEvent {
     
-	protected ProgressEvent() {}
+  protected ProgressEvent() {}
 
     /**
      * This parameter specifies the total number of bytes already loaded.

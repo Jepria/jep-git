@@ -13,54 +13,54 @@ import com.technology.jep.jepria.shared.log.JepLogger;
 import com.technology.jep.jepria.shared.log.JepLoggerImpl;
 import com.technology.jep.jepria.shared.text.JepRiaText;
 
-abstract public class ClientFactoryImpl<E extends EventBus>	implements ClientFactory<E> {
+abstract public class ClientFactoryImpl<E extends EventBus>  implements ClientFactory<E> {
 
-	protected static JepLogger logger;
-	
-	protected JepPlaceController placeController = null;
-	protected EventBus eventBus = null;
-	
-	protected JepMessageBox messageBox;
-	protected ExceptionManager exceptionManager;
-	
-	protected EventFilter eventFilter;		
-	
-	protected UiSecurity uiSecurity;
+  protected static JepLogger logger;
+  
+  protected JepPlaceController placeController = null;
+  protected EventBus eventBus = null;
+  
+  protected JepMessageBox messageBox;
+  protected ExceptionManager exceptionManager;
+  
+  protected EventFilter eventFilter;    
+  
+  protected UiSecurity uiSecurity;
 
-	public ClientFactoryImpl() {
-		uiSecurity = new UiSecurity();
-		eventFilter = new EventFilterImpl(this);		
-		
-		logger = JepLoggerImpl.instance;
-		messageBox = JepMessageBoxImpl.instance;
-		exceptionManager = ExceptionManagerImpl.instance;
-	}
+  public ClientFactoryImpl() {
+    uiSecurity = new UiSecurity();
+    eventFilter = new EventFilterImpl(this);    
+    
+    logger = JepLoggerImpl.instance;
+    messageBox = JepMessageBoxImpl.instance;
+    exceptionManager = ExceptionManagerImpl.instance;
+  }
 
-	public EventFilter getEventFilter() {
-		return eventFilter;
-	}
+  public EventFilter getEventFilter() {
+    return eventFilter;
+  }
 
-	public UiSecurity getUiSecurity() {
-		return uiSecurity;
-	}
-	
-	public JepLogger getLogger() {
-		return logger;
-	}
-	
-	public JepMessageBox getMessageBox() {
-		return messageBox;
-	}
+  public UiSecurity getUiSecurity() {
+    return uiSecurity;
+  }
+  
+  public JepLogger getLogger() {
+    return logger;
+  }
+  
+  public JepMessageBox getMessageBox() {
+    return messageBox;
+  }
  
-	public ExceptionManager getExceptionManager() {
-		return exceptionManager;
-	}
+  public ExceptionManager getExceptionManager() {
+    return exceptionManager;
+  }
 
-	/**
-	 * Тексты JepRia.
-	 */
-	public JepRiaText getTexts() {
-		return JepRiaClientConstant.JepTexts;
-	}
-	
+  /**
+   * Тексты JepRia.
+   */
+  public JepRiaText getTexts() {
+    return JepRiaClientConstant.JepTexts;
+  }
+  
 }

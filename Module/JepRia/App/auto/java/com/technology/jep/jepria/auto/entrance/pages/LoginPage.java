@@ -4,11 +4,11 @@ import com.technology.jep.jepria.auto.pages.PageManagerBase;
 
 public interface LoginPage<P extends PageManagerBase> {
 
-	LoginPage<P> setUsername(String username);
+  LoginPage<P> setUsername(String username);
 
-	LoginPage<P> setPassword(String password);
+  LoginPage<P> setPassword(String password);
 
-	void doLogin();
+  void doLogin();
 
-	LoginPage<P> ensurePageLoaded();
+  LoginPage<P> ensurePageLoaded();
 }

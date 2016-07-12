@@ -9,24 +9,24 @@ import com.technology.jep.jepria.client.ui.eventbus.plain.PlainEventBus;
 import com.technology.jep.jepria.client.ui.plain.StandardClientFactory;
 import com.technology.jep.jepria.shared.service.data.JepDataServiceAsync;
 
-public class ListFormActivityMapper<F extends StandardClientFactory<PlainEventBus, JepDataServiceAsync>>	
-	extends JepActivityMapper<PlainEventBus, F> implements ActivityMapper {
+public class ListFormActivityMapper<F extends StandardClientFactory<PlainEventBus, JepDataServiceAsync>>  
+  extends JepActivityMapper<PlainEventBus, F> implements ActivityMapper {
 
-	/**
-	 * Презентер детальной формы.
-	 */
-	protected JepPresenter listFormPresenter = null;
+  /**
+   * Презентер детальной формы.
+   */
+  protected JepPresenter listFormPresenter = null;
 
-	public ListFormActivityMapper(F clientFactory) {
-		super(clientFactory);
-	}
+  public ListFormActivityMapper(F clientFactory) {
+    super(clientFactory);
+  }
 
-	public Activity getActivity(Place place) {
-		if(listFormPresenter == null) {
-			listFormPresenter = clientFactory.createListFormPresenter(place);
-		} else {
-			listFormPresenter.setPlace(place);
-		}
-		return listFormPresenter;
-	}
+  public Activity getActivity(Place place) {
+    if(listFormPresenter == null) {
+      listFormPresenter = clientFactory.createListFormPresenter(place);
+    } else {
+      listFormPresenter.setPlace(place);
+    }
+    return listFormPresenter;
+  }
 }

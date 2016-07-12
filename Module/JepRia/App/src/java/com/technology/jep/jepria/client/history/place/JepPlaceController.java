@@ -8,12 +8,12 @@ import com.technology.jep.jepria.client.ui.ClientFactory;
  * Класс создан для поддержки безопасности переходов на Places посредством перехвата вызово goTo(newPlace).
  */
 public class JepPlaceController<E extends EventBus, F extends ClientFactory<E>> extends PlaceController {
-	
-	protected F clientFactory;
+  
+  protected F clientFactory;
 
-	public JepPlaceController(EventBus eventBus, F clientFactory) {
-		super(eventBus);
-		this.clientFactory = clientFactory;
-	}
+  public JepPlaceController(EventBus eventBus, F clientFactory) {
+    super(eventBus);
+    this.clientFactory = clientFactory;
+  }
 
 }

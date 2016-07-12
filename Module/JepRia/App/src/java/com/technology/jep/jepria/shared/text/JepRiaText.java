@@ -2,16 +2,16 @@ package com.technology.jep.jepria.shared.text;
 
 /**
  * Interface to represent the constants contained in resource bundle:
- * 	'D:/Project/JEPGit/Module/JepRia/App/src/java/com/technology/jep/jepria/shared/text/JepRiaText.properties'.
+ * 	'D:/git/Jep/Module/JepRia/App/src/java/com/technology/jep/jepria/shared/text/JepRiaText.properties'.
  */
 public interface JepRiaText extends com.google.gwt.i18n.client.Constants {
   
   /**
-   * Translated "Система перегружена. Предлагается повторить действие после некоторой паузы. Рекомендуется скорректировать запрос с целью ограничения объёма результирующих данных.\u0009".
+   * Translated "Система перегружена. Предлагается повторить действие после некоторой паузы. Рекомендуется скорректировать запрос с целью ограничения объёма результирующих данных.  ".
    * 
-   * @return translated "Система перегружена. Предлагается повторить действие после некоторой паузы. Рекомендуется скорректировать запрос с целью ограничения объёма результирующих данных.\u0009"
+   * @return translated "Система перегружена. Предлагается повторить действие после некоторой паузы. Рекомендуется скорректировать запрос с целью ограничения объёма результирующих данных.  "
    */
-  @DefaultStringValue("Система перегружена. Предлагается повторить действие после некоторой паузы. Рекомендуется скорректировать запрос с целью ограничения объёма результирующих данных.\u0009")
+  @DefaultStringValue("Система перегружена. Предлагается повторить действие после некоторой паузы. Рекомендуется скорректировать запрос с целью ограничения объёма результирующих данных.  ")
   @Key("action.error.OutOfMemory")
   String action_error_OutOfMemory();
 

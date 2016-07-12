@@ -6,14 +6,14 @@ package com.technology.jep.jepria.auto.exceptions;
 @SuppressWarnings("serial")
 public class WrongOptionException extends AutomationException {
 
-	public WrongOptionException() {
-	}
-	
-	public WrongOptionException(String message) {
-		super(message);
-	}
-	
-	public WrongOptionException(String message, Throwable th) {
-		super(message, th);
-	}
+  public WrongOptionException() {
+  }
+  
+  public WrongOptionException(String message) {
+    super(message);
+  }
+  
+  public WrongOptionException(String message, Throwable th) {
+    super(message, th);
+  }
 }

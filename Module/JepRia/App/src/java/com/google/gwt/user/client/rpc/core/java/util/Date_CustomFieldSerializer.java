@@ -22,29 +22,29 @@ import com.google.gwt.user.client.rpc.SerializationStreamWriter;
  * час, минута и секунда. Информация о часовом поясе, таким образом, отбрасывается.
  */
 public final class Date_CustomFieldSerializer {
-	public static void deserialize(SerializationStreamReader streamReader, Date instance) {
-		// No fields
-	}
+  public static void deserialize(SerializationStreamReader streamReader, Date instance) {
+    // No fields
+  }
 
-	public static Date instantiate(SerializationStreamReader streamReader)
-			throws SerializationException {
-		int year = streamReader.readInt();
-		int month = streamReader.readInt();
-		int date = streamReader.readInt();
-		int hrs = streamReader.readInt();
-		int minutes = streamReader.readInt();
-		int seconds = streamReader.readInt();
-		Date result = new Date(year, month, date, hrs, minutes, seconds);
-		return result;
-	}
+  public static Date instantiate(SerializationStreamReader streamReader)
+      throws SerializationException {
+    int year = streamReader.readInt();
+    int month = streamReader.readInt();
+    int date = streamReader.readInt();
+    int hrs = streamReader.readInt();
+    int minutes = streamReader.readInt();
+    int seconds = streamReader.readInt();
+    Date result = new Date(year, month, date, hrs, minutes, seconds);
+    return result;
+  }
 
-	public static void serialize(SerializationStreamWriter streamWriter, Date instance) throws SerializationException {
-		// streamWriter.writeLong(instance.getTime());
-		streamWriter.writeInt(instance.getYear());
-		streamWriter.writeInt(instance.getMonth());
-		streamWriter.writeInt(instance.getDate());
-		streamWriter.writeInt(instance.getHours());
-		streamWriter.writeInt(instance.getMinutes());
-		streamWriter.writeInt(instance.getSeconds());
-	}
+  public static void serialize(SerializationStreamWriter streamWriter, Date instance) throws SerializationException {
+    // streamWriter.writeLong(instance.getTime());
+    streamWriter.writeInt(instance.getYear());
+    streamWriter.writeInt(instance.getMonth());
+    streamWriter.writeInt(instance.getDate());
+    streamWriter.writeInt(instance.getHours());
+    streamWriter.writeInt(instance.getMinutes());
+    streamWriter.writeInt(instance.getSeconds());
+  }
 }

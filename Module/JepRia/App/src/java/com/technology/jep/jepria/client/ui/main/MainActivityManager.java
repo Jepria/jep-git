@@ -11,17 +11,17 @@ import com.google.gwt.place.shared.PlaceChangeEvent;
  */
 public class MainActivityManager extends ActivityManager {
 
-	public MainActivityManager(ActivityMapper mapper, EventBus eventBus) {
-		super(mapper, eventBus);
-	}
+  public MainActivityManager(ActivityMapper mapper, EventBus eventBus) {
+    super(mapper, eventBus);
+  }
 
-	private boolean isFirstTime = true;
-	public void onPlaceChange(PlaceChangeEvent event) {
-		Log.trace(this.getClass() + ".onPlaceChange(PlaceChangeEvent event): newPlace = " + event.getNewPlace());
-		if(isFirstTime) { 
-			super.onPlaceChange(event);
-			isFirstTime = false;
-		}
-	}
-	
+  private boolean isFirstTime = true;
+  public void onPlaceChange(PlaceChangeEvent event) {
+    Log.trace(this.getClass() + ".onPlaceChange(PlaceChangeEvent event): newPlace = " + event.getNewPlace());
+    if(isFirstTime) { 
+      super.onPlaceChange(event);
+      isFirstTime = false;
+    }
+  }
+  
 }

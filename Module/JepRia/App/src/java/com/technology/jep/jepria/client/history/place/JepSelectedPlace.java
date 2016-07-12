@@ -10,27 +10,27 @@ import com.technology.jep.jepria.client.ui.WorkstateEnum;
 
 public class JepSelectedPlace extends JepWorkstatePlace {
 
-	@Prefix(SELECTED_WORKSTATE_ID)
-	public static class Tokenizer implements PlaceTokenizer<JepSelectedPlace> {
+  @Prefix(SELECTED_WORKSTATE_ID)
+  public static class Tokenizer implements PlaceTokenizer<JepSelectedPlace> {
 
-		public JepSelectedPlace getPlace(String token) {
-			JepScopeStack.instance.setFromHistoryToken(token);
-			return new JepSelectedPlace();
-		}
+    public JepSelectedPlace getPlace(String token) {
+      JepScopeStack.instance.setFromHistoryToken(token);
+      return new JepSelectedPlace();
+    }
 
-		public String getToken(JepSelectedPlace place) {
-			return JepScopeStack.instance.toHistoryToken(place);
-		}
-	}
-	
-	/**
-	 * Создает новый Place.
-	 */
-	public JepSelectedPlace() {
-		super(WorkstateEnum.SELECTED);
-	}
+    public String getToken(JepSelectedPlace place) {
+      return JepScopeStack.instance.toHistoryToken(place);
+    }
+  }
+  
+  /**
+   * Создает новый Place.
+   */
+  public JepSelectedPlace() {
+    super(WorkstateEnum.SELECTED);
+  }
 
-	public String getDisplayName() {
-		return JepTexts.place_name_select();
-	}
+  public String getDisplayName() {
+    return JepTexts.place_name_select();
+  }
 }

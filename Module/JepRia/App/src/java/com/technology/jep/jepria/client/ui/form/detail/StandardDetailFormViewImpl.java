@@ -12,26 +12,26 @@ import com.technology.jep.jepria.client.widget.field.FieldManager;
  */
 public class StandardDetailFormViewImpl extends DetailFormViewImpl {
 
-	/**
-	 * VerticalPanel для возможности управления виджетами
-	 * (добавление, выравнивание).
-	 */
-	protected VerticalPanel panel;
-	
-	public StandardDetailFormViewImpl() {
-		this(new FieldManager());
-	}
-	
-	public StandardDetailFormViewImpl(FieldManager fields) {
-		super(fields);
-		
-		ScrollPanel scrollPanel = new ScrollPanel();
-		setWidget(scrollPanel);
-		
-		scrollPanel.setSize("100%", "100%");
-		
-		panel = new VerticalPanel();
-		panel.getElement().getStyle().setMarginTop(5, Unit.PX);
-		scrollPanel.add(panel);
-	}
+  /**
+   * VerticalPanel для возможности управления виджетами
+   * (добавление, выравнивание).
+   */
+  protected VerticalPanel panel;
+  
+  public StandardDetailFormViewImpl() {
+    this(new FieldManager());
+  }
+  
+  public StandardDetailFormViewImpl(FieldManager fields) {
+    super(fields);
+    
+    ScrollPanel scrollPanel = new ScrollPanel();
+    setWidget(scrollPanel);
+    
+    scrollPanel.setSize("100%", "100%");
+    
+    panel = new VerticalPanel();
+    panel.getElement().getStyle().setMarginTop(5, Unit.PX);
+    scrollPanel.add(panel);
+  }
 }
