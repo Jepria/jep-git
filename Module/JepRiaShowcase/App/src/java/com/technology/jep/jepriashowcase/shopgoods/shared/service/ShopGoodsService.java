@@ -9,6 +9,6 @@ import com.technology.jep.jepria.shared.service.data.JepDataService;
  
 @RemoteServiceRelativePath("ShopGoodsService")
 public interface ShopGoodsService extends JepDataService {
-	List<JepOption> getShop(String shopName) throws ApplicationException;
-	List<JepOption> getGoods(String goodsName) throws ApplicationException;
+  List<JepOption> getShop(String shopName) throws ApplicationException;
+  List<JepOption> getGoods(String goodsName) throws ApplicationException;
 }

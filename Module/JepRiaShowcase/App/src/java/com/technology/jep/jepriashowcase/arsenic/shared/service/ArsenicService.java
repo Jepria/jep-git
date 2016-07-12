@@ -9,6 +9,6 @@ import com.technology.jep.jepria.shared.service.data.JepDataService;
  
 @RemoteServiceRelativePath("ArsenicService")
 public interface ArsenicService extends JepDataService {
-	void durableFetch(long msec) throws ApplicationException;
-	List<JepOption> getTreeCatalog(Integer parentGoodsCatalogId) throws ApplicationException;
+  void durableFetch(long msec) throws ApplicationException;
+  List<JepOption> getTreeCatalog(Integer parentGoodsCatalogId) throws ApplicationException;
 }

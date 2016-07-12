@@ -17,19 +17,19 @@ import com.technology.jep.jepriashowcase.request.shared.service.RequestService;
 @RemoteServiceRelativePath("RequestService")
 public class RequestServiceImpl extends JepDataServiceServlet<Request> implements RequestService  {
  
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
  
-	public RequestServiceImpl() {
-		super(RequestRecordDefinition.instance, new ServerFactory<Request>(new RequestDao(), DATA_SOURCE_JNDI_NAME));
-	}
-	
-	public List<JepOption> getRequestStatus() throws ApplicationException {
-		List<JepOption> result = null;
-		try {
-			result = dao.getRequestStatus();
-		} catch (Throwable th) {
-			throw new ApplicationException(th.getLocalizedMessage(), th);
-		}
-		return result;
-	}
+  public RequestServiceImpl() {
+    super(RequestRecordDefinition.instance, new ServerFactory<Request>(new RequestDao(), DATA_SOURCE_JNDI_NAME));
+  }
+  
+  public List<JepOption> getRequestStatus() throws ApplicationException {
+    List<JepOption> result = null;
+    try {
+      result = dao.getRequestStatus();
+    } catch (Throwable th) {
+      throw new ApplicationException(th.getLocalizedMessage(), th);
+    }
+    return result;
+  }
 }

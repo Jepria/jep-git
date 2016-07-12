@@ -24,96 +24,96 @@ import com.technology.jep.jepriashowcase.search.client.widget.toolbar.PagingSimp
 
 public class SearchModuleViewImpl extends PlainModuleViewImpl implements SearchModuleView {
 
-	private Button searchButton;
-	private TextBox searchField;
-	private VerticalPanel searchPanel;
-	private VerticalPanel searchResult;
-	private HorizontalPanel pagingPanel;
+  private Button searchButton;
+  private TextBox searchField;
+  private VerticalPanel searchPanel;
+  private VerticalPanel searchResult;
+  private HorizontalPanel pagingPanel;
 
-	protected PagingManager list;
-	protected PagingSimpleBar pagingBar;
-	protected JepDataWidgetList dataList;
-	protected ShoppingCart shoppingCart;
-	protected RootPanel searchPanelElement, resultElement, pagingElement, cartElement;
+  protected PagingManager list;
+  protected PagingSimpleBar pagingBar;
+  protected JepDataWidgetList dataList;
+  protected ShoppingCart shoppingCart;
+  protected RootPanel searchPanelElement, resultElement, pagingElement, cartElement;
 
-	private Button authorizationButton;
-	private Button exitButton;
-	private Button currentUserButton;
+  private Button authorizationButton;
+  private Button exitButton;
+  private Button currentUserButton;
 
-	private Label errorLabel, currentUserLabel, shoppingCartWidget;
+  private Label errorLabel, currentUserLabel, shoppingCartWidget;
 
-	public SearchModuleViewImpl() {
+  public SearchModuleViewImpl() {
 
-		list = new PagingManager();
+    list = new PagingManager();
 
-		// панель управления поиском
-		searchPanel = new VerticalPanel();
-		searchPanel.getElement().getStyle().setMarginTop(5, Unit.PX);
-		searchPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_TOP);
+    // панель управления поиском
+    searchPanel = new VerticalPanel();
+    searchPanel.getElement().getStyle().setMarginTop(5, Unit.PX);
+    searchPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_TOP);
 
-		searchButton = new Button(searchText.search_searchButton());
-		searchField = new TextBox();
-		searchPanel.add(searchField);
-		searchPanel.add(searchButton);
+    searchButton = new Button(searchText.search_searchButton());
+    searchField = new TextBox();
+    searchPanel.add(searchField);
+    searchPanel.add(searchButton);
 
-		// панель с результатами поиска
-		searchResult = new VerticalPanel();
-		searchResult.setWidth("100%");
-		searchResult.addStyleName("jepRiaShowcase-searchResult");
-		
-		dataList = new JepDataWidgetList() {
-			@Override 
-			protected Widget getDataWidget(JepRecord data) {
-				return new ListItemViewImpl(data, shoppingCart);
-			}
-		};
+    // панель с результатами поиска
+    searchResult = new VerticalPanel();
+    searchResult.setWidth("100%");
+    searchResult.addStyleName("jepRiaShowcase-searchResult");
+    
+    dataList = new JepDataWidgetList() {
+      @Override 
+      protected Widget getDataWidget(JepRecord data) {
+        return new ListItemViewImpl(data, shoppingCart);
+      }
+    };
 
-		pagingBar = new PagingSimpleBar(25);
+    pagingBar = new PagingSimpleBar(25);
 
-		list.setWidget(dataList);
-		list.setPagingToolBar(pagingBar);
+    list.setWidget(dataList);
+    list.setPagingToolBar(pagingBar);
 
-		searchPanelElement = RootPanel.get("searchPanel");
-		if (searchPanelElement != null) {
-			searchPanelElement.add(searchPanel);
-		}
+    searchPanelElement = RootPanel.get("searchPanel");
+    if (searchPanelElement != null) {
+      searchPanelElement.add(searchPanel);
+    }
 
-		resultElement = RootPanel.get("searchResults");
-		if (resultElement != null) {
-			resultElement.add(dataList);
-		}
+    resultElement = RootPanel.get("searchResults");
+    if (resultElement != null) {
+      resultElement.add(dataList);
+    }
 
-		pagingElement = RootPanel.get("pagingBar");
-		if (pagingElement != null) {
-			pagingElement.add(pagingBar);
-		}
-		
-		shoppingCartWidget = new Label("");
-		shoppingCartWidget.getElement().getStyle().setCursor(Cursor.POINTER);
-		cartElement = RootPanel.get("shoppingCart");
-		if (cartElement != null) {
-			cartElement.add(shoppingCartWidget);
-		}
+    pagingElement = RootPanel.get("pagingBar");
+    if (pagingElement != null) {
+      pagingElement.add(pagingBar);
+    }
+    
+    shoppingCartWidget = new Label("");
+    shoppingCartWidget.getElement().getStyle().setCursor(Cursor.POINTER);
+    cartElement = RootPanel.get("shoppingCart");
+    if (cartElement != null) {
+      cartElement.add(shoppingCartWidget);
+    }
 
-	}
+  }
 
-	public void addSearchButtonClickHandler(ClickHandler clickHandler) {
-		searchButton.addClickHandler(clickHandler);
-	}
-	
-	public String getSearchText() {
-		return searchField.getText();
-	}
+  public void addSearchButtonClickHandler(ClickHandler clickHandler) {
+    searchButton.addClickHandler(clickHandler);
+  }
+  
+  public String getSearchText() {
+    return searchField.getText();
+  }
 
-	public ListManager getListManager() {
-		return list;
-	}
-	
-	public Label getShoppingCartLabel() {
-		return this.shoppingCartWidget;
-	}
-	
-	public void setShoppingCart(ShoppingCart cart) {
-		this.shoppingCart = cart;
-	}
+  public ListManager getListManager() {
+    return list;
+  }
+  
+  public Label getShoppingCartLabel() {
+    return this.shoppingCartWidget;
+  }
+  
+  public void setShoppingCart(ShoppingCart cart) {
+    this.shoppingCart = cart;
+  }
 }

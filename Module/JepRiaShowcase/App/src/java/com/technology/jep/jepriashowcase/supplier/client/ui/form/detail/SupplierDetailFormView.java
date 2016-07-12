@@ -5,7 +5,7 @@ import com.technology.jep.jepria.client.ui.form.detail.DetailFormView;
 import com.technology.jep.jepria.client.ui.wizard.BlockContainer;
  
 public interface SupplierDetailFormView extends DetailFormView {
-	void initButtonProperties();
-	void addButtonClickHandler(String buttonId, ClickHandler handler);
-	BlockContainer getBlockContainer();
+  void initButtonProperties();
+  void addButtonClickHandler(String buttonId, ClickHandler handler);
+  BlockContainer getBlockContainer();
 }

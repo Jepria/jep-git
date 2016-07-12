@@ -5,9 +5,9 @@ import com.technology.jep.jepriashowcase.search.shared.SearchConstant;
 import com.technology.jep.jepriashowcase.search.shared.text.SearchText;
 
 public class SearchClientConstant extends SearchConstant {
-	
-	/**
-	 * Тексты клиентской части Search.
-	 */
-	public static SearchText searchText = (SearchText) GWT.create(SearchText.class);
+  
+  /**
+   * Тексты клиентской части Search.
+   */
+  public static SearchText searchText = (SearchText) GWT.create(SearchText.class);
 }

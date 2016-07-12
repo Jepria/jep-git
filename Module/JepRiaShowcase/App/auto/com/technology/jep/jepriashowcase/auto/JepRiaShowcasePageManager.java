@@ -9,8 +9,8 @@ public class JepRiaShowcasePageManager extends JepRiaApplicationPageManager {
     public JRSCFeaturePage<JepRiaShowcasePageManager> featurePage;
 
     public JepRiaShowcasePageManager() {
-    	customPage = initElements(JRSCCustomerPage.getInstance(this));
-    	goodsPage = initElements(JRSCGoodsPage.getInstance(this));
-    	featurePage = initElements(JRSCFeaturePage.getInstance(this));
+      customPage = initElements(JRSCCustomerPage.getInstance(this));
+      goodsPage = initElements(JRSCGoodsPage.getInstance(this));
+      featurePage = initElements(JRSCFeaturePage.getInstance(this));
     }
 }

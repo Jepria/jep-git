@@ -2,7 +2,7 @@ package com.technology.jep.jepriashowcase.search.shared.text;
 
 /**
  * Interface to represent the constants contained in resource bundle:
- * 	'D:/Project/JEPGit/Module/JepRiaShowcase/App/src/java/com/technology/jep/jepriashowcase/search/shared/text/SearchText.properties'.
+ *   'D:/Project/JEPGit/Module/JepRiaShowcase/App/src/java/com/technology/jep/jepriashowcase/search/shared/text/SearchText.properties'.
  */
 public interface SearchText extends com.google.gwt.i18n.client.Constants {
   

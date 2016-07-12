@@ -22,24 +22,24 @@ import com.technology.jep.jepria.client.widget.list.JepColumn;
  
 public class RequestListFormViewImpl extends StandardListFormViewImpl {
  
-	public RequestListFormViewImpl() {
-		super(RequestListFormViewImpl.class.getCanonicalName());
-	}
+  public RequestListFormViewImpl() {
+    super(RequestListFormViewImpl.class.getCanonicalName());
+  }
 
-	private static NumberFormat defaultNumberFormatter = NumberFormat.getFormat("#");
-	private static DateTimeFormat defaultDateFormatter = DateTimeFormat.getFormat(DEFAULT_DATE_FORMAT);
+  private static NumberFormat defaultNumberFormatter = NumberFormat.getFormat("#");
+  private static DateTimeFormat defaultDateFormatter = DateTimeFormat.getFormat(DEFAULT_DATE_FORMAT);
  
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	@Override
-	protected List<JepColumn> getColumnConfigurations() {
-		final List<JepColumn> columns = new ArrayList<JepColumn>();
-		columns.add(new JepColumn(REQUEST_ID, requestText.request_list_request_id(), 150, new NumberCell(defaultNumberFormatter)));
-		columns.add(new JepColumn(REQUEST_DATE, requestText.request_list_request_date(), 150, new DateCell(defaultDateFormatter)));
-		columns.add(new JepColumn(REQUEST_STATUS_NAME, requestText.request_list_request_status_name(), 150));
-		columns.add(new JepColumn(SHOP_ID, requestText.request_list_shop_id(), 150, new NumberCell(defaultNumberFormatter)));
-		columns.add(new JepColumn(SHOP_NAME, requestText.request_list_shop_name(), 150));
-		columns.add(new JepColumn(GOODS_ID, requestText.request_list_goods_id(), 150, new NumberCell(defaultNumberFormatter)));
-		columns.add(new JepColumn(GOODS_NAME, requestText.request_list_goods_name(), 150));
-		return columns;
-	}
+  @SuppressWarnings({ "rawtypes", "unchecked" })
+  @Override
+  protected List<JepColumn> getColumnConfigurations() {
+    final List<JepColumn> columns = new ArrayList<JepColumn>();
+    columns.add(new JepColumn(REQUEST_ID, requestText.request_list_request_id(), 150, new NumberCell(defaultNumberFormatter)));
+    columns.add(new JepColumn(REQUEST_DATE, requestText.request_list_request_date(), 150, new DateCell(defaultDateFormatter)));
+    columns.add(new JepColumn(REQUEST_STATUS_NAME, requestText.request_list_request_status_name(), 150));
+    columns.add(new JepColumn(SHOP_ID, requestText.request_list_shop_id(), 150, new NumberCell(defaultNumberFormatter)));
+    columns.add(new JepColumn(SHOP_NAME, requestText.request_list_shop_name(), 150));
+    columns.add(new JepColumn(GOODS_ID, requestText.request_list_goods_id(), 150, new NumberCell(defaultNumberFormatter)));
+    columns.add(new JepColumn(GOODS_NAME, requestText.request_list_goods_name(), 150));
+    return columns;
+  }
 }

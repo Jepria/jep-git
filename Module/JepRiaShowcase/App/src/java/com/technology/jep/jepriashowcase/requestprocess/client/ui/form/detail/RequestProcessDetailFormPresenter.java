@@ -12,19 +12,19 @@ import com.technology.jep.jepria.client.ui.form.detail.DetailFormPresenter;
 import com.technology.jep.jepriashowcase.requestprocess.shared.service.RequestProcessServiceAsync;
  
 public class RequestProcessDetailFormPresenter<E extends PlainEventBus, S extends RequestProcessServiceAsync> 
-		extends DetailFormPresenter<RequestProcessDetailFormView, E, S, StandardClientFactory<E, S>> { 
+    extends DetailFormPresenter<RequestProcessDetailFormView, E, S, StandardClientFactory<E, S>> { 
  
-	public RequestProcessDetailFormPresenter(Place place, StandardClientFactory<E, S> clientFactory) {
-		super(place, clientFactory);
-	}
+  public RequestProcessDetailFormPresenter(Place place, StandardClientFactory<E, S> clientFactory) {
+    super(place, clientFactory);
+  }
  
-	/* public void bind() {
-		super.bind();
-		// Здесь размещается код связывания presenter-а и view 
-	}
-	*/ 
+  /* public void bind() {
+    super.bind();
+    // Здесь размещается код связывания presenter-а и view 
+  }
+  */ 
  
-	protected void adjustToWorkstate(WorkstateEnum workstate) {
-	}
+  protected void adjustToWorkstate(WorkstateEnum workstate) {
+  }
  
 }

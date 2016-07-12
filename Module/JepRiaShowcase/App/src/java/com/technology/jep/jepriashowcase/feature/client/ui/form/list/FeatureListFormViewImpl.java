@@ -21,23 +21,23 @@ import com.technology.jep.jepria.client.widget.list.JepColumn;
  
 public class FeatureListFormViewImpl extends StandardListFormViewImpl {
  
-	public FeatureListFormViewImpl() {
-		super(FeatureListFormViewImpl.class.getCanonicalName());
-	}
+  public FeatureListFormViewImpl() {
+    super(FeatureListFormViewImpl.class.getCanonicalName());
+  }
 
-	private static NumberFormat defaultNumberFormatter = NumberFormat.getFormat("#");
-	private static DateTimeFormat defaultDateFormatter = DateTimeFormat.getFormat(DEFAULT_DATE_FORMAT);
+  private static NumberFormat defaultNumberFormatter = NumberFormat.getFormat("#");
+  private static DateTimeFormat defaultDateFormatter = DateTimeFormat.getFormat(DEFAULT_DATE_FORMAT);
  
-	@SuppressWarnings({ "rawtypes", "unchecked", "serial" })
-	@Override
-	protected List<JepColumn> getColumnConfigurations() {
-		return new ArrayList<JepColumn>() {{
-			add(new JepColumn(FEATURE_ID, featureText.feature_list_feature_id(), 150, new NumberCell(defaultNumberFormatter)));
-			add(new JepColumn(FEATURE_NAME, featureText.feature_list_feature_name(), 150));
-			add(new JepColumn(FEATURE_NAME_EN, featureText.feature_list_feature_name_en(), 150));
-			add(new JepColumn(DESCRIPTION, featureText.feature_list_description(), 150));
-			add(new JepColumn(DATE_INS, featureText.feature_list_date_ins(), 150, new DateCell(defaultDateFormatter)));
-			add(new JepColumn(OPERATOR_NAME, featureText.feature_list_operator_name(), 150));
-		}};
-	}
+  @SuppressWarnings({ "rawtypes", "unchecked", "serial" })
+  @Override
+  protected List<JepColumn> getColumnConfigurations() {
+    return new ArrayList<JepColumn>() {{
+      add(new JepColumn(FEATURE_ID, featureText.feature_list_feature_id(), 150, new NumberCell(defaultNumberFormatter)));
+      add(new JepColumn(FEATURE_NAME, featureText.feature_list_feature_name(), 150));
+      add(new JepColumn(FEATURE_NAME_EN, featureText.feature_list_feature_name_en(), 150));
+      add(new JepColumn(DESCRIPTION, featureText.feature_list_description(), 150));
+      add(new JepColumn(DATE_INS, featureText.feature_list_date_ins(), 150, new DateCell(defaultDateFormatter)));
+      add(new JepColumn(OPERATOR_NAME, featureText.feature_list_operator_name(), 150));
+    }};
+  }
 }

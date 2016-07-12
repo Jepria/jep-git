@@ -8,9 +8,9 @@ import com.technology.jep.jepriashowcase.goods.auto.GoodsAuto;
 import com.technology.jep.jepriashowcase.feature.auto.FeatureAuto;
 
 public interface JepRiaShowcaseAuto extends JepRiaAuto, EntranceAppAuto {
-	CustomAuto getCustomAuto();
-	
-	GoodsAuto getGoodsAuto(boolean newInstance);
-	ArsenicAuto getArsenicAuto(boolean newInstance);
-	FeatureAuto getFeatureAuto(boolean newInstance);
+  CustomAuto getCustomAuto();
+  
+  GoodsAuto getGoodsAuto(boolean newInstance);
+  ArsenicAuto getArsenicAuto(boolean newInstance);
+  FeatureAuto getFeatureAuto(boolean newInstance);
 }

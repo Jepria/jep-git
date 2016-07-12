@@ -21,81 +21,81 @@ import com.technology.jep.jepria.shared.util.Mutable;
 
 public class AllShopGoodsDao extends JepDaoStandard implements AllShopGoods {
  
-	public List<JepRecord> find(JepRecord templateRecord, Mutable<Boolean> autoRefreshFlag, Integer maxRowCount, Integer operatorId) throws ApplicationException {
-		String sqlQuery = 
-			"begin  " 
-			  +	"? := pkg_jepriashowcase.findShopGoods(" 
-				  	+ "shopGoodsId => ? " 
-				  	+ ", shopId => ? " 
-				  	+ ", goodsId => ? " 
-					+ ", maxRowCount => ? " 
-					+ ", operatorId => ? " 
-			  + ");"
-		 + " end;";
-		return super.find( sqlQuery,
-				new ResultSetMapper<JepRecord>() {
-					public void map(ResultSet rs, JepRecord record) throws SQLException {
-						record.set(ALL_SHOP_GOODS_ID, getInteger(rs, SHOP_GOODS_ID));
-						record.set(SHOP_ID, getInteger(rs, SHOP_ID));
-						record.set(SHOP_NAME, rs.getString(SHOP_NAME));
-						record.set(GOODS_ID, getInteger(rs, GOODS_ID));
-						record.set(GOODS_NAME, rs.getString(GOODS_NAME));
-					}
-				}
-				, templateRecord.get(ALL_SHOP_GOODS_ID)
-				, templateRecord.get(SHOP_ID)
-				, templateRecord.get(GOODS_ID)
-				, maxRowCount 
-				, operatorId);
-	}
-	public void delete(JepRecord record, Integer operatorId) throws ApplicationException {
-		String sqlQuery = 
-			"begin " 
-			  + "pkg_jepriashowcase.deleteShopGoods(" 
-				  	+ "goodsId => ? " 
-					+ ", operatorId => ? " 
-			  + ");"
-		  + "end;";
-		super.delete(sqlQuery 
-				, record.get(GOODS_ID) 
-				, operatorId);
-	}
+  public List<JepRecord> find(JepRecord templateRecord, Mutable<Boolean> autoRefreshFlag, Integer maxRowCount, Integer operatorId) throws ApplicationException {
+    String sqlQuery = 
+      "begin  " 
+        +  "? := pkg_jepriashowcase.findShopGoods(" 
+            + "shopGoodsId => ? " 
+            + ", shopId => ? " 
+            + ", goodsId => ? " 
+          + ", maxRowCount => ? " 
+          + ", operatorId => ? " 
+        + ");"
+     + " end;";
+    return super.find( sqlQuery,
+        new ResultSetMapper<JepRecord>() {
+          public void map(ResultSet rs, JepRecord record) throws SQLException {
+            record.set(ALL_SHOP_GOODS_ID, getInteger(rs, SHOP_GOODS_ID));
+            record.set(SHOP_ID, getInteger(rs, SHOP_ID));
+            record.set(SHOP_NAME, rs.getString(SHOP_NAME));
+            record.set(GOODS_ID, getInteger(rs, GOODS_ID));
+            record.set(GOODS_NAME, rs.getString(GOODS_NAME));
+          }
+        }
+        , templateRecord.get(ALL_SHOP_GOODS_ID)
+        , templateRecord.get(SHOP_ID)
+        , templateRecord.get(GOODS_ID)
+        , maxRowCount 
+        , operatorId);
+  }
+  public void delete(JepRecord record, Integer operatorId) throws ApplicationException {
+    String sqlQuery = 
+      "begin " 
+        + "pkg_jepriashowcase.deleteShopGoods(" 
+            + "goodsId => ? " 
+          + ", operatorId => ? " 
+        + ");"
+      + "end;";
+    super.delete(sqlQuery 
+        , record.get(GOODS_ID) 
+        , operatorId);
+  }
  
-	public void update(JepRecord record, Integer operatorId) throws ApplicationException {
-		String sqlQuery = 
-			"begin " 
-			+	"pkg_jepriashowcase.updateShopGoods(" 
-				  	+ "shopGoodsId => ? " 
-				  	+ ", goodsQuantity => ? " 
-				  	+ ", sellPrice => ? " 
-					+ ", operatorId => ? " 
-			+ ");"
-		 + "end;";
-		super.update(sqlQuery 
-				, record.get(SHOP_GOODS_ID)
-				, record.get(GOODS_QUANTITY)
-				, record.get(SELL_PRICE)
-				, operatorId);
-	}
+  public void update(JepRecord record, Integer operatorId) throws ApplicationException {
+    String sqlQuery = 
+      "begin " 
+      +  "pkg_jepriashowcase.updateShopGoods(" 
+            + "shopGoodsId => ? " 
+            + ", goodsQuantity => ? " 
+            + ", sellPrice => ? " 
+          + ", operatorId => ? " 
+      + ");"
+     + "end;";
+    super.update(sqlQuery 
+        , record.get(SHOP_GOODS_ID)
+        , record.get(GOODS_QUANTITY)
+        , record.get(SELL_PRICE)
+        , operatorId);
+  }
  
-	public Integer create(JepRecord record, Integer operatorId) throws ApplicationException {
-		String sqlQuery = 
-			"begin " 
-			  + "? := pkg_jepriashowcase.createShopGoods(" 
-				  	+ "shopId => ? " 
-				  	+ ", goodsId => ? " 
-				  	+ ", goodsQuantity => ? " 
-				  	+ ", sellPrice => ? " 
-					+ ", operatorId => ? " 
-			  + ");"
-			+ "end;";
-		return super.create(sqlQuery, 
-				Integer.class 
-				, record.get(SHOP_ID)
-				, record.get(GOODS_ID)
-				, record.get(GOODS_QUANTITY)
-				, record.get(SELL_PRICE)
-				, operatorId);
-	}
+  public Integer create(JepRecord record, Integer operatorId) throws ApplicationException {
+    String sqlQuery = 
+      "begin " 
+        + "? := pkg_jepriashowcase.createShopGoods(" 
+            + "shopId => ? " 
+            + ", goodsId => ? " 
+            + ", goodsQuantity => ? " 
+            + ", sellPrice => ? " 
+          + ", operatorId => ? " 
+        + ");"
+      + "end;";
+    return super.create(sqlQuery, 
+        Integer.class 
+        , record.get(SHOP_ID)
+        , record.get(GOODS_ID)
+        , record.get(GOODS_QUANTITY)
+        , record.get(SELL_PRICE)
+        , operatorId);
+  }
  
 }

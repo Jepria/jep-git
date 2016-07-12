@@ -18,17 +18,17 @@ import com.technology.jep.jepria.auto.pages.JepRiaEntranceApplicationPage;
 import com.technology.jep.jepriashowcase.custom.client.JRSCCustomAutomationConstant;
 
 public class JRSCCustomerPage<P extends JepRiaShowcasePageManager> extends JepRiaEntranceApplicationPage<P> implements LoginPage<P> {
-	private static Logger logger = Logger.getLogger(JRSCCustomerPage.class.getName());
+  private static Logger logger = Logger.getLogger(JRSCCustomerPage.class.getName());
 
-	// Singleton
+  // Singleton
     static private JRSCCustomerPage<JepRiaShowcasePageManager> instance;
     static public JRSCCustomerPage<JepRiaShowcasePageManager> getInstance(JepRiaShowcasePageManager pageManager) {
-    	if(instance == null) {
-    		instance = new JRSCCustomerPage<JepRiaShowcasePageManager>(pageManager);
-    		logger.info(instance.getClass() + " has created");
-    	}
-    	
-    	return instance;
+      if(instance == null) {
+        instance = new JRSCCustomerPage<JepRiaShowcasePageManager>(pageManager);
+        logger.info(instance.getClass() + " has created");
+      }
+      
+      return instance;
     }
     
     private JRSCCustomerPage(P pages) {
@@ -41,14 +41,14 @@ public class JRSCCustomerPage<P extends JepRiaShowcasePageManager> extends JepRi
     @FindBy(id = JRSCCustomAutomationConstant.JRSC_MAINPAGE_FULLSCREEN_MODULES_BUTTON_ID)
     public WebElement fullScreenModulesButton;
 
-	@FindBy(id = JRSCCustomAutomationConstant.JRSC_MAINPAGE_ERROR_DIALOG_BUTTON_ID)
-	public WebElement errorDialogButton;
+  @FindBy(id = JRSCCustomAutomationConstant.JRSC_MAINPAGE_ERROR_DIALOG_BUTTON_ID)
+  public WebElement errorDialogButton;
 
-	@FindBy(id = JRSCCustomAutomationConstant.JRSC_MAINPAGE_EMBEDDED_MODULES_BUTTON_ID)
-	public WebElement embeddedModulesButton;
+  @FindBy(id = JRSCCustomAutomationConstant.JRSC_MAINPAGE_EMBEDDED_MODULES_BUTTON_ID)
+  public WebElement embeddedModulesButton;
 
-	@FindBy(id = JRSCCustomAutomationConstant.JRSC_MAINPAGE_CURRENT_USER_BUTTON_ID)
-	public WebElement currentUserButton;
+  @FindBy(id = JRSCCustomAutomationConstant.JRSC_MAINPAGE_CURRENT_USER_BUTTON_ID)
+  public WebElement currentUserButton;
     
     // ...
 
@@ -77,25 +77,25 @@ public class JRSCCustomerPage<P extends JepRiaShowcasePageManager> extends JepRi
         getWait().until(presenceOfElementLocated(By.id(JRSCCustomAutomationConstant.JRSC_MAINPAGE_ERROR_DIALOG_BUTTON_ID)));
         getWait().until(presenceOfElementLocated(By.id(JRSCCustomAutomationConstant.JRSC_MAINPAGE_EMBEDDED_MODULES_BUTTON_ID)));
         getWait().until(presenceOfElementLocated(By.id(JRSCCustomAutomationConstant.JRSC_MAINPAGE_CURRENT_USER_BUTTON_ID)));
-        	
+          
         return this;
     }
 
-	@Override
-	public LoginPage<P> setUsername(String username) {
-		usernameField.sendKeys(username);
+  @Override
+  public LoginPage<P> setUsername(String username) {
+    usernameField.sendKeys(username);
         return this;
-	}
+  }
 
-	@Override
-	public LoginPage<P> setPassword(String password) {
-		passwordField.sendKeys(password);
+  @Override
+  public LoginPage<P> setPassword(String password) {
+    passwordField.sendKeys(password);
         return this;
-	}
+  }
 
-	@Override
-	public void doLogin() {
-		loginButton.click();
-	}
+  @Override
+  public void doLogin() {
+    loginButton.click();
+  }
 
 }

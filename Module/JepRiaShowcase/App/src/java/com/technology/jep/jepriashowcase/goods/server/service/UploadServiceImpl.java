@@ -7,9 +7,9 @@ import com.technology.jep.jepria.server.upload.JepUploadServlet;
  
 public class UploadServiceImpl extends JepUploadServlet {
  
-	public UploadServiceImpl() {
-		super(GoodsRecordDefinition.instance,
-			DATA_SOURCE_JNDI_NAME); 
-	}
+  public UploadServiceImpl() {
+    super(GoodsRecordDefinition.instance,
+      DATA_SOURCE_JNDI_NAME); 
+  }
  
 }

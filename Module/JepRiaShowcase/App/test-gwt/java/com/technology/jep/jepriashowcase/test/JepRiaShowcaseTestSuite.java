@@ -7,8 +7,8 @@ import com.technology.jep.jepriashowcase.main.client.entrance.JepRiaShowcaseEntr
 
 public class JepRiaShowcaseTestSuite extends com.google.gwt.junit.tools.GWTTestSuite {
   public static Test suite() {
-	TestSuite suite = new TestSuite("Test for a JepRiaShowcase Gwt parts");
-	suite.addTestSuite(JepRiaShowcaseEntryPointTest.class);
-	return suite;
+  TestSuite suite = new TestSuite("Test for a JepRiaShowcase Gwt parts");
+  suite.addTestSuite(JepRiaShowcaseEntryPointTest.class);
+  return suite;
   }
 }

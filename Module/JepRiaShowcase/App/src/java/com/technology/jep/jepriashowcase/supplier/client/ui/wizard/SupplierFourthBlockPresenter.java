@@ -11,12 +11,12 @@ import com.technology.jep.jepriashowcase.supplier.shared.service.SupplierService
 
 public class SupplierFourthBlockPresenter<S extends SupplierServiceAsync> extends BlockPresenter<SupplierFourthBlockViewImpl, S, SupplierFourthBlockClientFactory<S>> {
 
-	public SupplierFourthBlockPresenter(Place place, SupplierFourthBlockClientFactory<S> clientFactory) {
-		super(place, clientFactory);
-	}
-	
-	protected void adjustToWorkstate(WorkstateEnum workstate) {
-		fields.setFieldVisible(PHONE_NUMBER, !SEARCH.equals(workstate));
-		fields.setFieldVisible(FAX_NUMBER, !SEARCH.equals(workstate));
-	}
+  public SupplierFourthBlockPresenter(Place place, SupplierFourthBlockClientFactory<S> clientFactory) {
+    super(place, clientFactory);
+  }
+  
+  protected void adjustToWorkstate(WorkstateEnum workstate) {
+    fields.setFieldVisible(PHONE_NUMBER, !SEARCH.equals(workstate));
+    fields.setFieldVisible(FAX_NUMBER, !SEARCH.equals(workstate));
+  }
 }

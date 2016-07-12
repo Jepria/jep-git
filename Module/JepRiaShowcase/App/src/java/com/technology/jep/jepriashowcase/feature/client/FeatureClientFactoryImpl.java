@@ -24,50 +24,50 @@ import com.technology.jep.jepriashowcase.feature.shared.service.FeatureService;
 import com.technology.jep.jepriashowcase.feature.shared.service.FeatureServiceAsync;
  
 public class FeatureClientFactoryImpl<E extends PlainEventBus, S extends FeatureServiceAsync>
-	extends com.technology.jep.jepria.client.ui.plain.StandardClientFactoryImpl<E, S> {
+  extends com.technology.jep.jepria.client.ui.plain.StandardClientFactoryImpl<E, S> {
  
-	private static final IsWidget featureDetailFormView = new FeatureDetailFormViewImpl();
-	private static final IsWidget featureListFormView = new FeatureListFormViewImpl();
+  private static final IsWidget featureDetailFormView = new FeatureDetailFormViewImpl();
+  private static final IsWidget featureListFormView = new FeatureListFormViewImpl();
  
-	public static PlainClientFactoryImpl<PlainEventBus, JepDataServiceAsync> instance = null;
+  public static PlainClientFactoryImpl<PlainEventBus, JepDataServiceAsync> instance = null;
  
-	public FeatureClientFactoryImpl() {
-		super(FeatureRecordDefinition.instance);
-		initActivityMappers(this);
-	}
+  public FeatureClientFactoryImpl() {
+    super(FeatureRecordDefinition.instance);
+    initActivityMappers(this);
+  }
  
-	static public PlainClientFactory<PlainEventBus, JepDataServiceAsync> getInstance() {
-		if(instance == null) {
-			instance = GWT.create(FeatureClientFactoryImpl.class);
-		}
-		return instance;
-	}
+  static public PlainClientFactory<PlainEventBus, JepDataServiceAsync> getInstance() {
+    if(instance == null) {
+      instance = GWT.create(FeatureClientFactoryImpl.class);
+    }
+    return instance;
+  }
  
  
-	public JepPresenter createPlainModulePresenter(Place place) {
-		return new StandardModulePresenter(FEATURE_MODULE_ID, place, this);
-	}
+  public JepPresenter createPlainModulePresenter(Place place) {
+    return new StandardModulePresenter(FEATURE_MODULE_ID, place, this);
+  }
  
-	public JepPresenter createDetailFormPresenter(Place place) {
-		return new FeatureDetailFormPresenter(place, this);
-	}
+  public JepPresenter createDetailFormPresenter(Place place) {
+    return new FeatureDetailFormPresenter(place, this);
+  }
  
-	public JepPresenter createListFormPresenter(Place place) {
-		return new ListFormPresenter/*TODO change to FeatureListFormPresenter*/(place, this);
-	}
+  public JepPresenter createListFormPresenter(Place place) {
+    return new ListFormPresenter/*TODO change to FeatureListFormPresenter*/(place, this);
+  }
  
-	public IsWidget getDetailFormView() {
-		return featureDetailFormView;
-	}
+  public IsWidget getDetailFormView() {
+    return featureDetailFormView;
+  }
  
-	public IsWidget getListFormView() {
-		return featureListFormView;
-	}
+  public IsWidget getListFormView() {
+    return featureListFormView;
+  }
  
-	public S getService() {
-		if(dataService == null) {
-			dataService = (S) GWT.create(FeatureService.class);
-		}
-		return dataService;
-	}
+  public S getService() {
+    if(dataService == null) {
+      dataService = (S) GWT.create(FeatureService.class);
+    }
+    return dataService;
+  }
 }

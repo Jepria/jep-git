@@ -26,50 +26,50 @@ import com.technology.jep.jepriashowcase.allshopgoods.shared.service.AllShopGood
 import com.technology.jep.jepriashowcase.allshopgoods.shared.record.AllShopGoodsRecordDefinition;
  
 public class AllShopGoodsClientFactoryImpl<E extends PlainEventBus, S extends AllShopGoodsServiceAsync>
-	extends com.technology.jep.jepria.client.ui.plain.StandardClientFactoryImpl<E, S> {
+  extends com.technology.jep.jepria.client.ui.plain.StandardClientFactoryImpl<E, S> {
  
-	private static final IsWidget allShopGoodsDetailFormView = new AllShopGoodsDetailFormViewImpl();
-	private static final IsWidget allShopGoodsListFormView = new AllShopGoodsListFormViewImpl();
+  private static final IsWidget allShopGoodsDetailFormView = new AllShopGoodsDetailFormViewImpl();
+  private static final IsWidget allShopGoodsListFormView = new AllShopGoodsListFormViewImpl();
  
-	public static PlainClientFactoryImpl<PlainEventBus, JepDataServiceAsync> instance = null;
+  public static PlainClientFactoryImpl<PlainEventBus, JepDataServiceAsync> instance = null;
  
-	public AllShopGoodsClientFactoryImpl() {
-		super(AllShopGoodsRecordDefinition.instance);
-		initActivityMappers(this);
-	}
+  public AllShopGoodsClientFactoryImpl() {
+    super(AllShopGoodsRecordDefinition.instance);
+    initActivityMappers(this);
+  }
  
-	static public PlainClientFactory<PlainEventBus, JepDataServiceAsync> getInstance() {
-		if(instance == null) {
-			instance = GWT.create(AllShopGoodsClientFactoryImpl.class);
-		}
-		return instance;
-	}
+  static public PlainClientFactory<PlainEventBus, JepDataServiceAsync> getInstance() {
+    if(instance == null) {
+      instance = GWT.create(AllShopGoodsClientFactoryImpl.class);
+    }
+    return instance;
+  }
  
  
 public JepPresenter createPlainModulePresenter(Place place) {
-	return new StandardModulePresenter(ALLSHOPGOODS_MODULE_ID, place, this);
+  return new StandardModulePresenter(ALLSHOPGOODS_MODULE_ID, place, this);
 }
  
-	public JepPresenter createDetailFormPresenter(Place place) {
-		return new AllShopGoodsDetailFormPresenter(place, this);
-	}
+  public JepPresenter createDetailFormPresenter(Place place) {
+    return new AllShopGoodsDetailFormPresenter(place, this);
+  }
  
-	public JepPresenter createListFormPresenter(Place place) {
-		return new AllShopGoodsListFormPresenter(place, this);
-	}
+  public JepPresenter createListFormPresenter(Place place) {
+    return new AllShopGoodsListFormPresenter(place, this);
+  }
  
-	public IsWidget getDetailFormView() {
-		return allShopGoodsDetailFormView;
-	}
+  public IsWidget getDetailFormView() {
+    return allShopGoodsDetailFormView;
+  }
  
-	public IsWidget getListFormView() {
-		return allShopGoodsListFormView;
-	}
+  public IsWidget getListFormView() {
+    return allShopGoodsListFormView;
+  }
  
-	public S getService() {
-		if(dataService == null) {
-			dataService = (S) GWT.create(AllShopGoodsService.class);
-		}
-		return dataService;
-	}
+  public S getService() {
+    if(dataService == null) {
+      dataService = (S) GWT.create(AllShopGoodsService.class);
+    }
+    return dataService;
+  }
 }

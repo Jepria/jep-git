@@ -26,50 +26,50 @@ import com.technology.jep.jepriashowcase.requestprocess.shared.service.RequestPr
 import com.technology.jep.jepriashowcase.requestprocess.shared.record.RequestProcessRecordDefinition;
  
 public class RequestProcessClientFactoryImpl<E extends PlainEventBus, S extends RequestProcessServiceAsync>
-	extends com.technology.jep.jepria.client.ui.plain.StandardClientFactoryImpl<E, S> {
+  extends com.technology.jep.jepria.client.ui.plain.StandardClientFactoryImpl<E, S> {
  
-	private static final IsWidget requestProcessDetailFormView = new RequestProcessDetailFormViewImpl();
-	private static final IsWidget requestProcessListFormView = new RequestProcessListFormViewImpl();
+  private static final IsWidget requestProcessDetailFormView = new RequestProcessDetailFormViewImpl();
+  private static final IsWidget requestProcessListFormView = new RequestProcessListFormViewImpl();
  
-	public static PlainClientFactoryImpl<PlainEventBus, JepDataServiceAsync> instance = null;
+  public static PlainClientFactoryImpl<PlainEventBus, JepDataServiceAsync> instance = null;
  
-	public RequestProcessClientFactoryImpl() {
-		super(RequestProcessRecordDefinition.instance);
-		initActivityMappers(this);
-	}
+  public RequestProcessClientFactoryImpl() {
+    super(RequestProcessRecordDefinition.instance);
+    initActivityMappers(this);
+  }
  
-	static public PlainClientFactory<PlainEventBus, JepDataServiceAsync> getInstance() {
-		if(instance == null) {
-			instance = GWT.create(RequestProcessClientFactoryImpl.class);
-		}
-		return instance;
-	}
+  static public PlainClientFactory<PlainEventBus, JepDataServiceAsync> getInstance() {
+    if(instance == null) {
+      instance = GWT.create(RequestProcessClientFactoryImpl.class);
+    }
+    return instance;
+  }
  
  
 public JepPresenter createPlainModulePresenter(Place place) {
-	return new StandardModulePresenter(REQUESTPROCESS_MODULE_ID, place, this);
+  return new StandardModulePresenter(REQUESTPROCESS_MODULE_ID, place, this);
 }
  
-	public JepPresenter createDetailFormPresenter(Place place) {
-		return new RequestProcessDetailFormPresenter(place, this);
-	}
+  public JepPresenter createDetailFormPresenter(Place place) {
+    return new RequestProcessDetailFormPresenter(place, this);
+  }
  
-	public JepPresenter createListFormPresenter(Place place) {
-		return new RequestProcessListFormPresenter(place, this);
-	}
+  public JepPresenter createListFormPresenter(Place place) {
+    return new RequestProcessListFormPresenter(place, this);
+  }
  
-	public IsWidget getDetailFormView() {
-		return requestProcessDetailFormView;
-	}
+  public IsWidget getDetailFormView() {
+    return requestProcessDetailFormView;
+  }
  
-	public IsWidget getListFormView() {
-		return requestProcessListFormView;
-	}
+  public IsWidget getListFormView() {
+    return requestProcessListFormView;
+  }
  
-	public S getService() {
-		if(dataService == null) {
-			dataService = (S) GWT.create(RequestProcessService.class);
-		}
-		return dataService;
-	}
+  public S getService() {
+    if(dataService == null) {
+      dataService = (S) GWT.create(RequestProcessService.class);
+    }
+    return dataService;
+  }
 }

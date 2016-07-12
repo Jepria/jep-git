@@ -17,31 +17,31 @@ import com.technology.jep.jepria.client.widget.field.multistate.JepTextAreaField
 
 public class SupplierThirdBlockViewImpl extends BlockViewImpl {
 
-	public SupplierThirdBlockViewImpl(){
-		
-		VerticalPanel innerPanel = new VerticalPanel();
-		
-		JepCheckBoxField exclusiveSupplierFlagCheckBoxField = new JepCheckBoxField(supplierText.supplier_detail_exclusive_supplier_flag());
-		JepComboBoxField exclusiveSupplierOptionComboBoxField = new JepComboBoxField(supplierText.supplier_detail_exclusive_supplier_flag());
-		JepTextAreaField supplierDescriptionTextAreaField = new JepTextAreaField(supplierText.supplier_detail_supplier_description());
-		supplierDescriptionTextAreaField.getEditableCard().setHeight(80 + Unit.PX.getType());
-		JepIntegerField maxRowCountField = new JepIntegerField(supplierText.supplier_detail_row_count());
-		maxRowCountField.setMaxLength(4);
-		maxRowCountField.setFieldWidth(55);
-		
-		innerPanel.add(exclusiveSupplierFlagCheckBoxField);
-		innerPanel.add(exclusiveSupplierOptionComboBoxField);
-		innerPanel.add(supplierDescriptionTextAreaField);
-		innerPanel.add(maxRowCountField);
-		
-		// init main widget
-		setWidget(innerPanel, BlockPositionEnum.DOWN);
-		// initialize fieldset caption
-		asWidget().setCaptionText(supplierText.supplier_restFieldSet_title());
-		
-		fields.put(EXCLUSIVE_SUPPLIER_FLAG, exclusiveSupplierFlagCheckBoxField);
-		fields.put(EXCLUSIVE_SUPPLIER_OPTION, exclusiveSupplierOptionComboBoxField);
-		fields.put(SUPPLIER_DESCRIPTION, supplierDescriptionTextAreaField);
-		fields.put(MAX_ROW_COUNT, maxRowCountField);
-	}
+  public SupplierThirdBlockViewImpl(){
+    
+    VerticalPanel innerPanel = new VerticalPanel();
+    
+    JepCheckBoxField exclusiveSupplierFlagCheckBoxField = new JepCheckBoxField(supplierText.supplier_detail_exclusive_supplier_flag());
+    JepComboBoxField exclusiveSupplierOptionComboBoxField = new JepComboBoxField(supplierText.supplier_detail_exclusive_supplier_flag());
+    JepTextAreaField supplierDescriptionTextAreaField = new JepTextAreaField(supplierText.supplier_detail_supplier_description());
+    supplierDescriptionTextAreaField.getEditableCard().setHeight(80 + Unit.PX.getType());
+    JepIntegerField maxRowCountField = new JepIntegerField(supplierText.supplier_detail_row_count());
+    maxRowCountField.setMaxLength(4);
+    maxRowCountField.setFieldWidth(55);
+    
+    innerPanel.add(exclusiveSupplierFlagCheckBoxField);
+    innerPanel.add(exclusiveSupplierOptionComboBoxField);
+    innerPanel.add(supplierDescriptionTextAreaField);
+    innerPanel.add(maxRowCountField);
+    
+    // init main widget
+    setWidget(innerPanel, BlockPositionEnum.DOWN);
+    // initialize fieldset caption
+    asWidget().setCaptionText(supplierText.supplier_restFieldSet_title());
+    
+    fields.put(EXCLUSIVE_SUPPLIER_FLAG, exclusiveSupplierFlagCheckBoxField);
+    fields.put(EXCLUSIVE_SUPPLIER_OPTION, exclusiveSupplierOptionComboBoxField);
+    fields.put(SUPPLIER_DESCRIPTION, supplierDescriptionTextAreaField);
+    fields.put(MAX_ROW_COUNT, maxRowCountField);
+  }
 }

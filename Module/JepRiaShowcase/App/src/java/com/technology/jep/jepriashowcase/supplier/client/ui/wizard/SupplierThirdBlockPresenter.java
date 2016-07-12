@@ -23,35 +23,35 @@ import com.technology.jep.jepriashowcase.supplier.shared.service.SupplierService
 
 public class SupplierThirdBlockPresenter<S extends SupplierServiceAsync> extends BlockPresenter<SupplierThirdBlockViewImpl, S, SupplierThirdBlockClientFactory<S>> {
 
-	public SupplierThirdBlockPresenter(Place place, SupplierThirdBlockClientFactory<S> clientFactory) {
-		super(place, clientFactory);
-	}
-	
-	public void bind() {
-		super.bind();
-		
-		fields.addFieldListener(EXCLUSIVE_SUPPLIER_OPTION, JepEventType.FIRST_TIME_USE_EVENT, new JepListener() {
-			@Override
-			public void handleEvent(JepEvent event) {
-				new FirstTimeUseAsyncCallback<List<JepOption>>(event) {
-					@Override
-					public void onSuccessLoad(final List<JepOption> result) {
-						fields.setFieldOptions(EXCLUSIVE_SUPPLIER_OPTION, result);	
-							
-					}
-				}.onSuccess(JepOption.buildListFromToken(JepRiaClientConstant.JepTexts.form_detail_option_token_yesNo()));
-			}
-		});
-		
-	}
-	
-	protected void adjustToWorkstate(WorkstateEnum workstate) {
-		fields.setFieldVisible(SUPPLIER_DESCRIPTION, VIEW_DETAILS.equals(workstate));
-		fields.setFieldVisible(EXCLUSIVE_SUPPLIER_FLAG, !SEARCH.equals(workstate));
-		fields.setFieldVisible(EXCLUSIVE_SUPPLIER_OPTION, SEARCH.equals(workstate));
-		
-		fields.setFieldVisible(MAX_ROW_COUNT, SEARCH.equals(workstate));
-		fields.setFieldAllowBlank(MAX_ROW_COUNT, !SEARCH.equals(workstate));
-		fields.setFieldValue(MAX_ROW_COUNT, 25);
-	}
+  public SupplierThirdBlockPresenter(Place place, SupplierThirdBlockClientFactory<S> clientFactory) {
+    super(place, clientFactory);
+  }
+  
+  public void bind() {
+    super.bind();
+    
+    fields.addFieldListener(EXCLUSIVE_SUPPLIER_OPTION, JepEventType.FIRST_TIME_USE_EVENT, new JepListener() {
+      @Override
+      public void handleEvent(JepEvent event) {
+        new FirstTimeUseAsyncCallback<List<JepOption>>(event) {
+          @Override
+          public void onSuccessLoad(final List<JepOption> result) {
+            fields.setFieldOptions(EXCLUSIVE_SUPPLIER_OPTION, result);  
+              
+          }
+        }.onSuccess(JepOption.buildListFromToken(JepRiaClientConstant.JepTexts.form_detail_option_token_yesNo()));
+      }
+    });
+    
+  }
+  
+  protected void adjustToWorkstate(WorkstateEnum workstate) {
+    fields.setFieldVisible(SUPPLIER_DESCRIPTION, VIEW_DETAILS.equals(workstate));
+    fields.setFieldVisible(EXCLUSIVE_SUPPLIER_FLAG, !SEARCH.equals(workstate));
+    fields.setFieldVisible(EXCLUSIVE_SUPPLIER_OPTION, SEARCH.equals(workstate));
+    
+    fields.setFieldVisible(MAX_ROW_COUNT, SEARCH.equals(workstate));
+    fields.setFieldAllowBlank(MAX_ROW_COUNT, !SEARCH.equals(workstate));
+    fields.setFieldValue(MAX_ROW_COUNT, 25);
+  }
 }

@@ -10,17 +10,17 @@ import com.technology.jep.jepria.shared.service.data.JepDataService;
 @RemoteServiceRelativePath("CustomService")
 public interface CustomService  extends JepDataService {
 
-	/**
-	 * Получение имени пользователя по его идентификатору.
-	 * 
-	 * @param operatorId идентификатор пользователя
-	 * @return имя пользователя
-	 * @throws ApplicationException
-	 */
-	String getOperatorName(
-		Integer operatorId)
-		throws ApplicationException;
+  /**
+   * Получение имени пользователя по его идентификатору.
+   * 
+   * @param operatorId идентификатор пользователя
+   * @return имя пользователя
+   * @throws ApplicationException
+   */
+  String getOperatorName(
+    Integer operatorId)
+    throws ApplicationException;
 
-	void transaction() throws ApplicationException;
+  void transaction() throws ApplicationException;
 
 }

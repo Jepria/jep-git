@@ -5,8 +5,8 @@ import com.technology.jep.jepriashowcase.goods.auto.GoodsAuto;
 
 public interface CustomAuto extends EntranceAuto {
 
-	/**
-	 * Открытие и получение примера с полноэкранными модулями
-	 */
-	GoodsAuto openFullScreenModules();
+  /**
+   * Открытие и получение примера с полноэкранными модулями
+   */
+  GoodsAuto openFullScreenModules();
 }

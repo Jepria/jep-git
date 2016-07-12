@@ -13,8 +13,8 @@ import org.openqa.selenium.support.FindBy;
 import com.technology.jep.jepria.auto.pages.JepRiaApplicationPage;
 
 public class JRSCGoodsPage<P extends JepRiaShowcasePageManager> extends JepRiaApplicationPage<P> {
-	private static Logger logger = Logger.getLogger(JRSCGoodsPage.class.getName());
-	
+  private static Logger logger = Logger.getLogger(JRSCGoodsPage.class.getName());
+  
     @FindBy(id = JRSC_GOODS_NAME_TEXT_FIELD_ID)
     public WebElement goodsNameField;
     
@@ -30,15 +30,15 @@ public class JRSCGoodsPage<P extends JepRiaShowcasePageManager> extends JepRiaAp
     @FindBy(id = JRSC_GOODS_UNIT_COMBOBOX_FIELD_ID)
     public WebElement unitField;
         
-	// Singleton
+  // Singleton
     static private JRSCGoodsPage<JepRiaShowcasePageManager> instance;
     static public JRSCGoodsPage<JepRiaShowcasePageManager> getInstance(JepRiaShowcasePageManager pageManager) {
-    	if(instance == null) {
-    		instance = new JRSCGoodsPage<JepRiaShowcasePageManager>(pageManager);
-    		logger.info(instance.getClass() + " has created");
-    	}
-    	
-    	return instance;
+      if(instance == null) {
+        instance = new JRSCGoodsPage<JepRiaShowcasePageManager>(pageManager);
+        logger.info(instance.getClass() + " has created");
+      }
+      
+      return instance;
     }
 
     

@@ -4,6 +4,6 @@ import com.google.gwt.resources.client.ClientBundle;
 import com.google.gwt.resources.client.ImageResource;
 
 public interface ArsenicImages extends ClientBundle {
-	@Source("chemical.png")
-	ImageResource chemical();
+  @Source("chemical.png")
+  ImageResource chemical();
 }

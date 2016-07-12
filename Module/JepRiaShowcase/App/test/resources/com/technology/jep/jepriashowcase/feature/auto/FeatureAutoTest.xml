@@ -1,32 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="FeatureAutoTestSuite" parallel="false">
-	<test name="FeatureAutoTest">
-		<parameter name="baseUrl" value="http://${host}/${appName}${testModule}"/>
-		<parameter name="browserName" value="${browserName}"/>
-		<parameter name="browserPath" value="${browserPath}"/>
-		<parameter name="driverPath" value="${driverPath}"/>
-		<parameter name="username" value="${testUsername}"/>
-		<parameter name="password" value="${testPassword}"/>
-		<parameter name="jepriaVersion" value="${jepriaVersion}"/>
-		<parameter name="forceNewBrowser" value="No"/>
-		<parameter name="forceLogin" value="No"/>
+  <test name="FeatureAutoTest">
+    <parameter name="baseUrl" value="http://${host}/${appName}${testModule}"/>
+    <parameter name="browserName" value="${browserName}"/>
+    <parameter name="browserPath" value="${browserPath}"/>
+    <parameter name="driverPath" value="${driverPath}"/>
+    <parameter name="username" value="${testUsername}"/>
+    <parameter name="password" value="${testPassword}"/>
+    <parameter name="jepriaVersion" value="${jepriaVersion}"/>
+    <parameter name="forceNewBrowser" value="No"/>
+    <parameter name="forceLogin" value="No"/>
 
-		<groups>
-			<define name="all">
- 				<include name="find" />
- 				<include name="create" />
-				<include name="delete" />
-				<include name="edit" />
-			</define>
-		
-			<run>
-				<include name="create" />
-			</run>
-		</groups>
-		
-		<classes>
-			<class name="com.technology.jep.jepriashowcase.feature.auto.FeatureAutoTest"/>
-		</classes>
-	</test> <!-- Test -->
+    <groups>
+      <define name="all">
+         <include name="find" />
+         <include name="create" />
+        <include name="delete" />
+        <include name="edit" />
+      </define>
+    
+      <run>
+        <include name="create" />
+      </run>
+    </groups>
+    
+    <classes>
+      <class name="com.technology.jep.jepriashowcase.feature.auto.FeatureAutoTest"/>
+    </classes>
+  </test> <!-- Test -->
 </suite> <!-- Suite -->

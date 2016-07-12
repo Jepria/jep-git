@@ -26,65 +26,65 @@ import com.technology.jep.jepriashowcase.goods.client.GoodsClientFactoryImpl;
 import com.technology.jep.jepriashowcase.goods.shared.service.GoodsServiceAsync;
 import com.technology.jep.jepriashowcase.supplier.shared.service.SupplierServiceAsync;
 public class SupplierListFormPresenter<V extends ListFormView, E extends PlainEventBus, S extends SupplierServiceAsync, F extends StandardClientFactory<E, S>> 
-	extends ListFormPresenter<V, E, S, F> { 
+  extends ListFormPresenter<V, E, S, F> { 
  
-	public SupplierListFormPresenter(Place place, F clientFactory) {
-		super(place, clientFactory);
-	}
-	
-	private boolean doubleConfirmed = false;
-	
-	@SuppressWarnings("unchecked")
-	public void onDoDelete(DoDeleteEvent event) {
-		doubleConfirmed = false;
-		// Проверим состояние, чтобы обеспечить срабатывание данного обработчика только при активной списочной форме.
-		if(SELECTED.equals(_workstate)) {
-			
-			final Set<JepRecord> records = list.getSelectionModel().getSelectedSet();
-			MessageBox box = messageBox.confirmDeletion(records.size() > 1, new ConfirmCallback() {
-				public void onConfirm(Boolean yes) {
-					if(yes) {
-						onDeleteConfirmation(records);
-					}
-				}
-			});
-			
-			box.addButtonClickHandler(PredefinedButton.YES, new ClickHandler() {
-				@Override
-				public void onClick(ClickEvent event) {
-					for (JepRecord record : records){
-						GoodsServiceAsync goodsService = (GoodsServiceAsync) GoodsClientFactoryImpl.getInstance().getService();
-						goodsService.find(new PagingConfig(record), new JepAsyncCallback<PagingResult<JepRecord>>() {
-							@Override
-							public void onSuccess(PagingResult<JepRecord> result) {
-								if (result.getSize() > 0){
-									new ConfirmMessageBox(JepTexts.deletion_dialog_title(), supplierText.supplier_has_goods_alt(), new ConfirmCallback() {
-										@Override
-										public void onConfirm(Boolean result) {
-											if (result){
-												doubleConfirmed = true;
-												onDeleteConfirmation(records);
-											}
-										}
-									}).show();
-								}
-								else {
-									doubleConfirmed = true;
-									onDeleteConfirmation(records);
-								}
-							}
-						});
-					}
-				}
-			});
-		}
-		
-	}
-	
-	@Override
-	protected void onDeleteConfirmation(Set<JepRecord> records) {
-		if (doubleConfirmed){
-			super.onDeleteConfirmation(records);
-		}
-	}
+  public SupplierListFormPresenter(Place place, F clientFactory) {
+    super(place, clientFactory);
+  }
+  
+  private boolean doubleConfirmed = false;
+  
+  @SuppressWarnings("unchecked")
+  public void onDoDelete(DoDeleteEvent event) {
+    doubleConfirmed = false;
+    // Проверим состояние, чтобы обеспечить срабатывание данного обработчика только при активной списочной форме.
+    if(SELECTED.equals(_workstate)) {
+      
+      final Set<JepRecord> records = list.getSelectionModel().getSelectedSet();
+      MessageBox box = messageBox.confirmDeletion(records.size() > 1, new ConfirmCallback() {
+        public void onConfirm(Boolean yes) {
+          if(yes) {
+            onDeleteConfirmation(records);
+          }
+        }
+      });
+      
+      box.addButtonClickHandler(PredefinedButton.YES, new ClickHandler() {
+        @Override
+        public void onClick(ClickEvent event) {
+          for (JepRecord record : records){
+            GoodsServiceAsync goodsService = (GoodsServiceAsync) GoodsClientFactoryImpl.getInstance().getService();
+            goodsService.find(new PagingConfig(record), new JepAsyncCallback<PagingResult<JepRecord>>() {
+              @Override
+              public void onSuccess(PagingResult<JepRecord> result) {
+                if (result.getSize() > 0){
+                  new ConfirmMessageBox(JepTexts.deletion_dialog_title(), supplierText.supplier_has_goods_alt(), new ConfirmCallback() {
+                    @Override
+                    public void onConfirm(Boolean result) {
+                      if (result){
+                        doubleConfirmed = true;
+                        onDeleteConfirmation(records);
+                      }
+                    }
+                  }).show();
+                }
+                else {
+                  doubleConfirmed = true;
+                  onDeleteConfirmation(records);
+                }
+              }
+            });
+          }
+        }
+      });
+    }
+    
+  }
+  
+  @Override
+  protected void onDeleteConfirmation(Set<JepRecord> records) {
+    if (doubleConfirmed){
+      super.onDeleteConfirmation(records);
+    }
+  }
 }

@@ -8,11 +8,11 @@ import com.technology.jep.jepriashowcase.search.client.shop.ShoppingCart;
 
 public interface SearchModuleView extends PlainModuleView {
 
-	void addSearchButtonClickHandler(ClickHandler clickHandler);
-	
-	String getSearchText();
+  void addSearchButtonClickHandler(ClickHandler clickHandler);
+  
+  String getSearchText();
 
-	ListManager getListManager();
-	void setShoppingCart(ShoppingCart cart);
-	Label getShoppingCartLabel();
+  ListManager getListManager();
+  void setShoppingCart(ShoppingCart cart);
+  Label getShoppingCartLabel();
 }

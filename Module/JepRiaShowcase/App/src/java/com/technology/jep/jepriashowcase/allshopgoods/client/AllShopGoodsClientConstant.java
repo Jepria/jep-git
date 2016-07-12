@@ -7,7 +7,7 @@ import com.technology.jep.jepriashowcase.allshopgoods.shared.text.AllShopGoodsTe
  
 public class AllShopGoodsClientConstant extends AllShopGoodsConstant {
  
-	public static String[] scopeModuleIds = {ALLSHOPGOODS_MODULE_ID, REQUEST_MODULE_ID}; 
+  public static String[] scopeModuleIds = {ALLSHOPGOODS_MODULE_ID, REQUEST_MODULE_ID}; 
  
-	public static AllShopGoodsText allShopGoodsText = (AllShopGoodsText) GWT.create(AllShopGoodsText.class);
+  public static AllShopGoodsText allShopGoodsText = (AllShopGoodsText) GWT.create(AllShopGoodsText.class);
 }

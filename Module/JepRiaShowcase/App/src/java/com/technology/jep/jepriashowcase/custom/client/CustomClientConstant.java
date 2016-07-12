@@ -5,9 +5,9 @@ import com.technology.jep.jepriashowcase.custom.shared.CustomConstant;
 import com.technology.jep.jepriashowcase.custom.shared.text.CustomText;
 
 public class CustomClientConstant extends CustomConstant {
-	
-	/**
-	 * Тексты клиентской части Custom.
-	 */
-	public static CustomText customText = (CustomText) GWT.create(CustomText.class);
+  
+  /**
+   * Тексты клиентской части Custom.
+   */
+  public static CustomText customText = (CustomText) GWT.create(CustomText.class);
 }

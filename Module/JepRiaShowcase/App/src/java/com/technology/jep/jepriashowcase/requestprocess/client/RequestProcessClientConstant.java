@@ -6,5 +6,5 @@ import com.technology.jep.jepriashowcase.requestprocess.shared.text.RequestProce
  
 public class RequestProcessClientConstant extends RequestProcessConstant {
  
-	public static RequestProcessText requestProcessText = (RequestProcessText) GWT.create(RequestProcessText.class);
+  public static RequestProcessText requestProcessText = (RequestProcessText) GWT.create(RequestProcessText.class);
 }

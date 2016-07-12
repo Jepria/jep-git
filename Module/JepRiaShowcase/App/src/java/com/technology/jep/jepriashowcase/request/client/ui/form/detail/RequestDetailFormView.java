@@ -5,6 +5,6 @@ import com.technology.jep.jepria.client.widget.field.validation.Validator;
  
 public interface RequestDetailFormView extends DetailFormView {
 
-	void setCustomValidator(String validatorId, Validator customValidator);
-	
+  void setCustomValidator(String validatorId, Validator customValidator);
+  
 }

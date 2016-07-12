@@ -19,32 +19,32 @@ import com.technology.jep.jepriashowcase.simple.shared.record.SimpleRecordDefini
  */
 public class SimpleClientFactoryImpl<E extends PlainEventBus, S extends JepDataServiceAsync> extends PlainClientFactoryImpl<E, S> {
 
-	/**
-	 * Поле для реализации singleton'а клиентской фабрики модуля.
-	 */
-	public static PlainClientFactoryImpl<PlainEventBus, JepDataServiceAsync> instance = null;
-	
-	public SimpleClientFactoryImpl() {
-		super(SimpleRecordDefinition.instance);
-		initActivityMappers(this);
-	}
+  /**
+   * Поле для реализации singleton'а клиентской фабрики модуля.
+   */
+  public static PlainClientFactoryImpl<PlainEventBus, JepDataServiceAsync> instance = null;
+  
+  public SimpleClientFactoryImpl() {
+    super(SimpleRecordDefinition.instance);
+    initActivityMappers(this);
+  }
 
-	static public PlainClientFactory<PlainEventBus, JepDataServiceAsync> getInstance() {
-		if(instance == null) {
-			instance = GWT.create(SimpleClientFactoryImpl.class);
-		}
-		return instance;
-	}
+  static public PlainClientFactory<PlainEventBus, JepDataServiceAsync> getInstance() {
+    if(instance == null) {
+      instance = GWT.create(SimpleClientFactoryImpl.class);
+    }
+    return instance;
+  }
 
-	public IsWidget getModuleView() {
-		if(moduleView == null) {
-			moduleView = new SimpleModuleViewImpl();
-		}
-		return moduleView;
-	}
+  public IsWidget getModuleView() {
+    if(moduleView == null) {
+      moduleView = new SimpleModuleViewImpl();
+    }
+    return moduleView;
+  }
 
-	public JepPresenter createPlainModulePresenter(Place place) {
-		return new SimpleModulePresenter(SIMPLE_MODULE_ID, place, this);
-	}
-	
+  public JepPresenter createPlainModulePresenter(Place place) {
+    return new SimpleModulePresenter(SIMPLE_MODULE_ID, place, this);
+  }
+  
 }

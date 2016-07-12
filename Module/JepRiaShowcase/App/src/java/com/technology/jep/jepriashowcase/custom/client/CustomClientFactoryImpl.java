@@ -21,39 +21,39 @@ import com.technology.jep.jepriashowcase.custom.shared.service.CustomServiceAsyn
  */
 public class CustomClientFactoryImpl<E extends PlainEventBus, S extends CustomServiceAsync> extends PlainClientFactoryImpl<E, S> {
 
-	/**
-	 * Поле для реализации singleton'а клиентской фабрики модуля.
-	 */
-	public static PlainClientFactoryImpl<PlainEventBus, JepDataServiceAsync> instance = null;
-	
-	public CustomClientFactoryImpl() {
-		super(CustomRecordDefinition.instance);
-		initActivityMappers(this);
-	}
+  /**
+   * Поле для реализации singleton'а клиентской фабрики модуля.
+   */
+  public static PlainClientFactoryImpl<PlainEventBus, JepDataServiceAsync> instance = null;
+  
+  public CustomClientFactoryImpl() {
+    super(CustomRecordDefinition.instance);
+    initActivityMappers(this);
+  }
 
-	static public PlainClientFactory<PlainEventBus, JepDataServiceAsync> getInstance() {
-		if(instance == null) {
-			instance = GWT.create(CustomClientFactoryImpl.class);
-		}
-		return instance;
-	}
+  static public PlainClientFactory<PlainEventBus, JepDataServiceAsync> getInstance() {
+    if(instance == null) {
+      instance = GWT.create(CustomClientFactoryImpl.class);
+    }
+    return instance;
+  }
 
-	public IsWidget getModuleView() {
-		if(moduleView == null) {
-			moduleView = new CustomModuleViewImpl();
-		}
-		return moduleView;
-	}
+  public IsWidget getModuleView() {
+    if(moduleView == null) {
+      moduleView = new CustomModuleViewImpl();
+    }
+    return moduleView;
+  }
 
-	public S getService() {
-		if(dataService == null) {
-			dataService = (S) GWT.create(CustomService.class);
-		}
-		return dataService;
-	}
+  public S getService() {
+    if(dataService == null) {
+      dataService = (S) GWT.create(CustomService.class);
+    }
+    return dataService;
+  }
 
-	public JepPresenter createPlainModulePresenter(Place place) {
-		return new CustomModulePresenter(CUSTOM_MODULE_ID, place, this);
-	}
-	
+  public JepPresenter createPlainModulePresenter(Place place) {
+    return new CustomModulePresenter(CUSTOM_MODULE_ID, place, this);
+  }
+  
 }

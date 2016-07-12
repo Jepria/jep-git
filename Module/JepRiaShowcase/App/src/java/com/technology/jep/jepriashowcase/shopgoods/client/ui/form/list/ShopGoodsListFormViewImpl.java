@@ -15,19 +15,19 @@ import com.technology.jep.jepria.client.widget.list.JepColumn;
  
 public class ShopGoodsListFormViewImpl extends StandardListFormViewImpl {
  
-	public ShopGoodsListFormViewImpl() {
-		super(ShopGoodsListFormViewImpl.class.getCanonicalName());
-	}
+  public ShopGoodsListFormViewImpl() {
+    super(ShopGoodsListFormViewImpl.class.getCanonicalName());
+  }
 
-	private static NumberFormat defaultNumberFormatter = NumberFormat.getFormat("#");
+  private static NumberFormat defaultNumberFormatter = NumberFormat.getFormat("#");
  
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	@Override
-	protected List<JepColumn> getColumnConfigurations() {
-		final List<JepColumn> columns = new ArrayList<JepColumn>();
-		columns.add(new JepColumn(SHOP_GOODS_ID, shopGoodsText.shopGoods_list_shop_goods_id(), 150, new NumberCell(defaultNumberFormatter)));
-		columns.add(new JepColumn(SHOP_NAME, shopGoodsText.shopGoods_list_shop_name(), 150));
-		columns.add(new JepColumn(GOODS_NAME, shopGoodsText.shopGoods_list_goods_name(), 150));
-		return columns;
-	}
+  @SuppressWarnings({ "rawtypes", "unchecked" })
+  @Override
+  protected List<JepColumn> getColumnConfigurations() {
+    final List<JepColumn> columns = new ArrayList<JepColumn>();
+    columns.add(new JepColumn(SHOP_GOODS_ID, shopGoodsText.shopGoods_list_shop_goods_id(), 150, new NumberCell(defaultNumberFormatter)));
+    columns.add(new JepColumn(SHOP_NAME, shopGoodsText.shopGoods_list_shop_name(), 150));
+    columns.add(new JepColumn(GOODS_NAME, shopGoodsText.shopGoods_list_goods_name(), 150));
+    return columns;
+  }
 }

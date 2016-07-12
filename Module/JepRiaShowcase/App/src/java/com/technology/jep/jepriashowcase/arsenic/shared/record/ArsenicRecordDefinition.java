@@ -10,15 +10,15 @@ import com.technology.jep.jepria.shared.record.JepRecordDefinition;
  
 public class ArsenicRecordDefinition extends JepRecordDefinition {
  
-	public static ArsenicRecordDefinition instance = new ArsenicRecordDefinition();
+  public static ArsenicRecordDefinition instance = new ArsenicRecordDefinition();
  
-	private ArsenicRecordDefinition() {
-		super(buildTypeMap(), new String[]{PRIMARY_KEY});
-	}
+  private ArsenicRecordDefinition() {
+    super(buildTypeMap(), new String[]{PRIMARY_KEY});
+  }
  
-	private static Map<String, JepTypeEnum> buildTypeMap() {
-		Map<String, JepTypeEnum> typeMap = new HashMap<String, JepTypeEnum>();
-		typeMap.put(PRIMARY_KEY, JepTypeEnum.INTEGER);
-		return typeMap;
-	}
+  private static Map<String, JepTypeEnum> buildTypeMap() {
+    Map<String, JepTypeEnum> typeMap = new HashMap<String, JepTypeEnum>();
+    typeMap.put(PRIMARY_KEY, JepTypeEnum.INTEGER);
+    return typeMap;
+  }
 }

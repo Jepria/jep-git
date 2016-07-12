@@ -7,7 +7,7 @@ import com.technology.jep.jepriashowcase.supplier.shared.text.SupplierText;
  
 public class SupplierClientConstant extends SupplierConstant {
  
-	public static String[] scopeModuleIds = {SUPPLIER_MODULE_ID, GOODS_MODULE_ID}; 
+  public static String[] scopeModuleIds = {SUPPLIER_MODULE_ID, GOODS_MODULE_ID}; 
  
-	public static SupplierText supplierText = (SupplierText) GWT.create(SupplierText.class);
+  public static SupplierText supplierText = (SupplierText) GWT.create(SupplierText.class);
 }

@@ -30,71 +30,71 @@ import com.technology.jep.jepria.shared.util.JepRiaUtil;
 import com.technology.jep.jepriashowcase.request.shared.service.RequestServiceAsync;
  
 public class RequestDetailFormPresenter<E extends PlainEventBus, S extends RequestServiceAsync> 
-		extends DetailFormPresenter<RequestDetailFormView, E, S, StandardClientFactory<E, S>> { 
+    extends DetailFormPresenter<RequestDetailFormView, E, S, StandardClientFactory<E, S>> { 
  
-	public RequestDetailFormPresenter(Place place, StandardClientFactory<E, S> clientFactory) {
-		super(scopeModuleIds, place, clientFactory);
-	}
+  public RequestDetailFormPresenter(Place place, StandardClientFactory<E, S> clientFactory) {
+    super(scopeModuleIds, place, clientFactory);
+  }
  
-	public void bind() {
-		super.bind();
-		// Здесь размещается код связывания presenter-а и view 
-		
-		fields.addFieldListener(REQUEST_STATUS_CODE, JepEventType.FIRST_TIME_USE_EVENT, new JepListener() {
-			@Override
-			public void handleEvent(JepEvent event) {
-				service.getRequestStatus(new FirstTimeUseAsyncCallback<List<JepOption>>(event) {
-					@Override
-					public void onSuccessLoad(List<JepOption> result) {
-						fields.setFieldOptions(REQUEST_STATUS_CODE, result);
-					}
-				});
-			}
-		});
-		
-		// определяем кастомный валидатор взаимодействия полей начальной и конечной дат
-		view.setCustomValidator(BEGIN_END_DATE_CUSTOM_VALIDATOR_ID, new Validator() {
-			@Override
-			public boolean isValid() {
-				// Перед проверкой, очищаем предыдущие ошибки.
-				fields.get(REQUEST_DATE_FROM).clearInvalid();
-				Date beginDate = fields.getFieldValue(REQUEST_DATE_FROM);
-				Date endDate = fields.getFieldValue(REQUEST_DATE_TO);
-				if (!JepRiaUtil.isEmpty(beginDate) 
-						&& !JepRiaUtil.isEmpty(endDate) 
-							&& beginDate.after(endDate)){
-					fields.get(REQUEST_DATE_FROM).markInvalid(requestText.request_detail_request_date_error_beginEndDates());
-					return false;
-				}
-				return true;
-			}
-		});
-		
-		// определяем кастомный валидатор поля request_date
-		view.setCustomValidator(REQUEST_DATE_CUSTOM_VALIDATOR_ID, new Validator() {
-			@Override
-			public boolean isValid() {
-				// Перед проверкой, очищаем предыдущие ошибки.
-				fields.get(REQUEST_DATE).clearInvalid();
-				Date beginDate = fields.getFieldValue(REQUEST_DATE);
-				Date endDate = new Date();
-				CalendarUtil.resetTime(endDate);
-				if (!JepRiaUtil.isEmpty(beginDate) 
-							&& beginDate.after(endDate)){
-					fields.get(REQUEST_DATE).markInvalid(requestText.request_detail_request_date_error_sysdate());
-					return false;
-				}
-				return true;
-			}
-		});
-	}
+  public void bind() {
+    super.bind();
+    // Здесь размещается код связывания presenter-а и view 
+    
+    fields.addFieldListener(REQUEST_STATUS_CODE, JepEventType.FIRST_TIME_USE_EVENT, new JepListener() {
+      @Override
+      public void handleEvent(JepEvent event) {
+        service.getRequestStatus(new FirstTimeUseAsyncCallback<List<JepOption>>(event) {
+          @Override
+          public void onSuccessLoad(List<JepOption> result) {
+            fields.setFieldOptions(REQUEST_STATUS_CODE, result);
+          }
+        });
+      }
+    });
+    
+    // определяем кастомный валидатор взаимодействия полей начальной и конечной дат
+    view.setCustomValidator(BEGIN_END_DATE_CUSTOM_VALIDATOR_ID, new Validator() {
+      @Override
+      public boolean isValid() {
+        // Перед проверкой, очищаем предыдущие ошибки.
+        fields.get(REQUEST_DATE_FROM).clearInvalid();
+        Date beginDate = fields.getFieldValue(REQUEST_DATE_FROM);
+        Date endDate = fields.getFieldValue(REQUEST_DATE_TO);
+        if (!JepRiaUtil.isEmpty(beginDate) 
+            && !JepRiaUtil.isEmpty(endDate) 
+              && beginDate.after(endDate)){
+          fields.get(REQUEST_DATE_FROM).markInvalid(requestText.request_detail_request_date_error_beginEndDates());
+          return false;
+        }
+        return true;
+      }
+    });
+    
+    // определяем кастомный валидатор поля request_date
+    view.setCustomValidator(REQUEST_DATE_CUSTOM_VALIDATOR_ID, new Validator() {
+      @Override
+      public boolean isValid() {
+        // Перед проверкой, очищаем предыдущие ошибки.
+        fields.get(REQUEST_DATE).clearInvalid();
+        Date beginDate = fields.getFieldValue(REQUEST_DATE);
+        Date endDate = new Date();
+        CalendarUtil.resetTime(endDate);
+        if (!JepRiaUtil.isEmpty(beginDate) 
+              && beginDate.after(endDate)){
+          fields.get(REQUEST_DATE).markInvalid(requestText.request_detail_request_date_error_sysdate());
+          return false;
+        }
+        return true;
+      }
+    });
+  }
  
-	protected void adjustToWorkstate(WorkstateEnum workstate) {
-		fields.setFieldVisible(REQUEST_DATE_FROM, SEARCH.equals(workstate));
-		fields.setFieldVisible(REQUEST_DATE_TO, SEARCH.equals(workstate));
-		fields.setFieldVisible(SHOP_ID, SEARCH.equals(workstate));
-		
-		fields.setFieldVisible(GOODS_QUANTITY, !SEARCH.equals(workstate));
-	}
+  protected void adjustToWorkstate(WorkstateEnum workstate) {
+    fields.setFieldVisible(REQUEST_DATE_FROM, SEARCH.equals(workstate));
+    fields.setFieldVisible(REQUEST_DATE_TO, SEARCH.equals(workstate));
+    fields.setFieldVisible(SHOP_ID, SEARCH.equals(workstate));
+    
+    fields.setFieldVisible(GOODS_QUANTITY, !SEARCH.equals(workstate));
+  }
  
 }

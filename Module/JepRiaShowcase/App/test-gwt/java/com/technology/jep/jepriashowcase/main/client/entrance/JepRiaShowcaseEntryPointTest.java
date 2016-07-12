@@ -15,21 +15,21 @@ public class JepRiaShowcaseEntryPointTest extends GWTTestCase {
 
   }
 
-	public void testStartApplication() {
-		JepEntryPoint entryPoint = new JepRiaShowcaseEntryPoint() {
-			public void initHistory() {
-				super.initHistory();
-				
-				assertNotNull("MainClientFactory not initialized properly.", JepScopeStack.instance.getMainClientFactory());
-				
-				finishTest();
-			}
-		};
-		
-		delayTestFinish(3000);
-		
-		entryPoint.onModuleLoad();
+  public void testStartApplication() {
+    JepEntryPoint entryPoint = new JepRiaShowcaseEntryPoint() {
+      public void initHistory() {
+        super.initHistory();
+        
+        assertNotNull("MainClientFactory not initialized properly.", JepScopeStack.instance.getMainClientFactory());
+        
+        finishTest();
+      }
+    };
+    
+    delayTestFinish(3000);
+    
+    entryPoint.onModuleLoad();
   }
-	
-	
+  
+  
 }

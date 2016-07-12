@@ -13,9 +13,9 @@ import com.technology.jep.jepriashowcase.feature.shared.service.FeatureService;
 @RemoteServiceRelativePath("FeatureService")
 public class FeatureServiceImpl extends JepDataServiceServlet<Feature> implements FeatureService  {
  
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
  
-	public FeatureServiceImpl() {
-		super(FeatureRecordDefinition.instance, new ServerFactory<Feature>(new FeatureDao(), DATA_SOURCE_JNDI_NAME));
-	}
+  public FeatureServiceImpl() {
+    super(FeatureRecordDefinition.instance, new ServerFactory<Feature>(new FeatureDao(), DATA_SOURCE_JNDI_NAME));
+  }
 }

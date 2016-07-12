@@ -15,22 +15,22 @@ import com.technology.jep.jepria.client.ui.main.MainView;
 import com.technology.jep.jepria.shared.service.JepMainServiceAsync;
 
 public class JepRiaShowcaseMainModulePresenter<E extends MainEventBus, S extends JepMainServiceAsync> 
-	extends MainModulePresenter<MainView, E, S, MainClientFactory<E, S>>	{
+  extends MainModulePresenter<MainView, E, S, MainClientFactory<E, S>>  {
 
-	public JepRiaShowcaseMainModulePresenter(MainClientFactory<E, S> clientFactory) {
-		super(clientFactory);
-		
-		addModuleProtection(SUPPLIER_MODULE_ID, "JrsEditSupplier");
-		addModuleProtection(GOODS_MODULE_ID, "JrsEditGoods");
-		addModuleProtection(SHOPGOODS_MODULE_ID, "JrsEditShopGoods");
-		addModuleProtection(ALLSHOPGOODS_MODULE_ID, "JrsEditShopGoods");
-		addModuleProtection(REQUEST_MODULE_ID, "JrsEditRequest");
-		addModuleProtection(REQUESTPROCESS_MODULE_ID, "JrsEditRequestProcess");
-		addModuleProtection(FEATURE_MODULE_ID, "JrsEditFeature");
-		
-		setProtectedModuleItemsVisibility(false);
-	}
-	
+  public JepRiaShowcaseMainModulePresenter(MainClientFactory<E, S> clientFactory) {
+    super(clientFactory);
+    
+    addModuleProtection(SUPPLIER_MODULE_ID, "JrsEditSupplier");
+    addModuleProtection(GOODS_MODULE_ID, "JrsEditGoods");
+    addModuleProtection(SHOPGOODS_MODULE_ID, "JrsEditShopGoods");
+    addModuleProtection(ALLSHOPGOODS_MODULE_ID, "JrsEditShopGoods");
+    addModuleProtection(REQUEST_MODULE_ID, "JrsEditRequest");
+    addModuleProtection(REQUESTPROCESS_MODULE_ID, "JrsEditRequestProcess");
+    addModuleProtection(FEATURE_MODULE_ID, "JrsEditFeature");
+    
+    setProtectedModuleItemsVisibility(false);
+  }
+  
 }
 
 

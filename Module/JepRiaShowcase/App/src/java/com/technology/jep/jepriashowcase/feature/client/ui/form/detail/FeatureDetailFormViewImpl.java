@@ -28,50 +28,50 @@ import com.technology.jep.jepria.client.widget.field.multistate.JepTextField;
 
 public class FeatureDetailFormViewImpl extends DetailFormViewImpl {
 
-	public FeatureDetailFormViewImpl() {
-		super(new FieldManager());
+  public FeatureDetailFormViewImpl() {
+    super(new FieldManager());
 
-		ScrollPanel scrollPanel = new ScrollPanel();
-		scrollPanel.setSize("100%", "100%");
-		
-		VerticalPanel panel = new VerticalPanel();
-		panel.getElement().getStyle().setMarginTop(5, Unit.PX);
-		scrollPanel.add(panel);
+    ScrollPanel scrollPanel = new ScrollPanel();
+    scrollPanel.setSize("100%", "100%");
+    
+    VerticalPanel panel = new VerticalPanel();
+    panel.getElement().getStyle().setMarginTop(5, Unit.PX);
+    scrollPanel.add(panel);
  
-		JepIntegerField featureIdIntegerField = new JepIntegerField(FEATURE_FEATUREID_DETAILFORM_FIELD_ID, featureText.feature_detail_feature_id());
-		JepTextField featureNameTextField = new JepTextField(FEATURE_FEATURENAME_DETAILFORM_FIELD_ID, featureText.feature_detail_feature_name());
-		featureNameTextField.setMaxLength(255);
-		JepTextField featureNameEnTextField = new JepTextField(FEATURE_FEATURENAMEEN_DETAILFORM_FIELD_ID, featureText.feature_detail_feature_name_en());
-		featureNameEnTextField.setMaxLength(255);
-		JepDateField dateInsFromTextField = new JepDateField(FEATURE_FROMDATEINS_DETAILFORM_FIELD_ID, featureText.feature_detail_date_ins_from());
-		JepDateField dateInsToTextField = new JepDateField(FEATURE_TODATEINS_DETAILFORM_FIELD_ID, featureText.feature_detail_date_ins_to());
-		JepDateField dateInsTextField = new JepDateField(featureText.feature_detail_date_ins());
-		JepTextAreaField descriptionTextAreaField = new JepTextAreaField(FEATURE_DESCRIPTION_DETAILFORM_FIELD_ID, featureText.feature_detail_description());
-		descriptionTextAreaField.setFieldHeight(120);
-		descriptionTextAreaField.setFieldWidth(400);
-		JepTextField operatorNameTextField = new JepTextField(featureText.feature_detail_operator_name());
-		JepIntegerField maxRowCountIntegerField = new JepIntegerField(FEATURE_MAXROWCOUNT_DETAILFORM_FIELD_ID, featureText.feature_detail_max_row_count());
-		
-		panel.add(featureIdIntegerField);
-		panel.add(featureNameTextField);
-		panel.add(featureNameEnTextField);
-		panel.add(dateInsFromTextField);
-		panel.add(dateInsToTextField);
-		panel.add(dateInsTextField);
-		panel.add(descriptionTextAreaField);
-		panel.add(operatorNameTextField);
-		panel.add(maxRowCountIntegerField);
-		
-		setWidget(scrollPanel);
+    JepIntegerField featureIdIntegerField = new JepIntegerField(FEATURE_FEATUREID_DETAILFORM_FIELD_ID, featureText.feature_detail_feature_id());
+    JepTextField featureNameTextField = new JepTextField(FEATURE_FEATURENAME_DETAILFORM_FIELD_ID, featureText.feature_detail_feature_name());
+    featureNameTextField.setMaxLength(255);
+    JepTextField featureNameEnTextField = new JepTextField(FEATURE_FEATURENAMEEN_DETAILFORM_FIELD_ID, featureText.feature_detail_feature_name_en());
+    featureNameEnTextField.setMaxLength(255);
+    JepDateField dateInsFromTextField = new JepDateField(FEATURE_FROMDATEINS_DETAILFORM_FIELD_ID, featureText.feature_detail_date_ins_from());
+    JepDateField dateInsToTextField = new JepDateField(FEATURE_TODATEINS_DETAILFORM_FIELD_ID, featureText.feature_detail_date_ins_to());
+    JepDateField dateInsTextField = new JepDateField(featureText.feature_detail_date_ins());
+    JepTextAreaField descriptionTextAreaField = new JepTextAreaField(FEATURE_DESCRIPTION_DETAILFORM_FIELD_ID, featureText.feature_detail_description());
+    descriptionTextAreaField.setFieldHeight(120);
+    descriptionTextAreaField.setFieldWidth(400);
+    JepTextField operatorNameTextField = new JepTextField(featureText.feature_detail_operator_name());
+    JepIntegerField maxRowCountIntegerField = new JepIntegerField(FEATURE_MAXROWCOUNT_DETAILFORM_FIELD_ID, featureText.feature_detail_max_row_count());
+    
+    panel.add(featureIdIntegerField);
+    panel.add(featureNameTextField);
+    panel.add(featureNameEnTextField);
+    panel.add(dateInsFromTextField);
+    panel.add(dateInsToTextField);
+    panel.add(dateInsTextField);
+    panel.add(descriptionTextAreaField);
+    panel.add(operatorNameTextField);
+    panel.add(maxRowCountIntegerField);
+    
+    setWidget(scrollPanel);
  
-		fields.put(FEATURE_ID, featureIdIntegerField);
-		fields.put(FEATURE_NAME, featureNameTextField);
-		fields.put(FEATURE_NAME_EN, featureNameEnTextField);
-		fields.put(DATE_INS_FROM, dateInsFromTextField);
-		fields.put(DATE_INS_TO, dateInsToTextField);
-		fields.put(DATE_INS, dateInsTextField);
-		fields.put(DESCRIPTION, descriptionTextAreaField);
-		fields.put(OPERATOR_NAME, operatorNameTextField);
-		fields.put(MAX_ROW_COUNT, maxRowCountIntegerField);
-	}
+    fields.put(FEATURE_ID, featureIdIntegerField);
+    fields.put(FEATURE_NAME, featureNameTextField);
+    fields.put(FEATURE_NAME_EN, featureNameEnTextField);
+    fields.put(DATE_INS_FROM, dateInsFromTextField);
+    fields.put(DATE_INS_TO, dateInsToTextField);
+    fields.put(DATE_INS, dateInsTextField);
+    fields.put(DESCRIPTION, descriptionTextAreaField);
+    fields.put(OPERATOR_NAME, operatorNameTextField);
+    fields.put(MAX_ROW_COUNT, maxRowCountIntegerField);
+  }
 }

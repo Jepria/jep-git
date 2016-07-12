@@ -18,29 +18,29 @@ import com.technology.jep.jepriashowcase.shopgoods.shared.service.ShopGoodsServi
 @RemoteServiceRelativePath("ShopGoodsService")
 public class ShopGoodsServiceImpl extends JepDataServiceServlet<ShopGoods> implements ShopGoodsService  {
  
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
  
-	public ShopGoodsServiceImpl() {
-		super(ShopGoodsRecordDefinition.instance, new ServerFactory<ShopGoods>(new ShopGoodsDao(), DATA_SOURCE_JNDI_NAME));
-	}
-	
-	public List<JepOption> getShop(String shopName) throws ApplicationException {
-		List<JepOption> result = null;
-		try {
-			result = dao.getShop(shopName, OPTION_COUNT + 1);
-		} catch (Throwable th) {
-			throw new ApplicationException(th.getLocalizedMessage(), th);
-		}
-		return result;
-	}
-	
-	public List<JepOption> getGoods(String goodsName) throws ApplicationException {
-		List<JepOption> result = null;
-		try {
-			result = dao.getGoods(goodsName, OPTION_COUNT + 1);
-		} catch (Throwable th) {
-			throw new ApplicationException(th.getLocalizedMessage(), th);
-		}
-		return result;
-	}
+  public ShopGoodsServiceImpl() {
+    super(ShopGoodsRecordDefinition.instance, new ServerFactory<ShopGoods>(new ShopGoodsDao(), DATA_SOURCE_JNDI_NAME));
+  }
+  
+  public List<JepOption> getShop(String shopName) throws ApplicationException {
+    List<JepOption> result = null;
+    try {
+      result = dao.getShop(shopName, OPTION_COUNT + 1);
+    } catch (Throwable th) {
+      throw new ApplicationException(th.getLocalizedMessage(), th);
+    }
+    return result;
+  }
+  
+  public List<JepOption> getGoods(String goodsName) throws ApplicationException {
+    List<JepOption> result = null;
+    try {
+      result = dao.getGoods(goodsName, OPTION_COUNT + 1);
+    } catch (Throwable th) {
+      throw new ApplicationException(th.getLocalizedMessage(), th);
+    }
+    return result;
+  }
 }

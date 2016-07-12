@@ -13,9 +13,9 @@ import com.technology.jep.jepriashowcase.requestprocess.shared.service.RequestPr
 @RemoteServiceRelativePath("RequestProcessService")
 public class RequestProcessServiceImpl extends JepDataServiceServlet<RequestProcess> implements RequestProcessService  {
  
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
  
-	public RequestProcessServiceImpl() {
-		super(RequestProcessRecordDefinition.instance, new ServerFactory<RequestProcess>(new RequestProcessDao(), DATA_SOURCE_JNDI_NAME));
-	}
+  public RequestProcessServiceImpl() {
+    super(RequestProcessRecordDefinition.instance, new ServerFactory<RequestProcess>(new RequestProcessDao(), DATA_SOURCE_JNDI_NAME));
+  }
 }

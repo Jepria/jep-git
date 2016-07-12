@@ -7,6 +7,6 @@ import com.technology.jep.jepria.shared.field.option.JepOption;
 import com.technology.jep.jepria.shared.service.data.JepDataServiceAsync;
  
 public interface ShopGoodsServiceAsync extends JepDataServiceAsync {
-	void getShop(String shopName, AsyncCallback<List<JepOption>> callback);
-	void getGoods(String goodsName, AsyncCallback<List<JepOption>> callback);
+  void getShop(String shopName, AsyncCallback<List<JepOption>> callback);
+  void getGoods(String goodsName, AsyncCallback<List<JepOption>> callback);
 }

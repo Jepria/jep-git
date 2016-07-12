@@ -15,31 +15,31 @@ import com.technology.jep.jepria.shared.record.JepRecordDefinition;
  
 public class SimpleRecordDefinition extends JepRecordDefinition {
  
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
  
-	public static SimpleRecordDefinition instance = new SimpleRecordDefinition();
+  public static SimpleRecordDefinition instance = new SimpleRecordDefinition();
  
-	private SimpleRecordDefinition() {
-		super(buildTypeMap()
-			, new String[]{OPERATOR_ID}
-		);
-		super.setLikeMap(buildLikeMap());
-	}
+  private SimpleRecordDefinition() {
+    super(buildTypeMap()
+      , new String[]{OPERATOR_ID}
+    );
+    super.setLikeMap(buildLikeMap());
+  }
  
-	private static Map<String, JepTypeEnum> buildTypeMap() {
-		Map<String, JepTypeEnum> typeMap = new HashMap<String, JepTypeEnum>();
-		
-		typeMap.put(OPERATOR_ID, INTEGER);
-		typeMap.put(LOGIN, STRING);
-		
-		return typeMap;
-	}
+  private static Map<String, JepTypeEnum> buildTypeMap() {
+    Map<String, JepTypeEnum> typeMap = new HashMap<String, JepTypeEnum>();
+    
+    typeMap.put(OPERATOR_ID, INTEGER);
+    typeMap.put(LOGIN, STRING);
+    
+    return typeMap;
+  }
  
-	private static Map<String, JepLikeEnum> buildLikeMap() {
-		Map<String, JepLikeEnum> likeMap = new HashMap<String, JepLikeEnum>();
-		
-		likeMap.put(LOGIN, JepLikeEnum.CONTAINS);
-		
-		return likeMap;
-	}
+  private static Map<String, JepLikeEnum> buildLikeMap() {
+    Map<String, JepLikeEnum> likeMap = new HashMap<String, JepLikeEnum>();
+    
+    likeMap.put(LOGIN, JepLikeEnum.CONTAINS);
+    
+    return likeMap;
+  }
 }

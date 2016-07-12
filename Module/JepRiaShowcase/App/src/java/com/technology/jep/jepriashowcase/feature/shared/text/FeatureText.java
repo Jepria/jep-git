@@ -2,7 +2,7 @@ package com.technology.jep.jepriashowcase.feature.shared.text;
 
 /**
  * Interface to represent the constants contained in resource bundle:
- * 	'D:/GitSourceForge5/javaenterpriseplatform-git/Module/JepRiaShowcase/App/src/java/com/technology/jep/jepriashowcase/feature/shared/text/FeatureText.properties'.
+ *   'D:/GitSourceForge5/javaenterpriseplatform-git/Module/JepRiaShowcase/App/src/java/com/technology/jep/jepriashowcase/feature/shared/text/FeatureText.properties'.
  */
 public interface FeatureText extends com.google.gwt.i18n.client.Constants {
   

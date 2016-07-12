@@ -8,15 +8,15 @@ import com.technology.jep.jepria.shared.exceptions.ApplicationException;
  */
 public interface Search extends JepDataStandard {
 
-	/**
-	 * Получение имени пользователя по его идентификатору.
-	 * 
-	 * @param operatorId идентификатор пользователя
-	 * @return имя пользователя
-	 * @throws ApplicationException
-	 */
-	String getOperatorName(
-		Integer operatorId)
-		throws ApplicationException;
-	
+  /**
+   * Получение имени пользователя по его идентификатору.
+   * 
+   * @param operatorId идентификатор пользователя
+   * @return имя пользователя
+   * @throws ApplicationException
+   */
+  String getOperatorName(
+    Integer operatorId)
+    throws ApplicationException;
+  
 }

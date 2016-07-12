@@ -7,9 +7,9 @@ import com.technology.jep.jepria.server.download.JepDownloadServlet;
  
 public class DownloadServiceImpl extends JepDownloadServlet {
  
-	public DownloadServiceImpl() {
-		super(GoodsRecordDefinition.instance,
-			DATA_SOURCE_JNDI_NAME); 
-	}
+  public DownloadServiceImpl() {
+    super(GoodsRecordDefinition.instance,
+      DATA_SOURCE_JNDI_NAME); 
+  }
  
 }

@@ -20,50 +20,50 @@ import com.technology.jep.jepriashowcase.arsenic.shared.service.ArsenicService;
 import com.technology.jep.jepriashowcase.arsenic.shared.service.ArsenicServiceAsync;
  
 public class ArsenicClientFactoryImpl<E extends PlainEventBus, S extends ArsenicServiceAsync>
-	extends com.technology.jep.jepria.client.ui.plain.StandardClientFactoryImpl<E, S> {
+  extends com.technology.jep.jepria.client.ui.plain.StandardClientFactoryImpl<E, S> {
  
-	private static final IsWidget arsenicDetailFormView = new ArsenicDetailFormViewImpl();
-	private static final IsWidget arsenicListFormView = new ArsenicListFormViewImpl();
+  private static final IsWidget arsenicDetailFormView = new ArsenicDetailFormViewImpl();
+  private static final IsWidget arsenicListFormView = new ArsenicListFormViewImpl();
  
-	public static PlainClientFactoryImpl<PlainEventBus, JepDataServiceAsync> instance = null;
+  public static PlainClientFactoryImpl<PlainEventBus, JepDataServiceAsync> instance = null;
  
-	public ArsenicClientFactoryImpl() {
-		super(ArsenicRecordDefinition.instance);
-		initActivityMappers(this);
-	}
+  public ArsenicClientFactoryImpl() {
+    super(ArsenicRecordDefinition.instance);
+    initActivityMappers(this);
+  }
  
-	static public PlainClientFactory<PlainEventBus, JepDataServiceAsync> getInstance() {
-		if(instance == null) {
-			instance = GWT.create(ArsenicClientFactoryImpl.class);
-		}
-		return instance;
-	}
+  static public PlainClientFactory<PlainEventBus, JepDataServiceAsync> getInstance() {
+    if(instance == null) {
+      instance = GWT.create(ArsenicClientFactoryImpl.class);
+    }
+    return instance;
+  }
  
  
 public JepPresenter createPlainModulePresenter(Place place) {
-	return new StandardModulePresenter(ARSENIC_MODULE_ID, place, this);
+  return new StandardModulePresenter(ARSENIC_MODULE_ID, place, this);
 }
  
-	public JepPresenter createDetailFormPresenter(Place place) {
-		return new ArsenicDetailFormPresenter(place, this);
-	}
+  public JepPresenter createDetailFormPresenter(Place place) {
+    return new ArsenicDetailFormPresenter(place, this);
+  }
  
-	public JepPresenter createListFormPresenter(Place place) {
-		return new ListFormPresenter(place, this)/*TODO change to local LFP*/;
-	}
+  public JepPresenter createListFormPresenter(Place place) {
+    return new ListFormPresenter(place, this)/*TODO change to local LFP*/;
+  }
  
-	public IsWidget getDetailFormView() {
-		return arsenicDetailFormView;
-	}
+  public IsWidget getDetailFormView() {
+    return arsenicDetailFormView;
+  }
  
-	public IsWidget getListFormView() {
-		return arsenicListFormView;
-	}
+  public IsWidget getListFormView() {
+    return arsenicListFormView;
+  }
  
-	public S getService() {
-		if(dataService == null) {
-			dataService = (S) GWT.create(ArsenicService.class);
-		}
-		return dataService;
-	}
+  public S getService() {
+    if(dataService == null) {
+      dataService = (S) GWT.create(ArsenicService.class);
+    }
+    return dataService;
+  }
 }

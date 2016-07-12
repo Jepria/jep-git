@@ -7,39 +7,39 @@ import com.technology.jep.jepria.client.widget.field.multistate.JepTextField;
 
 public interface CustomModuleView extends PlainModuleView {
 
-	void addFullScreenButtonClickHandler(ClickHandler clickHandler);
-	
-	void addErrorButtonClickHandler(ClickHandler clickHandler);
-	
-	void addZIndexButtonClickHandler(ClickHandler clickHandler);
-	
-	void addEmbeddedButtonClickHandler(ClickHandler clickHandler);
+  void addFullScreenButtonClickHandler(ClickHandler clickHandler);
+  
+  void addErrorButtonClickHandler(ClickHandler clickHandler);
+  
+  void addZIndexButtonClickHandler(ClickHandler clickHandler);
+  
+  void addEmbeddedButtonClickHandler(ClickHandler clickHandler);
 
-	void addSearchButtonClickHandler(ClickHandler clickHandler);
+  void addSearchButtonClickHandler(ClickHandler clickHandler);
 
-	void addAuthorizationButtonClickHandler(ClickHandler clickHandler);
-	
-	void addExitButtonClickHandler(ClickHandler clickHandler);
+  void addAuthorizationButtonClickHandler(ClickHandler clickHandler);
+  
+  void addExitButtonClickHandler(ClickHandler clickHandler);
 
-	JepTextField getUrlTextField();
-	
-	Credential getUserCredential();
-	
-	void showOrClearError(String errorText);
-	
-	void toggleAuthorizationPanel();
-	
-	void showLoadingIndicator();
-	
-	void hideLoadingIndicator();
-	
-	void setUsername(String username);
-	
-	void clearCredential();
-	
-	void addCurrentUserClickHandler(ClickHandler clickHandler);
+  JepTextField getUrlTextField();
+  
+  Credential getUserCredential();
+  
+  void showOrClearError(String errorText);
+  
+  void toggleAuthorizationPanel();
+  
+  void showLoadingIndicator();
+  
+  void hideLoadingIndicator();
+  
+  void setUsername(String username);
+  
+  void clearCredential();
+  
+  void addCurrentUserClickHandler(ClickHandler clickHandler);
 
-	HandlerRegistration addGoToUrlButtonClickHandler(ClickHandler clickHandler);
-	
-	HandlerRegistration addTransactionButtonClickHandler(ClickHandler clickHandler);
+  HandlerRegistration addGoToUrlButtonClickHandler(ClickHandler clickHandler);
+  
+  HandlerRegistration addTransactionButtonClickHandler(ClickHandler clickHandler);
 }

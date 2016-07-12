@@ -18,9 +18,9 @@
   <li><a href="#standardSolutions">Типовые решения</a></li>
   <li><a href="#refactoringNeeded">Косвенные признаки необходимости рефакторинга</a></li>
   <li><a href="#autoTestConcept">Автоматизированное тестирование</a></li>
-	<ul>
-	  <li><a href="#autoTestGwtTestCase">Особенности использования GWTTestCase</a></li>
-	</ul>
+  <ul>
+    <li><a href="#autoTestGwtTestCase">Особенности использования GWTTestCase</a></li>
+  </ul>
   <li><a href="#unifiedApplication">Создание унифицированного приложения (EAR) для OC4J и Weblogic</a></li>
   <li><a href="#cssAgreement">Соглашение по использованию стилей css</a></li>
   <li><a href="#deploy">Установка</a></li>
@@ -40,7 +40,7 @@
 <h3><a name="build">Сборка приложения для Production</a></h3>
 При сборке приложений JepRia для Production необходимо выполнить следующие действия:<br/>
 <ul>
-	<li>отключить клиентский лог<br/>
+  <li>отключить клиентский лог<br/>
 Отключение клиентского лога выполняется в файле <I>&lt;Application Name&gt;.gwt.xml</I> комментированием соответствующих строк (см. выделенные строки):
 <pre>
 &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;
@@ -55,8 +55,8 @@
 …
 &lt;/module&gt;
 </pre>
-	</li>
-	<li>установить для уровеня серверного логирования значение <b>INFO</b><br/>
+  </li>
+  <li>установить для уровеня серверного логирования значение <b>INFO</b><br/>
 Установка уровня серверного логирования выполняется в файле <I>log4j.properties</I> (см. выделенные строки):
 <pre>
 #
@@ -71,9 +71,9 @@ log4j.logger.com.technology.jep.jepria.server=<b>INFO</b>, FILE, gwt-log
 log4j.logger.com.technology.jep.jepcommon=<b>INFO</b>, FILE, gwt-log
 ...
 </pre>
-	</li>
-	<li>удалить установку symbolMaps parameter для сервлета Gwt-Log посредством комментирования соответствующих строк файла <i>web.xml</i> 
-	(см. выделение):
+  </li>
+  <li>удалить установку symbolMaps parameter для сервлета Gwt-Log посредством комментирования соответствующих строк файла <i>web.xml</i> 
+  (см. выделение):
 <pre>
 ...
     <b>&lt;!-- &lt;init-param&gt; --&gt;</b>
@@ -84,8 +84,8 @@ log4j.logger.com.technology.jep.jepcommon=<b>INFO</b>, FILE, gwt-log
     <b>&lt;!-- &lt;/init-param&gt; --&gt;</b>
 ...
 </pre>
-	</li>
-	<li>убрать генерирование symbolMaps для сервлета Gwt-Log при GWT-компиляции<br/>
+  </li>
+  <li>убрать генерирование symbolMaps для сервлета Gwt-Log при GWT-компиляции<br/>
 Отключение генерации symbolMaps выполняется удалением параметра <i>-deploy</i> из параметров вызова компилятора -
 посредством комментирования соответствующих строк файла <i>build.xml</i> (см. выделение):
 <pre>
@@ -114,9 +114,9 @@ log4j.logger.com.technology.jep.jepcommon=<b>INFO</b>, FILE, gwt-log
 ...
 &lt;/project&gt;
 </pre>
-	
-	</li>
-	<li>включить оптимизацию при GWT-компиляции<br/>
+  
+  </li>
+  <li>включить оптимизацию при GWT-компиляции<br/>
 Включение оптимизации GWT-компилятора выполняется удалением параметра <I>-draftCompile</I> из параметров вызова компилятора -
 посредством комментирования соответствующей строки файла <I>build.xml</I> (см. выделение):
 <pre>
@@ -145,15 +145,15 @@ log4j.logger.com.technology.jep.jepcommon=<b>INFO</b>, FILE, gwt-log
 ...
 &lt;/project&gt;
 </pre>
-	
-	</li>
-	<li>включить генерацию для всех видов браузеров<br/>
+  
+  </li>
+  <li>включить генерацию для всех видов браузеров<br/>
 Генерация для всех видов браузеров «включается» в файле <i>&lt;Application Name&gt;.gwt.xml</i>.
 Для этого необходимо закомментарить теги свойств <i>user.agent, gxt.user.agent, user.agent.os</i>:
 <pre>
 &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;
 &lt;module rename-to=&quot;Application Name&quot;&gt;
-…  	
+…    
 <b>
 &lt;!-- &lt;set-property name="user.agent" value="ie9" /&gt; --&gt;
 &lt;!-- &lt;set-property name="gxt.user.agent" value="ie9" /&gt; --&gt;
@@ -162,17 +162,17 @@ log4j.logger.com.technology.jep.jepcommon=<b>INFO</b>, FILE, gwt-log
 …
 &lt;/module&gt;
 </pre>
-		<br/>
-		NB. Все возможные комбинации <i>user.agent, gxt.user.agent, user.agent.os</i> можно увидеть при генерации кода под все браузеры, 
-		воспользовавшись GWT Compile Report (см. ниже) на странице, где перечислены все Permutations.
-	</li>
-	<li>включить генерацию для всех поддерживаемых языков (русский, английский)<br/>
+    <br/>
+    NB. Все возможные комбинации <i>user.agent, gxt.user.agent, user.agent.os</i> можно увидеть при генерации кода под все браузеры, 
+    воспользовавшись GWT Compile Report (см. ниже) на странице, где перечислены все Permutations.
+  </li>
+  <li>включить генерацию для всех поддерживаемых языков (русский, английский)<br/>
 
 Генерация русского и английского языков «включается» в файле <I>&lt;Application Name&gt;.gwt.xml</I> следующим образом (см. выделенные строки):
 <pre>
 &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;
 &lt;module rename-to=&quot;Application Name&quot;&gt;
-…  	
+…    
 <b>
   &lt;extend-property name=&quot;locale&quot; values=&quot;ru&quot; /&gt;
   &lt;extend-property name=&quot;locale&quot; values=&quot;en&quot; /&gt;
@@ -181,13 +181,13 @@ log4j.logger.com.technology.jep.jepcommon=<b>INFO</b>, FILE, gwt-log
 …
 &lt;/module&gt;
 </pre>
-	</li>
-	<li>проверить получившийся объем первоначальной загрузки<br/>
-		Объем первоначальной загрузки должен быть около 700KB (для приложени <u>любого размера</u>). 
-		Все остальное должно находиться в отложенной загрузке (Left Over).<br/>
-		
-		Включение генерации GWT Compile Report выполняется добавлением параметра <i>-compileReport</i> в параметрах вызова компилятора -
-		посредством раскомментирования соответствующей строки файла <i>build.xml</i> (см. выделение):
+  </li>
+  <li>проверить получившийся объем первоначальной загрузки<br/>
+    Объем первоначальной загрузки должен быть около 700KB (для приложени <u>любого размера</u>). 
+    Все остальное должно находиться в отложенной загрузке (Left Over).<br/>
+    
+    Включение генерации GWT Compile Report выполняется добавлением параметра <i>-compileReport</i> в параметрах вызова компилятора -
+    посредством раскомментирования соответствующей строки файла <i>build.xml</i> (см. выделение):
 <pre>
 &lt;project name="Jep Module Building" default="build-and-deploy"&gt;
 ...
@@ -214,9 +214,9 @@ log4j.logger.com.technology.jep.jepcommon=<b>INFO</b>, FILE, gwt-log
 ...
 &lt;/project&gt;
 </pre>
-		<br/>
-		<a href="https://developers.google.com/web-toolkit/doc/latest/DevGuideCompileReport" target="_blank">Детальная информация о возможностях GWT Compile Report.</a>
-	</li>
+    <br/>
+    <a href="https://developers.google.com/web-toolkit/doc/latest/DevGuideCompileReport" target="_blank">Детальная информация о возможностях GWT Compile Report.</a>
+  </li>
 </ul>
 
 <h3><a name="ieProblem">Обеспечение совместимости под различные браузеры</a></h3>
@@ -228,9 +228,9 @@ log4j.logger.com.technology.jep.jepcommon=<b>INFO</b>, FILE, gwt-log
 долгий (иногда существенно более долгий, чем сама разработка) процесс отладки/доводки приложения под IE.<br/>
 Исходя из вышесказанного, возможно, целесообразно придерживаться следующего порядка разработки:
 <ol>
-	<li>Разработку изначально вести в IE;</li>
-	<li>Проверить как приложение встраивается в public-страницу в IE (если приложение предназначено для встраивания в public-страницу);</li>
-	<li>Обязательно проверить полученный результат в одном из нормальных браузеров (Chrome, Firefox).</li>
+  <li>Разработку изначально вести в IE;</li>
+  <li>Проверить как приложение встраивается в public-страницу в IE (если приложение предназначено для встраивания в public-страницу);</li>
+  <li>Обязательно проверить полученный результат в одном из нормальных браузеров (Chrome, Firefox).</li>
 </ol>
 Использование данного порядка разработки, наверное, будет способствовать снижению общих трудозатрат на разработку (уйдет время на отладку, в пределе,
 переделку функционала под IE), и, очевидно, будет способствовать снижению негатива, идущего от пользователей IE (пока еще очень многочисленных).
@@ -1233,7 +1233,7 @@ $c$, а опции - последовательностью $l$. Таким об
         response.setDateHeader("Expires", 0);
         response.setDateHeader("Last-Modified", System.currentTimeMillis());
 
-        OutputStream outputStream = response.getOutputStream();			
+        OutputStream outputStream = response.getOutputStream();      
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         ZipOutputStream zos = new ZipOutputStream(baos);
         zos.setEncoding("Cp866");
@@ -1255,7 +1255,7 @@ $c$, а опции - последовательностью $l$. Таким об
         baos.flush();
         zos.close();
         baos.close();
-	
+  
         outputStream.write(baos.toByteArray());
         outputStream.flush();
         outputStream.close();
@@ -1379,8 +1379,8 @@ $c$, а опции - последовательностью $l$. Таким об
 
 Полезные ссылки:
 <ul>
-	<li><a href="http://ru.wikipedia.org/wiki/Office_Open_XML" target="_blank">http://ru.wikipedia.org/wiki/Office_Open_XML</a></li>
-	<li><a href="http://poi.apache.org/" target="_blank">http://poi.apache.org/</a></li>
+  <li><a href="http://ru.wikipedia.org/wiki/Office_Open_XML" target="_blank">http://ru.wikipedia.org/wiki/Office_Open_XML</a></li>
+  <li><a href="http://poi.apache.org/" target="_blank">http://poi.apache.org/</a></li>
 </ul>
 
 <h4><a name="dialogWindow">Использование модальных диалоговых окон</a></h4>
@@ -1505,9 +1505,9 @@ JepMultiStateField comboBoxField = GWT.create(MyComboBoxField.class);
 </pre>
 Во-вторых, в файле <i>&lt;Module Name&gt;.gwt.xml</i> требуется указать:
 <ol>
-	<li>имя замещаемого класса (<code>com.technology.rfi.testapplication.testmodule.client.ui.widget.MyComboBoxField</code>);</li>
-	<li>имя замещающего класса (<code>com.technology.jep.jepria.client.widget.field.multistate.JepListField</code>);</li>
-	<li>условия, при которых осуществляется замещение.</li>
+  <li>имя замещаемого класса (<code>com.technology.rfi.testapplication.testmodule.client.ui.widget.MyComboBoxField</code>);</li>
+  <li>имя замещающего класса (<code>com.technology.jep.jepria.client.widget.field.multistate.JepListField</code>);</li>
+  <li>условия, при которых осуществляется замещение.</li>
 </ol>
 <pre>
 &lt;module rename-to="TestModule"&gt;
@@ -1555,93 +1555,93 @@ JepMultiStateField comboBoxField = GWT.create(MyComboBoxField.class);
 Для реализации древовидной структуры на списочной форме необходимо следующим образом модифицировать прикладной код модуля:
 <br/><br/>
 <ol>
-	<li>Начнем с <code>ListFormView:</code>
-		<ol>
-			<li>Установить TreeGridManager в качестве класса, управляющего списком:
-			<pre>
-	public class ReconciliationListFormViewImpl extends ListFormViewImpl&lt;TreeGridManager&gt; {
-	 
-		public ReconciliationListFormViewImpl() {
-			super(new TreeGridManager());
-			...
-			</pre>
-			</li>
-			<li>В колонку, которая будут отображать элементы управления деревом, необходимо указать тип <code>TreeCell</code>. 
-			<pre>
-	
-	private List&lt;JepColumn&gt; getColumnConfigurations() {
-		final List&lt;JepColumn&gt; columns = new ArrayList&lt;JepColumn&gt;();
-		
-		columns.add(new JepColumn(INCIDENT_ID, reconciliationText.reconciliation_list_incident_id(), 150, new TreeCell&lt;String&gt;()));
-		...
-			</pre>
-			</li>
-		</ol>
-	</li>
-	<li>Далее модифицируем <code>ListFormPresenter:</code>
-		<ol>
-			<li>Необходимо инициализовать <code>TreeGridManager</code> и привязать обработчики.
-			<pre>
-	{@literal @}Override
-	protected void bind() {
-		super.bind();
-		
-		treeList.bindTree();
-		
-		treeList.initKeys(clientFactory.getRecordDefinition());
-		treeList.setLoader(new DataLoader&lt;JepRecord&gt;() {
-			public void load(final Object loadConfig, final AsyncCallback&lt;List&lt;JepRecord&gt;&gt; callback) {
-				service.find((PagingConfig) loadConfig, new JepAsyncCallback&lt;PagingResult&lt;JepRecord&gt;&gt;() {
-					public void onSuccess(PagingResult&lt;JepRecord&gt; pagingResult) {
-						List&lt;JepRecord&gt; subList = pagingResult.getData();
-						callback.onSuccess(subList);
-					}
-				
-					public void onFailure(Throwable caught) {
-						callback.onFailure(caught);
-						super.onFailure(caught);
-					}
-				});
-			}
-		});
-	}
-			</pre>
-			</li>
-		</ol>
-	</li>
-	<li>И последнее, в ejb добавить простановку значений для работы дерева: (первичный ключ, ключ родителя и флаг наличия детей)
-	<pre>
-			
-	return super.find( sqlQuery,
-		new ResultSetMapper&lt;JepRecord&gt;() {
-			public void map(ResultSet rs, JepRecord record) throws SQLException {
-				
-				record.set(RECONCILIATION_ID, getInteger(rs, RECONCILIATION_ID));
-				record.set(PARENT_RECONCILIATION_ID, getInteger(rs, PARENT_RECONCILIATION_ID));	
-				
-				boolean hasChildren = false;
-				if(getInteger(rs, TreeCellNames.HAS_CHILDREN) == 1)
-					hasChildren = true;
-				
-				record.set(TreeCellNames.HAS_CHILDREN, hasChildren);
-				
-				...
-					
-	</pre>	
-	</li>
+  <li>Начнем с <code>ListFormView:</code>
+    <ol>
+      <li>Установить TreeGridManager в качестве класса, управляющего списком:
+      <pre>
+  public class ReconciliationListFormViewImpl extends ListFormViewImpl&lt;TreeGridManager&gt; {
+   
+    public ReconciliationListFormViewImpl() {
+      super(new TreeGridManager());
+      ...
+      </pre>
+      </li>
+      <li>В колонку, которая будут отображать элементы управления деревом, необходимо указать тип <code>TreeCell</code>. 
+      <pre>
+  
+  private List&lt;JepColumn&gt; getColumnConfigurations() {
+    final List&lt;JepColumn&gt; columns = new ArrayList&lt;JepColumn&gt;();
+    
+    columns.add(new JepColumn(INCIDENT_ID, reconciliationText.reconciliation_list_incident_id(), 150, new TreeCell&lt;String&gt;()));
+    ...
+      </pre>
+      </li>
+    </ol>
+  </li>
+  <li>Далее модифицируем <code>ListFormPresenter:</code>
+    <ol>
+      <li>Необходимо инициализовать <code>TreeGridManager</code> и привязать обработчики.
+      <pre>
+  {@literal @}Override
+  protected void bind() {
+    super.bind();
+    
+    treeList.bindTree();
+    
+    treeList.initKeys(clientFactory.getRecordDefinition());
+    treeList.setLoader(new DataLoader&lt;JepRecord&gt;() {
+      public void load(final Object loadConfig, final AsyncCallback&lt;List&lt;JepRecord&gt;&gt; callback) {
+        service.find((PagingConfig) loadConfig, new JepAsyncCallback&lt;PagingResult&lt;JepRecord&gt;&gt;() {
+          public void onSuccess(PagingResult&lt;JepRecord&gt; pagingResult) {
+            List&lt;JepRecord&gt; subList = pagingResult.getData();
+            callback.onSuccess(subList);
+          }
+        
+          public void onFailure(Throwable caught) {
+            callback.onFailure(caught);
+            super.onFailure(caught);
+          }
+        });
+      }
+    });
+  }
+      </pre>
+      </li>
+    </ol>
+  </li>
+  <li>И последнее, в ejb добавить простановку значений для работы дерева: (первичный ключ, ключ родителя и флаг наличия детей)
+  <pre>
+      
+  return super.find( sqlQuery,
+    new ResultSetMapper&lt;JepRecord&gt;() {
+      public void map(ResultSet rs, JepRecord record) throws SQLException {
+        
+        record.set(RECONCILIATION_ID, getInteger(rs, RECONCILIATION_ID));
+        record.set(PARENT_RECONCILIATION_ID, getInteger(rs, PARENT_RECONCILIATION_ID));  
+        
+        boolean hasChildren = false;
+        if(getInteger(rs, TreeCellNames.HAS_CHILDREN) == 1)
+          hasChildren = true;
+        
+        record.set(TreeCellNames.HAS_CHILDREN, hasChildren);
+        
+        ...
+          
+  </pre>  
+  </li>
 </ol>
 Пример: svn://srvbl08/RusFinanceInfo/Module/ASDManager, модули reconciliation и task
 <br/>
 <h4><a name="sortOptions">Сортировка данных для выпадающих списков</a></h4>
 Для сортировки данных выпадающих списков существует несколько способов:
 <ul>
-	<li>на уровне базы данных (сортировка осуществляется средствами SQL)</li>
-	<li>на уровне приложения:
-	<ol>
-		<li>в клиентской части</li>
-		<li>в серверной (на уровне компонента EJB или в коде имлементации сервисного метода (в классе *ServiceImpl))</li>
-	</ol>		
-	</li>
+  <li>на уровне базы данных (сортировка осуществляется средствами SQL)</li>
+  <li>на уровне приложения:
+  <ol>
+    <li>в клиентской части</li>
+    <li>в серверной (на уровне компонента EJB или в коде имлементации сервисного метода (в классе *ServiceImpl))</li>
+  </ol>    
+  </li>
 </ul>
 Если сортировку необходимо выполнить на уровне приложения (не в базе данных), то ее предпочтительнее осуществлять в сервисном методе.
 В отличие от клиентского уровня, данный подход позволит сократить время выполнения операции и при этом избежать лишней нагрузки на клиентской стороне.
@@ -1649,40 +1649,40 @@ JepMultiStateField comboBoxField = GWT.create(MyComboBoxField.class);
 <br/>
 Ниже приведен пример реализации get-метода получения списка &quot;Единиц измерения&quot; с встроенной сортировкой данных в классе {@link com.technology.jep.jepriashowcase.goods.server.service.GoodsServiceImpl}:
 <pre>
-	<strong>import com.technology.jep.jepria.shared.util.DefaultComparator;</strong>
+  <strong>import com.technology.jep.jepria.shared.util.DefaultComparator;</strong>
 
-	public class <i>&lt;Module_Name&gt;</i>ServiceImpl extends JepDataServiceServlet implements <i>&lt;Module_Name&gt;</i>Service  {
-		/**
-	 	* Схема сравнения.
-		*/
-		protected Comparator&lt;Object&gt; comparator;
-		
-		public <i>&lt;Module_Name&gt;</i>ServiceImpl() {
-			...
-			<strong>this.comparator = DefaultComparator.instance;</strong>
-		}
-		...
+  public class <i>&lt;Module_Name&gt;</i>ServiceImpl extends JepDataServiceServlet implements <i>&lt;Module_Name&gt;</i>Service  {
+    /**
+     * Схема сравнения.
+    */
+    protected Comparator&lt;Object&gt; comparator;
+    
+    public <i>&lt;Module_Name&gt;</i>ServiceImpl() {
+      ...
+      <strong>this.comparator = DefaultComparator.instance;</strong>
+    }
+    ...
 
-		public List&lt;JepOption&gt; getUnit() throws ApplicationException {
-			List&lt;JepOption&gt; result = null;
-			try {
-				// Осуществляем получение данных (это может быть вызов метода EJB, извлечение из файла и прочих источников).
-				result = ...
-				// Сортировку осуществляем посредством компаратора
-				<strong>Collections.sort(result, new Comparator<JepOption>() {
-					&commat;Override
-					public int compare(JepOption o1, JepOption o2) {
-						// В данном случае, отсортируем список по имени опции
-						return comparator.compare(o1.getName(), o2.getName());
-					}
-				});</strong>
-			} catch (Throwable th) {
-				throw new ApplicationException(th.getLocalizedMessage(), th);
-			}
-			return result;
-		}
-		...
-	}			
+    public List&lt;JepOption&gt; getUnit() throws ApplicationException {
+      List&lt;JepOption&gt; result = null;
+      try {
+        // Осуществляем получение данных (это может быть вызов метода EJB, извлечение из файла и прочих источников).
+        result = ...
+        // Сортировку осуществляем посредством компаратора
+        <strong>Collections.sort(result, new Comparator<JepOption>() {
+          &commat;Override
+          public int compare(JepOption o1, JepOption o2) {
+            // В данном случае, отсортируем список по имени опции
+            return comparator.compare(o1.getName(), o2.getName());
+          }
+        });</strong>
+      } catch (Throwable th) {
+        throw new ApplicationException(th.getLocalizedMessage(), th);
+      }
+      return result;
+    }
+    ...
+  }      
 </pre>
 <br/>
 
@@ -1690,98 +1690,98 @@ JepMultiStateField comboBoxField = GWT.create(MyComboBoxField.class);
 В случае необходимости дополнительной проверки поля/полей на системном уровне предусмотрен единый интерфейс валидации {@link com.technology.jep.jepria.client.widget.field.validation.Validator}.
 Для его использования следует придерживаться следующего правила:
 <ul>
-	<li>определение бизнес-логики проверки для группы взаимосвязанных (как минимум, двух) полей на уровне класса {@link com.technology.jep.jepria.client.widget.field.FieldManager}</li>
-	<li>использование кастомной валидации компонента на уровне класса {@link com.technology.jep.jepria.client.widget.field.multistate.JepMultiStateField}</li>
+  <li>определение бизнес-логики проверки для группы взаимосвязанных (как минимум, двух) полей на уровне класса {@link com.technology.jep.jepria.client.widget.field.FieldManager}</li>
+  <li>использование кастомной валидации компонента на уровне класса {@link com.technology.jep.jepria.client.widget.field.multistate.JepMultiStateField}</li>
 </ul>
 Ниже приведен пример реализации валидаторов для поля даты &quot;Дата создания запроса&quot; и зависимых полей дат &quot;Дата создания запроса С&quot; и &quot;Дата создания запроса По&quot;:
 <ul>
 <li>Класс клиентских констант, определяющий идентификаторы предполагаемых валидаторов:
 <pre>
-	<strong>import com.technology.jep.jepria.client.widget.field.validation.Validator;</strong>
+  <strong>import com.technology.jep.jepria.client.widget.field.validation.Validator;</strong>
 
-	public class <i>&lt;Module_Name&gt;</i>ClientConstant extends <i>&lt;Module_Name&gt;</i>Constant {
-		...
-		public final static String REQUEST_DATE_CUSTOM_VALIDATOR_ID = "REQUEST_DATE_CUSTOM_VALIDATOR_ID";
-	
-		public final static String BEGIN_END_DATE_CUSTOM_VALIDATOR_ID = "BEGIN_END_DATE_CUSTOM_VALIDATOR_ID";
-		...
-	}			
+  public class <i>&lt;Module_Name&gt;</i>ClientConstant extends <i>&lt;Module_Name&gt;</i>Constant {
+    ...
+    public final static String REQUEST_DATE_CUSTOM_VALIDATOR_ID = "REQUEST_DATE_CUSTOM_VALIDATOR_ID";
+  
+    public final static String BEGIN_END_DATE_CUSTOM_VALIDATOR_ID = "BEGIN_END_DATE_CUSTOM_VALIDATOR_ID";
+    ...
+  }      
 </pre>
 </li>
 <li>Интерфейс представления детальной формы с возможность установки кастомного валидатора:
 <pre>
-	<strong>import com.technology.jep.jepria.client.widget.field.validation.Validator;</strong>
+  <strong>import com.technology.jep.jepria.client.widget.field.validation.Validator;</strong>
 
-	public interface <i>&lt;Module_Name&gt;</i>DetailFormView extends DetailFormView {
-		...
-		<strong>void setCustomValidator(String validatorId, Validator customValidator);</strong>
-		...
-	}			
+  public interface <i>&lt;Module_Name&gt;</i>DetailFormView extends DetailFormView {
+    ...
+    <strong>void setCustomValidator(String validatorId, Validator customValidator);</strong>
+    ...
+  }      
 </pre>
 </li>
 <li>Класс представления детальной формы, реализующий указанный ранее интерфейс:
 <pre>
-	<strong>import com.technology.jep.jepria.client.widget.field.validation.Validator;</strong>
+  <strong>import com.technology.jep.jepria.client.widget.field.validation.Validator;</strong>
 
-	public class <i>&lt;Module_Name&gt;</i>DetailFormViewImpl extends DetailFormViewImpl implements <i>&lt;Module_Name&gt;</i>DetailFormView {
-		
-		<strong>private static Validator customDatesValidator;
-		private static Validator customRequestDateValidator;</strong>
-		...
+  public class <i>&lt;Module_Name&gt;</i>DetailFormViewImpl extends DetailFormViewImpl implements <i>&lt;Module_Name&gt;</i>DetailFormView {
+    
+    <strong>private static Validator customDatesValidator;
+    private static Validator customRequestDateValidator;</strong>
+    ...
 
-		public <i>&lt;Module_Name&gt;</i>DetailFormViewImpl() {
-			super(<strong>new FieldManager(){
-				&commat;Override
-				public boolean isValid(){
-					return super.isValid() &amp; customDatesValidator.isValid();
-				}
-			}</strong>);
-			...
+    public <i>&lt;Module_Name&gt;</i>DetailFormViewImpl() {
+      super(<strong>new FieldManager(){
+        &commat;Override
+        public boolean isValid(){
+          return super.isValid() &amp; customDatesValidator.isValid();
+        }
+      }</strong>);
+      ...
 
-			JepDateField requestDateDateField = new JepDateField(requestText.request_detail_request_date())<strong>{
-				&commat;Override
-				public boolean isValid(){
-					return super.isValid() &amp;&amp; customRequestDateValidator.isValid();
-				}
-			}</strong>;
-		}
-		<strong>
-		public void setCustomValidator(String validatorId, Validator customValidator) {
-			if (BEGIN_END_DATE_CUSTOM_VALIDATOR_ID.equalsIgnoreCase(validatorId)){
-				RequestDetailFormViewImpl.customDatesValidator = customValidator; 
-			} else if (REQUEST_DATE_CUSTOM_VALIDATOR_ID.equalsIgnoreCase(validatorId)){
-				RequestDetailFormViewImpl.customRequestDateValidator = customValidator; 
-			}
-		}</strong>
-	}			
+      JepDateField requestDateDateField = new JepDateField(requestText.request_detail_request_date())<strong>{
+        &commat;Override
+        public boolean isValid(){
+          return super.isValid() &amp;&amp; customRequestDateValidator.isValid();
+        }
+      }</strong>;
+    }
+    <strong>
+    public void setCustomValidator(String validatorId, Validator customValidator) {
+      if (BEGIN_END_DATE_CUSTOM_VALIDATOR_ID.equalsIgnoreCase(validatorId)){
+        RequestDetailFormViewImpl.customDatesValidator = customValidator; 
+      } else if (REQUEST_DATE_CUSTOM_VALIDATOR_ID.equalsIgnoreCase(validatorId)){
+        RequestDetailFormViewImpl.customRequestDateValidator = customValidator; 
+      }
+    }</strong>
+  }      
 </pre>
 </li>
 <li>Метод bind класс презентера детальной формы:
 <pre>
-	<strong>import com.technology.jep.jepria.client.widget.field.validation.Validator;</strong>
-	...
-	public void bind() {
-		super.bind();
-		...
-		// определяем кастомный валидатор взаимодействия полей начальной и конечной дат
-		view.<strong>setCustomValidator</strong>(<strong>BEGIN_END_DATE_CUSTOM_VALIDATOR_ID</strong>, <strong>new Validator() {
-			&commat;Override
-			public boolean isValid() {
-				// Определяем бизнес-логику проверки зависимостей полей дат С и По
-				...
-			}
-		}</strong>);
-		
-		// определяем кастомный валидатор поля request_date
-		view.<strong>setCustomValidator</strong>(<strong>REQUEST_DATE_CUSTOM_VALIDATOR_ID</strong>, <strong>new Validator() {
-			&commat;Override
-			public boolean isValid() {
-				// Определяем бизнес-логику поля "Дата создания запроса"
-				...
-			}
-		}</strong>);
-	}
-	...			
+  <strong>import com.technology.jep.jepria.client.widget.field.validation.Validator;</strong>
+  ...
+  public void bind() {
+    super.bind();
+    ...
+    // определяем кастомный валидатор взаимодействия полей начальной и конечной дат
+    view.<strong>setCustomValidator</strong>(<strong>BEGIN_END_DATE_CUSTOM_VALIDATOR_ID</strong>, <strong>new Validator() {
+      &commat;Override
+      public boolean isValid() {
+        // Определяем бизнес-логику проверки зависимостей полей дат С и По
+        ...
+      }
+    }</strong>);
+    
+    // определяем кастомный валидатор поля request_date
+    view.<strong>setCustomValidator</strong>(<strong>REQUEST_DATE_CUSTOM_VALIDATOR_ID</strong>, <strong>new Validator() {
+      &commat;Override
+      public boolean isValid() {
+        // Определяем бизнес-логику поля "Дата создания запроса"
+        ...
+      }
+    }</strong>);
+  }
+  ...      
 </pre>
 </li>
 </ul>
@@ -1793,28 +1793,28 @@ JepMultiStateField comboBoxField = GWT.create(MyComboBoxField.class);
 
 Рассмотрим случай, когда во время удаления требуется дополнительная проверка при удалении записи &quot;Поставщика&quot;, если имеются связанные записи &quot;Товаров&quot;:
 <pre>
-	public class <i>&lt;Module_Name&gt;</i>ListFormPresenter<V extends ListFormView, E extends PlainEventBus, S extends <i>&lt;Module_Name&gt;</i>ServiceAsync, F extends StandardClientFactory<E, S>> 
-		extends ListFormPresenter<V, E, S, F> {
-		
-		&commat;Override
-		public void onDoDelete(DoDeleteEvent event) {
-			if(SELECTED.equals(_workstate)) {
-				final Set&lt;JepRecord&gt; records = list.getSelectionModel().getSelectedSet();
-				<strong>MessageBox box</strong> = messageBox.confirmDeletion(records.size() > 1, new ConfirmCallback() {
-					public void onConfirm(Boolean yes) {
-						...
-					}
-				}
-				
-				<strong>box.addButtonClickHandler(<i>PredefinedButton.YES</i>, new ClickHandler() {
-					&commat;Override
-					public void onClick(ClickEvent event) {
-						// Ваша бизнес-логика...
-					}
-				});</strong>
-			}
-		}
-	}
+  public class <i>&lt;Module_Name&gt;</i>ListFormPresenter<V extends ListFormView, E extends PlainEventBus, S extends <i>&lt;Module_Name&gt;</i>ServiceAsync, F extends StandardClientFactory<E, S>> 
+    extends ListFormPresenter<V, E, S, F> {
+    
+    &commat;Override
+    public void onDoDelete(DoDeleteEvent event) {
+      if(SELECTED.equals(_workstate)) {
+        final Set&lt;JepRecord&gt; records = list.getSelectionModel().getSelectedSet();
+        <strong>MessageBox box</strong> = messageBox.confirmDeletion(records.size() > 1, new ConfirmCallback() {
+          public void onConfirm(Boolean yes) {
+            ...
+          }
+        }
+        
+        <strong>box.addButtonClickHandler(<i>PredefinedButton.YES</i>, new ClickHandler() {
+          &commat;Override
+          public void onClick(ClickEvent event) {
+            // Ваша бизнес-логика...
+          }
+        });</strong>
+      }
+    }
+  }
 </pre>
 
 <br/>
@@ -1857,16 +1857,16 @@ BUILD_CONFIG=debug
 <h4><a name="passwordField">Реализация поля с паролем</a></h4>
 Для реализации на форме поля с паролем достаточно будет переопределить метод addEditableCard в классе JepTextField следующий образом (вместо TextBox использовать PasswordTextBox): 
 <pre>
-	JepTextField svnPasswordTextField = new JepTextField(svnSearcherText.svnSearcher_detail_svn_password()){
-		/**
-		 * {&commat;inheritDoc}
-		 */
-		&commat;Override
-		protected void addEditableCard() {
-			editableCard = new PasswordTextBox();
-			editablePanel.add(editableCard);
-		}
-	};
+  JepTextField svnPasswordTextField = new JepTextField(svnSearcherText.svnSearcher_detail_svn_password()){
+    /**
+     * {&commat;inheritDoc}
+     */
+    &commat;Override
+    protected void addEditableCard() {
+      editableCard = new PasswordTextBox();
+      editablePanel.add(editableCard);
+    }
+  };
 </pre>
 <br/>
 
@@ -1878,33 +1878,33 @@ BUILD_CONFIG=debug
 Чтобы решить данную проблему в прикладном модуле следует определить список общедоступных ресурсов приложения (наряду с защищенными ресурсами). 
 Выделенный цветом блок в примере ниже соответствует правилу настройки общедоступных ресурсов :  
 <pre>
-	&lt;web-app ... &gt;
-		...
-		&lt;!-- Protect all resources of Application --&gt;
-		&lt;security-constraint&gt;
-			&lt;web-resource-collection&gt;
-				&lt;web-resource-name&gt;Application entry points&lt;/web-resource-name&gt;
-				&lt;url-pattern&gt;/*&lt;/url-pattern&gt;
-				&lt;http-method&gt;*&lt;/http-method&gt;
-			&lt;/web-resource-collection&gt;
-			&lt;auth-constraint&gt;
-				&lt;!-- At least user has to possess one of the specified roles --&gt;
-				&lt;role-name&gt;*&lt;/role-name&gt;
-			&lt;/auth-constraint&gt;
-		&lt;/security-constraint&gt;
-		<span style="color:red;">
-		&lt;!-- Specify all public pages or resources of Application --&gt;
-		&lt;security-constraint&gt;
-			&lt;web-resource-collection&gt;
-			    &lt;web-resource-name&gt;The list of public pages&lt;/web-resource-name&gt;
-			    &lt;url-pattern&gt;<em>yourPage1.jsp</em>&lt;/url-pattern&gt;
-			    ...
-			    &lt;url-pattern&gt;<em>yourPageN.jsp</em>&lt;/url-pattern&gt;
-		  	&lt;/web-resource-collection&gt;
-		 	&lt;!-- No auth-constraint means public access! --&gt;
-	 	&lt;/security-constraint&gt;
-	 	</span>
- 	&lt;/web-app&gt;
+  &lt;web-app ... &gt;
+    ...
+    &lt;!-- Protect all resources of Application --&gt;
+    &lt;security-constraint&gt;
+      &lt;web-resource-collection&gt;
+        &lt;web-resource-name&gt;Application entry points&lt;/web-resource-name&gt;
+        &lt;url-pattern&gt;/*&lt;/url-pattern&gt;
+        &lt;http-method&gt;*&lt;/http-method&gt;
+      &lt;/web-resource-collection&gt;
+      &lt;auth-constraint&gt;
+        &lt;!-- At least user has to possess one of the specified roles --&gt;
+        &lt;role-name&gt;*&lt;/role-name&gt;
+      &lt;/auth-constraint&gt;
+    &lt;/security-constraint&gt;
+    <span style="color:red;">
+    &lt;!-- Specify all public pages or resources of Application --&gt;
+    &lt;security-constraint&gt;
+      &lt;web-resource-collection&gt;
+          &lt;web-resource-name&gt;The list of public pages&lt;/web-resource-name&gt;
+          &lt;url-pattern&gt;<em>yourPage1.jsp</em>&lt;/url-pattern&gt;
+          ...
+          &lt;url-pattern&gt;<em>yourPageN.jsp</em>&lt;/url-pattern&gt;
+        &lt;/web-resource-collection&gt;
+       &lt;!-- No auth-constraint means public access! --&gt;
+     &lt;/security-constraint&gt;
+     </span>
+   &lt;/web-app&gt;
 </pre>
 В таком случае, сервер приложений, анализируя списки ограничений по безопасности (<em>security-constraint</em>), ищет наиболее точное совпадение с именем ресурса и разрешает доступ к ресурсу согласно ограничениям авторизации, указанных в блоке <em>auth-constraint</em>.<br> 
 Для подобных ресурсов этот блок следует опустить, тем самым допуская доступ без авторизации. Однако следует заметить, что пользователи, прошедшие авторизацию, будут определяться корректно в системе с нужными полномочиями. 
@@ -1925,15 +1925,15 @@ BUILD_CONFIG=debug
 <li>Переопределяем метод {@code isValid()} того компонента, который является «началом» зависимости. В теле этого метода, в случае не прохождения проверки определенного ранее валидатора, следует явным образом вызывать событие изменения значения (это может быть LOST_FOCUS_EVENT, CHANGE_VALUE_EVENT, CHANGE_SELECTION_EVENT, etc). Чтобы не усложнять интерфейс лишними алертами, можно уведомлять пользователей вызовом сообщения через метод {@code markInvalid(errorMessage)}.</li>
 <li>В презентере в методе {@code bind()} проинциализировать валидатор объектом анонимного класса, в котором выполняется проверка соответствия значений поля класса с реальным значением в этом поле. Расхождение значений будет сигнализировать, что данные находятся в процессе загрузки.
 В данном случае валидатор выглядит просто:
-	<pre>
-	view.setValidator(new Validator(){
-		&commat;Override
-		public boolean isValid() {
-        	return SEARCH.equals(_workstate) ? JepRiaUtil.equalWithNull(supplierId, 
-				fields.getFieldValue(SUPPLIER_ID)) : true;
-		}
-	});
-	</pre>
+  <pre>
+  view.setValidator(new Validator(){
+    &commat;Override
+    public boolean isValid() {
+          return SEARCH.equals(_workstate) ? JepRiaUtil.equalWithNull(supplierId, 
+        fields.getFieldValue(SUPPLIER_ID)) : true;
+    }
+  });
+  </pre>
 </li>
 <li>В том же методе {@code bind()}, где определяется логика определения зависимости (в определении логики слушателя события изменения состояния поля), в самом последнем звене проинициализировать значение поля идентификатора значением из текущего поля.</li>
 <li>Не забыть сбросить этот идентификатор в методе {@code adjustToWorkstate()} и его значение можно инициализировать вызовом {@code fields.getFieldValue()}.</li>
@@ -1949,7 +1949,7 @@ BUILD_CONFIG=debug
 <br/>
 Конструкции, при наличии которых требуется рефакторинг:
 <ol>
-	<li>
+  <li>
     <pre>
       ...
       Scheduler.get().scheduleDeferred(new ScheduledCommand() {
@@ -1959,25 +1959,25 @@ BUILD_CONFIG=debug
       });
       ...
     </pre>
-	</li>
+  </li>
 </ol>
 
 Методы, при наличии которых требуется рефакторинг:
 <ol>
-	<li>
+  <li>
     <pre>
       ...
       &lt;some Container&gt;.layout();
       ...
     </pre>
-	</li>
-	<li>
+  </li>
+  <li>
     <pre>
       ...
       &lt;some Container&gt;.layout(true);
       ...
     </pre>
-	</li>
+  </li>
 </ol>
 
 Многократное переключение <code>Place</code> (даже на тот же самый) в процессе отработки события <code>EventBus</code>.<br/>
@@ -1989,9 +1989,9 @@ BUILD_CONFIG=debug
 Для повышения качества прикладных и общих (системных) модулей применяется автоматизированное тестирование.<br/>
 Известны три уровня тестирования GWT-приложений (в порядке предпочтительности, на каждый следующий переходят от безысходности):
 <ol>
-	<li>С использованием классического JUnit (state и interaction) – когда тестируются компоненты, для которых не требуется JavaScript (для MVP-архитектуры это, как правило, презентеры);</li>
-	<li>С использованием GWTTestCase – когда тестируются компоненты, для которых требуется JavaScript, и когда TestCase может быть не слишком сложно/дорого воспроизведён;</li>
-	<li>С использованием Selenium (и ему подобных продуктов) – когда TestCase слишком сложно/дорого воспроизвести иными способами, чем повторить всю последовательность действий пользователя.</li>
+  <li>С использованием классического JUnit (state и interaction) – когда тестируются компоненты, для которых не требуется JavaScript (для MVP-архитектуры это, как правило, презентеры);</li>
+  <li>С использованием GWTTestCase – когда тестируются компоненты, для которых требуется JavaScript, и когда TestCase может быть не слишком сложно/дорого воспроизведён;</li>
+  <li>С использованием Selenium (и ему подобных продуктов) – когда TestCase слишком сложно/дорого воспроизвести иными способами, чем повторить всю последовательность действий пользователя.</li>
 </ol>
 Написание тестов (как и обычного кода), крайне желательно, реализовывать по принципу bottom-up (от простого/элементарного к сложному/комплексному) 
 - чтобы на любой момент времени у нас был рабочий код/тест.<br/>
@@ -2007,29 +2007,29 @@ BUILD_CONFIG=debug
  Для включения этого режима (так называемый режим <code>&laquo;production&raquo;</code> в терминах GWTTestCase) необходимо использовать
  опцию  <code>&laquo;-prod&raquo;</code> при запуске GWTTestCase (смотри <code>build.xml</code>).<br/>
  <b>Внимание:</b> некоторый функционал связанный с отрисовкой (render'ом) может просто НЕ работать (выдавать ошибку) при работе НЕ 
-	на уровне JavaScript.</li>
-	<li>В GWT 2.5.1 для автоматизированного тестирования используется сервер приложений Jetty 6.1.11.
-		Источник: <a href="https://gwt.googlesource.com/gwt/+/2.5.1/dev/build.xml" target="_blank">https://gwt.googlesource.com/gwt/+/2.5.1/dev/build.xml</a><br/>
-		Особенностью Jetty является тот факт, что меппинг сервлетов Jetty берет <u>НЕ</u> из <code>web.xml</code> (как обычно из тегов 
-		<code>&lt;servlet&gt;</code>), а из <code>*.gwt.xml</code>-файлов.<br/>
-		Пример из <code>JepRiaShowcase.gwt.xml</code>:
-		<pre>
+  на уровне JavaScript.</li>
+  <li>В GWT 2.5.1 для автоматизированного тестирования используется сервер приложений Jetty 6.1.11.
+    Источник: <a href="https://gwt.googlesource.com/gwt/+/2.5.1/dev/build.xml" target="_blank">https://gwt.googlesource.com/gwt/+/2.5.1/dev/build.xml</a><br/>
+    Особенностью Jetty является тот факт, что меппинг сервлетов Jetty берет <u>НЕ</u> из <code>web.xml</code> (как обычно из тегов 
+    <code>&lt;servlet&gt;</code>), а из <code>*.gwt.xml</code>-файлов.<br/>
+    Пример из <code>JepRiaShowcase.gwt.xml</code>:
+    <pre>
   &lt;servlet path="/MainService" class="com.technology.jep.jepria.server.service.JepMainServiceServletTest" /&gt;
-		</pre>
-	</li>
-	<li>GWTTestCase'ом тестируется, главным образом, клиентская часть. Приложение в режиме теста &laquo;ограничивается&raquo; 
-		на уровне сервисов. Т.е. при тесте данные, получаемые сервисом из <code>EJB</code> и базы данных, подменяются тестовыми данными, сформированными
-		самим разработчиком. При этом, тестовый код сервисов размещается в директории тестовых исходных кодов <code>test-gwt</code> в соответствующем
-		тестируемому классу пакете с добавлением к имени класса постфикса <code>*Test</code>.<br/>
-		Реализацию подобного подхода можно посмотреть на примере класса {@link com.technology.jep.jepria.server.service.JepMainServiceServletTest 
-		com.technology.jep.jepria.server.service.JepMainServiceServletTest}.
-	</li>
+    </pre>
+  </li>
+  <li>GWTTestCase'ом тестируется, главным образом, клиентская часть. Приложение в режиме теста &laquo;ограничивается&raquo; 
+    на уровне сервисов. Т.е. при тесте данные, получаемые сервисом из <code>EJB</code> и базы данных, подменяются тестовыми данными, сформированными
+    самим разработчиком. При этом, тестовый код сервисов размещается в директории тестовых исходных кодов <code>test-gwt</code> в соответствующем
+    тестируемому классу пакете с добавлением к имени класса постфикса <code>*Test</code>.<br/>
+    Реализацию подобного подхода можно посмотреть на примере класса {@link com.technology.jep.jepria.server.service.JepMainServiceServletTest 
+    com.technology.jep.jepria.server.service.JepMainServiceServletTest}.
+  </li>
 </ul>
 Полезная информация:
 <ul>
-	<li><a href="http://www.gwtproject.org/doc/latest/DevGuideTesting.html" target="_blank">http://www.gwtproject.org/doc/latest/DevGuideTesting.html</a></li>
-	<li><a href="http://junit.sourceforge.net/javadoc/org/junit/Assert.html" target="_blank">http://junit.sourceforge.net/javadoc/org/junit/Assert.html</a></li>
-	<li>Составные части Jetty (включая исходники) можно найти здесь: <a href="http://central.maven.org/maven2/org/mortbay/jetty/" target="_blank">http://central.maven.org/maven2/org/mortbay/jetty/</a></li>
+  <li><a href="http://www.gwtproject.org/doc/latest/DevGuideTesting.html" target="_blank">http://www.gwtproject.org/doc/latest/DevGuideTesting.html</a></li>
+  <li><a href="http://junit.sourceforge.net/javadoc/org/junit/Assert.html" target="_blank">http://junit.sourceforge.net/javadoc/org/junit/Assert.html</a></li>
+  <li>Составные части Jetty (включая исходники) можно найти здесь: <a href="http://central.maven.org/maven2/org/mortbay/jetty/" target="_blank">http://central.maven.org/maven2/org/mortbay/jetty/</a></li>
 </ul>
 
 <h3><a name="unifiedApplication">Создание унифицированного приложения (EAR) для OC4J и Weblogic</a></h3>
@@ -2081,19 +2081,19 @@ OC4J, и на Weblogic.
 Для унификации внешнего вида приложений, виджетов (в случае системных модулей) используются css-файлы стилей.<br/>
 В обычном JepRia-приложении используются два файла стилей (смотри пример в <code>JepRiaShowcase.jsp</code>):
 <ul>
-	<li><code>JepRia.css</code> - копируется автоматически ant'ом при сборке приложения из модуля <code>JepRia</code></li>
-	<li><code>&lt;Module Name&gt;.css</code> - стили специфичные для конкретного приложения</li>
+  <li><code>JepRia.css</code> - копируется автоматически ant'ом при сборке приложения из модуля <code>JepRia</code></li>
+  <li><code>&lt;Module Name&gt;.css</code> - стили специфичные для конкретного приложения</li>
 </ul>
 В большинстве приложений файл <code>&lt;Module Name&gt;.css</code> пустой. Однако, он обязательно должен быть для корректной сборки приложения.<br/>
 <br/>
 Для <a href="http://vvz.nw.ru/Lessons/CSS/selectors.htm" target="_blank">селекторов</a> (классов стилей) приняты следующие соглашения по 
 наименованию:
 <ul>
-	<li>.&lt;мoduleName&gt;-КлассЭлемента-свойство-свойство-....<br/>
-		Примеры:
-		<ul>
-			<li>Модуль <code>JepRia</code>, файл <code>JepRia.css:</code>
-				<pre>
+  <li>.&lt;мoduleName&gt;-КлассЭлемента-свойство-свойство-....<br/>
+    Примеры:
+    <ul>
+      <li>Модуль <code>JepRia</code>, файл <code>JepRia.css:</code>
+        <pre>
   .jepRia-ToggleButton-down-hovering {
     margin-right: 4px;
     margin-bottom: 4px;
@@ -2107,9 +2107,9 @@ OC4J, и на Weblogic.
     border-width: 1px;
   }
         </pre>
-			</li>
-			<li>Модуль <code>JepRiaShowcase</code>, файл <code>JepRiaShowcase.css:</code>
-				<pre>
+      </li>
+      <li>Модуль <code>JepRiaShowcase</code>, файл <code>JepRiaShowcase.css:</code>
+        <pre>
   .jepRiaShowcase-ShowcaseToggleButton-down-hovering {
     margin-right: 4px;
     margin-bottom: 4px;
@@ -2123,9 +2123,9 @@ OC4J, и на Weblogic.
     border-width: 1px;
   }
         </pre>
-			</li>
-		</ul>
-	</li>
+      </li>
+    </ul>
+  </li>
 </ul>
 
 В коде стили указываются либо в константах модуля (общеупотребимые стили), либо в константах конкретного класса (стили специфичные для 
@@ -2323,8 +2323,8 @@ Path=.....D:\WINDOWS\system32;D:\WINDOWS;<i>D:\oracle\jdev101330\ant\bin</i>
 
 <h3><a name="testCases">Тестовые сценарии</a></h3>
 <ul>
-	<li>{@link com.technology.jep.jepriashowcase.goods.auto.GoodsAutoTest}</li>
-	<li>{@link com.technology.jep.jepriashowcase.goods.auto.GoodsAutoTest Selenium-тест для модуля Goods}</li>
+  <li>{@link com.technology.jep.jepriashowcase.goods.auto.GoodsAutoTest}</li>
+  <li>{@link com.technology.jep.jepriashowcase.goods.auto.GoodsAutoTest Selenium-тест для модуля Goods}</li>
 </ul>
 
 <h3><a name="error">Ошибки</a></h3>
@@ -2423,28 +2423,28 @@ Path=.....D:\WINDOWS\system32;D:\WINDOWS;<i>D:\oracle\jdev101330\ant\bin</i>
 <h5><a name="8.0.0">Версия 8.0.0 (2014-05-14)</a></h5>
 <ul>
   <li>[+] </li>
-	<li>Для перехода на версию JepRia 8.0.0 с версии JepRia 7.X.X необходимо:
-		<ul>
-			<li>Использовать для сборки обновленный build.xml.</li>
-			<li>Использовать обновленные версии библиотек Gwt, Gwt-Log (внести соответствующие изменения в build.properties).<br/>
-				При этом необходимо сделать переименование файлов в соответствии с соглашением (убрать номера версий из названий): 
-				gwt-log-3.2.1.jar -&gt; gwt-log.jar.</li>
-			<li>Существенно изменилась хост-страница: изменен тип документа на <code>&lt;!DOCTYPE html&gt;</code>,
-				индикаторы загрузки перенесены в начало тега <code>&lt;body/&gt;</code>, на хост-странице приложения необходимо использовать константу 
-				<code>JepRiaClientConstant.APPLICATION_SLOT</code>, добавлен импорт таблиц стилей системной библиотеки <code>JepRia</code>, убрано 
-				использование стилей <code>css/gxt-all.css</code>, другие изменения - см. детали в JepRiaShowcase.jsp.</li>
-			<li>Если используется Gwt-Log, то для полноценной настройки (и избежания соответствующего сообщения при Gwt-компиляции) необходимо добавить
-				генерирование symbolMaps в параметры Gwt-компилятора и использование symbolMaps сервлетом Gwt-Log - см. <code>build.xml, web.xml
-				</code> и раздел документации &laquo;<a href="#build">Сборка приложения для Production</a>&raquo;.</li>
-			<li>В конструктор клиентской фабрики главного модуля добавляется вызов <code>initActivityMappers(this);</code>.</li>
-			<li>Пакет <code>client.ui.module</code> переименован в <code>client.ui.plain</code>.</li>
-			<li>Класс <code>JepClientSecurityModule</code> переименован в <code>UiSecurity</code>.</li>
-			<li>Для создания презентера главного модуля в клиентской фабрике главного модуля используется метод
-				<code>createMainModulePresenter()</code>.</li>
-			<li>Для создания презентера модуля в клиентской фабрике модуля используется метод
-				<code>createPlainModulePresenter(Place place)</code>.</li>
-			<li></li>
-		</ul>
+  <li>Для перехода на версию JepRia 8.0.0 с версии JepRia 7.X.X необходимо:
+    <ul>
+      <li>Использовать для сборки обновленный build.xml.</li>
+      <li>Использовать обновленные версии библиотек Gwt, Gwt-Log (внести соответствующие изменения в build.properties).<br/>
+        При этом необходимо сделать переименование файлов в соответствии с соглашением (убрать номера версий из названий): 
+        gwt-log-3.2.1.jar -&gt; gwt-log.jar.</li>
+      <li>Существенно изменилась хост-страница: изменен тип документа на <code>&lt;!DOCTYPE html&gt;</code>,
+        индикаторы загрузки перенесены в начало тега <code>&lt;body/&gt;</code>, на хост-странице приложения необходимо использовать константу 
+        <code>JepRiaClientConstant.APPLICATION_SLOT</code>, добавлен импорт таблиц стилей системной библиотеки <code>JepRia</code>, убрано 
+        использование стилей <code>css/gxt-all.css</code>, другие изменения - см. детали в JepRiaShowcase.jsp.</li>
+      <li>Если используется Gwt-Log, то для полноценной настройки (и избежания соответствующего сообщения при Gwt-компиляции) необходимо добавить
+        генерирование symbolMaps в параметры Gwt-компилятора и использование symbolMaps сервлетом Gwt-Log - см. <code>build.xml, web.xml
+        </code> и раздел документации &laquo;<a href="#build">Сборка приложения для Production</a>&raquo;.</li>
+      <li>В конструктор клиентской фабрики главного модуля добавляется вызов <code>initActivityMappers(this);</code>.</li>
+      <li>Пакет <code>client.ui.module</code> переименован в <code>client.ui.plain</code>.</li>
+      <li>Класс <code>JepClientSecurityModule</code> переименован в <code>UiSecurity</code>.</li>
+      <li>Для создания презентера главного модуля в клиентской фабрике главного модуля используется метод
+        <code>createMainModulePresenter()</code>.</li>
+      <li>Для создания презентера модуля в клиентской фабрике модуля используется метод
+        <code>createPlainModulePresenter(Place place)</code>.</li>
+      <li></li>
+    </ul>
   </li>
 </ul>
 

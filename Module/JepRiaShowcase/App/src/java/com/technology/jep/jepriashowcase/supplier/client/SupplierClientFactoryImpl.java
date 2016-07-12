@@ -31,50 +31,50 @@ import com.technology.jep.jepriashowcase.supplier.shared.service.SupplierService
 import com.technology.jep.jepriashowcase.supplier.shared.record.SupplierRecordDefinition;
  
 public class SupplierClientFactoryImpl<E extends PlainEventBus, S extends SupplierServiceAsync>
-	extends com.technology.jep.jepria.client.ui.plain.StandardClientFactoryImpl<E, S> {
+  extends com.technology.jep.jepria.client.ui.plain.StandardClientFactoryImpl<E, S> {
  
-	private static final IsWidget supplierDetailFormView = new SupplierDetailFormViewImpl();
-	private static final IsWidget supplierListFormView = new SupplierListFormViewImpl();
+  private static final IsWidget supplierDetailFormView = new SupplierDetailFormViewImpl();
+  private static final IsWidget supplierListFormView = new SupplierListFormViewImpl();
  
-	public static PlainClientFactoryImpl<PlainEventBus, JepDataServiceAsync> instance = null;
-	
-	public SupplierClientFactoryImpl() {
-		super(SupplierRecordDefinition.instance);
-		initActivityMappers(this);
-	}
+  public static PlainClientFactoryImpl<PlainEventBus, JepDataServiceAsync> instance = null;
+  
+  public SupplierClientFactoryImpl() {
+    super(SupplierRecordDefinition.instance);
+    initActivityMappers(this);
+  }
  
-	static public PlainClientFactory<PlainEventBus, JepDataServiceAsync> getInstance() {
-		if(instance == null) {
-			instance = GWT.create(SupplierClientFactoryImpl.class);
-		}
-		return instance;
-	}
+  static public PlainClientFactory<PlainEventBus, JepDataServiceAsync> getInstance() {
+    if(instance == null) {
+      instance = GWT.create(SupplierClientFactoryImpl.class);
+    }
+    return instance;
+  }
  
  
 public JepPresenter createPlainModulePresenter(Place place) {
-	return new StandardModulePresenter(SUPPLIER_MODULE_ID, place, this);
+  return new StandardModulePresenter(SUPPLIER_MODULE_ID, place, this);
 }
  
-	public JepPresenter createDetailFormPresenter(Place place) {
-		return new SupplierDetailFormPresenter(place, this);
-	}
+  public JepPresenter createDetailFormPresenter(Place place) {
+    return new SupplierDetailFormPresenter(place, this);
+  }
  
-	public JepPresenter createListFormPresenter(Place place) {
-		return new SupplierListFormPresenter(place, this);
-	}
+  public JepPresenter createListFormPresenter(Place place) {
+    return new SupplierListFormPresenter(place, this);
+  }
  
-	public IsWidget getDetailFormView() {
-		return supplierDetailFormView;
-	}
+  public IsWidget getDetailFormView() {
+    return supplierDetailFormView;
+  }
  
-	public IsWidget getListFormView() {
-		return supplierListFormView;
-	}
+  public IsWidget getListFormView() {
+    return supplierListFormView;
+  }
  
-	public S getService() {
-		if(dataService == null) {
-			dataService = (S) GWT.create(SupplierService.class);
-		}
-		return dataService;
-	}
+  public S getService() {
+    if(dataService == null) {
+      dataService = (S) GWT.create(SupplierService.class);
+    }
+    return dataService;
+  }
 }

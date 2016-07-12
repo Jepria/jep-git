@@ -15,15 +15,15 @@ import com.technology.jep.jepriashowcase.supplier.shared.service.SupplierService
 
 public class SupplierSecondBlockPresenter<S extends SupplierServiceAsync> extends BlockPresenter<SupplierSecondBlockViewImpl, S, SupplierSecondBlockClientFactory<S>> {
 
-	public SupplierSecondBlockPresenter(Place place, SupplierSecondBlockClientFactory<S> clientFactory) {
-		super(place, clientFactory);
-	}
+  public SupplierSecondBlockPresenter(Place place, SupplierSecondBlockClientFactory<S> clientFactory) {
+    super(place, clientFactory);
+  }
 
-	protected void adjustToWorkstate(WorkstateEnum workstate) {
-		fields.setFieldVisible(CONTRACT_FINISH_DATE, CREATE.equals(workstate) || EDIT.equals(workstate) || VIEW_DETAILS.equals(workstate));
-		fields.setFieldVisible(CONTRACT_FINISH_DATE_FROM, SEARCH.equals(workstate));
-		fields.setFieldVisible(CONTRACT_FINISH_DATE_TO, SEARCH.equals(workstate));
-		
-		fields.setFieldAllowBlank(CONTRACT_FINISH_DATE, !(CREATE.equals(workstate) || EDIT.equals(workstate)));
-	}
+  protected void adjustToWorkstate(WorkstateEnum workstate) {
+    fields.setFieldVisible(CONTRACT_FINISH_DATE, CREATE.equals(workstate) || EDIT.equals(workstate) || VIEW_DETAILS.equals(workstate));
+    fields.setFieldVisible(CONTRACT_FINISH_DATE_FROM, SEARCH.equals(workstate));
+    fields.setFieldVisible(CONTRACT_FINISH_DATE_TO, SEARCH.equals(workstate));
+    
+    fields.setFieldAllowBlank(CONTRACT_FINISH_DATE, !(CREATE.equals(workstate) || EDIT.equals(workstate)));
+  }
 }

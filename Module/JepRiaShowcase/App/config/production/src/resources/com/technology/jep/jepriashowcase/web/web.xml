@@ -1,198 +1,198 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
 <web-app>
-	<context-param>
-		<param-name>applicationName</param-name>
-		<param-value>JepRiaShowcase</param-value>
-	</context-param>
-	
-	<servlet>
-		<servlet-name>remoteLoggerServiceImpl</servlet-name>
-		<servlet-class>com.allen_sauer.gwt.log.server.RemoteLoggerServiceImpl</servlet-class>
+  <context-param>
+    <param-name>applicationName</param-name>
+    <param-value>JepRiaShowcase</param-value>
+  </context-param>
+  
+  <servlet>
+    <servlet-name>remoteLoggerServiceImpl</servlet-name>
+    <servlet-class>com.allen_sauer.gwt.log.server.RemoteLoggerServiceImpl</servlet-class>
 
-		<!-- The `symbolMaps` parameter specifies the server directory containing 
-			the GWT compiler symbol maps output, which is used for stack trace deobfuscation -->
-		<init-param>
-			<!-- This value assumes a GWT compile with '-deploy war/WEB-INF/deploy/' -->
-			<param-name>symbolMaps</param-name>
-			<!-- Modify the param-value based on your server environment. Some web 
-				servers use your `war` directory as the 'current working dir', while other 
-				vendors will do something different. You may use trial and error. Specify 
-				the relative path you think should work, then check the server log after 
-				forwarding the first client log message to the server. If the directory cannot 
-				be found, gwt-log will report the full path which it tried. -->
-			<param-value>../j2ee/home/applications/jepriashowcase/jepriashowcase/JepRiaShowcase/symbolMaps/</param-value>
-		</init-param>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>remoteLoggerServiceImpl</servlet-name>
-		<url-pattern>/JepRiaShowcase/gwt-log</url-pattern>
-	</servlet-mapping>
+    <!-- The `symbolMaps` parameter specifies the server directory containing 
+      the GWT compiler symbol maps output, which is used for stack trace deobfuscation -->
+    <init-param>
+      <!-- This value assumes a GWT compile with '-deploy war/WEB-INF/deploy/' -->
+      <param-name>symbolMaps</param-name>
+      <!-- Modify the param-value based on your server environment. Some web 
+        servers use your `war` directory as the 'current working dir', while other 
+        vendors will do something different. You may use trial and error. Specify 
+        the relative path you think should work, then check the server log after 
+        forwarding the first client log message to the server. If the directory cannot 
+        be found, gwt-log will report the full path which it tried. -->
+      <param-value>../j2ee/home/applications/jepriashowcase/jepriashowcase/JepRiaShowcase/symbolMaps/</param-value>
+    </init-param>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>remoteLoggerServiceImpl</servlet-name>
+    <url-pattern>/JepRiaShowcase/gwt-log</url-pattern>
+  </servlet-mapping>
 
-	<servlet>
-		<servlet-name>MainServiceServlet</servlet-name>
-		<servlet-class>com.technology.jep.jepria.server.service.JepMainServiceServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>MainServiceServlet</servlet-name>
-		<url-pattern>/JepRiaShowcase/MainService</url-pattern>
-	</servlet-mapping>
+  <servlet>
+    <servlet-name>MainServiceServlet</servlet-name>
+    <servlet-class>com.technology.jep.jepria.server.service.JepMainServiceServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MainServiceServlet</servlet-name>
+    <url-pattern>/JepRiaShowcase/MainService</url-pattern>
+  </servlet-mapping>
 
-	<servlet>
-		<servlet-name>CustomServlet</servlet-name>
-		<servlet-class>com.technology.jep.jepriashowcase.custom.server.service.CustomServiceImpl</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>CustomServlet</servlet-name>
-		<url-pattern>/JepRiaShowcase/CustomService</url-pattern>
-	</servlet-mapping>
+  <servlet>
+    <servlet-name>CustomServlet</servlet-name>
+    <servlet-class>com.technology.jep.jepriashowcase.custom.server.service.CustomServiceImpl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CustomServlet</servlet-name>
+    <url-pattern>/JepRiaShowcase/CustomService</url-pattern>
+  </servlet-mapping>
 
-	<servlet>
-		<servlet-name>SearchServlet</servlet-name>
-		<servlet-class>com.technology.jep.jepriashowcase.search.server.service.SearchServiceImpl</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>SearchServlet</servlet-name>
-		<url-pattern>/JepRiaShowcase/SearchService</url-pattern>
-	</servlet-mapping>
+  <servlet>
+    <servlet-name>SearchServlet</servlet-name>
+    <servlet-class>com.technology.jep.jepriashowcase.search.server.service.SearchServiceImpl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SearchServlet</servlet-name>
+    <url-pattern>/JepRiaShowcase/SearchService</url-pattern>
+  </servlet-mapping>
 
-	<servlet>
-		<servlet-name>SupplierServlet</servlet-name>
-		<servlet-class>com.technology.jep.jepriashowcase.supplier.server.service.SupplierServiceImpl</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>SupplierServlet</servlet-name>
-		<url-pattern>/JepRiaShowcase/SupplierService</url-pattern>
-	</servlet-mapping>
+  <servlet>
+    <servlet-name>SupplierServlet</servlet-name>
+    <servlet-class>com.technology.jep.jepriashowcase.supplier.server.service.SupplierServiceImpl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SupplierServlet</servlet-name>
+    <url-pattern>/JepRiaShowcase/SupplierService</url-pattern>
+  </servlet-mapping>
 
-	<servlet>
-		<servlet-name>GoodsServlet</servlet-name>
-		<servlet-class>com.technology.jep.jepriashowcase.goods.server.service.GoodsServiceImpl</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>GoodsServlet</servlet-name>
-		<url-pattern>/JepRiaShowcase/GoodsService</url-pattern>
-	</servlet-mapping>
+  <servlet>
+    <servlet-name>GoodsServlet</servlet-name>
+    <servlet-class>com.technology.jep.jepriashowcase.goods.server.service.GoodsServiceImpl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GoodsServlet</servlet-name>
+    <url-pattern>/JepRiaShowcase/GoodsService</url-pattern>
+  </servlet-mapping>
 
-	<servlet>
-		<servlet-name>uploadServlet</servlet-name>
-		<servlet-class>com.technology.jep.jepriashowcase.goods.server.service.UploadServiceImpl</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>uploadServlet</servlet-name>
-		<url-pattern>/JepRiaShowcase/upload</url-pattern>
-	</servlet-mapping>
-	<servlet>
-		<servlet-name>downloadServlet</servlet-name>
-		<servlet-class>com.technology.jep.jepriashowcase.goods.server.service.DownloadServiceImpl</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>downloadServlet</servlet-name>
-		<url-pattern>/JepRiaShowcase/download</url-pattern>
-	</servlet-mapping>
-	
-	<servlet>
-		<servlet-name>ArsenicServlet</servlet-name>
-		<servlet-class>com.technology.jep.jepriashowcase.arsenic.server.service.ArsenicServiceImpl</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>ArsenicServlet</servlet-name>
-		<url-pattern>/JepRiaShowcase/ArsenicService</url-pattern>
-	</servlet-mapping>
-	
-	<servlet>
-		<servlet-name>ShopGoodsServlet</servlet-name>
-		<servlet-class>com.technology.jep.jepriashowcase.shopgoods.server.service.ShopGoodsServiceImpl</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>ShopGoodsServlet</servlet-name>
-		<url-pattern>/JepRiaShowcase/ShopGoodsService</url-pattern>
-	</servlet-mapping>
+  <servlet>
+    <servlet-name>uploadServlet</servlet-name>
+    <servlet-class>com.technology.jep.jepriashowcase.goods.server.service.UploadServiceImpl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>uploadServlet</servlet-name>
+    <url-pattern>/JepRiaShowcase/upload</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>downloadServlet</servlet-name>
+    <servlet-class>com.technology.jep.jepriashowcase.goods.server.service.DownloadServiceImpl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>downloadServlet</servlet-name>
+    <url-pattern>/JepRiaShowcase/download</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>ArsenicServlet</servlet-name>
+    <servlet-class>com.technology.jep.jepriashowcase.arsenic.server.service.ArsenicServiceImpl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ArsenicServlet</servlet-name>
+    <url-pattern>/JepRiaShowcase/ArsenicService</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>ShopGoodsServlet</servlet-name>
+    <servlet-class>com.technology.jep.jepriashowcase.shopgoods.server.service.ShopGoodsServiceImpl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ShopGoodsServlet</servlet-name>
+    <url-pattern>/JepRiaShowcase/ShopGoodsService</url-pattern>
+  </servlet-mapping>
 
-	<servlet>
-		<servlet-name>AllShopGoodsServlet</servlet-name>
-		<servlet-class>com.technology.jep.jepriashowcase.allshopgoods.server.service.AllShopGoodsServiceImpl</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>AllShopGoodsServlet</servlet-name>
-		<url-pattern>/JepRiaShowcase/AllShopGoodsService</url-pattern>
-	</servlet-mapping>
+  <servlet>
+    <servlet-name>AllShopGoodsServlet</servlet-name>
+    <servlet-class>com.technology.jep.jepriashowcase.allshopgoods.server.service.AllShopGoodsServiceImpl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AllShopGoodsServlet</servlet-name>
+    <url-pattern>/JepRiaShowcase/AllShopGoodsService</url-pattern>
+  </servlet-mapping>
 
-	<servlet>
-		<servlet-name>RequestServlet</servlet-name>
-		<servlet-class>com.technology.jep.jepriashowcase.request.server.service.RequestServiceImpl</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>RequestServlet</servlet-name>
-		<url-pattern>/JepRiaShowcase/RequestService</url-pattern>
-	</servlet-mapping>
+  <servlet>
+    <servlet-name>RequestServlet</servlet-name>
+    <servlet-class>com.technology.jep.jepriashowcase.request.server.service.RequestServiceImpl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RequestServlet</servlet-name>
+    <url-pattern>/JepRiaShowcase/RequestService</url-pattern>
+  </servlet-mapping>
 
-	<servlet>
-		<servlet-name>FeatureServlet</servlet-name>
-		<servlet-class>com.technology.jep.jepriashowcase.feature.server.service.FeatureServiceImpl</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>FeatureServlet</servlet-name>
-		<url-pattern>/JepRiaShowcase/FeatureService</url-pattern>
-	</servlet-mapping>
-	
-	<servlet>
-		<servlet-name>RequestProcessServlet</servlet-name>
-		<servlet-class>com.technology.jep.jepriashowcase.requestprocess.server.service.RequestProcessServiceImpl</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>RequestProcessServlet</servlet-name>
-		<url-pattern>/JepRiaShowcase/RequestProcessService</url-pattern>
-	</servlet-mapping>
+  <servlet>
+    <servlet-name>FeatureServlet</servlet-name>
+    <servlet-class>com.technology.jep.jepriashowcase.feature.server.service.FeatureServiceImpl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>FeatureServlet</servlet-name>
+    <url-pattern>/JepRiaShowcase/FeatureService</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>RequestProcessServlet</servlet-name>
+    <servlet-class>com.technology.jep.jepriashowcase.requestprocess.server.service.RequestProcessServiceImpl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RequestProcessServlet</servlet-name>
+    <url-pattern>/JepRiaShowcase/RequestProcessService</url-pattern>
+  </servlet-mapping>
 
-	<welcome-file-list>
-		<welcome-file>JepRiaShowcaseCustom.jsp</welcome-file>
-	</welcome-file-list>
+  <welcome-file-list>
+    <welcome-file>JepRiaShowcaseCustom.jsp</welcome-file>
+  </welcome-file-list>
 
-	<security-role>
-		<role-name>JrsEditSupplier</role-name>
-	</security-role>
-	<security-role>
-		<role-name>JrsEditGoods</role-name>
-	</security-role>
-	<security-role>
-		<role-name>JrsEditShopGoods</role-name>
-	</security-role>
-	<security-role>
-		<role-name>JrsEditRequest</role-name>
-	</security-role>
-	<security-role>
-		<role-name>JrsEditRequestProcess</role-name>
-	</security-role>
+  <security-role>
+    <role-name>JrsEditSupplier</role-name>
+  </security-role>
+  <security-role>
+    <role-name>JrsEditGoods</role-name>
+  </security-role>
+  <security-role>
+    <role-name>JrsEditShopGoods</role-name>
+  </security-role>
+  <security-role>
+    <role-name>JrsEditRequest</role-name>
+  </security-role>
+  <security-role>
+    <role-name>JrsEditRequestProcess</role-name>
+  </security-role>
 
-	<!-- Protect all resources of Application -->
-	<security-constraint>
-		<web-resource-collection>
-			<web-resource-name>Application entry points</web-resource-name>
-			<url-pattern>/*</url-pattern>
-			<http-method>*</http-method>
-		</web-resource-collection>
-		<auth-constraint>
-			<!-- At least user has to possess one of the specified roles -->
-			<role-name>*</role-name>
-		</auth-constraint>
-	</security-constraint>
+  <!-- Protect all resources of Application -->
+  <security-constraint>
+    <web-resource-collection>
+      <web-resource-name>Application entry points</web-resource-name>
+      <url-pattern>/*</url-pattern>
+      <http-method>*</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <!-- At least user has to possess one of the specified roles -->
+      <role-name>*</role-name>
+    </auth-constraint>
+  </security-constraint>
 
-	<!-- Allow request for Custom Module, Search Module and related resources without authorization -->
-	<security-constraint>
-		<web-resource-collection>
-			<web-resource-name>Application entry points</web-resource-name>
-			<url-pattern>/JepRiaShowcaseCustom.jsp</url-pattern>
-			<url-pattern>/JepRiaShowcaseSearch.jsp</url-pattern>
-			<url-pattern>/JepRiaShowcase/CustomService</url-pattern>
-			<url-pattern>/JepRiaShowcase/SearchService</url-pattern>
-			<url-pattern>/JepRiaShowcase/MainService</url-pattern>
-			<url-pattern>*.js</url-pattern>
-			<url-pattern>*.html</url-pattern>
-			<url-pattern>*.css</url-pattern>
-			<url-pattern>*.gif</url-pattern>
-			<url-pattern>*.png</url-pattern>
-			<http-method>*</http-method>
-		</web-resource-collection>
-	</security-constraint>
-	
+  <!-- Allow request for Custom Module, Search Module and related resources without authorization -->
+  <security-constraint>
+    <web-resource-collection>
+      <web-resource-name>Application entry points</web-resource-name>
+      <url-pattern>/JepRiaShowcaseCustom.jsp</url-pattern>
+      <url-pattern>/JepRiaShowcaseSearch.jsp</url-pattern>
+      <url-pattern>/JepRiaShowcase/CustomService</url-pattern>
+      <url-pattern>/JepRiaShowcase/SearchService</url-pattern>
+      <url-pattern>/JepRiaShowcase/MainService</url-pattern>
+      <url-pattern>*.js</url-pattern>
+      <url-pattern>*.html</url-pattern>
+      <url-pattern>*.css</url-pattern>
+      <url-pattern>*.gif</url-pattern>
+      <url-pattern>*.png</url-pattern>
+      <http-method>*</http-method>
+    </web-resource-collection>
+  </security-constraint>
+  
 </web-app>

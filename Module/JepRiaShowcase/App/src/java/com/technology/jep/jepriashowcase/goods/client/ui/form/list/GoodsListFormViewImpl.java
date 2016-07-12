@@ -18,24 +18,24 @@ import com.technology.jep.jepria.client.widget.list.JepColumn;
  
 public class GoodsListFormViewImpl extends StandardListFormViewImpl {
  
-	public GoodsListFormViewImpl() {
-		super(GoodsListFormViewImpl.class.getCanonicalName());
-	}
+  public GoodsListFormViewImpl() {
+    super(GoodsListFormViewImpl.class.getCanonicalName());
+  }
 
-	private static NumberFormat defaultNumberFormatter = NumberFormat.getFormat("#");
+  private static NumberFormat defaultNumberFormatter = NumberFormat.getFormat("#");
  
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	@Override
-	protected List<JepColumn> getColumnConfigurations() {
-		final List<JepColumn> columns = new ArrayList<JepColumn>();
-		columns.add(new JepColumn(SUPPLIER_ID, goodsText.goods_list_supplier_id(), 150, new NumberCell(defaultNumberFormatter)));
-		columns.add(new JepColumn(GOODS_ID, goodsText.goods_list_goods_id(), 150, new NumberCell(defaultNumberFormatter)));
-		columns.add(new JepColumn(GOODS_NAME, goodsText.goods_list_goods_name(), 150));
-		columns.add(new JepColumn(GOODS_TYPE_NAME, goodsText.goods_list_goods_type(), 150));
-		columns.add(new JepColumn(UNIT_NAME, goodsText.goods_list_unit(), 150));
-		JepColumn column = new JepColumn(PURCHASING_PRICE, goodsText.goods_list_purchasing_price(), 150, new NumberCell(NumberFormat.getDecimalFormat()));
-		
-		columns.add(column);
-		return columns;
-	}
+  @SuppressWarnings({ "rawtypes", "unchecked" })
+  @Override
+  protected List<JepColumn> getColumnConfigurations() {
+    final List<JepColumn> columns = new ArrayList<JepColumn>();
+    columns.add(new JepColumn(SUPPLIER_ID, goodsText.goods_list_supplier_id(), 150, new NumberCell(defaultNumberFormatter)));
+    columns.add(new JepColumn(GOODS_ID, goodsText.goods_list_goods_id(), 150, new NumberCell(defaultNumberFormatter)));
+    columns.add(new JepColumn(GOODS_NAME, goodsText.goods_list_goods_name(), 150));
+    columns.add(new JepColumn(GOODS_TYPE_NAME, goodsText.goods_list_goods_type(), 150));
+    columns.add(new JepColumn(UNIT_NAME, goodsText.goods_list_unit(), 150));
+    JepColumn column = new JepColumn(PURCHASING_PRICE, goodsText.goods_list_purchasing_price(), 150, new NumberCell(NumberFormat.getDecimalFormat()));
+    
+    columns.add(column);
+    return columns;
+  }
 }

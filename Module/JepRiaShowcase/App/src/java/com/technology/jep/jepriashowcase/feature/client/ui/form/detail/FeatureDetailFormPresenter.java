@@ -23,33 +23,33 @@ import com.technology.jep.jepria.client.ui.form.detail.DetailFormPresenter;
 import com.technology.jep.jepria.client.ui.plain.StandardClientFactory;
 import com.technology.jep.jepria.shared.service.data.JepDataServiceAsync;
 public class FeatureDetailFormPresenter<E extends PlainEventBus, S extends JepDataServiceAsync> extends
-		DetailFormPresenter<FeatureDetailFormViewImpl, E, S, StandardClientFactory<E, S>> {
+    DetailFormPresenter<FeatureDetailFormViewImpl, E, S, StandardClientFactory<E, S>> {
 
-	public FeatureDetailFormPresenter(Place place,
-			StandardClientFactory<E, S> clientFactory) {
-		super(place, clientFactory);
-	}
+  public FeatureDetailFormPresenter(Place place,
+      StandardClientFactory<E, S> clientFactory) {
+    super(place, clientFactory);
+  }
 
-	@Override
-	protected void adjustToWorkstate(WorkstateEnum workstate) {
-		super.adjustToWorkstate(workstate);
-		
-		fields.setFieldVisible(FEATURE_ID, SEARCH.equals(workstate) || EDIT.equals(workstate) || VIEW_DETAILS.equals(workstate));
-		fields.setFieldVisible(DATE_INS_FROM, SEARCH.equals(workstate));
-		fields.setFieldVisible(DATE_INS_TO, SEARCH.equals(workstate));
-		fields.setFieldVisible(DATE_INS, VIEW_DETAILS.equals(workstate));
-		fields.setFieldVisible(DESCRIPTION, !SEARCH.equals(workstate));
-		fields.setFieldVisible(OPERATOR_NAME, VIEW_DETAILS.equals(workstate));
-		fields.setFieldVisible(MAX_ROW_COUNT, SEARCH.equals(workstate));
-		
-		fields.setFieldAllowBlank(FEATURE_NAME, !(EDIT.equals(workstate) || CREATE.equals(workstate)));
-		fields.setFieldAllowBlank(MAX_ROW_COUNT, !SEARCH.equals(workstate));
-		fields.setFieldValue(MAX_ROW_COUNT, 25);
-		
-		fields.setFieldEditable(FEATURE_ID, SEARCH.equals(workstate));
-		
-		Date theeMonthBack = new Date();
-		CalendarUtil.addMonthsToDate(theeMonthBack, -3);
-		fields.setFieldValue(DATE_INS_FROM, theeMonthBack);
-	}
+  @Override
+  protected void adjustToWorkstate(WorkstateEnum workstate) {
+    super.adjustToWorkstate(workstate);
+    
+    fields.setFieldVisible(FEATURE_ID, SEARCH.equals(workstate) || EDIT.equals(workstate) || VIEW_DETAILS.equals(workstate));
+    fields.setFieldVisible(DATE_INS_FROM, SEARCH.equals(workstate));
+    fields.setFieldVisible(DATE_INS_TO, SEARCH.equals(workstate));
+    fields.setFieldVisible(DATE_INS, VIEW_DETAILS.equals(workstate));
+    fields.setFieldVisible(DESCRIPTION, !SEARCH.equals(workstate));
+    fields.setFieldVisible(OPERATOR_NAME, VIEW_DETAILS.equals(workstate));
+    fields.setFieldVisible(MAX_ROW_COUNT, SEARCH.equals(workstate));
+    
+    fields.setFieldAllowBlank(FEATURE_NAME, !(EDIT.equals(workstate) || CREATE.equals(workstate)));
+    fields.setFieldAllowBlank(MAX_ROW_COUNT, !SEARCH.equals(workstate));
+    fields.setFieldValue(MAX_ROW_COUNT, 25);
+    
+    fields.setFieldEditable(FEATURE_ID, SEARCH.equals(workstate));
+    
+    Date theeMonthBack = new Date();
+    CalendarUtil.addMonthsToDate(theeMonthBack, -3);
+    fields.setFieldValue(DATE_INS_FROM, theeMonthBack);
+  }
 }

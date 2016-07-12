@@ -13,19 +13,19 @@ import com.technology.jep.jepria.client.ui.form.detail.DetailFormPresenter;
 import com.technology.jep.jepriashowcase.allshopgoods.shared.service.AllShopGoodsServiceAsync;
  
 public class AllShopGoodsDetailFormPresenter<E extends PlainEventBus, S extends AllShopGoodsServiceAsync> 
-		extends DetailFormPresenter<AllShopGoodsDetailFormView, E, S, StandardClientFactory<E, S>> { 
+    extends DetailFormPresenter<AllShopGoodsDetailFormView, E, S, StandardClientFactory<E, S>> { 
  
-	public AllShopGoodsDetailFormPresenter(Place place, StandardClientFactory<E, S> clientFactory) {
-		super(scopeModuleIds, place, clientFactory);
-	}
+  public AllShopGoodsDetailFormPresenter(Place place, StandardClientFactory<E, S> clientFactory) {
+    super(scopeModuleIds, place, clientFactory);
+  }
  
-	/* public void bind() {
-		super.bind();
-		// Здесь размещается код связывания presenter-а и view 
-	}
-	*/ 
+  /* public void bind() {
+    super.bind();
+    // Здесь размещается код связывания presenter-а и view 
+  }
+  */ 
  
-	protected void adjustToWorkstate(WorkstateEnum workstate) {
-	}
+  protected void adjustToWorkstate(WorkstateEnum workstate) {
+  }
  
 }

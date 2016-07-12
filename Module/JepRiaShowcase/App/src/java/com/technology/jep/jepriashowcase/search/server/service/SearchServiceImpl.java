@@ -16,26 +16,26 @@ import com.technology.jep.jepriashowcase.search.shared.service.SearchService;
  */
 @RemoteServiceRelativePath("SearchService")
 public class SearchServiceImpl extends JepDataServiceServlet<Search> implements SearchService {
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	public SearchServiceImpl() {
-		super(
-			SearchRecordDefinition.instance
-			, new ServerFactory<Search>(new SearchDao(), DATA_SOURCE_JNDI_NAME));
-	}
+  public SearchServiceImpl() {
+    super(
+      SearchRecordDefinition.instance
+      , new ServerFactory<Search>(new SearchDao(), DATA_SOURCE_JNDI_NAME));
+  }
 
-	public String getOperatorName(
-		Integer operatorId) {
+  public String getOperatorName(
+    Integer operatorId) {
 
-		String result = null;
+    String result = null;
 
-		try {
-			result = dao.getOperatorName(operatorId);
-		} catch (Throwable th) {
-			throw new SystemException(th.getLocalizedMessage(), th);
-		}
+    try {
+      result = dao.getOperatorName(operatorId);
+    } catch (Throwable th) {
+      throw new SystemException(th.getLocalizedMessage(), th);
+    }
 
-		return result;
-	}
-	
+    return result;
+  }
+  
 }

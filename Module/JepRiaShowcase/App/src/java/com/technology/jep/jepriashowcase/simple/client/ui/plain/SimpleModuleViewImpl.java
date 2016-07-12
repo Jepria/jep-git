@@ -10,43 +10,43 @@ import com.google.gwt.user.client.ui.HTML;
 import com.technology.jep.jepria.client.ui.plain.PlainModuleViewImpl;
 
 public class SimpleModuleViewImpl extends PlainModuleViewImpl implements SimpleModuleView {
-	
-	private Button supplierButton;
-	private Button errorButton;
-	private Button customModuleButton;
-	
-	public SimpleModuleViewImpl() {
-		DecoratorPanel simpleMainView = new DecoratorPanel();
-		
-		FlexTable body = new FlexTable();
-		
-		HTML description = new HTML(simpleText.simple_description());
-		body.setWidget(0, 0, description);
-		
-		supplierButton = new Button(simpleText.simple_operatorButton());
-		body.setWidget(1, 0, supplierButton);
+  
+  private Button supplierButton;
+  private Button errorButton;
+  private Button customModuleButton;
+  
+  public SimpleModuleViewImpl() {
+    DecoratorPanel simpleMainView = new DecoratorPanel();
+    
+    FlexTable body = new FlexTable();
+    
+    HTML description = new HTML(simpleText.simple_description());
+    body.setWidget(0, 0, description);
+    
+    supplierButton = new Button(simpleText.simple_operatorButton());
+    body.setWidget(1, 0, supplierButton);
 
-		errorButton = new Button(simpleText.simple_errorButton());
-		body.setWidget(2, 0, errorButton);
-		
-		customModuleButton = new Button(simpleText.simple_customModuleButton());
-		body.setWidget(3, 0, customModuleButton);
+    errorButton = new Button(simpleText.simple_errorButton());
+    body.setWidget(2, 0, errorButton);
+    
+    customModuleButton = new Button(simpleText.simple_customModuleButton());
+    body.setWidget(3, 0, customModuleButton);
 
-		simpleMainView.setWidget(body);
+    simpleMainView.setWidget(body);
 
-		setWidget(simpleMainView);
-	}
-	
-	public void addSupplierButtonClickHandler(ClickHandler clickHandler) {
-		supplierButton.addClickHandler(clickHandler);
-	}
+    setWidget(simpleMainView);
+  }
+  
+  public void addSupplierButtonClickHandler(ClickHandler clickHandler) {
+    supplierButton.addClickHandler(clickHandler);
+  }
 
-	public void addErrorButtonClickHandler(ClickHandler clickHandler) {
-		errorButton.addClickHandler(clickHandler);
-	}
+  public void addErrorButtonClickHandler(ClickHandler clickHandler) {
+    errorButton.addClickHandler(clickHandler);
+  }
 
-	public void addCustomModuleClickHandler(ClickHandler clickHandler) {
-		customModuleButton.addClickHandler(clickHandler);
-	}
-	
+  public void addCustomModuleClickHandler(ClickHandler clickHandler) {
+    customModuleButton.addClickHandler(clickHandler);
+  }
+  
 }

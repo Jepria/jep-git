@@ -9,5 +9,5 @@ import com.technology.jep.jepria.shared.service.data.JepDataService;
  
 @RemoteServiceRelativePath("RequestService")
 public interface RequestService extends JepDataService {
-	List<JepOption> getRequestStatus() throws ApplicationException;
+  List<JepOption> getRequestStatus() throws ApplicationException;
 }

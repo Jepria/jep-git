@@ -5,8 +5,8 @@ import com.technology.jep.jepriashowcase.main.client.JepRiaShowcaseClientFactory
 
 public class JepRiaShowcaseEntryPoint extends JepEntryPoint {
 
-	JepRiaShowcaseEntryPoint() {
- 		super(JepRiaShowcaseClientFactoryImpl.getInstance());
-	}
-	
+  JepRiaShowcaseEntryPoint() {
+     super(JepRiaShowcaseClientFactoryImpl.getInstance());
+  }
+  
 }

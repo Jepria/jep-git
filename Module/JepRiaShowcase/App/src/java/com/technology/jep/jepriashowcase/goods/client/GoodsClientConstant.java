@@ -7,7 +7,7 @@ import com.technology.jep.jepriashowcase.goods.shared.text.GoodsText;
  
 public class GoodsClientConstant extends GoodsConstant {
  
-	public static String[] scopeModuleIds = {GOODS_MODULE_ID, SHOPGOODS_MODULE_ID}; 
+  public static String[] scopeModuleIds = {GOODS_MODULE_ID, SHOPGOODS_MODULE_ID}; 
  
-	public static GoodsText goodsText = (GoodsText) GWT.create(GoodsText.class);
+  public static GoodsText goodsText = (GoodsText) GWT.create(GoodsText.class);
 }

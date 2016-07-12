@@ -13,9 +13,9 @@ import com.technology.jep.jepriashowcase.allshopgoods.shared.service.AllShopGood
 @RemoteServiceRelativePath("AllShopGoodsService")
 public class AllShopGoodsServiceImpl extends JepDataServiceServlet<AllShopGoods> implements AllShopGoodsService  {
  
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
  
-	public AllShopGoodsServiceImpl() {
-		super(AllShopGoodsRecordDefinition.instance, new ServerFactory<AllShopGoods>(new AllShopGoodsDao(), DATA_SOURCE_JNDI_NAME));
-	}
+  public AllShopGoodsServiceImpl() {
+    super(AllShopGoodsRecordDefinition.instance, new ServerFactory<AllShopGoods>(new AllShopGoodsDao(), DATA_SOURCE_JNDI_NAME));
+  }
 }

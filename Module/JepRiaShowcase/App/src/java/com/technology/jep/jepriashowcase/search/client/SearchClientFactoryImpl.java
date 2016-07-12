@@ -21,39 +21,39 @@ import com.technology.jep.jepriashowcase.search.shared.service.SearchServiceAsyn
  */
 public class SearchClientFactoryImpl<E extends PlainEventBus, S extends SearchServiceAsync> extends PlainClientFactoryImpl<E, S> {
 
-	/**
-	 * Поле для реализации singleton'а клиентской фабрики модуля.
-	 */
-	public static PlainClientFactoryImpl<PlainEventBus, JepDataServiceAsync> instance = null;
-	
-	public SearchClientFactoryImpl() {
-		super(SearchRecordDefinition.instance);
-		initActivityMappers(this);
-	}
+  /**
+   * Поле для реализации singleton'а клиентской фабрики модуля.
+   */
+  public static PlainClientFactoryImpl<PlainEventBus, JepDataServiceAsync> instance = null;
+  
+  public SearchClientFactoryImpl() {
+    super(SearchRecordDefinition.instance);
+    initActivityMappers(this);
+  }
 
-	static public PlainClientFactory<PlainEventBus, JepDataServiceAsync> getInstance() {
-		if(instance == null) {
-			instance = GWT.create(SearchClientFactoryImpl.class);
-		}
-		return instance;
-	}
+  static public PlainClientFactory<PlainEventBus, JepDataServiceAsync> getInstance() {
+    if(instance == null) {
+      instance = GWT.create(SearchClientFactoryImpl.class);
+    }
+    return instance;
+  }
 
-	public IsWidget getModuleView() {
-		if(moduleView == null) {
-			moduleView = new SearchModuleViewImpl();
-		}
-		return moduleView;
-	}
+  public IsWidget getModuleView() {
+    if(moduleView == null) {
+      moduleView = new SearchModuleViewImpl();
+    }
+    return moduleView;
+  }
 
-	public S getService() {
-		if(dataService == null) {
-			dataService = (S) GWT.create(SearchService.class);
-		}
-		return dataService;
-	}
+  public S getService() {
+    if(dataService == null) {
+      dataService = (S) GWT.create(SearchService.class);
+    }
+    return dataService;
+  }
 
-	public JepPresenter createPlainModulePresenter(Place place) {
-		return new SearchModulePresenter(SEARCH_MODULE_ID, place, this);
-	}
-	
+  public JepPresenter createPlainModulePresenter(Place place) {
+    return new SearchModulePresenter(SEARCH_MODULE_ID, place, this);
+  }
+  
 }

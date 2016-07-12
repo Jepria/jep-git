@@ -15,9 +15,9 @@ import com.technology.jep.jepria.client.ui.form.list.ListFormView;
 import com.technology.jep.jepria.shared.record.JepRecord;
 
 public class GoodsListFormPresenter<V extends ListFormView, E extends PlainEventBus, S extends GoodsServiceAsync, F extends StandardClientFactory<E, S>> 
-	extends ListFormPresenter<V, E, S, F> { 
+  extends ListFormPresenter<V, E, S, F> { 
  
-	public GoodsListFormPresenter(Place place, F clientFactory) {
-		super(place, clientFactory);
-	}
+  public GoodsListFormPresenter(Place place, F clientFactory) {
+    super(place, clientFactory);
+  }
 }

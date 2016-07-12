@@ -7,7 +7,7 @@ import com.technology.jep.jepria.shared.exceptions.ApplicationException;
 import com.technology.jep.jepria.shared.field.option.JepOption;
  
 public interface ShopGoods extends JepDataStandard {
-	List<JepOption> getShop(String shopName, Integer rowCount) throws ApplicationException;
-	List<JepOption> getGoods(String goodsName, Integer rowCount) throws ApplicationException;
-	
+  List<JepOption> getShop(String shopName, Integer rowCount) throws ApplicationException;
+  List<JepOption> getGoods(String goodsName, Integer rowCount) throws ApplicationException;
+  
 }

@@ -20,54 +20,54 @@ import com.technology.jep.jepriashowcase.supplier.shared.service.SupplierService
 
 public class SupplierFirstBlockPresenter<S extends SupplierServiceAsync> extends BlockPresenter<SupplierFirstBlockViewImpl, S, SupplierFirstBlockClientFactory<S>> {
 
-	public SupplierFirstBlockPresenter(Place place, SupplierFirstBlockClientFactory<S> clientFactory) {
-		super(place, clientFactory);
-	}
-	
-	private Integer supplierId = null;
-	
-	public void bind(){
-		super.bind();
-		
-		fields.addFieldListener(SUPPLIER_ID, JepEventType.LOST_FOCUS_EVENT, new JepListener() {
-			@Override
-			public void handleEvent(JepEvent event) {
-				if (SEARCH.equals(_workstate)){
-					final Integer id = fields.getFieldValue(SUPPLIER_ID);
-					if (!JepRiaUtil.isEmpty(id)) {
-						fields.get(SUPPLIER_NAME).setLoadingImage(true);
-						service.getSupplierNameById(id, new JepAsyncCallback<String>() {
-							@Override
-							public void onSuccess(String result){
-								fields.setFieldValue(SUPPLIER_NAME, result);
-								supplierId = id;
-								fields.get(SUPPLIER_NAME).setLoadingImage(false);
-							}
-							@Override
-							public void onFailure(Throwable th){
-								fields.get(SUPPLIER_NAME).setLoadingImage(false);
-								super.onFailure(th);
-							}
-						});
-					}
-					else {
-						fields.clearField(SUPPLIER_NAME);
-						supplierId = id;
-					}
-				}
-			}
-		});
-		
-		view.setValidator(new Validator(){
-			@Override
-			public boolean isValid() {
-				return SEARCH.equals(_workstate) ? JepRiaUtil.equalWithNull(supplierId, fields.getFieldValue(SUPPLIER_ID)) : true;
-			}
-		});
-	}
-	
-	protected void adjustToWorkstate(WorkstateEnum workstate) {
-		supplierId = null;
-		fields.setFieldAllowBlank(SUPPLIER_NAME, !(CREATE.equals(workstate) || EDIT.equals(workstate)));
-	}
+  public SupplierFirstBlockPresenter(Place place, SupplierFirstBlockClientFactory<S> clientFactory) {
+    super(place, clientFactory);
+  }
+  
+  private Integer supplierId = null;
+  
+  public void bind(){
+    super.bind();
+    
+    fields.addFieldListener(SUPPLIER_ID, JepEventType.LOST_FOCUS_EVENT, new JepListener() {
+      @Override
+      public void handleEvent(JepEvent event) {
+        if (SEARCH.equals(_workstate)){
+          final Integer id = fields.getFieldValue(SUPPLIER_ID);
+          if (!JepRiaUtil.isEmpty(id)) {
+            fields.get(SUPPLIER_NAME).setLoadingImage(true);
+            service.getSupplierNameById(id, new JepAsyncCallback<String>() {
+              @Override
+              public void onSuccess(String result){
+                fields.setFieldValue(SUPPLIER_NAME, result);
+                supplierId = id;
+                fields.get(SUPPLIER_NAME).setLoadingImage(false);
+              }
+              @Override
+              public void onFailure(Throwable th){
+                fields.get(SUPPLIER_NAME).setLoadingImage(false);
+                super.onFailure(th);
+              }
+            });
+          }
+          else {
+            fields.clearField(SUPPLIER_NAME);
+            supplierId = id;
+          }
+        }
+      }
+    });
+    
+    view.setValidator(new Validator(){
+      @Override
+      public boolean isValid() {
+        return SEARCH.equals(_workstate) ? JepRiaUtil.equalWithNull(supplierId, fields.getFieldValue(SUPPLIER_ID)) : true;
+      }
+    });
+  }
+  
+  protected void adjustToWorkstate(WorkstateEnum workstate) {
+    supplierId = null;
+    fields.setFieldAllowBlank(SUPPLIER_NAME, !(CREATE.equals(workstate) || EDIT.equals(workstate)));
+  }
 }

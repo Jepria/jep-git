@@ -12,29 +12,29 @@ import com.technology.jep.jepria.client.widget.field.multistate.JepIntegerField;
 import com.technology.jep.jepria.client.widget.field.multistate.JepMoneyField;
  
 public class ShopGoodsDetailFormViewImpl
-	extends StandardDetailFormViewImpl 
-	implements ShopGoodsDetailFormView {	
+  extends StandardDetailFormViewImpl 
+  implements ShopGoodsDetailFormView {  
  
-	public ShopGoodsDetailFormViewImpl() {
-		JepIntegerField goodsIdIntegerField = new JepIntegerField(shopGoodsText.shopGoods_detail_goods_id());
-		JepComboBoxField shopIdComboBoxField = new JepComboBoxField(shopGoodsText.shopGoods_detail_shop_id());
-		shopIdComboBoxField.setEmptyText(shopGoodsText.shopGoods_detail_shop_id_emptyText());
-		JepMoneyField goodsQuantityMoneyField = new JepMoneyField(shopGoodsText.shopGoods_detail_goods_quantity());
-		goodsQuantityMoneyField.setMaxNumberCharactersAfterDecimalSeparator(4);
-		goodsQuantityMoneyField.setMaxLength(20);
-		
-		JepMoneyField sellPriceMoneyField = new JepMoneyField(shopGoodsText.shopGoods_detail_sell_price());
-		sellPriceMoneyField.setMaxLength(18);
-		
-		panel.add(goodsIdIntegerField);
-		panel.add(shopIdComboBoxField);
-		panel.add(goodsQuantityMoneyField);
-		panel.add(sellPriceMoneyField);
-		
-		fields.put(GOODS_ID, goodsIdIntegerField);
-		fields.put(SHOP_ID, shopIdComboBoxField);
-		fields.put(GOODS_QUANTITY, goodsQuantityMoneyField);
-		fields.put(SELL_PRICE, sellPriceMoneyField);
-	}
+  public ShopGoodsDetailFormViewImpl() {
+    JepIntegerField goodsIdIntegerField = new JepIntegerField(shopGoodsText.shopGoods_detail_goods_id());
+    JepComboBoxField shopIdComboBoxField = new JepComboBoxField(shopGoodsText.shopGoods_detail_shop_id());
+    shopIdComboBoxField.setEmptyText(shopGoodsText.shopGoods_detail_shop_id_emptyText());
+    JepMoneyField goodsQuantityMoneyField = new JepMoneyField(shopGoodsText.shopGoods_detail_goods_quantity());
+    goodsQuantityMoneyField.setMaxNumberCharactersAfterDecimalSeparator(4);
+    goodsQuantityMoneyField.setMaxLength(20);
+    
+    JepMoneyField sellPriceMoneyField = new JepMoneyField(shopGoodsText.shopGoods_detail_sell_price());
+    sellPriceMoneyField.setMaxLength(18);
+    
+    panel.add(goodsIdIntegerField);
+    panel.add(shopIdComboBoxField);
+    panel.add(goodsQuantityMoneyField);
+    panel.add(sellPriceMoneyField);
+    
+    fields.put(GOODS_ID, goodsIdIntegerField);
+    fields.put(SHOP_ID, shopIdComboBoxField);
+    fields.put(GOODS_QUANTITY, goodsQuantityMoneyField);
+    fields.put(SELL_PRICE, sellPriceMoneyField);
+  }
  
 }

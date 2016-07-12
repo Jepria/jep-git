@@ -5,9 +5,9 @@ import com.technology.jep.jepria.client.ui.plain.PlainModuleView;
 
 public interface SimpleModuleView extends PlainModuleView {
 
-	void addSupplierButtonClickHandler(ClickHandler clickHandler);
+  void addSupplierButtonClickHandler(ClickHandler clickHandler);
 
-	void addErrorButtonClickHandler(ClickHandler clickHandler);
-	
-	void addCustomModuleClickHandler(ClickHandler clickHandler);
+  void addErrorButtonClickHandler(ClickHandler clickHandler);
+  
+  void addCustomModuleClickHandler(ClickHandler clickHandler);
 }

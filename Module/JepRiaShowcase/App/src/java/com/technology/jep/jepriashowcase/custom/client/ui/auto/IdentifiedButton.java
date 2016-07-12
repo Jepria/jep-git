@@ -9,8 +9,8 @@ import com.google.gwt.user.client.ui.Button;
  */
 public class IdentifiedButton extends Button {
 
-	public IdentifiedButton(String html, String id) {
-		super(html);
-		this.getElement().setId(id);
-	}
+  public IdentifiedButton(String html, String id) {
+    super(html);
+    this.getElement().setId(id);
+  }
 }
