@@ -378,7 +378,7 @@ public class CheckBoxListField<T extends JepOption> extends Composite implements
 	}
 	
 	/**
-	 * Данный класс является аналогом gwt-класса {@link com.google.gwt.cell.client.CheckBoxCell},
+	 * Данный класс является аналогом gwt-класса {@link com.google.gwt.cell.client.CheckboxCell},
 	 * с единственной существенной разницей:
 	 * CheckBoxCell extends AbstractEditableCell<Boolean, Boolean>
 	 * JepCheckBoxCell extends AbstractEditableCell<CheckBoxDataAggregator, CheckBoxDataAggregator>
