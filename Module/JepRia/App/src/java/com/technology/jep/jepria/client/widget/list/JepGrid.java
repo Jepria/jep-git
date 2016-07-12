@@ -64,7 +64,7 @@ public class JepGrid<T> extends DataGrid<T> {
 	private ScrollPanel contentWidget;
 	
 	/**
-	 * Идентификатор таблицы данных для сохранения в cookies
+	 * Идентификатор таблицы данных для сохранения конфигурации столбцов в cookies
 	 */
 	private final String cookieId;
 	
@@ -74,7 +74,7 @@ public class JepGrid<T> extends DataGrid<T> {
 	private List<JepColumn> columns;
 	
 	/**
-	 * Флаг допустимости переноса наименований колонок грида
+	 * Флаг допустимости переноса наименований колонок таблицы данных
 	 */
 	private boolean wrapHeaders = true;
 	
@@ -147,8 +147,8 @@ public class JepGrid<T> extends DataGrid<T> {
 	/**
 	 * Создает таблицу данных на списочной форме.
 	 * 
-	 * @param cookieId			идентификатор грида для сохранения в Cookies
-	 * @param gridIdAsWebEl		идентификатор грида как веб-элемента
+	 * @param cookieId			идентификатор таблицы данных для сохранения в Cookies
+	 * @param gridIdAsWebEl		идентификатор таблицы данных как веб-элемента
 	 * @param columns			список колонок
 	 */
 	public JepGrid(String cookieId, String gridIdAsWebEl, List<JepColumn> columns) {
@@ -158,10 +158,10 @@ public class JepGrid<T> extends DataGrid<T> {
 	/**
 	 * Создает таблицу данных на списочной форме.
 	 * 
-	 * @param cookieId			идентификатор грида для сохранения в Cookies
-	 * @param gridIdAsWebEl		идентификатор грида как веб-элемента
+	 * @param cookieId			идентификатор таблицы данных для сохранения в Cookies
+	 * @param gridIdAsWebEl		идентификатор таблицы данных как веб-элемента
 	 * @param columns			список колонок
-	 * @param keyProvider		провайдер ключей грида
+	 * @param keyProvider		провайдер ключей таблицы данных
 	 */
 	public JepGrid(String cookieId, String gridIdAsWebEl, List<JepColumn> columns, ProvidesKey<T> keyProvider) {
 		super(DEFAULT_PAGE_SIZE, (DataGridResource) GWT.create(DataGridResource.class), keyProvider);
@@ -198,8 +198,8 @@ public class JepGrid<T> extends DataGrid<T> {
 	/**
 	 * Создает таблицу данных на списочной форме.
 	 * 
-	 * @param cookieId			идентификатор грида для сохранения в Cookies
-	 * @param gridIdAsWebEl		идентификатор грида как веб-элемента
+	 * @param cookieId			идентификатор таблицы данных для сохранения в Cookies
+	 * @param gridIdAsWebEl		идентификатор таблицы данных как веб-элемента
 	 * @param columns			список колонок
 	 * @param wrapHeaders		допустимость переноса наименования колонок
 	 * 
@@ -213,11 +213,11 @@ public class JepGrid<T> extends DataGrid<T> {
 	/**
 	 * Создает таблицу данных на списочной форме.
 	 * 
-	 * @param cookieId			идентификатор грида для сохранения в Cookies
-	 * @param gridIdAsWebEl		идентификатор грида как веб-элемента
+	 * @param cookieId			идентификатор таблицы данных для сохранения в Cookies
+	 * @param gridIdAsWebEl		идентификатор таблицы данных как веб-элемента
 	 * @param columns			список колонок
 	 * @param wrapHeaders		допустимость переноса наименования колонок
-	 * @param keyProvider		провайдер ключей грида
+	 * @param keyProvider		провайдер ключей таблицы данных
 	 * 
 	 * Особенность: следует использовать альтернативные перегруженные конструкторы
 	 */
@@ -307,9 +307,9 @@ public class JepGrid<T> extends DataGrid<T> {
 	}
 	
 	/**
-	 * Метод извлечения данных о гриде из строки
+	 * Метод извлечения данных о таблице данных из строки
 	 * 
-	 * @param cookieString			строка, хранящая информация по гриду
+	 * @param cookieString			строка, хранящая информация по таблице данных
 	 * @return карта соответствий идентификатора колонки и ее характеристик
 	 */
 	private Map<String, ColumnCharasteristic> parseColumnCharacteristics(String cookieString) {
@@ -332,7 +332,7 @@ public class JepGrid<T> extends DataGrid<T> {
 	}
 		
 	/**
-	 * Получение списка колонок грида
+	 * Получение списка колонок таблицы данных
 	 * 
 	 * @return	список колонок
 	 */
@@ -357,7 +357,7 @@ public class JepGrid<T> extends DataGrid<T> {
 	/**
 	 * Получение точного индекса колонки
 	 * 
-	 * @param column		искомая колонка грида
+	 * @param column		искомая колонка таблицы данных
 	 * @return индекс колонки
 	 */
 	public int indexOf(JepColumn column){
@@ -552,7 +552,7 @@ public class JepGrid<T> extends DataGrid<T> {
 	/**
 	 * {@inheritDoc}
 	 * Особенности:<br/>
-	 * После переинициализации новых данных, каждая строка грида становится доступной для перетаскивания.
+	 * После переинициализации новых данных, каждая строка таблицы данных становится доступной для перетаскивания.
 	 */
 	@Override
 	protected void replaceAllChildren(List<T> values, SafeHtml html) {
@@ -594,7 +594,7 @@ public class JepGrid<T> extends DataGrid<T> {
 	}
 	
 	/**
-	 * Инициализируется список колонок грида и в случае необходимости добавляются слушатели 
+	 * Инициализируется список колонок таблицы данных и в случае необходимости добавляются слушатели 
 	 * событий {@link com.technology.jep.jepria.client.widget.event.JepEventType#DRAG_START_EVENT}, {@link com.technology.jep.jepria.client.widget.event.JepEventType#DRAG_OVER_EVENT},
 	 * {@link com.technology.jep.jepria.client.widget.event.JepEventType#DRAG_LEAVE_EVENT}, {@link com.technology.jep.jepria.client.widget.event.JepEventType#DROP_EVENT}
 	 */
