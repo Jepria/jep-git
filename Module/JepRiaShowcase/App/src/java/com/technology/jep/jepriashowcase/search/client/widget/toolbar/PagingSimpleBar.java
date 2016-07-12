@@ -1,4 +1,4 @@
-package com.technology.jep.jepriashowcase.search.client.ui.pagingtoolbar;
+package com.technology.jep.jepriashowcase.search.client.widget.toolbar;
 
 import static com.technology.jep.jepria.client.JepRiaClientConstant.JepTexts;
 
