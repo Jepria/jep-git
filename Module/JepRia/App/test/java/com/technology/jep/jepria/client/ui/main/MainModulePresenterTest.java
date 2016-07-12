@@ -32,7 +32,7 @@ import com.technology.jep.jepria.shared.service.JepMainServiceAsync;
 import com.technology.jep.jepria.shared.text.JepRiaText;
 
 /**
- * Пример mock-тестирования клиентского кода.<br/>
+ * Исходный код данного класса содержит пример mock-тестирования клиентского кода.<br/>
  * Unit-тестирование в ряде случаев оказывается затруднено или вовсе невозможно
  * в связи с одним или несколькими из следующих обстоятельств:
  * <ul>
@@ -56,19 +56,21 @@ import com.technology.jep.jepria.shared.text.JepRiaText;
  * либо возвращать заданное извне значение в тех или иных условиях. Дополнительно возможно
  * посчитывать количество раз, которое вызывается метод, записывать значения переданных параметров.</p>
  * 
- * <p>Наиболее популярным фреймворком для mock-тестирования является Mockito ({@link http://mockito.org/}),
+ * <p>Наиболее популярным фреймворком для mock-тестирования является <a href="http://mockito.org/">Mockito</a>,
  * который использует для формирования mock-объектов Reflection API. С последним связано существенное
  * ограничение Mockito: невозможность модифицировать поведение статических методов. Кроме того,
  * Mockito не позволяет модифицировать <code>final</code>-методы. Для снятия этих ограничений 
- * используется PowerMock ({@link https://github.com/jayway/powermock}), работающий на уровне Classloader.
+ * используется <a href="https://github.com/jayway/powermock">PowerMock</a>, работающий на уровне Classloader.
  * Использование PowerMock требует использования собственного runner'а, что обуславливает использование
- * аннотации <code>{@literal @}RunWith(PowerMockRunner.class)</code>.</p>
+ * аннотации <code>{@literal @}RunWith(PowerMockRunner.class)</code>. С помощью аннотации 
+ * <code>{@literal @}PrepareForTest</code> перечисляются классы, поведение которых подлежит
+ * модификации с помощью Powermock.</p>
  * 
- * В данном примере демонстрируется тестирование метода {@link MainModulePresenter#checkAccess(String)}.
+ * <p>В данном примере демонстрируется тестирование метода {@link MainModulePresenter#checkAccess(String)}.
  * Метод проверяет, доступен ли модуль с заданным идентификатором. Если модуль доступен, функция
  * должна возвращать <code>true</code>, в противном случае &mdash; <code>false</code>. Кроме того,
  * в последнем случае функция должна выводить сообщение об ошибке и скрывать индикатор загрузки
- * (побочные эффекты).
+ * (побочные эффекты).</p>
  *
  */
 @RunWith(PowerMockRunner.class)
@@ -80,7 +82,7 @@ public class MainModulePresenterTest {
 	 * модуль доступен.
 	 * @throws Exception
 	 */
-	@Test
+	@Test // Каждый тестовый метод должен сопровождаться данной аннотацией, чтобы JUnit его вызвал.
 	public void checkAccessTestAvailableModule() throws Exception {
 		/*
 		 * Создадим фиктивную клиентскую фабрику. Поскольку в данном тесте сообщение
@@ -265,9 +267,27 @@ public class MainModulePresenterTest {
 	 * <code>public static final BodyElement BODY = Document.get().getBody();</code>
 	 */
 	private static void mockDocumentGetBody() {
+		/*
+		 * Включим возможность модифицировать поведение всех статических методов класса Document.
+		 * Это необходимо для модификации поведения статического метода get().
+		 */
 		PowerMockito.mockStatic(Document.class);
+		/*
+		 * Создадим mock-объект. Использование метода mock() из класса PowerMockito (не Mockito)
+		 * обусловлено тем, что необходимо переопределить native-метод getBody().
+		 */
 		Document documentMock = PowerMockito.mock(Document.class);
+		/*
+		 * Нам неважно, что именно вернёт getBody(), важно его заглушить. Достаточно потребовать,
+		 * чтобы он возвращал null.
+		 */
 		PowerMockito.when(documentMock.getBody()).thenReturn(null);
+		/*
+		 * Метод get() возвращает mock вместо реального объекта класса Document.
+		 * Поскольку модифицируется поведение статического метода, необходимо использовать
+		 * "обратный" синтаксис doReturn().when(). Кроме того, для указания на то, какой метод
+		 * "заглушается", его вызов записывается в коде следующей строкой (двустрочный синтаксис).
+		 */
 		PowerMockito.doReturn(documentMock).when(Document.class);
 		Document.get();
 	}
@@ -276,7 +296,13 @@ public class MainModulePresenterTest {
 	 * Служебный метод, заглушаюший функции класса {@link JepClientUtil}.
 	 */
 	private static void mockJepClientUtil() {
+		// Включим возможность модифицировать статические методы класса JepClientUtil.
 		PowerMockito.mockStatic(JepClientUtil.class);
+		/*
+		 * При вызове hideLoadingPanel() ничего не должно происходить. При этом Powermock
+		 * ведёт учёт всех вызовов и позволяет подсчитать, сколько раз и с какими параметрами
+		 * метод был вызван.
+		 */
 		PowerMockito.doNothing().when(JepClientUtil.class);
 		JepClientUtil.hideLoadingPanel();
 	}
@@ -285,9 +311,22 @@ public class MainModulePresenterTest {
 	 * Служебный метод, заглушающий {@link JepRiaText} и его инстанцирование.
 	 */
 	private static void mockJepTexts() {
+		/*
+		 * Объекты с интерфейсом JepRiaText создаются с помощью GWT.create().
+		 * Это возможно только на клиентской стороне, при тестировании же 
+		 * этот процесс необходимо заглушить с помощью mock.
+		 * 
+		 * Сначала создадим mock-объект JepRiaText. Для этого достаточно
+		 * стандартных средств Mockito, без привлечения Powermock.
+		 */
 		JepRiaText jepTextsMock = Mockito.mock(JepRiaText.class);
-		Mockito.when(jepTextsMock.field_blankText()).thenReturn("");		
+		/*
+		 * Достаточно заглушить всего лишь один метод.
+		 */
+		Mockito.when(jepTextsMock.field_blankText()).thenReturn("");
+		// Будем заглушать статические методы класса GWT.
 		PowerMockito.mockStatic(GWT.class);
+		// При вызове GWT.create() будем возвращать созданный mock.
 		PowerMockito.doReturn(jepTextsMock).when(GWT.class);
 		GWT.create(JepRiaText.class);
 	}
@@ -296,6 +335,10 @@ public class MainModulePresenterTest {
 	 * Служебный метод, заглушающий GWT-вызовы в JepRiaClientConstant.
 	 */
 	private static void mockJepRiaClientConstant() {
+		/*
+		 * Достаточно заглушить метод GWT.getPermutationStrongName(),
+		 * используемый в JepRiaClientConstant.
+		 */
 		PowerMockito.doReturn("").when(GWT.class);
 		GWT.getPermutationStrongName();
 	}
