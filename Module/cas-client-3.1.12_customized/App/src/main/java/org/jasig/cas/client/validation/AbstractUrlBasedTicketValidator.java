@@ -115,7 +115,7 @@ public abstract class AbstractUrlBasedTicketValidator implements TicketValidator
         synchronized (buffer) {
             buffer.append(this.casServerUrlPrefix);
             if (!this.casServerUrlPrefix.endsWith("/")) {
-            	buffer.append("/");	
+              buffer.append("/");  
             }
             buffer.append(suffix);
 
@@ -126,9 +126,9 @@ public abstract class AbstractUrlBasedTicketValidator implements TicketValidator
 
                 if (value != null) {
                     buffer.append(i++ == 0 ? "?" : "&");
-	                buffer.append(key);
-	                buffer.append("=");
-	                buffer.append(value);
+                  buffer.append(key);
+                  buffer.append("=");
+                  buffer.append(value);
                 }
             }
 
@@ -143,10 +143,10 @@ public abstract class AbstractUrlBasedTicketValidator implements TicketValidator
      * @return the encoded url, or the original url if "UTF-8" character encoding could not be found.                       
      */
     protected final String encodeUrl(final String url) {
-    	if (url == null) {
-    		return null;
-    	}
-    	
+      if (url == null) {
+        return null;
+      }
+      
         try {
             return URLEncoder.encode(url, "UTF-8");
         } catch (final UnsupportedEncodingException e) {
@@ -183,7 +183,7 @@ public abstract class AbstractUrlBasedTicketValidator implements TicketValidator
         }
 
         try {
-        	log.debug("Retrieving response from server.");
+          log.debug("Retrieving response from server.");
             final String serverResponse = retrieveResponseFromServer(new URL(validationUrl), ticket);
 
             if (serverResponse == null) {
@@ -191,7 +191,7 @@ public abstract class AbstractUrlBasedTicketValidator implements TicketValidator
             }
             
             if (log.isDebugEnabled()) {
-            	log.debug("Server response: " + serverResponse);
+              log.debug("Server response: " + serverResponse);
             }
 
             return parseResponseFromServer(serverResponse);

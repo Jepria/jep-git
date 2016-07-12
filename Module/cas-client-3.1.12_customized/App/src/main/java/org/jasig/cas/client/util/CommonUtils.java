@@ -172,29 +172,29 @@ public final class CommonUtils {
     public static void readAndRespondToProxyReceptorRequest(final HttpServletRequest request, final HttpServletResponse response, final ProxyGrantingTicketStorage proxyGrantingTicketStorage) throws IOException {
         final String proxyGrantingTicketIou = request.getParameter(PARAM_PROXY_GRANTING_TICKET_IOU);
 
-		final String proxyGrantingTicket = request.getParameter(PARAM_PROXY_GRANTING_TICKET);
+    final String proxyGrantingTicket = request.getParameter(PARAM_PROXY_GRANTING_TICKET);
 
-		if (CommonUtils.isBlank(proxyGrantingTicket) || CommonUtils.isBlank(proxyGrantingTicketIou)) {
-		    response.getWriter().write("");
-		    return;
-		}
+    if (CommonUtils.isBlank(proxyGrantingTicket) || CommonUtils.isBlank(proxyGrantingTicketIou)) {
+        response.getWriter().write("");
+        return;
+    }
 
-		if (LOG.isDebugEnabled()) {
-		    LOG.debug("Received proxyGrantingTicketId ["
-		            + proxyGrantingTicket + "] for proxyGrantingTicketIou ["
-		            + proxyGrantingTicketIou + "]");
-		}
+    if (LOG.isDebugEnabled()) {
+        LOG.debug("Received proxyGrantingTicketId ["
+                + proxyGrantingTicket + "] for proxyGrantingTicketIou ["
+                + proxyGrantingTicketIou + "]");
+    }
 
-		proxyGrantingTicketStorage.save(proxyGrantingTicketIou, proxyGrantingTicket);
+    proxyGrantingTicketStorage.save(proxyGrantingTicketIou, proxyGrantingTicket);
 
         if (LOG.isDebugEnabled()) {
             LOG.debug("Successfully saved proxyGrantingTicketId ["
-		            + proxyGrantingTicket + "] for proxyGrantingTicketIou ["
-		            + proxyGrantingTicketIou + "]");
+                + proxyGrantingTicket + "] for proxyGrantingTicketIou ["
+                + proxyGrantingTicketIou + "]");
         }
-		
-		response.getWriter().write("<?xml version=\"1.0\"?>");
-		response.getWriter().write("<casClient:proxySuccess xmlns:casClient=\"http://www.yale.edu/tp/casClient\" />");
+    
+    response.getWriter().write("<?xml version=\"1.0\"?>");
+    response.getWriter().write("<casClient:proxySuccess xmlns:casClient=\"http://www.yale.edu/tp/casClient\" />");
     }
     
 /**
@@ -376,16 +376,16 @@ public final class CommonUtils {
     
 
     static public String obtainServerName(HttpServletRequest request) {
-    	String result = null;
-    	try {
-			result = "http://" +  InetAddress.getLocalHost().getCanonicalHostName() +
-					":" +
-					request.getServerPort();
-		} catch (UnknownHostException e) {
-			e.printStackTrace();
-		}
-    	
-    	return result;
-	}
+      String result = null;
+      try {
+      result = "http://" +  InetAddress.getLocalHost().getCanonicalHostName() +
+          ":" +
+          request.getServerPort();
+    } catch (UnknownHostException e) {
+      e.printStackTrace();
+    }
+      
+      return result;
+  }
     
 }

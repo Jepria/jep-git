@@ -151,7 +151,7 @@ public abstract class AbstractTicketValidationFilter extends AbstractCasFilter {
     }
 
     public final void doFilter(final ServletRequest servletRequest, final ServletResponse servletResponse, final FilterChain filterChain) throws IOException, ServletException {
-    	logger.debug(this.getClass() + ".doFilter() BEGIN");
+      logger.debug(this.getClass() + ".doFilter() BEGIN");
 
         if (!preFilter(servletRequest, servletResponse, filterChain)) {
             return;
@@ -184,7 +184,7 @@ public abstract class AbstractTicketValidationFilter extends AbstractCasFilter {
                 if (this.redirectAfterValidation) {
                     logger. debug("Redirecting after successful ticket validation.");
                     response.sendRedirect(constructServiceUrl(request, response));
-                	logger.debug(this.getClass() + ".doFilter() END 1");
+                  logger.debug(this.getClass() + ".doFilter() END 1");
                     return;
                 }
             } catch (final TicketValidationException e) {
@@ -197,19 +197,19 @@ public abstract class AbstractTicketValidationFilter extends AbstractCasFilter {
                     throw new ServletException(e);
                 }
 
-            	logger.debug(this.getClass() + ".doFilter() END 2");
+              logger.debug(this.getClass() + ".doFilter() END 2");
                 return;
             }
         }
 
-    	logger.debug(this.getClass() + ".BEFORE filterChain.doFilter(request, response)");
+      logger.debug(this.getClass() + ".BEFORE filterChain.doFilter(request, response)");
         filterChain.doFilter(request, response);
-    	logger.debug(this.getClass() + ".AFTER filterChain.doFilter(request, response)");
-    	logger.debug(this.getClass() + ".doFilter() END 3");
+      logger.debug(this.getClass() + ".AFTER filterChain.doFilter(request, response)");
+      logger.debug(this.getClass() + ".doFilter() END 3");
     }
 
     public final void setTicketValidator(final TicketValidator ticketValidator) {
-    	this.ticketValidator = ticketValidator;
+      this.ticketValidator = ticketValidator;
     }
 
     public final void setRedirectAfterValidation(final boolean redirectAfterValidation) {

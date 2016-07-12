@@ -6,11 +6,11 @@ package com.technology.jep.jepria.shared.exceptions;
  */
 @SuppressWarnings("serial")
 public class NotImplementedYetException extends RuntimeException {
-	public NotImplementedYetException() {
-	}
-	
-	public NotImplementedYetException(String message) {
-		super(message);
-	}
+  public NotImplementedYetException() {
+  }
+  
+  public NotImplementedYetException(String message) {
+    super(message);
+  }
 
 }

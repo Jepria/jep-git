@@ -16,8 +16,8 @@ import org.apache.commons.logging.LogFactory;
  * @since 3.1
  */
 public abstract class AbstractConfigurationFilter implements Filter {
-	
-	protected final Log log = LogFactory.getLog(getClass());
+  
+  protected final Log log = LogFactory.getLog(getClass());
 
     private boolean ignoreInitConfiguration = false;
 
@@ -52,8 +52,8 @@ public abstract class AbstractConfigurationFilter implements Filter {
         try {
          context = new InitialContext();
         } catch (final NamingException e) {
-        	log.warn(e,e);
-        	return defaultValue;
+          log.warn(e,e);
+          return defaultValue;
         }
         
         
@@ -62,14 +62,14 @@ public abstract class AbstractConfigurationFilter implements Filter {
         
         if (CommonUtils.isNotBlank(value3)) {
             log.info("Property [" + propertyName + "] loaded from JNDI Filter Specific Property with value [" + value3 + "]");
-        	return value3;
+          return value3;
         }
         
         final String value4 = loadFromContext(context, "java:comp/env/cas/" + propertyName); 
         
         if (CommonUtils.isNotBlank(value4)) {
             log.info("Property [" + propertyName + "] loaded from JNDI with value [" + value3 + "]");
-        	return value4;
+          return value4;
         }
 
         log.info("Property [" + propertyName + "] not found.  Using default value [" + defaultValue + "]");
@@ -77,15 +77,15 @@ public abstract class AbstractConfigurationFilter implements Filter {
     }
     
     protected final boolean parseBoolean(final String value) {
-    	return ((value != null) && value.equalsIgnoreCase("true"));
+      return ((value != null) && value.equalsIgnoreCase("true"));
     }
     
     protected final String loadFromContext(final InitialContext context, final String path) {
-    	try {
-    		return (String) context.lookup(path);
-    	} catch (final NamingException e) {
-    		return null;
-    	}
+      try {
+        return (String) context.lookup(path);
+      } catch (final NamingException e) {
+        return null;
+      }
     }
 
     public final void setIgnoreInitConfiguration(boolean ignoreInitConfiguration) {

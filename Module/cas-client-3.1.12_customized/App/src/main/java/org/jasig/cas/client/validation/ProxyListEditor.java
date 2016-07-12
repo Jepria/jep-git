@@ -24,27 +24,27 @@ import java.util.List;
  */
 public final class ProxyListEditor extends PropertyEditorSupport {
 
-	public void setAsText(final String text) throws IllegalArgumentException {
-		final BufferedReader reader = new BufferedReader(new StringReader(text));
-		final List proxyChains = new ArrayList();
+  public void setAsText(final String text) throws IllegalArgumentException {
+    final BufferedReader reader = new BufferedReader(new StringReader(text));
+    final List proxyChains = new ArrayList();
 
-		try {
-			String line;
-			while ((line = reader.readLine()) != null) {
-				if (CommonUtils.isNotBlank(line)) {
-					proxyChains.add(line.trim().split(" "));
-				}
-			}
-		} catch (final IOException e) {
-			// ignore this
-		} finally {
-			try {
-				reader.close();
-			} catch (final IOException e) {
-				// nothing to do
-			}
-		}
+    try {
+      String line;
+      while ((line = reader.readLine()) != null) {
+        if (CommonUtils.isNotBlank(line)) {
+          proxyChains.add(line.trim().split(" "));
+        }
+      }
+    } catch (final IOException e) {
+      // ignore this
+    } finally {
+      try {
+        reader.close();
+      } catch (final IOException e) {
+        // nothing to do
+      }
+    }
 
-		setValue(new ProxyList(proxyChains));
-	}
+    setValue(new ProxyList(proxyChains));
+  }
 }

@@ -54,9 +54,9 @@ public final class Cas20ServiceTicketValidatorTests extends
         final ProxyRetriever proxyRetriever = new ProxyRetriever() {
 
             /** Unique Id for serialization. */
-			private static final long serialVersionUID = 1L;
+      private static final long serialVersionUID = 1L;
 
-			public String getProxyTicketIdFor(String proxyGrantingTicketId, String targetService) {
+      public String getProxyTicketIdFor(String proxyGrantingTicketId, String targetService) {
                 return "test";
             }
         };

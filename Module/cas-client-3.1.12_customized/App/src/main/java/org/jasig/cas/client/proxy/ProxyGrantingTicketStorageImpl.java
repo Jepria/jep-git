@@ -26,8 +26,8 @@ import org.apache.commons.logging.LogFactory;
  * @since 3.0
  */
 public final class ProxyGrantingTicketStorageImpl implements ProxyGrantingTicketStorage {
-	
-	private final Log log = LogFactory.getLog(getClass());
+  
+  private final Log log = LogFactory.getLog(getClass());
 
     /**
      * Default timeout in milliseconds.
@@ -45,7 +45,7 @@ public final class ProxyGrantingTicketStorageImpl implements ProxyGrantingTicket
      * 
      * @see ProxyGrantingTicketStorageImpl#DEFAULT_TIMEOUT
      */
-	private long timeout;
+  private long timeout;
 
     /**
      * Constructor set the timeout to the default value.
@@ -61,7 +61,7 @@ public final class ProxyGrantingTicketStorageImpl implements ProxyGrantingTicket
      * @param timeout the time to hold on to the ProxyGrantingTicket
      */
     public ProxyGrantingTicketStorageImpl(final long timeout) {
-    	this.timeout = timeout;
+      this.timeout = timeout;
     }
 
     /**
@@ -73,14 +73,14 @@ public final class ProxyGrantingTicketStorageImpl implements ProxyGrantingTicket
                 .get(proxyGrantingTicketIou);
 
         if (holder == null) {
-        	log.info("No Proxy Ticket found for [" + proxyGrantingTicketIou + "].");
+          log.info("No Proxy Ticket found for [" + proxyGrantingTicketIou + "].");
             return null;
         }
 
         this.cache.remove(holder);
 
         if (log.isDebugEnabled()) {
-        	log.debug("Returned ProxyGrantingTicket of [" + holder.getProxyGrantingTicket() + "]");
+          log.debug("Returned ProxyGrantingTicket of [" + holder.getProxyGrantingTicket() + "]");
         }
         return holder.getProxyGrantingTicket();
     }
@@ -91,7 +91,7 @@ public final class ProxyGrantingTicketStorageImpl implements ProxyGrantingTicket
                 proxyGrantingTicket);
 
         if (log.isDebugEnabled()) {
-        	log.debug("Saving ProxyGrantingTicketIOU and ProxyGrantingTicket combo: [" + proxyGrantingTicketIou + ", " + proxyGrantingTicket + "]");
+          log.debug("Saving ProxyGrantingTicketIOU and ProxyGrantingTicket combo: [" + proxyGrantingTicketIou + ", " + proxyGrantingTicket + "]");
         }
         this.cache.put(proxyGrantingTicketIou, holder);
     }
@@ -110,7 +110,7 @@ public final class ProxyGrantingTicketStorageImpl implements ProxyGrantingTicket
                     iter.remove();
                 }
             }
-        }    	
+        }      
     }
     
     private static final class ProxyGrantingTicketHolder {

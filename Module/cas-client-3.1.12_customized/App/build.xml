@@ -1,48 +1,48 @@
 <project default="build">
 
-	<property file="build.properties"/>
-	<property name="JAVA_DOC_DIR" value="doc" />
-	<property name="LIBS" value="{LOG4J_HOME}/log4j.jar;
-		${LOG4J_HOME}/log4j.jar;
-		lib/ext/opensaml-1.1.jar;
-		lib/ext/servlet-api-2.3.jar;
-		lib/ext/commons-logging-1.1.jar;
-		${WL_SERVER_LIB}/wls-api.jar " />
+  <property file="build.properties"/>
+  <property name="JAVA_DOC_DIR" value="doc" />
+  <property name="LIBS" value="{LOG4J_HOME}/log4j.jar;
+    ${LOG4J_HOME}/log4j.jar;
+    lib/ext/opensaml-1.1.jar;
+    lib/ext/servlet-api-2.3.jar;
+    lib/ext/commons-logging-1.1.jar;
+    ${WL_SERVER_LIB}/wls-api.jar " />
 
-	<property name="LOG_LEVEL" value="info" />
-	
-	<target name="start-log">
-		<mkdir dir="log" />
-			<tstamp>
-				<format property="timestamp" pattern="yyyyMMdd_HHmmss"/>
-			</tstamp>
-			<dirname property="pdir" file="." />
-				<basename property="version" file="${pdir}" />
-				<record name="log/${timestamp}-cas-client-core-3.1.2.txt" loglevel="${LOG_LEVEL}" />
-	</target>
+  <property name="LOG_LEVEL" value="info" />
+  
+  <target name="start-log">
+    <mkdir dir="log" />
+      <tstamp>
+        <format property="timestamp" pattern="yyyyMMdd_HHmmss"/>
+      </tstamp>
+      <dirname property="pdir" file="." />
+        <basename property="version" file="${pdir}" />
+        <record name="log/${timestamp}-cas-client-core-3.1.2.txt" loglevel="${LOG_LEVEL}" />
+  </target>
 
-	<target name="compile" depends="start-log">
-		<mkdir dir="build" />
-		<javac srcdir="src/main/java" destdir="build" classpath="${LIBS}" debug="on" encoding="UTF-8" target="1.6" includeantruntime="false" />
-		<copy file="src/main/java/log4j.properties" todir="build"/>
-	</target>
+  <target name="compile" depends="start-log">
+    <mkdir dir="build" />
+    <javac srcdir="src/main/java" destdir="build" classpath="${LIBS}" debug="on" encoding="UTF-8" target="1.6" includeantruntime="false" />
+    <copy file="src/main/java/log4j.properties" todir="build"/>
+  </target>
 
-	<target name="build" depends="compile">
-		<jar destfile="lib/${MODULE_NAME}.jar" basedir="build">
-		</jar>
-	</target>
+  <target name="build" depends="compile">
+    <jar destfile="lib/${MODULE_NAME}.jar" basedir="build">
+    </jar>
+  </target>
         
-	<target name="doc" depends="start-log">
-		<javadoc sourcepath="src/java" 
-			packagenames="*" 
-			overview="src/main/java/org/jasig/cas/client/overview.html" 
-			destdir="${JAVA_DOC_DIR}" 
-			classpath="${LIBS}" />
-	</target>
+  <target name="doc" depends="start-log">
+    <javadoc sourcepath="src/java" 
+      packagenames="*" 
+      overview="src/main/java/org/jasig/cas/client/overview.html" 
+      destdir="${JAVA_DOC_DIR}" 
+      classpath="${LIBS}" />
+  </target>
 
-	<target name="clean" depends="start-log">
-		<delete includeemptydirs="true">
-			<fileset dir="build"/>
-		</delete>
-	</target>
+  <target name="clean" depends="start-log">
+    <delete includeemptydirs="true">
+      <fileset dir="build"/>
+    </delete>
+  </target>
 </project>

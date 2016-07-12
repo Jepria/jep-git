@@ -47,8 +47,8 @@ public final class Cas10TicketValidator extends AbstractCasProtocolUrlBasedTicke
         }
     }
 
-	@Override
-	public void prepareProxyCallbackUrl(HttpServletRequest request) {
-		throw new NotImplementedYetException();
-	}
+  @Override
+  public void prepareProxyCallbackUrl(HttpServletRequest request) {
+    throw new NotImplementedYetException();
+  }
 }

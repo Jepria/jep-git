@@ -68,8 +68,8 @@ public final class Saml11TicketValidator extends AbstractUrlBasedTicketValidator
 
     protected Assertion parseResponseFromServer(final String response) throws TicketValidationException {
         try {
-        	final String removeStartOfSoapBody = response.substring(response.indexOf("<SOAP-ENV:Body>") + 15);
-        	final String removeEndOfSoapBody = removeStartOfSoapBody.substring(0, removeStartOfSoapBody.indexOf("</SOAP-ENV:Body>"));
+          final String removeStartOfSoapBody = response.substring(response.indexOf("<SOAP-ENV:Body>") + 15);
+          final String removeEndOfSoapBody = removeStartOfSoapBody.substring(0, removeStartOfSoapBody.indexOf("</SOAP-ENV:Body>"));
             final SAMLResponse samlResponse = new SAMLResponse(new ByteArrayInputStream(removeEndOfSoapBody.getBytes()));
 
             if (!samlResponse.getAssertions().hasNext()) {
@@ -239,8 +239,8 @@ public final class Saml11TicketValidator extends AbstractUrlBasedTicketValidator
         this.tolerance = tolerance;
     }
 
-	@Override
-	public void prepareProxyCallbackUrl(HttpServletRequest request) {
-		throw new NotImplementedYetException();
-	}
+  @Override
+  public void prepareProxyCallbackUrl(HttpServletRequest request) {
+    throw new NotImplementedYetException();
+  }
 }

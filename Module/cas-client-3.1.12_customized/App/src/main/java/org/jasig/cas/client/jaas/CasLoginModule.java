@@ -303,11 +303,11 @@ public class CasLoginModule implements LoginModule {
 
     public boolean commit() throws LoginException {
         if (this.assertion != null) {
-	        if (this.ticket != null) {
-	            this.subject.getPrivateCredentials().add(this.ticket);
-	        } else {
-	            throw new LoginException("Ticket credential not found.");
-	        }
+          if (this.ticket != null) {
+              this.subject.getPrivateCredentials().add(this.ticket);
+          } else {
+              throw new LoginException("Ticket credential not found.");
+          }
             
             final AssertionPrincipal casPrincipal = new AssertionPrincipal(this.assertion.getPrincipal().getName(), this.assertion);
             this.subject.getPrincipals().add(casPrincipal);
@@ -405,8 +405,8 @@ public class CasLoginModule implements LoginModule {
                     final String value = (String) propertyMap.get(property);
                     final PropertyDescriptor pd = ReflectUtils.getPropertyDescriptor(info, property);
                     if (pd != null) {
-	                    ReflectUtils.setProperty(property, convertIfNecessary(pd, value), validator, info);
-	                    log.debug("Set " + property + "=" + value);
+                      ReflectUtils.setProperty(property, convertIfNecessary(pd, value), validator, info);
+                      log.debug("Set " + property + "=" + value);
                     } else {
                         log.warn("Cannot find property " + property + " on " + className);
                     }
@@ -480,7 +480,7 @@ public class CasLoginModule implements LoginModule {
                 created.setTime(assertion.getValidFromDate());
                 if (created.before(cutoff)) {
                     if (log.isDebugEnabled()) {
-		                log.debug("Removing expired assertion for principal " + assertion.getPrincipal());
+                    log.debug("Removing expired assertion for principal " + assertion.getPrincipal());
                     }
                     iter.remove();
                 }

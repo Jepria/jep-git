@@ -16,7 +16,7 @@ import java.util.Map;
  * @since 3.1
  */
 public class AttributePrincipalImpl extends SimplePrincipal implements AttributePrincipal {
-	
+  
     private static final Log LOG = LogFactory.getLog(AttributePrincipalImpl.class);
 
     /** Unique Id for Serialization */
@@ -87,7 +87,7 @@ public class AttributePrincipalImpl extends SimplePrincipal implements Attribute
             return this.proxyRetriever.getProxyTicketIdFor(this.proxyGrantingTicket, service);
         }
         
-       	LOG.debug("No ProxyGrantingTicket was supplied, so no Proxy Ticket can be retrieved.");
+         LOG.debug("No ProxyGrantingTicket was supplied, so no Proxy Ticket can be retrieved.");
         return null;
     }
 }

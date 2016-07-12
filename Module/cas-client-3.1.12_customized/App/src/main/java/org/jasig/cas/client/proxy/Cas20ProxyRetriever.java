@@ -33,9 +33,9 @@ import java.net.URLEncoder;
 public final class Cas20ProxyRetriever implements ProxyRetriever {
 
     /** Unique Id for serialization. */
-	private static final long serialVersionUID = 560409469568911791L;
+  private static final long serialVersionUID = 560409469568911791L;
 
-	/**
+  /**
      * Instance of Commons Logging.
      */
     private final Log log = LogFactory.getLog(this.getClass());
@@ -75,7 +75,7 @@ public final class Cas20ProxyRetriever implements ProxyRetriever {
 
     private String constructUrl(final String proxyGrantingTicketId, final String targetService) {
         try {
-        	return this.casServerUrl + (this.casServerUrl.endsWith("/") ? "" : "/") + "proxy" + "?pgt="
+          return this.casServerUrl + (this.casServerUrl.endsWith("/") ? "" : "/") + "proxy" + "?pgt="
             + proxyGrantingTicketId + "&targetService="
             + URLEncoder.encode(targetService, "UTF-8");
         } catch (final UnsupportedEncodingException e) {

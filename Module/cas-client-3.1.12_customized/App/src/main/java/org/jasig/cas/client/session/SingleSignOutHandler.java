@@ -100,7 +100,7 @@ public class SingleSignOutHandler {
     public boolean isLogoutRequest(final HttpServletRequest request) {
 //        return "POST".equals(request.getMethod()) &&
 //            CommonUtils.isNotBlank(CommonUtils.safeGetParameter(request, this.logoutParameterName));
-    	// Временно выключаем проверку на POST для logout из меню Navigation
+      // Временно выключаем проверку на POST для logout из меню Navigation
         return CommonUtils.isNotBlank(CommonUtils.safeGetParameter(request, this.logoutParameterName));
     }
 

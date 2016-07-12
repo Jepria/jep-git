@@ -28,56 +28,56 @@ public abstract class AbstractCasFilter extends AbstractConfigurationFilter {
     /** Имя внешней переменной - адреса CAS-сервера */
     public static final String CAS_SERVER_ADDRESS = "CAS_SERVER_ADDRESS";
     
-//	/**
-//	 * Имя cookie-признака (устанавливаемого в login.jsp приложения), говорящего о том, что требуется логин через CAS 
-//	 */
-//	public static final String LOGIN_REQUEST_FLAG_COOKIE_NAME = "LOGIN_REQUEST_FLAG_COOKIE_NAME";
+//  /**
+//   * Имя cookie-признака (устанавливаемого в login.jsp приложения), говорящего о том, что требуется логин через CAS 
+//   */
+//  public static final String LOGIN_REQUEST_FLAG_COOKIE_NAME = "LOGIN_REQUEST_FLAG_COOKIE_NAME";
     
-	/**
-	 * Имя cookie, отражающей фазу авторизации WebLogic
-	 */
-	public static final String WLA_STATE_COOKIE_NAME = "WLA_STATE";
-	
-//	/**
-//	 * Значение appState cookie - авторизация WebLogic не используется 
-//	 */
-//	public static final String OFF_WLA_STATE_COOKIE_VALUE = "Off";
-	
-	/**
-	 * Значение appState cookie - запрос login-а на CAS 
-	 */
-	public static final String INITIAL_WLA_STATE_COOKIE_VALUE = "Initial";
-	
-	/**
-	 * Значение appState cookie - запрос login-а на CAS 
-	 */
-	public static final String LOGIN_REQUEST_WLA_STATE_COOKIE_VALUE = "LoginRequest";
-	
-	/**
-	 * Значение appState cookie - автологон в WebLogic 
-	 */
-	public static final String WL_AUTOLOGON_REQUEST_WLA_STATE_COOKIE_VALUE = "AutoLogonRequest";
-	
-	/**
-	 * Значение appState cookie - выполнялась попытка автологона в WebLogic 
-	 */
-	public static final String WL_AUTOLOGON_WAS_ATTEMPTED_WLA_STATE_COOKIE_VALUE = "AutoLogonWasAttempted";
-	
-	/**
-	 * Значение appState cookie - автологон в WebLogic прошёл успешно 
-	 */
-	public static final String WL_AUTOLOGON_SUCCEEDED_WLA_STATE_COOKIE_VALUE = "AutoLogonSucceeded";
+  /**
+   * Имя cookie, отражающей фазу авторизации WebLogic
+   */
+  public static final String WLA_STATE_COOKIE_NAME = "WLA_STATE";
+  
+//  /**
+//   * Значение appState cookie - авторизация WebLogic не используется 
+//   */
+//  public static final String OFF_WLA_STATE_COOKIE_VALUE = "Off";
+  
+  /**
+   * Значение appState cookie - запрос login-а на CAS 
+   */
+  public static final String INITIAL_WLA_STATE_COOKIE_VALUE = "Initial";
+  
+  /**
+   * Значение appState cookie - запрос login-а на CAS 
+   */
+  public static final String LOGIN_REQUEST_WLA_STATE_COOKIE_VALUE = "LoginRequest";
+  
+  /**
+   * Значение appState cookie - автологон в WebLogic 
+   */
+  public static final String WL_AUTOLOGON_REQUEST_WLA_STATE_COOKIE_VALUE = "AutoLogonRequest";
+  
+  /**
+   * Значение appState cookie - выполнялась попытка автологона в WebLogic 
+   */
+  public static final String WL_AUTOLOGON_WAS_ATTEMPTED_WLA_STATE_COOKIE_VALUE = "AutoLogonWasAttempted";
+  
+  /**
+   * Значение appState cookie - автологон в WebLogic прошёл успешно 
+   */
+  public static final String WL_AUTOLOGON_SUCCEEDED_WLA_STATE_COOKIE_VALUE = "AutoLogonSucceeded";
 
-	/**
-	 * Целевой Url при WLA-авторизации
-	 */
-	public static final String WLA_TARGET_URL = "targetUrl";
-		
-	
-	/**
-	 * Имя cas credentials cookie 
-	 */
-	public static final String CAS_CREDENTIALS_COOKIE_NAME = "CasCredentials";
+  /**
+   * Целевой Url при WLA-авторизации
+   */
+  public static final String WLA_TARGET_URL = "targetUrl";
+    
+  
+  /**
+   * Имя cas credentials cookie 
+   */
+  public static final String CAS_CREDENTIALS_COOKIE_NAME = "CasCredentials";
 
     /** Имя параметра, содержащего контекстную часть URL CAS-сервера */
     public static final String CAS_SERVER_NAME_CONTEXT_PARAMETER = "casServerName";
@@ -100,7 +100,7 @@ public abstract class AbstractCasFilter extends AbstractConfigurationFilter {
     /**
      * The name of the server.  Should be in the following format: {protocol}:{hostName}:{port}.
      * Standard ports can be excluded. */
-    private String serverName;	// TODO Сейчас не используется, поскольку serverName определяется динамически, убрать ?
+    private String serverName;  // TODO Сейчас не используется, поскольку serverName определяется динамически, убрать ?
 
     /** The exact url of the service. */
     private String service;
@@ -125,8 +125,8 @@ public abstract class AbstractCasFilter extends AbstractConfigurationFilter {
         init();
     }
 
-	/**
-	 * Controls the ordering of filter initialization and checking by defining a method that runs before the init.
+  /**
+   * Controls the ordering of filter initialization and checking by defining a method that runs before the init.
      * @param filterConfig the original filter configuration.
      * @throws ServletException if there is a problem.
      */
@@ -151,7 +151,7 @@ public abstract class AbstractCasFilter extends AbstractConfigurationFilter {
 
     protected final String constructServiceUrl(final HttpServletRequest request, final HttpServletResponse response) throws ServletException {
 //        return CommonUtils.constructServiceUrl(request, response, this.service, this.serverName, this.artifactParameterName, this.encodeServiceUrl);
-    	
+      
         return CommonUtils.constructServiceUrl(request, response, this.service, CommonUtils.obtainServerName(request), this.artifactParameterName, this.encodeServiceUrl);
     }
 
@@ -173,7 +173,7 @@ public abstract class AbstractCasFilter extends AbstractConfigurationFilter {
     }
     
     public final void setEncodeServiceUrl(final boolean encodeServiceUrl) {
-    	this.encodeServiceUrl = encodeServiceUrl;
+      this.encodeServiceUrl = encodeServiceUrl;
     }
 
     public final String getArtifactParameterName() {
@@ -187,17 +187,17 @@ public abstract class AbstractCasFilter extends AbstractConfigurationFilter {
     protected String getCasServerAddress() {
         String casServerAddress = System.getProperty(CAS_SERVER_ADDRESS);
         if(casServerAddress == null) {
-        	String message = this.getClass() + ".getCasServerAddress(): " + CAS_SERVER_ADDRESS + " environment variable should be set.";
+          String message = this.getClass() + ".getCasServerAddress(): " + CAS_SERVER_ADDRESS + " environment variable should be set.";
             logger.error(message);
-        	printSystemProperties();
+          printSystemProperties();
             throw new IllegalArgumentException(message);
         }
         
         return casServerAddress.replace('\\', '/');
-	}
+  }
 
-	private void printSystemProperties() {
-		Properties props = System.getProperties();
-		props.list(System.out);
-	}
+  private void printSystemProperties() {
+    Properties props = System.getProperties();
+    props.list(System.out);
+  }
 }
