@@ -18,7 +18,7 @@ public interface DaoProvider<D> {
 	
 	/**
 	 * Возвращает имя модуля для передачи в DB.
-	 * @return
+	 * @return имя модуля
 	 */
 	String getModuleName();
 	

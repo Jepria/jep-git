@@ -252,7 +252,9 @@
 				<pathelement location="build-test" />
 			</classpath>
 			<formatter type="plain" usefile="false" />
-			<test name="com.technology.jep.jepria.client.ui.main.MainModulePresenterTest" />
+			<batchtest>
+				<zipfileset src="${DISTR_DIR}/${MODULE_NAME_IN_PACKAGE}-test-${CURRENT_VERSION}.jar" includes="com/technology/jep/jepria/**/*Test.class" />
+			</batchtest>
 		</junit>
 	</target>
 

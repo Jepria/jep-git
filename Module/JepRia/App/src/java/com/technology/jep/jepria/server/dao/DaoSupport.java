@@ -85,7 +85,7 @@ import com.technology.jep.jepria.shared.util.JepRiaUtil;
  * </pre>
  *     
  * ВАЖНО: Перед использованием методов необходимо предварительно
- * вызвать {@link CallContext#begin(String)} для старта транзакции, далее
+ * вызвать {@link CallContext#begin(String, String)} для старта транзакции, далее
  * {@link CallContext#commit()} либо {@link CallContext#rollback()}. После завершения
  * необходимо освободить ресурсы с помощью {@link CallContext#end()}.
  */

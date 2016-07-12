@@ -16,9 +16,9 @@ public abstract class AbstractFileUpload implements FileUpload {
 	protected LargeObject largeObject = null;
 
 	/**
-	 * Функция-обертка для {@link #beginWrite(String tableName, String fileFieldName, String keyFieldName, Object rowId, String dataSourceJndiName)}.
+	 * Функция-обертка для {@link #beginWrite(String tableName, String fileFieldName, String keyFieldName, Object rowId, String dataSourceJndiName, String moduleName)}.
 	 * В классе реализации в конкретном модуле данный метод перегружаем вызывая в нем 
-	 * {@link #beginWrite(String tableName, String fileFieldName, String keyFieldName, Object rowId, String dataSourceJndiName)}
+	 * {@link #beginWrite(String tableName, String fileFieldName, String keyFieldName, Object rowId, String dataSourceJndiName, String moduleName)}
 	 * с подставленными из констант класса реализации параметрами:<br/>
 	 * <code>
 	 * tableName,<br/>

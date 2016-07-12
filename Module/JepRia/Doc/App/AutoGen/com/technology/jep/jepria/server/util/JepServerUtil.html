@@ -203,7 +203,7 @@ java.lang.Object
 <TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/util/JepServerUtil.html#getApplicationName(javax.servlet.ServletContext)">getApplicationName</A></B>(javax.servlet.ServletContext&nbsp;context)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Возвращает имя приложения, указанное в web.xml.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Возвращает имя приложения.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -508,17 +508,13 @@ getApplicationName</H3>
 <PRE>
 public static java.lang.String <B>getApplicationName</B>(javax.servlet.ServletContext&nbsp;context)</PRE>
 <DL>
-<DD>Возвращает имя приложения, указанное в web.xml.
- Имя приложения задаётся в контекстном параметре <code>applicationName</code>.
- Использование именно такого способа связано с тем, что OC4J не поддерживает Servlet 2.4,
- поэтому имя приложения нельзя получить с помощью <CODE>ServletContext.getContextPath()</CODE>.
- См. <CODE>http://stackoverflow.com/a/8611825 </CODE>.
+<DD>Возвращает имя приложения.
+ Для OAS это достигается путем вызова <CODE>HttpApplication.getContextPath()</CODE>, для других серверов - 
+ посредством стандартного вызова <CODE>ServletContext.getContextPath()</CODE>.
 <P>
 <DD><DL>
 <DT><B>Parameters:</B><DD><CODE>context</CODE> - контекст сервлета
-<DT><B>Returns:</B><DD>имя приложения
-<DT><B>Throws:</B>
-<DD><CODE>java.lang.IllegalStateException</CODE> - если в web.xml не определено имя приложения</DL>
+<DT><B>Returns:</B><DD>имя приложения</DL>
 </DD>
 </DL>
 <HR>

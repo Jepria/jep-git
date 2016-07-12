@@ -27,7 +27,7 @@ public class CallContext {
 	/**
 	 * Создаёт объект контекста.
 	 * @param dataSourceJndiName JNDI-имя источника данных
-	 * @param modileName имя модуля
+	 * @param moduleName имя модуля
 	 */
 	private CallContext(String dataSourceJndiName, String moduleName) {
 		db = new Db(dataSourceJndiName, false);
