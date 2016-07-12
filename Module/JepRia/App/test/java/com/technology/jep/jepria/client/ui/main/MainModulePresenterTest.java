@@ -56,15 +56,15 @@ import com.technology.jep.jepria.shared.text.JepRiaText;
  * либо возвращать заданное извне значение в тех или иных условиях. Дополнительно возможно
  * посчитывать количество раз, которое вызывается метод, записывать значения переданных параметров.</p>
  * 
- * <p>Наиболее популярным фреймворком для mock-тестирования является <a href="http://mockito.org/">Mockito</a>,
+ * <p>Наиболее популярным фреймворком для mock-тестирования является <a href="http://mockito.org/" target="_blank">Mockito</a>,
  * который использует для формирования mock-объектов Reflection API. С последним связано существенное
  * ограничение Mockito: невозможность модифицировать поведение статических методов. Кроме того,
  * Mockito не позволяет модифицировать <code>final</code>-методы. Для снятия этих ограничений 
- * используется <a href="https://github.com/jayway/powermock">PowerMock</a>, работающий на уровне Classloader.
+ * используется <a href="https://github.com/jayway/powermock" target="_blank">PowerMock</a>, работающий на уровне Classloader.
  * Использование PowerMock требует использования собственного runner'а, что обуславливает использование
  * аннотации <code>{@literal @}RunWith(PowerMockRunner.class)</code>. С помощью аннотации 
  * <code>{@literal @}PrepareForTest</code> перечисляются классы, поведение которых подлежит
- * модификации с помощью Powermock.</p>
+ * модификации с помощью PowerMock.</p>
  * 
  * <p>В данном примере демонстрируется тестирование метода {@link MainModulePresenter#checkAccess(String)}.
  * Метод проверяет, доступен ли модуль с заданным идентификатором. Если модуль доступен, функция
@@ -150,7 +150,7 @@ public class MainModulePresenterTest {
 		assertFalse(result);
 		/*
 		 * Убедимся, что метод JepClientUtil.hideLoadingPanel(), скрывающий индикатор загрузки,
-		 * вызывается ровно 1 раз. Следует отметить характерный для Powermock двухстрочный
+		 * вызывается ровно 1 раз. Следует отметить характерный для PowerMock двухстрочный
 		 * синтаксис, используемый для статических методов.
 		 */
 		PowerMockito.verifyStatic(Mockito.times(1));
@@ -158,7 +158,7 @@ public class MainModulePresenterTest {
 		/*
 		 * Убедимся, что messageBox.showError() вызывается ровно один раз. Для простоты
 		 * не будем проверять переданный методу текст. Следует заметить, что этот вызов
-		 * не является статическим либо приватным, поэтому прибегать к Powermock не требуется.
+		 * не является статическим либо приватным, поэтому прибегать к PowerMock не требуется.
 		 */
 		Mockito.verify(messageBoxMock, Mockito.times(1)).showError(Mockito.anyString());
 	}
