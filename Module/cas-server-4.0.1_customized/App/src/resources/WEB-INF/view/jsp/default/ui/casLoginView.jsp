@@ -58,40 +58,40 @@
  */
 </jsp:declaration>
 <jsp:scriptlet>
-	FrameworkResourceBundle _bundle = FrameworkResourceBundle.getResourceBundle(request.getLocales());
-	ResourceBundle resourceBundle = ResourceBundle.getBundle(JepConstant.JEP_RESOURCE_BUNDLE_NAME, request.getLocale());
+  FrameworkResourceBundle _bundle = FrameworkResourceBundle.getResourceBundle(request.getLocales());
+  ResourceBundle resourceBundle = ResourceBundle.getBundle(JepConstant.JEP_RESOURCE_BUNDLE_NAME, request.getLocale());
 /*
-	Integer attempts = (Integer)session.getAttribute(MAX_LOGIN_ATTEMPTS);
-	int loginAttempts = 0;
-	if (null != attempts){
-		loginAttempts = attempts.intValue();
-		if(loginAttempts >= _maxLoginAttempts){
-			RequestDispatcher rd = application.getRequestDispatcher("/WEB-INF/loginerror.jsp");
-			rd.forward(request, response);   
-		}
-	}
-	session.setMaxInactiveInterval(_sessionTimeout);
-*/	
-	String dir = _bundle.isLocaleRTL() ? "rtl" : "ltr"; 
+  Integer attempts = (Integer)session.getAttribute(MAX_LOGIN_ATTEMPTS);
+  int loginAttempts = 0;
+  if (null != attempts){
+    loginAttempts = attempts.intValue();
+    if(loginAttempts >= _maxLoginAttempts){
+      RequestDispatcher rd = application.getRequestDispatcher("/WEB-INF/loginerror.jsp");
+      rd.forward(request, response);   
+    }
+  }
+  session.setMaxInactiveInterval(_sessionTimeout);
+*/  
+  String dir = _bundle.isLocaleRTL() ? "rtl" : "ltr"; 
 </jsp:scriptlet>
 
 <html lang="<%=_bundle.getResourceLocale().getLanguage()%>"    dir="<%=dir%>">
 <head>
-	<meta charset="UTF-8" />
-	
-	<title><%= resourceBundle.getString("login.title") %></title>
-	<link href="resources/com/technology/jep/jepcommon/styles/Default.css" rel="stylesheet" type="text/css">
-	
+  <meta charset="UTF-8" />
+  
+  <title><%= resourceBundle.getString("login.title") %></title>
+  <link href="resources/com/technology/jep/jepcommon/styles/Default.css" rel="stylesheet" type="text/css">
+  
     <script language="javascript">
-	
+  
       //Функция очистки указанных элиментов документа.
       function clearErrors(){
-/*	  
+/*    
         var ArgumentsCount = clearErrors.arguments.length;
 
         for (var i = 0; i < ArgumentsCount; i++)
         document.getElementById(clearErrors.arguments[i]).innerHTML = '';
-*/		
+*/    
       }
 
       //Функция проверки обязательного символьного поля.
@@ -133,13 +133,13 @@
 
         //Если данные формы корректны, то отправим изменения на сервер.
         if(validateAuthorizationForm()) {
-			lForm.btnSubmit.click();
+      lForm.btnSubmit.click();
         } //Если нет - сообщим об этом пользователю.
         else trace(document.getElementsByName('action.incorrectInputData')[0].value);
       }
 
     </script>
-	
+  
 </head>
 
 <body id="cas">
@@ -157,11 +157,11 @@
           <th style=" width: 5px ">&nbsp;
           <th style=" width: 25px "><a style="cursor: pointer;" onclick="authorization()"><img id="login.registration" src="resources/com/technology/jep/jepcommon/images/authorization.gif" title='<%= resourceBundle.getString("login.registration") %>' /></a>
           <th style=" width: 100%; ">&nbsp;
-        <tr><td colspan="3">	
+        <tr><td colspan="3">  
       </table>
-	  
+    
       <br/><br/><br/><br/><br/>
-	  
+    
       <table style=" width: 100%; ">
         <colgroup>
           <col style=" width: 50%; ">
@@ -177,49 +177,49 @@
         <tr>
           <td style=" text-align: right; " id="login.login"><%= resourceBundle.getString("login.login") %></td>
           <td style=" text-align: left; ">
-			  <c:choose>
-				<c:when test="${not empty sessionScope.openIdLocalId}">
-				  <strong>${sessionScope.openIdLocalId}</strong>
-				  <input type="hidden" id="username" name="username" value="${sessionScope.openIdLocalId}" />
-				</c:when>
-				<c:otherwise>
-				  <spring:message code="screen.welcome.label.netid.accesskey" var="userNameAccessKey" />
-				  <form:input cssClass="required" cssErrorClass="error" id="username" size="25" tabindex="1" accesskey="${userNameAccessKey}" path="username" autocomplete="off" htmlEscape="true" />
-				</c:otherwise>
-			  </c:choose>
+        <c:choose>
+        <c:when test="${not empty sessionScope.openIdLocalId}">
+          <strong>${sessionScope.openIdLocalId}</strong>
+          <input type="hidden" id="username" name="username" value="${sessionScope.openIdLocalId}" />
+        </c:when>
+        <c:otherwise>
+          <spring:message code="screen.welcome.label.netid.accesskey" var="userNameAccessKey" />
+          <form:input cssClass="required" cssErrorClass="error" id="username" size="25" tabindex="1" accesskey="${userNameAccessKey}" path="username" autocomplete="off" htmlEscape="true" />
+        </c:otherwise>
+        </c:choose>
 
-			  <%--
-			  NOTE: Certain browsers will offer the option of caching passwords for a user.  There is a non-standard attribute,
-			  "autocomplete" that when set to "off" will tell certain browsers not to prompt to cache credentials.  For more
-			  information, see the following web page:
-			  http://www.technofundo.com/tech/web/ie_autocomplete.html
-			  --%>
-		  </td>
-		  
-		  
-		  
+        <%--
+        NOTE: Certain browsers will offer the option of caching passwords for a user.  There is a non-standard attribute,
+        "autocomplete" that when set to "off" will tell certain browsers not to prompt to cache credentials.  For more
+        information, see the following web page:
+        http://www.technofundo.com/tech/web/ie_autocomplete.html
+        --%>
+      </td>
+      
+      
+      
           <td style=" text-align: left; " class="error" id="loginError"></td>
         </tr>
 
         <tr>
           <td style=" text-align: right; " id="login.password"><%= resourceBundle.getString("login.password") %></td>
-	  <td style=" text-align: left; ">
-	  	<form:password cssClass="required" cssErrorClass="error" id="password" size="25" tabindex="2" path="password"  accesskey="${passwordAccessKey}" htmlEscape="true" autocomplete="off" />
-	  </td>
+    <td style=" text-align: left; ">
+      <form:password cssClass="required" cssErrorClass="error" id="password" size="25" tabindex="2" path="password"  accesskey="${passwordAccessKey}" htmlEscape="true" autocomplete="off" />
+    </td>
           <td style=" text-align: left; " class="error" id="passwordError"></td>
         </tr>
         <tr>
           <td style=" text-align: right; "></td>
-	  <td style=" text-align: left; ">
-		<section>
-		  <input type="hidden" name="lt" value="${loginTicket}" />
-		  <input type="hidden" name="execution" value="${flowExecutionKey}" />
-		  <input type="hidden" name="_eventId" value="submit" />
-		  <input type="hidden" name="url" value="<%=System.getenv("OAS_INSTANCE_ADDRESS")%>/Navigation/welcomeInput.do" /> <!-- TODO Разобраться, почему без этого в хроме бесконечный редирект  -->
+    <td style=" text-align: left; ">
+    <section>
+      <input type="hidden" name="lt" value="${loginTicket}" />
+      <input type="hidden" name="execution" value="${flowExecutionKey}" />
+      <input type="hidden" name="_eventId" value="submit" />
+      <input type="hidden" name="url" value="<%=System.getenv("OAS_INSTANCE_ADDRESS")%>/Navigation/welcomeInput.do" /> <!-- TODO Разобраться, почему без этого в хроме бесконечный редирект  -->
 
-		  <input name="btnSubmit" tabindex="3" type="submit" />
-		</section>
-	  </td>
+      <input name="btnSubmit" tabindex="3" type="submit" />
+    </section>
+    </td>
           <td style=" text-align: right; "></td>
         </tr>
 
@@ -227,7 +227,7 @@
 
     <form:errors path="*" id="msg" cssClass="errors" element="div" htmlEscape="false" />
 
-	  
+    
       <spring:message code="screen.welcome.label.password.accesskey" var="passwordAccessKey" />
     
   </form:form>

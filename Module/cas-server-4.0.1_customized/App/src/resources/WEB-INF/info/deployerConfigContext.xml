@@ -105,7 +105,7 @@
        | * org.jasig.cas.support.spnego.authentication.handler.support.JCIFSSpnegoAuthenticationHandler
        -->
     <bean id="primaryAuthenticationHandler" class="org.jasig.cas.authentication.handler.support.JaasAuthenticationHandler">
-		<property name="realm" value="CAS_INFO" />
+    <property name="realm" value="CAS_INFO" />
     </bean>
 
     <!-- Required for proxy ticket mechanism -->

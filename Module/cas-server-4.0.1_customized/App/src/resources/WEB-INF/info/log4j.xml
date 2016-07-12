@@ -130,16 +130,16 @@
         <level value="TRACE" />
         <appender-ref ref="cas" />
     </logger>
-	
+  
     <!--
       The root logger sends all logger statements EXCEPT those sent to the perf4j
       logger to System.out.
     -->
     <root>
         <level value="TRACE" />
-<!--		
+<!--    
         <appender-ref ref="console" />
--->		
+-->    
         <appender-ref ref="cas" />
-		</root>
+    </root>
 </log4j:configuration>
