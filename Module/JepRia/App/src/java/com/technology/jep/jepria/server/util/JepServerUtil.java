@@ -14,6 +14,7 @@ import java.util.Map;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
@@ -279,13 +280,29 @@ public class JepServerUtil {
       // Получение ссылки на приложение для сервера OAS и 
       // извлечение имени приложения из его пути контекста
       if (context instanceof HttpApplication) {
-        return ((HttpApplication) context).getContextPath().split("/")[1];
+        String[] splitted = ((HttpApplication) context).getContextPath().split("/");
+        return splitted[splitted.length - 1];
       }
     }
     catch(java.lang.NoClassDefFoundError ex){
       // Для остальных случаев
     }
-    return context.getContextPath().split("/")[1];
+    String[] splitted = context.getContextPath().split("/");
+    return splitted[splitted.length - 1];
+  }
+  
+  /**
+   * Возвращает имя модуля, предназначенное для передачи в базу.
+   * Имя модуля формируется из имени приложения и имени сервлета,
+   * из которого вырезано слово &quot;Servlet&quot;.
+   * @param config конфигурация сервлета
+   * @return имя модуля
+   */
+  public static String getModuleName(ServletConfig config) {
+    String applicationName = getApplicationName(config.getServletContext());
+    String servletName = config.getServletName();
+    String applicationModuleName = servletName.replace("Servlet", "");
+    return applicationName + "." + applicationModuleName;
   }
 
   public static boolean isTomcat(HttpServletRequest request) {

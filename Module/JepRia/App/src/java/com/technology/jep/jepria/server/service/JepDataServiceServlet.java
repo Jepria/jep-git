@@ -112,7 +112,7 @@ abstract public class JepDataServiceServlet<D extends JepDataStandard> extends J
   @Override
   public void init() throws ServletException {
     super.init();
-    moduleName = getModuleName();
+    moduleName = JepServerUtil.getModuleName(getServletConfig());
     serverFactory.setModuleName(moduleName);
     dataSourceJndiName = serverFactory.getDataSourceJndiName();
     dao = serverFactory.getDao();
@@ -605,19 +605,6 @@ abstract public class JepDataServiceServlet<D extends JepDataStandard> extends J
   private void clearFoundRecords(FindConfig findConfig) {
     HttpSession session = getThreadLocalRequest().getSession();
     session.removeAttribute(FOUND_RECORDS_SESSION_ATTRIBUTE + findConfig.getListUID());
-  }
-  
-  /**
-   * Возвращает имя модуля, предназначенное для передачи в базу.
-   * Имя модуля формируется из имени приложения и имени сервлета,
-   * из которого вырезано слово &quot;Servlet&quot;.
-   * @return имя модуля
-   */
-  private String getModuleName() {
-    String applicationName = JepServerUtil.getApplicationName(getServletContext());
-    String servletName = getServletConfig().getServletName();
-    String applicationModuleName = servletName.replace("Servlet", "");
-    return applicationName + "." + applicationModuleName;
   }
 
   /**

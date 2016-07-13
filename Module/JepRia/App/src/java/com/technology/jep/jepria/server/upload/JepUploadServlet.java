@@ -81,7 +81,7 @@ public class JepUploadServlet extends HttpServlet {
   @Override
   public void init() throws ServletException {
     super.init();
-    moduleName = getModuleName();
+    moduleName = JepServerUtil.getModuleName(getServletConfig());
   }
 
   @SuppressWarnings("unchecked")
@@ -274,19 +274,6 @@ public class JepUploadServlet extends HttpServlet {
           }
         }
     return null;
-  }
-  
-  /**
-   * Возвращает имя модуля, предназначенное для передачи в базу.
-   * Имя модуля формируется из имени приложения и имени сервлета,
-   * из которого вырезано слово &quot;Servlet&quot;.
-   * @return имя модуля
-   */
-  private String getModuleName() {
-    String applicationName = JepServerUtil.getApplicationName(getServletContext());
-    String servletName = getServletConfig().getServletName();
-    String applicationModuleName = servletName.replace("Servlet", "");
-    return applicationName + "." + applicationModuleName;
   }
 
   /**
