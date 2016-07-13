@@ -11,7 +11,7 @@ public class ServerFactory<D> implements DaoProvider<D> {
   /**
    * Исходный объект Dao.
    */
-  protected D dao;
+  private final D dao;
   /**
    * Прокси для Dao, обеспечивающий транзакционность.
    */
