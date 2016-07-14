@@ -2,7 +2,7 @@ package com.technology.jep.jepriashowcase.arsenic.shared.text;
 
 /**
  * Interface to represent the constants contained in resource bundle:
- * 	'D:/Project/JEPGit/Module/JepRiaShowcase/App/src/java/com/technology/jep/jepriashowcase/arsenic/shared/text/ArsenicText.properties'.
+ * 	'D:/workspace/git/JEP/Module/JepRiaShowcase/App/src/java/com/technology/jep/jepriashowcase/arsenic/shared/text/ArsenicText.properties'.
  */
 public interface ArsenicText extends com.google.gwt.i18n.client.Constants {
   
@@ -221,6 +221,24 @@ public interface ArsenicText extends com.google.gwt.i18n.client.Constants {
   @DefaultStringValue("JepTreeField")
   @Key("detail.jepTreeField")
   String detail_jepTreeField();
+
+  /**
+   * Translated "JepTreeField с выделением узлов (и детей каскадом)".
+   * 
+   * @return translated "JepTreeField с выделением узлов (и детей каскадом)"
+   */
+  @DefaultStringValue("JepTreeField с выделением узлов (и детей каскадом)")
+  @Key("detail.jepTreeField_casc")
+  String detail_jepTreeField_casc();
+
+  /**
+   * Translated "JepTreeField с выделением узлов (без каскада)".
+   * 
+   * @return translated "JepTreeField с выделением узлов (без каскада)"
+   */
+  @DefaultStringValue("JepTreeField с выделением узлов (без каскада)")
+  @Key("detail.jepTreeField_nodes")
+  String detail_jepTreeField_nodes();
 
   /**
    * Translated "Количество записей (Простой JepIntegerField)".
