@@ -34,7 +34,7 @@ public interface ArsenicAuto extends JepRiaModuleAuto {
   void changeJepCheckBoxField();
   void setJepListField(String[] value);
   void setJepListFieldCheckAll(String[] value);
-  void setJepTreeField(String[] value);
+  void setJepTreeField_nodes(String[] value);
   
   String getJepTextField();
   String getJepTextAreaField();
@@ -52,7 +52,7 @@ public interface ArsenicAuto extends JepRiaModuleAuto {
   boolean getJepCheckBoxField();
   String[] getJepListField();
   String[] getJepListFieldCheckAll();
-  String[] getJepTreeField();
+  String[] getJepTreeField_nodes();
   
   /**
    * Проверяет, действительно ли все заданные поля имеют visiblity=expected?

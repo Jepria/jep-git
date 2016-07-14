@@ -170,7 +170,7 @@ public class ArsenicAutoImpl<A extends JepRiaShowcaseAuto, P extends JepRiaShowc
   }
   
   @Override
-  public void setJepTreeField(String[] value) {
+  public void setJepTreeField_nodes(String[] value) {
     selectTreeItems(ARSENIC_JEP_TREE_FIELD_NODES_ID, value);
   }
 
@@ -259,8 +259,8 @@ public class ArsenicAutoImpl<A extends JepRiaShowcaseAuto, P extends JepRiaShowc
   }
   
   @Override
-  public String[] getJepTreeField() {
-    return getTreeFieldValues(ARSENIC_JEP_TREE_FIELD_ID);
+  public String[] getJepTreeField_nodes() {
+    return getTreeFieldCheckedNodes(ARSENIC_JEP_TREE_FIELD_NODES_ID);
   }
 
   

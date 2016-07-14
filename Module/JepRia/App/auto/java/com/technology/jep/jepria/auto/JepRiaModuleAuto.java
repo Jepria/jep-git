@@ -212,7 +212,7 @@ public interface JepRiaModuleAuto extends EntranceAuto {
    * В случае если в дереве отсутствует хотя бы одна из требуемых опций либо промежуточный узел в пути,
    * выбрасывается исключение {@link com.technology.jep.jepria.auto.exceptions.WrongOptionException}.
    * В случае если входной параметр некорректен, выбрасывается {@link java.lang.IllegalArgumentException}
-   * Синтаксис путей опций: [/]{FolderName/}OptionName или [/]{FolderName/}>FolderName;
+   * Синтаксис путей опций: {FolderName/}OptionName или {FolderName/}>FolderName;
    * '/' в именах элементов нужно экранировать: '\/'.
    * Предполагается, что имена элементов дерева не начинаются с '>' (иначе нужно внедрять экранирование этого символа).
    * Предполагается, что нигде в дереве рядом не находится двух одноименных листьев или папок (но допускаются лист и папка с одним именем).
@@ -222,14 +222,29 @@ public interface JepRiaModuleAuto extends EntranceAuto {
   void selectTreeItems(String treeFieldId, String itemPaths[]);
   
   /**
-   * Получение отмеченных значений списка поля JepListField
+   * Получение отмеченных (в текущем состоянии развернутости дерева) узлов поля JepTreeField
    *  
-   * @param jepTreeFieldId id JepTreeField'а
-   * @return массив имён отмеченных (выбранных) опций.
-   * Имена в полученном массиве располагаются в порядке их отображения в списке JepTreeField'а,
+   * @param treeFieldId id JepTreeField'а
+   * @return массив путей в дереве отмеченных (выбранных) узлов.
+   * Синтаксис путей опций: {FolderName/}OptionName или {FolderName/}>FolderName;
+   * '/' в именах элементов экранируются: '\/'.
+   * Узлы в полученном массиве располагаются в порядке их отображения в списке JepTreeField'а,
+   * поэтому сравнение массивов в классе *AutoTest необходимо производить без учета порядка!
+   */
+  String[] getTreeFieldCheckedNodes(String treeFieldId);
+  
+  /**
+   * Получение текущего состояния развернутости дерева (видимых развернутых узлов) поля JepTreeField
+   *  
+   * @param treeFieldId id JepTreeField'а
+   * @return массив путей в дереве развернутых (видимых) опций.
+   * Синтаксис путей опций: {FolderName/}OptionName или {FolderName/}>FolderName;
+   * '/' в именах элементов экранируются: '\/'.
+   * Узлы в полученном массиве располагаются в порядке их отображения в списке JepTreeField'а,
    * поэтому сравнение массивов в классе *AutoTest необходимо производить без учета порядка!  
    */
-  String[] getTreeFieldValues(String jepTreeFieldId);
+  String[] getTreeFieldExpandedNodes(String treeFieldId);
+  
   /**
    * Проверка видимости Jep-поля по заданному ID (атрибута aria-hidden)
    * @param fieldId id Jep-поля
