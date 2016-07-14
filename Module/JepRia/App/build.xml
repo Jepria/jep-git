@@ -1,6 +1,7 @@
 <project name="Jep Module Building" default="build">
-  <property file="build.properties" />
+  <property file="local.properties" />
   <property file="dependency.properties" />
+  <property file="build.properties" />
   <property name="MODULE_PACKAGE" value="com/technology/${PROJECT_NAME_IN_PACKAGE}/${MODULE_NAME_IN_PACKAGE}" />
   <property name="RESOURCE_HOME" value="src/resources/${MODULE_PACKAGE}" />
   <property name="JAVA_DOC_DIR" value="../Doc/App/AutoGen" />
