@@ -58,7 +58,7 @@ public class JepTreeField extends JepMultiStateField<TreeField<JepOption>, HTML>
    */
   @Override
   protected void addEditableCard() {
-    editableCard = new TreeField<JepOption>();
+    editableCard = new TreeField<JepOption>(fieldIdAsWebEl);
     editablePanel.add(editableCard);
   }
   

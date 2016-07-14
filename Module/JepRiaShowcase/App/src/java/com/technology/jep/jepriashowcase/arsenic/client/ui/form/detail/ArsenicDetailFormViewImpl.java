@@ -4,7 +4,7 @@ import static com.technology.jep.jepria.client.JepRiaClientConstant.JepImages;
 import static com.technology.jep.jepria.shared.field.JepFieldNames.MAX_ROW_COUNT;
 import static com.technology.jep.jepriashowcase.arsenic.client.ArsenicAutomationConstant.ARSENIC_CHECKBOX_SWITCH_ALBL_ID;
 import static com.technology.jep.jepriashowcase.arsenic.client.ArsenicAutomationConstant.ARSENIC_CHECKBOX_SWITCH_EDTB_ID;
-import static com.technology.jep.jepriashowcase.arsenic.client.ArsenicAutomationConstant.ARSENIC_CHECKBOX_SWITCH_ENBL_ID;
+import static com.technology.jep.jepriashowcase.arsenic.client.ArsenicAutomationConstant.*;
 import static com.technology.jep.jepriashowcase.arsenic.client.ArsenicAutomationConstant.ARSENIC_CHECKBOX_SWITCH_VSBL_ID;
 import static com.technology.jep.jepriashowcase.arsenic.client.ArsenicAutomationConstant.ARSENIC_JEP_CHECKBOX_FIELD_ID;
 import static com.technology.jep.jepriashowcase.arsenic.client.ArsenicAutomationConstant.ARSENIC_JEP_COMBOBOX_FIELD_3CH_RELOADING_ID;
@@ -21,12 +21,15 @@ import static com.technology.jep.jepriashowcase.arsenic.client.ArsenicAutomation
 import static com.technology.jep.jepriashowcase.arsenic.client.ArsenicAutomationConstant.ARSENIC_JEP_NUMBER_FIELD_ID;
 import static com.technology.jep.jepriashowcase.arsenic.client.ArsenicAutomationConstant.ARSENIC_JEP_TEXT_AREA_FIELD_ID;
 import static com.technology.jep.jepriashowcase.arsenic.client.ArsenicAutomationConstant.ARSENIC_JEP_TEXT_FIELD_ID;
+import static com.technology.jep.jepriashowcase.arsenic.client.ArsenicAutomationConstant.ARSENIC_JEP_TREE_FIELD_CASC_ID;
+import static com.technology.jep.jepriashowcase.arsenic.client.ArsenicAutomationConstant.ARSENIC_JEP_TREE_FIELD_ID;
+import static com.technology.jep.jepriashowcase.arsenic.client.ArsenicAutomationConstant.ARSENIC_JEP_TREE_FIELD_NODES_ID;
 import static com.technology.jep.jepriashowcase.arsenic.client.ArsenicAutomationConstant.ARSENIC_MAX_ROW_COUNT_ID;
 import static com.technology.jep.jepriashowcase.arsenic.client.ArsenicClientConstant.arsenicImages;
 import static com.technology.jep.jepriashowcase.arsenic.client.ArsenicClientConstant.arsenicText;
 import static com.technology.jep.jepriashowcase.arsenic.shared.field.ArsenicFieldNames.DETAILFORM_CHECKBOX_SWITCH_ALBL;
 import static com.technology.jep.jepriashowcase.arsenic.shared.field.ArsenicFieldNames.DETAILFORM_CHECKBOX_SWITCH_EDTB;
-import static com.technology.jep.jepriashowcase.arsenic.shared.field.ArsenicFieldNames.DETAILFORM_CHECKBOX_SWITCH_ENBL;
+import static com.technology.jep.jepriashowcase.arsenic.shared.field.ArsenicFieldNames.*;
 import static com.technology.jep.jepriashowcase.arsenic.shared.field.ArsenicFieldNames.DETAILFORM_CHECKBOX_SWITCH_VSBL;
 import static com.technology.jep.jepriashowcase.arsenic.shared.field.ArsenicFieldNames.DETAILFORM_JEP_CHECKBOX_FIELD;
 import static com.technology.jep.jepriashowcase.arsenic.shared.field.ArsenicFieldNames.DETAILFORM_JEP_COMBOBOX_FIELD_3CH_RELOADING;
@@ -44,6 +47,8 @@ import static com.technology.jep.jepriashowcase.arsenic.shared.field.ArsenicFiel
 import static com.technology.jep.jepriashowcase.arsenic.shared.field.ArsenicFieldNames.DETAILFORM_JEP_TEXT_AREA_FIELD;
 import static com.technology.jep.jepriashowcase.arsenic.shared.field.ArsenicFieldNames.DETAILFORM_JEP_TEXT_FIELD;
 import static com.technology.jep.jepriashowcase.arsenic.shared.field.ArsenicFieldNames.DETAILFORM_JEP_TREE_FIELD;
+import static com.technology.jep.jepriashowcase.arsenic.shared.field.ArsenicFieldNames.DETAILFORM_JEP_TREE_FIELD_CASC;
+import static com.technology.jep.jepriashowcase.arsenic.shared.field.ArsenicFieldNames.DETAILFORM_JEP_TREE_FIELD_NODES;
 
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.user.client.ui.Anchor;
@@ -51,6 +56,7 @@ import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.InlineHTML;
+import com.google.gwt.user.client.ui.VerticalPanel;
 import com.technology.jep.jepria.client.ui.form.detail.DetailFormView;
 import com.technology.jep.jepria.client.ui.form.detail.StandardDetailFormViewImpl;
 import com.technology.jep.jepria.client.widget.field.multistate.JepCheckBoxField;
@@ -65,6 +71,7 @@ import com.technology.jep.jepria.client.widget.field.multistate.JepNumberField;
 import com.technology.jep.jepria.client.widget.field.multistate.JepTextAreaField;
 import com.technology.jep.jepria.client.widget.field.multistate.JepTextField;
 import com.technology.jep.jepria.client.widget.field.multistate.JepTreeField;
+import com.technology.jep.jepria.client.widget.field.tree.TreeField.CheckCascade;
 import com.technology.jep.jepria.client.widget.field.tree.TreeField.CheckNodes;
 
 public class ArsenicDetailFormViewImpl extends StandardDetailFormViewImpl implements DetailFormView {  
@@ -110,22 +117,28 @@ public class ArsenicDetailFormViewImpl extends StandardDetailFormViewImpl implem
     panel.add(checkBoxPanel);
     
     JepTextField textField = new JepTextField(ARSENIC_JEP_TEXT_FIELD_ID, arsenicText.detail_jepTextField());
-    panel.add(textField);
-    
     JepTextAreaField textAreaField = new JepTextAreaField(ARSENIC_JEP_TEXT_AREA_FIELD_ID, arsenicText.detail_jepTextAreaField());
-    panel.add(textAreaField);
+    
+    VerticalPanel textFieldPanel = new VerticalPanel();
+    textFieldPanel.add(textField);
+    textFieldPanel.add(textAreaField);
     
     JepLongField longField = new JepLongField(ARSENIC_JEP_LONG_FIELD_ID, arsenicText.detail_jepLongField());
-    panel.add(longField);
-    
     JepMoneyField moneyField = new JepMoneyField(ARSENIC_JEP_MONEY_FIELD_ID, arsenicText.detail_jepMoneyField());
-    panel.add(moneyField);
-    
     JepNumberField numberField = new JepNumberField(ARSENIC_JEP_NUMBER_FIELD_ID, arsenicText.detail_jepNumberField());
-    panel.add(numberField);
-    
     JepDateField dateField = new JepDateField(ARSENIC_JEP_DATE_FIELD_ID, arsenicText.detail_jepDateField());
-    panel.add(dateField);
+    
+    VerticalPanel numFieldPanel = new VerticalPanel();
+    numFieldPanel.add(longField);
+    numFieldPanel.add(moneyField);
+    numFieldPanel.add(numberField);
+    numFieldPanel.add(dateField);
+    
+    HorizontalPanel textAndNumPanel = new HorizontalPanel();
+    textAndNumPanel.add(textFieldPanel);
+    textAndNumPanel.add(numFieldPanel);
+    panel.add(textAndNumPanel);
+    
     
     JepComboBoxField comboBoxFieldNotLazy = new JepComboBoxField(ARSENIC_JEP_COMBOBOX_FIELD_NOTLAZY_ID,
         createInfoIcon(arsenicText.detail_jepComboBoxField_notlazy_hint()) + new InlineHTML("&nbsp;") +
@@ -182,10 +195,22 @@ public class ArsenicDetailFormViewImpl extends StandardDetailFormViewImpl implem
     }};
     panel.add(listFieldCheckAll);
     
-    JepTreeField treeField = new JepTreeField(arsenicText.detail_jepTreeField()) {{
-      setCheckNodes(CheckNodes.BOTH);
+    
+    JepTreeField treeField = new JepTreeField(ARSENIC_JEP_TREE_FIELD_ID, arsenicText.detail_jepTreeField()) {{
+      setCheckNodes(CheckNodes.LEAF);
     }};
-    panel.add(treeField);
+    
+    JepTreeField treeFieldNodes = new JepTreeField(ARSENIC_JEP_TREE_FIELD_NODES_ID, arsenicText.detail_jepTreeField());
+    
+    JepTreeField treeFieldCasc = new JepTreeField(ARSENIC_JEP_TREE_FIELD_CASC_ID, arsenicText.detail_jepTreeField()) {{
+      setCheckStyle(CheckCascade.PARENTS);
+    }};
+    
+    HorizontalPanel treeFieldPanel = new HorizontalPanel();
+    treeFieldPanel.add(treeField);
+    treeFieldPanel.add(treeFieldNodes);
+    treeFieldPanel.add(treeFieldCasc);
+    panel.add(treeFieldPanel);
     
     JepIntegerField integerField = new JepIntegerField(ARSENIC_MAX_ROW_COUNT_ID, arsenicText.detail_maxRowCount());
     panel.add(integerField);
@@ -210,7 +235,11 @@ public class ArsenicDetailFormViewImpl extends StandardDetailFormViewImpl implem
     fields.put(DETAILFORM_JEP_CHECKBOX_FIELD, checkBoxField);
     fields.put(DETAILFORM_JEP_LIST_FIELD, listField);
     fields.put(DETAILFORM_JEP_LIST_FIELD_CHECKALL, listFieldCheckAll);
+    
     fields.put(DETAILFORM_JEP_TREE_FIELD, treeField);
+    fields.put(DETAILFORM_JEP_TREE_FIELD_NODES, treeFieldNodes);
+    fields.put(DETAILFORM_JEP_TREE_FIELD_CASC, treeFieldCasc);
+    
     fields.put(MAX_ROW_COUNT, integerField);
   }
   
@@ -225,6 +254,5 @@ public class ArsenicDetailFormViewImpl extends StandardDetailFormViewImpl implem
     link.getElement().appendChild(copyImage.getElement());
     
     return link.toString();
-  }
- 
+  } 
 }

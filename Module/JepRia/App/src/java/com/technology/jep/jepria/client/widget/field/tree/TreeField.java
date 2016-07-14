@@ -1,6 +1,9 @@
 package com.technology.jep.jepria.client.widget.field.tree;
 
 import static com.google.gwt.dom.client.BrowserEvents.CLICK;
+import static com.technology.jep.jepria.client.AutomationConstant.JEP_TREENODE_CHECKABLE_HTML_ATTR;
+import static com.technology.jep.jepria.client.AutomationConstant.JEP_TREENODE_INFIX;
+import static com.technology.jep.jepria.client.AutomationConstant.JEP_TREENODE_ISLEAF_HTML_ATTR;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,11 +12,10 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import com.google.gwt.cell.client.Cell;
-import com.google.gwt.cell.client.ClickableTextCell;
 import com.google.gwt.cell.client.CompositeCell;
 import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.cell.client.HasCell;
-import com.google.gwt.cell.client.ImageResourceCell;
+import com.google.gwt.cell.client.TextCell;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.NativeEvent;
@@ -30,6 +32,7 @@ import com.google.gwt.safehtml.shared.SafeHtmlUtils;
 import com.google.gwt.user.cellview.client.CellTree;
 import com.google.gwt.user.cellview.client.TreeNode;
 import com.google.gwt.user.client.Event;
+import com.google.gwt.user.client.ui.AbstractImagePrototype;
 import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.view.client.AsyncDataProvider;
 import com.google.gwt.view.client.CellPreviewEvent;
@@ -42,6 +45,7 @@ import com.google.gwt.view.client.SetSelectionModel;
 import com.google.gwt.view.client.TreeViewModel;
 import com.technology.jep.jepria.client.async.DataLoader;
 import com.technology.jep.jepria.client.async.JepAsyncCallback;
+import com.technology.jep.jepria.client.util.JepClientUtil;
 import com.technology.jep.jepria.client.widget.container.ElementSimplePanel;
 import com.technology.jep.jepria.client.widget.field.multistate.event.CheckChangeEvent;
 import com.technology.jep.jepria.client.widget.field.multistate.event.CheckChangeEvent.CheckChangeHandler;
@@ -49,6 +53,7 @@ import com.technology.jep.jepria.client.widget.field.multistate.event.CheckChang
 import com.technology.jep.jepria.client.widget.field.tree.images.TreeFieldResources;
 import com.technology.jep.jepria.shared.field.option.JepOption;
 import com.technology.jep.jepria.shared.field.option.JepParentOption;
+import com.technology.jep.jepria.shared.log.JepLoggerImpl;
 import com.technology.jep.jepria.shared.util.JepRiaUtil;
 
 /**
@@ -149,9 +154,16 @@ public class TreeField<V extends JepOption> extends ScrollPanel implements HasCh
   private boolean checkable = true;
   
   /**
+   * ID объемлющего Jep-поля как Web-элемента.
+   */
+  private final String fieldIdAsWebEl;
+  
+  /**
    * Создает экземпляры данного класса.
    */
-  public TreeField(){
+  public TreeField(String fieldIdAsWebEl){
+    this.fieldIdAsWebEl = fieldIdAsWebEl;
+    
     addStyleName(JEP_RIA_TREE_FIELD_STYLE);
   }
   
@@ -567,57 +579,129 @@ public class TreeField<V extends JepOption> extends ScrollPanel implements HasCh
     public <T> NodeInfo<?> getNodeInfo(T value) {
       provider = new TreeDataProvider((V) value);
       
+      // FIXME TODO Ниже нужно избежать использования CompositeCell, так как после рефакторинга
+      // элемент списка состоит из одного, а не двух элементов и поэтому больше не является композитным.
+      // Проблема в том, что Column не создается от HasCell (зато создается от CompositeCell(HasCell)),
+      // а использование HasCell нужно для задания в нем FieldUpdater.
+      
       // Create a list of cell. These cells will make up the composite cell
       // Here I am constructing a composite cell with 2 parts that includes a checkbox.
       final List<HasCell<V, ?>> cellComponents = new ArrayList<HasCell<V, ?>>();
       
-      // 1st part of Composite cell - Show a checkbox image and select it "selected property is true
-      cellComponents.add(new HasCell<V, ImageResource>() {
-      
-        ImageResourceCell cell = new ImageResourceCell();
+      // FIXME TODO This HasCell is a STUB! Probably replace with some ~default~ Cell to not override methods
+      cellComponents.add(new HasCell<V, String>() {
+
+        private final Cell<String> cell = new TextCell();
         
-        public Cell<ImageResource> getCell() {
+        @Override
+        public Cell<String> getCell() {
           return cell;
         }
-      
-        public FieldUpdater<V, ImageResource> getFieldUpdater() {
+
+        @Override
+        public FieldUpdater<V, String> getFieldUpdater() {
           return null;
         }
-        
-        public ImageResource getValue(V value) {
-          boolean isLeaf = isLeaf(value);
-          switch(checkNodes){
-            // допустимо выделение только листьев, не отображаем соответствующую картинку
-            case LEAF : { 
-              if(!isLeaf) return null; 
-              break; 
-            }
-            // допустимо выделение только родительских узлов, не отображаем соответствующую картинку
-            case PARENT : { 
-              if(isLeaf) return null; 
-              break; 
-            }
-          }
-          
-          if (partialSelectedNodes.contains(value)){
-            return images.partialChecked();
-          }
-          
-          if (isNodeOpened(value) && checkStyle.equals(CheckCascade.PARENTS)) {
-            int in = hasPartlySelectedChildren(value);
-            switch(in){
-              case 1: return images.checked();
-              case 0: return images.partialChecked();
-              case -1: 
-              default: return images.unchecked();
-            }
-            
-          } else {
-            return isSelected(value) ? images.checked() : images.unchecked();
-          }
+
+        @Override
+        public String getValue(V object) {
+          return !JepRiaUtil.isEmpty(object) ? object.getName() : null;
         }
         
-        public int hasPartlySelectedChildren(V value){
+      });
+      
+      // Create a composite cell and pass the definition of
+      // individual cells that the composite cell should render.
+      CompositeCell<V> compositeCell = new CompositeCell<V>(cellComponents){
+        private static final String PADDING = "   ";
+        
+        @Override
+        public boolean isEditing(Context context, Element parent, V value) {
+          return false;
+        }
+        
+        @Override
+        public boolean resetFocus(Context context, Element parent, V value) {
+          return false;
+        }
+        
+        @Override
+        protected <X> void render(Context context, V value, SafeHtmlBuilder sb, HasCell<V, X> hasCell) {
+          
+          // 1st part of Composite cell - Show a checkbox image and select it "selected" property is true
+          final SafeHtml checkImageHtml;
+          
+          final boolean isLeaf = isLeaf(value);
+          final ImageResource checkImg;
+          if (checkNodes == CheckNodes.LEAF && !isLeaf) {
+            // допустимо выделение только листьев, не отображаем соответствующую картинку
+            checkImg = null;
+          } else if (checkNodes == CheckNodes.PARENT && isLeaf) {
+            // допустимо выделение только родительских узлов, не отображаем соответствующую картинку
+            checkImg = null;
+          } else if (partialSelectedNodes.contains(value)){
+            checkImg = images.partialChecked();
+          } else if (isNodeOpened(value) && checkStyle.equals(CheckCascade.PARENTS)) {
+            int in = hasPartlySelectedChildren(value);
+            if (in == 1) {
+              checkImg = images.checked();
+            } else if (in == 0) {
+              checkImg = images.partialChecked();
+            } else {
+              checkImg =  images.unchecked();
+            }
+          } else {
+            checkImg = isSelected(value) ? images.checked() : images.unchecked();
+          }
+          
+          final boolean isNodeCheckable;
+          if (checkImg == null) {
+            checkImageHtml = SafeHtmlUtils.EMPTY_SAFE_HTML;
+            isNodeCheckable = false;
+          } else {
+            checkImageHtml = AbstractImagePrototype.create(checkImg).getSafeHtml();
+            isNodeCheckable = true;
+          }
+          
+          
+          // 2nd part of Composite cell - Show a folder image for parent nodes
+          final SafeHtml folderImageHtml;
+          
+          if (isLeaf(value)) {
+            folderImageHtml = SafeHtmlUtils.EMPTY_SAFE_HTML;
+          } else {
+            ImageResource folderImg = isNodeOpened(value) ? images.folderOpened() : images.folderClosed();
+            folderImageHtml = AbstractImagePrototype.create(folderImg).getSafeHtml();
+          }
+          
+          
+          // 3rd part of Composite cell - Show Text for the Cell
+          SafeHtml labelHtml = SafeHtmlUtils.fromTrustedString(
+              JepClientUtil.substitute("<label {0}>{1}{2}</label>",
+                  checkImg == null ? "" : "style=\"cursor: pointer;\"",
+                  SafeHtmlUtils.fromString(PADDING).asString(),
+                  value.getName()));
+          
+          
+          final String nodeId;
+          if (fieldIdAsWebEl != null) {
+            nodeId = "id='" + fieldIdAsWebEl + JEP_TREENODE_INFIX +  value.getName() + "'";
+          } else {
+            nodeId = "";
+          }
+          
+          sb.appendHtmlConstant(
+              JepClientUtil.substitute("<span {0} {1} {2}>",
+                  nodeId,
+                  JEP_TREENODE_ISLEAF_HTML_ATTR + (isLeaf ? "='true'" : "='false'"),
+                  JEP_TREENODE_CHECKABLE_HTML_ATTR + (isNodeCheckable ? "='true'" : "='false'")));
+          sb.append(checkImageHtml);
+          sb.append(folderImageHtml);
+          sb.append(labelHtml);
+          sb.appendHtmlConstant("</span>");
+        }
+        
+        private int hasPartlySelectedChildren(V value){
           List<V> children = isNodeOpened(value) ? getChildrenNodes(value) : null;
           if (JepRiaUtil.isEmpty(children)) return -1;
           
@@ -652,75 +736,6 @@ public class TreeField<V extends JepOption> extends ScrollPanel implements HasCh
             return 0;
           }
         }
-      });
-      
-      // 2nd part of Composite cell - Show a folder image for parent nodes
-      cellComponents.add(new HasCell<V, ImageResource>() {
-        
-        ImageResourceCell cell = new ImageResourceCell();
-        
-        public Cell<ImageResource> getCell() {
-          return cell;
-        }
-        
-        public FieldUpdater<V, ImageResource> getFieldUpdater() {
-          return null;
-        }
-        
-        public ImageResource getValue(V object) {
-          return isLeaf(object) ? null : isNodeOpened(object) ? images.folderOpened() : images.folderClosed();
-        }
-      });
-      
-      // 3rd part of Composite cell - Show Text for the Cell
-      cellComponents.add(new HasCell<V, String>() {
-        private static final String PADDING = "   "; 
-        
-        ClickableTextCell txtCell = new ClickableTextCell(){
-          @Override
-          public void render(Context context, SafeHtml value, SafeHtmlBuilder sb) {
-            if (!JepRiaUtil.isEmpty(value)) {
-              sb.appendEscaped(PADDING).append(value);
-            }
-          }
-        };
-        
-        public Cell<String> getCell() {
-          return txtCell;
-        }
-        
-        public FieldUpdater<V, String> getFieldUpdater() {
-          return null;
-        }
-        
-        @Override
-        public String getValue(V object) {
-          return !JepRiaUtil.isEmpty(object) ? object.getName() : null;
-        }
-      });
-   
-      // Create a composite cell and pass the definition of
-      // individual cells that the composite cell should render.
-      CompositeCell<V> compositeCell = new CompositeCell<V>(cellComponents){
-        @Override
-        public boolean isEditing(Context context, Element parent, V value) {
-          return false;
-        }
-        
-        @Override
-        public boolean resetFocus(Context context, Element parent, V value) {
-          return false;
-        }
-        
-        @Override
-        protected <X> void render(Context context, V value, SafeHtmlBuilder sb, HasCell<V, X> hasCell) {
-          Cell<X> cell = hasCell.getCell();
-          X val = hasCell.getValue(value);
-          boolean isClickableTextCell = cell instanceof ClickableTextCell;
-          sb.appendHtmlConstant("<span " + (isClickableTextCell ? "title=\"" + SafeHtmlUtils.htmlEscape((String) val) + "\" id=\"" + SafeHtmlUtils.htmlEscape(String.valueOf(value.getValue())) + "\"" : "") + ">");
-          cell.render(context, val, sb);
-          sb.appendHtmlConstant("</span>");
-        }        
       };
       return new DefaultNodeInfo<V>(provider, compositeCell, selectionModel, selectionManager, null);
     }

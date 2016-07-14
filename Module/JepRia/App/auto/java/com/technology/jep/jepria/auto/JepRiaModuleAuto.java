@@ -206,6 +206,31 @@ public interface JepRiaModuleAuto extends EntranceAuto {
   String[] getListFieldValues(String jepListFieldId);
   
   /**
+   * Выбор элементов JepTreeField по заданным путям.
+   * @param treeFieldId id JepTree-поля
+   * @param itemPaths массив непустых путей опций, которые следует отметить в дереве.
+   * В случае если в дереве отсутствует хотя бы одна из требуемых опций либо промежуточный узел в пути,
+   * выбрасывается исключение {@link com.technology.jep.jepria.auto.exceptions.WrongOptionException}.
+   * В случае если входной параметр некорректен, выбрасывается {@link java.lang.IllegalArgumentException}
+   * Синтаксис путей опций: [/]{FolderName/}OptionName или [/]{FolderName/}>FolderName;
+   * '/' в именах элементов нужно экранировать: '\/'.
+   * Предполагается, что имена элементов дерева не начинаются с '>' (иначе нужно внедрять экранирование этого символа).
+   * Предполагается, что нигде в дереве рядом не находится двух одноименных листьев или папок (но допускаются лист и папка с одним именем).
+   * Символ '>' может стоять перед именем последнего (подлежащего отмечанию) элемента в том случае, если это папка.
+   * Это различает ситуации, когда в дереве рядом находятся одноименные лист и папка.
+   */
+  void selectTreeItems(String treeFieldId, String itemPaths[]);
+  
+  /**
+   * Получение отмеченных значений списка поля JepListField
+   *  
+   * @param jepTreeFieldId id JepTreeField'а
+   * @return массив имён отмеченных (выбранных) опций.
+   * Имена в полученном массиве располагаются в порядке их отображения в списке JepTreeField'а,
+   * поэтому сравнение массивов в классе *AutoTest необходимо производить без учета порядка!  
+   */
+  String[] getTreeFieldValues(String jepTreeFieldId);
+  /**
    * Проверка видимости Jep-поля по заданному ID (атрибута aria-hidden)
    * @param fieldId id Jep-поля
    */

@@ -257,6 +257,20 @@ public class AutomationConstant {
    */
   public static final String JEP_OPTION_VALUE_HTML_ATTR = "jep-option-value";
   
+  /**
+   * Инфикс элементов меню JepTreeField (а именно, их span'ов)
+   */
+  public static final String JEP_TREENODE_INFIX = "_JEP_TREENODE_";
+  
+  /**
+   * HTML-атрибут узла TreeField, показывающий, может ли узел быть отмечен
+   */
+  public static final String JEP_TREENODE_CHECKABLE_HTML_ATTR = "jep-treenode-checkable";
+  
+  /**
+   * HTML-атрибут узла TreeField, показывающий, является ли узел листом
+   */
+  public static final String JEP_TREENODE_ISLEAF_HTML_ATTR = "jep-treenode-isleaf";
   
   /**
    * ID первой строки списка списочной формы

@@ -20,6 +20,8 @@ import static com.technology.jep.jepriashowcase.arsenic.client.ArsenicAutomation
 import static com.technology.jep.jepriashowcase.arsenic.client.ArsenicAutomationConstant.ARSENIC_JEP_NUMBER_FIELD_ID;
 import static com.technology.jep.jepriashowcase.arsenic.client.ArsenicAutomationConstant.ARSENIC_JEP_TEXT_AREA_FIELD_ID;
 import static com.technology.jep.jepriashowcase.arsenic.client.ArsenicAutomationConstant.ARSENIC_JEP_TEXT_FIELD_ID;
+import static com.technology.jep.jepriashowcase.arsenic.client.ArsenicAutomationConstant.ARSENIC_JEP_TREE_FIELD_ID;
+import static com.technology.jep.jepriashowcase.arsenic.client.ArsenicAutomationConstant.ARSENIC_JEP_TREE_FIELD_NODES_ID;
 import static com.technology.jep.jepriashowcase.arsenic.client.ArsenicAutomationConstant.ARSENIC_MAX_ROW_COUNT_ID;
 
 import java.util.List;
@@ -165,6 +167,11 @@ public class ArsenicAutoImpl<A extends JepRiaShowcaseAuto, P extends JepRiaShowc
   public void setJepListFieldCheckAll(String[] value) {
     selectListMenuItems(ARSENIC_JEP_LIST_FIELD_CHECKALL_ID, value);
   }
+  
+  @Override
+  public void setJepTreeField(String[] value) {
+    selectTreeItems(ARSENIC_JEP_TREE_FIELD_NODES_ID, value);
+  }
 
   
   
@@ -248,6 +255,11 @@ public class ArsenicAutoImpl<A extends JepRiaShowcaseAuto, P extends JepRiaShowc
   @Override
   public String[] getJepListFieldCheckAll() {
     return getListFieldValues(ARSENIC_JEP_LIST_FIELD_CHECKALL_ID);
+  }
+  
+  @Override
+  public String[] getJepTreeField() {
+    return getTreeFieldValues(ARSENIC_JEP_TREE_FIELD_ID);
   }
 
   
