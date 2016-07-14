@@ -952,9 +952,12 @@ public class JepRiaToolkitConstant {
 	
 	public static final String CLIENT_MODULE_EXCEL_SERVICE_IMPL_TEMPLATE_PROPERTY = "fileTemplate.clientModuleExcelServiceImpl";
 	public static final String CLIENT_MODULE_EXCEL_SERVICE_IMPL_PATH_TEMPLATE_PROPERTY = "fileTemplate.clientModuleExcelServiceImpl.path";
-	
-	public static final String CLIENT_MODULE_SERVER_CONSTANT_TEMPLATE_PROPERTY = "fileTemplate.clientModuleServerConstant";
-	public static final String CLIENT_MODULE_SERVER_CONSTANT_PATH_TEMPLATE_PROPERTY = "fileTemplate.clientModuleServerConstant.path";
+  
+  public static final String CLIENT_MODULE_SERVER_CONSTANT_TEMPLATE_PROPERTY = "fileTemplate.clientModuleServerConstant";
+  public static final String CLIENT_MODULE_SERVER_CONSTANT_PATH_TEMPLATE_PROPERTY = "fileTemplate.clientModuleServerConstant.path";
+  
+  public static final String CLIENT_MODULE_SERVER_FACTORY_TEMPLATE_PROPERTY = "fileTemplate.clientModuleServerFactory";
+  public static final String CLIENT_MODULE_SERVER_FACTORY_PATH_TEMPLATE_PROPERTY = "fileTemplate.clientModuleServerFactory.path";
 	
 	public static final String CLIENT_MODULE_DAO_INTERFACE_TEMPLATE_PROPERTY = "fileTemplate.clientModuleDaoInterface";
 	public static final String CLIENT_MODULE_DAO_INTERFACE_PATH_TEMPLATE_PROPERTY = "fileTemplate.clientModuleDaoInterface.path";
