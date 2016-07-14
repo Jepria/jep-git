@@ -12,33 +12,33 @@ import static com.technology.jep.jepria.client.JepRiaClientConstant.JepTexts;
 import static com.technology.jep.jepria.client.JepRiaClientConstant.JepImages;
  
 public class ${form.formName}ToolBarViewImpl extends ToolBarViewImpl implements ${form.formName}ToolBarView {
- 	<#if hasCustomButton>
- 	
- 	public static final ${form.formName}Images ${form.formName?uncap_first}Images = GWT.create(${form.formName}Images.class);
- 	</#if>
- 	
-	public ${form.formName}ToolBarViewImpl() {
-		super();
-		
-		<#if (form.hasToolBarView?? && !form.hasToolBarView) || form.toolBarButtons?size != 0>
-		removeAll();
-		</#if>
-		<#if form.isToolBarOff>
-		asWidget().setVisible(false);
-		<#else>
-		<#list form.toolBarButtons as button>
-		
-		<#if button.isSeparator>
-		addSeparator(${button.buttonId?upper_case});
-		<#else>
-		addButton(
-			${button.buttonId?upper_case}, 
-			<#if button.getImageAsString(form.formName)??>
-			${button.getImageAsString(form.formName)},
-			</#if>
-			${button.getTextAsString(form.formName)});
-		</#if>
-	 	</#list> 			
-		</#if>
-	}
+   <#if hasCustomButton>
+   
+   public static final ${form.formName}Images ${form.formName?uncap_first}Images = GWT.create(${form.formName}Images.class);
+   </#if>
+   
+  public ${form.formName}ToolBarViewImpl() {
+    super();
+    
+    <#if (form.hasToolBarView?? && !form.hasToolBarView) || form.toolBarButtons?size != 0>
+    removeAll();
+    </#if>
+    <#if form.isToolBarOff>
+    asWidget().setVisible(false);
+    <#else>
+    <#list form.toolBarButtons as button>
+    
+    <#if button.isSeparator>
+    addSeparator(${button.buttonId?upper_case});
+    <#else>
+    addButton(
+      ${button.buttonId?upper_case}, 
+      <#if button.getImageAsString(form.formName)??>
+      ${button.getImageAsString(form.formName)},
+      </#if>
+      ${button.getTextAsString(form.formName)});
+    </#if>
+     </#list>       
+    </#if>
+  }
 }

@@ -25,46 +25,46 @@ import com.technology.jep.jepria.shared.service.JepMainServiceAsync;
 import com.technology.jep.jepria.shared.service.data.JepDataServiceAsync;
 
 public class ${moduleName}ClientFactoryImpl<E extends MainEventBus, S extends JepMainServiceAsync>
-	extends MainClientFactoryImpl<E, S>
-		implements MainClientFactory<E, S> {
-		
-	public static MainClientFactory<MainEventBus, JepMainServiceAsync> getInstance() {
-		if(instance == null) {
-			instance = GWT.create(${moduleName}ClientFactoryImpl.class);
-		}
-		return instance;
-	}
+  extends MainClientFactoryImpl<E, S>
+    implements MainClientFactory<E, S> {
+    
+  public static MainClientFactory<MainEventBus, JepMainServiceAsync> getInstance() {
+    if(instance == null) {
+      instance = GWT.create(${moduleName}ClientFactoryImpl.class);
+    }
+    return instance;
+  }
  
- 	private ${moduleName}ClientFactoryImpl() {
-		super(new String[]{
-			<#list forms as form>
-			<#if form_index != 0>, </#if>${form.formName?upper_case}_MODULE_ID
-			</#list>
-		}, new String[]{
-			<#list forms as form>
-			<#if form_index != 0>, </#if>${moduleName?uncap_first}Text.submodule_${form.formName?lower_case}_title()
-			</#list>
-		});
+   private ${moduleName}ClientFactoryImpl() {
+    super(new String[]{
+      <#list forms as form>
+      <#if form_index != 0>, </#if>${form.formName?upper_case}_MODULE_ID
+      </#list>
+    }, new String[]{
+      <#list forms as form>
+      <#if form_index != 0>, </#if>${moduleName?uncap_first}Text.submodule_${form.formName?lower_case}_title()
+      </#list>
+    });
  
-		initActivityMappers(this);
-	}
-	
-	@SuppressWarnings("unchecked")
-	@Override
-	public Activity createMainModulePresenter() {
-		return new ${moduleName}MainModulePresenter(this);
-	}
+    initActivityMappers(this);
+  }
+  
+  @SuppressWarnings("unchecked")
+  @Override
+  public Activity createMainModulePresenter() {
+    return new ${moduleName}MainModulePresenter(this);
+  }
  
-	public void getPlainClientFactory(String moduleId, final LoadAsyncCallback<PlainClientFactory<PlainEventBus, JepDataServiceAsync>> callback) {
-		<#list forms as form>
-		<#if form_index != 0>else </#if>if(${form.formName?upper_case}_MODULE_ID.equals(moduleId)) {
-			GWT.runAsync(new LoadPlainClientFactory(callback) {
-				public PlainClientFactory<PlainEventBus, JepDataServiceAsync> getPlainClientFactory() {
-					Log.trace(${moduleName}ClientFactoryImpl.this.getClass() + ".getPlainClientFactory: moduleId = " + ${form.formName?upper_case}_MODULE_ID);
-					return ${form.formName}ClientFactoryImpl.getInstance();
-				}
-			});
-		}
-		</#list>
-	}
+  public void getPlainClientFactory(String moduleId, final LoadAsyncCallback<PlainClientFactory<PlainEventBus, JepDataServiceAsync>> callback) {
+    <#list forms as form>
+    <#if form_index != 0>else </#if>if(${form.formName?upper_case}_MODULE_ID.equals(moduleId)) {
+      GWT.runAsync(new LoadPlainClientFactory(callback) {
+        public PlainClientFactory<PlainEventBus, JepDataServiceAsync> getPlainClientFactory() {
+          Log.trace(${moduleName}ClientFactoryImpl.this.getClass() + ".getPlainClientFactory: moduleId = " + ${form.formName?upper_case}_MODULE_ID);
+          return ${form.formName}ClientFactoryImpl.getInstance();
+        }
+      });
+    }
+    </#list>
+  }
 }

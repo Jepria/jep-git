@@ -5,7 +5,7 @@ import com.technology.jep.jepria.server.download.excel.ExcelServlet;
 
 public class ShowExcelServlet extends ExcelServlet {
 
-	public ShowExcelServlet() {
-		super(${form.formName}RecordDefinition.instance);
-	}
+  public ShowExcelServlet() {
+    super(${form.formName}RecordDefinition.instance);
+  }
 }

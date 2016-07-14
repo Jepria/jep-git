@@ -11,9 +11,9 @@ import com.technology.jep.jepria.shared.field.option.JepOption;
 
 @RemoteServiceRelativePath("${form.formName}Service")
 public interface ${form.formName}Service extends JepDataService {
-	<#list form.fields as field><#t>
-	<#if field.isOptionField>
-	List<JepOption> get${field.fieldIdAsParameter}() throws ApplicationException;
-	</#if>
-	</#list>
+  <#list form.fields as field><#t>
+  <#if field.isOptionField>
+  List<JepOption> get${field.fieldIdAsParameter}() throws ApplicationException;
+  </#if>
+  </#list>
 }

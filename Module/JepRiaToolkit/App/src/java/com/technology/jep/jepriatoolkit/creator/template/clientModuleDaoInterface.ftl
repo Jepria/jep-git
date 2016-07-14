@@ -8,9 +8,9 @@ import com.technology.jep.jepria.shared.field.option.JepOption;
 </#if>
  
 public interface ${form.formName} extends JepDataStandard {
-	<#list form.fields as field><#t>
-	<#if field.isOptionField>
-	List<JepOption> get${field.fieldIdAsParameter}() throws ApplicationException;
-	</#if>
-	</#list>
+  <#list form.fields as field><#t>
+  <#if field.isOptionField>
+  List<JepOption> get${field.fieldIdAsParameter}() throws ApplicationException;
+  </#if>
+  </#list>
 }

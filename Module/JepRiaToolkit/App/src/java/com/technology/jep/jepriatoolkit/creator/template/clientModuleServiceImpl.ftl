@@ -20,24 +20,24 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 @RemoteServiceRelativePath("${form.formName}Service")
 public class ${form.formName}ServiceImpl extends JepDataServiceServlet<${form.formName}> implements ${form.formName}Service  {
  
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
  
-	public ${form.formName}ServiceImpl() {
-		super(${form.formName}RecordDefinition.instance, ${form.formName}ServerFactory.instance);
-	}
-	<#list form.fields as field><#t>
-	<#if field.isOptionField>
+  public ${form.formName}ServiceImpl() {
+    super(${form.formName}RecordDefinition.instance, ${form.formName}ServerFactory.instance);
+  }
+  <#list form.fields as field><#t>
+  <#if field.isOptionField>
 
-	@Override
-	public List<JepOption> get${field.fieldIdAsParameter}() throws ApplicationException {
-		List<JepOption> result = null;
-		try {
-			result = dao.get${field.fieldIdAsParameter}();
-		} catch (Throwable th) {
-			throw new ApplicationException(th.getLocalizedMessage(), th);
-		}
-		return result;
-	}
-	</#if>
-	</#list>
+  @Override
+  public List<JepOption> get${field.fieldIdAsParameter}() throws ApplicationException {
+    List<JepOption> result = null;
+    try {
+      result = dao.get${field.fieldIdAsParameter}();
+    } catch (Throwable th) {
+      throw new ApplicationException(th.getLocalizedMessage(), th);
+    }
+    return result;
+  }
+  </#if>
+  </#list>
 }

@@ -22,31 +22,31 @@ import com.technology.${packageName?lower_case}.${moduleName?lower_case}.${form.
 </#list>
 
 public class ${form.formName}ListFormPresenter<E extends <#if hasCustomButtons>${form.formName}<#else>Plain</#if>EventBus, S extends ${form.formName}ServiceAsync> 
-	extends ListFormPresenter<ListFormView, E, S, StandardClientFactory<E, S>><#if !hasCustomButtons> {</#if>
-		<#if hasCustomButtons>implements <#list form.toolBarCustomButtonsOnListForm as button>${button.customEvent}Event.Handler<#if button_has_next>, </#if></#list> {</#if> 
-	<#if hasCustomButtons>
-	
-	@Override
- 	public void start(AcceptsOneWidget container, EventBus eventBus) {
- 		super.start(container, eventBus);
- 		<#list form.toolBarCustomButtonsOnListForm as button>
- 		eventBus.addHandler(${button.customEvent}Event.TYPE, this);
- 		</#list>
- 	}
- 	</#if> 
- 	
- 	public ${form.formName}ListFormPresenter(Place place, StandardClientFactory<E, S> clientFactory) {
-		super(place, clientFactory);
-	}
-	<#if form.isDblClickOff>
-	
-	@Override
-	public void rowDoubleClick(JepEvent event) {}
-	</#if>
- 	<#list form.toolBarCustomButtonsOnListForm as button>
- 	
-	public void on${button.customEvent}Event(${button.customEvent}Event event) { 
-		//TODO: your business logic; 
-	}
-	</#list>
+  extends ListFormPresenter<ListFormView, E, S, StandardClientFactory<E, S>><#if !hasCustomButtons> {</#if>
+    <#if hasCustomButtons>implements <#list form.toolBarCustomButtonsOnListForm as button>${button.customEvent}Event.Handler<#if button_has_next>, </#if></#list> {</#if> 
+  <#if hasCustomButtons>
+  
+  @Override
+   public void start(AcceptsOneWidget container, EventBus eventBus) {
+     super.start(container, eventBus);
+     <#list form.toolBarCustomButtonsOnListForm as button>
+     eventBus.addHandler(${button.customEvent}Event.TYPE, this);
+     </#list>
+   }
+   </#if> 
+   
+   public ${form.formName}ListFormPresenter(Place place, StandardClientFactory<E, S> clientFactory) {
+    super(place, clientFactory);
+  }
+  <#if form.isDblClickOff>
+  
+  @Override
+  public void rowDoubleClick(JepEvent event) {}
+  </#if>
+   <#list form.toolBarCustomButtonsOnListForm as button>
+   
+  public void on${button.customEvent}Event(${button.customEvent}Event event) { 
+    //TODO: your business logic; 
+  }
+  </#list>
 }

@@ -52,13 +52,12 @@ Module/JepRiaShowcase/App/build-gwt/
 Module/JepRiaShowcase/App/build-lib/
 Module/JepRiaShowcase/App/gwt-unitCache/
 Module/JepRiaShowcase/App/extras/
-Module/JepRiaShowcase/App/lib/jepriashowcase.ear
-Module/JepRiaShowcase/App/lib/jepriashowcase.war
-Module/JepRiaShowcase/App/lib/jepriatoolkit.jar
+Module/JepRiaShowcase/App/lib/
 Module/JepRiaShowcase/App/log/
+Module/JepRiaShowcase/App/temp-jepria-resources/
+Module/JepRiaShowcase/App/temp-war/
 Module/JepRiaShowcase/App/war/
 Module/JepRiaShowcase/bin/
-Module/JepRiaShowcase/App/temp-war/
 
 # JepRiaToolkit specific
 Module/JepRiaToolkit/.classpath

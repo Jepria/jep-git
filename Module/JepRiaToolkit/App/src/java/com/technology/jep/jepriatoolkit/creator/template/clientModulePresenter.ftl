@@ -17,26 +17,26 @@ import com.technology.${packageName?lower_case}.${moduleName?lower_case}.${form.
 </#if>
 
 public class ${form.formName}ModulePresenter<V extends StandardModuleView, E extends ${form.formName}EventBus, S extends ${form.formName}ServiceAsync, F extends StandardClientFactory<E, S>> 
-	extends StandardModulePresenter<V, E, S, F><#if !hasCustomButtons> {</#if>
-		<#if hasCustomButtons>implements <#list form.toolBarCustomButtonsOnBothForms as button>${button.customEvent}Event.Handler<#if button_has_next>, </#if></#list> {</#if> 
-	<#if hasCustomButtons>
- 	
- 	@Override
- 	public void start(AcceptsOneWidget container, EventBus eventBus) {
- 		super.start(container, eventBus);
- 		<#list form.toolBarCustomButtonsOnBothForms as button>
- 		eventBus.addHandler(${button.customEvent}Event.TYPE, this);
- 		</#list>
- 	}
- 	</#if>
- 	
- 	public ${form.formName}ModulePresenter(String moduleId, Place place, F clientFactory) {
-		super(moduleId, place, clientFactory);
-	}
- 	<#list form.toolBarCustomButtonsOnBothForms as button>
- 	
-	public void on${button.customEvent}Event(${button.customEvent}Event event) { 
-		//TODO: your business logic; 
-	}
-	</#list>
+  extends StandardModulePresenter<V, E, S, F><#if !hasCustomButtons> {</#if>
+    <#if hasCustomButtons>implements <#list form.toolBarCustomButtonsOnBothForms as button>${button.customEvent}Event.Handler<#if button_has_next>, </#if></#list> {</#if> 
+  <#if hasCustomButtons>
+   
+   @Override
+   public void start(AcceptsOneWidget container, EventBus eventBus) {
+     super.start(container, eventBus);
+     <#list form.toolBarCustomButtonsOnBothForms as button>
+     eventBus.addHandler(${button.customEvent}Event.TYPE, this);
+     </#list>
+   }
+   </#if>
+   
+   public ${form.formName}ModulePresenter(String moduleId, Place place, F clientFactory) {
+    super(moduleId, place, clientFactory);
+  }
+   <#list form.toolBarCustomButtonsOnBothForms as button>
+   
+  public void on${button.customEvent}Event(${button.customEvent}Event event) { 
+    //TODO: your business logic; 
+  }
+  </#list>
 }
