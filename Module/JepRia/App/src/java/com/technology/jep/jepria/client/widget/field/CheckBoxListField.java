@@ -137,7 +137,6 @@ public class CheckBoxListField<T extends JepOption> extends Composite implements
   
     cellComponents.add(new HasCell<T, CheckBoxDataAggregator>() {
     
-      // These booleans (false,true) are very important for right behavior of CBCell selection.
       private Cell<CheckBoxDataAggregator> cell = new JepCheckBoxCell();
         
       public Cell<CheckBoxDataAggregator> getCell() {
@@ -392,6 +391,7 @@ public class CheckBoxListField<T extends JepOption> extends Composite implements
       super(BrowserEvents.CHANGE, BrowserEvents.KEYDOWN);
     }
     
+    // These booleans (false,true) are very important for right behavior of CBCell selection.
     @Override
     public boolean dependsOnSelection() {
       return false;

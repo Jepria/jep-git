@@ -7,10 +7,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.testng.Assert;
-import org.testng.AssertJUnit;
 import org.testng.annotations.Test;
 
-import com.technology.jep.jepria.auto.exceptions.AutomationException;
 import com.technology.jep.jepria.auto.exceptions.WrongOptionException;
 import com.technology.jep.jepria.auto.manager.JepRiaAuto;
 import com.technology.jep.jepria.auto.test.JepAutoTest;
@@ -203,6 +201,13 @@ public class ArsenicAutoTest extends JepAutoTest<ArsenicAuto> {
     Arrays.sort(values);
     Arrays.sort(actualValues);
     assertArrayEquals(values, actualValues);
+  }
+  
+  @DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/arsenic/auto/field.jepTreeField.data")
+  @Test(groups="setAndGetFields", dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
+  public void setAndGetJepTreeField(String...values) {
+    setWorkstate(SEARCH);
+    cut.setJepTreeField(values);
   }
   
   

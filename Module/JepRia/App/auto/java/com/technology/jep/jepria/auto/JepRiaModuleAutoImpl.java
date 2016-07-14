@@ -22,6 +22,9 @@ import static com.technology.jep.jepria.client.AutomationConstant.JEP_FIELD_INPU
 import static com.technology.jep.jepria.client.AutomationConstant.JEP_LIST_FIELD_CHECKALL_POSTFIX;
 import static com.technology.jep.jepria.client.AutomationConstant.JEP_LIST_FIELD_ITEM_CHECKBOX_INFIX;
 import static com.technology.jep.jepria.client.AutomationConstant.JEP_OPTION_VALUE_HTML_ATTR;
+import static com.technology.jep.jepria.client.AutomationConstant.JEP_TREENODE_CHECKABLE_HTML_ATTR;
+import static com.technology.jep.jepria.client.AutomationConstant.JEP_TREENODE_INFIX;
+import static com.technology.jep.jepria.client.AutomationConstant.JEP_TREENODE_ISLEAF_HTML_ATTR;
 import static com.technology.jep.jepria.client.AutomationConstant.TOOLBAR_ADD_BUTTON_ID;
 import static com.technology.jep.jepria.client.AutomationConstant.TOOLBAR_DELETE_BUTTON_ID;
 import static com.technology.jep.jepria.client.AutomationConstant.TOOLBAR_EDIT_BUTTON_ID;
@@ -37,8 +40,10 @@ import static com.technology.jep.jepria.client.ui.WorkstateEnum.VIEW_DETAILS;
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.VIEW_LIST;
 import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
 import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
+import static org.openqa.selenium.support.ui.ExpectedConditions.stalenessOf;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -269,6 +274,8 @@ public class JepRiaModuleAutoImpl<A extends EntranceAppAuto, P extends JepRiaApp
   
   @Override
   public void selectComboBoxMenuItem(String comboBoxFieldId, String menuItem) {
+    pages.getApplicationPage().ensurePageLoaded();
+    
     // FIXME А что если опции комбо-бокса загружаются не лениво, а не лениво? То есть возможно, тестирование комбо-бокса начнется
     // до того (например, если оно стоит первым в сценарии), как успеют загрузиться опции... Ведь в этом методе завязка идет на то,
     // что опции грузятся лениво.
@@ -277,6 +284,8 @@ public class JepRiaModuleAutoImpl<A extends EntranceAppAuto, P extends JepRiaApp
   
   @Override
   public void selectComboBoxMenuItemWithCharByCharReloadingOptions(String comboBoxFieldId, String menuItem, int minInputLength) {
+    pages.getApplicationPage().ensurePageLoaded();
+    
     // 1 is the minimal possible value
     selectComboBoxMenuItem(comboBoxFieldId, menuItem, true, Math.max(1, minInputLength));
   }
@@ -284,7 +293,6 @@ public class JepRiaModuleAutoImpl<A extends EntranceAppAuto, P extends JepRiaApp
   //TODO унифицировать простые и сложные поля через get/set-FieldValue() - Нужна иерархия полей ! 
   private void selectComboBoxMenuItem(String comboBoxFieldId, String menuItem,
       final boolean charByCharReloadingOptions, final int minInputLength) { // TODO Поддержать локализацию
-    pages.getApplicationPage().ensurePageLoaded();
     
     // Подготовка: в случае, если на данный JepComboBoxField навешена загрузка опций по первому использованию,
     // то нажимаем на кнопку 'развернуть' для того, чтобы загрузка произошла, и ждём окончания загрузки опций.
@@ -325,7 +333,7 @@ public class JepRiaModuleAutoImpl<A extends EntranceAppAuto, P extends JepRiaApp
     
     int ind = minInputLength;
     WebElement comboBoxMenuItem;
-     
+    
     // Продолжаем набирать оставшийся текст по одной букве, ожидая подгрузки списка, до тех пор пока либо не закончатся буквы,
     // либо опция не будет найдена в списке (в случае с простой однократной загрузкой списка опций - выход из цикла происходит сразу).
     while (true) {
@@ -633,6 +641,172 @@ public class JepRiaModuleAutoImpl<A extends EntranceAppAuto, P extends JepRiaApp
       return ret.toArray(new String[ret.size()]);
   }
 
+  @Override
+  public void selectTreeItems(String treeFieldId, String[] itemPaths) {
+    pages.getApplicationPage().ensurePageLoaded();
+    
+    // Ждем загрузки данных в поле (а именно, появления элементов span)
+    getWait().until(presenceOfElementLocated(By.xpath(
+        String.format("//*[@id='%s']//span[starts-with(@id, '%s')]",
+            treeFieldId + JEP_FIELD_INPUT_POSTFIX,
+            treeFieldId + JEP_TREENODE_INFIX))));
+    
+    for (String itemPath: itemPaths) {
+      selectTreeItem(treeFieldId, itemPath);
+    }
+  }
+  
+  private void selectTreeItem(String treeFieldId, String itemPath) {
+    // Проверяем корректность пути.
+    if (!itemPath.matches(".*(?<!\\\\)//.*") && !itemPath.matches(".*(?<!\\\\)/")) {
+      // 1) Парсим путь и готовимся к его обходу.
+      
+      // Убираем ведущий слэш, если имеется
+      if (itemPath.startsWith("/")) {
+        itemPath = itemPath.substring(1);
+      }
+      
+      final List<String> partsOriginal = Arrays.asList(itemPath.split("(?<!\\\\)/"));
+      final List<String> parts = new ArrayList<String>(partsOriginal);
+
+      // Разэкранируем экранированные слэши
+      for (int i = 0; i < parts.size(); i++) {
+        if (parts.get(i).contains("\\/")) {
+          parts.set(i, parts.get(i).replaceAll("\\\\/", "/"));
+        }
+      }
+
+      logger.debug("Start processing the path in the tree: " + Arrays.toString(parts.toArray(new String[parts.size()])));
+      
+      // 2) Обходим путь по частям.
+      
+      WebElement deepestLocatedTreeItem;
+      
+      // массив значений 'aria-posinset' узлов дерева для ускорения повторного обхода
+      // (для последней части пути это значение сохранять не нужно)
+      final Integer[] posinsets = new Integer[parts.size() - 1];
+      
+      while(true) {
+        logger.debug("Start expanding tree folders from the root.");
+        
+        // Начинаем обход с элемента INPUT поля JepTreeField
+        deepestLocatedTreeItem = pages.getApplicationPage().getWebDriver().findElement(By.id(treeFieldId + JEP_FIELD_INPUT_POSTFIX));
+        int i;
+        for (i = 0; i < parts.size() - 1; i++) {
+          String part = parts.get(i);
+          
+          // Разворачиваем нелистовые узлы
+          
+          final WebElement folder;
+          try {
+            if (posinsets[i] == null) {
+              logger.debug("Will locate folder (for the first time) of level "+(i+1)+" that contains the text " + part);
+              
+              // Разворачиваем данный узел впервые
+              
+              folder = deepestLocatedTreeItem.findElement(By.xpath(
+                  String.format(".//div[@role='treeitem' and @aria-level='%d' and .//span[@id='%s']]",
+                      i + 1,
+                      treeFieldId + JEP_TREENODE_INFIX + part)));
+              // Сохраняем значение 'aria-posinset' для ускорения дальнейшего поиска этого элемента.
+              posinsets[i] = Integer.parseInt(folder.getAttribute("aria-posinset"));
+            } else {
+              logger.debug("Will locate folder (that already has been located) of level "+(i+1)+" and posinset " + posinsets[i]);
+              
+              // Разворачиваем узел не впервые - быстрее, по сохраненному значению aria-posinset
+              
+              folder = deepestLocatedTreeItem.findElement(By.xpath(
+                  String.format(".//div[@role='treeitem' and @aria-level='%d' and @aria-posinset='%d']",
+                      i + 1,
+                      posinsets[i])));
+            }
+          } catch (NoSuchElementException e) {
+            /*Служебная строка для логирования*/String h="";for(int j=0;j<=i;j++)h+="/"+partsOriginal.get(j);
+            throw new WrongOptionException("The node '" + part + "' was not found in the tree by path '" + h + "'");
+          }
+          
+          // Проверяем, развернут ли узел
+          if ("false".equals(folder.getAttribute("aria-expanded"))) {
+            logger.debug("Expand the folder " + part);
+            
+            // Разворачиваем узел и начинаем обход заново, потому что обновились все элементы TreeField.
+            WebElement expandButton = folder.findElement(By.xpath("./div/div/div"/*FIXME ненадежное выражение!*/));
+            expandButton.click();
+            
+            // Ждем загрузки ветки дерева (признаком этого является обновление всего виджета, в частности, отваливания элемента folder).
+            // FIXME Опасное место! А вдруг JepTreeField будет переработан так, что виджет перестанет обновляться после каждой загрузки?
+            getWait().until(stalenessOf(folder));
+            break;
+          } else {
+            logger.debug("The folder " + part + " is expanded, continue with its descendants");
+            
+            // Узел развернут, продолжаем разворачивать его потомков
+            deepestLocatedTreeItem = folder;
+          }
+        }
+        
+        if (i == parts.size() - 1) {
+          // Все нелистовые узлы развернуты, отмечаем необходимый элемент дерева
+          
+          String part = parts.get(i);
+          logger.debug("All folders are expanded, finally check the item " + part);
+          
+          WebElement elementToCheck;
+          
+          final boolean toCheckLeaf;
+          if (part.startsWith(">")) {
+            part = part.substring(1);
+            toCheckLeaf = false;
+          } else {
+            toCheckLeaf = true;
+          }
+          
+          try {
+            elementToCheck = deepestLocatedTreeItem.findElement(By.xpath(
+                String.format(".//div[@role='treeitem' and @aria-level='%d']//span[@id='%s' and @%s='%s']",
+                    i + 1,
+                    treeFieldId + JEP_TREENODE_INFIX + part,
+                    JEP_TREENODE_ISLEAF_HTML_ATTR,
+                    toCheckLeaf ? "true" : "false")));
+            
+          } catch (NoSuchElementException e) {
+            /*Служебная строка для логирования*/String h="";for(int j=0;j<=i;j++)h+="/"+partsOriginal.get(j);
+            if (toCheckLeaf) {
+              throw new WrongOptionException("The leaf node '" + part + "' was not found in the tree by path " + h + ". "
+                  + "If you meant the folder node with the same name and path, insert '>' before that name in test input.");
+            } else {
+              throw new WrongOptionException("The folder node '" + part + "' was not found in the tree by path " + h + ". "
+                  + "If you meant the leaf node with the same name and path, remove '>' from that name in test input.");
+            }
+          }
+          
+          final boolean isTargetCheckable = ("true".equals(elementToCheck.getAttribute(JEP_TREENODE_CHECKABLE_HTML_ATTR)));
+          
+          if (!isTargetCheckable) {
+            /*Служебная строка для логирования*/String h="";for(int j=0;j<=i;j++)h+="/"+partsOriginal.get(j);
+            throw new WrongOptionException("Unable to check the node '" + part + "' by path '" + h +
+                "' because the checkbox for this node is missing. "
+                + "Insure that checking such nodes is allowed on this JepTreeField.");
+          } 
+          
+          elementToCheck.click();
+          break;
+        }
+      }
+      
+    } else {
+      throw new IllegalArgumentException(itemPath + " is not a syntactically valid path to an option: "
+          + "the path must neither contain empty elements '//' nor end with unescaped slash '/'");
+    }
+  }
+  
+  @Override
+  public String[] getTreeFieldValues(String jepTreeFieldId) {
+    // TODO Auto-generated method stub
+    return null;
+  }
+  
+  
   
   @Override
   public boolean isFieldVisible(String fieldId) {
@@ -768,5 +942,6 @@ public class JepRiaModuleAutoImpl<A extends EntranceAppAuto, P extends JepRiaApp
     
     return ret;
   }
+
 
 }

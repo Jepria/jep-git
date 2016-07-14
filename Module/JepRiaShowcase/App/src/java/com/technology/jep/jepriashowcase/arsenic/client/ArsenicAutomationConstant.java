@@ -6,7 +6,7 @@ public class ArsenicAutomationConstant {
   public static final String ARSENIC_CHECKBOX_SWITCH_ENBL_ID = "ARSENIC_CHECKBOX_SWITCH_ENBL";
   public static final String ARSENIC_CHECKBOX_SWITCH_EDTB_ID = "ARSENIC_CHECKBOX_SWITCH_EDTB";
   public static final String ARSENIC_CHECKBOX_SWITCH_ALBL_ID = "ARSENIC_CHECKBOX_SWITCH_ALBL";
-  
+
   public static final String ARSENIC_JEP_TEXT_FIELD_ID = "ARSENIC_JEP_TEXT_FIELD";
   public static final String ARSENIC_JEP_TEXT_AREA_FIELD_ID = "ARSENIC_JEP_TEXT_AREA_FIELD";
   public static final String ARSENIC_JEP_LONG_FIELD_ID = "ARSENIC_JEP_LONG_FIELD";
@@ -24,6 +24,10 @@ public class ArsenicAutomationConstant {
   public static final String ARSENIC_JEP_CHECKBOX_FIELD_ID = "ARSENIC_JEP_CHECKBOX_FIELD";
   public static final String ARSENIC_JEP_LIST_FIELD_ID = "ARSENIC_JEP_LIST_FIELD";
   public static final String ARSENIC_JEP_LIST_FIELD_CHECKALL_ID = "ARSENIC_JEP_LIST_FIELD_CHECKALL";
+  
+  public static final String ARSENIC_JEP_TREE_FIELD_ID = "ARSENIC_JEP_TREE_FIELD";
+  public static final String ARSENIC_JEP_TREE_FIELD_NODES_ID = "ARSENIC_JEP_TREE_FIELD_NODES";
+  public static final String ARSENIC_JEP_TREE_FIELD_CASC_ID = "ARSENIC_JEP_TREE_FIELD_CASC";
   
   public static final String ARSENIC_MAX_ROW_COUNT_ID = "ARSENIC_JEP_INTEGER_FIELD";
   

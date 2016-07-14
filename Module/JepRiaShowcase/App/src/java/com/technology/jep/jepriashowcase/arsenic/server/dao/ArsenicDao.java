@@ -157,40 +157,44 @@ public class ArsenicDao extends JepDaoStandard implements Arsenic {
    * (1119)Options_11_19
    *     (11*)Option 11
    *     (1214)Options_12_14
-   *       (12*)Option12
-   *       (13*)Option13
-   *       (14*)Option14
+   *         (12*)Option12
+   *         (13*)Option13
+   *         (14*)Option14
    *     (1519)Options_15_19
-   *       (15191)Options_15
-   *         (15192)Options_15
-   *           (15*)Option15
-   *       (1618)Options_16_18
-   *         (16*)Option16
-   *         (17*)Option17
-   *         (18*)Option18
-   *       (19*)Option19
+   *         (15191)Options_15
+   *             (15192)/Options/15/slashed/
+   *                 (15*)/Option/15/slashed/
+   *         (1618)Options_16_18
+   *             (16*)Option16
+   *             (17*)Option17
+   *             (18*)Option18
+   *         (19*)Option19
    * (2027)Options_20_27
    *     (2022)Options_20_22
-   *       (20*)Option20
-   *       (21*)Option21
-   *       (22*)Option22
+   *         (20*)Option20
+   *         (21*)Option21
+   *         (22*)Option22
    *     (2327)Options_23_27
    *     (2325)Options_23_25
-   *       (2324)Options_23_24
-   *         (23*)Option23
-   *         (24*)Option24
-   *       (25*)Option25
-   *       (2627)Options_26_27
-   *         (26*)Option26
-   *         (27*)Option27
+   *         (2324)Options_23_24
+   *             (23*)Option23
+   *             (24*)Option24
+   *         (25*)Option25
+   *         (2627)Options_26_27
+   *             (26*)Option26
+   *             (27*)Option27
    * (28*)Option28
    * (29*)Option29
    * (30*)Option30
    * (3131)EmptyAndOptions_31
    *     (31311)EmptyAndOptions_31
-   *       (31312)Empty
-   *         (31313)Empty
-   *       (31*)Option31
+   *         (31312)Empty
+   *             (31313)Empty
+   *         (31*)Option31
+   * (32321)Options_32
+   *     (3232)Option32_SameName
+   *         (321*)Option32_SameName
+   *     (322*)Option32_SameName
    */
   @Override
   public List<JepOption> getTreeCatalog(Integer parentCatalogId) throws ApplicationException {
@@ -215,6 +219,10 @@ public class ArsenicDao extends JepDaoStandard implements Arsenic {
       ret.add(new JepOption("Option30", 30));
       
       tmp = new JepParentOption("EmptyAndOptions_31", 3131);
+      tmp.put(TREE_FIELD_HAS_CHILDREN_FLAG, true);
+      ret.add(tmp);
+      
+      tmp = new JepParentOption("Options_32", 32321);
       tmp.put(TREE_FIELD_HAS_CHILDREN_FLAG, true);
       ret.add(tmp);
     } else if (parentCatalogId == 1119) {
@@ -242,11 +250,11 @@ public class ArsenicDao extends JepDaoStandard implements Arsenic {
 
       ret.add(new JepOption("Option19", 19));
     } else if (parentCatalogId == 15191) {
-      tmp = new JepParentOption("Options_15", 15192);
+      tmp = new JepParentOption("/Options/15/slashed/", 15192);
       tmp.put(TREE_FIELD_HAS_CHILDREN_FLAG, true);
       ret.add(tmp);
     } else if (parentCatalogId == 15192) {
-      ret.add(new JepOption("Option15", 15));
+      ret.add(new JepOption("/Option/15/slashed/", 15));
     } else if (parentCatalogId == 1618) {
       ret.add(new JepOption("Option16", 16));
       ret.add(new JepOption("Option17", 17));
@@ -293,7 +301,15 @@ public class ArsenicDao extends JepDaoStandard implements Arsenic {
       tmp = new JepParentOption("Empty", 31313);
       tmp.put(TREE_FIELD_HAS_CHILDREN_FLAG, true);
       ret.add(tmp);
-    }  else if (parentCatalogId == 31313) {
+    } else if (parentCatalogId == 32321) {
+      tmp = new JepParentOption("Option32_SameName", 3232);
+      tmp.put(TREE_FIELD_HAS_CHILDREN_FLAG, true);
+      ret.add(tmp);
+      
+      ret.add(new JepOption("Option32_SameName", 322));
+    } else if (parentCatalogId == 3232) {
+      ret.add(new JepOption("Option32_SameName", 321));
+    } else if (parentCatalogId == 31313) {
       // empty folder
     } 
     return ret;
