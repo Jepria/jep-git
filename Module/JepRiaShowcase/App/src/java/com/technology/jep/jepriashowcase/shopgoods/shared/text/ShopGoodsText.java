@@ -2,7 +2,7 @@ package com.technology.jep.jepriashowcase.shopgoods.shared.text;
 
 /**
  * Interface to represent the constants contained in resource bundle:
- *   'D:/workspace/git/JEP/Module/JepRiaShowcase/App/src/java/com/technology/jep/jepriashowcase/shopgoods/shared/text/ShopGoodsText.properties'.
+ * 	'D:/Project/JEPGit/Module/JepRiaShowcase/App/src/java/com/technology/jep/jepriashowcase/shopgoods/shared/text/ShopGoodsText.properties'.
  */
 public interface ShopGoodsText extends com.google.gwt.i18n.client.Constants {
   
