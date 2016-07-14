@@ -1,19 +1,16 @@
 package com.technology.jep.jepriashowcase.goods.server.service;
- 
-import static com.technology.jep.jepriashowcase.goods.server.GoodsServerConstant.DATA_SOURCE_JNDI_NAME;
 
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
-import com.technology.jep.jepria.server.ServerFactory;
 import com.technology.jep.jepria.server.service.JepDataServiceServlet;
 import com.technology.jep.jepria.shared.exceptions.ApplicationException;
 import com.technology.jep.jepria.shared.field.option.JepOption;
 import com.technology.jep.jepria.shared.util.DefaultComparator;
+import com.technology.jep.jepriashowcase.goods.server.GoodsServerFactory;
 import com.technology.jep.jepriashowcase.goods.server.dao.Goods;
-import com.technology.jep.jepriashowcase.goods.server.dao.GoodsDao;
 import com.technology.jep.jepriashowcase.goods.shared.record.GoodsRecordDefinition;
 import com.technology.jep.jepriashowcase.goods.shared.service.GoodsService;
  
@@ -29,7 +26,7 @@ public class GoodsServiceImpl extends JepDataServiceServlet<Goods> implements Go
  
   public GoodsServiceImpl() {
     super(GoodsRecordDefinition.instance, 
-        new ServerFactory<Goods>(new GoodsDao(), DATA_SOURCE_JNDI_NAME));
+        GoodsServerFactory.instance);
     this.comparator = DefaultComparator.instance;
   }
   

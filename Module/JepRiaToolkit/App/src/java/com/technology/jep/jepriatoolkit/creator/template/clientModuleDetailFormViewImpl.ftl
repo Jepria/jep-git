@@ -35,24 +35,16 @@ import java.math.BigDecimal;
 import com.technology.jep.jepria.client.widget.field.multistate.JepNumberField;
 </#if>
 </#if>
-import com.technology.jep.jepria.client.ui.form.detail.DetailFormViewImpl;
-import com.google.gwt.dom.client.Style.Unit;
-import com.google.gwt.user.client.ui.ScrollPanel;
-import com.google.gwt.user.client.ui.VerticalPanel;
-import com.technology.jep.jepria.client.widget.field.FieldManager;
+import com.technology.jep.jepria.client.ui.form.detail.StandardDetailFormViewImpl;
 
-public class ${form.formName}DetailFormViewImpl extends DetailFormViewImpl
+public class ${form.formName}DetailFormViewImpl extends StandardDetailFormViewImpl
 	implements ${form.formName}DetailFormView { 
 	
  	public ${form.formName}DetailFormViewImpl() {
-		super(new FieldManager());
-		
-		ScrollPanel scrollPanel = new ScrollPanel();
-		scrollPanel.setSize("100%", "100%");
-		VerticalPanel panel = new VerticalPanel();
-		panel.getElement().getStyle().setMarginTop(5, Unit.PX);
-		scrollPanel.add(panel);
-		
+ 		
+ 		<#if form.sortDetailFormFields?has_content>
+ 		// "Дизайнерская" часть - freelayout.
+ 		</#if>
 		<#list form.sortDetailFormFields as field>
 		${field.fieldWidget} ${field.fieldName} = new ${field.fieldWidget}(${form.formName?uncap_first}Text.${form.formName?uncap_first}_detail_${field.fieldId?lower_case}()<#if field.isBigDecimalNumberField>, BigDecimal.class<#elseif field.isMaskedTextField>, "cccccccccc"</#if>);
 		<#if field.fieldWidth??>
@@ -61,6 +53,8 @@ public class ${form.formName}DetailFormViewImpl extends DetailFormViewImpl
 		<#if field.labelWidth??>
 		${field.fieldName}.setLabelWidth(${field.labelWidth});
 		</#if><#rt>
+		panel.add(${field.fieldName});
+		
 		</#list>
 		<#if !form.isDependent>
 		JepIntegerField maxRowCountField = new JepIntegerField(${form.formName?uncap_first}Text.${form.formName?uncap_first}_detail_row_count());
@@ -69,20 +63,19 @@ public class ${form.formName}DetailFormViewImpl extends DetailFormViewImpl
 		<#if form.fieldLabelWidth??>
 		maxRowCountField.setLabelWidth(${form.fieldLabelWidth});
 		</#if>
-		</#if>
-		<#list form.sortDetailFormFields as field>
-		panel.add(${field.fieldName});
-		</#list>
-		<#if !form.isDependent>
 		panel.add(maxRowCountField);
+		
 		</#if>
-		setWidget(scrollPanel);
+		<#if form.sortDetailFormFields?has_content>
+		// "Функциональная" часть - указываем управляющему классу по умолчанию с какими полями нужно работать.
+		</#if>
 		<#list form.sortDetailFormFields as field>
 		fields.put(${field.fieldId?upper_case}, ${field.fieldName});
 		</#list>
 		<#if !form.isDependent>
 		fields.put(MAX_ROW_COUNT, maxRowCountField);
 		</#if>
+		
 		<#list form.sortDetailFormFields as field>
 		<#if field.fieldMaxLength??>
 		setFieldMaxLength(${field.fieldId}, ${field.fieldMaxLength});

@@ -93,8 +93,10 @@ public class ApplicationStructureCreator extends Task {
 			createModulePresenter();
 			echoMessage("Create Java Classes Of Service Implementation");
 			createServiceImpl();
-			echoMessage("Create Java Classes Of Server Constant");
-			createServerConstant();
+      echoMessage("Create Java Classes Of Server Constant");
+      createServerConstant();
+      echoMessage("Create Java Classes Of Server Factory");
+      createServerFactory();
 			echoMessage("Create Java Classes Of DAO");
 			createDao();
 			echoMessage("Create Java Classes Of Field Names");
@@ -809,32 +811,59 @@ public class ApplicationStructureCreator extends Task {
 		}
 	}
 
-	/**
-	 * Создание классов серверных констант
-	 */
-	private void createServerConstant() {
-		Map<String, Object> data = resultData;
-		List<ModuleInfo> moduleInfos = (List<ModuleInfo>) data.get(FORMS_TEMPLATE_PARAMETER);
-		for (ModuleInfo moduleInfo : moduleInfos) {
-			if (moduleInfo.isNotRebuild()) continue;
-			Map<String, Object> innerData = new HashMap<String, Object>();
-			innerData.put(FORM_TEMPLATE_PARAMETER, moduleInfo);
-			innerData.put(PACKAGE_NAME_TEMPLATE_PARAMETER, data.get(PACKAGE_NAME_TEMPLATE_PARAMETER));
-			innerData.put(MODULE_NAME_TEMPLATE_PARAMETER, data.get(MODULE_NAME_TEMPLATE_PARAMETER));
-			
-			String formName = moduleInfo.getFormName();
-			
-			convertTemplateToFile(
-				getDefinitionProperty(CLIENT_MODULE_SERVER_CONSTANT_TEMPLATE_PROPERTY, "clientModuleServerConstant.ftl"),
-				innerData, 
-				format(
-					getDefinitionProperty(CLIENT_MODULE_SERVER_CONSTANT_PATH_TEMPLATE_PROPERTY, 
-							multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/server/{3}ServerConstant.java")),
-					application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName.toLowerCase(), formName
-				)
-			);
-		}
-	}
+  /**
+   * Создание классов серверных констант
+   */
+  private void createServerConstant() {
+    Map<String, Object> data = resultData;
+    List<ModuleInfo> moduleInfos = (List<ModuleInfo>) data.get(FORMS_TEMPLATE_PARAMETER);
+    for (ModuleInfo moduleInfo : moduleInfos) {
+      if (moduleInfo.isNotRebuild()) continue;
+      Map<String, Object> innerData = new HashMap<String, Object>();
+      innerData.put(FORM_TEMPLATE_PARAMETER, moduleInfo);
+      innerData.put(PACKAGE_NAME_TEMPLATE_PARAMETER, data.get(PACKAGE_NAME_TEMPLATE_PARAMETER));
+      innerData.put(MODULE_NAME_TEMPLATE_PARAMETER, data.get(MODULE_NAME_TEMPLATE_PARAMETER));
+      
+      String formName = moduleInfo.getFormName();
+      
+      convertTemplateToFile(
+        getDefinitionProperty(CLIENT_MODULE_SERVER_CONSTANT_TEMPLATE_PROPERTY, "clientModuleServerConstant.ftl"),
+        innerData, 
+        format(
+          getDefinitionProperty(CLIENT_MODULE_SERVER_CONSTANT_PATH_TEMPLATE_PROPERTY, 
+              multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/server/{3}ServerConstant.java")),
+          application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName.toLowerCase(), formName
+        )
+      );
+    }
+  }
+
+  /**
+   * Создание классов серверной фабрики
+   */
+  private void createServerFactory() {
+    Map<String, Object> data = resultData;
+    List<ModuleInfo> moduleInfos = (List<ModuleInfo>) data.get(FORMS_TEMPLATE_PARAMETER);
+    for (ModuleInfo moduleInfo : moduleInfos) {
+      if (moduleInfo.isNotRebuild()) continue;
+      Map<String, Object> innerData = new HashMap<String, Object>();
+      innerData.put(FORM_TEMPLATE_PARAMETER, moduleInfo);
+      innerData.put(PACKAGE_NAME_TEMPLATE_PARAMETER, data.get(PACKAGE_NAME_TEMPLATE_PARAMETER));
+      innerData.put(MODULE_NAME_TEMPLATE_PARAMETER, data.get(MODULE_NAME_TEMPLATE_PARAMETER));
+      
+      String formName = moduleInfo.getFormName();
+      
+      convertTemplateToFile(
+        getDefinitionProperty(CLIENT_MODULE_SERVER_FACTORY_TEMPLATE_PROPERTY, "clientModuleServerFactory.ftl"),
+        innerData, 
+        format(
+          getDefinitionProperty(CLIENT_MODULE_SERVER_FACTORY_PATH_TEMPLATE_PROPERTY, 
+              multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/server/{3}ServerFactory.java")),
+          application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName.toLowerCase(), formName
+        )
+      );
+    }
+  }
 
 	/**
 	 * Создание классов DAO приложения

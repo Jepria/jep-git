@@ -1,17 +1,15 @@
 package com.technology.jep.jepriashowcase.shopgoods.server.service;
 
-import static com.technology.jep.jepriashowcase.shopgoods.server.ShopGoodsServerConstant.DATA_SOURCE_JNDI_NAME;
 import static com.technology.jep.jepriashowcase.shopgoods.shared.ShopGoodsConstant.OPTION_COUNT;
 
 import java.util.List;
 
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
-import com.technology.jep.jepria.server.ServerFactory;
 import com.technology.jep.jepria.server.service.JepDataServiceServlet;
 import com.technology.jep.jepria.shared.exceptions.ApplicationException;
 import com.technology.jep.jepria.shared.field.option.JepOption;
+import com.technology.jep.jepriashowcase.shopgoods.server.ShopGoodsServerFactory;
 import com.technology.jep.jepriashowcase.shopgoods.server.dao.ShopGoods;
-import com.technology.jep.jepriashowcase.shopgoods.server.dao.ShopGoodsDao;
 import com.technology.jep.jepriashowcase.shopgoods.shared.record.ShopGoodsRecordDefinition;
 import com.technology.jep.jepriashowcase.shopgoods.shared.service.ShopGoodsService;
  
@@ -21,7 +19,7 @@ public class ShopGoodsServiceImpl extends JepDataServiceServlet<ShopGoods> imple
   private static final long serialVersionUID = 1L;
  
   public ShopGoodsServiceImpl() {
-    super(ShopGoodsRecordDefinition.instance, new ServerFactory<ShopGoods>(new ShopGoodsDao(), DATA_SOURCE_JNDI_NAME));
+    super(ShopGoodsRecordDefinition.instance, ShopGoodsServerFactory.instance);
   }
   
   public List<JepOption> getShop(String shopName) throws ApplicationException {

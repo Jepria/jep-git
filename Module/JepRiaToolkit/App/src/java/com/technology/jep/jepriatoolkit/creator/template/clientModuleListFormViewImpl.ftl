@@ -63,43 +63,28 @@ import static com.technology.jep.jepria.shared.JepRiaConstant.DEFAULT_TIME_FORMA
 </#if>
 </#if>
 </#list>
-import com.google.gwt.user.client.ui.HeaderPanel;
-import com.technology.jep.jepria.shared.record.JepRecord;
-import com.technology.jep.jepria.client.ui.form.list.ListFormViewImpl;
-import java.util.List;
-import com.technology.jep.jepria.client.widget.list.JepColumn;
-import com.technology.jep.jepria.client.widget.list.JepGrid;
-import com.technology.jep.jepria.client.widget.list.GridManager;
-import com.technology.jep.jepria.client.widget.toolbar.PagingStandardBar;
-import java.util.ArrayList;
 
-public class ${form.formName}ListFormViewImpl extends ListFormViewImpl<GridManager> { 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.technology.jep.jepria.client.ui.form.list.StandardListFormViewImpl;
+import com.technology.jep.jepria.client.widget.list.JepColumn;
+
+public class ${form.formName}ListFormViewImpl extends StandardListFormViewImpl { 
 	
  	public ${form.formName}ListFormViewImpl() {
-		super(new GridManager());
-		
-		HeaderPanel gridPanel = new HeaderPanel();
-		setWidget(gridPanel);
-		gridPanel.setHeight("100%");
-		gridPanel.setWidth("100%");
-		
-		JepGrid<JepRecord> grid = new JepGrid<JepRecord>(getClass().getCanonicalName(), getColumnConfigurations());
-		PagingStandardBar pagingBar = new PagingStandardBar(25);
-		
-		gridPanel.setContentWidget(grid);
-		gridPanel.setFooterWidget(pagingBar);
- 
-		list.setWidget(grid);
-		list.setPagingToolBar(pagingBar);
+		super(${form.formName}ListFormViewImpl.class.getCanonicalName());
 	}
 	<#if classField??><#t>
 ${classField}
 	</#if>
-	private static List<JepColumn> getColumnConfigurations() {
-		final List<JepColumn> columns = new ArrayList<JepColumn>();
-		<#list form.sortListFormFields as field>
-		columns.add(new JepColumn(${field.fieldId?upper_case}, ${form.formName?uncap_first}Text.${form.formName?uncap_first}_list_${field.fieldId?lower_case}(), ${field.columnWidth}<#if field.isDateType>, new DateCell(defaultDateFormatter)<#elseif field.isTimeType>, new DateCell(defaultTimeFormatter)<#elseif field.isDateTimeType>, new DateCell(defaultDateTimeFormatter)<#elseif field.isBooleanType>, new JepCheckBoxCell()<#elseif field.isIntegerType>, new NumberCell(defaultNumberFormatter)<#elseif field.isBigDecimalType>, new NumberCell(defaultDecimalFormatter)</#if>));
-		</#list>
-		return columns;
+	@SuppressWarnings({ "rawtypes", "unchecked", "serial" })
+	@Override
+  	protected List<JepColumn> getColumnConfigurations() {
+  		return new ArrayList<JepColumn>() {{
+  			<#list form.sortListFormFields as field>
+			add(new JepColumn(${field.fieldId?upper_case}, ${form.formName?uncap_first}Text.${form.formName?uncap_first}_list_${field.fieldId?lower_case}(), ${field.columnWidth}<#if field.isDateType>, new DateCell(defaultDateFormatter)<#elseif field.isTimeType>, new DateCell(defaultTimeFormatter)<#elseif field.isDateTimeType>, new DateCell(defaultDateTimeFormatter)<#elseif field.isBooleanType>, new JepCheckBoxCell()<#elseif field.isIntegerType>, new NumberCell(defaultNumberFormatter)<#elseif field.isBigDecimalType>, new NumberCell(defaultDecimalFormatter)</#if>));
+			</#list>
+		}};		
 	}
 }

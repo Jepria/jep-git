@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <web-app>
-  <context-param>
-    <param-name>applicationName</param-name>
-    <param-value>${moduleName}</param-value>
-  </context-param>
   <servlet>
     <servlet-name>remoteLoggerServiceImpl</servlet-name>
     <servlet-class>com.allen_sauer.gwt.log.server.RemoteLoggerServiceImpl</servlet-class>

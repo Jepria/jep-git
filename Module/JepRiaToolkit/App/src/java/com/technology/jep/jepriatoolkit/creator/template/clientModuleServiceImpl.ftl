@@ -1,15 +1,13 @@
 package com.technology.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.server.service;
 
-import static com.technology.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.server.${form.formName}ServerConstant.DATA_SOURCE_JNDI_NAME;
 <#if form.hasLobFields>
 import static com.technology.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.server.${form.formName}ServerConstant.RESOURCE_BUNDLE_NAME;
 </#if>
 
 import com.technology.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.server.dao.${form.formName};
-import com.technology.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.server.dao.${form.formName}Dao;
+import com.technology.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.server.${form.formName}ServerFactory;
 import com.technology.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.shared.record.${form.formName}RecordDefinition;
 import com.technology.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.shared.service.${form.formName}Service;
-import com.technology.jep.jepria.server.ServerFactory;
 import com.technology.jep.jepria.server.service.JepDataServiceServlet;
 <#if form.hasOptionField>
 import com.technology.jep.jepria.shared.exceptions.ApplicationException;
@@ -25,7 +23,7 @@ public class ${form.formName}ServiceImpl extends JepDataServiceServlet<${form.fo
 	private static final long serialVersionUID = 1L;
  
 	public ${form.formName}ServiceImpl() {
-		super(${form.formName}RecordDefinition.instance, new ServerFactory<${form.formName}>(new ${form.formName}Dao(), DATA_SOURCE_JNDI_NAME)<#if form.hasLobFields>, DATA_SOURCE_JNDI_NAME</#if>);
+		super(${form.formName}RecordDefinition.instance, ${form.formName}ServerFactory.instance);
 	}
 	<#list form.fields as field><#t>
 	<#if field.isOptionField>
