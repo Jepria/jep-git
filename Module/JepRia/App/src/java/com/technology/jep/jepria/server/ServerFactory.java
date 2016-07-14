@@ -6,7 +6,7 @@ import com.technology.jep.jepria.server.dao.transaction.TransactionFactory;
  * Серверная фабрика.
  * @param <D> интерфейс Dao
  */
-public class ServerFactory<D> implements DaoProvider<D> {
+public abstract class ServerFactory<D> implements DaoProvider<D> {
   
   /**
    * Исходный объект Dao.
