@@ -173,6 +173,21 @@
     <taskdef classpathref="jepria-toolkit-libs" classname="com.technology.jep.jepriatoolkit.parser.ApplicationStructureParser" name="applicationstructureparser"/>
     <applicationstructureparser jepRiaVersion="${JEPRIA_VERSION}"/>
   </target>
+  
+  <target name="create">
+	<taskdef classpathref="jepria-toolkit-libs" classname="com.technology.jep.jepriatoolkit.creator.form.ApplicationFormCreator" name="applicationformcreator" />
+	<applicationformcreator applicationName="${APPLICATION_NAME}" moduleName="${MODULE_NAME}" />
+  </target>
+	
+  <target name="add">
+	<taskdef classpathref="jepria-toolkit-libs" classname="com.technology.jep.jepriatoolkit.creator.form.ApplicationFormCreator" name="applicationformcreator" />
+	<applicationformcreator moduleName="${MODULE_NAME}" parentModuleName="${PARENT_MODULE_NAME}" applicationStructureFile="${APPLICATION_STRUCTURE_FILE_PATH}" />
+  </target>
+	
+  <target name="only">
+	<taskdef classpathref="jepria-toolkit-libs" name="partialformbuilder" classname="com.technology.jep.jepriatoolkit.switcher.PartialFormBuilder"/>
+	<partialformbuilder forms="${FORMS}" targetConfig="${BUILD_CONFIG}" jepRiaVersion="${JEP_RIA_VERSION}" />
+  </target>
 
   <!-- Инициализация переменных модуля  -->
   <target name="init" depends="check-dependencies">
