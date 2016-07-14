@@ -4,9 +4,9 @@ import com.google.gwt.resources.client.ImageResource;
 import com.technology.jep.jepria.client.images.JepImages;
  
 public interface ${form.formName}Images extends JepImages {
-  	<#list form.toolBarCustomButtons as button>
-  	
-	@Source("${button.image}.png")
-	ImageResource ${button.image}();
- 	</#list>
+    <#list form.toolBarCustomButtons as button>
+    
+  @Source("${button.image}.png")
+  ImageResource ${button.image}();
+   </#list>
 }

@@ -8,6 +8,6 @@ import com.technology.${packageName?lower_case}.${moduleName?lower_case}.${form.
  
 public class ${form.formName}ClientConstant extends ${form.formName}Constant {
  
-	public static ${form.formName}Text ${form.formName?uncap_first}Text = (${form.formName}Text) GWT.create(${form.formName}Text.class);
-	<#list form.scopeModuleIds as moduleId><#if moduleId_index == 0>public static String[] scopeModuleIds = {${form.formName?upper_case}_MODULE_ID, </#if>${moduleId?upper_case}_MODULE_ID<#if moduleId_has_next>, </#if><#if (moduleId_index + 1) == form.scopeModuleIds?size>};</#if></#list>
+  public static ${form.formName}Text ${form.formName?uncap_first}Text = (${form.formName}Text) GWT.create(${form.formName}Text.class);
+  <#list form.scopeModuleIds as moduleId><#if moduleId_index == 0>public static String[] scopeModuleIds = {${form.formName?upper_case}_MODULE_ID, </#if>${moduleId?upper_case}_MODULE_ID<#if moduleId_has_next>, </#if><#if (moduleId_index + 1) == form.scopeModuleIds?size>};</#if></#list>
 }

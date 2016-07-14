@@ -7,7 +7,7 @@ import com.technology.jep.jepria.server.download.JepDownloadServlet;
 
 public class DownloadServiceImpl extends JepDownloadServlet {
 
-	public DownloadServiceImpl() {
-		super(${form.formName}RecordDefinition.instance, DATA_SOURCE_JNDI_NAME);
-	}
+  public DownloadServiceImpl() {
+    super(${form.formName}RecordDefinition.instance, DATA_SOURCE_JNDI_NAME);
+  }
 }

@@ -9,9 +9,9 @@ import com.technology.jep.jepria.shared.field.option.JepOption;
 </#if>
  
 public interface ${form.formName}ServiceAsync extends JepDataServiceAsync {
-	<#list form.fields as field><#t>
-	<#if field.isOptionField>
-	void get${field.fieldIdAsParameter}(AsyncCallback<List<JepOption>> callback);
-	</#if>
-	</#list>
+  <#list form.fields as field><#t>
+  <#if field.isOptionField>
+  void get${field.fieldIdAsParameter}(AsyncCallback<List<JepOption>> callback);
+  </#if>
+  </#list>
 }

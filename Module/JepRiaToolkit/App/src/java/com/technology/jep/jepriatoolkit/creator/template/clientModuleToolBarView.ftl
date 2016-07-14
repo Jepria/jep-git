@@ -3,13 +3,13 @@ package com.technology.${packageName?lower_case}.${moduleName?lower_case}.${form
 import com.technology.jep.jepria.client.ui.toolbar.ToolBarView;
  
 public interface ${form.formName}ToolBarView extends ToolBarView {
-  	
-  	<#list form.toolBarCustomButtons as button>
-	final static String ${button.buttonId?upper_case} = "${button.buttonIdAsParameter}";
-	</#list> 
- 	<#list form.toolBarCustomButtons as button>
-	<#if button.isSeparator>
-	final static String ${button.buttonId?upper_case} = "${button.buttonIdAsParameter}";
-	</#if>
- 	</#list> 
+    
+    <#list form.toolBarCustomButtons as button>
+  final static String ${button.buttonId?upper_case} = "${button.buttonIdAsParameter}";
+  </#list> 
+   <#list form.toolBarCustomButtons as button>
+  <#if button.isSeparator>
+  final static String ${button.buttonId?upper_case} = "${button.buttonIdAsParameter}";
+  </#if>
+   </#list> 
 }

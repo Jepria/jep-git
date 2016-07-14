@@ -8,13 +8,13 @@ import com.technology.${packageName?lower_case}.${moduleName?lower_case}.${form.
  
 public class ${form.formName}EventBus extends PlainEventBus {
  
-	public ${form.formName}EventBus(PlainClientFactory<?, ?> clientFactory) {
-		super(clientFactory);
-	}
- 	<#list form.toolBarCustomButtons as button>
- 	
-	public void ${button.event} { 
-		fireEvent(new ${button.customEvent}Event());
-	}
- 	</#list>
+  public ${form.formName}EventBus(PlainClientFactory<?, ?> clientFactory) {
+    super(clientFactory);
+  }
+   <#list form.toolBarCustomButtons as button>
+   
+  public void ${button.event} { 
+    fireEvent(new ${button.customEvent}Event());
+  }
+   </#list>
 }

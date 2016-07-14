@@ -26,26 +26,26 @@ import com.technology.jep.jepria.client.history.place.*;
 import com.technology.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.shared.service.${form.formName}ServiceAsync;
  
 public class ${form.formName}ToolBarPresenter<V extends ToolBarView, E extends <#if hasToolBarCustomButton>${form.formName}<#else>Plain</#if>EventBus, S extends ${form.formName}ServiceAsync, F extends StandardClientFactory<E, S>>
-	extends ToolBarPresenter<V, E, S, F> {
+  extends ToolBarPresenter<V, E, S, F> {
  
- 	public ${form.formName}ToolBarPresenter(Place place, F clientFactory) {
-		super(place, clientFactory);
-	}
+   public ${form.formName}ToolBarPresenter(Place place, F clientFactory) {
+    super(place, clientFactory);
+  }
  
- 	<#if !form.isToolBarOff && (form.hasToolBarPresenter?? && !form.hasToolBarPresenter)>
-	public void bind() {
-		<#list form.toolBarButtons as button>
-		<#if !button.isSeparator>
-		bindButton(
-			${button.buttonId}, 
-			new WorkstateEnum[]{${button.workStatesAsString}},
-			new ClickHandler() {
-				public void onClick(ClickEvent event) {
-					${button.handler}
-				}
-			});
-		</#if>
- 		</#list>
-	}
-	</#if>
+   <#if !form.isToolBarOff && (form.hasToolBarPresenter?? && !form.hasToolBarPresenter)>
+  public void bind() {
+    <#list form.toolBarButtons as button>
+    <#if !button.isSeparator>
+    bindButton(
+      ${button.buttonId}, 
+      new WorkstateEnum[]{${button.workStatesAsString}},
+      new ClickHandler() {
+        public void onClick(ClickEvent event) {
+          ${button.handler}
+        }
+      });
+    </#if>
+     </#list>
+  }
+  </#if>
 }

@@ -38,57 +38,57 @@ import com.technology.jep.jepria.client.widget.field.multistate.JepNumberField;
 import com.technology.jep.jepria.client.ui.form.detail.StandardDetailFormViewImpl;
 
 public class ${form.formName}DetailFormViewImpl extends StandardDetailFormViewImpl
-	implements ${form.formName}DetailFormView { 
-	
- 	public ${form.formName}DetailFormViewImpl() {
- 		
- 		<#if form.sortDetailFormFields?has_content>
- 		// "Дизайнерская" часть - freelayout.
- 		</#if>
-		<#list form.sortDetailFormFields as field>
-		${field.fieldWidget} ${field.fieldName} = new ${field.fieldWidget}(${form.formName?uncap_first}Text.${form.formName?uncap_first}_detail_${field.fieldId?lower_case}()<#if field.isBigDecimalNumberField>, BigDecimal.class<#elseif field.isMaskedTextField>, "cccccccccc"</#if>);
-		<#if field.fieldWidth??>
-		${field.fieldName}.setFieldWidth(${field.fieldWidth});
-		</#if><#rt>
-		<#if field.labelWidth??>
-		${field.fieldName}.setLabelWidth(${field.labelWidth});
-		</#if><#rt>
-		panel.add(${field.fieldName});
-		
-		</#list>
-		<#if !form.isDependent>
-		JepIntegerField maxRowCountField = new JepIntegerField(${form.formName?uncap_first}Text.${form.formName?uncap_first}_detail_row_count());
-		maxRowCountField.setMaxLength(4);
-		maxRowCountField.setFieldWidth(55);
-		<#if form.fieldLabelWidth??>
-		maxRowCountField.setLabelWidth(${form.fieldLabelWidth});
-		</#if>
-		panel.add(maxRowCountField);
-		
-		</#if>
-		<#if form.sortDetailFormFields?has_content>
-		// "Функциональная" часть - указываем управляющему классу по умолчанию с какими полями нужно работать.
-		</#if>
-		<#list form.sortDetailFormFields as field>
-		fields.put(${field.fieldId?upper_case}, ${field.fieldName});
-		</#list>
-		<#if !form.isDependent>
-		fields.put(MAX_ROW_COUNT, maxRowCountField);
-		</#if>
-		
-		<#list form.sortDetailFormFields as field>
-		<#if field.fieldMaxLength??>
-		setFieldMaxLength(${field.fieldId}, ${field.fieldMaxLength});
-		</#if>
-		</#list>
-	}
-	
-	<#if hasFieldMaxLength>
-	public void setFieldMaxLength(String fieldId, Integer maxLength) {
-		JepMultiStateField field = fields.get(fieldId);
-		if(field instanceof JepTextField) {
-			((JepTextField)field).setMaxLength(maxLength);
-		}
-	}
-	</#if>
+  implements ${form.formName}DetailFormView { 
+  
+   public ${form.formName}DetailFormViewImpl() {
+     
+     <#if form.sortDetailFormFields?has_content>
+     // "Дизайнерская" часть - freelayout.
+     </#if>
+    <#list form.sortDetailFormFields as field>
+    ${field.fieldWidget} ${field.fieldName} = new ${field.fieldWidget}(${form.formName?uncap_first}Text.${form.formName?uncap_first}_detail_${field.fieldId?lower_case}()<#if field.isBigDecimalNumberField>, BigDecimal.class<#elseif field.isMaskedTextField>, "cccccccccc"</#if>);
+    <#if field.fieldWidth??>
+    ${field.fieldName}.setFieldWidth(${field.fieldWidth});
+    </#if><#rt>
+    <#if field.labelWidth??>
+    ${field.fieldName}.setLabelWidth(${field.labelWidth});
+    </#if><#rt>
+    panel.add(${field.fieldName});
+    
+    </#list>
+    <#if !form.isDependent>
+    JepIntegerField maxRowCountField = new JepIntegerField(${form.formName?uncap_first}Text.${form.formName?uncap_first}_detail_row_count());
+    maxRowCountField.setMaxLength(4);
+    maxRowCountField.setFieldWidth(55);
+    <#if form.fieldLabelWidth??>
+    maxRowCountField.setLabelWidth(${form.fieldLabelWidth});
+    </#if>
+    panel.add(maxRowCountField);
+    
+    </#if>
+    <#if form.sortDetailFormFields?has_content>
+    // "Функциональная" часть - указываем управляющему классу по умолчанию с какими полями нужно работать.
+    </#if>
+    <#list form.sortDetailFormFields as field>
+    fields.put(${field.fieldId?upper_case}, ${field.fieldName});
+    </#list>
+    <#if !form.isDependent>
+    fields.put(MAX_ROW_COUNT, maxRowCountField);
+    </#if>
+    
+    <#list form.sortDetailFormFields as field>
+    <#if field.fieldMaxLength??>
+    setFieldMaxLength(${field.fieldId}, ${field.fieldMaxLength});
+    </#if>
+    </#list>
+  }
+  
+  <#if hasFieldMaxLength>
+  public void setFieldMaxLength(String fieldId, Integer maxLength) {
+    JepMultiStateField field = fields.get(fieldId);
+    if(field instanceof JepTextField) {
+      ((JepTextField)field).setMaxLength(maxLength);
+    }
+  }
+  </#if>
 }

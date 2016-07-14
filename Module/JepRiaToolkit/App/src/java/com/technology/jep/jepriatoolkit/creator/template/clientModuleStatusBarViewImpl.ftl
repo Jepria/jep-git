@@ -4,8 +4,8 @@ import com.technology.jep.jepria.client.ui.statusbar.StatusBarViewImpl;
  
 public class ${form.formName}StatusBarViewImpl extends StatusBarViewImpl {
  
-	public ${form.formName}StatusBarViewImpl() {
-		super();
- 		asWidget().setVisible(false);
-	}
+  public ${form.formName}StatusBarViewImpl() {
+    super();
+     asWidget().setVisible(false);
+  }
 }
