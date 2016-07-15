@@ -106,7 +106,7 @@ java.lang.Object
 
 <P>
 Пример кастомного обработчика начала транзакции.<br/>
- Дополнительно к инициализации соединения с помощью <CODE>CallContext.begin(String)</CODE>
+ Дополнительно к инициализации соединения с помощью <CODE>CallContext#begin(String)</CODE>
  сообщает в логе о старте транзакции.<br/>
  ВАЖНО: если, как в данном примере, обработчик реализуется в виде вложенного
  в DAO класса, необходимо объявлять его как <code>public static</code>,
@@ -145,7 +145,8 @@ java.lang.Object
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepriashowcase/custom/server/dao/CustomDao.CustomStartTransactionHandler.html#handle(java.lang.String)">handle</A></B>(java.lang.String&nbsp;dataSourceJndiName)</CODE>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepriashowcase/custom/server/dao/CustomDao.CustomStartTransactionHandler.html#handle(java.lang.String, java.lang.String)">handle</A></B>(java.lang.String&nbsp;dataSourceJndiName,
+       java.lang.String&nbsp;moduleName)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -190,10 +191,11 @@ public <B>CustomDao.CustomStartTransactionHandler</B>()</PRE>
 </TR>
 </TABLE>
 
-<A NAME="handle(java.lang.String)"><!-- --></A><H3>
+<A NAME="handle(java.lang.String, java.lang.String)"><!-- --></A><H3>
 handle</H3>
 <PRE>
-public void <B>handle</B>(java.lang.String&nbsp;dataSourceJndiName)
+public void <B>handle</B>(java.lang.String&nbsp;dataSourceJndiName,
+                   java.lang.String&nbsp;moduleName)
             throws com.technology.jep.jepria.shared.exceptions.ApplicationException</PRE>
 <DL>
 <DD><DL>

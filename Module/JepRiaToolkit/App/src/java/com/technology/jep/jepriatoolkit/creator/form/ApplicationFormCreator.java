@@ -6,14 +6,15 @@ import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.DEFAULT_DAT
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.DEFAULT_PROJECT_PACKAGE;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.ERROR_PREFIX;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.INFO_PREFIX;
-import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.MODULE_BUILD_ATTRIBUTE;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.MODULE_ID_ATTRIBUTE;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.MODULE_NAME_TASK_ATTRIBUTE;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.NO;
-import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.OFF;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.PARENT_MODULE_NAME_TASK_ATTRIBUTE;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.PATH_SEPARATOR;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.REGEXP_FOR_BLANK;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.SEPARATOR;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.WARNING_PREFIX;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.WHITE_SPACE;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.YES;
 import static com.technology.jep.jepriatoolkit.creator.module.Module.createBlankModule;
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.convertToXml;
@@ -29,6 +30,9 @@ import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.multipleCo
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.normalizePath;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 import org.apache.tools.ant.BuildException;
@@ -38,6 +42,7 @@ import org.w3c.dom.Element;
 
 import com.technology.jep.jepriatoolkit.JepRiaToolkitConstant;
 import com.technology.jep.jepriatoolkit.creator.module.Application;
+import com.technology.jep.jepriatoolkit.creator.module.Module;
 import com.technology.jep.jepriatoolkit.creator.module.Modules;
 import com.technology.jep.jepriatoolkit.parser.ApplicationStructureDocument;
 import com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil;
@@ -92,37 +97,44 @@ public class ApplicationFormCreator extends Task {
 					fileName = isEmptyOrNotInitializedParameter(applicationStructureFile) ? getApplicationDefinitionFile() : applicationStructureFile;
 					Document dom = getDOM(fileName);
 					ApplicationStructureDocument document = new ApplicationStructureDocument(dom);
-					Element module = document.getModuleNodeByIdIgnoringCase(moduleName);
-					// если такой модуль еще не определен в имеющейся структуре
-					if (module == null){
-						Element parentModule = null;
-						// проверяем родительский на существование
-						if (!isEmptyOrNotInitializedParameter(parentModuleName)){
-							parentModule = document.getModuleNodeByIdIgnoringCase(parentModuleName);
-							if (parentModule == null){
-								echoMessage(multipleConcat(ERROR_PREFIX,
-										"Application definition XML wouldn't modify! The parent module '", parentModuleName, "' not found! Please specify correct value for the attribute '-D", PARENT_MODULE_NAME_TASK_ATTRIBUTE, "'"));
-								return;
-							}
+					
+					Element parentModule = null;
+					// проверяем родительский на существование
+					if (!isEmptyOrNotInitializedParameter(parentModuleName)){
+						parentModule = document.getModuleNodeByIdIgnoringCase(parentModuleName);
+						if (parentModule == null){
+							echoMessage(multipleConcat(ERROR_PREFIX,
+									"Application definition XML wouldn't modify! The parent module '", parentModuleName, "' not found! Please specify correct value for the attribute '-D", PARENT_MODULE_NAME_TASK_ATTRIBUTE, "'"));
+							return;
 						}
-						echoMessage(multipleConcat("Modify ", normalizePath(fileName), "..."));
-						
-						initNotRebuildProperty(document);
-						
-						Element moduleElement = JepRiaToolkitUtil.convertModuleToXml(moduleName, dom.getDocumentElement().getAttribute(JepRiaToolkitConstant.APPLICATION_NAME_ATTRIBUTE));
-						Element parentNode = document.getElementByTagName(JepRiaToolkitConstant.MODULES_TAG_NAME);
-						if (parentModule != null){
-							parentNode = parentModule;
-						}
-						parentNode.appendChild(dom.importNode(moduleElement, true));
-						echoMessage(multipleConcat("Append new module '", moduleName, "' ", JepRiaToolkitUtil.isNotInitializedParameter(parentModuleName) ? "" : multipleConcat("to module '", parentModuleName, "' "), "..."));
-						JepRiaToolkitUtil.prettyPrintToStripWhitespace(dom, fileName, true);
 					}
-					else {
+					
+					String existedModules = "";
+					for (String modName : Arrays.asList(moduleName.split(multipleConcat(SEPARATOR, REGEXP_FOR_BLANK, "*")))) {
+						Element module = document.getModuleNodeByIdIgnoringCase(modName);
+						// если такой модуль еще не определен в имеющейся структуре
+						if (module == null){
+							Element moduleElement = JepRiaToolkitUtil.convertModuleToXml(modName, dom.getDocumentElement().getAttribute(JepRiaToolkitConstant.APPLICATION_NAME_ATTRIBUTE));
+							Element parentNode = document.getElementByTagName(JepRiaToolkitConstant.MODULES_TAG_NAME);
+							if (parentModule != null){
+								parentNode = parentModule;
+							}
+							parentNode.appendChild(dom.importNode(moduleElement, true));
+							echoMessage(multipleConcat("Append new module '", modName, "' ", JepRiaToolkitUtil.isNotInitializedParameter(parentModuleName) ? "" : multipleConcat("to module '", parentModuleName, "' "), "..."));
+							JepRiaToolkitUtil.prettyPrintToStripWhitespace(dom, fileName, true);
+						}
+						else {
+							existedModules = multipleConcat(existedModules, !JepRiaToolkitUtil.isEmpty(existedModules) ? SEPARATOR.concat(WHITE_SPACE) : "", module.getAttribute(MODULE_ID_ATTRIBUTE));
+						}
+					}
+					if (!JepRiaToolkitUtil.isEmpty(existedModules)){
+						boolean moreOneModule = existedModules.split(SEPARATOR).length > 1;
 						echoMessage(multipleConcat(ERROR_PREFIX,
-								"Application definition XML wouldn't modify! The module '", module.getAttribute(MODULE_ID_ATTRIBUTE), "' has already existed! Please specify correct value for the attribute '-D", MODULE_NAME_TASK_ATTRIBUTE, "'"));
+								"Application definition XML wouldn't modify! The module", moreOneModule ? "s" : "", " '", existedModules, "' ha", moreOneModule ? "ve" : "s"," already existed! Please specify correct value for the attribute '-D", MODULE_NAME_TASK_ATTRIBUTE, "'"));
 						return;
 					}
+					
+					echoMessage(multipleConcat("Modify ", normalizePath(fileName), "..."));
 					break;
 				}
 				case CREATE : 
@@ -166,7 +178,12 @@ public class ApplicationFormCreator extends Task {
 					}
 					else {
 						// Новая заготовка для пустого модуля, если такой параметр определен
-						application.setModules(new Modules(createBlankModule(moduleName, applicationName)));
+						List<String> modules = Arrays.asList(moduleName.split(multipleConcat(SEPARATOR, REGEXP_FOR_BLANK, "*")));
+						List<Module> newModules = new ArrayList<Module>(modules.size());
+						for (String modName : modules) {
+							newModules.add(createBlankModule(modName, applicationName));
+						}
+						application.setModules(new Modules(newModules));
 					}
 					
 					echoMessage(multipleConcat("Generate ", normalizePath(fileName), "..."));
@@ -180,20 +197,6 @@ public class ApplicationFormCreator extends Task {
 		}
 		catch(Exception e){
 			throw new BuildException(e);
-		}
-	}
-	
-	/**
-	 * Проставление атрибута isBuild, равным off, для модулей, отличных от добавляемого и его родительского
-	 * 
-	 * @param document 	файл структуры документа	
-	 */
-	private void initNotRebuildProperty(ApplicationStructureDocument document) {
-		for (String module : document.getAllModuleNodes()){
-			Element moduleElement = document.getModuleNodeById(module);
-			if (!module.equalsIgnoreCase(moduleName) && !module.equalsIgnoreCase(parentModuleName)){
-				moduleElement.setAttribute(MODULE_BUILD_ATTRIBUTE, OFF);
-			}
 		}
 	}
 

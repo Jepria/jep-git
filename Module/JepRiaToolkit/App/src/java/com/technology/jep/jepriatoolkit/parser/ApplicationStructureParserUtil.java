@@ -151,7 +151,8 @@ public class ApplicationStructureParserUtil {
 	public static Application getApplicationBySourceCode(String jepRiaVersion){
 		ResourceBundle resource = ApplicationDefinition.LAST.getResource();
 		if (!isEmptyOrNotInitializedParameter(jepRiaVersion)){
-			Pattern p = Pattern.compile("Tag/(\\d+)\\.(\\d+)\\.(\\d+)");
+//			Pattern p = Pattern.compile("Tag/(\\d+)\\.(\\d+)\\.(\\d+)");
+			Pattern p = Pattern.compile("(\\d+)\\.(\\d+)\\-SNAPSHOT");
 			Matcher m = p.matcher(jepRiaVersion);
 			if (m.find()){
 				resource = ApplicationDefinition.valueOf(multipleConcat("JEPRIA_", m.group(1))).getResource();
