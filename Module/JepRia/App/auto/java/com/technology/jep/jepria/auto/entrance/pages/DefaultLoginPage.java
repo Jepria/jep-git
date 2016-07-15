@@ -9,7 +9,7 @@ import org.openqa.selenium.support.FindBy;
 
 import com.technology.jep.jepria.auto.pages.PageManagerBase;
 import com.technology.jep.jepria.auto.pages.PlainPage;
-import com.technology.jep.jepria.client.AutomationConstant;
+import com.technology.jep.jepria.client.JepRiaAutomationConstant;
 
 public class DefaultLoginPage<P extends PageManagerBase> extends PlainPage<P> implements LoginPage<P> {
 
@@ -17,10 +17,10 @@ public class DefaultLoginPage<P extends PageManagerBase> extends PlainPage<P> im
         super(pages);
     }
 
-    @FindBy(id = AutomationConstant.JAVASSO_LOGIN_USERNAME_FIELD_ID)
+    @FindBy(id = JepRiaAutomationConstant.JAVASSO_LOGIN_USERNAME_FIELD_ID)
     private WebElement loginField;
 
-    @FindBy(id = AutomationConstant.JAVASSO_LOGIN_PASSWORD_FIELD_ID)
+    @FindBy(id = JepRiaAutomationConstant.JAVASSO_LOGIN_PASSWORD_FIELD_ID)
     private WebElement pswdField;
 
     @FindBy(id = "login.registration")

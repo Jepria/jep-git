@@ -1,6 +1,6 @@
 package com.technology.jep.jepria.client.widget.field;
 
-import static com.technology.jep.jepria.client.AutomationConstant.JEP_OPTION_VALUE_HTML_ATTR;
+import static com.technology.jep.jepria.client.JepRiaAutomationConstant.JEP_OPTION_VALUE_HTML_ATTR;
 import static com.technology.jep.jepria.client.JepRiaClientConstant.FIELD_DEFAULT_HEIGHT;
 import static com.technology.jep.jepria.client.JepRiaClientConstant.JepImages;
 import static com.technology.jep.jepria.shared.field.JepLikeEnum.FIRST;
@@ -55,7 +55,7 @@ import com.google.gwt.user.client.ui.SuggestOracle.Suggestion;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.UIObject;
 import com.google.gwt.user.client.ui.ValueBoxBase;
-import com.technology.jep.jepria.client.AutomationConstant;
+import com.technology.jep.jepria.client.JepRiaAutomationConstant;
 import com.technology.jep.jepria.client.util.JepClientUtil;
 import com.technology.jep.jepria.client.widget.field.multistate.event.AfterExpandEvent;
 import com.technology.jep.jepria.client.widget.field.multistate.event.AfterExpandEvent.AfterExpandHandler;
@@ -242,9 +242,9 @@ public class ComboBox<T extends JepOption> extends Composite
    * @param fieldIdAsWebEl ID JepComboBoxField'а, который берется за основу ID внутренних компонентов
    */
   public void setCompositeWebIds(String fieldIdAsWebEl) {
-    suggestBox.getElement().setId(fieldIdAsWebEl + AutomationConstant.JEP_FIELD_INPUT_POSTFIX);
-    selectImage.getElement().setId(fieldIdAsWebEl + AutomationConstant.JEP_COMBO_BOX_FIELD_DROPDOWN_BTN_POSTFIX);
-    suggestionDisplay.setPopupPanelId(fieldIdAsWebEl + AutomationConstant.JEP_COMBO_BOX_FIELD_POPUP_POSTFIX);
+    suggestBox.getElement().setId(fieldIdAsWebEl + JepRiaAutomationConstant.JEP_FIELD_INPUT_POSTFIX);
+    selectImage.getElement().setId(fieldIdAsWebEl + JepRiaAutomationConstant.JEP_COMBO_BOX_FIELD_DROPDOWN_BTN_POSTFIX);
+    suggestionDisplay.setPopupPanelId(fieldIdAsWebEl + JepRiaAutomationConstant.JEP_COMBO_BOX_FIELD_POPUP_POSTFIX);
   }
   
   /**
@@ -1047,7 +1047,7 @@ public class ComboBox<T extends JepOption> extends Composite
       public SuggestionMenuItem(Suggestion suggestion, boolean asHTML) {
         super(suggestion.getDisplayString(), asHTML, (ScheduledCommand) null);
         if (fieldIdAsWebEl != null) {
-          getElement().setId(fieldIdAsWebEl + AutomationConstant.JEP_COMBO_BOX_FIELD_MENU_ITEM_INFIX + suggestion.getDisplayString());
+          getElement().setId(fieldIdAsWebEl + JepRiaAutomationConstant.JEP_COMBO_BOX_FIELD_MENU_ITEM_INFIX + suggestion.getDisplayString());
         }
         getElement().setAttribute(JEP_OPTION_VALUE_HTML_ATTR, suggestion.getDisplayString());
         

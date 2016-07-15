@@ -1,38 +1,7 @@
 package com.technology.jep.jepria.auto;
 
 import static com.technology.jep.jepria.auto.util.WebDriverFactory.getWait;
-import static com.technology.jep.jepria.client.AutomationConstant.ALERT_MESSAGEBOX_ID;
-import static com.technology.jep.jepria.client.AutomationConstant.CONFIRM_MESSAGEBOX_ID;
-import static com.technology.jep.jepria.client.AutomationConstant.CONFIRM_MESSAGE_BOX_YES_BUTTON_ID;
-import static com.technology.jep.jepria.client.AutomationConstant.ERROR_MESSAGEBOX_ID;
-import static com.technology.jep.jepria.client.AutomationConstant.GRID_BODY_POSTFIX;
-import static com.technology.jep.jepria.client.AutomationConstant.GRID_HEADER_POSTFIX;
-import static com.technology.jep.jepria.client.AutomationConstant.JEP_CARD_TYPE_HTML_ATTR;
-import static com.technology.jep.jepria.client.AutomationConstant.JEP_CARD_TYPE_VALUE_EDTB;
-import static com.technology.jep.jepria.client.AutomationConstant.JEP_CARD_TYPE_VALUE_VIEW;
-import static com.technology.jep.jepria.client.AutomationConstant.JEP_COMBO_BOX_FIELD_DROPDOWN_BTN_POSTFIX;
-import static com.technology.jep.jepria.client.AutomationConstant.JEP_COMBO_BOX_FIELD_MENU_ITEM_INFIX;
-import static com.technology.jep.jepria.client.AutomationConstant.JEP_COMBO_BOX_FIELD_POPUP_POSTFIX;
-import static com.technology.jep.jepria.client.AutomationConstant.JEP_DUAL_LIST_FIELD_LEFTPART_POSTFIX;
-import static com.technology.jep.jepria.client.AutomationConstant.JEP_DUAL_LIST_FIELD_MENU_ITEM_INFIX;
-import static com.technology.jep.jepria.client.AutomationConstant.JEP_DUAL_LIST_FIELD_MOVEALLLEFT_BTN_POSTFIX;
-import static com.technology.jep.jepria.client.AutomationConstant.JEP_DUAL_LIST_FIELD_MOVERIGHT_BTN_POSTFIX;
-import static com.technology.jep.jepria.client.AutomationConstant.JEP_FIELD_ALLOW_BLANK_POSTFIX;
-import static com.technology.jep.jepria.client.AutomationConstant.JEP_FIELD_INPUT_POSTFIX;
-import static com.technology.jep.jepria.client.AutomationConstant.JEP_LIST_FIELD_CHECKALL_POSTFIX;
-import static com.technology.jep.jepria.client.AutomationConstant.JEP_LIST_FIELD_ITEM_CHECKBOX_INFIX;
-import static com.technology.jep.jepria.client.AutomationConstant.JEP_OPTION_VALUE_HTML_ATTR;
-import static com.technology.jep.jepria.client.AutomationConstant.JEP_TREENODE_CHECKABLE_HTML_ATTR;
-import static com.technology.jep.jepria.client.AutomationConstant.JEP_TREENODE_INFIX;
-import static com.technology.jep.jepria.client.AutomationConstant.JEP_TREENODE_ISLEAF_HTML_ATTR;
-import static com.technology.jep.jepria.client.AutomationConstant.TOOLBAR_ADD_BUTTON_ID;
-import static com.technology.jep.jepria.client.AutomationConstant.TOOLBAR_DELETE_BUTTON_ID;
-import static com.technology.jep.jepria.client.AutomationConstant.TOOLBAR_EDIT_BUTTON_ID;
-import static com.technology.jep.jepria.client.AutomationConstant.TOOLBAR_FIND_BUTTON_ID;
-import static com.technology.jep.jepria.client.AutomationConstant.TOOLBAR_LIST_BUTTON_ID;
-import static com.technology.jep.jepria.client.AutomationConstant.TOOLBAR_SAVE_BUTTON_ID;
-import static com.technology.jep.jepria.client.AutomationConstant.TOOLBAR_SEARCH_BUTTON_ID;
-import static com.technology.jep.jepria.client.AutomationConstant.TOOLBAR_VIEW_DETAILS_BUTTON_ID;
+import static com.technology.jep.jepria.client.JepRiaAutomationConstant.*;
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.EDIT;
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.SEARCH;
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.SELECTED;
@@ -83,7 +52,6 @@ public class JepRiaModuleAutoImpl<A extends EntranceAppAuto, P extends JepRiaApp
 
   private static final long WEB_DRIVER_TIMEOUT = 5;
   
-  @SuppressWarnings("unused")
   private static Logger logger = Logger.getLogger(JepRiaModuleAutoImpl.class.getName());
   private WorkstateEnum currentWorkstate;
   private StatusBar statusBar;
@@ -276,16 +244,12 @@ public class JepRiaModuleAutoImpl<A extends EntranceAppAuto, P extends JepRiaApp
   public void selectComboBoxMenuItem(String comboBoxFieldId, String menuItem) {
     pages.getApplicationPage().ensurePageLoaded();
     
-    // FIXME А что если опции комбо-бокса загружаются не лениво, а не лениво? То есть возможно, тестирование комбо-бокса начнется
-    // до того (например, если оно стоит первым в сценарии), как успеют загрузиться опции... Ведь в этом методе завязка идет на то,
-    // что опции грузятся лениво.
     selectComboBoxMenuItem(comboBoxFieldId, menuItem, false, menuItem.length());
   }
   
   @Override
   public void selectComboBoxMenuItemWithCharByCharReloadingOptions(String comboBoxFieldId, String menuItem, int minInputLength) {
     pages.getApplicationPage().ensurePageLoaded();
-    
     // 1 is the minimal possible value
     selectComboBoxMenuItem(comboBoxFieldId, menuItem, true, Math.max(1, minInputLength));
   }
@@ -781,7 +745,7 @@ public class JepRiaModuleAutoImpl<A extends EntranceAppAuto, P extends JepRiaApp
             }
           }
           
-          final boolean isTargetCheckable = ("true".equals(elementToCheck.getAttribute(JEP_TREENODE_CHECKABLE_HTML_ATTR)));
+          final boolean isTargetCheckable = !(JEP_TREENODE_CHECKEDSTATE_VALUE_UNCHECKABLE.equals(elementToCheck.getAttribute(JEP_TREENODE_CHECKEDSTATE_HTML_ATTR)));
           
           if (!isTargetCheckable) {
             /*Служебная строка для логирования*/String h="";for(int j=0;j<=i;j++)h+="/"+partsOriginal.get(j);

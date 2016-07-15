@@ -4,13 +4,13 @@ import com.technology.jep.jepria.auto.entrance.pages.JepRiaApplicationPageManage
 
 public class JepRiaShowcasePageManager extends JepRiaApplicationPageManager {
 
-    public JRSCCustomerPage<JepRiaShowcasePageManager> customPage;
-    public JRSCGoodsPage<JepRiaShowcasePageManager> goodsPage;
-    public JRSCFeaturePage<JepRiaShowcasePageManager> featurePage;
+    public CustomerPage<JepRiaShowcasePageManager> customPage;
+    public GoodsPage<JepRiaShowcasePageManager> goodsPage;
+    public FeaturePage<JepRiaShowcasePageManager> featurePage;
 
     public JepRiaShowcasePageManager() {
-      customPage = initElements(JRSCCustomerPage.getInstance(this));
-      goodsPage = initElements(JRSCGoodsPage.getInstance(this));
-      featurePage = initElements(JRSCFeaturePage.getInstance(this));
+      customPage = initElements(CustomerPage.getInstance(this));
+      goodsPage = initElements(GoodsPage.getInstance(this));
+      featurePage = initElements(FeaturePage.getInstance(this));
     }
 }

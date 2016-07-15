@@ -14,9 +14,9 @@
 
     <groups>
       <run>
-        <!--<include name="list" />-->
+        <!--<include name="list" />
+        <include name="fieldStates" />-->
         <include name="setAndGetFields" />
-        <!--<include name="fieldStates" />-->
       </run>
     </groups>
     

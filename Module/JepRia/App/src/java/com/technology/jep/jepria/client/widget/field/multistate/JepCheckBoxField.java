@@ -12,7 +12,7 @@ import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.HTML;
-import com.technology.jep.jepria.client.AutomationConstant;
+import com.technology.jep.jepria.client.JepRiaAutomationConstant;
 import com.technology.jep.jepria.client.widget.event.JepEvent;
 import com.technology.jep.jepria.client.widget.event.JepEventType;
 import com.technology.jep.jepria.client.widget.event.JepListener;
@@ -70,7 +70,7 @@ public class JepCheckBoxField extends JepMultiStateField<CheckBox, HTML> {
   
   @Override
   protected void setWebIds() {
-    inputCheck.setId(fieldIdAsWebEl + AutomationConstant.JEP_FIELD_INPUT_POSTFIX);
+    inputCheck.setId(fieldIdAsWebEl + JepRiaAutomationConstant.JEP_FIELD_INPUT_POSTFIX);
   }
   
   /**

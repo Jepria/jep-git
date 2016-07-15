@@ -14,7 +14,7 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 import com.technology.jep.jepria.auto.manager.JepRiaAuto;
 import com.technology.jep.jepria.auto.pages.PageManagerBase;
 import com.technology.jep.jepria.auto.HasText;
-import com.technology.jep.jepria.client.AutomationConstant;
+import com.technology.jep.jepria.client.JepRiaAutomationConstant;
 
 public abstract class AutoBaseImpl<A extends JepRiaAuto, P extends PageManagerBase> implements AutoBase {
   private static Logger logger = Logger.getLogger(AutoBaseImpl.class.getName());
@@ -36,7 +36,7 @@ public abstract class AutoBaseImpl<A extends JepRiaAuto, P extends PageManagerBa
   }
 
   public void waitTextToBeChanged(HasText hasText, String currentWorkstateDisplayText) {
-        getWait().until(textToBeChangedInElementLocated(By.id(AutomationConstant.STATUSBAR_PANEL_ID), currentWorkstateDisplayText));        
+        getWait().until(textToBeChangedInElementLocated(By.id(JepRiaAutomationConstant.STATUSBAR_PANEL_ID), currentWorkstateDisplayText));        
   }
   
   public static ExpectedCondition<Boolean> textToBeChangedInElementLocated(final By locator, final String currentText) {

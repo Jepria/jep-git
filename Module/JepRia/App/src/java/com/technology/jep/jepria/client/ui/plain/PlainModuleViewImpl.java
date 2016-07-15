@@ -1,7 +1,7 @@
 package com.technology.jep.jepria.client.ui.plain;
 
 import com.google.gwt.user.client.ui.Widget;
-import com.technology.jep.jepria.client.AutomationConstant;
+import com.technology.jep.jepria.client.JepRiaAutomationConstant;
 import com.technology.jep.jepria.client.ui.JepPresenter;
 
 public class PlainModuleViewImpl implements PlainModuleView {
@@ -19,7 +19,7 @@ public class PlainModuleViewImpl implements PlainModuleView {
   
   public void setWidget(Widget widget) {
     this.widget = widget;
-    this.widget.getElement().setId(AutomationConstant.MODULE_PANEL_ID);
+    this.widget.getElement().setId(JepRiaAutomationConstant.MODULE_PANEL_ID);
   }
 
   public Widget asWidget() {

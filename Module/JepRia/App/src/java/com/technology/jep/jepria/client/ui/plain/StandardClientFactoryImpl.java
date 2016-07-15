@@ -4,7 +4,6 @@ import com.google.gwt.activity.shared.ActivityManager;
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.gwt.user.client.ui.IsWidget;
-import com.technology.jep.jepria.client.AutomationConstant;
 import com.technology.jep.jepria.client.ui.JepPresenter;
 import com.technology.jep.jepria.client.ui.eventbus.plain.PlainEventBus;
 import com.technology.jep.jepria.client.ui.form.detail.DetailFormActivityMapper;

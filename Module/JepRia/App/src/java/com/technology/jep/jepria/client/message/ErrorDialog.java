@@ -1,7 +1,7 @@
 package com.technology.jep.jepria.client.message;
 
-import static com.technology.jep.jepria.client.AutomationConstant.ERROR_MESSAGEBOX_ID;
-import static com.technology.jep.jepria.client.AutomationConstant.ERROR_MESSAGE_BOX_OK_BUTTON_ID;
+import static com.technology.jep.jepria.client.JepRiaAutomationConstant.ERROR_MESSAGEBOX_ID;
+import static com.technology.jep.jepria.client.JepRiaAutomationConstant.ERROR_MESSAGE_BOX_OK_BUTTON_ID;
 import static com.technology.jep.jepria.client.JepRiaClientConstant.JepImages;
 import static com.technology.jep.jepria.client.JepRiaClientConstant.JepTexts;
 import static com.technology.jep.jepria.client.JepRiaClientConstant.MAIN_FONT_STYLE;

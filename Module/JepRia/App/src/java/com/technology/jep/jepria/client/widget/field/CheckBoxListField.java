@@ -1,7 +1,7 @@
 package com.technology.jep.jepria.client.widget.field;
 
-import static com.technology.jep.jepria.client.AutomationConstant.JEP_LIST_FIELD_ITEM_CHECKBOX_INFIX;
-import static com.technology.jep.jepria.client.AutomationConstant.JEP_OPTION_VALUE_HTML_ATTR;
+import static com.technology.jep.jepria.client.JepRiaAutomationConstant.JEP_LIST_FIELD_ITEM_CHECKBOX_INFIX;
+import static com.technology.jep.jepria.client.JepRiaAutomationConstant.JEP_OPTION_VALUE_HTML_ATTR;
 import static com.technology.jep.jepria.client.JepRiaClientConstant.JepTexts;
 import static com.technology.jep.jepria.client.JepRiaClientConstant.MAIN_FONT_STYLE;
 
@@ -35,7 +35,7 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.MultiSelectionModel;
-import com.technology.jep.jepria.client.AutomationConstant;
+import com.technology.jep.jepria.client.JepRiaAutomationConstant;
 import com.technology.jep.jepria.client.util.JepClientUtil;
 import com.technology.jep.jepria.shared.field.option.JepOption;
  
@@ -474,7 +474,7 @@ public class CheckBoxListField<T extends JepOption> extends Composite implements
    * @param fieldIdAsWebEl ID JepListField'а, который берется за основу ID внутренних компонентов
    */
   public void setCompositeWebIds(String fieldIdAsWebEl) {
-    table.getElement().setId(fieldIdAsWebEl + AutomationConstant.JEP_FIELD_INPUT_POSTFIX);
-    selectAllCheckBox.getElement().setId(fieldIdAsWebEl + AutomationConstant.JEP_LIST_FIELD_CHECKALL_POSTFIX);
+    table.getElement().setId(fieldIdAsWebEl + JepRiaAutomationConstant.JEP_FIELD_INPUT_POSTFIX);
+    selectAllCheckBox.getElement().setId(fieldIdAsWebEl + JepRiaAutomationConstant.JEP_LIST_FIELD_CHECKALL_POSTFIX);
   }
 }

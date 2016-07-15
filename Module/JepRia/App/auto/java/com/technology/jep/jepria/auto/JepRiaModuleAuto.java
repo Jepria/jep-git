@@ -206,7 +206,7 @@ public interface JepRiaModuleAuto extends EntranceAuto {
   String[] getListFieldValues(String jepListFieldId);
   
   /**
-   * Выбор элементов JepTreeField по заданным путям.
+   * Выбор элементов JepTreeField по заданным путям, без предварительной очистки уже отмеченных узлов.
    * @param treeFieldId id JepTree-поля
    * @param itemPaths массив непустых путей опций, которые следует отметить в дереве.
    * В случае если в дереве отсутствует хотя бы одна из требуемых опций либо промежуточный узел в пути,

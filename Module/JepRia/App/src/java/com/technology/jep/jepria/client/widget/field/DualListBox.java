@@ -1,6 +1,6 @@
 package com.technology.jep.jepria.client.widget.field;
 
-import static com.technology.jep.jepria.client.AutomationConstant.JEP_OPTION_VALUE_HTML_ATTR;
+import static com.technology.jep.jepria.client.JepRiaAutomationConstant.JEP_OPTION_VALUE_HTML_ATTR;
 import static com.technology.jep.jepria.client.JepRiaClientConstant.FIELD_DEFAULT_HEIGHT;
 import static com.technology.jep.jepria.client.JepRiaClientConstant.FIELD_DEFAULT_WIDTH;
 import static com.technology.jep.jepria.client.JepRiaClientConstant.JepImages;
@@ -33,7 +33,7 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
-import com.technology.jep.jepria.client.AutomationConstant;
+import com.technology.jep.jepria.client.JepRiaAutomationConstant;
 import com.technology.jep.jepria.client.widget.button.JepButton;
 import com.technology.jep.jepria.shared.field.option.JepOption;
 
@@ -208,12 +208,12 @@ public class DualListBox extends Composite implements HasWidgets, HasValueChange
     // Правой части присваивается INPUT_POSTFIX, а не RIGHTPART_POSTFIX потому что:
     // 1) удобнее из общего INPUT брать значение поля
     // 2) enability Jep-полей определяется в общем случае по INPUT
-    right.getElement().setId(fieldIdAsWebEl + AutomationConstant.JEP_FIELD_INPUT_POSTFIX);
-    left.getElement().setId(fieldIdAsWebEl + AutomationConstant.JEP_DUAL_LIST_FIELD_LEFTPART_POSTFIX);
-    moveRight.getElement().setId(fieldIdAsWebEl + AutomationConstant.JEP_DUAL_LIST_FIELD_MOVERIGHT_BTN_POSTFIX);
-    moveLeft.getElement().setId(fieldIdAsWebEl + AutomationConstant.JEP_DUAL_LIST_FIELD_MOVELEFT_BTN_POSTFIX);
-    moveAllRight.getElement().setId(fieldIdAsWebEl + AutomationConstant.JEP_DUAL_LIST_FIELD_MOVEALLRIGHT_BTN_POSTFIX);
-    moveAllLeft.getElement().setId(fieldIdAsWebEl + AutomationConstant.JEP_DUAL_LIST_FIELD_MOVEALLLEFT_BTN_POSTFIX);
+    right.getElement().setId(fieldIdAsWebEl + JepRiaAutomationConstant.JEP_FIELD_INPUT_POSTFIX);
+    left.getElement().setId(fieldIdAsWebEl + JepRiaAutomationConstant.JEP_DUAL_LIST_FIELD_LEFTPART_POSTFIX);
+    moveRight.getElement().setId(fieldIdAsWebEl + JepRiaAutomationConstant.JEP_DUAL_LIST_FIELD_MOVERIGHT_BTN_POSTFIX);
+    moveLeft.getElement().setId(fieldIdAsWebEl + JepRiaAutomationConstant.JEP_DUAL_LIST_FIELD_MOVELEFT_BTN_POSTFIX);
+    moveAllRight.getElement().setId(fieldIdAsWebEl + JepRiaAutomationConstant.JEP_DUAL_LIST_FIELD_MOVEALLRIGHT_BTN_POSTFIX);
+    moveAllLeft.getElement().setId(fieldIdAsWebEl + JepRiaAutomationConstant.JEP_DUAL_LIST_FIELD_MOVEALLLEFT_BTN_POSTFIX);
   }
 
   /**
@@ -407,7 +407,7 @@ public class DualListBox extends Composite implements HasWidgets, HasValueChange
       if (value.equals(optionElement.getValue())) {
         optionElement.setTitle(getItemTitle(item));
         if (fieldIdAsWebEl != null) {
-          optionElement.setId(fieldIdAsWebEl + AutomationConstant.JEP_DUAL_LIST_FIELD_MENU_ITEM_INFIX + name);
+          optionElement.setId(fieldIdAsWebEl + JepRiaAutomationConstant.JEP_DUAL_LIST_FIELD_MENU_ITEM_INFIX + name);
         }
         optionElement.setAttribute(JEP_OPTION_VALUE_HTML_ATTR, name);
         return;

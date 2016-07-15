@@ -1,7 +1,7 @@
 package com.technology.jep.jepria.client.widget.list;
 
-import static com.technology.jep.jepria.client.AutomationConstant.GRID_BODY_POSTFIX;
-import static com.technology.jep.jepria.client.AutomationConstant.GRID_HEADER_POSTFIX;
+import static com.technology.jep.jepria.client.JepRiaAutomationConstant.GRID_BODY_POSTFIX;
+import static com.technology.jep.jepria.client.JepRiaAutomationConstant.GRID_HEADER_POSTFIX;
 import static com.technology.jep.jepria.client.JepRiaClientConstant.DND_DATA_PROPERTY;
 import static com.technology.jep.jepria.client.JepRiaClientConstant.JepTexts;
 import static com.technology.jep.jepria.shared.load.PagingConfig.DEFAULT_PAGE_SIZE;

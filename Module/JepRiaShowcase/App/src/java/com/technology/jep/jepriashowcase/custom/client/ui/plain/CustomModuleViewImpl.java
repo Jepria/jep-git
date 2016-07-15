@@ -1,11 +1,11 @@
 package com.technology.jep.jepriashowcase.custom.client.ui.plain;
 
 import static com.technology.jep.jepriashowcase.custom.shared.ui.JepRiaShowcaseCustomPageElements.*;
-import static com.technology.jep.jepria.client.AutomationConstant.ENTRANCE_PANEL_LOGOUT_BUTTON_ID;
-import static com.technology.jep.jepria.client.AutomationConstant.LOGGED_IN_USER_ID;
-import static com.technology.jep.jepria.client.AutomationConstant.LOGIN_BUTTON_ID;
-import static com.technology.jep.jepria.client.AutomationConstant.LOGIN_PASSWORD_FIELD_ID;
-import static com.technology.jep.jepria.client.AutomationConstant.LOGIN_USERNAME_FIELD_ID;
+import static com.technology.jep.jepria.client.JepRiaAutomationConstant.ENTRANCE_PANEL_LOGOUT_BUTTON_ID;
+import static com.technology.jep.jepria.client.JepRiaAutomationConstant.LOGGED_IN_USER_ID;
+import static com.technology.jep.jepria.client.JepRiaAutomationConstant.LOGIN_BUTTON_ID;
+import static com.technology.jep.jepria.client.JepRiaAutomationConstant.LOGIN_PASSWORD_FIELD_ID;
+import static com.technology.jep.jepria.client.JepRiaAutomationConstant.LOGIN_USERNAME_FIELD_ID;
 import static com.technology.jep.jepriashowcase.custom.client.CustomClientConstant.customText;
 
 import com.google.gwt.dom.client.Style.FontWeight;
@@ -30,7 +30,7 @@ import com.technology.jep.jepria.client.ui.plain.PlainModuleViewImpl;
 import com.technology.jep.jepria.client.util.JepClientUtil;
 import com.technology.jep.jepria.client.widget.field.multistate.JepTextField;
 import com.technology.jep.jepria.shared.util.JepRiaUtil;
-import com.technology.jep.jepriashowcase.custom.client.JRSCCustomAutomationConstant;
+import com.technology.jep.jepriashowcase.custom.client.CustomAutomationConstant;
 import com.technology.jep.jepriashowcase.custom.client.ui.auto.IdentifiedButton;
 
 public class CustomModuleViewImpl extends PlainModuleViewImpl implements CustomModuleView {
@@ -61,25 +61,25 @@ public class CustomModuleViewImpl extends PlainModuleViewImpl implements CustomM
     
     fullScreenButton = new IdentifiedButton(
         customText.custom_fullScreenButton(),
-        JRSCCustomAutomationConstant.JRSC_MAINPAGE_FULLSCREEN_MODULES_BUTTON_ID);
+        CustomAutomationConstant.CUSTOM_MAINPAGE_FULLSCREEN_MODULES_BUTTON_ID);
     
     add(fullScreenButton, FULL_SCREEN_ELEMENT);
     
     errorButton = new IdentifiedButton(
         customText.custom_errorButton(),
-        JRSCCustomAutomationConstant.JRSC_MAINPAGE_ERROR_DIALOG_BUTTON_ID);
+        CustomAutomationConstant.CUSTOM_MAINPAGE_ERROR_DIALOG_BUTTON_ID);
     
     add(errorButton, TOP_ELEMENT);
     
     zIndexDialog = new IdentifiedButton(
         customText.custom_zindexDialog_button(),
-        JRSCCustomAutomationConstant.JRSC_Z_INDICES_DIALOG_BUTTON_ID);
+        CustomAutomationConstant.CUSTOM_Z_INDICES_DIALOG_BUTTON_ID);
     
     add(zIndexDialog, TOP_ELEMENT);
     
     embeddedButton = new IdentifiedButton(
         customText.custom_embeddedButton(),
-        JRSCCustomAutomationConstant.JRSC_MAINPAGE_EMBEDDED_MODULES_BUTTON_ID);
+        CustomAutomationConstant.CUSTOM_MAINPAGE_EMBEDDED_MODULES_BUTTON_ID);
     
     add(embeddedButton, EMBEDDED_ELEMENT);
     
@@ -88,7 +88,7 @@ public class CustomModuleViewImpl extends PlainModuleViewImpl implements CustomM
     
     currentUserButton = new IdentifiedButton(
         customText.custom_currentUser(),
-        JRSCCustomAutomationConstant.JRSC_MAINPAGE_CURRENT_USER_BUTTON_ID);
+        CustomAutomationConstant.CUSTOM_MAINPAGE_CURRENT_USER_BUTTON_ID);
     
     
     
@@ -96,25 +96,25 @@ public class CustomModuleViewImpl extends PlainModuleViewImpl implements CustomM
     
     transactionButton = new IdentifiedButton(
         customText.custom_transactionButton(),
-        JRSCCustomAutomationConstant.JRSC_TRANSACTION_BUTTON_ID);
+        CustomAutomationConstant.CUSTOM_TRANSACTION_BUTTON_ID);
     
     add(transactionButton, CURRENT_USER_ELEMENT);
     
     urlTextField = new JepTextField(
-        JRSCCustomAutomationConstant.JRSC_URL_TEXTFIELD_ID,
+        CustomAutomationConstant.CUSTOM_URL_TEXTFIELD_ID,
         customText.custom_urlLabel());
     
     add(urlTextField, CURRENT_USER_ELEMENT);
     
     goToUrlButton = new IdentifiedButton(
         customText.custom_goToUrlButton(),
-        JRSCCustomAutomationConstant.JRSC_GOTOURL_BUTTON_ID);
+        CustomAutomationConstant.CUSTOM_GOTOURL_BUTTON_ID);
     
     add(goToUrlButton, CURRENT_USER_ELEMENT);
 
     searchButton = new IdentifiedButton(
         customText.custom_searchButton(),
-        JRSCCustomAutomationConstant.JRSC_MAINPAGE_SEARCH_FORM_BUTTON_ID);
+        CustomAutomationConstant.CUSTOM_MAINPAGE_SEARCH_FORM_BUTTON_ID);
     
     add(searchButton, SEARCH_ELEMENT);
   }

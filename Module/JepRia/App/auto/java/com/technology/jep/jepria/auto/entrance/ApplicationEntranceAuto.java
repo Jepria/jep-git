@@ -5,7 +5,7 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 
 import com.technology.jep.jepria.auto.entrance.pages.ApplicationEntrancePageManager;
-import com.technology.jep.jepria.client.AutomationConstant;
+import com.technology.jep.jepria.client.JepRiaAutomationConstant;
 import com.technology.jep.jepria.shared.exceptions.NotImplementedYetException;
 
 public class ApplicationEntranceAuto<A extends EntranceAppAuto, P extends ApplicationEntrancePageManager>
@@ -65,7 +65,7 @@ public class ApplicationEntranceAuto<A extends EntranceAppAuto, P extends Applic
     default:
       // Проверка первого входа на уже залогиненную страницу
       try {
-        WebElement usernameField = applicationManager.getWebDriver().findElement(By.id(AutomationConstant.LOGGED_IN_USER_ID));
+        WebElement usernameField = applicationManager.getWebDriver().findElement(By.id(JepRiaAutomationConstant.LOGGED_IN_USER_ID));
         result = usernameField.isDisplayed(); 
       } catch (Exception ex) {
         result = false;

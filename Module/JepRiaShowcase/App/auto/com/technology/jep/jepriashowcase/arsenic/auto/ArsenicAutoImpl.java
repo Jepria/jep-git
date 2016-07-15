@@ -170,8 +170,18 @@ public class ArsenicAutoImpl<A extends JepRiaShowcaseAuto, P extends JepRiaShowc
   }
   
   @Override
+  public void setJepTreeField(String[] value) {
+    selectTreeItems(ARSENIC_JEP_TREE_FIELD_ID, value);
+  }
+  
+  @Override
   public void setJepTreeField_nodes(String[] value) {
     selectTreeItems(ARSENIC_JEP_TREE_FIELD_NODES_ID, value);
+  }
+  
+  @Override
+  public void setJepTreeField_casc(String[] value) {
+    selectTreeItems(ARSENIC_JEP_TREE_FIELD_CASC_ID, value);
   }
 
   
@@ -259,8 +269,18 @@ public class ArsenicAutoImpl<A extends JepRiaShowcaseAuto, P extends JepRiaShowc
   }
   
   @Override
+  public String[] getJepTreeField() {
+    return getTreeFieldCheckedNodes(ARSENIC_JEP_TREE_FIELD_ID);
+  }
+  
+  @Override
   public String[] getJepTreeField_nodes() {
     return getTreeFieldCheckedNodes(ARSENIC_JEP_TREE_FIELD_NODES_ID);
+  }
+  
+  @Override
+  public String[] getJepTreeField_casc() {
+    return getTreeFieldCheckedNodes(ARSENIC_JEP_TREE_FIELD_CASC_ID);
   }
 
   

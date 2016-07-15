@@ -30,7 +30,7 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.LayoutPanel;
 import com.google.gwt.user.client.ui.PushButton;
 import com.google.gwt.user.client.ui.Widget;
-import com.technology.jep.jepria.client.AutomationConstant;
+import com.technology.jep.jepria.client.JepRiaAutomationConstant;
 import com.technology.jep.jepria.client.util.JepClientUtil;
 import com.technology.jep.jepria.client.widget.container.JepTabLayoutPanel;
 import com.technology.jep.jepria.client.widget.event.JepEvent;
@@ -46,7 +46,7 @@ public class MainTabPanel extends HeaderPanel {
   private final static Unit BAR_UNIT = Unit.PX;
   private Map<String, Label> mapOfModule = new HashMap<String, Label>();
   private FlowPanel tabBar;
-  private JepTabLayoutPanel tabs = new JepTabLayoutPanel(AutomationConstant.MODULE_TAB_PANEL_ID, BAR_HEIGHT, BAR_UNIT);
+  private JepTabLayoutPanel tabs = new JepTabLayoutPanel(JepRiaAutomationConstant.MODULE_TAB_PANEL_ID, BAR_HEIGHT, BAR_UNIT);
   private int currentSelectedIndex;
   
   /**
@@ -77,12 +77,12 @@ public class MainTabPanel extends HeaderPanel {
     
     
     HorizontalPanel entrancePanel = new HorizontalPanel();
-    entrancePanel.getElement().setId(AutomationConstant.ENTRANCE_PANEL_ID); // TODO Передавать id в конструкторе (нужен новый класс)
+    entrancePanel.getElement().setId(JepRiaAutomationConstant.ENTRANCE_PANEL_ID); // TODO Передавать id в конструкторе (нужен новый класс)
     
     entrancePanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
     
     userNameLabel = new Label();
-    userNameLabel.getElement().setId(AutomationConstant.LOGGED_IN_USER_ID); // TODO Передавать id в конструкторе (нужен новый класс)
+    userNameLabel.getElement().setId(JepRiaAutomationConstant.LOGGED_IN_USER_ID); // TODO Передавать id в конструкторе (нужен новый класс)
     
     userNameLabel.setHeight(BAR_HEIGHT + BAR_UNIT.getType());
     userNameLabel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
@@ -99,7 +99,7 @@ public class MainTabPanel extends HeaderPanel {
     entrancePanel.add(splitter);
     
     PushButton exitButton = new PushButton(new Image(JepImages.exit()));
-    exitButton.getElement().setId(AutomationConstant.ENTRANCE_PANEL_LOGOUT_BUTTON_ID); // TODO Передавать id в конструкторе (нужен новый класс)
+    exitButton.getElement().setId(JepRiaAutomationConstant.ENTRANCE_PANEL_LOGOUT_BUTTON_ID); // TODO Передавать id в конструкторе (нужен новый класс)
     
     exitButton.addClickHandler(new ClickHandler() {
       public void onClick(ClickEvent event) {
