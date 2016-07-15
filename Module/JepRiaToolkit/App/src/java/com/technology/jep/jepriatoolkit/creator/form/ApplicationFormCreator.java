@@ -106,9 +106,7 @@ public class ApplicationFormCreator extends Task {
 							}
 						}
 						echoMessage(multipleConcat("Modify ", normalizePath(fileName), "..."));
-						
-						initNotRebuildProperty(document);
-						
+												
 						Element moduleElement = JepRiaToolkitUtil.convertModuleToXml(moduleName, dom.getDocumentElement().getAttribute(JepRiaToolkitConstant.APPLICATION_NAME_ATTRIBUTE));
 						Element parentNode = document.getElementByTagName(JepRiaToolkitConstant.MODULES_TAG_NAME);
 						if (parentModule != null){
@@ -180,20 +178,6 @@ public class ApplicationFormCreator extends Task {
 		}
 		catch(Exception e){
 			throw new BuildException(e);
-		}
-	}
-	
-	/**
-	 * Проставление атрибута isBuild, равным off, для модулей, отличных от добавляемого и его родительского
-	 * 
-	 * @param document 	файл структуры документа	
-	 */
-	private void initNotRebuildProperty(ApplicationStructureDocument document) {
-		for (String module : document.getAllModuleNodes()){
-			Element moduleElement = document.getModuleNodeById(module);
-			if (!module.equalsIgnoreCase(moduleName) && !module.equalsIgnoreCase(parentModuleName)){
-				moduleElement.setAttribute(MODULE_BUILD_ATTRIBUTE, OFF);
-			}
 		}
 	}
 
