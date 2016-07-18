@@ -13,7 +13,11 @@ import org.openqa.selenium.WebElement;
  */
 public interface TreeNodeFilter {
   /**
-   * Метод, проверяющий, нужно ли данный узел дерева помещать в результирующий список. 
+   * Метод, проверяющий, нужно ли данный узел дерева помещать в результирующий список.
+   * Например, если нужно получить только развернутые узлы в дереве:
+   * <br><br><code><pre>
+   * return "true".equals(treeNode.getAttribute("aria-expanded"));}
+   * <pre/></code>
    * @param treeNode проверяемый узел дерева
    */
   boolean putToResult(WebElement treeNode);
@@ -21,6 +25,10 @@ public interface TreeNodeFilter {
   /**
    * Метод, проверяющий, нужно ли рекурсивно обходить детей данного узла, 
    * либо остановить обход вглубь на данном узле.
+   * Например, если нужно получить только узлы 1-4 уровней в дереве:
+   * <br><br><code><pre>
+   * return "1|2|3".contains(treeNode.getAttribute("aria-level"));
+   * <pre/></code><br>
    * @param treeNode проверяемый узел
    */
   boolean traverseDescendants(WebElement treeNode);
