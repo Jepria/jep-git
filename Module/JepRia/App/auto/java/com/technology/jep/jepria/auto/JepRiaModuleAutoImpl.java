@@ -774,12 +774,6 @@ public class JepRiaModuleAutoImpl<A extends EntranceAppAuto, P extends JepRiaApp
     return ret.toArray(new String[ret.size()]);
   }
   
-  @Override
-  public String[] getTreeFieldExpandedNodes(String jepTreeFieldId) {
-    // TODO Auto-generated method stub
-    return null;
-  }
-  
   /**
    * Рекурсивно обходит дерево, составляя список путей до отмеченных узлов.
    * @param treeItem узел, с которого начинается обход

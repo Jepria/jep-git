@@ -205,6 +205,21 @@ public class ArsenicAutoTest extends JepAutoTest<ArsenicAuto> {
   
   @DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/arsenic/auto/field.jepTreeField.data")
   @Test(groups="setAndGetFields", dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
+  public void setAndGetJepTreeField(String...values) {
+    setWorkstate(SEARCH);
+    cut.setJepTreeField(values);
+    
+    // Поскольку getJepTreeField_nodes возвращает опции в порядке, определяемом самим полем JepTreeField,
+    // то следует производить сравнение без учета порядка.
+    String[] actualValues = cut.getJepTreeField();
+    assertEquals(values.length, actualValues.length);
+    Arrays.sort(values);
+    Arrays.sort(actualValues);
+    assertArrayEquals(values, actualValues);
+  }
+  
+  @DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/arsenic/auto/field.jepTreeField_nodes.data")
+  @Test(groups="setAndGetFields", dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
   public void setAndGetJepTreeField_nodes(String...values) {
     setWorkstate(SEARCH);
     cut.setJepTreeField_nodes(values);
@@ -219,7 +234,7 @@ public class ArsenicAutoTest extends JepAutoTest<ArsenicAuto> {
   }
   
   @DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/arsenic/auto/field.jepTreeField.data")
-  @Test(groups="setAndGetFields!", dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
+  @Test(groups="setAndGetFields", dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
   public void setAndGetJepTreeField_casc(String...values) {
     setWorkstate(SEARCH);
     cut.setJepTreeField_casc(values);
