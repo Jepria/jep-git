@@ -415,7 +415,7 @@ public class JepRiaModuleAutoImpl<A extends EntranceAppAuto, P extends JepRiaApp
 		
 		TextChangeChecker textChangeChecker = new TextChangeChecker(getStatusBar());
 		pages.getApplicationPage().saveButton.click();
-
+		
 		WebDriver wd = pages.getApplicationPage().getWebDriver();
 		ConditionChecker conditionChecker = new WebDriverWait(wd, WEB_DRIVER_TIMEOUT).until(
 				ExpectedConditions.atLeastOneOfConditionIsSatisfied(
@@ -1035,6 +1035,4 @@ public class JepRiaModuleAutoImpl<A extends EntranceAppAuto, P extends JepRiaApp
 		
 		return ret;
 	}
-
-	
 }
