@@ -222,30 +222,17 @@ public interface JepRiaModuleAuto extends EntranceAuto {
   void selectTreeItems(String treeFieldId, String itemPaths[]);
   
   /**
-   * Получение всех отмеченных (в текущем состоянии развернутости дерева) узлов поля JepTreeField.
-   * Отмеченность определяется html-свойством 'aria-selected' узла дерева,
-   * поэтому частично отмеченные папки (partialChecked) также попадут в результирующий список. 
-   *  
+   * Получение массива путей до узлов, проходящих через фильтр, поля JepTreeField.
+   * 
    * @param treeFieldId id JepTreeField'а
+   * @param filter фильтр узлов дерева при обходе
    * @return массив путей в дереве отмеченных (выбранных) узлов.
    * Синтаксис путей опций: {FolderName/}OptionName или {FolderName/}>FolderName;
-   * '/' в именах элементов должны быть экранированы: '\/'.
+   * '/' в именах элементов экранируются: '\/'.
    * Узлы в полученном массиве располагаются в порядке их отображения в списке JepTreeField'а,
    * поэтому сравнение массивов в классе *AutoTest необходимо производить без учета порядка!
    */
-  String[] getTreeFieldCheckedNodes(String treeFieldId);
-  
-//  /**TODO restore
-//   * Получение текущего состояния развернутости дерева (видимых развернутых узлов) поля JepTreeField
-//   *  
-//   * @param treeFieldId id JepTreeField'а
-//   * @return массив путей в дереве развернутых (видимых) опций.
-//   * Синтаксис путей опций: {FolderName/}OptionName или {FolderName/}>FolderName;
-//   * '/' в именах элементов экранируются: '\/'.
-//   * Узлы в полученном массиве располагаются в порядке их отображения в списке JepTreeField'а,
-//   * поэтому сравнение массивов в классе *AutoTest необходимо производить без учета порядка!  
-//   */
-//  String[] getTreeFieldExpandedNodes(String treeFieldId);
+  String[] getTreeFieldNodesByFilter(String treeFieldId, TreeNodeFilter filter);
   
   /**
    * Проверка видимости Jep-поля по заданному ID (атрибута aria-hidden)

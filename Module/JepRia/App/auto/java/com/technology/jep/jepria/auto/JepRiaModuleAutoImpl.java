@@ -1,7 +1,39 @@
 package com.technology.jep.jepria.auto;
 
 import static com.technology.jep.jepria.auto.util.WebDriverFactory.getWait;
-import static com.technology.jep.jepria.client.JepRiaAutomationConstant.*;
+import static com.technology.jep.jepria.client.JepRiaAutomationConstant.ALERT_MESSAGEBOX_ID;
+import static com.technology.jep.jepria.client.JepRiaAutomationConstant.CONFIRM_MESSAGEBOX_ID;
+import static com.technology.jep.jepria.client.JepRiaAutomationConstant.CONFIRM_MESSAGE_BOX_YES_BUTTON_ID;
+import static com.technology.jep.jepria.client.JepRiaAutomationConstant.ERROR_MESSAGEBOX_ID;
+import static com.technology.jep.jepria.client.JepRiaAutomationConstant.GRID_BODY_POSTFIX;
+import static com.technology.jep.jepria.client.JepRiaAutomationConstant.GRID_HEADER_POSTFIX;
+import static com.technology.jep.jepria.client.JepRiaAutomationConstant.JEP_CARD_TYPE_HTML_ATTR;
+import static com.technology.jep.jepria.client.JepRiaAutomationConstant.JEP_CARD_TYPE_VALUE_EDTB;
+import static com.technology.jep.jepria.client.JepRiaAutomationConstant.JEP_CARD_TYPE_VALUE_VIEW;
+import static com.technology.jep.jepria.client.JepRiaAutomationConstant.JEP_COMBO_BOX_FIELD_DROPDOWN_BTN_POSTFIX;
+import static com.technology.jep.jepria.client.JepRiaAutomationConstant.JEP_COMBO_BOX_FIELD_MENU_ITEM_INFIX;
+import static com.technology.jep.jepria.client.JepRiaAutomationConstant.JEP_COMBO_BOX_FIELD_POPUP_POSTFIX;
+import static com.technology.jep.jepria.client.JepRiaAutomationConstant.JEP_DUAL_LIST_FIELD_LEFTPART_POSTFIX;
+import static com.technology.jep.jepria.client.JepRiaAutomationConstant.JEP_DUAL_LIST_FIELD_MENU_ITEM_INFIX;
+import static com.technology.jep.jepria.client.JepRiaAutomationConstant.JEP_DUAL_LIST_FIELD_MOVEALLLEFT_BTN_POSTFIX;
+import static com.technology.jep.jepria.client.JepRiaAutomationConstant.JEP_DUAL_LIST_FIELD_MOVERIGHT_BTN_POSTFIX;
+import static com.technology.jep.jepria.client.JepRiaAutomationConstant.JEP_FIELD_ALLOW_BLANK_POSTFIX;
+import static com.technology.jep.jepria.client.JepRiaAutomationConstant.JEP_FIELD_INPUT_POSTFIX;
+import static com.technology.jep.jepria.client.JepRiaAutomationConstant.JEP_LIST_FIELD_CHECKALL_POSTFIX;
+import static com.technology.jep.jepria.client.JepRiaAutomationConstant.JEP_LIST_FIELD_ITEM_CHECKBOX_INFIX;
+import static com.technology.jep.jepria.client.JepRiaAutomationConstant.JEP_OPTION_VALUE_HTML_ATTR;
+import static com.technology.jep.jepria.client.JepRiaAutomationConstant.JEP_TREENODE_CHECKEDSTATE_HTML_ATTR;
+import static com.technology.jep.jepria.client.JepRiaAutomationConstant.JEP_TREENODE_CHECKEDSTATE_VALUE_UNCHECKABLE;
+import static com.technology.jep.jepria.client.JepRiaAutomationConstant.JEP_TREENODE_INFIX;
+import static com.technology.jep.jepria.client.JepRiaAutomationConstant.JEP_TREENODE_ISLEAF_HTML_ATTR;
+import static com.technology.jep.jepria.client.JepRiaAutomationConstant.TOOLBAR_ADD_BUTTON_ID;
+import static com.technology.jep.jepria.client.JepRiaAutomationConstant.TOOLBAR_DELETE_BUTTON_ID;
+import static com.technology.jep.jepria.client.JepRiaAutomationConstant.TOOLBAR_EDIT_BUTTON_ID;
+import static com.technology.jep.jepria.client.JepRiaAutomationConstant.TOOLBAR_FIND_BUTTON_ID;
+import static com.technology.jep.jepria.client.JepRiaAutomationConstant.TOOLBAR_LIST_BUTTON_ID;
+import static com.technology.jep.jepria.client.JepRiaAutomationConstant.TOOLBAR_SAVE_BUTTON_ID;
+import static com.technology.jep.jepria.client.JepRiaAutomationConstant.TOOLBAR_SEARCH_BUTTON_ID;
+import static com.technology.jep.jepria.client.JepRiaAutomationConstant.TOOLBAR_VIEW_DETAILS_BUTTON_ID;
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.EDIT;
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.SEARCH;
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.SELECTED;
@@ -641,7 +673,7 @@ public class JepRiaModuleAutoImpl<A extends EntranceAppAuto, P extends JepRiaApp
         }
       }
 
-      logger.debug("TREE: Start processing the path in the tree: " + Arrays.toString(parts.toArray(new String[parts.size()])));
+      logger.debug("TREEFIELD_SELECT: BEGIN selecting the path in the tree (splitted): " + Arrays.toString(parts.toArray(new String[parts.size()])));
       
       // 2) Обходим путь по частям.
       
@@ -652,12 +684,14 @@ public class JepRiaModuleAutoImpl<A extends EntranceAppAuto, P extends JepRiaApp
       final Integer[] posinsets = new Integer[parts.size() - 1];
       
       while(true) {
-        logger.debug("TREE: Start expanding tree folders from the root.");
+        logger.debug("TREEFIELD_SELECT: Expanding necessary folders from the very root");
         
         // Начинаем обход с элемента INPUT поля JepTreeField
         deepestLocatedTreeItem = pages.getApplicationPage().getWebDriver().findElement(By.id(treeFieldId + JEP_FIELD_INPUT_POSTFIX));
         int i;
         for (i = 0; i < parts.size() - 1; i++) {
+          /*Служебная строка для логирования*/String indent="";for(int j=0;j<=i;j++)indent+="  ";
+          
           String part = parts.get(i);
           
           // Разворачиваем нелистовые узлы
@@ -665,7 +699,7 @@ public class JepRiaModuleAutoImpl<A extends EntranceAppAuto, P extends JepRiaApp
           final WebElement folder;
           try {
             if (posinsets[i] == null) {
-              logger.debug("TREE: Will locate folder (for the first time) of level "+(i+1)+" that contains the text " + part);
+              logger.debug(indent + "TREEFIELD_SELECT: Will locate folder (for the first time) of level "+(i+1)+" named " + part);
               
               // Разворачиваем данный узел впервые
               
@@ -676,7 +710,7 @@ public class JepRiaModuleAutoImpl<A extends EntranceAppAuto, P extends JepRiaApp
               // Сохраняем значение 'aria-posinset' для ускорения дальнейшего поиска этого элемента.
               posinsets[i] = Integer.parseInt(folder.getAttribute("aria-posinset"));
             } else {
-              logger.debug("TREE: Will locate folder (that already has been located) of level "+(i+1)+" and posinset " + posinsets[i]);
+              logger.debug(indent + "TREEFIELD_SELECT: Will locate folder (that already has been located) of level "+(i+1)+" and posinset " + posinsets[i]);
               
               // Разворачиваем узел не впервые - быстрее, по сохраненному значению aria-posinset
               
@@ -692,7 +726,7 @@ public class JepRiaModuleAutoImpl<A extends EntranceAppAuto, P extends JepRiaApp
           
           // Проверяем, развернут ли узел
           if ("false".equals(folder.getAttribute("aria-expanded"))) {
-            logger.debug("TREE: Expand the folder " + part);
+            logger.debug(indent + "TREEFIELD_SELECT: Expand the folder " + part);
             
             // Разворачиваем узел и начинаем обход заново, потому что обновились все элементы TreeField.
             WebElement expandButton = folder.findElement(By.xpath("./div/div/div"/*FIXME ненадежное выражение!*/));
@@ -703,7 +737,7 @@ public class JepRiaModuleAutoImpl<A extends EntranceAppAuto, P extends JepRiaApp
             getWait().until(stalenessOf(folder));
             break;
           } else {
-            logger.debug("TREE: The folder " + part + " is expanded, continue with its descendants");
+            logger.debug(indent + "TREEFIELD_SELECT: The folder " + part + " is expanded, continue with its descendants");
             
             // Узел развернут, продолжаем разворачивать его потомков
             deepestLocatedTreeItem = folder;
@@ -714,7 +748,7 @@ public class JepRiaModuleAutoImpl<A extends EntranceAppAuto, P extends JepRiaApp
           // Все нелистовые узлы развернуты, отмечаем необходимый элемент дерева
           
           String part = parts.get(i);
-          logger.debug("TREE: All folders are expanded, finally check the item " + part);
+          logger.debug("TREEFIELD_SELECT: All folders are expanded, finally check the item " + part);
           
           WebElement elementToCheck;
           
@@ -755,6 +789,8 @@ public class JepRiaModuleAutoImpl<A extends EntranceAppAuto, P extends JepRiaApp
           } 
           
           elementToCheck.click();
+          
+          logger.debug("TREEFIELD_SELECT: END selecting the path in the tree (splitted): " + Arrays.toString(parts.toArray(new String[parts.size()])));
           break;
         }
       }
@@ -766,60 +802,98 @@ public class JepRiaModuleAutoImpl<A extends EntranceAppAuto, P extends JepRiaApp
   }
   
   @Override
-  public String[] getTreeFieldCheckedNodes(String treeFieldId) {
+  public String[] getTreeFieldNodesByFilter(String treeFieldId, TreeNodeFilter filter) {
     pages.getApplicationPage().ensurePageLoaded();
     
     // Начинаем обход с элемента INPUT поля JepTreeField
-    List<String> ret = getTreeItemCheckedNodes(pages.getApplicationPage().getWebDriver().findElement(By.id(treeFieldId + JEP_FIELD_INPUT_POSTFIX)), 0); 
+    List<String> ret = traverseTree(
+        pages.getApplicationPage().getWebDriver().findElement(By.id(treeFieldId + JEP_FIELD_INPUT_POSTFIX)),
+        0,
+        filter);
+    
     return ret.toArray(new String[ret.size()]);
   }
   
   /**
-   * Рекурсивно обходит дерево, составляя список путей до отмеченных узлов.
-   * @param treeItem узел, с которого начинается обход
-   * @param level значение aria-level для treeItem (0 для корня дерева)
-   * @return Список путей отмеченных узлов ветки с корнем treeItem 
+   * Метод для рекурсивного обхода дерева, составляющий список путей до узлов, проходящих через фильтр.
+   * @param rootNode узел, с которого начинается обход (включительно)
+   * @param level значение aria-level для указанного rootNode (0 в случае если обход начинается с INPUT-элемента поля)
+   * @return Список путей отмеченных узлов ветки с корнем в rootNode 
    */
-  private List<String> getTreeItemCheckedNodes(WebElement treeItem, int level) {
-    // Результирующий список имен узлов
-    List<String> e = new ArrayList<String>();
+  private List<String> traverseTree(WebElement rootNode, int level, final TreeNodeFilter filter) {
+    /*Служебная строка для логирования*/String indent="";for(int j=0;j<level;j++)indent+="  ";
     
-    // Отыщем развернутые узлы и рекурсивно обойдем их
-    List<WebElement> expandedNodes = treeItem.findElements(By.xpath(
-        String.format(".//div[@role='treeitem' and @aria-expanded='true' and @aria-level='%d']",
-            level + 1)));
-    for (WebElement expandedNode: expandedNodes) {
-      for (String descendantNode: getTreeItemCheckedNodes(expandedNode, level + 1)) {
-        e.add(getNameOfTreeItem(expandedNode) + "/" + descendantNode);
+    // Результирующий список имен узлов
+    List<String> ret = new ArrayList<String>();
+    
+    final String treeNodeName;
+    
+    if ("treeitem".equals(rootNode.getAttribute("role")) &&
+        Integer.toString(level).equals(rootNode.getAttribute("aria-level"))) {
+     
+      treeNodeName = getNameOfTreeNode(rootNode);
+      logger.debug(indent + "TREEFIELD_TRAVERSING: BEGIN traversing from the tree node " + treeNodeName);
+    
+    } else {
+      
+      treeNodeName = null;
+      logger.debug(indent + "TREEFIELD_TRAVERSING: BEGIN traversing the element that is not a part of tree, as a treenode");
+    }
+    
+    
+    // Анализ данного узла
+    final String ariaExpandedVal = rootNode.getAttribute("aria-expanded");
+    
+    if (filter.putToResult(rootNode) && treeNodeName != null) {
+      
+      final String prefix;
+      if ("false".equals(ariaExpandedVal)) {
+        // Добавляем префикс '>' для неразвернутого узла
+        prefix = ">";
+      } else {
+        // Пустой префикс для листовой опции
+        prefix = "";
+      }
+      ret.add(prefix + treeNodeName);
+    }
+    
+    
+    // Обход дочерних узлов
+    if (filter.traverseDescendants(rootNode)) {
+      // Получим список всех узлов дерева, дочерних для заданного 
+      List<WebElement> childNodes = rootNode.findElements(By.xpath(
+          String.format(".//div[@role='treeitem' and @aria-level='%d']",
+              level + 1)));
+      
+      if (!JepRiaUtil.isEmpty(childNodes)) {
+        logger.debug(indent + "TREEFIELD_TRAVERSING: The element has " + childNodes.size() + " child nodes");
+      } else {
+        logger.debug(indent + "TREEFIELD_TRAVERSING: The element has no child nodes");
       }
       
-      // Если отмечен и текущий развернутый узел, добавим его в список тоже
-      if ("true".equals(expandedNode.getAttribute("aria-selected"))) {
-        e.add(">" + getNameOfTreeItem(expandedNode));
+      for (WebElement childNode: childNodes) {
+        logger.debug(indent + "TREEFIELD_TRAVERSING: Will recursively traverse a node...");
+        
+        List<String> childNodeNames = traverseTree(childNode, level + 1, filter);
+        logger.debug(indent + "TREEFIELD_TRAVERSING: Returned from recursion.");
+        
+        for (String childNodeName: childNodeNames) {
+          ret.add((treeNodeName != null ? treeNodeName + "/" : "") + childNodeName);
+        }
       }
     }
     
-    // Отыщем неразвернутые отмеченные папки и добавим их в список
-    List<WebElement> notExpandedNodes = treeItem.findElements(By.xpath(
-        String.format(".//div[@role='treeitem' and @aria-expanded='false' and @aria-level='%d' and @aria-selected='true']",
-            level + 1)));
-    for (WebElement notExpandedNode: notExpandedNodes) {
-      e.add(">" + getNameOfTreeItem(notExpandedNode));
-    }
-    
-    // Отыщем отмеченные листья и добавим их в список
-    List<WebElement> leaves = treeItem.findElements(By.xpath(
-        String.format(".//div[@role='treeitem' and not(@aria-expanded) and @aria-level='%d' and @aria-selected='true']",
-            level + 1)));
-    for (WebElement leaf: leaves) {
-      e.add(getNameOfTreeItem(leaf));
-    }
-    
-    return e;
+    logger.debug(indent + "TREEFIELD_TRAVERSING: Return from recursion...");
+    return ret;
   }
   
-  private static String getNameOfTreeItem(WebElement treeItem) {
-    WebElement span = treeItem.findElement(By.xpath(
+  /**
+   * Метод для получения имени элемента дерева (заданного в <span/>)
+   * @param treeNode
+   * @return Имя элемента дерева. '/' в именах элементов экранируются: '\/'.
+   */
+  private static String getNameOfTreeNode(WebElement treeNode) {
+    WebElement span = treeNode.findElement(By.xpath(
         String.format(".//span[contains(@id, '%s')]", JEP_TREENODE_INFIX)));
     String id = span.getAttribute("id");
     return id.substring(id.indexOf(JEP_TREENODE_INFIX) + JEP_TREENODE_INFIX.length()).replaceAll("/", "\\\\/");
