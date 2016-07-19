@@ -2,6 +2,22 @@
 <project default="build-and-deploy" name="Jep Module Building">
   <taskdef resource="net/sf/antcontrib/antlib.xml" />
   <property file="local.properties" />
+  <property environment="env" />
+  <if>
+    <isset property="env.BIN_HOME" />
+    <then>
+      <property name="BIN_HOME" value="${env.BIN_HOME}" />
+    </then>
+  </if>
+  <if>
+    <isset property="BIN_HOME" />
+    <then>
+      <echo message="Binary repository path: ${BIN_HOME}" />        
+    </then>
+    <else>
+      <fail message="Binary repository path not specified. Specify it either in environment variable %BIN_HOME% or use -DBIN_HOME=... command line argument." />
+    </else>
+  </if>
   <property file="dependency.properties" />
   <property file="build.properties" />
   <property file="test.properties" />
@@ -11,7 +27,6 @@
   <property name="test.src.dir" value="src/java;test/java" />
   <property name="testng.report.dir" value="test-output" />
   <property name="test.conf.dir" value="test/resources" />
-  <property environment="env" />
   <property name="cores.count" value="${env.NUMBER_OF_PROCESSORS}"/>
   <property name="JAR_TEMP" value="build-lib"/>
   <tstamp>
@@ -131,7 +146,7 @@
 
   
   <!-- Проверка наличия всех используемых библиотек (зависимостей) -->
-    <target name="check-dependencies" >
+  <target name="check-dependencies" >
     <propertyselector
         property="pack.list"
         delimiter=","
