@@ -25,9 +25,11 @@ public interface TreeNodeFilter {
   /**
    * Метод, проверяющий, нужно ли рекурсивно обходить детей данного узла, 
    * либо остановить обход вглубь на данном узле.
+   * Данный метод может быть вызван для любых элементов, не только для treeitem!
    * Например, если нужно получить только узлы 1-4 уровней в дереве:
    * <br><br><code><pre>
-   * return "1|2|3".contains(treeNode.getAttribute("aria-level"));
+   * String ariaLevelVal = treeNode.getAttribute("aria-level");
+   * return ariaLevelVal == null || "1|2|3".contains(ariaLevelVal);
    * <pre/></code><br>
    * @param treeNode проверяемый узел
    */

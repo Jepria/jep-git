@@ -697,7 +697,7 @@ public class TreeField<V extends JepOption> extends ScrollPanel implements HasCh
           
           // 3rd part of Composite cell - Show Text for the Cell
           SafeHtml labelHtml = SafeHtmlUtils.fromTrustedString(
-              JepClientUtil.substitute("<label {0}>{1}{2}</label>",
+              JepClientUtil.substitute("<label title='{2}' {0}>{1}{2}</label>",
                   checkedState == null ? "" : "style=\"cursor: pointer;\"",
                   SafeHtmlUtils.fromString(PADDING).asString(),
                   value.getName()));
