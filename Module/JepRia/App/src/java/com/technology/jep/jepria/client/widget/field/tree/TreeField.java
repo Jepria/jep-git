@@ -1,9 +1,9 @@
 package com.technology.jep.jepria.client.widget.field.tree;
 
 import static com.google.gwt.dom.client.BrowserEvents.CLICK;
-import static com.technology.jep.jepria.client.AutomationConstant.JEP_TREENODE_CHECKABLE_HTML_ATTR;
-import static com.technology.jep.jepria.client.AutomationConstant.JEP_TREENODE_INFIX;
-import static com.technology.jep.jepria.client.AutomationConstant.JEP_TREENODE_ISLEAF_HTML_ATTR;
+import static com.technology.jep.jepria.client.JepRiaAutomationConstant.*;
+import static com.technology.jep.jepria.client.JepRiaAutomationConstant.JEP_TREENODE_INFIX;
+import static com.technology.jep.jepria.client.JepRiaAutomationConstant.JEP_TREENODE_ISLEAF_HTML_ATTR;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -632,35 +632,55 @@ public class TreeField<V extends JepOption> extends ScrollPanel implements HasCh
           final SafeHtml checkImageHtml;
           
           final boolean isLeaf = isLeaf(value);
-          final ImageResource checkImg;
+          // null for non-checkable node (no checkbox is shown), 0 for unchecked, 1 for checked, 2 for partial
+          final Integer checkedState;
           if (checkNodes == CheckNodes.LEAF && !isLeaf) {
             // допустимо выделение только листьев, не отображаем соответствующую картинку
-            checkImg = null;
+            checkedState = null;
           } else if (checkNodes == CheckNodes.PARENT && isLeaf) {
             // допустимо выделение только родительских узлов, не отображаем соответствующую картинку
-            checkImg = null;
+            checkedState = null;
           } else if (partialSelectedNodes.contains(value)){
-            checkImg = images.partialChecked();
+            checkedState = 2;
           } else if (isNodeOpened(value) && checkStyle.equals(CheckCascade.PARENTS)) {
             int in = hasPartlySelectedChildren(value);
             if (in == 1) {
-              checkImg = images.checked();
+              checkedState = 1;
             } else if (in == 0) {
-              checkImg = images.partialChecked();
+              checkedState = 2;
             } else {
-              checkImg =  images.unchecked();
+              checkedState = 0;
             }
           } else {
-            checkImg = isSelected(value) ? images.checked() : images.unchecked();
+            if (isSelected(value)) {
+              checkedState = 1;
+            } else {
+              checkedState = 0;
+            }
           }
           
-          final boolean isNodeCheckable;
-          if (checkImg == null) {
+          final String nodeCheckedState;
+          
+          if (checkedState == null) {
             checkImageHtml = SafeHtmlUtils.EMPTY_SAFE_HTML;
-            isNodeCheckable = false;
+            nodeCheckedState = JEP_TREENODE_CHECKEDSTATE_VALUE_UNCHECKABLE;
           } else {
+            final ImageResource checkImg;
+            switch (checkedState) {
+              case 0:
+                checkImg = images.unchecked();
+                nodeCheckedState = JEP_TREENODE_CHECKEDSTATE_VALUE_UNCHECKED;
+                break;
+              case 1:
+                checkImg = images.checked();
+                nodeCheckedState = JEP_TREENODE_CHECKEDSTATE_VALUE_CHECKED;
+                break;
+              case 2: default:
+                checkImg = images.partialChecked();
+                nodeCheckedState = JEP_TREENODE_CHECKEDSTATE_VALUE_PARTIAL;
+                break;
+            }
             checkImageHtml = AbstractImagePrototype.create(checkImg).getSafeHtml();
-            isNodeCheckable = true;
           }
           
           
@@ -678,7 +698,7 @@ public class TreeField<V extends JepOption> extends ScrollPanel implements HasCh
           // 3rd part of Composite cell - Show Text for the Cell
           SafeHtml labelHtml = SafeHtmlUtils.fromTrustedString(
               JepClientUtil.substitute("<label {0}>{1}{2}</label>",
-                  checkImg == null ? "" : "style=\"cursor: pointer;\"",
+                  checkedState == null ? "" : "style=\"cursor: pointer;\"",
                   SafeHtmlUtils.fromString(PADDING).asString(),
                   value.getName()));
           
@@ -690,11 +710,12 @@ public class TreeField<V extends JepOption> extends ScrollPanel implements HasCh
             nodeId = "";
           }
           
+          
           sb.appendHtmlConstant(
               JepClientUtil.substitute("<span {0} {1} {2}>",
                   nodeId,
                   JEP_TREENODE_ISLEAF_HTML_ATTR + (isLeaf ? "='true'" : "='false'"),
-                  JEP_TREENODE_CHECKABLE_HTML_ATTR + (isNodeCheckable ? "='true'" : "='false'")));
+                  JEP_TREENODE_CHECKEDSTATE_HTML_ATTR + "='" + nodeCheckedState + "'"));
           sb.append(checkImageHtml);
           sb.append(folderImageHtml);
           sb.append(labelHtml);

@@ -1,8 +1,8 @@
 package com.technology.jep.jepria.auto.pages;
 
 import static com.technology.jep.jepria.auto.util.WebDriverFactory.getWait;
-import static com.technology.jep.jepria.client.AutomationConstant.LOGGED_IN_USER_ID;
-import static com.technology.jep.jepria.client.AutomationConstant.LOGOUT_BUTTON_ID;
+import static com.technology.jep.jepria.client.JepRiaAutomationConstant.LOGGED_IN_USER_ID;
+import static com.technology.jep.jepria.client.JepRiaAutomationConstant.LOGOUT_BUTTON_ID;
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
 import org.apache.log4j.Logger;

@@ -3,7 +3,7 @@ package com.technology.jep.jepria.client;
 import com.technology.jep.jepria.client.ui.toolbar.ToolBarConstant;
 
 
-public class AutomationConstant {
+public class JepRiaAutomationConstant {
   /**
    * ID тестового поля ввода username для Login-страницы JavaSSO
    */
@@ -263,9 +263,13 @@ public class AutomationConstant {
   public static final String JEP_TREENODE_INFIX = "_JEP_TREENODE_";
   
   /**
-   * HTML-атрибут узла TreeField, показывающий, может ли узел быть отмечен
+   * HTML-атрибут (и значения) узла TreeField, показывающий состояние отмеченности узла
    */
-  public static final String JEP_TREENODE_CHECKABLE_HTML_ATTR = "jep-treenode-checkable";
+  public static final String JEP_TREENODE_CHECKEDSTATE_HTML_ATTR = "jep-treenode-checkedstate";
+  public static final String JEP_TREENODE_CHECKEDSTATE_VALUE_UNCHECKABLE = "uncheckable";
+  public static final String JEP_TREENODE_CHECKEDSTATE_VALUE_CHECKED = "checked";
+  public static final String JEP_TREENODE_CHECKEDSTATE_VALUE_UNCHECKED = "unchecked";
+  public static final String JEP_TREENODE_CHECKEDSTATE_VALUE_PARTIAL = "partial";
   
   /**
    * HTML-атрибут узла TreeField, показывающий, является ли узел листом

@@ -9,7 +9,7 @@ import org.openqa.selenium.support.FindBy;
 
 import com.technology.jep.jepria.auto.pages.PageManagerBase;
 import com.technology.jep.jepria.auto.pages.PlainPage;
-import com.technology.jep.jepria.client.AutomationConstant;
+import com.technology.jep.jepria.client.JepRiaAutomationConstant;
 
 public class JepRiaLoginPage<P extends PageManagerBase> extends PlainPage<P> implements LoginPage<P> {
 
@@ -17,13 +17,13 @@ public class JepRiaLoginPage<P extends PageManagerBase> extends PlainPage<P> imp
         super(pages);
     }
 
-    @FindBy(id = AutomationConstant.LOGIN_USERNAME_FIELD_ID)
+    @FindBy(id = JepRiaAutomationConstant.LOGIN_USERNAME_FIELD_ID)
     private WebElement loginField;
 
-    @FindBy(id = AutomationConstant.LOGIN_PASSWORD_FIELD_ID)
+    @FindBy(id = JepRiaAutomationConstant.LOGIN_PASSWORD_FIELD_ID)
     private WebElement passwordField;
 
-    @FindBy(id = AutomationConstant.LOGIN_BUTTON_ID)
+    @FindBy(id = JepRiaAutomationConstant.LOGIN_BUTTON_ID)
     private WebElement loginButton;
 
     /* (non-Javadoc)
@@ -59,8 +59,8 @@ public class JepRiaLoginPage<P extends PageManagerBase> extends PlainPage<P> imp
     public JepRiaLoginPage<P> ensurePageLoaded() {
         super.ensurePageLoaded().getContent();
         
-        getWait().until(presenceOfElementLocated(By.id(AutomationConstant.LOGIN_USERNAME_FIELD_ID)));
-        getWait().until(presenceOfElementLocated(By.id(AutomationConstant.LOGIN_PASSWORD_FIELD_ID)));
+        getWait().until(presenceOfElementLocated(By.id(JepRiaAutomationConstant.LOGIN_USERNAME_FIELD_ID)));
+        getWait().until(presenceOfElementLocated(By.id(JepRiaAutomationConstant.LOGIN_PASSWORD_FIELD_ID)));
         
         return this;
     }

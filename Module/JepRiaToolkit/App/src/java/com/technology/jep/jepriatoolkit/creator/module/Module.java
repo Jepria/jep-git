@@ -342,7 +342,7 @@ public class Module {
 		this.childModules = childModules;
 	}
 	public void uptodate(Module newModule){
-		List<ModuleField> fields = newModule.record.getFields();
+		List<ModuleField> fields = newModule.record != null ? newModule.record.getFields() : new ArrayList<ModuleField>();
 		for (ModuleField field : fields){
 			boolean exists = false;
 			String fieldId = field.getFieldId();
@@ -358,11 +358,11 @@ public class Module {
 				recordFields.add(field);
 			}
 		}
-		fields = newModule.forms.getListForm().getFields();
+		fields = newModule.forms != null && newModule.forms.getListForm() != null ? newModule.forms.getListForm().getFields() : new ArrayList<ModuleField>();
 		for (ModuleField field : fields){
 			boolean exists = false;
 			String fieldId = field.getFieldId();
-			List<ModuleField> listFields = forms.getListForm().getFields();
+			List<ModuleField> listFields = forms != null && forms.getListForm() != null ? forms.getListForm().getFields() : new ArrayList<ModuleField>();
 			for (ModuleField originField : listFields){
 				exists = fieldId.equalsIgnoreCase(originField.getFieldId()); 
 				if (exists){
@@ -374,11 +374,11 @@ public class Module {
 				listFields.add(field);
 			}
 		}
-		fields = newModule.forms.getDetailForm().getFields();
+		fields = newModule.forms != null && newModule.forms.getDetailForm() != null ? newModule.forms.getDetailForm().getFields() : new ArrayList<ModuleField>();
 		for (ModuleField field : fields){
 			boolean exists = false;
 			String fieldId = field.getFieldId();
-			List<ModuleField> detailFields = forms.getDetailForm().getFields();
+			List<ModuleField> detailFields = forms != null && forms.getDetailForm() != null ? forms.getDetailForm().getFields() : new ArrayList<ModuleField>();
 			for (ModuleField originField : detailFields){
 				exists = fieldId.equalsIgnoreCase(originField.getFieldId()); 
 				if (exists){
@@ -391,32 +391,32 @@ public class Module {
 			}
 		}
 		
-		List<ModuleField> currentFields = record.getFields();
+		List<ModuleField> currentFields = record == null ? new ArrayList<ModuleField>() : record.getFields();
 		ModuleForm currentForm = newModule.getRecord();
 		// check if all fields in xml presents in source code or maybe were deleted
 		for (ModuleField originmodulefield : currentFields){
 			String originModuleFieldId = originmodulefield.getFieldId();
-			if (!currentForm.contains(originModuleFieldId)){
+			if (currentForm != null && !currentForm.contains(originModuleFieldId)){
 				Logger.appendMessageToForm(newModule.getModuleId(), multipleConcat("Pay attention that record field '", originModuleFieldId, "' has no source code! If you need, you can remove it manually!"));
 			}
 		}
 		
-		currentFields = forms.getDetailForm().getFields();
-		currentForm = newModule.getForms().getDetailForm();
+		currentFields = forms != null && forms.getDetailForm() != null ? forms.getDetailForm().getFields() : new ArrayList<ModuleField>();
+		currentForm = newModule != null && newModule.getForms() != null ? newModule.getForms().getDetailForm() : null;
 		// check if all fields in xml presents in source code or maybe were deleted
 		for (ModuleField originmodulefield : currentFields){
 			String originModuleFieldId = originmodulefield.getFieldId();
-			if (!currentForm.contains(originModuleFieldId)){
+			if (currentForm != null && !currentForm.contains(originModuleFieldId)){
 				Logger.appendMessageToForm(newModule.getModuleId(), multipleConcat("Pay attention that detail form field '", originModuleFieldId, "' has no source code! If you need, you can remove it manually!"));
 			}
 		}
 		
-		currentFields = forms.getListForm().getFields();
-		currentForm = newModule.getForms().getListForm();
+		currentFields = forms != null && forms.getListForm() != null ? forms.getListForm().getFields() : new ArrayList<ModuleField>();
+		currentForm = newModule != null && newModule.getForms() != null ? newModule.getForms().getListForm() : null;
 		// check if all fields in xml presents in source code or maybe were deleted
 		for (ModuleField originmodulefield : currentFields){
 			String originModuleFieldId = originmodulefield.getFieldId();
-			if (!currentForm.contains(originModuleFieldId)){
+			if (currentForm != null && !currentForm.contains(originModuleFieldId)){
 				Logger.appendMessageToForm(newModule.getModuleId(), multipleConcat("Pay attention that list form field '", originModuleFieldId, "' has no source code! If you need, you can remove it manually!"));
 			}
 		}

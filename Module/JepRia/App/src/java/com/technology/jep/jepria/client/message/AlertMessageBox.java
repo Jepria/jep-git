@@ -1,6 +1,6 @@
 package com.technology.jep.jepria.client.message;
 
-import static com.technology.jep.jepria.client.AutomationConstant.ALERT_MESSAGEBOX_ID;
+import static com.technology.jep.jepria.client.JepRiaAutomationConstant.ALERT_MESSAGEBOX_ID;
 import static com.technology.jep.jepria.client.JepRiaClientConstant.JepImages;
 import static com.technology.jep.jepria.client.JepRiaClientConstant.JepTexts;
 import static com.technology.jep.jepria.client.JepRiaClientConstant.MAIN_FONT_STYLE;

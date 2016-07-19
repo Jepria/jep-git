@@ -3,7 +3,7 @@ package com.technology.jep.jepriashowcase.custom.auto;
 import static com.technology.jep.jepria.auto.util.WebDriverFactory.getWait;
 import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
-import static com.technology.jep.jepria.client.AutomationConstant.*;
+import static com.technology.jep.jepria.client.JepRiaAutomationConstant.*;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;

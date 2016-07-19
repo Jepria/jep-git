@@ -1,6 +1,6 @@
 package com.technology.jep.jepria.client.widget.field.multistate;
 
-import static com.technology.jep.jepria.client.AutomationConstant.JEP_FIELD_ALLOW_BLANK_POSTFIX;
+import static com.technology.jep.jepria.client.JepRiaAutomationConstant.JEP_FIELD_ALLOW_BLANK_POSTFIX;
 import static com.technology.jep.jepria.client.JepRiaClientConstant.FIELD_DEFAULT_HEIGHT;
 import static com.technology.jep.jepria.client.JepRiaClientConstant.FIELD_DEFAULT_WIDTH;
 import static com.technology.jep.jepria.client.JepRiaClientConstant.FIELD_INVALID_COLOR;
@@ -22,7 +22,7 @@ import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Widget;
-import com.technology.jep.jepria.client.AutomationConstant;
+import com.technology.jep.jepria.client.JepRiaAutomationConstant;
 import com.technology.jep.jepria.client.ui.WorkstateEnum;
 import com.technology.jep.jepria.client.util.JepClientUtil;
 import com.technology.jep.jepria.client.widget.event.JepEvent;
@@ -253,8 +253,8 @@ public abstract class JepMultiStateField<E extends Widget, V extends Widget> ext
    * Установка web-ID двух карт данного Jep-поля.
    */
   private void setCardWebAttrs() {
-    editableCard.getElement().setAttribute(AutomationConstant.JEP_CARD_TYPE_HTML_ATTR, AutomationConstant.JEP_CARD_TYPE_VALUE_EDTB);
-    viewCard.getElement().setAttribute(AutomationConstant.JEP_CARD_TYPE_HTML_ATTR, AutomationConstant.JEP_CARD_TYPE_VALUE_VIEW);
+    editableCard.getElement().setAttribute(JepRiaAutomationConstant.JEP_CARD_TYPE_HTML_ATTR, JepRiaAutomationConstant.JEP_CARD_TYPE_VALUE_EDTB);
+    viewCard.getElement().setAttribute(JepRiaAutomationConstant.JEP_CARD_TYPE_HTML_ATTR, JepRiaAutomationConstant.JEP_CARD_TYPE_VALUE_VIEW);
   }
   
   /**
@@ -263,7 +263,7 @@ public abstract class JepMultiStateField<E extends Widget, V extends Widget> ext
    * this.fieldIdAsWebEl .
    */
   protected void setWebIds() {
-    this.getInputElement().setId(fieldIdAsWebEl + AutomationConstant.JEP_FIELD_INPUT_POSTFIX);
+    this.getInputElement().setId(fieldIdAsWebEl + JepRiaAutomationConstant.JEP_FIELD_INPUT_POSTFIX);
   }
   
   /**

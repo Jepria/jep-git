@@ -1,10 +1,6 @@
 package com.technology.jep.jepriashowcase.goods.auto;
 
-import static com.technology.jep.jepriashowcase.goods.client.JRSCGoodsAutomationConstant.JRSC_GOODS_MOTIVATION_RADIO_FIELD_ID;
-import static com.technology.jep.jepriashowcase.goods.client.JRSCGoodsAutomationConstant.JRSC_GOODS_NAME_TEXT_FIELD_ID;
-import static com.technology.jep.jepriashowcase.goods.client.JRSCGoodsAutomationConstant.JRSC_GOODS_PURCHASING_PRICE_NUMBER_FIELD_ID;
-import static com.technology.jep.jepriashowcase.goods.client.JRSCGoodsAutomationConstant.JRSC_GOODS_TYPE_COMBOBOX_FIELD_ID;
-import static com.technology.jep.jepriashowcase.goods.client.JRSCGoodsAutomationConstant.JRSC_GOODS_UNIT_COMBOBOX_FIELD_ID;
+import static com.technology.jep.jepriashowcase.goods.client.GoodsAutomationConstant.*;
 
 import java.util.Set;
 
@@ -28,42 +24,42 @@ public class GoodsAutoImpl<A extends JepRiaShowcaseAuto, P extends JepRiaShowcas
 
   @Override
   public void setGoodsName(String goodsNameValue) {
-    setFieldValue(JRSC_GOODS_NAME_TEXT_FIELD_ID, goodsNameValue);
+    setFieldValue(GOODS_GOODS_NAME_TEXT_FIELD_ID, goodsNameValue);
   }
 
   @Override
   public void setPurchasingPrice(String purchasingPrice) {
-    setFieldValue(JRSC_GOODS_PURCHASING_PRICE_NUMBER_FIELD_ID, purchasingPrice);
+    setFieldValue(GOODS_PURCHASING_PRICE_NUMBER_FIELD_ID, purchasingPrice);
   }
 
   @Override
   public String getGoodsName() {
-    return getFieldValue(JRSC_GOODS_NAME_TEXT_FIELD_ID);
+    return getFieldValue(GOODS_GOODS_NAME_TEXT_FIELD_ID);
   }
 
   @Override
   public String getPurchasingPrice() {
-    return getFieldValue(JRSC_GOODS_PURCHASING_PRICE_NUMBER_FIELD_ID);
+    return getFieldValue(GOODS_PURCHASING_PRICE_NUMBER_FIELD_ID);
   }
 
   @Override
   public void setGoodsType(String goodsType) {
-    selectComboBoxMenuItem(JRSC_GOODS_TYPE_COMBOBOX_FIELD_ID, goodsType);
+    selectComboBoxMenuItem(GOODS_GOODS_TYPE_COMBOBOX_FIELD_ID, goodsType);
   }
 
   @Override
   public String getGoodsType() {
-    return getFieldValue(JRSC_GOODS_TYPE_COMBOBOX_FIELD_ID);
+    return getFieldValue(GOODS_GOODS_TYPE_COMBOBOX_FIELD_ID);
   }
 
   @Override
   public void setUnit(String unit) {
-    selectComboBoxMenuItem(JRSC_GOODS_UNIT_COMBOBOX_FIELD_ID, unit);
+    selectComboBoxMenuItem(GOODS_UNIT_COMBOBOX_FIELD_ID, unit);
   }
 
   @Override
   public String getUnit() {
-    return getFieldValue(JRSC_GOODS_UNIT_COMBOBOX_FIELD_ID);
+    return getFieldValue(GOODS_UNIT_COMBOBOX_FIELD_ID);
   }
 
 
@@ -88,7 +84,7 @@ public class GoodsAutoImpl<A extends JepRiaShowcaseAuto, P extends JepRiaShowcas
       
       // TODO Обработку radioButton перенести в JepRia
       String radioButtonInputXPath = "//table[@id='"
-          + JRSC_GOODS_MOTIVATION_RADIO_FIELD_ID +"']//span[@class='gwt-RadioButton']"
+          + GOODS_MOTIVATION_RADIO_FIELD_ID +"']//span[@class='gwt-RadioButton']"
           + "//.[contains(text(),'"
           + motivation
           + "')]/preceding-sibling::input";
@@ -111,7 +107,7 @@ public class GoodsAutoImpl<A extends JepRiaShowcaseAuto, P extends JepRiaShowcas
     pages.goodsPage.ensurePageLoaded();
     
     String checkedRadioButtonXPath = "//table[@id='"
-        + JRSC_GOODS_MOTIVATION_RADIO_FIELD_ID
+        + GOODS_MOTIVATION_RADIO_FIELD_ID
         + "']//span[@class='gwt-RadioButton']//input[@checked]/following-sibling::label";
     
     try {

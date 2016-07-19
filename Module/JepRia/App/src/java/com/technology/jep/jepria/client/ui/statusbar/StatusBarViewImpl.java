@@ -12,7 +12,7 @@ import static com.technology.jep.jepria.client.ui.WorkstateEnum.VIEW_LIST;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
-import com.technology.jep.jepria.client.AutomationConstant;
+import com.technology.jep.jepria.client.JepRiaAutomationConstant;
 import com.technology.jep.jepria.client.ui.JepPresenter;
 import com.technology.jep.jepria.client.ui.WorkstateEnum;
 
@@ -26,7 +26,7 @@ public class StatusBarViewImpl implements StatusBarView {
   
   public StatusBarViewImpl() {
     label = new Label();
-    label.getElement().setId(AutomationConstant.STATUSBAR_PANEL_ID);
+    label.getElement().setId(JepRiaAutomationConstant.STATUSBAR_PANEL_ID);
     
     /*
      * Предполагаем, что look & feel аналогичен панели инструментов.
@@ -42,7 +42,7 @@ public class StatusBarViewImpl implements StatusBarView {
 
   public void setWidget(Widget widget) {
     label = (Label)widget;
-    label.getElement().setId(AutomationConstant.STATUSBAR_PANEL_ID);
+    label.getElement().setId(JepRiaAutomationConstant.STATUSBAR_PANEL_ID);
   }
   
   public Widget asWidget() {

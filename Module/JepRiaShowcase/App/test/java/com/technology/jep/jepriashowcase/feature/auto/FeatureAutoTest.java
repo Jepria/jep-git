@@ -1,9 +1,9 @@
 package com.technology.jep.jepriashowcase.feature.auto;
 
-import static com.technology.jep.jepria.client.AutomationConstant.CONFIRM_MESSAGEBOX_ID;
-import static com.technology.jep.jepria.client.AutomationConstant.CONFIRM_MESSAGE_BOX_YES_BUTTON_ID;
-import static com.technology.jep.jepria.client.AutomationConstant.ERROR_MESSAGE_BOX_OK_BUTTON_ID;
-import static com.technology.jep.jepria.client.AutomationConstant.TOOLBAR_DELETE_BUTTON_ID;
+import static com.technology.jep.jepria.client.JepRiaAutomationConstant.CONFIRM_MESSAGEBOX_ID;
+import static com.technology.jep.jepria.client.JepRiaAutomationConstant.CONFIRM_MESSAGE_BOX_YES_BUTTON_ID;
+import static com.technology.jep.jepria.client.JepRiaAutomationConstant.ERROR_MESSAGE_BOX_OK_BUTTON_ID;
+import static com.technology.jep.jepria.client.JepRiaAutomationConstant.TOOLBAR_DELETE_BUTTON_ID;
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.CREATE;
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.EDIT;
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.SEARCH;

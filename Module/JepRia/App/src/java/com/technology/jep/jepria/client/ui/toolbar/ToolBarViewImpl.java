@@ -18,7 +18,7 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
-import com.technology.jep.jepria.client.AutomationConstant;
+import com.technology.jep.jepria.client.JepRiaAutomationConstant;
 import com.technology.jep.jepria.client.ui.JepPresenter;
 import com.technology.jep.jepria.client.ui.eventbus.plain.PlainEventBus;
 import com.technology.jep.jepria.client.ui.plain.StandardClientFactory;
@@ -56,7 +56,7 @@ public class ToolBarViewImpl implements ToolBarView {
     
     toolBar = new SimplePanel();
     panel = new HorizontalPanel();
-    panel.getElement().setId(AutomationConstant.TOOLBAR_PANEL_ID);
+    panel.getElement().setId(JepRiaAutomationConstant.TOOLBAR_PANEL_ID);
     
     toolBar.setStyleName(TOOLBAR_DEFAULT_STYLE);
     toolBar.setWidget(panel);

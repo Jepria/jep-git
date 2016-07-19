@@ -2,7 +2,7 @@ package com.technology.jep.jepria.auto.pages;
 
 import static com.technology.jep.jepria.auto.util.WebDriverFactory.getWait;
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
-import static com.technology.jep.jepria.client.AutomationConstant.*;
+import static com.technology.jep.jepria.client.JepRiaAutomationConstant.*;
 
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;

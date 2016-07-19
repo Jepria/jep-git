@@ -87,7 +87,8 @@ public class ArsenicDetailFormViewImpl extends StandardDetailFormViewImpl implem
     title.add(new HTML(arsenicText.titleText()));
     panel.add(title);
     
-    // checkboxes switching field states
+    
+    // group: checkboxes switching field states
     JepCheckBoxField checkBox_switchVsbl = new JepCheckBoxField(
         ARSENIC_CHECKBOX_SWITCH_VSBL_ID, arsenicText.detail_jepCheckBox_switch_vsbl()) {{
           setLabelWidth(250);
@@ -108,7 +109,6 @@ public class ArsenicDetailFormViewImpl extends StandardDetailFormViewImpl implem
           setLabelWidth(250);
           setFieldWidth(50);
         }};
-    
     HorizontalPanel checkBoxPanel = new HorizontalPanel();
     checkBoxPanel.add(checkBox_switchVsbl);
     checkBoxPanel.add(checkBox_switchEnbl);
@@ -116,104 +116,139 @@ public class ArsenicDetailFormViewImpl extends StandardDetailFormViewImpl implem
     checkBoxPanel.add(checkBox_switchAlbl);
     panel.add(checkBoxPanel);
     
-    JepTextField textField = new JepTextField(ARSENIC_JEP_TEXT_FIELD_ID, arsenicText.detail_jepTextField());
-    JepTextAreaField textAreaField = new JepTextAreaField(ARSENIC_JEP_TEXT_AREA_FIELD_ID, arsenicText.detail_jepTextAreaField());
     
+    // group: texts, nums, checkbox
+    JepTextField textField = new JepTextField(ARSENIC_JEP_TEXT_FIELD_ID, arsenicText.detail_jepTextField()) {{
+      setLabelWidth(200);
+    }};
+    JepTextAreaField textAreaField = new JepTextAreaField(ARSENIC_JEP_TEXT_AREA_FIELD_ID, arsenicText.detail_jepTextAreaField()) {{
+      setLabelWidth(200);
+    }};
     VerticalPanel textFieldPanel = new VerticalPanel();
     textFieldPanel.add(textField);
     textFieldPanel.add(textAreaField);
     
-    JepLongField longField = new JepLongField(ARSENIC_JEP_LONG_FIELD_ID, arsenicText.detail_jepLongField());
-    JepMoneyField moneyField = new JepMoneyField(ARSENIC_JEP_MONEY_FIELD_ID, arsenicText.detail_jepMoneyField());
-    JepNumberField numberField = new JepNumberField(ARSENIC_JEP_NUMBER_FIELD_ID, arsenicText.detail_jepNumberField());
-    JepDateField dateField = new JepDateField(ARSENIC_JEP_DATE_FIELD_ID, arsenicText.detail_jepDateField());
-    
+    JepLongField longField = new JepLongField(ARSENIC_JEP_LONG_FIELD_ID, arsenicText.detail_jepLongField()) {{
+      setLabelWidth(200);
+    }};
+    JepMoneyField moneyField = new JepMoneyField(ARSENIC_JEP_MONEY_FIELD_ID, arsenicText.detail_jepMoneyField()) {{
+      setLabelWidth(200);
+    }};
+    JepNumberField numberField = new JepNumberField(ARSENIC_JEP_NUMBER_FIELD_ID, arsenicText.detail_jepNumberField()) {{
+      setLabelWidth(200);
+    }};
+    JepDateField dateField = new JepDateField(ARSENIC_JEP_DATE_FIELD_ID, arsenicText.detail_jepDateField()) {{
+      setLabelWidth(200);
+    }};
     VerticalPanel numFieldPanel = new VerticalPanel();
     numFieldPanel.add(longField);
     numFieldPanel.add(moneyField);
     numFieldPanel.add(numberField);
     numFieldPanel.add(dateField);
     
+    JepCheckBoxField checkBoxField = new JepCheckBoxField(ARSENIC_JEP_CHECKBOX_FIELD_ID, arsenicText.detail_jepCheckBoxField()) {{
+      setLabelWidth(200);
+    }};
+    
     HorizontalPanel textAndNumPanel = new HorizontalPanel();
+    textAndNumPanel.getElement().getStyle().setPaddingTop(30, Unit.PX);
     textAndNumPanel.add(textFieldPanel);
     textAndNumPanel.add(numFieldPanel);
+    textAndNumPanel.add(checkBoxField);
     panel.add(textAndNumPanel);
     
     
+    // group: combos, dual
     JepComboBoxField comboBoxFieldNotLazy = new JepComboBoxField(ARSENIC_JEP_COMBOBOX_FIELD_NOTLAZY_ID,
         createInfoIcon(arsenicText.detail_jepComboBoxField_notlazy_hint()) + new InlineHTML("&nbsp;") +
         arsenicText.detail_jepComboBoxField_notlazy()) {{
-      getElement().getStyle().setPaddingTop(30, Unit.PX);
-      setLabelWidth(220);
+      setLabelWidth(300);
     }};
-    panel.add(comboBoxFieldNotLazy);
-    
     JepComboBoxField comboBoxFieldSimple = new JepComboBoxField(ARSENIC_JEP_COMBOBOX_FIELD_SIMPLE_ID,
         createInfoIcon(arsenicText.detail_jepComboBoxField_simple_hint()) + new InlineHTML("&nbsp;") +
         arsenicText.detail_jepComboBoxField_simple()) {{
-      setLabelWidth(220);
+      setLabelWidth(300);
     }};
-    panel.add(comboBoxFieldSimple);
-    
     JepComboBoxField comboBoxFieldDurable = new JepComboBoxField(ARSENIC_JEP_COMBOBOX_FIELD_DURABLE_ID,
         createInfoIcon(arsenicText.detail_jepComboBoxField_durable_hint()) + new InlineHTML("&nbsp;") +
         arsenicText.detail_jepComboBoxField_durable()) {{
-      setLabelWidth(220);
+      setLabelWidth(300);
     }};
-    panel.add(comboBoxFieldDurable);
-    
     JepComboBoxField comboBoxFieldReloading = new JepComboBoxField(ARSENIC_JEP_COMBOBOX_FIELD_RELOADING_ID,
         createInfoIcon(arsenicText.detail_jepComboBoxField_reloading_hint()) + new InlineHTML("&nbsp;") +
         arsenicText.detail_jepComboBoxField_reloading()) {{
-      setLabelWidth(220);
+      setLabelWidth(300);
       setEmptyText(arsenicText.startTyping());
     }};
-    panel.add(comboBoxFieldReloading);
-    
     JepComboBoxField comboBoxField3chReloading = new JepComboBoxField(ARSENIC_JEP_COMBOBOX_FIELD_3CH_RELOADING_ID,
         createInfoIcon(arsenicText.detail_jepComboBoxField_reloading_hint()) + new InlineHTML("&nbsp;") + 
         arsenicText.detail_jepComboBoxField_3ch_reloading()) {{
-      setLabelWidth(220);
+      setLabelWidth(300);
       setEmptyText(arsenicText.startTyping3ch());
     }};
-    panel.add(comboBoxField3chReloading);
+    VerticalPanel comboPanel = new VerticalPanel();
+    comboPanel.add(comboBoxFieldNotLazy);
+    comboPanel.add(comboBoxFieldSimple);
+    comboPanel.add(comboBoxFieldDurable);
+    comboPanel.add(comboBoxFieldReloading);
+    comboPanel.add(comboBoxField3chReloading);
     
     JepDualListField dualListField = new JepDualListField(ARSENIC_JEP_DUAL_LIST_FIELD_ID, arsenicText.detail_jepDualListField()) {{
       getElement().getStyle().setPaddingTop(30, Unit.PX);
+      setLabelWidth(200);
       setFieldWidth(420);
     }};
-    panel.add(dualListField);
+    HorizontalPanel comboAndDualPanel = new HorizontalPanel();
+    comboAndDualPanel.getElement().getStyle().setPaddingTop(30, Unit.PX);
+    comboAndDualPanel.add(comboPanel);
+    comboAndDualPanel.add(dualListField);
+    panel.add(comboAndDualPanel);
     
-    JepCheckBoxField checkBoxField = new JepCheckBoxField(ARSENIC_JEP_CHECKBOX_FIELD_ID, arsenicText.detail_jepCheckBoxField());
-    panel.add(checkBoxField);
     
-    JepListField listField = new JepListField(ARSENIC_JEP_LIST_FIELD_ID, arsenicText.detail_jepListField());
-    panel.add(listField);
-    
+    // group: lists
+    JepListField listField = new JepListField(ARSENIC_JEP_LIST_FIELD_ID, arsenicText.detail_jepListField()) {{
+      setLabelWidth(200);
+    }};
     JepListField listFieldCheckAll = new JepListField(ARSENIC_JEP_LIST_FIELD_CHECKALL_ID, arsenicText.detail_jepListField_checkAll()) {{
       setSelectAllCheckBoxVisible(true);
+      setLabelWidth(200);
     }};
-    panel.add(listFieldCheckAll);
+    HorizontalPanel listFieldPanel = new HorizontalPanel();
+    listFieldPanel.getElement().getStyle().setPaddingTop(30, Unit.PX);
+    listFieldPanel.add(listField);
+    listFieldPanel.add(listFieldCheckAll);
+    panel.add(listFieldPanel);
     
     
+    // group: trees
     JepTreeField treeField = new JepTreeField(ARSENIC_JEP_TREE_FIELD_ID, arsenicText.detail_jepTreeField()) {{
       setCheckNodes(CheckNodes.LEAF);
+      setLabelWidth(200);
     }};
-    
-    JepTreeField treeFieldNodes = new JepTreeField(ARSENIC_JEP_TREE_FIELD_NODES_ID, arsenicText.detail_jepTreeField());
-    
-    JepTreeField treeFieldCasc = new JepTreeField(ARSENIC_JEP_TREE_FIELD_CASC_ID, arsenicText.detail_jepTreeField()) {{
+    JepTreeField treeFieldNodes = new JepTreeField(ARSENIC_JEP_TREE_FIELD_NODES_ID, arsenicText.detail_jepTreeField_nodes()) {{
+      setLabelWidth(200);
+    }};
+    JepTreeField treeFieldCasc = new JepTreeField(ARSENIC_JEP_TREE_FIELD_CASC_ID, arsenicText.detail_jepTreeField_casc()) {{
       setCheckStyle(CheckCascade.PARENTS);
+      setLabelWidth(200);
     }};
-    
     HorizontalPanel treeFieldPanel = new HorizontalPanel();
+    treeFieldPanel.getElement().getStyle().setPaddingTop(30, Unit.PX);
     treeFieldPanel.add(treeField);
     treeFieldPanel.add(treeFieldNodes);
     treeFieldPanel.add(treeFieldCasc);
     panel.add(treeFieldPanel);
     
-    JepIntegerField integerField = new JepIntegerField(ARSENIC_MAX_ROW_COUNT_ID, arsenicText.detail_maxRowCount());
+    
+    
+    JepIntegerField integerField = new JepIntegerField(ARSENIC_MAX_ROW_COUNT_ID, arsenicText.detail_maxRowCount()) {{
+      setLabelWidth(200);
+      getElement().getStyle().setPaddingTop(30, Unit.PX);
+    }};
     panel.add(integerField);
+    
+    
+    
     
     fields.put(DETAILFORM_CHECKBOX_SWITCH_VSBL, checkBox_switchVsbl);
     fields.put(DETAILFORM_CHECKBOX_SWITCH_ENBL, checkBox_switchEnbl);

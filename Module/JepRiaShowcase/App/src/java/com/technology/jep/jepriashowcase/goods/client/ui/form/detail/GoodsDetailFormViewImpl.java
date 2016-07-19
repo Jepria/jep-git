@@ -1,11 +1,7 @@
 package com.technology.jep.jepriashowcase.goods.client.ui.form.detail;
  
 import static com.technology.jep.jepriashowcase.goods.client.GoodsClientConstant.goodsText;
-import static com.technology.jep.jepriashowcase.goods.client.JRSCGoodsAutomationConstant.JRSC_GOODS_MOTIVATION_RADIO_FIELD_ID;
-import static com.technology.jep.jepriashowcase.goods.client.JRSCGoodsAutomationConstant.JRSC_GOODS_NAME_TEXT_FIELD_ID;
-import static com.technology.jep.jepriashowcase.goods.client.JRSCGoodsAutomationConstant.JRSC_GOODS_PURCHASING_PRICE_NUMBER_FIELD_ID;
-import static com.technology.jep.jepriashowcase.goods.client.JRSCGoodsAutomationConstant.JRSC_GOODS_TYPE_COMBOBOX_FIELD_ID;
-import static com.technology.jep.jepriashowcase.goods.client.JRSCGoodsAutomationConstant.JRSC_GOODS_UNIT_COMBOBOX_FIELD_ID;
+import static com.technology.jep.jepriashowcase.goods.client.GoodsAutomationConstant.*;
 import static com.technology.jep.jepriashowcase.goods.shared.field.GoodsFieldNames.GOODS_CATALOG_ID_LIST;
 import static com.technology.jep.jepriashowcase.goods.shared.field.GoodsFieldNames.GOODS_NAME;
 import static com.technology.jep.jepriashowcase.goods.shared.field.GoodsFieldNames.GOODS_PHOTO;
@@ -30,14 +26,14 @@ import com.technology.jep.jepria.client.widget.field.tree.TreeField.CheckNodes;
 public class GoodsDetailFormViewImpl extends StandardDetailFormViewImpl implements GoodsDetailFormView {  
  
   public GoodsDetailFormViewImpl() {
-    JepTextField goodsNameTextField = new JepTextField(JRSC_GOODS_NAME_TEXT_FIELD_ID, goodsText.goods_detail_goods_name());
+    JepTextField goodsNameTextField = new JepTextField(GOODS_GOODS_NAME_TEXT_FIELD_ID, goodsText.goods_detail_goods_name());
     goodsNameTextField.setMaxLength(255);
-    JepComboBoxField goodsTypeComboBoxField = new JepComboBoxField(JRSC_GOODS_TYPE_COMBOBOX_FIELD_ID, goodsText.goods_detail_goods_type());
-    JepComboBoxField unitComboBoxField = new JepComboBoxField(JRSC_GOODS_UNIT_COMBOBOX_FIELD_ID, goodsText.goods_detail_unit());
-    JepRadioField motivationTypeRadioField = new JepRadioField(JRSC_GOODS_MOTIVATION_RADIO_FIELD_ID, goodsText.goods_detail_motivation_type());
+    JepComboBoxField goodsTypeComboBoxField = new JepComboBoxField(GOODS_GOODS_TYPE_COMBOBOX_FIELD_ID, goodsText.goods_detail_goods_type());
+    JepComboBoxField unitComboBoxField = new JepComboBoxField(GOODS_UNIT_COMBOBOX_FIELD_ID, goodsText.goods_detail_unit());
+    JepRadioField motivationTypeRadioField = new JepRadioField(GOODS_MOTIVATION_RADIO_FIELD_ID, goodsText.goods_detail_motivation_type());
 
 //    JepNumberField purchasingPriceMoneyField = new JepMoneyField(goodsText.goods_detail_purchasing_price()); //TODO не компилится, разобраться
-    JepNumberField purchasingPriceMoneyField = new JepNumberField(JRSC_GOODS_PURCHASING_PRICE_NUMBER_FIELD_ID, goodsText.goods_detail_purchasing_price()); //TODO Времянка
+    JepNumberField purchasingPriceMoneyField = new JepNumberField(GOODS_PURCHASING_PRICE_NUMBER_FIELD_ID, goodsText.goods_detail_purchasing_price()); //TODO Времянка
     
     JepListField goodsSegmentListField = new JepListField(goodsText.goods_detail_goods_segment());
     goodsSegmentListField.setFieldHeight(120);

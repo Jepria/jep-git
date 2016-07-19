@@ -11,7 +11,7 @@ import org.openqa.selenium.WebElement;
 
 import com.technology.jep.jepria.auto.pages.JepRiaEntranceApplicationPage;
 import com.technology.jep.jepria.auto.pages.PageManagerBase;
-import com.technology.jep.jepria.client.AutomationConstant;
+import com.technology.jep.jepria.client.JepRiaAutomationConstant;
 
 /**
  * TODO Нужна ли такая унификация ?
@@ -40,8 +40,8 @@ public class ApplicationEntrancePageManager extends PageManagerBase {
             
             loginPage = initElements(new DefaultLoginPage<ApplicationEntrancePageManager>(this));
         } catch (NoSuchElementException ex) {
-            getWait().until(presenceOfElementLocated(By.id(AutomationConstant.LOGIN_USERNAME_FIELD_ID)));
-            getWait().until(presenceOfElementLocated(By.id(AutomationConstant.LOGIN_PASSWORD_FIELD_ID)));
+            getWait().until(presenceOfElementLocated(By.id(JepRiaAutomationConstant.LOGIN_USERNAME_FIELD_ID)));
+            getWait().until(presenceOfElementLocated(By.id(JepRiaAutomationConstant.LOGIN_PASSWORD_FIELD_ID)));
               loginPage = initElements(new JepRiaLoginPage<ApplicationEntrancePageManager>(this));
         }
       }
