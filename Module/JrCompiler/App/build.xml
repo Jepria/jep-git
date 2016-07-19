@@ -1,5 +1,22 @@
 <project default="jar">
+  <taskdef resource="net/sf/antcontrib/antlib.xml" />
   <property file="local.properties" />
+  <property environment="env" />
+  <if>
+    <isset property="env.BIN_HOME" />
+    <then>
+      <property name="BIN_HOME" value="${env.BIN_HOME}" />
+    </then>
+  </if>
+  <if>
+    <isset property="BIN_HOME" />
+    <then>
+      <echo message="Binary repository path: ${BIN_HOME}" />        
+    </then>
+    <else>
+      <fail message="Binary repository path not specified. Specify it either in environment variable %BIN_HOME% or use -DBIN_HOME=... command line argument." />
+    </else>
+  </if>
   <property file="dependency.properties" />
   <property file="build.properties" />
   <property name="RESOURCE_HOME" value="src/resources" />
@@ -11,7 +28,37 @@
   <fileset id="class-jar" dir="${CLASSES_DIR}">
   </fileset>
 
-  <target name="start-log">        
+  <!-- Проверка наличия всех используемых библиотек (зависимостей) -->
+  <target name="check-dependencies" >
+    <propertyselector
+        property="pack.list"
+        delimiter=","
+        match="([^\s]+(\_(?i)(lib|jslib))$)"
+        select="\1"
+        casesensitive="false" />
+                 
+    <echo message="Dependency checking..."/>
+    <for list="${pack.list}" param="lib-path">
+      <sequential>
+        <if> <available file="${@{lib-path}}"/>
+          <then/>
+          <else>
+            <echo>Required library '${@{lib-path}}' is absent</echo>
+            <property name="DEPENDENCY_ABSENCE" value="true" />
+          </else>
+        </if>
+      </sequential>
+    </for>
+    <if> <equals arg1="${DEPENDENCY_ABSENCE}" arg2="true" />
+      <then>
+        <echo>Dependency checking failed</echo>
+        <fail message="BINARY REPOSITORY PROBABLY SHOULD BE UPDATED"/>
+      </then>
+    </if>
+    <echo message="Dependency checking succeeded"/>
+  </target>  
+  
+  <target name="start-log" depends="check-dependencies">        
     <record name="build.log" loglevel="info" />
   </target>
   
