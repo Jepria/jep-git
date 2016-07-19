@@ -70,6 +70,8 @@ Module/JepRiaToolkit/bin/
 
 # JrCompiler specific
 Module/JrCompiler/App/lib/jrcompiler.jar
+Module/JrCompiler/App/build/
+Module/JrCompiler/App/build.log
 
 # Eclipse project files
 /bin/
