@@ -658,11 +658,6 @@ public class JepRiaModuleAutoImpl<A extends EntranceAppAuto, P extends JepRiaApp
         !itemPath.matches(".*(?<!\\\\)/") && !itemPath.matches("/.*")) {
       // 1) Парсим путь и готовимся к его обходу.
       
-      // Убираем ведущий слэш, если имеется
-      if (itemPath.startsWith("/")) {
-        itemPath = itemPath.substring(1);
-      }
-      
       final List<String> partsOriginal = Arrays.asList(itemPath.split("(?<!\\\\)/"));
       final List<String> parts = new ArrayList<String>(partsOriginal);
 
@@ -797,7 +792,7 @@ public class JepRiaModuleAutoImpl<A extends EntranceAppAuto, P extends JepRiaApp
       
     } else {
       throw new IllegalArgumentException(itemPath + " is not a syntactically valid path to an option: "
-          + "the path must neither contain empty elements '//' nor begin or end with unescaped slash '/'");
+          + "the path must neither contain empty elements '//', nor begin, nor end with unescaped slash '/'");
     }
   }
   
