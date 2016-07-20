@@ -81,7 +81,7 @@ public class CheckBoxListField<T extends JepOption> extends Composite implements
    * An html string representation of a checked input box with a label.
    */
   private static final String CHECKBOX_HTML = 
-      "<input type='checkbox' tabindex='-1' {0} " + JEP_OPTION_VALUE_HTML_ATTR + "='{1}' style='float:left;cursor:pointer;' {2} {3}/>" +
+      "<input type='checkbox' tabindex='-1' {4} " + JEP_OPTION_VALUE_HTML_ATTR + "='{1}' style='float:left;cursor:pointer;' {2} {3}/>" +
       "<label for='{0}' title='{1}' class='item " + MAIN_FONT_STYLE + "'>&nbsp;{1}</label>";
   
   /**
@@ -459,11 +459,21 @@ public class CheckBoxListField<T extends JepOption> extends Composite implements
       }
       
       final String checkBoxHtmlString;
-      final String checkBoxIdAsWebEl = fieldIdAsWebEl == null ? "" : "id='" + fieldIdAsWebEl + JEP_LIST_FIELD_ITEM_CHECKBOX_INFIX + value.label + "'";
+      final String checkBoxId, idAttrWithVal;
+      if (fieldIdAsWebEl == null) {
+        checkBoxId = idAttrWithVal = "";
+      } else {
+        checkBoxId = fieldIdAsWebEl + JEP_LIST_FIELD_ITEM_CHECKBOX_INFIX + value.label;
+        idAttrWithVal = "id='" + checkBoxId + "'";
+      }
       
       boolean checked = value.checked != null && ((viewData != null) ? viewData : value.checked);
-      checkBoxHtmlString = JepClientUtil.substitute(CHECKBOX_HTML, checkBoxIdAsWebEl, value.label,
-          checked ? "checked" : "", disabled ? "disabled" : "");
+      checkBoxHtmlString = JepClientUtil.substitute(CHECKBOX_HTML,
+          checkBoxId,
+          value.label,
+          checked ? "checked" : "",
+          disabled ? "disabled" : "",
+          idAttrWithVal);
       
       sb.append(SafeHtmlUtils.fromSafeConstant(checkBoxHtmlString));
     }
