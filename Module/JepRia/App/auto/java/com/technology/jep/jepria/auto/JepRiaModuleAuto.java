@@ -232,7 +232,7 @@ public interface JepRiaModuleAuto extends EntranceAuto {
    * Узлы в полученном массиве располагаются в порядке их отображения в списке JepTreeField'а,
    * поэтому сравнение массивов в классе *AutoTest необходимо производить без учета порядка!
    */
-  String[] getTreeFieldNodesByFilter(String treeFieldId, TreeNodeFilter filter);
+  String[] getTreeFieldNodesByFilter(String treeFieldId, TreeItemFilter filter);
   
   /**
    * Проверка видимости Jep-поля по заданному ID (атрибута aria-hidden)
