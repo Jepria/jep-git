@@ -296,7 +296,7 @@
   <!-- Java-компиляция -->
   <target name="java-compile" depends="build-config, production-builder-check">
     <mkdir dir="build" />
-    <javac debug="on" destdir="build" encoding="utf-8" includeantruntime="false" srcdir="src/java" target="1.5">
+    <javac debug="on" destdir="build" encoding="utf-8" includeantruntime="false" srcdir="src/java">
       <classpath refid="libs" />
       <classpath refid="oc4j-libs" />
       <classpath refid="weblogic-libs" />
@@ -305,7 +305,7 @@
 
   <target name="java-compile-test-gwt" depends="java-compile">
     <mkdir dir="build-test" />
-    <javac debug="on" destdir="build-test" encoding="utf-8" includeantruntime="false" srcdir="test-gwt/java" target="1.5">
+    <javac debug="on" destdir="build-test" encoding="utf-8" includeantruntime="false" srcdir="test-gwt/java">
       <classpath refid="libs" />
       <classpath>
         <pathelement location="build" />
