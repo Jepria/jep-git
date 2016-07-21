@@ -10,12 +10,15 @@ drop package pkg_JepRiaShowcase
 
 -- Представления
 
-drop view v_jrs_feature_job
+drop view v_bic_bank
+/
+drop view v_jrs_feature_lob
 /
 
 
 -- Внешние ключи
 
+@oms-drop-foreign-key jrs_bic_bank
 @oms-drop-foreign-key jrs_feature
 @oms-drop-foreign-key jrs_goods
 @oms-drop-foreign-key jrs_goods_catalog
@@ -35,6 +38,8 @@ drop view v_jrs_feature_job
 
 -- Таблицы
 
+drop table jrs_bic_bank
+/
 drop table jrs_feature
 /
 drop table jrs_goods
