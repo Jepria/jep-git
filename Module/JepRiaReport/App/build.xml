@@ -1,4 +1,4 @@
-﻿<project name="Jep Module Building" default="build">
+﻿<project name="Jep Ria Report Module Building" default="build">
   <taskdef resource="net/sf/antcontrib/antlib.xml" />
   <property file="local.properties" />
   <property environment="env" />
@@ -114,7 +114,7 @@
 <!--  <target name="compile-java" depends="encode-text-resources" unless="text-resources-is-uptodate"> -->
   <target name="compile-java">
     <mkdir dir="build" />
-    <javac srcdir="src/java" destdir="build" debug="on" encoding="utf-8" target="1.5" includeantruntime="false" >
+    <javac srcdir="src/java" destdir="build" debug="on" encoding="utf-8" includeantruntime="false" >
       <classpath refid="libs" />
     </javac>
   </target>

@@ -8,6 +8,7 @@
 
 -- Таблицы
 
+@oms-run jrs_bic_bank.tab
 @oms-run jrs_feature.tab
 @oms-run jrs_goods.tab
 @oms-run jrs_goods_catalog.tab
@@ -27,6 +28,7 @@
 
 -- Outline-ограничения целостности
 
+@oms-run jrs_bic_bank.con
 @oms-run jrs_feature.con
 @oms-run jrs_goods.con
 @oms-run jrs_goods_catalog.con

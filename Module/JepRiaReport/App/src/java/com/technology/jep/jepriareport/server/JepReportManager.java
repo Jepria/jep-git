@@ -1,5 +1,8 @@
 package com.technology.jep.jepriareport.server;
 
+import static com.technology.jep.jepriareport.server.JepReportConstant.LIST_IN_FILES_MODE;
+import static com.technology.jep.jepriareport.server.JepReportConstant.LIST_IN_MEMORY_MODE;
+
 import java.io.File;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -15,6 +18,7 @@ import javax.servlet.http.HttpSession;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRParameter;
+import net.sf.jasperreports.engine.JRPrintElement;
 import net.sf.jasperreports.engine.JRPrintPage;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -37,8 +41,7 @@ import com.technology.jep.jepriareport.server.large.JepLargeReportDataSource;
 /**
  * Модуль поддержки построения отчётов Jep
  */
-@SuppressWarnings({"unchecked"})
-public class JepReportManager implements JepReportConstant {
+public class JepReportManager {
 
   /**
    * Подготовка отчёта для печатной (несписочной) формы в оперативной памяти
@@ -59,7 +62,7 @@ public class JepReportManager implements JepReportConstant {
     String realPath = servletContext.getRealPath(reportDefinitionPath);
     JasperReport jasperReport = getJasperReportCompiled(request, realPath);
     
-    Map<String, Locale> parameters = fillStandardParameters(request.getLocale());
+    Map<String, Object> parameters = fillStandardParameters(request.getLocale());
     parameters = fillApplicationParameters(parameters, applicationParameters);
     JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters);
     
@@ -174,7 +177,7 @@ public class JepReportManager implements JepReportConstant {
     JasperReport jasperReport = getJasperReportCompiled(request, reportDefinitionPath);
 
     // Заполнение отчёта
-    Map parameters = fillStandardParameters(locale);
+    Map<String, Object> parameters = fillStandardParameters(locale);
     parameters = fillApplicationParameters(parameters, applicationParameters);
     
     JasperPrint jasperPrint = null;
@@ -219,7 +222,7 @@ public class JepReportManager implements JepReportConstant {
     JasperReport jasperReport = null;
     File reportDefinitionResultFile = getJasperReportFile(request, reportDefinitionPath);
       if (reportDefinitionResultFile.exists()) {
-        jasperReport = (JasperReport)JRLoader.loadObject(reportDefinitionResultFile.getPath());          
+        jasperReport = (JasperReport)JRLoader.loadObject(new File(reportDefinitionResultFile.getPath()));          
       } else {
       throw new ApplicationException("File '" + reportDefinitionResultFile.getAbsolutePath() + "' not found.", null);
       }
@@ -256,8 +259,8 @@ public class JepReportManager implements JepReportConstant {
    * @param locale локаль
    * @return HashMap, заполненную стандартными параметрами
    */
-  private static Map<String, Locale> fillStandardParameters(Locale locale) {
-    HashMap<String, Locale> parameters = new HashMap<String, Locale>();
+  private static Map<String, Object> fillStandardParameters(Locale locale) {
+    HashMap<String, Object> parameters = new HashMap<String, Object>();
     // Иначе будет использована серверная локаль (на момент запуска сервера) 
     parameters.put(JRParameter.REPORT_LOCALE, locale);
     return parameters;
@@ -270,7 +273,7 @@ public class JepReportManager implements JepReportConstant {
    * @param applicationParameters параметры приложения
    * @return HashMap, дополненную параметрами
    */
-  private static Map fillApplicationParameters(Map parameters, JepReportParameters applicationParameters) {
+  private static Map<String, Object> fillApplicationParameters(Map<String, Object> parameters, JepReportParameters applicationParameters) {
     if(applicationParameters != null) {
       Map<String, Object> parameterMap = applicationParameters.getParameterMap();
       Set<String> keys = parameterMap.keySet();
@@ -282,9 +285,9 @@ public class JepReportManager implements JepReportConstant {
   }
   
   private static void removeBlankPage(List<JRPrintPage> pages) {
-    for (Iterator<JRPrintPage> i=pages.iterator(); i.hasNext();) {
+    for (Iterator<JRPrintPage> i = pages.iterator(); i.hasNext();) {
       JRPrintPage page = i.next();
-      List elements = page.getElements(); 
+      List<JRPrintElement> elements = page.getElements(); 
       int size = elements.size(); 
       Object element = null;
       switch(size) {
