@@ -17,8 +17,7 @@ import com.technology.jep.jepriareport.server.JepReportRecord;
 /**
  * Источник данных для больших отчётов
  */
-public class JepLargeReportDataSource implements JRDataSource
-{
+public class JepLargeReportDataSource implements JRDataSource {
   /**
    * Штатный режим
    */
@@ -33,7 +32,6 @@ public class JepLargeReportDataSource implements JRDataSource
    * Штатный режим (по умолчанию) 
    */
   private final static int mode = DEFAULT_MODE;
-//  private final static int mode = OUT_OF_MEMORY_TEST_MODE;
   private final static int MAX_ROW_NUMBER_TEST_MODE = 1000000; 
   private int currentRowNumber = 0;
   
@@ -47,12 +45,10 @@ public class JepLargeReportDataSource implements JRDataSource
    */
   private JepReportRecord currentReportRecord = null;
   
-  
   /**
    * Текущий индекс блока 
    */
   private int currentIndex = 0;
-
 
   /**
    * Конструктор источника данных для большого отчёта
@@ -117,8 +113,7 @@ public class JepLargeReportDataSource implements JRDataSource
     return result; 
   }
 
-  public Object getFieldValue(JRField field) throws JRException
-  {
+  public Object getFieldValue(JRField field) throws JRException {
     return currentReportRecord.getFieldValue(field.getName());
   }
   
