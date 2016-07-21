@@ -83,12 +83,12 @@
     <pathelement location="${BEANSHELL_LIB}" />
     <pathelement location="${CGLIB-NODEP_LIB}" />
     <pathelement location="${COMMONS-CODEC_LIB}" />
-    <pathelement location="${COMMONS-COLLECTIONS-3.2.1_LIB}" />
+    <pathelement location="${COMMONS-COLLECTIONS_LIB}" />
     <pathelement location="${COMMONS-EXEC_LIB}" />
-    <pathelement location="${COMMONS-IO-2.4_LIB}" />
+    <pathelement location="${COMMONS-IO_LIB}" />
     <pathelement location="${COMMONS-JXPATH_LIB}" />
     <pathelement location="${COMMONS-LANG3_LIB}" />
-    <pathelement location="${COMMONS-LOGGING-1.1.3_LIB}" />
+    <pathelement location="${COMMONS-LOGGING_LIB}" />
     <pathelement location="${CSSPARSER_LIB}" />
     <pathelement location="${GUAVA_LIB}" />
     <pathelement location="${HAMCREST-CORE_LIB}" />
@@ -518,10 +518,10 @@
         
         <copy todir="temp-war/WEB-INF/lib">
           <fileset file="${COMMONS-BEANUTILS_LIB}" />
-          <fileset file="${COMMONS-COLLECTIONS-2.1_LIB}" />
-          <fileset file="${COMMONS-DIGESTER-1.5_LIB}" />
+          <fileset file="${COMMONS-COLLECTIONS_LIB}" />
+          <fileset file="${COMMONS-DIGESTER_LIB}" />
           <fileset file="${COMMONS-FILEUPLOAD_LIB}" />
-          <fileset file="${COMMONS-IO-1.4_LIB}" />
+          <fileset file="${COMMONS-IO_LIB}" />
           <fileset file="${COMMONS-LANG_LIB}" />
           <fileset file="${COMMONS-VALIDATOR_LIB}" />
           <fileset file="${GWT-LOG_LIB}" />
@@ -584,8 +584,8 @@
           <fileset dir="${RESOURCE_HOME}" includes="application.xml, orion-application.xml" />
         </copy>
         <copy todir="temp-ear/lib">
-          <fileset file="${COMMONS-DIGESTER-1.7_LIB}"/>
-          <fileset file="${COMMONS-LOGGING-1.0.3_LIB}"/>
+          <fileset file="${COMMONS-DIGESTER_LIB}"/>
+          <fileset file="${COMMONS-LOGGING_LIB}"/>
           <fileset file="${GWT-SERVLET_LIB}"/>
           <fileset file="${JASPERREPORTS_LIB}"/>
           <fileset file="${JAZNCORE_LIB}"/>
@@ -600,7 +600,7 @@
           <fileset dir="${JAR_TEMP}" includes="${MODULE_NAME_IN_PACKAGE}.war" />
         </copy>
         <copy todir="temp-ear/lib">
-          <fileset file="${COMMONS-DIGESTER-1.7_LIB}" />
+          <fileset file="${COMMONS-DIGESTER_LIB}" />
           <fileset file="${JCOMMON_LIB}" />
           <fileset file="${JFREECHART_LIB}" />
           <fileset file="${ITEXT_LIB}" />
@@ -648,12 +648,11 @@
         
         <copy todir="temp-war/WEB-INF/lib">
           <fileset file="${COMMONS-BEANUTILS_LIB}" />
-          <fileset file="${COMMONS-COLLECTIONS-2.1_LIB}" />
-          <fileset file="${COMMONS-DIGESTER-1.5_LIB}" />
-          <fileset file="${COMMONS-DIGESTER-1.7_LIB}" />
+          <fileset file="${COMMONS-COLLECTIONS_LIB}" />
+          <fileset file="${COMMONS-DIGESTER_LIB}" />
           <fileset file="${COMMONS-FILEUPLOAD_LIB}" />
-          <fileset file="${COMMONS-IO-1.4_LIB}" />
-          <fileset file="${COMMONS-LOGGING-1.0.3_LIB}" />
+          <fileset file="${COMMONS-IO_LIB}" />
+          <fileset file="${COMMONS-LOGGING_LIB}" />
           <fileset file="${COMMONS-LANG_LIB}" />
           <fileset file="${COMMONS-VALIDATOR_LIB}" />
           <fileset file="${GROOVY-ALL_LIB}" />
