@@ -1,17 +1,20 @@
 -- script: Install/Schema/Last/Dba/run.sql
 -- Скрипт для выполнения под пользователем, обладающим ролью DBA.
+-- Параметры вызова:
+-- 1 - имя файла данных для табличного пространства itm_data (например: C:\ORACLE\INFOT\ITM_DATA01.DBF)
+-- 2 - имя файла данных для табличного пространства itm_index (например: C:\ORACLE\INFOT\ITM_INDEX01.DBF)
 
 create tablespace itm_data
-datafile itm_data size 100M autoextend on
+datafile '&1' size 100M reuse autoextend on next 100M maxsize unlimited
 /
 
-create tablespace itm_data
-datafile itm_data size 100M autoextend on
+create tablespace itm_index
+datafile '&2' size 100M reuse autoextend on next 100M maxsize unlimited
 /
 
 create user itm identified by itm
 /
-alter user itm default tablespace itm
+alter user itm default tablespace itm_data
 /
 alter user itm quota unlimited on itm_data
 /
@@ -37,6 +40,9 @@ grant create view to itm
 
 create user itm_user identified by itm_user
 /
+alter user itm_user default tablespace itm_data
+/
+
 grant create session to itm_user
 /
 

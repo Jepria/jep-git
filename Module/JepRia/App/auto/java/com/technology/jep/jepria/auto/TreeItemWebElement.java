@@ -6,6 +6,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 
+import com.google.gwt.cell.client.CompositeCell;
 import com.technology.jep.jepria.auto.exceptions.AutomationException;
 
 /**
@@ -22,7 +23,15 @@ import com.technology.jep.jepria.auto.exceptions.AutomationException;
  * @author RomanovAS
  */
 public final class TreeItemWebElement {
-  public enum CheckedState {CHECKED, UNCHECKED, PARTIAL};
+  /**
+   * Этот енум определяется JEP(а не GWT)-свойством отмеченности узла дерева, то есть атрибутом
+   * jep-treenode-checkedstate элемента span, а не атрибутом aria-selected элемента div[role='treeitem'].
+   * Элементы енума тождественны автоматизационным константам-значениям атрибута jep-treenode-checkedstate,
+   * однако не стоит их смешивать, равно как и использовать этот енум на клиенте
+   * (см. {@link com.technology.jep.jepria.client.widget.field.tree.TreeField.TreeModel#getNodeInfo getNodeInfo::new CompositeCell<V>#render}).  
+   * @author RomanovAS
+   */
+  public enum CheckedState {CHECKED, UNCHECKED, PARTIAL, UNCHECKABLE};
   
   /**
    * Веб-элемент, на основе которого фабрикой был создан данный экземпляр.
@@ -127,7 +136,7 @@ public final class TreeItemWebElement {
         } else if (JEP_TREENODE_CHECKEDSTATE_VALUE_PARTIAL.equals(jepCheckedStateVal)) {
           checkedState = CheckedState.PARTIAL;
         } else {
-          checkedState = null;
+          checkedState = CheckedState.UNCHECKABLE;
         }
         
         return new TreeItemWebElement(webElement, itemName, false, isLeaf, isExpanded, level, checkedState);
@@ -137,7 +146,7 @@ public final class TreeItemWebElement {
       }
     } else {
       // create the root of tree
-      return new TreeItemWebElement(webElement, null, true, false, true, 0, null);
+      return new TreeItemWebElement(webElement, null, true, false, true, 0, CheckedState.UNCHECKABLE);
     }
   }
   

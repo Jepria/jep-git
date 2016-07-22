@@ -1,7 +1,11 @@
 package com.technology.jep.jepria.client.widget.field.tree;
 
 import static com.google.gwt.dom.client.BrowserEvents.CLICK;
-import static com.technology.jep.jepria.client.JepRiaAutomationConstant.*;
+import static com.technology.jep.jepria.client.JepRiaAutomationConstant.JEP_TREENODE_CHECKEDSTATE_HTML_ATTR;
+import static com.technology.jep.jepria.client.JepRiaAutomationConstant.JEP_TREENODE_CHECKEDSTATE_VALUE_CHECKED;
+import static com.technology.jep.jepria.client.JepRiaAutomationConstant.JEP_TREENODE_CHECKEDSTATE_VALUE_PARTIAL;
+import static com.technology.jep.jepria.client.JepRiaAutomationConstant.JEP_TREENODE_CHECKEDSTATE_VALUE_UNCHECKABLE;
+import static com.technology.jep.jepria.client.JepRiaAutomationConstant.JEP_TREENODE_CHECKEDSTATE_VALUE_UNCHECKED;
 import static com.technology.jep.jepria.client.JepRiaAutomationConstant.JEP_TREENODE_INFIX;
 import static com.technology.jep.jepria.client.JepRiaAutomationConstant.JEP_TREENODE_ISLEAF_HTML_ATTR;
 
@@ -53,7 +57,6 @@ import com.technology.jep.jepria.client.widget.field.multistate.event.CheckChang
 import com.technology.jep.jepria.client.widget.field.tree.images.TreeFieldResources;
 import com.technology.jep.jepria.shared.field.option.JepOption;
 import com.technology.jep.jepria.shared.field.option.JepParentOption;
-import com.technology.jep.jepria.shared.log.JepLoggerImpl;
 import com.technology.jep.jepria.shared.util.JepRiaUtil;
 
 /**
