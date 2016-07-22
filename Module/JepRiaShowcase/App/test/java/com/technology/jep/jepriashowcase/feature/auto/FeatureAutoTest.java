@@ -7,7 +7,6 @@ import static com.technology.jep.jepria.client.JepRiaAutomationConstant.TOOLBAR_
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.CREATE;
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.EDIT;
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.SEARCH;
-import static com.technology.jep.jepria.client.ui.WorkstateEnum.VIEW_LIST;
 
 import org.apache.log4j.Logger;
 import org.testng.annotations.Test;
@@ -151,7 +150,7 @@ public class FeatureAutoTest extends JepAutoTest<FeatureAuto> {
     assertEquals(maxRowCount, cut.getMaxRowCount());
       
     // Осуществляем поиск
-    cut.setWorkstate(VIEW_LIST);
+    cut.find();
     
     // Проверяем, что осуществился переход на форму списка после поиска
      assertEquals(
