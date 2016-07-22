@@ -208,7 +208,7 @@
 
   <target name="java-compile" depends="encode-text-for-gwt">
     <mkdir dir="build" />
-    <javac srcdir="src/java" destdir="build" debug="on" encoding="utf-8" target="1.5" includeantruntime="false">
+    <javac srcdir="src/java" destdir="build" debug="on" encoding="utf-8" includeantruntime="false">
       <classpath refid="weblogic-libs" />
       <classpath refid="tomcat-libs" />
       <classpath refid="libs" />
@@ -218,7 +218,7 @@
 
   <target name="java-auto-compile" depends="java-compile">
     <mkdir dir="build-auto" />
-    <javac srcdir="auto/java" destdir="build-auto" debug="on" encoding="utf-8" target="1.5" includeantruntime="false">
+    <javac srcdir="auto/java" destdir="build-auto" debug="on" encoding="utf-8" includeantruntime="false">
       <classpath refid="libs" />
       <classpath refid="selenium-libs" />
       <classpath>
@@ -229,7 +229,7 @@
 
   <target name="java-test-compile" depends="java-compile, java-auto-compile">
     <mkdir dir="build-test" />
-    <javac srcdir="test/java" destdir="build-test" debug="on" encoding="utf-8" target="1.5" includeantruntime="false">
+    <javac srcdir="test/java" destdir="build-test" debug="on" encoding="utf-8" includeantruntime="false">
       <classpath refid="libs" />
       <classpath refid="selenium-libs" />
       <classpath refid="powermock-libs" />

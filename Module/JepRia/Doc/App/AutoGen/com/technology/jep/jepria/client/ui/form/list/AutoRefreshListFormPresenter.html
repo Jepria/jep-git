@@ -1,466 +1,456 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<!--NewPage-->
-<HTML>
-<HEAD>
-<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<TITLE>
-AutoRefreshListFormPresenter (JepRia JavaDoc)
-</TITLE>
-
-
-<LINK REL ="stylesheet" TYPE="text/css" HREF="../../../../../../../../stylesheet.css" TITLE="Style">
-
-<SCRIPT type="text/javascript">
-function windowTitle()
-{
+<!-- NewPage -->
+<html lang="ru">
+<head>
+<meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+<title>AutoRefreshListFormPresenter (JepRia JavaDoc)</title>
+<link rel="stylesheet" type="text/css" href="../../../../../../../../stylesheet.css" title="Style">
+</head>
+<body>
+<script type="text/javascript"><!--
     if (location.href.indexOf('is-external=true') == -1) {
         parent.document.title="AutoRefreshListFormPresenter (JepRia JavaDoc)";
     }
-}
-</SCRIPT>
-<NOSCRIPT>
-</NOSCRIPT>
-
-</HEAD>
-
-<BODY BGCOLOR="white" onload="windowTitle();">
-<HR>
-
-
+//-->
+</script>
+<noscript>
+<div>JavaScript is disabled on your browser.</div>
+</noscript>
 <!-- ========= START OF TOP NAVBAR ======= -->
-<A NAME="navbar_top"><!-- --></A>
-<A HREF="#skip-navbar_top" title="Skip navigation links"></A>
-<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
-<TR>
-<TD COLSPAN=2 BGCOLOR="#EEEEFF" CLASS="NavBarCell1">
-<A NAME="navbar_top_firstrow"><!-- --></A>
-<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3" SUMMARY="">
-  <TR ALIGN="center" VALIGN="top">
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-summary.html"><FONT CLASS="NavBarFont1"><B>Package</B></FONT></A>&nbsp;</TD>
-  <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../../index-all.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../../help-doc.html"><FONT CLASS="NavBarFont1"><B>Help</B></FONT></A>&nbsp;</TD>
-  </TR>
-</TABLE>
-</TD>
-<TD ALIGN="right" VALIGN="top" ROWSPAN=3><EM>
-</EM>
-</TD>
-</TR>
-
-<TR>
-<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;PREV CLASS&nbsp;
-&nbsp;<A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormActivityMapper.html" title="class in com.technology.jep.jepria.client.ui.form.list"><B>NEXT CLASS</B></A></FONT></TD>
-<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-  <A HREF="../../../../../../../../index.html?com/technology/jep/jepria/client/ui/form/list/AutoRefreshListFormPresenter.html" target="_top"><B>FRAMES</B></A>  &nbsp;
-&nbsp;<A HREF="AutoRefreshListFormPresenter.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
-&nbsp;<SCRIPT type="text/javascript">
-  <!--
+<div class="topNav"><a name="navbar_top">
+<!--   -->
+</a><a href="#skip-navbar_top" title="Skip navigation links"></a><a name="navbar_top_firstrow">
+<!--   -->
+</a>
+<ul class="navList" title="Navigation">
+<li><a href="../../../../../../../../overview-summary.html">Overview</a></li>
+<li><a href="package-summary.html">Package</a></li>
+<li class="navBarCell1Rev">Class</li>
+<li><a href="package-tree.html">Tree</a></li>
+<li><a href="../../../../../../../../deprecated-list.html">Deprecated</a></li>
+<li><a href="../../../../../../../../index-all.html">Index</a></li>
+<li><a href="../../../../../../../../help-doc.html">Help</a></li>
+</ul>
+</div>
+<div class="subNav">
+<ul class="navList">
+<li>Prev Class</li>
+<li><a href="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormActivityMapper.html" title="class in com.technology.jep.jepria.client.ui.form.list"><span class="strong">Next Class</span></a></li>
+</ul>
+<ul class="navList">
+<li><a href="../../../../../../../../index.html?com/technology/jep/jepria/client/ui/form/list/AutoRefreshListFormPresenter.html" target="_top">Frames</a></li>
+<li><a href="AutoRefreshListFormPresenter.html" target="_top">No Frames</a></li>
+</ul>
+<ul class="navList" id="allclasses_navbar_top">
+<li><a href="../../../../../../../../allclasses-noframe.html">All Classes</a></li>
+</ul>
+<div>
+<script type="text/javascript"><!--
+  allClassesLink = document.getElementById("allclasses_navbar_top");
   if(window==top) {
-    document.writeln('<A HREF="../../../../../../../../allclasses-noframe.html"><B>All Classes</B></A>');
+    allClassesLink.style.display = "block";
+  }
+  else {
+    allClassesLink.style.display = "none";
   }
   //-->
-</SCRIPT>
-<NOSCRIPT>
-  <A HREF="../../../../../../../../allclasses-noframe.html"><B>All Classes</B></A>
-</NOSCRIPT>
-
-
-</FONT></TD>
-</TR>
-<TR>
-<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
-  SUMMARY:&nbsp;NESTED&nbsp;|&nbsp;<A HREF="#field_summary">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
-<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
-DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
-</TR>
-</TABLE>
-<A NAME="skip-navbar_top"></A>
+</script>
+</div>
+<div>
+<ul class="subNavList">
+<li>Summary:&nbsp;</li>
+<li>Nested&nbsp;|&nbsp;</li>
+<li><a href="#field_summary">Field</a>&nbsp;|&nbsp;</li>
+<li><a href="#constructor_summary">Constr</a>&nbsp;|&nbsp;</li>
+<li><a href="#method_summary">Method</a></li>
+</ul>
+<ul class="subNavList">
+<li>Detail:&nbsp;</li>
+<li><a href="#field_detail">Field</a>&nbsp;|&nbsp;</li>
+<li><a href="#constructor_detail">Constr</a>&nbsp;|&nbsp;</li>
+<li><a href="#method_detail">Method</a></li>
+</ul>
+</div>
+<a name="skip-navbar_top">
+<!--   -->
+</a></div>
 <!-- ========= END OF TOP NAVBAR ========= -->
-
-<HR>
 <!-- ======== START OF CLASS DATA ======== -->
-<H2>
-<FONT SIZE="-1">
-com.technology.jep.jepria.client.ui.form.list</FONT>
-<BR>
-Class AutoRefreshListFormPresenter&lt;V extends <A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormView.html" title="interface in com.technology.jep.jepria.client.ui.form.list">ListFormView</A>,E extends <A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/eventbus/plain/PlainEventBus.html" title="class in com.technology.jep.jepria.client.ui.eventbus.plain">PlainEventBus</A>,S extends <A HREF="../../../../../../../../com/technology/jep/jepria/shared/service/data/JepDataServiceAsync.html" title="interface in com.technology.jep.jepria.shared.service.data">JepDataServiceAsync</A>,F extends <A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/plain/StandardClientFactory.html" title="interface in com.technology.jep.jepria.client.ui.plain">StandardClientFactory</A>&lt;E,S&gt;&gt;</H2>
-<PRE>
-java.lang.Object
-  <IMG SRC="../../../../../../../../resources/inherit.gif" ALT="extended by ">com.google.gwt.activity.shared.AbstractActivity
-      <IMG SRC="../../../../../../../../resources/inherit.gif" ALT="extended by "><A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/JepActivity.html" title="class in com.technology.jep.jepria.client.ui">com.technology.jep.jepria.client.ui.JepActivity</A>&lt;E,F&gt;
-          <IMG SRC="../../../../../../../../resources/inherit.gif" ALT="extended by "><A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/JepPresenter.html" title="class in com.technology.jep.jepria.client.ui">com.technology.jep.jepria.client.ui.JepPresenter</A>&lt;E,F&gt;
-              <IMG SRC="../../../../../../../../resources/inherit.gif" ALT="extended by "><A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormPresenter.html" title="class in com.technology.jep.jepria.client.ui.form.list">com.technology.jep.jepria.client.ui.form.list.ListFormPresenter</A>&lt;V,E,S,F&gt;
-                  <IMG SRC="../../../../../../../../resources/inherit.gif" ALT="extended by "><B>com.technology.jep.jepria.client.ui.form.list.AutoRefreshListFormPresenter&lt;V,E,S,F&gt;</B>
-</PRE>
-<DL>
-<DT><B>All Implemented Interfaces:</B> <DD>com.google.gwt.activity.shared.Activity, com.google.gwt.event.shared.EventHandler, <A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/eventbus/plain/event/DeleteEvent.Handler.html" title="interface in com.technology.jep.jepria.client.ui.eventbus.plain.event">DeleteEvent.Handler</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/eventbus/plain/event/DoDeleteEvent.Handler.html" title="interface in com.technology.jep.jepria.client.ui.eventbus.plain.event">DoDeleteEvent.Handler</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/eventbus/plain/event/PagingEvent.Handler.html" title="interface in com.technology.jep.jepria.client.ui.eventbus.plain.event">PagingEvent.Handler</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/eventbus/plain/event/RefreshEvent.Handler.html" title="interface in com.technology.jep.jepria.client.ui.eventbus.plain.event">RefreshEvent.Handler</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/eventbus/plain/event/SearchEvent.Handler.html" title="interface in com.technology.jep.jepria.client.ui.eventbus.plain.event">SearchEvent.Handler</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/eventbus/plain/event/SetCurrentRecordEvent.Handler.html" title="interface in com.technology.jep.jepria.client.ui.eventbus.plain.event">SetCurrentRecordEvent.Handler</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/eventbus/plain/event/SetListUIDEvent.Handler.html" title="interface in com.technology.jep.jepria.client.ui.eventbus.plain.event">SetListUIDEvent.Handler</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/eventbus/plain/event/ShowExcelEvent.Handler.html" title="interface in com.technology.jep.jepria.client.ui.eventbus.plain.event">ShowExcelEvent.Handler</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/eventbus/plain/event/SortEvent.Handler.html" title="interface in com.technology.jep.jepria.client.ui.eventbus.plain.event">SortEvent.Handler</A></DD>
-</DL>
-<HR>
-<DL>
-<DT><PRE>public class <B>AutoRefreshListFormPresenter&lt;V extends <A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormView.html" title="interface in com.technology.jep.jepria.client.ui.form.list">ListFormView</A>,E extends <A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/eventbus/plain/PlainEventBus.html" title="class in com.technology.jep.jepria.client.ui.eventbus.plain">PlainEventBus</A>,S extends <A HREF="../../../../../../../../com/technology/jep/jepria/shared/service/data/JepDataServiceAsync.html" title="interface in com.technology.jep.jepria.shared.service.data">JepDataServiceAsync</A>,F extends <A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/plain/StandardClientFactory.html" title="interface in com.technology.jep.jepria.client.ui.plain">StandardClientFactory</A>&lt;E,S&gt;&gt;</B><DT>extends <A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormPresenter.html" title="class in com.technology.jep.jepria.client.ui.form.list">ListFormPresenter</A>&lt;V,E,S,F&gt;</DL>
-</PRE>
-
-<P>
-Презентер списочной формы, предоставляющий возможность автообновления.
-<P>
-
-<P>
-<HR>
-
-<P>
+<div class="header">
+<div class="subTitle">com.technology.jep.jepria.client.ui.form.list</div>
+<h2 title="Class AutoRefreshListFormPresenter" class="title">Class AutoRefreshListFormPresenter&lt;V extends <a href="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormView.html" title="interface in com.technology.jep.jepria.client.ui.form.list">ListFormView</a>,E extends <a href="../../../../../../../../com/technology/jep/jepria/client/ui/eventbus/plain/PlainEventBus.html" title="class in com.technology.jep.jepria.client.ui.eventbus.plain">PlainEventBus</a>,S extends <a href="../../../../../../../../com/technology/jep/jepria/shared/service/data/JepDataServiceAsync.html" title="interface in com.technology.jep.jepria.shared.service.data">JepDataServiceAsync</a>,F extends <a href="../../../../../../../../com/technology/jep/jepria/client/ui/plain/StandardClientFactory.html" title="interface in com.technology.jep.jepria.client.ui.plain">StandardClientFactory</a>&lt;E,S&gt;&gt;</h2>
+</div>
+<div class="contentContainer">
+<ul class="inheritance">
+<li>java.lang.Object</li>
+<li>
+<ul class="inheritance">
+<li>com.google.gwt.activity.shared.AbstractActivity</li>
+<li>
+<ul class="inheritance">
+<li><a href="../../../../../../../../com/technology/jep/jepria/client/ui/JepActivity.html" title="class in com.technology.jep.jepria.client.ui">com.technology.jep.jepria.client.ui.JepActivity</a>&lt;E,F&gt;</li>
+<li>
+<ul class="inheritance">
+<li><a href="../../../../../../../../com/technology/jep/jepria/client/ui/JepPresenter.html" title="class in com.technology.jep.jepria.client.ui">com.technology.jep.jepria.client.ui.JepPresenter</a>&lt;E,F&gt;</li>
+<li>
+<ul class="inheritance">
+<li><a href="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormPresenter.html" title="class in com.technology.jep.jepria.client.ui.form.list">com.technology.jep.jepria.client.ui.form.list.ListFormPresenter</a>&lt;V,E,S,F&gt;</li>
+<li>
+<ul class="inheritance">
+<li>com.technology.jep.jepria.client.ui.form.list.AutoRefreshListFormPresenter&lt;V,E,S,F&gt;</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="description">
+<ul class="blockList">
+<li class="blockList">
+<dl>
+<dt>All Implemented Interfaces:</dt>
+<dd>com.google.gwt.activity.shared.Activity, com.google.gwt.event.shared.EventHandler, <a href="../../../../../../../../com/technology/jep/jepria/client/ui/eventbus/plain/event/DeleteEvent.Handler.html" title="interface in com.technology.jep.jepria.client.ui.eventbus.plain.event">DeleteEvent.Handler</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/ui/eventbus/plain/event/DoDeleteEvent.Handler.html" title="interface in com.technology.jep.jepria.client.ui.eventbus.plain.event">DoDeleteEvent.Handler</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/ui/eventbus/plain/event/PagingEvent.Handler.html" title="interface in com.technology.jep.jepria.client.ui.eventbus.plain.event">PagingEvent.Handler</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/ui/eventbus/plain/event/RefreshEvent.Handler.html" title="interface in com.technology.jep.jepria.client.ui.eventbus.plain.event">RefreshEvent.Handler</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/ui/eventbus/plain/event/SearchEvent.Handler.html" title="interface in com.technology.jep.jepria.client.ui.eventbus.plain.event">SearchEvent.Handler</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/ui/eventbus/plain/event/SetCurrentRecordEvent.Handler.html" title="interface in com.technology.jep.jepria.client.ui.eventbus.plain.event">SetCurrentRecordEvent.Handler</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/ui/eventbus/plain/event/SetListUIDEvent.Handler.html" title="interface in com.technology.jep.jepria.client.ui.eventbus.plain.event">SetListUIDEvent.Handler</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/ui/eventbus/plain/event/ShowExcelEvent.Handler.html" title="interface in com.technology.jep.jepria.client.ui.eventbus.plain.event">ShowExcelEvent.Handler</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/ui/eventbus/plain/event/SortEvent.Handler.html" title="interface in com.technology.jep.jepria.client.ui.eventbus.plain.event">SortEvent.Handler</a></dd>
+</dl>
+<hr>
+<br>
+<pre>public class <span class="strong">AutoRefreshListFormPresenter&lt;V extends <a href="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormView.html" title="interface in com.technology.jep.jepria.client.ui.form.list">ListFormView</a>,E extends <a href="../../../../../../../../com/technology/jep/jepria/client/ui/eventbus/plain/PlainEventBus.html" title="class in com.technology.jep.jepria.client.ui.eventbus.plain">PlainEventBus</a>,S extends <a href="../../../../../../../../com/technology/jep/jepria/shared/service/data/JepDataServiceAsync.html" title="interface in com.technology.jep.jepria.shared.service.data">JepDataServiceAsync</a>,F extends <a href="../../../../../../../../com/technology/jep/jepria/client/ui/plain/StandardClientFactory.html" title="interface in com.technology.jep.jepria.client.ui.plain">StandardClientFactory</a>&lt;E,S&gt;&gt;</span>
+extends <a href="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormPresenter.html" title="class in com.technology.jep.jepria.client.ui.form.list">ListFormPresenter</a>&lt;V,E,S,F&gt;</pre>
+<div class="block">Презентер списочной формы, предоставляющий возможность автообновления.</div>
+</li>
+</ul>
+</div>
+<div class="summary">
+<ul class="blockList">
+<li class="blockList">
 <!-- =========== FIELD SUMMARY =========== -->
-
-<A NAME="field_summary"><!-- --></A>
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
-<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
-<B>Field Summary</B></FONT></TH>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>private &nbsp;int</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/AutoRefreshListFormPresenter.html#refreshDelay">refreshDelay</A></B></CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Интервал между автообновлениями в миллисекундах.</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>protected &nbsp;com.google.gwt.user.client.Timer</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/AutoRefreshListFormPresenter.html#refreshTimer">refreshTimer</A></B></CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Таймер автообновления.</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>protected &nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/AutoRefreshListFormPresenter.html#refreshTimerActive">refreshTimerActive</A></B></CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Флаг, показывающий, активен или нет таймер автообновления.</TD>
-</TR>
-</TABLE>
-&nbsp;<A NAME="fields_inherited_from_class_com.technology.jep.jepria.client.ui.form.list.ListFormPresenter"><!-- --></A>
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
-<TH ALIGN="left"><B>Fields inherited from class com.technology.jep.jepria.client.ui.form.list.<A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormPresenter.html" title="class in com.technology.jep.jepria.client.ui.form.list">ListFormPresenter</A></B></TH>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormPresenter.html#currentRecord">currentRecord</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormPresenter.html#list">list</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormPresenter.html#listUID">listUID</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormPresenter.html#placeController">placeController</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormPresenter.html#searchTemplate">searchTemplate</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormPresenter.html#service">service</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormPresenter.html#view">view</A></CODE></TD>
-</TR>
-</TABLE>
-&nbsp;<A NAME="fields_inherited_from_class_com.technology.jep.jepria.client.ui.JepPresenter"><!-- --></A>
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
-<TH ALIGN="left"><B>Fields inherited from class com.technology.jep.jepria.client.ui.<A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/JepPresenter.html" title="class in com.technology.jep.jepria.client.ui">JepPresenter</A></B></TH>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/JepPresenter.html#_workstate">_workstate</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/JepPresenter.html#place">place</A></CODE></TD>
-</TR>
-</TABLE>
-&nbsp;<A NAME="fields_inherited_from_class_com.technology.jep.jepria.client.ui.JepActivity"><!-- --></A>
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
-<TH ALIGN="left"><B>Fields inherited from class com.technology.jep.jepria.client.ui.<A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/JepActivity.html" title="class in com.technology.jep.jepria.client.ui">JepActivity</A></B></TH>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/JepActivity.html#clientFactory">clientFactory</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/JepActivity.html#eventBus">eventBus</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/JepActivity.html#logger">logger</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/JepActivity.html#messageBox">messageBox</A></CODE></TD>
-</TR>
-</TABLE>
-&nbsp;
+<ul class="blockList">
+<li class="blockList"><a name="field_summary">
+<!--   -->
+</a>
+<h3>Field Summary</h3>
+<table class="overviewSummary" border="0" cellpadding="3" cellspacing="0" summary="Field Summary table, listing fields, and an explanation">
+<caption><span>Fields</span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Field and Description</th>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>private int</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/AutoRefreshListFormPresenter.html#refreshDelay">refreshDelay</a></strong></code>
+<div class="block">Интервал между автообновлениями в миллисекундах.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>protected com.google.gwt.user.client.Timer</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/AutoRefreshListFormPresenter.html#refreshTimer">refreshTimer</a></strong></code>
+<div class="block">Таймер автообновления.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>protected boolean</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/AutoRefreshListFormPresenter.html#refreshTimerActive">refreshTimerActive</a></strong></code>
+<div class="block">Флаг, показывающий, активен или нет таймер автообновления.</div>
+</td>
+</tr>
+</table>
+<ul class="blockList">
+<li class="blockList"><a name="fields_inherited_from_class_com.technology.jep.jepria.client.ui.form.list.ListFormPresenter">
+<!--   -->
+</a>
+<h3>Fields inherited from class&nbsp;com.technology.jep.jepria.client.ui.form.list.<a href="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormPresenter.html" title="class in com.technology.jep.jepria.client.ui.form.list">ListFormPresenter</a></h3>
+<code><a href="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormPresenter.html#currentRecord">currentRecord</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormPresenter.html#list">list</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormPresenter.html#listUID">listUID</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormPresenter.html#placeController">placeController</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormPresenter.html#searchTemplate">searchTemplate</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormPresenter.html#service">service</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormPresenter.html#view">view</a></code></li>
+</ul>
+<ul class="blockList">
+<li class="blockList"><a name="fields_inherited_from_class_com.technology.jep.jepria.client.ui.JepPresenter">
+<!--   -->
+</a>
+<h3>Fields inherited from class&nbsp;com.technology.jep.jepria.client.ui.<a href="../../../../../../../../com/technology/jep/jepria/client/ui/JepPresenter.html" title="class in com.technology.jep.jepria.client.ui">JepPresenter</a></h3>
+<code><a href="../../../../../../../../com/technology/jep/jepria/client/ui/JepPresenter.html#_workstate">_workstate</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/ui/JepPresenter.html#place">place</a></code></li>
+</ul>
+<ul class="blockList">
+<li class="blockList"><a name="fields_inherited_from_class_com.technology.jep.jepria.client.ui.JepActivity">
+<!--   -->
+</a>
+<h3>Fields inherited from class&nbsp;com.technology.jep.jepria.client.ui.<a href="../../../../../../../../com/technology/jep/jepria/client/ui/JepActivity.html" title="class in com.technology.jep.jepria.client.ui">JepActivity</a></h3>
+<code><a href="../../../../../../../../com/technology/jep/jepria/client/ui/JepActivity.html#clientFactory">clientFactory</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/ui/JepActivity.html#eventBus">eventBus</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/ui/JepActivity.html#logger">logger</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/ui/JepActivity.html#messageBox">messageBox</a></code></li>
+</ul>
+</li>
+</ul>
 <!-- ======== CONSTRUCTOR SUMMARY ======== -->
-
-<A NAME="constructor_summary"><!-- --></A>
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
-<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
-<B>Constructor Summary</B></FONT></TH>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/AutoRefreshListFormPresenter.html#AutoRefreshListFormPresenter(com.google.gwt.place.shared.Place, F)">AutoRefreshListFormPresenter</A></B>(com.google.gwt.place.shared.Place&nbsp;place,
-                             <A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/AutoRefreshListFormPresenter.html" title="type parameter in AutoRefreshListFormPresenter">F</A>&nbsp;clientFactory)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-</TABLE>
-&nbsp;
+<ul class="blockList">
+<li class="blockList"><a name="constructor_summary">
+<!--   -->
+</a>
+<h3>Constructor Summary</h3>
+<table class="overviewSummary" border="0" cellpadding="3" cellspacing="0" summary="Constructor Summary table, listing constructors, and an explanation">
+<caption><span>Constructors</span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colOne" scope="col">Constructor and Description</th>
+</tr>
+<tr class="altColor">
+<td class="colOne"><code><strong><a href="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/AutoRefreshListFormPresenter.html#AutoRefreshListFormPresenter(com.google.gwt.place.shared.Place,%20F)">AutoRefreshListFormPresenter</a></strong>(com.google.gwt.place.shared.Place&nbsp;place,
+                            <a href="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/AutoRefreshListFormPresenter.html" title="type parameter in AutoRefreshListFormPresenter">F</a>&nbsp;clientFactory)</code>&nbsp;</td>
+</tr>
+</table>
+</li>
+</ul>
 <!-- ========== METHOD SUMMARY =========== -->
-
-<A NAME="method_summary"><!-- --></A>
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
-<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
-<B>Method Summary</B></FONT></TH>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;int</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/AutoRefreshListFormPresenter.html#getRefreshDelay()">getRefreshDelay</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Возвращает интервал между автообновлениями.</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/AutoRefreshListFormPresenter.html#onChangeWorkstate(com.technology.jep.jepria.client.ui.WorkstateEnum)">onChangeWorkstate</A></B>(<A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/WorkstateEnum.html" title="enum in com.technology.jep.jepria.client.ui">WorkstateEnum</A>&nbsp;newWorkstate)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Переопределённый метод, отключающий таймер автообновления при уходе со списочной формы.</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>protected &nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/AutoRefreshListFormPresenter.html#onRefreshSuccess(com.technology.jep.jepria.shared.load.PagingResult)">onRefreshSuccess</A></B>(<A HREF="../../../../../../../../com/technology/jep/jepria/shared/load/PagingResult.html" title="class in com.technology.jep.jepria.shared.load">PagingResult</A>&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</A>&gt;&nbsp;pagingResult)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Метод, проверяющий необходимость автообновления и при необходимости устанавливающий таймер.</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/AutoRefreshListFormPresenter.html#setRefreshDelay(int)">setRefreshDelay</A></B>(int&nbsp;refreshDelay)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Устанавливает интервал между автообновлениями.</TD>
-</TR>
-</TABLE>
-&nbsp;<A NAME="methods_inherited_from_class_com.technology.jep.jepria.client.ui.form.list.ListFormPresenter"><!-- --></A>
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
-<TH ALIGN="left"><B>Methods inherited from class com.technology.jep.jepria.client.ui.form.list.<A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormPresenter.html" title="class in com.technology.jep.jepria.client.ui.form.list">ListFormPresenter</A></B></TH>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormPresenter.html#bind()">bind</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormPresenter.html#changeSort(com.technology.jep.jepria.client.widget.event.JepEvent)">changeSort</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormPresenter.html#isAcceptableWorkstate(com.technology.jep.jepria.client.ui.WorkstateEnum)">isAcceptableWorkstate</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormPresenter.html#onDelete(com.technology.jep.jepria.client.ui.eventbus.plain.event.DeleteEvent)">onDelete</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormPresenter.html#onDeleteConfirmation(java.util.Set)">onDeleteConfirmation</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormPresenter.html#onDoDelete(com.technology.jep.jepria.client.ui.eventbus.plain.event.DoDeleteEvent)">onDoDelete</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormPresenter.html#onPaging(com.technology.jep.jepria.client.ui.eventbus.plain.event.PagingEvent)">onPaging</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormPresenter.html#onPagingFailure(java.lang.Throwable)">onPagingFailure</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormPresenter.html#onPagingSuccess(com.technology.jep.jepria.shared.load.PagingResult)">onPagingSuccess</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormPresenter.html#onRefresh(com.technology.jep.jepria.client.ui.eventbus.plain.event.RefreshEvent)">onRefresh</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormPresenter.html#onRefreshFailure(java.lang.Throwable)">onRefreshFailure</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormPresenter.html#onSearch(com.technology.jep.jepria.client.ui.eventbus.plain.event.SearchEvent)">onSearch</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormPresenter.html#onSetCurrentRecord(com.technology.jep.jepria.client.ui.eventbus.plain.event.SetCurrentRecordEvent)">onSetCurrentRecord</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormPresenter.html#onSetListUID(com.technology.jep.jepria.client.ui.eventbus.plain.event.SetListUIDEvent)">onSetListUID</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormPresenter.html#onShowExcel(com.technology.jep.jepria.client.ui.eventbus.plain.event.ShowExcelEvent)">onShowExcel</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormPresenter.html#onSort(com.technology.jep.jepria.client.ui.eventbus.plain.event.SortEvent)">onSort</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormPresenter.html#onSortFailure(java.lang.Throwable)">onSortFailure</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormPresenter.html#onSortSuccess(com.technology.jep.jepria.shared.load.PagingResult)">onSortSuccess</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormPresenter.html#pagingGoto(com.technology.jep.jepria.client.widget.event.JepEvent)">pagingGoto</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormPresenter.html#pagingRefresh(com.technology.jep.jepria.client.widget.event.JepEvent)">pagingRefresh</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormPresenter.html#pagingSize(com.technology.jep.jepria.client.widget.event.JepEvent)">pagingSize</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormPresenter.html#rowClick(com.technology.jep.jepria.client.widget.event.JepEvent)">rowClick</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormPresenter.html#rowDoubleClick(com.technology.jep.jepria.client.widget.event.JepEvent)">rowDoubleClick</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormPresenter.html#start(com.google.gwt.user.client.ui.AcceptsOneWidget, com.google.gwt.event.shared.EventBus)">start</A></CODE></TD>
-</TR>
-</TABLE>
-&nbsp;<A NAME="methods_inherited_from_class_com.technology.jep.jepria.client.ui.JepPresenter"><!-- --></A>
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
-<TH ALIGN="left"><B>Methods inherited from class com.technology.jep.jepria.client.ui.<A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/JepPresenter.html" title="class in com.technology.jep.jepria.client.ui">JepPresenter</A></B></TH>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/JepPresenter.html#adjustToWorkstate(com.technology.jep.jepria.client.ui.WorkstateEnum)">adjustToWorkstate</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/JepPresenter.html#changeWorkstate(com.google.gwt.place.shared.Place)">changeWorkstate</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/JepPresenter.html#changeWorkstate(com.technology.jep.jepria.client.ui.WorkstateEnum)">changeWorkstate</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/JepPresenter.html#getPlace()">getPlace</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/JepPresenter.html#setPlace(com.google.gwt.place.shared.Place)">setPlace</A></CODE></TD>
-</TR>
-</TABLE>
-&nbsp;<A NAME="methods_inherited_from_class_com.technology.jep.jepria.client.ui.JepActivity"><!-- --></A>
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
-<TH ALIGN="left"><B>Methods inherited from class com.technology.jep.jepria.client.ui.<A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/JepActivity.html" title="class in com.technology.jep.jepria.client.ui">JepActivity</A></B></TH>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/JepActivity.html#mayStop()">mayStop</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/JepActivity.html#onCancel()">onCancel</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/JepActivity.html#onStop()">onStop</A></CODE></TD>
-</TR>
-</TABLE>
-&nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
-<TH ALIGN="left"><B>Methods inherited from class java.lang.Object</B></TH>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE>clone, equals, finalize, getClass, hashCode, notify, notifyAll, toString, wait, wait, wait</CODE></TD>
-</TR>
-</TABLE>
-&nbsp;
-<P>
-
+<ul class="blockList">
+<li class="blockList"><a name="method_summary">
+<!--   -->
+</a>
+<h3>Method Summary</h3>
+<table class="overviewSummary" border="0" cellpadding="3" cellspacing="0" summary="Method Summary table, listing methods, and an explanation">
+<caption><span>Methods</span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Method and Description</th>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>int</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/AutoRefreshListFormPresenter.html#getRefreshDelay()">getRefreshDelay</a></strong>()</code>
+<div class="block">Возвращает интервал между автообновлениями.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/AutoRefreshListFormPresenter.html#onChangeWorkstate(com.technology.jep.jepria.client.ui.WorkstateEnum)">onChangeWorkstate</a></strong>(<a href="../../../../../../../../com/technology/jep/jepria/client/ui/WorkstateEnum.html" title="enum in com.technology.jep.jepria.client.ui">WorkstateEnum</a>&nbsp;newWorkstate)</code>
+<div class="block">Переопределённый метод, отключающий таймер автообновления при уходе со списочной формы.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>protected void</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/AutoRefreshListFormPresenter.html#onRefreshSuccess(com.technology.jep.jepria.shared.load.PagingResult)">onRefreshSuccess</a></strong>(<a href="../../../../../../../../com/technology/jep/jepria/shared/load/PagingResult.html" title="class in com.technology.jep.jepria.shared.load">PagingResult</a>&lt;<a href="../../../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</a>&gt;&nbsp;pagingResult)</code>
+<div class="block">Метод, проверяющий необходимость автообновления и при необходимости устанавливающий таймер.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/AutoRefreshListFormPresenter.html#setRefreshDelay(int)">setRefreshDelay</a></strong>(int&nbsp;refreshDelay)</code>
+<div class="block">Устанавливает интервал между автообновлениями.</div>
+</td>
+</tr>
+</table>
+<ul class="blockList">
+<li class="blockList"><a name="methods_inherited_from_class_com.technology.jep.jepria.client.ui.form.list.ListFormPresenter">
+<!--   -->
+</a>
+<h3>Methods inherited from class&nbsp;com.technology.jep.jepria.client.ui.form.list.<a href="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormPresenter.html" title="class in com.technology.jep.jepria.client.ui.form.list">ListFormPresenter</a></h3>
+<code><a href="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormPresenter.html#bind()">bind</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormPresenter.html#changeSort(com.technology.jep.jepria.client.widget.event.JepEvent)">changeSort</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormPresenter.html#isAcceptableWorkstate(com.technology.jep.jepria.client.ui.WorkstateEnum)">isAcceptableWorkstate</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormPresenter.html#onDelete(com.technology.jep.jepria.client.ui.eventbus.plain.event.DeleteEvent)">onDelete</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormPresenter.html#onDeleteConfirmation(java.util.Set)">onDeleteConfirmation</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormPresenter.html#onDoDelete(com.technology.jep.jepria.client.ui.eventbus.plain.event.DoDeleteEvent)">onDoDelete</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormPresenter.html#onPaging(com.technology.jep.jepria.client.ui.eventbus.plain.event.PagingEvent)">onPaging</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormPresenter.html#onPagingFailure(java.lang.Throwable)">onPagingFailure</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormPresenter.html#onPagingSuccess(com.technology.jep.jepria.shared.load.PagingResult)">onPagingSuccess</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormPresenter.html#onRefresh(com.technology.jep.jepria.client.ui.eventbus.plain.event.RefreshEvent)">onRefresh</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormPresenter.html#onRefreshFailure(java.lang.Throwable)">onRefreshFailure</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormPresenter.html#onSearch(com.technology.jep.jepria.client.ui.eventbus.plain.event.SearchEvent)">onSearch</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormPresenter.html#onSetCurrentRecord(com.technology.jep.jepria.client.ui.eventbus.plain.event.SetCurrentRecordEvent)">onSetCurrentRecord</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormPresenter.html#onSetListUID(com.technology.jep.jepria.client.ui.eventbus.plain.event.SetListUIDEvent)">onSetListUID</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormPresenter.html#onShowExcel(com.technology.jep.jepria.client.ui.eventbus.plain.event.ShowExcelEvent)">onShowExcel</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormPresenter.html#onSort(com.technology.jep.jepria.client.ui.eventbus.plain.event.SortEvent)">onSort</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormPresenter.html#onSortFailure(java.lang.Throwable)">onSortFailure</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormPresenter.html#onSortSuccess(com.technology.jep.jepria.shared.load.PagingResult)">onSortSuccess</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormPresenter.html#pagingGoto(com.technology.jep.jepria.client.widget.event.JepEvent)">pagingGoto</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormPresenter.html#pagingRefresh(com.technology.jep.jepria.client.widget.event.JepEvent)">pagingRefresh</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormPresenter.html#pagingSize(com.technology.jep.jepria.client.widget.event.JepEvent)">pagingSize</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormPresenter.html#rowClick(com.technology.jep.jepria.client.widget.event.JepEvent)">rowClick</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormPresenter.html#rowDoubleClick(com.technology.jep.jepria.client.widget.event.JepEvent)">rowDoubleClick</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormPresenter.html#start(com.google.gwt.user.client.ui.AcceptsOneWidget,%20com.google.gwt.event.shared.EventBus)">start</a></code></li>
+</ul>
+<ul class="blockList">
+<li class="blockList"><a name="methods_inherited_from_class_com.technology.jep.jepria.client.ui.JepPresenter">
+<!--   -->
+</a>
+<h3>Methods inherited from class&nbsp;com.technology.jep.jepria.client.ui.<a href="../../../../../../../../com/technology/jep/jepria/client/ui/JepPresenter.html" title="class in com.technology.jep.jepria.client.ui">JepPresenter</a></h3>
+<code><a href="../../../../../../../../com/technology/jep/jepria/client/ui/JepPresenter.html#adjustToWorkstate(com.technology.jep.jepria.client.ui.WorkstateEnum)">adjustToWorkstate</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/ui/JepPresenter.html#changeWorkstate(com.google.gwt.place.shared.Place)">changeWorkstate</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/ui/JepPresenter.html#changeWorkstate(com.technology.jep.jepria.client.ui.WorkstateEnum)">changeWorkstate</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/ui/JepPresenter.html#getPlace()">getPlace</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/ui/JepPresenter.html#setPlace(com.google.gwt.place.shared.Place)">setPlace</a></code></li>
+</ul>
+<ul class="blockList">
+<li class="blockList"><a name="methods_inherited_from_class_com.technology.jep.jepria.client.ui.JepActivity">
+<!--   -->
+</a>
+<h3>Methods inherited from class&nbsp;com.technology.jep.jepria.client.ui.<a href="../../../../../../../../com/technology/jep/jepria/client/ui/JepActivity.html" title="class in com.technology.jep.jepria.client.ui">JepActivity</a></h3>
+<code><a href="../../../../../../../../com/technology/jep/jepria/client/ui/JepActivity.html#mayStop()">mayStop</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/ui/JepActivity.html#onCancel()">onCancel</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/ui/JepActivity.html#onStop()">onStop</a></code></li>
+</ul>
+<ul class="blockList">
+<li class="blockList"><a name="methods_inherited_from_class_java.lang.Object">
+<!--   -->
+</a>
+<h3>Methods inherited from class&nbsp;java.lang.Object</h3>
+<code>clone, equals, finalize, getClass, hashCode, notify, notifyAll, toString, wait, wait, wait</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="details">
+<ul class="blockList">
+<li class="blockList">
 <!-- ============ FIELD DETAIL =========== -->
-
-<A NAME="field_detail"><!-- --></A>
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
-<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
-<B>Field Detail</B></FONT></TH>
-</TR>
-</TABLE>
-
-<A NAME="refreshTimerActive"><!-- --></A><H3>
-refreshTimerActive</H3>
-<PRE>
-protected boolean <B>refreshTimerActive</B></PRE>
-<DL>
-<DD>Флаг, показывающий, активен или нет таймер автообновления.
-<P>
-<DL>
-</DL>
-</DL>
-<HR>
-
-<A NAME="refreshTimer"><!-- --></A><H3>
-refreshTimer</H3>
-<PRE>
-protected com.google.gwt.user.client.Timer <B>refreshTimer</B></PRE>
-<DL>
-<DD>Таймер автообновления.
-<P>
-<DL>
-</DL>
-</DL>
-<HR>
-
-<A NAME="refreshDelay"><!-- --></A><H3>
-refreshDelay</H3>
-<PRE>
-private int <B>refreshDelay</B></PRE>
-<DL>
-<DD>Интервал между автообновлениями в миллисекундах.
-<P>
-<DL>
-</DL>
-</DL>
-
+<ul class="blockList">
+<li class="blockList"><a name="field_detail">
+<!--   -->
+</a>
+<h3>Field Detail</h3>
+<a name="refreshTimerActive">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>refreshTimerActive</h4>
+<pre>protected&nbsp;boolean refreshTimerActive</pre>
+<div class="block">Флаг, показывающий, активен или нет таймер автообновления.</div>
+</li>
+</ul>
+<a name="refreshTimer">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>refreshTimer</h4>
+<pre>protected&nbsp;com.google.gwt.user.client.Timer refreshTimer</pre>
+<div class="block">Таймер автообновления.</div>
+</li>
+</ul>
+<a name="refreshDelay">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>refreshDelay</h4>
+<pre>private&nbsp;int refreshDelay</pre>
+<div class="block">Интервал между автообновлениями в миллисекундах.</div>
+</li>
+</ul>
+</li>
+</ul>
 <!-- ========= CONSTRUCTOR DETAIL ======== -->
-
-<A NAME="constructor_detail"><!-- --></A>
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
-<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
-<B>Constructor Detail</B></FONT></TH>
-</TR>
-</TABLE>
-
-<A NAME="AutoRefreshListFormPresenter(com.google.gwt.place.shared.Place,com.technology.jep.jepria.client.ui.plain.StandardClientFactory)"><!-- --></A><A NAME="AutoRefreshListFormPresenter(com.google.gwt.place.shared.Place, F)"><!-- --></A><H3>
-AutoRefreshListFormPresenter</H3>
-<PRE>
-public <B>AutoRefreshListFormPresenter</B>(com.google.gwt.place.shared.Place&nbsp;place,
-                                    <A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/AutoRefreshListFormPresenter.html" title="type parameter in AutoRefreshListFormPresenter">F</A>&nbsp;clientFactory)</PRE>
-<DL>
-</DL>
-
+<ul class="blockList">
+<li class="blockList"><a name="constructor_detail">
+<!--   -->
+</a>
+<h3>Constructor Detail</h3>
+<a name="AutoRefreshListFormPresenter(com.google.gwt.place.shared.Place,com.technology.jep.jepria.client.ui.plain.StandardClientFactory)">
+<!--   -->
+</a><a name="AutoRefreshListFormPresenter(com.google.gwt.place.shared.Place, F)">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>AutoRefreshListFormPresenter</h4>
+<pre>public&nbsp;AutoRefreshListFormPresenter(com.google.gwt.place.shared.Place&nbsp;place,
+                            <a href="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/AutoRefreshListFormPresenter.html" title="type parameter in AutoRefreshListFormPresenter">F</a>&nbsp;clientFactory)</pre>
+</li>
+</ul>
+</li>
+</ul>
 <!-- ============ METHOD DETAIL ========== -->
-
-<A NAME="method_detail"><!-- --></A>
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
-<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
-<B>Method Detail</B></FONT></TH>
-</TR>
-</TABLE>
-
-<A NAME="setRefreshDelay(int)"><!-- --></A><H3>
-setRefreshDelay</H3>
-<PRE>
-public void <B>setRefreshDelay</B>(int&nbsp;refreshDelay)</PRE>
-<DL>
-<DD>Устанавливает интервал между автообновлениями.
-<P>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>refreshDelay</CODE> - интервал в миллисекундах (должен быть положительным)</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="getRefreshDelay()"><!-- --></A><H3>
-getRefreshDelay</H3>
-<PRE>
-public int <B>getRefreshDelay</B>()</PRE>
-<DL>
-<DD>Возвращает интервал между автообновлениями.
-<P>
-<DD><DL>
-
-<DT><B>Returns:</B><DD>интервал в миллисекундах</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="onRefreshSuccess(com.technology.jep.jepria.shared.load.PagingResult)"><!-- --></A><H3>
-onRefreshSuccess</H3>
-<PRE>
-protected void <B>onRefreshSuccess</B>(<A HREF="../../../../../../../../com/technology/jep/jepria/shared/load/PagingResult.html" title="class in com.technology.jep.jepria.shared.load">PagingResult</A>&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</A>&gt;&nbsp;pagingResult)</PRE>
-<DL>
-<DD>Метод, проверяющий необходимость автообновления и при необходимости устанавливающий таймер.
-<P>
-<DD><DL>
-<DT><B>Overrides:</B><DD><CODE><A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormPresenter.html#onRefreshSuccess(com.technology.jep.jepria.shared.load.PagingResult)">onRefreshSuccess</A></CODE> in class <CODE><A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormPresenter.html" title="class in com.technology.jep.jepria.client.ui.form.list">ListFormPresenter</A>&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/AutoRefreshListFormPresenter.html" title="type parameter in AutoRefreshListFormPresenter">V</A> extends <A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormView.html" title="interface in com.technology.jep.jepria.client.ui.form.list">ListFormView</A>,<A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/AutoRefreshListFormPresenter.html" title="type parameter in AutoRefreshListFormPresenter">E</A> extends <A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/eventbus/plain/PlainEventBus.html" title="class in com.technology.jep.jepria.client.ui.eventbus.plain">PlainEventBus</A>,<A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/AutoRefreshListFormPresenter.html" title="type parameter in AutoRefreshListFormPresenter">S</A> extends <A HREF="../../../../../../../../com/technology/jep/jepria/shared/service/data/JepDataServiceAsync.html" title="interface in com.technology.jep.jepria.shared.service.data">JepDataServiceAsync</A>,<A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/AutoRefreshListFormPresenter.html" title="type parameter in AutoRefreshListFormPresenter">F</A> extends <A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/plain/StandardClientFactory.html" title="interface in com.technology.jep.jepria.client.ui.plain">StandardClientFactory</A>&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/AutoRefreshListFormPresenter.html" title="type parameter in AutoRefreshListFormPresenter">E</A>,<A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/AutoRefreshListFormPresenter.html" title="type parameter in AutoRefreshListFormPresenter">S</A>&gt;&gt;</CODE></DL>
-</DD>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="onChangeWorkstate(com.technology.jep.jepria.client.ui.WorkstateEnum)"><!-- --></A><H3>
-onChangeWorkstate</H3>
-<PRE>
-public void <B>onChangeWorkstate</B>(<A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/WorkstateEnum.html" title="enum in com.technology.jep.jepria.client.ui">WorkstateEnum</A>&nbsp;newWorkstate)</PRE>
-<DL>
-<DD>Переопределённый метод, отключающий таймер автообновления при уходе со списочной формы.
-<P>
-<DD><DL>
-<DT><B>Overrides:</B><DD><CODE><A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormPresenter.html#onChangeWorkstate(com.technology.jep.jepria.client.ui.WorkstateEnum)">onChangeWorkstate</A></CODE> in class <CODE><A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormPresenter.html" title="class in com.technology.jep.jepria.client.ui.form.list">ListFormPresenter</A>&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/AutoRefreshListFormPresenter.html" title="type parameter in AutoRefreshListFormPresenter">V</A> extends <A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormView.html" title="interface in com.technology.jep.jepria.client.ui.form.list">ListFormView</A>,<A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/AutoRefreshListFormPresenter.html" title="type parameter in AutoRefreshListFormPresenter">E</A> extends <A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/eventbus/plain/PlainEventBus.html" title="class in com.technology.jep.jepria.client.ui.eventbus.plain">PlainEventBus</A>,<A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/AutoRefreshListFormPresenter.html" title="type parameter in AutoRefreshListFormPresenter">S</A> extends <A HREF="../../../../../../../../com/technology/jep/jepria/shared/service/data/JepDataServiceAsync.html" title="interface in com.technology.jep.jepria.shared.service.data">JepDataServiceAsync</A>,<A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/AutoRefreshListFormPresenter.html" title="type parameter in AutoRefreshListFormPresenter">F</A> extends <A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/plain/StandardClientFactory.html" title="interface in com.technology.jep.jepria.client.ui.plain">StandardClientFactory</A>&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/AutoRefreshListFormPresenter.html" title="type parameter in AutoRefreshListFormPresenter">E</A>,<A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/AutoRefreshListFormPresenter.html" title="type parameter in AutoRefreshListFormPresenter">S</A>&gt;&gt;</CODE></DL>
-</DD>
-<DD><DL>
-</DL>
-</DD>
-</DL>
+<ul class="blockList">
+<li class="blockList"><a name="method_detail">
+<!--   -->
+</a>
+<h3>Method Detail</h3>
+<a name="setRefreshDelay(int)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setRefreshDelay</h4>
+<pre>public&nbsp;void&nbsp;setRefreshDelay(int&nbsp;refreshDelay)</pre>
+<div class="block">Устанавливает интервал между автообновлениями.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>refreshDelay</code> - интервал в миллисекундах (должен быть положительным)</dd></dl>
+</li>
+</ul>
+<a name="getRefreshDelay()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getRefreshDelay</h4>
+<pre>public&nbsp;int&nbsp;getRefreshDelay()</pre>
+<div class="block">Возвращает интервал между автообновлениями.</div>
+<dl><dt><span class="strong">Returns:</span></dt><dd>интервал в миллисекундах</dd></dl>
+</li>
+</ul>
+<a name="onRefreshSuccess(com.technology.jep.jepria.shared.load.PagingResult)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>onRefreshSuccess</h4>
+<pre>protected&nbsp;void&nbsp;onRefreshSuccess(<a href="../../../../../../../../com/technology/jep/jepria/shared/load/PagingResult.html" title="class in com.technology.jep.jepria.shared.load">PagingResult</a>&lt;<a href="../../../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</a>&gt;&nbsp;pagingResult)</pre>
+<div class="block">Метод, проверяющий необходимость автообновления и при необходимости устанавливающий таймер.</div>
+<dl>
+<dt><strong>Overrides:</strong></dt>
+<dd><code><a href="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormPresenter.html#onRefreshSuccess(com.technology.jep.jepria.shared.load.PagingResult)">onRefreshSuccess</a></code>&nbsp;in class&nbsp;<code><a href="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormPresenter.html" title="class in com.technology.jep.jepria.client.ui.form.list">ListFormPresenter</a>&lt;<a href="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/AutoRefreshListFormPresenter.html" title="type parameter in AutoRefreshListFormPresenter">V</a> extends <a href="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormView.html" title="interface in com.technology.jep.jepria.client.ui.form.list">ListFormView</a>,<a href="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/AutoRefreshListFormPresenter.html" title="type parameter in AutoRefreshListFormPresenter">E</a> extends <a href="../../../../../../../../com/technology/jep/jepria/client/ui/eventbus/plain/PlainEventBus.html" title="class in com.technology.jep.jepria.client.ui.eventbus.plain">PlainEventBus</a>,<a href="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/AutoRefreshListFormPresenter.html" title="type parameter in AutoRefreshListFormPresenter">S</a> extends <a href="../../../../../../../../com/technology/jep/jepria/shared/service/data/JepDataServiceAsync.html" title="interface in com.technology.jep.jepria.shared.service.data">JepDataServiceAsync</a>,<a href="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/AutoRefreshListFormPresenter.html" title="type parameter in AutoRefreshListFormPresenter">F</a> extends <a href="../../../../../../../../com/technology/jep/jepria/client/ui/plain/StandardClientFactory.html" title="interface in com.technology.jep.jepria.client.ui.plain">StandardClientFactory</a>&lt;<a href="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/AutoRefreshListFormPresenter.html" title="type parameter in AutoRefreshListFormPresenter">E</a>,<a href="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/AutoRefreshListFormPresenter.html" title="type parameter in AutoRefreshListFormPresenter">S</a>&gt;&gt;</code></dd>
+</dl>
+</li>
+</ul>
+<a name="onChangeWorkstate(com.technology.jep.jepria.client.ui.WorkstateEnum)">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>onChangeWorkstate</h4>
+<pre>public&nbsp;void&nbsp;onChangeWorkstate(<a href="../../../../../../../../com/technology/jep/jepria/client/ui/WorkstateEnum.html" title="enum in com.technology.jep.jepria.client.ui">WorkstateEnum</a>&nbsp;newWorkstate)</pre>
+<div class="block">Переопределённый метод, отключающий таймер автообновления при уходе со списочной формы.</div>
+<dl>
+<dt><strong>Overrides:</strong></dt>
+<dd><code><a href="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormPresenter.html#onChangeWorkstate(com.technology.jep.jepria.client.ui.WorkstateEnum)">onChangeWorkstate</a></code>&nbsp;in class&nbsp;<code><a href="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormPresenter.html" title="class in com.technology.jep.jepria.client.ui.form.list">ListFormPresenter</a>&lt;<a href="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/AutoRefreshListFormPresenter.html" title="type parameter in AutoRefreshListFormPresenter">V</a> extends <a href="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormView.html" title="interface in com.technology.jep.jepria.client.ui.form.list">ListFormView</a>,<a href="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/AutoRefreshListFormPresenter.html" title="type parameter in AutoRefreshListFormPresenter">E</a> extends <a href="../../../../../../../../com/technology/jep/jepria/client/ui/eventbus/plain/PlainEventBus.html" title="class in com.technology.jep.jepria.client.ui.eventbus.plain">PlainEventBus</a>,<a href="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/AutoRefreshListFormPresenter.html" title="type parameter in AutoRefreshListFormPresenter">S</a> extends <a href="../../../../../../../../com/technology/jep/jepria/shared/service/data/JepDataServiceAsync.html" title="interface in com.technology.jep.jepria.shared.service.data">JepDataServiceAsync</a>,<a href="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/AutoRefreshListFormPresenter.html" title="type parameter in AutoRefreshListFormPresenter">F</a> extends <a href="../../../../../../../../com/technology/jep/jepria/client/ui/plain/StandardClientFactory.html" title="interface in com.technology.jep.jepria.client.ui.plain">StandardClientFactory</a>&lt;<a href="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/AutoRefreshListFormPresenter.html" title="type parameter in AutoRefreshListFormPresenter">E</a>,<a href="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/AutoRefreshListFormPresenter.html" title="type parameter in AutoRefreshListFormPresenter">S</a>&gt;&gt;</code></dd>
+</dl>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
 <!-- ========= END OF CLASS DATA ========= -->
-<HR>
-
-
 <!-- ======= START OF BOTTOM NAVBAR ====== -->
-<A NAME="navbar_bottom"><!-- --></A>
-<A HREF="#skip-navbar_bottom" title="Skip navigation links"></A>
-<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
-<TR>
-<TD COLSPAN=2 BGCOLOR="#EEEEFF" CLASS="NavBarCell1">
-<A NAME="navbar_bottom_firstrow"><!-- --></A>
-<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3" SUMMARY="">
-  <TR ALIGN="center" VALIGN="top">
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-summary.html"><FONT CLASS="NavBarFont1"><B>Package</B></FONT></A>&nbsp;</TD>
-  <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../../index-all.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../../help-doc.html"><FONT CLASS="NavBarFont1"><B>Help</B></FONT></A>&nbsp;</TD>
-  </TR>
-</TABLE>
-</TD>
-<TD ALIGN="right" VALIGN="top" ROWSPAN=3><EM>
-</EM>
-</TD>
-</TR>
-
-<TR>
-<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;PREV CLASS&nbsp;
-&nbsp;<A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormActivityMapper.html" title="class in com.technology.jep.jepria.client.ui.form.list"><B>NEXT CLASS</B></A></FONT></TD>
-<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-  <A HREF="../../../../../../../../index.html?com/technology/jep/jepria/client/ui/form/list/AutoRefreshListFormPresenter.html" target="_top"><B>FRAMES</B></A>  &nbsp;
-&nbsp;<A HREF="AutoRefreshListFormPresenter.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
-&nbsp;<SCRIPT type="text/javascript">
-  <!--
+<div class="bottomNav"><a name="navbar_bottom">
+<!--   -->
+</a><a href="#skip-navbar_bottom" title="Skip navigation links"></a><a name="navbar_bottom_firstrow">
+<!--   -->
+</a>
+<ul class="navList" title="Navigation">
+<li><a href="../../../../../../../../overview-summary.html">Overview</a></li>
+<li><a href="package-summary.html">Package</a></li>
+<li class="navBarCell1Rev">Class</li>
+<li><a href="package-tree.html">Tree</a></li>
+<li><a href="../../../../../../../../deprecated-list.html">Deprecated</a></li>
+<li><a href="../../../../../../../../index-all.html">Index</a></li>
+<li><a href="../../../../../../../../help-doc.html">Help</a></li>
+</ul>
+</div>
+<div class="subNav">
+<ul class="navList">
+<li>Prev Class</li>
+<li><a href="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormActivityMapper.html" title="class in com.technology.jep.jepria.client.ui.form.list"><span class="strong">Next Class</span></a></li>
+</ul>
+<ul class="navList">
+<li><a href="../../../../../../../../index.html?com/technology/jep/jepria/client/ui/form/list/AutoRefreshListFormPresenter.html" target="_top">Frames</a></li>
+<li><a href="AutoRefreshListFormPresenter.html" target="_top">No Frames</a></li>
+</ul>
+<ul class="navList" id="allclasses_navbar_bottom">
+<li><a href="../../../../../../../../allclasses-noframe.html">All Classes</a></li>
+</ul>
+<div>
+<script type="text/javascript"><!--
+  allClassesLink = document.getElementById("allclasses_navbar_bottom");
   if(window==top) {
-    document.writeln('<A HREF="../../../../../../../../allclasses-noframe.html"><B>All Classes</B></A>');
+    allClassesLink.style.display = "block";
+  }
+  else {
+    allClassesLink.style.display = "none";
   }
   //-->
-</SCRIPT>
-<NOSCRIPT>
-  <A HREF="../../../../../../../../allclasses-noframe.html"><B>All Classes</B></A>
-</NOSCRIPT>
-
-
-</FONT></TD>
-</TR>
-<TR>
-<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
-  SUMMARY:&nbsp;NESTED&nbsp;|&nbsp;<A HREF="#field_summary">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
-<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
-DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
-</TR>
-</TABLE>
-<A NAME="skip-navbar_bottom"></A>
+</script>
+</div>
+<div>
+<ul class="subNavList">
+<li>Summary:&nbsp;</li>
+<li>Nested&nbsp;|&nbsp;</li>
+<li><a href="#field_summary">Field</a>&nbsp;|&nbsp;</li>
+<li><a href="#constructor_summary">Constr</a>&nbsp;|&nbsp;</li>
+<li><a href="#method_summary">Method</a></li>
+</ul>
+<ul class="subNavList">
+<li>Detail:&nbsp;</li>
+<li><a href="#field_detail">Field</a>&nbsp;|&nbsp;</li>
+<li><a href="#constructor_detail">Constr</a>&nbsp;|&nbsp;</li>
+<li><a href="#method_detail">Method</a></li>
+</ul>
+</div>
+<a name="skip-navbar_bottom">
+<!--   -->
+</a></div>
 <!-- ======== END OF BOTTOM NAVBAR ======= -->
-
-<HR>
-
-</BODY>
-</HTML>
+</body>
+</html>

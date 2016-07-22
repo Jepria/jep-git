@@ -28,7 +28,7 @@ import static com.technology.jep.jepriashowcase.arsenic.client.ArsenicAutomation
 import java.util.List;
 
 import com.technology.jep.jepria.auto.JepRiaModuleAutoImpl;
-import com.technology.jep.jepria.auto.TreeNodeFilter;
+import com.technology.jep.jepria.auto.TreeItemFilter;
 import com.technology.jep.jepriashowcase.auto.JepRiaShowcaseAuto;
 import com.technology.jep.jepriashowcase.auto.JepRiaShowcasePageManager;
 
@@ -271,17 +271,17 @@ public class ArsenicAutoImpl<A extends JepRiaShowcaseAuto, P extends JepRiaShowc
   
   @Override
   public String[] getJepTreeField() {
-    return getTreeFieldNodesByFilter(ARSENIC_JEP_TREE_FIELD_ID, TreeNodeFilter.FILTER_CHECKED);
+    return getTreeFieldNodesByFilter(ARSENIC_JEP_TREE_FIELD_ID, TreeItemFilter.FILTER_CHECKED);
   }
   
   @Override
   public String[] getJepTreeField_nodes() {
-    return getTreeFieldNodesByFilter(ARSENIC_JEP_TREE_FIELD_NODES_ID, TreeNodeFilter.FILTER_CHECKED);
+    return getTreeFieldNodesByFilter(ARSENIC_JEP_TREE_FIELD_NODES_ID, TreeItemFilter.FILTER_CHECKED);
   }
   
   @Override
   public String[] getJepTreeField_casc() {
-    return getTreeFieldNodesByFilter(ARSENIC_JEP_TREE_FIELD_CASC_ID, TreeNodeFilter.FILTER_CHECKED_LEAVES);
+    return getTreeFieldNodesByFilter(ARSENIC_JEP_TREE_FIELD_CASC_ID, TreeItemFilter.FILTER_CHECKED_LEAVES);
   }
 
   

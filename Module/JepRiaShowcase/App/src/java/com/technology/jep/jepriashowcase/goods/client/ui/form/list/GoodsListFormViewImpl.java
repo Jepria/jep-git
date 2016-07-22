@@ -15,6 +15,7 @@ import com.google.gwt.cell.client.NumberCell;
 import com.google.gwt.i18n.client.NumberFormat;
 import com.technology.jep.jepria.client.ui.form.list.StandardListFormViewImpl;
 import com.technology.jep.jepria.client.widget.list.JepColumn;
+import com.technology.jep.jepria.client.widget.list.cell.JepNumberCell;
  
 public class GoodsListFormViewImpl extends StandardListFormViewImpl {
  
@@ -33,9 +34,7 @@ public class GoodsListFormViewImpl extends StandardListFormViewImpl {
     columns.add(new JepColumn(GOODS_NAME, goodsText.goods_list_goods_name(), 150));
     columns.add(new JepColumn(GOODS_TYPE_NAME, goodsText.goods_list_goods_type(), 150));
     columns.add(new JepColumn(UNIT_NAME, goodsText.goods_list_unit(), 150));
-    JepColumn column = new JepColumn(PURCHASING_PRICE, goodsText.goods_list_purchasing_price(), 150, new NumberCell(NumberFormat.getDecimalFormat()));
-    
-    columns.add(column);
+    columns.add(new JepColumn(PURCHASING_PRICE, goodsText.goods_list_purchasing_price(), 150, new JepNumberCell()));
     return columns;
   }
 }

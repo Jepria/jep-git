@@ -797,7 +797,7 @@ public class JepRiaModuleAutoImpl<A extends EntranceAppAuto, P extends JepRiaApp
   }
   
   @Override
-  public String[] getTreeFieldNodesByFilter(String treeFieldId, TreeNodeFilter filter) {
+  public String[] getTreeFieldNodesByFilter(String treeFieldId, TreeItemFilter filter) {
     pages.getApplicationPage().ensurePageLoaded();
     
     // Начинаем обход с элемента INPUT поля JepTreeField
@@ -811,52 +811,44 @@ public class JepRiaModuleAutoImpl<A extends EntranceAppAuto, P extends JepRiaApp
   
   /**
    * Метод для рекурсивного обхода дерева, составляющий список путей до узлов, проходящих через фильтр.
-   * @param rootNode узел, с которого начинается обход (включительно)
+   * @param node узел, с которого начинается обход (включительно)
    * @param level значение aria-level для указанного rootNode (0 в случае если обход начинается с INPUT-элемента поля)
    * @return Список путей отмеченных узлов ветки с корнем в rootNode 
    */
-  private List<String> traverseTree(WebElement rootNode, int level, final TreeNodeFilter filter) {
+  private List<String> traverseTree(WebElement node, int level, final TreeItemFilter filter) {
     /*Служебная строка для логирования*/String indent="";for(int j=0;j<level;j++)indent+="  ";
     
     // Результирующий список имен узлов
     List<String> ret = new ArrayList<String>();
     
-    final String treeNodeName;
+    final TreeItemWebElement nodeAsTreeItem = TreeItemWebElement.fromWebElement(node);
     
-    if ("treeitem".equals(rootNode.getAttribute("role")) &&
-        Integer.toString(level).equals(rootNode.getAttribute("aria-level"))) {
-     
-      treeNodeName = getNameOfTreeNode(rootNode);
-      logger.debug(indent + "TREEFIELD_TRAVERSING: BEGIN traversing from the tree node " + treeNodeName);
-    
+    if (nodeAsTreeItem.isRootOfTree()) {
+      logger.debug(indent + "TREEFIELD_TRAVERSING: BEGIN traversing from the root of the tree.");
     } else {
-      
-      treeNodeName = null;
-      logger.debug(indent + "TREEFIELD_TRAVERSING: BEGIN traversing the element that is not a part of tree, as a treenode");
+      logger.debug(indent + "TREEFIELD_TRAVERSING: BEGIN traversing from the tree node " + nodeAsTreeItem.getItemName());
     }
     
     
     // Анализ данного узла
-    final String ariaExpandedVal = rootNode.getAttribute("aria-expanded");
-    
-    if (filter.putToResult(rootNode) && treeNodeName != null) {
+    if (filter.putToResult(nodeAsTreeItem) && nodeAsTreeItem.getItemName() != null) {
       
-      final String prefix;
-      if ("false".equals(ariaExpandedVal)) {
-        // Добавляем префикс '>' для неразвернутого узла
-        prefix = ">";
+      if (nodeAsTreeItem.isLeaf()) {
+        // Для листовой опции добавляем в результат просто имя.
+        ret.add(nodeAsTreeItem.getItemName());
       } else {
-        // Пустой префикс для листовой опции
-        prefix = "";
+        // Для нелистовой опции (неважно, развернутой или неразвернутой) добавляем префикс '>'.
+        ret.add(">" + nodeAsTreeItem.getItemName());
       }
-      ret.add(prefix + treeNodeName);
     }
     
     
-    // Обход дочерних узлов
-    if (filter.traverseDescendants(rootNode)) {
+    // Обход узлов, дочерних для данного
+    if (nodeAsTreeItem.isExpanded() && 
+        filter.traverseDescendants(nodeAsTreeItem)) {
+      
       // Получим список всех узлов дерева, дочерних для заданного 
-      List<WebElement> childNodes = rootNode.findElements(By.xpath(
+      List<WebElement> childNodes = node.findElements(By.xpath(
           String.format(".//div[@role='treeitem' and @aria-level='%d']",
               level + 1)));
       
@@ -873,7 +865,7 @@ public class JepRiaModuleAutoImpl<A extends EntranceAppAuto, P extends JepRiaApp
         logger.debug(indent + "TREEFIELD_TRAVERSING: Returned from recursion.");
         
         for (String childNodeName: childNodeNames) {
-          ret.add((treeNodeName != null ? treeNodeName + "/" : "") + childNodeName);
+          ret.add((nodeAsTreeItem.getItemName() != null ? nodeAsTreeItem.getItemName() + "/" : "") + childNodeName);
         }
       }
     }
@@ -881,20 +873,6 @@ public class JepRiaModuleAutoImpl<A extends EntranceAppAuto, P extends JepRiaApp
     logger.debug(indent + "TREEFIELD_TRAVERSING: Return from recursion...");
     return ret;
   }
-  
-  /**
-   * Метод для получения имени элемента дерева (заданного в <span/>)
-   * @param treeNode
-   * @return Имя элемента дерева. '/' в именах элементов экранируются: '\/'.
-   */
-  private static String getNameOfTreeNode(WebElement treeNode) {
-    WebElement span = treeNode.findElement(By.xpath(
-        String.format(".//span[contains(@id, '%s')]", JEP_TREENODE_INFIX)));
-    String id = span.getAttribute("id");
-    return id.substring(id.indexOf(JEP_TREENODE_INFIX) + JEP_TREENODE_INFIX.length()).replaceAll("/", "\\\\/");
-  }
-  
-  
   
   @Override
   public boolean isFieldVisible(String fieldId) {

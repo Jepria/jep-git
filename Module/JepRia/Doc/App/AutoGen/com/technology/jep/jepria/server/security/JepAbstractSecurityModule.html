@@ -1,886 +1,756 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<!--NewPage-->
-<HTML>
-<HEAD>
-<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<TITLE>
-JepAbstractSecurityModule (JepRia JavaDoc)
-</TITLE>
-
-
-<LINK REL ="stylesheet" TYPE="text/css" HREF="../../../../../../stylesheet.css" TITLE="Style">
-
-<SCRIPT type="text/javascript">
-function windowTitle()
-{
+<!-- NewPage -->
+<html lang="ru">
+<head>
+<meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+<title>JepAbstractSecurityModule (JepRia JavaDoc)</title>
+<link rel="stylesheet" type="text/css" href="../../../../../../stylesheet.css" title="Style">
+</head>
+<body>
+<script type="text/javascript"><!--
     if (location.href.indexOf('is-external=true') == -1) {
         parent.document.title="JepAbstractSecurityModule (JepRia JavaDoc)";
     }
-}
-</SCRIPT>
-<NOSCRIPT>
-</NOSCRIPT>
-
-</HEAD>
-
-<BODY BGCOLOR="white" onload="windowTitle();">
-<HR>
-
-
+//-->
+</script>
+<noscript>
+<div>JavaScript is disabled on your browser.</div>
+</noscript>
 <!-- ========= START OF TOP NAVBAR ======= -->
-<A NAME="navbar_top"><!-- --></A>
-<A HREF="#skip-navbar_top" title="Skip navigation links"></A>
-<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
-<TR>
-<TD COLSPAN=2 BGCOLOR="#EEEEFF" CLASS="NavBarCell1">
-<A NAME="navbar_top_firstrow"><!-- --></A>
-<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3" SUMMARY="">
-  <TR ALIGN="center" VALIGN="top">
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-summary.html"><FONT CLASS="NavBarFont1"><B>Package</B></FONT></A>&nbsp;</TD>
-  <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../index-all.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../help-doc.html"><FONT CLASS="NavBarFont1"><B>Help</B></FONT></A>&nbsp;</TD>
-  </TR>
-</TABLE>
-</TD>
-<TD ALIGN="right" VALIGN="top" ROWSPAN=3><EM>
-</EM>
-</TD>
-</TR>
-
-<TR>
-<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="../../../../../../com/technology/jep/jepria/server/security/AutoLogonServlet.html" title="class in com.technology.jep.jepria.server.security"><B>PREV CLASS</B></A>&nbsp;
-&nbsp;<A HREF="../../../../../../com/technology/jep/jepria/server/security/JepSecurityConstant.html" title="class in com.technology.jep.jepria.server.security"><B>NEXT CLASS</B></A></FONT></TD>
-<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-  <A HREF="../../../../../../index.html?com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html" target="_top"><B>FRAMES</B></A>  &nbsp;
-&nbsp;<A HREF="JepAbstractSecurityModule.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
-&nbsp;<SCRIPT type="text/javascript">
-  <!--
+<div class="topNav"><a name="navbar_top">
+<!--   -->
+</a><a href="#skip-navbar_top" title="Skip navigation links"></a><a name="navbar_top_firstrow">
+<!--   -->
+</a>
+<ul class="navList" title="Navigation">
+<li><a href="../../../../../../overview-summary.html">Overview</a></li>
+<li><a href="package-summary.html">Package</a></li>
+<li class="navBarCell1Rev">Class</li>
+<li><a href="package-tree.html">Tree</a></li>
+<li><a href="../../../../../../deprecated-list.html">Deprecated</a></li>
+<li><a href="../../../../../../index-all.html">Index</a></li>
+<li><a href="../../../../../../help-doc.html">Help</a></li>
+</ul>
+</div>
+<div class="subNav">
+<ul class="navList">
+<li><a href="../../../../../../com/technology/jep/jepria/server/security/AutoLogonServlet.html" title="class in com.technology.jep.jepria.server.security"><span class="strong">Prev Class</span></a></li>
+<li><a href="../../../../../../com/technology/jep/jepria/server/security/JepSecurityConstant.html" title="class in com.technology.jep.jepria.server.security"><span class="strong">Next Class</span></a></li>
+</ul>
+<ul class="navList">
+<li><a href="../../../../../../index.html?com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html" target="_top">Frames</a></li>
+<li><a href="JepAbstractSecurityModule.html" target="_top">No Frames</a></li>
+</ul>
+<ul class="navList" id="allclasses_navbar_top">
+<li><a href="../../../../../../allclasses-noframe.html">All Classes</a></li>
+</ul>
+<div>
+<script type="text/javascript"><!--
+  allClassesLink = document.getElementById("allclasses_navbar_top");
   if(window==top) {
-    document.writeln('<A HREF="../../../../../../allclasses-noframe.html"><B>All Classes</B></A>');
+    allClassesLink.style.display = "block";
+  }
+  else {
+    allClassesLink.style.display = "none";
   }
   //-->
-</SCRIPT>
-<NOSCRIPT>
-  <A HREF="../../../../../../allclasses-noframe.html"><B>All Classes</B></A>
-</NOSCRIPT>
-
-
-</FONT></TD>
-</TR>
-<TR>
-<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
-  SUMMARY:&nbsp;NESTED&nbsp;|&nbsp;<A HREF="#field_summary">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
-<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
-DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
-</TR>
-</TABLE>
-<A NAME="skip-navbar_top"></A>
+</script>
+</div>
+<div>
+<ul class="subNavList">
+<li>Summary:&nbsp;</li>
+<li>Nested&nbsp;|&nbsp;</li>
+<li><a href="#field_summary">Field</a>&nbsp;|&nbsp;</li>
+<li><a href="#constructor_summary">Constr</a>&nbsp;|&nbsp;</li>
+<li><a href="#method_summary">Method</a></li>
+</ul>
+<ul class="subNavList">
+<li>Detail:&nbsp;</li>
+<li><a href="#field_detail">Field</a>&nbsp;|&nbsp;</li>
+<li><a href="#constructor_detail">Constr</a>&nbsp;|&nbsp;</li>
+<li><a href="#method_detail">Method</a></li>
+</ul>
+</div>
+<a name="skip-navbar_top">
+<!--   -->
+</a></div>
 <!-- ========= END OF TOP NAVBAR ========= -->
-
-<HR>
 <!-- ======== START OF CLASS DATA ======== -->
-<H2>
-<FONT SIZE="-1">
-com.technology.jep.jepria.server.security</FONT>
-<BR>
-Class JepAbstractSecurityModule</H2>
-<PRE>
-java.lang.Object
-  <IMG SRC="../../../../../../resources/inherit.gif" ALT="extended by "><B>com.technology.jep.jepria.server.security.JepAbstractSecurityModule</B>
-</PRE>
-<DL>
-<DT><B>All Implemented Interfaces:</B> <DD><A HREF="../../../../../../com/technology/jep/jepria/server/security/JepSecurityModule.html" title="interface in com.technology.jep.jepria.server.security">JepSecurityModule</A>, java.util.EventListener, javax.servlet.http.HttpSessionBindingListener</DD>
-</DL>
-<DL>
-<DT><B>Direct Known Subclasses:</B> <DD><A HREF="../../../../../../com/technology/jep/jepria/server/security/oc4j/JepSecurityModule_OC4J.html" title="class in com.technology.jep.jepria.server.security.oc4j">JepSecurityModule_OC4J</A>, <A HREF="../../../../../../com/technology/jep/jepria/server/security/cas/JepSecurityModule_Standard.html" title="class in com.technology.jep.jepria.server.security.cas">JepSecurityModule_Standard</A>, <A HREF="../../../../../../com/technology/jep/jepria/server/security/tomcat/JepSecurityModule_Tomcat.html" title="class in com.technology.jep.jepria.server.security.tomcat">JepSecurityModule_Tomcat</A></DD>
-</DL>
-<HR>
-<DL>
-<DT><PRE>public abstract class <B>JepAbstractSecurityModule</B><DT>extends java.lang.Object<DT>implements <A HREF="../../../../../../com/technology/jep/jepria/server/security/JepSecurityModule.html" title="interface in com.technology.jep.jepria.server.security">JepSecurityModule</A></DL>
-</PRE>
-
-<P>
-Модуль поддержки безопасности
-<P>
-
-<P>
-<HR>
-
-<P>
+<div class="header">
+<div class="subTitle">com.technology.jep.jepria.server.security</div>
+<h2 title="Class JepAbstractSecurityModule" class="title">Class JepAbstractSecurityModule</h2>
+</div>
+<div class="contentContainer">
+<ul class="inheritance">
+<li>java.lang.Object</li>
+<li>
+<ul class="inheritance">
+<li>com.technology.jep.jepria.server.security.JepAbstractSecurityModule</li>
+</ul>
+</li>
+</ul>
+<div class="description">
+<ul class="blockList">
+<li class="blockList">
+<dl>
+<dt>All Implemented Interfaces:</dt>
+<dd><a href="../../../../../../com/technology/jep/jepria/server/security/JepSecurityModule.html" title="interface in com.technology.jep.jepria.server.security">JepSecurityModule</a>, java.util.EventListener, javax.servlet.http.HttpSessionBindingListener</dd>
+</dl>
+<dl>
+<dt>Direct Known Subclasses:</dt>
+<dd><a href="../../../../../../com/technology/jep/jepria/server/security/oc4j/JepSecurityModule_OC4J.html" title="class in com.technology.jep.jepria.server.security.oc4j">JepSecurityModule_OC4J</a>, <a href="../../../../../../com/technology/jep/jepria/server/security/cas/JepSecurityModule_Standard.html" title="class in com.technology.jep.jepria.server.security.cas">JepSecurityModule_Standard</a>, <a href="../../../../../../com/technology/jep/jepria/server/security/tomcat/JepSecurityModule_Tomcat.html" title="class in com.technology.jep.jepria.server.security.tomcat">JepSecurityModule_Tomcat</a></dd>
+</dl>
+<hr>
+<br>
+<pre>public abstract class <span class="strong">JepAbstractSecurityModule</span>
+extends java.lang.Object
+implements <a href="../../../../../../com/technology/jep/jepria/server/security/JepSecurityModule.html" title="interface in com.technology.jep.jepria.server.security">JepSecurityModule</a></pre>
+<div class="block">Модуль поддержки безопасности</div>
+</li>
+</ul>
+</div>
+<div class="summary">
+<ul class="blockList">
+<li class="blockList">
 <!-- =========== FIELD SUMMARY =========== -->
-
-<A NAME="field_summary"><!-- --></A>
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
-<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
-<B>Field Summary</B></FONT></TH>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>protected &nbsp;<A HREF="../../../../../../com/technology/jep/jepria/server/db/Db.html" title="class in com.technology.jep.jepria.server.db">Db</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html#db">db</A></B></CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>private static&nbsp;int</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html#GUEST_REFRESH_TIME_DEFAULT">GUEST_REFRESH_TIME_DEFAULT</A></B></CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>private static&nbsp;long</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html#guestCacheTime">guestCacheTime</A></B></CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>private static&nbsp;java.lang.Integer</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html#guestOperatorId">guestOperatorId</A></B></CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Идентификатор пользователя Гость</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>private static&nbsp;java.util.List&lt;java.lang.String&gt;</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html#guestRoles">guestRoles</A></B></CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Список ролей пользователя Гость</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>protected &nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html#isAuthorizedBySso">isAuthorizedBySso</A></B></CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Признак того, что был вход через SSO</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>protected static&nbsp;org.apache.log4j.Logger</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html#logger">logger</A></B></CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>protected &nbsp;java.lang.Integer</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html#operatorId">operatorId</A></B></CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Текущий идентификатор пользователя</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>protected &nbsp;java.util.List&lt;java.lang.String&gt;</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html#roles">roles</A></B></CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Список ролей текущего пользователя</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>protected &nbsp;java.lang.String</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html#username">username</A></B></CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Логин пользователя</TD>
-</TR>
-</TABLE>
-&nbsp;
+<ul class="blockList">
+<li class="blockList"><a name="field_summary">
+<!--   -->
+</a>
+<h3>Field Summary</h3>
+<table class="overviewSummary" border="0" cellpadding="3" cellspacing="0" summary="Field Summary table, listing fields, and an explanation">
+<caption><span>Fields</span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Field and Description</th>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>protected <a href="../../../../../../com/technology/jep/jepria/server/db/Db.html" title="class in com.technology.jep.jepria.server.db">Db</a></code></td>
+<td class="colLast"><code><strong><a href="../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html#db">db</a></strong></code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>private static int</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html#GUEST_REFRESH_TIME_DEFAULT">GUEST_REFRESH_TIME_DEFAULT</a></strong></code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>private static long</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html#guestCacheTime">guestCacheTime</a></strong></code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>private static java.lang.Integer</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html#guestOperatorId">guestOperatorId</a></strong></code>
+<div class="block">Идентификатор пользователя Гость</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>private static java.util.List&lt;java.lang.String&gt;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html#guestRoles">guestRoles</a></strong></code>
+<div class="block">Список ролей пользователя Гость</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>protected boolean</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html#isAuthorizedBySso">isAuthorizedBySso</a></strong></code>
+<div class="block">Признак того, что был вход через SSO</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>protected static org.apache.log4j.Logger</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html#logger">logger</a></strong></code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>protected java.lang.Integer</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html#operatorId">operatorId</a></strong></code>
+<div class="block">Текущий идентификатор пользователя</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>protected java.util.List&lt;java.lang.String&gt;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html#roles">roles</a></strong></code>
+<div class="block">Список ролей текущего пользователя</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>protected java.lang.String</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html#username">username</a></strong></code>
+<div class="block">Логин пользователя</div>
+</td>
+</tr>
+</table>
+</li>
+</ul>
 <!-- ======== CONSTRUCTOR SUMMARY ======== -->
-
-<A NAME="constructor_summary"><!-- --></A>
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
-<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
-<B>Constructor Summary</B></FONT></TH>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>protected </CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html#JepAbstractSecurityModule()">JepAbstractSecurityModule</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-</TABLE>
-&nbsp;
+<ul class="blockList">
+<li class="blockList"><a name="constructor_summary">
+<!--   -->
+</a>
+<h3>Constructor Summary</h3>
+<table class="overviewSummary" border="0" cellpadding="3" cellspacing="0" summary="Constructor Summary table, listing constructors, and an explanation">
+<caption><span>Constructors</span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier</th>
+<th class="colLast" scope="col">Constructor and Description</th>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>protected </code></td>
+<td class="colLast"><code><strong><a href="../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html#JepAbstractSecurityModule()">JepAbstractSecurityModule</a></strong>()</code>&nbsp;</td>
+</tr>
+</table>
+</li>
+</ul>
 <!-- ========== METHOD SUMMARY =========== -->
-
-<A NAME="method_summary"><!-- --></A>
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
-<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
-<B>Method Summary</B></FONT></TH>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html#changePassword(java.lang.Integer, java.lang.String, java.lang.String, java.lang.String)">changePassword</A></B>(java.lang.Integer&nbsp;operatorId,
-               java.lang.String&nbsp;password,
-               java.lang.String&nbsp;newPassword,
-               java.lang.String&nbsp;newPasswordConfirm)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Изменение пароля пользователя.</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>protected &nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html#doLogonByGuest()">doLogonByGuest</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Вход в систему с правами пользователя Гость</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;java.util.List&lt;java.lang.String&gt;</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html#getGuestRoles()">getGuestRoles</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Получение ролей гостя</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;java.lang.Integer</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html#getOperatorId()">getOperatorId</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Возвращает идентификатор текущего пользователя.</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;java.util.List&lt;java.lang.String&gt;</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html#getRoles()">getRoles</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Возвращает роли текущего пользователя.</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;java.lang.String</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html#getUsername()">getUsername</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Возвращает имя (username) текущего пользователя.</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>protected &nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html#init()">init</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html#isAuthorizedBySso()">isAuthorizedBySso</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Проверка авторизации в SSO</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html#isChangePassword(java.lang.Integer)">isChangePassword</A></B>(java.lang.Integer&nbsp;operatorId)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Функция определяет необходимость смены пароля пользователем.</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>protected abstract &nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html#isObsolete(java.security.Principal)">isObsolete</A></B>(java.security.Principal&nbsp;principal)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Проверка на устаревания принципала</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html#isRole(java.lang.String, boolean)">isRole</A></B>(java.lang.String&nbsp;role,
-       boolean&nbsp;makeError)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Определяет: принадлежит ли указанная роль role текущему оператору.</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;java.lang.String</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html#logout(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)">logout</A></B>(javax.servlet.http.HttpServletRequest&nbsp;request,
-       javax.servlet.http.HttpServletResponse&nbsp;response)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Выход из приложения</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>private &nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html#onExpiredSession(java.lang.String)">onExpiredSession</A></B>(java.lang.String&nbsp;sessionId)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>private &nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html#onStartSession(java.lang.String)">onStartSession</A></B>(java.lang.String&nbsp;sessionId)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>protected abstract &nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html#updateSubject(java.security.Principal)">updateSubject</A></B>(java.security.Principal&nbsp;principal)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Обновление полномочий пользователя в соответствии с указанным принципалом</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html#valueBound(javax.servlet.http.HttpSessionBindingEvent)">valueBound</A></B>(javax.servlet.http.HttpSessionBindingEvent&nbsp;bindingEvent)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html#valueUnbound(javax.servlet.http.HttpSessionBindingEvent)">valueUnbound</A></B>(javax.servlet.http.HttpSessionBindingEvent&nbsp;bindingEvent)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-</TABLE>
-&nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
-<TH ALIGN="left"><B>Methods inherited from class java.lang.Object</B></TH>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE>clone, equals, finalize, getClass, hashCode, notify, notifyAll, toString, wait, wait, wait</CODE></TD>
-</TR>
-</TABLE>
-&nbsp;<A NAME="methods_inherited_from_class_com.technology.jep.jepria.server.security.JepSecurityModule"><!-- --></A>
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
-<TH ALIGN="left"><B>Methods inherited from interface com.technology.jep.jepria.server.security.<A HREF="../../../../../../com/technology/jep/jepria/server/security/JepSecurityModule.html" title="interface in com.technology.jep.jepria.server.security">JepSecurityModule</A></B></TH>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><A HREF="../../../../../../com/technology/jep/jepria/server/security/JepSecurityModule.html#getJepPrincipalOperatorId(java.security.Principal)">getJepPrincipalOperatorId</A>, <A HREF="../../../../../../com/technology/jep/jepria/server/security/JepSecurityModule.html#logout(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.lang.String)">logout</A></CODE></TD>
-</TR>
-</TABLE>
-&nbsp;
-<P>
-
+<ul class="blockList">
+<li class="blockList"><a name="method_summary">
+<!--   -->
+</a>
+<h3>Method Summary</h3>
+<table class="overviewSummary" border="0" cellpadding="3" cellspacing="0" summary="Method Summary table, listing methods, and an explanation">
+<caption><span>Methods</span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Method and Description</th>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html#changePassword(java.lang.Integer,%20java.lang.String,%20java.lang.String,%20java.lang.String)">changePassword</a></strong>(java.lang.Integer&nbsp;operatorId,
+              java.lang.String&nbsp;password,
+              java.lang.String&nbsp;newPassword,
+              java.lang.String&nbsp;newPasswordConfirm)</code>
+<div class="block">Изменение пароля пользователя.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>protected void</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html#doLogonByGuest()">doLogonByGuest</a></strong>()</code>
+<div class="block">Вход в систему с правами пользователя Гость</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>java.util.List&lt;java.lang.String&gt;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html#getGuestRoles()">getGuestRoles</a></strong>()</code>
+<div class="block">Получение ролей гостя</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>java.lang.Integer</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html#getOperatorId()">getOperatorId</a></strong>()</code>
+<div class="block">Возвращает идентификатор текущего пользователя.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>java.util.List&lt;java.lang.String&gt;</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html#getRoles()">getRoles</a></strong>()</code>
+<div class="block">Возвращает роли текущего пользователя.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>java.lang.String</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html#getUsername()">getUsername</a></strong>()</code>
+<div class="block">Возвращает имя (username) текущего пользователя.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>protected void</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html#init()">init</a></strong>()</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>boolean</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html#isAuthorizedBySso()">isAuthorizedBySso</a></strong>()</code>
+<div class="block">Проверка авторизации в SSO</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>boolean</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html#isChangePassword(java.lang.Integer)">isChangePassword</a></strong>(java.lang.Integer&nbsp;operatorId)</code>
+<div class="block">Функция определяет необходимость смены пароля пользователем.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>protected abstract boolean</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html#isObsolete(java.security.Principal)">isObsolete</a></strong>(java.security.Principal&nbsp;principal)</code>
+<div class="block">Проверка на устаревания принципала</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>boolean</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html#isRole(java.lang.String,%20boolean)">isRole</a></strong>(java.lang.String&nbsp;role,
+      boolean&nbsp;makeError)</code>
+<div class="block">Определяет: принадлежит ли указанная роль role текущему оператору.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>java.lang.String</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html#logout(javax.servlet.http.HttpServletRequest,%20javax.servlet.http.HttpServletResponse)">logout</a></strong>(javax.servlet.http.HttpServletRequest&nbsp;request,
+      javax.servlet.http.HttpServletResponse&nbsp;response)</code>
+<div class="block">Выход из приложения</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>private void</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html#onExpiredSession(java.lang.String)">onExpiredSession</a></strong>(java.lang.String&nbsp;sessionId)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>private void</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html#onStartSession(java.lang.String)">onStartSession</a></strong>(java.lang.String&nbsp;sessionId)</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>protected abstract void</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html#updateSubject(java.security.Principal)">updateSubject</a></strong>(java.security.Principal&nbsp;principal)</code>
+<div class="block">Обновление полномочий пользователя в соответствии с указанным принципалом</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html#valueBound(javax.servlet.http.HttpSessionBindingEvent)">valueBound</a></strong>(javax.servlet.http.HttpSessionBindingEvent&nbsp;bindingEvent)</code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html#valueUnbound(javax.servlet.http.HttpSessionBindingEvent)">valueUnbound</a></strong>(javax.servlet.http.HttpSessionBindingEvent&nbsp;bindingEvent)</code>&nbsp;</td>
+</tr>
+</table>
+<ul class="blockList">
+<li class="blockList"><a name="methods_inherited_from_class_java.lang.Object">
+<!--   -->
+</a>
+<h3>Methods inherited from class&nbsp;java.lang.Object</h3>
+<code>clone, equals, finalize, getClass, hashCode, notify, notifyAll, toString, wait, wait, wait</code></li>
+</ul>
+<ul class="blockList">
+<li class="blockList"><a name="methods_inherited_from_class_com.technology.jep.jepria.server.security.JepSecurityModule">
+<!--   -->
+</a>
+<h3>Methods inherited from interface&nbsp;com.technology.jep.jepria.server.security.<a href="../../../../../../com/technology/jep/jepria/server/security/JepSecurityModule.html" title="interface in com.technology.jep.jepria.server.security">JepSecurityModule</a></h3>
+<code><a href="../../../../../../com/technology/jep/jepria/server/security/JepSecurityModule.html#getJepPrincipalOperatorId(java.security.Principal)">getJepPrincipalOperatorId</a>, <a href="../../../../../../com/technology/jep/jepria/server/security/JepSecurityModule.html#logout(javax.servlet.http.HttpServletRequest,%20javax.servlet.http.HttpServletResponse,%20java.lang.String)">logout</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="details">
+<ul class="blockList">
+<li class="blockList">
 <!-- ============ FIELD DETAIL =========== -->
-
-<A NAME="field_detail"><!-- --></A>
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
-<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
-<B>Field Detail</B></FONT></TH>
-</TR>
-</TABLE>
-
-<A NAME="logger"><!-- --></A><H3>
-logger</H3>
-<PRE>
-protected static org.apache.log4j.Logger <B>logger</B></PRE>
-<DL>
-<DL>
-</DL>
-</DL>
-<HR>
-
-<A NAME="db"><!-- --></A><H3>
-db</H3>
-<PRE>
-protected <A HREF="../../../../../../com/technology/jep/jepria/server/db/Db.html" title="class in com.technology.jep.jepria.server.db">Db</A> <B>db</B></PRE>
-<DL>
-<DL>
-</DL>
-</DL>
-<HR>
-
-<A NAME="roles"><!-- --></A><H3>
-roles</H3>
-<PRE>
-protected java.util.List&lt;java.lang.String&gt; <B>roles</B></PRE>
-<DL>
-<DD>Список ролей текущего пользователя
-<P>
-<DL>
-</DL>
-</DL>
-<HR>
-
-<A NAME="operatorId"><!-- --></A><H3>
-operatorId</H3>
-<PRE>
-protected java.lang.Integer <B>operatorId</B></PRE>
-<DL>
-<DD>Текущий идентификатор пользователя
-<P>
-<DL>
-</DL>
-</DL>
-<HR>
-
-<A NAME="username"><!-- --></A><H3>
-username</H3>
-<PRE>
-protected java.lang.String <B>username</B></PRE>
-<DL>
-<DD>Логин пользователя
-<P>
-<DL>
-</DL>
-</DL>
-<HR>
-
-<A NAME="guestRoles"><!-- --></A><H3>
-guestRoles</H3>
-<PRE>
-private static java.util.List&lt;java.lang.String&gt; <B>guestRoles</B></PRE>
-<DL>
-<DD>Список ролей пользователя Гость
-<P>
-<DL>
-</DL>
-</DL>
-<HR>
-
-<A NAME="guestOperatorId"><!-- --></A><H3>
-guestOperatorId</H3>
-<PRE>
-private static java.lang.Integer <B>guestOperatorId</B></PRE>
-<DL>
-<DD>Идентификатор пользователя Гость
-<P>
-<DL>
-</DL>
-</DL>
-<HR>
-
-<A NAME="guestCacheTime"><!-- --></A><H3>
-guestCacheTime</H3>
-<PRE>
-private static long <B>guestCacheTime</B></PRE>
-<DL>
-<DL>
-</DL>
-</DL>
-<HR>
-
-<A NAME="GUEST_REFRESH_TIME_DEFAULT"><!-- --></A><H3>
-GUEST_REFRESH_TIME_DEFAULT</H3>
-<PRE>
-private static final int <B>GUEST_REFRESH_TIME_DEFAULT</B></PRE>
-<DL>
-<DL>
-<DT><B>See Also:</B><DD><A HREF="../../../../../../constant-values.html#com.technology.jep.jepria.server.security.JepAbstractSecurityModule.GUEST_REFRESH_TIME_DEFAULT">Constant Field Values</A></DL>
-</DL>
-<HR>
-
-<A NAME="isAuthorizedBySso"><!-- --></A><H3>
-isAuthorizedBySso</H3>
-<PRE>
-protected boolean <B>isAuthorizedBySso</B></PRE>
-<DL>
-<DD>Признак того, что был вход через SSO
-<P>
-<DL>
-</DL>
-</DL>
-
+<ul class="blockList">
+<li class="blockList"><a name="field_detail">
+<!--   -->
+</a>
+<h3>Field Detail</h3>
+<a name="logger">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>logger</h4>
+<pre>protected static&nbsp;org.apache.log4j.Logger logger</pre>
+</li>
+</ul>
+<a name="db">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>db</h4>
+<pre>protected&nbsp;<a href="../../../../../../com/technology/jep/jepria/server/db/Db.html" title="class in com.technology.jep.jepria.server.db">Db</a> db</pre>
+</li>
+</ul>
+<a name="roles">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>roles</h4>
+<pre>protected&nbsp;java.util.List&lt;java.lang.String&gt; roles</pre>
+<div class="block">Список ролей текущего пользователя</div>
+</li>
+</ul>
+<a name="operatorId">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>operatorId</h4>
+<pre>protected&nbsp;java.lang.Integer operatorId</pre>
+<div class="block">Текущий идентификатор пользователя</div>
+</li>
+</ul>
+<a name="username">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>username</h4>
+<pre>protected&nbsp;java.lang.String username</pre>
+<div class="block">Логин пользователя</div>
+</li>
+</ul>
+<a name="guestRoles">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>guestRoles</h4>
+<pre>private static&nbsp;java.util.List&lt;java.lang.String&gt; guestRoles</pre>
+<div class="block">Список ролей пользователя Гость</div>
+</li>
+</ul>
+<a name="guestOperatorId">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>guestOperatorId</h4>
+<pre>private static&nbsp;java.lang.Integer guestOperatorId</pre>
+<div class="block">Идентификатор пользователя Гость</div>
+</li>
+</ul>
+<a name="guestCacheTime">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>guestCacheTime</h4>
+<pre>private static&nbsp;long guestCacheTime</pre>
+</li>
+</ul>
+<a name="GUEST_REFRESH_TIME_DEFAULT">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>GUEST_REFRESH_TIME_DEFAULT</h4>
+<pre>private static final&nbsp;int GUEST_REFRESH_TIME_DEFAULT</pre>
+<dl><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../../../constant-values.html#com.technology.jep.jepria.server.security.JepAbstractSecurityModule.GUEST_REFRESH_TIME_DEFAULT">Constant Field Values</a></dd></dl>
+</li>
+</ul>
+<a name="isAuthorizedBySso">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>isAuthorizedBySso</h4>
+<pre>protected&nbsp;boolean isAuthorizedBySso</pre>
+<div class="block">Признак того, что был вход через SSO</div>
+</li>
+</ul>
+</li>
+</ul>
 <!-- ========= CONSTRUCTOR DETAIL ======== -->
-
-<A NAME="constructor_detail"><!-- --></A>
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
-<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
-<B>Constructor Detail</B></FONT></TH>
-</TR>
-</TABLE>
-
-<A NAME="JepAbstractSecurityModule()"><!-- --></A><H3>
-JepAbstractSecurityModule</H3>
-<PRE>
-protected <B>JepAbstractSecurityModule</B>()</PRE>
-<DL>
-</DL>
-
+<ul class="blockList">
+<li class="blockList"><a name="constructor_detail">
+<!--   -->
+</a>
+<h3>Constructor Detail</h3>
+<a name="JepAbstractSecurityModule()">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>JepAbstractSecurityModule</h4>
+<pre>protected&nbsp;JepAbstractSecurityModule()</pre>
+</li>
+</ul>
+</li>
+</ul>
 <!-- ============ METHOD DETAIL ========== -->
-
-<A NAME="method_detail"><!-- --></A>
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
-<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
-<B>Method Detail</B></FONT></TH>
-</TR>
-</TABLE>
-
-<A NAME="init()"><!-- --></A><H3>
-init</H3>
-<PRE>
-protected void <B>init</B>()</PRE>
-<DL>
-<DD><DL>
-</DL>
-</DD>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="updateSubject(java.security.Principal)"><!-- --></A><H3>
-updateSubject</H3>
-<PRE>
-protected abstract void <B>updateSubject</B>(java.security.Principal&nbsp;principal)</PRE>
-<DL>
-<DD>Обновление полномочий пользователя в соответствии с указанным принципалом
-<P>
-<DD><DL>
-</DL>
-</DD>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>principal</CODE> - принципал, содержащий информацию об Id оператора и его ролях</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="isObsolete(java.security.Principal)"><!-- --></A><H3>
-isObsolete</H3>
-<PRE>
-protected abstract boolean <B>isObsolete</B>(java.security.Principal&nbsp;principal)</PRE>
-<DL>
-<DD>Проверка на устаревания принципала
-<P>
-<DD><DL>
-</DL>
-</DD>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>principal</CODE> - проверяемый принципал</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="isRole(java.lang.String, boolean)"><!-- --></A><H3>
-isRole</H3>
-<PRE>
-public boolean <B>isRole</B>(java.lang.String&nbsp;role,
-                      boolean&nbsp;makeError)
-               throws java.lang.Exception</PRE>
-<DL>
-<DD>Определяет: принадлежит ли указанная роль role текущему оператору. Если
+<ul class="blockList">
+<li class="blockList"><a name="method_detail">
+<!--   -->
+</a>
+<h3>Method Detail</h3>
+<a name="init()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>init</h4>
+<pre>protected&nbsp;void&nbsp;init()</pre>
+</li>
+</ul>
+<a name="updateSubject(java.security.Principal)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>updateSubject</h4>
+<pre>protected abstract&nbsp;void&nbsp;updateSubject(java.security.Principal&nbsp;principal)</pre>
+<div class="block">Обновление полномочий пользователя в соответствии с указанным принципалом</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>principal</code> - принципал, содержащий информацию об Id оператора и его ролях</dd></dl>
+</li>
+</ul>
+<a name="isObsolete(java.security.Principal)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>isObsolete</h4>
+<pre>protected abstract&nbsp;boolean&nbsp;isObsolete(java.security.Principal&nbsp;principal)</pre>
+<div class="block">Проверка на устаревания принципала</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>principal</code> - проверяемый принципал</dd></dl>
+</li>
+</ul>
+<a name="isRole(java.lang.String, boolean)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>isRole</h4>
+<pre>public&nbsp;boolean&nbsp;isRole(java.lang.String&nbsp;role,
+             boolean&nbsp;makeError)
+               throws java.lang.Exception</pre>
+<div class="block">Определяет: принадлежит ли указанная роль role текущему оператору. Если
  параметр makeError установлен в true, то при отсутствии роли у текущего
- оператора выбрасывается исключение.
-<P>
-<DD><DL>
-<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../com/technology/jep/jepria/server/security/JepSecurityModule.html#isRole(java.lang.String, boolean)">isRole</A></CODE> in interface <CODE><A HREF="../../../../../../com/technology/jep/jepria/server/security/JepSecurityModule.html" title="interface in com.technology.jep.jepria.server.security">JepSecurityModule</A></CODE></DL>
-</DD>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>role</CODE> - проверяемая роль<DD><CODE>makeError</CODE> - признак: выбрасывать исключение (значение true) или нет (значение false)
-<DT><B>Returns:</B><DD>true - если текущему оператору принадлежит роль role, false или исключение
- (в зависимости от параметра makeError) в противном случае
-<DT><B>Throws:</B>
-<DD><CODE>java.lang.Exception</CODE></DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="getOperatorId()"><!-- --></A><H3>
-getOperatorId</H3>
-<PRE>
-public java.lang.Integer <B>getOperatorId</B>()</PRE>
-<DL>
-<DD>Возвращает идентификатор текущего пользователя.
-<P>
-<DD><DL>
-<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../com/technology/jep/jepria/server/security/JepSecurityModule.html#getOperatorId()">getOperatorId</A></CODE> in interface <CODE><A HREF="../../../../../../com/technology/jep/jepria/server/security/JepSecurityModule.html" title="interface in com.technology.jep.jepria.server.security">JepSecurityModule</A></CODE></DL>
-</DD>
-<DD><DL>
-
-<DT><B>Returns:</B><DD>Id пользователя</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="getUsername()"><!-- --></A><H3>
-getUsername</H3>
-<PRE>
-public java.lang.String <B>getUsername</B>()</PRE>
-<DL>
-<DD>Возвращает имя (username) текущего пользователя.
-<P>
-<DD><DL>
-<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../com/technology/jep/jepria/server/security/JepSecurityModule.html#getUsername()">getUsername</A></CODE> in interface <CODE><A HREF="../../../../../../com/technology/jep/jepria/server/security/JepSecurityModule.html" title="interface in com.technology.jep.jepria.server.security">JepSecurityModule</A></CODE></DL>
-</DD>
-<DD><DL>
-
-<DT><B>Returns:</B><DD>username</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="getRoles()"><!-- --></A><H3>
-getRoles</H3>
-<PRE>
-public java.util.List&lt;java.lang.String&gt; <B>getRoles</B>()</PRE>
-<DL>
-<DD>Возвращает роли текущего пользователя.
-<P>
-<DD><DL>
-<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../com/technology/jep/jepria/server/security/JepSecurityModule.html#getRoles()">getRoles</A></CODE> in interface <CODE><A HREF="../../../../../../com/technology/jep/jepria/server/security/JepSecurityModule.html" title="interface in com.technology.jep.jepria.server.security">JepSecurityModule</A></CODE></DL>
-</DD>
-<DD><DL>
-
-<DT><B>Returns:</B><DD>роли</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="valueBound(javax.servlet.http.HttpSessionBindingEvent)"><!-- --></A><H3>
-valueBound</H3>
-<PRE>
-public void <B>valueBound</B>(javax.servlet.http.HttpSessionBindingEvent&nbsp;bindingEvent)</PRE>
-<DL>
-<DD><DL>
-<DT><B>Specified by:</B><DD><CODE>valueBound</CODE> in interface <CODE>javax.servlet.http.HttpSessionBindingListener</CODE></DL>
-</DD>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="valueUnbound(javax.servlet.http.HttpSessionBindingEvent)"><!-- --></A><H3>
-valueUnbound</H3>
-<PRE>
-public void <B>valueUnbound</B>(javax.servlet.http.HttpSessionBindingEvent&nbsp;bindingEvent)</PRE>
-<DL>
-<DD><DL>
-<DT><B>Specified by:</B><DD><CODE>valueUnbound</CODE> in interface <CODE>javax.servlet.http.HttpSessionBindingListener</CODE></DL>
-</DD>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="doLogonByGuest()"><!-- --></A><H3>
-doLogonByGuest</H3>
-<PRE>
-protected void <B>doLogonByGuest</B>()</PRE>
-<DL>
-<DD>Вход в систему с правами пользователя Гость
-<P>
-<DD><DL>
-</DL>
-</DD>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="onStartSession(java.lang.String)"><!-- --></A><H3>
-onStartSession</H3>
-<PRE>
-private void <B>onStartSession</B>(java.lang.String&nbsp;sessionId)</PRE>
-<DL>
-<DD><DL>
-</DL>
-</DD>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="onExpiredSession(java.lang.String)"><!-- --></A><H3>
-onExpiredSession</H3>
-<PRE>
-private void <B>onExpiredSession</B>(java.lang.String&nbsp;sessionId)</PRE>
-<DL>
-<DD><DL>
-</DL>
-</DD>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="isChangePassword(java.lang.Integer)"><!-- --></A><H3>
-isChangePassword</H3>
-<PRE>
-public boolean <B>isChangePassword</B>(java.lang.Integer&nbsp;operatorId)</PRE>
-<DL>
-<DD>Функция определяет необходимость смены пароля пользователем.
-<P>
-<DD><DL>
-<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../com/technology/jep/jepria/server/security/JepSecurityModule.html#isChangePassword(java.lang.Integer)">isChangePassword</A></CODE> in interface <CODE><A HREF="../../../../../../com/technology/jep/jepria/server/security/JepSecurityModule.html" title="interface in com.technology.jep.jepria.server.security">JepSecurityModule</A></CODE></DL>
-</DD>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>operatorId</CODE> - идентификатор пользователя
-<DT><B>Returns:</B><DD>true - если пользователю необходимо сменить пароль, false - в противном случае.</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="changePassword(java.lang.Integer, java.lang.String, java.lang.String, java.lang.String)"><!-- --></A><H3>
-changePassword</H3>
-<PRE>
-public void <B>changePassword</B>(java.lang.Integer&nbsp;operatorId,
-                           java.lang.String&nbsp;password,
-                           java.lang.String&nbsp;newPassword,
-                           java.lang.String&nbsp;newPasswordConfirm)</PRE>
-<DL>
-<DD>Изменение пароля пользователя.
-<P>
-<DD><DL>
-<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../com/technology/jep/jepria/server/security/JepSecurityModule.html#changePassword(java.lang.Integer, java.lang.String, java.lang.String, java.lang.String)">changePassword</A></CODE> in interface <CODE><A HREF="../../../../../../com/technology/jep/jepria/server/security/JepSecurityModule.html" title="interface in com.technology.jep.jepria.server.security">JepSecurityModule</A></CODE></DL>
-</DD>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>operatorId</CODE> - идентификатор пользователя<DD><CODE>password</CODE> - пароль пользователя<DD><CODE>newPassword</CODE> - новый пароль пользователя<DD><CODE>newPasswordConfirm</CODE> - подтверждение нового пароля пользователя</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="getGuestRoles()"><!-- --></A><H3>
-getGuestRoles</H3>
-<PRE>
-public java.util.List&lt;java.lang.String&gt; <B>getGuestRoles</B>()</PRE>
-<DL>
-<DD>Получение ролей гостя
-<P>
-<DD><DL>
-<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../com/technology/jep/jepria/server/security/JepSecurityModule.html#getGuestRoles()">getGuestRoles</A></CODE> in interface <CODE><A HREF="../../../../../../com/technology/jep/jepria/server/security/JepSecurityModule.html" title="interface in com.technology.jep.jepria.server.security">JepSecurityModule</A></CODE></DL>
-</DD>
-<DD><DL>
-
-<DT><B>Returns:</B><DD>роли гостя</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="isAuthorizedBySso()"><!-- --></A><H3>
-isAuthorizedBySso</H3>
-<PRE>
-public boolean <B>isAuthorizedBySso</B>()</PRE>
-<DL>
-<DD>Проверка авторизации в SSO
-<P>
-<DD><DL>
-<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../com/technology/jep/jepria/server/security/JepSecurityModule.html#isAuthorizedBySso()">isAuthorizedBySso</A></CODE> in interface <CODE><A HREF="../../../../../../com/technology/jep/jepria/server/security/JepSecurityModule.html" title="interface in com.technology.jep.jepria.server.security">JepSecurityModule</A></CODE></DL>
-</DD>
-<DD><DL>
-
-<DT><B>Returns:</B><DD>true, если авторизация уже была</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="logout(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)"><!-- --></A><H3>
-logout</H3>
-<PRE>
-public java.lang.String <B>logout</B>(javax.servlet.http.HttpServletRequest&nbsp;request,
-                               javax.servlet.http.HttpServletResponse&nbsp;response)
-                        throws java.lang.Exception</PRE>
-<DL>
-<DD>Выход из приложения
-<P>
-<DD><DL>
-<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../com/technology/jep/jepria/server/security/JepSecurityModule.html#logout(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)">logout</A></CODE> in interface <CODE><A HREF="../../../../../../com/technology/jep/jepria/server/security/JepSecurityModule.html" title="interface in com.technology.jep.jepria.server.security">JepSecurityModule</A></CODE></DL>
-</DD>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>request</CODE> - HTTP-запрос<DD><CODE>response</CODE> - HTTP-ответ
-<DT><B>Returns:</B><DD>Url, на который нужно перейти клиенту после выполнения Logout на сервере
-<DT><B>Throws:</B>
-<DD><CODE>java.lang.Exception</CODE></DL>
-</DD>
-</DL>
+ оператора выбрасывается исключение.</div>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code><a href="../../../../../../com/technology/jep/jepria/server/security/JepSecurityModule.html#isRole(java.lang.String,%20boolean)">isRole</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../../com/technology/jep/jepria/server/security/JepSecurityModule.html" title="interface in com.technology.jep.jepria.server.security">JepSecurityModule</a></code></dd>
+<dt><span class="strong">Parameters:</span></dt><dd><code>role</code> - проверяемая роль</dd><dd><code>makeError</code> - признак: выбрасывать исключение (значение true) или нет (значение false)</dd>
+<dt><span class="strong">Returns:</span></dt><dd>true - если текущему оператору принадлежит роль role, false или исключение
+ (в зависимости от параметра makeError) в противном случае</dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code>java.lang.Exception</code></dd></dl>
+</li>
+</ul>
+<a name="getOperatorId()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getOperatorId</h4>
+<pre>public&nbsp;java.lang.Integer&nbsp;getOperatorId()</pre>
+<div class="block">Возвращает идентификатор текущего пользователя.</div>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code><a href="../../../../../../com/technology/jep/jepria/server/security/JepSecurityModule.html#getOperatorId()">getOperatorId</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../../com/technology/jep/jepria/server/security/JepSecurityModule.html" title="interface in com.technology.jep.jepria.server.security">JepSecurityModule</a></code></dd>
+<dt><span class="strong">Returns:</span></dt><dd>Id пользователя</dd></dl>
+</li>
+</ul>
+<a name="getUsername()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getUsername</h4>
+<pre>public&nbsp;java.lang.String&nbsp;getUsername()</pre>
+<div class="block">Возвращает имя (username) текущего пользователя.</div>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code><a href="../../../../../../com/technology/jep/jepria/server/security/JepSecurityModule.html#getUsername()">getUsername</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../../com/technology/jep/jepria/server/security/JepSecurityModule.html" title="interface in com.technology.jep.jepria.server.security">JepSecurityModule</a></code></dd>
+<dt><span class="strong">Returns:</span></dt><dd>username</dd></dl>
+</li>
+</ul>
+<a name="getRoles()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getRoles</h4>
+<pre>public&nbsp;java.util.List&lt;java.lang.String&gt;&nbsp;getRoles()</pre>
+<div class="block">Возвращает роли текущего пользователя.</div>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code><a href="../../../../../../com/technology/jep/jepria/server/security/JepSecurityModule.html#getRoles()">getRoles</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../../com/technology/jep/jepria/server/security/JepSecurityModule.html" title="interface in com.technology.jep.jepria.server.security">JepSecurityModule</a></code></dd>
+<dt><span class="strong">Returns:</span></dt><dd>роли</dd></dl>
+</li>
+</ul>
+<a name="valueBound(javax.servlet.http.HttpSessionBindingEvent)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>valueBound</h4>
+<pre>public&nbsp;void&nbsp;valueBound(javax.servlet.http.HttpSessionBindingEvent&nbsp;bindingEvent)</pre>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code>valueBound</code>&nbsp;in interface&nbsp;<code>javax.servlet.http.HttpSessionBindingListener</code></dd>
+</dl>
+</li>
+</ul>
+<a name="valueUnbound(javax.servlet.http.HttpSessionBindingEvent)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>valueUnbound</h4>
+<pre>public&nbsp;void&nbsp;valueUnbound(javax.servlet.http.HttpSessionBindingEvent&nbsp;bindingEvent)</pre>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code>valueUnbound</code>&nbsp;in interface&nbsp;<code>javax.servlet.http.HttpSessionBindingListener</code></dd>
+</dl>
+</li>
+</ul>
+<a name="doLogonByGuest()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>doLogonByGuest</h4>
+<pre>protected&nbsp;void&nbsp;doLogonByGuest()</pre>
+<div class="block">Вход в систему с правами пользователя Гость</div>
+</li>
+</ul>
+<a name="onStartSession(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>onStartSession</h4>
+<pre>private&nbsp;void&nbsp;onStartSession(java.lang.String&nbsp;sessionId)</pre>
+</li>
+</ul>
+<a name="onExpiredSession(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>onExpiredSession</h4>
+<pre>private&nbsp;void&nbsp;onExpiredSession(java.lang.String&nbsp;sessionId)</pre>
+</li>
+</ul>
+<a name="isChangePassword(java.lang.Integer)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>isChangePassword</h4>
+<pre>public&nbsp;boolean&nbsp;isChangePassword(java.lang.Integer&nbsp;operatorId)</pre>
+<div class="block">Функция определяет необходимость смены пароля пользователем.</div>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code><a href="../../../../../../com/technology/jep/jepria/server/security/JepSecurityModule.html#isChangePassword(java.lang.Integer)">isChangePassword</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../../com/technology/jep/jepria/server/security/JepSecurityModule.html" title="interface in com.technology.jep.jepria.server.security">JepSecurityModule</a></code></dd>
+<dt><span class="strong">Parameters:</span></dt><dd><code>operatorId</code> - идентификатор пользователя</dd>
+<dt><span class="strong">Returns:</span></dt><dd>true - если пользователю необходимо сменить пароль, false - в противном случае.</dd></dl>
+</li>
+</ul>
+<a name="changePassword(java.lang.Integer, java.lang.String, java.lang.String, java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>changePassword</h4>
+<pre>public&nbsp;void&nbsp;changePassword(java.lang.Integer&nbsp;operatorId,
+                  java.lang.String&nbsp;password,
+                  java.lang.String&nbsp;newPassword,
+                  java.lang.String&nbsp;newPasswordConfirm)</pre>
+<div class="block">Изменение пароля пользователя.</div>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code><a href="../../../../../../com/technology/jep/jepria/server/security/JepSecurityModule.html#changePassword(java.lang.Integer,%20java.lang.String,%20java.lang.String,%20java.lang.String)">changePassword</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../../com/technology/jep/jepria/server/security/JepSecurityModule.html" title="interface in com.technology.jep.jepria.server.security">JepSecurityModule</a></code></dd>
+<dt><span class="strong">Parameters:</span></dt><dd><code>operatorId</code> - идентификатор пользователя</dd><dd><code>password</code> - пароль пользователя</dd><dd><code>newPassword</code> - новый пароль пользователя</dd><dd><code>newPasswordConfirm</code> - подтверждение нового пароля пользователя</dd></dl>
+</li>
+</ul>
+<a name="getGuestRoles()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getGuestRoles</h4>
+<pre>public&nbsp;java.util.List&lt;java.lang.String&gt;&nbsp;getGuestRoles()</pre>
+<div class="block">Получение ролей гостя</div>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code><a href="../../../../../../com/technology/jep/jepria/server/security/JepSecurityModule.html#getGuestRoles()">getGuestRoles</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../../com/technology/jep/jepria/server/security/JepSecurityModule.html" title="interface in com.technology.jep.jepria.server.security">JepSecurityModule</a></code></dd>
+<dt><span class="strong">Returns:</span></dt><dd>роли гостя</dd></dl>
+</li>
+</ul>
+<a name="isAuthorizedBySso()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>isAuthorizedBySso</h4>
+<pre>public&nbsp;boolean&nbsp;isAuthorizedBySso()</pre>
+<div class="block">Проверка авторизации в SSO</div>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code><a href="../../../../../../com/technology/jep/jepria/server/security/JepSecurityModule.html#isAuthorizedBySso()">isAuthorizedBySso</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../../com/technology/jep/jepria/server/security/JepSecurityModule.html" title="interface in com.technology.jep.jepria.server.security">JepSecurityModule</a></code></dd>
+<dt><span class="strong">Returns:</span></dt><dd>true, если авторизация уже была</dd></dl>
+</li>
+</ul>
+<a name="logout(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>logout</h4>
+<pre>public&nbsp;java.lang.String&nbsp;logout(javax.servlet.http.HttpServletRequest&nbsp;request,
+                      javax.servlet.http.HttpServletResponse&nbsp;response)
+                        throws java.lang.Exception</pre>
+<div class="block">Выход из приложения</div>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code><a href="../../../../../../com/technology/jep/jepria/server/security/JepSecurityModule.html#logout(javax.servlet.http.HttpServletRequest,%20javax.servlet.http.HttpServletResponse)">logout</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../../com/technology/jep/jepria/server/security/JepSecurityModule.html" title="interface in com.technology.jep.jepria.server.security">JepSecurityModule</a></code></dd>
+<dt><span class="strong">Parameters:</span></dt><dd><code>request</code> - HTTP-запрос</dd><dd><code>response</code> - HTTP-ответ</dd>
+<dt><span class="strong">Returns:</span></dt><dd>Url, на который нужно перейти клиенту после выполнения Logout на сервере</dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code>java.lang.Exception</code></dd></dl>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
 <!-- ========= END OF CLASS DATA ========= -->
-<HR>
-
-
 <!-- ======= START OF BOTTOM NAVBAR ====== -->
-<A NAME="navbar_bottom"><!-- --></A>
-<A HREF="#skip-navbar_bottom" title="Skip navigation links"></A>
-<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
-<TR>
-<TD COLSPAN=2 BGCOLOR="#EEEEFF" CLASS="NavBarCell1">
-<A NAME="navbar_bottom_firstrow"><!-- --></A>
-<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3" SUMMARY="">
-  <TR ALIGN="center" VALIGN="top">
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-summary.html"><FONT CLASS="NavBarFont1"><B>Package</B></FONT></A>&nbsp;</TD>
-  <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../index-all.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../help-doc.html"><FONT CLASS="NavBarFont1"><B>Help</B></FONT></A>&nbsp;</TD>
-  </TR>
-</TABLE>
-</TD>
-<TD ALIGN="right" VALIGN="top" ROWSPAN=3><EM>
-</EM>
-</TD>
-</TR>
-
-<TR>
-<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="../../../../../../com/technology/jep/jepria/server/security/AutoLogonServlet.html" title="class in com.technology.jep.jepria.server.security"><B>PREV CLASS</B></A>&nbsp;
-&nbsp;<A HREF="../../../../../../com/technology/jep/jepria/server/security/JepSecurityConstant.html" title="class in com.technology.jep.jepria.server.security"><B>NEXT CLASS</B></A></FONT></TD>
-<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-  <A HREF="../../../../../../index.html?com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html" target="_top"><B>FRAMES</B></A>  &nbsp;
-&nbsp;<A HREF="JepAbstractSecurityModule.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
-&nbsp;<SCRIPT type="text/javascript">
-  <!--
+<div class="bottomNav"><a name="navbar_bottom">
+<!--   -->
+</a><a href="#skip-navbar_bottom" title="Skip navigation links"></a><a name="navbar_bottom_firstrow">
+<!--   -->
+</a>
+<ul class="navList" title="Navigation">
+<li><a href="../../../../../../overview-summary.html">Overview</a></li>
+<li><a href="package-summary.html">Package</a></li>
+<li class="navBarCell1Rev">Class</li>
+<li><a href="package-tree.html">Tree</a></li>
+<li><a href="../../../../../../deprecated-list.html">Deprecated</a></li>
+<li><a href="../../../../../../index-all.html">Index</a></li>
+<li><a href="../../../../../../help-doc.html">Help</a></li>
+</ul>
+</div>
+<div class="subNav">
+<ul class="navList">
+<li><a href="../../../../../../com/technology/jep/jepria/server/security/AutoLogonServlet.html" title="class in com.technology.jep.jepria.server.security"><span class="strong">Prev Class</span></a></li>
+<li><a href="../../../../../../com/technology/jep/jepria/server/security/JepSecurityConstant.html" title="class in com.technology.jep.jepria.server.security"><span class="strong">Next Class</span></a></li>
+</ul>
+<ul class="navList">
+<li><a href="../../../../../../index.html?com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html" target="_top">Frames</a></li>
+<li><a href="JepAbstractSecurityModule.html" target="_top">No Frames</a></li>
+</ul>
+<ul class="navList" id="allclasses_navbar_bottom">
+<li><a href="../../../../../../allclasses-noframe.html">All Classes</a></li>
+</ul>
+<div>
+<script type="text/javascript"><!--
+  allClassesLink = document.getElementById("allclasses_navbar_bottom");
   if(window==top) {
-    document.writeln('<A HREF="../../../../../../allclasses-noframe.html"><B>All Classes</B></A>');
+    allClassesLink.style.display = "block";
+  }
+  else {
+    allClassesLink.style.display = "none";
   }
   //-->
-</SCRIPT>
-<NOSCRIPT>
-  <A HREF="../../../../../../allclasses-noframe.html"><B>All Classes</B></A>
-</NOSCRIPT>
-
-
-</FONT></TD>
-</TR>
-<TR>
-<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
-  SUMMARY:&nbsp;NESTED&nbsp;|&nbsp;<A HREF="#field_summary">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
-<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
-DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
-</TR>
-</TABLE>
-<A NAME="skip-navbar_bottom"></A>
+</script>
+</div>
+<div>
+<ul class="subNavList">
+<li>Summary:&nbsp;</li>
+<li>Nested&nbsp;|&nbsp;</li>
+<li><a href="#field_summary">Field</a>&nbsp;|&nbsp;</li>
+<li><a href="#constructor_summary">Constr</a>&nbsp;|&nbsp;</li>
+<li><a href="#method_summary">Method</a></li>
+</ul>
+<ul class="subNavList">
+<li>Detail:&nbsp;</li>
+<li><a href="#field_detail">Field</a>&nbsp;|&nbsp;</li>
+<li><a href="#constructor_detail">Constr</a>&nbsp;|&nbsp;</li>
+<li><a href="#method_detail">Method</a></li>
+</ul>
+</div>
+<a name="skip-navbar_bottom">
+<!--   -->
+</a></div>
 <!-- ======== END OF BOTTOM NAVBAR ======= -->
-
-<HR>
-
-</BODY>
-</HTML>
+</body>
+</html>
