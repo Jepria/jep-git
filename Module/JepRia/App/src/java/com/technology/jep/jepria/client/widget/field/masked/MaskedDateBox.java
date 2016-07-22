@@ -69,8 +69,7 @@ public class MaskedDateBox extends Composite implements HasEnabled,
     /**
      * Creates a new default format instance.
      *
-     * @param dateTimeFormat the {@link DateTimeFormat} to use with this
-     *          {@link Format}.
+     * @param dateTimeFormat the {@link DateTimeFormat} to use with this format.
      */
     public XDefaultFormat(DateTimeFormat dateTimeFormat) {
       this.dateTimeFormat = dateTimeFormat;
