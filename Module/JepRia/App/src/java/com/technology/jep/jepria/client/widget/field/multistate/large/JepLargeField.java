@@ -1,5 +1,6 @@
 package com.technology.jep.jepria.client.widget.field.multistate.large;
 
+import static com.technology.jep.jepria.client.JepRiaClientConstant.JepTexts;
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.EDIT;
 import static com.technology.jep.jepria.shared.JepRiaConstant.DOWNLOAD_FIELD_NAME;
 import static com.technology.jep.jepria.shared.JepRiaConstant.DOWNLOAD_MIME_TYPE;
@@ -9,8 +10,10 @@ import static com.technology.jep.jepria.shared.JepRiaConstant.PRIMARY_KEY_HIDDEN
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.Scheduler.ScheduledCommand;
+import com.google.gwt.event.dom.client.ChangeEvent;
+import com.google.gwt.event.dom.client.ChangeHandler;
+import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.rpc.IsSerializable;
-import com.google.gwt.user.client.ui.FileUpload;
 import com.google.gwt.user.client.ui.FormPanel;
 import com.google.gwt.user.client.ui.FormPanel.SubmitCompleteEvent;
 import com.google.gwt.user.client.ui.FormPanel.SubmitCompleteHandler;
@@ -20,11 +23,12 @@ import com.google.gwt.user.client.ui.Hidden;
 import com.google.gwt.user.client.ui.Widget;
 import com.technology.jep.jepria.client.JepScheduledCommand;
 import com.technology.jep.jepria.client.ui.WorkstateEnum;
+import com.technology.jep.jepria.client.util.JepClientUtil;
 import com.technology.jep.jepria.client.widget.field.multistate.JepMultiStateField;
 import com.technology.jep.jepria.shared.record.lob.JepFileReference;
 import com.technology.jep.jepria.shared.util.JepRiaUtil;
 
-public abstract class JepLargeField<V extends Widget> extends JepMultiStateField<FileUpload, V> {
+public abstract class JepLargeField<V extends Widget> extends JepMultiStateField<JepFileUpload, V> {
 
   /**
    * Поле, предназначенное для борьбы с кэшированием (проявляется в Internet Explorer).
@@ -76,6 +80,16 @@ public abstract class JepLargeField<V extends Widget> extends JepMultiStateField
    */
   private JepFileReference<?> fileReference = null;
   
+  /**
+   * Размер выбранного файла.
+   */
+  private Integer fileSize;
+  
+  /**
+   * Обработчики событий выбора файла
+   */
+  protected HandlerRegistration fileChooseHandler;
+  
   public JepLargeField(String fieldLabel) {
     super(fieldLabel);
   }
@@ -113,8 +127,11 @@ public abstract class JepLargeField<V extends Widget> extends JepMultiStateField
     add(formPanel);
     
     // Uploader add at this form
-    editableCard = new FileUpload();
+    editableCard = new JepFileUpload();
     editablePanel.add(editableCard);
+    
+    // Добавляем обработчик события "выбора файла" для получения размерности выбранного файла.
+    initFileChooseHandler();
     
     // Hidden Field for primary key
     hiddenPrimaryKeyField = new Hidden(PRIMARY_KEY_HIDDEN_FIELD_NAME);
@@ -312,6 +329,21 @@ public abstract class JepLargeField<V extends Widget> extends JepMultiStateField
     return !JepRiaUtil.isEmpty(editableCard.getFilename());
   }
   
+  @Override
+  public boolean isValid() {
+    boolean isValid = super.isValid();
+    Integer maxUploadFileSize = JepRiaUtil.isEmpty(hiddenSizeField.getValue()) ? null : Integer.decode(hiddenSizeField.getValue());
+    // Если задан максимальный размер загружаемого файла, а также имеется клиентская поддержка получения размера файла
+    // проверяем данные значения на допустимость
+    if (!JepRiaUtil.isEmpty(maxUploadFileSize) && !JepRiaUtil.isEmpty(fileSize) && 
+        fileSize > maxUploadFileSize){
+      markInvalid(JepClientUtil.substitute(JepTexts.errors_file_uploadFileSizeError(), maxUploadFileSize, fileSize));
+      return false;
+    }
+    return isValid;
+    
+  }
+  
   /**
    * {@inheritDoc}
    */
@@ -346,5 +378,32 @@ public abstract class JepLargeField<V extends Widget> extends JepMultiStateField
    */
   public void setUploadServletUrl(String uploadServletUrl) {
     formPanel.setAction(uploadServletUrl);
+  }
+  
+  /**
+   * Инициализация обработчика "выбора файла" {@link com.google.gwt.event.dom.client.ChangeHandler}.
+   */
+  protected void initFileChooseHandler(){
+    if (fileChooseHandler == null) {
+      fileChooseHandler = editableCard.addChangeHandler(new ChangeHandler() {
+        @Override
+        public void onChange(ChangeEvent event) {
+          fileChooseEventHandler(event);
+        }
+      });
+    }
+  }
+  
+  /**
+   * Обработка события выбора файла в поле.
+   * 
+   * @param event  срабатываемое событие
+   * 
+   * Особенности:<br/>
+   * В случае необходимости добавления функциональности в обработку события, необходимо перекрыть данный метод,
+   * а не добавлять новый обработчик события, чтобы обеспечить единую точку входа и обработки данного события.
+   */
+  protected void fileChooseEventHandler(ChangeEvent event){
+    this.fileSize = editableCard.getFileSize();
   }
 }
