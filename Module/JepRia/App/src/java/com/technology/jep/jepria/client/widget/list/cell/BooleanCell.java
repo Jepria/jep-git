@@ -45,8 +45,7 @@ public class BooleanCell extends AbstractCell<Boolean> {
    * @param sb объект, в который помещается конечное содержимое ячейки 
    */
   @Override
-  public void render(com.google.gwt.cell.client.Cell.Context context,
-      Boolean value, SafeHtmlBuilder sb) {
+  public void render(Context context, Boolean value, SafeHtmlBuilder sb) {
     
     String label = "";
     

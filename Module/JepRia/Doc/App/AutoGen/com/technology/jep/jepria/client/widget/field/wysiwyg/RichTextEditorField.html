@@ -1,618 +1,570 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<!--NewPage-->
-<HTML>
-<HEAD>
-<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<TITLE>
-RichTextEditorField (JepRia JavaDoc)
-</TITLE>
-
-
-<LINK REL ="stylesheet" TYPE="text/css" HREF="../../../../../../../../stylesheet.css" TITLE="Style">
-
-<SCRIPT type="text/javascript">
-function windowTitle()
-{
+<!-- NewPage -->
+<html lang="ru">
+<head>
+<meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+<title>RichTextEditorField (JepRia JavaDoc)</title>
+<link rel="stylesheet" type="text/css" href="../../../../../../../../stylesheet.css" title="Style">
+</head>
+<body>
+<script type="text/javascript"><!--
     if (location.href.indexOf('is-external=true') == -1) {
         parent.document.title="RichTextEditorField (JepRia JavaDoc)";
     }
-}
-</SCRIPT>
-<NOSCRIPT>
-</NOSCRIPT>
-
-</HEAD>
-
-<BODY BGCOLOR="white" onload="windowTitle();">
-<HR>
-
-
+//-->
+</script>
+<noscript>
+<div>JavaScript is disabled on your browser.</div>
+</noscript>
 <!-- ========= START OF TOP NAVBAR ======= -->
-<A NAME="navbar_top"><!-- --></A>
-<A HREF="#skip-navbar_top" title="Skip navigation links"></A>
-<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
-<TR>
-<TD COLSPAN=2 BGCOLOR="#EEEEFF" CLASS="NavBarCell1">
-<A NAME="navbar_top_firstrow"><!-- --></A>
-<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3" SUMMARY="">
-  <TR ALIGN="center" VALIGN="top">
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-summary.html"><FONT CLASS="NavBarFont1"><B>Package</B></FONT></A>&nbsp;</TD>
-  <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../../index-all.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../../help-doc.html"><FONT CLASS="NavBarFont1"><B>Help</B></FONT></A>&nbsp;</TD>
-  </TR>
-</TABLE>
-</TD>
-<TD ALIGN="right" VALIGN="top" ROWSPAN=3><EM>
-</EM>
-</TD>
-</TR>
-
-<TR>
-<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;PREV CLASS&nbsp;
-&nbsp;NEXT CLASS</FONT></TD>
-<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-  <A HREF="../../../../../../../../index.html?com/technology/jep/jepria/client/widget/field/wysiwyg/RichTextEditorField.html" target="_top"><B>FRAMES</B></A>  &nbsp;
-&nbsp;<A HREF="RichTextEditorField.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
-&nbsp;<SCRIPT type="text/javascript">
-  <!--
+<div class="topNav"><a name="navbar_top">
+<!--   -->
+</a><a href="#skip-navbar_top" title="Skip navigation links"></a><a name="navbar_top_firstrow">
+<!--   -->
+</a>
+<ul class="navList" title="Navigation">
+<li><a href="../../../../../../../../overview-summary.html">Overview</a></li>
+<li><a href="package-summary.html">Package</a></li>
+<li class="navBarCell1Rev">Class</li>
+<li><a href="package-tree.html">Tree</a></li>
+<li><a href="../../../../../../../../deprecated-list.html">Deprecated</a></li>
+<li><a href="../../../../../../../../index-all.html">Index</a></li>
+<li><a href="../../../../../../../../help-doc.html">Help</a></li>
+</ul>
+</div>
+<div class="subNav">
+<ul class="navList">
+<li>Prev Class</li>
+<li>Next Class</li>
+</ul>
+<ul class="navList">
+<li><a href="../../../../../../../../index.html?com/technology/jep/jepria/client/widget/field/wysiwyg/RichTextEditorField.html" target="_top">Frames</a></li>
+<li><a href="RichTextEditorField.html" target="_top">No Frames</a></li>
+</ul>
+<ul class="navList" id="allclasses_navbar_top">
+<li><a href="../../../../../../../../allclasses-noframe.html">All Classes</a></li>
+</ul>
+<div>
+<script type="text/javascript"><!--
+  allClassesLink = document.getElementById("allclasses_navbar_top");
   if(window==top) {
-    document.writeln('<A HREF="../../../../../../../../allclasses-noframe.html"><B>All Classes</B></A>');
+    allClassesLink.style.display = "block";
+  }
+  else {
+    allClassesLink.style.display = "none";
   }
   //-->
-</SCRIPT>
-<NOSCRIPT>
-  <A HREF="../../../../../../../../allclasses-noframe.html"><B>All Classes</B></A>
-</NOSCRIPT>
-
-
-</FONT></TD>
-</TR>
-<TR>
-<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
-  SUMMARY:&nbsp;<A HREF="#nested_classes_inherited_from_class_com.google.gwt.user.client.ui.HTMLTable">NESTED</A>&nbsp;|&nbsp;<A HREF="#field_summary">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
-<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
-DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
-</TR>
-</TABLE>
-<A NAME="skip-navbar_top"></A>
+</script>
+</div>
+<div>
+<ul class="subNavList">
+<li>Summary:&nbsp;</li>
+<li><a href="#nested_classes_inherited_from_class_com.google.gwt.user.client.ui.HTMLTable">Nested</a>&nbsp;|&nbsp;</li>
+<li><a href="#field_summary">Field</a>&nbsp;|&nbsp;</li>
+<li><a href="#constructor_summary">Constr</a>&nbsp;|&nbsp;</li>
+<li><a href="#method_summary">Method</a></li>
+</ul>
+<ul class="subNavList">
+<li>Detail:&nbsp;</li>
+<li><a href="#field_detail">Field</a>&nbsp;|&nbsp;</li>
+<li><a href="#constructor_detail">Constr</a>&nbsp;|&nbsp;</li>
+<li><a href="#method_detail">Method</a></li>
+</ul>
+</div>
+<a name="skip-navbar_top">
+<!--   -->
+</a></div>
 <!-- ========= END OF TOP NAVBAR ========= -->
-
-<HR>
 <!-- ======== START OF CLASS DATA ======== -->
-<H2>
-<FONT SIZE="-1">
-com.technology.jep.jepria.client.widget.field.wysiwyg</FONT>
-<BR>
-Class RichTextEditorField</H2>
-<PRE>
-java.lang.Object
-  <IMG SRC="../../../../../../../../resources/inherit.gif" ALT="extended by ">com.google.gwt.user.client.ui.UIObject
-      <IMG SRC="../../../../../../../../resources/inherit.gif" ALT="extended by ">com.google.gwt.user.client.ui.Widget
-          <IMG SRC="../../../../../../../../resources/inherit.gif" ALT="extended by ">com.google.gwt.user.client.ui.Panel
-              <IMG SRC="../../../../../../../../resources/inherit.gif" ALT="extended by ">com.google.gwt.user.client.ui.HTMLTable
-                  <IMG SRC="../../../../../../../../resources/inherit.gif" ALT="extended by ">com.google.gwt.user.client.ui.Grid
-                      <IMG SRC="../../../../../../../../resources/inherit.gif" ALT="extended by "><B>com.technology.jep.jepria.client.widget.field.wysiwyg.RichTextEditorField</B>
-</PRE>
-<DL>
-<DT><B>All Implemented Interfaces:</B> <DD>com.google.gwt.event.dom.client.HasAllDragAndDropHandlers, com.google.gwt.event.dom.client.HasClickHandlers, com.google.gwt.event.dom.client.HasDoubleClickHandlers, com.google.gwt.event.dom.client.HasDragEndHandlers, com.google.gwt.event.dom.client.HasDragEnterHandlers, com.google.gwt.event.dom.client.HasDragHandlers, com.google.gwt.event.dom.client.HasDragLeaveHandlers, com.google.gwt.event.dom.client.HasDragOverHandlers, com.google.gwt.event.dom.client.HasDragStartHandlers, com.google.gwt.event.dom.client.HasDropHandlers, com.google.gwt.event.logical.shared.HasAttachHandlers, com.google.gwt.event.logical.shared.HasValueChangeHandlers&lt;java.lang.String&gt;, com.google.gwt.event.shared.HasHandlers, com.google.gwt.user.client.EventListener, com.google.gwt.user.client.TakesValue&lt;java.lang.String&gt;, com.google.gwt.user.client.ui.HasValue&lt;java.lang.String&gt;, com.google.gwt.user.client.ui.HasVisibility, com.google.gwt.user.client.ui.HasWidgets, com.google.gwt.user.client.ui.HasWidgets.ForIsWidget, com.google.gwt.user.client.ui.IsWidget, com.google.gwt.user.client.ui.SourcesTableEvents, java.lang.Iterable&lt;com.google.gwt.user.client.ui.Widget&gt;</DD>
-</DL>
-<HR>
-<DL>
-<DT><PRE>public class <B>RichTextEditorField</B><DT>extends com.google.gwt.user.client.ui.Grid<DT>implements com.google.gwt.user.client.ui.HasValue&lt;java.lang.String&gt;</DL>
-</PRE>
-
-<P>
-This widget will create a WYSIWYG-editor.
-<P>
-
-<P>
-<HR>
-
-<P>
+<div class="header">
+<div class="subTitle">com.technology.jep.jepria.client.widget.field.wysiwyg</div>
+<h2 title="Class RichTextEditorField" class="title">Class RichTextEditorField</h2>
+</div>
+<div class="contentContainer">
+<ul class="inheritance">
+<li>java.lang.Object</li>
+<li>
+<ul class="inheritance">
+<li>com.google.gwt.user.client.ui.UIObject</li>
+<li>
+<ul class="inheritance">
+<li>com.google.gwt.user.client.ui.Widget</li>
+<li>
+<ul class="inheritance">
+<li>com.google.gwt.user.client.ui.Panel</li>
+<li>
+<ul class="inheritance">
+<li>com.google.gwt.user.client.ui.HTMLTable</li>
+<li>
+<ul class="inheritance">
+<li>com.google.gwt.user.client.ui.Grid</li>
+<li>
+<ul class="inheritance">
+<li>com.technology.jep.jepria.client.widget.field.wysiwyg.RichTextEditorField</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="description">
+<ul class="blockList">
+<li class="blockList">
+<dl>
+<dt>All Implemented Interfaces:</dt>
+<dd>com.google.gwt.event.dom.client.HasAllDragAndDropHandlers, com.google.gwt.event.dom.client.HasClickHandlers, com.google.gwt.event.dom.client.HasDoubleClickHandlers, com.google.gwt.event.dom.client.HasDragEndHandlers, com.google.gwt.event.dom.client.HasDragEnterHandlers, com.google.gwt.event.dom.client.HasDragHandlers, com.google.gwt.event.dom.client.HasDragLeaveHandlers, com.google.gwt.event.dom.client.HasDragOverHandlers, com.google.gwt.event.dom.client.HasDragStartHandlers, com.google.gwt.event.dom.client.HasDropHandlers, com.google.gwt.event.logical.shared.HasAttachHandlers, com.google.gwt.event.logical.shared.HasValueChangeHandlers&lt;java.lang.String&gt;, com.google.gwt.event.shared.HasHandlers, com.google.gwt.user.client.EventListener, com.google.gwt.user.client.TakesValue&lt;java.lang.String&gt;, com.google.gwt.user.client.ui.HasValue&lt;java.lang.String&gt;, com.google.gwt.user.client.ui.HasVisibility, com.google.gwt.user.client.ui.HasWidgets, com.google.gwt.user.client.ui.HasWidgets.ForIsWidget, com.google.gwt.user.client.ui.IsWidget, com.google.gwt.user.client.ui.SourcesTableEvents, java.lang.Iterable&lt;com.google.gwt.user.client.ui.Widget&gt;</dd>
+</dl>
+<hr>
+<br>
+<pre>public class <span class="strong">RichTextEditorField</span>
+extends com.google.gwt.user.client.ui.Grid
+implements com.google.gwt.user.client.ui.HasValue&lt;java.lang.String&gt;</pre>
+<div class="block">This widget will create a WYSIWYG-editor.</div>
+</li>
+</ul>
+</div>
+<div class="summary">
+<ul class="blockList">
+<li class="blockList">
 <!-- ======== NESTED CLASS SUMMARY ======== -->
-
-<A NAME="nested_class_summary"><!-- --></A>
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
-<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
-<B>Nested Class Summary</B></FONT></TH>
-</TR>
-</TABLE>
-&nbsp;<A NAME="nested_classes_inherited_from_class_com.google.gwt.user.client.ui.HTMLTable"><!-- --></A>
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
-<TH ALIGN="left"><B>Nested classes/interfaces inherited from class com.google.gwt.user.client.ui.HTMLTable</B></TH>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE>com.google.gwt.user.client.ui.HTMLTable.Cell, com.google.gwt.user.client.ui.HTMLTable.CellFormatter, com.google.gwt.user.client.ui.HTMLTable.ColumnFormatter, com.google.gwt.user.client.ui.HTMLTable.RowFormatter</CODE></TD>
-</TR>
-</TABLE>
-&nbsp;
-<A NAME="nested_classes_inherited_from_class_com.google.gwt.user.client.ui.UIObject"><!-- --></A>
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
-<TH ALIGN="left"><B>Nested classes/interfaces inherited from class com.google.gwt.user.client.ui.UIObject</B></TH>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE>com.google.gwt.user.client.ui.UIObject.DebugIdImpl, com.google.gwt.user.client.ui.UIObject.DebugIdImplEnabled</CODE></TD>
-</TR>
-</TABLE>
-&nbsp;
-<A NAME="nested_classes_inherited_from_class_com.google.gwt.user.client.ui.HasWidgets"><!-- --></A>
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
-<TH ALIGN="left"><B>Nested classes/interfaces inherited from interface com.google.gwt.user.client.ui.HasWidgets</B></TH>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE>com.google.gwt.user.client.ui.HasWidgets.ForIsWidget</CODE></TD>
-</TR>
-</TABLE>
-&nbsp;
+<ul class="blockList">
+<li class="blockList"><a name="nested_class_summary">
+<!--   -->
+</a>
+<h3>Nested Class Summary</h3>
+<ul class="blockList">
+<li class="blockList"><a name="nested_classes_inherited_from_class_com.google.gwt.user.client.ui.HTMLTable">
+<!--   -->
+</a>
+<h3>Nested classes/interfaces inherited from class&nbsp;com.google.gwt.user.client.ui.HTMLTable</h3>
+<code>com.google.gwt.user.client.ui.HTMLTable.Cell, com.google.gwt.user.client.ui.HTMLTable.CellFormatter, com.google.gwt.user.client.ui.HTMLTable.ColumnFormatter, com.google.gwt.user.client.ui.HTMLTable.RowFormatter</code></li>
+</ul>
+<ul class="blockList">
+<li class="blockList"><a name="nested_classes_inherited_from_class_com.google.gwt.user.client.ui.UIObject">
+<!--   -->
+</a>
+<h3>Nested classes/interfaces inherited from class&nbsp;com.google.gwt.user.client.ui.UIObject</h3>
+<code>com.google.gwt.user.client.ui.UIObject.DebugIdImpl, com.google.gwt.user.client.ui.UIObject.DebugIdImplEnabled</code></li>
+</ul>
+<ul class="blockList">
+<li class="blockList"><a name="nested_classes_inherited_from_class_com.google.gwt.user.client.ui.HasWidgets">
+<!--   -->
+</a>
+<h3>Nested classes/interfaces inherited from interface&nbsp;com.google.gwt.user.client.ui.HasWidgets</h3>
+<code>com.google.gwt.user.client.ui.HasWidgets.ForIsWidget</code></li>
+</ul>
+</li>
+</ul>
 <!-- =========== FIELD SUMMARY =========== -->
-
-<A NAME="field_summary"><!-- --></A>
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
-<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
-<B>Field Summary</B></FONT></TH>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>private static&nbsp;int</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/wysiwyg/RichTextEditorField.html#DEFAULT_RICHTEXTEDITOR_FIELD_HEIGHT">DEFAULT_RICHTEXTEDITOR_FIELD_HEIGHT</A></B></CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Высота текстовая области, по умолчанию.</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;java.lang.String</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/wysiwyg/RichTextEditorField.html#NONPRINTABLE_ELEMENT">NONPRINTABLE_ELEMENT</A></B></CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Непечатаемый символ.</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>private static&nbsp;java.lang.String</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/wysiwyg/RichTextEditorField.html#RICH_TEXT_EDITOR_FIELD_STYLE">RICH_TEXT_EDITOR_FIELD_STYLE</A></B></CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Наименование селектора (класса стилей) компонента.</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>private &nbsp;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/wysiwyg/toolbar/CustomRichTextArea.html" title="class in com.technology.jep.jepria.client.widget.field.wysiwyg.toolbar">CustomRichTextArea</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/wysiwyg/RichTextEditorField.html#textArea">textArea</A></B></CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Текстовая область, в которой размещается форматируемый пользователем текст.</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>private &nbsp;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/wysiwyg/toolbar/RichTextToolbar.html" title="class in com.technology.jep.jepria.client.widget.field.wysiwyg.toolbar">RichTextToolbar</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/wysiwyg/RichTextEditorField.html#toolbar">toolbar</A></B></CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Панель форматирования текста.</TD>
-</TR>
-</TABLE>
-&nbsp;<A NAME="fields_inherited_from_class_com.google.gwt.user.client.ui.Grid"><!-- --></A>
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
-<TH ALIGN="left"><B>Fields inherited from class com.google.gwt.user.client.ui.Grid</B></TH>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE>numColumns, numRows</CODE></TD>
-</TR>
-</TABLE>
-&nbsp;<A NAME="fields_inherited_from_class_com.google.gwt.user.client.ui.UIObject"><!-- --></A>
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
-<TH ALIGN="left"><B>Fields inherited from class com.google.gwt.user.client.ui.UIObject</B></TH>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE>DEBUG_ID_PREFIX</CODE></TD>
-</TR>
-</TABLE>
-&nbsp;
+<ul class="blockList">
+<li class="blockList"><a name="field_summary">
+<!--   -->
+</a>
+<h3>Field Summary</h3>
+<table class="overviewSummary" border="0" cellpadding="3" cellspacing="0" summary="Field Summary table, listing fields, and an explanation">
+<caption><span>Fields</span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Field and Description</th>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>private static int</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/wysiwyg/RichTextEditorField.html#DEFAULT_RICHTEXTEDITOR_FIELD_HEIGHT">DEFAULT_RICHTEXTEDITOR_FIELD_HEIGHT</a></strong></code>
+<div class="block">Высота текстовая области, по умолчанию.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static java.lang.String</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/wysiwyg/RichTextEditorField.html#NONPRINTABLE_ELEMENT">NONPRINTABLE_ELEMENT</a></strong></code>
+<div class="block">Непечатаемый символ.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>private static java.lang.String</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/wysiwyg/RichTextEditorField.html#RICH_TEXT_EDITOR_FIELD_STYLE">RICH_TEXT_EDITOR_FIELD_STYLE</a></strong></code>
+<div class="block">Наименование селектора (класса стилей) компонента.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>private <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/wysiwyg/toolbar/CustomRichTextArea.html" title="class in com.technology.jep.jepria.client.widget.field.wysiwyg.toolbar">CustomRichTextArea</a></code></td>
+<td class="colLast"><code><strong><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/wysiwyg/RichTextEditorField.html#textArea">textArea</a></strong></code>
+<div class="block">Текстовая область, в которой размещается форматируемый пользователем текст.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>private <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/wysiwyg/toolbar/RichTextToolbar.html" title="class in com.technology.jep.jepria.client.widget.field.wysiwyg.toolbar">RichTextToolbar</a></code></td>
+<td class="colLast"><code><strong><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/wysiwyg/RichTextEditorField.html#toolbar">toolbar</a></strong></code>
+<div class="block">Панель форматирования текста.</div>
+</td>
+</tr>
+</table>
+<ul class="blockList">
+<li class="blockList"><a name="fields_inherited_from_class_com.google.gwt.user.client.ui.Grid">
+<!--   -->
+</a>
+<h3>Fields inherited from class&nbsp;com.google.gwt.user.client.ui.Grid</h3>
+<code>numColumns, numRows</code></li>
+</ul>
+<ul class="blockList">
+<li class="blockList"><a name="fields_inherited_from_class_com.google.gwt.user.client.ui.UIObject">
+<!--   -->
+</a>
+<h3>Fields inherited from class&nbsp;com.google.gwt.user.client.ui.UIObject</h3>
+<code>DEBUG_ID_PREFIX</code></li>
+</ul>
+</li>
+</ul>
 <!-- ======== CONSTRUCTOR SUMMARY ======== -->
-
-<A NAME="constructor_summary"><!-- --></A>
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
-<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
-<B>Constructor Summary</B></FONT></TH>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/wysiwyg/RichTextEditorField.html#RichTextEditorField()">RichTextEditorField</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-</TABLE>
-&nbsp;
+<ul class="blockList">
+<li class="blockList"><a name="constructor_summary">
+<!--   -->
+</a>
+<h3>Constructor Summary</h3>
+<table class="overviewSummary" border="0" cellpadding="3" cellspacing="0" summary="Constructor Summary table, listing constructors, and an explanation">
+<caption><span>Constructors</span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colOne" scope="col">Constructor and Description</th>
+</tr>
+<tr class="altColor">
+<td class="colOne"><code><strong><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/wysiwyg/RichTextEditorField.html#RichTextEditorField()">RichTextEditorField</a></strong>()</code>&nbsp;</td>
+</tr>
+</table>
+</li>
+</ul>
 <!-- ========== METHOD SUMMARY =========== -->
-
-<A NAME="method_summary"><!-- --></A>
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
-<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
-<B>Method Summary</B></FONT></TH>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;com.google.gwt.event.shared.HandlerRegistration</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/wysiwyg/RichTextEditorField.html#addValueChangeHandler(com.google.gwt.event.logical.shared.ValueChangeHandler)">addValueChangeHandler</A></B>(com.google.gwt.event.logical.shared.ValueChangeHandler&lt;java.lang.String&gt;&nbsp;handler)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;java.lang.String</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/wysiwyg/RichTextEditorField.html#getValue()">getValue</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/wysiwyg/RichTextEditorField.html#reset()">reset</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Сброс состояния поля</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/wysiwyg/RichTextEditorField.html#setHeight(java.lang.String)">setHeight</A></B>(java.lang.String&nbsp;height)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/wysiwyg/RichTextEditorField.html#setValue(java.lang.String)">setValue</A></B>(java.lang.String&nbsp;value)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/wysiwyg/RichTextEditorField.html#setValue(java.lang.String, boolean)">setValue</A></B>(java.lang.String&nbsp;value,
-         boolean&nbsp;fireEvents)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-</TABLE>
-&nbsp;<A NAME="methods_inherited_from_class_com.google.gwt.user.client.ui.Grid"><!-- --></A>
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
-<TH ALIGN="left"><B>Methods inherited from class com.google.gwt.user.client.ui.Grid</B></TH>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE>clearCell, createCell, getCellCount, getColumnCount, getRowCount, insertRow, prepareCell, prepareColumn, prepareRow, removeRow, resize, resizeColumns, resizeRows</CODE></TD>
-</TR>
-</TABLE>
-&nbsp;<A NAME="methods_inherited_from_class_com.google.gwt.user.client.ui.HTMLTable"><!-- --></A>
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
-<TH ALIGN="left"><B>Methods inherited from class com.google.gwt.user.client.ui.HTMLTable</B></TH>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE>addClickHandler, addDoubleClickHandler, addDragEndHandler, addDragEnterHandler, addDragHandler, addDragLeaveHandler, addDragOverHandler, addDragStartHandler, addDropHandler, addTableListener, checkCellBounds, checkRowBounds, clear, clear, getBodyElement, getCellForEvent, getCellFormatter, getCellPadding, getCellSpacing, getColumnFormatter, getDOMCellCount, getDOMCellCount, getDOMCellCount, getDOMRowCount, getDOMRowCount, getDOMRowCount, getEventTargetCell, getHTML, getRowFormatter, getText, getWidget, insertCell, insertCells, internalClearCell, internalClearCell, isCellPresent, iterator, onEnsureDebugId, remove, removeCell, removeTableListener, setBorderWidth, setCellFormatter, setCellPadding, setCellSpacing, setColumnFormatter, setHTML, setHTML, setRowFormatter, setText, setWidget, setWidget</CODE></TD>
-</TR>
-</TABLE>
-&nbsp;<A NAME="methods_inherited_from_class_com.google.gwt.user.client.ui.Panel"><!-- --></A>
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
-<TH ALIGN="left"><B>Methods inherited from class com.google.gwt.user.client.ui.Panel</B></TH>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE>add, add, adopt, doAttachChildren, doDetachChildren, orphan, remove</CODE></TD>
-</TR>
-</TABLE>
-&nbsp;<A NAME="methods_inherited_from_class_com.google.gwt.user.client.ui.Widget"><!-- --></A>
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
-<TH ALIGN="left"><B>Methods inherited from class com.google.gwt.user.client.ui.Widget</B></TH>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE>addAttachHandler, addBitlessDomHandler, addDomHandler, addHandler, asWidget, asWidgetOrNull, createHandlerManager, delegateEvent, fireEvent, getHandlerCount, getLayoutData, getParent, isAttached, isOrWasAttached, onAttach, onBrowserEvent, onDetach, onLoad, onUnload, removeFromParent, setLayoutData, sinkEvents, unsinkEvents</CODE></TD>
-</TR>
-</TABLE>
-&nbsp;<A NAME="methods_inherited_from_class_com.google.gwt.user.client.ui.UIObject"><!-- --></A>
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
-<TH ALIGN="left"><B>Methods inherited from class com.google.gwt.user.client.ui.UIObject</B></TH>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE>addStyleDependentName, addStyleName, ensureDebugId, ensureDebugId, ensureDebugId, getAbsoluteLeft, getAbsoluteTop, getElement, getOffsetHeight, getOffsetWidth, getStyleElement, getStyleName, getStyleName, getStylePrimaryName, getStylePrimaryName, getTitle, isVisible, isVisible, removeStyleDependentName, removeStyleName, resolvePotentialElement, setElement, setElement, setPixelSize, setSize, setStyleDependentName, setStyleName, setStyleName, setStyleName, setStyleName, setStylePrimaryName, setStylePrimaryName, setTitle, setVisible, setVisible, setWidth, sinkBitlessEvent, toString</CODE></TD>
-</TR>
-</TABLE>
-&nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
-<TH ALIGN="left"><B>Methods inherited from class java.lang.Object</B></TH>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE>clone, equals, finalize, getClass, hashCode, notify, notifyAll, wait, wait, wait</CODE></TD>
-</TR>
-</TABLE>
-&nbsp;<A NAME="methods_inherited_from_class_com.google.gwt.event.shared.HasHandlers"><!-- --></A>
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
-<TH ALIGN="left"><B>Methods inherited from interface com.google.gwt.event.shared.HasHandlers</B></TH>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE>fireEvent</CODE></TD>
-</TR>
-</TABLE>
-&nbsp;
-<P>
-
+<ul class="blockList">
+<li class="blockList"><a name="method_summary">
+<!--   -->
+</a>
+<h3>Method Summary</h3>
+<table class="overviewSummary" border="0" cellpadding="3" cellspacing="0" summary="Method Summary table, listing methods, and an explanation">
+<caption><span>Methods</span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Method and Description</th>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>com.google.gwt.event.shared.HandlerRegistration</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/wysiwyg/RichTextEditorField.html#addValueChangeHandler(com.google.gwt.event.logical.shared.ValueChangeHandler)">addValueChangeHandler</a></strong>(com.google.gwt.event.logical.shared.ValueChangeHandler&lt;java.lang.String&gt;&nbsp;handler)</code></td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>java.lang.String</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/wysiwyg/RichTextEditorField.html#getValue()">getValue</a></strong>()</code></td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/wysiwyg/RichTextEditorField.html#reset()">reset</a></strong>()</code>
+<div class="block">Сброс состояния поля</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/wysiwyg/RichTextEditorField.html#setHeight(java.lang.String)">setHeight</a></strong>(java.lang.String&nbsp;height)</code></td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/wysiwyg/RichTextEditorField.html#setValue(java.lang.String)">setValue</a></strong>(java.lang.String&nbsp;value)</code></td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><strong><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/wysiwyg/RichTextEditorField.html#setValue(java.lang.String,%20boolean)">setValue</a></strong>(java.lang.String&nbsp;value,
+        boolean&nbsp;fireEvents)</code></td>
+</tr>
+</table>
+<ul class="blockList">
+<li class="blockList"><a name="methods_inherited_from_class_com.google.gwt.user.client.ui.Grid">
+<!--   -->
+</a>
+<h3>Methods inherited from class&nbsp;com.google.gwt.user.client.ui.Grid</h3>
+<code>clearCell, createCell, getCellCount, getColumnCount, getRowCount, insertRow, prepareCell, prepareColumn, prepareRow, removeRow, resize, resizeColumns, resizeRows</code></li>
+</ul>
+<ul class="blockList">
+<li class="blockList"><a name="methods_inherited_from_class_com.google.gwt.user.client.ui.HTMLTable">
+<!--   -->
+</a>
+<h3>Methods inherited from class&nbsp;com.google.gwt.user.client.ui.HTMLTable</h3>
+<code>addClickHandler, addDoubleClickHandler, addDragEndHandler, addDragEnterHandler, addDragHandler, addDragLeaveHandler, addDragOverHandler, addDragStartHandler, addDropHandler, addTableListener, checkCellBounds, checkRowBounds, clear, clear, getBodyElement, getCellForEvent, getCellFormatter, getCellPadding, getCellSpacing, getColumnFormatter, getDOMCellCount, getDOMCellCount, getDOMCellCount, getDOMRowCount, getDOMRowCount, getDOMRowCount, getEventTargetCell, getHTML, getRowFormatter, getText, getWidget, insertCell, insertCells, internalClearCell, internalClearCell, isCellPresent, iterator, onEnsureDebugId, remove, removeCell, removeTableListener, setBorderWidth, setCellFormatter, setCellPadding, setCellSpacing, setColumnFormatter, setHTML, setHTML, setRowFormatter, setText, setWidget, setWidget</code></li>
+</ul>
+<ul class="blockList">
+<li class="blockList"><a name="methods_inherited_from_class_com.google.gwt.user.client.ui.Panel">
+<!--   -->
+</a>
+<h3>Methods inherited from class&nbsp;com.google.gwt.user.client.ui.Panel</h3>
+<code>add, add, adopt, doAttachChildren, doDetachChildren, orphan, remove</code></li>
+</ul>
+<ul class="blockList">
+<li class="blockList"><a name="methods_inherited_from_class_com.google.gwt.user.client.ui.Widget">
+<!--   -->
+</a>
+<h3>Methods inherited from class&nbsp;com.google.gwt.user.client.ui.Widget</h3>
+<code>addAttachHandler, addBitlessDomHandler, addDomHandler, addHandler, asWidget, asWidgetOrNull, createHandlerManager, delegateEvent, fireEvent, getHandlerCount, getLayoutData, getParent, isAttached, isOrWasAttached, onAttach, onBrowserEvent, onDetach, onLoad, onUnload, removeFromParent, setLayoutData, sinkEvents, unsinkEvents</code></li>
+</ul>
+<ul class="blockList">
+<li class="blockList"><a name="methods_inherited_from_class_com.google.gwt.user.client.ui.UIObject">
+<!--   -->
+</a>
+<h3>Methods inherited from class&nbsp;com.google.gwt.user.client.ui.UIObject</h3>
+<code>addStyleDependentName, addStyleName, ensureDebugId, ensureDebugId, ensureDebugId, getAbsoluteLeft, getAbsoluteTop, getElement, getOffsetHeight, getOffsetWidth, getStyleElement, getStyleName, getStyleName, getStylePrimaryName, getStylePrimaryName, getTitle, isVisible, isVisible, removeStyleDependentName, removeStyleName, resolvePotentialElement, setElement, setElement, setPixelSize, setSize, setStyleDependentName, setStyleName, setStyleName, setStyleName, setStyleName, setStylePrimaryName, setStylePrimaryName, setTitle, setVisible, setVisible, setWidth, sinkBitlessEvent, toString</code></li>
+</ul>
+<ul class="blockList">
+<li class="blockList"><a name="methods_inherited_from_class_java.lang.Object">
+<!--   -->
+</a>
+<h3>Methods inherited from class&nbsp;java.lang.Object</h3>
+<code>clone, equals, finalize, getClass, hashCode, notify, notifyAll, wait, wait, wait</code></li>
+</ul>
+<ul class="blockList">
+<li class="blockList"><a name="methods_inherited_from_class_com.google.gwt.event.shared.HasHandlers">
+<!--   -->
+</a>
+<h3>Methods inherited from interface&nbsp;com.google.gwt.event.shared.HasHandlers</h3>
+<code>fireEvent</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="details">
+<ul class="blockList">
+<li class="blockList">
 <!-- ============ FIELD DETAIL =========== -->
-
-<A NAME="field_detail"><!-- --></A>
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
-<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
-<B>Field Detail</B></FONT></TH>
-</TR>
-</TABLE>
-
-<A NAME="NONPRINTABLE_ELEMENT"><!-- --></A><H3>
-NONPRINTABLE_ELEMENT</H3>
-<PRE>
-public static final java.lang.String <B>NONPRINTABLE_ELEMENT</B></PRE>
-<DL>
-<DD>Непечатаемый символ.
-<P>
-<DL>
-<DT><B>See Also:</B><DD><A HREF="../../../../../../../../constant-values.html#com.technology.jep.jepria.client.widget.field.wysiwyg.RichTextEditorField.NONPRINTABLE_ELEMENT">Constant Field Values</A></DL>
-</DL>
-<HR>
-
-<A NAME="textArea"><!-- --></A><H3>
-textArea</H3>
-<PRE>
-private <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/wysiwyg/toolbar/CustomRichTextArea.html" title="class in com.technology.jep.jepria.client.widget.field.wysiwyg.toolbar">CustomRichTextArea</A> <B>textArea</B></PRE>
-<DL>
-<DD>Текстовая область, в которой размещается форматируемый пользователем текст.
-<P>
-<DL>
-</DL>
-</DL>
-<HR>
-
-<A NAME="toolbar"><!-- --></A><H3>
-toolbar</H3>
-<PRE>
-private <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/field/wysiwyg/toolbar/RichTextToolbar.html" title="class in com.technology.jep.jepria.client.widget.field.wysiwyg.toolbar">RichTextToolbar</A> <B>toolbar</B></PRE>
-<DL>
-<DD>Панель форматирования текста.
-<P>
-<DL>
-</DL>
-</DL>
-<HR>
-
-<A NAME="DEFAULT_RICHTEXTEDITOR_FIELD_HEIGHT"><!-- --></A><H3>
-DEFAULT_RICHTEXTEDITOR_FIELD_HEIGHT</H3>
-<PRE>
-private static final int <B>DEFAULT_RICHTEXTEDITOR_FIELD_HEIGHT</B></PRE>
-<DL>
-<DD>Высота текстовая области, по умолчанию.
-<P>
-<DL>
-<DT><B>See Also:</B><DD><A HREF="../../../../../../../../constant-values.html#com.technology.jep.jepria.client.widget.field.wysiwyg.RichTextEditorField.DEFAULT_RICHTEXTEDITOR_FIELD_HEIGHT">Constant Field Values</A></DL>
-</DL>
-<HR>
-
-<A NAME="RICH_TEXT_EDITOR_FIELD_STYLE"><!-- --></A><H3>
-RICH_TEXT_EDITOR_FIELD_STYLE</H3>
-<PRE>
-private static final java.lang.String <B>RICH_TEXT_EDITOR_FIELD_STYLE</B></PRE>
-<DL>
-<DD>Наименование селектора (класса стилей) компонента.
-<P>
-<DL>
-<DT><B>See Also:</B><DD><A HREF="../../../../../../../../constant-values.html#com.technology.jep.jepria.client.widget.field.wysiwyg.RichTextEditorField.RICH_TEXT_EDITOR_FIELD_STYLE">Constant Field Values</A></DL>
-</DL>
-
+<ul class="blockList">
+<li class="blockList"><a name="field_detail">
+<!--   -->
+</a>
+<h3>Field Detail</h3>
+<a name="NONPRINTABLE_ELEMENT">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>NONPRINTABLE_ELEMENT</h4>
+<pre>public static final&nbsp;java.lang.String NONPRINTABLE_ELEMENT</pre>
+<div class="block">Непечатаемый символ.</div>
+<dl><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../../../../../constant-values.html#com.technology.jep.jepria.client.widget.field.wysiwyg.RichTextEditorField.NONPRINTABLE_ELEMENT">Constant Field Values</a></dd></dl>
+</li>
+</ul>
+<a name="textArea">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>textArea</h4>
+<pre>private&nbsp;<a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/wysiwyg/toolbar/CustomRichTextArea.html" title="class in com.technology.jep.jepria.client.widget.field.wysiwyg.toolbar">CustomRichTextArea</a> textArea</pre>
+<div class="block">Текстовая область, в которой размещается форматируемый пользователем текст.</div>
+</li>
+</ul>
+<a name="toolbar">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>toolbar</h4>
+<pre>private&nbsp;<a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/wysiwyg/toolbar/RichTextToolbar.html" title="class in com.technology.jep.jepria.client.widget.field.wysiwyg.toolbar">RichTextToolbar</a> toolbar</pre>
+<div class="block">Панель форматирования текста.</div>
+</li>
+</ul>
+<a name="DEFAULT_RICHTEXTEDITOR_FIELD_HEIGHT">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>DEFAULT_RICHTEXTEDITOR_FIELD_HEIGHT</h4>
+<pre>private static final&nbsp;int DEFAULT_RICHTEXTEDITOR_FIELD_HEIGHT</pre>
+<div class="block">Высота текстовая области, по умолчанию.</div>
+<dl><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../../../../../constant-values.html#com.technology.jep.jepria.client.widget.field.wysiwyg.RichTextEditorField.DEFAULT_RICHTEXTEDITOR_FIELD_HEIGHT">Constant Field Values</a></dd></dl>
+</li>
+</ul>
+<a name="RICH_TEXT_EDITOR_FIELD_STYLE">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>RICH_TEXT_EDITOR_FIELD_STYLE</h4>
+<pre>private static final&nbsp;java.lang.String RICH_TEXT_EDITOR_FIELD_STYLE</pre>
+<div class="block">Наименование селектора (класса стилей) компонента.</div>
+<dl><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../../../../../constant-values.html#com.technology.jep.jepria.client.widget.field.wysiwyg.RichTextEditorField.RICH_TEXT_EDITOR_FIELD_STYLE">Constant Field Values</a></dd></dl>
+</li>
+</ul>
+</li>
+</ul>
 <!-- ========= CONSTRUCTOR DETAIL ======== -->
-
-<A NAME="constructor_detail"><!-- --></A>
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
-<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
-<B>Constructor Detail</B></FONT></TH>
-</TR>
-</TABLE>
-
-<A NAME="RichTextEditorField()"><!-- --></A><H3>
-RichTextEditorField</H3>
-<PRE>
-public <B>RichTextEditorField</B>()</PRE>
-<DL>
-</DL>
-
+<ul class="blockList">
+<li class="blockList"><a name="constructor_detail">
+<!--   -->
+</a>
+<h3>Constructor Detail</h3>
+<a name="RichTextEditorField()">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>RichTextEditorField</h4>
+<pre>public&nbsp;RichTextEditorField()</pre>
+</li>
+</ul>
+</li>
+</ul>
 <!-- ============ METHOD DETAIL ========== -->
-
-<A NAME="method_detail"><!-- --></A>
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
-<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
-<B>Method Detail</B></FONT></TH>
-</TR>
-</TABLE>
-
-<A NAME="getValue()"><!-- --></A><H3>
-getValue</H3>
-<PRE>
-public java.lang.String <B>getValue</B>()</PRE>
-<DL>
-<DD>
-<P>
-<DD><DL>
-<DT><B>Specified by:</B><DD><CODE>getValue</CODE> in interface <CODE>com.google.gwt.user.client.TakesValue&lt;java.lang.String&gt;</CODE><DT><B>Specified by:</B><DD><CODE>getValue</CODE> in interface <CODE>com.google.gwt.user.client.ui.HasValue&lt;java.lang.String&gt;</CODE></DL>
-</DD>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="addValueChangeHandler(com.google.gwt.event.logical.shared.ValueChangeHandler)"><!-- --></A><H3>
-addValueChangeHandler</H3>
-<PRE>
-public com.google.gwt.event.shared.HandlerRegistration <B>addValueChangeHandler</B>(com.google.gwt.event.logical.shared.ValueChangeHandler&lt;java.lang.String&gt;&nbsp;handler)</PRE>
-<DL>
-<DD>
-<P>
-<DD><DL>
-<DT><B>Specified by:</B><DD><CODE>addValueChangeHandler</CODE> in interface <CODE>com.google.gwt.event.logical.shared.HasValueChangeHandlers&lt;java.lang.String&gt;</CODE></DL>
-</DD>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>handler</CODE> - обработчик события изменения значения WYSIWYG-редактора
-<DT><B>Returns:</B><DD>ссылка на соответстующую запись обработчика</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="setValue(java.lang.String)"><!-- --></A><H3>
-setValue</H3>
-<PRE>
-public void <B>setValue</B>(java.lang.String&nbsp;value)</PRE>
-<DL>
-<DD>
-<P>
-<DD><DL>
-<DT><B>Specified by:</B><DD><CODE>setValue</CODE> in interface <CODE>com.google.gwt.user.client.TakesValue&lt;java.lang.String&gt;</CODE><DT><B>Specified by:</B><DD><CODE>setValue</CODE> in interface <CODE>com.google.gwt.user.client.ui.HasValue&lt;java.lang.String&gt;</CODE></DL>
-</DD>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="setValue(java.lang.String, boolean)"><!-- --></A><H3>
-setValue</H3>
-<PRE>
-public void <B>setValue</B>(java.lang.String&nbsp;value,
-                     boolean&nbsp;fireEvents)</PRE>
-<DL>
-<DD>
-<P>
-<DD><DL>
-<DT><B>Specified by:</B><DD><CODE>setValue</CODE> in interface <CODE>com.google.gwt.user.client.ui.HasValue&lt;java.lang.String&gt;</CODE></DL>
-</DD>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="setHeight(java.lang.String)"><!-- --></A><H3>
-setHeight</H3>
-<PRE>
-public void <B>setHeight</B>(java.lang.String&nbsp;height)</PRE>
-<DL>
-<DD>
-<P>
-<DD><DL>
-<DT><B>Overrides:</B><DD><CODE>setHeight</CODE> in class <CODE>com.google.gwt.user.client.ui.UIObject</CODE></DL>
-</DD>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="reset()"><!-- --></A><H3>
-reset</H3>
-<PRE>
-public void <B>reset</B>()</PRE>
-<DL>
-<DD>Сброс состояния поля
-<P>
-<DD><DL>
-</DL>
-</DD>
-<DD><DL>
-</DL>
-</DD>
-</DL>
+<ul class="blockList">
+<li class="blockList"><a name="method_detail">
+<!--   -->
+</a>
+<h3>Method Detail</h3>
+<a name="getValue()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getValue</h4>
+<pre>public&nbsp;java.lang.String&nbsp;getValue()</pre>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code>getValue</code>&nbsp;in interface&nbsp;<code>com.google.gwt.user.client.TakesValue&lt;java.lang.String&gt;</code></dd>
+<dt><strong>Specified by:</strong></dt>
+<dd><code>getValue</code>&nbsp;in interface&nbsp;<code>com.google.gwt.user.client.ui.HasValue&lt;java.lang.String&gt;</code></dd>
+</dl>
+</li>
+</ul>
+<a name="addValueChangeHandler(com.google.gwt.event.logical.shared.ValueChangeHandler)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>addValueChangeHandler</h4>
+<pre>public&nbsp;com.google.gwt.event.shared.HandlerRegistration&nbsp;addValueChangeHandler(com.google.gwt.event.logical.shared.ValueChangeHandler&lt;java.lang.String&gt;&nbsp;handler)</pre>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code>addValueChangeHandler</code>&nbsp;in interface&nbsp;<code>com.google.gwt.event.logical.shared.HasValueChangeHandlers&lt;java.lang.String&gt;</code></dd>
+<dt><span class="strong">Parameters:</span></dt><dd><code>handler</code> - обработчик события изменения значения WYSIWYG-редактора</dd>
+<dt><span class="strong">Returns:</span></dt><dd>ссылка на соответстующую запись обработчика</dd></dl>
+</li>
+</ul>
+<a name="setValue(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setValue</h4>
+<pre>public&nbsp;void&nbsp;setValue(java.lang.String&nbsp;value)</pre>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code>setValue</code>&nbsp;in interface&nbsp;<code>com.google.gwt.user.client.TakesValue&lt;java.lang.String&gt;</code></dd>
+<dt><strong>Specified by:</strong></dt>
+<dd><code>setValue</code>&nbsp;in interface&nbsp;<code>com.google.gwt.user.client.ui.HasValue&lt;java.lang.String&gt;</code></dd>
+</dl>
+</li>
+</ul>
+<a name="setValue(java.lang.String, boolean)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setValue</h4>
+<pre>public&nbsp;void&nbsp;setValue(java.lang.String&nbsp;value,
+            boolean&nbsp;fireEvents)</pre>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code>setValue</code>&nbsp;in interface&nbsp;<code>com.google.gwt.user.client.ui.HasValue&lt;java.lang.String&gt;</code></dd>
+</dl>
+</li>
+</ul>
+<a name="setHeight(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setHeight</h4>
+<pre>public&nbsp;void&nbsp;setHeight(java.lang.String&nbsp;height)</pre>
+<dl>
+<dt><strong>Overrides:</strong></dt>
+<dd><code>setHeight</code>&nbsp;in class&nbsp;<code>com.google.gwt.user.client.ui.UIObject</code></dd>
+</dl>
+</li>
+</ul>
+<a name="reset()">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>reset</h4>
+<pre>public&nbsp;void&nbsp;reset()</pre>
+<div class="block">Сброс состояния поля</div>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
 <!-- ========= END OF CLASS DATA ========= -->
-<HR>
-
-
 <!-- ======= START OF BOTTOM NAVBAR ====== -->
-<A NAME="navbar_bottom"><!-- --></A>
-<A HREF="#skip-navbar_bottom" title="Skip navigation links"></A>
-<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
-<TR>
-<TD COLSPAN=2 BGCOLOR="#EEEEFF" CLASS="NavBarCell1">
-<A NAME="navbar_bottom_firstrow"><!-- --></A>
-<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3" SUMMARY="">
-  <TR ALIGN="center" VALIGN="top">
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-summary.html"><FONT CLASS="NavBarFont1"><B>Package</B></FONT></A>&nbsp;</TD>
-  <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../../index-all.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
-  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../../help-doc.html"><FONT CLASS="NavBarFont1"><B>Help</B></FONT></A>&nbsp;</TD>
-  </TR>
-</TABLE>
-</TD>
-<TD ALIGN="right" VALIGN="top" ROWSPAN=3><EM>
-</EM>
-</TD>
-</TR>
-
-<TR>
-<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;PREV CLASS&nbsp;
-&nbsp;NEXT CLASS</FONT></TD>
-<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-  <A HREF="../../../../../../../../index.html?com/technology/jep/jepria/client/widget/field/wysiwyg/RichTextEditorField.html" target="_top"><B>FRAMES</B></A>  &nbsp;
-&nbsp;<A HREF="RichTextEditorField.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
-&nbsp;<SCRIPT type="text/javascript">
-  <!--
+<div class="bottomNav"><a name="navbar_bottom">
+<!--   -->
+</a><a href="#skip-navbar_bottom" title="Skip navigation links"></a><a name="navbar_bottom_firstrow">
+<!--   -->
+</a>
+<ul class="navList" title="Navigation">
+<li><a href="../../../../../../../../overview-summary.html">Overview</a></li>
+<li><a href="package-summary.html">Package</a></li>
+<li class="navBarCell1Rev">Class</li>
+<li><a href="package-tree.html">Tree</a></li>
+<li><a href="../../../../../../../../deprecated-list.html">Deprecated</a></li>
+<li><a href="../../../../../../../../index-all.html">Index</a></li>
+<li><a href="../../../../../../../../help-doc.html">Help</a></li>
+</ul>
+</div>
+<div class="subNav">
+<ul class="navList">
+<li>Prev Class</li>
+<li>Next Class</li>
+</ul>
+<ul class="navList">
+<li><a href="../../../../../../../../index.html?com/technology/jep/jepria/client/widget/field/wysiwyg/RichTextEditorField.html" target="_top">Frames</a></li>
+<li><a href="RichTextEditorField.html" target="_top">No Frames</a></li>
+</ul>
+<ul class="navList" id="allclasses_navbar_bottom">
+<li><a href="../../../../../../../../allclasses-noframe.html">All Classes</a></li>
+</ul>
+<div>
+<script type="text/javascript"><!--
+  allClassesLink = document.getElementById("allclasses_navbar_bottom");
   if(window==top) {
-    document.writeln('<A HREF="../../../../../../../../allclasses-noframe.html"><B>All Classes</B></A>');
+    allClassesLink.style.display = "block";
+  }
+  else {
+    allClassesLink.style.display = "none";
   }
   //-->
-</SCRIPT>
-<NOSCRIPT>
-  <A HREF="../../../../../../../../allclasses-noframe.html"><B>All Classes</B></A>
-</NOSCRIPT>
-
-
-</FONT></TD>
-</TR>
-<TR>
-<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
-  SUMMARY:&nbsp;<A HREF="#nested_classes_inherited_from_class_com.google.gwt.user.client.ui.HTMLTable">NESTED</A>&nbsp;|&nbsp;<A HREF="#field_summary">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
-<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
-DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
-</TR>
-</TABLE>
-<A NAME="skip-navbar_bottom"></A>
+</script>
+</div>
+<div>
+<ul class="subNavList">
+<li>Summary:&nbsp;</li>
+<li><a href="#nested_classes_inherited_from_class_com.google.gwt.user.client.ui.HTMLTable">Nested</a>&nbsp;|&nbsp;</li>
+<li><a href="#field_summary">Field</a>&nbsp;|&nbsp;</li>
+<li><a href="#constructor_summary">Constr</a>&nbsp;|&nbsp;</li>
+<li><a href="#method_summary">Method</a></li>
+</ul>
+<ul class="subNavList">
+<li>Detail:&nbsp;</li>
+<li><a href="#field_detail">Field</a>&nbsp;|&nbsp;</li>
+<li><a href="#constructor_detail">Constr</a>&nbsp;|&nbsp;</li>
+<li><a href="#method_detail">Method</a></li>
+</ul>
+</div>
+<a name="skip-navbar_bottom">
+<!--   -->
+</a></div>
 <!-- ======== END OF BOTTOM NAVBAR ======= -->
-
-<HR>
-
-</BODY>
-</HTML>
+</body>
+</html>
