@@ -315,4 +315,10 @@ public class JepTreeField extends JepMultiStateField<TreeField<JepOption>, HTML>
       }
     });
   }
+  
+  @Override
+  protected void setWebIds() {
+    super.setWebIds();
+    editableCard.setCompositeWebIds(fieldIdAsWebEl);
+  }
 }

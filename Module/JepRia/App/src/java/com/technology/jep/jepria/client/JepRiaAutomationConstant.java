@@ -263,6 +263,11 @@ public class JepRiaAutomationConstant {
   public static final String JEP_TREENODE_INFIX = "_JEP_TREENODE_";
   
   /**
+   * Постфикс-идентификатор флажка "Выделить все" поля JepTreeField
+   */
+  public static final String JEP_TREE_FIELD_CHECKALL_POSTFIX = "_JEP_TREE_FIELD_CHECKALL";
+  
+  /**
    * HTML-атрибут (и значения) узла TreeField, показывающий состояние отмеченности узла
    */
   public static final String JEP_TREENODE_CHECKEDSTATE_HTML_ATTR = "jep-treenode-checkedstate";

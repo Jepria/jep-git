@@ -873,4 +873,13 @@ public class TreeField<V extends JepOption> extends ScrollPanel implements HasCh
       }      
     }
   }
+  
+  /**
+   * Установка ID внутренних компонентов TreeField: кнопки "выделить все"
+   * @param fieldIdAsWebEl ID JepTreeField'а, который берется за основу ID внутренних компонентов
+   */
+  public void setCompositeWebIds(String fieldIdAsWebEl) {
+    //TODO uncomment
+    // selectAllCheckBox.getElement().setId(fieldIdAsWebEl + JepRiaAutomationConstant.JEP_TREE_FIELD_CHECKALL_POSTFIX);
+  }
 }
