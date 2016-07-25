@@ -1,3 +1,4 @@
+-- TODO: Сделать выполнение из-под отдельного пользователя с общим функционалом (e.g. common).
 declare
 
   -- Число добавленный ролей
@@ -25,12 +26,12 @@ declare
       min( t.role_id)
     into roleId
     from
-      v_op_role t
+      op_role t
     where
-      t.role_short_name = shortName
+      t.short_name = shortName
     ;
     if roleId is null then
-      roleId := pkg_AccessOperator.createRole(
+      roleId := pkg_Operator.createRole(
         roleName      => roleName
         , roleNameEn  => roleNameEn
         , shortName   => shortName
@@ -51,7 +52,7 @@ declare
 -- main
 begin
   addRole(
-    shortName     => pkg_JepRiaShowcase.Feature_RoleSName
+    shortName     => 'JrsEditFeature'
     , roleName    =>
         'JepRiaShowcase: Редактирование данных по запросам на функционал'
     , roleNameEn  =>
@@ -60,7 +61,7 @@ begin
         'Пользователь с данной ролью имеет доступ к управлению запросами на новый функционал'
   );
   addRole(
-    shortName     => pkg_JepRiaShowcase.Goods_RoleSName
+    shortName     => 'JrsEditGoods'
     , roleName    =>
         'JepRiaShowcase: Редактирование данных по товарам'
     , roleNameEn  =>
@@ -69,7 +70,7 @@ begin
         'Пользователь с данной ролью может работать с данными о товарах'
   );
   addRole(
-    shortName     => pkg_JepRiaShowcase.Request_RoleSName
+    shortName     => 'JrsEditRequest'
     , roleName    =>
         'JepRiaShowcase: Редактирование данных по запросам на закупку'
     , roleNameEn  =>
@@ -78,7 +79,7 @@ begin
         'Пользователь с данной ролью может работать с данными по запросам на закупку'
   );
   addRole(
-    shortName     => pkg_JepRiaShowcase.RequestProcess_RoleSName
+    shortName     => 'JrsEditRequestProcess'
     , roleName    =>
         'JepRiaShowcase: Редактирование данных по обработке запросов на закупку'
     , roleNameEn  =>
@@ -87,7 +88,7 @@ begin
         'Пользователь с данной ролью может работать с данными по обработке запросов на закупку'
   );
   addRole(
-    shortName     => pkg_JepRiaShowcase.ShopGoods_RoleSName
+    shortName     => 'JrsEditShopGoods'
     , roleName    =>
         'JepRiaShowcase: Редактирование данных по товарам в магазинах'
     , roleNameEn  =>
@@ -96,7 +97,7 @@ begin
         'Пользователь с данной ролью может работать с данными по товарам в магазинах'
   );
   addRole(
-    shortName     => pkg_JepRiaShowcase.Supplier_RoleSName
+    shortName     => 'JrsEditSupplier'
     , roleName    =>
         'JepRiaShowcase: Редактирование данных по поставщикам'
     , roleNameEn  =>
