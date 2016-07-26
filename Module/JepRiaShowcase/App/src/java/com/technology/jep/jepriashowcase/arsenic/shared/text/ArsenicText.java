@@ -2,7 +2,7 @@ package com.technology.jep.jepriashowcase.arsenic.shared.text;
 
 /**
  * Interface to represent the constants contained in resource bundle:
- * 	'D:/workspace/git/JEP/Module/JepRiaShowcase/App/src/java/com/technology/jep/jepriashowcase/arsenic/shared/text/ArsenicText.properties'.
+ * 	'D:/Project/JEPGit/Module/JepRiaShowcase/App/src/java/com/technology/jep/jepriashowcase/arsenic/shared/text/ArsenicText.properties'.
  */
 public interface ArsenicText extends com.google.gwt.i18n.client.Constants {
   

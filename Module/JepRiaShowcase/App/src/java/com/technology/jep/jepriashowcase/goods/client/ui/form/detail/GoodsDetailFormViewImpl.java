@@ -41,6 +41,7 @@ public class GoodsDetailFormViewImpl extends StandardDetailFormViewImpl implemen
     JepTreeField goodsCatalogTreeField = new JepTreeField(goodsText.goods_detail_goods_catalog());
 //    goodsCatalogTreeField.setCheckStyle(CheckCascade.PARENTS);
     goodsCatalogTreeField.setCheckNodes(CheckNodes.LEAF);
+    goodsCatalogTreeField.setSelectAllCheckBoxVisible(true);
     
     JepImageField goodsPhotoImageField = new JepImageField(goodsText.goods_detail_goods_photo());
     JepFileField goodsPortfolioFileField = new JepFileField(goodsText.goods_detail_goods_portfolio());
