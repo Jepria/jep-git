@@ -27,7 +27,7 @@ public class JepFileUpload extends FileUpload {
   /**
    * Получение размера файла у элемента 
    * 
-   * @param data    DOM-элемент
+   * @param element    DOM-элемент
    * @return размер выбранного файла
    */
   private native int getFileSize(final Element element) /*-{

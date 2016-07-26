@@ -95,7 +95,7 @@
 </td>
 </tr>
 <tr class="rowColor">
-<td class="colFirst"><a href="../../../../../com/technology/jep/jepria/auto/TreeNodeFilter.html" title="interface in com.technology.jep.jepria.auto">TreeNodeFilter</a></td>
+<td class="colFirst"><a href="../../../../../com/technology/jep/jepria/auto/TreeItemFilter.html" title="interface in com.technology.jep.jepria.auto">TreeItemFilter</a></td>
 <td class="colLast">
 <div class="block">Вспомогательный интерфейс (паттерн команда), используемый при обходе дерева.</div>
 </td>
@@ -122,6 +122,14 @@
 </td>
 </tr>
 <tr class="altColor">
+<td class="colFirst"><a href="../../../../../com/technology/jep/jepria/auto/TreeItemWebElement.html" title="class in com.technology.jep.jepria.auto">TreeItemWebElement</a></td>
+<td class="colLast">
+<div class="block">Декоратор для тех экземпляров класса <code>WebElement</code>, которые являются
+ узлами GWT-дерева (иденификация по атрибуту role='treeitem'), либо корнем дерева
+ (корнем может быть любой элемент, содержащий внутри себя узлы GWT-дерева).</div>
+</td>
+</tr>
+<tr class="rowColor">
 <td class="colFirst"><a href="../../../../../com/technology/jep/jepria/auto/Util.html" title="class in com.technology.jep.jepria.auto">Util</a></td>
 <td class="colLast">&nbsp;</td>
 </tr>
@@ -140,6 +148,13 @@
 <td class="colFirst"><a href="../../../../../com/technology/jep/jepria/auto/SaveResultEnum.html" title="enum in com.technology.jep.jepria.auto">SaveResultEnum</a></td>
 <td class="colLast">
 <div class="block">Перечень результатов выполнения сохранения записи с детальной формы</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><a href="../../../../../com/technology/jep/jepria/auto/TreeItemWebElement.CheckedState.html" title="enum in com.technology.jep.jepria.auto">TreeItemWebElement.CheckedState</a></td>
+<td class="colLast">
+<div class="block">Этот енум определяется JEP(а не GWT)-свойством отмеченности узла дерева, то есть атрибутом
+ jep-treenode-checkedstate элемента span, а не атрибутом aria-selected элемента div[role='treeitem'].</div>
 </td>
 </tr>
 </tbody>

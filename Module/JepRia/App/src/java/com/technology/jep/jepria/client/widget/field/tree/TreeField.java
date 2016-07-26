@@ -8,6 +8,8 @@ import static com.technology.jep.jepria.client.JepRiaAutomationConstant.JEP_TREE
 import static com.technology.jep.jepria.client.JepRiaAutomationConstant.JEP_TREENODE_CHECKEDSTATE_VALUE_UNCHECKED;
 import static com.technology.jep.jepria.client.JepRiaAutomationConstant.JEP_TREENODE_INFIX;
 import static com.technology.jep.jepria.client.JepRiaAutomationConstant.JEP_TREENODE_ISLEAF_HTML_ATTR;
+import static com.technology.jep.jepria.client.JepRiaClientConstant.JepTexts;
+import static com.technology.jep.jepria.client.JepRiaClientConstant.MAIN_FONT_STYLE;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,6 +17,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import com.google.gwt.aria.client.Roles;
 import com.google.gwt.cell.client.Cell;
 import com.google.gwt.cell.client.CompositeCell;
 import com.google.gwt.cell.client.FieldUpdater;
@@ -28,16 +31,27 @@ import com.google.gwt.event.logical.shared.CloseEvent;
 import com.google.gwt.event.logical.shared.CloseHandler;
 import com.google.gwt.event.logical.shared.OpenEvent;
 import com.google.gwt.event.logical.shared.OpenHandler;
+import com.google.gwt.event.logical.shared.ValueChangeEvent;
+import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.resources.client.ImageResource;
+import com.google.gwt.safecss.shared.SafeStyles;
+import com.google.gwt.safecss.shared.SafeStylesBuilder;
+import com.google.gwt.safehtml.client.SafeHtmlTemplates;
+import com.google.gwt.safehtml.client.SafeHtmlTemplates.Template;
 import com.google.gwt.safehtml.shared.SafeHtml;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.safehtml.shared.SafeHtmlUtils;
 import com.google.gwt.user.cellview.client.CellTree;
 import com.google.gwt.user.cellview.client.TreeNode;
+import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.ui.AbstractImagePrototype;
+import com.google.gwt.user.client.ui.CheckBox;
+import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.ScrollPanel;
+import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.view.client.AsyncDataProvider;
 import com.google.gwt.view.client.CellPreviewEvent;
 import com.google.gwt.view.client.DefaultSelectionEventManager;
@@ -45,11 +59,12 @@ import com.google.gwt.view.client.DefaultSelectionEventManager.EventTranslator;
 import com.google.gwt.view.client.DefaultSelectionEventManager.SelectAction;
 import com.google.gwt.view.client.HasData;
 import com.google.gwt.view.client.MultiSelectionModel;
+import com.google.gwt.view.client.SelectionChangeEvent;
 import com.google.gwt.view.client.SetSelectionModel;
 import com.google.gwt.view.client.TreeViewModel;
+import com.technology.jep.jepria.client.JepRiaAutomationConstant;
 import com.technology.jep.jepria.client.async.DataLoader;
 import com.technology.jep.jepria.client.async.JepAsyncCallback;
-import com.technology.jep.jepria.client.util.JepClientUtil;
 import com.technology.jep.jepria.client.widget.container.ElementSimplePanel;
 import com.technology.jep.jepria.client.widget.field.multistate.event.CheckChangeEvent;
 import com.technology.jep.jepria.client.widget.field.multistate.event.CheckChangeEvent.CheckChangeHandler;
@@ -62,7 +77,8 @@ import com.technology.jep.jepria.shared.util.JepRiaUtil;
 /**
  * Класс, представляющий реализацию поля выбора в виде древовидной иерархии.
  */
-public class TreeField<V extends JepOption> extends ScrollPanel implements HasCheckChangeHandlers<V> {
+@SuppressWarnings("unchecked")
+public class TreeField<V extends JepOption> extends Composite implements HasCheckChangeHandlers<V> {
   
   /**
    * Check cascade enum.
@@ -132,8 +148,10 @@ public class TreeField<V extends JepOption> extends ScrollPanel implements HasCh
    */
   private Map<V, TreeNodeInfo<V>> nodeMapOfDisplay = new HashMap<V, TreeNodeInfo<V>>();
   
+  private List<V> availableSelectedNodes = new ArrayList<V>();
+  
   /* Resources: texts and images */
-  private TreeFieldMessages messages = new TreeFieldMessages();
+  private static final TreeFieldMessages messages = new TreeFieldMessages();
   private TreeFieldResources images = GWT.create(TreeFieldResources.class);
   
   /**
@@ -162,12 +180,96 @@ public class TreeField<V extends JepOption> extends ScrollPanel implements HasCh
   private final String fieldIdAsWebEl;
   
   /**
+   * Флаг "Выбрать все".
+   */
+  protected CheckBox selectAllCheckBox;
+  
+  /**
+   * Наименование класса стилей для флага "Выделить все".
+   */
+  private static final String SELECT_ALL_CHECK_BOX_STYLE = "jepRia-ListField-SelectAllCheckBox";
+  
+  /**
+   * Панель для размещения дерева и флага "Выделить все".
+   */
+  protected VerticalPanel widgetPanel;
+  
+  /**
+   * Панель для горизонтального размещения панели с виджетами и индикатора загрузки.
+   */
+  private HorizontalPanel panel;
+  
+  /**
+   * Панель прокручивания для дерева.
+   */
+  protected ScrollPanel treePanel;
+  
+  /**
+   * Интерфейс стилизации дерева.
+   */
+  private static Template template;
+  
+  interface Template extends SafeHtmlTemplates {
+    
+    /**
+     * Html-шаблон для отрисовки всей структуры узла дерева.
+     */
+    @Template("<span id=\"{0}\" " + JEP_TREENODE_ISLEAF_HTML_ATTR +"=\"{1}\" " + JEP_TREENODE_CHECKEDSTATE_HTML_ATTR +"=\"{2}\">{3}{4}{5}</span>")
+    SafeHtml nodeWrapper(String id, String jepTreeNodeIsLeafAttr, String jepTreeNodeCheckedStateAttr, SafeHtml checkedImage, SafeHtml folderImage, SafeHtml label);
+    
+    /**
+     * Html-шаблон для отрисовки надписи узла дерева.
+     */
+    @Template("<label title=\"{0}\" style=\"{1}\">{2}{0}</label>")
+    SafeHtml labelWrapper(String name, SafeStyles style, SafeHtml padding);
+    
+    /**
+     * Html-шаблон для отрисовки пустой опции.
+     */
+    @Template("<span style=\"font-style:italic;\">{0}</span>")
+    SafeHtml emtpyNodeWrapper(String text);
+  } 
+  
+  /**
+   * Пустой узел дерева.
+   */
+  private final V EMPTY_TREE_OPTION = (V) new JepOption(messages.emptyTree(), null);
+  
+  /**
    * Создает экземпляры данного класса.
    */
   public TreeField(String fieldIdAsWebEl){
+    if (template == null) {
+      template = GWT.create(Template.class);
+    }
+    
     this.fieldIdAsWebEl = fieldIdAsWebEl;
     
-    addStyleName(JEP_RIA_TREE_FIELD_STYLE);
+    widgetPanel = new VerticalPanel();
+    
+    treePanel = new ScrollPanel(); 
+    
+    selectAllCheckBox = new CheckBox(JepTexts.listField_selectAll());
+    selectAllCheckBox.addStyleName(SELECT_ALL_CHECK_BOX_STYLE);
+    selectAllCheckBox.addStyleName(MAIN_FONT_STYLE);
+    
+    setSelectAllCheckBoxVisible(false);
+    
+    selectAllCheckBox.addValueChangeHandler(new ValueChangeHandler<Boolean>() {      
+      @Override
+      public void onValueChange(ValueChangeEvent<Boolean> event) {
+        onSelectAll(event != null && event.getValue() != null && event.getValue());
+      }
+    });
+    
+    populateWidgetPanel();
+    
+    panel = new HorizontalPanel();
+    panel.add(widgetPanel);
+    
+    initWidget(panel);
+    
+    treePanel.addStyleName(JEP_RIA_TREE_FIELD_STYLE);
   }
   
   /**
@@ -181,20 +283,11 @@ public class TreeField<V extends JepOption> extends ScrollPanel implements HasCh
     selectionModel = new MultiSelectionModel<V>(){
       @Override
       public void setSelected(V item, boolean selected) {
-        boolean isLeaf = isLeaf(item);
-        switch(checkNodes){
-          // допустимо выделение только листьев
-          case LEAF : { 
-            if(!isLeaf) return; 
-            break; 
-          } 
-          // допустимо выделение только родительских узлов
-          case PARENT : { 
-            if(isLeaf) return; 
-            break; 
-          }
-        }
+        // select only available nodes
+        if (!availableSelectedNodes.contains(item)) return;
+        
         super.setSelected(item, selected);
+        
         // если текущий узел был отмечен как частично выделенный
         if (partialSelectedNodes.contains(item)){
           partialSelectedNodes.remove(item);
@@ -232,6 +325,15 @@ public class TreeField<V extends JepOption> extends ScrollPanel implements HasCh
       }
     };
     
+    selectionModel.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
+      @Override
+      public void onSelectionChange(SelectionChangeEvent event) {
+        boolean isSameList = availableSelectedNodes.containsAll(getCheckedSelection()) && 
+            getCheckedSelection().containsAll(availableSelectedNodes);
+        selectAllCheckBox.setValue(isSameList);
+      }
+    });
+    
     tree = new CellTree(new TreeModel(), null, images, messages, Integer.MAX_VALUE){
       @Override
       public void onBrowserEvent(Event event) {
@@ -243,7 +345,6 @@ public class TreeField<V extends JepOption> extends ScrollPanel implements HasCh
     };
     tree.addOpenHandler(new OpenHandler<TreeNode>() {
       @Override
-      @SuppressWarnings("unchecked")
       public void onOpen(OpenEvent<TreeNode> event) {
         TreeNode node = event.getTarget();
         V currentNode = (V) node.getValue();
@@ -268,7 +369,6 @@ public class TreeField<V extends JepOption> extends ScrollPanel implements HasCh
     
     tree.addCloseHandler(new CloseHandler<TreeNode>() {
       @Override
-      @SuppressWarnings("unchecked")
       public void onClose(final CloseEvent<TreeNode> event) {
         refreshNode((V) event.getTarget().getValue());
       }
@@ -304,14 +404,30 @@ public class TreeField<V extends JepOption> extends ScrollPanel implements HasCh
    * @param value    узел дерева
    */
   public void ensureVisible(V value){
-    Element cellTreeElement = getWidget().getElement();
+    Element cellTreeElement = treePanel.getWidget().getElement();
     NodeList<Element> spanNodes = cellTreeElement.getElementsByTagName("span");
     for (int i = 0; i < spanNodes.getLength(); i++) {
       Element spanElement = spanNodes.getItem(i);
       if (String.valueOf(value.getValue()).equalsIgnoreCase(spanElement.getId())) {
-        super.ensureVisible(new ElementSimplePanel(spanElement));
+        treePanel.ensureVisible(new ElementSimplePanel(spanElement));
       }
     }
+  }
+  
+  /**
+   * Прокручивает дерево к первоначальному состоянию.
+   */
+  public void scrollToTop(){
+    treePanel.scrollToTop();
+  }
+  
+  /**
+   * Установка цвета фона для панели дерева.
+   * 
+   * @param backgroundColor   цвет фона
+   */
+  public void setBackgroundColor(String backgroundColor){
+    treePanel.getElement().getStyle().setBackgroundColor(backgroundColor);
   }
   
   /**
@@ -342,7 +458,6 @@ public class TreeField<V extends JepOption> extends ScrollPanel implements HasCh
    * @param value    проверяемый узел дерева
    * @return    логический признак открытости
    */
-  @SuppressWarnings("unchecked")
   public boolean isNodeOpened(TreeNode node, V value){
     for(int i = 0; i < node.getChildCount(); i++){
       V entityChild = (V) node.getChildValue(i);
@@ -382,10 +497,29 @@ public class TreeField<V extends JepOption> extends ScrollPanel implements HasCh
    * Показывает текущий компонент.
    */
   public void showTree(){
-    if (JepRiaUtil.isEmpty(getWidget())) {
-      setWidget(tree);
-      getElement().getStyle().setProperty("background", "none");
+    if (JepRiaUtil.isEmpty(treePanel.getWidget())) {
+      treePanel.setWidget(tree);
+      treePanel.getElement().getStyle().setProperty("background", "none");
     }
+  }
+  
+  /**
+   * Заполнение панели деревом и флагом "Выделить все".<br>
+   * При необходимости изменить стандартный порядок следования виджетов,
+   * метод следует переопределить в классе-наследнике.
+   */
+  protected void populateWidgetPanel() {
+    widgetPanel.add(treePanel);
+    widgetPanel.add(selectAllCheckBox);
+  }
+  
+  /**
+   * Установка видимости флага "Выделить все".<br>
+   * По умолчанию флаг невидим.
+   * @param visible если true, то показать, в противном случае - скрыть
+   */
+  public void setSelectAllCheckBoxVisible(boolean visible) {
+    selectAllCheckBox.setVisible(visible);
   }
   
   /**
@@ -409,6 +543,18 @@ public class TreeField<V extends JepOption> extends ScrollPanel implements HasCh
   }
   
   /**
+   * Обработчик события щелчка по флагу "Выделить все".<br>
+   * Если флаг проставлен, выделяются все видимые узлы дерева. В противном случае всё сбрасывается.
+   * После этого вызывается событие 
+   * {@link com.technology.jep.jepria.client.widget.event.JepEventType#CHANGE_SELECTION_EVENT}.
+   */
+  protected void onSelectAll(boolean selectAll) {
+    for (V node : nodeMapOfDisplay.keySet()) {
+        setChecked(node, selectAll);
+    }
+  }
+  
+  /**
    * Search specified node in the tree. Expand or collapse it. And return founded node or null if it's leaf. 
    * 
    * @param node        relative node
@@ -416,7 +562,6 @@ public class TreeField<V extends JepOption> extends ScrollPanel implements HasCh
    * @param expand      flag to expand or collapse this node
    * @return reference of current node 
    */
-  @SuppressWarnings("unchecked")
   public TreeNode setExpanded(TreeNode node, V value, boolean expand){
     for(int i = 0; i < node.getChildCount(); i++){
       V entityChild = (V) node.getChildValue(i);
@@ -465,7 +610,6 @@ public class TreeField<V extends JepOption> extends ScrollPanel implements HasCh
    * 
    * @param node    value of this node
    */
-  @SuppressWarnings("unchecked")
   public void refreshNode(V node){
     ((TreeModel) tree.getTreeViewModel()).refreshNode(node);
   }
@@ -495,6 +639,7 @@ public class TreeField<V extends JepOption> extends ScrollPanel implements HasCh
    */
   public void setCheckable(boolean checkable){
     this.checkable = checkable;
+    this.selectAllCheckBox.setEnabled(checkable);
   }
   
   /**
@@ -503,7 +648,7 @@ public class TreeField<V extends JepOption> extends ScrollPanel implements HasCh
    * @param borders    признак наличия границ компонента
    */
   public void setBorders(boolean borders){
-    getElement().getStyle().setProperty("border", borders ? "1px solid #ccc" : "none");
+    treePanel.getElement().getStyle().setProperty("border", borders ? "1px solid #ccc" : "none");
   }
   
   /**
@@ -536,6 +681,66 @@ public class TreeField<V extends JepOption> extends ScrollPanel implements HasCh
     return null;
   }
   
+  /**
+   * Получение DOM-элемента по значению узла.
+   * 
+   * @param node    значение узла
+   * @return получение DOM-элемента
+   */
+  public Element getTreeNode(V node){
+    Element treeNode = DOM.getElementById(node.hashCode() + "");
+    while (!Roles.getTreeitemRole().getName().equalsIgnoreCase(treeNode.getAttribute("role"))) {
+      treeNode = treeNode.getParentElement();
+    }
+    return treeNode;
+  }
+  
+  /**
+   * Установка высоты.<br>
+   * Устанавливает высоту виджета. Если флаг "Выделить все" показан,
+   * то его высота не учитывается.
+   * @param height значение высоты.
+   */
+  @Override
+  public void setHeight(String height) {
+    treePanel.setHeight(height);
+  }
+  
+  /**
+   * Установка ширины.<br>
+   * Устанавливает ширину виджета.
+   * @param width значение ширины.
+   */
+  @Override
+  public void setWidth(String width) {
+    treePanel.setWidth(width);
+  }
+  
+  /**
+   * Помечаем узел как доступный для выбора, если это возможно.
+   * 
+   * @param value   узел дерева
+   */
+  public void markNodeAsSelectedIfAvailable(V value) {
+    // fill up the list of available of checking nodes
+    boolean isLeaf = isLeaf(value);
+    switch(checkNodes){
+      // допустимо выделение только листьев
+      case LEAF : { 
+        if(isLeaf) {
+          availableSelectedNodes.add(value);
+        }
+        break; 
+      } 
+      // допустимо выделение только родительских узлов
+      case PARENT : { 
+        if(!isLeaf) {
+          availableSelectedNodes.add(value);
+        }
+        break; 
+      }
+    }
+  }
   /**
    * Модель представления данных в компоненте.
    */
@@ -578,7 +783,6 @@ public class TreeField<V extends JepOption> extends ScrollPanel implements HasCh
      * 
      * @param value   узел дерева
      */
-    @SuppressWarnings("unchecked")
     public <T> NodeInfo<?> getNodeInfo(T value) {
       provider = new TreeDataProvider((V) value);
       
@@ -630,7 +834,10 @@ public class TreeField<V extends JepOption> extends ScrollPanel implements HasCh
         
         @Override
         protected <X> void render(Context context, V value, SafeHtmlBuilder sb, HasCell<V, X> hasCell) {
-          
+          if (EMPTY_TREE_OPTION.equals(value)){
+            sb.append(template.emtpyNodeWrapper(value.getName()));
+            return;
+          }
           // 1st part of Composite cell - Show a checkbox image and select it "selected" property is true
           final SafeHtml checkImageHtml;
           
@@ -697,32 +904,28 @@ public class TreeField<V extends JepOption> extends ScrollPanel implements HasCh
             folderImageHtml = AbstractImagePrototype.create(folderImg).getSafeHtml();
           }
           
-          
+          // Build the css.
+          SafeStylesBuilder cssBuilder = new SafeStylesBuilder();
+          if ( checkedState != null) {
+            cssBuilder.appendTrustedString("cursor: pointer;");
+          }
           // 3rd part of Composite cell - Show Text for the Cell
-          SafeHtml labelHtml = SafeHtmlUtils.fromTrustedString(
-              JepClientUtil.substitute("<label title='{2}' {0}>{1}{2}</label>",
-                  checkedState == null ? "" : "style=\"cursor: pointer;\"",
-                  SafeHtmlUtils.fromString(PADDING).asString(),
-                  value.getName()));
-          
+          SafeHtml labelHtml = 
+              template.labelWrapper(
+                  value.getName(),
+                    cssBuilder.toSafeStyles(),
+                        SafeHtmlUtils.fromString(PADDING));
           
           final String nodeId;
           if (fieldIdAsWebEl != null) {
-            nodeId = "id='" + fieldIdAsWebEl + JEP_TREENODE_INFIX +  value.getName() + "'";
+            nodeId = fieldIdAsWebEl + JEP_TREENODE_INFIX +  value.getName();
           } else {
             nodeId = "";
           }
           
-          
-          sb.appendHtmlConstant(
-              JepClientUtil.substitute("<span {0} {1} {2}>",
-                  nodeId,
-                  JEP_TREENODE_ISLEAF_HTML_ATTR + (isLeaf ? "='true'" : "='false'"),
-                  JEP_TREENODE_CHECKEDSTATE_HTML_ATTR + "='" + nodeCheckedState + "'"));
-          sb.append(checkImageHtml);
-          sb.append(folderImageHtml);
-          sb.append(labelHtml);
-          sb.appendHtmlConstant("</span>");
+          sb.append(template.nodeWrapper(nodeId, 
+                Boolean.toString(isLeaf), nodeCheckedState,
+                      checkImageHtml, folderImageHtml, labelHtml));
         }
         
         private int hasPartlySelectedChildren(V value){
@@ -818,13 +1021,21 @@ public class TreeField<V extends JepOption> extends ScrollPanel implements HasCh
           @Override
           public void onSuccess(List<V> result) {
             TreeNodeInfo<V> info = new TreeNodeInfo<V>(display, result, expandNode);
+            if (result.isEmpty()) {
+              // add empty option and render it in special way
+              // to avoid endless loop
+              result.add((V) new JepOption(EMPTY_TREE_OPTION));
+            }
             for (V value : result){
               // store info (current nodes and correspondent display) about tree level
-              nodeMapOfDisplay.put(value, info);            
+              nodeMapOfDisplay.put(value, info);
+              markNodeAsSelectedIfAvailable(value);
             }
             openingNode = null;
             onRangeChanged(display);
           }
+
+          
         });
       }
       // node have been already saved with its children -
@@ -842,10 +1053,15 @@ public class TreeField<V extends JepOption> extends ScrollPanel implements HasCh
           showTree();
         } 
         else if (!isFromCache) { // expand node again
-          OpenEvent.fire(tree, nodeMapOfDisplay.get(expandNode).getNode());
+          TreeNode openingNode = nodeMapOfDisplay.get(expandNode).getNode();
+          if (openingNode != null) { // it node has no child
+            OpenEvent.fire(tree, openingNode);
+          }
         }
       }
-    }    
+    }
+    
+    
     
     /**
      * Обновляет текущее отображение списка указанных узлов дерева.
@@ -879,7 +1095,7 @@ public class TreeField<V extends JepOption> extends ScrollPanel implements HasCh
    * @param fieldIdAsWebEl ID JepTreeField'а, который берется за основу ID внутренних компонентов
    */
   public void setCompositeWebIds(String fieldIdAsWebEl) {
-    //TODO uncomment
-    // selectAllCheckBox.getElement().setId(fieldIdAsWebEl + JepRiaAutomationConstant.JEP_TREE_FIELD_CHECKALL_POSTFIX);
+    selectAllCheckBox.getElement().setId(fieldIdAsWebEl + JepRiaAutomationConstant.JEP_TREE_FIELD_CHECKALL_POSTFIX);
   }
 }
+

@@ -2,7 +2,7 @@ package com.technology.jep.jepria.shared.text;
 
 /**
  * Interface to represent the constants contained in resource bundle:
- * 	'E:/git/javaenterpriseplatform/Module/JepRia/App/src/java/com/technology/jep/jepria/shared/text/JepRiaText.properties'.
+ * 	'D:/Project/JEPGit/Module/JepRia/App/src/java/com/technology/jep/jepria/shared/text/JepRiaText.properties'.
  */
 public interface JepRiaText extends com.google.gwt.i18n.client.Constants {
   
@@ -1258,11 +1258,11 @@ public interface JepRiaText extends com.google.gwt.i18n.client.Constants {
   String toolbar_paging_single_record();
 
   /**
-   * Translated "Пусто".
+   * Translated "<Пусто>".
    * 
-   * @return translated "Пусто"
+   * @return translated "<Пусто>"
    */
-  @DefaultStringValue("Пусто")
+  @DefaultStringValue("<Пусто>")
   @Key("tree.empty")
   String tree_empty();
 
@@ -1668,6 +1668,6 @@ public interface JepRiaText extends com.google.gwt.i18n.client.Constants {
    * @return translated ""
    */
   @DefaultStringValue("")
-  @Key("\uFEFF\uFEFF")
-  String _﻿();
+  @Key("\uFEFF\uFEFF\uFEFF")
+  String _﻿﻿();
 }

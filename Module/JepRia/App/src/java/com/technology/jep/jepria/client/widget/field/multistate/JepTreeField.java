@@ -248,11 +248,11 @@ public class JepTreeField extends JepMultiStateField<TreeField<JepOption>, HTML>
       if(WorkstateEnum.isEditableState(newWorkstate)) { // Для случая Редактирования: ...
         editableCard.setCheckable(true);// позволим отмечать узлы дерева
         editableCard.setBorders(true); // отобразим границы рабочей области компонента
-        editableCard.getElement().getStyle().setBackgroundColor("white"); // установим белый фон рабочей области компонента
+        editableCard.setBackgroundColor("white"); // установим белый фон рабочей области компонента
       } else { // Для случая Просмотра: ...
         editableCard.setCheckable(false); // запретим отмечать узлы дерева
         editableCard.setBorders(false); // скроем границы рабочей области компонента
-        editableCard.getElement().getStyle().setBackgroundColor("transparent"); // установим прозрачный фон рабочей области компонента
+        editableCard.setBackgroundColor("transparent"); // установим прозрачный фон рабочей области компонента
       }      
     }
   
@@ -314,6 +314,15 @@ public class JepTreeField extends JepMultiStateField<TreeField<JepOption>, HTML>
         notifyListeners(CHANGE_CHECK_EVENT, new JepEvent(JepTreeField.this, event));
       }
     });
+  }
+  
+  /**
+   * Установка видимости флага "Выделить все".<br>
+   * По умолчанию флаг невидим.
+   * @param visible если true, то показать, в противном случае - скрыть
+   */
+  public void setSelectAllCheckBoxVisible(boolean visible) {
+    editableCard.setSelectAllCheckBoxVisible(visible);
   }
   
   @Override
