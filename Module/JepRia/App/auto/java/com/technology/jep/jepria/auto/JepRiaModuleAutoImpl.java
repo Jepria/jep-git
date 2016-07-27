@@ -26,6 +26,7 @@ import static com.technology.jep.jepria.client.JepRiaAutomationConstant.JEP_TREE
 import static com.technology.jep.jepria.client.JepRiaAutomationConstant.JEP_TREENODE_CHECKEDSTATE_VALUE_UNCHECKABLE;
 import static com.technology.jep.jepria.client.JepRiaAutomationConstant.JEP_TREENODE_INFIX;
 import static com.technology.jep.jepria.client.JepRiaAutomationConstant.JEP_TREENODE_ISLEAF_HTML_ATTR;
+import static com.technology.jep.jepria.client.JepRiaAutomationConstant.JEP_TREE_FIELD_CHECKALL_POSTFIX;
 import static com.technology.jep.jepria.client.JepRiaAutomationConstant.TOOLBAR_ADD_BUTTON_ID;
 import static com.technology.jep.jepria.client.JepRiaAutomationConstant.TOOLBAR_DELETE_BUTTON_ID;
 import static com.technology.jep.jepria.client.JepRiaAutomationConstant.TOOLBAR_EDIT_BUTTON_ID;
@@ -568,7 +569,9 @@ public class JepRiaModuleAutoImpl<A extends EntranceAppAuto, P extends JepRiaApp
 		} else {
 			// Кнопка "выделить все" найдена.
 			
-			if (selectAllCheckBox.isSelected()) {
+		  WebElement selectAllCheckBoxInput = selectAllCheckBox.findElement(By.xpath("./input[@type='checkbox']"));
+		  
+			if (selectAllCheckBoxInput.isSelected()) {
 				if (!selectAll) {
 					getWait().until(elementToBeClickable(selectAllCheckBox));
 					selectAllCheckBox.click();
@@ -794,6 +797,45 @@ public class JepRiaModuleAutoImpl<A extends EntranceAppAuto, P extends JepRiaApp
       throw new IllegalArgumentException(itemPath + " is not a syntactically valid path to an option: "
           + "the path must neither contain empty elements '//', nor begin, nor end with unescaped slash '/'");
     }
+  }
+  
+  @Override
+  public boolean selectAllTreeItems(String treeFieldId, boolean selectAll) {
+    pages.getApplicationPage().ensurePageLoaded();
+    
+    // Cначала пробуем сделать это кнопкой "выделить все"
+    WebElement selectAllCheckBox = pages.getApplicationPage().getWebDriver().
+        findElement(By.id(treeFieldId + JEP_TREE_FIELD_CHECKALL_POSTFIX));
+    
+    final boolean ret; 
+    
+    if ("true".equals(selectAllCheckBox.getAttribute("aria-hidden"))) {
+      // Кнопка "выделить все" скрыта, значит, ничего не производим.
+      ret = false;
+    } else {
+      // Кнопка "выделить все" найдена.
+      ret = true;
+      
+      WebElement selectAllCheckBoxInput = selectAllCheckBox.findElement(By.xpath("./input[@type='checkbox']"));
+      
+      if (selectAllCheckBoxInput.isSelected()) {
+        if (!selectAll) {
+          getWait().until(elementToBeClickable(selectAllCheckBox));
+          selectAllCheckBox.click();
+        }
+      } else {
+        // устанавливаем флажок
+        getWait().until(elementToBeClickable(selectAllCheckBox));
+        selectAllCheckBox.click();
+        if (!selectAll) {
+          // далее при необходимости его снимаем
+          getWait().until(elementToBeClickable(selectAllCheckBox));
+          selectAllCheckBox.click();
+        }
+      }
+    }
+    
+    return ret;
   }
   
   @Override

@@ -222,6 +222,15 @@ public interface JepRiaModuleAuto extends EntranceAuto {
   void selectTreeItems(String treeFieldId, String itemPaths[]);
   
   /**
+   * Выбор всех элементов JepTreeField по заданному Id, с помощью флажка "Выделить все".
+   * Если данный флажок отсутствует, метод не производит ничего.
+   * @param treeFieldId id JepTree-поля
+   * @param selectAll true для выбора всех элементов, false для снятия всех флажков.
+   * @return true если флажок "Выделить все" доступен в данном JepTreeField, иначе false.
+   */
+  boolean selectAllTreeItems(String treeFieldId, boolean selectAll);
+  
+  /**
    * Получение массива путей до узлов, проходящих через фильтр, поля JepTreeField.
    * 
    * @param treeFieldId id JepTreeField'а

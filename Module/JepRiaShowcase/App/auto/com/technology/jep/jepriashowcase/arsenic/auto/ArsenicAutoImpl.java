@@ -181,6 +181,11 @@ public class ArsenicAutoImpl<A extends JepRiaShowcaseAuto, P extends JepRiaShowc
   }
   
   @Override
+  public boolean selectAllJepTreeField_nodes(boolean selectAll) {
+    return selectAllTreeItems(ARSENIC_JEP_TREE_FIELD_NODES_ID, selectAll);
+  }
+  
+  @Override
   public void setJepTreeField_casc(String[] value) {
     selectTreeItems(ARSENIC_JEP_TREE_FIELD_CASC_ID, value);
   }
@@ -270,17 +275,22 @@ public class ArsenicAutoImpl<A extends JepRiaShowcaseAuto, P extends JepRiaShowc
   }
   
   @Override
-  public String[] getJepTreeField() {
+  public String[] getJepTreeField_checked() {
     return getTreeFieldNodesByFilter(ARSENIC_JEP_TREE_FIELD_ID, TreeItemFilter.FILTER_CHECKED);
   }
   
   @Override
-  public String[] getJepTreeField_nodes() {
+  public String[] getJepTreeField_nodes_checked() {
     return getTreeFieldNodesByFilter(ARSENIC_JEP_TREE_FIELD_NODES_ID, TreeItemFilter.FILTER_CHECKED);
   }
   
   @Override
-  public String[] getJepTreeField_casc() {
+  public String[] getJepTreeField_nodes_visible() {
+    return getTreeFieldNodesByFilter(ARSENIC_JEP_TREE_FIELD_NODES_ID, TreeItemFilter.FILTER_VISIBLE);
+  }
+  
+  @Override
+  public String[] getJepTreeField_casc_checked() {
     return getTreeFieldNodesByFilter(ARSENIC_JEP_TREE_FIELD_CASC_ID, TreeItemFilter.FILTER_CHECKED_LEAVES);
   }
 
