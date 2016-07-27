@@ -80,8 +80,6 @@
 <div class="block">Error code thrown when the read operation was aborted,
  typically with a call to <code>abort()</code>.</div>
 </dd>
-<dt><span class="strong"><a href="./com/technology/jep/jepria/client/widget/field/tree/TreeNodeInfo.html#absentOfChildren()">absentOfChildren()</a></span> - Method in class com.technology.jep.jepria.client.widget.field.tree.<a href="./com/technology/jep/jepria/client/widget/field/tree/TreeNodeInfo.html" title="class in com.technology.jep.jepria.client.widget.field.tree">TreeNodeInfo</a></dt>
-<dd>&nbsp;</dd>
 <dt><a href="./com/technology/jep/jepria/server/download/AbstractFileDownload.html" title="class in com.technology.jep.jepria.server.download"><span class="strong">AbstractFileDownload</span></a> - Class in <a href="./com/technology/jep/jepria/server/download/package-summary.html">com.technology.jep.jepria.server.download</a></dt>
 <dd>
 <div class="block">Абстрактный базовый класс для реализаций выгрузки файла.</div>
@@ -1123,7 +1121,9 @@
 <dt><span class="strong"><a href="./com/technology/jep/jepria/client/widget/field/wysiwyg/toolbar/upload/ImageUploadFile.html#AVAILABLE_IMAGE_EXTENSION">AVAILABLE_IMAGE_EXTENSION</a></span> - Static variable in class com.technology.jep.jepria.client.widget.field.wysiwyg.toolbar.upload.<a href="./com/technology/jep/jepria/client/widget/field/wysiwyg/toolbar/upload/ImageUploadFile.html" title="class in com.technology.jep.jepria.client.widget.field.wysiwyg.toolbar.upload">ImageUploadFile</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="strong"><a href="./com/technology/jep/jepria/client/widget/field/tree/TreeField.html#availableSelectedNodes">availableSelectedNodes</a></span> - Variable in class com.technology.jep.jepria.client.widget.field.tree.<a href="./com/technology/jep/jepria/client/widget/field/tree/TreeField.html" title="class in com.technology.jep.jepria.client.widget.field.tree">TreeField</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Список доступных для выбора узлов, учитывающий возможность установки значения в модель выбора</div>
+</dd>
 </dl>
 <a name="_B_">
 <!--   -->
@@ -9523,6 +9523,10 @@
 <dd>
 <div class="block">Установка сообщения об ошибке.</div>
 </dd>
+<dt><span class="strong"><a href="./com/technology/jep/jepria/client/widget/field/tree/TreeField.html#markNodeAsSelectedIfAvailable(V)">markNodeAsSelectedIfAvailable(V)</a></span> - Method in class com.technology.jep.jepria.client.widget.field.tree.<a href="./com/technology/jep/jepria/client/widget/field/tree/TreeField.html" title="class in com.technology.jep.jepria.client.widget.field.tree">TreeField</a></dt>
+<dd>
+<div class="block">Помечаем узел как доступный для выбора, если это возможно.</div>
+</dd>
 <dt><a href="./com/technology/jep/jepria/client/widget/field/masked/Mask.html" title="class in com.technology.jep.jepria.client.widget.field.masked"><span class="strong">Mask</span></a> - Class in <a href="./com/technology/jep/jepria/client/widget/field/masked/package-summary.html">com.technology.jep.jepria.client.widget.field.masked</a></dt>
 <dd>
 <div class="block">Маска, используемая в виджете JepMaskedTextField.</div>
@@ -13601,6 +13605,8 @@
 <dd>
 <div class="block">Установка web-ID внутренних компонентов, специфичных для конкретного Jep-поля.</div>
 </dd>
+<dt><span class="strong"><a href="./com/technology/jep/jepria/client/widget/field/multistate/JepTreeField.html#setWebIds()">setWebIds()</a></span> - Method in class com.technology.jep.jepria.client.widget.field.multistate.<a href="./com/technology/jep/jepria/client/widget/field/multistate/JepTreeField.html" title="class in com.technology.jep.jepria.client.widget.field.multistate">JepTreeField</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="strong"><a href="./com/technology/jep/jepria/client/ui/form/detail/DetailFormViewImpl.html#setWidget(com.google.gwt.user.client.ui.Widget)">setWidget(Widget)</a></span> - Method in class com.technology.jep.jepria.client.ui.form.detail.<a href="./com/technology/jep/jepria/client/ui/form/detail/DetailFormViewImpl.html" title="class in com.technology.jep.jepria.client.ui.form.detail">DetailFormViewImpl</a></dt>
 <dd>
 <div class="block">Установка визуального компонента детальной формы.</div>

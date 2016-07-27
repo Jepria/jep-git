@@ -148,6 +148,9 @@ public class TreeField<V extends JepOption> extends Composite implements HasChec
    */
   private Map<V, TreeNodeInfo<V>> nodeMapOfDisplay = new HashMap<V, TreeNodeInfo<V>>();
   
+  /**
+   * Список доступных для выбора узлов, учитывающий возможность установки значения в модель выбора
+   */
   private List<V> availableSelectedNodes = new ArrayList<V>();
   
   /* Resources: texts and images */
@@ -739,6 +742,10 @@ public class TreeField<V extends JepOption> extends Composite implements HasChec
         }
         break; 
       }
+      case BOTH :
+      default : { // допускается выделять любые типы узлов дерева
+        availableSelectedNodes.add(value);
+      } 
     }
   }
   /**
