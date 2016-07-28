@@ -4,6 +4,7 @@ package com.technology.jep.jepria.shared.exceptions;
  * Сигнализирует об отсутствии поддержки функции
  */
 public class UnsupportedException extends SystemException {
+  
   private static final long serialVersionUID = 4781584672406212570L;
 
   public UnsupportedException() {
@@ -20,6 +21,6 @@ public class UnsupportedException extends SystemException {
   }
 
   public UnsupportedException(String message) {
-    this(message, null);
+    super(message);
   }
 }

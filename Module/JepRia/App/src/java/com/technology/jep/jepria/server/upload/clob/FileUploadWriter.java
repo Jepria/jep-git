@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.Writer;
-import java.rmi.RemoteException;
 import java.util.Map;
 
 import com.technology.jep.jepria.server.exceptions.SpaceException;
@@ -49,7 +48,7 @@ public class FileUploadWriter extends Writer {
    *
    * @param fileUpload  интерфейс бина, который будет использоваться для записи файла в базу данных.
    */      
-  public FileUploadWriter(TextFileUpload fileUpload) throws RemoteException, ApplicationException {
+  public FileUploadWriter(TextFileUpload fileUpload) throws ApplicationException {
     if (fileUpload == null) {
       throw new IllegalArgumentException("The bean reference is not expected to be null");
     }
@@ -131,7 +130,7 @@ public class FileUploadWriter extends Writer {
         }
       }
       
-    } catch (Exception e) {
+    } catch (ApplicationException e) {
       throw new SystemException(e.getMessage(), e);
     } finally {
       if(bufferedReader != null) { 

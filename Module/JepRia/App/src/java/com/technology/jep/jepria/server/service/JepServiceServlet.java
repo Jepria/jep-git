@@ -5,7 +5,7 @@ import org.apache.log4j.Logger;
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import com.technology.jep.jepria.server.security.SecurityFactory;
-import com.technology.jep.jepria.shared.exceptions.SystemException;
+import com.technology.jep.jepria.shared.exceptions.ApplicationException;
 
 /**
  * Абстрактный предок сервисов Jep.
@@ -23,11 +23,11 @@ abstract public class JepServiceServlet extends RemoteServiceServlet implements 
     return SecurityFactory.getSecurityModule(getThreadLocalRequest()).getOperatorId();
   }
   
-  protected SystemException buildException(String message, Throwable th) {
-    return new SystemException(message, th);
+  protected ApplicationException buildException(String message, Throwable th) {
+    return new ApplicationException(message, th);
   }
   
-  protected SystemException buildException(Throwable th) {
+  protected ApplicationException buildException(Throwable th) {
     return buildException(null, th);
   }
 }

@@ -5,7 +5,7 @@ import java.util.List;
 import com.google.gwt.i18n.client.LocaleInfo;
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.technology.jep.jepria.shared.exceptions.ApplicationException;
-import com.technology.jep.jepria.shared.exceptions.SystemException;
+import com.technology.jep.jepria.shared.exceptions.ApplicationException;
 import com.technology.jep.jepria.shared.field.option.JepOption;
 import com.technology.jep.jepria.shared.load.FindConfig;
 import com.technology.jep.jepria.shared.load.PagingConfig;
@@ -23,53 +23,53 @@ public interface JepDataService extends RemoteService {
    * 
    * @param createConfig конфигурация создаваемой записи
    * @return результирующая запись
-   * @throws SystemException
+   * @throws ApplicationException
    */
-  JepRecord create(FindConfig createConfig) throws SystemException;
+  JepRecord create(FindConfig createConfig) throws ApplicationException;
   
   /**
    * Удаление объекта.
    * 
    * @param deleteConfig конфигурация удаляемой записи
-   * @throws SystemException
+   * @throws ApplicationException
    */
-  void delete(FindConfig deleteConfig) throws SystemException; 
+  void delete(FindConfig deleteConfig) throws ApplicationException; 
   
   /**
    * Обновление объекта.
    * 
    * @param updateConfig конфигурация записи с новыми значениями
    * @return результирующая запись
-   * @throws SystemException
+   * @throws ApplicationException
    */
-  JepRecord update(FindConfig updateConfig) throws SystemException; 
+  JepRecord update(FindConfig updateConfig) throws ApplicationException; 
   
   /**
    * Поиск.
    * 
    * @param pagingConfig параметры поиска
    * @return результат поиска
-   * @throws SystemException
+   * @throws ApplicationException
    */
-  PagingResult<JepRecord> find(PagingConfig pagingConfig) throws SystemException;
+  PagingResult<JepRecord> find(PagingConfig pagingConfig) throws ApplicationException;
   
   /**
    * Сортировка.
    * 
    * @param sortConfig параметры сортировки
    * @return результат сортировки
-   * @throws SystemException
+   * @throws ApplicationException
    */
-  PagingResult<JepRecord> sort(SortConfig sortConfig) throws SystemException;
+  PagingResult<JepRecord> sort(SortConfig sortConfig) throws ApplicationException;
   
   /**
    * Листание данных.
    * 
    * @param pagingConfig параметры листания данных
    * @return результат листания
-   * @throws SystemException
+   * @throws ApplicationException
    */
-  PagingResult<JepRecord> paging(PagingConfig pagingConfig) throws SystemException;
+  PagingResult<JepRecord> paging(PagingConfig pagingConfig) throws ApplicationException;
   
   /**
    * Подготавливает данные для формирования Excel-отчета.
@@ -77,18 +77,18 @@ public interface JepDataService extends RemoteService {
    * @param pagingConfig параметры поиска
    * @param reportHeaders список содержащий названия колонок
    * @param reportFields список содержащий идентификаторы полей, из которых брать данные для колонок
-   * @throws SystemException
+   * @throws ApplicationException
    */
-  void prepareExcel(PagingConfig pagingConfig, List<JepRecord> selectedRecords, List<String> reportHeaders, List<String> reportFields) throws SystemException;
+  void prepareExcel(PagingConfig pagingConfig, List<JepRecord> selectedRecords, List<String> reportHeaders, List<String> reportFields) throws ApplicationException;
 
   /**
    * Метод проверки необходимости автообновления.
    * 
    * @param listUID уникальный идентификатор списка
    * @return TRUE, если автообновление нужно; FALSE в противном случае
-   * @throws SystemException
+   * @throws ApplicationException
    */
-  Boolean isRefreshNeeded(Integer listUID) throws SystemException;
+  Boolean isRefreshNeeded(Integer listUID) throws ApplicationException;
 
   /**
    * Записывает в сессию атрибуты для выгрузки файла и возвращает id загрузки.<br>
