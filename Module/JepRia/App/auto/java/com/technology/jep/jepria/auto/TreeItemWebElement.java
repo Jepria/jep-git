@@ -14,12 +14,12 @@ import com.technology.jep.jepria.auto.exceptions.AutomationException;
 
 /**
  * Декоратор для тех экземпляров класса {@link org.openqa.selenium.WebElement}, которые являются
- * узлами GWT-дерева (иденификация по атрибуту role='treeitem'), либо корнем дерева
+ * узлами GWT-дерева (иденификация по атрибуту <code>role='treeitem'</code>), либо корнем дерева
  * (корнем может быть любой элемент, содержащий внутри себя узлы GWT-дерева).
  * 
- * Декоратор предоставляет упрощенное получение свойств (атрибутов) узла дерева как из самого treeitem-элемента
- * (например, aria-expanded - признак развернутости узла, aria-level - уровень вложенности),
- * так и из содержащегося в нем JEP-попрожденного элемента span, описывающего структуру ячейки дерева
+ * Декоратор предоставляет упрощенное получение свойств (атрибутов) узла дерева как из самого <code>treeitem</code>-элемента
+ * (например, <code>aria-expanded</code> &mdash; признак развернутости узла, <code>aria-level</code> &mdash; уровень вложенности),
+ * так и из содержащегося в нем JEP-попрожденного элемента <code>span</code>, описывающего структуру ячейки дерева
  * (например, имя узла или его checked-состояние).
  * 
  * Класс является одновременно фабрикой, производящей объекты по результатам парсинга веб-элементов. 
@@ -28,9 +28,9 @@ import com.technology.jep.jepria.auto.exceptions.AutomationException;
 public final class TreeItemWebElement {
   /**
    * Этот енум определяется JEP(а не GWT)-свойством отмеченности узла дерева, то есть атрибутом
-   * jep-treenode-checkedstate элемента span, а не атрибутом aria-selected элемента div[role='treeitem'].
-   * Элементы енума тождественны автоматизационным константам-значениям атрибута jep-treenode-checkedstate,
-   * однако не стоит их смешивать, равно как и использовать этот енум на клиенте
+   * <code>jep-treenode-checkedstate</code> элемента <code>span</code>, а не атрибутом <code>aria-selected</code>
+   * элемента <code>div[role='treeitem']</code>. Элементы енума тождественны автоматизационным константам-значениям
+   * атрибута <code>jep-treenode-checkedstate</code>, однако не стоит их смешивать, равно как и использовать этот енум на клиенте
    * (см. {@link com.technology.jep.jepria.client.widget.field.tree.TreeField.TreeModel#getNodeInfo getNodeInfo::new CompositeCell<V>#render}).  
    * @author RomanovAS
    */
@@ -43,28 +43,29 @@ public final class TreeItemWebElement {
   private final WebElement webElement;
   
   /**
-   * Jep-имя узла дерева (имя JepOption, лежащей в основе узла).
+   * Jep-имя узла дерева (имя <code>JepOption</code>, лежащей в основе узла).
    */
   private final String itemName;
   
   /**
    * Признак корня дерева (в любом дереве может быть только один корень, не являющийся GWT-узлом,
-   * то есть не имеющий role='treeitem', на уровне вложенности 0).
+   * то есть не имеющий <code>role='treeitem'</code>, на уровне вложенности <code>0</code>).
    */
   private final boolean isRootOfTree;
   
   /**
-   * Признаки разворачиваемости и развернутости узла (aria-expanded == null, aria-expanded == true).
+   * Признаки разворачиваемости и развернутости узла (<code>aria-expanded == null</code>, <code>aria-expanded == true</code>).
    */
   private final boolean isLeaf, isExpanded;
   
   /**
-   * Уровень вложенности узла в дереве (aria-level).
+   * Уровень вложенности узла в дереве (<code>aria-level</code>).
    */
   private final int level;
   
   /**
-   * Jep-состояние отмеченности узла (checked/unchecked/partial).
+   * Jep-состояние отмеченности узла
+   * (<code>checked</code>/<code>unchecked</code>/<code>partial</code>).
    */
   private final CheckedState checkedState;
   

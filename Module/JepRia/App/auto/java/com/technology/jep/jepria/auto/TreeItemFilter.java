@@ -4,16 +4,16 @@ import com.technology.jep.jepria.auto.TreeItemWebElement.CheckedState;
 
 /**
  * Вспомогательный интерфейс (паттерн команда), используемый при обходе дерева.
- * Методы инфтерфейса применяются ко всем узлам дерева во время обхода.
+ * Методы интерфейса применяются ко всем узлам дерева во время обхода.
  * @author RomanovAS
  */
 public interface TreeItemFilter {
   /**
    * Метод, проверяющий, нужно ли данный узел дерева помещать в результирующий список.
-   * Например, если нужно получить только отмеченные развернутые папки в дереве:
-   * <br><br><code><pre>
+   * Например, если нужно получить только отмеченные развёрнутые папки в дереве:
+   * <br><br><pre>
    * return treeItem.isExpanded() && treeItem.getCheckedState() == CheckedState.CHECKED;
-   * <pre/></code>
+   * </pre>
    * @param treeItem проверяемый узел дерева
    */
   boolean putToResult(TreeItemWebElement treeItem);
@@ -21,17 +21,17 @@ public interface TreeItemFilter {
   /**
    * Метод, проверяющий, нужно ли рекурсивно обходить детей данного узла, 
    * либо остановить обход вглубь на данном узле.
-   * Например, если не нужно обходить папки 3-го и больших уровней вложенности в дереве:
-   * <br><br><code><pre>
+   * Например, если не нужно обходить папки 3-го и б<b>о</b>льших уровней вложенности в дереве:
+   * <br><pre>
    * return treeItem.getLevel() < 3;
-   * <pre/></code><br>
+   * </pre>
    * Метод вызывается только для развернутых папок и, если имеется, корневого элемента.
    * @param treeNode проверяемый узел
    */
   boolean traverseDescendants(TreeItemWebElement treeItem);
   
   /**
-   * Реализация фильтра для получения всех видимых (развернутых) узлов. 
+   * Реализация фильтра для получения всех видимых (развёрнутых) узлов. 
    */
   public static final TreeItemFilter FILTER_VISIBLE = new TreeItemFilter() {
     @Override
