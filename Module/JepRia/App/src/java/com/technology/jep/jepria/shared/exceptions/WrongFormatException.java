@@ -4,6 +4,7 @@ package com.technology.jep.jepria.shared.exceptions;
  * Инициируется при обнаружении неверного формата
  */
 public class WrongFormatException extends SystemException {
+  
   private static final long serialVersionUID = 4781584672406212570L;
 
   public WrongFormatException() {
@@ -20,6 +21,6 @@ public class WrongFormatException extends SystemException {
   }
 
   public WrongFormatException(String message) {
-    this(message, null);
+    super(message);
   }
 }

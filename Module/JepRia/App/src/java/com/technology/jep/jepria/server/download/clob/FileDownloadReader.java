@@ -121,7 +121,7 @@ public class FileDownloadReader extends Reader {
           writer.write(lastBuffer);
         }
       }
-    } catch (Exception e) {
+    } catch (ApplicationException e) {
       throw new SystemException(e.getMessage(), e);
     } finally {
       if(readStream != null) {

@@ -47,6 +47,7 @@ import com.technology.jep.jepria.server.upload.clob.FileUploadWriter;
 import com.technology.jep.jepria.server.upload.clob.TextFileUploadImpl;
 import com.technology.jep.jepria.server.util.JepServerUtil;
 import com.technology.jep.jepria.shared.dto.JepSorter;
+import com.technology.jep.jepria.shared.exceptions.ApplicationException;
 import com.technology.jep.jepria.shared.exceptions.SystemException;
 import com.technology.jep.jepria.shared.field.JepLikeEnum;
 import com.technology.jep.jepria.shared.field.JepTypeEnum;
@@ -119,7 +120,7 @@ abstract public class JepDataServiceServlet<D extends JepDataStandard> extends J
   }
 
   @Override
-  public JepRecord update(FindConfig updateConfig) {
+  public JepRecord update(FindConfig updateConfig) throws ApplicationException {
     JepRecord record = updateConfig.getTemplateRecord();
     
     logger.trace("BEGIN update(" + record + ")");
@@ -127,23 +128,17 @@ abstract public class JepDataServiceServlet<D extends JepDataStandard> extends J
     
     prepareFileFields(record);
     
-    try {
-      dao.update(record, getOperatorId());
-      updateLobFields(record);
-      resultRecord = findByPrimaryKey(recordDefinition.buildPrimaryKeyMap(record));
-      clearFoundRecords(updateConfig);
-    } catch (Throwable th) {
-      String message = "Update error";
-      logger.error(message, th);
-      throw buildException(message, th);
-    }
-
+    dao.update(record, getOperatorId());
+    updateLobFields(record);
+    resultRecord = findByPrimaryKey(recordDefinition.buildPrimaryKeyMap(record));
+    clearFoundRecords(updateConfig);
+    
     logger.trace("END update(" + resultRecord + ")");
     return resultRecord;
   }
 
   @Override
-  public JepRecord create(FindConfig createConfig) {
+  public JepRecord create(FindConfig createConfig) throws ApplicationException {
     JepRecord record = createConfig.getTemplateRecord();
     
     logger.trace("BEGIN create(" + record + ")");
@@ -151,30 +146,24 @@ abstract public class JepDataServiceServlet<D extends JepDataStandard> extends J
 
     prepareFileFields(record);
     
-    try {
-      Object recordId = dao.create(record, getOperatorId());
-      String[] primaryKey = recordDefinition.getPrimaryKey();
-      if(recordId != null) {
-        if(primaryKey.length == 1) {
-          record.set(primaryKey[0], recordId); // TODO Разобраться со случаями (очень частыми), когда pk уже присутствует
-        } else {
-          throw new SystemException("When create return non-null, primary key should be simple, but detected: primaryKey = " + primaryKey);
-        }
+    Object recordId = dao.create(record, getOperatorId());
+    String[] primaryKey = recordDefinition.getPrimaryKey();
+    if(recordId != null) {
+      if(primaryKey.length == 1) {
+        record.set(primaryKey[0], recordId); // TODO Разобраться со случаями (очень частыми), когда pk уже присутствует
+      } else {
+        throw new SystemException("When create return non-null, primary key should be simple, but detected: primaryKey = " + primaryKey);
       }
-      updateLobFields(record);
-      resultRecord = findByPrimaryKey(recordDefinition.buildPrimaryKeyMap(record));
-      clearFoundRecords(createConfig);
-    } catch (Throwable th) {
-      String message = "Create error";
-      logger.error(message, th);
-      throw buildException(message, th);
     }
+    updateLobFields(record);
+    resultRecord = findByPrimaryKey(recordDefinition.buildPrimaryKeyMap(record));
+    clearFoundRecords(createConfig);
     
     logger.trace("END create(" + record + ")");
     return resultRecord;
   }
 
-  protected JepRecord findByPrimaryKey(Map<String, Object> primaryKey) {
+  protected JepRecord findByPrimaryKey(Map<String, Object> primaryKey) throws ApplicationException {
     logger.trace("BEGIN findByPrimaryKey(" + primaryKey + ")");
     
     JepRecord templateRecord = new JepRecord();
@@ -196,18 +185,12 @@ abstract public class JepDataServiceServlet<D extends JepDataStandard> extends J
   }
 
   @Override
-  public void delete(FindConfig deleteConfig) {
+  public void delete(FindConfig deleteConfig) throws ApplicationException {
     JepRecord record = deleteConfig.getTemplateRecord();
     logger.trace("BEGIN delete(" + record + ")");
     
-    try {
-      dao.delete(record, getOperatorId());
-      clearFoundRecords(deleteConfig);      
-    } catch (Throwable th) {
-      String message = "Delete error";
-      logger.error(message, th);
-      throw buildException(message, th);
-    }
+    dao.delete(record, getOperatorId());
+    clearFoundRecords(deleteConfig);      
     
     logger.trace("END delete(" + record + ")");
   }
@@ -220,7 +203,7 @@ abstract public class JepDataServiceServlet<D extends JepDataStandard> extends J
    * @return результаты поиска
    */
   @Override
-  public PagingResult<JepRecord> find(PagingConfig pagingConfig) {
+  public PagingResult<JepRecord> find(PagingConfig pagingConfig) throws ApplicationException {
     logger.trace("BEGIN find(" + pagingConfig + ")");
     
     PagingResult<JepRecord> pagingResult = new PagingResult<JepRecord>();
@@ -235,17 +218,12 @@ abstract public class JepDataServiceServlet<D extends JepDataStandard> extends J
     prepareLikeFields(findModel);
     
     Mutable<Boolean> autoRefreshFlag = new Mutable<Boolean>(false);
-    try {
-      resultRecords = dao.find(
-          findModel,
-          autoRefreshFlag,
-          maxRowCount,
-          getOperatorId());
-    } catch (Throwable th) {
-      String message = "Find error";
-      logger.error(message, th);
-      throw buildException(message, th);
-    }
+    
+    resultRecords = dao.find(
+        findModel,
+        autoRefreshFlag,
+        maxRowCount,
+        getOperatorId());
     
     HttpSession session = getThreadLocalRequest().getSession();
     // Сохраним результаты поиска для возможного повторного использования в приложении 
@@ -279,7 +257,7 @@ abstract public class JepDataServiceServlet<D extends JepDataStandard> extends J
    * @return результат сортировки
    */
   @SuppressWarnings("unchecked")
-  public PagingResult<JepRecord> sort(SortConfig sortConfig) {
+  public PagingResult<JepRecord> sort(SortConfig sortConfig) throws ApplicationException {
     logger.trace("BEGIN sort(" + sortConfig + ")");
     
     PagingResult<JepRecord> pagingResult = new PagingResult<JepRecord>();
@@ -335,7 +313,7 @@ abstract public class JepDataServiceServlet<D extends JepDataStandard> extends J
    * @return результат листания
    */
   @SuppressWarnings("unchecked")
-  public PagingResult<JepRecord> paging(PagingConfig pagingConfig) {
+  public PagingResult<JepRecord> paging(PagingConfig pagingConfig) throws ApplicationException {
     logger.trace("BEGIN paging(" + pagingConfig + ")");
     
     PagingResult<JepRecord> pagingResult = new PagingResult<JepRecord>();
@@ -404,7 +382,7 @@ abstract public class JepDataServiceServlet<D extends JepDataStandard> extends J
    * @param reportFields список содержащий идентификаторы полей, из которых брать данные для колонок
    */
   @SuppressWarnings("unchecked")
-  public void prepareExcel(PagingConfig pagingConfig, List<JepRecord> selectedRecords, List<String> reportHeaders, List<String> reportFields) {
+  public void prepareExcel(PagingConfig pagingConfig, List<JepRecord> selectedRecords, List<String> reportHeaders, List<String> reportFields) throws ApplicationException {
     logger.trace("BEGIN prepareExcel(" + pagingConfig + ")");
 
     Integer listUID = pagingConfig.getListUID();
@@ -546,7 +524,7 @@ abstract public class JepDataServiceServlet<D extends JepDataStandard> extends J
   /**
    * Обновление Lob-полей в базе данных.
    */
-  protected void updateLobFields(JepRecord record) throws IOException, Exception {
+  protected void updateLobFields(JepRecord record) throws ApplicationException {
     if(recordDefinition instanceof JepLobRecordDefinition) {
       Map<String, Object> primaryKeyMap = recordDefinition.buildPrimaryKeyMap(record);
       String tableName = ((JepLobRecordDefinition)recordDefinition).getTableName();
@@ -572,19 +550,24 @@ abstract public class JepDataServiceServlet<D extends JepDataStandard> extends J
   private void upload(String text,
             String tableName,
             String fileFieldName,
-            Map<String, Object> primaryKeyMap) throws IOException, Exception {
+            Map<String, Object> primaryKeyMap) throws ApplicationException {
     Reader reader = new StringReader(text);
     
     if(primaryKeyMap.size() == 1) {
-      FileUploadWriter.uploadFile(
-          reader,
-          new TextFileUploadImpl(),
-          tableName,
-          fileFieldName,
-          ((JepLobRecordDefinition)recordDefinition).getKeyFieldName(),
-          primaryKeyMap.values().toArray()[0],
-          this.dataSourceJndiName,
-          null);
+      try {
+        FileUploadWriter.uploadFile(
+            reader,
+            new TextFileUploadImpl(),
+            tableName,
+            fileFieldName,
+            ((JepLobRecordDefinition)recordDefinition).getKeyFieldName(),
+            primaryKeyMap.values().toArray()[0],
+            this.dataSourceJndiName,
+            null);
+      }
+      catch(IOException e) {
+        throw new ApplicationException(e.getMessage(), e);
+      }
     } else {
       FileUploadWriter.uploadFile(
           reader,

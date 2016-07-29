@@ -19,7 +19,6 @@ import com.technology.jep.jepria.client.async.JepAsyncCallback;
 import com.technology.jep.jepria.client.history.place.JepSearchPlace;
 import com.technology.jep.jepria.client.history.place.JepViewDetailPlace;
 import com.technology.jep.jepria.client.history.place.JepViewListPlace;
-import com.technology.jep.jepria.client.history.place.JepWorkstatePlace;
 import com.technology.jep.jepria.client.history.place.PlainPlaceController;
 import com.technology.jep.jepria.client.history.scope.JepScope;
 import com.technology.jep.jepria.client.history.scope.JepScopeStack;
@@ -42,7 +41,7 @@ import com.technology.jep.jepria.client.util.JepClientUtil;
 import com.technology.jep.jepria.client.widget.field.FieldManager;
 import com.technology.jep.jepria.client.widget.field.multistate.JepMultiStateField;
 import com.technology.jep.jepria.client.widget.field.multistate.large.JepLargeField;
-import com.technology.jep.jepria.shared.exceptions.SystemException;
+import com.technology.jep.jepria.shared.exceptions.NotSingleRecordException;
 import com.technology.jep.jepria.shared.history.JepHistoryToken;
 import com.technology.jep.jepria.shared.load.FindConfig;
 import com.technology.jep.jepria.shared.load.PagingConfig;
@@ -496,7 +495,7 @@ public class DetailFormPresenter<V extends DetailFormView, E extends PlainEventB
           String message = this.getClass() 
             + ": onDoGetRecord: pagingConfig.getTemplateRecord() = " + pagingConfig.getTemplateRecord() + " , find result size != 1";
           logger.error(message);
-          throw new SystemException(message);
+          throw new NotSingleRecordException(message);
         }
       }
     });
