@@ -29,15 +29,15 @@ public interface ArsenicAuto extends JepRiaModuleAuto {
   void setJepComboBoxFieldDurable(String value);
   void setJepComboBoxFieldReloading(String value);
   void setJepComboBoxField3chReloading(String value);
-  void setJepDualListField(String[] value);
+  void setJepDualListField(String[] values);
   void setJepCheckBoxField(boolean checked);
   void changeJepCheckBoxField();
-  void setJepListField(String[] value);
-  void setJepListFieldCheckAll(String[] value);
-  void setJepTreeField(String[] value);
-  void setJepTreeField_nodes(String[] value);
+  void setJepListField(String[] values);
+  void setJepListFieldCheckAll(String[] values);
+  void setJepTreeField(String[] values);
+  void setJepTreeField_nodes(String[] values);
   boolean selectAllJepTreeField_nodes(boolean selectAll);
-  void setJepTreeField_casc(String[] value);
+  void setJepTreeField_casc(String[] values);
   
   String getJepTextField();
   String getJepTextAreaField();
@@ -90,4 +90,8 @@ public interface ArsenicAuto extends JepRiaModuleAuto {
   
   List<String> getGridHeaders();
   List<List<Object>> getGridData();
+  
+  void doGridColumnSettings(String[] columns);
+  
+  void refreshPage();
 }

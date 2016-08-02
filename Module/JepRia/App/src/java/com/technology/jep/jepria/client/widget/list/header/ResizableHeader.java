@@ -32,6 +32,7 @@ import com.google.gwt.user.client.ui.DecoratedPopupPanel;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.client.ui.PopupPanel.AnimationType;
+import com.technology.jep.jepria.client.JepRiaAutomationConstant;
 import com.technology.jep.jepria.client.util.JepClientUtil;
 import com.technology.jep.jepria.client.widget.list.JepColumn;
 import com.technology.jep.jepria.client.widget.list.JepGrid;
@@ -172,25 +173,26 @@ public class ResizableHeader<T> extends Header<String> {
     if (panel == null) {
       final List<JepColumn> columns = cellTable.getColumns();
       panel = new DecoratedPopupPanel(true);
-        panel.setGlassEnabled(true);
-        panel.setStyleName(RESIZABLE_HEADER_MENU_STYLE);
-        panel.setPreviewingAllNativeEvents(true);
-        panel.setAnimationType(AnimationType.ROLL_DOWN);
-        panel.addCloseHandler(new CloseHandler<PopupPanel>() {
+      panel.getElement().setId(JepRiaAutomationConstant.GRID_HEADER_POPUP_ID);
+      panel.setGlassEnabled(true);
+      panel.setStyleName(RESIZABLE_HEADER_MENU_STYLE);
+      panel.setPreviewingAllNativeEvents(true);
+      panel.setAnimationType(AnimationType.ROLL_DOWN);
+      panel.addCloseHandler(new CloseHandler<PopupPanel>() {
         @Override
         public void onClose(CloseEvent<PopupPanel> event) {
           hideButton();
           panel = null;
         }
       });
-        
-        adjustPopupSize(columns.size());
-        
-        final GridHeaderMenuBar columnMenu = new GridHeaderMenuBar(this);
+      
+      adjustPopupSize(columns.size());
+      
+      final GridHeaderMenuBar columnMenu = new GridHeaderMenuBar(this);
       columnMenu.populateItems(columns);
-        panel.setWidget(columnMenu);
+      panel.setWidget(columnMenu);
     }
-      return panel;
+    return panel;
   }
 
   public void adjustPopupSize(int columnCount) {

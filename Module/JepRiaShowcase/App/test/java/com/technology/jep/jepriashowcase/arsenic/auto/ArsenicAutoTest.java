@@ -1,7 +1,6 @@
 package com.technology.jep.jepriashowcase.arsenic.auto;
 
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.SEARCH;
-import static com.technology.jep.jepria.client.ui.WorkstateEnum.VIEW_LIST;
 
 import java.util.Arrays;
 import java.util.List;
@@ -174,7 +173,7 @@ public class ArsenicAutoTest extends JepAutoTest<ArsenicAuto> {
   }
   
   @DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/arsenic/auto/field.jepListField.data")
-  @Test(groups="setAndGetFields", dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
+  @Test(groups="setAndGetFields!", dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
   public void setAndGetJepListField(String...values) {
     setWorkstate(SEARCH);
     cut.setJepListField(values);
@@ -189,7 +188,7 @@ public class ArsenicAutoTest extends JepAutoTest<ArsenicAuto> {
   }
   
   @DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/arsenic/auto/field.jepListField.data")
-  @Test(groups="setAndGetFields", dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
+  @Test(groups="setAndGetFields!", dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
   public void setAndGetJepListFieldCheckAll(String...values) {
     setWorkstate(SEARCH);
     cut.setJepListFieldCheckAll(values);
@@ -204,7 +203,7 @@ public class ArsenicAutoTest extends JepAutoTest<ArsenicAuto> {
   }
   
   @DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/arsenic/auto/field.jepTreeField.data")
-  @Test(groups="setAndGetFields", dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
+  @Test(groups="setAndGetFields!", dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
   public void setAndGetJepTreeField(String...values) {
     setWorkstate(SEARCH);
     cut.setJepTreeField(values);
@@ -219,7 +218,7 @@ public class ArsenicAutoTest extends JepAutoTest<ArsenicAuto> {
   }
   
   @DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/arsenic/auto/field.jepTreeField_nodes.data")
-  @Test(groups="setAndGetFields", dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
+  @Test(groups="setAndGetFields!", dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
   public void setAndGetJepTreeField_nodes(String...values) {
     setWorkstate(SEARCH);
     cut.setJepTreeField_nodes(values);
@@ -251,7 +250,7 @@ public class ArsenicAutoTest extends JepAutoTest<ArsenicAuto> {
   }
   
   @DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/arsenic/auto/field.jepTreeField.data")
-  @Test(groups="setAndGetFields", dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
+  @Test(groups="setAndGetFields!", dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
   public void setAndGetJepTreeField_casc(String...values) {
     setWorkstate(SEARCH);
     cut.setJepTreeField_casc(values);
@@ -358,7 +357,7 @@ public class ArsenicAutoTest extends JepAutoTest<ArsenicAuto> {
   }
   
   @DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/arsenic/auto/field.jepTreeField.incorrect.data")
-  @Test(groups="setAndGetFields!", dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
+  @Test(groups="setAndGetFields", dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
   public void setAndGetJepTreeField_nodesIncorrect(String...values) {
     setWorkstate(SEARCH);
     
@@ -433,25 +432,25 @@ public class ArsenicAutoTest extends JepAutoTest<ArsenicAuto> {
   
   
   @DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/arsenic/auto/list.gridHeaders.data")
-  @Test(groups="list", dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
+  @Test(groups="list!", dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
   public void testGridHeaders(Object... headers) {
     setWorkstate(SEARCH);
     
-    setWorkstate(VIEW_LIST);
+    cut.find();
     
     List<String> headersList = cut.getGridHeaders();
     
     assertArrayEquals(headers, headersList.toArray(new String[headersList.size()]));
   }
   
-  @Test(groups="list")
+  @Test(groups="list!")
   public void testGridData() {
     setWorkstate(SEARCH);
     
     cut.setJepTextField("abc");
     cut.setJepTextAreaField("DEF");
     
-    setWorkstate(VIEW_LIST);
+    cut.find();
     
     List<List<Object>> data = cut.getGridData();
     List<String> headers = cut.getGridHeaders();
@@ -465,5 +464,30 @@ public class ArsenicAutoTest extends JepAutoTest<ArsenicAuto> {
       assert d instanceof String;
       assertTrue(((String)d).startsWith("DEF"));
     }
+  }
+  
+  /**
+   * Переменная используется для недопущения повторного перехода на списочную форму
+   * после первого запуска тестового метода testColumnOrderWithCookies.
+   * Переменная не влияет на другие тестовые методы.
+   */
+  private boolean firstLaunch = true;
+  
+  @DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/arsenic/auto/list.gridHeaders.settings.data")
+  @Test(groups="list", dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
+  public void testColumnOrderWithCookies(String...values) {
+    if (firstLaunch) {
+      setWorkstate(SEARCH);
+      cut.find();
+      firstLaunch = false;
+    }
+    
+    cut.doGridColumnSettings(values);
+    List<String> headers = cut.getGridHeaders();
+    assertArrayEquals(values, headers.toArray(new String[headers.size()]));
+    
+    cut.refreshPage();
+    
+    assertArrayEquals(values, headers.toArray(new String[headers.size()]));
   }
 }

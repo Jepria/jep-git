@@ -37,6 +37,7 @@ import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.EventListener;
 import com.google.gwt.user.client.ui.MenuItem;
+import com.technology.jep.jepria.client.JepRiaAutomationConstant;
 import com.technology.jep.jepria.client.util.JepClientUtil;
 import com.technology.jep.jepria.client.widget.list.JepGrid;
 import com.technology.jep.jepria.client.widget.list.header.ResizableHeader.ActionEnum;
@@ -65,6 +66,7 @@ public class CheckMenuItem extends MenuItem implements HasAllDragAndDropHandlers
     this.menuTitle = text;
     this.cellTable = table;
     
+    getElement().setId(text + JepRiaAutomationConstant.GRID_HEADER_POPUP_MENU_ITEM_POSTFIX);
     getElement().setDraggable(Element.DRAGGABLE_TRUE);
     getElement().addClassName(MAIN_FONT_STYLE);
     getElement().getStyle().setFontSize(11, Unit.PX);

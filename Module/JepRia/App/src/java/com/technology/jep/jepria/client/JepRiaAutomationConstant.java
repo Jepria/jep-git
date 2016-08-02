@@ -285,4 +285,27 @@ public class JepRiaAutomationConstant {
    * ID первой строки списка списочной формы
    */
   public static final String LIST_FORM_GRID_ROW_ID = "LIST_FORM_GRID_ROW_ID";
+  
+  /**
+   * Идентификатор PopupPanel всплывающего меню заголовка списка (настройка столбцов).
+   * Предполагается, что на странице JepGrid один, поэтому ID PopupPanel'а не зависит от ID JepGrid'а.
+   */
+  public static final String GRID_HEADER_POPUP_ID = "GRID_HEADER_POPUP";
+  
+  /**
+   * Постфикс-идентификатор элемента всплывающего меню заголовка списка (настройка столбцов).
+   * Проще говоря, ID строки во всплывающем списке имен столбцов при настройке.
+   */
+  public static final String GRID_HEADER_POPUP_MENU_ITEM_POSTFIX = "_GRID_HEADER_POPUP_MENU_ITEM";
+  
+  /**
+   * Идентификатор кнопок навигации всплывающего меню заголовка списка (настройка столбцов).
+   */
+  public static final String GRID_HEADER_POPUP_NAVIG_UP_ID = "GRID_HEADER_POPUP_NAVIG_UP";
+  public static final String GRID_HEADER_POPUP_NAVIG_DOWN_ID = "GRID_HEADER_POPUP_NAVIG_DOWN";
+  
+  /**
+   * Идентификатор кнопки закрытия всплывающего меню заголовка списка (настройка столбцов).
+   */
+  public static final String GRID_HEADER_POPUP_CLOSE_ID = "GRID_HEADER_POPUP_CLOSE";
 }

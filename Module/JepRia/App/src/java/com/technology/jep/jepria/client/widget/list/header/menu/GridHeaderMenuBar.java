@@ -14,6 +14,7 @@ import com.google.gwt.user.client.EventListener;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.MenuBar;
 import com.google.gwt.user.client.ui.MenuItem;
+import com.technology.jep.jepria.client.JepRiaAutomationConstant;
 import com.technology.jep.jepria.client.widget.list.JepColumn;
 import com.technology.jep.jepria.client.widget.list.header.ResizableHeader;
 import com.technology.jep.jepria.client.widget.list.header.ResizableHeader.ActionEnum;
@@ -195,6 +196,7 @@ public class GridHeaderMenuBar extends MenuBar {
 
   public Element addCloseButton() {
     Element element = DOM.createDiv();
+    element.setId(JepRiaAutomationConstant.GRID_HEADER_POPUP_CLOSE_ID);
     element.addClassName(RESIZABLE_HEADER_CLOSE_BUTTON_STYLE);
     element.setInnerHTML("x");
     getElement().getParentElement().appendChild(element);
@@ -216,6 +218,7 @@ public class GridHeaderMenuBar extends MenuBar {
 
   public Element addNavigationButton(final boolean isUp) {
     final Element container = DOM.createDiv();
+    container.setId(isUp? JepRiaAutomationConstant.GRID_HEADER_POPUP_NAVIG_UP_ID : JepRiaAutomationConstant.GRID_HEADER_POPUP_NAVIG_DOWN_ID);
     container.addClassName(RESIZABLE_HEADER_NAVIGATION_BUTTON_STYLE);
     Image button = new Image(isUp ? GridMenuImages.instance.upButton() : GridMenuImages.instance.downButton());
     Style style = container.getStyle();

@@ -283,5 +283,14 @@ public interface JepRiaModuleAuto extends EntranceAuto {
    * known from the result of #getGridHeaders().
    */
   List<List<Object>> getGridDataRowwise(String gridId); 
-  
+
+  /**
+   * Производит настройку столбцов списочной формы.
+   * 
+   * @param gridId
+   * @param columns Порядок и наличие столбцов списочной формы приводится в соответствие с данным массивом.
+   * В случае, если среди столбцов формы нет какого-либо значения из данного массива, выбрасывается
+   * {@link java.lang.IllegalArgumentException}.
+   */
+  void doGridColumnSettings(String gridId, String[] columns);
 }

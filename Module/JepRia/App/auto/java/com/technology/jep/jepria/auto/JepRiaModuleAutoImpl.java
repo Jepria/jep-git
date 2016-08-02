@@ -6,6 +6,9 @@ import static com.technology.jep.jepria.client.JepRiaAutomationConstant.CONFIRM_
 import static com.technology.jep.jepria.client.JepRiaAutomationConstant.CONFIRM_MESSAGE_BOX_YES_BUTTON_ID;
 import static com.technology.jep.jepria.client.JepRiaAutomationConstant.ERROR_MESSAGEBOX_ID;
 import static com.technology.jep.jepria.client.JepRiaAutomationConstant.GRID_BODY_POSTFIX;
+import static com.technology.jep.jepria.client.JepRiaAutomationConstant.GRID_HEADER_POPUP_ID;
+import static com.technology.jep.jepria.client.JepRiaAutomationConstant.GRID_HEADER_POPUP_MENU_ITEM_POSTFIX;
+import static com.technology.jep.jepria.client.JepRiaAutomationConstant.GRID_HEADER_POPUP_NAVIG_UP_ID;
 import static com.technology.jep.jepria.client.JepRiaAutomationConstant.GRID_HEADER_POSTFIX;
 import static com.technology.jep.jepria.client.JepRiaAutomationConstant.JEP_CARD_TYPE_HTML_ATTR;
 import static com.technology.jep.jepria.client.JepRiaAutomationConstant.JEP_CARD_TYPE_VALUE_EDTB;
@@ -51,6 +54,7 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoSuchElementException;
@@ -72,6 +76,7 @@ import com.technology.jep.jepria.auto.exceptions.WrongOptionException;
 import com.technology.jep.jepria.auto.widget.field.Field;
 import com.technology.jep.jepria.auto.widget.statusbar.StatusBar;
 import com.technology.jep.jepria.auto.widget.statusbar.StatusBarImpl;
+import com.technology.jep.jepria.client.JepRiaAutomationConstant;
 import com.technology.jep.jepria.client.ui.WorkstateEnum;
 import com.technology.jep.jepria.shared.exceptions.NotImplementedYetException;
 import com.technology.jep.jepria.shared.exceptions.UnsupportedException;
@@ -133,6 +138,8 @@ public class JepRiaModuleAutoImpl<A extends EntranceAppAuto, P extends JepRiaApp
 		getWait().until(elementToBeClickable(By.id(TOOLBAR_FIND_BUTTON_ID)));
 		
 		pages.getApplicationPage().findButton.click();
+		
+//		setCurrentWorkstate(WorkstateEnum.VIEW_LIST);
 	}
 
 	@Override
@@ -1050,4 +1057,90 @@ public class JepRiaModuleAutoImpl<A extends EntranceAppAuto, P extends JepRiaApp
 		
 		return ret;
 	}
+
+  @Override
+  public void doGridColumnSettings(String gridId, String[] columns) {
+    pages.getApplicationPage().ensurePageLoaded();
+
+    // Locate the first column header (as far as there is no difference which column to call settings menu on)
+    Actions actions = new Actions(pages.getApplicationPage().getWebDriver());
+    WebElement firstColHeader = pages.getApplicationPage().getWebDriver().findElement(By.xpath(
+        String.format("//thead[@id='%s']/tr/th",
+            gridId + GRID_HEADER_POSTFIX)));
+    
+    // We will move the cursor to the center (by default) of the located header at first,
+    // then move it to the top-right area (8 pixels before reaching both top and right borders) by the offset calculated below:
+    Dimension dim = firstColHeader.getSize();
+    final int xOffset = dim.width / 2 - 8;
+    final int yOffset = -(dim.height / 2 - 8);
+    
+    // XXX The code below inexplicably does not work unless splitted into three lines:
+    actions.moveToElement(firstColHeader).build().perform();
+    actions.moveByOffset(xOffset, yOffset).build().perform();
+    actions.click().perform();
+    //
+    
+    // Wait until the popup menu appears
+    getWait().until(presenceOfElementLocated(By.id(JepRiaAutomationConstant.GRID_HEADER_POPUP_ID)));
+
+    final WebElement popupMenu = pages.getApplicationPage().getWebDriver().findElement(By.id(GRID_HEADER_POPUP_ID));
+    
+    // Obtain the list of menu item names, as it is in popup menu.
+    final List<WebElement> menuItems = popupMenu.findElements(By.xpath(
+        String.format(".//*[contains(@id, '%s')]",
+            GRID_HEADER_POPUP_MENU_ITEM_POSTFIX)));
+    
+    final List<String> menuItemNames = new ArrayList<String>();
+    for (WebElement e: menuItems) {
+      menuItemNames.add(e.getText());
+    }
+    
+    // Locate the UP navigation button
+    final WebElement upNavButton = popupMenu.findElement(By.xpath(
+        String.format(".//*[@id='%s']",
+            GRID_HEADER_POPUP_NAVIG_UP_ID)));
+    
+    // Reorder the coulmns as told by the array
+    int i = 0;
+    for (; i < columns.length; i++) {
+      final String column = columns[i];
+      
+      int j = menuItemNames.indexOf(column);
+      if (j == -1) {
+        // No column with required name found in popup menu
+        throw new IllegalArgumentException("The column with name '" + column + "' was not found on the grid setting popup menu.");
+      }
+      
+      // Check if the column is being shown (otherwise, check to show it)
+      WebElement menuItemCheckBox = menuItems.get(j).findElement(By.xpath(".//input[@type='checkbox']"));
+      if (!menuItemCheckBox.isSelected()) {
+        menuItemCheckBox.click();
+      }
+      
+      // Assume either j > i and the column needs to be moved, or j == i and the column is already on its place.
+      if (j > i) {
+        // select the menu item that needs to be moved
+        menuItems.get(j).click();
+        // move it j - i times up
+        for (int movings = 0; movings < j - i; movings++) {
+          upNavButton.click();
+        }
+        // move corresponding menuItem and menuItemName in both arrays
+        menuItems.add(i, menuItems.remove(j));
+        menuItemNames.add(i, menuItemNames.remove(j));
+      }
+    }
+    
+    // Disable all remaining columns, as they are not present in the array
+    for (; i < menuItems.size(); i++) {
+      WebElement menuItemCheckBox = menuItems.get(i).findElement(By.xpath(".//input[@type='checkbox']"));
+      if (menuItemCheckBox.isSelected()) {
+        menuItemCheckBox.click();
+      }
+    }
+
+    // finally, close the popup menu
+    WebElement closeButton = popupMenu.findElement(By.id(JepRiaAutomationConstant.GRID_HEADER_POPUP_CLOSE_ID));
+    closeButton.click();
+  }
 }

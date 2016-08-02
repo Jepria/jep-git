@@ -146,8 +146,8 @@ public class ArsenicAutoImpl<A extends JepRiaShowcaseAuto, P extends JepRiaShowc
   }
   
   @Override
-  public void setJepDualListField(String[] value) {
-    selectDualListMenuItems(ARSENIC_JEP_DUAL_LIST_FIELD_ID, value);
+  public void setJepDualListField(String[] values) {
+    selectDualListMenuItems(ARSENIC_JEP_DUAL_LIST_FIELD_ID, values);
   }
   
   @Override
@@ -161,23 +161,23 @@ public class ArsenicAutoImpl<A extends JepRiaShowcaseAuto, P extends JepRiaShowc
   }
 
   @Override
-  public void setJepListField(String[] value) {
-    selectListMenuItems(ARSENIC_JEP_LIST_FIELD_ID, value);
+  public void setJepListField(String[] values) {
+    selectListMenuItems(ARSENIC_JEP_LIST_FIELD_ID, values);
   }
   
   @Override
-  public void setJepListFieldCheckAll(String[] value) {
-    selectListMenuItems(ARSENIC_JEP_LIST_FIELD_CHECKALL_ID, value);
+  public void setJepListFieldCheckAll(String[] values) {
+    selectListMenuItems(ARSENIC_JEP_LIST_FIELD_CHECKALL_ID, values);
   }
   
   @Override
-  public void setJepTreeField(String[] value) {
-    selectTreeItems(ARSENIC_JEP_TREE_FIELD_ID, value);
+  public void setJepTreeField(String[] values) {
+    selectTreeItems(ARSENIC_JEP_TREE_FIELD_ID, values);
   }
   
   @Override
-  public void setJepTreeField_nodes(String[] value) {
-    selectTreeItems(ARSENIC_JEP_TREE_FIELD_NODES_ID, value);
+  public void setJepTreeField_nodes(String[] values) {
+    selectTreeItems(ARSENIC_JEP_TREE_FIELD_NODES_ID, values);
   }
   
   @Override
@@ -186,8 +186,8 @@ public class ArsenicAutoImpl<A extends JepRiaShowcaseAuto, P extends JepRiaShowc
   }
   
   @Override
-  public void setJepTreeField_casc(String[] value) {
-    selectTreeItems(ARSENIC_JEP_TREE_FIELD_CASC_ID, value);
+  public void setJepTreeField_casc(String[] values) {
+    selectTreeItems(ARSENIC_JEP_TREE_FIELD_CASC_ID, values);
   }
 
   
@@ -470,6 +470,17 @@ public class ArsenicAutoImpl<A extends JepRiaShowcaseAuto, P extends JepRiaShowc
   @Override
   public List<List<Object>> getGridData() {
     return getGridDataRowwise(ARSENIC_GRID_ID);
+  }
+
+  @Override
+  public void doGridColumnSettings(String[] values) {
+    doGridColumnSettings(ARSENIC_GRID_ID, values);
+  }
+
+  @Override
+  public void refreshPage() {
+    pages.getApplicationPage().getWebDriver().navigate().refresh();
+    pages.getApplicationPage().ensurePageLoaded();
   }
 
 

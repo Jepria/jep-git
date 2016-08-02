@@ -376,11 +376,11 @@ public interface ArsenicText extends com.google.gwt.i18n.client.Constants {
   String list_jepTextAreaField();
 
   /**
-   * Translated "Text".
+   * Translated "Текст (кириллическоё названиё)".
    * 
-   * @return translated "Text"
+   * @return translated "Текст (кириллическоё названиё)"
    */
-  @DefaultStringValue("Text")
+  @DefaultStringValue("Текст (кириллическоё названиё)")
   @Key("list.jepTextField")
   String list_jepTextField();
 

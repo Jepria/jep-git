@@ -1,0 +1,4 @@
+CheckBox|Money|Простой Combo|Long|Date
+Date|Текст (кириллическоё названиё)|Простой Combo|Long|Number
+Money
+Текст (кириллическоё названиё)|Long|Money|Number|Date|Простой Combo|CheckBox
