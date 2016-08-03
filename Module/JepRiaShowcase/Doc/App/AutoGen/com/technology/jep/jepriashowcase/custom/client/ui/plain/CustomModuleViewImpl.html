@@ -1,913 +1,1111 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<!-- NewPage -->
-<html lang="ru">
-<head>
-<meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
-<title>CustomModuleViewImpl (JepRiaShowcase JavaDoc)</title>
-<link rel="stylesheet" type="text/css" href="../../../../../../../../stylesheet.css" title="Style">
-</head>
-<body>
-<script type="text/javascript"><!--
+<!--NewPage-->
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<TITLE>
+CustomModuleViewImpl (JepRiaShowcase JavaDoc)
+</TITLE>
+
+
+<LINK REL ="stylesheet" TYPE="text/css" HREF="../../../../../../../../stylesheet.css" TITLE="Style">
+
+<SCRIPT type="text/javascript">
+function windowTitle()
+{
     if (location.href.indexOf('is-external=true') == -1) {
         parent.document.title="CustomModuleViewImpl (JepRiaShowcase JavaDoc)";
     }
-//-->
-</script>
-<noscript>
-<div>JavaScript is disabled on your browser.</div>
-</noscript>
+}
+</SCRIPT>
+<NOSCRIPT>
+</NOSCRIPT>
+
+</HEAD>
+
+<BODY BGCOLOR="white" onload="windowTitle();">
+<HR>
+
+
 <!-- ========= START OF TOP NAVBAR ======= -->
-<div class="topNav"><a name="navbar_top">
-<!--   -->
-</a><a href="#skip-navbar_top" title="Skip navigation links"></a><a name="navbar_top_firstrow">
-<!--   -->
-</a>
-<ul class="navList" title="Navigation">
-<li><a href="../../../../../../../../overview-summary.html">Overview</a></li>
-<li><a href="package-summary.html">Package</a></li>
-<li class="navBarCell1Rev">Class</li>
-<li><a href="package-tree.html">Tree</a></li>
-<li><a href="../../../../../../../../deprecated-list.html">Deprecated</a></li>
-<li><a href="../../../../../../../../index-all.html">Index</a></li>
-<li><a href="../../../../../../../../help-doc.html">Help</a></li>
-</ul>
-</div>
-<div class="subNav">
-<ul class="navList">
-<li><a href="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleView.html" title="interface in com.technology.jep.jepriashowcase.custom.client.ui.plain"><span class="strong">Prev Class</span></a></li>
-<li>Next Class</li>
-</ul>
-<ul class="navList">
-<li><a href="../../../../../../../../index.html?com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleViewImpl.html" target="_top">Frames</a></li>
-<li><a href="CustomModuleViewImpl.html" target="_top">No Frames</a></li>
-</ul>
-<ul class="navList" id="allclasses_navbar_top">
-<li><a href="../../../../../../../../allclasses-noframe.html">All Classes</a></li>
-</ul>
-<div>
-<script type="text/javascript"><!--
-  allClassesLink = document.getElementById("allclasses_navbar_top");
+<A NAME="navbar_top"><!-- --></A>
+<A HREF="#skip-navbar_top" title="Skip navigation links"></A>
+<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
+<TR>
+<TD COLSPAN=2 BGCOLOR="#EEEEFF" CLASS="NavBarCell1">
+<A NAME="navbar_top_firstrow"><!-- --></A>
+<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3" SUMMARY="">
+  <TR ALIGN="center" VALIGN="top">
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-summary.html"><FONT CLASS="NavBarFont1"><B>Package</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../../index-all.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../../help-doc.html"><FONT CLASS="NavBarFont1"><B>Help</B></FONT></A>&nbsp;</TD>
+  </TR>
+</TABLE>
+</TD>
+<TD ALIGN="right" VALIGN="top" ROWSPAN=3><EM>
+</EM>
+</TD>
+</TR>
+
+<TR>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+&nbsp;<A HREF="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleView.html" title="interface in com.technology.jep.jepriashowcase.custom.client.ui.plain"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;NEXT CLASS</FONT></TD>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+  <A HREF="../../../../../../../../index.html?com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleViewImpl.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="CustomModuleViewImpl.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+&nbsp;<SCRIPT type="text/javascript">
+  <!--
   if(window==top) {
-    allClassesLink.style.display = "block";
-  }
-  else {
-    allClassesLink.style.display = "none";
+    document.writeln('<A HREF="../../../../../../../../allclasses-noframe.html"><B>All Classes</B></A>');
   }
   //-->
-</script>
-</div>
-<div>
-<ul class="subNavList">
-<li>Summary:&nbsp;</li>
-<li>Nested&nbsp;|&nbsp;</li>
-<li><a href="#field_summary">Field</a>&nbsp;|&nbsp;</li>
-<li><a href="#constructor_summary">Constr</a>&nbsp;|&nbsp;</li>
-<li><a href="#method_summary">Method</a></li>
-</ul>
-<ul class="subNavList">
-<li>Detail:&nbsp;</li>
-<li><a href="#field_detail">Field</a>&nbsp;|&nbsp;</li>
-<li><a href="#constructor_detail">Constr</a>&nbsp;|&nbsp;</li>
-<li><a href="#method_detail">Method</a></li>
-</ul>
-</div>
-<a name="skip-navbar_top">
-<!--   -->
-</a></div>
+</SCRIPT>
+<NOSCRIPT>
+  <A HREF="../../../../../../../../allclasses-noframe.html"><B>All Classes</B></A>
+</NOSCRIPT>
+
+
+</FONT></TD>
+</TR>
+<TR>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+  SUMMARY:&nbsp;NESTED&nbsp;|&nbsp;<A HREF="#field_summary">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
+</TR>
+</TABLE>
+<A NAME="skip-navbar_top"></A>
 <!-- ========= END OF TOP NAVBAR ========= -->
+
+<HR>
 <!-- ======== START OF CLASS DATA ======== -->
-<div class="header">
-<div class="subTitle">com.technology.jep.jepriashowcase.custom.client.ui.plain</div>
-<h2 title="Class CustomModuleViewImpl" class="title">Class CustomModuleViewImpl</h2>
-</div>
-<div class="contentContainer">
-<ul class="inheritance">
-<li>java.lang.Object</li>
-<li>
-<ul class="inheritance">
-<li>com.technology.jep.jepria.client.ui.plain.PlainModuleViewImpl</li>
-<li>
-<ul class="inheritance">
-<li>com.technology.jep.jepriashowcase.custom.client.ui.plain.CustomModuleViewImpl</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<div class="description">
-<ul class="blockList">
-<li class="blockList">
-<dl>
-<dt>All Implemented Interfaces:</dt>
-<dd>com.google.gwt.user.client.ui.IsWidget, com.technology.jep.jepria.client.ui.JepView&lt;com.technology.jep.jepria.client.ui.JepPresenter&gt;, com.technology.jep.jepria.client.ui.plain.PlainModuleView, <a href="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleView.html" title="interface in com.technology.jep.jepriashowcase.custom.client.ui.plain">CustomModuleView</a></dd>
-</dl>
-<hr>
-<br>
-<pre>public class <span class="strong">CustomModuleViewImpl</span>
-extends com.technology.jep.jepria.client.ui.plain.PlainModuleViewImpl
-implements <a href="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleView.html" title="interface in com.technology.jep.jepriashowcase.custom.client.ui.plain">CustomModuleView</a></pre>
-</li>
-</ul>
-</div>
-<div class="summary">
-<ul class="blockList">
-<li class="blockList">
+<H2>
+<FONT SIZE="-1">
+com.technology.jep.jepriashowcase.custom.client.ui.plain</FONT>
+<BR>
+Class CustomModuleViewImpl</H2>
+<PRE>
+java.lang.Object
+  <IMG SRC="../../../../../../../../resources/inherit.gif" ALT="extended by ">com.technology.jep.jepria.client.ui.plain.PlainModuleViewImpl
+      <IMG SRC="../../../../../../../../resources/inherit.gif" ALT="extended by "><B>com.technology.jep.jepriashowcase.custom.client.ui.plain.CustomModuleViewImpl</B>
+</PRE>
+<DL>
+<DT><B>All Implemented Interfaces:</B> <DD>com.google.gwt.user.client.ui.IsWidget, com.technology.jep.jepria.client.ui.JepView&lt;com.technology.jep.jepria.client.ui.JepPresenter&gt;, com.technology.jep.jepria.client.ui.plain.PlainModuleView, <A HREF="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleView.html" title="interface in com.technology.jep.jepriashowcase.custom.client.ui.plain">CustomModuleView</A></DD>
+</DL>
+<HR>
+<DL>
+<DT><PRE>public class <B>CustomModuleViewImpl</B><DT>extends com.technology.jep.jepria.client.ui.plain.PlainModuleViewImpl<DT>implements <A HREF="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleView.html" title="interface in com.technology.jep.jepriashowcase.custom.client.ui.plain">CustomModuleView</A></DL>
+</PRE>
+
+<P>
+<HR>
+
+<P>
 <!-- =========== FIELD SUMMARY =========== -->
-<ul class="blockList">
-<li class="blockList"><a name="field_summary">
-<!--   -->
-</a>
-<h3>Field Summary</h3>
-<table class="overviewSummary" border="0" cellpadding="3" cellspacing="0" summary="Field Summary table, listing fields, and an explanation">
-<caption><span>Fields</span><span class="tabEnd">&nbsp;</span></caption>
-<tr>
-<th class="colFirst" scope="col">Modifier and Type</th>
-<th class="colLast" scope="col">Field and Description</th>
-</tr>
-<tr class="altColor">
-<td class="colFirst"><code>private <a href="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/auto/IdentifiedButton.html" title="class in com.technology.jep.jepriashowcase.custom.client.ui.auto">IdentifiedButton</a></code></td>
-<td class="colLast"><code><strong><a href="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleViewImpl.html#authorizationButton">authorizationButton</a></strong></code>&nbsp;</td>
-</tr>
-<tr class="rowColor">
-<td class="colFirst"><code>private com.google.gwt.user.client.ui.DeckPanel</code></td>
-<td class="colLast"><code><strong><a href="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleViewImpl.html#authorizationPanel">authorizationPanel</a></strong></code>&nbsp;</td>
-</tr>
-<tr class="altColor">
-<td class="colFirst"><code>private <a href="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/auto/IdentifiedButton.html" title="class in com.technology.jep.jepriashowcase.custom.client.ui.auto">IdentifiedButton</a></code></td>
-<td class="colLast"><code><strong><a href="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleViewImpl.html#currentUserButton">currentUserButton</a></strong></code>&nbsp;</td>
-</tr>
-<tr class="rowColor">
-<td class="colFirst"><code>private com.google.gwt.user.client.ui.Label</code></td>
-<td class="colLast"><code><strong><a href="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleViewImpl.html#currentUserLabel">currentUserLabel</a></strong></code>&nbsp;</td>
-</tr>
-<tr class="altColor">
-<td class="colFirst"><code>private com.google.gwt.user.client.ui.VerticalPanel</code></td>
-<td class="colLast"><code><strong><a href="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleViewImpl.html#currentUserPanel">currentUserPanel</a></strong></code>&nbsp;</td>
-</tr>
-<tr class="rowColor">
-<td class="colFirst"><code>(package private) int</code></td>
-<td class="colLast"><code><strong><a href="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleViewImpl.html#currentWidgetIndex">currentWidgetIndex</a></strong></code>&nbsp;</td>
-</tr>
-<tr class="altColor">
-<td class="colFirst"><code>private <a href="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/auto/IdentifiedButton.html" title="class in com.technology.jep.jepriashowcase.custom.client.ui.auto">IdentifiedButton</a></code></td>
-<td class="colLast"><code><strong><a href="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleViewImpl.html#embeddedButton">embeddedButton</a></strong></code>&nbsp;</td>
-</tr>
-<tr class="rowColor">
-<td class="colFirst"><code>private <a href="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/auto/IdentifiedButton.html" title="class in com.technology.jep.jepriashowcase.custom.client.ui.auto">IdentifiedButton</a></code></td>
-<td class="colLast"><code><strong><a href="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleViewImpl.html#errorButton">errorButton</a></strong></code>&nbsp;</td>
-</tr>
-<tr class="altColor">
-<td class="colFirst"><code>private com.google.gwt.user.client.ui.Label</code></td>
-<td class="colLast"><code><strong><a href="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleViewImpl.html#errorLabel">errorLabel</a></strong></code>&nbsp;</td>
-</tr>
-<tr class="rowColor">
-<td class="colFirst"><code>private <a href="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/auto/IdentifiedButton.html" title="class in com.technology.jep.jepriashowcase.custom.client.ui.auto">IdentifiedButton</a></code></td>
-<td class="colLast"><code><strong><a href="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleViewImpl.html#exitButton">exitButton</a></strong></code>&nbsp;</td>
-</tr>
-<tr class="altColor">
-<td class="colFirst"><code>private <a href="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/auto/IdentifiedButton.html" title="class in com.technology.jep.jepriashowcase.custom.client.ui.auto">IdentifiedButton</a></code></td>
-<td class="colLast"><code><strong><a href="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleViewImpl.html#fullScreenButton">fullScreenButton</a></strong></code>&nbsp;</td>
-</tr>
-<tr class="rowColor">
-<td class="colFirst"><code>private <a href="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/auto/IdentifiedButton.html" title="class in com.technology.jep.jepriashowcase.custom.client.ui.auto">IdentifiedButton</a></code></td>
-<td class="colLast"><code><strong><a href="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleViewImpl.html#goToUrlButton">goToUrlButton</a></strong></code>&nbsp;</td>
-</tr>
-<tr class="altColor">
-<td class="colFirst"><code>private static java.lang.String</code></td>
-<td class="colLast"><code><strong><a href="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleViewImpl.html#LAYER_ID">LAYER_ID</a></strong></code>&nbsp;</td>
-</tr>
-<tr class="rowColor">
-<td class="colFirst"><code>private com.google.gwt.user.client.ui.VerticalPanel</code></td>
-<td class="colLast"><code><strong><a href="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleViewImpl.html#loadingIndicatorPanel">loadingIndicatorPanel</a></strong></code>&nbsp;</td>
-</tr>
-<tr class="altColor">
-<td class="colFirst"><code>private com.google.gwt.user.client.ui.VerticalPanel</code></td>
-<td class="colLast"><code><strong><a href="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleViewImpl.html#loginAndPasswordPanel">loginAndPasswordPanel</a></strong></code>&nbsp;</td>
-</tr>
-<tr class="rowColor">
-<td class="colFirst"><code>private com.google.gwt.user.client.ui.TextBox</code></td>
-<td class="colLast"><code><strong><a href="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleViewImpl.html#loginTextBox">loginTextBox</a></strong></code>&nbsp;</td>
-</tr>
-<tr class="altColor">
-<td class="colFirst"><code>private com.google.gwt.user.client.ui.PasswordTextBox</code></td>
-<td class="colLast"><code><strong><a href="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleViewImpl.html#passwordTextBox">passwordTextBox</a></strong></code>&nbsp;</td>
-</tr>
-<tr class="rowColor">
-<td class="colFirst"><code>private <a href="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/auto/IdentifiedButton.html" title="class in com.technology.jep.jepriashowcase.custom.client.ui.auto">IdentifiedButton</a></code></td>
-<td class="colLast"><code><strong><a href="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleViewImpl.html#searchButton">searchButton</a></strong></code>&nbsp;</td>
-</tr>
-<tr class="altColor">
-<td class="colFirst"><code>private <a href="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/auto/IdentifiedButton.html" title="class in com.technology.jep.jepriashowcase.custom.client.ui.auto">IdentifiedButton</a></code></td>
-<td class="colLast"><code><strong><a href="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleViewImpl.html#transactionButton">transactionButton</a></strong></code>&nbsp;</td>
-</tr>
-<tr class="rowColor">
-<td class="colFirst"><code>private com.technology.jep.jepria.client.widget.field.multistate.JepTextField</code></td>
-<td class="colLast"><code><strong><a href="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleViewImpl.html#urlTextField">urlTextField</a></strong></code>&nbsp;</td>
-</tr>
-<tr class="altColor">
-<td class="colFirst"><code>private <a href="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/auto/IdentifiedButton.html" title="class in com.technology.jep.jepriashowcase.custom.client.ui.auto">IdentifiedButton</a></code></td>
-<td class="colLast"><code><strong><a href="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleViewImpl.html#zIndexDialog">zIndexDialog</a></strong></code>&nbsp;</td>
-</tr>
-</table>
-<ul class="blockList">
-<li class="blockList"><a name="fields_inherited_from_class_com.technology.jep.jepria.client.ui.plain.PlainModuleViewImpl">
-<!--   -->
-</a>
-<h3>Fields inherited from class&nbsp;com.technology.jep.jepria.client.ui.plain.PlainModuleViewImpl</h3>
-<code>presenter, widget</code></li>
-</ul>
-</li>
-</ul>
+
+<A NAME="field_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Field Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;<A HREF="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/auto/IdentifiedButton.html" title="class in com.technology.jep.jepriashowcase.custom.client.ui.auto">IdentifiedButton</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleViewImpl.html#authorizationButton">authorizationButton</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;com.google.gwt.user.client.ui.DeckPanel</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleViewImpl.html#authorizationPanel">authorizationPanel</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;<A HREF="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/auto/IdentifiedButton.html" title="class in com.technology.jep.jepriashowcase.custom.client.ui.auto">IdentifiedButton</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleViewImpl.html#currentUserButton">currentUserButton</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;com.google.gwt.user.client.ui.Label</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleViewImpl.html#currentUserLabel">currentUserLabel</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;com.google.gwt.user.client.ui.VerticalPanel</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleViewImpl.html#currentUserPanel">currentUserPanel</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>(package private) &nbsp;int</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleViewImpl.html#currentWidgetIndex">currentWidgetIndex</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;<A HREF="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/auto/IdentifiedButton.html" title="class in com.technology.jep.jepriashowcase.custom.client.ui.auto">IdentifiedButton</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleViewImpl.html#embeddedButton">embeddedButton</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;<A HREF="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/auto/IdentifiedButton.html" title="class in com.technology.jep.jepriashowcase.custom.client.ui.auto">IdentifiedButton</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleViewImpl.html#errorButton">errorButton</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;com.google.gwt.user.client.ui.Label</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleViewImpl.html#errorLabel">errorLabel</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;<A HREF="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/auto/IdentifiedButton.html" title="class in com.technology.jep.jepriashowcase.custom.client.ui.auto">IdentifiedButton</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleViewImpl.html#exitButton">exitButton</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;<A HREF="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/auto/IdentifiedButton.html" title="class in com.technology.jep.jepriashowcase.custom.client.ui.auto">IdentifiedButton</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleViewImpl.html#fullScreenButton">fullScreenButton</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;<A HREF="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/auto/IdentifiedButton.html" title="class in com.technology.jep.jepriashowcase.custom.client.ui.auto">IdentifiedButton</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleViewImpl.html#goToUrlButton">goToUrlButton</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private static&nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleViewImpl.html#LAYER_ID">LAYER_ID</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;com.google.gwt.user.client.ui.VerticalPanel</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleViewImpl.html#loadingIndicatorPanel">loadingIndicatorPanel</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;com.google.gwt.user.client.ui.VerticalPanel</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleViewImpl.html#loginAndPasswordPanel">loginAndPasswordPanel</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;com.google.gwt.user.client.ui.TextBox</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleViewImpl.html#loginTextBox">loginTextBox</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;com.google.gwt.user.client.ui.PasswordTextBox</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleViewImpl.html#passwordTextBox">passwordTextBox</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;<A HREF="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/auto/IdentifiedButton.html" title="class in com.technology.jep.jepriashowcase.custom.client.ui.auto">IdentifiedButton</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleViewImpl.html#searchButton">searchButton</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;<A HREF="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/auto/IdentifiedButton.html" title="class in com.technology.jep.jepriashowcase.custom.client.ui.auto">IdentifiedButton</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleViewImpl.html#transactionButton">transactionButton</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;com.technology.jep.jepria.client.widget.field.multistate.JepTextField</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleViewImpl.html#urlTextField">urlTextField</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;<A HREF="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/auto/IdentifiedButton.html" title="class in com.technology.jep.jepriashowcase.custom.client.ui.auto">IdentifiedButton</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleViewImpl.html#zIndexDialog">zIndexDialog</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="fields_inherited_from_class_com.technology.jep.jepria.client.ui.plain.PlainModuleViewImpl"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Fields inherited from class com.technology.jep.jepria.client.ui.plain.PlainModuleViewImpl</B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE>presenter, widget</CODE></TD>
+</TR>
+</TABLE>
+&nbsp;
 <!-- ======== CONSTRUCTOR SUMMARY ======== -->
-<ul class="blockList">
-<li class="blockList"><a name="constructor_summary">
-<!--   -->
-</a>
-<h3>Constructor Summary</h3>
-<table class="overviewSummary" border="0" cellpadding="3" cellspacing="0" summary="Constructor Summary table, listing constructors, and an explanation">
-<caption><span>Constructors</span><span class="tabEnd">&nbsp;</span></caption>
-<tr>
-<th class="colOne" scope="col">Constructor and Description</th>
-</tr>
-<tr class="altColor">
-<td class="colOne"><code><strong><a href="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleViewImpl.html#CustomModuleViewImpl()">CustomModuleViewImpl</a></strong>()</code>&nbsp;</td>
-</tr>
-</table>
-</li>
-</ul>
+
+<A NAME="constructor_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Constructor Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleViewImpl.html#CustomModuleViewImpl()">CustomModuleViewImpl</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;
 <!-- ========== METHOD SUMMARY =========== -->
-<ul class="blockList">
-<li class="blockList"><a name="method_summary">
-<!--   -->
-</a>
-<h3>Method Summary</h3>
-<table class="overviewSummary" border="0" cellpadding="3" cellspacing="0" summary="Method Summary table, listing methods, and an explanation">
-<caption><span>Methods</span><span class="tabEnd">&nbsp;</span></caption>
-<tr>
-<th class="colFirst" scope="col">Modifier and Type</th>
-<th class="colLast" scope="col">Method and Description</th>
-</tr>
-<tr class="altColor">
-<td class="colFirst"><code>private boolean</code></td>
-<td class="colLast"><code><strong><a href="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleViewImpl.html#add(com.google.gwt.user.client.ui.Widget,%20java.lang.String)">add</a></strong>(com.google.gwt.user.client.ui.Widget&nbsp;widget,
-   java.lang.String&nbsp;elementId)</code>
-<div class="block">Привязка виджета к идентификатору элемента в DOM-дереве.</div>
-</td>
-</tr>
-<tr class="rowColor">
-<td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><strong><a href="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleViewImpl.html#addAuthorizationButtonClickHandler(com.google.gwt.event.dom.client.ClickHandler)">addAuthorizationButtonClickHandler</a></strong>(com.google.gwt.event.dom.client.ClickHandler&nbsp;clickHandler)</code>&nbsp;</td>
-</tr>
-<tr class="altColor">
-<td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><strong><a href="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleViewImpl.html#addCurrentUserClickHandler(com.google.gwt.event.dom.client.ClickHandler)">addCurrentUserClickHandler</a></strong>(com.google.gwt.event.dom.client.ClickHandler&nbsp;clickHandler)</code>&nbsp;</td>
-</tr>
-<tr class="rowColor">
-<td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><strong><a href="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleViewImpl.html#addEmbeddedButtonClickHandler(com.google.gwt.event.dom.client.ClickHandler)">addEmbeddedButtonClickHandler</a></strong>(com.google.gwt.event.dom.client.ClickHandler&nbsp;clickHandler)</code>&nbsp;</td>
-</tr>
-<tr class="altColor">
-<td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><strong><a href="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleViewImpl.html#addErrorButtonClickHandler(com.google.gwt.event.dom.client.ClickHandler)">addErrorButtonClickHandler</a></strong>(com.google.gwt.event.dom.client.ClickHandler&nbsp;clickHandler)</code>&nbsp;</td>
-</tr>
-<tr class="rowColor">
-<td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><strong><a href="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleViewImpl.html#addExitButtonClickHandler(com.google.gwt.event.dom.client.ClickHandler)">addExitButtonClickHandler</a></strong>(com.google.gwt.event.dom.client.ClickHandler&nbsp;clickHandler)</code>&nbsp;</td>
-</tr>
-<tr class="altColor">
-<td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><strong><a href="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleViewImpl.html#addFullScreenButtonClickHandler(com.google.gwt.event.dom.client.ClickHandler)">addFullScreenButtonClickHandler</a></strong>(com.google.gwt.event.dom.client.ClickHandler&nbsp;clickHandler)</code>&nbsp;</td>
-</tr>
-<tr class="rowColor">
-<td class="colFirst"><code>com.google.gwt.event.shared.HandlerRegistration</code></td>
-<td class="colLast"><code><strong><a href="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleViewImpl.html#addGoToUrlButtonClickHandler(com.google.gwt.event.dom.client.ClickHandler)">addGoToUrlButtonClickHandler</a></strong>(com.google.gwt.event.dom.client.ClickHandler&nbsp;clickHandler)</code>&nbsp;</td>
-</tr>
-<tr class="altColor">
-<td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><strong><a href="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleViewImpl.html#addSearchButtonClickHandler(com.google.gwt.event.dom.client.ClickHandler)">addSearchButtonClickHandler</a></strong>(com.google.gwt.event.dom.client.ClickHandler&nbsp;clickHandler)</code>&nbsp;</td>
-</tr>
-<tr class="rowColor">
-<td class="colFirst"><code>com.google.gwt.event.shared.HandlerRegistration</code></td>
-<td class="colLast"><code><strong><a href="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleViewImpl.html#addTransactionButtonClickHandler(com.google.gwt.event.dom.client.ClickHandler)">addTransactionButtonClickHandler</a></strong>(com.google.gwt.event.dom.client.ClickHandler&nbsp;clickHandler)</code>&nbsp;</td>
-</tr>
-<tr class="altColor">
-<td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><strong><a href="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleViewImpl.html#addZIndexButtonClickHandler(com.google.gwt.event.dom.client.ClickHandler)">addZIndexButtonClickHandler</a></strong>(com.google.gwt.event.dom.client.ClickHandler&nbsp;clickHandler)</code>&nbsp;</td>
-</tr>
-<tr class="rowColor">
-<td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><strong><a href="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleViewImpl.html#clearCredential()">clearCredential</a></strong>()</code>&nbsp;</td>
-</tr>
-<tr class="altColor">
-<td class="colFirst"><code>private com.google.gwt.user.client.ui.DeckPanel</code></td>
-<td class="colLast"><code><strong><a href="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleViewImpl.html#createAuthorizationalPanel()">createAuthorizationalPanel</a></strong>()</code>&nbsp;</td>
-</tr>
-<tr class="rowColor">
-<td class="colFirst"><code>com.technology.jep.jepria.client.widget.field.multistate.JepTextField</code></td>
-<td class="colLast"><code><strong><a href="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleViewImpl.html#getUrlTextField()">getUrlTextField</a></strong>()</code>&nbsp;</td>
-</tr>
-<tr class="altColor">
-<td class="colFirst"><code><a href="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/Credential.html" title="class in com.technology.jep.jepriashowcase.custom.client.ui.plain">Credential</a></code></td>
-<td class="colLast"><code><strong><a href="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleViewImpl.html#getUserCredential()">getUserCredential</a></strong>()</code>&nbsp;</td>
-</tr>
-<tr class="rowColor">
-<td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><strong><a href="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleViewImpl.html#hideLoadingIndicator()">hideLoadingIndicator</a></strong>()</code>&nbsp;</td>
-</tr>
-<tr class="altColor">
-<td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><strong><a href="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleViewImpl.html#setUsername(java.lang.String)">setUsername</a></strong>(java.lang.String&nbsp;username)</code>&nbsp;</td>
-</tr>
-<tr class="rowColor">
-<td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><strong><a href="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleViewImpl.html#showLoadingIndicator()">showLoadingIndicator</a></strong>()</code>&nbsp;</td>
-</tr>
-<tr class="altColor">
-<td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><strong><a href="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleViewImpl.html#showOrClearError(java.lang.String)">showOrClearError</a></strong>(java.lang.String&nbsp;errorText)</code>&nbsp;</td>
-</tr>
-<tr class="rowColor">
-<td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><strong><a href="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleViewImpl.html#toggleAuthorizationPanel()">toggleAuthorizationPanel</a></strong>()</code>&nbsp;</td>
-</tr>
-</table>
-<ul class="blockList">
-<li class="blockList"><a name="methods_inherited_from_class_com.technology.jep.jepria.client.ui.plain.PlainModuleViewImpl">
-<!--   -->
-</a>
-<h3>Methods inherited from class&nbsp;com.technology.jep.jepria.client.ui.plain.PlainModuleViewImpl</h3>
-<code>asWidget, setPresenter, setWidget</code></li>
-</ul>
-<ul class="blockList">
-<li class="blockList"><a name="methods_inherited_from_class_java.lang.Object">
-<!--   -->
-</a>
-<h3>Methods inherited from class&nbsp;java.lang.Object</h3>
-<code>clone, equals, finalize, getClass, hashCode, notify, notifyAll, toString, wait, wait, wait</code></li>
-</ul>
-<ul class="blockList">
-<li class="blockList"><a name="methods_inherited_from_class_com.technology.jep.jepria.client.ui.JepView">
-<!--   -->
-</a>
-<h3>Methods inherited from interface&nbsp;com.technology.jep.jepria.client.ui.JepView</h3>
-<code>setPresenter, setWidget</code></li>
-</ul>
-<ul class="blockList">
-<li class="blockList"><a name="methods_inherited_from_class_com.google.gwt.user.client.ui.IsWidget">
-<!--   -->
-</a>
-<h3>Methods inherited from interface&nbsp;com.google.gwt.user.client.ui.IsWidget</h3>
-<code>asWidget</code></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</div>
-<div class="details">
-<ul class="blockList">
-<li class="blockList">
+
+<A NAME="method_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Method Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleViewImpl.html#add(com.google.gwt.user.client.ui.Widget, java.lang.String)">add</A></B>(com.google.gwt.user.client.ui.Widget&nbsp;widget,
+    java.lang.String&nbsp;elementId)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Привязка виджета к идентификатору элемента в DOM-дереве.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleViewImpl.html#addAuthorizationButtonClickHandler(com.google.gwt.event.dom.client.ClickHandler)">addAuthorizationButtonClickHandler</A></B>(com.google.gwt.event.dom.client.ClickHandler&nbsp;clickHandler)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleViewImpl.html#addCurrentUserClickHandler(com.google.gwt.event.dom.client.ClickHandler)">addCurrentUserClickHandler</A></B>(com.google.gwt.event.dom.client.ClickHandler&nbsp;clickHandler)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleViewImpl.html#addEmbeddedButtonClickHandler(com.google.gwt.event.dom.client.ClickHandler)">addEmbeddedButtonClickHandler</A></B>(com.google.gwt.event.dom.client.ClickHandler&nbsp;clickHandler)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleViewImpl.html#addErrorButtonClickHandler(com.google.gwt.event.dom.client.ClickHandler)">addErrorButtonClickHandler</A></B>(com.google.gwt.event.dom.client.ClickHandler&nbsp;clickHandler)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleViewImpl.html#addExitButtonClickHandler(com.google.gwt.event.dom.client.ClickHandler)">addExitButtonClickHandler</A></B>(com.google.gwt.event.dom.client.ClickHandler&nbsp;clickHandler)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleViewImpl.html#addFullScreenButtonClickHandler(com.google.gwt.event.dom.client.ClickHandler)">addFullScreenButtonClickHandler</A></B>(com.google.gwt.event.dom.client.ClickHandler&nbsp;clickHandler)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;com.google.gwt.event.shared.HandlerRegistration</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleViewImpl.html#addGoToUrlButtonClickHandler(com.google.gwt.event.dom.client.ClickHandler)">addGoToUrlButtonClickHandler</A></B>(com.google.gwt.event.dom.client.ClickHandler&nbsp;clickHandler)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleViewImpl.html#addSearchButtonClickHandler(com.google.gwt.event.dom.client.ClickHandler)">addSearchButtonClickHandler</A></B>(com.google.gwt.event.dom.client.ClickHandler&nbsp;clickHandler)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;com.google.gwt.event.shared.HandlerRegistration</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleViewImpl.html#addTransactionButtonClickHandler(com.google.gwt.event.dom.client.ClickHandler)">addTransactionButtonClickHandler</A></B>(com.google.gwt.event.dom.client.ClickHandler&nbsp;clickHandler)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleViewImpl.html#addZIndexButtonClickHandler(com.google.gwt.event.dom.client.ClickHandler)">addZIndexButtonClickHandler</A></B>(com.google.gwt.event.dom.client.ClickHandler&nbsp;clickHandler)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleViewImpl.html#clearCredential()">clearCredential</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;com.google.gwt.user.client.ui.DeckPanel</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleViewImpl.html#createAuthorizationalPanel()">createAuthorizationalPanel</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;com.technology.jep.jepria.client.widget.field.multistate.JepTextField</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleViewImpl.html#getUrlTextField()">getUrlTextField</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/Credential.html" title="class in com.technology.jep.jepriashowcase.custom.client.ui.plain">Credential</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleViewImpl.html#getUserCredential()">getUserCredential</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleViewImpl.html#hideLoadingIndicator()">hideLoadingIndicator</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleViewImpl.html#setUsername(java.lang.String)">setUsername</A></B>(java.lang.String&nbsp;username)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleViewImpl.html#showLoadingIndicator()">showLoadingIndicator</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleViewImpl.html#showOrClearError(java.lang.String)">showOrClearError</A></B>(java.lang.String&nbsp;errorText)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleViewImpl.html#toggleAuthorizationPanel()">toggleAuthorizationPanel</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_com.technology.jep.jepria.client.ui.plain.PlainModuleViewImpl"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from class com.technology.jep.jepria.client.ui.plain.PlainModuleViewImpl</B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE>asWidget, setPresenter, setWidget</CODE></TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from class java.lang.Object</B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE>clone, equals, finalize, getClass, hashCode, notify, notifyAll, toString, wait, wait, wait</CODE></TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_com.technology.jep.jepria.client.ui.JepView"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from interface com.technology.jep.jepria.client.ui.JepView</B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE>setPresenter, setWidget</CODE></TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_com.google.gwt.user.client.ui.IsWidget"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from interface com.google.gwt.user.client.ui.IsWidget</B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE>asWidget</CODE></TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
 <!-- ============ FIELD DETAIL =========== -->
-<ul class="blockList">
-<li class="blockList"><a name="field_detail">
-<!--   -->
-</a>
-<h3>Field Detail</h3>
-<a name="fullScreenButton">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>fullScreenButton</h4>
-<pre>private&nbsp;<a href="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/auto/IdentifiedButton.html" title="class in com.technology.jep.jepriashowcase.custom.client.ui.auto">IdentifiedButton</a> fullScreenButton</pre>
-</li>
-</ul>
-<a name="errorButton">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>errorButton</h4>
-<pre>private&nbsp;<a href="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/auto/IdentifiedButton.html" title="class in com.technology.jep.jepriashowcase.custom.client.ui.auto">IdentifiedButton</a> errorButton</pre>
-</li>
-</ul>
-<a name="zIndexDialog">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>zIndexDialog</h4>
-<pre>private&nbsp;<a href="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/auto/IdentifiedButton.html" title="class in com.technology.jep.jepriashowcase.custom.client.ui.auto">IdentifiedButton</a> zIndexDialog</pre>
-</li>
-</ul>
-<a name="embeddedButton">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>embeddedButton</h4>
-<pre>private&nbsp;<a href="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/auto/IdentifiedButton.html" title="class in com.technology.jep.jepriashowcase.custom.client.ui.auto">IdentifiedButton</a> embeddedButton</pre>
-</li>
-</ul>
-<a name="authorizationButton">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>authorizationButton</h4>
-<pre>private&nbsp;<a href="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/auto/IdentifiedButton.html" title="class in com.technology.jep.jepriashowcase.custom.client.ui.auto">IdentifiedButton</a> authorizationButton</pre>
-</li>
-</ul>
-<a name="exitButton">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>exitButton</h4>
-<pre>private&nbsp;<a href="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/auto/IdentifiedButton.html" title="class in com.technology.jep.jepriashowcase.custom.client.ui.auto">IdentifiedButton</a> exitButton</pre>
-</li>
-</ul>
-<a name="currentUserButton">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>currentUserButton</h4>
-<pre>private&nbsp;<a href="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/auto/IdentifiedButton.html" title="class in com.technology.jep.jepriashowcase.custom.client.ui.auto">IdentifiedButton</a> currentUserButton</pre>
-</li>
-</ul>
-<a name="searchButton">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>searchButton</h4>
-<pre>private&nbsp;<a href="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/auto/IdentifiedButton.html" title="class in com.technology.jep.jepriashowcase.custom.client.ui.auto">IdentifiedButton</a> searchButton</pre>
-</li>
-</ul>
-<a name="transactionButton">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>transactionButton</h4>
-<pre>private&nbsp;<a href="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/auto/IdentifiedButton.html" title="class in com.technology.jep.jepriashowcase.custom.client.ui.auto">IdentifiedButton</a> transactionButton</pre>
-</li>
-</ul>
-<a name="goToUrlButton">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>goToUrlButton</h4>
-<pre>private&nbsp;<a href="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/auto/IdentifiedButton.html" title="class in com.technology.jep.jepriashowcase.custom.client.ui.auto">IdentifiedButton</a> goToUrlButton</pre>
-</li>
-</ul>
-<a name="errorLabel">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>errorLabel</h4>
-<pre>private&nbsp;com.google.gwt.user.client.ui.Label errorLabel</pre>
-</li>
-</ul>
-<a name="currentUserLabel">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>currentUserLabel</h4>
-<pre>private&nbsp;com.google.gwt.user.client.ui.Label currentUserLabel</pre>
-</li>
-</ul>
-<a name="loginTextBox">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>loginTextBox</h4>
-<pre>private&nbsp;com.google.gwt.user.client.ui.TextBox loginTextBox</pre>
-</li>
-</ul>
-<a name="passwordTextBox">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>passwordTextBox</h4>
-<pre>private&nbsp;com.google.gwt.user.client.ui.PasswordTextBox passwordTextBox</pre>
-</li>
-</ul>
-<a name="authorizationPanel">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>authorizationPanel</h4>
-<pre>private&nbsp;com.google.gwt.user.client.ui.DeckPanel authorizationPanel</pre>
-</li>
-</ul>
-<a name="loginAndPasswordPanel">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>loginAndPasswordPanel</h4>
-<pre>private&nbsp;com.google.gwt.user.client.ui.VerticalPanel loginAndPasswordPanel</pre>
-</li>
-</ul>
-<a name="currentUserPanel">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>currentUserPanel</h4>
-<pre>private&nbsp;com.google.gwt.user.client.ui.VerticalPanel currentUserPanel</pre>
-</li>
-</ul>
-<a name="loadingIndicatorPanel">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>loadingIndicatorPanel</h4>
-<pre>private&nbsp;com.google.gwt.user.client.ui.VerticalPanel loadingIndicatorPanel</pre>
-</li>
-</ul>
-<a name="LAYER_ID">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>LAYER_ID</h4>
-<pre>private static final&nbsp;java.lang.String LAYER_ID</pre>
-</li>
-</ul>
-<a name="urlTextField">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>urlTextField</h4>
-<pre>private&nbsp;com.technology.jep.jepria.client.widget.field.multistate.JepTextField urlTextField</pre>
-</li>
-</ul>
-<a name="currentWidgetIndex">
-<!--   -->
-</a>
-<ul class="blockListLast">
-<li class="blockList">
-<h4>currentWidgetIndex</h4>
-<pre>int currentWidgetIndex</pre>
-</li>
-</ul>
-</li>
-</ul>
+
+<A NAME="field_detail"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
+<B>Field Detail</B></FONT></TH>
+</TR>
+</TABLE>
+
+<A NAME="fullScreenButton"><!-- --></A><H3>
+fullScreenButton</H3>
+<PRE>
+private <A HREF="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/auto/IdentifiedButton.html" title="class in com.technology.jep.jepriashowcase.custom.client.ui.auto">IdentifiedButton</A> <B>fullScreenButton</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="errorButton"><!-- --></A><H3>
+errorButton</H3>
+<PRE>
+private <A HREF="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/auto/IdentifiedButton.html" title="class in com.technology.jep.jepriashowcase.custom.client.ui.auto">IdentifiedButton</A> <B>errorButton</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="zIndexDialog"><!-- --></A><H3>
+zIndexDialog</H3>
+<PRE>
+private <A HREF="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/auto/IdentifiedButton.html" title="class in com.technology.jep.jepriashowcase.custom.client.ui.auto">IdentifiedButton</A> <B>zIndexDialog</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="embeddedButton"><!-- --></A><H3>
+embeddedButton</H3>
+<PRE>
+private <A HREF="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/auto/IdentifiedButton.html" title="class in com.technology.jep.jepriashowcase.custom.client.ui.auto">IdentifiedButton</A> <B>embeddedButton</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="authorizationButton"><!-- --></A><H3>
+authorizationButton</H3>
+<PRE>
+private <A HREF="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/auto/IdentifiedButton.html" title="class in com.technology.jep.jepriashowcase.custom.client.ui.auto">IdentifiedButton</A> <B>authorizationButton</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="exitButton"><!-- --></A><H3>
+exitButton</H3>
+<PRE>
+private <A HREF="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/auto/IdentifiedButton.html" title="class in com.technology.jep.jepriashowcase.custom.client.ui.auto">IdentifiedButton</A> <B>exitButton</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="currentUserButton"><!-- --></A><H3>
+currentUserButton</H3>
+<PRE>
+private <A HREF="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/auto/IdentifiedButton.html" title="class in com.technology.jep.jepriashowcase.custom.client.ui.auto">IdentifiedButton</A> <B>currentUserButton</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="searchButton"><!-- --></A><H3>
+searchButton</H3>
+<PRE>
+private <A HREF="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/auto/IdentifiedButton.html" title="class in com.technology.jep.jepriashowcase.custom.client.ui.auto">IdentifiedButton</A> <B>searchButton</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="transactionButton"><!-- --></A><H3>
+transactionButton</H3>
+<PRE>
+private <A HREF="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/auto/IdentifiedButton.html" title="class in com.technology.jep.jepriashowcase.custom.client.ui.auto">IdentifiedButton</A> <B>transactionButton</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="goToUrlButton"><!-- --></A><H3>
+goToUrlButton</H3>
+<PRE>
+private <A HREF="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/auto/IdentifiedButton.html" title="class in com.technology.jep.jepriashowcase.custom.client.ui.auto">IdentifiedButton</A> <B>goToUrlButton</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="errorLabel"><!-- --></A><H3>
+errorLabel</H3>
+<PRE>
+private com.google.gwt.user.client.ui.Label <B>errorLabel</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="currentUserLabel"><!-- --></A><H3>
+currentUserLabel</H3>
+<PRE>
+private com.google.gwt.user.client.ui.Label <B>currentUserLabel</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="loginTextBox"><!-- --></A><H3>
+loginTextBox</H3>
+<PRE>
+private com.google.gwt.user.client.ui.TextBox <B>loginTextBox</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="passwordTextBox"><!-- --></A><H3>
+passwordTextBox</H3>
+<PRE>
+private com.google.gwt.user.client.ui.PasswordTextBox <B>passwordTextBox</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="authorizationPanel"><!-- --></A><H3>
+authorizationPanel</H3>
+<PRE>
+private com.google.gwt.user.client.ui.DeckPanel <B>authorizationPanel</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="loginAndPasswordPanel"><!-- --></A><H3>
+loginAndPasswordPanel</H3>
+<PRE>
+private com.google.gwt.user.client.ui.VerticalPanel <B>loginAndPasswordPanel</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="currentUserPanel"><!-- --></A><H3>
+currentUserPanel</H3>
+<PRE>
+private com.google.gwt.user.client.ui.VerticalPanel <B>currentUserPanel</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="loadingIndicatorPanel"><!-- --></A><H3>
+loadingIndicatorPanel</H3>
+<PRE>
+private com.google.gwt.user.client.ui.VerticalPanel <B>loadingIndicatorPanel</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="LAYER_ID"><!-- --></A><H3>
+LAYER_ID</H3>
+<PRE>
+private static final java.lang.String <B>LAYER_ID</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="urlTextField"><!-- --></A><H3>
+urlTextField</H3>
+<PRE>
+private com.technology.jep.jepria.client.widget.field.multistate.JepTextField <B>urlTextField</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="currentWidgetIndex"><!-- --></A><H3>
+currentWidgetIndex</H3>
+<PRE>
+int <B>currentWidgetIndex</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+
 <!-- ========= CONSTRUCTOR DETAIL ======== -->
-<ul class="blockList">
-<li class="blockList"><a name="constructor_detail">
-<!--   -->
-</a>
-<h3>Constructor Detail</h3>
-<a name="CustomModuleViewImpl()">
-<!--   -->
-</a>
-<ul class="blockListLast">
-<li class="blockList">
-<h4>CustomModuleViewImpl</h4>
-<pre>public&nbsp;CustomModuleViewImpl()</pre>
-</li>
-</ul>
-</li>
-</ul>
+
+<A NAME="constructor_detail"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
+<B>Constructor Detail</B></FONT></TH>
+</TR>
+</TABLE>
+
+<A NAME="CustomModuleViewImpl()"><!-- --></A><H3>
+CustomModuleViewImpl</H3>
+<PRE>
+public <B>CustomModuleViewImpl</B>()</PRE>
+<DL>
+</DL>
+
 <!-- ============ METHOD DETAIL ========== -->
-<ul class="blockList">
-<li class="blockList"><a name="method_detail">
-<!--   -->
-</a>
-<h3>Method Detail</h3>
-<a name="add(com.google.gwt.user.client.ui.Widget, java.lang.String)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>add</h4>
-<pre>private&nbsp;boolean&nbsp;add(com.google.gwt.user.client.ui.Widget&nbsp;widget,
-          java.lang.String&nbsp;elementId)</pre>
-<div class="block">Привязка виджета к идентификатору элемента в DOM-дереве.</div>
-<dl><dt><span class="strong">Parameters:</span></dt><dd><code>widget</code> - привязываемый виджет</dd><dd><code>elementId</code> - идентификатор элемента DOM-дерева</dd>
-<dt><span class="strong">Returns:</span></dt><dd>флаг наличия элемента в DOM-дереве</dd></dl>
-</li>
-</ul>
-<a name="addFullScreenButtonClickHandler(com.google.gwt.event.dom.client.ClickHandler)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>addFullScreenButtonClickHandler</h4>
-<pre>public&nbsp;void&nbsp;addFullScreenButtonClickHandler(com.google.gwt.event.dom.client.ClickHandler&nbsp;clickHandler)</pre>
-<dl>
-<dt><strong>Specified by:</strong></dt>
-<dd><code><a href="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleView.html#addFullScreenButtonClickHandler(com.google.gwt.event.dom.client.ClickHandler)">addFullScreenButtonClickHandler</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleView.html" title="interface in com.technology.jep.jepriashowcase.custom.client.ui.plain">CustomModuleView</a></code></dd>
-</dl>
-</li>
-</ul>
-<a name="addErrorButtonClickHandler(com.google.gwt.event.dom.client.ClickHandler)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>addErrorButtonClickHandler</h4>
-<pre>public&nbsp;void&nbsp;addErrorButtonClickHandler(com.google.gwt.event.dom.client.ClickHandler&nbsp;clickHandler)</pre>
-<dl>
-<dt><strong>Specified by:</strong></dt>
-<dd><code><a href="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleView.html#addErrorButtonClickHandler(com.google.gwt.event.dom.client.ClickHandler)">addErrorButtonClickHandler</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleView.html" title="interface in com.technology.jep.jepriashowcase.custom.client.ui.plain">CustomModuleView</a></code></dd>
-</dl>
-</li>
-</ul>
-<a name="addZIndexButtonClickHandler(com.google.gwt.event.dom.client.ClickHandler)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>addZIndexButtonClickHandler</h4>
-<pre>public&nbsp;void&nbsp;addZIndexButtonClickHandler(com.google.gwt.event.dom.client.ClickHandler&nbsp;clickHandler)</pre>
-<dl>
-<dt><strong>Specified by:</strong></dt>
-<dd><code><a href="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleView.html#addZIndexButtonClickHandler(com.google.gwt.event.dom.client.ClickHandler)">addZIndexButtonClickHandler</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleView.html" title="interface in com.technology.jep.jepriashowcase.custom.client.ui.plain">CustomModuleView</a></code></dd>
-</dl>
-</li>
-</ul>
-<a name="addEmbeddedButtonClickHandler(com.google.gwt.event.dom.client.ClickHandler)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>addEmbeddedButtonClickHandler</h4>
-<pre>public&nbsp;void&nbsp;addEmbeddedButtonClickHandler(com.google.gwt.event.dom.client.ClickHandler&nbsp;clickHandler)</pre>
-<dl>
-<dt><strong>Specified by:</strong></dt>
-<dd><code><a href="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleView.html#addEmbeddedButtonClickHandler(com.google.gwt.event.dom.client.ClickHandler)">addEmbeddedButtonClickHandler</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleView.html" title="interface in com.technology.jep.jepriashowcase.custom.client.ui.plain">CustomModuleView</a></code></dd>
-</dl>
-</li>
-</ul>
-<a name="addSearchButtonClickHandler(com.google.gwt.event.dom.client.ClickHandler)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>addSearchButtonClickHandler</h4>
-<pre>public&nbsp;void&nbsp;addSearchButtonClickHandler(com.google.gwt.event.dom.client.ClickHandler&nbsp;clickHandler)</pre>
-<dl>
-<dt><strong>Specified by:</strong></dt>
-<dd><code><a href="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleView.html#addSearchButtonClickHandler(com.google.gwt.event.dom.client.ClickHandler)">addSearchButtonClickHandler</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleView.html" title="interface in com.technology.jep.jepriashowcase.custom.client.ui.plain">CustomModuleView</a></code></dd>
-</dl>
-</li>
-</ul>
-<a name="addCurrentUserClickHandler(com.google.gwt.event.dom.client.ClickHandler)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>addCurrentUserClickHandler</h4>
-<pre>public&nbsp;void&nbsp;addCurrentUserClickHandler(com.google.gwt.event.dom.client.ClickHandler&nbsp;clickHandler)</pre>
-<dl>
-<dt><strong>Specified by:</strong></dt>
-<dd><code><a href="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleView.html#addCurrentUserClickHandler(com.google.gwt.event.dom.client.ClickHandler)">addCurrentUserClickHandler</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleView.html" title="interface in com.technology.jep.jepriashowcase.custom.client.ui.plain">CustomModuleView</a></code></dd>
-</dl>
-</li>
-</ul>
-<a name="addAuthorizationButtonClickHandler(com.google.gwt.event.dom.client.ClickHandler)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>addAuthorizationButtonClickHandler</h4>
-<pre>public&nbsp;void&nbsp;addAuthorizationButtonClickHandler(com.google.gwt.event.dom.client.ClickHandler&nbsp;clickHandler)</pre>
-<dl>
-<dt><strong>Specified by:</strong></dt>
-<dd><code><a href="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleView.html#addAuthorizationButtonClickHandler(com.google.gwt.event.dom.client.ClickHandler)">addAuthorizationButtonClickHandler</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleView.html" title="interface in com.technology.jep.jepriashowcase.custom.client.ui.plain">CustomModuleView</a></code></dd>
-</dl>
-</li>
-</ul>
-<a name="addExitButtonClickHandler(com.google.gwt.event.dom.client.ClickHandler)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>addExitButtonClickHandler</h4>
-<pre>public&nbsp;void&nbsp;addExitButtonClickHandler(com.google.gwt.event.dom.client.ClickHandler&nbsp;clickHandler)</pre>
-<dl>
-<dt><strong>Specified by:</strong></dt>
-<dd><code><a href="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleView.html#addExitButtonClickHandler(com.google.gwt.event.dom.client.ClickHandler)">addExitButtonClickHandler</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleView.html" title="interface in com.technology.jep.jepriashowcase.custom.client.ui.plain">CustomModuleView</a></code></dd>
-</dl>
-</li>
-</ul>
-<a name="addGoToUrlButtonClickHandler(com.google.gwt.event.dom.client.ClickHandler)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>addGoToUrlButtonClickHandler</h4>
-<pre>public&nbsp;com.google.gwt.event.shared.HandlerRegistration&nbsp;addGoToUrlButtonClickHandler(com.google.gwt.event.dom.client.ClickHandler&nbsp;clickHandler)</pre>
-<dl>
-<dt><strong>Specified by:</strong></dt>
-<dd><code><a href="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleView.html#addGoToUrlButtonClickHandler(com.google.gwt.event.dom.client.ClickHandler)">addGoToUrlButtonClickHandler</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleView.html" title="interface in com.technology.jep.jepriashowcase.custom.client.ui.plain">CustomModuleView</a></code></dd>
-</dl>
-</li>
-</ul>
-<a name="addTransactionButtonClickHandler(com.google.gwt.event.dom.client.ClickHandler)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>addTransactionButtonClickHandler</h4>
-<pre>public&nbsp;com.google.gwt.event.shared.HandlerRegistration&nbsp;addTransactionButtonClickHandler(com.google.gwt.event.dom.client.ClickHandler&nbsp;clickHandler)</pre>
-<dl>
-<dt><strong>Specified by:</strong></dt>
-<dd><code><a href="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleView.html#addTransactionButtonClickHandler(com.google.gwt.event.dom.client.ClickHandler)">addTransactionButtonClickHandler</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleView.html" title="interface in com.technology.jep.jepriashowcase.custom.client.ui.plain">CustomModuleView</a></code></dd>
-</dl>
-</li>
-</ul>
-<a name="getUrlTextField()">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>getUrlTextField</h4>
-<pre>public&nbsp;com.technology.jep.jepria.client.widget.field.multistate.JepTextField&nbsp;getUrlTextField()</pre>
-<dl>
-<dt><strong>Specified by:</strong></dt>
-<dd><code><a href="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleView.html#getUrlTextField()">getUrlTextField</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleView.html" title="interface in com.technology.jep.jepriashowcase.custom.client.ui.plain">CustomModuleView</a></code></dd>
-</dl>
-</li>
-</ul>
-<a name="getUserCredential()">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>getUserCredential</h4>
-<pre>public&nbsp;<a href="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/Credential.html" title="class in com.technology.jep.jepriashowcase.custom.client.ui.plain">Credential</a>&nbsp;getUserCredential()</pre>
-<dl>
-<dt><strong>Specified by:</strong></dt>
-<dd><code><a href="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleView.html#getUserCredential()">getUserCredential</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleView.html" title="interface in com.technology.jep.jepriashowcase.custom.client.ui.plain">CustomModuleView</a></code></dd>
-</dl>
-</li>
-</ul>
-<a name="showOrClearError(java.lang.String)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>showOrClearError</h4>
-<pre>public&nbsp;void&nbsp;showOrClearError(java.lang.String&nbsp;errorText)</pre>
-<dl>
-<dt><strong>Specified by:</strong></dt>
-<dd><code><a href="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleView.html#showOrClearError(java.lang.String)">showOrClearError</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleView.html" title="interface in com.technology.jep.jepriashowcase.custom.client.ui.plain">CustomModuleView</a></code></dd>
-</dl>
-</li>
-</ul>
-<a name="setUsername(java.lang.String)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>setUsername</h4>
-<pre>public&nbsp;void&nbsp;setUsername(java.lang.String&nbsp;username)</pre>
-<dl>
-<dt><strong>Specified by:</strong></dt>
-<dd><code><a href="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleView.html#setUsername(java.lang.String)">setUsername</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleView.html" title="interface in com.technology.jep.jepriashowcase.custom.client.ui.plain">CustomModuleView</a></code></dd>
-</dl>
-</li>
-</ul>
-<a name="toggleAuthorizationPanel()">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>toggleAuthorizationPanel</h4>
-<pre>public&nbsp;void&nbsp;toggleAuthorizationPanel()</pre>
-<dl>
-<dt><strong>Specified by:</strong></dt>
-<dd><code><a href="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleView.html#toggleAuthorizationPanel()">toggleAuthorizationPanel</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleView.html" title="interface in com.technology.jep.jepriashowcase.custom.client.ui.plain">CustomModuleView</a></code></dd>
-</dl>
-</li>
-</ul>
-<a name="showLoadingIndicator()">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>showLoadingIndicator</h4>
-<pre>public&nbsp;void&nbsp;showLoadingIndicator()</pre>
-<dl>
-<dt><strong>Specified by:</strong></dt>
-<dd><code><a href="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleView.html#showLoadingIndicator()">showLoadingIndicator</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleView.html" title="interface in com.technology.jep.jepriashowcase.custom.client.ui.plain">CustomModuleView</a></code></dd>
-</dl>
-</li>
-</ul>
-<a name="hideLoadingIndicator()">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>hideLoadingIndicator</h4>
-<pre>public&nbsp;void&nbsp;hideLoadingIndicator()</pre>
-<dl>
-<dt><strong>Specified by:</strong></dt>
-<dd><code><a href="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleView.html#hideLoadingIndicator()">hideLoadingIndicator</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleView.html" title="interface in com.technology.jep.jepriashowcase.custom.client.ui.plain">CustomModuleView</a></code></dd>
-</dl>
-</li>
-</ul>
-<a name="clearCredential()">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>clearCredential</h4>
-<pre>public&nbsp;void&nbsp;clearCredential()</pre>
-<dl>
-<dt><strong>Specified by:</strong></dt>
-<dd><code><a href="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleView.html#clearCredential()">clearCredential</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleView.html" title="interface in com.technology.jep.jepriashowcase.custom.client.ui.plain">CustomModuleView</a></code></dd>
-</dl>
-</li>
-</ul>
-<a name="createAuthorizationalPanel()">
-<!--   -->
-</a>
-<ul class="blockListLast">
-<li class="blockList">
-<h4>createAuthorizationalPanel</h4>
-<pre>private&nbsp;com.google.gwt.user.client.ui.DeckPanel&nbsp;createAuthorizationalPanel()</pre>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</div>
-</div>
+
+<A NAME="method_detail"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
+<B>Method Detail</B></FONT></TH>
+</TR>
+</TABLE>
+
+<A NAME="add(com.google.gwt.user.client.ui.Widget, java.lang.String)"><!-- --></A><H3>
+add</H3>
+<PRE>
+private boolean <B>add</B>(com.google.gwt.user.client.ui.Widget&nbsp;widget,
+                    java.lang.String&nbsp;elementId)</PRE>
+<DL>
+<DD>Привязка виджета к идентификатору элемента в DOM-дереве.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>widget</CODE> - привязываемый виджет<DD><CODE>elementId</CODE> - идентификатор элемента DOM-дерева
+<DT><B>Returns:</B><DD>флаг наличия элемента в DOM-дереве</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="addFullScreenButtonClickHandler(com.google.gwt.event.dom.client.ClickHandler)"><!-- --></A><H3>
+addFullScreenButtonClickHandler</H3>
+<PRE>
+public void <B>addFullScreenButtonClickHandler</B>(com.google.gwt.event.dom.client.ClickHandler&nbsp;clickHandler)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleView.html#addFullScreenButtonClickHandler(com.google.gwt.event.dom.client.ClickHandler)">addFullScreenButtonClickHandler</A></CODE> in interface <CODE><A HREF="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleView.html" title="interface in com.technology.jep.jepriashowcase.custom.client.ui.plain">CustomModuleView</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="addErrorButtonClickHandler(com.google.gwt.event.dom.client.ClickHandler)"><!-- --></A><H3>
+addErrorButtonClickHandler</H3>
+<PRE>
+public void <B>addErrorButtonClickHandler</B>(com.google.gwt.event.dom.client.ClickHandler&nbsp;clickHandler)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleView.html#addErrorButtonClickHandler(com.google.gwt.event.dom.client.ClickHandler)">addErrorButtonClickHandler</A></CODE> in interface <CODE><A HREF="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleView.html" title="interface in com.technology.jep.jepriashowcase.custom.client.ui.plain">CustomModuleView</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="addZIndexButtonClickHandler(com.google.gwt.event.dom.client.ClickHandler)"><!-- --></A><H3>
+addZIndexButtonClickHandler</H3>
+<PRE>
+public void <B>addZIndexButtonClickHandler</B>(com.google.gwt.event.dom.client.ClickHandler&nbsp;clickHandler)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleView.html#addZIndexButtonClickHandler(com.google.gwt.event.dom.client.ClickHandler)">addZIndexButtonClickHandler</A></CODE> in interface <CODE><A HREF="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleView.html" title="interface in com.technology.jep.jepriashowcase.custom.client.ui.plain">CustomModuleView</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="addEmbeddedButtonClickHandler(com.google.gwt.event.dom.client.ClickHandler)"><!-- --></A><H3>
+addEmbeddedButtonClickHandler</H3>
+<PRE>
+public void <B>addEmbeddedButtonClickHandler</B>(com.google.gwt.event.dom.client.ClickHandler&nbsp;clickHandler)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleView.html#addEmbeddedButtonClickHandler(com.google.gwt.event.dom.client.ClickHandler)">addEmbeddedButtonClickHandler</A></CODE> in interface <CODE><A HREF="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleView.html" title="interface in com.technology.jep.jepriashowcase.custom.client.ui.plain">CustomModuleView</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="addSearchButtonClickHandler(com.google.gwt.event.dom.client.ClickHandler)"><!-- --></A><H3>
+addSearchButtonClickHandler</H3>
+<PRE>
+public void <B>addSearchButtonClickHandler</B>(com.google.gwt.event.dom.client.ClickHandler&nbsp;clickHandler)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleView.html#addSearchButtonClickHandler(com.google.gwt.event.dom.client.ClickHandler)">addSearchButtonClickHandler</A></CODE> in interface <CODE><A HREF="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleView.html" title="interface in com.technology.jep.jepriashowcase.custom.client.ui.plain">CustomModuleView</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="addCurrentUserClickHandler(com.google.gwt.event.dom.client.ClickHandler)"><!-- --></A><H3>
+addCurrentUserClickHandler</H3>
+<PRE>
+public void <B>addCurrentUserClickHandler</B>(com.google.gwt.event.dom.client.ClickHandler&nbsp;clickHandler)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleView.html#addCurrentUserClickHandler(com.google.gwt.event.dom.client.ClickHandler)">addCurrentUserClickHandler</A></CODE> in interface <CODE><A HREF="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleView.html" title="interface in com.technology.jep.jepriashowcase.custom.client.ui.plain">CustomModuleView</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="addAuthorizationButtonClickHandler(com.google.gwt.event.dom.client.ClickHandler)"><!-- --></A><H3>
+addAuthorizationButtonClickHandler</H3>
+<PRE>
+public void <B>addAuthorizationButtonClickHandler</B>(com.google.gwt.event.dom.client.ClickHandler&nbsp;clickHandler)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleView.html#addAuthorizationButtonClickHandler(com.google.gwt.event.dom.client.ClickHandler)">addAuthorizationButtonClickHandler</A></CODE> in interface <CODE><A HREF="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleView.html" title="interface in com.technology.jep.jepriashowcase.custom.client.ui.plain">CustomModuleView</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="addExitButtonClickHandler(com.google.gwt.event.dom.client.ClickHandler)"><!-- --></A><H3>
+addExitButtonClickHandler</H3>
+<PRE>
+public void <B>addExitButtonClickHandler</B>(com.google.gwt.event.dom.client.ClickHandler&nbsp;clickHandler)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleView.html#addExitButtonClickHandler(com.google.gwt.event.dom.client.ClickHandler)">addExitButtonClickHandler</A></CODE> in interface <CODE><A HREF="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleView.html" title="interface in com.technology.jep.jepriashowcase.custom.client.ui.plain">CustomModuleView</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="addGoToUrlButtonClickHandler(com.google.gwt.event.dom.client.ClickHandler)"><!-- --></A><H3>
+addGoToUrlButtonClickHandler</H3>
+<PRE>
+public com.google.gwt.event.shared.HandlerRegistration <B>addGoToUrlButtonClickHandler</B>(com.google.gwt.event.dom.client.ClickHandler&nbsp;clickHandler)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleView.html#addGoToUrlButtonClickHandler(com.google.gwt.event.dom.client.ClickHandler)">addGoToUrlButtonClickHandler</A></CODE> in interface <CODE><A HREF="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleView.html" title="interface in com.technology.jep.jepriashowcase.custom.client.ui.plain">CustomModuleView</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="addTransactionButtonClickHandler(com.google.gwt.event.dom.client.ClickHandler)"><!-- --></A><H3>
+addTransactionButtonClickHandler</H3>
+<PRE>
+public com.google.gwt.event.shared.HandlerRegistration <B>addTransactionButtonClickHandler</B>(com.google.gwt.event.dom.client.ClickHandler&nbsp;clickHandler)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleView.html#addTransactionButtonClickHandler(com.google.gwt.event.dom.client.ClickHandler)">addTransactionButtonClickHandler</A></CODE> in interface <CODE><A HREF="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleView.html" title="interface in com.technology.jep.jepriashowcase.custom.client.ui.plain">CustomModuleView</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getUrlTextField()"><!-- --></A><H3>
+getUrlTextField</H3>
+<PRE>
+public com.technology.jep.jepria.client.widget.field.multistate.JepTextField <B>getUrlTextField</B>()</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleView.html#getUrlTextField()">getUrlTextField</A></CODE> in interface <CODE><A HREF="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleView.html" title="interface in com.technology.jep.jepriashowcase.custom.client.ui.plain">CustomModuleView</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getUserCredential()"><!-- --></A><H3>
+getUserCredential</H3>
+<PRE>
+public <A HREF="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/Credential.html" title="class in com.technology.jep.jepriashowcase.custom.client.ui.plain">Credential</A> <B>getUserCredential</B>()</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleView.html#getUserCredential()">getUserCredential</A></CODE> in interface <CODE><A HREF="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleView.html" title="interface in com.technology.jep.jepriashowcase.custom.client.ui.plain">CustomModuleView</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="showOrClearError(java.lang.String)"><!-- --></A><H3>
+showOrClearError</H3>
+<PRE>
+public void <B>showOrClearError</B>(java.lang.String&nbsp;errorText)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleView.html#showOrClearError(java.lang.String)">showOrClearError</A></CODE> in interface <CODE><A HREF="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleView.html" title="interface in com.technology.jep.jepriashowcase.custom.client.ui.plain">CustomModuleView</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setUsername(java.lang.String)"><!-- --></A><H3>
+setUsername</H3>
+<PRE>
+public void <B>setUsername</B>(java.lang.String&nbsp;username)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleView.html#setUsername(java.lang.String)">setUsername</A></CODE> in interface <CODE><A HREF="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleView.html" title="interface in com.technology.jep.jepriashowcase.custom.client.ui.plain">CustomModuleView</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="toggleAuthorizationPanel()"><!-- --></A><H3>
+toggleAuthorizationPanel</H3>
+<PRE>
+public void <B>toggleAuthorizationPanel</B>()</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleView.html#toggleAuthorizationPanel()">toggleAuthorizationPanel</A></CODE> in interface <CODE><A HREF="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleView.html" title="interface in com.technology.jep.jepriashowcase.custom.client.ui.plain">CustomModuleView</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="showLoadingIndicator()"><!-- --></A><H3>
+showLoadingIndicator</H3>
+<PRE>
+public void <B>showLoadingIndicator</B>()</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleView.html#showLoadingIndicator()">showLoadingIndicator</A></CODE> in interface <CODE><A HREF="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleView.html" title="interface in com.technology.jep.jepriashowcase.custom.client.ui.plain">CustomModuleView</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="hideLoadingIndicator()"><!-- --></A><H3>
+hideLoadingIndicator</H3>
+<PRE>
+public void <B>hideLoadingIndicator</B>()</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleView.html#hideLoadingIndicator()">hideLoadingIndicator</A></CODE> in interface <CODE><A HREF="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleView.html" title="interface in com.technology.jep.jepriashowcase.custom.client.ui.plain">CustomModuleView</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="clearCredential()"><!-- --></A><H3>
+clearCredential</H3>
+<PRE>
+public void <B>clearCredential</B>()</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleView.html#clearCredential()">clearCredential</A></CODE> in interface <CODE><A HREF="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleView.html" title="interface in com.technology.jep.jepriashowcase.custom.client.ui.plain">CustomModuleView</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="createAuthorizationalPanel()"><!-- --></A><H3>
+createAuthorizationalPanel</H3>
+<PRE>
+private com.google.gwt.user.client.ui.DeckPanel <B>createAuthorizationalPanel</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
 <!-- ========= END OF CLASS DATA ========= -->
+<HR>
+
+
 <!-- ======= START OF BOTTOM NAVBAR ====== -->
-<div class="bottomNav"><a name="navbar_bottom">
-<!--   -->
-</a><a href="#skip-navbar_bottom" title="Skip navigation links"></a><a name="navbar_bottom_firstrow">
-<!--   -->
-</a>
-<ul class="navList" title="Navigation">
-<li><a href="../../../../../../../../overview-summary.html">Overview</a></li>
-<li><a href="package-summary.html">Package</a></li>
-<li class="navBarCell1Rev">Class</li>
-<li><a href="package-tree.html">Tree</a></li>
-<li><a href="../../../../../../../../deprecated-list.html">Deprecated</a></li>
-<li><a href="../../../../../../../../index-all.html">Index</a></li>
-<li><a href="../../../../../../../../help-doc.html">Help</a></li>
-</ul>
-</div>
-<div class="subNav">
-<ul class="navList">
-<li><a href="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleView.html" title="interface in com.technology.jep.jepriashowcase.custom.client.ui.plain"><span class="strong">Prev Class</span></a></li>
-<li>Next Class</li>
-</ul>
-<ul class="navList">
-<li><a href="../../../../../../../../index.html?com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleViewImpl.html" target="_top">Frames</a></li>
-<li><a href="CustomModuleViewImpl.html" target="_top">No Frames</a></li>
-</ul>
-<ul class="navList" id="allclasses_navbar_bottom">
-<li><a href="../../../../../../../../allclasses-noframe.html">All Classes</a></li>
-</ul>
-<div>
-<script type="text/javascript"><!--
-  allClassesLink = document.getElementById("allclasses_navbar_bottom");
+<A NAME="navbar_bottom"><!-- --></A>
+<A HREF="#skip-navbar_bottom" title="Skip navigation links"></A>
+<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
+<TR>
+<TD COLSPAN=2 BGCOLOR="#EEEEFF" CLASS="NavBarCell1">
+<A NAME="navbar_bottom_firstrow"><!-- --></A>
+<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3" SUMMARY="">
+  <TR ALIGN="center" VALIGN="top">
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-summary.html"><FONT CLASS="NavBarFont1"><B>Package</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../../index-all.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../../help-doc.html"><FONT CLASS="NavBarFont1"><B>Help</B></FONT></A>&nbsp;</TD>
+  </TR>
+</TABLE>
+</TD>
+<TD ALIGN="right" VALIGN="top" ROWSPAN=3><EM>
+</EM>
+</TD>
+</TR>
+
+<TR>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+&nbsp;<A HREF="../../../../../../../../com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleView.html" title="interface in com.technology.jep.jepriashowcase.custom.client.ui.plain"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;NEXT CLASS</FONT></TD>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+  <A HREF="../../../../../../../../index.html?com/technology/jep/jepriashowcase/custom/client/ui/plain/CustomModuleViewImpl.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="CustomModuleViewImpl.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+&nbsp;<SCRIPT type="text/javascript">
+  <!--
   if(window==top) {
-    allClassesLink.style.display = "block";
-  }
-  else {
-    allClassesLink.style.display = "none";
+    document.writeln('<A HREF="../../../../../../../../allclasses-noframe.html"><B>All Classes</B></A>');
   }
   //-->
-</script>
-</div>
-<div>
-<ul class="subNavList">
-<li>Summary:&nbsp;</li>
-<li>Nested&nbsp;|&nbsp;</li>
-<li><a href="#field_summary">Field</a>&nbsp;|&nbsp;</li>
-<li><a href="#constructor_summary">Constr</a>&nbsp;|&nbsp;</li>
-<li><a href="#method_summary">Method</a></li>
-</ul>
-<ul class="subNavList">
-<li>Detail:&nbsp;</li>
-<li><a href="#field_detail">Field</a>&nbsp;|&nbsp;</li>
-<li><a href="#constructor_detail">Constr</a>&nbsp;|&nbsp;</li>
-<li><a href="#method_detail">Method</a></li>
-</ul>
-</div>
-<a name="skip-navbar_bottom">
-<!--   -->
-</a></div>
+</SCRIPT>
+<NOSCRIPT>
+  <A HREF="../../../../../../../../allclasses-noframe.html"><B>All Classes</B></A>
+</NOSCRIPT>
+
+
+</FONT></TD>
+</TR>
+<TR>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+  SUMMARY:&nbsp;NESTED&nbsp;|&nbsp;<A HREF="#field_summary">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
+</TR>
+</TABLE>
+<A NAME="skip-navbar_bottom"></A>
 <!-- ======== END OF BOTTOM NAVBAR ======= -->
-</body>
-</html>
+
+<HR>
+
+</BODY>
+</HTML>
