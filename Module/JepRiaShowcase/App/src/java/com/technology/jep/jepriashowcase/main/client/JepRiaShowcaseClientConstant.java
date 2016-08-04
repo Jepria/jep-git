@@ -39,7 +39,7 @@ public class JepRiaShowcaseClientConstant extends JepRiaShowcaseConstant {
   /**
    * Адрес SSO-модуля для запроса авторизации на сервере Oracle Application Server
    */
-  public static final String OAS_SSO_MODULE_URL = "/jsso/autoLogonServlet?username={0}&password={1}&url=/info/JepRiaShowcase/ProtectedPage.jsp";
+  public static final String OAS_SSO_MODULE_URL = "/jsso/autoLogonServlet?username={0}&password={1}&url=/JepRiaShowcase/ProtectedPage.jsp";
   
   /**
    * Адрес SSO-модуля для запроса авторизации на сервере WebLogic
