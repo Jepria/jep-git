@@ -135,6 +135,11 @@ public class JepRiaModuleAutoImpl<A extends EntranceAppAuto, P extends JepRiaApp
 	public void find() {
 		setWorkstate(WorkstateEnum.VIEW_LIST);
 	}
+	
+	@Override
+  public void doSearch() {
+    setWorkstate(WorkstateEnum.VIEW_LIST);
+  }
 
 	@Override
 	public void setWorkstate(WorkstateEnum workstateTo) {

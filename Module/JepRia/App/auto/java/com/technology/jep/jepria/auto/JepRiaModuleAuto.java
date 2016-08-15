@@ -78,8 +78,15 @@ public interface JepRiaModuleAuto extends EntranceAuto {
 
   /**
    * Выполнение поиска по параметрам, заданным в поисковой форме
+   * @deprecated use {@link doSearch()} instead
    */
+  @Deprecated
   void find();
+  
+  /**
+   * Выполнение поиска по параметрам, заданным в поисковой форме
+   */
+  void doSearch();
 
   /**
    * Выполнение поиска по шаблону

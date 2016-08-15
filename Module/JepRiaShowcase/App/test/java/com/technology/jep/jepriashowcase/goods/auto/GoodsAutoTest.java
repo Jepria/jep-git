@@ -66,7 +66,7 @@ public class GoodsAutoTest extends JepAutoTest<GoodsAuto> {
     cut.setWorkstate(SEARCH);
     
     String statusBarTextBefore = cut.getStatusBar().getText();
-    cut.find();
+    cut.doSearch();
         cut.waitTextToBeChanged(cut.getStatusBar(), statusBarTextBefore);
         
     assertEquals(

@@ -151,7 +151,7 @@ public class FeatureAutoTest extends JepAutoTest<FeatureAuto> {
     assertEquals(maxRowCount, cut.getMaxRowCount());
       
     // Осуществляем поиск
-    cut.find();
+    cut.doSearch();
     
     // Проверяем, что осуществился переход на форму списка после поиска
      assertEquals(
@@ -191,7 +191,7 @@ public class FeatureAutoTest extends JepAutoTest<FeatureAuto> {
     // Проверяем корректность удаления: пытаемся найти запись по сохраненному feature_id
     cut.setFeatureId(feature_id);
     // Осуществляем поиск
-    cut.find();
+    cut.doSearch();
     //TODO убедиться что список пуст
   }
        

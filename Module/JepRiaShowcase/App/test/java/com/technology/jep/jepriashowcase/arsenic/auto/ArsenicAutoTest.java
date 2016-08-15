@@ -436,7 +436,7 @@ public class ArsenicAutoTest extends JepAutoTest<ArsenicAuto> {
   public void testGridHeaders(Object... headers) {
     setWorkstate(SEARCH);
     
-    cut.find();
+    cut.doSearch();
     
     List<String> headersList = cut.getGridHeaders();
     
@@ -450,7 +450,7 @@ public class ArsenicAutoTest extends JepAutoTest<ArsenicAuto> {
     cut.setJepTextField("abc");
     cut.setJepTextAreaField("DEF");
     
-    cut.find();
+    cut.doSearch();
     
     List<List<Object>> data = cut.getGridData();
     List<String> headers = cut.getGridHeaders();
@@ -478,7 +478,7 @@ public class ArsenicAutoTest extends JepAutoTest<ArsenicAuto> {
   public void testColumnOrderWithCookies(String...values) {
     if (firstLaunch) {
       setWorkstate(SEARCH);
-      cut.find();
+      cut.doSearch();
       firstLaunch = false;
     }
     
