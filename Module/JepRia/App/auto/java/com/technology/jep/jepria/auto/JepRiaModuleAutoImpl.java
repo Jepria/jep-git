@@ -133,13 +133,7 @@ public class JepRiaModuleAutoImpl<A extends EntranceAppAuto, P extends JepRiaApp
 	
 	@Override
 	public void find() {
-		pages.getApplicationPage().ensurePageLoaded();
-		
-		getWait().until(elementToBeClickable(By.id(TOOLBAR_FIND_BUTTON_ID)));
-		
-		pages.getApplicationPage().findButton.click();
-		
-//		setCurrentWorkstate(WorkstateEnum.VIEW_LIST);
+		setWorkstate(WorkstateEnum.VIEW_LIST);
 	}
 
 	@Override

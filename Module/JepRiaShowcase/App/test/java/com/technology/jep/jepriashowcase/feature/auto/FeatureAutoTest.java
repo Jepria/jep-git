@@ -11,6 +11,7 @@ import static com.technology.jep.jepria.client.ui.WorkstateEnum.SEARCH;
 import org.apache.log4j.Logger;
 import org.testng.annotations.Test;
 
+import com.technology.jep.jepria.auto.JepRiaModuleAutoImpl;
 import com.technology.jep.jepria.auto.SaveResultEnum;
 import com.technology.jep.jepria.auto.Util;
 import com.technology.jep.jepria.auto.manager.JepRiaAuto;
@@ -183,6 +184,9 @@ public class FeatureAutoTest extends JepAutoTest<FeatureAuto> {
      cut.clickButton(TOOLBAR_DELETE_BUTTON_ID);
      assertEquals(true, cut.checkMessageBox(CONFIRM_MESSAGEBOX_ID));
     cut.clickButton(CONFIRM_MESSAGE_BOX_YES_BUTTON_ID);
+    // FIXME baad code below! the inner "workstate" will not be set autiomatically after deletion unless it is set manually.
+    ((JepRiaModuleAutoImpl)cut).setCurrentWorkstate(SEARCH);
+    //
     
     // Проверяем корректность удаления: пытаемся найти запись по сохраненному feature_id
     cut.setFeatureId(feature_id);
