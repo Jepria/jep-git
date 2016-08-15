@@ -63,7 +63,7 @@ public class GoodsAutoTest extends JepAutoTest<GoodsAuto> {
    */
   @Test(groups = "find")
   public void find() {
-    cut.setWorkstate(SEARCH);
+    cut.find();
     
     String statusBarTextBefore = cut.getStatusBar().getText();
     cut.doSearch();
@@ -87,7 +87,7 @@ public class GoodsAutoTest extends JepAutoTest<GoodsAuto> {
    */
   @Test(groups = "goto")
   public void goToSearch() {
-    cut.setWorkstate(SEARCH);
+    cut.find();
         
     assertEquals(
         Util.getResourceString("workstate.search"),
@@ -115,7 +115,7 @@ public class GoodsAutoTest extends JepAutoTest<GoodsAuto> {
   @DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/goods/auto/GoodsAutoTest.fillSearchForm.method.data")
   @Test(groups="find", dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
   public void fillSearchForm(String goodsName, String goodsType, String unit, String goodsSegment, String strGoodsCatalogSections) {
-    cut.setWorkstate(SEARCH);
+    cut.find();
         
     Set<String> goodsCatalogSections = JepTestUtil.parseCSV(strGoodsCatalogSections);
     
@@ -170,7 +170,7 @@ public class GoodsAutoTest extends JepAutoTest<GoodsAuto> {
   @DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/goods/auto/GoodsAutoTest.setAndGetGoodsName.group.data")
   @Test(groups= "setAndGetFields", dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
   public void setAndGetGoodsNameOnSearch(String goodsNameNewValue) {
-    cut.setWorkstate(SEARCH);
+    cut.find();
     
         cut.setGoodsName(goodsNameNewValue);
         
@@ -346,7 +346,7 @@ public class GoodsAutoTest extends JepAutoTest<GoodsAuto> {
   @Test(groups = {"list", "goto"})
 //  @Parameters({"KEY_FIELD_VALUE"})
   public void goToList(final String goodsName) {
-    cut.find(new HashMap<String, String>(){{
+    cut.doSearch(new HashMap<String, String>(){{
       put(GOODS_GOODS_NAME_TEXT_FIELD_ID, goodsName);
     }});
         
@@ -362,7 +362,7 @@ public class GoodsAutoTest extends JepAutoTest<GoodsAuto> {
   @Test(groups = "list")
 //  @Parameters({"KEY_FIELD_VALUE"})
   public void selectFirstItem(final String goodsName) {
-    cut.find(new HashMap<String, String>(){{
+    cut.doSearch(new HashMap<String, String>(){{
       put(GOODS_GOODS_NAME_TEXT_FIELD_ID, goodsName);
     }});
     
@@ -617,7 +617,7 @@ public class GoodsAutoTest extends JepAutoTest<GoodsAuto> {
       createTestRecord(goodsNameFieldValue);
       
       Map<String, String> key = new HashMap<String, String>() {{put(GOODS_GOODS_NAME_TEXT_FIELD_ID, goodsNameFieldValue);}};
-      cut.find(key);
+      cut.doSearch(key);
       
       try {
         cut.selectItem(key);

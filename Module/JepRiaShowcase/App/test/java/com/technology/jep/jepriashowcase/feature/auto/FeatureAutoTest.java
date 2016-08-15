@@ -126,7 +126,7 @@ public class FeatureAutoTest extends JepAutoTest<FeatureAuto> {
   @DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/feature/auto/form.search.data")
   @Test(groups={"find"}, dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
   public void findByTemplate(String featureId, String featureName, String featureNameEn, String fromDateIns, String toDateIns, String maxRowCount) {
-    cut.setWorkstate(SEARCH);
+    cut.find();
     
     // Проверяем, что осуществился переход на форму поиска
     assertEquals(

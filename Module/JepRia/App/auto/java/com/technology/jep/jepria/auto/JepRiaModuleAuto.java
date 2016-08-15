@@ -77,10 +77,10 @@ public interface JepRiaModuleAuto extends EntranceAuto {
   SaveResultEnum save();
 
   /**
-   * Выполнение поиска по параметрам, заданным в поисковой форме
-   * @deprecated use {@link doSearch()} instead
+   * Переход на форму поиска.<br>
+   * Для собственно выполнения поиска по параметрам, заданным в поисковой форме,
+   * необходимо использовать {@link #doSearch}
    */
-  @Deprecated
   void find();
   
   /**
@@ -91,7 +91,7 @@ public interface JepRiaModuleAuto extends EntranceAuto {
   /**
    * Выполнение поиска по шаблону
    */
-  void find(Map<String, String> template);
+  void doSearch(Map<String, String> template);
 
   /**
    * Получение элемента панели состояния

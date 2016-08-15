@@ -104,7 +104,7 @@ public abstract class JepAutoTest<C extends JepRiaModuleAuto> extends AssertJUni
           if("Yes".equalsIgnoreCase(forceLogin) && cut.isLoggedIn()) {
             cut.logout();
           } else {
-            cut.setWorkstate(WorkstateEnum.SEARCH); // Приведение модуля в исходное состояние
+            cut.find(); // Приведение модуля в исходное состояние
           }
       }
   }

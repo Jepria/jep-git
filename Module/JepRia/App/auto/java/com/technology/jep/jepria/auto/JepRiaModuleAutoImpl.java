@@ -118,9 +118,9 @@ public class JepRiaModuleAutoImpl<A extends EntranceAppAuto, P extends JepRiaApp
 	}
 	
 	@Override
-	public void find(Map<String, String> template) {
+	public void doSearch(Map<String, String> template) {
 		if(getCurrentWorkstate() != VIEW_LIST) {
-			setWorkstate(SEARCH);
+			find();
 			fillFields(template);
 			
 			String statusBarTextBefore = getStatusBar().getText();
@@ -133,7 +133,7 @@ public class JepRiaModuleAutoImpl<A extends EntranceAppAuto, P extends JepRiaApp
 	
 	@Override
 	public void find() {
-		setWorkstate(WorkstateEnum.VIEW_LIST);
+		setWorkstate(WorkstateEnum.SEARCH);
 	}
 	
 	@Override
@@ -162,7 +162,7 @@ public class JepRiaModuleAutoImpl<A extends EntranceAppAuto, P extends JepRiaApp
 
 	@Override
 	public void edit(Map<String, String> template) {
-		find(template);
+		doSearch(template);
 		
         selectItem(0);
         
@@ -197,7 +197,7 @@ public class JepRiaModuleAutoImpl<A extends EntranceAppAuto, P extends JepRiaApp
 
 	
 	public void selectItem(Map<String, String> key) {
-		find(key);
+		doSearch(key);
         selectItem(0);
 	}
 
