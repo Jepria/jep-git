@@ -19,6 +19,11 @@
   <inherits name="com.technology.jep.jepriashowcase.requestprocess.RequestProcess"/>
   <inherits name="com.technology.jep.jepriashowcase.feature.Feature"/>
 
+<!--
+При запуске тестов gwt-сервисов из Eclipse нижеследующую строку нужно комментировать.
+При запуске тестов из Ant комментировать не нужно
+Пока так :(
+-->
   <entry-point class="com.technology.jep.jepriashowcase.main.client.entrance.JepRiaShowcaseEntryPoint"/>
  
   <!-- Нужно исключительно только для сервера Jetty используемого при автоматизированном Gwt-тестировани. -->

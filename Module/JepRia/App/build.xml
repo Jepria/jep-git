@@ -237,6 +237,10 @@
         <pathelement location="build" />
         <pathelement location="build-auto" />
       </classpath>
+      <classpath>
+        <pathelement location="${SPRING-MOCK_LIB}"/>
+        <pathelement location="${GWT-TEST-UTILS_LIB}"/>
+      </classpath>        
     </javac>
   </target>
 

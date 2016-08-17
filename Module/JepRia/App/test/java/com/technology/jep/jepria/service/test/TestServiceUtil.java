@@ -1,4 +1,4 @@
-package com.technology.jep.jepria.test;
+package com.technology.jep.jepria.service.test;
 
 import java.sql.SQLException;
 
@@ -26,7 +26,7 @@ public class TestServiceUtil {
     return ic;
   }
 
-  public static void prepareDataSource(InitialContext ic, String jdbcUrl, String dbUsername, String dbPassword, String jndiName) throws SQLException, NamingException {
+  public static void prepareDataSource(InitialContext ic, String jndiName, String jdbcUrl, String dbUsername, String dbPassword) throws SQLException, NamingException {
     OracleConnectionPoolDataSource dsPool = new OracleConnectionPoolDataSource();
     dsPool.setURL(jdbcUrl);
     dsPool.setUser(dbUsername);

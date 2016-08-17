@@ -5,6 +5,7 @@ import static com.technology.jep.jepria.server.security.JepSecurityConstant.GUES
 import static com.technology.jep.jepria.server.security.JepSecurityConstant.GUEST_PASSWORD;
 //import static org.junit.Assert.;
 
+
 import java.sql.SQLException;
 
 import javax.naming.InitialContext;
@@ -20,7 +21,7 @@ import org.junit.Test;
 
 import com.technology.jep.jepcommon.security.pkg_Operator;
 import com.technology.jep.jepria.server.db.Db;
-import com.technology.jep.jepria.test.TestServiceUtil;
+import com.technology.jep.jepria.service.test.TestServiceUtil;
 
 /**
  * Пример тестирования интерфейсного Db-функционала
