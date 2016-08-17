@@ -2,8 +2,10 @@ package com.technology.jep.jepriashowcase.goods.auto;
 
 import static com.technology.jep.jepria.client.JepRiaAutomationConstant.ERROR_MESSAGE_BOX_OK_BUTTON_ID;
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.CREATE;
-import static com.technology.jep.jepria.client.ui.WorkstateEnum.SEARCH;
-import static com.technology.jep.jepriashowcase.goods.client.GoodsAutomationConstant.*;
+import static com.technology.jep.jepriashowcase.goods.client.GoodsAutomationConstant.GOODS_GOODS_NAME_TEXT_FIELD_ID;
+import static com.technology.jep.jepriashowcase.goods.client.GoodsAutomationConstant.GOODS_GOODS_TYPE_COMBOBOX_FIELD_ID;
+import static com.technology.jep.jepriashowcase.goods.client.GoodsAutomationConstant.GOODS_PURCHASING_PRICE_NUMBER_FIELD_ID;
+import static com.technology.jep.jepriashowcase.goods.client.GoodsAutomationConstant.GOODS_UNIT_COMBOBOX_FIELD_ID;
 
 import java.util.HashMap;
 import java.util.List;
@@ -168,7 +170,7 @@ public class GoodsAutoTest extends JepAutoTest<GoodsAuto> {
    * @param goodsNameNewValue - устанавливаемое значение поля 'Наименование товара'
    */
   @DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/goods/auto/GoodsAutoTest.setAndGetGoodsName.group.data")
-  @Test(groups= "setAndGetFields", dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
+  @Test(groups= "setAndGetFields!", dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
   public void setAndGetGoodsNameOnSearch(String goodsNameNewValue) {
     cut.find();
     
@@ -183,7 +185,7 @@ public class GoodsAutoTest extends JepAutoTest<GoodsAuto> {
    * @param goodsNameNewValue - устанавливаемое значение поля 'Наименование товара'
    */
   @DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/goods/auto/GoodsAutoTest.setAndGetGoodsName.group.data")
-  @Test(groups={"create", "setAndGetFields"}, dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
+  @Test(groups={"create", "setAndGetFields!"}, dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
   public void setAndGetGoodsNameOnCreate(String goodsNameNewValue) {
     cut.setWorkstate(CREATE);
     
@@ -196,7 +198,7 @@ public class GoodsAutoTest extends JepAutoTest<GoodsAuto> {
    * Тест установки/получения поля 'Тип товара' на форме создания
    */
   @DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/goods/auto/GoodsAutoTest.setAndGetGoodsType.group.data")
-  @Test(groups={"create", "setAndGetFields"}, dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
+  @Test(groups={"create", "setAndGetFields!"}, dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
   public void setAndGetGoodsTypeOnCreate(String goodsTypeNewValue) {
     cut.setWorkstate(CREATE);
     
@@ -379,7 +381,7 @@ public class GoodsAutoTest extends JepAutoTest<GoodsAuto> {
    * @param goodsNameNewValue - значение поля 'Наименование товара'
    */
   @DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/goods/auto/GoodsAutoTest.setAndGetGoodsName.group.data")
-  @Test(groups = {"edit", "setAndGetFields"}, dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
+  @Test(groups = {"edit", "setAndGetFields!"}, dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
   public void setAndGetGoodsNameOnEdit(String goodsNameNewValue) {
     
     testSetAndGetTextFieldValueOnEdit(
@@ -700,5 +702,18 @@ public class GoodsAutoTest extends JepAutoTest<GoodsAuto> {
   @Test(groups = "jrc", dataProviderClass = JepFileDataProvider.class, dataProvider="JepRiaCommands")
   public void jepRiaCommandsTest(String command, List<String> parameters) {
     fail("Не реализовано");
+  }
+  
+  @DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/goods/auto/GoodsAutoTest.photoAndPortfolio.group.data")
+  @Test(groups= "setAndGetFields", dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
+  public void editLargeFields(String photoPath, String portfolioPath) {
+    createTestRecord(KEY_FIELD_VALUE);
+    edit(KEY_FIELD_VALUE);
+    
+    cut.setPhoto(photoPath);
+    cut.setPortfolio(portfolioPath);
+    
+    SaveResultEnum saveResult = cut.save();
+    assertEquals(SaveResultEnum.STATUS_HAS_CHANGED, saveResult);
   }
 }

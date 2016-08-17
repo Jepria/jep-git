@@ -90,8 +90,13 @@ public abstract class JepLargeField<V extends Widget> extends JepMultiStateField
    */
   protected HandlerRegistration fileChooseHandler;
   
+  @Deprecated
   public JepLargeField(String fieldLabel) {
-    super(fieldLabel);
+    this(null, fieldLabel);
+  }
+  
+  public JepLargeField(String fieldIdAsWebEl, String fieldLabel) {
+    super(fieldIdAsWebEl, fieldLabel);
   }
   
   @Override

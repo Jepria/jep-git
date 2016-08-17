@@ -52,11 +52,13 @@ public interface JepRiaModuleAuto extends EntranceAuto {
    */
   void delete(Map<String, String> key);
   
+  //TODO Этот метод должен принимать еще один параметр - String GRID_ID (см.TODO в реализации метода selectItem(Map) )
   /**
    * Выделить элемент списка списочной формы по индексу
    */
   public void selectItem(int index);
   
+  //TODO Этот метод должен принимать еще один параметр - String GRID_ID (см.TODO в реализации)
   /**
    * Выделить элемент списка списочной формы по ключу
    */
@@ -120,6 +122,19 @@ public interface JepRiaModuleAuto extends EntranceAuto {
    * @return значение поля
    */
   String getFieldValue(String fieldId);
+  
+  /**
+   * Установка заданного значения элементу ввода поля типа Large по заданному id поля.
+   * Отличается от аналогичного метода {@link #setFieldValue(String, String)} лишь тем,
+   * что перед установкой значения не происходит очистка поля при помощи <code>Ctrl+A,DEL</code>
+   * 
+   * @param fieldId id поля, id элемента ввода которого будет использовано для задания значения
+   * @param pathToFile абсолютный путь до файла на текущей машине (локального).<br>
+   * Примеры:<br>
+   * <code>"C:\\Folder\\TheFoldest\\file.jpg"</code><br>
+   * <code>"C:/Folder/TheFoldest/file.jpg"</code>
+   */
+  void setLargeFieldValue(String fieldId, String pathToFile);
   
   /**
    * Получение значений правого списка поля JepDualListField

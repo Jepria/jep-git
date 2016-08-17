@@ -10,13 +10,19 @@ public class JepImageField extends JepLargeField<Image> {
 
   private static final String DATA_IMAGE_BASE64_SRC_ATTRIBUTE = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";
 
+  @Deprecated
   public JepImageField(){
-    this("");
+    this(null);
   }
   
-  public JepImageField(String labelText) {
-    super(labelText);  
-  }  
+  @Deprecated
+  public JepImageField(String fieldLabel) {
+    this(null, fieldLabel);  
+  }
+  
+  public JepImageField(String fieldIdAsWebEl, String fieldLabel) {
+    super(fieldIdAsWebEl, fieldLabel);
+  }
   
   /**
    * {@inheritDoc}

@@ -7,6 +7,7 @@ import static com.technology.jep.jepriashowcase.goods.shared.field.GoodsFieldNam
 import static com.technology.jep.jepriashowcase.goods.shared.field.GoodsFieldNames.PURCHASING_PRICE;
 import static com.technology.jep.jepriashowcase.goods.shared.field.GoodsFieldNames.SUPPLIER_ID;
 import static com.technology.jep.jepriashowcase.goods.shared.field.GoodsFieldNames.UNIT_NAME;
+import static com.technology.jep.jepriashowcase.goods.client.GoodsAutomationConstant.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +21,7 @@ import com.technology.jep.jepria.client.widget.list.cell.JepNumberCell;
 public class GoodsListFormViewImpl extends StandardListFormViewImpl {
  
   public GoodsListFormViewImpl() {
-    super(GoodsListFormViewImpl.class.getCanonicalName());
+    super(GoodsListFormViewImpl.class.getCanonicalName(), GOODS_GRID_ID);
   }
 
   private static NumberFormat defaultNumberFormatter = NumberFormat.getFormat("#");

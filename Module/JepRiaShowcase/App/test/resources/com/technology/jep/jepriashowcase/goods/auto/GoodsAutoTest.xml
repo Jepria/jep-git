@@ -23,7 +23,7 @@
     
       <run>
 <!--         <include name="all" /> -->
-        <include name="setAndGetTextField" />
+        <include name="setAndGetFields" />
 <!--         <include name="edit" /> -->
       </run>
     </groups>

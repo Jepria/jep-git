@@ -28,4 +28,19 @@ public class GoodsAutomationConstant extends JepRiaAutomationConstant {
    * Идентификатор поля <I>Мотивация</I>
    */
   public static final String GOODS_MOTIVATION_RADIO_FIELD_ID = "goodsMotivationField";
+  
+  /**
+   * Идентификатор поля <I>Фото товара</I>
+   */
+  public static final String GOODS_PHOTO_IMAGE_FIELD_ID = "goodsPhotoField";
+  
+  /**
+   * Идентификатор поля <I>Спецификация товара</I>
+   */
+  public static final String GOODS_PORTFOLIO_FILE_FIELD_ID = "goodsPortfolioField";
+  
+  /**
+   * Идентификатор списка.
+   */
+  public static final String GOODS_GRID_ID = "goodsGrid";
 }

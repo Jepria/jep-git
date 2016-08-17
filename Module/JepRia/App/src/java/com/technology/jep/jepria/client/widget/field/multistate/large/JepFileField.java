@@ -31,13 +31,19 @@ public class JepFileField extends JepLargeField<HTML> {
    * Наименование префикса скачиваемого файла
    */
   private String downloadFileNamePrefix;
-    
+  
+  @Deprecated
   public JepFileField(){
-    this("");
+    this(null);
   }
   
-  public JepFileField(String labelText) {
-    super(labelText);
+  @Deprecated
+  public JepFileField(String fieldLabel) {
+    this(null, fieldLabel);
+  }
+  
+  public JepFileField(String fieldIdAsWebEl, String fieldLabel) {
+    super(fieldIdAsWebEl, fieldLabel);
   }
   
   /**

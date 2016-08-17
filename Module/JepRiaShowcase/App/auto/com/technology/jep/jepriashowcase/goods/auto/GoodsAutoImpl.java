@@ -1,6 +1,15 @@
 package com.technology.jep.jepriashowcase.goods.auto;
 
-import static com.technology.jep.jepriashowcase.goods.client.GoodsAutomationConstant.*;
+import static com.technology.jep.jepria.auto.util.WebDriverFactory.getWait;
+import static com.technology.jep.jepria.client.JepRiaAutomationConstant.JEP_FIELD_INPUT_POSTFIX;
+import static com.technology.jep.jepriashowcase.goods.client.GoodsAutomationConstant.GOODS_GOODS_NAME_TEXT_FIELD_ID;
+import static com.technology.jep.jepriashowcase.goods.client.GoodsAutomationConstant.GOODS_GOODS_TYPE_COMBOBOX_FIELD_ID;
+import static com.technology.jep.jepriashowcase.goods.client.GoodsAutomationConstant.GOODS_MOTIVATION_RADIO_FIELD_ID;
+import static com.technology.jep.jepriashowcase.goods.client.GoodsAutomationConstant.GOODS_PHOTO_IMAGE_FIELD_ID;
+import static com.technology.jep.jepriashowcase.goods.client.GoodsAutomationConstant.GOODS_PORTFOLIO_FILE_FIELD_ID;
+import static com.technology.jep.jepriashowcase.goods.client.GoodsAutomationConstant.GOODS_PURCHASING_PRICE_NUMBER_FIELD_ID;
+import static com.technology.jep.jepriashowcase.goods.client.GoodsAutomationConstant.GOODS_UNIT_COMBOBOX_FIELD_ID;
+import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
 
 import java.util.Set;
 
@@ -83,16 +92,15 @@ public class GoodsAutoImpl<A extends JepRiaShowcaseAuto, P extends JepRiaShowcas
     try {
       
       // TODO Обработку radioButton перенести в JepRia
-      String radioButtonInputXPath = "//table[@id='"
-          + GOODS_MOTIVATION_RADIO_FIELD_ID +"']//span[@class='gwt-RadioButton']"
-          + "//.[contains(text(),'"
-          + motivation
-          + "')]/preceding-sibling::input";
+      WebElement radioButtonSpan = pages.goodsPage.getWebDriver().findElement(By.xpath( 
+          String.format("//*[@id='%s']//span[descendant::label[contains(text(),'%s')]]",
+              GOODS_MOTIVATION_RADIO_FIELD_ID + JEP_FIELD_INPUT_POSTFIX,
+              motivation))); 
       
-      WebElement fieldInput = pages.goodsPage.motivationField.findElement(By.xpath(radioButtonInputXPath));
-      //    getWait().until(elementToBeClickable(fieldInput));
+      WebElement radioButtonInput = radioButtonSpan.findElement(By.xpath("./input"));
+      getWait().until(elementToBeClickable(radioButtonInput));
 
-      fieldInput.click();
+      radioButtonInput.click();
     } catch(NoSuchElementException ex) {
       throw new WrongOptionException("Wrong radio option", ex);      
     }
@@ -119,7 +127,17 @@ public class GoodsAutoImpl<A extends JepRiaShowcaseAuto, P extends JepRiaShowcas
     
     return result;
   }
-
+  
+  @Override
+  public void setPhoto(String pathToFile) {
+    setLargeFieldValue(GOODS_PHOTO_IMAGE_FIELD_ID, pathToFile);
+  }
+  
+  @Override
+  public void setPortfolio(String pathToFile) {
+    setLargeFieldValue(GOODS_PORTFOLIO_FILE_FIELD_ID, pathToFile);
+  }
+  
   @Override
   public String getSegment() {
     throw new NotImplementedYetException();

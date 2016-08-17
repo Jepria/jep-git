@@ -162,23 +162,19 @@ public class JepRiaModuleAutoImpl<A extends EntranceAppAuto, P extends JepRiaApp
 
 	@Override
 	public void edit(Map<String, String> template) {
+	  pages.getApplicationPage().ensurePageLoaded();
+	  
 		doSearch(template);
 		
-        selectItem(0);
-        
-		String toolbarButtonId = getToolbarButtonId(EDIT);
-
-		String statusBarTextBefore = getStatusBar().getText();
-		clickButton(toolbarButtonId);
-        waitTextToBeChanged(getStatusBar(), statusBarTextBefore);
-        
-        setCurrentWorkstate(EDIT);
+    selectItem(0);
+    
+    setWorkstate(EDIT);
 	}
 
 	@Override
 	public void delete(Map<String, String> key) {
 		try {
-	        selectItem(key);
+	    selectItem(key);
 	        
 			String statusBarTextBefore = getStatusBar().getText();
 			clickButton(TOOLBAR_DELETE_BUTTON_ID);
@@ -195,37 +191,32 @@ public class JepRiaModuleAutoImpl<A extends EntranceAppAuto, P extends JepRiaApp
 		}
 	}
 
-	
+	@Override
 	public void selectItem(Map<String, String> key) {
 		doSearch(key);
-        selectItem(0);
+    selectItem(0);// TODO Уверенно отмечаем "единственный" первый элемент. А если список пуст, или выдалось несколько записей?
 	}
 
+	@Override
 	public void selectItem(int index) {
 		assert getCurrentWorkstate() == VIEW_LIST;
-
-		WebDriver wd = pages.getApplicationPage().getWebDriver();
-		int size = 0;
-		int i = 0;
-//		List<WebElement> elements = wd.findElements(By.id(LIST_FORM_GRID_ROW_ID)); От этого пока отказались 
-		List<WebElement> elements = wd.findElements(By.className("GC2PVC0CPI")); // На GWT 2.6.1 работает
 		
-		size = elements.size();
-		while(true) { // TODO Избавиться от sleep
-			if(size > 0 || i++ == 20 ) break;
-			sleep(100);
-//			elements = wd.findElements(By.id(LIST_FORM_GRID_ROW_ID));  От этого пока отказались
-			elements = wd.findElements(By.className("GC2PVC0CPI"));  // На GWT 2.6.1 работает 
-			size = elements.size();
+		// TODO Этот метод должен принимать еще один параметр - String GRID_ID,
+    // и здесь нужно лоцировать GRID не By.xpath, а так: By.id(GRID_ID + GRID_BODY_POSTFIX)
+		By gridBodyBy = By.xpath(String.format("//tbody[contains(@id, '%s')]", GRID_BODY_POSTFIX));
+		getWait().until(presenceOfElementLocated(gridBodyBy));
+
+		WebElement gridBody = pages.getApplicationPage().getWebDriver().findElement(gridBodyBy);
+		
+		List<WebElement> gridRows = gridBody.findElements(By.xpath("./tr"));
+		
+		if (gridRows.size() <= index) {
+		  throw new IndexOutOfBoundsException("Failed to select the item with index "+index+" in the list, as it contains "+gridRows.size()+" items only.");
 		}
-		if(index  < size) {
-			WebElement item = elements.get(index);
-			getWait().until(elementToBeClickable(item));
-			new Actions(wd).clickAndHold(item).release().perform();
-	        setCurrentWorkstate(SELECTED);
-		} else {
-			throw new IndexOutOfBoundsException("index = " + index + ", size = " + size);
-		}
+		
+		getWait().until(elementToBeClickable(gridRows.get(index)));
+		gridRows.get(index).click();
+		setCurrentWorkstate(SELECTED);
 	}
 
 	private void sleep(int msc) {
@@ -259,6 +250,16 @@ public class JepRiaModuleAutoImpl<A extends EntranceAppAuto, P extends JepRiaApp
 		
 		WebElement fieldInput = pages.getApplicationPage().getWebDriver().findElement(By.id(fieldId + JEP_FIELD_INPUT_POSTFIX));
 		return fieldInput.getAttribute("value");
+	}
+	
+	@Override
+	public void setLargeFieldValue(String fieldId, String pathToFile) {
+	  pages.getApplicationPage().ensurePageLoaded();
+    
+    WebElement fieldInput = pages.getApplicationPage().getWebDriver().findElement(By.id(fieldId + JEP_FIELD_INPUT_POSTFIX)); 
+    getWait().until(elementToBeClickable(fieldInput));
+    
+    fieldInput.sendKeys(pathToFile);
 	}
 	
 	@Override

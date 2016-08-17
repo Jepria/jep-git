@@ -102,6 +102,21 @@ public interface GoodsAuto extends JepRiaModuleAuto {
   Set<String> getCatalogSections();
 
   /**
+   * Заполнение поля <I>Фото товара</I> файлом
+   * 
+   * @param pathToFile локальный путь на машине до нужного файла
+   */
+  void setPhoto(String pathToFile);
+
+  /**
+   * Заполнение поля <I>Спецификация товара</I> файлом
+   * 
+   * @param pathToFile локальный путь на машине до нужного файла
+   */
+  void setPortfolio(String pathToFile);
+
+  
+  /**
    * Заполнение формы поиска
    * 
    * @param goodsName Наименование товара
