@@ -308,8 +308,9 @@ public class JepServerUtil {
   public static boolean isTomcat(HttpServletRequest request) {
     boolean result = false;
     try {
-      result = request instanceof org.apache.catalina.connector.RequestFacade;
-    } catch(java.lang.NoClassDefFoundError ex) {
+      result = request.getServletContext().getServerInfo().toLowerCase().contains("tomcat");
+    } catch(java.lang.NoSuchMethodError ex) {
+      // OAS doesn't support method getServletContext() of request object
     }
     
     return result;
