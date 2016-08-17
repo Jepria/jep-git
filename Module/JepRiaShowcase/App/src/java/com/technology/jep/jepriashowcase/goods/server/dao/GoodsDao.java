@@ -182,7 +182,7 @@ public class GoodsDao extends JepDaoStandard implements Goods {
       + "end;";
     Integer recordId = super.create(sqlQuery, 
         Integer.class 
-        , record.get(SUPPLIER_ID)
+        , 5//record.get(SUPPLIER_ID) //FIXME откуда должно браться это значение во время create?
         , record.get(GOODS_NAME)
         , JepOption.<String>getValue(record.get(GOODS_TYPE_CODE))
         , JepOption.<String>getValue(record.get(UNIT_CODE))
