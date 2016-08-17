@@ -114,7 +114,7 @@ public class GoodsAutoTest extends JepAutoTest<GoodsAuto> {
   /**
    * Тест заполнения формы поиска
    */
-  @DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/goods/auto/GoodsAutoTest.fillSearchForm.method.data")
+  @DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/goods/auto/form.search.data")
   @Test(groups="find", dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
   public void fillSearchForm(String goodsName, String goodsType, String unit, String goodsSegment, String strGoodsCatalogSections) {
     cut.find();
@@ -139,7 +139,7 @@ public class GoodsAutoTest extends JepAutoTest<GoodsAuto> {
   /**
    * Тест заполнения формы создания
    */
-  @DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/goods/auto/GoodsAutoTest.fillCreateForm.method.data")
+  @DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/goods/auto/form.create.data")
   @Test(groups="create", dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
   public void fillCreateForm(String goodsName, String goodsType, String unit, String motivation, String purchasingPrice) {
     cut.setWorkstate(CREATE);
@@ -169,8 +169,8 @@ public class GoodsAutoTest extends JepAutoTest<GoodsAuto> {
    * 
    * @param goodsNameNewValue - устанавливаемое значение поля 'Наименование товара'
    */
-  @DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/goods/auto/GoodsAutoTest.setAndGetGoodsName.group.data")
-  @Test(groups= "setAndGetFields!", dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
+  @DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/goods/auto/field.goodsName.data")
+  @Test(groups= "setAndGetFields", dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
   public void setAndGetGoodsNameOnSearch(String goodsNameNewValue) {
     cut.find();
     
@@ -184,8 +184,8 @@ public class GoodsAutoTest extends JepAutoTest<GoodsAuto> {
    * 
    * @param goodsNameNewValue - устанавливаемое значение поля 'Наименование товара'
    */
-  @DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/goods/auto/GoodsAutoTest.setAndGetGoodsName.group.data")
-  @Test(groups={"create", "setAndGetFields!"}, dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
+  @DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/goods/auto/field.goodsName.data")
+  @Test(groups={"create", "setAndGetFields"}, dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
   public void setAndGetGoodsNameOnCreate(String goodsNameNewValue) {
     cut.setWorkstate(CREATE);
     
@@ -197,8 +197,8 @@ public class GoodsAutoTest extends JepAutoTest<GoodsAuto> {
   /**
    * Тест установки/получения поля 'Тип товара' на форме создания
    */
-  @DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/goods/auto/GoodsAutoTest.setAndGetGoodsType.group.data")
-  @Test(groups={"create", "setAndGetFields!"}, dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
+  @DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/goods/auto/field.goodsType.data")
+  @Test(groups={"create", "setAndGetFields"}, dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
   public void setAndGetGoodsTypeOnCreate(String goodsTypeNewValue) {
     cut.setWorkstate(CREATE);
     
@@ -207,28 +207,12 @@ public class GoodsAutoTest extends JepAutoTest<GoodsAuto> {
         assertEquals(goodsTypeNewValue, cut.getGoodsType());
   }
   
-  
-  /**
-   * Тест установки/получения поля 'Тип товара' на форме создания
-   * 
-   * @param typeNewValue - значение поля 'Тип товара'
-   */
-  @DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/goods/auto/GoodsAutoTest.setAndGetTypeOnCreate.method.data")
-  @Test(groups="create", dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
-  public void setAndGetTypeOnCreate(String typeNewValue) {
-    cut.setWorkstate(CREATE);
-    
-        cut.setGoodsType(typeNewValue);
-        
-        assertEquals(typeNewValue, cut.getGoodsType());
-  }
-  
   /**
    * Тест установки некорретного значения поля 'Тип товара' на форме создания
    * 
    * @param typeNewValue - устанавливаемое  значение поля 'Тип товара'
    */
-  @DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/goods/auto/GoodsAutoTest.setWrongTypeOnCreate.method.data")
+  @DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/goods/auto/field.goodsType.incorrect.data")
   @Test(groups="create", dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile", expectedExceptions = WrongOptionException.class)
   public void setWrongTypeOnCreate(String wrongTypeNewValue) {
     cut.setWorkstate(CREATE);
@@ -241,7 +225,7 @@ public class GoodsAutoTest extends JepAutoTest<GoodsAuto> {
    * 
    * @param unitNewValue - устанавливаемое значение поля 'Единицы измерения'
    */
-  @DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/goods/auto/GoodsAutoTest.setAndGetUnitOnCreate.method.data ")
+  @DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/goods/auto/field.unit.data ")
   @Test(groups="create", dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
   public void setAndGetUnitOnCreate(String unitNewValue) {
     cut.setWorkstate(CREATE);
@@ -256,7 +240,7 @@ public class GoodsAutoTest extends JepAutoTest<GoodsAuto> {
    * 
    * @param unitNewValue - устанавливаемое  значение поля 'Единицы измерения'
    */
-  @DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/goods/auto/GoodsAutoTest.setWrongUnitOnCreate.method.data")
+  @DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/goods/auto/field.unit.incorrect.create.data")
   @Test(groups="create", dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile", expectedExceptions = WrongOptionException.class)
   public void setWrongUnitOnCreate(String wrongUnitNewValue) {
     cut.setWorkstate(CREATE);
@@ -270,7 +254,7 @@ public class GoodsAutoTest extends JepAutoTest<GoodsAuto> {
    * 
    * @param motivationNewValue - устанавливаемое значение поля 'Мотивация'
    */
-  @DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/goods/auto/GoodsAutoTest.setAndGetMotivationOnCreate.method.data")
+  @DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/goods/auto/field.motivation.data")
   @Test(groups="create", dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
   public void setAndGetMotivationOnCreate(String motivationNewValue) {
     cut.setWorkstate(CREATE);
@@ -285,7 +269,7 @@ public class GoodsAutoTest extends JepAutoTest<GoodsAuto> {
    * 
    * @param motivationNewValue - устанавливаемое значение поля 'Мотивация'
    */
-  @DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/goods/auto/GoodsAutoTest.setWrongMotivationOnCreate.method.data")
+  @DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/goods/auto/field.motivation.incorrect.data")
   @Test(groups="create", dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile", expectedExceptions = WrongOptionException.class)
   public void setWrongMotivationOnCreate(String wrongMotivationNewValue) {
     cut.setWorkstate(CREATE);
@@ -298,7 +282,7 @@ public class GoodsAutoTest extends JepAutoTest<GoodsAuto> {
    * 
    * @param purchasingPriceNewValue - устанавливаемое  значение поля 'Закупочная цена'
    */
-  @DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/goods/auto/GoodsAutoTest.setAndGetPurchasingPriceOnCreateAndEdit.method.data")
+  @DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/goods/auto/field.purchasingPrice.data")
   @Test(groups="create", dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
   public void setPurchasingPriceOnCreate(String purchasingPriceNewValue) {
     cut.setWorkstate(CREATE);
@@ -314,7 +298,7 @@ public class GoodsAutoTest extends JepAutoTest<GoodsAuto> {
    * 
    * @param purchasingPriceNewValue - устанавливаемое значение поля 'Закупочная цена'
    */
-  @DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/goods/auto/GoodsAutoTest.setWrongPurchasingPriceOnCreateAndEdit.method.data")
+  @DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/goods/auto/field.purchasingPrice.incorrect.data")
   @Test(groups="create", dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
   public void setWrongPurchasingPriceOnCreate(String wrongPurchasingPriceNewValue) {
     cut.setWorkstate(CREATE);
@@ -380,8 +364,8 @@ public class GoodsAutoTest extends JepAutoTest<GoodsAuto> {
    * 
    * @param goodsNameNewValue - значение поля 'Наименование товара'
    */
-  @DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/goods/auto/GoodsAutoTest.setAndGetGoodsName.group.data")
-  @Test(groups = {"edit", "setAndGetFields!"}, dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
+  @DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/goods/auto/field.goodsName.data")
+  @Test(groups = {"edit", "setAndGetFields"}, dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
   public void setAndGetGoodsNameOnEdit(String goodsNameNewValue) {
     
     testSetAndGetTextFieldValueOnEdit(
@@ -394,7 +378,7 @@ public class GoodsAutoTest extends JepAutoTest<GoodsAuto> {
    * 
    * @param typeFieldValue - значение поля 'Тип товара'
    */
-  @DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/goods/auto/GoodsAutoTest.setAndGetTypeOnEdit.method.data ")
+  @DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/goods/auto/setAndGetTypeOnEdit.method.data")
   @Test(groups = "edit", dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
   public void setAndGetTypeOnEdit(String typeFieldValue) {
     
@@ -408,7 +392,7 @@ public class GoodsAutoTest extends JepAutoTest<GoodsAuto> {
    * 
    * @param wrongUnitFieldValue - значение поля 'Единица измерения', идентифицирующее тестовую запись
    */
-  @DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/goods/auto/GoodsAutoTest.setWrongTypeOnEdit.method.data")
+  @DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/goods/auto/setWrongTypeOnEdit.method.data")
   @Test(groups = "edit", dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile", expectedExceptions = WrongOptionException.class)
   public void setWrongTypeOnEdit(String wrongTypeFieldValue) {
     
@@ -422,7 +406,7 @@ public class GoodsAutoTest extends JepAutoTest<GoodsAuto> {
    * 
    * @param unitFieldValue - значение поля 'Единица измерения'
    */
-  @DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/goods/auto/GoodsAutoTest.setAndGetUnitOnEdit.method.data")
+  @DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/goods/auto/setAndGetUnitOnEdit.method.data")
   @Test(groups = "edit", dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
   public void setAndGetUnitOnEdit(String unitFieldValue) {
     
@@ -437,7 +421,7 @@ public class GoodsAutoTest extends JepAutoTest<GoodsAuto> {
    * 
    * @param wrongUnitFieldValue - значение поля 'Единица измерения', идентифицирующее тестовую запись
    */
-  @DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/goods/auto/GoodsAutoTest.setWrongUnitOnEdit.method.data")
+  @DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/goods/auto/field.unit.incorrect.edit.data")
   @Test(groups = "edit", dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile", expectedExceptions = WrongOptionException.class)
   public void setWrongUnitOnEdit(String wrongUnitFieldValue) {
     
@@ -451,7 +435,7 @@ public class GoodsAutoTest extends JepAutoTest<GoodsAuto> {
    * 
    * @param motivationFieldValue - значение поля 'Мотивация'
    */
-  @DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/goods/auto/GoodsAutoTest.setAndGetMotivationOnEdit.method.data")
+  @DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/goods/auto/setAndGetMotivationOnEdit.method.data")
   @Test(groups = "edit", dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
   public void setAndGetMotivationOnEdit(String motivationFieldValue) {
     try {
@@ -473,7 +457,7 @@ public class GoodsAutoTest extends JepAutoTest<GoodsAuto> {
    * 
    * @param wrongMotivationFieldValue - устанавливаемое значение поля 'Мотивация'
    */
-  @DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/goods/auto/GoodsAutoTest.setWrongMotivationOnEdit.method.data")
+  @DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/goods/auto/setWrongMotivationOnEdit.method.data")
   @Test(groups = "edit", dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile", expectedExceptions = WrongOptionException.class)
   public void setWrongMotivationOnEdit(String wrongMotivationFieldValue) {
     try {
@@ -494,7 +478,7 @@ public class GoodsAutoTest extends JepAutoTest<GoodsAuto> {
    * 
    * @param purchasingPriceNewValue - устанавливаемое значение поля 'Закупочная цена'
    */
-  @DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/goods/auto/GoodsAutoTest.setAndGetPurchasingPriceOnCreateAndEdit.method.data")
+  @DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/goods/auto/field.purchasingPrice.data")
   @Test(groups = "edit", dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
   public void setAndGetPurchasingPriceOnEdit(String purchasingPriceNewValue) {
     
@@ -508,7 +492,7 @@ public class GoodsAutoTest extends JepAutoTest<GoodsAuto> {
    * 
    * @param purchasingPriceNewValue - устанавливаемое значение поля 'Закупочная цена'
    */
-  @DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/goods/auto/GoodsAutoTest.setWrongPurchasingPriceOnCreateAndEdit.method.data ")
+  @DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/goods/auto/field.purchasingPrice.incorrect.data ")
   @Test(groups = "edit", dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
   public void setWrongPurchasingPriceOnEdit(String purchasingPriceNewValue) {
     
@@ -525,7 +509,7 @@ public class GoodsAutoTest extends JepAutoTest<GoodsAuto> {
   /**
    * Тест заполнения формы редактирования
    */
-  @DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/goods/auto/GoodsAutoTest.fillEditForm.method.data")
+  @DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/goods/auto/form.edit.data")
   @Test(groups="edit", dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
   public void fillEditForm(final String goodsName, String goodsType, String unit, String motivation, String purchasingPrice) {
 
@@ -612,7 +596,7 @@ public class GoodsAutoTest extends JepAutoTest<GoodsAuto> {
    * 
    * @param KEY_FIELD_VALUE - значение поля 'Наименование товара', идентифицирующее тестовую запись
    */
-  @DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/goods/auto/GoodsAutoTest.delete.group.data")
+  @DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/goods/auto/delete.data")
   @Test(groups = "delete", dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile", expectedExceptions = IndexOutOfBoundsException.class)
   public void delete(final String goodsNameFieldValue) {
     try {
@@ -698,13 +682,13 @@ public class GoodsAutoTest extends JepAutoTest<GoodsAuto> {
   /*
    * Набросок для исполнения скрипта через последовательность вызовов тестового метода
    */
-  @DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/goods/auto/GoodsAutoTest.jepRiaCommandsTest.jrc ")
+  @DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/goods/auto/jepRiaCommandsTest.jrc ")
   @Test(groups = "jrc", dataProviderClass = JepFileDataProvider.class, dataProvider="JepRiaCommands")
   public void jepRiaCommandsTest(String command, List<String> parameters) {
     fail("Не реализовано");
   }
   
-  @DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/goods/auto/GoodsAutoTest.photoAndPortfolio.group.data")
+  @DataProviderArguments("filePath=test/resources/com/technology/jep/jepriashowcase/goods/auto/photoAndPortfolio.group.data")
   @Test(groups= "setAndGetFields", dataProviderClass = JepFileDataProvider.class, dataProvider="dataFromFile")
   public void editLargeFields(String photoPath, String portfolioPath) {
     createTestRecord(KEY_FIELD_VALUE);
