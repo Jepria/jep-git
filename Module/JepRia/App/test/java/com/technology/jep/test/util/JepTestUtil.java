@@ -6,7 +6,7 @@ import org.apache.log4j.Logger;
 
 import com.technology.jep.jepria.shared.exceptions.NotImplementedYetException;
 
-public abstract class JepTestUtil {
+public class JepTestUtil {
   private static Logger logger = Logger.getLogger(JepTestUtil.class.getName());
   
   public static Set<String> parseCSV(String strGoodsCatalogSections) {

@@ -34,6 +34,7 @@
     <pathelement location="${LOG4J_LIB}" />
     <pathelement location="${COMMONS-FILEUPLOAD_LIB}" />
     <pathelement location="${JUNIT_LIB}" />
+    <pathelement location="${OJDBC14DMS_LIB}" />
   </path>
   <path id="selenium-libs">
     <pathelement location="${SELENIUM_LIB}" />
@@ -92,7 +93,6 @@
     <pathelement location="${OC4J-JTA_LIB}" />
     <pathelement location="${OC4J-INTERNAL_LIB}" />
     <pathelement location="${JAZNCORE_LIB}" />
-    <pathelement location="${OJDBC14DMS_LIB}" />
   </path>
 
   <path id="weblogic-libs">

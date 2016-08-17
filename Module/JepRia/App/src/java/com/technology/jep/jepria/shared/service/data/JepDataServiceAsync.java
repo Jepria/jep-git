@@ -2,9 +2,7 @@ package com.technology.jep.jepria.shared.service.data;
 
 import java.util.List;
 
-import com.google.gwt.i18n.client.LocaleInfo;
 import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.technology.jep.jepria.shared.field.option.JepOption;
 import com.technology.jep.jepria.shared.load.FindConfig;
 import com.technology.jep.jepria.shared.load.PagingConfig;
 import com.technology.jep.jepria.shared.load.PagingResult;
