@@ -1,9 +1,7 @@
 package com.technology.jep.jepriashowcase.feature.server.service;
 
-import static com.technology.jep.jepriashowcase.feature.shared.field.FeatureFieldNames.DESCRIPTION;
-import static com.technology.jep.jepriashowcase.feature.shared.field.FeatureFieldNames.FEATURE_NAME;
-import static com.technology.jep.jepriashowcase.feature.shared.field.FeatureFieldNames.FEATURE_NAME_EN;
-import static org.junit.Assert.assertEquals;
+import static com.technology.jep.jepriashowcase.feature.shared.field.FeatureFieldNames.*;
+import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -21,7 +19,6 @@ import com.technology.jep.jepria.shared.exceptions.ApplicationException;
 import com.technology.jep.jepria.shared.load.FindConfig;
 import com.technology.jep.jepria.shared.record.JepRecord;
 import com.technology.jep.jepriashowcase.feature.server.dao.Feature;
-import com.technology.jep.jepriashowcase.feature.shared.service.FeatureService;
 
 /**
  * Пример теста сервисного класса JepRia
@@ -59,13 +56,29 @@ public class FeatureServiceTest extends JepRiaServiceTest<Feature> {
   @Test
   public void testCreate() throws ApplicationException {
     JepRecord testRecord = new JepRecord();
-    testRecord.set(FEATURE_NAME, "FEATURE_NAME");
-    testRecord.set(FEATURE_NAME_EN, "FEATURE_NAME_EN");
-    testRecord.set(DESCRIPTION, "DESCRIPTION");   // Clob
+    testRecord.set(DESCRIPTION, "DESCRIPTION_VALUE");   // Clob
+    testRecord.set(FEATURE_NAME, "FEATURE_NAME_VALUE");
+    testRecord.set(FEATURE_NAME_EN, "FEATURE_NAME_EN_VALUE");
     FindConfig createConfig = new FindConfig(testRecord);
+    
     JepRecord resultRecord = service.create(createConfig);
     
-    assertEquals(testRecord, resultRecord); // Equals работает "неправильно" - сравнивает только по primary key
-//    fail("!!!");
+    assertNotNull(resultRecord);
+    assertEquals("DESCRIPTION_VALUE", resultRecord.get(DESCRIPTION));
+    assertEquals("FEATURE_NAME_VALUE", resultRecord.get(FEATURE_NAME));
+    assertEquals("FEATURE_NAME_EN_VALUE", resultRecord.get(FEATURE_NAME_EN));
+    assertNotNull(resultRecord.get(FEATURE_ID));
+    assertNotNull(resultRecord.get(DATE_INS));
+    assertNotNull(resultRecord.get(OPERATOR_NAME));
+  }
+  
+  @Test
+  public void testFind() throws ApplicationException {
+    fail("Не реализовано");
+  }
+  
+  @Test
+  public void testDelete() throws ApplicationException {
+    fail("Не реализовано");
   }
 }

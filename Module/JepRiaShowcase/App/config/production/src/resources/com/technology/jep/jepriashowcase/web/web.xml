@@ -164,7 +164,6 @@
     <web-resource-collection>
       <web-resource-name>Application entry points</web-resource-name>
       <url-pattern>/*</url-pattern>
-      <http-method>*</http-method>
     </web-resource-collection>
     <auth-constraint>
       <!-- At least user has to possess one of the specified roles -->
@@ -186,8 +185,23 @@
       <url-pattern>*.css</url-pattern>
       <url-pattern>*.gif</url-pattern>
       <url-pattern>*.png</url-pattern>
-      <http-method>*</http-method>
     </web-resource-collection>
   </security-constraint>
+
+  <security-constraint>
+    <web-resource-collection>
+      <web-resource-name>Login page resources</web-resource-name>
+      <url-pattern>/security/*</url-pattern>
+    </web-resource-collection>
+  </security-constraint>
+  
+    <login-config>
+        <auth-method>FORM</auth-method>
+        <realm-name>myrealm</realm-name>
+        <form-login-config>
+            <form-login-page>/security/login.jsp</form-login-page>
+            <form-error-page>/security/loginerror.jsp</form-error-page>
+        </form-login-config>
+    </login-config>
   
 </web-app>
