@@ -117,76 +117,82 @@ public class CustomModulePresenter<V extends CustomModuleView, E extends PlainEv
         else {
           view.showLoadingIndicator();
           //осуществляем запрос авторизации к SSO-модулю сервера Oracle AS
-          sendRequest(
-            JepClientUtil.substitute(OAS_SSO_MODULE_URL, userCredential.getLogin(), userCredential.getPassword()) // url
-            , RequestBuilder.POST // method
-            , new RequestCallback() {
-              @Override
-              public void onResponseReceived(Request request, Response response) {
-                if (Response.SC_OK == response.getStatusCode()){
-                  boolean isSuccessfulAuthorized = JepRiaShowcaseConstant.SUCCESS.equalsIgnoreCase(response.getText().trim());
-                  
-                  if (isSuccessfulAuthorized){
-                    //после успешного логона также осуществляем запрос авторизации к SSO-модулю сервера WebLogic 
-                    //TODO: от 27.03.2015 ожидается подключение к WL (находится в разработке)
-                    sendRequest(
-                      JepClientUtil.substitute(WL_SSO_MODULE_URL, userCredential.getLogin(), userCredential.getPassword())
-                      , RequestBuilder.GET
-                      , new RequestCallback() {
-                        @Override
-                        public void onResponseReceived(Request request, Response response) {
-                          String cookietoSet = response.getHeader("Set-Cookie");
-                          if(cookietoSet != null) {
-                                String domain = ""; // По умолчанию, устанавливаем для текущего домена
-                                String path = "/"; // и для всех модулей
-                                Integer expires = 7200; // срок действия cookie (в годах)
-                                boolean secure = false; // признак безопасности cookie                                
-                                
-                                expires = expires * 1000 * 60 * 60 * 24;
-                              Date expireDate = new Date( new Date().getTime() + expires );
-                                
-                                Cookies.setCookie(cookietoSet.split("=")[0], cookietoSet.split("=")[1], expireDate, domain, path, secure);
+          service.getSsoPath(userCredential.getLogin(), userCredential.getPassword(), new JepAsyncCallback<String>() {
+            @Override
+            public void onSuccess(String ssoUrl) {
+              sendRequest(
+                ssoUrl
+                , RequestBuilder.POST // method
+                , new RequestCallback() {
+                  @Override
+                  public void onResponseReceived(Request request, Response response) {
+                    if (Response.SC_OK == response.getStatusCode()){
+                      boolean isSuccessfulAuthorized = JepRiaShowcaseConstant.SUCCESS.equalsIgnoreCase(response.getText().trim());
+                      
+                      if (isSuccessfulAuthorized){
+                        //после успешного логона также осуществляем запрос авторизации к SSO-модулю сервера WebLogic 
+                        //TODO: от 27.03.2015 ожидается подключение к WL (находится в разработке)
+                        sendRequest(
+                          JepClientUtil.substitute(WL_SSO_MODULE_URL, userCredential.getLogin(), userCredential.getPassword())
+                          , RequestBuilder.GET
+                          , new RequestCallback() {
+                            @Override
+                            public void onResponseReceived(Request request, Response response) {
+                              String cookietoSet = response.getHeader("Set-Cookie");
+                              if(cookietoSet != null) {
+                                    String domain = ""; // По умолчанию, устанавливаем для текущего домена
+                                    String path = "/"; // и для всех модулей
+                                    Integer expires = 7200; // срок действия cookie (в годах)
+                                    boolean secure = false; // признак безопасности cookie                                
+                                    
+                                    expires = expires * 1000 * 60 * 60 * 24;
+                                  Date expireDate = new Date( new Date().getTime() + expires );
+                                    
+                                    Cookies.setCookie(cookietoSet.split("=")[0], cookietoSet.split("=")[1], expireDate, domain, path, secure);
+                              }
+                            }
+                            @Override
+                            public void onError(Request request, Throwable exception) {
+                              view.hideLoadingIndicator();
+                              view.showOrClearError(exception.getMessage());
+                            }
                           }
-                        }
-                        @Override
-                        public void onError(Request request, Throwable exception) {
-                          view.hideLoadingIndicator();
-                          view.showOrClearError(exception.getMessage());
-                        }
+                        );
+                        
+                        mainService.getUserData(new JepAsyncCallback<JepDto>(){
+                          @Override
+                          @SuppressWarnings("unchecked")
+                          public void onSuccess(JepDto userData) {
+                            String username = (String)userData.get(JEP_USER_NAME_FIELD_NAME);
+                            
+                            ClientSecurity.instance.setOperatorId((Integer)userData.get(OPERATOR_ID));
+                            ClientSecurity.instance.setRoles((List<String>) userData.get(JEP_USER_ROLES_FIELD_NAME));
+                            ClientSecurity.instance.setUsername(username);
+                            
+                            JepScopeStack.instance.setUserEntered();
+                            
+                            view.setUsername(username);
+                            view.hideLoadingIndicator();
+                            view.toggleAuthorizationPanel();
+                          }
+                        });
                       }
-                    );
-                    
-                    mainService.getUserData(new JepAsyncCallback<JepDto>(){
-                      @Override
-                      @SuppressWarnings("unchecked")
-                      public void onSuccess(JepDto userData) {
-                        String username = (String)userData.get(JEP_USER_NAME_FIELD_NAME);
-                        
-                        ClientSecurity.instance.setOperatorId((Integer)userData.get(OPERATOR_ID));
-                        ClientSecurity.instance.setRoles((List<String>) userData.get(JEP_USER_ROLES_FIELD_NAME));
-                        ClientSecurity.instance.setUsername(username);
-                        
-                        JepScopeStack.instance.setUserEntered();
-                        
-                        view.setUsername(username);
+                      else {
                         view.hideLoadingIndicator();
-                        view.toggleAuthorizationPanel();
+                        view.showOrClearError(customText.custom_authorizationError_wrongCredential());
                       }
-                    });
+                    }
                   }
-                  else {
+                  
+                  @Override
+                  public void onError(Request request, Throwable exception) {
                     view.hideLoadingIndicator();
-                    view.showOrClearError(customText.custom_authorizationError_wrongCredential());
+                    view.showOrClearError(exception.getMessage());
                   }
-                          }
-              }
-              
-              @Override
-              public void onError(Request request, Throwable exception) {
-                view.hideLoadingIndicator();
-                view.showOrClearError(exception.getMessage());
-              }
+              });
+            }
           });
+          
         }
       }
     });

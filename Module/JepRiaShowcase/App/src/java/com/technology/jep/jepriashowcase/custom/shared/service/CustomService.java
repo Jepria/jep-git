@@ -22,5 +22,7 @@ public interface CustomService  extends JepDataService {
     throws ApplicationException;
 
   void transaction() throws ApplicationException;
+  
+  String getSsoPath(String login, String password);
 
 }

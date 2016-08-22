@@ -16,4 +16,6 @@ public interface CustomServiceAsync  extends JepDataServiceAsync {
     , AsyncCallback<String> callback);
   
   void transaction(AsyncCallback<Void> callback);
+  
+  void getSsoPath(String login, String password, AsyncCallback<String> callback);
 }

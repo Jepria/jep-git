@@ -1,7 +1,14 @@
 package com.technology.jep.jepriashowcase.custom.server.service;
 
+import static com.technology.jep.jepriashowcase.main.shared.JepRiaShowcaseConstant.*;
+
+import java.text.MessageFormat;
+
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
+import com.technology.jep.jepria.client.JepRiaClientConstant;
 import com.technology.jep.jepria.server.service.JepDataServiceServlet;
+import com.technology.jep.jepria.server.util.JepServerUtil;
 import com.technology.jep.jepria.shared.exceptions.ApplicationException;
 import com.technology.jep.jepria.shared.exceptions.SystemException;
 import com.technology.jep.jepriashowcase.custom.server.CustomServerFactory;
@@ -45,6 +52,11 @@ public class CustomServiceImpl extends JepDataServiceServlet<Custom> implements 
       throw new ApplicationException(th.getLocalizedMessage(), th);
     }
     logger.trace("END TRANSACTION transaction()");
+  }
+  
+  @Override
+  public String getSsoPath(String login, String password) {
+    return MessageFormat.format(JepServerUtil.isTomcat(getThreadLocalRequest()) ? TOMCAT_AUTLOGON_URL : OAS_SSO_MODULE_URL, login, password);
   }
   
 }

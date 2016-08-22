@@ -1,22 +1,17 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5" >
+  <filter>
+    <filter-name>WebLogicLoginRedirectFilter</filter-name>
+    <filter-class>com.technology.jep.jepria.server.security.cas.LoginRedirectFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>WebLogicLoginRedirectFilter</filter-name>
+    <url-pattern>*.jsp</url-pattern>
+  </filter-mapping>
+
   <servlet>
     <servlet-name>remoteLoggerServiceImpl</servlet-name>
     <servlet-class>com.allen_sauer.gwt.log.server.RemoteLoggerServiceImpl</servlet-class>
-
-    <!-- The `symbolMaps` parameter specifies the server directory containing 
-      the GWT compiler symbol maps output, which is used for stack trace deobfuscation -->
-    <init-param>
-      <!-- This value assumes a GWT compile with '-deploy war/WEB-INF/deploy/' -->
-      <param-name>symbolMaps</param-name>
-      <!-- Modify the param-value based on your server environment. Some web 
-        servers use your `war` directory as the 'current working dir', while other 
-        vendors will do something different. You may use trial and error. Specify 
-        the relative path you think should work, then check the server log after 
-        forwarding the first client log message to the server. If the directory cannot 
-        be found, gwt-log will report the full path which it tried. -->
-      <param-value>../j2ee/home/applications/jepriashowcase/jepriashowcase/JepRiaShowcase/symbolMaps/</param-value>
-    </init-param>
   </servlet>
   <servlet-mapping>
     <servlet-name>remoteLoggerServiceImpl</servlet-name>
@@ -58,7 +53,7 @@
     <servlet-name>SupplierServlet</servlet-name>
     <url-pattern>/JepRiaShowcase/SupplierService</url-pattern>
   </servlet-mapping>
-
+  
   <servlet>
     <servlet-name>GoodsServlet</servlet-name>
     <servlet-class>com.technology.jep.jepriashowcase.goods.server.service.GoodsServiceImpl</servlet-class>
@@ -120,7 +115,7 @@
     <servlet-name>RequestServlet</servlet-name>
     <url-pattern>/JepRiaShowcase/RequestService</url-pattern>
   </servlet-mapping>
-
+  
   <servlet>
     <servlet-name>FeatureServlet</servlet-name>
     <servlet-class>com.technology.jep.jepriashowcase.feature.server.service.FeatureServiceImpl</servlet-class>
@@ -129,7 +124,7 @@
     <servlet-name>FeatureServlet</servlet-name>
     <url-pattern>/JepRiaShowcase/FeatureService</url-pattern>
   </servlet-mapping>
-  
+
   <servlet>
     <servlet-name>RequestProcessServlet</servlet-name>
     <servlet-class>com.technology.jep.jepriashowcase.requestprocess.server.service.RequestProcessServiceImpl</servlet-class>
@@ -137,6 +132,15 @@
   <servlet-mapping>
     <servlet-name>RequestProcessServlet</servlet-name>
     <url-pattern>/JepRiaShowcase/RequestProcessService</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>AutoLogonServlet</servlet-name>
+  	<servlet-class>com.technology.jep.jepria.server.security.tomcat.AutoLogonServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AutoLogonServlet</servlet-name>
+    <url-pattern>/autoLogonServlet</url-pattern>
   </servlet-mapping>
 
   <welcome-file-list>
@@ -158,7 +162,7 @@
   <security-role>
     <role-name>JrsEditRequestProcess</role-name>
   </security-role>
-
+  
   <!-- Protect all resources of Application -->
   <security-constraint>
     <web-resource-collection>
@@ -166,7 +170,6 @@
       <url-pattern>/*</url-pattern>
     </web-resource-collection>
     <auth-constraint>
-      <!-- At least user has to possess one of the specified roles -->
       <role-name>*</role-name>
     </auth-constraint>
   </security-constraint>
@@ -180,6 +183,7 @@
       <url-pattern>/JepRiaShowcase/CustomService</url-pattern>
       <url-pattern>/JepRiaShowcase/SearchService</url-pattern>
       <url-pattern>/JepRiaShowcase/MainService</url-pattern>
+      <url-pattern>/autoLogonServlet</url-pattern>
       <url-pattern>*.js</url-pattern>
       <url-pattern>*.html</url-pattern>
       <url-pattern>*.css</url-pattern>
@@ -187,7 +191,7 @@
       <url-pattern>*.png</url-pattern>
     </web-resource-collection>
   </security-constraint>
-
+  
   <security-constraint>
     <web-resource-collection>
       <web-resource-name>Login page resources</web-resource-name>
@@ -203,5 +207,4 @@
             <form-error-page>/security/loginerror.jsp</form-error-page>
         </form-login-config>
     </login-config>
-  
 </web-app>
