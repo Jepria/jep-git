@@ -112,6 +112,8 @@ public class JepDto extends HashMap<String, Object> implements IsSerializable {
       return false;
     JepDto other = (JepDto) obj;
     Collection<String> propertyNames = this.keySet();
+    if(propertyNames.size() != other.keySet().size())
+      return false;
     for(String name: propertyNames) {
       Object property = this.get(name);
       if (property == null) {
