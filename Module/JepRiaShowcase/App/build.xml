@@ -337,6 +337,10 @@
         <classpath refid="oc4j-libs" />
         <classpath refid="weblogic-libs" />
         <classpath refid="selenium-libs" />
+		<!-- TODO разнести компиляцию для обраться с -->
+        <classpath>
+            <pathelement location="${GWT-TEST-UTILS_LIB}"/>
+        </classpath>        
     </javac>
     <copy file="src/java/log4j.properties" todir="build-test" />
   </target>
