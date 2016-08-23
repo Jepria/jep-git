@@ -35,8 +35,4 @@ public class JepRiaShowcaseClientConstant extends JepRiaShowcaseConstant {
   public static final String URL_REQUESTPROCESS_MODULE = "JepRiaShowcase.jsp?em=RequestProcess&es=sh";
   public static final String URL_FEATURE_MODULE = "JepRiaShowcase.jsp?em=Feature&es=sh";
   
-  /**
-   * Адрес SSO-модуля для запроса авторизации на сервере WebLogic
-   */
-  public static final String WL_SSO_MODULE_URL = "/info/SsoIntegration?j_username={0}&j_password={1}";
 }

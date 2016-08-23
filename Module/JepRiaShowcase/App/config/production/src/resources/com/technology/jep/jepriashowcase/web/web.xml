@@ -162,7 +162,14 @@
   <security-role>
     <role-name>JrsEditRequestProcess</role-name>
   </security-role>
+<<<<<<< HEAD
   
+=======
+  <security-role>
+    <role-name>JrsEditFeature</role-name>
+  </security-role>
+
+>>>>>>> branch 'master' of https://vitr1988@git.code.sf.net/p/javaenterpriseplatform/git
   <!-- Protect all resources of Application -->
   <security-constraint>
     <web-resource-collection>
@@ -191,7 +198,12 @@
       <url-pattern>*.png</url-pattern>
     </web-resource-collection>
   </security-constraint>
+<<<<<<< HEAD
   
+=======
+
+  <!-- Allow request for Login page resources without authorization -->
+>>>>>>> branch 'master' of https://vitr1988@git.code.sf.net/p/javaenterpriseplatform/git
   <security-constraint>
     <web-resource-collection>
       <web-resource-name>Login page resources</web-resource-name>
@@ -199,6 +211,7 @@
     </web-resource-collection>
   </security-constraint>
   
+<<<<<<< HEAD
     <login-config>
         <auth-method>FORM</auth-method>
         <realm-name>myrealm</realm-name>
@@ -207,4 +220,14 @@
             <form-error-page>/security/loginerror.jsp</form-error-page>
         </form-login-config>
     </login-config>
+=======
+  <login-config>
+    <auth-method>FORM</auth-method>
+    <form-login-config>
+      <form-login-page>/security/login.jsp</form-login-page>
+      <form-error-page>/security/loginerror.jsp</form-error-page>
+    </form-login-config>
+  </login-config>
+  
+>>>>>>> branch 'master' of https://vitr1988@git.code.sf.net/p/javaenterpriseplatform/git
 </web-app>

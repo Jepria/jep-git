@@ -7,7 +7,6 @@ import static com.technology.jep.jepriashowcase.custom.client.CustomClientConsta
 import static com.technology.jep.jepriashowcase.main.client.JepRiaShowcaseClientConstant.OAS_SSO_MODULE_URL;
 import static com.technology.jep.jepriashowcase.main.client.JepRiaShowcaseClientConstant.URL_FULL_SCREEN;
 import static com.technology.jep.jepriashowcase.main.client.JepRiaShowcaseClientConstant.URL_SEARCH_MODULE;
-import static com.technology.jep.jepriashowcase.main.client.JepRiaShowcaseClientConstant.WL_SSO_MODULE_URL;
 import static com.technology.jep.jepriashowcase.main.shared.JepRiaShowcaseConstant.URL_EMBEDDED;
 
 import java.util.Date;
@@ -130,35 +129,6 @@ public class CustomModulePresenter<V extends CustomModuleView, E extends PlainEv
                       boolean isSuccessfulAuthorized = JepRiaShowcaseConstant.SUCCESS.equalsIgnoreCase(response.getText().trim());
                       
                       if (isSuccessfulAuthorized){
-                        //после успешного логона также осуществляем запрос авторизации к SSO-модулю сервера WebLogic 
-                        //TODO: от 27.03.2015 ожидается подключение к WL (находится в разработке)
-                        sendRequest(
-                          JepClientUtil.substitute(WL_SSO_MODULE_URL, userCredential.getLogin(), userCredential.getPassword())
-                          , RequestBuilder.GET
-                          , new RequestCallback() {
-                            @Override
-                            public void onResponseReceived(Request request, Response response) {
-                              String cookietoSet = response.getHeader("Set-Cookie");
-                              if(cookietoSet != null) {
-                                    String domain = ""; // По умолчанию, устанавливаем для текущего домена
-                                    String path = "/"; // и для всех модулей
-                                    Integer expires = 7200; // срок действия cookie (в годах)
-                                    boolean secure = false; // признак безопасности cookie                                
-                                    
-                                    expires = expires * 1000 * 60 * 60 * 24;
-                                  Date expireDate = new Date( new Date().getTime() + expires );
-                                    
-                                    Cookies.setCookie(cookietoSet.split("=")[0], cookietoSet.split("=")[1], expireDate, domain, path, secure);
-                              }
-                            }
-                            @Override
-                            public void onError(Request request, Throwable exception) {
-                              view.hideLoadingIndicator();
-                              view.showOrClearError(exception.getMessage());
-                            }
-                          }
-                        );
-                        
                         mainService.getUserData(new JepAsyncCallback<JepDto>(){
                           @Override
                           @SuppressWarnings("unchecked")

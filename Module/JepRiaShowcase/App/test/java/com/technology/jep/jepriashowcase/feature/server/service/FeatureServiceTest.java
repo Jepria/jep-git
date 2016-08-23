@@ -81,4 +81,9 @@ public class FeatureServiceTest extends JepRiaServiceTest<Feature> {
   public void testDelete() throws ApplicationException {
     fail("Не реализовано");
   }
+  
+  @Test
+  public void testUpdate() throws ApplicationException {
+    fail("Не реализовано");
+  }
 }

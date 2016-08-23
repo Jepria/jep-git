@@ -247,8 +247,7 @@ public class JepServerUtil {
   }
   
   public static String getServerUrl(HttpServletRequest request) {
-    return request.getProtocol().substring(0,
-        request.getProtocol().indexOf("/")).toLowerCase()
+    return request.getScheme().toLowerCase()
         + "://"
         + request.getServerName()
         + ":"
