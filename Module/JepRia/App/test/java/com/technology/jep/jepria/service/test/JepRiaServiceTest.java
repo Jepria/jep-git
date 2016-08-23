@@ -4,6 +4,7 @@ import static org.junit.Assert.fail;
 
 import java.lang.reflect.Method;
 import java.sql.SQLException;
+import java.util.Collection;
 import java.util.List;
 
 import javax.naming.InitialContext;
@@ -14,7 +15,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
-import org.junit.After;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockServletConfig;
 import org.springframework.mock.web.MockServletContext;
@@ -25,6 +25,7 @@ import com.googlecode.gwt.test.rpc.ServletMockProviderAdapter;
 import com.technology.jep.jepcommon.security.JepPrincipal;
 import com.technology.jep.jepria.server.dao.JepDataStandard;
 import com.technology.jep.jepria.server.service.JepDataServiceServlet;
+import com.technology.jep.jepria.shared.record.JepRecord;
 
 /**
  * Общая функциональность тестов сервисов JepRia
@@ -105,6 +106,30 @@ abstract public class JepRiaServiceTest<D extends JepDataStandard> extends GwtTe
             return mockRequest;
         }
     });
+  }
+  
+  /**
+   * Проверка принадлежности совпадения значений множества полей thisRecord со значениями одноимённых полей otherRecord
+   * @param thisRecord проверяемая запись
+   * @param otherRecord 
+   * @return true, если значения множества полей thisRecord совпадают со значениями одноимённых полей otherRecord
+   * TODO Возможно стоит  
+   */
+  public static boolean isFieldValueSubSet(JepRecord thisRecord, JepRecord otherRecord) {
+    if(otherRecord == null)
+      return false;
+    
+    Collection<String> propertyNames = thisRecord.keySet();
+    for(String name: propertyNames) {
+      Object property = thisRecord.get(name);
+      if (property == null) {
+        if (otherRecord.get(name) != null)
+          return false;
+      } else if (!property.equals(otherRecord.get(name)))
+        return false;
+    }
+    
+    return true;
   }
 }
 
