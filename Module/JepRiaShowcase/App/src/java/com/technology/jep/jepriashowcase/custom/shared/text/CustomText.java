@@ -25,6 +25,15 @@ public interface CustomText extends com.google.gwt.i18n.client.Constants {
   String custom_authorizationError_loginOrPasswordEmpty();
 
   /**
+   * Translated "* Центр авторизации не отвечает!".
+   * 
+   * @return translated "* Центр авторизации не отвечает!"
+   */
+  @DefaultStringValue("* Центр авторизации не отвечает!")
+  @Key("custom.authorizationError.noAnswerFromAuthorization")
+  String custom_authorizationError_noAnswerFromAuthorization();
+
+  /**
    * Translated "* Неверный логин/пароль!".
    * 
    * @return translated "* Неверный логин/пароль!"

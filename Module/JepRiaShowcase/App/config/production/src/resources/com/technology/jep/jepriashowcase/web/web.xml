@@ -1,14 +1,5 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5" >
-  <filter>
-    <filter-name>WebLogicLoginRedirectFilter</filter-name>
-    <filter-class>com.technology.jep.jepria.server.security.cas.LoginRedirectFilter</filter-class>
-  </filter>
-  <filter-mapping>
-    <filter-name>WebLogicLoginRedirectFilter</filter-name>
-    <url-pattern>*.jsp</url-pattern>
-  </filter-mapping>
-
   <servlet>
     <servlet-name>remoteLoggerServiceImpl</servlet-name>
     <servlet-class>com.allen_sauer.gwt.log.server.RemoteLoggerServiceImpl</servlet-class>
@@ -162,14 +153,7 @@
   <security-role>
     <role-name>JrsEditRequestProcess</role-name>
   </security-role>
-<<<<<<< HEAD
   
-=======
-  <security-role>
-    <role-name>JrsEditFeature</role-name>
-  </security-role>
-
->>>>>>> branch 'master' of https://vitr1988@git.code.sf.net/p/javaenterpriseplatform/git
   <!-- Protect all resources of Application -->
   <security-constraint>
     <web-resource-collection>
@@ -191,6 +175,9 @@
       <url-pattern>/JepRiaShowcase/SearchService</url-pattern>
       <url-pattern>/JepRiaShowcase/MainService</url-pattern>
       <url-pattern>/autoLogonServlet</url-pattern>
+      <url-pattern>/js/*</url-pattern>
+	  <url-pattern>/css/*</url-pattern>
+	  <url-pattern>/images/*</url-pattern>
       <url-pattern>*.js</url-pattern>
       <url-pattern>*.html</url-pattern>
       <url-pattern>*.css</url-pattern>
@@ -198,12 +185,7 @@
       <url-pattern>*.png</url-pattern>
     </web-resource-collection>
   </security-constraint>
-<<<<<<< HEAD
   
-=======
-
-  <!-- Allow request for Login page resources without authorization -->
->>>>>>> branch 'master' of https://vitr1988@git.code.sf.net/p/javaenterpriseplatform/git
   <security-constraint>
     <web-resource-collection>
       <web-resource-name>Login page resources</web-resource-name>
@@ -211,7 +193,6 @@
     </web-resource-collection>
   </security-constraint>
   
-<<<<<<< HEAD
     <login-config>
         <auth-method>FORM</auth-method>
         <realm-name>myrealm</realm-name>
@@ -220,14 +201,4 @@
             <form-error-page>/security/loginerror.jsp</form-error-page>
         </form-login-config>
     </login-config>
-=======
-  <login-config>
-    <auth-method>FORM</auth-method>
-    <form-login-config>
-      <form-login-page>/security/login.jsp</form-login-page>
-      <form-error-page>/security/loginerror.jsp</form-error-page>
-    </form-login-config>
-  </login-config>
-  
->>>>>>> branch 'master' of https://vitr1988@git.code.sf.net/p/javaenterpriseplatform/git
 </web-app>

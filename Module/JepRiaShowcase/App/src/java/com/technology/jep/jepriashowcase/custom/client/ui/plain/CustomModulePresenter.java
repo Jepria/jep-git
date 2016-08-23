@@ -152,6 +152,10 @@ public class CustomModulePresenter<V extends CustomModuleView, E extends PlainEv
                         view.showOrClearError(customText.custom_authorizationError_wrongCredential());
                       }
                     }
+                    else {
+                      view.hideLoadingIndicator();
+                      view.showOrClearError(customText.custom_authorizationError_noAnswerFromAuthorization());
+                    }
                   }
                   
                   @Override
