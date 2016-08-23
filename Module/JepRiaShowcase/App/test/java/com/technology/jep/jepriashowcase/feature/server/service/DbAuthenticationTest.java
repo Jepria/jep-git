@@ -36,7 +36,7 @@ public class DbAuthenticationTest extends Assert {
   public static void setUpClass() throws Exception {
     try {
       InitialContext ic = TestServiceUtil.prepareInitialContextForJdbc();
-      TestServiceUtil.prepareDataSource(ic, "jdbc:oracle:thin:@//srvt14.d.t:1521/RFINFOT1", "information", "information", "java:/comp/env/jdbc/RFInfoDS");
+      TestServiceUtil.prepareDataSource(ic, "java:/comp/env/jdbc/RFInfoDS", "jdbc:oracle:thin:@//srvt14.d.t:1521/RFINFOT1", "information", "information");
     } catch (NamingException ex) {
         logger.error("Lookup error", ex);
     }
