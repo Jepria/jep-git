@@ -6,15 +6,13 @@ import static com.technology.jep.jepriashowcase.feature.shared.field.FeatureFiel
 import static com.technology.jep.jepriashowcase.feature.shared.field.FeatureFieldNames.FEATURE_NAME;
 import static com.technology.jep.jepriashowcase.feature.shared.field.FeatureFieldNames.FEATURE_NAME_EN;
 import static com.technology.jep.jepriashowcase.feature.shared.field.FeatureFieldNames.OPERATOR_NAME;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.junit.After;
@@ -40,8 +38,6 @@ public class FeatureServiceTest extends JepRiaServiceTest<Feature> {
   
   private static Logger logger = Logger.getLogger(FeatureServiceTest.class.getName());
 
-  private FeatureServiceImpl service;
-
   @BeforeClass
   public static void setUpClass() throws Exception {
     prepareDataSources(new ArrayList<DataSourceDef>(Arrays.asList(new DataSourceDef(
@@ -54,37 +50,31 @@ public class FeatureServiceTest extends JepRiaServiceTest<Feature> {
 
   @Before
   public void before() {
-    service = new FeatureServiceImpl(); 
-    prepareServletEnvironment(service);
+    beforeServiceTest(new FeatureServiceImpl());
   }
 
   @After
   public void after() {
-    //logout(); TODO Нужен logoff
-    service = null;
+    afterServiceTest();
   }
 
-   private static final String DESCRIPTION_VALUE = "DESCRIPTION_VALUE";
-   private static final String FEATURE_NAME_VALUE = "FEATURE_NAME_VALUE";
-   private static final String FEATURE_NAME_EN_VALUE = "FEATURE_NAME_EN_VALUE";
+  private static final String DESCRIPTION_VALUE = "DESCRIPTION_VALUE";
+  private static final String FEATURE_NAME_VALUE = "FEATURE_NAME_VALUE";
+  private static final String FEATURE_NAME_EN_VALUE = "FEATURE_NAME_EN_VALUE";
 
   @Test
   public void testCreate() throws ApplicationException {
-    JepRecord testRecord = createRecord(DESCRIPTION_VALUE,
-                                        FEATURE_NAME_VALUE,
-                                        FEATURE_NAME_EN_VALUE);
+    logger.trace("testCreate()");
+    JepRecord testRecord = createRecord(getDefaultFieldMap());
     // TODO FindConfig нужно переименовать
     FindConfig createConfig = new FindConfig(testRecord);
-    
+      
     JepRecord resultRecord = service.create(createConfig);
+
+    addToClear(createConfig);
     
     assertNotNull(resultRecord);
-    assertTrue(JepRiaServiceTest.isFieldValueSubSet(testRecord, resultRecord));
-    
-    // Из-за некорректного equals поля приходится проверять по отдельности
-    assertEquals(DESCRIPTION_VALUE, resultRecord.get(DESCRIPTION));
-    assertEquals(FEATURE_NAME_VALUE, resultRecord.get(FEATURE_NAME));
-    assertEquals(FEATURE_NAME_EN_VALUE, resultRecord.get(FEATURE_NAME_EN));
+    assertTrue(isFieldValueSubSet(testRecord, resultRecord));
     assertNotNull(resultRecord.get(FEATURE_ID));
     assertNotNull(resultRecord.get(DATE_INS));
     assertNotNull(resultRecord.get(OPERATOR_NAME));
@@ -92,72 +82,96 @@ public class FeatureServiceTest extends JepRiaServiceTest<Feature> {
 
   @Test
   public void testFindById() throws ApplicationException {
-    JepRecord featureRecord = createRecordInDb(DESCRIPTION_VALUE,
-                                               FEATURE_NAME_VALUE,
-                                               FEATURE_NAME_EN_VALUE);
+    logger.trace("testFindById()");
+    
+    JepRecord featureRecord = createRecordInDb(true, getDefaultFieldMap());
 
     JepRecord templateRecord = new JepRecord();
     templateRecord.set(FEATURE_ID, featureRecord.get(FEATURE_ID));
-    
     PagingConfig pagingConfig = new PagingConfig(templateRecord);
+    
     PagingResult<JepRecord> pagingResult = service.find(pagingConfig);
+    
     assertNotNull(pagingResult);
     // Почему в PagingResult Integer size, а не int size ? Этот же вопрос и по другим членам.
     assertEquals((Integer)1, pagingResult.getSize());
     List<JepRecord> records = pagingResult.getData();
     assertEquals(1, records.size());
     JepRecord resultRecord = records.get(0);
-    // Из-за некорректного equals поля приходится проверять по отдельности
-    assertEquals(DESCRIPTION_VALUE, resultRecord.get(DESCRIPTION));
-    assertEquals(FEATURE_NAME_VALUE, resultRecord.get(FEATURE_NAME));
-    assertEquals(FEATURE_NAME_EN_VALUE, resultRecord.get(FEATURE_NAME_EN));
     
-//    fail("Не реализовано удаление");
+    assertTrue(isFieldValueSubSet(featureRecord, resultRecord));
+  }
+  
+  @Test
+  public void testFind() throws ApplicationException {
+    logger.trace("testFind()");
+    
+    String currentTimeInMillis =  "_" + System.currentTimeMillis();
+    
+    Map<String, String> uniqueFieldMap = new HashMap<String, String>();
+    uniqueFieldMap.put(DESCRIPTION, DESCRIPTION_VALUE + currentTimeInMillis);
+    uniqueFieldMap.put(FEATURE_NAME, FEATURE_NAME_VALUE + currentTimeInMillis);
+    uniqueFieldMap.put(FEATURE_NAME_EN, FEATURE_NAME_EN_VALUE + currentTimeInMillis);
+
+    JepRecord featureRecord = createRecordInDb(uniqueFieldMap);
+
+    JepRecord templateRecord = new JepRecord();
+    templateRecord.set(DESCRIPTION, DESCRIPTION_VALUE + currentTimeInMillis);
+    templateRecord.set(FEATURE_NAME, FEATURE_NAME_VALUE + currentTimeInMillis);
+    templateRecord.set(FEATURE_NAME_EN, FEATURE_NAME_EN_VALUE + currentTimeInMillis);
+    PagingConfig pagingConfig = new PagingConfig(templateRecord);
+    
+    PagingResult<JepRecord> pagingResult = service.find(pagingConfig);
+    
+    assertNotNull(pagingResult);
+    // Почему в PagingResult Integer size, а не int size ? Этот же вопрос и по другим членам.
+    assertEquals((Integer)1, pagingResult.getSize());
+    List<JepRecord> records = pagingResult.getData();
+    assertEquals(1, records.size());
+    JepRecord resultRecord = records.get(0);
+    
+    assertTrue(isFieldValueSubSet(featureRecord, resultRecord));
   }
 
   @Test
   public void testDelete() throws ApplicationException {
-    fail("Не реализовано");
+    logger.trace("testDelete()");
+    
+    JepRecord featureRecord = createRecordInDb(false, getDefaultFieldMap());
+
+    //assertEquals((Integer) 1, findById(featureRecord, FEATURE_ID).getSize());
+    
+    service.delete(new FindConfig(featureRecord));
+    
+    assertEquals((Integer) 0, findById(featureRecord, FEATURE_ID).getSize());
   }
-  
+
   @Test
   public void testUpdate() throws ApplicationException {
-    fail("Не реализовано");
+    logger.trace("testUpdate()");
+    
+    JepRecord featureRecord = createRecordInDb(getDefaultFieldMap());
+    
+    Map<String, String> newFieldMap = new HashMap<String, String>();
+    newFieldMap.put(DESCRIPTION, DESCRIPTION_VALUE + "_CHANGED");
+    newFieldMap.put(FEATURE_NAME, FEATURE_NAME_VALUE + "_CHANGED");
+    newFieldMap.put(FEATURE_NAME_EN, FEATURE_NAME_EN_VALUE + "_CHANGED");
+    
+    service.update(new FindConfig(updateRecord(featureRecord, newFieldMap)));
+
+    PagingResult<JepRecord> pagingResult = findById(featureRecord, FEATURE_ID);
+    assertEquals((Integer) 1, pagingResult.getSize());
+    assertEquals(DESCRIPTION_VALUE + "_CHANGED", pagingResult.getData().get(0).get(DESCRIPTION));
+    assertEquals(FEATURE_NAME_VALUE + "_CHANGED", pagingResult.getData().get(0).get(FEATURE_NAME));
+    assertEquals(FEATURE_NAME_EN_VALUE + "_CHANGED", pagingResult.getData().get(0).get(FEATURE_NAME_EN));
   }
-  
-  /**
-   * Создание записи с заданными параметрами в БД
-   */
-  private JepRecord createRecordInDb(String description,
-                                        String featureName,
-                                        String featureNameEn) {
-    JepRecord featureRecord = new JepRecord();
-    featureRecord.set(DESCRIPTION, description);   // Clob
-    featureRecord.set(FEATURE_NAME, featureName);
-    featureRecord.set(FEATURE_NAME_EN, featureNameEn);
+
+  private Map<String, String> getDefaultFieldMap() {
+    Map<String, String> fieldMap = new HashMap<String, String>();
+    fieldMap.put(DESCRIPTION, DESCRIPTION_VALUE);
+    fieldMap.put(FEATURE_NAME, FEATURE_NAME_VALUE);
+    fieldMap.put(FEATURE_NAME_EN, FEATURE_NAME_EN_VALUE);
     
-    FindConfig createConfig = new FindConfig(featureRecord);
-    JepRecord resultRecord = null;
-    try {
-      resultRecord = service.create(createConfig);
-    } catch (ApplicationException ex) {
-      fail("Create Feature record error:" + ex.getMessage());
-    }
-    
-    return resultRecord;
-  }
-  
-  /**
-   * Создание записи с заданными полями
-   */
-  private JepRecord createRecord(String description,
-                                 String featureName,
-                                 String featureNameEn) {
-    JepRecord record = new JepRecord();
-    record.set(DESCRIPTION, description);
-    record.set(FEATURE_NAME, featureName);
-    record.set(FEATURE_NAME_EN, featureNameEn);
-    
-    return record;
+    return fieldMap;
   }
 }

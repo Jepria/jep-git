@@ -4,8 +4,10 @@ import static org.junit.Assert.fail;
 
 import java.lang.reflect.Method;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -25,6 +27,10 @@ import com.googlecode.gwt.test.rpc.ServletMockProviderAdapter;
 import com.technology.jep.jepcommon.security.JepPrincipal;
 import com.technology.jep.jepria.server.dao.JepDataStandard;
 import com.technology.jep.jepria.server.service.JepDataServiceServlet;
+import com.technology.jep.jepria.shared.exceptions.ApplicationException;
+import com.technology.jep.jepria.shared.load.FindConfig;
+import com.technology.jep.jepria.shared.load.PagingConfig;
+import com.technology.jep.jepria.shared.load.PagingResult;
 import com.technology.jep.jepria.shared.record.JepRecord;
 
 /**
@@ -34,6 +40,9 @@ import com.technology.jep.jepria.shared.record.JepRecord;
 abstract public class JepRiaServiceTest<D extends JepDataStandard> extends GwtTest {
   private static Logger logger = Logger.getLogger(JepRiaServiceTest.class.getName());
 
+  protected JepDataServiceServlet<D> service;
+  private List<FindConfig> toDeleteAfterTest;
+
   /**
    * Servlet API mock helpers from gwt-test-utils
    */
@@ -41,7 +50,23 @@ abstract public class JepRiaServiceTest<D extends JepDataStandard> extends GwtTe
   
   private MyMockHttpServletRequest mockRequest;
 
-  public void prepareServletEnvironment(JepDataServiceServlet<D> service) {
+  protected void beforeServiceTest(JepDataServiceServlet<D> service) {
+    this.service = service; 
+    prepareServletEnvironment(service);
+    toDeleteAfterTest = new ArrayList<FindConfig>();
+  }
+
+  protected void afterServiceTest() {
+    clearRecords();
+    //logout(); TODO Нужен logoff
+    service = null;
+  }
+  
+  protected void addToClear(FindConfig createConfig) {
+    toDeleteAfterTest.add(createConfig);
+  }
+
+  protected void prepareServletEnvironment(JepDataServiceServlet<D> service) {
     prepareMockServlet();
   
     try {
@@ -55,7 +80,7 @@ abstract public class JepRiaServiceTest<D extends JepDataStandard> extends GwtTe
   /**
    * Умолчательный источник данных, по которому выполняется аутентификация и авторизация
    */
-  public static final DataSourceDef DEFAULT_DATASOURCE_DEF = new DataSourceDef("java:/comp/env/jdbc/RFInfoDS", "jdbc:oracle:thin:@//srvt14.d.t:1521/RFINFOT1", "information", "information");
+  private static final DataSourceDef DEFAULT_DATASOURCE_DEF = new DataSourceDef("java:/comp/env/jdbc/RFInfoDS", "jdbc:oracle:thin:@//srvt14.d.t:1521/RFINFOT1", "information", "information");
   
   protected static void prepareDataSources(List<DataSourceDef> dataSourceDefs) throws SQLException {
     try {
@@ -109,19 +134,18 @@ abstract public class JepRiaServiceTest<D extends JepDataStandard> extends GwtTe
   }
   
   /**
-   * Проверка принадлежности совпадения значений множества полей thisRecord со значениями одноимённых полей otherRecord
-   * @param thisRecord проверяемая запись
+   * Проверка принадлежности совпадения значений множества полей testRecord со значениями одноимённых полей otherRecord
+   * @param testRecord проверяемая запись
    * @param otherRecord 
-   * @return true, если значения множества полей thisRecord совпадают со значениями одноимённых полей otherRecord
-   * TODO Возможно стоит  
+   * @return true, если значения множества полей testRecord совпадают со значениями одноимённых полей otherRecord
    */
-  public static boolean isFieldValueSubSet(JepRecord thisRecord, JepRecord otherRecord) {
+  protected boolean isFieldValueSubSet(JepRecord testRecord, JepRecord otherRecord) {
     if(otherRecord == null)
       return false;
     
-    Collection<String> propertyNames = thisRecord.keySet();
+    Collection<String> propertyNames = testRecord.keySet();
     for(String name: propertyNames) {
-      Object property = thisRecord.get(name);
+      Object property = testRecord.get(name);
       if (property == null) {
         if (otherRecord.get(name) != null)
           return false;
@@ -131,6 +155,83 @@ abstract public class JepRiaServiceTest<D extends JepDataStandard> extends GwtTe
     
     return true;
   }
+
+  /**
+   * Удаление записей по списку конфигураций записей
+   */
+  protected void clearRecords() {
+    for (FindConfig recordConfig : toDeleteAfterTest) {
+      try {
+        service.delete(recordConfig);
+      } catch (ApplicationException ex) {
+        logger.error("Record deletion error", ex);
+      }
+    }
+  }
+  
+  
+  /**
+   * Создание записи с заданными полями в БД
+   */
+  protected JepRecord createRecordInDb(boolean rememberToDelete, Map<String, String> fieldMap) {
+    JepRecord featureRecord = new JepRecord();
+    for(String fieldName: fieldMap.keySet()) {
+      featureRecord.set(fieldName, fieldMap.get(fieldName));
+    }
+    
+    FindConfig createConfig = new FindConfig(featureRecord);
+    JepRecord resultRecord = null;
+    try {
+      resultRecord = service.create(createConfig);
+      if(rememberToDelete) {
+        toDeleteAfterTest.add(createConfig);
+      }
+    } catch (ApplicationException ex) {
+      fail("Create Feature record error:" + ex.getMessage());
+    }
+    
+    return resultRecord;
+  }
+
+  protected JepRecord createRecordInDb(Map<String, String> fieldMap) {
+    return createRecordInDb(true, fieldMap);
+  }
+  
+  
+  /**
+   * Создание записи с заданными полями
+   */
+  protected JepRecord createRecord(Map<String, String> fieldMap) {
+    JepRecord record = new JepRecord();
+    for(String fieldName: fieldMap.keySet()) {
+      record.set(fieldName, fieldMap.get(fieldName));
+    }
+    
+    return record;
+  }
+  
+
+  protected JepRecord updateRecord(JepRecord record, Map<String, String> fieldMap) {
+    for(String fieldName: fieldMap.keySet()) {
+      record.set(fieldName, fieldMap.get(fieldName));
+    }
+    
+    return record;
+  }
+  
+  protected PagingResult<JepRecord> findById(JepRecord record, String recordId) {
+    JepRecord templateRecord = new JepRecord();
+    templateRecord.set(recordId, record.get(recordId));
+    PagingConfig pagingConfig = new PagingConfig(templateRecord);
+    PagingResult<JepRecord> pagingResult = null;
+    try {
+      pagingResult = service.find(pagingConfig);
+    } catch (ApplicationException ex) {
+      fail("findById error: " + ex.getMessage());
+    }
+    return pagingResult;
+  }
+  
 }
 
 class MyMockServletContext extends MockServletContext {
