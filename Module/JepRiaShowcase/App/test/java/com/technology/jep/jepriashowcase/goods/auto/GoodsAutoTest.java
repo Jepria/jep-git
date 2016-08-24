@@ -703,13 +703,4 @@ public class GoodsAutoTest extends JepAutoTest<GoodsAuto> {
     SaveResultEnum saveResult = cut.save();
     assertEquals(SaveResultEnum.STATUS_HAS_CHANGED, saveResult);
   }
-  
-  @Test(groups = "goto")
-  public void testAutoLogonServlet(){
-    String html = cut.getHTML();
-    cut.clickButton(ENTRANCE_PANEL_LOGOUT_BUTTON_ID);
-    cut.goToAutoLogonServlet();
-    String newHtml = cut.getHTML();
-    assertEquals(html, newHtml);
-  }
 }
