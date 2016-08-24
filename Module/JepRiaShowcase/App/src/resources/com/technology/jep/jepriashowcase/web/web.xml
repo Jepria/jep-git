@@ -135,7 +135,7 @@
   </servlet-mapping>
 
   <welcome-file-list>
-    <welcome-file>JepRiaShowcaseCustom.jsp</welcome-file>
+    <welcome-file>JepRiaShowcase.jsp</welcome-file>
   </welcome-file-list>
 
   <security-role>
@@ -157,6 +157,20 @@
     <role-name>JrsEditFeature</role-name>
   </security-role>
   
+  <!-- Allow request for Custom Module, Search Module and related resources without authorization -->
+  <security-constraint>
+    <web-resource-collection>
+      <web-resource-name>Application entry points</web-resource-name>
+      <url-pattern>/JepRiaShowcaseCustom.jsp</url-pattern>
+      <url-pattern>/JepRiaShowcaseSearch.jsp</url-pattern>
+      <url-pattern>/JepRiaShowcase/*</url-pattern>
+      <url-pattern>/autoLogonServlet</url-pattern>
+      <url-pattern>/js/*</url-pattern>
+	  <url-pattern>/css/*</url-pattern>
+	  <url-pattern>/images/*</url-pattern>
+    </web-resource-collection>
+  </security-constraint>
+  
   <!-- Protect all resources of Application -->
   <security-constraint>
     <web-resource-collection>
@@ -167,27 +181,6 @@
       <!-- At least user has to possess one of the specified roles -->
       <role-name>*</role-name>
     </auth-constraint>
-  </security-constraint>
-
-  <!-- Allow request for Custom Module, Search Module and related resources without authorization -->
-  <security-constraint>
-    <web-resource-collection>
-      <web-resource-name>Application entry points</web-resource-name>
-      <url-pattern>/JepRiaShowcaseCustom.jsp</url-pattern>
-      <url-pattern>/JepRiaShowcaseSearch.jsp</url-pattern>
-      <url-pattern>/JepRiaShowcase/CustomService</url-pattern>
-      <url-pattern>/JepRiaShowcase/SearchService</url-pattern>
-      <url-pattern>/JepRiaShowcase/MainService</url-pattern>
-      <url-pattern>/autoLogonServlet</url-pattern>
-      <url-pattern>/js/*</url-pattern>
-	  <url-pattern>/css/*</url-pattern>
-	  <url-pattern>/images/*</url-pattern>
-      <url-pattern>*.js</url-pattern>
-      <url-pattern>*.html</url-pattern>
-      <url-pattern>*.css</url-pattern>
-      <url-pattern>*.gif</url-pattern>
-      <url-pattern>*.png</url-pattern>
-    </web-resource-collection>
   </security-constraint>
   
   <!-- Allow request for Login page resources without authorization -->

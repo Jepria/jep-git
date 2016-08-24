@@ -1,12 +1,15 @@
 package com.technology.jep.jepriashowcase.goods.auto;
 
 import static com.technology.jep.jepria.client.JepRiaAutomationConstant.ERROR_MESSAGE_BOX_OK_BUTTON_ID;
+import static com.technology.jep.jepria.client.JepRiaAutomationConstant.ENTRANCE_PANEL_LOGOUT_BUTTON_ID;
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.CREATE;
 import static com.technology.jep.jepriashowcase.goods.client.GoodsAutomationConstant.GOODS_GOODS_NAME_TEXT_FIELD_ID;
 import static com.technology.jep.jepriashowcase.goods.client.GoodsAutomationConstant.GOODS_GOODS_TYPE_COMBOBOX_FIELD_ID;
 import static com.technology.jep.jepriashowcase.goods.client.GoodsAutomationConstant.GOODS_PURCHASING_PRICE_NUMBER_FIELD_ID;
 import static com.technology.jep.jepriashowcase.goods.client.GoodsAutomationConstant.GOODS_UNIT_COMBOBOX_FIELD_ID;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -87,7 +90,7 @@ public class GoodsAutoTest extends JepAutoTest<GoodsAuto> {
   /**
    * Тест перехода на форму поиска
    */
-  @Test(groups = "goto")
+  @Test(groups = "goto!")
   public void goToSearch() {
     cut.find();
         
@@ -99,7 +102,7 @@ public class GoodsAutoTest extends JepAutoTest<GoodsAuto> {
   /**
    * Тест перехода на форму создания
    */
-  @Test(groups = {"create", "goto"})
+  @Test(groups = {"create", "goto!"})
   public void goToCreate() {
     cut.setWorkstate(CREATE);
         
@@ -329,7 +332,7 @@ public class GoodsAutoTest extends JepAutoTest<GoodsAuto> {
    * Тест перехода на списочную форму 
    * @param goodsName - значение поля 'Наименование товара', идентифицирующее тестовую запись
    */
-  @Test(groups = {"list", "goto"})
+  @Test(groups = {"list", "goto!"})
 //  @Parameters({"KEY_FIELD_VALUE"})
   public void goToList(final String goodsName) {
     cut.doSearch(new HashMap<String, String>(){{
@@ -699,5 +702,14 @@ public class GoodsAutoTest extends JepAutoTest<GoodsAuto> {
     
     SaveResultEnum saveResult = cut.save();
     assertEquals(SaveResultEnum.STATUS_HAS_CHANGED, saveResult);
+  }
+  
+  @Test(groups = "goto")
+  public void testAutoLogonServlet(){
+    String html = cut.getHTML();
+    cut.clickButton(ENTRANCE_PANEL_LOGOUT_BUTTON_ID);
+    cut.goToAutoLogonServlet();
+    String newHtml = cut.getHTML();
+    assertEquals(html, newHtml);
   }
 }
