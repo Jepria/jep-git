@@ -1,6 +1,0 @@
--- sequence: jrs_shop_goods_seq
--- Последовательность для заполнения первичного ключа таблицы
--- <jrs_shop_goods>.
-create sequence
-  jrs_shop_goods_seq
-/

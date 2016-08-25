@@ -1,6 +1,0 @@
--- sequence: jrs_feature_seq
--- Последовательность для заполнения первичного ключа таблицы
--- <jrs_feature>.
-create sequence
-  jrs_feature_seq
-/

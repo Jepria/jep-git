@@ -1,6 +1,0 @@
--- sequence: jrs_supplier_seq
--- Последовательность для заполнения первичного ключа таблицы
--- <jrs_supplier>.
-create sequence
-  jrs_supplier_seq
-/

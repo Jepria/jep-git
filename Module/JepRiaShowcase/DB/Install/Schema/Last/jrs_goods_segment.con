@@ -1,9 +1,0 @@
-alter table
-  jrs_goods_segment
-add constraint
-  jrs_goods_segment_fk_operator
-foreign key
-  ( operator_id)
-references
-  op_operator ( operator_id)
-/
