@@ -1,6 +1,6 @@
 package com.technology.jep.jepria.server.security;
 
-import static com.technology.jep.jepria.server.JepRiaServerConstant.DATA_SOURCE_JNDI_NAME;
+import static com.technology.jep.jepria.server.JepRiaServerConstant.DEFAULT_DATA_SOURCE_JNDI_NAME;
 import static com.technology.jep.jepria.server.security.JepSecurityConstant.GUEST_LOGIN;
 import static com.technology.jep.jepria.server.security.JepSecurityConstant.GUEST_PASSWORD;
 import static com.technology.jep.jepria.server.security.JepSecurityConstant.JEP_SECURITY_MODULE_ATTRIBUTE_NAME;
@@ -62,7 +62,7 @@ public abstract class JepAbstractSecurityModule implements JepSecurityModule {
   protected boolean isAuthorizedBySso = false;
 
   protected void init() {
-    db = new Db(DATA_SOURCE_JNDI_NAME);
+    db = new Db(DEFAULT_DATA_SOURCE_JNDI_NAME);
   }
 
   protected JepAbstractSecurityModule(){

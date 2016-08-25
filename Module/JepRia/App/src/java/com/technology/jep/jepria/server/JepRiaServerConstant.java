@@ -11,7 +11,7 @@ public class JepRiaServerConstant extends JepRiaConstant {
   /**
    * JNDI-имя источника данных модуля.
    */
-  public static final String DATA_SOURCE_JNDI_NAME = "jdbc/RFInfoDS";
+  public static final String DEFAULT_DATA_SOURCE_JNDI_NAME = "jdbc/RFInfoDS";
   /**
    * Имя параметра http-запроса: язык текущей межмодульной сессии
    */

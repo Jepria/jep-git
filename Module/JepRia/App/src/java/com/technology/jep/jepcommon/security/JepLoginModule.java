@@ -1,6 +1,6 @@
 package com.technology.jep.jepcommon.security;
 
-import static com.technology.jep.jepria.server.JepRiaServerConstant.DATA_SOURCE_JNDI_NAME;
+import static com.technology.jep.jepria.server.JepRiaServerConstant.DEFAULT_DATA_SOURCE_JNDI_NAME;
 
 import java.security.Principal;
 import java.sql.SQLException;
@@ -401,7 +401,7 @@ public class JepLoginModule implements LoginModule {
    */
   private Db getDb() {
     if (this.db == null) {
-      this.db = new Db(DATA_SOURCE_JNDI_NAME);
+      this.db = new Db(DEFAULT_DATA_SOURCE_JNDI_NAME);
     }
     return this.db;
   }
