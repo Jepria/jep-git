@@ -1,4 +1,4 @@
-package com.technology.jep.jepria.service.test;
+package com.technology.jep.jepria.server.test;
 
 public class DataSourceDef {
   public String dataSourceName;

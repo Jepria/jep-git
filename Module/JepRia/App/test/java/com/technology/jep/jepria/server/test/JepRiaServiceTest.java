@@ -1,16 +1,13 @@
-package com.technology.jep.jepria.service.test;
+package com.technology.jep.jepria.server.test;
 
 import static org.junit.Assert.fail;
 
 import java.lang.reflect.Method;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -41,7 +38,7 @@ abstract public class JepRiaServiceTest<D extends JepDataStandard> extends GwtTe
   private static Logger logger = Logger.getLogger(JepRiaServiceTest.class.getName());
 
   protected JepDataServiceServlet<D> service;
-  private List<FindConfig> toDeleteAfterTest;
+  private List<FindConfig> clearAfterTest;
 
   /**
    * Servlet API mock helpers from gwt-test-utils
@@ -53,7 +50,7 @@ abstract public class JepRiaServiceTest<D extends JepDataStandard> extends GwtTe
   protected void beforeServiceTest(JepDataServiceServlet<D> service) {
     this.service = service; 
     prepareServletEnvironment(service);
-    toDeleteAfterTest = new ArrayList<FindConfig>();
+    clearAfterTest = new ArrayList<FindConfig>();
   }
 
   protected void afterServiceTest() {
@@ -62,8 +59,8 @@ abstract public class JepRiaServiceTest<D extends JepDataStandard> extends GwtTe
     service = null;
   }
   
-  protected void addToClear(FindConfig createConfig) {
-    toDeleteAfterTest.add(createConfig);
+  protected void clearAfterTest(FindConfig createConfig) {
+    clearAfterTest.add(createConfig);
   }
 
   protected void prepareServletEnvironment(JepDataServiceServlet<D> service) {
@@ -76,33 +73,7 @@ abstract public class JepRiaServiceTest<D extends JepDataStandard> extends GwtTe
       fail(ex.getMessage());
     }
   }
-  
-  /**
-   * Умолчательный источник данных, по которому выполняется аутентификация и авторизация
-   */
-  private static final DataSourceDef DEFAULT_DATASOURCE_DEF = new DataSourceDef("java:/comp/env/jdbc/RFInfoDS", "jdbc:oracle:thin:@//srvt14.d.t:1521/RFINFOT1", "information", "information");
-  
-  protected static void prepareDataSources(List<DataSourceDef> dataSourceDefs) throws SQLException {
-    try {
-      InitialContext ic = TestServiceUtil.prepareInitialContextForJdbc();
-
-      if(!dataSourceDefs.contains(DEFAULT_DATASOURCE_DEF)) {
-        dataSourceDefs.add(DEFAULT_DATASOURCE_DEF);
-      }
-      
-      for(DataSourceDef dataSourceDef: dataSourceDefs) {
-        TestServiceUtil.prepareDataSource(
-            ic,
-            dataSourceDef.dataSourceName,
-            dataSourceDef.jdbcUrl,
-            dataSourceDef.username,
-            dataSourceDef.password);
-      }
-    } catch (NamingException ex) {
-        logger.error("DataSource create error", ex);
-    }
-  }
-  
+    
   private void prepareMockServlet() {
     MyMockServletContext context = new MyMockServletContext();
     context.setContextPath("JepRiaShowcase");
@@ -160,7 +131,7 @@ abstract public class JepRiaServiceTest<D extends JepDataStandard> extends GwtTe
    * Удаление записей по списку конфигураций записей
    */
   protected void clearRecords() {
-    for (FindConfig recordConfig : toDeleteAfterTest) {
+    for (FindConfig recordConfig : clearAfterTest) {
       try {
         service.delete(recordConfig);
       } catch (ApplicationException ex) {
@@ -184,10 +155,10 @@ abstract public class JepRiaServiceTest<D extends JepDataStandard> extends GwtTe
     try {
       resultRecord = service.create(createConfig);
       if(rememberToDelete) {
-        toDeleteAfterTest.add(createConfig);
+        clearAfterTest.add(createConfig);
       }
     } catch (ApplicationException ex) {
-      fail("Create Feature record error:" + ex.getMessage());
+      fail("Create record error:" + ex.getMessage());
     }
     
     return resultRecord;
@@ -197,31 +168,9 @@ abstract public class JepRiaServiceTest<D extends JepDataStandard> extends GwtTe
     return createRecordInDb(true, fieldMap);
   }
   
-  
-  /**
-   * Создание записи с заданными полями
-   */
-  protected JepRecord createRecord(Map<String, String> fieldMap) {
-    JepRecord record = new JepRecord();
-    for(String fieldName: fieldMap.keySet()) {
-      record.set(fieldName, fieldMap.get(fieldName));
-    }
-    
-    return record;
-  }
-  
-
-  protected JepRecord updateRecord(JepRecord record, Map<String, String> fieldMap) {
-    for(String fieldName: fieldMap.keySet()) {
-      record.set(fieldName, fieldMap.get(fieldName));
-    }
-    
-    return record;
-  }
-  
-  protected PagingResult<JepRecord> findById(JepRecord record, String recordId) {
+  protected PagingResult<JepRecord> findById(String recordIdKey, Object recordIdValue) {
     JepRecord templateRecord = new JepRecord();
-    templateRecord.set(recordId, record.get(recordId));
+    templateRecord.set(recordIdKey, recordIdValue);
     PagingConfig pagingConfig = new PagingConfig(templateRecord);
     PagingResult<JepRecord> pagingResult = null;
     try {
