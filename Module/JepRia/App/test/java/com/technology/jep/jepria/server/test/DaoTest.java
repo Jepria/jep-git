@@ -63,8 +63,12 @@ abstract public class DaoTest<D extends JepDataStandard> extends Assert {
   
   /**
    * Создание записи с заданными полями в БД
+   * 
+   * @param clearAfterTest удалить запись после теста
+   * @param fieldMap поля создаваемой записи
+   * @return Идентификатор записи - recordId
    */
-  protected Object createRecordInDb(boolean clearAfterTest, Map<String, String> fieldMap) {
+  protected Object createRecordInDb(boolean clearAfterTest, Map<String, Object> fieldMap) {
     JepRecord record = new JepRecord();
     for(String fieldName: fieldMap.keySet()) {
       record.set(fieldName, fieldMap.get(fieldName));
@@ -81,6 +85,17 @@ abstract public class DaoTest<D extends JepDataStandard> extends Assert {
     }
     
     return recordId;
+  }
+
+  /**
+   * Создание записи с заданными полями в БД с указанием последующей очистки базы
+   * 
+   * @param clearAfterTest удалить запись после теста
+   * @param fieldMap поля создаваемой записи
+   * @return Идентификатор записи - recordId
+   */
+  protected Object createRecordInDb(Map<String, Object> fieldMap) {
+    return createRecordInDb(true, fieldMap);
   }
   
   protected void clearAfterTest(Object recordId) {

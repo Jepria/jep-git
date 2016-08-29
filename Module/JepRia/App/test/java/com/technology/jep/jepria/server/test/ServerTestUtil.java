@@ -1,6 +1,7 @@
 package com.technology.jep.jepria.server.test;
 
 import java.sql.SQLException;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -16,6 +17,11 @@ import com.technology.jep.jepria.shared.record.JepRecord;
 
 public class ServerTestUtil {
   private static Logger logger = Logger.getLogger(ServerTestUtil.class.getName());
+  
+  /**
+   * Умолчательный источник данных, по которому выполняется аутентификация и авторизация
+   */
+  private static final DataSourceDef DEFAULT_DATASOURCE_DEF = new DataSourceDef("java:/comp/env/jdbc/RFInfoDS", "jdbc:oracle:thin:@//srvt14.d.t:1521/RFINFOT1", "information", "information");
 
   public static InitialContext prepareInitialContextForJdbc() throws NamingException {
     System.setProperty(Context.INITIAL_CONTEXT_FACTORY, "org.apache.naming.java.javaURLContextFactory");
@@ -44,7 +50,7 @@ public class ServerTestUtil {
   /**
    * Создание записи с заданными полями
    */
-  public static JepRecord createRecord(Map<String, String> fieldMap) {
+  public static JepRecord createRecord(Map<String, Object> fieldMap) {
     JepRecord record = new JepRecord();
     for(String fieldName: fieldMap.keySet()) {
       record.set(fieldName, fieldMap.get(fieldName));
@@ -62,18 +68,13 @@ public class ServerTestUtil {
   }
   
   
-  public static JepRecord updateRecord(JepRecord record, Map<String, String> fieldMap) {
+  public static JepRecord updateRecord(JepRecord record, Map<String, Object> fieldMap) {
     for(String fieldName: fieldMap.keySet()) {
       record.set(fieldName, fieldMap.get(fieldName));
     }
     
     return record;
   }
-  
-  /**
-   * Умолчательный источник данных, по которому выполняется аутентификация и авторизация
-   */
-  private static final DataSourceDef DEFAULT_DATASOURCE_DEF = new DataSourceDef("java:/comp/env/jdbc/RFInfoDS", "jdbc:oracle:thin:@//srvt14.d.t:1521/RFINFOT1", "information", "information");
   
   public static void prepareDataSources(List<DataSourceDef> dataSourceDefs) throws SQLException {
     try {
@@ -95,4 +96,28 @@ public class ServerTestUtil {
         logger.error("DataSource create error", ex);
     }
   }
+  
+  /**
+   * Проверка принадлежности совпадения значений множества полей testRecord со значениями одноимённых полей otherRecord
+   * @param testRecord проверяемая запись
+   * @param otherRecord 
+   * @return true, если значения множества полей testRecord совпадают со значениями одноимённых полей otherRecord
+   */
+  public static boolean isFieldValueSubSet(JepRecord testRecord, JepRecord otherRecord) {
+    if(otherRecord == null)
+      return false;
+    
+    Collection<String> propertyNames = testRecord.keySet();
+    for(String name: propertyNames) {
+      Object property = testRecord.get(name);
+      if (property == null) {
+        if (otherRecord.get(name) != null)
+          return false;
+      } else if (!property.equals(otherRecord.get(name)))
+        return false;
+    }
+    
+    return true;
+  }
+
 }

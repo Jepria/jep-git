@@ -4,7 +4,6 @@ import static org.junit.Assert.fail;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -103,29 +102,6 @@ abstract public class JepRiaServiceTest<D extends JepDataStandard> extends GwtTe
         }
     });
   }
-  
-  /**
-   * Проверка принадлежности совпадения значений множества полей testRecord со значениями одноимённых полей otherRecord
-   * @param testRecord проверяемая запись
-   * @param otherRecord 
-   * @return true, если значения множества полей testRecord совпадают со значениями одноимённых полей otherRecord
-   */
-  protected boolean isFieldValueSubSet(JepRecord testRecord, JepRecord otherRecord) {
-    if(otherRecord == null)
-      return false;
-    
-    Collection<String> propertyNames = testRecord.keySet();
-    for(String name: propertyNames) {
-      Object property = testRecord.get(name);
-      if (property == null) {
-        if (otherRecord.get(name) != null)
-          return false;
-      } else if (!property.equals(otherRecord.get(name)))
-        return false;
-    }
-    
-    return true;
-  }
 
   /**
    * Удаление записей по списку конфигураций записей
@@ -144,7 +120,7 @@ abstract public class JepRiaServiceTest<D extends JepDataStandard> extends GwtTe
   /**
    * Создание записи с заданными полями в БД
    */
-  protected JepRecord createRecordInDb(boolean rememberToDelete, Map<String, String> fieldMap) {
+  protected JepRecord createRecordInDb(boolean rememberToDelete, Map<String, Object> fieldMap) {
     JepRecord featureRecord = new JepRecord();
     for(String fieldName: fieldMap.keySet()) {
       featureRecord.set(fieldName, fieldMap.get(fieldName));
@@ -164,7 +140,10 @@ abstract public class JepRiaServiceTest<D extends JepDataStandard> extends GwtTe
     return resultRecord;
   }
 
-  protected JepRecord createRecordInDb(Map<String, String> fieldMap) {
+  /**
+   * Создание записи с заданными полями в БД с указанием последующей очистки базы
+   */
+  protected JepRecord createRecordInDb(Map<String, Object> fieldMap) {
     return createRecordInDb(true, fieldMap);
   }
   
