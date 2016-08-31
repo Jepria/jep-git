@@ -51,7 +51,7 @@
                 </div> 
             </div> 
         </div>
-    <div id="loading" class="jepRia-loadingProgress">
+    <div id="loadingProgress" class="jepRia-loadingProgress">
       <div class="jepRia-loadingIndicator">
         <img src="images/loading.gif" width="32" height="32" alt="Loading..."/>
         <div>
