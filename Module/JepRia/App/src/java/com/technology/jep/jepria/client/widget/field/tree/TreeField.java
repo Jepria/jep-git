@@ -18,12 +18,10 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import com.google.gwt.aria.client.Roles;
+import com.google.gwt.cell.client.AbstractCell;
 import com.google.gwt.cell.client.Cell;
-import com.google.gwt.cell.client.CompositeCell;
-import com.google.gwt.cell.client.FieldUpdater;
-import com.google.gwt.cell.client.HasCell;
-import com.google.gwt.cell.client.TextCell;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.NativeEvent;
 import com.google.gwt.dom.client.NodeList;
@@ -33,11 +31,13 @@ import com.google.gwt.event.logical.shared.OpenEvent;
 import com.google.gwt.event.logical.shared.OpenHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
+import com.google.gwt.event.shared.GwtEvent;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.safecss.shared.SafeStyles;
 import com.google.gwt.safecss.shared.SafeStylesBuilder;
 import com.google.gwt.safehtml.client.SafeHtmlTemplates;
+import com.google.gwt.safehtml.client.SafeHtmlTemplates.Template;
 import com.google.gwt.safehtml.shared.SafeHtml;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.safehtml.shared.SafeHtmlUtils;
@@ -206,11 +206,6 @@ public class TreeField<V extends JepOption> extends Composite implements HasChec
    */
   protected ScrollPanel treePanel;
   
-  /**
-   * Интерфейс стилизации дерева.
-   */
-  private static Template template;
-  
   interface Template extends SafeHtmlTemplates {
     
     /**
@@ -233,6 +228,11 @@ public class TreeField<V extends JepOption> extends Composite implements HasChec
   } 
   
   /**
+   * Интерфейс стилизации дерева.
+   */
+  private final static Template template = GWT.create(Template.class);
+  
+  /**
    * Пустой узел дерева.
    */
   private final V EMPTY_TREE_OPTION = (V) new JepOption(messages.emptyTree(), null);
@@ -241,10 +241,6 @@ public class TreeField<V extends JepOption> extends Composite implements HasChec
    * Создает экземпляры данного класса.
    */
   public TreeField(String fieldIdAsWebEl){
-    if (template == null) {
-      template = GWT.create(Template.class);
-    }
-    
     this.fieldIdAsWebEl = fieldIdAsWebEl;
     
     widgetPanel = new VerticalPanel();
@@ -274,6 +270,9 @@ public class TreeField<V extends JepOption> extends Composite implements HasChec
     treePanel.addStyleName(JEP_RIA_TREE_FIELD_STYLE);
   }
   
+  public void setImageResources(TreeFieldResources resources){
+    this.images = resources;
+  }
   /**
    * Устанавливает значение текущего загрузчика данных.
    * 
@@ -747,6 +746,16 @@ public class TreeField<V extends JepOption> extends Composite implements HasChec
       } 
     }
   }
+  
+  /**
+   * Определяем состояние узла дерева. В случае необходимости - можно перегрузить в наследниках.
+   * 
+   * @return  представление узла дерева
+   */
+  protected Cell<V> getTreeCell() {
+    return new TreeCell();
+  }
+  
   /**
    * Модель представления данных в компоненте.
    */
@@ -775,9 +784,10 @@ public class TreeField<V extends JepOption> extends Composite implements HasChec
             V currentNode = event.getValue();
             if ((checkNodes.equals(CheckNodes.LEAF) && !isLeaf(currentNode)) || 
                 (checkNodes.equals(CheckNodes.PARENT) && isLeaf(currentNode)) || !checkable) return SelectAction.IGNORE;
+            CheckChangeEvent<?> checkChangeEvent = new CheckChangeEvent<V>(currentNode, !isSelected(currentNode));
             // fire event
-            TreeField.this.fireEvent(new CheckChangeEvent<V>(currentNode, !isSelected(currentNode)));
-            return SelectAction.TOGGLE;
+            TreeField.this.fireEvent(checkChangeEvent);
+            return checkChangeEvent.isCancelled() ? SelectAction.IGNORE : SelectAction.TOGGLE;
           }
           // For keyboard events, do the default action.
           return SelectAction.DEFAULT;
@@ -791,187 +801,10 @@ public class TreeField<V extends JepOption> extends Composite implements HasChec
      */
     public <T> NodeInfo<?> getNodeInfo(T value) {
       provider = new TreeDataProvider((V) value);
-      
-      // FIXME TODO Ниже нужно избежать использования CompositeCell, так как после рефакторинга
-      // элемент списка состоит из одного, а не двух элементов и поэтому больше не является композитным.
-      // Проблема в том, что Column не создается от HasCell (зато создается от CompositeCell(HasCell)),
-      // а использование HasCell нужно для задания в нем FieldUpdater.
-      
-      // Create a list of cell. These cells will make up the composite cell
-      // Here I am constructing a composite cell with 2 parts that includes a checkbox.
-      final List<HasCell<V, ?>> cellComponents = new ArrayList<HasCell<V, ?>>();
-      
-      // FIXME TODO This HasCell is a STUB! Probably replace with some ~default~ Cell to not override methods
-      cellComponents.add(new HasCell<V, String>() {
-
-        private final Cell<String> cell = new TextCell();
-        
-        @Override
-        public Cell<String> getCell() {
-          return cell;
-        }
-
-        @Override
-        public FieldUpdater<V, String> getFieldUpdater() {
-          return null;
-        }
-
-        @Override
-        public String getValue(V object) {
-          return !JepRiaUtil.isEmpty(object) ? object.getName() : null;
-        }
-        
-      });
-      
-      // Create a composite cell and pass the definition of
-      // individual cells that the composite cell should render.
-      CompositeCell<V> compositeCell = new CompositeCell<V>(cellComponents){
-        private static final String PADDING = "   ";
-        
-        @Override
-        public boolean isEditing(Context context, Element parent, V value) {
-          return false;
-        }
-        
-        @Override
-        public boolean resetFocus(Context context, Element parent, V value) {
-          return false;
-        }
-        
-        @Override
-        protected <X> void render(Context context, V value, SafeHtmlBuilder sb, HasCell<V, X> hasCell) {
-          if (EMPTY_TREE_OPTION.equals(value)){
-            sb.append(template.emtpyNodeWrapper(value.getName()));
-            return;
-          }
-          // 1st part of Composite cell - Show a checkbox image and select it "selected" property is true
-          final SafeHtml checkImageHtml;
-          
-          final boolean isLeaf = isLeaf(value);
-          // null for non-checkable node (no checkbox is shown), 0 for unchecked, 1 for checked, 2 for partial
-          final Integer checkedState;
-          if (checkNodes == CheckNodes.LEAF && !isLeaf) {
-            // допустимо выделение только листьев, не отображаем соответствующую картинку
-            checkedState = null;
-          } else if (checkNodes == CheckNodes.PARENT && isLeaf) {
-            // допустимо выделение только родительских узлов, не отображаем соответствующую картинку
-            checkedState = null;
-          } else if (partialSelectedNodes.contains(value)){
-            checkedState = 2;
-          } else if (isNodeOpened(value) && checkStyle.equals(CheckCascade.PARENTS)) {
-            int in = hasPartlySelectedChildren(value);
-            if (in == 1) {
-              checkedState = 1;
-            } else if (in == 0) {
-              checkedState = 2;
-            } else {
-              checkedState = 0;
-            }
-          } else {
-            if (isSelected(value)) {
-              checkedState = 1;
-            } else {
-              checkedState = 0;
-            }
-          }
-          
-          final String nodeCheckedState;
-          
-          if (checkedState == null) {
-            checkImageHtml = SafeHtmlUtils.EMPTY_SAFE_HTML;
-            nodeCheckedState = JEP_TREENODE_CHECKEDSTATE_VALUE_UNCHECKABLE;
-          } else {
-            final ImageResource checkImg;
-            switch (checkedState) {
-              case 0:
-                checkImg = images.unchecked();
-                nodeCheckedState = JEP_TREENODE_CHECKEDSTATE_VALUE_UNCHECKED;
-                break;
-              case 1:
-                checkImg = images.checked();
-                nodeCheckedState = JEP_TREENODE_CHECKEDSTATE_VALUE_CHECKED;
-                break;
-              case 2: default:
-                checkImg = images.partialChecked();
-                nodeCheckedState = JEP_TREENODE_CHECKEDSTATE_VALUE_PARTIAL;
-                break;
-            }
-            checkImageHtml = AbstractImagePrototype.create(checkImg).getSafeHtml();
-          }
-          
-          
-          // 2nd part of Composite cell - Show a folder image for parent nodes
-          final SafeHtml folderImageHtml;
-          
-          if (isLeaf(value)) {
-            folderImageHtml = SafeHtmlUtils.EMPTY_SAFE_HTML;
-          } else {
-            ImageResource folderImg = isNodeOpened(value) ? images.folderOpened() : images.folderClosed();
-            folderImageHtml = AbstractImagePrototype.create(folderImg).getSafeHtml();
-          }
-          
-          // Build the css.
-          SafeStylesBuilder cssBuilder = new SafeStylesBuilder();
-          if ( checkedState != null) {
-            cssBuilder.appendTrustedString("cursor: pointer;");
-          }
-          // 3rd part of Composite cell - Show Text for the Cell
-          SafeHtml labelHtml = 
-              template.labelWrapper(
-                  value.getName(),
-                    cssBuilder.toSafeStyles(),
-                        SafeHtmlUtils.fromString(PADDING));
-          
-          final String nodeId;
-          if (fieldIdAsWebEl != null) {
-            nodeId = fieldIdAsWebEl + JEP_TREENODE_INFIX +  value.getName();
-          } else {
-            nodeId = "";
-          }
-          
-          sb.append(template.nodeWrapper(nodeId, 
-                Boolean.toString(isLeaf), nodeCheckedState,
-                      checkImageHtml, folderImageHtml, labelHtml));
-        }
-        
-        private int hasPartlySelectedChildren(V value){
-          List<V> children = isNodeOpened(value) ? getChildrenNodes(value) : null;
-          if (JepRiaUtil.isEmpty(children)) return -1;
-          
-          int childrenCount = children.size(), selectedCount = 0;
-          
-          for (int i = 0; i < childrenCount; i++){
-            V childrenValue = children.get(i);
-            int selected = hasPartlySelectedChildren(childrenValue);
-            if (selected == 0) {
-              if (!isSelected(value)) {
-                selectionModel.setSelected(value, true);
-              }
-              return 0;
-            }
-            if (isSelected(childrenValue)) selectedCount++;
-          }
-          
-          if (selectedCount == 0){ // no one node is selected
-            if (isSelected(value)) {
-              selectionModel.setSelected(value, false);
-            }
-            return -1;
-          } else if (selectedCount == childrenCount){ // all nodes are selected
-            if (!isSelected(value)) {
-              selectionModel.setSelected(value, true);
-            }
-            return 1;
-          } else { // some of nodes are selected
-            if (!isSelected(value)) {
-              selectionModel.setSelected(value, true);
-            }
-            return 0;
-          }
-        }
-      };
-      return new DefaultNodeInfo<V>(provider, compositeCell, selectionModel, selectionManager, null);
+      return new DefaultNodeInfo<V>(provider, getTreeCell(), selectionModel, selectionManager, null);
     }
+
+    
 
     /**
      * Проверка, что указанный узел дерева является листовым.
@@ -1038,7 +871,13 @@ public class TreeField<V extends JepOption> extends Composite implements HasChec
               markNodeAsSelectedIfAvailable(value);
             }
             openingNode = null;
-            onRangeChanged(display);
+            // If data retrieve without delays, we should initialize tree firstly
+            Scheduler.get().scheduleDeferred(new Scheduler.ScheduledCommand() {
+              @Override
+              public void execute() {
+                onRangeChanged(display);
+              }
+            });
           }
 
           
@@ -1103,5 +942,178 @@ public class TreeField<V extends JepOption> extends Composite implements HasChec
   public void setCompositeWebIds(String fieldIdAsWebEl) {
     selectAllCheckBox.getElement().setId(fieldIdAsWebEl + JepRiaAutomationConstant.JEP_TREE_FIELD_CHECKALL_POSTFIX);
   }
+  
+  public class TreeCell extends AbstractCell<V> {
+
+    protected Integer checkedState;
+    
+    protected String nodeCheckedState;
+    
+    private static final String PADDING = "   ";
+    
+    /**
+     * Пустой узел дерева.
+     */
+    private final V EMPTY_TREE_OPTION = (V) new JepOption(messages.emptyTree(), null);
+    
+    @Override
+    public boolean isEditing(Context context, Element parent, V value) {
+      return false;
+    }
+    
+    @Override
+    public boolean resetFocus(Context context, Element parent, V value) {
+      return false;
+    }
+    
+    @Override
+    public void render(Context context, V value, SafeHtmlBuilder sb) {
+      if (EMPTY_TREE_OPTION.equals(value)){
+        sb.append(template.emtpyNodeWrapper(value.getName()));
+        return;
+      }
+      
+      final boolean isLeaf = isLeaf(value);
+      
+      // null for non-checkable node (no checkbox is shown), 0 for unchecked, 1 for checked, 2 for partial
+      if (checkNodes == CheckNodes.LEAF && !isLeaf) {
+        // допустимо выделение только листьев, не отображаем соответствующую картинку
+        checkedState = null;
+      } else if (checkNodes == CheckNodes.PARENT && isLeaf) {
+        // допустимо выделение только родительских узлов, не отображаем соответствующую картинку
+        checkedState = null;
+      } else if (partialSelectedNodes.contains(value)){
+        checkedState = 2;
+      } else if (isNodeOpened(value) && checkStyle.equals(CheckCascade.PARENTS)) {
+        int in = hasPartlySelectedChildren(value);
+        if (in == 1) {
+          checkedState = 1;
+        } else if (in == 0) {
+          checkedState = 2;
+        } else {
+          checkedState = 0;
+        }
+      } else {
+        if (isSelected(value)) {
+          checkedState = 1;
+        } else {
+          checkedState = 0;
+        }
+      }
+      
+      sb.append(getCellHtml(value));
+    }
+    
+    protected int hasPartlySelectedChildren(V value){
+      List<V> children = isNodeOpened(value) ? getChildrenNodes(value) : null;
+      if (JepRiaUtil.isEmpty(children)) return -1;
+      
+      int childrenCount = children.size(), selectedCount = 0;
+      
+      for (int i = 0; i < childrenCount; i++){
+        V childrenValue = children.get(i);
+        int selected = hasPartlySelectedChildren(childrenValue);
+        if (selected == 0) {
+          if (!isSelected(value)) {
+            selectionModel.setSelected(value, true);
+          }
+          return 0;
+        }
+        if (isSelected(childrenValue)) selectedCount++;
+      }
+      
+      if (selectedCount == 0){ // no one node is selected
+        if (isSelected(value)) {
+          selectionModel.setSelected(value, false);
+        }
+        return -1;
+      } else if (selectedCount == childrenCount){ // all nodes are selected
+        if (!isSelected(value)) {
+          selectionModel.setSelected(value, true);
+        }
+        return 1;
+      } else { // some of nodes are selected
+        if (!isSelected(value)) {
+          selectionModel.setSelected(value, true);
+        }
+        return 0;
+      }
+    }
+    
+    protected SafeHtml getCellHtml(V value){
+      final boolean isLeaf = isLeaf(value);
+
+      final String nodeId;
+      if (fieldIdAsWebEl != null) {
+        nodeId = fieldIdAsWebEl + JEP_TREENODE_INFIX +  value.getName();
+      } else {
+        nodeId = "";
+      }
+      
+      // firstly call this method to initialize nodeCheckedState field
+      SafeHtml checkBoxHtml = getCheckBoxHtml(value);
+      
+      return template.nodeWrapper(nodeId, 
+          Boolean.toString(isLeaf), nodeCheckedState,
+              checkBoxHtml, getFolderHtml(value), getLabelHtml(value));
+    }
+    
+    protected SafeHtml getCheckBoxHtml(V value){
+      // 1st part of Composite cell - Show a checkbox image and select it "selected" property is true
+      final SafeHtml checkImageHtml;
+      
+      if (checkedState == null) {
+        checkImageHtml = SafeHtmlUtils.EMPTY_SAFE_HTML;
+        nodeCheckedState = JEP_TREENODE_CHECKEDSTATE_VALUE_UNCHECKABLE;
+      } else {
+        final ImageResource checkImg;
+        switch (checkedState) {
+          case 0:
+            checkImg = images.unchecked();
+            nodeCheckedState = JEP_TREENODE_CHECKEDSTATE_VALUE_UNCHECKED;
+            break;
+          case 1:
+            checkImg = images.checked();
+            nodeCheckedState = JEP_TREENODE_CHECKEDSTATE_VALUE_CHECKED;
+            break;
+          case 2: default:
+            checkImg = images.partialChecked();
+            nodeCheckedState = JEP_TREENODE_CHECKEDSTATE_VALUE_PARTIAL;
+            break;
+        } 
+        checkImageHtml = AbstractImagePrototype.create(checkImg).getSafeHtml();
+      }
+      
+      return checkImageHtml;
+    }
+    
+    
+    protected SafeHtml getFolderHtml(V value){
+      // 2nd part of Composite cell - Show a folder image for parent nodes
+      final SafeHtml folderImageHtml;
+      
+      if (isLeaf(value)) {
+        folderImageHtml = SafeHtmlUtils.EMPTY_SAFE_HTML;
+      } else {
+        ImageResource folderImg = isNodeOpened(value) ? images.folderOpened() : images.folderClosed();
+        folderImageHtml = AbstractImagePrototype.create(folderImg).getSafeHtml();
+      }
+      return folderImageHtml;
+    }
+    
+    protected SafeHtml getLabelHtml(V value){
+      // Build the css.
+      SafeStylesBuilder cssBuilder = new SafeStylesBuilder();
+      if ( checkedState != null) {
+        cssBuilder.appendTrustedString("cursor: pointer;");
+      }
+      // 3nd part of Composite cell - Show a label for tree node
+      return template.labelWrapper(
+          value.getName(),
+            cssBuilder.toSafeStyles(),
+                SafeHtmlUtils.fromString(PADDING));
+    }
+  }
+  
 }
 

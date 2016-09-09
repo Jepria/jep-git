@@ -1,14 +1,13 @@
 package com.technology.jep.jepria.client.widget.field.multistate.event;
 
 import com.google.gwt.event.shared.EventHandler;
-import com.google.gwt.event.shared.GwtEvent;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.technology.jep.jepria.client.widget.field.multistate.event.BeforeExpandEvent.BeforeExpandHandler;
 
 /**
  * Event type for widgets that can be expanded.
  */
-public class BeforeExpandEvent extends GwtEvent<BeforeExpandHandler> implements CancellableEvent {
+public class BeforeExpandEvent extends CancellableEventImpl<BeforeExpandHandler> {
 
   /**
    * Handler class for {@link BeforeExpandEvent} events.
@@ -52,20 +51,10 @@ public class BeforeExpandEvent extends GwtEvent<BeforeExpandHandler> implements 
     return TYPE;
   }
 
-  private boolean cancelled = false;
-
   @SuppressWarnings({"unchecked", "rawtypes"})
   @Override
   public Type<BeforeExpandHandler> getAssociatedType() {
     return (Type) TYPE;
-  }
-
-  public boolean isCancelled() {
-    return cancelled;
-  }
-
-  public void setCancelled(boolean cancelled) {
-    this.cancelled = cancelled;
   }
 
   @Override

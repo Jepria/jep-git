@@ -1,7 +1,6 @@
 package com.technology.jep.jepria.client.widget.field.multistate.event;
 
 import com.google.gwt.event.shared.EventHandler;
-import com.google.gwt.event.shared.GwtEvent;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.technology.jep.jepria.client.widget.field.multistate.event.CheckChangeEvent.CheckChangeHandler;
 import com.technology.jep.jepria.shared.field.option.JepOption;
@@ -9,7 +8,7 @@ import com.technology.jep.jepria.shared.field.option.JepOption;
 /**
  * Handler class for {@link CheckChangeEvent} events.
  */
-public class CheckChangeEvent<V extends JepOption> extends GwtEvent<CheckChangeHandler<V>> {
+public class CheckChangeEvent<V extends JepOption> extends CancellableEventImpl<CheckChangeHandler<V>> {
 
   private V selectedOption; 
   private boolean selected; 

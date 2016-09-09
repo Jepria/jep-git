@@ -1,15 +1,13 @@
 package com.technology.jep.jepria.client.widget.field.multistate.event;
 
 import com.google.gwt.event.shared.EventHandler;
-import com.google.gwt.event.shared.GwtEvent;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.technology.jep.jepria.client.widget.field.multistate.event.BeforeSelectEvent.BeforeSelectHandler;
 
 /**
  * Event type for widgets that can be selected.
  */
-public class BeforeSelectEvent<T> extends GwtEvent<BeforeSelectHandler<T>>
-    implements CancellableEvent {
+public class BeforeSelectEvent<T> extends CancellableEventImpl<BeforeSelectHandler<T>> {
 
   /**
    * Handler class for {@link BeforeSelectEvent} events.
@@ -54,7 +52,6 @@ public class BeforeSelectEvent<T> extends GwtEvent<BeforeSelectHandler<T>>
     return TYPE;
   }
 
-  private boolean cancelled = false;
   private T selectedItem = null;
 
   public BeforeSelectEvent(T option){
@@ -65,14 +62,6 @@ public class BeforeSelectEvent<T> extends GwtEvent<BeforeSelectHandler<T>>
   @Override
   public Type<BeforeSelectHandler<T>> getAssociatedType() {
     return (Type) TYPE;
-  }
-
-  public boolean isCancelled() {
-    return cancelled;
-  }
-
-  public void setCancelled(boolean cancelled) {
-    this.cancelled = cancelled;
   }
 
   public T getSelectedItem() {
