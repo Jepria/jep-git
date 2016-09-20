@@ -63,4 +63,15 @@ public class JepRiaServerConstant extends JepRiaConstant {
    * Имя параметра приложения <I>context-param</I> web.xml, содержащего адрес соответствующего CAS-сервера
    */
   public static final String CAS_SERVER_NAME_CONTEXT_PARAMETER = "casServerName";
+  
+  
+  /**
+   * Имя атрибута сессии для хранения информации о количестве совершенных попыток авторизации пользователем
+   */
+  public static final String LOGIN_ATTEMPTS_SESSION_ATTRIBUTE = "login-attempts";
+  
+  /**
+   * Максимально допустимое количество ошибок ввода некорректных реквизитов (логин/пароль) пользователя
+   */
+  public static final int MAX_LOGIN_ATTEMPTS = 3; 
 }

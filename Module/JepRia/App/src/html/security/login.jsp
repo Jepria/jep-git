@@ -1,68 +1,31 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<%@ page contentType="text/html;charset=utf-8"%>
+<!DOCTYPE html>
+<%@ page contentType="text/html;charset=utf-8" language="java"%>
+<%@ page import="static com.technology.jep.jepria.server.JepRiaServerConstant.LOGIN_ATTEMPTS_SESSION_ATTRIBUTE" %>
+<%@ page import="static com.technology.jep.jepria.server.JepRiaServerConstant.MAX_LOGIN_ATTEMPTS" %>
+<%@ page import="java.util.ResourceBundle" %>
 
-<jsp:directive.page import="oracle.security.jazn.sso.app.*" />
-<jsp:directive.page import="oracle.security.jazn.util.Env" />
-<jsp:directive.page import="oracle.security.jazn.resources.FrameworkResourceBundle" />
-<jsp:directive.page import="oracle.security.jazn.util.Resources" />
-
-<jsp:directive.page import="java.util.ResourceBundle" />
-<jsp:directive.page import="com.technology.jep.jepria.server.security.cas.LoginRedirectFilter" />
-
-<jsp:declaration>
- private static final String MAX_LOGIN_ATTEMPTS = "max-login-attempts";
- private int _maxLoginAttempts = 3;
- private int _sessionTimeout;
-</jsp:declaration>
-
-<jsp:scriptlet>
-  FrameworkResourceBundle _bundle = FrameworkResourceBundle.getResourceBundle(request.getLocales());
+<% 
   ResourceBundle resourceBundle = ResourceBundle.getBundle("com.technology.jep.jepria.shared.text.LoginText", request.getLocale());
-
-  Integer attempts = (Integer)session.getAttribute(MAX_LOGIN_ATTEMPTS);
-  int loginAttempts = 0;
-  if (null != attempts){
-    loginAttempts = attempts.intValue();
-    if(loginAttempts >= _maxLoginAttempts){
-      RequestDispatcher rd = application.getRequestDispatcher("/loginerror.jsp");
-      rd.forward(request, response);   
-    }
+  Integer loginAttempts = (Integer) session.getAttribute(LOGIN_ATTEMPTS_SESSION_ATTRIBUTE);
+  if (loginAttempts == null){
+    loginAttempts = 0;
   }
-  session.setMaxInactiveInterval(_sessionTimeout);
-  String dir = _bundle.isLocaleRTL() ? "rtl" : "ltr"; 
-</jsp:scriptlet>
+  else if (loginAttempts >= MAX_LOGIN_ATTEMPTS){
+     RequestDispatcher rd = application.getRequestDispatcher("/security/loginerror.jsp");
+     rd.forward(request, response);
+  }
+%>
 
-<html lang="<%=_bundle.getResourceLocale().getLanguage()%>"    dir="<%=dir%>">
+<html>
   <head>
-    <script src="security/javascript/jquery-1.10.2.js"></script>
-  
     <title><%= resourceBundle.getString("login.title") %></title>
     <link href="security/com/technology/jep/jepcommon/styles/Default.css" rel="stylesheet" type="text/css">
 
-    <script language="javascript">
+    <script type="text/javascript">
       //Приходится реализовывать отличным от JEP подходом, т.к. не удалось передать разумным/надежным методом язык/mtSID struts/JEP в приложение JavaSSO.
 
       //Код клавиши Enter (возвращается в event.keyCode при нажатии Enter).
       var VK_ENTER = 13;
-
-      //Функция локализации формы аутентификации.
-      function localize(){
-        //Если фрейма Navigation нет, то выходим из функции - оставляем локализацию на основе ресурсных файлов JavaSSO.
-        if(top.navigation == null) return;
-
-        //Если мы дошли до сюда, значит фрейм Navigation существует - произведем локализацию на основе ресурсных файлов Navigation.
-        document.getElementById('login.title').innerHTML = top.navigation.document.getElementsByName('login.title')[0].value;
-        document.getElementById('login.registration').title = top.navigation.document.getElementsByName('login.registration')[0].value;
-        document.getElementById('login.login').innerHTML = top.navigation.document.getElementsByName('login.login')[0].value;
-        document.getElementById('login.password').innerHTML = top.navigation.document.getElementsByName('login.password')[0].value;
-
-        document.getElementsByName('checkForm.mandatoryField')[0].value = top.navigation.document.getElementsByName('checkForm.mandatoryField')[0].value;
-        document.getElementsByName('action.incorrectInputData')[0].value = top.navigation.document.getElementsByName('action.incorrectInputData')[0].value;
-        <% if(loginAttempts > 0){ %>
-          document.getElementById('login.error').innerHTML = top.navigation.document.getElementsByName('login.error')[0].value;
-        <% } %>
-      }
       
       //Функция проверяет былали нажата клавиша Enter.
       function isEnter(e){
@@ -184,11 +147,8 @@
       <input type="hidden" name="action.incorrectInputData" value='<%= resourceBundle.getString("action.incorrectInputData") %>'/>
       <input type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;"/>
     </form>
-    <script language="javascript">
-  <!--
-    document.loginForm.j_username.focus(); 
-    localize(); 
-  //-->
+    <script type="text/javascript">
+   		document.loginForm.j_username.focus();
     </script>
   </body>
 </html>

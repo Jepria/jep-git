@@ -8,12 +8,12 @@ import com.technology.jep.jepria.client.widget.list.GridManager;
  * Списочная форма.<br/>
  * Содержит общий функционал списочных форм.
  */
-public class ListFormViewImpl<L extends GridManager> implements ListFormView {
+public class ListFormViewImpl<L extends GridManager> implements ListFormView<L> {
   
   /**
    * Презентер списочной формы.
    */
-  protected JepPresenter presenter;
+  protected JepPresenter<?, ?> presenter;
 
   /**
    * Компонент, который размещается в центральной (рабочей) области списочной формы.<br/>
@@ -36,6 +36,7 @@ public class ListFormViewImpl<L extends GridManager> implements ListFormView {
    *
    * @param presenter презентер списочной формы.
    */
+  @Override
   @Deprecated
   public void setPresenter(JepPresenter presenter) {
     this.presenter = presenter;
@@ -46,6 +47,7 @@ public class ListFormViewImpl<L extends GridManager> implements ListFormView {
    * 
    * @return визуальный компонент списочной формы.
    */
+  @Override
   public Widget asWidget() {
     return widget;
   }
@@ -55,6 +57,7 @@ public class ListFormViewImpl<L extends GridManager> implements ListFormView {
    *
    * @param widget центральный компонент (рабочая панель) списочной формы.
    */
+  @Override
   public void setWidget(Widget widget) {
     this.widget = widget;
   }
@@ -65,8 +68,9 @@ public class ListFormViewImpl<L extends GridManager> implements ListFormView {
    * @param list устанавливается управляющий класс по умолчанию. В общем случае, управляющих классов может быть произвольное количество.
    * При необходимости, дополнительные управляющие классы выставляются уже на прикладном уровне.
    */
-  public void setListManager(GridManager list) {
-    this.list = (L)list;
+  @Override
+  public void setListManager(L list) {
+    this.list = list;
   }
 
   /**
@@ -75,7 +79,8 @@ public class ListFormViewImpl<L extends GridManager> implements ListFormView {
    * @return получение управляющего класса по умолчанию. В общем случае, управляющих классов может быть произвольное количество.
    * При необходимости, дополнительные управляющие классы получаются уже на прикладном уровне.
    */
-  public GridManager getListManager() {
+  @Override
+  public L getListManager() {
     return list;
   }
 

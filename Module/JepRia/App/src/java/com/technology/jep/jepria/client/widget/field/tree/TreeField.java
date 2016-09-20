@@ -31,7 +31,6 @@ import com.google.gwt.event.logical.shared.OpenEvent;
 import com.google.gwt.event.logical.shared.OpenHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
-import com.google.gwt.event.shared.GwtEvent;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.safecss.shared.SafeStyles;
@@ -281,7 +280,15 @@ public class TreeField<V extends JepOption> extends Composite implements HasChec
   public void setLoader(DataLoader<V> dataLoader){
     this.loader = dataLoader;
     
-    selectionModel = new MultiSelectionModel<V>(){
+    selectionModel = getSelectionModel();
+    tree = getTree();
+  }
+
+  /**
+   * Получает модель выбора в древовидном справочнике.
+   */
+  protected SetSelectionModel<V> getSelectionModel() {
+    SetSelectionModel<V> result = new MultiSelectionModel<V>(){
       @Override
       public void setSelected(V item, boolean selected) {
         // select only available nodes
@@ -326,7 +333,7 @@ public class TreeField<V extends JepOption> extends Composite implements HasChec
       }
     };
     
-    selectionModel.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
+    result.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
       @Override
       public void onSelectionChange(SelectionChangeEvent event) {
         boolean isSameList = availableSelectedNodes.containsAll(getCheckedSelection()) && 
@@ -335,7 +342,14 @@ public class TreeField<V extends JepOption> extends Composite implements HasChec
       }
     });
     
-    tree = new CellTree(new TreeModel(), null, images, messages, Integer.MAX_VALUE){
+    return result;
+  }
+
+  /**
+   * Формирует GWT-виджет древовидного справочника.
+   */
+  protected CellTree getTree() {
+    CellTree result = new CellTree(new TreeModel(), null, images, messages, Integer.MAX_VALUE){
       @Override
       public void onBrowserEvent(Event event) {
         // prevent multi-opening
@@ -344,7 +358,7 @@ public class TreeField<V extends JepOption> extends Composite implements HasChec
         }
       }
     };
-    tree.addOpenHandler(new OpenHandler<TreeNode>() {
+    result.addOpenHandler(new OpenHandler<TreeNode>() {
       @Override
       public void onOpen(OpenEvent<TreeNode> event) {
         TreeNode node = event.getTarget();
@@ -368,12 +382,14 @@ public class TreeField<V extends JepOption> extends Composite implements HasChec
       }
     });
     
-    tree.addCloseHandler(new CloseHandler<TreeNode>() {
+    result.addCloseHandler(new CloseHandler<TreeNode>() {
       @Override
       public void onClose(final CloseEvent<TreeNode> event) {
         refreshNode((V) event.getTarget().getValue());
       }
     });
+    
+    return result;
   }
 
   /**
@@ -616,6 +632,15 @@ public class TreeField<V extends JepOption> extends Composite implements HasChec
   }
   
   /**
+   * Refresh state of tree with specified values
+   * 
+   * @param nodes    values of this tree
+   */
+  public void refresh(){
+    ((TreeModel) tree.getTreeViewModel()).refresh();
+  }
+  
+  /**
    * Устанавливает признак возможного выбора узлов в дереве. 
    * 
    * @param checkNodes    признак возможного выбора
@@ -822,6 +847,16 @@ public class TreeField<V extends JepOption> extends Composite implements HasChec
      */
     public void refreshNode(V value){
       provider.refreshNode(value);
+    }
+    
+    /**
+     * Обновляет информацию о структуре дерева.
+     * 
+     * @param values    новые узла дерева
+     */
+    public void refresh(){
+      nodeMapOfDisplay.clear();
+      treePanel.setWidget(tree = getTree());
     }
   }
   
