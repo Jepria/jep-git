@@ -133,37 +133,37 @@ public class ListFormPresenter<V extends ListFormView, E extends PlainEventBus, 
     
     list.addListener(ROW_CLICK_EVENT, new JepListener() {
       public void handleEvent(JepEvent event) {
-        rowClick(event);
+        onRowClick(event);
       }
     });
     
     list.addListener(ROW_DOUBLE_CLICK_EVENT, new JepListener() {
       public void handleEvent(JepEvent event) {
-        rowDoubleClick(event);
+        onRowDoubleClick(event);
       }
     });
   
     list.addListener(CHANGE_SORT_EVENT, new JepListener() {
       public void handleEvent(JepEvent event) {
-        changeSort(event);
+        onChangeSort(event);
       }
     });
     
     list.addListener(PAGING_REFRESH_EVENT, new JepListener() {
       public void handleEvent(JepEvent event) {
-        pagingRefresh(event);
+        onPagingRefresh(event);
       }
     });
   
     list.addListener(PAGING_SIZE_EVENT, new JepListener() {
       public void handleEvent(JepEvent event) {
-        pagingSize(event);
+        onPagingSize(event);
       }
     });
   
     list.addListener(PAGING_GOTO_EVENT, new JepListener() {
       public void handleEvent(JepEvent event) {
-        pagingGoto(event);
+        onPagingGoto(event);
       }
     });
     
@@ -186,6 +186,7 @@ public class ListFormPresenter<V extends ListFormView, E extends PlainEventBus, 
    *
    * @param event событие поиска
    */
+  @Override
   public void onSearch(SearchEvent event) {
     searchTemplate = event.getPagingConfig(); // Запомним поисковый шаблон.
     eventBus.setListUID(list.getUID()); // Запомним uid списка.
@@ -197,6 +198,7 @@ public class ListFormPresenter<V extends ListFormView, E extends PlainEventBus, 
    *
    * @param event событие обновления списка
    */
+  @Override
   public void onRefresh(RefreshEvent event) {
     // Если существует сохраненный шаблон, по которому нужно обновлять список, то ...
     if(searchTemplate != null) {
@@ -240,6 +242,7 @@ public class ListFormPresenter<V extends ListFormView, E extends PlainEventBus, 
    *
    * @param event событие сортировки
    */
+  @Override
   public void onSort(SortEvent event) {
     // Если поиск уже осуществлялся, то ...
     if(searchTemplate != null) {
@@ -283,6 +286,7 @@ public class ListFormPresenter<V extends ListFormView, E extends PlainEventBus, 
    *
    * @param event событие листания набора данных
    */
+  @Override
   public void onPaging(PagingEvent event) {
     // Если поиск уже осуществлялся, то ...
     if(searchTemplate != null) {
@@ -320,27 +324,28 @@ public class ListFormPresenter<V extends ListFormView, E extends PlainEventBus, 
     list.unmask(); // Скроем индикатор "Загрузка данных...".
   }
   
+  @Override
   public void onSetListUID(SetListUIDEvent event) {
     listUID = event.getListUID();
   }
   
-  public void rowClick(JepEvent event) {
+  public void onRowClick(JepEvent event) {
     eventBus.setCurrentRecord((JepRecord)event.getParameter());
     // Вызов перехода на новый Place происходит ОБЯЗАТЕЛЬНО ПОСЛЕ подготовки данных для записи в History 
     // (изменения Scope в обработчиках шины событий).
     placeController.goTo(new JepSelectedPlace());
   }
 
-  public void rowDoubleClick(JepEvent event) {
+  public void onRowDoubleClick(JepEvent event) {
     placeController.goTo(new JepViewDetailPlace());
   }
   
-  public void changeSort(JepEvent event) {
+  public void onChangeSort(JepEvent event) {
     SortConfig sortConfig = (SortConfig)event.getParameter();
     eventBus.sort(sortConfig);
   }
   
-  public void pagingRefresh(JepEvent event) {
+  public void onPagingRefresh(JepEvent event) {
     eventBus.refresh();
     // Важно при обновлении списка менять рабочее состояние на VIEW_LIST, чтобы скинуть состояние SELECTED (тем самым, скрыть кнопки работы с
     // конкретной, ранее выбранной, записью).
@@ -349,12 +354,12 @@ public class ListFormPresenter<V extends ListFormView, E extends PlainEventBus, 
     placeController.goTo(new JepViewListPlace());
   }
   
-  public void pagingSize(JepEvent event) {
+  public void onPagingSize(JepEvent event) {
     PagingConfig pagingConfig = (PagingConfig)event.getParameter();
     eventBus.paging(pagingConfig);
   }
   
-  public void pagingGoto(JepEvent event) {
+  public void onPagingGoto(JepEvent event) {
     PagingConfig pagingConfig = (PagingConfig)event.getParameter();
     eventBus.paging(pagingConfig);
   }
@@ -366,6 +371,7 @@ public class ListFormPresenter<V extends ListFormView, E extends PlainEventBus, 
    * 
    * @param event событие Удалить
    */
+  @Override
   public void onDoDelete(DoDeleteEvent event) {
     // Проверим состояние, чтобы обеспечить срабатывание данного обработчика только при активной списочной форме.
     if(SELECTED.equals(_workstate)) {
@@ -406,6 +412,7 @@ public class ListFormPresenter<V extends ListFormView, E extends PlainEventBus, 
    *
    * @param event событие удаления
    */
+  @Override
   public void onDelete(DeleteEvent event) {
     list.remove(event.getRecord());
   }
@@ -415,6 +422,7 @@ public class ListFormPresenter<V extends ListFormView, E extends PlainEventBus, 
    *
    * @param event событие выгрузки в Excel
    */
+  @Override
   public void onShowExcel(final ShowExcelEvent event){
     if (list.size() > 0 ) {
       List<JepColumnConfig> columns = list.getColumnModel();

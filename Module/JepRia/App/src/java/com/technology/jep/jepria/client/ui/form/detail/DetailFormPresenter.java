@@ -189,6 +189,7 @@ public class DetailFormPresenter<V extends DetailFormView, E extends PlainEventB
    *
    * @param event событие отображения списка
    */
+  @Override
   public void onList(ListEvent event) {
     // Скроем закладки дочерних форм.
     resetScope();
@@ -237,6 +238,7 @@ public class DetailFormPresenter<V extends DetailFormView, E extends PlainEventB
     eventBus.updateScope(new UpdateScopeEvent(scope));
   }
 
+  @Override
   public void onSetCurrentRecord(SetCurrentRecordEvent event) {
     currentRecord = event.getCurrentRecord();
   }
@@ -244,6 +246,7 @@ public class DetailFormPresenter<V extends DetailFormView, E extends PlainEventB
   /**
    * Обработчик события поиска "doSearch".
    */
+  @Override
   public void onDoSearch(DoSearchEvent event) {
     if(fields.isValid()) {
       // Получим значения с формы.
@@ -267,6 +270,7 @@ public class DetailFormPresenter<V extends DetailFormView, E extends PlainEventB
    * Сохранение поискового шаблона осуществляется здесь, поскольку переход возможен не только с формы поиска (типовой случай), 
    * но и во время перехода с главной формы на подчиненную.
    */
+  @Override
   public void onSearch(SearchEvent event) {
     // Проинициализируем поисковый шаблон (независимо откуда был осуществлен переход: с формы поиска или с главной формы на подчиненную).
     searchTemplate = event.getPagingConfig().getTemplateRecord();
@@ -280,6 +284,7 @@ public class DetailFormPresenter<V extends DetailFormView, E extends PlainEventB
    * При реализации в прикладном модуле собственного сервиса необходимо в презентере-наследнике прикладного
    * модуля реализовать перекрывающий метод onSave().
    */
+  @Override
   public void onSave(SaveEvent event) {
     if(fields.isValid()) {
       JepRecord formProperties = fields.getValues();
@@ -482,6 +487,7 @@ public class DetailFormPresenter<V extends DetailFormView, E extends PlainEventB
    *
    * @param event событие получения записи
    */
+  @Override
   public void onDoGetRecord(DoGetRecordEvent event) {
   
     final PagingConfig pagingConfig = event.getPagingConfig();
@@ -524,6 +530,7 @@ public class DetailFormPresenter<V extends DetailFormView, E extends PlainEventB
    * 
    * @param event событие Удалить
    */
+  @Override
   public void onDoDelete(DoDeleteEvent event) {
     // Проверим состояние, чтобы обеспечить срабатывание данного обработчика только при активной детальной форме.
     if(VIEW_DETAILS.equals(_workstate) || EDIT.equals(_workstate)) {
@@ -561,6 +568,7 @@ public class DetailFormPresenter<V extends DetailFormView, E extends PlainEventB
    *
    * @param event событие удаления
    */
+  @Override
   public void onDelete(DeleteEvent event) {
     eventBus.list();
   }
@@ -621,6 +629,7 @@ public class DetailFormPresenter<V extends DetailFormView, E extends PlainEventB
     clientFactory.getExceptionManager().handleException(th, JepTexts.form_deleteError());
   }
   
+  @Override
   public void onSetListUID(SetListUIDEvent event) {
     listUID = event.getListUID();
   }

@@ -61,6 +61,11 @@ public class PlainEventBus extends JepEventBus {
     fireEvent(new ListEvent());
   }
 
+  /**
+   * После вызова данного метода в состоянии {@code SELECTED},
+   * предполагается сброс сотояния вручную:<br>
+   * {@code placeController.goTo(new JepViewListPlace());}. 
+   */
   public void refresh() {
     fireEvent(new RefreshEvent());
   }
