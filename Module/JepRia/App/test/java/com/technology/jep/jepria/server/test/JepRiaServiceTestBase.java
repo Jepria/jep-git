@@ -33,8 +33,8 @@ import com.technology.jep.jepria.shared.record.JepRecord;
  * Общая функциональность тестов сервисов JepRia
  * Поддерживает создание необходимого окружения для сервисного gwt-сервлета, в том числе создание источников данных 
  */
-abstract public class JepRiaServiceTest<D extends JepDataStandard> extends GwtTest {
-  private static Logger logger = Logger.getLogger(JepRiaServiceTest.class.getName());
+abstract public class JepRiaServiceTestBase<D extends JepDataStandard> extends GwtTest {
+  private static Logger logger = Logger.getLogger(JepRiaServiceTestBase.class.getName());
 
   protected JepDataServiceServlet<D> service;
   private List<FindConfig> clearAfterTest;

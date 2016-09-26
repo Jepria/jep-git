@@ -19,8 +19,8 @@ import com.technology.jep.jepria.shared.record.JepRecord;
 /**
  * Общая функциональность тестов DAO JepRia
  */
-abstract public class DaoTest<D extends JepDataStandard> extends Assert {
-  private static Logger logger = Logger.getLogger(DaoTest.class.getName());
+abstract public class DaoTestBase<D extends JepDataStandard> extends Assert {
+  private static Logger logger = Logger.getLogger(DaoTestBase.class.getName());
 
   // TODO при параллельном запуске тестов разных DAO нужно будет избавляться от static
   // TODO поддержать primaryKey общего вида (когда он определяется множеством полей)
