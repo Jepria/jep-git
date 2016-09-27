@@ -54,7 +54,7 @@ function windowTitle()
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
 &nbsp;PREV CLASS&nbsp;
-&nbsp;<A HREF="../../../../../com/technology/jep/jepriatoolkit/parser/ApplicationStructureParser.html" title="class in com.technology.jep.jepriatoolkit.parser"><B>NEXT CLASS</B></A></FONT></TD>
+&nbsp;<A HREF="../../../../../com/technology/jep/jepriatoolkit/parser/ApplicationStructureDocument.html" title="class in com.technology.jep.jepriatoolkit.parser"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../../../../index.html?com/technology/jep/jepriatoolkit/parser/ApplicationSettingParser.html" target="_top"><B>FRAMES</B></A>  &nbsp;
 &nbsp;<A HREF="ApplicationSettingParser.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
@@ -120,6 +120,14 @@ java.lang.Object
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;<A HREF="../../../../../com/technology/jep/jepriatoolkit/parser/ApplicationStructureDocument.html" title="class in com.technology.jep.jepriatoolkit.parser">ApplicationStructureDocument</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepriatoolkit/parser/ApplicationSettingParser.html#document">document</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>private &nbsp;java.util.Map&lt;<A HREF="../../../../../com/technology/jep/jepriatoolkit/creator/module/Module.html" title="class in com.technology.jep.jepriatoolkit.creator.module">Module</A>,java.util.List&lt;<A HREF="../../../../../com/technology/jep/jepriatoolkit/creator/module/ModuleField.html" title="class in com.technology.jep.jepriatoolkit.creator.module">ModuleField</A>&gt;&gt;</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../com/technology/jep/jepriatoolkit/parser/ApplicationSettingParser.html#formFields">formFields</A></B></CODE>
 
@@ -138,14 +146,6 @@ java.lang.Object
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>private &nbsp;java.util.List&lt;java.util.List&lt;java.lang.String&gt;&gt;</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../com/technology/jep/jepriatoolkit/parser/ApplicationSettingParser.html#formWithTheirDependencies">formWithTheirDependencies</A></B></CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>private &nbsp;org.w3c.dom.Document</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepriatoolkit/parser/ApplicationSettingParser.html#jepApplicationDoc">jepApplicationDoc</A></B></CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -188,81 +188,11 @@ java.lang.Object
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepriatoolkit/parser/ApplicationSettingParser.html#detailizedModuleField(com.technology.jep.jepriatoolkit.creator.module.Module, com.technology.jep.jepriatoolkit.creator.module.ModuleField)">detailizedModuleField</A></B>(<A HREF="../../../../../com/technology/jep/jepriatoolkit/creator/module/Module.html" title="class in com.technology.jep.jepriatoolkit.creator.module">Module</A>&nbsp;module,
-                      <A HREF="../../../../../com/technology/jep/jepriatoolkit/creator/module/ModuleField.html" title="class in com.technology.jep.jepriatoolkit.creator.module">ModuleField</A>&nbsp;recordField)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Детализация элемента-поля GWT-модуля</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>private &nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepriatoolkit/parser/ApplicationSettingParser.html#detailizedModuleFieldAsDetailed(com.technology.jep.jepriatoolkit.creator.module.Module, com.technology.jep.jepriatoolkit.creator.module.ModuleField)">detailizedModuleFieldAsDetailed</A></B>(<A HREF="../../../../../com/technology/jep/jepriatoolkit/creator/module/Module.html" title="class in com.technology.jep.jepriatoolkit.creator.module">Module</A>&nbsp;module,
-                                <A HREF="../../../../../com/technology/jep/jepriatoolkit/creator/module/ModuleField.html" title="class in com.technology.jep.jepriatoolkit.creator.module">ModuleField</A>&nbsp;recordField)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Детализация элемента-поля GWT-модуля как представителя списочной формы</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>private &nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepriatoolkit/parser/ApplicationSettingParser.html#detailizedModuleFieldAsListed(com.technology.jep.jepriatoolkit.creator.module.Module, com.technology.jep.jepriatoolkit.creator.module.ModuleField)">detailizedModuleFieldAsListed</A></B>(<A HREF="../../../../../com/technology/jep/jepriatoolkit/creator/module/Module.html" title="class in com.technology.jep.jepriatoolkit.creator.module">Module</A>&nbsp;module,
-                              <A HREF="../../../../../com/technology/jep/jepriatoolkit/creator/module/ModuleField.html" title="class in com.technology.jep.jepriatoolkit.creator.module">ModuleField</A>&nbsp;recordField)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Детализация элемента-поля GWT-модуля как представителя детальной формы</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>private &nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepriatoolkit/parser/ApplicationSettingParser.html#detailizedModuleFieldAsParameters(com.technology.jep.jepriatoolkit.creator.module.Module, com.technology.jep.jepriatoolkit.creator.module.ModuleField)">detailizedModuleFieldAsParameters</A></B>(<A HREF="../../../../../com/technology/jep/jepriatoolkit/creator/module/Module.html" title="class in com.technology.jep.jepriatoolkit.creator.module">Module</A>&nbsp;module,
-                                  <A HREF="../../../../../com/technology/jep/jepriatoolkit/creator/module/ModuleField.html" title="class in com.technology.jep.jepriatoolkit.creator.module">ModuleField</A>&nbsp;recordField)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Детализация элемента-поля GWT-модуля как параметра для EJB-методов</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepriatoolkit/parser/ApplicationSettingParser.html#detailizedModuleForToolBar(com.technology.jep.jepriatoolkit.creator.module.Module, org.w3c.dom.Element)">detailizedModuleForToolBar</A></B>(<A HREF="../../../../../com/technology/jep/jepriatoolkit/creator/module/Module.html" title="class in com.technology.jep.jepriatoolkit.creator.module">Module</A>&nbsp;module,
-                           org.w3c.dom.Element&nbsp;moduleNode)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Детализация элемента-поля GWT-модуля как параметра для EJB-методов</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>private &nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepriatoolkit/parser/ApplicationSettingParser.html#detailizedPrefixModuleFieldParameters(com.technology.jep.jepriatoolkit.creator.module.Module)">detailizedPrefixModuleFieldParameters</A></B>(<A HREF="../../../../../com/technology/jep/jepriatoolkit/creator/module/Module.html" title="class in com.technology.jep.jepriatoolkit.creator.module">Module</A>&nbsp;module)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Детализация префиксов для параметров полей</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;java.util.List&lt;java.lang.String&gt;</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepriatoolkit/parser/ApplicationSettingParser.html#getAllModuleNodes()">getAllModuleNodes</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Получение списка всех модулей, описанных в файле настроек сборщика
- приложения</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../../../../com/technology/jep/jepriatoolkit/creator/module/Application.html" title="class in com.technology.jep.jepriatoolkit.creator.module">Application</A></CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../com/technology/jep/jepriatoolkit/parser/ApplicationSettingParser.html#getApplication()">getApplication</A></B>()</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;java.lang.String</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepriatoolkit/parser/ApplicationSettingParser.html#getDataSourceById(java.lang.String)">getDataSourceById</A></B>(java.lang.String&nbsp;moduleId)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Получение источника данных для GWT-модуля</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -274,29 +204,11 @@ java.lang.Object
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;org.w3c.dom.Document</CODE></FONT></TD>
+<CODE>&nbsp;<A HREF="../../../../../com/technology/jep/jepriatoolkit/parser/ApplicationStructureDocument.html" title="class in com.technology.jep.jepriatoolkit.parser">ApplicationStructureDocument</A></CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../com/technology/jep/jepriatoolkit/parser/ApplicationSettingParser.html#getDocument()">getDocument</A></B>()</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;org.w3c.dom.Element</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepriatoolkit/parser/ApplicationSettingParser.html#getFormDetailElementByModuleId(java.lang.String)">getFormDetailElementByModuleId</A></B>(java.lang.String&nbsp;moduleId)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Получение ссылки на узел детальной формы по указанному идентификатору
- модуля</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;org.w3c.dom.Element</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepriatoolkit/parser/ApplicationSettingParser.html#getFormListElementByModuleId(java.lang.String)">getFormListElementByModuleId</A></B>(java.lang.String&nbsp;moduleId)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Получение ссылки на узел списочной формы по указанному идентификатору
- модуля</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -325,54 +237,11 @@ java.lang.Object
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;java.util.List&lt;java.lang.String&gt;</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepriatoolkit/parser/ApplicationSettingParser.html#getListOfAbsentFieldNameByModuleId(java.lang.String, java.util.List)">getListOfAbsentFieldNameByModuleId</A></B>(java.lang.String&nbsp;moduleId,
-                                   java.util.List&lt;<A HREF="../../../../../com/technology/jep/jepriatoolkit/creator/module/ModuleField.html" title="class in com.technology.jep.jepriatoolkit.creator.module">ModuleField</A>&gt;&nbsp;mfList)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Получение списка идентификаторов полей, отсутствующих в списке
- перечисления record'ов, но указанных среди полей списочной или детальной
- форм</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;java.lang.String</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../com/technology/jep/jepriatoolkit/parser/ApplicationSettingParser.html#getMainFormNameIfExist(java.lang.String)">getMainFormNameIfExist</A></B>(java.lang.String&nbsp;formName)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Функция, определяющая является ли форма зависимой.</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;java.util.List&lt;org.w3c.dom.Element&gt;</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepriatoolkit/parser/ApplicationSettingParser.html#getModuleFieldsById(java.lang.String)">getModuleFieldsById</A></B>(java.lang.String&nbsp;moduleId)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Получение списка элементов-полей для модуля</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;org.w3c.dom.Element</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepriatoolkit/parser/ApplicationSettingParser.html#getModuleNodeById(java.lang.String)">getModuleNodeById</A></B>(java.lang.String&nbsp;moduleId)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Получение XML-элемента, являющегося GWT-модулем по его ID</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;org.w3c.dom.Element</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepriatoolkit/parser/ApplicationSettingParser.html#getModuleNodeByIdIgnoringCase(java.lang.String)">getModuleNodeByIdIgnoringCase</A></B>(java.lang.String&nbsp;moduleId)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Получение XML-элемента, являющегося GWT-модулем по его ID, игнорируя регистр букв</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;java.util.List&lt;java.lang.String&gt;</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepriatoolkit/parser/ApplicationSettingParser.html#getModuleSecurityRoles(java.lang.String)">getModuleSecurityRoles</A></B>(java.lang.String&nbsp;moduleId)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Получение списка ролей GWT-модуля</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -385,51 +254,10 @@ java.lang.Object
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;java.util.List&lt;java.lang.String&gt;</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepriatoolkit/parser/ApplicationSettingParser.html#getNodesWithChildren(java.lang.String)">getNodesWithChildren</A></B>(java.lang.String&nbsp;moduleId)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Получение списка модулей одного Scope</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;java.lang.String</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepriatoolkit/parser/ApplicationSettingParser.html#getPackageById(java.lang.String)">getPackageById</A></B>(java.lang.String&nbsp;moduleId)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Получение наименования пакета для GWT-модуля</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;java.lang.String</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepriatoolkit/parser/ApplicationSettingParser.html#getPrimaryKeyById(java.lang.String)">getPrimaryKeyById</A></B>(java.lang.String&nbsp;moduleId)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Получение первичного ключа для модуля</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;java.util.List&lt;java.lang.String&gt;</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../com/technology/jep/jepriatoolkit/parser/ApplicationSettingParser.html#getRoles()">getRoles</A></B>()</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;java.lang.String</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepriatoolkit/parser/ApplicationSettingParser.html#getTableById(java.lang.String)">getTableById</A></B>(java.lang.String&nbsp;moduleId)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Получение наименования таблицы для модуля</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>private &nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepriatoolkit/parser/ApplicationSettingParser.html#isRecordField(java.lang.String, java.lang.String)">isRecordField</A></B>(java.lang.String&nbsp;moduleId,
-              java.lang.String&nbsp;fieldId)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Является ли поле с указанным ID рекорд дефинишном</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -462,14 +290,6 @@ java.lang.Object
 <CODE>&nbsp;java.util.List&lt;<A HREF="../../../../../com/technology/jep/jepriatoolkit/creator/module/Module.html" title="class in com.technology.jep.jepriatoolkit.creator.module">Module</A>&gt;</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../com/technology/jep/jepriatoolkit/parser/ApplicationSettingParser.html#prepareModuleToInheritance(com.technology.jep.jepriatoolkit.creator.module.Module, java.util.List)">prepareModuleToInheritance</A></B>(<A HREF="../../../../../com/technology/jep/jepriatoolkit/creator/module/Module.html" title="class in com.technology.jep.jepriatoolkit.creator.module">Module</A>&nbsp;mod,
                            java.util.List&lt;<A HREF="../../../../../com/technology/jep/jepriatoolkit/creator/module/Module.html" title="class in com.technology.jep.jepriatoolkit.creator.module">Module</A>&gt;&nbsp;allModules)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepriatoolkit/parser/ApplicationSettingParser.html#reloadDocument(org.w3c.dom.Document)">reloadDocument</A></B>(org.w3c.dom.Document&nbsp;doc)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -507,10 +327,10 @@ private <A HREF="../../../../../com/technology/jep/jepriatoolkit/creator/module/
 </DL>
 <HR>
 
-<A NAME="jepApplicationDoc"><!-- --></A><H3>
-jepApplicationDoc</H3>
+<A NAME="document"><!-- --></A><H3>
+document</H3>
 <PRE>
-private org.w3c.dom.Document <B>jepApplicationDoc</B></PRE>
+private <A HREF="../../../../../com/technology/jep/jepriatoolkit/parser/ApplicationStructureDocument.html" title="class in com.technology.jep.jepriatoolkit.parser">ApplicationStructureDocument</A> <B>document</B></PRE>
 <DL>
 <DL>
 </DL>
@@ -667,292 +487,6 @@ public java.lang.String <B>getMainFormNameIfExist</B>(java.lang.String&nbsp;form
 </DL>
 <HR>
 
-<A NAME="getListOfAbsentFieldNameByModuleId(java.lang.String, java.util.List)"><!-- --></A><H3>
-getListOfAbsentFieldNameByModuleId</H3>
-<PRE>
-public java.util.List&lt;java.lang.String&gt; <B>getListOfAbsentFieldNameByModuleId</B>(java.lang.String&nbsp;moduleId,
-                                                                           java.util.List&lt;<A HREF="../../../../../com/technology/jep/jepriatoolkit/creator/module/ModuleField.html" title="class in com.technology.jep.jepriatoolkit.creator.module">ModuleField</A>&gt;&nbsp;mfList)</PRE>
-<DL>
-<DD>Получение списка идентификаторов полей, отсутствующих в списке
- перечисления record'ов, но указанных среди полей списочной или детальной
- форм
-<P>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>moduleId</CODE> - Идентификатор модуля<DD><CODE>mfList</CODE> - Имеющийся список полей данного модуля
-<DT><B>Returns:</B><DD>список идентификаторов отсутствующих полей</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="getFormDetailElementByModuleId(java.lang.String)"><!-- --></A><H3>
-getFormDetailElementByModuleId</H3>
-<PRE>
-public org.w3c.dom.Element <B>getFormDetailElementByModuleId</B>(java.lang.String&nbsp;moduleId)</PRE>
-<DL>
-<DD>Получение ссылки на узел детальной формы по указанному идентификатору
- модуля
-<P>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>moduleId</CODE> - Идентификатор модуля
-<DT><B>Returns:</B><DD>XML-узел в <ApplicationName>Definition.xml</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="getFormListElementByModuleId(java.lang.String)"><!-- --></A><H3>
-getFormListElementByModuleId</H3>
-<PRE>
-public org.w3c.dom.Element <B>getFormListElementByModuleId</B>(java.lang.String&nbsp;moduleId)</PRE>
-<DL>
-<DD>Получение ссылки на узел списочной формы по указанному идентификатору
- модуля
-<P>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>moduleId</CODE> - Идентификатор модуля
-<DT><B>Returns:</B><DD>XML-узел в <ApplicationName>Definition.xml</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="detailizedModuleFieldAsDetailed(com.technology.jep.jepriatoolkit.creator.module.Module, com.technology.jep.jepriatoolkit.creator.module.ModuleField)"><!-- --></A><H3>
-detailizedModuleFieldAsDetailed</H3>
-<PRE>
-private void <B>detailizedModuleFieldAsDetailed</B>(<A HREF="../../../../../com/technology/jep/jepriatoolkit/creator/module/Module.html" title="class in com.technology.jep.jepriatoolkit.creator.module">Module</A>&nbsp;module,
-                                             <A HREF="../../../../../com/technology/jep/jepriatoolkit/creator/module/ModuleField.html" title="class in com.technology.jep.jepriatoolkit.creator.module">ModuleField</A>&nbsp;recordField)</PRE>
-<DL>
-<DD>Детализация элемента-поля GWT-модуля как представителя списочной формы
-<P>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>module</CODE> - Ссылка на модуль<DD><CODE>recordField</CODE> - Элемент-поле</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="detailizedModuleFieldAsListed(com.technology.jep.jepriatoolkit.creator.module.Module, com.technology.jep.jepriatoolkit.creator.module.ModuleField)"><!-- --></A><H3>
-detailizedModuleFieldAsListed</H3>
-<PRE>
-private void <B>detailizedModuleFieldAsListed</B>(<A HREF="../../../../../com/technology/jep/jepriatoolkit/creator/module/Module.html" title="class in com.technology.jep.jepriatoolkit.creator.module">Module</A>&nbsp;module,
-                                           <A HREF="../../../../../com/technology/jep/jepriatoolkit/creator/module/ModuleField.html" title="class in com.technology.jep.jepriatoolkit.creator.module">ModuleField</A>&nbsp;recordField)</PRE>
-<DL>
-<DD>Детализация элемента-поля GWT-модуля как представителя детальной формы
-<P>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>module</CODE> - Ссылка на модуль<DD><CODE>recordField</CODE> - Элемент-поле</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="detailizedModuleFieldAsParameters(com.technology.jep.jepriatoolkit.creator.module.Module, com.technology.jep.jepriatoolkit.creator.module.ModuleField)"><!-- --></A><H3>
-detailizedModuleFieldAsParameters</H3>
-<PRE>
-private void <B>detailizedModuleFieldAsParameters</B>(<A HREF="../../../../../com/technology/jep/jepriatoolkit/creator/module/Module.html" title="class in com.technology.jep.jepriatoolkit.creator.module">Module</A>&nbsp;module,
-                                               <A HREF="../../../../../com/technology/jep/jepriatoolkit/creator/module/ModuleField.html" title="class in com.technology.jep.jepriatoolkit.creator.module">ModuleField</A>&nbsp;recordField)</PRE>
-<DL>
-<DD>Детализация элемента-поля GWT-модуля как параметра для EJB-методов
-<P>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>module</CODE> - Ссылка на модуль<DD><CODE>recordField</CODE> - Элемент-поле</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="detailizedPrefixModuleFieldParameters(com.technology.jep.jepriatoolkit.creator.module.Module)"><!-- --></A><H3>
-detailizedPrefixModuleFieldParameters</H3>
-<PRE>
-private void <B>detailizedPrefixModuleFieldParameters</B>(<A HREF="../../../../../com/technology/jep/jepriatoolkit/creator/module/Module.html" title="class in com.technology.jep.jepriatoolkit.creator.module">Module</A>&nbsp;module)</PRE>
-<DL>
-<DD>Детализация префиксов для параметров полей
-<P>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>module</CODE> - Ссылка на модуль</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="isRecordField(java.lang.String, java.lang.String)"><!-- --></A><H3>
-isRecordField</H3>
-<PRE>
-private boolean <B>isRecordField</B>(java.lang.String&nbsp;moduleId,
-                              java.lang.String&nbsp;fieldId)</PRE>
-<DL>
-<DD>Является ли поле с указанным ID рекорд дефинишном
-<P>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>moduleId</CODE> - Идентификатор модуля<DD><CODE>fieldId</CODE> - Идентификатор поля
-<DT><B>Returns:</B><DD>флаг, указывающий является ли поле рекорд дефинишном</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="detailizedModuleField(com.technology.jep.jepriatoolkit.creator.module.Module, com.technology.jep.jepriatoolkit.creator.module.ModuleField)"><!-- --></A><H3>
-detailizedModuleField</H3>
-<PRE>
-public void <B>detailizedModuleField</B>(<A HREF="../../../../../com/technology/jep/jepriatoolkit/creator/module/Module.html" title="class in com.technology.jep.jepriatoolkit.creator.module">Module</A>&nbsp;module,
-                                  <A HREF="../../../../../com/technology/jep/jepriatoolkit/creator/module/ModuleField.html" title="class in com.technology.jep.jepriatoolkit.creator.module">ModuleField</A>&nbsp;recordField)</PRE>
-<DL>
-<DD>Детализация элемента-поля GWT-модуля
-<P>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>module</CODE> - Ссылка на модуль<DD><CODE>recordField</CODE> - Элемент-поле</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="detailizedModuleForToolBar(com.technology.jep.jepriatoolkit.creator.module.Module, org.w3c.dom.Element)"><!-- --></A><H3>
-detailizedModuleForToolBar</H3>
-<PRE>
-public void <B>detailizedModuleForToolBar</B>(<A HREF="../../../../../com/technology/jep/jepriatoolkit/creator/module/Module.html" title="class in com.technology.jep.jepriatoolkit.creator.module">Module</A>&nbsp;module,
-                                       org.w3c.dom.Element&nbsp;moduleNode)</PRE>
-<DL>
-<DD>Детализация элемента-поля GWT-модуля как параметра для EJB-методов
-<P>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>module</CODE> - Элемент-модуль<DD><CODE>moduleNode</CODE> - DOM-элемент модуля</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="getAllModuleNodes()"><!-- --></A><H3>
-getAllModuleNodes</H3>
-<PRE>
-public java.util.List&lt;java.lang.String&gt; <B>getAllModuleNodes</B>()</PRE>
-<DL>
-<DD>Получение списка всех модулей, описанных в файле настроек сборщика
- приложения
-<P>
-<DD><DL>
-
-<DT><B>Returns:</B><DD>список всех описанных модулей</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="getNodesWithChildren(java.lang.String)"><!-- --></A><H3>
-getNodesWithChildren</H3>
-<PRE>
-public java.util.List&lt;java.lang.String&gt; <B>getNodesWithChildren</B>(java.lang.String&nbsp;moduleId)</PRE>
-<DL>
-<DD>Получение списка модулей одного Scope
-<P>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>moduleId</CODE> - идентификатор модуля, для которого имеется множество вложенных подмодулей
-<DT><B>Returns:</B><DD>список модулей</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="getModuleNodeById(java.lang.String)"><!-- --></A><H3>
-getModuleNodeById</H3>
-<PRE>
-public org.w3c.dom.Element <B>getModuleNodeById</B>(java.lang.String&nbsp;moduleId)</PRE>
-<DL>
-<DD>Получение XML-элемента, являющегося GWT-модулем по его ID
-<P>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>moduleId</CODE> - идентификатор модуля
-<DT><B>Returns:</B><DD>элемент-модуль</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="getModuleNodeByIdIgnoringCase(java.lang.String)"><!-- --></A><H3>
-getModuleNodeByIdIgnoringCase</H3>
-<PRE>
-public org.w3c.dom.Element <B>getModuleNodeByIdIgnoringCase</B>(java.lang.String&nbsp;moduleId)</PRE>
-<DL>
-<DD>Получение XML-элемента, являющегося GWT-модулем по его ID, игнорируя регистр букв
-<P>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>moduleId</CODE> - идентификатор модуля
-<DT><B>Returns:</B><DD>элемент-модуль</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="getModuleFieldsById(java.lang.String)"><!-- --></A><H3>
-getModuleFieldsById</H3>
-<PRE>
-public java.util.List&lt;org.w3c.dom.Element&gt; <B>getModuleFieldsById</B>(java.lang.String&nbsp;moduleId)</PRE>
-<DL>
-<DD>Получение списка элементов-полей для модуля
-<P>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>moduleId</CODE> - идентификатор модуля
-<DT><B>Returns:</B><DD>список элементов-полей</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="getPrimaryKeyById(java.lang.String)"><!-- --></A><H3>
-getPrimaryKeyById</H3>
-<PRE>
-public java.lang.String <B>getPrimaryKeyById</B>(java.lang.String&nbsp;moduleId)</PRE>
-<DL>
-<DD>Получение первичного ключа для модуля
-<P>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>moduleId</CODE> - идентификатор модуля
-<DT><B>Returns:</B><DD>значение первичного ключа</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="getTableById(java.lang.String)"><!-- --></A><H3>
-getTableById</H3>
-<PRE>
-public java.lang.String <B>getTableById</B>(java.lang.String&nbsp;moduleId)</PRE>
-<DL>
-<DD>Получение наименования таблицы для модуля
-<P>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>moduleId</CODE> - идентификатор модуля
-<DT><B>Returns:</B><DD>наименование таблицы</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="getModuleSecurityRoles(java.lang.String)"><!-- --></A><H3>
-getModuleSecurityRoles</H3>
-<PRE>
-public java.util.List&lt;java.lang.String&gt; <B>getModuleSecurityRoles</B>(java.lang.String&nbsp;moduleId)</PRE>
-<DL>
-<DD>Получение списка ролей GWT-модуля
-<P>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>moduleId</CODE> - идентификатор модуля
-<DT><B>Returns:</B><DD>список ролей</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="getDataSourceById(java.lang.String)"><!-- --></A><H3>
-getDataSourceById</H3>
-<PRE>
-public java.lang.String <B>getDataSourceById</B>(java.lang.String&nbsp;moduleId)</PRE>
-<DL>
-<DD>Получение источника данных для GWT-модуля
-<P>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>moduleId</CODE> - идентификатор модуля
-<DT><B>Returns:</B><DD>источник данных</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="getPackageById(java.lang.String)"><!-- --></A><H3>
-getPackageById</H3>
-<PRE>
-public java.lang.String <B>getPackageById</B>(java.lang.String&nbsp;moduleId)</PRE>
-<DL>
-<DD>Получение наименования пакета для GWT-модуля
-<P>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>moduleId</CODE> - идентификатор модуля
-<DT><B>Returns:</B><DD>наименование пакета</DL>
-</DD>
-</DL>
-<HR>
-
 <A NAME="getDependencyNodesIfExists(java.lang.String)"><!-- --></A><H3>
 getDependencyNodesIfExists</H3>
 <PRE>
@@ -1031,18 +565,7 @@ public java.util.List&lt;java.lang.String&gt; <B>getRoles</B>()</PRE>
 <A NAME="getDocument()"><!-- --></A><H3>
 getDocument</H3>
 <PRE>
-public org.w3c.dom.Document <B>getDocument</B>()</PRE>
-<DL>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="reloadDocument(org.w3c.dom.Document)"><!-- --></A><H3>
-reloadDocument</H3>
-<PRE>
-public void <B>reloadDocument</B>(org.w3c.dom.Document&nbsp;doc)</PRE>
+public <A HREF="../../../../../com/technology/jep/jepriatoolkit/parser/ApplicationStructureDocument.html" title="class in com.technology.jep.jepriatoolkit.parser">ApplicationStructureDocument</A> <B>getDocument</B>()</PRE>
 <DL>
 <DD><DL>
 </DL>
@@ -1079,7 +602,7 @@ public void <B>reloadDocument</B>(org.w3c.dom.Document&nbsp;doc)</PRE>
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
 &nbsp;PREV CLASS&nbsp;
-&nbsp;<A HREF="../../../../../com/technology/jep/jepriatoolkit/parser/ApplicationStructureParser.html" title="class in com.technology.jep.jepriatoolkit.parser"><B>NEXT CLASS</B></A></FONT></TD>
+&nbsp;<A HREF="../../../../../com/technology/jep/jepriatoolkit/parser/ApplicationStructureDocument.html" title="class in com.technology.jep.jepriatoolkit.parser"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../../../../index.html?com/technology/jep/jepriatoolkit/parser/ApplicationSettingParser.html" target="_top"><B>FRAMES</B></A>  &nbsp;
 &nbsp;<A HREF="ApplicationSettingParser.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
