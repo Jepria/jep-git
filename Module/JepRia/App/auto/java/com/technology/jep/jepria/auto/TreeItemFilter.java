@@ -26,7 +26,7 @@ public interface TreeItemFilter {
    * return treeItem.getLevel() < 3;
    * </pre>
    * Метод вызывается только для развернутых папок и, если имеется, корневого элемента.
-   * @param treeNode проверяемый узел
+   * @param treeItem проверяемый узел
    */
   boolean traverseDescendants(TreeItemWebElement treeItem);
   

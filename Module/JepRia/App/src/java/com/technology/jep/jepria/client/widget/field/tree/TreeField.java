@@ -632,9 +632,7 @@ public class TreeField<V extends JepOption> extends Composite implements HasChec
   }
   
   /**
-   * Refresh state of tree with specified values
-   * 
-   * @param nodes    values of this tree
+   * Refresh state of tree
    */
   public void refresh(){
     ((TreeModel) tree.getTreeViewModel()).refresh();
@@ -851,8 +849,6 @@ public class TreeField<V extends JepOption> extends Composite implements HasChec
     
     /**
      * Обновляет информацию о структуре дерева.
-     * 
-     * @param values    новые узла дерева
      */
     public void refresh(){
       nodeMapOfDisplay.clear();

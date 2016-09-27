@@ -90,7 +90,6 @@ abstract public class DaoTestBase<D extends JepDataStandard> extends Assert {
   /**
    * Создание записи с заданными полями в БД с указанием последующей очистки базы
    * 
-   * @param clearAfterTest удалить запись после теста
    * @param fieldMap поля создаваемой записи
    * @return Идентификатор записи - recordId
    */
