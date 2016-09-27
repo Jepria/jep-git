@@ -24,7 +24,7 @@
 	<property name="MODULE_PACKAGE" value="com/technology/${PROJECT_NAME_IN_PACKAGE}/${MODULE_NAME_IN_PACKAGE}" />
 	<property name="JAVA_DOC_DIR" value="../Doc/App/AutoGen" />
 	<property name="LIBS"
-		value="${JEPRIA_LIB};${env.ANT_HOME}/lib/ant.jar;classes;${FREEMARKER_LIB};${JAVAPARSER-CORE_LIB};${XERCESIMPL_LIB}"/>
+		value="${env.ANT_HOME}/lib/ant.jar;classes;${FREEMARKER_LIB};${JAVAPARSER-CORE_LIB};${XERCESIMPL_LIB}"/>
 
 	<property name="LOG_LEVEL" value="info" />
 	
