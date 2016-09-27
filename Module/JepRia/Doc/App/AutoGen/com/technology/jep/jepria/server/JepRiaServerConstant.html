@@ -130,7 +130,7 @@ java.lang.Object
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;java.lang.String</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepria/server/JepRiaServerConstant.html#DATA_SOURCE_JNDI_NAME">DATA_SOURCE_JNDI_NAME</A></B></CODE>
+<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepria/server/JepRiaServerConstant.html#DEFAULT_DATA_SOURCE_JNDI_NAME">DEFAULT_DATA_SOURCE_JNDI_NAME</A></B></CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;JNDI-имя источника данных модуля.</TD>
@@ -202,10 +202,26 @@ java.lang.Object
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepria/server/JepRiaServerConstant.html#LOGIN_ATTEMPTS_SESSION_ATTRIBUTE">LOGIN_ATTEMPTS_SESSION_ATTRIBUTE</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Имя атрибута сессии для хранения информации о количестве совершенных попыток авторизации пользователем</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;java.lang.String</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../com/technology/jep/jepria/server/JepRiaServerConstant.html#LOGIN_SUFFIX_FOR_HASH_AUTHORIZATION">LOGIN_SUFFIX_FOR_HASH_AUTHORIZATION</A></B></CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Суффикс, подставляемый в логин для указания того, что авторизация будет осуществлена по хэшу пароля</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;int</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepria/server/JepRiaServerConstant.html#MAX_LOGIN_ATTEMPTS">MAX_LOGIN_ATTEMPTS</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Максимально допустимое количество ошибок ввода некорректных реквизитов (логин/пароль) пользователя</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -293,15 +309,15 @@ public static final java.lang.String <B>JEP_RIA_RESOURCE_BUNDLE_NAME</B></PRE>
 </DL>
 <HR>
 
-<A NAME="DATA_SOURCE_JNDI_NAME"><!-- --></A><H3>
-DATA_SOURCE_JNDI_NAME</H3>
+<A NAME="DEFAULT_DATA_SOURCE_JNDI_NAME"><!-- --></A><H3>
+DEFAULT_DATA_SOURCE_JNDI_NAME</H3>
 <PRE>
-public static final java.lang.String <B>DATA_SOURCE_JNDI_NAME</B></PRE>
+public static final java.lang.String <B>DEFAULT_DATA_SOURCE_JNDI_NAME</B></PRE>
 <DL>
 <DD>JNDI-имя источника данных модуля.
 <P>
 <DL>
-<DT><B>See Also:</B><DD><A HREF="../../../../../constant-values.html#com.technology.jep.jepria.server.JepRiaServerConstant.DATA_SOURCE_JNDI_NAME">Constant Field Values</A></DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../constant-values.html#com.technology.jep.jepria.server.JepRiaServerConstant.DEFAULT_DATA_SOURCE_JNDI_NAME">Constant Field Values</A></DL>
 </DL>
 <HR>
 
@@ -422,6 +438,30 @@ public static final java.lang.String <B>CAS_SERVER_NAME_CONTEXT_PARAMETER</B></P
 <P>
 <DL>
 <DT><B>See Also:</B><DD><A HREF="../../../../../constant-values.html#com.technology.jep.jepria.server.JepRiaServerConstant.CAS_SERVER_NAME_CONTEXT_PARAMETER">Constant Field Values</A></DL>
+</DL>
+<HR>
+
+<A NAME="LOGIN_ATTEMPTS_SESSION_ATTRIBUTE"><!-- --></A><H3>
+LOGIN_ATTEMPTS_SESSION_ATTRIBUTE</H3>
+<PRE>
+public static final java.lang.String <B>LOGIN_ATTEMPTS_SESSION_ATTRIBUTE</B></PRE>
+<DL>
+<DD>Имя атрибута сессии для хранения информации о количестве совершенных попыток авторизации пользователем
+<P>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../constant-values.html#com.technology.jep.jepria.server.JepRiaServerConstant.LOGIN_ATTEMPTS_SESSION_ATTRIBUTE">Constant Field Values</A></DL>
+</DL>
+<HR>
+
+<A NAME="MAX_LOGIN_ATTEMPTS"><!-- --></A><H3>
+MAX_LOGIN_ATTEMPTS</H3>
+<PRE>
+public static final int <B>MAX_LOGIN_ATTEMPTS</B></PRE>
+<DL>
+<DD>Максимально допустимое количество ошибок ввода некорректных реквизитов (логин/пароль) пользователя
+<P>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../constant-values.html#com.technology.jep.jepria.server.JepRiaServerConstant.MAX_LOGIN_ATTEMPTS">Constant Field Values</A></DL>
 </DL>
 
 <!-- ========= CONSTRUCTOR DETAIL ======== -->

@@ -94,14 +94,14 @@ java.lang.Object
   <IMG SRC="../../../../../../../../resources/inherit.gif" ALT="extended by "><B>com.technology.jep.jepria.client.ui.form.list.ListFormViewImpl&lt;L&gt;</B>
 </PRE>
 <DL>
-<DT><B>All Implemented Interfaces:</B> <DD>com.google.gwt.user.client.ui.IsWidget, <A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormView.html" title="interface in com.technology.jep.jepria.client.ui.form.list">ListFormView</A>, <A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/JepView.html" title="interface in com.technology.jep.jepria.client.ui">JepView</A>&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/JepPresenter.html" title="class in com.technology.jep.jepria.client.ui">JepPresenter</A>&gt;</DD>
+<DT><B>All Implemented Interfaces:</B> <DD>com.google.gwt.user.client.ui.IsWidget, <A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormView.html" title="interface in com.technology.jep.jepria.client.ui.form.list">ListFormView</A>&lt;L&gt;, <A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/JepView.html" title="interface in com.technology.jep.jepria.client.ui">JepView</A>&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/JepPresenter.html" title="class in com.technology.jep.jepria.client.ui">JepPresenter</A>&gt;</DD>
 </DL>
 <DL>
 <DT><B>Direct Known Subclasses:</B> <DD><A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/StandardListFormViewImpl.html" title="class in com.technology.jep.jepria.client.ui.form.list">StandardListFormViewImpl</A></DD>
 </DL>
 <HR>
 <DL>
-<DT><PRE>public class <B>ListFormViewImpl&lt;L extends <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/GridManager.html" title="class in com.technology.jep.jepria.client.widget.list">GridManager</A>&gt;</B><DT>extends java.lang.Object<DT>implements <A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormView.html" title="interface in com.technology.jep.jepria.client.ui.form.list">ListFormView</A></DL>
+<DT><PRE>public class <B>ListFormViewImpl&lt;L extends <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/GridManager.html" title="class in com.technology.jep.jepria.client.widget.list">GridManager</A>&gt;</B><DT>extends java.lang.Object<DT>implements <A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormView.html" title="interface in com.technology.jep.jepria.client.ui.form.list">ListFormView</A>&lt;L&gt;</DL>
 </PRE>
 
 <P>
@@ -131,7 +131,7 @@ java.lang.Object
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>protected &nbsp;<A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/JepPresenter.html" title="class in com.technology.jep.jepria.client.ui">JepPresenter</A></CODE></FONT></TD>
+<CODE>protected &nbsp;<A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/JepPresenter.html" title="class in com.technology.jep.jepria.client.ui">JepPresenter</A>&lt;?,?&gt;</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormViewImpl.html#presenter">presenter</A></B></CODE>
 
 <BR>
@@ -181,7 +181,7 @@ java.lang.Object
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/GridManager.html" title="class in com.technology.jep.jepria.client.widget.list">GridManager</A></CODE></FONT></TD>
+<CODE>&nbsp;<A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormViewImpl.html" title="type parameter in ListFormViewImpl">L</A></CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormViewImpl.html#getListManager()">getListManager</A></B>()</CODE>
 
 <BR>
@@ -190,7 +190,7 @@ java.lang.Object
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormViewImpl.html#setListManager(com.technology.jep.jepria.client.widget.list.GridManager)">setListManager</A></B>(<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/GridManager.html" title="class in com.technology.jep.jepria.client.widget.list">GridManager</A>&nbsp;list)</CODE>
+<TD><CODE><B><A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormViewImpl.html#setListManager(L)">setListManager</A></B>(<A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormViewImpl.html" title="type parameter in ListFormViewImpl">L</A>&nbsp;list)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Установка управляющего списком формы класса.</TD>
@@ -237,7 +237,7 @@ java.lang.Object
 <A NAME="presenter"><!-- --></A><H3>
 presenter</H3>
 <PRE>
-protected <A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/JepPresenter.html" title="class in com.technology.jep.jepria.client.ui">JepPresenter</A> <B>presenter</B></PRE>
+protected <A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/JepPresenter.html" title="class in com.technology.jep.jepria.client.ui">JepPresenter</A>&lt;?,?&gt; <B>presenter</B></PRE>
 <DL>
 <DD>Презентер списочной формы.
 <P>
@@ -350,15 +350,15 @@ public void <B>setWidget</B>(com.google.gwt.user.client.ui.Widget&nbsp;widget)</
 </DL>
 <HR>
 
-<A NAME="setListManager(com.technology.jep.jepria.client.widget.list.GridManager)"><!-- --></A><H3>
+<A NAME="setListManager(com.technology.jep.jepria.client.widget.list.GridManager)"><!-- --></A><A NAME="setListManager(L)"><!-- --></A><H3>
 setListManager</H3>
 <PRE>
-public void <B>setListManager</B>(<A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/GridManager.html" title="class in com.technology.jep.jepria.client.widget.list">GridManager</A>&nbsp;list)</PRE>
+public void <B>setListManager</B>(<A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormViewImpl.html" title="type parameter in ListFormViewImpl">L</A>&nbsp;list)</PRE>
 <DL>
 <DD>Установка управляющего списком формы класса.
 <P>
 <DD><DL>
-<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormView.html#setListManager(com.technology.jep.jepria.client.widget.list.GridManager)">setListManager</A></CODE> in interface <CODE><A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormView.html" title="interface in com.technology.jep.jepria.client.ui.form.list">ListFormView</A></CODE></DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormView.html#setListManager(L)">setListManager</A></CODE> in interface <CODE><A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormView.html" title="interface in com.technology.jep.jepria.client.ui.form.list">ListFormView</A>&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormViewImpl.html" title="type parameter in ListFormViewImpl">L</A> extends <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/GridManager.html" title="class in com.technology.jep.jepria.client.widget.list">GridManager</A>&gt;</CODE></DL>
 </DD>
 <DD><DL>
 <DT><B>Parameters:</B><DD><CODE>list</CODE> - устанавливается управляющий класс по умолчанию. В общем случае, управляющих классов может быть произвольное количество.
@@ -370,12 +370,12 @@ public void <B>setListManager</B>(<A HREF="../../../../../../../../com/technolog
 <A NAME="getListManager()"><!-- --></A><H3>
 getListManager</H3>
 <PRE>
-public <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/GridManager.html" title="class in com.technology.jep.jepria.client.widget.list">GridManager</A> <B>getListManager</B>()</PRE>
+public <A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormViewImpl.html" title="type parameter in ListFormViewImpl">L</A> <B>getListManager</B>()</PRE>
 <DL>
 <DD>Получение управляющего списком формы класса.
 <P>
 <DD><DL>
-<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormView.html#getListManager()">getListManager</A></CODE> in interface <CODE><A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormView.html" title="interface in com.technology.jep.jepria.client.ui.form.list">ListFormView</A></CODE></DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormView.html#getListManager()">getListManager</A></CODE> in interface <CODE><A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormView.html" title="interface in com.technology.jep.jepria.client.ui.form.list">ListFormView</A>&lt;<A HREF="../../../../../../../../com/technology/jep/jepria/client/ui/form/list/ListFormViewImpl.html" title="type parameter in ListFormViewImpl">L</A> extends <A HREF="../../../../../../../../com/technology/jep/jepria/client/widget/list/GridManager.html" title="class in com.technology.jep.jepria.client.widget.list">GridManager</A>&gt;</CODE></DL>
 </DD>
 <DD><DL>
 

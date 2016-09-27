@@ -96,7 +96,7 @@ Interface TreeItemFilter</H2>
 
 <P>
 Вспомогательный интерфейс (паттерн команда), используемый при обходе дерева.
- Методы инфтерфейса применяются ко всем узлам дерева во время обхода.
+ Методы интерфейса применяются ко всем узлам дерева во время обхода.
 <P>
 
 <P>
@@ -145,7 +145,7 @@ Interface TreeItemFilter</H2>
 <TD><CODE><B><A HREF="../../../../../com/technology/jep/jepria/auto/TreeItemFilter.html#FILTER_VISIBLE">FILTER_VISIBLE</A></B></CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Реализация фильтра для получения всех видимых (развернутых) узлов.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Реализация фильтра для получения всех видимых (развёрнутых) узлов.</TD>
 </TR>
 </TABLE>
 &nbsp;
@@ -193,7 +193,7 @@ FILTER_VISIBLE</H3>
 <PRE>
 static final <A HREF="../../../../../com/technology/jep/jepria/auto/TreeItemFilter.html" title="interface in com.technology.jep.jepria.auto">TreeItemFilter</A> <B>FILTER_VISIBLE</B></PRE>
 <DL>
-<DD>Реализация фильтра для получения всех видимых (развернутых) узлов.
+<DD>Реализация фильтра для получения всех видимых (развёрнутых) узлов.
 <P>
 <DL>
 </DL>
@@ -251,10 +251,10 @@ putToResult</H3>
 boolean <B>putToResult</B>(<A HREF="../../../../../com/technology/jep/jepria/auto/TreeItemWebElement.html" title="class in com.technology.jep.jepria.auto">TreeItemWebElement</A>&nbsp;treeItem)</PRE>
 <DL>
 <DD>Метод, проверяющий, нужно ли данный узел дерева помещать в результирующий список.
- Например, если нужно получить только отмеченные развернутые папки в дереве:
- <br><br><code><pre>
+ Например, если нужно получить только отмеченные развёрнутые папки в дереве:
+ <br><br><pre>
  return treeItem.isExpanded() && treeItem.getCheckedState() == CheckedState.CHECKED;
- <pre/></code>
+ </pre>
 <P>
 <DD><DL>
 <DT><B>Parameters:</B><DD><CODE>treeItem</CODE> - проверяемый узел дерева</DL>
@@ -269,14 +269,14 @@ boolean <B>traverseDescendants</B>(<A HREF="../../../../../com/technology/jep/je
 <DL>
 <DD>Метод, проверяющий, нужно ли рекурсивно обходить детей данного узла, 
  либо остановить обход вглубь на данном узле.
- Например, если не нужно обходить папки 3-го и больших уровней вложенности в дереве:
- <br><br><code><pre>
+ Например, если не нужно обходить папки 3-го и б<b>о</b>льших уровней вложенности в дереве:
+ <br><pre>
  return treeItem.getLevel() < 3;
- <pre/></code><br>
+ </pre>
  Метод вызывается только для развернутых папок и, если имеется, корневого элемента.
 <P>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>treeNode</CODE> - проверяемый узел</DL>
+<DT><B>Parameters:</B><DD><CODE>treeItem</CODE> - проверяемый узел</DL>
 </DD>
 </DL>
 <!-- ========= END OF CLASS DATA ========= -->

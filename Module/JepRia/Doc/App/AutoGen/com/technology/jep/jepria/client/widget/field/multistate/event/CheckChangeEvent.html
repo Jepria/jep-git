@@ -53,7 +53,7 @@ function windowTitle()
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/event/CancellableEvent.html" title="interface in com.technology.jep.jepria.client.widget.field.multistate.event"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/event/CancellableEventImpl.html" title="class in com.technology.jep.jepria.client.widget.field.multistate.event"><B>PREV CLASS</B></A>&nbsp;
 &nbsp;<A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/event/CheckChangeEvent.CheckChangeHandler.html" title="interface in com.technology.jep.jepria.client.widget.field.multistate.event"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../../../../../../../../index.html?com/technology/jep/jepria/client/widget/field/multistate/event/CheckChangeEvent.html" target="_top"><B>FRAMES</B></A>  &nbsp;
@@ -92,12 +92,16 @@ Class CheckChangeEvent&lt;V extends <A HREF="../../../../../../../../../com/tech
 <PRE>
 java.lang.Object
   <IMG SRC="../../../../../../../../../resources/inherit.gif" ALT="extended by ">com.google.web.bindery.event.shared.Event&lt;H&gt;
-      <IMG SRC="../../../../../../../../../resources/inherit.gif" ALT="extended by ">com.google.gwt.event.shared.GwtEvent&lt;<A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/event/CheckChangeEvent.CheckChangeHandler.html" title="interface in com.technology.jep.jepria.client.widget.field.multistate.event">CheckChangeEvent.CheckChangeHandler</A>&lt;V&gt;&gt;
-          <IMG SRC="../../../../../../../../../resources/inherit.gif" ALT="extended by "><B>com.technology.jep.jepria.client.widget.field.multistate.event.CheckChangeEvent&lt;V&gt;</B>
+      <IMG SRC="../../../../../../../../../resources/inherit.gif" ALT="extended by ">com.google.gwt.event.shared.GwtEvent&lt;H&gt;
+          <IMG SRC="../../../../../../../../../resources/inherit.gif" ALT="extended by "><A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/event/CancellableEventImpl.html" title="class in com.technology.jep.jepria.client.widget.field.multistate.event">com.technology.jep.jepria.client.widget.field.multistate.event.CancellableEventImpl</A>&lt;<A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/event/CheckChangeEvent.CheckChangeHandler.html" title="interface in com.technology.jep.jepria.client.widget.field.multistate.event">CheckChangeEvent.CheckChangeHandler</A>&lt;V&gt;&gt;
+              <IMG SRC="../../../../../../../../../resources/inherit.gif" ALT="extended by "><B>com.technology.jep.jepria.client.widget.field.multistate.event.CheckChangeEvent&lt;V&gt;</B>
 </PRE>
+<DL>
+<DT><B>All Implemented Interfaces:</B> <DD><A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/event/CancellableEvent.html" title="interface in com.technology.jep.jepria.client.widget.field.multistate.event">CancellableEvent</A></DD>
+</DL>
 <HR>
 <DL>
-<DT><PRE>public class <B>CheckChangeEvent&lt;V extends <A HREF="../../../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A>&gt;</B><DT>extends com.google.gwt.event.shared.GwtEvent&lt;<A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/event/CheckChangeEvent.CheckChangeHandler.html" title="interface in com.technology.jep.jepria.client.widget.field.multistate.event">CheckChangeEvent.CheckChangeHandler</A>&lt;V&gt;&gt;</DL>
+<DT><PRE>public class <B>CheckChangeEvent&lt;V extends <A HREF="../../../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</A>&gt;</B><DT>extends <A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/event/CancellableEventImpl.html" title="class in com.technology.jep.jepria.client.widget.field.multistate.event">CancellableEventImpl</A>&lt;<A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/event/CheckChangeEvent.CheckChangeHandler.html" title="interface in com.technology.jep.jepria.client.widget.field.multistate.event">CheckChangeEvent.CheckChangeHandler</A>&lt;V&gt;&gt;</DL>
 </PRE>
 
 <P>
@@ -242,6 +246,15 @@ Handler class for <A HREF="../../../../../../../../../com/technology/jep/jepria/
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_com.technology.jep.jepria.client.widget.field.multistate.event.CancellableEventImpl"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from class com.technology.jep.jepria.client.widget.field.multistate.event.<A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/event/CancellableEventImpl.html" title="class in com.technology.jep.jepria.client.widget.field.multistate.event">CancellableEventImpl</A></B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/event/CancellableEventImpl.html#isCancelled()">isCancelled</A>, <A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/event/CancellableEventImpl.html#setCancelled(boolean)">setCancelled</A></CODE></TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_com.google.gwt.event.shared.GwtEvent"><!-- --></A>
@@ -435,7 +448,7 @@ public boolean <B>isSelected</B>()</PRE>
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/event/CancellableEvent.html" title="interface in com.technology.jep.jepria.client.widget.field.multistate.event"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/event/CancellableEventImpl.html" title="class in com.technology.jep.jepria.client.widget.field.multistate.event"><B>PREV CLASS</B></A>&nbsp;
 &nbsp;<A HREF="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/event/CheckChangeEvent.CheckChangeHandler.html" title="interface in com.technology.jep.jepria.client.widget.field.multistate.event"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../../../../../../../../index.html?com/technology/jep/jepria/client/widget/field/multistate/event/CheckChangeEvent.html" target="_top"><B>FRAMES</B></A>  &nbsp;

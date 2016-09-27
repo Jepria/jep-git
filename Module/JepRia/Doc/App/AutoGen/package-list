@@ -86,6 +86,7 @@ com.technology.jep.jepria.server.security.cas
 com.technology.jep.jepria.server.security.oc4j
 com.technology.jep.jepria.server.security.tomcat
 com.technology.jep.jepria.server.service
+com.technology.jep.jepria.server.test
 com.technology.jep.jepria.server.upload
 com.technology.jep.jepria.server.upload.blob
 com.technology.jep.jepria.server.upload.clob

@@ -4,7 +4,7 @@
 <HEAD>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <TITLE>
-com.technology.jep.jepria.server.service Class Hierarchy (JepRia JavaDoc)
+com.technology.jep.jepria.server.test Class Hierarchy (JepRia JavaDoc)
 </TITLE>
 
 
@@ -14,7 +14,7 @@ com.technology.jep.jepria.server.service Class Hierarchy (JepRia JavaDoc)
 function windowTitle()
 {
     if (location.href.indexOf('is-external=true') == -1) {
-        parent.document.title="com.technology.jep.jepria.server.service Class Hierarchy (JepRia JavaDoc)";
+        parent.document.title="com.technology.jep.jepria.server.test Class Hierarchy (JepRia JavaDoc)";
     }
 }
 </SCRIPT>
@@ -53,10 +53,10 @@ function windowTitle()
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="../../../../../../com/technology/jep/jepria/server/security/tomcat/package-tree.html"><B>PREV</B></A>&nbsp;
-&nbsp;<A HREF="../../../../../../com/technology/jep/jepria/server/test/package-tree.html"><B>NEXT</B></A></FONT></TD>
+&nbsp;<A HREF="../../../../../../com/technology/jep/jepria/server/service/package-tree.html"><B>PREV</B></A>&nbsp;
+&nbsp;<A HREF="../../../../../../com/technology/jep/jepria/server/upload/package-tree.html"><B>NEXT</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-  <A HREF="../../../../../../index.html?com/technology/jep/jepria/server/service/package-tree.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+  <A HREF="../../../../../../index.html?com/technology/jep/jepria/server/test/package-tree.html" target="_top"><B>FRAMES</B></A>  &nbsp;
 &nbsp;<A HREF="package-tree.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
 &nbsp;<SCRIPT type="text/javascript">
   <!--
@@ -79,7 +79,7 @@ function windowTitle()
 <HR>
 <CENTER>
 <H2>
-Hierarchy For Package com.technology.jep.jepria.server.service
+Hierarchy For Package com.technology.jep.jepria.server.test
 </H2>
 </CENTER>
 <DL>
@@ -90,23 +90,20 @@ Class Hierarchy
 </H2>
 <UL>
 <LI TYPE="circle">java.lang.Object<UL>
-<LI TYPE="circle">javax.servlet.GenericServlet (implements java.io.Serializable, javax.servlet.Servlet, javax.servlet.ServletConfig)
+<LI TYPE="circle">org.junit.Assert<UL>
+<LI TYPE="circle">com.technology.jep.jepria.server.test.<A HREF="../../../../../../com/technology/jep/jepria/server/test/DaoTestBase.html" title="class in com.technology.jep.jepria.server.test"><B>DaoTestBase</B></A>&lt;D&gt;</UL>
+<LI TYPE="circle">com.technology.jep.jepria.server.test.<A HREF="../../../../../../com/technology/jep/jepria/server/test/DataSourceDef.html" title="class in com.technology.jep.jepria.server.test"><B>DataSourceDef</B></A><LI TYPE="circle">com.googlecode.gwt.test.GwtModuleRunnerAdapter (implements com.googlecode.gwt.test.internal.AfterTestCallback, com.googlecode.gwt.test.GwtModuleRunner)
 <UL>
-<LI TYPE="circle">javax.servlet.http.HttpServlet (implements java.io.Serializable)
+<LI TYPE="circle">com.googlecode.gwt.test.GwtTest<UL>
+<LI TYPE="circle">com.technology.jep.jepria.server.test.<A HREF="../../../../../../com/technology/jep/jepria/server/test/JepRiaServiceTestBase.html" title="class in com.technology.jep.jepria.server.test"><B>JepRiaServiceTestBase</B></A>&lt;D&gt;</UL>
+</UL>
+<LI TYPE="circle">org.springframework.mock.web.MockHttpServletRequest (implements javax.servlet.http.HttpServletRequest)
 <UL>
-<LI TYPE="circle">com.google.gwt.user.server.rpc.AbstractRemoteServiceServlet<UL>
-<LI TYPE="circle">com.google.gwt.user.server.rpc.RemoteServiceServlet (implements com.google.gwt.user.server.rpc.SerializationPolicyProvider)
+<LI TYPE="circle">com.technology.jep.jepria.server.test.<A HREF="../../../../../../com/technology/jep/jepria/server/test/MyMockHttpServletRequest.html" title="class in com.technology.jep.jepria.server.test"><B>MyMockHttpServletRequest</B></A></UL>
+<LI TYPE="circle">org.springframework.mock.web.MockServletContext (implements javax.servlet.ServletContext)
 <UL>
-<LI TYPE="circle">com.technology.jep.jepria.server.service.<A HREF="../../../../../../com/technology/jep/jepria/server/service/JepServiceServlet.html" title="class in com.technology.jep.jepria.server.service"><B>JepServiceServlet</B></A> (implements com.google.gwt.user.client.rpc.RemoteService)
-<UL>
-<LI TYPE="circle">com.technology.jep.jepria.server.service.<A HREF="../../../../../../com/technology/jep/jepria/server/service/JepDataServiceServlet.html" title="class in com.technology.jep.jepria.server.service"><B>JepDataServiceServlet</B></A>&lt;D&gt; (implements com.technology.jep.jepria.shared.service.data.<A HREF="../../../../../../com/technology/jep/jepria/shared/service/data/JepDataService.html" title="interface in com.technology.jep.jepria.shared.service.data">JepDataService</A>)
-<LI TYPE="circle">com.technology.jep.jepria.server.service.<A HREF="../../../../../../com/technology/jep/jepria/server/service/JepMainServiceServlet.html" title="class in com.technology.jep.jepria.server.service"><B>JepMainServiceServlet</B></A> (implements com.technology.jep.jepria.shared.service.<A HREF="../../../../../../com/technology/jep/jepria/shared/service/JepMainService.html" title="interface in com.technology.jep.jepria.shared.service">JepMainService</A>)
-</UL>
-</UL>
-</UL>
-</UL>
-</UL>
-</UL>
+<LI TYPE="circle">com.technology.jep.jepria.server.test.<A HREF="../../../../../../com/technology/jep/jepria/server/test/MyMockServletContext.html" title="class in com.technology.jep.jepria.server.test"><B>MyMockServletContext</B></A></UL>
+<LI TYPE="circle">com.technology.jep.jepria.server.test.<A HREF="../../../../../../com/technology/jep/jepria/server/test/ServerTestUtil.html" title="class in com.technology.jep.jepria.server.test"><B>ServerTestUtil</B></A></UL>
 </UL>
 <HR>
 
@@ -137,10 +134,10 @@ Class Hierarchy
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="../../../../../../com/technology/jep/jepria/server/security/tomcat/package-tree.html"><B>PREV</B></A>&nbsp;
-&nbsp;<A HREF="../../../../../../com/technology/jep/jepria/server/test/package-tree.html"><B>NEXT</B></A></FONT></TD>
+&nbsp;<A HREF="../../../../../../com/technology/jep/jepria/server/service/package-tree.html"><B>PREV</B></A>&nbsp;
+&nbsp;<A HREF="../../../../../../com/technology/jep/jepria/server/upload/package-tree.html"><B>NEXT</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-  <A HREF="../../../../../../index.html?com/technology/jep/jepria/server/service/package-tree.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+  <A HREF="../../../../../../index.html?com/technology/jep/jepria/server/test/package-tree.html" target="_top"><B>FRAMES</B></A>  &nbsp;
 &nbsp;<A HREF="package-tree.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
 &nbsp;<SCRIPT type="text/javascript">
   <!--

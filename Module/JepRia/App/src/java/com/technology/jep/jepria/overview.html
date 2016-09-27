@@ -36,6 +36,7 @@
 <h3><a name="releaseNotes">Замечания к версиям</a></h3>
 <h4>Версии</h4>
 <ul>
+  <li><a href="#9.1.0">9.1.0 (2016-09-27)</a></li>
   <li><a href="#9.0.0">9.0.0 (2016-04-12)</a></li>
   <li><a href="#8.9.2">8.9.2 (2016-02-02)</a></li>
   <li><a href="#8.9.1">8.9.1 (2016-01-26)</a></li>
@@ -133,6 +134,106 @@
   <li><a href="#2.1.0">2.1.0 (2011-03-11)</a></li>
   <li><a href="#2.0.0">2.0.0 (2011-03-03)</a></li>
   <li><a href="#1.0.0">1.0.0 (2010-11-01)</a></li>
+</ul>
+<h5><a name="9.1.0">9.1.0 (2016-09-27)</a></h5>
+<ul>
+  <li><b>feat:</b> На системном уровне обеспечена поддержка контейнера сервлетов Tomcat.</li>
+  <li><b>feat:</b> Добавлен сервлет программной авторизации для Tomcat.</li>
+  <li><b>feat:</b> Реализована поддержка на системном уровне тестирования сервисов и Dao.</li>
+  <li><b>refactor:</b> Явные определения Z-индексов перенесены из Java-кода в CSS.</li>
+  <li><b>refactor:</b> Удалён метод <code>JepClientUtil.goToUrl()</code>. Вместо него следует
+  использовать <code>Window.Location.assign()</code>.</li>
+  <li><b>refactor:</b> Упорядочено использование <code>ApplicationException</code>
+  и <code>SystemException</code>. В документации уточнены их области применения.</li>
+  <li><b>feat:</b> Удалён PagingSimpleBar, добавлена возможность кастомизации PagingStandardBar.</li>
+  <li><b>feat:</b> Добавлен класс StandardDetailFormViewImpl, содержащий реализацию 
+  &quot;типовой&quot; детальной формы.</li>
+  <li><b>feat:</b> У поля <code>JepListField</code> реализован метод <code>setEnabled()</code>.</li>
+  <li>Доработка и рефакторинг <code>JepTreeField</code>:
+    <ul>
+      <li><b>feat:</b> Добавлена кнопка &quot;Выделить все&quot;.</li>
+      <li><b>fix:</b> Исправлена некорректная работа в режиме <code>CheckNodes.BOTH</code>,
+      допускающем выделение как родительских, так и листовых узлов.</li>
+      <li><b>refactor:</b> Упрощение HTML-представления ячеек.</li>
+    </ul>   
+  </li>
+  <li><b>feat:</b> Расширение возможностей <code>JepLargeField</code> (абстрактного класса,
+  родительского для <code>JepImageField</code> и <code>JepFileField</code>):
+    <ul>
+      <li>поддержка кастомной обработки события выбора файла;</li>
+      <li>возможность ограничивать максимальный размер загружаемого файла (проверка размера
+      выполняется на клиенте, если браузер поддерживает HTML5).</li>
+    </ul>  
+  </li>
+  <li><b>feat:</b> Добавлен новый тип ячеек списочной формы <code>JepNumberCell</code>.</li>
+  <li><b>refactor:</b> Переименование методов-обработчиков <code>ListFormPresenter</code>:
+  <code>rowClick()</code> &mdash; в <code>onRowClick()</code>, <code>changeSort</code> &mdash; в 
+  <code>onChangeSort()</code> и т.д.</li>
+  <li><b>feat:</b> При вызове DB-функций устанавливаются значения параметров
+  <code>module_name</code> и <code>action_name</code> сессии Oracle.</li>
+  <li><b>fix:</b> Обеспечено закрытие <code>ResultSet</code> в <code>DaoSupport</code>.</li>
+  <li><b>refactor:</b> Класс <code>ServerFactory</code> сделан абстрактным. В прикладных модулях
+  необходимо создавать серверную фабрику по аналогии с клиентской.</li>
+  <li><b>fix:</b> Исправлено некорректное сравнение <code>JepDto</code>.</li>
+  <li><b>feat:</b> Значительное расширение поддержки Selenium-тестирования:
+    <ul>
+      <li>тестирование практически всех видов полей детальной формы (за исключением
+      <code>JepRadioField</code>, <code>JepImageField</code>, <code>JepRichTextEditorField</code>);</li>
+      <li>тестирование списочной формы;</li>
+      <li>конфигурирование с помощью файла test.properties.</li>
+    </ul>
+  </li>
+  <li><b>feat:</b> Добавлены автотесты для функции <code>MainModulePresenter.checkAccess()</code>,
+  использующий Mockito и PowerMock.</li>
+  <li><b>chore:</b> Переработка процесса сборки:
+    <ul>
+      <li>Внешние библиотеки хранятся в бинарном репозитории.</li>
+      <li>Фактически прекращено использование local.properties; пути до библиотек исключены
+      из build.properties и хранятся в dependency.properties.</li>
+      <li>Путь до директории бинарного репозитория указывается в переменной окружения
+      <code>BIN_HOME</code> (либо задаётся при вызове ant с помощью ключа 
+      <code>-DBIN_HOME=&lt;BIN_HOME&gt;</code>).</li>
+      <li>Ресурсы (CSS, JSP, иконки) вынесены в отдельный файл jepria-resources.jar.</li>
+      <li>В build.xml добавлена цель test.</li>
+    </ul>
+  </li>
+  <li><b>chore:</b> Вместо табуляций в отступах используется два пробела.</li>
+  <li><b>docs:</b> Разработаны стандарты оформления Java-кода.</li>
+</ul>
+Основные шаги для перехода с JepRia 9.0.0 на 9.1.0:
+<ul>
+  <li>В каждом модуле приложения, содержащем серверную часть, создать серверную фабрику <code><i>ModuleName</i>ServerFactory</code>:
+<pre>
+package com.technology.package_name.application_name.module_name.server;
+
+import static com.technology.package_name.application_name.module_name.server.ModuleNameServerConstant.DATA_SOURCE_JNDI_NAME;
+
+import com.technology.jep.jepria.server.ServerFactory;
+import com.technology.package_name.application_name.module_name.server.dao.ModuleName;
+import com.technology.package_name.application_name.module_name.server.dao.ModuleNameDao;
+
+public class ModuleNameServerFactory extends ServerFactory&lt;ModuleName&gt; {
+
+  private ModuleNameServerFactory() {
+    super(new ModuleNameDao(), DATA_SOURCE_JNDI_NAME);
+  }
+
+  public static final ModuleNameServerFactory instance = new ModuleNameServerFactory();
+  
+}
+</pre>
+  </li>
+  <li>В конструкторе реализации сервиса <code><i>ModuleName</i>ServiceImpl</code> изменить
+  вызов конструктора родительского класса в соответствии с образцом:
+<pre>
+  public ModuleNameServiceImpl() {
+    super(ModuleNameRecordDefinition.instance, ModuleNameServerFactory.instance);
+  }
+</pre>
+  </li>
+  <li>Если в презентере списочной формы переопределены обработчики событий родительского
+  класса <code>rowClick()</code>, <code>rowDoubleClick()</code> и т.д., переименовать их
+  в <code>onRowClick()</code>, <code>onRowClick()</code> и т.д. соответственно.</li>
 </ul>
 <h5><a name="9.0.0">9.0.0 (2016-04-12)</a></h5>
 <ul>

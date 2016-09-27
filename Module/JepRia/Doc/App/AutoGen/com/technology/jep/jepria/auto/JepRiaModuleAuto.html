@@ -152,6 +152,31 @@ Interface JepRiaModuleAuto</H2>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepria/auto/JepRiaModuleAuto.html#doGridColumnSettings(java.lang.String, java.lang.String[])">doGridColumnSettings</A></B>(java.lang.String&nbsp;gridId,
+                     java.lang.String[]&nbsp;columns)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Производит настройку столбцов списочной формы.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepria/auto/JepRiaModuleAuto.html#doSearch()">doSearch</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Выполнение поиска по параметрам, заданным в поисковой форме</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepria/auto/JepRiaModuleAuto.html#doSearch(java.util.Map)">doSearch</A></B>(java.util.Map&lt;java.lang.String,java.lang.String&gt;&nbsp;template)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Выполнение поиска по шаблону</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../com/technology/jep/jepria/auto/JepRiaModuleAuto.html#edit(java.util.Map)">edit</A></B>(java.util.Map&lt;java.lang.String,java.lang.String&gt;&nbsp;primaryKey)</CODE>
 
 <BR>
@@ -182,15 +207,7 @@ Interface JepRiaModuleAuto</H2>
 <TD><CODE><B><A HREF="../../../../../com/technology/jep/jepria/auto/JepRiaModuleAuto.html#find()">find</A></B>()</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Выполнение поиска по параметрам, заданным в поисковой форме</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepria/auto/JepRiaModuleAuto.html#find(java.util.Map)">find</A></B>(java.util.Map&lt;java.lang.String,java.lang.String&gt;&nbsp;template)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Выполнение поиска по шаблону</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Переход на форму поиска.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -406,6 +423,15 @@ Interface JepRiaModuleAuto</H2>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepria/auto/JepRiaModuleAuto.html#setLargeFieldValue(java.lang.String, java.lang.String)">setLargeFieldValue</A></B>(java.lang.String&nbsp;fieldId,
+                   java.lang.String&nbsp;pathToFile)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Установка заданного значения элементу ввода поля типа Large по заданному id поля.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../com/technology/jep/jepria/auto/JepRiaModuleAuto.html#setWorkstate(com.technology.jep.jepria.client.ui.WorkstateEnum)">setWorkstate</A></B>(<A HREF="../../../../../com/technology/jep/jepria/client/ui/WorkstateEnum.html" title="enum in com.technology.jep.jepria.client.ui">WorkstateEnum</A>&nbsp;workstate)</CODE>
 
 <BR>
@@ -599,6 +625,24 @@ find</H3>
 <PRE>
 void <B>find</B>()</PRE>
 <DL>
+<DD>Переход на форму поиска.<br>
+ Для собственно выполнения поиска по параметрам, заданным в поисковой форме,
+ необходимо использовать <A HREF="../../../../../com/technology/jep/jepria/auto/JepRiaModuleAuto.html#doSearch()"><CODE>doSearch()</CODE></A>
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="doSearch()"><!-- --></A><H3>
+doSearch</H3>
+<PRE>
+void <B>doSearch</B>()</PRE>
+<DL>
 <DD>Выполнение поиска по параметрам, заданным в поисковой форме
 <P>
 <DD><DL>
@@ -610,10 +654,10 @@ void <B>find</B>()</PRE>
 </DL>
 <HR>
 
-<A NAME="find(java.util.Map)"><!-- --></A><H3>
-find</H3>
+<A NAME="doSearch(java.util.Map)"><!-- --></A><H3>
+doSearch</H3>
 <PRE>
-void <B>find</B>(java.util.Map&lt;java.lang.String,java.lang.String&gt;&nbsp;template)</PRE>
+void <B>doSearch</B>(java.util.Map&lt;java.lang.String,java.lang.String&gt;&nbsp;template)</PRE>
 <DL>
 <DD>Выполнение поиска по шаблону
 <P>
@@ -689,6 +733,28 @@ java.lang.String <B>getFieldValue</B>(java.lang.String&nbsp;fieldId)</PRE>
 <DD><DL>
 <DT><B>Parameters:</B><DD><CODE>fieldId</CODE> - id поля, id элемента ввода которого будет использовано для получения значения
 <DT><B>Returns:</B><DD>значение поля</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setLargeFieldValue(java.lang.String, java.lang.String)"><!-- --></A><H3>
+setLargeFieldValue</H3>
+<PRE>
+void <B>setLargeFieldValue</B>(java.lang.String&nbsp;fieldId,
+                        java.lang.String&nbsp;pathToFile)</PRE>
+<DL>
+<DD>Установка заданного значения элементу ввода поля типа Large по заданному id поля.
+ Отличается от аналогичного метода <A HREF="../../../../../com/technology/jep/jepria/auto/JepRiaModuleAuto.html#setFieldValue(java.lang.String, java.lang.String)"><CODE>setFieldValue(String, String)</CODE></A> лишь тем,
+ что перед установкой значения не происходит очистка поля при помощи <code>Ctrl+A,DEL</code>
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>fieldId</CODE> - id поля, id элемента ввода которого будет использовано для задания значения<DD><CODE>pathToFile</CODE> - абсолютный путь до файла на текущей машине (локального).<br>
+ Примеры:<br>
+ <code>"C:\\Folder\\TheFoldest\\file.jpg"</code><br>
+ <code>"C:/Folder/TheFoldest/file.jpg"</code></DL>
 </DD>
 </DL>
 <HR>
@@ -1053,6 +1119,25 @@ java.util.List&lt;java.util.List&lt;java.lang.Object&gt;&gt; <B>getGridDataRowwi
  (if there is only a text). The value of a particular cell can be
  obtained using the row number and a column index,
  known from the result of #getGridHeaders().</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="doGridColumnSettings(java.lang.String, java.lang.String[])"><!-- --></A><H3>
+doGridColumnSettings</H3>
+<PRE>
+void <B>doGridColumnSettings</B>(java.lang.String&nbsp;gridId,
+                          java.lang.String[]&nbsp;columns)</PRE>
+<DL>
+<DD>Производит настройку столбцов списочной формы.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>gridId</CODE> - <DD><CODE>columns</CODE> - Порядок и наличие столбцов списочной формы приводится в соответствие с данным массивом.
+ В случае, если среди столбцов формы нет какого-либо значения из данного массива, выбрасывается
+ <CODE>IllegalArgumentException</CODE>.</DL>
 </DD>
 </DL>
 <!-- ========= END OF CLASS DATA ========= -->
