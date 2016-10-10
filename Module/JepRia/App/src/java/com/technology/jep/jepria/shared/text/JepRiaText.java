@@ -1662,12 +1662,4 @@ public interface JepRiaText extends com.google.gwt.i18n.client.Constants {
   @Key("yes")
   String yes();
 
-  /**
-   * Translated "".
-   * 
-   * @return translated ""
-   */
-  @DefaultStringValue("")
-  @Key("\uFEFF\uFEFF\uFEFF")
-  String _﻿﻿();
 }

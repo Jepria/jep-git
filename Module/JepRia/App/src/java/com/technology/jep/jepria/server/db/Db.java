@@ -4,7 +4,6 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -27,7 +26,7 @@ public class Db {
   /**
    * Хэш-таблица источников данных по их JNDI-именам.
    */
-  private static Map<String, DataSource> dataSourceMap = new HashMap<String, DataSource>();
+  private static Map<String, DataSource> dataSourceMap = new ConcurrentHashMap<String, DataSource>();
   
   /**
    * Объект соединения.
@@ -44,7 +43,7 @@ public class Db {
    * Хэш-таблица statement'ов по SQL-тексту.
    * Необходима для хранения открытых курсоров.
    */
-  private ConcurrentHashMap<String, CallableStatement> statementsMap = new ConcurrentHashMap<String, CallableStatement>();
+  private Map<String, CallableStatement> statementsMap = new ConcurrentHashMap<String, CallableStatement>();
 
   /**
    * Создаёт объект соединения с базой с автоматическим коммитом.
@@ -186,7 +185,7 @@ public class Db {
    * @param dataSourceJndiName JNDI-имя источника данных
    * @return соединение JDBC
    */
-  private synchronized static Connection createConnection(String dataSourceJndiName) {
+  private static Connection createConnection(String dataSourceJndiName) {
     logger.trace("BEGIN createConnection(" + dataSourceJndiName + ")");
     
     try {
