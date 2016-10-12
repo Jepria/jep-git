@@ -63,6 +63,7 @@ public class JepSecurityModule_Tomcat extends JepAbstractSecurityModule {
   public String logout(HttpServletRequest request, HttpServletResponse response, String currentUrl) throws Exception {
     logger.info(this.getClass() + ".logout(request, response, " + currentUrl + ")");
         request.getSession().invalidate();
+        request.logout();
         return currentUrl;
   }
   

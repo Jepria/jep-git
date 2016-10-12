@@ -778,6 +778,29 @@ public class TreeField<V extends JepOption> extends Composite implements HasChec
   protected Cell<V> getTreeCell() {
     return new TreeCell();
   }
+
+  /**
+   * Определяем поведение выбора узла дерева.
+   * 
+   * @param event   событие, определяющее выбор узла дерева
+   * @return действие перед выбором узла дерева
+   */
+  protected SelectAction translateSelectionEvent(CellPreviewEvent<V> event) {
+    // Handle the event.
+    NativeEvent nativeEvent = event.getNativeEvent();
+    if (CLICK.equals(nativeEvent.getType())) {
+      V currentNode = event.getValue();
+      if ((checkNodes.equals(CheckNodes.LEAF) && !isLeaf(currentNode)) || 
+          (checkNodes.equals(CheckNodes.PARENT) && isLeaf(currentNode)) || !checkable) return SelectAction.IGNORE;
+      CheckChangeEvent<?> checkChangeEvent = new CheckChangeEvent<V>(currentNode, !isSelected(currentNode));
+      // fire event
+      TreeField.this.fireEvent(checkChangeEvent);
+      return checkChangeEvent.isCancelled() ? SelectAction.IGNORE : SelectAction.TOGGLE;
+      
+    }
+    // For keyboard events, do the default action.
+    return SelectAction.DEFAULT;
+  }
   
   /**
    * Модель представления данных в компоненте.
@@ -802,18 +825,7 @@ public class TreeField<V extends JepOption> extends Composite implements HasChec
         @Override
         public SelectAction translateSelectionEvent(CellPreviewEvent<V> event) {
           // Handle the event.
-          NativeEvent nativeEvent = event.getNativeEvent();
-          if (CLICK.equals(nativeEvent.getType())) {
-            V currentNode = event.getValue();
-            if ((checkNodes.equals(CheckNodes.LEAF) && !isLeaf(currentNode)) || 
-                (checkNodes.equals(CheckNodes.PARENT) && isLeaf(currentNode)) || !checkable) return SelectAction.IGNORE;
-            CheckChangeEvent<?> checkChangeEvent = new CheckChangeEvent<V>(currentNode, !isSelected(currentNode));
-            // fire event
-            TreeField.this.fireEvent(checkChangeEvent);
-            return checkChangeEvent.isCancelled() ? SelectAction.IGNORE : SelectAction.TOGGLE;
-          }
-          // For keyboard events, do the default action.
-          return SelectAction.DEFAULT;
+          return TreeField.this.translateSelectionEvent(event);
         }
       });
     
@@ -986,6 +998,14 @@ public class TreeField<V extends JepOption> extends Composite implements HasChec
      * Пустой узел дерева.
      */
     private final V EMPTY_TREE_OPTION = (V) new JepOption(messages.emptyTree(), null);
+    
+    public TreeCell(){
+      super();
+    }
+    
+    public TreeCell(String... consumedEvents) {
+      super(consumedEvents);
+    }
     
     @Override
     public boolean isEditing(Context context, Element parent, V value) {
