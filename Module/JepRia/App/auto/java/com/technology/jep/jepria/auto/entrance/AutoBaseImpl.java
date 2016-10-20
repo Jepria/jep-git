@@ -6,11 +6,13 @@ import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 
+import com.technology.jep.jepria.auto.exceptions.AutomationException;
 import com.technology.jep.jepria.auto.manager.JepRiaAuto;
 import com.technology.jep.jepria.auto.pages.PageManagerBase;
 import com.technology.jep.jepria.auto.HasText;
@@ -36,7 +38,11 @@ public abstract class AutoBaseImpl<A extends JepRiaAuto, P extends PageManagerBa
   }
 
   public void waitTextToBeChanged(HasText hasText, String currentWorkstateDisplayText) {
-        getWait().until(textToBeChangedInElementLocated(By.id(JepRiaAutomationConstant.STATUSBAR_PANEL_ID), currentWorkstateDisplayText));        
+    
+    getWait()
+        .until(
+            textToBeChangedInElementLocated(By.id(JepRiaAutomationConstant.STATUSBAR_PANEL_ID),
+                currentWorkstateDisplayText));
   }
   
   public static ExpectedCondition<Boolean> textToBeChangedInElementLocated(final By locator, final String currentText) {

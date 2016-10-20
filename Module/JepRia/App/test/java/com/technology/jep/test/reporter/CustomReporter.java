@@ -4,9 +4,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintStream;
 import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -21,7 +19,6 @@ import org.testng.xml.XmlSuite;
 
 public class CustomReporter implements IReporter {
   private PrintWriter outputFile;
-  private PrintStream cyrillicStream;
 
   /**
    * Generate a report for the given suites into the specified output directory.
@@ -37,12 +34,7 @@ public class CustomReporter implements IReporter {
     } catch (IOException e) {
       System.out.println("Error in creating writer: " + e);
     }
-    try {
-      cyrillicStream = new PrintStream(System.out, true, "cp866");
-    } catch (UnsupportedEncodingException e) {
-      System.out.println("Error in creating cyrillic stream: " + e);
-    }
-
+    
     print("===========================================================");
     print("======================Custom Report========================");
     print("Suites run: " + suites.size());
@@ -103,7 +95,7 @@ public class CustomReporter implements IReporter {
   }
   
   private void print(String text) {
-    cyrillicStream.println(text);
+    System.out.println(text);
     outputFile.println(text);
   }
 }

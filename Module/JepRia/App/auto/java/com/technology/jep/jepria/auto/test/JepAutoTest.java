@@ -11,9 +11,16 @@ import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 
 import com.technology.jep.jepria.auto.JepRiaModuleAuto;
+import com.technology.jep.jepria.auto.exceptions.AutomationException;
 import com.technology.jep.jepria.auto.manager.JepRiaAuto;
+import com.technology.jep.jepria.auto.model.User;
+import com.technology.jep.jepria.auto.model.dao.UserData;
 import com.technology.jep.jepria.client.ui.WorkstateEnum;
 
+/**
+ * TODO: преобразовывать класс (создать отдельную структуру, которая будет поверх текущего функционала) 
+ * для тестирования приложения в целом, а не отдельных модулей.
+ */
 @SuppressWarnings("serial")
 public abstract class JepAutoTest<C extends JepRiaModuleAuto> extends AssertJUnit {
   private static Logger logger = Logger.getLogger(JepAutoTest.class.getName());
@@ -24,6 +31,12 @@ public abstract class JepAutoTest<C extends JepRiaModuleAuto> extends AssertJUni
 
   abstract protected void createTestRecord(String keyFieldValue);
 
+  /**
+   * Пользователи, которые были созданы и использовались во время тестирования. <br/>
+   * TODO: перенести в класс, тестирующий приложение. 
+   */
+  protected Map<String, User> users = new HashMap<String, User>();
+  
   protected abstract JepRiaAuto getAutomationManager(
       String baseUrl,
       String browserName,
@@ -78,10 +91,10 @@ public abstract class JepAutoTest<C extends JepRiaModuleAuto> extends AssertJUni
       String password) {
     
     automationManager = startAutomationManager(automationManager, baseUrl, browserName, browserVersion, browserPlatform, browserPath, driverPath, jepriaVersion, forceNewBrowser, forceLogin, username, password);
-      cut = getCut();
-      if("Yes".equalsIgnoreCase(forceLogin) || !cut.isLoggedIn()) {
-        cut.login(username, password);
-      }
+    cut = getCut();
+    if("Yes".equalsIgnoreCase(forceLogin) || !cut.isLoggedIn()) {
+      cut.login(username, password);
+    }
   }
   
   /**
@@ -104,6 +117,12 @@ public abstract class JepAutoTest<C extends JepRiaModuleAuto> extends AssertJUni
           if("Yes".equalsIgnoreCase(forceLogin) && cut.isLoggedIn()) {
             cut.logout();
           } else {
+            
+//            TODO: По окончанию теста проверять, что приложение находится в рабочем состоянии (не висит сообщение (алерт) об ошибке)
+//            Иначе новый тест не запуститься, возвращать в работоспособное состояние (Переход по ссылке baseUrl?).
+//            Считывать сообщение и логировать (выбросить исключение?) 
+//            На данный момент, во избежание подобного, приходится перезапускать браузер для каждого нового теста, 
+//            используя forceNewBrowser
             cut.find(); // Приведение модуля в исходное состояние
           }
       }
@@ -141,17 +160,17 @@ public abstract class JepAutoTest<C extends JepRiaModuleAuto> extends AssertJUni
         put(keyFieldId, keyFieldValue);
       }});
       
-          cut.setFieldValue(testFieldId, testFieldNewValue);
-          
-          if(shouldBeEqual) {
-            assertTrue(testFieldNewValue.equals(cut.getFieldValue(testFieldId)));
-          } else {
-            assertFalse(testFieldNewValue.equals(cut.getFieldValue(testFieldId)));
-          }
+      cut.setFieldValue(testFieldId, testFieldNewValue);
+      
+      if(shouldBeEqual) {
+        assertTrue(testFieldNewValue.equals(cut.getFieldValue(testFieldId)));
+      } else {
+        assertFalse(testFieldNewValue.equals(cut.getFieldValue(testFieldId)));
+      }
     } catch(Throwable th) {
       logger.error("testSetAndGetTextFieldValueOnEdit error", th);
     } finally {
-          deleteTestRecord(keyFieldId, keyFieldValue);
+      deleteTestRecord(keyFieldId, keyFieldValue);
     }
   }
 
@@ -178,11 +197,11 @@ public abstract class JepAutoTest<C extends JepRiaModuleAuto> extends AssertJUni
         put(keyFieldId, keyFieldValue);
       }});
       
-          cut.selectComboBoxMenuItem(testFieldId, testFieldNewValue);
-          
-          assertEquals(testFieldNewValue, cut.getFieldValue(testFieldId));
+      cut.selectComboBoxMenuItem(testFieldId, testFieldNewValue);
+
+      assertEquals(testFieldNewValue, cut.getFieldValue(testFieldId));
     } finally {
-          deleteTestRecord(keyFieldId, keyFieldValue);
+      deleteTestRecord(keyFieldId, keyFieldValue);
     }
   }
   
@@ -191,7 +210,7 @@ public abstract class JepAutoTest<C extends JepRiaModuleAuto> extends AssertJUni
     cut.delete(testRecordKey);
   }
   
-  private JepRiaAuto startAutomationManager(
+  protected JepRiaAuto startAutomationManager(
       JepRiaAuto automationManager,
       String baseUrl,
       String browserName,
@@ -218,5 +237,30 @@ public abstract class JepAutoTest<C extends JepRiaModuleAuto> extends AssertJUni
   
   protected void setWorkstate(WorkstateEnum workstate) {
     cut.setWorkstate(workstate);
+  }
+  
+  /**
+   * Получает пользователя для теста.
+   * @param dao - DAO, реализующий интерфейс создания пользователя.
+   * @param roleShortNameList Список ролей через запятую.
+   * @return Пользователь. {@link com.technology.jep.jepria.auto.model.User}
+   * @throws Exception 
+   */
+  public User getUser(UserData dao, String roleShortNameList) {
+    
+    User user = null;
+    
+    if(users.containsKey(roleShortNameList)){
+      user = users.get(roleShortNameList);
+    }else{
+      try {
+        user = dao.createUser(roleShortNameList);
+      } catch (Exception e) {
+        throw new AutomationException("Can't create user with role "+roleShortNameList+" for test.", e);
+      }
+      users.put(roleShortNameList, user);
+    }
+    
+    return user;
   }
 }

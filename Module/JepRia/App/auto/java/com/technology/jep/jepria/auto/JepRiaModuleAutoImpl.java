@@ -162,15 +162,23 @@ public class JepRiaModuleAutoImpl<A extends EntranceAppAuto, P extends JepRiaApp
 
   @Override
   public void edit(Map<String, String> template) {
+
+    //Метод оставлен для обратной совместимости.
+    String gridId = null;
+    this.edit(template, gridId);
+  }
+  
+  @Override
+  public void edit(Map<String, String> template, String gridId) {
     pages.getApplicationPage().ensurePageLoaded();
     
     doSearch(template);
     
-    selectItem(0);
+    selectItem(0, gridId);
     
     setWorkstate(EDIT);
   }
-
+  
   @Override
   public void delete(Map<String, String> key) {
     try {
@@ -196,14 +204,23 @@ public class JepRiaModuleAutoImpl<A extends EntranceAppAuto, P extends JepRiaApp
     doSearch(key);
     selectItem(0);// TODO Уверенно отмечаем "единственный" первый элемент. А если список пуст, или выдалось несколько записей?
   }
-
+  
   @Override
   public void selectItem(int index) {
+    selectItem(index, null);
+  }
+  
+  @Override
+  public void selectItem(int index, String gridId) {
+    
     assert getCurrentWorkstate() == VIEW_LIST;
     
-    // TODO Этот метод должен принимать еще один параметр - String GRID_ID,
-    // и здесь нужно лоцировать GRID не By.xpath, а так: By.id(GRID_ID + GRID_BODY_POSTFIX)
-    By gridBodyBy = By.xpath(String.format("//tbody[contains(@id, '%s')]", GRID_BODY_POSTFIX));
+    By gridBodyBy = null;
+    if(gridId == null){
+      gridBodyBy = By.xpath(String.format("//tbody[contains(@id, '%s')]", GRID_BODY_POSTFIX));
+    }else{
+      gridBodyBy = By.id(gridId+GRID_BODY_POSTFIX);
+    }
     getWait().until(presenceOfElementLocated(gridBodyBy));
 
     WebElement gridBody = pages.getApplicationPage().getWebDriver().findElement(gridBodyBy);

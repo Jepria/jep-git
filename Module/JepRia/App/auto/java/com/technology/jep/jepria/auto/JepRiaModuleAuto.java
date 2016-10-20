@@ -38,6 +38,15 @@ public interface JepRiaModuleAuto extends EntranceAuto {
   void edit(Map<String, String> primaryKey);
   
   /**
+   * Перейти в состояние редактирования записи, выбранной по первичному ключу
+   * В качестве идентификаторов полей первичного ключа выступают ID Web-элементов полей ввода
+   * 
+   * @param primaryKey - первичный ключ.
+   * @param gridId - Идентификатор списочной формы.
+   */
+  void edit(Map<String, String> primaryKey, String gridId);
+  
+  /**
    * Перейти в состояние редактирования записи, выбранной по id
    * 
    * @param idFieldName - имя поля id записи
@@ -51,14 +60,19 @@ public interface JepRiaModuleAuto extends EntranceAuto {
    * @param key ключ, по которому выбирается запись 
    */
   void delete(Map<String, String> key);
+
+  /**
+   * Выделить элемент списка списочной формы по индексу.
+   * @param index - Номер строчки на списочной форме (начинается с 0).
+   * @param gridId - Идентификатор списочной форме.
+   */
+  public void selectItem(int index, String gridId);
   
-  //TODO Этот метод должен принимать еще один параметр - String GRID_ID (см.TODO в реализации метода selectItem(Map) )
   /**
    * Выделить элемент списка списочной формы по индексу
    */
   public void selectItem(int index);
   
-  //TODO Этот метод должен принимать еще один параметр - String GRID_ID (см.TODO в реализации)
   /**
    * Выделить элемент списка списочной формы по ключу
    */
