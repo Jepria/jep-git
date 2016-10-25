@@ -36,9 +36,9 @@ public class UserDao implements UserData {
   private String dbPassword;
   
   @Override
-  public User createUser(String login, List<String> rolesNameList) throws Exception {
+  public User createUser(String login, List<String> roleSNameList) throws Exception {
     
-    Integer operatorId = getTestOperatorId(login, rolesNameList);
+    Integer operatorId = getTestOperatorId(login, roleSNameList);
     
     if(operatorId == null){
       throw new ApplicationException("Can't create operator. OperatorId is null", null);
@@ -47,7 +47,7 @@ public class UserDao implements UserData {
     return new User(
         (Integer) operatorId,
         login,
-        rolesNameList,
+        roleSNameList,
         login,
         login);
   }
@@ -58,11 +58,11 @@ public class UserDao implements UserData {
    * Имя оператора начинается с логина (подробнее см. реализацию DB).
    * 
    * @param login - Логин.
-   * @param rolesNameList - Список ролей.
+   * @param roleSNameList - Список ролей.
    * @return Id созданного оператора.
    * @throws Exception
    */
-  private Integer getTestOperatorId(String login, List<String> rolesNameList) throws Exception {
+  private Integer getTestOperatorId(String login, List<String> roleSNameList) throws Exception {
 
     OracleDataSource ods = new OracleDataSource();
     ods.setURL(dbURL);
@@ -73,18 +73,35 @@ public class UserDao implements UserData {
     Integer result = null;
     try {
 
+      //Генерируем вопросы для параметризованного вызова cmn_string_table_t
+      //Количество вопросов равно количеству ролей.
+      StringBuilder subQuery = new StringBuilder();
+      for(int i = 0; i < roleSNameList.size(); i++){
+        subQuery.append("?,");
+      }
+      
+      //Удаляем последнюю запятую.
+      String cmnStringTableTSubQuery = subQuery.length() > 0 ? 
+          subQuery.substring(0, subQuery.length() - 1) : "";
+
       String query = 
           "begin ? := pkg_AccessOperatorTest.getTestOperatorId("
               + "login => ?"
-              + ", rolesNameList => cmn_string_table_t(?) "
+              + ", roleSNameList => cmn_string_table_t( " + cmnStringTableTSubQuery + " ) "
             + ");"
           + " end;";
       
       CallableStatement callableStatement = conn.prepareCall(query);
 
+      //Устанавливаем тип выходного параметра
       callableStatement.registerOutParameter(1, Types.INTEGER);
-      DaoSupport.setInputParamsToStatement(callableStatement, 2, login, 
-          UserDao.prepareToCmnStringTableT(rolesNameList));
+      
+      //Устанавливаем логин
+      callableStatement.setString(2, login);
+      
+      //Устанавливаем роли
+      DaoSupport.setInputParamsToStatement(callableStatement, 3, 
+          roleSNameList.toArray(new String[roleSNameList.size()]));
       
       // Выполнение запроса.
       callableStatement.execute();
@@ -105,21 +122,5 @@ public class UserDao implements UserData {
     }
     
     return result;
-  }
-  
-  /**
-   * Преобразует список для передачи в качестве параметра в cmn_string_table_t.
-   * @param list - Список.
-   * @return Строка для работы с помощью cmn_string_table_t.
-   */
-  //TODO: перенести в системный класс - утилиты для DB
-  private static String prepareToCmnStringTableT(List<String> list){
-    
-    StringBuilder result = new StringBuilder();
-    for(String string : list) {
-        result.append(string);
-        result.append(",");
-    }
-    return result.length() > 0 ? result.substring(0, result.length() - 1): "";
   }
 }
