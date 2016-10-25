@@ -1,17 +1,16 @@
 package com.technology.jep.jepria.auto.model;
 
-import java.util.Arrays;
 import java.util.List;
 
 import com.technology.jep.jepria.auto.entrance.EntranceAuto;
 
 public class User {
   
-  public User(Integer operatorId, String operatorName, String roles, String login, String password) {
+  public User(Integer operatorId, String operatorName, List<String> roles, String login, String password) {
     super();
     this.operatorId = operatorId;
     this.operatorName = operatorName;
-    this.roles = Arrays.asList(roles.split("\\s*,\\s*"));
+    this.roles = roles;
     this.login = login;
     this.password = password;
   }

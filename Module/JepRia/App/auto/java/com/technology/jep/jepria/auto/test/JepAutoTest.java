@@ -1,6 +1,7 @@
 package com.technology.jep.jepria.auto.test;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
@@ -242,23 +243,24 @@ public abstract class JepAutoTest<C extends JepRiaModuleAuto> extends AssertJUni
   /**
    * Получает пользователя для теста.
    * @param dao - DAO, реализующий интерфейс создания пользователя.
-   * @param roleShortNameList Список ролей через запятую.
+   * @param login - Логин.
+   * @param rolesNameList - Список ролей.
    * @return Пользователь. {@link com.technology.jep.jepria.auto.model.User}
    * @throws Exception 
    */
-  public User getUser(UserData dao, String roleShortNameList) {
+  public User getUser(UserData dao, String login, List<String> rolesNameList) {
     
     User user = null;
     
-    if(users.containsKey(roleShortNameList)){
-      user = users.get(roleShortNameList);
+    if(users.containsKey(login)){
+      user = users.get(login);
     }else{
       try {
-        user = dao.createUser(roleShortNameList);
+        user = dao.createUser(login, rolesNameList);
       } catch (Exception e) {
-        throw new AutomationException("Can't create user with role "+roleShortNameList+" for test.", e);
+        throw new AutomationException("Can't create user with role "+rolesNameList+" for test.", e);
       }
-      users.put(roleShortNameList, user);
+      users.put(login, user);
     }
     
     return user;

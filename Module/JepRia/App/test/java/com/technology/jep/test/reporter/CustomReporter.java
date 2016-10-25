@@ -35,16 +35,43 @@ public class CustomReporter implements IReporter {
       System.out.println("Error in creating writer: " + e);
     }
     
-    print("===========================================================");
-    print("======================Custom Report========================");
+    print("***********************************************************");
+    print("***********************************************************");
+    print("*******************BEGIN Custom Report*********************");
+   
     print("Suites run: " + suites.size());
     for (ISuite suite : suites) {
       print("Suite>" + suite.getName());
       Map<String, ISuiteResult> suiteResults = suite.getResults();
       for (String testName : suiteResults.keySet()) {
-        print("  Test>" + testName);
+        print(""); //new line
+        print(""); //new line
+        print("**Test>" + testName);
         ISuiteResult suiteResult = suiteResults.get(testName);
         ITestContext testContext = suiteResult.getTestContext();
+
+        //passed status
+        IResultMap passResult = testContext.getPassedTests();
+        Set<ITestResult> testsPassed = passResult.getAllResults();
+        print("    OK|" + testsPassed.size());
+        for (ITestResult testResult : testsPassed) {
+
+          print("      "
+              + this.getScenarioName(testResult)
+              + " |took "
+              + (testResult.getEndMillis() - testResult
+                  .getStartMillis()) + "ms");
+        }
+        
+        //skipped status
+        IResultMap skippedResult = testContext.getSkippedTests();
+        Set<ITestResult> testsSkipped = skippedResult.getAllResults();
+        print("    Skipped|" + testsSkipped.size());
+        for (ITestResult testResult : testsSkipped) {
+          print("      " + this.getScenarioName(testResult));
+        }
+        
+        //failed status with exceptions
         print("    Failed|" + testContext.getFailedTests().size());
         IResultMap failedResult = testContext.getFailedTests();
         Set<ITestResult> testsFailed = failedResult.getAllResults();
@@ -60,30 +87,10 @@ public class CustomReporter implements IReporter {
           
           print(""); //new line
         }
-        IResultMap passResult = testContext.getPassedTests();
-        Set<ITestResult> testsPassed = passResult.getAllResults();
-        
-
-        print(""); //new line
-        print("    OK|" + testsPassed.size());
-        for (ITestResult testResult : testsPassed) {
-
-          print("      "
-              + this.getScenarioName(testResult)
-              + " |took "
-              + (testResult.getEndMillis() - testResult
-                  .getStartMillis()) + "ms");
-        }
-        IResultMap skippedResult = testContext.getSkippedTests();
-        Set<ITestResult> testsSkipped = skippedResult.getAllResults();
-        print("    Skipped|" + testsSkipped.size());
-        for (ITestResult testResult : testsSkipped) {
-          print("      " + this.getScenarioName(testResult));
-        }
       }
     }
-    print("======================END Custom Report====================");
-    print("===========================================================");
+    print("********************END Custom Report**********************");
+    print("***********************************************************");
     outputFile.flush();
     outputFile.close();
   }

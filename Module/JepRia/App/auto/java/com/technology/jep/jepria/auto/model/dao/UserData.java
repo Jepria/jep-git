@@ -1,15 +1,17 @@
 package com.technology.jep.jepria.auto.model.dao;
  
+import java.util.List;
+
 import com.technology.jep.jepria.auto.model.User;
-import com.technology.jep.jepria.shared.exceptions.ApplicationException;
  
 public interface UserData {
   
   /**
-   * Создает пользователя по списку ролей.
-   * @param roleShortNameList Список ролей через ","
-   * @return Созданный пользователь.
-   * @throws ApplicationException
+   * Получает пользователя для теста.
+   * @param login - Логин. 
+   * @param rolesNameList - Список ролей.
+   * @return Пользователь. {@link com.technology.jep.jepria.auto.model.User}
+   * @throws Exception
    */
-  User createUser(String roleShortNameList) throws Exception;
+  public User createUser(String login, List<String> rolesNameList) throws Exception;
 }
