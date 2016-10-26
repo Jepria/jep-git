@@ -22,7 +22,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public class JepRiaApplicationPage extends JepRiaEntranceApplicationPage {
+public class JepRiaApplicationPage extends PlainPage {
   private static Logger logger = Logger.getLogger(JepRiaEntranceApplicationPage.class.getName());
 
     @FindBy(id = ENTRANCE_PANEL_ID)
@@ -68,15 +68,6 @@ public class JepRiaApplicationPage extends JepRiaEntranceApplicationPage {
     @FindBy(id = ALERT_MESSAGEBOX_ID)
     public WebElement alertMessageBox;
     
-    // Singleton
-    static public JepRiaApplicationPage getInstance(PageManagerBase pageManager) {
-      if(instance == null) {
-        instance = new JepRiaApplicationPage();
-      }
-      
-      return (JepRiaApplicationPage) instance;
-    }
-
     @Override
     public JepRiaApplicationPage getContent() {
         return (JepRiaApplicationPage) super.getContent();

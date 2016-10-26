@@ -89,9 +89,9 @@ import com.technology.jep.jepria.shared.util.JepRiaUtil;
 public class JepRiaModuleAutoImpl 
     implements JepRiaModuleAuto {
 
-  protected JepRiaApplicationPage page;//TODO type arguments!
+  protected JepRiaApplicationPage page;
   
-  public JepRiaModuleAutoImpl(JepRiaApplicationPage page) {//TODO type arguments!
+  public JepRiaModuleAutoImpl(JepRiaApplicationPage page) {
     this.page = page;
   }
   

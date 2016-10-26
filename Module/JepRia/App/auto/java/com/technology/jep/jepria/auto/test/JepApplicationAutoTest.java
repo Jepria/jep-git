@@ -11,7 +11,7 @@ import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 
 import com.technology.jep.jepria.auto.JepRiaModuleAuto;
-import com.technology.jep.jepria.auto.entrance.ApplicationEntranceAuto;
+import com.technology.jep.jepria.auto.entrance.EntranceAutoImpl;
 import com.technology.jep.jepria.auto.entrance.EntranceAuto;
 import com.technology.jep.jepria.auto.exceptions.AutomationException;
 import com.technology.jep.jepria.auto.manager.AutomationManager;
@@ -93,7 +93,7 @@ public abstract class JepApplicationAutoTest<A extends AutomationManager> extend
     
     this.baseUrl = baseUrl;
     
-    authorizationAuto = new ApplicationEntranceAuto();
+    authorizationAuto = new EntranceAutoImpl();
     
     // Создадим "дефолтного" юзера с логином и паролем из XML
     defaultUser = User.fromLoginAndPassword(username, password);

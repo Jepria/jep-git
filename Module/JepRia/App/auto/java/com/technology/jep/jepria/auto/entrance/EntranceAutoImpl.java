@@ -1,6 +1,7 @@
 package com.technology.jep.jepria.auto.entrance;
 
 import static com.technology.jep.jepria.auto.util.WebDriverFactory.getWait;
+import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
@@ -10,13 +11,40 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 
 import com.technology.jep.jepria.auto.HasText;
-import com.technology.jep.jepria.auto.entrance.pages.ApplicationPageManager;
+import com.technology.jep.jepria.auto.entrance.pages.DefaultLoginPage;
+import com.technology.jep.jepria.auto.entrance.pages.JepRiaLoginPage;
+import com.technology.jep.jepria.auto.entrance.pages.LoginPage;
+import com.technology.jep.jepria.auto.pages.JepRiaEntranceApplicationPage;
 import com.technology.jep.jepria.auto.util.WebDriverFactory;
 import com.technology.jep.jepria.client.JepRiaAutomationConstant;
 
-public class ApplicationEntranceAuto implements EntranceAuto {
+public class EntranceAutoImpl implements EntranceAuto {
   
-  protected ApplicationPageManager pageManager;//TODO reduce type or create interface
+  protected LoginPage loginPage;
+  protected JepRiaEntranceApplicationPage applicationPage;
+  
+  private LoginPage getLoginPage() {
+    if (loginPage == null) {
+      try {
+        getWait().until(presenceOfElementLocated(By.id("loginForm")));//TODO hardcode
+          WebElement loginForm = WebDriverFactory.getDriver().findElement(By.id("loginForm"));//TODO hardcode
+          assert(loginForm != null);
+          loginPage = new DefaultLoginPage();
+      } catch (NoSuchElementException ex) {
+          getWait().until(presenceOfElementLocated(By.id(JepRiaAutomationConstant.LOGIN_USERNAME_FIELD_ID)));
+          getWait().until(presenceOfElementLocated(By.id(JepRiaAutomationConstant.LOGIN_PASSWORD_FIELD_ID)));
+          this.loginPage = new JepRiaLoginPage();
+      }
+    }
+    return loginPage;
+  }
+  
+  private JepRiaEntranceApplicationPage getApplicationPage() {
+    if (applicationPage == null) {
+      this.applicationPage = new JepRiaEntranceApplicationPage();
+    }
+    return applicationPage;
+  }
   
   /*
    * Константы для оптимизации ожидания реакции на login/logout
@@ -26,8 +54,21 @@ public class ApplicationEntranceAuto implements EntranceAuto {
     private static final int LOGOUT_LAST_ENTRANCE_OPERATION = 2;
   private int lastEntranceOperation;
 
-  public ApplicationEntranceAuto() {
-    this.pageManager = new ApplicationPageManager();
+  public EntranceAutoImpl() {
+    // Создадим loginPage
+//    try {
+//      getWait().until(presenceOfElementLocated(By.id("loginForm")));//TODO hardcode
+//        WebElement loginForm = WebDriverFactory.getDriver().findElement(By.id("loginForm"));//TODO hardcode
+//        assert(loginForm != null);
+//        loginPage = new DefaultLoginPage();
+//    } catch (NoSuchElementException ex) {
+//        getWait().until(presenceOfElementLocated(By.id(JepRiaAutomationConstant.LOGIN_USERNAME_FIELD_ID)));
+//        getWait().until(presenceOfElementLocated(By.id(JepRiaAutomationConstant.LOGIN_PASSWORD_FIELD_ID)));
+//        this.loginPage = new JepRiaLoginPage();
+//    }
+    
+    // Создадим applicationPage
+//    this.applicationPage = new JepRiaEntranceApplicationPage();
   }
 
   protected void waitTextToBeChanged(HasText hasText, String currentWorkstateDisplayText) {
@@ -64,7 +105,7 @@ public class ApplicationEntranceAuto implements EntranceAuto {
   @Override
   public void login(String username, String password) {
     if(lastEntranceOperation != LOGIN_LAST_ENTRANCE_OPERATION) {
-      pageManager.getLoginPage()
+      getLoginPage()
           .ensurePageLoaded()
           .setUsername(username)
           .setPassword(password)
@@ -81,8 +122,7 @@ public class ApplicationEntranceAuto implements EntranceAuto {
     switch (lastEntranceOperation) {
     case LOGIN_LAST_ENTRANCE_OPERATION:
       try {
-        pageManager
-          .getApplicationPage()
+        getApplicationPage()
           .ensurePageLoaded();
         result = true;
           } catch (NoSuchElementException e) {
@@ -92,7 +132,7 @@ public class ApplicationEntranceAuto implements EntranceAuto {
       break;
     case LOGOUT_LAST_ENTRANCE_OPERATION:
       try {
-        pageManager.getLoginPage()
+        getLoginPage()
         .ensurePageLoaded();
           } catch (NoSuchElementException e) {
               System.out.println("[NoSuchElementException] login page not loaded, " + e.toString());
@@ -117,8 +157,7 @@ public class ApplicationEntranceAuto implements EntranceAuto {
 
   @Override
   public void logout() {
-    pageManager
-      .getApplicationPage()
+    getApplicationPage()
           .ensurePageLoaded()
 //          .getContent()
           .clickLogoutButton();

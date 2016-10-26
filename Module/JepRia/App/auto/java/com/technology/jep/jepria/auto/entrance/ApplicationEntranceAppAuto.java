@@ -15,7 +15,7 @@ public class ApplicationEntranceAppAuto extends WDAutoAbstract implements Entran
       String username,
       String password) {
     super(baseUrl, browserName, browserVersion, browserPlatform, browserPath, driverPath, jepriaVersion, username, password);
-    entranceAuto = new ApplicationEntranceAuto();
+    entranceAuto = new EntranceAutoImpl();
   }
 
   @Override

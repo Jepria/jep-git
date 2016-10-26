@@ -21,17 +21,6 @@ public class JepRiaEntranceApplicationPage extends PlainPage implements Entrance
     @FindBy(id = LOGOUT_BUTTON_ID)
     private WebElement logoutButton;
 
-    
-    // Singleton
-    static protected JepRiaEntranceApplicationPage instance;
-    static public JepRiaEntranceApplicationPage getInstance(PageManagerBase pageManager) {
-      if(instance == null) {
-        instance = new JepRiaEntranceApplicationPage();
-      }
-      
-      return instance;
-    }
-
     @Override
     public JepRiaEntranceApplicationPage ensurePageLoaded() {
         super.ensurePageLoaded();

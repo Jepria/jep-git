@@ -1,7 +1,7 @@
 package com.technology.jep.jepria.auto.pages;
 
 
-public interface EntranceApplicationPage<P extends PageManagerBase> {
+public interface EntranceApplicationPage {
 
   /**
    * Получение username залогиненного пользователя
