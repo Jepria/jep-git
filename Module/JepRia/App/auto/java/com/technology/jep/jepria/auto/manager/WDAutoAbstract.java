@@ -13,11 +13,10 @@ import static com.technology.jep.jepria.auto.JepAutoProperties.get;
 import static com.technology.jep.jepria.auto.JepAutoProperties.set;
 
 import org.apache.log4j.Logger;
-import org.openqa.selenium.WebDriver;
 
 import com.technology.jep.jepria.auto.util.WebDriverFactory;
 
-public abstract class WDAutoAbstract implements AutomationManager, HasWebDriver {
+public abstract class WDAutoAbstract implements AutomationManager {
   private static Logger logger = Logger.getLogger(WDAutoAbstract.class.getName());
 //    private WebDriver driver;
   private boolean isStarted = false;
@@ -62,11 +61,6 @@ public abstract class WDAutoAbstract implements AutomationManager, HasWebDriver 
     });
     }
 
-    @Override
-    public WebDriver getWebDriver() {
-        return WebDriverFactory.getDriver();
-    }
-  
   @Override
   public void start(String baseUrl) {
     info("Application is starting...");

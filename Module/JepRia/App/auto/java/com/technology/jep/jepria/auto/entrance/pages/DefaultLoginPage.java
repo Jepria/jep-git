@@ -7,15 +7,10 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-import com.technology.jep.jepria.auto.pages.PageManagerBase;
 import com.technology.jep.jepria.auto.pages.PlainPage;
 import com.technology.jep.jepria.client.JepRiaAutomationConstant;
 
-public class DefaultLoginPage<P extends PageManagerBase> extends PlainPage<P> implements LoginPage {
-
-    public DefaultLoginPage(P pages) {
-        super(pages);
-    }
+public class DefaultLoginPage extends PlainPage implements LoginPage {
 
     @FindBy(id = JepRiaAutomationConstant.JAVASSO_LOGIN_USERNAME_FIELD_ID)
     private WebElement loginField;
@@ -56,7 +51,7 @@ public class DefaultLoginPage<P extends PageManagerBase> extends PlainPage<P> im
    * @see com.technology.jep.auto.entrance.pages.LoginPage#ensurePageLoaded()
    */
   @Override
-    public DefaultLoginPage<P> ensurePageLoaded() {
+    public DefaultLoginPage ensurePageLoaded() {
         super.ensurePageLoaded().getContent();
 
         getWait().until(presenceOfElementLocated(By.xpath("//form[@name='loginForm']")));
@@ -64,7 +59,7 @@ public class DefaultLoginPage<P extends PageManagerBase> extends PlainPage<P> im
     }
 
   @Override
-    public DefaultLoginPage<P> getContent() {
-        return (DefaultLoginPage<P>) super.getContent();
+    public DefaultLoginPage getContent() {
+        return (DefaultLoginPage) super.getContent();
     }
 }

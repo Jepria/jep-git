@@ -2,21 +2,11 @@ package com.technology.jep.jepria.auto.pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.WebDriver;
 
 import com.technology.jep.jepria.auto.util.WebDriverFactory;
 
-public abstract class AbstractPage<P extends PageManagerBase> {
-    protected P pages;
-
-    public AbstractPage(P pages) {
-        this.pages = pages;
-    }
-
-    public WebDriver getWebDriver() {
-        return WebDriverFactory.getDriver();
-    }
-
+public abstract class AbstractPage {
+  
     public String getTitle() {
         return WebDriverFactory.getDriver().getTitle();
     }
@@ -24,7 +14,7 @@ public abstract class AbstractPage<P extends PageManagerBase> {
     /**
      * Метод должен быть переопределён потомками
      */
-    public AbstractPage<P> ensurePageLoaded() {
+    public AbstractPage ensurePageLoaded() {
       return this;
     }
 

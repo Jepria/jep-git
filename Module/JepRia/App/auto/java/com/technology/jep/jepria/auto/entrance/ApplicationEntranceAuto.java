@@ -11,12 +11,11 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 
 import com.technology.jep.jepria.auto.HasText;
 import com.technology.jep.jepria.auto.entrance.pages.ApplicationPageManager;
-import com.technology.jep.jepria.auto.manager.HasWebDriver;
+import com.technology.jep.jepria.auto.util.WebDriverFactory;
 import com.technology.jep.jepria.client.JepRiaAutomationConstant;
 
-public class ApplicationEntranceAuto implements AuthorizationAuto {
+public class ApplicationEntranceAuto implements EntranceAuto {
   
-  protected HasWebDriver applicationManager;
   protected ApplicationPageManager pageManager;//TODO reduce type or create interface
   
   /*
@@ -27,8 +26,7 @@ public class ApplicationEntranceAuto implements AuthorizationAuto {
     private static final int LOGOUT_LAST_ENTRANCE_OPERATION = 2;
   private int lastEntranceOperation;
 
-  public ApplicationEntranceAuto(HasWebDriver app) {
-    this.applicationManager = app;
+  public ApplicationEntranceAuto() {
     this.pageManager = new ApplicationPageManager();
   }
 
@@ -105,7 +103,7 @@ public class ApplicationEntranceAuto implements AuthorizationAuto {
     default:
       // Проверка первого входа на уже залогиненную страницу
       try {
-        WebElement usernameField = applicationManager.getWebDriver().findElement(By.id(JepRiaAutomationConstant.LOGGED_IN_USER_ID));
+        WebElement usernameField = WebDriverFactory.getDriver().findElement(By.id(JepRiaAutomationConstant.LOGGED_IN_USER_ID));
         result = usernameField.isDisplayed(); 
       } catch (Exception ex) {
         result = false;
@@ -131,6 +129,6 @@ public class ApplicationEntranceAuto implements AuthorizationAuto {
   @Deprecated
   @Override
   public void openMainPage(String url) {
-    applicationManager.getWebDriver().get(url);
+    WebDriverFactory.getDriver().get(url);
   }
 }

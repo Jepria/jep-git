@@ -19,15 +19,15 @@ public class ApplicationPageManager extends PageManagerBase {
   
   private LoginPage loginPage;
 
-  private JepRiaEntranceApplicationPage<PageManagerBase> applicationPage;
+  private JepRiaEntranceApplicationPage applicationPage;
   
   
-    public JepRiaApplicationPage<PageManagerBase> getApplicationPage() {
+    public JepRiaApplicationPage getApplicationPage() {
       if(applicationPage == null) {
             applicationPage = initElements(JepRiaApplicationPage.getInstance(this));
       }
       
-    return (JepRiaApplicationPage<PageManagerBase>) applicationPage;
+    return (JepRiaApplicationPage) applicationPage;
   }
     
     
@@ -40,11 +40,11 @@ public class ApplicationPageManager extends PageManagerBase {
               WebElement loginForm = getDriver().findElement(By.id("loginForm"));
               assert(loginForm != null);
               
-              loginPage = initElements(new DefaultLoginPage<ApplicationPageManager>(this));
+              loginPage = initElements(new DefaultLoginPage());
           } catch (NoSuchElementException ex) {
               getWait().until(presenceOfElementLocated(By.id(JepRiaAutomationConstant.LOGIN_USERNAME_FIELD_ID)));
               getWait().until(presenceOfElementLocated(By.id(JepRiaAutomationConstant.LOGIN_PASSWORD_FIELD_ID)));
-                loginPage = initElements(new JepRiaLoginPage<ApplicationPageManager>(this));
+                loginPage = initElements(new JepRiaLoginPage());
           }
         }
         

@@ -11,12 +11,12 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import com.technology.jep.jepria.auto.entrance.ApplicationEntranceAppAuto;
-import com.technology.jep.jepria.auto.entrance.AuthorizationAuto;
+import com.technology.jep.jepria.auto.entrance.EntranceAuto;
 
 public class ApplicationEntranceAutoTest {
 
   private ApplicationEntranceAppAuto automationManager;
-  private AuthorizationAuto cut;
+  private EntranceAuto cut;
   
   @Parameters({"baseUrl", "browserName", "browserVersion", "browserPlatform", "browserPath", "driverPath", "jepriaVersion", "username", "password"})
   @BeforeMethod

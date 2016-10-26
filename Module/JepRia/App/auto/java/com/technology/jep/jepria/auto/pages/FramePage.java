@@ -1,13 +1,15 @@
 package com.technology.jep.jepria.auto.pages;
 
-import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
 import static com.technology.jep.jepria.auto.util.WebDriverFactory.getWait;
+import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public abstract class FramePage<P extends PageManagerBase> extends AbstractPage<P> {
+import com.technology.jep.jepria.auto.util.WebDriverFactory;
+
+public abstract class FramePage extends AbstractPage {
 
     @FindBy(name = "navigation")
     public WebElement navigation;
@@ -22,27 +24,23 @@ public abstract class FramePage<P extends PageManagerBase> extends AbstractPage<
         RU, ENG;
     }
 
-    public FramePage(P pages) {
-        super(pages);
-    }
-
     @Override
-    public FramePage<P> ensurePageLoaded() {
+    public FramePage ensurePageLoaded() {
         super.ensurePageLoaded();
         
-        getWebDriver().switchTo().defaultContent();
+        WebDriverFactory.getDriver().switchTo().defaultContent();
         getWait().until(presenceOfElementLocated(By.xpath("//frameset")));
 
         if (verifyLocale(Locale.ENG)) {
             return switchLocale().ensurePageLoaded();
         }
 
-        getWebDriver().switchTo().defaultContent();
+        WebDriverFactory.getDriver().switchTo().defaultContent();
         return this;
     }
 
-    public FramePage<P> getNavigation() {
-        this.getWebDriver()
+    public FramePage getNavigation() {
+      WebDriverFactory.getDriver()
                 .switchTo()
                 .defaultContent()
                 .switchTo()
@@ -50,8 +48,8 @@ public abstract class FramePage<P extends PageManagerBase> extends AbstractPage<
         return this;
     }
 
-    public FramePage<P> getContent() {
-        this.getWebDriver()
+    public FramePage getContent() {
+      WebDriverFactory.getDriver()
                 .switchTo()
                 .defaultContent()
                 .switchTo()
@@ -91,7 +89,7 @@ public abstract class FramePage<P extends PageManagerBase> extends AbstractPage<
         return false;
     }
 
-    public FramePage<P> switchLocale() {
+    public FramePage switchLocale() {
         this.ensurePageLoaded().getNavigation().locale.click();
         return this.ensurePageLoaded().getNavigation();
     }

@@ -1,19 +1,18 @@
 package com.technology.jep.jepria.auto.widget.statusbar;
 
-import com.technology.jep.jepria.auto.entrance.pages.ApplicationPageManager;
+import com.technology.jep.jepria.auto.pages.JepRiaApplicationPage;
 
-public class StatusBarImpl<P extends ApplicationPageManager> implements StatusBar {
+public class StatusBarImpl implements StatusBar {
 
-  P pages;
+  JepRiaApplicationPage page;
   
-  public StatusBarImpl(P pages) {
-    this.pages = pages;
+  public StatusBarImpl(JepRiaApplicationPage page) {
+    this.page = page;
   }
 
   @Override
   public String getText() {
-    return pages
-        .getApplicationPage()
+    return page
         .ensurePageLoaded()
         .getStatusBarText();
   }

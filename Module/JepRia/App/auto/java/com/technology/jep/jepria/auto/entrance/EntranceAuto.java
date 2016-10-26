@@ -5,7 +5,7 @@ package com.technology.jep.jepria.auto.entrance;
 /**
  * Базовый интерфейс функциональности доступа
  */
-public interface AuthorizationAuto {
+public interface EntranceAuto {
   /**
    * Вход в систему
    * 

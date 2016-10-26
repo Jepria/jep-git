@@ -1,15 +1,28 @@
 package com.technology.jep.jepria.auto.pages;
 
 import static com.technology.jep.jepria.auto.util.WebDriverFactory.getWait;
+import static com.technology.jep.jepria.client.JepRiaAutomationConstant.ALERT_MESSAGEBOX_ID;
+import static com.technology.jep.jepria.client.JepRiaAutomationConstant.ENTRANCE_PANEL_ID;
+import static com.technology.jep.jepria.client.JepRiaAutomationConstant.ENTRANCE_PANEL_LOGOUT_BUTTON_ID;
+import static com.technology.jep.jepria.client.JepRiaAutomationConstant.MODULE_PANEL_ID;
+import static com.technology.jep.jepria.client.JepRiaAutomationConstant.MODULE_TAB_PANEL_ID;
+import static com.technology.jep.jepria.client.JepRiaAutomationConstant.STATUSBAR_PANEL_ID;
+import static com.technology.jep.jepria.client.JepRiaAutomationConstant.TOOLBAR_ADD_BUTTON_ID;
+import static com.technology.jep.jepria.client.JepRiaAutomationConstant.TOOLBAR_EDIT_BUTTON_ID;
+import static com.technology.jep.jepria.client.JepRiaAutomationConstant.TOOLBAR_FIND_BUTTON_ID;
+import static com.technology.jep.jepria.client.JepRiaAutomationConstant.TOOLBAR_LIST_BUTTON_ID;
+import static com.technology.jep.jepria.client.JepRiaAutomationConstant.TOOLBAR_PANEL_ID;
+import static com.technology.jep.jepria.client.JepRiaAutomationConstant.TOOLBAR_SAVE_BUTTON_ID;
+import static com.technology.jep.jepria.client.JepRiaAutomationConstant.TOOLBAR_SEARCH_BUTTON_ID;
+import static com.technology.jep.jepria.client.JepRiaAutomationConstant.TOOLBAR_VIEW_DETAILS_BUTTON_ID;
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
-import static com.technology.jep.jepria.client.JepRiaAutomationConstant.*;
 
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public class JepRiaApplicationPage<M extends PageManagerBase> extends JepRiaEntranceApplicationPage<M> {
+public class JepRiaApplicationPage extends JepRiaEntranceApplicationPage {
   private static Logger logger = Logger.getLogger(JepRiaEntranceApplicationPage.class.getName());
 
     @FindBy(id = ENTRANCE_PANEL_ID)
@@ -56,25 +69,21 @@ public class JepRiaApplicationPage<M extends PageManagerBase> extends JepRiaEntr
     public WebElement alertMessageBox;
     
     // Singleton
-    static public JepRiaApplicationPage<PageManagerBase> getInstance(PageManagerBase pageManager) {
+    static public JepRiaApplicationPage getInstance(PageManagerBase pageManager) {
       if(instance == null) {
-        instance = new JepRiaApplicationPage<PageManagerBase>(pageManager);
+        instance = new JepRiaApplicationPage();
       }
       
-      return (JepRiaApplicationPage<PageManagerBase>) instance;
-    }
-
-    protected JepRiaApplicationPage(M pages) {
-        super(pages);
+      return (JepRiaApplicationPage) instance;
     }
 
     @Override
-    public JepRiaApplicationPage<M> getContent() {
-        return (JepRiaApplicationPage<M>) super.getContent();
+    public JepRiaApplicationPage getContent() {
+        return (JepRiaApplicationPage) super.getContent();
     }
 
     @Override
-    public JepRiaApplicationPage<M> ensurePageLoaded() {
+    public JepRiaApplicationPage ensurePageLoaded() {
         super.ensurePageLoaded();
         
         getWait().until(visibilityOfElementLocated(By.id(ENTRANCE_PANEL_ID)));

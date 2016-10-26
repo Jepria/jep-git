@@ -11,7 +11,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 
-public class JepRiaEntranceApplicationPage<M extends PageManagerBase> extends PlainPage<M> implements EntranceApplicationPage<M> {
+public class JepRiaEntranceApplicationPage extends PlainPage implements EntranceApplicationPage {
   private static Logger logger = Logger.getLogger(JepRiaEntranceApplicationPage.class.getName());
     
     // TODO Разобраться с тем, что сейчас страница используется и для незалогиненных состояний приложения
@@ -23,21 +23,17 @@ public class JepRiaEntranceApplicationPage<M extends PageManagerBase> extends Pl
 
     
     // Singleton
-    static protected JepRiaEntranceApplicationPage<PageManagerBase> instance;
-    static public JepRiaEntranceApplicationPage<PageManagerBase> getInstance(PageManagerBase pageManager) {
+    static protected JepRiaEntranceApplicationPage instance;
+    static public JepRiaEntranceApplicationPage getInstance(PageManagerBase pageManager) {
       if(instance == null) {
-        instance = new JepRiaEntranceApplicationPage<PageManagerBase>(pageManager);
+        instance = new JepRiaEntranceApplicationPage();
       }
       
       return instance;
     }
 
-    protected JepRiaEntranceApplicationPage(M pages) {
-        super(pages);
-    }
-    
     @Override
-    public JepRiaEntranceApplicationPage<M> ensurePageLoaded() {
+    public JepRiaEntranceApplicationPage ensurePageLoaded() {
         super.ensurePageLoaded();
         
         getWait().until(visibilityOfElementLocated(By.id(LOGGED_IN_USER_ID)));

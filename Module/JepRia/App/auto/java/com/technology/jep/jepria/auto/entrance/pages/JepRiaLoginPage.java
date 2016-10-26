@@ -1,21 +1,16 @@
 package com.technology.jep.jepria.auto.entrance.pages;
 
-import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
 import static com.technology.jep.jepria.auto.util.WebDriverFactory.getWait;
+import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-import com.technology.jep.jepria.auto.pages.PageManagerBase;
 import com.technology.jep.jepria.auto.pages.PlainPage;
 import com.technology.jep.jepria.client.JepRiaAutomationConstant;
 
-public class JepRiaLoginPage<P extends PageManagerBase> extends PlainPage<P> implements LoginPage {
-
-    public JepRiaLoginPage(P pages) {
-        super(pages);
-    }
+public class JepRiaLoginPage extends PlainPage implements LoginPage {
 
     @FindBy(id = JepRiaAutomationConstant.LOGIN_USERNAME_FIELD_ID)
     private WebElement loginField;
@@ -56,7 +51,7 @@ public class JepRiaLoginPage<P extends PageManagerBase> extends PlainPage<P> imp
    * @see com.technology.jep.auto.entrance.pages.LoginPage#ensurePageLoaded()
    */
   @Override
-    public JepRiaLoginPage<P> ensurePageLoaded() {
+    public JepRiaLoginPage ensurePageLoaded() {
         super.ensurePageLoaded().getContent();
         
         getWait().until(presenceOfElementLocated(By.id(JepRiaAutomationConstant.LOGIN_USERNAME_FIELD_ID)));
@@ -66,7 +61,7 @@ public class JepRiaLoginPage<P extends PageManagerBase> extends PlainPage<P> imp
     }
 
     @Override
-    public JepRiaLoginPage<P> getContent() {
-        return (JepRiaLoginPage<P>) super.getContent();
+    public JepRiaLoginPage getContent() {
+        return (JepRiaLoginPage) super.getContent();
     }
 }

@@ -12,5 +12,5 @@ public interface EntranceAppAuto extends AutomationManager {
    * 
    * @return интерфейс EntranceAuto
    */
-  AuthorizationAuto getEntranceAuto();
+  EntranceAuto getEntranceAuto();
 }

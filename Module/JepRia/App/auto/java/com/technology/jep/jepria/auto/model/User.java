@@ -2,7 +2,7 @@ package com.technology.jep.jepria.auto.model;
 
 import java.util.List;
 
-import com.technology.jep.jepria.auto.entrance.AuthorizationAuto;
+import com.technology.jep.jepria.auto.entrance.EntranceAuto;
 
 public class User {
   
@@ -50,7 +50,7 @@ public class User {
    * Делает logout, если авторизован другой пользователь. 
    * @param cut Класс, реализующий авторизацию.
    */
-  public void login(AuthorizationAuto cut){
+  public void login(EntranceAuto cut){
     
     if(cut.isLoggedIn()) {
       cut.logout();

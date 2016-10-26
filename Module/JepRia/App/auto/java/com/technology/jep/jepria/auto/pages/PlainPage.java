@@ -1,28 +1,26 @@
 package com.technology.jep.jepria.auto.pages;
 
-import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
 import static com.technology.jep.jepria.auto.util.WebDriverFactory.getWait;
+import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-public abstract class PlainPage<P extends PageManagerBase> extends AbstractPage<P> {
+import com.technology.jep.jepria.auto.util.WebDriverFactory;
 
-    public PlainPage(P pages) {
-        super(pages);
-    }
+public abstract class PlainPage extends AbstractPage {
 
     @Override
-    public PlainPage<P> ensurePageLoaded() {
+    public PlainPage ensurePageLoaded() {
         super.ensurePageLoaded();
         
-        getWebDriver().switchTo().defaultContent();
+        WebDriverFactory.getDriver().switchTo().defaultContent();
         getWait().until(presenceOfElementLocated(By.xpath("//body")));
         return this;
     }
 
-    public PlainPage<P> getContent() {
-        this.getWebDriver()
+    public PlainPage getContent() {
+      WebDriverFactory.getDriver()
                 .switchTo()
                 .defaultContent();
 //                .switchTo()
