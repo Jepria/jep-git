@@ -1,4 +1,4 @@
-package com.technology.jep.jepria.auto.model;
+package com.technology.jep.jepria.auto.model.user;
 
 import java.util.List;
 
@@ -6,15 +6,24 @@ import com.technology.jep.jepria.auto.entrance.EntranceAuto;
 
 public class User {
   
-  public User(Integer operatorId, String operatorName, List<String> roles, String login, String password) {
-    super();
+  private User(Integer operatorId, String operatorName, List<String> roles, String login, String password, boolean isFromDB) {
     this.operatorId = operatorId;
     this.operatorName = operatorName;
     this.roles = roles;
     this.login = login;
     this.password = password;
+    this.isFromDB = isFromDB;
   }
 
+  public static User fromDB(Integer operatorId, String operatorName, List<String> roles, String login, String password) {
+    return new User(operatorId, operatorName, roles, login, password, true);
+  }
+  
+  public static User fromLoginAndPassword(String login, String password) {
+    return new User(null, null, null, login, password, false);
+  }
+  
+  
   private Integer operatorId;
   private String operatorName;
   private List<String> roles;
@@ -22,12 +31,14 @@ public class User {
   private String login;
   private String password;
   
+  private boolean isFromDB;
 
   public String getLogin() {
     return login;
   }
   
   public Integer getOperatorId() {
+    checkFromDb();
     return operatorId;
   }
   /**
@@ -38,10 +49,12 @@ public class User {
   }
 
   public String getOperatorName() {
+    checkFromDb();
     return operatorName;
   }
 
   public List<String> getRoles() {
+    checkFromDb();
     return roles;
   }
   
@@ -91,5 +104,11 @@ public class User {
     }
     builder.append("]");
     return builder.toString();
+  }
+  
+  private void checkFromDb() throws IllegalStateException {
+    if (!isFromDB) {
+      throw new IllegalStateException("Cannot obtain User's property as it is not loaded from DB.");
+    }
   }
 }

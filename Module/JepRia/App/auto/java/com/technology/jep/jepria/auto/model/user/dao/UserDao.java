@@ -1,4 +1,4 @@
-package com.technology.jep.jepria.auto.model.dao;
+package com.technology.jep.jepria.auto.model.user.dao;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -8,7 +8,7 @@ import java.util.List;
 
 import oracle.jdbc.pool.OracleDataSource;
 
-import com.technology.jep.jepria.auto.model.User;
+import com.technology.jep.jepria.auto.model.user.User;
 import com.technology.jep.jepria.server.dao.DaoSupport;
 import com.technology.jep.jepria.shared.exceptions.ApplicationException;
 
@@ -44,7 +44,7 @@ public class UserDao implements UserData {
       throw new ApplicationException("Can't create operator. OperatorId is null", null);
     }
     
-    return new User(
+    return User.fromDB(
         (Integer) operatorId,
         login,
         roleSNameList,
