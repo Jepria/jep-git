@@ -16,5 +16,5 @@ public interface StartTransactionHandler {
    * @param moduleName имя модуля для передачи в DB.
    * @throws ApplicationException в случае ошибки
    */
-  void handle(String dataSourceJndiName, String moduleName) throws ApplicationException;
+  Db handle(String dataSourceJndiName, String moduleName) throws ApplicationException;
 }

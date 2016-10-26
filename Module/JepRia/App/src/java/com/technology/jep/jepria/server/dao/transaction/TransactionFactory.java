@@ -10,6 +10,7 @@ import com.technology.jep.jepria.server.dao.transaction.handler.EndTransactionHa
 import com.technology.jep.jepria.server.dao.transaction.handler.EndTransactionHandlerImpl;
 import com.technology.jep.jepria.server.dao.transaction.handler.StartTransactionHandler;
 import com.technology.jep.jepria.server.dao.transaction.handler.StartTransactionHandlerImpl;
+import com.technology.jep.jepria.server.db.Db;
 
 /**
  * Фабрика, создающая прокси для выполнения методов Dao в рамках одной транзакции.
@@ -71,23 +72,22 @@ public class TransactionFactory {
       Class<? extends EndTransactionHandler> endTransactionHandlerClass =
           after != null ? after.endTransactionHandler() : EndTransactionHandlerImpl.class;
           
-      startTransactionHandlerClass.newInstance().handle(dataSourceJndiName, moduleName);
-            
+      Db db = startTransactionHandlerClass.newInstance().handle(dataSourceJndiName, moduleName);
       Throwable caught = null;
       Object result = null;
-      try {
-        result = method.invoke(dao, args);
+      synchronized (db) {
+        try {
+          result = method.invoke(dao, args);
+        }
+        catch(Exception exc) {
+          /*
+           * Необходимо вызвать getCause(), поскольку выброшенное из Dao исключение
+           * будет обёрнуто в InvocationTargetException.
+           */
+          caught = exc.getCause();
+        }
+        endTransactionHandlerClass.newInstance().handle(caught);
       }
-      catch(Exception exc) {
-        /*
-         * Необходимо вызвать getCause(), поскольку выброшенное из Dao исключение
-         * будет обёрнуто в InvocationTargetException.
-         */
-        caught = exc.getCause();
-      }
-      
-      endTransactionHandlerClass.newInstance().handle(caught);
-      
       return result;
     }
   }
