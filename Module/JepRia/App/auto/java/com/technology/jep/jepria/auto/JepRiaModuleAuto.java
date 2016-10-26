@@ -3,7 +3,7 @@ package com.technology.jep.jepria.auto;
 import java.util.List;
 import java.util.Map;
 
-import com.technology.jep.jepria.auto.entrance.EntranceAuto;
+import com.technology.jep.jepria.auto.entrance.AuthorizationAuto;
 import com.technology.jep.jepria.auto.widget.field.Field;
 import com.technology.jep.jepria.auto.widget.statusbar.StatusBar;
 import com.technology.jep.jepria.client.ui.WorkstateEnum;
@@ -11,7 +11,7 @@ import com.technology.jep.jepria.client.ui.WorkstateEnum;
 /**
  * Базовый интерфейс автоматизации стандартного модуля JepRia
  */
-public interface JepRiaModuleAuto extends EntranceAuto {
+public interface JepRiaModuleAuto extends AuthorizationAuto {
   /**
    * Перейти в указанное состояние
    */

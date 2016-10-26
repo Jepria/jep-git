@@ -1,10 +1,9 @@
 package com.technology.jep.jepria.auto.entrance;
 
-import com.technology.jep.jepria.auto.entrance.pages.ApplicationEntrancePageManager;
 import com.technology.jep.jepria.auto.manager.WDAutoAbstract;
 
 public class ApplicationEntranceAppAuto extends WDAutoAbstract implements EntranceAppAuto {
-  private EntranceAuto entranceAuto;
+  private AuthorizationAuto entranceAuto;
   
   public ApplicationEntranceAppAuto(String baseUrl,
       String browserName,
@@ -16,7 +15,7 @@ public class ApplicationEntranceAppAuto extends WDAutoAbstract implements Entran
       String username,
       String password) {
     super(baseUrl, browserName, browserVersion, browserPlatform, browserPath, driverPath, jepriaVersion, username, password);
-    entranceAuto = new ApplicationEntranceAuto<EntranceAppAuto, ApplicationEntrancePageManager>(this, new ApplicationEntrancePageManager());
+    entranceAuto = new ApplicationEntranceAuto(this);
   }
 
   @Override
@@ -27,7 +26,7 @@ public class ApplicationEntranceAppAuto extends WDAutoAbstract implements Entran
   
 
   @Override
-    public EntranceAuto getEntranceAuto() {
+    public AuthorizationAuto getEntranceAuto() {
         return entranceAuto;
     }
 }

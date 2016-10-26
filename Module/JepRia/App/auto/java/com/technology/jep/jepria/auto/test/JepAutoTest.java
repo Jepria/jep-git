@@ -13,7 +13,7 @@ import org.testng.annotations.Parameters;
 
 import com.technology.jep.jepria.auto.JepRiaModuleAuto;
 import com.technology.jep.jepria.auto.exceptions.AutomationException;
-import com.technology.jep.jepria.auto.manager.JepRiaAuto;
+import com.technology.jep.jepria.auto.manager.AutomationManager;
 import com.technology.jep.jepria.auto.model.User;
 import com.technology.jep.jepria.auto.model.dao.UserData;
 import com.technology.jep.jepria.client.ui.WorkstateEnum;
@@ -26,7 +26,7 @@ import com.technology.jep.jepria.client.ui.WorkstateEnum;
 public abstract class JepAutoTest<C extends JepRiaModuleAuto> extends AssertJUnit {
   private static Logger logger = Logger.getLogger(JepAutoTest.class.getName());
 
-  protected JepRiaAuto automationManager;
+  protected AutomationManager automationManager;
   
   protected C cut;
 
@@ -38,7 +38,7 @@ public abstract class JepAutoTest<C extends JepRiaModuleAuto> extends AssertJUni
    */
   protected Map<String, User> users = new HashMap<String, User>();
   
-  protected abstract JepRiaAuto getAutomationManager(
+  protected abstract AutomationManager getAutomationManager(
       String baseUrl,
       String browserName,
       String browserVersion,
@@ -211,8 +211,8 @@ public abstract class JepAutoTest<C extends JepRiaModuleAuto> extends AssertJUni
     cut.delete(testRecordKey);
   }
   
-  protected JepRiaAuto startAutomationManager(
-      JepRiaAuto automationManager,
+  protected AutomationManager startAutomationManager(
+      AutomationManager automationManager,
       String baseUrl,
       String browserName,
       String browserVersion,

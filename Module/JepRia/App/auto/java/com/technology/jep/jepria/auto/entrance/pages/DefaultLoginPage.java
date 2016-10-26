@@ -11,7 +11,7 @@ import com.technology.jep.jepria.auto.pages.PageManagerBase;
 import com.technology.jep.jepria.auto.pages.PlainPage;
 import com.technology.jep.jepria.client.JepRiaAutomationConstant;
 
-public class DefaultLoginPage<P extends PageManagerBase> extends PlainPage<P> implements LoginPage<P> {
+public class DefaultLoginPage<P extends PageManagerBase> extends PlainPage<P> implements LoginPage {
 
     public DefaultLoginPage(P pages) {
         super(pages);
@@ -30,7 +30,7 @@ public class DefaultLoginPage<P extends PageManagerBase> extends PlainPage<P> im
    * @see com.technology.jep.auto.entrance.pages.LoginPage#setUsername(java.lang.String)
    */
     @Override
-  public LoginPage<P> setUsername(String login) {
+  public LoginPage setUsername(String login) {
         getContent().loginField.sendKeys(login);
         return this;
     }
@@ -39,7 +39,7 @@ public class DefaultLoginPage<P extends PageManagerBase> extends PlainPage<P> im
    * @see com.technology.jep.auto.entrance.pages.LoginPage#setPassword(java.lang.String)
    */
     @Override
-  public LoginPage<P> setPassword(String pswd) {
+  public LoginPage setPassword(String pswd) {
         pswdField.sendKeys(pswd);
         return this;
     }

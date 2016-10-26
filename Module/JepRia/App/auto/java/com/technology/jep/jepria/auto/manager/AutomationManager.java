@@ -1,5 +1,6 @@
 package com.technology.jep.jepria.auto.manager;
 
+
 public interface AutomationManager {
 
   /**

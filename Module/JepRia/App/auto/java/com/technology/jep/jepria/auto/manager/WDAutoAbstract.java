@@ -17,7 +17,7 @@ import org.openqa.selenium.WebDriver;
 
 import com.technology.jep.jepria.auto.util.WebDriverFactory;
 
-public abstract class WDAutoAbstract implements JepRiaAuto {
+public abstract class WDAutoAbstract implements AutomationManager, HasWebDriver {
   private static Logger logger = Logger.getLogger(WDAutoAbstract.class.getName());
 //    private WebDriver driver;
   private boolean isStarted = false;

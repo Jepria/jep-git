@@ -1,8 +1,8 @@
 package com.technology.jep.jepria.auto.widget.statusbar;
 
-import com.technology.jep.jepria.auto.entrance.pages.JepRiaApplicationPageManager;
+import com.technology.jep.jepria.auto.entrance.pages.ApplicationPageManager;
 
-public class StatusBarImpl<P extends JepRiaApplicationPageManager> implements StatusBar {
+public class StatusBarImpl<P extends ApplicationPageManager> implements StatusBar {
 
   P pages;
   

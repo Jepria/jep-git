@@ -1,14 +1,14 @@
 package com.technology.jep.jepria.auto.util;
 
-import static com.technology.jep.jepria.auto.JepAutoProperties.*;
+import static com.technology.jep.jepria.auto.JepAutoProperties.BROWSER_NAME_KEY;
 import static com.technology.jep.jepria.auto.JepAutoProperties.BROWSER_PATH_KEY;
+import static com.technology.jep.jepria.auto.JepAutoProperties.DRIVER_PATH_KEY;
 import static com.technology.jep.jepria.auto.JepAutoProperties.get;
 
 import java.io.File;
 
 import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxBinary;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -17,7 +17,6 @@ import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.technology.jep.jepria.auto.JepAutoProperties;
-import com.technology.jep.jepria.shared.util.JepRiaUtil;
 
 /*
  * Factory to instantiate a WebDriver object. It returns an instance of the driver (local invocation) or an instance of RemoteWebDriver

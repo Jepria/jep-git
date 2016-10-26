@@ -67,12 +67,13 @@ import com.technology.jep.jepria.auto.conditions.ConditionChecker;
 import com.technology.jep.jepria.auto.conditions.DisplayChecker;
 import com.technology.jep.jepria.auto.conditions.ExpectedConditions;
 import com.technology.jep.jepria.auto.conditions.TextChangeChecker;
-import com.technology.jep.jepria.auto.entrance.ApplicationEntranceAuto;
 import com.technology.jep.jepria.auto.entrance.EntranceAppAuto;
-import com.technology.jep.jepria.auto.entrance.pages.JepRiaApplicationPageManager;
+import com.technology.jep.jepria.auto.entrance.TODO_ModuleAuto;
+import com.technology.jep.jepria.auto.entrance.pages.ApplicationPageManager;
 import com.technology.jep.jepria.auto.exceptions.AutomationException;
 import com.technology.jep.jepria.auto.exceptions.NotExpectedException;
 import com.technology.jep.jepria.auto.exceptions.WrongOptionException;
+import com.technology.jep.jepria.auto.manager.HasWebDriver;
 import com.technology.jep.jepria.auto.widget.field.Field;
 import com.technology.jep.jepria.auto.widget.statusbar.StatusBar;
 import com.technology.jep.jepria.auto.widget.statusbar.StatusBarImpl;
@@ -85,7 +86,7 @@ import com.technology.jep.jepria.shared.util.JepRiaUtil;
 /**
  * Реализация JepRiaModuleAuto
  */
-public class JepRiaModuleAutoImpl<A extends EntranceAppAuto, P extends JepRiaApplicationPageManager> extends ApplicationEntranceAuto<A, P>
+public class JepRiaModuleAutoImpl<A extends EntranceAppAuto & HasWebDriver, P extends ApplicationPageManager> extends TODO_ModuleAuto<A, P>
     implements JepRiaModuleAuto {
 
   private static final long WEB_DRIVER_TIMEOUT = 5;

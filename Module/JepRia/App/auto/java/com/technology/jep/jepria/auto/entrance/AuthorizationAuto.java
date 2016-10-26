@@ -5,7 +5,7 @@ package com.technology.jep.jepria.auto.entrance;
 /**
  * Базовый интерфейс функциональности доступа
  */
-public interface EntranceAuto extends AutoBase {
+public interface AuthorizationAuto {
   /**
    * Вход в систему
    * 
@@ -25,4 +25,11 @@ public interface EntranceAuto extends AutoBase {
    * Выход из приложения
    */
   void logout();
+  
+  /**
+   * This is a legacy method from AutoBase. Consider useless and remove.
+   * TODO
+   */
+  @Deprecated
+  void openMainPage(String url);
 }

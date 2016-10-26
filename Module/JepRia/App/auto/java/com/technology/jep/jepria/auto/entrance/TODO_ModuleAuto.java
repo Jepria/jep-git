@@ -14,10 +14,11 @@ import com.technology.jep.jepria.auto.entrance.pages.ApplicationPageManager;
 import com.technology.jep.jepria.auto.manager.HasWebDriver;
 import com.technology.jep.jepria.client.JepRiaAutomationConstant;
 
-public class ApplicationEntranceAuto implements AuthorizationAuto {
+public class TODO_ModuleAuto<A extends HasWebDriver, P extends ApplicationPageManager> implements AuthorizationAuto {
   
+  // fields from former AutoBaseImpl
   protected HasWebDriver applicationManager;
-  protected ApplicationPageManager pageManager;//TODO reduce type or create interface
+  protected P pages;
   
   /*
    * Константы для оптимизации ожидания реакции на login/logout
@@ -27,9 +28,9 @@ public class ApplicationEntranceAuto implements AuthorizationAuto {
     private static final int LOGOUT_LAST_ENTRANCE_OPERATION = 2;
   private int lastEntranceOperation;
 
-  public ApplicationEntranceAuto(HasWebDriver app) {
+  public TODO_ModuleAuto(A app, P pageManager) {
     this.applicationManager = app;
-    this.pageManager = new ApplicationPageManager();
+    this.pages = pageManager;
   }
 
   protected void waitTextToBeChanged(HasText hasText, String currentWorkstateDisplayText) {
@@ -66,7 +67,7 @@ public class ApplicationEntranceAuto implements AuthorizationAuto {
   @Override
   public void login(String username, String password) {
     if(lastEntranceOperation != LOGIN_LAST_ENTRANCE_OPERATION) {
-      pageManager.getLoginPage()
+      pages.getLoginPage()
           .ensurePageLoaded()
           .setUsername(username)
           .setPassword(password)
@@ -83,7 +84,7 @@ public class ApplicationEntranceAuto implements AuthorizationAuto {
     switch (lastEntranceOperation) {
     case LOGIN_LAST_ENTRANCE_OPERATION:
       try {
-        pageManager
+        pages
           .getApplicationPage()
           .ensurePageLoaded();
         result = true;
@@ -94,7 +95,7 @@ public class ApplicationEntranceAuto implements AuthorizationAuto {
       break;
     case LOGOUT_LAST_ENTRANCE_OPERATION:
       try {
-        pageManager.getLoginPage()
+        pages.getLoginPage()
         .ensurePageLoaded();
           } catch (NoSuchElementException e) {
               System.out.println("[NoSuchElementException] login page not loaded, " + e.toString());
@@ -119,7 +120,7 @@ public class ApplicationEntranceAuto implements AuthorizationAuto {
 
   @Override
   public void logout() {
-    pageManager
+    pages
       .getApplicationPage()
           .ensurePageLoaded()
 //          .getContent()
