@@ -19,7 +19,6 @@ import org.testng.xml.XmlSuite;
 
 public class CustomReporter implements IReporter {
   private PrintWriter outputFile;
-
   /**
    * Generate a report for the given suites into the specified output directory.
    */
@@ -35,9 +34,16 @@ public class CustomReporter implements IReporter {
       System.out.println("Error in creating writer: " + e);
     }
     
-    print("***********************************************************");
-    print("***********************************************************");
-    print("*******************BEGIN Custom Report*********************");
+    print("*************************************************************************");
+    print("*************************************************************************");
+    print("                                                                         ");
+    print("                   BEGIN Custom Report                                   ");
+    print("                                                                         ");
+    print("             View this report in test-output/custom-report.txt           ");
+    print("                     or full info in test-output/index.html              "); 
+    print("                                                                         ");
+    print("*************************************************************************");
+    print("*************************************************************************");
    
     print("Suites run: " + suites.size());
     for (ISuite suite : suites) {
@@ -77,8 +83,15 @@ public class CustomReporter implements IReporter {
         Set<ITestResult> testsFailed = failedResult.getAllResults();
         for (ITestResult testResult : testsFailed) {
           
-          print("------>" + this.getScenarioName(testResult));
-          print("          " + testResult.getThrowable());
+          String throwableMessage = testResult.getThrowable().toString();
+          int newLineIndex = throwableMessage.indexOf("\n"); 
+          if(newLineIndex != -1){
+            throwableMessage = throwableMessage.substring(0, newLineIndex) +
+                "... more info view in output files.";
+          }
+          
+          print("       " + this.getScenarioName(testResult));
+          print("          " + throwableMessage);
 
           Object[] parameters = testResult.getParameters();
           for(int i=0; i<parameters.length; i++){
@@ -89,8 +102,13 @@ public class CustomReporter implements IReporter {
         }
       }
     }
-    print("********************END Custom Report**********************");
-    print("***********************************************************");
+    print("*************************************************************************");
+    print("*************************************************************************");
+    print("                                                                         ");
+    print("                     END Custom Report                                   ");
+    print("                                                                         ");
+    print("*************************************************************************");
+    print("*************************************************************************");
     outputFile.flush();
     outputFile.close();
   }

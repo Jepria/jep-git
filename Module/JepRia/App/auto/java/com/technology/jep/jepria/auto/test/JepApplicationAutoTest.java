@@ -147,6 +147,8 @@ public abstract class JepApplicationAutoTest<A extends AutomationManager> extend
   }
   
   protected void login(User user) {
+    //TODO: если пытаются авторизоваться под пользователем, который уже залогинен,
+    //то ничего не делать.
     if (authorizationAuto.isLoggedIn()) {
       authorizationAuto.logout();
     }
