@@ -11,6 +11,7 @@ import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 
 import com.technology.jep.jepria.auto.JepRiaModuleAuto;
+import com.technology.jep.jepria.auto.JepRiaModuleAutoImpl;
 import com.technology.jep.jepria.auto.entrance.EntranceAutoImpl;
 import com.technology.jep.jepria.auto.entrance.EntranceAuto;
 import com.technology.jep.jepria.auto.exceptions.AutomationException;
@@ -156,10 +157,33 @@ public abstract class JepApplicationAutoTest<A extends AutomationManager> extend
   }
   
   protected void login(User user) {
+    
+    try {
+      Thread.sleep(1000);
+    } catch (InterruptedException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+    
     if (authorizationAuto.isLoggedIn()) {
       authorizationAuto.logout();
     }
+    
+    try {
+      Thread.sleep(1000);
+    } catch (InterruptedException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+    
     authorizationAuto.login(user.getLogin(), user.getPassword());
+    
+    try {
+      Thread.sleep(1000);
+    } catch (InterruptedException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
   }
   
   protected void logout() {
@@ -172,17 +196,26 @@ public abstract class JepApplicationAutoTest<A extends AutomationManager> extend
    * Вход в модуль для прохождения теста.
    * @param module - Модуль.
    */
-  public void enterModule(ModuleDefinition module){
+  @SuppressWarnings("rawtypes")
+  public void enterModule(ModuleDefinition<?> module){
     
     //вход в приложения, в модуль, для теста
     //baseUrl - заканчивается именем приложения, без /
     WebDriverFactory.getDriver().get(baseUrl + "/" + module.getEntranceURL());
-    
+
     //установка в cut текущего модуля
     cut = module.getModuleAuto();
+
+    //устанавливаем стартовое состояние
+    ((JepRiaModuleAutoImpl) cut).setCurrentWorkstate(module.getEntranceWorkstate());
     
-    //ждем окончания загрузки страницы
-    cut.ensureModuleLoaded();
+    //TODO: ensureLoaded??
+    //ждем окончания загрузки страницы, либо страница модуля, 
+    //либо страница авторизации
+    if(authorizationAuto.isLoggedIn()){
+      //ждем окончания загрузки модуля
+//      cut.ensureModuleLoaded();
+    }
   }
   
   /**

@@ -99,7 +99,7 @@ public class EntranceAutoImpl implements EntranceAuto {
       break;
     case LAST_ENTRANCE_OPERATION_LOGOUT:
       try {
-        ((AbstractPage)getLoginPage()).ensurePageLoaded();
+        ((AbstractPage)getLoginPage()).ensurePageLoaded();//TODO do not cast
       } catch (NoSuchElementException e) {
         System.out.println("[NoSuchElementException] login page not loaded, " + e.toString());
         result = true; 

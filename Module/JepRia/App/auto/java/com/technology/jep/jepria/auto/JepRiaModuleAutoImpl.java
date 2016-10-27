@@ -98,12 +98,7 @@ public class JepRiaModuleAutoImpl<P extends JepRiaModulePage> implements JepRiaM
   public JepRiaModuleAutoImpl(P page) {
     this.page = page;
   }
-  
-  public JepRiaModuleAutoImpl(P page, WorkstateEnum initialWorkstate) {//TODO typearguments, reduce type
-    this(page);
-    currentWorkstate = initialWorkstate;
-  }
-  
+    
   private static final long WEB_DRIVER_TIMEOUT = 5;
   
   private static Logger logger = Logger.getLogger(JepRiaModuleAutoImpl.class.getName());
@@ -168,9 +163,9 @@ public class JepRiaModuleAutoImpl<P extends JepRiaModulePage> implements JepRiaM
       
       String statusBarTextBefore = getStatusBar().getText();
       clickButton(getToolbarButtonId(VIEW_LIST));
-          waitTextToBeChanged(getStatusBar(), statusBarTextBefore);
-          
-          setCurrentWorkstate(VIEW_LIST);
+      waitTextToBeChanged(getStatusBar(), statusBarTextBefore);
+
+      setCurrentWorkstate(VIEW_LIST);
     }
   }
   
