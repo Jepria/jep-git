@@ -68,6 +68,7 @@ public abstract class JepApplicationAutoTest<A extends AutomationManager> extend
     "forceLogin",
     "username",
     "password"})
+  //TODO: Продумать введение новых "кастомных" групп
   @BeforeMethod(groups = {"find", "create", "delete", "edit", "goto", "list", "setAndGetFields", "fieldStates"})
   public void setUp(
       String baseUrl,
@@ -98,10 +99,10 @@ public abstract class JepApplicationAutoTest<A extends AutomationManager> extend
     // Создадим "дефолтного" юзера с логином и паролем из XML
     defaultUser = User.fromLoginAndPassword(username, password);
     
-    provideCuts();
+    afterSetUp();
   }
   
-  protected abstract void provideCuts();
+  protected abstract void afterSetUp();
   
   protected abstract A provideAutomationManager(
       String baseUrl,

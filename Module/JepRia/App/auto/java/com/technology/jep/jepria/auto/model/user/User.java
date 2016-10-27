@@ -63,6 +63,7 @@ public class User {
    * Делает logout, если авторизован другой пользователь. 
    * @param cut Класс, реализующий авторизацию.
    */
+  @Deprecated
   public void login(EntranceAuto cut){
     
     if(cut.isLoggedIn()) {
