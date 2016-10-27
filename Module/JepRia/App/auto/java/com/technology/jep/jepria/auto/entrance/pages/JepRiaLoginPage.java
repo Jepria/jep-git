@@ -10,6 +10,9 @@ import org.openqa.selenium.support.FindBy;
 import com.technology.jep.jepria.auto.pages.PlainPage;
 import com.technology.jep.jepria.client.JepRiaAutomationConstant;
 
+/**
+ * Реализация стандартной для JepRia логин-страницы. 
+ */
 public class JepRiaLoginPage extends PlainPage implements LoginPage {
 
     @FindBy(id = JepRiaAutomationConstant.LOGIN_USERNAME_FIELD_ID)

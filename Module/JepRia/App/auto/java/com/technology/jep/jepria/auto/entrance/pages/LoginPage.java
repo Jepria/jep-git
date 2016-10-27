@@ -1,6 +1,8 @@
 package com.technology.jep.jepria.auto.entrance.pages;
 
-
+/**
+ * Интерфейс логин-страницы
+ */
 public interface LoginPage {
 
   LoginPage setUsername(String username);
@@ -8,6 +10,4 @@ public interface LoginPage {
   LoginPage setPassword(String password);
 
   void doLogin();
-
-  LoginPage ensurePageLoaded();
 }

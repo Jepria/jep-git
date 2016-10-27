@@ -72,7 +72,7 @@ import com.technology.jep.jepria.auto.conditions.TextChangeChecker;
 import com.technology.jep.jepria.auto.exceptions.AutomationException;
 import com.technology.jep.jepria.auto.exceptions.NotExpectedException;
 import com.technology.jep.jepria.auto.exceptions.WrongOptionException;
-import com.technology.jep.jepria.auto.pages.JepRiaApplicationPage;
+import com.technology.jep.jepria.auto.pages.JepRiaModulePage;
 import com.technology.jep.jepria.auto.util.WebDriverFactory;
 import com.technology.jep.jepria.auto.widget.field.Field;
 import com.technology.jep.jepria.auto.widget.statusbar.StatusBar;
@@ -85,14 +85,23 @@ import com.technology.jep.jepria.shared.util.JepRiaUtil;
 
 /**
  * Реализация JepRiaModuleAuto
+ * 
+ * @param <P> интерфейс страницы, соответствующей данному модулю
+ * (страница может содержать специфичные для модуля поля).
+ * Если страница модуля не предполагает специфики (стандартная),
+ * то вместо параметра подставляется класс {@link JepRiaModulePage}.
  */
-public class JepRiaModuleAutoImpl 
-    implements JepRiaModuleAuto {
+public class JepRiaModuleAutoImpl<P extends JepRiaModulePage> implements JepRiaModuleAuto {
 
-  protected JepRiaApplicationPage page;
+  protected P page;
   
-  public JepRiaModuleAutoImpl(JepRiaApplicationPage page) {
+  public JepRiaModuleAutoImpl(P page) {
     this.page = page;
+  }
+  
+  public JepRiaModuleAutoImpl(P page, WorkstateEnum initialWorkstate) {//TODO typearguments, reduce type
+    this(page);
+    currentWorkstate = initialWorkstate;
   }
   
   private static final long WEB_DRIVER_TIMEOUT = 5;
@@ -100,12 +109,6 @@ public class JepRiaModuleAutoImpl
   private static Logger logger = Logger.getLogger(JepRiaModuleAutoImpl.class.getName());
   private WorkstateEnum currentWorkstate;
   private StatusBar statusBar;
-  
-  public JepRiaModuleAutoImpl(JepRiaApplicationPage page, WorkstateEnum initialWorkstate) {//TODO typearguments, reduce type
-    this(page);
-    currentWorkstate = initialWorkstate;
-  }
-  
   
 ////////////////////////////LEGACY FROM FORMER HIERARCHY/////TODO remove///////////////
 //TODO remove or move this method!
@@ -183,7 +186,7 @@ public class JepRiaModuleAutoImpl
 
   @Override
   public void setWorkstate(WorkstateEnum workstateTo) {
-    page.ensurePageLoaded();
+    page.ensurePageLoaded();//TODO remove page.ensure from every single method
     
     if(!getCurrentWorkstate().equals(workstateTo))  {
       String toolbarButtonId = getToolbarButtonId(workstateTo);
@@ -1220,5 +1223,10 @@ public class JepRiaModuleAutoImpl
     } catch(NoSuchElementException e){
       throw new AutomationException("Can't click " + moduleId + " module tab.", e);
     } 
+  }
+
+  @Override
+  public void ensureModuleLoaded() {
+    page.ensurePageLoaded();
   }
 }

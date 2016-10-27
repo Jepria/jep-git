@@ -3,11 +3,11 @@ package com.technology.jep.jepria.auto.util.gwt;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-import com.technology.jep.jepria.auto.pages.JepRiaApplicationPage;
+import com.technology.jep.jepria.auto.pages.JepRiaModulePage;
 
 public class GwtSelect {
 
-    private JepRiaApplicationPage page;
+    private JepRiaModulePage page;
 
     /*private WebElement inputField;
     private String inputXpath = "/following-sibling::div//input";*/
@@ -18,7 +18,7 @@ public class GwtSelect {
     private WebElement optionBtn;
     private String valueXpath = "//div[contains(@class,'x-combo-list')]/div[text()='";
 
-    public GwtSelect(JepRiaApplicationPage page, String xpath) {
+    public GwtSelect(JepRiaModulePage page, String xpath) {
         this.page = page;
         /*inputField = page.waitContentElementToLoad(By.xpath(xpath + inputXpath))
                 .findElement(By.xpath(xpath + inputXpath));*/
@@ -26,7 +26,7 @@ public class GwtSelect {
                 .findElement(By.xpath(xpath + arrowXpath));
     }
 
-    public JepRiaApplicationPage selectOption(String option) {
+    public JepRiaModulePage selectOption(String option) {
         arrowBtn.click();
         optionBtn = page.waitContentElementToLoad(By.xpath(valueXpath + option + "']"));
         optionBtn.click();

@@ -1,7 +1,9 @@
 package com.technology.jep.jepria.auto.pages;
 
-
-public interface EntranceApplicationPage {
+/**
+ * Интерфейс любой страницы приложения, в которое был выполен вход.  
+ */
+public interface LoggedInPage {
 
   /**
    * Получение username залогиненного пользователя

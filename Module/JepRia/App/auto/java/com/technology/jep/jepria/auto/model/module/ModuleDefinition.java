@@ -2,9 +2,12 @@ package com.technology.jep.jepria.auto.model.module;
 
 import com.technology.jep.jepria.auto.JepRiaModuleAuto;
 
-public class Module {
+/**
+ * Класс, описывающий модуль приложения (также определяющий вкладку модуля для переключения между модулями).
+ */
+public class ModuleDefinition {
 
-  public Module(String moduleID, String entranceURL, JepRiaModuleAuto moduleAuto) {
+  public ModuleDefinition(String moduleID, String entranceURL, JepRiaModuleAuto moduleAuto) {
     super();
     this.moduleID = moduleID;
     this.entranceURL = entranceURL;

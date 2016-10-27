@@ -10,56 +10,59 @@ import org.openqa.selenium.support.FindBy;
 import com.technology.jep.jepria.auto.pages.PlainPage;
 import com.technology.jep.jepria.client.JepRiaAutomationConstant;
 
+/**
+ * Некоторая "дефолтная" реализация интерфейса логин-страницы. 
+ */
 public class DefaultLoginPage extends PlainPage implements LoginPage {
 
-    @FindBy(id = JepRiaAutomationConstant.JAVASSO_LOGIN_USERNAME_FIELD_ID)
-    private WebElement loginField;
+  @FindBy(id = JepRiaAutomationConstant.JAVASSO_LOGIN_USERNAME_FIELD_ID)
+  private WebElement loginField;
 
-    @FindBy(id = JepRiaAutomationConstant.JAVASSO_LOGIN_PASSWORD_FIELD_ID)
-    private WebElement pswdField;
+  @FindBy(id = JepRiaAutomationConstant.JAVASSO_LOGIN_PASSWORD_FIELD_ID)
+  private WebElement pswdField;
 
-    @FindBy(id = "login.registration")
-    private WebElement loginButton;
+  @FindBy(id = "login.registration")
+  private WebElement loginButton;
 
-    /* (non-Javadoc)
+  /* (non-Javadoc)
    * @see com.technology.jep.auto.entrance.pages.LoginPage#setUsername(java.lang.String)
    */
-    @Override
+  @Override
   public LoginPage setUsername(String login) {
-        getContent().loginField.sendKeys(login);
-        return this;
-    }
+    getContent().loginField.sendKeys(login);
+    return this;
+  }
 
-    /* (non-Javadoc)
+  /* (non-Javadoc)
    * @see com.technology.jep.auto.entrance.pages.LoginPage#setPassword(java.lang.String)
    */
-    @Override
+  @Override
   public LoginPage setPassword(String pswd) {
-        pswdField.sendKeys(pswd);
-        return this;
-    }
+    pswdField.sendKeys(pswd);
+    return this;
+  }
 
-    /* (non-Javadoc)
+  /* (non-Javadoc)
    * @see com.technology.jep.auto.entrance.pages.LoginPage#doLogin()
    */
-    @Override
+  @Override
   public void doLogin() {
-        loginButton.click();
-    }
+    loginButton.click();
+  }
 
-    /* (non-Javadoc)
+  /* (non-Javadoc)
    * @see com.technology.jep.auto.entrance.pages.LoginPage#ensurePageLoaded()
    */
   @Override
-    public DefaultLoginPage ensurePageLoaded() {
-        super.ensurePageLoaded().getContent();
+  public DefaultLoginPage ensurePageLoaded() {
+    super.ensurePageLoaded().getContent();
 
-        getWait().until(presenceOfElementLocated(By.xpath("//form[@name='loginForm']")));
-        return this;
-    }
+    getWait().until(presenceOfElementLocated(By.xpath("//form[@name='loginForm']")));
+    return this;
+  }
 
   @Override
-    public DefaultLoginPage getContent() {
-        return (DefaultLoginPage) super.getContent();
-    }
+  public DefaultLoginPage getContent() {
+    return (DefaultLoginPage) super.getContent();
+  }
 }

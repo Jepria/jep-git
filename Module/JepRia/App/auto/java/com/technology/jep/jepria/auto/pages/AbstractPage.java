@@ -12,28 +12,25 @@ public abstract class AbstractPage {
     PageFactory.initElements(new DisplayedElementLocatorFactory(10), this);
   }
   
-    public String getTitle() {
-        return WebDriverFactory.getDriver().getTitle();
-    }
+  public String getTitle() {
+    return WebDriverFactory.getDriver().getTitle();
+  }
 
-    /**
-     * Метод должен быть переопределён потомками
-     */
-    public AbstractPage ensurePageLoaded() {
-      return this;
-    }
+  /**
+   * Проверка, загрузилась ли страница
+   */
+  public abstract AbstractPage ensurePageLoaded();
 
-    public boolean waitPageLoaded() {
-        try {
-            ensurePageLoaded();
-            return true;
-        } catch (TimeoutException to) {
-            return false;
-        }
+  public boolean waitPageLoaded() {
+    try {
+      ensurePageLoaded();
+      return true;
+    } catch (TimeoutException to) {
+      return false;
     }
+  }
     
   public boolean isElementPresent(By locator) {
     return WebDriverFactory.getDriver().findElements(locator).size() > 0;
   }
-
 }

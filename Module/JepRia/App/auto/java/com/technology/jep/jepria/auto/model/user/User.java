@@ -37,7 +37,11 @@ public class User {
     return login;
   }
   
-  public Integer getOperatorId() {
+  /**
+   * @throws IllegalStateException если пользователь был создан методом {@link User#fromLoginAndPassword},
+   * а не {@link User#fromDB}.
+   */
+  public Integer getOperatorId() throws IllegalStateException {
     checkFromDb();
     return operatorId;
   }
@@ -48,12 +52,20 @@ public class User {
     return password;
   }
 
-  public String getOperatorName() {
+  /**
+   * @throws IllegalStateException если пользователь был создан методом {@link User#fromLoginAndPassword},
+   * а не {@link User#fromDB}.
+   */
+  public String getOperatorName() throws IllegalStateException {
     checkFromDb();
     return operatorName;
   }
 
-  public List<String> getRoles() {
+  /**
+   * @throws IllegalStateException если пользователь был создан методом {@link User#fromLoginAndPassword},
+   * а не {@link User#fromDB}.
+   */
+  public List<String> getRoles() throws IllegalStateException {
     checkFromDb();
     return roles;
   }

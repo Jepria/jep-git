@@ -5,6 +5,11 @@ import com.technology.jep.jepria.client.ui.toolbar.ToolBarConstant;
 
 public class JepRiaAutomationConstant {
   /**
+   * ID Login-страницы JavaSSO
+   */
+  public static final String JAVASSO_LOGIN_FORM_ID = "loginForm";
+  
+  /**
    * ID тестового поля ввода username для Login-страницы JavaSSO
    */
   public static final String JAVASSO_LOGIN_USERNAME_FIELD_ID = "j_username";

@@ -26,8 +26,6 @@ public abstract class FramePage extends AbstractPage {
 
     @Override
     public FramePage ensurePageLoaded() {
-        super.ensurePageLoaded();
-        
         WebDriverFactory.getDriver().switchTo().defaultContent();
         getWait().until(presenceOfElementLocated(By.xpath("//frameset")));
 

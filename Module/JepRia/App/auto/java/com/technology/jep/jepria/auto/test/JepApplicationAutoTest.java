@@ -15,11 +15,16 @@ import com.technology.jep.jepria.auto.entrance.EntranceAutoImpl;
 import com.technology.jep.jepria.auto.entrance.EntranceAuto;
 import com.technology.jep.jepria.auto.exceptions.AutomationException;
 import com.technology.jep.jepria.auto.manager.AutomationManager;
-import com.technology.jep.jepria.auto.model.module.Module;
+import com.technology.jep.jepria.auto.model.module.ModuleDefinition;
 import com.technology.jep.jepria.auto.model.user.User;
 import com.technology.jep.jepria.auto.model.user.dao.UserData;
 import com.technology.jep.jepria.auto.util.WebDriverFactory;
 
+/**
+ * Класс, наследники которого содержат тесты приложения.
+ *
+ * @param <A> Менеджер данного приложения.
+ */
 public abstract class JepApplicationAutoTest<A extends AutomationManager> extends AssertJUnit {
   
   protected JepRiaModuleAuto cut;
@@ -99,10 +104,14 @@ public abstract class JepApplicationAutoTest<A extends AutomationManager> extend
     // Создадим "дефолтного" юзера с логином и паролем из XML
     defaultUser = User.fromLoginAndPassword(username, password);
     
-    afterSetUp();
+    beforeTestLaunch();
   }
   
-  protected abstract void afterSetUp();
+  /**
+   * Метод вызывается в конце {@link #setUp(String, String, String, String, String, String, String, String, String, String, String) setUp},
+   * непосредственно перед запуском теста. Нужен для того, например, чтобы в нем создать экземпляры {@link ModuleDefinition}.  
+   */
+  protected abstract void beforeTestLaunch();
   
   protected abstract A provideAutomationManager(
       String baseUrl,
@@ -147,8 +156,6 @@ public abstract class JepApplicationAutoTest<A extends AutomationManager> extend
   }
   
   protected void login(User user) {
-    //TODO: если пытаются авторизоваться под пользователем, который уже залогинен,
-    //то ничего не делать.
     if (authorizationAuto.isLoggedIn()) {
       authorizationAuto.logout();
     }
@@ -161,7 +168,7 @@ public abstract class JepApplicationAutoTest<A extends AutomationManager> extend
     }
   }
 
-  public void enterModule(Module module){
+  public void enterModule(ModuleDefinition module){
     
     //вход в нужный модуль приложения для теста
     //TODO: разобраться с baseUrl

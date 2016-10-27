@@ -36,42 +36,37 @@ public class WebDriverFactory {
     //public static WebDriver getInstance(Browser browser, String username, String password) {
     public static WebDriver getDriver() {
 
-        if (webDriver != null) {
-            return webDriver;
-        }
-        
-        logger.info("JepAutoProperties = " + JepAutoProperties.asString());
-
-        Browser browser = new Browser();
-        browser.setName(get(BROWSER_NAME_KEY));
-        browser.setPath(get(BROWSER_PATH_KEY));
-
-        if (CHROME.equals(browser.getName())) {
-          System.setProperty("webdriver.chrome.driver", get(DRIVER_PATH_KEY));
-            webDriver = new ChromeDriver();
-            logger.info("ChromeDriver has created");
-        } else if (FIREFOX.equals(browser.getName())) {
-            FirefoxProfile ffProfile = new FirefoxProfile();
-
-            // Authenication Hack for Firefox
-//            if (username != null && password != null) {
-//                ffProfile.setPreference("network.http.phishy-userpass-length", 255);
-//            }
-            ffProfile.setPreference("network.http.phishy-userpass-length", 255);
-
-      FirefoxBinary binary = new FirefoxBinary(new File(get(BROWSER_PATH_KEY)));
-      webDriver = new FirefoxDriver(binary, new FirefoxProfile());
+      if (webDriver != null) {
+          return webDriver;
+      }
       
-            logger.info("FirefoxDriver has created");
-        } else if (INTERNET_EXPLORER.equals(browser.getName())) {
-            webDriver = new InternetExplorerDriver();
-            logger.info("InternetExplorerDriver has created");
-        } else {
-            webDriver = new ChromeDriver();
-            logger.info("ChromeDriver has created");
-        }
+      logger.info("JepAutoProperties = " + JepAutoProperties.asString());
 
-        return webDriver;
+      Browser browser = new Browser();
+      browser.setName(get(BROWSER_NAME_KEY));
+      browser.setPath(get(BROWSER_PATH_KEY));
+
+      if (CHROME.equals(browser.getName())) {
+        System.setProperty("webdriver.chrome.driver", get(DRIVER_PATH_KEY));
+        webDriver = new ChromeDriver();
+        logger.info("ChromeDriver has created");
+      } else if (FIREFOX.equals(browser.getName())) {
+        FirefoxProfile ffProfile = new FirefoxProfile();
+        ffProfile.setPreference("network.http.phishy-userpass-length", 255);
+
+        FirefoxBinary binary = new FirefoxBinary(new File(get(BROWSER_PATH_KEY)));
+        webDriver = new FirefoxDriver(binary, new FirefoxProfile());
+  
+        logger.info("FirefoxDriver has created");
+      } else if (INTERNET_EXPLORER.equals(browser.getName())) {
+        webDriver = new InternetExplorerDriver();
+        logger.info("InternetExplorerDriver has created");
+      } else {
+        webDriver = new ChromeDriver();
+        logger.info("ChromeDriver has created");
+      }
+
+      return webDriver;
     }
 
   public static void destroyInstance() {
@@ -82,11 +77,11 @@ public class WebDriverFactory {
   }
 
   public static WebDriverWait getWait(int timeout) {
-      return new WebDriverWait(WebDriverFactory.getDriver(), timeout);
+    return new WebDriverWait(WebDriverFactory.getDriver(), timeout);
   }
   
   public static WebDriverWait getWait() {
-      return new WebDriverWait(WebDriverFactory.getDriver(), WEBDRIVER_WAIT_DEFAULT_TIMEOUT);
+    return new WebDriverWait(WebDriverFactory.getDriver(), WEBDRIVER_WAIT_DEFAULT_TIMEOUT);
   }
 
 }
