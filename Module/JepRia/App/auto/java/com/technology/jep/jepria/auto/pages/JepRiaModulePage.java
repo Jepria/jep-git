@@ -3,7 +3,6 @@ package com.technology.jep.jepria.auto.pages;
 import static com.technology.jep.jepria.auto.util.WebDriverFactory.getWait;
 import static com.technology.jep.jepria.client.JepRiaAutomationConstant.ALERT_MESSAGEBOX_ID;
 import static com.technology.jep.jepria.client.JepRiaAutomationConstant.ENTRANCE_PANEL_ID;
-import static com.technology.jep.jepria.client.JepRiaAutomationConstant.ENTRANCE_PANEL_LOGOUT_BUTTON_ID;
 import static com.technology.jep.jepria.client.JepRiaAutomationConstant.MODULE_PANEL_ID;
 import static com.technology.jep.jepria.client.JepRiaAutomationConstant.MODULE_TAB_PANEL_ID;
 import static com.technology.jep.jepria.client.JepRiaAutomationConstant.STATUSBAR_PANEL_ID;
@@ -27,16 +26,9 @@ import org.openqa.selenium.support.FindBy;
  * кнопки тулбара, панель вкладок, кнопка выхода и т.д.
  */
 public class JepRiaModulePage extends PlainPage {
+  
+  @SuppressWarnings("unused")
   private static Logger logger = Logger.getLogger(JepRiaLoggedInPage.class.getName());
-
-  @FindBy(id = ENTRANCE_PANEL_ID)
-  private WebElement entranceBarPanel;
-
-  @FindBy(id = ENTRANCE_PANEL_LOGOUT_BUTTON_ID)
-  private WebElement entranceBarLogoutButton;
-
-  @FindBy(id = MODULE_TAB_PANEL_ID)
-  public WebElement moduleTabPanel;
 
   @FindBy(id = TOOLBAR_PANEL_ID)
   public WebElement toolBarPanel;
@@ -90,16 +82,6 @@ public class JepRiaModulePage extends PlainPage {
     return this;
   }
     
-    
-  public boolean isEntranceBarDisplayed() {
-    return getContent().entranceBarPanel.isDisplayed();
-  }
-
-  public void clickLogoutButton() {
-    getContent().entranceBarLogoutButton.click();
-    logger.trace(this.getClass() + ".clickLogoutButton()");
-  }
-
   public String getStatusBarText() {
     return statusBarPanel.getText();
   }

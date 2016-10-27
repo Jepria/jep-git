@@ -9,7 +9,7 @@ import com.technology.jep.jepria.client.ui.WorkstateEnum;
  * @param <A> - Интерфейс взаимодействия с конкретным модулем.
  */
 
-public class ModuleDefinition<A extends JepRiaModuleAuto> {
+public class ModuleDescription<A extends JepRiaModuleAuto> {
 
   /**
    * Конструктор.
@@ -19,7 +19,7 @@ public class ModuleDefinition<A extends JepRiaModuleAuto> {
    * @param moduleAuto - Реализация интерфейса автоматизации.
    * @param moduleAuto - Стартовое состояние при входе в модуль.
    */
-  public ModuleDefinition(String moduleID, String entranceURL, WorkstateEnum entranceWorkstate, A moduleAuto) {
+  public ModuleDescription(String moduleID, String entranceURL, WorkstateEnum entranceWorkstate, A moduleAuto) {
     super();
     this.moduleID = moduleID;
     this.entranceURL = entranceURL;

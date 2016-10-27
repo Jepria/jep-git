@@ -12,11 +12,11 @@ import org.testng.annotations.Parameters;
 
 import com.technology.jep.jepria.auto.JepRiaModuleAuto;
 import com.technology.jep.jepria.auto.JepRiaModuleAutoImpl;
-import com.technology.jep.jepria.auto.entrance.EntranceAutoImpl;
 import com.technology.jep.jepria.auto.entrance.EntranceAuto;
+import com.technology.jep.jepria.auto.entrance.EntranceAutoImpl;
 import com.technology.jep.jepria.auto.exceptions.AutomationException;
 import com.technology.jep.jepria.auto.manager.AutomationManager;
-import com.technology.jep.jepria.auto.model.module.ModuleDefinition;
+import com.technology.jep.jepria.auto.model.module.ModuleDescription;
 import com.technology.jep.jepria.auto.model.user.User;
 import com.technology.jep.jepria.auto.model.user.dao.UserData;
 import com.technology.jep.jepria.auto.util.WebDriverFactory;
@@ -110,7 +110,7 @@ public abstract class JepApplicationAutoTest<A extends AutomationManager> extend
   
   /**
    * Метод вызывается в конце {@link #setUp(String, String, String, String, String, String, String, String, String, String, String) setUp},
-   * непосредственно перед запуском теста. Нужен для того, например, чтобы в нем создать экземпляры {@link ModuleDefinition}.  
+   * непосредственно перед запуском теста. Нужен для того, например, чтобы в нем создать экземпляры {@link ModuleDescription}.  
    */
   protected abstract void beforeTestLaunch();
   
@@ -197,7 +197,7 @@ public abstract class JepApplicationAutoTest<A extends AutomationManager> extend
    * @param module - Модуль.
    */
   @SuppressWarnings("rawtypes")
-  public void enterModule(ModuleDefinition<?> module){
+  public void enterModule(ModuleDescription<?> module){
     
     //вход в приложения, в модуль, для теста
     //baseUrl - заканчивается именем приложения, без /
@@ -216,6 +216,15 @@ public abstract class JepApplicationAutoTest<A extends AutomationManager> extend
       //ждем окончания загрузки модуля
 //      cut.ensureModuleLoaded();
     }
+  }
+  
+  /**
+   * Клик по вкладке на панеле модулей.
+   * @param module - Модуль.
+   */
+  public void switchTab(ModuleDescription<?> module){
+    
+    authorizationAuto.switchTab(module.getModuleID());
   }
   
   /**

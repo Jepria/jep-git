@@ -334,15 +334,5 @@ public interface JepRiaModuleAuto {
    * {@link java.lang.IllegalArgumentException}.
    */
   void doGridColumnSettings(String gridId, String[] columns);
-  
-  
-  
-  
-  // The methods below for MODULE_TAB_PANEL
-  /**
-   * Клик по вкладке на панеле модулей.
-   * 
-   * @param moduleId Идентификатор модуля.
-   */
-  void clickModuleTab(String moduleId);
+
 }

@@ -3,6 +3,7 @@ package com.technology.jep.jepria.auto.entrance;
 import static com.technology.jep.jepria.auto.util.WebDriverFactory.getWait;
 import static com.technology.jep.jepria.client.JepRiaAutomationConstant.JAVASSO_LOGIN_FORM_ID;
 import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
+import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
@@ -11,6 +12,7 @@ import org.openqa.selenium.WebElement;
 import com.technology.jep.jepria.auto.entrance.pages.DefaultLoginPage;
 import com.technology.jep.jepria.auto.entrance.pages.JepRiaLoginPage;
 import com.technology.jep.jepria.auto.entrance.pages.LoginPage;
+import com.technology.jep.jepria.auto.exceptions.AutomationException;
 import com.technology.jep.jepria.auto.pages.AbstractPage;
 import com.technology.jep.jepria.auto.pages.JepRiaLoggedInPage;
 import com.technology.jep.jepria.auto.util.WebDriverFactory;
@@ -128,5 +130,17 @@ public class EntranceAutoImpl implements EntranceAuto {
         .clickLogoutButton();
         
     lastEntranceOperation = LAST_ENTRANCE_OPERATION_LOGOUT;
+  }
+
+  @Override
+  public void switchTab(String moduleId) {
+    
+    try{
+        WebElement moduleTab = getApplicationPage().getModuleTabPanel().findElement(By.id(moduleId));
+        getWait().until(elementToBeClickable(moduleTab));
+        moduleTab.click();
+     } catch(NoSuchElementException e){
+       throw new AutomationException("Can't click " + moduleId + " module tab.", e);
+     } 
   }
 }

@@ -23,4 +23,11 @@ public interface EntranceAuto {
    * Выход из приложения
    */
   void logout();
+  
+  /**
+   * Переключение вкладок.
+   *  
+   * @param moduleId - Идентификатор вкладки.
+   */
+  void switchTab(String moduleId);
 }

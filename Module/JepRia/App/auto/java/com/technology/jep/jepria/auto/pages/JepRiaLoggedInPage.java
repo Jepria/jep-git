@@ -1,8 +1,11 @@
 package com.technology.jep.jepria.auto.pages;
 
 import static com.technology.jep.jepria.auto.util.WebDriverFactory.getWait;
+import static com.technology.jep.jepria.client.JepRiaAutomationConstant.ENTRANCE_PANEL_ID;
+import static com.technology.jep.jepria.client.JepRiaAutomationConstant.ENTRANCE_PANEL_LOGOUT_BUTTON_ID;
 import static com.technology.jep.jepria.client.JepRiaAutomationConstant.LOGGED_IN_USER_ID;
 import static com.technology.jep.jepria.client.JepRiaAutomationConstant.LOGOUT_BUTTON_ID;
+import static com.technology.jep.jepria.client.JepRiaAutomationConstant.MODULE_TAB_PANEL_ID;
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
 import org.apache.log4j.Logger;
@@ -14,6 +17,7 @@ import org.openqa.selenium.support.FindBy;
  * Реализация некоторой (любой) страницы приложения, в которое был выполнен вход
  */
 public class JepRiaLoggedInPage extends PlainPage implements LoggedInPage {
+  
   private static Logger logger = Logger.getLogger(JepRiaLoggedInPage.class.getName());
     
   // TODO Разобраться с тем, что сейчас страница используется и для незалогиненных состояний приложения
@@ -22,6 +26,12 @@ public class JepRiaLoggedInPage extends PlainPage implements LoggedInPage {
 
   @FindBy(id = LOGOUT_BUTTON_ID)
   private WebElement logoutButton;
+  
+  @FindBy(id = ENTRANCE_PANEL_ID)
+  private WebElement entranceBarPanel;
+
+  @FindBy(id = MODULE_TAB_PANEL_ID)
+  private WebElement moduleTabPanel;
 
   @Override
   public JepRiaLoggedInPage ensurePageLoaded() {
@@ -42,5 +52,9 @@ public class JepRiaLoggedInPage extends PlainPage implements LoggedInPage {
     logoutButton.click();
     logger.trace(this.getClass() + "clickLogoutButton()");
   }
-  
+
+  @Override
+  public WebElement getModuleTabPanel() {
+    return moduleTabPanel;
+  }
 }

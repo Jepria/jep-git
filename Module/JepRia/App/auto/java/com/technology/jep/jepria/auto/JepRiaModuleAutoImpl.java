@@ -1154,17 +1154,6 @@ public class JepRiaModuleAutoImpl<P extends JepRiaModulePage> implements JepRiaM
   }
 
   @Override
-  public void clickModuleTab(String moduleId) {
-    try{
-       WebElement moduleTab = page.getContent().moduleTabPanel.findElement(By.id(moduleId));
-       getWait().until(elementToBeClickable(moduleTab));
-       moduleTab.click();
-    } catch(NoSuchElementException e){
-      throw new AutomationException("Can't click " + moduleId + " module tab.", e);
-    } 
-  }
-
-  @Override
   public void ensureModuleLoaded() {
     page.ensurePageLoaded();
   }
