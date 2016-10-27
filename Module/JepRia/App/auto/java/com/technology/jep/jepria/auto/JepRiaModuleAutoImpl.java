@@ -186,8 +186,6 @@ public class JepRiaModuleAutoImpl<P extends JepRiaModulePage> implements JepRiaM
 
   @Override
   public void setWorkstate(WorkstateEnum workstateTo) {
-    page.ensurePageLoaded();//TODO remove page.ensure from every single method
-    
     if(!getCurrentWorkstate().equals(workstateTo))  {
       String toolbarButtonId = getToolbarButtonId(workstateTo);
       if(toolbarButtonId != null) {
@@ -213,8 +211,6 @@ public class JepRiaModuleAutoImpl<P extends JepRiaModulePage> implements JepRiaM
   
   @Override
   public void edit(Map<String, String> template, String gridId) {
-    page.ensurePageLoaded();
-    
     doSearch(template);
     
     selectItem(0, gridId);
@@ -295,19 +291,15 @@ public class JepRiaModuleAutoImpl<P extends JepRiaModulePage> implements JepRiaM
 
   @Override
   public void setFieldValue(String fieldId, String value) {
-    page.ensurePageLoaded();
+    WebElement fieldInput = WebDriverFactory.getDriver().findElement(By.id(fieldId + JEP_FIELD_INPUT_POSTFIX)); 
+    getWait().until(elementToBeClickable(fieldInput));
     
-      WebElement fieldInput = WebDriverFactory.getDriver().findElement(By.id(fieldId + JEP_FIELD_INPUT_POSTFIX)); 
-      getWait().until(elementToBeClickable(fieldInput));
-      
-      String del = Keys.chord(Keys.CONTROL, "a") + Keys.DELETE; 
-      fieldInput.sendKeys(del + value);
-
+    String del = Keys.chord(Keys.CONTROL, "a") + Keys.DELETE; 
+    fieldInput.sendKeys(del + value);
   }
 
   @Override
   public String getFieldValue(String fieldId) {
-    page.ensurePageLoaded();
     String value = "";
     
     try{
@@ -322,8 +314,6 @@ public class JepRiaModuleAutoImpl<P extends JepRiaModulePage> implements JepRiaM
   
   @Override
   public void setLargeFieldValue(String fieldId, String pathToFile) {
-    page.ensurePageLoaded();
-    
     WebElement fieldInput = WebDriverFactory.getDriver().findElement(By.id(fieldId + JEP_FIELD_INPUT_POSTFIX)); 
     getWait().until(elementToBeClickable(fieldInput));
     
@@ -332,32 +322,27 @@ public class JepRiaModuleAutoImpl<P extends JepRiaModulePage> implements JepRiaM
   
   @Override
   public String[] getDualListFieldValues(String jepDualListFieldId) {
-    page.ensurePageLoaded();
-    
     // Получаем список всех опций внутри INPUT'а заданного поля (INPUT это правый список)
-      List<WebElement> options = WebDriverFactory.getDriver().findElements(By.xpath(
-          String.format("//*[@id='%s']//option",
-              jepDualListFieldId + JEP_FIELD_INPUT_POSTFIX)));
-      
-      List<String> ret = new ArrayList<String>();
-      
-      // Проходим по полученному списку, и, для каждой опции, получаем ее option-value
-      for (WebElement option: options) { 
-          ret.add(option.getAttribute(JEP_OPTION_VALUE_HTML_ATTR));
-      }
-      return ret.toArray(new String[ret.size()]);
+    List<WebElement> options = WebDriverFactory.getDriver().findElements(By.xpath(
+        String.format("//*[@id='%s']//option",
+            jepDualListFieldId + JEP_FIELD_INPUT_POSTFIX)));
+    
+    List<String> ret = new ArrayList<String>();
+    
+    // Проходим по полученному списку, и, для каждой опции, получаем ее option-value
+    for (WebElement option: options) { 
+        ret.add(option.getAttribute(JEP_OPTION_VALUE_HTML_ATTR));
+    }
+    return ret.toArray(new String[ret.size()]);
   }
   
   @Override
   public void selectComboBoxMenuItem(String comboBoxFieldId, String menuItem) {
-    page.ensurePageLoaded();
-    
     selectComboBoxMenuItem(comboBoxFieldId, menuItem, false, menuItem.length());
   }
   
   @Override
   public void selectComboBoxMenuItemWithCharByCharReloadingOptions(String comboBoxFieldId, String menuItem, int minInputLength) {
-    page.ensurePageLoaded();
     // 1 is the minimal possible value
     selectComboBoxMenuItem(comboBoxFieldId, menuItem, true, Math.max(1, minInputLength));
   }
@@ -447,8 +432,6 @@ public class JepRiaModuleAutoImpl<P extends JepRiaModulePage> implements JepRiaM
   
   @Override
   public void selectDualListMenuItems(String dualListFieldId, String[] menuItems) {
-    page.ensurePageLoaded();
-    
     // Очищаем правый список (переносим все влево)
     final WebElement moveAllLeftButton = WebDriverFactory.getDriver().
         findElement(By.id(dualListFieldId + JEP_DUAL_LIST_FIELD_MOVEALLLEFT_BTN_POSTFIX));
@@ -485,7 +468,6 @@ public class JepRiaModuleAutoImpl<P extends JepRiaModulePage> implements JepRiaM
   @Override
   public SaveResultEnum save() {
     SaveResultEnum result = null;
-    page.ensurePageLoaded();
     
     getWait().until(elementToBeClickable(By.id(TOOLBAR_SAVE_BUTTON_ID)));
     
@@ -564,7 +546,6 @@ public class JepRiaModuleAutoImpl<P extends JepRiaModulePage> implements JepRiaM
     return toolbarButtonId;
   }
   
-  
   private boolean isDisplayed(String id) {
     try {
       WebDriverFactory.getDriver().findElement(By.id(id));
@@ -591,8 +572,6 @@ public class JepRiaModuleAutoImpl<P extends JepRiaModulePage> implements JepRiaM
 
   @Override
   public void setCheckBoxFieldValue(String checkBoxFieldId, boolean checked) {
-    page.ensurePageLoaded();
-    
     WebElement fieldInput = WebDriverFactory.getDriver().findElement(By.id(checkBoxFieldId + JEP_FIELD_INPUT_POSTFIX)); 
     
     if (fieldInput.isSelected() != checked) {
@@ -603,8 +582,6 @@ public class JepRiaModuleAutoImpl<P extends JepRiaModulePage> implements JepRiaM
 
   @Override
   public void changeCheckBoxFieldValue(String checkBoxFieldId) {
-    page.ensurePageLoaded();
-    
     WebElement fieldInput = WebDriverFactory.getDriver().findElement(By.id(checkBoxFieldId + JEP_FIELD_INPUT_POSTFIX)); 
     
     getWait().until(elementToBeClickable(fieldInput));
@@ -613,16 +590,12 @@ public class JepRiaModuleAutoImpl<P extends JepRiaModulePage> implements JepRiaM
 
   @Override
   public boolean getCheckBoxFieldValue(String checkBoxFieldId) {
-    page.ensurePageLoaded();
-    
     WebElement fieldInput = WebDriverFactory.getDriver().findElement(By.id(checkBoxFieldId + JEP_FIELD_INPUT_POSTFIX));
     return fieldInput.isSelected();
   }
 
   @Override
   public void selectAllListMenuItems(String listFieldId, boolean selectAll) {
-    page.ensurePageLoaded();
-    
     // Cначала пробуем сделать это кнопкой "выделить все"
     WebElement selectAllCheckBox = WebDriverFactory.getDriver().
         findElement(By.id(listFieldId + JEP_LIST_FIELD_CHECKALL_POSTFIX));
@@ -667,8 +640,6 @@ public class JepRiaModuleAutoImpl<P extends JepRiaModulePage> implements JepRiaM
   
   @Override
   public void selectListMenuItems(String listFieldId, String[] menuItems) {
-    page.ensurePageLoaded();
-    
     // Снимаем все флажки
     selectAllListMenuItems(listFieldId, false);
     
@@ -696,29 +667,25 @@ public class JepRiaModuleAutoImpl<P extends JepRiaModulePage> implements JepRiaM
 
   @Override
   public String[] getListFieldValues(String jepListFieldId) {
-    page.ensurePageLoaded();
-    
     // Получаем список всех чекбоксов внутри INPUT'а заданного поля 
-      List<WebElement> allCheckBoxes = WebDriverFactory.getDriver().findElements(By.xpath(
-          String.format("//*[@id='%s']//*[starts-with(@id, '%s')]",
-              jepListFieldId + JEP_FIELD_INPUT_POSTFIX,
-              jepListFieldId + JEP_LIST_FIELD_ITEM_CHECKBOX_INFIX)));
-      
-      List<String> ret = new ArrayList<String>();
-      
-      // Проходим по полученному списку, и, для отмеченных чекбоксов, получаем их option-value
-      for (WebElement checkbox: allCheckBoxes) {
-        if (checkbox.isSelected()) {
-          ret.add(checkbox.getAttribute(JEP_OPTION_VALUE_HTML_ATTR));
-        }
+    List<WebElement> allCheckBoxes = WebDriverFactory.getDriver().findElements(By.xpath(
+        String.format("//*[@id='%s']//*[starts-with(@id, '%s')]",
+            jepListFieldId + JEP_FIELD_INPUT_POSTFIX,
+            jepListFieldId + JEP_LIST_FIELD_ITEM_CHECKBOX_INFIX)));
+    
+    List<String> ret = new ArrayList<String>();
+    
+    // Проходим по полученному списку, и, для отмеченных чекбоксов, получаем их option-value
+    for (WebElement checkbox: allCheckBoxes) {
+      if (checkbox.isSelected()) {
+        ret.add(checkbox.getAttribute(JEP_OPTION_VALUE_HTML_ATTR));
       }
-      return ret.toArray(new String[ret.size()]);
+    }
+    return ret.toArray(new String[ret.size()]);
   }
 
   @Override
   public void selectTreeItems(String treeFieldId, String[] itemPaths) {
-    page.ensurePageLoaded();
-    
     // Ждем загрузки данных в поле (а именно, появления элементов span)
     getWait().until(presenceOfElementLocated(By.xpath(
         String.format("//*[@id='%s']//span[starts-with(@id, '%s')]",
@@ -876,8 +843,6 @@ public class JepRiaModuleAutoImpl<P extends JepRiaModulePage> implements JepRiaM
   
   @Override
   public boolean selectAllTreeItems(String treeFieldId, boolean selectAll) {
-    page.ensurePageLoaded();
-    
     // Cначала пробуем сделать это кнопкой "выделить все"
     WebElement selectAllCheckBox = WebDriverFactory.getDriver().
         findElement(By.id(treeFieldId + JEP_TREE_FIELD_CHECKALL_POSTFIX));
@@ -915,8 +880,6 @@ public class JepRiaModuleAutoImpl<P extends JepRiaModulePage> implements JepRiaM
   
   @Override
   public String[] getTreeFieldNodesByFilter(String treeFieldId, TreeItemFilter filter) {
-    page.ensurePageLoaded();
-    
     // Начинаем обход с элемента INPUT поля JepTreeField
     List<String> ret = traverseTree(
         WebDriverFactory.getDriver().findElement(By.id(treeFieldId + JEP_FIELD_INPUT_POSTFIX)),
@@ -993,8 +956,6 @@ public class JepRiaModuleAutoImpl<P extends JepRiaModulePage> implements JepRiaM
   
   @Override
   public boolean isFieldVisible(String fieldId) {
-    page.ensurePageLoaded();
-    
     // visiblity can be determined by "aria-hidden" attribute of the entire field element
     WebElement element = WebDriverFactory.getDriver().findElement(By.id(fieldId));
     return !"true".equals(element.getAttribute("aria-hidden"));
@@ -1003,8 +964,6 @@ public class JepRiaModuleAutoImpl<P extends JepRiaModulePage> implements JepRiaM
   
   @Override
   public boolean isFieldEnabled(String fieldId) {
-    page.ensurePageLoaded();
-    
     // enability can be determined by "disabled" attribute of the field's INPUT element
     WebElement element = WebDriverFactory.getDriver().findElement(By.id(fieldId + JEP_FIELD_INPUT_POSTFIX));
     return !"true".equals(element.getAttribute("disabled"));
@@ -1012,8 +971,6 @@ public class JepRiaModuleAutoImpl<P extends JepRiaModulePage> implements JepRiaM
 
   @Override
   public boolean isFieldEditable(String fieldId) {
-    page.ensurePageLoaded();
-    
     // get all div children (but not grandchildren) of the field
     List<WebElement> potentialCards = WebDriverFactory.getDriver().findElements(By.xpath(
         String.format("//*[@id='%s']/div",
@@ -1058,8 +1015,6 @@ public class JepRiaModuleAutoImpl<P extends JepRiaModulePage> implements JepRiaM
 
   @Override
   public boolean isFieldAllowBlank(String fieldId) {
-    page.ensurePageLoaded();
-    
     try {
       WebDriverFactory.getDriver().findElement(By.id(fieldId + JEP_FIELD_ALLOW_BLANK_POSTFIX));
       return false;
@@ -1075,13 +1030,8 @@ public class JepRiaModuleAutoImpl<P extends JepRiaModulePage> implements JepRiaM
   
   
   
-  
-  
-  
   @Override
   public List<String> getGridHeaders(String gridId) {
-    page.ensurePageLoaded();
-    
     List<String> ret = new ArrayList<String>();
     
     List<WebElement> headers = WebDriverFactory.getDriver().findElements(By.xpath(
@@ -1096,8 +1046,6 @@ public class JepRiaModuleAutoImpl<P extends JepRiaModulePage> implements JepRiaM
 
   @Override
   public List<List<Object>> getGridDataRowwise(String gridId) {
-    page.ensurePageLoaded();
-    
     // TODO get rid of this sleeping, but somehow wait until the grid is loaded!
     sleep(500);
     
@@ -1128,8 +1076,6 @@ public class JepRiaModuleAutoImpl<P extends JepRiaModulePage> implements JepRiaM
 
   @Override
   public void doGridColumnSettings(String gridId, String[] columns) {
-    page.ensurePageLoaded();
-
     // Locate the first column header (as far as there is no difference which column to call settings menu on)
     Actions actions = new Actions(WebDriverFactory.getDriver());
     WebElement firstColHeader = WebDriverFactory.getDriver().findElement(By.xpath(
@@ -1214,8 +1160,6 @@ public class JepRiaModuleAutoImpl<P extends JepRiaModulePage> implements JepRiaM
 
   @Override
   public void clickModuleTab(String moduleId) {
-    page.ensurePageLoaded();
-    
     try{
        WebElement moduleTab = page.getContent().moduleTabPanel.findElement(By.id(moduleId));
        getWait().until(elementToBeClickable(moduleTab));
