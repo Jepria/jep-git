@@ -168,14 +168,21 @@ public abstract class JepApplicationAutoTest<A extends AutomationManager> extend
     }
   }
 
+  /**
+   * Вход в модуль для прохождения теста.
+   * @param module - Модуль.
+   */
   public void enterModule(ModuleDefinition module){
     
-    //вход в нужный модуль приложения для теста
-    //TODO: разобраться с baseUrl
+    //вход в приложения, в модуль, для теста
+    //baseUrl - заканчивается именем приложения, без /
     WebDriverFactory.getDriver().get(baseUrl + "/" + module.getEntranceURL());
     
     //установка в cut текущего модуля
     cut = module.getModuleAuto();
+    
+    //ждем окончания загрузки страницы
+    cut.ensureModuleLoaded();
   }
   
   /**

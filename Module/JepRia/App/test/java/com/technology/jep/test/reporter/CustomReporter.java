@@ -78,6 +78,7 @@ public class CustomReporter implements IReporter {
         }
         
         //failed status with exceptions
+        //TODO: sort test results??
         print("    Failed|" + testContext.getFailedTests().size());
         IResultMap failedResult = testContext.getFailedTests();
         Set<ITestResult> testsFailed = failedResult.getAllResults();
