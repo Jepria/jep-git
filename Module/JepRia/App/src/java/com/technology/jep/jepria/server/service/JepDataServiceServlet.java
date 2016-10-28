@@ -585,7 +585,7 @@ abstract public class JepDataServiceServlet<D extends JepDataStandard> extends J
    * 
    * @param findConfig конфигурация поиска
    */
-  private void clearFoundRecords(FindConfig findConfig) {
+  protected final void clearFoundRecords(FindConfig findConfig) {
     HttpSession session = getThreadLocalRequest().getSession();
     session.removeAttribute(FOUND_RECORDS_SESSION_ATTRIBUTE + findConfig.getListUID());
   }

@@ -92,10 +92,10 @@ public abstract class JepAbstractSecurityModule implements JepSecurityModule {
    * @param makeError признак: выбрасывать исключение (значение true) или нет (значение false)
    * @return true - если текущему оператору принадлежит роль role, false или исключение
    * (в зависимости от параметра makeError) в противном случае
-   * @throws Exception
+   * @throws ApplicationException
    */
   @Override
-  public boolean isRole(String role, boolean makeError) throws Exception {
+  public boolean isRole(String role, boolean makeError) throws ApplicationException {
     boolean include = roles.contains(role);
     if (include)
       return true;
