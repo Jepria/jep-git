@@ -1,4 +1,4 @@
-package com.technology.jep.auto.entrance;
+/*package com.technology.jep.auto.entrance;
 
 import org.testng.AssertJUnit;
 import org.testng.annotations.AfterMethod;
@@ -36,3 +36,4 @@ public class EntranceAutoTest {
     AssertJUnit.assertNotNull(cut.getEntranceAuto());
   }
 }
+*/

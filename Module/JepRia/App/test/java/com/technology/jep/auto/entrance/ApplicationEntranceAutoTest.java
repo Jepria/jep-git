@@ -1,4 +1,5 @@
-package com.technology.jep.auto.entrance;
+
+/*package com.technology.jep.auto.entrance;
 
 import static com.technology.jep.jepria.auto.JepAutoProperties.PASSWORD_KEY;
 import static com.technology.jep.jepria.auto.JepAutoProperties.USERNAME_KEY;
@@ -32,7 +33,7 @@ public class ApplicationEntranceAutoTest {
     
     automationManager = new ApplicationEntranceAppAuto(baseUrl, browserName, browserVersion, browserPlatform, browserPath, driverPath, jepriaVersion, username, password);
     automationManager.start(baseUrl);
-      cut = automationManager.getEntranceAuto();
+    cut = automationManager.getEntranceAuto();
   }
   
   @AfterMethod
@@ -102,3 +103,4 @@ public class ApplicationEntranceAutoTest {
     AssertJUnit.assertFalse(cut.isLoggedIn());
   }
 }
+*/
