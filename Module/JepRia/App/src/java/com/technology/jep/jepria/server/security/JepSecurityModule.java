@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSessionBindingListener;
 
+import com.technology.jep.jepria.shared.exceptions.ApplicationException;
+
 public interface JepSecurityModule extends HttpSessionBindingListener {
   /**
    * Получение Id пользователя
@@ -58,9 +60,9 @@ public interface JepSecurityModule extends HttpSessionBindingListener {
    * @param makeError  признак: выбрасывать исключение (значение true) или нет (значение false)
    * @return true - если текущему оператору принадлежит роль role, false или исключение
    * (в зависимости от параметра makeError) в противном случае
-   * @throws Exception
+   * @throws ApplicationException
    */
-  boolean isRole(String role, boolean makeError) throws Exception;
+  boolean isRole(String role, boolean makeError) throws ApplicationException;
   
   /**
    * Возвращает идентификатор оператора залогинившегося через JavaSSO. Если

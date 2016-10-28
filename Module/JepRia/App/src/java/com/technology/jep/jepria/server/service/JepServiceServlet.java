@@ -23,6 +23,20 @@ abstract public class JepServiceServlet extends RemoteServiceServlet implements 
     return SecurityFactory.getSecurityModule(getThreadLocalRequest()).getOperatorId();
   }
   
+  /**
+   * Проверка роли. <br/>
+   * Использует {@link #com.technology.jep.jepria.server.security.JepSecurityModule.isRole(String, boolean) isRole}.
+   * 
+   * @param role проверяемая роль
+   * @param makeError  признак: выбрасывать исключение (значение true) или нет (значение false)
+   * @return true - если текущему оператору принадлежит роль role, false или исключение
+   * (в зависимости от параметра makeError) в противном случае
+   * @throws Exception
+   */
+  protected boolean isRole(String role, boolean makeError) throws ApplicationException {
+    return SecurityFactory.getSecurityModule(getThreadLocalRequest()).isRole(role, makeError);
+  }
+  
   protected ApplicationException buildException(String message, Throwable th) {
     return new ApplicationException(message, th);
   }
