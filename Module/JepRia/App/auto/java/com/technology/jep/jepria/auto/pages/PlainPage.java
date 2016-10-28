@@ -5,19 +5,24 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElemen
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.PageFactory;
 
 import com.technology.jep.jepria.auto.util.WebDriverFactory;
 
-public abstract class PlainPage extends AbstractPage {
+public abstract class PlainPage implements Page {
 
+  public PlainPage() {
+    PageFactory.initElements(new DisplayedElementLocatorFactory(10), this);
+  }
+  
   @Override
-  public PlainPage ensurePageLoaded() {
+  public void ensurePageLoaded() {
     WebDriverFactory.getDriver().switchTo().defaultContent();
     getWait().until(presenceOfElementLocated(By.xpath("//body")));
-    return this;
   }
 
-  public PlainPage getContent() {
+  @Override
+  public Page getContent() {
     WebDriverFactory.getDriver()
         .switchTo()
         .defaultContent();

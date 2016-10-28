@@ -3,7 +3,6 @@ package com.technology.jep.jepria.auto;
 import java.util.List;
 import java.util.Map;
 
-import com.technology.jep.jepria.auto.pages.AbstractPage;
 import com.technology.jep.jepria.auto.widget.field.Field;
 import com.technology.jep.jepria.auto.widget.statusbar.StatusBar;
 import com.technology.jep.jepria.client.ui.WorkstateEnum;

@@ -3,9 +3,9 @@ package com.technology.jep.jepria.auto.pages;
 import org.openqa.selenium.WebElement;
 
 /**
- * Интерфейс любой страницы приложения, в которое был выполен вход.  
+ * Интерфейс любой страницы <b>уровня приложения</b>, в которое был выполен вход.
  */
-public interface LoggedInPage {
+public interface AbstractApplicationPage extends Page {
 
   /**
    * Получение username залогиненного пользователя

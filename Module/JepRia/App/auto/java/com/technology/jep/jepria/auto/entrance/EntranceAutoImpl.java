@@ -2,8 +2,8 @@ package com.technology.jep.jepria.auto.entrance;
 
 import static com.technology.jep.jepria.auto.util.WebDriverFactory.getWait;
 import static com.technology.jep.jepria.client.JepRiaAutomationConstant.JAVASSO_LOGIN_FORM_ID;
-import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
 import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
+import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
@@ -13,8 +13,8 @@ import com.technology.jep.jepria.auto.entrance.pages.DefaultLoginPage;
 import com.technology.jep.jepria.auto.entrance.pages.JepRiaLoginPage;
 import com.technology.jep.jepria.auto.entrance.pages.LoginPage;
 import com.technology.jep.jepria.auto.exceptions.AutomationException;
-import com.technology.jep.jepria.auto.pages.AbstractPage;
-import com.technology.jep.jepria.auto.pages.JepRiaLoggedInPage;
+import com.technology.jep.jepria.auto.pages.JepRiaApplicationPage;
+import com.technology.jep.jepria.auto.pages.AbstractApplicationPage;
 import com.technology.jep.jepria.auto.util.WebDriverFactory;
 import com.technology.jep.jepria.client.JepRiaAutomationConstant;
 
@@ -30,7 +30,7 @@ public class EntranceAutoImpl implements EntranceAuto {
    * Собственно страница приложения.<br>
    * <b>Обращаться не напрямую, а только через {@link #getApplicationPage()}!</b> 
    */
-  private JepRiaLoggedInPage applicationPage;
+  private AbstractApplicationPage applicationPage;
   
   /**
    * Метод доступа к логин-странице, реализующий её отложенную инициализацию.
@@ -56,9 +56,9 @@ public class EntranceAutoImpl implements EntranceAuto {
   /**
    * Метод доступа к странице приложения, реализующий её отложенную инициализацию.
    */
-  private JepRiaLoggedInPage getApplicationPage() {
+  private AbstractApplicationPage getApplicationPage() {
     if (applicationPage == null) {
-      this.applicationPage = new JepRiaLoggedInPage();
+      this.applicationPage = new JepRiaApplicationPage();
     }
     return applicationPage;
   }
@@ -73,8 +73,8 @@ public class EntranceAutoImpl implements EntranceAuto {
 
   @Override
   public void login(String username, String password) {
-    if(lastEntranceOperation != LAST_ENTRANCE_OPERATION_LOGIN) {
-      ((AbstractPage)getLoginPage()).ensurePageLoaded();
+    if(!isLoggedIn()) {
+      getLoginPage().ensurePageLoaded();
       
       getLoginPage()
           .setUsername(username)
@@ -82,56 +82,43 @@ public class EntranceAutoImpl implements EntranceAuto {
           .doLogin();
           
       lastEntranceOperation = LAST_ENTRANCE_OPERATION_LOGIN;
+      
+      // wait until the application is loaded after logging in
+      getApplicationPage().ensurePageLoaded();
     }
   }
 
   @Override
   public boolean isLoggedIn() {
-    boolean result = false;
-    switch (lastEntranceOperation) {
-    case LAST_ENTRANCE_OPERATION_LOGIN:
+    if (lastEntranceOperation == LAST_ENTRANCE_OPERATION_LOGIN) {
+      return true;
+    } else if (lastEntranceOperation == LAST_ENTRANCE_OPERATION_LOGOUT) {
+      return false;
+    } else {
+      // В данном тесте еще не было ни логина, ни логаута. С вероятностью 99%, входим под уже залогиненным пользователем // TODO а если нет?
       try {
-        getApplicationPage()
-            .ensurePageLoaded();
-            result = true;
-      } catch (NoSuchElementException e) {
-        System.out.println("[NoSuchElementException] login page not loaded, " + e.toString());
-        result = false; 
-      }
-      break;
-    case LAST_ENTRANCE_OPERATION_LOGOUT:
-      try {
-        ((AbstractPage)getLoginPage()).ensurePageLoaded();//TODO do not cast
-      } catch (NoSuchElementException e) {
-        System.out.println("[NoSuchElementException] login page not loaded, " + e.toString());
-        result = true; 
-      }
-      result = false;
-      break;
-    default:
-      // Проверка первого входа на уже залогиненную страницу
-      try {
+        getApplicationPage().ensurePageLoaded();
         WebElement usernameField = WebDriverFactory.getDriver().findElement(By.id(JepRiaAutomationConstant.LOGGED_IN_USER_ID));
-        result = usernameField.isDisplayed(); 
+        return usernameField.isDisplayed(); 
       } catch (Exception ex) {
-        result = false;
+        return false;
       }
-      
-      break;
-    }    
-      
-    return result;
+    }
   }
 
   @Override
   public void logout() {
-    getApplicationPage()
-        .ensurePageLoaded()
-        .clickLogoutButton();
-        
-    lastEntranceOperation = LAST_ENTRANCE_OPERATION_LOGOUT;
+    if (isLoggedIn()) {
+      getApplicationPage().ensurePageLoaded();
+      getApplicationPage().clickLogoutButton();
+          
+      lastEntranceOperation = LAST_ENTRANCE_OPERATION_LOGOUT;
+      
+      // wait until the login page is loaded after logging out
+      getLoginPage().ensurePageLoaded();
+    }
   }
-
+  
   @Override
   public void switchTab(String moduleId) {
     

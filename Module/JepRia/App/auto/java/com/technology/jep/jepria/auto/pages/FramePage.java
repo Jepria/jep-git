@@ -9,7 +9,7 @@ import org.openqa.selenium.support.FindBy;
 
 import com.technology.jep.jepria.auto.util.WebDriverFactory;
 
-public abstract class FramePage extends AbstractPage {
+public abstract class FramePage implements Page {
 
   @FindBy(name = "navigation")
   public WebElement navigation;
@@ -25,15 +25,24 @@ public abstract class FramePage extends AbstractPage {
   }
 
   @Override
-  public FramePage ensurePageLoaded() {
+  public void ensurePageLoaded() {
     WebDriverFactory.getDriver().switchTo().defaultContent();
     getWait().until(presenceOfElementLocated(By.xpath("//frameset")));
 
     if (verifyLocale(Locale.ENG)) {
-      return switchLocale().ensurePageLoaded();
+      switchLocale().ensurePageLoaded();
     }
 
     WebDriverFactory.getDriver().switchTo().defaultContent();
+  }
+  
+  @Override
+  public FramePage getContent() {
+    WebDriverFactory.getDriver()
+        .switchTo()
+        .defaultContent()
+        .switchTo()
+        .frame(content);
     return this;
   }
 
@@ -46,15 +55,6 @@ public abstract class FramePage extends AbstractPage {
     return this;
   }
 
-  public FramePage getContent() {
-    WebDriverFactory.getDriver()
-        .switchTo()
-        .defaultContent()
-        .switchTo()
-        .frame(content);
-    return this;
-  }
-    
   public WebElement waitContentElementToLoad(By by) {
     return getWait().until(presenceOfElementLocated(by));
   }
@@ -74,7 +74,9 @@ public abstract class FramePage extends AbstractPage {
   }
 
   public FramePage switchLocale() {
-    this.ensurePageLoaded().getNavigation().locale.click();
-    return this.ensurePageLoaded().getNavigation();
+    ensurePageLoaded();
+    this.getNavigation().locale.click();
+    ensurePageLoaded();
+    return this.getNavigation();
   }
 }

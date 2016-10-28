@@ -156,36 +156,24 @@ public abstract class JepApplicationAutoTest<A extends AutomationManager> extend
     login(defaultUser);
   }
   
+  /**
+   * Метод для входа в приложение под заданным пользователем.
+   * Если вход в приложение уже выполнен, то выполняется выход, затем вход.
+   * После успешного входа метод дожидается полной загрузки страницы.
+   * @param user
+   */
   protected void login(User user) {
-    
-    try {
-      Thread.sleep(1000);
-    } catch (InterruptedException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
-    
     if (authorizationAuto.isLoggedIn()) {
       authorizationAuto.logout();
     }
-    
-    try {
-      Thread.sleep(1000);
-    } catch (InterruptedException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
-    
     authorizationAuto.login(user.getLogin(), user.getPassword());
-    
-    try {
-      Thread.sleep(1000);
-    } catch (InterruptedException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
   }
   
+  /**
+   * Метод для выхода из приложения.
+   * Если входа еще не было, ничего не происходит.
+   * После успешного выхода метод дожидается полной загрузки логин-страницы.
+   */
   protected void logout() {
     if (authorizationAuto.isLoggedIn()) {
       authorizationAuto.logout();
@@ -207,15 +195,7 @@ public abstract class JepApplicationAutoTest<A extends AutomationManager> extend
     cut = module.getModuleAuto();
 
     //устанавливаем стартовое состояние
-    ((JepRiaModuleAutoImpl) cut).setCurrentWorkstate(module.getEntranceWorkstate());
-    
-    //TODO: ensureLoaded??
-    //ждем окончания загрузки страницы, либо страница модуля, 
-    //либо страница авторизации
-    if(authorizationAuto.isLoggedIn()){
-      //ждем окончания загрузки модуля
-//      cut.ensureModuleLoaded();
-    }
+    ((JepRiaModuleAutoImpl) cut).setCurrentWorkstate(module.getEntranceWorkstate());//TODO do not cast
   }
   
   /**

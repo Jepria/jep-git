@@ -30,6 +30,8 @@ public class GwtSelect {
         arrowBtn.click();
         optionBtn = page.waitContentElementToLoad(By.xpath(valueXpath + option + "']"));
         optionBtn.click();
-        return this.page.ensurePageLoaded();
+        page.ensurePageLoaded();
+        
+        return this.page;
     }
 }

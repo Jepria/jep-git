@@ -12,9 +12,8 @@ public class StatusBarImpl implements StatusBar {
 
   @Override
   public String getText() {
-    return page
-        .ensurePageLoaded()
-        .getStatusBarText();
+    page.ensurePageLoaded();
+    return page.getStatusBarText();
   }
 
 }

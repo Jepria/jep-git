@@ -54,11 +54,11 @@ public class DefaultLoginPage extends PlainPage implements LoginPage {
    * @see com.technology.jep.auto.entrance.pages.LoginPage#ensurePageLoaded()
    */
   @Override
-  public DefaultLoginPage ensurePageLoaded() {
-    super.ensurePageLoaded().getContent();
+  public void ensurePageLoaded() {
+    super.ensurePageLoaded();
+    super.getContent();
 
     getWait().until(presenceOfElementLocated(By.xpath("//form[@name='loginForm']")));
-    return this;
   }
 
   @Override

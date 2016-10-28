@@ -28,7 +28,7 @@ import org.openqa.selenium.support.FindBy;
 public class JepRiaModulePage extends PlainPage {
   
   @SuppressWarnings("unused")
-  private static Logger logger = Logger.getLogger(JepRiaLoggedInPage.class.getName());
+  private static Logger logger = Logger.getLogger(JepRiaApplicationPage.class.getName());
 
   @FindBy(id = TOOLBAR_PANEL_ID)
   public WebElement toolBarPanel;
@@ -70,7 +70,7 @@ public class JepRiaModulePage extends PlainPage {
   }
 
   @Override
-  public JepRiaModulePage ensurePageLoaded() {
+  public void ensurePageLoaded() {
     super.ensurePageLoaded();
     
     getWait().until(visibilityOfElementLocated(By.id(ENTRANCE_PANEL_ID)));
@@ -78,8 +78,6 @@ public class JepRiaModulePage extends PlainPage {
     getWait().until(visibilityOfElementLocated(By.id(TOOLBAR_PANEL_ID)));
     getWait().until(visibilityOfElementLocated(By.id(MODULE_PANEL_ID)));
     getWait().until(visibilityOfElementLocated(By.id(STATUSBAR_PANEL_ID)));
-    
-    return this;
   }
     
   public String getStatusBarText() {
