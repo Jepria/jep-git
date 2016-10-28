@@ -28,18 +28,17 @@ public class JepRiaLoginPage extends PlainPage implements LoginPage {
    * @see com.technology.jep.auto.entrance.pages.LoginPage#setUsername(java.lang.String)
    */
   @Override
-  public LoginPage setUsername(String login) {
-    getContent().loginField.sendKeys(login);
-    return this;
+  public void setUsername(String login) {
+    getContent();
+    loginField.sendKeys(login);
   }
 
   /* (non-Javadoc)
    * @see com.technology.jep.auto.entrance.pages.LoginPage#setPassword(java.lang.String)
    */
   @Override
-  public LoginPage setPassword(String pswd) {
+  public void setPassword(String pswd) {
     passwordField.sendKeys(pswd);
-    return this;
   }
 
   /* (non-Javadoc)
@@ -60,10 +59,5 @@ public class JepRiaLoginPage extends PlainPage implements LoginPage {
         
     getWait().until(presenceOfElementLocated(By.id(JepRiaAutomationConstant.LOGIN_USERNAME_FIELD_ID)));
     getWait().until(presenceOfElementLocated(By.id(JepRiaAutomationConstant.LOGIN_PASSWORD_FIELD_ID)));
-  }
-
-  @Override
-  public JepRiaLoginPage getContent() {
-      return (JepRiaLoginPage) super.getContent();
   }
 }

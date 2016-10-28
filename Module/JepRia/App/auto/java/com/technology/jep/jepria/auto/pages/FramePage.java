@@ -37,13 +37,12 @@ public abstract class FramePage implements Page {
   }
   
   @Override
-  public FramePage getContent() {
+  public void getContent() {
     WebDriverFactory.getDriver()
         .switchTo()
         .defaultContent()
         .switchTo()
         .frame(content);
-    return this;
   }
 
   public FramePage getNavigation() {

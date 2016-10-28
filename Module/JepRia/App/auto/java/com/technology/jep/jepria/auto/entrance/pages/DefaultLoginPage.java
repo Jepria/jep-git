@@ -28,18 +28,17 @@ public class DefaultLoginPage extends PlainPage implements LoginPage {
    * @see com.technology.jep.auto.entrance.pages.LoginPage#setUsername(java.lang.String)
    */
   @Override
-  public LoginPage setUsername(String login) {
-    getContent().loginField.sendKeys(login);
-    return this;
+  public void setUsername(String login) {
+    getContent();
+    loginField.sendKeys(login);
   }
 
   /* (non-Javadoc)
    * @see com.technology.jep.auto.entrance.pages.LoginPage#setPassword(java.lang.String)
    */
   @Override
-  public LoginPage setPassword(String pswd) {
+  public void setPassword(String pswd) {
     pswdField.sendKeys(pswd);
-    return this;
   }
 
   /* (non-Javadoc)
@@ -59,10 +58,5 @@ public class DefaultLoginPage extends PlainPage implements LoginPage {
     super.getContent();
 
     getWait().until(presenceOfElementLocated(By.xpath("//form[@name='loginForm']")));
-  }
-
-  @Override
-  public DefaultLoginPage getContent() {
-    return (DefaultLoginPage) super.getContent();
   }
 }

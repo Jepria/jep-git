@@ -12,5 +12,5 @@ public interface Page {
   /**
    * Legacy-метод, ранее находившийся в {@link FramePage} и {@link PlainPage}. TODO Осознать, зачем он нужен?
    */
-  Page getContent();
+  void getContent();
 }

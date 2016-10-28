@@ -65,11 +65,6 @@ public class JepRiaModulePage extends PlainPage {
   public WebElement alertMessageBox;
   
   @Override
-  public JepRiaModulePage getContent() {
-      return (JepRiaModulePage) super.getContent();
-  }
-
-  @Override
   public void ensurePageLoaded() {
     super.ensurePageLoaded();
     

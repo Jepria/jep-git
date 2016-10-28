@@ -7,9 +7,9 @@ import com.technology.jep.jepria.auto.pages.Page;
  */
 public interface LoginPage extends Page {
 
-  LoginPage setUsername(String username);
+  void setUsername(String username);
 
-  LoginPage setPassword(String password);
+  void setPassword(String password);
 
   void doLogin();
 }

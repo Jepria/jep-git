@@ -76,10 +76,9 @@ public class EntranceAutoImpl implements EntranceAuto {
     if(!isLoggedIn()) {
       getLoginPage().ensurePageLoaded();
       
-      getLoginPage()
-          .setUsername(username)
-          .setPassword(password)
-          .doLogin();
+      getLoginPage().setUsername(username);
+      getLoginPage().setPassword(password);
+      getLoginPage().doLogin();
           
       lastEntranceOperation = LAST_ENTRANCE_OPERATION_LOGIN;
       

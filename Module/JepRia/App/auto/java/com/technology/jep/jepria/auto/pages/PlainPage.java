@@ -22,11 +22,10 @@ public abstract class PlainPage implements Page {
   }
 
   @Override
-  public Page getContent() {
+  public void getContent() {
     WebDriverFactory.getDriver()
         .switchTo()
         .defaultContent();
-    return this;
   }
   
   public WebElement waitContentElementToLoad(By by) {
