@@ -2,21 +2,26 @@ package com.technology.jep.jepria.auto.application.entrance;
 
 import static com.technology.jep.jepria.auto.util.WebDriverFactory.getWait;
 import static com.technology.jep.jepria.client.JepRiaAutomationConstant.JAVASSO_LOGIN_FORM_ID;
+import static com.technology.jep.jepria.client.JepRiaAutomationConstant.LOGGED_IN_USER_ID;
+import static com.technology.jep.jepria.client.JepRiaAutomationConstant.LOGIN_USERNAME_FIELD_ID;
 import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
-import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.technology.jep.jepria.auto.application.entrance.page.DefaultLoginPage;
 import com.technology.jep.jepria.auto.application.entrance.page.JepRiaLoginPage;
 import com.technology.jep.jepria.auto.application.entrance.page.LoginPage;
 import com.technology.jep.jepria.auto.application.page.JepRiaApplicationPage;
 import com.technology.jep.jepria.auto.application.page.JepRiaApplicationPageImpl;
+import com.technology.jep.jepria.auto.condition.ConditionChecker;
+import com.technology.jep.jepria.auto.condition.DisplayChecker;
+import com.technology.jep.jepria.auto.condition.ExpectedConditions;
 import com.technology.jep.jepria.auto.exception.AutomationException;
 import com.technology.jep.jepria.auto.util.WebDriverFactory;
-import com.technology.jep.jepria.client.JepRiaAutomationConstant;
 
 public class EntranceAutoImpl implements EntranceAuto {
   
@@ -39,18 +44,7 @@ public class EntranceAutoImpl implements EntranceAuto {
    */
   private LoginPage getLoginPage() {
     if (loginPage == null) {
-      try {
-        getWait().until(presenceOfElementLocated(By.id(JAVASSO_LOGIN_FORM_ID)));
-        WebElement loginForm = WebDriverFactory.getDriver().findElement(By.id(JAVASSO_LOGIN_FORM_ID));
-        assert(loginForm != null);
-        
-        loginPage = new DefaultLoginPage();
-      } catch (NoSuchElementException ex) {
-        getWait().until(presenceOfElementLocated(By.id(JepRiaAutomationConstant.LOGIN_USERNAME_FIELD_ID)));
-        getWait().until(presenceOfElementLocated(By.id(JepRiaAutomationConstant.LOGIN_PASSWORD_FIELD_ID)));
-        
-        loginPage = new JepRiaLoginPage();
-      }
+      determineLoggedState();
     }
     return loginPage;
   }
@@ -96,14 +90,7 @@ public class EntranceAutoImpl implements EntranceAuto {
     } else if (lastEntranceOperation == LAST_ENTRANCE_OPERATION_LOGOUT) {
       return false;
     } else {
-      // В данном тесте еще не было ни логина, ни логаута. С вероятностью 99%, входим под уже залогиненным пользователем // TODO а если нет?
-      try {
-        getApplicationPage().ensurePageLoaded();
-        WebElement usernameField = WebDriverFactory.getDriver().findElement(By.id(JepRiaAutomationConstant.LOGGED_IN_USER_ID));
-        return usernameField.isDisplayed(); 
-      } catch (Exception ex) {
-        return false;
-      }
+      return determineLoggedState();
     }
   }
 
@@ -118,6 +105,47 @@ public class EntranceAutoImpl implements EntranceAuto {
       // wait until the login page is loaded after logging out
       getLoginPage().ensurePageLoaded();
     }
+  }
+  
+  /**
+   * Метод определяет состояние приложения (залогинено или нет) по трём элементам:
+   * имя залогиненного пользователя, JAVASSO-логин форме, либо по логин-полю.
+   * В случае, если найдена одна из двух логин-форм, поле {@link #loginPage} инициализируется.
+   * 
+   * @return <code>true</code>, если в приложение выполнен вход; <code>false</code> иначе (даже в случае ошибки).
+   */
+  private boolean determineLoggedState() {
+    // Ничего не известно о состоянии приложения (вход выполнен или нет).
+    
+    // Попробуем лоцировать любой из трёх элементов:
+    // имя залогиненного пользователя, либо JAVASSO-логин форму, либо логин-поле.
+    WebDriver wd = WebDriverFactory.getDriver();
+    ConditionChecker conditionChecker = new WebDriverWait(wd, 10).until(
+        ExpectedConditions.atLeastOneOfConditionIsSatisfied(
+            new DisplayChecker(wd, LOGGED_IN_USER_ID),
+            new DisplayChecker(wd, JAVASSO_LOGIN_FORM_ID),
+            new DisplayChecker(wd, LOGIN_USERNAME_FIELD_ID))
+    );
+    
+    String id = ((DisplayChecker)conditionChecker).getId();
+      
+    if (LOGGED_IN_USER_ID.equals(id)) {
+      // Найден залогиненный пользователь
+      return true;
+    } else if (JAVASSO_LOGIN_FORM_ID.equals(id)) {
+      loginPage = new DefaultLoginPage();
+      return false;
+    } else {
+      loginPage = new JepRiaLoginPage();
+      return false;
+    }
+//    TODO WebDriverWait might throw TimeOutException...
+//    
+//    } catch (Exception e) {
+//      throw new NoSuchElementException("Expected to locate any of three elements: X X X, but none of them loacted.", e);
+//    }
+//    // Условно считаем, что при возникновении ошибки - состояние=незалогинено.
+//    return false;
   }
   
   @Override

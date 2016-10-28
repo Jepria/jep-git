@@ -24,18 +24,18 @@ import com.technology.jep.jepria.auto.util.WebDriverFactory;
 /**
  * Класс, наследники которого содержат тесты приложения.
  *
- * @param <A> Менеджер данного приложения.
+ * @param <A> Интерфейс данного приложения.
  */
 public abstract class JepRiaApplicationAutoTest<A extends JepRiaApplicationAuto> extends AssertJUnit {
   
   protected JepRiaModuleAuto cut;
   
-  protected A automationManager;
+  protected A applicationAuto;
   
   /**
    * Интерфейс для осуществления авторизации
    */
-  protected EntranceAuto authorizationAuto;
+  protected EntranceAuto entranceAuto;
   
   /**
    * Пользователи, которые были созданы и использовались во время тестирования. 
@@ -90,17 +90,17 @@ public abstract class JepRiaApplicationAutoTest<A extends JepRiaApplicationAuto>
       String password) {
     
     // Создадим новый менеджер
-    if (automationManager == null || "Yes".equalsIgnoreCase(forceNewBrowser)) {
-      automationManager = provideAutomationManager(baseUrl, browserName, browserVersion, browserPlatform, browserPath, driverPath, jepriaVersion, username, password);
+    if (applicationAuto == null || "Yes".equalsIgnoreCase(forceNewBrowser)) {
+      applicationAuto = provideAutomationManager(baseUrl, browserName, browserVersion, browserPlatform, browserPath, driverPath, jepriaVersion, username, password);
     }
     // Запустим его
-    if(!automationManager.isStarted()) {
-      automationManager.start(baseUrl);
+    if(!applicationAuto.isStarted()) {
+      applicationAuto.start(baseUrl);
     }
     
     this.baseUrl = baseUrl;
     
-    authorizationAuto = new EntranceAutoImpl();
+    entranceAuto = new EntranceAutoImpl();
     
     // Создадим "дефолтного" юзера с логином и паролем из XML
     defaultUser = User.fromLoginAndPassword(username, password);
@@ -138,7 +138,7 @@ public abstract class JepRiaApplicationAutoTest<A extends JepRiaApplicationAuto>
       @Optional("No") String forceLogin) {
 
       if("Yes".equalsIgnoreCase(forceNewBrowser)) {
-          automationManager.stop();
+          applicationAuto.stop();
       } else {
         if ("Yes".equalsIgnoreCase(forceLogin)) {
           logout();
@@ -152,6 +152,11 @@ public abstract class JepRiaApplicationAutoTest<A extends JepRiaApplicationAuto>
       }
   }
   
+  /**
+   * Метод для входа в приложение под "дефолтным" пользователем (чьи логин и пароль были считаны из XML-сценария тестирования).
+   * Если вход в приложение уже выполнен, то выполняется выход, затем вход.
+   * После успешного входа метод дожидается полной загрузки страницы.
+   */
   protected void loginDefault() {
     login(defaultUser);
   }
@@ -163,10 +168,10 @@ public abstract class JepRiaApplicationAutoTest<A extends JepRiaApplicationAuto>
    * @param user
    */
   protected void login(User user) {
-    if (authorizationAuto.isLoggedIn()) {
-      authorizationAuto.logout();
+    if (entranceAuto.isLoggedIn()) {
+      entranceAuto.logout();
     }
-    authorizationAuto.login(user.getLogin(), user.getPassword());
+    entranceAuto.login(user.getLogin(), user.getPassword());
   }
   
   /**
@@ -175,8 +180,8 @@ public abstract class JepRiaApplicationAutoTest<A extends JepRiaApplicationAuto>
    * После успешного выхода метод дожидается полной загрузки логин-страницы.
    */
   protected void logout() {
-    if (authorizationAuto.isLoggedIn()) {
-      authorizationAuto.logout();
+    if (entranceAuto.isLoggedIn()) {
+      entranceAuto.logout();
     }
   }
 
@@ -184,7 +189,6 @@ public abstract class JepRiaApplicationAutoTest<A extends JepRiaApplicationAuto>
    * Вход в модуль для прохождения теста.
    * @param module - Модуль.
    */
-  @SuppressWarnings("rawtypes")
   public void enterModule(ModuleDescription<?> module){
     
     //вход в приложения, в модуль, для теста
@@ -203,8 +207,22 @@ public abstract class JepRiaApplicationAutoTest<A extends JepRiaApplicationAuto>
    * @param module - Модуль.
    */
   public void switchTab(ModuleDescription<?> module){
+    // Переключим вкладку
+    entranceAuto.switchTab(module.getModuleID());
     
-    authorizationAuto.switchTab(module.getModuleID());
+    // Установим новый cut и дождемся его загрузки
+    cut = module.getModuleAuto();
+    
+    //TODO избавиться от этого сна. Проблема в том, что при открытии другой вкладки в дефолтном режиме списка,
+    // невозможно работать с тулбаром до окончания загрузки списка.
+    try {
+      Thread.sleep(800);
+    } catch (InterruptedException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+    
+    //TODO установить workstate (в ModuleAutoImpl) в соответствии с воркстейтом открывшейся вкладки. Но как узнать этот воркстейт?
   }
   
   /**

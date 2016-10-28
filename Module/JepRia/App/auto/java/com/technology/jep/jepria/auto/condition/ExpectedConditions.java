@@ -13,13 +13,13 @@ public class ExpectedConditions {
   /**
    * Проверка отображения одного из Web-элементов, представленных списком ID
    * @param args
-   * @return true, если одно из элементов отображается
+   * @return первый {@link By}, элемент которого найден отображенным.
    */
-  public static ExpectedCondition<Boolean> oneOfElementsLocatedVisible(By... args) {
+  public static ExpectedCondition<By> oneOfElementsLocatedVisible(By... args) {
     final List<By> byes = Arrays.asList(args);
-    return new ExpectedCondition<Boolean>() {
+    return new ExpectedCondition<By>() {
       @Override
-      public Boolean apply(WebDriver driver) {
+      public By apply(WebDriver driver) {
         for (By by : byes) {
           WebElement el;
           try {
@@ -28,11 +28,11 @@ public class ExpectedConditions {
             continue;
           }
           if (el.isDisplayed()) {
-            return true;
+            return by;
           }
         }
 
-        return false;
+        return null;
       }
     };
   }
@@ -40,24 +40,8 @@ public class ExpectedConditions {
   /**
    * Проверка выполнения одного из условий, представленных списком ConditionChecker-ов 
    * @param args - список ConditionChecker-ов
-   * @return true, если одно из условий выполнено
+   * @return первый {@link ConditionChecker}, условие которого выполнилось.
    */
-//  public static ExpectedCondition<Boolean> atLeastOneOfConditionIsSatisfied(ConditionChecker... args) {
-//    final List<ConditionChecker> checkers = Arrays.asList(args);
-//    return new ExpectedCondition<Boolean>() {
-//      @Override
-//      public Boolean apply(WebDriver driver) {
-//        for (ConditionChecker checker : checkers) {
-//          if(checker.isSatisfied()) {
-//            return true;
-//          }
-//        }
-//
-//        return false;
-//      }
-//    };
-//  }
-
   public static ExpectedCondition<ConditionChecker> atLeastOneOfConditionIsSatisfied(ConditionChecker... args) {
     final List<ConditionChecker> checkers = Arrays.asList(args);
     return new ExpectedCondition<ConditionChecker>() {
