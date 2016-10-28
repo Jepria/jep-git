@@ -2,7 +2,7 @@ package com.technology.jep.jepria.auto.model.user;
 
 import java.util.List;
 
-import com.technology.jep.jepria.auto.entrance.EntranceAuto;
+import com.technology.jep.jepria.auto.application.entrance.EntranceAuto;
 
 public class User {
   

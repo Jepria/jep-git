@@ -1,6 +1,6 @@
 package com.technology.jep.jepria.auto.model.module;
 
-import com.technology.jep.jepria.auto.JepRiaModuleAuto;
+import com.technology.jep.jepria.auto.module.JepRiaModuleAuto;
 import com.technology.jep.jepria.client.ui.WorkstateEnum;
 
 /**
