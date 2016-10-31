@@ -102,7 +102,6 @@ public class EntranceAutoImpl implements EntranceAuto {
           
       lastEntranceOperation = LAST_ENTRANCE_OPERATION_LOGOUT;
       
-      // wait until the login page is loaded after logging out
       getLoginPage().ensurePageLoaded();
     }
   }
@@ -116,19 +115,30 @@ public class EntranceAutoImpl implements EntranceAuto {
    */
   private boolean determineLoggedState() {
     // Ничего не известно о состоянии приложения (вход выполнен или нет).
-    
-    // Попробуем лоцировать любой из трёх элементов:
-    // имя залогиненного пользователя, либо JAVASSO-логин форму, либо логин-поле.
+
     WebDriver wd = WebDriverFactory.getDriver();
-    ConditionChecker conditionChecker = new WebDriverWait(wd, 10).until(
-        ExpectedConditions.atLeastOneOfConditionIsSatisfied(
-            new DisplayChecker(wd, LOGGED_IN_USER_ID),
-            new DisplayChecker(wd, JAVASSO_LOGIN_FORM_ID),
-            new DisplayChecker(wd, LOGIN_USERNAME_FIELD_ID))
-    );
+    final ConditionChecker conditionChecker;
+    
+    if (lastEntranceOperation == LAST_ENTRANCE_OPERATION_LOGOUT) {
+      // Только что была нажата кнопка выхода, поэтому дожидаемся появления любого из двух элементов:
+      // JAVASSO-логин форму (стандартную), либо логин-поле некоторой кастомной логин-формы.
+      conditionChecker = new WebDriverWait(wd, 10).until(
+          ExpectedConditions.atLeastOneOfConditionIsSatisfied(
+              new DisplayChecker(wd, JAVASSO_LOGIN_FORM_ID),
+              new DisplayChecker(wd, LOGIN_USERNAME_FIELD_ID))
+      );
+    } else {
+      // Попробуем лоцировать любой из трёх элементов: имя залогиненного пользователя,
+      // либо JAVASSO-логин форму (стандартную), либо логин-поле некоторой кастомной логин-формы.
+      conditionChecker = new WebDriverWait(wd, 10).until(
+          ExpectedConditions.atLeastOneOfConditionIsSatisfied(
+              new DisplayChecker(wd, LOGGED_IN_USER_ID),
+              new DisplayChecker(wd, JAVASSO_LOGIN_FORM_ID),
+              new DisplayChecker(wd, LOGIN_USERNAME_FIELD_ID))
+      );
+    }
     
     String id = ((DisplayChecker)conditionChecker).getId();
-      
     if (LOGGED_IN_USER_ID.equals(id)) {
       // Найден залогиненный пользователь
       return true;

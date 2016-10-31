@@ -35,7 +35,7 @@ public abstract class JepRiaApplicationAutoTest<A extends JepRiaApplicationAuto>
   /**
    * Интерфейс для осуществления авторизации
    */
-  protected EntranceAuto entranceAuto;
+  protected EntranceAuto entranceAuto = new EntranceAutoImpl();
   
   /**
    * Пользователи, которые были созданы и использовались во время тестирования. 
@@ -99,8 +99,6 @@ public abstract class JepRiaApplicationAutoTest<A extends JepRiaApplicationAuto>
     }
     
     this.baseUrl = baseUrl;
-    
-    entranceAuto = new EntranceAutoImpl();
     
     // Создадим "дефолтного" юзера с логином и паролем из XML
     defaultUser = User.fromLoginAndPassword(username, password);
