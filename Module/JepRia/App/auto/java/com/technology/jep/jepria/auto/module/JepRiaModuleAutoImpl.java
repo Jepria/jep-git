@@ -377,6 +377,7 @@ public class JepRiaModuleAutoImpl<P extends JepRiaModulePage> implements JepRiaM
       getWait().until(presenceOfElementLocated(comboBoxPopupPanelBy));
     }
     
+    // Индекс буквы, которая была введена в поле поиска опции последней.
     int ind = minInputLength;
     WebElement comboBoxMenuItem;
      
@@ -384,8 +385,10 @@ public class JepRiaModuleAutoImpl<P extends JepRiaModulePage> implements JepRiaM
     // либо опция не будет найдена в списке (в случае с простой однократной загрузкой списка опций - выход из цикла происходит сразу).
     while (true) {
       try {
+        // Попытаемся найти в выпадающем списке искомую опцию по точному совпадению.
+        
         // Важно! лоцировать comboBoxPopupPanel нужно именно в каждой итерации цикла, несмотря на то, что элемент вроде не изменяется внутри цикла.
-        comboBoxMenuItem = findElementAndWait(By.xpath(
+        comboBoxMenuItem = WebDriverFactory.getDriver().findElement(By.xpath(
             String.format("//*[@id='%s']//*[starts-with(@id, '%s') and @%s='%s']",
                 comboBoxFieldId + JEP_COMBO_BOX_FIELD_POPUP_POSTFIX,
                 comboBoxFieldId + JEP_COMBO_BOX_FIELD_MENU_ITEM_INFIX,
@@ -394,6 +397,20 @@ public class JepRiaModuleAutoImpl<P extends JepRiaModulePage> implements JepRiaM
         // Исключения не было - значит, опция найдена в списке на данном шаге.
         break;
       } catch (NoSuchElementException e) {
+        // Если опций по точному совпадению не найдено,
+        // попытаемся найти в выпадающем списке искомую опцию по совпадению начала.
+        List<WebElement> comboBoxMenuItems = WebDriverFactory.getDriver().findElements(By.xpath(
+            String.format("//*[@id='%s']//*[starts-with(@id, '%s') and starts-with(@%s, '%s')]",
+                comboBoxFieldId + JEP_COMBO_BOX_FIELD_POPUP_POSTFIX,
+                comboBoxFieldId + JEP_COMBO_BOX_FIELD_MENU_ITEM_INFIX,
+                JEP_OPTION_VALUE_HTML_ATTR,
+                menuItem)));
+        // В случае, если нашли единственную опцию с общим началом И ввод букв опции завершился,
+        // то найденная опция и есть результат.
+        if (comboBoxMenuItems != null && comboBoxMenuItems.size() == 1 && ind == menuItem.length()) {
+          comboBoxMenuItem = comboBoxMenuItems.get(0);
+          break;
+        }
         
         // Опции не найдено в списке на данном шаге - значит, вводим следующую букву.
         if (ind < menuItem.length()) {
