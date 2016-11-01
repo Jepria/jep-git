@@ -47,6 +47,10 @@ public abstract class JepRiaApplicationAutoTest<A extends JepRiaApplicationAuto>
    */
   private User defaultUser;
   
+  /**
+   * Базовый URL, <br/>включает в себя протокол, порт, домен, имя приложения (без слеша на конце).
+   * Указывается xml теста (*AutoTest.xml).
+   */
   private String baseUrl;
   
   /**
@@ -108,7 +112,9 @@ public abstract class JepRiaApplicationAutoTest<A extends JepRiaApplicationAuto>
   
   /**
    * Метод вызывается в конце {@link #setUp(String, String, String, String, String, String, String, String, String, String, String) setUp},
-   * непосредственно перед запуском теста. Нужен для того, например, чтобы в нем создать экземпляры {@link ModuleDescription}.  
+   * непосредственно перед запуском каждого теста. Например, для того, чтобы в нем осуществлять переход в модуль
+   * с помощью {@link #enterModule(ModuleDescription)}.
+   * Предназначен для переопределния потомками.  
    */
   protected abstract void beforeTestLaunch();
   
