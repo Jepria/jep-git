@@ -28,7 +28,11 @@ import com.technology.jep.jepria.auto.util.WebDriverFactory;
  */
 public abstract class JepRiaApplicationAutoTest<A extends JepRiaApplicationAuto> extends AssertJUnit {
   
-  protected JepRiaModuleAuto cut;
+  /**
+   * Class Under Test 
+   * Класс, который тестируется в текущий момент.
+   */
+  private JepRiaModuleAuto cut;
   
   protected A applicationAuto;
   
@@ -53,6 +57,28 @@ public abstract class JepRiaApplicationAutoTest<A extends JepRiaApplicationAuto>
    */
   private String baseUrl;
   
+  /**
+   * Получает текущий cut.
+   * @return the cut
+   */
+  @SuppressWarnings("unchecked")
+  protected <C extends JepRiaModuleAuto> C getCut() {
+    
+    if(cut == null){
+      throw new AutomationException("Cut is null, use enterModule() method.");
+    }
+    
+    return (C) cut;
+  }
+
+  /**
+   * Устанавливает cut.
+   * @param cut
+   */
+  protected void setCut(JepRiaModuleAuto cut) {
+    this.cut = cut;
+  }
+
   /**
    * Конфигурирование теста
    * 
@@ -103,6 +129,9 @@ public abstract class JepRiaApplicationAutoTest<A extends JepRiaApplicationAuto>
     }
     
     this.baseUrl = baseUrl;
+    
+    //"обnullяем" cut перед запуском теста.
+    this.cut = null;
     
     // Создадим "дефолтного" юзера с логином и паролем из XML
     defaultUser = User.fromLoginAndPassword(username, password);
@@ -193,14 +222,14 @@ public abstract class JepRiaApplicationAutoTest<A extends JepRiaApplicationAuto>
    * Вход в модуль для прохождения теста.
    * @param module - Модуль.
    */
-  public void enterModule(ModuleDescription<?> module){
+  public void enterModule(ModuleDescription<?> module) {
     
     //вход в приложения, в модуль, для теста
     //baseUrl - заканчивается именем приложения, без /
     WebDriverFactory.getDriver().get(baseUrl + "/" + module.getEntranceURL());
 
     //установка в cut текущего модуля
-    cut = module.getModuleAuto();
+    setCut(module.getModuleAuto());
 
     //устанавливаем стартовое состояние
     ((JepRiaModuleAutoImpl) cut).setCurrentWorkstate(module.getEntranceWorkstate());//TODO do not cast
