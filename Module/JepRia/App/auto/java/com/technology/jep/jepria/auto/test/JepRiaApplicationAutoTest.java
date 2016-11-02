@@ -176,8 +176,9 @@ public abstract class JepRiaApplicationAutoTest<A extends JepRiaApplicationAuto>
         if ("Yes".equalsIgnoreCase(forceLogin)) {
           logout();
         } else {
-//        TODO: По окончанию теста проверять, что приложение находится в рабочем состоянии (не висит сообщение (алерт) об ошибке)
-//        Иначе новый тест не запуститься, возвращать в работоспособное состояние (Переход по ссылке baseUrl?).
+//        TODO: По окончанию теста проверять, что приложение находится в рабочем состоянии,
+//        не висит сообщение (MESSAGE_BOX, ALERT_BOX или gwt-DialogBox)  
+//        иначе новый тест не запуститься, возвращать в работоспособное состояние (Переход по ссылке baseUrl?).
 //        Считывать сообщение и логировать (выбросить исключение?) 
 //        На данный момент, во избежание подобного, приходится перезапускать браузер для каждого нового теста, 
 //        используя forceNewBrowser
@@ -244,7 +245,7 @@ public abstract class JepRiaApplicationAutoTest<A extends JepRiaApplicationAuto>
     entranceAuto.switchTab(module.getModuleID());
     
     // Установим новый cut и дождемся его загрузки
-    cut = module.getModuleAuto();
+    setCut(module.getModuleAuto());
     
     //TODO избавиться от этого сна. Проблема в том, что при открытии другой вкладки в дефолтном режиме списка,
     // невозможно работать с тулбаром до окончания загрузки списка.

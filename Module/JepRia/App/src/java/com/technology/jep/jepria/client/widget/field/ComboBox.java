@@ -1049,7 +1049,9 @@ public class ComboBox<T extends JepOption> extends Composite
         if (fieldIdAsWebEl != null) {
           getElement().setId(fieldIdAsWebEl + JepRiaAutomationConstant.JEP_COMBO_BOX_FIELD_MENU_ITEM_INFIX + suggestion.getDisplayString());
         }
-        getElement().setAttribute(JEP_OPTION_VALUE_HTML_ATTR, suggestion.getDisplayString());
+        
+        String jepOptionValue = suggestion.getDisplayString();
+        getElement().setAttribute(JEP_OPTION_VALUE_HTML_ATTR, (jepOptionValue != null) ? jepOptionValue : "");
         
         // Each suggestion should be placed in a single row in the suggestion
         // menu. If the window is resized and the suggestion cannot fit on a

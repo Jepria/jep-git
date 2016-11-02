@@ -405,11 +405,19 @@ public class JepRiaModuleAutoImpl<P extends JepRiaModulePage> implements JepRiaM
                 comboBoxFieldId + JEP_COMBO_BOX_FIELD_MENU_ITEM_INFIX,
                 JEP_OPTION_VALUE_HTML_ATTR,
                 menuItem)));
-        // В случае, если нашли единственную опцию с общим началом И ввод букв опции завершился,
-        // то найденная опция и есть результат.
-        if (comboBoxMenuItems != null && comboBoxMenuItems.size() == 1 && ind == menuItem.length()) {
+        // В случае, если нашли единственную опцию с общим началом,
+        // то можем принят решение, найдена ли нужная опция.
+        if (comboBoxMenuItems != null && comboBoxMenuItems.size() == 1) {
+          
           comboBoxMenuItem = comboBoxMenuItems.get(0);
-          break;
+          //Либо ввод завершен, либо искомая опция является префиксом единственной найденой
+          if(ind == menuItem.length() || comboBoxMenuItem.getText().startsWith(menuItem)){
+            //Опция найдена, выходим из цикла
+            break;
+          }else{
+            //Префикс не совпал, опция не найдена
+            throw new WrongOptionException("Wrong combobox option: [" + menuItem + "]");
+          }
         }
         
         // Опции не найдено в списке на данном шаге - значит, вводим следующую букву.
