@@ -21,7 +21,7 @@ public class UserDao implements UserData {
    * Конструктор. Создает UserDao.
    * 
    * @param dbUrl - URL, по которому подключаемся к DB.
-   * @param dbUser - Пользователей, под которым подключаемся к DB.
+   * @param dbUser - Пользователь, под которым подключаемся к DB.
    * @param dbPassword - Пароль, под которым подключаемся к DB.
    */
   public UserDao(String dbUrl, String dbUser, String dbPassword) {
