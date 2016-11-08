@@ -16,6 +16,7 @@ import com.technology.jep.jepria.auto.application.entrance.EntranceAutoImpl;
 import com.technology.jep.jepria.auto.exception.AutomationException;
 import com.technology.jep.jepria.auto.model.module.ModuleDescription;
 import com.technology.jep.jepria.auto.model.user.User;
+import com.technology.jep.jepria.auto.model.user.dao.UserDao;
 import com.technology.jep.jepria.auto.model.user.dao.UserData;
 import com.technology.jep.jepria.auto.module.JepRiaModuleAuto;
 import com.technology.jep.jepria.auto.module.JepRiaModuleAutoImpl;
@@ -56,6 +57,11 @@ public abstract class JepRiaApplicationAutoTest<A extends JepRiaApplicationAuto>
    * Указывается xml теста (*AutoTest.xml).
    */
   private String baseUrl;
+
+  /**
+   * DAO для создания пользователей.
+   */
+  private UserData userDao;
   
   /**
    * Получает текущий cut.
@@ -91,6 +97,9 @@ public abstract class JepRiaApplicationAutoTest<A extends JepRiaApplicationAuto>
    * @param forceLogin - условие перелогинивания: если true - перелогиниваться
    * @param username - имя пользователя
    * @param password - пароль пользователя
+   * @param dbUrl - URL, по которому подключаемся к DB.
+   * @param dbUser - Пользователей, под которым подключаемся к DB.
+   * @param dbPassword - Пароль, под которым подключаемся к DB.
    */
   @Parameters({
     "baseUrl",
@@ -103,7 +112,10 @@ public abstract class JepRiaApplicationAutoTest<A extends JepRiaApplicationAuto>
     "forceNewBrowser",
     "forceLogin",
     "username",
-    "password"})
+    "password",
+    "dbUrl", 
+    "dbUser", 
+    "dbPassword"})
   //TODO: Продумать введение новых "кастомных" групп
   @BeforeMethod(groups = {"find", "create", "delete", "edit", "goto", "list", "setAndGetFields", "fieldStates"})
   public void setUp(
@@ -117,11 +129,15 @@ public abstract class JepRiaApplicationAutoTest<A extends JepRiaApplicationAuto>
       @Optional("No") String forceNewBrowser,
       @Optional("No") String forceLogin,
       String username,
-      String password) {
+      String password,
+      @Optional String dbUrl, 
+      @Optional String dbUser, 
+      @Optional String dbPassword) {
     
     // Создадим новый менеджер
     if (applicationAuto == null || "Yes".equalsIgnoreCase(forceNewBrowser)) {
-      applicationAuto = provideAutomationManager(baseUrl, browserName, browserVersion, browserPlatform, browserPath, driverPath, jepriaVersion, username, password);
+      applicationAuto = provideAutomationManager(baseUrl, browserName, browserVersion, browserPlatform, browserPath,
+          driverPath, jepriaVersion, username, password, dbUrl, dbUser, dbPassword);
     }
     // Запустим его
     if(!applicationAuto.isStarted()) {
@@ -135,6 +151,13 @@ public abstract class JepRiaApplicationAutoTest<A extends JepRiaApplicationAuto>
     
     // Создадим "дефолтного" юзера с логином и паролем из XML
     defaultUser = User.fromLoginAndPassword(username, password);
+    
+    // Инициализируем DAO для создания тестовых пользователей
+    if(dbUrl != null && dbUser != null && dbPassword != null){
+      userDao = new UserDao(dbUrl,
+          dbUser,
+          dbPassword);
+    }
     
     beforeTestLaunch();
   }
@@ -156,7 +179,10 @@ public abstract class JepRiaApplicationAutoTest<A extends JepRiaApplicationAuto>
       String driverPath,
       String jepriaVersion,
       String username,
-      String password);
+      String password,
+      String dbURL, 
+      String dbUser, 
+      String dbPassword);
   
   /**
    * Действия после окончания тестового метода
@@ -261,21 +287,25 @@ public abstract class JepRiaApplicationAutoTest<A extends JepRiaApplicationAuto>
   
   /**
    * Получает пользователя для теста.
-   * @param dao - DAO, реализующий интерфейс создания пользователя.
    * @param login - Логин.
    * @param rolesNameList - Список ролей.
    * @return Пользователь. {@link com.technology.jep.jepria.auto.model.user.User}
    * @throws Exception 
    */
-  public User getUser(UserData dao, String login, List<String> rolesNameList) {
+  public User getUser(String login, List<String> rolesNameList) {
     
     User user = null;
     
     if(users.containsKey(login)){
       user = users.get(login);
     }else{
+      
+      if(userDao == null){
+        throw new AutomationException("User DAO is not init. Check dbUrl, dbUser, dbPassword in test.properties.");
+      }
+      
       try {
-        user = dao.createUser(login, rolesNameList);
+        user = userDao.createUser(login, rolesNameList);
       } catch (Exception e) {
         throw new AutomationException("Can't create user with role "+rolesNameList+" for test.", e);
       }

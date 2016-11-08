@@ -20,18 +20,18 @@ public class UserDao implements UserData {
   /**
    * Конструктор. Создает UserDao.
    * 
-   * @param dbURL URL from which connections have to be obtained.
-   * @param dbUser User name with which connections have to be obtained.
-   * @param dbPassword Password name with which connections have to be obtained.
+   * @param dbUrl - URL, по которому подключаемся к DB.
+   * @param dbUser - Пользователей, под которым подключаемся к DB.
+   * @param dbPassword - Пароль, под которым подключаемся к DB.
    */
-  public UserDao(String dbURL, String dbUser, String dbPassword) {
+  public UserDao(String dbUrl, String dbUser, String dbPassword) {
     
-    this.dbURL = dbURL;
+    this.dbUrl = dbUrl;
     this.dbUser = dbUser;
     this.dbPassword = dbPassword;
   }
 
-  private String dbURL;
+  private String dbUrl;
   private String dbUser;
   private String dbPassword;
   
@@ -65,7 +65,7 @@ public class UserDao implements UserData {
   private Integer getTestOperatorId(String login, List<String> roleSNameList) throws Exception {
 
     OracleDataSource ods = new OracleDataSource();
-    ods.setURL(dbURL);
+    ods.setURL(dbUrl);
     ods.setUser(dbUser);
     ods.setPassword(dbPassword);
     Connection conn = ods.getConnection();

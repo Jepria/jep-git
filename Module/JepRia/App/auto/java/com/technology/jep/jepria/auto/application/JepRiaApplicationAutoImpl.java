@@ -5,6 +5,9 @@ import static com.technology.jep.jepria.auto.application.property.JepRiaAutoProp
 import static com.technology.jep.jepria.auto.application.property.JepRiaAutoProperties.BROWSER_PATH_KEY;
 import static com.technology.jep.jepria.auto.application.property.JepRiaAutoProperties.BROWSER_PLATFORM_KEY;
 import static com.technology.jep.jepria.auto.application.property.JepRiaAutoProperties.BROWSER_VERSION_KEY;
+import static com.technology.jep.jepria.auto.application.property.JepRiaAutoProperties.DB_PASSWORD_KEY;
+import static com.technology.jep.jepria.auto.application.property.JepRiaAutoProperties.DB_URL_KEY;
+import static com.technology.jep.jepria.auto.application.property.JepRiaAutoProperties.DB_USER_KEY;
 import static com.technology.jep.jepria.auto.application.property.JepRiaAutoProperties.DRIVER_PATH_KEY;
 import static com.technology.jep.jepria.auto.application.property.JepRiaAutoProperties.JEPRIA_VERSION_KEY;
 import static com.technology.jep.jepria.auto.application.property.JepRiaAutoProperties.PASSWORD_KEY;
@@ -28,7 +31,10 @@ public abstract class JepRiaApplicationAutoImpl implements JepRiaApplicationAuto
         String driverPath,
         String jepriaVersion,
         String username,
-        String password) {
+        String password,
+        String dbURL,
+        String dbUser,
+        String dbPassword) {
     
     set(BASE_URL_KEY, baseUrl);
     set(BROWSER_NAME_KEY, browserName);
@@ -39,6 +45,9 @@ public abstract class JepRiaApplicationAutoImpl implements JepRiaApplicationAuto
     set(JEPRIA_VERSION_KEY, jepriaVersion);
     set(USERNAME_KEY, username);
     set(PASSWORD_KEY, password);
+    set(DB_URL_KEY, dbURL);
+    set(DB_USER_KEY, dbUser);
+    set(DB_PASSWORD_KEY, dbPassword);
       
     Runtime.getRuntime().addShutdownHook(new Thread() {
       public void run() {

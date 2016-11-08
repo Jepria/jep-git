@@ -19,6 +19,10 @@ public class JepRiaAutoProperties {
   public static final String USERNAME_KEY = "username";
   public static final String PASSWORD_KEY = "password";
   
+  public static final String DB_URL_KEY = "dbURL";
+  public static final String DB_USER_KEY = "dbUser";
+  public static final String DB_PASSWORD_KEY = "dbPassword";
+  
   public static void set(String key, String value) {
     properties.put(key, value);
   }
