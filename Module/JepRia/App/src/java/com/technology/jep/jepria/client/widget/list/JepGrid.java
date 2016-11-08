@@ -707,6 +707,17 @@ public class JepGrid<T> extends DataGrid<T> {
         }
     });
   }
+  
+  /**
+   * Получение значения левого отступа прокручиваемой области данных грида.
+   * 
+   * @return  целочисленное значение левого отступа
+   */
+  public final int getScrollLeft() {
+    HeaderPanel headerPanel = (HeaderPanel) getWidget();
+    ScrollPanel dataPanel = (ScrollPanel) headerPanel.getContentWidget();
+    return dataPanel.getHorizontalScrollPosition();
+  }
 
   /**
    * Класс для хранения характеристик колонки таблица данных

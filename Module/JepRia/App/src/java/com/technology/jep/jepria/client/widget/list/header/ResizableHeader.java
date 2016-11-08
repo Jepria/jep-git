@@ -134,7 +134,7 @@ public class ResizableHeader<T> extends Header<String> {
     cellTable.getElement().appendChild(setupButton);
     
     Style style = setupButton.getStyle();
-    style.setLeft(left - setupButton.getOffsetWidth() - cellTable.getElement().getScrollLeft(), Unit.PX);
+    style.setLeft(left - setupButton.getOffsetWidth() - cellTable.getScrollLeft(), Unit.PX);
     
     Event.sinkEvents(setupButton, Event.ONCLICK | Event.ONMOUSEOUT);
     Event.setEventListener(setupButton, new EventListener() {
