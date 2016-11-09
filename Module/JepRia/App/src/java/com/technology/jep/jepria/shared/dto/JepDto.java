@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.google.gwt.user.client.rpc.IsSerializable;
+import com.google.gwt.safehtml.shared.SafeHtml;
 
 /**
  * Унифицированный Dto, реализованный в виде Map.<br/>
@@ -48,6 +49,13 @@ public class JepDto extends HashMap<String, Object> implements IsSerializable {
    * http://www.sencha.com/forum/archive/index.php/t-114607.html
    */
   private Number numberFake;
+  
+  /**
+   * Фейк-поле для типа {@link com.google.gwt.safehtml.shared.SafeHtml} и его наследников : {@link com.google.gwt.safehtml.shared.SafeHtmlString}.<br/>
+   * Обязательно должно присутствовать данное поле (во избежание проблем с сериализацией при установке его как значение бина ({@link com.technology.jep.jepria.shared.dto.JepDto}))<br/>
+   * http://www.sencha.com/forum/archive/index.php/t-114607.html
+   */
+  private SafeHtml safeHtmlFake;
 
   /**
    * Создает объект JepDto.
