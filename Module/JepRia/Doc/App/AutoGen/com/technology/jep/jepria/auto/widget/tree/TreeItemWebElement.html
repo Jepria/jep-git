@@ -1,0 +1,619 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!--NewPage-->
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<TITLE>
+TreeItemWebElement (JepRia JavaDoc)
+</TITLE>
+
+
+<LINK REL ="stylesheet" TYPE="text/css" HREF="../../../../../../../stylesheet.css" TITLE="Style">
+
+<SCRIPT type="text/javascript">
+function windowTitle()
+{
+    if (location.href.indexOf('is-external=true') == -1) {
+        parent.document.title="TreeItemWebElement (JepRia JavaDoc)";
+    }
+}
+</SCRIPT>
+<NOSCRIPT>
+</NOSCRIPT>
+
+</HEAD>
+
+<BODY BGCOLOR="white" onload="windowTitle();">
+<HR>
+
+
+<!-- ========= START OF TOP NAVBAR ======= -->
+<A NAME="navbar_top"><!-- --></A>
+<A HREF="#skip-navbar_top" title="Skip navigation links"></A>
+<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
+<TR>
+<TD COLSPAN=2 BGCOLOR="#EEEEFF" CLASS="NavBarCell1">
+<A NAME="navbar_top_firstrow"><!-- --></A>
+<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3" SUMMARY="">
+  <TR ALIGN="center" VALIGN="top">
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-summary.html"><FONT CLASS="NavBarFont1"><B>Package</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../index-all.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../help-doc.html"><FONT CLASS="NavBarFont1"><B>Help</B></FONT></A>&nbsp;</TD>
+  </TR>
+</TABLE>
+</TD>
+<TD ALIGN="right" VALIGN="top" ROWSPAN=3><EM>
+</EM>
+</TD>
+</TR>
+
+<TR>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+&nbsp;<A HREF="../../../../../../../com/technology/jep/jepria/auto/widget/tree/TreeItemFilter.html" title="interface in com.technology.jep.jepria.auto.widget.tree"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../../../../../com/technology/jep/jepria/auto/widget/tree/TreeItemWebElement.CheckedState.html" title="enum in com.technology.jep.jepria.auto.widget.tree"><B>NEXT CLASS</B></A></FONT></TD>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+  <A HREF="../../../../../../../index.html?com/technology/jep/jepria/auto/widget/tree/TreeItemWebElement.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="TreeItemWebElement.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+&nbsp;<SCRIPT type="text/javascript">
+  <!--
+  if(window==top) {
+    document.writeln('<A HREF="../../../../../../../allclasses-noframe.html"><B>All Classes</B></A>');
+  }
+  //-->
+</SCRIPT>
+<NOSCRIPT>
+  <A HREF="../../../../../../../allclasses-noframe.html"><B>All Classes</B></A>
+</NOSCRIPT>
+
+
+</FONT></TD>
+</TR>
+<TR>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+  SUMMARY:&nbsp;<A HREF="#nested_class_summary">NESTED</A>&nbsp;|&nbsp;<A HREF="#field_summary">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
+</TR>
+</TABLE>
+<A NAME="skip-navbar_top"></A>
+<!-- ========= END OF TOP NAVBAR ========= -->
+
+<HR>
+<!-- ======== START OF CLASS DATA ======== -->
+<H2>
+<FONT SIZE="-1">
+com.technology.jep.jepria.auto.widget.tree</FONT>
+<BR>
+Class TreeItemWebElement</H2>
+<PRE>
+java.lang.Object
+  <IMG SRC="../../../../../../../resources/inherit.gif" ALT="extended by "><B>com.technology.jep.jepria.auto.widget.tree.TreeItemWebElement</B>
+</PRE>
+<HR>
+<DL>
+<DT><PRE>public final class <B>TreeItemWebElement</B><DT>extends java.lang.Object</DL>
+</PRE>
+
+<P>
+Декоратор для тех экземпляров класса <CODE>WebElement</CODE>, которые являются
+ узлами GWT-дерева (иденификация по атрибуту <code>role='treeitem'</code>), либо корнем дерева
+ (корнем может быть любой элемент, содержащий внутри себя узлы GWT-дерева).
+ 
+ Декоратор предоставляет упрощенное получение свойств (атрибутов) узла дерева как из самого <code>treeitem</code>-элемента
+ (например, <code>aria-expanded</code> &mdash; признак развернутости узла, <code>aria-level</code> &mdash; уровень вложенности),
+ так и из содержащегося в нем JEP-попрожденного элемента <code>span</code>, описывающего структуру ячейки дерева
+ (например, имя узла или его checked-состояние).
+ 
+ Класс является одновременно фабрикой, производящей объекты по результатам парсинга веб-элементов.
+<P>
+
+<P>
+<DL>
+<DT><B>Author:</B></DT>
+  <DD>RomanovAS</DD>
+</DL>
+<HR>
+
+<P>
+<!-- ======== NESTED CLASS SUMMARY ======== -->
+
+<A NAME="nested_class_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Nested Class Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;class</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/auto/widget/tree/TreeItemWebElement.CheckedState.html" title="enum in com.technology.jep.jepria.auto.widget.tree">TreeItemWebElement.CheckedState</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Этот енум определяется JEP(а не GWT)-свойством отмеченности узла дерева, то есть атрибутом
+ <code>jep-treenode-checkedstate</code> элемента <code>span</code>, а не атрибутом <code>aria-selected</code>
+ элемента <code>div[role='treeitem']</code>.</TD>
+</TR>
+</TABLE>
+&nbsp;<!-- =========== FIELD SUMMARY =========== -->
+
+<A NAME="field_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Field Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;<A HREF="../../../../../../../com/technology/jep/jepria/auto/widget/tree/TreeItemWebElement.CheckedState.html" title="enum in com.technology.jep.jepria.auto.widget.tree">TreeItemWebElement.CheckedState</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/auto/widget/tree/TreeItemWebElement.html#checkedState">checkedState</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Jep-состояние отмеченности узла
+ (<code>checked</code>/<code>unchecked</code>/<code>partial</code>).</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/auto/widget/tree/TreeItemWebElement.html#isExpanded">isExpanded</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Признаки разворачиваемости и развернутости узла (<code>aria-expanded == null</code>, <code>aria-expanded == true</code>).</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/auto/widget/tree/TreeItemWebElement.html#isLeaf">isLeaf</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Признаки разворачиваемости и развернутости узла (<code>aria-expanded == null</code>, <code>aria-expanded == true</code>).</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/auto/widget/tree/TreeItemWebElement.html#isRootOfTree">isRootOfTree</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Признак корня дерева (в любом дереве может быть только один корень, не являющийся GWT-узлом,
+ то есть не имеющий <code>role='treeitem'</code>, на уровне вложенности <code>0</code>).</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/auto/widget/tree/TreeItemWebElement.html#itemName">itemName</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Jep-имя узла дерева (имя <code>JepOption</code>, лежащей в основе узла).</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;int</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/auto/widget/tree/TreeItemWebElement.html#level">level</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Уровень вложенности узла в дереве (<code>aria-level</code>).</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;org.openqa.selenium.WebElement</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/auto/widget/tree/TreeItemWebElement.html#webElement">webElement</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Веб-элемент, на основе которого фабрикой был создан данный экземпляр.</TD>
+</TR>
+</TABLE>
+&nbsp;
+<!-- ======== CONSTRUCTOR SUMMARY ======== -->
+
+<A NAME="constructor_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Constructor Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private </CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/auto/widget/tree/TreeItemWebElement.html#TreeItemWebElement(org.openqa.selenium.WebElement, java.lang.String, boolean, boolean, boolean, int, com.technology.jep.jepria.auto.widget.tree.TreeItemWebElement.CheckedState)">TreeItemWebElement</A></B>(org.openqa.selenium.WebElement&nbsp;webElement,
+                   java.lang.String&nbsp;itemName,
+                   boolean&nbsp;isRootOfTree,
+                   boolean&nbsp;isLeaf,
+                   boolean&nbsp;isExpanded,
+                   int&nbsp;level,
+                   <A HREF="../../../../../../../com/technology/jep/jepria/auto/widget/tree/TreeItemWebElement.CheckedState.html" title="enum in com.technology.jep.jepria.auto.widget.tree">TreeItemWebElement.CheckedState</A>&nbsp;checkedState)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;
+<!-- ========== METHOD SUMMARY =========== -->
+
+<A NAME="method_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Method Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;org.openqa.selenium.WebElement</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/auto/widget/tree/TreeItemWebElement.html#asWebElement()">asWebElement</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="../../../../../../../com/technology/jep/jepria/auto/widget/tree/TreeItemWebElement.html" title="class in com.technology.jep.jepria.auto.widget.tree">TreeItemWebElement</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/auto/widget/tree/TreeItemWebElement.html#fromWebElement(org.openqa.selenium.WebElement)">fromWebElement</A></B>(org.openqa.selenium.WebElement&nbsp;webElement)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Создает экземпляр класса из произвольного Веб-элемента, используя парсинг внутренней структуры.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../../../../com/technology/jep/jepria/auto/widget/tree/TreeItemWebElement.CheckedState.html" title="enum in com.technology.jep.jepria.auto.widget.tree">TreeItemWebElement.CheckedState</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/auto/widget/tree/TreeItemWebElement.html#getCheckedState()">getCheckedState</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/auto/widget/tree/TreeItemWebElement.html#getItemName()">getItemName</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;int</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/auto/widget/tree/TreeItemWebElement.html#getLevel()">getLevel</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/auto/widget/tree/TreeItemWebElement.html#isExpanded()">isExpanded</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/auto/widget/tree/TreeItemWebElement.html#isLeaf()">isLeaf</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/auto/widget/tree/TreeItemWebElement.html#isRootOfTree()">isRootOfTree</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/auto/widget/tree/TreeItemWebElement.html#toString()">toString</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from class java.lang.Object</B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE>clone, equals, finalize, getClass, hashCode, notify, notifyAll, wait, wait, wait</CODE></TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
+<!-- ============ FIELD DETAIL =========== -->
+
+<A NAME="field_detail"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
+<B>Field Detail</B></FONT></TH>
+</TR>
+</TABLE>
+
+<A NAME="webElement"><!-- --></A><H3>
+webElement</H3>
+<PRE>
+private final org.openqa.selenium.WebElement <B>webElement</B></PRE>
+<DL>
+<DD>Веб-элемент, на основе которого фабрикой был создан данный экземпляр.
+ Используется для получения любых свойств данного узла (даже не предусмотренных интерфейсом декоратора).
+<P>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="itemName"><!-- --></A><H3>
+itemName</H3>
+<PRE>
+private final java.lang.String <B>itemName</B></PRE>
+<DL>
+<DD>Jep-имя узла дерева (имя <code>JepOption</code>, лежащей в основе узла).
+<P>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="isRootOfTree"><!-- --></A><H3>
+isRootOfTree</H3>
+<PRE>
+private final boolean <B>isRootOfTree</B></PRE>
+<DL>
+<DD>Признак корня дерева (в любом дереве может быть только один корень, не являющийся GWT-узлом,
+ то есть не имеющий <code>role='treeitem'</code>, на уровне вложенности <code>0</code>).
+<P>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="isLeaf"><!-- --></A><H3>
+isLeaf</H3>
+<PRE>
+private final boolean <B>isLeaf</B></PRE>
+<DL>
+<DD>Признаки разворачиваемости и развернутости узла (<code>aria-expanded == null</code>, <code>aria-expanded == true</code>).
+<P>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="isExpanded"><!-- --></A><H3>
+isExpanded</H3>
+<PRE>
+private final boolean <B>isExpanded</B></PRE>
+<DL>
+<DD>Признаки разворачиваемости и развернутости узла (<code>aria-expanded == null</code>, <code>aria-expanded == true</code>).
+<P>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="level"><!-- --></A><H3>
+level</H3>
+<PRE>
+private final int <B>level</B></PRE>
+<DL>
+<DD>Уровень вложенности узла в дереве (<code>aria-level</code>).
+<P>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="checkedState"><!-- --></A><H3>
+checkedState</H3>
+<PRE>
+private final <A HREF="../../../../../../../com/technology/jep/jepria/auto/widget/tree/TreeItemWebElement.CheckedState.html" title="enum in com.technology.jep.jepria.auto.widget.tree">TreeItemWebElement.CheckedState</A> <B>checkedState</B></PRE>
+<DL>
+<DD>Jep-состояние отмеченности узла
+ (<code>checked</code>/<code>unchecked</code>/<code>partial</code>).
+<P>
+<DL>
+</DL>
+</DL>
+
+<!-- ========= CONSTRUCTOR DETAIL ======== -->
+
+<A NAME="constructor_detail"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
+<B>Constructor Detail</B></FONT></TH>
+</TR>
+</TABLE>
+
+<A NAME="TreeItemWebElement(org.openqa.selenium.WebElement, java.lang.String, boolean, boolean, boolean, int, com.technology.jep.jepria.auto.widget.tree.TreeItemWebElement.CheckedState)"><!-- --></A><H3>
+TreeItemWebElement</H3>
+<PRE>
+private <B>TreeItemWebElement</B>(org.openqa.selenium.WebElement&nbsp;webElement,
+                           java.lang.String&nbsp;itemName,
+                           boolean&nbsp;isRootOfTree,
+                           boolean&nbsp;isLeaf,
+                           boolean&nbsp;isExpanded,
+                           int&nbsp;level,
+                           <A HREF="../../../../../../../com/technology/jep/jepria/auto/widget/tree/TreeItemWebElement.CheckedState.html" title="enum in com.technology.jep.jepria.auto.widget.tree">TreeItemWebElement.CheckedState</A>&nbsp;checkedState)</PRE>
+<DL>
+</DL>
+
+<!-- ============ METHOD DETAIL ========== -->
+
+<A NAME="method_detail"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
+<B>Method Detail</B></FONT></TH>
+</TR>
+</TABLE>
+
+<A NAME="asWebElement()"><!-- --></A><H3>
+asWebElement</H3>
+<PRE>
+public org.openqa.selenium.WebElement <B>asWebElement</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getItemName()"><!-- --></A><H3>
+getItemName</H3>
+<PRE>
+public java.lang.String <B>getItemName</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="isRootOfTree()"><!-- --></A><H3>
+isRootOfTree</H3>
+<PRE>
+public boolean <B>isRootOfTree</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="isLeaf()"><!-- --></A><H3>
+isLeaf</H3>
+<PRE>
+public boolean <B>isLeaf</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="isExpanded()"><!-- --></A><H3>
+isExpanded</H3>
+<PRE>
+public boolean <B>isExpanded</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getLevel()"><!-- --></A><H3>
+getLevel</H3>
+<PRE>
+public int <B>getLevel</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getCheckedState()"><!-- --></A><H3>
+getCheckedState</H3>
+<PRE>
+public <A HREF="../../../../../../../com/technology/jep/jepria/auto/widget/tree/TreeItemWebElement.CheckedState.html" title="enum in com.technology.jep.jepria.auto.widget.tree">TreeItemWebElement.CheckedState</A> <B>getCheckedState</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="fromWebElement(org.openqa.selenium.WebElement)"><!-- --></A><H3>
+fromWebElement</H3>
+<PRE>
+public static final <A HREF="../../../../../../../com/technology/jep/jepria/auto/widget/tree/TreeItemWebElement.html" title="class in com.technology.jep.jepria.auto.widget.tree">TreeItemWebElement</A> <B>fromWebElement</B>(org.openqa.selenium.WebElement&nbsp;webElement)</PRE>
+<DL>
+<DD>Создает экземпляр класса из произвольного Веб-элемента, используя парсинг внутренней структуры.
+<P>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="toString()"><!-- --></A><H3>
+toString</H3>
+<PRE>
+public java.lang.String <B>toString</B>()</PRE>
+<DL>
+<DD><DL>
+<DT><B>Overrides:</B><DD><CODE>toString</CODE> in class <CODE>java.lang.Object</CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<!-- ========= END OF CLASS DATA ========= -->
+<HR>
+
+
+<!-- ======= START OF BOTTOM NAVBAR ====== -->
+<A NAME="navbar_bottom"><!-- --></A>
+<A HREF="#skip-navbar_bottom" title="Skip navigation links"></A>
+<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
+<TR>
+<TD COLSPAN=2 BGCOLOR="#EEEEFF" CLASS="NavBarCell1">
+<A NAME="navbar_bottom_firstrow"><!-- --></A>
+<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3" SUMMARY="">
+  <TR ALIGN="center" VALIGN="top">
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-summary.html"><FONT CLASS="NavBarFont1"><B>Package</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../index-all.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../../help-doc.html"><FONT CLASS="NavBarFont1"><B>Help</B></FONT></A>&nbsp;</TD>
+  </TR>
+</TABLE>
+</TD>
+<TD ALIGN="right" VALIGN="top" ROWSPAN=3><EM>
+</EM>
+</TD>
+</TR>
+
+<TR>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+&nbsp;<A HREF="../../../../../../../com/technology/jep/jepria/auto/widget/tree/TreeItemFilter.html" title="interface in com.technology.jep.jepria.auto.widget.tree"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../../../../../../com/technology/jep/jepria/auto/widget/tree/TreeItemWebElement.CheckedState.html" title="enum in com.technology.jep.jepria.auto.widget.tree"><B>NEXT CLASS</B></A></FONT></TD>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+  <A HREF="../../../../../../../index.html?com/technology/jep/jepria/auto/widget/tree/TreeItemWebElement.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="TreeItemWebElement.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+&nbsp;<SCRIPT type="text/javascript">
+  <!--
+  if(window==top) {
+    document.writeln('<A HREF="../../../../../../../allclasses-noframe.html"><B>All Classes</B></A>');
+  }
+  //-->
+</SCRIPT>
+<NOSCRIPT>
+  <A HREF="../../../../../../../allclasses-noframe.html"><B>All Classes</B></A>
+</NOSCRIPT>
+
+
+</FONT></TD>
+</TR>
+<TR>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+  SUMMARY:&nbsp;<A HREF="#nested_class_summary">NESTED</A>&nbsp;|&nbsp;<A HREF="#field_summary">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
+</TR>
+</TABLE>
+<A NAME="skip-navbar_bottom"></A>
+<!-- ======== END OF BOTTOM NAVBAR ======= -->
+
+<HR>
+
+</BODY>
+</HTML>

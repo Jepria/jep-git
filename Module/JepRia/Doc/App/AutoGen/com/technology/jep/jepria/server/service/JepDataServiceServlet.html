@@ -220,7 +220,7 @@ java.lang.Object
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>private &nbsp;void</CODE></FONT></TD>
+<CODE>protected &nbsp;void</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/service/JepDataServiceServlet.html#clearFoundRecords(com.technology.jep.jepria.shared.load.FindConfig)">clearFoundRecords</A></B>(<A HREF="../../../../../../com/technology/jep/jepria/shared/load/FindConfig.html" title="class in com.technology.jep.jepria.shared.load">FindConfig</A>&nbsp;findConfig)</CODE>
 
 <BR>
@@ -396,7 +396,7 @@ java.lang.Object
 <TH ALIGN="left"><B>Methods inherited from class com.technology.jep.jepria.server.service.<A HREF="../../../../../../com/technology/jep/jepria/server/service/JepServiceServlet.html" title="class in com.technology.jep.jepria.server.service">JepServiceServlet</A></B></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><A HREF="../../../../../../com/technology/jep/jepria/server/service/JepServiceServlet.html#buildException(java.lang.String, java.lang.Throwable)">buildException</A>, <A HREF="../../../../../../com/technology/jep/jepria/server/service/JepServiceServlet.html#buildException(java.lang.Throwable)">buildException</A>, <A HREF="../../../../../../com/technology/jep/jepria/server/service/JepServiceServlet.html#getOperatorId()">getOperatorId</A></CODE></TD>
+<TD><CODE><A HREF="../../../../../../com/technology/jep/jepria/server/service/JepServiceServlet.html#buildException(java.lang.String, java.lang.Throwable)">buildException</A>, <A HREF="../../../../../../com/technology/jep/jepria/server/service/JepServiceServlet.html#buildException(java.lang.Throwable)">buildException</A>, <A HREF="../../../../../../com/technology/jep/jepria/server/service/JepServiceServlet.html#getOperatorId()">getOperatorId</A>, <A HREF="../../../../../../com/technology/jep/jepria/server/service/JepServiceServlet.html#isRole(java.lang.String, boolean)">isRole</A></CODE></TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_com.google.gwt.user.server.rpc.RemoteServiceServlet"><!-- --></A>
@@ -914,7 +914,7 @@ private void <B>upload</B>(java.lang.String&nbsp;text,
 <A NAME="clearFoundRecords(com.technology.jep.jepria.shared.load.FindConfig)"><!-- --></A><H3>
 clearFoundRecords</H3>
 <PRE>
-private void <B>clearFoundRecords</B>(<A HREF="../../../../../../com/technology/jep/jepria/shared/load/FindConfig.html" title="class in com.technology.jep.jepria.shared.load">FindConfig</A>&nbsp;findConfig)</PRE>
+protected final void <B>clearFoundRecords</B>(<A HREF="../../../../../../com/technology/jep/jepria/shared/load/FindConfig.html" title="class in com.technology.jep.jepria.shared.load">FindConfig</A>&nbsp;findConfig)</PRE>
 <DL>
 <DD>Удаление из сессии набора записей соответствующих заданной конфигурации поиска.
 <P>

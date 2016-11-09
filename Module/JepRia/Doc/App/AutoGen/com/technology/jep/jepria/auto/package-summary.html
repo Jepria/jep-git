@@ -54,7 +54,7 @@ function windowTitle()
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
 &nbsp;<A HREF="../../../../../com/technology/jep/jepcommon/security/tomcat/package-summary.html"><B>PREV PACKAGE</B></A>&nbsp;
-&nbsp;<A HREF="../../../../../com/technology/jep/jepria/auto/conditions/package-summary.html"><B>NEXT PACKAGE</B></A></FONT></TD>
+&nbsp;<A HREF="../../../../../com/technology/jep/jepria/auto/application/package-summary.html"><B>NEXT PACKAGE</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../../../../index.html?com/technology/jep/jepria/auto/package-summary.html" target="_top"><B>FRAMES</B></A>  &nbsp;
 &nbsp;<A HREF="package-summary.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
@@ -85,81 +85,6 @@ Package com.technology.jep.jepria.auto
 <B>See:</B>
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A HREF="#package_description"><B>Description</B></A>
-<P>
-
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
-<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
-<B>Interface Summary</B></FONT></TH>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD WIDTH="15%"><B><A HREF="../../../../../com/technology/jep/jepria/auto/HasText.html" title="interface in com.technology.jep.jepria.auto">HasText</A></B></TD>
-<TD>&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD WIDTH="15%"><B><A HREF="../../../../../com/technology/jep/jepria/auto/JepRiaModuleAuto.html" title="interface in com.technology.jep.jepria.auto">JepRiaModuleAuto</A></B></TD>
-<TD>Базовый интерфейс автоматизации стандартного модуля JepRia</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD WIDTH="15%"><B><A HREF="../../../../../com/technology/jep/jepria/auto/RecordSelector.html" title="interface in com.technology.jep.jepria.auto">RecordSelector</A></B></TD>
-<TD>Функционал, необходимый при получении более одной записей на списочной форме, он используется для определения,
- какая из множества записей будет редактироваться.</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD WIDTH="15%"><B><A HREF="../../../../../com/technology/jep/jepria/auto/TreeItemFilter.html" title="interface in com.technology.jep.jepria.auto">TreeItemFilter</A></B></TD>
-<TD>Вспомогательный интерфейс (паттерн команда), используемый при обходе дерева.</TD>
-</TR>
-</TABLE>
-&nbsp;
-
-<P>
-
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
-<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
-<B>Class Summary</B></FONT></TH>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD WIDTH="15%"><B><A HREF="../../../../../com/technology/jep/jepria/auto/JepAutoProperties.html" title="class in com.technology.jep.jepria.auto">JepAutoProperties</A></B></TD>
-<TD>&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD WIDTH="15%"><B><A HREF="../../../../../com/technology/jep/jepria/auto/JepRiaModuleAutoImpl.html" title="class in com.technology.jep.jepria.auto">JepRiaModuleAutoImpl&lt;A extends EntranceAppAuto,P extends JepRiaApplicationPageManager&gt;</A></B></TD>
-<TD>Реализация JepRiaModuleAuto</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD WIDTH="15%"><B><A HREF="../../../../../com/technology/jep/jepria/auto/TreeItemWebElement.html" title="class in com.technology.jep.jepria.auto">TreeItemWebElement</A></B></TD>
-<TD>Декоратор для тех экземпляров класса <CODE>WebElement</CODE>, которые являются
- узлами GWT-дерева (иденификация по атрибуту <code>role='treeitem'</code>), либо корнем дерева
- (корнем может быть любой элемент, содержащий внутри себя узлы GWT-дерева).</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD WIDTH="15%"><B><A HREF="../../../../../com/technology/jep/jepria/auto/Util.html" title="class in com.technology.jep.jepria.auto">Util</A></B></TD>
-<TD>&nbsp;</TD>
-</TR>
-</TABLE>
-&nbsp;
-
-<P>
-
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
-<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
-<B>Enum Summary</B></FONT></TH>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD WIDTH="15%"><B><A HREF="../../../../../com/technology/jep/jepria/auto/SaveResultEnum.html" title="enum in com.technology.jep.jepria.auto">SaveResultEnum</A></B></TD>
-<TD>Перечень результатов выполнения сохранения записи с детальной формы</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD WIDTH="15%"><B><A HREF="../../../../../com/technology/jep/jepria/auto/TreeItemWebElement.CheckedState.html" title="enum in com.technology.jep.jepria.auto">TreeItemWebElement.CheckedState</A></B></TD>
-<TD>Этот енум определяется JEP(а не GWT)-свойством отмеченности узла дерева, то есть атрибутом
- <code>jep-treenode-checkedstate</code> элемента <code>span</code>, а не атрибутом <code>aria-selected</code>
- элемента <code>div[role='treeitem']</code>.</TD>
-</TR>
-</TABLE>
-&nbsp;
-
 <P>
 <A NAME="package_description"><!-- --></A><H2>
 Package com.technology.jep.jepria.auto Description
@@ -204,7 +129,7 @@ Package com.technology.jep.jepria.auto Description
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
 &nbsp;<A HREF="../../../../../com/technology/jep/jepcommon/security/tomcat/package-summary.html"><B>PREV PACKAGE</B></A>&nbsp;
-&nbsp;<A HREF="../../../../../com/technology/jep/jepria/auto/conditions/package-summary.html"><B>NEXT PACKAGE</B></A></FONT></TD>
+&nbsp;<A HREF="../../../../../com/technology/jep/jepria/auto/application/package-summary.html"><B>NEXT PACKAGE</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../../../../index.html?com/technology/jep/jepria/auto/package-summary.html" target="_top"><B>FRAMES</B></A>  &nbsp;
 &nbsp;<A HREF="package-summary.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;

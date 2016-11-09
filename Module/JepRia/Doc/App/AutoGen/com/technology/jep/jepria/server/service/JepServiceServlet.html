@@ -194,6 +194,15 @@ java.lang.Object
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Получение идентификатора пользователя.</TD>
 </TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/service/JepServiceServlet.html#isRole(java.lang.String, boolean)">isRole</A></B>(java.lang.String&nbsp;role,
+       boolean&nbsp;makeError)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Проверка роли.</TD>
+</TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_com.google.gwt.user.server.rpc.RemoteServiceServlet"><!-- --></A>
 <TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
@@ -302,6 +311,30 @@ protected java.lang.Integer <B>getOperatorId</B>()</PRE>
 <DD><DL>
 
 <DT><B>Returns:</B><DD>идентификатор пользователя</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="isRole(java.lang.String, boolean)"><!-- --></A><H3>
+isRole</H3>
+<PRE>
+protected boolean <B>isRole</B>(java.lang.String&nbsp;role,
+                         boolean&nbsp;makeError)
+                  throws <A HREF="../../../../../../com/technology/jep/jepria/shared/exceptions/ApplicationException.html" title="class in com.technology.jep.jepria.shared.exceptions">ApplicationException</A></PRE>
+<DL>
+<DD>Проверка роли. <br/>
+ Использует <CODE>isRole</CODE>.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>role</CODE> - проверяемая роль<DD><CODE>makeError</CODE> - признак: выбрасывать исключение (значение true) или нет (значение false)
+<DT><B>Returns:</B><DD>true - если текущему оператору принадлежит роль role, false или исключение
+ (в зависимости от параметра makeError) в противном случае
+<DT><B>Throws:</B>
+<DD><CODE>java.lang.Exception</CODE>
+<DD><CODE><A HREF="../../../../../../com/technology/jep/jepria/shared/exceptions/ApplicationException.html" title="class in com.technology.jep.jepria.shared.exceptions">ApplicationException</A></CODE></DL>
 </DD>
 </DL>
 <HR>

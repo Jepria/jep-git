@@ -1,0 +1,1744 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!--NewPage-->
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<TITLE>
+JepRiaModuleAutoImpl (JepRia JavaDoc)
+</TITLE>
+
+
+<LINK REL ="stylesheet" TYPE="text/css" HREF="../../../../../../stylesheet.css" TITLE="Style">
+
+<SCRIPT type="text/javascript">
+function windowTitle()
+{
+    if (location.href.indexOf('is-external=true') == -1) {
+        parent.document.title="JepRiaModuleAutoImpl (JepRia JavaDoc)";
+    }
+}
+</SCRIPT>
+<NOSCRIPT>
+</NOSCRIPT>
+
+</HEAD>
+
+<BODY BGCOLOR="white" onload="windowTitle();">
+<HR>
+
+
+<!-- ========= START OF TOP NAVBAR ======= -->
+<A NAME="navbar_top"><!-- --></A>
+<A HREF="#skip-navbar_top" title="Skip navigation links"></A>
+<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
+<TR>
+<TD COLSPAN=2 BGCOLOR="#EEEEFF" CLASS="NavBarCell1">
+<A NAME="navbar_top_firstrow"><!-- --></A>
+<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3" SUMMARY="">
+  <TR ALIGN="center" VALIGN="top">
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-summary.html"><FONT CLASS="NavBarFont1"><B>Package</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../index-all.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../help-doc.html"><FONT CLASS="NavBarFont1"><B>Help</B></FONT></A>&nbsp;</TD>
+  </TR>
+</TABLE>
+</TD>
+<TD ALIGN="right" VALIGN="top" ROWSPAN=3><EM>
+</EM>
+</TD>
+</TR>
+
+<TR>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+&nbsp;<A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.SaveResultEnum.html" title="enum in com.technology.jep.jepria.auto.module"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;NEXT CLASS</FONT></TD>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+  <A HREF="../../../../../../index.html?com/technology/jep/jepria/auto/module/JepRiaModuleAutoImpl.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="JepRiaModuleAutoImpl.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+&nbsp;<SCRIPT type="text/javascript">
+  <!--
+  if(window==top) {
+    document.writeln('<A HREF="../../../../../../allclasses-noframe.html"><B>All Classes</B></A>');
+  }
+  //-->
+</SCRIPT>
+<NOSCRIPT>
+  <A HREF="../../../../../../allclasses-noframe.html"><B>All Classes</B></A>
+</NOSCRIPT>
+
+
+</FONT></TD>
+</TR>
+<TR>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+  SUMMARY:&nbsp;NESTED&nbsp;|&nbsp;<A HREF="#field_summary">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
+</TR>
+</TABLE>
+<A NAME="skip-navbar_top"></A>
+<!-- ========= END OF TOP NAVBAR ========= -->
+
+<HR>
+<!-- ======== START OF CLASS DATA ======== -->
+<H2>
+<FONT SIZE="-1">
+com.technology.jep.jepria.auto.module</FONT>
+<BR>
+Class JepRiaModuleAutoImpl&lt;P extends <A HREF="../../../../../../com/technology/jep/jepria/auto/module/page/JepRiaModulePage.html" title="class in com.technology.jep.jepria.auto.module.page">JepRiaModulePage</A>&gt;</H2>
+<PRE>
+java.lang.Object
+  <IMG SRC="../../../../../../resources/inherit.gif" ALT="extended by "><B>com.technology.jep.jepria.auto.module.JepRiaModuleAutoImpl&lt;P&gt;</B>
+</PRE>
+<DL>
+<DT><DT><B>Type Parameters:</B><DD><CODE>P</CODE> - интерфейс страницы, соответствующей данному модулю
+ (страница может содержать специфичные для модуля поля).
+ Если страница модуля не предполагает специфики (стандартная),
+ то вместо параметра подставляется класс <A HREF="../../../../../../com/technology/jep/jepria/auto/module/page/JepRiaModulePage.html" title="class in com.technology.jep.jepria.auto.module.page"><CODE>JepRiaModulePage</CODE></A>.</DL>
+<DL>
+<DT><B>All Implemented Interfaces:</B> <DD><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html" title="interface in com.technology.jep.jepria.auto.module">JepRiaModuleAuto</A></DD>
+</DL>
+<HR>
+<DL>
+<DT><PRE>public class <B>JepRiaModuleAutoImpl&lt;P extends <A HREF="../../../../../../com/technology/jep/jepria/auto/module/page/JepRiaModulePage.html" title="class in com.technology.jep.jepria.auto.module.page">JepRiaModulePage</A>&gt;</B><DT>extends java.lang.Object<DT>implements <A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html" title="interface in com.technology.jep.jepria.auto.module">JepRiaModuleAuto</A></DL>
+</PRE>
+
+<P>
+Реализация JepRiaModuleAuto
+<P>
+
+<P>
+<HR>
+
+<P>
+<!-- ======== NESTED CLASS SUMMARY ======== -->
+
+<A NAME="nested_class_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Nested Class Summary</B></FONT></TH>
+</TR>
+</TABLE>
+&nbsp;<A NAME="nested_classes_inherited_from_class_com.technology.jep.jepria.auto.module.JepRiaModuleAuto"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Nested classes/interfaces inherited from interface com.technology.jep.jepria.auto.module.<A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html" title="interface in com.technology.jep.jepria.auto.module">JepRiaModuleAuto</A></B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.SaveResultEnum.html" title="enum in com.technology.jep.jepria.auto.module">JepRiaModuleAuto.SaveResultEnum</A></CODE></TD>
+</TR>
+</TABLE>
+&nbsp;
+<!-- =========== FIELD SUMMARY =========== -->
+
+<A NAME="field_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Field Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;<A HREF="../../../../../../com/technology/jep/jepria/client/ui/WorkstateEnum.html" title="enum in com.technology.jep.jepria.client.ui">WorkstateEnum</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAutoImpl.html#currentWorkstate">currentWorkstate</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private static&nbsp;org.apache.log4j.Logger</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAutoImpl.html#logger">logger</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;<A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAutoImpl.html" title="type parameter in JepRiaModuleAutoImpl">P</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAutoImpl.html#page">page</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;<A HREF="../../../../../../com/technology/jep/jepria/auto/widget/statusbar/StatusBar.html" title="class in com.technology.jep.jepria.auto.widget.statusbar">StatusBar</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAutoImpl.html#statusBar">statusBar</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private static&nbsp;long</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAutoImpl.html#WEB_DRIVER_TIMEOUT">WEB_DRIVER_TIMEOUT</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;
+<!-- ======== CONSTRUCTOR SUMMARY ======== -->
+
+<A NAME="constructor_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Constructor Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAutoImpl.html#JepRiaModuleAutoImpl(P)">JepRiaModuleAutoImpl</A></B>(<A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAutoImpl.html" title="type parameter in JepRiaModuleAutoImpl">P</A>&nbsp;page)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;
+<!-- ========== METHOD SUMMARY =========== -->
+
+<A NAME="method_summary"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
+<B>Method Summary</B></FONT></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAutoImpl.html#changeCheckBoxFieldValue(java.lang.String)">changeCheckBoxFieldValue</A></B>(java.lang.String&nbsp;checkBoxFieldId)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Изменение значения флажка CheckBoxField по заданному Id на противоположное.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAutoImpl.html#checkMessageBox(java.lang.String)">checkMessageBox</A></B>(java.lang.String&nbsp;messageBoxId)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Проверка отображения MessageBox</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAutoImpl.html#clickButton(java.lang.String)">clickButton</A></B>(java.lang.String&nbsp;buttonId)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Нажатие кнопки с идентификатором buttonId</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAutoImpl.html#delete(java.util.Map)">delete</A></B>(java.util.Map&lt;java.lang.String,java.lang.String&gt;&nbsp;key)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Удаление записи</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAutoImpl.html#doGridColumnSettings(java.lang.String, java.lang.String[])">doGridColumnSettings</A></B>(java.lang.String&nbsp;gridId,
+                     java.lang.String[]&nbsp;columns)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Производит настройку столбцов списочной формы.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAutoImpl.html#doSearch()">doSearch</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Выполнение поиска по параметрам, заданным в поисковой форме</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAutoImpl.html#doSearch(java.util.Map)">doSearch</A></B>(java.util.Map&lt;java.lang.String,java.lang.String&gt;&nbsp;template)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Выполнение поиска по шаблону</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAutoImpl.html#edit(java.util.Map)">edit</A></B>(java.util.Map&lt;java.lang.String,java.lang.String&gt;&nbsp;template)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Перейти в состояние редактирования записи, выбранной по первичному ключу
+ В качестве идентификаторов полей первичного ключа выступают ID Web-элементов полей ввода</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAutoImpl.html#edit(java.util.Map, java.lang.String)">edit</A></B>(java.util.Map&lt;java.lang.String,java.lang.String&gt;&nbsp;template,
+     java.lang.String&nbsp;gridId)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Перейти в состояние редактирования записи, выбранной по первичному ключу
+ В качестве идентификаторов полей первичного ключа выступают ID Web-элементов полей ввода</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAutoImpl.html#edit(java.lang.String, java.lang.String)">edit</A></B>(java.lang.String&nbsp;idFieldName,
+     java.lang.String&nbsp;id)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Перейти в состояние редактирования записи, выбранной по id</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAutoImpl.html#ensureModuleLoaded()">ensureModuleLoaded</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Проверка, загрузился ли модуль (делегирование к <CODE>AbstractPage#ensurePageLoaded()</CODE>).</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAutoImpl.html#fillFields(java.util.Map)">fillFields</A></B>(java.util.Map&lt;java.lang.String,java.lang.String&gt;&nbsp;fieldMap)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAutoImpl.html#find()">find</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Переход на форму поиска.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private static&nbsp;org.openqa.selenium.WebElement</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAutoImpl.html#findElementAndWait(org.openqa.selenium.By)">findElementAndWait</A></B>(org.openqa.selenium.By&nbsp;by)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ищет элемент на текущей странице и, в том случае, если его нет, ожидает его появления</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private static&nbsp;java.util.List&lt;org.openqa.selenium.WebElement&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAutoImpl.html#findElementsAndWait(org.openqa.selenium.By)">findElementsAndWait</A></B>(org.openqa.selenium.By&nbsp;by)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ищет элементы на текущей странице и, в том случае, если их нет, ожидает их появления</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAutoImpl.html#getCheckBoxFieldValue(java.lang.String)">getCheckBoxFieldValue</A></B>(java.lang.String&nbsp;checkBoxFieldId)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Получение значения поля  CheckBoxField.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../../../com/technology/jep/jepria/client/ui/WorkstateEnum.html" title="enum in com.technology.jep.jepria.client.ui">WorkstateEnum</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAutoImpl.html#getCurrentWorkstate()">getCurrentWorkstate</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;java.lang.String[]</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAutoImpl.html#getDualListFieldValues(java.lang.String)">getDualListFieldValues</A></B>(java.lang.String&nbsp;jepDualListFieldId)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Получение значений правого списка поля JepDualListField</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAutoImpl.html#getFieldValue(java.lang.String)">getFieldValue</A></B>(java.lang.String&nbsp;fieldId)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Получение значения элемента ввода поля по заданному id поля</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;java.util.List&lt;java.util.List&lt;java.lang.Object&gt;&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAutoImpl.html#getGridDataRowwise(java.lang.String)">getGridDataRowwise</A></B>(java.lang.String&nbsp;gridId)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;java.util.List&lt;java.lang.String&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAutoImpl.html#getGridHeaders(java.lang.String)">getGridHeaders</A></B>(java.lang.String&nbsp;gridId)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;java.lang.String[]</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAutoImpl.html#getListFieldValues(java.lang.String)">getListFieldValues</A></B>(java.lang.String&nbsp;jepListFieldId)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Получение отмеченных значений списка поля JepListField</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../../../com/technology/jep/jepria/auto/widget/statusbar/StatusBar.html" title="class in com.technology.jep.jepria.auto.widget.statusbar">StatusBar</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAutoImpl.html#getStatusBar()">getStatusBar</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Получение элемента панели состояния</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAutoImpl.html#getToolbarButtonId(com.technology.jep.jepria.client.ui.WorkstateEnum)">getToolbarButtonId</A></B>(<A HREF="../../../../../../com/technology/jep/jepria/client/ui/WorkstateEnum.html" title="enum in com.technology.jep.jepria.client.ui">WorkstateEnum</A>&nbsp;workstate)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Получение кнопки toolbar для перехода в заданное состояние</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;java.lang.String[]</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAutoImpl.html#getTreeFieldNodesByFilter(java.lang.String, com.technology.jep.jepria.auto.widget.tree.TreeItemFilter)">getTreeFieldNodesByFilter</A></B>(java.lang.String&nbsp;treeFieldId,
+                          <A HREF="../../../../../../com/technology/jep/jepria/auto/widget/tree/TreeItemFilter.html" title="interface in com.technology.jep.jepria.auto.widget.tree">TreeItemFilter</A>&nbsp;filter)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Получение массива путей до узлов, проходящих через фильтр, поля JepTreeField.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAutoImpl.html#isDisplayed(java.lang.String)">isDisplayed</A></B>(java.lang.String&nbsp;id)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAutoImpl.html#isFieldAllowBlank(java.lang.String)">isFieldAllowBlank</A></B>(java.lang.String&nbsp;fieldId)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Проверка необязательности Jep-поля по заданному ID (наличия маркера обязательности (*) )</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAutoImpl.html#isFieldEditable(java.lang.String)">isFieldEditable</A></B>(java.lang.String&nbsp;fieldId)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Проверка редактируемости Jep-поля по заданному ID (атрибута jep-card-type)</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAutoImpl.html#isFieldEnabled(java.lang.String)">isFieldEnabled</A></B>(java.lang.String&nbsp;fieldId)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Проверка доступности Jep-поля по заданному ID (атрибута disabled)</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAutoImpl.html#isFieldVisible(java.lang.String)">isFieldVisible</A></B>(java.lang.String&nbsp;fieldId)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Проверка видимости Jep-поля по заданному ID (атрибута aria-hidden)</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.SaveResultEnum.html" title="enum in com.technology.jep.jepria.auto.module">JepRiaModuleAuto.SaveResultEnum</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAutoImpl.html#save()">save</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Сохранить</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAutoImpl.html#selectAllListMenuItems(java.lang.String, boolean)">selectAllListMenuItems</A></B>(java.lang.String&nbsp;listFieldId,
+                       boolean&nbsp;selectAll)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Выбор всех элементов JepListField по заданному Id.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAutoImpl.html#selectAllTreeItems(java.lang.String, boolean)">selectAllTreeItems</A></B>(java.lang.String&nbsp;treeFieldId,
+                   boolean&nbsp;selectAll)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Выбор всех элементов JepTreeField по заданному Id, с помощью флажка "Выделить все".</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAutoImpl.html#selectComboBoxMenuItem(java.lang.String, java.lang.String)">selectComboBoxMenuItem</A></B>(java.lang.String&nbsp;comboBoxFieldId,
+                       java.lang.String&nbsp;menuItem)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Простой выбор элемента Комбо-бокса по заданному id.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAutoImpl.html#selectComboBoxMenuItem(java.lang.String, java.lang.String, boolean, int)">selectComboBoxMenuItem</A></B>(java.lang.String&nbsp;comboBoxFieldId,
+                       java.lang.String&nbsp;menuItem,
+                       boolean&nbsp;charByCharReloadingOptions,
+                       int&nbsp;minInputLength)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAutoImpl.html#selectComboBoxMenuItemWithCharByCharReloadingOptions(java.lang.String, java.lang.String, int)">selectComboBoxMenuItemWithCharByCharReloadingOptions</A></B>(java.lang.String&nbsp;comboBoxFieldId,
+                                                     java.lang.String&nbsp;menuItem,
+                                                     int&nbsp;minInputLength)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Сложный выбор элемента Комбо-бокса по заданному id.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAutoImpl.html#selectDualListMenuItems(java.lang.String, java.lang.String[])">selectDualListMenuItems</A></B>(java.lang.String&nbsp;dualListFieldId,
+                        java.lang.String[]&nbsp;menuItems)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Выбор элементов DualListField по заданному Id.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAutoImpl.html#selectItem(int)">selectItem</A></B>(int&nbsp;index)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Выделить элемент списка списочной формы по индексу</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAutoImpl.html#selectItem(int, java.lang.String)">selectItem</A></B>(int&nbsp;index,
+           java.lang.String&nbsp;gridId)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Выделить элемент списка списочной формы по индексу.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAutoImpl.html#selectItem(java.util.Map)">selectItem</A></B>(java.util.Map&lt;java.lang.String,java.lang.String&gt;&nbsp;key)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Выделить элемент списка списочной формы по ключу</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAutoImpl.html#selectListMenuItems(java.lang.String, java.lang.String[])">selectListMenuItems</A></B>(java.lang.String&nbsp;listFieldId,
+                    java.lang.String[]&nbsp;menuItems)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Выбор элементов JepListField по заданному Id.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAutoImpl.html#selectTreeItem(java.lang.String, java.lang.String)">selectTreeItem</A></B>(java.lang.String&nbsp;treeFieldId,
+               java.lang.String&nbsp;itemPath)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAutoImpl.html#selectTreeItems(java.lang.String, java.lang.String[])">selectTreeItems</A></B>(java.lang.String&nbsp;treeFieldId,
+                java.lang.String[]&nbsp;itemPaths)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Выбор элементов JepTreeField по заданным путям, без предварительной очистки уже отмеченных узлов.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAutoImpl.html#setCheckBoxFieldValue(java.lang.String, boolean)">setCheckBoxFieldValue</A></B>(java.lang.String&nbsp;checkBoxFieldId,
+                      boolean&nbsp;checked)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Простановка флажка CheckBoxField по заданному Id.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAutoImpl.html#setCurrentWorkstate(com.technology.jep.jepria.client.ui.WorkstateEnum)">setCurrentWorkstate</A></B>(<A HREF="../../../../../../com/technology/jep/jepria/client/ui/WorkstateEnum.html" title="enum in com.technology.jep.jepria.client.ui">WorkstateEnum</A>&nbsp;currentWorkstate)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAutoImpl.html#setFieldValue(java.lang.String, java.lang.String)">setFieldValue</A></B>(java.lang.String&nbsp;fieldId,
+              java.lang.String&nbsp;value)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Установка заданного значения элементу ввода поля по заданному id поля</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAutoImpl.html#setLargeFieldValue(java.lang.String, java.lang.String)">setLargeFieldValue</A></B>(java.lang.String&nbsp;fieldId,
+                   java.lang.String&nbsp;pathToFile)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Установка заданного значения элементу ввода поля типа Large по заданному id поля.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAutoImpl.html#setWorkstate(com.technology.jep.jepria.client.ui.WorkstateEnum)">setWorkstate</A></B>(<A HREF="../../../../../../com/technology/jep/jepria/client/ui/WorkstateEnum.html" title="enum in com.technology.jep.jepria.client.ui">WorkstateEnum</A>&nbsp;workstateTo)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Перейти в указанное состояние</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAutoImpl.html#sleep(int)">sleep</A></B>(int&nbsp;msc)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private static&nbsp;org.openqa.selenium.support.ui.ExpectedCondition&lt;java.lang.Boolean&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAutoImpl.html#textToBeChangedInElementLocated(org.openqa.selenium.By, java.lang.String)">textToBeChangedInElementLocated</A></B>(org.openqa.selenium.By&nbsp;locator,
+                                java.lang.String&nbsp;currentText)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;java.util.List&lt;java.lang.String&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAutoImpl.html#traverseTree(org.openqa.selenium.WebElement, int, com.technology.jep.jepria.auto.widget.tree.TreeItemFilter)">traverseTree</A></B>(org.openqa.selenium.WebElement&nbsp;node,
+             int&nbsp;level,
+             <A HREF="../../../../../../com/technology/jep/jepria/auto/widget/tree/TreeItemFilter.html" title="interface in com.technology.jep.jepria.auto.widget.tree">TreeItemFilter</A>&nbsp;filter)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Метод для рекурсивного обхода дерева, составляющий список путей до узлов, проходящих через фильтр.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAutoImpl.html#waitTextToBeChanged(com.technology.jep.jepria.auto.util.HasText, java.lang.String)">waitTextToBeChanged</A></B>(<A HREF="../../../../../../com/technology/jep/jepria/auto/util/HasText.html" title="interface in com.technology.jep.jepria.auto.util">HasText</A>&nbsp;hasText,
+                    java.lang.String&nbsp;currentWorkstateDisplayText)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+</TABLE>
+&nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
+<TH ALIGN="left"><B>Methods inherited from class java.lang.Object</B></TH>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE>clone, equals, finalize, getClass, hashCode, notify, notifyAll, toString, wait, wait, wait</CODE></TD>
+</TR>
+</TABLE>
+&nbsp;
+<P>
+
+<!-- ============ FIELD DETAIL =========== -->
+
+<A NAME="field_detail"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
+<B>Field Detail</B></FONT></TH>
+</TR>
+</TABLE>
+
+<A NAME="page"><!-- --></A><H3>
+page</H3>
+<PRE>
+protected <A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAutoImpl.html" title="type parameter in JepRiaModuleAutoImpl">P</A> extends <A HREF="../../../../../../com/technology/jep/jepria/auto/module/page/JepRiaModulePage.html" title="class in com.technology.jep.jepria.auto.module.page">JepRiaModulePage</A> <B>page</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="WEB_DRIVER_TIMEOUT"><!-- --></A><H3>
+WEB_DRIVER_TIMEOUT</H3>
+<PRE>
+private static final long <B>WEB_DRIVER_TIMEOUT</B></PRE>
+<DL>
+<DL>
+<DT><B>See Also:</B><DD><A HREF="../../../../../../constant-values.html#com.technology.jep.jepria.auto.module.JepRiaModuleAutoImpl.WEB_DRIVER_TIMEOUT">Constant Field Values</A></DL>
+</DL>
+<HR>
+
+<A NAME="logger"><!-- --></A><H3>
+logger</H3>
+<PRE>
+private static org.apache.log4j.Logger <B>logger</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="currentWorkstate"><!-- --></A><H3>
+currentWorkstate</H3>
+<PRE>
+private <A HREF="../../../../../../com/technology/jep/jepria/client/ui/WorkstateEnum.html" title="enum in com.technology.jep.jepria.client.ui">WorkstateEnum</A> <B>currentWorkstate</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="statusBar"><!-- --></A><H3>
+statusBar</H3>
+<PRE>
+private <A HREF="../../../../../../com/technology/jep/jepria/auto/widget/statusbar/StatusBar.html" title="class in com.technology.jep.jepria.auto.widget.statusbar">StatusBar</A> <B>statusBar</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+
+<!-- ========= CONSTRUCTOR DETAIL ======== -->
+
+<A NAME="constructor_detail"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
+<B>Constructor Detail</B></FONT></TH>
+</TR>
+</TABLE>
+
+<A NAME="JepRiaModuleAutoImpl(com.technology.jep.jepria.auto.module.page.JepRiaModulePage)"><!-- --></A><A NAME="JepRiaModuleAutoImpl(P)"><!-- --></A><H3>
+JepRiaModuleAutoImpl</H3>
+<PRE>
+public <B>JepRiaModuleAutoImpl</B>(<A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAutoImpl.html" title="type parameter in JepRiaModuleAutoImpl">P</A>&nbsp;page)</PRE>
+<DL>
+</DL>
+
+<!-- ============ METHOD DETAIL ========== -->
+
+<A NAME="method_detail"><!-- --></A>
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
+<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
+<B>Method Detail</B></FONT></TH>
+</TR>
+</TABLE>
+
+<A NAME="waitTextToBeChanged(com.technology.jep.jepria.auto.util.HasText, java.lang.String)"><!-- --></A><H3>
+waitTextToBeChanged</H3>
+<PRE>
+protected void <B>waitTextToBeChanged</B>(<A HREF="../../../../../../com/technology/jep/jepria/auto/util/HasText.html" title="interface in com.technology.jep.jepria.auto.util">HasText</A>&nbsp;hasText,
+                                   java.lang.String&nbsp;currentWorkstateDisplayText)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="textToBeChangedInElementLocated(org.openqa.selenium.By, java.lang.String)"><!-- --></A><H3>
+textToBeChangedInElementLocated</H3>
+<PRE>
+private static org.openqa.selenium.support.ui.ExpectedCondition&lt;java.lang.Boolean&gt; <B>textToBeChangedInElementLocated</B>(org.openqa.selenium.By&nbsp;locator,
+                                                                                                                   java.lang.String&nbsp;currentText)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getStatusBar()"><!-- --></A><H3>
+getStatusBar</H3>
+<PRE>
+public <A HREF="../../../../../../com/technology/jep/jepria/auto/widget/statusbar/StatusBar.html" title="class in com.technology.jep.jepria.auto.widget.statusbar">StatusBar</A> <B>getStatusBar</B>()</PRE>
+<DL>
+<DD><B>Description copied from interface: <CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#getStatusBar()">JepRiaModuleAuto</A></CODE></B></DD>
+<DD>Получение элемента панели состояния
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#getStatusBar()">getStatusBar</A></CODE> in interface <CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html" title="interface in com.technology.jep.jepria.auto.module">JepRiaModuleAuto</A></CODE></DL>
+</DD>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>элемент панели состояния</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="clickButton(java.lang.String)"><!-- --></A><H3>
+clickButton</H3>
+<PRE>
+public void <B>clickButton</B>(java.lang.String&nbsp;buttonId)</PRE>
+<DL>
+<DD><B>Description copied from interface: <CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#clickButton(java.lang.String)">JepRiaModuleAuto</A></CODE></B></DD>
+<DD>Нажатие кнопки с идентификатором buttonId
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#clickButton(java.lang.String)">clickButton</A></CODE> in interface <CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html" title="interface in com.technology.jep.jepria.auto.module">JepRiaModuleAuto</A></CODE></DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>buttonId</CODE> - - id кнопки</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="doSearch(java.util.Map)"><!-- --></A><H3>
+doSearch</H3>
+<PRE>
+public void <B>doSearch</B>(java.util.Map&lt;java.lang.String,java.lang.String&gt;&nbsp;template)</PRE>
+<DL>
+<DD><B>Description copied from interface: <CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#doSearch(java.util.Map)">JepRiaModuleAuto</A></CODE></B></DD>
+<DD>Выполнение поиска по шаблону
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#doSearch(java.util.Map)">doSearch</A></CODE> in interface <CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html" title="interface in com.technology.jep.jepria.auto.module">JepRiaModuleAuto</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="find()"><!-- --></A><H3>
+find</H3>
+<PRE>
+public void <B>find</B>()</PRE>
+<DL>
+<DD><B>Description copied from interface: <CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#find()">JepRiaModuleAuto</A></CODE></B></DD>
+<DD>Переход на форму поиска.<br>
+ Для собственно выполнения поиска по параметрам, заданным в поисковой форме,
+ необходимо использовать <A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#doSearch()"><CODE>JepRiaModuleAuto.doSearch()</CODE></A>
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#find()">find</A></CODE> in interface <CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html" title="interface in com.technology.jep.jepria.auto.module">JepRiaModuleAuto</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="doSearch()"><!-- --></A><H3>
+doSearch</H3>
+<PRE>
+public void <B>doSearch</B>()</PRE>
+<DL>
+<DD><B>Description copied from interface: <CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#doSearch()">JepRiaModuleAuto</A></CODE></B></DD>
+<DD>Выполнение поиска по параметрам, заданным в поисковой форме
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#doSearch()">doSearch</A></CODE> in interface <CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html" title="interface in com.technology.jep.jepria.auto.module">JepRiaModuleAuto</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setWorkstate(com.technology.jep.jepria.client.ui.WorkstateEnum)"><!-- --></A><H3>
+setWorkstate</H3>
+<PRE>
+public void <B>setWorkstate</B>(<A HREF="../../../../../../com/technology/jep/jepria/client/ui/WorkstateEnum.html" title="enum in com.technology.jep.jepria.client.ui">WorkstateEnum</A>&nbsp;workstateTo)</PRE>
+<DL>
+<DD><B>Description copied from interface: <CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#setWorkstate(com.technology.jep.jepria.client.ui.WorkstateEnum)">JepRiaModuleAuto</A></CODE></B></DD>
+<DD>Перейти в указанное состояние
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#setWorkstate(com.technology.jep.jepria.client.ui.WorkstateEnum)">setWorkstate</A></CODE> in interface <CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html" title="interface in com.technology.jep.jepria.auto.module">JepRiaModuleAuto</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="edit(java.util.Map)"><!-- --></A><H3>
+edit</H3>
+<PRE>
+public void <B>edit</B>(java.util.Map&lt;java.lang.String,java.lang.String&gt;&nbsp;template)</PRE>
+<DL>
+<DD><B>Description copied from interface: <CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#edit(java.util.Map)">JepRiaModuleAuto</A></CODE></B></DD>
+<DD>Перейти в состояние редактирования записи, выбранной по первичному ключу
+ В качестве идентификаторов полей первичного ключа выступают ID Web-элементов полей ввода
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#edit(java.util.Map)">edit</A></CODE> in interface <CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html" title="interface in com.technology.jep.jepria.auto.module">JepRiaModuleAuto</A></CODE></DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>template</CODE> - - первичный ключ.</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="edit(java.util.Map, java.lang.String)"><!-- --></A><H3>
+edit</H3>
+<PRE>
+public void <B>edit</B>(java.util.Map&lt;java.lang.String,java.lang.String&gt;&nbsp;template,
+                 java.lang.String&nbsp;gridId)</PRE>
+<DL>
+<DD><B>Description copied from interface: <CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#edit(java.util.Map, java.lang.String)">JepRiaModuleAuto</A></CODE></B></DD>
+<DD>Перейти в состояние редактирования записи, выбранной по первичному ключу
+ В качестве идентификаторов полей первичного ключа выступают ID Web-элементов полей ввода
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#edit(java.util.Map, java.lang.String)">edit</A></CODE> in interface <CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html" title="interface in com.technology.jep.jepria.auto.module">JepRiaModuleAuto</A></CODE></DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>template</CODE> - - первичный ключ.<DD><CODE>gridId</CODE> - - Идентификатор списочной формы.</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="delete(java.util.Map)"><!-- --></A><H3>
+delete</H3>
+<PRE>
+public void <B>delete</B>(java.util.Map&lt;java.lang.String,java.lang.String&gt;&nbsp;key)</PRE>
+<DL>
+<DD><B>Description copied from interface: <CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#delete(java.util.Map)">JepRiaModuleAuto</A></CODE></B></DD>
+<DD>Удаление записи
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#delete(java.util.Map)">delete</A></CODE> in interface <CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html" title="interface in com.technology.jep.jepria.auto.module">JepRiaModuleAuto</A></CODE></DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>key</CODE> - ключ, по которому выбирается запись</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="selectItem(java.util.Map)"><!-- --></A><H3>
+selectItem</H3>
+<PRE>
+public void <B>selectItem</B>(java.util.Map&lt;java.lang.String,java.lang.String&gt;&nbsp;key)</PRE>
+<DL>
+<DD><B>Description copied from interface: <CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#selectItem(java.util.Map)">JepRiaModuleAuto</A></CODE></B></DD>
+<DD>Выделить элемент списка списочной формы по ключу
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#selectItem(java.util.Map)">selectItem</A></CODE> in interface <CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html" title="interface in com.technology.jep.jepria.auto.module">JepRiaModuleAuto</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="selectItem(int)"><!-- --></A><H3>
+selectItem</H3>
+<PRE>
+public void <B>selectItem</B>(int&nbsp;index)</PRE>
+<DL>
+<DD><B>Description copied from interface: <CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#selectItem(int)">JepRiaModuleAuto</A></CODE></B></DD>
+<DD>Выделить элемент списка списочной формы по индексу
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#selectItem(int)">selectItem</A></CODE> in interface <CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html" title="interface in com.technology.jep.jepria.auto.module">JepRiaModuleAuto</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="selectItem(int, java.lang.String)"><!-- --></A><H3>
+selectItem</H3>
+<PRE>
+public void <B>selectItem</B>(int&nbsp;index,
+                       java.lang.String&nbsp;gridId)</PRE>
+<DL>
+<DD><B>Description copied from interface: <CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#selectItem(int, java.lang.String)">JepRiaModuleAuto</A></CODE></B></DD>
+<DD>Выделить элемент списка списочной формы по индексу.
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#selectItem(int, java.lang.String)">selectItem</A></CODE> in interface <CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html" title="interface in com.technology.jep.jepria.auto.module">JepRiaModuleAuto</A></CODE></DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>index</CODE> - - Номер строчки на списочной форме (начинается с 0).<DD><CODE>gridId</CODE> - - Идентификатор списочной форме.</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="sleep(int)"><!-- --></A><H3>
+sleep</H3>
+<PRE>
+private void <B>sleep</B>(int&nbsp;msc)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="fillFields(java.util.Map)"><!-- --></A><H3>
+fillFields</H3>
+<PRE>
+private void <B>fillFields</B>(java.util.Map&lt;java.lang.String,java.lang.String&gt;&nbsp;fieldMap)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setFieldValue(java.lang.String, java.lang.String)"><!-- --></A><H3>
+setFieldValue</H3>
+<PRE>
+public void <B>setFieldValue</B>(java.lang.String&nbsp;fieldId,
+                          java.lang.String&nbsp;value)</PRE>
+<DL>
+<DD><B>Description copied from interface: <CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#setFieldValue(java.lang.String, java.lang.String)">JepRiaModuleAuto</A></CODE></B></DD>
+<DD>Установка заданного значения элементу ввода поля по заданному id поля
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#setFieldValue(java.lang.String, java.lang.String)">setFieldValue</A></CODE> in interface <CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html" title="interface in com.technology.jep.jepria.auto.module">JepRiaModuleAuto</A></CODE></DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>fieldId</CODE> - id поля, id элемента ввода которого будет использовано для задания значения<DD><CODE>value</CODE> - устанавливаемое значение</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getFieldValue(java.lang.String)"><!-- --></A><H3>
+getFieldValue</H3>
+<PRE>
+public java.lang.String <B>getFieldValue</B>(java.lang.String&nbsp;fieldId)</PRE>
+<DL>
+<DD><B>Description copied from interface: <CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#getFieldValue(java.lang.String)">JepRiaModuleAuto</A></CODE></B></DD>
+<DD>Получение значения элемента ввода поля по заданному id поля
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#getFieldValue(java.lang.String)">getFieldValue</A></CODE> in interface <CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html" title="interface in com.technology.jep.jepria.auto.module">JepRiaModuleAuto</A></CODE></DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>fieldId</CODE> - id поля, id элемента ввода которого будет использовано для получения значения
+<DT><B>Returns:</B><DD>значение поля</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setLargeFieldValue(java.lang.String, java.lang.String)"><!-- --></A><H3>
+setLargeFieldValue</H3>
+<PRE>
+public void <B>setLargeFieldValue</B>(java.lang.String&nbsp;fieldId,
+                               java.lang.String&nbsp;pathToFile)</PRE>
+<DL>
+<DD><B>Description copied from interface: <CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#setLargeFieldValue(java.lang.String, java.lang.String)">JepRiaModuleAuto</A></CODE></B></DD>
+<DD>Установка заданного значения элементу ввода поля типа Large по заданному id поля.
+ Отличается от аналогичного метода <A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#setFieldValue(java.lang.String, java.lang.String)"><CODE>JepRiaModuleAuto.setFieldValue(String, String)</CODE></A> лишь тем,
+ что перед установкой значения не происходит очистка поля при помощи <code>Ctrl+A,DEL</code>
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#setLargeFieldValue(java.lang.String, java.lang.String)">setLargeFieldValue</A></CODE> in interface <CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html" title="interface in com.technology.jep.jepria.auto.module">JepRiaModuleAuto</A></CODE></DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>fieldId</CODE> - id поля, id элемента ввода которого будет использовано для задания значения<DD><CODE>pathToFile</CODE> - абсолютный путь до файла на текущей машине (локального).<br>
+ Примеры:<br>
+ <code>"C:\\Folder\\TheFoldest\\file.jpg"</code><br>
+ <code>"C:/Folder/TheFoldest/file.jpg"</code></DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getDualListFieldValues(java.lang.String)"><!-- --></A><H3>
+getDualListFieldValues</H3>
+<PRE>
+public java.lang.String[] <B>getDualListFieldValues</B>(java.lang.String&nbsp;jepDualListFieldId)</PRE>
+<DL>
+<DD><B>Description copied from interface: <CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#getDualListFieldValues(java.lang.String)">JepRiaModuleAuto</A></CODE></B></DD>
+<DD>Получение значений правого списка поля JepDualListField
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#getDualListFieldValues(java.lang.String)">getDualListFieldValues</A></CODE> in interface <CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html" title="interface in com.technology.jep.jepria.auto.module">JepRiaModuleAuto</A></CODE></DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>jepDualListFieldId</CODE> - id JepDualListField'а
+<DT><B>Returns:</B><DD>массив имён находящихся в правой части (выбранных) опций.
+ Имена в полученном массиве располагаются в порядке их отображения в правой части JepDualListField'а,
+ поэтому сравнение массивов в классе *AutoTest необходимо производить без учета порядка!</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="selectComboBoxMenuItem(java.lang.String, java.lang.String)"><!-- --></A><H3>
+selectComboBoxMenuItem</H3>
+<PRE>
+public void <B>selectComboBoxMenuItem</B>(java.lang.String&nbsp;comboBoxFieldId,
+                                   java.lang.String&nbsp;menuItem)</PRE>
+<DL>
+<DD><B>Description copied from interface: <CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#selectComboBoxMenuItem(java.lang.String, java.lang.String)">JepRiaModuleAuto</A></CODE></B></DD>
+<DD>Простой выбор элемента Комбо-бокса по заданному id.
+ Предполагается, что если элемент есть в выпадающем списке, то он становится доступным при первой загрузке опций.
+ Если искомой опции нет в выпадающем списке, выбрасывается исключение WrongOptionException.
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#selectComboBoxMenuItem(java.lang.String, java.lang.String)">selectComboBoxMenuItem</A></CODE> in interface <CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html" title="interface in com.technology.jep.jepria.auto.module">JepRiaModuleAuto</A></CODE></DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>comboBoxFieldId</CODE> - id ComboBox-поля<DD><CODE>menuItem</CODE> - Имя опции, которую необходимо выбрать</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="selectComboBoxMenuItemWithCharByCharReloadingOptions(java.lang.String, java.lang.String, int)"><!-- --></A><H3>
+selectComboBoxMenuItemWithCharByCharReloadingOptions</H3>
+<PRE>
+public void <B>selectComboBoxMenuItemWithCharByCharReloadingOptions</B>(java.lang.String&nbsp;comboBoxFieldId,
+                                                                 java.lang.String&nbsp;menuItem,
+                                                                 int&nbsp;minInputLength)</PRE>
+<DL>
+<DD><B>Description copied from interface: <CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#selectComboBoxMenuItemWithCharByCharReloadingOptions(java.lang.String, java.lang.String, int)">JepRiaModuleAuto</A></CODE></B></DD>
+<DD>Сложный выбор элемента Комбо-бокса по заданному id.
+ Предполагается, что при первой загрузке опций не все опции появляются в списке (например, список слишком длинный),
+ и искомая опция может стать доступной о мере ввода текста.
+ Если искомой опции нет в выпадающем списке после введения всего текста, выбрасывается исключение WrongOptionException.
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#selectComboBoxMenuItemWithCharByCharReloadingOptions(java.lang.String, java.lang.String, int)">selectComboBoxMenuItemWithCharByCharReloadingOptions</A></CODE> in interface <CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html" title="interface in com.technology.jep.jepria.auto.module">JepRiaModuleAuto</A></CODE></DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>comboBoxFieldId</CODE> - id ComboBox-поля<DD><CODE>menuItem</CODE> - Имя опции, которую необходимо выбрать<DD><CODE>minInputLength</CODE> - Минимальное количество символов, которые необходимо ввести для того, чтобы в данном Комбо-боксе
+ началась загрузка опций (например, при поиске оператора, часто опции загружаются при вводе мимнимум 3 символов). 
+ Минимально допустимое значение = 1 (устанавливается автоматически при задании меньшего значения).</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="selectComboBoxMenuItem(java.lang.String, java.lang.String, boolean, int)"><!-- --></A><H3>
+selectComboBoxMenuItem</H3>
+<PRE>
+private void <B>selectComboBoxMenuItem</B>(java.lang.String&nbsp;comboBoxFieldId,
+                                    java.lang.String&nbsp;menuItem,
+                                    boolean&nbsp;charByCharReloadingOptions,
+                                    int&nbsp;minInputLength)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="selectDualListMenuItems(java.lang.String, java.lang.String[])"><!-- --></A><H3>
+selectDualListMenuItems</H3>
+<PRE>
+public void <B>selectDualListMenuItems</B>(java.lang.String&nbsp;dualListFieldId,
+                                    java.lang.String[]&nbsp;menuItems)</PRE>
+<DL>
+<DD><B>Description copied from interface: <CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#selectDualListMenuItems(java.lang.String, java.lang.String[])">JepRiaModuleAuto</A></CODE></B></DD>
+<DD>Выбор элементов DualListField по заданному Id.
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#selectDualListMenuItems(java.lang.String, java.lang.String[])">selectDualListMenuItems</A></CODE> in interface <CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html" title="interface in com.technology.jep.jepria.auto.module">JepRiaModuleAuto</A></CODE></DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>dualListFieldId</CODE> - id DualList-поля<DD><CODE>menuItems</CODE> - массив непустых имён опций, которые следует выбрать из левой части DualList-поля в правую.
+ В случае если в левой части отсутствует хотя бы одна из требуемых опций, выбрасывается исключение WrongOptionException.</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="save()"><!-- --></A><H3>
+save</H3>
+<PRE>
+public <A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.SaveResultEnum.html" title="enum in com.technology.jep.jepria.auto.module">JepRiaModuleAuto.SaveResultEnum</A> <B>save</B>()</PRE>
+<DL>
+<DD><B>Description copied from interface: <CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#save()">JepRiaModuleAuto</A></CODE></B></DD>
+<DD>Сохранить
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#save()">save</A></CODE> in interface <CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html" title="interface in com.technology.jep.jepria.auto.module">JepRiaModuleAuto</A></CODE></DL>
+</DD>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>одно из значений SaveResultEnum</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="checkMessageBox(java.lang.String)"><!-- --></A><H3>
+checkMessageBox</H3>
+<PRE>
+public boolean <B>checkMessageBox</B>(java.lang.String&nbsp;messageBoxId)</PRE>
+<DL>
+<DD><B>Description copied from interface: <CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#checkMessageBox(java.lang.String)">JepRiaModuleAuto</A></CODE></B></DD>
+<DD>Проверка отображения MessageBox
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#checkMessageBox(java.lang.String)">checkMessageBox</A></CODE> in interface <CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html" title="interface in com.technology.jep.jepria.auto.module">JepRiaModuleAuto</A></CODE></DL>
+</DD>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>true, если MessageBox отображается</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getCurrentWorkstate()"><!-- --></A><H3>
+getCurrentWorkstate</H3>
+<PRE>
+public <A HREF="../../../../../../com/technology/jep/jepria/client/ui/WorkstateEnum.html" title="enum in com.technology.jep.jepria.client.ui">WorkstateEnum</A> <B>getCurrentWorkstate</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setCurrentWorkstate(com.technology.jep.jepria.client.ui.WorkstateEnum)"><!-- --></A><H3>
+setCurrentWorkstate</H3>
+<PRE>
+public void <B>setCurrentWorkstate</B>(<A HREF="../../../../../../com/technology/jep/jepria/client/ui/WorkstateEnum.html" title="enum in com.technology.jep.jepria.client.ui">WorkstateEnum</A>&nbsp;currentWorkstate)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getToolbarButtonId(com.technology.jep.jepria.client.ui.WorkstateEnum)"><!-- --></A><H3>
+getToolbarButtonId</H3>
+<PRE>
+protected java.lang.String <B>getToolbarButtonId</B>(<A HREF="../../../../../../com/technology/jep/jepria/client/ui/WorkstateEnum.html" title="enum in com.technology.jep.jepria.client.ui">WorkstateEnum</A>&nbsp;workstate)</PRE>
+<DL>
+<DD>Получение кнопки toolbar для перехода в заданное состояние
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>workstate</CODE> - 
+<DT><B>Returns:</B><DD>id кнопки Toolbar</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="isDisplayed(java.lang.String)"><!-- --></A><H3>
+isDisplayed</H3>
+<PRE>
+private boolean <B>isDisplayed</B>(java.lang.String&nbsp;id)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="edit(java.lang.String, java.lang.String)"><!-- --></A><H3>
+edit</H3>
+<PRE>
+public void <B>edit</B>(java.lang.String&nbsp;idFieldName,
+                 java.lang.String&nbsp;id)</PRE>
+<DL>
+<DD><B>Description copied from interface: <CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#edit(java.lang.String, java.lang.String)">JepRiaModuleAuto</A></CODE></B></DD>
+<DD>Перейти в состояние редактирования записи, выбранной по id
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#edit(java.lang.String, java.lang.String)">edit</A></CODE> in interface <CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html" title="interface in com.technology.jep.jepria.auto.module">JepRiaModuleAuto</A></CODE></DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>idFieldName</CODE> - - имя поля id записи<DD><CODE>id</CODE> - - значение id</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setCheckBoxFieldValue(java.lang.String, boolean)"><!-- --></A><H3>
+setCheckBoxFieldValue</H3>
+<PRE>
+public void <B>setCheckBoxFieldValue</B>(java.lang.String&nbsp;checkBoxFieldId,
+                                  boolean&nbsp;checked)</PRE>
+<DL>
+<DD><B>Description copied from interface: <CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#setCheckBoxFieldValue(java.lang.String, boolean)">JepRiaModuleAuto</A></CODE></B></DD>
+<DD>Простановка флажка CheckBoxField по заданному Id.
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#setCheckBoxFieldValue(java.lang.String, boolean)">setCheckBoxFieldValue</A></CODE> in interface <CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html" title="interface in com.technology.jep.jepria.auto.module">JepRiaModuleAuto</A></CODE></DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>checkBoxFieldId</CODE> - id CheckBox-поля<DD><CODE>checked</CODE> - требуемое для установки значение</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="changeCheckBoxFieldValue(java.lang.String)"><!-- --></A><H3>
+changeCheckBoxFieldValue</H3>
+<PRE>
+public void <B>changeCheckBoxFieldValue</B>(java.lang.String&nbsp;checkBoxFieldId)</PRE>
+<DL>
+<DD><B>Description copied from interface: <CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#changeCheckBoxFieldValue(java.lang.String)">JepRiaModuleAuto</A></CODE></B></DD>
+<DD>Изменение значения флажка CheckBoxField по заданному Id на противоположное.
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#changeCheckBoxFieldValue(java.lang.String)">changeCheckBoxFieldValue</A></CODE> in interface <CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html" title="interface in com.technology.jep.jepria.auto.module">JepRiaModuleAuto</A></CODE></DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>checkBoxFieldId</CODE> - id CheckBox-поля</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getCheckBoxFieldValue(java.lang.String)"><!-- --></A><H3>
+getCheckBoxFieldValue</H3>
+<PRE>
+public boolean <B>getCheckBoxFieldValue</B>(java.lang.String&nbsp;checkBoxFieldId)</PRE>
+<DL>
+<DD><B>Description copied from interface: <CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#getCheckBoxFieldValue(java.lang.String)">JepRiaModuleAuto</A></CODE></B></DD>
+<DD>Получение значения поля  CheckBoxField.
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#getCheckBoxFieldValue(java.lang.String)">getCheckBoxFieldValue</A></CODE> in interface <CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html" title="interface in com.technology.jep.jepria.auto.module">JepRiaModuleAuto</A></CODE></DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>checkBoxFieldId</CODE> - id CheckBox-поля</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="selectAllListMenuItems(java.lang.String, boolean)"><!-- --></A><H3>
+selectAllListMenuItems</H3>
+<PRE>
+public void <B>selectAllListMenuItems</B>(java.lang.String&nbsp;listFieldId,
+                                   boolean&nbsp;selectAll)</PRE>
+<DL>
+<DD><B>Description copied from interface: <CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#selectAllListMenuItems(java.lang.String, boolean)">JepRiaModuleAuto</A></CODE></B></DD>
+<DD>Выбор всех элементов JepListField по заданному Id.
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#selectAllListMenuItems(java.lang.String, boolean)">selectAllListMenuItems</A></CODE> in interface <CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html" title="interface in com.technology.jep.jepria.auto.module">JepRiaModuleAuto</A></CODE></DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>listFieldId</CODE> - id JepList-поля<DD><CODE>selectAll</CODE> - true для выбора всех элементов, false для снятия всех флажков.</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="selectListMenuItems(java.lang.String, java.lang.String[])"><!-- --></A><H3>
+selectListMenuItems</H3>
+<PRE>
+public void <B>selectListMenuItems</B>(java.lang.String&nbsp;listFieldId,
+                                java.lang.String[]&nbsp;menuItems)</PRE>
+<DL>
+<DD><B>Description copied from interface: <CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#selectListMenuItems(java.lang.String, java.lang.String[])">JepRiaModuleAuto</A></CODE></B></DD>
+<DD>Выбор элементов JepListField по заданному Id.
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#selectListMenuItems(java.lang.String, java.lang.String[])">selectListMenuItems</A></CODE> in interface <CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html" title="interface in com.technology.jep.jepria.auto.module">JepRiaModuleAuto</A></CODE></DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>listFieldId</CODE> - id JepList-поля<DD><CODE>menuItems</CODE> - массив непустых имён опций, которые следует отметить в списке.
+ В случае если в списке отсутствует хотя бы одна из требуемых опций, выбрасывается исключение WrongOptionException.</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getListFieldValues(java.lang.String)"><!-- --></A><H3>
+getListFieldValues</H3>
+<PRE>
+public java.lang.String[] <B>getListFieldValues</B>(java.lang.String&nbsp;jepListFieldId)</PRE>
+<DL>
+<DD><B>Description copied from interface: <CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#getListFieldValues(java.lang.String)">JepRiaModuleAuto</A></CODE></B></DD>
+<DD>Получение отмеченных значений списка поля JepListField
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#getListFieldValues(java.lang.String)">getListFieldValues</A></CODE> in interface <CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html" title="interface in com.technology.jep.jepria.auto.module">JepRiaModuleAuto</A></CODE></DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>jepListFieldId</CODE> - id JepListField'а
+<DT><B>Returns:</B><DD>массив имён отмеченных (выбранных) опций.
+ Имена в полученном массиве располагаются в порядке их отображения в списке JepListField'а,
+ поэтому сравнение массивов в классе *AutoTest необходимо производить без учета порядка!</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="selectTreeItems(java.lang.String, java.lang.String[])"><!-- --></A><H3>
+selectTreeItems</H3>
+<PRE>
+public void <B>selectTreeItems</B>(java.lang.String&nbsp;treeFieldId,
+                            java.lang.String[]&nbsp;itemPaths)</PRE>
+<DL>
+<DD><B>Description copied from interface: <CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#selectTreeItems(java.lang.String, java.lang.String[])">JepRiaModuleAuto</A></CODE></B></DD>
+<DD>Выбор элементов JepTreeField по заданным путям, без предварительной очистки уже отмеченных узлов.
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#selectTreeItems(java.lang.String, java.lang.String[])">selectTreeItems</A></CODE> in interface <CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html" title="interface in com.technology.jep.jepria.auto.module">JepRiaModuleAuto</A></CODE></DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>treeFieldId</CODE> - id JepTree-поля<DD><CODE>itemPaths</CODE> - массив непустых путей опций, которые следует отметить в дереве.
+ В случае если в дереве отсутствует хотя бы одна из требуемых опций либо промежуточный узел в пути,
+ выбрасывается исключение <A HREF="../../../../../../com/technology/jep/jepria/auto/exception/WrongOptionException.html" title="class in com.technology.jep.jepria.auto.exception"><CODE>WrongOptionException</CODE></A>.
+ В случае если входной параметр некорректен, выбрасывается <CODE>IllegalArgumentException</CODE>
+ Синтаксис путей опций: {FolderName/}OptionName или {FolderName/}>FolderName;
+ '/' в именах элементов нужно экранировать: '\/'.
+ Предполагается, что имена элементов дерева не начинаются с '>' (иначе нужно внедрять экранирование этого символа).
+ Предполагается, что нигде в дереве рядом не находится двух одноименных листьев или папок (но допускаются лист и папка с одним именем).
+ Символ '>' может стоять перед именем последнего (подлежащего отмечанию) элемента в том случае, если это папка.
+ Это различает ситуации, когда в дереве рядом находятся одноименные лист и папка.</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="selectTreeItem(java.lang.String, java.lang.String)"><!-- --></A><H3>
+selectTreeItem</H3>
+<PRE>
+private void <B>selectTreeItem</B>(java.lang.String&nbsp;treeFieldId,
+                            java.lang.String&nbsp;itemPath)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="selectAllTreeItems(java.lang.String, boolean)"><!-- --></A><H3>
+selectAllTreeItems</H3>
+<PRE>
+public boolean <B>selectAllTreeItems</B>(java.lang.String&nbsp;treeFieldId,
+                                  boolean&nbsp;selectAll)</PRE>
+<DL>
+<DD><B>Description copied from interface: <CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#selectAllTreeItems(java.lang.String, boolean)">JepRiaModuleAuto</A></CODE></B></DD>
+<DD>Выбор всех элементов JepTreeField по заданному Id, с помощью флажка "Выделить все".
+ Если данный флажок отсутствует, метод не производит ничего.
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#selectAllTreeItems(java.lang.String, boolean)">selectAllTreeItems</A></CODE> in interface <CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html" title="interface in com.technology.jep.jepria.auto.module">JepRiaModuleAuto</A></CODE></DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>treeFieldId</CODE> - id JepTree-поля<DD><CODE>selectAll</CODE> - true для выбора всех элементов, false для снятия всех флажков.
+<DT><B>Returns:</B><DD>true если флажок "Выделить все" доступен в данном JepTreeField, иначе false.</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getTreeFieldNodesByFilter(java.lang.String, com.technology.jep.jepria.auto.widget.tree.TreeItemFilter)"><!-- --></A><H3>
+getTreeFieldNodesByFilter</H3>
+<PRE>
+public java.lang.String[] <B>getTreeFieldNodesByFilter</B>(java.lang.String&nbsp;treeFieldId,
+                                                    <A HREF="../../../../../../com/technology/jep/jepria/auto/widget/tree/TreeItemFilter.html" title="interface in com.technology.jep.jepria.auto.widget.tree">TreeItemFilter</A>&nbsp;filter)</PRE>
+<DL>
+<DD><B>Description copied from interface: <CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#getTreeFieldNodesByFilter(java.lang.String, com.technology.jep.jepria.auto.widget.tree.TreeItemFilter)">JepRiaModuleAuto</A></CODE></B></DD>
+<DD>Получение массива путей до узлов, проходящих через фильтр, поля JepTreeField.
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#getTreeFieldNodesByFilter(java.lang.String, com.technology.jep.jepria.auto.widget.tree.TreeItemFilter)">getTreeFieldNodesByFilter</A></CODE> in interface <CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html" title="interface in com.technology.jep.jepria.auto.module">JepRiaModuleAuto</A></CODE></DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>treeFieldId</CODE> - id JepTreeField'а<DD><CODE>filter</CODE> - фильтр узлов дерева при обходе
+<DT><B>Returns:</B><DD>массив путей в дереве отмеченных (выбранных) узлов.
+ Синтаксис путей опций: {FolderName/}OptionName или {FolderName/}>FolderName;
+ '/' в именах элементов экранируются: '\/'.
+ Узлы в полученном массиве располагаются в порядке их отображения в списке JepTreeField'а,
+ поэтому сравнение массивов в классе *AutoTest необходимо производить без учета порядка!</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="traverseTree(org.openqa.selenium.WebElement, int, com.technology.jep.jepria.auto.widget.tree.TreeItemFilter)"><!-- --></A><H3>
+traverseTree</H3>
+<PRE>
+private java.util.List&lt;java.lang.String&gt; <B>traverseTree</B>(org.openqa.selenium.WebElement&nbsp;node,
+                                                      int&nbsp;level,
+                                                      <A HREF="../../../../../../com/technology/jep/jepria/auto/widget/tree/TreeItemFilter.html" title="interface in com.technology.jep.jepria.auto.widget.tree">TreeItemFilter</A>&nbsp;filter)</PRE>
+<DL>
+<DD>Метод для рекурсивного обхода дерева, составляющий список путей до узлов, проходящих через фильтр.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>node</CODE> - узел, с которого начинается обход (включительно)<DD><CODE>level</CODE> - значение aria-level для указанного rootNode (0 в случае если обход начинается с INPUT-элемента поля)
+<DT><B>Returns:</B><DD>Список путей отмеченных узлов ветки с корнем в rootNode</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="isFieldVisible(java.lang.String)"><!-- --></A><H3>
+isFieldVisible</H3>
+<PRE>
+public boolean <B>isFieldVisible</B>(java.lang.String&nbsp;fieldId)</PRE>
+<DL>
+<DD><B>Description copied from interface: <CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#isFieldVisible(java.lang.String)">JepRiaModuleAuto</A></CODE></B></DD>
+<DD>Проверка видимости Jep-поля по заданному ID (атрибута aria-hidden)
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#isFieldVisible(java.lang.String)">isFieldVisible</A></CODE> in interface <CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html" title="interface in com.technology.jep.jepria.auto.module">JepRiaModuleAuto</A></CODE></DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>fieldId</CODE> - id Jep-поля</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="isFieldEnabled(java.lang.String)"><!-- --></A><H3>
+isFieldEnabled</H3>
+<PRE>
+public boolean <B>isFieldEnabled</B>(java.lang.String&nbsp;fieldId)</PRE>
+<DL>
+<DD><B>Description copied from interface: <CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#isFieldEnabled(java.lang.String)">JepRiaModuleAuto</A></CODE></B></DD>
+<DD>Проверка доступности Jep-поля по заданному ID (атрибута disabled)
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#isFieldEnabled(java.lang.String)">isFieldEnabled</A></CODE> in interface <CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html" title="interface in com.technology.jep.jepria.auto.module">JepRiaModuleAuto</A></CODE></DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>fieldId</CODE> - id Jep-поля</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="isFieldEditable(java.lang.String)"><!-- --></A><H3>
+isFieldEditable</H3>
+<PRE>
+public boolean <B>isFieldEditable</B>(java.lang.String&nbsp;fieldId)</PRE>
+<DL>
+<DD><B>Description copied from interface: <CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#isFieldEditable(java.lang.String)">JepRiaModuleAuto</A></CODE></B></DD>
+<DD>Проверка редактируемости Jep-поля по заданному ID (атрибута jep-card-type)
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#isFieldEditable(java.lang.String)">isFieldEditable</A></CODE> in interface <CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html" title="interface in com.technology.jep.jepria.auto.module">JepRiaModuleAuto</A></CODE></DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>fieldId</CODE> - id Jep-поля</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="isFieldAllowBlank(java.lang.String)"><!-- --></A><H3>
+isFieldAllowBlank</H3>
+<PRE>
+public boolean <B>isFieldAllowBlank</B>(java.lang.String&nbsp;fieldId)</PRE>
+<DL>
+<DD><B>Description copied from interface: <CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#isFieldAllowBlank(java.lang.String)">JepRiaModuleAuto</A></CODE></B></DD>
+<DD>Проверка необязательности Jep-поля по заданному ID (наличия маркера обязательности (*) )
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#isFieldAllowBlank(java.lang.String)">isFieldAllowBlank</A></CODE> in interface <CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html" title="interface in com.technology.jep.jepria.auto.module">JepRiaModuleAuto</A></CODE></DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>fieldId</CODE> - id Jep-поля</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getGridHeaders(java.lang.String)"><!-- --></A><H3>
+getGridHeaders</H3>
+<PRE>
+public java.util.List&lt;java.lang.String&gt; <B>getGridHeaders</B>(java.lang.String&nbsp;gridId)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#getGridHeaders(java.lang.String)">getGridHeaders</A></CODE> in interface <CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html" title="interface in com.technology.jep.jepria.auto.module">JepRiaModuleAuto</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getGridDataRowwise(java.lang.String)"><!-- --></A><H3>
+getGridDataRowwise</H3>
+<PRE>
+public java.util.List&lt;java.util.List&lt;java.lang.Object&gt;&gt; <B>getGridDataRowwise</B>(java.lang.String&nbsp;gridId)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#getGridDataRowwise(java.lang.String)">getGridDataRowwise</A></CODE> in interface <CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html" title="interface in com.technology.jep.jepria.auto.module">JepRiaModuleAuto</A></CODE></DL>
+</DD>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>a list of rows, each is a list of cell-objects.
+ Each object of the resultant grid may be either of a type WebElement
+ (if a cell contains something inside, such as input) or of a type String
+ (if there is only a text). The value of a particular cell can be
+ obtained using the row number and a column index,
+ known from the result of #getGridHeaders().</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="doGridColumnSettings(java.lang.String, java.lang.String[])"><!-- --></A><H3>
+doGridColumnSettings</H3>
+<PRE>
+public void <B>doGridColumnSettings</B>(java.lang.String&nbsp;gridId,
+                                 java.lang.String[]&nbsp;columns)</PRE>
+<DL>
+<DD><B>Description copied from interface: <CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#doGridColumnSettings(java.lang.String, java.lang.String[])">JepRiaModuleAuto</A></CODE></B></DD>
+<DD>Производит настройку столбцов списочной формы.
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#doGridColumnSettings(java.lang.String, java.lang.String[])">doGridColumnSettings</A></CODE> in interface <CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html" title="interface in com.technology.jep.jepria.auto.module">JepRiaModuleAuto</A></CODE></DL>
+</DD>
+<DD><DL>
+<DD><CODE>columns</CODE> - Порядок и наличие столбцов списочной формы приводится в соответствие с данным массивом.
+ В случае, если среди столбцов формы нет какого-либо значения из данного массива, выбрасывается
+ <CODE>IllegalArgumentException</CODE>.</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="ensureModuleLoaded()"><!-- --></A><H3>
+ensureModuleLoaded</H3>
+<PRE>
+public void <B>ensureModuleLoaded</B>()</PRE>
+<DL>
+<DD><B>Description copied from interface: <CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#ensureModuleLoaded()">JepRiaModuleAuto</A></CODE></B></DD>
+<DD>Проверка, загрузился ли модуль (делегирование к <CODE>AbstractPage#ensurePageLoaded()</CODE>).
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#ensureModuleLoaded()">ensureModuleLoaded</A></CODE> in interface <CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html" title="interface in com.technology.jep.jepria.auto.module">JepRiaModuleAuto</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="findElementAndWait(org.openqa.selenium.By)"><!-- --></A><H3>
+findElementAndWait</H3>
+<PRE>
+private static org.openqa.selenium.WebElement <B>findElementAndWait</B>(org.openqa.selenium.By&nbsp;by)
+                                                          throws org.openqa.selenium.NoSuchElementException</PRE>
+<DL>
+<DD>Ищет элемент на текущей странице и, в том случае, если его нет, ожидает его появления
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>by</CODE> - локатор искомого элемента
+<DT><B>Returns:</B><DD>
+<DT><B>Throws:</B>
+<DD><CODE>org.openqa.selenium.NoSuchElementException</CODE> - Если по истечении таймаута элемент все же не найден.</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="findElementsAndWait(org.openqa.selenium.By)"><!-- --></A><H3>
+findElementsAndWait</H3>
+<PRE>
+private static java.util.List&lt;org.openqa.selenium.WebElement&gt; <B>findElementsAndWait</B>(org.openqa.selenium.By&nbsp;by)
+                                                                           throws org.openqa.selenium.NoSuchElementException</PRE>
+<DL>
+<DD>Ищет элементы на текущей странице и, в том случае, если их нет, ожидает их появления
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>by</CODE> - локатор искомого элемента
+<DT><B>Returns:</B><DD>
+<DT><B>Throws:</B>
+<DD><CODE>org.openqa.selenium.NoSuchElementException</CODE> - Если по истечении таймаута элементы все же не найдены.</DL>
+</DD>
+</DL>
+<!-- ========= END OF CLASS DATA ========= -->
+<HR>
+
+
+<!-- ======= START OF BOTTOM NAVBAR ====== -->
+<A NAME="navbar_bottom"><!-- --></A>
+<A HREF="#skip-navbar_bottom" title="Skip navigation links"></A>
+<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
+<TR>
+<TD COLSPAN=2 BGCOLOR="#EEEEFF" CLASS="NavBarCell1">
+<A NAME="navbar_bottom_firstrow"><!-- --></A>
+<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3" SUMMARY="">
+  <TR ALIGN="center" VALIGN="top">
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../overview-summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-summary.html"><FONT CLASS="NavBarFont1"><B>Package</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Class</B></FONT>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="package-tree.html"><FONT CLASS="NavBarFont1"><B>Tree</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../index-all.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="../../../../../../help-doc.html"><FONT CLASS="NavBarFont1"><B>Help</B></FONT></A>&nbsp;</TD>
+  </TR>
+</TABLE>
+</TD>
+<TD ALIGN="right" VALIGN="top" ROWSPAN=3><EM>
+</EM>
+</TD>
+</TR>
+
+<TR>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+&nbsp;<A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.SaveResultEnum.html" title="enum in com.technology.jep.jepria.auto.module"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;NEXT CLASS</FONT></TD>
+<TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
+  <A HREF="../../../../../../index.html?com/technology/jep/jepria/auto/module/JepRiaModuleAutoImpl.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="JepRiaModuleAutoImpl.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+&nbsp;<SCRIPT type="text/javascript">
+  <!--
+  if(window==top) {
+    document.writeln('<A HREF="../../../../../../allclasses-noframe.html"><B>All Classes</B></A>');
+  }
+  //-->
+</SCRIPT>
+<NOSCRIPT>
+  <A HREF="../../../../../../allclasses-noframe.html"><B>All Classes</B></A>
+</NOSCRIPT>
+
+
+</FONT></TD>
+</TR>
+<TR>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+  SUMMARY:&nbsp;NESTED&nbsp;|&nbsp;<A HREF="#field_summary">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
+<TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
+DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
+</TR>
+</TABLE>
+<A NAME="skip-navbar_bottom"></A>
+<!-- ======== END OF BOTTOM NAVBAR ======= -->
+
+<HR>
+
+</BODY>
+</HTML>
