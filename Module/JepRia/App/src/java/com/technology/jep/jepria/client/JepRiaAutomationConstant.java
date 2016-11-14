@@ -313,4 +313,9 @@ public class JepRiaAutomationConstant {
    * Идентификатор кнопки закрытия всплывающего меню заголовка списка (настройка столбцов).
    */
   public static final String GRID_HEADER_POPUP_CLOSE_ID = "GRID_HEADER_POPUP_CLOSE";
+  
+  /**
+   * Идентификатор стеклянной маски списка, появляющейся во время его загрузки.
+   */
+  public static final String GRID_GLASS_MASK_ID = "GRID_GLASS_MASK";
 }

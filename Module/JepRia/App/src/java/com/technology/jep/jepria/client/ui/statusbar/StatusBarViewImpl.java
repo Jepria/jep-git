@@ -53,6 +53,7 @@ public class StatusBarViewImpl implements StatusBarView {
     this.presenter = presenter;
   }
   
+  @Override
   public void showWorkstate(WorkstateEnum workstate) {
     String displayState = "";
     if (CREATE.equals(workstate)) {

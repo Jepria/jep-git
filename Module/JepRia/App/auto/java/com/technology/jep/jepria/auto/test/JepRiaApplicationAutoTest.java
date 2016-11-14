@@ -21,6 +21,7 @@ import com.technology.jep.jepria.auto.model.user.dao.UserData;
 import com.technology.jep.jepria.auto.module.JepRiaModuleAuto;
 import com.technology.jep.jepria.auto.module.JepRiaModuleAutoImpl;
 import com.technology.jep.jepria.auto.util.WebDriverFactory;
+import com.technology.jep.jepria.client.ui.WorkstateEnum;
 
 /**
  * Класс, наследники которого содержат тесты приложения.
@@ -273,16 +274,10 @@ public abstract class JepRiaApplicationAutoTest<A extends JepRiaApplicationAuto>
     // Установим новый cut и дождемся его загрузки
     setCut(module.getModuleAuto());
     
-    //TODO избавиться от этого сна. Проблема в том, что при открытии другой вкладки в дефолтном режиме списка,
-    // невозможно работать с тулбаром до окончания загрузки списка.
-    try {
-      Thread.sleep(800);
-    } catch (InterruptedException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
-    
-    //TODO установить workstate (в ModuleAutoImpl) в соответствии с воркстейтом открывшейся вкладки. Но как узнать этот воркстейт?
+    //устанавливаем стартовое состояние
+    // TODO предполагаем, что при переходе в дочерний модуль откроется список (99,9%),
+    // но вдруг это не так?
+    ((JepRiaModuleAutoImpl) cut).setCurrentWorkstate(WorkstateEnum.VIEW_LIST);//TODO do not cast
   }
   
   /**

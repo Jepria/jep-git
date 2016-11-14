@@ -6,6 +6,7 @@ import static com.technology.jep.jepria.client.JepRiaAutomationConstant.CONFIRM_
 import static com.technology.jep.jepria.client.JepRiaAutomationConstant.CONFIRM_MESSAGE_BOX_YES_BUTTON_ID;
 import static com.technology.jep.jepria.client.JepRiaAutomationConstant.ERROR_MESSAGEBOX_ID;
 import static com.technology.jep.jepria.client.JepRiaAutomationConstant.GRID_BODY_POSTFIX;
+import static com.technology.jep.jepria.client.JepRiaAutomationConstant.GRID_GLASS_MASK_ID;
 import static com.technology.jep.jepria.client.JepRiaAutomationConstant.GRID_HEADER_POPUP_ID;
 import static com.technology.jep.jepria.client.JepRiaAutomationConstant.GRID_HEADER_POPUP_MENU_ITEM_POSTFIX;
 import static com.technology.jep.jepria.client.JepRiaAutomationConstant.GRID_HEADER_POPUP_NAVIG_UP_ID;
@@ -30,22 +31,15 @@ import static com.technology.jep.jepria.client.JepRiaAutomationConstant.JEP_TREE
 import static com.technology.jep.jepria.client.JepRiaAutomationConstant.JEP_TREENODE_INFIX;
 import static com.technology.jep.jepria.client.JepRiaAutomationConstant.JEP_TREENODE_ISLEAF_HTML_ATTR;
 import static com.technology.jep.jepria.client.JepRiaAutomationConstant.JEP_TREE_FIELD_CHECKALL_POSTFIX;
-import static com.technology.jep.jepria.client.JepRiaAutomationConstant.TOOLBAR_ADD_BUTTON_ID;
 import static com.technology.jep.jepria.client.JepRiaAutomationConstant.TOOLBAR_DELETE_BUTTON_ID;
-import static com.technology.jep.jepria.client.JepRiaAutomationConstant.TOOLBAR_EDIT_BUTTON_ID;
-import static com.technology.jep.jepria.client.JepRiaAutomationConstant.TOOLBAR_FIND_BUTTON_ID;
-import static com.technology.jep.jepria.client.JepRiaAutomationConstant.TOOLBAR_LIST_BUTTON_ID;
 import static com.technology.jep.jepria.client.JepRiaAutomationConstant.TOOLBAR_SAVE_BUTTON_ID;
-import static com.technology.jep.jepria.client.JepRiaAutomationConstant.TOOLBAR_SEARCH_BUTTON_ID;
-import static com.technology.jep.jepria.client.JepRiaAutomationConstant.TOOLBAR_VIEW_DETAILS_BUTTON_ID;
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.EDIT;
-import static com.technology.jep.jepria.client.ui.WorkstateEnum.SEARCH;
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.SELECTED;
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.VIEW_DETAILS;
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.VIEW_LIST;
 import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
-import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
 import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfAllElementsLocatedBy;
+import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
 import static org.openqa.selenium.support.ui.ExpectedConditions.stalenessOf;
 
 import java.util.ArrayList;
@@ -75,9 +69,8 @@ import com.technology.jep.jepria.auto.exception.AutomationException;
 import com.technology.jep.jepria.auto.exception.NotExpectedException;
 import com.technology.jep.jepria.auto.exception.WrongOptionException;
 import com.technology.jep.jepria.auto.module.page.JepRiaModulePage;
-import com.technology.jep.jepria.auto.util.HasText;
-import com.technology.jep.jepria.auto.util.Util;
 import com.technology.jep.jepria.auto.util.WebDriverFactory;
+import com.technology.jep.jepria.auto.util.WorkstateTransitionUtil;
 import com.technology.jep.jepria.auto.widget.statusbar.StatusBar;
 import com.technology.jep.jepria.auto.widget.tree.TreeItemFilter;
 import com.technology.jep.jepria.auto.widget.tree.TreeItemWebElement;
@@ -106,45 +99,35 @@ public class JepRiaModuleAutoImpl<P extends JepRiaModulePage> implements JepRiaM
   private static final long WEB_DRIVER_TIMEOUT = 5;
   
   private static Logger logger = Logger.getLogger(JepRiaModuleAutoImpl.class.getName());
-  private WorkstateEnum currentWorkstate;
+  private WorkstateEnum currentWorkstate = null;
   private StatusBar statusBar;
   
-////////////////////////////LEGACY FROM FORMER HIERARCHY/////TODO remove///////////////
-//TODO remove or move this method!
-  protected void waitTextToBeChanged(HasText hasText, String currentWorkstateDisplayText) {
-    
-    getWait()
-        .until(
-            textToBeChangedInElementLocated(By.id(JepRiaAutomationConstant.STATUSBAR_PANEL_ID),
-                currentWorkstateDisplayText));
-  }
-  
-  //TODO remove or move this method!
-  private static ExpectedCondition<Boolean> textToBeChangedInElementLocated(final By locator, final String currentText) {
-
-    return new ExpectedCondition<Boolean>() {
+  /**
+   * Метод ожидает появления заданного текста в локаторе.
+   * @param locator
+   * @param expectedText ожидаемый текст
+   * @return
+   */
+  protected void waitForSpecificTextInElementLocated(final By locator, final String expectedText) {
+    ExpectedCondition<Boolean> condition = new ExpectedCondition<Boolean>() {
       @Override
       public Boolean apply(WebDriver driver) {
         try {
           String elementText = driver.findElement(locator).getText();
-          if(currentText != null) {
-            return !currentText.equals(elementText);
+          if(expectedText != null) {
+            return expectedText.equals(elementText);
           } else {
-            return elementText != null;
+            return false;
           }
         } catch (StaleElementReferenceException e) {
           return null;
         }
       }
-
-      @Override
-      public String toString() {
-        return String.format("text ('%s') to be present in element found by %s", currentText, locator);
-      }
     };
+    
+    getWait().until(condition);
   }
-  ////////////////////////////LEGACY FROM FORMER HIERARCHY/////TODO remove///////////////
-
+  
   @Override
   public StatusBar getStatusBar() {
     if(statusBar == null) {
@@ -161,15 +144,11 @@ public class JepRiaModuleAutoImpl<P extends JepRiaModulePage> implements JepRiaM
   
   @Override
   public void doSearch(Map<String, String> template) {
-    if(getCurrentWorkstate() != VIEW_LIST) {
+    if(currentWorkstate != VIEW_LIST) {//TODO а что, разве не надо выполнять поиск из списочного состояния?
       find();
       fillFields(template);
       
-      String statusBarTextBefore = getStatusBar().getText();
-      clickButton(getToolbarButtonId(VIEW_LIST));
-      waitTextToBeChanged(getStatusBar(), statusBarTextBefore);
-
-      setCurrentWorkstate(VIEW_LIST);
+      setWorkstate(VIEW_LIST);
     }
   }
   
@@ -185,21 +164,28 @@ public class JepRiaModuleAutoImpl<P extends JepRiaModulePage> implements JepRiaM
 
   @Override
   public void setWorkstate(WorkstateEnum workstateTo) {
-    if(!getCurrentWorkstate().equals(workstateTo))  {
-      String toolbarButtonId = getToolbarButtonId(workstateTo);
+//    if (currentWorkstate == null) {
+//      // Первичный вход в модуль - состояние не определено
+//      currentWorkstate = WorkstateTransitionUtil.getWorkstateForStatusText(getStatusBar().getText());
+//      System.out.println("///initial ws defined as: " + currentWorkstate);
+//    }
+    
+    if(!currentWorkstate.equals(workstateTo))  {
+      String toolbarButtonId = WorkstateTransitionUtil.getToolbarButtonId(currentWorkstate, workstateTo);
       if(toolbarButtonId != null) {
         
-        String statusBarTextBefore = getStatusBar().getText();
         clickButton(toolbarButtonId);
-            waitTextToBeChanged(getStatusBar(), statusBarTextBefore);
-            
-            setCurrentWorkstate(workstateTo);
+        waitForSpecificTextInElementLocated(
+            By.id(JepRiaAutomationConstant.STATUSBAR_PANEL_ID),
+            WorkstateTransitionUtil.getStatusTextForWorkstate(workstateTo));
+        
+        setCurrentWorkstate(workstateTo);
       } else {
-        throw new UnsupportedException("Wrong transition: " + this.getCurrentWorkstate() + "->" + workstateTo);
+        throw new UnsupportedException("Wrong transition: " + currentWorkstate + "->" + workstateTo);
       }
     }
   }
-
+  
   @Override
   public void edit(Map<String, String> template) {
 
@@ -222,16 +208,19 @@ public class JepRiaModuleAutoImpl<P extends JepRiaModulePage> implements JepRiaM
     try {
       selectItem(key);
           
-      String statusBarTextBefore = getStatusBar().getText();
       clickButton(TOOLBAR_DELETE_BUTTON_ID);
       
       assert checkMessageBox(CONFIRM_MESSAGEBOX_ID);
       
       clickButton(CONFIRM_MESSAGE_BOX_YES_BUTTON_ID);
       
-          waitTextToBeChanged(getStatusBar(), statusBarTextBefore);
-          
-          setCurrentWorkstate(VIEW_LIST);
+      //TODO нужно ли вообще проверять текст в статусе после удаления?
+      // А если удалили не со списка, а аиз детальной формы?
+      waitForSpecificTextInElementLocated(
+          By.id(JepRiaAutomationConstant.STATUSBAR_PANEL_ID),
+          WorkstateTransitionUtil.getStatusTextForWorkstate(VIEW_LIST));
+      
+      setCurrentWorkstate(VIEW_LIST);
     } catch(IndexOutOfBoundsException ex) {
       // Нормально для случая отсутствия записи с ключом key
     }
@@ -251,7 +240,7 @@ public class JepRiaModuleAutoImpl<P extends JepRiaModulePage> implements JepRiaM
   @Override
   public void selectItem(int index, String gridId) {
     
-    assert getCurrentWorkstate() == VIEW_LIST;
+    assert currentWorkstate == VIEW_LIST;
     
     By gridBodyBy = null;
     if(gridId == null){
@@ -515,51 +504,25 @@ public class JepRiaModuleAutoImpl<P extends JepRiaModulePage> implements JepRiaM
     return isDisplayed(messageBoxId);
   }
 
-  public WorkstateEnum getCurrentWorkstate() {
-    if(currentWorkstate == null) {
-      currentWorkstate = SEARCH;
-    }
-    return currentWorkstate;
-  }
-
+  /**
+   * Метод присваивает внутренней переменной новое значение состояния и ждет загрузки списка, если
+   * новое состояние - {@link WorkstateEnum#VIEW_LIST}.<br>
+   * <i>Никаких UI-действий не производится. Для выполнения
+   * собственно переходов между состояниями с помощью кнопок тулбара см. {@link #setWorkstate(WorkstateEnum)}.</i>.
+   * @param currentWorkstate
+   */
   public void setCurrentWorkstate(WorkstateEnum currentWorkstate) {
+    
+    // Если переходим в состояние просмотра списка, то, вдобавок ко всему,
+    // дождемся появления и исчезновения стеклянной маски, появляющейся на списке во время загрузки.
+    if (VIEW_LIST.equals(currentWorkstate)) {
+      WebElement gridGlassMask = findElementAndWait(By.id(GRID_GLASS_MASK_ID));
+      getWait().until(stalenessOf(gridGlassMask));
+    }
+    
     this.currentWorkstate = currentWorkstate;
   }
 
-  /**
-   * Получение кнопки toolbar для перехода в заданное состояние
-   * @param workstate
-   * @return id кнопки Toolbar
-   */
-  protected String getToolbarButtonId(WorkstateEnum workstate) {
-    String toolbarButtonId = null;
-    if(Util.isWorkstateTransitionAcceptable(this.getCurrentWorkstate(), workstate)) { // Проверка возможности перехода (во избежание "бесконечного ожидания")
-      switch(workstate) {
-      case CREATE:
-        toolbarButtonId = TOOLBAR_ADD_BUTTON_ID;
-        break;
-      case EDIT:
-        toolbarButtonId = TOOLBAR_EDIT_BUTTON_ID;
-        break;
-      case SEARCH:
-        toolbarButtonId = TOOLBAR_SEARCH_BUTTON_ID;
-        break;
-      case SELECTED:
-        // TODO Что здесь делать ?
-        toolbarButtonId = TOOLBAR_SEARCH_BUTTON_ID;
-        break;
-      case VIEW_DETAILS:
-        toolbarButtonId = TOOLBAR_VIEW_DETAILS_BUTTON_ID;
-        break;
-      case VIEW_LIST:
-        toolbarButtonId = currentWorkstate == SEARCH ? TOOLBAR_FIND_BUTTON_ID : TOOLBAR_LIST_BUTTON_ID;
-        break;
-      }
-    }
-    
-    return toolbarButtonId;
-  }
-  
   private boolean isDisplayed(String id) {
     try {
       WebDriverFactory.getDriver().findElement(By.id(id));

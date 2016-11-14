@@ -17,7 +17,8 @@ public class ModuleDescription<A extends JepRiaModuleAuto> {
    * @param moduleID - Идентификатор модуля.
    * @param entranceURL - URL для входа в модуль.
    * @param moduleAuto - Реализация интерфейса автоматизации.
-   * @param moduleAuto - Стартовое состояние при входе в модуль.
+   * @param entranceWorkstate - Стартовое состояние при входе в модуль <br>
+   * <i>(следует отличать от состояния, в котром этот модуль открывается при переходе на него из родительского модуля).</i>
    */
   public ModuleDescription(String moduleID, String entranceURL, WorkstateEnum entranceWorkstate, A moduleAuto) {
     super();

@@ -1,9 +1,10 @@
 package com.technology.jep.jepria.client.widget;
 
+import static com.technology.jep.jepria.client.JepRiaAutomationConstant.GRID_GLASS_MASK_ID;
+
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.safehtml.shared.SafeHtmlUtils;
-
 
 public class MaskPanel {
 
@@ -21,6 +22,7 @@ public class MaskPanel {
   public MaskPanel() {
     glass = Document.get().createDivElement();
     glass.setClassName(MASK_PANEL_GLASS_STYLE);
+    glass.setId(GRID_GLASS_MASK_ID);
 
     container = Document.get().createDivElement();
     container.setClassName(MASK_PANEL_STYLE);
