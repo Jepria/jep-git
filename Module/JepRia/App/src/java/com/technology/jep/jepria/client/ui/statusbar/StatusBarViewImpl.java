@@ -21,12 +21,15 @@ import com.technology.jep.jepria.client.ui.WorkstateEnum;
  */
 public class StatusBarViewImpl implements StatusBarView {
 
-  protected JepPresenter presenter = null;
+  protected JepPresenter<?,?> presenter = null;
   protected Label label;
   
-  public StatusBarViewImpl() {
-    label = new Label();
-    label.getElement().setId(JepRiaAutomationConstant.STATUSBAR_PANEL_ID);
+  protected final String moduleId;
+  
+  public StatusBarViewImpl(String moduleId) {
+    this.moduleId = moduleId;
+    
+    setWidget(new Label());
     
     /*
      * Предполагаем, что look & feel аналогичен панели инструментов.
@@ -42,14 +45,14 @@ public class StatusBarViewImpl implements StatusBarView {
 
   public void setWidget(Widget widget) {
     label = (Label)widget;
-    label.getElement().setId(JepRiaAutomationConstant.STATUSBAR_PANEL_ID);
+    setWebIds();
   }
   
   public Widget asWidget() {
     return label;
   }
   
-  public void setPresenter(JepPresenter presenter) {
+  public void setPresenter(JepPresenter<?,?> presenter) {
     this.presenter = presenter;
   }
   
@@ -70,6 +73,11 @@ public class StatusBarViewImpl implements StatusBarView {
       displayState = JepTexts.workstate_selected();
     }
     label.setText(displayState);
+  }
+  
+  protected void setWebIds() {
+    label.getElement().setId(JepRiaAutomationConstant.STATUSBAR_PANEL_ID);
+    label.getElement().setAttribute(JepRiaAutomationConstant.STATUSBAR_PANEL_MODULE_HTML_ATTR, moduleId);
   }
   
 }

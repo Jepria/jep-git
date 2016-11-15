@@ -10,7 +10,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.technology.jep.jepria.auto.application.entrance.page.DefaultLoginPage;
 import com.technology.jep.jepria.auto.application.entrance.page.JepRiaLoginPage;
@@ -119,30 +118,30 @@ public class EntranceAutoImpl implements EntranceAuto {
     WebDriver wd = WebDriverFactory.getDriver();
     final ConditionChecker conditionChecker;
     
+    ConditionChecker javassoChecker = new DisplayChecker(wd, JAVASSO_LOGIN_FORM_ID);
+    ConditionChecker loginUsernameChecker = new DisplayChecker(wd, LOGIN_USERNAME_FIELD_ID);
+    ConditionChecker loggedInChecker = new DisplayChecker(wd, LOGGED_IN_USER_ID);
+    
     if (lastEntranceOperation == LAST_ENTRANCE_OPERATION_LOGOUT) {
       // Только что была нажата кнопка выхода, поэтому дожидаемся появления любого из двух элементов:
       // JAVASSO-логин форму (стандартную), либо логин-поле некоторой кастомной логин-формы.
-      conditionChecker = new WebDriverWait(wd, 10).until(
+      conditionChecker = WebDriverFactory.getWait().until(
           ExpectedConditions.atLeastOneOfConditionIsSatisfied(
-              new DisplayChecker(wd, JAVASSO_LOGIN_FORM_ID),
-              new DisplayChecker(wd, LOGIN_USERNAME_FIELD_ID))
+              javassoChecker, loginUsernameChecker)
       );
     } else {
       // Попробуем лоцировать любой из трёх элементов: имя залогиненного пользователя,
       // либо JAVASSO-логин форму (стандартную), либо логин-поле некоторой кастомной логин-формы.
-      conditionChecker = new WebDriverWait(wd, 10).until(
+      conditionChecker = WebDriverFactory.getWait().until(
           ExpectedConditions.atLeastOneOfConditionIsSatisfied(
-              new DisplayChecker(wd, LOGGED_IN_USER_ID),
-              new DisplayChecker(wd, JAVASSO_LOGIN_FORM_ID),
-              new DisplayChecker(wd, LOGIN_USERNAME_FIELD_ID))
+              loggedInChecker, javassoChecker, loginUsernameChecker)
       );
     }
     
-    String id = ((DisplayChecker)conditionChecker).getId();
-    if (LOGGED_IN_USER_ID.equals(id)) {
+    if (conditionChecker == loggedInChecker) {
       // Найден залогиненный пользователь
       return true;
-    } else if (JAVASSO_LOGIN_FORM_ID.equals(id)) {
+    } else if (conditionChecker == javassoChecker) {
       loginPage = new DefaultLoginPage();
       return false;
     } else {

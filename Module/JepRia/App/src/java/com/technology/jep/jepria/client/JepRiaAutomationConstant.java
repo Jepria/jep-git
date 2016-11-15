@@ -90,6 +90,11 @@ public class JepRiaAutomationConstant {
    * ID панели StatusBar модуля
    */
   public static final String STATUSBAR_PANEL_ID = "STATUSBAR_PANEL";
+  
+  /**
+   * HTML-атрибут панели StatusBar модуля, показывающий, какому модулю он принадлежит
+   */
+  public static final String STATUSBAR_PANEL_MODULE_HTML_ATTR = "statusbar-module";
 
   /**
    * ID кнопки "Создать" панели ToolBar модуля

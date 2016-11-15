@@ -7,7 +7,7 @@ import com.technology.jep.jepria.client.ui.WorkstateEnum;
 /**
  * Интерфейс view панели состояния.
  */
-public interface StatusBarView extends JepView<JepPresenter> {
+public interface StatusBarView extends JepView<JepPresenter<?,?>> {
 
   /**
    * Высота по умолчанию.

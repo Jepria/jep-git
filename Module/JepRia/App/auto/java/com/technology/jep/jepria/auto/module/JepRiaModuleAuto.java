@@ -3,7 +3,6 @@ package com.technology.jep.jepria.auto.module;
 import java.util.List;
 import java.util.Map;
 
-import com.technology.jep.jepria.auto.widget.statusbar.StatusBar;
 import com.technology.jep.jepria.auto.widget.tree.TreeItemFilter;
 import com.technology.jep.jepria.client.ui.WorkstateEnum;
 
@@ -116,10 +115,10 @@ public interface JepRiaModuleAuto {
   void doSearch(Map<String, String> template);
 
   /**
-   * Получение элемента панели состояния
-   * @return элемент панели состояния
+   * Получение статуса из StatusBar модуля
+   * @return статус как текст
    */
-  StatusBar getStatusBar();
+  String getStatusBarText();
   
   /**
    * Нажатие кнопки с идентификатором buttonId

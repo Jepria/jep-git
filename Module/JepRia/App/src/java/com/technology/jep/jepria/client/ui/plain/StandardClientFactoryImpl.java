@@ -23,6 +23,8 @@ import com.technology.jep.jepria.shared.service.data.JepDataServiceAsync;
 abstract public class StandardClientFactoryImpl<E extends PlainEventBus, S extends JepDataServiceAsync> 
   extends PlainClientFactoryImpl<E, S> implements StandardClientFactory<E, S> {
 
+  protected final String moduleId;
+  
   /**
    * Представление инструментальной панели.
    */
@@ -37,9 +39,22 @@ abstract public class StandardClientFactoryImpl<E extends PlainEventBus, S exten
    * Создает клиентскую фабрику модуля с заданным определением данных модуля.
    *
    * @param recordDefinition определение данных модуля
+   * @deprecated Use {@link #StandardClientFactoryImpl(String, JepRecordDefinition)} instead.
    */
+  @Deprecated
   public StandardClientFactoryImpl(JepRecordDefinition recordDefinition) {
+    this(null, recordDefinition);
+  }
+  
+  /**
+   * Создает клиентскую фабрику модуля с заданным определением данных модуля и ID модуля.
+   *
+   * @param moduleId ID модуля
+   * @param recordDefinition определение данных модуля
+   */
+  public StandardClientFactoryImpl(String moduleId, JepRecordDefinition recordDefinition) {
     super(recordDefinition);
+    this.moduleId = moduleId;
   }
 
   /**
@@ -74,7 +89,7 @@ abstract public class StandardClientFactoryImpl<E extends PlainEventBus, S exten
    */
   public IsWidget getStatusBarView() {
     if(statusBarView == null) {
-      statusBarView = new StatusBarViewImpl();
+      statusBarView = new StatusBarViewImpl(moduleId);
     }
     return statusBarView;
   }

@@ -9,27 +9,23 @@ import org.openqa.selenium.WebElement;
  */
 public class DisplayChecker implements ConditionChecker {
   
-  private String id;
+  private String displayedElementId;
   private WebDriver wd;
 
-  public DisplayChecker(WebDriver wd, String id) {
+  public DisplayChecker(WebDriver wd, String displayedElementId) {
     this.wd = wd;
-    this.id = id;
+    this.displayedElementId = displayedElementId;
   }
   
   @Override
   public boolean isSatisfied() {
     WebElement el;
     try {
-      el = wd.findElement(By.id(id));
+      el = wd.findElement(By.id(displayedElementId));
     } catch (Exception r) {
       return false;
     }
     
     return el.isDisplayed();
-  }
-
-  public String getId() {
-    return id;
   }
 }

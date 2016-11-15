@@ -33,7 +33,7 @@ import static com.technology.jep.jepria.client.JepRiaAutomationConstant.JEP_TREE
 import static com.technology.jep.jepria.client.JepRiaAutomationConstant.JEP_TREE_FIELD_CHECKALL_POSTFIX;
 import static com.technology.jep.jepria.client.JepRiaAutomationConstant.TOOLBAR_DELETE_BUTTON_ID;
 import static com.technology.jep.jepria.client.JepRiaAutomationConstant.TOOLBAR_SAVE_BUTTON_ID;
-import static com.technology.jep.jepria.client.ui.WorkstateEnum.EDIT;
+import static com.technology.jep.jepria.client.ui.WorkstateEnum.*;
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.SELECTED;
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.VIEW_DETAILS;
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.VIEW_LIST;
@@ -64,14 +64,12 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import com.technology.jep.jepria.auto.condition.ConditionChecker;
 import com.technology.jep.jepria.auto.condition.DisplayChecker;
 import com.technology.jep.jepria.auto.condition.ExpectedConditions;
-import com.technology.jep.jepria.auto.condition.TextChangeChecker;
 import com.technology.jep.jepria.auto.exception.AutomationException;
 import com.technology.jep.jepria.auto.exception.NotExpectedException;
 import com.technology.jep.jepria.auto.exception.WrongOptionException;
 import com.technology.jep.jepria.auto.module.page.JepRiaModulePage;
 import com.technology.jep.jepria.auto.util.WebDriverFactory;
 import com.technology.jep.jepria.auto.util.WorkstateTransitionUtil;
-import com.technology.jep.jepria.auto.widget.statusbar.StatusBar;
 import com.technology.jep.jepria.auto.widget.tree.TreeItemFilter;
 import com.technology.jep.jepria.auto.widget.tree.TreeItemWebElement;
 import com.technology.jep.jepria.client.JepRiaAutomationConstant;
@@ -100,7 +98,6 @@ public class JepRiaModuleAutoImpl<P extends JepRiaModulePage> implements JepRiaM
   
   private static Logger logger = Logger.getLogger(JepRiaModuleAutoImpl.class.getName());
   private WorkstateEnum currentWorkstate = null;
-  private StatusBar statusBar;
   
   /**
    * Метод ожидает появления заданного текста в локаторе.
@@ -126,15 +123,6 @@ public class JepRiaModuleAutoImpl<P extends JepRiaModulePage> implements JepRiaM
     };
     
     getWait().until(condition);
-  }
-  
-  @Override
-  public StatusBar getStatusBar() {
-    if(statusBar == null) {
-      statusBar = new StatusBar(page);
-    }
-    
-    return statusBar;
   }
   
   public void clickButton(String buttonId) {
@@ -164,12 +152,6 @@ public class JepRiaModuleAutoImpl<P extends JepRiaModulePage> implements JepRiaM
 
   @Override
   public void setWorkstate(WorkstateEnum workstateTo) {
-//    if (currentWorkstate == null) {
-//      // Первичный вход в модуль - состояние не определено
-//      currentWorkstate = WorkstateTransitionUtil.getWorkstateForStatusText(getStatusBar().getText());
-//      System.out.println("///initial ws defined as: " + currentWorkstate);
-//    }
-    
     if(!currentWorkstate.equals(workstateTo))  {
       String toolbarButtonId = WorkstateTransitionUtil.getToolbarButtonId(currentWorkstate, workstateTo);
       if(toolbarButtonId != null) {
@@ -215,7 +197,7 @@ public class JepRiaModuleAutoImpl<P extends JepRiaModulePage> implements JepRiaM
       clickButton(CONFIRM_MESSAGE_BOX_YES_BUTTON_ID);
       
       //TODO нужно ли вообще проверять текст в статусе после удаления?
-      // А если удалили не со списка, а аиз детальной формы?
+      // А если удалили не со списка, а из детальной формы?
       waitForSpecificTextInElementLocated(
           By.id(JepRiaAutomationConstant.STATUSBAR_PANEL_ID),
           WorkstateTransitionUtil.getStatusTextForWorkstate(VIEW_LIST));
@@ -474,24 +456,28 @@ public class JepRiaModuleAutoImpl<P extends JepRiaModulePage> implements JepRiaM
     
     getWait().until(elementToBeClickable(By.id(TOOLBAR_SAVE_BUTTON_ID)));
     
-    TextChangeChecker textChangeChecker = new TextChangeChecker(getStatusBar());
     page.saveButton.click();
     
     WebDriver wd = WebDriverFactory.getDriver();
+    
+    ConditionChecker alertChecker = new DisplayChecker(wd, ALERT_MESSAGEBOX_ID);
+    ConditionChecker errorChecker = new DisplayChecker(wd, ERROR_MESSAGEBOX_ID);
+    ConditionChecker statusChecker = new ConditionChecker() {
+      @Override
+      public boolean isSatisfied() {
+        return !getStatusBarText().equals(WorkstateTransitionUtil.getStatusTextForWorkstate(CREATE));
+      }
+    };
     ConditionChecker conditionChecker = new WebDriverWait(wd, WEB_DRIVER_TIMEOUT).until(
-        ExpectedConditions.atLeastOneOfConditionIsSatisfied(
-            new DisplayChecker(wd, ALERT_MESSAGEBOX_ID),
-            new DisplayChecker(wd, ERROR_MESSAGEBOX_ID),
-            textChangeChecker
-            )
+        ExpectedConditions.atLeastOneOfConditionIsSatisfied(alertChecker, errorChecker, statusChecker)
     );    
     
-    if(conditionChecker instanceof TextChangeChecker) {
+    if (conditionChecker == statusChecker) {
       result = SaveResultEnum.SUCCESS;
-      this.setCurrentWorkstate(VIEW_DETAILS);
-    } else if(ALERT_MESSAGEBOX_ID.equals(((DisplayChecker)conditionChecker).getId())) {
+      setCurrentWorkstate(VIEW_DETAILS);
+    } else if (conditionChecker == alertChecker) {
       result = SaveResultEnum.ALERT_MESSAGE_BOX;
-    } else if(ERROR_MESSAGEBOX_ID.equals(((DisplayChecker)conditionChecker).getId())) {
+    } else if (conditionChecker == errorChecker) {
       result = SaveResultEnum.ERROR_MESSAGE_BOX;
     } else {
       throw new NotExpectedException("Save error");
@@ -512,9 +498,9 @@ public class JepRiaModuleAutoImpl<P extends JepRiaModulePage> implements JepRiaM
    * @param currentWorkstate
    */
   public void setCurrentWorkstate(WorkstateEnum currentWorkstate) {
-    
     // Если переходим в состояние просмотра списка, то, вдобавок ко всему,
     // дождемся появления и исчезновения стеклянной маски, появляющейся на списке во время загрузки.
+    // TODO не лучшее место для этого!
     if (VIEW_LIST.equals(currentWorkstate)) {
       WebElement gridGlassMask = findElementAndWait(By.id(GRID_GLASS_MASK_ID));
       getWait().until(stalenessOf(gridGlassMask));
@@ -1156,5 +1142,10 @@ public class JepRiaModuleAutoImpl<P extends JepRiaModulePage> implements JepRiaM
     } catch (TimeoutException e) {
       throw new NoSuchElementException("No element found by locator ["+by+"]", e);
     }
+  }
+
+  @Override
+  public String getStatusBarText() {
+    return page.getStatusBarText();
   }
 }
