@@ -16,7 +16,7 @@ import com.technology.jep.jepria.client.ui.WorkstateEnum;
 
 public class WorkstateTransitionUtil {
 
-  static public String getResourceString(String key) {
+  private static String getResourceString(String key) {
     return ResourceBundle.getBundle(JEP_RIA_RESOURCE_BUNDLE_NAME, new Locale("ru", "RU")).getString(key);
   }
 
