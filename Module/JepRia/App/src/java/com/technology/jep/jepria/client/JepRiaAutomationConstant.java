@@ -94,7 +94,12 @@ public class JepRiaAutomationConstant {
   /**
    * HTML-атрибут панели StatusBar модуля, показывающий, какому модулю он принадлежит
    */
-  public static final String STATUSBAR_PANEL_MODULE_HTML_ATTR = "statusbar-module";
+  public static final String STATUSBAR_PANEL_MODULE_HTML_ATTR = "data-statusbar-module";
+  
+  /**
+   * HTML-атрибут панели StatusBar модуля, показывающий текущий воркстейт (чтобы сделать его независимым от локали и текстовых ресурсов)
+   */
+  public static final String STATUSBAR_PANEL_WORKSTATE_HTML_ATTR = "data-statusbar-workstate";
 
   /**
    * ID кнопки "Создать" панели ToolBar модуля
@@ -219,7 +224,7 @@ public class JepRiaAutomationConstant {
   /**
    * HTML-атрибут и его значения editableCard и viewCard Jep-полей
    */
-  public static final String JEP_CARD_TYPE_HTML_ATTR = "jep-card-type";
+  public static final String JEP_CARD_TYPE_HTML_ATTR = "data-jep-card-type";
   public static final String JEP_CARD_TYPE_VALUE_EDTB = "editable";
   public static final String JEP_CARD_TYPE_VALUE_VIEW = "view";
   
@@ -265,7 +270,7 @@ public class JepRiaAutomationConstant {
   /**
    * HTML-атрибут элемента, который требует хранения значения опции, которой он однозначно соответствует.
    */
-  public static final String JEP_OPTION_VALUE_HTML_ATTR = "jep-option-value";
+  public static final String JEP_OPTION_VALUE_HTML_ATTR = "data-jep-option-value";
   
   /**
    * Инфикс элементов меню JepTreeField (а именно, их span'ов)
@@ -280,7 +285,7 @@ public class JepRiaAutomationConstant {
   /**
    * HTML-атрибут (и значения) узла TreeField, показывающий состояние отмеченности узла
    */
-  public static final String JEP_TREENODE_CHECKEDSTATE_HTML_ATTR = "jep-treenode-checkedstate";
+  public static final String JEP_TREENODE_CHECKEDSTATE_HTML_ATTR = "data-jep-treenode-checkedstate";
   public static final String JEP_TREENODE_CHECKEDSTATE_VALUE_UNCHECKABLE = "uncheckable";
   public static final String JEP_TREENODE_CHECKEDSTATE_VALUE_CHECKED = "checked";
   public static final String JEP_TREENODE_CHECKEDSTATE_VALUE_UNCHECKED = "unchecked";
@@ -289,7 +294,7 @@ public class JepRiaAutomationConstant {
   /**
    * HTML-атрибут узла TreeField, показывающий, является ли узел листом
    */
-  public static final String JEP_TREENODE_ISLEAF_HTML_ATTR = "jep-treenode-isleaf";
+  public static final String JEP_TREENODE_ISLEAF_HTML_ATTR = "data-jep-treenode-isleaf";
   
   /**
    * ID первой строки списка списочной формы

@@ -31,9 +31,11 @@ import static com.technology.jep.jepria.client.JepRiaAutomationConstant.JEP_TREE
 import static com.technology.jep.jepria.client.JepRiaAutomationConstant.JEP_TREENODE_INFIX;
 import static com.technology.jep.jepria.client.JepRiaAutomationConstant.JEP_TREENODE_ISLEAF_HTML_ATTR;
 import static com.technology.jep.jepria.client.JepRiaAutomationConstant.JEP_TREE_FIELD_CHECKALL_POSTFIX;
+import static com.technology.jep.jepria.client.JepRiaAutomationConstant.STATUSBAR_PANEL_WORKSTATE_HTML_ATTR;
 import static com.technology.jep.jepria.client.JepRiaAutomationConstant.TOOLBAR_DELETE_BUTTON_ID;
 import static com.technology.jep.jepria.client.JepRiaAutomationConstant.TOOLBAR_SAVE_BUTTON_ID;
-import static com.technology.jep.jepria.client.ui.WorkstateEnum.*;
+import static com.technology.jep.jepria.client.ui.WorkstateEnum.CREATE;
+import static com.technology.jep.jepria.client.ui.WorkstateEnum.EDIT;
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.SELECTED;
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.VIEW_DETAILS;
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.VIEW_LIST;
@@ -100,19 +102,19 @@ public class JepRiaModuleAutoImpl<P extends JepRiaModulePage> implements JepRiaM
   private WorkstateEnum currentWorkstate = null;
   
   /**
-   * Метод ожидает появления заданного текста в локаторе.
-   * @param locator
-   * @param expectedText ожидаемый текст
+   * Метод ожидает появления заданного workstate в атрибуте статус бара.
+   * @param expectedWorkstate ожидаемый воркстейт
    * @return
    */
-  protected void waitForSpecificTextInElementLocated(final By locator, final String expectedText) {
+  protected void waitForStatusWorkstate(final WorkstateEnum expectedWorkstate) {
     ExpectedCondition<Boolean> condition = new ExpectedCondition<Boolean>() {
       @Override
       public Boolean apply(WebDriver driver) {
         try {
-          String elementText = driver.findElement(locator).getText();
-          if(expectedText != null) {
-            return expectedText.equals(elementText);
+          String workstateAttrValue = driver.findElement(
+              By.id(JepRiaAutomationConstant.STATUSBAR_PANEL_ID)).getAttribute(STATUSBAR_PANEL_WORKSTATE_HTML_ATTR);
+          if(expectedWorkstate != null) {
+            return expectedWorkstate.getId().equals(workstateAttrValue);
           } else {
             return false;
           }
@@ -122,7 +124,11 @@ public class JepRiaModuleAutoImpl<P extends JepRiaModulePage> implements JepRiaM
       }
     };
     
-    getWait().until(condition);
+    try {
+      getWait().until(condition);
+    } catch (TimeoutException e) {
+      throw new RuntimeException("Timed out waiting for workstate '"+expectedWorkstate+"' in StatusBar.", e);
+    }
   }
   
   public void clickButton(String buttonId) {
@@ -157,9 +163,7 @@ public class JepRiaModuleAutoImpl<P extends JepRiaModulePage> implements JepRiaM
       if(toolbarButtonId != null) {
         
         clickButton(toolbarButtonId);
-        waitForSpecificTextInElementLocated(
-            By.id(JepRiaAutomationConstant.STATUSBAR_PANEL_ID),
-            WorkstateTransitionUtil.getStatusTextForWorkstate(workstateTo));
+        waitForStatusWorkstate(workstateTo);
         
         setCurrentWorkstate(workstateTo);
       } else {
@@ -198,9 +202,7 @@ public class JepRiaModuleAutoImpl<P extends JepRiaModulePage> implements JepRiaM
       
       //TODO нужно ли вообще проверять текст в статусе после удаления?
       // А если удалили не со списка, а из детальной формы?
-      waitForSpecificTextInElementLocated(
-          By.id(JepRiaAutomationConstant.STATUSBAR_PANEL_ID),
-          WorkstateTransitionUtil.getStatusTextForWorkstate(VIEW_LIST));
+      waitForStatusWorkstate(VIEW_LIST);
       
       setCurrentWorkstate(VIEW_LIST);
     } catch(IndexOutOfBoundsException ex) {
@@ -465,7 +467,7 @@ public class JepRiaModuleAutoImpl<P extends JepRiaModulePage> implements JepRiaM
     ConditionChecker statusChecker = new ConditionChecker() {
       @Override
       public boolean isSatisfied() {
-        return !getStatusBarText().equals(WorkstateTransitionUtil.getStatusTextForWorkstate(CREATE));
+        return !getStatusBarText().equals(CREATE);
       }
     };
     ConditionChecker conditionChecker = new WebDriverWait(wd, WEB_DRIVER_TIMEOUT).until(

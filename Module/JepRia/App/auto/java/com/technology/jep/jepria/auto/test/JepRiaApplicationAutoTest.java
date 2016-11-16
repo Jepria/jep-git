@@ -2,6 +2,7 @@ package com.technology.jep.jepria.auto.test;
 
 import static com.technology.jep.jepria.client.JepRiaAutomationConstant.STATUSBAR_PANEL_ID;
 import static com.technology.jep.jepria.client.JepRiaAutomationConstant.STATUSBAR_PANEL_MODULE_HTML_ATTR;
+import static com.technology.jep.jepria.client.JepRiaAutomationConstant.STATUSBAR_PANEL_WORKSTATE_HTML_ATTR;
 import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
 
 import java.util.HashMap;
@@ -9,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.testng.AssertJUnit;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -26,7 +28,7 @@ import com.technology.jep.jepria.auto.model.user.dao.UserData;
 import com.technology.jep.jepria.auto.module.JepRiaModuleAuto;
 import com.technology.jep.jepria.auto.module.JepRiaModuleAutoImpl;
 import com.technology.jep.jepria.auto.util.WebDriverFactory;
-import com.technology.jep.jepria.auto.util.WorkstateTransitionUtil;
+import com.technology.jep.jepria.client.ui.WorkstateEnum;
 
 /**
  * Класс, наследники которого содержат тесты приложения.
@@ -280,15 +282,15 @@ public abstract class JepRiaApplicationAutoTest<A extends JepRiaApplicationAuto>
     setCut(module.getModuleAuto());
     
     // определяем стартовое состояние
-    WebDriverFactory.getWait().until(presenceOfElementLocated(By.xpath(
+    WebElement statusBar = WebDriverFactory.getWait().until(presenceOfElementLocated(By.xpath(
         String.format("//*[@id='%s' and @%s='%s']",
             STATUSBAR_PANEL_ID,
             STATUSBAR_PANEL_MODULE_HTML_ATTR,
             module.getModuleID()))));
     
     // устанавливаем стартовое состояние
-    ((JepRiaModuleAutoImpl) cut).setCurrentWorkstate(
-        WorkstateTransitionUtil.getWorkstateForStatusText(cut.getStatusBarText()));
+    String workstateAttrValue = statusBar.getAttribute(STATUSBAR_PANEL_WORKSTATE_HTML_ATTR);
+    ((JepRiaModuleAutoImpl) cut).setCurrentWorkstate(WorkstateEnum.fromString(workstateAttrValue));
   }
   
   /**

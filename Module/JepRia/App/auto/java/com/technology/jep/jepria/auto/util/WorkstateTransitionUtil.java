@@ -7,18 +7,10 @@ import static com.technology.jep.jepria.client.JepRiaAutomationConstant.TOOLBAR_
 import static com.technology.jep.jepria.client.JepRiaAutomationConstant.TOOLBAR_SEARCH_BUTTON_ID;
 import static com.technology.jep.jepria.client.JepRiaAutomationConstant.TOOLBAR_VIEW_DETAILS_BUTTON_ID;
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.SEARCH;
-import static com.technology.jep.jepria.server.JepRiaServerConstant.JEP_RIA_RESOURCE_BUNDLE_NAME;
-
-import java.util.Locale;
-import java.util.ResourceBundle;
 
 import com.technology.jep.jepria.client.ui.WorkstateEnum;
 
 public class WorkstateTransitionUtil {
-
-  private static String getResourceString(String key) {
-    return ResourceBundle.getBundle(JEP_RIA_RESOURCE_BUNDLE_NAME, new Locale("ru", "RU")).getString(key);
-  }
 
   public static boolean isWorkstateTransitionAcceptable(WorkstateEnum workstateFrom, WorkstateEnum workstateTo) {
     switch(workstateFrom) {
@@ -98,36 +90,5 @@ public class WorkstateTransitionUtil {
     }
     
     return toolbarButtonId;
-  }
-  
-  public static String getStatusTextForWorkstate(WorkstateEnum workstate) {
-    switch (workstate) {
-      case CREATE: return getResourceString("workstate.add");
-      case EDIT: return getResourceString("workstate.edit");
-      case VIEW_DETAILS: return getResourceString("workstate.viewDetails");
-      case SEARCH: return getResourceString("workstate.search");
-      case SELECTED: return getResourceString("workstate.selected");
-      case VIEW_LIST: return getResourceString("workstate.viewList");
-    }
-    throw new IllegalArgumentException("Unknown workstate: " + workstate);
-  }
-  
-  public static WorkstateEnum getWorkstateForStatusText(String statusText) {
-    if (statusText != null) {
-      if (statusText.equals(getResourceString("workstate.add"))) {
-        return WorkstateEnum.CREATE;
-      } else if (statusText.equals(getResourceString("workstate.edit"))) {
-        return WorkstateEnum.EDIT;
-      } else if (statusText.equals(getResourceString("workstate.viewDetails"))) {
-        return WorkstateEnum.VIEW_DETAILS;
-      } else if(statusText.equals(getResourceString("workstate.search"))) {
-        return SEARCH;
-      } else if(statusText.equals(getResourceString("workstate.selected"))) {
-        return WorkstateEnum.SELECTED;
-      } else if(statusText.equals(getResourceString("workstate.viewList"))) {
-        return WorkstateEnum.VIEW_LIST;
-      }
-    }
-    throw new IllegalArgumentException("Unknown workstate status: " + statusText);
   }
 }
