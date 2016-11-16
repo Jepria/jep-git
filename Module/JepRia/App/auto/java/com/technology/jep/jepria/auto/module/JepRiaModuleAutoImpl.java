@@ -31,7 +31,6 @@ import static com.technology.jep.jepria.client.JepRiaAutomationConstant.JEP_TREE
 import static com.technology.jep.jepria.client.JepRiaAutomationConstant.JEP_TREENODE_INFIX;
 import static com.technology.jep.jepria.client.JepRiaAutomationConstant.JEP_TREENODE_ISLEAF_HTML_ATTR;
 import static com.technology.jep.jepria.client.JepRiaAutomationConstant.JEP_TREE_FIELD_CHECKALL_POSTFIX;
-import static com.technology.jep.jepria.client.JepRiaAutomationConstant.STATUSBAR_PANEL_WORKSTATE_HTML_ATTR;
 import static com.technology.jep.jepria.client.JepRiaAutomationConstant.TOOLBAR_DELETE_BUTTON_ID;
 import static com.technology.jep.jepria.client.JepRiaAutomationConstant.TOOLBAR_SAVE_BUTTON_ID;
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.CREATE;
@@ -111,10 +110,9 @@ public class JepRiaModuleAutoImpl<P extends JepRiaModulePage> implements JepRiaM
       @Override
       public Boolean apply(WebDriver driver) {
         try {
-          String workstateAttrValue = driver.findElement(
-              By.id(JepRiaAutomationConstant.STATUSBAR_PANEL_ID)).getAttribute(STATUSBAR_PANEL_WORKSTATE_HTML_ATTR);
+          WorkstateEnum workstateAttrValue = page.getWorkstateFromStatusBar();
           if(expectedWorkstate != null) {
-            return expectedWorkstate.getId().equals(workstateAttrValue);
+            return expectedWorkstate.equals(workstateAttrValue);
           } else {
             return false;
           }
@@ -467,7 +465,7 @@ public class JepRiaModuleAutoImpl<P extends JepRiaModulePage> implements JepRiaM
     ConditionChecker statusChecker = new ConditionChecker() {
       @Override
       public boolean isSatisfied() {
-        return !getStatusBarText().equals(CREATE);
+        return !getWorkstateFromStatusBar().equals(CREATE);
       }
     };
     ConditionChecker conditionChecker = new WebDriverWait(wd, WEB_DRIVER_TIMEOUT).until(
@@ -1147,7 +1145,8 @@ public class JepRiaModuleAutoImpl<P extends JepRiaModulePage> implements JepRiaM
   }
 
   @Override
-  public String getStatusBarText() {
-    return page.getStatusBarText();
+  public WorkstateEnum getWorkstateFromStatusBar() {
+    return page.getWorkstateFromStatusBar();
   }
+    
 }
