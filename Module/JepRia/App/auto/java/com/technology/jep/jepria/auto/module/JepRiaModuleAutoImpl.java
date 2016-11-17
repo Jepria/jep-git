@@ -33,7 +33,8 @@ import static com.technology.jep.jepria.client.JepRiaAutomationConstant.JEP_TREE
 import static com.technology.jep.jepria.client.JepRiaAutomationConstant.JEP_TREE_FIELD_CHECKALL_POSTFIX;
 import static com.technology.jep.jepria.client.JepRiaAutomationConstant.TOOLBAR_DELETE_BUTTON_ID;
 import static com.technology.jep.jepria.client.JepRiaAutomationConstant.TOOLBAR_SAVE_BUTTON_ID;
-import static com.technology.jep.jepria.client.ui.WorkstateEnum.*;
+import static com.technology.jep.jepria.client.ui.WorkstateEnum.CREATE;
+import static com.technology.jep.jepria.client.ui.WorkstateEnum.EDIT;
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.SELECTED;
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.VIEW_DETAILS;
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.VIEW_LIST;
@@ -100,19 +101,18 @@ public class JepRiaModuleAutoImpl<P extends JepRiaModulePage> implements JepRiaM
   private WorkstateEnum currentWorkstate = null;
   
   /**
-   * Метод ожидает появления заданного текста в локаторе.
-   * @param locator
-   * @param expectedText ожидаемый текст
+   * Метод ожидает появления заданного workstate в атрибуте статус бара.
+   * @param expectedWorkstate ожидаемый воркстейт
    * @return
    */
-  protected void waitForSpecificTextInElementLocated(final By locator, final String expectedText) {
+  protected void waitForStatusWorkstate(final WorkstateEnum expectedWorkstate) {
     ExpectedCondition<Boolean> condition = new ExpectedCondition<Boolean>() {
       @Override
       public Boolean apply(WebDriver driver) {
         try {
-          String elementText = driver.findElement(locator).getText();
-          if(expectedText != null) {
-            return expectedText.equals(elementText);
+          WorkstateEnum workstateAttrValue = page.getWorkstateFromStatusBar();
+          if(expectedWorkstate != null) {
+            return expectedWorkstate.equals(workstateAttrValue);
           } else {
             return false;
           }
@@ -122,7 +122,11 @@ public class JepRiaModuleAutoImpl<P extends JepRiaModulePage> implements JepRiaM
       }
     };
     
-    getWait().until(condition);
+    try {
+      getWait().until(condition);
+    } catch (TimeoutException e) {
+      throw new RuntimeException("Timed out waiting for workstate '"+expectedWorkstate+"' in StatusBar.", e);
+    }
   }
   
   public void clickButton(String buttonId) {
@@ -157,9 +161,7 @@ public class JepRiaModuleAutoImpl<P extends JepRiaModulePage> implements JepRiaM
       if(toolbarButtonId != null) {
         
         clickButton(toolbarButtonId);
-        waitForSpecificTextInElementLocated(
-            By.id(JepRiaAutomationConstant.STATUSBAR_PANEL_ID),
-            WorkstateTransitionUtil.getStatusTextForWorkstate(workstateTo));
+        waitForStatusWorkstate(workstateTo);
         
         setCurrentWorkstate(workstateTo);
       } else {
@@ -198,9 +200,7 @@ public class JepRiaModuleAutoImpl<P extends JepRiaModulePage> implements JepRiaM
       
       //TODO нужно ли вообще проверять текст в статусе после удаления?
       // А если удалили не со списка, а из детальной формы?
-      waitForSpecificTextInElementLocated(
-          By.id(JepRiaAutomationConstant.STATUSBAR_PANEL_ID),
-          WorkstateTransitionUtil.getStatusTextForWorkstate(VIEW_LIST));
+      waitForStatusWorkstate(VIEW_LIST);
       
       setCurrentWorkstate(VIEW_LIST);
     } catch(IndexOutOfBoundsException ex) {
@@ -465,7 +465,8 @@ public class JepRiaModuleAutoImpl<P extends JepRiaModulePage> implements JepRiaM
     ConditionChecker statusChecker = new ConditionChecker() {
       @Override
       public boolean isSatisfied() {
-        return !getStatusBarText().equals(WorkstateTransitionUtil.getStatusTextForWorkstate(CREATE));
+        return !getWorkstateFromStatusBar().equals(CREATE) && 
+            !getWorkstateFromStatusBar().equals(EDIT);
       }
     };
     ConditionChecker conditionChecker = new WebDriverWait(wd, WEB_DRIVER_TIMEOUT).until(
@@ -482,7 +483,7 @@ public class JepRiaModuleAutoImpl<P extends JepRiaModulePage> implements JepRiaM
     } else {
       throw new NotExpectedException("Save error");
     }
-    
+
     return result;
   }
 
@@ -502,8 +503,19 @@ public class JepRiaModuleAutoImpl<P extends JepRiaModulePage> implements JepRiaM
     // дождемся появления и исчезновения стеклянной маски, появляющейся на списке во время загрузки.
     // TODO не лучшее место для этого!
     if (VIEW_LIST.equals(currentWorkstate)) {
-      WebElement gridGlassMask = findElementAndWait(By.id(GRID_GLASS_MASK_ID));
-      getWait().until(stalenessOf(gridGlassMask));
+      WebElement gridGlassMask = null;
+      try {
+        // Поскольку загрузка списка может произойти быстро настолько, что стеклянная маска не успеет
+        // слоцироваться, подождем ее появления 1 секунду
+        gridGlassMask = WebDriverFactory.getWait(1).until(presenceOfElementLocated(By.id(GRID_GLASS_MASK_ID)));
+      } catch (TimeoutException e) {
+        // Если загрузка списка произошла слишком быстро, и стеклянная маска не успела лоцироваться,
+        // то пропускаем шаг ожидания исчезновения стеклянной маски.
+      }
+      
+      if(gridGlassMask != null) {
+        getWait().until(stalenessOf(gridGlassMask));
+      }
     }
     
     this.currentWorkstate = currentWorkstate;
@@ -1145,7 +1157,8 @@ public class JepRiaModuleAutoImpl<P extends JepRiaModulePage> implements JepRiaM
   }
 
   @Override
-  public String getStatusBarText() {
-    return page.getStatusBarText();
+  public WorkstateEnum getWorkstateFromStatusBar() {
+    return page.getWorkstateFromStatusBar();
   }
+    
 }

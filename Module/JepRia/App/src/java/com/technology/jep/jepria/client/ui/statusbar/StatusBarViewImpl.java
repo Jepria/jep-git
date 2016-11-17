@@ -1,7 +1,7 @@
 package com.technology.jep.jepria.client.ui.statusbar;
 
 import static com.technology.jep.jepria.client.JepRiaClientConstant.JepTexts;
-import static com.technology.jep.jepria.client.JepRiaClientConstant.STATUSBAR_DEFAULT_STYLE;
+import static com.technology.jep.jepria.client.JepRiaClientConstant.*;
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.CREATE;
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.EDIT;
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.SEARCH;
@@ -73,6 +73,7 @@ public class StatusBarViewImpl implements StatusBarView {
       displayState = JepTexts.workstate_selected();
     }
     label.setText(displayState);
+    label.getElement().setAttribute(JepRiaAutomationConstant.STATUSBAR_PANEL_WORKSTATE_HTML_ATTR, workstate.getId());
   }
   
   protected void setWebIds() {

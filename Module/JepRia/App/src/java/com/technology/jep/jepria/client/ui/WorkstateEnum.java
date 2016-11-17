@@ -32,6 +32,10 @@ public enum WorkstateEnum {
   private WorkstateEnum(String workstateId) {
     this.workstateId = workstateId;
   }
+  
+  public String getId() {
+    return workstateId;
+  }
 
   /**
    * Преобразование строки, содержащей идентификатор рабочего состояния, 
