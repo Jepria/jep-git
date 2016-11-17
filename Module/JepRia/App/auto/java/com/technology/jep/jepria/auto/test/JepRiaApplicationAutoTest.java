@@ -124,8 +124,28 @@ public abstract class JepRiaApplicationAutoTest<A extends JepRiaApplicationAuto>
     "dbUrl", 
     "dbUser", 
     "dbPassword"})
-  //TODO: Продумать введение новых "кастомных" групп
-  @BeforeMethod(groups = {"find", "create", "delete", "edit", "goto", "list", "setAndGetFields", "fieldStates"})
+  /*
+   * standard и businessProcess - это "группы групп", чтобы обеспечить использование кастомных групп 
+   * в прикладных тестах без переопределения setUp и tearDown (для расстановки приоритетов и параллельности тестов).
+   * 
+   * В *Test.xml использовать тег define:
+   *  <!-- Стандартный набор групп -->
+   *  <define name="standard">
+   *    <include name="find" />
+   *    <include name="create" />
+   *    <include name="delete" />
+   *    <include name="edit" />
+   *    <include name="fieldStates" /> 
+   *    <include name="setAndGetFields" />
+   *  </define>
+   *
+   *  <!-- Пользовательские сценарии -->
+   *  <define name="businessProcess">
+   *    <include name="customBusinessProcess1" />
+   *    <include name="customBusinessProcess2" />
+   *  </define>
+   */
+  @BeforeMethod(groups = {"standard", "businessProcess"})
   public void setUp(
       String baseUrl,
       String browserName,
@@ -198,7 +218,7 @@ public abstract class JepRiaApplicationAutoTest<A extends JepRiaApplicationAuto>
    * @param forceNewBrowser - условие запуска нового браузера: если true - запускать 
    * @param forceLogin - условие перелогинивания: если true - перелогиниваться
    */
-  @AfterMethod(groups = {"find", "create", "delete", "edit", "goto", "list", "setAndGetFields", "fieldStates"})
+  @AfterMethod(groups = {"standard", "businessProcess"})
   @Parameters({"forceNewBrowser", "forceLogin"})
   public void tearDown(
       @Optional("No") String forceNewBrowser,
