@@ -115,9 +115,10 @@ public interface JepRiaModuleAuto {
   void doSearch(Map<String, String> template);
 
   /**
-   * Получение workstate из html-атрибута StatusBar модуля
+   * Получение статуса из StatusBar модуля
+   * @return статус как текст
    */
-  WorkstateEnum getWorkstateFromStatusBar();
+  String getStatusBarText();
   
   /**
    * Нажатие кнопки с идентификатором buttonId

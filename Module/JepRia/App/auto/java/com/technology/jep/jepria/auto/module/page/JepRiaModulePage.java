@@ -6,7 +6,6 @@ import static com.technology.jep.jepria.client.JepRiaAutomationConstant.ENTRANCE
 import static com.technology.jep.jepria.client.JepRiaAutomationConstant.MODULE_PANEL_ID;
 import static com.technology.jep.jepria.client.JepRiaAutomationConstant.MODULE_TAB_PANEL_ID;
 import static com.technology.jep.jepria.client.JepRiaAutomationConstant.STATUSBAR_PANEL_ID;
-import static com.technology.jep.jepria.client.JepRiaAutomationConstant.STATUSBAR_PANEL_WORKSTATE_HTML_ATTR;
 import static com.technology.jep.jepria.client.JepRiaAutomationConstant.TOOLBAR_ADD_BUTTON_ID;
 import static com.technology.jep.jepria.client.JepRiaAutomationConstant.TOOLBAR_EDIT_BUTTON_ID;
 import static com.technology.jep.jepria.client.JepRiaAutomationConstant.TOOLBAR_FIND_BUTTON_ID;
@@ -24,7 +23,6 @@ import org.openqa.selenium.support.FindBy;
 
 import com.technology.jep.jepria.auto.application.page.JepRiaApplicationPageImpl;
 import com.technology.jep.jepria.auto.page.PlainPage;
-import com.technology.jep.jepria.client.ui.WorkstateEnum;
 
 /**
  * Базовая страница JepRia-приложения. Содержит основные (общие для всех приложений) элементы:
@@ -80,8 +78,7 @@ public class JepRiaModulePage extends PlainPage {
     getWait().until(visibilityOfElementLocated(By.id(STATUSBAR_PANEL_ID)));
   }
     
-  public WorkstateEnum getWorkstateFromStatusBar() {
-    return WorkstateEnum.fromString(
-        statusBarPanel.getAttribute(STATUSBAR_PANEL_WORKSTATE_HTML_ATTR));
+  public String getStatusBarText() {
+    return statusBarPanel.getText();
   }
 }
