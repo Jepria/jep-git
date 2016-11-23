@@ -20,6 +20,7 @@ import org.testng.annotations.Parameters;
 import com.technology.jep.jepria.auto.application.JepRiaApplicationAuto;
 import com.technology.jep.jepria.auto.application.entrance.EntranceAuto;
 import com.technology.jep.jepria.auto.application.entrance.EntranceAutoImpl;
+import com.technology.jep.jepria.auto.application.page.JepRiaApplicationPageImpl;
 import com.technology.jep.jepria.auto.exception.AutomationException;
 import com.technology.jep.jepria.auto.model.module.ModuleDescription;
 import com.technology.jep.jepria.auto.model.user.User;
@@ -48,7 +49,7 @@ public abstract class JepRiaApplicationAutoTest<A extends JepRiaApplicationAuto>
   /**
    * Интерфейс для осуществления авторизации
    */
-  protected EntranceAuto entranceAuto = new EntranceAutoImpl();
+  protected EntranceAuto entranceAuto;
   
   /**
    * Пользователи, которые были созданы и использовались во время тестирования. 
@@ -172,6 +173,8 @@ public abstract class JepRiaApplicationAutoTest<A extends JepRiaApplicationAuto>
       applicationAuto.start(baseUrl);
     }
     
+    provideEntranceAuto();
+    
     this.baseUrl = baseUrl;
     
     //"обnullяем" cut перед запуском теста.
@@ -188,6 +191,13 @@ public abstract class JepRiaApplicationAutoTest<A extends JepRiaApplicationAuto>
     }
     
     beforeTestLaunch();
+  }
+  
+  /**
+   * Метод иниациализирует интерфейс для осуществления авторизации.
+   */
+  protected void provideEntranceAuto(){
+    entranceAuto = new EntranceAutoImpl<JepRiaApplicationPageImpl>(new JepRiaApplicationPageImpl());
   }
   
   /**
