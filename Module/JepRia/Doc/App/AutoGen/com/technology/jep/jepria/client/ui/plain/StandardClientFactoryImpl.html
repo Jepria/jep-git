@@ -121,6 +121,14 @@ java.lang.Object
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/plain/StandardClientFactoryImpl.html#moduleId">moduleId</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>protected &nbsp;com.google.gwt.user.client.ui.IsWidget</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/plain/StandardClientFactoryImpl.html#statusBarView">statusBarView</A></B></CODE>
 
@@ -167,7 +175,14 @@ java.lang.Object
 <TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/plain/StandardClientFactoryImpl.html#StandardClientFactoryImpl(com.technology.jep.jepria.shared.record.JepRecordDefinition)">StandardClientFactoryImpl</A></B>(<A HREF="../../../../../../../com/technology/jep/jepria/shared/record/JepRecordDefinition.html" title="class in com.technology.jep.jepria.shared.record">JepRecordDefinition</A>&nbsp;recordDefinition)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Создает клиентскую фабрику модуля с заданным определением данных модуля.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<B>Deprecated.</B>&nbsp;<I>Use <A HREF="../../../../../../../com/technology/jep/jepria/client/ui/plain/StandardClientFactoryImpl.html#StandardClientFactoryImpl(java.lang.String, com.technology.jep.jepria.shared.record.JepRecordDefinition)"><CODE>StandardClientFactoryImpl(String, JepRecordDefinition)</CODE></A> instead.</I></TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/plain/StandardClientFactoryImpl.html#StandardClientFactoryImpl(java.lang.String, com.technology.jep.jepria.shared.record.JepRecordDefinition)">StandardClientFactoryImpl</A></B>(java.lang.String&nbsp;moduleId,
+                          <A HREF="../../../../../../../com/technology/jep/jepria/shared/record/JepRecordDefinition.html" title="class in com.technology.jep.jepria.shared.record">JepRecordDefinition</A>&nbsp;recordDefinition)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Создает клиентскую фабрику модуля с заданным определением данных модуля и ID модуля.</TD>
 </TR>
 </TABLE>
 &nbsp;
@@ -295,6 +310,16 @@ java.lang.Object
 </TR>
 </TABLE>
 
+<A NAME="moduleId"><!-- --></A><H3>
+moduleId</H3>
+<PRE>
+protected final java.lang.String <B>moduleId</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
 <A NAME="toolBarView"><!-- --></A><H3>
 toolBarView</H3>
 <PRE>
@@ -331,12 +356,28 @@ protected com.google.gwt.user.client.ui.IsWidget <B>statusBarView</B></PRE>
 <A NAME="StandardClientFactoryImpl(com.technology.jep.jepria.shared.record.JepRecordDefinition)"><!-- --></A><H3>
 StandardClientFactoryImpl</H3>
 <PRE>
-public <B>StandardClientFactoryImpl</B>(<A HREF="../../../../../../../com/technology/jep/jepria/shared/record/JepRecordDefinition.html" title="class in com.technology.jep.jepria.shared.record">JepRecordDefinition</A>&nbsp;recordDefinition)</PRE>
+<FONT SIZE="-1">@Deprecated
+</FONT>public <B>StandardClientFactoryImpl</B>(<A HREF="../../../../../../../com/technology/jep/jepria/shared/record/JepRecordDefinition.html" title="class in com.technology.jep.jepria.shared.record">JepRecordDefinition</A>&nbsp;recordDefinition)</PRE>
 <DL>
+<DD><B>Deprecated.</B>&nbsp;<I>Use <A HREF="../../../../../../../com/technology/jep/jepria/client/ui/plain/StandardClientFactoryImpl.html#StandardClientFactoryImpl(java.lang.String, com.technology.jep.jepria.shared.record.JepRecordDefinition)"><CODE>StandardClientFactoryImpl(String, JepRecordDefinition)</CODE></A> instead.</I>
+<P>
 <DD>Создает клиентскую фабрику модуля с заданным определением данных модуля.
 <P>
 <DL>
 <DT><B>Parameters:</B><DD><CODE>recordDefinition</CODE> - определение данных модуля</DL>
+</DL>
+<HR>
+
+<A NAME="StandardClientFactoryImpl(java.lang.String, com.technology.jep.jepria.shared.record.JepRecordDefinition)"><!-- --></A><H3>
+StandardClientFactoryImpl</H3>
+<PRE>
+public <B>StandardClientFactoryImpl</B>(java.lang.String&nbsp;moduleId,
+                                 <A HREF="../../../../../../../com/technology/jep/jepria/shared/record/JepRecordDefinition.html" title="class in com.technology.jep.jepria.shared.record">JepRecordDefinition</A>&nbsp;recordDefinition)</PRE>
+<DL>
+<DD>Создает клиентскую фабрику модуля с заданным определением данных модуля и ID модуля.
+<P>
+<DL>
+<DT><B>Parameters:</B><DD><CODE>moduleId</CODE> - ID модуля<DD><CODE>recordDefinition</CODE> - определение данных модуля</DL>
 </DL>
 
 <!-- ============ METHOD DETAIL ========== -->

@@ -201,7 +201,7 @@ public abstract class JepRiaApplicationAutoTest<A extends JepRiaApplicationAuto>
   }
   
   /**
-   * Метод вызывается в конце {@link #setUp(String, String, String, String, String, String, String, String, String, String, String) setUp},
+   * Метод вызывается в конце {@link #setUp(String, String, String, String, String, String, String, String, String, String, String, String, String, String) setUp},
    * непосредственно перед запуском каждого теста. Например, для того, чтобы в нем осуществлять переход в модуль
    * с помощью {@link #enterModule(ModuleDescription)}.
    * Предназначен для переопределния потомками.  

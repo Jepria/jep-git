@@ -103,7 +103,6 @@ public class JepRiaModuleAutoImpl<P extends JepRiaModulePage> implements JepRiaM
   /**
    * Метод ожидает появления заданного workstate в атрибуте статус бара.
    * @param expectedWorkstate ожидаемый воркстейт
-   * @return
    */
   protected void waitForStatusWorkstate(final WorkstateEnum expectedWorkstate) {
     ExpectedCondition<Boolean> condition = new ExpectedCondition<Boolean>() {
@@ -1131,7 +1130,7 @@ public class JepRiaModuleAutoImpl<P extends JepRiaModulePage> implements JepRiaM
   /**
    * Ищет элемент на текущей странице и, в том случае, если его нет, ожидает его появления
    * @param by локатор искомого элемента
-   * @return
+   * @return Элемент
    * @throws NoSuchElementException Если по истечении таймаута элемент все же не найден.
    */
   private static WebElement findElementAndWait(By by) throws NoSuchElementException {
@@ -1145,7 +1144,7 @@ public class JepRiaModuleAutoImpl<P extends JepRiaModulePage> implements JepRiaM
   /**
    * Ищет элементы на текущей странице и, в том случае, если их нет, ожидает их появления
    * @param by локатор искомого элемента
-   * @return
+   * @return Элемент
    * @throws NoSuchElementException Если по истечении таймаута элементы все же не найдены.
    */
   private static List<WebElement> findElementsAndWait(By by) throws NoSuchElementException {

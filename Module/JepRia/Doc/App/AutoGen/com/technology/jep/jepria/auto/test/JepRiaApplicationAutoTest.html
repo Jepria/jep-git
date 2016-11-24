@@ -207,7 +207,7 @@ java.lang.Object
 <TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/test/JepRiaApplicationAutoTest.html#beforeTestLaunch()">beforeTestLaunch</A></B>()</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Метод вызывается в конце <CODE>setUp</CODE>,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Метод вызывается в конце <A HREF="../../../../../../com/technology/jep/jepria/auto/test/JepRiaApplicationAutoTest.html#setUp(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)"><CODE>setUp</CODE></A>,
  непосредственно перед запуском каждого теста.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
@@ -286,6 +286,14 @@ C</CODE></FONT></TD>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/test/JepRiaApplicationAutoTest.html#provideEntranceAuto()">provideEntranceAuto</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Метод иниациализирует интерфейс для осуществления авторизации.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -537,12 +545,25 @@ public void <B>setUp</B>(java.lang.String&nbsp;baseUrl,
 </DL>
 <HR>
 
+<A NAME="provideEntranceAuto()"><!-- --></A><H3>
+provideEntranceAuto</H3>
+<PRE>
+protected void <B>provideEntranceAuto</B>()</PRE>
+<DL>
+<DD>Метод иниациализирует интерфейс для осуществления авторизации.
+<P>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
 <A NAME="beforeTestLaunch()"><!-- --></A><H3>
 beforeTestLaunch</H3>
 <PRE>
 protected abstract void <B>beforeTestLaunch</B>()</PRE>
 <DL>
-<DD>Метод вызывается в конце <CODE>setUp</CODE>,
+<DD>Метод вызывается в конце <A HREF="../../../../../../com/technology/jep/jepria/auto/test/JepRiaApplicationAutoTest.html#setUp(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)"><CODE>setUp</CODE></A>,
  непосредственно перед запуском каждого теста. Например, для того, чтобы в нем осуществлять переход в модуль
  с помощью <A HREF="../../../../../../com/technology/jep/jepria/auto/test/JepRiaApplicationAutoTest.html#enterModule(com.technology.jep.jepria.auto.model.module.ModuleDescription)"><CODE>enterModule(ModuleDescription)</CODE></A>.
  Предназначен для переопределния потомками.
