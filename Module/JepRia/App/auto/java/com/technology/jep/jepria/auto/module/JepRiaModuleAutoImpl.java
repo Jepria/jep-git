@@ -103,7 +103,10 @@ public class JepRiaModuleAutoImpl<P extends JepRiaModulePage> implements JepRiaM
   /**
    * Метод ожидает появления заданного workstate в атрибуте статус бара.
    * @param expectedWorkstate ожидаемый воркстейт
+<<<<<<< HEAD
    * @return
+=======
+>>>>>>> branch 'master' of https://remitot@git.code.sf.net/p/javaenterpriseplatform/git
    */
   protected void waitForStatusWorkstate(final WorkstateEnum expectedWorkstate) {
     ExpectedCondition<Boolean> condition = new ExpectedCondition<Boolean>() {
@@ -465,7 +468,8 @@ public class JepRiaModuleAutoImpl<P extends JepRiaModulePage> implements JepRiaM
     ConditionChecker statusChecker = new ConditionChecker() {
       @Override
       public boolean isSatisfied() {
-        return !getWorkstateFromStatusBar().equals(CREATE);
+        return !getWorkstateFromStatusBar().equals(CREATE) && 
+            !getWorkstateFromStatusBar().equals(EDIT);
       }
     };
     ConditionChecker conditionChecker = new WebDriverWait(wd, WEB_DRIVER_TIMEOUT).until(
@@ -482,7 +486,7 @@ public class JepRiaModuleAutoImpl<P extends JepRiaModulePage> implements JepRiaM
     } else {
       throw new NotExpectedException("Save error");
     }
-    
+
     return result;
   }
 
@@ -502,8 +506,19 @@ public class JepRiaModuleAutoImpl<P extends JepRiaModulePage> implements JepRiaM
     // дождемся появления и исчезновения стеклянной маски, появляющейся на списке во время загрузки.
     // TODO не лучшее место для этого!
     if (VIEW_LIST.equals(currentWorkstate)) {
-      WebElement gridGlassMask = findElementAndWait(By.id(GRID_GLASS_MASK_ID));
-      getWait().until(stalenessOf(gridGlassMask));
+      WebElement gridGlassMask = null;
+      try {
+        // Поскольку загрузка списка может произойти быстро настолько, что стеклянная маска не успеет
+        // слоцироваться, подождем ее появления 1 секунду
+        gridGlassMask = WebDriverFactory.getWait(1).until(presenceOfElementLocated(By.id(GRID_GLASS_MASK_ID)));
+      } catch (TimeoutException e) {
+        // Если загрузка списка произошла слишком быстро, и стеклянная маска не успела лоцироваться,
+        // то пропускаем шаг ожидания исчезновения стеклянной маски.
+      }
+      
+      if(gridGlassMask != null) {
+        getWait().until(stalenessOf(gridGlassMask));
+      }
     }
     
     this.currentWorkstate = currentWorkstate;
@@ -1119,7 +1134,7 @@ public class JepRiaModuleAutoImpl<P extends JepRiaModulePage> implements JepRiaM
   /**
    * Ищет элемент на текущей странице и, в том случае, если его нет, ожидает его появления
    * @param by локатор искомого элемента
-   * @return
+   * @return Элемент
    * @throws NoSuchElementException Если по истечении таймаута элемент все же не найден.
    */
   private static WebElement findElementAndWait(By by) throws NoSuchElementException {
@@ -1133,7 +1148,7 @@ public class JepRiaModuleAutoImpl<P extends JepRiaModulePage> implements JepRiaM
   /**
    * Ищет элементы на текущей странице и, в том случае, если их нет, ожидает их появления
    * @param by локатор искомого элемента
-   * @return
+   * @return Элемент
    * @throws NoSuchElementException Если по истечении таймаута элементы все же не найдены.
    */
   private static List<WebElement> findElementsAndWait(By by) throws NoSuchElementException {

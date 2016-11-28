@@ -222,7 +222,7 @@ Interface JepRiaModuleAuto</H2>
 <TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#ensureModuleLoaded()">ensureModuleLoaded</A></B>()</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Проверка, загрузился ли модуль (делегирование к <CODE>AbstractPage#ensurePageLoaded()</CODE>).</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Проверка, загрузился ли модуль (делегирование к <CODE>PlainPage#ensurePageLoaded()</CODE>).</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -282,20 +282,20 @@ Interface JepRiaModuleAuto</H2>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../../../../../com/technology/jep/jepria/auto/widget/statusbar/StatusBar.html" title="class in com.technology.jep.jepria.auto.widget.statusbar">StatusBar</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#getStatusBar()">getStatusBar</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Получение элемента панели состояния</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;java.lang.String[]</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#getTreeFieldNodesByFilter(java.lang.String, com.technology.jep.jepria.auto.widget.tree.TreeItemFilter)">getTreeFieldNodesByFilter</A></B>(java.lang.String&nbsp;treeFieldId,
                           <A HREF="../../../../../../com/technology/jep/jepria/auto/widget/tree/TreeItemFilter.html" title="interface in com.technology.jep.jepria.auto.widget.tree">TreeItemFilter</A>&nbsp;filter)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Получение массива путей до узлов, проходящих через фильтр, поля JepTreeField.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../../../com/technology/jep/jepria/client/ui/WorkstateEnum.html" title="enum in com.technology.jep.jepria.client.ui">WorkstateEnum</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#getWorkstateFromStatusBar()">getWorkstateFromStatusBar</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Получение workstate из html-атрибута StatusBar модуля</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -480,7 +480,7 @@ ensureModuleLoaded</H3>
 <PRE>
 void <B>ensureModuleLoaded</B>()</PRE>
 <DL>
-<DD>Проверка, загрузился ли модуль (делегирование к <CODE>AbstractPage#ensurePageLoaded()</CODE>).
+<DD>Проверка, загрузился ли модуль (делегирование к <CODE>PlainPage#ensurePageLoaded()</CODE>).
 <P>
 <DD><DL>
 </DL>
@@ -652,16 +652,15 @@ void <B>doSearch</B>(java.util.Map&lt;java.lang.String,java.lang.String&gt;&nbsp
 </DL>
 <HR>
 
-<A NAME="getStatusBar()"><!-- --></A><H3>
-getStatusBar</H3>
+<A NAME="getWorkstateFromStatusBar()"><!-- --></A><H3>
+getWorkstateFromStatusBar</H3>
 <PRE>
-<A HREF="../../../../../../com/technology/jep/jepria/auto/widget/statusbar/StatusBar.html" title="class in com.technology.jep.jepria.auto.widget.statusbar">StatusBar</A> <B>getStatusBar</B>()</PRE>
+<A HREF="../../../../../../com/technology/jep/jepria/client/ui/WorkstateEnum.html" title="enum in com.technology.jep.jepria.client.ui">WorkstateEnum</A> <B>getWorkstateFromStatusBar</B>()</PRE>
 <DL>
-<DD>Получение элемента панели состояния
+<DD>Получение workstate из html-атрибута StatusBar модуля
 <P>
 <DD><DL>
-
-<DT><B>Returns:</B><DD>элемент панели состояния</DL>
+</DL>
 </DD>
 </DL>
 <HR>

@@ -32,7 +32,7 @@ public interface JepRiaModuleAuto {
   }
   
   /**
-   * Проверка, загрузился ли модуль (делегирование к {@link AbstractPage#ensurePageLoaded()}).
+   * Проверка, загрузился ли модуль (делегирование к {@link PlainPage#ensurePageLoaded()}).
    */
   void ensureModuleLoaded();
   

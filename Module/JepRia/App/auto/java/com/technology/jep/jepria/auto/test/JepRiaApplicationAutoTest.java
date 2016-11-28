@@ -20,6 +20,7 @@ import org.testng.annotations.Parameters;
 import com.technology.jep.jepria.auto.application.JepRiaApplicationAuto;
 import com.technology.jep.jepria.auto.application.entrance.EntranceAuto;
 import com.technology.jep.jepria.auto.application.entrance.EntranceAutoImpl;
+import com.technology.jep.jepria.auto.application.page.JepRiaApplicationPageImpl;
 import com.technology.jep.jepria.auto.exception.AutomationException;
 import com.technology.jep.jepria.auto.model.module.ModuleDescription;
 import com.technology.jep.jepria.auto.model.user.User;
@@ -48,7 +49,7 @@ public abstract class JepRiaApplicationAutoTest<A extends JepRiaApplicationAuto>
   /**
    * Интерфейс для осуществления авторизации
    */
-  protected EntranceAuto entranceAuto = new EntranceAutoImpl();
+  protected EntranceAuto entranceAuto;
   
   /**
    * Пользователи, которые были созданы и использовались во время тестирования. 
@@ -124,8 +125,28 @@ public abstract class JepRiaApplicationAutoTest<A extends JepRiaApplicationAuto>
     "dbUrl", 
     "dbUser", 
     "dbPassword"})
-  //TODO: Продумать введение новых "кастомных" групп
-  @BeforeMethod(groups = {"find", "create", "delete", "edit", "goto", "list", "setAndGetFields", "fieldStates"})
+  /*
+   * standard и businessProcess - это "группы групп", чтобы обеспечить использование кастомных групп 
+   * в прикладных тестах без переопределения setUp и tearDown (для расстановки приоритетов и параллельности тестов).
+   * 
+   * В *Test.xml использовать тег define:
+   *  <!-- Стандартный набор групп -->
+   *  <define name="standard">
+   *    <include name="find" />
+   *    <include name="create" />
+   *    <include name="delete" />
+   *    <include name="edit" />
+   *    <include name="fieldStates" /> 
+   *    <include name="setAndGetFields" />
+   *  </define>
+   *
+   *  <!-- Пользовательские сценарии -->
+   *  <define name="businessProcess">
+   *    <include name="customBusinessProcess1" />
+   *    <include name="customBusinessProcess2" />
+   *  </define>
+   */
+  @BeforeMethod(groups = {"standard", "businessProcess"})
   public void setUp(
       String baseUrl,
       String browserName,
@@ -152,6 +173,8 @@ public abstract class JepRiaApplicationAutoTest<A extends JepRiaApplicationAuto>
       applicationAuto.start(baseUrl);
     }
     
+    provideEntranceAuto();
+    
     this.baseUrl = baseUrl;
     
     //"обnullяем" cut перед запуском теста.
@@ -171,7 +194,14 @@ public abstract class JepRiaApplicationAutoTest<A extends JepRiaApplicationAuto>
   }
   
   /**
-   * Метод вызывается в конце {@link #setUp(String, String, String, String, String, String, String, String, String, String, String) setUp},
+   * Метод иниациализирует интерфейс для осуществления авторизации.
+   */
+  protected void provideEntranceAuto(){
+    entranceAuto = new EntranceAutoImpl<JepRiaApplicationPageImpl>(new JepRiaApplicationPageImpl());
+  }
+  
+  /**
+   * Метод вызывается в конце {@link #setUp(String, String, String, String, String, String, String, String, String, String, String, String, String, String) setUp},
    * непосредственно перед запуском каждого теста. Например, для того, чтобы в нем осуществлять переход в модуль
    * с помощью {@link #enterModule(ModuleDescription)}.
    * Предназначен для переопределния потомками.  
@@ -198,7 +228,7 @@ public abstract class JepRiaApplicationAutoTest<A extends JepRiaApplicationAuto>
    * @param forceNewBrowser - условие запуска нового браузера: если true - запускать 
    * @param forceLogin - условие перелогинивания: если true - перелогиниваться
    */
-  @AfterMethod(groups = {"find", "create", "delete", "edit", "goto", "list", "setAndGetFields", "fieldStates"})
+  @AfterMethod(groups = {"standard", "businessProcess"})
   @Parameters({"forceNewBrowser", "forceLogin"})
   public void tearDown(
       @Optional("No") String forceNewBrowser,

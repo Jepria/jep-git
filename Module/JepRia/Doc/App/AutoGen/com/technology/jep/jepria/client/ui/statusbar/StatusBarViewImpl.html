@@ -94,7 +94,7 @@ java.lang.Object
   <IMG SRC="../../../../../../../resources/inherit.gif" ALT="extended by "><B>com.technology.jep.jepria.client.ui.statusbar.StatusBarViewImpl</B>
 </PRE>
 <DL>
-<DT><B>All Implemented Interfaces:</B> <DD>com.google.gwt.user.client.ui.IsWidget, <A HREF="../../../../../../../com/technology/jep/jepria/client/ui/JepView.html" title="interface in com.technology.jep.jepria.client.ui">JepView</A>&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/ui/JepPresenter.html" title="class in com.technology.jep.jepria.client.ui">JepPresenter</A>&gt;, <A HREF="../../../../../../../com/technology/jep/jepria/client/ui/statusbar/StatusBarView.html" title="interface in com.technology.jep.jepria.client.ui.statusbar">StatusBarView</A></DD>
+<DT><B>All Implemented Interfaces:</B> <DD>com.google.gwt.user.client.ui.IsWidget, <A HREF="../../../../../../../com/technology/jep/jepria/client/ui/JepView.html" title="interface in com.technology.jep.jepria.client.ui">JepView</A>&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/ui/JepPresenter.html" title="class in com.technology.jep.jepria.client.ui">JepPresenter</A>&lt;?,?&gt;&gt;, <A HREF="../../../../../../../com/technology/jep/jepria/client/ui/statusbar/StatusBarView.html" title="interface in com.technology.jep.jepria.client.ui.statusbar">StatusBarView</A></DD>
 </DL>
 <HR>
 <DL>
@@ -127,7 +127,15 @@ java.lang.Object
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>protected &nbsp;<A HREF="../../../../../../../com/technology/jep/jepria/client/ui/JepPresenter.html" title="class in com.technology.jep.jepria.client.ui">JepPresenter</A></CODE></FONT></TD>
+<CODE>protected &nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/statusbar/StatusBarViewImpl.html#moduleId">moduleId</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;<A HREF="../../../../../../../com/technology/jep/jepria/client/ui/JepPresenter.html" title="class in com.technology.jep.jepria.client.ui">JepPresenter</A>&lt;?,?&gt;</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/statusbar/StatusBarViewImpl.html#presenter">presenter</A></B></CODE>
 
 <BR>
@@ -153,7 +161,7 @@ java.lang.Object
 <B>Constructor Summary</B></FONT></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/statusbar/StatusBarViewImpl.html#StatusBarViewImpl()">StatusBarViewImpl</A></B>()</CODE>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/statusbar/StatusBarViewImpl.html#StatusBarViewImpl(java.lang.String)">StatusBarViewImpl</A></B>(java.lang.String&nbsp;moduleId)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -187,7 +195,15 @@ java.lang.Object
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/statusbar/StatusBarViewImpl.html#setPresenter(com.technology.jep.jepria.client.ui.JepPresenter)">setPresenter</A></B>(<A HREF="../../../../../../../com/technology/jep/jepria/client/ui/JepPresenter.html" title="class in com.technology.jep.jepria.client.ui">JepPresenter</A>&nbsp;presenter)</CODE>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/statusbar/StatusBarViewImpl.html#setPresenter(com.technology.jep.jepria.client.ui.JepPresenter)">setPresenter</A></B>(<A HREF="../../../../../../../com/technology/jep/jepria/client/ui/JepPresenter.html" title="class in com.technology.jep.jepria.client.ui">JepPresenter</A>&lt;?,?&gt;&nbsp;presenter)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/statusbar/StatusBarViewImpl.html#setWebIds()">setWebIds</A></B>()</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -234,7 +250,7 @@ java.lang.Object
 <A NAME="presenter"><!-- --></A><H3>
 presenter</H3>
 <PRE>
-protected <A HREF="../../../../../../../com/technology/jep/jepria/client/ui/JepPresenter.html" title="class in com.technology.jep.jepria.client.ui">JepPresenter</A> <B>presenter</B></PRE>
+protected <A HREF="../../../../../../../com/technology/jep/jepria/client/ui/JepPresenter.html" title="class in com.technology.jep.jepria.client.ui">JepPresenter</A>&lt;?,?&gt; <B>presenter</B></PRE>
 <DL>
 <DL>
 </DL>
@@ -245,6 +261,16 @@ protected <A HREF="../../../../../../../com/technology/jep/jepria/client/ui/JepP
 label</H3>
 <PRE>
 protected com.google.gwt.user.client.ui.Label <B>label</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="moduleId"><!-- --></A><H3>
+moduleId</H3>
+<PRE>
+protected final java.lang.String <B>moduleId</B></PRE>
 <DL>
 <DL>
 </DL>
@@ -260,10 +286,10 @@ protected com.google.gwt.user.client.ui.Label <B>label</B></PRE>
 </TR>
 </TABLE>
 
-<A NAME="StatusBarViewImpl()"><!-- --></A><H3>
+<A NAME="StatusBarViewImpl(java.lang.String)"><!-- --></A><H3>
 StatusBarViewImpl</H3>
 <PRE>
-public <B>StatusBarViewImpl</B>()</PRE>
+public <B>StatusBarViewImpl</B>(java.lang.String&nbsp;moduleId)</PRE>
 <DL>
 </DL>
 
@@ -300,7 +326,7 @@ setWidget</H3>
 public void <B>setWidget</B>(com.google.gwt.user.client.ui.Widget&nbsp;widget)</PRE>
 <DL>
 <DD><DL>
-<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/JepView.html#setWidget(com.google.gwt.user.client.ui.Widget)">setWidget</A></CODE> in interface <CODE><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/JepView.html" title="interface in com.technology.jep.jepria.client.ui">JepView</A>&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/ui/JepPresenter.html" title="class in com.technology.jep.jepria.client.ui">JepPresenter</A>&gt;</CODE></DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/JepView.html#setWidget(com.google.gwt.user.client.ui.Widget)">setWidget</A></CODE> in interface <CODE><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/JepView.html" title="interface in com.technology.jep.jepria.client.ui">JepView</A>&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/ui/JepPresenter.html" title="class in com.technology.jep.jepria.client.ui">JepPresenter</A>&lt;?,?&gt;&gt;</CODE></DL>
 </DD>
 <DD><DL>
 </DL>
@@ -325,10 +351,10 @@ public com.google.gwt.user.client.ui.Widget <B>asWidget</B>()</PRE>
 <A NAME="setPresenter(com.technology.jep.jepria.client.ui.JepPresenter)"><!-- --></A><H3>
 setPresenter</H3>
 <PRE>
-public void <B>setPresenter</B>(<A HREF="../../../../../../../com/technology/jep/jepria/client/ui/JepPresenter.html" title="class in com.technology.jep.jepria.client.ui">JepPresenter</A>&nbsp;presenter)</PRE>
+public void <B>setPresenter</B>(<A HREF="../../../../../../../com/technology/jep/jepria/client/ui/JepPresenter.html" title="class in com.technology.jep.jepria.client.ui">JepPresenter</A>&lt;?,?&gt;&nbsp;presenter)</PRE>
 <DL>
 <DD><DL>
-<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/JepView.html#setPresenter(P)">setPresenter</A></CODE> in interface <CODE><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/JepView.html" title="interface in com.technology.jep.jepria.client.ui">JepView</A>&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/ui/JepPresenter.html" title="class in com.technology.jep.jepria.client.ui">JepPresenter</A>&gt;</CODE></DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/JepView.html#setPresenter(P)">setPresenter</A></CODE> in interface <CODE><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/JepView.html" title="interface in com.technology.jep.jepria.client.ui">JepView</A>&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/ui/JepPresenter.html" title="class in com.technology.jep.jepria.client.ui">JepPresenter</A>&lt;?,?&gt;&gt;</CODE></DL>
 </DD>
 <DD><DL>
 </DL>
@@ -349,6 +375,20 @@ public void <B>showWorkstate</B>(<A HREF="../../../../../../../com/technology/je
 </DD>
 <DD><DL>
 <DT><B>Parameters:</B><DD><CODE>workstate</CODE> - состояние работы</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setWebIds()"><!-- --></A><H3>
+setWebIds</H3>
+<PRE>
+protected void <B>setWebIds</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
 </DD>
 </DL>
 <!-- ========= END OF CLASS DATA ========= -->

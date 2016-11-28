@@ -19,7 +19,6 @@ com.technology.jep.jepria.auto.module.page
 com.technology.jep.jepria.auto.page
 com.technology.jep.jepria.auto.test
 com.technology.jep.jepria.auto.util
-com.technology.jep.jepria.auto.widget.statusbar
 com.technology.jep.jepria.auto.widget.tree
 com.technology.jep.jepria.client
 com.technology.jep.jepria.client.async

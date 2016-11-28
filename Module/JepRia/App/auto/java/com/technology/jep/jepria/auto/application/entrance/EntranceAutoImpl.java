@@ -15,14 +15,22 @@ import com.technology.jep.jepria.auto.application.entrance.page.DefaultLoginPage
 import com.technology.jep.jepria.auto.application.entrance.page.JepRiaLoginPage;
 import com.technology.jep.jepria.auto.application.entrance.page.LoginPage;
 import com.technology.jep.jepria.auto.application.page.JepRiaApplicationPage;
-import com.technology.jep.jepria.auto.application.page.JepRiaApplicationPageImpl;
 import com.technology.jep.jepria.auto.condition.ConditionChecker;
 import com.technology.jep.jepria.auto.condition.DisplayChecker;
 import com.technology.jep.jepria.auto.condition.ExpectedConditions;
 import com.technology.jep.jepria.auto.exception.AutomationException;
 import com.technology.jep.jepria.auto.util.WebDriverFactory;
 
-public class EntranceAutoImpl implements EntranceAuto {
+public class EntranceAutoImpl<P extends JepRiaApplicationPage> implements EntranceAuto {
+  
+  /**
+   * Конструктор. <br/>
+   * TODO: Подумать, чтобы у applicationPage была ленивая инициализация. 
+   * @param applicationPage - Представление страницы приложения.
+   */
+  public EntranceAutoImpl(P applicationPage) {
+    this.applicationPage = applicationPage;
+  }
   
   /**
    * Логин-страница приложения.<br>
@@ -33,10 +41,10 @@ public class EntranceAutoImpl implements EntranceAuto {
   
   /**
    * Собственно страница приложения.<br>
-   * <b>Обращаться не напрямую, а только через {@link #getApplicationPage()}!</b> 
-   * В противном случае страница будет неинициализированной.
+   * <b>Обращаться не напрямую, а только через {@link #getApplicationPage()}!</b> <br/>
+   * (см. todo в конструкторе класса): В противном случае страница будет неинициализированной.
    */
-  private JepRiaApplicationPage applicationPage;
+  private P applicationPage;
   
   /**
    * Метод доступа к логин-странице, реализующий её отложенную инициализацию.
@@ -49,12 +57,9 @@ public class EntranceAutoImpl implements EntranceAuto {
   }
   
   /**
-   * Метод доступа к странице приложения, реализующий её отложенную инициализацию.
+   * Метод доступа к странице уровня абстракции приложения.
    */
-  private JepRiaApplicationPage getApplicationPage() {
-    if (applicationPage == null) {
-      this.applicationPage = new JepRiaApplicationPageImpl();
-    }
+  private P getApplicationPage() {
     return applicationPage;
   }
   

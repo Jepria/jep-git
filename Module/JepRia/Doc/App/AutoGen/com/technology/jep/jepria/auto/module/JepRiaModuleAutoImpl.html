@@ -167,14 +167,6 @@ java.lang.Object
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>private &nbsp;<A HREF="../../../../../../com/technology/jep/jepria/auto/widget/statusbar/StatusBar.html" title="class in com.technology.jep.jepria.auto.widget.statusbar">StatusBar</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAutoImpl.html#statusBar">statusBar</A></B></CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>private static&nbsp;long</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAutoImpl.html#WEB_DRIVER_TIMEOUT">WEB_DRIVER_TIMEOUT</A></B></CODE>
 
@@ -298,7 +290,7 @@ java.lang.Object
 <TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAutoImpl.html#ensureModuleLoaded()">ensureModuleLoaded</A></B>()</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Проверка, загрузился ли модуль (делегирование к <CODE>AbstractPage#ensurePageLoaded()</CODE>).</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Проверка, загрузился ли модуль (делегирование к <CODE>PlainPage#ensurePageLoaded()</CODE>).</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -342,14 +334,6 @@ java.lang.Object
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../../../../../com/technology/jep/jepria/client/ui/WorkstateEnum.html" title="enum in com.technology.jep.jepria.client.ui">WorkstateEnum</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAutoImpl.html#getCurrentWorkstate()">getCurrentWorkstate</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;java.lang.String[]</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAutoImpl.html#getDualListFieldValues(java.lang.String)">getDualListFieldValues</A></B>(java.lang.String&nbsp;jepDualListFieldId)</CODE>
 
@@ -390,28 +374,20 @@ java.lang.Object
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../../../../../com/technology/jep/jepria/auto/widget/statusbar/StatusBar.html" title="class in com.technology.jep.jepria.auto.widget.statusbar">StatusBar</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAutoImpl.html#getStatusBar()">getStatusBar</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Получение элемента панели состояния</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>protected &nbsp;java.lang.String</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAutoImpl.html#getToolbarButtonId(com.technology.jep.jepria.client.ui.WorkstateEnum)">getToolbarButtonId</A></B>(<A HREF="../../../../../../com/technology/jep/jepria/client/ui/WorkstateEnum.html" title="enum in com.technology.jep.jepria.client.ui">WorkstateEnum</A>&nbsp;workstate)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Получение кнопки toolbar для перехода в заданное состояние</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;java.lang.String[]</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAutoImpl.html#getTreeFieldNodesByFilter(java.lang.String, com.technology.jep.jepria.auto.widget.tree.TreeItemFilter)">getTreeFieldNodesByFilter</A></B>(java.lang.String&nbsp;treeFieldId,
                           <A HREF="../../../../../../com/technology/jep/jepria/auto/widget/tree/TreeItemFilter.html" title="interface in com.technology.jep.jepria.auto.widget.tree">TreeItemFilter</A>&nbsp;filter)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Получение массива путей до узлов, проходящих через фильтр, поля JepTreeField.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;<A HREF="../../../../../../com/technology/jep/jepria/client/ui/WorkstateEnum.html" title="enum in com.technology.jep.jepria.client.ui">WorkstateEnum</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAutoImpl.html#getWorkstateFromStatusBar()">getWorkstateFromStatusBar</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Получение workstate из html-атрибута StatusBar модуля</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -585,7 +561,8 @@ java.lang.Object
 <TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAutoImpl.html#setCurrentWorkstate(com.technology.jep.jepria.client.ui.WorkstateEnum)">setCurrentWorkstate</A></B>(<A HREF="../../../../../../com/technology/jep/jepria/client/ui/WorkstateEnum.html" title="enum in com.technology.jep.jepria.client.ui">WorkstateEnum</A>&nbsp;currentWorkstate)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Метод присваивает внутренней переменной новое значение состояния и ждет загрузки списка, если
+ новое состояние - <A HREF="../../../../../../com/technology/jep/jepria/client/ui/WorkstateEnum.html#VIEW_LIST"><CODE>WorkstateEnum.VIEW_LIST</CODE></A>.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -623,15 +600,6 @@ java.lang.Object
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>private static&nbsp;org.openqa.selenium.support.ui.ExpectedCondition&lt;java.lang.Boolean&gt;</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAutoImpl.html#textToBeChangedInElementLocated(org.openqa.selenium.By, java.lang.String)">textToBeChangedInElementLocated</A></B>(org.openqa.selenium.By&nbsp;locator,
-                                java.lang.String&nbsp;currentText)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>private &nbsp;java.util.List&lt;java.lang.String&gt;</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAutoImpl.html#traverseTree(org.openqa.selenium.WebElement, int, com.technology.jep.jepria.auto.widget.tree.TreeItemFilter)">traverseTree</A></B>(org.openqa.selenium.WebElement&nbsp;node,
              int&nbsp;level,
@@ -643,11 +611,10 @@ java.lang.Object
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>protected &nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAutoImpl.html#waitTextToBeChanged(com.technology.jep.jepria.auto.util.HasText, java.lang.String)">waitTextToBeChanged</A></B>(<A HREF="../../../../../../com/technology/jep/jepria/auto/util/HasText.html" title="interface in com.technology.jep.jepria.auto.util">HasText</A>&nbsp;hasText,
-                    java.lang.String&nbsp;currentWorkstateDisplayText)</CODE>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAutoImpl.html#waitForStatusWorkstate(com.technology.jep.jepria.client.ui.WorkstateEnum)">waitForStatusWorkstate</A></B>(<A HREF="../../../../../../com/technology/jep/jepria/client/ui/WorkstateEnum.html" title="enum in com.technology.jep.jepria.client.ui">WorkstateEnum</A>&nbsp;expectedWorkstate)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Метод ожидает появления заданного workstate в атрибуте статус бара.</TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>
@@ -710,16 +677,6 @@ private <A HREF="../../../../../../com/technology/jep/jepria/client/ui/Workstate
 <DL>
 </DL>
 </DL>
-<HR>
-
-<A NAME="statusBar"><!-- --></A><H3>
-statusBar</H3>
-<PRE>
-private <A HREF="../../../../../../com/technology/jep/jepria/auto/widget/statusbar/StatusBar.html" title="class in com.technology.jep.jepria.auto.widget.statusbar">StatusBar</A> <B>statusBar</B></PRE>
-<DL>
-<DL>
-</DL>
-</DL>
 
 <!-- ========= CONSTRUCTOR DETAIL ======== -->
 
@@ -748,50 +705,18 @@ public <B>JepRiaModuleAutoImpl</B>(<A HREF="../../../../../../com/technology/jep
 </TR>
 </TABLE>
 
-<A NAME="waitTextToBeChanged(com.technology.jep.jepria.auto.util.HasText, java.lang.String)"><!-- --></A><H3>
-waitTextToBeChanged</H3>
+<A NAME="waitForStatusWorkstate(com.technology.jep.jepria.client.ui.WorkstateEnum)"><!-- --></A><H3>
+waitForStatusWorkstate</H3>
 <PRE>
-protected void <B>waitTextToBeChanged</B>(<A HREF="../../../../../../com/technology/jep/jepria/auto/util/HasText.html" title="interface in com.technology.jep.jepria.auto.util">HasText</A>&nbsp;hasText,
-                                   java.lang.String&nbsp;currentWorkstateDisplayText)</PRE>
+protected void <B>waitForStatusWorkstate</B>(<A HREF="../../../../../../com/technology/jep/jepria/client/ui/WorkstateEnum.html" title="enum in com.technology.jep.jepria.client.ui">WorkstateEnum</A>&nbsp;expectedWorkstate)</PRE>
 <DL>
-<DD><DL>
-</DL>
-</DD>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="textToBeChangedInElementLocated(org.openqa.selenium.By, java.lang.String)"><!-- --></A><H3>
-textToBeChangedInElementLocated</H3>
-<PRE>
-private static org.openqa.selenium.support.ui.ExpectedCondition&lt;java.lang.Boolean&gt; <B>textToBeChangedInElementLocated</B>(org.openqa.selenium.By&nbsp;locator,
-                                                                                                                   java.lang.String&nbsp;currentText)</PRE>
-<DL>
-<DD><DL>
-</DL>
-</DD>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="getStatusBar()"><!-- --></A><H3>
-getStatusBar</H3>
-<PRE>
-public <A HREF="../../../../../../com/technology/jep/jepria/auto/widget/statusbar/StatusBar.html" title="class in com.technology.jep.jepria.auto.widget.statusbar">StatusBar</A> <B>getStatusBar</B>()</PRE>
-<DL>
-<DD><B>Description copied from interface: <CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#getStatusBar()">JepRiaModuleAuto</A></CODE></B></DD>
-<DD>Получение элемента панели состояния
+<DD>Метод ожидает появления заданного workstate в атрибуте статус бара.
 <P>
 <DD><DL>
-<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#getStatusBar()">getStatusBar</A></CODE> in interface <CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html" title="interface in com.technology.jep.jepria.auto.module">JepRiaModuleAuto</A></CODE></DL>
+</DL>
 </DD>
 <DD><DL>
-
-<DT><B>Returns:</B><DD>элемент панели состояния</DL>
+<DT><B>Parameters:</B><DD><CODE>expectedWorkstate</CODE> - ожидаемый воркстейт</DL>
 </DD>
 </DL>
 <HR>
@@ -1212,47 +1137,21 @@ public boolean <B>checkMessageBox</B>(java.lang.String&nbsp;messageBoxId)</PRE>
 </DL>
 <HR>
 
-<A NAME="getCurrentWorkstate()"><!-- --></A><H3>
-getCurrentWorkstate</H3>
-<PRE>
-public <A HREF="../../../../../../com/technology/jep/jepria/client/ui/WorkstateEnum.html" title="enum in com.technology.jep.jepria.client.ui">WorkstateEnum</A> <B>getCurrentWorkstate</B>()</PRE>
-<DL>
-<DD><DL>
-</DL>
-</DD>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
 <A NAME="setCurrentWorkstate(com.technology.jep.jepria.client.ui.WorkstateEnum)"><!-- --></A><H3>
 setCurrentWorkstate</H3>
 <PRE>
 public void <B>setCurrentWorkstate</B>(<A HREF="../../../../../../com/technology/jep/jepria/client/ui/WorkstateEnum.html" title="enum in com.technology.jep.jepria.client.ui">WorkstateEnum</A>&nbsp;currentWorkstate)</PRE>
 <DL>
-<DD><DL>
-</DL>
-</DD>
-<DD><DL>
-</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="getToolbarButtonId(com.technology.jep.jepria.client.ui.WorkstateEnum)"><!-- --></A><H3>
-getToolbarButtonId</H3>
-<PRE>
-protected java.lang.String <B>getToolbarButtonId</B>(<A HREF="../../../../../../com/technology/jep/jepria/client/ui/WorkstateEnum.html" title="enum in com.technology.jep.jepria.client.ui">WorkstateEnum</A>&nbsp;workstate)</PRE>
-<DL>
-<DD>Получение кнопки toolbar для перехода в заданное состояние
+<DD>Метод присваивает внутренней переменной новое значение состояния и ждет загрузки списка, если
+ новое состояние - <A HREF="../../../../../../com/technology/jep/jepria/client/ui/WorkstateEnum.html#VIEW_LIST"><CODE>WorkstateEnum.VIEW_LIST</CODE></A>.<br>
+ <i>Никаких UI-действий не производится. Для выполнения
+ собственно переходов между состояниями с помощью кнопок тулбара см. <A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAutoImpl.html#setWorkstate(com.technology.jep.jepria.client.ui.WorkstateEnum)"><CODE>setWorkstate(WorkstateEnum)</CODE></A>.</i>.
 <P>
 <DD><DL>
 </DL>
 </DD>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>workstate</CODE> - 
-<DT><B>Returns:</B><DD>id кнопки Toolbar</DL>
+<DT><B>Parameters:</B><DD><CODE>currentWorkstate</CODE> - </DL>
 </DD>
 </DL>
 <HR>
@@ -1630,7 +1529,7 @@ ensureModuleLoaded</H3>
 public void <B>ensureModuleLoaded</B>()</PRE>
 <DL>
 <DD><B>Description copied from interface: <CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#ensureModuleLoaded()">JepRiaModuleAuto</A></CODE></B></DD>
-<DD>Проверка, загрузился ли модуль (делегирование к <CODE>AbstractPage#ensurePageLoaded()</CODE>).
+<DD>Проверка, загрузился ли модуль (делегирование к <CODE>PlainPage#ensurePageLoaded()</CODE>).
 <P>
 <DD><DL>
 <DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#ensureModuleLoaded()">ensureModuleLoaded</A></CODE> in interface <CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html" title="interface in com.technology.jep.jepria.auto.module">JepRiaModuleAuto</A></CODE></DL>
@@ -1654,7 +1553,7 @@ private static org.openqa.selenium.WebElement <B>findElementAndWait</B>(org.open
 </DD>
 <DD><DL>
 <DT><B>Parameters:</B><DD><CODE>by</CODE> - локатор искомого элемента
-<DT><B>Returns:</B><DD>
+<DT><B>Returns:</B><DD>Элемент
 <DT><B>Throws:</B>
 <DD><CODE>org.openqa.selenium.NoSuchElementException</CODE> - Если по истечении таймаута элемент все же не найден.</DL>
 </DD>
@@ -1674,9 +1573,26 @@ private static java.util.List&lt;org.openqa.selenium.WebElement&gt; <B>findEleme
 </DD>
 <DD><DL>
 <DT><B>Parameters:</B><DD><CODE>by</CODE> - локатор искомого элемента
-<DT><B>Returns:</B><DD>
+<DT><B>Returns:</B><DD>Элемент
 <DT><B>Throws:</B>
 <DD><CODE>org.openqa.selenium.NoSuchElementException</CODE> - Если по истечении таймаута элементы все же не найдены.</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getWorkstateFromStatusBar()"><!-- --></A><H3>
+getWorkstateFromStatusBar</H3>
+<PRE>
+public <A HREF="../../../../../../com/technology/jep/jepria/client/ui/WorkstateEnum.html" title="enum in com.technology.jep.jepria.client.ui">WorkstateEnum</A> <B>getWorkstateFromStatusBar</B>()</PRE>
+<DL>
+<DD><B>Description copied from interface: <CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#getWorkstateFromStatusBar()">JepRiaModuleAuto</A></CODE></B></DD>
+<DD>Получение workstate из html-атрибута StatusBar модуля
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#getWorkstateFromStatusBar()">getWorkstateFromStatusBar</A></CODE> in interface <CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html" title="interface in com.technology.jep.jepria.auto.module">JepRiaModuleAuto</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
 </DD>
 </DL>
 <!-- ========= END OF CLASS DATA ========= -->

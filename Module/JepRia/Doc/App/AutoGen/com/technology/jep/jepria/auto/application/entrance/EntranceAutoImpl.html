@@ -88,17 +88,17 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
 <FONT SIZE="-1">
 com.technology.jep.jepria.auto.application.entrance</FONT>
 <BR>
-Class EntranceAutoImpl</H2>
+Class EntranceAutoImpl&lt;P extends <A HREF="../../../../../../../com/technology/jep/jepria/auto/application/page/JepRiaApplicationPage.html" title="interface in com.technology.jep.jepria.auto.application.page">JepRiaApplicationPage</A>&gt;</H2>
 <PRE>
 java.lang.Object
-  <IMG SRC="../../../../../../../resources/inherit.gif" ALT="extended by "><B>com.technology.jep.jepria.auto.application.entrance.EntranceAutoImpl</B>
+  <IMG SRC="../../../../../../../resources/inherit.gif" ALT="extended by "><B>com.technology.jep.jepria.auto.application.entrance.EntranceAutoImpl&lt;P&gt;</B>
 </PRE>
 <DL>
 <DT><B>All Implemented Interfaces:</B> <DD><A HREF="../../../../../../../com/technology/jep/jepria/auto/application/entrance/EntranceAuto.html" title="interface in com.technology.jep.jepria.auto.application.entrance">EntranceAuto</A></DD>
 </DL>
 <HR>
 <DL>
-<DT><PRE>public class <B>EntranceAutoImpl</B><DT>extends java.lang.Object<DT>implements <A HREF="../../../../../../../com/technology/jep/jepria/auto/application/entrance/EntranceAuto.html" title="interface in com.technology.jep.jepria.auto.application.entrance">EntranceAuto</A></DL>
+<DT><PRE>public class <B>EntranceAutoImpl&lt;P extends <A HREF="../../../../../../../com/technology/jep/jepria/auto/application/page/JepRiaApplicationPage.html" title="interface in com.technology.jep.jepria.auto.application.page">JepRiaApplicationPage</A>&gt;</B><DT>extends java.lang.Object<DT>implements <A HREF="../../../../../../../com/technology/jep/jepria/auto/application/entrance/EntranceAuto.html" title="interface in com.technology.jep.jepria.auto.application.entrance">EntranceAuto</A></DL>
 </PRE>
 
 <P>
@@ -115,7 +115,7 @@ java.lang.Object
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>private &nbsp;<A HREF="../../../../../../../com/technology/jep/jepria/auto/application/page/JepRiaApplicationPage.html" title="interface in com.technology.jep.jepria.auto.application.page">JepRiaApplicationPage</A></CODE></FONT></TD>
+<CODE>private &nbsp;<A HREF="../../../../../../../com/technology/jep/jepria/auto/application/entrance/EntranceAutoImpl.html" title="type parameter in EntranceAutoImpl">P</A></CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/auto/application/entrance/EntranceAutoImpl.html#applicationPage">applicationPage</A></B></CODE>
 
 <BR>
@@ -164,10 +164,10 @@ java.lang.Object
 <B>Constructor Summary</B></FONT></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/auto/application/entrance/EntranceAutoImpl.html#EntranceAutoImpl()">EntranceAutoImpl</A></B>()</CODE>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/auto/application/entrance/EntranceAutoImpl.html#EntranceAutoImpl(P)">EntranceAutoImpl</A></B>(<A HREF="../../../../../../../com/technology/jep/jepria/auto/application/entrance/EntranceAutoImpl.html" title="type parameter in EntranceAutoImpl">P</A>&nbsp;applicationPage)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Конструктор.</TD>
 </TR>
 </TABLE>
 &nbsp;
@@ -190,11 +190,11 @@ java.lang.Object
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>private &nbsp;<A HREF="../../../../../../../com/technology/jep/jepria/auto/application/page/JepRiaApplicationPage.html" title="interface in com.technology.jep.jepria.auto.application.page">JepRiaApplicationPage</A></CODE></FONT></TD>
+<CODE>private &nbsp;<A HREF="../../../../../../../com/technology/jep/jepria/auto/application/entrance/EntranceAutoImpl.html" title="type parameter in EntranceAutoImpl">P</A></CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/auto/application/entrance/EntranceAutoImpl.html#getApplicationPage()">getApplicationPage</A></B>()</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Метод доступа к странице приложения, реализующий её отложенную инициализацию.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Метод доступа к странице уровня абстракции приложения.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -277,11 +277,11 @@ private <A HREF="../../../../../../../com/technology/jep/jepria/auto/application
 <A NAME="applicationPage"><!-- --></A><H3>
 applicationPage</H3>
 <PRE>
-private <A HREF="../../../../../../../com/technology/jep/jepria/auto/application/page/JepRiaApplicationPage.html" title="interface in com.technology.jep.jepria.auto.application.page">JepRiaApplicationPage</A> <B>applicationPage</B></PRE>
+private <A HREF="../../../../../../../com/technology/jep/jepria/auto/application/entrance/EntranceAutoImpl.html" title="type parameter in EntranceAutoImpl">P</A> extends <A HREF="../../../../../../../com/technology/jep/jepria/auto/application/page/JepRiaApplicationPage.html" title="interface in com.technology.jep.jepria.auto.application.page">JepRiaApplicationPage</A> <B>applicationPage</B></PRE>
 <DL>
 <DD>Собственно страница приложения.<br>
- <b>Обращаться не напрямую, а только через <A HREF="../../../../../../../com/technology/jep/jepria/auto/application/entrance/EntranceAutoImpl.html#getApplicationPage()"><CODE>getApplicationPage()</CODE></A>!</b> 
- В противном случае страница будет неинициализированной.
+ <b>Обращаться не напрямую, а только через <A HREF="../../../../../../../com/technology/jep/jepria/auto/application/entrance/EntranceAutoImpl.html#getApplicationPage()"><CODE>getApplicationPage()</CODE></A>!</b> <br/>
+ (см. todo в конструкторе класса): В противном случае страница будет неинициализированной.
 <P>
 <DL>
 </DL>
@@ -327,11 +327,16 @@ private int <B>lastEntranceOperation</B></PRE>
 </TR>
 </TABLE>
 
-<A NAME="EntranceAutoImpl()"><!-- --></A><H3>
+<A NAME="EntranceAutoImpl(com.technology.jep.jepria.auto.application.page.JepRiaApplicationPage)"><!-- --></A><A NAME="EntranceAutoImpl(P)"><!-- --></A><H3>
 EntranceAutoImpl</H3>
 <PRE>
-public <B>EntranceAutoImpl</B>()</PRE>
+public <B>EntranceAutoImpl</B>(<A HREF="../../../../../../../com/technology/jep/jepria/auto/application/entrance/EntranceAutoImpl.html" title="type parameter in EntranceAutoImpl">P</A>&nbsp;applicationPage)</PRE>
 <DL>
+<DD>Конструктор. <br/>
+ TODO: Подумать, чтобы у applicationPage была ленивая инициализация.
+<P>
+<DL>
+<DT><B>Parameters:</B><DD><CODE>applicationPage</CODE> - - Представление страницы приложения.</DL>
 </DL>
 
 <!-- ============ METHOD DETAIL ========== -->
@@ -363,9 +368,9 @@ private <A HREF="../../../../../../../com/technology/jep/jepria/auto/application
 <A NAME="getApplicationPage()"><!-- --></A><H3>
 getApplicationPage</H3>
 <PRE>
-private <A HREF="../../../../../../../com/technology/jep/jepria/auto/application/page/JepRiaApplicationPage.html" title="interface in com.technology.jep.jepria.auto.application.page">JepRiaApplicationPage</A> <B>getApplicationPage</B>()</PRE>
+private <A HREF="../../../../../../../com/technology/jep/jepria/auto/application/entrance/EntranceAutoImpl.html" title="type parameter in EntranceAutoImpl">P</A> <B>getApplicationPage</B>()</PRE>
 <DL>
-<DD>Метод доступа к странице приложения, реализующий её отложенную инициализацию.
+<DD>Метод доступа к странице уровня абстракции приложения.
 <P>
 <DD><DL>
 </DL>

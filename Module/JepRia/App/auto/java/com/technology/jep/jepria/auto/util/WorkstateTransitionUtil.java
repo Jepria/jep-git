@@ -57,10 +57,12 @@ public class WorkstateTransitionUtil {
     
     return false;
   }
-  
+
   /**
-   * Получение кнопки toolbar для перехода в заданное состояние
-   * @param workstate
+   * Получение кнопки toolbar для перехода в заданное состояние.
+   * 
+   * @param workstateFrom Cостояние перехода из.
+   * @param workstateTo Cостояние перехода в.
    * @return id кнопки Toolbar
    */
   public static String getToolbarButtonId(WorkstateEnum workstateFrom, WorkstateEnum workstateTo) {
