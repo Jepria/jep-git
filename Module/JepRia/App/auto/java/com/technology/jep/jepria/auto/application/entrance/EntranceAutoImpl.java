@@ -15,22 +15,14 @@ import com.technology.jep.jepria.auto.application.entrance.page.DefaultLoginPage
 import com.technology.jep.jepria.auto.application.entrance.page.JepRiaLoginPage;
 import com.technology.jep.jepria.auto.application.entrance.page.LoginPage;
 import com.technology.jep.jepria.auto.application.page.JepRiaApplicationPage;
+import com.technology.jep.jepria.auto.application.page.JepRiaApplicationPageImpl;
 import com.technology.jep.jepria.auto.condition.ConditionChecker;
 import com.technology.jep.jepria.auto.condition.DisplayChecker;
 import com.technology.jep.jepria.auto.condition.ExpectedConditions;
 import com.technology.jep.jepria.auto.exception.AutomationException;
 import com.technology.jep.jepria.auto.util.WebDriverFactory;
 
-public class EntranceAutoImpl<P extends JepRiaApplicationPage> implements EntranceAuto {
-  
-  /**
-   * Конструктор. <br/>
-   * TODO: Подумать, чтобы у applicationPage была ленивая инициализация. 
-   * @param applicationPage - Представление страницы приложения.
-   */
-  public EntranceAutoImpl(P applicationPage) {
-    this.applicationPage = applicationPage;
-  }
+public class EntranceAutoImpl implements EntranceAuto {
   
   /**
    * Логин-страница приложения.<br>
@@ -42,9 +34,9 @@ public class EntranceAutoImpl<P extends JepRiaApplicationPage> implements Entran
   /**
    * Собственно страница приложения.<br>
    * <b>Обращаться не напрямую, а только через {@link #getApplicationPage()}!</b> <br/>
-   * (см. todo в конструкторе класса): В противном случае страница будет неинициализированной.
+   * В противном случае страница будет неинициализированной.
    */
-  private P applicationPage;
+  protected JepRiaApplicationPage applicationPage;
   
   /**
    * Метод доступа к логин-странице, реализующий её отложенную инициализацию.
@@ -57,9 +49,12 @@ public class EntranceAutoImpl<P extends JepRiaApplicationPage> implements Entran
   }
   
   /**
-   * Метод доступа к странице уровня абстракции приложения.
+   * Метод доступа к странице уровня абстракции приложения. 
    */
-  private P getApplicationPage() {
+  protected JepRiaApplicationPage getApplicationPage() {
+    if(applicationPage == null){
+      applicationPage = new JepRiaApplicationPageImpl();
+    }
     return applicationPage;
   }
   

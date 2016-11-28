@@ -20,7 +20,6 @@ import org.testng.annotations.Parameters;
 import com.technology.jep.jepria.auto.application.JepRiaApplicationAuto;
 import com.technology.jep.jepria.auto.application.entrance.EntranceAuto;
 import com.technology.jep.jepria.auto.application.entrance.EntranceAutoImpl;
-import com.technology.jep.jepria.auto.application.page.JepRiaApplicationPageImpl;
 import com.technology.jep.jepria.auto.exception.AutomationException;
 import com.technology.jep.jepria.auto.model.module.ModuleDescription;
 import com.technology.jep.jepria.auto.model.user.User;
@@ -197,7 +196,7 @@ public abstract class JepRiaApplicationAutoTest<A extends JepRiaApplicationAuto>
    * Метод иниациализирует интерфейс для осуществления авторизации.
    */
   protected void provideEntranceAuto(){
-    entranceAuto = new EntranceAutoImpl<JepRiaApplicationPageImpl>(new JepRiaApplicationPageImpl());
+    entranceAuto = new EntranceAutoImpl();
   }
   
   /**
