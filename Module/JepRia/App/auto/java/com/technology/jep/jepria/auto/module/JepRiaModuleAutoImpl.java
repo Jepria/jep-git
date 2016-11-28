@@ -103,6 +103,10 @@ public class JepRiaModuleAutoImpl<P extends JepRiaModulePage> implements JepRiaM
   /**
    * Метод ожидает появления заданного workstate в атрибуте статус бара.
    * @param expectedWorkstate ожидаемый воркстейт
+<<<<<<< HEAD
+   * @return
+=======
+>>>>>>> branch 'master' of https://remitot@git.code.sf.net/p/javaenterpriseplatform/git
    */
   protected void waitForStatusWorkstate(final WorkstateEnum expectedWorkstate) {
     ExpectedCondition<Boolean> condition = new ExpectedCondition<Boolean>() {
