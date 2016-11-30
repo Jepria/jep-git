@@ -2,7 +2,6 @@ package com.technology.jep.jepria.auto.test;
 
 import static com.technology.jep.jepria.client.JepRiaAutomationConstant.STATUSBAR_PANEL_ID;
 import static com.technology.jep.jepria.client.JepRiaAutomationConstant.STATUSBAR_PANEL_MODULE_HTML_ATTR;
-import static com.technology.jep.jepria.client.JepRiaAutomationConstant.STATUSBAR_PANEL_WORKSTATE_HTML_ATTR;
 import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
 
 import java.util.HashMap;
@@ -10,7 +9,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import org.testng.AssertJUnit;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -26,9 +24,7 @@ import com.technology.jep.jepria.auto.model.user.User;
 import com.technology.jep.jepria.auto.model.user.dao.UserDao;
 import com.technology.jep.jepria.auto.model.user.dao.UserData;
 import com.technology.jep.jepria.auto.module.JepRiaModuleAuto;
-import com.technology.jep.jepria.auto.module.JepRiaModuleAutoImpl;
 import com.technology.jep.jepria.auto.util.WebDriverFactory;
-import com.technology.jep.jepria.client.ui.WorkstateEnum;
 
 /**
  * Класс, наследники которого содержат тесты приложения.
@@ -125,10 +121,10 @@ public abstract class JepRiaApplicationAutoTest<A extends JepRiaApplicationAuto>
     "dbUser", 
     "dbPassword"})
   /*
-   * standard и businessProcess - это "группы групп", чтобы обеспечить использование кастомных групп 
-   * в прикладных тестах без переопределения setUp и tearDown (для расстановки приоритетов и параллельности тестов).
+   * Поддержка групп делегирована в прикладные классы тестов. 
    * 
-   * В *Test.xml использовать тег define:
+   * Пример работы с группами:
+   * 1) В *Test.xml использовать тег define:
    *  <!-- Стандартный набор групп -->
    *  <define name="standard">
    *    <include name="find" />
@@ -139,11 +135,11 @@ public abstract class JepRiaApplicationAutoTest<A extends JepRiaApplicationAuto>
    *    <include name="setAndGetFields" />
    *  </define>
    *
-   *  <!-- Пользовательские сценарии -->
-   *  <define name="businessProcess">
-   *    <include name="customBusinessProcess1" />
-   *    <include name="customBusinessProcess2" />
-   *  </define>
+   * 2) В прикладаном классе необходимо переопределить setUp и tearDown.
+   * @BeforeMethod(groups = {"standard"})
+   * public void setUp(...) {
+   *  super.setUp(...);
+   * }
    */
   @BeforeMethod
   public void setUp(
@@ -294,9 +290,6 @@ public abstract class JepRiaApplicationAutoTest<A extends JepRiaApplicationAuto>
 
     //установка в cut текущего модуля
     setCut(module.getModuleAuto());
-
-    //устанавливаем стартовое состояние
-    ((JepRiaModuleAutoImpl) cut).setCurrentWorkstate(module.getEntranceWorkstate());//TODO do not cast
   }
   
   /**
@@ -310,16 +303,12 @@ public abstract class JepRiaApplicationAutoTest<A extends JepRiaApplicationAuto>
     // Установим новый cut и дождемся его загрузки
     setCut(module.getModuleAuto());
     
-    // определяем стартовое состояние
-    WebElement statusBar = WebDriverFactory.getWait().until(presenceOfElementLocated(By.xpath(
+    // Ждем, пока новый модуль отобразится (признаком является атрибут статусбара)
+    WebDriverFactory.getWait().until(presenceOfElementLocated(By.xpath(
         String.format("//*[@id='%s' and @%s='%s']",
             STATUSBAR_PANEL_ID,
             STATUSBAR_PANEL_MODULE_HTML_ATTR,
             module.getModuleID()))));
-    
-    // устанавливаем стартовое состояние
-    String workstateAttrValue = statusBar.getAttribute(STATUSBAR_PANEL_WORKSTATE_HTML_ATTR);
-    ((JepRiaModuleAutoImpl) cut).setCurrentWorkstate(WorkstateEnum.fromString(workstateAttrValue));
   }
   
   /**

@@ -35,8 +35,6 @@ import static com.technology.jep.jepria.client.JepRiaAutomationConstant.TOOLBAR_
 import static com.technology.jep.jepria.client.JepRiaAutomationConstant.TOOLBAR_SAVE_BUTTON_ID;
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.CREATE;
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.EDIT;
-import static com.technology.jep.jepria.client.ui.WorkstateEnum.SELECTED;
-import static com.technology.jep.jepria.client.ui.WorkstateEnum.VIEW_DETAILS;
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.VIEW_LIST;
 import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
 import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfAllElementsLocatedBy;
@@ -98,7 +96,6 @@ public class JepRiaModuleAutoImpl<P extends JepRiaModulePage> implements JepRiaM
   private static final long WEB_DRIVER_TIMEOUT = 5;
   
   private static Logger logger = Logger.getLogger(JepRiaModuleAutoImpl.class.getName());
-  private WorkstateEnum currentWorkstate = null;
   
   /**
    * Метод ожидает появления заданного workstate в атрибуте статус бара.
@@ -126,6 +123,10 @@ public class JepRiaModuleAutoImpl<P extends JepRiaModulePage> implements JepRiaM
     } catch (TimeoutException e) {
       throw new RuntimeException("Timed out waiting for workstate '"+expectedWorkstate+"' in StatusBar.", e);
     }
+    
+    if(VIEW_LIST.equals(expectedWorkstate)){
+      waitForListMask();
+    }
   }
   
   public void clickButton(String buttonId) {
@@ -135,12 +136,10 @@ public class JepRiaModuleAutoImpl<P extends JepRiaModulePage> implements JepRiaM
   
   @Override
   public void doSearch(Map<String, String> template) {
-    if(currentWorkstate != VIEW_LIST) {//TODO а что, разве не надо выполнять поиск из списочного состояния?
-      find();
-      fillFields(template);
-      
-      setWorkstate(VIEW_LIST);
-    }
+    find();
+    fillFields(template);
+    
+    setWorkstate(VIEW_LIST);
   }
   
   @Override
@@ -155,6 +154,10 @@ public class JepRiaModuleAutoImpl<P extends JepRiaModulePage> implements JepRiaM
 
   @Override
   public void setWorkstate(WorkstateEnum workstateTo) {
+    WorkstateEnum currentWorkstate = getWorkstateFromStatusBar();
+    
+    //TODO: является ли переход в currentWorkstate ошибкой?
+    //если да, то необходимо дописать else
     if(!currentWorkstate.equals(workstateTo))  {
       String toolbarButtonId = WorkstateTransitionUtil.getToolbarButtonId(currentWorkstate, workstateTo);
       if(toolbarButtonId != null) {
@@ -162,7 +165,6 @@ public class JepRiaModuleAutoImpl<P extends JepRiaModulePage> implements JepRiaM
         clickButton(toolbarButtonId);
         waitForStatusWorkstate(workstateTo);
         
-        setCurrentWorkstate(workstateTo);
       } else {
         throw new UnsupportedException("Wrong transition: " + currentWorkstate + "->" + workstateTo);
       }
@@ -186,6 +188,11 @@ public class JepRiaModuleAutoImpl<P extends JepRiaModulePage> implements JepRiaM
     setWorkstate(EDIT);
   }
   
+  /**
+   * Удаление. <br/>
+   * Реализация через поиска на списочной форме.
+   * TODO: дописать реализацию удаления с детальной формы.
+   */
   @Override
   public void delete(Map<String, String> key) {
     try {
@@ -197,11 +204,8 @@ public class JepRiaModuleAutoImpl<P extends JepRiaModulePage> implements JepRiaM
       
       clickButton(CONFIRM_MESSAGE_BOX_YES_BUTTON_ID);
       
-      //TODO нужно ли вообще проверять текст в статусе после удаления?
-      // А если удалили не со списка, а из детальной формы?
       waitForStatusWorkstate(VIEW_LIST);
       
-      setCurrentWorkstate(VIEW_LIST);
     } catch(IndexOutOfBoundsException ex) {
       // Нормально для случая отсутствия записи с ключом key
     }
@@ -221,7 +225,7 @@ public class JepRiaModuleAutoImpl<P extends JepRiaModulePage> implements JepRiaM
   @Override
   public void selectItem(int index, String gridId) {
     
-    assert currentWorkstate == VIEW_LIST;
+    assert getWorkstateFromStatusBar() == VIEW_LIST;
     
     By gridBodyBy = null;
     if(gridId == null){
@@ -239,7 +243,6 @@ public class JepRiaModuleAutoImpl<P extends JepRiaModulePage> implements JepRiaM
     
     getWait().until(elementToBeClickable(gridRows.get(index)));
     gridRows.get(index).click();
-    setCurrentWorkstate(SELECTED);
   }
 
   private void sleep(int msc) {
@@ -474,7 +477,7 @@ public class JepRiaModuleAutoImpl<P extends JepRiaModulePage> implements JepRiaM
     
     if (conditionChecker == statusChecker) {
       result = SaveResultEnum.SUCCESS;
-      setCurrentWorkstate(VIEW_DETAILS);
+      
     } else if (conditionChecker == alertChecker) {
       result = SaveResultEnum.ALERT_MESSAGE_BOX;
     } else if (conditionChecker == errorChecker) {
@@ -497,27 +500,22 @@ public class JepRiaModuleAutoImpl<P extends JepRiaModulePage> implements JepRiaM
    * собственно переходов между состояниями с помощью кнопок тулбара см. {@link #setWorkstate(WorkstateEnum)}.</i>.
    * @param currentWorkstate
    */
-  public void setCurrentWorkstate(WorkstateEnum currentWorkstate) {
+  private void waitForListMask() {
     // Если переходим в состояние просмотра списка, то, вдобавок ко всему,
     // дождемся появления и исчезновения стеклянной маски, появляющейся на списке во время загрузки.
-    // TODO не лучшее место для этого!
-    if (VIEW_LIST.equals(currentWorkstate)) {
-      WebElement gridGlassMask = null;
-      try {
-        // Поскольку загрузка списка может произойти быстро настолько, что стеклянная маска не успеет
-        // слоцироваться, подождем ее появления 1 секунду
-        gridGlassMask = WebDriverFactory.getWait(1).until(presenceOfElementLocated(By.id(GRID_GLASS_MASK_ID)));
-      } catch (TimeoutException e) {
-        // Если загрузка списка произошла слишком быстро, и стеклянная маска не успела лоцироваться,
-        // то пропускаем шаг ожидания исчезновения стеклянной маски.
-      }
-      
-      if(gridGlassMask != null) {
-        getWait().until(stalenessOf(gridGlassMask));
-      }
+    WebElement gridGlassMask = null;
+    try {
+      // Поскольку загрузка списка может произойти быстро настолько, что стеклянная маска не успеет
+      // слоцироваться, подождем ее появления 1 секунду
+      gridGlassMask = WebDriverFactory.getWait(1).until(presenceOfElementLocated(By.id(GRID_GLASS_MASK_ID)));
+    } catch (TimeoutException e) {
+      // Если загрузка списка произошла слишком быстро, и стеклянная маска не успела лоцироваться,
+      // то пропускаем шаг ожидания исчезновения стеклянной маски.
     }
     
-    this.currentWorkstate = currentWorkstate;
+    if(gridGlassMask != null) {
+      getWait().until(stalenessOf(gridGlassMask));
+    }
   }
 
   private boolean isDisplayed(String id) {
