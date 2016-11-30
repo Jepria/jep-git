@@ -3,6 +3,7 @@ package com.technology.jep.jepria.auto.module;
 import java.util.List;
 import java.util.Map;
 
+import com.technology.jep.jepria.auto.page.PlainPage;
 import com.technology.jep.jepria.auto.widget.tree.TreeItemFilter;
 import com.technology.jep.jepria.client.ui.WorkstateEnum;
 
@@ -315,12 +316,26 @@ public interface JepRiaModuleAuto {
   List<String> getGridHeaders(String gridId);
   
   /**
-   * @return a list of rows, each is a list of cell-objects.
-   * Each object of the resultant grid may be either of a type WebElement
+   * @return a list of rows, where each row is a list of cell-objects.
+   * Each object in the resultant grid may be either of a type WebElement
    * (if a cell contains something inside, such as input) or of a type String
    * (if there is only a text). The value of a particular cell can be
    * obtained using the row number and a column index,
-   * known from the result of #getGridHeaders().
+   * known from the result of #getGridHeaders().<br>
+   * <i>If an object is a WebElement with a tagname '<b>tag</b>', then its position in
+   * the grid as DOM is:<pre>
+   * &lt;tbody id='gridId_BODY'&gt;
+   *   &lt;tr&gt;
+   *     &lt;td&gt;
+   *       &lt;div&gt;
+   *         <b>&lt;tag/&gt;</b>
+   *       &lt;/div&gt;
+   *     &lt;/td&gt;
+   *     ...
+   *   &lt;/tr&gt;
+   *   ...
+   * &lt;/tbody&gt;
+   * </pre></i>
    */
   List<List<Object>> getGridDataRowwise(String gridId); 
 

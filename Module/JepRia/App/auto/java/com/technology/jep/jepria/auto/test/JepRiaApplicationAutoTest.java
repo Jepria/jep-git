@@ -65,7 +65,7 @@ public abstract class JepRiaApplicationAutoTest<A extends JepRiaApplicationAuto>
    * Базовый URL, <br/>включает в себя протокол, порт, домен, имя приложения (без слеша на конце).
    * Указывается xml теста (*AutoTest.xml).
    */
-  private String baseUrl;
+  protected String baseUrl;
 
   /**
    * DAO для создания пользователей.
@@ -146,7 +146,7 @@ public abstract class JepRiaApplicationAutoTest<A extends JepRiaApplicationAuto>
    *    <include name="customBusinessProcess2" />
    *  </define>
    */
-  @BeforeMethod(groups = {"standard", "businessProcess"})
+  @BeforeMethod
   public void setUp(
       String baseUrl,
       String browserName,
@@ -173,7 +173,7 @@ public abstract class JepRiaApplicationAutoTest<A extends JepRiaApplicationAuto>
       applicationAuto.start(baseUrl);
     }
     
-    provideEntranceAuto();
+    createEntranceAuto();
     
     this.baseUrl = baseUrl;
     
@@ -194,9 +194,9 @@ public abstract class JepRiaApplicationAutoTest<A extends JepRiaApplicationAuto>
   }
   
   /**
-   * Метод иниациализирует интерфейс для осуществления авторизации.
+   * Метод инстанциирует интерфейс для осуществления авторизации.
    */
-  protected void provideEntranceAuto(){
+  protected void createEntranceAuto(){
     entranceAuto = new EntranceAutoImpl<JepRiaApplicationPageImpl>(new JepRiaApplicationPageImpl());
   }
   
@@ -228,7 +228,7 @@ public abstract class JepRiaApplicationAutoTest<A extends JepRiaApplicationAuto>
    * @param forceNewBrowser - условие запуска нового браузера: если true - запускать 
    * @param forceLogin - условие перелогинивания: если true - перелогиниваться
    */
-  @AfterMethod(groups = {"standard", "businessProcess"})
+  @AfterMethod
   @Parameters({"forceNewBrowser", "forceLogin"})
   public void tearDown(
       @Optional("No") String forceNewBrowser,
@@ -339,7 +339,7 @@ public abstract class JepRiaApplicationAutoTest<A extends JepRiaApplicationAuto>
     }else{
       
       if(userDao == null){
-        throw new AutomationException("User DAO is not init. Check dbUrl, dbUser, dbPassword in test.properties.");
+        throw new AutomationException("User DAO is null.  Check dbUrl, dbUser, dbPassword in test.properties.");
       }
       
       try {
