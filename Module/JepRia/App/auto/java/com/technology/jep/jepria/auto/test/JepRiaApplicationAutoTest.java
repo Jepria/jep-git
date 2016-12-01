@@ -1,5 +1,7 @@
 package com.technology.jep.jepria.auto.test;
 
+import static com.technology.jep.jepria.auto.application.entrance.EntranceStatus.LAST_ENTRANCE_OPERATION_LOGIN;
+import static com.technology.jep.jepria.auto.application.entrance.EntranceStatus.LAST_ENTRANCE_OPERATION_LOGOUT;
 import static com.technology.jep.jepria.client.JepRiaAutomationConstant.STATUSBAR_PANEL_ID;
 import static com.technology.jep.jepria.client.JepRiaAutomationConstant.STATUSBAR_PANEL_MODULE_HTML_ATTR;
 import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
@@ -18,6 +20,7 @@ import org.testng.annotations.Parameters;
 import com.technology.jep.jepria.auto.application.JepRiaApplicationAuto;
 import com.technology.jep.jepria.auto.application.entrance.EntranceAuto;
 import com.technology.jep.jepria.auto.application.entrance.EntranceAutoImpl;
+import com.technology.jep.jepria.auto.application.entrance.EntranceStatus;
 import com.technology.jep.jepria.auto.exception.AutomationException;
 import com.technology.jep.jepria.auto.model.module.ModuleDescription;
 import com.technology.jep.jepria.auto.model.user.User;
@@ -188,6 +191,7 @@ public abstract class JepRiaApplicationAutoTest<A extends JepRiaApplicationAuto>
     beforeTestLaunch();
   }
   
+  
   /**
    * Метод инстанциирует интерфейс для осуществления авторизации.
    */
@@ -216,6 +220,7 @@ public abstract class JepRiaApplicationAutoTest<A extends JepRiaApplicationAuto>
       String dbURL, 
       String dbUser, 
       String dbPassword);
+  
   
   /**
    * Действия после окончания тестового метода
@@ -261,10 +266,12 @@ public abstract class JepRiaApplicationAutoTest<A extends JepRiaApplicationAuto>
    * @param user
    */
   protected void login(User user) {
-    if (entranceAuto.isLoggedIn()) {
+    if (isLoggedIn()) {
       entranceAuto.logout();
     }
     entranceAuto.login(user.getLogin(), user.getPassword());
+    
+    EntranceStatus.getInstance().setLastEntranceOperation(LAST_ENTRANCE_OPERATION_LOGIN);
   }
   
   /**
@@ -273,8 +280,23 @@ public abstract class JepRiaApplicationAutoTest<A extends JepRiaApplicationAuto>
    * После успешного выхода метод дожидается полной загрузки логин-страницы.
    */
   protected void logout() {
-    if (entranceAuto.isLoggedIn()) {
+    if (isLoggedIn()) {
       entranceAuto.logout();
+    }
+    
+    EntranceStatus.getInstance().setLastEntranceOperation(LAST_ENTRANCE_OPERATION_LOGOUT);
+  }
+  
+  
+  protected boolean isLoggedIn() {
+    
+    int lastEntranceOperation = EntranceStatus.getInstance().getLastEntranceOperation();
+    if (lastEntranceOperation == LAST_ENTRANCE_OPERATION_LOGIN) {
+      return true;
+    } else if (lastEntranceOperation == LAST_ENTRANCE_OPERATION_LOGOUT || lastEntranceOperation == 0) {
+      return false;
+    } else {
+      return entranceAuto.isLoggedIn();
     }
   }
 
