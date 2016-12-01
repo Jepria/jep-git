@@ -101,7 +101,7 @@ public class UserDao implements UserData {
       
       //Устанавливаем роли
       DaoSupport.setInputParamsToStatement(callableStatement, 3, 
-          roleSNameList.toArray(new String[roleSNameList.size()]));
+          roleSNameList.toArray(new Object[roleSNameList.size()]));
       
       // Выполнение запроса.
       callableStatement.execute();

@@ -190,23 +190,30 @@ public class JepRiaModuleAutoImpl<P extends JepRiaModulePage> implements JepRiaM
   public void delete(Map<String, String> key) {
     try {
       selectItem(key);
-          
-      clickButton(TOOLBAR_DELETE_BUTTON_ID);
       
-      assert checkMessageBox(CONFIRM_MESSAGEBOX_ID);
-      
-      clickButton(CONFIRM_MESSAGE_BOX_YES_BUTTON_ID);
-      
-      //TODO нужно ли вообще проверять текст в статусе после удаления?
-      // А если удалили не со списка, а из детальной формы?
-      waitForStatusWorkstate(VIEW_LIST);
-      
-      setCurrentWorkstate(VIEW_LIST);
+      deleteSelectedRow();
     } catch(IndexOutOfBoundsException ex) {
       // Нормально для случая отсутствия записи с ключом key
     }
   }
-
+  
+  @Override
+  public void deleteSelectedRow() {
+    assert SELECTED.equals(getWorkstateFromStatusBar());
+    
+    clickButton(TOOLBAR_DELETE_BUTTON_ID);
+    
+    assert checkMessageBox(CONFIRM_MESSAGEBOX_ID);
+    
+    clickButton(CONFIRM_MESSAGE_BOX_YES_BUTTON_ID);
+    
+    //TODO нужно ли вообще проверять текст в статусе после удаления?
+    // А если удалили не со списка, а из детальной формы?
+    waitForStatusWorkstate(VIEW_LIST);
+    
+    setCurrentWorkstate(VIEW_LIST);
+  }
+  
   @Override
   public void selectItem(Map<String, String> key) {
     doSearch(key);
