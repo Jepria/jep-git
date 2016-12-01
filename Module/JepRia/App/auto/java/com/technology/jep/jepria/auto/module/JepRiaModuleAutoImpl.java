@@ -500,7 +500,7 @@ public class JepRiaModuleAutoImpl<P extends JepRiaModulePage> implements JepRiaM
    * собственно переходов между состояниями с помощью кнопок тулбара см. {@link #setWorkstate(WorkstateEnum)}.</i>.
    * @param currentWorkstate
    */
-  private void waitForListMask() {
+  public static void waitForListMask() {
     // Если переходим в состояние просмотра списка, то, вдобавок ко всему,
     // дождемся появления и исчезновения стеклянной маски, появляющейся на списке во время загрузки.
     WebElement gridGlassMask = null;
