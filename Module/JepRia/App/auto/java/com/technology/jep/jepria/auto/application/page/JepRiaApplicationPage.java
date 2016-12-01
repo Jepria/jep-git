@@ -27,4 +27,11 @@ public interface JepRiaApplicationPage extends Page {
    * @return панель табов.
    */
   WebElement getModuleTabPanel();
+  
+  /**
+   * Проверка, авторизован ли пользователь.
+   * 
+   * @return true, если да, иначе false.
+   */
+  boolean isLoggedIn();
 }

@@ -55,4 +55,9 @@ public class JepRiaApplicationPageImpl extends PlainPage implements JepRiaApplic
   public WebElement getModuleTabPanel() {
     return moduleTabPanel;
   }
+  
+  @Override
+  public boolean isLoggedIn() {
+    return userName.isDisplayed();
+  }
 }
