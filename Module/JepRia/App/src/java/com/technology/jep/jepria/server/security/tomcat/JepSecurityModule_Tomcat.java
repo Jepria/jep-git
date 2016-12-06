@@ -99,6 +99,8 @@ public class JepSecurityModule_Tomcat extends JepAbstractSecurityModule {
     logger.trace("principalName = " + principalName);
     this.username = principalName;
 
+    isAuthorizedBySso = principal != null;
+    
     try {
       roles = pkg_Operator.getRoles(db, principalName);
       Integer logonOperatorId = pkg_Operator.logon(db, principalName);
