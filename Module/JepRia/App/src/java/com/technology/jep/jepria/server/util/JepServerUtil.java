@@ -278,6 +278,7 @@ public class JepServerUtil {
     try {
       // Получение ссылки на приложение для сервера OAS и 
       // извлечение имени приложения из его пути контекста
+      // TODO: убрать после отказа от поддержки OAS.
       if (context instanceof HttpApplication) {
         String[] splitted = ((HttpApplication) context).getContextPath().split("/");
         return splitted[splitted.length - 1];
