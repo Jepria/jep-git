@@ -36,6 +36,7 @@ import static com.technology.jep.jepria.client.JepRiaAutomationConstant.TOOLBAR_
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.CREATE;
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.EDIT;
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.SELECTED;
+import static com.technology.jep.jepria.client.ui.WorkstateEnum.VIEW_DETAILS;
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.VIEW_LIST;
 import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
 import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfAllElementsLocatedBy;
@@ -189,26 +190,22 @@ public class JepRiaModuleAutoImpl<P extends JepRiaModulePage> implements JepRiaM
     setWorkstate(EDIT);
   }
   
-  /**
-   * Удаление. <br/>
-   * Реализация через поиска на списочной форме.
-   * TODO: дописать реализацию удаления с детальной формы.
-   */
-  @Override
-  public void delete(Map<String, String> key) {
-    try {
-      selectItem(key);
-      deleteSelectedRow();
-      
-    } catch(IndexOutOfBoundsException ex) {
-      // Нормально для случая отсутствия записи с ключом key
-    }
-  }
-  
   @Override
   public void deleteSelectedRow() {
     assert SELECTED.equals(getWorkstateFromStatusBar());
-    
+    deleteAndConfirm();
+  }
+  
+  @Override
+  public void deleteDetail() {
+    assert EDIT.equals(getWorkstateFromStatusBar()) || VIEW_DETAILS.equals(getWorkstateFromStatusBar());
+    deleteAndConfirm();
+  }
+  
+  /**
+   * Метод кликает кнопку тулбара "Удалить", подтверждает и ждёт возвращения на список.
+   */
+  private void deleteAndConfirm() {
     clickButton(TOOLBAR_DELETE_BUTTON_ID);
     
     assert checkMessageBox(CONFIRM_MESSAGEBOX_ID);
@@ -250,14 +247,8 @@ public class JepRiaModuleAutoImpl<P extends JepRiaModulePage> implements JepRiaM
     
     getWait().until(elementToBeClickable(gridRows.get(index)));
     gridRows.get(index).click();
-  }
-
-  private void sleep(int msc) {
-    try {
-      Thread.sleep(msc);
-    } catch (InterruptedException e) {
-      e.printStackTrace();
-    }
+    
+    waitForStatusWorkstate(SELECTED);
   }
 
   private void fillFields(Map<String, String> fieldMap) {
@@ -1014,14 +1005,32 @@ public class JepRiaModuleAutoImpl<P extends JepRiaModulePage> implements JepRiaM
   }
 
   @Override
+  public boolean isGridEmpty(String gridId) {
+    return getGridBody(gridId) == null;
+  }
+  
+  private WebElement getGridBody(String gridId) {
+    try {
+      return WebDriverFactory.getDriver().findElement(By.xpath(
+          String.format("//tbody[@id='%s']",
+              gridId + GRID_BODY_POSTFIX)));
+    } catch (NoSuchElementException e) {
+      return null;
+    }
+  }
+  @Override
   public List<List<Object>> getGridDataRowwise(String gridId) {
-    // TODO get rid of this sleeping, but somehow wait until the grid is loaded!
-    sleep(500);
-    
     List<List<Object>> ret = new ArrayList<List<Object>>();
     
-    List<WebElement> rows = findElementsAndWait(By.xpath(
-        String.format("//tbody[@id='%s']/tr",
+    WebElement gridBody = getGridBody(gridId);
+    // Убедимся, что грид присутствует на форме
+    if (gridBody == null) {
+      // Грид отсутствует - значит, курсор пуст.
+      return ret;
+    }
+    
+    List<WebElement> rows = gridBody.findElements(By.xpath(
+        String.format("./tr",
             gridId + GRID_BODY_POSTFIX)));
     
     for (WebElement row: rows) {

@@ -68,25 +68,22 @@ public interface JepRiaModuleAuto {
   void edit(String idFieldName, String id);
 
   /**
-   * Удаление записи 
-   * 
-   * @param key ключ, по которому выбирается запись 
-   */
-  void delete(Map<String, String> key);
-
-  /**
    * Удаление записи со списочной формы.
    * Перед вызовом данного метода, необходимая запись должна быть выделена. 
-   * 
-   * @param key ключ, по которому выбирается запись 
    */
   void deleteSelectedRow();
+  
+  /**
+   * Удаление записи с детальной формы.
+   * Перед вызовом данного метода, необходимая запись должна быть в состоянии редактирования либо просмотра. 
+   */
+  void deleteDetail();
 
   
   /**
    * Выделить элемент списка списочной формы по индексу.
    * @param index - Номер строчки на списочной форме (начинается с 0).
-   * @param gridId - Идентификатор списочной форме.
+   * @param gridId - Идентификатор списочной формы.
    */
   public void selectItem(int index, String gridId);
   
@@ -97,7 +94,10 @@ public interface JepRiaModuleAuto {
   
   /**
    * Выделить элемент списка списочной формы по ключу
+   * 
+   * @deprecated выполняйте поиск вручную в прикладном тестовом классе instead.
    */
+  @Deprecated
   public void selectItem(Map<String, String> key);
   
   /**
@@ -324,8 +324,10 @@ public interface JepRiaModuleAuto {
   
   List<String> getGridHeaders(String gridId);
   
+  boolean isGridEmpty(String gridId);
+  
   /**
-   * @return a list of rows, where each row is a list of cell-objects.
+   * @return a list of rows, where each row is a list of cell-objects, or empty list if there is no grid (or it is empty).
    * Each object in the resultant grid may be either of a type WebElement
    * (if a cell contains something inside, such as input) or of a type String
    * (if there is only a text). The value of a particular cell can be
