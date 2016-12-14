@@ -291,8 +291,6 @@ public class TreeField<V extends JepOption> extends Composite implements HasChec
     SetSelectionModel<V> result = new MultiSelectionModel<V>(){
       @Override
       public void setSelected(V item, boolean selected) {
-        // select only available nodes
-        if (!availableSelectedNodes.contains(item)) return;
         
         super.setSelected(item, selected);
         
