@@ -3,6 +3,7 @@ package com.technology.jep.jepria.client.ui.main;
 import com.google.gwt.activity.shared.Activity;
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.user.client.ui.IsWidget;
+import com.technology.jep.jepria.client.ModuleItem;
 import com.technology.jep.jepria.client.async.LoadAsyncCallback;
 import com.technology.jep.jepria.client.history.place.MainPlaceController;
 import com.technology.jep.jepria.client.ui.ClientFactory;
@@ -22,7 +23,7 @@ public interface MainClientFactory<E extends MainEventBus, S extends JepMainServ
    *
    * @return объект управления Place'ами приложения
    */
-  MainPlaceController getPlaceController();
+  MainPlaceController<E, S, MainClientFactory<E, S>> getPlaceController();
 
   /**
    * Получение Place'а по умолчанию для приложения.
@@ -61,18 +62,11 @@ public interface MainClientFactory<E extends MainEventBus, S extends JepMainServ
   void getPlainClientFactory(String moduleId, LoadAsyncCallback<PlainClientFactory<PlainEventBus, JepDataServiceAsync>> callback);
   
   /**
-   * Установка идентификаторов модулей приложения.
-   *
-   * @param moduleIds идентификаторы модулей приложения
-   */
-  void setModuleIds(String[] moduleIds);
-  
-  /**
    * Получение идентификаторов модулей приложения.
    *
    * @return идентификаторы модулей приложения
    */
-  String[] getModuleIds();
+  ModuleItem[] getModuleItems();
   
   /**
    * Проверяет наличие определенного идентификатора модуля среди идентификаторов модулей приложения.
@@ -81,12 +75,4 @@ public interface MainClientFactory<E extends MainEventBus, S extends JepMainServ
    * @return true - если запрошенный идентификатор модуля найден, false - в противном случае.
    */
   boolean contains(String moduleId);
-  
-  /**
-   * Получение наименований модулей приложения.
-   *
-   * @return наименования модулей приложения
-   */
-  String[] getModuleItemTitles();
-  
 }

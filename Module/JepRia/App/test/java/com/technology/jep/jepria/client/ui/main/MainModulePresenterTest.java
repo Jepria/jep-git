@@ -20,6 +20,7 @@ import com.google.gwt.dom.client.Document;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.user.client.ui.IsWidget;
+import com.technology.jep.jepria.client.ModuleItem;
 import com.technology.jep.jepria.client.async.LoadAsyncCallback;
 import com.technology.jep.jepria.client.exception.ExceptionManager;
 import com.technology.jep.jepria.client.history.place.MainPlaceController;
@@ -241,11 +242,7 @@ public class MainModulePresenterTest {
       }
 
       @Override
-      public void setModuleIds(String[] moduleIds) {        
-      }
-
-      @Override
-      public String[] getModuleIds() {
+      public ModuleItem[] getModuleItems() {
         return null;
       }
 
@@ -254,10 +251,7 @@ public class MainModulePresenterTest {
         return false;
       }
 
-      @Override
-      public String[] getModuleItemTitles() {
-        return null;
-      }};
+      };
     return cf;
   }
 

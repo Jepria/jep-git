@@ -138,9 +138,8 @@ public class JepScopeStack {
 
   public void setDefaultState() {
     clear();
-    String[] moduleIds = clientFactory.getModuleIds();
-    if(moduleIds != null) {
-      String[] defaultModuleIds = new String[] {moduleIds[0]}; 
+    if(clientFactory.getModuleItems() != null) {
+      String[] defaultModuleIds = new String[] {clientFactory.getModuleItems()[0].moduleId}; 
       JepScope scope = new JepScope(defaultModuleIds);
       push(scope);
       clientFactory.getMessageBox().showError(JepTexts.errors_scopeStack_incorrectUrl_defaultPlace());

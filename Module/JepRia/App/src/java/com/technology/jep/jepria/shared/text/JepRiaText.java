@@ -2,7 +2,7 @@ package com.technology.jep.jepria.shared.text;
 
 /**
  * Interface to represent the constants contained in resource bundle:
- * 	'D:/Project/JEPGit/Module/JepRia/App/src/java/com/technology/jep/jepria/shared/text/JepRiaText.properties'.
+ * 	'D:/workspace/sf.git/Module/JepRia/App/src/java/com/technology/jep/jepria/shared/text/JepRiaText.properties'.
  */
 public interface JepRiaText extends com.google.gwt.i18n.client.Constants {
   
@@ -545,15 +545,6 @@ public interface JepRiaText extends com.google.gwt.i18n.client.Constants {
   @DefaultStringValue("Не определены идентификаторы модулей приложения!")
   @Key("errors.mainClientFactory.illegalArgument.moduleIds")
   String errors_mainClientFactory_illegalArgument_moduleIds();
-
-  /**
-   * Translated "Размер массива наименований модулей не соответствует размеру массива идентификаторов модулей!".
-   * 
-   * @return translated "Размер массива наименований модулей не соответствует размеру массива идентификаторов модулей!"
-   */
-  @DefaultStringValue("Размер массива наименований модулей не соответствует размеру массива идентификаторов модулей!")
-  @Key("errors.mainClientFactory.illegalArgument.moduleItemTitles")
-  String errors_mainClientFactory_illegalArgument_moduleItemTitles();
 
   /**
    * Translated "Не определены идентификаторы модулей приложения!".

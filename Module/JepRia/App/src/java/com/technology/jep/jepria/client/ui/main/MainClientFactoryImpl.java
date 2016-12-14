@@ -7,6 +7,7 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.gwt.user.client.ui.IsWidget;
+import com.technology.jep.jepria.client.ModuleItem;
 import com.technology.jep.jepria.client.history.place.JepSearchPlace;
 import com.technology.jep.jepria.client.history.place.MainPlaceController;
 import com.technology.jep.jepria.client.history.scope.JepScopeStack;
@@ -104,35 +105,50 @@ abstract public class MainClientFactoryImpl<E extends MainEventBus, S extends Je
   /**
    * Идентификаторы модулей приложения.
    */
-  private String[] moduleIds;
-  
-  /**
-   * Наименования модулей приложения.
-   */
-  private String[] moduleItemTitles;
+  private ModuleItem[] moduleItems;
   
   /**
    * Создает клиентскую фабрику главного модуля приложения.
+   * 
+   * Пример использования:<pre>
+   * 
+   * Было:
+   * MainClientFactoryImplExt() {
+   *   super(
+   *     new String[]{
+   *       id1,
+   *       id2,
+   *       id3
+   *     },
+   *     new String[]{
+   *       name1, 
+   *       name2, 
+   *       name3
+   *     },
+   *   );
+   * }
+   * 
+   * Стало:
+   * MainClientFactoryImplExt() {
+   *   super(
+   *     new ModuleItem(id1, name1),
+   *     new ModuleItem(id2, name2),
+   *     new ModuleItem(id3, name3)
+   *   );
+   * }</pre>
    *
-   * @param moduleIds идентификаторы модулей приложения
-   * @param moduleItemTitles наименования модулей приложения
+   * @param moduleItems идентификаторы модулей приложения (вместе с наименованиями)
    */
-  public MainClientFactoryImpl(
-    String[] moduleIds,
-    String[] moduleItemTitles) {
+  public MainClientFactoryImpl(ModuleItem...moduleItems) {
     
-    logger.debug(this.getClass() + ".MainClientFactoryImpl() moduleIds = " + moduleIds);
+    logger.debug(this.getClass() + ".MainClientFactoryImpl() moduleIds = " + moduleItems);
     
-    if(moduleIds == null) {
+    if(moduleItems == null) {
       throw new IllegalArgumentException(JepTexts.errors_mainClientFactory_illegalArgument_moduleIds());
     }
     
-    if(moduleItemTitles == null || moduleItemTitles.length != moduleIds.length) {
-      throw new IllegalArgumentException(JepTexts.errors_mainClientFactory_illegalArgument_moduleItemTitles());
-    }
     
-    this.moduleIds = moduleIds;
-    this.moduleItemTitles = moduleItemTitles;
+    this.moduleItems = moduleItems;
     
     JepScopeStack.instance.setMainClientFactory((MainClientFactory)this);
   }
@@ -199,21 +215,12 @@ abstract public class MainClientFactoryImpl<E extends MainEventBus, S extends Je
   }
 
   /**
-   * Установка идентификаторов модулей приложения.
-   *
-   * @param moduleIds идентификаторы модулей приложения
-   */
-  public void setModuleIds(String[] moduleIds) {
-    this.moduleIds = moduleIds; 
-  }
-
-  /**
    * Получение идентификаторов модулей приложения.
    *
    * @return идентификаторы модулей приложения
    */
-  public String[] getModuleIds() {
-    return moduleIds; 
+  public ModuleItem[] getModuleItems() {
+    return moduleItems; 
   }
   
   /**
@@ -225,9 +232,9 @@ abstract public class MainClientFactoryImpl<E extends MainEventBus, S extends Je
   public boolean contains(String moduleId) {
     boolean result = false;
     
-    int moduleCount = moduleIds.length;
+    int moduleCount = moduleItems.length;
     for(int i = 0; i < moduleCount; i++) {
-      if(moduleIds[i].equals(moduleId)) {
+      if(moduleItems[i].moduleId.equals(moduleId)) {
         result = true;
         break;
       }
@@ -236,15 +243,6 @@ abstract public class MainClientFactoryImpl<E extends MainEventBus, S extends Je
     return result;
   }
 
-  /**
-   * Получение наименований модулей приложения.
-   *
-   * @return наименования модулей приложения
-   */
-  public String[] getModuleItemTitles() {
-    return moduleItemTitles; 
-  }
-  
   /**
    * Иннициализация ActivityMapper'ов и ActivityManager'ов.<br/>
    * Необходимо для возможности соответствующих презентеров (Activity в понятиях GWT) прослушивать, подписываться и обрабатывать события,

@@ -21,6 +21,7 @@ import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
+import com.technology.jep.jepria.client.ModuleItem;
 import com.technology.jep.jepria.client.async.JepAsyncCallback;
 import com.technology.jep.jepria.client.async.LoadAsyncCallback;
 import com.technology.jep.jepria.client.entrance.Entrance;
@@ -85,8 +86,7 @@ public abstract class MainModulePresenter<V extends MainView, E extends MainEven
 
   private boolean isProtectedModuleVisible = false;
 
-  private String[] moduleIds;
-  private String[] moduleItemTitles;
+  private ModuleItem[] moduleItems;
 
   protected V view;
   protected S service;
@@ -99,8 +99,7 @@ public abstract class MainModulePresenter<V extends MainView, E extends MainEven
   public MainModulePresenter(F clientFactory) {
     super(clientFactory);
     
-    this.moduleIds = clientFactory.getModuleIds();
-    this.moduleItemTitles = clientFactory.getModuleItemTitles();
+    this.moduleItems = clientFactory.getModuleItems();
     
     view = (V)clientFactory.getMainView();
     service = (S)clientFactory.getMainService();
@@ -131,14 +130,14 @@ public abstract class MainModulePresenter<V extends MainView, E extends MainEven
       }
     });
     
-    view.setModuleItems(moduleIds, moduleItemTitles);
+    view.setModuleItems(moduleItems);
     
-    for(int i = 0; i < moduleIds.length; i++) {
-      bindModuleItem(moduleIds[i]);
+    for(int i = 0; i < moduleItems.length; i++) {
+      bindModule(moduleItems[i].moduleId);
     }
   }
   
-  private void bindModuleItem(final String moduleId) {
+  private void bindModule(final String moduleId) {
     view.addEnterModuleListener(moduleId, new JepListener() {
       public void handleEvent(JepEvent event) {
         eventBus.enterModule(moduleId);
@@ -155,7 +154,7 @@ public abstract class MainModulePresenter<V extends MainView, E extends MainEven
     JepScope scope = JepScopeStack.instance.peek();
     if(scope == null) {
       String entryModuleName = Location.getParameter(ENTRY_MODULE_NAME_REQUEST_PARAMETER);
-      entryModuleName = entryModuleName == null ? moduleIds[0] : entryModuleName.trim();
+      entryModuleName = entryModuleName == null ? moduleItems[0].moduleId : entryModuleName.trim();
 
       String entryStateName = Location.getParameter(ENTRY_STATE_NAME_REQUEST_PARAMETER);
       WorkstateEnum entryModuleState = entryStateName == null ? JepScope.DEFAULT_WORK_STATE : WorkstateEnum.fromString(entryStateName.trim());

@@ -1,6 +1,7 @@
 package com.technology.jep.jepria.client.ui.main;
 
 import com.google.gwt.user.client.ui.Widget;
+import com.technology.jep.jepria.client.ModuleItem;
 import com.technology.jep.jepria.client.ui.JepActivity;
 import com.technology.jep.jepria.client.ui.main.widget.MainTabPanel;
 import com.technology.jep.jepria.client.widget.event.JepListener;
@@ -87,8 +88,8 @@ public class MainViewImpl implements MainView {
    * @param moduleItemTitles    список наименований модулей
    */
   @Override
-  public void setModuleItems(String[] moduleIds, String[] moduleItemTitles) {
-    tabPanel.setModuleItems(moduleIds, moduleItemTitles);
+  public void setModuleItems(ModuleItem[] moduleItems) {
+    tabPanel.setModuleItems(moduleItems);
   }
   
   /**
