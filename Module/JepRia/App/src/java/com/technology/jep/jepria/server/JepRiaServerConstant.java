@@ -7,7 +7,7 @@ public class JepRiaServerConstant extends JepRiaConstant {
   public static final String LOCALE_KEY = "com.technology.jep.jepria.server.LOCALE";
   
   public static final String JEP_RIA_RESOURCE_BUNDLE_NAME = "com.technology.jep.jepria.shared.text.JepRiaText";
-  
+    
   /**
    * JNDI-имя источника данных модуля.
    */
@@ -16,12 +16,7 @@ public class JepRiaServerConstant extends JepRiaConstant {
    * Имя параметра http-запроса: язык текущей межмодульной сессии
    */
   public static final String HTTP_REQUEST_PARAMETER_LANG = "lang";
-
-  /**
-   * Имя параметра http-запроса: локаль текущей межмодульной сессии
-   */
-  public static final String HTTP_REQUEST_PARAMETER_LOCALE = "locale";
-  
+ 
   /**
    * Префикс имени аттрибута сессии, в котором сохраняется найденный набор записей. 
    */
@@ -74,4 +69,10 @@ public class JepRiaServerConstant extends JepRiaConstant {
    * Максимально допустимое количество ошибок ввода некорректных реквизитов (логин/пароль) пользователя
    */
   public static final int MAX_LOGIN_ATTEMPTS = 3; 
+
+  /**
+   * URL на форму логина модуля SSO 
+   */
+  public static final String SSO_MODULE_URL = "/SSO/SSO.jsp?em=Login"; 
+  
 }
