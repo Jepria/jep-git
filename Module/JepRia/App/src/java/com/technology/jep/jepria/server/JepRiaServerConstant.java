@@ -73,6 +73,6 @@ public class JepRiaServerConstant extends JepRiaConstant {
   /**
    * URL на форму логина модуля SSO 
    */
-  public static final String SSO_MODULE_URL = "/SSO/SSO.jsp?em=Login"; 
+  public static final String SSO_MODULE_URL = "/Sso/Sso.jsp?em=Login"; 
   
 }
