@@ -104,10 +104,10 @@ public class JepRiaConstant {
   /**
    * Имя параметра http-запроса: параметр модуля SSO, означает, что введен неправильный логин/пароль
    */
-  public static final String HTTP_REQUEST_PARAMETER_SOO_IS_ERROR = "isError";
+  public static final String HTTP_REQUEST_PARAMETER_SSO_IS_ERROR = "isError";
   
   /**
    * Имя параметра http-запроса: параметр модуля SSO, означает, что пользователь превысил MAX_LOGIN_ATTEMPTS. 
    */
-  public static final String HTTP_REQUEST_PARAMETER_SOO_IS_BLOCKED = "isBlocked";
+  public static final String HTTP_REQUEST_PARAMETER_SSO_IS_BLOCKED = "isBlocked";
 }
