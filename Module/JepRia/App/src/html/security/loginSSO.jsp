@@ -22,7 +22,7 @@
       "&" + HTTP_REQUEST_PARAMETER_LOCALE + "=" + locale + 
       "&enterModule=" + JepServerUtil.getApplicationName(application); 
   
-  boolean isError = Integer.toString(1).equalsIgnoreCase(request.getParameter(HTTP_REQUEST_PARAMETER_SOO_IS_ERROR));
+  boolean isError = Boolean.TRUE.equals(request.getAttribute(HTTP_REQUEST_PARAMETER_SOO_IS_ERROR));
   Integer loginAttempts = (Integer) session.getAttribute(LOGIN_ATTEMPTS_SESSION_ATTRIBUTE);
   if (loginAttempts == null || !isError) {
     response.sendRedirect(ssoLoginWithBaseParameters);

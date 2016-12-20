@@ -11,6 +11,8 @@
   }
   attempts++;
   session.setAttribute(LOGIN_ATTEMPTS_SESSION_ATTRIBUTE, attempts);
-  RequestDispatcher rd = application.getRequestDispatcher("/WEB-INF/security/loginSSO.jsp?" + HTTP_REQUEST_PARAMETER_SOO_IS_ERROR + "=1");
+  
+  RequestDispatcher rd = application.getRequestDispatcher("/WEB-INF/security/loginSSO.jsp");
+  request.setAttribute(HTTP_REQUEST_PARAMETER_SOO_IS_ERROR, true);
   rd.forward(request, response);
 %>
