@@ -5,39 +5,19 @@ import com.technology.jep.jepria.client.ui.toolbar.ToolBarConstant;
 
 public class JepRiaAutomationConstant {
   /**
-   * ID Login-страницы JavaSSO
-   */
-  public static final String JAVASSO_LOGIN_FORM_ID = "loginForm";
-  
-  /**
-   * ID тестового поля ввода username для Login-страницы JavaSSO
-   */
-  public static final String JAVASSO_LOGIN_USERNAME_FIELD_ID = "j_username";
-  
-  /**
-   * ID тестового поля ввода пароля для Login-страницы JavaSSO
-   */
-  public static final String JAVASSO_LOGIN_PASSWORD_FIELD_ID = "j_password";
-  
-  /**
    * ID тестового поля ввода username для login
    */
-  public static final String LOGIN_USERNAME_FIELD_ID = "LOGIN_USERNAME_FIELD";
+  public static final String LOGIN_USERNAME_FIELD_ID = "j_username";
   
   /**
    * ID тестового поля ввода пароля для login
    */
-  public static final String LOGIN_PASSWORD_FIELD_ID = "LOGIN_PASSWORD_FIELD";
+  public static final String LOGIN_PASSWORD_FIELD_ID = "j_password";
   
   /**
    * ID кнопки входа (login)
    */
-  public static final String LOGIN_BUTTON_ID = "LOGIN_BUTTON";
-  
-//  /**
-//   * ID кнопки выхода
-//   */
-//  public static final String EXIT_BUTTON_ID = "EXIT_BUTTON";
+  public static final String LOGIN_BUTTON_ID = "j_loginButton";
   
   /**
    * ID текстового поля, содержащего username залогиненного пользователя
