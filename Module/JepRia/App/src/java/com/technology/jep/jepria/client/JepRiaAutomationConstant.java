@@ -5,6 +5,11 @@ import com.technology.jep.jepria.client.ui.toolbar.ToolBarConstant;
 
 public class JepRiaAutomationConstant {
   /**
+   * ID html-страницы с логин-формой 
+   */
+  public static final String LOGIN_FORM_HTML_ID = "loginForm";
+  
+  /**
    * ID тестового поля ввода username для login
    */
   public static final String LOGIN_USERNAME_FIELD_ID = "j_username";
