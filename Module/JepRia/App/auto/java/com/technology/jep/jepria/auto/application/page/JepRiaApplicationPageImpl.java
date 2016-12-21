@@ -48,7 +48,6 @@ public class JepRiaApplicationPageImpl extends PlainPage implements JepRiaApplic
   @Override
   public void clickLogoutButton() {
     logoutButton.click();
-    logger.trace(this.getClass() + "clickLogoutButton()");
   }
 
   @Override
