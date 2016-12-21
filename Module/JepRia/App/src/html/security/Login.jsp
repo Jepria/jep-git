@@ -19,7 +19,7 @@
   }
   
   String ssoLoginWithBaseParameters = SSO_MODULE_URL + 
-      "&" + HTTP_REQUEST_PARAMETER_LOCALE + "=" + locale + 
+      (locale == null ? "" : "&" + HTTP_REQUEST_PARAMETER_LOCALE + "=" + locale) + 
       "&enterModule=" + JepServerUtil.getApplicationName(application); 
   
   boolean isError = Boolean.TRUE.equals(request.getAttribute(HTTP_REQUEST_PARAMETER_SSO_IS_ERROR));
