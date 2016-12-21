@@ -166,10 +166,6 @@ public abstract class JepRiaApplicationAutoTest<A extends JepRiaApplicationAuto>
       applicationAuto = provideAutomationManager(baseUrl, browserName, browserVersion, browserPlatform, browserPath,
           driverPath, jepriaVersion, username, password, dbUrl, dbUser, dbPassword);
     }
-    // Запустим его
-    if(!applicationAuto.isStarted()) {
-      applicationAuto.start(baseUrl);
-    }
     
     createEntranceAuto();
     
@@ -234,20 +230,20 @@ public abstract class JepRiaApplicationAutoTest<A extends JepRiaApplicationAuto>
       @Optional("No") String forceNewBrowser,
       @Optional("No") String forceLogin) {
 
-      if("Yes".equalsIgnoreCase(forceNewBrowser)) {
-          applicationAuto.stop();
+    if("Yes".equalsIgnoreCase(forceNewBrowser)) {
+      WebDriverFactory.destroyInstance();
+    } else {
+      if ("Yes".equalsIgnoreCase(forceLogin)) {
+        logout();
       } else {
-        if ("Yes".equalsIgnoreCase(forceLogin)) {
-          logout();
-        } else {
 //        TODO: По окончанию теста проверять, что приложение находится в рабочем состоянии,
 //        не висит сообщение (MESSAGE_BOX, ALERT_BOX или gwt-DialogBox)  
 //        иначе новый тест не запуститься, возвращать в работоспособное состояние (Переход по ссылке baseUrl?).
 //        Считывать сообщение и логировать (выбросить исключение?) 
 //        На данный момент, во избежание подобного, приходится перезапускать браузер для каждого нового теста, 
 //        используя forceNewBrowser
-        }
       }
+    }
   }
   
   /**
