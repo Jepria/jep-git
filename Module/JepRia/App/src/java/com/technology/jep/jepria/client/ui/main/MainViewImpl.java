@@ -84,8 +84,7 @@ public class MainViewImpl implements MainView {
   /**
    * Инициализация вкладок
    * 
-   * @param moduleIds        список идентификатор модулей
-   * @param moduleItemTitles    список наименований модулей
+   * @param moduleItems        список модулей
    */
   @Override
   public void setModuleItems(ModuleItem[] moduleItems) {

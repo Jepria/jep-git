@@ -143,14 +143,6 @@ java.lang.Object
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>private &nbsp;<A HREF="../../../../../../com/technology/jep/jepria/client/ui/WorkstateEnum.html" title="enum in com.technology.jep.jepria.client.ui">WorkstateEnum</A></CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAutoImpl.html#currentWorkstate">currentWorkstate</A></B></CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>private static&nbsp;org.apache.log4j.Logger</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAutoImpl.html#logger">logger</A></B></CODE>
 
@@ -225,11 +217,27 @@ java.lang.Object
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAutoImpl.html#delete(java.util.Map)">delete</A></B>(java.util.Map&lt;java.lang.String,java.lang.String&gt;&nbsp;key)</CODE>
+<CODE>private &nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAutoImpl.html#deleteAndConfirm()">deleteAndConfirm</A></B>()</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Удаление записи</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Метод кликает кнопку тулбара "Удалить", подтверждает и ждёт возвращения на список.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAutoImpl.html#deleteDetail()">deleteDetail</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Удаление записи с детальной формы.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAutoImpl.html#deleteSelectedRow()">deleteSelectedRow</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Удаление записи со списочной формы.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -290,7 +298,7 @@ java.lang.Object
 <TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAutoImpl.html#ensureModuleLoaded()">ensureModuleLoaded</A></B>()</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Проверка, загрузился ли модуль (делегирование к <CODE>PlainPage#ensurePageLoaded()</CODE>).</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Проверка, загрузился ли модуль (делегирование к <A HREF="../../../../../../com/technology/jep/jepria/auto/page/PlainPage.html#ensurePageLoaded()"><CODE>PlainPage.ensurePageLoaded()</CODE></A>).</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -310,7 +318,7 @@ java.lang.Object
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>private static&nbsp;org.openqa.selenium.WebElement</CODE></FONT></TD>
+<CODE>protected static&nbsp;org.openqa.selenium.WebElement</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAutoImpl.html#findElementAndWait(org.openqa.selenium.By)">findElementAndWait</A></B>(org.openqa.selenium.By&nbsp;by)</CODE>
 
 <BR>
@@ -318,7 +326,7 @@ java.lang.Object
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>private static&nbsp;java.util.List&lt;org.openqa.selenium.WebElement&gt;</CODE></FONT></TD>
+<CODE>protected static&nbsp;java.util.List&lt;org.openqa.selenium.WebElement&gt;</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAutoImpl.html#findElementsAndWait(org.openqa.selenium.By)">findElementsAndWait</A></B>(org.openqa.selenium.By&nbsp;by)</CODE>
 
 <BR>
@@ -347,6 +355,14 @@ java.lang.Object
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Получение значения элемента ввода поля по заданному id поля</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;org.openqa.selenium.WebElement</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAutoImpl.html#getGridBody(java.lang.String)">getGridBody</A></B>(java.lang.String&nbsp;gridId)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -428,6 +444,14 @@ java.lang.Object
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Проверка видимости Jep-поля по заданному ID (атрибута aria-hidden)</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAutoImpl.html#isGridEmpty(java.lang.String)">isGridEmpty</A></B>(java.lang.String&nbsp;gridId)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -558,15 +582,6 @@ java.lang.Object
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAutoImpl.html#setCurrentWorkstate(com.technology.jep.jepria.client.ui.WorkstateEnum)">setCurrentWorkstate</A></B>(<A HREF="../../../../../../com/technology/jep/jepria/client/ui/WorkstateEnum.html" title="enum in com.technology.jep.jepria.client.ui">WorkstateEnum</A>&nbsp;currentWorkstate)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Метод присваивает внутренней переменной новое значение состояния и ждет загрузки списка, если
- новое состояние - <A HREF="../../../../../../com/technology/jep/jepria/client/ui/WorkstateEnum.html#VIEW_LIST"><CODE>WorkstateEnum.VIEW_LIST</CODE></A>.</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAutoImpl.html#setFieldValue(java.lang.String, java.lang.String)">setFieldValue</A></B>(java.lang.String&nbsp;fieldId,
               java.lang.String&nbsp;value)</CODE>
 
@@ -592,14 +607,6 @@ java.lang.Object
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>private &nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAutoImpl.html#sleep(int)">sleep</A></B>(int&nbsp;msc)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>private &nbsp;java.util.List&lt;java.lang.String&gt;</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAutoImpl.html#traverseTree(org.openqa.selenium.WebElement, int, com.technology.jep.jepria.auto.widget.tree.TreeItemFilter)">traverseTree</A></B>(org.openqa.selenium.WebElement&nbsp;node,
              int&nbsp;level,
@@ -607,6 +614,15 @@ java.lang.Object
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Метод для рекурсивного обхода дерева, составляющий список путей до узлов, проходящих через фильтр.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAutoImpl.html#waitForListMask()">waitForListMask</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Метод присваивает внутренней переменной новое значение состояния и ждет загрузки списка, если
+ новое состояние - <A HREF="../../../../../../com/technology/jep/jepria/client/ui/WorkstateEnum.html#VIEW_LIST"><CODE>WorkstateEnum.VIEW_LIST</CODE></A>.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -663,16 +679,6 @@ private static final long <B>WEB_DRIVER_TIMEOUT</B></PRE>
 logger</H3>
 <PRE>
 private static org.apache.log4j.Logger <B>logger</B></PRE>
-<DL>
-<DL>
-</DL>
-</DL>
-<HR>
-
-<A NAME="currentWorkstate"><!-- --></A><H3>
-currentWorkstate</H3>
-<PRE>
-private <A HREF="../../../../../../com/technology/jep/jepria/client/ui/WorkstateEnum.html" title="enum in com.technology.jep.jepria.client.ui">WorkstateEnum</A> <B>currentWorkstate</B></PRE>
 <DL>
 <DL>
 </DL>
@@ -845,19 +851,54 @@ public void <B>edit</B>(java.util.Map&lt;java.lang.String,java.lang.String&gt;&n
 </DL>
 <HR>
 
-<A NAME="delete(java.util.Map)"><!-- --></A><H3>
-delete</H3>
+<A NAME="deleteSelectedRow()"><!-- --></A><H3>
+deleteSelectedRow</H3>
 <PRE>
-public void <B>delete</B>(java.util.Map&lt;java.lang.String,java.lang.String&gt;&nbsp;key)</PRE>
+public void <B>deleteSelectedRow</B>()</PRE>
 <DL>
-<DD><B>Description copied from interface: <CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#delete(java.util.Map)">JepRiaModuleAuto</A></CODE></B></DD>
-<DD>Удаление записи
+<DD><B>Description copied from interface: <CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#deleteSelectedRow()">JepRiaModuleAuto</A></CODE></B></DD>
+<DD>Удаление записи со списочной формы.
+ Перед вызовом данного метода, необходимая запись должна быть выделена.
 <P>
 <DD><DL>
-<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#delete(java.util.Map)">delete</A></CODE> in interface <CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html" title="interface in com.technology.jep.jepria.auto.module">JepRiaModuleAuto</A></CODE></DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#deleteSelectedRow()">deleteSelectedRow</A></CODE> in interface <CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html" title="interface in com.technology.jep.jepria.auto.module">JepRiaModuleAuto</A></CODE></DL>
 </DD>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>key</CODE> - ключ, по которому выбирается запись</DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="deleteDetail()"><!-- --></A><H3>
+deleteDetail</H3>
+<PRE>
+public void <B>deleteDetail</B>()</PRE>
+<DL>
+<DD><B>Description copied from interface: <CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#deleteDetail()">JepRiaModuleAuto</A></CODE></B></DD>
+<DD>Удаление записи с детальной формы.
+ Перед вызовом данного метода, необходимая запись должна быть в состоянии редактирования либо просмотра.
+<P>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#deleteDetail()">deleteDetail</A></CODE> in interface <CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html" title="interface in com.technology.jep.jepria.auto.module">JepRiaModuleAuto</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="deleteAndConfirm()"><!-- --></A><H3>
+deleteAndConfirm</H3>
+<PRE>
+private void <B>deleteAndConfirm</B>()</PRE>
+<DL>
+<DD>Метод кликает кнопку тулбара "Удалить", подтверждает и ждёт возвращения на список.
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
 </DD>
 </DL>
 <HR>
@@ -909,21 +950,7 @@ public void <B>selectItem</B>(int&nbsp;index,
 <DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#selectItem(int, java.lang.String)">selectItem</A></CODE> in interface <CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html" title="interface in com.technology.jep.jepria.auto.module">JepRiaModuleAuto</A></CODE></DL>
 </DD>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>index</CODE> - - Номер строчки на списочной форме (начинается с 0).<DD><CODE>gridId</CODE> - - Идентификатор списочной форме.</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="sleep(int)"><!-- --></A><H3>
-sleep</H3>
-<PRE>
-private void <B>sleep</B>(int&nbsp;msc)</PRE>
-<DL>
-<DD><DL>
-</DL>
-</DD>
-<DD><DL>
-</DL>
+<DT><B>Parameters:</B><DD><CODE>index</CODE> - - Номер строчки на списочной форме (начинается с 0).<DD><CODE>gridId</CODE> - - Идентификатор списочной формы.</DL>
 </DD>
 </DL>
 <HR>
@@ -1137,10 +1164,10 @@ public boolean <B>checkMessageBox</B>(java.lang.String&nbsp;messageBoxId)</PRE>
 </DL>
 <HR>
 
-<A NAME="setCurrentWorkstate(com.technology.jep.jepria.client.ui.WorkstateEnum)"><!-- --></A><H3>
-setCurrentWorkstate</H3>
+<A NAME="waitForListMask()"><!-- --></A><H3>
+waitForListMask</H3>
 <PRE>
-public void <B>setCurrentWorkstate</B>(<A HREF="../../../../../../com/technology/jep/jepria/client/ui/WorkstateEnum.html" title="enum in com.technology.jep.jepria.client.ui">WorkstateEnum</A>&nbsp;currentWorkstate)</PRE>
+public static void <B>waitForListMask</B>()</PRE>
 <DL>
 <DD>Метод присваивает внутренней переменной новое значение состояния и ждет загрузки списка, если
  новое состояние - <A HREF="../../../../../../com/technology/jep/jepria/client/ui/WorkstateEnum.html#VIEW_LIST"><CODE>WorkstateEnum.VIEW_LIST</CODE></A>.<br>
@@ -1151,7 +1178,7 @@ public void <B>setCurrentWorkstate</B>(<A HREF="../../../../../../com/technology
 </DL>
 </DD>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>currentWorkstate</CODE> - </DL>
+</DL>
 </DD>
 </DL>
 <HR>
@@ -1483,6 +1510,34 @@ public java.util.List&lt;java.lang.String&gt; <B>getGridHeaders</B>(java.lang.St
 </DL>
 <HR>
 
+<A NAME="isGridEmpty(java.lang.String)"><!-- --></A><H3>
+isGridEmpty</H3>
+<PRE>
+public boolean <B>isGridEmpty</B>(java.lang.String&nbsp;gridId)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#isGridEmpty(java.lang.String)">isGridEmpty</A></CODE> in interface <CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html" title="interface in com.technology.jep.jepria.auto.module">JepRiaModuleAuto</A></CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getGridBody(java.lang.String)"><!-- --></A><H3>
+getGridBody</H3>
+<PRE>
+private org.openqa.selenium.WebElement <B>getGridBody</B>(java.lang.String&nbsp;gridId)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
 <A NAME="getGridDataRowwise(java.lang.String)"><!-- --></A><H3>
 getGridDataRowwise</H3>
 <PRE>
@@ -1493,12 +1548,26 @@ public java.util.List&lt;java.util.List&lt;java.lang.Object&gt;&gt; <B>getGridDa
 </DD>
 <DD><DL>
 
-<DT><B>Returns:</B><DD>a list of rows, each is a list of cell-objects.
- Each object of the resultant grid may be either of a type WebElement
+<DT><B>Returns:</B><DD>a list of rows, where each row is a list of cell-objects, or empty list if there is no grid (or it is empty).
+ Each object in the resultant grid may be either of a type WebElement
  (if a cell contains something inside, such as input) or of a type String
  (if there is only a text). The value of a particular cell can be
  obtained using the row number and a column index,
- known from the result of #getGridHeaders().</DL>
+ known from the result of #getGridHeaders().<br>
+ <i>If an object is a WebElement with a tagname '<b>tag</b>', then its position in
+ the grid as DOM is:<pre>
+ &lt;tbody id='gridId_BODY'&gt;
+   &lt;tr&gt;
+     &lt;td&gt;
+       &lt;div&gt;
+         <b>&lt;tag/&gt;</b>
+       &lt;/div&gt;
+     &lt;/td&gt;
+     ...
+   &lt;/tr&gt;
+   ...
+ &lt;/tbody&gt;
+ </pre></i></DL>
 </DD>
 </DL>
 <HR>
@@ -1529,7 +1598,7 @@ ensureModuleLoaded</H3>
 public void <B>ensureModuleLoaded</B>()</PRE>
 <DL>
 <DD><B>Description copied from interface: <CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#ensureModuleLoaded()">JepRiaModuleAuto</A></CODE></B></DD>
-<DD>Проверка, загрузился ли модуль (делегирование к <CODE>PlainPage#ensurePageLoaded()</CODE>).
+<DD>Проверка, загрузился ли модуль (делегирование к <A HREF="../../../../../../com/technology/jep/jepria/auto/page/PlainPage.html#ensurePageLoaded()"><CODE>PlainPage.ensurePageLoaded()</CODE></A>).
 <P>
 <DD><DL>
 <DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#ensureModuleLoaded()">ensureModuleLoaded</A></CODE> in interface <CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html" title="interface in com.technology.jep.jepria.auto.module">JepRiaModuleAuto</A></CODE></DL>
@@ -1543,8 +1612,8 @@ public void <B>ensureModuleLoaded</B>()</PRE>
 <A NAME="findElementAndWait(org.openqa.selenium.By)"><!-- --></A><H3>
 findElementAndWait</H3>
 <PRE>
-private static org.openqa.selenium.WebElement <B>findElementAndWait</B>(org.openqa.selenium.By&nbsp;by)
-                                                          throws org.openqa.selenium.NoSuchElementException</PRE>
+protected static org.openqa.selenium.WebElement <B>findElementAndWait</B>(org.openqa.selenium.By&nbsp;by)
+                                                            throws org.openqa.selenium.NoSuchElementException</PRE>
 <DL>
 <DD>Ищет элемент на текущей странице и, в том случае, если его нет, ожидает его появления
 <P>
@@ -1563,8 +1632,8 @@ private static org.openqa.selenium.WebElement <B>findElementAndWait</B>(org.open
 <A NAME="findElementsAndWait(org.openqa.selenium.By)"><!-- --></A><H3>
 findElementsAndWait</H3>
 <PRE>
-private static java.util.List&lt;org.openqa.selenium.WebElement&gt; <B>findElementsAndWait</B>(org.openqa.selenium.By&nbsp;by)
-                                                                           throws org.openqa.selenium.NoSuchElementException</PRE>
+protected static java.util.List&lt;org.openqa.selenium.WebElement&gt; <B>findElementsAndWait</B>(org.openqa.selenium.By&nbsp;by)
+                                                                             throws org.openqa.selenium.NoSuchElementException</PRE>
 <DL>
 <DD>Ищет элементы на текущей странице и, в том случае, если их нет, ожидает их появления
 <P>

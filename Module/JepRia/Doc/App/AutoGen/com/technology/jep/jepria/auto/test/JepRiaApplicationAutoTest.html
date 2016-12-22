@@ -88,7 +88,7 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
 <FONT SIZE="-1">
 com.technology.jep.jepria.auto.test</FONT>
 <BR>
-Class JepRiaApplicationAutoTest&lt;A extends <A HREF="../../../../../../com/technology/jep/jepria/auto/application/JepRiaApplicationAuto.html" title="interface in com.technology.jep.jepria.auto.application">JepRiaApplicationAuto</A>&gt;</H2>
+Class JepRiaApplicationAutoTest&lt;A extends <A HREF="../../../../../../com/technology/jep/jepria/auto/application/JepRiaApplicationAuto.html" title="class in com.technology.jep.jepria.auto.application">JepRiaApplicationAuto</A>&gt;</H2>
 <PRE>
 java.lang.Object
   <IMG SRC="../../../../../../resources/inherit.gif" ALT="extended by ">org.testng.internal.junit.ArrayAsserts
@@ -99,7 +99,7 @@ java.lang.Object
 <DT><DT><B>Type Parameters:</B><DD><CODE>A</CODE> - Интерфейс данного приложения.</DL>
 <HR>
 <DL>
-<DT><PRE>public abstract class <B>JepRiaApplicationAutoTest&lt;A extends <A HREF="../../../../../../com/technology/jep/jepria/auto/application/JepRiaApplicationAuto.html" title="interface in com.technology.jep.jepria.auto.application">JepRiaApplicationAuto</A>&gt;</B><DT>extends org.testng.AssertJUnit</DL>
+<DT><PRE>public abstract class <B>JepRiaApplicationAutoTest&lt;A extends <A HREF="../../../../../../com/technology/jep/jepria/auto/application/JepRiaApplicationAuto.html" title="class in com.technology.jep.jepria.auto.application">JepRiaApplicationAuto</A>&gt;</B><DT>extends org.testng.AssertJUnit</DL>
 </PRE>
 
 <P>
@@ -128,7 +128,7 @@ java.lang.Object
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>private &nbsp;java.lang.String</CODE></FONT></TD>
+<CODE>protected &nbsp;java.lang.String</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/test/JepRiaApplicationAutoTest.html#baseUrl">baseUrl</A></B></CODE>
 
 <BR>
@@ -212,6 +212,14 @@ java.lang.Object
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/test/JepRiaApplicationAutoTest.html#createEntranceAuto()">createEntranceAuto</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Метод инстанциирует интерфейс для осуществления авторизации.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/test/JepRiaApplicationAutoTest.html#enterModule(com.technology.jep.jepria.auto.model.module.ModuleDescription)">enterModule</A></B>(<A HREF="../../../../../../com/technology/jep/jepria/auto/model/module/ModuleDescription.html" title="class in com.technology.jep.jepria.auto.model.module">ModuleDescription</A>&lt;?&gt;&nbsp;module)</CODE>
 
@@ -243,6 +251,14 @@ C</CODE></FONT></TD>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Получает пользователя для теста.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>protected &nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/test/JepRiaApplicationAutoTest.html#isLoggedIn()">isLoggedIn</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -286,14 +302,6 @@ C</CODE></FONT></TD>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>protected &nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/test/JepRiaApplicationAutoTest.html#provideEntranceAuto()">provideEntranceAuto</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Метод иниациализирует интерфейс для осуществления авторизации.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -398,7 +406,7 @@ private <A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaM
 <A NAME="applicationAuto"><!-- --></A><H3>
 applicationAuto</H3>
 <PRE>
-protected <A HREF="../../../../../../com/technology/jep/jepria/auto/test/JepRiaApplicationAutoTest.html" title="type parameter in JepRiaApplicationAutoTest">A</A> extends <A HREF="../../../../../../com/technology/jep/jepria/auto/application/JepRiaApplicationAuto.html" title="interface in com.technology.jep.jepria.auto.application">JepRiaApplicationAuto</A> <B>applicationAuto</B></PRE>
+protected <A HREF="../../../../../../com/technology/jep/jepria/auto/test/JepRiaApplicationAutoTest.html" title="type parameter in JepRiaApplicationAutoTest">A</A> extends <A HREF="../../../../../../com/technology/jep/jepria/auto/application/JepRiaApplicationAuto.html" title="class in com.technology.jep.jepria.auto.application">JepRiaApplicationAuto</A> <B>applicationAuto</B></PRE>
 <DL>
 <DL>
 </DL>
@@ -444,7 +452,7 @@ private <A HREF="../../../../../../com/technology/jep/jepria/auto/model/user/Use
 <A NAME="baseUrl"><!-- --></A><H3>
 baseUrl</H3>
 <PRE>
-private java.lang.String <B>baseUrl</B></PRE>
+protected java.lang.String <B>baseUrl</B></PRE>
 <DL>
 <DD>Базовый URL, <br/>включает в себя протокол, порт, домен, имя приложения (без слеша на конце).
  Указывается xml теста (*AutoTest.xml).
@@ -545,12 +553,12 @@ public void <B>setUp</B>(java.lang.String&nbsp;baseUrl,
 </DL>
 <HR>
 
-<A NAME="provideEntranceAuto()"><!-- --></A><H3>
-provideEntranceAuto</H3>
+<A NAME="createEntranceAuto()"><!-- --></A><H3>
+createEntranceAuto</H3>
 <PRE>
-protected void <B>provideEntranceAuto</B>()</PRE>
+protected void <B>createEntranceAuto</B>()</PRE>
 <DL>
-<DD>Метод иниациализирует интерфейс для осуществления авторизации.
+<DD>Метод инстанциирует интерфейс для осуществления авторизации.
 <P>
 <DD><DL>
 </DL>
@@ -649,6 +657,17 @@ protected void <B>logout</B>()</PRE>
  Если входа еще не было, ничего не происходит.
  После успешного выхода метод дожидается полной загрузки логин-страницы.
 <P>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="isLoggedIn()"><!-- --></A><H3>
+isLoggedIn</H3>
+<PRE>
+protected boolean <B>isLoggedIn</B>()</PRE>
+<DL>
 <DD><DL>
 </DL>
 </DD>

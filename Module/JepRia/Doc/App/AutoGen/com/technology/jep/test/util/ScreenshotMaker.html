@@ -4,7 +4,7 @@
 <HEAD>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <TITLE>
-JepTestUtil (JepRia JavaDoc)
+ScreenshotMaker (JepRia JavaDoc)
 </TITLE>
 
 
@@ -14,7 +14,7 @@ JepTestUtil (JepRia JavaDoc)
 function windowTitle()
 {
     if (location.href.indexOf('is-external=true') == -1) {
-        parent.document.title="JepTestUtil (JepRia JavaDoc)";
+        parent.document.title="ScreenshotMaker (JepRia JavaDoc)";
     }
 }
 </SCRIPT>
@@ -53,11 +53,11 @@ function windowTitle()
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="../../../../../com/technology/jep/test/util/JepFileDataProvider.html" title="class in com.technology.jep.test.util"><B>PREV CLASS</B></A>&nbsp;
-&nbsp;<A HREF="../../../../../com/technology/jep/test/util/ScreenshotMaker.html" title="class in com.technology.jep.test.util"><B>NEXT CLASS</B></A></FONT></TD>
+&nbsp;<A HREF="../../../../../com/technology/jep/test/util/JepTestUtil.html" title="class in com.technology.jep.test.util"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;NEXT CLASS</FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-  <A HREF="../../../../../index.html?com/technology/jep/test/util/JepTestUtil.html" target="_top"><B>FRAMES</B></A>  &nbsp;
-&nbsp;<A HREF="JepTestUtil.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+  <A HREF="../../../../../index.html?com/technology/jep/test/util/ScreenshotMaker.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="ScreenshotMaker.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
 &nbsp;<SCRIPT type="text/javascript">
   <!--
   if(window==top) {
@@ -74,9 +74,9 @@ function windowTitle()
 </TR>
 <TR>
 <TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
-  SUMMARY:&nbsp;NESTED&nbsp;|&nbsp;<A HREF="#field_summary">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
+  SUMMARY:&nbsp;NESTED&nbsp;|&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
 <TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
-DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
+DETAIL:&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
 </TR>
 </TABLE>
 <A NAME="skip-navbar_top"></A>
@@ -88,38 +88,24 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
 <FONT SIZE="-1">
 com.technology.jep.test.util</FONT>
 <BR>
-Class JepTestUtil</H2>
+Class ScreenshotMaker</H2>
 <PRE>
 java.lang.Object
-  <IMG SRC="../../../../../resources/inherit.gif" ALT="extended by "><B>com.technology.jep.test.util.JepTestUtil</B>
+  <IMG SRC="../../../../../resources/inherit.gif" ALT="extended by "><B>com.technology.jep.test.util.ScreenshotMaker</B>
 </PRE>
+<DL>
+<DT><B>All Implemented Interfaces:</B> <DD>org.testng.ITestListener, org.testng.ITestNGListener</DD>
+</DL>
 <HR>
 <DL>
-<DT><PRE>public class <B>JepTestUtil</B><DT>extends java.lang.Object</DL>
+<DT><PRE>public class <B>ScreenshotMaker</B><DT>extends java.lang.Object<DT>implements org.testng.ITestListener</DL>
 </PRE>
 
 <P>
 <HR>
 
 <P>
-<!-- =========== FIELD SUMMARY =========== -->
 
-<A NAME="field_summary"><!-- --></A>
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
-<TH ALIGN="left" COLSPAN="2"><FONT SIZE="+2">
-<B>Field Summary</B></FONT></TH>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>private static&nbsp;org.apache.log4j.Logger</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../com/technology/jep/test/util/JepTestUtil.html#logger">logger</A></B></CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
-</TR>
-</TABLE>
-&nbsp;
 <!-- ======== CONSTRUCTOR SUMMARY ======== -->
 
 <A NAME="constructor_summary"><!-- --></A>
@@ -129,7 +115,7 @@ java.lang.Object
 <B>Constructor Summary</B></FONT></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><B><A HREF="../../../../../com/technology/jep/test/util/JepTestUtil.html#JepTestUtil()">JepTestUtil</A></B>()</CODE>
+<TD><CODE><B><A HREF="../../../../../com/technology/jep/test/util/ScreenshotMaker.html#ScreenshotMaker()">ScreenshotMaker</A></B>()</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -146,8 +132,56 @@ java.lang.Object
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;java.util.Set&lt;java.lang.String&gt;</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../com/technology/jep/test/util/JepTestUtil.html#parseCSV(java.lang.String)">parseCSV</A></B>(java.lang.String&nbsp;strGoodsCatalogSections)</CODE>
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../com/technology/jep/test/util/ScreenshotMaker.html#onFinish(org.testng.ITestContext)">onFinish</A></B>(org.testng.ITestContext&nbsp;result)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../com/technology/jep/test/util/ScreenshotMaker.html#onStart(org.testng.ITestContext)">onStart</A></B>(org.testng.ITestContext&nbsp;result)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../com/technology/jep/test/util/ScreenshotMaker.html#onTestFailedButWithinSuccessPercentage(org.testng.ITestResult)">onTestFailedButWithinSuccessPercentage</A></B>(org.testng.ITestResult&nbsp;result)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../com/technology/jep/test/util/ScreenshotMaker.html#onTestFailure(org.testng.ITestResult)">onTestFailure</A></B>(org.testng.ITestResult&nbsp;result)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../com/technology/jep/test/util/ScreenshotMaker.html#onTestSkipped(org.testng.ITestResult)">onTestSkipped</A></B>(org.testng.ITestResult&nbsp;result)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../com/technology/jep/test/util/ScreenshotMaker.html#onTestStart(org.testng.ITestResult)">onTestStart</A></B>(org.testng.ITestResult&nbsp;result)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../com/technology/jep/test/util/ScreenshotMaker.html#onTestSuccess(org.testng.ITestResult)">onTestSuccess</A></B>(org.testng.ITestResult&nbsp;result)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -165,25 +199,6 @@ java.lang.Object
 &nbsp;
 <P>
 
-<!-- ============ FIELD DETAIL =========== -->
-
-<A NAME="field_detail"><!-- --></A>
-<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
-<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
-<TH ALIGN="left" COLSPAN="1"><FONT SIZE="+2">
-<B>Field Detail</B></FONT></TH>
-</TR>
-</TABLE>
-
-<A NAME="logger"><!-- --></A><H3>
-logger</H3>
-<PRE>
-private static org.apache.log4j.Logger <B>logger</B></PRE>
-<DL>
-<DL>
-</DL>
-</DL>
-
 <!-- ========= CONSTRUCTOR DETAIL ======== -->
 
 <A NAME="constructor_detail"><!-- --></A>
@@ -194,10 +209,10 @@ private static org.apache.log4j.Logger <B>logger</B></PRE>
 </TR>
 </TABLE>
 
-<A NAME="JepTestUtil()"><!-- --></A><H3>
-JepTestUtil</H3>
+<A NAME="ScreenshotMaker()"><!-- --></A><H3>
+ScreenshotMaker</H3>
 <PRE>
-public <B>JepTestUtil</B>()</PRE>
+public <B>ScreenshotMaker</B>()</PRE>
 <DL>
 </DL>
 
@@ -211,11 +226,98 @@ public <B>JepTestUtil</B>()</PRE>
 </TR>
 </TABLE>
 
-<A NAME="parseCSV(java.lang.String)"><!-- --></A><H3>
-parseCSV</H3>
+<A NAME="onFinish(org.testng.ITestContext)"><!-- --></A><H3>
+onFinish</H3>
 <PRE>
-public static java.util.Set&lt;java.lang.String&gt; <B>parseCSV</B>(java.lang.String&nbsp;strGoodsCatalogSections)</PRE>
+public void <B>onFinish</B>(org.testng.ITestContext&nbsp;result)</PRE>
 <DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE>onFinish</CODE> in interface <CODE>org.testng.ITestListener</CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="onStart(org.testng.ITestContext)"><!-- --></A><H3>
+onStart</H3>
+<PRE>
+public void <B>onStart</B>(org.testng.ITestContext&nbsp;result)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE>onStart</CODE> in interface <CODE>org.testng.ITestListener</CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="onTestFailedButWithinSuccessPercentage(org.testng.ITestResult)"><!-- --></A><H3>
+onTestFailedButWithinSuccessPercentage</H3>
+<PRE>
+public void <B>onTestFailedButWithinSuccessPercentage</B>(org.testng.ITestResult&nbsp;result)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE>onTestFailedButWithinSuccessPercentage</CODE> in interface <CODE>org.testng.ITestListener</CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="onTestFailure(org.testng.ITestResult)"><!-- --></A><H3>
+onTestFailure</H3>
+<PRE>
+public void <B>onTestFailure</B>(org.testng.ITestResult&nbsp;result)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE>onTestFailure</CODE> in interface <CODE>org.testng.ITestListener</CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="onTestSkipped(org.testng.ITestResult)"><!-- --></A><H3>
+onTestSkipped</H3>
+<PRE>
+public void <B>onTestSkipped</B>(org.testng.ITestResult&nbsp;result)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE>onTestSkipped</CODE> in interface <CODE>org.testng.ITestListener</CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="onTestStart(org.testng.ITestResult)"><!-- --></A><H3>
+onTestStart</H3>
+<PRE>
+public void <B>onTestStart</B>(org.testng.ITestResult&nbsp;result)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE>onTestStart</CODE> in interface <CODE>org.testng.ITestListener</CODE></DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="onTestSuccess(org.testng.ITestResult)"><!-- --></A><H3>
+onTestSuccess</H3>
+<PRE>
+public void <B>onTestSuccess</B>(org.testng.ITestResult&nbsp;result)</PRE>
+<DL>
+<DD><DL>
+<DT><B>Specified by:</B><DD><CODE>onTestSuccess</CODE> in interface <CODE>org.testng.ITestListener</CODE></DL>
+</DD>
 <DD><DL>
 </DL>
 </DD>
@@ -250,11 +352,11 @@ public static java.util.Set&lt;java.lang.String&gt; <B>parseCSV</B>(java.lang.St
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="../../../../../com/technology/jep/test/util/JepFileDataProvider.html" title="class in com.technology.jep.test.util"><B>PREV CLASS</B></A>&nbsp;
-&nbsp;<A HREF="../../../../../com/technology/jep/test/util/ScreenshotMaker.html" title="class in com.technology.jep.test.util"><B>NEXT CLASS</B></A></FONT></TD>
+&nbsp;<A HREF="../../../../../com/technology/jep/test/util/JepTestUtil.html" title="class in com.technology.jep.test.util"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;NEXT CLASS</FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-  <A HREF="../../../../../index.html?com/technology/jep/test/util/JepTestUtil.html" target="_top"><B>FRAMES</B></A>  &nbsp;
-&nbsp;<A HREF="JepTestUtil.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+  <A HREF="../../../../../index.html?com/technology/jep/test/util/ScreenshotMaker.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="ScreenshotMaker.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
 &nbsp;<SCRIPT type="text/javascript">
   <!--
   if(window==top) {
@@ -271,9 +373,9 @@ public static java.util.Set&lt;java.lang.String&gt; <B>parseCSV</B>(java.lang.St
 </TR>
 <TR>
 <TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
-  SUMMARY:&nbsp;NESTED&nbsp;|&nbsp;<A HREF="#field_summary">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
+  SUMMARY:&nbsp;NESTED&nbsp;|&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_summary">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_summary">METHOD</A></FONT></TD>
 <TD VALIGN="top" CLASS="NavBarCell3"><FONT SIZE="-2">
-DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
+DETAIL:&nbsp;FIELD&nbsp;|&nbsp;<A HREF="#constructor_detail">CONSTR</A>&nbsp;|&nbsp;<A HREF="#method_detail">METHOD</A></FONT></TD>
 </TR>
 </TABLE>
 <A NAME="skip-navbar_bottom"></A>

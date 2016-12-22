@@ -98,18 +98,18 @@ com.technology.*</FONT></TH>
 
 <TABLE BORDER="1" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
 <TR BGCOLOR="#EEEEFF" CLASS="TableSubHeadingColor">
-<TH ALIGN="left" COLSPAN="3">com.technology.jep.jepria.auto.application.entrance.<A HREF="com/technology/jep/jepria/auto/application/entrance/EntranceAutoImpl.html" title="class in com.technology.jep.jepria.auto.application.entrance">EntranceAutoImpl</A>&lt;<A HREF="com/technology/jep/jepria/auto/application/entrance/EntranceAutoImpl.html" title="type parameter in EntranceAutoImpl">P</A> extends <A HREF="com/technology/jep/jepria/auto/application/page/JepRiaApplicationPage.html" title="interface in com.technology.jep.jepria.auto.application.page">JepRiaApplicationPage</A>&gt;</TH>
+<TH ALIGN="left" COLSPAN="3">com.technology.jep.jepria.auto.application.entrance.<A HREF="com/technology/jep/jepria/auto/application/entrance/EntranceStatus.html" title="enum in com.technology.jep.jepria.auto.application.entrance">EntranceStatus</A></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<A NAME="com.technology.jep.jepria.auto.application.entrance.EntranceAutoImpl.LAST_ENTRANCE_OPERATION_LOGIN"><!-- --></A><TD ALIGN="right"><FONT SIZE="-1">
-<CODE>private&nbsp;static&nbsp;final&nbsp;int</CODE></FONT></TD>
-<TD ALIGN="left"><CODE><A HREF="com/technology/jep/jepria/auto/application/entrance/EntranceAutoImpl.html#LAST_ENTRANCE_OPERATION_LOGIN">LAST_ENTRANCE_OPERATION_LOGIN</A></CODE></TD>
+<A NAME="com.technology.jep.jepria.auto.application.entrance.EntranceStatus.LAST_ENTRANCE_OPERATION_LOGIN"><!-- --></A><TD ALIGN="right"><FONT SIZE="-1">
+<CODE>public&nbsp;static&nbsp;final&nbsp;int</CODE></FONT></TD>
+<TD ALIGN="left"><CODE><A HREF="com/technology/jep/jepria/auto/application/entrance/EntranceStatus.html#LAST_ENTRANCE_OPERATION_LOGIN">LAST_ENTRANCE_OPERATION_LOGIN</A></CODE></TD>
 <TD ALIGN="right"><CODE>1</CODE></TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<A NAME="com.technology.jep.jepria.auto.application.entrance.EntranceAutoImpl.LAST_ENTRANCE_OPERATION_LOGOUT"><!-- --></A><TD ALIGN="right"><FONT SIZE="-1">
-<CODE>private&nbsp;static&nbsp;final&nbsp;int</CODE></FONT></TD>
-<TD ALIGN="left"><CODE><A HREF="com/technology/jep/jepria/auto/application/entrance/EntranceAutoImpl.html#LAST_ENTRANCE_OPERATION_LOGOUT">LAST_ENTRANCE_OPERATION_LOGOUT</A></CODE></TD>
+<A NAME="com.technology.jep.jepria.auto.application.entrance.EntranceStatus.LAST_ENTRANCE_OPERATION_LOGOUT"><!-- --></A><TD ALIGN="right"><FONT SIZE="-1">
+<CODE>public&nbsp;static&nbsp;final&nbsp;int</CODE></FONT></TD>
+<TD ALIGN="left"><CODE><A HREF="com/technology/jep/jepria/auto/application/entrance/EntranceStatus.html#LAST_ENTRANCE_OPERATION_LOGOUT">LAST_ENTRANCE_OPERATION_LOGOUT</A></CODE></TD>
 <TD ALIGN="right"><CODE>2</CODE></TD>
 </TR>
 </FONT></TD>
@@ -371,24 +371,6 @@ com.technology.*</FONT></TH>
 <TD ALIGN="right"><CODE>"_HEADER"</CODE></TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<A NAME="com.technology.jep.jepria.client.JepRiaAutomationConstant.JAVASSO_LOGIN_FORM_ID"><!-- --></A><TD ALIGN="right"><FONT SIZE="-1">
-<CODE>public&nbsp;static&nbsp;final&nbsp;java.lang.String</CODE></FONT></TD>
-<TD ALIGN="left"><CODE><A HREF="com/technology/jep/jepria/client/JepRiaAutomationConstant.html#JAVASSO_LOGIN_FORM_ID">JAVASSO_LOGIN_FORM_ID</A></CODE></TD>
-<TD ALIGN="right"><CODE>"loginForm"</CODE></TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<A NAME="com.technology.jep.jepria.client.JepRiaAutomationConstant.JAVASSO_LOGIN_PASSWORD_FIELD_ID"><!-- --></A><TD ALIGN="right"><FONT SIZE="-1">
-<CODE>public&nbsp;static&nbsp;final&nbsp;java.lang.String</CODE></FONT></TD>
-<TD ALIGN="left"><CODE><A HREF="com/technology/jep/jepria/client/JepRiaAutomationConstant.html#JAVASSO_LOGIN_PASSWORD_FIELD_ID">JAVASSO_LOGIN_PASSWORD_FIELD_ID</A></CODE></TD>
-<TD ALIGN="right"><CODE>"j_password"</CODE></TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<A NAME="com.technology.jep.jepria.client.JepRiaAutomationConstant.JAVASSO_LOGIN_USERNAME_FIELD_ID"><!-- --></A><TD ALIGN="right"><FONT SIZE="-1">
-<CODE>public&nbsp;static&nbsp;final&nbsp;java.lang.String</CODE></FONT></TD>
-<TD ALIGN="left"><CODE><A HREF="com/technology/jep/jepria/client/JepRiaAutomationConstant.html#JAVASSO_LOGIN_USERNAME_FIELD_ID">JAVASSO_LOGIN_USERNAME_FIELD_ID</A></CODE></TD>
-<TD ALIGN="right"><CODE>"j_username"</CODE></TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
 <A NAME="com.technology.jep.jepria.client.JepRiaAutomationConstant.JEP_CARD_TYPE_HTML_ATTR"><!-- --></A><TD ALIGN="right"><FONT SIZE="-1">
 <CODE>public&nbsp;static&nbsp;final&nbsp;java.lang.String</CODE></FONT></TD>
 <TD ALIGN="left"><CODE><A HREF="com/technology/jep/jepria/client/JepRiaAutomationConstant.html#JEP_CARD_TYPE_HTML_ATTR">JEP_CARD_TYPE_HTML_ATTR</A></CODE></TD>
@@ -560,19 +542,25 @@ com.technology.*</FONT></TH>
 <A NAME="com.technology.jep.jepria.client.JepRiaAutomationConstant.LOGIN_BUTTON_ID"><!-- --></A><TD ALIGN="right"><FONT SIZE="-1">
 <CODE>public&nbsp;static&nbsp;final&nbsp;java.lang.String</CODE></FONT></TD>
 <TD ALIGN="left"><CODE><A HREF="com/technology/jep/jepria/client/JepRiaAutomationConstant.html#LOGIN_BUTTON_ID">LOGIN_BUTTON_ID</A></CODE></TD>
-<TD ALIGN="right"><CODE>"LOGIN_BUTTON"</CODE></TD>
+<TD ALIGN="right"><CODE>"j_loginButton"</CODE></TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<A NAME="com.technology.jep.jepria.client.JepRiaAutomationConstant.LOGIN_FORM_HTML_ID"><!-- --></A><TD ALIGN="right"><FONT SIZE="-1">
+<CODE>public&nbsp;static&nbsp;final&nbsp;java.lang.String</CODE></FONT></TD>
+<TD ALIGN="left"><CODE><A HREF="com/technology/jep/jepria/client/JepRiaAutomationConstant.html#LOGIN_FORM_HTML_ID">LOGIN_FORM_HTML_ID</A></CODE></TD>
+<TD ALIGN="right"><CODE>"loginForm"</CODE></TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <A NAME="com.technology.jep.jepria.client.JepRiaAutomationConstant.LOGIN_PASSWORD_FIELD_ID"><!-- --></A><TD ALIGN="right"><FONT SIZE="-1">
 <CODE>public&nbsp;static&nbsp;final&nbsp;java.lang.String</CODE></FONT></TD>
 <TD ALIGN="left"><CODE><A HREF="com/technology/jep/jepria/client/JepRiaAutomationConstant.html#LOGIN_PASSWORD_FIELD_ID">LOGIN_PASSWORD_FIELD_ID</A></CODE></TD>
-<TD ALIGN="right"><CODE>"LOGIN_PASSWORD_FIELD"</CODE></TD>
+<TD ALIGN="right"><CODE>"j_password"</CODE></TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <A NAME="com.technology.jep.jepria.client.JepRiaAutomationConstant.LOGIN_USERNAME_FIELD_ID"><!-- --></A><TD ALIGN="right"><FONT SIZE="-1">
 <CODE>public&nbsp;static&nbsp;final&nbsp;java.lang.String</CODE></FONT></TD>
 <TD ALIGN="left"><CODE><A HREF="com/technology/jep/jepria/client/JepRiaAutomationConstant.html#LOGIN_USERNAME_FIELD_ID">LOGIN_USERNAME_FIELD_ID</A></CODE></TD>
-<TD ALIGN="right"><CODE>"LOGIN_USERNAME_FIELD"</CODE></TD>
+<TD ALIGN="right"><CODE>"j_username"</CODE></TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <A NAME="com.technology.jep.jepria.client.JepRiaAutomationConstant.LOGOUT_BUTTON_ID"><!-- --></A><TD ALIGN="right"><FONT SIZE="-1">
@@ -2303,12 +2291,6 @@ com.technology.*</FONT></TH>
 <TD ALIGN="right"><CODE>"lang"</CODE></TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<A NAME="com.technology.jep.jepria.server.JepRiaServerConstant.HTTP_REQUEST_PARAMETER_LOCALE"><!-- --></A><TD ALIGN="right"><FONT SIZE="-1">
-<CODE>public&nbsp;static&nbsp;final&nbsp;java.lang.String</CODE></FONT></TD>
-<TD ALIGN="left"><CODE><A HREF="com/technology/jep/jepria/server/JepRiaServerConstant.html#HTTP_REQUEST_PARAMETER_LOCALE">HTTP_REQUEST_PARAMETER_LOCALE</A></CODE></TD>
-<TD ALIGN="right"><CODE>"locale"</CODE></TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
 <A NAME="com.technology.jep.jepria.server.JepRiaServerConstant.IS_REFRESH_NEEDED"><!-- --></A><TD ALIGN="right"><FONT SIZE="-1">
 <CODE>public&nbsp;static&nbsp;final&nbsp;java.lang.String</CODE></FONT></TD>
 <TD ALIGN="left"><CODE><A HREF="com/technology/jep/jepria/server/JepRiaServerConstant.html#IS_REFRESH_NEEDED">IS_REFRESH_NEEDED</A></CODE></TD>
@@ -2343,6 +2325,12 @@ com.technology.*</FONT></TH>
 <CODE>public&nbsp;static&nbsp;final&nbsp;java.lang.String</CODE></FONT></TD>
 <TD ALIGN="left"><CODE><A HREF="com/technology/jep/jepria/server/JepRiaServerConstant.html#SELECTED_RECORDS_SESSION_ATTRIBUTE">SELECTED_RECORDS_SESSION_ATTRIBUTE</A></CODE></TD>
 <TD ALIGN="right"><CODE>"selectedRecordsSessionAttribute"</CODE></TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<A NAME="com.technology.jep.jepria.server.JepRiaServerConstant.SSO_MODULE_URL"><!-- --></A><TD ALIGN="right"><FONT SIZE="-1">
+<CODE>public&nbsp;static&nbsp;final&nbsp;java.lang.String</CODE></FONT></TD>
+<TD ALIGN="left"><CODE><A HREF="com/technology/jep/jepria/server/JepRiaServerConstant.html#SSO_MODULE_URL">SSO_MODULE_URL</A></CODE></TD>
+<TD ALIGN="right"><CODE>"/Sso/Sso.jsp?em=Login"</CODE></TD>
 </TR>
 </FONT></TD>
 </TR>
@@ -2871,6 +2859,24 @@ com.technology.*</FONT></TH>
 <CODE>public&nbsp;static&nbsp;final&nbsp;java.lang.String</CODE></FONT></TD>
 <TD ALIGN="left"><CODE><A HREF="com/technology/jep/jepria/shared/JepRiaConstant.html#FILE_SIZE_HIDDEN_FIELD_NAME">FILE_SIZE_HIDDEN_FIELD_NAME</A></CODE></TD>
 <TD ALIGN="right"><CODE>"fileSize"</CODE></TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<A NAME="com.technology.jep.jepria.shared.JepRiaConstant.HTTP_REQUEST_PARAMETER_LOCALE"><!-- --></A><TD ALIGN="right"><FONT SIZE="-1">
+<CODE>public&nbsp;static&nbsp;final&nbsp;java.lang.String</CODE></FONT></TD>
+<TD ALIGN="left"><CODE><A HREF="com/technology/jep/jepria/shared/JepRiaConstant.html#HTTP_REQUEST_PARAMETER_LOCALE">HTTP_REQUEST_PARAMETER_LOCALE</A></CODE></TD>
+<TD ALIGN="right"><CODE>"locale"</CODE></TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<A NAME="com.technology.jep.jepria.shared.JepRiaConstant.HTTP_REQUEST_PARAMETER_SSO_IS_BLOCKED"><!-- --></A><TD ALIGN="right"><FONT SIZE="-1">
+<CODE>public&nbsp;static&nbsp;final&nbsp;java.lang.String</CODE></FONT></TD>
+<TD ALIGN="left"><CODE><A HREF="com/technology/jep/jepria/shared/JepRiaConstant.html#HTTP_REQUEST_PARAMETER_SSO_IS_BLOCKED">HTTP_REQUEST_PARAMETER_SSO_IS_BLOCKED</A></CODE></TD>
+<TD ALIGN="right"><CODE>"isBlocked"</CODE></TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<A NAME="com.technology.jep.jepria.shared.JepRiaConstant.HTTP_REQUEST_PARAMETER_SSO_IS_ERROR"><!-- --></A><TD ALIGN="right"><FONT SIZE="-1">
+<CODE>public&nbsp;static&nbsp;final&nbsp;java.lang.String</CODE></FONT></TD>
+<TD ALIGN="left"><CODE><A HREF="com/technology/jep/jepria/shared/JepRiaConstant.html#HTTP_REQUEST_PARAMETER_SSO_IS_ERROR">HTTP_REQUEST_PARAMETER_SSO_IS_ERROR</A></CODE></TD>
+<TD ALIGN="right"><CODE>"isError"</CODE></TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <A NAME="com.technology.jep.jepria.shared.JepRiaConstant.JEP_USER_NAME_FIELD_NAME"><!-- --></A><TD ALIGN="right"><FONT SIZE="-1">

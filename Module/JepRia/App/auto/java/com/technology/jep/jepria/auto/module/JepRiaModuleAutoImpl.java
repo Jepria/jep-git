@@ -496,7 +496,6 @@ public class JepRiaModuleAutoImpl<P extends JepRiaModulePage> implements JepRiaM
    * новое состояние - {@link WorkstateEnum#VIEW_LIST}.<br>
    * <i>Никаких UI-действий не производится. Для выполнения
    * собственно переходов между состояниями с помощью кнопок тулбара см. {@link #setWorkstate(WorkstateEnum)}.</i>.
-   * @param currentWorkstate
    */
   public static void waitForListMask() {
     // Если переходим в состояние просмотра списка, то, вдобавок ко всему,

@@ -94,7 +94,7 @@ java.lang.Object
   <IMG SRC="../../../../../../../resources/inherit.gif" ALT="extended by "><B>com.technology.jep.jepria.client.ui.main.MainViewImpl</B>
 </PRE>
 <DL>
-<DT><B>All Implemented Interfaces:</B> <DD>com.google.gwt.user.client.ui.IsWidget, <A HREF="../../../../../../../com/technology/jep/jepria/client/ui/JepView.html" title="interface in com.technology.jep.jepria.client.ui">JepView</A>&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/ui/JepActivity.html" title="class in com.technology.jep.jepria.client.ui">JepActivity</A>&gt;, <A HREF="../../../../../../../com/technology/jep/jepria/client/ui/main/MainView.html" title="interface in com.technology.jep.jepria.client.ui.main">MainView</A></DD>
+<DT><B>All Implemented Interfaces:</B> <DD>com.google.gwt.user.client.ui.IsWidget, <A HREF="../../../../../../../com/technology/jep/jepria/client/ui/JepView.html" title="interface in com.technology.jep.jepria.client.ui">JepView</A>&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/ui/JepActivity.html" title="class in com.technology.jep.jepria.client.ui">JepActivity</A>&lt;?,?&gt;&gt;, <A HREF="../../../../../../../com/technology/jep/jepria/client/ui/main/MainView.html" title="interface in com.technology.jep.jepria.client.ui.main">MainView</A></DD>
 </DL>
 <HR>
 <DL>
@@ -199,8 +199,7 @@ java.lang.Object
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/main/MainViewImpl.html#setModuleItems(java.lang.String[], java.lang.String[])">setModuleItems</A></B>(java.lang.String[]&nbsp;moduleIds,
-               java.lang.String[]&nbsp;moduleItemTitles)</CODE>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/main/MainViewImpl.html#setModuleItems(com.technology.jep.jepria.client.ModuleItem[])">setModuleItems</A></B>(<A HREF="../../../../../../../com/technology/jep/jepria/client/ModuleItem.html" title="class in com.technology.jep.jepria.client">ModuleItem</A>[]&nbsp;moduleItems)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Инициализация вкладок</TD>
@@ -312,7 +311,7 @@ setPresenter</H3>
 public void <B>setPresenter</B>(<A HREF="../../../../../../../com/technology/jep/jepria/client/ui/JepActivity.html" title="class in com.technology.jep.jepria.client.ui">JepActivity</A>&nbsp;presenter)</PRE>
 <DL>
 <DD><DL>
-<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/JepView.html#setPresenter(P)">setPresenter</A></CODE> in interface <CODE><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/JepView.html" title="interface in com.technology.jep.jepria.client.ui">JepView</A>&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/ui/JepActivity.html" title="class in com.technology.jep.jepria.client.ui">JepActivity</A>&gt;</CODE></DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/JepView.html#setPresenter(P)">setPresenter</A></CODE> in interface <CODE><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/JepView.html" title="interface in com.technology.jep.jepria.client.ui">JepView</A>&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/ui/JepActivity.html" title="class in com.technology.jep.jepria.client.ui">JepActivity</A>&lt;?,?&gt;&gt;</CODE></DL>
 </DD>
 <DD><DL>
 </DL>
@@ -326,7 +325,7 @@ setWidget</H3>
 public void <B>setWidget</B>(com.google.gwt.user.client.ui.Widget&nbsp;widget)</PRE>
 <DL>
 <DD><DL>
-<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/JepView.html#setWidget(com.google.gwt.user.client.ui.Widget)">setWidget</A></CODE> in interface <CODE><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/JepView.html" title="interface in com.technology.jep.jepria.client.ui">JepView</A>&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/ui/JepActivity.html" title="class in com.technology.jep.jepria.client.ui">JepActivity</A>&gt;</CODE></DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/JepView.html#setWidget(com.google.gwt.user.client.ui.Widget)">setWidget</A></CODE> in interface <CODE><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/JepView.html" title="interface in com.technology.jep.jepria.client.ui">JepView</A>&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/ui/JepActivity.html" title="class in com.technology.jep.jepria.client.ui">JepActivity</A>&lt;?,?&gt;&gt;</CODE></DL>
 </DD>
 <DD><DL>
 </DL>
@@ -429,19 +428,18 @@ public void <B>selectModuleItem</B>(java.lang.String&nbsp;moduleId)</PRE>
 </DL>
 <HR>
 
-<A NAME="setModuleItems(java.lang.String[], java.lang.String[])"><!-- --></A><H3>
+<A NAME="setModuleItems(com.technology.jep.jepria.client.ModuleItem[])"><!-- --></A><H3>
 setModuleItems</H3>
 <PRE>
-public void <B>setModuleItems</B>(java.lang.String[]&nbsp;moduleIds,
-                           java.lang.String[]&nbsp;moduleItemTitles)</PRE>
+public void <B>setModuleItems</B>(<A HREF="../../../../../../../com/technology/jep/jepria/client/ModuleItem.html" title="class in com.technology.jep.jepria.client">ModuleItem</A>[]&nbsp;moduleItems)</PRE>
 <DL>
 <DD>Инициализация вкладок
 <P>
 <DD><DL>
-<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/main/MainView.html#setModuleItems(java.lang.String[], java.lang.String[])">setModuleItems</A></CODE> in interface <CODE><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/main/MainView.html" title="interface in com.technology.jep.jepria.client.ui.main">MainView</A></CODE></DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/main/MainView.html#setModuleItems(com.technology.jep.jepria.client.ModuleItem[])">setModuleItems</A></CODE> in interface <CODE><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/main/MainView.html" title="interface in com.technology.jep.jepria.client.ui.main">MainView</A></CODE></DL>
 </DD>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>moduleIds</CODE> - список идентификатор модулей<DD><CODE>moduleItemTitles</CODE> - список наименований модулей</DL>
+<DT><B>Parameters:</B><DD><CODE>moduleItems</CODE> - список модулей</DL>
 </DD>
 </DL>
 <HR>

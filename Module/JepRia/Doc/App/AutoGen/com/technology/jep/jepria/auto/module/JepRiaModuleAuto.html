@@ -158,10 +158,18 @@ Interface JepRiaModuleAuto</H2>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#delete(java.util.Map)">delete</A></B>(java.util.Map&lt;java.lang.String,java.lang.String&gt;&nbsp;key)</CODE>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#deleteDetail()">deleteDetail</A></B>()</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Удаление записи</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Удаление записи с детальной формы.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#deleteSelectedRow()">deleteSelectedRow</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Удаление записи со списочной формы.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -222,7 +230,7 @@ Interface JepRiaModuleAuto</H2>
 <TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#ensureModuleLoaded()">ensureModuleLoaded</A></B>()</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Проверка, загрузился ли модуль (делегирование к <CODE>PlainPage#ensurePageLoaded()</CODE>).</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Проверка, загрузился ли модуль (делегирование к <A HREF="../../../../../../com/technology/jep/jepria/auto/page/PlainPage.html#ensurePageLoaded()"><CODE>PlainPage.ensurePageLoaded()</CODE></A>).</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -331,6 +339,14 @@ Interface JepRiaModuleAuto</H2>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#isGridEmpty(java.lang.String)">isGridEmpty</A></B>(java.lang.String&nbsp;gridId)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;<A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.SaveResultEnum.html" title="enum in com.technology.jep.jepria.auto.module">JepRiaModuleAuto.SaveResultEnum</A></CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#save()">save</A></B>()</CODE>
 
@@ -406,7 +422,7 @@ Interface JepRiaModuleAuto</H2>
 <TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#selectItem(java.util.Map)">selectItem</A></B>(java.util.Map&lt;java.lang.String,java.lang.String&gt;&nbsp;key)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Выделить элемент списка списочной формы по ключу</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<B>Deprecated.</B>&nbsp;<I>выполняйте поиск вручную в прикладном тестовом классе instead.</I></TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -480,7 +496,7 @@ ensureModuleLoaded</H3>
 <PRE>
 void <B>ensureModuleLoaded</B>()</PRE>
 <DL>
-<DD>Проверка, загрузился ли модуль (делегирование к <CODE>PlainPage#ensurePageLoaded()</CODE>).
+<DD>Проверка, загрузился ли модуль (делегирование к <A HREF="../../../../../../com/technology/jep/jepria/auto/page/PlainPage.html#ensurePageLoaded()"><CODE>PlainPage.ensurePageLoaded()</CODE></A>).
 <P>
 <DD><DL>
 </DL>
@@ -544,15 +560,30 @@ void <B>edit</B>(java.lang.String&nbsp;idFieldName,
 </DL>
 <HR>
 
-<A NAME="delete(java.util.Map)"><!-- --></A><H3>
-delete</H3>
+<A NAME="deleteSelectedRow()"><!-- --></A><H3>
+deleteSelectedRow</H3>
 <PRE>
-void <B>delete</B>(java.util.Map&lt;java.lang.String,java.lang.String&gt;&nbsp;key)</PRE>
+void <B>deleteSelectedRow</B>()</PRE>
 <DL>
-<DD>Удаление записи
+<DD>Удаление записи со списочной формы.
+ Перед вызовом данного метода, необходимая запись должна быть выделена.
 <P>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>key</CODE> - ключ, по которому выбирается запись</DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="deleteDetail()"><!-- --></A><H3>
+deleteDetail</H3>
+<PRE>
+void <B>deleteDetail</B>()</PRE>
+<DL>
+<DD>Удаление записи с детальной формы.
+ Перед вызовом данного метода, необходимая запись должна быть в состоянии редактирования либо просмотра.
+<P>
+<DD><DL>
+</DL>
 </DD>
 </DL>
 <HR>
@@ -566,7 +597,7 @@ void <B>selectItem</B>(int&nbsp;index,
 <DD>Выделить элемент списка списочной формы по индексу.
 <P>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>index</CODE> - - Номер строчки на списочной форме (начинается с 0).<DD><CODE>gridId</CODE> - - Идентификатор списочной форме.</DL>
+<DT><B>Parameters:</B><DD><CODE>index</CODE> - - Номер строчки на списочной форме (начинается с 0).<DD><CODE>gridId</CODE> - - Идентификатор списочной формы.</DL>
 </DD>
 </DL>
 <HR>
@@ -587,8 +618,11 @@ void <B>selectItem</B>(int&nbsp;index)</PRE>
 <A NAME="selectItem(java.util.Map)"><!-- --></A><H3>
 selectItem</H3>
 <PRE>
-void <B>selectItem</B>(java.util.Map&lt;java.lang.String,java.lang.String&gt;&nbsp;key)</PRE>
+<FONT SIZE="-1">@Deprecated
+</FONT>void <B>selectItem</B>(java.util.Map&lt;java.lang.String,java.lang.String&gt;&nbsp;key)</PRE>
 <DL>
+<DD><B>Deprecated.</B>&nbsp;<I>выполняйте поиск вручную в прикладном тестовом классе instead.</I>
+<P>
 <DD>Выделить элемент списка списочной формы по ключу
 <P>
 <DD><DL>
@@ -1012,6 +1046,17 @@ java.util.List&lt;java.lang.String&gt; <B>getGridHeaders</B>(java.lang.String&nb
 </DL>
 <HR>
 
+<A NAME="isGridEmpty(java.lang.String)"><!-- --></A><H3>
+isGridEmpty</H3>
+<PRE>
+boolean <B>isGridEmpty</B>(java.lang.String&nbsp;gridId)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
 <A NAME="getGridDataRowwise(java.lang.String)"><!-- --></A><H3>
 getGridDataRowwise</H3>
 <PRE>
@@ -1019,12 +1064,26 @@ java.util.List&lt;java.util.List&lt;java.lang.Object&gt;&gt; <B>getGridDataRowwi
 <DL>
 <DD><DL>
 
-<DT><B>Returns:</B><DD>a list of rows, each is a list of cell-objects.
- Each object of the resultant grid may be either of a type WebElement
+<DT><B>Returns:</B><DD>a list of rows, where each row is a list of cell-objects, or empty list if there is no grid (or it is empty).
+ Each object in the resultant grid may be either of a type WebElement
  (if a cell contains something inside, such as input) or of a type String
  (if there is only a text). The value of a particular cell can be
  obtained using the row number and a column index,
- known from the result of #getGridHeaders().</DL>
+ known from the result of #getGridHeaders().<br>
+ <i>If an object is a WebElement with a tagname '<b>tag</b>', then its position in
+ the grid as DOM is:<pre>
+ &lt;tbody id='gridId_BODY'&gt;
+   &lt;tr&gt;
+     &lt;td&gt;
+       &lt;div&gt;
+         <b>&lt;tag/&gt;</b>
+       &lt;/div&gt;
+     &lt;/td&gt;
+     ...
+   &lt;/tr&gt;
+   ...
+ &lt;/tbody&gt;
+ </pre></i></DL>
 </DD>
 </DL>
 <HR>

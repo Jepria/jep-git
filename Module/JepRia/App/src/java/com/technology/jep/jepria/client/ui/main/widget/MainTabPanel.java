@@ -219,8 +219,7 @@ public class MainTabPanel extends HeaderPanel {
   /**
    * Инициализация вкладок
    * 
-   * @param moduleIds        список идентификатор модулей
-   * @param moduleItemTitles    список наименований модулей
+   * @param moduleItems        список модулей
    */
   public void setModuleItems(ModuleItem[] moduleItems) {
     for (int i = 0; i < moduleItems.length; i++){

@@ -4,7 +4,7 @@
 <HEAD>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <TITLE>
-JepTestUtil (JepRia JavaDoc)
+ModuleItem (JepRia JavaDoc)
 </TITLE>
 
 
@@ -14,7 +14,7 @@ JepTestUtil (JepRia JavaDoc)
 function windowTitle()
 {
     if (location.href.indexOf('is-external=true') == -1) {
-        parent.document.title="JepTestUtil (JepRia JavaDoc)";
+        parent.document.title="ModuleItem (JepRia JavaDoc)";
     }
 }
 </SCRIPT>
@@ -53,11 +53,11 @@ function windowTitle()
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="../../../../../com/technology/jep/test/util/JepFileDataProvider.html" title="class in com.technology.jep.test.util"><B>PREV CLASS</B></A>&nbsp;
-&nbsp;<A HREF="../../../../../com/technology/jep/test/util/ScreenshotMaker.html" title="class in com.technology.jep.test.util"><B>NEXT CLASS</B></A></FONT></TD>
+&nbsp;<A HREF="../../../../../com/technology/jep/jepria/client/JepScheduledCommand.html" title="class in com.technology.jep.jepria.client"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;NEXT CLASS</FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-  <A HREF="../../../../../index.html?com/technology/jep/test/util/JepTestUtil.html" target="_top"><B>FRAMES</B></A>  &nbsp;
-&nbsp;<A HREF="JepTestUtil.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+  <A HREF="../../../../../index.html?com/technology/jep/jepria/client/ModuleItem.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="ModuleItem.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
 &nbsp;<SCRIPT type="text/javascript">
   <!--
   if(window==top) {
@@ -86,19 +86,27 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
 <!-- ======== START OF CLASS DATA ======== -->
 <H2>
 <FONT SIZE="-1">
-com.technology.jep.test.util</FONT>
+com.technology.jep.jepria.client</FONT>
 <BR>
-Class JepTestUtil</H2>
+Class ModuleItem</H2>
 <PRE>
 java.lang.Object
-  <IMG SRC="../../../../../resources/inherit.gif" ALT="extended by "><B>com.technology.jep.test.util.JepTestUtil</B>
+  <IMG SRC="../../../../../resources/inherit.gif" ALT="extended by "><B>com.technology.jep.jepria.client.ModuleItem</B>
 </PRE>
 <HR>
 <DL>
-<DT><PRE>public class <B>JepTestUtil</B><DT>extends java.lang.Object</DL>
+<DT><PRE>public class <B>ModuleItem</B><DT>extends java.lang.Object</DL>
 </PRE>
 
 <P>
+Класс-агрегатор идентификатора модуля и его наименования
+<P>
+
+<P>
+<DL>
+<DT><B>Author:</B></DT>
+  <DD>RomanovAS</DD>
+</DL>
 <HR>
 
 <P>
@@ -112,8 +120,16 @@ java.lang.Object
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>private static&nbsp;org.apache.log4j.Logger</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../com/technology/jep/test/util/JepTestUtil.html#logger">logger</A></B></CODE>
+<CODE>&nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepria/client/ModuleItem.html#moduleId">moduleId</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepria/client/ModuleItem.html#title">title</A></B></CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -129,7 +145,8 @@ java.lang.Object
 <B>Constructor Summary</B></FONT></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><B><A HREF="../../../../../com/technology/jep/test/util/JepTestUtil.html#JepTestUtil()">JepTestUtil</A></B>()</CODE>
+<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepria/client/ModuleItem.html#ModuleItem(java.lang.String, java.lang.String)">ModuleItem</A></B>(java.lang.String&nbsp;moduleId,
+           java.lang.String&nbsp;title)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -146,8 +163,8 @@ java.lang.Object
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;java.util.Set&lt;java.lang.String&gt;</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../com/technology/jep/test/util/JepTestUtil.html#parseCSV(java.lang.String)">parseCSV</A></B>(java.lang.String&nbsp;strGoodsCatalogSections)</CODE>
+<CODE>&nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepria/client/ModuleItem.html#toString()">toString</A></B>()</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -159,7 +176,7 @@ java.lang.Object
 <TH ALIGN="left"><B>Methods inherited from class java.lang.Object</B></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE>clone, equals, finalize, getClass, hashCode, notify, notifyAll, toString, wait, wait, wait</CODE></TD>
+<TD><CODE>clone, equals, finalize, getClass, hashCode, notify, notifyAll, wait, wait, wait</CODE></TD>
 </TR>
 </TABLE>
 &nbsp;
@@ -175,10 +192,20 @@ java.lang.Object
 </TR>
 </TABLE>
 
-<A NAME="logger"><!-- --></A><H3>
-logger</H3>
+<A NAME="moduleId"><!-- --></A><H3>
+moduleId</H3>
 <PRE>
-private static org.apache.log4j.Logger <B>logger</B></PRE>
+public final java.lang.String <B>moduleId</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="title"><!-- --></A><H3>
+title</H3>
+<PRE>
+public final java.lang.String <B>title</B></PRE>
 <DL>
 <DL>
 </DL>
@@ -194,10 +221,11 @@ private static org.apache.log4j.Logger <B>logger</B></PRE>
 </TR>
 </TABLE>
 
-<A NAME="JepTestUtil()"><!-- --></A><H3>
-JepTestUtil</H3>
+<A NAME="ModuleItem(java.lang.String, java.lang.String)"><!-- --></A><H3>
+ModuleItem</H3>
 <PRE>
-public <B>JepTestUtil</B>()</PRE>
+public <B>ModuleItem</B>(java.lang.String&nbsp;moduleId,
+                  java.lang.String&nbsp;title)</PRE>
 <DL>
 </DL>
 
@@ -211,11 +239,14 @@ public <B>JepTestUtil</B>()</PRE>
 </TR>
 </TABLE>
 
-<A NAME="parseCSV(java.lang.String)"><!-- --></A><H3>
-parseCSV</H3>
+<A NAME="toString()"><!-- --></A><H3>
+toString</H3>
 <PRE>
-public static java.util.Set&lt;java.lang.String&gt; <B>parseCSV</B>(java.lang.String&nbsp;strGoodsCatalogSections)</PRE>
+public java.lang.String <B>toString</B>()</PRE>
 <DL>
+<DD><DL>
+<DT><B>Overrides:</B><DD><CODE>toString</CODE> in class <CODE>java.lang.Object</CODE></DL>
+</DD>
 <DD><DL>
 </DL>
 </DD>
@@ -250,11 +281,11 @@ public static java.util.Set&lt;java.lang.String&gt; <B>parseCSV</B>(java.lang.St
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="../../../../../com/technology/jep/test/util/JepFileDataProvider.html" title="class in com.technology.jep.test.util"><B>PREV CLASS</B></A>&nbsp;
-&nbsp;<A HREF="../../../../../com/technology/jep/test/util/ScreenshotMaker.html" title="class in com.technology.jep.test.util"><B>NEXT CLASS</B></A></FONT></TD>
+&nbsp;<A HREF="../../../../../com/technology/jep/jepria/client/JepScheduledCommand.html" title="class in com.technology.jep.jepria.client"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;NEXT CLASS</FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-  <A HREF="../../../../../index.html?com/technology/jep/test/util/JepTestUtil.html" target="_top"><B>FRAMES</B></A>  &nbsp;
-&nbsp;<A HREF="JepTestUtil.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+  <A HREF="../../../../../index.html?com/technology/jep/jepria/client/ModuleItem.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="ModuleItem.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
 &nbsp;<SCRIPT type="text/javascript">
   <!--
   if(window==top) {

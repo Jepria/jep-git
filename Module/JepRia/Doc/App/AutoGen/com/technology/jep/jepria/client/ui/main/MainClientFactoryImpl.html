@@ -209,19 +209,11 @@ java.lang.Object
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>private &nbsp;java.lang.String[]</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/main/MainClientFactoryImpl.html#moduleIds">moduleIds</A></B></CODE>
+<CODE>private &nbsp;<A HREF="../../../../../../../com/technology/jep/jepria/client/ModuleItem.html" title="class in com.technology.jep.jepria.client">ModuleItem</A>[]</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/main/MainClientFactoryImpl.html#moduleItems">moduleItems</A></B></CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Идентификаторы модулей приложения.</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>private &nbsp;java.lang.String[]</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/main/MainClientFactoryImpl.html#moduleItemTitles">moduleItemTitles</A></B></CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Наименования модулей приложения.</TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="fields_inherited_from_class_com.technology.jep.jepria.client.ui.ClientFactoryImpl"><!-- --></A>
@@ -243,8 +235,7 @@ java.lang.Object
 <B>Constructor Summary</B></FONT></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/main/MainClientFactoryImpl.html#MainClientFactoryImpl(java.lang.String[], java.lang.String[])">MainClientFactoryImpl</A></B>(java.lang.String[]&nbsp;moduleIds,
-                      java.lang.String[]&nbsp;moduleItemTitles)</CODE>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/main/MainClientFactoryImpl.html#MainClientFactoryImpl(com.technology.jep.jepria.client.ModuleItem...)">MainClientFactoryImpl</A></B>(<A HREF="../../../../../../../com/technology/jep/jepria/client/ModuleItem.html" title="class in com.technology.jep.jepria.client">ModuleItem</A>...&nbsp;moduleItems)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Создает клиентскую фабрику главного модуля приложения.</TD>
@@ -301,19 +292,11 @@ java.lang.Object
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;java.lang.String[]</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/main/MainClientFactoryImpl.html#getModuleIds()">getModuleIds</A></B>()</CODE>
+<CODE>&nbsp;<A HREF="../../../../../../../com/technology/jep/jepria/client/ModuleItem.html" title="class in com.technology.jep.jepria.client">ModuleItem</A>[]</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/main/MainClientFactoryImpl.html#getModuleItems()">getModuleItems</A></B>()</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Получение идентификаторов модулей приложения.</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;java.lang.String[]</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/main/MainClientFactoryImpl.html#getModuleItemTitles()">getModuleItemTitles</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Получение наименований модулей приложения.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -330,14 +313,6 @@ java.lang.Object
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Иннициализация ActivityMapper'ов и ActivityManager'ов.</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/main/MainClientFactoryImpl.html#setModuleIds(java.lang.String[])">setModuleIds</A></B>(java.lang.String[]&nbsp;moduleIds)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Установка идентификаторов модулей приложения.</TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_com.technology.jep.jepria.client.ui.ClientFactoryImpl"><!-- --></A>
@@ -425,24 +400,12 @@ protected <A HREF="../../../../../../../com/technology/jep/jepria/client/ui/main
 </DL>
 <HR>
 
-<A NAME="moduleIds"><!-- --></A><H3>
-moduleIds</H3>
+<A NAME="moduleItems"><!-- --></A><H3>
+moduleItems</H3>
 <PRE>
-private java.lang.String[] <B>moduleIds</B></PRE>
+private <A HREF="../../../../../../../com/technology/jep/jepria/client/ModuleItem.html" title="class in com.technology.jep.jepria.client">ModuleItem</A>[] <B>moduleItems</B></PRE>
 <DL>
 <DD>Идентификаторы модулей приложения.
-<P>
-<DL>
-</DL>
-</DL>
-<HR>
-
-<A NAME="moduleItemTitles"><!-- --></A><H3>
-moduleItemTitles</H3>
-<PRE>
-private java.lang.String[] <B>moduleItemTitles</B></PRE>
-<DL>
-<DD>Наименования модулей приложения.
 <P>
 <DL>
 </DL>
@@ -458,16 +421,42 @@ private java.lang.String[] <B>moduleItemTitles</B></PRE>
 </TR>
 </TABLE>
 
-<A NAME="MainClientFactoryImpl(java.lang.String[], java.lang.String[])"><!-- --></A><H3>
+<A NAME="MainClientFactoryImpl(com.technology.jep.jepria.client.ModuleItem...)"><!-- --></A><H3>
 MainClientFactoryImpl</H3>
 <PRE>
-public <B>MainClientFactoryImpl</B>(java.lang.String[]&nbsp;moduleIds,
-                             java.lang.String[]&nbsp;moduleItemTitles)</PRE>
+public <B>MainClientFactoryImpl</B>(<A HREF="../../../../../../../com/technology/jep/jepria/client/ModuleItem.html" title="class in com.technology.jep.jepria.client">ModuleItem</A>...&nbsp;moduleItems)</PRE>
 <DL>
 <DD>Создает клиентскую фабрику главного модуля приложения.
+ 
+ Пример использования:<pre>
+ 
+ Было:
+ MainClientFactoryImplExt() {
+   super(
+     new String[]{
+       id1,
+       id2,
+       id3
+     },
+     new String[]{
+       name1, 
+       name2, 
+       name3
+     },
+   );
+ }
+ 
+ Стало:
+ MainClientFactoryImplExt() {
+   super(
+     new ModuleItem(id1, name1),
+     new ModuleItem(id2, name2),
+     new ModuleItem(id3, name3)
+   );
+ }</pre>
 <P>
 <DL>
-<DT><B>Parameters:</B><DD><CODE>moduleIds</CODE> - идентификаторы модулей приложения<DD><CODE>moduleItemTitles</CODE> - наименования модулей приложения</DL>
+<DT><B>Parameters:</B><DD><CODE>moduleItems</CODE> - идентификаторы модулей приложения (вместе с наименованиями)</DL>
 </DL>
 
 <!-- ============ METHOD DETAIL ========== -->
@@ -569,31 +558,15 @@ public <A HREF="../../../../../../../com/technology/jep/jepria/client/ui/main/Ma
 </DL>
 <HR>
 
-<A NAME="setModuleIds(java.lang.String[])"><!-- --></A><H3>
-setModuleIds</H3>
+<A NAME="getModuleItems()"><!-- --></A><H3>
+getModuleItems</H3>
 <PRE>
-public void <B>setModuleIds</B>(java.lang.String[]&nbsp;moduleIds)</PRE>
-<DL>
-<DD>Установка идентификаторов модулей приложения.
-<P>
-<DD><DL>
-<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/main/MainClientFactory.html#setModuleIds(java.lang.String[])">setModuleIds</A></CODE> in interface <CODE><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/main/MainClientFactory.html" title="interface in com.technology.jep.jepria.client.ui.main">MainClientFactory</A>&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/ui/main/MainClientFactoryImpl.html" title="type parameter in MainClientFactoryImpl">E</A> extends <A HREF="../../../../../../../com/technology/jep/jepria/client/ui/eventbus/main/MainEventBus.html" title="class in com.technology.jep.jepria.client.ui.eventbus.main">MainEventBus</A>,<A HREF="../../../../../../../com/technology/jep/jepria/client/ui/main/MainClientFactoryImpl.html" title="type parameter in MainClientFactoryImpl">S</A> extends <A HREF="../../../../../../../com/technology/jep/jepria/shared/service/JepMainServiceAsync.html" title="interface in com.technology.jep.jepria.shared.service">JepMainServiceAsync</A>&gt;</CODE></DL>
-</DD>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>moduleIds</CODE> - идентификаторы модулей приложения</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="getModuleIds()"><!-- --></A><H3>
-getModuleIds</H3>
-<PRE>
-public java.lang.String[] <B>getModuleIds</B>()</PRE>
+public <A HREF="../../../../../../../com/technology/jep/jepria/client/ModuleItem.html" title="class in com.technology.jep.jepria.client">ModuleItem</A>[] <B>getModuleItems</B>()</PRE>
 <DL>
 <DD>Получение идентификаторов модулей приложения.
 <P>
 <DD><DL>
-<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/main/MainClientFactory.html#getModuleIds()">getModuleIds</A></CODE> in interface <CODE><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/main/MainClientFactory.html" title="interface in com.technology.jep.jepria.client.ui.main">MainClientFactory</A>&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/ui/main/MainClientFactoryImpl.html" title="type parameter in MainClientFactoryImpl">E</A> extends <A HREF="../../../../../../../com/technology/jep/jepria/client/ui/eventbus/main/MainEventBus.html" title="class in com.technology.jep.jepria.client.ui.eventbus.main">MainEventBus</A>,<A HREF="../../../../../../../com/technology/jep/jepria/client/ui/main/MainClientFactoryImpl.html" title="type parameter in MainClientFactoryImpl">S</A> extends <A HREF="../../../../../../../com/technology/jep/jepria/shared/service/JepMainServiceAsync.html" title="interface in com.technology.jep.jepria.shared.service">JepMainServiceAsync</A>&gt;</CODE></DL>
+<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/main/MainClientFactory.html#getModuleItems()">getModuleItems</A></CODE> in interface <CODE><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/main/MainClientFactory.html" title="interface in com.technology.jep.jepria.client.ui.main">MainClientFactory</A>&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/ui/main/MainClientFactoryImpl.html" title="type parameter in MainClientFactoryImpl">E</A> extends <A HREF="../../../../../../../com/technology/jep/jepria/client/ui/eventbus/main/MainEventBus.html" title="class in com.technology.jep.jepria.client.ui.eventbus.main">MainEventBus</A>,<A HREF="../../../../../../../com/technology/jep/jepria/client/ui/main/MainClientFactoryImpl.html" title="type parameter in MainClientFactoryImpl">S</A> extends <A HREF="../../../../../../../com/technology/jep/jepria/shared/service/JepMainServiceAsync.html" title="interface in com.technology.jep.jepria.shared.service">JepMainServiceAsync</A>&gt;</CODE></DL>
 </DD>
 <DD><DL>
 
@@ -615,23 +588,6 @@ public boolean <B>contains</B>(java.lang.String&nbsp;moduleId)</PRE>
 <DD><DL>
 <DT><B>Parameters:</B><DD><CODE>moduleId</CODE> - проверяемый идентификатор модуля
 <DT><B>Returns:</B><DD>true - если запрошенный идентификатор модуля найден, false - в противном случае.</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="getModuleItemTitles()"><!-- --></A><H3>
-getModuleItemTitles</H3>
-<PRE>
-public java.lang.String[] <B>getModuleItemTitles</B>()</PRE>
-<DL>
-<DD>Получение наименований модулей приложения.
-<P>
-<DD><DL>
-<DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/main/MainClientFactory.html#getModuleItemTitles()">getModuleItemTitles</A></CODE> in interface <CODE><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/main/MainClientFactory.html" title="interface in com.technology.jep.jepria.client.ui.main">MainClientFactory</A>&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/ui/main/MainClientFactoryImpl.html" title="type parameter in MainClientFactoryImpl">E</A> extends <A HREF="../../../../../../../com/technology/jep/jepria/client/ui/eventbus/main/MainEventBus.html" title="class in com.technology.jep.jepria.client.ui.eventbus.main">MainEventBus</A>,<A HREF="../../../../../../../com/technology/jep/jepria/client/ui/main/MainClientFactoryImpl.html" title="type parameter in MainClientFactoryImpl">S</A> extends <A HREF="../../../../../../../com/technology/jep/jepria/shared/service/JepMainServiceAsync.html" title="interface in com.technology.jep.jepria.shared.service">JepMainServiceAsync</A>&gt;</CODE></DL>
-</DD>
-<DD><DL>
-
-<DT><B>Returns:</B><DD>наименования модулей приложения</DL>
 </DD>
 </DL>
 <HR>

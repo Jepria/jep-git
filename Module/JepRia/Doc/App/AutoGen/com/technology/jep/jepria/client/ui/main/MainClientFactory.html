@@ -159,23 +159,15 @@ Interface MainClientFactory&lt;E extends <A HREF="../../../../../../../com/techn
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;java.lang.String[]</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/main/MainClientFactory.html#getModuleIds()">getModuleIds</A></B>()</CODE>
+<CODE>&nbsp;<A HREF="../../../../../../../com/technology/jep/jepria/client/ModuleItem.html" title="class in com.technology.jep.jepria.client">ModuleItem</A>[]</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/main/MainClientFactory.html#getModuleItems()">getModuleItems</A></B>()</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Получение идентификаторов модулей приложения.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;java.lang.String[]</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/main/MainClientFactory.html#getModuleItemTitles()">getModuleItemTitles</A></B>()</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Получение наименований модулей приложения.</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="../../../../../../../com/technology/jep/jepria/client/history/place/MainPlaceController.html" title="class in com.technology.jep.jepria.client.history.place">MainPlaceController</A></CODE></FONT></TD>
+<CODE>&nbsp;<A HREF="../../../../../../../com/technology/jep/jepria/client/history/place/MainPlaceController.html" title="class in com.technology.jep.jepria.client.history.place">MainPlaceController</A>&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/ui/main/MainClientFactory.html" title="type parameter in MainClientFactory">E</A>,<A HREF="../../../../../../../com/technology/jep/jepria/client/ui/main/MainClientFactory.html" title="type parameter in MainClientFactory">S</A>,<A HREF="../../../../../../../com/technology/jep/jepria/client/ui/main/MainClientFactory.html" title="interface in com.technology.jep.jepria.client.ui.main">MainClientFactory</A>&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/ui/main/MainClientFactory.html" title="type parameter in MainClientFactory">E</A>,<A HREF="../../../../../../../com/technology/jep/jepria/client/ui/main/MainClientFactory.html" title="type parameter in MainClientFactory">S</A>&gt;&gt;</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/main/MainClientFactory.html#getPlaceController()">getPlaceController</A></B>()</CODE>
 
 <BR>
@@ -189,14 +181,6 @@ Interface MainClientFactory&lt;E extends <A HREF="../../../../../../../com/techn
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Получение клиентской фабрики заданного модуля приложения.</TD>
-</TR>
-<TR BGCOLOR="white" CLASS="TableRowColor">
-<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/ui/main/MainClientFactory.html#setModuleIds(java.lang.String[])">setModuleIds</A></B>(java.lang.String[]&nbsp;moduleIds)</CODE>
-
-<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Установка идентификаторов модулей приложения.</TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_com.technology.jep.jepria.client.ui.ClientFactory"><!-- --></A>
@@ -224,7 +208,7 @@ Interface MainClientFactory&lt;E extends <A HREF="../../../../../../../com/techn
 <A NAME="getPlaceController()"><!-- --></A><H3>
 getPlaceController</H3>
 <PRE>
-<A HREF="../../../../../../../com/technology/jep/jepria/client/history/place/MainPlaceController.html" title="class in com.technology.jep.jepria.client.history.place">MainPlaceController</A> <B>getPlaceController</B>()</PRE>
+<A HREF="../../../../../../../com/technology/jep/jepria/client/history/place/MainPlaceController.html" title="class in com.technology.jep.jepria.client.history.place">MainPlaceController</A>&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/ui/main/MainClientFactory.html" title="type parameter in MainClientFactory">E</A>,<A HREF="../../../../../../../com/technology/jep/jepria/client/ui/main/MainClientFactory.html" title="type parameter in MainClientFactory">S</A>,<A HREF="../../../../../../../com/technology/jep/jepria/client/ui/main/MainClientFactory.html" title="interface in com.technology.jep.jepria.client.ui.main">MainClientFactory</A>&lt;<A HREF="../../../../../../../com/technology/jep/jepria/client/ui/main/MainClientFactory.html" title="type parameter in MainClientFactory">E</A>,<A HREF="../../../../../../../com/technology/jep/jepria/client/ui/main/MainClientFactory.html" title="type parameter in MainClientFactory">S</A>&gt;&gt; <B>getPlaceController</B>()</PRE>
 <DL>
 <DD>Получение объекта управления Place'ами приложения.
 <P>
@@ -323,26 +307,10 @@ void <B>getPlainClientFactory</B>(java.lang.String&nbsp;moduleId,
 </DL>
 <HR>
 
-<A NAME="setModuleIds(java.lang.String[])"><!-- --></A><H3>
-setModuleIds</H3>
+<A NAME="getModuleItems()"><!-- --></A><H3>
+getModuleItems</H3>
 <PRE>
-void <B>setModuleIds</B>(java.lang.String[]&nbsp;moduleIds)</PRE>
-<DL>
-<DD>Установка идентификаторов модулей приложения.
-<P>
-<DD><DL>
-</DL>
-</DD>
-<DD><DL>
-<DT><B>Parameters:</B><DD><CODE>moduleIds</CODE> - идентификаторы модулей приложения</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="getModuleIds()"><!-- --></A><H3>
-getModuleIds</H3>
-<PRE>
-java.lang.String[] <B>getModuleIds</B>()</PRE>
+<A HREF="../../../../../../../com/technology/jep/jepria/client/ModuleItem.html" title="class in com.technology.jep.jepria.client">ModuleItem</A>[] <B>getModuleItems</B>()</PRE>
 <DL>
 <DD>Получение идентификаторов модулей приложения.
 <P>
@@ -369,23 +337,6 @@ boolean <B>contains</B>(java.lang.String&nbsp;moduleId)</PRE>
 <DD><DL>
 <DT><B>Parameters:</B><DD><CODE>moduleId</CODE> - проверяемый идентификатор модуля
 <DT><B>Returns:</B><DD>true - если запрошенный идентификатор модуля найден, false - в противном случае.</DL>
-</DD>
-</DL>
-<HR>
-
-<A NAME="getModuleItemTitles()"><!-- --></A><H3>
-getModuleItemTitles</H3>
-<PRE>
-java.lang.String[] <B>getModuleItemTitles</B>()</PRE>
-<DL>
-<DD>Получение наименований модулей приложения.
-<P>
-<DD><DL>
-</DL>
-</DD>
-<DD><DL>
-
-<DT><B>Returns:</B><DD>наименования модулей приложения</DL>
 </DD>
 </DL>
 <!-- ========= END OF CLASS DATA ========= -->
