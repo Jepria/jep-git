@@ -24,11 +24,11 @@
   
   boolean isError = Boolean.TRUE.equals(request.getAttribute(HTTP_REQUEST_PARAMETER_SSO_IS_ERROR));
   Integer loginAttempts = (Integer) session.getAttribute(LOGIN_ATTEMPTS_SESSION_ATTRIBUTE);
-  if (loginAttempts == null || !isError) {
-    response.sendRedirect(ssoLoginWithBaseParameters);
-  } else if (loginAttempts >= MAX_LOGIN_ATTEMPTS) {
+  if (loginAttempts != null && loginAttempts >= MAX_LOGIN_ATTEMPTS) {
     response.sendRedirect(ssoLoginWithBaseParameters + "&" + HTTP_REQUEST_PARAMETER_SSO_IS_BLOCKED + "=1");
-  } else {
+  } else if (isError) {
     response.sendRedirect(ssoLoginWithBaseParameters + "&" + HTTP_REQUEST_PARAMETER_SSO_IS_ERROR + "=1");
+  } else {
+    response.sendRedirect(ssoLoginWithBaseParameters);
   }
 %>

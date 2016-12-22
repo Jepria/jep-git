@@ -2,7 +2,7 @@ package com.technology.jep.jepria.shared.text;
 
 /**
  * Interface to represent the constants contained in resource bundle:
- * 	'D:/workspace/sf.git/Module/JepRia/App/src/java/com/technology/jep/jepria/shared/text/JepRiaText.properties'.
+ * 	'D:/git/Jep/Module/JepRia/App/src/java/com/technology/jep/jepria/shared/text/JepRiaText.properties'.
  */
 public interface JepRiaText extends com.google.gwt.i18n.client.Constants {
   
@@ -806,6 +806,15 @@ public interface JepRiaText extends com.google.gwt.i18n.client.Constants {
   @DefaultStringValue("Выделить все")
   @Key("listField.selectAll")
   String listField_selectAll();
+
+  /**
+   * Translated "Загрузка&nbsp;приложения,&nbsp;пожалуйста&nbsp;подождите...".
+   * 
+   * @return translated "Загрузка&nbsp;приложения,&nbsp;пожалуйста&nbsp;подождите..."
+   */
+  @DefaultStringValue("Загрузка&nbsp;приложения,&nbsp;пожалуйста&nbsp;подождите...")
+  @Key("loadingMessage")
+  String loadingMessage();
 
   /**
    * Translated "Загрузка данных...".
