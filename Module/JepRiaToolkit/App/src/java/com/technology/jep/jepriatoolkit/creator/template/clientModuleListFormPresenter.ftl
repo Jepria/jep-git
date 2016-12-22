@@ -24,24 +24,24 @@ import com.technology.${packageName?lower_case}.${moduleName?lower_case}.${form.
 public class ${form.formName}ListFormPresenter<E extends <#if hasCustomButtons>${form.formName}<#else>Plain</#if>EventBus, S extends ${form.formName}ServiceAsync> 
   extends ListFormPresenter<ListFormView, E, S, StandardClientFactory<E, S>><#if !hasCustomButtons> {</#if>
     <#if hasCustomButtons>implements <#list form.toolBarCustomButtonsOnListForm as button>${button.customEvent}Event.Handler<#if button_has_next>, </#if></#list> {</#if> 
-  <#if hasCustomButtons>
   
+  <#if hasCustomButtons>
   @Override
-   public void start(AcceptsOneWidget container, EventBus eventBus) {
-     super.start(container, eventBus);
-     <#list form.toolBarCustomButtonsOnListForm as button>
-     eventBus.addHandler(${button.customEvent}Event.TYPE, this);
-     </#list>
-   }
-   </#if> 
+  public void start(AcceptsOneWidget container, EventBus eventBus) {
+    super.start(container, eventBus);
+    <#list form.toolBarCustomButtonsOnListForm as button>
+    eventBus.addHandler(${button.customEvent}Event.TYPE, this);
+    </#list>
+  }
+  </#if> 
    
-   public ${form.formName}ListFormPresenter(Place place, StandardClientFactory<E, S> clientFactory) {
+  public ${form.formName}ListFormPresenter(Place place, StandardClientFactory<E, S> clientFactory) {
     super(place, clientFactory);
   }
   <#if form.isDblClickOff>
   
   @Override
-  public void rowDoubleClick(JepEvent event) {}
+  public void onRowDoubleClick(JepEvent event) {}
   </#if>
    <#list form.toolBarCustomButtonsOnListForm as button>
    

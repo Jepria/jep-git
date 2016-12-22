@@ -54,30 +54,6 @@
   </servlet-mapping>
   </#if>
   </#list>
-  <#if hasTextFile>
-  <ejb-local-ref>
-    <ejb-ref-name>ejb/TextFileUploadBean</ejb-ref-name>
-    <ejb-ref-type>Session</ejb-ref-type>
-    <local>com.technology.jep.jepria.server.upload.clob.TextFileUploadLocal</local>
-  </ejb-local-ref>
-  <ejb-local-ref>
-    <ejb-ref-name>ejb/TextFileDownloadBean</ejb-ref-name>
-    <ejb-ref-type>Session</ejb-ref-type>
-    <local>com.technology.jep.jepria.server.download.clob.TextFileDownloadLocal</local>
-  </ejb-local-ref>
-  </#if>
-  <#if hasBinaryFile>
-  <ejb-local-ref>
-    <ejb-ref-name>ejb/BinaryFileUploadBean</ejb-ref-name>
-    <ejb-ref-type>Session</ejb-ref-type>
-    <local>com.technology.jep.jepria.server.upload.blob.BinaryFileUploadLocal</local>
-  </ejb-local-ref>
-  <ejb-local-ref>
-    <ejb-ref-name>ejb/BinaryFileDownloadBean</ejb-ref-name>
-    <ejb-ref-type>Session</ejb-ref-type>
-    <local>com.technology.jep.jepria.server.download.blob.BinaryFileDownloadLocal</local>
-  </ejb-local-ref>
-  </#if>
   <welcome-file-list>
     <welcome-file>${moduleName}.jsp</welcome-file>
   </welcome-file-list>
@@ -100,4 +76,12 @@
     </auth-constraint>
     </#if>
   </security-constraint>
+  
+  <login-config>
+    <auth-method>FORM</auth-method>
+    <form-login-config>
+      <form-login-page>/WEB-INF/security/Login.jsp</form-login-page>
+      <form-error-page>/WEB-INF/security/LoginError.jsp</form-error-page>
+    </form-login-config>
+  </login-config>
 </web-app>
