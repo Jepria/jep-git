@@ -2,7 +2,7 @@ package com.technology.jep.jepria.shared.text;
 
 /**
  * Interface to represent the constants contained in resource bundle:
- * 	'D:/git/Jep/Module/JepRia/App/src/java/com/technology/jep/jepria/shared/text/JepRiaText.properties'.
+ * 	'D:/workspace/sf.git/Module/JepRia/App/src/java/com/technology/jep/jepria/shared/text/JepRiaText.properties'.
  */
 public interface JepRiaText extends com.google.gwt.i18n.client.Constants {
   
@@ -437,6 +437,24 @@ public interface JepRiaText extends com.google.gwt.i18n.client.Constants {
   @DefaultStringValue("Да")
   @Key("deletion.dialog.yes")
   String deletion_dialog_yes();
+
+  /**
+   * Translated "Доступ запрещен пользователю %s. ".
+   * 
+   * @return translated "Доступ запрещен пользователю %s. "
+   */
+  @DefaultStringValue("Доступ запрещен пользователю %s. ")
+  @Key("entrance.error403.text_error")
+  String entrance_error403_text_error();
+
+  /**
+   * Translated "Предоставить вход другому пользователю.".
+   * 
+   * @return translated "Предоставить вход другому пользователю."
+   */
+  @DefaultStringValue("Предоставить вход другому пользователю.")
+  @Key("entrance.error403.text_relogin")
+  String entrance_error403_text_relogin();
 
   /**
    * Translated "Ok".
