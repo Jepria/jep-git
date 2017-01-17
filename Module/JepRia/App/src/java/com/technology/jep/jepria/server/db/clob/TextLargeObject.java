@@ -8,9 +8,9 @@ import java.sql.Clob;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import com.technology.jep.jepria.server.db.LargeObject;
 import com.technology.jep.jepria.server.dao.CallContext;
 import com.technology.jep.jepria.server.dao.DaoSupport;
+import com.technology.jep.jepria.server.db.LargeObject;
 import com.technology.jep.jepria.server.exceptions.SpaceException;
 import com.technology.jep.jepria.shared.exceptions.ApplicationException;
 import com.technology.jep.jepria.shared.exceptions.SystemException;
@@ -133,7 +133,6 @@ public class TextLargeObject extends LargeObject {
     try {
       writer.flush();
       writer.close();
-      database.closeAll();
     } catch (IOException ex) {
       ex.printStackTrace();
       throw new SpaceException("Large object end write error", ex);
@@ -146,7 +145,6 @@ public class TextLargeObject extends LargeObject {
   public void endRead() throws SpaceException {
     try {
       reader.close();
-      database.closeAll();
     } catch (IOException ex) {
       ex.printStackTrace();
       throw new SpaceException("Large object end write error", ex);

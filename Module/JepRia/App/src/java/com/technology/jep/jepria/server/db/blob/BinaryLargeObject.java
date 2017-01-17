@@ -134,7 +134,6 @@ public class BinaryLargeObject extends LargeObject {
     try {
       output.flush();
       output.close();
-      database.closeAll();
     } catch (IOException ex) {
       ex.printStackTrace();
       throw new SpaceException("Large object end write error", ex);
@@ -149,7 +148,6 @@ public class BinaryLargeObject extends LargeObject {
       if(input != null) {
         input.close();
       }
-      database.closeAll();
     } catch (IOException ex) {
       ex.printStackTrace();
       throw new SpaceException("Large object ends read error", ex);

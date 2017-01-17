@@ -1667,7 +1667,7 @@ public interface JepRiaText extends com.google.gwt.i18n.client.Constants {
    * 
    * @return translated ""
    */
-  @DefaultStringValue("")
-  @Key("\uFEFF\uFEFF\uFEFF")
-  String _﻿﻿();
+//  @DefaultStringValue("")
+//  @Key("\uFEFF\uFEFF\uFEFF")
+//  String _﻿﻿();
 }
