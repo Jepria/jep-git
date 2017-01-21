@@ -1,8 +1,10 @@
 package com.technology.jep.jepria.client.exception;
 
 import com.allen_sauer.gwt.log.client.Log;
+import com.google.gwt.user.client.rpc.InvocationException;
 import com.technology.jep.jepria.client.entrance.Entrance;
 import com.technology.jep.jepria.client.message.JepMessageBoxImpl;
+import com.technology.jep.jepria.shared.JepRiaConstant;
 
 public class ExceptionManagerImpl implements ExceptionManager {
 
@@ -25,7 +27,7 @@ public class ExceptionManagerImpl implements ExceptionManager {
       return;
     }
     
-    if(isJavaSsoTimeout(th)) {
+    if(isJavaSsoTimeout(th) || isSsoTimeout(th)) {
        // logout на серверной стороне уже выполнен силами javasso, "закрепляем" состояние logout со стороны клиента
       Entrance.logout(); 
     } else {
@@ -40,8 +42,22 @@ public class ExceptionManagerImpl implements ExceptionManager {
     return strException.contains("12152");
   }
 
+  /**
+   * Метод проверяет, не похож ли текст ошибки на JavaSso-ошибку логина,
+   * получаемую при устаревании сессии (только для OC4J)
+   */
   private static boolean isJavaSsoTimeout(Throwable caught) {
     String message = caught.getMessage();
     return message != null && message.contains("JavaSSO");  // TODO Сделать строже
+  }
+  
+  /**
+   * Метод проверяет, не похож ли текст ошибки на Sso-ошибку логина,
+   * получаемую при устаревании сессии (только для Tomcat)
+   */
+  private static boolean isSsoTimeout(Throwable caught) {
+    String message = caught.getMessage();
+    return caught instanceof InvocationException 
+        && message != null && message.contains("id=\"" + JepRiaConstant.LOGIN_FORM_HTML_ID + "\"");  // TODO Сделать строже
   }
 }

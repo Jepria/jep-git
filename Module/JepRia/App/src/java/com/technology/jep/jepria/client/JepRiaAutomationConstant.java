@@ -1,13 +1,14 @@
 package com.technology.jep.jepria.client;
 
 import com.technology.jep.jepria.client.ui.toolbar.ToolBarConstant;
+import com.technology.jep.jepria.shared.JepRiaConstant;
 
 
 public class JepRiaAutomationConstant {
   /**
    * ID html-страницы с логин-формой 
    */
-  public static final String LOGIN_FORM_HTML_ID = "loginForm";
+  public static final String LOGIN_FORM_HTML_ID = JepRiaConstant.LOGIN_FORM_HTML_ID;
   
   /**
    * ID тестового поля ввода username для login

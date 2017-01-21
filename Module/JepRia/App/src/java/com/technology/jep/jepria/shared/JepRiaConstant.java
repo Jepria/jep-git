@@ -110,4 +110,9 @@ public class JepRiaConstant {
    * Имя параметра http-запроса: параметр модуля SSO, означает, что пользователь превысил MAX_LOGIN_ATTEMPTS. 
    */
   public static final String HTTP_REQUEST_PARAMETER_SSO_IS_BLOCKED = "isBlocked";
+  
+  /**
+   * ID html-страницы с логин-формой. Нужно как для автоматизации тестирования, так и для проверки логин-формы по тексту HttpResonse.
+   */
+  public static final String LOGIN_FORM_HTML_ID = "loginForm";
 }
