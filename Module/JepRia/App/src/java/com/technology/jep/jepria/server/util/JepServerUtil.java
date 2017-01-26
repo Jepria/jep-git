@@ -230,15 +230,20 @@ public class JepServerUtil {
    * @return локаль
    */
   public static Locale getLocale(HttpServletRequest request) {
-    Locale locale = (Locale) request.getSession().getAttribute(LOCALE_KEY);
-    if (locale == null) {
-      String lang = (String) request.getAttribute(HTTP_REQUEST_PARAMETER_LANG);
-      if (lang == null) {
-        lang = LOCAL_LANG;
+    Locale locale;
+   
+    String lang = (String) request.getAttribute(HTTP_REQUEST_PARAMETER_LANG);
+    if (lang == null) {
+      locale = (Locale) request.getSession().getAttribute(LOCALE_KEY);
+      if (locale == null) {
+        locale = new Locale(LOCAL_LANG);
       }
+    } else {
       locale = new Locale(lang);
-      request.getSession().setAttribute(LOCALE_KEY, locale);
     }
+    
+    request.getSession().setAttribute(LOCALE_KEY, locale);
+    
     return locale;
   }
   
