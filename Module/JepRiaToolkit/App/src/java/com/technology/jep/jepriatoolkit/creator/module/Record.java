@@ -17,71 +17,71 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Record extends ModuleForm {
 
-	@XmlAttribute(name=MODULE_PRIMARY_KEY_ATTRIBUTE)
-	private String primaryKey;
-	
-	@XmlAttribute(name=MODULE_TABLE_NAME_ATTRIBUTE)
-	private String table;
-	
-//	@XmlElement(name = FIELD_TAG_NAME)
-//	private List<ModuleField> fields = null;
-	
-	@SuppressWarnings("unused")
-	private Record(){}
-	
-	public Record(List<ModuleField> recordFields) {
-		super(recordFields);
-	}
-	
-//	public Record(String[] primaryKeyAndTableName){
-//		int arrayLength = primaryKeyAndTableName.length;
-//		if(arrayLength >= 1){
-//			setPrimaryKey(primaryKeyAndTableName[0]);
-//			if (arrayLength == 2){
-//				setTable(primaryKeyAndTableName[1]);
-//			}
-//		}
-//	}
-	public void setPrimaryKeyAndTableName(String[] primaryKeyAndTableName){
-		int arrayLength = primaryKeyAndTableName.length;
-		if(arrayLength >= 1){
-			setPrimaryKey(primaryKeyAndTableName[0]);
-			if (arrayLength == 2){
-				setTable(primaryKeyAndTableName[1]);
-			}
-		}
-	}
+  @XmlAttribute(name=MODULE_PRIMARY_KEY_ATTRIBUTE)
+  private String primaryKey;
+  
+  @XmlAttribute(name=MODULE_TABLE_NAME_ATTRIBUTE)
+  private String table;
+  
+//  @XmlElement(name = FIELD_TAG_NAME)
+//  private List<ModuleField> fields = null;
+  
+  @SuppressWarnings("unused")
+  private Record(){}
+  
+  public Record(List<ModuleField> recordFields) {
+    super(recordFields);
+  }
+  
+//  public Record(String[] primaryKeyAndTableName){
+//    int arrayLength = primaryKeyAndTableName.length;
+//    if(arrayLength >= 1){
+//      setPrimaryKey(primaryKeyAndTableName[0]);
+//      if (arrayLength == 2){
+//        setTable(primaryKeyAndTableName[1]);
+//      }
+//    }
+//  }
+  public void setPrimaryKeyAndTableName(String[] primaryKeyAndTableName){
+    int arrayLength = primaryKeyAndTableName.length;
+    if(arrayLength >= 1){
+      setPrimaryKey(primaryKeyAndTableName[0]);
+      if (arrayLength == 2){
+        setTable(primaryKeyAndTableName[1]);
+      }
+    }
+  }
 
-	public String getPrimaryKey() {
-		return primaryKey;
-	}
+  public String getPrimaryKey() {
+    return primaryKey;
+  }
 
-	public String getTable() {
-		return table;
-	}
+  public String getTable() {
+    return table;
+  }
 
-	public void setTable(String table) {
-		this.table = table;
-	}
+  public void setTable(String table) {
+    this.table = table;
+  }
 
-	public void setPrimaryKey(String primaryKey) {
-		this.primaryKey = primaryKey;
-	}
-	
-//	public List<ModuleField> getFields() {
-//		return fields;
-//	}
+  public void setPrimaryKey(String primaryKey) {
+    this.primaryKey = primaryKey;
+  }
+  
+//  public List<ModuleField> getFields() {
+//    return fields;
+//  }
 //
-//	public void setFields(List<ModuleField> fields) {
-//		this.fields = fields;
-//	}
-//	
-//	public boolean contains(String fieldId){
-//		for (ModuleField field : fields){
-//			if (fieldId.equalsIgnoreCase(field.getFieldId())){
-//				return true;
-//			}
-//		}
-//		return false;
-//	}
+//  public void setFields(List<ModuleField> fields) {
+//    this.fields = fields;
+//  }
+//  
+//  public boolean contains(String fieldId){
+//    for (ModuleField field : fields){
+//      if (fieldId.equalsIgnoreCase(field.getFieldId())){
+//        return true;
+//      }
+//    }
+//    return false;
+//  }
 }

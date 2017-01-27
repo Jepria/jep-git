@@ -48,171 +48,171 @@ import com.technology.jep.jepriatoolkit.parser.ApplicationStructureDocument;
 import com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil;
 
 public class ApplicationFormCreator extends Task {
-	
-	// Атрибуты таска
-	private String applicationName;
-	private String moduleName, parentModuleName;
-	private String applicationStructureFile;
-	// Тип операции, производимой в данном таске
-	private OperationType type;
-	
-	/**
-	 * Выполняемые действия данной командой Ant
-	 */
-	private enum OperationType {
-		/**
-		 * Создаем новый ApplicationDefinition.xml с учетом переданных параметров -DAPPLICATION_NAME и -DMODULE_NAME
-		 * Для данной команды параметр APPLICATION_NAME обязателен, MODULE_NAME - опционален.
-		 */
-		CREATE,
-		/**
-		 * Добавляем к существующему ApplicationDefinition.xml новый модуль с учетом переданных параметров -DMODULE_NAME и -DPARENT_MODULE_NAME
-		 * Для данной команды параметр MODULE_NAME обязателен, PARENT_MODULE_NAME - опционален.
-		 * Также для удобства имеется параметр -DAPPLICATION_STRUCTURE_FILE_PATH для возможности явного указания файла структуры приложения, 
-		 * если он отличен от умолчательного.
-		 */
-		ADD
-	}
-	
-	/**
-	 * Основной метод, который выполняет Task
-	 */
-	@Override
-	public void execute() throws BuildException {
-		try {
-			// Тип производимой операции определяется по переданным параметрам:
-			// Если значение applicationName определено, значит будет выполнено создание новой структуры,
-			// В противном случае - добавляем модуль к имеющейся структуре
-			type = isEmpty(applicationName) ? OperationType.ADD : OperationType.CREATE ;
-			String fileName;
-			switch(type) {
-				case ADD : {
-					// проверка обязательности наименования модуля
-					if (isNotInitializedParameter(moduleName)){
-						echoMessage(multipleConcat(ERROR_PREFIX,
-								"Application definition XML wouldn't modify! Please specify the attribute '-D", MODULE_NAME_TASK_ATTRIBUTE, "' in command line to add new module!"));
-						return;
-					}
-					// определяем файл структуры приложения
-					fileName = isEmptyOrNotInitializedParameter(applicationStructureFile) ? getApplicationDefinitionFile() : applicationStructureFile;
-					Document dom = getDOM(fileName);
-					ApplicationStructureDocument document = new ApplicationStructureDocument(dom);
-					
-					Element parentModule = null;
-					// проверяем родительский на существование
-					if (!isEmptyOrNotInitializedParameter(parentModuleName)){
-						parentModule = document.getModuleNodeByIdIgnoringCase(parentModuleName);
-						if (parentModule == null){
-							echoMessage(multipleConcat(ERROR_PREFIX,
-									"Application definition XML wouldn't modify! The parent module '", parentModuleName, "' not found! Please specify correct value for the attribute '-D", PARENT_MODULE_NAME_TASK_ATTRIBUTE, "'"));
-							return;
-						}
-					}
-					
-					String existedModules = "";
-					for (String modName : Arrays.asList(moduleName.split(multipleConcat(SEPARATOR, REGEXP_FOR_BLANK, "*")))) {
-						Element module = document.getModuleNodeByIdIgnoringCase(modName);
-						// если такой модуль еще не определен в имеющейся структуре
-						if (module == null){
-							Element moduleElement = JepRiaToolkitUtil.convertModuleToXml(modName, dom.getDocumentElement().getAttribute(JepRiaToolkitConstant.APPLICATION_NAME_ATTRIBUTE));
-							Element parentNode = document.getElementByTagName(JepRiaToolkitConstant.MODULES_TAG_NAME);
-							if (parentModule != null){
-								parentNode = parentModule;
-							}
-							parentNode.appendChild(dom.importNode(moduleElement, true));
-							echoMessage(multipleConcat("Append new module '", modName, "' ", JepRiaToolkitUtil.isNotInitializedParameter(parentModuleName) ? "" : multipleConcat("to module '", parentModuleName, "' "), "..."));
-							JepRiaToolkitUtil.prettyPrintToStripWhitespace(dom, fileName, true);
-						}
-						else {
-							existedModules = multipleConcat(existedModules, !JepRiaToolkitUtil.isEmpty(existedModules) ? SEPARATOR.concat(WHITE_SPACE) : "", module.getAttribute(MODULE_ID_ATTRIBUTE));
-						}
-					}
-					if (!JepRiaToolkitUtil.isEmpty(existedModules)){
-						boolean moreOneModule = existedModules.split(SEPARATOR).length > 1;
-						echoMessage(multipleConcat(ERROR_PREFIX,
-								"Application definition XML wouldn't modify! The module", moreOneModule ? "s" : "", " '", existedModules, "' ha", moreOneModule ? "ve" : "s"," already existed! Please specify correct value for the attribute '-D", MODULE_NAME_TASK_ATTRIBUTE, "'"));
-						return;
-					}
-					
-					echoMessage(multipleConcat("Modify ", normalizePath(fileName), "..."));
-					break;
-				}
-				case CREATE : 
-				default : {
-					if (isNotInitializedParameter(applicationName) || isNotInitializedParameter(moduleName)){
-						echoMessage(multipleConcat(ERROR_PREFIX, "Application definition XML wouldn't generate! Please define the mandatory attributes '-D", APPLICATION_NAME_TASK_ATTRIBUTE, "' and '-D", MODULE_NAME_TASK_ATTRIBUTE, "' in command line to do it!"));
-						return;
-					}
-					fileName = multipleConcat(currentSourceDirectory(), PATH_SEPARATOR, applicationName, APPLICATION_SETTING_FILE_ENDING);
-					// Уточним стоит ли перезаписывать файл, если таковой уже существует
-					if (new File(fileName).exists()){
-						echoMessage(multipleConcat(WARNING_PREFIX, "The file '", normalizePath(applicationName), "' has already existed!\n", 
-								WARNING_PREFIX, "Do you want to replace this file (", YES, " / ", NO, ")? Please type your answer: "));
-						Scanner scanner = new Scanner(System.in);
-						try {
-							while (scanner.hasNext()){
-								String line = scanner.next();
-								if (NO.equalsIgnoreCase(line)){
-									return;
-								}
-								else {
-									break;
-								}
-							}
-						}
-						finally {
-							scanner.close();	
-						}
-					}
-					
-					// Новая заготовка для приложения
-					String applicationDataSource = DEFAULT_DATASOURCE;
-					Application application = new Application();
-					application.setName(applicationName);
-					application.setDefaultDatasource(applicationDataSource);
-					application.setProjectPackage(DEFAULT_PROJECT_PACKAGE);
-					
-					if (isEmptyOrNotInitializedParameter(moduleName)) {
-						echoMessage(multipleConcat(INFO_PREFIX,
-								"To define application with empty form you should specify the optional attribute '-D", MODULE_NAME_TASK_ATTRIBUTE, "' in command line."));	
-					}
-					else {
-						// Новая заготовка для пустого модуля, если такой параметр определен
-						List<String> modules = Arrays.asList(moduleName.split(multipleConcat(SEPARATOR, REGEXP_FOR_BLANK, "*")));
-						List<Module> newModules = new ArrayList<Module>(modules.size());
-						for (String modName : modules) {
-							newModules.add(createBlankModule(modName, applicationName));
-						}
-						application.setModules(new Modules(newModules));
-					}
-					
-					echoMessage(multipleConcat("Generate ", normalizePath(fileName), "..."));
-					convertToXml(application, fileName);
-					
-					break;
-				}
-			}
-			
-			createApplicationStructure(fileName);
-		}
-		catch(Exception e){
-			throw new BuildException(e);
-		}
-	}
+  
+  // Атрибуты таска
+  private String applicationName;
+  private String moduleName, parentModuleName;
+  private String applicationStructureFile;
+  // Тип операции, производимой в данном таске
+  private OperationType type;
+  
+  /**
+   * Выполняемые действия данной командой Ant
+   */
+  private enum OperationType {
+    /**
+     * Создаем новый ApplicationDefinition.xml с учетом переданных параметров -DAPPLICATION_NAME и -DMODULE_NAME
+     * Для данной команды параметр APPLICATION_NAME обязателен, MODULE_NAME - опционален.
+     */
+    CREATE,
+    /**
+     * Добавляем к существующему ApplicationDefinition.xml новый модуль с учетом переданных параметров -DMODULE_NAME и -DPARENT_MODULE_NAME
+     * Для данной команды параметр MODULE_NAME обязателен, PARENT_MODULE_NAME - опционален.
+     * Также для удобства имеется параметр -DAPPLICATION_STRUCTURE_FILE_PATH для возможности явного указания файла структуры приложения, 
+     * если он отличен от умолчательного.
+     */
+    ADD
+  }
+  
+  /**
+   * Основной метод, который выполняет Task
+   */
+  @Override
+  public void execute() throws BuildException {
+    try {
+      // Тип производимой операции определяется по переданным параметрам:
+      // Если значение applicationName определено, значит будет выполнено создание новой структуры,
+      // В противном случае - добавляем модуль к имеющейся структуре
+      type = isEmpty(applicationName) ? OperationType.ADD : OperationType.CREATE ;
+      String fileName;
+      switch(type) {
+        case ADD : {
+          // проверка обязательности наименования модуля
+          if (isNotInitializedParameter(moduleName)){
+            echoMessage(multipleConcat(ERROR_PREFIX,
+                "Application definition XML wouldn't modify! Please specify the attribute '-D", MODULE_NAME_TASK_ATTRIBUTE, "' in command line to add new module!"));
+            return;
+          }
+          // определяем файл структуры приложения
+          fileName = isEmptyOrNotInitializedParameter(applicationStructureFile) ? getApplicationDefinitionFile() : applicationStructureFile;
+          Document dom = getDOM(fileName);
+          ApplicationStructureDocument document = new ApplicationStructureDocument(dom);
+          
+          Element parentModule = null;
+          // проверяем родительский на существование
+          if (!isEmptyOrNotInitializedParameter(parentModuleName)){
+            parentModule = document.getModuleNodeByIdIgnoringCase(parentModuleName);
+            if (parentModule == null){
+              echoMessage(multipleConcat(ERROR_PREFIX,
+                  "Application definition XML wouldn't modify! The parent module '", parentModuleName, "' not found! Please specify correct value for the attribute '-D", PARENT_MODULE_NAME_TASK_ATTRIBUTE, "'"));
+              return;
+            }
+          }
+          
+          String existedModules = "";
+          for (String modName : Arrays.asList(moduleName.split(multipleConcat(SEPARATOR, REGEXP_FOR_BLANK, "*")))) {
+            Element module = document.getModuleNodeByIdIgnoringCase(modName);
+            // если такой модуль еще не определен в имеющейся структуре
+            if (module == null){
+              Element moduleElement = JepRiaToolkitUtil.convertModuleToXml(modName, dom.getDocumentElement().getAttribute(JepRiaToolkitConstant.APPLICATION_NAME_ATTRIBUTE));
+              Element parentNode = document.getElementByTagName(JepRiaToolkitConstant.MODULES_TAG_NAME);
+              if (parentModule != null){
+                parentNode = parentModule;
+              }
+              parentNode.appendChild(dom.importNode(moduleElement, true));
+              echoMessage(multipleConcat("Append new module '", modName, "' ", JepRiaToolkitUtil.isNotInitializedParameter(parentModuleName) ? "" : multipleConcat("to module '", parentModuleName, "' "), "..."));
+              JepRiaToolkitUtil.prettyPrintToStripWhitespace(dom, fileName, true);
+            }
+            else {
+              existedModules = multipleConcat(existedModules, !JepRiaToolkitUtil.isEmpty(existedModules) ? SEPARATOR.concat(WHITE_SPACE) : "", module.getAttribute(MODULE_ID_ATTRIBUTE));
+            }
+          }
+          if (!JepRiaToolkitUtil.isEmpty(existedModules)){
+            boolean moreOneModule = existedModules.split(SEPARATOR).length > 1;
+            echoMessage(multipleConcat(ERROR_PREFIX,
+                "Application definition XML wouldn't modify! The module", moreOneModule ? "s" : "", " '", existedModules, "' ha", moreOneModule ? "ve" : "s"," already existed! Please specify correct value for the attribute '-D", MODULE_NAME_TASK_ATTRIBUTE, "'"));
+            return;
+          }
+          
+          echoMessage(multipleConcat("Modify ", normalizePath(fileName), "..."));
+          break;
+        }
+        case CREATE : 
+        default : {
+          if (isNotInitializedParameter(applicationName) || isNotInitializedParameter(moduleName)){
+            echoMessage(multipleConcat(ERROR_PREFIX, "Application definition XML wouldn't generate! Please define the mandatory attributes '-D", APPLICATION_NAME_TASK_ATTRIBUTE, "' and '-D", MODULE_NAME_TASK_ATTRIBUTE, "' in command line to do it!"));
+            return;
+          }
+          fileName = multipleConcat(currentSourceDirectory(), PATH_SEPARATOR, applicationName, APPLICATION_SETTING_FILE_ENDING);
+          // Уточним стоит ли перезаписывать файл, если таковой уже существует
+          if (new File(fileName).exists()){
+            echoMessage(multipleConcat(WARNING_PREFIX, "The file '", normalizePath(applicationName), "' has already existed!\n", 
+                WARNING_PREFIX, "Do you want to replace this file (", YES, " / ", NO, ")? Please type your answer: "));
+            Scanner scanner = new Scanner(System.in);
+            try {
+              while (scanner.hasNext()){
+                String line = scanner.next();
+                if (NO.equalsIgnoreCase(line)){
+                  return;
+                }
+                else {
+                  break;
+                }
+              }
+            }
+            finally {
+              scanner.close();  
+            }
+          }
+          
+          // Новая заготовка для приложения
+          String applicationDataSource = DEFAULT_DATASOURCE;
+          Application application = new Application();
+          application.setName(applicationName);
+          application.setDefaultDatasource(applicationDataSource);
+          application.setProjectPackage(DEFAULT_PROJECT_PACKAGE);
+          
+          if (isEmptyOrNotInitializedParameter(moduleName)) {
+            echoMessage(multipleConcat(INFO_PREFIX,
+                "To define application with empty form you should specify the optional attribute '-D", MODULE_NAME_TASK_ATTRIBUTE, "' in command line."));  
+          }
+          else {
+            // Новая заготовка для пустого модуля, если такой параметр определен
+            List<String> modules = Arrays.asList(moduleName.split(multipleConcat(SEPARATOR, REGEXP_FOR_BLANK, "*")));
+            List<Module> newModules = new ArrayList<Module>(modules.size());
+            for (String modName : modules) {
+              newModules.add(createBlankModule(modName, applicationName));
+            }
+            application.setModules(new Modules(newModules));
+          }
+          
+          echoMessage(multipleConcat("Generate ", normalizePath(fileName), "..."));
+          convertToXml(application, fileName);
+          
+          break;
+        }
+      }
+      
+      createApplicationStructure(fileName);
+    }
+    catch(Exception e){
+      throw new BuildException(e);
+    }
+  }
 
-	public void setApplicationName(String applicationName) {
-		this.applicationName = applicationName;
-	}
+  public void setApplicationName(String applicationName) {
+    this.applicationName = applicationName;
+  }
 
-	public void setModuleName(String formName) {
-		this.moduleName = formName;
-	}
-	
-	public void setParentModuleName(String formName) {
-		this.parentModuleName = formName;
-	}
+  public void setModuleName(String formName) {
+    this.moduleName = formName;
+  }
+  
+  public void setParentModuleName(String formName) {
+    this.parentModuleName = formName;
+  }
 
-	public void setApplicationStructureFile(String applicationStructureFile) {
-		this.applicationStructureFile = applicationStructureFile;
-	}
+  public void setApplicationStructureFile(String applicationStructureFile) {
+    this.applicationStructureFile = applicationStructureFile;
+  }
 }

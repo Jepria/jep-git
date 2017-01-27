@@ -16,27 +16,27 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Forms {
 
-	@XmlElement(name = DETAIL_FORM_TAG_NAME)
-	private DetailForm detailForm;
-	@XmlElement(name = LIST_FORM_TAG_NAME)
-	private ListForm listForm;
-	
-	public Forms(){}
-	
-	public Forms(DetailForm detailForm, ListForm listForm) {
-		setDetailForm(detailForm);
-		setListForm(listForm);
-	}
-	public DetailForm getDetailForm() {
-		return detailForm;
-	}
-	public void setDetailForm(DetailForm detailForm) {
-		this.detailForm = detailForm;
-	}
-	public ListForm getListForm() {
-		return listForm;
-	}
-	public void setListForm(ListForm listForm) {
-		this.listForm = listForm;
-	}
+  @XmlElement(name = DETAIL_FORM_TAG_NAME)
+  private DetailForm detailForm;
+  @XmlElement(name = LIST_FORM_TAG_NAME)
+  private ListForm listForm;
+  
+  public Forms(){}
+  
+  public Forms(DetailForm detailForm, ListForm listForm) {
+    setDetailForm(detailForm);
+    setListForm(listForm);
+  }
+  public DetailForm getDetailForm() {
+    return detailForm;
+  }
+  public void setDetailForm(DetailForm detailForm) {
+    this.detailForm = detailForm;
+  }
+  public ListForm getListForm() {
+    return listForm;
+  }
+  public void setListForm(ListForm listForm) {
+    this.listForm = listForm;
+  }
 }

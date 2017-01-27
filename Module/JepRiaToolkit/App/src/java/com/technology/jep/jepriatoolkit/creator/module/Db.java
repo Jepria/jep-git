@@ -15,71 +15,71 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Db {
 
-	@XmlAttribute(name = DB_PACKAGE_ATTRIBUTE)
-	private String packageName;
-	@XmlAttribute(name = MODULE_DATASOURCE_ATTRIBUTE)
-	private String datasource;
-	@XmlAttribute(name = DATABASE_PREFIX_ATTRIBUTE_NAME)
-	private String prefix;
-	@XmlElement
-	private FunctionParameters find;
-	@XmlElement
-	private FunctionParameters create;
-	@XmlElement
-	private FunctionParameters update;
-	
-	public Db(){}
-	
-	public Db(String pack, String ds){
-		setPackageName(pack);
-		setDatasource(ds);
-	}
+  @XmlAttribute(name = DB_PACKAGE_ATTRIBUTE)
+  private String packageName;
+  @XmlAttribute(name = MODULE_DATASOURCE_ATTRIBUTE)
+  private String datasource;
+  @XmlAttribute(name = DATABASE_PREFIX_ATTRIBUTE_NAME)
+  private String prefix;
+  @XmlElement
+  private FunctionParameters find;
+  @XmlElement
+  private FunctionParameters create;
+  @XmlElement
+  private FunctionParameters update;
+  
+  public Db(){}
+  
+  public Db(String pack, String ds){
+    setPackageName(pack);
+    setDatasource(ds);
+  }
 
-	public String getPackageName() {
-		return packageName;
-	}
+  public String getPackageName() {
+    return packageName;
+  }
 
-	public void setPackageName(String packageName) {
-		this.packageName = packageName;
-	}
+  public void setPackageName(String packageName) {
+    this.packageName = packageName;
+  }
 
-	public String getDatasource() {
-		return datasource;
-	}
+  public String getDatasource() {
+    return datasource;
+  }
 
-	public void setDatasource(String datasource) {
-		this.datasource = datasource;
-	}
+  public void setDatasource(String datasource) {
+    this.datasource = datasource;
+  }
 
-	public FunctionParameters getFind() {
-		return find;
-	}
+  public FunctionParameters getFind() {
+    return find;
+  }
 
-	public void setFind(FunctionParameters find) {
-		this.find = find;
-	}
+  public void setFind(FunctionParameters find) {
+    this.find = find;
+  }
 
-	public FunctionParameters getCreate() {
-		return create;
-	}
+  public FunctionParameters getCreate() {
+    return create;
+  }
 
-	public void setCreate(FunctionParameters create) {
-		this.create = create;
-	}
+  public void setCreate(FunctionParameters create) {
+    this.create = create;
+  }
 
-	public FunctionParameters getUpdate() {
-		return update;
-	}
+  public FunctionParameters getUpdate() {
+    return update;
+  }
 
-	public void setUpdate(FunctionParameters update) {
-		this.update = update;
-	}
+  public void setUpdate(FunctionParameters update) {
+    this.update = update;
+  }
 
-	public String getPrefix() {
-		return prefix;
-	}
+  public String getPrefix() {
+    return prefix;
+  }
 
-	public void setPrefix(String prefix) {
-		this.prefix = prefix;
-	}
+  public void setPrefix(String prefix) {
+    this.prefix = prefix;
+  }
 }
