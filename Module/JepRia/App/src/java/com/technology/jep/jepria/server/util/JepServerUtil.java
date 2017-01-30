@@ -224,7 +224,13 @@ public class JepServerUtil {
   }
 
   /**
-   * Получение локали.
+   * Получение локали следующими шагами:
+   * 1) из параметра запроса по ключу lang,
+   * 2) из параметра сессии
+   * 3) из запроса
+   * 4) локаль по умолчанию: ru
+   * 
+   * Первая найденная локаль возвращается и сохраняется в сессию.
    * 
    * @param request HTTP-запрос
    * @return локаль
@@ -236,7 +242,10 @@ public class JepServerUtil {
     if (lang == null) {
       locale = (Locale) request.getSession().getAttribute(LOCALE_KEY);
       if (locale == null) {
-        locale = new Locale(LOCAL_LANG);
+        locale = request.getLocale();
+        if (locale == null) {
+          locale = new Locale(LOCAL_LANG);
+        }
       }
     } else {
       locale = new Locale(lang);
