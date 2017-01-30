@@ -23,38 +23,38 @@ import com.technology.jep.jepriatoolkit.creator.module.adapter.ReverseBooleanAda
 @XmlAccessorType(XmlAccessType.FIELD)
 public class ToolBar {
 
-	@XmlAttribute(name=TOOLBAR_PRESENTER_ATTRIBUTE)
-	@XmlJavaTypeAdapter(ReverseBooleanAdapter.class)
-	private Boolean presenter = null;
-	
-	@XmlAttribute(name=TOOLBAR_VIEW_ATTRIBUTE)
-	@XmlJavaTypeAdapter(ReverseBooleanAdapter.class)
-	private Boolean view = null;
-	
-	@XmlElement(name = BUTTON_TAG_NAME)
-	private List<ModuleButton> buttons = null;
+  @XmlAttribute(name=TOOLBAR_PRESENTER_ATTRIBUTE)
+  @XmlJavaTypeAdapter(ReverseBooleanAdapter.class)
+  private Boolean presenter = null;
+  
+  @XmlAttribute(name=TOOLBAR_VIEW_ATTRIBUTE)
+  @XmlJavaTypeAdapter(ReverseBooleanAdapter.class)
+  private Boolean view = null;
+  
+  @XmlElement(name = BUTTON_TAG_NAME)
+  private List<ModuleButton> buttons = null;
 
-	public Boolean isPresenter() {
-		return presenter;
-	}
+  public Boolean isPresenter() {
+    return presenter;
+  }
 
-	public void setPresenter(Boolean presenter) {
-		this.presenter = presenter;
-	}
+  public void setPresenter(Boolean presenter) {
+    this.presenter = presenter;
+  }
 
-	public Boolean isView() {
-		return view;
-	}
+  public Boolean isView() {
+    return view;
+  }
 
-	public void setView(Boolean view) {
-		this.view = view;
-	}
+  public void setView(Boolean view) {
+    this.view = view;
+  }
 
-	public List<ModuleButton> getButtons() {
-		return buttons;
-	}
+  public List<ModuleButton> getButtons() {
+    return buttons;
+  }
 
-	public void setButtons(List<ModuleButton> buttons) {
-		this.buttons = buttons;
-	}
+  public void setButtons(List<ModuleButton> buttons) {
+    this.buttons = buttons;
+  }
 }

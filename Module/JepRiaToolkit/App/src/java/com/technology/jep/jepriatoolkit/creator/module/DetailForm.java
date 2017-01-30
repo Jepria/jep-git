@@ -19,32 +19,32 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class DetailForm extends ModuleForm {
 
-	@XmlAttribute(name=FIELD_LABEL_WIDTH_ATTRIBUTE)
-	private String labelWidth;
-	
-	@XmlElement(name=PRESENTER_BOBY_TAG_NAME)
-	private String presenterBody;
-	
-	@SuppressWarnings("unused")
-	private DetailForm(){}
-	
-	public DetailForm(List<ModuleField> listFormFields) {
-		super(listFormFields);
-	}
+  @XmlAttribute(name=FIELD_LABEL_WIDTH_ATTRIBUTE)
+  private String labelWidth;
+  
+  @XmlElement(name=PRESENTER_BOBY_TAG_NAME)
+  private String presenterBody;
+  
+  @SuppressWarnings("unused")
+  private DetailForm(){}
+  
+  public DetailForm(List<ModuleField> listFormFields) {
+    super(listFormFields);
+  }
 
-	public String getLabelWidth() {
-		return labelWidth;
-	}
+  public String getLabelWidth() {
+    return labelWidth;
+  }
 
-	public void setLabelWidth(String labelWidth) {
-		this.labelWidth = labelWidth;
-	}
+  public void setLabelWidth(String labelWidth) {
+    this.labelWidth = labelWidth;
+  }
 
-	public String getPresenterBody() {
-		return presenterBody;
-	}
-	
-	public void setPresenterBody(String presenterBody) {
-		this.presenterBody = presenterBody;
-	}
+  public String getPresenterBody() {
+    return presenterBody;
+  }
+  
+  public void setPresenterBody(String presenterBody) {
+    this.presenterBody = presenterBody;
+  }
 }

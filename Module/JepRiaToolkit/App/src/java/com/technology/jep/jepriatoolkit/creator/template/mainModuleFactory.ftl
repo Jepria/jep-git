@@ -11,7 +11,8 @@ import com.google.gwt.place.shared.Place;
 import com.technology.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.client.${form.formName}ClientFactoryImpl;
 </#list>
 import com.technology.${packageName?lower_case}.${moduleName?lower_case}.main.client.ui.main.${moduleName}MainModulePresenter;
- 
+
+import com.technology.jep.jepria.client.ModuleItem;
 import com.technology.jep.jepria.client.ui.main.MainView;
 import com.technology.jep.jepria.client.ui.eventbus.main.MainEventBus;
 import com.technology.jep.jepria.client.ui.main.MainClientFactory;
@@ -36,15 +37,11 @@ public class ${moduleName}ClientFactoryImpl<E extends MainEventBus, S extends Je
   }
  
    private ${moduleName}ClientFactoryImpl() {
-    super(new String[]{
+    super(
       <#list forms as form>
-      <#if form_index != 0>, </#if>${form.formName?upper_case}_MODULE_ID
+        <#if form_index != 0>, </#if>new ModuleItem(${form.formName?upper_case}_MODULE_ID, ${moduleName?uncap_first}Text.submodule_${form.formName?lower_case}_title())
       </#list>
-    }, new String[]{
-      <#list forms as form>
-      <#if form_index != 0>, </#if>${moduleName?uncap_first}Text.submodule_${form.formName?lower_case}_title()
-      </#list>
-    });
+    );
  
     initActivityMappers(this);
   }

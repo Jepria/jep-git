@@ -15,32 +15,32 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class FunctionParameters {
 
-	@XmlAttribute(name = DATABASE_PARAMETERS_TAG_NAME, required = true)
-	private String parameters;
-	
-	@XmlAttribute(name = DATABASE_PREFIX_ATTRIBUTE_NAME)
-	private String prefix;
-	
-	@SuppressWarnings("unused")
-	private FunctionParameters(){}
-	
-	public FunctionParameters(String parameters) {
-		this.parameters = parameters;
-	}
+  @XmlAttribute(name = DATABASE_PARAMETERS_TAG_NAME, required = true)
+  private String parameters;
+  
+  @XmlAttribute(name = DATABASE_PREFIX_ATTRIBUTE_NAME)
+  private String prefix;
+  
+  @SuppressWarnings("unused")
+  private FunctionParameters(){}
+  
+  public FunctionParameters(String parameters) {
+    this.parameters = parameters;
+  }
 
-	public String getParameters() {
-		return parameters;
-	}
+  public String getParameters() {
+    return parameters;
+  }
 
-	public void setParameters(String parameters) {
-		this.parameters = parameters;
-	}
+  public void setParameters(String parameters) {
+    this.parameters = parameters;
+  }
 
-	public String getPrefix() {
-		return prefix;
-	}
+  public String getPrefix() {
+    return prefix;
+  }
 
-	public void setPrefix(String prefix) {
-		this.prefix = prefix;
-	}
+  public void setPrefix(String prefix) {
+    this.prefix = prefix;
+  }
 }

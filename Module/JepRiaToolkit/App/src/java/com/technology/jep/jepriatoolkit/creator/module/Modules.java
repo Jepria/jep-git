@@ -14,25 +14,25 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Modules {
 
-	@XmlElement(name=MODULE_TAG_NAME)
-	private List<Module> modules = null;
-	
-	@SuppressWarnings("unused")
-	private Modules(){}
-	
-	public Modules(List<Module> modules) {
-		this.modules = modules;
-	}
-	
-	public Modules(Module... modules) {
-		this.modules = Arrays.asList(modules);
-	}
+  @XmlElement(name=MODULE_TAG_NAME)
+  private List<Module> modules = null;
+  
+  @SuppressWarnings("unused")
+  private Modules(){}
+  
+  public Modules(List<Module> modules) {
+    this.modules = modules;
+  }
+  
+  public Modules(Module... modules) {
+    this.modules = Arrays.asList(modules);
+  }
 
-	public List<Module> getModules() {
-		return modules;
-	}
+  public List<Module> getModules() {
+    return modules;
+  }
 
-	public void setModules(List<Module> modules) {
-		this.modules = modules;
-	}
+  public void setModules(List<Module> modules) {
+    this.modules = modules;
+  }
 }

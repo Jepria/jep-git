@@ -23,57 +23,57 @@ import com.technology.jep.jepriatoolkit.creator.module.adapter.BooleanAdapter;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class ListForm extends ModuleForm {
 
-	@XmlAttribute(name=LIST_FORM_GROUP_FIELD_NAME_ATTRIBUTE)
-	private String groupField;
-	
-	@XmlAttribute(name=LIST_FORM_DND_NAME_ATTRIBUTE)
-	@XmlJavaTypeAdapter(BooleanAdapter.class)
-	private Boolean dnd;
-	
-	@XmlAttribute(name=DBL_CLICK_NAME_ATTRIBUTE)
-	@XmlJavaTypeAdapter(BooleanAdapter.class)
-	private Boolean dblClick;
-	
-	@XmlAttribute(name=LIST_FORM_PRESENTER_ATTRIBUTE)
-	@XmlJavaTypeAdapter(BooleanAdapter.class)
-	private Boolean presenter;
-	
-	@SuppressWarnings("unused")
-	private ListForm(){}
-	
-	public ListForm(List<ModuleField> listFormFields) {
-		super(listFormFields);
-	}
+  @XmlAttribute(name=LIST_FORM_GROUP_FIELD_NAME_ATTRIBUTE)
+  private String groupField;
+  
+  @XmlAttribute(name=LIST_FORM_DND_NAME_ATTRIBUTE)
+  @XmlJavaTypeAdapter(BooleanAdapter.class)
+  private Boolean dnd;
+  
+  @XmlAttribute(name=DBL_CLICK_NAME_ATTRIBUTE)
+  @XmlJavaTypeAdapter(BooleanAdapter.class)
+  private Boolean dblClick;
+  
+  @XmlAttribute(name=LIST_FORM_PRESENTER_ATTRIBUTE)
+  @XmlJavaTypeAdapter(BooleanAdapter.class)
+  private Boolean presenter;
+  
+  @SuppressWarnings("unused")
+  private ListForm(){}
+  
+  public ListForm(List<ModuleField> listFormFields) {
+    super(listFormFields);
+  }
 
-	public String getGroupField() {
-		return groupField;
-	}
+  public String getGroupField() {
+    return groupField;
+  }
 
-	public void setGroupField(String groupField) {
-		this.groupField = groupField;
-	}
+  public void setGroupField(String groupField) {
+    this.groupField = groupField;
+  }
 
-	public boolean isDnd() {
-		return dnd;
-	}
+  public boolean isDnd() {
+    return dnd;
+  }
 
-	public void setDnd(boolean dnd) {
-		this.dnd = dnd;
-	}
+  public void setDnd(boolean dnd) {
+    this.dnd = dnd;
+  }
 
-	public boolean isDblClick() {
-		return dblClick;
-	}
+  public boolean isDblClick() {
+    return dblClick;
+  }
 
-	public void setDblClick(boolean dblClick) {
-		this.dblClick = dblClick;
-	}
+  public void setDblClick(boolean dblClick) {
+    this.dblClick = dblClick;
+  }
 
-	public boolean isPresenter() {
-		return presenter;
-	}
+  public boolean isPresenter() {
+    return presenter;
+  }
 
-	public void setPresenter(boolean presenter) {
-		this.presenter = presenter;
-	}
+  public void setPresenter(boolean presenter) {
+    this.presenter = presenter;
+  }
 }
