@@ -70,14 +70,16 @@ public interface JepRiaModuleAuto {
   /**
    * Удаление записи со списочной формы.
    * Перед вызовом данного метода, необходимая запись должна быть выделена. 
+   * @return workstate, в котором находится приложение после удаления.
    */
-  void deleteSelectedRow();
+  WorkstateEnum deleteSelectedRow();
   
   /**
    * Удаление записи с детальной формы.
    * Перед вызовом данного метода, необходимая запись должна быть в состоянии редактирования либо просмотра. 
+   * @return workstate, в котором находится приложение после удаления.
    */
-  void deleteDetail();
+  WorkstateEnum deleteDetail();
 
   
   /**
