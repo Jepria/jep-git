@@ -232,7 +232,7 @@ public class JepServerUtil {
   public static Locale getLocale(HttpServletRequest request) {
     Locale locale;
    
-    String lang = (String) request.getAttribute(HTTP_REQUEST_PARAMETER_LANG);
+    String lang = (String) request.getParameter(HTTP_REQUEST_PARAMETER_LANG);
     if (lang == null) {
       locale = (Locale) request.getSession().getAttribute(LOCALE_KEY);
       if (locale == null) {
