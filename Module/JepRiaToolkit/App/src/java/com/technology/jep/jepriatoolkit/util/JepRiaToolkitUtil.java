@@ -959,7 +959,7 @@ public final class JepRiaToolkitUtil {
   public static String getDefinitionProperty(String property, String defaultValue, ResourceBundle... appResourceBundles){
     String value = null;
     try {
-      value = (appResourceBundles.length == 0 ? ApplicationDefinition.JEPRIA_9.getResource() : appResourceBundles[0]).getString(property);
+      value = (appResourceBundles.length == 0 ? ApplicationDefinition.LAST.getResource() : appResourceBundles[0]).getString(property);
     }
     catch(Exception e){}
     return isEmpty(value) ? defaultValue : value;

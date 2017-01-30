@@ -35,6 +35,7 @@ import static com.technology.jep.jepria.client.JepRiaAutomationConstant.TOOLBAR_
 import static com.technology.jep.jepria.client.JepRiaAutomationConstant.TOOLBAR_SAVE_BUTTON_ID;
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.CREATE;
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.EDIT;
+import static com.technology.jep.jepria.client.ui.WorkstateEnum.SEARCH;
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.SELECTED;
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.VIEW_DETAILS;
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.VIEW_LIST;
@@ -45,21 +46,21 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.stalenessOf;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.collections.map.HashedMap;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.technology.jep.jepria.auto.condition.ConditionChecker;
@@ -100,35 +101,41 @@ public class JepRiaModuleAutoImpl<P extends JepRiaModulePage> implements JepRiaM
   private static Logger logger = Logger.getLogger(JepRiaModuleAutoImpl.class.getName());
   
   /**
-   * Метод ожидает появления заданного workstate в атрибуте статус бара.
-   * @param expectedWorkstate ожидаемый воркстейт
+   * Метод ожидает появления любого из заданных workstat'ов в атрибуте статус бара.
+   * (Необходимо, в частности, потому что после save можем оказаться как в view_list, так и в search).
+   * @param expectedWorkstates ожидаемые воркстейты.
+   * @return workstate, который дождались.
    */
-  protected void waitForStatusWorkstate(final WorkstateEnum expectedWorkstate) {
-    ExpectedCondition<Boolean> condition = new ExpectedCondition<Boolean>() {
-      @Override
-      public Boolean apply(WebDriver driver) {
-        try {
-          WorkstateEnum workstateAttrValue = page.getWorkstateFromStatusBar();
-          if(expectedWorkstate != null) {
-            return expectedWorkstate.equals(workstateAttrValue);
-          } else {
-            return false;
-          }
-        } catch (StaleElementReferenceException e) {
-          return null;
-        }
-      }
-    };
+  protected WorkstateEnum waitForStatusWorkstate(WorkstateEnum... expectedWosrkstates) {
     
-    try {
-      getWait().until(condition);
-    } catch (TimeoutException e) {
-      throw new RuntimeException("Timed out waiting for workstate '"+expectedWorkstate+"' in StatusBar.", e);
+    Map<ConditionChecker, WorkstateEnum> map = new HashMap<ConditionChecker, WorkstateEnum>();
+    for (final WorkstateEnum expectedWorkstate: expectedWosrkstates) {
+      if (expectedWorkstate != null) {
+        map.put(new ConditionChecker() {
+          @Override
+          public boolean isSatisfied() {
+            WorkstateEnum workstateAttrValue = page.getWorkstateFromStatusBar();
+            return expectedWorkstate.equals(workstateAttrValue);
+          }
+        }, expectedWorkstate);
+      }
     }
     
-    if(VIEW_LIST.equals(expectedWorkstate)){
+    ConditionChecker checkerSatisfied = null;
+    try {
+      checkerSatisfied = getWait().until(ExpectedConditions.atLeastOneOfConditionIsSatisfied(
+          map.keySet().toArray(new ConditionChecker[map.keySet().size()])));
+    } catch (TimeoutException e) {
+      throw new RuntimeException("Timed out waiting for any workstate of '" + Arrays.toString(expectedWosrkstates) + "' in StatusBar.", e);
+    }
+
+    // Если перешли на список, то ждем появления и исчезновения стеклянной маски
+    WorkstateEnum finalWorkstate = map.get(checkerSatisfied);
+    if(VIEW_LIST.equals(finalWorkstate)) {
       waitForListMask();
     }
+    
+    return finalWorkstate;
   }
   
   public void clickButton(String buttonId) {
@@ -191,28 +198,29 @@ public class JepRiaModuleAutoImpl<P extends JepRiaModulePage> implements JepRiaM
   }
   
   @Override
-  public void deleteSelectedRow() {
+  public WorkstateEnum deleteSelectedRow() {
     assert SELECTED.equals(getWorkstateFromStatusBar());
-    deleteAndConfirm();
+    return deleteAndConfirm();
   }
   
   @Override
-  public void deleteDetail() {
+  public WorkstateEnum deleteDetail() {
     assert EDIT.equals(getWorkstateFromStatusBar()) || VIEW_DETAILS.equals(getWorkstateFromStatusBar());
-    deleteAndConfirm();
+    return deleteAndConfirm();
   }
   
   /**
    * Метод кликает кнопку тулбара "Удалить", подтверждает и ждёт возвращения на список.
+   * @return workstate, в котором находится приложение после удаления. 
    */
-  private void deleteAndConfirm() {
+  private WorkstateEnum deleteAndConfirm() {
     clickButton(TOOLBAR_DELETE_BUTTON_ID);
     
     assert checkMessageBox(CONFIRM_MESSAGEBOX_ID);
     
     clickButton(CONFIRM_MESSAGE_BOX_YES_BUTTON_ID);
     
-    waitForStatusWorkstate(VIEW_LIST);
+    return waitForStatusWorkstate(VIEW_LIST, SEARCH);
   }
   
   @Override
