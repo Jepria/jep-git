@@ -448,11 +448,11 @@ public interface JepRiaText extends com.google.gwt.i18n.client.Constants {
   String entrance_error403_text_error();
 
   /**
-   * Translated "Предоставить вход другому пользователю.".
+   * Translated "Перейти на форму авторизации.".
    * 
-   * @return translated "Предоставить вход другому пользователю."
+   * @return translated "Перейти на форму авторизации."
    */
-  @DefaultStringValue("Предоставить вход другому пользователю.")
+  @DefaultStringValue("Перейти на форму авторизации.")
   @Key("entrance.error403.text_relogin")
   String entrance_error403_text_relogin();
 
@@ -1685,7 +1685,7 @@ public interface JepRiaText extends com.google.gwt.i18n.client.Constants {
    * 
    * @return translated ""
    */
-//  @DefaultStringValue("")
-//  @Key("\uFEFF\uFEFF\uFEFF")
-//  String _﻿﻿();
+  @DefaultStringValue("")
+  @Key("\uFEFF\uFEFF\uFEFF")
+  String _﻿﻿();
 }
