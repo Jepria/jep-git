@@ -8,7 +8,8 @@ import com.technology.jep.jepria.auto.widget.tree.TreeItemFilter;
 import com.technology.jep.jepria.client.ui.WorkstateEnum;
 
 /**
- * Базовый интерфейс автоматизации стандартного модуля JepRia
+ * Базовый интерфейс автоматизации стандартного модуля JepRia. <br/>
+ * TODO: В основном содержит автоматизацию детальной формы. Реализовать для списочной. Разбить на несколько классов?
  */
 public interface JepRiaModuleAuto {
   

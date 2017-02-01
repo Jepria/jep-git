@@ -1,6 +1,6 @@
 <project default="jar">
-	<taskdef resource="net/sf/antcontrib/antlib.xml" />
-	<property file="local.properties" />
+  <taskdef resource="net/sf/antcontrib/antlib.xml" />
+  <property file="local.properties" />
   <property environment="env" />
   <if>
     <isset property="env.BIN_HOME" />
@@ -17,20 +17,18 @@
       <fail message="Binary repository path not specified. Specify it either in environment variable %BIN_HOME% or use -DBIN_HOME=... command line argument." />
     </else>
   </if>
-	<property file="dependency.properties" />
-	<property file="build.properties" />
-	<property name="JEP_RIA" value="../../JepRia/App" />
-	<property name="JEP_RIA_SOURCE" value="${JEP_RIA}/src/java" />
-	<property name="MODULE_PACKAGE" value="com/technology/${PROJECT_NAME_IN_PACKAGE}/${MODULE_NAME_IN_PACKAGE}" />
-	<property name="JAVA_DOC_DIR" value="../Doc/App/AutoGen" />
-	<property name="LIBS"
-		value="${env.ANT_HOME}/lib/ant.jar;classes;${FREEMARKER_LIB};${JAVAPARSER-CORE_LIB};${XERCESIMPL_LIB}"/>
+  <property file="dependency.properties" />
+  <property file="build.properties" />
+  <property name="MODULE_PACKAGE" value="com/technology/${PROJECT_NAME_IN_PACKAGE}/${MODULE_NAME_IN_PACKAGE}" />
+  <property name="JAVA_DOC_DIR" value="../Doc/App/AutoGen" />
+  <property name="LIBS"
+    value="${env.ANT_HOME}/lib/ant.jar;classes;${FREEMARKER_LIB};${JAVAPARSER-CORE_LIB};${XERCESIMPL_LIB};${JEPRIA_LIB}"/>
 
-	<property name="LOG_LEVEL" value="info" />
-	
-	<fileset id="class-jar" dir="classes">
-		<include name="**/*.class" />
-	</fileset>
+  <property name="LOG_LEVEL" value="info" />
+  
+  <fileset id="class-jar" dir="classes">
+    <include name="**/*.class" />
+  </fileset>
 
   <!-- Проверка наличия всех используемых библиотек (зависимостей) -->
   <target name="check-dependencies" >
@@ -61,81 +59,74 @@
     </if>
     <echo message="Dependency checking succeeded"/>
   </target>
-	
-	<target name="start-log" depends="check-dependencies">				
-		<mkdir dir="log" />
-			<tstamp>
-				<format property="timestamp" pattern="yyyyMMdd_HHmmss"/>
-			</tstamp>
-			<dirname property="pdir" file="." />
-			<basename property="version" file="${pdir}" />
-			<record name="log/${timestamp}-${MODULE_NAME}-${version}-${PROJECT_NAME}.txt" loglevel="${LOG_LEVEL}" />				
-	</target>
-	
-	<target name="compile" depends="start-log">
-		<delete includeemptydirs="true" failonerror="false">
-			<fileset dir="classes"/>			
-		</delete>
-		<mkdir dir="classes" />
+  
+  <target name="start-log" depends="check-dependencies">        
+    <mkdir dir="log" />
+      <tstamp>
+        <format property="timestamp" pattern="yyyyMMdd_HHmmss"/>
+      </tstamp>
+      <dirname property="pdir" file="." />
+      <basename property="version" file="${pdir}" />
+      <record name="log/${timestamp}-${MODULE_NAME}-${version}-${PROJECT_NAME}.txt" loglevel="${LOG_LEVEL}" />        
+  </target>
+  
+  <target name="compile" depends="start-log">
+    <delete includeemptydirs="true" failonerror="false">
+      <fileset dir="classes"/>      
+    </delete>
+    <mkdir dir="classes" />
+    <javac srcdir="src/java" destdir="classes" classpath="${LIBS}" debug="on" encoding="utf-8" target="1.5" includeantruntime="false" />      
+  </target>
 
-		<copy todir="src/java" overwrite="true">
-				<fileset dir="${JEP_RIA_SOURCE}" includes="**/client/**/WorkstateEnum.java"/>
-				<fileset dir="${JEP_RIA_SOURCE}" includes="**/client/**/WorkstateConstant.java"/>
-				<fileset dir="${JEP_RIA_SOURCE}" includes="**/shared/**/JepTypeEnum.java"/>
-		</copy>
-		<javac srcdir="src/java" destdir="classes" classpath="${LIBS}" debug="on" encoding="utf-8" target="1.5" includeantruntime="false" />			
-		
-	</target>
-
-	<target name="jar-update-check" depends="compile">
-		<uptodate targetfile="${DISTR_DIR}/${DISTR_NAME}.jar" property="jar-is-uptodate">
-			<srcfiles refid="class-jar" />
-		</uptodate>
-	</target>
+  <target name="jar-update-check" depends="compile">
+    <uptodate targetfile="${DISTR_DIR}/${DISTR_NAME}.jar" property="jar-is-uptodate">
+      <srcfiles refid="class-jar" />
+    </uptodate>
+  </target>
         
-	<target name="jar" depends="jar-update-check" unless="jar-is-uptodate">
-		<echo message="Distr = ${DISTR_DIR}/${DISTR_NAME}.jar"/>
-		<jar destfile="${DISTR_DIR}/${DISTR_NAME}.jar">
-			<fileset refid="class-jar" />
-			<fileset dir="src" includes="templates/**"/>
-			<fileset dir="src/java" includes="**/ApplicationDefinition.properties"/>
-			<fileset dir="src/java" includes="**/*.ftl"/>
-		</jar>
-	</target>
+  <target name="jar" depends="jar-update-check" unless="jar-is-uptodate">
+    <echo message="Distr = ${DISTR_DIR}/${DISTR_NAME}.jar"/>
+    <jar destfile="${DISTR_DIR}/${DISTR_NAME}.jar">
+      <fileset refid="class-jar" />
+      <fileset dir="src" includes="templates/**"/>
+      <fileset dir="src/java" includes="**/*.properties"/>
+      <fileset dir="src/java" includes="**/*.ftl"/>
+    </jar>
+  </target>
 
-	<target name="doc" depends="start-log">
+  <target name="doc" depends="start-log">
         <javadoc 
-        	Doctitle="${MODULE_NAME} API Reference" 
-        	Windowtitle="${MODULE_NAME} JavaDoc" 
-        	access="private" 
-        	additionalparam="-notimestamp" 
-        	charset="UTF-8" 
-        	destdir="${JAVA_DOC_DIR}" 
-        	docencoding="UTF-8" 
-        	encoding="UTF-8" 
-        	includenosourcepackages="true" 
-        	overview="src/java/${MODULE_PACKAGE}/overview.html" 
-        	packagenames="*" 
-        	sourcepath="src/java" classpath="${LIBS}" />
-	</target>
+          Doctitle="${MODULE_NAME} API Reference" 
+          Windowtitle="${MODULE_NAME} JavaDoc" 
+          access="private" 
+          additionalparam="-notimestamp" 
+          charset="UTF-8" 
+          destdir="${JAVA_DOC_DIR}" 
+          docencoding="UTF-8" 
+          encoding="UTF-8" 
+          includenosourcepackages="true" 
+          overview="src/java/${MODULE_PACKAGE}/overview.html" 
+          packagenames="*" 
+          sourcepath="src/java" classpath="${LIBS}" />
+  </target>
         
-	<target name="clean">
-		<delete includeemptydirs="true">
-			<fileset dir="log"/>			
-		</delete>
-	</target>
+  <target name="clean">
+    <delete includeemptydirs="true">
+      <fileset dir="log"/>      
+    </delete>
+  </target>
 
-	<target name="cleanClasses">
-		<!--
-		<delete includeemptydirs="true">
-			<fileset dir="classes" includes="**/*"/>			
-		</delete>
-		/-->
-	</target>
+  <target name="cleanClasses">
+    <!--
+    <delete includeemptydirs="true">
+      <fileset dir="classes" includes="**/*"/>      
+    </delete>
+    /-->
+  </target>
 
-	<target name="cleanJar">
-		<delete includeemptydirs="true">
-			<fileset dir="${DISTR_DIR}" includes="${DISTR_NAME}.jar"/>			
-		</delete>
-	</target>
+  <target name="cleanJar">
+    <delete includeemptydirs="true">
+      <fileset dir="${DISTR_DIR}" includes="${DISTR_NAME}.jar"/>      
+    </delete>
+  </target>
 </project>

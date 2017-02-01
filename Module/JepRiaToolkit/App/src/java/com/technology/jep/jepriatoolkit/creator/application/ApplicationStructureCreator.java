@@ -17,7 +17,6 @@ import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.replacePac
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.writeToFile;
 import static java.text.MessageFormat.format;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -31,7 +30,6 @@ import com.technology.jep.jepriatoolkit.creator.module.ModuleButton;
 import com.technology.jep.jepriatoolkit.creator.module.ModuleField;
 import com.technology.jep.jepriatoolkit.creator.module.ModuleInfo;
 import com.technology.jep.jepriatoolkit.parser.ApplicationSettingParser;
-import com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil;
 
 @SuppressWarnings("unchecked")
 public class ApplicationStructureCreator extends Task {
@@ -234,7 +232,7 @@ public class ApplicationStructureCreator extends Task {
     makeDir(
       format(
         multipleConcat(getDefinitionProperty(CONFIG_MAIN_PACKAGE_DIRECTORY_PROPERTY, 
-          multipleConcat("config/{0}/", PREFIX_DESTINATION_SOURCE_CODE, "{1}/{2}/main/")), "/client"),
+          multipleConcat("config/{0}/", PREFIX_DESTINATION_SOURCE_CODE, "{1}/{2}/main/"))),
         DEBUG_BUILD_CONFIG_NAME, application.getProjectPackage().toLowerCase(), application.getName().toLowerCase()
       )
     );
@@ -259,7 +257,7 @@ public class ApplicationStructureCreator extends Task {
     makeDir(
       format(
         multipleConcat(getDefinitionProperty(CONFIG_MAIN_PACKAGE_DIRECTORY_PROPERTY, 
-          multipleConcat("config/{0}/", PREFIX_DESTINATION_SOURCE_CODE, "{1}/{2}/main/")), "/client"),
+          multipleConcat("config/{0}/", PREFIX_DESTINATION_SOURCE_CODE, "{1}/{2}/main/"))),
         PRODUCTION_BUILD_CONFIG_NAME, application.getProjectPackage().toLowerCase(), application.getName().toLowerCase()
       )
     );
@@ -563,13 +561,6 @@ public class ApplicationStructureCreator extends Task {
       data,
       mainClientFactoryPath
     );
-    
-    try {
-      JepRiaToolkitUtil.copyFile(mainClientFactoryPath, multipleConcat("config/", DEBUG_BUILD_CONFIG_NAME, "/", mainClientFactoryPath));
-      JepRiaToolkitUtil.copyFile(mainClientFactoryPath, multipleConcat("config/", PRODUCTION_BUILD_CONFIG_NAME, "/", mainClientFactoryPath));
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
   }
 
   /**

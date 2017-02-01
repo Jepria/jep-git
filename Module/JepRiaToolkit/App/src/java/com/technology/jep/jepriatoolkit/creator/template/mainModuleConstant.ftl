@@ -11,8 +11,4 @@ public class ${moduleName}ClientConstant extends JepRiaConstant {
   </#list>
   
   public static ${moduleName}Text ${moduleName?uncap_first}Text = (${moduleName}Text) GWT.create(${moduleName}Text.class);
-  
-  <#list forms as form>
-  public static final String URL_${form.formName?upper_case}_MODULE = "/${moduleName}/${moduleName}.jsp?em=${form.formName}&es=sh";
-  </#list>
 }

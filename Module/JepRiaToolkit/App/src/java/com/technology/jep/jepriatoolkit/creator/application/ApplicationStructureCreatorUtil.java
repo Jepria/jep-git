@@ -1,6 +1,7 @@
 package com.technology.jep.jepriatoolkit.creator.application;
 
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.FORMS_TEMPLATE_PARAMETER;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.FORM_TEMPLATE_PARAMETER;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.HAS_BINARY_FILE_TEMPLATE_PARAMETER;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.HAS_TEXT_FILE_TEMPLATE_PARAMETER;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.IDENTIFICATOR_SUFFIX;
@@ -10,8 +11,10 @@ import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.SECURITY_RO
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.UTF_8;
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.isEmpty;
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.multipleConcat;
+import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.echoMessage;
 
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
@@ -43,6 +46,28 @@ public class ApplicationStructureCreatorUtil {
   private static Configuration cfg = null;
   
   /**
+   * Путь к папке с шаблонами. <br/>
+   * TODO: некрасиво сделано переопределение.
+   */
+  private static String templatePath = "/com/technology/jep/jepriatoolkit/creator/template"; 
+  
+  /**
+   * Получает путь к папке с шаблонами.
+   * @return путь к папке с шаблонами.
+   */
+  public static String getTemplatePath() {
+    return templatePath;
+  }
+
+  /**
+   * Устанавливает путь к папке с шаблонами.
+   * @param templatePath Путь к папке с шаблонами.
+   */
+  public static void setTemplatePath(String templatePath) {
+    ApplicationStructureCreatorUtil.templatePath = templatePath;
+  }
+
+  /**
    * Получение конфигурации для шаблонов
    * 
    * @return конфигурация шаблонизатора
@@ -56,7 +81,7 @@ public class ApplicationStructureCreatorUtil {
   
       // Specify the source where the template files come from. Here I set a
       // plain directory for it, but non-file-system sources are possible too:
-      cfg.setClassForTemplateLoading(ApplicationStructureCreatorUtil.class, "/com/technology/jep/jepriatoolkit/creator/template");
+      cfg.setClassForTemplateLoading(ApplicationStructureCreatorUtil.class, getTemplatePath());
       // Set the preferred charset template files are stored in. UTF-8 is
       // a good choice in most applications:
       cfg.setDefaultEncoding(UTF_8);
@@ -72,20 +97,39 @@ public class ApplicationStructureCreatorUtil {
   }
   
   /**
+   * Конвертация шаблона на основании данных. <br/>
+   * Добавлен для обратной совместимости, - см. аналогичный метод с 4 параметрами.
+   * 
+   * @param templateFile    Файл шаблона.
+   * @param dataToMap       Данные для мэппинга.
+   * @param resultFilePath  Путь результирующего файла.
+   */
+  public static void convertTemplateToFile(String templateFile, Map<String, Object> dataToMap, String resultFilePath) {
+    convertTemplateToFile(templateFile, dataToMap, resultFilePath, Boolean.TRUE);
+  }
+  
+  /**
    * Конвертация шаблона на основании данных
    * 
-   * @param templateFile    файл шаблона
-   * @param dataToMap      данные для мэппинга
-   * @param resultFile    результирующий файл
+   * @param templateFile    Файл шаблона.
+   * @param dataToMap       Данные для мэппинга.
+   * @param resultFilePath  Путь результирующего файла.
+   * @param isOverride      Флаг, если true, то перезаписывает итоговый файл, иначе нет.
    */
-  public static void convertTemplateToFile(String templateFile, Map<String, Object> dataToMap, String resultFile){
+  public static void convertTemplateToFile(String templateFile, Map<String, Object> dataToMap, String resultFilePath, 
+      Boolean isOverride) {
+    
+    File resultFile = new File(resultFilePath);
+    if(Boolean.FALSE.equals(isOverride) && resultFile.exists()) {
+      echoMessage(multipleConcat("Try to override ", resultFilePath, ". Canceled!"));
+      return; //Если файл существует и не стоит флаг перезаписи, то завершаем работу.
+    }
+    
     try {
       Template webXmlTemplate = getTemplateConfiguration().getTemplate(templateFile);
       Writer bufferedWriter = new BufferedWriter(
         new OutputStreamWriter(
-          new FileOutputStream(
-            resultFile
-          ), 
+          new FileOutputStream(resultFile), 
           UTF_8
         )
       );
@@ -196,5 +240,21 @@ public class ApplicationStructureCreatorUtil {
     resultData.put(HAS_BINARY_FILE_TEMPLATE_PARAMETER, hasBinaryFile);
     resultData.put(FORMS_TEMPLATE_PARAMETER, mods);
     return resultData;
+  }
+  
+  /**
+   * Подготавливает данные для шаблона обработки одного форму (одного модуля приложения) [есть проблема формулировок].
+   * @param moduleInfo Описание модуля приложения (одной форму).
+   * @param allDataForTemplates Данные для всех шаблонов.
+   * @return
+   */
+  public static Map<String, Object> prepareFormData(ModuleInfo moduleInfo, Map<String, Object> allDataForTemplates) {
+    Map<String, Object> formData = new HashMap<String, Object>();
+    formData.put(FORM_TEMPLATE_PARAMETER, moduleInfo);
+    if(allDataForTemplates != null) {
+      formData.put(PACKAGE_NAME_TEMPLATE_PARAMETER, allDataForTemplates.get(PACKAGE_NAME_TEMPLATE_PARAMETER));
+      formData.put(MODULE_NAME_TEMPLATE_PARAMETER, allDataForTemplates.get(MODULE_NAME_TEMPLATE_PARAMETER));
+    }
+    return formData;
   }
 }

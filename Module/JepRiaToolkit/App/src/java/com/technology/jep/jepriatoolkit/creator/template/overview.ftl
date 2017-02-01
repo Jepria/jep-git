@@ -22,6 +22,7 @@
       <li>Если бинарный репозиторий уже настроен, то рекомендуется произвести его актуализацию, выполнив команду SVN Update, после чего продолжить установку.</li>
     </ul>
     Для продолжения установки текущего модуля, необходимо перейти в директорию <i>App</i> модуля и выполнить команду:<br/>
+    <h4>На OC4J:</h4>
     <i>ant deploy -DDEPLOYMENT_PATH=&lt;DEPLOYMENT_PATH&gt; -DLOGIN=&lt;LOGIN&gt; -DPASSWORD=&lt;PASSWORD&gt; -DLOAD_OPERATORID=&lt;LOAD_OPERATORID&gt;&nbsp; -DBIN_HOME=&lt;BIN_HOME&gt;&nbsp;</i>, где<br/>
     <ul>
       <li>DEPLOYMENT_PATH - адрес установки модуля вида <i>[opmn://]host:opmnPort[/iASInstanceName/oc4jInstanceName]</i></li>
@@ -33,6 +34,18 @@
     </ul>
     Пример:
     <pre>ant deploy -DDEPLOYMENT_PATH=opmn://10.90.7.148:6003/OracleAS_1.srvapp7.d.t/OC4J_4 -DPORT=8888 -DLOGIN=LOGIN -DPASSWORD=PASSWORD -DLOAD_OPERATORID=nagornyys/123 -DBIN_HOME=C:/Project/JEP/Bin<br/></pre>
+    <h4>На Tomcat:</h4>
+    <i>ant tomcat.deploy -DDEPLOYMENT_PATH=&lt;DEPLOYMENT_PATH&gt; -DLOGIN=&lt;LOGIN&gt; -DPASSWORD=&lt;PASSWORD&gt; -DLOAD_OPERATORID=&lt;LOAD_OPERATORID&gt;&nbsp; -DBIN_HOME=&lt;BIN_HOME&gt;&nbsp;</i>, где<br/>
+    <ul>
+      <li>DEPLOYMENT_PATH - адрес установки модуля (Пример: <i>http[s]://host:port/manager/text</i>)</li>
+      <li>PORT - параметр нужен в случае, если http-порт на сервере отличен от 80го (по-умолчанию значение 80)</li>
+      <li>LOGIN - логин пользователя, под которым происходит установка модуля</li>
+      <li>PASSWORD - пароль пользователя, под которым происходит установка модуля</li>
+      <li>LOAD_OPERATORID - логин/пароль учетной записи в системе, от чьего имени производится установка</li>
+      <li>BIN_HOME - директория бинарного репозитория</li>
+    </ul>
+    Пример:
+    <pre>ant tomcat.deploy -DDEPLOYMENT_PATH=http://host:tomcatPort/manager/text -DLOGIN=LOGIN -DPASSWORD=PASSWORD -DLOAD_OPERATORID=user/123 -DBIN_HOME=C:/Project/JEP/Bin<br/></pre>
     <h3><a name="error">Ошибки</a></h3>
     <br/>
     <h3><a name="todo">Доработки</a></h3>
