@@ -38,19 +38,19 @@
     <noscript>
       <div class="jepRia-noJavaScriptEnabledMessage"><%= jepRiaText.getString("noJavaScriptEnabledMessage") %></div>
     </noscript>
-    <div id="testBuildMessage" class="jepRia-testBuildMessage"> 
-            <div class="jepRia-testBuildMessageNotification error"> 
-                <div class="jepRia-testBuildMessageClose" onclick="document.getElementById('testBuildMessage').style.display = 'none';">
-                    X
-                </div> 
-                <div class="jepRia-testBuildMessageHeader">
-                    Attention please!
-                </div> 
-                <div class="jepRia-testBuildMessageInfo">
-                    This is test build!
-                </div> 
+    <div id="testBuildMessage" class="<%= JepRiaClientConstant.TEST_BUILD_MESSAGE_CLASS %>"> 
+        <div class="jepRia-testBuildMessageNotification error"> 
+            <div class="jepRia-testBuildMessageClose" onclick="document.getElementById('testBuildMessage').style.display = 'none';">
+                X
             </div> 
-        </div>
+            <div class="jepRia-testBuildMessageHeader">
+                Attention please!
+            </div> 
+            <div class="jepRia-testBuildMessageInfo">
+                This is test build!
+            </div> 
+        </div> 
+    </div>
     <div id="loadingProgress" class="jepRia-loadingProgress">
       <div class="jepRia-loadingIndicator">
         <img src="images/loading.gif" width="32" height="32" alt="Loading..."/>

@@ -122,6 +122,11 @@ public class JepRiaClientConstant extends JepRiaConstant {
   public static final String STATUSBAR_DEFAULT_STYLE = "jepRia-StatusBar";
   
   /**
+   * Наименование CSS-класса стилей для контейнера Test Build Message.
+   */
+  public static final String TEST_BUILD_MESSAGE_CLASS = "jepRia-testBuildMessage";
+  
+  /**
    * Свойство перемещаемого объекта, требующее инициализации при событии {@link com.technology.jep.jepria.client.widget.event.JepEventType#DRAG_START_EVENT}
    * для корректной работы DragAndDrop.
    */
