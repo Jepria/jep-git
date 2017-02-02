@@ -765,3 +765,16 @@ img {
 .jepRia-dateBoxPopup {
     z-index: 5100;
 }
+
+/* Стили для сообщения о необходимости включить JavaScript в браузере. */
+.jepRia-noJavaScriptEnabledMessage {
+  width: 22em;
+  position: absolute;
+  left: 50%;
+  margin-left: -11em;
+  color: red;
+  background-color: white;
+  border: 1px solid red;
+  padding: 4px;
+  font-family: sans-serif;
+}

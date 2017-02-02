@@ -2,7 +2,10 @@
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="com.technology.jep.jepria.client.JepRiaClientConstant" %>
+<%@ page import="static com.technology.jep.jepria.server.util.JepServerUtil.getLocale"%>
+<%@ page import="java.util.ResourceBundle" %>
 
+<% ResourceBundle jepRiaText = ResourceBundle.getBundle("com.technology.jep.jepria.shared.text.JepRiaText", getLocale(request)); %>
 <html style="width: 100%; height: 100%;">
   <head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
@@ -33,10 +36,7 @@
     
     <!-- RECOMMENDED if your web app will not function without JavaScript enabled -->
     <noscript>
-      <div style="width: 22em; position: absolute; left: 50%; margin-left: -11em; color: red; background-color: white; border: 1px solid red; padding: 4px; font-family: sans-serif">
-        Your web browser must have JavaScript enabled
-        in order for this application to display correctly.
-      </div>
+      <div class="jepRia-noJavaScriptEnabledMessage"><%= jepRiaText.getString("noJavaScriptEnabledMessage") %></div>
     </noscript>
     <div id="testBuildMessage" class="jepRia-testBuildMessage"> 
             <div class="jepRia-testBuildMessageNotification error"> 
@@ -58,7 +58,7 @@
           <p>
             <span id="loadingHeader">${moduleName}</span>
           </p>
-          <span id="loadingMessage" class="jepRia-loadingMessage">Loading&nbsp;Application,&nbsp;please&nbsp;wait...</span>
+          <span id="loadingMessage" class="jepRia-loadingMessage"><%= jepRiaText.getString("loadingMessage") %></span>
         </div>
       </div>
     </div>

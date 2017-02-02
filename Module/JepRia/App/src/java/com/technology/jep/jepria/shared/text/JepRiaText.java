@@ -2,7 +2,7 @@ package com.technology.jep.jepria.shared.text;
 
 /**
  * Interface to represent the constants contained in resource bundle:
- * 	'D:/workspace/sf.git/Module/JepRia/App/src/java/com/technology/jep/jepria/shared/text/JepRiaText.properties'.
+ * 	'D:/git/Jep/Module/JepRia/App/src/java/com/technology/jep/jepria/shared/text/JepRiaText.properties'.
  */
 public interface JepRiaText extends com.google.gwt.i18n.client.Constants {
   
@@ -1148,6 +1148,15 @@ public interface JepRiaText extends com.google.gwt.i18n.client.Constants {
   @DefaultStringValue("Нет")
   @Key("no")
   String no();
+
+  /**
+   * Translated "Для корректной работы приложения необходимо включить JavaScript в настройках браузера.".
+   * 
+   * @return translated "Для корректной работы приложения необходимо включить JavaScript в настройках браузера."
+   */
+  @DefaultStringValue("Для корректной работы приложения необходимо включить JavaScript в настройках браузера.")
+  @Key("noJavaScriptEnabledMessage")
+  String noJavaScriptEnabledMessage();
 
   /**
    * Translated "{0} - недопустимое число".

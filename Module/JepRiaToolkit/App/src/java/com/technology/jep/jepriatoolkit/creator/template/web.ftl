@@ -66,7 +66,6 @@
     <web-resource-collection>
       <web-resource-name>The application entry point</web-resource-name>
       <url-pattern>/*</url-pattern>
-      <http-method>*</http-method>
     </web-resource-collection>
     <#if securityRoles?has_content>
     <auth-constraint>
