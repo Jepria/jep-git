@@ -98,7 +98,8 @@ Interface JepRiaModuleAuto</H2>
 </PRE>
 
 <P>
-Базовый интерфейс автоматизации стандартного модуля JepRia
+Базовый интерфейс автоматизации стандартного модуля JepRia. <br/>
+ TODO: В основном содержит автоматизацию детальной формы. Реализовать для списочной. Разбить на несколько классов?
 <P>
 
 <P>
@@ -157,7 +158,7 @@ Interface JepRiaModuleAuto</H2>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
+<CODE>&nbsp;<A HREF="../../../../../../com/technology/jep/jepria/client/ui/WorkstateEnum.html" title="enum in com.technology.jep.jepria.client.ui">WorkstateEnum</A></CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#deleteDetail()">deleteDetail</A></B>()</CODE>
 
 <BR>
@@ -165,7 +166,7 @@ Interface JepRiaModuleAuto</H2>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
+<CODE>&nbsp;<A HREF="../../../../../../com/technology/jep/jepria/client/ui/WorkstateEnum.html" title="enum in com.technology.jep.jepria.client.ui">WorkstateEnum</A></CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#deleteSelectedRow()">deleteSelectedRow</A></B>()</CODE>
 
 <BR>
@@ -563,13 +564,14 @@ void <B>edit</B>(java.lang.String&nbsp;idFieldName,
 <A NAME="deleteSelectedRow()"><!-- --></A><H3>
 deleteSelectedRow</H3>
 <PRE>
-void <B>deleteSelectedRow</B>()</PRE>
+<A HREF="../../../../../../com/technology/jep/jepria/client/ui/WorkstateEnum.html" title="enum in com.technology.jep.jepria.client.ui">WorkstateEnum</A> <B>deleteSelectedRow</B>()</PRE>
 <DL>
 <DD>Удаление записи со списочной формы.
  Перед вызовом данного метода, необходимая запись должна быть выделена.
 <P>
 <DD><DL>
-</DL>
+
+<DT><B>Returns:</B><DD>workstate, в котором находится приложение после удаления.</DL>
 </DD>
 </DL>
 <HR>
@@ -577,13 +579,14 @@ void <B>deleteSelectedRow</B>()</PRE>
 <A NAME="deleteDetail()"><!-- --></A><H3>
 deleteDetail</H3>
 <PRE>
-void <B>deleteDetail</B>()</PRE>
+<A HREF="../../../../../../com/technology/jep/jepria/client/ui/WorkstateEnum.html" title="enum in com.technology.jep.jepria.client.ui">WorkstateEnum</A> <B>deleteDetail</B>()</PRE>
 <DL>
 <DD>Удаление записи с детальной формы.
  Перед вызовом данного метода, необходимая запись должна быть в состоянии редактирования либо просмотра.
 <P>
 <DD><DL>
-</DL>
+
+<DT><B>Returns:</B><DD>workstate, в котором находится приложение после удаления.</DL>
 </DD>
 </DL>
 <HR>

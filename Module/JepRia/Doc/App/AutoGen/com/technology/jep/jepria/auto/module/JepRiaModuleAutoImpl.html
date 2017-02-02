@@ -217,7 +217,7 @@ java.lang.Object
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>private &nbsp;void</CODE></FONT></TD>
+<CODE>private &nbsp;<A HREF="../../../../../../com/technology/jep/jepria/client/ui/WorkstateEnum.html" title="enum in com.technology.jep.jepria.client.ui">WorkstateEnum</A></CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAutoImpl.html#deleteAndConfirm()">deleteAndConfirm</A></B>()</CODE>
 
 <BR>
@@ -225,7 +225,7 @@ java.lang.Object
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
+<CODE>&nbsp;<A HREF="../../../../../../com/technology/jep/jepria/client/ui/WorkstateEnum.html" title="enum in com.technology.jep.jepria.client.ui">WorkstateEnum</A></CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAutoImpl.html#deleteDetail()">deleteDetail</A></B>()</CODE>
 
 <BR>
@@ -233,7 +233,7 @@ java.lang.Object
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;void</CODE></FONT></TD>
+<CODE>&nbsp;<A HREF="../../../../../../com/technology/jep/jepria/client/ui/WorkstateEnum.html" title="enum in com.technology.jep.jepria.client.ui">WorkstateEnum</A></CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAutoImpl.html#deleteSelectedRow()">deleteSelectedRow</A></B>()</CODE>
 
 <BR>
@@ -626,11 +626,11 @@ java.lang.Object
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>protected &nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAutoImpl.html#waitForStatusWorkstate(com.technology.jep.jepria.client.ui.WorkstateEnum)">waitForStatusWorkstate</A></B>(<A HREF="../../../../../../com/technology/jep/jepria/client/ui/WorkstateEnum.html" title="enum in com.technology.jep.jepria.client.ui">WorkstateEnum</A>&nbsp;expectedWorkstate)</CODE>
+<CODE>protected &nbsp;<A HREF="../../../../../../com/technology/jep/jepria/client/ui/WorkstateEnum.html" title="enum in com.technology.jep.jepria.client.ui">WorkstateEnum</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAutoImpl.html#waitForStatusWorkstate(com.technology.jep.jepria.client.ui.WorkstateEnum...)">waitForStatusWorkstate</A></B>(<A HREF="../../../../../../com/technology/jep/jepria/client/ui/WorkstateEnum.html" title="enum in com.technology.jep.jepria.client.ui">WorkstateEnum</A>...&nbsp;expectedWosrkstates)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Метод ожидает появления заданного workstate в атрибуте статус бара.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Метод ожидает появления любого из заданных workstat'ов в атрибуте статус бара.</TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>
@@ -711,18 +711,20 @@ public <B>JepRiaModuleAutoImpl</B>(<A HREF="../../../../../../com/technology/jep
 </TR>
 </TABLE>
 
-<A NAME="waitForStatusWorkstate(com.technology.jep.jepria.client.ui.WorkstateEnum)"><!-- --></A><H3>
+<A NAME="waitForStatusWorkstate(com.technology.jep.jepria.client.ui.WorkstateEnum...)"><!-- --></A><H3>
 waitForStatusWorkstate</H3>
 <PRE>
-protected void <B>waitForStatusWorkstate</B>(<A HREF="../../../../../../com/technology/jep/jepria/client/ui/WorkstateEnum.html" title="enum in com.technology.jep.jepria.client.ui">WorkstateEnum</A>&nbsp;expectedWorkstate)</PRE>
+protected <A HREF="../../../../../../com/technology/jep/jepria/client/ui/WorkstateEnum.html" title="enum in com.technology.jep.jepria.client.ui">WorkstateEnum</A> <B>waitForStatusWorkstate</B>(<A HREF="../../../../../../com/technology/jep/jepria/client/ui/WorkstateEnum.html" title="enum in com.technology.jep.jepria.client.ui">WorkstateEnum</A>...&nbsp;expectedWosrkstates)</PRE>
 <DL>
-<DD>Метод ожидает появления заданного workstate в атрибуте статус бара.
+<DD>Метод ожидает появления любого из заданных workstat'ов в атрибуте статус бара.
+ (Необходимо, в частности, потому что после save можем оказаться как в view_list, так и в search).
 <P>
 <DD><DL>
 </DL>
 </DD>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>expectedWorkstate</CODE> - ожидаемый воркстейт</DL>
+<DT><B>Parameters:</B><DD><CODE>expectedWorkstates</CODE> - ожидаемые воркстейты.
+<DT><B>Returns:</B><DD>workstate, который дождались.</DL>
 </DD>
 </DL>
 <HR>
@@ -854,7 +856,7 @@ public void <B>edit</B>(java.util.Map&lt;java.lang.String,java.lang.String&gt;&n
 <A NAME="deleteSelectedRow()"><!-- --></A><H3>
 deleteSelectedRow</H3>
 <PRE>
-public void <B>deleteSelectedRow</B>()</PRE>
+public <A HREF="../../../../../../com/technology/jep/jepria/client/ui/WorkstateEnum.html" title="enum in com.technology.jep.jepria.client.ui">WorkstateEnum</A> <B>deleteSelectedRow</B>()</PRE>
 <DL>
 <DD><B>Description copied from interface: <CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#deleteSelectedRow()">JepRiaModuleAuto</A></CODE></B></DD>
 <DD>Удаление записи со списочной формы.
@@ -864,7 +866,8 @@ public void <B>deleteSelectedRow</B>()</PRE>
 <DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#deleteSelectedRow()">deleteSelectedRow</A></CODE> in interface <CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html" title="interface in com.technology.jep.jepria.auto.module">JepRiaModuleAuto</A></CODE></DL>
 </DD>
 <DD><DL>
-</DL>
+
+<DT><B>Returns:</B><DD>workstate, в котором находится приложение после удаления.</DL>
 </DD>
 </DL>
 <HR>
@@ -872,7 +875,7 @@ public void <B>deleteSelectedRow</B>()</PRE>
 <A NAME="deleteDetail()"><!-- --></A><H3>
 deleteDetail</H3>
 <PRE>
-public void <B>deleteDetail</B>()</PRE>
+public <A HREF="../../../../../../com/technology/jep/jepria/client/ui/WorkstateEnum.html" title="enum in com.technology.jep.jepria.client.ui">WorkstateEnum</A> <B>deleteDetail</B>()</PRE>
 <DL>
 <DD><B>Description copied from interface: <CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#deleteDetail()">JepRiaModuleAuto</A></CODE></B></DD>
 <DD>Удаление записи с детальной формы.
@@ -882,7 +885,8 @@ public void <B>deleteDetail</B>()</PRE>
 <DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#deleteDetail()">deleteDetail</A></CODE> in interface <CODE><A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html" title="interface in com.technology.jep.jepria.auto.module">JepRiaModuleAuto</A></CODE></DL>
 </DD>
 <DD><DL>
-</DL>
+
+<DT><B>Returns:</B><DD>workstate, в котором находится приложение после удаления.</DL>
 </DD>
 </DL>
 <HR>
@@ -890,7 +894,7 @@ public void <B>deleteDetail</B>()</PRE>
 <A NAME="deleteAndConfirm()"><!-- --></A><H3>
 deleteAndConfirm</H3>
 <PRE>
-private void <B>deleteAndConfirm</B>()</PRE>
+private <A HREF="../../../../../../com/technology/jep/jepria/client/ui/WorkstateEnum.html" title="enum in com.technology.jep.jepria.client.ui">WorkstateEnum</A> <B>deleteAndConfirm</B>()</PRE>
 <DL>
 <DD>Метод кликает кнопку тулбара "Удалить", подтверждает и ждёт возвращения на список.
 <P>
@@ -898,7 +902,8 @@ private void <B>deleteAndConfirm</B>()</PRE>
 </DL>
 </DD>
 <DD><DL>
-</DL>
+
+<DT><B>Returns:</B><DD>workstate, в котором находится приложение после удаления.</DL>
 </DD>
 </DL>
 <HR>

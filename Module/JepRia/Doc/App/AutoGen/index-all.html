@@ -329,6 +329,9 @@ Method in class com.technology.jep.jepria.client.widget.list.header.menu.<A HREF
 <DT><A HREF="./com/technology/jep/jepria/client/widget/list/header/menu/GridHeaderMenuBar.html#addCloseButton()"><B>addCloseButton()</B></A> - 
 Method in class com.technology.jep.jepria.client.widget.list.header.menu.<A HREF="./com/technology/jep/jepria/client/widget/list/header/menu/GridHeaderMenuBar.html" title="class in com.technology.jep.jepria.client.widget.list.header.menu">GridHeaderMenuBar</A>
 <DD>&nbsp;
+<DT><A HREF="./com/technology/jep/jepria/client/widget/list/JepGrid.html#addColumn(com.technology.jep.jepria.client.widget.list.JepColumn, int)"><B>addColumn(JepColumn, int)</B></A> - 
+Method in class com.technology.jep.jepria.client.widget.list.<A HREF="./com/technology/jep/jepria/client/widget/list/JepGrid.html" title="class in com.technology.jep.jepria.client.widget.list">JepGrid</A>
+<DD>Добавление колонки по индексу
 <DT><A HREF="./com/technology/jep/jepria/client/widget/list/JepGrid.html#addColumnWithHeader(com.technology.jep.jepria.client.widget.list.JepColumn, boolean)"><B>addColumnWithHeader(JepColumn, boolean)</B></A> - 
 Method in class com.technology.jep.jepria.client.widget.list.<A HREF="./com/technology/jep/jepria/client/widget/list/JepGrid.html" title="class in com.technology.jep.jepria.client.widget.list">JepGrid</A>
 <DD>Добавление колонки с заголовком
@@ -3369,6 +3372,12 @@ Method in class com.technology.jep.jepria.client.ui.main.<A HREF="./com/technolo
  Класс обработки Logout<DT><A HREF="./com/technology/jep/jepria/client/entrance/Entrance.html#Entrance()"><B>Entrance()</B></A> - 
 Constructor for class com.technology.jep.jepria.client.entrance.<A HREF="./com/technology/jep/jepria/client/entrance/Entrance.html" title="class in com.technology.jep.jepria.client.entrance">Entrance</A>
 <DD>&nbsp;
+<DT><A HREF="./com/technology/jep/jepria/shared/text/JepRiaText.html#entrance_error403_text_error()"><B>entrance_error403_text_error()</B></A> - 
+Method in interface com.technology.jep.jepria.shared.text.<A HREF="./com/technology/jep/jepria/shared/text/JepRiaText.html" title="interface in com.technology.jep.jepria.shared.text">JepRiaText</A>
+<DD>Translated "Доступ запрещен пользователю %s. ".
+<DT><A HREF="./com/technology/jep/jepria/shared/text/JepRiaText.html#entrance_error403_text_relogin()"><B>entrance_error403_text_relogin()</B></A> - 
+Method in interface com.technology.jep.jepria.shared.text.<A HREF="./com/technology/jep/jepria/shared/text/JepRiaText.html" title="interface in com.technology.jep.jepria.shared.text">JepRiaText</A>
+<DD>Translated "Перейти на форму авторизации.".
 <DT><A HREF="./com/technology/jep/jepria/client/JepRiaAutomationConstant.html#ENTRANCE_PANEL_ID"><B>ENTRANCE_PANEL_ID</B></A> - 
 Static variable in class com.technology.jep.jepria.client.<A HREF="./com/technology/jep/jepria/client/JepRiaAutomationConstant.html" title="class in com.technology.jep.jepria.client">JepRiaAutomationConstant</A>
 <DD>ID Entrance-панели
@@ -4909,7 +4918,13 @@ Method in class com.technology.jep.jepria.client.widget.field.wysiwyg.toolbar.up
 <DD>This parameter specifies the total number of bytes already loaded.
 <DT><A HREF="./com/technology/jep/jepria/server/util/JepServerUtil.html#getLocale(javax.servlet.http.HttpServletRequest)"><B>getLocale(HttpServletRequest)</B></A> - 
 Static method in class com.technology.jep.jepria.server.util.<A HREF="./com/technology/jep/jepria/server/util/JepServerUtil.html" title="class in com.technology.jep.jepria.server.util">JepServerUtil</A>
-<DD>Получение локали.
+<DD>Получение локали следующими шагами:<br/>
+ 1) из параметра запроса по ключу lang<br/>
+ 2) из параметра сессии<br/>
+ 3) из запроса<br/>
+ 4) локаль по умолчанию: ru<br/><br/>
+ 
+ Первая найденная локаль возвращается и сохраняется в сессию.
 <DT><A HREF="./com/technology/jep/jepria/auto/application/page/JepRiaApplicationPage.html#getLoggedInUsername()"><B>getLoggedInUsername()</B></A> - 
 Method in interface com.technology.jep.jepria.auto.application.page.<A HREF="./com/technology/jep/jepria/auto/application/page/JepRiaApplicationPage.html" title="interface in com.technology.jep.jepria.auto.application.page">JepRiaApplicationPage</A>
 <DD>Получение username залогиненного пользователя
@@ -6566,7 +6581,8 @@ Static method in class com.technology.jep.jepria.server.util.<A HREF="./com/tech
 <DD>&nbsp;
 <DT><A HREF="./com/technology/jep/jepria/client/exception/ExceptionManagerImpl.html#isJavaSsoTimeout(java.lang.Throwable)"><B>isJavaSsoTimeout(Throwable)</B></A> - 
 Static method in class com.technology.jep.jepria.client.exception.<A HREF="./com/technology/jep/jepria/client/exception/ExceptionManagerImpl.html" title="class in com.technology.jep.jepria.client.exception">ExceptionManagerImpl</A>
-<DD>&nbsp;
+<DD>Метод проверяет, не похож ли текст ошибки на JavaSso-ошибку логина,
+ получаемую при устаревании сессии (только для OC4J)
 <DT><A HREF="./com/technology/jep/jepria/client/widget/list/JepDataWidgetList.html#isKeyboardNavigationSuppressed()"><B>isKeyboardNavigationSuppressed()</B></A> - 
 Method in class com.technology.jep.jepria.client.widget.list.<A HREF="./com/technology/jep/jepria/client/widget/list/JepDataWidgetList.html" title="class in com.technology.jep.jepria.client.widget.list">JepDataWidgetList</A>
 <DD>&nbsp;
@@ -6722,6 +6738,10 @@ Static method in class com.technology.jep.jepria.client.util.<A HREF="./com/tech
 <DT><A HREF="./com/technology/jep/jepria/client/util/JepClientUtil.html#isSpecialKey(int)"><B>isSpecialKey(int)</B></A> - 
 Static method in class com.technology.jep.jepria.client.util.<A HREF="./com/technology/jep/jepria/client/util/JepClientUtil.html" title="class in com.technology.jep.jepria.client.util">JepClientUtil</A>
 <DD>Returns true if the key is a "special" key.
+<DT><A HREF="./com/technology/jep/jepria/client/exception/ExceptionManagerImpl.html#isSsoTimeout(java.lang.Throwable)"><B>isSsoTimeout(Throwable)</B></A> - 
+Static method in class com.technology.jep.jepria.client.exception.<A HREF="./com/technology/jep/jepria/client/exception/ExceptionManagerImpl.html" title="class in com.technology.jep.jepria.client.exception">ExceptionManagerImpl</A>
+<DD>Метод проверяет, не похож ли текст ошибки на Sso-ошибку логина,
+ получаемую при устаревании сессии (только для Tomcat)
 <DT><A HREF="./com/technology/jep/jepria/server/util/JepServerUtil.html#isTomcat(javax.servlet.http.HttpServletRequest)"><B>isTomcat(HttpServletRequest)</B></A> - 
 Static method in class com.technology.jep.jepria.server.util.<A HREF="./com/technology/jep/jepria/server/util/JepServerUtil.html" title="class in com.technology.jep.jepria.server.util">JepServerUtil</A>
 <DD>&nbsp;
@@ -7367,7 +7387,7 @@ Constructor for class com.technology.jep.jepria.client.<A HREF="./com/technology
 <DT><A HREF="./com/technology/jep/jepria/shared/JepRiaConstant.html" title="class in com.technology.jep.jepria.shared"><B>JepRiaConstant</B></A> - Class in <A HREF="./com/technology/jep/jepria/shared/package-summary.html">com.technology.jep.jepria.shared</A><DD>&nbsp;<DT><A HREF="./com/technology/jep/jepria/shared/JepRiaConstant.html#JepRiaConstant()"><B>JepRiaConstant()</B></A> - 
 Constructor for class com.technology.jep.jepria.shared.<A HREF="./com/technology/jep/jepria/shared/JepRiaConstant.html" title="class in com.technology.jep.jepria.shared">JepRiaConstant</A>
 <DD>&nbsp;
-<DT><A HREF="./com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html" title="interface in com.technology.jep.jepria.auto.module"><B>JepRiaModuleAuto</B></A> - Interface in <A HREF="./com/technology/jep/jepria/auto/module/package-summary.html">com.technology.jep.jepria.auto.module</A><DD>Базовый интерфейс автоматизации стандартного модуля JepRia<DT><A HREF="./com/technology/jep/jepria/auto/module/JepRiaModuleAuto.SaveResultEnum.html" title="enum in com.technology.jep.jepria.auto.module"><B>JepRiaModuleAuto.SaveResultEnum</B></A> - Enum in <A HREF="./com/technology/jep/jepria/auto/module/package-summary.html">com.technology.jep.jepria.auto.module</A><DD>Возможные варианты результата сохранения.<DT><A HREF="./com/technology/jep/jepria/auto/module/JepRiaModuleAuto.SaveResultEnum.html#JepRiaModuleAuto.SaveResultEnum()"><B>JepRiaModuleAuto.SaveResultEnum()</B></A> - 
+<DT><A HREF="./com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html" title="interface in com.technology.jep.jepria.auto.module"><B>JepRiaModuleAuto</B></A> - Interface in <A HREF="./com/technology/jep/jepria/auto/module/package-summary.html">com.technology.jep.jepria.auto.module</A><DD>Базовый интерфейс автоматизации стандартного модуля JepRia.<DT><A HREF="./com/technology/jep/jepria/auto/module/JepRiaModuleAuto.SaveResultEnum.html" title="enum in com.technology.jep.jepria.auto.module"><B>JepRiaModuleAuto.SaveResultEnum</B></A> - Enum in <A HREF="./com/technology/jep/jepria/auto/module/package-summary.html">com.technology.jep.jepria.auto.module</A><DD>Возможные варианты результата сохранения.<DT><A HREF="./com/technology/jep/jepria/auto/module/JepRiaModuleAuto.SaveResultEnum.html#JepRiaModuleAuto.SaveResultEnum()"><B>JepRiaModuleAuto.SaveResultEnum()</B></A> - 
 Constructor for enum com.technology.jep.jepria.auto.module.<A HREF="./com/technology/jep/jepria/auto/module/JepRiaModuleAuto.SaveResultEnum.html" title="enum in com.technology.jep.jepria.auto.module">JepRiaModuleAuto.SaveResultEnum</A>
 <DD>&nbsp;
 <DT><A HREF="./com/technology/jep/jepria/auto/module/JepRiaModuleAutoImpl.html" title="class in com.technology.jep.jepria.auto.module"><B>JepRiaModuleAutoImpl</B></A>&lt;<A HREF="./com/technology/jep/jepria/auto/module/JepRiaModuleAutoImpl.html" title="type parameter in JepRiaModuleAutoImpl">P</A> extends <A HREF="./com/technology/jep/jepria/auto/module/page/JepRiaModulePage.html" title="class in com.technology.jep.jepria.auto.module.page">JepRiaModulePage</A>&gt; - Class in <A HREF="./com/technology/jep/jepria/auto/module/package-summary.html">com.technology.jep.jepria.auto.module</A><DD>Реализация JepRiaModuleAuto<DT><A HREF="./com/technology/jep/jepria/auto/module/JepRiaModuleAutoImpl.html#JepRiaModuleAutoImpl(P)"><B>JepRiaModuleAutoImpl(P)</B></A> - 
@@ -7384,7 +7404,7 @@ Constructor for class com.technology.jep.jepria.server.<A HREF="./com/technology
 Constructor for class com.technology.jep.jepria.server.test.<A HREF="./com/technology/jep/jepria/server/test/JepRiaServiceTestBase.html" title="class in com.technology.jep.jepria.server.test">JepRiaServiceTestBase</A>
 <DD>&nbsp;
 <DT><A HREF="./com/technology/jep/jepria/shared/text/JepRiaText.html" title="interface in com.technology.jep.jepria.shared.text"><B>JepRiaText</B></A> - Interface in <A HREF="./com/technology/jep/jepria/shared/text/package-summary.html">com.technology.jep.jepria.shared.text</A><DD>Interface to represent the constants contained in resource bundle:
-        'D:/git/Jep/Module/JepRia/App/src/java/com/technology/jep/jepria/shared/text/JepRiaText.properties'.<DT><A HREF="./com/technology/jep/jepria/shared/util/JepRiaUtil.html" title="class in com.technology.jep.jepria.shared.util"><B>JepRiaUtil</B></A> - Class in <A HREF="./com/technology/jep/jepria/shared/util/package-summary.html">com.technology.jep.jepria.shared.util</A><DD>&nbsp;<DT><A HREF="./com/technology/jep/jepria/shared/util/JepRiaUtil.html#JepRiaUtil()"><B>JepRiaUtil()</B></A> - 
+        'D:/workspace/sf.git/Module/JepRia/App/src/java/com/technology/jep/jepria/shared/text/JepRiaText.properties'.<DT><A HREF="./com/technology/jep/jepria/shared/util/JepRiaUtil.html" title="class in com.technology.jep.jepria.shared.util"><B>JepRiaUtil</B></A> - Class in <A HREF="./com/technology/jep/jepria/shared/util/package-summary.html">com.technology.jep.jepria.shared.util</A><DD>&nbsp;<DT><A HREF="./com/technology/jep/jepria/shared/util/JepRiaUtil.html#JepRiaUtil()"><B>JepRiaUtil()</B></A> - 
 Constructor for class com.technology.jep.jepria.shared.util.<A HREF="./com/technology/jep/jepria/shared/util/JepRiaUtil.html" title="class in com.technology.jep.jepria.shared.util">JepRiaUtil</A>
 <DD>&nbsp;
 <DT><A HREF="./com/technology/jep/jepria/client/widget/field/multistate/JepRichTextEditorField.html" title="class in com.technology.jep.jepria.client.widget.field.multistate"><B>JepRichTextEditorField</B></A> - Class in <A HREF="./com/technology/jep/jepria/client/widget/field/multistate/package-summary.html">com.technology.jep.jepria.client.widget.field.multistate</A><DD>Поле, позволяющее производить форматирование текста пользователем.<DT><A HREF="./com/technology/jep/jepria/client/widget/field/multistate/JepRichTextEditorField.html#JepRichTextEditorField()"><B>JepRichTextEditorField()</B></A> - 
@@ -7944,6 +7964,9 @@ Method in interface com.technology.jep.jepria.shared.text.<A HREF="./com/technol
 <DT><A HREF="./com/technology/jep/jepria/client/JepRiaAutomationConstant.html#LOGIN_FORM_HTML_ID"><B>LOGIN_FORM_HTML_ID</B></A> - 
 Static variable in class com.technology.jep.jepria.client.<A HREF="./com/technology/jep/jepria/client/JepRiaAutomationConstant.html" title="class in com.technology.jep.jepria.client">JepRiaAutomationConstant</A>
 <DD>ID html-страницы с логин-формой
+<DT><A HREF="./com/technology/jep/jepria/shared/JepRiaConstant.html#LOGIN_FORM_HTML_ID"><B>LOGIN_FORM_HTML_ID</B></A> - 
+Static variable in class com.technology.jep.jepria.shared.<A HREF="./com/technology/jep/jepria/shared/JepRiaConstant.html" title="class in com.technology.jep.jepria.shared">JepRiaConstant</A>
+<DD>ID html-страницы с логин-формой.
 <DT><A HREF="./com/technology/jep/jepria/shared/text/JepRiaText.html#login_login()"><B>login_login()</B></A> - 
 Method in interface com.technology.jep.jepria.shared.text.<A HREF="./com/technology/jep/jepria/shared/text/JepRiaText.html" title="interface in com.technology.jep.jepria.shared.text">JepRiaText</A>
 <DD>Translated "Логин :".
@@ -8594,6 +8617,9 @@ Variable in class com.technology.jep.jepria.client.widget.list.<A HREF="./com/te
 <DT><A HREF="./com/technology/jep/jepria/client/widget/field/tree/TreeField.Template.html#nodeWrapper(java.lang.String, java.lang.String, java.lang.String, com.google.gwt.safehtml.shared.SafeHtml, com.google.gwt.safehtml.shared.SafeHtml, com.google.gwt.safehtml.shared.SafeHtml)"><B>nodeWrapper(String, String, String, SafeHtml, SafeHtml, SafeHtml)</B></A> - 
 Method in interface com.technology.jep.jepria.client.widget.field.tree.<A HREF="./com/technology/jep/jepria/client/widget/field/tree/TreeField.Template.html" title="interface in com.technology.jep.jepria.client.widget.field.tree">TreeField.Template</A>
 <DD>Html-шаблон для отрисовки всей структуры узла дерева.
+<DT><A HREF="./com/technology/jep/jepria/shared/text/JepRiaText.html#noJavaScriptEnabledMessage()"><B>noJavaScriptEnabledMessage()</B></A> - 
+Method in interface com.technology.jep.jepria.shared.text.<A HREF="./com/technology/jep/jepria/shared/text/JepRiaText.html" title="interface in com.technology.jep.jepria.shared.text">JepRiaText</A>
+<DD>Translated "Для корректной работы приложения необходимо включить JavaScript в настройках браузера.".
 <DT><A HREF="./com/technology/jep/jepria/client/widget/field/wysiwyg/RichTextEditorField.html#NONPRINTABLE_ELEMENT"><B>NONPRINTABLE_ELEMENT</B></A> - 
 Static variable in class com.technology.jep.jepria.client.widget.field.wysiwyg.<A HREF="./com/technology/jep/jepria/client/widget/field/wysiwyg/RichTextEditorField.html" title="class in com.technology.jep.jepria.client.widget.field.wysiwyg">RichTextEditorField</A>
 <DD>Непечатаемый символ.
@@ -12426,6 +12452,9 @@ Variable in class com.technology.jep.jepria.client.history.scope.<A HREF="./com/
 <DT><A HREF="./com/technology/jep/jepria/shared/load/FindConfig.html#templateRecord"><B>templateRecord</B></A> - 
 Variable in class com.technology.jep.jepria.shared.load.<A HREF="./com/technology/jep/jepria/shared/load/FindConfig.html" title="class in com.technology.jep.jepria.shared.load">FindConfig</A>
 <DD>Параметры (шаблон) поиска.
+<DT><A HREF="./com/technology/jep/jepria/client/JepRiaClientConstant.html#TEST_BUILD_MESSAGE_CLASS"><B>TEST_BUILD_MESSAGE_CLASS</B></A> - 
+Static variable in class com.technology.jep.jepria.client.<A HREF="./com/technology/jep/jepria/client/JepRiaClientConstant.html" title="class in com.technology.jep.jepria.client">JepRiaClientConstant</A>
+<DD>Наименование CSS-класса стилей для контейнера Test Build Message.
 <DT><A HREF="./com/technology/jep/jepria/client/JepRiaClientConstant.html#TEXT_AREA_STYLE"><B>TEXT_AREA_STYLE</B></A> - 
 Static variable in class com.technology.jep.jepria.client.<A HREF="./com/technology/jep/jepria/client/JepRiaClientConstant.html" title="class in com.technology.jep.jepria.client">JepRiaClientConstant</A>
 <DD>Наименование селектора (класса стилей) текстовой области ввода.
@@ -13368,9 +13397,9 @@ Method in class com.technology.jep.jepria.auto.page.<A HREF="./com/technology/je
 Static method in class com.technology.jep.jepria.auto.module.<A HREF="./com/technology/jep/jepria/auto/module/JepRiaModuleAutoImpl.html" title="class in com.technology.jep.jepria.auto.module">JepRiaModuleAutoImpl</A>
 <DD>Метод присваивает внутренней переменной новое значение состояния и ждет загрузки списка, если
  новое состояние - <A HREF="./com/technology/jep/jepria/client/ui/WorkstateEnum.html#VIEW_LIST"><CODE>WorkstateEnum.VIEW_LIST</CODE></A>.
-<DT><A HREF="./com/technology/jep/jepria/auto/module/JepRiaModuleAutoImpl.html#waitForStatusWorkstate(com.technology.jep.jepria.client.ui.WorkstateEnum)"><B>waitForStatusWorkstate(WorkstateEnum)</B></A> - 
+<DT><A HREF="./com/technology/jep/jepria/auto/module/JepRiaModuleAutoImpl.html#waitForStatusWorkstate(com.technology.jep.jepria.client.ui.WorkstateEnum...)"><B>waitForStatusWorkstate(WorkstateEnum...)</B></A> - 
 Method in class com.technology.jep.jepria.auto.module.<A HREF="./com/technology/jep/jepria/auto/module/JepRiaModuleAutoImpl.html" title="class in com.technology.jep.jepria.auto.module">JepRiaModuleAutoImpl</A>
-<DD>Метод ожидает появления заданного workstate в атрибуте статус бара.
+<DD>Метод ожидает появления любого из заданных workstat'ов в атрибуте статус бара.
 <DT><A HREF="./com/technology/jep/jepria/shared/log/JepLogger.html#warn(java.lang.String)"><B>warn(String)</B></A> - 
 Method in interface com.technology.jep.jepria.shared.log.<A HREF="./com/technology/jep/jepria/shared/log/JepLogger.html" title="interface in com.technology.jep.jepria.shared.log">JepLogger</A>
 <DD>&nbsp;

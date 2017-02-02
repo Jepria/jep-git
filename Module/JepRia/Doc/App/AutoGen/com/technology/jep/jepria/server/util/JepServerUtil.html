@@ -219,7 +219,13 @@ java.lang.Object
 <TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/server/util/JepServerUtil.html#getLocale(javax.servlet.http.HttpServletRequest)">getLocale</A></B>(javax.servlet.http.HttpServletRequest&nbsp;request)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Получение локали.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Получение локали следующими шагами:<br/>
+ 1) из параметра запроса по ключу lang<br/>
+ 2) из параметра сессии<br/>
+ 3) из запроса<br/>
+ 4) локаль по умолчанию: ru<br/><br/>
+ 
+ Первая найденная локаль возвращается и сохраняется в сессию.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -469,7 +475,13 @@ getLocale</H3>
 <PRE>
 public static java.util.Locale <B>getLocale</B>(javax.servlet.http.HttpServletRequest&nbsp;request)</PRE>
 <DL>
-<DD>Получение локали.
+<DD>Получение локали следующими шагами:<br/>
+ 1) из параметра запроса по ключу lang<br/>
+ 2) из параметра сессии<br/>
+ 3) из запроса<br/>
+ 4) локаль по умолчанию: ru<br/><br/>
+ 
+ Первая найденная локаль возвращается и сохраняется в сессию.
 <P>
 <DD><DL>
 <DT><B>Parameters:</B><DD><CODE>request</CODE> - HTTP-запрос

@@ -178,7 +178,17 @@ java.lang.Object
 <TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/client/exception/ExceptionManagerImpl.html#isJavaSsoTimeout(java.lang.Throwable)">isJavaSsoTimeout</A></B>(java.lang.Throwable&nbsp;caught)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Метод проверяет, не похож ли текст ошибки на JavaSso-ошибку логина,
+ получаемую при устаревании сессии (только для OC4J)</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private static&nbsp;boolean</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/client/exception/ExceptionManagerImpl.html#isSsoTimeout(java.lang.Throwable)">isSsoTimeout</A></B>(java.lang.Throwable&nbsp;caught)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Метод проверяет, не похож ли текст ошибки на Sso-ошибку логина,
+ получаемую при устаревании сессии (только для Tomcat)</TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>
@@ -293,6 +303,26 @@ isJavaSsoTimeout</H3>
 <PRE>
 private static boolean <B>isJavaSsoTimeout</B>(java.lang.Throwable&nbsp;caught)</PRE>
 <DL>
+<DD>Метод проверяет, не похож ли текст ошибки на JavaSso-ошибку логина,
+ получаемую при устаревании сессии (только для OC4J)
+<P>
+<DD><DL>
+</DL>
+</DD>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="isSsoTimeout(java.lang.Throwable)"><!-- --></A><H3>
+isSsoTimeout</H3>
+<PRE>
+private static boolean <B>isSsoTimeout</B>(java.lang.Throwable&nbsp;caught)</PRE>
+<DL>
+<DD>Метод проверяет, не похож ли текст ошибки на Sso-ошибку логина,
+ получаемую при устаревании сессии (только для Tomcat)
+<P>
 <DD><DL>
 </DL>
 </DD>
