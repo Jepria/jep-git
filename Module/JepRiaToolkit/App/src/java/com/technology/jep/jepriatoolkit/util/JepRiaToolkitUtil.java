@@ -143,7 +143,7 @@ public final class JepRiaToolkitUtil {
     StringBuilder sb = new StringBuilder();
     try {
       while (br.hasNextLine()) {
-        sb.append(br.nextLine());
+        sb.append(br.nextLine() + END_OF_LINE);
       }
     } finally {
       br.close();

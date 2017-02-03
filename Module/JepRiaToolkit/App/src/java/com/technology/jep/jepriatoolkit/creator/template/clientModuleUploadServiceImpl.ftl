@@ -9,6 +9,6 @@ import com.technology.jep.jepria.server.upload.JepUploadServlet;
 public class UploadServiceImpl extends JepUploadServlet {
 
   public UploadServiceImpl() {
-    super(${form.formName}RecordDefinition.instance, DATA_SOURCE_JNDI_NAME, RESOURCE_BUNDLE_NAME);
+    super(${form.formName}RecordDefinition.instance, DATA_SOURCE_JNDI_NAME);
   }
 }

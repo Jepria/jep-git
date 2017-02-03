@@ -1,14 +1,6 @@
 package com.technology.jep.jepriatoolkit.creator.application;
 
-import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.FORMS_TEMPLATE_PARAMETER;
-import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.FORM_TEMPLATE_PARAMETER;
-import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.HAS_BINARY_FILE_TEMPLATE_PARAMETER;
-import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.HAS_TEXT_FILE_TEMPLATE_PARAMETER;
-import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.IDENTIFICATOR_SUFFIX;
-import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.MODULE_NAME_TEMPLATE_PARAMETER;
-import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.PACKAGE_NAME_TEMPLATE_PARAMETER;
-import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.SECURITY_ROLES_TEMPLATE_PARAMETER;
-import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.UTF_8;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.*;
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.isEmpty;
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.multipleConcat;
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.echoMessage;
@@ -165,6 +157,7 @@ public class ApplicationStructureCreatorUtil {
     resultData.put(MODULE_NAME_TEMPLATE_PARAMETER, application.getName());
     resultData.put(PACKAGE_NAME_TEMPLATE_PARAMETER, application.getProjectPackage());
     resultData.put(SECURITY_ROLES_TEMPLATE_PARAMETER, applicationParser.getRoles());
+    resultData.put(DEFAULT_DATASOURCE_TEMPLATE_PARAMETER, application.getDefaultDatasource());
     List<ModuleInfo> mods = new ArrayList<ModuleInfo>(forms.size());
     boolean hasTextFile = false;
     boolean hasBinaryFile = false;
