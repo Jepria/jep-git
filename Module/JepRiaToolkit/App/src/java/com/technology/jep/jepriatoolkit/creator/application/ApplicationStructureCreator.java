@@ -16,6 +16,7 @@ import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.readFromJa
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.replacePackageModuleNames;
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.writeToFile;
 import static java.text.MessageFormat.format;
+import static com.technology.jep.jepria.server.JepRiaServerConstant.DEFAULT_DATA_SOURCE_JNDI_NAME;
 
 import java.io.File;
 import java.io.IOException;
@@ -301,11 +302,13 @@ public class ApplicationStructureCreator extends Task {
   
   /**
    * Создание tomcat/context.xml. <br/>
-   * Для appName в Realm используется атрибут defaultDatasource тега application. <br/>
-   * TODO: Параметризовать appName в *Definition.xml, так как в большинстве случаев будет RFInfoDS.
+   * TODO: Параметризовать appName в Realm в *Definition.xml, так как сейчас жестко зашит RFInfoDS.
    */
   private void generateTomcatContextXml() {
     
+    Map<String, Object> realm = new HashMap<String, Object>();
+    realm.put(REALM_APPNAME_TEMPLATE_PARAMETER, 
+        DEFAULT_DATA_SOURCE_JNDI_NAME.substring(DEFAULT_DATA_SOURCE_JNDI_NAME.indexOf("/") + 1)); //bad view TODO;
     makeDir(
         format(getDefinitionProperty(TOMCAT_RESOURCE_DIRECTORY_TEMPLATE_PROPERTY, 
             multipleConcat(PREFIX_DESTINATION_RESOURCE, "{0}/{1}/tomcat")),
@@ -313,7 +316,7 @@ public class ApplicationStructureCreator extends Task {
     
     convertTemplateToFile(
         getDefinitionProperty(TOMCAT_CONTEXT_XML_TEMPLATE_PROPERTY, "tomcatContext.ftl"), 
-        resultData,
+        realm,
         format(
             getDefinitionProperty(TOMCAT_CONTEXT_XML_PATH_TEMPLATE_PROPERTY, 
                 multipleConcat(PREFIX_DESTINATION_RESOURCE, "{0}/{1}/tomcat/context.xml")), 

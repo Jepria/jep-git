@@ -1016,7 +1016,7 @@ public class JepRiaToolkitConstant {
   public static final String MODULE_NAME_TEMPLATE_PARAMETER = "moduleName";
   public static final String PACKAGE_NAME_TEMPLATE_PARAMETER = "packageName";
   public static final String SECURITY_ROLES_TEMPLATE_PARAMETER = "securityRoles";
-  public static final String DEFAULT_DATASOURCE_TEMPLATE_PARAMETER = "defaultDatasource";
+  public static final String REALM_APPNAME_TEMPLATE_PARAMETER = "appNameRealm";
   public static final String FORMS_TEMPLATE_PARAMETER = "forms";
   public static final String FORM_TEMPLATE_PARAMETER = "form";
   public static final String FIELD_TEMPLATE_PARAMETER = "field";
