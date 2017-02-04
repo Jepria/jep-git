@@ -878,6 +878,10 @@ public class JepRiaToolkitConstant {
   public static final String ORION_APPLICATION_XML_TEMPLATE_PROPERTY = "fileTemplate.orionApplicationXml";
   public static final String ORION_APPLICATION_XML_PATH_TEMPLATE_PROPERTY = "fileTemplate.orionApplicationXml.path";
   
+  public static final String TOMCAT_RESOURCE_DIRECTORY_TEMPLATE_PROPERTY = "fileTemplate.tomcatResourceDirectory";
+  public static final String TOMCAT_CONTEXT_XML_TEMPLATE_PROPERTY = "fileTemplate.tomcatContextXml";
+  public static final String TOMCAT_CONTEXT_XML_PATH_TEMPLATE_PROPERTY = "fileTemplate.tomcatContextXml.path";
+  
   public static final String MAIN_GWT_XML_DEBUG_TEMPLATE_PROPERTY = "fileTemplate.mainGwtXml.debug";
   public static final String MAIN_GWT_XML_PRODUCTION_TEMPLATE_PROPERTY = "fileTemplate.mainGwtXml.production";
   public static final String MAIN_GWT_XML_PATH_TEMPLATE_PROPERTY = "fileTemplate.mainGwtXml.path";
@@ -1012,6 +1016,7 @@ public class JepRiaToolkitConstant {
   public static final String MODULE_NAME_TEMPLATE_PARAMETER = "moduleName";
   public static final String PACKAGE_NAME_TEMPLATE_PARAMETER = "packageName";
   public static final String SECURITY_ROLES_TEMPLATE_PARAMETER = "securityRoles";
+  public static final String REALM_APPNAME_TEMPLATE_PARAMETER = "appNameRealm";
   public static final String FORMS_TEMPLATE_PARAMETER = "forms";
   public static final String FORM_TEMPLATE_PARAMETER = "form";
   public static final String FIELD_TEMPLATE_PARAMETER = "field";

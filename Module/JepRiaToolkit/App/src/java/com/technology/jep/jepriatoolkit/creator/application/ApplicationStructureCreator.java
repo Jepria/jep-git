@@ -16,7 +16,10 @@ import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.readFromJa
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.replacePackageModuleNames;
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.writeToFile;
 import static java.text.MessageFormat.format;
+import static com.technology.jep.jepria.server.JepRiaServerConstant.DEFAULT_DATA_SOURCE_JNDI_NAME;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -65,6 +68,8 @@ public class ApplicationStructureCreator extends Task {
       generateApplicationXML();
       echoMessage("Generate orion-application.xml");
       generateOrionApplicationXML();
+      echoMessage("Generate tomcat/context.xml");
+      generateTomcatContextXml();
       echoMessage("Create Welcome page!");
       createWelcomePage();
       echoMessage("Generate xml for GWT-application");
@@ -135,6 +140,7 @@ public class ApplicationStructureCreator extends Task {
         application.getProjectPackage().toLowerCase(), application.getName().toLowerCase()   
       )
     );
+    
     makeDir(
       format(
         getDefinitionProperty(MAIN_MODULE_DIRECTORY_PROPERTY,
@@ -222,13 +228,7 @@ public class ApplicationStructureCreator extends Task {
         );
       }
     }
-    
-    makeDir(
-      format(
-        getDefinitionProperty(CONFIG_HTML_DIRECTORY_PROPERTY, "config/{0}/src/html"),
-        DEBUG_BUILD_CONFIG_NAME
-      )
-    );
+
     makeDir(
       format(
         multipleConcat(getDefinitionProperty(CONFIG_MAIN_PACKAGE_DIRECTORY_PROPERTY, 
@@ -248,12 +248,6 @@ public class ApplicationStructureCreator extends Task {
           DEBUG_BUILD_CONFIG_NAME
         ), UTF_8, false);
 
-    makeDir(
-      format(
-        getDefinitionProperty(CONFIG_HTML_DIRECTORY_PROPERTY, "config/{0}/src/html"),
-        PRODUCTION_BUILD_CONFIG_NAME
-      )
-    );
     makeDir(
       format(
         multipleConcat(getDefinitionProperty(CONFIG_MAIN_PACKAGE_DIRECTORY_PROPERTY, 
@@ -304,6 +298,29 @@ public class ApplicationStructureCreator extends Task {
         application.getProjectPackage().toLowerCase(), application.getName().toLowerCase()
       )
     );
+  }
+  
+  /**
+   * Создание tomcat/context.xml. <br/>
+   * TODO: Параметризовать appName в Realm в *Definition.xml, так как сейчас жестко зашит RFInfoDS.
+   */
+  private void generateTomcatContextXml() {
+    
+    Map<String, Object> realm = new HashMap<String, Object>();
+    realm.put(REALM_APPNAME_TEMPLATE_PARAMETER, 
+        DEFAULT_DATA_SOURCE_JNDI_NAME.substring(DEFAULT_DATA_SOURCE_JNDI_NAME.indexOf("/") + 1)); //bad view TODO;
+    makeDir(
+        format(getDefinitionProperty(TOMCAT_RESOURCE_DIRECTORY_TEMPLATE_PROPERTY, 
+            multipleConcat(PREFIX_DESTINATION_RESOURCE, "{0}/{1}/tomcat")),
+        application.getProjectPackage().toLowerCase(), application.getName().toLowerCase()));
+    
+    convertTemplateToFile(
+        getDefinitionProperty(TOMCAT_CONTEXT_XML_TEMPLATE_PROPERTY, "tomcatContext.ftl"), 
+        realm,
+        format(
+            getDefinitionProperty(TOMCAT_CONTEXT_XML_PATH_TEMPLATE_PROPERTY, 
+                multipleConcat(PREFIX_DESTINATION_RESOURCE, "{0}/{1}/tomcat/context.xml")), 
+            application.getProjectPackage().toLowerCase(), application.getName().toLowerCase()));
   }
 
   /**
@@ -387,8 +404,9 @@ public class ApplicationStructureCreator extends Task {
   /**
    * Создание страницы приветствия в зависимости от флага продукционности
    * сборки
+   * @throws IOException 
    */
-  private void createWelcomePage() {
+  private void createWelcomePage() throws IOException {
     // JSP
     convertTemplateToFile(
       getDefinitionProperty(APPLICATION_JSP_TEMPLATE_PROPERTY, "applicationJsp.ftl"), 
@@ -400,20 +418,11 @@ public class ApplicationStructureCreator extends Task {
       )
     );
     
-    //CSS debug
-    String cssTemplateDebugContent = readFromJar(multipleConcat("/templates/config/", DEBUG_BUILD_CONFIG_NAME, "/src/html/", CSS_TEMPLATE_NAME), UTF_8);
-    writeToFile(cssTemplateDebugContent,
-      format(
+    // Create empty css
+    new File(format(
         getDefinitionProperty(APPLICATION_CSS_PATH_TEMPLATE_PROPERTY, 
-          multipleConcat(WELCOME_PAGE_DIR_NAME, "/{0}.css")
-        ),
-        application.getName()
-      ), UTF_8, false);
-    writeToFile(cssTemplateDebugContent, multipleConcat("config/", DEBUG_BUILD_CONFIG_NAME, "/", WELCOME_PAGE_DIR_NAME, "/", application.getName(), ".css"), UTF_8, false);
-
-    //CSS release
-    String cssTemplateReleaseContent = readFromJar(multipleConcat("/templates/config/", PRODUCTION_BUILD_CONFIG_NAME, "/src/html/", CSS_TEMPLATE_NAME), UTF_8);
-    writeToFile(cssTemplateReleaseContent, multipleConcat("config/", PRODUCTION_BUILD_CONFIG_NAME, "/", WELCOME_PAGE_DIR_NAME, "/", application.getName(), ".css"), UTF_8, false);
+            multipleConcat(WELCOME_PAGE_DIR_NAME, "/{0}.css")),
+        application.getName())).createNewFile();
   }
 
   /**

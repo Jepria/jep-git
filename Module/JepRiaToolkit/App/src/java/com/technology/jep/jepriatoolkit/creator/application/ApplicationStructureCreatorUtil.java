@@ -1,14 +1,6 @@
 package com.technology.jep.jepriatoolkit.creator.application;
 
-import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.FORMS_TEMPLATE_PARAMETER;
-import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.FORM_TEMPLATE_PARAMETER;
-import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.HAS_BINARY_FILE_TEMPLATE_PARAMETER;
-import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.HAS_TEXT_FILE_TEMPLATE_PARAMETER;
-import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.IDENTIFICATOR_SUFFIX;
-import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.MODULE_NAME_TEMPLATE_PARAMETER;
-import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.PACKAGE_NAME_TEMPLATE_PARAMETER;
-import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.SECURITY_ROLES_TEMPLATE_PARAMETER;
-import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.UTF_8;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.*;
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.isEmpty;
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.multipleConcat;
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.echoMessage;

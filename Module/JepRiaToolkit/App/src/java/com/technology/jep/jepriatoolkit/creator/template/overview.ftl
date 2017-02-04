@@ -23,7 +23,7 @@
     </ul>
     Для продолжения установки текущего модуля, необходимо перейти в директорию <i>App</i> модуля и выполнить команду:<br/>
     <h4>На OC4J:</h4>
-    <i>ant deploy -DDEPLOYMENT_PATH=&lt;DEPLOYMENT_PATH&gt; -DLOGIN=&lt;LOGIN&gt; -DPASSWORD=&lt;PASSWORD&gt; -DLOAD_OPERATORID=&lt;LOAD_OPERATORID&gt;&nbsp; -DBIN_HOME=&lt;BIN_HOME&gt;&nbsp;</i>, где<br/>
+    <i>ant oc4j.deploy -DDEPLOYMENT_PATH=&lt;DEPLOYMENT_PATH&gt; -DLOGIN=&lt;LOGIN&gt; -DPASSWORD=&lt;PASSWORD&gt; -DLOAD_OPERATORID=&lt;LOAD_OPERATORID&gt;&nbsp; -DBIN_HOME=&lt;BIN_HOME&gt;&nbsp;</i>, где<br/>
     <ul>
       <li>DEPLOYMENT_PATH - адрес установки модуля вида <i>[opmn://]host:opmnPort[/iASInstanceName/oc4jInstanceName]</i></li>
       <li>PORT - параметр нужен в случае, если http-порт на сервере отличен от 80го (по-умолчанию значение 80)</li>
@@ -33,7 +33,7 @@
       <li>BIN_HOME - директория бинарного репозитория</li>
     </ul>
     Пример:
-    <pre>ant deploy -DDEPLOYMENT_PATH=opmn://10.90.7.148:6003/OracleAS_1.srvapp7.d.t/OC4J_4 -DPORT=8888 -DLOGIN=LOGIN -DPASSWORD=PASSWORD -DLOAD_OPERATORID=nagornyys/123 -DBIN_HOME=C:/Project/JEP/Bin<br/></pre>
+    <pre>ant oc4j.deploy -DDEPLOYMENT_PATH=opmn://host:opmnPort/OracleAS_1/OC4J_4 -DPORT=8888 -DLOGIN=LOGIN -DPASSWORD=PASSWORD -DLOAD_OPERATORID=user/123 -DBIN_HOME=C:/Project/JEP/Bin<br/></pre>
     <h4>На Tomcat:</h4>
     <i>ant tomcat.deploy -DDEPLOYMENT_PATH=&lt;DEPLOYMENT_PATH&gt; -DLOGIN=&lt;LOGIN&gt; -DPASSWORD=&lt;PASSWORD&gt; -DLOAD_OPERATORID=&lt;LOAD_OPERATORID&gt;&nbsp; -DBIN_HOME=&lt;BIN_HOME&gt;&nbsp;</i>, где<br/>
     <ul>
