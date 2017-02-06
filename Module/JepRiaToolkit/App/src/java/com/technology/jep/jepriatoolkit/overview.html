@@ -218,11 +218,32 @@
 <h3><a name="releaseNotes">Замечания к версиям</a></h3>
 <h4>Версии</h4>
 <ul>
+  <li><a href="#7.3.0">7.3.0 (2017-02-06)</a></li>
   <li><a href="#7.2.0">7.2.0 (2016-12-22)</a></li>
   <li><a href="#7.1.0">7.1.0 (2016-09-27)</a></li>
   <li><a href="#7.0.0">7.0.0 (2016-04-12)</a></li>
   <li><a href="#6.5.0">6.5.0 (2016-01-26)</a></li>
   <li><a href="#6.4.0">6.4.0 (2015-11-24)</a></li>
+</ul>
+<h5><a name="7.3.0">7.3.0 (2017-02-06)</a></h5>
+<ul>
+  <li><b>feat:</b> Генерация структуры автотестов для JepRia-приложения (Feature 581).</li>
+  <li><b>feat:</b> Файлы css убраны из config. Реализован механизм, скрывающий Test Build Message по классу блока (Feature 1761).</li>
+  <li>Актуализация генератора прикладного кода под JepRia 9.6.0 и Tomcat:
+    <ul>
+      <li><b>feat:</b> Генерация tomcat/context.xml</li>
+      <li><b>feat:</b> Генерация текстов в jsp с учетом ресурсов, поддерживающих i18n (Feature 1563).</li>
+      <li><b>feat:</b> Реализована поддержка ModuleItem для *clientFactoryImpl.</li>
+      <li><b>feat:</b> Добавлено описание установки на Tomcat в overview.ftl (Feature 1601).</li>
+      <li><b>refactor:</b> Из web.xml удалена секция http-mettod (так как наблюдались проблемы при установке на Tomcat).</li>
+      <li><b>refactor:</b> Удалена генерация констант URL в *mainModuleConstant.ftl (перенесены в константы тестов).</li>
+      <li><b>refactor:</b> Актуализирован шаблон clientModuleUploadServiceImpl.ftl</li>
+    </ul>
+  </li>
+  <li><b>refactor:</b> Удалена генерация *clientFactoryImpl в config.</li>
+  <li><b>chore:</b> Добавлена зависимость от JepRia (удалены дублируемые классы в исходном коде JepRiaToolkit).</li>
+  <li><b>fix:</b> Исправлена ошибка, при которой тег toolbar в *Definition.xml не реагировал на атрибуты presenter и view.</li>
+  <li><b>refactor:</b> Автозамена табуляции на два пробела.</li>
 </ul>
 <h5><a name="7.2.0">7.2.0 (2016-12-22)</a></h5>
 <ul>

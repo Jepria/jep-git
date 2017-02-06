@@ -1,6 +1,5 @@
-com.technology.jep.jepria.client.ui
-com.technology.jep.jepria.shared.field
 com.technology.jep.jepriatoolkit
+com.technology.jep.jepriatoolkit.auto.test.creator
 com.technology.jep.jepriatoolkit.check
 com.technology.jep.jepriatoolkit.creator.application
 com.technology.jep.jepriatoolkit.creator.application.thread

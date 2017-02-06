@@ -235,10 +235,10 @@ public class ApplicationStructureCreatorUtil {
   }
   
   /**
-   * Подготавливает данные для шаблона обработки одного форму (одного модуля приложения) [есть проблема формулировок].
+   * Подготавливает данные для шаблона обработки одной форму (одного модуля приложения) [есть проблема формулировок].
    * @param moduleInfo Описание модуля приложения (одной форму).
    * @param allDataForTemplates Данные для всех шаблонов.
-   * @return
+   * @return Данные для шаблона обработки одной форму.
    */
   public static Map<String, Object> prepareFormData(ModuleInfo moduleInfo, Map<String, Object> allDataForTemplates) {
     Map<String, Object> formData = new HashMap<String, Object>();

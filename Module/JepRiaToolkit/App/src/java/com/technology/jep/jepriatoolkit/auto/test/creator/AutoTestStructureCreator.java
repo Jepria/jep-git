@@ -57,7 +57,7 @@ public class AutoTestStructureCreator extends Task {
   
   /**
    * Получает данные для шаблонизатора.
-   * @return
+   * @return Данные для шаблонизатора.
    */
   private Map<String, Object> getDataForTemplates() {
     return dataForTemplates;

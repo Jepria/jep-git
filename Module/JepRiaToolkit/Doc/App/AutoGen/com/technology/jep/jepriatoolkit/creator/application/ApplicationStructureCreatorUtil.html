@@ -118,6 +118,14 @@ java.lang.Object
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private static&nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/application/ApplicationStructureCreatorUtil.html#templatePath">templatePath</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Путь к папке с шаблонами.</TD>
+</TR>
 </TABLE>
 &nbsp;
 <!-- ======== CONSTRUCTOR SUMMARY ======== -->
@@ -149,7 +157,18 @@ java.lang.Object
 <CODE>static&nbsp;void</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/application/ApplicationStructureCreatorUtil.html#convertTemplateToFile(java.lang.String, java.util.Map, java.lang.String)">convertTemplateToFile</A></B>(java.lang.String&nbsp;templateFile,
                       java.util.Map&lt;java.lang.String,java.lang.Object&gt;&nbsp;dataToMap,
-                      java.lang.String&nbsp;resultFile)</CODE>
+                      java.lang.String&nbsp;resultFilePath)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Конвертация шаблона на основании данных.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/application/ApplicationStructureCreatorUtil.html#convertTemplateToFile(java.lang.String, java.util.Map, java.lang.String, java.lang.Boolean)">convertTemplateToFile</A></B>(java.lang.String&nbsp;templateFile,
+                      java.util.Map&lt;java.lang.String,java.lang.Object&gt;&nbsp;dataToMap,
+                      java.lang.String&nbsp;resultFilePath,
+                      java.lang.Boolean&nbsp;isOverride)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Конвертация шаблона на основании данных</TD>
@@ -164,11 +183,36 @@ java.lang.Object
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/application/ApplicationStructureCreatorUtil.html#getTemplatePath()">getTemplatePath</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Получает путь к папке с шаблонами.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;java.util.Map&lt;java.lang.String,java.lang.Object&gt;</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/application/ApplicationStructureCreatorUtil.html#prepareData(com.technology.jep.jepriatoolkit.parser.ApplicationSettingParser)">prepareData</A></B>(<A HREF="../../../../../../com/technology/jep/jepriatoolkit/parser/ApplicationSettingParser.html" title="class in com.technology.jep.jepriatoolkit.parser">ApplicationSettingParser</A>&nbsp;applicationParser)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Подготовка данных для мэппинга на подготовленные шаблоны</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;java.util.Map&lt;java.lang.String,java.lang.Object&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/application/ApplicationStructureCreatorUtil.html#prepareFormData(com.technology.jep.jepriatoolkit.creator.module.ModuleInfo, java.util.Map)">prepareFormData</A></B>(<A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/ModuleInfo.html" title="class in com.technology.jep.jepriatoolkit.creator.module">ModuleInfo</A>&nbsp;moduleInfo,
+                java.util.Map&lt;java.lang.String,java.lang.Object&gt;&nbsp;allDataForTemplates)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Подготавливает данные для шаблона обработки одной форму (одного модуля приложения) [есть проблема формулировок].</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/application/ApplicationStructureCreatorUtil.html#setTemplatePath(java.lang.String)">setTemplatePath</A></B>(java.lang.String&nbsp;templatePath)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Устанавливает путь к папке с шаблонами.</TD>
 </TR>
 </TABLE>
 &nbsp;<A NAME="methods_inherited_from_class_java.lang.Object"><!-- --></A>
@@ -201,6 +245,19 @@ private static freemarker.template.Configuration <B>cfg</B></PRE>
 <DL>
 </DL>
 </DL>
+<HR>
+
+<A NAME="templatePath"><!-- --></A><H3>
+templatePath</H3>
+<PRE>
+private static java.lang.String <B>templatePath</B></PRE>
+<DL>
+<DD>Путь к папке с шаблонами. <br/>
+ TODO: некрасиво сделано переопределение.
+<P>
+<DL>
+</DL>
+</DL>
 
 <!-- ========= CONSTRUCTOR DETAIL ======== -->
 
@@ -229,6 +286,33 @@ public <B>ApplicationStructureCreatorUtil</B>()</PRE>
 </TR>
 </TABLE>
 
+<A NAME="getTemplatePath()"><!-- --></A><H3>
+getTemplatePath</H3>
+<PRE>
+public static java.lang.String <B>getTemplatePath</B>()</PRE>
+<DL>
+<DD>Получает путь к папке с шаблонами.
+<P>
+<DD><DL>
+
+<DT><B>Returns:</B><DD>путь к папке с шаблонами.</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setTemplatePath(java.lang.String)"><!-- --></A><H3>
+setTemplatePath</H3>
+<PRE>
+public static void <B>setTemplatePath</B>(java.lang.String&nbsp;templatePath)</PRE>
+<DL>
+<DD>Устанавливает путь к папке с шаблонами.
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>templatePath</CODE> - Путь к папке с шаблонами.</DL>
+</DD>
+</DL>
+<HR>
+
 <A NAME="getTemplateConfiguration()"><!-- --></A><H3>
 getTemplateConfiguration</H3>
 <PRE>
@@ -248,12 +332,29 @@ convertTemplateToFile</H3>
 <PRE>
 public static void <B>convertTemplateToFile</B>(java.lang.String&nbsp;templateFile,
                                          java.util.Map&lt;java.lang.String,java.lang.Object&gt;&nbsp;dataToMap,
-                                         java.lang.String&nbsp;resultFile)</PRE>
+                                         java.lang.String&nbsp;resultFilePath)</PRE>
+<DL>
+<DD>Конвертация шаблона на основании данных. <br/>
+ Добавлен для обратной совместимости, - см. аналогичный метод с 4 параметрами.
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>templateFile</CODE> - Файл шаблона.<DD><CODE>dataToMap</CODE> - Данные для мэппинга.<DD><CODE>resultFilePath</CODE> - Путь результирующего файла.</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="convertTemplateToFile(java.lang.String, java.util.Map, java.lang.String, java.lang.Boolean)"><!-- --></A><H3>
+convertTemplateToFile</H3>
+<PRE>
+public static void <B>convertTemplateToFile</B>(java.lang.String&nbsp;templateFile,
+                                         java.util.Map&lt;java.lang.String,java.lang.Object&gt;&nbsp;dataToMap,
+                                         java.lang.String&nbsp;resultFilePath,
+                                         java.lang.Boolean&nbsp;isOverride)</PRE>
 <DL>
 <DD>Конвертация шаблона на основании данных
 <P>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>templateFile</CODE> - файл шаблона<DD><CODE>dataToMap</CODE> - данные для мэппинга<DD><CODE>resultFile</CODE> - результирующий файл</DL>
+<DT><B>Parameters:</B><DD><CODE>templateFile</CODE> - Файл шаблона.<DD><CODE>dataToMap</CODE> - Данные для мэппинга.<DD><CODE>resultFilePath</CODE> - Путь результирующего файла.<DD><CODE>isOverride</CODE> - Флаг, если true, то перезаписывает итоговый файл, иначе нет.</DL>
 </DD>
 </DL>
 <HR>
@@ -268,6 +369,21 @@ public static final java.util.Map&lt;java.lang.String,java.lang.Object&gt; <B>pr
 <DD><DL>
 
 <DT><B>Returns:</B><DD>данные для мэпирования</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="prepareFormData(com.technology.jep.jepriatoolkit.creator.module.ModuleInfo, java.util.Map)"><!-- --></A><H3>
+prepareFormData</H3>
+<PRE>
+public static java.util.Map&lt;java.lang.String,java.lang.Object&gt; <B>prepareFormData</B>(<A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/module/ModuleInfo.html" title="class in com.technology.jep.jepriatoolkit.creator.module">ModuleInfo</A>&nbsp;moduleInfo,
+                                                                               java.util.Map&lt;java.lang.String,java.lang.Object&gt;&nbsp;allDataForTemplates)</PRE>
+<DL>
+<DD>Подготавливает данные для шаблона обработки одной форму (одного модуля приложения) [есть проблема формулировок].
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>moduleInfo</CODE> - Описание модуля приложения (одной форму).<DD><CODE>allDataForTemplates</CODE> - Данные для всех шаблонов.
+<DT><B>Returns:</B><DD>Данные для шаблона обработки одной форму.</DL>
 </DD>
 </DL>
 <!-- ========= END OF CLASS DATA ========= -->

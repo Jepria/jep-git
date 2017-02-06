@@ -445,6 +445,14 @@ java.lang.Object
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>private &nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/application/ApplicationStructureCreator.html#generateTomcatContextXml()">generateTomcatContextXml</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Создание tomcat/context.xml.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;void</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepriatoolkit/creator/application/ApplicationStructureCreator.html#generateWebXML()">generateWebXML</A></B>()</CODE>
 
 <BR>
@@ -633,6 +641,20 @@ private void <B>generateApplicationXML</B>()</PRE>
 </DL>
 <HR>
 
+<A NAME="generateTomcatContextXml()"><!-- --></A><H3>
+generateTomcatContextXml</H3>
+<PRE>
+private void <B>generateTomcatContextXml</B>()</PRE>
+<DL>
+<DD>Создание tomcat/context.xml. <br/>
+ TODO: Параметризовать appName в Realm в *Definition.xml, так как сейчас жестко зашит RFInfoDS.
+<P>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
 <A NAME="generateOrionApplicationXML()"><!-- --></A><H3>
 generateOrionApplicationXML</H3>
 <PRE>
@@ -677,13 +699,16 @@ private void <B>generateGwtXML</B>()</PRE>
 <A NAME="createWelcomePage()"><!-- --></A><H3>
 createWelcomePage</H3>
 <PRE>
-private void <B>createWelcomePage</B>()</PRE>
+private void <B>createWelcomePage</B>()
+                        throws java.io.IOException</PRE>
 <DL>
 <DD>Создание страницы приветствия в зависимости от флага продукционности
  сборки
 <P>
 <DD><DL>
-</DL>
+
+<DT><B>Throws:</B>
+<DD><CODE>java.io.IOException</CODE></DL>
 </DD>
 </DL>
 <HR>
