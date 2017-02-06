@@ -75,4 +75,8 @@ public class JepRiaServerConstant extends JepRiaConstant {
    */
   public static final String SSO_MODULE_URL = "/Sso/Sso.jsp?em=Login"; 
   
+  /**
+   * URL на защищенную страницу модуля SSO 
+   */
+  public static final String SSO_PROTECTED_URL = "/Sso/Protected.jsp"; 
 }
