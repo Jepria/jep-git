@@ -9,6 +9,6 @@ public interface ${moduleName}Auto {
   /**
    * Класс автоматизации модуля ${form.formName}.
    */
-  ${form.formName}Auto get${form.formName}(boolean newInstance);
+  ${form.formName}Auto get${form.formName}Auto(boolean newInstance);
   </#list>
 }

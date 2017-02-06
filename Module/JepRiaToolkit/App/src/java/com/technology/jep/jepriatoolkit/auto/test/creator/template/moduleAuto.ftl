@@ -5,7 +5,7 @@ import com.technology.jep.jepria.auto.module.JepRiaModuleAuto;
 /**
  * Автоматизация модуля ${form.formName}.
  */
-public class ${form.formName}Auto extends JepRiaModuleAuto { 
+public interface ${form.formName}Auto extends JepRiaModuleAuto { 
   
   <#if form.sortDetailFormFields?has_content>
   /**

@@ -9,10 +9,10 @@ import com.technology.jep.jepria.auto.module.page.JepRiaModulePage;
 /**
  * Реализация автоматизации модуля ${form.formName}.
  */
-public class ${form.formName}AutoImpl extends JepRiaModuleImpl<JepRiaModulePage>
+public class ${form.formName}AutoImpl extends JepRiaModuleAutoImpl<JepRiaModulePage>
     implements ${form.formName}Auto { 
   
-  public ${form.formName}utoImpl() {
+  public ${form.formName}AutoImpl() {
     super(new JepRiaModulePage());
   }
   
