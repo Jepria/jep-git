@@ -20,7 +20,7 @@ public class ${form.formName}AutoTest extends ${moduleName}AutoTest {
   protected void beforeTestLaunch() {
     super.beforeTestLaunch();
     //Вход в модуль. Фактически переход по ссылке, указанной в ModuleDescription.
-    enterModule(${form.formName?lower_case});
+    enterModule(${form.formName?uncap_first});
     //Логин по умолчанию (указаны в test.propertiest).
     if(!isLoggedIn()) loginDefault();
   }
