@@ -291,6 +291,6 @@ public class AutoTestStructureCreator extends Task {
     
     this.isOverrideExistsFiles = isEmptyOrNotInitializedParameter(isOverrideExistsFiles) 
         ? false : Boolean.parseBoolean(isOverrideExistsFiles);
-    echoMessage("Task parameter - isOverrideExistsFiles: " + this.isOverrideExistsFiles);
+    echoMessage("Task parameter - IS_OVERRIDE_EXISTS_FILES: " + this.isOverrideExistsFiles);
   }
 }
