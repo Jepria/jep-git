@@ -12,7 +12,7 @@
   attempts++;
   session.setAttribute(LOGIN_ATTEMPTS_SESSION_ATTRIBUTE, attempts);
   
-  RequestDispatcher rd = application.getRequestDispatcher("/WEB-INF/security/Login.jsp");
+  RequestDispatcher rd = application.getRequestDispatcher("/WEB-INF/security/SsoLogin.jsp");
   request.setAttribute(HTTP_REQUEST_PARAMETER_SSO_IS_ERROR, true);
   rd.forward(request, response);
 %>

@@ -1,14 +1,10 @@
 <!DOCTYPE html>
 <%@page import="com.technology.jep.jepria.server.util.JepServerUtil"%>
 <%@ page contentType="text/html;charset=utf-8" language="java"%>
-<%@ page import="static com.technology.jep.jepria.server.JepRiaServerConstant.LOGIN_ATTEMPTS_SESSION_ATTRIBUTE"%>
-<%@ page import="static com.technology.jep.jepria.server.JepRiaServerConstant.MAX_LOGIN_ATTEMPTS"%>
 <%@ page import="static com.technology.jep.jepria.server.JepRiaServerConstant.SSO_PROTECTED_URL"%>
 <%@ page import="static com.technology.jep.jepria.shared.JepRiaConstant.REQUEST_PARAMETER_ENTER_MODULE"%>
 <%@ page import="static com.technology.jep.jepria.shared.JepRiaConstant.REQUEST_PARAMETER_QUERY_STRING"%>
 <%@ page import="static com.technology.jep.jepria.shared.JepRiaConstant.HTTP_REQUEST_PARAMETER_LOCALE"%>
-<%@ page import="static com.technology.jep.jepria.shared.JepRiaConstant.HTTP_REQUEST_PARAMETER_SSO_IS_ERROR"%>
-<%@ page import="static com.technology.jep.jepria.shared.JepRiaConstant.HTTP_REQUEST_PARAMETER_SSO_IS_BLOCKED"%>
 <%@ page import="com.technology.jep.jepria.server.security.SecurityFactory" %>
 <%@ page import="static com.technology.jep.jepria.server.util.JepServerUtil.getLocale"%>
 <%@ page import="java.util.ResourceBundle" %>
@@ -60,14 +56,6 @@ if (response.getStatus() == 403) {
       "&" + REQUEST_PARAMETER_ENTER_MODULE + "=" + JepServerUtil.getApplicationName(application) +
       "&" + REQUEST_PARAMETER_QUERY_STRING + "=" + request.getQueryString(); 
   
-  boolean isError = Boolean.TRUE.equals(request.getAttribute(HTTP_REQUEST_PARAMETER_SSO_IS_ERROR));
-  Integer loginAttempts = (Integer) session.getAttribute(LOGIN_ATTEMPTS_SESSION_ATTRIBUTE);
-  if (loginAttempts != null && loginAttempts >= MAX_LOGIN_ATTEMPTS) {
-    response.sendRedirect(ssoLoginWithBaseParameters + "&" + HTTP_REQUEST_PARAMETER_SSO_IS_BLOCKED + "=1");
-  } else if (isError) {
-    response.sendRedirect(ssoLoginWithBaseParameters + "&" + HTTP_REQUEST_PARAMETER_SSO_IS_ERROR + "=1");
-  } else {
-    response.sendRedirect(ssoLoginWithBaseParameters);
-  }
+  response.sendRedirect(ssoLoginWithBaseParameters);
 }
 %>
