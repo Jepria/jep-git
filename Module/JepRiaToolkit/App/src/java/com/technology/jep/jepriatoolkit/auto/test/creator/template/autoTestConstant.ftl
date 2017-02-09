@@ -6,6 +6,6 @@ public class ${moduleName}AutoTestConstant {
   /**
    * URL для входа в модуль ${form.formName}.
    */
-  public static final String ENTRANCE_URL_${form.formName?upper_case}_MODULE = "/${moduleName}/${moduleName}.jsp?em=${form.formName}&es=sh";
+  public static final String ENTRANCE_URL_${form.formName?upper_case}_MODULE = "${moduleName}.jsp?em=${form.formName}&es=sh";
   </#list>
 }
