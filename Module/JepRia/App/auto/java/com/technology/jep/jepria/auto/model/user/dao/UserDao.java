@@ -11,6 +11,7 @@ import oracle.jdbc.pool.OracleDataSource;
 import com.technology.jep.jepria.auto.model.user.User;
 import com.technology.jep.jepria.server.dao.DaoSupport;
 import com.technology.jep.jepria.shared.exceptions.ApplicationException;
+import com.technology.jep.jepria.shared.util.JepRiaUtil;
 
 /**
  * Класс получает из базы пользователя с нужными правами для теста. 
@@ -73,21 +74,28 @@ public class UserDao implements UserData {
     Integer result = null;
     try {
 
-      //Генерируем вопросы для параметризованного вызова cmn_string_table_t
-      //Количество вопросов равно количеству ролей.
-      StringBuilder subQuery = new StringBuilder();
-      for(int i = 0; i < roleSNameList.size(); i++){
-        subQuery.append("?,");
+      StringBuilder roleSNameListSubQuery = new StringBuilder();
+      int roleSNameCount = (roleSNameList == null) ? 0 :roleSNameList.size(); 
+      if(roleSNameCount > 0) {
+        
+        //Генерируем вопросы для параметризованного вызова cmn_string_table_t
+        //Количество вопросов равно количеству ролей.
+        StringBuilder subQuery = new StringBuilder();
+        for(int i = 0; i < roleSNameList.size(); i++) {
+          subQuery.append("?,");
+        }
+        
+        if(subQuery.length() > 0) {
+          roleSNameListSubQuery.append(", roleSNameList => cmn_string_table_t( "); 
+          roleSNameListSubQuery.append(subQuery.substring(0, subQuery.length() - 1)); //удаляет последнюю запятую.
+          roleSNameListSubQuery.append(" ) ");
+        }
       }
-      
-      //Удаляем последнюю запятую.
-      String cmnStringTableTSubQuery = subQuery.length() > 0 ? 
-          subQuery.substring(0, subQuery.length() - 1) : "";
-
+          
       String query = 
           "begin ? := pkg_AccessOperatorTest.getTestOperatorId("
               + "login => ?"
-              + ", roleSNameList => cmn_string_table_t( " + cmnStringTableTSubQuery + " ) "
+              + roleSNameListSubQuery.toString()
             + ");"
           + " end;";
       
@@ -99,9 +107,11 @@ public class UserDao implements UserData {
       //Устанавливаем логин
       callableStatement.setString(2, login);
       
-      //Устанавливаем роли
-      DaoSupport.setInputParamsToStatement(callableStatement, 3, 
-          roleSNameList.toArray(new Object[roleSNameList.size()]));
+      if(roleSNameCount > 0) {
+        //Устанавливаем роли
+        DaoSupport.setInputParamsToStatement(callableStatement, 3, 
+            roleSNameList.toArray(new Object[roleSNameCount]));
+      }
       
       // Выполнение запроса.
       callableStatement.execute();
