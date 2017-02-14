@@ -88,7 +88,7 @@ public abstract class JepRiaApplicationAutoTest<A extends JepRiaApplicationAuto>
    * Устанавливает cut.
    * @param cut
    */
-  protected void setCut(JepRiaModuleAuto cut) {
+  private void setCut(JepRiaModuleAuto cut) {
     this.cut = cut;
   }
 
@@ -295,19 +295,35 @@ public abstract class JepRiaApplicationAutoTest<A extends JepRiaApplicationAuto>
       return entranceAuto.isLoggedIn();
     }
   }
+  
+  /**
+   * Вход в модуль для прохождения теста по ссылке. <br/>
+   * Ссылка - относительная, от имени приложения. <br/>
+   * TODO: Продумать в ModuleDescription несколько EntranceURL в модуль. 
+   * @param module - Модуль.
+   * @param entranceUrl - Ссылка.
+   */
+  public void enterModule(ModuleDescription<?> module, String entranceUrl) {
+    
+    //по умолчанию EntranceURL из module
+    if(entranceUrl == null) {
+      entranceUrl = module.getEntranceURL();
+    }
+    
+    //вход в приложения, в модуль, для теста
+    //baseUrl - заканчивается именем приложения, без /
+    WebDriverFactory.getDriver().get(baseUrl + "/" + entranceUrl);
+
+    //установка в cut текущего модуля
+    setCut(module.getModuleAuto());
+  }
 
   /**
    * Вход в модуль для прохождения теста.
    * @param module - Модуль.
    */
   public void enterModule(ModuleDescription<?> module) {
-    
-    //вход в приложения, в модуль, для теста
-    //baseUrl - заканчивается именем приложения, без /
-    WebDriverFactory.getDriver().get(baseUrl + "/" + module.getEntranceURL());
-
-    //установка в cut текущего модуля
-    setCut(module.getModuleAuto());
+    enterModule(module, null);
   }
   
   /**
