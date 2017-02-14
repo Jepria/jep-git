@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<%@page import="com.technology.jep.jepria.server.util.JepServerUtil"%>
 <%@ page contentType="text/html;charset=utf-8" language="java"%>
 <%@ page import="static com.technology.jep.jepria.server.JepRiaServerConstant.SSO_PROTECTED_URL"%>
 <%@ page import="static com.technology.jep.jepria.shared.JepRiaConstant.REQUEST_PARAMETER_ENTER_MODULE"%>
@@ -51,10 +50,16 @@ if (response.getStatus() == 403) {
     session.setAttribute(HTTP_REQUEST_PARAMETER_LOCALE, locale);
   }
   
+  // Нельзя передавать символ & как значение параметра запроса, поэтому заменяем его на %26
+  String forwardQueryString = (String)request.getAttribute(RequestDispatcher.FORWARD_QUERY_STRING);
+  if (forwardQueryString != null) {
+	forwardQueryString = forwardQueryString.replaceAll("&", "%26");
+  }
+  
   String ssoLoginWithBaseParameters = SSO_PROTECTED_URL + "?" + 
       (locale == null ? "" : "&" + HTTP_REQUEST_PARAMETER_LOCALE + "=" + locale) + 
-      "&" + REQUEST_PARAMETER_ENTER_MODULE + "=" + JepServerUtil.getApplicationName(application) +
-      "&" + REQUEST_PARAMETER_QUERY_STRING + "=" + request.getQueryString(); 
+      "&" + REQUEST_PARAMETER_ENTER_MODULE + "=" + (String)request.getAttribute(RequestDispatcher.FORWARD_REQUEST_URI) +
+      (forwardQueryString == null ? "" : "&" + REQUEST_PARAMETER_QUERY_STRING + "=" + forwardQueryString); 
   
   response.sendRedirect(ssoLoginWithBaseParameters);
 }
