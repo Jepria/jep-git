@@ -26,12 +26,12 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.log4j.Logger;
 
+import com.technology.jep.jepria.server.JepRiaServerConstant;
 import com.technology.jep.jepria.server.upload.blob.BinaryFileUploadImpl;
 import com.technology.jep.jepria.server.upload.blob.FileUploadStream;
 import com.technology.jep.jepria.server.upload.clob.FileUploadWriter;
 import com.technology.jep.jepria.server.upload.clob.TextFileUploadImpl;
 import com.technology.jep.jepria.server.util.JepServerUtil;
-import com.technology.jep.jepria.shared.JepRiaConstant;
 import com.technology.jep.jepria.shared.exceptions.UnsupportedException;
 import com.technology.jep.jepria.shared.field.JepTypeEnum;
 import com.technology.jep.jepria.shared.history.JepHistoryToken;
@@ -76,7 +76,7 @@ public class JepUploadServlet extends HttpServlet {
   public JepUploadServlet(
       JepLobRecordDefinition fileRecordDefinition,
       String dataSourceJndiName) {
-    this(fileRecordDefinition, dataSourceJndiName, JepRiaConstant.DEFAULT_ENCODING);
+    this(fileRecordDefinition, dataSourceJndiName, JepRiaServerConstant.DEFAULT_ENCODING);
   }
   /**
    * Создаёт сервлет загрузки файлов на сервер.

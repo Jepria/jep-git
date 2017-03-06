@@ -1,5 +1,7 @@
 package com.technology.jep.jepria.server;
 
+import java.nio.charset.Charset;
+
 import com.technology.jep.jepria.shared.JepRiaConstant;
 
 public class JepRiaServerConstant extends JepRiaConstant {
@@ -78,5 +80,10 @@ public class JepRiaServerConstant extends JepRiaConstant {
   /**
    * URL на защищенную страницу модуля SSO 
    */
-  public static final String SSO_PROTECTED_URL = "/Sso/Protected.jsp"; 
+  public static final String SSO_PROTECTED_URL = "/Sso/Protected.jsp";
+  
+  /**
+   * Кодировка по умолчанию: UTF-8.
+   */
+  public static final Charset DEFAULT_ENCODING = Charset.forName("UTF-8");
 }

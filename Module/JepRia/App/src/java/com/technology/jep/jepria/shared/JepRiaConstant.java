@@ -1,6 +1,5 @@
 package com.technology.jep.jepria.shared;
 
-import java.nio.charset.Charset;
 
 public class JepRiaConstant {
   
@@ -126,9 +125,4 @@ public class JepRiaConstant {
    * Параметр, содержащий queryString запроса, после которого потребовалась авторизация через Sso.
    */
   public static final String REQUEST_PARAMETER_QUERY_STRING = "queryString";
-  
-  /**
-   * Кодировка по умолчанию: UTF-8.
-   */
-  public static final Charset DEFAULT_ENCODING = Charset.forName("UTF-8");
 }

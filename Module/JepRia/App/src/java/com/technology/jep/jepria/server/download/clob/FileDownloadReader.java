@@ -7,9 +7,9 @@ import java.io.OutputStreamWriter;
 import java.io.Reader;
 import java.nio.charset.Charset;
 
+import com.technology.jep.jepria.server.JepRiaServerConstant;
 import com.technology.jep.jepria.server.download.FileDownload;
 import com.technology.jep.jepria.server.exceptions.SpaceException;
-import com.technology.jep.jepria.shared.JepRiaConstant;
 import com.technology.jep.jepria.shared.exceptions.ApplicationException;
 import com.technology.jep.jepria.shared.exceptions.SystemException;
 
@@ -171,6 +171,6 @@ public class FileDownloadReader extends Reader {
       , String moduleName) 
       throws IOException {
     downloadFile(fileStream, fileDownload, tableName, fileFieldName, keyFieldName, rowId, dataSourceJndiName,
-        moduleName, JepRiaConstant.DEFAULT_ENCODING);
+        moduleName, JepRiaServerConstant.DEFAULT_ENCODING);
   }
 }
