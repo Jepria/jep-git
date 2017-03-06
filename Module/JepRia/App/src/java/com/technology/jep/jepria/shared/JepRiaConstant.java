@@ -1,5 +1,7 @@
 package com.technology.jep.jepria.shared;
 
+import java.nio.charset.Charset;
+
 public class JepRiaConstant {
   
   /**
@@ -20,12 +22,12 @@ public class JepRiaConstant {
   /**
    * Формат времени по умолчанию.
    */
-  public static String DEFAULT_TIME_FORMAT = "HH:mm:ss";
+  public static final String DEFAULT_TIME_FORMAT = "HH:mm:ss";
   
   /**
    * Сокращённый формат времени.
    */
-  public static String SHORT_TIME_FORMAT = "HH:mm";
+  public static final String SHORT_TIME_FORMAT = "HH:mm";
   
   /**
    * Формат десятичных чисел по умолчанию.
@@ -124,4 +126,9 @@ public class JepRiaConstant {
    * Параметр, содержащий queryString запроса, после которого потребовалась авторизация через Sso.
    */
   public static final String REQUEST_PARAMETER_QUERY_STRING = "queryString";
+  
+  /**
+   * Кодировка по умолчанию: UTF-8.
+   */
+  public static final Charset DEFAULT_ENCODING = Charset.forName("UTF-8");
 }

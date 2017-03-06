@@ -1,16 +1,15 @@
 package com.technology.jep.jepria.server.download;
 
-import static com.technology.jep.jepria.server.download.clob.FileDownloadReader.DEFAULT_ENCODING;
+import static com.technology.jep.jepria.shared.JepRiaConstant.DOWNLOAD_CONTENT_DISPOSITION;
 import static com.technology.jep.jepria.shared.JepRiaConstant.DOWNLOAD_CONTENT_DISPOSITION_ATTACHMENT;
 import static com.technology.jep.jepria.shared.JepRiaConstant.DOWNLOAD_CONTENT_DISPOSITION_INLINE;
-import static com.technology.jep.jepria.shared.JepRiaConstant.DOWNLOAD_CONTENT_DISPOSITION;
 import static com.technology.jep.jepria.shared.JepRiaConstant.DOWNLOAD_EXTENSION;
 import static com.technology.jep.jepria.shared.JepRiaConstant.DOWNLOAD_FIELD_NAME;
-import static com.technology.jep.jepria.shared.JepRiaConstant.DOWNLOAD_FILE_NAME_PREFIX;
 import static com.technology.jep.jepria.shared.JepRiaConstant.DOWNLOAD_FILE_NAME;
+import static com.technology.jep.jepria.shared.JepRiaConstant.DOWNLOAD_FILE_NAME_PREFIX;
+import static com.technology.jep.jepria.shared.JepRiaConstant.DOWNLOAD_ID;
 import static com.technology.jep.jepria.shared.JepRiaConstant.DOWNLOAD_MIME_TYPE;
 import static com.technology.jep.jepria.shared.JepRiaConstant.DOWNLOAD_RECORD_KEY;
-import static com.technology.jep.jepria.shared.JepRiaConstant.DOWNLOAD_ID;
 import static com.technology.jep.jepria.shared.field.JepTypeEnum.BINARY_FILE;
 import static com.technology.jep.jepria.shared.field.JepTypeEnum.TEXT_FILE;
 
@@ -30,11 +29,12 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
-import com.technology.jep.jepria.server.download.blob.FileDownloadStream;
 import com.technology.jep.jepria.server.download.blob.BinaryFileDownloadImpl;
+import com.technology.jep.jepria.server.download.blob.FileDownloadStream;
 import com.technology.jep.jepria.server.download.clob.FileDownloadReader;
 import com.technology.jep.jepria.server.download.clob.TextFileDownloadImpl;
 import com.technology.jep.jepria.server.util.JepServerUtil;
+import com.technology.jep.jepria.shared.JepRiaConstant;
 import com.technology.jep.jepria.shared.exceptions.UnsupportedException;
 import com.technology.jep.jepria.shared.field.JepTypeEnum;
 import com.technology.jep.jepria.shared.record.lob.JepLobRecordDefinition;
@@ -127,7 +127,7 @@ public class JepDownloadServlet extends HttpServlet {
     JepLobRecordDefinition fileRecordDefinition,
     String dataSourceJndiName){
     
-    this(fileRecordDefinition, dataSourceJndiName, DEFAULT_ENCODING);
+    this(fileRecordDefinition, dataSourceJndiName, JepRiaConstant.DEFAULT_ENCODING);
   }
 
   /**

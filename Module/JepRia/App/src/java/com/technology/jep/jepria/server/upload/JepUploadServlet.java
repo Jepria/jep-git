@@ -1,12 +1,14 @@
 package com.technology.jep.jepria.server.upload;
 
+import static com.technology.jep.jepria.server.JepRiaServerConstant.JEP_RIA_RESOURCE_BUNDLE_NAME;
+import static com.technology.jep.jepria.shared.JepRiaConstant.FILE_SIZE_HIDDEN_FIELD_NAME;
+import static com.technology.jep.jepria.shared.JepRiaConstant.PRIMARY_KEY_HIDDEN_FIELD_NAME;
 import static com.technology.jep.jepria.shared.field.JepTypeEnum.BINARY_FILE;
 import static com.technology.jep.jepria.shared.field.JepTypeEnum.TEXT_FILE;
-import static com.technology.jep.jepria.server.JepRiaServerConstant.JEP_RIA_RESOURCE_BUNDLE_NAME;
-import static com.technology.jep.jepria.shared.JepRiaConstant.*;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.charset.Charset;
 import java.text.MessageFormat;
 import java.util.List;
 import java.util.Map;
@@ -29,6 +31,7 @@ import com.technology.jep.jepria.server.upload.blob.FileUploadStream;
 import com.technology.jep.jepria.server.upload.clob.FileUploadWriter;
 import com.technology.jep.jepria.server.upload.clob.TextFileUploadImpl;
 import com.technology.jep.jepria.server.util.JepServerUtil;
+import com.technology.jep.jepria.shared.JepRiaConstant;
 import com.technology.jep.jepria.shared.exceptions.UnsupportedException;
 import com.technology.jep.jepria.shared.field.JepTypeEnum;
 import com.technology.jep.jepria.shared.history.JepHistoryToken;
@@ -60,16 +63,35 @@ public class JepUploadServlet extends HttpServlet {
   private String moduleName;
   
   /**
-   * Создаёт сервлет загрузки файлов на сервер.
+   * Кодировка текстовых файлов.
+   */
+  private final Charset textFileCharset;
+  
+  /**
+   * Создаёт сервлет загрузки файлов на сервер.<br>
+   * Для текстовых файлов используется кодировка по умолчанию - UTF-8.
    * @param fileRecordDefinition определение записи
    * @param dataSourceJndiName JNDI-наименование источника данных
    */
   public JepUploadServlet(
+      JepLobRecordDefinition fileRecordDefinition,
+      String dataSourceJndiName) {
+    this(fileRecordDefinition, dataSourceJndiName, JepRiaConstant.DEFAULT_ENCODING);
+  }
+  /**
+   * Создаёт сервлет загрузки файлов на сервер.
+   * @param fileRecordDefinition определение записи
+   * @param dataSourceJndiName JNDI-наименование источника данных
+   * @param textFileCharset кодировка текстовых файлов
+   */
+  public JepUploadServlet(
     JepLobRecordDefinition fileRecordDefinition,
-    String dataSourceJndiName) {
+    String dataSourceJndiName,
+    Charset textFileCharset) {
     
     this.fileRecordDefinition = fileRecordDefinition;
     this.dataSourceJndiName = dataSourceJndiName;
+    this.textFileCharset = textFileCharset;
   }
 
   /**
@@ -240,7 +262,7 @@ public class JepUploadServlet extends HttpServlet {
     
       if(primaryKeyMap.size() == 1) {
         FileUploadWriter.uploadFile(
-          new InputStreamReader(fileItem.getInputStream()),
+          new InputStreamReader(fileItem.getInputStream(), textFileCharset),
           new TextFileUploadImpl(),
           tableName,
           fileFieldName,
@@ -250,7 +272,7 @@ public class JepUploadServlet extends HttpServlet {
           this.moduleName);
       } else {
         FileUploadWriter.uploadFile(
-          new InputStreamReader(fileItem.getInputStream()),
+          new InputStreamReader(fileItem.getInputStream(), textFileCharset),
           new TextFileUploadImpl(),
           tableName,
           fileFieldName,

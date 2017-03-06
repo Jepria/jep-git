@@ -9,6 +9,7 @@ import java.nio.charset.Charset;
 
 import com.technology.jep.jepria.server.download.FileDownload;
 import com.technology.jep.jepria.server.exceptions.SpaceException;
+import com.technology.jep.jepria.shared.JepRiaConstant;
 import com.technology.jep.jepria.shared.exceptions.ApplicationException;
 import com.technology.jep.jepria.shared.exceptions.SystemException;
 
@@ -36,7 +37,6 @@ import com.technology.jep.jepria.shared.exceptions.SystemException;
  * </pre>
  */
 public class FileDownloadReader extends Reader {
-  public static final Charset DEFAULT_ENCODING = Charset.forName("UTF-8");
   
   /**
    * Интерфейс бина, который будет использоваться для чтения файла из базы данных.
@@ -171,6 +171,6 @@ public class FileDownloadReader extends Reader {
       , String moduleName) 
       throws IOException {
     downloadFile(fileStream, fileDownload, tableName, fileFieldName, keyFieldName, rowId, dataSourceJndiName,
-        moduleName, DEFAULT_ENCODING);
+        moduleName, JepRiaConstant.DEFAULT_ENCODING);
   }
 }
