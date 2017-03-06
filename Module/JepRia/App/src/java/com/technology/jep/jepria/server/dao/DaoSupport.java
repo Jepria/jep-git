@@ -9,7 +9,7 @@ import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
-import oracle.jdbc.driver.OracleTypes;
+import oracle.jdbc.OracleTypes;
 import oracle.jdbc.internal.OracleCallableStatement;
 
 import org.apache.log4j.Logger;

@@ -34,7 +34,7 @@
     <pathelement location="${LOG4J_LIB}" />
     <pathelement location="${COMMONS-FILEUPLOAD_LIB}" />
     <pathelement location="${JUNIT_LIB}" />
-    <pathelement location="${OJDBC14DMS_LIB}" />
+    <pathelement location="${OJDBC6DMS_LIB}" />
   </path>
   <path id="selenium-libs">
     <pathelement location="${SELENIUM_LIB}" />
