@@ -9,7 +9,6 @@ import com.technology.jep.jepria.shared.field.JepLikeEnum;
 import com.technology.jep.jepria.shared.field.JepTypeEnum;
 
 public class JepRecordDefinition implements IsSerializable {
-  private static final long serialVersionUID = 1L;
   
   private String[] primaryKey;
   private Map<String, JepTypeEnum> typeMap;

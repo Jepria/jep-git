@@ -13,7 +13,6 @@ import com.technology.jep.jepria.shared.util.JepRiaUtil;
  * Определение записи, содержащей одно или несколько Lob-полей.
  */
 public class JepLobRecordDefinition extends JepRecordDefinition {
-  private static final long serialVersionUID = 1L;
 
   /**
    * Имя таблицы, содержащей записи с Lob-полями.
