@@ -44,7 +44,6 @@ import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.JEP_TEXT_FI
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.JEP_TIME_FIELD;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.LEFT_CURLY_BRACKET;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.MODULE_TAG_NAME;
-import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.OPMN_PROTOCOL;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.PATH_SEPARATOR;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.PRESENTER_BOBY_TAG_NAME;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.REGEXP_FOR_BLANK;
@@ -411,7 +410,7 @@ public final class JepRiaToolkitUtil {
    * 
    * @param message сообщение
    */
-  public static void echoMessage(String message){
+  public static void echoMessage(String message) {
     Echo echo = new Echo();
     echo.setMessage(message);
     echo.execute();
@@ -639,58 +638,6 @@ public final class JepRiaToolkitUtil {
       serverPort = DEFAULT_HTTP_PORT;
 
     return multipleConcat(protocol, "://", serverName, ":", serverPort);
-  }
-
-  /**
-   * Получение имени сервера из пути деплоя
-   * 
-   * @param deployPath   Путь развертывания приложения
-   * @return имя сервера
-   */
-  public static String getServerName(String deployPath) {
-    Integer beginIndex = (deployPath.contains(OPMN_PROTOCOL) ? (multipleConcat(
-        OPMN_PROTOCOL, "://")).length() : 0);
-    for (int i = beginIndex; i < deployPath.length(); i++) {
-      if (String.valueOf(deployPath.charAt(i)).equals(PATH_SEPARATOR)
-          || String.valueOf(deployPath.charAt(i)).equals(":")) {
-        return deployPath.substring(beginIndex, i);
-      }
-    }
-    return deployPath;
-  }
-
-  /**
-   * Валидация версии
-   * 
-   * @param version  проверяемая версия
-   * @return флаг валидности
-   */
-  public static boolean checkVersion(String version) throws Exception {
-    Pattern pattern = Pattern.compile("^[\\d]+([\\.][\\d]+)*$");
-    boolean flag = !isEmpty(version) && pattern.matcher(version).matches();
-    if (!flag) {
-      throw new Exception("Not correct version");
-    }
-    return flag;
-  }
-
-  /**
-   * Получение версии из строки
-   * 
-   * @param version  строка
-   * @return версия в формате цифр, разделенных точками
-   */
-  public static String getInstallVersion(String version) throws Exception {
-    if (isEmpty(version))
-      return null;
-    else {
-      if (version.contains("\\"))
-        version = version.split("\\")[1];
-      if (checkVersion(version))
-        return version;
-    }
-    return null;
-
   }
 
   /**

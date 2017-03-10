@@ -11,7 +11,7 @@
   <if>
     <isset property="BIN_HOME" />
     <then>
-      <echo message="Binary repository path: ${BIN_HOME}" />        
+      <echo message="Binary repository path: ${BIN_HOME}" />
     </then>
     <else>
       <fail message="Binary repository path not specified. Specify it either in environment variable %BIN_HOME% or use -DBIN_HOME=... command line argument." />
@@ -22,7 +22,7 @@
   <property name="MODULE_PACKAGE" value="com/technology/${PROJECT_NAME_IN_PACKAGE}/${MODULE_NAME_IN_PACKAGE}" />
   <property name="JAVA_DOC_DIR" value="../Doc/App/AutoGen" />
   <property name="LIBS"
-    value="${env.ANT_HOME}/lib/ant.jar;classes;${FREEMARKER_LIB};${JAVAPARSER-CORE_LIB};${XERCESIMPL_LIB};${JEPRIA_LIB}"/>
+    value="${ANT_LIB};classes;${FREEMARKER_LIB};${JAVAPARSER-CORE_LIB};${XERCESIMPL_LIB};${JEPRIA_LIB}"/>
 
   <property name="LOG_LEVEL" value="info" />
   
@@ -112,7 +112,7 @@
         
   <target name="clean">
     <delete includeemptydirs="true">
-      <fileset dir="log"/>      
+      <fileset dir="log"/>
     </delete>
   </target>
 

@@ -741,12 +741,7 @@ public class JepRiaToolkitConstant {
    * Стандартный порт http-протокола
    */
   public static final String DEFAULT_HTTP_PORT = "80";  
-  
-  /**
-   * OPMN-протокол
-   */
-  public static final String OPMN_PROTOCOL = "opmn";
-  
+
   public static final String INHERITS_MAIN_GWT_XML_TAG_NAME = "inherits";
   public static final String EXTEND_PROPERTY_MAIN_GWT_XML_TAG_NAME = "extend-property";
   public static final String SET_PROPERTY_MAIN_GWT_XML_TAG_NAME = "set-property";
@@ -1039,7 +1034,6 @@ public class JepRiaToolkitConstant {
   public static final String APPLICATION_STRUCTURE_FILE_PATH_TASK_ATTRIBUTE = "APPLICATION_STRUCTURE_FILE_PATH";
   public static final String SKIP_BUILD_AND_DEPLOY_TASK_ATTRIBUTE = "SKIP_BUILD_AND_DEPLOY";
   public static final String FORMS_TASK_ATTRIBUTE = "FORMS";
-  public static final String TRUE_TASK_ATTRIBUTE = "1";
   
   public static final String BUILD_CONFIG_PROPERTY = "BUILD_CONFIG";
   
