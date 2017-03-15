@@ -35,7 +35,7 @@ public class FinishAppInstall extends AppInstall {
     checkParameter(appInstallResultId, "Incorrect argument: appInstallResultId!");
     
     return new URL(MessageFormat.format(
-        "{0}?action=finishAppInstall&appInstallResultId={1}&javaReturnCode={2}&errorMessage={3}&login={4}&password={5}",
+        "{0}?action=finishAppInstall&appInstallResultId={1}&statusCode={2}&errorMessage={3}&login={4}&password={5}",
         getVersionServletUrl(),
         appInstallResultId,
         statusCode,

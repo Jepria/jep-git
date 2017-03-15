@@ -126,7 +126,6 @@ public abstract class AppInstall extends Task {
       e1.printStackTrace();
     }
     echoMessage("End sleep");
-    echoMessage("loadOperatorId: "+ loadOperatorId);
     */
     checkParameter(deploymentPath, "Incorrect parameter: DEPLOYMENT_PATH!");
     checkParameter(loadOperatorId, "Incorrect parameter: LOAD_OPERATORID!");
