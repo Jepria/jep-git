@@ -50,42 +50,42 @@ public abstract class AppInstall extends Task {
   }
 
   /**
-   * Кодированный логин.
+   * Закодированный логин.
    */
   private String encodedLogin;
   
   /**
-   * Получает кодированный логин.
-   * @return Кодированный логин.
+   * Получает закодированный логин.
+   * @return Закодированный логин.
    */
   protected String getEncodedLogin() {
     return encodedLogin;
   }
 
   /**
-   * Устанавливает кодированный логин.
-   * @param login Кодированный логин.
+   * Устанавливает закодированный логин.
+   * @param encodedLogin Закодированный логин.
    */
   private void setLogin(String encodedLogin) {
     this.encodedLogin = encodedLogin;
   }
   
   /**
-   * Кодированный пароль.
+   * Закодированный пароль.
    */
   private String encodedPassword;
 
   /**
-   * Получает кодированный пароль.
-   * @return Кодированный пароль.
+   * Получает закодированный пароль.
+   * @return Закодированный пароль.
    */
   protected String getEncodedPassword() {
     return encodedPassword;
   }
 
   /**
-   * Устанавливает кодированный пароль.
-   * @param password Кодированный пароль.
+   * Устанавливает закодированный пароль.
+   * @param encodedPassword Закодированный пароль.
    */
   protected void setEncodedPassword(String encodedPassword) {
     this.encodedPassword = encodedPassword;
