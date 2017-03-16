@@ -84,7 +84,6 @@ com.technology.jep.jepria.server.download.excel
 com.technology.jep.jepria.server.exceptions
 com.technology.jep.jepria.server.i18n
 com.technology.jep.jepria.server.security
-com.technology.jep.jepria.server.security.cas
 com.technology.jep.jepria.server.security.oc4j
 com.technology.jep.jepria.server.security.tomcat
 com.technology.jep.jepria.server.service

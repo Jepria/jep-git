@@ -320,6 +320,25 @@ java.lang.Object
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private static&nbsp;com.google.gwt.cell.client.Cell&lt;?&gt;</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepColumn.html#createCell(com.technology.jep.jepria.shared.field.JepTypeEnum)">createCell</A></B>(<A HREF="../../../../../../../com/technology/jep/jepria/shared/field/JepTypeEnum.html" title="enum in com.technology.jep.jepria.shared.field">JepTypeEnum</A>&nbsp;type)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>static&nbsp;<A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepColumn.html" title="class in com.technology.jep.jepria.client.widget.list">JepColumn</A></CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepColumn.html#createTypedColumn(java.lang.String, java.lang.String, double, com.technology.jep.jepria.shared.field.JepTypeEnum)">createTypedColumn</A></B>(java.lang.String&nbsp;fieldName,
+                  java.lang.String&nbsp;headerText,
+                  double&nbsp;width,
+                  <A HREF="../../../../../../../com/technology/jep/jepria/shared/field/JepTypeEnum.html" title="enum in com.technology.jep.jepria.shared.field">JepTypeEnum</A>&nbsp;type)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Создает столбец списка, типизированный JepTypeEnum'ом.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;java.lang.String</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepColumn.html#getFieldName()">getFieldName</A></B>()</CODE>
 
@@ -624,6 +643,43 @@ public <B>JepColumn</B>(java.lang.String&nbsp;fieldName,
 <B>Method Detail</B></FONT></TH>
 </TR>
 </TABLE>
+
+<A NAME="createTypedColumn(java.lang.String, java.lang.String, double, com.technology.jep.jepria.shared.field.JepTypeEnum)"><!-- --></A><H3>
+createTypedColumn</H3>
+<PRE>
+public static <A HREF="../../../../../../../com/technology/jep/jepria/client/widget/list/JepColumn.html" title="class in com.technology.jep.jepria.client.widget.list">JepColumn</A> <B>createTypedColumn</B>(java.lang.String&nbsp;fieldName,
+                                          java.lang.String&nbsp;headerText,
+                                          double&nbsp;width,
+                                          <A HREF="../../../../../../../com/technology/jep/jepria/shared/field/JepTypeEnum.html" title="enum in com.technology.jep.jepria.shared.field">JepTypeEnum</A>&nbsp;type)</PRE>
+<DL>
+<DD>Создает столбец списка, типизированный JepTypeEnum'ом.
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>fieldName</CODE> - идентификатор столбца (DB-поля)<DD><CODE>headerText</CODE> - заголовок столбца<DD><CODE>width</CODE> - ширина столбца<DD><CODE>type</CODE> - тип из таблицы:
+ <table frame="border">
+ <tr><td>Обычный текст</td><td><A HREF="../../../../../../../com/technology/jep/jepria/shared/field/JepTypeEnum.html#STRING"><CODE>JepTypeEnum.STRING</CODE></A></td></tr>
+ <tr><td>Время <code>12:34:56</code></td><td><A HREF="../../../../../../../com/technology/jep/jepria/shared/field/JepTypeEnum.html#TIME"><CODE>JepTypeEnum.TIME</CODE></A></td></tr>
+ <tr><td>Дата <code>23.04.1987</code></td><td><A HREF="../../../../../../../com/technology/jep/jepria/shared/field/JepTypeEnum.html#DATE"><CODE>JepTypeEnum.DATE</CODE></A></td></tr>
+ <tr><td>Дата и время <code>23.04.1987 12:34:56</code></td><td><A HREF="../../../../../../../com/technology/jep/jepria/shared/field/JepTypeEnum.html#DATE_TIME"><CODE>JepTypeEnum.DATE_TIME</CODE></A></td></tr>
+ <tr><td>Целое число <code>1234</code></td><td><A HREF="../../../../../../../com/technology/jep/jepria/shared/field/JepTypeEnum.html#INTEGER"><CODE>JepTypeEnum.INTEGER</CODE></A></td></tr>
+ <tr><td>Дробное число (1 знак) <code>123,4</code> </td><td><A HREF="../../../../../../../com/technology/jep/jepria/shared/field/JepTypeEnum.html#DOUBLE"><CODE>JepTypeEnum.DOUBLE</CODE></A> или <A HREF="../../../../../../../com/technology/jep/jepria/shared/field/JepTypeEnum.html#FLOAT"><CODE>JepTypeEnum.FLOAT</CODE></A></td></tr>
+ <tr><td>Decimal-число <code>1234,00</code></td><td><A HREF="../../../../../../../com/technology/jep/jepria/shared/field/JepTypeEnum.html#BIGDECIMAL"><CODE>JepTypeEnum.BIGDECIMAL</CODE></A></td></tr>
+ <tr><td>Checkbox</td><td><A HREF="../../../../../../../com/technology/jep/jepria/shared/field/JepTypeEnum.html#BOOLEAN"><CODE>JepTypeEnum.BOOLEAN</CODE></A></td></tr>
+ </table></DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="createCell(com.technology.jep.jepria.shared.field.JepTypeEnum)"><!-- --></A><H3>
+createCell</H3>
+<PRE>
+private static com.google.gwt.cell.client.Cell&lt;?&gt; <B>createCell</B>(<A HREF="../../../../../../../com/technology/jep/jepria/shared/field/JepTypeEnum.html" title="enum in com.technology.jep.jepria.shared.field">JepTypeEnum</A>&nbsp;type)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
 
 <A NAME="getFieldName()"><!-- --></A><H3>
 getFieldName</H3>

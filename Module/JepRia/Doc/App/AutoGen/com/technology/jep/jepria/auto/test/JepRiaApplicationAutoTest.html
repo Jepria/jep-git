@@ -228,6 +228,15 @@ java.lang.Object
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/test/JepRiaApplicationAutoTest.html#enterModule(com.technology.jep.jepria.auto.model.module.ModuleDescription, java.lang.String)">enterModule</A></B>(<A HREF="../../../../../../com/technology/jep/jepria/auto/model/module/ModuleDescription.html" title="class in com.technology.jep.jepria.auto.model.module">ModuleDescription</A>&lt;?&gt;&nbsp;module,
+            java.lang.String&nbsp;entranceUrl)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Вход в модуль для прохождения теста по ссылке.</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>protected 
 <TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0" SUMMARY="">
 <TR ALIGN="right" VALIGN="">
@@ -305,7 +314,7 @@ C</CODE></FONT></TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>protected &nbsp;void</CODE></FONT></TD>
+<CODE>private &nbsp;void</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../../../../../com/technology/jep/jepria/auto/test/JepRiaApplicationAutoTest.html#setCut(com.technology.jep.jepria.auto.module.JepRiaModuleAuto)">setCut</A></B>(<A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html" title="interface in com.technology.jep.jepria.auto.module">JepRiaModuleAuto</A>&nbsp;cut)</CODE>
 
 <BR>
@@ -517,7 +526,7 @@ protected &lt;C extends <A HREF="../../../../../../com/technology/jep/jepria/aut
 <A NAME="setCut(com.technology.jep.jepria.auto.module.JepRiaModuleAuto)"><!-- --></A><H3>
 setCut</H3>
 <PRE>
-protected void <B>setCut</B>(<A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html" title="interface in com.technology.jep.jepria.auto.module">JepRiaModuleAuto</A>&nbsp;cut)</PRE>
+private void <B>setCut</B>(<A HREF="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html" title="interface in com.technology.jep.jepria.auto.module">JepRiaModuleAuto</A>&nbsp;cut)</PRE>
 <DL>
 <DD>Устанавливает cut.
 <P>
@@ -670,6 +679,22 @@ protected boolean <B>isLoggedIn</B>()</PRE>
 <DL>
 <DD><DL>
 </DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="enterModule(com.technology.jep.jepria.auto.model.module.ModuleDescription, java.lang.String)"><!-- --></A><H3>
+enterModule</H3>
+<PRE>
+public void <B>enterModule</B>(<A HREF="../../../../../../com/technology/jep/jepria/auto/model/module/ModuleDescription.html" title="class in com.technology.jep.jepria.auto.model.module">ModuleDescription</A>&lt;?&gt;&nbsp;module,
+                        java.lang.String&nbsp;entranceUrl)</PRE>
+<DL>
+<DD>Вход в модуль для прохождения теста по ссылке. <br/>
+ Ссылка - относительная, от имени приложения. <br/>
+ TODO: Продумать в ModuleDescription несколько EntranceURL в модуль.
+<P>
+<DD><DL>
+<DT><B>Parameters:</B><DD><CODE>module</CODE> - - Модуль.<DD><CODE>entranceUrl</CODE> - - Ссылка.</DL>
 </DD>
 </DL>
 <HR>
