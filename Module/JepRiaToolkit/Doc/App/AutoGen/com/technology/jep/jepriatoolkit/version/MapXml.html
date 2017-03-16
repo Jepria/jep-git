@@ -4,7 +4,7 @@
 <HEAD>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <TITLE>
-ApplicationStructureCreatorUtil (JepRiaToolkit JavaDoc)
+MapXml (JepRiaToolkit JavaDoc)
 </TITLE>
 
 
@@ -14,7 +14,7 @@ ApplicationStructureCreatorUtil (JepRiaToolkit JavaDoc)
 function windowTitle()
 {
     if (location.href.indexOf('is-external=true') == -1) {
-        parent.document.title="ApplicationStructureCreatorUtil (JepRiaToolkit JavaDoc)";
+        parent.document.title="MapXml (JepRiaToolkit JavaDoc)";
     }
 }
 </SCRIPT>
@@ -53,11 +53,11 @@ function windowTitle()
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="../../../../../com/technology/jep/jepriatoolkit/creator/ApplicationStructureCreator.html" title="class in com.technology.jep.jepriatoolkit.creator"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;PREV CLASS&nbsp;
 &nbsp;NEXT CLASS</FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-  <A HREF="../../../../../index.html?com/technology/jep/jepriatoolkit/creator/ApplicationStructureCreatorUtil.html" target="_top"><B>FRAMES</B></A>  &nbsp;
-&nbsp;<A HREF="ApplicationStructureCreatorUtil.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+  <A HREF="../../../../../index.html?com/technology/jep/jepriatoolkit/version/MapXml.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="MapXml.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
 &nbsp;<SCRIPT type="text/javascript">
   <!--
   if(window==top) {
@@ -86,16 +86,16 @@ DETAIL:&nbsp;<A HREF="#field_detail">FIELD</A>&nbsp;|&nbsp;<A HREF="#constructor
 <!-- ======== START OF CLASS DATA ======== -->
 <H2>
 <FONT SIZE="-1">
-com.technology.jep.jepriatoolkit.creator</FONT>
+com.technology.jep.jepriatoolkit.version</FONT>
 <BR>
-Class ApplicationStructureCreatorUtil</H2>
+Class MapXml</H2>
 <PRE>
 java.lang.Object
-  <IMG SRC="../../../../../resources/inherit.gif" ALT="extended by "><B>com.technology.jep.jepriatoolkit.creator.ApplicationStructureCreatorUtil</B>
+  <IMG SRC="../../../../../resources/inherit.gif" ALT="extended by "><B>com.technology.jep.jepriatoolkit.version.MapXml</B>
 </PRE>
 <HR>
 <DL>
-<DT><PRE>public class <B>ApplicationStructureCreatorUtil</B><DT>extends java.lang.Object</DL>
+<DT><PRE>public class <B>MapXml</B><DT>extends java.lang.Object</DL>
 </PRE>
 
 <P>
@@ -112,8 +112,24 @@ java.lang.Object
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>private static&nbsp;freemarker.template.Configuration</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepriatoolkit/creator/ApplicationStructureCreatorUtil.html#cfg">cfg</A></B></CODE>
+<CODE>private &nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepriatoolkit/version/MapXml.html#initialPath">initialPath</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepriatoolkit/version/MapXml.html#moduleVersion">moduleVersion</A></B></CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepriatoolkit/version/MapXml.html#svnRoot">svnRoot</A></B></CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -129,7 +145,9 @@ java.lang.Object
 <B>Constructor Summary</B></FONT></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepriatoolkit/creator/ApplicationStructureCreatorUtil.html#ApplicationStructureCreatorUtil()">ApplicationStructureCreatorUtil</A></B>()</CODE>
+<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepriatoolkit/version/MapXml.html#MapXml(java.lang.String, java.lang.String, java.lang.String)">MapXml</A></B>(java.lang.String&nbsp;svnRoot,
+       java.lang.String&nbsp;initPath,
+       java.lang.String&nbsp;modVersion)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -146,18 +164,48 @@ java.lang.Object
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepriatoolkit/creator/ApplicationStructureCreatorUtil.html#convertTemplateToFile(java.lang.String, java.util.Map, java.lang.String)">convertTemplateToFile</A></B>(java.lang.String&nbsp;templateFile,
-                      java.util.Map&lt;java.lang.String,java.lang.Object&gt;&nbsp;dataToMap,
-                      java.lang.String&nbsp;resultFile)</CODE>
+<CODE>&nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepriatoolkit/version/MapXml.html#getInitialPath()">getInitialPath</A></B>()</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>static&nbsp;freemarker.template.Configuration</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepriatoolkit/creator/ApplicationStructureCreatorUtil.html#getTemplateConfiguration()">getTemplateConfiguration</A></B>()</CODE>
+<CODE>&nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepriatoolkit/version/MapXml.html#getModuleVersion()">getModuleVersion</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>&nbsp;java.lang.String</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepriatoolkit/version/MapXml.html#getSvnRoot()">getSvnRoot</A></B>()</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepriatoolkit/version/MapXml.html#setInitialPath(java.lang.String)">setInitialPath</A></B>(java.lang.String&nbsp;initialPath)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepriatoolkit/version/MapXml.html#setModuleVersion(java.lang.String)">setModuleVersion</A></B>(java.lang.String&nbsp;moduleVersion)</CODE>
+
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+</TR>
+<TR BGCOLOR="white" CLASS="TableRowColor">
+<TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
+<CODE>private &nbsp;void</CODE></FONT></TD>
+<TD><CODE><B><A HREF="../../../../../com/technology/jep/jepriatoolkit/version/MapXml.html#setSvnRoot(java.lang.String)">setSvnRoot</A></B>(java.lang.String&nbsp;svnRoot)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>
@@ -185,10 +233,30 @@ java.lang.Object
 </TR>
 </TABLE>
 
-<A NAME="cfg"><!-- --></A><H3>
-cfg</H3>
+<A NAME="svnRoot"><!-- --></A><H3>
+svnRoot</H3>
 <PRE>
-private static freemarker.template.Configuration <B>cfg</B></PRE>
+private java.lang.String <B>svnRoot</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="initialPath"><!-- --></A><H3>
+initialPath</H3>
+<PRE>
+private java.lang.String <B>initialPath</B></PRE>
+<DL>
+<DL>
+</DL>
+</DL>
+<HR>
+
+<A NAME="moduleVersion"><!-- --></A><H3>
+moduleVersion</H3>
+<PRE>
+private java.lang.String <B>moduleVersion</B></PRE>
 <DL>
 <DL>
 </DL>
@@ -204,10 +272,12 @@ private static freemarker.template.Configuration <B>cfg</B></PRE>
 </TR>
 </TABLE>
 
-<A NAME="ApplicationStructureCreatorUtil()"><!-- --></A><H3>
-ApplicationStructureCreatorUtil</H3>
+<A NAME="MapXml(java.lang.String, java.lang.String, java.lang.String)"><!-- --></A><H3>
+MapXml</H3>
 <PRE>
-public <B>ApplicationStructureCreatorUtil</B>()</PRE>
+public <B>MapXml</B>(java.lang.String&nbsp;svnRoot,
+              java.lang.String&nbsp;initPath,
+              java.lang.String&nbsp;modVersion)</PRE>
 <DL>
 </DL>
 
@@ -221,10 +291,10 @@ public <B>ApplicationStructureCreatorUtil</B>()</PRE>
 </TR>
 </TABLE>
 
-<A NAME="getTemplateConfiguration()"><!-- --></A><H3>
-getTemplateConfiguration</H3>
+<A NAME="getSvnRoot()"><!-- --></A><H3>
+getSvnRoot</H3>
 <PRE>
-public static freemarker.template.Configuration <B>getTemplateConfiguration</B>()</PRE>
+public java.lang.String <B>getSvnRoot</B>()</PRE>
 <DL>
 <DD><DL>
 </DL>
@@ -232,12 +302,54 @@ public static freemarker.template.Configuration <B>getTemplateConfiguration</B>(
 </DL>
 <HR>
 
-<A NAME="convertTemplateToFile(java.lang.String, java.util.Map, java.lang.String)"><!-- --></A><H3>
-convertTemplateToFile</H3>
+<A NAME="setSvnRoot(java.lang.String)"><!-- --></A><H3>
+setSvnRoot</H3>
 <PRE>
-public static void <B>convertTemplateToFile</B>(java.lang.String&nbsp;templateFile,
-                                         java.util.Map&lt;java.lang.String,java.lang.Object&gt;&nbsp;dataToMap,
-                                         java.lang.String&nbsp;resultFile)</PRE>
+private void <B>setSvnRoot</B>(java.lang.String&nbsp;svnRoot)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getInitialPath()"><!-- --></A><H3>
+getInitialPath</H3>
+<PRE>
+public java.lang.String <B>getInitialPath</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setInitialPath(java.lang.String)"><!-- --></A><H3>
+setInitialPath</H3>
+<PRE>
+private void <B>setInitialPath</B>(java.lang.String&nbsp;initialPath)</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="getModuleVersion()"><!-- --></A><H3>
+getModuleVersion</H3>
+<PRE>
+public java.lang.String <B>getModuleVersion</B>()</PRE>
+<DL>
+<DD><DL>
+</DL>
+</DD>
+</DL>
+<HR>
+
+<A NAME="setModuleVersion(java.lang.String)"><!-- --></A><H3>
+setModuleVersion</H3>
+<PRE>
+private void <B>setModuleVersion</B>(java.lang.String&nbsp;moduleVersion)</PRE>
 <DL>
 <DD><DL>
 </DL>
@@ -273,11 +385,11 @@ public static void <B>convertTemplateToFile</B>(java.lang.String&nbsp;templateFi
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="../../../../../com/technology/jep/jepriatoolkit/creator/ApplicationStructureCreator.html" title="class in com.technology.jep.jepriatoolkit.creator"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;PREV CLASS&nbsp;
 &nbsp;NEXT CLASS</FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-  <A HREF="../../../../../index.html?com/technology/jep/jepriatoolkit/creator/ApplicationStructureCreatorUtil.html" target="_top"><B>FRAMES</B></A>  &nbsp;
-&nbsp;<A HREF="ApplicationStructureCreatorUtil.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
+  <A HREF="../../../../../index.html?com/technology/jep/jepriatoolkit/version/MapXml.html" target="_top"><B>FRAMES</B></A>  &nbsp;
+&nbsp;<A HREF="MapXml.html" target="_top"><B>NO FRAMES</B></A>  &nbsp;
 &nbsp;<SCRIPT type="text/javascript">
   <!--
   if(window==top) {
