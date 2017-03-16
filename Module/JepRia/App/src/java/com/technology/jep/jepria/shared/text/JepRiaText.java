@@ -2,7 +2,7 @@ package com.technology.jep.jepria.shared.text;
 
 /**
  * Interface to represent the constants contained in resource bundle:
- * 	'D:/workspace/sf.git/Module/JepRia/App/src/java/com/technology/jep/jepria/shared/text/JepRiaText.properties'.
+ * 	'E:/git/javaenterpriseplatform/Module/JepRia/App/src/java/com/technology/jep/jepria/shared/text/JepRiaText.properties'.
  */
 public interface JepRiaText extends com.google.gwt.i18n.client.Constants {
   
@@ -1688,13 +1688,4 @@ public interface JepRiaText extends com.google.gwt.i18n.client.Constants {
   @DefaultStringValue("Да")
   @Key("yes")
   String yes();
-
-  /**
-   * Translated "".
-   * 
-   * @return translated ""
-   */
-  @DefaultStringValue("")
-  @Key("\uFEFF\uFEFF\uFEFF")
-  String _﻿﻿();
 }
