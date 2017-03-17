@@ -56,7 +56,7 @@ public class ${form.formName}ClientFactoryImpl<E extends <#if hasCustomButtons>$
   </#if>
   private static final IsWidget ${form.formName?uncap_first}ListFormView = new ${form.formName}ListFormViewImpl();
  
-  public static PlainClientFactoryImpl<PlainEventBus, JepDataServiceAsync> instance = null;
+  private static PlainClientFactoryImpl<PlainEventBus, JepDataServiceAsync> instance = null;
  
   public ${form.formName}ClientFactoryImpl() {
     super(${form.formName}RecordDefinition.instance);

@@ -521,8 +521,6 @@ public class ModuleField {
         break;
       case DATE:
       case DATE_TIME:
-        resultSet = multipleConcat("getDate(rs, ", fieldId, ")");
-        break;
       case TIME:
         resultSet = multipleConcat("getTimestamp(rs, ", fieldId, ")");
         break;
