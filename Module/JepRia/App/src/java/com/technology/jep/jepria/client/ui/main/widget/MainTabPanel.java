@@ -41,7 +41,7 @@ import com.technology.jep.jepria.shared.util.JepRiaUtil;
 public class MainTabPanel extends HeaderPanel {
   
   private List<JepListener> exitListeners = new ArrayList<JepListener>();
-  private Label userNameLabel;
+  private Label userNameLabel = createUserNameLabel();
   private final static int BAR_HEIGHT = 22;
   private final static Unit BAR_UNIT = Unit.PX;
   private Map<String, Label> mapOfModule = new HashMap<String, Label>();
@@ -75,20 +75,38 @@ public class MainTabPanel extends HeaderPanel {
     style.setBackgroundColor("#fff");
     style.setPaddingLeft(0, BAR_UNIT);
     
+    HorizontalPanel entrancePanel = createEntrancePanel(userNameLabel, exitListeners);
     
+    mainPanel.add(entrancePanel);
+    
+    mainPanel.setWidgetRightWidth(entrancePanel, 5, BAR_UNIT, 400, BAR_UNIT);
+    mainPanel.setWidgetTopHeight(entrancePanel, 2, BAR_UNIT, BAR_HEIGHT, BAR_UNIT);
+    
+    mainPanel.getWidgetContainerElement(entrancePanel).getStyle().setTop(5, BAR_UNIT);
+    
+    setHeaderWidget(tabs);
+    
+    // Добавим слушателя события изменения размеров основного окна. 
+    Window.addResizeHandler(new ResizeHandler() {
+      @Override
+      public void onResize(ResizeEvent event) {
+        MainTabPanel.this.onResize();
+      }
+    });
+  }
+
+  /**
+   * Создает EntrancePanel. Содержат имя пользователя и кнопка выхода.
+   * @param userNameLabel Виджет с именем пользователя.
+   * @param exitListeners Обработчики по нажатию на кноку выхода.
+   * @return EntrancePanel
+   */
+  public static HorizontalPanel createEntrancePanel(Label userNameLabel, final List<JepListener> exitListeners) {
+
     HorizontalPanel entrancePanel = new HorizontalPanel();
     entrancePanel.getElement().setId(JepRiaAutomationConstant.ENTRANCE_PANEL_ID); // TODO Передавать id в конструкторе (нужен новый класс)
     
     entrancePanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
-    
-    userNameLabel = new Label();
-    userNameLabel.getElement().setId(JepRiaAutomationConstant.LOGGED_IN_USER_ID); // TODO Передавать id в конструкторе (нужен новый класс)
-    
-    userNameLabel.setHeight(BAR_HEIGHT + BAR_UNIT.getType());
-    userNameLabel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
-    style = userNameLabel.getElement().getStyle();
-    style.setFontSize(16, BAR_UNIT);
-    userNameLabel.getElement().getStyle().setProperty("fontFamily", "Times New Roman");
     
     entrancePanel.add(userNameLabel);
     entrancePanel.setCellWidth(userNameLabel, "100%");
@@ -117,23 +135,23 @@ public class MainTabPanel extends HeaderPanel {
     entrancePanel.setCellWidth(exitButton, 15 + BAR_UNIT.getType());
     
     entrancePanel.getElement().getStyle().setWidth(100, Unit.PCT);
+    return entrancePanel;
+  }
+
+  /**
+   * Создает надпись с именем пользователя.
+   * @return Надпись с именем пользователя.
+   */
+  public static Label createUserNameLabel() {
+    Label userNameLabel = new Label();
+    userNameLabel.getElement().setId(JepRiaAutomationConstant.LOGGED_IN_USER_ID); // TODO Передавать id в конструкторе (нужен новый класс)
     
-    mainPanel.add(entrancePanel);
-    
-    mainPanel.setWidgetRightWidth(entrancePanel, 5, BAR_UNIT, 400, BAR_UNIT);
-    mainPanel.setWidgetTopHeight(entrancePanel, 2, BAR_UNIT, BAR_HEIGHT, BAR_UNIT);
-    
-    mainPanel.getWidgetContainerElement(entrancePanel).getStyle().setTop(5, BAR_UNIT);
-    
-    setHeaderWidget(tabs);
-    
-    // Добавим слушателя события изменения размеров основного окна. 
-    Window.addResizeHandler(new ResizeHandler() {
-      @Override
-      public void onResize(ResizeEvent event) {
-        MainTabPanel.this.onResize();
-      }
-    });
+    userNameLabel.setHeight(BAR_HEIGHT + BAR_UNIT.getType());
+    userNameLabel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
+    Style style = userNameLabel.getElement().getStyle();
+    style.setFontSize(16, BAR_UNIT);
+    userNameLabel.getElement().getStyle().setProperty("fontFamily", "Times New Roman");
+    return userNameLabel;
   }
 
   /**
