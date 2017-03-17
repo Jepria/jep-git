@@ -96,9 +96,9 @@ public class MainTabPanel extends HeaderPanel {
   }
 
   /**
-   * Создает EntrancePanel. Содержат имя пользователя и кнопка выхода.
+   * Создает EntrancePanel. Содержит имя пользователя и кнопку выхода.
    * @param userNameLabel Виджет с именем пользователя.
-   * @param exitListeners Обработчики по нажатию на кноку выхода.
+   * @param exitListeners Список обработчиков по нажатию на кнопку выхода.
    * @return EntrancePanel
    */
   public static HorizontalPanel createEntrancePanel(Label userNameLabel, final List<JepListener> exitListeners) {
