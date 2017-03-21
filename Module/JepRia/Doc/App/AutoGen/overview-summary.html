@@ -578,6 +578,7 @@ JepRia API Reference
 <h3><a name="releaseNotes">Замечания к версиям</a></h3>
 <h4>Версии</h4>
 <ul>
+  <li><a href="#9.7.0">9.7.0 (2017-03-20)</a></li>
   <li><a href="#9.6.0">9.6.0 (2017-02-08)</a></li>
   <li><a href="#9.5.0">9.5.0 (2017-02-02)</a></li>
   <li><a href="#9.4.0">9.4.0 (2016-12-22)</a></li>
@@ -681,6 +682,36 @@ JepRia API Reference
   <li><a href="#2.1.0">2.1.0 (2011-03-11)</a></li>
   <li><a href="#2.0.0">2.0.0 (2011-03-03)</a></li>
   <li><a href="#1.0.0">1.0.0 (2010-11-01)</a></li>
+</ul>
+<h5><a name="9.7.0">9.7.0 (2017-03-20)</a></h5>
+<ul>
+  <li><b>refactor:</b> Удалены рудименты CAS и WebLogic.</li>
+  <li>Доработка функционала Selenium-тестирования:
+    <ul>
+      <li><b>feat:</b> Добавлена возможность создать пользователя без ролей для тестов</li>
+      <li><b>feat:</b> Вход модуль реализован с помощью метода <code>enterModule()</code>.</li>
+    </ul>
+  </li>
+  <li><b>feat:</b> Добавлено поле для ввода пароля <code>JepPasswordField</code>.</li>
+  <li><b>feat:</b> В классе <code>JepColumn</code> добавлен фабричный метод 
+    <code>createTypedColumn()</code>, создающий &quot;стандартную&quot; колонку указанного типа.</li>
+  <li><b>feat:</b> Добавлено поле для ввода пароля <code>JepPasswordField</code>.</li>
+  <li><b>fix:</b> Обеспечено сохранение URI и параметров GET-запроса в процессе аутентификации.</li>
+  <li><b>fix:</b> При сборке JepRia используется ojdbc6 вместо ojdbc14.</li>
+  <li>Доработка функционала загрузки/выгрузки файлов:
+    <ul>
+      <li><b>feat: </b> В <code>JepUploadServlet</code> учитывается кодировка загружаемого файла.</li>
+      <li><b>refactor: </b>Константа <code>DEFAULT_CHARSET</code> 
+        перенесена в <code>JepRiaServerConstant</code>.</li>
+    </ul>
+  </li>  
+  <li><b>fix:</b> Из <code>JepRiaText*.properties</code> удалена пустая строка в начале файла
+    и BOM-заголовок. По результатам добавлен раздел документации 
+    <a href="#bomHeaderTextResources">Особенности работы с текстовыми ресурсами в UTF-8</a>.
+  </li>
+  <li><b>refactor:</b> В <code>MainTabPanel</code> генерация метки с логином вынесена
+    в статический метод <code>createUserNameLabel()</code>, генерация панели с логином
+    и кнопкой logount &mdash; в метод <code>createEntrancePanel()</code>.</li>
 </ul>
 <h5><a name="9.6.0">9.6.0 (2017-02-08)</a></h5>
 <ul>

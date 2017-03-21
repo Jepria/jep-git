@@ -25,7 +25,7 @@ abstract public class JepServiceServlet extends RemoteServiceServlet implements 
   
   /**
    * Проверка роли. <br/>
-   * Использует {@link #com.technology.jep.jepria.server.security.JepSecurityModule.isRole(String, boolean) isRole}.
+   * Использует {@link com.technology.jep.jepria.server.security.JepSecurityModule#isRole(String, boolean)}.
    * 
    * @param role проверяемая роль
    * @param makeError  признак: выбрасывать исключение (значение true) или нет (значение false)

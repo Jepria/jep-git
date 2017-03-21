@@ -50,7 +50,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.collections.map.HashedMap;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
@@ -106,10 +105,10 @@ public class JepRiaModuleAutoImpl<P extends JepRiaModulePage> implements JepRiaM
    * @param expectedWorkstates ожидаемые воркстейты.
    * @return workstate, который дождались.
    */
-  protected WorkstateEnum waitForStatusWorkstate(WorkstateEnum... expectedWosrkstates) {
+  protected WorkstateEnum waitForStatusWorkstate(WorkstateEnum... expectedWorkstates) {
     
     Map<ConditionChecker, WorkstateEnum> map = new HashMap<ConditionChecker, WorkstateEnum>();
-    for (final WorkstateEnum expectedWorkstate: expectedWosrkstates) {
+    for (final WorkstateEnum expectedWorkstate: expectedWorkstates) {
       if (expectedWorkstate != null) {
         map.put(new ConditionChecker() {
           @Override
@@ -126,7 +125,7 @@ public class JepRiaModuleAutoImpl<P extends JepRiaModulePage> implements JepRiaM
       checkerSatisfied = getWait().until(ExpectedConditions.atLeastOneOfConditionIsSatisfied(
           map.keySet().toArray(new ConditionChecker[map.keySet().size()])));
     } catch (TimeoutException e) {
-      throw new RuntimeException("Timed out waiting for any workstate of '" + Arrays.toString(expectedWosrkstates) + "' in StatusBar.", e);
+      throw new RuntimeException("Timed out waiting for any workstate of '" + Arrays.toString(expectedWorkstates) + "' in StatusBar.", e);
     }
 
     // Если перешли на список, то ждем появления и исчезновения стеклянной маски

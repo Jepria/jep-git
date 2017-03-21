@@ -258,7 +258,6 @@ public class JepGrid<T> extends DataGrid<T> {
    * 
    * @param col       колонка
    * @param beforeId  id колонки, перед которой будет установлена новая колонка
-   * @param toggle    признак переключения
    */
   public void addColumn(JepColumn col, int beforeId) {
     Header<String> header = new ResizableHeader<T>(col.getHeaderText(), this, col, this.isColumnConfigurable);
