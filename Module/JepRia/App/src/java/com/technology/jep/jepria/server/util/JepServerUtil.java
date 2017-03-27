@@ -18,9 +18,6 @@ import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
-import oracle.security.jazn.oc4j.JAZNServletRequest;
-
-import com.evermind.server.http.HttpApplication;
 import com.technology.jep.jepria.shared.exceptions.SystemException;
 
 /**
@@ -267,19 +264,7 @@ public class JepServerUtil {
         + ":"
         + request.getServerPort();
   }
-  
-  public static boolean isJavaSSO(HttpServletRequest request) {
-    boolean result = false;
-    try {
-      result = request instanceof JAZNServletRequest;
-    } catch(java.lang.NoClassDefFoundError ex) {
-      // Не JavaSSO, значит - CAS
-    }
     
-    return result;
-  }
-
-  
   /**
    * Возвращает имя приложения.
    * Для OAS это достигается путем вызова {@link HttpApplication#getContextPath()}, для других серверов - 
@@ -289,18 +274,6 @@ public class JepServerUtil {
    * @return имя приложения
    */
   public static String getApplicationName(ServletContext context) {
-    try {
-      // Получение ссылки на приложение для сервера OAS и 
-      // извлечение имени приложения из его пути контекста
-      // TODO: убрать после отказа от поддержки OAS.
-      if (context instanceof HttpApplication) {
-        String[] splitted = ((HttpApplication) context).getContextPath().split("/");
-        return splitted[splitted.length - 1];
-      }
-    }
-    catch(java.lang.NoClassDefFoundError ex){
-      // Для остальных случаев
-    }
     String[] splitted = context.getContextPath().split("/");
     return splitted[splitted.length - 1];
   }

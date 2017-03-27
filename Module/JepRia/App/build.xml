@@ -87,17 +87,6 @@
     <pathelement location="${POWERMOCK-API-MOCKITO-COMMON_LIB}" />
     <pathelement location="${POWERMOCK-MOCKITO-LIB}" />
   </path>
-
-  <path id="oc4j-libs">
-    <pathelement location="${SERVLET-API_LIB}" />
-    <pathelement location="${OC4J-JTA_LIB}" />
-    <pathelement location="${OC4J-INTERNAL_LIB}" />
-    <pathelement location="${JAZNCORE_LIB}" />
-  </path>
-
-  <path id="weblogic-libs">
-    <pathelement location="${WLS-API_LIB}" />
-  </path>
   
   <path id="tomcat-libs">
     <pathelement location="${TOMCAT-CATALINA_LIB}" />
@@ -111,11 +100,6 @@
 
   <fileset id="class-jar" dir="build">
     <include name="**/*.class" />
-    <exclude name="**/JepSecurityModule_OC4J.class" />
-  </fileset>
-
-  <fileset id="oc4j-jar" dir="build">
-    <include name="**/oc4j/JepSecurityModule_OC4J.class" />
   </fileset>
 
   <fileset id="src-jar" dir="src/java">
@@ -208,17 +192,15 @@
 
   <target name="java-compile" depends="encode-text-for-gwt">
     <mkdir dir="build" />
-    <javac srcdir="src/java" destdir="build" debug="on" encoding="utf-8" target="1.5" includeantruntime="false">
-      <classpath refid="weblogic-libs" />
+    <javac srcdir="src/java" destdir="build" debug="on" encoding="utf-8" includeantruntime="false">
       <classpath refid="tomcat-libs" />
       <classpath refid="libs" />
-      <classpath refid="oc4j-libs" />
     </javac>
   </target>
 
   <target name="java-auto-compile" depends="java-compile">
     <mkdir dir="build-auto" />
-    <javac srcdir="auto/java" destdir="build-auto" debug="on" encoding="utf-8" target="1.5" includeantruntime="false">
+    <javac srcdir="auto/java" destdir="build-auto" debug="on" encoding="utf-8" includeantruntime="false">
       <classpath refid="libs" />
       <classpath refid="selenium-libs" />
       <classpath>
@@ -229,7 +211,7 @@
 
   <target name="java-test-compile" depends="java-compile, java-auto-compile">
     <mkdir dir="build-test" />
-    <javac srcdir="test/java" destdir="build-test" debug="on" encoding="utf-8" target="1.5" includeantruntime="false">
+    <javac srcdir="test/java" destdir="build-test" debug="on" encoding="utf-8" includeantruntime="false">
       <classpath refid="libs" />
       <classpath refid="selenium-libs" />
       <classpath refid="powermock-libs" />
@@ -310,19 +292,7 @@
     </junit>
   </target>
 
-  <target name="oc4j-jar-update-check" depends="java-compile">
-    <uptodate targetfile="${DISTR_DIR}/${MODULE_NAME_IN_PACKAGE}-oc4j-${CURRENT_VERSION}.jar" property="oc4j-jar-is-uptodate">
-      <srcfiles refid="oc4j-jar" />
-    </uptodate>
-  </target>
-
-  <target name="oc4j-jar" depends="oc4j-jar-update-check" unless="oc4j-jar-is-uptodate">
-    <jar destfile="${DISTR_DIR}/${MODULE_NAME_IN_PACKAGE}-oc4j-${CURRENT_VERSION}.jar">
-      <fileset refid="oc4j-jar" />
-    </jar>
-  </target>
-
-  <target name="build" depends="jar, oc4j-jar, jar-auto, jar-test, jar-resources" />
+  <target name="build" depends="jar, jar-auto, jar-test, jar-resources" />
 
   <target name="doc" depends="java-compile, java-auto-compile">
     <javadoc sourcepath="src/java;auto/java;test/java"
@@ -338,8 +308,6 @@
       Windowtitle="${MODULE_NAME} JavaDoc"
       Doctitle="${MODULE_NAME} API Reference">
       <classpath refid="libs" />
-      <classpath refid="oc4j-libs" />
-      <classpath refid="weblogic-libs" />
       <classpath refid="tomcat-libs" />
       <classpath refid="selenium-libs" />
       <classpath refid="powermock-libs" />
@@ -364,8 +332,6 @@
       Windowtitle="${MODULE_NAME} JavaDoc (with test)"
       Doctitle="${MODULE_NAME} API Reference (with test)">
       <classpath refid="libs" />
-      <classpath refid="oc4j-libs" />
-      <classpath refid="weblogic-libs" />
       <classpath refid="tomcat-libs" />
       <classpath refid="selenium-libs" />
       <classpath refid="powermock-libs" />
@@ -381,7 +347,6 @@
     
     <delete file="${DISTR_DIR}/${MODULE_NAME_IN_PACKAGE}-${CURRENT_VERSION}.jar"/>
     <delete file="${DISTR_DIR}/${MODULE_NAME_IN_PACKAGE}-auto-${CURRENT_VERSION}.jar"/>
-    <delete file="${DISTR_DIR}/${MODULE_NAME_IN_PACKAGE}-oc4j-${CURRENT_VERSION}.jar"/>
     <delete file="${DISTR_DIR}/${MODULE_NAME_IN_PACKAGE}-resources-${CURRENT_VERSION}.jar"/>
     <delete file="${DISTR_DIR}/${MODULE_NAME_IN_PACKAGE}-test-${CURRENT_VERSION}.jar"/>
   </target>
