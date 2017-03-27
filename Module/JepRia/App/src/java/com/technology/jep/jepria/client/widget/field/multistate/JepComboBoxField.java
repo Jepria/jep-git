@@ -364,7 +364,7 @@ public class JepComboBoxField extends JepBaseTextField<ComboBox<JepOption>> impl
       return false;
     }
     // flag specifies that no one option is chosen or option value is null
-    boolean isEmptyOptionOrNotChosen = isNotChosen || JepRiaUtil.isEmpty(JepOption.getValue(value));
+    boolean isEmptyOptionOrNotChosen = isNotChosen || JepRiaUtil.isEmpty(JepOption.<Object>getValue(value));
     if (isEmptyOptionOrNotChosen && !allowBlank) {
       markInvalid(JepTexts.field_blankText());
       return false;
