@@ -98,7 +98,7 @@ public class JepOption extends JepDto {
     StringBuffer sbResult = new StringBuffer();
 
     sbResult.append("{");
-    sbResult.append(String.valueOf(get(OPTION_VALUE)));
+    sbResult.append(this.<Object>get(OPTION_VALUE));
     sbResult.append(",");
     sbResult.append(this.<String>get(OPTION_NAME));
     sbResult.append("}");
@@ -116,7 +116,7 @@ public class JepOption extends JepDto {
   public String toHistoryToken() {
     StringBuffer sbResult = new StringBuffer();
 
-    sbResult.append(String.valueOf(get(OPTION_VALUE))); // Сначала идет значение - чтобы снизить вероятность наличия в первых символах token'а разделителя.
+    sbResult.append(this.<Object>get(OPTION_VALUE)); // Сначала идет значение - чтобы снизить вероятность наличия в первых символах token'а разделителя.
     sbResult.append(OPTION_NAME_VALUE_SEPARATOR);
     sbResult.append(this.<String>get(OPTION_NAME));
 
