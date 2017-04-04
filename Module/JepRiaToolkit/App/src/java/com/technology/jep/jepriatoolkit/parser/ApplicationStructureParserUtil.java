@@ -164,6 +164,7 @@ public class ApplicationStructureParserUtil {
     }
     
     // Obtain info about application from configuration file application.xml
+    // TODO Необходимы изменения в связи с упразднением application.xml.
     String relativeApplicationXmlPath = getDefinitionProperty(APPLICATION_XML_PATH_TEMPLATE_PROPERTY, "src/resources/com/technology/{0}/{1}/application.xml", resource);
     String applicationName = getApplicationName(convertPatternInRealPath(relativeApplicationXmlPath));
     String fileName = getApplicationFileName(applicationName);
