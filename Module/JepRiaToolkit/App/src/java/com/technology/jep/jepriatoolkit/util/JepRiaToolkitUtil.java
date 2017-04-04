@@ -1183,10 +1183,11 @@ public final class JepRiaToolkitUtil {
     }
   
   /**
-   * Преобразование объектной модели к DOM-представлению
-   * 
-   * @param object      преобразуемый объект
-   * @param doc        существующее DOM-дерево
+   * Добавление модуля в приложение.
+   * Возвращает XML-документ, соответствующий приложению с добавленным модулем.
+   * @param application приложение
+   * @param newModule добавляемый модуль
+   * @return XML-документ
    */
   public static Document appendModuleToApplication(Application application, Module newModule){
     try {

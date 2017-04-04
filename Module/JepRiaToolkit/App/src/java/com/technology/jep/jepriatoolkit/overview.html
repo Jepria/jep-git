@@ -218,6 +218,7 @@
 <h3><a name="releaseNotes">Замечания к версиям</a></h3>
 <h4>Версии</h4>
 <ul>
+  <li><a href="#7.5.0">7.5.0 (2017-04-05)</a></li>
   <li><a href="#7.4.0">7.4.0 (2017-03-16)</a></li>
   <li><a href="#7.3.0">7.3.0 (2017-02-06)</a></li>
   <li><a href="#7.2.0">7.2.0 (2016-12-22)</a></li>
@@ -225,6 +226,19 @@
   <li><a href="#7.0.0">7.0.0 (2016-04-12)</a></li>
   <li><a href="#6.5.0">6.5.0 (2016-01-26)</a></li>
   <li><a href="#6.4.0">6.4.0 (2015-11-24)</a></li>
+</ul>
+<h5><a name="7.5.0">7.5.0 (2017-04-05)</a></h5>
+<ul>
+  <li><b>feat:</b> Доработка генерации Dao:
+    <ul>
+      <li>Для <code>Boolean</code>-полей используется <code>getBoolean(rs, fieldName)</code> 
+      вместо <code>rs.getBoolean(fieldName)</code>.</li>
+      <li>Для <code>Date</code>-полей используется <code>getDate()</code>, 
+      для <code>DateTime</code> &mdash; <code>getTimestamp()</code>.</li>
+    </ul>
+  </li>
+  <li><b>feat:</b> Генерация приложения выполняется в соответствии с JepRia 10.0.0:
+  без application.xml, orion-application.xml, context.xml.</li>
 </ul>
 <h5><a name="7.4.0">7.4.0 (2017-03-16)</a></h5>
 <ul>

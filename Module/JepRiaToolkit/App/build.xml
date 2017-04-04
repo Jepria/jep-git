@@ -75,7 +75,7 @@
       <fileset dir="classes"/>      
     </delete>
     <mkdir dir="classes" />
-    <javac srcdir="src/java" destdir="classes" classpath="${LIBS}" debug="on" encoding="utf-8" target="1.5" includeantruntime="false" />      
+    <javac srcdir="src/java" destdir="classes" classpath="${LIBS}" debug="on" encoding="utf-8" includeantruntime="false" />      
   </target>
 
   <target name="jar-update-check" depends="compile">
@@ -99,7 +99,7 @@
           Doctitle="${MODULE_NAME} API Reference" 
           Windowtitle="${MODULE_NAME} JavaDoc" 
           access="private" 
-          additionalparam="-notimestamp" 
+          additionalparam="-notimestamp -Xdoclint:none" 
           charset="UTF-8" 
           destdir="${JAVA_DOC_DIR}" 
           docencoding="UTF-8" 
