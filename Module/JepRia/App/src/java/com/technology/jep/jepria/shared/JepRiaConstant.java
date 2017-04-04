@@ -74,20 +74,6 @@ public class JepRiaConstant {
   public static final String EXCEL_DEFAULT_SERVLET = "showExcel";
   
   /**
-   * Имя cookie, являющегося признаком прошедшей интеграции с SSO OC4J для WebLogic
-   */
-  public static final String ORA_OC4J_SSO_COOKIE_NAME = "ORA_OC4J_SSO";
-  
-  /**
-   * Константы, предначенные для именования cookie, отражающих состояние интеграции SSO WebLogic и OC4J
-   */
-  public static final String ORA_WL_INTEGRATION_SSO_COOKIE_NAME_PREFIX = "ORA_WL_SSO_INTEGRATION";
-  public static final String ORA_WL_INTEGRATION_SSO_COOKIE_NAME_OC4J_SUFFIX = "OC4J";
-  public static final String ORA_WL_INTEGRATION_SSO_COOKIE_NAME_WEBLOGIC_SUFFIX = "WEBLOGIC";
-  public static final String ORA_WL_INTEGRATION_SSO_COOKIE_NAME_WEBLOGIC = ORA_WL_INTEGRATION_SSO_COOKIE_NAME_PREFIX + "_" + ORA_WL_INTEGRATION_SSO_COOKIE_NAME_WEBLOGIC_SUFFIX;
-  public static final String ORA_WL_INTEGRATION_SSO_COOKIE_NAME_OC4J = ORA_WL_INTEGRATION_SSO_COOKIE_NAME_PREFIX + "_" + ORA_WL_INTEGRATION_SSO_COOKIE_NAME_OC4J_SUFFIX;
-  
-  /**
    * Наименование скрытого поля компонента LargeField, предназначенного для хранения информации о первичном ключе и его значении
    */
   public static final String PRIMARY_KEY_HIDDEN_FIELD_NAME = "primaryKey";

@@ -222,7 +222,7 @@ public class DaoSupport {
    * @return объект типа T
    * @throws ApplicationException
    */
-  public static <T> T execute(
+  public static <T> T executeAndReturn(
       String query
       , Class<T> resultTypeClass
       , Object... params) 

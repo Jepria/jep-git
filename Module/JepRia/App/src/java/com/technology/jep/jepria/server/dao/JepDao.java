@@ -101,11 +101,11 @@ public class JepDao extends JepDaoStandard {
    * @return результат вызова
    * @throws ApplicationException в случае возникновения ошибки при взаимодействии с базой данных
    */
-  public <T> T execute(
+  public <T> T executeAndReturn(
       String sqlQuery,
       Class<T> resultTypeClass,
       Object... params) throws ApplicationException {
-    return DaoSupport.execute(
+    return DaoSupport.executeAndReturn(
         sqlQuery,
         resultTypeClass,
         params);
