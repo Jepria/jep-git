@@ -517,11 +517,13 @@ public class ModuleField {
         resultSet = multipleConcat("rs.getBigDecimal(", fieldId, ")");
         break;
       case BOOLEAN:
-        resultSet = multipleConcat("rs.getBoolean(", fieldId, ")");
+        resultSet = multipleConcat("getBoolean(rs, ", fieldId, ")");
         break;
       case DATE:
+        resultSet = multipleConcat("getDate(rs, ", fieldId, ")");
+        break;
       case DATE_TIME:
-      case TIME:
+      case TIME: // TODO
         resultSet = multipleConcat("getTimestamp(rs, ", fieldId, ")");
         break;
       case OPTION:
