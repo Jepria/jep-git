@@ -134,11 +134,11 @@ public class JepColumn<T, C> extends Column<T, C> {
    * <tr><td>Checkbox</td><td>{@link JepTypeEnum#BOOLEAN}</td></tr>
    * </table>
    */
-  public static JepColumn createTypedColumn(String fieldName, String headerText, double width, JepTypeEnum type) {
-    return new JepColumn(fieldName, headerText, width, createCell(type));
+  public JepColumn(String fieldName, String headerText, double width, JepTypeEnum type) {
+    this(fieldName, headerText, width, (Cell<C>)createCell(type));
   }
 
-  private static Cell<?> createCell(JepTypeEnum type) {
+  public static Cell<?> createCell(JepTypeEnum type) {
     switch (type) {
       case TIME: return new DateCell(DateTimeFormat.getFormat(DEFAULT_TIME_FORMAT));
       case DATE: return new DateCell(DateTimeFormat.getFormat(DEFAULT_DATE_FORMAT));
