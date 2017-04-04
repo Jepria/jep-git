@@ -267,8 +267,7 @@ public class JepServerUtil {
     
   /**
    * Возвращает имя приложения.
-   * Для OAS это достигается путем вызова {@link HttpApplication#getContextPath()}, для других серверов - 
-   * посредством стандартного вызова {@link ServletContext#getContextPath()}.
+   * Достигается путем вызова {@link ServletContext#getContextPath()}.
    * 
    * @param context контекст сервлета
    * @return имя приложения

@@ -304,7 +304,7 @@
       docencoding="UTF-8"
       charset="UTF-8"
       access="private"
-      additionalparam="-notimestamp"
+      additionalparam="-notimestamp -Xdoclint:none"
       Windowtitle="${MODULE_NAME} JavaDoc"
       Doctitle="${MODULE_NAME} API Reference">
       <classpath refid="libs" />
@@ -328,7 +328,7 @@
       docencoding="UTF-8"
       charset="UTF-8"
       access="private"
-      additionalparam="-notimestamp"
+      additionalparam="-notimestamp -Xdoclint:none"
       Windowtitle="${MODULE_NAME} JavaDoc (with test)"
       Doctitle="${MODULE_NAME} API Reference (with test)">
       <classpath refid="libs" />

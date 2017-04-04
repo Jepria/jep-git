@@ -36,8 +36,10 @@ import com.technology.jep.jepria.shared.util.JepRiaUtil;
  *     DaoSupport.execute(sqlQuery,
  *       divisionId, branchId, employeeId, periodTypeCode, periodNumber, periodYear,
  *       operatorId);
- *       
- *     String result = DaoSupport.execute(sqlQuery,
+ * 
+ * 3. Пример использования метода executeAndReturn.
+ * 
+ *     String result = DaoSupport.executeAndReturn(sqlQuery,
  *       String.class, divisionId, branchId, employeeId, periodTypeCode, periodNumber, periodYear,
  *       operatorId);
  * 

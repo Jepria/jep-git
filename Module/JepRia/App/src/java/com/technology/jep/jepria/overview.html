@@ -36,6 +36,7 @@
 <h3><a name="releaseNotes">Замечания к версиям</a></h3>
 <h4>Версии</h4>
 <ul>
+  <li><a href="#10.0.0">10.0.0 (2017-04-05)</a></li>
   <li><a href="#9.7.0">9.7.0 (2017-03-20)</a></li>
   <li><a href="#9.6.0">9.6.0 (2017-02-08)</a></li>
   <li><a href="#9.5.0">9.5.0 (2017-02-02)</a></li>
@@ -141,6 +142,24 @@
   <li><a href="#2.0.0">2.0.0 (2011-03-03)</a></li>
   <li><a href="#1.0.0">1.0.0 (2010-11-01)</a></li>
 </ul>
+<h5><a name="10.0.0">10.0.0 (2017-04-05)</a></h5>
+<ul>
+  <li><b>feat:</b> Переход на Java 8:
+    <ul>
+      <li><b>refactor:</b> Необходимые изменения в классах <code>JepOption</code>, 
+      <code>JepComboBoxField</code>.</li>
+      <li><b>feat:</b> Методы <code>execute()</code> с возвращаемыми значениями в классах
+      <code>DaoSupport</code>, <code>JepDao</code> переименованы в <code>executeAndReturn()</code>.</li>
+      <li><b>feat:</b> Source и target при Java-компиляции повышены до 1.8.</li>
+    </ul>
+  </li>
+  <li><b>feat:</b> Переход на GWT 2.8.0.</li>
+  <li><b>feat:</b> Полное прекращение поддержки OC4J с удалением всех зависимостей.</li>
+  <li><b>feat:</b> В <code>JepColumn</code> добавлен конструктор для создания типизированной
+  колонки. Фабричный метод <code>createTypedColumn()</code> удалён.
+</ul>
+<b>Внимание:</b> Для сборки JepRia теперь необходимо использовать Java 8. Системная переменная
+<code>JAVA_HOME</code> должна содержать путь до jdk1.8.
 <h5><a name="9.7.0">9.7.0 (2017-03-20)</a></h5>
 <ul>
   <li><b>refactor:</b> Удалены рудименты CAS и WebLogic.</li>
