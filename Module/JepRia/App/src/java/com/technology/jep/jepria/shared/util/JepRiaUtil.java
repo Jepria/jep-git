@@ -1,33 +1,13 @@
 package com.technology.jep.jepria.shared.util;
 
-import com.technology.jep.jepria.shared.field.option.JepOption;
-import com.technology.jep.jepria.shared.record.lob.JepClob;
+import static com.technology.jep.jepria.shared.JepRiaConstant.UNDEFINED_INT;
 
 import java.util.List;
 
-import static com.technology.jep.jepria.shared.JepRiaConstant.UNDEFINED_INT;
+import com.technology.jep.jepria.shared.field.option.JepOption;
+import com.technology.jep.jepria.shared.record.lob.JepClob;
 
 public class JepRiaUtil {
-
-  public static Object[] cloneArray(Object[] array) {
-    Object[] result = new Object[array.length];
-    for(int i = 0; i < array.length; i++) {
-      result[i] = array[i];
-    }
-    return result;
-  }
-  
-
-  /**
-   * Функция определяет: является ли переданная ей строка пустой.
-   * 
-   * @param sourceString исходная строка, которую проверяем
-   * 
-   * @return возвращает true, если передано занчение null или переданная строка состоит только из пробелов.
-   */
-  public static boolean isEmpty(String sourceString) {
-    return (sourceString == null || sourceString.trim().length() == 0) ? true : false;
-  }
 
   /**
    * Функция определяет: является ли переданный объект пустым.
@@ -38,71 +18,22 @@ public class JepRiaUtil {
     if(obj == null) {
       return true;
     } else if(obj instanceof String) {
-      return isEmpty((String)obj);
+      String objStr = (String)obj;
+      return (objStr.trim().length() == 0) ? true : false;
     } else if(obj instanceof Integer) {
-      return isEmpty((Integer)obj);
+      Integer objInteger = (Integer)obj;
+      return (objInteger.intValue() == UNDEFINED_INT) ? true : false;
     } else if (obj instanceof List){
-      return isEmpty((List<?>)obj);
+      List<?> objList = (List<?>)obj;
+      return objList.isEmpty();
     } else if (obj instanceof JepOption) {
-      return isEmpty((JepOption) obj);
+      JepOption objJepOption = (JepOption)obj;
+      return (objJepOption.equals(JepOption.EMPTY_OPTION)) ? true : false;
     } else if (obj instanceof JepClob) {
-      return isEmpty((JepClob) obj);
+      JepClob objClob = (JepClob)obj;
+      return (JepRiaUtil.isEmpty(objClob.getBigText())) ? true : false;
     }
     return false;
-  }
-
-  /**
-   * Функция определяет: является ли переданная ей величина пустой
-   * (неопределенной).
-   * 
-   * @param sourceInteger исходная величина, которую проверяем
-   * 
-   * @return возвращает true, если передано занчение null или переданная величина равна
-   * {@link com.technology.jep.jepria.shared.JepRiaConstant#UNDEFINED_INT}.
-   */
-  public static boolean isEmpty(Integer sourceInteger) {
-    return (sourceInteger == null || sourceInteger.intValue() == UNDEFINED_INT) ? true : false;
-  }
-
-  /**
-   * Функция определяет: является ли переданная ей величина пустой
-   * (неопределенной).
-   * 
-   * @param sourceInt исходная величина, которую проверяем
-   * 
-   * @return возвращает true, если переданная величина равна {@link com.technology.jep.jepria.shared.JepRiaConstant#UNDEFINED_INT}.
-   */
-  public static boolean isEmpty(int sourceInt) {
-    return (sourceInt == UNDEFINED_INT) ? true : false;
-  }
-  /**
-   * Определяет, является ли переданный элемент пустым.<br>
-   * Возвращает true, если передано null либо если передан пустой элемент.
-   * @param option {@link com.technology.jep.jepria.shared.field.option.JepOption#JepOption}
-   * @return true, если значение пусто, false - в противном случае
-   */
-  public static boolean isEmpty(JepOption option) {
-    return (option == null || option.equals(JepOption.EMPTY_OPTION)) ? true : false;
-  }
-
-  /**
-   * Определяет, является ли переданный элемент пустым.<br>
-   * Возвращает true, если передано null либо если передан пустой элемент.
-   * @param clob {@link com.technology.jep.jepria.shared.record.lob.JepClob}
-   * @return true, если значение пусто, false - в противном случае
-   */
-  public static boolean isEmpty(JepClob clob) {
-    return (clob == null || JepRiaUtil.isEmpty(clob.getBigText())) ? true : false;
-  }
-  
-  /**
-   * Определяет, является ли переданный список пустым.<br>
-   * Возвращает true, если передано null либо если передан пустой список.
-   * @param sourceList список
-   * @return true, если значение пусто, false - в противном случае
-   */
-  public static boolean isEmpty(List<?> sourceList) {
-    return (sourceList == null || sourceList.isEmpty());
   }
 
   /**
