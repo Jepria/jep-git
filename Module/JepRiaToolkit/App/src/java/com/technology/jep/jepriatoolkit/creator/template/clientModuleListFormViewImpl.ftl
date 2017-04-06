@@ -13,7 +13,7 @@ import com.google.gwt.cell.client.NumberCell;
 import com.google.gwt.i18n.client.NumberFormat;
 </#if>
 <#if !classField?contains("defaultDecimalFormatter")>
-<#assign classField = classField + "\tprivate static NumberFormat defaultDecimalFormatter = NumberFormat.getFormat(\"#0.00\");\n\tprivate static NumberFormat defaultNumberFormatter = NumberFormat.getFormat(\"#\");">
+<#assign classField = classField + "  private static NumberFormat defaultDecimalFormatter = NumberFormat.getFormat(\"#0.00\");\n  private static NumberFormat defaultNumberFormatter = NumberFormat.getFormat(\"#\");">
 </#if>
 </#if>
 <#if field.isBooleanType>
@@ -36,7 +36,7 @@ import com.google.gwt.cell.client.DateCell;
 import static com.technology.jep.jepria.shared.JepRiaConstant.DEFAULT_DATE_FORMAT;
 </#if>
 <#if !classField?contains("defaultDateFormatter")>
-<#assign classField = classField + "\tprivate static DateTimeFormat defaultDateFormatter = DateTimeFormat.getFormat(DEFAULT_DATE_FORMAT);\n">
+<#assign classField = classField + "  private static DateTimeFormat defaultDateFormatter = DateTimeFormat.getFormat(DEFAULT_DATE_FORMAT);\n">
 </#if>
 </#if>
 <#if field.isTimeType>
@@ -45,7 +45,7 @@ import static com.technology.jep.jepria.shared.JepRiaConstant.DEFAULT_DATE_FORMA
 import static com.technology.jep.jepria.shared.JepRiaConstant.DEFAULT_TIME_FORMAT;
 </#if>
 <#if !classField?contains("defaultTimeFormatter")>
-<#assign classField = classField + "\tprivate static DateTimeFormat defaultTimeFormatter = DateTimeFormat.getFormat(DEFAULT_TIME_FORMAT);\n">
+<#assign classField = classField + "  private static DateTimeFormat defaultTimeFormatter = DateTimeFormat.getFormat(DEFAULT_TIME_FORMAT);\n">
 </#if>
 </#if>
 <#if field.isDateTimeType>
@@ -58,7 +58,7 @@ import static com.technology.jep.jepria.shared.JepRiaConstant.DEFAULT_DATE_FORMA
 import static com.technology.jep.jepria.shared.JepRiaConstant.DEFAULT_TIME_FORMAT;
 </#if>
 <#if !classField?contains("defaultDateTimeFormatter")>
-<#assign classField = classField + "\tprivate static DateTimeFormat defaultDateTimeFormatter = DateTimeFormat.getFormat(DEFAULT_DATE_FORMAT + \" \" + DEFAULT_TIME_FORMAT);\n">
+<#assign classField = classField + "  private static DateTimeFormat defaultDateTimeFormatter = DateTimeFormat.getFormat(DEFAULT_DATE_FORMAT + \" \" + DEFAULT_TIME_FORMAT);\n">
 </#if>
 </#if>
 </#if>
@@ -72,7 +72,7 @@ import com.technology.jep.jepria.client.widget.list.JepColumn;
 
 public class ${form.formName}ListFormViewImpl extends StandardListFormViewImpl { 
   
-   public ${form.formName}ListFormViewImpl() {
+  public ${form.formName}ListFormViewImpl() {
     super(${form.formName}ListFormViewImpl.class.getCanonicalName());
   }
   <#if classField??><#t>
@@ -80,11 +80,11 @@ ${classField}
   </#if>
   @SuppressWarnings({ "rawtypes", "unchecked", "serial" })
   @Override
-    protected List<JepColumn> getColumnConfigurations() {
+  protected List<JepColumn> getColumnConfigurations() {
       return new ArrayList<JepColumn>() {{
         <#list form.sortListFormFields as field>
-      add(new JepColumn(${field.fieldId?upper_case}, ${form.formName?uncap_first}Text.${form.formName?uncap_first}_list_${field.fieldId?lower_case}(), ${field.columnWidth}<#if field.isDateType>, new DateCell(defaultDateFormatter)<#elseif field.isTimeType>, new DateCell(defaultTimeFormatter)<#elseif field.isDateTimeType>, new DateCell(defaultDateTimeFormatter)<#elseif field.isBooleanType>, new JepCheckBoxCell()<#elseif field.isIntegerType>, new NumberCell(defaultNumberFormatter)<#elseif field.isBigDecimalType>, new NumberCell(defaultDecimalFormatter)</#if>));
-      </#list>
-    }};    
+        add(new JepColumn(${field.fieldId?upper_case}, ${form.formName?uncap_first}Text.${form.formName?uncap_first}_list_${field.fieldId?lower_case}(), ${field.columnWidth}<#if field.isDateType>, new DateCell(defaultDateFormatter)<#elseif field.isTimeType>, new DateCell(defaultTimeFormatter)<#elseif field.isDateTimeType>, new DateCell(defaultDateTimeFormatter)<#elseif field.isBooleanType>, new JepCheckBoxCell()<#elseif field.isIntegerType>, new NumberCell(defaultNumberFormatter)<#elseif field.isBigDecimalType>, new NumberCell(defaultDecimalFormatter)</#if>));
+        </#list>
+      }};
   }
 }
