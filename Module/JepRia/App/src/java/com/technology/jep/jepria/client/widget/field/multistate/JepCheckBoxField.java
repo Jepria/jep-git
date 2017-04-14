@@ -3,6 +3,8 @@ package com.technology.jep.jepria.client.widget.field.multistate;
 import static com.technology.jep.jepria.client.JepRiaClientConstant.JepTexts;
 import static com.technology.jep.jepria.client.widget.event.JepEventType.CHANGE_CHECK_EVENT;
 
+import java.util.Objects;
+
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.InputElement;
 import com.google.gwt.dom.client.Node;
@@ -79,7 +81,7 @@ public class JepCheckBoxField extends JepMultiStateField<CheckBox, HTML> {
   @Override
   public void setValue(Object value) {
     Object oldValue = getValue();
-    if(!JepRiaUtil.equalWithNull(oldValue, value)) {
+    if(!Objects.equals(oldValue, value)) {
       editableCard.setValue(value != null && ((Boolean) value).booleanValue());
       setViewValue(value);
     }

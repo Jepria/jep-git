@@ -3,9 +3,7 @@ package com.technology.jep.jepria.client.widget.field.multistate;
 import static com.technology.jep.jepria.client.JepRiaClientConstant.JepTexts;
 import static com.technology.jep.jepria.client.widget.event.JepEventType.CHANGE_CHECK_EVENT;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -20,7 +18,6 @@ import com.technology.jep.jepria.client.widget.field.multistate.event.CheckChang
 import com.technology.jep.jepria.client.widget.field.multistate.event.CheckChangeEvent.CheckChangeHandler;
 import com.technology.jep.jepria.client.widget.field.tree.TreeField;
 import com.technology.jep.jepria.shared.field.option.JepOption;
-import com.technology.jep.jepria.shared.util.JepRiaUtil;
 
 /**
  * Поле для работы со значениями, представленными в виде иерархического дерева.
@@ -93,7 +90,7 @@ public class JepTreeField extends JepMultiStateField<TreeField<JepOption>, HTML>
   @SuppressWarnings("unchecked")
   public void setValue(Object value) {
     Object oldValue = getValue();
-    if(!JepRiaUtil.equalWithNull(oldValue, value)) {
+    if(!Objects.equals(oldValue, value)) {
       // Создание копии списка элементов важно, поскольку в методе processChecking
       // происходит удаление элементов списка, что приводит к изменению состояния 
       // currentRecord при смене рабочего состояния формы
