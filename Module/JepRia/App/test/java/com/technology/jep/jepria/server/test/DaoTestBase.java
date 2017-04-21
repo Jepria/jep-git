@@ -1,6 +1,7 @@
 package com.technology.jep.jepria.server.test;
 
 import static com.technology.jep.jepria.server.JepRiaServerConstant.DEFAULT_DATA_SOURCE_JNDI_NAME;
+import static com.technology.jep.jepria.server.JepRiaServerConstant.LOGIN_SUFFIX_FOR_HASH_AUTHORIZATION;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -38,7 +39,11 @@ abstract public class DaoTestBase<D extends JepDataStandard> extends Assert {
     recordIdKey = recordId;
     Db db = new Db(DEFAULT_DATA_SOURCE_JNDI_NAME);
     try {
-      operatorId = pkg_Operator.logon(db, username, password);
+	  boolean withHash = username.endsWith(LOGIN_SUFFIX_FOR_HASH_AUTHORIZATION);
+	  if (withHash) {
+		username = username.split(LOGIN_SUFFIX_FOR_HASH_AUTHORIZATION)[0];
+	  }
+      operatorId = pkg_Operator.logon(db, username, withHash ? null : password, withHash ? password : null);
     } catch (SQLException ex) {
       logger.error("login error", ex);
     } finally {
