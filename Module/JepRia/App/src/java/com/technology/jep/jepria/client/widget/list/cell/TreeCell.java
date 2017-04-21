@@ -39,7 +39,7 @@ public class TreeCell<C> extends AbstractCell<C> implements HasTreeGridManager {
   /**
    * Ссылка на объект, управляющий списком
    */
-  private TreeGridManager<?, ?, ?> treeGridManager;
+  protected TreeGridManager<?, ?, ?> treeGridManager;
   
   /**
    * Устанавливает ссылку на объект, управляющий списком

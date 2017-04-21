@@ -3,6 +3,7 @@ package com.technology.jep.jepria.client.widget.list;
 import static com.technology.jep.jepria.client.widget.event.JepEventType.CHANGE_SORT_EVENT;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import com.allen_sauer.gwt.log.client.Log;
@@ -102,10 +103,8 @@ public class GridManager<W extends AbstractCellTable<JepRecord>, P extends Pagin
             jepSortDir = SortConfig.SortDir.ASC;
           } else {
             jepSortDir = SortConfig.SortDir.DESC;
-
           }
         }
-
         notifyListeners(CHANGE_SORT_EVENT, new JepEvent(widget, new SortConfig(sortField, jepSortDir)));
       }
     });
