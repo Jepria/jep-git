@@ -4,6 +4,7 @@ import static com.technology.jep.jepria.client.JepRiaClientConstant.JepTexts;
 import static com.technology.jep.jepria.client.widget.event.JepEventType.CHANGE_VALUE_EVENT;
 
 import java.util.List;
+import java.util.Objects;
 
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
@@ -48,7 +49,7 @@ public class JepRadioField extends JepMultiStateField<RadioListField<JepOption>,
   @Override
   public void setValue(Object value) {
     JepOption oldValue = getValue();
-    if(!JepRiaUtil.equalWithNull(oldValue, value)) {
+    if(!Objects.equals(oldValue, value)) {
       editableCard.setValue((JepOption) value);
       clearInvalid();
       setViewValue(value);

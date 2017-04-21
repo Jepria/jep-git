@@ -157,7 +157,7 @@ public abstract class JepAbstractSecurityModule implements JepSecurityModule {
     try {
       if(age > GUEST_REFRESH_TIME_DEFAULT) {
         logger.trace("doLogonByGuest(): age > GUEST_REFRESH_TIME_DEFAULT");
-        guestOperatorId = pkg_Operator.logon(db, GUEST_LOGIN, GUEST_PASSWORD);
+        guestOperatorId = pkg_Operator.logon(db, GUEST_LOGIN, GUEST_PASSWORD, null);
         guestRoles = pkg_Operator.getRoles(db, guestOperatorId);
         guestCacheTime = System.currentTimeMillis();
       }

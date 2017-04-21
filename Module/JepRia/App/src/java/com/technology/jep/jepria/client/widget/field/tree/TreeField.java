@@ -11,10 +11,7 @@ import static com.technology.jep.jepria.client.JepRiaAutomationConstant.JEP_TREE
 import static com.technology.jep.jepria.client.JepRiaClientConstant.JepTexts;
 import static com.technology.jep.jepria.client.JepRiaClientConstant.MAIN_FONT_STYLE;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
 
 import com.google.gwt.aria.client.Roles;
@@ -36,7 +33,6 @@ import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.safecss.shared.SafeStyles;
 import com.google.gwt.safecss.shared.SafeStylesBuilder;
 import com.google.gwt.safehtml.client.SafeHtmlTemplates;
-import com.google.gwt.safehtml.client.SafeHtmlTemplates.Template;
 import com.google.gwt.safehtml.shared.SafeHtml;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.safehtml.shared.SafeHtmlUtils;
@@ -696,7 +692,7 @@ public class TreeField<V extends JepOption> extends Composite implements HasChec
     
     for (Entry<V, TreeNodeInfo<V>> entry : nodeMapOfDisplay.entrySet()){
       TreeNodeInfo<V> nodeInfo = entry.getValue();
-      if (JepRiaUtil.equalWithNull(node, nodeInfo.getParent())){
+      if (Objects.equals(node, nodeInfo.getParent())){
         return nodeInfo;
       }
     }

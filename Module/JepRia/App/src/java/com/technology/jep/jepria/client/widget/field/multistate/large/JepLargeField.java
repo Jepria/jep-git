@@ -8,6 +8,8 @@ import static com.technology.jep.jepria.shared.JepRiaConstant.DOWNLOAD_RECORD_KE
 import static com.technology.jep.jepria.shared.JepRiaConstant.FILE_SIZE_HIDDEN_FIELD_NAME;
 import static com.technology.jep.jepria.shared.JepRiaConstant.PRIMARY_KEY_HIDDEN_FIELD_NAME;
 
+import java.util.Objects;
+
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.Scheduler.ScheduledCommand;
 import com.google.gwt.event.dom.client.ChangeEvent;
@@ -288,7 +290,7 @@ public abstract class JepLargeField<V extends Widget> extends JepMultiStateField
   @Override
   public void setValue(Object value) {
     Object oldValue = getValue();
-    if(!JepRiaUtil.equalWithNull(oldValue, value)) {
+    if(!Objects.equals(oldValue, value)) {
       this.fileReference = (JepFileReference<?>) value;
       setViewValue(value);
     }    

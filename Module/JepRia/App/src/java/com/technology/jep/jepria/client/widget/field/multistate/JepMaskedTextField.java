@@ -1,12 +1,12 @@
 package com.technology.jep.jepria.client.widget.field.multistate;
 
 import static com.technology.jep.jepria.client.JepRiaClientConstant.JepTexts;
-import static com.technology.jep.jepria.client.widget.event.JepEventType.CHANGE_VALUE_EVENT;
+
+import java.util.Objects;
 
 import com.allen_sauer.gwt.log.client.Log;
 import com.technology.jep.jepria.client.message.JepMessageBoxImpl;
 import com.technology.jep.jepria.client.util.JepClientUtil;
-import com.technology.jep.jepria.client.widget.event.JepEvent;
 import com.technology.jep.jepria.client.widget.field.masked.Mask;
 import com.technology.jep.jepria.client.widget.field.masked.MaskedTextBox;
 import com.technology.jep.jepria.client.widget.field.multistate.event.InputForbiddenEvent;
@@ -26,7 +26,7 @@ public class JepMaskedTextField extends JepBaseTextField<MaskedTextBox> {
   }
 
   public JepMaskedTextField(String fieldLabel, Mask mask) {
-    super(fieldLabel);
+    super(null, fieldLabel);
     setMask(mask);
   }
 
@@ -120,7 +120,7 @@ public class JepMaskedTextField extends JepBaseTextField<MaskedTextBox> {
   @Override
   public void setValue(Object value) {
     Object oldValue = getValue();
-    if(!JepRiaUtil.equalWithNull(oldValue, value)) {
+    if(!Objects.equals(oldValue, value)) {
       try {
         editableCard.setValue((String)value);
         clearInvalid();
@@ -128,7 +128,7 @@ public class JepMaskedTextField extends JepBaseTextField<MaskedTextBox> {
       }
       catch (IllegalArgumentException exc) {
         editableCard.setValue(null);
-        String errorMessage = JepClientUtil.substitute(JepTexts.maskedTextField_errorMessage(), getRawValue());
+        String errorMessage = JepClientUtil.substitute(JepTexts.maskedTextField_errorMessage(), value);
         Log.error(errorMessage);
         JepMessageBoxImpl.instance.showError(errorMessage);
       }

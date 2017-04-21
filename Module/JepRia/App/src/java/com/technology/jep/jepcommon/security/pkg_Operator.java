@@ -28,19 +28,23 @@ public class pkg_Operator {
    * </code>
    * 
    * @param db        соединение с базой данных
-   * @param login      логин пользователя
+   * @param login     логин пользователя
    * @param password  пароль пользователя
    * @return идентификатор текущего пользователя при успешной аутентификации
    * @throws SQLException при неудачной аутентификации
    */
-  public static final Integer logon(Db db, String login, String password) throws SQLException {
+  public static final Integer logon(Db db, String login, String password, String hash) throws SQLException {
     logger.trace("logon(Db db, " + login + ", " + password + ")");
     
     Integer result = null;
     String sqlQuery = 
       " begin" 
-      + "  ? := pkg_Operator.Login(?, ?);" 
-      + "  ? := pkg_Operator.GetCurrentUserID();" 
+      + "  ? := pkg_Operator.Login("
+        + " operatorLogin => ?"
+        + ", password => ?"
+        + ", passwordHash => ?" 
+      + ");" 
+      + "  ? := pkg_Operator.GetCurrentUserID;" 
       + " end;";
     try {
       CallableStatement callableStatement = db.prepare(sqlQuery);
@@ -49,14 +53,17 @@ public class pkg_Operator {
       else callableStatement.setNull(2, Types.VARCHAR); 
       // Установим Пароль.
       if(password != null) callableStatement.setString(3, password);   
-      else callableStatement.setNull(3, Types.VARCHAR);  
+      else callableStatement.setNull(3, Types.VARCHAR);
+      // Установим Хэш.
+      if(hash != null) callableStatement.setString(4, hash);   
+      else callableStatement.setNull(4, Types.VARCHAR); 
 
       callableStatement.registerOutParameter(1, Types.VARCHAR);
-      callableStatement.registerOutParameter(4, Types.INTEGER);
+      callableStatement.registerOutParameter(5, Types.INTEGER);
 
       callableStatement.execute();
 
-      result = new Integer(callableStatement.getInt(4));
+      result = new Integer(callableStatement.getInt(5));
       if(callableStatement.wasNull())result = null;
 
     } finally {
@@ -75,7 +82,7 @@ public class pkg_Operator {
    * </code>
    * 
    * @param db        соединение с базой данных
-   * @param login      логин пользователя
+   * @param login     логин пользователя
    * @return идентификатор текущего пользователя
    * @throws SQLException при отсутствии пользователя с указанным логином
    */
@@ -85,8 +92,10 @@ public class pkg_Operator {
     Integer result = null;
     String sqlQuery = 
       " begin" 
-      + "  ? := pkg_Operator.Login(?);" 
-      + "  ? := pkg_Operator.GetCurrentUserID();" 
+      + "  ? := pkg_Operator.Login(" 
+          + "operatorLogin => ?" 
+      + "  );" 
+      + "  ? := pkg_Operator.GetCurrentUserID;" 
       + " end;";
     try {
       CallableStatement callableStatement = db.prepare(sqlQuery);
@@ -123,7 +132,9 @@ public class pkg_Operator {
     Integer result = null;
     String sqlQuery = 
       " begin" 
-      + "  ? := pkg_Operator.IsChangePassword(?);" 
+      + "  ? := pkg_Operator.IsChangePassword(" 
+        + " operatorId => ?" 
+      + ");" 
       + " end;";
     try {
       CallableStatement callableStatement = db.prepare(sqlQuery);
@@ -151,22 +162,27 @@ public class pkg_Operator {
    * @param db                  соединение с базой данных
    * @param operatorId          идентификатор пользователя, пароль которого необходимо изменить
    * @param password            пароль пользователя
-   * @param newPassword          новый пароль пользователя
+   * @param newPassword         новый пароль пользователя
    * @param newPasswordConfirm  подтверждение нового пароля пользователя
    * @throws SQLException при неудавшейся смене пароля
    */
   public static final void changePassword(
     Db db
-    ,  Integer operatorId
-    ,  String password
-    ,  String newPassword
-    ,  String newPasswordConfirm) 
+    , Integer operatorId
+    , String password
+    , String newPassword
+    , String newPasswordConfirm) 
     throws SQLException {
     logger.trace("changePassword()");
     
     String sqlQuery = 
       " begin" 
-      + "  pkg_Operator.ChangePassword(?, ?, ?, ?);" 
+      + "  pkg_Operator.ChangePassword(" 
+        + " operatorId => ?" 
+        + ", password => ?" 
+        + ", newPassword => ?" 
+        + ", newPasswordConfirm => ?" 
+      + ");" 
       + " end;";
     try {
       CallableStatement callableStatement = db.prepare(sqlQuery);
@@ -194,8 +210,8 @@ public class pkg_Operator {
    * Получение списка ролей пользователя.
    * 
    * @param db соединение с базой данных
-   * @param login  логин пользователя
-   * @return список ролей пользователя в виде List&lt;String&gt;
+   * @param login логин пользователя
+   * @return список ролей пользователя в виде TreeSet&lt;String&gt;
    * @throws SQLException
    */
   public static final List<String> getRoles(Db db, String login) throws SQLException {
@@ -203,10 +219,10 @@ public class pkg_Operator {
     
     List<String> result = new ArrayList<String>();
 
-      String sqlQuery = 
+    String sqlQuery = 
       " begin"
       + " ? := pkg_Operator.getRolesShortName("
-      + " ?"
+        + " login => ?"
       + " );"
       + " end;";
     try {
@@ -223,7 +239,7 @@ public class pkg_Operator {
       callableStatement.execute();
 
       //Получим набор.
-      ResultSet resultSet = (ResultSet) callableStatement.getObject(1);      
+      ResultSet resultSet = (ResultSet) callableStatement.getObject(1);     
 
       while (resultSet.next()) {
         result.add(resultSet.getString("short_name"));
@@ -241,7 +257,7 @@ public class pkg_Operator {
    * 
    * @param db соединение с базой данных
    * @param operatorId  идентификатор пользователя
-   * @return список ролей пользователя в виде List&lt;String&gt;
+   * @return список ролей пользователя в виде TreeSet&lt;String&gt;
    * @throws SQLException
    */
   public static final List<String> getRoles(Db db, Integer operatorId) throws SQLException {
@@ -250,11 +266,11 @@ public class pkg_Operator {
     List<String> result = new ArrayList<String>();
 
     String sqlQuery = 
-    " begin"
-    + " ? := pkg_Operator.getRolesShortName("
-    + " ?"
-    + " );"
-    + " end;";
+      " begin"
+      + " ? := pkg_Operator.getRolesShortName("
+        + " operatorID => ?"
+      + " );"
+      + " end;";
     try {
       CallableStatement callableStatement = db.prepare(sqlQuery);
       callableStatement.registerOutParameter(1, OracleTypes.CURSOR);
@@ -267,7 +283,7 @@ public class pkg_Operator {
       callableStatement.execute();
   
       //Получим набор.
-      ResultSet resultSet = (ResultSet) callableStatement.getObject(1);      
+      ResultSet resultSet = (ResultSet) callableStatement.getObject(1);     
   
       while (resultSet.next()) {
         result.add(resultSet.getString("short_name"));

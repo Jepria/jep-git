@@ -6,6 +6,7 @@ import static javax.servlet.http.HttpServletResponse.SC_BAD_REQUEST;
 import static javax.servlet.http.HttpServletResponse.SC_UNAUTHORIZED;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.URL;
 
 import javax.servlet.ServletException;
@@ -53,7 +54,7 @@ public class AutoLogonServlet extends HttpServlet {
     }
     catch(ServletException e){
       // incorrect authentification data
-      resp.setStatus(SC_UNAUTHORIZED);
+      resp.sendError(SC_UNAUTHORIZED);
       return;
     }
     resp.sendRedirect(resp.encodeRedirectURL(initURL));

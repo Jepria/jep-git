@@ -7,8 +7,7 @@ import static com.technology.jep.jepria.client.widget.event.JepEventType.CHANGE_
 import static com.technology.jep.jepria.client.widget.event.JepEventType.FIRST_TIME_USE_EVENT;
 import static com.technology.jep.jepria.shared.field.option.JepOption.EMPTY_OPTION;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
@@ -110,7 +109,7 @@ public class JepComboBoxField extends JepBaseTextField<ComboBox<JepOption>> impl
   @Override
   public void setValue(Object value) {
     JepOption oldValue = getValue();
-    if(!JepRiaUtil.equalWithNull(oldValue, value)) {
+    if(!Objects.equals(oldValue, value)) {
       editableCard.setValue((JepOption) value);
       clearInvalid();
       setViewValue(value);
