@@ -7,9 +7,7 @@ import static com.technology.jep.jepria.client.widget.event.JepEventType.PAGING_
 import static com.technology.jep.jepria.client.widget.event.JepEventType.PAGING_REFRESH_EVENT;
 import static com.technology.jep.jepria.client.widget.event.JepEventType.PAGING_SIZE_EVENT;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import com.google.gwt.dom.client.Style.TextAlign;
 import com.google.gwt.dom.client.Style.Unit;
@@ -26,7 +24,6 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.TextBox;
-import com.google.gwt.user.client.ui.Widget;
 import com.technology.jep.jepria.client.widget.button.JepButton;
 import com.technology.jep.jepria.client.widget.button.Separator;
 import com.technology.jep.jepria.client.widget.event.JepEvent;
@@ -34,7 +31,6 @@ import com.technology.jep.jepria.client.widget.event.JepEventType;
 import com.technology.jep.jepria.client.widget.event.JepListener;
 import com.technology.jep.jepria.client.widget.event.JepObservable;
 import com.technology.jep.jepria.client.widget.event.JepObservableImpl;
-import com.technology.jep.jepria.shared.util.JepRiaUtil;
 
 /**
  * Обычная инструментальная панель управления листанием набора данных.<br/>
@@ -71,11 +67,6 @@ public class PagingStandardBar extends SimplePanel implements PagingToolBar {
   protected boolean savedEnableState = true;
   protected boolean showToolTips = true;
   protected int start, pageSize, totalLength;
-
-  /**
-   * Хэш-таблица, хранящая соответствие между виджетами и их идентификаторами.
-   */
-  private Map<String, Widget> items = new HashMap<String, Widget>();
 
   /**
    * Объект для работы со слушателями событий панели.
@@ -283,7 +274,7 @@ public class PagingStandardBar extends SimplePanel implements PagingToolBar {
    */
   protected void onPageSizeChange() {
     String value = pageSizeText.getText();
-    if (value.equals("") || !JepRiaUtil.isInteger(value)) {
+    if (value.equals("") || isInteger(value)) {
       pageSizeText.setText(String.valueOf((int) pageSize));
       return;
     }
@@ -310,6 +301,23 @@ public class PagingStandardBar extends SimplePanel implements PagingToolBar {
   public int getPageSize() {
     return pageSize;
   }
+  
+  /**
+   * Функция определяет: может ли переданная ей строка быть преобразована 
+   * к типу Integer.
+   * 
+   * @param value строка, которую проверяем
+   * 
+   * @return возвращает true, если переданная строка может быть преобразована к типу Integer.
+   */
+  private static boolean isInteger(String value) {
+    try {
+      Integer.parseInt(value);
+      return true;
+    } catch (Exception e) {
+      return false;
+    }
+  }
 
   /**
    * Запрос перехода на заданную в текстовом поле панели страницу набора
@@ -317,7 +325,7 @@ public class PagingStandardBar extends SimplePanel implements PagingToolBar {
    */
   protected void onPageChange() {
     String value = pageNumberText.getText();
-    if (value.equals("") || !JepRiaUtil.isInteger(value)) {
+    if (value.equals("") || isInteger(value)) {
       pageNumberText.setText(String.valueOf((int) activePage));
       return;
     }

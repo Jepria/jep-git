@@ -5,6 +5,7 @@ import static com.technology.jep.jepria.client.JepRiaClientConstant.JepTexts;
 import static com.technology.jep.jepria.client.widget.event.JepEventType.CHANGE_SELECTION_EVENT;
 
 import java.util.List;
+import java.util.Objects;
 
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
@@ -16,7 +17,6 @@ import com.technology.jep.jepria.client.widget.event.JepListener;
 import com.technology.jep.jepria.client.widget.field.CheckBoxListField;
 import com.technology.jep.jepria.client.widget.field.JepOptionField;
 import com.technology.jep.jepria.shared.field.option.JepOption;
-import com.technology.jep.jepria.shared.util.JepRiaUtil;
 
 /**
  * Поле, разрешающее выбор одновременно нескольких опций (множественный выбор).
@@ -66,7 +66,7 @@ public class JepListField extends JepMultiStateField<CheckBoxListField<JepOption
   @SuppressWarnings("unchecked")
   public void setValue(Object value) {
     Object oldValue = getValue();
-    if(!JepRiaUtil.equalWithNull(oldValue, value)) {
+    if(!Objects.equals(oldValue, value)) {
       editableCard.setSelection((List<JepOption>) value);
       setViewValue(value);
     }

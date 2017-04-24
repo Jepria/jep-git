@@ -1,9 +1,10 @@
 package com.technology.jep.jepria.client.widget.field.multistate;
 
+import java.util.Objects;
+
 import com.google.gwt.user.client.ui.HTML;
 import com.technology.jep.jepria.client.ui.WorkstateEnum;
 import com.technology.jep.jepria.client.widget.field.wysiwyg.RichTextEditorField;
-import com.technology.jep.jepria.shared.util.JepRiaUtil;
 
 /**
  * Поле, позволяющее производить форматирование текста пользователем.
@@ -46,7 +47,7 @@ public class JepRichTextEditorField extends JepMultiStateField<RichTextEditorFie
   @Override
   public void setValue(Object value) {
     String oldValue = getValue();
-    if(!JepRiaUtil.equalWithNull(oldValue, value)) {
+    if(!Objects.equals(oldValue, value)) {
       editableCard.setValue((String) value);
       clearInvalid();
       setViewValue(value);

@@ -56,6 +56,7 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.Point;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -69,6 +70,7 @@ import com.technology.jep.jepria.auto.exception.AutomationException;
 import com.technology.jep.jepria.auto.exception.NotExpectedException;
 import com.technology.jep.jepria.auto.exception.WrongOptionException;
 import com.technology.jep.jepria.auto.module.page.JepRiaModulePage;
+import com.technology.jep.jepria.auto.util.DragAndDropTestUtil;
 import com.technology.jep.jepria.auto.util.WebDriverFactory;
 import com.technology.jep.jepria.auto.util.WorkstateTransitionUtil;
 import com.technology.jep.jepria.auto.widget.tree.TreeItemFilter;
@@ -90,6 +92,8 @@ import com.technology.jep.jepria.shared.util.JepRiaUtil;
 public class JepRiaModuleAutoImpl<P extends JepRiaModulePage> implements JepRiaModuleAuto {
 
   protected P page;
+  
+  private boolean isJqueryLoaded = false;
   
   public JepRiaModuleAutoImpl(P page) {
     this.page = page;
@@ -190,9 +194,7 @@ public class JepRiaModuleAutoImpl<P extends JepRiaModulePage> implements JepRiaM
   @Override
   public void edit(Map<String, String> template, String gridId) {
     doSearch(template);
-    
     selectItem(0, gridId);
-    
     setWorkstate(EDIT);
   }
   
@@ -236,7 +238,7 @@ public class JepRiaModuleAutoImpl<P extends JepRiaModulePage> implements JepRiaM
   @Override
   public void selectItem(int index, String gridId) {
     
-    assert getWorkstateFromStatusBar() == VIEW_LIST;
+    assert getWorkstateFromStatusBar() == VIEW_LIST || getWorkstateFromStatusBar() == SELECTED;
     
     By gridBodyBy = null;
     if(gridId == null){
@@ -258,6 +260,16 @@ public class JepRiaModuleAutoImpl<P extends JepRiaModulePage> implements JepRiaM
     waitForStatusWorkstate(SELECTED);
   }
 
+  @Override
+  public void sortByColumn(String gridId, Integer columnId){
+    WebElement grid = getGridBody(gridId);
+    List<WebElement> columnList = findElementsAndWait(By.xpath(
+        String.format("//thead[@id='%s']/tr/th",
+            gridId + GRID_HEADER_POSTFIX)));
+    columnList.get(columnId).click();
+    new Actions(WebDriverFactory.getDriver()).moveByOffset(0, 0).build().perform();
+  }
+  
   private void fillFields(Map<String, String> fieldMap) {
     for(String fieldName: fieldMap.keySet()) {
       setFieldValue(fieldName, fieldMap.get(fieldName));
@@ -989,12 +1001,75 @@ public class JepRiaModuleAutoImpl<P extends JepRiaModulePage> implements JepRiaM
     }
   }
   
+  @Override
+  public void dragAndDropGridRowBeforeTarget(int draggableRowIndex, int targetRowIndex, String gridId){
+    WebDriver driver = WebDriverFactory.getDriver();
+    selectItem(draggableRowIndex, gridId);
+    WebElement draggableRow = getGridRowElement(draggableRowIndex, gridId);
+    WebElement targetRow = getGridRowElement(targetRowIndex, gridId);
+    Dimension sourceElementSize = draggableRow.getSize();
+    Point sourceLocation = draggableRow.getLocation();
+    int sourceX = sourceLocation.getX() + sourceElementSize.getWidth() / 2;
+    int sourceY = sourceLocation.getY() + sourceElementSize.getHeight() / 2;
+    Dimension targetElementSize = targetRow.getSize();
+    Point targetLocation = targetRow.getLocation();
+    int targetX = targetLocation.getX() + targetElementSize.getWidth() / 2;
+    int targetY = targetLocation.getY() + targetElementSize.getHeight() * 15 / 100;
+    DragAndDropTestUtil.html5_DragAndDrop(driver, draggableRow, targetRow, sourceX, sourceY, targetX, targetY);
+  }
   
+  @Override
+  public void dragAndDropGridRowAfterTarget(int draggableRowIndex, int targetRowIndex, String gridId){
+    WebDriver driver = WebDriverFactory.getDriver();
+    selectItem(draggableRowIndex, gridId);
+    WebElement draggableRow = getGridRowElement(draggableRowIndex, gridId);
+    WebElement targetRow = getGridRowElement(targetRowIndex, gridId);
+    Dimension sourceElementSize = draggableRow.getSize();
+    Point sourceLocation = draggableRow.getLocation();
+    int sourceX = sourceLocation.getX() + sourceElementSize.getWidth() / 2;
+    int sourceY = sourceLocation.getY() + sourceElementSize.getHeight() / 2;
+    Dimension targetElementSize = targetRow.getSize();
+    Point targetLocation = targetRow.getLocation();
+    int targetX = targetLocation.getX() + targetElementSize.getWidth() / 2;
+    int targetY = targetLocation.getY() + targetElementSize.getHeight() * 85 / 100;
+    DragAndDropTestUtil.html5_DragAndDrop(driver, draggableRow, targetRow, sourceX, sourceY, targetX, targetY);
+  }
+
+  @Override
+  public void dragAndDropGridRowsBeforeTarget(
+      List<Integer> draggableRowIndexList, int targetRowIndex, String gridId) {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException();
+  }
   
+  @Override
+  public void dragAndDropGridRowsAfterTarget(List<Integer> draggableRowIndexList, int targetRowIndex, String gridId){
+    //TODO сделать множественное выделение в списке
+    throw new UnsupportedOperationException();
+  }
   
+  @Override
+  public void dragAndDropGridRow(int draggableRowIndex, int targetRowIndex, String gridId){
+    WebDriver driver = WebDriverFactory.getDriver();
+    selectItem(draggableRowIndex, gridId);
+    WebElement draggableRow = getGridRowElement(draggableRowIndex, gridId);
+    WebElement targetRow = getGridRowElement(targetRowIndex, gridId);
+    Dimension sourceElementSize = draggableRow.getSize();
+    Point sourceLocation = draggableRow.getLocation();
+    int sourceX = sourceLocation.getX() + sourceElementSize.getWidth() / 2;
+    int sourceY = sourceLocation.getY() + sourceElementSize.getHeight() / 2;
+    Dimension targetElementSize = targetRow.getSize();
+    Point targetLocation = targetRow.getLocation();
+    int targetX = targetLocation.getX() + targetElementSize.getWidth() / 2;
+    int targetY = targetLocation.getY() + targetElementSize.getHeight() / 2;
+    DragAndDropTestUtil.html5_DragAndDrop(driver, draggableRow, targetRow, sourceX, sourceY, targetX, targetY);
+  }
   
-  
-  
+  @Override
+  public void dragAndDropGridRows(List<Integer> draggableRowIndexList, int targetRowIndex, String gridId){
+    //TODO сделать множественное выделение в списке
+    throw new UnsupportedOperationException();
+  }
   
   @Override
   public List<String> getGridHeaders(String gridId) {
@@ -1024,6 +1099,20 @@ public class JepRiaModuleAutoImpl<P extends JepRiaModulePage> implements JepRiaM
       return null;
     }
   }
+  
+  @Override
+  public WebElement getGridRowElement(int rowIndex, String gridId){
+    WebElement gridBody = getGridBody(gridId);
+    // Убедимся, что грид присутствует на форме
+    if (gridBody == null) {
+      // Грид отсутствует - значит, курсор пуст.
+      return null;
+    }
+    return gridBody.findElements(By.xpath(
+        String.format("./tr",
+            gridId + GRID_BODY_POSTFIX))).get(rowIndex);
+  }
+  
   @Override
   public List<List<Object>> getGridDataRowwise(String gridId) {
     List<List<Object>> ret = new ArrayList<List<Object>>();
@@ -1057,7 +1146,7 @@ public class JepRiaModuleAutoImpl<P extends JepRiaModulePage> implements JepRiaM
     
     return ret;
   }
-
+  
   @Override
   public void doGridColumnSettings(String gridId, String[] columns) {
     // Locate the first column header (as far as there is no difference which column to call settings menu on)

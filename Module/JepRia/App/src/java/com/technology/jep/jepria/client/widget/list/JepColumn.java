@@ -3,6 +3,8 @@ package com.technology.jep.jepria.client.widget.list;
 import static com.technology.jep.jepria.shared.JepRiaConstant.DEFAULT_DATE_FORMAT;
 import static com.technology.jep.jepria.shared.JepRiaConstant.DEFAULT_TIME_FORMAT;
 
+import java.util.Objects;
+
 import com.google.gwt.cell.client.Cell;
 import com.google.gwt.cell.client.DateCell;
 import com.google.gwt.cell.client.NumberCell;
@@ -235,7 +237,7 @@ public class JepColumn<T, C> extends Column<T, C> {
   public final boolean addClassName(String className) {
     String oldStyle = getCellStyleNames(null, null);
     String appendedStyle = JepRiaUtil.appendStrIfNotPresent(oldStyle, className);
-    if (!JepRiaUtil.equalWithNull(oldStyle, appendedStyle)){
+    if (!Objects.equals(oldStyle, appendedStyle)){
       setCellStyleNames(appendedStyle);
       return true;
     }
@@ -252,7 +254,7 @@ public class JepColumn<T, C> extends Column<T, C> {
   public final boolean removeClassName(String className) {
     String oldStyle = getCellStyleNames(null, null);
     String removedStyle = JepRiaUtil.removeStrIfPresent(oldStyle, className);
-    if (!JepRiaUtil.equalWithNull(oldStyle, removedStyle)){
+    if (!Objects.equals(oldStyle, removedStyle)){
       setCellStyleNames(removedStyle);
       return true;
     }

@@ -6,6 +6,8 @@ import static com.technology.jep.jepria.client.util.JepClientUtil.isSpecialKey;
 import static com.technology.jep.jepria.client.widget.event.JepEventType.LOST_FOCUS_EVENT;
 import static com.technology.jep.jepria.client.widget.event.JepEventType.TYPING_TIMEOUT_EVENT;
 
+import java.util.Objects;
+
 import com.google.gwt.event.dom.client.BlurEvent;
 import com.google.gwt.event.dom.client.BlurHandler;
 import com.google.gwt.event.dom.client.DomEvent;
@@ -24,7 +26,6 @@ import com.google.gwt.user.client.ui.Widget;
 import com.technology.jep.jepria.client.widget.event.JepEvent;
 import com.technology.jep.jepria.client.widget.event.JepEventType;
 import com.technology.jep.jepria.client.widget.event.JepListener;
-import com.technology.jep.jepria.shared.util.JepRiaUtil;
 
 /**
  * Базовый класс для производных текстового поля.<br/>
@@ -88,7 +89,7 @@ public abstract class JepBaseTextField<E extends Widget & HasValue> extends JepM
   @SuppressWarnings("unchecked")
   public void setValue(Object value) {
     Object oldValue = getValue();
-    if(!JepRiaUtil.equalWithNull(oldValue, value)) {
+    if(!Objects.equals(oldValue, value)) {
       editableCard.setValue(value);
       clearInvalid();
       setViewValue(value);

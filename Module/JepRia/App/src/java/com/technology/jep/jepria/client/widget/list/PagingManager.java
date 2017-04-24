@@ -10,6 +10,8 @@ import static com.technology.jep.jepria.client.widget.event.JepEventType.PAGING_
 import static com.technology.jep.jepria.client.widget.event.JepEventType.ROW_CLICK_EVENT;
 import static com.technology.jep.jepria.client.widget.event.JepEventType.ROW_DOUBLE_CLICK_EVENT;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import com.allen_sauer.gwt.log.client.Log;
@@ -31,7 +33,8 @@ import com.google.gwt.view.client.SetSelectionModel;
 import com.technology.jep.jepria.client.widget.event.JepEvent;
 import com.technology.jep.jepria.client.widget.event.JepEventType;
 import com.technology.jep.jepria.client.widget.event.JepListener;
-import com.technology.jep.jepria.client.widget.list.event.RowOrderChangeEvent;
+import com.technology.jep.jepria.client.widget.list.JepGrid.DndMode;
+import com.technology.jep.jepria.client.widget.list.event.RowPositionChangeEvent;
 import com.technology.jep.jepria.client.widget.toolbar.PagingToolBar;
 import com.technology.jep.jepria.shared.load.PagingConfig;
 import com.technology.jep.jepria.shared.load.PagingResult;
@@ -90,14 +93,13 @@ public class PagingManager<W extends AbstractHasData<JepRecord>, P extends Pagin
     // добавляется возможность изменения позиций строк.
     if (widget instanceof JepGrid<?>){
       JepGrid<?> grid = (JepGrid<?>) widget;
-      if (grid.isDndEnabled()) {
-        grid.addRowOrderChangerHandler(new RowOrderChangeEvent.Handler() {
-          @Override
-          public void onRowOrderChange(RowOrderChangeEvent event) {
-            changeRows(event.getOldIndex(), event.getNewIndex(), event.isAbove());
-          }
-        });
-      }
+      grid.addRowPositionChangeEventHandler(new RowPositionChangeEvent.Handler() {
+        @Override
+        public void onRowPositionChange(RowPositionChangeEvent event) {
+          changeRowPosition(sortRecordList(event.getOldRowList()), event.getNewIndex(), event.isOver(), event.isInsertBefore(), event.isInsertAfter());
+          getSelectionModel().clear();
+        }
+      });
     }
   }
 
@@ -270,6 +272,26 @@ public class PagingManager<W extends AbstractHasData<JepRecord>, P extends Pagin
   }
 
   /**
+   * Сортировка списка записей в том порядке, в котором они представлены в таблице.<br>
+   * @param recordList
+   * @return отсортированный список идентификаторов записей в таблице
+   */
+  protected List<Object> sortRecordList(List<Object> recordList){
+	List<Integer> idList = new ArrayList<Integer>();
+	List<JepRecord> rowList = dataProvider.getList();
+	for(int i = 0; i < recordList.size(); i++){
+	  int index = rowList.indexOf(recordList.get(i));
+	  if(index != -1) idList.add(index);
+	}
+	Collections.sort(idList);
+	recordList.clear();
+	for(int i = 0; i < idList.size(); i++){
+		recordList.add(rowList.get(idList.get(i)));
+	}
+	return recordList;
+  }
+  
+  /**
    * Добавление слушателя определенного типа событий.<br/>
    * Концепция поддержки обработки событий и пример реализации метода отражен
    * в описании пакета {@link com.technology.jep.jepria.client.widget}.
@@ -404,6 +426,19 @@ public class PagingManager<W extends AbstractHasData<JepRecord>, P extends Pagin
       }
     });
   }
+
+  /**
+   * Установка или отключение возможности переноса строк в таблице данных.
+   * 
+   * @param dndEnabled флаг допустимости переноса строк колонок
+   */
+  public void setDndEnabled(boolean dndEnabled) {
+    if (dndEnabled) {
+      ((JepGrid<?>) widget).setDndMode(DndMode.INSERT);
+    } else {
+      ((JepGrid<?>) widget).setDndMode(DndMode.NONE);
+    }
+  }
   
   /**
    * Добавление прослушивателей для реализации прослушивания события
@@ -518,12 +553,80 @@ public class PagingManager<W extends AbstractHasData<JepRecord>, P extends Pagin
   }
   
   /**
+   * Подготовка данных к перемещению.
+   * @param rowList список перемещаемых узлов
+   * @param newRecord новая позиция узлов.
+   * @param dropType 
+   */
+  protected void beforeDrop(List<Object> rowList, JepRecord newRecord, int dropType) {
+    List<JepRecord> tableRows = dataProvider.getList();
+    for (int i = 0; i < rowList.size(); i++) { 
+      if (rowList.get(i).equals(newRecord)) {
+        rowList.remove(rowList.get(i));
+        i-=1;
+      } else {
+        tableRows.remove(rowList.get(i));
+      }
+    }
+    switch (dropType) {
+    case 0 : insertAfter(rowList, newRecord);
+              break;
+    case 1 : insertBefore(rowList, newRecord);
+              break;
+    }
+  }
+  
+  private void insertAfter(List<Object> rowList, JepRecord newRecord) {
+    List<JepRecord> tableRows = dataProvider.getList();
+    for (Object row : rowList) {
+      tableRows.add(tableRows.indexOf(newRecord) + 1, (JepRecord) row);
+      dataProvider.refresh();
+      widget.redraw();
+    }
+  }
+
+  private void insertBefore(List<Object> rowList, JepRecord newRecord) {
+    List<JepRecord> tableRows = dataProvider.getList();
+    for (Object row : rowList) {
+      tableRows.add(tableRows.indexOf(newRecord), (JepRecord) row);
+      dataProvider.refresh();
+      widget.redraw();
+    }
+  }
+
+  /**
+   * Изменение позиции элементов виджета 
+   * 
+   * @param oldRowList список перемещаемых элементов
+   * @param newIndex "новый" индекс элемента
+   * @param isOver вставка внутрь узла(для дерева)
+   * @param insertBefore вставка перед строкой
+   * @param insertAfter вставка после строки
+   */
+  public void changeRowPosition(List<Object> rowList, int newIndex, boolean isOver, boolean insertBefore, boolean insertAfter){
+    if (newIndex == -1) {
+      newIndex = 0;
+      insertBefore = true;
+    }
+    List<JepRecord> tableRows = dataProvider.getList();
+    JepRecord newRecord = tableRows.get(newIndex);
+    if (!isOver) {
+      if (insertBefore && !insertAfter) {
+        beforeDrop(rowList, newRecord, 1);
+      } else if (!insertBefore && insertAfter) {
+        beforeDrop(rowList, newRecord, 0);
+      }
+    }
+  }
+  
+  /**
    * Изменение позиции элементов виджета 
    * 
    * @param oldIndex    "старый" индекс элемента
    * @param newIndex    "новый" индекс элемента
    * @param isAbove    признак замены элемента выше стоящего
    */
+  @Deprecated
   public void changeRows(int oldIndex, int newIndex, boolean isAbove) {
     List<JepRecord> rowList = dataProvider.getList();
     JepRecord oldRecord = rowList.get(oldIndex);

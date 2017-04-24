@@ -39,10 +39,13 @@ public class JepRiaUtil {
   /**
    * Сравнение объектов на равенство.
    * 
+   * @deprecated Следует использовать {@link java.util.Objects#equals(Object, Object)}.
+   * 
    * @param obj1      первый сравниваемый объект
    * @param obj2      второй сравниваемый объект
    * @return признак равенства сравниваемых объектов
    */
+  @Deprecated
   public static boolean equalWithNull(Object obj1, Object obj2) {
     if (obj1 == obj2) {
       return true;
@@ -50,23 +53,6 @@ public class JepRiaUtil {
       return false;
     } else {
       return obj1.equals(obj2);
-    }
-  }
-  
-  /**
-   * Функция определяет: может ли переданная ей строка быть преобразована 
-   * к типу Integer.
-   * 
-   * @param value строка, которую проверяем
-   * 
-   * @return возвращает true, если переданная строка может быть преобразована к типу Integer.
-   */
-  public static boolean isInteger(String value) {
-    try {
-      Integer.parseInt(value);
-      return true;
-    } catch (Exception e) {
-      return false;
     }
   }
   

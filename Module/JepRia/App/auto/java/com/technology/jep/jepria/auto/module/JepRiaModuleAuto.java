@@ -3,6 +3,8 @@ package com.technology.jep.jepria.auto.module;
 import java.util.List;
 import java.util.Map;
 
+import org.openqa.selenium.WebElement;
+
 import com.technology.jep.jepria.auto.page.PlainPage;
 import com.technology.jep.jepria.auto.widget.tree.TreeItemFilter;
 import com.technology.jep.jepria.client.ui.WorkstateEnum;
@@ -362,5 +364,27 @@ public interface JepRiaModuleAuto {
    * {@link java.lang.IllegalArgumentException}.
    */
   void doGridColumnSettings(String gridId, String[] columns);
+
+  WebElement getGridRowElement(int rowIndex, String gridId);
+
+  void dragAndDropGridRow(int draggableRowIndex, int targerRowIndex,
+      String gridId);
+
+  void dragAndDropGridRows(List<Integer> draggableRowIndexList,
+      int targetRowIndex, String gridId);
+
+  void dragAndDropGridRowsAfterTarget(List<Integer> draggableRowIndexList,
+      int targetRowIndex, String gridId);
+
+  void dragAndDropGridRowAfterTarget(int draggableRowIndex, int targetRowIndex,
+      String gridId);
+
+  void dragAndDropGridRowsBeforeTarget(List<Integer> draggableRowIndexList,
+      int targetRowIndex, String gridId);
+
+  void dragAndDropGridRowBeforeTarget(int draggableRowIndex, int targetRowIndex,
+      String gridId);
+
+  void sortByColumn(String gridId, Integer columnId);
 
 }

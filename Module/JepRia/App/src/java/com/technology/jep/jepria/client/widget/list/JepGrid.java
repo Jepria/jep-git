@@ -6,6 +6,7 @@ import static com.technology.jep.jepria.client.JepRiaClientConstant.DND_DATA_PRO
 import static com.technology.jep.jepria.client.JepRiaClientConstant.JepTexts;
 import static com.technology.jep.jepria.shared.load.PagingConfig.DEFAULT_PAGE_SIZE;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -41,12 +42,14 @@ import com.google.gwt.user.client.ui.HeaderPanel;
 import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.view.client.CellPreviewEvent;
 import com.google.gwt.view.client.CellPreviewEvent.Handler;
+import com.google.gwt.view.client.DefaultSelectionEventManager;
 import com.google.gwt.view.client.MultiSelectionModel;
 import com.google.gwt.view.client.ProvidesKey;
 import com.google.gwt.view.client.SelectionModel;
+import com.google.gwt.view.client.SetSelectionModel;
 import com.technology.jep.jepria.client.util.JepClientUtil;
 import com.technology.jep.jepria.client.widget.container.ElementSimplePanel;
-import com.technology.jep.jepria.client.widget.list.event.RowOrderChangeEvent;
+import com.technology.jep.jepria.client.widget.list.event.RowPositionChangeEvent;
 import com.technology.jep.jepria.client.widget.list.header.ResizableHeader;
 import com.technology.jep.jepria.shared.util.JepRiaUtil;
 
@@ -89,6 +92,11 @@ public class JepGrid<T> extends DataGrid<T> {
   private boolean dndEnabled = false;
   
   /**
+   * Текущий режим работы Drag&Drop
+   */
+  private DndMode dndMode = DndMode.NONE;
+  
+  /**
    * Флаг полной инициализации виджета
    */
   private boolean initialized = false;
@@ -101,12 +109,17 @@ public class JepGrid<T> extends DataGrid<T> {
   /**
    * Линейный градиент перехода от голубого цвета к белому
    */
-  private static final String LINEAR_GRADIENT_FROM_TOP_TO_BOTTOM = "linear-gradient(#D0DEF0, #FFFFFF)";
+  private static final String LINEAR_GRADIENT_FROM_TOP_TO_BOTTOM = "linear-gradient(to bottom, #ACCBF2 , #FFFFFF 50%)";
+  
+  /**
+   * Линейный градиент перехода от голубого цвета к белому и снова к голубому
+   */
+  private static final String LINEAR_GRADIENT_TRIPLE_COLOR = "linear-gradient(#FFFFFF, #ACCBF2, #FFFFFF)";
   
   /**
    * Линейный градиент перехода от белого цвета к голубому
    */
-  private static final String LINEAR_GRADIENT_FROM_BOTTOM_TO_TOP = "linear-gradient(#FFFFFF, #D0DEF0)";
+  private static final String LINEAR_GRADIENT_FROM_BOTTOM_TO_TOP = "linear-gradient(to top, #ACCBF2 , #FFFFFF 50%)";
   
   /**
    * Обработчик системного события начала переноса строки таблицы
@@ -128,6 +141,14 @@ public class JepGrid<T> extends DataGrid<T> {
    */
   protected HandlerRegistration dropHandler;
   
+  protected Boolean isDraggedOver = false;
+  
+  protected Boolean isAbove = false;
+  
+  protected Boolean isBelow = false;
+
+  private boolean isTextSelectionDisabled = false;
+  
   protected static String RESIZABLE_HEADER_LABEL_STYLE = "jepRia-ResizableHeader-Label";
   
   /**
@@ -142,6 +163,13 @@ public class JepGrid<T> extends DataGrid<T> {
   public interface DataGridResource extends DataGrid.Resources {
     @Source({ DataGrid.Style.DEFAULT_CSS, "DataGridOverride.css" })
     MyStyle dataGridStyle();
+  }
+  
+  /**
+   * Режимы работы Drag&Drop
+   */
+  public enum DndMode {
+    NONE, APPEND, INSERT, BOTH;
   }
   
   /**
@@ -192,7 +220,7 @@ public class JepGrid<T> extends DataGrid<T> {
     });
     
     final SelectionModel<T> selectionModel = new MultiSelectionModel<T>();
-    setSelectionModel(selectionModel);
+    setSelectionModel(selectionModel, DefaultSelectionEventManager.<T>createDefaultManager());
   }
 
   /**
@@ -258,6 +286,7 @@ public class JepGrid<T> extends DataGrid<T> {
    * 
    * @param col       колонка
    * @param beforeId  id колонки, перед которой будет установлена новая колонка
+   * @param toggle    признак переключения
    */
   public void addColumn(JepColumn col, int beforeId) {
     Header<String> header = new ResizableHeader<T>(col.getHeaderText(), this, col, this.isColumnConfigurable);
@@ -407,6 +436,7 @@ public class JepGrid<T> extends DataGrid<T> {
     }
     return false;
   }
+  
   /**
    * Обработчик события наведения мыши на элементы таблицы.
    * @param event событие
@@ -418,13 +448,13 @@ public class JepGrid<T> extends DataGrid<T> {
   }
   
   /**
-   * Add a handler to handle {@link com.technology.jep.jepria.client.widget.list.event.RowOrderChangeEvent}s.
+   * Add a handler to handle {@link com.technology.jep.jepria.client.widget.list.event.RowPositionChangeEvent}s.
    * 
-   * @param handler the {@link com.technology.jep.jepria.client.widget.list.event.RowOrderChangeEvent.Handler} to add
+   * @param handler the {@link com.technology.jep.jepria.client.widget.list.event.RowPositionChangeEvent.Handler} to add
    * @return a {@link com.google.gwt.event.shared.HandlerRegistration} to remove the handler
    */
-  public HandlerRegistration addRowOrderChangerHandler(RowOrderChangeEvent.Handler handler) {
-    return addHandler(handler, RowOrderChangeEvent.getType());
+  public HandlerRegistration addRowPositionChangeEventHandler(RowPositionChangeEvent.Handler handler) {
+    return addHandler(handler, RowPositionChangeEvent.getType());
   }
 
   /**
@@ -513,7 +543,16 @@ public class JepGrid<T> extends DataGrid<T> {
    * @return  флаг доступности переноса строк
    */
   boolean isDndEnabled(){
-    return this.dndEnabled;
+	  return this.dndMode != DndMode.NONE;
+  }
+  
+  /**
+   * Возвращает текущий режим работы Drag&Drop 
+   * 
+   * @return  режим работы Drag&Drop
+   */
+  DndMode getCurrentDndMode(){
+    return this.dndMode;
   }
   
   /**
@@ -541,17 +580,45 @@ public class JepGrid<T> extends DataGrid<T> {
   }
 
   /**
+   * Установка режима работы Drag&Drop.
+   * 
+   * @param mode режим работы Drag&Drop.
+   */
+  public void setDndMode(DndMode mode) {
+    if (initialized) {
+      throw new IllegalStateException(JepTexts.errors_list_preConfigurationError());
+    }
+    this.dndMode = mode;
+    if(mode == DndMode.NONE) {
+    	isTextSelectionDisabled = false;
+    	this.getElement().setClassName(JepRiaUtil.removeStrIfPresent(this.getElement().getClassName(), " noselect"));
+    }
+    else {
+    	this.getElement().setClassName(this.getElement().getClassName()+" noselect");
+    	isTextSelectionDisabled = true;
+    }
+  }
+  
+  /**
    * Установка или отключение возможности переноса строк в таблице данных.
    * 
    * @param dndEnabled флаг допустимости переноса строк колонок
+   * 
+   * Особенность: следует использовать setDndMode(DndMode mode)
    */
+  @Deprecated
   public void setDndEnabled(boolean dndEnabled) {
     if (initialized) {
       throw new IllegalStateException(JepTexts.errors_list_preConfigurationError());
     }
     this.dndEnabled = dndEnabled;
+    if (dndEnabled) {
+    	setDndMode(DndMode.INSERT);
+    } else {
+    	setDndMode(DndMode.NONE);
+    }
   }
-
+  
   /**
    * Определяет находится ли курсор мыши в верхней или нижней части строки таблица при перетаскивании.
    * 
@@ -560,10 +627,25 @@ public class JepGrid<T> extends DataGrid<T> {
    * @return флаг нахождения курсора в верхней части элемента
    */
   private boolean isCursorAboveElementCenter(Element rowElement, NativeEvent event){
-    // Calculate top position for the popup
         int top = rowElement.getAbsoluteTop(), height = rowElement.getOffsetHeight(), 
           clientY = event.getClientY();
         return clientY - top < height / 2;  
+  }
+  
+  /**
+   * Определяет находится ли курсор мыши между строками таблицы.
+   * 
+   * @param rowElement      текущая строка таблицы
+   * @param event          событие перетаскивания
+   * @return флаг нахождения курсора в верхней части элемента
+   */
+  private boolean isCursorBetweenElements(Element rowElement, NativeEvent event){
+        int top = rowElement.getAbsoluteTop(), bottom = rowElement.getAbsoluteBottom(); 
+        int height = rowElement.getOffsetHeight(), clientY = event.getClientY();
+        this.isDraggedOver = !((clientY - top < height * 0.3) || (clientY > bottom - (height * 0.3)));
+        this.isAbove = clientY - top < height * 0.3;
+        this.isBelow = clientY > bottom - (height * 0.3);
+        return (clientY - top < height * 0.3) || (clientY > bottom - (height * 0.3));  
   }
   
   /**
@@ -591,7 +673,10 @@ public class JepGrid<T> extends DataGrid<T> {
   protected void replaceChildren(List<T> values, int start, SafeHtml html) {
     super.replaceChildren(values, start, html);
     if (isDndEnabled()) {
-      getRowElement(start).setDraggable(Element.DRAGGABLE_TRUE);
+      for (int row = 0; row < getRowCount(); row++){
+        final TableRowElement tableRow = getRowElement(row);//Требуется устанавливать свойство DRAGGABLE
+        tableRow.setDraggable(Element.DRAGGABLE_TRUE);//для всех строк таблицы, иначе периодически 
+      }											//находятся строки с отсутствующим свойством => не работает DnD
     }
   }
   
@@ -608,6 +693,14 @@ public class JepGrid<T> extends DataGrid<T> {
     if (!initialized){
       initialize();
     }
+  }
+  /**
+   * Возвращается список выделенных строк
+   *
+   * @return
+   */
+  public List<T> getSelection(){
+    return new ArrayList<T>(((SetSelectionModel)JepGrid.super.getSelectionModel()).getSelectedSet());
   }
   
   /**
@@ -653,8 +746,7 @@ public class JepGrid<T> extends DataGrid<T> {
     // последний столбец-заглушка, для корректного отображения ширины столбцов
     addColumn(new JepColumn<T, String>(new TextCell()));
     
-    // добавим системных слушателей DragAndDrop события
-    if (isDndEnabled()){
+    if (this.dndMode != DndMode.NONE){
       bindDragAndDropListeners();
     }
   }
@@ -673,7 +765,21 @@ public class JepGrid<T> extends DataGrid<T> {
         //row which cause this event  
         int rowIndex = getRowIndexByEvent(event);
         dataTransfer.setData(DND_DATA_PROPERTY, rowIndex + "");
+        T selectedRow = getVisibleItems().get(rowIndex);
+        if (getSelectionModel().isSelected(selectedRow) == false) {
+          ((SetSelectionModel) getSelectionModel()).clear();
+          getSelectionModel().setSelected(selectedRow, true);
+        }
         // optional: show copy of the image
+/*        DialogBox popPanel = new DialogBox(){
+          @Override
+          protected void onPreviewNativeEvent(NativePreviewEvent event) {
+            NativeEvent nativeEvent = event.getNativeEvent();
+            String eventType = event.getNativeEvent().getType();
+            if (BrowserEvents.MOUSEMOVE.equals(eventType)) {
+            }
+          }
+        };*/
         dataTransfer.setDragImage(getRowElement(event), 10, 10);
       }
     });
@@ -683,7 +789,16 @@ public class JepGrid<T> extends DataGrid<T> {
         public void onDragOver(DragOverEvent event) {
           TableRowElement rowElement = getRowElement(event);
           if (rowElement != null){
-            rowElement.getStyle().setBackgroundImage(isCursorAboveElementCenter(rowElement, event.getNativeEvent()) ? LINEAR_GRADIENT_FROM_TOP_TO_BOTTOM : LINEAR_GRADIENT_FROM_BOTTOM_TO_TOP);
+        	isCursorBetweenElements(rowElement, event.getNativeEvent());
+            if(isAbove) {
+            	rowElement.getStyle().setBackgroundImage(LINEAR_GRADIENT_FROM_TOP_TO_BOTTOM);
+            }
+            if(isBelow){
+            	rowElement.getStyle().setBackgroundImage(LINEAR_GRADIENT_FROM_BOTTOM_TO_TOP);
+            }
+            if(isDraggedOver){
+            	rowElement.getStyle().setBackgroundImage(LINEAR_GRADIENT_TRIPLE_COLOR);
+            }
             // строка должна оказаться в области видимости пользователя
             contentWidget.ensureVisible(new ElementSimplePanel(rowElement));
           }
@@ -695,6 +810,9 @@ public class JepGrid<T> extends DataGrid<T> {
       public void onDragLeave(DragLeaveEvent event) {
         TableRowElement rowElement = getRowElement(event);
           if (rowElement != null){
+        	isAbove=false;
+        	isBelow=false;
+        	isDraggedOver=false; 
             rowElement.getStyle().clearBackgroundImage();
           }
       }
@@ -710,16 +828,24 @@ public class JepGrid<T> extends DataGrid<T> {
             final int droppedIndexRow = getRowIndexByEvent(event);
         // get the data out of the event
             final int selectedIndex = Integer.decode(event.getData(DND_DATA_PROPERTY));
-            if (selectedIndex != -1 && droppedIndexRow != -1){
+            if (selectedIndex != -1){
               // замена элементов осуществляем в последнюю очередь
               Scheduler.get().scheduleFinally(new ScheduledCommand() {
-            @Override
-            public void execute() {
-              TableRowElement rowElement = getRowElement(droppedIndexRow);
-              RowOrderChangeEvent.fire(JepGrid.this, selectedIndex, droppedIndexRow, LINEAR_GRADIENT_FROM_TOP_TO_BOTTOM.equals(rowElement.getStyle().getBackgroundImage()));
-              rowElement.getStyle().clearBackgroundColor();
-            }
-          });
+                @Override
+                public void execute() {
+                  TableRowElement rowElement = null;
+                  if (droppedIndexRow != -1) {
+                    rowElement = getRowElement(droppedIndexRow);
+                    rowElement.getStyle().clearBackgroundImage();
+                  }
+                  if (dndMode == DndMode.INSERT && !(selectedIndex != droppedIndexRow && !isDraggedOver)) return;
+                  if (dndMode == DndMode.APPEND && !(selectedIndex != droppedIndexRow && isDraggedOver)) return;
+                  if (dndMode == DndMode.BOTH && !(selectedIndex != droppedIndexRow)) return;
+                	RowPositionChangeEvent.fire(JepGrid.this, (List<Object>) getSelection(), droppedIndexRow, isDraggedOver,
+                			  isAbove, isBelow);
+                  if (droppedIndexRow != -1) rowElement.getStyle().clearBackgroundImage();
+                }
+              });
             }            
         }
     });
@@ -736,6 +862,7 @@ public class JepGrid<T> extends DataGrid<T> {
     return dataPanel.getHorizontalScrollPosition();
   }
 
+  
   /**
    * Класс для хранения характеристик колонки таблица данных
    */

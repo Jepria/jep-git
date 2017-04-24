@@ -1,6 +1,6 @@
 package com.technology.jep.jepcommon.security.tomcat;
 
-import static com.technology.jep.jepria.server.JepRiaServerConstant.DEFAULT_DATA_SOURCE_JNDI_NAME;
+import static com.technology.jep.jepria.server.JepRiaServerConstant.*;
 
 import java.security.Principal;
 import java.sql.SQLException;
@@ -128,9 +128,13 @@ public class JepLoginModule implements LoginModule {
     
     Integer operatorId = null;
     this.username = ((NameCallback) callbacks[0]).getName();
+    boolean withHash = this.username.endsWith(LOGIN_SUFFIX_FOR_HASH_AUTHORIZATION); 
+	if (withHash){
+		this.username = this.username.split(LOGIN_SUFFIX_FOR_HASH_AUTHORIZATION)[0];
+	}
     String password = getPassword(callbacks);
     try {
-      doJepAuthentication(this.username, password);
+      doJepAuthentication(this.username, password, withHash);
       operatorId = obtainRolesAndOperatorId(this.username);
     } catch (Throwable th) {
       throw new LoginException("Authorization failed: " + th.getLocalizedMessage());
@@ -300,12 +304,12 @@ public class JepLoginModule implements LoginModule {
    * @param password    пароль пользователя
    * @throws SQLException при неудачной аутентификации
    */
-  private void doJepAuthentication(String username, String password) throws FailedLoginException {
+  private void doJepAuthentication(String username, String password, boolean withHash) throws FailedLoginException {
     logger.trace("BEGIN doJepAuthentication(" + username + ", " + password + ")");
     
     //Проверим логин/пароль пользователя.
     try {
-      pkg_Operator.logon(getDb(), username, password);
+      pkg_Operator.logon(getDb(), username, withHash ? null : password, withHash ? password : null);
     } catch (SQLException e) {
       throw new FailedLoginException("Authentication failed: Password does not match");
     }
