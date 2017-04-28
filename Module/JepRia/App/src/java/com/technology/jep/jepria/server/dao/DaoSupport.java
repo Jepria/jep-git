@@ -418,7 +418,7 @@ public class DaoSupport {
       CallableStatement callableStatement = db.prepare(query);
     
       setApplicationInfo(query);
-      resultSet = setParamsAndExecute(callableStatement, executionType, params);
+      resultSet = ResultSetWrapper.wrap(setParamsAndExecute(callableStatement, executionType, params));
       
       while (resultSet.next()) {
         T resultModel = recordClass.newInstance();
