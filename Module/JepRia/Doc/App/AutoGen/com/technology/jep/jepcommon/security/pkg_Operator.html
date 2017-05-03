@@ -205,9 +205,10 @@ extends java.lang.Object</pre>
 </tr>
 <tr id="i5" class="rowColor">
 <td class="colFirst"><code>static java.lang.Integer</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/technology/jep/jepcommon/security/pkg_Operator.html#logon-com.technology.jep.jepria.server.db.Db-java.lang.String-java.lang.String-">logon</a></span>(<a href="../../../../../com/technology/jep/jepria/server/db/Db.html" title="class in com.technology.jep.jepria.server.db">Db</a>&nbsp;db,
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/technology/jep/jepcommon/security/pkg_Operator.html#logon-com.technology.jep.jepria.server.db.Db-java.lang.String-java.lang.String-java.lang.String-">logon</a></span>(<a href="../../../../../com/technology/jep/jepria/server/db/Db.html" title="class in com.technology.jep.jepria.server.db">Db</a>&nbsp;db,
      java.lang.String&nbsp;login,
-     java.lang.String&nbsp;password)</code>
+     java.lang.String&nbsp;password,
+     java.lang.String&nbsp;hash)</code>
 <div class="block">Регистрация оператора в базе данных.</div>
 </td>
 </tr>
@@ -267,7 +268,7 @@ extends java.lang.Object</pre>
 <!--   -->
 </a>
 <h3>Method Detail</h3>
-<a name="logon-com.technology.jep.jepria.server.db.Db-java.lang.String-java.lang.String-">
+<a name="logon-com.technology.jep.jepria.server.db.Db-java.lang.String-java.lang.String-java.lang.String-">
 <!--   -->
 </a>
 <ul class="blockList">
@@ -275,7 +276,8 @@ extends java.lang.Object</pre>
 <h4>logon</h4>
 <pre>public static final&nbsp;java.lang.Integer&nbsp;logon(<a href="../../../../../com/technology/jep/jepria/server/db/Db.html" title="class in com.technology.jep.jepria.server.db">Db</a>&nbsp;db,
                                             java.lang.String&nbsp;login,
-                                            java.lang.String&nbsp;password)
+                                            java.lang.String&nbsp;password,
+                                            java.lang.String&nbsp;hash)
                                      throws java.sql.SQLException</pre>
 <div class="block">Регистрация оператора в базе данных.<br/>
  Функция осуществляет последовательный вызов функций базы данных:<br/>
@@ -381,7 +383,7 @@ extends java.lang.Object</pre>
 <dd><code>db</code> - соединение с базой данных</dd>
 <dd><code>login</code> - логин пользователя</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>список ролей пользователя в виде List&lt;String&gt;</dd>
+<dd>список ролей пользователя в виде TreeSet&lt;String&gt;</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
 <dd><code>java.sql.SQLException</code></dd>
 </dl>
@@ -402,7 +404,7 @@ extends java.lang.Object</pre>
 <dd><code>db</code> - соединение с базой данных</dd>
 <dd><code>operatorId</code> - идентификатор пользователя</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>список ролей пользователя в виде List&lt;String&gt;</dd>
+<dd>список ролей пользователя в виде TreeSet&lt;String&gt;</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
 <dd><code>java.sql.SQLException</code></dd>
 </dl>

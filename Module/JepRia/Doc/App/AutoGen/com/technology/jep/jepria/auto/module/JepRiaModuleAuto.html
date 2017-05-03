@@ -18,7 +18,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":6,"i1":6,"i2":6,"i3":6,"i4":6,"i5":6,"i6":6,"i7":6,"i8":6,"i9":6,"i10":6,"i11":6,"i12":6,"i13":6,"i14":6,"i15":6,"i16":6,"i17":6,"i18":6,"i19":6,"i20":6,"i21":6,"i22":6,"i23":6,"i24":6,"i25":6,"i26":6,"i27":6,"i28":6,"i29":6,"i30":6,"i31":6,"i32":6,"i33":6,"i34":38,"i35":6,"i36":6,"i37":6,"i38":6,"i39":6,"i40":6};
+var methods = {"i0":6,"i1":6,"i2":6,"i3":6,"i4":6,"i5":6,"i6":6,"i7":6,"i8":6,"i9":6,"i10":6,"i11":6,"i12":6,"i13":6,"i14":6,"i15":6,"i16":6,"i17":6,"i18":6,"i19":6,"i20":6,"i21":6,"i22":6,"i23":6,"i24":6,"i25":6,"i26":6,"i27":6,"i28":6,"i29":6,"i30":6,"i31":6,"i32":6,"i33":6,"i34":6,"i35":6,"i36":6,"i37":6,"i38":6,"i39":6,"i40":6,"i41":38,"i42":6,"i43":6,"i44":6,"i45":6,"i46":6,"i47":6,"i48":6};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],4:["t3","Abstract Methods"],32:["t6","Deprecated Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -197,12 +197,48 @@ var activeTableTab = "activeTableTab";
 </tr>
 <tr id="i8" class="altColor">
 <td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#dragAndDropGridRow-int-int-java.lang.String-">dragAndDropGridRow</a></span>(int&nbsp;draggableRowIndex,
+                  int&nbsp;targerRowIndex,
+                  java.lang.String&nbsp;gridId)</code>&nbsp;</td>
+</tr>
+<tr id="i9" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#dragAndDropGridRowAfterTarget-int-int-java.lang.String-">dragAndDropGridRowAfterTarget</a></span>(int&nbsp;draggableRowIndex,
+                             int&nbsp;targetRowIndex,
+                             java.lang.String&nbsp;gridId)</code>&nbsp;</td>
+</tr>
+<tr id="i10" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#dragAndDropGridRowBeforeTarget-int-int-java.lang.String-">dragAndDropGridRowBeforeTarget</a></span>(int&nbsp;draggableRowIndex,
+                              int&nbsp;targetRowIndex,
+                              java.lang.String&nbsp;gridId)</code>&nbsp;</td>
+</tr>
+<tr id="i11" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#dragAndDropGridRows-java.util.List-int-java.lang.String-">dragAndDropGridRows</a></span>(java.util.List&lt;java.lang.Integer&gt;&nbsp;draggableRowIndexList,
+                   int&nbsp;targetRowIndex,
+                   java.lang.String&nbsp;gridId)</code>&nbsp;</td>
+</tr>
+<tr id="i12" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#dragAndDropGridRowsAfterTarget-java.util.List-int-java.lang.String-">dragAndDropGridRowsAfterTarget</a></span>(java.util.List&lt;java.lang.Integer&gt;&nbsp;draggableRowIndexList,
+                              int&nbsp;targetRowIndex,
+                              java.lang.String&nbsp;gridId)</code>&nbsp;</td>
+</tr>
+<tr id="i13" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#dragAndDropGridRowsBeforeTarget-java.util.List-int-java.lang.String-">dragAndDropGridRowsBeforeTarget</a></span>(java.util.List&lt;java.lang.Integer&gt;&nbsp;draggableRowIndexList,
+                               int&nbsp;targetRowIndex,
+                               java.lang.String&nbsp;gridId)</code>&nbsp;</td>
+</tr>
+<tr id="i14" class="altColor">
+<td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#edit-java.util.Map-">edit</a></span>(java.util.Map&lt;java.lang.String,java.lang.String&gt;&nbsp;primaryKey)</code>
 <div class="block">Перейти в состояние редактирования записи, выбранной по первичному ключу
  В качестве идентификаторов полей первичного ключа выступают ID Web-элементов полей ввода</div>
 </td>
 </tr>
-<tr id="i9" class="rowColor">
+<tr id="i15" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#edit-java.util.Map-java.lang.String-">edit</a></span>(java.util.Map&lt;java.lang.String,java.lang.String&gt;&nbsp;primaryKey,
     java.lang.String&nbsp;gridId)</code>
@@ -210,126 +246,131 @@ var activeTableTab = "activeTableTab";
  В качестве идентификаторов полей первичного ключа выступают ID Web-элементов полей ввода</div>
 </td>
 </tr>
-<tr id="i10" class="altColor">
+<tr id="i16" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#edit-java.lang.String-java.lang.String-">edit</a></span>(java.lang.String&nbsp;idFieldName,
     java.lang.String&nbsp;id)</code>
 <div class="block">Перейти в состояние редактирования записи, выбранной по id</div>
 </td>
 </tr>
-<tr id="i11" class="rowColor">
+<tr id="i17" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#ensureModuleLoaded--">ensureModuleLoaded</a></span>()</code>
 <div class="block">Проверка, загрузился ли модуль (делегирование к <a href="../../../../../../com/technology/jep/jepria/auto/page/PlainPage.html#ensurePageLoaded--"><code>PlainPage.ensurePageLoaded()</code></a>).</div>
 </td>
 </tr>
-<tr id="i12" class="altColor">
+<tr id="i18" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#find--">find</a></span>()</code>
 <div class="block">Переход на форму поиска.</div>
 </td>
 </tr>
-<tr id="i13" class="rowColor">
+<tr id="i19" class="rowColor">
 <td class="colFirst"><code>boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#getCheckBoxFieldValue-java.lang.String-">getCheckBoxFieldValue</a></span>(java.lang.String&nbsp;checkBoxFieldId)</code>
 <div class="block">Получение значения поля  CheckBoxField.</div>
 </td>
 </tr>
-<tr id="i14" class="altColor">
+<tr id="i20" class="altColor">
 <td class="colFirst"><code>java.lang.String[]</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#getDualListFieldValues-java.lang.String-">getDualListFieldValues</a></span>(java.lang.String&nbsp;jepDualListFieldId)</code>
 <div class="block">Получение значений правого списка поля JepDualListField</div>
 </td>
 </tr>
-<tr id="i15" class="rowColor">
+<tr id="i21" class="rowColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#getFieldValue-java.lang.String-">getFieldValue</a></span>(java.lang.String&nbsp;fieldId)</code>
 <div class="block">Получение значения элемента ввода поля по заданному id поля</div>
 </td>
 </tr>
-<tr id="i16" class="altColor">
+<tr id="i22" class="altColor">
 <td class="colFirst"><code>java.util.List&lt;java.util.List&lt;java.lang.Object&gt;&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#getGridDataRowwise-java.lang.String-">getGridDataRowwise</a></span>(java.lang.String&nbsp;gridId)</code>&nbsp;</td>
 </tr>
-<tr id="i17" class="rowColor">
+<tr id="i23" class="rowColor">
 <td class="colFirst"><code>java.util.List&lt;java.lang.String&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#getGridHeaders-java.lang.String-">getGridHeaders</a></span>(java.lang.String&nbsp;gridId)</code>&nbsp;</td>
 </tr>
-<tr id="i18" class="altColor">
+<tr id="i24" class="altColor">
+<td class="colFirst"><code>org.openqa.selenium.WebElement</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#getGridRowElement-int-java.lang.String-">getGridRowElement</a></span>(int&nbsp;rowIndex,
+                 java.lang.String&nbsp;gridId)</code>&nbsp;</td>
+</tr>
+<tr id="i25" class="rowColor">
 <td class="colFirst"><code>java.lang.String[]</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#getListFieldValues-java.lang.String-">getListFieldValues</a></span>(java.lang.String&nbsp;jepListFieldId)</code>
 <div class="block">Получение отмеченных значений списка поля JepListField</div>
 </td>
 </tr>
-<tr id="i19" class="rowColor">
+<tr id="i26" class="altColor">
 <td class="colFirst"><code>java.lang.String[]</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#getTreeFieldNodesByFilter-java.lang.String-com.technology.jep.jepria.auto.widget.tree.TreeItemFilter-">getTreeFieldNodesByFilter</a></span>(java.lang.String&nbsp;treeFieldId,
                          <a href="../../../../../../com/technology/jep/jepria/auto/widget/tree/TreeItemFilter.html" title="interface in com.technology.jep.jepria.auto.widget.tree">TreeItemFilter</a>&nbsp;filter)</code>
 <div class="block">Получение массива путей до узлов, проходящих через фильтр, поля JepTreeField.</div>
 </td>
 </tr>
-<tr id="i20" class="altColor">
+<tr id="i27" class="rowColor">
 <td class="colFirst"><code><a href="../../../../../../com/technology/jep/jepria/client/ui/WorkstateEnum.html" title="enum in com.technology.jep.jepria.client.ui">WorkstateEnum</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#getWorkstateFromStatusBar--">getWorkstateFromStatusBar</a></span>()</code>
 <div class="block">Получение workstate из html-атрибута StatusBar модуля</div>
 </td>
 </tr>
-<tr id="i21" class="rowColor">
+<tr id="i28" class="altColor">
 <td class="colFirst"><code>boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#isFieldAllowBlank-java.lang.String-">isFieldAllowBlank</a></span>(java.lang.String&nbsp;fieldId)</code>
 <div class="block">Проверка необязательности Jep-поля по заданному ID (наличия маркера обязательности (*) )</div>
 </td>
 </tr>
-<tr id="i22" class="altColor">
+<tr id="i29" class="rowColor">
 <td class="colFirst"><code>boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#isFieldEditable-java.lang.String-">isFieldEditable</a></span>(java.lang.String&nbsp;fieldId)</code>
 <div class="block">Проверка редактируемости Jep-поля по заданному ID (атрибута jep-card-type)</div>
 </td>
 </tr>
-<tr id="i23" class="rowColor">
+<tr id="i30" class="altColor">
 <td class="colFirst"><code>boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#isFieldEnabled-java.lang.String-">isFieldEnabled</a></span>(java.lang.String&nbsp;fieldId)</code>
 <div class="block">Проверка доступности Jep-поля по заданному ID (атрибута disabled)</div>
 </td>
 </tr>
-<tr id="i24" class="altColor">
+<tr id="i31" class="rowColor">
 <td class="colFirst"><code>boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#isFieldVisible-java.lang.String-">isFieldVisible</a></span>(java.lang.String&nbsp;fieldId)</code>
 <div class="block">Проверка видимости Jep-поля по заданному ID (атрибута aria-hidden)</div>
 </td>
 </tr>
-<tr id="i25" class="rowColor">
+<tr id="i32" class="altColor">
 <td class="colFirst"><code>boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#isGridEmpty-java.lang.String-">isGridEmpty</a></span>(java.lang.String&nbsp;gridId)</code>&nbsp;</td>
 </tr>
-<tr id="i26" class="altColor">
+<tr id="i33" class="rowColor">
 <td class="colFirst"><code><a href="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.SaveResultEnum.html" title="enum in com.technology.jep.jepria.auto.module">JepRiaModuleAuto.SaveResultEnum</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#save--">save</a></span>()</code>
 <div class="block">Сохранить</div>
 </td>
 </tr>
-<tr id="i27" class="rowColor">
+<tr id="i34" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#selectAllListMenuItems-java.lang.String-boolean-">selectAllListMenuItems</a></span>(java.lang.String&nbsp;listFieldId,
                       boolean&nbsp;selectAll)</code>
 <div class="block">Выбор всех элементов JepListField по заданному Id.</div>
 </td>
 </tr>
-<tr id="i28" class="altColor">
+<tr id="i35" class="rowColor">
 <td class="colFirst"><code>boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#selectAllTreeItems-java.lang.String-boolean-">selectAllTreeItems</a></span>(java.lang.String&nbsp;treeFieldId,
                   boolean&nbsp;selectAll)</code>
 <div class="block">Выбор всех элементов JepTreeField по заданному Id, с помощью флажка "Выделить все".</div>
 </td>
 </tr>
-<tr id="i29" class="rowColor">
+<tr id="i36" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#selectComboBoxMenuItem-java.lang.String-java.lang.String-">selectComboBoxMenuItem</a></span>(java.lang.String&nbsp;comboBoxFieldId,
                       java.lang.String&nbsp;menuItem)</code>
 <div class="block">Простой выбор элемента Комбо-бокса по заданному id.</div>
 </td>
 </tr>
-<tr id="i30" class="altColor">
+<tr id="i37" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#selectComboBoxMenuItemWithCharByCharReloadingOptions-java.lang.String-java.lang.String-int-">selectComboBoxMenuItemWithCharByCharReloadingOptions</a></span>(java.lang.String&nbsp;comboBoxFieldId,
                                                     java.lang.String&nbsp;menuItem,
@@ -337,27 +378,27 @@ var activeTableTab = "activeTableTab";
 <div class="block">Сложный выбор элемента Комбо-бокса по заданному id.</div>
 </td>
 </tr>
-<tr id="i31" class="rowColor">
+<tr id="i38" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#selectDualListMenuItems-java.lang.String-java.lang.String:A-">selectDualListMenuItems</a></span>(java.lang.String&nbsp;dualListFieldId,
                        java.lang.String[]&nbsp;menuItems)</code>
 <div class="block">Выбор элементов DualListField по заданному Id.</div>
 </td>
 </tr>
-<tr id="i32" class="altColor">
+<tr id="i39" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#selectItem-int-">selectItem</a></span>(int&nbsp;index)</code>
 <div class="block">Выделить элемент списка списочной формы по индексу</div>
 </td>
 </tr>
-<tr id="i33" class="rowColor">
+<tr id="i40" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#selectItem-int-java.lang.String-">selectItem</a></span>(int&nbsp;index,
           java.lang.String&nbsp;gridId)</code>
 <div class="block">Выделить элемент списка списочной формы по индексу.</div>
 </td>
 </tr>
-<tr id="i34" class="altColor">
+<tr id="i41" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#selectItem-java.util.Map-">selectItem</a></span>(java.util.Map&lt;java.lang.String,java.lang.String&gt;&nbsp;key)</code>
 <div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;
@@ -365,46 +406,51 @@ var activeTableTab = "activeTableTab";
 </div>
 </td>
 </tr>
-<tr id="i35" class="rowColor">
+<tr id="i42" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#selectListMenuItems-java.lang.String-java.lang.String:A-">selectListMenuItems</a></span>(java.lang.String&nbsp;listFieldId,
                    java.lang.String[]&nbsp;menuItems)</code>
 <div class="block">Выбор элементов JepListField по заданному Id.</div>
 </td>
 </tr>
-<tr id="i36" class="altColor">
+<tr id="i43" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#selectTreeItems-java.lang.String-java.lang.String:A-">selectTreeItems</a></span>(java.lang.String&nbsp;treeFieldId,
                java.lang.String[]&nbsp;itemPaths)</code>
 <div class="block">Выбор элементов JepTreeField по заданным путям, без предварительной очистки уже отмеченных узлов.</div>
 </td>
 </tr>
-<tr id="i37" class="rowColor">
+<tr id="i44" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#setCheckBoxFieldValue-java.lang.String-boolean-">setCheckBoxFieldValue</a></span>(java.lang.String&nbsp;checkBoxFieldId,
                      boolean&nbsp;checked)</code>
 <div class="block">Простановка флажка CheckBoxField по заданному Id.</div>
 </td>
 </tr>
-<tr id="i38" class="altColor">
+<tr id="i45" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#setFieldValue-java.lang.String-java.lang.String-">setFieldValue</a></span>(java.lang.String&nbsp;fieldId,
              java.lang.String&nbsp;value)</code>
 <div class="block">Установка заданного значения элементу ввода поля по заданному id поля</div>
 </td>
 </tr>
-<tr id="i39" class="rowColor">
+<tr id="i46" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#setLargeFieldValue-java.lang.String-java.lang.String-">setLargeFieldValue</a></span>(java.lang.String&nbsp;fieldId,
                   java.lang.String&nbsp;pathToFile)</code>
 <div class="block">Установка заданного значения элементу ввода поля типа Large по заданному id поля.</div>
 </td>
 </tr>
-<tr id="i40" class="altColor">
+<tr id="i47" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#setWorkstate-com.technology.jep.jepria.client.ui.WorkstateEnum-">setWorkstate</a></span>(<a href="../../../../../../com/technology/jep/jepria/client/ui/WorkstateEnum.html" title="enum in com.technology.jep.jepria.client.ui">WorkstateEnum</a>&nbsp;workstate)</code>
 <div class="block">Перейти в указанное состояние</div>
 </td>
+</tr>
+<tr id="i48" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#sortByColumn-java.lang.String-java.lang.Integer-">sortByColumn</a></span>(java.lang.String&nbsp;gridId,
+            java.lang.Integer&nbsp;columnId)</code>&nbsp;</td>
 </tr>
 </table>
 </li>
@@ -1040,7 +1086,7 @@ void&nbsp;selectItem(java.util.Map&lt;java.lang.String,java.lang.String&gt;&nbsp
 <a name="doGridColumnSettings-java.lang.String-java.lang.String:A-">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>doGridColumnSettings</h4>
 <pre>void&nbsp;doGridColumnSettings(java.lang.String&nbsp;gridId,
@@ -1053,6 +1099,92 @@ void&nbsp;selectItem(java.util.Map&lt;java.lang.String,java.lang.String&gt;&nbsp
  В случае, если среди столбцов формы нет какого-либо значения из данного массива, выбрасывается
  <code>IllegalArgumentException</code>.</dd>
 </dl>
+</li>
+</ul>
+<a name="getGridRowElement-int-java.lang.String-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getGridRowElement</h4>
+<pre>org.openqa.selenium.WebElement&nbsp;getGridRowElement(int&nbsp;rowIndex,
+                                                 java.lang.String&nbsp;gridId)</pre>
+</li>
+</ul>
+<a name="dragAndDropGridRow-int-int-java.lang.String-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>dragAndDropGridRow</h4>
+<pre>void&nbsp;dragAndDropGridRow(int&nbsp;draggableRowIndex,
+                        int&nbsp;targerRowIndex,
+                        java.lang.String&nbsp;gridId)</pre>
+</li>
+</ul>
+<a name="dragAndDropGridRows-java.util.List-int-java.lang.String-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>dragAndDropGridRows</h4>
+<pre>void&nbsp;dragAndDropGridRows(java.util.List&lt;java.lang.Integer&gt;&nbsp;draggableRowIndexList,
+                         int&nbsp;targetRowIndex,
+                         java.lang.String&nbsp;gridId)</pre>
+</li>
+</ul>
+<a name="dragAndDropGridRowsAfterTarget-java.util.List-int-java.lang.String-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>dragAndDropGridRowsAfterTarget</h4>
+<pre>void&nbsp;dragAndDropGridRowsAfterTarget(java.util.List&lt;java.lang.Integer&gt;&nbsp;draggableRowIndexList,
+                                    int&nbsp;targetRowIndex,
+                                    java.lang.String&nbsp;gridId)</pre>
+</li>
+</ul>
+<a name="dragAndDropGridRowAfterTarget-int-int-java.lang.String-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>dragAndDropGridRowAfterTarget</h4>
+<pre>void&nbsp;dragAndDropGridRowAfterTarget(int&nbsp;draggableRowIndex,
+                                   int&nbsp;targetRowIndex,
+                                   java.lang.String&nbsp;gridId)</pre>
+</li>
+</ul>
+<a name="dragAndDropGridRowsBeforeTarget-java.util.List-int-java.lang.String-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>dragAndDropGridRowsBeforeTarget</h4>
+<pre>void&nbsp;dragAndDropGridRowsBeforeTarget(java.util.List&lt;java.lang.Integer&gt;&nbsp;draggableRowIndexList,
+                                     int&nbsp;targetRowIndex,
+                                     java.lang.String&nbsp;gridId)</pre>
+</li>
+</ul>
+<a name="dragAndDropGridRowBeforeTarget-int-int-java.lang.String-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>dragAndDropGridRowBeforeTarget</h4>
+<pre>void&nbsp;dragAndDropGridRowBeforeTarget(int&nbsp;draggableRowIndex,
+                                    int&nbsp;targetRowIndex,
+                                    java.lang.String&nbsp;gridId)</pre>
+</li>
+</ul>
+<a name="sortByColumn-java.lang.String-java.lang.Integer-">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>sortByColumn</h4>
+<pre>void&nbsp;sortByColumn(java.lang.String&nbsp;gridId,
+                  java.lang.Integer&nbsp;columnId)</pre>
 </li>
 </ul>
 </li>

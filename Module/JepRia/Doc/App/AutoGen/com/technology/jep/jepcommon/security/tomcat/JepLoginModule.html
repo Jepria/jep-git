@@ -253,8 +253,9 @@ implements javax.security.auth.spi.LoginModule</pre>
 </tr>
 <tr id="i5" class="rowColor">
 <td class="colFirst"><code>private void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepcommon/security/tomcat/JepLoginModule.html#doJepAuthentication-java.lang.String-java.lang.String-">doJepAuthentication</a></span>(java.lang.String&nbsp;username,
-                   java.lang.String&nbsp;password)</code>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepcommon/security/tomcat/JepLoginModule.html#doJepAuthentication-java.lang.String-java.lang.String-boolean-">doJepAuthentication</a></span>(java.lang.String&nbsp;username,
+                   java.lang.String&nbsp;password,
+                   boolean&nbsp;withHash)</code>
 <div class="block">Проверка логина и пароля пользователя.</div>
 </td>
 </tr>
@@ -648,14 +649,15 @@ implements javax.security.auth.spi.LoginModule</pre>
 </dl>
 </li>
 </ul>
-<a name="doJepAuthentication-java.lang.String-java.lang.String-">
+<a name="doJepAuthentication-java.lang.String-java.lang.String-boolean-">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>doJepAuthentication</h4>
 <pre>private&nbsp;void&nbsp;doJepAuthentication(java.lang.String&nbsp;username,
-                                 java.lang.String&nbsp;password)
+                                 java.lang.String&nbsp;password,
+                                 boolean&nbsp;withHash)
                           throws javax.security.auth.login.FailedLoginException</pre>
 <div class="block">Проверка логина и пароля пользователя.</div>
 <dl>

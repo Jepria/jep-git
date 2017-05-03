@@ -85,22 +85,7 @@ public class PagingManager<W extends AbstractHasData<JepRecord>, P extends Pagin
    */
   public void setWidget(W widget) {
     super.setWidget(widget);
-
     dataProvider.addDataDisplay(widget);
-    
-    // В силу универсальности используемого виджета, необходима дополнительная проверка на его тип.
-    // Если тип виджета - JepGrid, проверяется доступность DragAndDrop и в случае необходимости 
-    // добавляется возможность изменения позиций строк.
-    if (widget instanceof JepGrid<?>){
-      JepGrid<?> grid = (JepGrid<?>) widget;
-      grid.addRowPositionChangeEventHandler(new RowPositionChangeEvent.Handler() {
-        @Override
-        public void onRowPositionChange(RowPositionChangeEvent event) {
-          changeRowPosition(sortRecordList(event.getOldRowList()), event.getNewIndex(), event.isOver(), event.isInsertBefore(), event.isInsertAfter());
-          getSelectionModel().clear();
-        }
-      });
-    }
   }
 
   /**
@@ -270,25 +255,27 @@ public class PagingManager<W extends AbstractHasData<JepRecord>, P extends Pagin
   public int size() {
     return dataProvider.getList().size();
   }
-
+  
   /**
-   * Сортировка списка записей в том порядке, в котором они представлены в таблице.<br>
+   * Сортировка списка записей в том порядке, в котором они представлены в таблице.</br>
+   * Метод используется при Drag&Drop, чтобы отсортировать список, который возвращает SelectionModel,</br>
+   * т.к. элементы в нем расположены в порядке выделения их пользователем.
    * @param recordList
    * @return отсортированный список идентификаторов записей в таблице
    */
   protected List<Object> sortRecordList(List<Object> recordList){
-	List<Integer> idList = new ArrayList<Integer>();
-	List<JepRecord> rowList = dataProvider.getList();
-	for(int i = 0; i < recordList.size(); i++){
-	  int index = rowList.indexOf(recordList.get(i));
-	  if(index != -1) idList.add(index);
-	}
-	Collections.sort(idList);
-	recordList.clear();
-	for(int i = 0; i < idList.size(); i++){
-		recordList.add(rowList.get(idList.get(i)));
-	}
-	return recordList;
+    List<Integer> idList = new ArrayList<Integer>();
+    List<JepRecord> rowList = dataProvider.getList();
+    for(int i = 0; i < recordList.size(); i++){
+      int index = rowList.indexOf(recordList.get(i));
+      if(index != -1) idList.add(index);
+    }
+    Collections.sort(idList);
+    recordList.clear();
+    for(int i = 0; i < idList.size(); i++){
+      recordList.add(rowList.get(idList.get(i)));
+    }
+    return recordList;
   }
   
   /**
@@ -433,10 +420,23 @@ public class PagingManager<W extends AbstractHasData<JepRecord>, P extends Pagin
    * @param dndEnabled флаг допустимости переноса строк колонок
    */
   public void setDndEnabled(boolean dndEnabled) {
-    if (dndEnabled) {
-      ((JepGrid<?>) widget).setDndMode(DndMode.INSERT);
-    } else {
-      ((JepGrid<?>) widget).setDndMode(DndMode.NONE);
+ // В силу универсальности используемого виджета, необходима дополнительная проверка на его тип.
+    // Если тип виджета - JepGrid, проверяется доступность DragAndDrop и в случае необходимости 
+    // добавляется возможность изменения позиций строк.
+    if (widget instanceof JepGrid<?>){
+      JepGrid<?> grid = (JepGrid<?>) widget;
+      if (dndEnabled) {
+        grid.addRowPositionChangeEventHandler(new RowPositionChangeEvent.Handler() {
+          @Override
+          public void onRowPositionChange(RowPositionChangeEvent event) {
+            changeRowPosition(sortRecordList(event.getOldRowList()), event.getNewIndex(), event.isOver(), event.isInsertBefore(), event.isInsertAfter());
+            getSelectionModel().clear();
+          }
+        });
+        grid.setDndMode(DndMode.INSERT);
+      } else {
+        grid.setDndMode(DndMode.NONE);
+      }
     }
   }
   
@@ -597,7 +597,7 @@ public class PagingManager<W extends AbstractHasData<JepRecord>, P extends Pagin
   /**
    * Изменение позиции элементов виджета 
    * 
-   * @param oldRowList список перемещаемых элементов
+   * @param rowList список перемещаемых элементов
    * @param newIndex "новый" индекс элемента
    * @param isOver вставка внутрь узла(для дерева)
    * @param insertBefore вставка перед строкой
