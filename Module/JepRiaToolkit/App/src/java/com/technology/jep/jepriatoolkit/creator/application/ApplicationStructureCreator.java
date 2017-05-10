@@ -16,6 +16,7 @@ import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.readFromJa
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.replacePackageModuleNames;
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.writeToFile;
 import static java.text.MessageFormat.format;
+import static com.technology.jep.jepria.server.JepRiaServerConstant.DEFAULT_DATA_SOURCE_JNDI_NAME;
 
 import java.io.File;
 import java.io.IOException;
