@@ -93,8 +93,6 @@ public class JepRiaModuleAutoImpl<P extends JepRiaModulePage> implements JepRiaM
 
   protected P page;
   
-  private boolean isJqueryLoaded = false;
-  
   public JepRiaModuleAutoImpl(P page) {
     this.page = page;
   }
@@ -237,7 +235,12 @@ public class JepRiaModuleAutoImpl<P extends JepRiaModulePage> implements JepRiaM
   
   @Override
   public void selectItem(int index, String gridId) {
-    
+//    try {
+//      Thread.sleep(2000);
+//    } catch (InterruptedException e) {
+//      // TODO Auto-generated catch block
+//      e.printStackTrace();
+//    }
     assert getWorkstateFromStatusBar() == VIEW_LIST || getWorkstateFromStatusBar() == SELECTED;
     
     By gridBodyBy = null;
@@ -255,19 +258,23 @@ public class JepRiaModuleAutoImpl<P extends JepRiaModulePage> implements JepRiaM
     }
     
     getWait().until(elementToBeClickable(gridRows.get(index)));
-    gridRows.get(index).click();
     
+    gridRows.get(index).click();
     waitForStatusWorkstate(SELECTED);
   }
 
   @Override
   public void sortByColumn(String gridId, Integer columnId){
-    WebElement grid = getGridBody(gridId);
+    
+    assert getWorkstateFromStatusBar() == VIEW_LIST || getWorkstateFromStatusBar() == SELECTED;
+    
     List<WebElement> columnList = findElementsAndWait(By.xpath(
         String.format("//thead[@id='%s']/tr/th",
             gridId + GRID_HEADER_POSTFIX)));
-    columnList.get(columnId).click();
+    new Actions(WebDriverFactory.getDriver()).click(columnList.get(columnId)).build().perform();
     new Actions(WebDriverFactory.getDriver()).moveByOffset(0, 0).build().perform();
+    
+    waitForListMask();
   }
   
   private void fillFields(Map<String, String> fieldMap) {
@@ -1003,6 +1010,8 @@ public class JepRiaModuleAutoImpl<P extends JepRiaModulePage> implements JepRiaM
   
   @Override
   public void dragAndDropGridRowBeforeTarget(int draggableRowIndex, int targetRowIndex, String gridId){
+    assert getWorkstateFromStatusBar() == VIEW_LIST || getWorkstateFromStatusBar() == SELECTED;
+    
     WebDriver driver = WebDriverFactory.getDriver();
     selectItem(draggableRowIndex, gridId);
     WebElement draggableRow = getGridRowElement(draggableRowIndex, gridId);
@@ -1016,10 +1025,14 @@ public class JepRiaModuleAutoImpl<P extends JepRiaModulePage> implements JepRiaM
     int targetX = targetLocation.getX() + targetElementSize.getWidth() / 2;
     int targetY = targetLocation.getY() + targetElementSize.getHeight() * 15 / 100;
     DragAndDropTestUtil.html5_DragAndDrop(driver, draggableRow, targetRow, sourceX, sourceY, targetX, targetY);
+    
+    waitForStatusWorkstate(VIEW_LIST, SELECTED);
   }
   
   @Override
   public void dragAndDropGridRowAfterTarget(int draggableRowIndex, int targetRowIndex, String gridId){
+    assert getWorkstateFromStatusBar() == VIEW_LIST || getWorkstateFromStatusBar() == SELECTED;
+    
     WebDriver driver = WebDriverFactory.getDriver();
     selectItem(draggableRowIndex, gridId);
     WebElement draggableRow = getGridRowElement(draggableRowIndex, gridId);
@@ -1033,6 +1046,8 @@ public class JepRiaModuleAutoImpl<P extends JepRiaModulePage> implements JepRiaM
     int targetX = targetLocation.getX() + targetElementSize.getWidth() / 2;
     int targetY = targetLocation.getY() + targetElementSize.getHeight() * 85 / 100;
     DragAndDropTestUtil.html5_DragAndDrop(driver, draggableRow, targetRow, sourceX, sourceY, targetX, targetY);
+    
+    waitForStatusWorkstate(VIEW_LIST, SELECTED);
   }
 
   @Override
@@ -1050,6 +1065,8 @@ public class JepRiaModuleAutoImpl<P extends JepRiaModulePage> implements JepRiaM
   
   @Override
   public void dragAndDropGridRow(int draggableRowIndex, int targetRowIndex, String gridId){
+    assert getWorkstateFromStatusBar() == VIEW_LIST || getWorkstateFromStatusBar() == SELECTED;
+    
     WebDriver driver = WebDriverFactory.getDriver();
     selectItem(draggableRowIndex, gridId);
     WebElement draggableRow = getGridRowElement(draggableRowIndex, gridId);
@@ -1063,6 +1080,7 @@ public class JepRiaModuleAutoImpl<P extends JepRiaModulePage> implements JepRiaM
     int targetX = targetLocation.getX() + targetElementSize.getWidth() / 2;
     int targetY = targetLocation.getY() + targetElementSize.getHeight() / 2;
     DragAndDropTestUtil.html5_DragAndDrop(driver, draggableRow, targetRow, sourceX, sourceY, targetX, targetY);
+    waitForStatusWorkstate(VIEW_LIST, SELECTED);
   }
   
   @Override
