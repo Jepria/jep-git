@@ -235,12 +235,6 @@ public class JepRiaModuleAutoImpl<P extends JepRiaModulePage> implements JepRiaM
   
   @Override
   public void selectItem(int index, String gridId) {
-//    try {
-//      Thread.sleep(2000);
-//    } catch (InterruptedException e) {
-//      // TODO Auto-generated catch block
-//      e.printStackTrace();
-//    }
     assert getWorkstateFromStatusBar() == VIEW_LIST || getWorkstateFromStatusBar() == SELECTED;
     
     By gridBodyBy = null;
