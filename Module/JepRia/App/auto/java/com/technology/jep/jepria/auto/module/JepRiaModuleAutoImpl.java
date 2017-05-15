@@ -271,6 +271,29 @@ public class JepRiaModuleAutoImpl<P extends JepRiaModulePage> implements JepRiaM
     waitForListMask();
   }
   
+  @Override
+  public String getGridRowCount(){
+    //class="gwt-TextBox jepRia-FontStyle jepRia-PagingBar-pageNumber"
+    WebElement rowCountInput = findElementsAndWait(By.xpath(
+        String.format("//input[@class='%s']",
+            "gwt-TextBox jepRia-FontStyle jepRia-PagingBar-pageNumber"))).get(1);
+    getWait().until(elementToBeClickable(rowCountInput));
+    
+    return rowCountInput.getAttribute("value");
+  }
+  
+  @Override
+  public void setGridRowCount(String rowCount){
+    //class="gwt-TextBox jepRia-FontStyle jepRia-PagingBar-pageNumber"
+    WebElement rowCountInput = findElementsAndWait(By.xpath(
+        String.format("//input[@class='%s']",
+            "gwt-TextBox jepRia-FontStyle jepRia-PagingBar-pageNumber"))).get(1);
+    getWait().until(elementToBeClickable(rowCountInput));
+    
+    String del = Keys.chord(Keys.CONTROL, "a") + Keys.DELETE; 
+    rowCountInput.sendKeys(del + rowCount + Keys.ENTER);
+  }
+  
   private void fillFields(Map<String, String> fieldMap) {
     for(String fieldName: fieldMap.keySet()) {
       setFieldValue(fieldName, fieldMap.get(fieldName));

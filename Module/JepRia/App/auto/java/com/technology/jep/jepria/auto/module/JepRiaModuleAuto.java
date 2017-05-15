@@ -387,4 +387,8 @@ public interface JepRiaModuleAuto {
 
   void sortByColumn(String gridId, Integer columnId);
 
+  String getGridRowCount();
+
+  void setGridRowCount(String rowCount);
+
 }

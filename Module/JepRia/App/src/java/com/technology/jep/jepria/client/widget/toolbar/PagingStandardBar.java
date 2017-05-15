@@ -274,7 +274,7 @@ public class PagingStandardBar extends SimplePanel implements PagingToolBar {
    */
   protected void onPageSizeChange() {
     String value = pageSizeText.getText();
-    if (value.equals("") || isInteger(value)) {
+    if (value.equals("") || !isInteger(value)) {
       pageSizeText.setText(String.valueOf((int) pageSize));
       return;
     }
