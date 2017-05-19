@@ -1,12 +1,10 @@
 package com.technology.jep.jepria.server.security.tomcat;
 
-import static com.technology.jep.jepria.server.util.JepServerUtil.getServerUrl;
 import static com.technology.jep.jepria.shared.util.JepRiaUtil.isEmpty;
 import static javax.servlet.http.HttpServletResponse.SC_BAD_REQUEST;
 import static javax.servlet.http.HttpServletResponse.SC_UNAUTHORIZED;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.net.URL;
 
 import javax.servlet.ServletException;
@@ -53,11 +51,24 @@ public class AutoLogonServlet extends HttpServlet {
       request.login(login, password);
     }
     catch(ServletException e){
-      // incorrect authentification data
+      // incorrect authentication data
+      e.printStackTrace();
       resp.sendError(SC_UNAUTHORIZED);
       return;
     }
     resp.sendRedirect(resp.encodeRedirectURL(initURL));
+  }
+  
+  /**
+   * Копия метода {@link JepServerUtil#getServerUrl} для обеспечения автономности
+   * данного класса от JepServerUtil
+   */
+  public static String getServerUrl(HttpServletRequest request) {
+    return request.getScheme().toLowerCase()
+        + "://"
+        + request.getServerName()
+        + ":"
+        + request.getServerPort();
   }
 }
 
