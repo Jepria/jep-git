@@ -61,27 +61,6 @@ public class JepRiaServerConstant extends JepRiaConstant {
    */
   public static final String CAS_SERVER_NAME_CONTEXT_PARAMETER = "casServerName";
   
-  
-  /**
-   * Имя атрибута сессии для хранения информации о количестве совершенных попыток авторизации пользователем
-   */
-  public static final String LOGIN_ATTEMPTS_SESSION_ATTRIBUTE = "login-attempts";
-  
-  /**
-   * Максимально допустимое количество ошибок ввода некорректных реквизитов (логин/пароль) пользователя
-   */
-  public static final int MAX_LOGIN_ATTEMPTS = 3; 
-
-  /**
-   * URL на форму логина модуля SSO 
-   */
-  public static final String SSO_MODULE_URL = "/Sso/Sso.jsp?em=Login"; 
-  
-  /**
-   * URL на защищенную страницу модуля SSO 
-   */
-  public static final String SSO_PROTECTED_URL = "/Sso/Protected.jsp";
-  
   /**
    * Кодировка по умолчанию: UTF-8.
    */

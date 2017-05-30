@@ -35,6 +35,8 @@
     <pathelement location="${COMMONS-FILEUPLOAD_LIB}" />
     <pathelement location="${JUNIT_LIB}" />
     <pathelement location="${OJDBC6DMS_LIB}" />
+  	
+  	<pathelement location="${SSO-UTILS_LIB}"/>
   </path>
   <path id="selenium-libs">
     <pathelement location="${SELENIUM_LIB}" />

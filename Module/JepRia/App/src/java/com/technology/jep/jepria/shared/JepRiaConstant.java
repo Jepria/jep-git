@@ -87,28 +87,4 @@ public class JepRiaConstant {
    * Имя параметра http-запроса: локаль текущей межмодульной сессии
    */
   public static final String HTTP_REQUEST_PARAMETER_LOCALE = "locale";
-  
-  /**
-   * Имя параметра http-запроса: параметр модуля SSO, означает, что введен неправильный логин/пароль
-   */
-  public static final String HTTP_REQUEST_PARAMETER_SSO_IS_ERROR = "isError";
-  
-  /**
-   * Имя параметра http-запроса: параметр модуля SSO, означает, что пользователь превысил MAX_LOGIN_ATTEMPTS. 
-   */
-  public static final String HTTP_REQUEST_PARAMETER_SSO_IS_BLOCKED = "isBlocked";
-  
-  /**
-   * ID html-страницы с логин-формой. Нужно как для автоматизации тестирования, так и для проверки логин-формы по тексту HttpResonse.
-   */
-  public static final String LOGIN_FORM_HTML_ID = "loginForm";
-  
-  /**
-   * Параметр, содержащий имя модуля, на который нужно вернуться после авторизации через Sso.
-   */
-  public static final String REQUEST_PARAMETER_ENTER_MODULE = "enterModule";
-  /**
-   * Параметр, содержащий queryString запроса, после которого потребовалась авторизация через Sso.
-   */
-  public static final String REQUEST_PARAMETER_QUERY_STRING = "queryString";
 }

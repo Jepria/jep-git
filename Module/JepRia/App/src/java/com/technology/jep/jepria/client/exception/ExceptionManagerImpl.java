@@ -1,10 +1,11 @@
 package com.technology.jep.jepria.client.exception;
 
+import org.jepria.sso.utils.SsoUiConstants;
+
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.user.client.rpc.InvocationException;
 import com.technology.jep.jepria.client.entrance.Entrance;
 import com.technology.jep.jepria.client.message.JepMessageBoxImpl;
-import com.technology.jep.jepria.shared.JepRiaConstant;
 
 public class ExceptionManagerImpl implements ExceptionManager {
 
@@ -58,6 +59,6 @@ public class ExceptionManagerImpl implements ExceptionManager {
   private static boolean isSsoTimeout(Throwable caught) {
     String message = caught.getMessage();
     return caught instanceof InvocationException 
-        && message != null && message.contains("id=\"" + JepRiaConstant.LOGIN_FORM_HTML_ID + "\"");  // TODO Сделать строже
+        && message != null && message.contains("id=\"" + SsoUiConstants.LOGIN_FORM_HTML_ID + "\"");  // TODO Сделать строже
   }
 }
