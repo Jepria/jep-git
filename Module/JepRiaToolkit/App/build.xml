@@ -21,11 +21,18 @@
   <property file="build.properties" />
   <property name="MODULE_PACKAGE" value="com/technology/${PROJECT_NAME_IN_PACKAGE}/${MODULE_NAME_IN_PACKAGE}" />
   <property name="JAVA_DOC_DIR" value="../Doc/App/AutoGen" />
-  <property name="LIBS"
-    value="${ANT_LIB};classes;${FREEMARKER_LIB};${JAVAPARSER-CORE_LIB};${XERCESIMPL_LIB};${JEPRIA_LIB}"/>
 
   <property name="LOG_LEVEL" value="info" />
-  
+
+  <!-- Общие наборы файлов -->
+  <path id="libs">
+    <pathelement location="${ANT_LIB}" />
+    <pathelement location="${FREEMARKER_LIB}" />
+    <pathelement location="${JAVAPARSER-CORE_LIB}" />
+    <pathelement location="${XERCESIMPL_LIB}" />
+    <pathelement location="${JEPRIA_LIB}" />
+  </path>
+	
   <fileset id="class-jar" dir="classes">
     <include name="**/*.class" />
   </fileset>
@@ -75,7 +82,9 @@
       <fileset dir="classes"/>      
     </delete>
     <mkdir dir="classes" />
-    <javac srcdir="src/java" destdir="classes" classpath="${LIBS}" debug="on" encoding="utf-8" includeantruntime="false" />      
+    <javac srcdir="src/java" destdir="classes" debug="on" encoding="utf-8" includeantruntime="false" >
+  	  <classpath refid="libs"/>
+    </javac>
   </target>
 
   <target name="jar-update-check" depends="compile">
@@ -107,7 +116,9 @@
           includenosourcepackages="true" 
           overview="src/java/${MODULE_PACKAGE}/overview.html" 
           packagenames="*" 
-          sourcepath="src/java" classpath="${LIBS}" />
+          sourcepath="src/java" >
+  	  		<classpath refid="libs"/>
+        </javadoc>
   </target>
         
   <target name="clean">
