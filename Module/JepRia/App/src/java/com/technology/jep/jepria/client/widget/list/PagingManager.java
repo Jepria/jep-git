@@ -73,7 +73,22 @@ public class PagingManager<W extends AbstractHasData<JepRecord>, P extends Pagin
    * Локальная ссылка на хранилище данных в виджете
    */
   protected ListDataProvider<JepRecord> dataProvider;
-
+  
+  protected enum DropType {
+	  /**
+	   * Вставка записи(ей) перед целевого узла
+	   */
+	  BEFORE,
+	  /**
+	   * Вставка записи(ей) после целевого узла
+	   */
+	  AFTER,
+	  /**
+	   * Объединение записи(ей) и целевого узла
+	   */
+	  APPEND
+  }
+  
   public PagingManager() {
     dataProvider = new ListDataProvider<JepRecord>();
   }
@@ -558,7 +573,7 @@ public class PagingManager<W extends AbstractHasData<JepRecord>, P extends Pagin
    * @param newRecord новая позиция узлов.
    * @param dropType 
    */
-  protected void beforeDrop(List<Object> rowList, JepRecord newRecord, int dropType) {
+  protected void beforeDrop(List<Object> rowList, JepRecord newRecord, DropType dropType) {
     List<JepRecord> tableRows = dataProvider.getList();
     for (int i = 0; i < rowList.size(); i++) { 
       if (rowList.get(i).equals(newRecord)) {
@@ -569,9 +584,11 @@ public class PagingManager<W extends AbstractHasData<JepRecord>, P extends Pagin
       }
     }
     switch (dropType) {
-    case 0 : insertAfter(rowList, newRecord);
+    case AFTER : insertAfter(rowList, newRecord);
               break;
-    case 1 : insertBefore(rowList, newRecord);
+    case BEFORE : insertBefore(rowList, newRecord);
+              break;
+	default:
               break;
     }
   }
@@ -597,7 +614,7 @@ public class PagingManager<W extends AbstractHasData<JepRecord>, P extends Pagin
   /**
    * Изменение позиции элементов виджета 
    * 
-   * @param rowList список перемещаемых элементов
+   * @param oldRowList список перемещаемых элементов
    * @param newIndex "новый" индекс элемента
    * @param isOver вставка внутрь узла(для дерева)
    * @param insertBefore вставка перед строкой
@@ -612,26 +629,10 @@ public class PagingManager<W extends AbstractHasData<JepRecord>, P extends Pagin
     JepRecord newRecord = tableRows.get(newIndex);
     if (!isOver) {
       if (insertBefore && !insertAfter) {
-        beforeDrop(rowList, newRecord, 1);
+        beforeDrop(rowList, newRecord, DropType.BEFORE);
       } else if (!insertBefore && insertAfter) {
-        beforeDrop(rowList, newRecord, 0);
+        beforeDrop(rowList, newRecord, DropType.AFTER);
       }
     }
-  }
-  
-  /**
-   * Изменение позиции элементов виджета 
-   * 
-   * @param oldIndex    "старый" индекс элемента
-   * @param newIndex    "новый" индекс элемента
-   * @param isAbove    признак замены элемента выше стоящего
-   */
-  @Deprecated
-  public void changeRows(int oldIndex, int newIndex, boolean isAbove) {
-    List<JepRecord> rowList = dataProvider.getList();
-    JepRecord oldRecord = rowList.get(oldIndex);
-    rowList.remove(oldRecord);
-    rowList.add(isAbove ? newIndex - 1 : newIndex, oldRecord);
-    dataProvider.refresh();
   }
 }
