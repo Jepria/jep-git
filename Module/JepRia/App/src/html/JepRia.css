@@ -336,9 +336,12 @@ input[type=text]::-ms-clear {
 /* Индикатор загрузки модуля. */
 .jepRia-loadingProgress {
   position: absolute;
-  left: 45%;
-  top: 40%;
-  margin-left: -45px;
+  left: 50%;
+  top: 50%;
+  width: 300px;
+  height: 50px;
+  margin-left: -150px;
+  margin-top: -25px;
   background: white;
   z-index: 7100;
   border: 1px solid #ccc;
