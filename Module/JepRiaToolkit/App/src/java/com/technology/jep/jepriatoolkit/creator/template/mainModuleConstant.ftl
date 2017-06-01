@@ -1,8 +1,8 @@
-package com.technology.${packageName?lower_case}.${moduleName?lower_case}.main.client;
+package ${packagePrefix?lower_case}.${packageName?lower_case}.${moduleName?lower_case}.main.client;
 
 import com.google.gwt.core.client.GWT;
 import com.technology.jep.jepria.shared.JepRiaConstant;
-import com.technology.${packageName?lower_case}.${moduleName?lower_case}.main.shared.text.${moduleName}Text;
+import ${packagePrefix?lower_case}.${packageName?lower_case}.${moduleName?lower_case}.main.shared.text.${moduleName}Text;
  
 public class ${moduleName}ClientConstant extends JepRiaConstant {
  

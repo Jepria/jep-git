@@ -1,4 +1,4 @@
-package com.technology.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.client.ui.toolbar;
+package ${packagePrefix?lower_case}.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.client.ui.toolbar;
  
 import com.technology.jep.jepria.client.ui.toolbar.ToolBarView;
  

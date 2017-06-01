@@ -11,7 +11,7 @@ import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.INHERITS_MA
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.MAIN_GWT_XML_PATH_TEMPLATE_PROPERTY;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.MAIN_MODULE_FACTORY_PATH_TEMPLATE_PROPERTY;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.PATH_SEPARATOR;
-import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.PREFIX_DESTINATION_SOURCE_CODE;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.PREFIX_DESTINATION_JAVA_CODE;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.REGEXP_FOR_BLANK;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.SEPARATOR;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.WARNING_PREFIX;
@@ -97,10 +97,10 @@ public class PartialFormBuilder extends Task {
       Set<String> buildedForms = new HashSet<String>(fms);
       // The information about modules will be given from main.gwt.xml
       String mainGwtXmlPropertyPath = convertPatternInRealPath(getDefinitionProperty(MAIN_GWT_XML_PATH_TEMPLATE_PROPERTY, 
-        multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "{0}/{1}/main/{2}.gwt.xml")
+        multipleConcat(PREFIX_DESTINATION_JAVA_CODE, "/{3}/{0}/{1}/main/{2}.gwt.xml")
       ));
       String mainClientFactoryPath = convertPatternInRealPath(getDefinitionProperty(MAIN_MODULE_FACTORY_PATH_TEMPLATE_PROPERTY, 
-        multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "{0}/{1}/main/client/{2}ClientFactoryImpl.java"))
+        multipleConcat(PREFIX_DESTINATION_JAVA_CODE, "/{3}/{0}/{1}/main/client/{2}ClientFactoryImpl.java"))
       );
       
       String targetConfigMainGwtXmlPath = multipleConcat(BUILD_CONFIG_PATH_PREFIX, targetConfig, "/", mainGwtXmlPropertyPath);
@@ -199,7 +199,7 @@ public class PartialFormBuilder extends Task {
             }
             module.getValue().getParentNode().replaceChild(
               ownerDocument.createComment(
-                multipleConcat("<inherits name=\"com.technology.", application.getProjectPackage().toLowerCase(), ".", application.getName().toLowerCase(), ".", moduleName.toLowerCase(), ".", moduleName, "\" />")
+                multipleConcat("<inherits name=\"" + application.getPackagePrefix().toLowerCase() + ".", application.getProjectPackage().toLowerCase(), ".", application.getName().toLowerCase(), ".", moduleName.toLowerCase(), ".", moduleName, "\" />")
               ), module.getValue());
           }
         }
@@ -396,6 +396,7 @@ public class PartialFormBuilder extends Task {
   public static List<Pair<String, Element>> getDomModules(String mainGwtXmlPath) {
     Document doc;
     List<Pair<String, Element>> result = new ArrayList<Pair<String, Element>>();
+    
     try {
       doc = getDOM(multipleConcat(currentSourceDirectory(), PATH_SEPARATOR, mainGwtXmlPath));
       XPathFactory factory = XPathFactory.newInstance();

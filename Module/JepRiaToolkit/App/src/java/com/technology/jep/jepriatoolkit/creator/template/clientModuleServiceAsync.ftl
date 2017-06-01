@@ -1,4 +1,4 @@
-package com.technology.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.shared.service;
+package ${packagePrefix?lower_case}.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.shared.service;
  
 import com.technology.jep.jepria.shared.service.data.JepDataServiceAsync;
 <#if form.hasOptionField>

@@ -19,7 +19,7 @@
   <#list forms as form>
   <servlet>
     <servlet-name>${form.formName}Servlet</servlet-name>
-    <servlet-class>com.technology.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.server.service.${form.formName}ServiceImpl</servlet-class>
+    <servlet-class>${packagePrefix?lower_case}.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.server.service.${form.formName}ServiceImpl</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>${form.formName}Servlet</servlet-name>
@@ -28,7 +28,7 @@
   <#if form.hasLobFields>
   <servlet>
     <servlet-name>uploadServlet</servlet-name>
-    <servlet-class>com.technology.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.server.service.UploadServiceImpl</servlet-class>
+    <servlet-class>${packagePrefix?lower_case}.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.server.service.UploadServiceImpl</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>uploadServlet</servlet-name>
@@ -36,7 +36,7 @@
   </servlet-mapping>
   <servlet>
     <servlet-name>downloadServlet</servlet-name>
-    <servlet-class>com.technology.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.server.service.DownloadServiceImpl</servlet-class>
+    <servlet-class>${packagePrefix?lower_case}.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.server.service.DownloadServiceImpl</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>downloadServlet</servlet-name>
@@ -46,7 +46,7 @@
   <#if form.isExcelAvailable>
   <servlet>
     <servlet-name>ShowExcelServlet</servlet-name>
-    <servlet-class>com.technology.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.server.service.ShowExcelServlet</servlet-class>
+    <servlet-class>${packagePrefix?lower_case}.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.server.service.ShowExcelServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>ShowExcelServlet</servlet-name>

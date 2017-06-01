@@ -9,7 +9,7 @@ import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.MAIN_GWT_XM
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.MAIN_TEXT_RESOURCE_EN_PATH_TEMPLATE_PROPERTY;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.MAIN_TEXT_RESOURCE_PATH_TEMPLATE_PROPERTY;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.PATH_SEPARATOR;
-import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.PREFIX_DESTINATION_SOURCE_CODE;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.PREFIX_DESTINATION_JAVA_CODE;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.THREAD_POOL_SIZE;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.UTF_8;
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.convertPatternInRealPath;
@@ -165,7 +165,7 @@ public class ApplicationStructureParserUtil {
     
     // Obtain info about application from configuration file application.xml
     // TODO Необходимы изменения в связи с упразднением application.xml.
-    String relativeApplicationXmlPath = getDefinitionProperty(APPLICATION_XML_PATH_TEMPLATE_PROPERTY, "src/resources/com/technology/{0}/{1}/application.xml", resource);
+    String relativeApplicationXmlPath = getDefinitionProperty(APPLICATION_XML_PATH_TEMPLATE_PROPERTY, "src/resources/{2}/{0}/{1}/application.xml", resource);
     String applicationName = getApplicationName(convertPatternInRealPath(relativeApplicationXmlPath));
     String fileName = getApplicationFileName(applicationName);
     if (JepRiaToolkitUtil.isEmpty(fileName)) return null;
@@ -178,7 +178,7 @@ public class ApplicationStructureParserUtil {
     structure.setProjectPackage(extractFileNamesByPattern(relativeApplicationXmlPath).iterator().next());
     // The information about modules will be given from main.gwt.xml
     String mainGwtXmlPropertyPath = convertPatternInRealPath(getDefinitionProperty(MAIN_GWT_XML_PATH_TEMPLATE_PROPERTY, 
-      multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "{0}/{1}/main/{2}.gwt.xml"), resource
+      multipleConcat(PREFIX_DESTINATION_JAVA_CODE, "/{3}/{0}/{1}/main/{2}.gwt.xml"), resource
     ));
     List<String> moduleNames = getModuleNames(mainGwtXmlPropertyPath);
     structure.setModuleIds(moduleNames);
@@ -186,10 +186,10 @@ public class ApplicationStructureParserUtil {
     List<Module> modules = new ArrayList<Module>(moduleCount);
     
     String mainModuleResourcePath = convertPatternInRealPathSupressException(getDefinitionProperty(MAIN_TEXT_RESOURCE_PATH_TEMPLATE_PROPERTY, 
-        multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/main/shared/text/{2}Text_Source.properties"), resource));
+        multipleConcat(PREFIX_DESTINATION_JAVA_CODE, "/{3}/{0}/{1}/main/shared/text/{2}Text_Source.properties"), resource));
     
     String mainModuleResourceEnPath = convertPatternInRealPathSupressException(getDefinitionProperty(MAIN_TEXT_RESOURCE_EN_PATH_TEMPLATE_PROPERTY, 
-        multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/main/shared/text/{2}Text_en.properties"), resource));
+        multipleConcat(PREFIX_DESTINATION_JAVA_CODE, "/{3}/{0}/{1}/main/shared/text/{2}Text_en.properties"), resource));
     
     ResourceBundle mainModuleResourceBundle = getResourceByPath(mainModuleResourcePath);
     ResourceBundle mainModuleResourceBundleEn = getResourceByPath(mainModuleResourceEnPath);

@@ -1,7 +1,7 @@
-package com.technology.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.auto;
+package ${packagePrefix?lower_case}.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.auto;
 
-import static com.technology.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.client.${form.formName}AutomationConstant.*;
-import static com.technology.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.client.${form.formName}ClientConstant.*;
+import static ${packagePrefix?lower_case}.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.client.${form.formName}AutomationConstant.*;
+import static ${packagePrefix?lower_case}.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.client.${form.formName}ClientConstant.*;
  
 import com.technology.jep.jepria.auto.module.JepRiaModuleAutoImpl;
 import com.technology.jep.jepria.auto.module.page.JepRiaModulePage;

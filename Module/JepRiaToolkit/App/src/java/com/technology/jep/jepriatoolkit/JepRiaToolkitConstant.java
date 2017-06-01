@@ -37,12 +37,7 @@ public class JepRiaToolkitConstant {
   /**
    * Префикс пути до исходного кода
    */
-  public static final String PREFIX_DESTINATION_SOURCE_CODE = PREFIX_DESTINATION_JAVA_CODE + "/com/technology/";
-  
-  /**
-   * Префикс пути до исходного кода
-   */
-  public static final String PREFIX_DESTINATION_RESOURCE = "src/resources/com/technology/";
+  public static final String PREFIX_DESTINATION_RESOURCE = "src/resources/";
   
   /**
    * Путь до основной jsp и страницы приветствия
@@ -173,6 +168,21 @@ public class JepRiaToolkitConstant {
    * Наименование атрибута, отвечающего за наименование пакета
    */
   public static final String PROJECT_PACKAGE_ATTRIBUTE = "projectPackage";
+  
+  /**
+   * Наименование атрибута, отвечающего за префикс пакета (com.technology)
+   */
+  public static final String PACKAGE_PREFIX_ATTRIBUTE = "packagePrefix";
+  
+  /**
+   * Дефолтное значение атрибута, отвечающего за префикс пакета (com.technology)
+   */
+  public static final String PACKAGE_PREFIX_DEFAULT = "com.technology";
+  
+  /**
+   * Дефолтное значение атрибута, отвечающего за префикс пакета в виде пути (com/technology)
+   */
+  public static final String PACKAGE_PREFIX_AS_PATH_DEFAULT = JepRiaToolkitUtil.packagePrefixToPath(PACKAGE_PREFIX_DEFAULT);
   
   /**
    * Наименование атрибута, отвечающего за наименование источника данных по умолчанию
@@ -1006,6 +1016,7 @@ public class JepRiaToolkitConstant {
   public static final String CURRENT_DIRECTORY_ENVIRONMENT_VARIABLE = "user.dir";
   
   public static final String MODULE_NAME_TEMPLATE_PARAMETER = "moduleName";
+  public static final String PACKAGE_PREFIX_TEMPLATE_PARAMETER = "packagePrefix";
   public static final String PACKAGE_NAME_TEMPLATE_PARAMETER = "packageName";
   public static final String SECURITY_ROLES_TEMPLATE_PARAMETER = "securityRoles";
   public static final String REALM_APPNAME_TEMPLATE_PARAMETER = "appNameRealm";

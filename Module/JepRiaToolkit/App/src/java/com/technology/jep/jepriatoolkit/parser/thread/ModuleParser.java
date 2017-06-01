@@ -16,7 +16,7 @@ import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.ERROR_PREFI
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.MAIN_MODULE_PRESENTER_PATH_TEMPLATE_PROPERTY;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.NO_NAME;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.PKG_PREFIX;
-import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.PREFIX_DESTINATION_SOURCE_CODE;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.PREFIX_DESTINATION_JAVA_CODE;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.SEPARATOR;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.UTF_8;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.WHITE_SPACE;
@@ -88,7 +88,7 @@ public class ModuleParser implements Callable<Module> {
     String clientModuleDaoPath = convertPatternInRealPathSupressException(
         replacePathWithModuleId(
           getDefinitionProperty(CLIENT_MODULE_DAO_PATH_TEMPLATE_PROPERTY, 
-              multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/server/dao/{3}Dao.java"), jepRiaResourceBundle
+              multipleConcat(PREFIX_DESTINATION_JAVA_CODE, "/{4}/{0}/{1}/{2}/server/dao/{3}Dao.java"), jepRiaResourceBundle
           ), moduleId
         ));
     String packageName = null;
@@ -129,7 +129,7 @@ public class ModuleParser implements Callable<Module> {
     String clientModuleServerConstantPath = convertPatternInRealPathSupressException(
         replacePathWithModuleId(
             getDefinitionProperty(CLIENT_MODULE_SERVER_CONSTANT_PATH_TEMPLATE_PROPERTY, 
-                multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/server/{3}ServerConstant.java"), jepRiaResourceBundle)
+                multipleConcat(PREFIX_DESTINATION_JAVA_CODE, "/{4}/{0}/{1}/{2}/server/{3}ServerConstant.java"), jepRiaResourceBundle)
         , moduleId));
     declaration = getModuleDeclaration(clientModuleServerConstantPath);
     
@@ -175,7 +175,7 @@ public class ModuleParser implements Callable<Module> {
     String clientModuleFieldNamesPath = convertPatternInRealPathSupressException(
         replacePathWithModuleId(
             getDefinitionProperty(CLIENT_MODULE_FIELDS_PATH_TEMPLATE_PROPERTY, 
-                multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/shared/field/{3}FieldNames.java"), jepRiaResourceBundle), moduleId
+                multipleConcat(PREFIX_DESTINATION_JAVA_CODE, "/{4}/{0}/{1}/{2}/shared/field/{3}FieldNames.java"), jepRiaResourceBundle), moduleId
         ));
     declaration = getModuleDeclaration(clientModuleFieldNamesPath);
     
@@ -202,7 +202,7 @@ public class ModuleParser implements Callable<Module> {
     String clientModuleDetailPresenterPath = convertPatternInRealPathSupressException(
         replacePathWithModuleId(
             getDefinitionProperty(CLIENT_MODULE_DETAIL_FORM_PRESENTER_PATH_TEMPLATE_PROPERTY, 
-                multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/client/ui/form/detail/{3}DetailFormPresenter.java"), jepRiaResourceBundle), moduleId
+                multipleConcat(PREFIX_DESTINATION_JAVA_CODE, "/{4}/{0}/{1}/{2}/client/ui/form/detail/{3}DetailFormPresenter.java"), jepRiaResourceBundle), moduleId
         ));
     
     declaration = getModuleDeclarationSuppressException(clientModuleDetailPresenterPath);
@@ -216,7 +216,7 @@ public class ModuleParser implements Callable<Module> {
     String clientModuleToolBarViewPath = convertPatternInRealPathSupressException(
         replacePathWithModuleId(
             getDefinitionProperty(CLIENT_MODULE_TOOLBAR_VIEW_IMPL_PATH_TEMPLATE_PROPERTY, 
-                multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/client/ui/toolbar/{3}ToolBarViewImpl.java"), jepRiaResourceBundle), moduleId
+                multipleConcat(PREFIX_DESTINATION_JAVA_CODE, "/{4}/{0}/{1}/{2}/client/ui/toolbar/{3}ToolBarViewImpl.java"), jepRiaResourceBundle), moduleId
         ));
     declaration = getModuleDeclarationSuppressException(clientModuleToolBarViewPath);
     List<ModuleButton> buttons = new ArrayList<ModuleButton>();
@@ -250,7 +250,7 @@ public class ModuleParser implements Callable<Module> {
     String clientModuleToolBarPresenterPath = convertPatternInRealPathSupressException(
         replacePathWithModuleId(
             getDefinitionProperty(CLIENT_MODULE_TOOLBAR_PRESENTER_PATH_TEMPLATE_PROPERTY, 
-                multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/client/ui/toolbar/{3}ToolBarPresenter.java"), jepRiaResourceBundle), moduleId
+                multipleConcat(PREFIX_DESTINATION_JAVA_CODE, "/{4}/{0}/{1}/{2}/client/ui/toolbar/{3}ToolBarPresenter.java"), jepRiaResourceBundle), moduleId
         ));
     declaration = getModuleDeclarationSuppressException(clientModuleToolBarPresenterPath);
     boolean hasToolBarPresenter = declaration != null;
@@ -298,7 +298,7 @@ public class ModuleParser implements Callable<Module> {
   public void prepareDetailFormModuleField(String moduleId, ModuleField field, ResourceBundle resource){
     String clientModuleDetailFormViewImplPath = convertPatternInRealPathSupressException(
         replacePathWithModuleId(getDefinitionProperty(CLIENT_MODULE_DETAIL_FORM_VIEW_IMPL_PATH_TEMPLATE_PROPERTY, 
-            multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "src/java/com/technology/{0}/{1}/{2}/client/ui/form/detail/{3}DetailFormViewImpl.java"), resource
+            multipleConcat(PREFIX_DESTINATION_JAVA_CODE, "/{4}/{0}/{1}/{2}/client/ui/form/detail/{3}DetailFormViewImpl.java"), resource
         ), moduleId));
     String fieldId = field.getFieldId();
     ModuleDeclaration clientModuleDetailFormDeclaration = getModuleDeclarationSuppressException(clientModuleDetailFormViewImplPath);
@@ -365,12 +365,12 @@ public class ModuleParser implements Callable<Module> {
     
     String clientModuleResourcePath = convertPatternInRealPathSupressException(
           replacePathWithModuleId(getDefinitionProperty(CLIENT_MODULE_TEXT_RESOURCE_PATH_TEMPLATE_PROPERTY, 
-              multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/shared/text/{3}Text_Source.properties"), resource
+              multipleConcat(PREFIX_DESTINATION_JAVA_CODE, "/{4}/{0}/{1}/{2}/shared/text/{3}Text_Source.properties"), resource
           ), moduleId));
     
     String clientModuleResourceEnPath = convertPatternInRealPathSupressException(
         replacePathWithModuleId(getDefinitionProperty(CLIENT_MODULE_TEXT_RESOURCE_EN_PATH_TEMPLATE_PROPERTY, 
-            multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/shared/text/{3}Text_en.properties"), resource
+            multipleConcat(PREFIX_DESTINATION_JAVA_CODE, "/{4}/{0}/{1}/{2}/shared/text/{3}Text_en.properties"), resource
         ), moduleId));
     
     ResourceBundle clientModuleResourceBundle = getResourceByPath(clientModuleResourcePath);
@@ -397,7 +397,7 @@ public class ModuleParser implements Callable<Module> {
     
     String clientModuleListFormViewImplPath = convertPatternInRealPathSupressException(
         replacePathWithModuleId(getDefinitionProperty(CLIENT_MODULE_LIST_FORM_VIEW_IMPL_PATH_TEMPLATE_PROPERTY, 
-            multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "src/java/com/technology/{0}/{1}/{2}/client/ui/form/list/{3}ListFormViewImpl.java"), resource
+            multipleConcat(PREFIX_DESTINATION_JAVA_CODE, "/{4}/{0}/{1}/{2}/client/ui/form/list/{3}ListFormViewImpl.java"), resource
         ), moduleId));
     
     ModuleDeclaration clientModuleListFormDeclaration = getModuleDeclarationSuppressException(clientModuleListFormViewImplPath);
@@ -424,12 +424,12 @@ public class ModuleParser implements Callable<Module> {
     field.setListFormField(true);
     String clientModuleResourcePath = convertPatternInRealPathSupressException(
         replacePathWithModuleId(getDefinitionProperty(CLIENT_MODULE_TEXT_RESOURCE_PATH_TEMPLATE_PROPERTY, 
-            multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/shared/text/{3}Text_Source.properties"), resource
+            multipleConcat(PREFIX_DESTINATION_JAVA_CODE, "/{4}/{0}/{1}/{2}/shared/text/{3}Text_Source.properties"), resource
         ), moduleId));
     
     String clientModuleResourceEnPath = convertPatternInRealPathSupressException(
         replacePathWithModuleId(getDefinitionProperty(CLIENT_MODULE_TEXT_RESOURCE_EN_PATH_TEMPLATE_PROPERTY, 
-            multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/shared/text/{3}Text_en.properties"), resource
+            multipleConcat(PREFIX_DESTINATION_JAVA_CODE, "/{4}/{0}/{1}/{2}/shared/text/{3}Text_en.properties"), resource
         ), moduleId));
     
     ResourceBundle clientModuleResourceBundle = getResourceByPath(clientModuleResourcePath);
@@ -454,7 +454,7 @@ public class ModuleParser implements Callable<Module> {
   
   public String getRoles(String moduleId, ResourceBundle resource){
     String mainModulePresenterFilePath = convertPatternInRealPathSupressException(getDefinitionProperty(MAIN_MODULE_PRESENTER_PATH_TEMPLATE_PROPERTY, 
-        multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/main/client/ui/main/{2}MainModulePresenter.java"), resource));
+        multipleConcat(PREFIX_DESTINATION_JAVA_CODE, "/{4}/{0}/{1}/main/client/ui/main/{2}MainModulePresenter.java"), resource));
     
     Pattern p = Pattern.compile(multipleConcat(moduleId.toUpperCase(), "_MODULE_ID,\\s*\"(.*?)\""));
     String methodBody;
@@ -480,13 +480,13 @@ public class ModuleParser implements Callable<Module> {
     return convertPatternInRealPathSupressException(
         replacePathWithModuleId(
           getDefinitionProperty(CLIENT_MODULE_RECORD_DEFINITION_PATH_TEMPLATE_PROPERTY, 
-              multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/shared/record/{3}RecordDefinition.java"), resource
+              multipleConcat(PREFIX_DESTINATION_JAVA_CODE, "/{4}/{0}/{1}/{2}/shared/record/{3}RecordDefinition.java"), resource
           ),
         moduleId));
   }
   
   private static String replacePathWithModuleId(String path, String moduleId){
-    return format(path, "{0}", "{1}", moduleId.toLowerCase(), "{2}");
+    return format(path, "{0}", "{1}", moduleId.toLowerCase(), "{2}", "{3}");
   }
   
   private static void log(String message, String moduleId){

@@ -1,6 +1,7 @@
 package com.technology.jep.jepriatoolkit.creator.application;
 
-import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.*;  
+import static com.technology.jep.jepria.server.JepRiaServerConstant.DEFAULT_DATA_SOURCE_JNDI_NAME;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.*;
 import static com.technology.jep.jepriatoolkit.creator.application.ApplicationStructureCreatorUtil.convertTemplateToFile;
 import static com.technology.jep.jepriatoolkit.creator.application.ApplicationStructureCreatorUtil.prepareData;
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.echoMessage;
@@ -16,7 +17,6 @@ import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.readFromJa
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.replacePackageModuleNames;
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.writeToFile;
 import static java.text.MessageFormat.format;
-import static com.technology.jep.jepria.server.JepRiaServerConstant.DEFAULT_DATA_SOURCE_JNDI_NAME;
 
 import java.io.File;
 import java.io.IOException;
@@ -132,30 +132,30 @@ public class ApplicationStructureCreator extends Task {
     makeDir(
       format(
         getDefinitionProperty(RESOURCE_DIRECTORY_PROPERTY, 
-          multipleConcat(PREFIX_DESTINATION_RESOURCE, "{0}/{1}/web")),
-        application.getProjectPackage().toLowerCase(), application.getName().toLowerCase()   
+          multipleConcat(PREFIX_DESTINATION_RESOURCE, "{2}/{0}/{1}/web")),
+        application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), application.getPackagePrefixAsPath().toLowerCase()   
       )
     );
     
     makeDir(
       format(
         getDefinitionProperty(MAIN_MODULE_DIRECTORY_PROPERTY,
-          multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "{0}/{1}/main/client/ui/main")),
-        application.getProjectPackage().toLowerCase(), application.getName().toLowerCase()
+          multipleConcat(PREFIX_DESTINATION_JAVA_CODE, "/{2}/{0}/{1}/main/client/ui/main")),
+        application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), application.getPackagePrefixAsPath().toLowerCase()
       )
     );
     makeDir(
       format(
         getDefinitionProperty(ENTRANCE_DIRECTORY_PROPERTY,
-          multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "{0}/{1}/main/client/entrance")),
-        application.getProjectPackage().toLowerCase(), application.getName().toLowerCase()
+          multipleConcat(PREFIX_DESTINATION_JAVA_CODE, "/{2}/{0}/{1}/main/client/entrance")),
+        application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), application.getPackagePrefixAsPath().toLowerCase()
       )
     );
     makeDir(
       format(
         getDefinitionProperty(MAIN_TEXT_RESOURCE_DIRECTORY_PROPERTY,
-          multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "{0}/{1}/main/shared/text")),
-        application.getProjectPackage().toLowerCase(), application.getName().toLowerCase()
+          multipleConcat(PREFIX_DESTINATION_JAVA_CODE, "/{2}/{0}/{1}/main/shared/text")),
+        application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), application.getPackagePrefixAsPath().toLowerCase()
       )
     );
 
@@ -169,57 +169,57 @@ public class ApplicationStructureCreator extends Task {
         makeDir(
           format(
             getDefinitionProperty(CLIENT_MODULE_DETAIL_FORM_DIRECTORY_PROPERTY,
-                multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "{0}/{1}/{2}/client/ui/form/detail")),
-            application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName
+                multipleConcat(PREFIX_DESTINATION_JAVA_CODE, "/{3}/{0}/{1}/{2}/client/ui/form/detail")),
+            application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName, application.getPackagePrefixAsPath().toLowerCase()
           )
         );
         makeDir(
           format(
             getDefinitionProperty(CLIENT_MODULE_LIST_FORM_DIRECTORY_PROPERTY,
-              multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "{0}/{1}/{2}/client/ui/form/list")),
-            application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName
+              multipleConcat(PREFIX_DESTINATION_JAVA_CODE, "/{3}/{0}/{1}/{2}/client/ui/form/list")),
+            application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName, application.getPackagePrefixAsPath().toLowerCase()
           )
         );
         makeDir(
           format(
             getDefinitionProperty(CLIENT_MODULE_DAO_DIRECTORY_PROPERTY,
-              multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "{0}/{1}/{2}/server/dao")),
-            application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName
+              multipleConcat(PREFIX_DESTINATION_JAVA_CODE, "/{3}/{0}/{1}/{2}/server/dao")),
+            application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName, application.getPackagePrefixAsPath().toLowerCase()
           )
         );
         makeDir(
           format(
             getDefinitionProperty(CLIENT_MODULE_SERVICE_IMPL_DIRECTORY_PROPERTY,
-              multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "{0}/{1}/{2}/server/service")),
-            application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName
+              multipleConcat(PREFIX_DESTINATION_JAVA_CODE, "/{3}/{0}/{1}/{2}/server/service")),
+            application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName, application.getPackagePrefixAsPath().toLowerCase()
           )
         );
         makeDir(
           format(
             getDefinitionProperty(CLIENT_MODULE_FIELD_DIRECTORY_PROPERTY,  
-              multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "{0}/{1}/{2}/shared/field")),
-            application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName
+              multipleConcat(PREFIX_DESTINATION_JAVA_CODE, "/{3}/{0}/{1}/{2}/shared/field")),
+            application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName, application.getPackagePrefixAsPath().toLowerCase()
           )
         );
         makeDir(
           format(
             getDefinitionProperty(CLIENT_MODULE_RECORD_DIRECTORY_PROPERTY,  
-              multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "{0}/{1}/{2}/shared/record")),
-            application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName
+              multipleConcat(PREFIX_DESTINATION_JAVA_CODE, "/{3}/{0}/{1}/{2}/shared/record")),
+            application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName, application.getPackagePrefixAsPath().toLowerCase()
           )
         );
         makeDir(
           format(
             getDefinitionProperty(CLIENT_MODULE_SERVICE_DIRECTORY_PROPERTY,  
-              multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "{0}/{1}/{2}/shared/service")),
-            application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName
+              multipleConcat(PREFIX_DESTINATION_JAVA_CODE, "/{3}/{0}/{1}/{2}/shared/service")),
+            application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName, application.getPackagePrefixAsPath().toLowerCase()
           )
         );
         makeDir(
           format(
             getDefinitionProperty(CLIENT_MODULE_TEXT_RESOURCE_DIRECTORY_PROPERTY,  
-              multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "{0}/{1}/{2}/shared/text")),
-            application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName
+              multipleConcat(PREFIX_DESTINATION_JAVA_CODE, "/{3}/{0}/{1}/{2}/shared/text")),
+            application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName, application.getPackagePrefixAsPath().toLowerCase()
           )
         );
       }
@@ -228,8 +228,8 @@ public class ApplicationStructureCreator extends Task {
     makeDir(
       format(
         multipleConcat(getDefinitionProperty(CONFIG_MAIN_PACKAGE_DIRECTORY_PROPERTY, 
-          multipleConcat("config/{0}/", PREFIX_DESTINATION_SOURCE_CODE, "{1}/{2}/main/"))),
-        DEBUG_BUILD_CONFIG_NAME, application.getProjectPackage().toLowerCase(), application.getName().toLowerCase()
+          multipleConcat("config/{0}/", PREFIX_DESTINATION_JAVA_CODE, "/{3}/{1}/{2}/main/"))),
+        DEBUG_BUILD_CONFIG_NAME, application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), application.getPackagePrefixAsPath().toLowerCase()
       )
     );
     
@@ -247,8 +247,8 @@ public class ApplicationStructureCreator extends Task {
     makeDir(
       format(
         multipleConcat(getDefinitionProperty(CONFIG_MAIN_PACKAGE_DIRECTORY_PROPERTY, 
-          multipleConcat("config/{0}/", PREFIX_DESTINATION_SOURCE_CODE, "{1}/{2}/main/"))),
-        PRODUCTION_BUILD_CONFIG_NAME, application.getProjectPackage().toLowerCase(), application.getName().toLowerCase()
+          multipleConcat("config/{0}/", PREFIX_DESTINATION_JAVA_CODE, "/{3}/{1}/{2}/main/"))),
+        PRODUCTION_BUILD_CONFIG_NAME, application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), application.getPackagePrefixAsPath().toLowerCase()
       )
     );
     deployPropContent = 
@@ -273,9 +273,9 @@ public class ApplicationStructureCreator extends Task {
       resultData,
       format(
         getDefinitionProperty(WEB_XML_PATH_TEMPLATE_PROPERTY, 
-          multipleConcat(PREFIX_DESTINATION_RESOURCE, "{0}/{1}/web/web.xml")
+          multipleConcat(PREFIX_DESTINATION_RESOURCE, "{2}/{0}/{1}/web/web.xml")
         ), 
-        application.getProjectPackage().toLowerCase(), application.getName().toLowerCase()
+        application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), application.getPackagePrefixAsPath().toLowerCase()
       )
     );
   }
@@ -291,16 +291,16 @@ public class ApplicationStructureCreator extends Task {
         DEFAULT_DATA_SOURCE_JNDI_NAME.substring(DEFAULT_DATA_SOURCE_JNDI_NAME.indexOf("/") + 1)); //bad view TODO;
     makeDir(
         format(getDefinitionProperty(TOMCAT_RESOURCE_DIRECTORY_TEMPLATE_PROPERTY, 
-            multipleConcat(PREFIX_DESTINATION_RESOURCE, "{0}/{1}/tomcat")),
-        application.getProjectPackage().toLowerCase(), application.getName().toLowerCase()));
+            multipleConcat(PREFIX_DESTINATION_RESOURCE, "{2}/{0}/{1}/tomcat")),
+        application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), application.getPackagePrefixAsPath().toLowerCase()));
     
     convertTemplateToFile(
         getDefinitionProperty(TOMCAT_CONTEXT_XML_TEMPLATE_PROPERTY, "tomcatContext.ftl"), 
         realm,
         format(
             getDefinitionProperty(TOMCAT_CONTEXT_XML_PATH_TEMPLATE_PROPERTY, 
-                multipleConcat(PREFIX_DESTINATION_RESOURCE, "{0}/{1}/tomcat/context.xml")), 
-            application.getProjectPackage().toLowerCase(), application.getName().toLowerCase()));
+                multipleConcat(PREFIX_DESTINATION_RESOURCE, "{2}/{0}/{1}/tomcat/context.xml")), 
+            application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), application.getPackagePrefixAsPath().toLowerCase()));
   }
   
   /**
@@ -311,9 +311,9 @@ public class ApplicationStructureCreator extends Task {
     
     String mainGwtXmlPath = format(
       getDefinitionProperty(MAIN_GWT_XML_PATH_TEMPLATE_PROPERTY, 
-        multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "{0}/{1}/main/{2}.gwt.xml")
+        multipleConcat(PREFIX_DESTINATION_JAVA_CODE, "/{3}/{0}/{1}/main/{2}.gwt.xml")
       ), 
-      application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), application.getName()
+      application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), application.getName(), application.getPackagePrefixAsPath().toLowerCase()
     );
     convertTemplateToFile(
       getDefinitionProperty(MAIN_GWT_XML_DEBUG_TEMPLATE_PROPERTY, "mainDebug.gwt.ftl"), 
@@ -322,7 +322,8 @@ public class ApplicationStructureCreator extends Task {
     );
     
     String mainDebugGwtXmlPath = multipleConcat(
-      "config/", DEBUG_BUILD_CONFIG_NAME, "/", PREFIX_DESTINATION_SOURCE_CODE,
+      "config/", DEBUG_BUILD_CONFIG_NAME, "/", PREFIX_DESTINATION_JAVA_CODE,
+      "/", application.getPackagePrefixAsPath().toLowerCase(), "/", 
       application.getProjectPackage().toLowerCase(),  "/", application.getName().toLowerCase(),
       "/main/", application.getName(), ".gwt.xml");
     convertTemplateToFile(
@@ -332,7 +333,8 @@ public class ApplicationStructureCreator extends Task {
     );
     
     String mainProductionGwtXmlPath = multipleConcat(
-      "config/", PRODUCTION_BUILD_CONFIG_NAME, "/", PREFIX_DESTINATION_SOURCE_CODE,
+      "config/", PRODUCTION_BUILD_CONFIG_NAME, "/", PREFIX_DESTINATION_JAVA_CODE,
+      "/", application.getPackagePrefixAsPath().toLowerCase(), "/",
       application.getProjectPackage().toLowerCase(),  "/", application.getName().toLowerCase(),
       "/main/", application.getName(), ".gwt.xml");
     convertTemplateToFile(
@@ -357,9 +359,9 @@ public class ApplicationStructureCreator extends Task {
         data, 
         format(
           getDefinitionProperty(CLIENT_MODULE_GWT_XML_PATH_TEMPLATE_PROPERTY, 
-            multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "{0}/{1}/{2}/{3}.gwt.xml")
+            multipleConcat(PREFIX_DESTINATION_JAVA_CODE, "/{4}/{0}/{1}/{2}/{3}.gwt.xml")
           ),
-          application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName.toLowerCase(), formName
+          application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName.toLowerCase(), formName, application.getPackagePrefixAsPath().toLowerCase()
         )
       );
     }
@@ -400,8 +402,8 @@ public class ApplicationStructureCreator extends Task {
       data, 
       format(
         getDefinitionProperty(MAIN_TEXT_RESOURCE_PATH_TEMPLATE_PROPERTY, 
-          multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/main/shared/text/{2}Text_Source.properties")),
-        application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), application.getName()
+          multipleConcat(PREFIX_DESTINATION_JAVA_CODE, "/{3}/{0}/{1}/main/shared/text/{2}Text_Source.properties")),
+        application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), application.getName(), application.getPackagePrefixAsPath().toLowerCase()
       )
     );
     
@@ -410,8 +412,8 @@ public class ApplicationStructureCreator extends Task {
       data, 
       format(
         getDefinitionProperty(MAIN_TEXT_RESOURCE_EN_PATH_TEMPLATE_PROPERTY, 
-          multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/main/shared/text/{2}Text_en.properties")),
-        application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), application.getName()
+          multipleConcat(PREFIX_DESTINATION_JAVA_CODE, "/{3}/{0}/{1}/main/shared/text/{2}Text_en.properties")),
+        application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), application.getName(), application.getPackagePrefixAsPath().toLowerCase()
       )
     );
     
@@ -428,8 +430,8 @@ public class ApplicationStructureCreator extends Task {
         innerData, 
         format(
           getDefinitionProperty(CLIENT_MODULE_TEXT_RESOURCE_PATH_TEMPLATE_PROPERTY, 
-              multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/shared/text/{3}Text_Source.properties")),
-          application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName.toLowerCase(), formName
+              multipleConcat(PREFIX_DESTINATION_JAVA_CODE, "/{3}/{0}/{1}/{2}/shared/text/{3}Text_Source.properties")),
+          application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName.toLowerCase(), formName, application.getPackagePrefixAsPath().toLowerCase()
         )
       );
       
@@ -438,8 +440,8 @@ public class ApplicationStructureCreator extends Task {
         innerData, 
         format(
           getDefinitionProperty(CLIENT_MODULE_TEXT_RESOURCE_EN_PATH_TEMPLATE_PROPERTY, 
-              multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/shared/text/{3}Text_en.properties")),
-          application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName.toLowerCase(), formName
+              multipleConcat(PREFIX_DESTINATION_JAVA_CODE, "/{3}/{0}/{1}/{2}/shared/text/{3}Text_en.properties")),
+          application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName.toLowerCase(), formName, application.getPackagePrefixAsPath().toLowerCase()
         )
       );
     }
@@ -453,8 +455,8 @@ public class ApplicationStructureCreator extends Task {
       getDefinitionProperty(OVERVIEW_TEMPLATE_PROPERTY, "overview.ftl"),
       resultData,
       format(
-        getDefinitionProperty(OVERVIEW_PATH_TEMPLATE_PROPERTY, "src/java/com/technology/{0}/{1}/overview.html"),
-        application.getProjectPackage().toLowerCase(), application.getName().toLowerCase()
+        getDefinitionProperty(OVERVIEW_PATH_TEMPLATE_PROPERTY, "src/java/{2}/{0}/{1}/overview.html"),
+        application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), application.getPackagePrefixAsPath().toLowerCase()
       )
     );
   }
@@ -471,8 +473,8 @@ public class ApplicationStructureCreator extends Task {
       data, 
       format(
         getDefinitionProperty(MAIN_MODULE_CONSTANT_PATH_TEMPLATE_PROPERTY, 
-            multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/main/client/{2}ClientConstant.java")),
-        application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), application.getName()
+            multipleConcat(PREFIX_DESTINATION_JAVA_CODE, "/{3}/{0}/{1}/main/client/{2}ClientConstant.java")),
+        application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), application.getName(), application.getPackagePrefixAsPath().toLowerCase()
       )
     );
     
@@ -481,6 +483,7 @@ public class ApplicationStructureCreator extends Task {
       
       Map<String, Object> innerData = new HashMap<String, Object>();
       innerData.put(FORM_TEMPLATE_PARAMETER, moduleInfo);
+      innerData.put(PACKAGE_PREFIX_TEMPLATE_PARAMETER, data.get(PACKAGE_PREFIX_TEMPLATE_PARAMETER));
       innerData.put(PACKAGE_NAME_TEMPLATE_PARAMETER, data.get(PACKAGE_NAME_TEMPLATE_PARAMETER));
       innerData.put(MODULE_NAME_TEMPLATE_PARAMETER, data.get(MODULE_NAME_TEMPLATE_PARAMETER));
       
@@ -490,8 +493,9 @@ public class ApplicationStructureCreator extends Task {
         innerData, 
         format(
           getDefinitionProperty(CLIENT_MODULE_CONSTANT_PATH_TEMPLATE_PROPERTY, 
-              multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/client/{3}ClientConstant.java")),
+              multipleConcat(PREFIX_DESTINATION_JAVA_CODE, "/{4}/{0}/{1}/{2}/client/{3}ClientConstant.java")),
           application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName.toLowerCase(), formName
+          , application.getPackagePrefixAsPath().toLowerCase()
         )
       );
     }
@@ -508,6 +512,7 @@ public class ApplicationStructureCreator extends Task {
       
       Map<String, Object> innerData = new HashMap<String, Object>();
       innerData.put(FORM_TEMPLATE_PARAMETER, moduleInfo);
+      innerData.put(PACKAGE_PREFIX_TEMPLATE_PARAMETER, data.get(PACKAGE_PREFIX_TEMPLATE_PARAMETER));
       innerData.put(PACKAGE_NAME_TEMPLATE_PARAMETER, data.get(PACKAGE_NAME_TEMPLATE_PARAMETER));
       innerData.put(MODULE_NAME_TEMPLATE_PARAMETER, data.get(MODULE_NAME_TEMPLATE_PARAMETER));
       
@@ -518,16 +523,18 @@ public class ApplicationStructureCreator extends Task {
         innerData, 
         format(
           getDefinitionProperty(CLIENT_MODULE_FACTORY_PATH_TEMPLATE_PROPERTY, 
-              multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/client/{3}ClientFactoryImpl.java")),
+              multipleConcat(PREFIX_DESTINATION_JAVA_CODE, "/{4}/{0}/{1}/{2}/client/{3}ClientFactoryImpl.java")),
           application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName.toLowerCase(), formName
+          , application.getPackagePrefixAsPath().toLowerCase()
         )
       );
     }
 
     String mainClientFactoryPath = format(
       getDefinitionProperty(MAIN_MODULE_FACTORY_PATH_TEMPLATE_PROPERTY, 
-          multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/main/client/{3}ClientFactoryImpl.java")),
+          multipleConcat(PREFIX_DESTINATION_JAVA_CODE, "/{4}/{0}/{1}/main/client/{3}ClientFactoryImpl.java")),
       application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), application.getName()
+      , application.getPackagePrefixAsPath().toLowerCase()
     );
     convertTemplateToFile(
       getDefinitionProperty(MAIN_MODULE_FACTORY_TEMPLATE_PROPERTY, "mainFactory.ftl"),
@@ -545,8 +552,9 @@ public class ApplicationStructureCreator extends Task {
       resultData,
       format(
         getDefinitionProperty(MODULE_ENTRY_POINT_PATH_TEMPLATE_PROPERTY, 
-            multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/main/client/entrance/{3}EntryPoint.java")),
+            multipleConcat(PREFIX_DESTINATION_JAVA_CODE, "/{4}/{0}/{1}/main/client/entrance/{3}EntryPoint.java")),
         application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), application.getName()
+        , application.getPackagePrefixAsPath().toLowerCase()
       )
     );
   }
@@ -561,6 +569,7 @@ public class ApplicationStructureCreator extends Task {
       if (moduleInfo.isNotRebuild()) continue;
       Map<String, Object> innerData = new HashMap<String, Object>();
       innerData.put(FORM_TEMPLATE_PARAMETER, moduleInfo);
+      innerData.put(PACKAGE_PREFIX_TEMPLATE_PARAMETER, data.get(PACKAGE_PREFIX_TEMPLATE_PARAMETER));
       innerData.put(PACKAGE_NAME_TEMPLATE_PARAMETER, data.get(PACKAGE_NAME_TEMPLATE_PARAMETER));
       innerData.put(MODULE_NAME_TEMPLATE_PARAMETER, data.get(MODULE_NAME_TEMPLATE_PARAMETER));
       
@@ -571,8 +580,9 @@ public class ApplicationStructureCreator extends Task {
         innerData, 
         format(
           getDefinitionProperty(CLIENT_MODULE_DETAIL_FORM_PRESENTER_PATH_TEMPLATE_PROPERTY, 
-              multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/client/ui/form/detail/{3}DetailFormPresenter.java")),
+              multipleConcat(PREFIX_DESTINATION_JAVA_CODE, "/{4}/{0}/{1}/{2}/client/ui/form/detail/{3}DetailFormPresenter.java")),
           application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName.toLowerCase(), formName
+          , application.getPackagePrefixAsPath().toLowerCase()
         )
       );
     }
@@ -588,6 +598,7 @@ public class ApplicationStructureCreator extends Task {
       if (moduleInfo.isNotRebuild()) continue;
       Map<String, Object> innerData = new HashMap<String, Object>();
       innerData.put(FORM_TEMPLATE_PARAMETER, moduleInfo);
+      innerData.put(PACKAGE_PREFIX_TEMPLATE_PARAMETER, data.get(PACKAGE_PREFIX_TEMPLATE_PARAMETER));
       innerData.put(PACKAGE_NAME_TEMPLATE_PARAMETER, data.get(PACKAGE_NAME_TEMPLATE_PARAMETER));
       innerData.put(MODULE_NAME_TEMPLATE_PARAMETER, data.get(MODULE_NAME_TEMPLATE_PARAMETER));
       
@@ -598,8 +609,9 @@ public class ApplicationStructureCreator extends Task {
         innerData, 
         format(
           getDefinitionProperty(CLIENT_MODULE_DETAIL_FORM_VIEW_PATH_TEMPLATE_PROPERTY, 
-              multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/client/ui/form/detail/{3}DetailFormView.java")),
+              multipleConcat(PREFIX_DESTINATION_JAVA_CODE, "/{4}/{0}/{1}/{2}/client/ui/form/detail/{3}DetailFormView.java")),
           application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName.toLowerCase(), formName
+          , application.getPackagePrefixAsPath().toLowerCase()
         )
       );
       
@@ -608,8 +620,9 @@ public class ApplicationStructureCreator extends Task {
         innerData, 
         format(
           getDefinitionProperty(CLIENT_MODULE_DETAIL_FORM_VIEW_IMPL_PATH_TEMPLATE_PROPERTY, 
-              multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/client/ui/form/detail/{3}DetailFormViewImpl.java")),
+              multipleConcat(PREFIX_DESTINATION_JAVA_CODE, "/{4}/{0}/{1}/{2}/client/ui/form/detail/{3}DetailFormViewImpl.java")),
           application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName.toLowerCase(), formName
+          , application.getPackagePrefixAsPath().toLowerCase()
         )
       );
     }
@@ -625,6 +638,7 @@ public class ApplicationStructureCreator extends Task {
       if (moduleInfo.isNotRebuild() || !moduleInfo.getHasCustomListFormPresenter()) continue;
       Map<String, Object> innerData = new HashMap<String, Object>();
       innerData.put(FORM_TEMPLATE_PARAMETER, moduleInfo);
+      innerData.put(PACKAGE_PREFIX_TEMPLATE_PARAMETER, data.get(PACKAGE_PREFIX_TEMPLATE_PARAMETER));
       innerData.put(PACKAGE_NAME_TEMPLATE_PARAMETER, data.get(PACKAGE_NAME_TEMPLATE_PARAMETER));
       innerData.put(MODULE_NAME_TEMPLATE_PARAMETER, data.get(MODULE_NAME_TEMPLATE_PARAMETER));
       
@@ -635,8 +649,9 @@ public class ApplicationStructureCreator extends Task {
         innerData, 
         format(
           getDefinitionProperty(CLIENT_MODULE_LIST_FORM_PRESENTER_PATH_TEMPLATE_PROPERTY, 
-              multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/client/ui/form/list/{3}ListFormPresenter.java")),
+              multipleConcat(PREFIX_DESTINATION_JAVA_CODE, "/{4}/{0}/{1}/{2}/client/ui/form/list/{3}ListFormPresenter.java")),
           application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName.toLowerCase(), formName
+          , application.getPackagePrefixAsPath().toLowerCase()
         )
       );
     }
@@ -652,6 +667,7 @@ public class ApplicationStructureCreator extends Task {
       if (moduleInfo.isNotRebuild()) continue;
       Map<String, Object> innerData = new HashMap<String, Object>();
       innerData.put(FORM_TEMPLATE_PARAMETER, moduleInfo);
+      innerData.put(PACKAGE_PREFIX_TEMPLATE_PARAMETER, data.get(PACKAGE_PREFIX_TEMPLATE_PARAMETER));
       innerData.put(PACKAGE_NAME_TEMPLATE_PARAMETER, data.get(PACKAGE_NAME_TEMPLATE_PARAMETER));
       innerData.put(MODULE_NAME_TEMPLATE_PARAMETER, data.get(MODULE_NAME_TEMPLATE_PARAMETER));
       
@@ -662,8 +678,9 @@ public class ApplicationStructureCreator extends Task {
         innerData, 
         format(
           getDefinitionProperty(CLIENT_MODULE_LIST_FORM_VIEW_IMPL_PATH_TEMPLATE_PROPERTY, 
-              multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/client/ui/form/list/{3}ListFormViewImpl.java")),
+              multipleConcat(PREFIX_DESTINATION_JAVA_CODE, "/{4}/{0}/{1}/{2}/client/ui/form/list/{3}ListFormViewImpl.java")),
           application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName.toLowerCase(), formName
+          , application.getPackagePrefixAsPath().toLowerCase()
         )
       );
     }
@@ -680,6 +697,7 @@ public class ApplicationStructureCreator extends Task {
       
       Map<String, Object> innerData = new HashMap<String, Object>();
       innerData.put(FORM_TEMPLATE_PARAMETER, moduleInfo);
+      innerData.put(PACKAGE_PREFIX_TEMPLATE_PARAMETER, data.get(PACKAGE_PREFIX_TEMPLATE_PARAMETER));
       innerData.put(PACKAGE_NAME_TEMPLATE_PARAMETER, data.get(PACKAGE_NAME_TEMPLATE_PARAMETER));
       innerData.put(MODULE_NAME_TEMPLATE_PARAMETER, data.get(MODULE_NAME_TEMPLATE_PARAMETER));
       
@@ -688,8 +706,9 @@ public class ApplicationStructureCreator extends Task {
       makeDir(
         format(
           getDefinitionProperty(CLIENT_MODULE_PLAIN_FORM_DIRECTORY_PROPERTY,
-              multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "{0}/{1}/{2}/client/ui/plain")),
+              multipleConcat(PREFIX_DESTINATION_JAVA_CODE, "/{3}/{0}/{1}/{2}/client/ui/plain")),
           application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName
+          , application.getPackagePrefixAsPath().toLowerCase()
         )
       );
       convertTemplateToFile(
@@ -697,8 +716,9 @@ public class ApplicationStructureCreator extends Task {
         innerData, 
         format(
           getDefinitionProperty(CLIENT_MODULE_PRESENTER_PATH_TEMPLATE_PROPERTY, 
-              multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/client/ui/plain/{3}ModulePresenter.java")),
+              multipleConcat(PREFIX_DESTINATION_JAVA_CODE, "/{4}/{0}/{1}/{2}/client/ui/plain/{3}ModulePresenter.java")),
           application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName.toLowerCase(), formName
+          , application.getPackagePrefixAsPath().toLowerCase()
         )
       );
     }
@@ -708,8 +728,9 @@ public class ApplicationStructureCreator extends Task {
       data, 
       format(
         getDefinitionProperty(MAIN_MODULE_PRESENTER_PATH_TEMPLATE_PROPERTY, 
-            multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/main/client/ui/main/{2}MainModulePresenter.java")),
+            multipleConcat(PREFIX_DESTINATION_JAVA_CODE, "/{3}/{0}/{1}/main/client/ui/main/{2}MainModulePresenter.java")),
         application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), application.getName()
+        , application.getPackagePrefixAsPath().toLowerCase()
       )
     );
   }
@@ -724,6 +745,7 @@ public class ApplicationStructureCreator extends Task {
       if (moduleInfo.isNotRebuild()) continue;
       Map<String, Object> innerData = new HashMap<String, Object>();
       innerData.put(FORM_TEMPLATE_PARAMETER, moduleInfo);
+      innerData.put(PACKAGE_PREFIX_TEMPLATE_PARAMETER, data.get(PACKAGE_PREFIX_TEMPLATE_PARAMETER));
       innerData.put(PACKAGE_NAME_TEMPLATE_PARAMETER, data.get(PACKAGE_NAME_TEMPLATE_PARAMETER));
       innerData.put(MODULE_NAME_TEMPLATE_PARAMETER, data.get(MODULE_NAME_TEMPLATE_PARAMETER));
       
@@ -734,8 +756,9 @@ public class ApplicationStructureCreator extends Task {
         innerData, 
         format(
           getDefinitionProperty(CLIENT_MODULE_SERVICE_IMPL_PATH_TEMPLATE_PROPERTY, 
-              multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/server/service/{3}ServiceImpl.java")),
+              multipleConcat(PREFIX_DESTINATION_JAVA_CODE, "/{4}/{0}/{1}/{2}/server/service/{3}ServiceImpl.java")),
           application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName.toLowerCase(), formName
+          , application.getPackagePrefixAsPath().toLowerCase()
         )
       );
       
@@ -745,8 +768,9 @@ public class ApplicationStructureCreator extends Task {
           innerData, 
           format(
             getDefinitionProperty(CLIENT_MODULE_UPLOAD_SERVICE_IMPL_PATH_TEMPLATE_PROPERTY, 
-                multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/server/service/UploadServiceImpl.java")),
+                multipleConcat(PREFIX_DESTINATION_JAVA_CODE, "/{3}/{0}/{1}/{2}/server/service/UploadServiceImpl.java")),
             application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName.toLowerCase()
+            , application.getPackagePrefixAsPath().toLowerCase()
           )
         );
         
@@ -755,8 +779,9 @@ public class ApplicationStructureCreator extends Task {
           innerData, 
           format(
             getDefinitionProperty(CLIENT_MODULE_DOWNLOAD_SERVICE_IMPL_PATH_TEMPLATE_PROPERTY, 
-                multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/server/service/DownloadServiceImpl.java")),
+                multipleConcat(PREFIX_DESTINATION_JAVA_CODE, "/{3}/{0}/{1}/{2}/server/service/DownloadServiceImpl.java")),
             application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName.toLowerCase()
+            , application.getPackagePrefixAsPath().toLowerCase()
           )
         );
       }
@@ -767,8 +792,9 @@ public class ApplicationStructureCreator extends Task {
           innerData, 
           format(
             getDefinitionProperty(CLIENT_MODULE_EXCEL_SERVICE_IMPL_PATH_TEMPLATE_PROPERTY, 
-                multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/server/service/ShowExcelServlet.java")),
+                multipleConcat(PREFIX_DESTINATION_JAVA_CODE, "/{3}/{0}/{1}/{2}/server/service/ShowExcelServlet.java")),
             application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName.toLowerCase()
+            , application.getPackagePrefixAsPath().toLowerCase()
           )
         );
       }
@@ -785,6 +811,7 @@ public class ApplicationStructureCreator extends Task {
       if (moduleInfo.isNotRebuild()) continue;
       Map<String, Object> innerData = new HashMap<String, Object>();
       innerData.put(FORM_TEMPLATE_PARAMETER, moduleInfo);
+      innerData.put(PACKAGE_PREFIX_TEMPLATE_PARAMETER, data.get(PACKAGE_PREFIX_TEMPLATE_PARAMETER));
       innerData.put(PACKAGE_NAME_TEMPLATE_PARAMETER, data.get(PACKAGE_NAME_TEMPLATE_PARAMETER));
       innerData.put(MODULE_NAME_TEMPLATE_PARAMETER, data.get(MODULE_NAME_TEMPLATE_PARAMETER));
       
@@ -795,8 +822,9 @@ public class ApplicationStructureCreator extends Task {
         innerData, 
         format(
           getDefinitionProperty(CLIENT_MODULE_SERVER_CONSTANT_PATH_TEMPLATE_PROPERTY, 
-              multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/server/{3}ServerConstant.java")),
+              multipleConcat(PREFIX_DESTINATION_JAVA_CODE, "/{4}/{0}/{1}/{2}/server/{3}ServerConstant.java")),
           application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName.toLowerCase(), formName
+          , application.getPackagePrefixAsPath().toLowerCase()
         )
       );
     }
@@ -812,6 +840,7 @@ public class ApplicationStructureCreator extends Task {
       if (moduleInfo.isNotRebuild()) continue;
       Map<String, Object> innerData = new HashMap<String, Object>();
       innerData.put(FORM_TEMPLATE_PARAMETER, moduleInfo);
+      innerData.put(PACKAGE_PREFIX_TEMPLATE_PARAMETER, data.get(PACKAGE_PREFIX_TEMPLATE_PARAMETER));
       innerData.put(PACKAGE_NAME_TEMPLATE_PARAMETER, data.get(PACKAGE_NAME_TEMPLATE_PARAMETER));
       innerData.put(MODULE_NAME_TEMPLATE_PARAMETER, data.get(MODULE_NAME_TEMPLATE_PARAMETER));
       
@@ -822,8 +851,9 @@ public class ApplicationStructureCreator extends Task {
         innerData, 
         format(
           getDefinitionProperty(CLIENT_MODULE_SERVER_FACTORY_PATH_TEMPLATE_PROPERTY, 
-              multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/server/{3}ServerFactory.java")),
+              multipleConcat(PREFIX_DESTINATION_JAVA_CODE, "/{4}/{0}/{1}/{2}/server/{3}ServerFactory.java")),
           application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName.toLowerCase(), formName
+          , application.getPackagePrefixAsPath().toLowerCase()
         )
       );
     }
@@ -847,6 +877,7 @@ public class ApplicationStructureCreator extends Task {
       if (moduleInfo.isNotRebuild()) continue;
       Map<String, Object> innerData = new HashMap<String, Object>();
       innerData.put(FORM_TEMPLATE_PARAMETER, moduleInfo);
+      innerData.put(PACKAGE_PREFIX_TEMPLATE_PARAMETER, data.get(PACKAGE_PREFIX_TEMPLATE_PARAMETER));
       innerData.put(PACKAGE_NAME_TEMPLATE_PARAMETER, data.get(PACKAGE_NAME_TEMPLATE_PARAMETER));
       innerData.put(MODULE_NAME_TEMPLATE_PARAMETER, data.get(MODULE_NAME_TEMPLATE_PARAMETER));
       
@@ -857,8 +888,9 @@ public class ApplicationStructureCreator extends Task {
         innerData, 
         format(
           getDefinitionProperty(CLIENT_MODULE_DAO_PATH_TEMPLATE_PROPERTY, 
-              multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/server/dao/{3}Dao.java")),
+              multipleConcat(PREFIX_DESTINATION_JAVA_CODE, "/{4}/{0}/{1}/{2}/server/dao/{3}Dao.java")),
           application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName.toLowerCase(), formName
+          , application.getPackagePrefixAsPath().toLowerCase()
         )
       );
     }
@@ -874,6 +906,7 @@ public class ApplicationStructureCreator extends Task {
       if (moduleInfo.isNotRebuild()) continue;
       Map<String, Object> innerData = new HashMap<String, Object>();
       innerData.put(FORM_TEMPLATE_PARAMETER, moduleInfo);
+      innerData.put(PACKAGE_PREFIX_TEMPLATE_PARAMETER, data.get(PACKAGE_PREFIX_TEMPLATE_PARAMETER));
       innerData.put(PACKAGE_NAME_TEMPLATE_PARAMETER, data.get(PACKAGE_NAME_TEMPLATE_PARAMETER));
       innerData.put(MODULE_NAME_TEMPLATE_PARAMETER, data.get(MODULE_NAME_TEMPLATE_PARAMETER));
       
@@ -884,8 +917,9 @@ public class ApplicationStructureCreator extends Task {
         innerData, 
         format(
           getDefinitionProperty(CLIENT_MODULE_DAO_INTERFACE_PATH_TEMPLATE_PROPERTY, 
-              multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/server/dao/{3}.java")),
+              multipleConcat(PREFIX_DESTINATION_JAVA_CODE, "/{4}/{0}/{1}/{2}/server/dao/{3}.java")),
           application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName.toLowerCase(), formName
+          , application.getPackagePrefixAsPath().toLowerCase()
         )
       );
     }
@@ -901,6 +935,7 @@ public class ApplicationStructureCreator extends Task {
       if (moduleInfo.isNotRebuild()) continue;
       Map<String, Object> innerData = new HashMap<String, Object>();
       innerData.put(FORM_TEMPLATE_PARAMETER, moduleInfo);
+      innerData.put(PACKAGE_PREFIX_TEMPLATE_PARAMETER, data.get(PACKAGE_PREFIX_TEMPLATE_PARAMETER));
       innerData.put(PACKAGE_NAME_TEMPLATE_PARAMETER, data.get(PACKAGE_NAME_TEMPLATE_PARAMETER));
       innerData.put(MODULE_NAME_TEMPLATE_PARAMETER, data.get(MODULE_NAME_TEMPLATE_PARAMETER));
       
@@ -911,8 +946,9 @@ public class ApplicationStructureCreator extends Task {
         innerData, 
         format(
           getDefinitionProperty(CLIENT_MODULE_FIELDS_PATH_TEMPLATE_PROPERTY, 
-              multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/shared/field/{3}FieldNames.java")),
+              multipleConcat(PREFIX_DESTINATION_JAVA_CODE, "/{4}/{0}/{1}/{2}/shared/field/{3}FieldNames.java")),
           application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName.toLowerCase(), formName
+          , application.getPackagePrefixAsPath().toLowerCase()
         )
       );
       
@@ -925,8 +961,9 @@ public class ApplicationStructureCreator extends Task {
               innerData, 
               format(
                 getDefinitionProperty(CLIENT_MODULE_OPTIONS_PATH_TEMPLATE_PROPERTY, 
-                    multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/shared/field/{3}Options.java")),
+                    multipleConcat(PREFIX_DESTINATION_JAVA_CODE, "/{4}/{0}/{1}/{2}/shared/field/{3}Options.java")),
                 application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName.toLowerCase(), field.getFieldIdAsParameter()
+                , application.getPackagePrefixAsPath().toLowerCase()
               )
             );
           }
@@ -945,6 +982,7 @@ public class ApplicationStructureCreator extends Task {
       if (moduleInfo.isNotRebuild()) continue;
       Map<String, Object> innerData = new HashMap<String, Object>();
       innerData.put(FORM_TEMPLATE_PARAMETER, moduleInfo);
+      innerData.put(PACKAGE_PREFIX_TEMPLATE_PARAMETER, data.get(PACKAGE_PREFIX_TEMPLATE_PARAMETER));
       innerData.put(PACKAGE_NAME_TEMPLATE_PARAMETER, data.get(PACKAGE_NAME_TEMPLATE_PARAMETER));
       innerData.put(MODULE_NAME_TEMPLATE_PARAMETER, data.get(MODULE_NAME_TEMPLATE_PARAMETER));
       
@@ -955,8 +993,9 @@ public class ApplicationStructureCreator extends Task {
         innerData, 
         format(
           getDefinitionProperty(CLIENT_MODULE_RECORD_DEFINITION_PATH_TEMPLATE_PROPERTY, 
-              multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/shared/record/{3}RecordDefinition.java")),
+              multipleConcat(PREFIX_DESTINATION_JAVA_CODE, "/{4}/{0}/{1}/{2}/shared/record/{3}RecordDefinition.java")),
           application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName.toLowerCase(), formName
+          , application.getPackagePrefixAsPath().toLowerCase()
         )
       );
     }
@@ -972,6 +1011,7 @@ public class ApplicationStructureCreator extends Task {
       if (moduleInfo.isNotRebuild()) continue;
       Map<String, Object> innerData = new HashMap<String, Object>();
       innerData.put(FORM_TEMPLATE_PARAMETER, moduleInfo);
+      innerData.put(PACKAGE_PREFIX_TEMPLATE_PARAMETER, data.get(PACKAGE_PREFIX_TEMPLATE_PARAMETER));
       innerData.put(PACKAGE_NAME_TEMPLATE_PARAMETER, data.get(PACKAGE_NAME_TEMPLATE_PARAMETER));
       innerData.put(MODULE_NAME_TEMPLATE_PARAMETER, data.get(MODULE_NAME_TEMPLATE_PARAMETER));
       
@@ -982,8 +1022,9 @@ public class ApplicationStructureCreator extends Task {
         innerData, 
         format(
           getDefinitionProperty(CLIENT_MODULE_SERVICE_PATH_TEMPLATE_PROPERTY, 
-              multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/shared/service/{3}Service.java")),
+              multipleConcat(PREFIX_DESTINATION_JAVA_CODE, "/{4}/{0}/{1}/{2}/shared/service/{3}Service.java")),
           application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName.toLowerCase(), formName
+          , application.getPackagePrefixAsPath().toLowerCase()
         )
       );
       
@@ -992,8 +1033,9 @@ public class ApplicationStructureCreator extends Task {
         innerData, 
         format(
           getDefinitionProperty(CLIENT_MODULE_SERVICE_ASYNC_PATH_TEMPLATE_PROPERTY, 
-              multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/shared/service/{3}ServiceAsync.java")),
+              multipleConcat(PREFIX_DESTINATION_JAVA_CODE, "/{4}/{0}/{1}/{2}/shared/service/{3}ServiceAsync.java")),
           application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName.toLowerCase(), formName
+          , application.getPackagePrefixAsPath().toLowerCase()
         )
       );
     }
@@ -1011,8 +1053,9 @@ public class ApplicationStructureCreator extends Task {
       data, 
       format(
         getDefinitionProperty(MAIN_MODULE_SHARED_CONSTANT_PATH_TEMPLATE_PROPERTY, 
-            multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/main/shared/{2}Constant.java")),
+            multipleConcat(PREFIX_DESTINATION_JAVA_CODE, "/{3}/{0}/{1}/main/shared/{2}Constant.java")),
         application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), application.getName()
+        , application.getPackagePrefixAsPath().toLowerCase()
       )
     );
     
@@ -1021,6 +1064,7 @@ public class ApplicationStructureCreator extends Task {
       
       Map<String, Object> innerData = new HashMap<String, Object>();
       innerData.put(FORM_TEMPLATE_PARAMETER, moduleInfo);
+      innerData.put(PACKAGE_PREFIX_TEMPLATE_PARAMETER, data.get(PACKAGE_PREFIX_TEMPLATE_PARAMETER));
       innerData.put(PACKAGE_NAME_TEMPLATE_PARAMETER, data.get(PACKAGE_NAME_TEMPLATE_PARAMETER));
       innerData.put(MODULE_NAME_TEMPLATE_PARAMETER, data.get(MODULE_NAME_TEMPLATE_PARAMETER));
       
@@ -1030,8 +1074,9 @@ public class ApplicationStructureCreator extends Task {
         innerData, 
         format(
           getDefinitionProperty(CLIENT_MODULE_SHARED_CONSTANT_PATH_TEMPLATE_PROPERTY, 
-              multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/shared/{3}Constant.java")),
+              multipleConcat(PREFIX_DESTINATION_JAVA_CODE, "/{4}/{0}/{1}/{2}/shared/{3}Constant.java")),
           application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName.toLowerCase(), formName
+          , application.getPackagePrefixAsPath().toLowerCase()
         )
       );
     }
@@ -1059,22 +1104,25 @@ public class ApplicationStructureCreator extends Task {
         makeDir(
           format(
             getDefinitionProperty(CLIENT_MODULE_TOOLBAR_DIRECTORY_PROPERTY, 
-                multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "{0}/{1}/{2}/client/ui/toolbar/{3}")),
+                multipleConcat(PREFIX_DESTINATION_JAVA_CODE, "/{4}/{0}/{1}/{2}/client/ui/toolbar/{3}")),
             application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName, (hasCustomButtons ? "/images" : "")
+            , application.getPackagePrefixAsPath().toLowerCase()
           )
         );
         if (hasCustomButtons) {
           makeDir(
             format(
               getDefinitionProperty(CLIENT_MODULE_EVENTBUS_DIRECTORY_PROPERTY, 
-                  multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "{0}/{1}/{2}/client/ui/eventbus/event")),
+                  multipleConcat(PREFIX_DESTINATION_JAVA_CODE, "/{3}/{0}/{1}/{2}/client/ui/eventbus/event")),
               application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName
+              , application.getPackagePrefixAsPath().toLowerCase()
             )
           );
         }
         
         Map<String, Object> innerData = new HashMap<String, Object>();
         innerData.put(FORM_TEMPLATE_PARAMETER, moduleInfo);
+        innerData.put(PACKAGE_PREFIX_TEMPLATE_PARAMETER, data.get(PACKAGE_PREFIX_TEMPLATE_PARAMETER));
         innerData.put(PACKAGE_NAME_TEMPLATE_PARAMETER, data.get(PACKAGE_NAME_TEMPLATE_PARAMETER));
         innerData.put(MODULE_NAME_TEMPLATE_PARAMETER, data.get(MODULE_NAME_TEMPLATE_PARAMETER));
         
@@ -1084,8 +1132,9 @@ public class ApplicationStructureCreator extends Task {
             innerData, 
             format(
               getDefinitionProperty(CLIENT_MODULE_TOOLBAR_VIEW_PATH_TEMPLATE_PROPERTY, 
-                  multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/client/ui/toolbar/{3}ToolBarView.java")),
+                  multipleConcat(PREFIX_DESTINATION_JAVA_CODE, "/{4}/{0}/{1}/{2}/client/ui/toolbar/{3}ToolBarView.java")),
               application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName.toLowerCase(), formName
+              , application.getPackagePrefixAsPath().toLowerCase()
             )
           );
           
@@ -1094,8 +1143,9 @@ public class ApplicationStructureCreator extends Task {
             innerData, 
             format(
               getDefinitionProperty(CLIENT_MODULE_TOOLBAR_VIEW_IMPL_PATH_TEMPLATE_PROPERTY, 
-                  multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/client/ui/toolbar/{3}ToolBarViewImpl.java")),
+                  multipleConcat(PREFIX_DESTINATION_JAVA_CODE, "/{4}/{0}/{1}/{2}/client/ui/toolbar/{3}ToolBarViewImpl.java")),
               application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName.toLowerCase(), formName
+              , application.getPackagePrefixAsPath().toLowerCase()
             )
           );
         }
@@ -1105,8 +1155,9 @@ public class ApplicationStructureCreator extends Task {
             innerData, 
             format(
               getDefinitionProperty(CLIENT_MODULE_TOOLBAR_PRESENTER_PATH_TEMPLATE_PROPERTY, 
-                  multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/client/ui/toolbar/{3}ToolBarPresenter.java")),
+                  multipleConcat(PREFIX_DESTINATION_JAVA_CODE, "/{4}/{0}/{1}/{2}/client/ui/toolbar/{3}ToolBarPresenter.java")),
               application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName.toLowerCase(), formName
+              , application.getPackagePrefixAsPath().toLowerCase()
             )
           );
         }
@@ -1117,8 +1168,9 @@ public class ApplicationStructureCreator extends Task {
             innerData, 
             format(
               getDefinitionProperty(CLIENT_MODULE_IMAGES_PATH_TEMPLATE_PROPERTY, 
-                  multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/client/ui/toolbar/images/{3}Images.java")),
+                  multipleConcat(PREFIX_DESTINATION_JAVA_CODE, "/{4}/{0}/{1}/{2}/client/ui/toolbar/images/{3}Images.java")),
               application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName.toLowerCase(), formName
+              , application.getPackagePrefixAsPath().toLowerCase()
             )
           );
           convertTemplateToFile(
@@ -1126,8 +1178,9 @@ public class ApplicationStructureCreator extends Task {
             innerData, 
             format(
               getDefinitionProperty(CLIENT_MODULE_EVENTBUS_PATH_TEMPLATE_PROPERTY, 
-                  multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/client/ui/eventbus/{3}EventBus.java")),
+                  multipleConcat(PREFIX_DESTINATION_JAVA_CODE, "/{4}/{0}/{1}/{2}/client/ui/eventbus/{3}EventBus.java")),
               application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName.toLowerCase(), formName
+              , application.getPackagePrefixAsPath().toLowerCase()
             )
           );
           for (ModuleButton button : toolBarCustomButtons) {
@@ -1137,8 +1190,9 @@ public class ApplicationStructureCreator extends Task {
               innerData, 
               format(
                 getDefinitionProperty(CLIENT_MODULE_EVENT_PATH_TEMPLATE_PROPERTY, 
-                    multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/client/ui/eventbus/event/{3}Event.java")),
+                    multipleConcat(PREFIX_DESTINATION_JAVA_CODE, "/{4}/{0}/{1}/{2}/client/ui/eventbus/event/{3}Event.java")),
                 application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName.toLowerCase(), button.getCustomEvent()
+                , application.getPackagePrefixAsPath().toLowerCase()
               )
             );
           }
@@ -1161,13 +1215,15 @@ public class ApplicationStructureCreator extends Task {
       makeDir(
         format(
           getDefinitionProperty(CLIENT_MODULE_STATUSBAR_DIRECTORY_PROPERTY, 
-              multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "{0}/{1}/{2}/client/ui/statusbar")),
+              multipleConcat(PREFIX_DESTINATION_JAVA_CODE, "/{3}/{0}/{1}/{2}/client/ui/statusbar")),
           application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName
+          , application.getPackagePrefixAsPath().toLowerCase()
         )
       );
       
       Map<String, Object> innerData = new HashMap<String, Object>();
       innerData.put(FORM_TEMPLATE_PARAMETER, moduleInfo);
+      innerData.put(PACKAGE_PREFIX_TEMPLATE_PARAMETER, data.get(PACKAGE_PREFIX_TEMPLATE_PARAMETER));
       innerData.put(PACKAGE_NAME_TEMPLATE_PARAMETER, data.get(PACKAGE_NAME_TEMPLATE_PARAMETER));
       innerData.put(MODULE_NAME_TEMPLATE_PARAMETER, data.get(MODULE_NAME_TEMPLATE_PARAMETER));
       
@@ -1176,8 +1232,9 @@ public class ApplicationStructureCreator extends Task {
         innerData, 
         format(
           getDefinitionProperty(CLIENT_MODULE_STATUSBAR_PATH_TEMPLATE_PROPERTY, 
-              multipleConcat(PREFIX_DESTINATION_SOURCE_CODE, "/{0}/{1}/{2}/client/ui/statusbar/{3}StatusBarViewImpl.java")),
+              multipleConcat(PREFIX_DESTINATION_JAVA_CODE, "/{4}/{0}/{1}/{2}/client/ui/statusbar/{3}StatusBarViewImpl.java")),
           application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName.toLowerCase(), formName
+          , application.getPackagePrefixAsPath().toLowerCase()
         )
       );
     }
@@ -1193,7 +1250,9 @@ public class ApplicationStructureCreator extends Task {
         getDefinitionProperty(LOG4J_PROPERTIES_SOURCE_PATH_TEMPLATE_PROPERTY, "/templates/config/{0}/src/java/log4j.properties"),
         DEBUG_BUILD_CONFIG_NAME
       ), UTF_8);
-    log4jDebugTemplateContent = replacePackageModuleNames(log4jDebugTemplateContent, application.getProjectPackage(), application.getName());
+    log4jDebugTemplateContent = replacePackageModuleNames(log4jDebugTemplateContent,
+        application.getPackagePrefix(),
+        application.getProjectPackage(), application.getName());
     writeToFile(log4jDebugTemplateContent, 
         getDefinitionProperty(LOG4J_PROPERTIES_CODE_DESTINATION_PATH_TEMPLATE_PROPERTY, "src/java/log4j.properties")
         , UTF_8, false);
@@ -1209,7 +1268,9 @@ public class ApplicationStructureCreator extends Task {
         getDefinitionProperty(LOG4J_PROPERTIES_SOURCE_PATH_TEMPLATE_PROPERTY, "/templates/config/{0}/src/java/log4j.properties"),
         PRODUCTION_BUILD_CONFIG_NAME
       ), UTF_8);
-    log4jReleaseTemplateContent = replacePackageModuleNames(log4jReleaseTemplateContent, application.getProjectPackage(), application.getName());
+    log4jReleaseTemplateContent = replacePackageModuleNames(log4jReleaseTemplateContent,
+        application.getPackagePrefix(),
+        application.getProjectPackage(), application.getName());
     writeToFile(log4jReleaseTemplateContent, 
       format(
         getDefinitionProperty(LOG4J_PROPERTIES_DESTINATION_PATH_TEMPLATE_PROPERTY, "config/{0}/src/java/log4j.properties"),

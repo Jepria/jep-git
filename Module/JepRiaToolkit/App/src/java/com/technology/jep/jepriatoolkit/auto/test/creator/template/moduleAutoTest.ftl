@@ -1,11 +1,11 @@
-package com.technology.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.auto;
+package ${packagePrefix?lower_case}.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.auto;
  
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.*;
 
 import org.apache.log4j.Logger;
 import org.testng.annotations.Test;
 
-import com.technology.${packageName?lower_case}.${moduleName?lower_case}.auto.${moduleName}AutoTest;
+import ${packagePrefix?lower_case}.${packageName?lower_case}.${moduleName?lower_case}.auto.${moduleName}AutoTest;
 
 /**
  * Тесты модуля ${form.formName}.

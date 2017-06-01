@@ -6,9 +6,9 @@
   <inherits name="com.technology.jep.jepria.JepRia"/>
   <inherits name="com.sensei.themes.mytheme.Mytheme"/>
   <#list forms as form>
-  <inherits name="com.technology.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.${form.formName}" />
+  <inherits name="${packagePrefix?lower_case}.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.${form.formName}" />
   </#list>
-  <entry-point class="com.technology.${packageName?lower_case}.${moduleName?lower_case}.main.client.entrance.${moduleName}EntryPoint" />
+  <entry-point class="${packagePrefix?lower_case}.${packageName?lower_case}.${moduleName?lower_case}.main.client.entrance.${moduleName}EntryPoint" />
   
   <!-- Нужно исключительно только для сервера Jetty используемого при автоматизированном Gwt-тестировани. -->
   <!-- Jetty берет определение сервлетов и путей именно здесь, а не из web.xml как обычный сервер. -->

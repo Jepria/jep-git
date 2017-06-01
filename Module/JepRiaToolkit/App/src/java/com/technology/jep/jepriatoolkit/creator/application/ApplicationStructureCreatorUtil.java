@@ -155,6 +155,7 @@ public class ApplicationStructureCreatorUtil {
     Application application = applicationParser.getApplication();
     List<String> forms = applicationParser.getForms();
     resultData.put(MODULE_NAME_TEMPLATE_PARAMETER, application.getName());
+    resultData.put(PACKAGE_PREFIX_TEMPLATE_PARAMETER, application.getPackagePrefix());
     resultData.put(PACKAGE_NAME_TEMPLATE_PARAMETER, application.getProjectPackage());
     resultData.put(SECURITY_ROLES_TEMPLATE_PARAMETER, applicationParser.getRoles());
     List<ModuleInfo> mods = new ArrayList<ModuleInfo>(forms.size());
@@ -244,6 +245,7 @@ public class ApplicationStructureCreatorUtil {
     Map<String, Object> formData = new HashMap<String, Object>();
     formData.put(FORM_TEMPLATE_PARAMETER, moduleInfo);
     if(allDataForTemplates != null) {
+      formData.put(PACKAGE_PREFIX_TEMPLATE_PARAMETER, allDataForTemplates.get(PACKAGE_PREFIX_TEMPLATE_PARAMETER));
       formData.put(PACKAGE_NAME_TEMPLATE_PARAMETER, allDataForTemplates.get(PACKAGE_NAME_TEMPLATE_PARAMETER));
       formData.put(MODULE_NAME_TEMPLATE_PARAMETER, allDataForTemplates.get(MODULE_NAME_TEMPLATE_PARAMETER));
     }

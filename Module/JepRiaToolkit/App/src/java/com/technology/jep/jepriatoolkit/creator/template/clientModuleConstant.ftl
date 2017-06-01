@@ -1,10 +1,10 @@
-package com.technology.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.client;
+package ${packagePrefix?lower_case}.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.client;
 
-import static com.technology.${packageName?lower_case}.${moduleName?lower_case}.main.client.${moduleName}ClientConstant.*; 
+import static ${packagePrefix?lower_case}.${packageName?lower_case}.${moduleName?lower_case}.main.client.${moduleName}ClientConstant.*; 
  
 import com.google.gwt.core.client.GWT;
-import com.technology.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.shared.${form.formName}Constant;
-import com.technology.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.shared.text.${form.formName}Text;
+import ${packagePrefix?lower_case}.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.shared.${form.formName}Constant;
+import ${packagePrefix?lower_case}.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.shared.text.${form.formName}Text;
  
 public class ${form.formName}ClientConstant extends ${form.formName}Constant {
  

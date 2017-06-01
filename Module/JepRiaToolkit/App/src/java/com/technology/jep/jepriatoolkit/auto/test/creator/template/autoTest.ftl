@@ -1,15 +1,15 @@
-package com.technology.${packageName?lower_case}.${moduleName?lower_case}.auto;
+package ${packagePrefix?lower_case}.${packageName?lower_case}.${moduleName?lower_case}.auto;
 
-import static com.technology.jep.jepria.client.ui.WorkstateEnum.SEARCH;
-import static com.technology.${packageName?lower_case}.${moduleName?lower_case}.main.client.${moduleName}ClientConstant.*;
-import static com.technology.${packageName?lower_case}.${moduleName?lower_case}.auto.${moduleName}AutoTestConstant.*;
+import static ${packagePrefix?lower_case}.jep.jepria.client.ui.WorkstateEnum.SEARCH;
+import static ${packagePrefix?lower_case}.${packageName?lower_case}.${moduleName?lower_case}.main.client.${moduleName}ClientConstant.*;
+import static ${packagePrefix?lower_case}.${packageName?lower_case}.${moduleName?lower_case}.auto.${moduleName}AutoTestConstant.*;
 
 import org.apache.log4j.Logger;
 
 import com.technology.jep.jepria.auto.model.module.ModuleDescription;
 import com.technology.jep.jepria.auto.test.JepRiaApplicationAutoTest;
 <#list forms as form>
-import com.technology.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.auto.${form.formName}Auto;
+import ${packagePrefix?lower_case}.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.auto.${form.formName}Auto;
 </#list>
 
 /**

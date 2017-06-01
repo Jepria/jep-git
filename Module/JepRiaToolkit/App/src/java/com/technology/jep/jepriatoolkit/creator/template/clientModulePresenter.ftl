@@ -1,9 +1,9 @@
-package com.technology.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.client.ui.plain;
+package ${packagePrefix?lower_case}.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.client.ui.plain;
 
 import com.google.gwt.place.shared.Place;
 
-import com.technology.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.client.ui.eventbus.${form.formName}EventBus;
-import com.technology.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.shared.service.${form.formName}ServiceAsync;
+import ${packagePrefix?lower_case}.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.client.ui.eventbus.${form.formName}EventBus;
+import ${packagePrefix?lower_case}.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.shared.service.${form.formName}ServiceAsync;
 import com.technology.jep.jepria.client.ui.plain.StandardClientFactory;
 import com.technology.jep.jepria.client.ui.plain.StandardModulePresenter;
 import com.technology.jep.jepria.client.ui.plain.StandardModuleView;
@@ -12,7 +12,7 @@ import com.technology.jep.jepria.client.ui.plain.StandardModuleView;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.gwt.event.shared.EventBus;
 <#list form.toolBarCustomButtonsOnBothForms as button>
-import com.technology.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.client.ui.eventbus.event.${button.customEvent}Event;
+import ${packagePrefix?lower_case}.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.client.ui.eventbus.event.${button.customEvent}Event;
 </#list>
 </#if>
 
