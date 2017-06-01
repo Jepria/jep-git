@@ -19,7 +19,7 @@
  
   <test name="${form.formName}AutoTest">
     <classes>
-      <class name="com.technology.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.auto.${form.formName}AutoTest" >  
+      <class name="${packagePrefix?lower_case}.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.auto.${form.formName}AutoTest" >  
         <methods>
           <include name="test" />
         </methods>

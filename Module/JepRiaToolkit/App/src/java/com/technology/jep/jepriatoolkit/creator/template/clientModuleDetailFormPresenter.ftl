@@ -1,11 +1,11 @@
-package com.technology.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.client.ui.form.detail;
+package ${packagePrefix?lower_case}.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.client.ui.form.detail;
  
-import static com.technology.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.shared.field.${form.formName}FieldNames.*;
+import static ${packagePrefix?lower_case}.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.shared.field.${form.formName}FieldNames.*;
 <#if !form.isDependent>
 import static com.technology.jep.jepria.shared.field.JepFieldNames.MAX_ROW_COUNT;
 </#if>
 <#if form.isMain>
-import static com.technology.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.client.${form.formName}ClientConstant.*;
+import static ${packagePrefix?lower_case}.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.client.${form.formName}ClientConstant.*;
 </#if>
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.*;
 <#assign hasCustomButtons = (form.toolBarCustomButtonsOnDetailForm?size != 0)>
@@ -17,7 +17,7 @@ import com.google.gwt.place.shared.Place;
  
 import com.technology.jep.jepria.client.ui.plain.StandardClientFactory;
 <#if hasCustomButtons>
-import com.technology.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.client.ui.eventbus.${form.formName}EventBus;
+import ${packagePrefix?lower_case}.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.client.ui.eventbus.${form.formName}EventBus;
 <#else>
 import com.technology.jep.jepria.client.ui.eventbus.plain.PlainEventBus;
 </#if>
@@ -32,9 +32,9 @@ import com.technology.jep.jepria.client.widget.event.JepEventType;
 import java.util.List;
 import com.technology.jep.jepria.shared.field.option.JepOption;
 </#if>
-import com.technology.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.shared.service.${form.formName}ServiceAsync;
+import ${packagePrefix?lower_case}.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.shared.service.${form.formName}ServiceAsync;
 <#list form.toolBarCustomButtonsOnDetailForm as button>
-import com.technology.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.client.ui.eventbus.event.${button.customEvent}Event;
+import ${packagePrefix?lower_case}.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.client.ui.eventbus.event.${button.customEvent}Event;
 </#list>
 
 public class ${form.formName}DetailFormPresenter<E extends <#if hasCustomButtons>${form.formName}<#else>Plain</#if>EventBus, S extends ${form.formName}ServiceAsync> 

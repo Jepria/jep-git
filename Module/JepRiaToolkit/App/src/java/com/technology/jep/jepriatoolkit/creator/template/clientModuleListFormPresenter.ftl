@@ -1,4 +1,4 @@
-package com.technology.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.client.ui.form.list;
+package ${packagePrefix?lower_case}.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.client.ui.form.list;
  
 import com.google.gwt.place.shared.Place;
 
@@ -6,7 +6,7 @@ import com.google.gwt.place.shared.Place;
 <#if hasCustomButtons>
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.gwt.event.shared.EventBus;
-import com.technology.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.client.ui.eventbus.${form.formName}EventBus;
+import ${packagePrefix?lower_case}.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.client.ui.eventbus.${form.formName}EventBus;
 <#else>
 import com.technology.jep.jepria.client.ui.eventbus.plain.PlainEventBus;
 </#if>
@@ -14,11 +14,11 @@ import com.technology.jep.jepria.client.ui.eventbus.plain.PlainEventBus;
 import com.technology.jep.jepria.client.widget.event.JepEvent; 
 </#if>
 import com.technology.jep.jepria.client.ui.plain.StandardClientFactory;
-import com.technology.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.shared.service.${form.formName}ServiceAsync;
+import ${packagePrefix?lower_case}.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.shared.service.${form.formName}ServiceAsync;
 import com.technology.jep.jepria.client.ui.form.list.ListFormPresenter;
 import com.technology.jep.jepria.client.ui.form.list.ListFormView;
 <#list form.toolBarCustomButtonsOnListForm as button>
-import com.technology.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.client.ui.eventbus.event.${button.customEvent}Event;
+import ${packagePrefix?lower_case}.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.client.ui.eventbus.event.${button.customEvent}Event;
 </#list>
 
 public class ${form.formName}ListFormPresenter<E extends <#if hasCustomButtons>${form.formName}<#else>Plain</#if>EventBus, S extends ${form.formName}ServiceAsync> 

@@ -1,12 +1,12 @@
-package com.technology.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.server.dao;
+package ${packagePrefix?lower_case}.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.server.dao;
  
-import static com.technology.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.shared.field.${form.formName}FieldNames.*;
+import static ${packagePrefix?lower_case}.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.shared.field.${form.formName}FieldNames.*;
 
 import com.technology.jep.jepria.server.dao.JepDao;
 import com.technology.jep.jepria.shared.exceptions.ApplicationException;
 import com.technology.jep.jepria.shared.record.JepRecord;
 import com.technology.jep.jepria.shared.util.Mutable;
-import com.technology.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.server.dao.${form.formName};
+import ${packagePrefix?lower_case}.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.server.dao.${form.formName};
 import com.technology.jep.jepria.server.dao.ResultSetMapper;
 <#if form.hasOptionField>
 import com.technology.jep.jepria.shared.field.option.JepOption;
@@ -19,7 +19,7 @@ import com.technology.jep.jepria.shared.field.option.JepOption;
 </#list>
 <#list form.fields as field><#t>
 <#if field.isOptionField>
-import com.technology.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.shared.field.${field.fieldIdAsParameter}Options;
+import ${packagePrefix?lower_case}.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.shared.field.${field.fieldIdAsParameter}Options;
 </#if>
 <#if !hasBooleanType && field.isBooleanType>
 <#assign hasBooleanType=true>

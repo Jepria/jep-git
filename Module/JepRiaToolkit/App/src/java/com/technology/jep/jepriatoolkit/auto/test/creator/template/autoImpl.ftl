@@ -1,9 +1,9 @@
-package com.technology.${packageName?lower_case}.${moduleName?lower_case}.auto;
+package ${packagePrefix?lower_case}.${packageName?lower_case}.${moduleName?lower_case}.auto;
 
 import com.technology.jep.jepria.auto.application.JepRiaApplicationAuto;
 <#list forms as form>
-import com.technology.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.auto.${form.formName}Auto;
-import com.technology.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.auto.${form.formName}AutoImpl;
+import ${packagePrefix?lower_case}.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.auto.${form.formName}Auto;
+import ${packagePrefix?lower_case}.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.auto.${form.formName}AutoImpl;
 </#list>
 
 public class ${moduleName}AutoImpl extends JepRiaApplicationAuto implements ${moduleName}Auto {

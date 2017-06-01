@@ -1,6 +1,6 @@
-package com.technology.${packageName?lower_case}.${moduleName?lower_case}.main.client;
+package ${packagePrefix?lower_case}.${packageName?lower_case}.${moduleName?lower_case}.main.client;
  
-import static com.technology.${packageName?lower_case}.${moduleName?lower_case}.main.client.${moduleName}ClientConstant.*;
+import static ${packagePrefix?lower_case}.${packageName?lower_case}.${moduleName?lower_case}.main.client.${moduleName}ClientConstant.*;
  
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.activity.shared.Activity;
@@ -8,9 +8,9 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.place.shared.Place;
 
 <#list forms as form>
-import com.technology.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.client.${form.formName}ClientFactoryImpl;
+import ${packagePrefix?lower_case}.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.client.${form.formName}ClientFactoryImpl;
 </#list>
-import com.technology.${packageName?lower_case}.${moduleName?lower_case}.main.client.ui.main.${moduleName}MainModulePresenter;
+import ${packagePrefix?lower_case}.${packageName?lower_case}.${moduleName?lower_case}.main.client.ui.main.${moduleName}MainModulePresenter;
 
 import com.technology.jep.jepria.client.ModuleItem;
 import com.technology.jep.jepria.client.ui.main.MainView;

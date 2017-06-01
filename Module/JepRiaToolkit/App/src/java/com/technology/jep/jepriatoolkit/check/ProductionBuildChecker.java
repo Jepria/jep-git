@@ -1,9 +1,19 @@
 package com.technology.jep.jepriatoolkit.check;
 
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.*;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.EXTEND_PROPERTY_MAIN_GWT_XML_TAG_NAME;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.INHERITS_MAIN_GWT_XML_TAG_NAME;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.LOG4J_LOGGER_PREFIX;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.NAME_ATTRIBUTE;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.PREFIX_DESTINATION_JAVA_CODE;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.PRODUCTION_BUILD_CHECKER_ERROR;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.PRODUCTION_BUILD_CONFIG_NAME;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.SET_PROPERTY_FALLBACK_MAIN_GWT_XML_TAG_NAME;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.SET_PROPERTY_MAIN_GWT_XML_TAG_NAME;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.VALUES_ATTRIBUTE;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.VALUE_ATTRIBUTE;
 import static org.w3c.dom.Node.ELEMENT_NODE;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
@@ -19,14 +29,13 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import com.technology.jep.jepriatoolkit.JepRiaToolkitConstant;
 import com.technology.jep.jepriatoolkit.switcher.BuildConfigSwitcher;
 import com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil;
 
 public class ProductionBuildChecker extends Task {
   
   //атрибуты таска
-  private String packageName, moduleName;
+  private String packageName, moduleName, packagePrefixAsPath;
   //выходной атрибут, куда помещается результат выполненных проверок
   private String property = "";
 
@@ -50,8 +59,14 @@ public class ProductionBuildChecker extends Task {
    * @return  флаг продукционности текущей сборки
    */
   public boolean isProductionBuild(){
+    if (packagePrefixAsPath == null) {
+      packagePrefixAsPath = PACKAGE_PREFIX_AS_PATH_DEFAULT;
+      JepRiaToolkitUtil.echoMessage(
+          JepRiaToolkitUtil.multipleConcat(WARNING_PREFIX, "The '", packagePrefixAsPath, "' attribute was not specified when calling ant, will set default: ", packagePrefixAsPath));
+    }
+    
     ph = PropertyHelper.getPropertyHelper(getProject());
-    String mainGwtXml = JepRiaToolkitUtil.multipleConcat(PREFIX_DESTINATION_SOURCE_CODE , packageName.toLowerCase() , "/" , moduleName.toLowerCase() , "/main/" , moduleName , ".gwt.xml");
+    String mainGwtXml = JepRiaToolkitUtil.multipleConcat(PREFIX_DESTINATION_JAVA_CODE, "/", packagePrefixAsPath.toLowerCase(), "/", packageName.toLowerCase() , "/" , moduleName.toLowerCase() , "/main/" , moduleName , ".gwt.xml");
     try {
       //--проверка <Application>.gwt.xml
       Document mainGwtXmlDocument = JepRiaToolkitUtil.getDOM(mainGwtXml);
@@ -185,6 +200,10 @@ public class ProductionBuildChecker extends Task {
       ph.setProperty(property, false, true);
     }
     return false;
+  }
+  
+  public void setPackagePrefixAsPath(String packagePrefixAsPath) {
+    this.packagePrefixAsPath = packagePrefixAsPath;
   }
   
   public void setPackageName(String packageName) {

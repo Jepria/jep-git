@@ -887,12 +887,14 @@ public final class JepRiaToolkitUtil {
     return base.contains(fragment) ? "" : fragment;
   }
   
-  public static String replacePackageModuleNames(String source, String packageName, String moduleName) {
+  public static String replacePackageModuleNames(String source, String packagePrefix, String packageName, String moduleName) {
     source = source.replaceAll("<%PackageName%>", packageName);
     source = source.replaceAll("<%packagename%>", packageName.toLowerCase());
     
     source = source.replaceAll("<%ModuleName%>", moduleName);
     source = source.replaceAll("<%modulename%>", moduleName.toLowerCase());
+    
+    source = source.replaceAll("<%packageprefix%>", packagePrefix.toLowerCase());
     
     return source;
   }
@@ -1299,5 +1301,14 @@ public final class JepRiaToolkitUtil {
    */
   public static void antClean() {
     runAntTarget(CLEAN_TASK_TARGET);
+  }
+  
+  /**
+   * Преобразует строку вида 'com.technology' в 'com/technology'
+   * @param packagePrefix
+   * @return
+   */
+  public static String packagePrefixToPath(String packagePrefix) {
+    return packagePrefix.replaceAll("\\.", "/");//TODO make more strict
   }
 }

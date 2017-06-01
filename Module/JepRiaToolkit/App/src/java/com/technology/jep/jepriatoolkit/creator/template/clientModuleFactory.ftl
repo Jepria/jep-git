@@ -1,6 +1,6 @@
-package com.technology.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.client;
+package ${packagePrefix?lower_case}.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.client;
  
-import static com.technology.${packageName?lower_case}.${moduleName?lower_case}.main.client.${moduleName}ClientConstant.*;
+import static ${packagePrefix?lower_case}.${packageName?lower_case}.${moduleName?lower_case}.main.client.${moduleName}ClientConstant.*;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.user.client.ui.IsWidget;
@@ -9,10 +9,10 @@ import com.technology.jep.jepria.client.ui.eventbus.plain.PlainEventBus;
 import com.technology.jep.jepria.shared.service.data.JepDataServiceAsync;
 <#assign hasCustomButtons = (form.toolBarCustomButtons?size != 0)>
 <#if hasCustomButtons>
-import com.technology.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.client.ui.eventbus.${form.formName}EventBus;
+import ${packagePrefix?lower_case}.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.client.ui.eventbus.${form.formName}EventBus;
 </#if>
 <#if form.toolBarCustomButtonsOnBothForms?size != 0>
-import com.technology.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.client.ui.plain.${form.formName}ModulePresenter;
+import ${packagePrefix?lower_case}.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.client.ui.plain.${form.formName}ModulePresenter;
 <#else>
 import com.technology.jep.jepria.client.ui.plain.StandardModulePresenter;
 </#if>
@@ -22,27 +22,27 @@ import com.technology.jep.jepria.client.ui.plain.PlainClientFactoryImpl;
 <#if form.isJepToolBarPresenter>
 import com.technology.jep.jepria.client.ui.toolbar.ToolBarPresenter;
 <#else>
-import com.technology.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.client.ui.toolbar.${form.formName}ToolBarPresenter;
+import ${packagePrefix?lower_case}.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.client.ui.toolbar.${form.formName}ToolBarPresenter;
 </#if>
 <#if form.isJepToolBarView>
 import com.technology.jep.jepria.client.ui.toolbar.ToolBarViewImpl;
 <#else>
-import com.technology.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.client.ui.toolbar.${form.formName}ToolBarViewImpl;
+import ${packagePrefix?lower_case}.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.client.ui.toolbar.${form.formName}ToolBarViewImpl;
 </#if>
 <#if form.isStatusBarOff>
-import com.technology.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.client.ui.statusbar.${form.formName}StatusBarViewImpl;
+import ${packagePrefix?lower_case}.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.client.ui.statusbar.${form.formName}StatusBarViewImpl;
 </#if>
-import com.technology.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.client.ui.form.detail.${form.formName}DetailFormPresenter;
-import com.technology.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.client.ui.form.detail.${form.formName}DetailFormViewImpl;
-import com.technology.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.client.ui.form.list.${form.formName}ListFormViewImpl;
+import ${packagePrefix?lower_case}.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.client.ui.form.detail.${form.formName}DetailFormPresenter;
+import ${packagePrefix?lower_case}.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.client.ui.form.detail.${form.formName}DetailFormViewImpl;
+import ${packagePrefix?lower_case}.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.client.ui.form.list.${form.formName}ListFormViewImpl;
 <#if form.hasCustomListFormPresenter>
-import com.technology.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.client.ui.form.list.${form.formName}ListFormPresenter;
+import ${packagePrefix?lower_case}.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.client.ui.form.list.${form.formName}ListFormPresenter;
 <#else>
 import com.technology.jep.jepria.client.ui.form.list.ListFormPresenter;
 </#if>
-import com.technology.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.shared.service.${form.formName}Service;
-import com.technology.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.shared.service.${form.formName}ServiceAsync;
-import com.technology.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.shared.record.${form.formName}RecordDefinition;
+import ${packagePrefix?lower_case}.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.shared.service.${form.formName}Service;
+import ${packagePrefix?lower_case}.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.shared.service.${form.formName}ServiceAsync;
+import ${packagePrefix?lower_case}.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.shared.record.${form.formName}RecordDefinition;
  
 public class ${form.formName}ClientFactoryImpl<E extends <#if hasCustomButtons>${form.formName}<#else>Plain</#if>EventBus, S extends ${form.formName}ServiceAsync>
   extends com.technology.jep.jepria.client.ui.plain.StandardClientFactoryImpl<E, S> {

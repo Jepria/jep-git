@@ -1,6 +1,6 @@
-package com.technology.${packageName?lower_case}.${moduleName?lower_case}.main.client.ui.main;
+package ${packagePrefix?lower_case}.${packageName?lower_case}.${moduleName?lower_case}.main.client.ui.main;
  
-import static com.technology.${packageName?lower_case}.${moduleName?lower_case}.main.client.${moduleName}ClientConstant.*;
+import static ${packagePrefix?lower_case}.${packageName?lower_case}.${moduleName?lower_case}.main.client.${moduleName}ClientConstant.*;
 import static com.technology.jep.jepria.client.security.ClientSecurity.CHECK_ROLES_BY_OR;
  
 import com.technology.jep.jepria.client.ui.main.MainView;

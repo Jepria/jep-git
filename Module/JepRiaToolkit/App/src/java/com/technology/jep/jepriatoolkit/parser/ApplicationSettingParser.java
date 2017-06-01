@@ -1,6 +1,6 @@
 package com.technology.jep.jepriatoolkit.parser;
 
-import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.APPLICATION_DATASOURCE_ATTRIBUTE;
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.*;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.APPLICATION_NAME_ATTRIBUTE;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.APPLICATION_SETTING_FILE_ENDING;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.APPLICATION_TAG_NAME;
@@ -99,6 +99,15 @@ public class ApplicationSettingParser {
             "' of tag 'application'!"));
         return false;
       }
+      String packagePrefix = applicationNode.getAttribute(PACKAGE_PREFIX_ATTRIBUTE);
+      if (isEmpty(packagePrefix)) {
+        packagePrefix = PACKAGE_PREFIX_DEFAULT;
+        echoMessage(multipleConcat(INFO_PREFIX,
+            "There is no attribute '", PACKAGE_PREFIX_ATTRIBUTE,
+            "' of tag 'application', will set default: ", packagePrefix));
+      }
+      application.setPackagePrefix(packagePrefix);
+      
       String moduleName = applicationNode.getAttribute(APPLICATION_NAME_ATTRIBUTE);
       application.setName(moduleName);
       if (isEmpty(moduleName)) {

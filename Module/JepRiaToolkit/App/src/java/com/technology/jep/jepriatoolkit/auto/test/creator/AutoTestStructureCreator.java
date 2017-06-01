@@ -64,6 +64,11 @@ public class AutoTestStructureCreator extends Task {
   }
   
   /**
+   * Префикс пакета (например: com.technology).
+   */
+  private String packagePrefix;
+  
+  /**
    * Пакет проекта.
    */
   private String packageProject;
@@ -97,6 +102,7 @@ public class AutoTestStructureCreator extends Task {
       ApplicationSettingParser applicationParser = ApplicationSettingParser.getInstance(isEmptyOrNotInitializedParameter(applicationStructureFile) ? getApplicationDefinitionFile() : applicationStructureFile);
       
       application = applicationParser.getApplication();
+      packagePrefix = application.getPackagePrefix().toLowerCase();
       packageProject = application.getProjectPackage().toLowerCase();
       packageApplication = application.getName().toLowerCase();
       
@@ -109,7 +115,7 @@ public class AutoTestStructureCreator extends Task {
       //переопределяем путь
       ApplicationStructureCreatorUtil.setTemplatePath(AUTO_TEST_TEMPLATE_PATH);
       
-      echoMessage(multipleConcat("Create Test Structure for '", packageProject, DOT, packageApplication, "' module"));
+      echoMessage(multipleConcat("Create Test Structure for '", packagePrefix, DOT, packageProject, DOT, packageApplication, "' module"));
       createTestFileStructure();
       
       echoMessage("Create Java Classes of Auto");
@@ -142,9 +148,9 @@ public class AutoTestStructureCreator extends Task {
    */
   private void createTestFileStructure() {
 
-    makeDir(format(getAutoTestDefinitionProperty(AUTO_DIRECTORY_PROPERTY), packageProject, packageApplication));
+    makeDir(format(getAutoTestDefinitionProperty(AUTO_DIRECTORY_PROPERTY), packageProject, packageApplication, packagePrefix));
     
-    makeDir(format(getAutoTestDefinitionProperty(TEST_DIRECTORY_PROPERTY), packageProject, packageApplication));
+    makeDir(format(getAutoTestDefinitionProperty(TEST_DIRECTORY_PROPERTY), packageProject, packageApplication, packagePrefix));
 
     if (forms.size() == 0) {
       echoMessage(multipleConcat(WARNING_PREFIX, "Tag-parameter '", MODULE_TAG_NAME,
@@ -154,13 +160,13 @@ public class AutoTestStructureCreator extends Task {
       for (int i = 0; i < forms.size(); i++) {
         String formName = ((String) forms.get(i)).toLowerCase();
         makeDir(format(getAutoTestDefinitionProperty(AUTO_MODULE_DIRECTORY_PROPERTY),
-            packageProject, packageApplication, formName));
+            packageProject, packageApplication, formName, packagePrefix));
         
         makeDir(format(getAutoTestDefinitionProperty(TEST_MODULE_DIRECTORY_PROPERTY),
-            packageProject, packageApplication, formName));
+            packageProject, packageApplication, formName, packagePrefix));
         
         makeDir(format(getAutoTestDefinitionProperty(MODULE_AUTO_TEST_RESOURCES_DIRECTORY_PROPERTY),
-            packageProject, packageApplication, formName));
+            packageProject, packageApplication, formName, packagePrefix));
       }
     }
   }
@@ -173,7 +179,7 @@ public class AutoTestStructureCreator extends Task {
         getAutoTestDefinitionProperty(AUTO_TEST_CONSTANT_TEMPLATE_PROPERTY),
         getDataForTemplates(), 
         format(getAutoTestDefinitionProperty(AUTO_TEST_CONSTANT_PATH_TEMPLATE_PROPERTY),
-            packageProject, packageApplication, application.getName()));
+            packageProject, packageApplication, application.getName(), packagePrefix));
   }
 
   /**
@@ -195,12 +201,12 @@ public class AutoTestStructureCreator extends Task {
         getAutoTestDefinitionProperty(AUTO_TEMPLATE_PROPERTY),
         dataForTemplates,
         format(getAutoTestDefinitionProperty(AUTO_PATH_TEMPLATE_PROPERTY),
-            packageProject, packageApplication, application.getName()));
+            packageProject, packageApplication, application.getName(), packagePrefix));
     convertTemplateToFile(
         getAutoTestDefinitionProperty(AUTO_IMPL_TEMPLATE_PROPERTY),
         dataForTemplates,
         format(getAutoTestDefinitionProperty(AUTO_IMPL_PATH_TEMPLATE_PROPERTY),
-            packageProject, packageApplication, application.getName()));
+            packageProject, packageApplication, application.getName(), packagePrefix));
     
     Map<String, Object> allDataForTemplates = getDataForTemplates();
     List<ModuleInfo> moduleInfos = (List<ModuleInfo>) allDataForTemplates.get(FORMS_TEMPLATE_PARAMETER);
@@ -211,14 +217,14 @@ public class AutoTestStructureCreator extends Task {
           getAutoTestDefinitionProperty(MODULE_AUTO_TEMPLATE_PROPERTY),
           prepareFormData(moduleInfo, allDataForTemplates), 
           format(getAutoTestDefinitionProperty(MODULE_AUTO_PATH_TEMPLATE_PROPERTY),
-              packageProject, packageApplication, formName.toLowerCase(), formName),
+              packageProject, packageApplication, formName.toLowerCase(), formName, packagePrefix),
           isOverrideExistsFiles);
       
       convertTemplateToFile(
           getAutoTestDefinitionProperty(MODULE_AUTO_IMPL_TEMPLATE_PROPERTY),
           prepareFormData(moduleInfo, allDataForTemplates), 
           format(getAutoTestDefinitionProperty(MODULE_AUTO_IMPL_PATH_TEMPLATE_PROPERTY),
-              packageProject, packageApplication, formName.toLowerCase(), formName),
+              packageProject, packageApplication, formName.toLowerCase(), formName, packagePrefix),
           isOverrideExistsFiles);
     }
   }
@@ -232,7 +238,7 @@ public class AutoTestStructureCreator extends Task {
         getAutoTestDefinitionProperty(AUTO_TEST_TEMPLATE_PROPERTY),
         dataForTemplates,
         format(getAutoTestDefinitionProperty(AUTO_TEST_PATH_TEMPLATE_PROPERTY),
-            packageProject, packageApplication, application.getName()));
+            packageProject, packageApplication, application.getName(), packagePrefix));
     
     Map<String, Object> allDataForTemplates = getDataForTemplates();
     List<ModuleInfo> moduleInfos = (List<ModuleInfo>) allDataForTemplates.get(FORMS_TEMPLATE_PARAMETER);
@@ -243,7 +249,7 @@ public class AutoTestStructureCreator extends Task {
           getAutoTestDefinitionProperty(MODULE_AUTO_TEST_TEMPLATE_PROPERTY),
           prepareFormData(moduleInfo, allDataForTemplates), 
           format(getAutoTestDefinitionProperty(MODULE_AUTO_TEST_PATH_TEMPLATE_PROPERTY),
-              packageProject, packageApplication, formName.toLowerCase(), formName),
+              packageProject, packageApplication, formName.toLowerCase(), formName, packagePrefix),
               isOverrideExistsFiles);
     }
   }
@@ -269,7 +275,7 @@ public class AutoTestStructureCreator extends Task {
           getAutoTestDefinitionProperty(MODULE_AUTO_TEST_XML_TEMPLATE_PROPERTY),
           prepareFormData(moduleInfo, allDataForTemplates), 
           format(getAutoTestDefinitionProperty(MODULE_AUTO_TEST_XML_PATH_TEMPLATE_PROPERTY),
-              packageProject, packageApplication, formName.toLowerCase(), formName),
+              packageProject, packageApplication, formName.toLowerCase(), formName, packagePrefix),
           isOverrideExistsFiles);
     }
   }

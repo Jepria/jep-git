@@ -1,4 +1,4 @@
-package com.technology.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.server.dao;
+package ${packagePrefix?lower_case}.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.server.dao;
  
 import com.technology.jep.jepria.server.dao.JepDataStandard;
 <#if form.hasOptionField>

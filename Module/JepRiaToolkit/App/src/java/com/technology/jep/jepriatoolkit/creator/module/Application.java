@@ -17,9 +17,10 @@ import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 
 import com.technology.jep.jepriatoolkit.log.Logger;
+import com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil;
 
 // Указание атрибутов тэга происходит в обратном порядке, вложенных элементов/тэгов - в прямом.
-@XmlType(propOrder = {"modules", "projectPackage", "defaultDatasource", "name"})
+@XmlType(propOrder = {"modules", "projectPackage", "packagePrefix", "defaultDatasource", "name"})
 @XmlRootElement(name = APPLICATION_TAG_NAME)
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Application {
@@ -29,6 +30,9 @@ public class Application {
 
   @XmlAttribute
   private String defaultDatasource;
+  
+  @XmlAttribute(required=true)
+  private String packagePrefix;
   
   @XmlAttribute(required=true)
   private String projectPackage;
@@ -53,6 +57,15 @@ public class Application {
   }
   public void setDefaultDatasource(String defaultDatasource) {
     this.defaultDatasource = defaultDatasource;
+  }
+  public String getPackagePrefix() {
+    return packagePrefix;
+  }
+  public void setPackagePrefix(String packagePrefix) {
+    this.packagePrefix = packagePrefix;
+  }
+  public String getPackagePrefixAsPath() {
+    return JepRiaToolkitUtil.packagePrefixToPath(packagePrefix);
   }
   public String getProjectPackage() {
     return projectPackage;
