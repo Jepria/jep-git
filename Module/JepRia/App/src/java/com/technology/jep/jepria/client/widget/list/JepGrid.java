@@ -25,6 +25,8 @@ import com.google.gwt.dom.client.NativeEvent;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.dom.client.TableRowElement;
 import com.google.gwt.event.dom.client.DomEvent;
+import com.google.gwt.event.dom.client.DragEvent;
+import com.google.gwt.event.dom.client.DragHandler;
 import com.google.gwt.event.dom.client.DragLeaveEvent;
 import com.google.gwt.event.dom.client.DragLeaveHandler;
 import com.google.gwt.event.dom.client.DragOverEvent;
@@ -38,6 +40,7 @@ import com.google.gwt.safehtml.shared.SafeHtml;
 import com.google.gwt.user.cellview.client.DataGrid;
 import com.google.gwt.user.cellview.client.Header;
 import com.google.gwt.user.client.Cookies;
+import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.HeaderPanel;
 import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.view.client.CellPreviewEvent;
@@ -164,6 +167,16 @@ public class JepGrid<T> extends DataGrid<T> {
    * (важно значение "true" при Drag&Drop, иначе вместо перетаскиваний будет выделяться текст).
    */
   private boolean isTextSelectionDisabled = false;
+  
+  /**
+   * Флаг начала события DragStart
+   */
+  private boolean isDragStarted = false;
+  
+  /**
+   * Таймер обрабатывающий скроллинг
+   */
+  private Timer scrollTimer = null;
   
   protected static String RESIZABLE_HEADER_LABEL_STYLE = "jepRia-ResizableHeader-Label";
   
@@ -647,6 +660,31 @@ public class JepGrid<T> extends DataGrid<T> {
   }
   
   /**
+   * Определяет находится наверху или внизу таблицы
+   *
+   * @param event  событие перетаскивания
+   * @return флаг нахождения курсора в верхней части таблицы
+   */
+  private boolean isCursorOnTableTop(int currentClientY){
+    Element tableElement = this.contentWidget.getElement();
+    int top = tableElement.getAbsoluteTop();
+    int height = tableElement.getOffsetHeight();
+    return currentClientY - top > 0 && currentClientY - top < height * 0.05; 
+  }
+  
+  /**
+   * Определяет находится наверху или внизу таблицы
+   *
+   * @param event  событие перетаскивания
+   * @return флаг нахождения курсора в верхней части таблицы
+   */
+  private boolean isCursorOnTableBottom(int currentClientY){
+    Element tableElement = this.contentWidget.getElement();
+    int bottom = tableElement.getAbsoluteBottom(); 
+    int height = tableElement.getOffsetHeight();
+    return currentClientY > bottom - (height * 0.05);  
+  }
+  /**
    * {@inheritDoc}
    * Особенности:<br/>
    * После переинициализации новых данных, каждая строка таблицы данных становится доступной для перетаскивания.
@@ -765,12 +803,12 @@ public class JepGrid<T> extends DataGrid<T> {
         int rowIndex = getRowIndexByEvent(event);
         dataTransfer.setData(DND_DATA_PROPERTY, rowIndex + "");
         T selectedRow = getVisibleItems().get(rowIndex);
-        if (getSelectionModel().isSelected(selectedRow) == false) {
+        if (!getSelectionModel().isSelected(selectedRow)) {
           ((SetSelectionModel) getSelectionModel()).clear();
           getSelectionModel().setSelected(selectedRow, true);
         }
-        // optional: show copy of the image
         dataTransfer.setDragImage(getRowElement(event), 10, 10);
+        isDragStarted = true;
       }
     });
     
@@ -779,7 +817,7 @@ public class JepGrid<T> extends DataGrid<T> {
         public void onDragOver(DragOverEvent event) {
           TableRowElement rowElement = getRowElement(event);
           if (rowElement != null){
-          isCursorBetweenElements(rowElement, event.getNativeEvent());
+            isCursorBetweenElements(rowElement, event.getNativeEvent());
             if(isDraggedBefore) {
               rowElement.getStyle().setBackgroundImage(LINEAR_GRADIENT_FROM_TOP_TO_BOTTOM);
             }
@@ -789,11 +827,57 @@ public class JepGrid<T> extends DataGrid<T> {
             if(isDraggedOver){
               rowElement.getStyle().setBackgroundImage(LINEAR_GRADIENT_TRIPLE_COLOR);
             }
-            // строка должна оказаться в области видимости пользователя
-            contentWidget.ensureVisible(new ElementSimplePanel(rowElement));
           }
         }
     });
+    
+    contentWidget.addDomHandler(new DragHandler(){
+      @Override
+      public void onDrag(final DragEvent event) {
+        if (isDragStarted) {
+          final int currentClientY = event.getNativeEvent().getClientY();
+          if (isCursorOnTableTop(currentClientY) && (scrollTimer == null || !scrollTimer.isRunning())
+              && contentWidget.getVerticalScrollPosition() > contentWidget.getMinimumVerticalScrollPosition()) {
+            scrollTimer = new Timer() {
+              @Override
+              public void run() {
+                if (isCursorOnTableTop(currentClientY) 
+                    && contentWidget.getVerticalScrollPosition() > contentWidget.getMinimumVerticalScrollPosition()) {
+                  contentWidget.setVerticalScrollPosition(contentWidget.getVerticalScrollPosition() - 15);
+                  this.schedule(100);
+                } else {
+                  this.cancel();
+                }
+              }
+            };
+            scrollTimer.run();
+          } else {
+            if (isCursorOnTableBottom(currentClientY) 
+                && (scrollTimer == null || !scrollTimer.isRunning())
+                && contentWidget.getVerticalScrollPosition() < contentWidget.getMaximumVerticalScrollPosition()) {
+              scrollTimer = new Timer() {
+                @Override
+                public void run() {
+                  if (isCursorOnTableBottom(currentClientY)
+                      && contentWidget.getVerticalScrollPosition() < contentWidget.getMaximumVerticalScrollPosition()) {
+                    contentWidget.setVerticalScrollPosition(contentWidget.getVerticalScrollPosition() + 15);
+                    this.schedule(100);
+                  } else {
+                    this.cancel();
+                  }
+                }
+              };
+              scrollTimer.run();
+            } else {
+              if (!isCursorOnTableTop(currentClientY) && !isCursorOnTableBottom(currentClientY) && scrollTimer != null) {
+                scrollTimer.cancel();
+                scrollTimer = null;
+              }
+            }
+          }
+        }
+      }
+    }, DragEvent.getType());
     
     this.dragLeaveHandler = addDragLeaveHandler(new DragLeaveHandler() {
       @Override
@@ -810,39 +894,34 @@ public class JepGrid<T> extends DataGrid<T> {
      
     // add drop handler
     this.dropHandler = addDropHandler(new DropHandler() {
-      @Override
-      public void onDrop(final DropEvent event) {
-        // prevent the native text drop
-        event.preventDefault();
-        // index by default which corresponds an unmatched row
-        final int droppedIndexRow = getRowIndexByEvent(event);
+        @Override
+        public void onDrop(final DropEvent event) {
+            // prevent the native text drop
+            event.preventDefault();
+            // index by default which corresponds an unmatched row
+            final int droppedIndexRow = getRowIndexByEvent(event);
         // get the data out of the event
-        final int selectedIndex = Integer
-            .decode(event.getData(DND_DATA_PROPERTY));
-        if (selectedIndex != -1) {
-          // замена элементов осуществляем в последнюю очередь
-          Scheduler.get().scheduleFinally(new ScheduledCommand() {
-            @Override
-            public void execute() {
-              TableRowElement rowElement = null;
-              if (droppedIndexRow != -1) {
-                rowElement = getRowElement(droppedIndexRow);
-                rowElement.getStyle().clearBackgroundImage();
-              }
-              if (selectedIndex != droppedIndexRow) {
-                if (dndMode == DndMode.INSERT && isDraggedOver) return;
-                if (dndMode == DndMode.APPEND && !isDraggedOver)  return;
-                if (dndMode == DndMode.BOTH && !(selectedIndex != droppedIndexRow)) return;
-                RowPositionChangeEvent.fire(JepGrid.this, (List<Object>) getSelection(), 
-                    droppedIndexRow, isDraggedOver,
-                    isDraggedBefore, isDraggedAfter);
-                if (droppedIndexRow != -1) rowElement.getStyle().clearBackgroundImage();
-              } else {
-                return;
-              }
-            }
-          });
-        }         
+            final int selectedIndex = Integer.decode(event.getData(DND_DATA_PROPERTY));
+            if (selectedIndex != -1){
+              // замена элементов осуществляем в последнюю очередь
+              Scheduler.get().scheduleFinally(new ScheduledCommand() {
+                @Override
+                public void execute() {
+                  TableRowElement rowElement = null;
+                  if (droppedIndexRow != -1) {
+                    rowElement = getRowElement(droppedIndexRow);
+                    rowElement.getStyle().clearBackgroundImage();
+                  }
+                  if (dndMode == DndMode.INSERT && !(selectedIndex != droppedIndexRow && !isDraggedOver)) return;
+                  if (dndMode == DndMode.APPEND && !(selectedIndex != droppedIndexRow && isDraggedOver)) return;
+                  if (dndMode == DndMode.BOTH && !(selectedIndex != droppedIndexRow)) return;
+                  RowPositionChangeEvent.fire(JepGrid.this, (List<Object>) getSelection(), droppedIndexRow, isDraggedOver,
+                        isDraggedBefore, isDraggedAfter);
+                  if (droppedIndexRow != -1) rowElement.getStyle().clearBackgroundImage();
+                }
+              });
+            }     
+            isDragStarted = false;       
         }
     });
   }
