@@ -41,7 +41,7 @@ public class ${form.formName}DetailFormPresenter<E extends <#if hasCustomButtons
   extends DetailFormPresenter<${form.formName}DetailFormView, E, S, StandardClientFactory<E, S>><#if !hasCustomButtons> {</#if>
     <#if hasCustomButtons>implements <#list form.toolBarCustomButtonsOnDetailForm as button>${button.customEvent}Event.Handler<#if button_has_next>, </#if></#list> {</#if>
   
-   public ${form.formName}DetailFormPresenter(Place place, StandardClientFactory<E, S> clientFactory) {
+  public ${form.formName}DetailFormPresenter(Place place, StandardClientFactory<E, S> clientFactory) {
     super(<#if form.isMain>scopeModuleIds, </#if>place, clientFactory);
   }  
   <#if form.presenterBody??>
@@ -50,19 +50,19 @@ public class ${form.formName}DetailFormPresenter<E extends <#if hasCustomButtons
   
   <#if form.hasOptionField>
   
-   private S service = clientFactory.getService();
+  private S service = clientFactory.getService();
    </#if>
    <#if hasCustomButtons>
    
-   @Override
-   public void start(AcceptsOneWidget container, EventBus eventBus) {
-     super.start(container, eventBus);
-     <#list form.toolBarCustomButtonsOnDetailForm as button>
-     eventBus.addHandler(${button.customEvent}Event.TYPE, this);
-     </#list>
-   }
-   </#if>
-   
+  @Override
+  public void start(AcceptsOneWidget container, EventBus eventBus) {
+    super.start(container, eventBus);
+    <#list form.toolBarCustomButtonsOnDetailForm as button>
+    eventBus.addHandler(${button.customEvent}Event.TYPE, this);
+    </#list>
+  }
+  </#if>
+  
   <#if !form.hasOptionField>
   /* 
   </#if>

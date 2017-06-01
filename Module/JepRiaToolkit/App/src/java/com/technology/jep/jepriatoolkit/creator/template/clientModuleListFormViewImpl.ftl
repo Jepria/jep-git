@@ -13,7 +13,8 @@ import com.google.gwt.cell.client.NumberCell;
 import com.google.gwt.i18n.client.NumberFormat;
 </#if>
 <#if !classField?contains("defaultDecimalFormatter")>
-<#assign classField = classField + "  private static NumberFormat defaultDecimalFormatter = NumberFormat.getFormat(\"#0.00\");\n  private static NumberFormat defaultNumberFormatter = NumberFormat.getFormat(\"#\");">
+<#assign classField = classField + "  private static NumberFormat defaultDecimalFormatter = NumberFormat.getFormat(\"#0.00\");
+  private static NumberFormat defaultNumberFormatter = NumberFormat.getFormat(\"#\");">
 </#if>
 </#if>
 <#if field.isBooleanType>
