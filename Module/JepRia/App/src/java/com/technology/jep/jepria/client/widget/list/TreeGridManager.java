@@ -104,6 +104,7 @@ public class TreeGridManager<W extends AbstractCellTable<JepRecord>, P extends P
    * {@inheritDoc}
    */
   public void setDndEnabled(boolean dndEnabled) {
+	super.setDndEnabled(dndEnabled);
     if (dndEnabled) {
       ((JepGrid<?>) widget).setDndMode(DndMode.APPEND);
     } else {
