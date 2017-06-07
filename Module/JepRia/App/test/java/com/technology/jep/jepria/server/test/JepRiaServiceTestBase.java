@@ -13,6 +13,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
+import org.jepria.sso.utils.JepPrincipal;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockServletConfig;
 import org.springframework.mock.web.MockServletContext;
@@ -20,7 +21,6 @@ import org.springframework.mock.web.MockServletContext;
 import com.google.gwt.user.server.rpc.AbstractRemoteServiceServlet;
 import com.googlecode.gwt.test.GwtTest;
 import com.googlecode.gwt.test.rpc.ServletMockProviderAdapter;
-import com.technology.jep.jepcommon.security.JepPrincipal;
 import com.technology.jep.jepria.server.dao.JepDataStandard;
 import com.technology.jep.jepria.server.service.JepDataServiceServlet;
 import com.technology.jep.jepria.shared.exceptions.ApplicationException;
