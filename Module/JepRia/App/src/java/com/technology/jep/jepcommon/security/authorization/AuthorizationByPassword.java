@@ -6,15 +6,24 @@ import java.sql.Types;
 
 import com.technology.jep.jepria.server.db.Db;
 
+/**
+ * Парольная авторизация.
+ */
 public class AuthorizationByPassword extends LoginAuthorization {
 	  
+	/**
+	 * Пароль учетной записи
+	 */
 	private String password;
 
 	AuthorizationByPassword(Db db, String login, String password) {
 		super(db, login);
 		this.password = password;
 	}
-	  
+	 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Integer logon() throws SQLException {
 		logger.trace("logon(Db db, " + login + ", " + password + ")");

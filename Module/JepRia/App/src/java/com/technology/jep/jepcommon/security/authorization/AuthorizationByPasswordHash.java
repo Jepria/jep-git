@@ -6,15 +6,24 @@ import java.sql.Types;
 
 import com.technology.jep.jepria.server.db.Db;
 
+/**
+ * Авторизация по хэш-паролю.
+ */
 public class AuthorizationByPasswordHash extends LoginAuthorization {
 	  
+	/**
+	 * Хэш пароля
+	 */
 	private String hash;
 
 	AuthorizationByPasswordHash(Db db, String login, String hash) {
 		super(db, login);
 		this.hash = hash;
 	}
-	  
+	 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Integer logon() throws SQLException {
 		logger.trace("logon(Db db, " + login + ", " + hash + ")");

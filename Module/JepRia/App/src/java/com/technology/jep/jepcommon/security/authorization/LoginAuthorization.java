@@ -6,9 +6,19 @@ import java.sql.Types;
 
 import com.technology.jep.jepria.server.db.Db;
 
+/**
+ * Авторизация по логину.
+ */
 public class LoginAuthorization extends AuthorizationProvider {
 
+	/**
+	 * Подключение к БД
+	 */
 	protected Db db;
+	
+	/**
+	 * Логин учетной записи
+	 */
 	protected String login;
 
 	LoginAuthorization(Db db, String login) {
@@ -16,6 +26,10 @@ public class LoginAuthorization extends AuthorizationProvider {
 		this.login = login;
 	}
 	  
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public Integer logon() throws SQLException {
 	    logger.trace("logon(Db db, " + login + ")");
 	    
