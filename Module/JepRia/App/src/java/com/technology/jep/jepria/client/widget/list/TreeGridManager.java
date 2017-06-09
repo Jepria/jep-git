@@ -104,8 +104,9 @@ public class TreeGridManager<W extends AbstractCellTable<JepRecord>, P extends P
    * {@inheritDoc}
    */
   public void setDndEnabled(boolean dndEnabled) {
+	super.setDndEnabled(dndEnabled);
     if (dndEnabled) {
-      ((JepGrid<?>) widget).setDndMode(DndMode.APPEND);
+      ((JepGrid<?>) widget).setDndMode(DndMode.BOTH);
     } else {
       ((JepGrid<?>) widget).setDndMode(DndMode.NONE);
     }
@@ -412,11 +413,11 @@ public class TreeGridManager<W extends AbstractCellTable<JepRecord>, P extends P
     List<JepRecord> tableRows = dataProvider.getList();
     if (dropType == DropType.APPEND) {
       for (Object row : rowList) {
-        if (isChild((JepRecord) row, newPositionRecord) || row.equals(newPositionRecord)) {
-          JepMessageBox messageBox = JepMessageBoxImpl.instance;
-          messageBox.showError("Невозможно совершить действие!");
-          return;
-        }
+        if (isChild((JepRecord) row, newPositionRecord) || isChild(newPositionRecord, (JepRecord) row) || row.equals(newPositionRecord)) {
+          JepMessageBox messageBox = JepMessageBoxImpl.instance;  //Проверка вырожденных случаев:
+          messageBox.showError("Невозможно совершить действие!"); //Перемещение записи на своего текущего родителя, перемещение родителя на его дочернюю запись
+          return;                                                 //Совпадение перемещаемой записи и целевого узла
+        }                                                         //TODO добавить возможность Custom обработки этих случаев
       }
     } 
     for (int i = 0; i < rowList.size(); i++) { //Удаление старых строк
@@ -575,7 +576,7 @@ public class TreeGridManager<W extends AbstractCellTable<JepRecord>, P extends P
                     newPositionParentRecord,newParentTreeNode.getDepth() + 1));
               }
               unmask(); // Скроем индикатор "Загрузка данных...".
-              newParentTreeNode.children.add(oldPositionRecord);
+              //newParentTreeNode.children.add(oldPositionRecord); TODO вызывало двойное появление записи
               nodes.put(oldPositionRecord.get(primaryKeyName),
                   changeNodePosition(oldPositionRecord, newPositionParentRecord, newParentTreeNode.getDepth()));
             }
