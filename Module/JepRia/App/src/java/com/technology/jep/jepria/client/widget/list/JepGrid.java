@@ -660,10 +660,10 @@ public class JepGrid<T> extends DataGrid<T> {
   }
   
   /**
-   * Определяет находится наверху или внизу таблицы
-   *
-   * @param event  событие перетаскивания
-   * @return флаг нахождения курсора в верхней части таблицы
+   * Определяет находится ли курсор в верхней части таблицы.
+   * 
+   * @param currentClientY Y координата курсора
+   * @return
    */
   private boolean isCursorOnTableTop(int currentClientY){
     Element tableElement = this.contentWidget.getElement();
@@ -673,10 +673,10 @@ public class JepGrid<T> extends DataGrid<T> {
   }
   
   /**
-   * Определяет находится наверху или внизу таблицы
-   *
-   * @param event  событие перетаскивания
-   * @return флаг нахождения курсора в верхней части таблицы
+   * Определяет находится ли курсор в нижней части таблицы.
+   * 
+   * @param currentClientY Y координата курсора
+   * @return
    */
   private boolean isCursorOnTableBottom(int currentClientY){
     Element tableElement = this.contentWidget.getElement();
@@ -684,6 +684,7 @@ public class JepGrid<T> extends DataGrid<T> {
     int height = tableElement.getOffsetHeight();
     return currentClientY > bottom - (height * 0.05);  
   }
+  
   /**
    * {@inheritDoc}
    * Особенности:<br/>

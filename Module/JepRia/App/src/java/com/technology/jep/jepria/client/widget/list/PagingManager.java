@@ -614,7 +614,7 @@ public class PagingManager<W extends AbstractHasData<JepRecord>, P extends Pagin
   /**
    * Изменение позиции элементов виджета 
    * 
-   * @param oldRowList список перемещаемых элементов
+   * @param rowList список перемещаемых элементов
    * @param newIndex "новый" индекс элемента
    * @param isOver вставка внутрь узла(для дерева)
    * @param insertBefore вставка перед строкой
