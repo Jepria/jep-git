@@ -72,7 +72,7 @@ public class Db {
     if (cs == null) {
       try {
         cs = getConnection().prepareCall(sql);
-      } catch(Throwable th) {
+      } catch(SQLException th) {
         throw new SystemException("PrepareCall Error for query '" + sql + "'", th);
       }
 
