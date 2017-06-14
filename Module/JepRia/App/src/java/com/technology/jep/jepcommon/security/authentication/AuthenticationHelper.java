@@ -25,6 +25,6 @@ public class AuthenticationHelper {
 	 * @return признак правильности пароля и его хэша
 	 */
 	public static boolean checkPasswordAndHash(String password, String hash) {
-		return !JepRiaUtil.isEmpty(password) ? JepRiaUtil.isEmpty(hash) : !JepRiaUtil.isEmpty(hash);
+		return JepRiaUtil.isEmpty(password) || JepRiaUtil.isEmpty(hash);
 	}
 }

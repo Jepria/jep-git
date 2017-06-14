@@ -23,7 +23,7 @@ public class AuthorizationHelper {
 			throw new IllegalArgumentException("Login should be defined!");
 		}
 		if (!AuthenticationHelper.checkPasswordAndHash(password, hash)) {
-			throw new IllegalArgumentException("Password and hash shouldn't be nullable or defined at the same time!");
+			throw new IllegalArgumentException("Password and hash shouldn't be defined at the same time!");
 		}
 
 		if (JepRiaUtil.isEmpty(password) && JepRiaUtil.isEmpty(hash)) {
