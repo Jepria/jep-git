@@ -175,7 +175,7 @@ public class ResizableHeader<T> extends Header<String> {
       panel = new DecoratedPopupPanel(true);
       panel.getElement().setId(JepRiaAutomationConstant.GRID_HEADER_POPUP_ID);
       panel.setGlassEnabled(true);
-      panel.setStyleName(RESIZABLE_HEADER_MENU_STYLE);
+      panel.addStyleName(RESIZABLE_HEADER_MENU_STYLE);
       panel.setPreviewingAllNativeEvents(true);
       panel.setAnimationType(AnimationType.ROLL_DOWN);
       panel.addCloseHandler(new CloseHandler<PopupPanel>() {
