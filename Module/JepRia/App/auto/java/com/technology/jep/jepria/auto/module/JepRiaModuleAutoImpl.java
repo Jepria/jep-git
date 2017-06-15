@@ -31,7 +31,9 @@ import static com.technology.jep.jepria.client.JepRiaAutomationConstant.JEP_TREE
 import static com.technology.jep.jepria.client.JepRiaAutomationConstant.JEP_TREENODE_INFIX;
 import static com.technology.jep.jepria.client.JepRiaAutomationConstant.JEP_TREENODE_ISLEAF_HTML_ATTR;
 import static com.technology.jep.jepria.client.JepRiaAutomationConstant.JEP_TREE_FIELD_CHECKALL_POSTFIX;
+import static com.technology.jep.jepria.client.JepRiaAutomationConstant.LOGOUT_BUTTON_ID;
 import static com.technology.jep.jepria.client.JepRiaAutomationConstant.TOOLBAR_DELETE_BUTTON_ID;
+import static com.technology.jep.jepria.client.JepRiaAutomationConstant.TOOLBAR_FIND_BUTTON_ID;
 import static com.technology.jep.jepria.client.JepRiaAutomationConstant.TOOLBAR_SAVE_BUTTON_ID;
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.CREATE;
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.EDIT;
@@ -171,7 +173,7 @@ public class JepRiaModuleAutoImpl<P extends JepRiaModulePage> implements JepRiaM
     if(!currentWorkstate.equals(workstateTo))  {
       String toolbarButtonId = WorkstateTransitionUtil.getToolbarButtonId(currentWorkstate, workstateTo);
       if(toolbarButtonId != null) {
-        
+        getWait().until(elementToBeClickable(By.id(toolbarButtonId)));
         clickButton(toolbarButtonId);
         waitForStatusWorkstate(workstateTo);
         
@@ -213,6 +215,8 @@ public class JepRiaModuleAutoImpl<P extends JepRiaModulePage> implements JepRiaM
    * @return workstate, в котором находится приложение после удаления. 
    */
   private WorkstateEnum deleteAndConfirm() {
+    getWait().until(elementToBeClickable(By.id(TOOLBAR_DELETE_BUTTON_ID)));
+    
     clickButton(TOOLBAR_DELETE_BUTTON_ID);
     
     assert checkMessageBox(CONFIRM_MESSAGEBOX_ID);
@@ -231,6 +235,34 @@ public class JepRiaModuleAutoImpl<P extends JepRiaModulePage> implements JepRiaM
   @Override
   public void selectItem(int index) {
     selectItem(index, null);
+  }
+  
+  @Override
+  public void selectItems(int index, String gridId) {
+    assert getWorkstateFromStatusBar() == VIEW_LIST || getWorkstateFromStatusBar() == SELECTED;
+    By gridBodyBy = null;
+    
+    if(gridId == null){
+      gridBodyBy = By.xpath(String.format("//tbody[contains(@id, '%s')]", GRID_BODY_POSTFIX));
+    }else{
+      gridBodyBy = By.id(gridId+GRID_BODY_POSTFIX);
+    }
+    WebElement gridBody = findElementAndWait(gridBodyBy);
+    
+    List<WebElement> gridRows = gridBody.findElements(By.xpath("./tr"));
+    
+    if (gridRows.size() <= index) {
+      throw new IndexOutOfBoundsException("Failed to select the item with index "+index+" in the list, as it contains "+gridRows.size()+" items only.");
+    }
+    
+    getWait().until(elementToBeClickable(gridRows.get(index)));
+    
+    Actions actions = new Actions(WebDriverFactory.getDriver());
+    actions.keyDown(Keys.LEFT_CONTROL)
+        .click(gridRows.get(index))
+        .keyUp(Keys.LEFT_CONTROL)
+        .build()
+        .perform();
   }
   
   @Override
