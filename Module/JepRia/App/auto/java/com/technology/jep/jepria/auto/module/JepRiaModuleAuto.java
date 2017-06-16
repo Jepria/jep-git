@@ -98,6 +98,11 @@ public interface JepRiaModuleAuto {
   public void selectItem(int index);
   
   /**
+   * Выделить элемент списка списочной формы по индексу(С зажатой кнопкой Ctrl для множественного выделения).
+   */
+  public void selectItems(int index, String gridId);
+  
+  /**
    * Выделить элемент списка списочной формы по ключу
    * 
    * @deprecated выполняйте поиск вручную в прикладном тестовом классе instead.

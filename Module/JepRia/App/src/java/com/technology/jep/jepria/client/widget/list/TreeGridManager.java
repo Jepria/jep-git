@@ -543,30 +543,31 @@ public class TreeGridManager<W extends AbstractCellTable<JepRecord>, P extends P
     if (JepRiaUtil.isEmpty(newParentTreeNode.children)) {//Если дочерние узлы, еще не были загружены из DB
       mask(JepTexts.loadingPanel_dataLoading());
       loader.load(new PagingConfig(newPositionParentRecord),
-          new AsyncCallback<List<JepRecord>>() {
-            @Override
-            public void onSuccess(List<JepRecord> subList) {
-              newParentTreeNode.children = subList;
-              for (JepRecord record : subList) {
-                nodes.put(record.get(primaryKeyName),new ListTreeNode(record,
-                    newPositionParentRecord,newParentTreeNode.getDepth() + 1));
-              }
-              Iterator<JepRecord> oldPositionRecordsIterator = oldPositionRecords.iterator();
-              for(int i = newParentTreeNode.children.size() - oldPositionRecords.size(); i < newParentTreeNode.children.size(); i++){
+        new AsyncCallback<List<JepRecord>>() {
+          @Override
+          public void onSuccess(List<JepRecord> subList) {
+            newParentTreeNode.children = subList;
+            for (JepRecord record : subList) {
+              nodes.put(record.get(primaryKeyName),new ListTreeNode(record,
+                  newPositionParentRecord,newParentTreeNode.getDepth() + 1));
+            }
+            Iterator<JepRecord> oldPositionRecordsIterator = oldPositionRecords.iterator();
+            int i = newParentTreeNode.children.size() - oldPositionRecords.size() < 0 ? 0 : newParentTreeNode.children.size() - oldPositionRecords.size();
+            if (!subList.isEmpty() && !newParentTreeNode.children.get(i).get(primaryKeyName).equals(oldPositionRecords.get(0).get(primaryKeyName))) {
+              while (oldPositionRecordsIterator.hasNext()) {
                 JepRecord oldPositionRecord = oldPositionRecordsIterator.next();
-                if (!(newParentTreeNode.children.get(i).get(primaryKeyName).equals(oldPositionRecord.get(primaryKeyName)))) {
-                  newParentTreeNode.children.add(i, oldPositionRecord);
-                }
+                newParentTreeNode.children.add(oldPositionRecord);
                 nodes.put(oldPositionRecord.get(primaryKeyName),
                     changeNodePosition(oldPositionRecord, newPositionParentRecord, newParentTreeNode.getDepth()));
               }//Добавлено для синхронизации с DB (Чтобы избежать создания дубликатов перемещаемых записей)
-              unmask(); // Скроем индикатор "Загрузка данных...".
             }
-            @Override
-            public void onFailure(Throwable caught) {
-              unmask();
-            }
-          });
+            unmask(); // Скроем индикатор "Загрузка данных...".
+          }
+          @Override
+          public void onFailure(Throwable caught) {
+            unmask();
+          }
+        });
     } else {
       newParentTreeNode.children.addAll(oldPositionRecords);
       for(JepRecord oldPositionRecord : oldPositionRecords) {
