@@ -22,6 +22,7 @@ import com.technology.jep.jepria.client.async.DataLoader;
 import com.technology.jep.jepria.client.message.JepMessageBox;
 import com.technology.jep.jepria.client.message.JepMessageBoxImpl;
 import com.technology.jep.jepria.client.widget.list.JepGrid.DndMode;
+import com.technology.jep.jepria.client.widget.list.PagingManager.DropType;
 import com.technology.jep.jepria.client.widget.list.cell.ListTreeNode;
 import com.technology.jep.jepria.client.widget.toolbar.PagingToolBar;
 import com.technology.jep.jepria.shared.load.PagingConfig;
@@ -435,32 +436,13 @@ public class TreeGridManager<W extends AbstractCellTable<JepRecord>, P extends P
       }
     }
     switch (dropType) {
-      case APPEND : beforeAppend(rowList, newPositionRecord);
-                break;
-      default : beforeInsert(rowList, newPositionRecord, dropType);
-                break;
-    }
-  }
-  
-  /**
-   * Вставить одну или несколько строк перед или после заданной записи.
-   * @param rowList
-   * @param newPositionRecord
-   * @param dropType
-   */
-  private void beforeInsert(List<Object> rowList, JepRecord newPositionRecord,
-      DropType dropType) {
-    for(int i = rowList.size()-1; i >= 0; i--){
-      switch (dropType) {
-        case BEFORE:
-          insertBefore((JepRecord) rowList.get(i), newPositionRecord);
-          break;
-        case AFTER:
-          insertAfter((JepRecord) rowList.get(i), newPositionRecord);
-          break;
-        default:
-          break;
-      }
+      case APPEND : appendNodes((List<JepRecord>) (Object) rowList, newPositionRecord);
+                    break;
+      case BEFORE : insertBefore((List<JepRecord>) (Object) rowList, newPositionRecord);
+                    break;
+      case AFTER : insertAfter((List<JepRecord>) (Object) rowList, newPositionRecord);
+                   break;
+      default : break;
     }
   }
 
@@ -469,26 +451,27 @@ public class TreeGridManager<W extends AbstractCellTable<JepRecord>, P extends P
    * @param oldPositionRecord
    * @param newPositionRecord
    */
-  private void insertBefore(JepRecord oldPositionRecord, JepRecord newPositionRecord ) {
-    ListTreeNode oldParentTreeNode = null, newParentTreeNode = null;
-    JepRecord oldParentRecord = findNode(oldPositionRecord).getParentRecord();
+  private void insertBefore(List<JepRecord> oldPositionRecords, JepRecord newPositionRecord) {
+    ListTreeNode newParentTreeNode = null;
     JepRecord newPositionParentRecord = findNode(newPositionRecord).getParentRecord();
     int newIndex = dataProvider.getList().indexOf(newPositionRecord);
-    if (!JepRiaUtil.isEmpty(oldParentRecord)) {
-      oldParentTreeNode = findNode(oldParentRecord);
-      oldParentTreeNode.children.remove(oldPositionRecord);
-      if (oldParentTreeNode.children.isEmpty()) 
-        oldParentRecord.set(HAS_CHILDREN, false);
-    }
     if (!JepRiaUtil.isEmpty(newPositionParentRecord)) {
       newParentTreeNode = findNode(newPositionParentRecord);
       int indexOfNewNode = newParentTreeNode.children.indexOf(newPositionRecord);
-      newParentTreeNode.children.add(indexOfNewNode, oldPositionRecord);
+      newParentTreeNode.children.addAll(indexOfNewNode, oldPositionRecords);
     }
-    nodes.put(oldPositionRecord.get(primaryKeyName), changeNodePosition(oldPositionRecord, newPositionParentRecord,
-        newParentTreeNode != null ? newParentTreeNode.getDepth() : 0));
+    for (JepRecord oldPositionRecord : oldPositionRecords) {
+      ListTreeNode oldPositionTreeNode = findNode(oldPositionRecord);
+      if (!JepRiaUtil.isEmpty(oldPositionTreeNode.getParentRecord())) {
+        ListTreeNode oldParentNode = findNode(oldPositionTreeNode.getParentRecord());
+        oldParentNode.children.remove(oldPositionTreeNode.getRecord());
+        if (oldParentNode.children.isEmpty()) oldPositionTreeNode.getParentRecord().set(HAS_CHILDREN, false);
+      }
+      nodes.put(oldPositionRecord.get(primaryKeyName), changeNodePosition(oldPositionRecord, newPositionParentRecord,
+          newParentTreeNode != null ? newParentTreeNode.getDepth() : 0));
+    }
     List<JepRecord> rowList = dataProvider.getList();
-    rowList.add(newIndex, oldPositionRecord);
+    rowList.addAll(newIndex, oldPositionRecords);
     dataProvider.refresh();
     widget.redraw();
   }
@@ -498,38 +481,41 @@ public class TreeGridManager<W extends AbstractCellTable<JepRecord>, P extends P
    * @param oldPositionRecord
    * @param newPositionRecord
    */
-  private void insertAfter(JepRecord oldPositionRecord, JepRecord newPositionRecord) {
-    ListTreeNode oldParentTreeNode = null, newParentTreeNode = null;
-    JepRecord oldParentRecord = findNode(oldPositionRecord).getParentRecord();
+  private void insertAfter(List<JepRecord> oldPositionRecords, JepRecord newPositionRecord) {
+    ListTreeNode newParentTreeNode = null;
     JepRecord newPositionParentRecord = findNode(newPositionRecord).getParentRecord();
     ListTreeNode newPositionTreeNode = findNode(newPositionRecord);
     int newIndex = dataProvider.getList().indexOf(newPositionRecord);
     if (newPositionTreeNode.isOpen() && (Boolean)newPositionRecord.get(HAS_CHILDREN) && newIndex != 0) {//Если узел, после которого вставляется новый,
       newIndex += getBranchDepth(newPositionTreeNode);//не листовой и раскрыт, то нужно увеличить новый индекс 
-    }                                         //на количество детей этого узла.
-    if (!JepRiaUtil.isEmpty(oldParentRecord)) {
-      oldParentTreeNode = findNode(oldParentRecord);
-      oldParentTreeNode.children.remove(oldPositionRecord);
-      if (oldParentTreeNode.children.isEmpty()) oldParentRecord.set(HAS_CHILDREN, false);
-    }
+    }                 
     if (!JepRiaUtil.isEmpty(newPositionParentRecord)) {
       newParentTreeNode = findNode(newPositionParentRecord);
       int indexOfNewNode = newParentTreeNode.children.indexOf(newPositionRecord);
-      newParentTreeNode.children.add(indexOfNewNode + 1, oldPositionRecord);
+      newParentTreeNode.children.addAll(indexOfNewNode + 1, oldPositionRecords);
     }
-    nodes.put(oldPositionRecord.get(primaryKeyName), changeNodePosition(oldPositionRecord, newPositionParentRecord,
+    for (JepRecord oldPositionRecord : oldPositionRecords) {
+      ListTreeNode oldPositionTreeNode = findNode(oldPositionRecord);
+      if (!JepRiaUtil.isEmpty(oldPositionTreeNode.getParentRecord())) {
+        ListTreeNode oldParentNode = findNode(oldPositionTreeNode.getParentRecord());
+        oldParentNode.children.remove(oldPositionTreeNode.getRecord());
+        if (oldParentNode.children.isEmpty()) oldPositionTreeNode.getParentRecord().set(HAS_CHILDREN, false);
+      }
+      nodes.put(oldPositionRecord.get(primaryKeyName), changeNodePosition(oldPositionRecord, newPositionParentRecord,
         !JepRiaUtil.isEmpty(newParentTreeNode) ? newParentTreeNode.getDepth() : 0));
+    }
     List<JepRecord> rowList = dataProvider.getList();
-    rowList.add(newIndex + 1, oldPositionRecord);
+    rowList.addAll(newIndex + 1, oldPositionRecords);
     dataProvider.refresh();
     widget.redraw();
   }
 
   /**
    * Проверка является ли запись record2 дочерней в дереве для записи record1.
+   * 
    * @param record1
    * @param record2
-   * @return
+   * @return 
    */
   private boolean isChild(JepRecord record1, JepRecord record2){
     while (true) {
@@ -545,82 +531,83 @@ public class TreeGridManager<W extends AbstractCellTable<JepRecord>, P extends P
       }
     }
   }
-
-  /**
-   * Присоединение перемещаемых строк к узлу
-   * @param rowList
-   * @param newPositionRecord
-   */
-  private void beforeAppend(List<Object> rowList, JepRecord newPositionRecord) {
-    for(int i = 0; i < rowList.size(); i++){
-      appendNodes((JepRecord) rowList.get(i), newPositionRecord);
-    }
-  }
   
   /**
    * Присоединение всех дочерних узлов перемещаемой записи.
-   * @param newPositionParentRecord новая родительская запись
-   * @param oldPositionRecord перемещаемая запись
+   * 
+   * @param newPositionParentRecord
+   * @param oldPositionRecords
    */
-  private void appendChildren(final JepRecord newPositionParentRecord, final JepRecord oldPositionRecord){
+  private void appendChildren(final JepRecord newPositionParentRecord, final List<JepRecord> oldPositionRecords){
     final ListTreeNode newParentTreeNode = findNode(newPositionParentRecord);
     if (JepRiaUtil.isEmpty(newParentTreeNode.children)) {//Если дочерние узлы, еще не были загружены из DB
       mask(JepTexts.loadingPanel_dataLoading());
       loader.load(new PagingConfig(newPositionParentRecord),
-          new AsyncCallback<List<JepRecord>>() {
-            @Override
-            public void onSuccess(List<JepRecord> subList) {
-              newParentTreeNode.children = subList;
-              for (JepRecord record : subList) {
-                nodes.put(record.get(primaryKeyName),new ListTreeNode(record,
-                    newPositionParentRecord,newParentTreeNode.getDepth() + 1));
-              }
-              unmask(); // Скроем индикатор "Загрузка данных...".
-              //newParentTreeNode.children.add(oldPositionRecord); TODO вызывало двойное появление записи
-              nodes.put(oldPositionRecord.get(primaryKeyName),
-                  changeNodePosition(oldPositionRecord, newPositionParentRecord, newParentTreeNode.getDepth()));
+        new AsyncCallback<List<JepRecord>>() {
+          @Override
+          public void onSuccess(List<JepRecord> subList) {
+            newParentTreeNode.children = subList;
+            for (JepRecord record : subList) {
+              nodes.put(record.get(primaryKeyName),new ListTreeNode(record,
+                  newPositionParentRecord,newParentTreeNode.getDepth() + 1));
             }
-            @Override
-            public void onFailure(Throwable caught) {
-              unmask();
+            Iterator<JepRecord> oldPositionRecordsIterator = oldPositionRecords.iterator();
+            int i = newParentTreeNode.children.size() - oldPositionRecords.size() < 0 ? 0 : newParentTreeNode.children.size() - oldPositionRecords.size();
+            if (!subList.isEmpty() && !newParentTreeNode.children.get(i).get(primaryKeyName).equals(oldPositionRecords.get(0).get(primaryKeyName))) {
+              while (oldPositionRecordsIterator.hasNext()) {
+                JepRecord oldPositionRecord = oldPositionRecordsIterator.next();
+                newParentTreeNode.children.add(oldPositionRecord);
+                nodes.put(oldPositionRecord.get(primaryKeyName),
+                    changeNodePosition(oldPositionRecord, newPositionParentRecord, newParentTreeNode.getDepth()));
+              }//Добавлено для синхронизации с DB (Чтобы избежать создания дубликатов перемещаемых записей)
             }
-          });
+            unmask(); // Скроем индикатор "Загрузка данных...".
+          }
+          @Override
+          public void onFailure(Throwable caught) {
+            unmask();
+          }
+        });
     } else {
-      newParentTreeNode.children.add(oldPositionRecord);
-      nodes.put(oldPositionRecord.get(primaryKeyName),
-          changeNodePosition(oldPositionRecord, newPositionParentRecord,newParentTreeNode.getDepth()));
+      newParentTreeNode.children.addAll(oldPositionRecords);
+      for(JepRecord oldPositionRecord : oldPositionRecords) {
+        nodes.put(oldPositionRecord.get(primaryKeyName),
+            changeNodePosition(oldPositionRecord, newPositionParentRecord, newParentTreeNode.getDepth()));
+      }
     }
   }
   
   /**
    * Присоединение одного узла к другому в качестве дочернего.
-   * @param oldPositionRecord запись перемещаемого узла
-   * @param newPositionRecord запись новой позиции узла
+   * 
+   * @param oldPositionRecords
+   * @param newPositionRecord
    */
-  private void appendNodes(final JepRecord oldPositionRecord, final JepRecord newPositionRecord) {
-    ListTreeNode oldPositionTreeNode = findNode(oldPositionRecord);
+  private void appendNodes(final List<JepRecord> oldPositionRecords, final JepRecord newPositionRecord) {
     final ListTreeNode newPositionTreeNode = findNode(newPositionRecord);
     int newIndex = dataProvider.getList().indexOf(newPositionRecord);
     if (newPositionTreeNode.isOpen() && newPositionRecord.<Boolean>get(HAS_CHILDREN)){
       newIndex += getBranchDepth(newPositionTreeNode);
     }
-    if (!JepRiaUtil.isEmpty(oldPositionTreeNode.getParentRecord())) {
-      ListTreeNode oldParentNode = findNode(oldPositionTreeNode.getParentRecord());
-      oldParentNode.children.remove(oldPositionRecord);
-      if (oldParentNode.children.isEmpty()) oldPositionTreeNode.getParentRecord().set(HAS_CHILDREN, false);
-    }
     if (newPositionRecord.<Boolean>get(HAS_CHILDREN)) {
-      appendChildren(newPositionRecord, oldPositionRecord);
+      appendChildren(newPositionRecord, oldPositionRecords);
     } else {
       newPositionRecord.set(HAS_CHILDREN, true);
-      newPositionTreeNode.children = new ArrayList<JepRecord>();
-      newPositionTreeNode.children.add(oldPositionRecord);
-      nodes.put(oldPositionRecord.get(primaryKeyName),
+      newPositionTreeNode.children = new ArrayList<JepRecord>(oldPositionRecords);
+      for (JepRecord oldPositionRecord : oldPositionRecords) {
+        ListTreeNode oldPositionTreeNode = findNode(oldPositionRecord);
+        if (!JepRiaUtil.isEmpty(oldPositionTreeNode.getParentRecord())) {
+          ListTreeNode oldParentNode = findNode(oldPositionTreeNode.getParentRecord());
+          oldParentNode.children.remove(oldPositionTreeNode.getRecord());
+          if (oldParentNode.children.isEmpty()) oldPositionTreeNode.getParentRecord().set(HAS_CHILDREN, false);
+        }
+        nodes.put(oldPositionRecord.get(primaryKeyName),
           changeNodePosition(oldPositionRecord, newPositionRecord, newPositionTreeNode.getDepth()));
+      }
     }
     List<JepRecord> rowList = dataProvider.getList();
     if (newPositionTreeNode.isOpen() && newPositionRecord.<Boolean>get(HAS_CHILDREN)) {
-      rowList.add(newIndex+1, oldPositionRecord);
+      rowList.addAll(newIndex+1, oldPositionRecords);
     }
     dataProvider.refresh();
     widget.redraw();

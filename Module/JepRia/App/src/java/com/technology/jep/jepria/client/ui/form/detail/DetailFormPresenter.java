@@ -550,14 +550,17 @@ public class DetailFormPresenter<V extends DetailFormView, E extends PlainEventB
    */
   protected void onDeleteConfirmation(Boolean yes, final JepRecord record) {
     if(yes) {
+      JepClientUtil.showLoadingPanel(null, JepTexts.loadingPanel_deletingRecords());
       FindConfig deleteConfig = new FindConfig(record);
       deleteConfig.setListUID(listUID);
       clientFactory.getService().delete(deleteConfig, new JepAsyncCallback<Void>() {
         public void onFailure(final Throwable th) {
           onDeleteFailure(th);
+          JepClientUtil.hideLoadingPanel();
         }
         public void onSuccess(final Void result) {
           onDeleteSuccess(record);
+          JepClientUtil.hideLoadingPanel();
         }
       });
     }

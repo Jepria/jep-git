@@ -44,6 +44,7 @@ public class TestBuildMessageChecker extends Task {
     */
     if(jspDir == null) {
       echoMessage("jspDir is not set. Exit.");
+      return;
     }
     
     File jspDirectory = new File(jspDir);

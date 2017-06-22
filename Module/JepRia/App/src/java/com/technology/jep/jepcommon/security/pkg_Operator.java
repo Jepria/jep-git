@@ -5,13 +5,18 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import oracle.jdbc.OracleTypes;
 
 import org.apache.log4j.Logger;
 
+import com.technology.jep.jepcommon.security.authorization.AuthorizationHelper;
 import com.technology.jep.jepria.server.db.Db;
+import com.technology.jep.jepria.shared.util.JepRiaUtil;
 
 /**
  * Обеспечивает доступ к некоторым методам пакета pkg_Operator в базе данных.
@@ -34,43 +39,7 @@ public class pkg_Operator {
    * @throws SQLException при неудачной аутентификации
    */
   public static final Integer logon(Db db, String login, String password, String hash) throws SQLException {
-    logger.trace("logon(Db db, " + login + ", " + password + ")");
-    
-    Integer result = null;
-    String sqlQuery = 
-      " begin" 
-      + "  ? := pkg_Operator.Login("
-        + " operatorLogin => ?"
-        + ", password => ?"
-        + ", passwordHash => ?" 
-      + ");" 
-      + "  ? := pkg_Operator.GetCurrentUserID;" 
-      + " end;";
-    try {
-      CallableStatement callableStatement = db.prepare(sqlQuery);
-      // Установим Логин.
-      if(login != null) callableStatement.setString(2, login);  
-      else callableStatement.setNull(2, Types.VARCHAR); 
-      // Установим Пароль.
-      if(password != null) callableStatement.setString(3, password);   
-      else callableStatement.setNull(3, Types.VARCHAR);
-      // Установим Хэш.
-      if(hash != null) callableStatement.setString(4, hash);   
-      else callableStatement.setNull(4, Types.VARCHAR); 
-
-      callableStatement.registerOutParameter(1, Types.VARCHAR);
-      callableStatement.registerOutParameter(5, Types.INTEGER);
-
-      callableStatement.execute();
-
-      result = new Integer(callableStatement.getInt(5));
-      if(callableStatement.wasNull())result = null;
-
-    } finally {
-      db.closeStatement(sqlQuery);
-    }
-
-    return result;
+    return AuthorizationHelper.getInstance(db, login, password, hash).logon();
   }
 
   /**
@@ -87,35 +56,7 @@ public class pkg_Operator {
    * @throws SQLException при отсутствии пользователя с указанным логином
    */
   public static final Integer logon(Db db, String login) throws SQLException {
-    logger.trace("logon(Db db, " + login + ")");
-    
-    Integer result = null;
-    String sqlQuery = 
-      " begin" 
-      + "  ? := pkg_Operator.Login(" 
-          + "operatorLogin => ?" 
-      + "  );" 
-      + "  ? := pkg_Operator.GetCurrentUserID;" 
-      + " end;";
-    try {
-      CallableStatement callableStatement = db.prepare(sqlQuery);
-      // Установим Логин.
-      if(login != null) callableStatement.setString(2, login);  
-      else callableStatement.setNull(2, Types.VARCHAR); 
-
-      callableStatement.registerOutParameter(1, Types.VARCHAR);
-      callableStatement.registerOutParameter(3, Types.INTEGER);
-
-      callableStatement.execute();
-
-      result = new Integer(callableStatement.getInt(3));
-      if(callableStatement.wasNull())result = null;
-
-    } finally {
-      db.closeStatement(sqlQuery);
-    }
-
-    return result;
+	  return AuthorizationHelper.getInstance(db, login, null, null).logon();
   }
 
   /**
@@ -211,7 +152,7 @@ public class pkg_Operator {
    * 
    * @param db соединение с базой данных
    * @param login логин пользователя
-   * @return список ролей пользователя в виде TreeSet&lt;String&gt;
+   * @return список ролей пользователя в виде java.util.List&lt;String&gt;
    * @throws SQLException
    */
   public static final List<String> getRoles(Db db, String login) throws SQLException {
@@ -257,7 +198,7 @@ public class pkg_Operator {
    * 
    * @param db соединение с базой данных
    * @param operatorId  идентификатор пользователя
-   * @return список ролей пользователя в виде TreeSet&lt;String&gt;
+   * @return список ролей пользователя в виде java.util.List&lt;String&gt;
    * @throws SQLException
    */
   public static final List<String> getRoles(Db db, Integer operatorId) throws SQLException {
@@ -294,5 +235,5 @@ public class pkg_Operator {
   
     return result;
   }
+  
 }
-

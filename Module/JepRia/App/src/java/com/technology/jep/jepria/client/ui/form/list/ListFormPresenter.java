@@ -42,6 +42,7 @@ import com.technology.jep.jepria.client.ui.eventbus.plain.event.SetListUIDEvent;
 import com.technology.jep.jepria.client.ui.eventbus.plain.event.ShowExcelEvent;
 import com.technology.jep.jepria.client.ui.eventbus.plain.event.SortEvent;
 import com.technology.jep.jepria.client.ui.plain.StandardClientFactory;
+import com.technology.jep.jepria.client.util.JepClientUtil;
 import com.technology.jep.jepria.client.widget.event.JepEvent;
 import com.technology.jep.jepria.client.widget.event.JepListener;
 import com.technology.jep.jepria.client.widget.list.GridManager;
@@ -363,6 +364,11 @@ public class ListFormPresenter<V extends ListFormView, E extends PlainEventBus, 
     PagingConfig pagingConfig = (PagingConfig)event.getParameter();
     eventBus.paging(pagingConfig);
   }
+
+  /**
+   * Счетчик удаляемых записей.
+   */
+  private int deleteCounter = 0;
   
   /** 
    * Обработчик события Удалить.<br/>
@@ -379,28 +385,35 @@ public class ListFormPresenter<V extends ListFormView, E extends PlainEventBus, 
       messageBox.confirmDeletion(records.size() > 1, new ConfirmCallback() {
         public void onConfirm(Boolean yes) {
           if(yes) {
+            deleteCounter = 0;
             onDeleteConfirmation(records);
           }
         }
       });
     }
   }
-
+  
   /**
    * Обработчик удаления, вызывающий непосредственно сервис удаления.
    *
    * @param records записи, которые необходимо удалить
    */
   protected void onDeleteConfirmation(Set<JepRecord> records) {
+    deleteCounter = records.size();
+    JepClientUtil.showLoadingPanel(null, JepTexts.loadingPanel_deletingRecords());
     for (final JepRecord record : records) {
       FindConfig deleteConfig = new FindConfig(record);
       deleteConfig.setListUID(listUID);
       clientFactory.getService().delete(deleteConfig, new JepAsyncCallback<Void>() {
         public void onFailure(Throwable th) {
           clientFactory.getExceptionManager().handleException(th, JepTexts.form_deleteError());
+          deleteCounter--;
+          if (deleteCounter == 0) JepClientUtil.hideLoadingPanel();
         }
         public void onSuccess(Void result) {
           eventBus.delete(record);
+          deleteCounter--;
+          if (deleteCounter == 0) JepClientUtil.hideLoadingPanel();
         }
       });
     }
