@@ -10,9 +10,11 @@ import com.technology.jep.jepria.client.ui.form.detail.DetailFormActivityMapper;
 import com.technology.jep.jepria.client.ui.form.list.ListFormActivityMapper;
 import com.technology.jep.jepria.client.ui.statusbar.StatusBarActivityMapper;
 import com.technology.jep.jepria.client.ui.statusbar.StatusBarPresenter;
+import com.technology.jep.jepria.client.ui.statusbar.StatusBarView;
 import com.technology.jep.jepria.client.ui.statusbar.StatusBarViewImpl;
 import com.technology.jep.jepria.client.ui.toolbar.ToolBarActivityMapper;
 import com.technology.jep.jepria.client.ui.toolbar.ToolBarPresenter;
+import com.technology.jep.jepria.client.ui.toolbar.ToolBarView;
 import com.technology.jep.jepria.client.ui.toolbar.ToolBarViewImpl;
 import com.technology.jep.jepria.shared.record.JepRecordDefinition;
 import com.technology.jep.jepria.shared.service.data.JepDataServiceAsync;
@@ -99,8 +101,8 @@ abstract public class StandardClientFactoryImpl<E extends PlainEventBus, S exten
    *
    * @return презентер инструментальной панели
    */
-  public JepPresenter createToolBarPresenter(Place place) {
-    return new ToolBarPresenter(place, this);
+  public JepPresenter<?,?> createToolBarPresenter(Place place) {
+    return new ToolBarPresenter<ToolBarView, E, S, StandardClientFactory<E,S>>(place, this);
   }
   
   /**
@@ -108,8 +110,8 @@ abstract public class StandardClientFactoryImpl<E extends PlainEventBus, S exten
    *
    * @return презентер панели состояния
    */
-  public JepPresenter createStatusBarPresenter(Place place) {
-    return new StatusBarPresenter(place, this);
+  public JepPresenter<?,?> createStatusBarPresenter(Place place) {
+    return new StatusBarPresenter<StatusBarView, E, S, StandardClientFactory<E,S>>(place, this);
   }
   
   /**
@@ -174,6 +176,11 @@ abstract public class StandardClientFactoryImpl<E extends PlainEventBus, S exten
       public void setWidget(IsWidget widget) {}
     });
     
+  }
+  
+  @Override
+  public JepPresenter<?,?> createPlainModulePresenter(Place place) {
+    return new StandardModulePresenter<StandardModuleView, E, S, StandardClientFactory<E,S>>(moduleId, place, this);
   }
   
 }
