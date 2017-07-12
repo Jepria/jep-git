@@ -104,6 +104,14 @@
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr class="altColor">
+<td class="colFirst"><a href="com/technology/jep/jepcommon/security/authentication/package-summary.html">com.technology.jep.jepcommon.security.authentication</a></td>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><a href="com/technology/jep/jepcommon/security/authorization/package-summary.html">com.technology.jep.jepcommon.security.authorization</a></td>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="altColor">
 <td class="colFirst"><a href="com/technology/jep/jepcommon/security/tomcat/package-summary.html">com.technology.jep.jepcommon.security.tomcat</a></td>
 <td class="colLast">&nbsp;</td>
 </tr>
@@ -576,6 +584,7 @@
 <h3><a name="releaseNotes">Замечания к версиям</a></h3>
 <h4>Версии</h4>
 <ul>
+  <li><a href="#10.2.0">10.2.0 (2017-07-12)</a></li>
   <li><a href="#10.1.1">10.1.1 (2017-05-15)</a></li>
   <li><a href="#10.1.0">10.1.0 (2017-05-11)</a></li>
   <li><a href="#10.0.0">10.0.0 (2017-04-05)</a></li>
@@ -683,6 +692,21 @@
   <li><a href="#2.1.0">2.1.0 (2011-03-11)</a></li>
   <li><a href="#2.0.0">2.0.0 (2011-03-03)</a></li>
   <li><a href="#1.0.0">1.0.0 (2010-11-01)</a></li>
+</ul>
+<h5><a name="10.2.0">10.2.0 (2017-07-12)</a></h5>
+<ul>
+  <li><b>fix:</b> Изменение авторизации через пароль и хэш.</li>
+  <li><b>refactor:</b> доработка Sso:</li>
+  <ul>
+      <li>реорганизованы константы</li>
+      <li>реализовано взаимодействие приложений с SsoUi</li>
+      <li>AutoLogonServlet отвязан от JepServerUtil</li>
+      <li>JepPrincipal мигрировал в sso-utils</li>
+  </ul>    
+  <li><b>refactor:</b> context.xml внесен в системные ресурсы.</li>
+  <li><b>feat:</b> Добавлен TreeGridManager, реализован Drag&Drop для древовидной списочной формы.</li>
+  <li><b>feat:</b> Добавлены новые методы для Selenium тестирования.</li>
+  <li><b>chore:</b> в StandardClientFactoryImpl реализован метод по умолчанию <code>createPlainModulePresenter</code>.</li>
 </ul>
 <h5><a name="10.1.1">10.1.1 (2017-05-15)</a></h5>
 <ul>
