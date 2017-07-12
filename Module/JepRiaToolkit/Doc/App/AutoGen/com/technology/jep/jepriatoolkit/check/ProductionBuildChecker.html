@@ -18,7 +18,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10};
+var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -151,10 +151,14 @@ extends org.apache.tools.ant.Task</pre>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/technology/jep/jepriatoolkit/check/ProductionBuildChecker.html#packageName">packageName</a></span></code>&nbsp;</td>
 </tr>
 <tr class="altColor">
+<td class="colFirst"><code>private java.lang.String</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/technology/jep/jepriatoolkit/check/ProductionBuildChecker.html#packagePrefixAsPath">packagePrefixAsPath</a></span></code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
 <td class="colFirst"><code>(package private) org.apache.tools.ant.PropertyHelper</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/technology/jep/jepriatoolkit/check/ProductionBuildChecker.html#ph">ph</a></span></code>&nbsp;</td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code>private java.lang.String</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/technology/jep/jepriatoolkit/check/ProductionBuildChecker.html#property">property</a></span></code>&nbsp;</td>
 </tr>
@@ -226,6 +230,10 @@ extends org.apache.tools.ant.Task</pre>
 </tr>
 <tr id="i4" class="altColor">
 <td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/technology/jep/jepriatoolkit/check/ProductionBuildChecker.html#setPackagePrefixAsPath-java.lang.String-">setPackagePrefixAsPath</a></span>(java.lang.String&nbsp;packagePrefixAsPath)</code>&nbsp;</td>
+</tr>
+<tr id="i5" class="rowColor">
+<td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/technology/jep/jepriatoolkit/check/ProductionBuildChecker.html#setProperty-java.lang.String-">setProperty</a></span>(java.lang.String&nbsp;property)</code>
 <div class="block">Set the name of the property which will be set if JepRia-application meets all requirements
  for production build.</div>
@@ -283,6 +291,15 @@ extends org.apache.tools.ant.Task</pre>
 <li class="blockList">
 <h4>moduleName</h4>
 <pre>private&nbsp;java.lang.String moduleName</pre>
+</li>
+</ul>
+<a name="packagePrefixAsPath">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>packagePrefixAsPath</h4>
+<pre>private&nbsp;java.lang.String packagePrefixAsPath</pre>
 </li>
 </ul>
 <a name="property">
@@ -357,6 +374,15 @@ extends org.apache.tools.ant.Task</pre>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>флаг продукционности текущей сборки</dd>
 </dl>
+</li>
+</ul>
+<a name="setPackagePrefixAsPath-java.lang.String-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setPackagePrefixAsPath</h4>
+<pre>public&nbsp;void&nbsp;setPackagePrefixAsPath(java.lang.String&nbsp;packagePrefixAsPath)</pre>
 </li>
 </ul>
 <a name="setPackageName-java.lang.String-">
