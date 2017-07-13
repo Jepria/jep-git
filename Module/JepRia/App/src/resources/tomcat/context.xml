@@ -2,6 +2,6 @@
 <Context>
   <Realm className="org.jepria.catalina.realm.JepJAASRealm" 
     appName="RFInfoDS"
-    userClassNames="org.jepria.sso.utils.JepPrincipal"
-    roleClassNames="org.jepria.sso.utils.JepPrincipal" />
+    userClassNames="org.jepria.security.JepPrincipal"
+    roleClassNames="org.jepria.security.JepPrincipal" />
 </Context>

@@ -1,6 +1,7 @@
 package com.technology.jep.jepcommon.security.tomcat;
 
-import static com.technology.jep.jepria.server.JepRiaServerConstant.*;
+import static com.technology.jep.jepria.server.JepRiaServerConstant.DEFAULT_DATA_SOURCE_JNDI_NAME;
+import static com.technology.jep.jepria.server.JepRiaServerConstant.LOGIN_SUFFIX_FOR_HASH_AUTHORIZATION;
 
 import java.security.Principal;
 import java.sql.SQLException;
@@ -17,7 +18,7 @@ import javax.security.auth.login.LoginException;
 import javax.security.auth.spi.LoginModule;
 
 import org.apache.log4j.Logger;
-import org.jepria.sso.utils.JepPrincipal;
+import org.jepria.security.JepPrincipal;
 
 import com.technology.jep.jepcommon.security.pkg_Operator;
 import com.technology.jep.jepria.server.db.Db;
