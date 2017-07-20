@@ -18,7 +18,7 @@ import javax.security.auth.login.LoginException;
 import javax.security.auth.spi.LoginModule;
 
 import org.apache.log4j.Logger;
-import org.jepria.security.JepPrincipal;
+import org.jepria.ssoutils.JepPrincipal;
 
 import com.technology.jep.jepcommon.security.pkg_Operator;
 import com.technology.jep.jepria.server.db.Db;
