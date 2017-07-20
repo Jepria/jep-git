@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project default="jar" name="Module Building">
+  <taskdef resource="net/sf/antcontrib/antlib.xml" />
+  
+  <property environment="env" />
+  <if>
+    <isset property="env.BIN_HOME" />
+    <then>
+      <property name="BIN_HOME" value="${env.BIN_HOME}" />
+    </then>
+  </if>
+  <if>
+    <isset property="BIN_HOME" />
+    <then>
+      <echo message="Binary repository path: ${BIN_HOME}" />        
+    </then>
+    <else>
+      <fail message="Binary repository path not specified. Specify it either in environment variable %BIN_HOME% or use -DBIN_HOME=... command line argument." />
+    </else>
+  </if>
+  <property file="build.properties" />
+  <property file="dependency.properties" />
+  
+  <!-- for javadoc only: -->
+  <property name="MODULE_NAME" value="SsoUtils"/>
+  <property name="JAVA_DOC_DIR" value="../Doc/App/AutoGen" />
+  
+  <path id="libs">
+  	<pathelement location="${SERVLET-API_LIB}" />
+  </path>
+  
+  <fileset dir="build" id="classes-build"/>
+	
+  <target name="java-compile">
+  	<mkdir dir="build" />
+    <javac debug="on" destdir="build" encoding="utf-8" includeantruntime="false" srcdir="src/java">
+      <classpath refid="libs" />
+    </javac>
+  </target>
+	
+  <target name="jar" depends="java-compile, doc">
+  	<jar destfile="${DISTR_DIR}/sso-utils-${CURRENT_VERSION}.jar">
+      <fileset refid="classes-build" />
+      <fileset dir="src/java" includes="**/*.java" /> <!-- with source code -->
+    </jar>
+  </target>
+  	
+  <target name="clean">
+    <delete includeemptydirs="true" quiet="true">
+      <fileset dir="build" />
+    </delete>
+  	
+  	<delete file="${DISTR_DIR}/sso-utils-${CURRENT_VERSION}.jar"/>
+  </target>
+	
+  <target name="doc">
+    <javadoc Doctitle="${MODULE_NAME} API Reference" Windowtitle="${MODULE_NAME} JavaDoc" access="private" additionalparam="-notimestamp -Xdoclint:none" charset="UTF-8" destdir="${JAVA_DOC_DIR}" docencoding="UTF-8" encoding="UTF-8" includenosourcepackages="true" overview="src/java/org/jepria/ssoutils/overview.html" packagenames="*" sourcepath="src/java">
+      <classpath refid="libs" />
+    </javadoc>
+  </target>
+</project>
