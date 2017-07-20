@@ -443,4 +443,23 @@ public class JepComboBoxField extends JepBaseTextField<ComboBox<JepOption>> impl
     // Удаляем выступы и отступы карты редактирования.
     removeMarginsAndPaddings(getValueBoxElement());
   }
+  
+  /**
+   * Устанавливает опцию в JepComboBoxField, зная только значение.
+   * @param value Значение.
+   * @throws NullPointerException если параметр value - null.
+   */
+  public <T> void setOptionByValue(T value) {
+    List<JepOption> options = getEditableCard().getOptions();
+    
+    JepOption match = null;
+    for(JepOption option: options) {
+      if(value.equals(option.getValue())) {
+        match = option;
+        break;
+      }
+    }
+    
+    if(match != null) setValue(match);
+  }
 }

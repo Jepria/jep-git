@@ -8,6 +8,7 @@ import static com.technology.jep.jepria.shared.field.JepTypeEnum.TEXT_FILE;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
 import java.text.MessageFormat;
 import java.util.List;
@@ -32,6 +33,7 @@ import com.technology.jep.jepria.server.upload.blob.FileUploadStream;
 import com.technology.jep.jepria.server.upload.clob.FileUploadWriter;
 import com.technology.jep.jepria.server.upload.clob.TextFileUploadImpl;
 import com.technology.jep.jepria.server.util.JepServerUtil;
+import com.technology.jep.jepria.shared.exceptions.ApplicationException;
 import com.technology.jep.jepria.shared.exceptions.UnsupportedException;
 import com.technology.jep.jepria.shared.field.JepTypeEnum;
 import com.technology.jep.jepria.shared.history.JepHistoryToken;
@@ -120,10 +122,9 @@ public class JepUploadServlet extends HttpServlet {
         // TODO Параллельный эффективнее, но насколько это актуально ?
         List<FileItem> items = upload.parseRequest(request);
         if (items.size() >= 2) { // Должно быть два параметра: файл и привязка к полю записи таблицы БД
-          // Параметр привязки к полю записи таблицы БД
-          FileItem primaryKeyFormField = getFormField(items, PRIMARY_KEY_HIDDEN_FIELD_NAME);
-          String primaryKeyToken = primaryKeyFormField.getString("UTF-8");
-          Map<String, Object> primaryKeyMap = JepHistoryToken.buildMapFromToken(primaryKeyToken);
+          
+          //Привязки к полю записи таблицы БД по первичному ключу
+          Map<String, Object> primaryKeyMap = getPrimaryKeyMap(items);
           
           FileItem fileSizeFormField = getFormField(items, FILE_SIZE_HIDDEN_FIELD_NAME);
           String fileSizeAsString = fileSizeFormField.getString();
@@ -203,6 +204,20 @@ public class JepUploadServlet extends HttpServlet {
       onError(response, HttpServletResponse.SC_UNSUPPORTED_MEDIA_TYPE,
           "doPost(): Request contents type is not supported by the servlet.");
     }
+  }
+  /**
+   * Возвращает карту первичных ключей.
+   * @param items Список FileItem из запроса.
+   * @return Карта первичных ключей.
+   * @throws UnsupportedEncodingException
+   * @throws ApplicationException
+   */
+  protected Map<String, Object> getPrimaryKeyMap(List<FileItem> items) throws UnsupportedEncodingException, ApplicationException {
+    // Параметр привязки к полю записи таблицы БД
+    FileItem primaryKeyFormField = getFormField(items, PRIMARY_KEY_HIDDEN_FIELD_NAME);
+    String primaryKeyToken = primaryKeyFormField.getString("UTF-8");
+    Map<String, Object> primaryKeyMap = JepHistoryToken.buildMapFromToken(primaryKeyToken);
+    return primaryKeyMap;
   }
   
   /**
@@ -289,7 +304,7 @@ public class JepUploadServlet extends HttpServlet {
    * @param items список интерфейсов выгрузки файлов
    * @param fieldName наименование поля 
    */
-  private FileItem getFormField(List<FileItem> items, String fieldName) {
+  protected FileItem getFormField(List<FileItem> items, String fieldName) {
         for (FileItem item : items) {
           if(item.isFormField() && fieldName.equalsIgnoreCase(item.getFieldName())) {
             return item;

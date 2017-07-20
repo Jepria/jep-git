@@ -144,7 +144,17 @@ public abstract class MainModulePresenter<V extends MainView, E extends MainEven
       }
     });
   }
-
+  
+  /**
+   * Возвращает состояние по умолчанию при входе в приложение. <br/>
+   * Имя модуля передается для использования в потомках при переопределении.
+   * @param entryModuleName Имя модуля, в который осуществлен вход.
+   * @return Состояние по умолчанию при входе в приложение.
+   */
+  protected WorkstateEnum getDefaultWorkState(String entryModuleName) {
+    return JepScope.DEFAULT_WORK_STATE;
+  }
+  
   /**
    * Обработчик события старта Main-модуля (приложения).
    *
@@ -157,7 +167,7 @@ public abstract class MainModulePresenter<V extends MainView, E extends MainEven
       entryModuleName = entryModuleName == null ? moduleItems[0].moduleId : entryModuleName.trim();
 
       String entryStateName = Location.getParameter(ENTRY_STATE_NAME_REQUEST_PARAMETER);
-      WorkstateEnum entryModuleState = entryStateName == null ? JepScope.DEFAULT_WORK_STATE : WorkstateEnum.fromString(entryStateName.trim());
+      WorkstateEnum entryModuleState = entryStateName == null ? getDefaultWorkState(entryModuleName) : WorkstateEnum.fromString(entryStateName.trim());
 
       JepScope startScope = new JepScope(new String[] {entryModuleName}, new WorkstateEnum[] {entryModuleState});
       
