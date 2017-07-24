@@ -62,7 +62,7 @@ public class ProductionBuildChecker extends Task {
     if (packagePrefixAsPath == null) {
       packagePrefixAsPath = PACKAGE_PREFIX_AS_PATH_DEFAULT;
       JepRiaToolkitUtil.echoMessage(
-          JepRiaToolkitUtil.multipleConcat(WARNING_PREFIX, "The '", packagePrefixAsPath, "' attribute was not specified when calling ant, will set default: ", packagePrefixAsPath));
+          JepRiaToolkitUtil.multipleConcat(WARNING_PREFIX, "The 'packagePrefixAsPath' attribute was not specified when calling ant, will set default: ", packagePrefixAsPath));
     }
     
     ph = PropertyHelper.getPropertyHelper(getProject());

@@ -3,15 +3,21 @@ package com.technology.jep.jepria.client.message;
 import static com.technology.jep.jepria.client.JepRiaClientConstant.JepTexts;
 import static com.technology.jep.jepria.client.JepRiaClientConstant.MAIN_FONT_STYLE;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style.FontWeight;
 import com.google.gwt.dom.client.Style.TextAlign;
 import com.google.gwt.dom.client.Style.Unit;
+import com.google.gwt.event.dom.client.BlurEvent;
+import com.google.gwt.event.dom.client.BlurHandler;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.FocusEvent;
+import com.google.gwt.event.dom.client.FocusHandler;
 import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.resources.client.ImageResource;
@@ -36,6 +42,7 @@ public class MessageBox extends WindowBox {
   private DockPanel iconMessageContainer, buttonsContainer;
   protected int iconMessageContainerHeight, buttonsContainerHeight;
   private Image icon;
+  private Button focusedButton = null;
   
   // list of available buttons (map : the button and the correspondent type)
   Map<PredefinedButton, Button> buttons = new LinkedHashMap<PredefinedButton, Button>();
@@ -77,10 +84,8 @@ public class MessageBox extends WindowBox {
     cellFormatter.setVerticalAlignment(0, 0, HasVerticalAlignment.ALIGN_TOP);
     cellFormatter.setHorizontalAlignment(0, 0, HasHorizontalAlignment.ALIGN_LEFT);
     cellFormatter.setHorizontalAlignment(1, 0, HasHorizontalAlignment.ALIGN_CENTER);
-    
     setWidget(mainPanel);
   }
-
   
   @Override
   public void show() {
@@ -92,6 +97,18 @@ public class MessageBox extends WindowBox {
     // Attach Buttons if it needs.
     for (Button b : buttons.values()){
       buttonsContainer.add(b, DockPanel.WEST);
+      b.addFocusHandler(new FocusHandler(){
+        @Override
+        public void onFocus(FocusEvent event) {
+          focusedButton = (Button) event.getSource();
+        }
+      });
+      b.addBlurHandler(new BlurHandler(){
+        @Override
+        public void onBlur(BlurEvent event) {
+          focusedButton = null;
+        }
+      });
     }
     
     super.show();
@@ -107,16 +124,17 @@ public class MessageBox extends WindowBox {
     boolean isFirst = true;
     // Loop all buttons
     for (Iterator<Button> buttonIterator = buttons.values().iterator(); buttonIterator.hasNext(); isFirst = false){
-      Button b = buttonIterator.next(); 
+      final Button b = buttonIterator.next(); 
       boolean isNotLast = buttonIterator.hasNext();
       if (isFirst){
         b.getElement().getParentElement().getStyle().setTextAlign(isNotLast ? TextAlign.RIGHT : TextAlign.CENTER);
+        focusedButton = b;
+        b.setFocus(true);
       }
       else if (isNotLast){
         buttonsContainer.setCellWidth(b, b.getOffsetWidth() + Unit.PX.getType());
       }
     }
-
     center();
   }
   
@@ -136,14 +154,23 @@ public class MessageBox extends WindowBox {
    */
   @Override
   protected void onPreviewNativeEvent(NativePreviewEvent event) {
-    if(event.getTypeInt() == Event.ONKEYDOWN) {
-          if(event.getNativeEvent().getKeyCode() == KeyCodes.KEY_ENTER) {
-            if (!buttons.isEmpty()){
-              buttons.get(0).click();
-              event.cancel();
-            }
+    if (event.getTypeInt() == Event.ONKEYDOWN) {
+      if (isShowing() && isAttached()) {
+        if (focusedButton != null) {
+          int keyCode = event.getNativeEvent().getKeyCode();
+          if (keyCode == KeyCodes.KEY_ENTER) {
+            focusedButton.click();
+          } else if (keyCode == KeyCodes.KEY_TAB) {
+            List<Button> buttonList = new ArrayList<>(buttons.values());
+            int currentFocusIndex = buttonList.indexOf(focusedButton);
+            int nextButtonIndex = currentFocusIndex + 1 >= buttonList.size() ? 0 : currentFocusIndex + 1;
+            focusedButton = buttonList.get(nextButtonIndex);
+            buttonList.get(nextButtonIndex).setFocus(true);
           }
+        }
+        event.cancel();
       }
+    }
     super.onPreviewNativeEvent(event);
   }
   

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context>
+  <Realm className="org.jepria.catalina.realm.JepJAASRealm" 
+    appName="RFInfoDS"
+    userClassNames="org.jepria.ssoutils.JepPrincipal"
+    roleClassNames="org.jepria.ssoutils.JepPrincipal" />
+</Context>

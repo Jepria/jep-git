@@ -1251,10 +1251,6 @@
 <div class="block">Создание основного GWT.xml для всего приложения, описывающего его
  структуру</div>
 </dd>
-<dt><span class="memberNameLink"><a href="com/technology/jep/jepriatoolkit/creator/application/ApplicationStructureCreator.html#generateTomcatContextXml--">generateTomcatContextXml()</a></span> - Method in class com.technology.jep.jepriatoolkit.creator.application.<a href="com/technology/jep/jepriatoolkit/creator/application/ApplicationStructureCreator.html" title="class in com.technology.jep.jepriatoolkit.creator.application">ApplicationStructureCreator</a></dt>
-<dd>
-<div class="block">Создание tomcat/context.xml.</div>
-</dd>
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepriatoolkit/creator/application/ApplicationStructureCreator.html#generateWebXML--">generateWebXML()</a></span> - Method in class com.technology.jep.jepriatoolkit.creator.application.<a href="com/technology/jep/jepriatoolkit/creator/application/ApplicationStructureCreator.html" title="class in com.technology.jep.jepriatoolkit.creator.application">ApplicationStructureCreator</a></dt>
 <dd>
 <div class="block">Генерация дескриптора развертывания web.xml</div>
@@ -1685,6 +1681,10 @@
 <div class="block">Получение наименования пакета для GWT-модуля</div>
 </dd>
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepriatoolkit/creator/module/Db.html#getPackageName--">getPackageName()</a></span> - Method in class com.technology.jep.jepriatoolkit.creator.module.<a href="com/technology/jep/jepriatoolkit/creator/module/Db.html" title="class in com.technology.jep.jepriatoolkit.creator.module">Db</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com/technology/jep/jepriatoolkit/creator/module/Application.html#getPackagePrefix--">getPackagePrefix()</a></span> - Method in class com.technology.jep.jepriatoolkit.creator.module.<a href="com/technology/jep/jepriatoolkit/creator/module/Application.html" title="class in com.technology.jep.jepriatoolkit.creator.module">Application</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com/technology/jep/jepriatoolkit/creator/module/Application.html#getPackagePrefixAsPath--">getPackagePrefixAsPath()</a></span> - Method in class com.technology.jep.jepriatoolkit.creator.module.<a href="com/technology/jep/jepriatoolkit/creator/module/Application.html" title="class in com.technology.jep.jepriatoolkit.creator.module">Application</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepriatoolkit/creator/module/ModuleField.html#getParameter-boolean-">getParameter(boolean)</a></span> - Method in class com.technology.jep.jepriatoolkit.creator.module.<a href="com/technology/jep/jepriatoolkit/creator/module/ModuleField.html" title="class in com.technology.jep.jepriatoolkit.creator.module">ModuleField</a></dt>
 <dd>&nbsp;</dd>
@@ -2595,6 +2595,20 @@
 <dl>
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#PACKAGE_NAME_TEMPLATE_PARAMETER">PACKAGE_NAME_TEMPLATE_PARAMETER</a></span> - Static variable in class com.technology.jep.jepriatoolkit.<a href="com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html" title="class in com.technology.jep.jepriatoolkit">JepRiaToolkitConstant</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#PACKAGE_PREFIX_AS_PATH_DEFAULT">PACKAGE_PREFIX_AS_PATH_DEFAULT</a></span> - Static variable in class com.technology.jep.jepriatoolkit.<a href="com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html" title="class in com.technology.jep.jepriatoolkit">JepRiaToolkitConstant</a></dt>
+<dd>
+<div class="block">Дефолтное значение атрибута, отвечающего за префикс пакета в виде пути (com/technology)</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#PACKAGE_PREFIX_ATTRIBUTE">PACKAGE_PREFIX_ATTRIBUTE</a></span> - Static variable in class com.technology.jep.jepriatoolkit.<a href="com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html" title="class in com.technology.jep.jepriatoolkit">JepRiaToolkitConstant</a></dt>
+<dd>
+<div class="block">Наименование атрибута, отвечающего за префикс пакета (com.technology)</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#PACKAGE_PREFIX_DEFAULT">PACKAGE_PREFIX_DEFAULT</a></span> - Static variable in class com.technology.jep.jepriatoolkit.<a href="com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html" title="class in com.technology.jep.jepriatoolkit">JepRiaToolkitConstant</a></dt>
+<dd>
+<div class="block">Дефолтное значение атрибута, отвечающего за префикс пакета (com.technology)</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#PACKAGE_PREFIX_TEMPLATE_PARAMETER">PACKAGE_PREFIX_TEMPLATE_PARAMETER</a></span> - Static variable in class com.technology.jep.jepriatoolkit.<a href="com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html" title="class in com.technology.jep.jepriatoolkit">JepRiaToolkitConstant</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepriatoolkit/auto/test/creator/AutoTestStructureCreator.html#packageApplication">packageApplication</a></span> - Variable in class com.technology.jep.jepriatoolkit.auto.test.creator.<a href="com/technology/jep/jepriatoolkit/auto/test/creator/AutoTestStructureCreator.html" title="class in com.technology.jep.jepriatoolkit.auto.test.creator">AutoTestStructureCreator</a></dt>
 <dd>
 <div class="block">Пакет приложения.</div>
@@ -2605,6 +2619,18 @@
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepriatoolkit/switcher/BuildConfigSwitcher.html#packageName">packageName</a></span> - Variable in class com.technology.jep.jepriatoolkit.switcher.<a href="com/technology/jep/jepriatoolkit/switcher/BuildConfigSwitcher.html" title="class in com.technology.jep.jepriatoolkit.switcher">BuildConfigSwitcher</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com/technology/jep/jepriatoolkit/auto/test/creator/AutoTestStructureCreator.html#packagePrefix">packagePrefix</a></span> - Variable in class com.technology.jep.jepriatoolkit.auto.test.creator.<a href="com/technology/jep/jepriatoolkit/auto/test/creator/AutoTestStructureCreator.html" title="class in com.technology.jep.jepriatoolkit.auto.test.creator">AutoTestStructureCreator</a></dt>
+<dd>
+<div class="block">Префикс пакета (например: com.technology).</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com/technology/jep/jepriatoolkit/creator/module/Application.html#packagePrefix">packagePrefix</a></span> - Variable in class com.technology.jep.jepriatoolkit.creator.module.<a href="com/technology/jep/jepriatoolkit/creator/module/Application.html" title="class in com.technology.jep.jepriatoolkit.creator.module">Application</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com/technology/jep/jepriatoolkit/check/ProductionBuildChecker.html#packagePrefixAsPath">packagePrefixAsPath</a></span> - Variable in class com.technology.jep.jepriatoolkit.check.<a href="com/technology/jep/jepriatoolkit/check/ProductionBuildChecker.html" title="class in com.technology.jep.jepriatoolkit.check">ProductionBuildChecker</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com/technology/jep/jepriatoolkit/util/JepRiaToolkitUtil.html#packagePrefixToPath-java.lang.String-">packagePrefixToPath(String)</a></span> - Static method in class com.technology.jep.jepriatoolkit.util.<a href="com/technology/jep/jepriatoolkit/util/JepRiaToolkitUtil.html" title="class in com.technology.jep.jepriatoolkit.util">JepRiaToolkitUtil</a></dt>
+<dd>
+<div class="block">Преобразует строку вида 'com.technology' в 'com/technology'</div>
+</dd>
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepriatoolkit/auto/test/creator/AutoTestStructureCreator.html#packageProject">packageProject</a></span> - Variable in class com.technology.jep.jepriatoolkit.auto.test.creator.<a href="com/technology/jep/jepriatoolkit/auto/test/creator/AutoTestStructureCreator.html" title="class in com.technology.jep.jepriatoolkit.auto.test.creator">AutoTestStructureCreator</a></dt>
 <dd>
 <div class="block">Пакет проекта.</div>
@@ -2659,10 +2685,6 @@
 <div class="block">Префикс пути до папки с java-кодом</div>
 </dd>
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#PREFIX_DESTINATION_RESOURCE">PREFIX_DESTINATION_RESOURCE</a></span> - Static variable in class com.technology.jep.jepriatoolkit.<a href="com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html" title="class in com.technology.jep.jepriatoolkit">JepRiaToolkitConstant</a></dt>
-<dd>
-<div class="block">Префикс пути до исходного кода</div>
-</dd>
-<dt><span class="memberNameLink"><a href="com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#PREFIX_DESTINATION_SOURCE_CODE">PREFIX_DESTINATION_SOURCE_CODE</a></span> - Static variable in class com.technology.jep.jepriatoolkit.<a href="com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html" title="class in com.technology.jep.jepriatoolkit">JepRiaToolkitConstant</a></dt>
 <dd>
 <div class="block">Префикс пути до исходного кода</div>
 </dd>
@@ -2792,7 +2814,7 @@
 <dd>
 <div class="block">Регулярное выражение для пустых символов</div>
 </dd>
-<dt><span class="memberNameLink"><a href="com/technology/jep/jepriatoolkit/util/JepRiaToolkitUtil.html#replacePackageModuleNames-java.lang.String-java.lang.String-java.lang.String-">replacePackageModuleNames(String, String, String)</a></span> - Static method in class com.technology.jep.jepriatoolkit.util.<a href="com/technology/jep/jepriatoolkit/util/JepRiaToolkitUtil.html" title="class in com.technology.jep.jepriatoolkit.util">JepRiaToolkitUtil</a></dt>
+<dt><span class="memberNameLink"><a href="com/technology/jep/jepriatoolkit/util/JepRiaToolkitUtil.html#replacePackageModuleNames-java.lang.String-java.lang.String-java.lang.String-java.lang.String-">replacePackageModuleNames(String, String, String, String)</a></span> - Static method in class com.technology.jep.jepriatoolkit.util.<a href="com/technology/jep/jepriatoolkit/util/JepRiaToolkitUtil.html" title="class in com.technology.jep.jepriatoolkit.util">JepRiaToolkitUtil</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepriatoolkit/parser/thread/ModuleParser.html#replacePathWithModuleId-java.lang.String-java.lang.String-">replacePathWithModuleId(String, String)</a></span> - Static method in class com.technology.jep.jepriatoolkit.parser.thread.<a href="com/technology/jep/jepriatoolkit/parser/thread/ModuleParser.html" title="class in com.technology.jep.jepriatoolkit.parser.thread">ModuleParser</a></dt>
 <dd>&nbsp;</dd>
@@ -3114,6 +3136,10 @@
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepriatoolkit/switcher/BuildConfigSwitcher.html#setPackageName-java.lang.String-">setPackageName(String)</a></span> - Method in class com.technology.jep.jepriatoolkit.switcher.<a href="com/technology/jep/jepriatoolkit/switcher/BuildConfigSwitcher.html" title="class in com.technology.jep.jepriatoolkit.switcher">BuildConfigSwitcher</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com/technology/jep/jepriatoolkit/creator/module/Application.html#setPackagePrefix-java.lang.String-">setPackagePrefix(String)</a></span> - Method in class com.technology.jep.jepriatoolkit.creator.module.<a href="com/technology/jep/jepriatoolkit/creator/module/Application.html" title="class in com.technology.jep.jepriatoolkit.creator.module">Application</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com/technology/jep/jepriatoolkit/check/ProductionBuildChecker.html#setPackagePrefixAsPath-java.lang.String-">setPackagePrefixAsPath(String)</a></span> - Method in class com.technology.jep.jepriatoolkit.check.<a href="com/technology/jep/jepriatoolkit/check/ProductionBuildChecker.html" title="class in com.technology.jep.jepriatoolkit.check">ProductionBuildChecker</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepriatoolkit/creator/module/FunctionParameters.html#setParameters-java.lang.String-">setParameters(String)</a></span> - Method in class com.technology.jep.jepriatoolkit.creator.module.<a href="com/technology/jep/jepriatoolkit/creator/module/FunctionParameters.html" title="class in com.technology.jep.jepriatoolkit.creator.module">FunctionParameters</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepriatoolkit/creator/form/ApplicationFormCreator.html#setParentModuleName-java.lang.String-">setParentModuleName(String)</a></span> - Method in class com.technology.jep.jepriatoolkit.creator.form.<a href="com/technology/jep/jepriatoolkit/creator/form/ApplicationFormCreator.html" title="class in com.technology.jep.jepriatoolkit.creator.form">ApplicationFormCreator</a></dt>
@@ -3321,12 +3347,6 @@
 <dd>
 <div class="block">Размер создаваемого пула нитей для возможности распараллеливания выполнения задач</div>
 </dd>
-<dt><span class="memberNameLink"><a href="com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#TOMCAT_CONTEXT_XML_PATH_TEMPLATE_PROPERTY">TOMCAT_CONTEXT_XML_PATH_TEMPLATE_PROPERTY</a></span> - Static variable in class com.technology.jep.jepriatoolkit.<a href="com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html" title="class in com.technology.jep.jepriatoolkit">JepRiaToolkitConstant</a></dt>
-<dd>&nbsp;</dd>
-<dt><span class="memberNameLink"><a href="com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#TOMCAT_CONTEXT_XML_TEMPLATE_PROPERTY">TOMCAT_CONTEXT_XML_TEMPLATE_PROPERTY</a></span> - Static variable in class com.technology.jep.jepriatoolkit.<a href="com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html" title="class in com.technology.jep.jepriatoolkit">JepRiaToolkitConstant</a></dt>
-<dd>&nbsp;</dd>
-<dt><span class="memberNameLink"><a href="com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html#TOMCAT_RESOURCE_DIRECTORY_TEMPLATE_PROPERTY">TOMCAT_RESOURCE_DIRECTORY_TEMPLATE_PROPERTY</a></span> - Static variable in class com.technology.jep.jepriatoolkit.<a href="com/technology/jep/jepriatoolkit/JepRiaToolkitConstant.html" title="class in com.technology.jep.jepriatoolkit">JepRiaToolkitConstant</a></dt>
-<dd>&nbsp;</dd>
 <dt><a href="com/technology/jep/jepriatoolkit/creator/module/ToolBar.html" title="class in com.technology.jep.jepriatoolkit.creator.module"><span class="typeNameLink">ToolBar</span></a> - Class in <a href="com/technology/jep/jepriatoolkit/creator/module/package-summary.html">com.technology.jep.jepriatoolkit.creator.module</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepriatoolkit/creator/module/ToolBar.html#ToolBar--">ToolBar()</a></span> - Constructor for class com.technology.jep.jepriatoolkit.creator.module.<a href="com/technology/jep/jepriatoolkit/creator/module/ToolBar.html" title="class in com.technology.jep.jepriatoolkit.creator.module">ToolBar</a></dt>

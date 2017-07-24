@@ -1,6 +1,5 @@
 package com.technology.jep.jepriatoolkit.creator.application;
 
-import static com.technology.jep.jepria.server.JepRiaServerConstant.DEFAULT_DATA_SOURCE_JNDI_NAME;
 import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.*;
 import static com.technology.jep.jepriatoolkit.creator.application.ApplicationStructureCreatorUtil.convertTemplateToFile;
 import static com.technology.jep.jepriatoolkit.creator.application.ApplicationStructureCreatorUtil.prepareData;
@@ -64,8 +63,6 @@ public class ApplicationStructureCreator extends Task {
       createApplicationFileStructure();
       echoMessage("Generate web.xml");
       generateWebXML();
-      echoMessage("Generate tomcat/context.xml");
-      generateTomcatContextXml();
       echoMessage("Create Welcome page!");
       createWelcomePage();
       echoMessage("Generate xml for GWT-application");
@@ -278,29 +275,6 @@ public class ApplicationStructureCreator extends Task {
         application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), application.getPackagePrefixAsPath().toLowerCase()
       )
     );
-  }
-  
-  /**
-   * Создание tomcat/context.xml. <br/>
-   * TODO: Параметризовать appName в Realm в *Definition.xml, так как сейчас жестко зашит RFInfoDS.
-   */
-  private void generateTomcatContextXml() {
-    
-    Map<String, Object> realm = new HashMap<String, Object>();
-    realm.put(REALM_APPNAME_TEMPLATE_PARAMETER, 
-        DEFAULT_DATA_SOURCE_JNDI_NAME.substring(DEFAULT_DATA_SOURCE_JNDI_NAME.indexOf("/") + 1)); //bad view TODO;
-    makeDir(
-        format(getDefinitionProperty(TOMCAT_RESOURCE_DIRECTORY_TEMPLATE_PROPERTY, 
-            multipleConcat(PREFIX_DESTINATION_RESOURCE, "{2}/{0}/{1}/tomcat")),
-        application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), application.getPackagePrefixAsPath().toLowerCase()));
-    
-    convertTemplateToFile(
-        getDefinitionProperty(TOMCAT_CONTEXT_XML_TEMPLATE_PROPERTY, "tomcatContext.ftl"), 
-        realm,
-        format(
-            getDefinitionProperty(TOMCAT_CONTEXT_XML_PATH_TEMPLATE_PROPERTY, 
-                multipleConcat(PREFIX_DESTINATION_RESOURCE, "{2}/{0}/{1}/tomcat/context.xml")), 
-            application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), application.getPackagePrefixAsPath().toLowerCase()));
   }
   
   /**

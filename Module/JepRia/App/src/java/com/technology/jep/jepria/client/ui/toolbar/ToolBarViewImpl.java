@@ -402,6 +402,8 @@ public class ToolBarViewImpl implements ToolBarView {
       public void onKeyDown(KeyDownEvent event) {
         // Для формы поиска очевидной на данное событие является реакция - поиск информации.
         if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
+          event.stopPropagation();
+          event.preventDefault();
           listener.handleEvent(new JepEvent(event));
         }
       }

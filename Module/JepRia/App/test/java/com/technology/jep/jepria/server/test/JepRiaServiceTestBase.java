@@ -13,7 +13,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
-import org.jepria.sso.utils.JepPrincipal;
+import org.jepria.ssoutils.JepPrincipal;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockServletConfig;
 import org.springframework.mock.web.MockServletContext;

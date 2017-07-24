@@ -18,7 +18,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10,"i14":10,"i15":10,"i16":10,"i17":10,"i18":10,"i19":10,"i20":10,"i21":10};
+var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10,"i14":10,"i15":10,"i16":10,"i17":10,"i18":10,"i19":10,"i20":10,"i21":10,"i22":10,"i23":10,"i24":10,"i25":10,"i26":10,"i27":10,"i28":10,"i29":10,"i30":10,"i31":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -48,7 +48,7 @@ var activeTableTab = "activeTableTab";
 </div>
 <div class="subNav">
 <ul class="navList">
-<li><a href="../../../../../../../com/technology/jep/jepria/client/widget/list/PagingManager.html" title="class in com.technology.jep.jepria.client.widget.list"><span class="typeNameLink">Prev&nbsp;Class</span></a></li>
+<li><a href="../../../../../../../com/technology/jep/jepria/client/widget/list/PagingManager.DropType.html" title="enum in com.technology.jep.jepria.client.widget.list"><span class="typeNameLink">Prev&nbsp;Class</span></a></li>
 <li>Next&nbsp;Class</li>
 </ul>
 <ul class="navList">
@@ -73,7 +73,7 @@ var activeTableTab = "activeTableTab";
 <div>
 <ul class="subNavList">
 <li>Summary:&nbsp;</li>
-<li>Nested&nbsp;|&nbsp;</li>
+<li><a href="#nested.classes.inherited.from.class.com.technology.jep.jepria.client.widget.list.PagingManager">Nested</a>&nbsp;|&nbsp;</li>
 <li><a href="#field.summary">Field</a>&nbsp;|&nbsp;</li>
 <li><a href="#constructor.summary">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">Method</a></li>
@@ -136,6 +136,21 @@ extends <a href="../../../../../../../com/technology/jep/jepria/client/widget/li
 <div class="summary">
 <ul class="blockList">
 <li class="blockList">
+<!-- ======== NESTED CLASS SUMMARY ======== -->
+<ul class="blockList">
+<li class="blockList"><a name="nested.class.summary">
+<!--   -->
+</a>
+<h3>Nested Class Summary</h3>
+<ul class="blockList">
+<li class="blockList"><a name="nested.classes.inherited.from.class.com.technology.jep.jepria.client.widget.list.PagingManager">
+<!--   -->
+</a>
+<h3>Nested classes/interfaces inherited from class&nbsp;com.technology.jep.jepria.client.widget.list.<a href="../../../../../../../com/technology/jep/jepria/client/widget/list/PagingManager.html" title="class in com.technology.jep.jepria.client.widget.list">PagingManager</a></h3>
+<code><a href="../../../../../../../com/technology/jep/jepria/client/widget/list/PagingManager.DropType.html" title="enum in com.technology.jep.jepria.client.widget.list">PagingManager.DropType</a></code></li>
+</ul>
+</li>
+</ul>
 <!-- =========== FIELD SUMMARY =========== -->
 <ul class="blockList">
 <li class="blockList"><a name="field.summary">
@@ -149,30 +164,36 @@ extends <a href="../../../../../../../com/technology/jep/jepria/client/widget/li
 <th class="colLast" scope="col">Field and Description</th>
 </tr>
 <tr class="altColor">
+<td class="colFirst"><code>private java.util.List&lt;<a href="../../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</a>&gt;</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/list/TreeGridManager.html#expandNodes">expandNodes</a></span></code>
+<div class="block">Список узлов которые нужно развернуть</div>
+</td>
+</tr>
+<tr class="rowColor">
 <td class="colFirst"><code>private java.util.Map&lt;java.lang.Object,java.util.List&lt;<a href="../../../../../../../com/technology/jep/jepria/client/widget/list/cell/ListTreeNode.html" title="class in com.technology.jep.jepria.client.widget.list.cell">ListTreeNode</a>&gt;&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/list/TreeGridManager.html#fakeUidMap">fakeUidMap</a></span></code>
 <div class="block">Список идентификаторов "fake"-узлов, добавляемых в списочную форму</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code>private <a href="../../../../../../../com/technology/jep/jepria/client/async/DataLoader.html" title="interface in com.technology.jep.jepria.client.async">DataLoader</a>&lt;<a href="../../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/list/TreeGridManager.html#loader">loader</a></span></code>
 <div class="block">Загрузчик данных списка</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code>private java.util.Map&lt;java.lang.Object,<a href="../../../../../../../com/technology/jep/jepria/client/widget/list/cell/ListTreeNode.html" title="class in com.technology.jep.jepria.client.widget.list.cell">ListTreeNode</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/list/TreeGridManager.html#nodes">nodes</a></span></code>
 <div class="block">Коллекция содержит узлы дерева (primaryKey связывается с узлом дерева)</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code>private java.lang.String</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/list/TreeGridManager.html#primaryKeyName">primaryKeyName</a></span></code>
 <div class="block">Наименование, по которому из record берется значение первичного ключа</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code>private <a href="../../../../../../../com/technology/jep/jepria/client/widget/list/JepColumn.html" title="class in com.technology.jep.jepria.client.widget.list">JepColumn</a>&lt;<a href="../../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</a>,?&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/list/TreeGridManager.html#treeCellColumn">treeCellColumn</a></span></code>
 <div class="block">Колонка древовидного справочника</div>
@@ -226,112 +247,185 @@ extends <a href="../../../../../../../com/technology/jep/jepria/client/widget/li
 </tr>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/list/TreeGridManager.html#addChildNode-com.technology.jep.jepria.shared.record.JepRecord-com.technology.jep.jepria.shared.record.JepRecord-boolean-">addChildNode</a></span>(<a href="../../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</a>&nbsp;parentRecord,
+            <a href="../../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</a>&nbsp;childRecord,
+            boolean&nbsp;isLeaf)</code>
+<div class="block">Динамическое добавление дочернего узла на древовидный справочник</div>
+</td>
+</tr>
+<tr id="i1" class="rowColor">
+<td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/list/TreeGridManager.html#addChildrenNode-com.technology.jep.jepria.shared.record.JepRecord-boolean-">addChildrenNode</a></span>(<a href="../../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</a>&nbsp;parentRecord,
                boolean&nbsp;isLeaf)</code>
 <div class="block">Динамическое добавление узла на древовидный справочник</div>
 </td>
 </tr>
-<tr id="i1" class="rowColor">
+<tr id="i2" class="altColor">
+<td class="colFirst"><code>private void</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/list/TreeGridManager.html#appendChildren-com.technology.jep.jepria.shared.record.JepRecord-java.util.List-">appendChildren</a></span>(<a href="../../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</a>&nbsp;newPositionParentRecord,
+              java.util.List&lt;<a href="../../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</a>&gt;&nbsp;oldPositionRecords)</code>
+<div class="block">Присоединение всех дочерних узлов перемещаемой записи.</div>
+</td>
+</tr>
+<tr id="i3" class="rowColor">
+<td class="colFirst"><code>private void</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/list/TreeGridManager.html#appendNodes-java.util.List-com.technology.jep.jepria.shared.record.JepRecord-">appendNodes</a></span>(java.util.List&lt;<a href="../../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</a>&gt;&nbsp;oldPositionRecords,
+           <a href="../../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</a>&nbsp;newPositionRecord)</code>
+<div class="block">Присоединение одного узла к другому в качестве дочернего.</div>
+</td>
+</tr>
+<tr id="i4" class="altColor">
+<td class="colFirst"><code>protected void</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/list/TreeGridManager.html#beforeDrop-java.util.List-com.technology.jep.jepria.shared.record.JepRecord-com.technology.jep.jepria.client.widget.list.PagingManager.DropType-">beforeDrop</a></span>(java.util.List&lt;java.lang.Object&gt;&nbsp;rowList,
+          <a href="../../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</a>&nbsp;newPositionRecord,
+          <a href="../../../../../../../com/technology/jep/jepria/client/widget/list/PagingManager.DropType.html" title="enum in com.technology.jep.jepria.client.widget.list">PagingManager.DropType</a>&nbsp;dropType)</code>
+<div class="block">Подготовка данных к перемещению.</div>
+</td>
+</tr>
+<tr id="i5" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/list/TreeGridManager.html#bindTree--">bindTree</a></span>()</code>
 <div class="block">Инициализация древовидной списочной формы.</div>
 </td>
 </tr>
-<tr id="i2" class="altColor">
+<tr id="i6" class="altColor">
+<td class="colFirst"><code>private <a href="../../../../../../../com/technology/jep/jepria/client/widget/list/cell/ListTreeNode.html" title="class in com.technology.jep.jepria.client.widget.list.cell">ListTreeNode</a></code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/list/TreeGridManager.html#changeNodePosition-com.technology.jep.jepria.shared.record.JepRecord-com.technology.jep.jepria.shared.record.JepRecord-int-">changeNodePosition</a></span>(<a href="../../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</a>&nbsp;oldPositionRecord,
+                  <a href="../../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</a>&nbsp;newPositionParentRecord,
+                  int&nbsp;newDepth)</code>
+<div class="block">Рекурсивное перемещение ветки в дереве.</div>
+</td>
+</tr>
+<tr id="i7" class="rowColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/list/TreeGridManager.html#changeRows-int-int-boolean-">changeRows</a></span>(int&nbsp;oldIndex,
-          int&nbsp;newIndex,
-          boolean&nbsp;isAbove)</code>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/list/TreeGridManager.html#changeRowPosition-java.util.List-int-boolean-boolean-boolean-">changeRowPosition</a></span>(java.util.List&lt;java.lang.Object&gt;&nbsp;rowList,
+                 int&nbsp;newIndex,
+                 boolean&nbsp;isOver,
+                 boolean&nbsp;insertBefore,
+                 boolean&nbsp;insertAfter)</code>
 <div class="block">Изменение позиции элементов виджета</div>
 </td>
 </tr>
-<tr id="i3" class="rowColor">
+<tr id="i8" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/list/TreeGridManager.html#clear--">clear</a></span>()</code>
 <div class="block">Очистка списка, также очищается кеш</div>
 </td>
 </tr>
-<tr id="i4" class="altColor">
+<tr id="i9" class="rowColor">
 <td class="colFirst"><code><a href="../../../../../../../com/technology/jep/jepria/client/widget/list/cell/ListTreeNode.html" title="class in com.technology.jep.jepria.client.widget.list.cell">ListTreeNode</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/list/TreeGridManager.html#findByPrimaryKey-java.lang.Object-">findByPrimaryKey</a></span>(java.lang.Object&nbsp;primaryKey)</code>
 <div class="block">Получает узел из кеша</div>
 </td>
 </tr>
-<tr id="i5" class="rowColor">
+<tr id="i10" class="altColor">
 <td class="colFirst"><code><a href="../../../../../../../com/technology/jep/jepria/client/widget/list/cell/ListTreeNode.html" title="class in com.technology.jep.jepria.client.widget.list.cell">ListTreeNode</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/list/TreeGridManager.html#findNode-com.technology.jep.jepria.shared.record.JepRecord-">findNode</a></span>(<a href="../../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</a>&nbsp;record)</code>
 <div class="block">Поиск узла, соответствующего записи</div>
 </td>
 </tr>
-<tr id="i6" class="altColor">
+<tr id="i11" class="rowColor">
+<td class="colFirst"><code>private int</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/list/TreeGridManager.html#getBranchDepth-com.technology.jep.jepria.client.widget.list.cell.ListTreeNode-">getBranchDepth</a></span>(<a href="../../../../../../../com/technology/jep/jepria/client/widget/list/cell/ListTreeNode.html" title="class in com.technology.jep.jepria.client.widget.list.cell">ListTreeNode</a>&nbsp;node)</code>
+<div class="block">Вычисление глубины текущего состояния ветки, начиная с заданного узла.</div>
+</td>
+</tr>
+<tr id="i12" class="altColor">
 <td class="colFirst"><code>private com.google.gwt.cell.client.Cell.Context</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/list/TreeGridManager.html#getContextByTreeNode-com.technology.jep.jepria.client.widget.list.cell.ListTreeNode-">getContextByTreeNode</a></span>(<a href="../../../../../../../com/technology/jep/jepria/client/widget/list/cell/ListTreeNode.html" title="class in com.technology.jep.jepria.client.widget.list.cell">ListTreeNode</a>&nbsp;treeNode)</code>
 <div class="block">Получение контекста по логической ссылке на узел</div>
 </td>
 </tr>
-<tr id="i7" class="rowColor">
+<tr id="i13" class="rowColor">
 <td class="colFirst"><code>java.util.List&lt;<a href="../../../../../../../com/technology/jep/jepria/client/widget/list/cell/ListTreeNode.html" title="class in com.technology.jep.jepria.client.widget.list.cell">ListTreeNode</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/list/TreeGridManager.html#getFakeNodes--">getFakeNodes</a></span>()</code>
 <div class="block">Список "fake"-узлов</div>
 </td>
 </tr>
-<tr id="i8" class="altColor">
+<tr id="i14" class="altColor">
 <td class="colFirst"><code>java.util.List&lt;<a href="../../../../../../../com/technology/jep/jepria/client/widget/list/cell/ListTreeNode.html" title="class in com.technology.jep.jepria.client.widget.list.cell">ListTreeNode</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/list/TreeGridManager.html#getFakeNodesByParentId-java.lang.Object-">getFakeNodesByParentId</a></span>(java.lang.Object&nbsp;primaryKey)</code>
 <div class="block">Получение списка "fake"-узлов дерева по значению ключа</div>
 </td>
 </tr>
-<tr id="i9" class="rowColor">
+<tr id="i15" class="rowColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/list/TreeGridManager.html#getPrimaryKeyName--">getPrimaryKeyName</a></span>()</code>
 <div class="block">Получает наименование для первичного ключа</div>
 </td>
 </tr>
-<tr id="i10" class="altColor">
+<tr id="i16" class="altColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/list/TreeGridManager.html#getTreeCellDbName--">getTreeCellDbName</a></span>()</code>
 <div class="block">Получение имени поля в БД, соответствующего колонке древовидного справочника</div>
 </td>
 </tr>
-<tr id="i11" class="rowColor">
+<tr id="i17" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/list/TreeGridManager.html#initPrimaryKey-com.technology.jep.jepria.shared.record.JepRecordDefinition-">initPrimaryKey</a></span>(<a href="../../../../../../../com/technology/jep/jepria/shared/record/JepRecordDefinition.html" title="class in com.technology.jep.jepria.shared.record">JepRecordDefinition</a>&nbsp;recordDefinition)</code>
 <div class="block">Инициализация простого первичного ключа по record definition.</div>
 </td>
 </tr>
-<tr id="i12" class="altColor">
+<tr id="i18" class="altColor">
+<td class="colFirst"><code>private void</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/list/TreeGridManager.html#insertAfter-java.util.List-com.technology.jep.jepria.shared.record.JepRecord-">insertAfter</a></span>(java.util.List&lt;<a href="../../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</a>&gt;&nbsp;oldPositionRecords,
+           <a href="../../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</a>&nbsp;newPositionRecord)</code>
+<div class="block">Вставка строки после заданной записи.</div>
+</td>
+</tr>
+<tr id="i19" class="rowColor">
+<td class="colFirst"><code>private void</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/list/TreeGridManager.html#insertBefore-java.util.List-com.technology.jep.jepria.shared.record.JepRecord-">insertBefore</a></span>(java.util.List&lt;<a href="../../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</a>&gt;&nbsp;oldPositionRecords,
+            <a href="../../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</a>&nbsp;newPositionRecord)</code>
+<div class="block">Вставка строки перед заданным записью.</div>
+</td>
+</tr>
+<tr id="i20" class="altColor">
+<td class="colFirst"><code>private boolean</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/list/TreeGridManager.html#isChild-com.technology.jep.jepria.shared.record.JepRecord-com.technology.jep.jepria.shared.record.JepRecord-">isChild</a></span>(<a href="../../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</a>&nbsp;record1,
+       <a href="../../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</a>&nbsp;record2)</code>
+<div class="block">Проверка является ли запись record2 дочерней в дереве для записи record1.</div>
+</td>
+</tr>
+<tr id="i21" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/list/TreeGridManager.html#remove-com.technology.jep.jepria.shared.record.JepRecord-">remove</a></span>(<a href="../../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</a>&nbsp;record)</code>
 <div class="block">Удаление записи из списка</div>
 </td>
 </tr>
-<tr id="i13" class="rowColor">
+<tr id="i22" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/list/TreeGridManager.html#removeBranchFromList-java.util.List-">removeBranchFromList</a></span>(java.util.List&lt;<a href="../../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</a>&gt;&nbsp;list)</code>
 <div class="block">Рекурсивная процедура.</div>
 </td>
 </tr>
-<tr id="i14" class="altColor">
+<tr id="i23" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/list/TreeGridManager.html#set-com.technology.jep.jepria.shared.load.PagingResult-">set</a></span>(<a href="../../../../../../../com/technology/jep/jepria/shared/load/PagingResult.html" title="class in com.technology.jep.jepria.shared.load">PagingResult</a>&lt;<a href="../../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</a>&gt;&nbsp;pagingResult)</code>
 <div class="block">Установка объекта-результата поиска в компонент-списка.</div>
 </td>
 </tr>
-<tr id="i15" class="rowColor">
+<tr id="i24" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/list/TreeGridManager.html#setChildrenInList-com.technology.jep.jepria.shared.record.JepRecord-java.util.List-">setChildrenInList</a></span>(<a href="../../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</a>&nbsp;record,
                  java.util.List&lt;<a href="../../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</a>&gt;&nbsp;data)</code>
 <div class="block">Добавляет поддерево в список по записи</div>
 </td>
 </tr>
-<tr id="i16" class="altColor">
+<tr id="i25" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/list/TreeGridManager.html#setDndEnabled-boolean-">setDndEnabled</a></span>(boolean&nbsp;dndEnabled)</code>
+<div class="block">Установка или отключение возможности переноса строк в таблице данных.</div>
+</td>
+</tr>
+<tr id="i26" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/list/TreeGridManager.html#setExpanded-com.technology.jep.jepria.shared.record.JepRecord-boolean-">setExpanded</a></span>(<a href="../../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</a>&nbsp;record,
            boolean&nbsp;expanded)</code>
 <div class="block">Раскрытие/закрытие записи грида</div>
 </td>
 </tr>
-<tr id="i17" class="rowColor">
+<tr id="i27" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/list/TreeGridManager.html#setExpanded-java.util.List-boolean-">setExpanded</a></span>(java.util.List&lt;<a href="../../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</a>&gt;&nbsp;nodes,
            boolean&nbsp;expanded)</code>
@@ -339,26 +433,26 @@ extends <a href="../../../../../../../com/technology/jep/jepria/client/widget/li
  <a href="../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepTreeField.html#expandedValues"><code>JepTreeField.expandedValues</code></a>.</div>
 </td>
 </tr>
-<tr id="i18" class="altColor">
+<tr id="i28" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/list/TreeGridManager.html#setExpanded-com.technology.jep.jepria.client.widget.list.cell.ListTreeNode-boolean-">setExpanded</a></span>(<a href="../../../../../../../com/technology/jep/jepria/client/widget/list/cell/ListTreeNode.html" title="class in com.technology.jep.jepria.client.widget.list.cell">ListTreeNode</a>&nbsp;treeNode,
            boolean&nbsp;expanded)</code>
 <div class="block">Раскрытие/закрытие узла грида</div>
 </td>
 </tr>
-<tr id="i19" class="rowColor">
+<tr id="i29" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/list/TreeGridManager.html#setLoader-com.technology.jep.jepria.client.async.DataLoader-">setLoader</a></span>(<a href="../../../../../../../com/technology/jep/jepria/client/async/DataLoader.html" title="interface in com.technology.jep.jepria.client.async">DataLoader</a>&lt;<a href="../../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</a>&gt;&nbsp;loader)</code>
 <div class="block">Устанавливает загрузчик данных списка</div>
 </td>
 </tr>
-<tr id="i20" class="altColor">
+<tr id="i30" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/list/TreeGridManager.html#setPrimaryKeyName-java.lang.String-">setPrimaryKeyName</a></span>(java.lang.String&nbsp;primaryKeyName)</code>
 <div class="block">Устанавливает наименование для первичного ключа</div>
 </td>
 </tr>
-<tr id="i21" class="rowColor">
+<tr id="i31" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/list/TreeGridManager.html#toggleChildren-com.google.gwt.cell.client.Cell.Context-">toggleChildren</a></span>(com.google.gwt.cell.client.Cell.Context&nbsp;context)</code>
 <div class="block">Обработка раскрытия/скрытия дерева.</div>
@@ -377,7 +471,7 @@ extends <a href="../../../../../../../com/technology/jep/jepria/client/widget/li
 <!--   -->
 </a>
 <h3>Methods inherited from class&nbsp;com.technology.jep.jepria.client.widget.list.<a href="../../../../../../../com/technology/jep/jepria/client/widget/list/PagingManager.html" title="class in com.technology.jep.jepria.client.widget.list">PagingManager</a></h3>
-<code><a href="../../../../../../../com/technology/jep/jepria/client/widget/list/PagingManager.html#add-com.technology.jep.jepria.shared.record.JepRecord-">add</a>, <a href="../../../../../../../com/technology/jep/jepria/client/widget/list/PagingManager.html#add-java.util.List-">add</a>, <a href="../../../../../../../com/technology/jep/jepria/client/widget/list/PagingManager.html#addDragLeaveListener--">addDragLeaveListener</a>, <a href="../../../../../../../com/technology/jep/jepria/client/widget/list/PagingManager.html#addDragOverListener--">addDragOverListener</a>, <a href="../../../../../../../com/technology/jep/jepria/client/widget/list/PagingManager.html#addDragStartListener--">addDragStartListener</a>, <a href="../../../../../../../com/technology/jep/jepria/client/widget/list/PagingManager.html#addDropListener--">addDropListener</a>, <a href="../../../../../../../com/technology/jep/jepria/client/widget/list/PagingManager.html#addPagingGotoListener--">addPagingGotoListener</a>, <a href="../../../../../../../com/technology/jep/jepria/client/widget/list/PagingManager.html#addPagingRefreshListner--">addPagingRefreshListner</a>, <a href="../../../../../../../com/technology/jep/jepria/client/widget/list/PagingManager.html#addPagingSizeListner--">addPagingSizeListner</a>, <a href="../../../../../../../com/technology/jep/jepria/client/widget/list/PagingManager.html#addRowClickListner--">addRowClickListner</a>, <a href="../../../../../../../com/technology/jep/jepria/client/widget/list/PagingManager.html#addRowDoubleClickListener--">addRowDoubleClickListener</a>, <a href="../../../../../../../com/technology/jep/jepria/client/widget/list/PagingManager.html#beforeDrop-java.util.List-com.technology.jep.jepria.shared.record.JepRecord-int-">beforeDrop</a>, <a href="../../../../../../../com/technology/jep/jepria/client/widget/list/PagingManager.html#changeRowPosition-java.util.List-int-boolean-boolean-boolean-">changeRowPosition</a>, <a href="../../../../../../../com/technology/jep/jepria/client/widget/list/PagingManager.html#get-int-">get</a>, <a href="../../../../../../../com/technology/jep/jepria/client/widget/list/PagingManager.html#getPageSize--">getPageSize</a>, <a href="../../../../../../../com/technology/jep/jepria/client/widget/list/PagingManager.html#getSelectionModel--">getSelectionModel</a>, <a href="../../../../../../../com/technology/jep/jepria/client/widget/list/PagingManager.html#remove-int-">remove</a>, <a href="../../../../../../../com/technology/jep/jepria/client/widget/list/PagingManager.html#set-java.util.List-">set</a>, <a href="../../../../../../../com/technology/jep/jepria/client/widget/list/PagingManager.html#setDndEnabled-boolean-">setDndEnabled</a>, <a href="../../../../../../../com/technology/jep/jepria/client/widget/list/PagingManager.html#setWidget-W-">setWidget</a>, <a href="../../../../../../../com/technology/jep/jepria/client/widget/list/PagingManager.html#size--">size</a>, <a href="../../../../../../../com/technology/jep/jepria/client/widget/list/PagingManager.html#sortRecordList-java.util.List-">sortRecordList</a>, <a href="../../../../../../../com/technology/jep/jepria/client/widget/list/PagingManager.html#update-int-com.technology.jep.jepria.shared.record.JepRecord-">update</a>, <a href="../../../../../../../com/technology/jep/jepria/client/widget/list/PagingManager.html#update-com.technology.jep.jepria.shared.record.JepRecord-">update</a></code></li>
+<code><a href="../../../../../../../com/technology/jep/jepria/client/widget/list/PagingManager.html#add-com.technology.jep.jepria.shared.record.JepRecord-">add</a>, <a href="../../../../../../../com/technology/jep/jepria/client/widget/list/PagingManager.html#add-java.util.List-">add</a>, <a href="../../../../../../../com/technology/jep/jepria/client/widget/list/PagingManager.html#addDragLeaveListener--">addDragLeaveListener</a>, <a href="../../../../../../../com/technology/jep/jepria/client/widget/list/PagingManager.html#addDragOverListener--">addDragOverListener</a>, <a href="../../../../../../../com/technology/jep/jepria/client/widget/list/PagingManager.html#addDragStartListener--">addDragStartListener</a>, <a href="../../../../../../../com/technology/jep/jepria/client/widget/list/PagingManager.html#addDropListener--">addDropListener</a>, <a href="../../../../../../../com/technology/jep/jepria/client/widget/list/PagingManager.html#addPagingGotoListener--">addPagingGotoListener</a>, <a href="../../../../../../../com/technology/jep/jepria/client/widget/list/PagingManager.html#addPagingRefreshListner--">addPagingRefreshListner</a>, <a href="../../../../../../../com/technology/jep/jepria/client/widget/list/PagingManager.html#addPagingSizeListner--">addPagingSizeListner</a>, <a href="../../../../../../../com/technology/jep/jepria/client/widget/list/PagingManager.html#addRowClickListner--">addRowClickListner</a>, <a href="../../../../../../../com/technology/jep/jepria/client/widget/list/PagingManager.html#addRowDoubleClickListener--">addRowDoubleClickListener</a>, <a href="../../../../../../../com/technology/jep/jepria/client/widget/list/PagingManager.html#get-int-">get</a>, <a href="../../../../../../../com/technology/jep/jepria/client/widget/list/PagingManager.html#getPageSize--">getPageSize</a>, <a href="../../../../../../../com/technology/jep/jepria/client/widget/list/PagingManager.html#getSelectionModel--">getSelectionModel</a>, <a href="../../../../../../../com/technology/jep/jepria/client/widget/list/PagingManager.html#remove-int-">remove</a>, <a href="../../../../../../../com/technology/jep/jepria/client/widget/list/PagingManager.html#set-java.util.List-">set</a>, <a href="../../../../../../../com/technology/jep/jepria/client/widget/list/PagingManager.html#setWidget-W-">setWidget</a>, <a href="../../../../../../../com/technology/jep/jepria/client/widget/list/PagingManager.html#size--">size</a>, <a href="../../../../../../../com/technology/jep/jepria/client/widget/list/PagingManager.html#sortRecordList-java.util.List-">sortRecordList</a>, <a href="../../../../../../../com/technology/jep/jepria/client/widget/list/PagingManager.html#update-int-com.technology.jep.jepria.shared.record.JepRecord-">update</a>, <a href="../../../../../../../com/technology/jep/jepria/client/widget/list/PagingManager.html#update-com.technology.jep.jepria.shared.record.JepRecord-">update</a></code></li>
 </ul>
 <ul class="blockList">
 <li class="blockList"><a name="methods.inherited.from.class.com.technology.jep.jepria.client.widget.list.ListManager">
@@ -450,11 +544,21 @@ extends <a href="../../../../../../../com/technology/jep/jepria/client/widget/li
 <a name="fakeUidMap">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>fakeUidMap</h4>
 <pre>private&nbsp;java.util.Map&lt;java.lang.Object,java.util.List&lt;<a href="../../../../../../../com/technology/jep/jepria/client/widget/list/cell/ListTreeNode.html" title="class in com.technology.jep.jepria.client.widget.list.cell">ListTreeNode</a>&gt;&gt; fakeUidMap</pre>
 <div class="block">Список идентификаторов "fake"-узлов, добавляемых в списочную форму</div>
+</li>
+</ul>
+<a name="expandNodes">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>expandNodes</h4>
+<pre>private&nbsp;java.util.List&lt;<a href="../../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</a>&gt; expandNodes</pre>
+<div class="block">Список узлов которые нужно развернуть</div>
 </li>
 </ul>
 </li>
@@ -536,6 +640,23 @@ extends <a href="../../../../../../../com/technology/jep/jepria/client/widget/li
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>loader</code> - загрузчик данных списка</dd>
+</dl>
+</li>
+</ul>
+<a name="setDndEnabled-boolean-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setDndEnabled</h4>
+<pre>public&nbsp;void&nbsp;setDndEnabled(boolean&nbsp;dndEnabled)</pre>
+<div class="block"><span class="descfrmTypeLabel">Description copied from class:&nbsp;<code><a href="../../../../../../../com/technology/jep/jepria/client/widget/list/PagingManager.html#setDndEnabled-boolean-">PagingManager</a></code></span></div>
+<div class="block">Установка или отключение возможности переноса строк в таблице данных.</div>
+<dl>
+<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
+<dd><code><a href="../../../../../../../com/technology/jep/jepria/client/widget/list/PagingManager.html#setDndEnabled-boolean-">setDndEnabled</a></code>&nbsp;in class&nbsp;<code><a href="../../../../../../../com/technology/jep/jepria/client/widget/list/PagingManager.html" title="class in com.technology.jep.jepria.client.widget.list">PagingManager</a>&lt;<a href="../../../../../../../com/technology/jep/jepria/client/widget/list/TreeGridManager.html" title="type parameter in TreeGridManager">W</a> extends com.google.gwt.user.cellview.client.AbstractCellTable&lt;<a href="../../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</a>&gt;,<a href="../../../../../../../com/technology/jep/jepria/client/widget/list/TreeGridManager.html" title="type parameter in TreeGridManager">P</a> extends <a href="../../../../../../../com/technology/jep/jepria/client/widget/toolbar/PagingToolBar.html" title="interface in com.technology.jep.jepria.client.widget.toolbar">PagingToolBar</a>,<a href="../../../../../../../com/technology/jep/jepria/client/widget/list/TreeGridManager.html" title="type parameter in TreeGridManager">S</a> extends com.google.gwt.view.client.SetSelectionModel&lt;<a href="../../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</a>&gt;&gt;</code></dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>dndEnabled</code> - флаг допустимости переноса строк колонок</dd>
 </dl>
 </li>
 </ul>
@@ -674,6 +795,24 @@ extends <a href="../../../../../../../com/technology/jep/jepria/client/widget/li
 </dl>
 </li>
 </ul>
+<a name="addChildNode-com.technology.jep.jepria.shared.record.JepRecord-com.technology.jep.jepria.shared.record.JepRecord-boolean-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>addChildNode</h4>
+<pre>public&nbsp;void&nbsp;addChildNode(<a href="../../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</a>&nbsp;parentRecord,
+                         <a href="../../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</a>&nbsp;childRecord,
+                         boolean&nbsp;isLeaf)</pre>
+<div class="block">Динамическое добавление дочернего узла на древовидный справочник</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>parentRecord</code> - родительский узел</dd>
+<dd><code>childRecord</code> - дочерний узел</dd>
+<dd><code>isLeaf</code> - признак листового узла</dd>
+</dl>
+</li>
+</ul>
 <a name="getFakeNodes--">
 <!--   -->
 </a>
@@ -704,25 +843,163 @@ extends <a href="../../../../../../../com/technology/jep/jepria/client/widget/li
 </dl>
 </li>
 </ul>
-<a name="changeRows-int-int-boolean-">
+<a name="getBranchDepth-com.technology.jep.jepria.client.widget.list.cell.ListTreeNode-">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>changeRows</h4>
-<pre>public&nbsp;void&nbsp;changeRows(int&nbsp;oldIndex,
-                       int&nbsp;newIndex,
-                       boolean&nbsp;isAbove)</pre>
-<div class="block">Изменение позиции элементов виджета
- Особенности реализации:<br/>
- Перед заменой строк древовидного справочника перетаскиваемые узлы схлопываются, если они ранее были раскрыты.</div>
+<h4>getBranchDepth</h4>
+<pre>private&nbsp;int&nbsp;getBranchDepth(<a href="../../../../../../../com/technology/jep/jepria/client/widget/list/cell/ListTreeNode.html" title="class in com.technology.jep.jepria.client.widget.list.cell">ListTreeNode</a>&nbsp;node)</pre>
+<div class="block">Вычисление глубины текущего состояния ветки, начиная с заданного узла.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>node</code> - Узел дерева</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>Глубина ветки</dd>
+</dl>
+</li>
+</ul>
+<a name="beforeDrop-java.util.List-com.technology.jep.jepria.shared.record.JepRecord-com.technology.jep.jepria.client.widget.list.PagingManager.DropType-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>beforeDrop</h4>
+<pre>protected&nbsp;void&nbsp;beforeDrop(java.util.List&lt;java.lang.Object&gt;&nbsp;rowList,
+                          <a href="../../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</a>&nbsp;newPositionRecord,
+                          <a href="../../../../../../../com/technology/jep/jepria/client/widget/list/PagingManager.DropType.html" title="enum in com.technology.jep.jepria.client.widget.list">PagingManager.DropType</a>&nbsp;dropType)</pre>
+<div class="block">Подготовка данных к перемещению.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
-<dd><code><a href="../../../../../../../com/technology/jep/jepria/client/widget/list/PagingManager.html#changeRows-int-int-boolean-">changeRows</a></code>&nbsp;in class&nbsp;<code><a href="../../../../../../../com/technology/jep/jepria/client/widget/list/PagingManager.html" title="class in com.technology.jep.jepria.client.widget.list">PagingManager</a>&lt;<a href="../../../../../../../com/technology/jep/jepria/client/widget/list/TreeGridManager.html" title="type parameter in TreeGridManager">W</a> extends com.google.gwt.user.cellview.client.AbstractCellTable&lt;<a href="../../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</a>&gt;,<a href="../../../../../../../com/technology/jep/jepria/client/widget/list/TreeGridManager.html" title="type parameter in TreeGridManager">P</a> extends <a href="../../../../../../../com/technology/jep/jepria/client/widget/toolbar/PagingToolBar.html" title="interface in com.technology.jep.jepria.client.widget.toolbar">PagingToolBar</a>,<a href="../../../../../../../com/technology/jep/jepria/client/widget/list/TreeGridManager.html" title="type parameter in TreeGridManager">S</a> extends com.google.gwt.view.client.SetSelectionModel&lt;<a href="../../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</a>&gt;&gt;</code></dd>
+<dd><code><a href="../../../../../../../com/technology/jep/jepria/client/widget/list/PagingManager.html#beforeDrop-java.util.List-com.technology.jep.jepria.shared.record.JepRecord-com.technology.jep.jepria.client.widget.list.PagingManager.DropType-">beforeDrop</a></code>&nbsp;in class&nbsp;<code><a href="../../../../../../../com/technology/jep/jepria/client/widget/list/PagingManager.html" title="class in com.technology.jep.jepria.client.widget.list">PagingManager</a>&lt;<a href="../../../../../../../com/technology/jep/jepria/client/widget/list/TreeGridManager.html" title="type parameter in TreeGridManager">W</a> extends com.google.gwt.user.cellview.client.AbstractCellTable&lt;<a href="../../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</a>&gt;,<a href="../../../../../../../com/technology/jep/jepria/client/widget/list/TreeGridManager.html" title="type parameter in TreeGridManager">P</a> extends <a href="../../../../../../../com/technology/jep/jepria/client/widget/toolbar/PagingToolBar.html" title="interface in com.technology.jep.jepria.client.widget.toolbar">PagingToolBar</a>,<a href="../../../../../../../com/technology/jep/jepria/client/widget/list/TreeGridManager.html" title="type parameter in TreeGridManager">S</a> extends com.google.gwt.view.client.SetSelectionModel&lt;<a href="../../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</a>&gt;&gt;</code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>oldIndex</code> - "старый" индекс элемента</dd>
+<dd><code>rowList</code> - список перемещаемых узлов</dd>
+<dd><code>newPositionRecord</code> - новая позиция узлов.</dd>
+</dl>
+</li>
+</ul>
+<a name="insertBefore-java.util.List-com.technology.jep.jepria.shared.record.JepRecord-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>insertBefore</h4>
+<pre>private&nbsp;void&nbsp;insertBefore(java.util.List&lt;<a href="../../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</a>&gt;&nbsp;oldPositionRecords,
+                          <a href="../../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</a>&nbsp;newPositionRecord)</pre>
+<div class="block">Вставка строки перед заданным записью.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>oldPositionRecord</code> - </dd>
+<dd><code>newPositionRecord</code> - </dd>
+</dl>
+</li>
+</ul>
+<a name="insertAfter-java.util.List-com.technology.jep.jepria.shared.record.JepRecord-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>insertAfter</h4>
+<pre>private&nbsp;void&nbsp;insertAfter(java.util.List&lt;<a href="../../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</a>&gt;&nbsp;oldPositionRecords,
+                         <a href="../../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</a>&nbsp;newPositionRecord)</pre>
+<div class="block">Вставка строки после заданной записи.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>oldPositionRecord</code> - </dd>
+<dd><code>newPositionRecord</code> - </dd>
+</dl>
+</li>
+</ul>
+<a name="isChild-com.technology.jep.jepria.shared.record.JepRecord-com.technology.jep.jepria.shared.record.JepRecord-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>isChild</h4>
+<pre>private&nbsp;boolean&nbsp;isChild(<a href="../../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</a>&nbsp;record1,
+                        <a href="../../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</a>&nbsp;record2)</pre>
+<div class="block">Проверка является ли запись record2 дочерней в дереве для записи record1.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>record1</code> - </dd>
+<dd><code>record2</code> - </dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+</dl>
+</li>
+</ul>
+<a name="appendChildren-com.technology.jep.jepria.shared.record.JepRecord-java.util.List-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>appendChildren</h4>
+<pre>private&nbsp;void&nbsp;appendChildren(<a href="../../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</a>&nbsp;newPositionParentRecord,
+                            java.util.List&lt;<a href="../../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</a>&gt;&nbsp;oldPositionRecords)</pre>
+<div class="block">Присоединение всех дочерних узлов перемещаемой записи.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>newPositionParentRecord</code> - </dd>
+<dd><code>oldPositionRecords</code> - </dd>
+</dl>
+</li>
+</ul>
+<a name="appendNodes-java.util.List-com.technology.jep.jepria.shared.record.JepRecord-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>appendNodes</h4>
+<pre>private&nbsp;void&nbsp;appendNodes(java.util.List&lt;<a href="../../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</a>&gt;&nbsp;oldPositionRecords,
+                         <a href="../../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</a>&nbsp;newPositionRecord)</pre>
+<div class="block">Присоединение одного узла к другому в качестве дочернего.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>oldPositionRecords</code> - </dd>
+<dd><code>newPositionRecord</code> - </dd>
+</dl>
+</li>
+</ul>
+<a name="changeRowPosition-java.util.List-int-boolean-boolean-boolean-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>changeRowPosition</h4>
+<pre>public&nbsp;void&nbsp;changeRowPosition(java.util.List&lt;java.lang.Object&gt;&nbsp;rowList,
+                              int&nbsp;newIndex,
+                              boolean&nbsp;isOver,
+                              boolean&nbsp;insertBefore,
+                              boolean&nbsp;insertAfter)</pre>
+<div class="block">Изменение позиции элементов виджета</div>
+<dl>
+<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
+<dd><code><a href="../../../../../../../com/technology/jep/jepria/client/widget/list/PagingManager.html#changeRowPosition-java.util.List-int-boolean-boolean-boolean-">changeRowPosition</a></code>&nbsp;in class&nbsp;<code><a href="../../../../../../../com/technology/jep/jepria/client/widget/list/PagingManager.html" title="class in com.technology.jep.jepria.client.widget.list">PagingManager</a>&lt;<a href="../../../../../../../com/technology/jep/jepria/client/widget/list/TreeGridManager.html" title="type parameter in TreeGridManager">W</a> extends com.google.gwt.user.cellview.client.AbstractCellTable&lt;<a href="../../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</a>&gt;,<a href="../../../../../../../com/technology/jep/jepria/client/widget/list/TreeGridManager.html" title="type parameter in TreeGridManager">P</a> extends <a href="../../../../../../../com/technology/jep/jepria/client/widget/toolbar/PagingToolBar.html" title="interface in com.technology.jep.jepria.client.widget.toolbar">PagingToolBar</a>,<a href="../../../../../../../com/technology/jep/jepria/client/widget/list/TreeGridManager.html" title="type parameter in TreeGridManager">S</a> extends com.google.gwt.view.client.SetSelectionModel&lt;<a href="../../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</a>&gt;&gt;</code></dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>rowList</code> - список перемещаемых элементов</dd>
 <dd><code>newIndex</code> - "новый" индекс элемента</dd>
-<dd><code>isAbove</code> - признак замены элемента выше стоящего</dd>
+<dd><code>isOver</code> - вставка внутрь узла(для дерева)</dd>
+<dd><code>insertBefore</code> - вставка перед строкой</dd>
+<dd><code>insertAfter</code> - вставка после строки</dd>
+</dl>
+</li>
+</ul>
+<a name="changeNodePosition-com.technology.jep.jepria.shared.record.JepRecord-com.technology.jep.jepria.shared.record.JepRecord-int-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>changeNodePosition</h4>
+<pre>private&nbsp;<a href="../../../../../../../com/technology/jep/jepria/client/widget/list/cell/ListTreeNode.html" title="class in com.technology.jep.jepria.client.widget.list.cell">ListTreeNode</a>&nbsp;changeNodePosition(<a href="../../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</a>&nbsp;oldPositionRecord,
+                                        <a href="../../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</a>&nbsp;newPositionParentRecord,
+                                        int&nbsp;newDepth)</pre>
+<div class="block">Рекурсивное перемещение ветки в дереве.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>oldPositionRecord</code> - запись перемещаемого узла</dd>
+<dd><code>newPositionParentRecord</code> - родительская запись целевого узла</dd>
+<dd><code>newDepth</code> - глубина целевого узла</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>ListTreeNode root новой ветки</dd>
 </dl>
 </li>
 </ul>
@@ -843,7 +1120,7 @@ extends <a href="../../../../../../../com/technology/jep/jepria/client/widget/li
 </div>
 <div class="subNav">
 <ul class="navList">
-<li><a href="../../../../../../../com/technology/jep/jepria/client/widget/list/PagingManager.html" title="class in com.technology.jep.jepria.client.widget.list"><span class="typeNameLink">Prev&nbsp;Class</span></a></li>
+<li><a href="../../../../../../../com/technology/jep/jepria/client/widget/list/PagingManager.DropType.html" title="enum in com.technology.jep.jepria.client.widget.list"><span class="typeNameLink">Prev&nbsp;Class</span></a></li>
 <li>Next&nbsp;Class</li>
 </ul>
 <ul class="navList">
@@ -868,7 +1145,7 @@ extends <a href="../../../../../../../com/technology/jep/jepria/client/widget/li
 <div>
 <ul class="subNavList">
 <li>Summary:&nbsp;</li>
-<li>Nested&nbsp;|&nbsp;</li>
+<li><a href="#nested.classes.inherited.from.class.com.technology.jep.jepria.client.widget.list.PagingManager">Nested</a>&nbsp;|&nbsp;</li>
 <li><a href="#field.summary">Field</a>&nbsp;|&nbsp;</li>
 <li><a href="#constructor.summary">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">Method</a></li>

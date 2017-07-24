@@ -2,6 +2,8 @@ com.google.gwt
 com.google.gwt.user.client.rpc.core.java.sql
 com.google.gwt.user.client.rpc.core.java.util
 com.technology.jep.jepcommon.security
+com.technology.jep.jepcommon.security.authentication
+com.technology.jep.jepcommon.security.authorization
 com.technology.jep.jepcommon.security.tomcat
 com.technology.jep.jepria.auto
 com.technology.jep.jepria.auto.application

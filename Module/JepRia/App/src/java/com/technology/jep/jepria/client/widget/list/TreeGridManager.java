@@ -349,7 +349,9 @@ public class TreeGridManager<W extends AbstractCellTable<JepRecord>, P extends P
         cacheNode.children.add(childRecord);
       }
       if(cacheNode.isOpen()){
-          setChildrenInList(parentRecord, new ArrayList<JepRecord>(Collections.singletonList(childRecord)));
+          dataProvider.getList().add(dataProvider.getList().indexOf(parentRecord) + getBranchDepth(cacheNode), 
+              childRecord);
+          widget.setVisibleRange(0, dataProvider.getList().size());
       }
     } else if (!JepRiaUtil.isEmpty(childRecord)){
        ListTreeNode treeNode = new ListTreeNode(childRecord, null, 1);

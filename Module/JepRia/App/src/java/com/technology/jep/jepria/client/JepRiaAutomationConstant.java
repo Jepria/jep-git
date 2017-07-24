@@ -1,6 +1,6 @@
 package com.technology.jep.jepria.client;
 
-import org.jepria.sso.utils.SsoUiConstants;
+import org.jepria.ssoutils.SsoUiConstants;
 
 import com.technology.jep.jepria.client.ui.toolbar.ToolBarConstant;
 

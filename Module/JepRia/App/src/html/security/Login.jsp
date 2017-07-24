@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <%@ page contentType="text/html;charset=utf-8" language="java"%>
-<%@ page import="org.jepria.sso.utils.SsoUiUtils"%>
+<%@ page import="org.jepria.ssoutils.SsoUiUtils"%>
 <%@ page import="static com.technology.jep.jepria.shared.JepRiaConstant.HTTP_REQUEST_PARAMETER_LOCALE"%>
 <%@ page import="com.technology.jep.jepria.server.security.SecurityFactory" %>
 <%@ page import="static com.technology.jep.jepria.server.util.JepServerUtil.getLocale"%>
