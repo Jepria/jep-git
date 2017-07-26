@@ -6,6 +6,7 @@ import static com.technology.jep.jepria.shared.JepRiaConstant.DOWNLOAD_EXTENSION
 import static com.technology.jep.jepria.shared.JepRiaConstant.DOWNLOAD_FILE_NAME_PREFIX;
 import static com.technology.jep.jepria.shared.JepRiaConstant.DOWNLOAD_FILE_NAME;
 
+import com.google.gwt.http.client.URL;
 import com.google.gwt.user.client.ui.HTML;
 import com.technology.jep.jepria.shared.record.lob.JepFileReference;
 
@@ -194,7 +195,7 @@ public class JepFileField extends JepLargeField<HTML> {
         sbRef.append("=");
         sbRef.append(fileExtension);
       }
-      return sbRef.toString();
+      return URL.encode(sbRef.toString());
       
     } else {
       return null;
