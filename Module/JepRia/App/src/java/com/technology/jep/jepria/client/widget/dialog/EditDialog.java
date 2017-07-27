@@ -80,7 +80,7 @@ public class EditDialog extends MessageBox {
    * @param headerText Заголовок.
    */
   public EditDialog(String headerText) {
-    super(headerText);
+    super(headerText, null);
     
     //основная панель
     mainPanel.setWidget(0, 0, panel);
