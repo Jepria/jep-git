@@ -18,7 +18,7 @@ import com.technology.jep.jepria.client.widget.field.multistate.JepMultiStateFie
  * На кнопку "Ок" можно добавить листенер, который сработает, если валидация полей успешна. <br/>
  * Пример:
  * <pre>
- *   final EditDialog setLostDialog = new EditDialog(contractDetailText.dialog_lost_header());
+ *   final DialogWithFields setLostDialog = new DialogWithFields(contractDetailText.dialog_lost_header());
  *
  *   JepComboBoxField eventTypeField = new JepComboBoxField(contractDetailText.dialog_lost_field_lostEventType());
  *   eventTypeField.setAllowBlank(false);
@@ -30,8 +30,8 @@ import com.technology.jep.jepria.client.widget.field.multistate.JepMultiStateFie
  *   setLostDialog.addField(LOST_EVENT_DATE, dateField);
  *
  *   setLostDialog.setOnSave(new Command() {
- *    {@literal @}Override
- *    public void execute() {
+ *     {@literal @}Override
+ *     public void execute() {
  *       list.mask(JepTexts.loadingPanel_dataLoading());
  *       service.setEventContractLost(
  *          currentRecord.get(CONTRACT_NUMBER),
@@ -43,8 +43,9 @@ import com.technology.jep.jepria.client.widget.field.multistate.JepMultiStateFie
  *   
  *   setLostDialog.show(); 
  * </pre>
+ * TODO: Подумать еще над названием класса.
  */
-public class EditDialog extends MessageBox {
+public class DialogWithFields extends MessageBox {
   
    /**
    * Поля модального окна. 
@@ -79,7 +80,7 @@ public class EditDialog extends MessageBox {
    * Конструктор
    * @param headerText Заголовок.
    */
-  public EditDialog(String headerText) {
+  public DialogWithFields(String headerText) {
     super(headerText, null);
     
     //основная панель
