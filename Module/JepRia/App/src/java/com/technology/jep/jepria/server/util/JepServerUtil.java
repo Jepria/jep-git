@@ -47,6 +47,7 @@ public class JepServerUtil {
     fileExtensionMimeTypeMap.put("dll", "application/x-msdownload");
     fileExtensionMimeTypeMap.put("doc", "application/msword");
     fileExtensionMimeTypeMap.put("docx", "application/vnd.openxmlformats-officedocument.wordprocessingml.document");
+    fileExtensionMimeTypeMap.put("odt", "application/vnd.oasis.opendocument.text");
     fileExtensionMimeTypeMap.put("dot", "application/msword");
     fileExtensionMimeTypeMap.put("dvi", "application/x-dvi");
     fileExtensionMimeTypeMap.put("exe", "application/octet-stream");
