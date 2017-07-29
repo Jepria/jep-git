@@ -2,14 +2,16 @@ package com.technology.jep.jepria.client.ui.toolbar;
 
 import static com.technology.jep.jepria.client.JepRiaClientConstant.TOOLBAR_DEFAULT_STYLE;
 
-import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.technology.jep.jepria.client.ui.toolbar.ToolBarViewImpl;
+import com.technology.jep.jepria.shared.util.JepRiaUtil;
 
 /**
  * Реализация инструментальной панели с заголовкой. 
- * Простая надстройка над стандартной инструментальной панелью. 
+ * Простая надстройка над стандартной инструментальной панелью. <br/>
+ * TODO: подумать над объединением ToolBarWithHeaderViewImpl и ToolBarViewImpl
  */
 public class ToolBarWithHeaderViewImpl extends ToolBarViewImpl
     implements ToolBarWithHeaderView {
@@ -17,12 +19,12 @@ public class ToolBarWithHeaderViewImpl extends ToolBarViewImpl
   /**
    * Виджет заголовка.
    */
-  private Label headerText = new Label();
+  private SimplePanel header;
   
   /**
    * Виджет инструментальной панели с заголовком.
    */
-  private VerticalPanel toolBarWithHeader = new VerticalPanel();
+  private VerticalPanel toolBarWithHeader;
   
   /**
    * Конструктор.
@@ -30,10 +32,11 @@ public class ToolBarWithHeaderViewImpl extends ToolBarViewImpl
   public ToolBarWithHeaderViewImpl() {
     super();
     
-    SimplePanel header = new SimplePanel();
-    header.setWidget(headerText);
+    header = new SimplePanel();
+    header.setWidget(new HTML());
     header.setStyleName(TOOLBAR_DEFAULT_STYLE);
     
+    toolBarWithHeader = new VerticalPanel();
     toolBarWithHeader.setWidth("100%");
     toolBarWithHeader.add(toolBar);
     toolBarWithHeader.add(header);
@@ -49,6 +52,7 @@ public class ToolBarWithHeaderViewImpl extends ToolBarViewImpl
    */
   @Override
   public void setHeaderText(String text) {
-    headerText.setText(text);
+    ((HTML) header.getWidget()).setText(text);
+    header.setVisible(!JepRiaUtil.isEmpty(text));
   }
 }
