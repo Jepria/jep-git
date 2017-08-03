@@ -167,8 +167,8 @@ public class MessageBox extends WindowBox {
             focusedButton = buttonList.get(nextButtonIndex);
             buttonList.get(nextButtonIndex).setFocus(true);
           }
+          event.cancel();
         }
-        event.cancel();
       }
     }
     super.onPreviewNativeEvent(event);
