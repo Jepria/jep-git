@@ -9,6 +9,7 @@ import static com.technology.jep.jepria.shared.JepRiaConstant.DOWNLOAD_FILE_NAME
 import com.google.gwt.http.client.URL;
 import com.google.gwt.user.client.ui.HTML;
 import com.technology.jep.jepria.shared.record.lob.JepFileReference;
+import com.technology.jep.jepria.shared.util.JepRiaUtil;
 
 @SuppressWarnings("unchecked")
 public class JepFileField extends JepLargeField<HTML> {
@@ -137,22 +138,32 @@ public class JepFileField extends JepLargeField<HTML> {
     String downloadUrl = buildDownloadUrl(reference);
     StringBuilder sbRef = new StringBuilder();
 
-    if(downloadUrl != null){
+    if(downloadUrl != null) {
       sbRef.append("<a href=\"");
       sbRef.append(downloadUrl);
       sbRef.append("\"");
       sbRef.append("target=\"_blank\"");
       sbRef.append(">");
-    
-      sbRef.append("<img src=\"");
-      sbRef.append(getImageUrl());
-      sbRef.append("\"");
-      sbRef.append(" ");
-      sbRef.append("title=\"");
-      sbRef.append(getFieldToolTip());
-      sbRef.append("\"");
-      sbRef.append("/>");
-    
+      
+      // TODO: Сделать отображение и имени файла, и изображения 
+      // (заменить изображение на более понятное, а также чтобы высота была не более 14px (иначе "скачет" строка))
+      String fileName = null;
+      if(reference instanceof JepFileReference && reference != null) {
+        fileName = ((JepFileReference<?>) reference).getFileName();
+      }
+      if(!JepRiaUtil.isEmpty(fileName)) { // Если есть имя файла, то скачивание по имени
+        sbRef.append(fileName);
+        sbRef.append("  "); // Пробелы, чтобы был отступ 
+      } else {
+        sbRef.append("<img src=\"");
+        sbRef.append(getImageUrl());  
+        sbRef.append("\"");
+        sbRef.append(" ");
+        sbRef.append("title=\"");
+        sbRef.append(getFieldToolTip());
+        sbRef.append("\"");
+        sbRef.append("/>");
+      }
       sbRef.append("</a>");
     } else {
       sbRef.append("");
