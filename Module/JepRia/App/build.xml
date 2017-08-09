@@ -45,12 +45,12 @@
     <pathelement location="${BEANSHELL_LIB}" />
     <pathelement location="${CGLIB-NODEP_LIB}" />
     <pathelement location="${COMMONS-CODEC_LIB}" />
-    <pathelement location="${COMMONS-COLLECTIONS-3.2.1_LIB}" />
+    <pathelement location="${COMMONS-COLLECTIONS_LIB}" />
     <pathelement location="${COMMONS-EXEC_LIB}" />
-    <pathelement location="${COMMONS-IO-2.4_LIB}" />
+    <pathelement location="${COMMONS-IO_LIB}" />
     <pathelement location="${COMMONS-JXPATH_LIB}" />
     <pathelement location="${COMMONS-LANG3_LIB}" />
-    <pathelement location="${COMMONS-LOGGING-1.1.3_LIB}" />
+    <pathelement location="${COMMONS-LOGGING_LIB}" />
     <pathelement location="${CSSPARSER_LIB}" />
     <pathelement location="${GUAVA_LIB}" />
     <pathelement location="${HAMCREST-CORE_LIB}" />
@@ -130,6 +130,8 @@
     <include name="**/html/**/*.*" />
     <include name="**/resources/**/*.*" />
   </fileset>
+	
+  <fileset id="dependency-jar" file="dependency.properties"/>
 	
   <!-- Проверка наличия всех используемых библиотек (зависимостей) -->
   <target name="check-dependencies" >
@@ -253,6 +255,12 @@
       <fileset refid="class-auto-jar" />
     </jar>
   </target>
+	
+  <target name="jar-dependency">
+    <jar destfile="${DISTR_DIR}/${MODULE_NAME_IN_PACKAGE}-dependency-${CURRENT_VERSION}.jar">
+      <fileset refid="dependency-jar" />
+    </jar>
+  </target>
 
   <target name="jar-test-update-check" depends="java-test-compile">
     <uptodate targetfile="${DISTR_DIR}/${MODULE_NAME_IN_PACKAGE}-test-${CURRENT_VERSION}.jar" property="jar-test-is-uptodate">
@@ -294,7 +302,7 @@
     </junit>
   </target>
 
-  <target name="build" depends="jar, jar-auto, jar-test, jar-resources" />
+  <target name="build" depends="jar, jar-auto, jar-test, jar-resources, jar-dependency" />
 
   <target name="doc" depends="java-compile, java-auto-compile">
     <javadoc sourcepath="src/java;auto/java;test/java"
