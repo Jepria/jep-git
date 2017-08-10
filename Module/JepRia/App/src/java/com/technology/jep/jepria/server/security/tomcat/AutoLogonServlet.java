@@ -5,6 +5,7 @@ import static javax.servlet.http.HttpServletResponse.SC_BAD_REQUEST;
 import static javax.servlet.http.HttpServletResponse.SC_UNAUTHORIZED;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 
 import javax.servlet.ServletException;
@@ -12,6 +13,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.technology.jep.jepria.server.util.JepServerUtil;
+
+/**
+ * GET-параметры запроса:<br>
+ * <br>
+ * username<br>
+ * password<br>
+ * url - либо полный URL в виде <code>http://host[:port]/resource?query</code>, либо только часть относительно сервера <code>/resource?query</code><br>  
+ */
 public class AutoLogonServlet extends HttpServlet {
 
   private static final long serialVersionUID = 209841279392385240L;
@@ -34,15 +44,16 @@ public class AutoLogonServlet extends HttpServlet {
       resp.setStatus(SC_BAD_REQUEST);
       return;
     }  
+    
     // security constraint for requested resource (only within this server)
-    String serverURL = getServerUrl(request); 
-    if (initURL.startsWith("http://")){
-      initURL = new URL(initURL).getFile();
-      initURL = serverURL + initURL;
-    }
-    else {
+    String serverURL = getServerUrl(request);
+    try {
+      URL url = new URL(initURL);
+      initURL = serverURL + url.getFile();
+    } catch (MalformedURLException e) {
       initURL = serverURL + (initURL.startsWith("/") ? "" : "/") + initURL;
     }
+    
     // if the user was authorized, execute logout before login procedure
     if (request.getUserPrincipal() != null){
       request.logout();
