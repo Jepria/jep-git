@@ -7,6 +7,7 @@ import static com.technology.jep.jepria.shared.field.JepTypeEnum.BINARY_FILE;
 import static com.technology.jep.jepria.shared.field.JepTypeEnum.TEXT_FILE;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
@@ -157,12 +158,14 @@ public class JepUploadServlet extends HttpServlet {
                 String tableName = fileRecordDefinition.getTableName();
                 try {
                   if(fileFieldType == BINARY_FILE) {
-                    uploadBinary(fileItem,
+                    uploadBinary(
+                      fileItem.getInputStream(),
                       tableName,
                       fileFieldName,
                       primaryKeyMap);
                   } else if(fileFieldType == TEXT_FILE){
-                    uploadText(fileItem,
+                    uploadText(
+                      fileItem.getInputStream(),
                       tableName,
                       fileFieldName,
                       primaryKeyMap);
@@ -222,15 +225,15 @@ public class JepUploadServlet extends HttpServlet {
   
   /**
    * Загрузка на сервер бинарного файла.
-   * @param fileItem интерфейс выгрузки файла
+   * @param inputStream поток данных
    * @param tableName имя таблицы, в которую загружается файл
    * @param fileFieldName имя поля, в которое загружается файл
    * @param primaryKeyMap первичный ключ
    * @throws IOException
    * @throws Exception
    */
-  private void uploadBinary(
-    FileItem fileItem
+  protected void uploadBinary(
+    InputStream inputStream
     , String tableName
     , String fileFieldName
     , Map<String, Object> primaryKeyMap
@@ -238,7 +241,7 @@ public class JepUploadServlet extends HttpServlet {
     
       if(primaryKeyMap.size() == 1) {
         FileUploadStream.uploadFile(
-          fileItem.getInputStream(),
+          inputStream,
           new BinaryFileUploadImpl(),
           tableName,
           fileFieldName,
@@ -248,7 +251,7 @@ public class JepUploadServlet extends HttpServlet {
           this.moduleName);
       } else {
         FileUploadStream.uploadFile(
-          fileItem.getInputStream(),
+          inputStream,
           new BinaryFileUploadImpl(),
           tableName,
           fileFieldName,
@@ -261,15 +264,15 @@ public class JepUploadServlet extends HttpServlet {
 
   /**
    * Загрузка на сервер текстового файла.
-   * @param fileItem интерфейс выгрузки файла
+   * @param inputStream поток данных
    * @param tableName имя таблицы, в которую загружается файл
    * @param fileFieldName имя поля, в которое загружается файл
    * @param primaryKeyMap первичный ключ
    * @throws IOException
    * @throws Exception
    */
-  private void uploadText(
-    FileItem fileItem
+  protected void uploadText(
+    InputStream inputStream
     , String tableName
     , String fileFieldName
     , Map<String, Object> primaryKeyMap
@@ -277,7 +280,7 @@ public class JepUploadServlet extends HttpServlet {
     
       if(primaryKeyMap.size() == 1) {
         FileUploadWriter.uploadFile(
-          new InputStreamReader(fileItem.getInputStream(), textFileCharset),
+          new InputStreamReader(inputStream, textFileCharset),
           new TextFileUploadImpl(),
           tableName,
           fileFieldName,
@@ -287,7 +290,7 @@ public class JepUploadServlet extends HttpServlet {
           this.moduleName);
       } else {
         FileUploadWriter.uploadFile(
-          new InputStreamReader(fileItem.getInputStream(), textFileCharset),
+          new InputStreamReader(inputStream, textFileCharset),
           new TextFileUploadImpl(),
           tableName,
           fileFieldName,
