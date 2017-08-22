@@ -29,7 +29,7 @@ public interface PlainClientFactory<E extends PlainEventBus, S extends JepDataSe
    *
    * @return объект управления Place'ами модуля
    */
-  PlainPlaceController getPlaceController();
+  PlainPlaceController<E, S, ? extends PlainClientFactory<E, S>> getPlaceController();
   
   /**
    * Получение представления (View) модуля.
@@ -43,7 +43,7 @@ public interface PlainClientFactory<E extends PlainEventBus, S extends JepDataSe
    *
    * @return презентер модуля
    */
-  JepPresenter createPlainModulePresenter(Place place);
+  JepPresenter<E, ? extends PlainClientFactory<E, S>> createPlainModulePresenter(Place place);
   
   /**
    * Получение сервиса работы с данными.

@@ -14,7 +14,7 @@ import com.technology.jep.jepria.client.widget.event.JepListener;
 /**
  * Интерфейс view инструментальной панели.
  */
-public interface ToolBarView extends JepView<JepPresenter> {
+public interface ToolBarView extends JepView<JepPresenter<?, ?>> {
   // Идентификаторы встроенных элементов инструментальной панели.
   /**
    * Высота по умолчанию.

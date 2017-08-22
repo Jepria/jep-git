@@ -50,7 +50,6 @@ import com.technology.jep.jepria.shared.record.JepRecord;
 import com.technology.jep.jepria.shared.service.data.JepDataServiceAsync;
 import com.technology.jep.jepria.shared.util.JepRiaUtil;
 
-@SuppressWarnings("rawtypes")
 public class DetailFormPresenter<V extends DetailFormView, E extends PlainEventBus, S extends JepDataServiceAsync, 
     F extends StandardClientFactory<E, S>>
   extends JepPresenter<E, F>
@@ -286,6 +285,9 @@ public class DetailFormPresenter<V extends DetailFormView, E extends PlainEventB
    */
   @Override
   public void onSave(SaveEvent event) {
+    
+    
+    
     if(fields.isValid()) {
       JepRecord formProperties = fields.getValues();
       
@@ -359,9 +361,9 @@ public class DetailFormPresenter<V extends DetailFormView, E extends PlainEventB
   public void onSaveSuccess(JepRecord resultRecord) {
     submitCounter = 0;
     
-    for (JepMultiStateField field: fields.values()) {  
-      JepLargeField largeField;
-      if((field instanceof JepLargeField) && (largeField = (JepLargeField)field).isFileSelected()) {
+    for (JepMultiStateField<?, ?> field: fields.values()) {  
+      JepLargeField<?> largeField;
+      if((field instanceof JepLargeField) && (largeField = (JepLargeField<?>)field).isFileSelected()) {
         prepareLOBField(largeField, resultRecord);
         largeField.getFormPanel().submit();        
       }      
@@ -377,8 +379,7 @@ public class DetailFormPresenter<V extends DetailFormView, E extends PlainEventB
    * @param field          LOB-поле
    * @param resultRecord      текущий рекорд, по которому готовим поле
    */
-  @SuppressWarnings("unchecked")
-  private void prepareLOBField(final JepLargeField field, final JepRecord resultRecord){
+  private void prepareLOBField(final JepLargeField<?> field, final JepRecord resultRecord){
     
     field.getHiddenPrimaryKeyField().setValue(JepHistoryToken.getMapAsToken(clientFactory.getRecordDefinition().buildPrimaryKeyMap(resultRecord)));
     
