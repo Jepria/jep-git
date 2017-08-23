@@ -246,6 +246,11 @@ abstract public class MainClientFactoryImpl<E extends MainEventBus, S extends Je
   }
 
   /**
+   * Перемнная для защиты от повторного вызова initActivityMappers в наследниках
+   */
+  private boolean initActivityMappersInvokedOnce = false;
+  
+  /**
    * Иннициализация ActivityMapper'ов и ActivityManager'ов.<br/>
    * Необходимо для возможности соответствующих презентеров (Activity в понятиях GWT) прослушивать, подписываться и обрабатывать события,
    * с которыми работает EventBus.
@@ -253,6 +258,12 @@ abstract public class MainClientFactoryImpl<E extends MainEventBus, S extends Je
    * @param clientFactory клиентская фабрика главного модуля (приложения)
    */
   protected void initActivityMappers(MainClientFactory<E, S> clientFactory) {
+    // Защита от повторного вызова в наследниках
+    if (initActivityMappersInvokedOnce) {
+      throw new IllegalStateException(getClass().getCanonicalName() + ".initActivityMappers() must be invoked at most once. Do not invoke in descendants");
+    }
+    initActivityMappersInvokedOnce = true;
+    
     /*
      * Создадим ActivityMapper и ActivityManager для главного модуля (приложения).
      */

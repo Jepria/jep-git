@@ -116,6 +116,11 @@ abstract public class StandardClientFactoryImpl<E extends PlainEventBus, S exten
   }
   
   /**
+   * Перемнная для защиты от повторного вызова initActivityMappers в наследниках
+   */
+  private boolean initActivityMappersInvokedOnce = false;
+  
+  /**
    * Иннициализация ActivityMapper'ов и ActivityManager'ов.<br/>
    * Необходимо для возможности соответствующих презентеров (Activity в понятиях GWT) прослушивать, подписываться и обрабатывать события,
    * с которыми работает EventBus.
@@ -123,6 +128,12 @@ abstract public class StandardClientFactoryImpl<E extends PlainEventBus, S exten
    * @param clientFactory клиентская фабрика модуля
    */
   protected void initActivityMappers(PlainClientFactory<E, S> clientFactory) {
+    // Защита от повторного вызова в наследниках
+    if (initActivityMappersInvokedOnce) {
+      throw new IllegalStateException(getClass().getCanonicalName() + ".initActivityMappers() must be invoked at most once. Do not invoke in descendants");
+    }
+    initActivityMappersInvokedOnce = true;
+    
     super.initActivityMappers(clientFactory);
     
     /*
@@ -180,7 +191,7 @@ abstract public class StandardClientFactoryImpl<E extends PlainEventBus, S exten
   }
   
   @Override
-  public JepPresenter<?,?> createPlainModulePresenter(Place place) {
+  public JepPresenter<E, ? extends StandardClientFactory<E, S>> createPlainModulePresenter(Place place) {
     return new StandardModulePresenter<StandardModuleView, E, S, StandardClientFactory<E,S>>(moduleId, place, this);
   }
   
