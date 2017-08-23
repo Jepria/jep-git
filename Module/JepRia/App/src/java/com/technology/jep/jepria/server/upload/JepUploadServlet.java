@@ -153,8 +153,8 @@ public class JepUploadServlet extends HttpServlet {
                 fileName = e.getName();
               }
               if(!JepRiaUtil.isEmpty(fileName)) {
-                String fileFieldName = fileRecordDefinition.getFieldMap().get(fileItem.getFieldName());
-                JepTypeEnum fileFieldType = fileRecordDefinition.getTypeMap().get(fileItem.getFieldName());
+                String fileFieldName = getFileFieldName(fileItem);
+                JepTypeEnum fileFieldType = getFileFieldType(fileItem);
                 String tableName = fileRecordDefinition.getTableName();
                 try {
                   if(fileFieldType == BINARY_FILE) {
@@ -208,6 +208,27 @@ public class JepUploadServlet extends HttpServlet {
           "doPost(): Request contents type is not supported by the servlet.");
     }
   }
+  
+  /**
+   * Получает тип загружаемого файла. <br/>
+   * Метод создан для переопределения в потомках, когда нет возможности получить данные из fileRecordDefinition. 
+   * @param fileItem Интерфейс выгрузки файла.
+   * @return Тип загружаемого файла.
+   */
+  protected JepTypeEnum getFileFieldType(FileItem fileItem) {
+    return fileRecordDefinition.getTypeMap().get(fileItem.getFieldName());
+  }
+  
+  /**
+   * Получает имя поля в таблице, в которое загружается файл. <br/>
+   * Метод создан для переопределения в потомках, когда нет возможности получить данные из fileRecordDefinition. 
+   * @param fileItem Интерфейс выгрузки файла.
+   * @return Имя поля в таблице, в которое загружается файл.
+   */
+  protected String getFileFieldName(FileItem fileItem) {
+    return fileRecordDefinition.getFieldMap().get(fileItem.getFieldName());
+  }
+  
   /**
    * Возвращает карту первичных ключей.
    * @param items Список FileItem из запроса.
@@ -325,7 +346,7 @@ public class JepUploadServlet extends HttpServlet {
    * @throws IOException
    */
   protected void onError(HttpServletResponse response, int error, String message) throws IOException {
-    logger.error(message);    
+    logger.error(message);
     response.sendError(error, message);
   }
 

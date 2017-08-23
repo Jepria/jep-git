@@ -172,10 +172,10 @@ public class JepDownloadServlet extends HttpServlet {
         contentDisposition = request.getParameter(DOWNLOAD_CONTENT_DISPOSITION);
       }
       
-      String fileFieldName = fileRecordDefinition.getFieldMap().get(fieldName);
+      String fileFieldName = getFileFieldName(fieldName);
       String tableName = fileRecordDefinition.getTableName();  
       
-      response.setContentType(mimeType + ";charset=" + textFileCharset);      
+      response.setContentType(mimeType + ";charset=" + textFileCharset);
       addAntiCachingHeaders(response);
       
       if(DOWNLOAD_CONTENT_DISPOSITION_INLINE.equals(contentDisposition)){
@@ -184,7 +184,7 @@ public class JepDownloadServlet extends HttpServlet {
         setAttachedFileName(response, fileName, fileExtension, fileNamePrefix, recordKey);
       }
       
-      JepTypeEnum fileFieldType = fileRecordDefinition.getTypeMap().get(fieldName);
+      JepTypeEnum fileFieldType = getFileFieldType(fieldName);
       
       ServletOutputStream outputStream = response.getOutputStream();
       
@@ -207,6 +207,26 @@ public class JepDownloadServlet extends HttpServlet {
         HttpServletResponse.SC_INTERNAL_SERVER_ERROR,
         "doGet(): " + "Download error: " + th.getMessage());
     }
+  }
+  
+  /**
+   * Получает тип скачиваемого файла. <br/>
+   * Метод создан для переопределения в потомках, когда нет возможности получить данные из fileRecordDefinition. 
+   * @param fieldName Имя поля в fileRecordDefinition
+   * @return Тип скачиваемого файла.
+   */
+  protected JepTypeEnum getFileFieldType(String fieldName) {
+    return fileRecordDefinition.getTypeMap().get(fieldName);
+  }
+  
+  /**
+   * Получает имя поля в таблице, из которого выгружается файл. <br/>
+   * Метод создан для переопределения в потомках, когда нет возможности получить данные из fileRecordDefinition. 
+   * @param fieldName Имя поля в fileRecordDefinition
+   * @return Имя поля в таблице, из которого выгружается файл.
+   */
+  protected String getFileFieldName(String fieldName) {
+    return fileRecordDefinition.getFieldMap().get(fieldName);
   }
 
   /**

@@ -285,9 +285,6 @@ public class DetailFormPresenter<V extends DetailFormView, E extends PlainEventB
    */
   @Override
   public void onSave(SaveEvent event) {
-    
-    
-    
     if(fields.isValid()) {
       JepRecord formProperties = fields.getValues();
       
@@ -351,7 +348,7 @@ public class DetailFormPresenter<V extends DetailFormView, E extends PlainEventB
   /**
    * Счетчик количества сабмитов
    */
-  private int submitCounter;  
+  protected int submitCounter;
   
   /**
    * Метод, вызываемый после успешного сохранения информации
@@ -379,7 +376,8 @@ public class DetailFormPresenter<V extends DetailFormView, E extends PlainEventB
    * @param field          LOB-поле
    * @param resultRecord      текущий рекорд, по которому готовим поле
    */
-  private void prepareLOBField(final JepLargeField<?> field, final JepRecord resultRecord){
+  @SuppressWarnings("unchecked")
+  protected void prepareLOBField(final JepLargeField field, final JepRecord resultRecord){
     
     field.getHiddenPrimaryKeyField().setValue(JepHistoryToken.getMapAsToken(clientFactory.getRecordDefinition().buildPrimaryKeyMap(resultRecord)));
     
