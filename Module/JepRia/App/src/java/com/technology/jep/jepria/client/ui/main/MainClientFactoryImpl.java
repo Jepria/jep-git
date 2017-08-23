@@ -151,6 +151,8 @@ abstract public class MainClientFactoryImpl<E extends MainEventBus, S extends Je
     this.moduleItems = moduleItems;
     
     JepScopeStack.instance.setMainClientFactory((MainClientFactory)this);
+    
+    initActivityMappers(this);
   }
 
   /**

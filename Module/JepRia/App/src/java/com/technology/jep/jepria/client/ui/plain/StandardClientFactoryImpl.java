@@ -57,6 +57,7 @@ abstract public class StandardClientFactoryImpl<E extends PlainEventBus, S exten
   public StandardClientFactoryImpl(String moduleId, JepRecordDefinition recordDefinition) {
     super(recordDefinition);
     this.moduleId = moduleId;
+    initActivityMappers(this);
   }
 
   /**
