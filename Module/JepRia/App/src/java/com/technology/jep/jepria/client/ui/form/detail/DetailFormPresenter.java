@@ -349,7 +349,7 @@ public class DetailFormPresenter<V extends DetailFormView, E extends PlainEventB
   /**
    * Счетчик количества сабмитов
    */
-  private int submitCounter;  
+  protected int submitCounter;  
   
   /**
    * Метод, вызываемый после успешного сохранения информации
@@ -378,7 +378,7 @@ public class DetailFormPresenter<V extends DetailFormView, E extends PlainEventB
    * @param resultRecord      текущий рекорд, по которому готовим поле
    */
   @SuppressWarnings("unchecked")
-  private void prepareLOBField(final JepLargeField field, final JepRecord resultRecord){
+  protected void prepareLOBField(final JepLargeField field, final JepRecord resultRecord){
     
     field.getHiddenPrimaryKeyField().setValue(JepHistoryToken.getMapAsToken(clientFactory.getRecordDefinition().buildPrimaryKeyMap(resultRecord)));
     
