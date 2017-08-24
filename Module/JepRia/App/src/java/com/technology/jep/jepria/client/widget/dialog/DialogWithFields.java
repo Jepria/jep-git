@@ -77,6 +77,16 @@ public class DialogWithFields extends MessageBox {
   }
   
   /**
+   * id (HTML-атрибут) для кнопки "Сохранить"
+   */
+  public final static String DIALOG_SAVE_BUTTON_ID = "DIALOG_SAVE_BUTTON";
+  
+  /**
+   * id (HTML-атрибут) для кнопки "Выйти"
+   */
+  public final static String DIALOG_CANCEL_BUTTON_ID = "DIALOG_CANCEL_BUTTON";
+  
+  /**
    * Конструктор
    * @param headerText Заголовок.
    */
@@ -89,6 +99,7 @@ public class DialogWithFields extends MessageBox {
     
     //кнопка сохранить
     Button saveButton = new Button(JepTexts.button_save_alt());
+    saveButton.getElement().setId(DIALOG_SAVE_BUTTON_ID);
     saveButton.addClickHandler(event -> {
         boolean isValid = fields.entrySet().parallelStream().allMatch(map -> map.getValue().isValid() == true);
         if (isValid) {
@@ -100,6 +111,7 @@ public class DialogWithFields extends MessageBox {
     
     //кнопка выйти
     Button cancelButton = new Button(JepTexts.button_exit_alt());
+    cancelButton.getElement().setId(DIALOG_CANCEL_BUTTON_ID);
     cancelButton.addClickHandler(event -> hide());
     addButton(PredefinedButton.CANCEL, cancelButton);
   }
