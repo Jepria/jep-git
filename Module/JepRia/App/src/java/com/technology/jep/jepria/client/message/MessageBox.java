@@ -87,6 +87,11 @@ public class MessageBox extends WindowBox {
     setWidget(mainPanel);
   }
   
+  /**
+   * Префикс id (HTML-атрибут) кнопок
+   */
+  public final static String MESSAGE_BOX_BUTTON_ID_PREFIX = "MESSAGE_BOX_BUTTON_";
+  
   @Override
   public void show() {
     // Attach Icon if it needs.
@@ -95,15 +100,23 @@ public class MessageBox extends WindowBox {
     }
     
     // Attach Buttons if it needs.
-    for (Button b : buttons.values()){
-      buttonsContainer.add(b, DockPanel.WEST);
-      b.addFocusHandler(new FocusHandler(){
+    for(Map.Entry<PredefinedButton, Button> buttonEntry: buttons.entrySet()) {
+      
+      Button button = buttonEntry.getValue();
+      
+      // Если id для кнопки не задан, то будет сгенерирован автоматически. 
+      if(JepRiaUtil.isEmpty(button.getElement().getId())) {
+        button.getElement().setId(MESSAGE_BOX_BUTTON_ID_PREFIX + buttonEntry.getKey().name());
+      }
+          
+      buttonsContainer.add(button, DockPanel.WEST);
+      button.addFocusHandler(new FocusHandler(){
         @Override
         public void onFocus(FocusEvent event) {
           focusedButton = (Button) event.getSource();
         }
       });
-      b.addBlurHandler(new BlurHandler(){
+      button.addBlurHandler(new BlurHandler(){
         @Override
         public void onBlur(BlurEvent event) {
           focusedButton = null;
@@ -142,7 +155,7 @@ public class MessageBox extends WindowBox {
     this.icon = new Image(icon);
   }
   
-  protected void addButton(PredefinedButton type, Button button){
+  protected void addButton(PredefinedButton type, Button button) {
     buttons.put(type, button);
   }
   
