@@ -42,8 +42,6 @@ public class ${moduleName}ClientFactoryImpl<E extends MainEventBus, S extends Je
         <#if form_index != 0>, </#if>new ModuleItem(${form.formName?upper_case}_MODULE_ID, ${moduleName?uncap_first}Text.submodule_${form.formName?lower_case}_title())
       </#list>
     );
- 
-    initActivityMappers(this);
   }
   
   @SuppressWarnings("unchecked")
