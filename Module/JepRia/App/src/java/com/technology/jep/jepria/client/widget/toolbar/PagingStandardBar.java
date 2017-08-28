@@ -325,7 +325,7 @@ public class PagingStandardBar extends SimplePanel implements PagingToolBar {
    */
   protected void onPageChange() {
     String value = pageNumberText.getText();
-    if (value.equals("") || isInteger(value)) {
+    if (value.equals("") || !isInteger(value)) {
       pageNumberText.setText(String.valueOf((int) activePage));
       return;
     }
