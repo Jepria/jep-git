@@ -60,7 +60,6 @@ public class ${form.formName}ClientFactoryImpl<E extends <#if hasCustomButtons>$
  
   public ${form.formName}ClientFactoryImpl() {
     super(${form.formName}RecordDefinition.instance);
-    initActivityMappers(this);
   }
  
   static public PlainClientFactory<PlainEventBus, JepDataServiceAsync> getInstance() {
