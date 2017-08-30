@@ -315,12 +315,13 @@ public abstract class MainModulePresenter<V extends MainView, E extends MainEven
       Place place = event.getPlace();
       // Если требуемое состояние не установлено.
       if(place == null) {
-        if(scope.isMain(moduleId)) { // Если заходим в главный модуль, то НЕ меняем его состояние (оставляем текущее состояние).
-          WorkstateEnum workstate = scope.getCurrentWorkstate();
-          place = JepClientUtil.workstateToPlace(workstate);
-        } else { // Если заходим в дочерний модуль, то отобразим списочную форму.
-          place = new JepViewListPlace();
-        }
+        
+        // Если заходим в модуль, то НЕ меняем его состояние (оставляем текущее состояние).
+        // Если состояние не задано, то scope.getCurrentWorkstate() возвращает детальную форму в режиме поиска для главного модуля
+        // и списочную фому для дочернего модуля.
+        WorkstateEnum workstate = scope.getCurrentWorkstate();
+        place = JepClientUtil.workstateToPlace(workstate);
+
       }
       // Отобразим закладки модулей исходя из текущего состояния.
       view.showModuleTabs(getModules(scope));
