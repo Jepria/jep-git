@@ -51,8 +51,8 @@ public class ToolBarWithHeaderViewImpl extends ToolBarViewImpl
    * {@inheritDoc}
    */
   @Override
-  public void setHeaderText(String text) {
-    ((HTML) header.getWidget()).setText(text);
+  public void setHeaderHTML(String text) {
+    ((HTML) header.getWidget()).setHTML(text);
     header.setVisible(!JepRiaUtil.isEmpty(text));
   }
 }

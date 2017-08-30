@@ -10,5 +10,5 @@ public interface ToolBarWithHeaderView extends ToolBarView {
   /**
    * Устанавливает текст заголовка.
    */
-  void setHeaderText(String text);
+  void setHeaderHTML(String text);
 }
