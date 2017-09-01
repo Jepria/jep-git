@@ -1,6 +1,7 @@
 package com.technology.jep.jepria.client.widget.field;
 
 import static com.technology.jep.jepria.client.JepRiaClientConstant.JepTexts;
+import static com.technology.jep.jepria.client.JepRiaAutomationConstant.*;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -19,6 +20,7 @@ import com.technology.jep.jepria.client.widget.field.validation.Validator;
 import com.technology.jep.jepria.shared.exceptions.IdNotFoundException;
 import com.technology.jep.jepria.shared.field.option.JepOption;
 import com.technology.jep.jepria.shared.record.JepRecord;
+import com.technology.jep.jepria.shared.util.JepRiaUtil;
 
 /**
  * Класс управления полями.
@@ -27,6 +29,19 @@ import com.technology.jep.jepria.shared.record.JepRecord;
 public class FieldManager extends HashMap<String, JepMultiStateField> implements Validator {
 
   private static final long serialVersionUID = 1L;
+  
+  /**
+   * Префикс автогенерации web-ID.
+   */
+  private String autoGenerateWebIdPrefix;
+
+  /**
+   * Устанавливает значение префикса для автогенерации web-ID.
+   * @param autoGenerateWebIdPrefix Префикс автогенерации web-ID.
+   */
+  public void setAutoGenerateWebIdPrefix(String autoGenerateWebIdPrefix) {
+    this.autoGenerateWebIdPrefix = autoGenerateWebIdPrefix;
+  }
 
   /**
    * Текущее состояние.
@@ -320,6 +335,18 @@ public class FieldManager extends HashMap<String, JepMultiStateField> implements
     if (field instanceof JepLargeField){
       ((JepLargeField)field).setFieldId(fieldId);
     }
+    
+    // Автогенерация web-ID, если задан префикс.
+    if(!JepRiaUtil.isEmpty(autoGenerateWebIdPrefix)) {
+      
+      StringBuilder sb = new StringBuilder();
+      sb.append(autoGenerateWebIdPrefix);
+      sb.append(fieldId);
+      sb.append(JEP_FIELD_POSTFIX);
+      
+      field.setWebId(sb.toString());
+    }
+    
     return super.put(fieldId, field);
   }
   

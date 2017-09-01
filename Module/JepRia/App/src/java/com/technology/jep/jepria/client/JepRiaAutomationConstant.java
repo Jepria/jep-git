@@ -199,6 +199,11 @@ public class JepRiaAutomationConstant {
   public static final String JEP_COMBO_BOX_FIELD_MENU_ITEM_INFIX = "_JEP_COMBOBOX_MENU_ITEM_";
   
   /**
+   * Постфикс-идентификатор Jep-поля
+   */
+  public static final String JEP_FIELD_POSTFIX = "_FIELD";
+  
+  /**
    * Постфикс-идентификатор input-поля Jep-полей
    */
   public static final String JEP_FIELD_INPUT_POSTFIX = "_JEP_FIELD_INPUT";
