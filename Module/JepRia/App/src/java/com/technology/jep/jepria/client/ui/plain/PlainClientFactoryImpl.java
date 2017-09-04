@@ -112,9 +112,8 @@ abstract public class PlainClientFactoryImpl<E extends PlainEventBus, S extends 
    *
    * @return новый экземпляр
    */
-  @SuppressWarnings("unchecked")/*допустимо*/
   protected S createService() {
-    return (S) GWT.create(JepDataService.class);
+    return GWT.create(JepDataService.class);
   }
 
   /**
