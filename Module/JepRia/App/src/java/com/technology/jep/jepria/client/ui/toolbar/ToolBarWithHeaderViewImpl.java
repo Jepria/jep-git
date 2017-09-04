@@ -16,6 +16,8 @@ import com.technology.jep.jepria.shared.util.JepRiaUtil;
 public class ToolBarWithHeaderViewImpl extends ToolBarViewImpl
     implements ToolBarWithHeaderView {
 
+  private static final String TOOLBAR_WITH_HEADER_HEADER_CLASS = "jepRia-toolBarWithHeader__header";
+  
   /**
    * Виджет заголовка.
    */
@@ -35,6 +37,7 @@ public class ToolBarWithHeaderViewImpl extends ToolBarViewImpl
     header = new SimplePanel();
     header.setWidget(new HTML());
     header.setStyleName(TOOLBAR_DEFAULT_STYLE);
+    header.addStyleName(TOOLBAR_WITH_HEADER_HEADER_CLASS);
     
     toolBarWithHeader = new VerticalPanel();
     toolBarWithHeader.setWidth("100%");
@@ -51,8 +54,8 @@ public class ToolBarWithHeaderViewImpl extends ToolBarViewImpl
    * {@inheritDoc}
    */
   @Override
-  public void setHeaderText(String text) {
-    ((HTML) header.getWidget()).setText(text);
+  public void setHeaderHTML(String text) {
+    ((HTML) header.getWidget()).setHTML(text);
     header.setVisible(!JepRiaUtil.isEmpty(text));
   }
 }
