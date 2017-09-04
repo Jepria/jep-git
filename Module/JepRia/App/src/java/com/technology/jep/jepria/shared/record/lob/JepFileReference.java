@@ -5,7 +5,7 @@ import com.google.gwt.user.client.rpc.IsSerializable;
 /**
  * Ссылка на *_LOB-поле, идентифицирующая его в пределах таблицы БД.
  */
-public class JepFileReference implements IsSerializable {
+public class JepFileReference<T> implements IsSerializable {
   
   /**
    * Свойство для хранения имени файла
@@ -15,7 +15,7 @@ public class JepFileReference implements IsSerializable {
   /**
    * Свойство для хранения значения ключа записи
    */
-  private Object recordKey;
+  private T recordKey;
   
   /**
    * Свойство для хранения расширения файла
@@ -61,6 +61,7 @@ public class JepFileReference implements IsSerializable {
    * @throws выбрасывается исключение, если значение ключа отличается от строкового 
    * или числового
    */
+  @SuppressWarnings("unchecked")
   public JepFileReference(
       String fileName,
       Object key,
@@ -69,7 +70,7 @@ public class JepFileReference implements IsSerializable {
     this.fileName = fileName;
     this.fileExtension = fileExtension;
     this.mimeType = mimeType;
-    this.recordKey = key;
+    this.recordKey = (T) key;
   }
     
   /**
@@ -91,7 +92,7 @@ public class JepFileReference implements IsSerializable {
     String fileName = null;
 
     if (value != null && (value instanceof JepFileReference)) {
-      fileName = ((JepFileReference)value).getFileName();
+      fileName = ((JepFileReference<?>)value).getFileName();
     }
 
     return fileName;
@@ -105,7 +106,7 @@ public class JepFileReference implements IsSerializable {
     this.fileName = fileName;
   }
 
-  public Object getRecordKey() {
+  public T getRecordKey() {
     return recordKey;
   }
 
@@ -128,7 +129,7 @@ public class JepFileReference implements IsSerializable {
     String fileExtension = null;
 
     if (value != null && (value instanceof JepFileReference)) {
-      fileExtension = ((JepFileReference)value).getFileExtension();
+      fileExtension = ((JepFileReference<?>)value).getFileExtension();
     }
 
     return fileExtension;
@@ -157,7 +158,7 @@ public class JepFileReference implements IsSerializable {
     String mimeType = null;
 
     if (value != null && (value instanceof JepFileReference)) {
-      mimeType = ((JepFileReference)value).getMimeType();
+      mimeType = ((JepFileReference<?>)value).getMimeType();
     }
 
     return mimeType;
