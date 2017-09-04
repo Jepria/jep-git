@@ -344,7 +344,7 @@ public class FieldManager extends HashMap<String, JepMultiStateField> implements
       sb.append(fieldId);
       sb.append(JEP_FIELD_POSTFIX);
       
-      field.setWebId(sb.toString());
+      field.setWebId(sb.toString().toUpperCase());
     }
     
     return super.put(fieldId, field);
