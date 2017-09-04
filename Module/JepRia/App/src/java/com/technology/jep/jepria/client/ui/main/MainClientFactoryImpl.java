@@ -161,6 +161,7 @@ abstract public class MainClientFactoryImpl<E extends MainEventBus, S extends Je
    *
    * @return объект управления Place'ами приложения
    */
+  @Override
   public MainPlaceController getPlaceController() {
     if(placeController == null) {
       placeController = new MainPlaceController((MainEventBus)getEventBus(), this);
@@ -174,11 +175,12 @@ abstract public class MainClientFactoryImpl<E extends MainEventBus, S extends Je
    *
    * @return шина событий приложения
    */
+  @Override
   public E getEventBus() {
     if(eventBus == null) {
-      eventBus = new MainEventBus(this);
+      eventBus = (E) new MainEventBus(this);
     }
-    return (E) eventBus;
+    return eventBus;
   }
 
   /**
@@ -186,6 +188,7 @@ abstract public class MainClientFactoryImpl<E extends MainEventBus, S extends Je
    *
    * @return Place по умолчанию для приложения
    */
+  @Override
   public Place getDefaultPlace() {
     return new JepSearchPlace();
   }
@@ -196,6 +199,7 @@ abstract public class MainClientFactoryImpl<E extends MainEventBus, S extends Je
    *
    * @return главное представление (View) приложения
    */
+  @Override
   public IsWidget getMainView() {
     if(mainView == null) {
       mainView = new MainViewImpl();
@@ -209,9 +213,10 @@ abstract public class MainClientFactoryImpl<E extends MainEventBus, S extends Je
    *
    * @return главный сервис приложения
    */
+  @Override
   public S getMainService() {
     if(mainService == null) {
-      mainService = (S)GWT.create(JepMainService.class);
+      mainService = (S) GWT.create(JepMainService.class);
     }
     return mainService;
   }
@@ -221,6 +226,7 @@ abstract public class MainClientFactoryImpl<E extends MainEventBus, S extends Je
    *
    * @return идентификаторы модулей приложения
    */
+  @Override
   public ModuleItem[] getModuleItems() {
     return moduleItems; 
   }
@@ -231,6 +237,7 @@ abstract public class MainClientFactoryImpl<E extends MainEventBus, S extends Je
    * @param moduleId проверяемый идентификатор модуля
    * @return true - если запрошенный идентификатор модуля найден, false - в противном случае.
    */
+  @Override
   public boolean contains(String moduleId) {
     boolean result = false;
     

@@ -72,7 +72,7 @@ abstract public class StandardClientFactoryImpl<E extends PlainEventBus, S exten
     }
     return moduleView;
   }
-
+  
   /**
    * Получение представления (View) инструментальной панели.
    *
@@ -102,7 +102,7 @@ abstract public class StandardClientFactoryImpl<E extends PlainEventBus, S exten
    *
    * @return презентер инструментальной панели
    */
-  public JepPresenter<?,?> createToolBarPresenter(Place place) {
+  public JepPresenter<?, ? extends StandardClientFactory<E, S>> createToolBarPresenter(Place place) {
     return new ToolBarPresenter<ToolBarView, E, S, StandardClientFactory<E,S>>(place, this);
   }
   
@@ -111,7 +111,7 @@ abstract public class StandardClientFactoryImpl<E extends PlainEventBus, S exten
    *
    * @return презентер панели состояния
    */
-  public JepPresenter<?,?> createStatusBarPresenter(Place place) {
+  public JepPresenter<?, ? extends StandardClientFactory<E, S>> createStatusBarPresenter(Place place) {
     return new StatusBarPresenter<StatusBarView, E, S, StandardClientFactory<E,S>>(place, this);
   }
   

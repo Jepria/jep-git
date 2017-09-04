@@ -47,8 +47,6 @@ public interface PlainClientFactory<E extends PlainEventBus, S extends JepDataSe
   
   /**
    * Получение сервиса работы с данными.
-   *
-   * @return сервис работы с данными
    */
   S getService();
   

@@ -18,25 +18,25 @@ abstract public class ClientFactoryImpl<E extends EventBus>  implements ClientFa
   protected static JepLogger logger;
   
   protected JepPlaceController placeController = null;
-  protected EventBus eventBus = null;
+  protected E eventBus = null;
   
   protected JepMessageBox messageBox;
   protected ExceptionManager exceptionManager;
   
-  protected EventFilter eventFilter;    
+  protected EventFilter<E> eventFilter;    
   
   protected UiSecurity uiSecurity;
 
   public ClientFactoryImpl() {
     uiSecurity = new UiSecurity();
-    eventFilter = new EventFilterImpl(this);    
+    eventFilter = (EventFilter<E>)new EventFilterImpl(this);    
     
     logger = JepLoggerImpl.instance;
     messageBox = JepMessageBoxImpl.instance;
     exceptionManager = ExceptionManagerImpl.instance;
   }
 
-  public EventFilter getEventFilter() {
+  public EventFilter<E> getEventFilter() {
     return eventFilter;
   }
 

@@ -9,9 +9,12 @@ import com.technology.jep.jepria.shared.text.JepRiaText;
 
 public interface ClientFactory<E extends EventBus> {
 
+  /**
+   * Получение шины событий модуля. 
+   */
   E getEventBus();
 
-  EventFilter getEventFilter();
+  EventFilter<E> getEventFilter();
   UiSecurity getUiSecurity();
   
   /**
