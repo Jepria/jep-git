@@ -15,7 +15,6 @@ import com.google.gwt.core.client.Scheduler.ScheduledCommand;
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
-import com.google.gwt.user.client.rpc.IsSerializable;
 import com.google.gwt.user.client.ui.FormPanel;
 import com.google.gwt.user.client.ui.FormPanel.SubmitCompleteEvent;
 import com.google.gwt.user.client.ui.FormPanel.SubmitCompleteHandler;
@@ -80,7 +79,7 @@ public abstract class JepLargeField<V extends Widget> extends JepMultiStateField
   /**
    * Значение поля.
    */
-  private JepFileReference<?> fileReference = null;
+  private JepFileReference fileReference = null;
   
   /**
    * Размер выбранного файла.
@@ -195,7 +194,7 @@ public abstract class JepLargeField<V extends Widget> extends JepMultiStateField
    */
   protected String buildDownloadUrl(Object reference) {
     if(reference instanceof JepFileReference) {
-      JepFileReference<?> fileReference = (JepFileReference<?>) reference;
+      JepFileReference fileReference = (JepFileReference) reference;
       StringBuilder sbUrl = new StringBuilder();
       
       sbUrl.append(downloadServletUrl);
@@ -291,7 +290,7 @@ public abstract class JepLargeField<V extends Widget> extends JepMultiStateField
   public void setValue(Object value) {
     Object oldValue = getValue();
     if(!Objects.equals(oldValue, value)) {
-      this.fileReference = (JepFileReference<?>) value;
+      this.fileReference = (JepFileReference) value;
       setViewValue(value);
     }    
   }
@@ -312,10 +311,10 @@ public abstract class JepLargeField<V extends Widget> extends JepMultiStateField
    */
   @Override
   @SuppressWarnings("unchecked")
-  public JepFileReference<?> getValue() {
+  public JepFileReference getValue() {
     String fileName = editableCard.getFilename();
     if(fileReference == null) {
-      fileReference = new JepFileReference<IsSerializable>();
+      fileReference = new JepFileReference();
     }
 
     // Только если пользователем выбран файл(-ы) для загрузки, тогда ПЕРЕЗАПИСЫВАЕМ имя файла в fileReference вместо значения, которое

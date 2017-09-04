@@ -1,10 +1,10 @@
 package com.technology.jep.jepria.client.widget.field.multistate.large;
 
-import static com.technology.jep.jepria.shared.JepRiaConstant.DOWNLOAD_CONTENT_DISPOSITION_ATTACHMENT;
 import static com.technology.jep.jepria.shared.JepRiaConstant.DOWNLOAD_CONTENT_DISPOSITION;
+import static com.technology.jep.jepria.shared.JepRiaConstant.DOWNLOAD_CONTENT_DISPOSITION_ATTACHMENT;
 import static com.technology.jep.jepria.shared.JepRiaConstant.DOWNLOAD_EXTENSION;
-import static com.technology.jep.jepria.shared.JepRiaConstant.DOWNLOAD_FILE_NAME_PREFIX;
 import static com.technology.jep.jepria.shared.JepRiaConstant.DOWNLOAD_FILE_NAME;
+import static com.technology.jep.jepria.shared.JepRiaConstant.DOWNLOAD_FILE_NAME_PREFIX;
 
 import com.google.gwt.http.client.URL;
 import com.google.gwt.user.client.ui.HTML;
@@ -149,7 +149,7 @@ public class JepFileField extends JepLargeField<HTML> {
       // (заменить изображение на более понятное, а также чтобы высота была не более 14px (иначе "скачет" строка))
       String fileName = null;
       if(reference instanceof JepFileReference && reference != null) {
-        fileName = ((JepFileReference<?>) reference).getFileName();
+        fileName = ((JepFileReference) reference).getFileName();
       }
       if(!JepRiaUtil.isEmpty(fileName)) { // Если есть имя файла, то скачивание по имени
         sbRef.append(fileName);
@@ -181,7 +181,7 @@ public class JepFileField extends JepLargeField<HTML> {
       
     if(downloadUrl != null) {
       StringBuilder sbRef = new StringBuilder();
-      String fileExtension = ((JepFileReference<?>)reference).getFileExtension();
+      String fileExtension = ((JepFileReference)reference).getFileExtension();
       
       sbRef.append(downloadUrl);
       sbRef.append("&");
