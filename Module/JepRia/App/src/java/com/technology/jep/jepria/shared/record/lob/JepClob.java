@@ -1,8 +1,6 @@
 package com.technology.jep.jepria.shared.record.lob;
 
-import java.io.BufferedReader;
 import java.io.Serializable;
-import java.sql.Clob;
 
 /**
  * Класс предназначен для передачи значения типа {@link java.sql.Types#CLOB} как аргумента 
@@ -23,23 +21,6 @@ public class JepClob implements Serializable {
    */
   public JepClob(String text){
     setBigText(text);
-  }
-
-  public JepClob(Clob clob){
-    if (clob == null) throw  new NullPointerException();
-    
-    StringBuilder str = new StringBuilder();
-    
-    try (BufferedReader bufferRead = new BufferedReader(clob.getCharacterStream())) {
-      String bufferStr;
-      while ((bufferStr = bufferRead.readLine()) != null) {
-        str.append(bufferStr);
-      }
-    } catch (Exception  e) {
-      e.printStackTrace();
-    }
-    
-    setBigText(str.toString());
   }
   
   public String getBigText() {

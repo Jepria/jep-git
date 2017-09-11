@@ -5,6 +5,8 @@ import static com.technology.jep.jepria.server.JepRiaServerConstant.LOCALE_KEY;
 import static com.technology.jep.jepria.shared.JepRiaConstant.DEFAULT_DATE_FORMAT;
 import static com.technology.jep.jepria.shared.JepRiaConstant.LOCAL_LANG;
 
+import java.io.BufferedReader;
+import java.sql.Clob;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Hashtable;
@@ -19,6 +21,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
 import com.technology.jep.jepria.shared.exceptions.SystemException;
+import com.technology.jep.jepria.shared.record.lob.JepClob;
 
 /**
  * Класс содержащий вспомогательные/полезные функции.
@@ -302,5 +305,27 @@ public class JepServerUtil {
     }
     
     return result;
+  }
+  
+  /**
+   * Формирует {@link com.technology.jep.jepria.shared.record.lob.JepClob} из {@link java.sql.Types#CLOB}.
+   * @param clob
+   * @return JepClob
+   */
+  public static JepClob toJepClob(Clob clob){
+    if (clob == null) throw new NullPointerException();
+    
+    StringBuilder str = new StringBuilder();
+    
+    try (BufferedReader bufferRead = new BufferedReader(clob.getCharacterStream())) {
+      String bufferStr;
+      while ((bufferStr = bufferRead.readLine()) != null) {
+        str.append(bufferStr);
+      }
+    } catch (Exception  e) {
+      e.printStackTrace();
+    }
+    
+    return new JepClob(str.toString());
   }
 }
