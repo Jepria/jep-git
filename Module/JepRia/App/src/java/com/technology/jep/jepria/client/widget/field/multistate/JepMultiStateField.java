@@ -176,6 +176,10 @@ public abstract class JepMultiStateField<E extends Widget, V extends Widget> ext
   public JepMultiStateField(String fieldIdAsWebEl, String fieldLabel) {
     // Корректировка параметров
     fieldLabel = (fieldLabel != null) ? fieldLabel : "";
+
+    // Если fieldIdAsWebEl не пустое, то необходимо инициализировать в начале конструктора, 
+    // чтобы корректное значение передалось в карты редактирования/просмотра.
+    this.fieldIdAsWebEl = fieldIdAsWebEl;
     
     viewCardLabel = new HTML();
     viewCardLabel.getElement().addClassName(MAIN_FONT_STYLE);
@@ -238,8 +242,8 @@ public abstract class JepMultiStateField<E extends Widget, V extends Widget> ext
     
     
     // Установка web-ID поля
-    if (fieldIdAsWebEl != null) {
-      setWebId(fieldIdAsWebEl);
+    if (this.fieldIdAsWebEl != null) {
+      setWebId(this.fieldIdAsWebEl);
     }
     
     // Установка атрибутов карт
