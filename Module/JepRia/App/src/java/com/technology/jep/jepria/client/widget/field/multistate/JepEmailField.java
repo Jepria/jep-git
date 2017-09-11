@@ -39,7 +39,7 @@ public class JepEmailField extends JepTextField {
     $     #end of the line
    * </pre>
    */
-  private static final RegExp ALLOWED_REG_EXP = RegExp.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$;");
+  private static final RegExp ALLOWED_REG_EXP = RegExp.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
 
   /**
    * {@inheritDoc}
