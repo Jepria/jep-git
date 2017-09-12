@@ -153,7 +153,7 @@ public class ComboBox<T extends JepOption> extends Composite
   /**
    * ID объемлющего Jep-поля как Web-элемента.
    */
-  private final String fieldIdAsWebEl;
+  private String fieldIdAsWebEl;
   
   @Deprecated
   public ComboBox() {
@@ -242,6 +242,7 @@ public class ComboBox<T extends JepOption> extends Composite
    * @param fieldIdAsWebEl ID JepComboBoxField'а, который берется за основу ID внутренних компонентов
    */
   public void setCompositeWebIds(String fieldIdAsWebEl) {
+    this.fieldIdAsWebEl = fieldIdAsWebEl;
     suggestBox.getElement().setId(fieldIdAsWebEl + JepRiaAutomationConstant.JEP_FIELD_INPUT_POSTFIX);
     selectImage.getElement().setId(fieldIdAsWebEl + JepRiaAutomationConstant.JEP_COMBO_BOX_FIELD_DROPDOWN_BTN_POSTFIX);
     suggestionDisplay.setPopupPanelId(fieldIdAsWebEl + JepRiaAutomationConstant.JEP_COMBO_BOX_FIELD_POPUP_POSTFIX);

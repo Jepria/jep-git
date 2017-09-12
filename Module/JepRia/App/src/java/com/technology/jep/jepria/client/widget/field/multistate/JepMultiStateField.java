@@ -251,6 +251,14 @@ public abstract class JepMultiStateField<E extends Widget, V extends Widget> ext
   }
 
   /**
+   * Получает web-ID поля.
+   * @return web-ID поля.
+   */
+  public String getWebId() {
+    return fieldIdAsWebEl;
+  }
+  
+  /**
    * Установка web-ID поля
    * @param fieldIdAsWebEl web-ID поля
    */
