@@ -22,4 +22,5 @@
   <extend-property name="log_level" values="DEBUG"/>
   <set-property name="log_DivLogger" value="ENABLED"/>
   <set-property name="log_RemoteLogger" value="ENABLED"/>
+  <collapse-all-properties />
 </module>

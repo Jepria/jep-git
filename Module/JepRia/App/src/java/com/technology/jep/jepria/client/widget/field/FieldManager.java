@@ -337,7 +337,8 @@ public class FieldManager extends HashMap<String, JepMultiStateField> implements
     }
     
     // Автогенерация web-ID, если задан префикс.
-    if(!JepRiaUtil.isEmpty(autoGenerateWebIdPrefix)) {
+    if(!JepRiaUtil.isEmpty(autoGenerateWebIdPrefix)
+        && JepRiaUtil.isEmpty(field.getWebId())) {
       
       StringBuilder sb = new StringBuilder();
       sb.append(autoGenerateWebIdPrefix);
