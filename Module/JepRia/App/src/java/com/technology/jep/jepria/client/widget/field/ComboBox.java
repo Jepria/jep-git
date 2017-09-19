@@ -220,21 +220,21 @@ public class ComboBox<T extends JepOption> extends Composite
       }
     });
     
-      layout.add(suggestBox);
-      layout.add(selectImage);
-      
-      initWidget(layout);
-      
-      getElement().getStyle().setFloat(Float.LEFT);
-      
-      Event.addNativePreviewHandler(new NativePreviewHandler() {
-        @Override
+    layout.add(suggestBox);
+    layout.add(selectImage);
+    
+    initWidget(layout);
+    
+    getElement().getStyle().setFloat(Float.LEFT);
+    
+    Event.addNativePreviewHandler(new NativePreviewHandler() {
+      @Override
       public void onPreviewNativeEvent(NativePreviewEvent event) {
           if (event.getTypeInt() == Event.ONMOUSEWHEEL){
           collapseIf(event.getNativeEvent());
         }
       }
-      });
+    });
   }
 
   /**
@@ -291,7 +291,7 @@ public class ComboBox<T extends JepOption> extends Composite
    */
   @Override
   public void setValue(T value){
-    setValue(value, false);    
+    setValue(value, false);
   }
   
   /**

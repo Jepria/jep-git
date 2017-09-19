@@ -778,4 +778,18 @@ public class Mask {
     return Character.isDigit(ch) || isLetter(ch);
   }
   
+  /**
+   * Возвращает позицию первого специального символа маски.
+   * @return Позиция первого специального символа маски.
+   */
+  public int getFirstSpecialSymbolPosition() {
+    int pos = 0;
+    
+    for(MaskItem item: items) {
+      if(!LITERAL.equals(item.itemType)) break;
+      pos++;
+    }
+    
+    return pos;
+  }
 }
