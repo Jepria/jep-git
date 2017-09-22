@@ -54,14 +54,14 @@ import com.technology.jep.jepria.client.ui.plain.StandardClientFactoryImpl;
 public class ${ClassName}
   extends StandardClientFactoryImpl<${EventBusClassName}, ${ServiceClassName}> {
  
-  private static final IsWidget ${form.formName?uncap_first}DetailFormView = new ${form.formName}DetailFormViewImpl();
+  private static final IsWidget detailFormView = new ${form.formName}DetailFormViewImpl();
   <#if !form.isJepToolBarView>
-  private static final IsWidget ${form.formName?uncap_first}ToolBarView = new ${form.formName}ToolBarViewImpl();
+  private static final IsWidget toolBarView = new ${form.formName}ToolBarViewImpl();
   </#if>
   <#if form.isStatusBarOff>
-  private static final IsWidget ${form.formName?uncap_first}StatusBarView = new ${form.formName}StatusBarViewImpl();
+  private static final IsWidget statusBarView = new ${form.formName}StatusBarViewImpl();
   </#if>
-  private static final IsWidget ${form.formName?uncap_first}ListFormView = new ${form.formName}ListFormViewImpl();
+  private static final IsWidget listFormView = new ${form.formName}ListFormViewImpl();
  
   private static PlainClientFactoryImpl<PlainEventBus, JepDataServiceAsync> instance = null;
  
@@ -90,7 +90,7 @@ public class ${ClassName}
 
   @Override
   public JepPresenter<${EventBusClassName}, ${ClassName}> createListFormPresenter(Place place) {
-    return new <#if form.hasCustomListFormPresenter>${form.formName}</#if>ListFormPresenter(place, this);
+    return new <#if form.hasCustomListFormPresenter>${form.formName}ListFormPresenter<#else>ListFormPresenter<${form.formName}ListFormViewImpl, ${EventBusClassName}, ${ServiceClassName}, ${ClassName}></#if>(place, this);
   }
   <#if !form.isJepToolBarPresenter>
   
@@ -103,25 +103,25 @@ public class ${ClassName}
    
   @Override
   public IsWidget getToolBarView() {
-    return ${form.formName?uncap_first}ToolBarView;
+    return toolBarView;
   }
   </#if>
   <#if form.isStatusBarOff>
   
   @Override 
   public IsWidget getStatusBarView() {
-    return ${form.formName?uncap_first}StatusBarView;
+    return statusBarView;
   }
   </#if>
   
   @Override
   public IsWidget getDetailFormView() {
-    return ${form.formName?uncap_first}DetailFormView;
+    return detailFormView;
   }
 
   @Override
   public IsWidget getListFormView() {
-    return ${form.formName?uncap_first}ListFormView;
+    return listFormView;
   }
 
   @Override
