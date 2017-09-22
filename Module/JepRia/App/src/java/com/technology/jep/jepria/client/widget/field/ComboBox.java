@@ -326,8 +326,9 @@ public class ComboBox<T extends JepOption> extends Composite
     JepOptionSuggestionDisplay<T> display = getDisplay();
     if (expanded){
       isSelectClicked = true;
-      suggestBox.showSuggestionList();
+      
       display.initPopupHeight();
+      suggestBox.showSuggestionList();
       
       fireEvent(new AfterExpandEvent());
     }
