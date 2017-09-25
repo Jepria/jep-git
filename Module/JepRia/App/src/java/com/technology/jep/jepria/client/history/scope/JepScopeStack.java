@@ -20,12 +20,12 @@ import com.technology.jep.jepria.shared.service.JepMainServiceAsync;
  * {@link com.technology.jep.jepria.client.history}).
  * @see com.technology.jep.jepria.client.history
  */
-public class JepScopeStack {
+public class JepScopeStack extends Stack<JepScope> {
+
+  private static final long serialVersionUID = 3543460342703982514L;
 
   public static JepScopeStack instance = new JepScopeStack();
   private JepScopeStack() {}
-
-  private Stack<JepScope> stack = new Stack<JepScope>();
 
   private MainClientFactory<MainEventBus, JepMainServiceAsync> clientFactory;
   
@@ -37,11 +37,12 @@ public class JepScopeStack {
 
   private boolean isExitScope = false;
 
+  @Override
   public String toString() {
     StringBuffer sbResult = new StringBuffer();
     sbResult.append("scopeStack={\n");
     boolean isFirst = true;
-    for(JepScope scope: stack) {
+    for(JepScope scope: this) {
       if(isFirst) {
         isFirst = false;
       } else {
@@ -93,11 +94,11 @@ public class JepScopeStack {
    */
   public String toHistoryToken(JepWorkstatePlace workstatePlace) {
     StringBuilder sb = new StringBuilder();
-    for(JepScope scope: stack) {
+    for(JepScope scope: this) {
       if(sb.length() > 0) {
         sb.append(SCOPE_SEPARATOR);
       }
-      if(scope == stack.lastElement()) {
+      if(scope == lastElement()) {
         sb.append(scope.toHistoryToken(workstatePlace.getWorkstate()));
       } else {
         sb.append(scope.toHistoryToken());
@@ -124,7 +125,7 @@ public class JepScopeStack {
         String strScope = scopeTokens[i];
         JepScope scope = new JepScope(strScope);
 
-        if(clientFactory.contains(scope.getActiveModuleId())) {
+        if(clientFactory.getModuleIds().contains(scope.getActiveModuleId())) {
           push(scope);
         } else {  // Кривой Url, устанавливаем умолчательное состояние.
           setDefaultState();
@@ -138,8 +139,8 @@ public class JepScopeStack {
 
   public void setDefaultState() {
     clear();
-    if(clientFactory.getModuleItems() != null) {
-      String[] defaultModuleIds = new String[] {clientFactory.getModuleItems()[0].moduleId}; 
+    if (clientFactory.getModuleIds() != null) {
+      String[] defaultModuleIds = new String[] {clientFactory.getModuleIds().get(0)}; 
       JepScope scope = new JepScope(defaultModuleIds);
       push(scope);
       clientFactory.getMessageBox().showError(JepTexts.errors_scopeStack_incorrectUrl_defaultPlace());
@@ -148,36 +149,14 @@ public class JepScopeStack {
     }
   }
 
-  /**
-   * Очистка стека.
-   */
-  public void clear() {
-    stack.clear();
-  }
-
-  /**
-   * Продвижение стека.
-   * 
-   * @param scope новый уровень иерархии модулей
-   */
-  public void push(JepScope scope) {
-    stack.push(scope);
-  }
-
+  @Override
   public JepScope peek() {
-    return stack.size() > 0 ? stack.peek() : null;
+    return empty() ? null : super.peek();
   }
 
+  @Override
   public JepScope pop() {
-    return stack.size() > 0 ? stack.pop() : null;
-  }
-
-  public int size() {
-    return stack.size();
-  }
-
-  public boolean isEmpty() {
-    return stack.empty();
+    return empty() ? null : pop();
   }
 
   public void setMainClientFactory(MainClientFactory<MainEventBus, JepMainServiceAsync> clientFactory) {
@@ -208,9 +187,5 @@ public class JepScopeStack {
 
   public boolean isExitScope() {
     return isExitScope;
-  }
-
-  public Stack<JepScope> getStack() {
-    return stack;
   }
 }

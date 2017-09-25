@@ -200,7 +200,7 @@ public class JepClientUtil {
   }
 
   public static void addForeignKey(JepRecord record) {
-    Stack<JepScope> stack = JepScopeStack.instance.getStack();
+    Stack<JepScope> stack = JepScopeStack.instance;
     for(JepScope scope: stack) {
       Map<String, Object> foreignKey = scope.getForeignKey();
       record.setProperties(foreignKey);
