@@ -1,10 +1,9 @@
 package com.technology.jep.jepria.client.ui.main;
 
-import com.google.gwt.activity.shared.Activity;
+import java.util.List;
+
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.user.client.ui.IsWidget;
-import com.technology.jep.jepria.client.ModuleItem;
-import com.technology.jep.jepria.client.async.LoadAsyncCallback;
 import com.technology.jep.jepria.client.history.place.MainPlaceController;
 import com.technology.jep.jepria.client.ui.ClientFactory;
 import com.technology.jep.jepria.client.ui.eventbus.main.MainEventBus;
@@ -51,28 +50,20 @@ public interface MainClientFactory<E extends MainEventBus, S extends JepMainServ
    *
    * @return главный презентер приложения
    */
-  Activity createMainModulePresenter();
+  MainModulePresenter<? extends MainView, E, S, ? extends MainClientFactory<E,S>> createMainModulePresenter();
   
   /**
    * Получение клиентской фабрики заданного модуля приложения.
    *
    * @param moduleId идентификатор модуля приложения
-   * @param callback объект асинхронного обратного вызова содержащий клиентскую фабрику модуля приложения
+   * @return инстанс клиентской фабрики модуля приложения
    */
-  void getPlainClientFactory(String moduleId, LoadAsyncCallback<PlainClientFactory<PlainEventBus, JepDataServiceAsync>> callback);
+  PlainClientFactory<PlainEventBus, JepDataServiceAsync> getPlainClientFactory(String moduleId);
   
   /**
-   * Получение идентификаторов модулей приложения.
+   * Получение списка идентификаторов модулей приложения.
    *
    * @return идентификаторы модулей приложения
    */
-  ModuleItem[] getModuleItems();
-  
-  /**
-   * Проверяет наличие определенного идентификатора модуля среди идентификаторов модулей приложения.
-   *
-   * @param moduleId проверяемый идентификатор модуля
-   * @return true - если запрошенный идентификатор модуля найден, false - в противном случае.
-   */
-  boolean contains(String moduleId);
+  List<String> getModuleIds();
 }

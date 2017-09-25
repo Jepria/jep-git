@@ -16,15 +16,10 @@ import ${packagePrefix?lower_case}.${packageName?lower_case}.${moduleName?lower_
 </#if>
 import com.technology.jep.jepria.client.ui.JepPresenter;
 import com.technology.jep.jepria.client.ui.plain.PlainClientFactory;
-import com.technology.jep.jepria.client.ui.plain.PlainClientFactoryImpl;
-<#if form.isJepToolBarPresenter>
-import com.technology.jep.jepria.client.ui.toolbar.ToolBarPresenter;
-<#else>
+<#if !form.isJepToolBarPresenter>
 import ${packagePrefix?lower_case}.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.client.ui.toolbar.${form.formName}ToolBarPresenter;
 </#if>
-<#if form.isJepToolBarView>
-import com.technology.jep.jepria.client.ui.toolbar.ToolBarViewImpl;
-<#else>
+<#if !form.isJepToolBarView>
 import ${packagePrefix?lower_case}.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.client.ui.toolbar.${form.formName}ToolBarViewImpl;
 </#if>
 <#if form.isStatusBarOff>
@@ -62,19 +57,18 @@ public class ${ClassName}
   private static final IsWidget statusBarView = new ${form.formName}StatusBarViewImpl();
   </#if>
   private static final IsWidget listFormView = new ${form.formName}ListFormViewImpl();
- 
-  private static PlainClientFactoryImpl<PlainEventBus, JepDataServiceAsync> instance = null;
- 
-  public ${form.formName}ClientFactoryImpl() {
+
+  private ${form.formName}ClientFactoryImpl() {
     super(${form.formName?upper_case}_MODULE_ID, ${form.formName}RecordDefinition.instance);
   }
- 
-  static public PlainClientFactory<PlainEventBus, JepDataServiceAsync> getInstance() {
-    if(instance == null) {
-      instance = GWT.create(${form.formName}ClientFactoryImpl.class);
+
+  public final static Creator creator = new Creator() {
+    @Override
+    public PlainClientFactory<PlainEventBus, JepDataServiceAsync> create() {
+      return GWT.create(${form.formName}ClientFactoryImpl.class);
     }
-    return instance;
-  }
+  };
+  
   <#if form.toolBarCustomButtonsOnBothForms?size != 0>
 
   @Override

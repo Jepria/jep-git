@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Set;
 
 import com.allen_sauer.gwt.log.client.Log;
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.user.client.Window.Location;
@@ -21,11 +22,10 @@ import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
-import com.technology.jep.jepria.client.ModuleItem;
 import com.technology.jep.jepria.client.async.JepAsyncCallback;
 import com.technology.jep.jepria.client.async.LoadAsyncCallback;
+import com.technology.jep.jepria.client.async.LoadPlainClientFactory;
 import com.technology.jep.jepria.client.entrance.Entrance;
-import com.technology.jep.jepria.client.history.place.JepViewListPlace;
 import com.technology.jep.jepria.client.history.place.PlainPlaceController;
 import com.technology.jep.jepria.client.history.scope.JepScope;
 import com.technology.jep.jepria.client.history.scope.JepScopeStack;
@@ -86,8 +86,6 @@ public abstract class MainModulePresenter<V extends MainView, E extends MainEven
 
   private boolean isProtectedModuleVisible = false;
 
-  private ModuleItem[] moduleItems;
-
   protected V view;
   protected S service;
   
@@ -98,8 +96,6 @@ public abstract class MainModulePresenter<V extends MainView, E extends MainEven
    */
   public MainModulePresenter(F clientFactory) {
     super(clientFactory);
-    
-    this.moduleItems = clientFactory.getModuleItems();
     
     view = (V)clientFactory.getMainView();
     service = (S)clientFactory.getMainService();
@@ -130,10 +126,8 @@ public abstract class MainModulePresenter<V extends MainView, E extends MainEven
       }
     });
     
-    view.setModuleItems(moduleItems);
-    
-    for(int i = 0; i < moduleItems.length; i++) {
-      bindModule(moduleItems[i].moduleId);
+    for (String moduleId: clientFactory.getModuleIds()) {
+      bindModule(moduleId);
     }
   }
   
@@ -162,16 +156,16 @@ public abstract class MainModulePresenter<V extends MainView, E extends MainEven
    */
   public void onStart(StartEvent event) {
     JepScope scope = JepScopeStack.instance.peek();
-    if(scope == null) {
+    if (scope == null) {
       String entryModuleName = Location.getParameter(ENTRY_MODULE_NAME_REQUEST_PARAMETER);
-      entryModuleName = entryModuleName == null ? moduleItems[0].moduleId : entryModuleName.trim();
+      entryModuleName = entryModuleName == null ? clientFactory.getModuleIds().get(0) : entryModuleName.trim();
 
       String entryStateName = Location.getParameter(ENTRY_STATE_NAME_REQUEST_PARAMETER);
       WorkstateEnum entryModuleState = entryStateName == null ? getDefaultWorkState(entryModuleName) : WorkstateEnum.fromString(entryStateName.trim());
 
       JepScope startScope = new JepScope(new String[] {entryModuleName}, new WorkstateEnum[] {entryModuleState});
       
-      if(clientFactory.contains(startScope.getActiveModuleId())) {
+      if (clientFactory.getModuleIds().contains(startScope.getActiveModuleId())) {
         JepScopeStack.instance.push(startScope);
       } else {  // Кривой Url, устанавливаем умолчательное состояние.
         JepScopeStack.instance.setDefaultState();
@@ -364,26 +358,36 @@ public abstract class MainModulePresenter<V extends MainView, E extends MainEven
    * @param isFromHistory признак запуска модуля из обработчика History (при использовании кнопок Back/Forward браузера)
    */
   private void startModule(final String moduleId, final Place place, final boolean isFromHistory) {
-    clientFactory.getPlainClientFactory(moduleId, 
-      new LoadAsyncCallback<PlainClientFactory<PlainEventBus, JepDataServiceAsync>>() {
-        public void onSuccessLoad(PlainClientFactory<PlainEventBus, JepDataServiceAsync> plainClientFactory) {
-
-          PlainPlaceController<?, ?, ?> plainPlaceController = (PlainPlaceController<?, ?, ?>)plainClientFactory.getPlaceController();
-          
-          plainPlaceController.setWriteHistory(!isFromHistory);
-          plainPlaceController.goTo(place); // Синхронные вызовы: настройка состояния и запись истории (в зависимости от выше выставленного параметра).
-          
-          JepClientUtil.hideLoadingPanel();
-          
-          PlainEventBus plainEventBus = plainClientFactory.getEventBus();
-          
-          plainEventBus.fireEvent(new EnterModuleEvent(moduleId));
-          // TODO: проблема в том, что в недрах обработчиков EnterModuleEvent вызывается plainPlaceController.goTo(place), поэтому (пока) включение
-          // истории осуществляем после обработчиков/отправки события EnterModuleEvent.
-          plainPlaceController.setWriteHistory(true);
+    
+    PlainClientFactory<PlainEventBus, JepDataServiceAsync> plainClientFactoryInstance = clientFactory.getPlainClientFactory(moduleId);
+    
+    LoadAsyncCallback<PlainClientFactory<PlainEventBus, JepDataServiceAsync>> callback = 
+        new LoadAsyncCallback<PlainClientFactory<PlainEventBus, JepDataServiceAsync>>() {
+          public void onSuccessLoad(PlainClientFactory<PlainEventBus, JepDataServiceAsync> plainClientFactory) {
+    
+            PlainPlaceController<PlainEventBus, JepDataServiceAsync, ? extends PlainClientFactory<PlainEventBus, JepDataServiceAsync>> plainPlaceController = plainClientFactory.getPlaceController();
+            
+            plainPlaceController.setWriteHistory(!isFromHistory);
+            plainPlaceController.goTo(place); // Синхронные вызовы: настройка состояния и запись истории (в зависимости от выше выставленного параметра).
+            
+            JepClientUtil.hideLoadingPanel();
+            
+            PlainEventBus plainEventBus = plainClientFactory.getEventBus();
+            
+            plainEventBus.fireEvent(new EnterModuleEvent(moduleId));
+            // TODO: проблема в том, что в недрах обработчиков EnterModuleEvent вызывается plainPlaceController.goTo(place), поэтому (пока) включение
+            // истории осуществляем после обработчиков/отправки события EnterModuleEvent.
+            plainPlaceController.setWriteHistory(true);
+          }
+        };
+    
+    if (plainClientFactoryInstance != null) {
+      GWT.runAsync(new LoadPlainClientFactory(callback) {
+        public PlainClientFactory<PlainEventBus, JepDataServiceAsync> getPlainClientFactory() {
+          return plainClientFactoryInstance;
         }
-      }
-    );
+      });
+    }
   }
 
   public void onSetMainView(SetMainViewEvent event) {
@@ -455,5 +459,4 @@ public abstract class MainModulePresenter<V extends MainView, E extends MainEven
       strRoles,
       checkRolesMethod);
   }
-
 }

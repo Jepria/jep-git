@@ -2,19 +2,28 @@ package com.technology.jep.jepria.client.ui.main;
 
 import static com.technology.jep.jepria.client.JepRiaClientConstant.JepTexts;
 
+import java.util.AbstractList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import com.google.gwt.activity.shared.ActivityManager;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.gwt.user.client.ui.IsWidget;
-import com.technology.jep.jepria.client.ModuleItem;
 import com.technology.jep.jepria.client.history.place.JepSearchPlace;
 import com.technology.jep.jepria.client.history.place.MainPlaceController;
 import com.technology.jep.jepria.client.history.scope.JepScopeStack;
 import com.technology.jep.jepria.client.ui.ClientFactoryImpl;
 import com.technology.jep.jepria.client.ui.eventbus.main.MainEventBus;
+import com.technology.jep.jepria.client.ui.eventbus.plain.PlainEventBus;
+import com.technology.jep.jepria.client.ui.plain.PlainClientFactory;
+import com.technology.jep.jepria.client.ui.plain.PlainClientFactoryImpl;
 import com.technology.jep.jepria.shared.service.JepMainService;
 import com.technology.jep.jepria.shared.service.JepMainServiceAsync;
+import com.technology.jep.jepria.shared.service.data.JepDataServiceAsync;
 
 /**
  * Базовый класс реализации для клиентской фабрики приложения.<br/>
@@ -84,7 +93,7 @@ import com.technology.jep.jepria.shared.service.JepMainServiceAsync;
  * }
  * </pre>
  */
-abstract public class MainClientFactoryImpl<E extends MainEventBus, S extends JepMainServiceAsync> 
+public abstract class MainClientFactoryImpl<E extends MainEventBus, S extends JepMainServiceAsync> 
   extends ClientFactoryImpl<E> implements MainClientFactory<E, S> {
   
   /**
@@ -101,11 +110,21 @@ abstract public class MainClientFactoryImpl<E extends MainEventBus, S extends Je
    * Главный сервис приложения.
    */
   protected S mainService = null;
-
+  
   /**
-   * Идентификаторы модулей приложения.
+   * Привязка ID модулей приложения к создателям клиентских фабрик.
    */
-  private ModuleItem[] moduleItems;
+  private final Map<String, PlainClientFactoryImpl.Creator> moduleToPlainFactoryCreatorBindingMap;
+  
+  /**
+   * Привязка ID модулей приложения к инстансам клиентских фабрик (создаваемых лениво).
+   */
+  private final Map<String, PlainClientFactory<PlainEventBus, JepDataServiceAsync>> moduleToPlainFactoryInstanceBindingMap;
+  
+  /**
+   * Список идентификаторов модулей приложения.
+   */
+  private final List<String> moduleIdsAbsList;
   
   /**
    * Создает клиентскую фабрику главного модуля приложения.
@@ -139,21 +158,41 @@ abstract public class MainClientFactoryImpl<E extends MainEventBus, S extends Je
    *
    * @param moduleItems идентификаторы модулей приложения (вместе с наименованиями)
    */
-  public MainClientFactoryImpl(ModuleItem...moduleItems) {
+  public MainClientFactoryImpl() {
     
-    logger.debug(this.getClass() + ".MainClientFactoryImpl() moduleIds = " + moduleItems);
+    List<ModuleBinding> moduleBindings = getModuleBindings();
     
-    if(moduleItems == null) {
+    if (moduleBindings == null || moduleBindings.size() == 0) {
       throw new IllegalArgumentException(JepTexts.errors_mainClientFactory_illegalArgument_moduleIds());
     }
     
+    moduleToPlainFactoryCreatorBindingMap = new HashMap<>();
+    for (ModuleBinding moduleBinding: moduleBindings) {
+      moduleToPlainFactoryCreatorBindingMap.put(moduleBinding.moduleId, moduleBinding.plainFactoryCreator);
+    }
     
-    this.moduleItems = moduleItems;
+    moduleToPlainFactoryInstanceBindingMap = new HashMap<>();
+    
+    moduleIdsAbsList = Collections.unmodifiableList(new AbstractList<String>() {
+      @Override
+      public String get(int index) {
+        return moduleBindings.get(index).moduleId;
+      }
+      @Override
+      public int size() {
+        return moduleBindings.size();
+      }
+    });
     
     JepScopeStack.instance.setMainClientFactory((MainClientFactory)this);
-    
     initActivityMappers(this);
   }
+  
+  /**
+   * Метод должен быть переопределен в наследниках и возвращать список привязок модулей.
+   * Имеет значение порядок следования модулей (в этом порядке будут отображаться соответствующие вкладки).
+   */
+  protected abstract List<ModuleBinding> getModuleBindings();
 
   /**
    * Получение объекта управления Place'ами приложения.<br/>
@@ -194,20 +233,6 @@ abstract public class MainClientFactoryImpl<E extends MainEventBus, S extends Je
   }
 
   /**
-   * Получение главного представления (View) приложения.<br/>
-   * Если объект еще не создан, то метод создает его и возвращает созданный объект. 
-   *
-   * @return главное представление (View) приложения
-   */
-  @Override
-  public IsWidget getMainView() {
-    if(mainView == null) {
-      mainView = new MainViewImpl();
-    }
-    return mainView;
-  }
-  
-  /**
    * Получение главного сервиса приложения.<br/>
    * Если объект еще не создан, то метод создает его и возвращает созданный объект. 
    *
@@ -221,37 +246,11 @@ abstract public class MainClientFactoryImpl<E extends MainEventBus, S extends Je
     return mainService;
   }
 
-  /**
-   * Получение идентификаторов модулей приложения.
-   *
-   * @return идентификаторы модулей приложения
-   */
   @Override
-  public ModuleItem[] getModuleItems() {
-    return moduleItems; 
+  public List<String> getModuleIds() {
+    return moduleIdsAbsList;
   }
   
-  /**
-   * Проверяет наличие определенного идентификатора модуля среди идентификаторов модулей приложения.
-   *
-   * @param moduleId проверяемый идентификатор модуля
-   * @return true - если запрошенный идентификатор модуля найден, false - в противном случае.
-   */
-  @Override
-  public boolean contains(String moduleId) {
-    boolean result = false;
-    
-    int moduleCount = moduleItems.length;
-    for(int i = 0; i < moduleCount; i++) {
-      if(moduleItems[i].moduleId.equals(moduleId)) {
-        result = true;
-        break;
-      }
-    }
-    
-    return result;
-  }
-
   /**
    * Перемнная для защиты от повторного вызова initActivityMappers в наследниках
    */
@@ -285,4 +284,20 @@ abstract public class MainClientFactoryImpl<E extends MainEventBus, S extends Je
     });
   }
   
+  @Override
+  public PlainClientFactory<PlainEventBus, JepDataServiceAsync> getPlainClientFactory(String moduleId) {
+    PlainClientFactory<PlainEventBus, JepDataServiceAsync> factoryInstance = moduleToPlainFactoryInstanceBindingMap.get(moduleId);
+    if (factoryInstance != null) {
+      return factoryInstance;
+    }
+    
+    PlainClientFactoryImpl.Creator factoryCreator = moduleToPlainFactoryCreatorBindingMap.get(moduleId);
+    if (factoryCreator == null) {
+      return null;
+    } else {
+      factoryInstance = factoryCreator.create();
+      moduleToPlainFactoryInstanceBindingMap.put(moduleId, factoryInstance);
+      return factoryInstance;
+    }
+  }
 }
