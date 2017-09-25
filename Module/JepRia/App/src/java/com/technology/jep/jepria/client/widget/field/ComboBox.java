@@ -623,10 +623,10 @@ public class ComboBox<T extends JepOption> extends Composite
         return;
       }
       
+      getDisplay().initPopupHeight();
+      
       Response response = new Response(getAllSuggestions());
       callback.onSuggestionsReady(request, response);
-      
-      getDisplay().initPopupHeight();
     }
     
     @Override
