@@ -1,7 +1,9 @@
 package com.technology.jep.jepria.server.dao;
 
+import java.io.StringReader;
 import java.math.BigDecimal;
 import java.sql.CallableStatement;
+import java.sql.Clob;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -10,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import oracle.jdbc.OracleTypes;
-import oracle.jdbc.internal.OracleCallableStatement;
 
 import org.apache.log4j.Logger;
 
@@ -299,6 +300,8 @@ public class DaoSupport {
       callableStatement.registerOutParameter(paramNumber, Types.TIMESTAMP);
     } else if (resultTypeClass.equals(BigDecimal.class)) {
       callableStatement.registerOutParameter(paramNumber, Types.NUMERIC);
+    } else if (resultTypeClass.equals(Clob.class)) {
+      callableStatement.registerOutParameter(paramNumber, Types.CLOB);
     } else {
       throw new IllegalArgumentException("Unknown result type");
     }
@@ -695,8 +698,8 @@ public class DaoSupport {
       throws SQLException {
     if (JepRiaUtil.isEmpty(parameter)) {
       callableStatement.setNull(place, Types.CLOB);
-    } else if (callableStatement instanceof OracleCallableStatement){
-      ((OracleCallableStatement) callableStatement).setStringForClob(place, parameter.getBigText());
+    } else {
+      callableStatement.setClob(place, new StringReader(parameter.getBigText()));
     }
   }
 }

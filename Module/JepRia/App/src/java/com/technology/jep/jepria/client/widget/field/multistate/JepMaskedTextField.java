@@ -18,15 +18,19 @@ import com.technology.jep.jepria.shared.util.JepRiaUtil;
 public class JepMaskedTextField extends JepBaseTextField<MaskedTextBox> {
   
   public JepMaskedTextField(Mask mask) {
-    this("", mask);
+    this(null, "", mask);
   }
 
   public JepMaskedTextField(String fieldLabel, String mask) {
-    this(fieldLabel, new Mask(mask));
+    this(null, fieldLabel, new Mask(mask));
+  }
+  
+  public JepMaskedTextField(String fieldIdAsWebEl, String fieldLabel, String mask) {
+    this(fieldIdAsWebEl, fieldLabel, new Mask(mask));
   }
 
-  public JepMaskedTextField(String fieldLabel, Mask mask) {
-    super(null, fieldLabel);
+  public JepMaskedTextField(String fieldIdAsWebEl, String fieldLabel, Mask mask) {
+    super(fieldIdAsWebEl, fieldLabel);
     setMask(mask);
   }
 

@@ -30,7 +30,7 @@ import com.google.gwt.user.client.ui.LayoutPanel;
 import com.google.gwt.user.client.ui.PushButton;
 import com.google.gwt.user.client.ui.Widget;
 import com.technology.jep.jepria.client.JepRiaAutomationConstant;
-import com.technology.jep.jepria.client.ModuleItem;
+import com.technology.jep.jepria.client.ui.main.ModuleConfiguration;
 import com.technology.jep.jepria.client.util.JepClientUtil;
 import com.technology.jep.jepria.client.widget.container.JepTabLayoutPanel;
 import com.technology.jep.jepria.client.widget.event.JepEvent;
@@ -239,15 +239,15 @@ public class MainTabPanel extends HeaderPanel {
    * 
    * @param moduleItems        список модулей
    */
-  public void setModuleItems(ModuleItem[] moduleItems) {
-    for (int i = 0; i < moduleItems.length; i++){
-      Label tabLabel = new Label(moduleItems[i].title);
-      tabLabel.getElement().setId(moduleItems[i].moduleId);
+  public void setModuleItems(List<ModuleConfiguration> moduleConfigurations) {
+    for (ModuleConfiguration moduleConfiguration: moduleConfigurations) {
+      Label tabLabel = new Label(moduleConfiguration.title);
+      tabLabel.getElement().setId(moduleConfiguration.moduleId);
       
-      mapOfModule.put(moduleItems[i].moduleId, tabLabel);
+      mapOfModule.put(moduleConfiguration.moduleId, tabLabel);
       tabs.add(new LayoutPanel(), tabLabel);
       
-      tabLabel = tabs.getTabLabel(indexOf(moduleItems[i].moduleId));
+      tabLabel = tabs.getTabLabel(indexOf(moduleConfiguration.moduleId));
       
       Style style = tabLabel.getElement().getStyle();
       style.setColor("#15428B");

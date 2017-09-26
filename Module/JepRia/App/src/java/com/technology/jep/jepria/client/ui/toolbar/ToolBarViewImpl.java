@@ -3,7 +3,17 @@ package com.technology.jep.jepria.client.ui.toolbar;
 import static com.technology.jep.jepria.client.JepRiaClientConstant.JepImages;
 import static com.technology.jep.jepria.client.JepRiaClientConstant.JepTexts;
 import static com.technology.jep.jepria.client.JepRiaClientConstant.TOOLBAR_DEFAULT_STYLE;
-import static com.technology.jep.jepria.client.ui.toolbar.ToolBarConstant.*;
+import static com.technology.jep.jepria.client.ui.toolbar.ToolBarConstant.ADD_BUTTON_ID;
+import static com.technology.jep.jepria.client.ui.toolbar.ToolBarConstant.DELETE_BUTTON_ID;
+import static com.technology.jep.jepria.client.ui.toolbar.ToolBarConstant.EDIT_BUTTON_ID;
+import static com.technology.jep.jepria.client.ui.toolbar.ToolBarConstant.FIND_BUTTON_ID;
+import static com.technology.jep.jepria.client.ui.toolbar.ToolBarConstant.LIST_BUTTON_ID;
+import static com.technology.jep.jepria.client.ui.toolbar.ToolBarConstant.SAVE_BUTTON_ID;
+import static com.technology.jep.jepria.client.ui.toolbar.ToolBarConstant.SEARCH_BUTTON_ID;
+import static com.technology.jep.jepria.client.ui.toolbar.ToolBarConstant.SEARCH_SEPARATOR_ID;
+import static com.technology.jep.jepria.client.ui.toolbar.ToolBarConstant.UP_BUTTON_ID;
+import static com.technology.jep.jepria.client.ui.toolbar.ToolBarConstant.UP_RIGHT_SEPARATOR_ID;
+import static com.technology.jep.jepria.client.ui.toolbar.ToolBarConstant.VIEW_DETAILS_BUTTON_ID;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -20,14 +30,11 @@ import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.technology.jep.jepria.client.JepRiaAutomationConstant;
 import com.technology.jep.jepria.client.ui.JepPresenter;
-import com.technology.jep.jepria.client.ui.eventbus.plain.PlainEventBus;
-import com.technology.jep.jepria.client.ui.plain.StandardClientFactory;
 import com.technology.jep.jepria.client.widget.button.JepButton;
 import com.technology.jep.jepria.client.widget.button.JepButton.IconPosition;
 import com.technology.jep.jepria.client.widget.button.Separator;
 import com.technology.jep.jepria.client.widget.event.JepEvent;
 import com.technology.jep.jepria.client.widget.event.JepListener;
-import com.technology.jep.jepria.shared.service.data.JepDataServiceAsync;
 
 /**
  * Реализация инструментальной панели.
@@ -45,7 +52,7 @@ public class ToolBarViewImpl implements ToolBarView {
    */
   private Map<String, Widget> items = new HashMap<String, Widget>();
   
-  protected JepPresenter presenter = null;
+  protected JepPresenter<?, ?> presenter = null;
   
   protected SimplePanel toolBar;
   
@@ -392,7 +399,7 @@ public class ToolBarViewImpl implements ToolBarView {
   }
 
   @Override
-  public void setPresenter(JepPresenter presenter) {
+  public void setPresenter(JepPresenter<?, ?> presenter) {
     this.presenter = presenter;
   }
   

@@ -2,17 +2,17 @@ package ${packagePrefix?lower_case}.${packageName?lower_case}.${moduleName?lower
  
 import static ${packagePrefix?lower_case}.${packageName?lower_case}.${moduleName?lower_case}.main.client.${moduleName}ClientConstant.*;
 import static com.technology.jep.jepria.client.security.ClientSecurity.CHECK_ROLES_BY_OR;
- 
-import com.technology.jep.jepria.client.ui.main.MainView;
+
+import ${packagePrefix?lower_case}.${packageName?lower_case}.${moduleName?lower_case}.main.client.${moduleName}MainClientFactoryImpl;
+
 import com.technology.jep.jepria.client.ui.eventbus.main.MainEventBus;
-import com.technology.jep.jepria.client.ui.main.MainClientFactory;
 import com.technology.jep.jepria.client.ui.main.MainModulePresenter;
 import com.technology.jep.jepria.shared.service.JepMainServiceAsync;
 
-public class ${moduleName}MainModulePresenter<E extends MainEventBus, S extends JepMainServiceAsync> 
-  extends MainModulePresenter<MainView, E, S, MainClientFactory<E, S>> {
+public class ${moduleName}MainModulePresenter
+  extends MainModulePresenter<${moduleName}MainViewImpl, MainEventBus, JepMainServiceAsync, ${moduleName}MainClientFactoryImpl> {
      
-  public ${moduleName}MainModulePresenter(MainClientFactory<E, S> clientFactory) {
+  public ${moduleName}MainModulePresenter(${moduleName}MainClientFactoryImpl clientFactory) {
     super(clientFactory);
     <#list forms![] as form>
     <#if form.moduleRoleNames?has_content>

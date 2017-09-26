@@ -75,6 +75,8 @@ public class ApplicationStructureCreator extends Task {
       createClientConstant();
       echoMessage("Create Java Classes Of Client Factoty");
       createClientFactoryImpl();
+      echoMessage("Create Java Classes Of Main View Impl");
+      createMainViewImpl();
       echoMessage("Create Java Classes Of Entry Point");
       createEntryPoint();
       echoMessage("Create Java Classes Of Detail Form Presenter");
@@ -506,14 +508,31 @@ public class ApplicationStructureCreator extends Task {
 
     String mainClientFactoryPath = format(
       getDefinitionProperty(MAIN_MODULE_FACTORY_PATH_TEMPLATE_PROPERTY, 
-          multipleConcat(PREFIX_DESTINATION_JAVA_CODE, "/{4}/{0}/{1}/main/client/{3}ClientFactoryImpl.java")),
+          multipleConcat(PREFIX_DESTINATION_JAVA_CODE, "/{4}/{0}/{1}/main/client/{3}MainClientFactoryImpl.java")),
       application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), application.getName()
       , application.getPackagePrefixAsPath().toLowerCase()
     );
     convertTemplateToFile(
-      getDefinitionProperty(MAIN_MODULE_FACTORY_TEMPLATE_PROPERTY, "mainFactory.ftl"),
+      getDefinitionProperty(MAIN_MODULE_FACTORY_TEMPLATE_PROPERTY, "mainModuleFactory.ftl"),
       data,
       mainClientFactoryPath
+    );
+  }
+  
+  /**
+   * Создание главного представления модуля
+   */
+  private void createMainViewImpl() {
+    String mainViewImplPath = format(
+      getDefinitionProperty(MAIN_VIEW_IMPL_PATH_TEMPLATE_PROPERTY, 
+          multipleConcat(PREFIX_DESTINATION_JAVA_CODE, "/{3}/{0}/{1}/main/client/ui/main/{2}MainViewImpl.java")),
+      application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), application.getName()
+      , application.getPackagePrefixAsPath().toLowerCase()
+    );
+    convertTemplateToFile(
+      getDefinitionProperty(MAIN_VIEW_IMPL_TEMPLATE_PROPERTY, "mainViewImpl.ftl"),
+      resultData,
+      mainViewImplPath
     );
   }
 

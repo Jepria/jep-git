@@ -13,20 +13,13 @@ import ${packagePrefix?lower_case}.${packageName?lower_case}.${moduleName?lower_
 </#if>
 <#if form.toolBarCustomButtonsOnBothForms?size != 0>
 import ${packagePrefix?lower_case}.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.client.ui.plain.${form.formName}ModulePresenter;
-<#else>
-import com.technology.jep.jepria.client.ui.plain.StandardModulePresenter;
 </#if>
 import com.technology.jep.jepria.client.ui.JepPresenter;
 import com.technology.jep.jepria.client.ui.plain.PlainClientFactory;
-import com.technology.jep.jepria.client.ui.plain.PlainClientFactoryImpl;
-<#if form.isJepToolBarPresenter>
-import com.technology.jep.jepria.client.ui.toolbar.ToolBarPresenter;
-<#else>
+<#if !form.isJepToolBarPresenter>
 import ${packagePrefix?lower_case}.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.client.ui.toolbar.${form.formName}ToolBarPresenter;
 </#if>
-<#if form.isJepToolBarView>
-import com.technology.jep.jepria.client.ui.toolbar.ToolBarViewImpl;
-<#else>
+<#if !form.isJepToolBarView>
 import ${packagePrefix?lower_case}.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.client.ui.toolbar.${form.formName}ToolBarViewImpl;
 </#if>
 <#if form.isStatusBarOff>
@@ -43,84 +36,97 @@ import com.technology.jep.jepria.client.ui.form.list.ListFormPresenter;
 import ${packagePrefix?lower_case}.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.shared.service.${form.formName}Service;
 import ${packagePrefix?lower_case}.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.shared.service.${form.formName}ServiceAsync;
 import ${packagePrefix?lower_case}.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.shared.record.${form.formName}RecordDefinition;
+import com.technology.jep.jepria.client.ui.plain.StandardClientFactoryImpl;
+
+<#assign ClassName = form.formName + "ClientFactoryImpl">
+<#if hasCustomButtons>
+  <#assign EventBusClassName = form.formName + "EventBus">
+<#else>
+  <#assign EventBusClassName = "PlainEventBus">
+</#if>
+<#assign ServiceClassName = form.formName + "ServiceAsync">
+
+public class ${ClassName}
+  extends StandardClientFactoryImpl<${EventBusClassName}, ${ServiceClassName}> {
  
-public class ${form.formName}ClientFactoryImpl<E extends <#if hasCustomButtons>${form.formName}<#else>Plain</#if>EventBus, S extends ${form.formName}ServiceAsync>
-  extends com.technology.jep.jepria.client.ui.plain.StandardClientFactoryImpl<E, S> {
- 
-  private static final IsWidget ${form.formName?uncap_first}DetailFormView = new ${form.formName}DetailFormViewImpl();
+  private static final IsWidget detailFormView = new ${form.formName}DetailFormViewImpl();
   <#if !form.isJepToolBarView>
-  private static final IsWidget ${form.formName?uncap_first}ToolBarView = new ${form.formName}ToolBarViewImpl();
+  private static final IsWidget toolBarView = new ${form.formName}ToolBarViewImpl();
   </#if>
   <#if form.isStatusBarOff>
-  private static final IsWidget ${form.formName?uncap_first}StatusBarView = new ${form.formName}StatusBarViewImpl();
+  private static final IsWidget statusBarView = new ${form.formName}StatusBarViewImpl();
   </#if>
-  private static final IsWidget ${form.formName?uncap_first}ListFormView = new ${form.formName}ListFormViewImpl();
- 
-  private static PlainClientFactoryImpl<PlainEventBus, JepDataServiceAsync> instance = null;
- 
-  public ${form.formName}ClientFactoryImpl() {
-    super(${form.formName}RecordDefinition.instance);
-    initActivityMappers(this);
+  private static final IsWidget listFormView = new ${form.formName}ListFormViewImpl();
+
+  private ${form.formName}ClientFactoryImpl() {
+    super(${form.formName?upper_case}_MODULE_ID, ${form.formName}RecordDefinition.instance);
   }
- 
-  static public PlainClientFactory<PlainEventBus, JepDataServiceAsync> getInstance() {
-    if(instance == null) {
-      instance = GWT.create(${form.formName}ClientFactoryImpl.class);
+
+  public final static Creator creator = new Creator() {
+    @Override
+    public PlainClientFactory<PlainEventBus, JepDataServiceAsync> create() {
+      return GWT.create(${form.formName}ClientFactoryImpl.class);
     }
-    return instance;
+  };
+  
+  <#if form.toolBarCustomButtonsOnBothForms?size != 0>
+
+  @Override
+  public JepPresenter<${EventBusClassName}, ${ClassName}> createPlainModulePresenter(Place place) {
+    return new ${form.formName}ModulePresenter(${form.formName?upper_case}_MODULE_ID, place, this);
   }
- 
-  public JepPresenter createPlainModulePresenter(Place place) {
-    return new <#if form.toolBarCustomButtonsOnBothForms?size != 0>${form.formName}<#else>Standard</#if>ModulePresenter(${form.formName?upper_case}_MODULE_ID, place, this);
-  }
- 
-  public JepPresenter createDetailFormPresenter(Place place) {
+  </#if>
+
+  @Override
+  public JepPresenter<${EventBusClassName}, ${ClassName}> createDetailFormPresenter(Place place) {
     return new ${form.formName}DetailFormPresenter(place, this);
   }
- 
-  public JepPresenter createListFormPresenter(Place place) {
-    return new <#if form.hasCustomListFormPresenter>${form.formName}</#if>ListFormPresenter(place, this);
+
+  @Override
+  public JepPresenter<${EventBusClassName}, ${ClassName}> createListFormPresenter(Place place) {
+    return new <#if form.hasCustomListFormPresenter>${form.formName}ListFormPresenter<#else>ListFormPresenter<${form.formName}ListFormViewImpl, ${EventBusClassName}, ${ServiceClassName}, ${ClassName}></#if>(place, this);
   }
   <#if !form.isJepToolBarPresenter>
   
-  public JepPresenter createToolBarPresenter(Place place) {
+  @Override
+  public JepPresenter<${EventBusClassName}, ${ClassName}> createToolBarPresenter(Place place) {
     return new ${form.formName}ToolBarPresenter(place, this);<#--if hasCustomButtons || form.isToolBarOff-->
   }
   </#if>
    <#if !form.isJepToolBarView>
    
+  @Override
   public IsWidget getToolBarView() {
-    return ${form.formName?uncap_first}ToolBarView;
+    return toolBarView;
   }
-   </#if>
-   <#if form.isStatusBarOff>
-   
-   public IsWidget getStatusBarView() {
-    return ${form.formName?uncap_first}StatusBarView;
+  </#if>
+  <#if form.isStatusBarOff>
+  
+  @Override 
+  public IsWidget getStatusBarView() {
+    return statusBarView;
   }
-   </#if>
-   
+  </#if>
+  
+  @Override
   public IsWidget getDetailFormView() {
-    return ${form.formName?uncap_first}DetailFormView;
+    return detailFormView;
   }
- 
+
+  @Override
   public IsWidget getListFormView() {
-    return ${form.formName?uncap_first}ListFormView;
+    return listFormView;
   }
- 
-  public S getService() {
-    if(dataService == null) {
-      dataService = (S) GWT.create(${form.formName}Service.class);
-    }
-    return dataService;
+
+  @Override
+  public ${ServiceClassName} createService() {
+    return GWT.create(${form.formName}Service.class);
   }
   <#if hasCustomButtons>
   
-  public E getEventBus() {
-    if(eventBus == null) {
-      eventBus = new ${form.formName}EventBus(this);
-    }
-    return (E) eventBus;
+  @Override
+  public ${EventBusClassName} createEventBus() {
+    return new ${form.formName}EventBus(this);
   }
   </#if>
 }

@@ -4,8 +4,11 @@
 <%@ page import="com.technology.jep.jepria.client.JepRiaClientConstant" %>
 <%@ page import="static com.technology.jep.jepria.server.util.JepServerUtil.getLocale"%>
 <%@ page import="java.util.ResourceBundle" %>
+<%@ page import="com.technology.jep.jepria.server.JepRiaServerConstant" %>
 
-<% ResourceBundle jepRiaText = ResourceBundle.getBundle("com.technology.jep.jepria.shared.text.JepRiaText", getLocale(request)); %>
+<% ResourceBundle jepRiaText = ResourceBundle.getBundle(JepRiaServerConstant.JEP_RIA_RESOURCE_BUNDLE_NAME, 
+    getLocale(request)); %>
+
 <html style="width: 100%; height: 100%;">
   <head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">

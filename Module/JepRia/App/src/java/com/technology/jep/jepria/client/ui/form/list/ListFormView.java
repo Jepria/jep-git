@@ -7,7 +7,7 @@ import com.technology.jep.jepria.client.widget.list.GridManager;
 /**
  * Интерфейс View списочной формы.
  */
-public interface ListFormView<L extends GridManager> extends JepView<JepPresenter> {
+public interface ListFormView<L extends GridManager> extends JepView<JepPresenter<?, ?>> {
 
   /**
    * Установка управляющего списком формы класса.

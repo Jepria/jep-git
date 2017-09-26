@@ -3,6 +3,8 @@ package com.technology.jep.jepria.client.widget.field.masked;
 import static com.technology.jep.jepria.client.JepRiaClientConstant.JepTexts;
 import static com.technology.jep.jepria.client.util.JepClientUtil.getChar;
 
+import com.google.gwt.event.dom.client.FocusEvent;
+import com.google.gwt.event.dom.client.FocusHandler;
 import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.dom.client.KeyDownEvent;
 import com.google.gwt.event.dom.client.KeyDownHandler;
@@ -45,7 +47,7 @@ public class MaskedTextBox extends TextBox
   /**
    * Маска, наложенная на поле.
    */
-  private Mask mask;  
+  private Mask mask;
   
   public MaskedTextBox(Mask mask) {
     this.mask = mask;
@@ -69,6 +71,12 @@ public class MaskedTextBox extends TextBox
         onKeyUpEvent(event);
       }
     }, KeyUpEvent.getType());
+    addDomHandler(new FocusHandler() {
+      @Override
+      public void onFocus(FocusEvent event) {
+        onFocusEvent(event);
+      }
+    }, FocusEvent.getType());
     addStyleName(MASKED_TEXT_BOX_STYLE);
   }
 
@@ -397,6 +405,17 @@ public class MaskedTextBox extends TextBox
           fireEvent(new PasteForbiddenEvent());
         }
       }
+    }
+  }
+  
+  /**
+   * Обработчик события {@link FocusEvent}.<br> 
+   * Если поле пустое, то устанавливает курсор на первый специальный символ маски.
+   * @param event
+   */
+  private void onFocusEvent(FocusEvent event) {
+    if(isEmpty()) {
+      setCursorPos(mask.getFirstSpecialSymbolPosition());
     }
   }
   

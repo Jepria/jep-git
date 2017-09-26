@@ -100,7 +100,7 @@ public class PartialFormBuilder extends Task {
         multipleConcat(PREFIX_DESTINATION_JAVA_CODE, "/{3}/{0}/{1}/main/{2}.gwt.xml")
       ));
       String mainClientFactoryPath = convertPatternInRealPath(getDefinitionProperty(MAIN_MODULE_FACTORY_PATH_TEMPLATE_PROPERTY, 
-        multipleConcat(PREFIX_DESTINATION_JAVA_CODE, "/{3}/{0}/{1}/main/client/{2}ClientFactoryImpl.java"))
+        multipleConcat(PREFIX_DESTINATION_JAVA_CODE, "/{3}/{0}/{1}/main/client/{2}MainClientFactoryImpl.java"))
       );
       
       String targetConfigMainGwtXmlPath = multipleConcat(BUILD_CONFIG_PATH_PREFIX, targetConfig, "/", mainGwtXmlPropertyPath);

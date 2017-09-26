@@ -6,7 +6,16 @@ import static com.technology.jep.jepria.client.ui.WorkstateEnum.SEARCH;
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.SELECTED;
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.VIEW_DETAILS;
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.VIEW_LIST;
-import static com.technology.jep.jepria.client.ui.toolbar.ToolBarConstant.*;
+import static com.technology.jep.jepria.client.ui.toolbar.ToolBarConstant.ADD_BUTTON_ID;
+import static com.technology.jep.jepria.client.ui.toolbar.ToolBarConstant.DELETE_BUTTON_ID;
+import static com.technology.jep.jepria.client.ui.toolbar.ToolBarConstant.EDIT_BUTTON_ID;
+import static com.technology.jep.jepria.client.ui.toolbar.ToolBarConstant.FIND_BUTTON_ID;
+import static com.technology.jep.jepria.client.ui.toolbar.ToolBarConstant.LIST_BUTTON_ID;
+import static com.technology.jep.jepria.client.ui.toolbar.ToolBarConstant.SAVE_BUTTON_ID;
+import static com.technology.jep.jepria.client.ui.toolbar.ToolBarConstant.SEARCH_BUTTON_ID;
+import static com.technology.jep.jepria.client.ui.toolbar.ToolBarConstant.UP_BUTTON_ID;
+import static com.technology.jep.jepria.client.ui.toolbar.ToolBarConstant.UP_RIGHT_SEPARATOR_ID;
+import static com.technology.jep.jepria.client.ui.toolbar.ToolBarConstant.VIEW_DETAILS_BUTTON_ID;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -29,21 +38,21 @@ import com.technology.jep.jepria.client.ui.JepPresenter;
 import com.technology.jep.jepria.client.ui.WorkstateEnum;
 import com.technology.jep.jepria.client.ui.eventbus.plain.PlainEventBus;
 import com.technology.jep.jepria.client.ui.eventbus.plain.event.AdjustExitScopeEvent;
+import com.technology.jep.jepria.client.ui.eventbus.plain.event.SetCurrentRecordEvent;
 import com.technology.jep.jepria.client.ui.eventbus.plain.event.SetSaveButtonEnabledEvent;
 import com.technology.jep.jepria.client.ui.plain.StandardClientFactory;
 import com.technology.jep.jepria.client.widget.button.JepButton;
 import com.technology.jep.jepria.client.widget.event.JepEvent;
 import com.technology.jep.jepria.client.widget.event.JepListener;
+import com.technology.jep.jepria.shared.record.JepRecord;
 import com.technology.jep.jepria.shared.report.JepReportParameters;
 import com.technology.jep.jepria.shared.service.data.JepDataServiceAsync;
 
-public class ToolBarPresenter<V extends ToolBarView, E extends PlainEventBus, S extends JepDataServiceAsync, 
-    F extends StandardClientFactory<E, S>>
-  extends JepPresenter<E, F> 
-    implements 
+public class ToolBarPresenter<V extends ToolBarView, E extends PlainEventBus, S extends JepDataServiceAsync, F extends StandardClientFactory<E, S>>
+    extends JepPresenter<E, F> implements 
       AdjustExitScopeEvent.Handler,
-      SetSaveButtonEnabledEvent.Handler
-        {
+      SetSaveButtonEnabledEvent.Handler,
+      SetCurrentRecordEvent.Handler {
   
   /**
    * Соответствие между состоянием работы и множеством активных кнопок.
@@ -51,19 +60,20 @@ public class ToolBarPresenter<V extends ToolBarView, E extends PlainEventBus, S 
   private Map<WorkstateEnum, Set<String>> enableByWorkstate = new HashMap<WorkstateEnum, Set<String>>();
 
   protected V view;
-  protected PlainPlaceController placeController;
+  protected PlainPlaceController<E, S, F> placeController;
   
   public ToolBarPresenter(Place place, F clientFactory) {
     super(place, clientFactory);
     
     view = (V)clientFactory.getToolBarView();
-    placeController = clientFactory.getPlaceController();
+    placeController = (PlainPlaceController<E, S, F>)clientFactory.getPlaceController();
   }
   
   public void start(AcceptsOneWidget container, EventBus eventBus) {
     // Подписка activity-презентера на события EventBus.
     eventBus.addHandler(AdjustExitScopeEvent.TYPE, this);
     eventBus.addHandler(SetSaveButtonEnabledEvent.TYPE, this);
+    eventBus.addHandler(SetCurrentRecordEvent.TYPE, this);
     
     // "Привязка" элементов представления к функционалу презентера.
     bind();
@@ -321,5 +331,14 @@ public class ToolBarPresenter<V extends ToolBarView, E extends PlainEventBus, S 
   public void up() {
     eventBus.exitScope();
   }
-
+  
+  /**
+   * Текущая запись.
+   */
+  protected JepRecord currentRecord = null;
+  
+  @Override
+  public void onSetCurrentRecord(SetCurrentRecordEvent event) {
+    currentRecord = event.getCurrentRecord();
+  }
 }

@@ -1,13 +1,15 @@
 package com.technology.jep.jepria.client.widget.field.multistate.large;
 
-import static com.technology.jep.jepria.shared.JepRiaConstant.DOWNLOAD_CONTENT_DISPOSITION_ATTACHMENT;
 import static com.technology.jep.jepria.shared.JepRiaConstant.DOWNLOAD_CONTENT_DISPOSITION;
+import static com.technology.jep.jepria.shared.JepRiaConstant.DOWNLOAD_CONTENT_DISPOSITION_ATTACHMENT;
 import static com.technology.jep.jepria.shared.JepRiaConstant.DOWNLOAD_EXTENSION;
-import static com.technology.jep.jepria.shared.JepRiaConstant.DOWNLOAD_FILE_NAME_PREFIX;
 import static com.technology.jep.jepria.shared.JepRiaConstant.DOWNLOAD_FILE_NAME;
+import static com.technology.jep.jepria.shared.JepRiaConstant.DOWNLOAD_FILE_NAME_PREFIX;
 
+import com.google.gwt.http.client.URL;
 import com.google.gwt.user.client.ui.HTML;
 import com.technology.jep.jepria.shared.record.lob.JepFileReference;
+import com.technology.jep.jepria.shared.util.JepRiaUtil;
 
 @SuppressWarnings("unchecked")
 public class JepFileField extends JepLargeField<HTML> {
@@ -136,22 +138,32 @@ public class JepFileField extends JepLargeField<HTML> {
     String downloadUrl = buildDownloadUrl(reference);
     StringBuilder sbRef = new StringBuilder();
 
-    if(downloadUrl != null){
+    if(downloadUrl != null) {
       sbRef.append("<a href=\"");
       sbRef.append(downloadUrl);
       sbRef.append("\"");
       sbRef.append("target=\"_blank\"");
       sbRef.append(">");
-    
-      sbRef.append("<img src=\"");
-      sbRef.append(getImageUrl());
-      sbRef.append("\"");
-      sbRef.append(" ");
-      sbRef.append("title=\"");
-      sbRef.append(getFieldToolTip());
-      sbRef.append("\"");
-      sbRef.append("/>");
-    
+      
+      // TODO: Сделать отображение и имени файла, и изображения 
+      // (заменить изображение на более понятное, а также чтобы высота была не более 14px (иначе "скачет" строка))
+      String fileName = null;
+      if(reference instanceof JepFileReference && reference != null) {
+        fileName = ((JepFileReference) reference).getFileName();
+      }
+      if(!JepRiaUtil.isEmpty(fileName)) { // Если есть имя файла, то скачивание по имени
+        sbRef.append(fileName);
+        sbRef.append("  "); // Пробелы, чтобы был отступ 
+      } else {
+        sbRef.append("<img src=\"");
+        sbRef.append(getImageUrl());  
+        sbRef.append("\"");
+        sbRef.append(" ");
+        sbRef.append("title=\"");
+        sbRef.append(getFieldToolTip());
+        sbRef.append("\"");
+        sbRef.append("/>");
+      }
       sbRef.append("</a>");
     } else {
       sbRef.append("");
@@ -169,7 +181,7 @@ public class JepFileField extends JepLargeField<HTML> {
       
     if(downloadUrl != null) {
       StringBuilder sbRef = new StringBuilder();
-      String fileExtension = ((JepFileReference<?>)reference).getFileExtension();
+      String fileExtension = ((JepFileReference)reference).getFileExtension();
       
       sbRef.append(downloadUrl);
       sbRef.append("&");
@@ -194,7 +206,7 @@ public class JepFileField extends JepLargeField<HTML> {
         sbRef.append("=");
         sbRef.append(fileExtension);
       }
-      return sbRef.toString();
+      return URL.encode(sbRef.toString());
       
     } else {
       return null;

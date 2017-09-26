@@ -131,7 +131,7 @@ public abstract class JepMultiStateField<E extends Widget, V extends Widget> ext
   /**
    * ID данного Jep-поля как Web-элемента.
    */
-  protected final String fieldIdAsWebEl;
+  protected String fieldIdAsWebEl;
   
   /**
    * Разделитель для метки поля (по умолчанию, двоеточие). 
@@ -177,6 +177,8 @@ public abstract class JepMultiStateField<E extends Widget, V extends Widget> ext
     // Корректировка параметров
     fieldLabel = (fieldLabel != null) ? fieldLabel : "";
 
+    // Если fieldIdAsWebEl не пустое, то необходимо инициализировать в начале конструктора, 
+    // чтобы корректное значение передалось в карты редактирования/просмотра.
     this.fieldIdAsWebEl = fieldIdAsWebEl;
     
     viewCardLabel = new HTML();
@@ -241,12 +243,32 @@ public abstract class JepMultiStateField<E extends Widget, V extends Widget> ext
     
     // Установка web-ID поля
     if (this.fieldIdAsWebEl != null) {
-      this.getElement().setId(this.fieldIdAsWebEl);
-      // Установка web-ID других элементов поля
-      setWebIds();
+      setWebId(this.fieldIdAsWebEl);
     }
+    
     // Установка атрибутов карт
     setCardWebAttrs();
+  }
+
+  /**
+   * Получает web-ID поля.
+   * @return web-ID поля.
+   */
+  public String getWebId() {
+    return fieldIdAsWebEl;
+  }
+  
+  /**
+   * Установка web-ID поля
+   * @param fieldIdAsWebEl web-ID поля
+   */
+  public void setWebId(String fieldIdAsWebEl) {
+    
+    this.fieldIdAsWebEl = fieldIdAsWebEl;
+    
+    this.getElement().setId(fieldIdAsWebEl);
+    // Установка web-ID других элементов поля
+    setWebIds();
   }
   
   /**

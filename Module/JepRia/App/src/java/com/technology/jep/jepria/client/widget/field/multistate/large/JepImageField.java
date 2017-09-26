@@ -5,7 +5,6 @@ import static com.technology.jep.jepria.shared.JepRiaConstant.DOWNLOAD_CONTENT_D
 
 import com.google.gwt.user.client.ui.Image;
 
-@SuppressWarnings("unchecked")
 public class JepImageField extends JepLargeField<Image> {
 
   private static final String DATA_IMAGE_BASE64_SRC_ATTRIBUTE = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";

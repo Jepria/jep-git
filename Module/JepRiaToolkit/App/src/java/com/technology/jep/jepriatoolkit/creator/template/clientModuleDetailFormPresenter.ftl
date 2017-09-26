@@ -14,8 +14,7 @@ import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.gwt.event.shared.EventBus;
 </#if> 
 import com.google.gwt.place.shared.Place;
- 
-import com.technology.jep.jepria.client.ui.plain.StandardClientFactory;
+
 <#if hasCustomButtons>
 import ${packagePrefix?lower_case}.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.client.ui.eventbus.${form.formName}EventBus;
 <#else>
@@ -32,27 +31,25 @@ import com.technology.jep.jepria.client.widget.event.JepEventType;
 import java.util.List;
 import com.technology.jep.jepria.shared.field.option.JepOption;
 </#if>
+<#assign ClientFactoryClassName = form.formName + "ClientFactoryImpl">
 import ${packagePrefix?lower_case}.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.shared.service.${form.formName}ServiceAsync;
+import ${packagePrefix?lower_case}.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.client.${ClientFactoryClassName};
 <#list form.toolBarCustomButtonsOnDetailForm as button>
 import ${packagePrefix?lower_case}.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.client.ui.eventbus.event.${button.customEvent}Event;
 </#list>
 
-public class ${form.formName}DetailFormPresenter<E extends <#if hasCustomButtons>${form.formName}<#else>Plain</#if>EventBus, S extends ${form.formName}ServiceAsync> 
-  extends DetailFormPresenter<${form.formName}DetailFormView, E, S, StandardClientFactory<E, S>><#if !hasCustomButtons> {</#if>
+public class ${form.formName}DetailFormPresenter 
+  extends DetailFormPresenter<${form.formName}DetailFormView, <#if hasCustomButtons>${form.formName}<#else>Plain</#if>EventBus, ${form.formName}ServiceAsync, ${ClientFactoryClassName}><#if !hasCustomButtons> {</#if>
     <#if hasCustomButtons>implements <#list form.toolBarCustomButtonsOnDetailForm as button>${button.customEvent}Event.Handler<#if button_has_next>, </#if></#list> {</#if>
   
-  public ${form.formName}DetailFormPresenter(Place place, StandardClientFactory<E, S> clientFactory) {
+  public ${form.formName}DetailFormPresenter(Place place, ${ClientFactoryClassName} clientFactory) {
     super(<#if form.isMain>scopeModuleIds, </#if>place, clientFactory);
   }  
   <#if form.presenterBody??>
   ${form.presenterBody}
   <#else>
   
-  <#if form.hasOptionField>
-  
-  private S service = clientFactory.getService();
-   </#if>
-   <#if hasCustomButtons>
+  <#if hasCustomButtons>
    
   @Override
   public void start(AcceptsOneWidget container, EventBus eventBus) {
@@ -101,6 +98,7 @@ public class ${form.formName}DetailFormPresenter<E extends <#if hasCustomButtons
   */
   </#if>
  
+  @Override
   protected void adjustToWorkstate(WorkstateEnum workstate) {
     <#list form.fields as field>
     <#if field.visibility??>

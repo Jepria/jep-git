@@ -919,6 +919,9 @@ public class JepRiaToolkitConstant {
   public static final String MAIN_MODULE_FACTORY_TEMPLATE_PROPERTY = "fileTemplate.mainFactory";
   public static final String MAIN_MODULE_FACTORY_PATH_TEMPLATE_PROPERTY = "fileTemplate.mainFactory.path";
   
+  public static final String MAIN_VIEW_IMPL_TEMPLATE_PROPERTY = "fileTemplate.mainViewImpl";
+  public static final String MAIN_VIEW_IMPL_PATH_TEMPLATE_PROPERTY = "fileTemplate.mainViewImpl.path";
+  
   public static final String MODULE_ENTRY_POINT_TEMPLATE_PROPERTY = "fileTemplate.moduleEntryPoint";
   public static final String MODULE_ENTRY_POINT_PATH_TEMPLATE_PROPERTY = "fileTemplate.moduleEntryPoint.path";
   

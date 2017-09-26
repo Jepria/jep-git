@@ -18,7 +18,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10,"i14":10,"i15":10,"i16":10,"i17":10,"i18":10,"i19":10,"i20":10};
+var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10,"i14":10,"i15":10,"i16":10,"i17":10,"i18":10,"i19":10,"i20":10,"i21":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -267,65 +267,71 @@ implements <a href="../../../../../../../com/technology/jep/jepria/client/ui/eve
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/ui/main/MainModulePresenter.html#getAccessibleModules-com.technology.jep.jepria.client.history.scope.JepScope-">getAccessibleModules</a></span>(<a href="../../../../../../../com/technology/jep/jepria/client/history/scope/JepScope.html" title="class in com.technology.jep.jepria.client.history.scope">JepScope</a>&nbsp;scope)</code>&nbsp;</td>
 </tr>
 <tr id="i9" class="rowColor">
+<td class="colFirst"><code>protected <a href="../../../../../../../com/technology/jep/jepria/client/ui/WorkstateEnum.html" title="enum in com.technology.jep.jepria.client.ui">WorkstateEnum</a></code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/ui/main/MainModulePresenter.html#getDefaultWorkState-java.lang.String-">getDefaultWorkState</a></span>(java.lang.String&nbsp;entryModuleName)</code>
+<div class="block">Возвращает состояние по умолчанию при входе в приложение.</div>
+</td>
+</tr>
+<tr id="i10" class="altColor">
 <td class="colFirst"><code>private java.lang.String[]</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/ui/main/MainModulePresenter.html#getModules-com.technology.jep.jepria.client.history.scope.JepScope-">getModules</a></span>(<a href="../../../../../../../com/technology/jep/jepria/client/history/scope/JepScope.html" title="class in com.technology.jep.jepria.client.history.scope">JepScope</a>&nbsp;scope)</code>&nbsp;</td>
 </tr>
-<tr id="i10" class="altColor">
+<tr id="i11" class="rowColor">
 <td class="colFirst"><code>protected void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/ui/main/MainModulePresenter.html#loadUserDataAndEnterScope--">loadUserDataAndEnterScope</a></span>()</code>&nbsp;</td>
 </tr>
-<tr id="i11" class="rowColor">
+<tr id="i12" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/ui/main/MainModulePresenter.html#onEnterFromHistory-com.technology.jep.jepria.client.ui.eventbus.main.event.EnterFromHistoryEvent-">onEnterFromHistory</a></span>(<a href="../../../../../../../com/technology/jep/jepria/client/ui/eventbus/main/event/EnterFromHistoryEvent.html" title="class in com.technology.jep.jepria.client.ui.eventbus.main.event">EnterFromHistoryEvent</a>&nbsp;event)</code>
 <div class="block">Обработчик входа в модуль из History (например: при использовании кнопок Back/Forward браузера).</div>
 </td>
 </tr>
-<tr id="i12" class="altColor">
+<tr id="i13" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/ui/main/MainModulePresenter.html#onEnterModule-com.technology.jep.jepria.client.ui.eventbus.event.EnterModuleEvent-">onEnterModule</a></span>(<a href="../../../../../../../com/technology/jep/jepria/client/ui/eventbus/event/EnterModuleEvent.html" title="class in com.technology.jep.jepria.client.ui.eventbus.event">EnterModuleEvent</a>&nbsp;event)</code>
 <div class="block">Обработчик входа в модуль из приложения (например: при использовании закладок/Tab'ов MainView).</div>
 </td>
 </tr>
-<tr id="i13" class="rowColor">
+<tr id="i14" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/ui/main/MainModulePresenter.html#onExitScope-com.technology.jep.jepria.client.ui.eventbus.event.ExitScopeEvent-">onExitScope</a></span>(<a href="../../../../../../../com/technology/jep/jepria/client/ui/eventbus/event/ExitScopeEvent.html" title="class in com.technology.jep.jepria.client.ui.eventbus.event">ExitScopeEvent</a>&nbsp;exitScopeEvent)</code>
 <div class="block">Called when a <a href="../../../../../../../com/technology/jep/jepria/client/ui/eventbus/event/ExitScopeEvent.html" title="class in com.technology.jep.jepria.client.ui.eventbus.event"><code>ExitScopeEvent</code></a> is fired.</div>
 </td>
 </tr>
-<tr id="i14" class="altColor">
+<tr id="i15" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/ui/main/MainModulePresenter.html#onSetMainView-com.technology.jep.jepria.client.ui.eventbus.main.event.SetMainViewEvent-">onSetMainView</a></span>(<a href="../../../../../../../com/technology/jep/jepria/client/ui/eventbus/main/event/SetMainViewEvent.html" title="class in com.technology.jep.jepria.client.ui.eventbus.main.event">SetMainViewEvent</a>&nbsp;event)</code>
 <div class="block">Called when a <a href="../../../../../../../com/technology/jep/jepria/client/ui/eventbus/main/event/SetMainViewEvent.html" title="class in com.technology.jep.jepria.client.ui.eventbus.main.event"><code>SetMainViewEvent</code></a> is fired.</div>
 </td>
 </tr>
-<tr id="i15" class="rowColor">
+<tr id="i16" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/ui/main/MainModulePresenter.html#onSetMainViewBody-com.technology.jep.jepria.client.ui.eventbus.main.event.SetMainViewBodyEvent-">onSetMainViewBody</a></span>(<a href="../../../../../../../com/technology/jep/jepria/client/ui/eventbus/main/event/SetMainViewBodyEvent.html" title="class in com.technology.jep.jepria.client.ui.eventbus.main.event">SetMainViewBodyEvent</a>&nbsp;event)</code>
 <div class="block">Called when a <a href="../../../../../../../com/technology/jep/jepria/client/ui/eventbus/main/event/SetMainViewBodyEvent.html" title="class in com.technology.jep.jepria.client.ui.eventbus.main.event"><code>SetMainViewBodyEvent</code></a> is fired.</div>
 </td>
 </tr>
-<tr id="i16" class="altColor">
+<tr id="i17" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/ui/main/MainModulePresenter.html#onStart-com.technology.jep.jepria.client.ui.eventbus.main.event.StartEvent-">onStart</a></span>(<a href="../../../../../../../com/technology/jep/jepria/client/ui/eventbus/main/event/StartEvent.html" title="class in com.technology.jep.jepria.client.ui.eventbus.main.event">StartEvent</a>&nbsp;event)</code>
 <div class="block">Обработчик события старта Main-модуля (приложения).</div>
 </td>
 </tr>
-<tr id="i17" class="rowColor">
+<tr id="i18" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/ui/main/MainModulePresenter.html#onUpdateScope-com.technology.jep.jepria.client.ui.eventbus.event.UpdateScopeEvent-">onUpdateScope</a></span>(<a href="../../../../../../../com/technology/jep/jepria/client/ui/eventbus/event/UpdateScopeEvent.html" title="class in com.technology.jep.jepria.client.ui.eventbus.event">UpdateScopeEvent</a>&nbsp;updateScopeEvent)</code>
 <div class="block">Обработчик обновления области видимости данных (набора закладок и контекста).</div>
 </td>
 </tr>
-<tr id="i18" class="altColor">
+<tr id="i19" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/ui/main/MainModulePresenter.html#setProtectedModuleItemsVisibility-boolean-">setProtectedModuleItemsVisibility</a></span>(boolean&nbsp;isProtectedModuleVisible)</code>&nbsp;</td>
 </tr>
-<tr id="i19" class="rowColor">
+<tr id="i20" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/ui/main/MainModulePresenter.html#start-com.google.gwt.user.client.ui.AcceptsOneWidget-com.google.gwt.event.shared.EventBus-">start</a></span>(com.google.gwt.user.client.ui.AcceptsOneWidget&nbsp;container,
      com.google.gwt.event.shared.EventBus&nbsp;eventBus)</code>&nbsp;</td>
 </tr>
-<tr id="i20" class="altColor">
+<tr id="i21" class="rowColor">
 <td class="colFirst"><code>private void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/ui/main/MainModulePresenter.html#startModule-java.lang.String-com.google.gwt.place.shared.Place-boolean-">startModule</a></span>(java.lang.String&nbsp;moduleId,
            com.google.gwt.place.shared.Place&nbsp;place,
@@ -460,6 +466,23 @@ implements <a href="../../../../../../../com/technology/jep/jepria/client/ui/eve
 <li class="blockList">
 <h4>bindModule</h4>
 <pre>private&nbsp;void&nbsp;bindModule(java.lang.String&nbsp;moduleId)</pre>
+</li>
+</ul>
+<a name="getDefaultWorkState-java.lang.String-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getDefaultWorkState</h4>
+<pre>protected&nbsp;<a href="../../../../../../../com/technology/jep/jepria/client/ui/WorkstateEnum.html" title="enum in com.technology.jep.jepria.client.ui">WorkstateEnum</a>&nbsp;getDefaultWorkState(java.lang.String&nbsp;entryModuleName)</pre>
+<div class="block">Возвращает состояние по умолчанию при входе в приложение. <br/>
+ Имя модуля передается для использования в потомках при переопределении.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>entryModuleName</code> - Имя модуля, в который осуществлен вход.</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>Состояние по умолчанию при входе в приложение.</dd>
+</dl>
 </li>
 </ul>
 <a name="onStart-com.technology.jep.jepria.client.ui.eventbus.main.event.StartEvent-">

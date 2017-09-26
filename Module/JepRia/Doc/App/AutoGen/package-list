@@ -51,6 +51,7 @@ com.technology.jep.jepria.client.util
 com.technology.jep.jepria.client.widget
 com.technology.jep.jepria.client.widget.button
 com.technology.jep.jepria.client.widget.container
+com.technology.jep.jepria.client.widget.dialog
 com.technology.jep.jepria.client.widget.event
 com.technology.jep.jepria.client.widget.field
 com.technology.jep.jepria.client.widget.field.masked

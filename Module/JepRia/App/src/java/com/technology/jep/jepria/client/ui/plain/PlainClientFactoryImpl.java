@@ -19,7 +19,17 @@ import com.technology.jep.jepria.shared.service.data.JepDataServiceAsync;
  */
 abstract public class PlainClientFactoryImpl<E extends PlainEventBus, S extends JepDataServiceAsync> 
   extends ClientFactoryImpl<E> implements PlainClientFactory<E, S> {
-
+  
+  /**
+   * Класс-команда, реализующий отложенное создание инстанса клиентской фабрики
+   */
+  public static interface Creator {
+    /**
+     * Создание инстанса клиентской фабрики методом {@link com.google.gwt.core.client.GWT#create GWT.create}
+     */
+    PlainClientFactory<PlainEventBus, JepDataServiceAsync> create();
+  }
+  
   /**
    * Представление модуля.
    */
@@ -50,6 +60,7 @@ abstract public class PlainClientFactoryImpl<E extends PlainEventBus, S extends 
    *
    * @return представление (View) модуля
    */
+  @Override
   public IsWidget getModuleView() {
     if(moduleView == null) {
       moduleView = new PlainModuleViewImpl();
@@ -62,6 +73,7 @@ abstract public class PlainClientFactoryImpl<E extends PlainEventBus, S extends 
    *
    * @return клиентская фабрика главного модуля
    */
+  @Override
   public MainClientFactoryImpl<MainEventBus, JepMainServiceAsync> getMainClientFactory() {
     return MainClientFactoryImpl.instance;
   }
@@ -71,6 +83,7 @@ abstract public class PlainClientFactoryImpl<E extends PlainEventBus, S extends 
    *
    * @return объект управления Place'ами модуля
    */
+  @Override
   public PlainPlaceController getPlaceController() {
     if(placeController == null) {
       placeController = new PlainPlaceController((PlainEventBus)getEventBus(), this);
@@ -78,30 +91,39 @@ abstract public class PlainClientFactoryImpl<E extends PlainEventBus, S extends 
     return (PlainPlaceController) placeController;
   }
   
-  /**
-   * Получение шины событий модуля.<br/>
-   * Если объект еще не создан, то метод создает его и возвращает созданный объект. 
-   *
-   * @return шина событий модуля
-   */
-  public E getEventBus() {
+  @Override
+  public final E getEventBus() {
     if(eventBus == null) {
-      eventBus = new PlainEventBus(this);
+      eventBus = createEventBus();
     }
-    return (E) eventBus;
+    return eventBus;
   }
-
+  
   /**
-   * Получение сервиса работы с данными.<br/>
-   * Если объект еще не создан, то метод создает его и возвращает созданный объект. 
+   * Создание шины событий модуля.<br/>
    *
-   * @return сервис работы с данными
+   * @return новый экземпляр
    */
-  public S getService() {
+  @SuppressWarnings("unchecked")/*допустимо*/
+  protected E createEventBus() {
+    return (E) new PlainEventBus(this);
+  }
+  
+  @Override
+  public final S getService() {
     if(dataService == null) {
-      dataService = (S) GWT.create(JepDataService.class);
+      dataService = createService();
     }
     return dataService;
+  }
+  
+  /**
+   * Создание сервиса работы с данными.<br/>
+   *
+   * @return новый экземпляр
+   */
+  protected S createService() {
+    return GWT.create(JepDataService.class);
   }
 
   /**

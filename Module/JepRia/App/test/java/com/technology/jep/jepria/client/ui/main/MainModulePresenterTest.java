@@ -3,6 +3,7 @@ package com.technology.jep.jepria.client.ui.main;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.util.List;
 import java.util.Set;
 
 import org.junit.Test;
@@ -13,20 +14,18 @@ import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.powermock.reflect.internal.WhiteboxImpl;
 
-import com.google.gwt.activity.shared.Activity;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dev.util.collect.HashSet;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.user.client.ui.IsWidget;
-import com.technology.jep.jepria.client.ModuleItem;
-import com.technology.jep.jepria.client.async.LoadAsyncCallback;
 import com.technology.jep.jepria.client.exception.ExceptionManager;
 import com.technology.jep.jepria.client.history.place.MainPlaceController;
 import com.technology.jep.jepria.client.message.JepMessageBox;
 import com.technology.jep.jepria.client.ui.UiSecurity;
 import com.technology.jep.jepria.client.ui.eventbus.EventFilter;
+import com.technology.jep.jepria.client.ui.plain.PlainClientFactory;
 import com.technology.jep.jepria.client.util.JepClientUtil;
 import com.technology.jep.jepria.shared.log.JepLogger;
 import com.technology.jep.jepria.shared.service.JepMainServiceAsync;
@@ -171,14 +170,6 @@ public class MainModulePresenterTest {
    */
   private static MainClientFactory<?, ?> createMainClientFactoryMock(final JepMessageBox messageBoxMock) {
     MainClientFactory<?, ?> cf = new MainClientFactory(){
-      @Override
-      public Activity createMainModulePresenter() {
-        return null;
-      }
-
-      @Override
-      public void getPlainClientFactory(String moduleId, LoadAsyncCallback callback) {        
-      }
 
       @Override
       public EventBus getEventBus() {
@@ -190,10 +181,6 @@ public class MainModulePresenterTest {
         return null;
       }
 
-      /**
-       * Создаёт mock-объект UiSecurity.
-       * @return uiSecurityMock
-       */
       @Override
       public UiSecurity getUiSecurity() {
         UiSecurity uiSecurityMock = Mockito.mock(UiSecurity.class);
@@ -242,16 +229,20 @@ public class MainModulePresenterTest {
       }
 
       @Override
-      public ModuleItem[] getModuleItems() {
+      public MainModulePresenter createMainModulePresenter() {
         return null;
       }
 
       @Override
-      public boolean contains(String moduleId) {
-        return false;
+      public PlainClientFactory getPlainClientFactory(String moduleId) {
+        return null;
       }
 
-      };
+      @Override
+      public List<String> getModuleIds() {
+        return null;
+      }
+    };
     return cf;
   }
 

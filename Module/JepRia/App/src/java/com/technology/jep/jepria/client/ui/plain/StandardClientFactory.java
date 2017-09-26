@@ -44,27 +44,27 @@ public interface StandardClientFactory<E extends PlainEventBus, S extends JepDat
    *
    * @return презентер детальной формы
    */
-  JepPresenter createDetailFormPresenter(Place place);
+  JepPresenter<E, ? extends StandardClientFactory<E, S>> createDetailFormPresenter(Place place);
   
   /**
    * Создание презентера списочной формы.
    *
    * @return презентер списочной формы
    */
-  JepPresenter createListFormPresenter(Place place);
+  JepPresenter<E, ? extends StandardClientFactory<E, S>> createListFormPresenter(Place place);
   
   /**
    * Создание презентера инструментальной панели.
    *
    * @return презентер инструментальной панели
    */
-  JepPresenter createToolBarPresenter(Place place);
+  JepPresenter<E, ? extends StandardClientFactory<E, S>> createToolBarPresenter(Place place);
   
   /**
    * Создание презентера панели состояния.
    *
    * @return презентер панели состояния
    */
-  JepPresenter createStatusBarPresenter(Place place);
+  JepPresenter<E, ? extends StandardClientFactory<E, S>> createStatusBarPresenter(Place place);
   
 }

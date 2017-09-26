@@ -7,7 +7,7 @@ import com.technology.jep.jepria.client.widget.field.FieldManager;
 /**
  * Интерфейс View детальной формы.
  */
-public interface DetailFormView extends JepView<JepPresenter> {
+public interface DetailFormView extends JepView<JepPresenter<?, ?>> {
 
   /**
    * Установка управляющего полями формы класса.

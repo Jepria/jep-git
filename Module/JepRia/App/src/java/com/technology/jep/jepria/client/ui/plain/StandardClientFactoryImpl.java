@@ -57,6 +57,7 @@ abstract public class StandardClientFactoryImpl<E extends PlainEventBus, S exten
   public StandardClientFactoryImpl(String moduleId, JepRecordDefinition recordDefinition) {
     super(recordDefinition);
     this.moduleId = moduleId;
+    initActivityMappers(this);
   }
 
   /**
@@ -71,7 +72,7 @@ abstract public class StandardClientFactoryImpl<E extends PlainEventBus, S exten
     }
     return moduleView;
   }
-
+  
   /**
    * Получение представления (View) инструментальной панели.
    *
@@ -101,7 +102,7 @@ abstract public class StandardClientFactoryImpl<E extends PlainEventBus, S exten
    *
    * @return презентер инструментальной панели
    */
-  public JepPresenter<?,?> createToolBarPresenter(Place place) {
+  public JepPresenter<E, ? extends StandardClientFactory<E, S>> createToolBarPresenter(Place place) {
     return new ToolBarPresenter<ToolBarView, E, S, StandardClientFactory<E,S>>(place, this);
   }
   
@@ -110,9 +111,14 @@ abstract public class StandardClientFactoryImpl<E extends PlainEventBus, S exten
    *
    * @return презентер панели состояния
    */
-  public JepPresenter<?,?> createStatusBarPresenter(Place place) {
+  public JepPresenter<E, ? extends StandardClientFactory<E, S>> createStatusBarPresenter(Place place) {
     return new StatusBarPresenter<StatusBarView, E, S, StandardClientFactory<E,S>>(place, this);
   }
+  
+  /**
+   * Перемнная для защиты от повторного вызова initActivityMappers в наследниках
+   */
+  private boolean initActivityMappersInvokedOnce = false;
   
   /**
    * Иннициализация ActivityMapper'ов и ActivityManager'ов.<br/>
@@ -122,6 +128,12 @@ abstract public class StandardClientFactoryImpl<E extends PlainEventBus, S exten
    * @param clientFactory клиентская фабрика модуля
    */
   protected void initActivityMappers(PlainClientFactory<E, S> clientFactory) {
+    // Защита от повторного вызова в наследниках
+    if (initActivityMappersInvokedOnce) {
+      throw new IllegalStateException(getClass().getCanonicalName() + ".initActivityMappers() must be invoked at most once. Do not invoke in descendants");
+    }
+    initActivityMappersInvokedOnce = true;
+    
     super.initActivityMappers(clientFactory);
     
     /*
@@ -179,7 +191,7 @@ abstract public class StandardClientFactoryImpl<E extends PlainEventBus, S exten
   }
   
   @Override
-  public JepPresenter<?,?> createPlainModulePresenter(Place place) {
+  public JepPresenter<E, ? extends StandardClientFactory<E, S>> createPlainModulePresenter(Place place) {
     return new StandardModulePresenter<StandardModuleView, E, S, StandardClientFactory<E,S>>(moduleId, place, this);
   }
   

@@ -48,6 +48,12 @@ public class JepCheckBoxField extends JepMultiStateField<CheckBox, HTML> {
   
   public JepCheckBoxField(String fieldIdAsWebEl, String fieldLabel) {
     super(fieldIdAsWebEl, fieldLabel);
+    // Эмулирование label, при нажатии на наименование, значение изменяется на противоположное. 
+    editableCardLabel.addClickHandler(event -> {
+     if(editableCard.isEnabled()) { // Только, если карта Редактирования доступна. 
+       setValue(!getValue());
+     }
+    });
   }
   
   /**

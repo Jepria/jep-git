@@ -18,7 +18,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10};
+var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -226,19 +226,25 @@ extends javax.servlet.http.HttpServlet</pre>
       javax.servlet.http.HttpServletResponse&nbsp;response)</code>&nbsp;</td>
 </tr>
 <tr id="i1" class="rowColor">
-<td class="colFirst"><code>private org.apache.commons.fileupload.FileItem</code></td>
+<td class="colFirst"><code>protected org.apache.commons.fileupload.FileItem</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/server/upload/JepUploadServlet.html#getFormField-java.util.List-java.lang.String-">getFormField</a></span>(java.util.List&lt;org.apache.commons.fileupload.FileItem&gt;&nbsp;items,
             java.lang.String&nbsp;fieldName)</code>
 <div class="block">Получение интерфейса выгрузки файлов.</div>
 </td>
 </tr>
 <tr id="i2" class="altColor">
+<td class="colFirst"><code>protected java.util.Map&lt;java.lang.String,java.lang.Object&gt;</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/server/upload/JepUploadServlet.html#getPrimaryKeyMap-java.util.List-">getPrimaryKeyMap</a></span>(java.util.List&lt;org.apache.commons.fileupload.FileItem&gt;&nbsp;items)</code>
+<div class="block">Возвращает карту первичных ключей.</div>
+</td>
+</tr>
+<tr id="i3" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/server/upload/JepUploadServlet.html#init--">init</a></span>()</code>
 <div class="block">Инициализация сервлета.</div>
 </td>
 </tr>
-<tr id="i3" class="rowColor">
+<tr id="i4" class="altColor">
 <td class="colFirst"><code>protected void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/server/upload/JepUploadServlet.html#onError-javax.servlet.http.HttpServletResponse-int-java.lang.String-">onError</a></span>(javax.servlet.http.HttpServletResponse&nbsp;response,
        int&nbsp;error,
@@ -246,7 +252,7 @@ extends javax.servlet.http.HttpServlet</pre>
 <div class="block">Отправка сообщения об ошибке в случае неуспешной загрузки.</div>
 </td>
 </tr>
-<tr id="i4" class="altColor">
+<tr id="i5" class="rowColor">
 <td class="colFirst"><code>private void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/server/upload/JepUploadServlet.html#uploadBinary-org.apache.commons.fileupload.FileItem-java.lang.String-java.lang.String-java.util.Map-">uploadBinary</a></span>(org.apache.commons.fileupload.FileItem&nbsp;fileItem,
             java.lang.String&nbsp;tableName,
@@ -255,7 +261,7 @@ extends javax.servlet.http.HttpServlet</pre>
 <div class="block">Загрузка на сервер бинарного файла.</div>
 </td>
 </tr>
-<tr id="i5" class="rowColor">
+<tr id="i6" class="altColor">
 <td class="colFirst"><code>private void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/server/upload/JepUploadServlet.html#uploadText-org.apache.commons.fileupload.FileItem-java.lang.String-java.lang.String-java.util.Map-">uploadText</a></span>(org.apache.commons.fileupload.FileItem&nbsp;fileItem,
           java.lang.String&nbsp;tableName,
@@ -440,6 +446,27 @@ extends javax.servlet.http.HttpServlet</pre>
 </dl>
 </li>
 </ul>
+<a name="getPrimaryKeyMap-java.util.List-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getPrimaryKeyMap</h4>
+<pre>protected&nbsp;java.util.Map&lt;java.lang.String,java.lang.Object&gt;&nbsp;getPrimaryKeyMap(java.util.List&lt;org.apache.commons.fileupload.FileItem&gt;&nbsp;items)
+                                                                     throws java.io.UnsupportedEncodingException,
+                                                                            <a href="../../../../../../com/technology/jep/jepria/shared/exceptions/ApplicationException.html" title="class in com.technology.jep.jepria.shared.exceptions">ApplicationException</a></pre>
+<div class="block">Возвращает карту первичных ключей.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>items</code> - Список FileItem из запроса.</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>Карта первичных ключей.</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code>java.io.UnsupportedEncodingException</code></dd>
+<dd><code><a href="../../../../../../com/technology/jep/jepria/shared/exceptions/ApplicationException.html" title="class in com.technology.jep.jepria.shared.exceptions">ApplicationException</a></code></dd>
+</dl>
+</li>
+</ul>
 <a name="uploadBinary-org.apache.commons.fileupload.FileItem-java.lang.String-java.lang.String-java.util.Map-">
 <!--   -->
 </a>
@@ -496,8 +523,8 @@ extends javax.servlet.http.HttpServlet</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>getFormField</h4>
-<pre>private&nbsp;org.apache.commons.fileupload.FileItem&nbsp;getFormField(java.util.List&lt;org.apache.commons.fileupload.FileItem&gt;&nbsp;items,
-                                                            java.lang.String&nbsp;fieldName)</pre>
+<pre>protected&nbsp;org.apache.commons.fileupload.FileItem&nbsp;getFormField(java.util.List&lt;org.apache.commons.fileupload.FileItem&gt;&nbsp;items,
+                                                              java.lang.String&nbsp;fieldName)</pre>
 <div class="block">Получение интерфейса выгрузки файлов.<br/>
  Предполагается, что может быть только одно поле формы с указанным наименованием</div>
 <dl>

@@ -5,6 +5,8 @@ import static com.technology.jep.jepria.server.JepRiaServerConstant.LOCALE_KEY;
 import static com.technology.jep.jepria.shared.JepRiaConstant.DEFAULT_DATE_FORMAT;
 import static com.technology.jep.jepria.shared.JepRiaConstant.LOCAL_LANG;
 
+import java.io.BufferedReader;
+import java.sql.Clob;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Hashtable;
@@ -19,6 +21,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
 import com.technology.jep.jepria.shared.exceptions.SystemException;
+import com.technology.jep.jepria.shared.record.lob.JepClob;
 
 /**
  * Класс содержащий вспомогательные/полезные функции.
@@ -46,6 +49,8 @@ public class JepServerUtil {
     fileExtensionMimeTypeMap.put("css", "text/css");
     fileExtensionMimeTypeMap.put("dll", "application/x-msdownload");
     fileExtensionMimeTypeMap.put("doc", "application/msword");
+    fileExtensionMimeTypeMap.put("docx", "application/vnd.openxmlformats-officedocument.wordprocessingml.document");
+    fileExtensionMimeTypeMap.put("odt", "application/vnd.oasis.opendocument.text");
     fileExtensionMimeTypeMap.put("dot", "application/msword");
     fileExtensionMimeTypeMap.put("dvi", "application/x-dvi");
     fileExtensionMimeTypeMap.put("exe", "application/octet-stream");
@@ -300,5 +305,27 @@ public class JepServerUtil {
     }
     
     return result;
+  }
+  
+  /**
+   * Формирует {@link com.technology.jep.jepria.shared.record.lob.JepClob} из {@link java.sql.Types#CLOB}.
+   * @param clob
+   * @return JepClob
+   */
+  public static JepClob toJepClob(Clob clob){
+    if (clob == null) throw new NullPointerException();
+    
+    StringBuilder str = new StringBuilder();
+    
+    try (BufferedReader bufferRead = new BufferedReader(clob.getCharacterStream())) {
+      String bufferStr;
+      while ((bufferStr = bufferRead.readLine()) != null) {
+        str.append(bufferStr);
+      }
+    } catch (Exception  e) {
+      e.printStackTrace();
+    }
+    
+    return new JepClob(str.toString());
   }
 }

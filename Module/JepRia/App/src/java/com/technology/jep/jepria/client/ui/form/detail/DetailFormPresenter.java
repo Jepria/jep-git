@@ -50,7 +50,6 @@ import com.technology.jep.jepria.shared.record.JepRecord;
 import com.technology.jep.jepria.shared.service.data.JepDataServiceAsync;
 import com.technology.jep.jepria.shared.util.JepRiaUtil;
 
-@SuppressWarnings("rawtypes")
 public class DetailFormPresenter<V extends DetailFormView, E extends PlainEventBus, S extends JepDataServiceAsync, 
     F extends StandardClientFactory<E, S>>
   extends JepPresenter<E, F>
@@ -349,7 +348,7 @@ public class DetailFormPresenter<V extends DetailFormView, E extends PlainEventB
   /**
    * Счетчик количества сабмитов
    */
-  private int submitCounter;  
+  protected int submitCounter;
   
   /**
    * Метод, вызываемый после успешного сохранения информации
@@ -359,9 +358,9 @@ public class DetailFormPresenter<V extends DetailFormView, E extends PlainEventB
   public void onSaveSuccess(JepRecord resultRecord) {
     submitCounter = 0;
     
-    for (JepMultiStateField field: fields.values()) {  
-      JepLargeField largeField;
-      if((field instanceof JepLargeField) && (largeField = (JepLargeField)field).isFileSelected()) {
+    for (JepMultiStateField<?, ?> field: fields.values()) {  
+      JepLargeField<?> largeField;
+      if((field instanceof JepLargeField) && (largeField = (JepLargeField<?>)field).isFileSelected()) {
         prepareLOBField(largeField, resultRecord);
         largeField.getFormPanel().submit();        
       }      
@@ -378,7 +377,7 @@ public class DetailFormPresenter<V extends DetailFormView, E extends PlainEventB
    * @param resultRecord      текущий рекорд, по которому готовим поле
    */
   @SuppressWarnings("unchecked")
-  private void prepareLOBField(final JepLargeField field, final JepRecord resultRecord){
+  protected void prepareLOBField(final JepLargeField field, final JepRecord resultRecord){
     
     field.getHiddenPrimaryKeyField().setValue(JepHistoryToken.getMapAsToken(clientFactory.getRecordDefinition().buildPrimaryKeyMap(resultRecord)));
     

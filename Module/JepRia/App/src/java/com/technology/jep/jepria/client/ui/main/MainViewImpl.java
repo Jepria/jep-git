@@ -1,22 +1,28 @@
 package com.technology.jep.jepria.client.ui.main;
 
+import java.util.List;
+
 import com.google.gwt.user.client.ui.Widget;
-import com.technology.jep.jepria.client.ModuleItem;
-import com.technology.jep.jepria.client.ui.JepActivity;
 import com.technology.jep.jepria.client.ui.main.widget.MainTabPanel;
 import com.technology.jep.jepria.client.widget.event.JepListener;
 
-public class MainViewImpl implements MainView {
+public abstract class MainViewImpl implements MainView {
   
   protected MainTabPanel tabPanel;
-  protected JepActivity presenter;
+  protected MainModulePresenter<MainView, ?, ?, ?> presenter;
   
   public MainViewImpl() {
     tabPanel = new MainTabPanel();
+    tabPanel.setModuleItems(getModuleConfigurations());
   }
+  
+  /**
+   * Метод должен быть переопределен в наследниках и возвращать список конфигураций модулей-вкладок.
+   */
+  protected abstract List<ModuleConfiguration> getModuleConfigurations();
 
   @Override
-  public void setPresenter(JepActivity presenter) {
+  public void setPresenter(MainModulePresenter<MainView, ?, ?, ?> presenter) {
     this.presenter = presenter;
   }
   
@@ -81,16 +87,6 @@ public class MainViewImpl implements MainView {
     tabPanel.selectModuleItem(moduleId);
   }
 
-  /**
-   * Инициализация вкладок
-   * 
-   * @param moduleItems        список модулей
-   */
-  @Override
-  public void setModuleItems(ModuleItem[] moduleItems) {
-    tabPanel.setModuleItems(moduleItems);
-  }
-  
   /**
    * Отображать вкладки для выбранных модулей
    * 
