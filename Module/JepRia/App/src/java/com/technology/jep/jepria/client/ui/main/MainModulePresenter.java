@@ -358,36 +358,26 @@ public abstract class MainModulePresenter<V extends MainView, E extends MainEven
    * @param isFromHistory признак запуска модуля из обработчика History (при использовании кнопок Back/Forward браузера)
    */
   private void startModule(final String moduleId, final Place place, final boolean isFromHistory) {
-    
-    PlainClientFactory<PlainEventBus, JepDataServiceAsync> plainClientFactoryInstance = clientFactory.getPlainClientFactory(moduleId);
-    
-    LoadAsyncCallback<PlainClientFactory<PlainEventBus, JepDataServiceAsync>> callback = 
-        new LoadAsyncCallback<PlainClientFactory<PlainEventBus, JepDataServiceAsync>>() {
-          public void onSuccessLoad(PlainClientFactory<PlainEventBus, JepDataServiceAsync> plainClientFactory) {
-    
-            PlainPlaceController<PlainEventBus, JepDataServiceAsync, ? extends PlainClientFactory<PlainEventBus, JepDataServiceAsync>> plainPlaceController = plainClientFactory.getPlaceController();
-            
-            plainPlaceController.setWriteHistory(!isFromHistory);
-            plainPlaceController.goTo(place); // Синхронные вызовы: настройка состояния и запись истории (в зависимости от выше выставленного параметра).
-            
-            JepClientUtil.hideLoadingPanel();
-            
-            PlainEventBus plainEventBus = plainClientFactory.getEventBus();
-            
-            plainEventBus.fireEvent(new EnterModuleEvent(moduleId));
-            // TODO: проблема в том, что в недрах обработчиков EnterModuleEvent вызывается plainPlaceController.goTo(place), поэтому (пока) включение
-            // истории осуществляем после обработчиков/отправки события EnterModuleEvent.
-            plainPlaceController.setWriteHistory(true);
-          }
-        };
-    
-    if (plainClientFactoryInstance != null) {
-      GWT.runAsync(new LoadPlainClientFactory(callback) {
-        public PlainClientFactory<PlainEventBus, JepDataServiceAsync> getPlainClientFactory() {
-          return plainClientFactoryInstance;
+    clientFactory.getPlainClientFactory(moduleId, 
+      new LoadAsyncCallback<PlainClientFactory<PlainEventBus, JepDataServiceAsync>>() {
+        public void onSuccessLoad(PlainClientFactory<PlainEventBus, JepDataServiceAsync> plainClientFactory) {
+
+          PlainPlaceController<?, ?, ?> plainPlaceController = (PlainPlaceController<?, ?, ?>)plainClientFactory.getPlaceController();
+          
+          plainPlaceController.setWriteHistory(!isFromHistory);
+          plainPlaceController.goTo(place); // Синхронные вызовы: настройка состояния и запись истории (в зависимости от выше выставленного параметра).
+          
+          JepClientUtil.hideLoadingPanel();
+          
+          PlainEventBus plainEventBus = plainClientFactory.getEventBus();
+          
+          plainEventBus.fireEvent(new EnterModuleEvent(moduleId));
+          // TODO: проблема в том, что в недрах обработчиков EnterModuleEvent вызывается plainPlaceController.goTo(place), поэтому (пока) включение
+          // истории осуществляем после обработчиков/отправки события EnterModuleEvent.
+          plainPlaceController.setWriteHistory(true);
         }
-      });
-    }
+      }
+    );
   }
 
   public void onSetMainView(SetMainViewEvent event) {

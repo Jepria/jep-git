@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.user.client.ui.IsWidget;
+import com.technology.jep.jepria.client.async.LoadAsyncCallback;
 import com.technology.jep.jepria.client.history.place.MainPlaceController;
 import com.technology.jep.jepria.client.ui.ClientFactory;
 import com.technology.jep.jepria.client.ui.eventbus.main.MainEventBus;
@@ -56,9 +57,9 @@ public interface MainClientFactory<E extends MainEventBus, S extends JepMainServ
    * Получение клиентской фабрики заданного модуля приложения.
    *
    * @param moduleId идентификатор модуля приложения
-   * @return инстанс клиентской фабрики модуля приложения
+   * @param callback объект асинхронного обратного вызова содержащий клиентскую фабрику модуля приложения
    */
-  PlainClientFactory<PlainEventBus, JepDataServiceAsync> getPlainClientFactory(String moduleId);
+  void getPlainClientFactory(String moduleId, LoadAsyncCallback<PlainClientFactory<PlainEventBus, JepDataServiceAsync>> callback);
   
   /**
    * Получение списка идентификаторов модулей приложения.
