@@ -22,6 +22,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.technology.jep.jepria.shared.exceptions.SystemException;
 import com.technology.jep.jepria.shared.record.lob.JepClob;
+import static com.technology.jep.jepria.shared.JepRiaConstant.HTTP_REQUEST_PARAMETER_LOCALE;
 
 /**
  * Класс содержащий вспомогательные/полезные функции.
@@ -227,10 +228,11 @@ public class JepServerUtil {
 
   /**
    * Получение локали следующими шагами:<br/>
-   * 1) из параметра запроса по ключу lang<br/>
-   * 2) из параметра сессии<br/>
-   * 3) из запроса<br/>
-   * 4) локаль по умолчанию: ru<br/><br/>
+   * 1) из параметра запроса по ключу locale (приоритет перед lang, поскольку GWT для клиента использует именно locale)<br/>
+   * 2) из параметра запроса по ключу lang<br/>
+   * 3) из параметра сессии<br/>
+   * 4) из запроса<br/>
+   * 5) локаль по умолчанию: ru<br/><br/>
    * 
    * Первая найденная локаль возвращается и сохраняется в сессию.
    * 
@@ -239,15 +241,20 @@ public class JepServerUtil {
    */
   public static Locale getLocale(HttpServletRequest request) {
     Locale locale;
-   
-    String lang = (String) request.getParameter(HTTP_REQUEST_PARAMETER_LANG);
+    
+    String lang = (String) request.getParameter(HTTP_REQUEST_PARAMETER_LOCALE);
     if (lang == null) {
-      locale = (Locale) request.getSession().getAttribute(LOCALE_KEY);
-      if (locale == null) {
-        locale = request.getLocale();
+      lang = (String) request.getParameter(HTTP_REQUEST_PARAMETER_LANG);
+      if (lang == null) {
+        locale = (Locale) request.getSession().getAttribute(LOCALE_KEY);
         if (locale == null) {
-          locale = new Locale(LOCAL_LANG);
+          locale = request.getLocale();
+          if (locale == null) {
+            locale = new Locale(LOCAL_LANG);
+          }
         }
+      } else {
+        locale = new Locale(lang);
       }
     } else {
       locale = new Locale(lang);

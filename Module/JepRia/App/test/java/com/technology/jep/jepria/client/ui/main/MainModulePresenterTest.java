@@ -20,6 +20,7 @@ import com.google.gwt.dom.client.Document;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.user.client.ui.IsWidget;
+import com.technology.jep.jepria.client.async.LoadAsyncCallback;
 import com.technology.jep.jepria.client.exception.ExceptionManager;
 import com.technology.jep.jepria.client.history.place.MainPlaceController;
 import com.technology.jep.jepria.client.message.JepMessageBox;
@@ -172,6 +173,10 @@ public class MainModulePresenterTest {
     MainClientFactory<?, ?> cf = new MainClientFactory(){
 
       @Override
+      public void getPlainClientFactory(String moduleId, LoadAsyncCallback callback) {        
+      }
+
+      @Override
       public EventBus getEventBus() {
         return null;
       }
@@ -233,10 +238,6 @@ public class MainModulePresenterTest {
         return null;
       }
 
-      @Override
-      public PlainClientFactory getPlainClientFactory(String moduleId) {
-        return null;
-      }
 
       @Override
       public List<String> getModuleIds() {

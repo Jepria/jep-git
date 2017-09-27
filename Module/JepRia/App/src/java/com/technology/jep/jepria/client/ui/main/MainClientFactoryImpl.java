@@ -2,11 +2,9 @@ package com.technology.jep.jepria.client.ui.main;
 
 import static com.technology.jep.jepria.client.JepRiaClientConstant.JepTexts;
 
-import java.util.AbstractList;
+import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import com.google.gwt.activity.shared.ActivityManager;
 import com.google.gwt.core.client.GWT;
@@ -18,12 +16,8 @@ import com.technology.jep.jepria.client.history.place.MainPlaceController;
 import com.technology.jep.jepria.client.history.scope.JepScopeStack;
 import com.technology.jep.jepria.client.ui.ClientFactoryImpl;
 import com.technology.jep.jepria.client.ui.eventbus.main.MainEventBus;
-import com.technology.jep.jepria.client.ui.eventbus.plain.PlainEventBus;
-import com.technology.jep.jepria.client.ui.plain.PlainClientFactory;
-import com.technology.jep.jepria.client.ui.plain.PlainClientFactoryImpl;
 import com.technology.jep.jepria.shared.service.JepMainService;
 import com.technology.jep.jepria.shared.service.JepMainServiceAsync;
-import com.technology.jep.jepria.shared.service.data.JepDataServiceAsync;
 
 /**
  * Базовый класс реализации для клиентской фабрики приложения.<br/>
@@ -110,17 +104,7 @@ public abstract class MainClientFactoryImpl<E extends MainEventBus, S extends Je
    * Главный сервис приложения.
    */
   protected S mainService = null;
-  
-  /**
-   * Привязка ID модулей приложения к создателям клиентских фабрик.
-   */
-  private final Map<String, PlainClientFactoryImpl.Creator> moduleToPlainFactoryCreatorBindingMap;
-  
-  /**
-   * Привязка ID модулей приложения к инстансам клиентских фабрик (создаваемых лениво).
-   */
-  private final Map<String, PlainClientFactory<PlainEventBus, JepDataServiceAsync>> moduleToPlainFactoryInstanceBindingMap;
-  
+
   /**
    * Список идентификаторов модулей приложения.
    */
@@ -158,41 +142,21 @@ public abstract class MainClientFactoryImpl<E extends MainEventBus, S extends Je
    *
    * @param moduleItems идентификаторы модулей приложения (вместе с наименованиями)
    */
-  public MainClientFactoryImpl() {
+  public MainClientFactoryImpl(String...moduleIds) {
     
-    List<ModuleBinding> moduleBindings = getModuleBindings();
+    logger.debug(this.getClass() + ".MainClientFactoryImpl() moduleIds = " + Arrays.toString(moduleIds));
     
-    if (moduleBindings == null || moduleBindings.size() == 0) {
+    if (moduleIds == null || moduleIds.length == 0) {
       throw new IllegalArgumentException(JepTexts.errors_mainClientFactory_illegalArgument_moduleIds());
     }
     
-    moduleToPlainFactoryCreatorBindingMap = new HashMap<>();
-    for (ModuleBinding moduleBinding: moduleBindings) {
-      moduleToPlainFactoryCreatorBindingMap.put(moduleBinding.moduleId, moduleBinding.plainFactoryCreator);
-    }
     
-    moduleToPlainFactoryInstanceBindingMap = new HashMap<>();
-    
-    moduleIdsAbsList = Collections.unmodifiableList(new AbstractList<String>() {
-      @Override
-      public String get(int index) {
-        return moduleBindings.get(index).moduleId;
-      }
-      @Override
-      public int size() {
-        return moduleBindings.size();
-      }
-    });
+    moduleIdsAbsList = Collections.unmodifiableList(Arrays.asList(moduleIds));
     
     JepScopeStack.instance.setMainClientFactory((MainClientFactory)this);
+    
     initActivityMappers(this);
   }
-  
-  /**
-   * Метод должен быть переопределен в наследниках и возвращать список привязок модулей.
-   * Имеет значение порядок следования модулей (в этом порядке будут отображаться соответствующие вкладки).
-   */
-  protected abstract List<ModuleBinding> getModuleBindings();
 
   /**
    * Получение объекта управления Place'ами приложения.<br/>
@@ -284,20 +248,4 @@ public abstract class MainClientFactoryImpl<E extends MainEventBus, S extends Je
     });
   }
   
-  @Override
-  public PlainClientFactory<PlainEventBus, JepDataServiceAsync> getPlainClientFactory(String moduleId) {
-    PlainClientFactory<PlainEventBus, JepDataServiceAsync> factoryInstance = moduleToPlainFactoryInstanceBindingMap.get(moduleId);
-    if (factoryInstance != null) {
-      return factoryInstance;
-    }
-    
-    PlainClientFactoryImpl.Creator factoryCreator = moduleToPlainFactoryCreatorBindingMap.get(moduleId);
-    if (factoryCreator == null) {
-      return null;
-    } else {
-      factoryInstance = factoryCreator.create();
-      moduleToPlainFactoryInstanceBindingMap.put(moduleId, factoryInstance);
-      return factoryInstance;
-    }
-  }
 }

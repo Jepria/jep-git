@@ -19,17 +19,7 @@ import com.technology.jep.jepria.shared.service.data.JepDataServiceAsync;
  */
 abstract public class PlainClientFactoryImpl<E extends PlainEventBus, S extends JepDataServiceAsync> 
   extends ClientFactoryImpl<E> implements PlainClientFactory<E, S> {
-  
-  /**
-   * Класс-команда, реализующий отложенное создание инстанса клиентской фабрики
-   */
-  public static interface Creator {
-    /**
-     * Создание инстанса клиентской фабрики методом {@link com.google.gwt.core.client.GWT#create GWT.create}
-     */
-    PlainClientFactory<PlainEventBus, JepDataServiceAsync> create();
-  }
-  
+
   /**
    * Представление модуля.
    */
