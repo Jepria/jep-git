@@ -6,7 +6,7 @@ import com.technology.jep.jepria.client.ui.ClientFactory;
 import com.technology.jep.jepria.client.ui.eventbus.JepEventBus;
 
 @SuppressWarnings("rawtypes")
-public interface BlockClientFactory<S> extends ClientFactory<JepEventBus>{
+public interface BlockClientFactory<S> extends ClientFactory<JepEventBus> {
 
   /**
    * Получение представления (View) блока визарда.
