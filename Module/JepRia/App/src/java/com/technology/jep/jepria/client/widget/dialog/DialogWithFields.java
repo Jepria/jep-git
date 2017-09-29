@@ -44,6 +44,8 @@ import com.technology.jep.jepria.client.widget.field.multistate.JepMultiStateFie
  *   setLostDialog.show(); 
  * </pre>
  * TODO: Подумать еще над названием класса.
+ * <br/> TODO: имеет смысл использовать FieldManager вместо fields?
+ * <br/> TODO: продумать гибкую кастомизацию кнопок.
  */
 public class DialogWithFields extends MessageBox {
   
