@@ -1,9 +1,10 @@
 package com.technology.jep.jepria.client.util;
 
+import static com.technology.jep.jepria.shared.JepRiaConstant.LOCAL_LANG;
+
 import java.util.Map;
 import java.util.Stack;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.BodyElement;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
@@ -13,9 +14,9 @@ import com.google.gwt.dom.client.NodeList;
 import com.google.gwt.dom.client.Style.Display;
 import com.google.gwt.event.dom.client.DomEvent;
 import com.google.gwt.event.dom.client.KeyCodes;
+import com.google.gwt.i18n.client.LocaleInfo;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Timer;
-import com.google.gwt.user.client.Window;
 import com.technology.jep.jepria.client.history.place.JepCreatePlace;
 import com.technology.jep.jepria.client.history.place.JepEditPlace;
 import com.technology.jep.jepria.client.history.place.JepSearchPlace;
@@ -403,5 +404,15 @@ public class JepClientUtil {
     }
     return value;
   }-*/;
+  
+  /**
+   * Функция определяет: является ли текущий язык основным языком для пользователей.
+   * 
+   * @return возвращает true, если текущий язык является основным языком для
+   *         пользователей. В противном случае возвращает false.
+   */
+  public static boolean isLocalLang() {
+    return LOCAL_LANG.equals(LocaleInfo.getCurrentLocale().getLocaleName());
+  }
 
 }
