@@ -588,6 +588,7 @@
 <h3><a name="releaseNotes">Замечания к версиям</a></h3>
 <h4>Версии</h4>
 <ul>
+  <li><a href="#10.3.0">10.3.0 (2017-10-02)</a></li>
   <li><a href="#10.2.3">10.2.3 (2017-08-10)</a></li>
   <li><a href="#10.2.2">10.2.2 (2017-07-20)</a></li>
   <li><a href="#10.2.1">10.2.1 (2017-07-13)</a></li>
@@ -700,6 +701,167 @@
   <li><a href="#2.0.0">2.0.0 (2011-03-03)</a></li>
   <li><a href="#1.0.0">1.0.0 (2010-11-01)</a></li>
 </ul>
+<h5><a name="10.3.0">10.3.0 (2017-10-02)</a></h5>
+
+  <h6>Архитектура клиентских фабрик</h6>
+  <ul>
+    <b>fix:</b>
+    <ul>
+      <li>Исправлен некорректный переход на списочную форму в дочернем модуле (<code>MainModulePresenter.onEnterModule</code>)</li>
+    </ul>  
+    <b>refactor:</b>
+    <ul>
+      <li>Вызов <code>initActivityMappers</code> заложен в конструктор всех клиентских фабрик</li>
+      <li>Главное представление приложения создается явно наследованием отдельного класса от <code>MainViewImpl</code> (в соответствии с MVP)</li>
+      <li>В plain-клиентские фарбики добавлены методы <code>createEventBus</code> и <code>createService</code></li>
+      <li>В шину событий добавлен метод <code>JepEventBus.enterModule(String, Place)</code></li>
+    </ul>
+  </ul>
+  <h6>Определение локалей</h6>
+  <ul>
+    <b>feat:</b>
+    <ul>
+      <li>Серверная локаль определяется также по параметру <code>locale</code></li>
+      <li>Основная клиентская локаль определяется методом <code>JepClientUtil.isLocalLang()</code></li>
+    </ul>
+  </ul>
+  <h6>Поля детальных форм</h6>
+  <ul>
+    <b>feat:</b>
+    <ul>
+      <li>Дополнена логика установки курсора в JepMaskedTextBoxField при вводе</li>
+      <li>В FieldManager реализована автогенерация web-ID полей</li>
+      <li>Реализовано поле JepEmailField</li>
+    </ul>
+    <b>refactor:</b>
+    <ul>
+      <li>Формирование JepClob из <code>java.sql.Clob</code> вынесено в JepServerUtil</li>
+    </ul>
+  </ul>
+  <h6>Работа с LOB-полями</h6>
+  <ul>
+    <b>fix:</b>
+    <ul>
+      <li>Исправлена некорректная (в некоторых случаях) отрисовка выпадающего списка JepComboBox, изменено форматирование, добавлено обновление web-ID при изменении значения</li>
+    </ul>  
+    <b>feat:</b>
+    <ul>
+      <li>Добавлена поддержка Clob в DAO (DaoSupport.executeAndReturn)</li>
+    </ul>
+    <b>refactor:</b>
+    <ul>
+      <li>В DetailFormPresenter область видимость prepareLOBField и поля submitCounter изменена на protected</li>
+      <li>Сервлеты загрузки и выгрузки получили большую гибкость для настройки наследников в части работы с LOB-полями</li>
+    </ul>
+  </ul>
+  <h6>Инструментальная панель</h6>
+  <ul>
+    <b>feat:</b>
+    <ul>
+      <li>В ToolBarPresenter добавлена ссылка на текущую запись (currentRecord)</li>
+    </ul>
+    <b>refactor:</b>
+    <ul>
+      <li>В заголовке инструментальной панели (ToolBarWithHeaderViewImpl) реализована возможность добавления HTML, а не только текста</li>
+    </ul>
+  </ul>
+  <h6>Прочее</h6>
+  <ul>
+    <b>fix:</b>
+    <ul>
+      <li>Скорректирован переход на номер страницы на списочной форме</li>
+    </ul>
+    <b>feat:</b>
+    <ul>
+      <li>Добавлена возможность авторизовываться в https через AutoLogonServlet</li>
+    </ul>
+  </ul>
+Основные шаги для перехода на версию 10.3.0:
+<ol>
+  <li>Во всех клиентских фабриках метод вида
+  <pre>
+  &#64;Override
+  public S getService() {
+    if(dataService == null) {
+      dataService = (S) GWT.create(SomeService.class);
+    }
+    return dataService;
+  }
+  </pre>
+  заменить методом
+  <pre>
+  &#64;Override
+  public S createService() {
+    return GWT.create(SomeService.class);
+  }
+  </pre>
+  </li>
+  <li>Убрать <i>все</i> вызовы <code>initActivityMappers(this)</code> из клиентских фабрик (выполнить контекстный поиск по проекту)</li>
+  <li>В главной клиентской фабрике приложения (пакет <code>main</code>) изменить конструктор с
+  <pre>
+  private MyMainClientFactoryImpl() {
+    super(
+        new ModuleItem(MODULE_ID_1, moduleText.submodule_1_title()),
+        new ModuleItem(MODULE_ID_2, moduleText.submodule_2_title()),
+        new ModuleItem(MODULE_ID_3, moduleText.submodule_3_title()),
+        new ModuleItem(MODULE_ID_4, moduleText.submodule_4_title())
+    );
+  }
+  </pre>
+  на
+  <pre>
+  private MyMainClientFactoryImpl() {
+    super(
+        MODULE_ID_1,
+        MODULE_ID_2,
+        MODULE_ID_3,
+        MODULE_ID_4
+    );
+  }
+  </pre>
+  </li>
+  <li>Создать новый класс рядом с главным презентером приложения (пакет <code>main.client.ui.main</code>) по шаблону (используя обращения к текстам из предыдущего пункта):
+  <pre>
+  public class MyMainViewImpl extends MainViewImpl {
+
+    &#64;Override
+    protected List<ModuleConfiguration> getModuleConfigurations() {
+      List<ModuleConfiguration> ret = new ArrayList<>();
+      ret.add(new ModuleConfiguration(MODULE_ID_1, moduleText.submodule_1_title()));
+      ret.add(new ModuleConfiguration(MODULE_ID_2, moduleText.submodule_2_title()));
+      ret.add(new ModuleConfiguration(MODULE_ID_3, moduleText.submodule_3_title()));
+      ret.add(new ModuleConfiguration(MODULE_ID_4, moduleText.submodule_4_title()));
+      return ret;
+    }
+  }
+  </pre>
+  </li>
+  <li>В главной клиентской фабрике приложения (пакет <code>main</code>) создать статический инстанс виджета главного представления и переопределить метод <code>getMainView()</code>, по аналогии с <code>detailFormView</code> и <code>listFormView</code> в plain-фабриках:
+  <pre>
+  private static final IsWidget mainView = new MyMainViewImpl();
+
+  &#64;Override
+  public IsWidget getMainView() {
+    return mainView;
+  } 
+  <pre>
+  </li>
+  <li>Может потребоваться изменить возвращаемый тип метода с</li>
+  <pre>
+  &#64;Override
+  public <b>Activity</b> createMainModulePresenter() {
+    return new MyMainModulePresenter(this);
+  }
+  </pre>
+  на
+  <pre>
+  &#64;Override
+  public <b>MainModulePresenter</b> createMainModulePresenter() {
+    return new MyMainModulePresenter(this);
+  }
+  </pre>
+  </li>
+</ol>
 <h5><a name="10.2.3">10.2.3 (2017-08-10)</a></h5>
 <ul>
   <li><b>feat:</b> При сборке создается библиотека jepria-dependency.jar с общими для всех прикладных модулей зависимостями.</li>

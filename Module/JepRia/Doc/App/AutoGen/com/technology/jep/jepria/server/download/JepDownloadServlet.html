@@ -18,7 +18,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":9,"i1":10,"i2":10,"i3":10,"i4":9,"i5":10,"i6":10,"i7":9,"i8":10};
+var methods = {"i0":9,"i1":10,"i2":10,"i3":10,"i4":9,"i5":10,"i6":10,"i7":10,"i8":10,"i9":9,"i10":10};
 var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -260,12 +260,24 @@ extends javax.servlet.http.HttpServlet</pre>
 </td>
 </tr>
 <tr id="i5" class="rowColor">
+<td class="colFirst"><code>protected java.lang.String</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/server/download/JepDownloadServlet.html#getFileFieldName-java.lang.String-">getFileFieldName</a></span>(java.lang.String&nbsp;fieldName)</code>
+<div class="block">Получает имя поля в таблице, из которого выгружается файл.</div>
+</td>
+</tr>
+<tr id="i6" class="altColor">
+<td class="colFirst"><code>protected <a href="../../../../../../com/technology/jep/jepria/shared/field/JepTypeEnum.html" title="enum in com.technology.jep.jepria.shared.field">JepTypeEnum</a></code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/server/download/JepDownloadServlet.html#getFileFieldType-java.lang.String-">getFileFieldType</a></span>(java.lang.String&nbsp;fieldName)</code>
+<div class="block">Получает тип скачиваемого файла.</div>
+</td>
+</tr>
+<tr id="i7" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/server/download/JepDownloadServlet.html#init--">init</a></span>()</code>
 <div class="block">Инициализация сервлета.</div>
 </td>
 </tr>
-<tr id="i6" class="altColor">
+<tr id="i8" class="altColor">
 <td class="colFirst"><code>protected void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/server/download/JepDownloadServlet.html#onError-javax.servlet.http.HttpServletResponse-int-java.lang.String-">onError</a></span>(javax.servlet.http.HttpServletResponse&nbsp;response,
        int&nbsp;error,
@@ -273,13 +285,13 @@ extends javax.servlet.http.HttpServlet</pre>
 <div class="block">Отправка сообщения об ошибке в случае ошибки при загрузке файла.</div>
 </td>
 </tr>
-<tr id="i7" class="rowColor">
+<tr id="i9" class="rowColor">
 <td class="colFirst"><code>private static java.lang.String</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/server/download/JepDownloadServlet.html#replaceIllegalCharacters-java.lang.String-">replaceIllegalCharacters</a></span>(java.lang.String&nbsp;str)</code>
 <div class="block">Заменяет недопустимые символы знаком подчёркивания.</div>
 </td>
 </tr>
-<tr id="i8" class="altColor">
+<tr id="i10" class="altColor">
 <td class="colFirst"><code>protected void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/server/download/JepDownloadServlet.html#setAttachedFileName-javax.servlet.http.HttpServletResponse-java.lang.String-java.lang.String-java.lang.String-java.lang.String-">setAttachedFileName</a></span>(javax.servlet.http.HttpServletResponse&nbsp;response,
                    java.lang.String&nbsp;fileName,
@@ -505,6 +517,40 @@ extends javax.servlet.http.HttpServlet</pre>
 <dt><span class="throwsLabel">Throws:</span></dt>
 <dd><code>javax.servlet.ServletException</code></dd>
 <dd><code>java.io.IOException</code></dd>
+</dl>
+</li>
+</ul>
+<a name="getFileFieldType-java.lang.String-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getFileFieldType</h4>
+<pre>protected&nbsp;<a href="../../../../../../com/technology/jep/jepria/shared/field/JepTypeEnum.html" title="enum in com.technology.jep.jepria.shared.field">JepTypeEnum</a>&nbsp;getFileFieldType(java.lang.String&nbsp;fieldName)</pre>
+<div class="block">Получает тип скачиваемого файла. <br/>
+ Метод создан для переопределения в потомках, когда нет возможности получить данные из fileRecordDefinition.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>fieldName</code> - Имя поля в fileRecordDefinition</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>Тип скачиваемого файла.</dd>
+</dl>
+</li>
+</ul>
+<a name="getFileFieldName-java.lang.String-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getFileFieldName</h4>
+<pre>protected&nbsp;java.lang.String&nbsp;getFileFieldName(java.lang.String&nbsp;fieldName)</pre>
+<div class="block">Получает имя поля в таблице, из которого выгружается файл. <br/>
+ Метод создан для переопределения в потомках, когда нет возможности получить данные из fileRecordDefinition.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>fieldName</code> - Имя поля в fileRecordDefinition</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>Имя поля в таблице, из которого выгружается файл.</dd>
 </dl>
 </li>
 </ul>

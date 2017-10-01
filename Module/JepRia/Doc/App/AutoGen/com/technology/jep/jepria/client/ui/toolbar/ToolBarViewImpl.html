@@ -108,7 +108,7 @@ var activeTableTab = "activeTableTab";
 <li class="blockList">
 <dl>
 <dt>All Implemented Interfaces:</dt>
-<dd>com.google.gwt.user.client.ui.IsWidget, <a href="../../../../../../../com/technology/jep/jepria/client/ui/JepView.html" title="interface in com.technology.jep.jepria.client.ui">JepView</a>&lt;<a href="../../../../../../../com/technology/jep/jepria/client/ui/JepPresenter.html" title="class in com.technology.jep.jepria.client.ui">JepPresenter</a>&gt;, <a href="../../../../../../../com/technology/jep/jepria/client/ui/toolbar/ToolBarView.html" title="interface in com.technology.jep.jepria.client.ui.toolbar">ToolBarView</a></dd>
+<dd>com.google.gwt.user.client.ui.IsWidget, <a href="../../../../../../../com/technology/jep/jepria/client/ui/JepView.html" title="interface in com.technology.jep.jepria.client.ui">JepView</a>&lt;<a href="../../../../../../../com/technology/jep/jepria/client/ui/JepPresenter.html" title="class in com.technology.jep.jepria.client.ui">JepPresenter</a>&lt;?,?&gt;&gt;, <a href="../../../../../../../com/technology/jep/jepria/client/ui/toolbar/ToolBarView.html" title="interface in com.technology.jep.jepria.client.ui.toolbar">ToolBarView</a></dd>
 </dl>
 <dl>
 <dt>Direct Known Subclasses:</dt>
@@ -152,7 +152,7 @@ implements <a href="../../../../../../../com/technology/jep/jepria/client/ui/too
 </td>
 </tr>
 <tr class="altColor">
-<td class="colFirst"><code>protected <a href="../../../../../../../com/technology/jep/jepria/client/ui/JepPresenter.html" title="class in com.technology.jep.jepria.client.ui">JepPresenter</a></code></td>
+<td class="colFirst"><code>protected <a href="../../../../../../../com/technology/jep/jepria/client/ui/JepPresenter.html" title="class in com.technology.jep.jepria.client.ui">JepPresenter</a>&lt;?,?&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/ui/toolbar/ToolBarViewImpl.html#presenter">presenter</a></span></code>&nbsp;</td>
 </tr>
 <tr class="rowColor">
@@ -340,7 +340,7 @@ implements <a href="../../../../../../../com/technology/jep/jepria/client/ui/too
 </tr>
 <tr id="i20" class="altColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/ui/toolbar/ToolBarViewImpl.html#setPresenter-com.technology.jep.jepria.client.ui.JepPresenter-">setPresenter</a></span>(<a href="../../../../../../../com/technology/jep/jepria/client/ui/JepPresenter.html" title="class in com.technology.jep.jepria.client.ui">JepPresenter</a>&nbsp;presenter)</code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/ui/toolbar/ToolBarViewImpl.html#setPresenter-com.technology.jep.jepria.client.ui.JepPresenter-">setPresenter</a></span>(<a href="../../../../../../../com/technology/jep/jepria/client/ui/JepPresenter.html" title="class in com.technology.jep.jepria.client.ui">JepPresenter</a>&lt;?,?&gt;&nbsp;presenter)</code>&nbsp;</td>
 </tr>
 <tr id="i21" class="rowColor">
 <td class="colFirst"><code>void</code></td>
@@ -394,7 +394,7 @@ implements <a href="../../../../../../../com/technology/jep/jepria/client/ui/too
 <ul class="blockList">
 <li class="blockList">
 <h4>presenter</h4>
-<pre>protected&nbsp;<a href="../../../../../../../com/technology/jep/jepria/client/ui/JepPresenter.html" title="class in com.technology.jep.jepria.client.ui">JepPresenter</a> presenter</pre>
+<pre>protected&nbsp;<a href="../../../../../../../com/technology/jep/jepria/client/ui/JepPresenter.html" title="class in com.technology.jep.jepria.client.ui">JepPresenter</a>&lt;?,?&gt; presenter</pre>
 </li>
 </ul>
 <a name="toolBar">
@@ -458,7 +458,7 @@ implements <a href="../../../../../../../com/technology/jep/jepria/client/ui/too
 <pre>public&nbsp;void&nbsp;setWidget(com.google.gwt.user.client.ui.Widget&nbsp;widget)</pre>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../../../../../../../com/technology/jep/jepria/client/ui/JepView.html#setWidget-com.google.gwt.user.client.ui.Widget-">setWidget</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../../../com/technology/jep/jepria/client/ui/JepView.html" title="interface in com.technology.jep.jepria.client.ui">JepView</a>&lt;<a href="../../../../../../../com/technology/jep/jepria/client/ui/JepPresenter.html" title="class in com.technology.jep.jepria.client.ui">JepPresenter</a>&gt;</code></dd>
+<dd><code><a href="../../../../../../../com/technology/jep/jepria/client/ui/JepView.html#setWidget-com.google.gwt.user.client.ui.Widget-">setWidget</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../../../com/technology/jep/jepria/client/ui/JepView.html" title="interface in com.technology.jep.jepria.client.ui">JepView</a>&lt;<a href="../../../../../../../com/technology/jep/jepria/client/ui/JepPresenter.html" title="class in com.technology.jep.jepria.client.ui">JepPresenter</a>&lt;?,?&gt;&gt;</code></dd>
 </dl>
 </li>
 </ul>
@@ -809,10 +809,10 @@ implements <a href="../../../../../../../com/technology/jep/jepria/client/ui/too
 <ul class="blockList">
 <li class="blockList">
 <h4>setPresenter</h4>
-<pre>public&nbsp;void&nbsp;setPresenter(<a href="../../../../../../../com/technology/jep/jepria/client/ui/JepPresenter.html" title="class in com.technology.jep.jepria.client.ui">JepPresenter</a>&nbsp;presenter)</pre>
+<pre>public&nbsp;void&nbsp;setPresenter(<a href="../../../../../../../com/technology/jep/jepria/client/ui/JepPresenter.html" title="class in com.technology.jep.jepria.client.ui">JepPresenter</a>&lt;?,?&gt;&nbsp;presenter)</pre>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../../../../../../../com/technology/jep/jepria/client/ui/JepView.html#setPresenter-P-">setPresenter</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../../../com/technology/jep/jepria/client/ui/JepView.html" title="interface in com.technology.jep.jepria.client.ui">JepView</a>&lt;<a href="../../../../../../../com/technology/jep/jepria/client/ui/JepPresenter.html" title="class in com.technology.jep.jepria.client.ui">JepPresenter</a>&gt;</code></dd>
+<dd><code><a href="../../../../../../../com/technology/jep/jepria/client/ui/JepView.html#setPresenter-P-">setPresenter</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../../../com/technology/jep/jepria/client/ui/JepView.html" title="interface in com.technology.jep.jepria.client.ui">JepView</a>&lt;<a href="../../../../../../../com/technology/jep/jepria/client/ui/JepPresenter.html" title="class in com.technology.jep.jepria.client.ui">JepPresenter</a>&lt;?,?&gt;&gt;</code></dd>
 </dl>
 </li>
 </ul>
