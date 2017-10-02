@@ -18,7 +18,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":9,"i1":9,"i2":9,"i3":9,"i4":9,"i5":9,"i6":9,"i7":9,"i8":9,"i9":9,"i10":9};
+var methods = {"i0":9,"i1":9,"i2":9,"i3":9,"i4":9,"i5":9,"i6":9,"i7":9,"i8":9,"i9":9,"i10":9,"i11":9};
 var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -220,10 +220,11 @@ extends java.lang.Object</pre>
 <td class="colFirst"><code>static java.util.Locale</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/server/util/JepServerUtil.html#getLocale-javax.servlet.http.HttpServletRequest-">getLocale</a></span>(javax.servlet.http.HttpServletRequest&nbsp;request)</code>
 <div class="block">Получение локали следующими шагами:<br/>
- 1) из параметра запроса по ключу lang<br/>
- 2) из параметра сессии<br/>
- 3) из запроса<br/>
- 4) локаль по умолчанию: ru<br/><br/>
+ 1) из параметра запроса по ключу locale (приоритет перед lang, поскольку GWT для клиента использует именно locale)<br/>
+ 2) из параметра запроса по ключу lang<br/>
+ 3) из параметра сессии<br/>
+ 4) из запроса<br/>
+ 5) локаль по умолчанию: ru<br/><br/>
  
  Первая найденная локаль возвращается и сохраняется в сессию.</div>
 </td>
@@ -254,6 +255,12 @@ extends java.lang.Object</pre>
           java.lang.String&nbsp;password,
           java.lang.String&nbsp;path)</code>
 <div class="block">Считывание объекта из JNDI по его полному имени.</div>
+</td>
+</tr>
+<tr id="i11" class="rowColor">
+<td class="colFirst"><code>static <a href="../../../../../../com/technology/jep/jepria/shared/record/lob/JepClob.html" title="class in com.technology.jep.jepria.shared.record.lob">JepClob</a></code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/server/util/JepServerUtil.html#toJepClob-java.sql.Clob-">toJepClob</a></span>(java.sql.Clob&nbsp;clob)</code>
+<div class="block">Формирует <a href="../../../../../../com/technology/jep/jepria/shared/record/lob/JepClob.html" title="class in com.technology.jep.jepria.shared.record.lob"><code>JepClob</code></a> из <code>Types.CLOB</code>.</div>
 </td>
 </tr>
 </table>
@@ -469,10 +476,11 @@ extends java.lang.Object</pre>
 <h4>getLocale</h4>
 <pre>public static&nbsp;java.util.Locale&nbsp;getLocale(javax.servlet.http.HttpServletRequest&nbsp;request)</pre>
 <div class="block">Получение локали следующими шагами:<br/>
- 1) из параметра запроса по ключу lang<br/>
- 2) из параметра сессии<br/>
- 3) из запроса<br/>
- 4) локаль по умолчанию: ru<br/><br/>
+ 1) из параметра запроса по ключу locale (приоритет перед lang, поскольку GWT для клиента использует именно locale)<br/>
+ 2) из параметра запроса по ключу lang<br/>
+ 3) из параметра сессии<br/>
+ 4) из запроса<br/>
+ 5) локаль по умолчанию: ru<br/><br/>
  
  Первая найденная локаль возвращается и сохраняется в сессию.</div>
 <dl>
@@ -539,10 +547,26 @@ extends java.lang.Object</pre>
 <a name="isTomcat-javax.servlet.http.HttpServletRequest-">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>isTomcat</h4>
 <pre>public static&nbsp;boolean&nbsp;isTomcat(javax.servlet.http.HttpServletRequest&nbsp;request)</pre>
+</li>
+</ul>
+<a name="toJepClob-java.sql.Clob-">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>toJepClob</h4>
+<pre>public static&nbsp;<a href="../../../../../../com/technology/jep/jepria/shared/record/lob/JepClob.html" title="class in com.technology.jep.jepria.shared.record.lob">JepClob</a>&nbsp;toJepClob(java.sql.Clob&nbsp;clob)</pre>
+<div class="block">Формирует <a href="../../../../../../com/technology/jep/jepria/shared/record/lob/JepClob.html" title="class in com.technology.jep.jepria.shared.record.lob"><code>JepClob</code></a> из <code>Types.CLOB</code>.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>clob</code> - </dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>JepClob</dd>
+</dl>
 </li>
 </ul>
 </li>

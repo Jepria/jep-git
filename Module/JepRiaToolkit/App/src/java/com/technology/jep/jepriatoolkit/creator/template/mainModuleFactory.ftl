@@ -52,6 +52,9 @@ public class ${moduleName}MainClientFactoryImpl extends MainClientFactoryImpl<Ma
 
   @Override
   public void getPlainClientFactory(String moduleId, final LoadAsyncCallback<PlainClientFactory<PlainEventBus, JepDataServiceAsync>> callback) {
+    // Для эффективного кодоразделения при GWT-компиляции (см. http://www.gwtproject.org/doc/latest/DevGuideCodeSplitting.html)
+    // необходимо получать инстанс каждой plain-фабрики модуля с помощью GWT.runAsync, в отдельной ветке if-else, зависящей от ID модуля.
+    
     <#list forms as form>
     <#if form_index != 0>else </#if>if(${form.formName?upper_case}_MODULE_ID.equals(moduleId)) {
       GWT.runAsync(new LoadPlainClientFactory(callback) {

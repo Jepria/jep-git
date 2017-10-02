@@ -18,7 +18,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":9,"i13":10,"i14":10,"i15":9,"i16":10,"i17":9,"i18":9,"i19":10,"i20":10,"i21":10,"i22":9,"i23":10,"i24":10,"i25":10,"i26":10,"i27":10,"i28":10,"i29":10,"i30":10};
+var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":9,"i13":10,"i14":10,"i15":10,"i16":9,"i17":10,"i18":9,"i19":9,"i20":10,"i21":10,"i22":10,"i23":9,"i24":10,"i25":10,"i26":10,"i27":10,"i28":10,"i29":10,"i30":10,"i31":10};
 var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -338,19 +338,25 @@ extends java.lang.Object</pre>
 </td>
 </tr>
 <tr id="i13" class="rowColor">
+<td class="colFirst"><code>int</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/masked/Mask.html#getFirstSpecialSymbolPosition--">getFirstSpecialSymbolPosition</a></span>()</code>
+<div class="block">Возвращает позицию первого специального символа маски.</div>
+</td>
+</tr>
+<tr id="i14" class="altColor">
 <td class="colFirst"><code>private java.lang.String</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/masked/Mask.html#getMaskChar-com.technology.jep.jepria.client.widget.field.masked.Mask.MaskItem-">getMaskChar</a></span>(<a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/masked/Mask.MaskItem.html" title="class in com.technology.jep.jepria.client.widget.field.masked">Mask.MaskItem</a>&nbsp;item)</code>
 <div class="block">Служебный метод, возвращающий символ маски для данного элемента.</div>
 </td>
 </tr>
-<tr id="i14" class="altColor">
+<tr id="i15" class="rowColor">
 <td class="colFirst"><code>(package private) java.lang.String</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/masked/Mask.html#getText-char:A-boolean-">getText</a></span>(char[]&nbsp;charValue,
        boolean&nbsp;showEmptyChars)</code>
 <div class="block">Возвращает строковое представление массива символов с учётом маски.</div>
 </td>
 </tr>
-<tr id="i15" class="rowColor">
+<tr id="i16" class="altColor">
 <td class="colFirst"><code>private static boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/masked/Mask.html#inRange-int-int-int-">inRange</a></span>(int&nbsp;value,
        int&nbsp;min,
@@ -358,7 +364,7 @@ extends java.lang.Object</pre>
 <div class="block">Проверяет, входит ли заданное число в диапазон, включая границы.</div>
 </td>
 </tr>
-<tr id="i16" class="altColor">
+<tr id="i17" class="rowColor">
 <td class="colFirst"><code>(package private) char[]</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/masked/Mask.html#insertChar-char:A-int-char-">insertChar</a></span>(char[]&nbsp;chars,
           int&nbsp;position,
@@ -366,45 +372,45 @@ extends java.lang.Object</pre>
 <div class="block">Возвращает результат вставки символа в массив в заданной позиции.</div>
 </td>
 </tr>
-<tr id="i17" class="rowColor">
+<tr id="i18" class="altColor">
 <td class="colFirst"><code>private static boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/masked/Mask.html#isLetter-char-">isLetter</a></span>(char&nbsp;ch)</code>
 <div class="block">Проверяет, является ли переданный символ буквой.</div>
 </td>
 </tr>
-<tr id="i18" class="altColor">
+<tr id="i19" class="rowColor">
 <td class="colFirst"><code>private static boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/masked/Mask.html#isLetterOrDigit-char-">isLetterOrDigit</a></span>(char&nbsp;ch)</code>
 <div class="block">Проверяет, является ли переданный символ буквой или цифрой.</div>
 </td>
 </tr>
-<tr id="i19" class="rowColor">
+<tr id="i20" class="altColor">
 <td class="colFirst"><code>boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/masked/Mask.html#isValueEmpty-char:A-">isValueEmpty</a></span>(char[]&nbsp;value)</code>
 <div class="block">Проверка, пусто ли переданное значение.</div>
 </td>
 </tr>
-<tr id="i20" class="altColor">
+<tr id="i21" class="rowColor">
 <td class="colFirst"><code>boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/masked/Mask.html#match-char:A-boolean-">match</a></span>(char[]&nbsp;chars,
      boolean&nbsp;allowEmptyChars)</code>
 <div class="block">Проверяет, соответствует ли массив символов маске.</div>
 </td>
 </tr>
-<tr id="i21" class="rowColor">
+<tr id="i22" class="altColor">
 <td class="colFirst"><code>boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/masked/Mask.html#match-java.lang.String-">match</a></span>(java.lang.String&nbsp;str)</code>
 <div class="block">Проверяет, соответствует ли строка маске.</div>
 </td>
 </tr>
-<tr id="i22" class="altColor">
+<tr id="i23" class="rowColor">
 <td class="colFirst"><code>static boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/masked/Mask.html#match-java.lang.String-java.lang.String-">match</a></span>(java.lang.String&nbsp;str,
      java.lang.String&nbsp;mask)</code>
 <div class="block">Проверяет, соответствует ли строка маске.</div>
 </td>
 </tr>
-<tr id="i23" class="rowColor">
+<tr id="i24" class="altColor">
 <td class="colFirst"><code>(package private) char[]</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/masked/Mask.html#paste-char:A-int-java.lang.String-">paste</a></span>(char[]&nbsp;chars,
      int&nbsp;position,
@@ -412,46 +418,46 @@ extends java.lang.Object</pre>
 <div class="block">Возвращает результат вставки строки в массив символов в заданной позиции.</div>
 </td>
 </tr>
-<tr id="i24" class="altColor">
+<tr id="i25" class="rowColor">
 <td class="colFirst"><code>(package private) char[]</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/masked/Mask.html#removeChar-char:A-int-">removeChar</a></span>(char[]&nbsp;chars,
           int&nbsp;position)</code>
 <div class="block">Улаление символа в массиве в заданной позиции.</div>
 </td>
 </tr>
-<tr id="i25" class="rowColor">
+<tr id="i26" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/masked/Mask.html#setMandatoryChar-char-">setMandatoryChar</a></span>(char&nbsp;mandatoryChar)</code>
 <div class="block">Установка символа, который будет выводиться по умолчанию в пустой обязательной позиции.</div>
 </td>
 </tr>
-<tr id="i26" class="altColor">
+<tr id="i27" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/masked/Mask.html#setMandatoryChar-com.technology.jep.jepria.client.widget.field.masked.MaskItemType-java.lang.Character-">setMandatoryChar</a></span>(<a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/masked/MaskItemType.html" title="enum in com.technology.jep.jepria.client.widget.field.masked">MaskItemType</a>&nbsp;itemType,
                 java.lang.Character&nbsp;ch)</code>
 <div class="block">Установка символа, который будет выводиться в пустой обязательной позиции данного типа.</div>
 </td>
 </tr>
-<tr id="i27" class="rowColor">
+<tr id="i28" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/masked/Mask.html#setOptionalChar-char-">setOptionalChar</a></span>(char&nbsp;optionalChar)</code>
 <div class="block">Установка символа, который будет выводиться по умолчанию в пустой необязательной позиции.</div>
 </td>
 </tr>
-<tr id="i28" class="altColor">
+<tr id="i29" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/masked/Mask.html#setOptionalChar-com.technology.jep.jepria.client.widget.field.masked.MaskItemType-java.lang.Character-">setOptionalChar</a></span>(<a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/masked/MaskItemType.html" title="enum in com.technology.jep.jepria.client.widget.field.masked">MaskItemType</a>&nbsp;itemType,
                java.lang.Character&nbsp;ch)</code>
 <div class="block">Установка символа, который будет выводиться в пустой необязательной позиции данного типа.</div>
 </td>
 </tr>
-<tr id="i29" class="rowColor">
+<tr id="i30" class="altColor">
 <td class="colFirst"><code>int</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/masked/Mask.html#size--">size</a></span>()</code>
 <div class="block">Возвращает длину маски (количество позиций).</div>
 </td>
 </tr>
-<tr id="i30" class="altColor">
+<tr id="i31" class="rowColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/masked/Mask.html#toString--">toString</a></span>()</code>
 <div class="block">Возвращает строковое представление маски.</div>
@@ -1105,7 +1111,7 @@ extends java.lang.Object</pre>
 <a name="isLetterOrDigit-char-">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>isLetterOrDigit</h4>
 <pre>private static&nbsp;boolean&nbsp;isLetterOrDigit(char&nbsp;ch)</pre>
@@ -1119,6 +1125,20 @@ extends java.lang.Object</pre>
 <dd>true, если символ является буквой или цифрой, false в противном случае</dd>
 <dt><span class="seeLabel">See Also:</span></dt>
 <dd><a href="https://github.com/gwtproject/gwt/issues/1989">https://github.com/gwtproject/gwt/issues/1989</a></dd>
+</dl>
+</li>
+</ul>
+<a name="getFirstSpecialSymbolPosition--">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>getFirstSpecialSymbolPosition</h4>
+<pre>public&nbsp;int&nbsp;getFirstSpecialSymbolPosition()</pre>
+<div class="block">Возвращает позицию первого специального символа маски.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>Позиция первого специального символа маски.</dd>
 </dl>
 </li>
 </ul>

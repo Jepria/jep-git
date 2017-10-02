@@ -34,6 +34,8 @@ abstract public class ClientFactoryImpl<E extends EventBus>  implements ClientFa
     logger = JepLoggerImpl.instance;
     messageBox = JepMessageBoxImpl.instance;
     exceptionManager = ExceptionManagerImpl.instance;
+    
+    initActivityMappers(this);
   }
 
   public EventFilter<E> getEventFilter() {
@@ -61,6 +63,19 @@ abstract public class ClientFactoryImpl<E extends EventBus>  implements ClientFa
    */
   public JepRiaText getTexts() {
     return JepRiaClientConstant.JepTexts;
+  }
+  
+  /**
+   * Метод вызывается в конструкторе с целью инициализации ActivityMapper'ов и ActivityManager'ов.<br/>
+   * Необходимо для возможности соответствующих презентеров (Activity в понятиях GWT) прослушивать, подписываться и обрабатывать события,
+   * с которыми работает EventBus.
+   * <br><br>
+   * Предназначен для переопределения в потомках.
+   * <b>Порядок инициализации ActivityMapper'ов важен:</b> он определяет порядок, в котором подписчики будут обрабатывать полученные события.
+   *
+   * @param clientFactory клиентская фабрика модуля
+   */
+  protected void initActivityMappers(ClientFactory<E> clientFactory) {
   }
   
 }

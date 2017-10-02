@@ -18,8 +18,8 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10};
-var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
+var methods = {"i0":10,"i1":10,"i2":10,"i3":6,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10};
+var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],4:["t3","Abstract Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
 var tableTab = "tableTab";
@@ -49,7 +49,7 @@ var activeTableTab = "activeTableTab";
 <div class="subNav">
 <ul class="navList">
 <li><a href="../../../../../../../com/technology/jep/jepria/client/ui/main/MainView.html" title="interface in com.technology.jep.jepria.client.ui.main"><span class="typeNameLink">Prev&nbsp;Class</span></a></li>
-<li>Next&nbsp;Class</li>
+<li><a href="../../../../../../../com/technology/jep/jepria/client/ui/main/ModuleConfiguration.html" title="class in com.technology.jep.jepria.client.ui.main"><span class="typeNameLink">Next&nbsp;Class</span></a></li>
 </ul>
 <ul class="navList">
 <li><a href="../../../../../../../index.html?com/technology/jep/jepria/client/ui/main/MainViewImpl.html" target="_top">Frames</a></li>
@@ -108,11 +108,11 @@ var activeTableTab = "activeTableTab";
 <li class="blockList">
 <dl>
 <dt>All Implemented Interfaces:</dt>
-<dd>com.google.gwt.user.client.ui.IsWidget, <a href="../../../../../../../com/technology/jep/jepria/client/ui/JepView.html" title="interface in com.technology.jep.jepria.client.ui">JepView</a>&lt;<a href="../../../../../../../com/technology/jep/jepria/client/ui/JepActivity.html" title="class in com.technology.jep.jepria.client.ui">JepActivity</a>&lt;?,?&gt;&gt;, <a href="../../../../../../../com/technology/jep/jepria/client/ui/main/MainView.html" title="interface in com.technology.jep.jepria.client.ui.main">MainView</a></dd>
+<dd>com.google.gwt.user.client.ui.IsWidget, <a href="../../../../../../../com/technology/jep/jepria/client/ui/JepView.html" title="interface in com.technology.jep.jepria.client.ui">JepView</a>&lt;<a href="../../../../../../../com/technology/jep/jepria/client/ui/main/MainModulePresenter.html" title="class in com.technology.jep.jepria.client.ui.main">MainModulePresenter</a>&lt;<a href="../../../../../../../com/technology/jep/jepria/client/ui/main/MainView.html" title="interface in com.technology.jep.jepria.client.ui.main">MainView</a>,?,?,?&gt;&gt;, <a href="../../../../../../../com/technology/jep/jepria/client/ui/main/MainView.html" title="interface in com.technology.jep.jepria.client.ui.main">MainView</a></dd>
 </dl>
 <hr>
 <br>
-<pre>public class <span class="typeNameLabel">MainViewImpl</span>
+<pre>public abstract class <span class="typeNameLabel">MainViewImpl</span>
 extends java.lang.Object
 implements <a href="../../../../../../../com/technology/jep/jepria/client/ui/main/MainView.html" title="interface in com.technology.jep.jepria.client.ui.main">MainView</a></pre>
 </li>
@@ -134,7 +134,7 @@ implements <a href="../../../../../../../com/technology/jep/jepria/client/ui/mai
 <th class="colLast" scope="col">Field and Description</th>
 </tr>
 <tr class="altColor">
-<td class="colFirst"><code>protected <a href="../../../../../../../com/technology/jep/jepria/client/ui/JepActivity.html" title="class in com.technology.jep.jepria.client.ui">JepActivity</a></code></td>
+<td class="colFirst"><code>protected <a href="../../../../../../../com/technology/jep/jepria/client/ui/main/MainModulePresenter.html" title="class in com.technology.jep.jepria.client.ui.main">MainModulePresenter</a>&lt;<a href="../../../../../../../com/technology/jep/jepria/client/ui/main/MainView.html" title="interface in com.technology.jep.jepria.client.ui.main">MainView</a>,?,?,?&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/ui/main/MainViewImpl.html#presenter">presenter</a></span></code>&nbsp;</td>
 </tr>
 <tr class="rowColor">
@@ -168,7 +168,7 @@ implements <a href="../../../../../../../com/technology/jep/jepria/client/ui/mai
 </a>
 <h3>Method Summary</h3>
 <table class="memberSummary" border="0" cellpadding="3" cellspacing="0" summary="Method Summary table, listing methods, and an explanation">
-<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">Instance Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t4" class="tableTab"><span><a href="javascript:show(8);">Concrete Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
+<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">Instance Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t3" class="tableTab"><span><a href="javascript:show(4);">Abstract Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t4" class="tableTab"><span><a href="javascript:show(8);">Concrete Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
 <tr>
 <th class="colFirst" scope="col">Modifier and Type</th>
 <th class="colLast" scope="col">Method and Description</th>
@@ -191,26 +191,26 @@ implements <a href="../../../../../../../com/technology/jep/jepria/client/ui/mai
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/ui/main/MainViewImpl.html#asWidget--">asWidget</a></span>()</code>&nbsp;</td>
 </tr>
 <tr id="i3" class="rowColor">
+<td class="colFirst"><code>protected abstract java.util.List&lt;<a href="../../../../../../../com/technology/jep/jepria/client/ui/main/ModuleConfiguration.html" title="class in com.technology.jep.jepria.client.ui.main">ModuleConfiguration</a>&gt;</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/ui/main/MainViewImpl.html#getModuleConfigurations--">getModuleConfigurations</a></span>()</code>
+<div class="block">Метод должен быть переопределен в наследниках и возвращать список конфигураций модулей-вкладок.</div>
+</td>
+</tr>
+<tr id="i4" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/ui/main/MainViewImpl.html#selectModuleItem-java.lang.String-">selectModuleItem</a></span>(java.lang.String&nbsp;moduleId)</code>
 <div class="block">Активизация указанного модуля</div>
 </td>
 </tr>
-<tr id="i4" class="altColor">
+<tr id="i5" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/ui/main/MainViewImpl.html#setBody-com.google.gwt.user.client.ui.Widget-">setBody</a></span>(com.google.gwt.user.client.ui.Widget&nbsp;newWidget)</code>
 <div class="block">Установка/удаление виджета в центральную область.</div>
 </td>
 </tr>
-<tr id="i5" class="rowColor">
-<td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/ui/main/MainViewImpl.html#setModuleItems-com.technology.jep.jepria.client.ModuleItem:A-">setModuleItems</a></span>(<a href="../../../../../../../com/technology/jep/jepria/client/ModuleItem.html" title="class in com.technology.jep.jepria.client">ModuleItem</a>[]&nbsp;moduleItems)</code>
-<div class="block">Инициализация вкладок</div>
-</td>
-</tr>
 <tr id="i6" class="altColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/ui/main/MainViewImpl.html#setPresenter-com.technology.jep.jepria.client.ui.JepActivity-">setPresenter</a></span>(<a href="../../../../../../../com/technology/jep/jepria/client/ui/JepActivity.html" title="class in com.technology.jep.jepria.client.ui">JepActivity</a>&nbsp;presenter)</code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/ui/main/MainViewImpl.html#setPresenter-com.technology.jep.jepria.client.ui.main.MainModulePresenter-">setPresenter</a></span>(<a href="../../../../../../../com/technology/jep/jepria/client/ui/main/MainModulePresenter.html" title="class in com.technology.jep.jepria.client.ui.main">MainModulePresenter</a>&lt;<a href="../../../../../../../com/technology/jep/jepria/client/ui/main/MainView.html" title="interface in com.technology.jep.jepria.client.ui.main">MainView</a>,?,?,?&gt;&nbsp;presenter)</code>&nbsp;</td>
 </tr>
 <tr id="i7" class="rowColor">
 <td class="colFirst"><code>void</code></td>
@@ -265,7 +265,7 @@ implements <a href="../../../../../../../com/technology/jep/jepria/client/ui/mai
 <ul class="blockListLast">
 <li class="blockList">
 <h4>presenter</h4>
-<pre>protected&nbsp;<a href="../../../../../../../com/technology/jep/jepria/client/ui/JepActivity.html" title="class in com.technology.jep.jepria.client.ui">JepActivity</a> presenter</pre>
+<pre>protected&nbsp;<a href="../../../../../../../com/technology/jep/jepria/client/ui/main/MainModulePresenter.html" title="class in com.technology.jep.jepria.client.ui.main">MainModulePresenter</a>&lt;<a href="../../../../../../../com/technology/jep/jepria/client/ui/main/MainView.html" title="interface in com.technology.jep.jepria.client.ui.main">MainView</a>,?,?,?&gt; presenter</pre>
 </li>
 </ul>
 </li>
@@ -293,16 +293,26 @@ implements <a href="../../../../../../../com/technology/jep/jepria/client/ui/mai
 <!--   -->
 </a>
 <h3>Method Detail</h3>
-<a name="setPresenter-com.technology.jep.jepria.client.ui.JepActivity-">
+<a name="getModuleConfigurations--">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getModuleConfigurations</h4>
+<pre>protected abstract&nbsp;java.util.List&lt;<a href="../../../../../../../com/technology/jep/jepria/client/ui/main/ModuleConfiguration.html" title="class in com.technology.jep.jepria.client.ui.main">ModuleConfiguration</a>&gt;&nbsp;getModuleConfigurations()</pre>
+<div class="block">Метод должен быть переопределен в наследниках и возвращать список конфигураций модулей-вкладок.</div>
+</li>
+</ul>
+<a name="setPresenter-com.technology.jep.jepria.client.ui.main.MainModulePresenter-">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>setPresenter</h4>
-<pre>public&nbsp;void&nbsp;setPresenter(<a href="../../../../../../../com/technology/jep/jepria/client/ui/JepActivity.html" title="class in com.technology.jep.jepria.client.ui">JepActivity</a>&nbsp;presenter)</pre>
+<pre>public&nbsp;void&nbsp;setPresenter(<a href="../../../../../../../com/technology/jep/jepria/client/ui/main/MainModulePresenter.html" title="class in com.technology.jep.jepria.client.ui.main">MainModulePresenter</a>&lt;<a href="../../../../../../../com/technology/jep/jepria/client/ui/main/MainView.html" title="interface in com.technology.jep.jepria.client.ui.main">MainView</a>,?,?,?&gt;&nbsp;presenter)</pre>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../../../../../../../com/technology/jep/jepria/client/ui/JepView.html#setPresenter-P-">setPresenter</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../../../com/technology/jep/jepria/client/ui/JepView.html" title="interface in com.technology.jep.jepria.client.ui">JepView</a>&lt;<a href="../../../../../../../com/technology/jep/jepria/client/ui/JepActivity.html" title="class in com.technology.jep.jepria.client.ui">JepActivity</a>&lt;?,?&gt;&gt;</code></dd>
+<dd><code><a href="../../../../../../../com/technology/jep/jepria/client/ui/JepView.html#setPresenter-P-">setPresenter</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../../../com/technology/jep/jepria/client/ui/JepView.html" title="interface in com.technology.jep.jepria.client.ui">JepView</a>&lt;<a href="../../../../../../../com/technology/jep/jepria/client/ui/main/MainModulePresenter.html" title="class in com.technology.jep.jepria.client.ui.main">MainModulePresenter</a>&lt;<a href="../../../../../../../com/technology/jep/jepria/client/ui/main/MainView.html" title="interface in com.technology.jep.jepria.client.ui.main">MainView</a>,?,?,?&gt;&gt;</code></dd>
 </dl>
 </li>
 </ul>
@@ -315,7 +325,7 @@ implements <a href="../../../../../../../com/technology/jep/jepria/client/ui/mai
 <pre>public&nbsp;void&nbsp;setWidget(com.google.gwt.user.client.ui.Widget&nbsp;widget)</pre>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../../../../../../../com/technology/jep/jepria/client/ui/JepView.html#setWidget-com.google.gwt.user.client.ui.Widget-">setWidget</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../../../com/technology/jep/jepria/client/ui/JepView.html" title="interface in com.technology.jep.jepria.client.ui">JepView</a>&lt;<a href="../../../../../../../com/technology/jep/jepria/client/ui/JepActivity.html" title="class in com.technology.jep.jepria.client.ui">JepActivity</a>&lt;?,?&gt;&gt;</code></dd>
+<dd><code><a href="../../../../../../../com/technology/jep/jepria/client/ui/JepView.html#setWidget-com.google.gwt.user.client.ui.Widget-">setWidget</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../../../com/technology/jep/jepria/client/ui/JepView.html" title="interface in com.technology.jep.jepria.client.ui">JepView</a>&lt;<a href="../../../../../../../com/technology/jep/jepria/client/ui/main/MainModulePresenter.html" title="class in com.technology.jep.jepria.client.ui.main">MainModulePresenter</a>&lt;<a href="../../../../../../../com/technology/jep/jepria/client/ui/main/MainView.html" title="interface in com.technology.jep.jepria.client.ui.main">MainView</a>,?,?,?&gt;&gt;</code></dd>
 </dl>
 </li>
 </ul>
@@ -414,22 +424,6 @@ implements <a href="../../../../../../../com/technology/jep/jepria/client/ui/mai
 </dl>
 </li>
 </ul>
-<a name="setModuleItems-com.technology.jep.jepria.client.ModuleItem:A-">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>setModuleItems</h4>
-<pre>public&nbsp;void&nbsp;setModuleItems(<a href="../../../../../../../com/technology/jep/jepria/client/ModuleItem.html" title="class in com.technology.jep.jepria.client">ModuleItem</a>[]&nbsp;moduleItems)</pre>
-<div class="block">Инициализация вкладок</div>
-<dl>
-<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../../../../../../../com/technology/jep/jepria/client/ui/main/MainView.html#setModuleItems-com.technology.jep.jepria.client.ModuleItem:A-">setModuleItems</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../../../com/technology/jep/jepria/client/ui/main/MainView.html" title="interface in com.technology.jep.jepria.client.ui.main">MainView</a></code></dd>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>moduleItems</code> - список модулей</dd>
-</dl>
-</li>
-</ul>
 <a name="showModuleTabs-java.lang.String:A-">
 <!--   -->
 </a>
@@ -474,7 +468,7 @@ implements <a href="../../../../../../../com/technology/jep/jepria/client/ui/mai
 <div class="subNav">
 <ul class="navList">
 <li><a href="../../../../../../../com/technology/jep/jepria/client/ui/main/MainView.html" title="interface in com.technology.jep.jepria.client.ui.main"><span class="typeNameLink">Prev&nbsp;Class</span></a></li>
-<li>Next&nbsp;Class</li>
+<li><a href="../../../../../../../com/technology/jep/jepria/client/ui/main/ModuleConfiguration.html" title="class in com.technology.jep.jepria.client.ui.main"><span class="typeNameLink">Next&nbsp;Class</span></a></li>
 </ul>
 <ul class="navList">
 <li><a href="../../../../../../../index.html?com/technology/jep/jepria/client/ui/main/MainViewImpl.html" target="_top">Frames</a></li>

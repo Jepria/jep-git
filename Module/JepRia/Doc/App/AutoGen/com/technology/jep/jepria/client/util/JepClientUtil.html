@@ -18,7 +18,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":9,"i1":9,"i2":9,"i3":9,"i4":9,"i5":9,"i6":9,"i7":9,"i8":9,"i9":9,"i10":9,"i11":9,"i12":9,"i13":9,"i14":9,"i15":9,"i16":9,"i17":9,"i18":9,"i19":9,"i20":9,"i21":9};
+var methods = {"i0":9,"i1":9,"i2":9,"i3":9,"i4":9,"i5":9,"i6":9,"i7":9,"i8":9,"i9":9,"i10":9,"i11":9,"i12":9,"i13":9,"i14":9,"i15":9,"i16":9,"i17":9,"i18":9,"i19":9,"i20":9,"i21":9,"i22":9};
 var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -255,49 +255,55 @@ extends java.lang.Object</pre>
 </tr>
 <tr id="i12" class="altColor">
 <td class="colFirst"><code>static boolean</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/client/util/JepClientUtil.html#isLocalLang--">isLocalLang</a></span>()</code>
+<div class="block">Функция определяет: является ли текущий язык основным языком для пользователей.</div>
+</td>
+</tr>
+<tr id="i13" class="rowColor">
+<td class="colFirst"><code>static boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/client/util/JepClientUtil.html#isNavKeyPress-int-">isNavKeyPress</a></span>(int&nbsp;k)</code>
 <div class="block">Returns true if the key is a "navigation" key.</div>
 </td>
 </tr>
-<tr id="i13" class="rowColor">
+<tr id="i14" class="altColor">
 <td class="colFirst"><code>static boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/client/util/JepClientUtil.html#isSpecialKey-com.google.gwt.event.dom.client.DomEvent-">isSpecialKey</a></span>(com.google.gwt.event.dom.client.DomEvent&lt;?&gt;&nbsp;event)</code>
 <div class="block">Проверяет: являтся ли нажатая кнопка "специальной".</div>
 </td>
 </tr>
-<tr id="i14" class="altColor">
+<tr id="i15" class="rowColor">
 <td class="colFirst"><code>static boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/client/util/JepClientUtil.html#isSpecialKey-int-">isSpecialKey</a></span>(int&nbsp;k)</code>
 <div class="block">Returns true if the key is a "special" key.</div>
 </td>
 </tr>
-<tr id="i15" class="rowColor">
+<tr id="i16" class="altColor">
 <td class="colFirst"><code>static java.lang.String</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/client/util/JepClientUtil.html#jsTrim-java.lang.String-">jsTrim</a></span>(java.lang.String&nbsp;s)</code>
 <div class="block">String.trim() is limited for using in all cases.</div>
 </td>
 </tr>
-<tr id="i16" class="altColor">
+<tr id="i17" class="rowColor">
 <td class="colFirst"><code>static void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/client/util/JepClientUtil.html#removeDisabledLayer-java.lang.String-">removeDisabledLayer</a></span>(java.lang.String&nbsp;layerId)</code>
 <div class="block">Удаление блокирующего страницу слоя</div>
 </td>
 </tr>
-<tr id="i17" class="rowColor">
+<tr id="i18" class="altColor">
 <td class="colFirst"><code>private static java.lang.String</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/client/util/JepClientUtil.html#safeRegexReplacement-java.lang.String-">safeRegexReplacement</a></span>(java.lang.String&nbsp;replacement)</code>
 <div class="block">Replace any \ or $ characters in the replacement string with an escaped \\
  or \$.</div>
 </td>
 </tr>
-<tr id="i18" class="altColor">
+<tr id="i19" class="rowColor">
 <td class="colFirst"><code>static void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/client/util/JepClientUtil.html#showLoadingPanel-java.lang.String-java.lang.String-">showLoadingPanel</a></span>(java.lang.String&nbsp;header,
                 java.lang.String&nbsp;message)</code>
 <div class="block">Показ загрузочной панели с предустановленным заголовком и сообщением</div>
 </td>
 </tr>
-<tr id="i19" class="rowColor">
+<tr id="i20" class="altColor">
 <td class="colFirst"><code>static void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/client/util/JepClientUtil.html#showLoadingPanel-java.lang.String-java.lang.String-java.lang.String-">showLoadingPanel</a></span>(java.lang.String&nbsp;layerId,
                 java.lang.String&nbsp;header,
@@ -305,14 +311,14 @@ extends java.lang.Object</pre>
 <div class="block">Показ загрузочной панели с предустановленным заголовком и сообщением</div>
 </td>
 </tr>
-<tr id="i20" class="altColor">
+<tr id="i21" class="rowColor">
 <td class="colFirst"><code>static java.lang.String</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/client/util/JepClientUtil.html#substitute-java.lang.String-java.lang.Object...-">substitute</a></span>(java.lang.String&nbsp;text,
           java.lang.Object...&nbsp;params)</code>
 <div class="block">Substitutes the indexed parameters.</div>
 </td>
 </tr>
-<tr id="i21" class="rowColor">
+<tr id="i22" class="altColor">
 <td class="colFirst"><code>static <a href="../../../../../../com/technology/jep/jepria/client/history/place/JepWorkstatePlace.html" title="class in com.technology.jep.jepria.client.history.place">JepWorkstatePlace</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/client/util/JepClientUtil.html#workstateToPlace-com.technology.jep.jepria.client.ui.WorkstateEnum-">workstateToPlace</a></span>(<a href="../../../../../../com/technology/jep/jepria/client/ui/WorkstateEnum.html" title="enum in com.technology.jep.jepria.client.ui">WorkstateEnum</a>&nbsp;workstate)</code>&nbsp;</td>
 </tr>
@@ -756,7 +762,7 @@ extends java.lang.Object</pre>
 <a name="getElementValue-java.lang.String-">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>getElementValue</h4>
 <pre>public static&nbsp;java.lang.String&nbsp;getElementValue(java.lang.String&nbsp;id)</pre>
@@ -766,6 +772,21 @@ extends java.lang.Object</pre>
 <dd><code>id</code> - идентификатор элемента в DOM</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>значение в виде строки: если элемент не найден - возвращается null, если элемент пустой или не найден - возвращается пустая строка</dd>
+</dl>
+</li>
+</ul>
+<a name="isLocalLang--">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>isLocalLang</h4>
+<pre>public static&nbsp;boolean&nbsp;isLocalLang()</pre>
+<div class="block">Функция определяет: является ли текущий язык основным языком для пользователей.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>возвращает true, если текущий язык является основным языком для
+         пользователей. В противном случае возвращает false.</dd>
 </dl>
 </li>
 </ul>

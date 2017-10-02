@@ -18,7 +18,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10};
+var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -226,25 +226,37 @@ extends javax.servlet.http.HttpServlet</pre>
       javax.servlet.http.HttpServletResponse&nbsp;response)</code>&nbsp;</td>
 </tr>
 <tr id="i1" class="rowColor">
+<td class="colFirst"><code>protected java.lang.String</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/server/upload/JepUploadServlet.html#getFileFieldName-org.apache.commons.fileupload.FileItem-">getFileFieldName</a></span>(org.apache.commons.fileupload.FileItem&nbsp;fileItem)</code>
+<div class="block">Получает имя поля в таблице, в которое загружается файл.</div>
+</td>
+</tr>
+<tr id="i2" class="altColor">
+<td class="colFirst"><code>protected <a href="../../../../../../com/technology/jep/jepria/shared/field/JepTypeEnum.html" title="enum in com.technology.jep.jepria.shared.field">JepTypeEnum</a></code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/server/upload/JepUploadServlet.html#getFileFieldType-org.apache.commons.fileupload.FileItem-">getFileFieldType</a></span>(org.apache.commons.fileupload.FileItem&nbsp;fileItem)</code>
+<div class="block">Получает тип загружаемого файла.</div>
+</td>
+</tr>
+<tr id="i3" class="rowColor">
 <td class="colFirst"><code>protected org.apache.commons.fileupload.FileItem</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/server/upload/JepUploadServlet.html#getFormField-java.util.List-java.lang.String-">getFormField</a></span>(java.util.List&lt;org.apache.commons.fileupload.FileItem&gt;&nbsp;items,
             java.lang.String&nbsp;fieldName)</code>
 <div class="block">Получение интерфейса выгрузки файлов.</div>
 </td>
 </tr>
-<tr id="i2" class="altColor">
+<tr id="i4" class="altColor">
 <td class="colFirst"><code>protected java.util.Map&lt;java.lang.String,java.lang.Object&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/server/upload/JepUploadServlet.html#getPrimaryKeyMap-java.util.List-">getPrimaryKeyMap</a></span>(java.util.List&lt;org.apache.commons.fileupload.FileItem&gt;&nbsp;items)</code>
 <div class="block">Возвращает карту первичных ключей.</div>
 </td>
 </tr>
-<tr id="i3" class="rowColor">
+<tr id="i5" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/server/upload/JepUploadServlet.html#init--">init</a></span>()</code>
 <div class="block">Инициализация сервлета.</div>
 </td>
 </tr>
-<tr id="i4" class="altColor">
+<tr id="i6" class="altColor">
 <td class="colFirst"><code>protected void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/server/upload/JepUploadServlet.html#onError-javax.servlet.http.HttpServletResponse-int-java.lang.String-">onError</a></span>(javax.servlet.http.HttpServletResponse&nbsp;response,
        int&nbsp;error,
@@ -252,18 +264,18 @@ extends javax.servlet.http.HttpServlet</pre>
 <div class="block">Отправка сообщения об ошибке в случае неуспешной загрузки.</div>
 </td>
 </tr>
-<tr id="i5" class="rowColor">
-<td class="colFirst"><code>private void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/server/upload/JepUploadServlet.html#uploadBinary-org.apache.commons.fileupload.FileItem-java.lang.String-java.lang.String-java.util.Map-">uploadBinary</a></span>(org.apache.commons.fileupload.FileItem&nbsp;fileItem,
+<tr id="i7" class="rowColor">
+<td class="colFirst"><code>protected void</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/server/upload/JepUploadServlet.html#uploadBinary-java.io.InputStream-java.lang.String-java.lang.String-java.util.Map-">uploadBinary</a></span>(java.io.InputStream&nbsp;inputStream,
             java.lang.String&nbsp;tableName,
             java.lang.String&nbsp;fileFieldName,
             java.util.Map&lt;java.lang.String,java.lang.Object&gt;&nbsp;primaryKeyMap)</code>
 <div class="block">Загрузка на сервер бинарного файла.</div>
 </td>
 </tr>
-<tr id="i6" class="altColor">
-<td class="colFirst"><code>private void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/server/upload/JepUploadServlet.html#uploadText-org.apache.commons.fileupload.FileItem-java.lang.String-java.lang.String-java.util.Map-">uploadText</a></span>(org.apache.commons.fileupload.FileItem&nbsp;fileItem,
+<tr id="i8" class="altColor">
+<td class="colFirst"><code>protected void</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/server/upload/JepUploadServlet.html#uploadText-java.io.InputStream-java.lang.String-java.lang.String-java.util.Map-">uploadText</a></span>(java.io.InputStream&nbsp;inputStream,
           java.lang.String&nbsp;tableName,
           java.lang.String&nbsp;fileFieldName,
           java.util.Map&lt;java.lang.String,java.lang.Object&gt;&nbsp;primaryKeyMap)</code>
@@ -446,6 +458,40 @@ extends javax.servlet.http.HttpServlet</pre>
 </dl>
 </li>
 </ul>
+<a name="getFileFieldType-org.apache.commons.fileupload.FileItem-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getFileFieldType</h4>
+<pre>protected&nbsp;<a href="../../../../../../com/technology/jep/jepria/shared/field/JepTypeEnum.html" title="enum in com.technology.jep.jepria.shared.field">JepTypeEnum</a>&nbsp;getFileFieldType(org.apache.commons.fileupload.FileItem&nbsp;fileItem)</pre>
+<div class="block">Получает тип загружаемого файла. <br/>
+ Метод создан для переопределения в потомках, когда нет возможности получить данные из fileRecordDefinition.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>fileItem</code> - Интерфейс выгрузки файла.</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>Тип загружаемого файла.</dd>
+</dl>
+</li>
+</ul>
+<a name="getFileFieldName-org.apache.commons.fileupload.FileItem-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getFileFieldName</h4>
+<pre>protected&nbsp;java.lang.String&nbsp;getFileFieldName(org.apache.commons.fileupload.FileItem&nbsp;fileItem)</pre>
+<div class="block">Получает имя поля в таблице, в которое загружается файл. <br/>
+ Метод создан для переопределения в потомках, когда нет возможности получить данные из fileRecordDefinition.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>fileItem</code> - Интерфейс выгрузки файла.</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>Имя поля в таблице, в которое загружается файл.</dd>
+</dl>
+</li>
+</ul>
 <a name="getPrimaryKeyMap-java.util.List-">
 <!--   -->
 </a>
@@ -467,22 +513,22 @@ extends javax.servlet.http.HttpServlet</pre>
 </dl>
 </li>
 </ul>
-<a name="uploadBinary-org.apache.commons.fileupload.FileItem-java.lang.String-java.lang.String-java.util.Map-">
+<a name="uploadBinary-java.io.InputStream-java.lang.String-java.lang.String-java.util.Map-">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>uploadBinary</h4>
-<pre>private&nbsp;void&nbsp;uploadBinary(org.apache.commons.fileupload.FileItem&nbsp;fileItem,
-                          java.lang.String&nbsp;tableName,
-                          java.lang.String&nbsp;fileFieldName,
-                          java.util.Map&lt;java.lang.String,java.lang.Object&gt;&nbsp;primaryKeyMap)
-                   throws java.io.IOException,
-                          java.lang.Exception</pre>
+<pre>protected&nbsp;void&nbsp;uploadBinary(java.io.InputStream&nbsp;inputStream,
+                            java.lang.String&nbsp;tableName,
+                            java.lang.String&nbsp;fileFieldName,
+                            java.util.Map&lt;java.lang.String,java.lang.Object&gt;&nbsp;primaryKeyMap)
+                     throws java.io.IOException,
+                            java.lang.Exception</pre>
 <div class="block">Загрузка на сервер бинарного файла.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>fileItem</code> - интерфейс выгрузки файла</dd>
+<dd><code>inputStream</code> - поток данных</dd>
 <dd><code>tableName</code> - имя таблицы, в которую загружается файл</dd>
 <dd><code>fileFieldName</code> - имя поля, в которое загружается файл</dd>
 <dd><code>primaryKeyMap</code> - первичный ключ</dd>
@@ -492,22 +538,22 @@ extends javax.servlet.http.HttpServlet</pre>
 </dl>
 </li>
 </ul>
-<a name="uploadText-org.apache.commons.fileupload.FileItem-java.lang.String-java.lang.String-java.util.Map-">
+<a name="uploadText-java.io.InputStream-java.lang.String-java.lang.String-java.util.Map-">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>uploadText</h4>
-<pre>private&nbsp;void&nbsp;uploadText(org.apache.commons.fileupload.FileItem&nbsp;fileItem,
-                        java.lang.String&nbsp;tableName,
-                        java.lang.String&nbsp;fileFieldName,
-                        java.util.Map&lt;java.lang.String,java.lang.Object&gt;&nbsp;primaryKeyMap)
-                 throws java.io.IOException,
-                        java.lang.Exception</pre>
+<pre>protected&nbsp;void&nbsp;uploadText(java.io.InputStream&nbsp;inputStream,
+                          java.lang.String&nbsp;tableName,
+                          java.lang.String&nbsp;fileFieldName,
+                          java.util.Map&lt;java.lang.String,java.lang.Object&gt;&nbsp;primaryKeyMap)
+                   throws java.io.IOException,
+                          java.lang.Exception</pre>
 <div class="block">Загрузка на сервер текстового файла.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>fileItem</code> - интерфейс выгрузки файла</dd>
+<dd><code>inputStream</code> - поток данных</dd>
 <dd><code>tableName</code> - имя таблицы, в которую загружается файл</dd>
 <dd><code>fileFieldName</code> - имя поля, в которое загружается файл</dd>
 <dd><code>primaryKeyMap</code> - первичный ключ</dd>

@@ -4,6 +4,7 @@ import com.google.gwt.activity.shared.ActivityManager;
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.gwt.user.client.ui.IsWidget;
+import com.technology.jep.jepria.client.ui.ClientFactory;
 import com.technology.jep.jepria.client.ui.JepPresenter;
 import com.technology.jep.jepria.client.ui.eventbus.plain.PlainEventBus;
 import com.technology.jep.jepria.client.ui.form.detail.DetailFormActivityMapper;
@@ -57,7 +58,6 @@ abstract public class StandardClientFactoryImpl<E extends PlainEventBus, S exten
   public StandardClientFactoryImpl(String moduleId, JepRecordDefinition recordDefinition) {
     super(recordDefinition);
     this.moduleId = moduleId;
-    initActivityMappers(this);
   }
 
   /**
@@ -115,24 +115,8 @@ abstract public class StandardClientFactoryImpl<E extends PlainEventBus, S exten
     return new StatusBarPresenter<StatusBarView, E, S, StandardClientFactory<E,S>>(place, this);
   }
   
-  /**
-   * Перемнная для защиты от повторного вызова initActivityMappers в наследниках
-   */
-  private boolean initActivityMappersInvokedOnce = false;
-  
-  /**
-   * Иннициализация ActivityMapper'ов и ActivityManager'ов.<br/>
-   * Необходимо для возможности соответствующих презентеров (Activity в понятиях GWT) прослушивать, подписываться и обрабатывать события,
-   * с которыми работает EventBus.
-   *
-   * @param clientFactory клиентская фабрика модуля
-   */
-  protected void initActivityMappers(PlainClientFactory<E, S> clientFactory) {
-    // Защита от повторного вызова в наследниках
-    if (initActivityMappersInvokedOnce) {
-      throw new IllegalStateException(getClass().getCanonicalName() + ".initActivityMappers() must be invoked at most once. Do not invoke in descendants");
-    }
-    initActivityMappersInvokedOnce = true;
+  @Override
+  protected void initActivityMappers(ClientFactory<E> clientFactory) {
     
     super.initActivityMappers(clientFactory);
     

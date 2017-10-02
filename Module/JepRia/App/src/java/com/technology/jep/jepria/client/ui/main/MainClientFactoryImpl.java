@@ -14,6 +14,7 @@ import com.google.gwt.user.client.ui.IsWidget;
 import com.technology.jep.jepria.client.history.place.JepSearchPlace;
 import com.technology.jep.jepria.client.history.place.MainPlaceController;
 import com.technology.jep.jepria.client.history.scope.JepScopeStack;
+import com.technology.jep.jepria.client.ui.ClientFactory;
 import com.technology.jep.jepria.client.ui.ClientFactoryImpl;
 import com.technology.jep.jepria.client.ui.eventbus.main.MainEventBus;
 import com.technology.jep.jepria.shared.service.JepMainService;
@@ -154,8 +155,6 @@ public abstract class MainClientFactoryImpl<E extends MainEventBus, S extends Je
     moduleIdsAbsList = Collections.unmodifiableList(Arrays.asList(moduleIds));
     
     JepScopeStack.instance.setMainClientFactory((MainClientFactory)this);
-    
-    initActivityMappers(this);
   }
 
   /**
@@ -215,30 +214,16 @@ public abstract class MainClientFactoryImpl<E extends MainEventBus, S extends Je
     return moduleIdsAbsList;
   }
   
-  /**
-   * Перемнная для защиты от повторного вызова initActivityMappers в наследниках
-   */
-  private boolean initActivityMappersInvokedOnce = false;
-  
-  /**
-   * Иннициализация ActivityMapper'ов и ActivityManager'ов.<br/>
-   * Необходимо для возможности соответствующих презентеров (Activity в понятиях GWT) прослушивать, подписываться и обрабатывать события,
-   * с которыми работает EventBus.
-   *
-   * @param clientFactory клиентская фабрика главного модуля (приложения)
-   */
-  protected void initActivityMappers(MainClientFactory<E, S> clientFactory) {
-    // Защита от повторного вызова в наследниках
-    if (initActivityMappersInvokedOnce) {
-      throw new IllegalStateException(getClass().getCanonicalName() + ".initActivityMappers() must be invoked at most once. Do not invoke in descendants");
-    }
-    initActivityMappersInvokedOnce = true;
+  @Override
+  protected void initActivityMappers(ClientFactory<E> clientFactory) {
+    
+    super.initActivityMappers(clientFactory);
     
     /*
      * Создадим ActivityMapper и ActivityManager для главного модуля (приложения).
      */
     ActivityManager mainActivityManager = new MainActivityManager(
-      new MainActivityMapper(clientFactory)
+      new MainActivityMapper((MainClientFactory<E, S>)clientFactory)
       , clientFactory.getEventBus()
     );
 

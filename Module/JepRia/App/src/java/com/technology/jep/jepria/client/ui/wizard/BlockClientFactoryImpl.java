@@ -5,6 +5,7 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.technology.jep.jepria.client.history.place.BlockPlaceController;
+import com.technology.jep.jepria.client.ui.ClientFactory;
 import com.technology.jep.jepria.client.ui.ClientFactoryImpl;
 import com.technology.jep.jepria.client.ui.eventbus.JepEventBus;
 import com.technology.jep.jepria.shared.service.data.JepDataService;
@@ -16,7 +17,7 @@ public abstract class BlockClientFactoryImpl<S extends JepDataServiceAsync> exte
   protected S service;
   protected BlockPlaceController blockPlaceController;
   
-  public S getService(){
+  public S getService() {
     if (service == null){
       service = (S) GWT.create(JepDataService.class);
     }
@@ -30,12 +31,16 @@ public abstract class BlockClientFactoryImpl<S extends JepDataServiceAsync> exte
     return (JepEventBus) eventBus;
   }
   
-  protected void initActivityMappers(BlockClientFactory<S> clientFactory) {
+  @Override
+  protected void initActivityMappers(ClientFactory<JepEventBus> clientFactory) {
+    
+    super.initActivityMappers(clientFactory);
+    
     /*
      * Создадим ActivityMapper и ActivityManager для формы визарда.
      */
     ActivityManager activityManager = new ActivityManager(
-      new BlockFormActivityMapper(clientFactory)
+      new BlockFormActivityMapper((BlockClientFactory<S>)clientFactory)
       , clientFactory.getEventBus()
     );
 

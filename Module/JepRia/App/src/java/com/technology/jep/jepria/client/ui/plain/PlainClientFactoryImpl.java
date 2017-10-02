@@ -5,6 +5,7 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.technology.jep.jepria.client.history.place.PlainPlaceController;
+import com.technology.jep.jepria.client.ui.ClientFactory;
 import com.technology.jep.jepria.client.ui.ClientFactoryImpl;
 import com.technology.jep.jepria.client.ui.eventbus.main.MainEventBus;
 import com.technology.jep.jepria.client.ui.eventbus.plain.PlainEventBus;
@@ -125,19 +126,16 @@ abstract public class PlainClientFactoryImpl<E extends PlainEventBus, S extends 
     return recordDefinition;
   }
   
-  /**
-   * Иннициализация ActivityMapper'ов и ActivityManager'ов.<br/>
-   * Необходимо для возможности соответствующих презентеров (Activity в понятиях GWT) прослушивать, подписываться и обрабатывать события,
-   * с которыми работает EventBus.
-   *
-   * @param clientFactory клиентская фабрика модуля
-   */
-  protected void initActivityMappers(PlainClientFactory<E, S> clientFactory) {
+  @Override
+  protected void initActivityMappers(ClientFactory<E> clientFactory) {
+    
+    super.initActivityMappers(clientFactory);
+    
     /*
      * Создадим ActivityMapper и ActivityManager для модуля.
      */
     ActivityManager plainActivityManager = new ActivityManager(
-      new PlainActivityMapper(clientFactory)
+      new PlainActivityMapper((PlainClientFactory<E, S>)clientFactory)
       , clientFactory.getEventBus()
     );
 
