@@ -37,6 +37,21 @@ abstract public class ClientFactoryImpl<E extends EventBus>  implements ClientFa
     
     initActivityMappers(this);
   }
+  
+  @Override
+  public E getEventBus() {
+    if (eventBus == null) {
+      eventBus = createEventBus();
+    }
+    return eventBus;
+  }
+  
+  /**
+   * Создание шины событий.<br/>
+   *
+   * @return новый экземпляр
+   */
+  protected abstract E createEventBus();
 
   public EventFilter<E> getEventFilter() {
     return eventFilter;
