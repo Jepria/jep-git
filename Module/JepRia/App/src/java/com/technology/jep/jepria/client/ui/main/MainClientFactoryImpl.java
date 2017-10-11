@@ -171,18 +171,10 @@ public abstract class MainClientFactoryImpl<E extends MainEventBus, S extends Je
     return (MainPlaceController) placeController;
   }
 
-  /**
-   * Получение главной шины событий приложения.<br/>
-   * Если объект еще не создан, то метод создает его и возвращает созданный объект. 
-   *
-   * @return шина событий приложения
-   */
+  @SuppressWarnings("unchecked")/*допустимо*/
   @Override
-  public E getEventBus() {
-    if(eventBus == null) {
-      eventBus = (E) new MainEventBus(this);
-    }
-    return eventBus;
+  protected E createEventBus() {
+    return (E) new MainEventBus(this);
   }
 
   /**
@@ -195,18 +187,21 @@ public abstract class MainClientFactoryImpl<E extends MainEventBus, S extends Je
     return new JepSearchPlace();
   }
 
-  /**
-   * Получение главного сервиса приложения.<br/>
-   * Если объект еще не создан, то метод создает его и возвращает созданный объект. 
-   *
-   * @return главный сервис приложения
-   */
   @Override
   public S getMainService() {
-    if(mainService == null) {
-      mainService = (S) GWT.create(JepMainService.class);
+    if (mainService == null) {
+      mainService = createMainService();
     }
     return mainService;
+  }
+  
+  /**
+   * Создание главного сервиса приложения.<br/>
+   *
+   * @return новый экземпляр
+   */
+  protected S createMainService() {
+    return GWT.create(JepMainService.class);
   }
 
   @Override
