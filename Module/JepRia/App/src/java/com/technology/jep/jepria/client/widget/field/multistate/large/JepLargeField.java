@@ -244,7 +244,8 @@ public abstract class JepLargeField<V extends Widget> extends JepMultiStateField
    */
   protected void resetEditableCard() {
     if (editableCard.isAttached()) {
-      formPanel.reset();
+      formPanel.reset(); // NOT RESET HIDDEN FIELDS
+      isDeletedField.setValue(""); // Сбрасываем признак удаления.
     }
   }
   
