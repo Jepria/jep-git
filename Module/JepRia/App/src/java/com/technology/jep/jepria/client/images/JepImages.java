@@ -99,4 +99,7 @@ public interface JepImages extends ClientBundle {
   
   @Source("treeNoChildren.png")
   ImageResource treeNoChildren();
+  
+  @Source("undo.png")
+  ImageResource undo();
 }

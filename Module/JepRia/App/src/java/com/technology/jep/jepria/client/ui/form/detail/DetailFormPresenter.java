@@ -360,10 +360,10 @@ public class DetailFormPresenter<V extends DetailFormView, E extends PlainEventB
     
     for (JepMultiStateField<?, ?> field: fields.values()) {  
       JepLargeField<?> largeField;
-      if((field instanceof JepLargeField) && (largeField = (JepLargeField<?>)field).isFileSelected()) {
+      if((field instanceof JepLargeField) && (largeField = (JepLargeField<?>)field).isFileReadyToUpload()) {
         prepareLOBField(largeField, resultRecord);
-        largeField.getFormPanel().submit();        
-      }      
+        largeField.getFormPanel().submit();
+      }
     }
     if (submitCounter == 0) {
       afterSave(resultRecord);
@@ -376,8 +376,7 @@ public class DetailFormPresenter<V extends DetailFormView, E extends PlainEventB
    * @param field          LOB-поле
    * @param resultRecord      текущий рекорд, по которому готовим поле
    */
-  @SuppressWarnings("unchecked")
-  protected void prepareLOBField(final JepLargeField field, final JepRecord resultRecord){
+  protected void prepareLOBField(final JepLargeField<?> field, final JepRecord resultRecord) {
     
     field.getHiddenPrimaryKeyField().setValue(JepHistoryToken.getMapAsToken(clientFactory.getRecordDefinition().buildPrimaryKeyMap(resultRecord)));
     

@@ -98,6 +98,11 @@ public enum JepEventType {
   /**
    * Событие возникает при отпускании строки списочной формы во время ее перетаскивания.
    */
-  DROP_EVENT;
-
+  DROP_EVENT,
+  
+  /**
+   * Событие возникает при изменении отметки необходимости удаления файла в поле 
+   * {@link com.technology.jep.jepria.client.widget.field.multistate.large.JepLargeField}.
+   */
+  CHANGE_IS_DELETED_FILE_EVENT;
 }

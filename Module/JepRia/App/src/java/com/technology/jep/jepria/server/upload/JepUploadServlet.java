@@ -3,6 +3,7 @@ package com.technology.jep.jepria.server.upload;
 import static com.technology.jep.jepria.server.JepRiaServerConstant.JEP_RIA_RESOURCE_BUNDLE_NAME;
 import static com.technology.jep.jepria.shared.JepRiaConstant.FILE_SIZE_HIDDEN_FIELD_NAME;
 import static com.technology.jep.jepria.shared.JepRiaConstant.PRIMARY_KEY_HIDDEN_FIELD_NAME;
+import static com.technology.jep.jepria.shared.JepRiaConstant.IS_DELETED_FILE_HIDDEN_FIELD_NAME;
 import static com.technology.jep.jepria.shared.field.JepTypeEnum.BINARY_FILE;
 import static com.technology.jep.jepria.shared.field.JepTypeEnum.TEXT_FILE;
 
@@ -152,7 +153,12 @@ public class JepUploadServlet extends HttpServlet {
               } catch(InvalidFileNameException e) {
                 fileName = e.getName();
               }
-              if(!JepRiaUtil.isEmpty(fileName)) {
+              
+              FileItem isDeletedFormField = getFormField(items, IS_DELETED_FILE_HIDDEN_FIELD_NAME);
+              boolean isDeleted = isDeletedFormField != null && 
+                  Boolean.valueOf(isDeletedFormField.getString());
+              
+              if(!JepRiaUtil.isEmpty(fileName) || isDeleted) {
                 String fileFieldName = getFileFieldName(fileItem);
                 JepTypeEnum fileFieldType = getFileFieldType(fileItem);
                 String tableName = fileRecordDefinition.getTableName();

@@ -1,5 +1,6 @@
 package com.technology.jep.jepria.client.widget.field.multistate.large;
 
+import static com.technology.jep.jepria.client.JepRiaClientConstant.JepImages;
 import static com.technology.jep.jepria.client.JepRiaClientConstant.JepTexts;
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.EDIT;
 import static com.technology.jep.jepria.shared.JepRiaConstant.DOWNLOAD_FIELD_NAME;
@@ -7,13 +8,16 @@ import static com.technology.jep.jepria.shared.JepRiaConstant.DOWNLOAD_MIME_TYPE
 import static com.technology.jep.jepria.shared.JepRiaConstant.DOWNLOAD_RECORD_KEY;
 import static com.technology.jep.jepria.shared.JepRiaConstant.FILE_SIZE_HIDDEN_FIELD_NAME;
 import static com.technology.jep.jepria.shared.JepRiaConstant.PRIMARY_KEY_HIDDEN_FIELD_NAME;
+import static com.technology.jep.jepria.shared.JepRiaConstant.IS_DELETED_FILE_HIDDEN_FIELD_NAME;
 
 import java.util.Objects;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.Scheduler.ScheduledCommand;
+import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
+import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.FormPanel;
 import com.google.gwt.user.client.ui.FormPanel.SubmitCompleteEvent;
@@ -21,10 +25,14 @@ import com.google.gwt.user.client.ui.FormPanel.SubmitCompleteHandler;
 import com.google.gwt.user.client.ui.FormPanel.SubmitEvent;
 import com.google.gwt.user.client.ui.FormPanel.SubmitHandler;
 import com.google.gwt.user.client.ui.Hidden;
+import com.google.gwt.user.client.ui.Image;
+import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.technology.jep.jepria.client.JepScheduledCommand;
 import com.technology.jep.jepria.client.ui.WorkstateEnum;
 import com.technology.jep.jepria.client.util.JepClientUtil;
+import com.technology.jep.jepria.client.widget.event.JepEvent;
+import com.technology.jep.jepria.client.widget.event.JepEventType;
 import com.technology.jep.jepria.client.widget.field.multistate.JepMultiStateField;
 import com.technology.jep.jepria.shared.record.lob.JepFileReference;
 import com.technology.jep.jepria.shared.util.JepRiaUtil;
@@ -74,12 +82,17 @@ public abstract class JepLargeField<V extends Widget> extends JepMultiStateField
   /**
    * Скрытое поле, содержащее первичный ключ записи, участвующее в upload submit.
    */
-  private Hidden hiddenPrimaryKeyField, hiddenSizeField;
+  private Hidden hiddenPrimaryKeyField;
+  
+  /**
+   * Скрытое поле, содержащее размер загружаемого файла, участвующее в upload submit.
+   */
+  private Hidden hiddenSizeField;
   
   /**
    * Значение поля.
    */
-  private JepFileReference fileReference = null;
+  private JepFileReference<?> fileReference = null;
   
   /**
    * Размер выбранного файла.
@@ -91,13 +104,45 @@ public abstract class JepLargeField<V extends Widget> extends JepMultiStateField
    */
   protected HandlerRegistration fileChooseHandler;
   
+  /**
+   * Скрытое поле, содержащее информацию о необходимости удаления файла, участвующее в upload submit.
+   */
+  private Hidden isDeletedField;
+  
+  /**
+   * Панель, на которой располагается карту Просмотра для отображения на карте Редактирования (используется в режиме {@link WorkstateEnum.EDIT}).
+   */
+  protected SimplePanel editablePanelViewCard;
+  
+  /**
+   * Панель для кнопок (удалить/отмена) (используется в режиме {@link WorkstateEnum.EDIT}).
+   */
+  private SimplePanel editablePanelTools;
+  
+  /**
+   * Икнока для удаления файла (используется в режиме {@link WorkstateEnum.EDIT}).
+   */
+  private Image deleteFileIcon;
+  
+  /**
+   * Иконка для отмены действия (используется в режиме {@link WorkstateEnum.EDIT}).
+   */
+  private Image undoIcon;
+  
   @Deprecated
   public JepLargeField(String fieldLabel) {
-    this(null, fieldLabel);
+    this(null, fieldLabel, null);
   }
   
-  public JepLargeField(String fieldIdAsWebEl, String fieldLabel) {
+  /**
+   * Конструктор.
+   * @param fieldIdAsWebEl ID данного Jep-поля как Web-элемента.
+   * @param fieldLabel Метка поля.
+   * @param inputName Значение HTML-атрибута name тега input.
+   */
+  public JepLargeField(String fieldIdAsWebEl, String fieldLabel, String inputName) {
     super(fieldIdAsWebEl, fieldLabel);
+    if(!JepRiaUtil.isEmpty(inputName)) setFieldName(inputName);
   }
   
   @Override
@@ -111,6 +156,11 @@ public abstract class JepLargeField<V extends Widget> extends JepMultiStateField
     formPanel.addSubmitHandler(new SubmitHandler() {
       @Override
       public void onSubmit(SubmitEvent event) {
+        
+        if (isDeleted()) {  // Делаем поле доступным, так как после выставления признака isDeleted, 
+          setEnabled(true);  //оно disabled и не будет отправлено на сервер.
+        }
+        
         if (!JepRiaUtil.isEmpty(beforeSubmitCommand)) {
           beforeSubmitCommand.execute();
         }
@@ -136,6 +186,13 @@ public abstract class JepLargeField<V extends Widget> extends JepMultiStateField
     editableCard = new JepFileUpload();
     editablePanel.add(editableCard);
     
+    editablePanelViewCard = new SimplePanel();
+    editablePanelViewCard.addStyleName(JepLargeFieldStyleConstant.JEP_LARGE_FIELD_VIEW_CARD_ON_EDIT_CLASS);
+    editablePanel.add(editablePanelViewCard);
+    
+    editablePanelTools = new SimplePanel();
+    editablePanel.add(editablePanelTools);
+    
     // Добавляем обработчик события "выбора файла" для получения размерности выбранного файла.
     initFileChooseHandler();
     
@@ -146,6 +203,10 @@ public abstract class JepLargeField<V extends Widget> extends JepMultiStateField
     // Hidden Field for file size if specified
     hiddenSizeField = new Hidden(FILE_SIZE_HIDDEN_FIELD_NAME);
     editablePanel.add(hiddenSizeField);
+    
+    // Hidden Field for isDeleted flag
+    isDeletedField = new Hidden(IS_DELETED_FILE_HIDDEN_FIELD_NAME);
+    editablePanel.add(isDeletedField);
   }
   
   /**
@@ -154,9 +215,10 @@ public abstract class JepLargeField<V extends Widget> extends JepMultiStateField
    * @param newWorkstate новое состояние
    */
   protected void onChangeWorkstate(WorkstateEnum newWorkstate) {
-    if (EDIT.equals(newWorkstate)){
+    if (EDIT.equals(newWorkstate)) {
       resetEditableCard();
     }
+    prepareEditableTools(getValue(), newWorkstate); // Отобржаем/скрываем панель редактирования
     super.onChangeWorkstate(newWorkstate);
   }
   
@@ -181,7 +243,7 @@ public abstract class JepLargeField<V extends Widget> extends JepMultiStateField
    * Сброс значения загрузчика
    */
   protected void resetEditableCard() {
-    if (editableCard.isAttached()){
+    if (editableCard.isAttached()) {
       formPanel.reset();
     }
   }
@@ -194,14 +256,14 @@ public abstract class JepLargeField<V extends Widget> extends JepMultiStateField
    */
   protected String buildDownloadUrl(Object reference) {
     if(reference instanceof JepFileReference) {
-      JepFileReference fileReference = (JepFileReference) reference;
+      JepFileReference<?> fileReference = (JepFileReference<?>) reference;
       StringBuilder sbUrl = new StringBuilder();
       
       sbUrl.append(downloadServletUrl);
       sbUrl.append("?");
       sbUrl.append(DOWNLOAD_FIELD_NAME);
       sbUrl.append("=");
-      sbUrl.append(getFieldId());
+      sbUrl.append(getFieldName());
       sbUrl.append("&");
       sbUrl.append(DOWNLOAD_RECORD_KEY);
       sbUrl.append("=");
@@ -216,7 +278,7 @@ public abstract class JepLargeField<V extends Widget> extends JepMultiStateField
       } else {
         return null;  // При пустом mime-type для Blob-поля считаем, что поле пусто.
       }
-      sbUrl.append("&");      // "Защита" от кэширования
+      sbUrl.append("&");  // "Защита" от кэширования
       sbUrl.append(viewCount++);  // "Защита" от кэширования
       return sbUrl.toString();
     } 
@@ -226,35 +288,35 @@ public abstract class JepLargeField<V extends Widget> extends JepMultiStateField
   /**
    * Получение ссылки на сабмит-форму
    * 
-   * @return         ссылка на сабмит-форму
+   * @return ссылка на сабмит-форму
    */
-  public FormPanel getFormPanel(){
+  public FormPanel getFormPanel() {
     return formPanel;
   }
   
   /**
    * Получение ссылки на hidden-поле, содержащее первичный ключ
-   * @return        ссылка на hidden-поле
+   * @return ссылка на hidden-поле
    */
-  public Hidden getHiddenPrimaryKeyField(){
+  public Hidden getHiddenPrimaryKeyField() {
     return hiddenPrimaryKeyField;
   }
   
   /**
-   * Установка идентификатора поля
+   * Установка name (HTML-атрибута) input поля.
    * 
-   * @param id      идентификатор поля
+   * @param name name (HTML-атрибута) input поля.
    */
-  public void setFieldId(String id){
-    editableCard.setName(id);
+  public void setFieldName(String name) {
+    editableCard.setName(name);
   }
   
   /**
-   * Получение идентификатора поля
+   * Получение name (HTML-атрибута) input поля.
    * 
-   * @return идентификатор поля
+   * @return name (HTML-атрибута) input поля.
    */
-  public String getFieldId(){
+  public String getFieldName() {
     return editableCard.getName();
   }
   
@@ -290,11 +352,134 @@ public abstract class JepLargeField<V extends Widget> extends JepMultiStateField
   public void setValue(Object value) {
     Object oldValue = getValue();
     if(!Objects.equals(oldValue, value)) {
-      this.fileReference = (JepFileReference) value;
+      fileReference = (JepFileReference<?>) value;
       setViewValue(value);
-    }    
+      prepareEditableTools(fileReference, _workstate);
+    }
   }
   
+  /**
+   * Подготовка инструментов редактирования поля.
+   * @param value Значение поля.
+   * @param workstate Состояние.
+   */
+  private void prepareEditableTools(JepFileReference<?> value, WorkstateEnum workstate) {
+    
+    // Если в режиме EDIT и если поле не пустое,
+    boolean isEditNotEmptyValue = EDIT.equals(workstate) && !JepRiaUtil.isEmpty(value);
+    
+    // то отображаем функциональные элементы карты Редактирования:
+    //  ссылка на скачивание
+    setVisibleEditablePanelViewCard(isEditNotEmptyValue);
+    
+    //  панель кнопок
+    editablePanelTools.clear();
+    
+    // кнопка удаления
+    if (isEditNotEmptyValue) {
+      showDeleteFileIcon();
+    }
+  }
+  
+  /**
+   * Инициализация иконки и обработчика удаления файла.
+   */
+  private void showDeleteFileIcon() {
+    if (deleteFileIcon == null) {
+      
+      deleteFileIcon = new Image(JepImages.delete());
+      deleteFileIcon.addStyleName(FIELD_INDICATOR_STYLE);
+      deleteFileIcon.addStyleName(JepLargeFieldStyleConstant.JEP_LARGE_FIELD_DELETE_FILE_ICON_CLASS);
+
+      deleteFileIcon.setTitle(JepTexts.button_delete_alt());
+      deleteFileIcon.setAltText(JepTexts.button_delete_alt());
+      
+      deleteFileIcon.addClickHandler(event -> {
+        onDeleteFile(event);
+      });
+      
+      // Ширина ячейки инструментов редактирования равна ширине иконке "Удалить файл"
+      // TODO: гибкая установка ширины ячейки инструментов редактирования
+      editablePanel.setCellWidth(editablePanelTools, deleteFileIcon.getWidth() + Unit.PX.getType());
+    }
+    
+    editablePanelTools.setWidget(deleteFileIcon);
+  }
+
+  /**
+   * Инициализация иконки и обработчика отмены действия.
+   */
+  private void showUndoIcon() {
+    if (undoIcon == null) {
+      
+      undoIcon = new Image(JepImages.undo());
+      undoIcon.setWidth(undoIcon.getWidth() + Unit.PX.getType());
+      undoIcon.addStyleName(FIELD_INDICATOR_STYLE);
+      undoIcon.addStyleName(JepLargeFieldStyleConstant.JEP_LARGE_FIELD_UNDO_ICON_CLASS);
+
+      undoIcon.setTitle(JepTexts.button_cancel_alt());
+      undoIcon.setAltText(JepTexts.button_cancel_alt());
+      
+      undoIcon.addClickHandler(event -> {
+        onUndo(event);
+      });
+    }
+    
+    editablePanelTools.setWidget(undoIcon);
+  }
+  
+  /**
+   * Обработчика нажатия по иконке "Отмена".
+   */
+  private void onUndo(ClickEvent event) {
+    if (isDeleted()) { // отмена удаления файла
+      showDeleteFileIcon();
+      changeIsDeleted(false);
+    } else if (isFileSelected()) { // отмена выбора файла
+      // TBD
+      // будет два случая в CREATE - сбросить значение
+      // в EDIT - восстановить прежнее
+    }
+  }
+
+  /**
+   * Обработчика нажатия по иконке "Удаление файла".
+   */
+  private void onDeleteFile(ClickEvent event) {
+    showUndoIcon();
+    changeIsDeleted(true);
+  }
+
+  /**
+   * Изменяет значение isDeleted и применяет изменения к отображению карт поля. 
+   * @param isDeleted
+   */
+  private void changeIsDeleted(boolean isDeleted) {
+    
+    setVisibleEditablePanelViewCard(!isDeleted);
+    isDeletedField.setValue(String.valueOf(isDeleted));
+    
+    // Если стоит признак isDeleted, поле становится disabled, 
+    // в onSubmit (если признак все еще установлен) disabled снимается. 
+    setEnabled(!isDeleted);
+    
+    notifyListeners(JepEventType.CHANGE_IS_DELETED_FILE_EVENT, new JepEvent(JepLargeField.this, isDeleted));
+  }
+  
+  /**
+   * Отображение карты просмотра в контейнере на карте редактирования. <br/>
+   * Необходимо отобразить/скрыть сам контейнер, переместить карту Просмотра в контейнер или обратно на viewPanel.
+   * @param isVisible
+   */
+  private void setVisibleEditablePanelViewCard(boolean isVisible) {
+    editablePanelViewCard.setVisible(isVisible);
+    if (isVisible) {
+      editablePanelViewCard.setWidget(viewCard);
+    } else {
+      viewPanel.add(viewCard);
+    }
+  }
+
   /**
    * Получение значения поля.<br/>
    * На основе значения карты Редактирования формируется объект наследник {@link com.technology.jep.jepria.shared.record.lob.JepFileReference}.<br/>
@@ -311,19 +496,46 @@ public abstract class JepLargeField<V extends Widget> extends JepMultiStateField
    */
   @Override
   @SuppressWarnings("unchecked")
-  public JepFileReference getValue() {
-    String fileName = editableCard.getFilename();
+  public JepFileReference<?> getValue() {
+
     if(fileReference == null) {
-      fileReference = new JepFileReference();
+      fileReference = new JepFileReference<Object>();
     }
 
-    // Только если пользователем выбран файл(-ы) для загрузки, тогда ПЕРЕЗАПИСЫВАЕМ имя файла в fileReference вместо значения, которое
-    // (возможно) там было изначально (например: пришло с сервера/из ejb/из базы данных).
-    if (!JepRiaUtil.isEmpty(fileName)) {
-      fileReference.setFileName(fileName);
+    JepFileReference<?> currentValue;
+    
+    boolean isDeleted = isDeleted();
+    
+    if (isDeleted) {
+      currentValue = new JepFileReference<>();
+    } else {
+      // Только если пользователем выбран файл(-ы) для загрузки, тогда ПЕРЕЗАПИСЫВАЕМ имя файла в fileReference вместо значения, которое
+      // (возможно) там было изначально (например: пришло с сервера/из ejb/из базы данных).
+      String fileName = editableCard.getFilename();
+      if (!JepRiaUtil.isEmpty(fileName)) {
+        fileReference.setFileName(fileName);
+      }
+      
+      currentValue = fileReference;
     }
     
-    return fileReference;
+    // Устанавливаем признак необходимости удаления файла.
+    currentValue.setDeleted(isDeleted);
+    
+    return currentValue;
+  }
+  
+  /**
+   * Получение признака, что файл(-ы) готовы к загрузке. <br/> 
+   * true, если выполняется хотя бы одно из условий:
+   * <ul>
+   *  <li>Файл(-ы) выбран.</li>
+   *  <li>Стоит признак удаления файла(-ов) (для режима редактирования).</li>
+   * </ul>
+   * @return Признак готовности поля к загрузке.
+   */
+  public boolean isFileReadyToUpload() {
+    return isFileSelected() || isDeleted();
   }
   
   /**
@@ -334,10 +546,28 @@ public abstract class JepLargeField<V extends Widget> extends JepMultiStateField
   public boolean isFileSelected() {
     return !JepRiaUtil.isEmpty(editableCard.getFilename());
   }
+
+  /**
+   * Получение признака удаления файла(-ов).
+   * @return Признака удаления файла(-ов).
+   */
+  public boolean isDeleted() {
+    return (isDeletedField != null) && Boolean.valueOf(isDeletedField.getValue());
+  }
   
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public boolean isValid() {
-    boolean isValid = super.isValid();
+    
+    // Перед проверкой, очищаем предыдущие ошибки.
+    clearInvalid();
+    if (!allowBlank && (JepRiaUtil.isEmpty(getValue()) || isDeleted())) {
+      markInvalid(JepTexts.field_blankText());
+      return false;
+    }
+    
     Integer maxUploadFileSize = JepRiaUtil.isEmpty(hiddenSizeField.getValue()) ? null : Integer.decode(hiddenSizeField.getValue());
     // Если задан максимальный размер загружаемого файла, а также имеется клиентская поддержка получения размера файла
     // проверяем данные значения на допустимость
@@ -346,7 +576,8 @@ public abstract class JepLargeField<V extends Widget> extends JepMultiStateField
       markInvalid(JepClientUtil.substitute(JepTexts.errors_file_uploadFileSizeError(), maxUploadFileSize, fileSize));
       return false;
     }
-    return isValid;
+    
+    return true;
     
   }
   
@@ -389,7 +620,7 @@ public abstract class JepLargeField<V extends Widget> extends JepMultiStateField
   /**
    * Инициализация обработчика "выбора файла" {@link com.google.gwt.event.dom.client.ChangeHandler}.
    */
-  protected void initFileChooseHandler(){
+  protected void initFileChooseHandler() {
     if (fileChooseHandler == null) {
       fileChooseHandler = editableCard.addChangeHandler(new ChangeHandler() {
         @Override
@@ -409,7 +640,58 @@ public abstract class JepLargeField<V extends Widget> extends JepMultiStateField
    * В случае необходимости добавления функциональности в обработку события, необходимо перекрыть данный метод,
    * а не добавлять новый обработчик события, чтобы обеспечить единую точку входа и обработки данного события.
    */
-  protected void fileChooseEventHandler(ChangeEvent event){
+  protected void fileChooseEventHandler(ChangeEvent event) {
     this.fileSize = editableCard.getFileSize();
+    
+    if (EDIT.equals(_workstate)) { // При выборе нового файла скрываем отображение текущего значения и инструментальную панель.
+      setVisibleEditablePanelViewCard(false);
+      editablePanelTools.clear();
+    }
+  }
+  
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  protected void applyStyle() {
+    super.applyStyle();
+    addStyleName(JepLargeFieldStyleConstant.JEP_LARGE_FIELD_CLASS);
+  }
+  
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void setFieldWidth(int fieldWidth) {
+    super.setFieldWidth(fieldWidth);
+    editablePanelViewCard.setWidth(fieldWidth == 0 ? "" : (fieldWidth + Unit.PX.getType()));
+  }
+  
+  /**
+   * Класс содержит константы, связанные с стилями и автоматизацией класса JepLargeField.
+   */
+  public static final class JepLargeFieldStyleConstant {
+    
+    private JepLargeFieldStyleConstant() {}
+    
+    /**
+     * Наименование CSS-класса поля JepLargeField.
+     */
+    public static final String JEP_LARGE_FIELD_CLASS = "jepRia-jepLargeField";
+    
+    /**
+     * Наименование CSS-класса карты Просмотра, отображающейся на editablePanel в режиме EDIT.
+     */
+    public static final String JEP_LARGE_FIELD_VIEW_CARD_ON_EDIT_CLASS = "jepRia-MultiStateField-ViewCard-onEdit";
+    
+    /**
+     * Наименование CSS-класса кнопки "Удалить файл" (режим EDIT).
+     */
+    public static final String JEP_LARGE_FIELD_DELETE_FILE_ICON_CLASS = "jepRia-jepLargeField-deleteFileIcon";
+    
+    /**
+     * Наименование CSS-класса кнопки отмены удаления (режим EDIT).
+     */
+    public static final String JEP_LARGE_FIELD_UNDO_ICON_CLASS = "jepRia-jepLargeField-undoIcon";
   }
 }

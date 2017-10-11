@@ -26,7 +26,12 @@ public class JepFileReference<T> implements IsSerializable {
    * Свойство для хранения mime-type файла
    */
   private String mimeType;
-    
+  
+  /**
+   * Признак необходимости удаления файла.
+   */
+  private Boolean isDeleted = Boolean.FALSE;
+
   public JepFileReference() {}
   
   /**
@@ -71,6 +76,22 @@ public class JepFileReference<T> implements IsSerializable {
     this.fileExtension = fileExtension;
     this.mimeType = mimeType;
     this.recordKey = (T) key;
+  }
+  
+  /**
+   * Вовращает признак необходимости удаления файла.
+   * @return Признак необходимости удаления файла.
+   */
+  public boolean isDeleted() {
+    return isDeleted == null ? false : isDeleted.booleanValue();
+  }
+
+  /**
+   * Устанавливает признак необходимости удаления файла.
+   * @param isDeleted Признак необходимости удаления файла.
+   */
+  public void setDeleted(Boolean isDeleted) {
+    this.isDeleted = isDeleted;
   }
     
   /**
