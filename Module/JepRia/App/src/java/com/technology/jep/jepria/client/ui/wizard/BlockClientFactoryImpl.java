@@ -24,11 +24,9 @@ public abstract class BlockClientFactoryImpl<S extends JepDataServiceAsync> exte
     return service;
   }
   
-  public JepEventBus getEventBus() {
-    if(eventBus == null) {
-      eventBus = new JepEventBus(this);
-    }
-    return (JepEventBus) eventBus;
+  @Override
+  protected JepEventBus createEventBus() {
+    return new JepEventBus(this);
   }
   
   @Override
@@ -52,7 +50,7 @@ public abstract class BlockClientFactoryImpl<S extends JepDataServiceAsync> exte
   
   public BlockPlaceController getPlaceController() {
     if(blockPlaceController == null) {
-      blockPlaceController = new BlockPlaceController((JepEventBus)getEventBus(), this);
+      blockPlaceController = new BlockPlaceController(getEventBus(), this);
     }
     return blockPlaceController;
   }

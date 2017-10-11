@@ -82,34 +82,22 @@ abstract public class PlainClientFactoryImpl<E extends PlainEventBus, S extends 
     return (PlainPlaceController) placeController;
   }
   
-  @Override
-  public final E getEventBus() {
-    if(eventBus == null) {
-      eventBus = createEventBus();
-    }
-    return eventBus;
-  }
-  
-  /**
-   * Создание шины событий модуля.<br/>
-   *
-   * @return новый экземпляр
-   */
   @SuppressWarnings("unchecked")/*допустимо*/
+  @Override
   protected E createEventBus() {
     return (E) new PlainEventBus(this);
   }
   
   @Override
-  public final S getService() {
-    if(dataService == null) {
+  public S getService() {
+    if (dataService == null) {
       dataService = createService();
     }
     return dataService;
   }
   
   /**
-   * Создание сервиса работы с данными.<br/>
+   * Создание сервиса работы с данными модуля.<br/>
    *
    * @return новый экземпляр
    */
