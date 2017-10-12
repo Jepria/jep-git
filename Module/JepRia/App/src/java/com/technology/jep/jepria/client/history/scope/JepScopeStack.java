@@ -156,7 +156,7 @@ public class JepScopeStack extends Stack<JepScope> {
 
   @Override
   public JepScope pop() {
-    return empty() ? null : pop();
+    return empty() ? null : super.pop();
   }
 
   public void setMainClientFactory(MainClientFactory<MainEventBus, JepMainServiceAsync> clientFactory) {
