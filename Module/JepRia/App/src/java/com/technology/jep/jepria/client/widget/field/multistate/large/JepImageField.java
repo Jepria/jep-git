@@ -38,16 +38,16 @@ public class JepImageField extends JepLargeField<Image> {
    * {@inheritDoc}
    */
   @Override
-  protected void addViewCard() {
-    viewCard = new Image();
-    viewPanel.add(viewCard);
-  }
+  protected Image createViewCard() {
+    return new Image();
+  };
+  
   
   /**
    * {@inheritDoc}
    */
   @Override
-  protected void setViewValue(Object reference) {
+  protected void setViewValue(Image viewCard, Object reference) {
     String downloadUrl = buildDownloadUrl(reference);
     if(downloadUrl != null) {
       viewCard.setUrl(downloadUrl);

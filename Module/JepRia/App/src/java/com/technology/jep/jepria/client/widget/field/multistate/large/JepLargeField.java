@@ -24,6 +24,7 @@ import com.google.gwt.user.client.ui.FormPanel.SubmitCompleteEvent;
 import com.google.gwt.user.client.ui.FormPanel.SubmitCompleteHandler;
 import com.google.gwt.user.client.ui.FormPanel.SubmitEvent;
 import com.google.gwt.user.client.ui.FormPanel.SubmitHandler;
+import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Hidden;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.SimplePanel;
@@ -112,7 +113,7 @@ public abstract class JepLargeField<V extends Widget> extends JepMultiStateField
   /**
    * Панель, на которой располагается карту Просмотра для отображения на карте Редактирования (используется в режиме {@link WorkstateEnum.EDIT}).
    */
-  protected SimplePanel editablePanelViewCard;
+  protected V editablePanelViewCard;
   
   /**
    * Панель для кнопок (удалить/отмена) (используется в режиме {@link WorkstateEnum.EDIT}).
@@ -186,8 +187,7 @@ public abstract class JepLargeField<V extends Widget> extends JepMultiStateField
     editableCard = new JepFileUpload();
     editablePanel.add(editableCard);
     
-    editablePanelViewCard = new SimplePanel();
-    editablePanelViewCard.addStyleName(JepLargeFieldStyleConstant.JEP_LARGE_FIELD_VIEW_CARD_ON_EDIT_CLASS);
+    editablePanelViewCard = createViewCard();
     editablePanel.add(editablePanelViewCard);
     
     editablePanelTools = new SimplePanel();
@@ -207,6 +207,24 @@ public abstract class JepLargeField<V extends Widget> extends JepMultiStateField
     // Hidden Field for isDeleted flag
     isDeletedField = new Hidden(IS_DELETED_FILE_HIDDEN_FIELD_NAME);
     editablePanel.add(isDeletedField);
+  }
+  
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  protected void addViewCard() {
+    viewCard = createViewCard();
+    viewPanel.add(viewCard);
+  }
+  
+  /**
+   * Создает карту Просмотра (объект класса HTML)
+   * @return карта Просмотра.
+   */
+  @SuppressWarnings("unchecked")
+  protected V createViewCard() {
+    return (V) new HTML();
   }
   
   /**
@@ -245,7 +263,7 @@ public abstract class JepLargeField<V extends Widget> extends JepMultiStateField
   protected void resetEditableCard() {
     if (editableCard.isAttached()) {
       formPanel.reset(); // NOT RESET HIDDEN FIELDS
-      isDeletedField.setValue(""); // Сбрасываем признак удаления.
+      isDeletedField.setValue(Boolean.FALSE.toString()); // Сбрасываем признак удаления.
     }
   }
   
@@ -371,7 +389,7 @@ public abstract class JepLargeField<V extends Widget> extends JepMultiStateField
     
     // то отображаем функциональные элементы карты Редактирования:
     //  ссылка на скачивание
-    setVisibleEditablePanelViewCard(isEditNotEmptyValue);
+    editablePanelViewCard.setVisible(isEditNotEmptyValue);
     
     //  панель кнопок
     editablePanelTools.clear();
@@ -392,8 +410,8 @@ public abstract class JepLargeField<V extends Widget> extends JepMultiStateField
       deleteFileIcon.addStyleName(FIELD_INDICATOR_STYLE);
       deleteFileIcon.addStyleName(JepLargeFieldStyleConstant.JEP_LARGE_FIELD_DELETE_FILE_ICON_CLASS);
 
-      deleteFileIcon.setTitle(JepTexts.button_delete_alt());
-      deleteFileIcon.setAltText(JepTexts.button_delete_alt());
+      deleteFileIcon.setTitle(JepTexts.largeField_button_deleteFile());
+      deleteFileIcon.setAltText(JepTexts.largeField_button_deleteFile());
       
       deleteFileIcon.addClickHandler(event -> {
         onDeleteFile(event);
@@ -457,7 +475,8 @@ public abstract class JepLargeField<V extends Widget> extends JepMultiStateField
    */
   private void changeIsDeleted(boolean isDeleted) {
     
-    setVisibleEditablePanelViewCard(!isDeleted);
+    editablePanelViewCard.setVisible(!isDeleted);
+    
     isDeletedField.setValue(String.valueOf(isDeleted));
     
     // Если стоит признак isDeleted, поле становится disabled, 
@@ -465,20 +484,6 @@ public abstract class JepLargeField<V extends Widget> extends JepMultiStateField
     setEnabled(!isDeleted);
     
     notifyListeners(JepEventType.CHANGE_IS_DELETED_FILE_EVENT, new JepEvent(JepLargeField.this, isDeleted));
-  }
-  
-  /**
-   * Отображение карты просмотра в контейнере на карте редактирования. <br/>
-   * Необходимо отобразить/скрыть сам контейнер, переместить карту Просмотра в контейнер или обратно на viewPanel.
-   * @param isVisible
-   */
-  private void setVisibleEditablePanelViewCard(boolean isVisible) {
-    editablePanelViewCard.setVisible(isVisible);
-    if (isVisible) {
-      editablePanelViewCard.setWidget(viewCard);
-    } else {
-      viewPanel.add(viewCard);
-    }
   }
 
   /**
@@ -645,7 +650,7 @@ public abstract class JepLargeField<V extends Widget> extends JepMultiStateField
     this.fileSize = editableCard.getFileSize();
     
     if (EDIT.equals(_workstate)) { // При выборе нового файла скрываем отображение текущего значения и инструментальную панель.
-      setVisibleEditablePanelViewCard(false);
+      editablePanelViewCard.setVisible(false);
       editablePanelTools.clear();
     }
   }
@@ -669,6 +674,22 @@ public abstract class JepLargeField<V extends Widget> extends JepMultiStateField
   }
   
   /**
+   * {@inheritDoc}
+   */
+  @Override
+  protected void setViewValue(Object value) {
+    setViewValue(editablePanelViewCard, value);
+    setViewValue(viewCard, value);
+  }
+  
+  /**
+   * Установка значения для карты Просмотра. Метод для переопределения в потомках.
+   * @param viewCard карта Просмотра
+   * @param value значение
+   */
+  abstract protected void setViewValue(V viewCard, Object value);
+  
+  /**
    * Класс содержит константы, связанные с стилями и автоматизацией класса JepLargeField.
    */
   public static final class JepLargeFieldStyleConstant {
@@ -679,11 +700,6 @@ public abstract class JepLargeField<V extends Widget> extends JepMultiStateField
      * Наименование CSS-класса поля JepLargeField.
      */
     public static final String JEP_LARGE_FIELD_CLASS = "jepRia-jepLargeField";
-    
-    /**
-     * Наименование CSS-класса карты Просмотра, отображающейся на editablePanel в режиме EDIT.
-     */
-    public static final String JEP_LARGE_FIELD_VIEW_CARD_ON_EDIT_CLASS = "jepRia-MultiStateField-ViewCard-onEdit";
     
     /**
      * Наименование CSS-класса кнопки "Удалить файл" (режим EDIT).

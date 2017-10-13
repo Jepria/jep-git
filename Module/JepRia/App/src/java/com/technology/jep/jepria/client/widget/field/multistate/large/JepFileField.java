@@ -1,5 +1,6 @@
 package com.technology.jep.jepria.client.widget.field.multistate.large;
 
+import static com.technology.jep.jepria.client.JepRiaClientConstant.JepTexts;
 import static com.technology.jep.jepria.shared.JepRiaConstant.DOWNLOAD_CONTENT_DISPOSITION;
 import static com.technology.jep.jepria.shared.JepRiaConstant.DOWNLOAD_CONTENT_DISPOSITION_ATTACHMENT;
 import static com.technology.jep.jepria.shared.JepRiaConstant.DOWNLOAD_EXTENSION;
@@ -64,9 +65,9 @@ public class JepFileField extends JepLargeField<HTML> {
    * {@inheritDoc}
    */
   @Override
-  protected void setViewValue(Object reference) {
+  protected void setViewValue(HTML viewCard, Object reference) {
     viewCard.setHTML(buildFileRef(reference));
-  }
+  };
   
   /**
    * Получение URL для карты просмотра
@@ -155,6 +156,9 @@ public class JepFileField extends JepLargeField<HTML> {
       sbRef.append(downloadUrl);
       sbRef.append("\"");
       sbRef.append("target=\"_blank\"");
+      sbRef.append("title=\"");
+      sbRef.append(JepTexts.largeField_currentFile());
+      sbRef.append("\"");
       sbRef.append(">");
       
       // Если есть имя файла, то отображается ссылка на скачивание по имени, иначе икон по imageUrl

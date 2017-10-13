@@ -826,6 +826,24 @@ public interface JepRiaText extends com.google.gwt.i18n.client.Constants {
   String form_detail_updateError();
 
   /**
+   * Translated "Удалить файл".
+   * 
+   * @return translated "Удалить файл"
+   */
+  @DefaultStringValue("Удалить файл")
+  @Key("largeField.button.deleteFile")
+  String largeField_button_deleteFile();
+
+  /**
+   * Translated "Текущий файл".
+   * 
+   * @return translated "Текущий файл"
+   */
+  @DefaultStringValue("Текущий файл")
+  @Key("largeField.currentFile")
+  String largeField_currentFile();
+
+  /**
    * Translated "Выделить все".
    * 
    * @return translated "Выделить все"
