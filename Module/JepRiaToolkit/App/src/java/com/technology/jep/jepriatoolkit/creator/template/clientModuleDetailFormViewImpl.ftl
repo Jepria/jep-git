@@ -1,7 +1,7 @@
 package ${packagePrefix?lower_case}.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.client.ui.form.detail;
  
 import static ${packagePrefix?lower_case}.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.shared.field.${form.formName}FieldNames.*;
-import static ${packagePrefix?lower_case}.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.client.${form.formName}ClientConstant.${form.formName?uncap_first}Text;
+import static ${packagePrefix?lower_case}.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.client.${form.formName}ClientConstant.*;
 <#assign import = "">
 <#if !form.isDependent>
 <#assign import = import + "com.technology.jep.jepria.client.widget.field.multistate.JepIntegerField">
@@ -38,13 +38,15 @@ import com.technology.jep.jepria.client.widget.field.multistate.JepNumberField;
 import com.technology.jep.jepria.client.ui.form.detail.StandardDetailFormViewImpl;
 
 public class ${form.formName}DetailFormViewImpl extends StandardDetailFormViewImpl
-  implements ${form.formName}DetailFormView { 
+    implements ${form.formName}DetailFormView { 
   
-   public ${form.formName}DetailFormViewImpl() {
-     
-     <#if form.sortDetailFormFields?has_content>
-     // "Дизайнерская" часть - freelayout.
-     </#if>
+  
+  
+  public ${form.formName}DetailFormViewImpl() {
+    
+    <#if form.sortDetailFormFields?has_content>
+    // "Дизайнерская" часть - freelayout.
+    </#if>
     <#list form.sortDetailFormFields as field>
     ${field.fieldWidget} ${field.fieldName} = new ${field.fieldWidget}(${form.formName?uncap_first}Text.${form.formName?uncap_first}_detail_${field.fieldId?lower_case}()<#if field.isBigDecimalNumberField>, BigDecimal.class<#elseif field.isMaskedTextField>, "cccccccccc"</#if>);
     <#if field.fieldWidth??>
@@ -68,6 +70,8 @@ public class ${form.formName}DetailFormViewImpl extends StandardDetailFormViewIm
     </#if>
     <#if form.sortDetailFormFields?has_content>
     // "Функциональная" часть - указываем управляющему классу по умолчанию с какими полями нужно работать.
+    fields.setAutoGenerateWebIdPrefix(${form.formName?upper_case}_FIELDS_AUTO_GENERATE_WEB_ID_PREFIX);
+    
     </#if>
     <#list form.sortDetailFormFields as field>
     fields.put(${field.fieldId?upper_case}, ${field.fieldName});
