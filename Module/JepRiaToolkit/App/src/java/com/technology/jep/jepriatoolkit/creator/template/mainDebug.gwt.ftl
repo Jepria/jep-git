@@ -22,5 +22,10 @@
   <extend-property name="log_level" values="DEBUG"/>
   <set-property name="log_DivLogger" value="ENABLED"/>
   <set-property name="log_RemoteLogger" value="ENABLED"/>
+  
+  <extend-property name="locale" values="ru"/>
+  <set-property name="locale" value="ru"/>
+  <set-property-fallback name="locale" value="ru"/>
+  
   <collapse-all-properties />
 </module>
