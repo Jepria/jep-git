@@ -18,7 +18,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10};
+var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -270,36 +270,42 @@ implements <a href="../../../../../../../com/technology/jep/jepria/client/ui/mai
 <th class="colLast" scope="col">Method and Description</th>
 </tr>
 <tr id="i0" class="altColor">
+<td class="colFirst"><code>protected <a href="../../../../../../../com/technology/jep/jepria/client/ui/main/MainClientFactoryImpl.html" title="type parameter in MainClientFactoryImpl">E</a></code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/ui/main/MainClientFactoryImpl.html#createEventBus--">createEventBus</a></span>()</code>
+<div class="block">Создание шины событий.</div>
+</td>
+</tr>
+<tr id="i1" class="rowColor">
+<td class="colFirst"><code>protected <a href="../../../../../../../com/technology/jep/jepria/client/ui/main/MainClientFactoryImpl.html" title="type parameter in MainClientFactoryImpl">S</a></code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/ui/main/MainClientFactoryImpl.html#createMainService--">createMainService</a></span>()</code>
+<div class="block">Создание главного сервиса приложения.</div>
+</td>
+</tr>
+<tr id="i2" class="altColor">
 <td class="colFirst"><code>com.google.gwt.place.shared.Place</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/ui/main/MainClientFactoryImpl.html#getDefaultPlace--">getDefaultPlace</a></span>()</code>
 <div class="block">Получение Place'а по умолчанию для приложения.</div>
 </td>
 </tr>
-<tr id="i1" class="rowColor">
-<td class="colFirst"><code><a href="../../../../../../../com/technology/jep/jepria/client/ui/main/MainClientFactoryImpl.html" title="type parameter in MainClientFactoryImpl">E</a></code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/ui/main/MainClientFactoryImpl.html#getEventBus--">getEventBus</a></span>()</code>
-<div class="block">Получение главной шины событий приложения.</div>
-</td>
-</tr>
-<tr id="i2" class="altColor">
+<tr id="i3" class="rowColor">
 <td class="colFirst"><code><a href="../../../../../../../com/technology/jep/jepria/client/ui/main/MainClientFactoryImpl.html" title="type parameter in MainClientFactoryImpl">S</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/ui/main/MainClientFactoryImpl.html#getMainService--">getMainService</a></span>()</code>
 <div class="block">Получение главного сервиса приложения.</div>
 </td>
 </tr>
-<tr id="i3" class="rowColor">
+<tr id="i4" class="altColor">
 <td class="colFirst"><code>java.util.List&lt;java.lang.String&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/ui/main/MainClientFactoryImpl.html#getModuleIds--">getModuleIds</a></span>()</code>
 <div class="block">Получение списка идентификаторов модулей приложения.</div>
 </td>
 </tr>
-<tr id="i4" class="altColor">
+<tr id="i5" class="rowColor">
 <td class="colFirst"><code><a href="../../../../../../../com/technology/jep/jepria/client/history/place/MainPlaceController.html" title="class in com.technology.jep.jepria.client.history.place">MainPlaceController</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/ui/main/MainClientFactoryImpl.html#getPlaceController--">getPlaceController</a></span>()</code>
 <div class="block">Получение объекта управления Place'ами приложения.</div>
 </td>
 </tr>
-<tr id="i5" class="rowColor">
+<tr id="i6" class="altColor">
 <td class="colFirst"><code>protected void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/ui/main/MainClientFactoryImpl.html#initActivityMappers-com.technology.jep.jepria.client.ui.ClientFactory-">initActivityMappers</a></span>(<a href="../../../../../../../com/technology/jep/jepria/client/ui/ClientFactory.html" title="interface in com.technology.jep.jepria.client.ui">ClientFactory</a>&lt;<a href="../../../../../../../com/technology/jep/jepria/client/ui/main/MainClientFactoryImpl.html" title="type parameter in MainClientFactoryImpl">E</a>&gt;&nbsp;clientFactory)</code>
 <div class="block">Метод вызывается в конструкторе с целью инициализации ActivityMapper'ов и ActivityManager'ов.</div>
@@ -311,7 +317,7 @@ implements <a href="../../../../../../../com/technology/jep/jepria/client/ui/mai
 <!--   -->
 </a>
 <h3>Methods inherited from class&nbsp;com.technology.jep.jepria.client.ui.<a href="../../../../../../../com/technology/jep/jepria/client/ui/ClientFactoryImpl.html" title="class in com.technology.jep.jepria.client.ui">ClientFactoryImpl</a></h3>
-<code><a href="../../../../../../../com/technology/jep/jepria/client/ui/ClientFactoryImpl.html#getEventFilter--">getEventFilter</a>, <a href="../../../../../../../com/technology/jep/jepria/client/ui/ClientFactoryImpl.html#getExceptionManager--">getExceptionManager</a>, <a href="../../../../../../../com/technology/jep/jepria/client/ui/ClientFactoryImpl.html#getLogger--">getLogger</a>, <a href="../../../../../../../com/technology/jep/jepria/client/ui/ClientFactoryImpl.html#getMessageBox--">getMessageBox</a>, <a href="../../../../../../../com/technology/jep/jepria/client/ui/ClientFactoryImpl.html#getTexts--">getTexts</a>, <a href="../../../../../../../com/technology/jep/jepria/client/ui/ClientFactoryImpl.html#getUiSecurity--">getUiSecurity</a></code></li>
+<code><a href="../../../../../../../com/technology/jep/jepria/client/ui/ClientFactoryImpl.html#getEventBus--">getEventBus</a>, <a href="../../../../../../../com/technology/jep/jepria/client/ui/ClientFactoryImpl.html#getEventFilter--">getEventFilter</a>, <a href="../../../../../../../com/technology/jep/jepria/client/ui/ClientFactoryImpl.html#getExceptionManager--">getExceptionManager</a>, <a href="../../../../../../../com/technology/jep/jepria/client/ui/ClientFactoryImpl.html#getLogger--">getLogger</a>, <a href="../../../../../../../com/technology/jep/jepria/client/ui/ClientFactoryImpl.html#getMessageBox--">getMessageBox</a>, <a href="../../../../../../../com/technology/jep/jepria/client/ui/ClientFactoryImpl.html#getTexts--">getTexts</a>, <a href="../../../../../../../com/technology/jep/jepria/client/ui/ClientFactoryImpl.html#getUiSecurity--">getUiSecurity</a></code></li>
 </ul>
 <ul class="blockList">
 <li class="blockList"><a name="methods.inherited.from.class.java.lang.Object">
@@ -332,7 +338,7 @@ implements <a href="../../../../../../../com/technology/jep/jepria/client/ui/mai
 <!--   -->
 </a>
 <h3>Methods inherited from interface&nbsp;com.technology.jep.jepria.client.ui.<a href="../../../../../../../com/technology/jep/jepria/client/ui/ClientFactory.html" title="interface in com.technology.jep.jepria.client.ui">ClientFactory</a></h3>
-<code><a href="../../../../../../../com/technology/jep/jepria/client/ui/ClientFactory.html#getEventFilter--">getEventFilter</a>, <a href="../../../../../../../com/technology/jep/jepria/client/ui/ClientFactory.html#getExceptionManager--">getExceptionManager</a>, <a href="../../../../../../../com/technology/jep/jepria/client/ui/ClientFactory.html#getLogger--">getLogger</a>, <a href="../../../../../../../com/technology/jep/jepria/client/ui/ClientFactory.html#getMessageBox--">getMessageBox</a>, <a href="../../../../../../../com/technology/jep/jepria/client/ui/ClientFactory.html#getTexts--">getTexts</a>, <a href="../../../../../../../com/technology/jep/jepria/client/ui/ClientFactory.html#getUiSecurity--">getUiSecurity</a></code></li>
+<code><a href="../../../../../../../com/technology/jep/jepria/client/ui/ClientFactory.html#getEventBus--">getEventBus</a>, <a href="../../../../../../../com/technology/jep/jepria/client/ui/ClientFactory.html#getEventFilter--">getEventFilter</a>, <a href="../../../../../../../com/technology/jep/jepria/client/ui/ClientFactory.html#getExceptionManager--">getExceptionManager</a>, <a href="../../../../../../../com/technology/jep/jepria/client/ui/ClientFactory.html#getLogger--">getLogger</a>, <a href="../../../../../../../com/technology/jep/jepria/client/ui/ClientFactory.html#getMessageBox--">getMessageBox</a>, <a href="../../../../../../../com/technology/jep/jepria/client/ui/ClientFactory.html#getTexts--">getTexts</a>, <a href="../../../../../../../com/technology/jep/jepria/client/ui/ClientFactory.html#getUiSecurity--">getUiSecurity</a></code></li>
 </ul>
 </li>
 </ul>
@@ -462,20 +468,20 @@ implements <a href="../../../../../../../com/technology/jep/jepria/client/ui/mai
 </dl>
 </li>
 </ul>
-<a name="getEventBus--">
+<a name="createEventBus--">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>getEventBus</h4>
-<pre>public&nbsp;<a href="../../../../../../../com/technology/jep/jepria/client/ui/main/MainClientFactoryImpl.html" title="type parameter in MainClientFactoryImpl">E</a>&nbsp;getEventBus()</pre>
-<div class="block">Получение главной шины событий приложения.<br/>
- Если объект еще не создан, то метод создает его и возвращает созданный объект.</div>
+<h4>createEventBus</h4>
+<pre>protected&nbsp;<a href="../../../../../../../com/technology/jep/jepria/client/ui/main/MainClientFactoryImpl.html" title="type parameter in MainClientFactoryImpl">E</a>&nbsp;createEventBus()</pre>
+<div class="block"><span class="descfrmTypeLabel">Description copied from class:&nbsp;<code><a href="../../../../../../../com/technology/jep/jepria/client/ui/ClientFactoryImpl.html#createEventBus--">ClientFactoryImpl</a></code></span></div>
+<div class="block">Создание шины событий.<br/></div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../../../../../../../com/technology/jep/jepria/client/ui/ClientFactory.html#getEventBus--">getEventBus</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../../../com/technology/jep/jepria/client/ui/ClientFactory.html" title="interface in com.technology.jep.jepria.client.ui">ClientFactory</a>&lt;<a href="../../../../../../../com/technology/jep/jepria/client/ui/main/MainClientFactoryImpl.html" title="type parameter in MainClientFactoryImpl">E</a> extends <a href="../../../../../../../com/technology/jep/jepria/client/ui/eventbus/main/MainEventBus.html" title="class in com.technology.jep.jepria.client.ui.eventbus.main">MainEventBus</a>&gt;</code></dd>
+<dd><code><a href="../../../../../../../com/technology/jep/jepria/client/ui/ClientFactoryImpl.html#createEventBus--">createEventBus</a></code>&nbsp;in class&nbsp;<code><a href="../../../../../../../com/technology/jep/jepria/client/ui/ClientFactoryImpl.html" title="class in com.technology.jep.jepria.client.ui">ClientFactoryImpl</a>&lt;<a href="../../../../../../../com/technology/jep/jepria/client/ui/main/MainClientFactoryImpl.html" title="type parameter in MainClientFactoryImpl">E</a> extends <a href="../../../../../../../com/technology/jep/jepria/client/ui/eventbus/main/MainEventBus.html" title="class in com.technology.jep.jepria.client.ui.eventbus.main">MainEventBus</a>&gt;</code></dd>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>шина событий приложения</dd>
+<dd>новый экземпляр</dd>
 </dl>
 </li>
 </ul>
@@ -502,13 +508,27 @@ implements <a href="../../../../../../../com/technology/jep/jepria/client/ui/mai
 <li class="blockList">
 <h4>getMainService</h4>
 <pre>public&nbsp;<a href="../../../../../../../com/technology/jep/jepria/client/ui/main/MainClientFactoryImpl.html" title="type parameter in MainClientFactoryImpl">S</a>&nbsp;getMainService()</pre>
-<div class="block">Получение главного сервиса приложения.<br/>
- Если объект еще не создан, то метод создает его и возвращает созданный объект.</div>
+<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../../../../../../../com/technology/jep/jepria/client/ui/main/MainClientFactory.html#getMainService--">MainClientFactory</a></code></span></div>
+<div class="block">Получение главного сервиса приложения.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code><a href="../../../../../../../com/technology/jep/jepria/client/ui/main/MainClientFactory.html#getMainService--">getMainService</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../../../com/technology/jep/jepria/client/ui/main/MainClientFactory.html" title="interface in com.technology.jep.jepria.client.ui.main">MainClientFactory</a>&lt;<a href="../../../../../../../com/technology/jep/jepria/client/ui/main/MainClientFactoryImpl.html" title="type parameter in MainClientFactoryImpl">E</a> extends <a href="../../../../../../../com/technology/jep/jepria/client/ui/eventbus/main/MainEventBus.html" title="class in com.technology.jep.jepria.client.ui.eventbus.main">MainEventBus</a>,<a href="../../../../../../../com/technology/jep/jepria/client/ui/main/MainClientFactoryImpl.html" title="type parameter in MainClientFactoryImpl">S</a> extends <a href="../../../../../../../com/technology/jep/jepria/shared/service/JepMainServiceAsync.html" title="interface in com.technology.jep.jepria.shared.service">JepMainServiceAsync</a>&gt;</code></dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>главный сервис приложения</dd>
+</dl>
+</li>
+</ul>
+<a name="createMainService--">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>createMainService</h4>
+<pre>protected&nbsp;<a href="../../../../../../../com/technology/jep/jepria/client/ui/main/MainClientFactoryImpl.html" title="type parameter in MainClientFactoryImpl">S</a>&nbsp;createMainService()</pre>
+<div class="block">Создание главного сервиса приложения.<br/></div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>новый экземпляр</dd>
 </dl>
 </li>
 </ul>

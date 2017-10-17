@@ -2,7 +2,7 @@ package com.technology.jep.jepria.shared.text;
 
 /**
  * Interface to represent the constants contained in resource bundle:
- * 	'D:/git/Jep/Module/JepRia/App/src/java/com/technology/jep/jepria/shared/text/JepRiaText.properties'.
+ * 	'C:/work/sf.git/Module/JepRia/App/src/java/com/technology/jep/jepria/shared/text/JepRiaText.properties'.
  */
 public interface JepRiaText extends com.google.gwt.i18n.client.Constants {
   
@@ -824,6 +824,24 @@ public interface JepRiaText extends com.google.gwt.i18n.client.Constants {
   @DefaultStringValue("Ошибка при изменении")
   @Key("form.detail.updateError")
   String form_detail_updateError();
+
+  /**
+   * Translated "Удалить файл".
+   * 
+   * @return translated "Удалить файл"
+   */
+  @DefaultStringValue("Удалить файл")
+  @Key("largeField.button.deleteFile")
+  String largeField_button_deleteFile();
+
+  /**
+   * Translated "Текущий файл".
+   * 
+   * @return translated "Текущий файл"
+   */
+  @DefaultStringValue("Текущий файл")
+  @Key("largeField.currentFile")
+  String largeField_currentFile();
 
   /**
    * Translated "Выделить все".

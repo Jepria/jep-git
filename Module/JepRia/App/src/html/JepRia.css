@@ -786,8 +786,3 @@ img {
 .jepRia-jepLargeField .jepRia-MultiStateField-EditableCard {
   padding-right: 20px; /* без отступа справа некорректное отображение */
 }
-
-/* Стили поля JepLargeField для карты просмотра на карте редактирования режиме EDIT */
-.jepRia-jepLargeField .jepRia-MultiStateField-ViewCard-onEdit {
-  padding-right: 10px; 
-}

@@ -20,6 +20,7 @@ import java.util.Set;
 import com.technology.jep.jepria.shared.field.JepTypeEnum;
 import com.technology.jep.jepria.shared.field.option.JepOption;
 import com.technology.jep.jepria.shared.time.JepTime;
+import com.technology.jep.jepria.shared.util.JepRiaUtil;
 
 /**
  * Класс содержит методы преобразования объектов в их строковое представление (в History Token) и методы восстановления объектов из строкового
@@ -74,7 +75,7 @@ public class JepHistoryToken {
       result = DATE.toHistoryToken() + MAP_NAME_TYPE_VALUE_SEPARATOR + ((Date)value).getTime();
     } else if(value instanceof JepTime) {
       result = TIME.toHistoryToken() + MAP_NAME_TYPE_VALUE_SEPARATOR + ((JepTime)value).toHistoryToken();
-    } else if(value instanceof JepOption) {
+    } else if(value instanceof JepOption && !JepRiaUtil.isEmpty(value)) {
       result = OPTION.toHistoryToken() + MAP_NAME_TYPE_VALUE_SEPARATOR + ((JepOption)value).toHistoryToken();
     } else if(value instanceof List) {
       List list = (List)value;
