@@ -9,7 +9,7 @@ import ${packagePrefix?lower_case}.${packageName?lower_case}.${moduleName?lower_
 public class ${form.formName}ClientConstant extends ${form.formName}Constant {
  
   /**
-   * Префикс для автоматической генерации генерации web-ID полей. 
+   * Префикс для автоматической генерации web-ID полей. 
    */
   public static final String ${form.formName?upper_case}_FIELDS_AUTO_GENERATE_WEB_ID_PREFIX = "${form.formName?upper_case}_";
   
