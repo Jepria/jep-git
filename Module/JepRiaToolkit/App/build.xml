@@ -104,21 +104,22 @@
   </target>
 
   <target name="doc" depends="start-log">
-        <javadoc 
-          Doctitle="${MODULE_NAME} API Reference" 
-          Windowtitle="${MODULE_NAME} JavaDoc" 
-          access="private" 
-          additionalparam="-notimestamp -Xdoclint:none" 
-          charset="UTF-8" 
-          destdir="${JAVA_DOC_DIR}" 
-          docencoding="UTF-8" 
-          encoding="UTF-8" 
-          includenosourcepackages="true" 
-          overview="src/java/${MODULE_PACKAGE}/overview.html" 
-          packagenames="*" 
-          sourcepath="src/java" >
-  	  		<classpath refid="libs"/>
-        </javadoc>
+      <javadoc 
+        Doctitle="${MODULE_NAME} API Reference" 
+        Windowtitle="${MODULE_NAME} JavaDoc" 
+        access="private" 
+        additionalparam="-notimestamp -Xdoclint:none" 
+        charset="UTF-8" 
+        destdir="${JAVA_DOC_DIR}" 
+        docencoding="UTF-8" 
+        encoding="UTF-8" 
+        includenosourcepackages="true" 
+        overview="src/java/${MODULE_PACKAGE}/overview.html" 
+        packagenames="*" 
+        locale="ru"
+        sourcepath="src/java" >
+        <classpath refid="libs"/>
+      </javadoc>
   </target>
         
   <target name="clean">
