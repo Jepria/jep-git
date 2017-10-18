@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.technology.jep.jepria.shared.field.option.JepOption;
 import com.technology.jep.jepria.shared.record.lob.JepClob;
+import com.technology.jep.jepria.shared.record.lob.JepFileReference;
 
 public class JepRiaUtil {
 
@@ -32,6 +33,10 @@ public class JepRiaUtil {
     } else if (obj instanceof JepClob) {
       JepClob objClob = (JepClob)obj;
       return (JepRiaUtil.isEmpty(objClob.getBigText())) ? true : false;
+    } else if (obj instanceof JepFileReference<?>) {
+      JepFileReference<?> objJepFileReference = (JepFileReference<?>)obj;
+      return JepRiaUtil.isEmpty(objJepFileReference.getFileName()) &&
+          JepRiaUtil.isEmpty(objJepFileReference.getRecordKey());
     }
     return false;
   }

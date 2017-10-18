@@ -781,3 +781,8 @@ img {
   padding: 4px;
   font-family: sans-serif;
 }
+
+/* Стили поля JepLargeField для карты редактирования */
+.jepRia-jepLargeField .jepRia-MultiStateField-EditableCard {
+  padding-right: 20px; /* без отступа справа некорректное отображение */
+}

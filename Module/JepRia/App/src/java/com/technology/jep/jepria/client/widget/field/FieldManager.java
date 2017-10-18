@@ -331,13 +331,16 @@ public class FieldManager extends HashMap<String, JepMultiStateField> implements
    * @return зарегистрированное (добавленное) поле   
    */
   @Override
-  public JepMultiStateField put(String fieldId, JepMultiStateField field){
-    if (field instanceof JepLargeField){
-      ((JepLargeField)field).setFieldId(fieldId);
+  public JepMultiStateField put(String fieldId, JepMultiStateField field) {
+    if (field instanceof JepLargeField) {
+      JepLargeField largeField = (JepLargeField) field;
+      if (JepRiaUtil.isEmpty(largeField.getFieldName())) {
+        largeField.setFieldName(fieldId);
+      }
     }
     
     // Автогенерация web-ID, если задан префикс.
-    if(!JepRiaUtil.isEmpty(autoGenerateWebIdPrefix)
+    if (!JepRiaUtil.isEmpty(autoGenerateWebIdPrefix)
         && JepRiaUtil.isEmpty(field.getWebId())) {
       
       StringBuilder sb = new StringBuilder();
@@ -362,7 +365,7 @@ public class FieldManager extends HashMap<String, JepMultiStateField> implements
   public JepMultiStateField get(Object fieldId) {
     JepMultiStateField field = super.get(fieldId);
     // Проверка на существование запрашиваемого идентификатора поля.
-    if (field == null){
+    if (field == null) {
       throw new IdNotFoundException(JepClientUtil.substitute(JepTexts.fieldManager_idNotFoundError(), fieldId));
     }
     return field;

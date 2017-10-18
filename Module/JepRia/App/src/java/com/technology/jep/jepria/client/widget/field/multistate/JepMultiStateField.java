@@ -320,22 +320,25 @@ public abstract class JepMultiStateField<E extends Widget, V extends Widget> ext
   /**
    * Установка наименования поля и сброс разделителя метки, если оно пустое.
    * 
-   * @param fieldLab наименование поля
+   * @param label наименование поля
    */
-  public void setFieldLabel(String fieldLab) {
-    if (JepRiaUtil.isEmpty(fieldLab)){
+  public void setFieldLabel(String label) {
+    
+    this.fieldLabel = label;
+    
+    if (JepRiaUtil.isEmpty(label)) {
       setLabelSeparator("");
+    } else {
+      label = label + this.labelSeparator;
     }
     
-    this.fieldLabel = fieldLab;
-    
-    this.viewCardLabel.setHTML(fieldLab + this.labelSeparator);
+    this.viewCardLabel.setHTML(label);
     
     if (this.allowBlank) {
-      this.editableCardLabel.setHTML(fieldLab + this.labelSeparator);
-    } else {
-      final String idAttr = fieldIdAsWebEl == null ? "" : "id='" + fieldIdAsWebEl + JEP_FIELD_ALLOW_BLANK_POSTFIX + "'";
-      this.editableCardLabel.setHTML(JepClientUtil.substitute(REQUIRED_MARKER, idAttr) + fieldLab + this.labelSeparator);
+      this.editableCardLabel.setHTML(label);
+    } else if (!JepRiaUtil.isEmpty(label)) {
+      final String idAttr = fieldIdAsWebEl == null ? "" : ("id='" + fieldIdAsWebEl + JEP_FIELD_ALLOW_BLANK_POSTFIX + "'");
+      this.editableCardLabel.setHTML(JepClientUtil.substitute(REQUIRED_MARKER, idAttr) + label);
     }
   }
   
@@ -562,7 +565,7 @@ public abstract class JepMultiStateField<E extends Widget, V extends Widget> ext
   /**
    * Очистка сообщения об ошибке.
    */
-  public void clearInvalid(){
+  public void clearInvalid() {
     // Проверяем: было ли поле действительно невалидно.
     if (!markedInvalid) return;
     
@@ -603,7 +606,7 @@ public abstract class JepMultiStateField<E extends Widget, V extends Widget> ext
    * 
    * @return возвращаемое значение
    */
-  public String getRawValue(){
+  public String getRawValue() {
     return getInputElement().getPropertyString("value");
   }
   
@@ -640,7 +643,7 @@ public abstract class JepMultiStateField<E extends Widget, V extends Widget> ext
    * 
    * @return DOM-элемент
    */
-  protected Element getInputElement(){
+  protected Element getInputElement() {
     return editableCard.getElement();
   }
 
@@ -651,7 +654,7 @@ public abstract class JepMultiStateField<E extends Widget, V extends Widget> ext
    * Особенность:<br/>
    * Перекрытие метода обусловлено вызывом метода {@link com.google.gwt.user.client.ui.Panel#clear}, удаляюшяего все элементы с панели.
    */
-  public void clear(){
+  public void clear() {
     clearView();
   }
   
@@ -659,7 +662,7 @@ public abstract class JepMultiStateField<E extends Widget, V extends Widget> ext
    * Метод для стилизации поля.<br/>
    * Для применения новых стилей элемента необходимо в наследниках перекрывать данный метод.
    */
-  protected void applyStyle(){
+  protected void applyStyle() {
     // Устанавливаем атрибуты по умолчанию для компонента JepMultiStateField.
     getElement().getStyle().setMarginBottom(5, Unit.PX);
     // Установка основного шрифта в карту просмотра и редактирования.

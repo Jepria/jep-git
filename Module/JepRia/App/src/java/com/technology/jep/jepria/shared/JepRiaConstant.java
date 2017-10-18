@@ -84,6 +84,11 @@ public class JepRiaConstant {
   public static final String FILE_SIZE_HIDDEN_FIELD_NAME = "fileSize";
   
   /**
+   * Наименование скрытого поля компонента LargeField, предназначенного для хранения информации о необходимости удаления файла
+   */
+  public static final String IS_DELETED_FILE_HIDDEN_FIELD_NAME = "isDeleted";
+  
+  /**
    * Имя параметра http-запроса: локаль текущей межмодульной сессии
    */
   public static final String HTTP_REQUEST_PARAMETER_LOCALE = "locale";

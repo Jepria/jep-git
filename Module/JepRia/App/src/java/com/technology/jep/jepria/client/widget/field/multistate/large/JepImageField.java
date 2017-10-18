@@ -5,6 +5,7 @@ import static com.technology.jep.jepria.shared.JepRiaConstant.DOWNLOAD_CONTENT_D
 
 import com.google.gwt.user.client.ui.Image;
 
+@SuppressWarnings("unchecked")
 public class JepImageField extends JepLargeField<Image> {
 
   private static final String DATA_IMAGE_BASE64_SRC_ATTRIBUTE = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";
@@ -16,27 +17,37 @@ public class JepImageField extends JepLargeField<Image> {
   
   @Deprecated
   public JepImageField(String fieldLabel) {
-    this(null, fieldLabel);  
+    this(null, fieldLabel, null);
   }
   
   public JepImageField(String fieldIdAsWebEl, String fieldLabel) {
-    super(fieldIdAsWebEl, fieldLabel);
+    this(fieldIdAsWebEl, fieldLabel, null);
+  }
+  
+  /**
+   * Конструктор.
+   * @param fieldIdAsWebEl ID данного Jep-поля как Web-элемента.
+   * @param fieldLabel Метка поля.
+   * @param inputName Значение HTML-атрибута name тега input.
+   */
+  public JepImageField(String fieldIdAsWebEl, String fieldLabel, String inputName) {
+    super(fieldIdAsWebEl, fieldLabel, inputName);
   }
   
   /**
    * {@inheritDoc}
    */
   @Override
-  protected void addViewCard() {
-    viewCard = new Image();
-    viewPanel.add(viewCard);
-  }
+  protected Image createViewCard() {
+    return new Image();
+  };
+  
   
   /**
    * {@inheritDoc}
    */
   @Override
-  protected void setViewValue(Object reference) {
+  protected void setViewValue(Image viewCard, Object reference) {
     String downloadUrl = buildDownloadUrl(reference);
     if(downloadUrl != null) {
       viewCard.setUrl(downloadUrl);

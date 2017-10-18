@@ -18,7 +18,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":10,"i1":9,"i2":10,"i3":9,"i4":10,"i5":9,"i6":10,"i7":10};
+var methods = {"i0":10,"i1":9,"i2":10,"i3":9,"i4":10,"i5":9,"i6":10,"i7":10,"i8":10,"i9":10};
 var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -147,12 +147,18 @@ implements com.google.gwt.user.client.rpc.IsSerializable</pre>
 </td>
 </tr>
 <tr class="altColor">
+<td class="colFirst"><code>private java.lang.Boolean</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/shared/record/lob/JepFileReference.html#isDeleted">isDeleted</a></span></code>
+<div class="block">Признак необходимости удаления файла.</div>
+</td>
+</tr>
+<tr class="rowColor">
 <td class="colFirst"><code>private java.lang.String</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/shared/record/lob/JepFileReference.html#mimeType">mimeType</a></span></code>
 <div class="block">Свойство для хранения mime-type файла</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code>private <a href="../../../../../../../com/technology/jep/jepria/shared/record/lob/JepFileReference.html" title="type parameter in JepFileReference">T</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/shared/record/lob/JepFileReference.html#recordKey">recordKey</a></span></code>
 <div class="block">Свойство для хранения значения ключа записи</div>
@@ -240,6 +246,18 @@ implements com.google.gwt.user.client.rpc.IsSerializable</pre>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/shared/record/lob/JepFileReference.html#getRecordKey--">getRecordKey</a></span>()</code>&nbsp;</td>
 </tr>
 <tr id="i7" class="rowColor">
+<td class="colFirst"><code>boolean</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/shared/record/lob/JepFileReference.html#isDeleted--">isDeleted</a></span>()</code>
+<div class="block">Вовращает признак необходимости удаления файла.</div>
+</td>
+</tr>
+<tr id="i8" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/shared/record/lob/JepFileReference.html#setDeleted-java.lang.Boolean-">setDeleted</a></span>(java.lang.Boolean&nbsp;isDeleted)</code>
+<div class="block">Устанавливает признак необходимости удаления файла.</div>
+</td>
+</tr>
+<tr id="i9" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/shared/record/lob/JepFileReference.html#setFileName-java.lang.String-">setFileName</a></span>(java.lang.String&nbsp;fileName)</code>&nbsp;</td>
 </tr>
@@ -298,11 +316,21 @@ implements com.google.gwt.user.client.rpc.IsSerializable</pre>
 <a name="mimeType">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>mimeType</h4>
 <pre>private&nbsp;java.lang.String mimeType</pre>
 <div class="block">Свойство для хранения mime-type файла</div>
+</li>
+</ul>
+<a name="isDeleted">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>isDeleted</h4>
+<pre>private&nbsp;java.lang.Boolean isDeleted</pre>
+<div class="block">Признак необходимости удаления файла.</div>
 </li>
 </ul>
 </li>
@@ -374,6 +402,34 @@ implements com.google.gwt.user.client.rpc.IsSerializable</pre>
 <!--   -->
 </a>
 <h3>Method Detail</h3>
+<a name="isDeleted--">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>isDeleted</h4>
+<pre>public&nbsp;boolean&nbsp;isDeleted()</pre>
+<div class="block">Вовращает признак необходимости удаления файла.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>Признак необходимости удаления файла.</dd>
+</dl>
+</li>
+</ul>
+<a name="setDeleted-java.lang.Boolean-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setDeleted</h4>
+<pre>public&nbsp;void&nbsp;setDeleted(java.lang.Boolean&nbsp;isDeleted)</pre>
+<div class="block">Устанавливает признак необходимости удаления файла.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>isDeleted</code> - Признак необходимости удаления файла.</dd>
+</dl>
+</li>
+</ul>
 <a name="getFileName-java.lang.Object-">
 <!--   -->
 </a>
