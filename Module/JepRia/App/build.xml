@@ -108,6 +108,7 @@
     <include name="**/client/**/*.java" />
     <include name="**/client/**/*.html" />
     <include name="**/client/**/*.css" />
+	<include name="**/client/**/*.ui.xml" />
     <exclude name="**/overview.html" />
     <exclude name="**/package.html" />
     <include name="**/shared/**/*.java" />
