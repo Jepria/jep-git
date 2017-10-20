@@ -307,6 +307,7 @@
 
   <target name="doc" depends="java-compile, java-auto-compile">
     <javadoc sourcepath="src/java;auto/java;test/java"
+      locale="ru"
       packagenames="*"
       includenosourcepackages="true"
       overview="src/java/${MODULE_PACKAGE}/overview.html"
