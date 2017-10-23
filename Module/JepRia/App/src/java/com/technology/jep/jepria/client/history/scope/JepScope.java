@@ -73,9 +73,6 @@ public class JepScope {
     if(this.moduleStates == null) {
       int moduleNumber = this.moduleIds.length;
       this.moduleStates = new WorkstateEnum[moduleNumber];
-      for(int i = 0; i < moduleNumber; i++) {
-        this.moduleStates[i] = DEFAULT_WORK_STATE;
-      }
     }
   }
   
