@@ -145,7 +145,7 @@ public abstract class MainModulePresenter<V extends MainView, E extends MainEven
    * @return Состояние по умолчанию при входе в приложение.
    */
   protected WorkstateEnum getDefaultWorkState(String entryModuleName) {
-    return JepScope.DEFAULT_WORK_STATE;
+    return WorkstateEnum.SEARCH;
   }
   
   /**
