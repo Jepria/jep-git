@@ -26,6 +26,7 @@ import com.google.gwt.user.client.ui.FormPanel.SubmitEvent;
 import com.google.gwt.user.client.ui.FormPanel.SubmitHandler;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Hidden;
+import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
@@ -181,7 +182,7 @@ public abstract class JepLargeField<V extends Widget> extends JepMultiStateField
     // (pay attention on the code inside setWidget method)
     formPanel.setWidget(editablePanel);
     // initialize form panel as new editable panel
-    add(formPanel);
+    mainPanel.add(formPanel);
     
     // Uploader add at this form
     editableCard = new JepFileUpload();
@@ -214,7 +215,11 @@ public abstract class JepLargeField<V extends Widget> extends JepMultiStateField
    */
   @Override
   protected void addViewCard() {
-    viewCard = createViewCard();
+	V newViewCard = createViewCard();
+	if (!(newViewCard instanceof HTML)) { // для виджетов, не являющихся HTML
+		viewCard.removeFromParent();
+		viewCard = newViewCard;
+	}
     viewPanel.add(viewCard);
   }
   
