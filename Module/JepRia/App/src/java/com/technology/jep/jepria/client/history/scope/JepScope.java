@@ -7,7 +7,6 @@ import static com.technology.jep.jepria.client.history.place.JepPlace.SCOPE_MODU
 import static com.technology.jep.jepria.client.history.place.JepPlace.SEARCH_REQUEST_PARAMETER_NAME;
 import static com.technology.jep.jepria.client.history.place.JepPlace.TEMPLATE_PROPERTIES_PARAMETER_NAME;
 import static com.technology.jep.jepria.client.history.place.JepPlace.WORKSTATE_PARAMETER_NAME;
-import static com.technology.jep.jepria.client.ui.WorkstateEnum.SEARCH;
 import static com.technology.jep.jepria.shared.history.JepHistoryConstant.SCOPE_PARAMETER_NAME_VALUE_SEPARATOR;
 import static com.technology.jep.jepria.shared.history.JepHistoryConstant.SCOPE_PARAMETER_SEPARATOR;
 
@@ -25,12 +24,7 @@ import com.technology.jep.jepria.shared.history.JepHistoryToken;
  * @see com.technology.jep.jepria.client.history
  */
 public class JepScope {
-  
-  /**
-   * Рабочее состояние по умолчанию.
-   */
-  public static final WorkstateEnum DEFAULT_WORK_STATE = SEARCH;
-  
+
   /**
    * Идентификатор активного модуля.
    */
@@ -73,9 +67,6 @@ public class JepScope {
     if(this.moduleStates == null) {
       int moduleNumber = this.moduleIds.length;
       this.moduleStates = new WorkstateEnum[moduleNumber];
-      for(int i = 0; i < moduleNumber; i++) {
-        this.moduleStates[i] = DEFAULT_WORK_STATE;
-      }
     }
   }
   
