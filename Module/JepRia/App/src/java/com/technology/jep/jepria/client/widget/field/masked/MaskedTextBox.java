@@ -4,6 +4,7 @@ import static com.technology.jep.jepria.client.JepRiaClientConstant.JepTexts;
 import static com.technology.jep.jepria.client.util.JepClientUtil.getChar;
 
 import com.google.gwt.event.dom.client.FocusEvent;
+import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.dom.client.FocusHandler;
 import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.dom.client.KeyDownEvent;
@@ -78,6 +79,8 @@ public class MaskedTextBox extends TextBox
       }
     }, FocusEvent.getType());
     addStyleName(MASKED_TEXT_BOX_STYLE);
+    this.addCutHandler(this.getElement());
+    this.addPreventUndoRedoHandler(this.getElement());
   }
 
   public MaskedTextBox(String mask) {
@@ -407,7 +410,7 @@ public class MaskedTextBox extends TextBox
       }
     }
   }
-  
+
   /**
    * Обработчик события {@link FocusEvent}.<br> 
    * Если поле пустое, то устанавливает курсор на первый специальный символ маски.
@@ -416,6 +419,66 @@ public class MaskedTextBox extends TextBox
   private void onFocusEvent(FocusEvent event) {
     if(isEmpty()) {
       setCursorPos(mask.getFirstSpecialSymbolPosition());
+    }
+  }
+
+  /**
+   * Перехват событий изменения значения поля.
+   * @param element объект поля.
+   */
+  private native void addPreventUndoRedoHandler(Element element)
+  /*-{
+      var temp = this;  // hack to hold on to 'this' reference
+      element.oninput = function(e) {
+          temp.@com.technology.jep.jepria.client.widget.field.masked.MaskedTextBox::handleUndoRedo(Ljava/lang/String;)(element.value);
+      }
+  }-*/;
+  
+  /**
+   * Предотвращение сбоя в работе Mask при Undo/Redo.(В частности в IE)
+   * @param value новое значение поля.
+   */
+  private void handleUndoRedo(String value) {
+    if (!mask.canPaste(mask.clearChars(charValue, 0, charValue.length - 1), 0, value)) {
+      setCharValue(this.charValue);
+      setCursorPos(mask.getFirstSpecialSymbolPosition());
+    }
+  }
+  
+  /**
+   * Перехват и обработка Cut Event.
+   * @param element объект поля.
+   */
+  private native void addCutHandler(Element element)
+  /*-{
+      var temp = this;  // hack to hold on to 'this' reference
+      element.oncut = function(e) {
+        e.preventDefault();//Заблокируем стандартное поведение события.
+        e.stopPropagation();
+        var selectedText = temp.@com.technology.jep.jepria.client.widget.field.masked.MaskedTextBox::getSelectedText()();
+        //Вручную добавляем выделенный текст из поля в буфер обмена.
+        if (e.clipboardData) { 
+          e.clipboardData.setData('text/plain', selectedText);
+        }
+        if ($wnd.clipboardData) {
+          $wnd.clipboardData.setData("Text", selectedText);
+        }
+        temp.@com.technology.jep.jepria.client.widget.field.masked.MaskedTextBox::handleCut()();
+      }
+  }-*/;
+
+  /**
+   * Вырезание выделенного текста из поля.
+   */
+  private void handleCut() {
+    int position = getCursorPos();
+    int selectionLength = getSelectionLength();
+    if (selectionLength > 0) {
+      char[] tempCharValue = (position + selectionLength) <= charValue.length ? 
+          mask.clearChars(charValue, position, selectionLength) :
+            mask.clearChars(charValue, position - selectionLength, selectionLength);
+          setCharValue(tempCharValue);
+          setCursorPos(position);
     }
   }
   
