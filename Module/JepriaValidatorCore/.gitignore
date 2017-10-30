@@ -1,0 +1,5 @@
+.project
+bin
+.settings
+.classpath
+App/build-core

@@ -1,0 +1,7 @@
+org.jepria.validator.core.base
+org.jepria.validator.core.base.contextadapter
+org.jepria.validator.core.base.exception
+org.jepria.validator.core.base.resource
+org.jepria.validator.core.base.transform
+org.jepria.validator.core.fs
+org.jepria.validator.user
