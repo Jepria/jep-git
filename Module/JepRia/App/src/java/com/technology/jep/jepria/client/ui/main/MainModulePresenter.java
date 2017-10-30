@@ -14,7 +14,6 @@ import java.util.List;
 import java.util.Set;
 
 import com.allen_sauer.gwt.log.client.Log;
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.user.client.Window.Location;
@@ -24,8 +23,8 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.technology.jep.jepria.client.async.JepAsyncCallback;
 import com.technology.jep.jepria.client.async.LoadAsyncCallback;
-import com.technology.jep.jepria.client.async.LoadPlainClientFactory;
 import com.technology.jep.jepria.client.entrance.Entrance;
+import com.technology.jep.jepria.client.history.place.JepViewListPlace;
 import com.technology.jep.jepria.client.history.place.PlainPlaceController;
 import com.technology.jep.jepria.client.history.scope.JepScope;
 import com.technology.jep.jepria.client.history.scope.JepScopeStack;
@@ -146,7 +145,7 @@ public abstract class MainModulePresenter<V extends MainView, E extends MainEven
    * @return Состояние по умолчанию при входе в приложение.
    */
   protected WorkstateEnum getDefaultWorkState(String entryModuleName) {
-    return JepScope.DEFAULT_WORK_STATE;
+    return WorkstateEnum.SEARCH;
   }
   
   /**
@@ -216,7 +215,14 @@ public abstract class MainModulePresenter<V extends MainView, E extends MainEven
     JepScopeStack.instance.setExitScope(true); // TODO Сделать это более естественным образом
     try {
       JepScope scope = JepScopeStack.instance.peek();
-      eventBus.enterModule(scope.getActiveModuleId());
+      String activeModuleId = scope.getActiveModuleId();
+
+      // Переход при нажатии кнопки UP:
+      // если переход не в главный модуль скопа, то переход в состояние списка,
+      // если в главный - то переход в то состояние, в котором остался главный модуль.
+      // (В стандартном случае при использовании кнопки UP, перехода в главный модуль не будет,
+      // ранее код был в методе onEnterModule при любых межмодульных переходах)
+      eventBus.enterModule(activeModuleId, scope.isMain(activeModuleId) ? null : new JepViewListPlace());
     } catch(Throwable th) {
       th.printStackTrace();
       messageBox.showError(th);

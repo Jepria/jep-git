@@ -22,7 +22,7 @@ public class JepEmailField extends JepTextField {
   
   /**
    * https://www.mkyong.com/regular-expressions/how-to-validate-email-address-with-regular-expression/
-   * <pre>
+   * <code>
    ^      #start of the line
       [_A-Za-z0-9-\\+]+ #  must start with string in the bracket [ ], must contains one or more (+)
       (     #   start of group #1
@@ -37,7 +37,7 @@ public class JepEmailField extends JepTextField {
            \\.[A-Za-z]{2,}  #           follow by a dot "." and string in the bracket [ ], with minimum length of 2
           )     #         end of group #3
     $     #end of the line
-   * </pre>
+   * </code>
    */
   private static final RegExp ALLOWED_REG_EXP = RegExp.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
 

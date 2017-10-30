@@ -18,8 +18,8 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10,"i14":10,"i15":10,"i16":10,"i17":10,"i18":10,"i19":10,"i20":10,"i21":10,"i22":10,"i23":10,"i24":10,"i25":10,"i26":10,"i27":10,"i28":10,"i29":10,"i30":10,"i31":10,"i32":10};
-var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
+var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10,"i14":10,"i15":10,"i16":10,"i17":10,"i18":10,"i19":10,"i20":10,"i21":10,"i22":10,"i23":10,"i24":10,"i25":10,"i26":10,"i27":10,"i28":10,"i29":10,"i30":10,"i31":10,"i32":10,"i33":6,"i34":10,"i35":10};
+var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],4:["t3","Abstract Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
 var tableTab = "tableTab";
@@ -105,13 +105,7 @@ var activeTableTab = "activeTableTab";
 <li>com.google.gwt.user.client.ui.Widget</li>
 <li>
 <ul class="inheritance">
-<li>com.google.gwt.user.client.ui.Panel</li>
-<li>
-<ul class="inheritance">
-<li>com.google.gwt.user.client.ui.ComplexPanel</li>
-<li>
-<ul class="inheritance">
-<li>com.google.gwt.user.client.ui.DeckPanel</li>
+<li>com.google.gwt.user.client.ui.Composite</li>
 <li>
 <ul class="inheritance">
 <li><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html" title="class in com.technology.jep.jepria.client.widget.field.multistate">com.technology.jep.jepria.client.widget.field.multistate.JepMultiStateField</a>&lt;<a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/large/JepFileUpload.html" title="class in com.technology.jep.jepria.client.widget.field.multistate.large">JepFileUpload</a>,V&gt;</li>
@@ -129,16 +123,12 @@ var activeTableTab = "activeTableTab";
 </ul>
 </li>
 </ul>
-</li>
-</ul>
-</li>
-</ul>
 <div class="description">
 <ul class="blockList">
 <li class="blockList">
 <dl>
 <dt>All Implemented Interfaces:</dt>
-<dd>com.google.gwt.event.logical.shared.HasAttachHandlers, com.google.gwt.event.shared.HasHandlers, com.google.gwt.user.client.EventListener, com.google.gwt.user.client.ui.HasAnimation, com.google.gwt.user.client.ui.HasVisibility, com.google.gwt.user.client.ui.HasWidgets, com.google.gwt.user.client.ui.HasWidgets.ForIsWidget, com.google.gwt.user.client.ui.IndexedPanel, com.google.gwt.user.client.ui.IndexedPanel.ForIsWidget, com.google.gwt.user.client.ui.InsertPanel, com.google.gwt.user.client.ui.InsertPanel.ForIsWidget, com.google.gwt.user.client.ui.IsWidget, <a href="../../../../../../../../../com/technology/jep/jepria/client/widget/event/JepObservable.html" title="interface in com.technology.jep.jepria.client.widget.event">JepObservable</a>, <a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/JepField.html" title="interface in com.technology.jep.jepria.client.widget.field">JepField</a>&lt;<a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/large/JepFileUpload.html" title="class in com.technology.jep.jepria.client.widget.field.multistate.large">JepFileUpload</a>,V&gt;, <a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiState.html" title="interface in com.technology.jep.jepria.client.widget.field.multistate">JepMultiState</a>, <a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/validation/Validator.html" title="interface in com.technology.jep.jepria.client.widget.field.validation">Validator</a>, java.lang.Iterable&lt;com.google.gwt.user.client.ui.Widget&gt;</dd>
+<dd>com.google.gwt.event.logical.shared.HasAttachHandlers, com.google.gwt.event.shared.HasHandlers, com.google.gwt.user.client.EventListener, com.google.gwt.user.client.ui.HasVisibility, com.google.gwt.user.client.ui.IsRenderable, com.google.gwt.user.client.ui.IsWidget, <a href="../../../../../../../../../com/technology/jep/jepria/client/widget/event/JepObservable.html" title="interface in com.technology.jep.jepria.client.widget.event">JepObservable</a>, <a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/JepField.html" title="interface in com.technology.jep.jepria.client.widget.field">JepField</a>&lt;<a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/large/JepFileUpload.html" title="class in com.technology.jep.jepria.client.widget.field.multistate.large">JepFileUpload</a>,V&gt;, <a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiState.html" title="interface in com.technology.jep.jepria.client.widget.field.multistate">JepMultiState</a>, <a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/validation/Validator.html" title="interface in com.technology.jep.jepria.client.widget.field.validation">Validator</a></dd>
 </dl>
 <dl>
 <dt>Direct Known Subclasses:</dt>
@@ -179,20 +169,6 @@ extends <a href="../../../../../../../../../com/technology/jep/jepria/client/wid
 </a>
 <h3>Nested classes/interfaces inherited from class&nbsp;com.google.gwt.user.client.ui.UIObject</h3>
 <code>com.google.gwt.user.client.ui.UIObject.DebugIdImpl, com.google.gwt.user.client.ui.UIObject.DebugIdImplEnabled</code></li>
-</ul>
-<ul class="blockList">
-<li class="blockList"><a name="nested.classes.inherited.from.class.com.google.gwt.user.client.ui.InsertPanel">
-<!--   -->
-</a>
-<h3>Nested classes/interfaces inherited from interface&nbsp;com.google.gwt.user.client.ui.InsertPanel</h3>
-<code>com.google.gwt.user.client.ui.InsertPanel.ForIsWidget</code></li>
-</ul>
-<ul class="blockList">
-<li class="blockList"><a name="nested.classes.inherited.from.class.com.google.gwt.user.client.ui.HasWidgets">
-<!--   -->
-</a>
-<h3>Nested classes/interfaces inherited from interface&nbsp;com.google.gwt.user.client.ui.HasWidgets</h3>
-<code>com.google.gwt.user.client.ui.HasWidgets.ForIsWidget</code></li>
 </ul>
 </li>
 </ul>
@@ -251,7 +227,7 @@ extends <a href="../../../../../../../../../com/technology/jep/jepria/client/wid
 </td>
 </tr>
 <tr class="rowColor">
-<td class="colFirst"><code>protected com.google.gwt.user.client.ui.SimplePanel</code></td>
+<td class="colFirst"><code>protected <a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/large/JepLargeField.html" title="type parameter in JepLargeField">V</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/large/JepLargeField.html#editablePanelViewCard">editablePanelViewCard</a></span></code>
 <div class="block">Панель, на которой располагается карту Просмотра для отображения на карте Редактирования (используется в режиме <code>WorkstateEnum.EDIT</code>).</div>
 </td>
@@ -322,7 +298,7 @@ extends <a href="../../../../../../../../../com/technology/jep/jepria/client/wid
 <!--   -->
 </a>
 <h3>Fields inherited from class&nbsp;com.technology.jep.jepria.client.widget.field.multistate.<a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html" title="class in com.technology.jep.jepria.client.widget.field.multistate">JepMultiStateField</a></h3>
-<code><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#Z:Z_workstate">_workstate</a>, <a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#ALIGN_ATTRIBUTE_NAME">ALIGN_ATTRIBUTE_NAME</a>, <a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#allowBlank">allowBlank</a>, <a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#editable">editable</a>, <a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#EDITABLE_CARD_STYLE">EDITABLE_CARD_STYLE</a>, <a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#editableCard">editableCard</a>, <a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#editableCardLabel">editableCardLabel</a>, <a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#editablePanel">editablePanel</a>, <a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#errorIcon">errorIcon</a>, <a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#FIELD_INDICATOR_STYLE">FIELD_INDICATOR_STYLE</a>, <a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#fieldIdAsWebEl">fieldIdAsWebEl</a>, <a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#LABEL_FIELD_STYLE">LABEL_FIELD_STYLE</a>, <a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#loadingIcon">loadingIcon</a>, <a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#observable">observable</a>, <a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#VIEW_CARD_STYLE">VIEW_CARD_STYLE</a>, <a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#viewCard">viewCard</a>, <a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#viewCardLabel">viewCardLabel</a>, <a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#viewPanel">viewPanel</a></code></li>
+<code><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#Z:Z_workstate">_workstate</a>, <a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#ALIGN_ATTRIBUTE_NAME">ALIGN_ATTRIBUTE_NAME</a>, <a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#allowBlank">allowBlank</a>, <a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#editable">editable</a>, <a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#EDITABLE_CARD_STYLE">EDITABLE_CARD_STYLE</a>, <a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#editableCard">editableCard</a>, <a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#editableCardLabel">editableCardLabel</a>, <a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#editablePanel">editablePanel</a>, <a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#errorIcon">errorIcon</a>, <a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#FIELD_INDICATOR_STYLE">FIELD_INDICATOR_STYLE</a>, <a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#fieldIdAsWebEl">fieldIdAsWebEl</a>, <a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#LABEL_FIELD_STYLE">LABEL_FIELD_STYLE</a>, <a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#loadingIcon">loadingIcon</a>, <a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#mainPanel">mainPanel</a>, <a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#observable">observable</a>, <a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#uiBinder">uiBinder</a>, <a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#VIEW_CARD_STYLE">VIEW_CARD_STYLE</a>, <a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#viewCard">viewCard</a>, <a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#viewCardLabel">viewCardLabel</a>, <a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#viewPanel">viewPanel</a></code></li>
 </ul>
 <ul class="blockList">
 <li class="blockList"><a name="fields.inherited.from.class.com.google.gwt.user.client.ui.UIObject">
@@ -366,7 +342,7 @@ extends <a href="../../../../../../../../../com/technology/jep/jepria/client/wid
 </a>
 <h3>Method Summary</h3>
 <table class="memberSummary" border="0" cellpadding="3" cellspacing="0" summary="Method Summary table, listing methods, and an explanation">
-<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">Instance Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t4" class="tableTab"><span><a href="javascript:show(8);">Concrete Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
+<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">Instance Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t3" class="tableTab"><span><a href="javascript:show(4);">Abstract Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t4" class="tableTab"><span><a href="javascript:show(8);">Concrete Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
 <tr>
 <th class="colFirst" scope="col">Modifier and Type</th>
 <th class="colLast" scope="col">Method and Description</th>
@@ -379,190 +355,210 @@ extends <a href="../../../../../../../../../com/technology/jep/jepria/client/wid
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>protected void</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/large/JepLargeField.html#addViewCard--">addViewCard</a></span>()</code>
+<div class="block">Метод, добавляющий на панель Просмотра соответствующее поле (компонент) Gwt.</div>
+</td>
+</tr>
+<tr id="i2" class="altColor">
+<td class="colFirst"><code>protected void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/large/JepLargeField.html#applyStyle--">applyStyle</a></span>()</code>
 <div class="block">Метод для стилизации поля.</div>
 </td>
 </tr>
-<tr id="i2" class="altColor">
+<tr id="i3" class="rowColor">
 <td class="colFirst"><code>protected java.lang.String</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/large/JepLargeField.html#buildDownloadUrl-java.lang.Object-">buildDownloadUrl</a></span>(java.lang.Object&nbsp;reference)</code>
 <div class="block">Построение URL для загрузки файла</div>
 </td>
 </tr>
-<tr id="i3" class="rowColor">
+<tr id="i4" class="altColor">
 <td class="colFirst"><code>private void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/large/JepLargeField.html#changeIsDeleted-boolean-">changeIsDeleted</a></span>(boolean&nbsp;isDeleted)</code>
 <div class="block">Изменяет значение isDeleted и применяет изменения к отображению карт поля.</div>
 </td>
 </tr>
-<tr id="i4" class="altColor">
+<tr id="i5" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/large/JepLargeField.html#clear--">clear</a></span>()</code>
 <div class="block">Очищает значение поля.</div>
 </td>
 </tr>
-<tr id="i5" class="rowColor">
+<tr id="i6" class="altColor">
+<td class="colFirst"><code>protected <a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/large/JepLargeField.html" title="type parameter in JepLargeField">V</a></code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/large/JepLargeField.html#createViewCard--">createViewCard</a></span>()</code>
+<div class="block">Создает карту Просмотра (объект класса HTML)</div>
+</td>
+</tr>
+<tr id="i7" class="rowColor">
 <td class="colFirst"><code>protected void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/large/JepLargeField.html#fileChooseEventHandler-com.google.gwt.event.dom.client.ChangeEvent-">fileChooseEventHandler</a></span>(com.google.gwt.event.dom.client.ChangeEvent&nbsp;event)</code>
 <div class="block">Обработка события выбора файла в поле.</div>
 </td>
 </tr>
-<tr id="i6" class="altColor">
+<tr id="i8" class="altColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/large/JepLargeField.html#getFieldName--">getFieldName</a></span>()</code>
 <div class="block">Получение name (HTML-атрибута) input поля.</div>
 </td>
 </tr>
-<tr id="i7" class="rowColor">
+<tr id="i9" class="rowColor">
 <td class="colFirst"><code>com.google.gwt.user.client.ui.FormPanel</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/large/JepLargeField.html#getFormPanel--">getFormPanel</a></span>()</code>
 <div class="block">Получение ссылки на сабмит-форму</div>
 </td>
 </tr>
-<tr id="i8" class="altColor">
+<tr id="i10" class="altColor">
 <td class="colFirst"><code>com.google.gwt.user.client.ui.Hidden</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/large/JepLargeField.html#getHiddenPrimaryKeyField--">getHiddenPrimaryKeyField</a></span>()</code>
 <div class="block">Получение ссылки на hidden-поле, содержащее первичный ключ</div>
 </td>
 </tr>
-<tr id="i9" class="rowColor">
+<tr id="i11" class="rowColor">
 <td class="colFirst"><code><a href="../../../../../../../../../com/technology/jep/jepria/shared/record/lob/JepFileReference.html" title="class in com.technology.jep.jepria.shared.record.lob">JepFileReference</a>&lt;?&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/large/JepLargeField.html#getValue--">getValue</a></span>()</code>
 <div class="block">Получение значения поля.</div>
 </td>
 </tr>
-<tr id="i10" class="altColor">
+<tr id="i12" class="altColor">
 <td class="colFirst"><code>int</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/large/JepLargeField.html#getWidgetIndex-com.google.gwt.user.client.ui.Widget-">getWidgetIndex</a></span>(com.google.gwt.user.client.ui.Widget&nbsp;child)</code></td>
 </tr>
-<tr id="i11" class="rowColor">
+<tr id="i13" class="rowColor">
 <td class="colFirst"><code>protected void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/large/JepLargeField.html#initFileChooseHandler--">initFileChooseHandler</a></span>()</code>
 <div class="block">Инициализация обработчика "выбора файла" <code>ChangeHandler</code>.</div>
 </td>
 </tr>
-<tr id="i12" class="altColor">
+<tr id="i14" class="altColor">
 <td class="colFirst"><code>boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/large/JepLargeField.html#isDeleted--">isDeleted</a></span>()</code>
 <div class="block">Получение признака удаления файла(-ов).</div>
 </td>
 </tr>
-<tr id="i13" class="rowColor">
+<tr id="i15" class="rowColor">
 <td class="colFirst"><code>boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/large/JepLargeField.html#isFileReadyToUpload--">isFileReadyToUpload</a></span>()</code>
 <div class="block">Получение признака, что файл(-ы) готовы к загрузке.</div>
 </td>
 </tr>
-<tr id="i14" class="altColor">
+<tr id="i16" class="altColor">
 <td class="colFirst"><code>boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/large/JepLargeField.html#isFileSelected--">isFileSelected</a></span>()</code>
 <div class="block">Получение признака наличия выбранного пользователем файла(-ов).</div>
 </td>
 </tr>
-<tr id="i15" class="rowColor">
+<tr id="i17" class="rowColor">
 <td class="colFirst"><code>boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/large/JepLargeField.html#isValid--">isValid</a></span>()</code>
 <div class="block">Проверяет, содержит ли поле допустимое значение.</div>
 </td>
 </tr>
-<tr id="i16" class="altColor">
+<tr id="i18" class="altColor">
 <td class="colFirst"><code>protected void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/large/JepLargeField.html#onChangeWorkstate-com.technology.jep.jepria.client.ui.WorkstateEnum-">onChangeWorkstate</a></span>(<a href="../../../../../../../../../com/technology/jep/jepria/client/ui/WorkstateEnum.html" title="enum in com.technology.jep.jepria.client.ui">WorkstateEnum</a>&nbsp;newWorkstate)</code>
 <div class="block">Обработчик нового состояния.</div>
 </td>
 </tr>
-<tr id="i17" class="rowColor">
+<tr id="i19" class="rowColor">
 <td class="colFirst"><code>private void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/large/JepLargeField.html#onDeleteFile-com.google.gwt.event.dom.client.ClickEvent-">onDeleteFile</a></span>(com.google.gwt.event.dom.client.ClickEvent&nbsp;event)</code>
 <div class="block">Обработчика нажатия по иконке "Удаление файла".</div>
 </td>
 </tr>
-<tr id="i18" class="altColor">
+<tr id="i20" class="altColor">
 <td class="colFirst"><code>private void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/large/JepLargeField.html#onUndo-com.google.gwt.event.dom.client.ClickEvent-">onUndo</a></span>(com.google.gwt.event.dom.client.ClickEvent&nbsp;event)</code>
 <div class="block">Обработчика нажатия по иконке "Отмена".</div>
 </td>
 </tr>
-<tr id="i19" class="rowColor">
+<tr id="i21" class="rowColor">
 <td class="colFirst"><code>private void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/large/JepLargeField.html#prepareEditableTools-com.technology.jep.jepria.shared.record.lob.JepFileReference-com.technology.jep.jepria.client.ui.WorkstateEnum-">prepareEditableTools</a></span>(<a href="../../../../../../../../../com/technology/jep/jepria/shared/record/lob/JepFileReference.html" title="class in com.technology.jep.jepria.shared.record.lob">JepFileReference</a>&lt;?&gt;&nbsp;value,
                     <a href="../../../../../../../../../com/technology/jep/jepria/client/ui/WorkstateEnum.html" title="enum in com.technology.jep.jepria.client.ui">WorkstateEnum</a>&nbsp;workstate)</code>
 <div class="block">Подготовка инструментов редактирования поля.</div>
 </td>
 </tr>
-<tr id="i20" class="altColor">
+<tr id="i22" class="altColor">
 <td class="colFirst"><code>protected void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/large/JepLargeField.html#resetEditableCard--">resetEditableCard</a></span>()</code>
 <div class="block">Сброс значения загрузчика</div>
 </td>
 </tr>
-<tr id="i21" class="rowColor">
+<tr id="i23" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/large/JepLargeField.html#setAfterSubmitCommand-com.technology.jep.jepria.client.JepScheduledCommand-">setAfterSubmitCommand</a></span>(<a href="../../../../../../../../../com/technology/jep/jepria/client/JepScheduledCommand.html" title="class in com.technology.jep.jepria.client">JepScheduledCommand</a>&lt;java.lang.String&gt;&nbsp;command)</code>
 <div class="block">Установка команды, которая выполнится после сабмита формы</div>
 </td>
 </tr>
-<tr id="i22" class="altColor">
+<tr id="i24" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/large/JepLargeField.html#setBeforeSubmitCommand-com.google.gwt.core.client.Scheduler.ScheduledCommand-">setBeforeSubmitCommand</a></span>(com.google.gwt.core.client.Scheduler.ScheduledCommand&nbsp;command)</code>
 <div class="block">Установка команды, которая выполнится до сабмита формы</div>
 </td>
 </tr>
-<tr id="i23" class="rowColor">
+<tr id="i25" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/large/JepLargeField.html#setDownloadServletUrl-java.lang.String-">setDownloadServletUrl</a></span>(java.lang.String&nbsp;downloadServletUrl)</code>
 <div class="block">Установка URL сервлета выгрузки файла.</div>
 </td>
 </tr>
-<tr id="i24" class="altColor">
+<tr id="i26" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/large/JepLargeField.html#setEnabled-boolean-">setEnabled</a></span>(boolean&nbsp;enabled)</code>
-<div class="block">Установка доступности или недоступности (карты Редактирования) поля для редактирования.</div>
+<div class="block">Установка доступности или недоступности (карты Редактирования) поля для
+ редактирования.</div>
 </td>
 </tr>
-<tr id="i25" class="rowColor">
+<tr id="i27" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/large/JepLargeField.html#setFieldName-java.lang.String-">setFieldName</a></span>(java.lang.String&nbsp;name)</code>
 <div class="block">Установка name (HTML-атрибута) input поля.</div>
 </td>
 </tr>
-<tr id="i26" class="altColor">
+<tr id="i28" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/large/JepLargeField.html#setFieldWidth-int-">setFieldWidth</a></span>(int&nbsp;fieldWidth)</code>
 <div class="block">Установка ширины компонента редактирования поля.</div>
 </td>
 </tr>
-<tr id="i27" class="rowColor">
+<tr id="i29" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/large/JepLargeField.html#setMaxUploadFileSize-int-">setMaxUploadFileSize</a></span>(int&nbsp;length)</code>
 <div class="block">Set limit for uploaded file in Kbytes</div>
 </td>
 </tr>
-<tr id="i28" class="altColor">
+<tr id="i30" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/large/JepLargeField.html#setUploadServletUrl-java.lang.String-">setUploadServletUrl</a></span>(java.lang.String&nbsp;uploadServletUrl)</code>
 <div class="block">Установка URL сервлета загрузки файла на сервер.</div>
 </td>
 </tr>
-<tr id="i29" class="rowColor">
+<tr id="i31" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/large/JepLargeField.html#setValue-java.lang.Object-">setValue</a></span>(java.lang.Object&nbsp;value)</code>
 <div class="block">Установка значения поля.</div>
 </td>
 </tr>
-<tr id="i30" class="altColor">
-<td class="colFirst"><code>private void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/large/JepLargeField.html#setVisibleEditablePanelViewCard-boolean-">setVisibleEditablePanelViewCard</a></span>(boolean&nbsp;isVisible)</code>
-<div class="block">Отображение карты просмотра в контейнере на карте редактирования.</div>
+<tr id="i32" class="altColor">
+<td class="colFirst"><code>protected void</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/large/JepLargeField.html#setViewValue-java.lang.Object-">setViewValue</a></span>(java.lang.Object&nbsp;value)</code>
+<div class="block">Установка значения для карты Просмотра.</div>
 </td>
 </tr>
-<tr id="i31" class="rowColor">
+<tr id="i33" class="rowColor">
+<td class="colFirst"><code>protected abstract void</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/large/JepLargeField.html#setViewValue-V-java.lang.Object-">setViewValue</a></span>(<a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/large/JepLargeField.html" title="type parameter in JepLargeField">V</a>&nbsp;viewCard,
+            java.lang.Object&nbsp;value)</code>
+<div class="block">Установка значения для карты Просмотра.</div>
+</td>
+</tr>
+<tr id="i34" class="altColor">
 <td class="colFirst"><code>private void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/large/JepLargeField.html#showDeleteFileIcon--">showDeleteFileIcon</a></span>()</code>
 <div class="block">Инициализация иконки и обработчика удаления файла.</div>
 </td>
 </tr>
-<tr id="i32" class="altColor">
+<tr id="i35" class="rowColor">
 <td class="colFirst"><code>private void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/large/JepLargeField.html#showUndoIcon--">showUndoIcon</a></span>()</code>
 <div class="block">Инициализация иконки и обработчика отмены действия.</div>
@@ -574,42 +570,28 @@ extends <a href="../../../../../../../../../com/technology/jep/jepria/client/wid
 <!--   -->
 </a>
 <h3>Methods inherited from class&nbsp;com.technology.jep.jepria.client.widget.field.multistate.<a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html" title="class in com.technology.jep.jepria.client.widget.field.multistate">JepMultiStateField</a></h3>
-<code><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#addListener-com.technology.jep.jepria.client.widget.event.JepEventType-com.technology.jep.jepria.client.widget.event.JepListener-">addListener</a>, <a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#addViewCard--">addViewCard</a>, <a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#changeWorkstate-com.technology.jep.jepria.client.ui.WorkstateEnum-">changeWorkstate</a>, <a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#clearInvalid--">clearInvalid</a>, <a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#clearView--">clearView</a>, <a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#getEditableCard--">getEditableCard</a>, <a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#getFieldLabel--">getFieldLabel</a>, <a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#getInputElement--">getInputElement</a>, <a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#getListeners-com.technology.jep.jepria.client.widget.event.JepEventType-">getListeners</a>, <a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#getRawValue--">getRawValue</a>, <a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#getViewCard--">getViewCard</a>, <a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#getWebId--">getWebId</a>, <a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#markInvalid-java.lang.String-">markInvalid</a>, <a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#notifyListeners-com.technology.jep.jepria.client.widget.event.JepEventType-com.technology.jep.jepria.client.widget.event.JepEvent-">notifyListeners</a>, <a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#removeListener-com.technology.jep.jepria.client.widget.event.JepEventType-com.technology.jep.jepria.client.widget.event.JepListener-">removeListener</a>, <a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#removeMarginsAndPaddings-com.google.gwt.dom.client.Element-">removeMarginsAndPaddings</a>, <a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#setAllowBlank-boolean-">setAllowBlank</a>, <a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#setEditable-boolean-">setEditable</a>, <a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#setFieldHeight-int-">setFieldHeight</a>, <a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#setFieldLabel-java.lang.String-">setFieldLabel</a>, <a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#setLabelSeparator-java.lang.String-">setLabelSeparator</a>, <a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#setLabelWidth-int-">setLabelWidth</a>, <a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#setLoadingImage-boolean-">setLoadingImage</a>, <a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#setViewValue-java.lang.Object-">setViewValue</a>, <a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#setWebId-java.lang.String-">setWebId</a>, <a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#setWebIds--">setWebIds</a></code></li>
+<code><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#addListener-com.technology.jep.jepria.client.widget.event.JepEventType-com.technology.jep.jepria.client.widget.event.JepListener-">addListener</a>, <a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#changeWorkstate-com.technology.jep.jepria.client.ui.WorkstateEnum-">changeWorkstate</a>, <a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#clearInvalid--">clearInvalid</a>, <a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#clearView--">clearView</a>, <a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#getEditableCard--">getEditableCard</a>, <a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#getFieldLabel--">getFieldLabel</a>, <a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#getInputElement--">getInputElement</a>, <a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#getListeners-com.technology.jep.jepria.client.widget.event.JepEventType-">getListeners</a>, <a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#getMainWidget--">getMainWidget</a>, <a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#getRawValue--">getRawValue</a>, <a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#getViewCard--">getViewCard</a>, <a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#getWebId--">getWebId</a>, <a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#markInvalid-java.lang.String-">markInvalid</a>, <a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#notifyListeners-com.technology.jep.jepria.client.widget.event.JepEventType-com.technology.jep.jepria.client.widget.event.JepEvent-">notifyListeners</a>, <a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#removeListener-com.technology.jep.jepria.client.widget.event.JepEventType-com.technology.jep.jepria.client.widget.event.JepListener-">removeListener</a>, <a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#removeMarginsAndPaddings-com.google.gwt.dom.client.Element-">removeMarginsAndPaddings</a>, <a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#setAllowBlank-boolean-">setAllowBlank</a>, <a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#setEditable-boolean-">setEditable</a>, <a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#setFieldHeight-int-">setFieldHeight</a>, <a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#setFieldLabel-java.lang.String-">setFieldLabel</a>, <a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#setLabelSeparator-java.lang.String-">setLabelSeparator</a>, <a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#setLabelWidth-int-">setLabelWidth</a>, <a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#setLoadingImage-boolean-">setLoadingImage</a>, <a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#setWebId-java.lang.String-">setWebId</a>, <a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#setWebIds--">setWebIds</a>, <a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#showWidget-int-">showWidget</a></code></li>
 </ul>
 <ul class="blockList">
-<li class="blockList"><a name="methods.inherited.from.class.com.google.gwt.user.client.ui.DeckPanel">
+<li class="blockList"><a name="methods.inherited.from.class.com.google.gwt.user.client.ui.Composite">
 <!--   -->
 </a>
-<h3>Methods inherited from class&nbsp;com.google.gwt.user.client.ui.DeckPanel</h3>
-<code>add, getVisibleWidget, insert, insert, isAnimationEnabled, remove, setAnimationEnabled, showWidget</code></li>
-</ul>
-<ul class="blockList">
-<li class="blockList"><a name="methods.inherited.from.class.com.google.gwt.user.client.ui.ComplexPanel">
-<!--   -->
-</a>
-<h3>Methods inherited from class&nbsp;com.google.gwt.user.client.ui.ComplexPanel</h3>
-<code>add, add, adjustIndex, checkIndexBoundsForAccess, checkIndexBoundsForInsertion, getChildren, getWidget, getWidgetCount, getWidgetIndex, insert, insert, iterator, remove</code></li>
-</ul>
-<ul class="blockList">
-<li class="blockList"><a name="methods.inherited.from.class.com.google.gwt.user.client.ui.Panel">
-<!--   -->
-</a>
-<h3>Methods inherited from class&nbsp;com.google.gwt.user.client.ui.Panel</h3>
-<code>add, adopt, doAttachChildren, doDetachChildren, orphan, remove</code></li>
+<h3>Methods inherited from class&nbsp;com.google.gwt.user.client.ui.Composite</h3>
+<code>claimElement, getWidget, initializeClaimedElement, initWidget, isAttached, onAttach, onBrowserEvent, onDetach, render, render, resolvePotentialElement, setWidget</code></li>
 </ul>
 <ul class="blockList">
 <li class="blockList"><a name="methods.inherited.from.class.com.google.gwt.user.client.ui.Widget">
 <!--   -->
 </a>
 <h3>Methods inherited from class&nbsp;com.google.gwt.user.client.ui.Widget</h3>
-<code>addAttachHandler, addBitlessDomHandler, addDomHandler, addHandler, asWidget, asWidgetOrNull, createHandlerManager, delegateEvent, fireEvent, getHandlerCount, getLayoutData, getParent, isAttached, isOrWasAttached, onAttach, onBrowserEvent, onDetach, onLoad, onUnload, removeFromParent, setLayoutData, sinkEvents, unsinkEvents</code></li>
+<code>addAttachHandler, addBitlessDomHandler, addDomHandler, addHandler, asWidget, asWidgetOrNull, createHandlerManager, delegateEvent, doAttachChildren, doDetachChildren, fireEvent, getHandlerCount, getLayoutData, getParent, isOrWasAttached, onLoad, onUnload, removeFromParent, setLayoutData, sinkEvents, unsinkEvents</code></li>
 </ul>
 <ul class="blockList">
 <li class="blockList"><a name="methods.inherited.from.class.com.google.gwt.user.client.ui.UIObject">
 <!--   -->
 </a>
 <h3>Methods inherited from class&nbsp;com.google.gwt.user.client.ui.UIObject</h3>
-<code>addStyleDependentName, addStyleName, ensureDebugId, ensureDebugId, ensureDebugId, getAbsoluteLeft, getAbsoluteTop, getElement, getOffsetHeight, getOffsetWidth, getStyleElement, getStyleName, getStyleName, getStylePrimaryName, getStylePrimaryName, getTitle, isVisible, isVisible, onEnsureDebugId, removeStyleDependentName, removeStyleName, resolvePotentialElement, setElement, setElement, setHeight, setPixelSize, setSize, setStyleDependentName, setStyleName, setStyleName, setStyleName, setStyleName, setStylePrimaryName, setStylePrimaryName, setTitle, setVisible, setVisible, setWidth, sinkBitlessEvent, toString</code></li>
+<code>addStyleDependentName, addStyleName, ensureDebugId, ensureDebugId, ensureDebugId, getAbsoluteLeft, getAbsoluteTop, getElement, getOffsetHeight, getOffsetWidth, getStyleElement, getStyleName, getStyleName, getStylePrimaryName, getStylePrimaryName, getTitle, isVisible, isVisible, onEnsureDebugId, removeStyleDependentName, removeStyleName, setElement, setElement, setHeight, setPixelSize, setSize, setStyleDependentName, setStyleName, setStyleName, setStyleName, setStyleName, setStylePrimaryName, setStylePrimaryName, setTitle, setVisible, setVisible, setWidth, sinkBitlessEvent, toString</code></li>
 </ul>
 <ul class="blockList">
 <li class="blockList"><a name="methods.inherited.from.class.java.lang.Object">
@@ -617,34 +599,6 @@ extends <a href="../../../../../../../../../com/technology/jep/jepria/client/wid
 </a>
 <h3>Methods inherited from class&nbsp;java.lang.Object</h3>
 <code>clone, equals, finalize, getClass, hashCode, notify, notifyAll, wait, wait, wait</code></li>
-</ul>
-<ul class="blockList">
-<li class="blockList"><a name="methods.inherited.from.class.com.google.gwt.user.client.ui.InsertPanel.ForIsWidget">
-<!--   -->
-</a>
-<h3>Methods inherited from interface&nbsp;com.google.gwt.user.client.ui.InsertPanel.ForIsWidget</h3>
-<code>add</code></li>
-</ul>
-<ul class="blockList">
-<li class="blockList"><a name="methods.inherited.from.class.com.google.gwt.user.client.ui.IndexedPanel.ForIsWidget">
-<!--   -->
-</a>
-<h3>Methods inherited from interface&nbsp;com.google.gwt.user.client.ui.IndexedPanel.ForIsWidget</h3>
-<code>getWidgetIndex</code></li>
-</ul>
-<ul class="blockList">
-<li class="blockList"><a name="methods.inherited.from.class.com.google.gwt.user.client.ui.IndexedPanel">
-<!--   -->
-</a>
-<h3>Methods inherited from interface&nbsp;com.google.gwt.user.client.ui.IndexedPanel</h3>
-<code>getWidget, getWidgetCount, remove</code></li>
-</ul>
-<ul class="blockList">
-<li class="blockList"><a name="methods.inherited.from.class.java.lang.Iterable">
-<!--   -->
-</a>
-<h3>Methods inherited from interface&nbsp;java.lang.Iterable</h3>
-<code>forEach, spliterator</code></li>
 </ul>
 </li>
 </ul>
@@ -806,7 +760,7 @@ extends <a href="../../../../../../../../../com/technology/jep/jepria/client/wid
 <ul class="blockList">
 <li class="blockList">
 <h4>editablePanelViewCard</h4>
-<pre>protected&nbsp;com.google.gwt.user.client.ui.SimplePanel editablePanelViewCard</pre>
+<pre>protected&nbsp;<a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/large/JepLargeField.html" title="type parameter in JepLargeField">V</a> extends com.google.gwt.user.client.ui.Widget editablePanelViewCard</pre>
 <div class="block">Панель, на которой располагается карту Просмотра для отображения на карте Редактирования (используется в режиме <code>WorkstateEnum.EDIT</code>).</div>
 </li>
 </ul>
@@ -900,6 +854,34 @@ public&nbsp;JepLargeField(java.lang.String&nbsp;fieldLabel)</pre>
 </dl>
 </li>
 </ul>
+<a name="addViewCard--">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>addViewCard</h4>
+<pre>protected&nbsp;void&nbsp;addViewCard()</pre>
+<div class="block">Метод, добавляющий на панель Просмотра соответствующее поле (компонент) Gwt.<br/></div>
+<dl>
+<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
+<dd><code><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#addViewCard--">addViewCard</a></code>&nbsp;in class&nbsp;<code><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html" title="class in com.technology.jep.jepria.client.widget.field.multistate">JepMultiStateField</a>&lt;<a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/large/JepFileUpload.html" title="class in com.technology.jep.jepria.client.widget.field.multistate.large">JepFileUpload</a>,<a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/large/JepLargeField.html" title="type parameter in JepLargeField">V</a> extends com.google.gwt.user.client.ui.Widget&gt;</code></dd>
+</dl>
+</li>
+</ul>
+<a name="createViewCard--">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>createViewCard</h4>
+<pre>protected&nbsp;<a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/large/JepLargeField.html" title="type parameter in JepLargeField">V</a>&nbsp;createViewCard()</pre>
+<div class="block">Создает карту Просмотра (объект класса HTML)</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>карта Просмотра.</dd>
+</dl>
+</li>
+</ul>
 <a name="onChangeWorkstate-com.technology.jep.jepria.client.ui.WorkstateEnum-">
 <!--   -->
 </a>
@@ -923,7 +905,8 @@ public&nbsp;JepLargeField(java.lang.String&nbsp;fieldLabel)</pre>
 <li class="blockList">
 <h4>setEnabled</h4>
 <pre>public&nbsp;void&nbsp;setEnabled(boolean&nbsp;enabled)</pre>
-<div class="block">Установка доступности или недоступности (карты Редактирования) поля для редактирования.</div>
+<div class="block">Установка доступности или недоступности (карты Редактирования) поля для
+ редактирования.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/JepField.html#setEnabled-boolean-">setEnabled</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/JepField.html" title="interface in com.technology.jep.jepria.client.widget.field">JepField</a>&lt;<a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/large/JepFileUpload.html" title="class in com.technology.jep.jepria.client.widget.field.multistate.large">JepFileUpload</a>,<a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/large/JepLargeField.html" title="type parameter in JepLargeField">V</a> extends com.google.gwt.user.client.ui.Widget&gt;</code></dd>
@@ -942,13 +925,14 @@ public&nbsp;JepLargeField(java.lang.String&nbsp;fieldLabel)</pre>
 <h4>clear</h4>
 <pre>public&nbsp;void&nbsp;clear()</pre>
 <div class="block">Очищает значение поля.<br/>
- При очистке значения поля, очищаются значения для обеих карт сразу: для карты Редактирования и карты Просмотра.
+ При очистке значения поля, очищаются значения для обеих карт сразу: для
+ карты Редактирования и карты Просмотра.
  
  Особенность:<br/>
- Перекрытие метода обусловлено вызывом метода <code>Panel.clear()</code>, удаляюшяего все элементы с панели.</div>
+ Перекрытие метода обусловлено вызывом метода
+ <code>Panel.clear()</code>, удаляюшяего все
+ элементы с панели.</div>
 <dl>
-<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code>clear</code>&nbsp;in interface&nbsp;<code>com.google.gwt.user.client.ui.HasWidgets</code></dd>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/JepField.html#clear--">clear</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/JepField.html" title="interface in com.technology.jep.jepria.client.widget.field">JepField</a>&lt;<a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/large/JepFileUpload.html" title="class in com.technology.jep.jepria.client.widget.field.multistate.large">JepFileUpload</a>,<a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/large/JepLargeField.html" title="type parameter in JepLargeField">V</a> extends com.google.gwt.user.client.ui.Widget&gt;</code></dd>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
@@ -1155,21 +1139,6 @@ public&nbsp;JepLargeField(java.lang.String&nbsp;fieldLabel)</pre>
 </dl>
 </li>
 </ul>
-<a name="setVisibleEditablePanelViewCard-boolean-">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>setVisibleEditablePanelViewCard</h4>
-<pre>private&nbsp;void&nbsp;setVisibleEditablePanelViewCard(boolean&nbsp;isVisible)</pre>
-<div class="block">Отображение карты просмотра в контейнере на карте редактирования. <br/>
- Необходимо отобразить/скрыть сам контейнер, переместить карту Просмотра в контейнер или обратно на viewPanel.</div>
-<dl>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>isVisible</code> - </dd>
-</dl>
-</li>
-</ul>
 <a name="getValue--">
 <!--   -->
 </a>
@@ -1247,11 +1216,11 @@ public&nbsp;JepLargeField(java.lang.String&nbsp;fieldLabel)</pre>
 <li class="blockList">
 <h4>isValid</h4>
 <pre>public&nbsp;boolean&nbsp;isValid()</pre>
-<div class="block">Проверяет, содержит ли поле допустимое значение.
- <br>
- Предварительно очищает сообщение об ошибке. Если поле является обязательным, а
- введённое значение пусто, устанавливает сообщение об ошибке и возвращает false. 
- Предназначен для переопределения в классах-наследниках.</div>
+<div class="block">Проверяет, содержит ли поле допустимое значение. <br>
+ Предварительно очищает сообщение об ошибке. Если поле является
+ обязательным, а введённое значение пусто, устанавливает сообщение об
+ ошибке и возвращает false. Предназначен для переопределения в
+ классах-наследниках.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/JepField.html#isValid--">isValid</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/JepField.html" title="interface in com.technology.jep.jepria.client.widget.field">JepField</a>&lt;<a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/large/JepFileUpload.html" title="class in com.technology.jep.jepria.client.widget.field.multistate.large">JepFileUpload</a>,<a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/large/JepLargeField.html" title="type parameter in JepLargeField">V</a> extends com.google.gwt.user.client.ui.Widget&gt;</code></dd>
@@ -1260,7 +1229,7 @@ public&nbsp;JepLargeField(java.lang.String&nbsp;fieldLabel)</pre>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
 <dd><code><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#isValid--">isValid</a></code>&nbsp;in class&nbsp;<code><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html" title="class in com.technology.jep.jepria.client.widget.field.multistate">JepMultiStateField</a>&lt;<a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/large/JepFileUpload.html" title="class in com.technology.jep.jepria.client.widget.field.multistate.large">JepFileUpload</a>,<a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/large/JepLargeField.html" title="type parameter in JepLargeField">V</a> extends com.google.gwt.user.client.ui.Widget&gt;</code></dd>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>true - если поле содержит допустимое значение, false - в противном случае</dd>
+<dd>true - если поле содержит допустимое значение, false - в        противном случае</dd>
 </dl>
 </li>
 </ul>
@@ -1272,10 +1241,8 @@ public&nbsp;JepLargeField(java.lang.String&nbsp;fieldLabel)</pre>
 <h4>getWidgetIndex</h4>
 <pre>public&nbsp;int&nbsp;getWidgetIndex(com.google.gwt.user.client.ui.Widget&nbsp;child)</pre>
 <dl>
-<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code>getWidgetIndex</code>&nbsp;in interface&nbsp;<code>com.google.gwt.user.client.ui.IndexedPanel</code></dd>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
-<dd><code>getWidgetIndex</code>&nbsp;in class&nbsp;<code>com.google.gwt.user.client.ui.ComplexPanel</code></dd>
+<dd><code><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#getWidgetIndex-com.google.gwt.user.client.ui.Widget-">getWidgetIndex</a></code>&nbsp;in class&nbsp;<code><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html" title="class in com.technology.jep.jepria.client.widget.field.multistate">JepMultiStateField</a>&lt;<a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/large/JepFileUpload.html" title="class in com.technology.jep.jepria.client.widget.field.multistate.large">JepFileUpload</a>,<a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/large/JepLargeField.html" title="type parameter in JepLargeField">V</a> extends com.google.gwt.user.client.ui.Widget&gt;</code></dd>
 </dl>
 </li>
 </ul>
@@ -1357,7 +1324,8 @@ public&nbsp;JepLargeField(java.lang.String&nbsp;fieldLabel)</pre>
 <h4>applyStyle</h4>
 <pre>protected&nbsp;void&nbsp;applyStyle()</pre>
 <div class="block">Метод для стилизации поля.<br/>
- Для применения новых стилей элемента необходимо в наследниках перекрывать данный метод.</div>
+ Для применения новых стилей элемента необходимо в наследниках перекрывать
+ данный метод.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
 <dd><code><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#applyStyle--">applyStyle</a></code>&nbsp;in class&nbsp;<code><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html" title="class in com.technology.jep.jepria.client.widget.field.multistate">JepMultiStateField</a>&lt;<a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/large/JepFileUpload.html" title="class in com.technology.jep.jepria.client.widget.field.multistate.large">JepFileUpload</a>,<a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/large/JepLargeField.html" title="type parameter in JepLargeField">V</a> extends com.google.gwt.user.client.ui.Widget&gt;</code></dd>
@@ -1367,7 +1335,7 @@ public&nbsp;JepLargeField(java.lang.String&nbsp;fieldLabel)</pre>
 <a name="setFieldWidth-int-">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>setFieldWidth</h4>
 <pre>public&nbsp;void&nbsp;setFieldWidth(int&nbsp;fieldWidth)</pre>
@@ -1379,6 +1347,52 @@ public&nbsp;JepLargeField(java.lang.String&nbsp;fieldLabel)</pre>
 <dd><code><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#setFieldWidth-int-">setFieldWidth</a></code>&nbsp;in class&nbsp;<code><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html" title="class in com.technology.jep.jepria.client.widget.field.multistate">JepMultiStateField</a>&lt;<a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/large/JepFileUpload.html" title="class in com.technology.jep.jepria.client.widget.field.multistate.large">JepFileUpload</a>,<a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/large/JepLargeField.html" title="type parameter in JepLargeField">V</a> extends com.google.gwt.user.client.ui.Widget&gt;</code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>fieldWidth</code> - ширина компонента редактирования поля</dd>
+</dl>
+</li>
+</ul>
+<a name="setViewValue-java.lang.Object-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setViewValue</h4>
+<pre>protected&nbsp;void&nbsp;setViewValue(java.lang.Object&nbsp;value)</pre>
+<div class="block">Установка значения для карты Просмотра.<br/>
+ При перегрузке данного метода в наследниках необходимо обеспечить, чтобы
+ данный метод был быстрым/НЕ ресурсо-затратным.<br/>
+ 
+ Основная идея Jep-полей: они должны быть легкими. Поэтому, карта
+ Просмотра должна быть именно текстовым (или простым Html) представлением
+ значения карты Редактирования.<br/>
+ В тех случаях, когда чисто текстовое представление нецелесообразно
+ (списки, деревья и т.п.) - в поле используется ТОЛЬКО одна карта - карта
+ Редактирования (т.е. карта Просмотра - вообще НЕ используется).
+ 
+ Для строковых значений производится кодирование специальных символов в
+ html-эквивалент для корректного отображения на странице.</div>
+<dl>
+<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
+<dd><code><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#setViewValue-java.lang.Object-">setViewValue</a></code>&nbsp;in class&nbsp;<code><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html" title="class in com.technology.jep.jepria.client.widget.field.multistate">JepMultiStateField</a>&lt;<a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/large/JepFileUpload.html" title="class in com.technology.jep.jepria.client.widget.field.multistate.large">JepFileUpload</a>,<a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/large/JepLargeField.html" title="type parameter in JepLargeField">V</a> extends com.google.gwt.user.client.ui.Widget&gt;</code></dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>value</code> - значение для карты Просмотра</dd>
+</dl>
+</li>
+</ul>
+<a name="setViewValue-com.google.gwt.user.client.ui.Widget-java.lang.Object-">
+<!--   -->
+</a><a name="setViewValue-V-java.lang.Object-">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>setViewValue</h4>
+<pre>protected abstract&nbsp;void&nbsp;setViewValue(<a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/large/JepLargeField.html" title="type parameter in JepLargeField">V</a>&nbsp;viewCard,
+                                     java.lang.Object&nbsp;value)</pre>
+<div class="block">Установка значения для карты Просмотра. Метод для переопределения в потомках.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>viewCard</code> - карта Просмотра</dd>
+<dd><code>value</code> - значение</dd>
 </dl>
 </li>
 </ul>
