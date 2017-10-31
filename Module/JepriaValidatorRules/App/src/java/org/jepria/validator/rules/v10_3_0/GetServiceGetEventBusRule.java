@@ -23,13 +23,11 @@ import com.github.javaparser.ast.body.BodyDeclaration;
 import com.github.javaparser.ast.body.ConstructorDeclaration;
 import com.github.javaparser.ast.body.MethodDeclaration;
 import com.github.javaparser.ast.body.TypeDeclaration;
-import com.github.javaparser.ast.expr.Expression;
 import com.github.javaparser.ast.stmt.BlockStmt;
 import com.github.javaparser.ast.stmt.ExpressionStmt;
 import com.github.javaparser.ast.stmt.IfStmt;
 import com.github.javaparser.ast.stmt.ReturnStmt;
 import com.github.javaparser.ast.stmt.Statement;
-import com.github.javaparser.ast.type.ClassOrInterfaceType;
 
 /**
  * Удаляет инициализацию dataService, mainService и eventBus в конструкторе фабрик
@@ -47,10 +45,21 @@ public class GetServiceGetEventBusRule extends ValidatorRule {
       
       for (TypeDeclaration<?> typeDeclaration: unit.getTypes()) {
         
-        modified |= getToCreate(typeDeclaration);
+        boolean isPlainClientFactoryImpl = Util.isPlainClientFactoryImpl(typeDeclaration);
+        boolean isMainClientFactoryImpl = Util.isMainClientFactoryImpl(typeDeclaration);
         
-        modified |= removeInitialization(typeDeclaration);
-        
+        if (isPlainClientFactoryImpl || isMainClientFactoryImpl) {
+          modified |= getEventBusToCreateEventBus(typeDeclaration);
+          modified |= initEventBusToCreateEventBus(typeDeclaration);
+        }
+        if (isPlainClientFactoryImpl) {
+          modified |= getServieToCreateService(typeDeclaration);
+          modified |= initDataServiceToCreateService(typeDeclaration);
+        }
+        if (isMainClientFactoryImpl) {
+          modified |= getMainServieToCreateMainService(typeDeclaration);
+          modified |= initMainServiceToCreateMainService(typeDeclaration);
+        }
       }
       
       if (modified) {
@@ -79,13 +88,11 @@ public class GetServiceGetEventBusRule extends ValidatorRule {
    * @param typeDeclaration
    * @return true если исходный код был изменен (и нужна трансформация), false иначе
    */
-  private boolean getToCreate(TypeDeclaration<?> typeDeclaration) {
+  private boolean getServieToCreateService(TypeDeclaration<?> typeDeclaration) {
     boolean modified = false;
     
-    MethodDeclaration method;
-    
     // преобразуем метод getService в createService
-    method = Util.getMethodBySignature(typeDeclaration, "getService()");
+    MethodDeclaration method = Util.getMethodBySignature(typeDeclaration, "getService()");
     if (method != null) {
       
       boolean checkingOk = false;
@@ -95,63 +102,52 @@ public class GetServiceGetEventBusRule extends ValidatorRule {
         
         /*
          * Проверяем что тело метода -- следующего вида:
-         * if(<name> == null) {
-         *   <name> = ...
+         * if(dataService == null) {
+         *   dataService = ...
          * }
-         * return <name>;
+         * return dataService;
          */
         List<Node> nodes = body.getChildNodes();
         if (nodes != null && nodes.size() == 2 && nodes.get(0) instanceof IfStmt && nodes.get(1) instanceof ReturnStmt) {
           IfStmt ifStmt = (IfStmt)nodes.get(0);
           ReturnStmt returnStmt = (ReturnStmt)nodes.get(1);
 
-          Expression condition = ifStmt.getCondition();
-          if (condition.getChildNodes() != null && condition.getChildNodes().size() > 0) {
-            final String name = condition.getChildNodes().get(0).toString();
-            if ((name + " == null").equals(ifStmt.getCondition().toString())) {
-              Statement statement = ifStmt.getThenStmt();
-              if (statement != null && 
-                  statement.getChildNodes() != null && 
-                  statement.getChildNodes().size() == 1) {
+          if ("dataService == null".equals(ifStmt.getCondition().toString())) {
+            Statement statement = ifStmt.getThenStmt();
+            if (statement != null && 
+                statement.getChildNodes() != null && 
+                statement.getChildNodes().size() == 1) {
+              
+              final String assignExpr = statement.getChildNodes().get(0).toString();
+              if (assignExpr.startsWith("dataService = ")) {
                 
-                final String assignExpr = statement.getChildNodes().get(0).toString();
-                if (assignExpr.startsWith(name + " = ")) {
+                if (returnStmt.getExpression().isPresent() && 
+                    "dataService".equals(returnStmt.getExpression().get().toString())) {
                   
-                  if (returnStmt.getExpression().isPresent() && 
-                      name.equals(returnStmt.getExpression().get().toString())) {
+                  checkingOk = true;
+                  
+                  handleMessage(new Message(MessageLevel.AUTO_TRANSFORM, "Use createService() instead of getService()",
+                      MarkSpan.of(method.getName().getBegin(), method.getName().getEnd())));
+
+                  // модификация кода:
+                  
+                  // нет ли метода createService уже в этом классе?
+                  boolean createMethodExists = Util.getMethodBySignature(typeDeclaration, "createService()") != null;
+                  
+                  String returnType = method.getType().asString();
+                  
+                  if (!createMethodExists) {
+                    MethodDeclaration newMethod = typeDeclaration.addMethod("createService", Modifier.PUBLIC);
+                    newMethod.setType(returnType);
+                    newMethod.addMarkerAnnotation("Override");
                     
-                    checkingOk = true;
+                    BlockStmt newBody = new BlockStmt();
+                    newBody.addStatement("return " + assignExpr.substring("dataService = ".length()));
+                    newMethod.setBody(newBody);
                     
-                    handleMessage(new Message(MessageLevel.AUTO_TRANSFORM, "Use createService() instead of getService()",
-                        MarkSpan.of(method.getName().getBegin(), method.getName().getEnd())));
-  
-                    // модификация кода:
+                    typeDeclaration.remove(method);
                     
-                    // нет ли метода createService уже в этом классе?
-                    boolean createMethodExists = Util.getMethodBySignature(typeDeclaration, "createService()") != null;
-                    
-                    // Найдем возвращаемый тип метода (он должен быть первым дочерним ClassOrInterfaceType среди дочерних)
-                    String returnType = "S";
-                    for (Node node: method.getChildNodes()) {
-                      if (node instanceof ClassOrInterfaceType) {
-                        returnType = ((ClassOrInterfaceType)node).getNameAsString();
-                        break;
-                      }
-                    }
-                    
-                    if (!createMethodExists) {
-                      MethodDeclaration newMethod = typeDeclaration.addMethod("createService", Modifier.PUBLIC);
-                      newMethod.setType(returnType);
-                      newMethod.addMarkerAnnotation("Override");
-                      
-                      BlockStmt newBody = new BlockStmt();
-                      newBody.addStatement("return " + assignExpr.substring((name + " = ").length()));
-                      newMethod.setBody(newBody);
-                      
-                      typeDeclaration.remove(method);
-                      
-                      modified = true;
-                    }
+                    modified = true;
                   }
                 }
               }
@@ -166,12 +162,19 @@ public class GetServiceGetEventBusRule extends ValidatorRule {
       }
     }
     
+    return modified;
     
+  }
     
-    
+  /**
+   * @param typeDeclaration
+   * @return true если исходный код был изменен (и нужна трансформация), false иначе
+   */
+  private boolean getMainServieToCreateMainService(TypeDeclaration<?> typeDeclaration) {  
+    boolean modified = false;
     
     // преобразуем метод getMainService в createMainService
-    method = Util.getMethodBySignature(typeDeclaration, "getMainService()");
+    MethodDeclaration method = Util.getMethodBySignature(typeDeclaration, "getMainService()");
     if (method != null) {
       
       boolean checkingOk = false;
@@ -181,63 +184,52 @@ public class GetServiceGetEventBusRule extends ValidatorRule {
         
         /*
          * Проверяем что тело метода -- следующего вида:
-         * if(<name> == null) {
-         *  <name> = (S) GWT.create(JepMainService.class);
+         * if(mainService == null) {
+         *   mainService = ...
          * }
-         * return <name>;
+         * return mainService;
          */
         List<Node> nodes = body.getChildNodes();
         if (nodes != null && nodes.size() == 2 && nodes.get(0) instanceof IfStmt && nodes.get(1) instanceof ReturnStmt) {
           IfStmt ifStmt = (IfStmt)nodes.get(0);
           ReturnStmt returnStmt = (ReturnStmt)nodes.get(1);
 
-          Expression condition = ifStmt.getCondition();
-          if (condition.getChildNodes() != null && condition.getChildNodes().size() > 0) {
-            final String name = condition.getChildNodes().get(0).toString();
-            if ((name + " == null").equals(ifStmt.getCondition().toString())) {
-              Statement statement = ifStmt.getThenStmt();
-              if (statement != null && 
-                  statement.getChildNodes() != null && 
-                  statement.getChildNodes().size() == 1) {
+          if ("mainService == null".equals(ifStmt.getCondition().toString())) {
+            Statement statement = ifStmt.getThenStmt();
+            if (statement != null && 
+                statement.getChildNodes() != null && 
+                statement.getChildNodes().size() == 1) {
+              
+              final String assignExpr = statement.getChildNodes().get(0).toString();
+              if (assignExpr.startsWith("mainService = ")) {
                 
-                final String assignExpr = statement.getChildNodes().get(0).toString();
-                if (assignExpr.startsWith(name + " = ")) {
+                if (returnStmt.getExpression().isPresent() && 
+                    "mainService".equals(returnStmt.getExpression().get().toString())) {
                   
-                  if (returnStmt.getExpression().isPresent() && 
-                      name.equals(returnStmt.getExpression().get().toString())) {
+                  checkingOk = true;
+                  
+                  handleMessage(new Message(MessageLevel.AUTO_TRANSFORM, "Use createMainService() instead of getMainService()",
+                      MarkSpan.of(method.getName().getBegin(), method.getName().getEnd())));
+
+                  // модификация кода:
+                  
+                  // нет ли метода createMainService уже в этом классе?
+                  boolean createMethodExists = Util.getMethodBySignature(typeDeclaration, "createMainService()") != null;
+                  
+                  String returnType = method.getType().asString();
+                  
+                  if (!createMethodExists) {
+                    MethodDeclaration newMethod = typeDeclaration.addMethod("createMainService", Modifier.PUBLIC);
+                    newMethod.setType(returnType);
+                    newMethod.addMarkerAnnotation("Override");
                     
-                    checkingOk = true;
+                    BlockStmt newBody = new BlockStmt();
+                    newBody.addStatement("return " + assignExpr.substring("mainService = ".length()));
+                    newMethod.setBody(newBody);
                     
-                    handleMessage(new Message(MessageLevel.AUTO_TRANSFORM, "Use createMainService() instead of getMainService()",
-                        MarkSpan.of(method.getName().getBegin(), method.getName().getEnd())));
-  
-                    // модификация кода:
+                    typeDeclaration.remove(method);
                     
-                    // нет ли метода createMainService уже в этом классе?
-                    boolean createMethodExists = Util.getMethodBySignature(typeDeclaration, "createMainService()") != null;
-                    
-                    // Найдем возвращаемый тип метода (он должен быть первым дочерним ClassOrInterfaceType среди дочерних)
-                    String returnType = "S";
-                    for (Node node: method.getChildNodes()) {
-                      if (node instanceof ClassOrInterfaceType) {
-                        returnType = ((ClassOrInterfaceType)node).getNameAsString();
-                        break;
-                      }
-                    }
-                    
-                    if (!createMethodExists) {
-                      MethodDeclaration newMethod = typeDeclaration.addMethod("createMainService", Modifier.PUBLIC);
-                      newMethod.setType(returnType);
-                      newMethod.addMarkerAnnotation("Override");
-                      
-                      BlockStmt newBody = new BlockStmt();
-                      newBody.addStatement("return " + assignExpr.substring((name + " = ").length()));
-                      newMethod.setBody(newBody);
-                      
-                      typeDeclaration.remove(method);
-                      
-                      modified = true;
-                    }
+                    modified = true;
                   }
                 }
               }
@@ -252,13 +244,19 @@ public class GetServiceGetEventBusRule extends ValidatorRule {
       }
     }
     
+    return modified;
+  }
     
     
-    
-    
+  /**
+   * @param typeDeclaration
+   * @return true если исходный код был изменен (и нужна трансформация), false иначе
+   */
+  private boolean getEventBusToCreateEventBus(TypeDeclaration<?> typeDeclaration) {  
+    boolean modified = false;  
     
     // преобразуем метод getEventBus в createEventBus
-    method = Util.getMethodBySignature(typeDeclaration, "getEventBus()");
+    MethodDeclaration method = Util.getMethodBySignature(typeDeclaration, "getEventBus()");
     if (method != null) {
       
       boolean checkingOk = false;
@@ -268,63 +266,52 @@ public class GetServiceGetEventBusRule extends ValidatorRule {
         
         /*
          * Проверяем что тело метода -- следующего вида:
-         * if(<name> == null) {
-         *   <name> = ...
+         * if(eventBus == null) {
+         *   eventBus = ...
          * }
-         * return <name>;
+         * return eventBus;
          */
         List<Node> nodes = body.getChildNodes();
         if (nodes != null && nodes.size() == 2 && nodes.get(0) instanceof IfStmt && nodes.get(1) instanceof ReturnStmt) {
           IfStmt ifStmt = (IfStmt)nodes.get(0);
           ReturnStmt returnStmt = (ReturnStmt)nodes.get(1);
 
-          Expression condition = ifStmt.getCondition();
-          if (condition.getChildNodes() != null && condition.getChildNodes().size() > 0) {
-            final String name = condition.getChildNodes().get(0).toString();
-            if ((name + " == null").equals(ifStmt.getCondition().toString())) {
-              Statement statement = ifStmt.getThenStmt();
-              if (statement != null && 
-                  statement.getChildNodes() != null && 
-                  statement.getChildNodes().size() == 1) {
+          if ("eventBus == null".equals(ifStmt.getCondition().toString())) {
+            Statement statement = ifStmt.getThenStmt();
+            if (statement != null && 
+                statement.getChildNodes() != null && 
+                statement.getChildNodes().size() == 1) {
+              
+              final String assignExpr = statement.getChildNodes().get(0).toString();
+              if (assignExpr.startsWith("eventBus = ")) {
                 
-                final String assignExpr = statement.getChildNodes().get(0).toString();
-                if (assignExpr.startsWith(name + " = ")) {
+                if (returnStmt.getExpression().isPresent() && 
+                    "eventBus".equals(returnStmt.getExpression().get().toString())) {
                   
-                  if (returnStmt.getExpression().isPresent() && 
-                      name.equals(returnStmt.getExpression().get().toString())) {
+                  checkingOk = true;
+                  
+                  handleMessage(new Message(MessageLevel.AUTO_TRANSFORM, "Use createEventBus() instead of getEventBus()",
+                      MarkSpan.of(method.getName().getBegin(), method.getName().getEnd())));
+
+                  // модификация кода:
+                  
+                  // нет ли метода createMainService уже в этом классе?
+                  boolean createMethodExists = Util.getMethodBySignature(typeDeclaration, "createEventBus()") != null;
+                  
+                  String returnType = method.getType().asString();
+                  
+                  if (!createMethodExists) {
+                    MethodDeclaration newMethod = typeDeclaration.addMethod("createEventBus", Modifier.PUBLIC);
+                    newMethod.setType(returnType);
+                    newMethod.addMarkerAnnotation("Override");
                     
-                    checkingOk = true;
+                    BlockStmt newBody = new BlockStmt();
+                    newBody.addStatement("return " + assignExpr.substring("eventBus = ".length()));
+                    newMethod.setBody(newBody);
                     
-                    handleMessage(new Message(MessageLevel.AUTO_TRANSFORM, "Use createEventBus() instead of getEventBus()",
-                        MarkSpan.of(method.getName().getBegin(), method.getName().getEnd())));
-  
-                    // модификация кода:
+                    typeDeclaration.remove(method);
                     
-                    // нет ли метода createMainService уже в этом классе?
-                    boolean createMethodExists = Util.getMethodBySignature(typeDeclaration, "createEventBus()") != null;
-                    
-                    // Найдем возвращаемый тип метода (он должен быть первым дочерним ClassOrInterfaceType среди дочерних)
-                    String returnType = "E";
-                    for (Node node: method.getChildNodes()) {
-                      if (node instanceof ClassOrInterfaceType) {
-                        returnType = ((ClassOrInterfaceType)node).getNameAsString();
-                        break;
-                      }
-                    }
-                    
-                    if (!createMethodExists) {
-                      MethodDeclaration newMethod = typeDeclaration.addMethod("createEventBus", Modifier.PUBLIC);
-                      newMethod.setType(returnType);
-                      newMethod.addMarkerAnnotation("Override");
-                      
-                      BlockStmt newBody = new BlockStmt();
-                      newBody.addStatement("return " + assignExpr.substring((name + " = ").length()));
-                      newMethod.setBody(newBody);
-                      
-                      typeDeclaration.remove(method);
-                      
-                      modified = true;
-                    }
+                    modified = true;
                   }
                 }
               }
@@ -345,48 +332,23 @@ public class GetServiceGetEventBusRule extends ValidatorRule {
   
   
   /**
+   * Убирает инициализацию dataService из констуктора, перенося её в createService
+   * 
    * @param typeDeclaration
    * @return true если исходный код был изменен (и нужна трансформация), false иначе
    */
-  private boolean removeInitialization(TypeDeclaration<?> typeDeclaration) {
+  private boolean initDataServiceToCreateService(TypeDeclaration<?> typeDeclaration) {
+    
     boolean modified = false;
     
-    // Найдем типы EventBus и Service, упомянутые в extends: ThisClientFactoryImpl extends ParentClientFactoryImpl<X, Y>
-    String eventBusTypename = "E_TODO";//TODO get expected return type from class declaration: FactoryImpl<E,S> or FactoryImpl extends Factory<E,S>
-    String serviceTypename = "S_TODO";//TODO get expected return type from class declaration: FactoryImpl<E,S> or FactoryImpl extends Factory<E,S>
-    
-//    if (typeDeclaration instanceof ClassOrInterfaceDeclaration) {
-//      NodeList<ClassOrInterfaceType> extendedTypes = ((ClassOrInterfaceDeclaration)typeDeclaration).getExtendedTypes();
-//      for (ClassOrInterfaceType coit: extendedTypes) {
-//        if (coit.getNameAsString().endsWith("ClientFactoryImpl")) {
-//          Optional<NodeList<Type>> typeArgumentsOpt = coit.getTypeArguments();
-//          if (typeArgumentsOpt.isPresent()) {
-//            NodeList<Type> typeArguments = typeArgumentsOpt.get();
-//            if (typeArguments.size() == 2) {
-//              eventBusTypename = typeArguments.get(0).asString();
-//              serviceTypename = typeArguments.get(1).asString();
-//            } else {
-//              handleMessage(new Message(Level.WARN, "RULE FAILED: The type " + coit.getNameAsString() + " expected to have exactly 2 type arguments",
-//                  MarkSpan.of(coit.getBegin(), coit.getEnd())));
-//            }
-//          }
-//        }
-//      }
-//    }
-    
-    
-    
-    // найдем все конструкторы класса
     List<ConstructorDeclaration> constructors = new ArrayList<>();
-    for (BodyDeclaration<?> member: typeDeclaration.getMembers()) {
-      if (member instanceof ConstructorDeclaration) {
-        constructors.add((ConstructorDeclaration)member);
+    for (BodyDeclaration<?> bodyDeclaration: typeDeclaration.getMembers()) {
+      if (bodyDeclaration instanceof ConstructorDeclaration) {
+        constructors.add((ConstructorDeclaration)bodyDeclaration);
       }
     }
     
     for (ConstructorDeclaration constructor: constructors) {
-      
-      // Убирает создание dataService, mainService и eventBus в конструкторе фабрик
       BlockStmt blockStmt = constructor.getBody();
       
       List<Node> nodesToRemove = new ArrayList<>();
@@ -405,6 +367,9 @@ public class GetServiceGetEventBusRule extends ValidatorRule {
             MethodDeclaration createMethod = Util.getMethodBySignature(typeDeclaration, "createService()");
             if (createMethod == null) {
               // Если поле определяется только в конструкторе (нет перегруженного метода), создаём этот перегруженный метод
+              
+              String serviceTypename = "S"; //TODO вычислить тип создаваемого метода! (из объявления фабрики и её типовых параметров)
+              
               createMethod = new MethodDeclaration(EnumSet.of(Modifier.PUBLIC), JavaParser.parseClassOrInterfaceType(serviceTypename), "createService");
               createMethod.addMarkerAnnotation("Override");
               typeDeclaration.addMember(createMethod);
@@ -419,6 +384,39 @@ public class GetServiceGetEventBusRule extends ValidatorRule {
             
             modified = true;
           }
+        }
+      }
+    }
+    
+    return modified;
+  }
+  
+  /**
+   * Убирает инициализацию mainService из констуктора, перенося её в createMainService
+   * 
+   * @param typeDeclaration
+   * @return true если исходный код был изменен (и нужна трансформация), false иначе
+   */
+  private boolean initMainServiceToCreateMainService(TypeDeclaration<?> typeDeclaration) {
+    
+    boolean modified = false;
+    
+    List<ConstructorDeclaration> constructors = new ArrayList<>();
+    for (BodyDeclaration<?> bodyDeclaration: typeDeclaration.getMembers()) {
+      if (bodyDeclaration instanceof ConstructorDeclaration) {
+        constructors.add((ConstructorDeclaration)bodyDeclaration);
+      }
+    }
+    
+    for (ConstructorDeclaration constructor: constructors) {
+      BlockStmt blockStmt = constructor.getBody();
+      
+      List<Node> nodesToRemove = new ArrayList<>();
+      
+      for (Node node: blockStmt.getChildNodes()) {
+        
+        if (node instanceof ExpressionStmt) {
+          final String assignExpr = node.toString();
           
           if (assignExpr.startsWith("mainService = ")) {
             handleMessage(new Message(MessageLevel.AUTO_TRANSFORM, "Use createMainService() to create mainService instead of creating it in constructor",
@@ -429,6 +427,9 @@ public class GetServiceGetEventBusRule extends ValidatorRule {
             MethodDeclaration createMethod = Util.getMethodBySignature(typeDeclaration, "createMainService()");
             if (createMethod == null) {
               // Если поле определяется только в конструкторе (нет перегруженного метода), создаём этот перегруженный метод
+              
+              String serviceTypename = "S"; //TODO вычислить тип создаваемого метода! (из объявления фабрики и её типовых параметров)
+              
               createMethod = new MethodDeclaration(EnumSet.of(Modifier.PUBLIC), JavaParser.parseClassOrInterfaceType(serviceTypename), "createMainService");
               createMethod.addMarkerAnnotation("Override");
               typeDeclaration.addMember(createMethod);
@@ -443,6 +444,39 @@ public class GetServiceGetEventBusRule extends ValidatorRule {
             
             modified = true;
           }
+        }
+      }
+    }
+    
+    return modified;
+  }
+  
+  /**
+   * Убирает инициализацию eventBus из констуктора, перенося её в createEventBus
+   * 
+   * @param typeDeclaration
+   * @return true если исходный код был изменен (и нужна трансформация), false иначе
+   */
+  private boolean initEventBusToCreateEventBus(TypeDeclaration<?> typeDeclaration) {
+    
+    boolean modified = false;
+    
+    List<ConstructorDeclaration> constructors = new ArrayList<>();
+    for (BodyDeclaration<?> bodyDeclaration: typeDeclaration.getMembers()) {
+      if (bodyDeclaration instanceof ConstructorDeclaration) {
+        constructors.add((ConstructorDeclaration)bodyDeclaration);
+      }
+    }
+    
+    for (ConstructorDeclaration constructor: constructors) {
+      BlockStmt blockStmt = constructor.getBody();
+      
+      List<Node> nodesToRemove = new ArrayList<>();
+      
+      for (Node node: blockStmt.getChildNodes()) {
+        
+        if (node instanceof ExpressionStmt) {
+          final String assignExpr = node.toString();
           
           if (assignExpr.startsWith("eventBus = ")) {
             handleMessage(new Message(MessageLevel.AUTO_TRANSFORM, "Use createEventBus() to create eventBus instead of creating it in constructor",
@@ -453,6 +487,9 @@ public class GetServiceGetEventBusRule extends ValidatorRule {
             MethodDeclaration createMethod = Util.getMethodBySignature(typeDeclaration, "createEventBus()");
             if (createMethod == null) {
               // Если поле определяется только в конструкторе (нет перегруженного метода), создаём этот перегруженный метод
+              
+              String eventBusTypename = "E"; //TODO вычислить тип создаваемого метода! (из объявления фабрики и её типовых параметров)
+              
               createMethod = new MethodDeclaration(EnumSet.of(Modifier.PUBLIC), JavaParser.parseClassOrInterfaceType(eventBusTypename), "createEventBus");
               createMethod.addMarkerAnnotation("Override");
               typeDeclaration.addMember(createMethod);
@@ -474,7 +511,7 @@ public class GetServiceGetEventBusRule extends ValidatorRule {
         node.remove();
       }
     }
-    
+      
     return modified;
   }
 }

@@ -9,8 +9,11 @@ import java.nio.charset.Charset;
 import org.w3c.dom.Document;
 
 import com.github.javaparser.ast.Node;
+import com.github.javaparser.ast.NodeList;
+import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
 import com.github.javaparser.ast.body.MethodDeclaration;
 import com.github.javaparser.ast.body.TypeDeclaration;
+import com.github.javaparser.ast.type.ClassOrInterfaceType;
 import com.github.javaparser.printer.PrettyPrinter;
 import com.github.javaparser.printer.PrettyPrinterConfiguration;
 import com.sun.org.apache.xml.internal.serialize.OutputFormat;
@@ -76,4 +79,42 @@ public class Util {
     serializer.serialize(document);
   }
   
+  /**
+   * Является ли тип прикладной модульной клиентской фабрикой
+   * (наследует {@code PlainClientFactoryImpl} или {@code StandardClientFactoryImpl})
+   */
+  public static boolean isPlainClientFactoryImpl(TypeDeclaration<?> typeDeclaration) {
+    if (typeDeclaration instanceof ClassOrInterfaceDeclaration) {
+      ClassOrInterfaceDeclaration coid = (ClassOrInterfaceDeclaration)typeDeclaration;
+      if (!coid.isInterface()) {
+        NodeList<ClassOrInterfaceType> extendedTypes = coid.getExtendedTypes();
+        for (ClassOrInterfaceType extType: extendedTypes) {
+          if (extType.getNameAsString().equals("PlainClientFactoryImpl") ||
+              extType.getNameAsString().equals("StandardClientFactoryImpl")) {
+            return true;
+          }
+        }
+      }
+    }
+    return false;
+  }
+  
+  /**
+   * Является ли тип прикладной главной клиентской фабрикой
+   * (наследует {@code MainClientFactoryImpl})
+   */
+  public static boolean isMainClientFactoryImpl(TypeDeclaration<?> typeDeclaration) {
+    if (typeDeclaration instanceof ClassOrInterfaceDeclaration) {
+      ClassOrInterfaceDeclaration coid = (ClassOrInterfaceDeclaration)typeDeclaration;
+      if (!coid.isInterface()) {
+        NodeList<ClassOrInterfaceType> extendedTypes = coid.getExtendedTypes();
+        for (ClassOrInterfaceType extType: extendedTypes) {
+          if (extType.getNameAsString().equals("MainClientFactoryImpl")) {
+            return true;
+          }
+        }
+      }
+    }
+    return false;
+  }
 }

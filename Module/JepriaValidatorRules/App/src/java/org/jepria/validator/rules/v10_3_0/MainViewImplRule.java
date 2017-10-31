@@ -12,7 +12,6 @@ import java.util.Set;
 import org.jepria.validator.core.base.MarkSpan;
 import org.jepria.validator.core.base.Message;
 import org.jepria.validator.core.base.ValidatorRule;
-import org.jepria.validator.core.base.exception.TransformationException;
 import org.jepria.validator.core.base.resource.JavaResource;
 import org.jepria.validator.core.base.transform.ContentRefactorer;
 import org.jepria.validator.core.base.transform.ContextRefactorer;
@@ -28,7 +27,6 @@ import com.github.javaparser.ast.Modifier;
 import com.github.javaparser.ast.Node;
 import com.github.javaparser.ast.NodeList;
 import com.github.javaparser.ast.body.BodyDeclaration;
-import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
 import com.github.javaparser.ast.body.ConstructorDeclaration;
 import com.github.javaparser.ast.body.FieldDeclaration;
 import com.github.javaparser.ast.body.MethodDeclaration;
@@ -39,7 +37,6 @@ import com.github.javaparser.ast.expr.ObjectCreationExpr;
 import com.github.javaparser.ast.expr.SimpleName;
 import com.github.javaparser.ast.stmt.BlockStmt;
 import com.github.javaparser.ast.stmt.ExplicitConstructorInvocationStmt;
-import com.github.javaparser.ast.type.ClassOrInterfaceType;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 
 /**
@@ -54,217 +51,144 @@ public class MainViewImplRule extends ValidatorRule {
   @Override
   public Transformation forJavaResource(JavaResource resource) {
     
-    // Список пар 'MODULE_ID, module_title()', которые используются в конструкторе с ModuleItem
-    // (используются при возможном создании MainViewImpl)
-    List<String[]> moduleIdAndModuleTitles = new ArrayList<>();
-    
-    // Контейтер для строки с контекстным именем прикладного файла *MainViewImpl
-    final String[] mainViewImplPathName = new String[1];
-    
     if (resource.getName().contains("ClientFactory")) {
       
       boolean modified = false;
+      Action<ContextRefactorer> mainViewImplCreateAction = null;
       
       // поиск главной клиентской фабрики (а не модульной)
       CompilationUnit unit = resource.asCompilationUnit();
       for (TypeDeclaration<?> typeDeclaration: unit.getTypes()) {
-        if (typeDeclaration instanceof ClassOrInterfaceDeclaration) {
-          NodeList<ClassOrInterfaceType> extendedTypes = ((ClassOrInterfaceDeclaration)typeDeclaration).getExtendedTypes();
-          for (ClassOrInterfaceType coit: extendedTypes) {
-            if (coit.getNameAsString().equals("MainClientFactoryImpl")) {
+        if (Util.isMainClientFactoryImpl(typeDeclaration)) {
+        
+          // Список пар 'MODULE_ID, module_title()', которые используются в конструкторе с ModuleItem
+          // (используются при возможном создании MainViewImpl)
+          List<String[]> moduleIdAndModuleTitles = new ArrayList<>();
+          
+          for (BodyDeclaration<?> member: typeDeclaration.getMembers()) {
+            
+            if (member instanceof ConstructorDeclaration) {
+              ConstructorDeclaration constructor = (ConstructorDeclaration)member;
               
-              for (BodyDeclaration<?> member: typeDeclaration.getMembers()) {
-                
-                if (member instanceof ConstructorDeclaration) {
-                  ConstructorDeclaration constructor = (ConstructorDeclaration)member;
+              BlockStmt blockStmt = constructor.getBody();
+              
+              List<Node> nodesToRemove = new ArrayList<>();
+              
+              // Флаг успешного прохождения всех условий правила
+              boolean everythingMatched = false;
+              
+              for (Node node: blockStmt.getChildNodes()) {
+                if (node instanceof ExplicitConstructorInvocationStmt) {
+                  ExplicitConstructorInvocationStmt eci = (ExplicitConstructorInvocationStmt)node;
                   
-                  BlockStmt blockStmt = constructor.getBody();
-                  
-                  List<Node> nodesToRemove = new ArrayList<>();
-                  
-                  // Флаг успешного прохождения всех условий правила
-                  boolean everythingMatched = false;
-                  
-                  for (Node node: blockStmt.getChildNodes()) {
-                    if (node instanceof ExplicitConstructorInvocationStmt) {
-                      ExplicitConstructorInvocationStmt eci = (ExplicitConstructorInvocationStmt)node;
-                      
-                      for (Expression expr: eci.getArguments()) {
-                        if (expr instanceof ObjectCreationExpr) {
-                          ObjectCreationExpr oce = (ObjectCreationExpr)expr;
-                          if ("ModuleItem".equals(oce.getType().asString())) {
-                            NodeList<Expression> args = oce.getArguments();
-                            
-                            if (args != null && args.size() == 2) {
-                              everythingMatched = true;// одного достаточно
-                              moduleIdAndModuleTitles.add(new String[]{args.get(0).toString(), args.get(1).toString()});
-                            }
-                          }
-                        }
-                      }
-                      
-                      if (everythingMatched) {
-                        handleMessage(new Message(MessageLevel.AUTO_TRANSFORM, "Use MODULE_IDs only in super constructor call, instead of ModuleItems",
-                            MarkSpan.of(eci.getBegin(), eci.getEnd())));
+                  for (Expression expr: eci.getArguments()) {
+                    if (expr instanceof ObjectCreationExpr) {
+                      ObjectCreationExpr oce = (ObjectCreationExpr)expr;
+                      if ("ModuleItem".equals(oce.getType().asString())) {
+                        NodeList<Expression> args = oce.getArguments();
                         
-                        // убираем старый вызов super конструктора
-                        nodesToRemove.add(node);
+                        if (args != null && args.size() == 2) {
+                          everythingMatched = true;// одного достаточно
+                          moduleIdAndModuleTitles.add(new String[]{args.get(0).toString(), args.get(1).toString()});
+                        }
                       }
                     }
                   }
                   
                   if (everythingMatched) {
+                    handleMessage(new Message(MessageLevel.AUTO_TRANSFORM, "Use MODULE_IDs only in super constructor call, instead of ModuleItems",
+                        MarkSpan.of(eci.getBegin(), eci.getEnd())));
                     
-                    // модификация кода:
-                    
-                    for (Node node: nodesToRemove) {
-                      node.remove();
-                    }
-                    
-                    // формуируем строку вызова super конструктора
-                    StringBuilder eciSb = new StringBuilder();
-                    eciSb.append("super(");
-                    for (int i = 0; i < moduleIdAndModuleTitles.size(); i++) {
-                      if (i > 0) {
-                        eciSb.append(',');
-                      }
-                      eciSb.append(moduleIdAndModuleTitles.get(i)[0]);
-                    }
-                    eciSb.append(");");
-                    
-                    blockStmt.addStatement(0, JavaParser.parseExplicitConstructorInvocationStmt(eciSb.toString()));
-                    
-                    // Найдем имена текстовых констант, из которых брались заголовки модулей
-                    // в общем случае их может быть несколько
-                    Set<String> textConstantFields = new HashSet<>(); 
-                    for (String[] moduleIdAndModuleTitle: moduleIdAndModuleTitles) {
-                      int dotIndex = moduleIdAndModuleTitle[1].indexOf('.');
-                      if (dotIndex != -1) {
-                        String textConstantField = moduleIdAndModuleTitle[1].substring(0, dotIndex);
-                        textConstantFields.add(textConstantField);
-                      }
-                    }
-                    
-                    // Найдём только те имена текстовых констант, которые используются где-либо ещё (не только в конструкторе)
-                    Set<String> textConstantFieldsUsed = new HashSet<>();
-                    unit.accept(new VoidVisitorAdapter<Void>() {
-                      @Override
-                      public void visit(SimpleName n, Void arg) {
-                        super.visit(n, arg);
-                        
-                        if (textConstantFields.contains(n.asString())) {
-                          textConstantFieldsUsed.add(n.asString());
-                        }
-                      }
-                    }, null);
-                    
-                    // Удалим ненужные импорты: ModuleItem и неиспользуемые textConstantFields
-                    nodesToRemove.clear();
-                    for (ImportDeclaration importd: unit.getImports()) {
-                      if (importd.getNameAsString().equals("com.technology.jep.jepria.client.ModuleItem")) {
-                        nodesToRemove.add(importd);
-                      }
-                      String importLastName = importd.getNameAsString().substring(importd.getNameAsString().lastIndexOf('.') + 1);
-                      if (textConstantFields.contains(importLastName) && !textConstantFieldsUsed.contains(importLastName)) {
-                        nodesToRemove.add(importd);
-                      }
-                    }
-                    
-                    for (Node node: nodesToRemove) {
-                      node.remove();
-                    }
-                    
-                    modified = true;
+                    // убираем старый вызов super конструктора
+                    nodesToRemove.add(node);
                   }
                 }
               }
               
-              // Проверим наличие MainViewImpl
-              final String mainViewImplClassname = resource.getName().substring(0, resource.getName().indexOf("ClientFactory")) + "MainViewImpl";
-              mainViewImplPathName[0] = resource.getPathName().substring(0, resource.getPathName().lastIndexOf('/'))
-                  + "/ui/main/" + mainViewImplClassname + ".java";
-              boolean mainViewImplExists = getContextRead().plainResourceExists(mainViewImplPathName[0]);
-              
-              if (!mainViewImplExists) {
-                handleMessage(new Message(MessageLevel.AUTO_TRANSFORM, 
-                    "Create a class extending com.technology.jep.jepria.client.ui.main.MainViewImpl in file " + mainViewImplPathName[0],
-                    null));
-                
-                // создание MainViewImpl происходит в трансформации
-              }
-              
-              
-              // проверим метод getMainView
-              MethodDeclaration method = Util.getMethodBySignature(typeDeclaration, "getMainView()");
-              if (method == null) {
-                
-                handleMessage(new Message(MessageLevel.AUTO_TRANSFORM, 
-                    "Override getMainView() method and return a static reference to a MainViewImpl instance", 
-                    null));
+              if (everythingMatched) {
                 
                 // модификация кода:
                 
-                // Создадим статическое поле класса mainView
-                FieldDeclaration field = new FieldDeclaration(
-                    EnumSet.of(Modifier.PRIVATE, Modifier.STATIC, Modifier.FINAL),
-                    new VariableDeclarator(
-                        JavaParser.parseType("IsWidget"),
-                        "mainView",
-                        JavaParser.parseExpression("new " + mainViewImplClassname + "()")));
-                
-                typeDeclaration.addMember(field);
-                
-                // Вставим импорт прикладной реализации MainViewImpl (сама реализация будет создана в трансформации)
-                final String mainViewImplQualified; 
-                if (unit.getPackageDeclaration().isPresent()) {
-                  mainViewImplQualified = unit.getPackageDeclaration().get().getNameAsString() + ".ui.main." + mainViewImplClassname;
-                } else {
-                  mainViewImplQualified = "ui.main." + mainViewImplClassname;
+                for (Node node: nodesToRemove) {
+                  node.remove();
                 }
-                unit.addImport(mainViewImplQualified);
                 
-                // Создадим метод getMainView
-                MethodDeclaration newMethod = typeDeclaration.addMethod(
-                    "getMainView", Modifier.PUBLIC);
-                newMethod.setType("IsWidget");
-                newMethod.addMarkerAnnotation("Override");
+                // формуируем строку вызова super конструктора
+                StringBuilder eciSb = new StringBuilder();
+                eciSb.append("super(");
+                for (int i = 0; i < moduleIdAndModuleTitles.size(); i++) {
+                  if (i > 0) {
+                    eciSb.append(',');
+                  }
+                  eciSb.append(moduleIdAndModuleTitles.get(i)[0]);
+                }
+                eciSb.append(");");
                 
-                unit.addImport("com.google.gwt.user.client.ui.IsWidget");
+                blockStmt.addStatement(0, JavaParser.parseExplicitConstructorInvocationStmt(eciSb.toString()));
                 
-                BlockStmt newBody = new BlockStmt();
-                newBody.addStatement("return mainView;");
-                newMethod.setBody(newBody);
-              } else {
-                //TODO а если метод getMainView существует, но имеет другую начинку?
+                // Найдем имена текстовых констант, из которых брались заголовки модулей
+                // в общем случае их может быть несколько
+                Set<String> textConstantFields = new HashSet<>(); 
+                for (String[] moduleIdAndModuleTitle: moduleIdAndModuleTitles) {
+                  int dotIndex = moduleIdAndModuleTitle[1].indexOf('.');
+                  if (dotIndex != -1) {
+                    String textConstantField = moduleIdAndModuleTitle[1].substring(0, dotIndex);
+                    textConstantFields.add(textConstantField);
+                  }
+                }
+                
+                // Найдём только те имена текстовых констант, которые используются где-либо ещё (не только в конструкторе)
+                Set<String> textConstantFieldsUsed = new HashSet<>();
+                unit.accept(new VoidVisitorAdapter<Void>() {
+                  @Override
+                  public void visit(SimpleName n, Void arg) {
+                    super.visit(n, arg);
+                    
+                    if (textConstantFields.contains(n.asString())) {
+                      textConstantFieldsUsed.add(n.asString());
+                    }
+                  }
+                }, null);
+                
+                // Удалим ненужные импорты: ModuleItem и неиспользуемые textConstantFields
+                nodesToRemove.clear();
+                for (ImportDeclaration importd: unit.getImports()) {
+                  if (importd.getNameAsString().equals("com.technology.jep.jepria.client.ModuleItem")) {
+                    nodesToRemove.add(importd);
+                  }
+                  String importLastName = importd.getNameAsString().substring(importd.getNameAsString().lastIndexOf('.') + 1);
+                  if (textConstantFields.contains(importLastName) && !textConstantFieldsUsed.contains(importLastName)) {
+                    nodesToRemove.add(importd);
+                  }
+                }
+                
+                for (Node node: nodesToRemove) {
+                  node.remove();
+                }
+                
+                modified = true;
               }
             }
           }
-        }
-      }
-      
-      if (modified) {
-        return Transformation.of().content(new Action<ContentRefactorer>() {
-          @Override
-          public void perform(ContentRefactorer refactorer) {
-            try {
-              // сохраним изменения:
-              
-              Util.prettyPrintJava(unit, refactorer.getRefactoringStream());
-              handleMessage(new Message("Transformation succeeded"));
-            } catch (IOException e) {
-              handleThrowable(e);
-            }
-          }
-        })
-            .andOf().context(new Action<ContextRefactorer>() {
-          @Override
-          public void perform(ContextRefactorer refactorer) {
-            boolean mainViewImplExists = getContextRead().plainResourceExists(mainViewImplPathName[0]);
+          
+          // Проверим наличие MainViewImpl
+          final String mainViewImplClassname = resource.getName().substring(0, resource.getName().indexOf("ClientFactory")) + "MainViewImpl";
+          final String mainViewImplPathName = resource.getPathName().substring(0, resource.getPathName().lastIndexOf('/'))
+              + "/ui/main/" + mainViewImplClassname + ".java";
+          boolean mainViewImplExists = getContextRead().plainResourceExists(mainViewImplPathName);
+          
+          if (!mainViewImplExists) {
+            handleMessage(new Message(MessageLevel.AUTO_TRANSFORM, 
+                "Create a class extending com.technology.jep.jepria.client.ui.main.MainViewImpl in file " + mainViewImplPathName,
+                null));
             
-            if (!mainViewImplExists) {
-              // Создадим файл MainViewImpl
-              if (mainViewImplPathName[0] != null) {
-                OutputStream os = refactorer.writeNewResource(mainViewImplPathName[0]);
+            // Создадим файл MainViewImpl (с помощью Action)
+            mainViewImplCreateAction = new Action<ContextRefactorer>() {
+              
+              @Override
+              public void perform(ContextRefactorer refactorer) {
+                
+                OutputStream os = refactorer.writeNewResource(mainViewImplPathName);
                 try {
                   String clientPackage = unit.getPackageDeclaration().get().getNameAsString();
                   String appNamePrefix = resource.getName().substring(0, resource.getName().indexOf("ClientFactory"));
@@ -299,12 +223,75 @@ public class MainViewImplRule extends ValidatorRule {
                 } catch (IOException e) {
                   throw new RuntimeException(e);
                 }
-              } else {
-                throw new TransformationException("mainViewImplPathName has not been set during validation. Cannot perform transformation");
+            
               }
-            }
+            };
           }
-        });
+          
+          
+          // проверим метод getMainView
+          MethodDeclaration method = Util.getMethodBySignature(typeDeclaration, "getMainView()");
+          if (method == null) {
+            
+            handleMessage(new Message(MessageLevel.AUTO_TRANSFORM, 
+                "Override getMainView() method and return a static reference to a MainViewImpl instance", 
+                null));
+            
+            // модификация кода:
+            
+            // Создадим статическое поле класса mainView
+            FieldDeclaration field = new FieldDeclaration(
+                EnumSet.of(Modifier.PRIVATE, Modifier.STATIC, Modifier.FINAL),
+                new VariableDeclarator(
+                    JavaParser.parseType("IsWidget"),
+                    "mainView",
+                    JavaParser.parseExpression("new " + mainViewImplClassname + "()")));
+            
+            typeDeclaration.addMember(field);
+            
+            // Вставим импорт прикладной реализации MainViewImpl (сама реализация будет создана в трансформации)
+            final String mainViewImplQualified; 
+            if (unit.getPackageDeclaration().isPresent()) {
+              mainViewImplQualified = unit.getPackageDeclaration().get().getNameAsString() + ".ui.main." + mainViewImplClassname;
+            } else {
+              mainViewImplQualified = "ui.main." + mainViewImplClassname;
+            }
+            unit.addImport(mainViewImplQualified);
+            
+            // Создадим метод getMainView
+            MethodDeclaration newMethod = typeDeclaration.addMethod(
+                "getMainView", Modifier.PUBLIC);
+            newMethod.setType("IsWidget");
+            newMethod.addMarkerAnnotation("Override");
+            
+            unit.addImport("com.google.gwt.user.client.ui.IsWidget");
+            
+            BlockStmt newBody = new BlockStmt();
+            newBody.addStatement("return mainView;");
+            newMethod.setBody(newBody);
+          } else {
+            //TODO а если метод getMainView существует, но имеет другую начинку?
+          }
+        }
+      }
+      
+      if (modified) {
+        return Transformation
+            .of()
+            .content(new Action<ContentRefactorer>() {
+                @Override
+                public void perform(ContentRefactorer refactorer) {
+                  try {
+                    // сохраним изменения:
+                    Util.prettyPrintJava(unit, refactorer.getRefactoringStream());
+                    handleMessage(new Message("Transformation succeeded"));
+                  } catch (IOException e) {
+                    handleThrowable(e);
+                  }
+                }
+              })
+           .andOf()
+           .context(mainViewImplCreateAction);
       }
     }
     
