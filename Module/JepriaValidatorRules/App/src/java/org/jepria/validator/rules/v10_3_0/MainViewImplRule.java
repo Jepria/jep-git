@@ -172,7 +172,11 @@ public class MainViewImplRule extends ValidatorRule {
           }
           
           // Проверим наличие MainViewImpl
-          final String mainViewImplClassname = resource.getName().substring(0, resource.getName().indexOf("ClientFactory")) + "MainViewImpl";
+          String appName = resource.getName().substring(0, resource.getName().indexOf("ClientFactory"));
+          if (appName.endsWith("Main")) {// Убираем возможное дублирование: класс может называться AppnameMainClientFactoryImpl либо AppnameClientFactoryImpl 
+            appName = appName.substring(0, appName.lastIndexOf("Main"));
+          }
+          final String mainViewImplClassname = appName + "MainViewImpl";
           final String mainViewImplPathName = resource.getPathName().substring(0, resource.getPathName().lastIndexOf('/'))
               + "/ui/main/" + mainViewImplClassname + ".java";
           boolean mainViewImplExists = getContextRead().plainResourceExists(mainViewImplPathName);
@@ -226,6 +230,8 @@ public class MainViewImplRule extends ValidatorRule {
             
               }
             };
+            
+            modified = true;
           }
           
           
