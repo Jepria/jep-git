@@ -36,6 +36,7 @@ import com.technology.jep.jepria.client.ui.eventbus.plain.event.SaveEvent;
 import com.technology.jep.jepria.client.ui.eventbus.plain.event.SearchEvent;
 import com.technology.jep.jepria.client.ui.eventbus.plain.event.SetCurrentRecordEvent;
 import com.technology.jep.jepria.client.ui.eventbus.plain.event.SetListUIDEvent;
+import com.technology.jep.jepria.client.ui.eventbus.plain.event.RefreshEvent;
 import com.technology.jep.jepria.client.ui.plain.StandardClientFactory;
 import com.technology.jep.jepria.client.util.JepClientUtil;
 import com.technology.jep.jepria.client.widget.field.FieldManager;
@@ -62,7 +63,8 @@ public class DetailFormPresenter<V extends DetailFormView, E extends PlainEventB
       SearchEvent.Handler,
       SetCurrentRecordEvent.Handler,
       SetListUIDEvent.Handler,
-      SaveEvent.Handler 
+      SaveEvent.Handler, 
+      RefreshEvent.Handler
       {
   
   protected V view;
@@ -142,6 +144,7 @@ public class DetailFormPresenter<V extends DetailFormView, E extends PlainEventB
     eventBus.addHandler(SetCurrentRecordEvent.TYPE, this);
     eventBus.addHandler(SetListUIDEvent.TYPE, this);
     eventBus.addHandler(SaveEvent.TYPE, this);
+    eventBus.addHandler(RefreshEvent.TYPE, this);
     
     // "Привязка" элементов представления к функционалу презентера.
     bind();
@@ -642,5 +645,18 @@ public class DetailFormPresenter<V extends DetailFormView, E extends PlainEventB
   @Override
   protected boolean isAcceptableWorkstate(WorkstateEnum workstate) {
     return SEARCH.equals(workstate) || CREATE.equals(workstate) || VIEW_DETAILS.equals(workstate) || EDIT.equals(workstate);
+  }
+  
+  /**
+   * Обновление формы. Реализация для состояний, в которых есть текущую запись (обновление по первичному ключу). <br/>
+   * <br/> TODO: Реализовать для остальных состояний.
+   */
+  @Override
+  public void onRefresh(RefreshEvent event) {
+    if (!JepRiaUtil.isEmpty(currentRecord) && (VIEW_DETAILS.equals(_workstate) || EDIT.equals(_workstate))) {
+      JepRecord primaryKey = new JepRecord();
+      primaryKey.setProperties(clientFactory.getRecordDefinition().buildPrimaryKeyMap(currentRecord));
+      eventBus.doGetRecord(new PagingConfig(new JepRecord(primaryKey)));
+    }
   }
 }

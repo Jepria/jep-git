@@ -9,6 +9,7 @@ import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.user.client.ui.Widget;
 import com.technology.jep.jepria.client.message.MessageBox;
 import com.technology.jep.jepria.client.message.PredefinedButton;
 import com.technology.jep.jepria.client.widget.field.multistate.JepMultiStateField;
@@ -55,9 +56,16 @@ public class DialogWithFields extends MessageBox {
   private Map<String, JepMultiStateField<?, ?>> fields = new HashMap<String, JepMultiStateField<?,?>>();
   
   /**
-   * Панель модального окна
+   * Панель модального окна.
    */
   private VerticalPanel panel = new VerticalPanel();
+  
+  /**
+   * Добавляет виджет на панель модального окна.
+   */
+  public void add(Widget w) {
+    panel.add(w);
+  }
   
   /**
    * Добавить поле на панель.
@@ -66,7 +74,7 @@ public class DialogWithFields extends MessageBox {
    */
   public void addField(String fieldId, JepMultiStateField<?, ?> field) {
     fields.put(fieldId, field);
-    panel.add(field);
+    add(field);
   }
   
   /**
