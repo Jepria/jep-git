@@ -1,19 +1,21 @@
-package org.jepria.validator.rules;
+package org.jepria.validator.rules.v10_3_0;
 
 import java.util.ArrayList;
 
 import org.jepria.validator.core.base.ValidatorRule;
 
 /**
- * Список валидационных правил в хронологическом порядке (по мере возрастания версий библиотеки).
- * Необходим для передачи аргументом {@code --ruleList} в интерфейс командной строки
+ * Список валидационных правил, соответствующих переводу
+ * на версию Jepria-10.3.0 в необходимом для валидации порядке
+ * 
+ * Используется для передачи аргументом {@code --ruleList} в интерфейс командной строки
  * 
  *  @see {@link org.jepria.validator.user.CLI}
  */
 public class RuleList extends ArrayList<ValidatorRule> {
 
-  private static final long serialVersionUID = -6121994209258314905L;
-  
+  private static final long serialVersionUID = 1L;
+
   public RuleList() {
     add(new org.jepria.validator.rules.v10_3_0.InitActivityMappersRule());
     add(new org.jepria.validator.rules.v10_3_0.GetServiceGetEventBusRule());

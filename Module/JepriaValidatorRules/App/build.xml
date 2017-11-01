@@ -31,6 +31,7 @@
       <fileset refid="classes-build-jar" />
       <fileset dir="src/java" includes="**/*.java" /> <!-- with source code -->
     	<!-- Не добавлять Main-class в манифест -->
+    	<fileset dir="src/resources" includes="**/*.*"/>
     </jar>
   </target>
 	
