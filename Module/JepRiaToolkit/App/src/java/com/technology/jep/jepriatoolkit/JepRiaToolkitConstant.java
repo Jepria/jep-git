@@ -762,7 +762,8 @@ public class JepRiaToolkitConstant {
   
   public static final String INFO_LOG_LEVEL = "INFO";
   public static final String DEBUG_LOG_LEVEL = "DEBUG";
-  
+
+  public static final String JEPRIA_VERSION = "JEPRIA_VERSION";
   /**
    * Кодировка по умолчанию
    */

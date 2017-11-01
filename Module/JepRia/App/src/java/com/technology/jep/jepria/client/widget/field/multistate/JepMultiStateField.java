@@ -727,10 +727,8 @@ public abstract class JepMultiStateField<E extends Widget, V extends Widget> ext
 	 */
 	protected void applyStyle() {
 		// Устанавливаем атрибуты по умолчанию для компонента JepMultiStateField.
-
 		mainPanel.getElement().getStyle().setMarginBottom(5, Unit.PX);
-		// Установка основного шрифта в карту просмотра и редактирования.
-		viewCard.getElement().addClassName(MAIN_FONT_STYLE);
+		// Установка основного шрифта в карту редактирования.
 		getInputElement().addClassName(MAIN_FONT_STYLE);
 		// Удаляем выступы и отступы карты редактирования.
 		removeMarginsAndPaddings(getInputElement());

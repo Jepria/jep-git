@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project default="jar" name="Module Building">
+  
+  <!-- Значения property - immutable, если BIN_HOME не был задан ранее, то берется из переменной окружения -->
+  <property environment="env" />
+  <property name="BIN_HOME" value="${env.BIN_HOME}" />
+
+  <!-- Проверка, что BIN_HOME определен, иначе - ошибка -->
+  <fail unless="BIN_HOME" message="Binary repository path not specified. Specify it either in environment variable %BIN_HOME% or use -DBIN_HOME=... command line argument." />
+
+	<property file="build.properties" />
+  <property file="dependency.properties" />
+  
+	<!-- Общие наборы файлов -->
+	<path id="libs">
+    <pathelement location="${JAVAPARSER-CORE_LIB}" />
+    <pathelement location="${JEPRIA_VALIDATOR-CORE_LIB}" />
+  </path>
+  
+  <fileset dir="build-jar" id="classes-build-jar"/>
+  
+	<target name="java-compile">
+    <mkdir dir="build-jar" />
+    <javac debug="on" destdir="build-jar" encoding="utf-8" includeantruntime="false" srcdir="src/java">
+      <classpath refid="libs" />
+    </javac>
+  </target>
+	
+  <target name="jar" depends="java-compile">
+    <jar destfile="${DISTR_DIR}/jepria-validator-rules-${CURRENT_VERSION}.jar">
+      <fileset refid="classes-build-jar" />
+      <fileset dir="src/java" includes="**/*.java" /> <!-- with source code -->
+    	<!-- Не добавлять Main-class в манифест -->
+    	<fileset dir="src/resources" includes="**/*.*"/>
+    </jar>
+  </target>
+	
+  <target name="clean">
+    <delete includeemptydirs="true" quiet="true">
+      <fileset dir="build-jar" />
+    </delete>
+    
+    <delete file="${DISTR_DIR}/jepria-validator-rules-${CURRENT_VERSION}.jar"/>
+  </target>
+</project>
