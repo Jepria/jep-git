@@ -177,8 +177,21 @@ public class ProductionBuildChecker extends Task {
           } 
         }
       }
-      
-      ph.setProperty(property, true, true);
+      // проверка - production сборка не должна собираться на snapshot версии JepRia!
+        Properties dependencyProperties = new Properties();
+        dependencyProperties.load(new FileInputStream("./dependency.properties"));
+        for (String propName : dependencyProperties.stringPropertyNames()) {
+            if (propName.startsWith(JEPRIA_VERSION)) {
+                propVal = dependencyProperties.getProperty(propName);
+                if (propVal != null && (propVal.toLowerCase().contains("snapshot"))) {
+                    ph.setProperty(property, false, true);
+                    ph.setNewProperty(PRODUCTION_BUILD_CHECKER_ERROR, "For production build you should not use SNAPSHOT version JepRia lib!");
+                    return false;
+                }
+            }
+        }
+
+        ph.setProperty(property, true, true);
       return true;
     }
     catch (ParserConfigurationException e) {
