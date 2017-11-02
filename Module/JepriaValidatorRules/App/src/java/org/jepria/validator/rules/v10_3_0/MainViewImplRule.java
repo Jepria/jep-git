@@ -48,6 +48,18 @@ import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
  */
 public class MainViewImplRule extends ValidatorRule {
   
+  /**
+   * Аналог устаревшего класса com.technology.jep.jepria.client.ModuleItem
+   */
+  private class ModuleItem {
+    public final String moduleId, title;
+
+    public ModuleItem(String moduleId, String title) {
+      this.moduleId = moduleId;
+      this.title = title;
+    }
+  }
+  
   @Override
   public Transformation forJavaResource(JavaResource resource) {
     
@@ -61,9 +73,9 @@ public class MainViewImplRule extends ValidatorRule {
       for (TypeDeclaration<?> typeDeclaration: unit.getTypes()) {
         if (Util.isMainClientFactoryImpl(typeDeclaration)) {
         
-          // Список пар 'MODULE_ID, module_title()', которые используются в конструкторе с ModuleItem
+          // Список ModuleItem, которые используются в конструкторе с ModuleItem
           // (используются при возможном создании MainViewImpl)
-          List<String[]> moduleIdAndModuleTitles = new ArrayList<>();
+          List<ModuleItem> moduleItems = new ArrayList<>();
           
           for (BodyDeclaration<?> member: typeDeclaration.getMembers()) {
             
@@ -89,7 +101,7 @@ public class MainViewImplRule extends ValidatorRule {
                         
                         if (args != null && args.size() == 2) {
                           everythingMatched = true;// одного достаточно
-                          moduleIdAndModuleTitles.add(new String[]{args.get(0).toString(), args.get(1).toString()});
+                          moduleItems.add(new ModuleItem(args.get(0).toString(), args.get(1).toString()));
                         }
                       }
                     }
@@ -116,11 +128,11 @@ public class MainViewImplRule extends ValidatorRule {
                 // формуируем строку вызова super конструктора
                 StringBuilder eciSb = new StringBuilder();
                 eciSb.append("super(");
-                for (int i = 0; i < moduleIdAndModuleTitles.size(); i++) {
+                for (int i = 0; i < moduleItems.size(); i++) {
                   if (i > 0) {
                     eciSb.append(',');
                   }
-                  eciSb.append(moduleIdAndModuleTitles.get(i)[0]);
+                  eciSb.append(moduleItems.get(i).moduleId);
                 }
                 eciSb.append(");");
                 
@@ -129,10 +141,10 @@ public class MainViewImplRule extends ValidatorRule {
                 // Найдем имена текстовых констант, из которых брались заголовки модулей
                 // в общем случае их может быть несколько
                 Set<String> textConstantFields = new HashSet<>(); 
-                for (String[] moduleIdAndModuleTitle: moduleIdAndModuleTitles) {
-                  int dotIndex = moduleIdAndModuleTitle[1].indexOf('.');
+                for (ModuleItem moduleItem: moduleItems) {
+                  int dotIndex = moduleItem.title.indexOf('.');
                   if (dotIndex != -1) {
-                    String textConstantField = moduleIdAndModuleTitle[1].substring(0, dotIndex);
+                    String textConstantField = moduleItem.title.substring(0, dotIndex);
                     textConstantFields.add(textConstantField);
                   }
                 }
@@ -171,7 +183,8 @@ public class MainViewImplRule extends ValidatorRule {
             }
           }
           
-          // Проверим наличие MainViewImpl
+          
+          // Вычислим некоторые значения относительно MainViewImpl:
           String appName = resource.getName().substring(0, resource.getName().indexOf("ClientFactory"));
           if (appName.endsWith("Main")) {// Убираем возможное дублирование: класс может называться AppnameMainClientFactoryImpl либо AppnameClientFactoryImpl 
             appName = appName.substring(0, appName.lastIndexOf("Main"));
@@ -179,66 +192,20 @@ public class MainViewImplRule extends ValidatorRule {
           final String mainViewImplClassname = appName + "MainViewImpl";
           final String mainViewImplPathName = resource.getPathName().substring(0, resource.getPathName().lastIndexOf('/'))
               + "/ui/main/" + mainViewImplClassname + ".java";
-          boolean mainViewImplExists = getContextRead().plainResourceExists(mainViewImplPathName);
           
-          if (!mainViewImplExists) {
-            handleMessage(new Message(MessageLevel.AUTO_TRANSFORM, 
-                "Create a class extending com.technology.jep.jepria.client.ui.main.MainViewImpl in file " + mainViewImplPathName,
-                null));
-            
-            // Создадим файл MainViewImpl (с помощью Action)
-            mainViewImplCreateAction = new Action<ContextRefactorer>() {
-              
-              @Override
-              public void perform(ContextRefactorer refactorer) {
-                
-                OutputStream os = refactorer.writeNewResource(mainViewImplPathName);
-                try {
-                  String clientPackage = unit.getPackageDeclaration().get().getNameAsString();
-                  String appNamePrefix = resource.getName().substring(0, resource.getName().indexOf("ClientFactory"));
-                  
-                  try (PrintStream ps = new PrintStream(os, true, "UTF-8")) {
-                  
-                    ps.println("package " + clientPackage + ".ui.main;");
-                    ps.println();
-                    ps.println("import static " + clientPackage + "." + appNamePrefix + "ClientConstant.*;");
-                    ps.println();
-                    ps.println("import java.util.ArrayList;");
-                    ps.println("import java.util.List;");
-                    ps.println();
-                    ps.println("import com.technology.jep.jepria.client.ui.main.MainViewImpl;");
-                    ps.println("import com.technology.jep.jepria.client.ui.main.ModuleConfiguration;");
-                    ps.println();
-                    ps.println("public class " + appNamePrefix + "MainViewImpl extends MainViewImpl {");
-                    ps.println();
-                    ps.println("  @Override");
-                    ps.println("  protected List<ModuleConfiguration> getModuleConfigurations() {");
-                    ps.println("    List<ModuleConfiguration> ret = new ArrayList<>();");
-                    for (String[] moduleIdAndTitle: moduleIdAndModuleTitles) {
-                      ps.println("    ret.add(new ModuleConfiguration(" + moduleIdAndTitle[0] + ", " + moduleIdAndTitle[1] + "));");
-                    }
-                    ps.println("    return ret;");
-                    ps.println("  }");
-                    ps.println("}");
-                  }
-                  
-                  handleMessage(new Message("Transformation succeeded"));
-                  
-                } catch (IOException e) {
-                  throw new RuntimeException(e);
-                }
-            
-              }
-            };
-            
-            modified = true;
+          final String mainViewImplQualified; 
+          if (unit.getPackageDeclaration().isPresent()) {
+            mainViewImplQualified = unit.getPackageDeclaration().get().getNameAsString() + ".ui.main." + mainViewImplClassname;
+          } else {
+            mainViewImplQualified = "ui.main." + mainViewImplClassname;
           }
           
           
           // проверим метод getMainView
-          MethodDeclaration method = Util.getMethodBySignature(typeDeclaration, "getMainView()");
-          if (method == null) {
-            
+          MethodDeclaration getMainViewImplMethod = Util.getMethodBySignature(typeDeclaration, "getMainView()");
+          final boolean getMainViewExists = getMainViewImplMethod != null;
+          
+          if (!getMainViewExists) {
             handleMessage(new Message(MessageLevel.AUTO_TRANSFORM, 
                 "Override getMainView() method and return a static reference to a MainViewImpl instance", 
                 null));
@@ -256,27 +223,87 @@ public class MainViewImplRule extends ValidatorRule {
             typeDeclaration.addMember(field);
             
             // Вставим импорт прикладной реализации MainViewImpl (сама реализация будет создана в трансформации)
-            final String mainViewImplQualified; 
-            if (unit.getPackageDeclaration().isPresent()) {
-              mainViewImplQualified = unit.getPackageDeclaration().get().getNameAsString() + ".ui.main." + mainViewImplClassname;
-            } else {
-              mainViewImplQualified = "ui.main." + mainViewImplClassname;
-            }
             unit.addImport(mainViewImplQualified);
             
             // Создадим метод getMainView
-            MethodDeclaration newMethod = typeDeclaration.addMethod(
+            getMainViewImplMethod = typeDeclaration.addMethod(
                 "getMainView", Modifier.PUBLIC);
-            newMethod.setType("IsWidget");
-            newMethod.addMarkerAnnotation("Override");
+            getMainViewImplMethod.setType("IsWidget");
+            getMainViewImplMethod.addMarkerAnnotation("Override");
             
             unit.addImport("com.google.gwt.user.client.ui.IsWidget");
             
-            BlockStmt newBody = new BlockStmt();
-            newBody.addStatement("return mainView;");
-            newMethod.setBody(newBody);
+            BlockStmt body = new BlockStmt();
+            body.addStatement("return mainView;");
+            getMainViewImplMethod.setBody(body);
           } else {
             //TODO а если метод getMainView существует, но имеет другую начинку?
+          }
+          
+          
+          
+          // Проверим наличие MainViewImpl
+          boolean mainViewImplExists = getContextRead().plainResourceExists(mainViewImplPathName);
+          
+          if (!mainViewImplExists) {
+            if (getMainViewExists) {
+              handleMessage(new Message(MessageLevel.MANUAL_TRANSFORM, 
+                  "Method getMainView() exists, but no class " + mainViewImplQualified + " found. "
+                      + "Rename the existing MainViewImpl implementation to " + mainViewImplQualified,
+                  null));
+              
+            } else {
+              handleMessage(new Message(MessageLevel.AUTO_TRANSFORM, 
+                  "Create a class extending com.technology.jep.jepria.client.ui.main.MainViewImpl in file " + mainViewImplPathName,
+                  null));
+              
+              // Создадим файл MainViewImpl (с помощью Action)
+              mainViewImplCreateAction = new Action<ContextRefactorer>() {
+                
+                @Override
+                public void perform(ContextRefactorer refactorer) {
+                  
+                  OutputStream os = refactorer.writeNewResource(mainViewImplPathName);
+                  try {
+                    String clientPackage = unit.getPackageDeclaration().get().getNameAsString();
+                    String appNamePrefix = resource.getName().substring(0, resource.getName().indexOf("ClientFactory"));
+                    
+                    try (PrintStream ps = new PrintStream(os, true, "UTF-8")) {
+                    
+                      ps.println("package " + clientPackage + ".ui.main;");
+                      ps.println();
+                      ps.println("import static " + clientPackage + "." + appNamePrefix + "ClientConstant.*;");
+                      ps.println();
+                      ps.println("import java.util.ArrayList;");
+                      ps.println("import java.util.List;");
+                      ps.println();
+                      ps.println("import com.technology.jep.jepria.client.ui.main.MainViewImpl;");
+                      ps.println("import com.technology.jep.jepria.client.ui.main.ModuleConfiguration;");
+                      ps.println();
+                      ps.println("public class " + appNamePrefix + "MainViewImpl extends MainViewImpl {");
+                      ps.println();
+                      ps.println("  @Override");
+                      ps.println("  protected List<ModuleConfiguration> getModuleConfigurations() {");
+                      ps.println("    List<ModuleConfiguration> ret = new ArrayList<>();");
+                      for (ModuleItem moduleItem: moduleItems) {
+                        ps.println("    ret.add(new ModuleConfiguration(" + moduleItem.moduleId + ", " + moduleItem.title + "));");
+                      }
+                      ps.println("    return ret;");
+                      ps.println("  }");
+                      ps.println("}");
+                    }
+                    
+                    handleMessage(new Message("Transformation succeeded"));
+                    
+                  } catch (IOException e) {
+                    throw new RuntimeException(e);
+                  }
+              
+                }
+              };
+              
+              modified = true;
+            }
           }
         }
       }
