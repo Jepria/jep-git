@@ -9,6 +9,7 @@ import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.user.client.ui.Widget;
 import com.technology.jep.jepria.client.message.MessageBox;
 import com.technology.jep.jepria.client.message.PredefinedButton;
 import com.technology.jep.jepria.client.widget.field.multistate.JepMultiStateField;
@@ -55,9 +56,16 @@ public class DialogWithFields extends MessageBox {
   private Map<String, JepMultiStateField<?, ?>> fields = new HashMap<String, JepMultiStateField<?,?>>();
   
   /**
-   * Панель модального окна
+   * Панель модального окна.
    */
   private VerticalPanel panel = new VerticalPanel();
+  
+  /**
+   * Добавляет виджет на панель модального окна.
+   */
+  public void add(Widget w) {
+    panel.add(w);
+  }
   
   /**
    * Добавить поле на панель.
@@ -66,7 +74,7 @@ public class DialogWithFields extends MessageBox {
    */
   public void addField(String fieldId, JepMultiStateField<?, ?> field) {
     fields.put(fieldId, field);
-    panel.add(field);
+    add(field);
   }
   
   /**
@@ -92,25 +100,44 @@ public class DialogWithFields extends MessageBox {
     
     //кнопка сохранить
     Button saveButton = new Button(JepTexts.button_save_alt());
-    saveButton.addClickHandler(event -> {
-        boolean isValid = fields.entrySet().parallelStream().allMatch(map -> map.getValue().isValid() == true);
-        if (isValid) {
-          if(onSave != null) onSave.execute();
-          hide();
-        }
-    });
+    saveButton.addClickHandler(event -> onSave());
     addButton(PredefinedButton.OK, saveButton);
     
     //кнопка выйти
     Button cancelButton = new Button(JepTexts.button_exit_alt());
-    cancelButton.addClickHandler(event -> hide());
+    cancelButton.addClickHandler(event -> onCancel());
     addButton(PredefinedButton.CANCEL, cancelButton);
+  }
+
+  /**
+   * Обработчик на кнопку PredefinedButton.CANCEL
+   */
+  protected void onCancel() {
+    hide();
+  }
+
+  /**
+   * Обработчик на кнопку PredefinedButton.OK
+   */
+  protected void onSave() {
+    if (isValid()) {
+      if (onSave != null) onSave.execute();
+      hide();
+    }
+  }
+
+  /**
+   * Проверка валидации полей диалогового окна.
+   * @return
+   */
+  protected boolean isValid() {
+    return fields.entrySet().parallelStream().allMatch(map -> map.getValue().isValid() == true);
   }
   
   /**
-   * Обработчик на кнопку "Сохранить"
+   * Обработчик сохранения после успешной валидации.
    */
-  private Command onSave;
+  protected Command onSave;
   
   public void setOnSave(Command onSave) {
     this.onSave = onSave;
