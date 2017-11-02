@@ -100,25 +100,44 @@ public class DialogWithFields extends MessageBox {
     
     //кнопка сохранить
     Button saveButton = new Button(JepTexts.button_save_alt());
-    saveButton.addClickHandler(event -> {
-        boolean isValid = fields.entrySet().parallelStream().allMatch(map -> map.getValue().isValid() == true);
-        if (isValid) {
-          if(onSave != null) onSave.execute();
-          hide();
-        }
-    });
+    saveButton.addClickHandler(event -> onSave());
     addButton(PredefinedButton.OK, saveButton);
     
     //кнопка выйти
     Button cancelButton = new Button(JepTexts.button_exit_alt());
-    cancelButton.addClickHandler(event -> hide());
+    cancelButton.addClickHandler(event -> onCancel());
     addButton(PredefinedButton.CANCEL, cancelButton);
+  }
+
+  /**
+   * Обработчик на кнопку PredefinedButton.CANCEL
+   */
+  protected void onCancel() {
+    hide();
+  }
+
+  /**
+   * Обработчик на кнопку PredefinedButton.OK
+   */
+  protected void onSave() {
+    if (isValid()) {
+      if (onSave != null) onSave.execute();
+      hide();
+    }
+  }
+
+  /**
+   * Проверка валидации полей диалогового окна.
+   * @return
+   */
+  protected boolean isValid() {
+    return fields.entrySet().parallelStream().allMatch(map -> map.getValue().isValid() == true);
   }
   
   /**
-   * Обработчик на кнопку "Сохранить"
+   * Обработчик сохранения после успешной валидации.
    */
-  private Command onSave;
+  protected Command onSave;
   
   public void setOnSave(Command onSave) {
     this.onSave = onSave;
