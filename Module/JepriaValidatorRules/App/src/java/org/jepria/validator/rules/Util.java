@@ -117,4 +117,23 @@ public class Util {
     }
     return false;
   }
+  
+  /**
+   * Является ли тип реализацией gwt-сервиса
+   * (наследует {@code JepDataServiceServlet})
+   */
+  public static boolean isGwtServiceImpl(TypeDeclaration<?> typeDeclaration) {
+    if (typeDeclaration instanceof ClassOrInterfaceDeclaration) {
+      ClassOrInterfaceDeclaration coid = (ClassOrInterfaceDeclaration)typeDeclaration;
+      if (!coid.isInterface()) {
+        NodeList<ClassOrInterfaceType> extendedTypes = coid.getExtendedTypes();
+        for (ClassOrInterfaceType extType: extendedTypes) {
+          if (extType.getNameAsString().equals("JepDataServiceServlet")) {
+            return true;
+          }
+        }
+      }
+    }
+    return false;
+  }
 }
