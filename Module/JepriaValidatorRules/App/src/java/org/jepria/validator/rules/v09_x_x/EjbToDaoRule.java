@@ -364,26 +364,26 @@ public class EjbToDaoRule extends ValidatorRule {
                 }
                 
                 
-                
-                // Вычислим название ejb/dao-интерфейса модуля
-                String daoInterfaceName = null;
-                
-                NodeList<ClassOrInterfaceType> implementeds = ((ClassOrInterfaceDeclaration)typeDeclaration).getImplementedTypes();
-                for (ClassOrInterfaceType implemented: implementeds) {
-                  String name = implemented.getNameAsString();
-                  if (name.endsWith("Service")) {
-                    daoInterfaceName = name.substring(0, name.lastIndexOf("Service"));
-                    break;
-                  }
-                }
-                if (daoInterfaceName == null) {
-                  // fallback
-                  daoInterfaceName = typeDeclaration.getNameAsString().substring(0, typeDeclaration.getNameAsString().lastIndexOf("ServiceImpl"));
-                }
-                
-                
-                
                 if (beanJndiNameNode != null) {
+                  
+                  
+                  // Вычислим название ejb/dao-интерфейса модуля
+                  String daoInterfaceName = null;
+                  NodeList<ClassOrInterfaceType> implementeds = ((ClassOrInterfaceDeclaration)typeDeclaration).getImplementedTypes();
+                  for (ClassOrInterfaceType implemented: implementeds) {
+                    String name = implemented.getNameAsString();
+                    if (name.endsWith("Service")) {
+                      daoInterfaceName = name.substring(0, name.lastIndexOf("Service"));
+                      break;
+                    }
+                  }
+                  if (daoInterfaceName == null) {
+                    // fallback
+                    daoInterfaceName = typeDeclaration.getNameAsString().substring(0, typeDeclaration.getNameAsString().lastIndexOf("ServiceImpl"));
+                  }
+                  
+                  
+                  
                   if (eci.getArguments().size() == 2 && eci.getArgument(1) == beanJndiNameNode) {
                     handleMessage(new Message(MessageLevel.AUTO_TRANSFORM, "Use ServerFactory instance in super constructor call, instead of BEAN_JNDI_NAME",
                         MarkSpan.of(beanJndiNameNode.getBegin(), beanJndiNameNode.getEnd())));
@@ -412,17 +412,23 @@ public class EjbToDaoRule extends ValidatorRule {
                       serverPackageName = "server";
                     }
                     
+                    
+                    
                     // добавим импорты
                     unit.addImport(serverPackageName + "." + serverFactoryClassname);
                     unit.addImport(serverPackageName + ".dao." + daoInterfaceName);
-                    unit.addImport(serverPackageName + ".dao." + daoInterfaceName + "Dao");
                     
-                    // удалим импорт BEAN_JNDI_NAME
+                    // удалим импорт BEAN_JNDI_NAME и ejb-импорты
+                    List<Node> nodesToRemove = new ArrayList<>();
                     for (ImportDeclaration importd: unit.getImports()) {
-                      if (importd.getNameAsString().contains("BEAN_JNDI_NAME")) {
-                        importd.remove();
-                        break;
+                      String name = importd.getNameAsString();
+                      if (name.contains("BEAN_JNDI_NAME") 
+                          || name.contains(".ejb.")) {
+                        nodesToRemove.add(importd);
                       }
+                    }
+                    for (Node node2: nodesToRemove) {
+                      node2.remove();
                     }
                     
                     modified = true;
@@ -665,8 +671,9 @@ public class EjbToDaoRule extends ValidatorRule {
         }
       }
       
-      // переименуем класс
+      
       if (typeDeclaration.getNameAsString().endsWith("Bean")) {
+        // переименуем класс
         String newTypeName = typeDeclaration.getNameAsString().replaceAll("Bean", "Dao");
         
         handleMessage(new Message(MessageLevel.AUTO_TRANSFORM, 
@@ -675,6 +682,16 @@ public class EjbToDaoRule extends ValidatorRule {
         
         typeDeclaration.setName(newTypeName);
         modified = true;
+        
+        
+        // переименуем конструкторы
+        for (Node child: typeDeclaration.getChildNodes()) {
+          if (child instanceof ConstructorDeclaration) {
+            ConstructorDeclaration constructor = (ConstructorDeclaration)child;
+            constructor.setName(newTypeName);
+            modified = true;
+          }
+        }
       }
       
       // уберем аннотации
