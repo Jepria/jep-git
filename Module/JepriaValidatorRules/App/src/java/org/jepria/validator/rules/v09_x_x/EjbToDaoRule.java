@@ -1,6 +1,8 @@
 package org.jepria.validator.rules.v09_x_x;
 
 import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -10,9 +12,8 @@ import org.jepria.validator.core.base.MarkSpan;
 import org.jepria.validator.core.base.Message;
 import org.jepria.validator.core.base.ValidatorRule;
 import org.jepria.validator.core.base.resource.JavaResource;
-import org.jepria.validator.core.base.resource.PlainResource;
-import org.jepria.validator.core.base.resource.ResourceUtils;
 import org.jepria.validator.core.base.transform.ContentRefactorer;
+import org.jepria.validator.core.base.transform.ContextRefactorer;
 import org.jepria.validator.core.base.transform.ResourceRefactorer;
 import org.jepria.validator.core.base.transform.Transformation;
 import org.jepria.validator.core.base.transform.Transformation.Action;
@@ -32,13 +33,21 @@ import com.github.javaparser.ast.body.FieldDeclaration;
 import com.github.javaparser.ast.body.TypeDeclaration;
 import com.github.javaparser.ast.body.VariableDeclarator;
 import com.github.javaparser.ast.expr.AnnotationExpr;
+import com.github.javaparser.ast.expr.CastExpr;
 import com.github.javaparser.ast.expr.Expression;
+import com.github.javaparser.ast.expr.MethodCallExpr;
+import com.github.javaparser.ast.expr.SimpleName;
+import com.github.javaparser.ast.expr.VariableDeclarationExpr;
 import com.github.javaparser.ast.stmt.BlockStmt;
 import com.github.javaparser.ast.stmt.ExplicitConstructorInvocationStmt;
+import com.github.javaparser.ast.stmt.ExpressionStmt;
 import com.github.javaparser.ast.type.ClassOrInterfaceType;
+import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 
 /**
  * Преобразует *ServiceImpl от ejb к dao виду
+ * <br>
+ * Создает класс *ServerFactory
  * <br>
  * Удаляет из *ServerConstant объявления полей BEAN_JNDI_NAME
  * <br>
@@ -53,20 +62,95 @@ public class EjbToDaoRule extends ValidatorRule {
     
     if (resource.getName().endsWith("ServiceImpl.java")) {
       CompilationUnit unit = resource.asCompilationUnit();
-      boolean modified = forGwtServiceImpl(unit);
+      boolean modified = forServiceImpl(unit);
       
-      if (modified) {
-        return Transformation.of().content(new Action<ContentRefactorer>() {
+      
+      
+      // действие по созданию класса *ServerFactory
+      Action<ContextRefactorer> createServerFactoryAction = null;
+      
+      final String appNamePrefix = resource.getName().substring(0, resource.getName().lastIndexOf("ServiceImpl.java"));
+      String serverFactoryPathName = resource.getPathName().substring(0, resource.getPathName().lastIndexOf("/server/") 
+          + "/server/".length()) + appNamePrefix + "ServerFactory.java";
+      
+      if (!getContextRead().plainResourceExists(serverFactoryPathName)) {
+        
+        handleMessage(new Message(MessageLevel.AUTO_TRANSFORM, 
+            "Create a class extending com.technology.jep.jepria.server.ServerFactory in file " + serverFactoryPathName,
+            null));
+        
+        // Вычислим название server-пакета
+        String serverPackageName = null;
+        if (unit.getPackageDeclaration().isPresent()) {
+          String packaged = unit.getPackageDeclaration().get().getNameAsString();
+          int ind = packaged.lastIndexOf("server");
+          if (ind != -1) {
+            serverPackageName = packaged.substring(0, ind + "server".length()); 
+          }
+        }
+        if (serverPackageName == null) {
+          // fallback
+          handleMessage(new Message(MessageLevel.MANUAL_TRANSFORM, 
+              "The resource is not located within 'server' folder. Move the new resource " 
+              + serverFactoryPathName + " into 'server' package manually", 
+              null));
+          serverPackageName = "server";
+        }
+        final String serverPackageNameFinal = serverPackageName;
+        
+        createServerFactoryAction = new Action<ContextRefactorer>() {
           @Override
-          public void perform(ContentRefactorer refactorer) {
+          public void perform(ContextRefactorer refactorer) {
+            OutputStream os = refactorer.writeNewResource(serverFactoryPathName);
+            final String serverFactoryClassname = appNamePrefix + "ServerFactory";
+            
             try {
-              Util.prettyPrintJava(unit, refactorer.getRefactoringStream());
+              try (PrintStream ps = new PrintStream(os, true, "UTF-8")) {
+                ps.println("package " + serverPackageNameFinal + ";");
+                ps.println();
+                ps.println("import static " + serverPackageNameFinal + "." + appNamePrefix + "ServerConstant.DATA_SOURCE_JNDI_NAME;");
+                ps.println();
+                ps.println("import com.technology.jep.jepria.server.ServerFactory;");
+                ps.println("import " + serverPackageNameFinal + ".dao." + appNamePrefix + ";");
+                ps.println("import " + serverPackageNameFinal + ".dao." + appNamePrefix + "Dao;");
+                ps.println();
+                ps.println("public class " + serverFactoryClassname + " extends ServerFactory<" + appNamePrefix + "> {");
+                ps.println();
+                ps.println("  private " + serverFactoryClassname + "() {");
+                ps.println("    super(new " + appNamePrefix + "Dao(), DATA_SOURCE_JNDI_NAME);");
+                ps.println("  }");
+                ps.println();
+                ps.println("  public static final " + serverFactoryClassname + " instance = new " + serverFactoryClassname + "();");
+                ps.println();
+                ps.println("}");
+              }
+              
               handleMessage(new Message("Transformation succeeded"));
             } catch (IOException e) {
               handleThrowable(e);
             }
           }
-        });
+        };
+        
+        modified = true;
+      }
+      
+      if (modified) {
+        return Transformation
+            .of()
+            .content(new Action<ContentRefactorer>() {
+              @Override
+              public void perform(ContentRefactorer refactorer) {
+                try {
+                  Util.prettyPrintJava(unit, refactorer.getRefactoringStream());
+                  handleMessage(new Message("Transformation succeeded"));
+                } catch (IOException e) {
+                  handleThrowable(e);
+                }
+              }
+            })
+            .andOf()
+            .context(createServerFactoryAction);
       }
     } else if (resource.getName().endsWith("ServerConstant.java")) {
       CompilationUnit unit = resource.asCompilationUnit();
@@ -251,7 +335,7 @@ public class EjbToDaoRule extends ValidatorRule {
    * @param unit
    * @return true если исходный код был изменен (и нужна трансформация), false иначе
    */
-  private boolean forGwtServiceImpl(CompilationUnit unit) {
+  private boolean forServiceImpl(CompilationUnit unit) {
     
     boolean modified = false;
     
@@ -306,41 +390,38 @@ public class EjbToDaoRule extends ValidatorRule {
 
                     // модификация кода:
                     
-                    eci.setArgument(1, JavaParser.parseExpression("new ServerFactory<" + daoInterfaceName + ">(new " + daoInterfaceName + "Dao(), DATA_SOURCE_JNDI_NAME)"));
+                    String serverFactoryClassname = typeDeclaration.getNameAsString().substring(0, typeDeclaration.getNameAsString().lastIndexOf("ServiceImpl"))
+                        + "ServerFactory"; 
                     
-                    // Проверим, что dao интерфейс с вычисленным именем уже существует в проекте
-                    String daoInterfacePackage = null;
-                    List<PlainResource> daoInterfaces = getContextRead().listPlainResourcesByName(daoInterfaceName + ".java");
-                    for (PlainResource r: daoInterfaces) {
-                      if (r.getPathName().contains("/dao/")) {
-                        CompilationUnit daoUnit = ResourceUtils.asJava(r.newInputStream());
-                        if (daoUnit.getPackageDeclaration().isPresent()) {
-                          daoInterfacePackage = daoUnit.getPackageDeclaration().get().getNameAsString();
-                        }
-                        break;
+                    eci.setArgument(1, JavaParser.parseExpression(serverFactoryClassname + ".instance"));
+                    
+                    // Вычислим название server-пакета
+                    String serverPackageName = null;
+                    if (unit.getPackageDeclaration().isPresent()) {
+                      String packaged = unit.getPackageDeclaration().get().getNameAsString();
+                      int ind = packaged.lastIndexOf("server");
+                      if (ind != -1) {
+                        serverPackageName = packaged.substring(0, ind + "server".length()); 
                       }
                     }
-                    if (daoInterfacePackage == null) {
-                      // dao интерфейс не существует, но будет создан
-                      if (unit.getPackageDeclaration().isPresent()) {
-                        String packaged = unit.getPackageDeclaration().get().getNameAsString();
-                        int ind = packaged.lastIndexOf("server");
-                        if (ind != -1) {
-                          daoInterfacePackage = packaged.substring(0, ind + "server".length()) + ".dao"; 
-                        } else {
-                          daoInterfacePackage = "dao";
-                        }
-                      }
+                    if (serverPackageName == null) {
+                      // fallback
+                      handleMessage(new Message(MessageLevel.MANUAL_TRANSFORM, 
+                          "The resource is not located within 'server' folder. The imports in this type must be resolved manually", 
+                          null));
+                      serverPackageName = "server";
                     }
                     
                     // добавим импорты
-                    unit.addImport("com.technology.jep.jepria.server.ServerFactory");
-                    unit.addImport(daoInterfacePackage + "." + daoInterfaceName);
-                    unit.addImport(daoInterfacePackage + "." + daoInterfaceName + "Dao");
-                    // изменим импорт BEAN_JNDI_NAME на DATA_SOURCE_JNDI_NAME
+                    unit.addImport(serverPackageName + "." + serverFactoryClassname);
+                    unit.addImport(serverPackageName + ".dao." + daoInterfaceName);
+                    unit.addImport(serverPackageName + ".dao." + daoInterfaceName + "Dao");
+                    
+                    // удалим импорт BEAN_JNDI_NAME
                     for (ImportDeclaration importd: unit.getImports()) {
                       if (importd.getNameAsString().contains("BEAN_JNDI_NAME")) {
-                        importd.setName(importd.getNameAsString().replaceAll("BEAN_JNDI_NAME", "DATA_SOURCE_JNDI_NAME"));
+                        importd.remove();
+                        break;
                       }
                     }
                     
@@ -372,10 +453,92 @@ public class EjbToDaoRule extends ValidatorRule {
             }
           }
         }
+        
+        
+        // Заменим ejbLookup и вызов ejb обращениями к dao
+        
+        final boolean[] modified1 = new boolean[]{false};
+        List<Node> nodesToRemove = new ArrayList<>();
+
+        VoidVisitorAdapter<Void> ejbLookupVisitor = new VoidVisitorAdapter<Void>() {
+          @Override
+          public void visit(MethodCallExpr node, Void arg) {
+            super.visit(node, arg);
+            if ("ejbLookup".equals(node.getNameAsString())) {
+              boolean everythingMatched = false;
+              Node parent = node;
+              if (parent.getParentNode().isPresent()) {
+                parent = parent.getParentNode().get();
+                if (parent instanceof CastExpr && parent.getParentNode().isPresent()) {
+                  parent = parent.getParentNode().get();
+                  if (parent instanceof VariableDeclarator && parent.getParentNode().isPresent()) {
+                    // Сохраним название ejb-переменной
+                    final String varName = ((VariableDeclarator)parent).getNameAsString();
+                    
+                    parent = parent.getParentNode().get();
+                    if (parent instanceof VariableDeclarationExpr && parent.getParentNode().isPresent()) {
+                      parent = parent.getParentNode().get();
+                      if (parent instanceof ExpressionStmt && parent.getParentNode().isPresent()) {
+                        Node parent2 = parent.getParentNode().get();
+                        if (parent2 instanceof BlockStmt) {
+                          everythingMatched = true;
+                          
+                          handleMessage(new Message(MessageLevel.AUTO_TRANSFORM, "Remove the usage of ejbLookup method",
+                              MarkSpan.of(node.getName().getBegin(), node.getName().getEnd())));
+                          
+                          nodesToRemove.add(parent);
+                          
+                          // Заменим в блоке-родителе все использования ejb-переменной на dao
+                          parent2.accept(new EjbVarNameVisitor(varName), null);
+                          
+                          modified1[0] = true;
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+              if (!everythingMatched) {
+                handleMessage(new Message(MessageLevel.MANUAL_TRANSFORM, "Remove the usage of the ejbLookup method",
+                    MarkSpan.of(node.getName().getBegin(), node.getName().getEnd())));
+              }
+            }
+          }
+        };
+        
+        unit.accept(ejbLookupVisitor, null);
+        modified |= modified1[0];
+        
+        // модификация кода
+        for (Node node: nodesToRemove) {
+          node.remove();
+        }
       }
     }
     
     return modified;
+  }
+  
+  /**
+   * Посетитель, заменяющий имена переменных ejb (по заданному имени) на dao 
+   */
+  private class EjbVarNameVisitor extends VoidVisitorAdapter<Void> {
+    private final String ejbVarName;
+    public EjbVarNameVisitor(String ejbVarName) {
+      this.ejbVarName = ejbVarName;
+    }
+    @Override
+    public void visit(SimpleName node, Void arg) {
+      super.visit(node, arg);
+      if (ejbVarName.equals(node.asString())) {
+        // модификация кода:
+        
+        handleMessage(new Message(MessageLevel.AUTO_TRANSFORM, "Use the field 'dao' instead of variable '" + ejbVarName + "'",
+            MarkSpan.of(node.getBegin(), node.getEnd())));
+        
+        node.setIdentifier("dao");
+      }
+    }
   }
   
   /**
