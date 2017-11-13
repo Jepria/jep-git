@@ -1,9 +1,5 @@
 package org.jepria.validator.rules.v10_3_0;
 
-import java.util.ArrayList;
-
-import org.jepria.validator.core.base.ValidatorRule;
-
 /**
  * Список валидационных правил, соответствующих переводу
  * на версию Jepria-10.3.0 в необходимом для валидации порядке
@@ -12,7 +8,7 @@ import org.jepria.validator.core.base.ValidatorRule;
  * 
  *  @see {@link org.jepria.validator.user.CLI}
  */
-public class RuleList extends ArrayList<ValidatorRule> {
+public class RuleList extends org.jepria.validator.rules.v09_x_x.RuleList {
 
   private static final long serialVersionUID = 1L;
 

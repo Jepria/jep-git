@@ -69,7 +69,20 @@ public class CLI implements Runnable {
   private String ruleListOpt = null;
   private List<String> directoriesOpt = null;
   private List<String> outputOpt = null;
+  private List<String> filterMessagesOpt = null;
   
+  /**
+   * Выводимый в консоль уровень сообщения-исключения
+   * (вызванного методом {@link org.jepria.validator.core.base.MessageHandler#handleThrowable(Throwable)})
+   */
+  public static final String THROWABLE_LEVEL = "/THROWABLE";
+  
+  /**
+   * Выводимый в консоль уровень сообщения,
+   * поступившего без указанного в явном виде уровня
+   * (вызванного методом {@link org.jepria.validator.core.base.MessageHandler#handleMessage(Message)})
+   */
+  public static final String VERBOSE_LEVEL = "/VERBOSE";
   
   
   public static void main(String[] args) {
@@ -176,6 +189,21 @@ public class CLI implements Runnable {
         }
         break;
       }
+      case "-fm": case "--filterMessages": {
+        if (argParser.hasMoreElements()) {
+          arg = argParser.nextElement();
+          try {
+            instance.filterMessagesOpt = parseSemicolonSeparated(arg);
+          } catch (ParseException e) {
+            invalidSemicolonSeparated(arg, e.getInvalidValue());
+            return;
+          }
+        } else {
+          requiredValue(arg);
+          return;
+        }
+        break;
+      }
       default: {
       }
       }
@@ -208,19 +236,26 @@ public class CLI implements Runnable {
       MessageCollector validationMessageCollector = new MessageCollector() {
         @Override
         public void collect(ValidatorRule rule, Resource resource, Throwable e) {
-          out.println("ERROR: " + rule.getClass().getSimpleName() 
-              + " validating the file " + resource.getPathName() + ": " 
-              + e.getClass().getName() + ": " + e.getMessage());
-          e.printStackTrace(out);
+          if (filterMessagesOpt == null || filterMessagesOpt.contains(THROWABLE_LEVEL)) {
+            out.println(THROWABLE_LEVEL + ": " + rule.getClass().getSimpleName() 
+                + " validating the file " + resource.getPathName() + ": " 
+                + e.getClass().getName() + ": " + e.getMessage());
+            e.printStackTrace(out);
+          }
         }
         @Override
         public void collect(ValidatorRule rule, Resource resource, Message message) {
-          out.println(
-              (message.level == null ? "INFO" : message.level) + ": "
-              + rule.getClass().getSimpleName() 
-              + " validating the file " + resource.getPathName() + ": "
-              + (message.markSpan == null ? "" : ("at " + Integer.toString(message.markSpan.lineBegin) + ":" + Integer.toString(message.markSpan.colBegin + 1) + ": ")) +
-              message.text);
+          if (message != null) {
+            String levelAsString = message.level == null ? VERBOSE_LEVEL : message.level.toString();
+            if (filterMessagesOpt == null || filterMessagesOpt.contains(levelAsString)) {
+              out.println(
+                  levelAsString + ": "
+                  + rule.getClass().getSimpleName() 
+                  + " validating the file " + resource.getPathName() + ": "
+                  + (message.markSpan == null ? "" : ("at " + Integer.toString(message.markSpan.lineBegin) + ":" + Integer.toString(message.markSpan.colBegin + 1) + ": ")) +
+                  message.text);
+            }
+          }
         }
       };
       
@@ -230,19 +265,24 @@ public class CLI implements Runnable {
         transformMessageCollector = new MessageCollector() {
           @Override
           public void collect(ValidatorRule rule, Resource resource, Throwable e) {
-            out.println("ERROR: " + rule.getClass().getSimpleName() 
+            out.println(THROWABLE_LEVEL + ": " + rule.getClass().getSimpleName() 
                 + " on transformation for the resource " + resource.getPathName() + ": " 
                 + e.getClass().getName() + ": " + e.getMessage());
             e.printStackTrace(out);
           }
           @Override
           public void collect(ValidatorRule rule, Resource resource, Message message) {
-            out.println(
-                (message.level == null ? "INFO" : message.level) + ": " 
-                + rule.getClass().getSimpleName() 
-                + " on transformation for the resource " + resource.getPathName() + ": "
-                + (message.markSpan == null ? "" : ("at " + Integer.toString(message.markSpan.lineBegin) + ":" + Integer.toString(message.markSpan.colBegin + 1) + ": ")) +
-                message.text);
+            if (message != null) {
+              String levelAsString = message.level == null ? VERBOSE_LEVEL : message.level.toString();
+              if (filterMessagesOpt == null || filterMessagesOpt.contains(levelAsString)) {
+                out.println(
+                    levelAsString + ": " 
+                    + rule.getClass().getSimpleName() 
+                    + " on transformation for the resource " + resource.getPathName() + ": "
+                    + (message.markSpan == null ? "" : ("at " + Integer.toString(message.markSpan.lineBegin) + ":" + Integer.toString(message.markSpan.colBegin + 1) + ": ")) +
+                    message.text);
+              }
+            }
           }
         };
       }
@@ -364,6 +404,7 @@ public class CLI implements Runnable {
     out.println(" -rl,--ruleList <arg>     rule List classname");
     out.println(" -rc,--ruleClasses <arg>  semicolon-separated list of rule classnames, in necessary order.");
     out.println("                          When used together with -rl option, has no effect");
+    out.println(" -fm,--filterMessages <level>;<level>;... output message level filtering");
     
     out.println(" -h                       print brief help (this screen)");
     out.println(" --help                   print full help");
@@ -390,6 +431,12 @@ public class CLI implements Runnable {
     out.println("                          When used together with --ruleList option, has no effect.");
     out.println("                          Each classname must denote a class that extends");
     out.println("                          " + ValidatorRule.class.getCanonicalName());
+    out.println(" -fm,--filterMessages <level>;<level>;... output message level filtering.");
+    out.println("                          Prints the messages of listed levels only, the others are swallowed.");
+    out.println("                          The value '" + THROWABLE_LEVEL + "' as a <level> refers to throwable messages.");
+    out.println("                          The value '" + VERBOSE_LEVEL + "' as a <level> refers to regular messages,");
+    out.println("                          which come without any explicit level.");
+    out.println("                          If the option is missing, messages of all levels are printed.");
 
     out.println(" -h                       print brief help");
     out.println(" --help                   print full help (this screen)");
