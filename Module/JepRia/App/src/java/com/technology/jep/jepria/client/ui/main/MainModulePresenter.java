@@ -24,7 +24,6 @@ import com.google.gwt.user.client.ui.Widget;
 import com.technology.jep.jepria.client.async.JepAsyncCallback;
 import com.technology.jep.jepria.client.async.LoadAsyncCallback;
 import com.technology.jep.jepria.client.entrance.Entrance;
-import com.technology.jep.jepria.client.history.place.JepViewListPlace;
 import com.technology.jep.jepria.client.history.place.PlainPlaceController;
 import com.technology.jep.jepria.client.history.scope.JepScope;
 import com.technology.jep.jepria.client.history.scope.JepScopeStack;
@@ -133,7 +132,7 @@ public abstract class MainModulePresenter<V extends MainView, E extends MainEven
   private void bindModule(final String moduleId) {
     view.addEnterModuleListener(moduleId, new JepListener() {
       public void handleEvent(JepEvent event) {
-        eventBus.enterModule(moduleId);
+        eventBus.enterModule(moduleId, true);
       }
     });
   }
@@ -215,14 +214,7 @@ public abstract class MainModulePresenter<V extends MainView, E extends MainEven
     JepScopeStack.instance.setExitScope(true); // TODO Сделать это более естественным образом
     try {
       JepScope scope = JepScopeStack.instance.peek();
-      String activeModuleId = scope.getActiveModuleId();
-
-      // Переход при нажатии кнопки UP:
-      // если переход не в главный модуль скопа, то переход в состояние списка,
-      // если в главный - то переход в то состояние, в котором остался главный модуль.
-      // (В стандартном случае при использовании кнопки UP, перехода в главный модуль не будет,
-      // ранее код был в методе onEnterModule при любых межмодульных переходах)
-      eventBus.enterModule(activeModuleId, scope.isMain(activeModuleId) ? null : new JepViewListPlace());
+      eventBus.enterModule(scope.getActiveModuleId(), true);
     } catch(Throwable th) {
       th.printStackTrace();
       messageBox.showError(th);
@@ -315,14 +307,15 @@ public abstract class MainModulePresenter<V extends MainView, E extends MainEven
       Place place = event.getPlace();
       // Если требуемое состояние не установлено.
       if(place == null) {
-        
         // Если заходим в модуль, то НЕ меняем его состояние (оставляем текущее состояние).
-        // Если состояние не задано, то scope.getCurrentWorkstate() возвращает детальную форму в режиме поиска для главного модуля
+        // Если состояние не задано, то scope.getCurrentWorkstate() возвращает состояние модуля, 
+        // в котором он остался на момент выхода. 
+        // Если это первый вход в модуль, то возвращает детальную форму в режиме поиска для главного модуля
         // и списочную фому для дочернего модуля.
         WorkstateEnum workstate = scope.getCurrentWorkstate();
         place = JepClientUtil.workstateToPlace(workstate);
-
       }
+      
       // Отобразим закладки модулей исходя из текущего состояния.
       view.showModuleTabs(getModules(scope));
       // Сделаем активной закладку запрошенного модуля.
