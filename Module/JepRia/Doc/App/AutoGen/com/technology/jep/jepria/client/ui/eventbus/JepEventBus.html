@@ -18,7 +18,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10};
+var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -195,18 +195,29 @@ extends com.google.gwt.event.shared.ResettableEventBus</pre>
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/ui/eventbus/JepEventBus.html#enterModule-java.lang.String-">enterModule</a></span>(java.lang.String&nbsp;moduleId)</code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/ui/eventbus/JepEventBus.html#enterModule-java.lang.String-">enterModule</a></span>(java.lang.String&nbsp;moduleId)</code>
+<div class="block">Событие входа в модуль.</div>
+</td>
 </tr>
 <tr id="i2" class="altColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/ui/eventbus/JepEventBus.html#enterModule-java.lang.String-com.google.gwt.place.shared.Place-">enterModule</a></span>(java.lang.String&nbsp;moduleId,
-           com.google.gwt.place.shared.Place&nbsp;place)</code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/ui/eventbus/JepEventBus.html#enterModule-java.lang.String-java.lang.Boolean-">enterModule</a></span>(java.lang.String&nbsp;moduleId,
+           java.lang.Boolean&nbsp;detectPlace)</code>
+<div class="block">Событие входа в модуль.</div>
+</td>
 </tr>
 <tr id="i3" class="rowColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/ui/eventbus/JepEventBus.html#setScope-com.technology.jep.jepria.client.history.scope.JepScope-">setScope</a></span>(<a href="../../../../../../../com/technology/jep/jepria/client/history/scope/JepScope.html" title="class in com.technology.jep.jepria.client.history.scope">JepScope</a>&nbsp;scope)</code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/ui/eventbus/JepEventBus.html#enterModule-java.lang.String-com.google.gwt.place.shared.Place-">enterModule</a></span>(java.lang.String&nbsp;moduleId,
+           com.google.gwt.place.shared.Place&nbsp;place)</code>
+<div class="block">Событие входа в модуль в определенное место входа.</div>
+</td>
 </tr>
 <tr id="i4" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/ui/eventbus/JepEventBus.html#setScope-com.technology.jep.jepria.client.history.scope.JepScope-">setScope</a></span>(<a href="../../../../../../../com/technology/jep/jepria/client/history/scope/JepScope.html" title="class in com.technology.jep.jepria.client.history.scope">JepScope</a>&nbsp;scope)</code>&nbsp;</td>
+</tr>
+<tr id="i5" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/ui/eventbus/JepEventBus.html#updateScope-com.technology.jep.jepria.client.ui.eventbus.event.UpdateScopeEvent-">updateScope</a></span>(<a href="../../../../../../../com/technology/jep/jepria/client/ui/eventbus/event/UpdateScopeEvent.html" title="class in com.technology.jep.jepria.client.ui.eventbus.event">UpdateScopeEvent</a>&nbsp;updateScopeEvent)</code>&nbsp;</td>
 </tr>
@@ -322,6 +333,28 @@ extends com.google.gwt.event.shared.ResettableEventBus</pre>
 <li class="blockList">
 <h4>enterModule</h4>
 <pre>public&nbsp;void&nbsp;enterModule(java.lang.String&nbsp;moduleId)</pre>
+<div class="block">Событие входа в модуль. Метод с одним параметром для обратной совместимости.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>moduleId</code> - Идентификатор модуля.</dd>
+</dl>
+</li>
+</ul>
+<a name="enterModule-java.lang.String-java.lang.Boolean-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>enterModule</h4>
+<pre>public&nbsp;void&nbsp;enterModule(java.lang.String&nbsp;moduleId,
+                        java.lang.Boolean&nbsp;detectPlace)</pre>
+<div class="block">Событие входа в модуль.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>moduleId</code> - Идентификатор модуля.</dd>
+<dd><code>detectPlace</code> - если true, то будет автоматически определенно место входа в модуль,
+ иначе будет то состояние, в котором модуль остался на момент выхода из него.</dd>
+</dl>
 </li>
 </ul>
 <a name="enterModule-java.lang.String-com.google.gwt.place.shared.Place-">
@@ -332,6 +365,12 @@ extends com.google.gwt.event.shared.ResettableEventBus</pre>
 <h4>enterModule</h4>
 <pre>public&nbsp;void&nbsp;enterModule(java.lang.String&nbsp;moduleId,
                         com.google.gwt.place.shared.Place&nbsp;place)</pre>
+<div class="block">Событие входа в модуль в определенное место входа.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>moduleId</code> - Идентификатор модуля.</dd>
+<dd><code>place</code> - Место входа.</dd>
+</dl>
 </li>
 </ul>
 </li>
