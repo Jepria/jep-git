@@ -159,6 +159,10 @@ public class DetailFormPresenter<V extends DetailFormView, E extends PlainEventB
     view.setPresenter(this);
   }
   
+  /**
+   * {@inheritDoc}
+   */
+  @Override
   protected void onChangeWorkstate(WorkstateEnum workstate) {
     fields.changeWorkstate(workstate);
 
