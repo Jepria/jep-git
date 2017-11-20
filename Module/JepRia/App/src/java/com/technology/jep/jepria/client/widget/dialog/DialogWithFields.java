@@ -128,7 +128,8 @@ public class DialogWithFields extends MessageBox {
 
   /**
    * Проверка валидации полей диалогового окна.
-   * @return
+   * 
+   * @return флаг успешности валидации
    */
   protected boolean isValid() {
     return fields.entrySet().parallelStream().allMatch(map -> map.getValue().isValid() == true);

@@ -141,7 +141,7 @@ public abstract class MainClientFactoryImpl<E extends MainEventBus, S extends Je
    *   );
    * }</pre>
    *
-   * @param moduleItems идентификаторы модулей приложения (вместе с наименованиями)
+   * @param moduleIds идентификаторы модулей приложения (вместе с наименованиями)
    */
   public MainClientFactoryImpl(String...moduleIds) {
     

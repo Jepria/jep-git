@@ -25,7 +25,7 @@ public class DefaultComparator<X extends Object> implements Comparator<X> {
       if (o1 == null && o2 == null) {
         return 0;
       } else {
-        return (o1 == null) ? -1 : 1;
+        return (o1 == null) ? 1 : -1;
       }
     }
     if (o1 instanceof Comparable) {

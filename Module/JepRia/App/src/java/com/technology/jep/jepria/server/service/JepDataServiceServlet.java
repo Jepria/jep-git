@@ -276,17 +276,21 @@ abstract public class JepDataServiceServlet<D extends JepDataStandard> extends J
     SortDir sortDir = sortConfig.getSortDir();
     
     if(sortDir == SortDir.ASC) {
-      Collections.sort(resultRecords, new Comparator<JepRecord>() {
-        public int compare(JepRecord m1, JepRecord m2) {
-          return sorter.compare(m1, m2, sortField);
-        }
-      });
+    	synchronized (resultRecords) {
+	      Collections.sort(resultRecords, new Comparator<JepRecord>() {
+	        public int compare(JepRecord m1, JepRecord m2) {
+	          return sorter.compare(m1, m2, sortField);
+	        }
+	      });
+    	}
     } else if(sortDir == SortDir.DESC) {
-      Collections.sort(resultRecords, new Comparator<JepRecord>() {
-        public int compare(JepRecord m1, JepRecord m2) {
-          return sorter.compare(m2, m1, sortField);
-        }
-      });
+    	 synchronized (resultRecords) {
+	      Collections.sort(resultRecords, new Comparator<JepRecord>() {
+	        public int compare(JepRecord m1, JepRecord m2) {
+	          return sorter.compare(m2, m1, sortField);
+	        }
+	      });
+    	 }
     }
     
     // Поддержка функционала листания полученного набора данных.
