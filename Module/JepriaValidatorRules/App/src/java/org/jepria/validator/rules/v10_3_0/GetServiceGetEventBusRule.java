@@ -23,6 +23,9 @@ import com.github.javaparser.ast.body.BodyDeclaration;
 import com.github.javaparser.ast.body.ConstructorDeclaration;
 import com.github.javaparser.ast.body.MethodDeclaration;
 import com.github.javaparser.ast.body.TypeDeclaration;
+import com.github.javaparser.ast.expr.CastExpr;
+import com.github.javaparser.ast.expr.Expression;
+import com.github.javaparser.ast.expr.NameExpr;
 import com.github.javaparser.ast.stmt.BlockStmt;
 import com.github.javaparser.ast.stmt.ExpressionStmt;
 import com.github.javaparser.ast.stmt.IfStmt;
@@ -269,7 +272,7 @@ public class GetServiceGetEventBusRule extends ValidatorRule {
          * if(eventBus == null) {
          *   eventBus = ...
          * }
-         * return eventBus;
+         * return (E)? eventBus;
          */
         List<Node> nodes = body.getChildNodes();
         if (nodes != null && nodes.size() == 2 && nodes.get(0) instanceof IfStmt && nodes.get(1) instanceof ReturnStmt) {
@@ -285,33 +288,46 @@ public class GetServiceGetEventBusRule extends ValidatorRule {
               final String assignExpr = statement.getChildNodes().get(0).toString();
               if (assignExpr.startsWith("eventBus = ")) {
                 
-                if (returnStmt.getExpression().isPresent() && 
-                    "eventBus".equals(returnStmt.getExpression().get().toString())) {
+                if (returnStmt.getExpression().isPresent()) {
+                  // the return statement may contain a cast
+                  boolean hasCast = false;
+                  String castToType = null;
+                  Expression expr = returnStmt.getExpression().get();
+                  if (expr instanceof CastExpr) {
+                    hasCast = true;
+                    CastExpr castExpr = (CastExpr)expr;
+                    castToType = castExpr.getType().asString();
+                    expr = castExpr.getExpression();
+                  }
                   
-                  checkingOk = true;
-                  
-                  handleMessage(new Message(MessageLevel.AUTO_TRANSFORM, "Use createEventBus() instead of getEventBus()",
-                      MarkSpan.of(method.getName().getBegin(), method.getName().getEnd())));
-
-                  // модификация кода:
-                  
-                  // нет ли метода createMainService уже в этом классе?
-                  boolean createMethodExists = Util.getMethodBySignature(typeDeclaration, "createEventBus()") != null;
-                  
-                  String returnType = method.getType().asString();
-                  
-                  if (!createMethodExists) {
-                    MethodDeclaration newMethod = typeDeclaration.addMethod("createEventBus", Modifier.PUBLIC);
-                    newMethod.setType(returnType);
-                    newMethod.addMarkerAnnotation("Override");
+                  if (expr instanceof NameExpr && "eventBus".equals(expr.toString())) {
                     
-                    BlockStmt newBody = new BlockStmt();
-                    newBody.addStatement("return " + assignExpr.substring("eventBus = ".length()));
-                    newMethod.setBody(newBody);
+                    checkingOk = true;
                     
-                    typeDeclaration.remove(method);
+                    handleMessage(new Message(MessageLevel.AUTO_TRANSFORM, "Use createEventBus() instead of getEventBus()",
+                        MarkSpan.of(method.getName().getBegin(), method.getName().getEnd())));
+  
+                    // модификация кода:
                     
-                    modified = true;
+                    // нет ли метода createMainService уже в этом классе?
+                    boolean createMethodExists = Util.getMethodBySignature(typeDeclaration, "createEventBus()") != null;
+                    
+                    String returnType = method.getType().asString();
+                    
+                    if (!createMethodExists) {
+                      MethodDeclaration newMethod = typeDeclaration.addMethod("createEventBus", Modifier.PUBLIC);
+                      newMethod.setType(returnType);
+                      newMethod.addMarkerAnnotation("Override");
+                      
+                      BlockStmt newBody = new BlockStmt();
+                      String cast = hasCast ? "(" + castToType + ") " : "";// restore the cast, if any
+                      newBody.addStatement("return " + cast + assignExpr.substring("eventBus = ".length()));
+                      newMethod.setBody(newBody);
+                      
+                      typeDeclaration.remove(method);
+                      
+                      modified = true;
+                    }
                   }
                 }
               }
