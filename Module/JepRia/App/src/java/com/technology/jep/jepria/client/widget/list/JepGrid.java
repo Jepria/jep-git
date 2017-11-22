@@ -663,7 +663,7 @@ public class JepGrid<T> extends DataGrid<T> {
    * Определяет находится ли курсор в верхней части таблицы.
    * 
    * @param currentClientY Y координата курсора
-   * @return
+   * @return проверка нахождения курсора над верхней частью таблицы
    */
   private boolean isCursorOnTableTop(int currentClientY){
     Element tableElement = this.contentWidget.getElement();
@@ -676,7 +676,7 @@ public class JepGrid<T> extends DataGrid<T> {
    * Определяет находится ли курсор в нижней части таблицы.
    * 
    * @param currentClientY Y координата курсора
-   * @return
+   * @return проверка нахождения курсора над нижней частью таблицы
    */
   private boolean isCursorOnTableBottom(int currentClientY){
     Element tableElement = this.contentWidget.getElement();

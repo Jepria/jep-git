@@ -237,7 +237,7 @@ public class MainTabPanel extends HeaderPanel {
   /**
    * Инициализация вкладок
    * 
-   * @param moduleItems        список модулей
+   * @param moduleConfigurations        список модулей
    */
   public void setModuleItems(List<ModuleConfiguration> moduleConfigurations) {
     for (ModuleConfiguration moduleConfiguration: moduleConfigurations) {

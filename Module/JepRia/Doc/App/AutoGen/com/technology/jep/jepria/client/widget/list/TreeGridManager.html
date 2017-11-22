@@ -889,8 +889,8 @@ extends <a href="../../../../../../../com/technology/jep/jepria/client/widget/li
 <div class="block">Вставка строки перед заданным записью.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>oldPositionRecord</code> - </dd>
-<dd><code>newPositionRecord</code> - </dd>
+<dd><code>oldPositionRecords</code> - записи, перед которыми идет вставка новой записи</dd>
+<dd><code>newPositionRecord</code> - вставляемая запись</dd>
 </dl>
 </li>
 </ul>
@@ -905,8 +905,8 @@ extends <a href="../../../../../../../com/technology/jep/jepria/client/widget/li
 <div class="block">Вставка строки после заданной записи.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>oldPositionRecord</code> - </dd>
-<dd><code>newPositionRecord</code> - </dd>
+<dd><code>oldPositionRecords</code> - записи, после которых идет вставка новой записи</dd>
+<dd><code>newPositionRecord</code> - вставляемая запись</dd>
 </dl>
 </li>
 </ul>
@@ -921,9 +921,10 @@ extends <a href="../../../../../../../com/technology/jep/jepria/client/widget/li
 <div class="block">Проверка является ли запись record2 дочерней в дереве для записи record1.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>record1</code> - </dd>
-<dd><code>record2</code> - </dd>
+<dd><code>record1</code> - родительская запись</dd>
+<dd><code>record2</code> - дочерняя запись</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
+<dd>проверка иерархичности записей record1 и record2</dd>
 </dl>
 </li>
 </ul>

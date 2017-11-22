@@ -112,22 +112,22 @@ public abstract class JepLargeField<V extends Widget> extends JepMultiStateField
   private Hidden isDeletedField;
   
   /**
-   * Панель, на которой располагается карту Просмотра для отображения на карте Редактирования (используется в режиме {@link WorkstateEnum.EDIT}).
+   * Панель, на которой располагается карту Просмотра для отображения на карте Редактирования (используется в режиме {@code WorkstateEnum.EDIT}).
    */
   protected V editablePanelViewCard;
   
   /**
-   * Панель для кнопок (удалить/отмена) (используется в режиме {@link WorkstateEnum.EDIT}).
+   * Панель для кнопок (удалить/отмена) (используется в режиме {@code WorkstateEnum.EDIT}).
    */
   private SimplePanel editablePanelTools;
   
   /**
-   * Икнока для удаления файла (используется в режиме {@link WorkstateEnum.EDIT}).
+   * Икнока для удаления файла (используется в режиме {@code WorkstateEnum.EDIT}).
    */
   private Image deleteFileIcon;
   
   /**
-   * Иконка для отмены действия (используется в режиме {@link WorkstateEnum.EDIT}).
+   * Иконка для отмены действия (используется в режиме {@code WorkstateEnum.EDIT}).
    */
   private Image undoIcon;
   
