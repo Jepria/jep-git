@@ -596,6 +596,7 @@ public class EjbToDaoRule extends ValidatorRule {
     add("javax.ejb.Stateless");
     add("oracle.j2ee.ejb.StatelessDeployment");
     add("com.technology.jep.jepria.server.ejb.JepDataStandardBean");
+    add("com.technology.jep.jepria.server.ejb.JepDataBean");
   }};
   
   /**
@@ -631,10 +632,8 @@ public class EjbToDaoRule extends ValidatorRule {
       }
     }
 
-    unit.addImport("com.technology.jep.jepria.server.dao.JepDaoStandard");
-    
     for (TypeDeclaration<?> typeDeclaration: unit.getTypes()) {
-      // переименуем extends
+      // переименуем extends (из JepDataStandardBean в JepDaoStandard, из JepDataBean в JepDao)
       for (ClassOrInterfaceType extended: ((ClassOrInterfaceDeclaration)typeDeclaration).getExtendedTypes()) {
         if (extended.getNameAsString().equals("JepDataStandardBean")) {
           handleMessage(new Message(MessageLevel.AUTO_TRANSFORM, 
@@ -642,6 +641,17 @@ public class EjbToDaoRule extends ValidatorRule {
               MarkSpan.of(extended.getBegin(), extended.getEnd())));
           
           extended.setName("JepDaoStandard");
+          unit.addImport("com.technology.jep.jepria.server.dao.JepDaoStandard");
+          
+          modified = true;
+        } else if (extended.getNameAsString().equals("JepDataBean")) {
+          handleMessage(new Message(MessageLevel.AUTO_TRANSFORM, 
+              "Set the type extends JepDao",
+              MarkSpan.of(extended.getBegin(), extended.getEnd())));
+          
+          extended.setName("JepDao");
+          unit.addImport("com.technology.jep.jepria.server.dao.JepDao");
+          
           modified = true;
         }
       }
