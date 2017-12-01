@@ -66,12 +66,12 @@ public class DefaultLocaleGwtXmlRule extends ValidatorRule {
             
             Node setPropertyNode = document.createElement("set-property");
             ((Element)setPropertyNode).setAttribute("name", "locale");
-            ((Element)setPropertyNode).setAttribute("values", "ru");
+            ((Element)setPropertyNode).setAttribute("value", "ru");
             moduleNode.appendChild(setPropertyNode);
             
             Node setPropertyFallbackNode = document.createElement("set-property-fallback");
             ((Element)setPropertyFallbackNode).setAttribute("name", "locale");
-            ((Element)setPropertyFallbackNode).setAttribute("values", "ru");
+            ((Element)setPropertyFallbackNode).setAttribute("value", "ru");
             moduleNode.appendChild(setPropertyFallbackNode);
             
             
