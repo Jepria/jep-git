@@ -12,6 +12,7 @@ import org.jepria.validator.core.base.MarkSpan;
 import org.jepria.validator.core.base.Message;
 import org.jepria.validator.core.base.ValidatorRule;
 import org.jepria.validator.core.base.resource.JavaResource;
+import org.jepria.validator.core.base.resource.Resource;
 import org.jepria.validator.core.base.transform.ContentRefactorer;
 import org.jepria.validator.core.base.transform.ContextRefactorer;
 import org.jepria.validator.core.base.transform.ResourceRefactorer;
@@ -64,74 +65,9 @@ public class EjbToDaoRule extends ValidatorRule {
       CompilationUnit unit = resource.asCompilationUnit();
       boolean modified = forServiceImpl(unit);
       
-      
-      
       // действие по созданию класса *ServerFactory
-      Action<ContextRefactorer> createServerFactoryAction = null;
-      
-      final String appNamePrefix = resource.getName().substring(0, resource.getName().lastIndexOf("ServiceImpl.java"));
-      String serverFactoryPathName = resource.getPathName().substring(0, resource.getPathName().lastIndexOf("/server/") 
-          + "/server/".length()) + appNamePrefix + "ServerFactory.java";
-      
-      if (!getContextRead().plainResourceExists(serverFactoryPathName)) {
-        
-        handleMessage(new Message(MessageLevel.AUTO_TRANSFORM, 
-            "Create a class extending com.technology.jep.jepria.server.ServerFactory in file " + serverFactoryPathName,
-            null));
-        
-        // Вычислим название server-пакета
-        String serverPackageName = null;
-        if (unit.getPackageDeclaration().isPresent()) {
-          String packaged = unit.getPackageDeclaration().get().getNameAsString();
-          int ind = packaged.lastIndexOf("server");
-          if (ind != -1) {
-            serverPackageName = packaged.substring(0, ind + "server".length()); 
-          }
-        }
-        if (serverPackageName == null) {
-          // fallback
-          handleMessage(new Message(MessageLevel.MANUAL_TRANSFORM, 
-              "The resource is not located within 'server' folder. Move the new resource " 
-              + serverFactoryPathName + " into 'server' package manually", 
-              null));
-          serverPackageName = "server";
-        }
-        final String serverPackageNameFinal = serverPackageName;
-        
-        createServerFactoryAction = new Action<ContextRefactorer>() {
-          @Override
-          public void perform(ContextRefactorer refactorer) {
-            OutputStream os = refactorer.writeNewResource(serverFactoryPathName);
-            final String serverFactoryClassname = appNamePrefix + "ServerFactory";
-            
-            try {
-              try (PrintStream ps = new PrintStream(os, true, "UTF-8")) {
-                ps.println("package " + serverPackageNameFinal + ";");
-                ps.println();
-                ps.println("import static " + serverPackageNameFinal + "." + appNamePrefix + "ServerConstant.DATA_SOURCE_JNDI_NAME;");
-                ps.println();
-                ps.println("import com.technology.jep.jepria.server.ServerFactory;");
-                ps.println("import " + serverPackageNameFinal + ".dao." + appNamePrefix + ";");
-                ps.println("import " + serverPackageNameFinal + ".dao." + appNamePrefix + "Dao;");
-                ps.println();
-                ps.println("public class " + serverFactoryClassname + " extends ServerFactory<" + appNamePrefix + "> {");
-                ps.println();
-                ps.println("  private " + serverFactoryClassname + "() {");
-                ps.println("    super(new " + appNamePrefix + "Dao(), DATA_SOURCE_JNDI_NAME);");
-                ps.println("  }");
-                ps.println();
-                ps.println("  public static final " + serverFactoryClassname + " instance = new " + serverFactoryClassname + "();");
-                ps.println();
-                ps.println("}");
-              }
-              
-              handleMessage(new Message("Transformation succeeded"));
-            } catch (IOException e) {
-              handleThrowable(e);
-            }
-          }
-        };
-        
+      Action<ContextRefactorer> createServerFactoryAction = createServerFactory(resource, unit);
+      if (createServerFactoryAction != null) {
         modified = true;
       }
       
@@ -302,6 +238,89 @@ public class EjbToDaoRule extends ValidatorRule {
     
     
     return null;
+  }
+  
+  
+  /**
+   * Возвращает действие по созданию класса ServerFactory, соответствующего данному ресурсу
+   * @param resource ресурс
+   * @param unit CompilationUnit, соответствующий данному ресурсу (только для того, чтобы не создавать unit из ресурса повторно)
+   * @return действие (если unit представляет собой GwtServiceImpl), null иначе
+   */
+  private Action<ContextRefactorer> createServerFactory(Resource resource, CompilationUnit unit) {
+    Action<ContextRefactorer> createServerFactoryAction = null;
+    
+    for (TypeDeclaration<?> typeDeclaration: unit.getTypes()) {
+      if (Util.isGwtServiceImpl(typeDeclaration)) {
+    
+        final String appNamePrefix = resource.getName().substring(0, resource.getName().lastIndexOf("ServiceImpl.java"));
+        String serverFactoryPathName = resource.getPathName().substring(0, resource.getPathName().lastIndexOf("/server/") 
+            + "/server/".length()) + appNamePrefix + "ServerFactory.java";
+        
+        if (!getContextRead().plainResourceExists(serverFactoryPathName)) {
+          
+          handleMessage(new Message(MessageLevel.AUTO_TRANSFORM, 
+              "Create a class extending com.technology.jep.jepria.server.ServerFactory in file " + serverFactoryPathName,
+              null));
+          
+          // Вычислим название server-пакета
+          String serverPackageName = null;
+          if (unit.getPackageDeclaration().isPresent()) {
+            String packaged = unit.getPackageDeclaration().get().getNameAsString();
+            int ind = packaged.lastIndexOf("server");
+            if (ind != -1) {
+              serverPackageName = packaged.substring(0, ind + "server".length()); 
+            }
+          }
+          if (serverPackageName == null) {
+            // fallback
+            handleMessage(new Message(MessageLevel.MANUAL_TRANSFORM, 
+                "The resource is not located within 'server' folder. Move the new resource " 
+                + serverFactoryPathName + " into 'server' package manually", 
+                null));
+            serverPackageName = "server";
+          }
+          final String serverPackageNameFinal = serverPackageName;
+          
+          createServerFactoryAction = new Action<ContextRefactorer>() {
+            @Override
+            public void perform(ContextRefactorer refactorer) {
+              OutputStream os = refactorer.writeNewResource(serverFactoryPathName);
+              final String serverFactoryClassname = appNamePrefix + "ServerFactory";
+              
+              try {
+                try (PrintStream ps = new PrintStream(os, true, "UTF-8")) {
+                  ps.println("package " + serverPackageNameFinal + ";");
+                  ps.println();
+                  ps.println("import static " + serverPackageNameFinal + "." + appNamePrefix + "ServerConstant.DATA_SOURCE_JNDI_NAME;");
+                  ps.println();
+                  ps.println("import com.technology.jep.jepria.server.ServerFactory;");
+                  ps.println("import " + serverPackageNameFinal + ".dao." + appNamePrefix + ";");
+                  ps.println("import " + serverPackageNameFinal + ".dao." + appNamePrefix + "Dao;");
+                  ps.println();
+                  ps.println("public class " + serverFactoryClassname + " extends ServerFactory<" + appNamePrefix + "> {");
+                  ps.println();
+                  ps.println("  private " + serverFactoryClassname + "() {");
+                  ps.println("    super(new " + appNamePrefix + "Dao(), DATA_SOURCE_JNDI_NAME);");
+                  ps.println("  }");
+                  ps.println();
+                  ps.println("  public static final " + serverFactoryClassname + " instance = new " + serverFactoryClassname + "();");
+                  ps.println();
+                  ps.println("}");
+                }
+                
+                handleMessage(new Message("Transformation succeeded"));
+              } catch (IOException e) {
+                handleThrowable(e);
+              }
+            }
+          };
+        }
+        break;
+      }
+    }
+    
+    return createServerFactoryAction;
   }
   
   /**
@@ -596,6 +615,7 @@ public class EjbToDaoRule extends ValidatorRule {
     add("javax.ejb.Stateless");
     add("oracle.j2ee.ejb.StatelessDeployment");
     add("com.technology.jep.jepria.server.ejb.JepDataStandardBean");
+    add("com.technology.jep.jepria.server.ejb.JepDataBean");
   }};
   
   /**
@@ -631,10 +651,8 @@ public class EjbToDaoRule extends ValidatorRule {
       }
     }
 
-    unit.addImport("com.technology.jep.jepria.server.dao.JepDaoStandard");
-    
     for (TypeDeclaration<?> typeDeclaration: unit.getTypes()) {
-      // переименуем extends
+      // переименуем extends (из JepDataStandardBean в JepDaoStandard, из JepDataBean в JepDao)
       for (ClassOrInterfaceType extended: ((ClassOrInterfaceDeclaration)typeDeclaration).getExtendedTypes()) {
         if (extended.getNameAsString().equals("JepDataStandardBean")) {
           handleMessage(new Message(MessageLevel.AUTO_TRANSFORM, 
@@ -642,6 +660,17 @@ public class EjbToDaoRule extends ValidatorRule {
               MarkSpan.of(extended.getBegin(), extended.getEnd())));
           
           extended.setName("JepDaoStandard");
+          unit.addImport("com.technology.jep.jepria.server.dao.JepDaoStandard");
+          
+          modified = true;
+        } else if (extended.getNameAsString().equals("JepDataBean")) {
+          handleMessage(new Message(MessageLevel.AUTO_TRANSFORM, 
+              "Set the type extends JepDao",
+              MarkSpan.of(extended.getBegin(), extended.getEnd())));
+          
+          extended.setName("JepDao");
+          unit.addImport("com.technology.jep.jepria.server.dao.JepDao");
+          
           modified = true;
         }
       }
