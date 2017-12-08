@@ -14,6 +14,8 @@ import com.google.gwt.i18n.client.NumberFormat;
 import com.google.gwt.user.client.ui.DoubleBox;
 import com.google.gwt.user.client.ui.ValueBox;
 import com.technology.jep.jepria.client.util.JepClientUtil;
+import com.technology.jep.jepria.client.widget.event.JepEvent;
+import com.technology.jep.jepria.client.widget.event.JepEventType;
 import com.technology.jep.jepria.shared.util.JepRiaUtil;
 
 /**
@@ -299,5 +301,15 @@ public abstract class JepBaseNumberField<E extends ValueBox<? extends Number>> e
     editableCard.setStyleName(TEXT_FIELD_STYLE);
     
     super.applyStyle();
+  }
+  
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  protected void addChangeValueListener() {
+    editableCard.addValueChangeHandler(valueChangeEvent -> {
+      notifyListeners(JepEventType.CHANGE_VALUE_EVENT, new JepEvent(JepBaseNumberField.this, valueChangeEvent.getValue()));
+    });
   }
 }
