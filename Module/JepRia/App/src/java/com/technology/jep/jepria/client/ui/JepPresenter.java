@@ -31,10 +31,18 @@ abstract public class JepPresenter<E extends EventBus, F extends ClientFactory<E
     return place;
   }
   
+  /**
+   * Изменение состояния.
+   * @param place Место.
+   */
   protected void changeWorkstate(Place place) {
     changeWorkstate(((JepWorkstatePlace)place).getWorkstate());
   }
-
+  
+  /**
+   * Изменение состояния.
+   * @param newWorkstate Новое состояние.
+   */
   protected void changeWorkstate(WorkstateEnum newWorkstate) {
     // Только в случае, если действительно изменяется состояние
     // и оно применимо для данного презентера
@@ -53,9 +61,13 @@ abstract public class JepPresenter<E extends EventBus, F extends ClientFactory<E
     }
   }
 
-  protected void onChangeWorkstate(WorkstateEnum workstate) {
-
-  }
+  /**
+   * 
+   * Hook-метод, вызываемый перед изменением текущего состояния (_workstate) на workstate. <br/>
+   * Предназначен для переопределения в наследниках.
+   * @param workstate Новое состояние.
+   */
+  protected void onChangeWorkstate(WorkstateEnum workstate) {}
 
   /**
    * Метод предназначен для перекрытия наследниками, "желающими" управлять

@@ -20,6 +20,8 @@ public class RuleList extends ArrayList<ValidatorRule> {
     add(new org.jepria.validator.rules.v09_x_x.EjbLocalRefWebXmlRule());
     add(new org.jepria.validator.rules.v09_x_x.EjbToDaoRule());
     add(new org.jepria.validator.rules.v09_x_x.EjbResourceRemoveRule());
+    
+    add(new org.jepria.validator.rules.v09_x_x.ModuleItemsMainClientFactoryRule());
   }
 
 }
