@@ -32,11 +32,11 @@ import com.technology.jep.jepria.client.ui.eventbus.plain.event.DoDeleteEvent;
 import com.technology.jep.jepria.client.ui.eventbus.plain.event.DoGetRecordEvent;
 import com.technology.jep.jepria.client.ui.eventbus.plain.event.DoSearchEvent;
 import com.technology.jep.jepria.client.ui.eventbus.plain.event.ListEvent;
+import com.technology.jep.jepria.client.ui.eventbus.plain.event.RefreshFieldsEvent;
 import com.technology.jep.jepria.client.ui.eventbus.plain.event.SaveEvent;
 import com.technology.jep.jepria.client.ui.eventbus.plain.event.SearchEvent;
 import com.technology.jep.jepria.client.ui.eventbus.plain.event.SetCurrentRecordEvent;
 import com.technology.jep.jepria.client.ui.eventbus.plain.event.SetListUIDEvent;
-import com.technology.jep.jepria.client.ui.eventbus.plain.event.RefreshEvent;
 import com.technology.jep.jepria.client.ui.plain.StandardClientFactory;
 import com.technology.jep.jepria.client.util.JepClientUtil;
 import com.technology.jep.jepria.client.widget.field.FieldManager;
@@ -64,7 +64,7 @@ public class DetailFormPresenter<V extends DetailFormView, E extends PlainEventB
       SetCurrentRecordEvent.Handler,
       SetListUIDEvent.Handler,
       SaveEvent.Handler, 
-      RefreshEvent.Handler
+      RefreshFieldsEvent.Handler
       {
   
   protected V view;
@@ -144,7 +144,7 @@ public class DetailFormPresenter<V extends DetailFormView, E extends PlainEventB
     eventBus.addHandler(SetCurrentRecordEvent.TYPE, this);
     eventBus.addHandler(SetListUIDEvent.TYPE, this);
     eventBus.addHandler(SaveEvent.TYPE, this);
-    eventBus.addHandler(RefreshEvent.TYPE, this);
+    eventBus.addHandler(RefreshFieldsEvent.TYPE, this);
     
     // "Привязка" элементов представления к функционалу презентера.
     bind();
@@ -510,7 +510,7 @@ public class DetailFormPresenter<V extends DetailFormView, E extends PlainEventB
         }
       }
     });
-
+    
   }
   
   /**
@@ -652,15 +652,42 @@ public class DetailFormPresenter<V extends DetailFormView, E extends PlainEventB
   }
   
   /**
+   * {@inheritDoc} <br/>
+   * Для просмотра и редактирования обязательно наличие данных.
+   */
+  @Override
+  protected boolean isDataReady(WorkstateEnum workstate) {
+    boolean result = true;
+    if ((VIEW_DETAILS.equals(workstate) || EDIT.equals(workstate)) && 
+        JepRiaUtil.isEmpty(currentRecord)) {
+      result = false;
+    }
+    return result;
+  }
+  
+  /**
    * Обновление формы. Реализация для состояний, в которых есть текущую запись (обновление по первичному ключу). <br/>
    * <br/> TODO: Реализовать для остальных состояний.
    */
   @Override
-  public void onRefresh(RefreshEvent event) {
-    if (!JepRiaUtil.isEmpty(currentRecord) && (VIEW_DETAILS.equals(_workstate) || EDIT.equals(_workstate))) {
-      JepRecord primaryKey = new JepRecord();
-      primaryKey.setProperties(clientFactory.getRecordDefinition().buildPrimaryKeyMap(currentRecord));
-      eventBus.doGetRecord(new PagingConfig(new JepRecord(primaryKey)));
+  public void onRefreshFields(RefreshFieldsEvent event) {
+    if (VIEW_DETAILS.equals(_workstate) || EDIT.equals(_workstate)) {
+      eventBus.doGetRecord(byPrimaryKey(JepScopeStack.instance.peek()));
     }
+  }
+  
+  /**
+   * Создает поисковый шаблон поиска записи по первичному ключу из текущего уровня иерархии модулей. <br/>
+   * <br/> TODO: Перенести в {@link PagingConfig}?
+   * @param scope Уровень иерархии модуля.
+   * @return Поисковый шаблон
+   */
+  public static PagingConfig byPrimaryKey(JepScope scope) {
+    // Создание шаблонной записи поиска.
+    JepRecord templateRecord = new JepRecord();
+    // Заполнение шаблонной записи поиска.
+    templateRecord.setProperties(scope.getPrimaryKey());
+    
+    return new PagingConfig(new JepRecord(templateRecord));
   }
 }

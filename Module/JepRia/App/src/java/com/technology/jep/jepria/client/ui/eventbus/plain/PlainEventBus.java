@@ -10,7 +10,8 @@ import com.technology.jep.jepria.client.ui.eventbus.plain.event.DoSearchEvent;
 import com.technology.jep.jepria.client.ui.eventbus.plain.event.ListEvent;
 import com.technology.jep.jepria.client.ui.eventbus.plain.event.PagingEvent;
 import com.technology.jep.jepria.client.ui.eventbus.plain.event.PrepareReportEvent;
-import com.technology.jep.jepria.client.ui.eventbus.plain.event.RefreshEvent;
+import com.technology.jep.jepria.client.ui.eventbus.plain.event.RefreshFieldsEvent;
+import com.technology.jep.jepria.client.ui.eventbus.plain.event.RefreshListEvent;
 import com.technology.jep.jepria.client.ui.eventbus.plain.event.SaveEvent;
 import com.technology.jep.jepria.client.ui.eventbus.plain.event.SearchEvent;
 import com.technology.jep.jepria.client.ui.eventbus.plain.event.SetCurrentRecordEvent;
@@ -66,8 +67,12 @@ public class PlainEventBus extends JepEventBus {
    * предполагается сброс сотояния вручную:<br>
    * {@code placeController.goTo(new JepViewListPlace());}. 
    */
-  public void refresh() {
-    fireEvent(new RefreshEvent());
+  public void refreshList() {
+    fireEvent(new RefreshListEvent());
+  }
+  
+  public void refreshFields() {
+    fireEvent(new RefreshFieldsEvent());
   }
 
   public void save() {

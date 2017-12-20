@@ -184,7 +184,7 @@ public class ToolBarPresenter<V extends ToolBarView, E extends PlainEventBus, S 
 //      new WorkstateEnum[]{SELECTED, VIEW_LIST},
 //      new ClickHandler() {
 //        public void onClick(ClickEvent event) {
-//          refresh();
+//          refreshList();
 //        };
 //      }
 //    );
@@ -296,7 +296,7 @@ public class ToolBarPresenter<V extends ToolBarView, E extends PlainEventBus, S 
   
   public void list() {
     eventBus.list();
-    eventBus.refresh();
+    eventBus.refreshList();
   }
   
   public void search() {
@@ -311,8 +311,8 @@ public class ToolBarPresenter<V extends ToolBarView, E extends PlainEventBus, S 
     eventBus.prepareReport(new JepReportParameters(), null);
   }
 
-  public void refresh() {
-    eventBus.refresh();
+  public void refreshList() {
+    eventBus.refreshList();
     // Важно при обновлении списка менять рабочее состояние на VIEW_LIST, чтобы скинуть состояние SELECTED (тем самым, скрыть кнопки работы с
     // конкретной, ранее выбранной, записью).
     // Вызов перехода на новый Place происходит ОБЯЗАТЕЛЬНО ПОСЛЕ подготовки данных для записи в History 

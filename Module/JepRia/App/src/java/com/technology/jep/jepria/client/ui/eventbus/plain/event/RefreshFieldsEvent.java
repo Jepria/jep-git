@@ -3,18 +3,18 @@ package com.technology.jep.jepria.client.ui.eventbus.plain.event;
 import com.google.gwt.event.shared.EventHandler;
 import com.technology.jep.jepria.client.ui.eventbus.BusEvent;
 
-public class RefreshEvent extends BusEvent<RefreshEvent.Handler> {
+public class RefreshFieldsEvent extends BusEvent<RefreshFieldsEvent.Handler> {
 
   /**
    * Implemented by handlers of RefreshEvent.
    */
   public interface Handler extends EventHandler {
     /**
-     * Called when a {@link RefreshEvent} is fired.
+     * Called when a {@link RefreshFieldsEvent} is fired.
      *
-     * @param event the {@link RefreshEvent}
+     * @param event the {@link RefreshFieldsEvent}
      */
-    void onRefresh(RefreshEvent event);
+    void onRefreshFields(RefreshFieldsEvent event);
   }
 
   /**
@@ -29,6 +29,6 @@ public class RefreshEvent extends BusEvent<RefreshEvent.Handler> {
 
   @Override
   protected void dispatch(Handler handler) {
-    handler.onRefresh(this);
+    handler.onRefreshFields(this);
   }
 }
