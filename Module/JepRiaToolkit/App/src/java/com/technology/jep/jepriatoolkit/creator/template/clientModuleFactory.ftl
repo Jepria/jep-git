@@ -128,7 +128,7 @@ public class ${ClassName}
   
   @Override
   public ${EventBusClassName} createEventBus() {
-    return new ${form.formName}EventBus(this);
+    return new ${form.formName}EventBus();
   }
   </#if>
 }
