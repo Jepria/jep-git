@@ -216,7 +216,7 @@ public class DetailFormPresenterTest {
     StandardClientFactoryImpl<PlainEventBus, JepDataServiceAsync> clientFactoryMock = mock(StandardClientFactoryImpl.class);
     when(clientFactoryMock.getDetailFormView()).thenReturn(detailView);
     
-    PlainEventBus plainEventBus = new PlainEventBus(clientFactoryMock);
+    PlainEventBus plainEventBus = new PlainEventBus();
     when(clientFactoryMock.getEventBus()).thenReturn(plainEventBus);
     
     DetailFormPresenterChangeWorkstateVerify detailPresenter = PowerMockito.spy(

@@ -7,8 +7,6 @@ import com.technology.jep.jepria.client.exception.ExceptionManagerImpl;
 import com.technology.jep.jepria.client.history.place.JepPlaceController;
 import com.technology.jep.jepria.client.message.JepMessageBox;
 import com.technology.jep.jepria.client.message.JepMessageBoxImpl;
-import com.technology.jep.jepria.client.ui.eventbus.EventFilter;
-import com.technology.jep.jepria.client.ui.eventbus.EventFilterImpl;
 import com.technology.jep.jepria.shared.log.JepLogger;
 import com.technology.jep.jepria.shared.log.JepLoggerImpl;
 import com.technology.jep.jepria.shared.text.JepRiaText;
@@ -22,14 +20,8 @@ abstract public class ClientFactoryImpl<E extends EventBus>  implements ClientFa
   
   protected JepMessageBox messageBox;
   protected ExceptionManager exceptionManager;
-  
-  protected EventFilter<E> eventFilter;    
-  
-  protected UiSecurity uiSecurity;
 
   public ClientFactoryImpl() {
-    uiSecurity = new UiSecurity();
-    eventFilter = (EventFilter<E>)new EventFilterImpl(this);    
     
     logger = JepLoggerImpl.instance;
     messageBox = JepMessageBoxImpl.instance;
@@ -52,14 +44,6 @@ abstract public class ClientFactoryImpl<E extends EventBus>  implements ClientFa
    * @return новый экземпляр
    */
   protected abstract E createEventBus();
-
-  public EventFilter<E> getEventFilter() {
-    return eventFilter;
-  }
-
-  public UiSecurity getUiSecurity() {
-    return uiSecurity;
-  }
   
   public JepLogger getLogger() {
     return logger;

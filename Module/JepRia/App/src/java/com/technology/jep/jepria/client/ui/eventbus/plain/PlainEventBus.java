@@ -20,7 +20,6 @@ import com.technology.jep.jepria.client.ui.eventbus.plain.event.SetSaveButtonEna
 import com.technology.jep.jepria.client.ui.eventbus.plain.event.ShowExcelEvent;
 import com.technology.jep.jepria.client.ui.eventbus.plain.event.ShowHelpEvent;
 import com.technology.jep.jepria.client.ui.eventbus.plain.event.SortEvent;
-import com.technology.jep.jepria.client.ui.plain.PlainClientFactory;
 import com.technology.jep.jepria.shared.load.PagingConfig;
 import com.technology.jep.jepria.shared.load.SortConfig;
 import com.technology.jep.jepria.shared.record.JepRecord;
@@ -30,8 +29,8 @@ public class PlainEventBus extends JepEventBus {
 
   public static final String CHANGE_WORKSTATE_EVENT_NAME = "cw";
 
-  public PlainEventBus(PlainClientFactory<?, ?> clientFactory) {
-    super(clientFactory);
+  public PlainEventBus() {
+    super();
   }
 
   public void setCurrentRecord(JepRecord newRecord) {
@@ -43,11 +42,11 @@ public class PlainEventBus extends JepEventBus {
   }
 
   public void doSearch() {
-    checkAndFireEvent(new DoSearchEvent());
+    fireEvent(new DoSearchEvent());
   }
 
   public void search(PagingConfig pagingConfig) {
-    checkAndFireEvent(new SearchEvent(pagingConfig));
+    fireEvent(new SearchEvent(pagingConfig));
   }
 
   public void sort(SortConfig sortConfig) {
@@ -76,11 +75,11 @@ public class PlainEventBus extends JepEventBus {
   }
 
   public void save() {
-    checkAndFireEvent(new SaveEvent());
+    fireEvent(new SaveEvent());
   }
 
   public void doDelete() {
-    checkAndFireEvent(new DoDeleteEvent());
+    fireEvent(new DoDeleteEvent());
   }
 
   public void delete(JepRecord record) {
@@ -92,15 +91,15 @@ public class PlainEventBus extends JepEventBus {
   }
 
   public void showExcel() {
-    checkAndFireEvent(new ShowExcelEvent(null, null));
+    fireEvent(new ShowExcelEvent(null, null));
   }
   
   public void showExcel(String fileName, String excelServlet) {
-    checkAndFireEvent(new ShowExcelEvent(fileName, excelServlet));
+    fireEvent(new ShowExcelEvent(fileName, excelServlet));
   }
 
   public void prepareReport(JepReportParameters reportParameters, String reportServlet) {
-    checkAndFireEvent(new PrepareReportEvent(reportParameters, reportServlet));
+    fireEvent(new PrepareReportEvent(reportParameters, reportServlet));
   }
 
   public void showHelp() {

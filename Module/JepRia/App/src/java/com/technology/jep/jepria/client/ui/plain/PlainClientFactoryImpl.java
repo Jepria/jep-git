@@ -85,7 +85,7 @@ abstract public class PlainClientFactoryImpl<E extends PlainEventBus, S extends 
   @SuppressWarnings("unchecked")/*допустимо*/
   @Override
   protected E createEventBus() {
-    return (E) new PlainEventBus(this);
+    return (E) new PlainEventBus();
   }
   
   @Override

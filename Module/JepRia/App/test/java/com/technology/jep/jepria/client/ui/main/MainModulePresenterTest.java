@@ -24,8 +24,6 @@ import com.technology.jep.jepria.client.async.LoadAsyncCallback;
 import com.technology.jep.jepria.client.exception.ExceptionManager;
 import com.technology.jep.jepria.client.history.place.MainPlaceController;
 import com.technology.jep.jepria.client.message.JepMessageBox;
-import com.technology.jep.jepria.client.ui.UiSecurity;
-import com.technology.jep.jepria.client.ui.eventbus.EventFilter;
 import com.technology.jep.jepria.client.ui.plain.PlainClientFactory;
 import com.technology.jep.jepria.client.util.JepClientUtil;
 import com.technology.jep.jepria.shared.log.JepLogger;
@@ -136,7 +134,7 @@ public class MainModulePresenterTest {
     mockJepRiaClientConstant();
 
     final JepMessageBox messageBoxMock = Mockito.mock(JepMessageBox.class);
-    Mockito.when(messageBoxMock.showError(Mockito.anyString())).thenReturn(null);    
+    Mockito.when(messageBoxMock.alert(Mockito.anyString(), Mockito.anyString())).thenReturn(null);    
     MainClientFactory<?, ?> cf = createMainClientFactoryMock(messageBoxMock);
     
     MainModulePresenter<?, ?, ?, ?> p = PowerMockito.spy(new MainModulePresenter(cf){});    
@@ -161,7 +159,7 @@ public class MainModulePresenterTest {
      * не будем проверять переданный методу текст. Следует заметить, что этот вызов
      * не является статическим либо приватным, поэтому прибегать к PowerMock не требуется.
      */
-    Mockito.verify(messageBoxMock, Mockito.times(1)).showError(Mockito.anyString());
+    Mockito.verify(messageBoxMock, Mockito.times(1)).alert(Mockito.anyString(), Mockito.anyString());
   }
 
   /**
@@ -179,18 +177,6 @@ public class MainModulePresenterTest {
       @Override
       public EventBus getEventBus() {
         return null;
-      }
-
-      @Override
-      public EventFilter getEventFilter() {
-        return null;
-      }
-
-      @Override
-      public UiSecurity getUiSecurity() {
-        UiSecurity uiSecurityMock = Mockito.mock(UiSecurity.class);
-        Mockito.when(uiSecurityMock.getFirstRequiredRole(Mockito.any())).thenReturn("TestRole");
-        return uiSecurityMock;
       }
 
       @Override

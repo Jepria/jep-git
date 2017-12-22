@@ -2,7 +2,7 @@ package com.technology.jep.jepria.shared.text;
 
 /**
  * Interface to represent the constants contained in resource bundle:
- * 	'C:/git/javaenterpriseplatform/Module/JepRia/App/src/java/com/technology/jep/jepria/shared/text/JepRiaText.properties'.
+ * 	'D:/git/Jep/Module/JepRia/App/src/java/com/technology/jep/jepria/shared/text/JepRiaText.properties'.
  */
 public interface JepRiaText extends com.google.gwt.i18n.client.Constants {
   
@@ -680,6 +680,15 @@ public interface JepRiaText extends com.google.gwt.i18n.client.Constants {
   @DefaultStringValue("детальный просмотр")
   @Key("errors.security.action.viewDetails")
   String errors_security_action_viewDetails();
+
+  /**
+   * Translated "У Вас нет прав на вход в модуль ".
+   * 
+   * @return translated "У Вас нет прав на вход в модуль "
+   */
+  @DefaultStringValue("У Вас нет прав на вход в модуль ")
+  @Key("errors.security.enterModule")
+  String errors_security_enterModule();
 
   /**
    * Translated "Нет прав на ".

@@ -3,13 +3,12 @@ package com.technology.jep.jepria.client.security;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.technology.jep.jepria.shared.util.JepRiaUtil;
+
 /**
  * Клиентский аналог серверного {@link com.technology.jep.jepria.server.security.JepSecurityModule}.
  */
 public class ClientSecurity {
-  
-  public static final int CHECK_ROLES_BY_OR = 0;
-  public static final int CHECK_ROLES_BY_AND = 1;
   
   public static ClientSecurity instance = new ClientSecurity();
   
@@ -50,7 +49,7 @@ public class ClientSecurity {
   }
   
   public boolean isUserHaveRole(String role) {
-    return roles != null && roles.contains(role);
+    return !JepRiaUtil.isEmpty(roles) && roles.contains(role);
   }
 
   /**
@@ -59,19 +58,21 @@ public class ClientSecurity {
    * @param checkedRoles роли, наличие которых проверяется
    * @return true, если есть хотя бы одна роль, иначе - false
    */
-  public static boolean isUserHaveRoles(List<String> checkedRoles) {
-    List<String> roles = ClientSecurity.instance.getRoles();
-    if(roles != null) {
-      for(String role: checkedRoles) {
-        if(roles.contains(role)) {
-          return true;
-        }
+  public boolean isUserHaveRoles(List<String> checkedRoles) {
+    if (JepRiaUtil.isEmpty(checkedRoles)) return true;
+    if (JepRiaUtil.isEmpty(roles)) return false;
+    
+    for (String role: checkedRoles) {
+      if (roles.contains(role)) {
+        return true;
       }
     }
+    
     return false;
   }
   
-  public static boolean isUserHaveRoles(String strRoles) {
+  @Deprecated
+  public boolean isUserHaveRoles(String strRoles) {
     return isUserHaveRoles(getRoles(strRoles));
   }
 
@@ -81,10 +82,14 @@ public class ClientSecurity {
    * @param checkedRoles роли, наличие которых проверяется
    * @return true, если есть все заданные роли, иначе - false
    */
-  public static boolean isUserHaveAllRoles(List<String> checkedRoles) {
-    return ClientSecurity.instance.getRoles().containsAll(checkedRoles);
+  public boolean isUserHaveAllRoles(List<String> checkedRoles) {
+    if (JepRiaUtil.isEmpty(checkedRoles)) return true;
+    if (JepRiaUtil.isEmpty(roles)) return false;
+    
+    return roles.containsAll(checkedRoles);
   }
 
+  @Deprecated
   public static List<String> getRoles(String strRoles) {
     String[] rolesArray = strRoles.split(",");
     List<String> roles = new ArrayList<String>();
