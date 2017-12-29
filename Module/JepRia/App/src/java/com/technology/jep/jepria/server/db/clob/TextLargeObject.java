@@ -12,6 +12,7 @@ import com.technology.jep.jepria.server.dao.CallContext;
 import com.technology.jep.jepria.server.dao.DaoSupport;
 import com.technology.jep.jepria.server.db.LargeObject;
 import com.technology.jep.jepria.server.exceptions.SpaceException;
+import com.technology.jep.jepria.server.util.JepServerUtil;
 import com.technology.jep.jepria.shared.exceptions.ApplicationException;
 import com.technology.jep.jepria.shared.exceptions.SystemException;
 
@@ -89,6 +90,9 @@ public class TextLargeObject extends LargeObject {
       ResultSet rs = cs.executeQuery();
       if(rs.next()) {
         Clob clob = (Clob) rs.getClob(1);
+        
+        JepServerUtil.disableClobPrefetch(clob);
+        
         reader = clob.getCharacterStream();
         result = WRITE_LENGTH;
       } else {

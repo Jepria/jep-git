@@ -3,6 +3,7 @@ package com.technology.jep.jepria.server.util;
 import static com.technology.jep.jepria.server.JepRiaServerConstant.HTTP_REQUEST_PARAMETER_LANG;
 import static com.technology.jep.jepria.server.JepRiaServerConstant.LOCALE_KEY;
 import static com.technology.jep.jepria.shared.JepRiaConstant.DEFAULT_DATE_FORMAT;
+import static com.technology.jep.jepria.shared.JepRiaConstant.HTTP_REQUEST_PARAMETER_LOCALE;
 import static com.technology.jep.jepria.shared.JepRiaConstant.LOCAL_LANG;
 
 import java.io.BufferedReader;
@@ -22,7 +23,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.technology.jep.jepria.shared.exceptions.SystemException;
 import com.technology.jep.jepria.shared.record.lob.JepClob;
-import static com.technology.jep.jepria.shared.JepRiaConstant.HTTP_REQUEST_PARAMETER_LOCALE;
 
 /**
  * Класс содержащий вспомогательные/полезные функции.
@@ -324,6 +324,8 @@ public class JepServerUtil {
     
     StringBuilder str = new StringBuilder();
     
+    disableClobPrefetch(clob);
+    
     try (BufferedReader bufferRead = new BufferedReader(clob.getCharacterStream())) {
       String bufferStr;
       while ((bufferStr = bufferRead.readLine()) != null) {
@@ -334,5 +336,44 @@ public class JepServerUtil {
     }
     
     return new JepClob(str.toString());
+  }
+  
+  /**
+   * Выставление флага {@code activePrefetch false} в объекте oracle.sql.CLOB
+   * <br><br>
+   * Метод &mdash; обход бага в ojdbc6, ojdbc8: при переходе на версию DB oracle 12.2 
+   * становится некорректной кодировка потока чтения из объекта oracle.sql.CLOB
+   * (в версии 12.1 баг не наблюдается).
+   * <br><br>
+   * Подробная трассировка бага:
+   * <pre>
+java.sql.Clob javaClob = ... ;
+java.io.Reader reader = javaClob.getCharacterStream();
+reader.read();
+-> oracle.jdbc.driver.OracleClobReader.read() // because instanceof oracle.jdbc.driver.OracleClobReader
+  -> oracle.jdbc.driver.OracleClobReader.needChars()
+    -> oracle.jdbc.OracleClob.getChars()
+      -> oracle.sql.CLOB.getChars() // because instanceof oracle.sql.CLOB
+        -> oracle.sql.ClobDBAccess.getChars()
+          -> oracle.jdbc.driver.T4CConnection.getChars() // because instanceof oracle.jdbc.driver.T4CConnection
+            -> { ...
+                 if (oracle_sql_CLOB.isActivePrefetch()) {
+                   // read prefetched data. <b>This data is getting encoded incorrectly</b>
+                 }
+                 ...
+                 clobMsg.read(...); // read the rest data of the clob. This data is getting encoded correctly
+                 ...
+               }
+               // Выставление флага activePrefetch false заставляет данные клоба 
+               // считываться полностью методом clobMsg.read, в правильной кодировке 
+   * </pre>
+   * @param clob
+   * @deprecated удалить данный метод вместе со всеми его вызовами, если баг починится компанией oracle в {@code ojdbc.jar}
+   */
+  @Deprecated
+  public static void disableClobPrefetch(Clob clob) {
+    if (clob instanceof oracle.sql.CLOB) {
+      ((oracle.sql.CLOB)clob).setActivePrefetch(false);
+    }
   }
 }
