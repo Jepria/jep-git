@@ -153,7 +153,7 @@ public class CLI implements Runnable {
         break;
       }
       case "-rc": case "--ruleClasses": {
-        if (!argParser.contains("-rl") && !argParser.contains("--ruleList")) {
+        if (argParser.contains("-rl") || argParser.contains("--ruleList")) {
           out.println("WARN: " + arg + " option is superseded with the --ruleList option");
         } else {
           if (argParser.hasMoreElements()) {
