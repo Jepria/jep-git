@@ -206,7 +206,9 @@ extends <a href="../../../../../../../com/technology/jep/jepria/client/ui/JepPre
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>protected void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/ui/statusbar/StatusBarPresenter.html#onChangeWorkstate-com.technology.jep.jepria.client.ui.WorkstateEnum-">onChangeWorkstate</a></span>(<a href="../../../../../../../com/technology/jep/jepria/client/ui/WorkstateEnum.html" title="enum in com.technology.jep.jepria.client.ui">WorkstateEnum</a>&nbsp;workstate)</code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/ui/statusbar/StatusBarPresenter.html#onChangeWorkstate-com.technology.jep.jepria.client.ui.WorkstateEnum-">onChangeWorkstate</a></span>(<a href="../../../../../../../com/technology/jep/jepria/client/ui/WorkstateEnum.html" title="enum in com.technology.jep.jepria.client.ui">WorkstateEnum</a>&nbsp;workstate)</code>
+<div class="block">Hook-метод, вызываемый перед изменением текущего состояния (_workstate) на workstate.</div>
+</td>
 </tr>
 <tr id="i2" class="altColor">
 <td class="colFirst"><code>void</code></td>
@@ -219,7 +221,7 @@ extends <a href="../../../../../../../com/technology/jep/jepria/client/ui/JepPre
 <!--   -->
 </a>
 <h3>Methods inherited from class&nbsp;com.technology.jep.jepria.client.ui.<a href="../../../../../../../com/technology/jep/jepria/client/ui/JepPresenter.html" title="class in com.technology.jep.jepria.client.ui">JepPresenter</a></h3>
-<code><a href="../../../../../../../com/technology/jep/jepria/client/ui/JepPresenter.html#adjustToWorkstate-com.technology.jep.jepria.client.ui.WorkstateEnum-">adjustToWorkstate</a>, <a href="../../../../../../../com/technology/jep/jepria/client/ui/JepPresenter.html#changeWorkstate-com.google.gwt.place.shared.Place-">changeWorkstate</a>, <a href="../../../../../../../com/technology/jep/jepria/client/ui/JepPresenter.html#changeWorkstate-com.technology.jep.jepria.client.ui.WorkstateEnum-">changeWorkstate</a>, <a href="../../../../../../../com/technology/jep/jepria/client/ui/JepPresenter.html#getPlace--">getPlace</a>, <a href="../../../../../../../com/technology/jep/jepria/client/ui/JepPresenter.html#isAcceptableWorkstate-com.technology.jep.jepria.client.ui.WorkstateEnum-">isAcceptableWorkstate</a>, <a href="../../../../../../../com/technology/jep/jepria/client/ui/JepPresenter.html#setPlace-com.google.gwt.place.shared.Place-">setPlace</a></code></li>
+<code><a href="../../../../../../../com/technology/jep/jepria/client/ui/JepPresenter.html#adjustToWorkstate-com.technology.jep.jepria.client.ui.WorkstateEnum-">adjustToWorkstate</a>, <a href="../../../../../../../com/technology/jep/jepria/client/ui/JepPresenter.html#changeWorkstate-com.google.gwt.place.shared.Place-">changeWorkstate</a>, <a href="../../../../../../../com/technology/jep/jepria/client/ui/JepPresenter.html#changeWorkstate-com.technology.jep.jepria.client.ui.WorkstateEnum-">changeWorkstate</a>, <a href="../../../../../../../com/technology/jep/jepria/client/ui/JepPresenter.html#getPlace--">getPlace</a>, <a href="../../../../../../../com/technology/jep/jepria/client/ui/JepPresenter.html#isAcceptableWorkstate-com.technology.jep.jepria.client.ui.WorkstateEnum-">isAcceptableWorkstate</a>, <a href="../../../../../../../com/technology/jep/jepria/client/ui/JepPresenter.html#isDataReady-com.technology.jep.jepria.client.ui.WorkstateEnum-">isDataReady</a>, <a href="../../../../../../../com/technology/jep/jepria/client/ui/JepPresenter.html#setPlace-com.google.gwt.place.shared.Place-">setPlace</a></code></li>
 </ul>
 <ul class="blockList">
 <li class="blockList"><a name="methods.inherited.from.class.com.technology.jep.jepria.client.ui.JepActivity">
@@ -313,9 +315,14 @@ extends <a href="../../../../../../../com/technology/jep/jepria/client/ui/JepPre
 <li class="blockList">
 <h4>onChangeWorkstate</h4>
 <pre>protected&nbsp;void&nbsp;onChangeWorkstate(<a href="../../../../../../../com/technology/jep/jepria/client/ui/WorkstateEnum.html" title="enum in com.technology.jep.jepria.client.ui">WorkstateEnum</a>&nbsp;workstate)</pre>
+<div class="block"><span class="descfrmTypeLabel">Description copied from class:&nbsp;<code><a href="../../../../../../../com/technology/jep/jepria/client/ui/JepPresenter.html#onChangeWorkstate-com.technology.jep.jepria.client.ui.WorkstateEnum-">JepPresenter</a></code></span></div>
+<div class="block">Hook-метод, вызываемый перед изменением текущего состояния (_workstate) на workstate. <br/>
+ Предназначен для переопределения в наследниках.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
 <dd><code><a href="../../../../../../../com/technology/jep/jepria/client/ui/JepPresenter.html#onChangeWorkstate-com.technology.jep.jepria.client.ui.WorkstateEnum-">onChangeWorkstate</a></code>&nbsp;in class&nbsp;<code><a href="../../../../../../../com/technology/jep/jepria/client/ui/JepPresenter.html" title="class in com.technology.jep.jepria.client.ui">JepPresenter</a>&lt;<a href="../../../../../../../com/technology/jep/jepria/client/ui/statusbar/StatusBarPresenter.html" title="type parameter in StatusBarPresenter">E</a> extends <a href="../../../../../../../com/technology/jep/jepria/client/ui/eventbus/plain/PlainEventBus.html" title="class in com.technology.jep.jepria.client.ui.eventbus.plain">PlainEventBus</a>,<a href="../../../../../../../com/technology/jep/jepria/client/ui/statusbar/StatusBarPresenter.html" title="type parameter in StatusBarPresenter">F</a> extends <a href="../../../../../../../com/technology/jep/jepria/client/ui/plain/StandardClientFactory.html" title="interface in com.technology.jep.jepria.client.ui.plain">StandardClientFactory</a>&lt;<a href="../../../../../../../com/technology/jep/jepria/client/ui/statusbar/StatusBarPresenter.html" title="type parameter in StatusBarPresenter">E</a>,<a href="../../../../../../../com/technology/jep/jepria/client/ui/statusbar/StatusBarPresenter.html" title="type parameter in StatusBarPresenter">S</a>&gt;&gt;</code></dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>workstate</code> - Новое состояние.</dd>
 </dl>
 </li>
 </ul>
