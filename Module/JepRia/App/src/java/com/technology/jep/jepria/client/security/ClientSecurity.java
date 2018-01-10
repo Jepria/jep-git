@@ -10,7 +10,7 @@ import com.technology.jep.jepria.shared.util.JepRiaUtil;
  */
 public class ClientSecurity {
   
-  public static ClientSecurity instance = new ClientSecurity();
+  public static final ClientSecurity instance = new ClientSecurity();
   
   private ClientSecurity() {};
 
