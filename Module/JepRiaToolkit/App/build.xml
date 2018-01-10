@@ -104,6 +104,7 @@
   </target>
 
   <target name="doc" depends="start-log">
+      <delete includeemptydirs="true" dir="${JAVA_DOC_DIR}"/>
       <javadoc 
         Doctitle="${MODULE_NAME} API Reference" 
         Windowtitle="${MODULE_NAME} JavaDoc" 
@@ -121,7 +122,7 @@
         <classpath refid="libs"/>
       </javadoc>
   </target>
-        
+
   <target name="clean">
     <delete includeemptydirs="true">
       <fileset dir="log"/>
