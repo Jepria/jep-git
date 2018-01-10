@@ -174,7 +174,7 @@ public abstract class MainClientFactoryImpl<E extends MainEventBus, S extends Je
   @SuppressWarnings("unchecked")/*допустимо*/
   @Override
   protected E createEventBus() {
-    return (E) new MainEventBus(this);
+    return (E) new MainEventBus();
   }
 
   /**

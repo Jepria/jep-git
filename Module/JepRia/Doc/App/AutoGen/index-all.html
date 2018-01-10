@@ -97,13 +97,9 @@
 </dd>
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepria/server/upload/AbstractFileUpload.html#AbstractFileUpload--">AbstractFileUpload()</a></span> - Constructor for class com.technology.jep.jepria.server.upload.<a href="com/technology/jep/jepria/server/upload/AbstractFileUpload.html" title="class in com.technology.jep.jepria.server.upload">AbstractFileUpload</a></dt>
 <dd>&nbsp;</dd>
-<dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/UiSecurity.html#accessMapAND">accessMapAND</a></span> - Variable in class com.technology.jep.jepria.client.ui.<a href="com/technology/jep/jepria/client/ui/UiSecurity.html" title="class in com.technology.jep.jepria.client.ui">UiSecurity</a></dt>
+<dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/main/MainModulePresenter.html#accessMap">accessMap</a></span> - Variable in class com.technology.jep.jepria.client.ui.main.<a href="com/technology/jep/jepria/client/ui/main/MainModulePresenter.html" title="class in com.technology.jep.jepria.client.ui.main">MainModulePresenter</a></dt>
 <dd>
-<div class="block">Карта соответствия <событие, множество ролей AND></div>
-</dd>
-<dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/UiSecurity.html#accessMapOR">accessMapOR</a></span> - Variable in class com.technology.jep.jepria.client.ui.<a href="com/technology/jep/jepria/client/ui/UiSecurity.html" title="class in com.technology.jep.jepria.client.ui">UiSecurity</a></dt>
-<dd>
-<div class="block">Карта соответствия <событие, множество ролей OR></div>
+<div class="block">Карта соответствия <moduleId, множество ролей></div>
 </dd>
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/widget/list/header/menu/CheckMenuItem.html#action">action</a></span> - Variable in class com.technology.jep.jepria.client.widget.list.header.menu.<a href="com/technology/jep/jepria/client/widget/list/header/menu/CheckMenuItem.html" title="class in com.technology.jep.jepria.client.widget.list.header.menu">CheckMenuItem</a></dt>
 <dd>&nbsp;</dd>
@@ -131,12 +127,6 @@
 <dd>
 <div class="block">Translated "Не выбрана строка для просмотра!".</div>
 </dd>
-<dt><a href="com/technology/jep/jepria/client/ui/ActionEnum.html" title="enum in com.technology.jep.jepria.client.ui"><span class="typeNameLink">ActionEnum</span></a> - Enum in <a href="com/technology/jep/jepria/client/ui/package-summary.html">com.technology.jep.jepria.client.ui</a></dt>
-<dd>
-<div class="block">Базовые состояния Jep-модуля.</div>
-</dd>
-<dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/ActionEnum.html#ActionEnum-java.lang.String-">ActionEnum(String)</a></span> - Constructor for enum com.technology.jep.jepria.client.ui.<a href="com/technology/jep/jepria/client/ui/ActionEnum.html" title="enum in com.technology.jep.jepria.client.ui">ActionEnum</a></dt>
-<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/widget/list/header/ResizableHeader.ActionEnum.html#ActionEnum--">ActionEnum()</a></span> - Constructor for enum com.technology.jep.jepria.client.widget.list.header.<a href="com/technology/jep/jepria/client/widget/list/header/ResizableHeader.ActionEnum.html" title="enum in com.technology.jep.jepria.client.widget.list.header">ResizableHeader.ActionEnum</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/technology/jep/jepria/client/ui/eventbus/ActionEvent.html" title="class in com.technology.jep.jepria.client.ui.eventbus"><span class="typeNameLink">ActionEvent</span></a>&lt;<a href="com/technology/jep/jepria/client/ui/eventbus/ActionEvent.html" title="type parameter in ActionEvent">H</a> extends com.google.gwt.event.shared.EventHandler&gt; - Class in <a href="com/technology/jep/jepria/client/ui/eventbus/package-summary.html">com.technology.jep.jepria.client.ui.eventbus</a></dt>
@@ -144,8 +134,6 @@
 <div class="block">Событие-действие пользователя, которое, возможно, необходимо контролировать наличием определенной роли(-ей) у проьзователя.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/eventbus/ActionEvent.html#ActionEvent--">ActionEvent()</a></span> - Constructor for class com.technology.jep.jepria.client.ui.eventbus.<a href="com/technology/jep/jepria/client/ui/eventbus/ActionEvent.html" title="class in com.technology.jep.jepria.client.ui.eventbus">ActionEvent</a></dt>
-<dd>&nbsp;</dd>
-<dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/ActionEnum.html#actionId">actionId</a></span> - Variable in enum com.technology.jep.jepria.client.ui.<a href="com/technology/jep/jepria/client/ui/ActionEnum.html" title="enum in com.technology.jep.jepria.client.ui">ActionEnum</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/history/place/JepPlace.html#ACTIVE_MODULE_PARAMETER_NAME">ACTIVE_MODULE_PARAMETER_NAME</a></span> - Static variable in class com.technology.jep.jepria.client.history.place.<a href="com/technology/jep/jepria/client/history/place/JepPlace.html" title="class in com.technology.jep.jepria.client.history.place">JepPlace</a></dt>
 <dd>&nbsp;</dd>
@@ -332,6 +320,11 @@
 <div class="block">Добавление sпрослушивателей для реализации прослушивания события
  <a href="com/technology/jep/jepria/client/widget/event/JepEventType.html#CHANGE_SORT_EVENT"><code>JepEventType.CHANGE_SORT_EVENT</code></a>
  .</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/widget/field/multistate/JepBaseNumberField.html#addChangeValueListener--">addChangeValueListener()</a></span> - Method in class com.technology.jep.jepria.client.widget.field.multistate.<a href="com/technology/jep/jepria/client/widget/field/multistate/JepBaseNumberField.html" title="class in com.technology.jep.jepria.client.widget.field.multistate">JepBaseNumberField</a></dt>
+<dd>
+<div class="block">Добавление Gxt прослушивателей для реализации прослушивания события 
+ <a href="com/technology/jep/jepria/client/widget/event/JepEventType.html#CHANGE_VALUE_EVENT"><code>JepEventType.CHANGE_VALUE_EVENT</code></a> .</div>
 </dd>
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/widget/field/multistate/JepBaseTextField.html#addChangeValueListener--">addChangeValueListener()</a></span> - Method in class com.technology.jep.jepria.client.widget.field.multistate.<a href="com/technology/jep/jepria/client/widget/field/multistate/JepBaseTextField.html" title="class in com.technology.jep.jepria.client.widget.field.multistate">JepBaseTextField</a></dt>
 <dd>
@@ -680,9 +673,9 @@
 </dd>
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/main/MainModulePresenter.html#addModuleProtection-java.lang.String-java.lang.String-">addModuleProtection(String, String)</a></span> - Method in class com.technology.jep.jepria.client.ui.main.<a href="com/technology/jep/jepria/client/ui/main/MainModulePresenter.html" title="class in com.technology.jep.jepria.client.ui.main">MainModulePresenter</a></dt>
 <dd>
-<div class="block">Определяет роли пользователя, необходимые для доступа к модулю (при этом для доступа необходимо наличие хотя бы одной роли из указанных).</div>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span></div>
 </dd>
-<dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/main/MainModulePresenter.html#addModuleProtection-java.lang.String-java.lang.String-int-">addModuleProtection(String, String, int)</a></span> - Method in class com.technology.jep.jepria.client.ui.main.<a href="com/technology/jep/jepria/client/ui/main/MainModulePresenter.html" title="class in com.technology.jep.jepria.client.ui.main">MainModulePresenter</a></dt>
+<dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/main/MainModulePresenter.html#addModuleProtection-java.lang.String-java.util.List-">addModuleProtection(String, List&lt;String&gt;)</a></span> - Method in class com.technology.jep.jepria.client.ui.main.<a href="com/technology/jep/jepria/client/ui/main/MainModulePresenter.html" title="class in com.technology.jep.jepria.client.ui.main">MainModulePresenter</a></dt>
 <dd>
 <div class="block">Определяет роли пользователя, необходимые для доступа к модулю.</div>
 </dd>
@@ -747,10 +740,6 @@
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/widget/field/masked/MaskedTextBox.html#addPreventUndoRedoHandler-com.google.gwt.dom.client.Element-">addPreventUndoRedoHandler(Element)</a></span> - Method in class com.technology.jep.jepria.client.widget.field.masked.<a href="com/technology/jep/jepria/client/widget/field/masked/MaskedTextBox.html" title="class in com.technology.jep.jepria.client.widget.field.masked">MaskedTextBox</a></dt>
 <dd>
 <div class="block">Перехват событий изменения значения поля.</div>
-</dd>
-<dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/UiSecurity.html#addProtection-java.lang.Object-java.lang.String-int-">addProtection(Object, String, int)</a></span> - Method in class com.technology.jep.jepria.client.ui.<a href="com/technology/jep/jepria/client/ui/UiSecurity.html" title="class in com.technology.jep.jepria.client.ui">UiSecurity</a></dt>
-<dd>
-<div class="block">Добавление ограничения прав на обработку модулем событий</div>
 </dd>
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/wizard/BlockContainerImpl.html#addRightBlock-com.technology.jep.jepria.client.ui.wizard.Block-">addRightBlock(Block)</a></span> - Method in class com.technology.jep.jepria.client.ui.wizard.<a href="com/technology/jep/jepria/client/ui/wizard/BlockContainerImpl.html" title="class in com.technology.jep.jepria.client.ui.wizard">BlockContainerImpl</a></dt>
 <dd>&nbsp;</dd>
@@ -843,7 +832,10 @@
 <div class="block">Поддержание активного элемента списка видимым при прокручивании списка мышью.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/form/detail/DetailFormPresenterTest.DetailFormPresenterChangeWorkstateVerify.html#adjustToWorkstate-com.technology.jep.jepria.client.ui.WorkstateEnum-">adjustToWorkstate(WorkstateEnum)</a></span> - Method in class com.technology.jep.jepria.client.ui.form.detail.<a href="com/technology/jep/jepria/client/ui/form/detail/DetailFormPresenterTest.DetailFormPresenterChangeWorkstateVerify.html" title="class in com.technology.jep.jepria.client.ui.form.detail">DetailFormPresenterTest.DetailFormPresenterChangeWorkstateVerify</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Метод предназначен для перекрытия наследниками, "желающими" управлять
+ формой с учётом состояний клиентского модуля.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/JepPresenter.html#adjustToWorkstate-com.technology.jep.jepria.client.ui.WorkstateEnum-">adjustToWorkstate(WorkstateEnum)</a></span> - Method in class com.technology.jep.jepria.client.ui.<a href="com/technology/jep/jepria/client/ui/JepPresenter.html" title="class in com.technology.jep.jepria.client.ui">JepPresenter</a></dt>
 <dd>
 <div class="block">Метод предназначен для перекрытия наследниками, "желающими" управлять
@@ -1560,8 +1552,6 @@
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepria/auto/application/property/JepRiaAutoProperties.html#BROWSER_VERSION_KEY">BROWSER_VERSION_KEY</a></span> - Static variable in class com.technology.jep.jepria.auto.application.property.<a href="com/technology/jep/jepria/auto/application/property/JepRiaAutoProperties.html" title="class in com.technology.jep.jepria.auto.application.property">JepRiaAutoProperties</a></dt>
 <dd>&nbsp;</dd>
-<dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/UiSecurity.html#buildActionFromEvent-com.google.gwt.event.shared.GwtEvent-">buildActionFromEvent(GwtEvent)</a></span> - Method in class com.technology.jep.jepria.client.ui.<a href="com/technology/jep/jepria/client/ui/UiSecurity.html" title="class in com.technology.jep.jepria.client.ui">UiSecurity</a></dt>
-<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/message/ErrorDialog.html#buildDbDetails-java.lang.Throwable-">buildDbDetails(Throwable)</a></span> - Method in class com.technology.jep.jepria.client.message.<a href="com/technology/jep/jepria/client/message/ErrorDialog.html" title="class in com.technology.jep.jepria.client.message">ErrorDialog</a></dt>
 <dd>
 <div class="block">Создание сообщения об ошибке из БД.</div>
@@ -1735,6 +1725,10 @@
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/widget/field/wysiwyg/toolbar/ColorPicker.html#BW">BW</a></span> - Static variable in class com.technology.jep.jepria.client.widget.field.wysiwyg.toolbar.<a href="com/technology/jep/jepria/client/widget/field/wysiwyg/toolbar/ColorPicker.html" title="class in com.technology.jep.jepria.client.widget.field.wysiwyg.toolbar">ColorPicker</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/form/detail/DetailFormPresenter.html#byPrimaryKey-com.technology.jep.jepria.client.history.scope.JepScope-">byPrimaryKey(JepScope)</a></span> - Static method in class com.technology.jep.jepria.client.ui.form.detail.<a href="com/technology/jep/jepria/client/ui/form/detail/DetailFormPresenter.html" title="class in com.technology.jep.jepria.client.ui.form.detail">DetailFormPresenter</a></dt>
+<dd>
+<div class="block">Создает поисковый шаблон поиска записи по первичному ключу из текущего уровня иерархии модулей.</div>
+</dd>
 </dl>
 <a name="I:C">
 <!--   -->
@@ -1843,13 +1837,7 @@
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/widget/field/tree/images/TreeFieldResources.html#cellTreeStyle--">cellTreeStyle()</a></span> - Method in interface com.technology.jep.jepria.client.widget.field.tree.images.<a href="com/technology/jep/jepria/client/widget/field/tree/images/TreeFieldResources.html" title="interface in com.technology.jep.jepria.client.widget.field.tree.images">TreeFieldResources</a></dt>
 <dd>&nbsp;</dd>
-<dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/UiSecurity.html#CHANGE_BODY_EVENT_NAME">CHANGE_BODY_EVENT_NAME</a></span> - Static variable in class com.technology.jep.jepria.client.ui.<a href="com/technology/jep/jepria/client/ui/UiSecurity.html" title="class in com.technology.jep.jepria.client.ui">UiSecurity</a></dt>
-<dd>&nbsp;</dd>
-<dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/UiSecurity.html#CHANGE_CURRENT_RECORD_EVENT_NAME">CHANGE_CURRENT_RECORD_EVENT_NAME</a></span> - Static variable in class com.technology.jep.jepria.client.ui.<a href="com/technology/jep/jepria/client/ui/UiSecurity.html" title="class in com.technology.jep.jepria.client.ui">UiSecurity</a></dt>
-<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/eventbus/plain/PlainEventBus.html#CHANGE_WORKSTATE_EVENT_NAME">CHANGE_WORKSTATE_EVENT_NAME</a></span> - Static variable in class com.technology.jep.jepria.client.ui.eventbus.plain.<a href="com/technology/jep/jepria/client/ui/eventbus/plain/PlainEventBus.html" title="class in com.technology.jep.jepria.client.ui.eventbus.plain">PlainEventBus</a></dt>
-<dd>&nbsp;</dd>
-<dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/UiSecurity.html#CHANGE_WORKSTATE_EVENT_NAME">CHANGE_WORKSTATE_EVENT_NAME</a></span> - Static variable in class com.technology.jep.jepria.client.ui.<a href="com/technology/jep/jepria/client/ui/UiSecurity.html" title="class in com.technology.jep.jepria.client.ui">UiSecurity</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#changeCheckBoxFieldValue-java.lang.String-">changeCheckBoxFieldValue(String)</a></span> - Method in interface com.technology.jep.jepria.auto.module.<a href="com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html" title="interface in com.technology.jep.jepria.auto.module">JepRiaModuleAuto</a></dt>
 <dd>
@@ -1892,9 +1880,13 @@
 <div class="block">Метод для изменения размера текста в текстовой области</div>
 </dd>
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/JepPresenter.html#changeWorkstate-com.google.gwt.place.shared.Place-">changeWorkstate(Place)</a></span> - Method in class com.technology.jep.jepria.client.ui.<a href="com/technology/jep/jepria/client/ui/JepPresenter.html" title="class in com.technology.jep.jepria.client.ui">JepPresenter</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Изменение состояния.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/JepPresenter.html#changeWorkstate-com.technology.jep.jepria.client.ui.WorkstateEnum-">changeWorkstate(WorkstateEnum)</a></span> - Method in class com.technology.jep.jepria.client.ui.<a href="com/technology/jep/jepria/client/ui/JepPresenter.html" title="class in com.technology.jep.jepria.client.ui">JepPresenter</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Изменение состояния.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/wizard/BlockManager.html#changeWorkstate-com.technology.jep.jepria.client.ui.WorkstateEnum-">changeWorkstate(WorkstateEnum)</a></span> - Method in interface com.technology.jep.jepria.client.ui.wizard.<a href="com/technology/jep/jepria/client/ui/wizard/BlockManager.html" title="interface in com.technology.jep.jepria.client.ui.wizard">BlockManager</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/wizard/BlockManagerImpl.html#changeWorkstate-com.technology.jep.jepria.client.ui.WorkstateEnum-">changeWorkstate(WorkstateEnum)</a></span> - Method in class com.technology.jep.jepria.client.ui.wizard.<a href="com/technology/jep/jepria/client/ui/wizard/BlockManagerImpl.html" title="class in com.technology.jep.jepria.client.ui.wizard">BlockManagerImpl</a></dt>
@@ -1929,10 +1921,6 @@
 <dd>
 <div class="block">Наименование селектора (класса стилей) чекбокса.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/security/ClientSecurity.html#CHECK_ROLES_BY_AND">CHECK_ROLES_BY_AND</a></span> - Static variable in class com.technology.jep.jepria.client.security.<a href="com/technology/jep/jepria/client/security/ClientSecurity.html" title="class in com.technology.jep.jepria.client.security">ClientSecurity</a></dt>
-<dd>&nbsp;</dd>
-<dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/security/ClientSecurity.html#CHECK_ROLES_BY_OR">CHECK_ROLES_BY_OR</a></span> - Static variable in class com.technology.jep.jepria.client.security.<a href="com/technology/jep/jepria/client/security/ClientSecurity.html" title="class in com.technology.jep.jepria.client.security">ClientSecurity</a></dt>
-<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/widget/field/tree/TreeField.html#checkable">checkable</a></span> - Variable in class com.technology.jep.jepria.client.widget.field.tree.<a href="com/technology/jep/jepria/client/widget/field/tree/TreeField.html" title="class in com.technology.jep.jepria.client.widget.field.tree">TreeField</a></dt>
 <dd>
 <div class="block">Возможность выбора узлов дерева (по умолчанию, допускается выделение узлов).</div>
@@ -1940,10 +1928,6 @@
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/main/MainModulePresenter.html#checkAccess-java.lang.String-">checkAccess(String)</a></span> - Method in class com.technology.jep.jepria.client.ui.main.<a href="com/technology/jep/jepria/client/ui/main/MainModulePresenter.html" title="class in com.technology.jep.jepria.client.ui.main">MainModulePresenter</a></dt>
 <dd>
 <div class="block">Проверяет наличие прав у пользователя на отображение модуля.</div>
-</dd>
-<dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/UiSecurity.html#checkAccess-java.lang.Object-">checkAccess(Object)</a></span> - Method in class com.technology.jep.jepria.client.ui.<a href="com/technology/jep/jepria/client/ui/UiSecurity.html" title="class in com.technology.jep.jepria.client.ui">UiSecurity</a></dt>
-<dd>
-<div class="block">Проверка прав работы с событием EventBus</div>
 </dd>
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/main/MainModulePresenterTest.html#checkAccessTestAvailableModule--">checkAccessTestAvailableModule()</a></span> - Method in class com.technology.jep.jepria.client.ui.main.<a href="com/technology/jep/jepria/client/ui/main/MainModulePresenterTest.html" title="class in com.technology.jep.jepria.client.ui.main">MainModulePresenterTest</a></dt>
 <dd>
@@ -1955,8 +1939,6 @@
 <div class="block">Проверяет поведение метода <a href="com/technology/jep/jepria/client/ui/main/MainModulePresenter.html#checkAccess-java.lang.String-"><code>MainModulePresenter.checkAccess(String)</code></a>, если
  модуль недоступен.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/eventbus/JepEventBus.html#checkAndFireEvent-com.technology.jep.jepria.client.ui.eventbus.BusEvent-">checkAndFireEvent(BusEvent&lt;?&gt;)</a></span> - Method in class com.technology.jep.jepria.client.ui.eventbus.<a href="com/technology/jep/jepria/client/ui/eventbus/JepEventBus.html" title="class in com.technology.jep.jepria.client.ui.eventbus">JepEventBus</a></dt>
-<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/widget/field/multistate/JepCheckBoxField.CheckBox2.html#CheckBox2-com.google.gwt.dom.client.Element-">CheckBox2(Element)</a></span> - Constructor for class com.technology.jep.jepria.client.widget.field.multistate.<a href="com/technology/jep/jepria/client/widget/field/multistate/JepCheckBoxField.CheckBox2.html" title="class in com.technology.jep.jepria.client.widget.field.multistate">JepCheckBoxField.CheckBox2</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/widget/field/CheckBoxListField.html#CHECKBOX_HTML">CHECKBOX_HTML</a></span> - Static variable in class com.technology.jep.jepria.client.widget.field.<a href="com/technology/jep/jepria/client/widget/field/CheckBoxListField.html" title="class in com.technology.jep.jepria.client.widget.field">CheckBoxListField</a></dt>
@@ -2024,12 +2006,6 @@
 <dd>
 <div class="block">Список узлов, которые необходимо отметить.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/eventbus/EventFilter.html#checkEvent-com.technology.jep.jepria.client.ui.eventbus.BusEvent-">checkEvent(BusEvent&lt;?&gt;)</a></span> - Method in interface com.technology.jep.jepria.client.ui.eventbus.<a href="com/technology/jep/jepria/client/ui/eventbus/EventFilter.html" title="interface in com.technology.jep.jepria.client.ui.eventbus">EventFilter</a></dt>
-<dd>&nbsp;</dd>
-<dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/eventbus/EventFilterImpl.html#checkEvent-com.technology.jep.jepria.client.ui.eventbus.BusEvent-">checkEvent(BusEvent&lt;?&gt;)</a></span> - Method in class com.technology.jep.jepria.client.ui.eventbus.<a href="com/technology/jep/jepria/client/ui/eventbus/EventFilterImpl.html" title="class in com.technology.jep.jepria.client.ui.eventbus">EventFilterImpl</a></dt>
-<dd>&nbsp;</dd>
-<dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/UiSecurity.html#checkEvent-com.google.gwt.event.shared.GwtEvent-">checkEvent(GwtEvent)</a></span> - Method in class com.technology.jep.jepria.client.ui.<a href="com/technology/jep/jepria/client/ui/UiSecurity.html" title="class in com.technology.jep.jepria.client.ui">UiSecurity</a></dt>
-<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepria/shared/text/JepRiaText.html#checkForm_incorrectDate--">checkForm_incorrectDate()</a></span> - Method in interface com.technology.jep.jepria.shared.text.<a href="com/technology/jep/jepria/shared/text/JepRiaText.html" title="interface in com.technology.jep.jepria.shared.text">JepRiaText</a></dt>
 <dd>
 <div class="block">Translated "Некорректная дата или формат (дд.мм.гггг)!".</div>
@@ -2316,12 +2292,6 @@
 <dd>&nbsp;</dd>
 <dt><a href="com/technology/jep/jepria/client/ui/ClientFactory.html" title="interface in com.technology.jep.jepria.client.ui"><span class="typeNameLink">ClientFactory</span></a>&lt;<a href="com/technology/jep/jepria/client/ui/ClientFactory.html" title="type parameter in ClientFactory">E</a> extends com.google.gwt.event.shared.EventBus&gt; - Interface in <a href="com/technology/jep/jepria/client/ui/package-summary.html">com.technology.jep.jepria.client.ui</a></dt>
 <dd>&nbsp;</dd>
-<dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/eventbus/EventFilterImpl.html#clientFactory">clientFactory</a></span> - Variable in class com.technology.jep.jepria.client.ui.eventbus.<a href="com/technology/jep/jepria/client/ui/eventbus/EventFilterImpl.html" title="class in com.technology.jep.jepria.client.ui.eventbus">EventFilterImpl</a></dt>
-<dd>&nbsp;</dd>
-<dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/eventbus/JepEventBus.html#clientFactory">clientFactory</a></span> - Variable in class com.technology.jep.jepria.client.ui.eventbus.<a href="com/technology/jep/jepria/client/ui/eventbus/JepEventBus.html" title="class in com.technology.jep.jepria.client.ui.eventbus">JepEventBus</a></dt>
-<dd>
-<div class="block">Клиентская фабрика.</div>
-</dd>
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/JepActivity.html#clientFactory">clientFactory</a></span> - Variable in class com.technology.jep.jepria.client.ui.<a href="com/technology/jep/jepria/client/ui/JepActivity.html" title="class in com.technology.jep.jepria.client.ui">JepActivity</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/JepActivityMapper.html#clientFactory">clientFactory</a></span> - Variable in class com.technology.jep.jepria.client.ui.<a href="com/technology/jep/jepria/client/ui/JepActivityMapper.html" title="class in com.technology.jep.jepria.client.ui">JepActivityMapper</a></dt>
@@ -2955,6 +2925,10 @@
 <dd>
 <div class="block">Создание презентера детальной формы.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/form/detail/DetailFormPresenterTest.html#createDetailPresenter-com.google.gwt.place.shared.Place-">createDetailPresenter(Place)</a></span> - Method in class com.technology.jep.jepria.client.ui.form.detail.<a href="com/technology/jep/jepria/client/ui/form/detail/DetailFormPresenterTest.html" title="class in com.technology.jep.jepria.client.ui.form.detail">DetailFormPresenterTest</a></dt>
+<dd>
+<div class="block">Создает детальный презентер для теста в рабочем состоянии detailPlace.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepria/server/download/excel/ExcelReport.html#createEmptyCell--">createEmptyCell()</a></span> - Method in class com.technology.jep.jepria.server.download.excel.<a href="com/technology/jep/jepria/server/download/excel/ExcelReport.html" title="class in com.technology.jep.jepria.server.download.excel">ExcelReport</a></dt>
 <dd>
 <div class="block">Создание пустой ячейки.</div>
@@ -3584,8 +3558,6 @@
 <dd>
 <div class="block">ID кнопки "Удалить" панели ToolBar</div>
 </dd>
-<dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/UiSecurity.html#DELETE_EVENT_NAME">DELETE_EVENT_NAME</a></span> - Static variable in class com.technology.jep.jepria.client.ui.<a href="com/technology/jep/jepria/client/ui/UiSecurity.html" title="class in com.technology.jep.jepria.client.ui">UiSecurity</a></dt>
-<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepria/auto/module/JepRiaModuleAutoImpl.html#deleteAndConfirm--">deleteAndConfirm()</a></span> - Method in class com.technology.jep.jepria.auto.module.<a href="com/technology/jep/jepria/auto/module/JepRiaModuleAutoImpl.html" title="class in com.technology.jep.jepria.auto.module">JepRiaModuleAutoImpl</a></dt>
 <dd>
 <div class="block">Метод кликает кнопку тулбара "Удалить", подтверждает и ждёт возвращения на список.</div>
@@ -3695,7 +3667,7 @@
 <dd>&nbsp;</dd>
 <dt><a href="com/technology/jep/jepria/client/ui/form/detail/DetailFormPresenterTest.html" title="class in com.technology.jep.jepria.client.ui.form.detail"><span class="typeNameLink">DetailFormPresenterTest</span></a> - Class in <a href="com/technology/jep/jepria/client/ui/form/detail/package-summary.html">com.technology.jep.jepria.client.ui.form.detail</a></dt>
 <dd>
-<div class="block">Тест DetailFormPresenter</div>
+<div class="block">Тест метода onChangeWorkstate.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/form/detail/DetailFormPresenterTest.html#DetailFormPresenterTest--">DetailFormPresenterTest()</a></span> - Constructor for class com.technology.jep.jepria.client.ui.form.detail.<a href="com/technology/jep/jepria/client/ui/form/detail/DetailFormPresenterTest.html" title="class in com.technology.jep.jepria.client.ui.form.detail">DetailFormPresenterTest</a></dt>
 <dd>&nbsp;</dd>
@@ -3739,6 +3711,12 @@
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/widget/field/multistate/JepBaseNumberField.html#digitChars">digitChars</a></span> - Variable in class com.technology.jep.jepria.client.widget.field.multistate.<a href="com/technology/jep/jepria/client/widget/field/multistate/JepBaseNumberField.html" title="class in com.technology.jep.jepria.client.widget.field.multistate">JepBaseNumberField</a></dt>
 <dd>
 <div class="block">Набор цифр.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com/technology/jep/jepria/server/util/JepServerUtil.html#disableClobPrefetch-java.sql.Clob-">disableClobPrefetch(Clob)</a></span> - Static method in class com.technology.jep.jepria.server.util.<a href="com/technology/jep/jepria/server/util/JepServerUtil.html" title="class in com.technology.jep.jepria.server.util">JepServerUtil</a></dt>
+<dd>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>
+<div class="block"><span class="deprecationComment">удалить данный метод вместе со всеми его вызовами, если баг починится компанией oracle в <code>ojdbc.jar</code></span></div>
+</div>
 </dd>
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/widget/field/CheckBoxListField.html#disabled">disabled</a></span> - Variable in class com.technology.jep.jepria.client.widget.field.<a href="com/technology/jep/jepria/client/widget/field/CheckBoxListField.html" title="class in com.technology.jep.jepria.client.widget.field">CheckBoxListField</a></dt>
 <dd>
@@ -3788,7 +3766,9 @@
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/eventbus/plain/event/PrepareReportEvent.html#dispatch-com.technology.jep.jepria.client.ui.eventbus.plain.event.PrepareReportEvent.Handler-">dispatch(PrepareReportEvent.Handler)</a></span> - Method in class com.technology.jep.jepria.client.ui.eventbus.plain.event.<a href="com/technology/jep/jepria/client/ui/eventbus/plain/event/PrepareReportEvent.html" title="class in com.technology.jep.jepria.client.ui.eventbus.plain.event">PrepareReportEvent</a></dt>
 <dd>&nbsp;</dd>
-<dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/eventbus/plain/event/RefreshEvent.html#dispatch-com.technology.jep.jepria.client.ui.eventbus.plain.event.RefreshEvent.Handler-">dispatch(RefreshEvent.Handler)</a></span> - Method in class com.technology.jep.jepria.client.ui.eventbus.plain.event.<a href="com/technology/jep/jepria/client/ui/eventbus/plain/event/RefreshEvent.html" title="class in com.technology.jep.jepria.client.ui.eventbus.plain.event">RefreshEvent</a></dt>
+<dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/eventbus/plain/event/RefreshFieldsEvent.html#dispatch-com.technology.jep.jepria.client.ui.eventbus.plain.event.RefreshFieldsEvent.Handler-">dispatch(RefreshFieldsEvent.Handler)</a></span> - Method in class com.technology.jep.jepria.client.ui.eventbus.plain.event.<a href="com/technology/jep/jepria/client/ui/eventbus/plain/event/RefreshFieldsEvent.html" title="class in com.technology.jep.jepria.client.ui.eventbus.plain.event">RefreshFieldsEvent</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/eventbus/plain/event/RefreshListEvent.html#dispatch-com.technology.jep.jepria.client.ui.eventbus.plain.event.RefreshListEvent.Handler-">dispatch(RefreshListEvent.Handler)</a></span> - Method in class com.technology.jep.jepria.client.ui.eventbus.plain.event.<a href="com/technology/jep/jepria/client/ui/eventbus/plain/event/RefreshListEvent.html" title="class in com.technology.jep.jepria.client.ui.eventbus.plain.event">RefreshListEvent</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/eventbus/plain/event/SaveEvent.html#dispatch-com.technology.jep.jepria.client.ui.eventbus.plain.event.SaveEvent.Handler-">dispatch(SaveEvent.Handler)</a></span> - Method in class com.technology.jep.jepria.client.ui.eventbus.plain.event.<a href="com/technology/jep/jepria/client/ui/eventbus/plain/event/SaveEvent.html" title="class in com.technology.jep.jepria.client.ui.eventbus.plain.event">SaveEvent</a></dt>
 <dd>&nbsp;</dd>
@@ -3850,14 +3830,6 @@
 <div class="block">Текущий режим работы Drag&Drop</div>
 </dd>
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/widget/list/JepGrid.DndMode.html#DndMode--">DndMode()</a></span> - Constructor for enum com.technology.jep.jepria.client.widget.list.<a href="com/technology/jep/jepria/client/widget/list/JepGrid.DndMode.html" title="enum in com.technology.jep.jepria.client.widget.list">JepGrid.DndMode</a></dt>
-<dd>&nbsp;</dd>
-<dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/UiSecurity.html#DO_DELETE_EVENT_NAME">DO_DELETE_EVENT_NAME</a></span> - Static variable in class com.technology.jep.jepria.client.ui.<a href="com/technology/jep/jepria/client/ui/UiSecurity.html" title="class in com.technology.jep.jepria.client.ui">UiSecurity</a></dt>
-<dd>&nbsp;</dd>
-<dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/UiSecurity.html#DO_PRINT_EVENT_NAME">DO_PRINT_EVENT_NAME</a></span> - Static variable in class com.technology.jep.jepria.client.ui.<a href="com/technology/jep/jepria/client/ui/UiSecurity.html" title="class in com.technology.jep.jepria.client.ui">UiSecurity</a></dt>
-<dd>&nbsp;</dd>
-<dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/UiSecurity.html#DO_SEARCH_EVENT_NAME">DO_SEARCH_EVENT_NAME</a></span> - Static variable in class com.technology.jep.jepria.client.ui.<a href="com/technology/jep/jepria/client/ui/UiSecurity.html" title="class in com.technology.jep.jepria.client.ui">UiSecurity</a></dt>
-<dd>&nbsp;</dd>
-<dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/UiSecurity.html#DO_SHOW_HELP_EVENT_NAME">DO_SHOW_HELP_EVENT_NAME</a></span> - Static variable in class com.technology.jep.jepria.client.ui.<a href="com/technology/jep/jepria/client/ui/UiSecurity.html" title="class in com.technology.jep.jepria.client.ui">UiSecurity</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/eventbus/plain/PlainEventBus.html#doDelete--">doDelete()</a></span> - Method in class com.technology.jep.jepria.client.ui.eventbus.plain.<a href="com/technology/jep/jepria/client/ui/eventbus/plain/PlainEventBus.html" title="class in com.technology.jep.jepria.client.ui.eventbus.plain">PlainEventBus</a></dt>
 <dd>&nbsp;</dd>
@@ -4318,8 +4290,6 @@
 <dd>
 <div class="block">Размещает указанный узел дерева в области видимости пользователя.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/UiSecurity.html#ENTER_SCOPE_EVENT_NAME">ENTER_SCOPE_EVENT_NAME</a></span> - Static variable in class com.technology.jep.jepria.client.ui.<a href="com/technology/jep/jepria/client/ui/UiSecurity.html" title="class in com.technology.jep.jepria.client.ui">UiSecurity</a></dt>
-<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/eventbus/main/MainEventBus.html#enterFromHistory-com.google.gwt.place.shared.Place-">enterFromHistory(Place)</a></span> - Method in class com.technology.jep.jepria.client.ui.eventbus.main.<a href="com/technology/jep/jepria/client/ui/eventbus/main/MainEventBus.html" title="class in com.technology.jep.jepria.client.ui.eventbus.main">MainEventBus</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/technology/jep/jepria/client/ui/eventbus/main/event/EnterFromHistoryEvent.html" title="class in com.technology.jep.jepria.client.ui.eventbus.main.event"><span class="typeNameLink">EnterFromHistoryEvent</span></a> - Class in <a href="com/technology/jep/jepria/client/ui/eventbus/main/event/package-summary.html">com.technology.jep.jepria.client.ui.eventbus.main.event</a></dt>
@@ -4583,6 +4553,10 @@
 <dd>
 <div class="block">Translated "детальный просмотр".</div>
 </dd>
+<dt><span class="memberNameLink"><a href="com/technology/jep/jepria/shared/text/JepRiaText.html#errors_security_enterModule--">errors_security_enterModule()</a></span> - Method in interface com.technology.jep.jepria.shared.text.<a href="com/technology/jep/jepria/shared/text/JepRiaText.html" title="interface in com.technology.jep.jepria.shared.text">JepRiaText</a></dt>
+<dd>
+<div class="block">Translated "У Вас нет прав на вход в модуль ".</div>
+</dd>
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepria/shared/text/JepRiaText.html#errors_security_eventType--">errors_security_eventType()</a></span> - Method in interface com.technology.jep.jepria.shared.text.<a href="com/technology/jep/jepria/shared/text/JepRiaText.html" title="interface in com.technology.jep.jepria.shared.text">JepRiaText</a></dt>
 <dd>
 <div class="block">Translated "Нет прав на ".</div>
@@ -4618,14 +4592,6 @@
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/ClientFactoryImpl.html#eventBus">eventBus</a></span> - Variable in class com.technology.jep.jepria.client.ui.<a href="com/technology/jep/jepria/client/ui/ClientFactoryImpl.html" title="class in com.technology.jep.jepria.client.ui">ClientFactoryImpl</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/JepActivity.html#eventBus">eventBus</a></span> - Variable in class com.technology.jep.jepria.client.ui.<a href="com/technology/jep/jepria/client/ui/JepActivity.html" title="class in com.technology.jep.jepria.client.ui">JepActivity</a></dt>
-<dd>&nbsp;</dd>
-<dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/ClientFactoryImpl.html#eventFilter">eventFilter</a></span> - Variable in class com.technology.jep.jepria.client.ui.<a href="com/technology/jep/jepria/client/ui/ClientFactoryImpl.html" title="class in com.technology.jep.jepria.client.ui">ClientFactoryImpl</a></dt>
-<dd>&nbsp;</dd>
-<dt><a href="com/technology/jep/jepria/client/ui/eventbus/EventFilter.html" title="interface in com.technology.jep.jepria.client.ui.eventbus"><span class="typeNameLink">EventFilter</span></a>&lt;<a href="com/technology/jep/jepria/client/ui/eventbus/EventFilter.html" title="type parameter in EventFilter">E</a> extends com.google.gwt.event.shared.EventBus&gt; - Interface in <a href="com/technology/jep/jepria/client/ui/eventbus/package-summary.html">com.technology.jep.jepria.client.ui.eventbus</a></dt>
-<dd>&nbsp;</dd>
-<dt><a href="com/technology/jep/jepria/client/ui/eventbus/EventFilterImpl.html" title="class in com.technology.jep.jepria.client.ui.eventbus"><span class="typeNameLink">EventFilterImpl</span></a> - Class in <a href="com/technology/jep/jepria/client/ui/eventbus/package-summary.html">com.technology.jep.jepria.client.ui.eventbus</a></dt>
-<dd>&nbsp;</dd>
-<dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/eventbus/EventFilterImpl.html#EventFilterImpl-com.technology.jep.jepria.client.ui.ClientFactory-">EventFilterImpl(ClientFactory&lt;?&gt;)</a></span> - Constructor for class com.technology.jep.jepria.client.ui.eventbus.<a href="com/technology/jep/jepria/client/ui/eventbus/EventFilterImpl.html" title="class in com.technology.jep.jepria.client.ui.eventbus">EventFilterImpl</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/widget/field/wysiwyg/toolbar/RichTextToolbar.EventHandler.html#EventHandler--">EventHandler()</a></span> - Constructor for class com.technology.jep.jepria.client.widget.field.wysiwyg.toolbar.<a href="com/technology/jep/jepria/client/widget/field/wysiwyg/toolbar/RichTextToolbar.EventHandler.html" title="class in com.technology.jep.jepria.client.widget.field.wysiwyg.toolbar">RichTextToolbar.EventHandler</a></dt>
 <dd>&nbsp;</dd>
@@ -4726,8 +4692,6 @@
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepria/server/dao/DaoSupport.ExecutionType.html#ExecutionType--">ExecutionType()</a></span> - Constructor for enum com.technology.jep.jepria.server.dao.<a href="com/technology/jep/jepria/server/dao/DaoSupport.ExecutionType.html" title="enum in com.technology.jep.jepria.server.dao">DaoSupport.ExecutionType</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/images/JepImages.html#exit--">exit()</a></span> - Method in interface com.technology.jep.jepria.client.images.<a href="com/technology/jep/jepria/client/images/JepImages.html" title="interface in com.technology.jep.jepria.client.images">JepImages</a></dt>
-<dd>&nbsp;</dd>
-<dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/UiSecurity.html#EXIT_SCOPE_EVENT_NAME">EXIT_SCOPE_EVENT_NAME</a></span> - Static variable in class com.technology.jep.jepria.client.ui.<a href="com/technology/jep/jepria/client/ui/UiSecurity.html" title="class in com.technology.jep.jepria.client.ui">UiSecurity</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/main/widget/MainTabPanel.html#exitListeners">exitListeners</a></span> - Variable in class com.technology.jep.jepria.client.ui.main.widget.<a href="com/technology/jep/jepria/client/ui/main/widget/MainTabPanel.html" title="class in com.technology.jep.jepria.client.ui.main.widget">MainTabPanel</a></dt>
 <dd>&nbsp;</dd>
@@ -5418,7 +5382,9 @@
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/eventbus/plain/event/PrepareReportEvent.html#getAssociatedType--">getAssociatedType()</a></span> - Method in class com.technology.jep.jepria.client.ui.eventbus.plain.event.<a href="com/technology/jep/jepria/client/ui/eventbus/plain/event/PrepareReportEvent.html" title="class in com.technology.jep.jepria.client.ui.eventbus.plain.event">PrepareReportEvent</a></dt>
 <dd>&nbsp;</dd>
-<dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/eventbus/plain/event/RefreshEvent.html#getAssociatedType--">getAssociatedType()</a></span> - Method in class com.technology.jep.jepria.client.ui.eventbus.plain.event.<a href="com/technology/jep/jepria/client/ui/eventbus/plain/event/RefreshEvent.html" title="class in com.technology.jep.jepria.client.ui.eventbus.plain.event">RefreshEvent</a></dt>
+<dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/eventbus/plain/event/RefreshFieldsEvent.html#getAssociatedType--">getAssociatedType()</a></span> - Method in class com.technology.jep.jepria.client.ui.eventbus.plain.event.<a href="com/technology/jep/jepria/client/ui/eventbus/plain/event/RefreshFieldsEvent.html" title="class in com.technology.jep.jepria.client.ui.eventbus.plain.event">RefreshFieldsEvent</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/eventbus/plain/event/RefreshListEvent.html#getAssociatedType--">getAssociatedType()</a></span> - Method in class com.technology.jep.jepria.client.ui.eventbus.plain.event.<a href="com/technology/jep/jepria/client/ui/eventbus/plain/event/RefreshListEvent.html" title="class in com.technology.jep.jepria.client.ui.eventbus.plain.event">RefreshListEvent</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/eventbus/plain/event/SaveEvent.html#getAssociatedType--">getAssociatedType()</a></span> - Method in class com.technology.jep.jepria.client.ui.eventbus.plain.event.<a href="com/technology/jep/jepria/client/ui/eventbus/plain/event/SaveEvent.html" title="class in com.technology.jep.jepria.client.ui.eventbus.plain.event">SaveEvent</a></dt>
 <dd>&nbsp;</dd>
@@ -5833,10 +5799,6 @@
 </dd>
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/ClientFactoryImpl.html#getEventBus--">getEventBus()</a></span> - Method in class com.technology.jep.jepria.client.ui.<a href="com/technology/jep/jepria/client/ui/ClientFactoryImpl.html" title="class in com.technology.jep.jepria.client.ui">ClientFactoryImpl</a></dt>
 <dd>&nbsp;</dd>
-<dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/ClientFactory.html#getEventFilter--">getEventFilter()</a></span> - Method in interface com.technology.jep.jepria.client.ui.<a href="com/technology/jep/jepria/client/ui/ClientFactory.html" title="interface in com.technology.jep.jepria.client.ui">ClientFactory</a></dt>
-<dd>&nbsp;</dd>
-<dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/ClientFactoryImpl.html#getEventFilter--">getEventFilter()</a></span> - Method in class com.technology.jep.jepria.client.ui.<a href="com/technology/jep/jepria/client/ui/ClientFactoryImpl.html" title="class in com.technology.jep.jepria.client.ui">ClientFactoryImpl</a></dt>
-<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/eventbus/plain/event/ShowExcelEvent.html#getExcelServlet--">getExcelServlet()</a></span> - Method in class com.technology.jep.jepria.client.ui.eventbus.plain.event.<a href="com/technology/jep/jepria/client/ui/eventbus/plain/event/ShowExcelEvent.html" title="class in com.technology.jep.jepria.client.ui.eventbus.plain.event">ShowExcelEvent</a></dt>
 <dd>
 <div class="block">Возвращает относительный путь к сервлету Excel-выгрузки.</div>
@@ -5969,12 +5931,6 @@
 <dd>
 <div class="block">Returns true iff the date box will fire <code>ValueChangeEvents</code> with a
  date value of <code>null</code> for invalid or empty string values.</div>
-</dd>
-<dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/UiSecurity.html#getFirstRequiredRole-java.lang.Object-">getFirstRequiredRole(Object)</a></span> - Method in class com.technology.jep.jepria.client.ui.<a href="com/technology/jep/jepria/client/ui/UiSecurity.html" title="class in com.technology.jep.jepria.client.ui">UiSecurity</a></dt>
-<dd>
-<div class="block">Получение первой отсутствующей роли 
- Сделано по аналогии с версией Struts (в сообщении показывается первая отсутствующая роль)
- для поддержки сложившихся процессов сопровождения и администрирования</div>
 </dd>
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/widget/field/masked/Mask.html#getFirstSpecialSymbolPosition--">getFirstSpecialSymbolPosition()</a></span> - Method in class com.technology.jep.jepria.client.widget.field.masked.<a href="com/technology/jep/jepria/client/widget/field/masked/Mask.html" title="class in com.technology.jep.jepria.client.widget.field.masked">Mask</a></dt>
 <dd>
@@ -6697,8 +6653,6 @@
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/eventbus/plain/event/PrepareReportEvent.html#getReportServlet--">getReportServlet()</a></span> - Method in class com.technology.jep.jepria.client.ui.eventbus.plain.event.<a href="com/technology/jep/jepria/client/ui/eventbus/plain/event/PrepareReportEvent.html" title="class in com.technology.jep.jepria.client.ui.eventbus.plain.event">PrepareReportEvent</a></dt>
 <dd>&nbsp;</dd>
-<dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/UiSecurity.html#getRequiredRole-java.util.Map-java.lang.Object-">getRequiredRole(Map&lt;Object, List&lt;String&gt;&gt;, Object)</a></span> - Method in class com.technology.jep.jepria.client.ui.<a href="com/technology/jep/jepria/client/ui/UiSecurity.html" title="class in com.technology.jep.jepria.client.ui">UiSecurity</a></dt>
-<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/widget/field/wysiwyg/toolbar/upload/ProgressEvent.html#getResult--">getResult()</a></span> - Method in class com.technology.jep.jepria.client.widget.field.wysiwyg.toolbar.upload.<a href="com/technology/jep/jepria/client/widget/field/wysiwyg/toolbar/upload/ProgressEvent.html" title="class in com.technology.jep.jepria.client.widget.field.wysiwyg.toolbar.upload">ProgressEvent</a></dt>
 <dd>
 <div class="block">Returns a file's data in string format, or null, depending on the
@@ -6723,7 +6677,9 @@
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/security/ClientSecurity.html#getRoles--">getRoles()</a></span> - Method in class com.technology.jep.jepria.client.security.<a href="com/technology/jep/jepria/client/security/ClientSecurity.html" title="class in com.technology.jep.jepria.client.security">ClientSecurity</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/security/ClientSecurity.html#getRoles-java.lang.String-">getRoles(String)</a></span> - Static method in class com.technology.jep.jepria.client.security.<a href="com/technology/jep/jepria/client/security/ClientSecurity.html" title="class in com.technology.jep.jepria.client.security">ClientSecurity</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span></div>
+</dd>
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html#getRoles--">getRoles()</a></span> - Method in class com.technology.jep.jepria.server.security.<a href="com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html" title="class in com.technology.jep.jepria.server.security">JepAbstractSecurityModule</a></dt>
 <dd>
 <div class="block">Возвращает роли текущего пользователя.</div>
@@ -7019,10 +6975,6 @@
 <dd>
 <div class="block">Получение уникального идентификатора класса.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/ClientFactory.html#getUiSecurity--">getUiSecurity()</a></span> - Method in interface com.technology.jep.jepria.client.ui.<a href="com/technology/jep/jepria/client/ui/ClientFactory.html" title="interface in com.technology.jep.jepria.client.ui">ClientFactory</a></dt>
-<dd>&nbsp;</dd>
-<dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/ClientFactoryImpl.html#getUiSecurity--">getUiSecurity()</a></span> - Method in class com.technology.jep.jepria.client.ui.<a href="com/technology/jep/jepria/client/ui/ClientFactoryImpl.html" title="class in com.technology.jep.jepria.client.ui">ClientFactoryImpl</a></dt>
-<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepria/server/dao/ResultSetWrapper.html#getUnicodeStream-int-">getUnicodeStream(int)</a></span> - Method in class com.technology.jep.jepria.server.dao.<a href="com/technology/jep/jepria/server/dao/ResultSetWrapper.html" title="class in com.technology.jep.jepria.server.dao">ResultSetWrapper</a></dt>
 <dd>
 <div class="block"><span class="deprecatedLabel">Deprecated.</span></div>
@@ -7227,8 +7179,6 @@
 <div class="block">Возвращает список из двух опций, "Да" и "Нет".</div>
 </dd>
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/widget/MaskPanel.html#glass">glass</a></span> - Variable in class com.technology.jep.jepria.client.widget.<a href="com/technology/jep/jepria/client/widget/MaskPanel.html" title="class in com.technology.jep.jepria.client.widget">MaskPanel</a></dt>
-<dd>&nbsp;</dd>
-<dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/UiSecurity.html#GO_BACK_EVENT_NAME">GO_BACK_EVENT_NAME</a></span> - Static variable in class com.technology.jep.jepria.client.ui.<a href="com/technology/jep/jepria/client/ui/UiSecurity.html" title="class in com.technology.jep.jepria.client.ui">UiSecurity</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/entrance/Entrance.html#goTo-java.lang.String-">goTo(String)</a></span> - Static method in class com.technology.jep.jepria.client.entrance.<a href="com/technology/jep/jepria/client/entrance/Entrance.html" title="class in com.technology.jep.jepria.client.entrance">Entrance</a></dt>
 <dd>
@@ -7915,6 +7865,14 @@
 <dd>
 <div class="block">Определяет находится ли курсор в верхней части таблицы.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/form/detail/DetailFormPresenter.html#isDataReady-com.technology.jep.jepria.client.ui.WorkstateEnum-">isDataReady(WorkstateEnum)</a></span> - Method in class com.technology.jep.jepria.client.ui.form.detail.<a href="com/technology/jep/jepria/client/ui/form/detail/DetailFormPresenter.html" title="class in com.technology.jep.jepria.client.ui.form.detail">DetailFormPresenter</a></dt>
+<dd>
+<div class="block">Метод проверки соответствия рабочего состояния и готовности данных.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/JepPresenter.html#isDataReady-com.technology.jep.jepria.client.ui.WorkstateEnum-">isDataReady(WorkstateEnum)</a></span> - Method in class com.technology.jep.jepria.client.ui.<a href="com/technology/jep/jepria/client/ui/JepPresenter.html" title="class in com.technology.jep.jepria.client.ui">JepPresenter</a></dt>
+<dd>
+<div class="block">Метод проверки соответствия рабочего состояния и готовности данных.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/widget/field/masked/MaskedDateBox.html#isDatePickerShowing--">isDatePickerShowing()</a></span> - Method in class com.technology.jep.jepria.client.widget.field.masked.<a href="com/technology/jep/jepria/client/widget/field/masked/MaskedDateBox.html" title="class in com.technology.jep.jepria.client.widget.field.masked">MaskedDateBox</a></dt>
 <dd>
 <div class="block">Returns true if date picker is currently showing, false if not.</div>
@@ -8269,18 +8227,20 @@
 </dd>
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/history/scope/JepScopeStack.html#isUserEntered--">isUserEntered()</a></span> - Method in class com.technology.jep.jepria.client.history.scope.<a href="com/technology/jep/jepria/client/history/scope/JepScopeStack.html" title="class in com.technology.jep.jepria.client.history.scope">JepScopeStack</a></dt>
 <dd>&nbsp;</dd>
-<dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/security/ClientSecurity.html#isUserHaveAllRoles-java.util.List-">isUserHaveAllRoles(List&lt;String&gt;)</a></span> - Static method in class com.technology.jep.jepria.client.security.<a href="com/technology/jep/jepria/client/security/ClientSecurity.html" title="class in com.technology.jep.jepria.client.security">ClientSecurity</a></dt>
+<dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/security/ClientSecurity.html#isUserHaveAllRoles-java.util.List-">isUserHaveAllRoles(List&lt;String&gt;)</a></span> - Method in class com.technology.jep.jepria.client.security.<a href="com/technology/jep/jepria/client/security/ClientSecurity.html" title="class in com.technology.jep.jepria.client.security">ClientSecurity</a></dt>
 <dd>
 <div class="block">Проверка наличия у пользователя всех заданных ролей.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/security/ClientSecurity.html#isUserHaveRole-java.lang.String-">isUserHaveRole(String)</a></span> - Method in class com.technology.jep.jepria.client.security.<a href="com/technology/jep/jepria/client/security/ClientSecurity.html" title="class in com.technology.jep.jepria.client.security">ClientSecurity</a></dt>
 <dd>&nbsp;</dd>
-<dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/security/ClientSecurity.html#isUserHaveRoles-java.util.List-">isUserHaveRoles(List&lt;String&gt;)</a></span> - Static method in class com.technology.jep.jepria.client.security.<a href="com/technology/jep/jepria/client/security/ClientSecurity.html" title="class in com.technology.jep.jepria.client.security">ClientSecurity</a></dt>
+<dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/security/ClientSecurity.html#isUserHaveRoles-java.util.List-">isUserHaveRoles(List&lt;String&gt;)</a></span> - Method in class com.technology.jep.jepria.client.security.<a href="com/technology/jep/jepria/client/security/ClientSecurity.html" title="class in com.technology.jep.jepria.client.security">ClientSecurity</a></dt>
 <dd>
 <div class="block">Проверка наличия у пользователя хотя бы одной из заданных ролей.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/security/ClientSecurity.html#isUserHaveRoles-java.lang.String-">isUserHaveRoles(String)</a></span> - Static method in class com.technology.jep.jepria.client.security.<a href="com/technology/jep/jepria/client/security/ClientSecurity.html" title="class in com.technology.jep.jepria.client.security">ClientSecurity</a></dt>
-<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/security/ClientSecurity.html#isUserHaveRoles-java.lang.String-">isUserHaveRoles(String)</a></span> - Method in class com.technology.jep.jepria.client.security.<a href="com/technology/jep/jepria/client/security/ClientSecurity.html" title="class in com.technology.jep.jepria.client.security">ClientSecurity</a></dt>
+<dd>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span></div>
+</dd>
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/widget/dialog/DialogWithFields.html#isValid--">isValid()</a></span> - Method in class com.technology.jep.jepria.client.widget.dialog.<a href="com/technology/jep/jepria/client/widget/dialog/DialogWithFields.html" title="class in com.technology.jep.jepria.client.widget.dialog">DialogWithFields</a></dt>
 <dd>
 <div class="block">Проверка валидации полей диалогового окна.</div>
@@ -8782,7 +8742,7 @@
 <dd>&nbsp;</dd>
 <dt><a href="com/technology/jep/jepria/client/ui/eventbus/JepEventBus.html" title="class in com.technology.jep.jepria.client.ui.eventbus"><span class="typeNameLink">JepEventBus</span></a> - Class in <a href="com/technology/jep/jepria/client/ui/eventbus/package-summary.html">com.technology.jep.jepria.client.ui.eventbus</a></dt>
 <dd>&nbsp;</dd>
-<dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/eventbus/JepEventBus.html#JepEventBus-com.technology.jep.jepria.client.ui.ClientFactory-">JepEventBus(ClientFactory&lt;?&gt;)</a></span> - Constructor for class com.technology.jep.jepria.client.ui.eventbus.<a href="com/technology/jep/jepria/client/ui/eventbus/JepEventBus.html" title="class in com.technology.jep.jepria.client.ui.eventbus">JepEventBus</a></dt>
+<dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/eventbus/JepEventBus.html#JepEventBus--">JepEventBus()</a></span> - Constructor for class com.technology.jep.jepria.client.ui.eventbus.<a href="com/technology/jep/jepria/client/ui/eventbus/JepEventBus.html" title="class in com.technology.jep.jepria.client.ui.eventbus">JepEventBus</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/technology/jep/jepria/client/widget/event/JepEventType.html" title="enum in com.technology.jep.jepria.client.widget.event"><span class="typeNameLink">JepEventType</span></a> - Enum in <a href="com/technology/jep/jepria/client/widget/event/package-summary.html">com.technology.jep.jepria.client.widget.event</a></dt>
 <dd>
@@ -9274,7 +9234,7 @@
 <dt><a href="com/technology/jep/jepria/shared/text/JepRiaText.html" title="interface in com.technology.jep.jepria.shared.text"><span class="typeNameLink">JepRiaText</span></a> - Interface in <a href="com/technology/jep/jepria/shared/text/package-summary.html">com.technology.jep.jepria.shared.text</a></dt>
 <dd>
 <div class="block">Interface to represent the constants contained in resource bundle:
-        'C:/git/javaenterpriseplatform/Module/JepRia/App/src/java/com/technology/jep/jepria/shared/text/JepRiaText.properties'.</div>
+        'D:/git/Jep/Module/JepRia/App/src/java/com/technology/jep/jepria/shared/text/JepRiaText.properties'.</div>
 </dd>
 <dt><a href="com/technology/jep/jepria/shared/util/JepRiaUtil.html" title="class in com.technology.jep.jepria.shared.util"><span class="typeNameLink">JepRiaUtil</span></a> - Class in <a href="com/technology/jep/jepria/shared/util/package-summary.html">com.technology.jep.jepria.shared.util</a></dt>
 <dd>&nbsp;</dd>
@@ -10122,7 +10082,7 @@
 </dd>
 <dt><a href="com/technology/jep/jepria/client/ui/eventbus/main/MainEventBus.html" title="class in com.technology.jep.jepria.client.ui.eventbus.main"><span class="typeNameLink">MainEventBus</span></a> - Class in <a href="com/technology/jep/jepria/client/ui/eventbus/main/package-summary.html">com.technology.jep.jepria.client.ui.eventbus.main</a></dt>
 <dd>&nbsp;</dd>
-<dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/eventbus/main/MainEventBus.html#MainEventBus-com.technology.jep.jepria.client.ui.main.MainClientFactory-">MainEventBus(MainClientFactory&lt;?, ?&gt;)</a></span> - Constructor for class com.technology.jep.jepria.client.ui.eventbus.main.<a href="com/technology/jep/jepria/client/ui/eventbus/main/MainEventBus.html" title="class in com.technology.jep.jepria.client.ui.eventbus.main">MainEventBus</a></dt>
+<dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/eventbus/main/MainEventBus.html#MainEventBus--">MainEventBus()</a></span> - Constructor for class com.technology.jep.jepria.client.ui.eventbus.main.<a href="com/technology/jep/jepria/client/ui/eventbus/main/MainEventBus.html" title="class in com.technology.jep.jepria.client.ui.eventbus.main">MainEventBus</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/plain/PlainModulePresenter.html#mainEventBus">mainEventBus</a></span> - Variable in class com.technology.jep.jepria.client.ui.plain.<a href="com/technology/jep/jepria/client/ui/plain/PlainModulePresenter.html" title="class in com.technology.jep.jepria.client.ui.plain">PlainModulePresenter</a></dt>
 <dd>&nbsp;</dd>
@@ -10916,7 +10876,9 @@
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/form/list/ListFormPresenter.html#onChangeSort-com.technology.jep.jepria.client.widget.event.JepEvent-">onChangeSort(JepEvent)</a></span> - Method in class com.technology.jep.jepria.client.ui.form.list.<a href="com/technology/jep/jepria/client/ui/form/list/ListFormPresenter.html" title="class in com.technology.jep.jepria.client.ui.form.list">ListFormPresenter</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/form/detail/DetailFormPresenter.html#onChangeWorkstate-com.technology.jep.jepria.client.ui.WorkstateEnum-">onChangeWorkstate(WorkstateEnum)</a></span> - Method in class com.technology.jep.jepria.client.ui.form.detail.<a href="com/technology/jep/jepria/client/ui/form/detail/DetailFormPresenter.html" title="class in com.technology.jep.jepria.client.ui.form.detail">DetailFormPresenter</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Hook-метод, вызываемый перед изменением текущего состояния (_workstate) на workstate.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/form/detail/DetailFormPresenterTest.DetailFormPresenterChangeWorkstateVerify.html#onChangeWorkstate-com.technology.jep.jepria.client.ui.WorkstateEnum-">onChangeWorkstate(WorkstateEnum)</a></span> - Method in class com.technology.jep.jepria.client.ui.form.detail.<a href="com/technology/jep/jepria/client/ui/form/detail/DetailFormPresenterTest.DetailFormPresenterChangeWorkstateVerify.html" title="class in com.technology.jep.jepria.client.ui.form.detail">DetailFormPresenterTest.DetailFormPresenterChangeWorkstateVerify</a></dt>
 <dd>
 <div class="block">Перекрыт, так как логика не важна - важен сам факт вызова.</div>
@@ -10928,7 +10890,9 @@
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/form/list/ListFormPresenter.html#onChangeWorkstate-com.technology.jep.jepria.client.ui.WorkstateEnum-">onChangeWorkstate(WorkstateEnum)</a></span> - Method in class com.technology.jep.jepria.client.ui.form.list.<a href="com/technology/jep/jepria/client/ui/form/list/ListFormPresenter.html" title="class in com.technology.jep.jepria.client.ui.form.list">ListFormPresenter</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/JepPresenter.html#onChangeWorkstate-com.technology.jep.jepria.client.ui.WorkstateEnum-">onChangeWorkstate(WorkstateEnum)</a></span> - Method in class com.technology.jep.jepria.client.ui.<a href="com/technology/jep/jepria/client/ui/JepPresenter.html" title="class in com.technology.jep.jepria.client.ui">JepPresenter</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Hook-метод, вызываемый перед изменением текущего состояния (_workstate) на workstate.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/plain/PlainModulePresenter.html#onChangeWorkstate-com.technology.jep.jepria.client.ui.WorkstateEnum-">onChangeWorkstate(WorkstateEnum)</a></span> - Method in class com.technology.jep.jepria.client.ui.plain.<a href="com/technology/jep/jepria/client/ui/plain/PlainModulePresenter.html" title="class in com.technology.jep.jepria.client.ui.plain">PlainModulePresenter</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/plain/StandardModulePresenter.html#onChangeWorkstate-com.technology.jep.jepria.client.ui.WorkstateEnum-">onChangeWorkstate(WorkstateEnum)</a></span> - Method in class com.technology.jep.jepria.client.ui.plain.<a href="com/technology/jep/jepria/client/ui/plain/StandardModulePresenter.html" title="class in com.technology.jep.jepria.client.ui.plain">StandardModulePresenter</a></dt>
@@ -11046,6 +11010,10 @@
 <div class="block">Called when a <a href="com/technology/jep/jepria/client/ui/eventbus/plain/event/DoGetRecordEvent.html" title="class in com.technology.jep.jepria.client.ui.eventbus.plain.event"><code>DoGetRecordEvent</code></a> is fired.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/form/detail/DetailFormPresenter.html#onDoGetRecord-com.technology.jep.jepria.client.ui.eventbus.plain.event.DoGetRecordEvent-">onDoGetRecord(DoGetRecordEvent)</a></span> - Method in class com.technology.jep.jepria.client.ui.form.detail.<a href="com/technology/jep/jepria/client/ui/form/detail/DetailFormPresenter.html" title="class in com.technology.jep.jepria.client.ui.form.detail">DetailFormPresenter</a></dt>
+<dd>
+<div class="block">Обработчик события получения записи по первичному ключу.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/form/detail/DetailFormPresenterTest.DetailFormPresenterChangeWorkstateVerify.html#onDoGetRecord-com.technology.jep.jepria.client.ui.eventbus.plain.event.DoGetRecordEvent-">onDoGetRecord(DoGetRecordEvent)</a></span> - Method in class com.technology.jep.jepria.client.ui.form.detail.<a href="com/technology/jep/jepria/client/ui/form/detail/DetailFormPresenterTest.DetailFormPresenterChangeWorkstateVerify.html" title="class in com.technology.jep.jepria.client.ui.form.detail">DetailFormPresenterTest.DetailFormPresenterChangeWorkstateVerify</a></dt>
 <dd>
 <div class="block">Обработчик события получения записи по первичному ключу.</div>
 </dd>
@@ -11292,21 +11260,25 @@
 <div class="block"><a href="com/technology/jep/jepria/client/widget/field/tree/TreeField.TreeDataProvider.html#onRangeChanged-com.google.gwt.view.client.HasData-"><code>TreeField.TreeDataProvider.onRangeChanged(HasData)</code></a> is called when the table requests a
  new range of data.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/eventbus/plain/event/RefreshEvent.Handler.html#onRefresh-com.technology.jep.jepria.client.ui.eventbus.plain.event.RefreshEvent-">onRefresh(RefreshEvent)</a></span> - Method in interface com.technology.jep.jepria.client.ui.eventbus.plain.event.<a href="com/technology/jep/jepria/client/ui/eventbus/plain/event/RefreshEvent.Handler.html" title="interface in com.technology.jep.jepria.client.ui.eventbus.plain.event">RefreshEvent.Handler</a></dt>
-<dd>
-<div class="block">Called when a <a href="com/technology/jep/jepria/client/ui/eventbus/plain/event/RefreshEvent.html" title="class in com.technology.jep.jepria.client.ui.eventbus.plain.event"><code>RefreshEvent</code></a> is fired.</div>
-</dd>
-<dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/form/detail/DetailFormPresenter.html#onRefresh-com.technology.jep.jepria.client.ui.eventbus.plain.event.RefreshEvent-">onRefresh(RefreshEvent)</a></span> - Method in class com.technology.jep.jepria.client.ui.form.detail.<a href="com/technology/jep/jepria/client/ui/form/detail/DetailFormPresenter.html" title="class in com.technology.jep.jepria.client.ui.form.detail">DetailFormPresenter</a></dt>
-<dd>
-<div class="block">Обновление формы.</div>
-</dd>
-<dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/form/list/ListFormPresenter.html#onRefresh-com.technology.jep.jepria.client.ui.eventbus.plain.event.RefreshEvent-">onRefresh(RefreshEvent)</a></span> - Method in class com.technology.jep.jepria.client.ui.form.list.<a href="com/technology/jep/jepria/client/ui/form/list/ListFormPresenter.html" title="class in com.technology.jep.jepria.client.ui.form.list">ListFormPresenter</a></dt>
-<dd>
-<div class="block">Обработчик события обновления списка.</div>
-</dd>
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/form/list/ListFormPresenter.html#onRefreshFailure-java.lang.Throwable-">onRefreshFailure(Throwable)</a></span> - Method in class com.technology.jep.jepria.client.ui.form.list.<a href="com/technology/jep/jepria/client/ui/form/list/ListFormPresenter.html" title="class in com.technology.jep.jepria.client.ui.form.list">ListFormPresenter</a></dt>
 <dd>
 <div class="block">Hook-метод, вызываемый при неуспешном обновлении (в частности, после поиска) списка.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/eventbus/plain/event/RefreshFieldsEvent.Handler.html#onRefreshFields-com.technology.jep.jepria.client.ui.eventbus.plain.event.RefreshFieldsEvent-">onRefreshFields(RefreshFieldsEvent)</a></span> - Method in interface com.technology.jep.jepria.client.ui.eventbus.plain.event.<a href="com/technology/jep/jepria/client/ui/eventbus/plain/event/RefreshFieldsEvent.Handler.html" title="interface in com.technology.jep.jepria.client.ui.eventbus.plain.event">RefreshFieldsEvent.Handler</a></dt>
+<dd>
+<div class="block">Called when a <a href="com/technology/jep/jepria/client/ui/eventbus/plain/event/RefreshFieldsEvent.html" title="class in com.technology.jep.jepria.client.ui.eventbus.plain.event"><code>RefreshFieldsEvent</code></a> is fired.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/form/detail/DetailFormPresenter.html#onRefreshFields-com.technology.jep.jepria.client.ui.eventbus.plain.event.RefreshFieldsEvent-">onRefreshFields(RefreshFieldsEvent)</a></span> - Method in class com.technology.jep.jepria.client.ui.form.detail.<a href="com/technology/jep/jepria/client/ui/form/detail/DetailFormPresenter.html" title="class in com.technology.jep.jepria.client.ui.form.detail">DetailFormPresenter</a></dt>
+<dd>
+<div class="block">Обновление формы.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/eventbus/plain/event/RefreshListEvent.Handler.html#onRefreshList-com.technology.jep.jepria.client.ui.eventbus.plain.event.RefreshListEvent-">onRefreshList(RefreshListEvent)</a></span> - Method in interface com.technology.jep.jepria.client.ui.eventbus.plain.event.<a href="com/technology/jep/jepria/client/ui/eventbus/plain/event/RefreshListEvent.Handler.html" title="interface in com.technology.jep.jepria.client.ui.eventbus.plain.event">RefreshListEvent.Handler</a></dt>
+<dd>
+<div class="block">Called when a <a href="com/technology/jep/jepria/client/ui/eventbus/plain/event/RefreshListEvent.html" title="class in com.technology.jep.jepria.client.ui.eventbus.plain.event"><code>RefreshListEvent</code></a> is fired.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/form/list/ListFormPresenter.html#onRefreshList-com.technology.jep.jepria.client.ui.eventbus.plain.event.RefreshListEvent-">onRefreshList(RefreshListEvent)</a></span> - Method in class com.technology.jep.jepria.client.ui.form.list.<a href="com/technology/jep/jepria/client/ui/form/list/ListFormPresenter.html" title="class in com.technology.jep.jepria.client.ui.form.list">ListFormPresenter</a></dt>
+<dd>
+<div class="block">Обработчик события обновления списка.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/form/list/AutoRefreshListFormPresenter.html#onRefreshSuccess-com.technology.jep.jepria.shared.load.PagingResult-">onRefreshSuccess(PagingResult&lt;JepRecord&gt;)</a></span> - Method in class com.technology.jep.jepria.client.ui.form.list.<a href="com/technology/jep/jepria/client/ui/form/list/AutoRefreshListFormPresenter.html" title="class in com.technology.jep.jepria.client.ui.form.list">AutoRefreshListFormPresenter</a></dt>
 <dd>
@@ -11915,7 +11887,7 @@
 </dd>
 <dt><a href="com/technology/jep/jepria/client/ui/eventbus/plain/PlainEventBus.html" title="class in com.technology.jep.jepria.client.ui.eventbus.plain"><span class="typeNameLink">PlainEventBus</span></a> - Class in <a href="com/technology/jep/jepria/client/ui/eventbus/plain/package-summary.html">com.technology.jep.jepria.client.ui.eventbus.plain</a></dt>
 <dd>&nbsp;</dd>
-<dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/eventbus/plain/PlainEventBus.html#PlainEventBus-com.technology.jep.jepria.client.ui.plain.PlainClientFactory-">PlainEventBus(PlainClientFactory&lt;?, ?&gt;)</a></span> - Constructor for class com.technology.jep.jepria.client.ui.eventbus.plain.<a href="com/technology/jep/jepria/client/ui/eventbus/plain/PlainEventBus.html" title="class in com.technology.jep.jepria.client.ui.eventbus.plain">PlainEventBus</a></dt>
+<dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/eventbus/plain/PlainEventBus.html#PlainEventBus--">PlainEventBus()</a></span> - Constructor for class com.technology.jep.jepria.client.ui.eventbus.plain.<a href="com/technology/jep/jepria/client/ui/eventbus/plain/PlainEventBus.html" title="class in com.technology.jep.jepria.client.ui.eventbus.plain">PlainEventBus</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/plain/PlainActivityMapper.html#plainModulePresenter">plainModulePresenter</a></span> - Variable in class com.technology.jep.jepria.client.ui.plain.<a href="com/technology/jep/jepria/client/ui/plain/PlainActivityMapper.html" title="class in com.technology.jep.jepria.client.ui.plain">PlainActivityMapper</a></dt>
 <dd>
@@ -12264,14 +12236,6 @@
 </dd>
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/images/JepImages.html#refresh--">refresh()</a></span> - Method in interface com.technology.jep.jepria.client.images.<a href="com/technology/jep/jepria/client/images/JepImages.html" title="interface in com.technology.jep.jepria.client.images">JepImages</a></dt>
 <dd>&nbsp;</dd>
-<dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/eventbus/plain/PlainEventBus.html#refresh--">refresh()</a></span> - Method in class com.technology.jep.jepria.client.ui.eventbus.plain.<a href="com/technology/jep/jepria/client/ui/eventbus/plain/PlainEventBus.html" title="class in com.technology.jep.jepria.client.ui.eventbus.plain">PlainEventBus</a></dt>
-<dd>
-<div class="block">После вызова данного метода в состоянии <code>SELECTED</code>,
- предполагается сброс сотояния вручную:<br>
- <code>placeController.goTo(new JepViewListPlace());</code>.</div>
-</dd>
-<dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/toolbar/ToolBarPresenter.html#refresh--">refresh()</a></span> - Method in class com.technology.jep.jepria.client.ui.toolbar.<a href="com/technology/jep/jepria/client/ui/toolbar/ToolBarPresenter.html" title="class in com.technology.jep.jepria.client.ui.toolbar">ToolBarPresenter</a></dt>
-<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/widget/field/tree/TreeField.html#refresh--">refresh()</a></span> - Method in class com.technology.jep.jepria.client.widget.field.tree.<a href="com/technology/jep/jepria/client/widget/field/tree/TreeField.html" title="class in com.technology.jep.jepria.client.widget.field.tree">TreeField</a></dt>
 <dd>
 <div class="block">Refresh state of tree</div>
@@ -12290,8 +12254,6 @@
 <dd>
 <div class="block">ID кнопки "Обновить" панели ToolBar</div>
 </dd>
-<dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/UiSecurity.html#REFRESH_EVENT_NAME">REFRESH_EVENT_NAME</a></span> - Static variable in class com.technology.jep.jepria.client.ui.<a href="com/technology/jep/jepria/client/ui/UiSecurity.html" title="class in com.technology.jep.jepria.client.ui">UiSecurity</a></dt>
-<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/widget/field/CheckBoxListField.html#refreshData--">refreshData()</a></span> - Method in class com.technology.jep.jepria.client.widget.field.<a href="com/technology/jep/jepria/client/widget/field/CheckBoxListField.html" title="class in com.technology.jep.jepria.client.widget.field">CheckBoxListField</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/form/list/AutoRefreshListFormPresenter.html#refreshDelay">refreshDelay</a></span> - Variable in class com.technology.jep.jepria.client.ui.form.list.<a href="com/technology/jep/jepria/client/ui/form/list/AutoRefreshListFormPresenter.html" title="class in com.technology.jep.jepria.client.ui.form.list">AutoRefreshListFormPresenter</a></dt>
@@ -12302,11 +12264,29 @@
 <dd>
 <div class="block">Обновляет текущее отображение списка указанных узлов дерева.</div>
 </dd>
-<dt><a href="com/technology/jep/jepria/client/ui/eventbus/plain/event/RefreshEvent.html" title="class in com.technology.jep.jepria.client.ui.eventbus.plain.event"><span class="typeNameLink">RefreshEvent</span></a> - Class in <a href="com/technology/jep/jepria/client/ui/eventbus/plain/event/package-summary.html">com.technology.jep.jepria.client.ui.eventbus.plain.event</a></dt>
+<dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/eventbus/plain/PlainEventBus.html#refreshFields--">refreshFields()</a></span> - Method in class com.technology.jep.jepria.client.ui.eventbus.plain.<a href="com/technology/jep/jepria/client/ui/eventbus/plain/PlainEventBus.html" title="class in com.technology.jep.jepria.client.ui.eventbus.plain">PlainEventBus</a></dt>
 <dd>&nbsp;</dd>
-<dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/eventbus/plain/event/RefreshEvent.html#RefreshEvent--">RefreshEvent()</a></span> - Constructor for class com.technology.jep.jepria.client.ui.eventbus.plain.event.<a href="com/technology/jep/jepria/client/ui/eventbus/plain/event/RefreshEvent.html" title="class in com.technology.jep.jepria.client.ui.eventbus.plain.event">RefreshEvent</a></dt>
+<dt><a href="com/technology/jep/jepria/client/ui/eventbus/plain/event/RefreshFieldsEvent.html" title="class in com.technology.jep.jepria.client.ui.eventbus.plain.event"><span class="typeNameLink">RefreshFieldsEvent</span></a> - Class in <a href="com/technology/jep/jepria/client/ui/eventbus/plain/event/package-summary.html">com.technology.jep.jepria.client.ui.eventbus.plain.event</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="com/technology/jep/jepria/client/ui/eventbus/plain/event/RefreshEvent.Handler.html" title="interface in com.technology.jep.jepria.client.ui.eventbus.plain.event"><span class="typeNameLink">RefreshEvent.Handler</span></a> - Interface in <a href="com/technology/jep/jepria/client/ui/eventbus/plain/event/package-summary.html">com.technology.jep.jepria.client.ui.eventbus.plain.event</a></dt>
+<dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/eventbus/plain/event/RefreshFieldsEvent.html#RefreshFieldsEvent--">RefreshFieldsEvent()</a></span> - Constructor for class com.technology.jep.jepria.client.ui.eventbus.plain.event.<a href="com/technology/jep/jepria/client/ui/eventbus/plain/event/RefreshFieldsEvent.html" title="class in com.technology.jep.jepria.client.ui.eventbus.plain.event">RefreshFieldsEvent</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/technology/jep/jepria/client/ui/eventbus/plain/event/RefreshFieldsEvent.Handler.html" title="interface in com.technology.jep.jepria.client.ui.eventbus.plain.event"><span class="typeNameLink">RefreshFieldsEvent.Handler</span></a> - Interface in <a href="com/technology/jep/jepria/client/ui/eventbus/plain/event/package-summary.html">com.technology.jep.jepria.client.ui.eventbus.plain.event</a></dt>
+<dd>
+<div class="block">Implemented by handlers of RefreshEvent.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/eventbus/plain/PlainEventBus.html#refreshList--">refreshList()</a></span> - Method in class com.technology.jep.jepria.client.ui.eventbus.plain.<a href="com/technology/jep/jepria/client/ui/eventbus/plain/PlainEventBus.html" title="class in com.technology.jep.jepria.client.ui.eventbus.plain">PlainEventBus</a></dt>
+<dd>
+<div class="block">После вызова данного метода в состоянии <code>SELECTED</code>,
+ предполагается сброс сотояния вручную:<br>
+ <code>placeController.goTo(new JepViewListPlace());</code>.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/toolbar/ToolBarPresenter.html#refreshList--">refreshList()</a></span> - Method in class com.technology.jep.jepria.client.ui.toolbar.<a href="com/technology/jep/jepria/client/ui/toolbar/ToolBarPresenter.html" title="class in com.technology.jep.jepria.client.ui.toolbar">ToolBarPresenter</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/technology/jep/jepria/client/ui/eventbus/plain/event/RefreshListEvent.html" title="class in com.technology.jep.jepria.client.ui.eventbus.plain.event"><span class="typeNameLink">RefreshListEvent</span></a> - Class in <a href="com/technology/jep/jepria/client/ui/eventbus/plain/event/package-summary.html">com.technology.jep.jepria.client.ui.eventbus.plain.event</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/eventbus/plain/event/RefreshListEvent.html#RefreshListEvent--">RefreshListEvent()</a></span> - Constructor for class com.technology.jep.jepria.client.ui.eventbus.plain.event.<a href="com/technology/jep/jepria/client/ui/eventbus/plain/event/RefreshListEvent.html" title="class in com.technology.jep.jepria.client.ui.eventbus.plain.event">RefreshListEvent</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/technology/jep/jepria/client/ui/eventbus/plain/event/RefreshListEvent.Handler.html" title="interface in com.technology.jep.jepria.client.ui.eventbus.plain.event"><span class="typeNameLink">RefreshListEvent.Handler</span></a> - Interface in <a href="com/technology/jep/jepria/client/ui/eventbus/plain/event/package-summary.html">com.technology.jep.jepria.client.ui.eventbus.plain.event</a></dt>
 <dd>
 <div class="block">Implemented by handlers of RefreshEvent.</div>
 </dd>
@@ -12740,8 +12720,6 @@
 <dd>
 <div class="block">ID кнопки "Сохранить" панели ToolBar</div>
 </dd>
-<dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/UiSecurity.html#SAVE_EVENT_NAME">SAVE_EVENT_NAME</a></span> - Static variable in class com.technology.jep.jepria.client.ui.<a href="com/technology/jep/jepria/client/ui/UiSecurity.html" title="class in com.technology.jep.jepria.client.ui">UiSecurity</a></dt>
-<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepria/auto/module/page/JepRiaModulePage.html#saveButton">saveButton</a></span> - Variable in class com.technology.jep.jepria.auto.module.page.<a href="com/technology/jep/jepria/auto/module/page/JepRiaModulePage.html" title="class in com.technology.jep.jepria.auto.module.page">JepRiaModulePage</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/widget/toolbar/PagingStandardBar.html#savedEnableState">savedEnableState</a></span> - Variable in class com.technology.jep.jepria.client.widget.toolbar.<a href="com/technology/jep/jepria/client/widget/toolbar/PagingStandardBar.html" title="class in com.technology.jep.jepria.client.widget.toolbar">PagingStandardBar</a></dt>
@@ -12810,8 +12788,6 @@
 <dd>
 <div class="block">ID кнопки "Поиск" панели ToolBar</div>
 </dd>
-<dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/UiSecurity.html#SEARCH_EVENT_NAME">SEARCH_EVENT_NAME</a></span> - Static variable in class com.technology.jep.jepria.client.ui.<a href="com/technology/jep/jepria/client/ui/UiSecurity.html" title="class in com.technology.jep.jepria.client.ui">UiSecurity</a></dt>
-<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/history/place/JepPlace.html#SEARCH_REQUEST_PARAMETER_NAME">SEARCH_REQUEST_PARAMETER_NAME</a></span> - Static variable in class com.technology.jep.jepria.client.history.place.<a href="com/technology/jep/jepria/client/history/place/JepPlace.html" title="class in com.technology.jep.jepria.client.history.place">JepPlace</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/toolbar/ToolBarConstant.html#SEARCH_SEPARATOR_ID">SEARCH_SEPARATOR_ID</a></span> - Static variable in class com.technology.jep.jepria.client.ui.toolbar.<a href="com/technology/jep/jepria/client/ui/toolbar/ToolBarConstant.html" title="class in com.technology.jep.jepria.client.ui.toolbar">ToolBarConstant</a></dt>
@@ -12869,8 +12845,6 @@
 <dd>
 <div class="block">Наименование класса стилей для флага "Выделить все".</div>
 </dd>
-<dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/UiSecurity.html#SELECT_OPTION_EVENT_NAME">SELECT_OPTION_EVENT_NAME</a></span> - Static variable in class com.technology.jep.jepria.client.ui.<a href="com/technology/jep/jepria/client/ui/UiSecurity.html" title="class in com.technology.jep.jepria.client.ui">UiSecurity</a></dt>
-<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/widget/field/CheckBoxListField.html#selectAllCheckBox">selectAllCheckBox</a></span> - Variable in class com.technology.jep.jepria.client.widget.field.<a href="com/technology/jep/jepria/client/widget/field/CheckBoxListField.html" title="class in com.technology.jep.jepria.client.widget.field">CheckBoxListField</a></dt>
 <dd>
 <div class="block">Флаг "Выбрать все".</div>
@@ -13129,20 +13103,6 @@
 <dd>
 <div class="block">Помещает объект в контейнер.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/UiSecurity.html#SET_DETAIL_FORM_EVENT_NAME">SET_DETAIL_FORM_EVENT_NAME</a></span> - Static variable in class com.technology.jep.jepria.client.ui.<a href="com/technology/jep/jepria/client/ui/UiSecurity.html" title="class in com.technology.jep.jepria.client.ui">UiSecurity</a></dt>
-<dd>&nbsp;</dd>
-<dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/UiSecurity.html#SET_FORM_EVENT_NAME">SET_FORM_EVENT_NAME</a></span> - Static variable in class com.technology.jep.jepria.client.ui.<a href="com/technology/jep/jepria/client/ui/UiSecurity.html" title="class in com.technology.jep.jepria.client.ui">UiSecurity</a></dt>
-<dd>&nbsp;</dd>
-<dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/UiSecurity.html#SET_LIST_FORM_EVENT_NAME">SET_LIST_FORM_EVENT_NAME</a></span> - Static variable in class com.technology.jep.jepria.client.ui.<a href="com/technology/jep/jepria/client/ui/UiSecurity.html" title="class in com.technology.jep.jepria.client.ui">UiSecurity</a></dt>
-<dd>&nbsp;</dd>
-<dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/UiSecurity.html#SET_NEW_RECORD_EVENT_NAME">SET_NEW_RECORD_EVENT_NAME</a></span> - Static variable in class com.technology.jep.jepria.client.ui.<a href="com/technology/jep/jepria/client/ui/UiSecurity.html" title="class in com.technology.jep.jepria.client.ui">UiSecurity</a></dt>
-<dd>&nbsp;</dd>
-<dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/UiSecurity.html#SET_SERVICE_EVENT_NAME">SET_SERVICE_EVENT_NAME</a></span> - Static variable in class com.technology.jep.jepria.client.ui.<a href="com/technology/jep/jepria/client/ui/UiSecurity.html" title="class in com.technology.jep.jepria.client.ui">UiSecurity</a></dt>
-<dd>&nbsp;</dd>
-<dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/UiSecurity.html#SET_STATUSBAR_WIDGET_EVENT_NAME">SET_STATUSBAR_WIDGET_EVENT_NAME</a></span> - Static variable in class com.technology.jep.jepria.client.ui.<a href="com/technology/jep/jepria/client/ui/UiSecurity.html" title="class in com.technology.jep.jepria.client.ui">UiSecurity</a></dt>
-<dd>&nbsp;</dd>
-<dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/UiSecurity.html#SET_TOOLBAR_WIDGET_EVENT_NAME">SET_TOOLBAR_WIDGET_EVENT_NAME</a></span> - Static variable in class com.technology.jep.jepria.client.ui.<a href="com/technology/jep/jepria/client/ui/UiSecurity.html" title="class in com.technology.jep.jepria.client.ui">UiSecurity</a></dt>
-<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/widget/field/masked/MaskedDateBox.html#setAccessKey-char-">setAccessKey(char)</a></span> - Method in class com.technology.jep.jepria.client.widget.field.masked.<a href="com/technology/jep/jepria/client/widget/field/masked/MaskedDateBox.html" title="class in com.technology.jep.jepria.client.widget.field.masked">MaskedDateBox</a></dt>
 <dd>
 <div class="block">Sets the date box's 'access key'.</div>
@@ -14598,8 +14558,6 @@
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/message/ErrorDialog.html#SHOW_DETAILS">SHOW_DETAILS</a></span> - Static variable in class com.technology.jep.jepria.client.message.<a href="com/technology/jep/jepria/client/message/ErrorDialog.html" title="class in com.technology.jep.jepria.client.message">ErrorDialog</a></dt>
 <dd>&nbsp;</dd>
-<dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/UiSecurity.html#SHOW_EXCEL_EVENT_NAME">SHOW_EXCEL_EVENT_NAME</a></span> - Static variable in class com.technology.jep.jepria.client.ui.<a href="com/technology/jep/jepria/client/ui/UiSecurity.html" title="class in com.technology.jep.jepria.client.ui">UiSecurity</a></dt>
-<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/widget/list/header/ResizableHeader.html#showButton-double-com.google.gwt.dom.client.Element-">showButton(double, Element)</a></span> - Method in class com.technology.jep.jepria.client.widget.list.header.<a href="com/technology/jep/jepria/client/widget/list/header/ResizableHeader.html" title="class in com.technology.jep.jepria.client.widget.list.header">ResizableHeader</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/widget/field/masked/MaskedDateBox.html#showDatePicker--">showDatePicker()</a></span> - Method in class com.technology.jep.jepria.client.widget.field.masked.<a href="com/technology/jep/jepria/client/widget/field/masked/MaskedDateBox.html" title="class in com.technology.jep.jepria.client.widget.field.masked">MaskedDateBox</a></dt>
@@ -14878,8 +14836,6 @@
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/widget/toolbar/PagingStandardBar.html#start">start</a></span> - Variable in class com.technology.jep.jepria.client.widget.toolbar.<a href="com/technology/jep/jepria/client/widget/toolbar/PagingStandardBar.html" title="class in com.technology.jep.jepria.client.widget.toolbar">PagingStandardBar</a></dt>
 <dd>&nbsp;</dd>
-<dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/UiSecurity.html#START_EVENT_NAME">START_EVENT_NAME</a></span> - Static variable in class com.technology.jep.jepria.client.ui.<a href="com/technology/jep/jepria/client/ui/UiSecurity.html" title="class in com.technology.jep.jepria.client.ui">UiSecurity</a></dt>
-<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/wizard/BlockNavigatorImpl.html#startBlock">startBlock</a></span> - Variable in class com.technology.jep.jepria.client.ui.wizard.<a href="com/technology/jep/jepria/client/ui/wizard/BlockNavigatorImpl.html" title="class in com.technology.jep.jepria.client.ui.wizard">BlockNavigatorImpl</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/technology/jep/jepria/client/ui/eventbus/main/event/StartEvent.html" title="class in com.technology.jep.jepria.client.ui.eventbus.main.event"><span class="typeNameLink">StartEvent</span></a> - Class in <a href="com/technology/jep/jepria/client/ui/eventbus/main/event/package-summary.html">com.technology.jep.jepria.client.ui.eventbus.main.event</a></dt>
@@ -15115,9 +15071,44 @@
 <dd>
 <div class="block">Наименование CSS-класса стилей для контейнера Test Build Message.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/form/detail/DetailFormPresenterTest.html#testOnChangeWorkstate--">testOnChangeWorkstate()</a></span> - Method in class com.technology.jep.jepria.client.ui.form.detail.<a href="com/technology/jep/jepria/client/ui/form/detail/DetailFormPresenterTest.html" title="class in com.technology.jep.jepria.client.ui.form.detail">DetailFormPresenterTest</a></dt>
+<dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/form/detail/DetailFormPresenterTest.html#testCreatePlace--">testCreatePlace()</a></span> - Method in class com.technology.jep.jepria.client.ui.form.detail.<a href="com/technology/jep/jepria/client/ui/form/detail/DetailFormPresenterTest.html" title="class in com.technology.jep.jepria.client.ui.form.detail">DetailFormPresenterTest</a></dt>
 <dd>
-<div class="block">Тест onChangeWorkstate.</div>
+<div class="block">Тест метода onChangeWorkstate детального презентора при входе в состояние <a href="com/technology/jep/jepria/client/history/place/JepCreatePlace.html" title="class in com.technology.jep.jepria.client.history.place"><code>JepCreatePlace</code></a>.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/form/detail/DetailFormPresenterTest.html#testEditPlace--">testEditPlace()</a></span> - Method in class com.technology.jep.jepria.client.ui.form.detail.<a href="com/technology/jep/jepria/client/ui/form/detail/DetailFormPresenterTest.html" title="class in com.technology.jep.jepria.client.ui.form.detail">DetailFormPresenterTest</a></dt>
+<dd>
+<div class="block">Тест метода onChangeWorkstate детального презентора при входе в состояние <a href="com/technology/jep/jepria/client/history/place/JepEditPlace.html" title="class in com.technology.jep.jepria.client.history.place"><code>JepEditPlace</code></a>.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/form/detail/DetailFormPresenterTest.html#testEditPlaceDoGetRecord--">testEditPlaceDoGetRecord()</a></span> - Method in class com.technology.jep.jepria.client.ui.form.detail.<a href="com/technology/jep/jepria/client/ui/form/detail/DetailFormPresenterTest.html" title="class in com.technology.jep.jepria.client.ui.form.detail">DetailFormPresenterTest</a></dt>
+<dd>
+<div class="block">Тест метода onChangeWorkstate детального презентора при входе в состояние <a href="com/technology/jep/jepria/client/history/place/JepEditPlace.html" title="class in com.technology.jep.jepria.client.history.place"><code>JepEditPlace</code></a>
+ и инициализации формы данными через событие DoGetRecordEvent.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/form/detail/DetailFormPresenterTest.html#testReturnToMain--">testReturnToMain()</a></span> - Method in class com.technology.jep.jepria.client.ui.form.detail.<a href="com/technology/jep/jepria/client/ui/form/detail/DetailFormPresenterTest.html" title="class in com.technology.jep.jepria.client.ui.form.detail">DetailFormPresenterTest</a></dt>
+<dd>
+<div class="block">Тест метода onChangeWorkstate детального презентора при повторном входе (например, при возвращении из дочернего модуля) 
+ в состояние <a href="com/technology/jep/jepria/client/history/place/JepViewDetailPlace.html" title="class in com.technology.jep.jepria.client.history.place"><code>JepViewDetailPlace</code></a> и инициализации формы данными через событие DoGetRecordEvent.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/form/detail/DetailFormPresenterTest.html#testSearchPlace--">testSearchPlace()</a></span> - Method in class com.technology.jep.jepria.client.ui.form.detail.<a href="com/technology/jep/jepria/client/ui/form/detail/DetailFormPresenterTest.html" title="class in com.technology.jep.jepria.client.ui.form.detail">DetailFormPresenterTest</a></dt>
+<dd>
+<div class="block">Тест метода onChangeWorkstate детального презентора при входе в состояние <a href="com/technology/jep/jepria/client/history/place/JepSearchPlace.html" title="class in com.technology.jep.jepria.client.history.place"><code>JepSearchPlace</code></a>.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/form/detail/DetailFormPresenterTest.html#testSelectedPlace--">testSelectedPlace()</a></span> - Method in class com.technology.jep.jepria.client.ui.form.detail.<a href="com/technology/jep/jepria/client/ui/form/detail/DetailFormPresenterTest.html" title="class in com.technology.jep.jepria.client.ui.form.detail">DetailFormPresenterTest</a></dt>
+<dd>
+<div class="block">Тест метода onChangeWorkstate детального презентора при входе в состояние <a href="com/technology/jep/jepria/client/history/place/JepSelectedPlace.html" title="class in com.technology.jep.jepria.client.history.place"><code>JepSelectedPlace</code></a>.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/form/detail/DetailFormPresenterTest.html#testViewDetailDoGetRecord--">testViewDetailDoGetRecord()</a></span> - Method in class com.technology.jep.jepria.client.ui.form.detail.<a href="com/technology/jep/jepria/client/ui/form/detail/DetailFormPresenterTest.html" title="class in com.technology.jep.jepria.client.ui.form.detail">DetailFormPresenterTest</a></dt>
+<dd>
+<div class="block">Тест метода onChangeWorkstate детального презентора при входе в состояние <a href="com/technology/jep/jepria/client/history/place/JepViewDetailPlace.html" title="class in com.technology.jep.jepria.client.history.place"><code>JepViewDetailPlace</code></a>
+ и инициализации формы данными через событие DoGetRecordEvent.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/form/detail/DetailFormPresenterTest.html#testViewDetailPlace--">testViewDetailPlace()</a></span> - Method in class com.technology.jep.jepria.client.ui.form.detail.<a href="com/technology/jep/jepria/client/ui/form/detail/DetailFormPresenterTest.html" title="class in com.technology.jep.jepria.client.ui.form.detail">DetailFormPresenterTest</a></dt>
+<dd>
+<div class="block">Тест метода onChangeWorkstate детального презентора при входе в состояние <a href="com/technology/jep/jepria/client/history/place/JepViewDetailPlace.html" title="class in com.technology.jep.jepria.client.history.place"><code>JepViewDetailPlace</code></a>.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/form/detail/DetailFormPresenterTest.html#testViewListPlace--">testViewListPlace()</a></span> - Method in class com.technology.jep.jepria.client.ui.form.detail.<a href="com/technology/jep/jepria/client/ui/form/detail/DetailFormPresenterTest.html" title="class in com.technology.jep.jepria.client.ui.form.detail">DetailFormPresenterTest</a></dt>
+<dd>
+<div class="block">Тест метода onChangeWorkstate детального презентора при входе в состояние <a href="com/technology/jep/jepria/client/history/place/JepViewListPlace.html" title="class in com.technology.jep.jepria.client.history.place"><code>JepViewListPlace</code></a>.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/JepRiaClientConstant.html#TEXT_AREA_STYLE">TEXT_AREA_STYLE</a></span> - Static variable in class com.technology.jep.jepria.client.<a href="com/technology/jep/jepria/client/JepRiaClientConstant.html" title="class in com.technology.jep.jepria.client">JepRiaClientConstant</a></dt>
 <dd>
@@ -15432,8 +15423,6 @@
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/history/scope/JepScopeStack.html#toString--">toString()</a></span> - Method in class com.technology.jep.jepria.client.history.scope.<a href="com/technology/jep/jepria/client/history/scope/JepScopeStack.html" title="class in com.technology.jep.jepria.client.history.scope">JepScopeStack</a></dt>
 <dd>&nbsp;</dd>
-<dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/ActionEnum.html#toString--">toString()</a></span> - Method in enum com.technology.jep.jepria.client.ui.<a href="com/technology/jep/jepria/client/ui/ActionEnum.html" title="enum in com.technology.jep.jepria.client.ui">ActionEnum</a></dt>
-<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/WorkstateEnum.html#toString--">toString()</a></span> - Method in enum com.technology.jep.jepria.client.ui.<a href="com/technology/jep/jepria/client/ui/WorkstateEnum.html" title="enum in com.technology.jep.jepria.client.ui">WorkstateEnum</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/widget/field/masked/Mask.html#toString--">toString()</a></span> - Method in class com.technology.jep.jepria.client.widget.field.masked.<a href="com/technology/jep/jepria/client/widget/field/masked/Mask.html" title="class in com.technology.jep.jepria.client.widget.field.masked">Mask</a></dt>
@@ -15714,7 +15703,11 @@
 <dd>
 <div class="block">A singleton instance of Type&lt;PrepareReportHandler&gt;.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/eventbus/plain/event/RefreshEvent.html#TYPE">TYPE</a></span> - Static variable in class com.technology.jep.jepria.client.ui.eventbus.plain.event.<a href="com/technology/jep/jepria/client/ui/eventbus/plain/event/RefreshEvent.html" title="class in com.technology.jep.jepria.client.ui.eventbus.plain.event">RefreshEvent</a></dt>
+<dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/eventbus/plain/event/RefreshFieldsEvent.html#TYPE">TYPE</a></span> - Static variable in class com.technology.jep.jepria.client.ui.eventbus.plain.event.<a href="com/technology/jep/jepria/client/ui/eventbus/plain/event/RefreshFieldsEvent.html" title="class in com.technology.jep.jepria.client.ui.eventbus.plain.event">RefreshFieldsEvent</a></dt>
+<dd>
+<div class="block">A singleton instance of Type&lt;RefreshHandler&gt;.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/eventbus/plain/event/RefreshListEvent.html#TYPE">TYPE</a></span> - Static variable in class com.technology.jep.jepria.client.ui.eventbus.plain.event.<a href="com/technology/jep/jepria/client/ui/eventbus/plain/event/RefreshListEvent.html" title="class in com.technology.jep.jepria.client.ui.eventbus.plain.event">RefreshListEvent</a></dt>
 <dd>
 <div class="block">A singleton instance of Type&lt;RefreshHandler&gt;.</div>
 </dd>
@@ -15812,14 +15805,6 @@
 <dd>
 <div class="block">Уникальный идентификатор класса.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/ClientFactoryImpl.html#uiSecurity">uiSecurity</a></span> - Variable in class com.technology.jep.jepria.client.ui.<a href="com/technology/jep/jepria/client/ui/ClientFactoryImpl.html" title="class in com.technology.jep.jepria.client.ui">ClientFactoryImpl</a></dt>
-<dd>&nbsp;</dd>
-<dt><a href="com/technology/jep/jepria/client/ui/UiSecurity.html" title="class in com.technology.jep.jepria.client.ui"><span class="typeNameLink">UiSecurity</span></a> - Class in <a href="com/technology/jep/jepria/client/ui/package-summary.html">com.technology.jep.jepria.client.ui</a></dt>
-<dd>
-<div class="block">Класс отвечает за проверку допустимости событий (EventBus) клиентского модуля.</div>
-</dd>
-<dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/UiSecurity.html#UiSecurity--">UiSecurity()</a></span> - Constructor for class com.technology.jep.jepria.client.ui.<a href="com/technology/jep/jepria/client/ui/UiSecurity.html" title="class in com.technology.jep.jepria.client.ui">UiSecurity</a></dt>
-<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/widget/field/wysiwyg/toolbar/images/RichTextToolbarImages.html#ul--">ul()</a></span> - Method in interface com.technology.jep.jepria.client.widget.field.wysiwyg.toolbar.images.<a href="com/technology/jep/jepria/client/widget/field/wysiwyg/toolbar/images/RichTextToolbarImages.html" title="interface in com.technology.jep.jepria.client.widget.field.wysiwyg.toolbar.images">RichTextToolbarImages</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/widget/field/wysiwyg/toolbar/RichTextToolbar.html#ul">ul</a></span> - Variable in class com.technology.jep.jepria.client.widget.field.wysiwyg.toolbar.<a href="com/technology/jep/jepria/client/widget/field/wysiwyg/toolbar/RichTextToolbar.html" title="class in com.technology.jep.jepria.client.widget.field.wysiwyg.toolbar">RichTextToolbar</a></dt>
@@ -15935,8 +15920,6 @@
 <dd>
 <div class="block">Обновление объекта.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/UiSecurity.html#UPDATE_SCOPE_EVENT_NAME">UPDATE_SCOPE_EVENT_NAME</a></span> - Static variable in class com.technology.jep.jepria.client.ui.<a href="com/technology/jep/jepria/client/ui/UiSecurity.html" title="class in com.technology.jep.jepria.client.ui">UiSecurity</a></dt>
-<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepria/server/dao/ResultSetWrapper.html#updateArray-int-java.sql.Array-">updateArray(int, Array)</a></span> - Method in class com.technology.jep.jepria.server.dao.<a href="com/technology/jep/jepria/server/dao/ResultSetWrapper.html" title="class in com.technology.jep.jepria.server.dao">ResultSetWrapper</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepria/server/dao/ResultSetWrapper.html#updateArray-java.lang.String-java.sql.Array-">updateArray(String, Array)</a></span> - Method in class com.technology.jep.jepria.server.dao.<a href="com/technology/jep/jepria/server/dao/ResultSetWrapper.html" title="class in com.technology.jep.jepria.server.dao">ResultSetWrapper</a></dt>
@@ -16274,10 +16257,6 @@
 <dd>
 <div class="block">Returns the enum constant of this type with the specified name.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/ActionEnum.html#valueOf-java.lang.String-">valueOf(String)</a></span> - Static method in enum com.technology.jep.jepria.client.ui.<a href="com/technology/jep/jepria/client/ui/ActionEnum.html" title="enum in com.technology.jep.jepria.client.ui">ActionEnum</a></dt>
-<dd>
-<div class="block">Returns the enum constant of this type with the specified name.</div>
-</dd>
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/wizard/BlockPositionEnum.html#valueOf-java.lang.String-">valueOf(String)</a></span> - Static method in enum com.technology.jep.jepria.client.ui.wizard.<a href="com/technology/jep/jepria/client/ui/wizard/BlockPositionEnum.html" title="enum in com.technology.jep.jepria.client.ui.wizard">BlockPositionEnum</a></dt>
 <dd>
 <div class="block">Returns the enum constant of this type with the specified name.</div>
@@ -16355,11 +16334,6 @@ the order they are declared.</div>
 the order they are declared.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/message/PredefinedButton.html#values--">values()</a></span> - Static method in enum com.technology.jep.jepria.client.message.<a href="com/technology/jep/jepria/client/message/PredefinedButton.html" title="enum in com.technology.jep.jepria.client.message">PredefinedButton</a></dt>
-<dd>
-<div class="block">Returns an array containing the constants of this enum type, in
-the order they are declared.</div>
-</dd>
-<dt><span class="memberNameLink"><a href="com/technology/jep/jepria/client/ui/ActionEnum.html#values--">values()</a></span> - Static method in enum com.technology.jep.jepria.client.ui.<a href="com/technology/jep/jepria/client/ui/ActionEnum.html" title="enum in com.technology.jep.jepria.client.ui">ActionEnum</a></dt>
 <dd>
 <div class="block">Returns an array containing the constants of this enum type, in
 the order they are declared.</div>

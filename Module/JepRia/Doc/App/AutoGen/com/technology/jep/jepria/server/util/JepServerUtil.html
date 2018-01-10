@@ -18,8 +18,8 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":9,"i1":9,"i2":9,"i3":9,"i4":9,"i5":9,"i6":9,"i7":9,"i8":9,"i9":9,"i10":9,"i11":9};
-var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],8:["t4","Concrete Methods"]};
+var methods = {"i0":9,"i1":41,"i2":9,"i3":9,"i4":9,"i5":9,"i6":9,"i7":9,"i8":9,"i9":9,"i10":9,"i11":9,"i12":9};
+var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],8:["t4","Concrete Methods"],32:["t6","Deprecated Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
 var tableTab = "tableTab";
@@ -179,7 +179,7 @@ extends java.lang.Object</pre>
 </a>
 <h3>Method Summary</h3>
 <table class="memberSummary" border="0" cellpadding="3" cellspacing="0" summary="Method Summary table, listing methods, and an explanation">
-<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t1" class="tableTab"><span><a href="javascript:show(1);">Static Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t4" class="tableTab"><span><a href="javascript:show(8);">Concrete Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
+<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t1" class="tableTab"><span><a href="javascript:show(1);">Static Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t4" class="tableTab"><span><a href="javascript:show(8);">Concrete Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t6" class="tableTab"><span><a href="javascript:show(32);">Deprecated Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
 <tr>
 <th class="colFirst" scope="col">Modifier and Type</th>
 <th class="colLast" scope="col">Method and Description</th>
@@ -189,12 +189,20 @@ extends java.lang.Object</pre>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/server/util/JepServerUtil.html#detectMimeType-java.lang.String-">detectMimeType</a></span>(java.lang.String&nbsp;fileExtension)</code>&nbsp;</td>
 </tr>
 <tr id="i1" class="rowColor">
+<td class="colFirst"><code>static void</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/server/util/JepServerUtil.html#disableClobPrefetch-java.sql.Clob-">disableClobPrefetch</a></span>(java.sql.Clob&nbsp;clob)</code>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;
+<div class="block"><span class="deprecationComment">удалить данный метод вместе со всеми его вызовами, если баг починится компанией oracle в <code>ojdbc.jar</code></span></div>
+</div>
+</td>
+</tr>
+<tr id="i2" class="altColor">
 <td class="colFirst"><code>static java.lang.Object</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/server/util/JepServerUtil.html#ejbLookup-java.lang.String-">ejbLookup</a></span>(java.lang.String&nbsp;beanName)</code>
 <div class="block">Получение Local-интерфейса EJB.</div>
 </td>
 </tr>
-<tr id="i2" class="altColor">
+<tr id="i3" class="rowColor">
 <td class="colFirst"><code>static java.lang.Object</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/server/util/JepServerUtil.html#ejbLookup-java.lang.String-java.lang.String-java.lang.String-java.lang.String-java.lang.String-">ejbLookup</a></span>(java.lang.String&nbsp;appLogin,
          java.lang.String&nbsp;appPassword,
@@ -204,19 +212,19 @@ extends java.lang.Object</pre>
 <div class="block">Получение Remote-интерфейса EJB.</div>
 </td>
 </tr>
-<tr id="i3" class="rowColor">
+<tr id="i4" class="altColor">
 <td class="colFirst"><code>static java.lang.String</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/server/util/JepServerUtil.html#getApplicationName-javax.servlet.ServletContext-">getApplicationName</a></span>(javax.servlet.ServletContext&nbsp;context)</code>
 <div class="block">Возвращает имя приложения.</div>
 </td>
 </tr>
-<tr id="i4" class="altColor">
+<tr id="i5" class="rowColor">
 <td class="colFirst"><code>static java.lang.String</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/server/util/JepServerUtil.html#getEnvironmentValue-java.lang.String-">getEnvironmentValue</a></span>(java.lang.String&nbsp;name)</code>
 <div class="block">Получение значения переменной окружения.</div>
 </td>
 </tr>
-<tr id="i5" class="rowColor">
+<tr id="i6" class="altColor">
 <td class="colFirst"><code>static java.util.Locale</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/server/util/JepServerUtil.html#getLocale-javax.servlet.http.HttpServletRequest-">getLocale</a></span>(javax.servlet.http.HttpServletRequest&nbsp;request)</code>
 <div class="block">Получение локали следующими шагами:<br/>
@@ -229,27 +237,27 @@ extends java.lang.Object</pre>
  Первая найденная локаль возвращается и сохраняется в сессию.</div>
 </td>
 </tr>
-<tr id="i6" class="altColor">
+<tr id="i7" class="rowColor">
 <td class="colFirst"><code>static java.lang.String</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/server/util/JepServerUtil.html#getModuleName-javax.servlet.ServletConfig-">getModuleName</a></span>(javax.servlet.ServletConfig&nbsp;config)</code>
 <div class="block">Возвращает имя модуля, предназначенное для передачи в базу.</div>
 </td>
 </tr>
-<tr id="i7" class="rowColor">
+<tr id="i8" class="altColor">
 <td class="colFirst"><code>static java.lang.String</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/server/util/JepServerUtil.html#getServerUrl-javax.servlet.http.HttpServletRequest-">getServerUrl</a></span>(javax.servlet.http.HttpServletRequest&nbsp;request)</code>&nbsp;</td>
 </tr>
-<tr id="i8" class="altColor">
+<tr id="i9" class="rowColor">
 <td class="colFirst"><code>static boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/server/util/JepServerUtil.html#isLocalLang-javax.servlet.http.HttpServletRequest-">isLocalLang</a></span>(javax.servlet.http.HttpServletRequest&nbsp;request)</code>
 <div class="block">Функция определяет: является ли текущий язык основным языком для пользователей.</div>
 </td>
 </tr>
-<tr id="i9" class="rowColor">
+<tr id="i10" class="altColor">
 <td class="colFirst"><code>static boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/server/util/JepServerUtil.html#isTomcat-javax.servlet.http.HttpServletRequest-">isTomcat</a></span>(javax.servlet.http.HttpServletRequest&nbsp;request)</code>&nbsp;</td>
 </tr>
-<tr id="i10" class="altColor">
+<tr id="i11" class="rowColor">
 <td class="colFirst"><code>static java.lang.Object</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/server/util/JepServerUtil.html#jndiLookup-java.lang.String-java.lang.String-java.lang.String-">jndiLookup</a></span>(java.lang.String&nbsp;username,
           java.lang.String&nbsp;password,
@@ -257,7 +265,7 @@ extends java.lang.Object</pre>
 <div class="block">Считывание объекта из JNDI по его полному имени.</div>
 </td>
 </tr>
-<tr id="i11" class="rowColor">
+<tr id="i12" class="altColor">
 <td class="colFirst"><code>static <a href="../../../../../../com/technology/jep/jepria/shared/record/lob/JepClob.html" title="class in com.technology.jep.jepria.shared.record.lob">JepClob</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/server/util/JepServerUtil.html#toJepClob-java.sql.Clob-">toJepClob</a></span>(java.sql.Clob&nbsp;clob)</code>
 <div class="block">Формирует <a href="../../../../../../com/technology/jep/jepria/shared/record/lob/JepClob.html" title="class in com.technology.jep.jepria.shared.record.lob"><code>JepClob</code></a> из <code>Types.CLOB</code>.</div>
@@ -556,7 +564,7 @@ extends java.lang.Object</pre>
 <a name="toJepClob-java.sql.Clob-">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>toJepClob</h4>
 <pre>public static&nbsp;<a href="../../../../../../com/technology/jep/jepria/shared/record/lob/JepClob.html" title="class in com.technology.jep.jepria.shared.record.lob">JepClob</a>&nbsp;toJepClob(java.sql.Clob&nbsp;clob)</pre>
@@ -566,6 +574,49 @@ extends java.lang.Object</pre>
 <dd><code>clob</code> - </dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>JepClob</dd>
+</dl>
+</li>
+</ul>
+<a name="disableClobPrefetch-java.sql.Clob-">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>disableClobPrefetch</h4>
+<pre>@Deprecated
+public static&nbsp;void&nbsp;disableClobPrefetch(java.sql.Clob&nbsp;clob)</pre>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;<span class="deprecationComment">удалить данный метод вместе со всеми его вызовами, если баг починится компанией oracle в <code>ojdbc.jar</code></span></div>
+<div class="block">Выставление флага <code>activePrefetch false</code> в объекте oracle.sql.CLOB
+ <br><br>
+ Метод &mdash; обход бага в ojdbc6, ojdbc8: при переходе на версию DB oracle 12.2 
+ становится некорректной кодировка потока чтения из объекта oracle.sql.CLOB
+ (в версии 12.1 баг не наблюдается).
+ <br><br>
+ Подробная трассировка бага:
+ <pre>
+java.sql.Clob javaClob = ... ;
+java.io.Reader reader = javaClob.getCharacterStream();
+reader.read();
+-> oracle.jdbc.driver.OracleClobReader.read() // because instanceof oracle.jdbc.driver.OracleClobReader
+  -> oracle.jdbc.driver.OracleClobReader.needChars()
+    -> oracle.jdbc.OracleClob.getChars()
+      -> oracle.sql.CLOB.getChars() // because instanceof oracle.sql.CLOB
+        -> oracle.sql.ClobDBAccess.getChars()
+          -> oracle.jdbc.driver.T4CConnection.getChars() // because instanceof oracle.jdbc.driver.T4CConnection
+            -> { ...
+                 if (oracle_sql_CLOB.isActivePrefetch()) {
+                   // read prefetched data. <b>This data is getting encoded incorrectly</b>
+                 }
+                 ...
+                 clobMsg.read(...); // read the rest data of the clob. This data is getting encoded correctly
+                 ...
+               }
+               // Выставление флага activePrefetch false заставляет данные клоба 
+               // считываться полностью методом clobMsg.read, в правильной кодировке 
+ </pre></div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>clob</code> - </dd>
 </dl>
 </li>
 </ul>

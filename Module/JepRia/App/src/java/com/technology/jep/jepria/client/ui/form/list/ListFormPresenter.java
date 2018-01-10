@@ -35,7 +35,7 @@ import com.technology.jep.jepria.client.ui.eventbus.plain.PlainEventBus;
 import com.technology.jep.jepria.client.ui.eventbus.plain.event.DeleteEvent;
 import com.technology.jep.jepria.client.ui.eventbus.plain.event.DoDeleteEvent;
 import com.technology.jep.jepria.client.ui.eventbus.plain.event.PagingEvent;
-import com.technology.jep.jepria.client.ui.eventbus.plain.event.RefreshEvent;
+import com.technology.jep.jepria.client.ui.eventbus.plain.event.RefreshListEvent;
 import com.technology.jep.jepria.client.ui.eventbus.plain.event.SearchEvent;
 import com.technology.jep.jepria.client.ui.eventbus.plain.event.SetCurrentRecordEvent;
 import com.technology.jep.jepria.client.ui.eventbus.plain.event.SetListUIDEvent;
@@ -60,7 +60,7 @@ public class ListFormPresenter<V extends ListFormView, E extends PlainEventBus, 
   extends JepPresenter<E, F>
   implements 
     PagingEvent.Handler, 
-    RefreshEvent.Handler,
+    RefreshListEvent.Handler,
     SearchEvent.Handler,
     SetListUIDEvent.Handler,
     SortEvent.Handler,
@@ -110,7 +110,7 @@ public class ListFormPresenter<V extends ListFormView, E extends PlainEventBus, 
   public void start(AcceptsOneWidget container, EventBus eventBus) {
     // Подписка activity-презентера на события EventBus.
     eventBus.addHandler(PagingEvent.TYPE, this);
-    eventBus.addHandler(RefreshEvent.TYPE, this);
+    eventBus.addHandler(RefreshListEvent.TYPE, this);
     eventBus.addHandler(SortEvent.TYPE, this);
     eventBus.addHandler(DeleteEvent.TYPE, this);
     eventBus.addHandler(DoDeleteEvent.TYPE, this);
@@ -191,7 +191,7 @@ public class ListFormPresenter<V extends ListFormView, E extends PlainEventBus, 
   public void onSearch(SearchEvent event) {
     searchTemplate = event.getPagingConfig(); // Запомним поисковый шаблон.
     eventBus.setListUID(list.getUID()); // Запомним uid списка.
-    eventBus.refresh();
+    eventBus.refreshList();
   }
   
   /**
@@ -200,7 +200,7 @@ public class ListFormPresenter<V extends ListFormView, E extends PlainEventBus, 
    * @param event событие обновления списка
    */
   @Override
-  public void onRefresh(RefreshEvent event) {
+  public void onRefreshList(RefreshListEvent event) {
     // Если существует сохраненный шаблон, по которому нужно обновлять список, то ...
     if(searchTemplate != null) {
       list.clear(); // Очистим список от предыдущего содержимого (чтобы не вводить в заблуждение пользователя).
@@ -347,7 +347,7 @@ public class ListFormPresenter<V extends ListFormView, E extends PlainEventBus, 
   }
   
   public void onPagingRefresh(JepEvent event) {
-    eventBus.refresh();
+    eventBus.refreshList();
     // Важно при обновлении списка менять рабочее состояние на VIEW_LIST, чтобы скинуть состояние SELECTED (тем самым, скрыть кнопки работы с
     // конкретной, ранее выбранной, записью).
     // Вызов перехода на новый Place происходит ОБЯЗАТЕЛЬНО ПОСЛЕ подготовки данных для записи в History 

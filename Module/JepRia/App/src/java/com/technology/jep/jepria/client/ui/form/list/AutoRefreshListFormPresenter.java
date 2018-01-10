@@ -84,7 +84,7 @@ public class AutoRefreshListFormPresenter<
               public void run() {
                 refreshTimerActive = false; // таймер сработал
                 if ((VIEW_LIST.equals(_workstate)) || (SELECTED.equals(_workstate))) {
-                  eventBus.refresh();
+                  eventBus.refreshList();
                 }
               }
             };

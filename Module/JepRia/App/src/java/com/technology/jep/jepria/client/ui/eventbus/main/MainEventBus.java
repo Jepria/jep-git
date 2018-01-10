@@ -9,12 +9,11 @@ import com.technology.jep.jepria.client.ui.eventbus.main.event.EnterFromHistoryE
 import com.technology.jep.jepria.client.ui.eventbus.main.event.SetMainViewBodyEvent;
 import com.technology.jep.jepria.client.ui.eventbus.main.event.SetMainViewEvent;
 import com.technology.jep.jepria.client.ui.eventbus.main.event.StartEvent;
-import com.technology.jep.jepria.client.ui.main.MainClientFactory;
 
 public class MainEventBus extends JepEventBus {
 
-  public MainEventBus(MainClientFactory<?, ?> clientFactory) {
-    super(clientFactory);
+  public MainEventBus() {
+    super();
   }
 
   public void start() {
@@ -22,7 +21,7 @@ public class MainEventBus extends JepEventBus {
   }
 
   public void enterFromHistory(Place place) {
-    checkAndFireEvent(new EnterFromHistoryEvent(place));
+    fireEvent(new EnterFromHistoryEvent(place));
   }
 
   public void setMainView(IsWidget mainView) {

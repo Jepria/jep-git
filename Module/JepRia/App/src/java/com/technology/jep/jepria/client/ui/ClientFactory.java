@@ -3,7 +3,6 @@ package com.technology.jep.jepria.client.ui;
 import com.google.gwt.event.shared.EventBus;
 import com.technology.jep.jepria.client.exception.ExceptionManager;
 import com.technology.jep.jepria.client.message.JepMessageBox;
-import com.technology.jep.jepria.client.ui.eventbus.EventFilter;
 import com.technology.jep.jepria.shared.log.JepLogger;
 import com.technology.jep.jepria.shared.text.JepRiaText;
 
@@ -13,9 +12,6 @@ public interface ClientFactory<E extends EventBus> {
    * Получение шины событий модуля. 
    */
   E getEventBus();
-
-  EventFilter<E> getEventFilter();
-  UiSecurity getUiSecurity();
   
   /**
    * Получение логгера.

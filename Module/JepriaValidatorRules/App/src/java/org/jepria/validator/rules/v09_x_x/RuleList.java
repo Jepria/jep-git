@@ -22,6 +22,8 @@ public class RuleList extends ArrayList<ValidatorRule> {
     add(new org.jepria.validator.rules.v09_x_x.EjbResourceRemoveRule());
     
     add(new org.jepria.validator.rules.v09_x_x.ModuleItemsMainClientFactoryRule());
+    
+    add(new org.jepria.validator.rules.v09_x_x.SetDndEnabledRule());
   }
 
 }

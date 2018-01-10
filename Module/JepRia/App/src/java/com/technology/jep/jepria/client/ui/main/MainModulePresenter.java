@@ -1,9 +1,9 @@
 package com.technology.jep.jepria.client.ui.main;
 
+import static com.technology.jep.jepria.client.JepRiaClientConstant.JepTexts;
 import static com.technology.jep.jepria.client.JepRiaClientConstant.APPLICATION_SLOT;
 import static com.technology.jep.jepria.client.JepRiaClientConstant.ENTRY_MODULE_NAME_REQUEST_PARAMETER;
 import static com.technology.jep.jepria.client.JepRiaClientConstant.ENTRY_STATE_NAME_REQUEST_PARAMETER;
-import static com.technology.jep.jepria.client.security.ClientSecurity.CHECK_ROLES_BY_OR;
 import static com.technology.jep.jepria.shared.JepRiaConstant.JEP_USER_NAME_FIELD_NAME;
 import static com.technology.jep.jepria.shared.JepRiaConstant.JEP_USER_ROLES_FIELD_NAME;
 import static com.technology.jep.jepria.shared.field.JepFieldNames.OPERATOR_ID;
@@ -11,6 +11,7 @@ import static com.technology.jep.jepria.shared.field.JepFieldNames.OPERATOR_ID;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import com.allen_sauer.gwt.log.client.Log;
@@ -59,8 +60,8 @@ import com.technology.jep.jepria.shared.service.data.JepDataServiceAsync;
  *   public &lt;Application Name&gt;MainModulePresenter(MainClientFactory&lt;E, S&gt; clientFactory) {
  *     super(clientFactory);
  *
- *     addModuleProtection(&lt;MODULE NAME 1&gt;_MODULE_ID, "&lt;Role 1&gt;, &lt;Role 2&gt;", CHECK_ROLES_BY_OR);
- *     addModuleProtection(&lt;MODULE NAME 2&gt;_MODULE_ID, "&lt;Role 3&gt;, &lt;Role 4&gt;, &lt;Role 5&gt;", CHECK_ROLES_BY_AND);
+ *     addModuleProtection(&lt;MODULE NAME 1&gt;_MODULE_ID, "&lt;Role 1&gt;, &lt;Role 2&gt;");
+ *     addModuleProtection(&lt;MODULE NAME 2&gt;_MODULE_ID, "&lt;Role 3&gt;, &lt;Role 4&gt;, &lt;Role 5&gt;");
  *     ...
  *     addModuleProtection(&lt;MODULE NAME N&gt;_MODULE_ID, "&lt;Role N&gt;");
  *
@@ -82,6 +83,11 @@ public abstract class MainModulePresenter<V extends MainView, E extends MainEven
       SetMainViewBodyEvent.Handler,
       SetMainViewEvent.Handler {
 
+  /**
+   * Карта соответствия <moduleId, множество ролей>
+   */
+  protected Map<String, List<String>> accessMap = new HashMap<String, List<String>>();
+  
   private boolean isProtectedModuleVisible = false;
 
   protected V view;
@@ -182,7 +188,7 @@ public abstract class MainModulePresenter<V extends MainView, E extends MainEven
       
       public void onSuccess(JepDto userData) {
         Log.trace("MainModulePresenter.getUserData().onSuccess(): userData = " + userData);
-        ClientSecurity.instance.setOperatorId((Integer)userData.get(OPERATOR_ID));
+        ClientSecurity.instance.setOperatorId((Integer) userData.get(OPERATOR_ID));
         ClientSecurity.instance.setRoles((List<String>) userData.get(JEP_USER_ROLES_FIELD_NAME));
         enterScope((String)userData.get(JEP_USER_NAME_FIELD_NAME));
       }
@@ -230,9 +236,9 @@ public abstract class MainModulePresenter<V extends MainView, E extends MainEven
   private Set<String> getAccessibleModules(JepScope scope) {
     Set<String> accessibleModules = new HashSet<String>();
     String[] modules = scope.getModuleIds();
-    for(int i = 0; i < modules.length; i++) {
+    for (int i = 0; i < modules.length; i++) {
       String moduleId = modules[i];
-      if(clientFactory.getUiSecurity().checkAccess(new EnterModuleEvent(moduleId))) {
+      if (ClientSecurity.instance.isUserHaveRoles(accessMap.get(moduleId))) {
         accessibleModules.add(moduleId);
       }
     }
@@ -260,7 +266,7 @@ public abstract class MainModulePresenter<V extends MainView, E extends MainEven
     String moduleId = scope.getActiveModuleId();
     
     // Если у пользователя существуют права на отображение запрошенного модуля, то ...
-    if(checkAccess(moduleId)) {
+    if (checkAccess(moduleId)) {
       // Отобразим закладки модулей исходя из текущего состояния.
       view.showModuleTabs(getModules(scope));
       // Сделаем активной закладку запрошенного модуля.
@@ -281,18 +287,18 @@ public abstract class MainModulePresenter<V extends MainView, E extends MainEven
     String moduleId = event.getModuleId();
     
     // Если у пользователя существуют права на отображение запрошенного модуля, то ...
-    if(checkAccess(moduleId)) {
+    if (checkAccess(moduleId)) {
       // Получим ТЕКУЩЕЕ (до переключения) состояние приложения.
       JepScope scope = JepScopeStack.instance.peek();
       // Если ТЕКУЩИЙ активный модуль - главный, а мы переключаемся на НЕ главный (на подчиненный), то ...
-      if(scope.isMainActive() && !scope.isMain(moduleId)) {
+      if (scope.isMainActive() && !scope.isMain(moduleId)) {
         // Запомним внешний ключ дочернего модуля равным первичному ключу главного модуля.
         scope.setForeignKey(scope.getPrimaryKey());
         // Установим шаблон поиска дочернего модуля равным первичному ключу главного модуля.
         scope.setTemplateProperties(scope.getPrimaryKey());
         
       // Если ТЕКУЩИЙ активный модуль - НЕ главный (подчиненный), а мы переключаемся на главный, то ...
-      } else if(!scope.isMainActive() && scope.isMain(moduleId)) {
+      } else if (!scope.isMainActive() && scope.isMain(moduleId)) {
         // Восстановим первичный ключ главного модуля равным внешнему ключу дочернего модуля.
         scope.setPrimaryKey(scope.getForeignKey());
         // Сбросим неактуальный для главного модуля внешний ключ.
@@ -306,7 +312,7 @@ public abstract class MainModulePresenter<V extends MainView, E extends MainEven
       // Получим состояние, в котором должен находиться модуль.
       Place place = event.getPlace();
       // Если требуемое состояние не установлено.
-      if(place == null) {
+      if (place == null) {
         // Если заходим в модуль, то НЕ меняем его состояние (оставляем текущее состояние).
         // Если состояние не задано, то scope.getCurrentWorkstate() возвращает состояние модуля, 
         // в котором он остался на момент выхода. 
@@ -323,7 +329,7 @@ public abstract class MainModulePresenter<V extends MainView, E extends MainEven
       // Запустим (загрузим и переключимся на) запрошенный модуль в запрошенном состоянии 
       // с указанием, что запуск происходит НЕ в обработчике History.
       startModule(moduleId, place, false);
-    }  
+    }
   }
   
   /**
@@ -333,18 +339,11 @@ public abstract class MainModulePresenter<V extends MainView, E extends MainEven
    * @return true - у пользователя есть права на отображение модуля, false - в противном случае
    */
   private boolean checkAccess(String moduleId) {
-    boolean result = false;
-    if(getAccessibleModules().contains(moduleId)) {
-      result = true;
-    } else {
-      //Если нет доступа к модулю, то скрываем панель загрузки и сообщаем об ошибке.
+    boolean result = getAccessibleModules().contains(moduleId);
+    if (Boolean.FALSE.equals(result)) {
+      // Если нет доступа к модулю, то скрываем панель загрузки и сообщаем об ошибке.
       JepClientUtil.hideLoadingPanel();
-      // Текст сообщения и правила его создания взяты из с существующей версии Struts:
-      // в сообщении показывается первая отсутствующая роль.
-      // Такое решение обусловлено необходимостью поддержки сложившихся процессов сопровождения и администрирования
-      String requiredRoleId = clientFactory.getUiSecurity().getFirstRequiredRole(new EnterModuleEvent(moduleId));
-      
-      messageBox.showError("You haven't enough rights to perform this operation (RoleId = " + requiredRoleId + ")");
+      messageBox.alert(JepTexts.errors_security_title(), JepTexts.errors_security_enterModule() + moduleId);
     }
     return result;
   }
@@ -424,28 +423,24 @@ public abstract class MainModulePresenter<V extends MainView, E extends MainEven
   }
   
   /**
-   * Определяет роли пользователя, необходимые для доступа к модулю (при этом для доступа необходимо наличие хотя бы одной роли из указанных).
+   * Определяет роли пользователя, необходимые для доступа к модулю. <br/>
+   * Оставлен для обратной совместимости, необходимо использовать {@link #addModuleProtection(String, List)}.
    *
    * @param moduleId защищаемый модуль
-   * @param strRoles список ролей через запятую, наличие которых необходимо для доступа к модулю (хотя бы одной роли из указанных)
+   * @param strRoles список ролей через запятую, наличие которых необходимо для доступа к модулю
    */
+  @Deprecated
   protected void addModuleProtection(String moduleId, String strRoles) {
-    addModuleProtection(moduleId, strRoles, CHECK_ROLES_BY_OR);
+    accessMap.put(moduleId, ClientSecurity.getRoles(strRoles));
   }
   
   /**
    * Определяет роли пользователя, необходимые для доступа к модулю.
    *
    * @param moduleId защищаемый модуль
-   * @param strRoles список ролей через запятую, наличие которых необходимо для доступа к модулю
-   * @param checkRolesMethod метод проверки ролей, возможные значения: 
-   *  {@link com.technology.jep.jepria.client.security.ClientSecurity#CHECK_ROLES_BY_OR}, 
-   *  {@link com.technology.jep.jepria.client.security.ClientSecurity#CHECK_ROLES_BY_AND}.
+   * @param roles список ролей, наличие которых необходимо для доступа к модулю
    */
-  protected void addModuleProtection(String moduleId, String strRoles, int checkRolesMethod) {
-    clientFactory.getUiSecurity().addProtection(
-      new EnterModuleEvent(moduleId),
-      strRoles,
-      checkRolesMethod);
+  protected void addModuleProtection(String moduleId, List<String> roles) {
+    accessMap.put(moduleId, roles);
   }
 }

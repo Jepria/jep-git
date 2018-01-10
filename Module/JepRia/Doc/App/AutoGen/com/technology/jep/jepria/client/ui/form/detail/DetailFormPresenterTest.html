@@ -18,7 +18,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":10};
+var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -110,7 +110,11 @@ var activeTableTab = "activeTableTab";
 <br>
 <pre>public class <span class="typeNameLabel">DetailFormPresenterTest</span>
 extends java.lang.Object</pre>
-<div class="block">Тест DetailFormPresenter</div>
+<div class="block">Тест метода onChangeWorkstate. При входе в модуль (onEnterModule) два раза вызывается DetailFormPresenter.onChangeWorkstate: <br/>
+ <ol>
+  <li>Установка состояния презентора. В MainModulePresenter.startModule (вызов plainPlaceController.goTo)</li>
+  <li>После обработки события DoGetRecordEvent. В PlainModulePresenter.fillFields (вызов eventBus.doGetRecord)</li>
+ </ol></div>
 </li>
 </ul>
 </div>
@@ -169,9 +173,66 @@ extends java.lang.Object</pre>
 <th class="colLast" scope="col">Method and Description</th>
 </tr>
 <tr id="i0" class="altColor">
+<td class="colFirst"><code>private <a href="../../../../../../../../com/technology/jep/jepria/client/ui/form/detail/DetailFormPresenterTest.DetailFormPresenterChangeWorkstateVerify.html" title="class in com.technology.jep.jepria.client.ui.form.detail">DetailFormPresenterTest.DetailFormPresenterChangeWorkstateVerify</a></code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/ui/form/detail/DetailFormPresenterTest.html#createDetailPresenter-com.google.gwt.place.shared.Place-">createDetailPresenter</a></span>(com.google.gwt.place.shared.Place&nbsp;detailPlace)</code>
+<div class="block">Создает детальный презентер для теста в рабочем состоянии detailPlace.</div>
+</td>
+</tr>
+<tr id="i1" class="rowColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/ui/form/detail/DetailFormPresenterTest.html#testOnChangeWorkstate--">testOnChangeWorkstate</a></span>()</code>
-<div class="block">Тест onChangeWorkstate.</div>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/ui/form/detail/DetailFormPresenterTest.html#testCreatePlace--">testCreatePlace</a></span>()</code>
+<div class="block">Тест метода onChangeWorkstate детального презентора при входе в состояние <a href="../../../../../../../../com/technology/jep/jepria/client/history/place/JepCreatePlace.html" title="class in com.technology.jep.jepria.client.history.place"><code>JepCreatePlace</code></a>.</div>
+</td>
+</tr>
+<tr id="i2" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/ui/form/detail/DetailFormPresenterTest.html#testEditPlace--">testEditPlace</a></span>()</code>
+<div class="block">Тест метода onChangeWorkstate детального презентора при входе в состояние <a href="../../../../../../../../com/technology/jep/jepria/client/history/place/JepEditPlace.html" title="class in com.technology.jep.jepria.client.history.place"><code>JepEditPlace</code></a>.</div>
+</td>
+</tr>
+<tr id="i3" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/ui/form/detail/DetailFormPresenterTest.html#testEditPlaceDoGetRecord--">testEditPlaceDoGetRecord</a></span>()</code>
+<div class="block">Тест метода onChangeWorkstate детального презентора при входе в состояние <a href="../../../../../../../../com/technology/jep/jepria/client/history/place/JepEditPlace.html" title="class in com.technology.jep.jepria.client.history.place"><code>JepEditPlace</code></a>
+ и инициализации формы данными через событие DoGetRecordEvent.</div>
+</td>
+</tr>
+<tr id="i4" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/ui/form/detail/DetailFormPresenterTest.html#testReturnToMain--">testReturnToMain</a></span>()</code>
+<div class="block">Тест метода onChangeWorkstate детального презентора при повторном входе (например, при возвращении из дочернего модуля) 
+ в состояние <a href="../../../../../../../../com/technology/jep/jepria/client/history/place/JepViewDetailPlace.html" title="class in com.technology.jep.jepria.client.history.place"><code>JepViewDetailPlace</code></a> и инициализации формы данными через событие DoGetRecordEvent.</div>
+</td>
+</tr>
+<tr id="i5" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/ui/form/detail/DetailFormPresenterTest.html#testSearchPlace--">testSearchPlace</a></span>()</code>
+<div class="block">Тест метода onChangeWorkstate детального презентора при входе в состояние <a href="../../../../../../../../com/technology/jep/jepria/client/history/place/JepSearchPlace.html" title="class in com.technology.jep.jepria.client.history.place"><code>JepSearchPlace</code></a>.</div>
+</td>
+</tr>
+<tr id="i6" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/ui/form/detail/DetailFormPresenterTest.html#testSelectedPlace--">testSelectedPlace</a></span>()</code>
+<div class="block">Тест метода onChangeWorkstate детального презентора при входе в состояние <a href="../../../../../../../../com/technology/jep/jepria/client/history/place/JepSelectedPlace.html" title="class in com.technology.jep.jepria.client.history.place"><code>JepSelectedPlace</code></a>.</div>
+</td>
+</tr>
+<tr id="i7" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/ui/form/detail/DetailFormPresenterTest.html#testViewDetailDoGetRecord--">testViewDetailDoGetRecord</a></span>()</code>
+<div class="block">Тест метода onChangeWorkstate детального презентора при входе в состояние <a href="../../../../../../../../com/technology/jep/jepria/client/history/place/JepViewDetailPlace.html" title="class in com.technology.jep.jepria.client.history.place"><code>JepViewDetailPlace</code></a>
+ и инициализации формы данными через событие DoGetRecordEvent.</div>
+</td>
+</tr>
+<tr id="i8" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/ui/form/detail/DetailFormPresenterTest.html#testViewDetailPlace--">testViewDetailPlace</a></span>()</code>
+<div class="block">Тест метода onChangeWorkstate детального презентора при входе в состояние <a href="../../../../../../../../com/technology/jep/jepria/client/history/place/JepViewDetailPlace.html" title="class in com.technology.jep.jepria.client.history.place"><code>JepViewDetailPlace</code></a>.</div>
+</td>
+</tr>
+<tr id="i9" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/ui/form/detail/DetailFormPresenterTest.html#testViewListPlace--">testViewListPlace</a></span>()</code>
+<div class="block">Тест метода onChangeWorkstate детального презентора при входе в состояние <a href="../../../../../../../../com/technology/jep/jepria/client/history/place/JepViewListPlace.html" title="class in com.technology.jep.jepria.client.history.place"><code>JepViewListPlace</code></a>.</div>
 </td>
 </tr>
 </table>
@@ -213,22 +274,166 @@ extends java.lang.Object</pre>
 <!--   -->
 </a>
 <h3>Method Detail</h3>
-<a name="testOnChangeWorkstate--">
+<a name="testSelectedPlace--">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>testSelectedPlace</h4>
+<pre>public&nbsp;void&nbsp;testSelectedPlace()
+                       throws java.lang.Exception</pre>
+<div class="block">Тест метода onChangeWorkstate детального презентора при входе в состояние <a href="../../../../../../../../com/technology/jep/jepria/client/history/place/JepSelectedPlace.html" title="class in com.technology.jep.jepria.client.history.place"><code>JepSelectedPlace</code></a>.
+ Считает успешным, если onChangeWorkstate не сработал. <br/></div>
+<dl>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code>java.lang.Exception</code></dd>
+</dl>
+</li>
+</ul>
+<a name="testViewListPlace--">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>testViewListPlace</h4>
+<pre>public&nbsp;void&nbsp;testViewListPlace()
+                       throws java.lang.Exception</pre>
+<div class="block">Тест метода onChangeWorkstate детального презентора при входе в состояние <a href="../../../../../../../../com/technology/jep/jepria/client/history/place/JepViewListPlace.html" title="class in com.technology.jep.jepria.client.history.place"><code>JepViewListPlace</code></a>.
+ Считает успешным, если onChangeWorkstate не сработал. <br/></div>
+<dl>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code>java.lang.Exception</code></dd>
+</dl>
+</li>
+</ul>
+<a name="testSearchPlace--">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>testSearchPlace</h4>
+<pre>public&nbsp;void&nbsp;testSearchPlace()
+                     throws java.lang.Exception</pre>
+<div class="block">Тест метода onChangeWorkstate детального презентора при входе в состояние <a href="../../../../../../../../com/technology/jep/jepria/client/history/place/JepSearchPlace.html" title="class in com.technology.jep.jepria.client.history.place"><code>JepSearchPlace</code></a>.
+ Считает успешным, если onChangeWorkstate сработал один раз. <br/></div>
+<dl>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code>java.lang.Exception</code></dd>
+</dl>
+</li>
+</ul>
+<a name="testCreatePlace--">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>testCreatePlace</h4>
+<pre>public&nbsp;void&nbsp;testCreatePlace()
+                     throws java.lang.Exception</pre>
+<div class="block">Тест метода onChangeWorkstate детального презентора при входе в состояние <a href="../../../../../../../../com/technology/jep/jepria/client/history/place/JepCreatePlace.html" title="class in com.technology.jep.jepria.client.history.place"><code>JepCreatePlace</code></a>.
+ Считает успешным, если onChangeWorkstate сработал один раз. <br/></div>
+<dl>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code>java.lang.Exception</code></dd>
+</dl>
+</li>
+</ul>
+<a name="testEditPlace--">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>testEditPlace</h4>
+<pre>public&nbsp;void&nbsp;testEditPlace()
+                   throws java.lang.Exception</pre>
+<div class="block">Тест метода onChangeWorkstate детального презентора при входе в состояние <a href="../../../../../../../../com/technology/jep/jepria/client/history/place/JepEditPlace.html" title="class in com.technology.jep.jepria.client.history.place"><code>JepEditPlace</code></a>.
+ Считает успешным, если onChangeWorkstate не сработал. <br/></div>
+<dl>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code>java.lang.Exception</code></dd>
+</dl>
+</li>
+</ul>
+<a name="testEditPlaceDoGetRecord--">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>testEditPlaceDoGetRecord</h4>
+<pre>public&nbsp;void&nbsp;testEditPlaceDoGetRecord()
+                              throws java.lang.Exception</pre>
+<div class="block">Тест метода onChangeWorkstate детального презентора при входе в состояние <a href="../../../../../../../../com/technology/jep/jepria/client/history/place/JepEditPlace.html" title="class in com.technology.jep.jepria.client.history.place"><code>JepEditPlace</code></a>
+ и инициализации формы данными через событие DoGetRecordEvent. <br/>
+ Считает успешным, если onChangeWorkstate сработал один раз.</div>
+<dl>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code>java.lang.Exception</code></dd>
+</dl>
+</li>
+</ul>
+<a name="testViewDetailPlace--">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>testViewDetailPlace</h4>
+<pre>public&nbsp;void&nbsp;testViewDetailPlace()
+                         throws java.lang.Exception</pre>
+<div class="block">Тест метода onChangeWorkstate детального презентора при входе в состояние <a href="../../../../../../../../com/technology/jep/jepria/client/history/place/JepViewDetailPlace.html" title="class in com.technology.jep.jepria.client.history.place"><code>JepViewDetailPlace</code></a>.
+ Считает успешным, если onChangeWorkstate не сработал. <br/></div>
+<dl>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code>java.lang.Exception</code></dd>
+</dl>
+</li>
+</ul>
+<a name="testViewDetailDoGetRecord--">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>testViewDetailDoGetRecord</h4>
+<pre>public&nbsp;void&nbsp;testViewDetailDoGetRecord()
+                               throws java.lang.Exception</pre>
+<div class="block">Тест метода onChangeWorkstate детального презентора при входе в состояние <a href="../../../../../../../../com/technology/jep/jepria/client/history/place/JepViewDetailPlace.html" title="class in com.technology.jep.jepria.client.history.place"><code>JepViewDetailPlace</code></a>
+ и инициализации формы данными через событие DoGetRecordEvent. <br/>
+ Считает успешным, если onChangeWorkstate сработал один раз.</div>
+<dl>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code>java.lang.Exception</code></dd>
+</dl>
+</li>
+</ul>
+<a name="testReturnToMain--">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>testReturnToMain</h4>
+<pre>public&nbsp;void&nbsp;testReturnToMain()
+                      throws java.lang.Exception</pre>
+<div class="block">Тест метода onChangeWorkstate детального презентора при повторном входе (например, при возвращении из дочернего модуля) 
+ в состояние <a href="../../../../../../../../com/technology/jep/jepria/client/history/place/JepViewDetailPlace.html" title="class in com.technology.jep.jepria.client.history.place"><code>JepViewDetailPlace</code></a> и инициализации формы данными через событие DoGetRecordEvent. <br/>
+ Считает успешным, если onChangeWorkstate сработал один раз.</div>
+<dl>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code>java.lang.Exception</code></dd>
+</dl>
+</li>
+</ul>
+<a name="createDetailPresenter-com.google.gwt.place.shared.Place-">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
-<h4>testOnChangeWorkstate</h4>
-<pre>public&nbsp;void&nbsp;testOnChangeWorkstate()
-                           throws java.lang.Exception</pre>
-<div class="block">Тест onChangeWorkstate. При входе в модуль (onEnterModule) два раза вызывается DetailFormPresenter.onChangeWorkstate: <br/>
- <ol>
-  <li>Установка состояния презентора. В MainModulePresenter.startModule (вызов plainPlaceController.goTo)</li>
-  <li>После обработки события DoGetRecordEvent. В PlainModulePresenter.fillFields (вызов eventBus.doGetRecord)</li>
- </ol></div>
+<h4>createDetailPresenter</h4>
+<pre>private&nbsp;<a href="../../../../../../../../com/technology/jep/jepria/client/ui/form/detail/DetailFormPresenterTest.DetailFormPresenterChangeWorkstateVerify.html" title="class in com.technology.jep.jepria.client.ui.form.detail">DetailFormPresenterTest.DetailFormPresenterChangeWorkstateVerify</a>&nbsp;createDetailPresenter(com.google.gwt.place.shared.Place&nbsp;detailPlace)</pre>
+<div class="block">Создает детальный презентер для теста в рабочем состоянии detailPlace.</div>
 <dl>
-<dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code>java.lang.Exception</code></dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>detailPlace</code> - Состояние схода.</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>Детальный презенте</dd>
 </dl>
 </li>
 </ul>

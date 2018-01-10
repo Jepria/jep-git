@@ -36,6 +36,7 @@
 <h3><a name="releaseNotes">Замечания к версиям</a></h3>
 <h4>Версии</h4>
 <ul>
+  <li><a href="#10.6.0">10.6.0 (2018-10-01)</a></li>
   <li><a href="#10.5.0">10.5.0 (2017-11-17)</a></li>
   <li><a href="#10.4.0">10.4.0 (2017-10-23)</a></li>
   <li><a href="#10.3.1">10.3.1 (2017-10-13)</a></li>
@@ -151,6 +152,21 @@
   <li><a href="#2.1.0">2.1.0 (2011-03-11)</a></li>
   <li><a href="#2.0.0">2.0.0 (2011-03-03)</a></li>
   <li><a href="#1.0.0">1.0.0 (2010-11-01)</a></li>
+</ul>
+<h5><a name="10.6.0">10.6.0 (2018-10-01)</a></h5>
+<ul>
+  <li><b>fix:</b> Фикс бага ojdbc с кодировкой CLOB (setActivePrefetch=false).</li>
+  <li><b>chore:</b> Актуализированы dependency.properties, build.properties в соответствии с изменениями бинарного репозитория.</li>
+  <li><b>refactor:</b> Полностью удален функционал фильтрации событий на основе ролей пользователя (Feature: #4401, #3201):
+    <ol>
+      <li>Больше нет необходимости передавать ClientFactory в EventBus.</li>
+      <li>Уход от работы с набором ролей, как с одной строкой.</li>
+    </ol>
+  </li>
+  <li><b>fix:</b> Исправлен двойной вызов onChangeWorkstate при входе в модуль (Feature: #3901).</li>
+  <li><b>refactor:</b> Переименовано событие RefreshEvent в семантически верное: RefreshListEvent. Добавлено событие обновление полей детальной формы: RefreshFieldsEvent.</li>
+  <li><b>chore:</b> Очистка папки документации перед генерацией.</li>
+  <li><b>feat:</b> Для JepBaseNumberField реализован метод addChangeValueListener (Добавление Gxt прослушивателей для реализации прослушивания события com.technology.jep.jepria.client.widget.event.JepEventType.CHANGE_VALUE_EVENT).</li>
 </ul>
 <h5><a name="10.5.0">10.5.0 (2017-11-17)</a></h5>
 <ul>
