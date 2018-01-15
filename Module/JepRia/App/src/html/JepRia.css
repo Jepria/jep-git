@@ -784,3 +784,11 @@ img {
 .jepRia-jepLargeField .jepRia-MultiStateField-EditableCard {
   padding-right: 20px; /* без отступа справа некорректное отображение */
 }
+
+.vPanelStyle {
+    display: inline-block;
+}
+
+.hPanelStyle {
+    display: inline-flex;
+}
