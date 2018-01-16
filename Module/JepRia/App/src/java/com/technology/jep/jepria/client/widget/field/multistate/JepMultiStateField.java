@@ -294,6 +294,7 @@ public abstract class JepMultiStateField<E extends Widget, V extends Widget> ext
         Element tdFieldEditableCard = getEditableCard().getElement();
         Element tdFieldEditableCardParent = getEditableCard().getElement().getParentElement();
         
+        // вместо HorizontalPanel используется FlowPanel
         // если использовать FLowPanel, то применяем стили к текущему элементу с тегом DIV, для VerticalPanel или HorizontalPanel применяем стили к родительскому элементу с тэгами TR или TD 
         if ((tdFieldViewCardParent.getTagName().toLowerCase().contains("tr") || tdFieldViewCardParent.getTagName().toLowerCase().contains("td"))
                 && (tdFieldEditableCardParent.getTagName().toLowerCase().contains("tr") || tdFieldEditableCardParent.getTagName().toLowerCase().contains("td"))) {
