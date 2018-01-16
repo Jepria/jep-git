@@ -424,7 +424,7 @@ public abstract class JepLargeField<V extends Widget> extends JepMultiStateField
       
       // Ширина ячейки инструментов редактирования равна ширине иконке "Удалить файл"
       // TODO: гибкая установка ширины ячейки инструментов редактирования
-      editablePanel.setCellWidth(editablePanelTools, deleteFileIcon.getWidth() + Unit.PX.getType());
+      editablePanelTools.setWidth(deleteFileIcon.getWidth() + Unit.PX.getType());
     }
     
     editablePanelTools.setWidget(deleteFileIcon);

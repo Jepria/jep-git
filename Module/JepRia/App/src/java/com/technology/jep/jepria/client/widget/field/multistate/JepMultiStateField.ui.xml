@@ -1,13 +1,13 @@
 <!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder" xmlns:g="urn:import:com.google.gwt.user.client.ui">
 	<g:DeckPanel>
-		<g:HorizontalPanel ui:field="viewPanel">
+		<g:FlowPanel ui:field="viewPanel">
 			<g:HTML addStyleNames="jepRia-FontStyle" ui:field="viewCardLabel"></g:HTML>
 	 		<g:HTML addStyleNames="jepRia-FontStyle" ui:field="viewCard"></g:HTML>
-	 	</g:HorizontalPanel>	
-		<g:HorizontalPanel ui:field="editablePanel">
+	 	</g:FlowPanel>	
+		<g:FlowPanel ui:field="editablePanel" >
 			<g:HTML addStyleNames="jepRia-FontStyle" ui:field="editableCardLabel"></g:HTML>
 			<!-- Editable card will be HERE! -->
-		</g:HorizontalPanel>	
+		</g:FlowPanel>	
 	</g:DeckPanel>
 </ui:UiBinder>
