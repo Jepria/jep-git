@@ -8,6 +8,11 @@ public class SsoUiConstants {
   public static final String REQUEST_PARAMETER_ENTER_MODULE = "fwdem";
   
   /**
+   * Параметр, содержащий название модуля, которое нужно отобразить в заголовке SsoUi.
+   */
+  public static final String REQUEST_PARAMETER_MODULE_TITLE = "fwdmt";
+  
+  /**
    * Параметр, содержащий queryString запроса, после которого потребовалась авторизация через Sso (часть URL после символа ?).
    */
   public static final String REQUEST_PARAMETER_QUERY_STRING = "fwdqs";
