@@ -3,6 +3,9 @@ package org.jepria.ssoutils;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+/**
+ * Класс-аггрегатор форвард-параметров, используемых при авторизации через SsoUi
+ */
 public class FwdParams {
   private String enterModule;
   private String queryString;

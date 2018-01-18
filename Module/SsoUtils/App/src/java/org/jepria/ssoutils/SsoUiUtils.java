@@ -44,6 +44,8 @@ public class SsoUiUtils {
   /**
    * Возвращает URL с необходимыми параметрами для перенаправления с логин-страницы любого приложения в соответствующее SsoUi
    * @param ssoUiContext контекстное имя приложения SsoUi на конкретном сервере (в виде {@code /SsoUi}), может быть получено из {@link #getSsoUiContext(ServletContext)}
+   * @param request запрос, из которого берутся параметры для построения URL
+   * @param moduleTitle опциональная строка с именем модуля, в который осуществляется вход, для отображения в заголовке
    */
   public static String buildSsoUiUrl(String ssoUiContext, HttpServletRequest request, String moduleTitle) {
     
@@ -52,14 +54,15 @@ public class SsoUiUtils {
     urlSb.append(ssoUiContext).append("/Protected.jsp?")
         .append(SsoUiConstants.REQUEST_PARAMETER_ENTER_MODULE).append('=').append((String)request.getAttribute(RequestDispatcher.FORWARD_REQUEST_URI));
     
+    
     String _moduleTitle = moduleTitle;
     if (_moduleTitle == null) {
       // заголовок по умолчанию равен контекстному имени модуля из адресной строки
       _moduleTitle = request.getContextPath().substring(1); // "/ModuleName" -> "ModuleName"
     }
     urlSb.append('&').append(SsoUiConstants.REQUEST_PARAMETER_MODULE_TITLE).append('=').append(_moduleTitle);
+
     
-    // Закодируем амперсанды в исходном запросе для передачи его как параметр
     String queryString = (String)request.getAttribute(RequestDispatcher.FORWARD_QUERY_STRING);
     if (queryString != null && !"".equals(queryString)) {
       
