@@ -42,45 +42,53 @@ public class SsoUiUtils {
    */
   public static String buildSsoUiUrl(String ssoUiContext, HttpServletRequest request) {
     
-    // Закодируем амперсанды в исходном запросе для передачи его как параметр
-    String forwardQueryString = (String)request.getAttribute(RequestDispatcher.FORWARD_QUERY_STRING);
-    String forwardQueryStringEncoded = forwardQueryString == null ? null : encodeAmps(forwardQueryString);
+    StringBuilder urlSb = new StringBuilder();
     
-    return ssoUiContext + "/Protected.jsp?" +
-        SsoUiConstants.REQUEST_PARAMETER_ENTER_MODULE + "=" + (String)request.getAttribute(RequestDispatcher.FORWARD_REQUEST_URI) +
-        (forwardQueryStringEncoded == null ? "" : "&" + SsoUiConstants.REQUEST_PARAMETER_QUERY_STRING + "=" + forwardQueryStringEncoded);
+    urlSb.append(ssoUiContext).append("/Protected.jsp?")
+        .append(SsoUiConstants.REQUEST_PARAMETER_ENTER_MODULE).append('=').append((String)request.getAttribute(RequestDispatcher.FORWARD_REQUEST_URI));
+    
+    // Закодируем амперсанды в исходном запросе для передачи его как параметр
+    String queryString = (String)request.getAttribute(RequestDispatcher.FORWARD_QUERY_STRING);
+    if (queryString != null && !"".equals(queryString)) {
+      
+      // Закодируем амперсанды в исходном запросе для передачи его как параметр
+      String queryStringEncoded = encodeQueryStr(queryString);
+      
+      urlSb.append('&').append(SsoUiConstants.REQUEST_PARAMETER_QUERY_STRING).append('=').append(queryStringEncoded);
+    }
+    
+    
+    return urlSb.toString();
   }
   
   /**
-   * Символ для замены апмерсанда
-   */
-  public static final char AMP_SUB = '_';
-  
-  /**
-   * Кодирует амперсанды в строке, заменяя их символом '_' ({@link #AMP_SUB}).
-   * Добавляет к результирующей строке префикс-блок {@code AMPS_/_AMPS} с перечислением индексов замененных
-   * символов (для последующего восстановления методом {@link #decodeAmps}).
+   * Функция для кодирования строки параметров URL (части после символа ?).
+   * Кодирование позволяет передавать строку в GET-параметре другого URL
+   * <br><br>
+   * Заменяет амперсанды строке символом '_'.
+   * Добавляет к результирующей строке префикс-блок {@code enc_/_enc} с перечислением индексов замененных
+   * символов (для последующего восстановления методом {@link #decodeQueryStr}).
    * <br>
    * Например,<br>
-   * {@code 'a=1&b=2&c=_' -> 'AMPS_3_7_AMPSa=1_b=2_c=_'}<br>
-   * {@code 'x=y' -> 'AMPS__AMPSx=y'}
+   * {@code encodeQueryStr("a=1&b=2&c=_") === "enc_3_7_enca=1_b=2_c=_"}<br>
+   * {@code encodeQueryStr("x=y") === "enc__encx=y"}
    *  
    * @param s
    * @return
    * @throws NullPointerException если входная строка {@code null}
    */
-  public static String encodeAmps(String s) {
+  public static String encodeQueryStr(String s) {
     if (s == null) {
       throw new NullPointerException();
     }
     
     StringBuilder prefix = new StringBuilder();
-    prefix.append("AMPS_");
+    prefix.append("enc_");
     char[] chars = s.toCharArray();
     int modCount = 0;
     for (int i = 0; i < chars.length; i++) {
       if (chars[i] == '&') {
-        chars[i] = AMP_SUB;
+        chars[i] = '_';
         modCount++;
         
         if (modCount > 1) {
@@ -89,30 +97,63 @@ public class SsoUiUtils {
         prefix.append(String.valueOf(i));
       }
     }
-    prefix.append("_AMPS");
+    prefix.append("_enc");
     
     prefix.append(chars);
     return prefix.toString();
   }
   
   /**
-   * Декодирует строку, закодированную с помощью {@link #encodeAmps}
+   * Возвращает текст JS-функции для кодирования фрагмента URL (части после символа #).
+   * Кодирование позволяет передавать строку в GET-параметре другого URL.
+   * <br><br>
+   * Алгоритм кодирования аналогичен методу {@link #encodeQueryStr}.
+   * 
+   * @return текст JS-функции
+   */
+  public static String encodeFragmentFunction() {
+    // код представлен inline-строкой для простоты восприятия и сравнения с методом encodeQueryStr
+    return
+        "function(s) { " +
+        "  var prefix = 'enc_'; " +
+        "  var chars = s.split(''); " +
+        "  var modCount = 0; " +
+        "  for (var i = 0; i < chars.length; i++) {  " +
+        "    if (chars[i] === '&') { " +
+        "      chars[i] = '_'; " +
+        "      modCount++; " +
+        "      " +
+        "      if (modCount > 1) { " +
+        "        prefix += '_'; " +
+        "      } " +
+        "      prefix += i; " +
+        "    } " +
+        "  } " +
+        "  prefix += '_enc'; " +
+        "  " +
+        "  prefix += chars.join(''); " +
+        "  return prefix; " +
+        "} ";
+  }
+  
+  /**
+   * Декодирует строку, закодированную методом {@link #encodeQueryStr}
    * <br>
    * Например,<br>
-   * {@code 'AMPS_3_7_AMPSa=1_b=2_c=_' -> 'a=1&b=2&c=_'}<br>
-   * {@code 'AMPS__AMPSx=y' -> 'x=y'}
+   * {@code decodeQueryStr("enc_3_7_enca=1_b=2_c=_") === "a=1&b=2&c=_"}<br>
+   * {@code decodeQueryStr("enc__encx=y") === "x=y"}
    *  
    * @param s
    * @return
    * @throws NullPointerException если входная строка {@code null}
-   * @throws IllegalArgumentException если входная строка не начинается с блока {@code AMPS_/_AMPS}
+   * @throws IllegalArgumentException если входная строка не начинается с блока {@code enc_/_enc}
    */
-  public static String decodeAmps(String s) {
+  public static String decodeQueryStr(String s) {
     if (s == null) {
       throw new NullPointerException();
     }
     
-    Matcher m = Pattern.compile("AMPS_(.*?)_AMPS(.*)").matcher(s);
+    Matcher m = Pattern.compile("enc_(.*?)_enc(.*)").matcher(s);
     if (m.matches()) {
       String serviceString = m.group(1);
       String encodedString = m.group(2);
@@ -122,14 +163,30 @@ public class SsoUiUtils {
       if (serviceString != null && serviceString.length() > 0) {
         for (String index: serviceString.split("_")) {
           int i = Integer.parseInt(index);
-          chars[i] = '&';
+          if (i < chars.length) {
+            chars[i] = '&';
+          }
         }
       }
       
       return new String(chars);
       
     } else {
-      throw new IllegalArgumentException("Encoded string must start with 'AMPS_/_AMPS' block");
+      throw new IllegalArgumentException("Encoded string must start with 'enc_/_enc' block");
     }
+  }
+  
+  /**
+   * Декодирует строку, закодированную JS-функцией {@link #encodeFragmentFunction}
+   * <br><br>
+   * Алгоритм кодирования аналогичен методу {@link #decodeQueryStr}.
+   * 
+   * @param s
+   * @return
+   * @throws NullPointerException если входная строка {@code null}
+   * @throws IllegalArgumentException если входная строка не начинается с блока {@code enc_/_enc}
+   */
+  public static String decodeFragment(String s) {
+    return decodeQueryStr(s);
   }
 }
