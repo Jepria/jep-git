@@ -67,25 +67,7 @@ public class RefreshListEventRule extends ValidatorRule {
         modified |= renameToolBarCalls((ClassOrInterfaceDeclaration) typeDeclaration);
       }
     }
-    // 
-    /*
-    TypeDeclaration<?> typeDeclaration = unit.getType(0);
     
-    if (typeDeclaration instanceof ClassOrInterfaceDeclaration &&
-        typeDeclaration.getNameAsString().contains("Presenter")) { 
-      ClassOrInterfaceDeclaration coid = (ClassOrInterfaceDeclaration)typeDeclaration;
-      if (!coid.isInterface()) {
-        NodeList<ClassOrInterfaceType> implementedTypes = coid.getImplementedTypes();
-        for (ClassOrInterfaceType impType: implementedTypes) {
-          System.out.println(impType.getNameAsString());
-//          if (impType.getNameAsString().equals("PlainClientFactoryImpl") ||
-//              impType.getNameAsString().equals("StandardClientFactoryImpl")) {
-//            return true;
-//          }
-        }
-      }
-    }
-    */
     if (modified) {
       return Transformation.of().content(new Action<ContentRefactorer>() {
         @Override

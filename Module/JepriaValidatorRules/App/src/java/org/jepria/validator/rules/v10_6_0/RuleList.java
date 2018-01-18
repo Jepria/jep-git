@@ -16,6 +16,7 @@ public class RuleList extends org.jepria.validator.rules.v10_5_0.RuleList {
   public RuleList() {
     add(new org.jepria.validator.rules.v10_6_0.ClientSecurityRule());
     add(new org.jepria.validator.rules.v10_6_0.RefreshListEventRule());
+    add(new org.jepria.validator.rules.v10_6_0.EventFilterRemoveRule());
   }
 
 }
