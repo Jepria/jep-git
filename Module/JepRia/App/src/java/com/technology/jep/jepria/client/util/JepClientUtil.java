@@ -70,7 +70,7 @@ public class JepClientUtil {
     Element loadingMessage = DOM.getElementById(LOADING_MESSAGE_ID);
     if (loading != null) {
 
-      if (!JepRiaUtil.isEmpty(layerId)){
+      if (!JepRiaUtil.isEmpty(layerId)) {
         loading = DOM.clone(loading, true);
         loading.setId(generateElementLayerId(LOADING_PANEL_ID, layerId));
 
@@ -83,7 +83,7 @@ public class JepClientUtil {
         BODY.appendChild(loading);
       }
 
-      loading.getStyle().setDisplay(Display.BLOCK);
+      loading.getStyle().setDisplay(Display.INLINE_BLOCK);
       appendDisabledLayer(layerId);
       if (!JepRiaUtil.isEmpty(header)) {
         loadingHeader.setInnerHTML(header);
@@ -211,24 +211,24 @@ public class JepClientUtil {
   public static JepWorkstatePlace workstateToPlace(WorkstateEnum workstate) {
     JepWorkstatePlace place = null;
     switch(workstate) {
-      case CREATE:
-        place = new JepCreatePlace();
-        break;
-      case EDIT:
-        place = new JepEditPlace();
-        break;
-      case SEARCH:
-        place = new JepSearchPlace();
-        break;
-      case SELECTED:
-        place = new JepSelectedPlace();
-        break;
-      case VIEW_DETAILS:
-        place = new JepViewDetailPlace();
-        break;
-      case VIEW_LIST:
-        place = new JepViewListPlace();
-        break;
+    case CREATE:
+      place = new JepCreatePlace();
+      break;
+    case EDIT:
+      place = new JepEditPlace();
+      break;
+    case SEARCH:
+      place = new JepSearchPlace();
+      break;
+    case SELECTED:
+      place = new JepSelectedPlace();
+      break;
+    case VIEW_DETAILS:
+      place = new JepViewDetailPlace();
+      break;
+    case VIEW_LIST:
+      place = new JepViewListPlace();
+      break;
     }
     return place;
   }
@@ -404,7 +404,7 @@ public class JepClientUtil {
     }
     return value;
   }-*/;
-  
+
   /**
    * Функция определяет: является ли текущий язык основным языком для пользователей.
    * 

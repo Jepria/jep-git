@@ -333,33 +333,45 @@ input[type=text]::-ms-clear {
   z-index: 1100;
 }
 
+/* Контейнер на весь экран для помещения блока в центр */
+.jepRia-fullScreenContainer {
+  width: 100%;
+  height: 100%;
+  position:absolute;
+  text-align:center;
+}
+
+/* Центральный блок в контейнере */
+.jepRia-fullScreenContainer__center {
+  position: relative;
+  display: inline-block;
+  
+  top: 50%;
+}
+
 /* Индикатор загрузки модуля. */
 .jepRia-loadingProgress {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  margin-left: -150px;
-  margin-top: -25px;
   background: white;
-  z-index: 7100;
-  border: 1px solid #ccc;
-  font-family: arial, helvetica, tahoma, sans-serif;
-  text-align: left;
-}
-.jepRia-loadingProgress .jepRia-loadingIndicator {
-  background: white;
+  z-index: 7200;
+  border: 1px solid #bbb;
+  
   color: #444;
   font: bold 13px tahoma, arial, helvetica;
-  padding: 10px 10px 40px 10px;
+  font-family: arial, helvetica, tahoma, sans-serif;
+  text-align: left;
+  
+  margin-top: -24px; /* half of height, height is 32(img)+8(padding)+8(padding) */
+  
+  padding: 8px;
 }
-.jepRia-loadingProgress .jepRia-loadingIndicator img {
-  margin-right: 8px;
+.jepRia-loadingProgress__img {
+  margin-right: 8px; /* equals parent padding */
   float: left;
 }
-.jepRia-loadingProgress .jepRia-loadingIndicator div {
+.jepRia-loadingProgress div {
   float: left;
 }
-.jepRia-loadingProgress .jepRia-loadingIndicator p {
+.jepRia-loadingProgress p {
   margin: 0px;
 }
 .jepRia-loadingMessage {
