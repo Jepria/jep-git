@@ -53,7 +53,14 @@ if (response.getStatus() == 403) {
   
   String ssoUiContext = SsoUiUtils.getSsoUiContext(pageContext.getServletContext());
   
-  String ssoUiUrl = SsoUiUtils.buildSsoUiUrl(ssoUiContext, request) +
+  // заголовок приложения
+  String appTitle = config.getServletContext().getInitParameter("app.title");
+  if (appTitle == null) {
+    // заголовок по умолчанию это имя приложения из context path
+    appTitle = request.getContextPath().substring(1);
+  }
+  
+  String ssoUiUrl = SsoUiUtils.buildSsoUiUrl(ssoUiContext, request, appTitle) +
       (locale == null ? "" : "&" + HTTP_REQUEST_PARAMETER_LOCALE + "=" + locale);
   
 %>

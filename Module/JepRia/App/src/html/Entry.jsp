@@ -1,21 +1,22 @@
 <!DOCTYPE html>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <%@ page import="com.technology.jep.jepria.client.JepRiaClientConstant" %>
-<%@page import="com.technology.jep.jepria.server.util.JepServerUtil"%>
+<%@ page import="com.technology.jep.jepria.server.util.JepServerUtil"%>
 <%@ page import="java.util.ResourceBundle" %>
 
 <% ResourceBundle jepRiaText = ResourceBundle.getBundle("com.technology.jep.jepria.shared.text.JepRiaText", JepServerUtil.getLocale(request)); %>
 
 <% 
 // имя приложения определяет context path и имена js-файлов
-String appName = config.getInitParameter("app.name");
+String appName = config.getServletContext().getInitParameter("app.name");
 if (appName == null) {
   // получим имя приложения по умолчанию из context path
   appName = request.getContextPath().substring(1);
 }
-// заголовок приложения для отображения
-String appTitle = config.getInitParameter("app.title");
+// заголовок приложения
+String appTitle = config.getServletContext().getInitParameter("app.title");
 if (appTitle == null) {
   // заголовок по умолчанию это имя приложения
   appTitle = appName;
@@ -45,11 +46,6 @@ if (appTitle == null) {
     </style>
   </head>
 
-  <!--                                           -->
-  <!-- The body can have arbitrary html, or       -->
-  <!-- you can leave the body empty if you want   -->
-  <!-- to create a completely dynamic UI.         -->
-  <!--                                           -->
   <body style="margin: 0px; padding: 0px; width: 100%; height: 100%;">
     
     <!-- OPTIONAL: include this if you want history support -->
@@ -59,6 +55,7 @@ if (appTitle == null) {
     <noscript>
       <div class="jepRia-noJavaScriptEnabledMessage"><%= jepRiaText.getString("noJavaScriptEnabledMessage") %></div>
     </noscript>
+    
     <div id="testBuildMessage" class="<%= JepRiaClientConstant.TEST_BUILD_MESSAGE_CLASS %>"> 
       <div class="jepRia-testBuildMessageNotification error"> 
         <div class="jepRia-testBuildMessageClose" onclick="document.getElementById('testBuildMessage').style.display = 'none';">
@@ -70,9 +67,10 @@ if (appTitle == null) {
         <div class="jepRia-testBuildMessageInfo">
           This is test build!
         </div> 
-      </div> 
-    </div> 
-    <div id="loadingProgress" class="jepRia-fullScreenContainer"style="width:100%; height:100%; position:absolute; text-align:center;">
+      </div>
+    </div>
+
+    <div id="loadingProgress" class="jepRia-fullScreenContainer">
       <div class="jepRia-fullScreenContainer__center jepRia-loadingProgress">
           <img class="jepRia-loadingProgress__img" src="images/loading.gif" width="32" height="32" alt="Loading..."/>
             <div>
@@ -83,7 +81,8 @@ if (appTitle == null) {
           </div>
       </div>
     </div>
-    <table style="border: 0px; table-layout: fixed; border-collapse: collapse; margin: 0px; padding: 0px; width: 100%; height: 100%;">
+
+    <table style="width: 100%; height: 100%; border: 0px; table-layout: fixed; border-collapse: collapse; margin: 0px; padding: 0px;">
       <tr>
         <td style="width: 100%; height: 100%;">
           <div id="<%= JepRiaClientConstant.APPLICATION_SLOT %>" style="width: 100%; height: 100%; position: relative;"></div>
