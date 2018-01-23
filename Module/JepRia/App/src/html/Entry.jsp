@@ -15,11 +15,15 @@ if (appName == null) {
   // получим имя приложения по умолчанию из context path
   appName = request.getContextPath().substring(1);
 }
-// заголовок приложения
+//заголовок приложения
 String appTitle = config.getServletContext().getInitParameter("app.title");
 if (appTitle == null) {
-  // заголовок по умолчанию это имя приложения
-  appTitle = appName;
+  // если не указан явно, то это название приложения
+  appTitle = config.getServletContext().getInitParameter("app.name");
+  if (appTitle == null) {
+    // заголовок по умолчанию это имя приложения из context path
+    appTitle = request.getContextPath().substring(1);
+  }
 }
 %>
 

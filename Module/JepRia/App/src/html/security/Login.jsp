@@ -56,8 +56,12 @@ if (response.getStatus() == 403) {
   // заголовок приложения
   String appTitle = config.getServletContext().getInitParameter("app.title");
   if (appTitle == null) {
-    // заголовок по умолчанию это имя приложения из context path
-    appTitle = request.getContextPath().substring(1);
+    // если не указан явно, то это название приложения
+    appTitle = config.getServletContext().getInitParameter("app.name");
+    if (appTitle == null) {
+      // заголовок по умолчанию это имя приложения из context path
+      appTitle = request.getContextPath().substring(1);
+    }
   }
   
   String ssoUiUrl = SsoUiUtils.buildSsoUiUrl(ssoUiContext, request, appTitle) +
