@@ -183,7 +183,7 @@ extends java.lang.Object</pre>
 <td class="colFirst"><code>static java.lang.String</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../org/jepria/ssoutils/SsoUiUtils.html#buildSsoUiUrl-java.lang.String-javax.servlet.http.HttpServletRequest-java.lang.String-">buildSsoUiUrl</a></span>(java.lang.String&nbsp;ssoUiContext,
              javax.servlet.http.HttpServletRequest&nbsp;request,
-             java.lang.String&nbsp;moduleTitle)</code>
+             java.lang.String&nbsp;appTitle)</code>
 <div class="block">Возвращает URL с необходимыми параметрами для перенаправления с логин-страницы любого приложения в соответствующее SsoUi</div>
 </td>
 </tr>
@@ -333,13 +333,13 @@ extends java.lang.Object</pre>
 <h4>buildSsoUiUrl</h4>
 <pre>public static&nbsp;java.lang.String&nbsp;buildSsoUiUrl(java.lang.String&nbsp;ssoUiContext,
                                              javax.servlet.http.HttpServletRequest&nbsp;request,
-                                             java.lang.String&nbsp;moduleTitle)</pre>
+                                             java.lang.String&nbsp;appTitle)</pre>
 <div class="block">Возвращает URL с необходимыми параметрами для перенаправления с логин-страницы любого приложения в соответствующее SsoUi</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>ssoUiContext</code> - контекстное имя приложения SsoUi на конкретном сервере (в виде <code>/SsoUi</code>), может быть получено из <a href="../../../org/jepria/ssoutils/SsoUiUtils.html#getSsoUiContext-javax.servlet.ServletContext-"><code>getSsoUiContext(ServletContext)</code></a></dd>
 <dd><code>request</code> - запрос, из которого берутся параметры для построения URL</dd>
-<dd><code>moduleTitle</code> - опциональная строка с именем модуля, в который осуществляется вход, для отображения в заголовке</dd>
+<dd><code>appTitle</code> - опциональная строка с именем приложения, в который осуществляется вход, для отображения в заголовке</dd>
 </dl>
 </li>
 </ul>
