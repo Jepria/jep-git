@@ -69,6 +69,13 @@ public class SsoUiUtils {
     }
     
     
+    // параметр locale нуждается в дополнительном присоединении (только для GWT)
+    String locale = request.getParameter(SsoUiConstants.REQUEST_PARAMETER_LOCALE);
+    if (locale != null) {
+      urlSb.append('&').append(SsoUiConstants.REQUEST_PARAMETER_LOCALE).append('=').append(locale);
+    }
+    
+    
     return urlSb.toString();
   }
   

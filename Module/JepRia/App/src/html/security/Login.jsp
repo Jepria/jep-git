@@ -2,7 +2,6 @@
 <%@ page contentType="text/html;charset=utf-8" language="java"%>
 <%@ page import="org.jepria.ssoutils.SsoUiUtils"%>
 <%@ page import="org.jepria.ssoutils.SsoUiConstants"%>
-<%@ page import="static com.technology.jep.jepria.shared.JepRiaConstant.HTTP_REQUEST_PARAMETER_LOCALE"%>
 <%@ page import="com.technology.jep.jepria.server.security.SecurityFactory" %>
 <%@ page import="static com.technology.jep.jepria.server.util.JepServerUtil.getLocale"%>
 <%@ page import="java.util.ResourceBundle" %>
@@ -42,15 +41,6 @@ if (response.getStatus() == 403) {
   }
 } else {
 
-  String locale = request.getParameter(HTTP_REQUEST_PARAMETER_LOCALE);
-  //Если в запросе есть локаль, то берем ее, и записываем в сессию.
-  if(locale == null) {
-    //если в запросе нет локали, пытаемся считать ее из сессии.
-    locale = (String) session.getAttribute(HTTP_REQUEST_PARAMETER_LOCALE);
-  } else {
-    session.setAttribute(HTTP_REQUEST_PARAMETER_LOCALE, locale);
-  }
-  
   String ssoUiContext = SsoUiUtils.getSsoUiContext(pageContext.getServletContext());
   
   // заголовок приложения
@@ -64,8 +54,7 @@ if (response.getStatus() == 403) {
     }
   }
   
-  String ssoUiUrl = SsoUiUtils.buildSsoUiUrl(ssoUiContext, request, appTitle) +
-      (locale == null ? "" : "&" + HTTP_REQUEST_PARAMETER_LOCALE + "=" + locale);
+  String ssoUiUrl = SsoUiUtils.buildSsoUiUrl(ssoUiContext, request, appTitle);
   
 %>
   <HTML>

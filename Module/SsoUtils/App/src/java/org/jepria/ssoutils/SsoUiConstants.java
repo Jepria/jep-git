@@ -23,6 +23,11 @@ public class SsoUiConstants {
   public static final String REQUEST_PARAMETER_FRAGMENT = "fwdfg";
   
   /**
+   * Параметр, содержащий locale запроса.
+   */
+  public static final String REQUEST_PARAMETER_LOCALE = "locale";
+  
+  /**
    * ID html-страницы с логин-формой. Нужно как для автоматизации тестирования, так и для проверки логин-формы по тексту HttpResonse.
    */
   public static final String LOGIN_FORM_HTML_ID = "loginForm";
