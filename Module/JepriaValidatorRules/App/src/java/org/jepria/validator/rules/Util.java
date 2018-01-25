@@ -5,6 +5,14 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.nio.charset.Charset;
+import java.util.AbstractList;
+import java.util.Collections;
+import java.util.List;
+
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathExpressionException;
+import javax.xml.xpath.XPathFactory;
 
 import org.w3c.dom.Document;
 
@@ -135,5 +143,34 @@ public class Util {
       }
     }
     return false;
+  }
+  
+  /**
+   * Упрощает поиск узлов по XPATH
+   * @param root корневой узел для поиска.  
+   * @param xpath
+   * @return unmodifiable list
+   * @throws RuntimeException в случае XPathExpressionException
+   */
+  public static List<org.w3c.dom.Node> getNodesByXpath(org.w3c.dom.Node root, String xpath) {
+    XPath xPath = XPathFactory.newInstance().newXPath();
+    
+    try {
+      org.w3c.dom.NodeList nodeList = (org.w3c.dom.NodeList)xPath.evaluate(xpath,
+          root, XPathConstants.NODESET);
+      
+      return Collections.unmodifiableList(new AbstractList<org.w3c.dom.Node>() {
+        @Override
+        public org.w3c.dom.Node get(int index) {
+          return nodeList.item(index);
+        }
+        @Override
+        public int size() {
+          return nodeList.getLength();
+        }
+      });
+    } catch (XPathExpressionException e) {
+      throw new RuntimeException(e);
+    }
   }
 }
