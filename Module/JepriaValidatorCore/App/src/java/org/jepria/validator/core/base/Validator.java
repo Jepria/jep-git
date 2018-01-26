@@ -3,6 +3,9 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.jepria.validator.core.base.contextadapter.ContextReadAdapter;
 import org.jepria.validator.core.base.contextadapter.ContextWriteAdapter;
@@ -183,6 +186,12 @@ public class Validator {
               transformMessageHandlerToCollector.setResource(resource);
               rule.setMessageHandler(transformMessageHandlerToCollector);
               
+              
+              // В случае если реально рефакторится java-файл, проверим его на JSNI методы (обход бага JavaPasrer)
+              // TODO удалить эту строку когда баг пофиксят
+              if (resource.getName().endsWith(".java")) {checkJsniMethods(resourceWithContent);}
+              
+              
               DisposableContentRefactoringHelper contentRefactoringHelper = new DisposableContentRefactoringHelper(resourceWithContent);
               contentRefactoringAction.perform(contentRefactoringHelper);
               contentRefactoringHelper.dispose();
@@ -222,6 +231,31 @@ public class Validator {
         }
       } finally {
         rule.setMessageHandler(null);
+      }
+    }
+  }
+  
+  /**
+   * Обход бага: JavaParser удаляет имплементации JSNI-методов, заключенных в последовательности / * - { ... } - * /
+   * Данный метод сканирует файл в поисках таких имплементаций и выводит предупреждение в System.out.
+   * 
+   * @deprecated remove the method with all use cases when the bug gets fixed. 
+   */
+  @Deprecated
+  private static void checkJsniMethods(PlainResource javaResource) {
+    Pattern pattern = Pattern.compile("/\\*\\-\\{");
+    try (Scanner sc = new Scanner(javaResource.newInputStream(), "UTF-8")) {
+      int lineNum = 0;
+      while (sc.hasNextLine()) {
+        lineNum++;
+        String line = sc.nextLine();
+        Matcher m = pattern.matcher(line);
+        int col = 0;
+        while(m.find(col)) {
+          col = m.start() + 1;
+          System.out.println("/WARNING: Found JSNI method implementation at " + javaResource.getPathName() + ":" + lineNum + ":" + col + ". "
+              + "This will be erased by JavaParser (because it is not supported), restore manually after validation.");
+        }
       }
     }
   }

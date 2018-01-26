@@ -18,8 +18,8 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10};
-var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
+var methods = {"i0":41,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10};
+var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"],32:["t6","Deprecated Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
 var tableTab = "tableTab";
@@ -205,39 +205,47 @@ extends java.lang.Object</pre>
 </a>
 <h3>Method Summary</h3>
 <table class="memberSummary" border="0" cellpadding="3" cellspacing="0" summary="Method Summary table, listing methods, and an explanation">
-<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">Instance Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t4" class="tableTab"><span><a href="javascript:show(8);">Concrete Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
+<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t1" class="tableTab"><span><a href="javascript:show(1);">Static Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">Instance Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t4" class="tableTab"><span><a href="javascript:show(8);">Concrete Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t6" class="tableTab"><span><a href="javascript:show(32);">Deprecated Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
 <tr>
 <th class="colFirst" scope="col">Modifier and Type</th>
 <th class="colLast" scope="col">Method and Description</th>
 </tr>
 <tr id="i0" class="altColor">
+<td class="colFirst"><code>private static void</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/jepria/validator/core/base/Validator.html#checkJsniMethods-org.jepria.validator.core.base.resource.PlainResource-">checkJsniMethods</a></span>(<a href="../../../../../org/jepria/validator/core/base/resource/PlainResource.html" title="interface in org.jepria.validator.core.base.resource">PlainResource</a>&nbsp;javaResource)</code>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;
+<div class="block"><span class="deprecationComment">remove the method with all use cases when the bug gets fixed.</span></div>
+</div>
+</td>
+</tr>
+<tr id="i1" class="rowColor">
 <td class="colFirst"><code><a href="../../../../../org/jepria/validator/core/base/contextadapter/ContextReadAdapter.html" title="interface in org.jepria.validator.core.base.contextadapter">ContextReadAdapter</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/jepria/validator/core/base/Validator.html#getContextReadAdapter--">getContextReadAdapter</a></span>()</code>&nbsp;</td>
 </tr>
-<tr id="i1" class="rowColor">
+<tr id="i2" class="altColor">
 <td class="colFirst"><code><a href="../../../../../org/jepria/validator/core/base/contextadapter/ContextWriteAdapter.html" title="interface in org.jepria.validator.core.base.contextadapter">ContextWriteAdapter</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/jepria/validator/core/base/Validator.html#getContextRefactorAdapter--">getContextRefactorAdapter</a></span>()</code>&nbsp;</td>
 </tr>
-<tr id="i2" class="altColor">
+<tr id="i3" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/jepria/validator/core/base/Validator.html#setContextReadAdapter-org.jepria.validator.core.base.contextadapter.ContextReadAdapter-">setContextReadAdapter</a></span>(<a href="../../../../../org/jepria/validator/core/base/contextadapter/ContextReadAdapter.html" title="interface in org.jepria.validator.core.base.contextadapter">ContextReadAdapter</a>&nbsp;contextReadAdapter)</code>
 <div class="block">Предоставляет валидатору адаптер для чтения контекста.</div>
 </td>
 </tr>
-<tr id="i3" class="rowColor">
+<tr id="i4" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/jepria/validator/core/base/Validator.html#setContextWriteAdapter-org.jepria.validator.core.base.contextadapter.ContextWriteAdapter-">setContextWriteAdapter</a></span>(<a href="../../../../../org/jepria/validator/core/base/contextadapter/ContextWriteAdapter.html" title="interface in org.jepria.validator.core.base.contextadapter">ContextWriteAdapter</a>&nbsp;contextRefactorAdapter)</code>
 <div class="block">Предоставляет валидатору адаптер для записи в контекст.</div>
 </td>
 </tr>
-<tr id="i4" class="altColor">
+<tr id="i5" class="rowColor">
 <td class="colFirst"><code>protected <a href="../../../../../org/jepria/validator/core/base/transform/Transformation.html" title="class in org.jepria.validator.core.base.transform">Transformation</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/jepria/validator/core/base/Validator.html#validate-org.jepria.validator.core.base.IValidatorRule-org.jepria.validator.core.base.resource.Resource-">validate</a></span>(<a href="../../../../../org/jepria/validator/core/base/IValidatorRule.html" title="interface in org.jepria.validator.core.base">IValidatorRule</a>&nbsp;rule,
         <a href="../../../../../org/jepria/validator/core/base/resource/Resource.html" title="interface in org.jepria.validator.core.base.resource">Resource</a>&nbsp;resource)</code>
 <div class="block">В зависимости от ресурса, валидирует его подходящим методом интерфейса <a href="../../../../../org/jepria/validator/core/base/IValidatorRule.html" title="interface in org.jepria.validator.core.base"><code>IValidatorRule</code></a></div>
 </td>
 </tr>
-<tr id="i5" class="rowColor">
+<tr id="i6" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/jepria/validator/core/base/Validator.html#validateInContext-java.util.List-java.util.List-org.jepria.validator.core.base.MessageCollector-">validateInContext</a></span>(java.util.List&lt;<a href="../../../../../org/jepria/validator/core/base/ValidatorRule.html" title="class in org.jepria.validator.core.base">ValidatorRule</a>&gt;&nbsp;rules,
                  java.util.List&lt;<a href="../../../../../org/jepria/validator/core/base/resource/Resource.html" title="interface in org.jepria.validator.core.base.resource">Resource</a>&gt;&nbsp;resourcesForValidation,
@@ -245,7 +253,7 @@ extends java.lang.Object</pre>
 <div class="block">Метод, запускающий в контексте (во множестве ресурсов) валидацию подмножества ресурсов, набором валидационных правил.</div>
 </td>
 </tr>
-<tr id="i6" class="altColor">
+<tr id="i7" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/jepria/validator/core/base/Validator.html#validateUnderRule-org.jepria.validator.core.base.ValidatorRule-java.util.List-org.jepria.validator.core.base.MessageCollector-boolean-org.jepria.validator.core.base.MessageCollector-">validateUnderRule</a></span>(<a href="../../../../../org/jepria/validator/core/base/ValidatorRule.html" title="class in org.jepria.validator.core.base">ValidatorRule</a>&nbsp;rule,
                  java.util.List&lt;<a href="../../../../../org/jepria/validator/core/base/resource/Resource.html" title="interface in org.jepria.validator.core.base.resource">Resource</a>&gt;&nbsp;resourcesForValidation,
@@ -409,6 +417,19 @@ extends java.lang.Object</pre>
  поэтому нельзя основывать реализацию валидационного правила на порядок ресурсов в списке.
  </i></dd>
 </dl>
+</li>
+</ul>
+<a name="checkJsniMethods-org.jepria.validator.core.base.resource.PlainResource-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>checkJsniMethods</h4>
+<pre>@Deprecated
+private static&nbsp;void&nbsp;checkJsniMethods(<a href="../../../../../org/jepria/validator/core/base/resource/PlainResource.html" title="interface in org.jepria.validator.core.base.resource">PlainResource</a>&nbsp;javaResource)</pre>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;<span class="deprecationComment">remove the method with all use cases when the bug gets fixed.</span></div>
+<div class="block">Обход бага: JavaParser удаляет имплементации JSNI-методов, заключенных в последовательности / * - { ... } - * /
+ Данный метод сканирует файл в поисках таких имплементаций и выводит предупреждение в System.out.</div>
 </li>
 </ul>
 <a name="validate-org.jepria.validator.core.base.IValidatorRule-org.jepria.validator.core.base.resource.Resource-">
