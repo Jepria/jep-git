@@ -195,14 +195,14 @@ public abstract class JepMultiStateField<E extends Widget, V extends Widget> ext
 	
 	// default style orientation
 	public void turnOnHorizontalOrientedPanel() {
-        viewPanel.setStyleName("hPanelStyle");
-        editablePanel.setStyleName("hPanelStyle");
+        viewPanel.setStyleName("jepRia-hPanelStyle");
+        editablePanel.setStyleName("jepRia-hPanelStyle");
         prepareStyleLabel(HORIZONTAL_ORIENTATION);
 	}
 	
 	public void turnOnVerticalOrientedPanel() {
-        viewPanel.setStyleName("vPanelStyle");
-        editablePanel.setStyleName("vPanelStyle");
+        viewPanel.setStyleName("jepRia-vPanelStyle");
+        editablePanel.setStyleName("jepRia-vPanelStyle");
         prepareStyleLabel(VERTICAL_ORIENTATION);
     }
 
