@@ -21,10 +21,12 @@ import com.google.gwt.safehtml.shared.SafeHtmlUtils;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiTemplate;
+import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DeckPanel;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Widget;
 import com.technology.jep.jepria.client.JepRiaAutomationConstant;
@@ -645,11 +647,19 @@ public abstract class JepMultiStateField<E extends Widget, V extends Widget> ext
 
 		}
 		if (!loadingIcon.isAttached()) {
-			editablePanel.add(loadingIcon);
+		    editablePanel.add(wrapDiv(loadingIcon));
 		}
 		loadingIcon.setTitle(imageVisible ? JepTexts.loadingPanel_dataLoading() : "");
 		loadingIcon.setAltText(imageVisible ? JepTexts.loadingPanel_dataLoading() : "");
 		loadingIcon.setVisible(imageVisible);
+	}
+	
+	
+	// обертка в DIV
+	public Widget wrapDiv(Widget widget) {
+	    HTMLPanel div = new HTMLPanel("");
+	    div.add(widget);
+	    return div;
 	}
 
 	/**
@@ -663,7 +673,7 @@ public abstract class JepMultiStateField<E extends Widget, V extends Widget> ext
 			errorIcon.addStyleName(FIELD_INDICATOR_STYLE);
 		}
 		if (!errorIcon.isAttached()) {
-			editablePanel.add(errorIcon);
+		    editablePanel.add(wrapDiv(errorIcon));
 		}
 		errorIcon.setTitle(error);
 		errorIcon.setAltText(error);
