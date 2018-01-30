@@ -144,14 +144,13 @@ public class EventFilterRemoveRule extends ValidatorRule {
 
     Optional<ConstructorDeclaration> contructorDeclarationOptional = classDeclaration.getConstructorByParameterTypes("PlainClientFactory<?, ?>");
     
-    if (!contructorDeclarationOptional.isPresent() || // Если нет конструктора с стандартной сигнатурой 
-        classDeclaration.getConstructors().size() != 1) { // Или такой конструктор есть, но в классе более одного конструтора 
+    if (classDeclaration.getConstructors().size() != 1) { // Если в классе более одного конструтора 
       handleMessage(new Message(MessageLevel.MANUAL_TRANSFORM, 
-          "If СlientFactory was used in not-standard way, may be needed to remove it manually.",
+          "If ClientFactory was used in not-standard way, may be needed to remove it manually.",
           MarkSpan.of(classDeclaration.getBegin(), classDeclaration.getEnd())));
     }
     
-    if (!contructorDeclarationOptional.isPresent()) return false;
+    if (!contructorDeclarationOptional.isPresent()) return false; // Если нет конструктора с фабрикой, то преобразования не нужны
     
     ConstructorDeclaration contructorDeclaration = contructorDeclarationOptional.get();
     

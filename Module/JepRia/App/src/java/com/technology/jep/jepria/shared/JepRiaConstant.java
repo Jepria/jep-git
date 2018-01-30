@@ -31,7 +31,8 @@ public class JepRiaConstant {
   /**
    * Формат десятичных чисел по умолчанию.
    */
-  public static final String DEFAULT_DECIMAL_FORMAT = "###,###,##0.00";
+  public static final String DEFAULT_DECIMAL_SEPARATOR = ".";
+  public static final String DEFAULT_DECIMAL_FORMAT = "###,###,##0" + DEFAULT_DECIMAL_SEPARATOR + "00";
   
   /**
    * Ограничение на возвращаемое количество записей, в случае, если пользователь не указал количество записей явно.

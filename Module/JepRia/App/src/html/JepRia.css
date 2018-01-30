@@ -797,10 +797,10 @@ img {
   padding-right: 20px; /* без отступа справа некорректное отображение */
 }
 
-.vPanelStyle {
+.jepRia-vPanelStyle {
     display: inline-block;
 }
 
-.hPanelStyle {
+.jepRia-hPanelStyle {
     display: inline-flex;
 }

@@ -18,7 +18,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10};
+var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -186,6 +186,14 @@ extends <a href="../../../../../../../../com/technology/jep/jepria/client/widget
 <th class="colLast" scope="col">Field and Description</th>
 </tr>
 <tr class="altColor">
+<td class="colFirst"><code>(package private) char</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMoneyField.html#DECIMAL_RANK_SEPARATOR">DECIMAL_RANK_SEPARATOR</a></span></code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>(package private) char</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMoneyField.html#MARKER_SYMBOL">MARKER_SYMBOL</a></span></code>&nbsp;</td>
+</tr>
+<tr class="altColor">
 <td class="colFirst"><code>private java.lang.Integer</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMoneyField.html#maxNumberCharactersAfterDecimalSeparator">maxNumberCharactersAfterDecimalSeparator</a></span></code>
 <div class="block">Количество символов, разрешенных для ввода после разделителя разрядов (по умолчанию, 2)</div>
@@ -277,36 +285,46 @@ extends <a href="../../../../../../../../com/technology/jep/jepria/client/widget
 </td>
 </tr>
 <tr id="i3" class="rowColor">
+<td class="colFirst"><code>java.lang.String</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMoneyField.html#getRawValue--">getRawValue</a></span>()</code>
+<div class="block">Получение значения компонента из DOM-дерева документа.</div>
+</td>
+</tr>
+<tr id="i4" class="altColor">
+<td class="colFirst"><code>java.lang.String</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMoneyField.html#getRawValueWithSeparatorRanks--">getRawValueWithSeparatorRanks</a></span>()</code>&nbsp;</td>
+</tr>
+<tr id="i5" class="rowColor">
 <td class="colFirst"><code>private boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMoneyField.html#isDecimalPartValid-java.lang.String-">isDecimalPartValid</a></span>(java.lang.String&nbsp;value)</code>
 <div class="block">Метод, проверяющий является ли переданное значение десятичным числом.</div>
 </td>
 </tr>
-<tr id="i4" class="altColor">
+<tr id="i6" class="altColor">
 <td class="colFirst"><code>boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMoneyField.html#isValid--">isValid</a></span>()</code>
 <div class="block">Проверяет, содержит ли поле допустимое значение.</div>
 </td>
 </tr>
-<tr id="i5" class="rowColor">
+<tr id="i7" class="rowColor">
 <td class="colFirst"><code>protected boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMoneyField.html#keyPressEventHandler-com.google.gwt.event.dom.client.DomEvent-">keyPressEventHandler</a></span>(com.google.gwt.event.dom.client.DomEvent&lt;?&gt;&nbsp;event)</code>
 <div class="block">Обработка события ввода символов в поле.</div>
 </td>
 </tr>
-<tr id="i6" class="altColor">
+<tr id="i8" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMoneyField.html#setGroupingSeparator-java.lang.String-">setGroupingSeparator</a></span>(java.lang.String&nbsp;groupingSeparator)</code>
 <div class="block">Установка разделителя разрядов</div>
 </td>
 </tr>
-<tr id="i7" class="rowColor">
+<tr id="i9" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMoneyField.html#setMaxNumberCharactersAfterDecimalSeparator-java.lang.Integer-">setMaxNumberCharactersAfterDecimalSeparator</a></span>(java.lang.Integer&nbsp;maxNumberCharactersAfterDecimalSeparator)</code>
 <div class="block">Установка количества разрешенных для ввода символов после точки</div>
 </td>
 </tr>
-<tr id="i8" class="altColor">
+<tr id="i10" class="altColor">
 <td class="colFirst"><code>protected void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMoneyField.html#setViewValue-java.lang.Object-">setViewValue</a></span>(java.lang.Object&nbsp;value)</code>
 <div class="block">Установка значения для карты Просмотра.</div>
@@ -332,7 +350,7 @@ extends <a href="../../../../../../../../com/technology/jep/jepria/client/widget
 <!--   -->
 </a>
 <h3>Methods inherited from class&nbsp;com.technology.jep.jepria.client.widget.field.multistate.<a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html" title="class in com.technology.jep.jepria.client.widget.field.multistate">JepMultiStateField</a></h3>
-<code><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#addViewCard--">addViewCard</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#changeWorkstate-com.technology.jep.jepria.client.ui.WorkstateEnum-">changeWorkstate</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#clearInvalid--">clearInvalid</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#clearView--">clearView</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#getEditableCard--">getEditableCard</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#getFieldLabel--">getFieldLabel</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#getInputElement--">getInputElement</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#getListeners-com.technology.jep.jepria.client.widget.event.JepEventType-">getListeners</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#getMainWidget--">getMainWidget</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#getRawValue--">getRawValue</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#getViewCard--">getViewCard</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#getWebId--">getWebId</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#getWidgetIndex-com.google.gwt.user.client.ui.Widget-">getWidgetIndex</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#markInvalid-java.lang.String-">markInvalid</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#notifyListeners-com.technology.jep.jepria.client.widget.event.JepEventType-com.technology.jep.jepria.client.widget.event.JepEvent-">notifyListeners</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#onChangeWorkstate-com.technology.jep.jepria.client.ui.WorkstateEnum-">onChangeWorkstate</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#prepareStyleLabel-java.lang.Integer-">prepareStyleLabel</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#removeListener-com.technology.jep.jepria.client.widget.event.JepEventType-com.technology.jep.jepria.client.widget.event.JepListener-">removeListener</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#removeMarginsAndPaddings-com.google.gwt.dom.client.Element-">removeMarginsAndPaddings</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#setAllowBlank-boolean-">setAllowBlank</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#setEditable-boolean-">setEditable</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#setFieldHeight-int-">setFieldHeight</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#setFieldLabel-java.lang.String-">setFieldLabel</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#setFieldWidth-int-">setFieldWidth</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#setLabelSeparator-java.lang.String-">setLabelSeparator</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#setLabelWidth-int-">setLabelWidth</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#setLoadingImage-boolean-">setLoadingImage</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#setWebId-java.lang.String-">setWebId</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#setWebIds--">setWebIds</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#showWidget-int-">showWidget</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#turnOnHorizontalOrientedPanel--">turnOnHorizontalOrientedPanel</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#turnOnVerticalOrientedPanel--">turnOnVerticalOrientedPanel</a></code></li>
+<code><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#addViewCard--">addViewCard</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#changeWorkstate-com.technology.jep.jepria.client.ui.WorkstateEnum-">changeWorkstate</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#clearInvalid--">clearInvalid</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#clearView--">clearView</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#getEditableCard--">getEditableCard</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#getFieldLabel--">getFieldLabel</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#getInputElement--">getInputElement</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#getListeners-com.technology.jep.jepria.client.widget.event.JepEventType-">getListeners</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#getMainWidget--">getMainWidget</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#getViewCard--">getViewCard</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#getWebId--">getWebId</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#getWidgetIndex-com.google.gwt.user.client.ui.Widget-">getWidgetIndex</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#markInvalid-java.lang.String-">markInvalid</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#notifyListeners-com.technology.jep.jepria.client.widget.event.JepEventType-com.technology.jep.jepria.client.widget.event.JepEvent-">notifyListeners</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#onChangeWorkstate-com.technology.jep.jepria.client.ui.WorkstateEnum-">onChangeWorkstate</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#prepareStyleLabel-java.lang.Integer-">prepareStyleLabel</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#removeListener-com.technology.jep.jepria.client.widget.event.JepEventType-com.technology.jep.jepria.client.widget.event.JepListener-">removeListener</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#removeMarginsAndPaddings-com.google.gwt.dom.client.Element-">removeMarginsAndPaddings</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#setAllowBlank-boolean-">setAllowBlank</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#setEditable-boolean-">setEditable</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#setFieldHeight-int-">setFieldHeight</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#setFieldLabel-java.lang.String-">setFieldLabel</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#setFieldWidth-int-">setFieldWidth</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#setLabelSeparator-java.lang.String-">setLabelSeparator</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#setLabelWidth-int-">setLabelWidth</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#setLoadingImage-boolean-">setLoadingImage</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#setWebId-java.lang.String-">setWebId</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#setWebIds--">setWebIds</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#showWidget-int-">showWidget</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#turnOnHorizontalOrientedPanel--">turnOnHorizontalOrientedPanel</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#turnOnVerticalOrientedPanel--">turnOnVerticalOrientedPanel</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#wrapDiv-com.google.gwt.user.client.ui.Widget-">wrapDiv</a></code></li>
 </ul>
 <ul class="blockList">
 <li class="blockList"><a name="methods.inherited.from.class.com.google.gwt.user.client.ui.Composite">
@@ -379,11 +397,37 @@ extends <a href="../../../../../../../../com/technology/jep/jepria/client/widget
 <a name="maxNumberCharactersAfterDecimalSeparator">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>maxNumberCharactersAfterDecimalSeparator</h4>
 <pre>private&nbsp;java.lang.Integer maxNumberCharactersAfterDecimalSeparator</pre>
 <div class="block">Количество символов, разрешенных для ввода после разделителя разрядов (по умолчанию, 2)</div>
+</li>
+</ul>
+<a name="MARKER_SYMBOL">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>MARKER_SYMBOL</h4>
+<pre>final&nbsp;char MARKER_SYMBOL</pre>
+<dl>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><a href="../../../../../../../../constant-values.html#com.technology.jep.jepria.client.widget.field.multistate.JepMoneyField.MARKER_SYMBOL">Constant Field Values</a></dd>
+</dl>
+</li>
+</ul>
+<a name="DECIMAL_RANK_SEPARATOR">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>DECIMAL_RANK_SEPARATOR</h4>
+<pre>final&nbsp;char DECIMAL_RANK_SEPARATOR</pre>
+<dl>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><a href="../../../../../../../../constant-values.html#com.technology.jep.jepria.client.widget.field.multistate.JepMoneyField.DECIMAL_RANK_SEPARATOR">Constant Field Values</a></dd>
+</dl>
 </li>
 </ul>
 </li>
@@ -538,6 +582,32 @@ extends <a href="../../../../../../../../com/technology/jep/jepria/client/widget
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>true - если ввод символов не был отменен, иначе - прерван</dd>
 </dl>
+</li>
+</ul>
+<a name="getRawValue--">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getRawValue</h4>
+<pre>public&nbsp;java.lang.String&nbsp;getRawValue()</pre>
+<div class="block"><span class="descfrmTypeLabel">Description copied from class:&nbsp;<code><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#getRawValue--">JepMultiStateField</a></code></span></div>
+<div class="block">Получение значения компонента из DOM-дерева документа.</div>
+<dl>
+<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
+<dd><code><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#getRawValue--">getRawValue</a></code>&nbsp;in class&nbsp;<code><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html" title="class in com.technology.jep.jepria.client.widget.field.multistate">JepMultiStateField</a>&lt;<a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/BigDecimalBox.html" title="class in com.technology.jep.jepria.client.widget.field">BigDecimalBox</a>,com.google.gwt.user.client.ui.HTML&gt;</code></dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>возвращаемое значение</dd>
+</dl>
+</li>
+</ul>
+<a name="getRawValueWithSeparatorRanks--">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getRawValueWithSeparatorRanks</h4>
+<pre>public&nbsp;java.lang.String&nbsp;getRawValueWithSeparatorRanks()</pre>
 </li>
 </ul>
 <a name="isValid--">
