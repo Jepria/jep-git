@@ -100,7 +100,8 @@ public class FileContextValidator extends Validator {
       List<File> filesForValidation, 
       MessageCollector validationMessageCollector,
       boolean transform,
-      MessageCollector transformMessageCollector) {
+      MessageCollector transformMessageCollector,
+      ProgressCallback progressCallback) {
     
     if (rootDir == null || !rootDir.isDirectory()) {
       throw new IllegalStateException("A rootDir ["+rootDir+"] does not represent an existing directory");
@@ -114,15 +115,42 @@ public class FileContextValidator extends Validator {
     
     if (!transform) {
       resourcesForValidation = collectResources(filesForValidation);
+      
+      
+      if (progressCallback != null) {
+        progressCallback.setTotal(resourcesForValidation.size() * rules.size());
+        progressCallback.initialize();
+      }
+      
+      
       validateInContext(
           rules,
           resourcesForValidation,
-          validationMessageCollector);
+          validationMessageCollector,
+          progressCallback);
     } else {
+      
+      boolean progressCallbackInitialized = false;
+      
       for (ValidatorRule rule: rules) {
         // refill the list on each iteration!
         resourcesForValidation = collectResources(filesForValidation);
-        validateUnderRule(rule, resourcesForValidation, validationMessageCollector, true, transformMessageCollector);
+        
+        
+        // initialize progress callback at the first pass
+        if (progressCallback != null && !progressCallbackInitialized) {
+          progressCallback.setTotal(resourcesForValidation.size() * rules.size());
+          progressCallback.initialize();
+          progressCallbackInitialized = true;
+        }
+        
+        
+        validateUnderRule(rule,
+            resourcesForValidation, 
+            validationMessageCollector, 
+            true, 
+            transformMessageCollector, 
+            progressCallback);
       }
     }
   }
@@ -240,12 +268,13 @@ public class FileContextValidator extends Validator {
   
   @Override
   public void validateUnderRule(ValidatorRule rule, List<Resource> resourcesForValidation,
-      MessageCollector validationMessageCollector, boolean transform, MessageCollector transformMessageCollector) {
+      MessageCollector validationMessageCollector, boolean transform, MessageCollector transformMessageCollector,
+      ProgressCallback progressCallback) {
     
     deferredContextWrites.clear();
     
     super.validateUnderRule(rule, resourcesForValidation, validationMessageCollector, transform,
-        transformMessageCollector);
+        transformMessageCollector, progressCallback);
     
     // Осуществим накопленные отложенные записи контекста
     for (DeferredWrite contextWriting: deferredContextWrites) {

@@ -155,6 +155,12 @@ extends java.lang.Object</pre>
 <div class="block">Обработчик валидационных сообщений, перенаправляющий их в <a href="../../../../../org/jepria/validator/core/base/MessageCollector.html" title="interface in org.jepria.validator.core.base"><code>MessageCollector</code></a></div>
 </td>
 </tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static class&nbsp;</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/jepria/validator/core/base/Validator.ProgressCallback.html" title="class in org.jepria.validator.core.base">Validator.ProgressCallback</a></span></code>
+<div class="block">Класс, реализующий обратную связь для сообщения о прогрессе.</div>
+</td>
+</tr>
 </table>
 </li>
 </ul>
@@ -247,19 +253,21 @@ extends java.lang.Object</pre>
 </tr>
 <tr id="i6" class="altColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/jepria/validator/core/base/Validator.html#validateInContext-java.util.List-java.util.List-org.jepria.validator.core.base.MessageCollector-">validateInContext</a></span>(java.util.List&lt;<a href="../../../../../org/jepria/validator/core/base/ValidatorRule.html" title="class in org.jepria.validator.core.base">ValidatorRule</a>&gt;&nbsp;rules,
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/jepria/validator/core/base/Validator.html#validateInContext-java.util.List-java.util.List-org.jepria.validator.core.base.MessageCollector-org.jepria.validator.core.base.Validator.ProgressCallback-">validateInContext</a></span>(java.util.List&lt;<a href="../../../../../org/jepria/validator/core/base/ValidatorRule.html" title="class in org.jepria.validator.core.base">ValidatorRule</a>&gt;&nbsp;rules,
                  java.util.List&lt;<a href="../../../../../org/jepria/validator/core/base/resource/Resource.html" title="interface in org.jepria.validator.core.base.resource">Resource</a>&gt;&nbsp;resourcesForValidation,
-                 <a href="../../../../../org/jepria/validator/core/base/MessageCollector.html" title="interface in org.jepria.validator.core.base">MessageCollector</a>&nbsp;validationMessageCollector)</code>
+                 <a href="../../../../../org/jepria/validator/core/base/MessageCollector.html" title="interface in org.jepria.validator.core.base">MessageCollector</a>&nbsp;validationMessageCollector,
+                 <a href="../../../../../org/jepria/validator/core/base/Validator.ProgressCallback.html" title="class in org.jepria.validator.core.base">Validator.ProgressCallback</a>&nbsp;progressCallback)</code>
 <div class="block">Метод, запускающий в контексте (во множестве ресурсов) валидацию подмножества ресурсов, набором валидационных правил.</div>
 </td>
 </tr>
 <tr id="i7" class="rowColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/jepria/validator/core/base/Validator.html#validateUnderRule-org.jepria.validator.core.base.ValidatorRule-java.util.List-org.jepria.validator.core.base.MessageCollector-boolean-org.jepria.validator.core.base.MessageCollector-">validateUnderRule</a></span>(<a href="../../../../../org/jepria/validator/core/base/ValidatorRule.html" title="class in org.jepria.validator.core.base">ValidatorRule</a>&nbsp;rule,
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/jepria/validator/core/base/Validator.html#validateUnderRule-org.jepria.validator.core.base.ValidatorRule-java.util.List-org.jepria.validator.core.base.MessageCollector-boolean-org.jepria.validator.core.base.MessageCollector-org.jepria.validator.core.base.Validator.ProgressCallback-">validateUnderRule</a></span>(<a href="../../../../../org/jepria/validator/core/base/ValidatorRule.html" title="class in org.jepria.validator.core.base">ValidatorRule</a>&nbsp;rule,
                  java.util.List&lt;<a href="../../../../../org/jepria/validator/core/base/resource/Resource.html" title="interface in org.jepria.validator.core.base.resource">Resource</a>&gt;&nbsp;resourcesForValidation,
                  <a href="../../../../../org/jepria/validator/core/base/MessageCollector.html" title="interface in org.jepria.validator.core.base">MessageCollector</a>&nbsp;validationMessageCollector,
                  boolean&nbsp;transform,
-                 <a href="../../../../../org/jepria/validator/core/base/MessageCollector.html" title="interface in org.jepria.validator.core.base">MessageCollector</a>&nbsp;transformMessageCollector)</code>
+                 <a href="../../../../../org/jepria/validator/core/base/MessageCollector.html" title="interface in org.jepria.validator.core.base">MessageCollector</a>&nbsp;transformMessageCollector,
+                 <a href="../../../../../org/jepria/validator/core/base/Validator.ProgressCallback.html" title="class in org.jepria.validator.core.base">Validator.ProgressCallback</a>&nbsp;progressCallback)</code>
 <div class="block">Последовательно валидирует набор ресурсов по валидационному правилу</div>
 </td>
 </tr>
@@ -368,7 +376,7 @@ extends java.lang.Object</pre>
  Предоставленный адаптер недоступен в прикладных валидационных правилах</div>
 </li>
 </ul>
-<a name="validateInContext-java.util.List-java.util.List-org.jepria.validator.core.base.MessageCollector-">
+<a name="validateInContext-java.util.List-java.util.List-org.jepria.validator.core.base.MessageCollector-org.jepria.validator.core.base.Validator.ProgressCallback-">
 <!--   -->
 </a>
 <ul class="blockList">
@@ -376,23 +384,26 @@ extends java.lang.Object</pre>
 <h4>validateInContext</h4>
 <pre>public&nbsp;void&nbsp;validateInContext(java.util.List&lt;<a href="../../../../../org/jepria/validator/core/base/ValidatorRule.html" title="class in org.jepria.validator.core.base">ValidatorRule</a>&gt;&nbsp;rules,
                               java.util.List&lt;<a href="../../../../../org/jepria/validator/core/base/resource/Resource.html" title="interface in org.jepria.validator.core.base.resource">Resource</a>&gt;&nbsp;resourcesForValidation,
-                              <a href="../../../../../org/jepria/validator/core/base/MessageCollector.html" title="interface in org.jepria.validator.core.base">MessageCollector</a>&nbsp;validationMessageCollector)</pre>
+                              <a href="../../../../../org/jepria/validator/core/base/MessageCollector.html" title="interface in org.jepria.validator.core.base">MessageCollector</a>&nbsp;validationMessageCollector,
+                              <a href="../../../../../org/jepria/validator/core/base/Validator.ProgressCallback.html" title="class in org.jepria.validator.core.base">Validator.ProgressCallback</a>&nbsp;progressCallback)</pre>
 <div class="block">Метод, запускающий в контексте (во множестве ресурсов) валидацию подмножества ресурсов, набором валидационных правил.
  Последовательно валидирует набор ресурсов на каждом валидационном правиле.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>rules</code> - набор правил. Если <code>null</code> или список пуст, метод завершается. Валидация проходит по порядку правил, определенному данным списком</dd>
 <dd><code>resourcesForValidation</code> - множество ресурсов для валидации. Если <code>null</code> или список пуст, метод завершается</dd>
-<dd><code>validationMessageCollector</code> - сборщик сообщений при валидации (или <code>null</code>)
+<dd><code>validationMessageCollector</code> - сборщик сообщений при валидации (или <code>null</code>)</dd>
+<dd><code>progressCallback</code> - обратная связь для сообщения о прогрессе валидации, или null
+ 
  Если <code>null</code>, то подставляется сборщик по умолчанию <a href="../../../../../org/jepria/validator/core/base/MessageCollector.html#DUMMY"><code>MessageCollector.DUMMY</code></a>
  <br><br>
  <i>
- Трансформация ресурсов невозможна при запуске валидации на множестве правил. Для трансформации см. <a href="../../../../../org/jepria/validator/core/base/Validator.html#validateUnderRule-org.jepria.validator.core.base.ValidatorRule-java.util.List-org.jepria.validator.core.base.MessageCollector-boolean-org.jepria.validator.core.base.MessageCollector-"><code>validateUnderRule(org.jepria.validator.core.base.ValidatorRule, java.util.List&lt;org.jepria.validator.core.base.resource.Resource&gt;, org.jepria.validator.core.base.MessageCollector, boolean, org.jepria.validator.core.base.MessageCollector)</code></a>
+ Трансформация ресурсов невозможна при запуске валидации на множестве правил. Для трансформации см. <a href="../../../../../org/jepria/validator/core/base/Validator.html#validateUnderRule-org.jepria.validator.core.base.ValidatorRule-java.util.List-org.jepria.validator.core.base.MessageCollector-boolean-org.jepria.validator.core.base.MessageCollector-org.jepria.validator.core.base.Validator.ProgressCallback-"><code>validateUnderRule(org.jepria.validator.core.base.ValidatorRule, java.util.List&lt;org.jepria.validator.core.base.resource.Resource&gt;, org.jepria.validator.core.base.MessageCollector, boolean, org.jepria.validator.core.base.MessageCollector, org.jepria.validator.core.base.Validator.ProgressCallback)</code></a>
  </i></dd>
 </dl>
 </li>
 </ul>
-<a name="validateUnderRule-org.jepria.validator.core.base.ValidatorRule-java.util.List-org.jepria.validator.core.base.MessageCollector-boolean-org.jepria.validator.core.base.MessageCollector-">
+<a name="validateUnderRule-org.jepria.validator.core.base.ValidatorRule-java.util.List-org.jepria.validator.core.base.MessageCollector-boolean-org.jepria.validator.core.base.MessageCollector-org.jepria.validator.core.base.Validator.ProgressCallback-">
 <!--   -->
 </a>
 <ul class="blockList">
@@ -402,7 +413,8 @@ extends java.lang.Object</pre>
                               java.util.List&lt;<a href="../../../../../org/jepria/validator/core/base/resource/Resource.html" title="interface in org.jepria.validator.core.base.resource">Resource</a>&gt;&nbsp;resourcesForValidation,
                               <a href="../../../../../org/jepria/validator/core/base/MessageCollector.html" title="interface in org.jepria.validator.core.base">MessageCollector</a>&nbsp;validationMessageCollector,
                               boolean&nbsp;transform,
-                              <a href="../../../../../org/jepria/validator/core/base/MessageCollector.html" title="interface in org.jepria.validator.core.base">MessageCollector</a>&nbsp;transformMessageCollector)</pre>
+                              <a href="../../../../../org/jepria/validator/core/base/MessageCollector.html" title="interface in org.jepria.validator.core.base">MessageCollector</a>&nbsp;transformMessageCollector,
+                              <a href="../../../../../org/jepria/validator/core/base/Validator.ProgressCallback.html" title="class in org.jepria.validator.core.base">Validator.ProgressCallback</a>&nbsp;progressCallback)</pre>
 <div class="block">Последовательно валидирует набор ресурсов по валидационному правилу</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -410,8 +422,8 @@ extends java.lang.Object</pre>
 <dd><code>resourcesForValidation</code> - множество ресурсов для валидации. Если <code>null</code> или список пуст, метод завершается.</dd>
 <dd><code>validationMessageCollector</code> - сборщик сообщений при валидации (или <code>null</code>)</dd>
 <dd><code>transform</code> - <code>true</code> если требуется рефакторинг переданных ресурсов, <code>false</code> если только валидация</dd>
-<dd><code>transformMessageCollector</code> - сборщик сообщений при рефакторинге (или <code>null</code>). Используется только если <code>transform true</code>
- <br><br>
+<dd><code>transformMessageCollector</code> - сборщик сообщений при рефакторинге (или <code>null</code>). Используется только если <code>transform true</code></dd>
+<dd><code>progressCallback</code> - <br><br>
  <i>
  <b>Конвенция:</b> Ресурсы из множества должны валидироваться одним и тем же правилом независимо друг от друга,
  поэтому нельзя основывать реализацию валидационного правила на порядок ресурсов в списке.
