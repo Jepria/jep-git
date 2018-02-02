@@ -56,6 +56,7 @@ public class AutoLogonServlet extends HttpServlet {
     
     // if the user was authorized, execute logout before login procedure
     if (request.getUserPrincipal() != null){
+      request.getSession().invalidate();
       request.logout();
     }
     try {
