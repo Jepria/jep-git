@@ -770,7 +770,12 @@ public class ComboBox<T extends JepOption> extends Composite
       }
       
       Style popupStyle = getPopupPanel().getElement().getStyle();
-      popupStyle.setPropertyPx("left", suggestBox.getAbsoluteLeft() - 3);
+      
+      // TODO удалить когда баг Chrome будет пофикшен
+      // Временный обход бага: некорректное позиционирование выпадающего списка опций Combobox в Chrome
+      int shiftLeft_chromeFix = isChrome() ? Window.getScrollLeft() : 0;
+      
+      popupStyle.setPropertyPx("left", suggestBox.getAbsoluteLeft() - 3 + shiftLeft_chromeFix);
     }
 
     @SuppressWarnings("unchecked")
@@ -950,7 +955,11 @@ public class ComboBox<T extends JepOption> extends Composite
         top += relativeObject.getOffsetHeight();
       }
 
-      getPopupPanel().setPopupPosition(left, top);
+      // TODO удалить когда баг Chrome будет пофикшен
+      // Временный обход бага: некорректное позиционирование выпадающего списка опций Combobox в Chrome
+      int shiftTop_chromeFix = isChrome() ? Window.getScrollTop() : 0;
+      
+      getPopupPanel().setPopupPosition(left, top + shiftTop_chromeFix);
     }
     
     @Override
@@ -1035,6 +1044,15 @@ public class ComboBox<T extends JepOption> extends Composite
       getPopupPanel().getElement().setId(id);
     }
   }
+  
+  /**
+   * TODO удалить когда баг Chrome будет пофикшен
+   * 
+   * Временный обход бага: некорректное позиционирование выпадающего списка опций Combobox в Chrome 
+   */
+  private native boolean isChrome() /*-{
+    return /Chrome/.test(navigator.userAgent);
+  }-*/;
   
   /**
    * Меню опции выпадающего списка. Добавлен для возможности кастомизации стилевого оформления стилей. 
