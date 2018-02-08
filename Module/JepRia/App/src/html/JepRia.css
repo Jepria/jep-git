@@ -342,7 +342,7 @@ input[type=text]::-ms-clear {
 }
 
 /* Центральный блок в контейнере */
-.jepRia-fullScreenContainer__center {
+.jepRia-fullScreenContainerCenter {
   position: relative;
   display: inline-block;
   
@@ -364,7 +364,7 @@ input[type=text]::-ms-clear {
   
   padding: 8px;
 }
-.jepRia-loadingProgress__img {
+.jepRia-loadingProgressImg {
   margin-right: 8px; /* equals parent padding */
   float: left;
 }

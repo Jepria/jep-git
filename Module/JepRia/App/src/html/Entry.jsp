@@ -75,14 +75,14 @@ if (appTitle == null) {
     </div>
 
     <div id="loadingProgress" class="jepRia-fullScreenContainer">
-      <div class="jepRia-fullScreenContainer__center jepRia-loadingProgress">
-        <img class="jepRia-loadingProgress__img" src="images/loading.gif" width="32" height="32" alt="Loading..."/>
-        <div>
-          <p>
-            <span id="loadingHeader"><%= appTitle %></span>
-          </p>
-          <span id="loadingMessage" class="jepRia-loadingMessage"><%= jepRiaText.getString("loadingMessage") %></span>
-        </div>
+      <div class="jepRia-fullScreenContainerCenter jepRia-loadingProgress">
+          <img class="jepRia-loadingProgressImg" src="images/loading.gif" width="32" height="32" alt="Loading..."/>
+            <div>
+              <p>
+                <span id="loadingHeader"><%= appTitle %></span>
+              </p>
+            <span id="loadingMessage" class="jepRia-loadingMessage"><%= jepRiaText.getString("loadingMessage") %></span>
+          </div>
       </div>
     </div>
 
