@@ -770,7 +770,7 @@ public class ComboBox<T extends JepOption> extends Composite
       }
       
       Style popupStyle = getPopupPanel().getElement().getStyle();
-      popupStyle.setPropertyPx("left", suggestBox.getAbsoluteLeft() - 3);
+      popupStyle.setPropertyPx("left", suggestBox.getAbsoluteLeft() + Window.getScrollLeft() - 3);
     }
 
     @SuppressWarnings("unchecked")
@@ -950,7 +950,7 @@ public class ComboBox<T extends JepOption> extends Composite
         top += relativeObject.getOffsetHeight();
       }
 
-      getPopupPanel().setPopupPosition(left, top);
+      getPopupPanel().setPopupPosition(left, top + windowTop);
     }
     
     @Override
