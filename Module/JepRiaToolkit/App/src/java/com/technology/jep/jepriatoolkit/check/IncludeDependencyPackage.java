@@ -16,7 +16,7 @@ import com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil;
 /**
  * Таск, копирующий файл с пакетом зависимостей из указанной библиотеки в текущую папку (рядом с build.xml)
  */
-public class IncludeSystemDependency extends StaticTask {
+public class IncludeDependencyPackage extends StaticTask {
   
   /**
    * Путь к jar-файлу с зависимостями
