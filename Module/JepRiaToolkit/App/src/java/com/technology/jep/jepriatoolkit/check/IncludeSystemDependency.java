@@ -9,35 +9,29 @@ import java.util.jar.JarFile;
 import java.util.zip.ZipEntry;
 
 import org.apache.tools.ant.BuildException;
-import org.apache.tools.ant.PropertyHelper;
-import org.apache.tools.ant.Task;
 
+import com.technology.jep.jepriatoolkit.ant.StaticTask;
 import com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil;
 
 /**
- * Таск, копирующий файл с системными зависимостями из библиотеки jepria-dependency.jar в текущую папку (рядом с build.xml)
+ * Таск, копирующий файл с пакетом зависимостей из указанной библиотеки в текущую папку (рядом с build.xml)
  */
-public class IncludeSystemDependency extends Task {
+public class IncludeSystemDependency extends StaticTask {
   
   /**
-   * Имя свойства-флага, отвечающего за однократное подключение системных зависимостей (действие распространяется на один запуск ant) 
-   */
-  public static final String ALREADY_INCLUDED_PROPERTY_NAME = "system-dependency-included";
-  
-  /**
-   * Путь к библиотеке jepria-dependency.jar, задаваемый в прикладном dependency.properties файле
+   * Путь к jar-файлу с зависимостями
    */
   private String libPath;
   
   /**
-   * Имя файла, содержащего системные зависимости, внутри jar-библиотеки
+   * Имя файла, содержащего пакет зависимостей, внутри jar-библиотеки
    */
   private String sourceFilename = "dependency.properties";
   
   /**
    * Имя файла в текущей директории (App), под которым распакуется файл с ситемными зависимостями из библиотеки
    */
-  private String destFilename = "dependency-jepria.properties";
+  private String destFilename;
   
   
   public void setLibPath(String libPath) {
@@ -52,63 +46,52 @@ public class IncludeSystemDependency extends Task {
     this.destFilename = destFilename;
   }
   
+  private static void fail(String msg) {
+    JepRiaToolkitUtil.echoMessage("FAIL: " + msg);
+    throw new BuildException(msg);
+  }
+  
   @Override
-  public void execute() throws BuildException {
-    
-    if (isFirstExecution()) {
-      
-      includeSystemDependency();
-      firstExecutionComplete();
-      
-    } else {
-      // System dependency has already been included
+  protected String getExecutionId() {
+    return libPath;
+  }
+  
+  @Override
+  protected void executeStatic() throws BuildException {
+    // check mandatory attributes
+    if (libPath == null) {
+      fail("libPath attribute is mandatory");
     }
-  }
-  
-  /**
-   * Проверяет свойство-флаг, отвечающий за однократное подключение системных зависимостей
-   * @return true если цель вызывается из ant впервые, иначе false
-   */
-  private boolean isFirstExecution() {
-    return PropertyHelper.getPropertyHelper(getProject()).getProperty(ALREADY_INCLUDED_PROPERTY_NAME) == null;
-  }
-
-  /**
-   *  Устанавливает свойство-флаг для обеспечения однократного подключения системных зависимостей
-   */
-  private void firstExecutionComplete() {
-    PropertyHelper.getPropertyHelper(getProject()).setProperty(ALREADY_INCLUDED_PROPERTY_NAME, "true", true);
-  }
-  
-  /**
-   * Собственно тело цели
-   */
-  private void includeSystemDependency() {
+    if (destFilename == null) {
+      fail("destFilename attribute is mandatory");
+    }
+    //
     
-    JepRiaToolkitUtil.echoMessage("Including system dependency...");
-  
-    File systemDependencyLibFile = new File(libPath);
     
-    if (!systemDependencyLibFile.exists()) {
-      JepRiaToolkitUtil.echoMessage("Library not found: " + libPath);
-      return;
+    File packageLibFile = new File(libPath);
+    
+    final String libFilename = packageLibFile.getName();
+    
+    JepRiaToolkitUtil.echoMessage("Including dependency package: " + libFilename);
+    
+    if (!packageLibFile.exists()) {
+      fail("File not found: " + libPath);
     }
     
-    try (JarFile systemDependencyLibJar = new JarFile(systemDependencyLibFile)) {
-      ZipEntry entry = systemDependencyLibJar.getEntry(sourceFilename);
+    try (JarFile packageLibJar = new JarFile(packageLibFile)) {
+      ZipEntry entry = packageLibJar.getEntry(sourceFilename);
       
       if (entry == null) {
-        JepRiaToolkitUtil.echoMessage("No file '" + sourceFilename + "' found in the library");
-        return;
+        fail("No file '" + sourceFilename + "' found in the library");
       }
-        
+      
       File destFile = new File(destFilename);
       if (destFile.exists()) {
         JepRiaToolkitUtil.echoMessage("The existing file '" + destFilename + "' will be replaced");
       }
       
       // Распакуем файл
-      InputStream is = systemDependencyLibJar.getInputStream(entry);
+      InputStream is = packageLibJar.getInputStream(entry);
       OutputStream os = new FileOutputStream(destFile);
       
       byte[] buffer = new byte[1024];
@@ -120,7 +103,7 @@ public class IncludeSystemDependency extends Task {
       os.close();
       is.close();
       
-      JepRiaToolkitUtil.echoMessage("System dependency including succeeded");
+      JepRiaToolkitUtil.echoMessage("Dependency package including succeeded");
       
     } catch (IOException e) {
       e.printStackTrace();
