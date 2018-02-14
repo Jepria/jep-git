@@ -804,3 +804,8 @@ img {
 .jepRia-hPanelStyle {
     display: inline-flex;
 }
+
+.jepRia-AutoHeight {
+	min-height:20px; 
+	height:100%;
+}

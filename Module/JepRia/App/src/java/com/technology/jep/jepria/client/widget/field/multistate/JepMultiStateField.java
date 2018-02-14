@@ -168,6 +168,11 @@ public abstract class JepMultiStateField<E extends Widget, V extends Widget> ext
 	 * Наименование селектора (класса стилей) текстовой области ввода.
 	 */
 	public static final String FIELD_INDICATOR_STYLE = "jepRia-Field-Icon";
+	
+	/*
+	 * автоматический расчет высоты поля и лайбла в зависимости от наполнения определяется в стиле - мин размер 2-px
+	 */
+	public static final String FIELD_AUTO_HEIGTH_STYLE = "jepRia-AutoHeight";
 
 	/**
 	 * Наименование селектора (класса стилей) меток карт редактирования и просмотра.
@@ -534,6 +539,7 @@ public abstract class JepMultiStateField<E extends Widget, V extends Widget> ext
 		editableCard.setWidth(fieldWidth + Unit.PX.getType());
 	}
 
+	
 	/**
 	 * Установка высоты поля.<br>
 	 * По умолчанию методы выставляет высоту как для компонента редактирования,
@@ -543,13 +549,25 @@ public abstract class JepMultiStateField<E extends Widget, V extends Widget> ext
 	 * @param fieldHeight высота
 	 */
 	public void setFieldHeight(int fieldHeight) {
-		String height = fieldHeight + Unit.PX.getType();
-		// Инициализируем высоту карты редактирования.
-		editableCard.setHeight(height);
-		// Инициализируем высоту карты просмотра.
-		viewCardLabel.setHeight(height);
-		viewCard.setHeight(height);
+	    if (fieldHeight == FIELD_DEFAULT_HEIGHT) {
+	        setFieldAutoHeight();
+	    } else {
+	        String height = "" + fieldHeight + Unit.PX;
+	        // Инициализируем высоту карты редактирования.
+	        editableCard.setHeight(height);
+	        // Инициализируем высоту карты просмотра.
+	        viewCardLabel.setHeight(height);
+	        viewCard.setHeight(height);
+	    }
 	}
+	
+	public void setFieldAutoHeight() {
+	     // Инициализируем высоту карты редактирования.
+	        editableCard.getElement().setClassName(FIELD_AUTO_HEIGTH_STYLE);
+	        // Инициализируем высоту карты просмотра.
+	        viewCardLabel.getElement().setClassName(FIELD_AUTO_HEIGTH_STYLE);
+	        viewCard.getElement().setClassName(FIELD_AUTO_HEIGTH_STYLE);
+	    }
 
 	/**
 	 * Добавление слушателя определенного типа собитий.<br/>
