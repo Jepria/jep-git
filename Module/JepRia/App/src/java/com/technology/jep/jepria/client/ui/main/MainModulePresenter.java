@@ -233,7 +233,7 @@ public abstract class MainModulePresenter<V extends MainView, E extends MainEven
     return isProtectedModuleVisible ? scope.getModuleIds() : getAccessibleModules(scope).toArray(new String[0]);
   }
 
-  private Set<String> getAccessibleModules(JepScope scope) {
+  protected Set<String> getAccessibleModules(JepScope scope) {
     Set<String> accessibleModules = new HashSet<String>();
     String[] modules = scope.getModuleIds();
     for (int i = 0; i < modules.length; i++) {
