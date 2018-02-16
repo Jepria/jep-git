@@ -18,7 +18,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":10,"i1":10,"i2":9,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10};
+var methods = {"i0":10,"i1":10,"i2":9,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10};
 var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -105,7 +105,12 @@ var activeTableTab = "activeTableTab";
 <li>org.apache.tools.ant.Task</li>
 <li>
 <ul class="inheritance">
+<li><a href="../../../../../com/technology/jep/jepriatoolkit/ant/StaticTask.html" title="class in com.technology.jep.jepriatoolkit.ant">com.technology.jep.jepriatoolkit.ant.StaticTask</a></li>
+<li>
+<ul class="inheritance">
 <li>com.technology.jep.jepriatoolkit.switcher.BuildConfigSwitcher</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -123,7 +128,7 @@ var activeTableTab = "activeTableTab";
 <hr>
 <br>
 <pre>public class <span class="typeNameLabel">BuildConfigSwitcher</span>
-extends org.apache.tools.ant.Task</pre>
+extends <a href="../../../../../com/technology/jep/jepriatoolkit/ant/StaticTask.html" title="class in com.technology.jep.jepriatoolkit.ant">StaticTask</a></pre>
 </li>
 </ul>
 </div>
@@ -148,33 +153,21 @@ extends org.apache.tools.ant.Task</pre>
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code>private java.lang.String</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/technology/jep/jepriatoolkit/switcher/BuildConfigSwitcher.html#configPath">configPath</a></span></code>&nbsp;</td>
-</tr>
-<tr class="altColor">
-<td class="colFirst"><code>private java.lang.String</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/technology/jep/jepriatoolkit/switcher/BuildConfigSwitcher.html#currentConfig">currentConfig</a></span></code>&nbsp;</td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code>private java.util.List&lt;java.lang.String&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/technology/jep/jepriatoolkit/switcher/BuildConfigSwitcher.html#currentConfigFiles">currentConfigFiles</a></span></code>&nbsp;</td>
 </tr>
-<tr class="altColor">
-<td class="colFirst"><code>private java.lang.String</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/technology/jep/jepriatoolkit/switcher/BuildConfigSwitcher.html#moduleName">moduleName</a></span></code>&nbsp;</td>
-</tr>
 <tr class="rowColor">
-<td class="colFirst"><code>private java.lang.String</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/technology/jep/jepriatoolkit/switcher/BuildConfigSwitcher.html#packageName">packageName</a></span></code>&nbsp;</td>
-</tr>
-<tr class="altColor">
 <td class="colFirst"><code>private java.lang.String</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/technology/jep/jepriatoolkit/switcher/BuildConfigSwitcher.html#targetConfig">targetConfig</a></span></code>&nbsp;</td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code>private java.util.List&lt;java.lang.String&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/technology/jep/jepriatoolkit/switcher/BuildConfigSwitcher.html#targetConfigFiles">targetConfigFiles</a></span></code>&nbsp;</td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code>private java.util.List&lt;java.lang.String&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/technology/jep/jepriatoolkit/switcher/BuildConfigSwitcher.html#updateConfigFiles">updateConfigFiles</a></span></code>&nbsp;</td>
 </tr>
@@ -233,8 +226,8 @@ extends org.apache.tools.ant.Task</pre>
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/technology/jep/jepriatoolkit/switcher/BuildConfigSwitcher.html#execute--">execute</a></span>()</code>
-<div class="block">Основной метод, который выполняет переключение BuildConfig</div>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/technology/jep/jepriatoolkit/switcher/BuildConfigSwitcher.html#executeStatic--">executeStatic</a></span>()</code>
+<div class="block">Реализация тела таска, аналог <code>Task.execute()</code></div>
 </td>
 </tr>
 <tr id="i2" class="altColor">
@@ -242,36 +235,41 @@ extends org.apache.tools.ant.Task</pre>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/technology/jep/jepriatoolkit/switcher/BuildConfigSwitcher.html#getCurrentConfigName--">getCurrentConfigName</a></span>()</code>&nbsp;</td>
 </tr>
 <tr id="i3" class="rowColor">
-<td class="colFirst"><code>private java.util.List&lt;java.lang.String&gt;</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/technology/jep/jepriatoolkit/switcher/BuildConfigSwitcher.html#getFileList-java.lang.String-">getFileList</a></span>(java.lang.String&nbsp;path)</code>&nbsp;</td>
+<td class="colFirst"><code>protected java.lang.String</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/technology/jep/jepriatoolkit/switcher/BuildConfigSwitcher.html#getExecutionId--">getExecutionId</a></span>()</code>
+<div class="block">Определение уникального ID выполнения таска.</div>
+</td>
 </tr>
 <tr id="i4" class="altColor">
 <td class="colFirst"><code>private java.util.List&lt;java.lang.String&gt;</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/technology/jep/jepriatoolkit/switcher/BuildConfigSwitcher.html#loadConfigFileList--">loadConfigFileList</a></span>()</code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/technology/jep/jepriatoolkit/switcher/BuildConfigSwitcher.html#getFileList-java.lang.String-">getFileList</a></span>(java.lang.String&nbsp;path)</code>&nbsp;</td>
 </tr>
 <tr id="i5" class="rowColor">
+<td class="colFirst"><code>private java.util.List&lt;java.lang.String&gt;</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/technology/jep/jepriatoolkit/switcher/BuildConfigSwitcher.html#loadConfigFileList--">loadConfigFileList</a></span>()</code>&nbsp;</td>
+</tr>
+<tr id="i6" class="altColor">
 <td class="colFirst"><code>private void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/technology/jep/jepriatoolkit/switcher/BuildConfigSwitcher.html#printList-java.lang.String-java.util.List-">printList</a></span>(java.lang.String&nbsp;header,
          java.util.List&lt;java.lang.String&gt;&nbsp;stringList)</code>&nbsp;</td>
 </tr>
-<tr id="i6" class="altColor">
+<tr id="i7" class="rowColor">
 <td class="colFirst"><code>private void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/technology/jep/jepriatoolkit/switcher/BuildConfigSwitcher.html#saveConfigFileList-java.lang.String-java.util.List-">saveConfigFileList</a></span>(java.lang.String&nbsp;configName,
                   java.util.List&lt;java.lang.String&gt;&nbsp;fileList)</code>&nbsp;</td>
 </tr>
-<tr id="i7" class="rowColor">
-<td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/technology/jep/jepriatoolkit/switcher/BuildConfigSwitcher.html#setModuleName-java.lang.String-">setModuleName</a></span>(java.lang.String&nbsp;moduleName)</code>&nbsp;</td>
-</tr>
 <tr id="i8" class="altColor">
-<td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/technology/jep/jepriatoolkit/switcher/BuildConfigSwitcher.html#setPackageName-java.lang.String-">setPackageName</a></span>(java.lang.String&nbsp;packageName)</code>&nbsp;</td>
-</tr>
-<tr id="i9" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/technology/jep/jepriatoolkit/switcher/BuildConfigSwitcher.html#setTargetConfig-java.lang.String-">setTargetConfig</a></span>(java.lang.String&nbsp;targetConfig)</code>&nbsp;</td>
 </tr>
 </table>
+<ul class="blockList">
+<li class="blockList"><a name="methods.inherited.from.class.com.technology.jep.jepriatoolkit.ant.StaticTask">
+<!--   -->
+</a>
+<h3>Methods inherited from class&nbsp;com.technology.jep.jepriatoolkit.ant.<a href="../../../../../com/technology/jep/jepriatoolkit/ant/StaticTask.html" title="class in com.technology.jep.jepriatoolkit.ant">StaticTask</a></h3>
+<code><a href="../../../../../com/technology/jep/jepriatoolkit/ant/StaticTask.html#execute--">execute</a>, <a href="../../../../../com/technology/jep/jepriatoolkit/ant/StaticTask.html#isExecuted--">isExecuted</a></code></li>
+</ul>
 <ul class="blockList">
 <li class="blockList"><a name="methods.inherited.from.class.org.apache.tools.ant.Task">
 <!--   -->
@@ -307,24 +305,6 @@ extends org.apache.tools.ant.Task</pre>
 <!--   -->
 </a>
 <h3>Field Detail</h3>
-<a name="packageName">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>packageName</h4>
-<pre>private&nbsp;java.lang.String packageName</pre>
-</li>
-</ul>
-<a name="moduleName">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>moduleName</h4>
-<pre>private&nbsp;java.lang.String moduleName</pre>
-</li>
-</ul>
 <a name="currentConfig">
 <!--   -->
 </a>
@@ -341,15 +321,6 @@ extends org.apache.tools.ant.Task</pre>
 <li class="blockList">
 <h4>targetConfig</h4>
 <pre>private&nbsp;java.lang.String targetConfig</pre>
-</li>
-</ul>
-<a name="configPath">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>configPath</h4>
-<pre>private&nbsp;java.lang.String configPath</pre>
 </li>
 </ul>
 <a name="targetConfigFiles">
@@ -413,18 +384,59 @@ extends org.apache.tools.ant.Task</pre>
 <!--   -->
 </a>
 <h3>Method Detail</h3>
-<a name="execute--">
+<a name="getExecutionId--">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>execute</h4>
-<pre>public&nbsp;void&nbsp;execute()
-             throws org.apache.tools.ant.BuildException</pre>
-<div class="block">Основной метод, который выполняет переключение BuildConfig</div>
+<h4>getExecutionId</h4>
+<pre>protected&nbsp;java.lang.String&nbsp;getExecutionId()</pre>
+<div class="block"><span class="descfrmTypeLabel">Description copied from class:&nbsp;<code><a href="../../../../../com/technology/jep/jepriatoolkit/ant/StaticTask.html#getExecutionId--">StaticTask</a></code></span></div>
+<div class="block">Определение уникального ID выполнения таска.
+ Гарантируется единственность выполнения таска, вызванного статически, по конкретному ID.
+ Имеет смысл возвращать значения некоторых атрибутов, передаваемых при вызове <code>taskdef</code> в <code>build.xml</code>.
+ <br><br>
+ Пример: пусть таск <code>org.jepria.toolkit.StaticEchoTask</code> имеет атрибут <code>message</code>
+ <pre>
+&lt;project&gt;
+  ...
+  &lt;taskdef name="static-echo-task" classname="org.jepria.toolkit.StaticEchoTask"&gt;
+    &lt;classpath&gt;
+      &lt;pathelement location="${JEPRIA-TOOLKIT_LIB}"/&gt;
+    &lt;/classpath&gt;
+  &lt;/taskdef&gt;
+  &lt;static-echo-task message="hello"/&gt;
+  &lt;static-echo-task message="world"/&gt;
+  &lt;static-echo-task message="world"/&gt;
+  ...
+&lt;/project&gt;
+</pre>
+ 
+ В случае если <code>getExecutionId()</code> возвращает значение атрибута <code>message</code>,
+ вызов произойдет два раза (<code>hello</code> и <code>world</code>).
+ В случае если <code>getExecutionId()</code> возвращает константу,
+ вызов произойдет один раз (только <code>hello</code>).
+ В случае если <code>getExecutionId()</code> возвращает всегда разное значение,
+ произойдут все три вызова.</div>
 <dl>
-<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
-<dd><code>execute</code>&nbsp;in class&nbsp;<code>org.apache.tools.ant.Task</code></dd>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="../../../../../com/technology/jep/jepriatoolkit/ant/StaticTask.html#getExecutionId--">getExecutionId</a></code>&nbsp;in class&nbsp;<code><a href="../../../../../com/technology/jep/jepriatoolkit/ant/StaticTask.html" title="class in com.technology.jep.jepriatoolkit.ant">StaticTask</a></code></dd>
+</dl>
+</li>
+</ul>
+<a name="executeStatic--">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>executeStatic</h4>
+<pre>public&nbsp;void&nbsp;executeStatic()
+                   throws org.apache.tools.ant.BuildException</pre>
+<div class="block"><span class="descfrmTypeLabel">Description copied from class:&nbsp;<code><a href="../../../../../com/technology/jep/jepriatoolkit/ant/StaticTask.html#executeStatic--">StaticTask</a></code></span></div>
+<div class="block">Реализация тела таска, аналог <code>Task.execute()</code></div>
+<dl>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="../../../../../com/technology/jep/jepriatoolkit/ant/StaticTask.html#executeStatic--">executeStatic</a></code>&nbsp;in class&nbsp;<code><a href="../../../../../com/technology/jep/jepriatoolkit/ant/StaticTask.html" title="class in com.technology.jep.jepriatoolkit.ant">StaticTask</a></code></dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
 <dd><code>org.apache.tools.ant.BuildException</code></dd>
 </dl>
@@ -481,24 +493,6 @@ extends org.apache.tools.ant.Task</pre>
 <li class="blockList">
 <h4>setTargetConfig</h4>
 <pre>public&nbsp;void&nbsp;setTargetConfig(java.lang.String&nbsp;targetConfig)</pre>
-</li>
-</ul>
-<a name="setPackageName-java.lang.String-">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>setPackageName</h4>
-<pre>public&nbsp;void&nbsp;setPackageName(java.lang.String&nbsp;packageName)</pre>
-</li>
-</ul>
-<a name="setModuleName-java.lang.String-">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>setModuleName</h4>
-<pre>public&nbsp;void&nbsp;setModuleName(java.lang.String&nbsp;moduleName)</pre>
 </li>
 </ul>
 <a name="printList-java.lang.String-java.util.List-">
