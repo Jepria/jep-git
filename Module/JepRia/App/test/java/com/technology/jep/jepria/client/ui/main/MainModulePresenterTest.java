@@ -3,6 +3,7 @@ package com.technology.jep.jepria.client.ui.main;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -15,7 +16,6 @@ import org.powermock.modules.junit4.PowerMockRunner;
 import org.powermock.reflect.internal.WhiteboxImpl;
 
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.dev.util.collect.HashSet;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.place.shared.Place;
@@ -101,7 +101,7 @@ public class MainModulePresenterTest {
      * Для упрощения процесса тестирования добьёмся того, чтобы getAccessibleModules()
      * возвращал заданный список модулей.
      */
-    Set<String> modules = new HashSet<String>();
+    Set<String> modules = new HashSet<>();
     modules.add("Module1");
     modules.add("Module2");
     modules.add("Module3");  

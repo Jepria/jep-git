@@ -97,7 +97,7 @@ public class CallContext {
    * @return контекст
    */
   public static CallContext detach() {
-    CallContext result = (CallContext) context.get();
+    CallContext result = context.get();
     context.set(null);
     return result;
   }

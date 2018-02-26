@@ -117,7 +117,7 @@ public class Db {
   public boolean closeStatement(String sql) {
     logger.trace("closeStatement()");
     
-    Statement st = (Statement) statementsMap.get(sql);
+    Statement st = statementsMap.get(sql);
     boolean existsFlag = st != null;
     try {
       /*
