@@ -74,11 +74,15 @@ public abstract class JepMultiStateField<E extends Widget, V extends Widget> ext
 	 * Панель необходима для применения требуемого layout'а для компонента карты
 	 * Просмотра.<br/>
 	 */
-	@UiField(provided=true)
-	public FlowPanel viewPanel;
-	
 	@UiField
-	public HTML viewCardLabel;
+	protected FlowPanel viewPanel;
+	
+	public FlowPanel getViewPanel() {
+        return viewPanel;
+    }
+
+    @UiField
+	protected HTML viewCardLabel;
 
 	/**
 	 * Карта для режима Просмотра.<br/>
@@ -90,23 +94,27 @@ public abstract class JepMultiStateField<E extends Widget, V extends Widget> ext
 	 * карта Редактирования (т.е. карта Просмотра - вообще НЕ используется).
 	 */
 	@UiField
-	public V viewCard;
+	protected V viewCard;
 
 	/**
 	 * Панель, на которой располагается карта режима Редактирование.<br/>
 	 * Панель необходима для применения требуемого layout'а для компонента карты Редактирование.<br/>
 	 */
-	@UiField(provided=true)
-	public FlowPanel editablePanel;
-	
 	@UiField
-	public HTML editableCardLabel;
+	protected FlowPanel editablePanel;
+	
+	public FlowPanel getEditablePanel() {
+        return editablePanel;
+    }
+
+    @UiField
+	protected HTML editableCardLabel;
 
 	/**
 	 * Карта для режима Редактирование.<br/>
 	 * Режим редактирования определяется методом{@link com.technology.jep.jepria.client.ui.WorkstateEnum#isEditableState(WorkstateEnum workstate)}
 	 */
-	public E editableCard;
+	protected E editableCard;
 
 	/**
 	 * Текущее состояние поля.
@@ -158,12 +166,6 @@ public abstract class JepMultiStateField<E extends Widget, V extends Widget> ext
 	 */
 	private String labelSeparator = ":";
 
-	/*
-	 * ориентация виджета на FlowPanel
-	 */
-	private static final int HORIZONTAL_ORIENTATION = 0; 
-	private static final int VERTICAL_ORIENTATION = 1; 
-	
 	/**
 	 * Наименование селектора (класса стилей) текстовой области ввода.
 	 */
@@ -200,65 +202,17 @@ public abstract class JepMultiStateField<E extends Widget, V extends Widget> ext
 	interface JepMultiStateFieldLayoutUiBinder extends UiBinder<DeckPanel, JepMultiStateField> {
 	}
 	
-	// default style orientation
-	public void turnOnHorizontalOrientedPanel() {
-        viewPanel.setStyleName("jepRia-hPanelStyle");
-        editablePanel.setStyleName("jepRia-hPanelStyle");
-        prepareStyleLabel(HORIZONTAL_ORIENTATION);
-	}
-	
-	public void turnOnVerticalOrientedPanel() {
-        viewPanel.setStyleName("jepRia-vPanelStyle");
-        editablePanel.setStyleName("jepRia-vPanelStyle");
-        prepareStyleLabel(VERTICAL_ORIENTATION);
-    }
-
 	protected DeckPanel getMainWidget() {
-        viewPanel = new FlowPanel();
-        editablePanel = new FlowPanel();
-        turnOnHorizontalOrientedPanel();
         return uiBinder.createAndBindUi(this);
     }
 	
-	private void prepareStyleLabel() {
-	    prepareStyleLabel(HORIZONTAL_ORIENTATION);
+	public HTML getEditableCardLabel() {
+	    return editableCardLabel;
 	}
 	
-	// preparing style of Label for orientation on parent panel
-	protected void prepareStyleLabel(Integer orientation) {
-	    if (editableCardLabel != null && viewCardLabel != null) {
-	        Element divViewCardLabel = viewCardLabel.getElement();
-	        Element divViewCardLabelParent = viewCardLabel.getElement().getParentElement();
-	        Element divEditableCardLabel = editableCardLabel.getElement();
-	        Element divEditableCardLabelPanel = editableCardLabel.getElement().getParentElement();
-	        
-	        // если использовать FLowPanel, то применяем стили к текущему элементу с тегом DIV, для VerticalPanel или HorizontalPanel применяем стили к родительскому элементу с тэгами TR или TD
-	        if ((divViewCardLabelParent.getTagName().toLowerCase().contains("tr") || divViewCardLabelParent.getTagName().toLowerCase().contains("td"))
-	                && (divEditableCardLabelPanel.getTagName().toLowerCase().contains("tr") || divEditableCardLabelPanel.getTagName().toLowerCase().contains("td"))) {
-	            divViewCardLabel = divViewCardLabelParent;
-	            divEditableCardLabel = divEditableCardLabelPanel;
-	        }
-	        
-	        switch(orientation) {
-    	        case VERTICAL_ORIENTATION: {
-        	            divViewCardLabel.removeAttribute(ALIGN_ATTRIBUTE_NAME);
-        	            divViewCardLabel.removeClassName(LABEL_FIELD_STYLE);
-        	            
-        	            divEditableCardLabel.removeAttribute(ALIGN_ATTRIBUTE_NAME);
-        	            divEditableCardLabel.removeClassName(LABEL_FIELD_STYLE);
-    	                break;
-    	            }
-    	        case HORIZONTAL_ORIENTATION:
-    	        default: {
-    	                divViewCardLabel.removeAttribute(ALIGN_ATTRIBUTE_NAME);
-    	                divViewCardLabel.addClassName(LABEL_FIELD_STYLE);
-    	                
-    	                divEditableCardLabel.removeAttribute(ALIGN_ATTRIBUTE_NAME);
-    	                divEditableCardLabel.addClassName(LABEL_FIELD_STYLE);
-    	        }
-            }
-	    }
-	}
+	public HTML getViewCardLabel() {
+        return viewCardLabel;
+    }
 	
 	@Deprecated
 	public JepMultiStateField() {
@@ -281,8 +235,6 @@ public abstract class JepMultiStateField<E extends Widget, V extends Widget> ext
 		// редактирования/просмотра.
 		this.fieldIdAsWebEl = fieldIdAsWebEl;
 
-		prepareStyleLabel(); // default orientation is horizontal
-		
 		// Если у добавляемого виджета не задана ширина, DeckPanel выставит 100%.
         // Нам это не нужно, т.к. приводит к смещению вправо индикаторов
         // загрузки и некорректного значения.
@@ -292,28 +244,15 @@ public abstract class JepMultiStateField<E extends Widget, V extends Widget> ext
         // Добавляем карту просмотра.
         addViewCard();
 		
-		Element tdFieldViewCard = getViewCard().getElement();
-        Element tdFieldViewCardParent = getViewCard().getElement().getParentElement();
+		Element fieldViewCard = getViewCard().getElement();
         
         // Инициализируем карту редактирования.
         addEditableCard();
         
-        Element tdFieldEditableCard = getEditableCard().getElement();
-        Element tdFieldEditableCardParent = getEditableCard().getElement().getParentElement();
+        Element fieldEditableCard = getEditableCard().getElement();
         
-        // вместо HorizontalPanel используется FlowPanel
-        // если использовать FLowPanel, то применяем стили к текущему элементу с тегом DIV, для VerticalPanel или HorizontalPanel применяем стили к родительскому элементу с тэгами TR или TD 
-        if ((tdFieldViewCardParent.getTagName().toLowerCase().contains("tr") || tdFieldViewCardParent.getTagName().toLowerCase().contains("td"))
-                && (tdFieldEditableCardParent.getTagName().toLowerCase().contains("tr") || tdFieldEditableCardParent.getTagName().toLowerCase().contains("td"))) {
-            tdFieldViewCard = tdFieldViewCardParent;
-            tdFieldEditableCard = tdFieldEditableCardParent;
-        }
-        
-        tdFieldViewCard.removeAttribute(ALIGN_ATTRIBUTE_NAME);
-        tdFieldViewCard.addClassName(VIEW_CARD_STYLE);
-        
-        tdFieldEditableCard.removeAttribute(ALIGN_ATTRIBUTE_NAME);
-        tdFieldEditableCard.addClassName(EDITABLE_CARD_STYLE);
+        fieldViewCard.addClassName(VIEW_CARD_STYLE);
+        fieldEditableCard.addClassName(EDITABLE_CARD_STYLE);
 
 		// Устанавливаем значения лейблов поля.
 		setFieldLabel(fieldLabel);
@@ -563,10 +502,10 @@ public abstract class JepMultiStateField<E extends Widget, V extends Widget> ext
 	
 	public void setFieldAutoHeight() {
 	     // Инициализируем высоту карты редактирования.
-	        editableCard.getElement().setClassName(FIELD_AUTO_HEIGTH_STYLE);
+	        editableCard.getElement().addClassName(FIELD_AUTO_HEIGTH_STYLE);
 	        // Инициализируем высоту карты просмотра.
-	        viewCardLabel.getElement().setClassName(FIELD_AUTO_HEIGTH_STYLE);
-	        viewCard.getElement().setClassName(FIELD_AUTO_HEIGTH_STYLE);
+	        viewCardLabel.getElement().addClassName(FIELD_AUTO_HEIGTH_STYLE);
+	        viewCard.getElement().addClassName(FIELD_AUTO_HEIGTH_STYLE);
 	    }
 
 	/**
