@@ -5,6 +5,8 @@ import static com.technology.jep.jepria.client.widget.event.JepEventType.CHANGE_
 
 import java.util.*;
 
+import com.google.gwt.core.client.Scheduler;
+import com.google.gwt.core.client.Scheduler.ScheduledCommand;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HTML;
@@ -280,7 +282,11 @@ public class JepTreeField extends JepMultiStateField<TreeField<JepOption>, HTML>
     checkedValues = null;
     editableCard.clearSelection();
     expandedValues = null;
-    editableCard.collapseAll();
+    Scheduler.get().scheduleDeferred(new ScheduledCommand(){
+      @Override
+      public void execute() {
+        editableCard.collapseAll();
+      }});
   }
   
   /**
