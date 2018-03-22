@@ -4,6 +4,7 @@ import static com.technology.jep.jepria.server.security.JepSecurityConstant.JEP_
 
 import java.security.Principal;
 import java.sql.SQLException;
+import java.util.Objects;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,6 +15,7 @@ import org.apache.log4j.Logger;
 import com.technology.jep.jepcommon.security.pkg_Operator;
 import com.technology.jep.jepria.server.security.JepAbstractSecurityModule;
 import com.technology.jep.jepria.server.security.JepSecurityModule;
+import com.technology.jep.jepria.shared.util.JepRiaUtil;
 
 /**
  * Модуль поддержки безопасности для Tomcat
@@ -73,15 +75,11 @@ public class JepSecurityModule_Tomcat extends JepAbstractSecurityModule {
   @Override
   public Integer getJepPrincipalOperatorId(Principal principal) {
     Integer result = null;
-    String principalName = principal.getName();
     try {
-      Integer logonOperatorId = pkg_Operator.logon(db, principalName);
-      if(!logonOperatorId.equals(operatorId)) {  // Обновить свойства, если operatorId изменялся
-        updateSubject(principal);  // TODO выпрямить, оптимизировать
+      if(isObsolete(principal)) { // Обновить свойства, если изменился информация об операторе
+        updateSubject(principal);
       }
       result = operatorId;
-    } catch (SQLException ex) {
-      logger.error("pkg_Operator.getJepPrincipalOperatorId() error", ex);
     } finally {
       db.closeAll(); // освобождение соединения, берущегося в logon->db.prepare
     }
@@ -124,20 +122,6 @@ public class JepSecurityModule_Tomcat extends JepAbstractSecurityModule {
    * @return true, если объект jepSecurityModule устарел, иначе - false
    */
   protected boolean isObsolete(Principal principal) {
-    boolean result = true;
-    try {
-      Integer logonOperatorId = pkg_Operator.logon(db, principal.getName());
-      if(logonOperatorId != null) {
-        if(logonOperatorId.equals(getOperatorId())) {  // Если operatorID совпадают, значит объект "свежий"
-          result = false;
-        }
-      }
-    } catch (SQLException ex) {
-      logger.error("pkg_Operator.logon() error", ex);
-    } finally {
-      db.closeAll(); // освобождение соединения, берущегося в logon->db.prepare
-    }
-    
-    return result;
+    return !Objects.equals(this.username, principal == null ? null : principal.getName());
   }
 }

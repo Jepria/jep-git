@@ -23,7 +23,7 @@ public class JepRiaClientConstant extends JepRiaConstant {
   /**
    * Ширина меток полей формы по умолчанию.
    */
-  public static final int FIELD_LABEL_DEFAULT_WIDTH = 150;
+  public static final int FIELD_LABEL_DEFAULT_WIDTH = 200;
   
   public static final String FIELD_INVALID_COLOR = "#c30";
   
