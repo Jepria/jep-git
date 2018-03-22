@@ -3,6 +3,8 @@ package com.technology.jep.jepria.client.widget.field.multistate;
 import static com.technology.jep.jepria.client.JepRiaClientConstant.DEFAULT_DATE_FORMAT_MASK;
 import static com.technology.jep.jepria.client.JepRiaClientConstant.DEFAULT_DATE_MONTH_AND_YEARS_ONLY_FORMAT_MASK;
 import static com.technology.jep.jepria.client.JepRiaClientConstant.DEFAULT_DATE_YEARS_ONLY_FORMAT_MASK;
+import static com.technology.jep.jepria.client.JepRiaClientConstant.FIELD_DEFAULT_HEIGHT;
+import static com.technology.jep.jepria.client.JepRiaClientConstant.FIELD_DEFAULT_WIDTH;
 import static com.technology.jep.jepria.client.JepRiaClientConstant.JepTexts;
 import static com.technology.jep.jepria.shared.JepRiaConstant.DEFAULT_DATE_FORMAT;
 import static com.technology.jep.jepria.shared.JepRiaConstant.DEFAULT_DATE_MONTH_AND_YEAR_ONLY_FORMAT;
@@ -14,9 +16,6 @@ import static com.technology.jep.jepria.client.JepRiaClientConstant.PANEL_OF_YEA
 
 import java.util.Date;
 
-import com.allen_sauer.gwt.log.client.Log;
-import com.google.gwt.event.dom.client.ChangeEvent;
-import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.i18n.client.DateTimeFormat;
@@ -122,6 +121,10 @@ public class JepDateField extends JepMultiStateField<MaskedDateBox, HTML> {
       
       if (typeViewPanelOfCalendar == FORMAT_DAYS_AND_MONTH_AND_YEAR && visibleNavigationPanel == null) {
           addEditableCard();
+          
+          setFieldWidth(FIELD_DEFAULT_WIDTH);
+          setFieldHeight(FIELD_DEFAULT_HEIGHT);
+          
           isVisibleNavigationPanel = false;
       } else {
           createDatePicker(typeViewPanelOfCalendar);
@@ -135,9 +138,8 @@ public class JepDateField extends JepMultiStateField<MaskedDateBox, HTML> {
           isVisibleNavigationPanel = visibleNavigationPanel == null ? false : visibleNavigationPanel;
           
           ((JepDatePicker)editableCard.getDatePicker()).setVisibleNavigationPanel(isVisibleNavigationPanel);
-          
-          
       }
+      
       addChangeValueListener();
   }
   
@@ -145,8 +147,9 @@ public class JepDateField extends JepMultiStateField<MaskedDateBox, HTML> {
       Mask mask = null;
       
       if (typeViewPanelOfCalendar == null 
-              || typeViewPanelOfCalendar > PANEL_OF_YEAR_ONLY)
+              || typeViewPanelOfCalendar > PANEL_OF_YEAR_ONLY) {
           typeViewPanelOfCalendar = PANEL_OF_DAYS_AND_MONTH_AND_YEAR;
+      }
       
       switch (typeViewPanelOfCalendar.intValue()) {
           case PANEL_OF_MONTH_AND_YEAR_ONLY:
@@ -164,40 +167,43 @@ public class JepDateField extends JepMultiStateField<MaskedDateBox, HTML> {
       }
       
       editableCard = new MaskedDateBox(new JepDatePicker(typeViewPanelOfCalendar) {
-                      @Override
-                      protected void changeYearWhenBakwards() {
-                          handlerChangeDatePicker();
-                      }
-                      
-                      @Override
-                      protected void changeYearWhenForwards() {
-                          handlerChangeDatePicker();
-                      }
-                      
-                      @Override
-                      public void changeMonthWhenBakwards() {
-                          handlerChangeDatePicker();
-                      }
-                      
-                      @Override
-                      public void changeMonthWhenForwards() {
-                          handlerChangeDatePicker();
-                      }
+          @Override
+          protected void changeYearWhenBakwards() {
+              handlerChangeDatePicker();
+          }
+          
+          @Override
+          protected void changeYearWhenForwards() {
+              handlerChangeDatePicker();
+          }
+          
+          @Override
+          public void changeMonthWhenBakwards() {
+              handlerChangeDatePicker();
+          }
+          
+          @Override
+          public void changeMonthWhenForwards() {
+              handlerChangeDatePicker();
+          }
 
-                      @Override
-                      public void doWhenFireEventYearListBox() {
-                          handlerChangeDatePicker();
-                      }
+          @Override
+          public void doWhenFireEventYearListBox() {
+              handlerChangeDatePicker();
+          }
 
-                      @Override
-                      public void doWhenFireEventMonthListBox() {
-                          handlerChangeDatePicker();
-                      }
-                 }, null, new XDefaultFormat(format), mask);
+          @Override
+          public void doWhenFireEventMonthListBox() {
+              handlerChangeDatePicker();
+          }
+      }, null, new XDefaultFormat(format), mask);
+      
+      editableCard.setStyleClassName(FIELD_AUTO_HEIGTH_STYLE);
+      
       editablePanel.add(editableCard);
   }
   
-  /*
+  /**
    * Обработчик событий в панели навигации календаря
    * 
    */

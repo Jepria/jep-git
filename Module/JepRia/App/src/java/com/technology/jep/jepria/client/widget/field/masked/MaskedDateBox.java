@@ -265,6 +265,10 @@ public class MaskedDateBox extends Composite implements HasEnabled,
       }
       });
   }
+  
+  public void setStyleClassName(String className) {
+      box.getElement().addClassName(className);
+  }
 
   public HandlerRegistration addValueChangeHandler(
       ValueChangeHandler<Date> handler) {
