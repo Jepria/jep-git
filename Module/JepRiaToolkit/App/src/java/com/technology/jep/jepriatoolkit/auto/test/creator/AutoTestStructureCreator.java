@@ -28,6 +28,7 @@ import com.technology.jep.jepriatoolkit.creator.application.ApplicationStructure
 import com.technology.jep.jepriatoolkit.creator.module.Application;
 import com.technology.jep.jepriatoolkit.creator.module.ModuleInfo;
 import com.technology.jep.jepriatoolkit.parser.ApplicationSettingParser;
+import com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil;
 
 @SuppressWarnings("unchecked")
 public class AutoTestStructureCreator extends Task {
@@ -102,7 +103,7 @@ public class AutoTestStructureCreator extends Task {
       ApplicationSettingParser applicationParser = ApplicationSettingParser.getInstance(isEmptyOrNotInitializedParameter(applicationStructureFile) ? getApplicationDefinitionFile() : applicationStructureFile);
       
       application = applicationParser.getApplication();
-      packagePrefix = application.getPackagePrefix().toLowerCase();
+      packagePrefix = JepRiaToolkitUtil.packagePrefixToPath(application.getPackagePrefix().toLowerCase());
       packageProject = application.getProjectPackage().toLowerCase();
       packageApplication = application.getName().toLowerCase();
       

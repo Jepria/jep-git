@@ -1,9 +1,7 @@
-<#rt>﻿<#noparse>
-# Параметры Selenium-TestNG-тестирования
-﻿</#noparse><#rt>
+<#noparse># Параметры Selenium-TestNG-тестирования﻿</#noparse>
 host=localhost
 appName=${moduleName}
-<#rt>﻿<#noparse>
+<#noparse>
 jepriaVersion=9.*.*
 
 browserName=chrome
@@ -18,8 +16,8 @@ driverPath=C:/Users/ZaharovR/AppData/Local/Google/Chrome/Application/chromedrive
 #browserPath=C:/Program Files/Mozilla Firefox/firefox.exe
 
 
-# Обязателен любой непустой общий постфикс (01) в названиях свойств
-﻿</#noparse><#rt>
+# Обязателен любой непустой общий постфикс (01) в названиях свойств﻿
+</#noparse>
 <#list forms as form>
 testSuite0${form?index}=**/auto/**/${form.formName}AutoTest.xml
 testUsername0${form?index}=Username
