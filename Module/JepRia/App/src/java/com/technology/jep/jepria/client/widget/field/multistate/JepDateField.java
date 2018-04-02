@@ -138,6 +138,7 @@ public class JepDateField extends JepMultiStateField<MaskedDateBox, HTML> {
           isVisibleNavigationPanel = visibleNavigationPanel == null ? false : visibleNavigationPanel;
           
           ((JepDatePicker)editableCard.getDatePicker()).setVisibleNavigationPanel(isVisibleNavigationPanel);
+          editableCard.setVisiblePopup(isVisibleNavigationPanel);
       }
       
       addChangeValueListener();
