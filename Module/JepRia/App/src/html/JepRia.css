@@ -117,9 +117,10 @@ input[type=text]::-ms-clear {
 
 /* Панель постраничного листания списка. */
 .jepRia-PagingBar {
-  font: 11px arial, tahoma, helvetica, sans-serif;
+  height: 22px;
+  font: 11px arial, tahoma, verdana, helvetica;
   vertical-align: middle;
-  horizontal-align: left;
+  text-align: left;
   margin: 0;
   padding: 2px 2px 2px 2px;
   border-style: solid;
@@ -131,6 +132,7 @@ input[type=text]::-ms-clear {
 }
 .jepRia-PagingBar table {
   height: 100%;
+  width: 100%;
 }
 .jepRia-PagingBar td {
   height: 100%;
@@ -140,7 +142,7 @@ input[type=text]::-ms-clear {
   margin: 0px 5px 0px 5px;
 }
 .jepRia-PagingBar .gwt-Button {
-  font: 11px arial, tahoma, verdana, helvetica;
+  white-space: nowrap;
   height: 100%;
   padding: 1px 1px;
   background-color: transparent;
@@ -171,11 +173,6 @@ input[type=text]::-ms-clear {
 .jepRia-PagingBar .gwt-Button.buttonDisabled:hover {
   border: solid 1px transparent;
   background-color: transparent;
-}
-/* Текст на кнопке инструментальной панели постраничного листания списка. */
-.jepRia-PagingBar .gwt-Button .gwt-Label {
-  white-space: nowrap;
-  font: 11px arial, tahoma, verdana, helvetica;
 }
 /* Разделитель инструментальной панели постраничного листания списка. */
 .jepRia-PagingBar .jepRia-Separator {

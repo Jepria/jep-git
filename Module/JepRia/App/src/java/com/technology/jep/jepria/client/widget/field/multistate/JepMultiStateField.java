@@ -489,7 +489,7 @@ public abstract class JepMultiStateField<E extends Widget, V extends Widget> ext
 	 */
 	public void setFieldHeight(int fieldHeight) {
 	    if (fieldHeight == FIELD_DEFAULT_HEIGHT) {
-	        setFieldAutoHeight();
+	        setFieldAutoHeight(fieldHeight);
 	    } else {
 	        String height = "" + fieldHeight + Unit.PX;
 	        // Инициализируем высоту карты редактирования.
@@ -500,12 +500,13 @@ public abstract class JepMultiStateField<E extends Widget, V extends Widget> ext
 	    }
 	}
 	
-	public void setFieldAutoHeight() {
+	public void setFieldAutoHeight(int fieldHeight) {
+	        String height = "" + fieldHeight + Unit.PX;
 	     // Инициализируем высоту карты редактирования.
-	        editableCard.getElement().addClassName(FIELD_AUTO_HEIGTH_STYLE);
+	        editableCard.setHeight(height);
 	        // Инициализируем высоту карты просмотра.
 	        viewCardLabel.getElement().addClassName(FIELD_AUTO_HEIGTH_STYLE);
-	        viewCard.getElement().addClassName(FIELD_AUTO_HEIGTH_STYLE);
+	        viewCard.setHeight(height);
 	    }
 
 	/**
