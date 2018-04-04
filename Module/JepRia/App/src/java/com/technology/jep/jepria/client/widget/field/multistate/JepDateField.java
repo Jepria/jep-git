@@ -81,28 +81,50 @@ public class JepDateField extends JepMultiStateField<MaskedDateBox, HTML> {
     super(fieldIdAsWebEl, fieldLabel);
   }
   
+  /**
+   * Виды навигационной панели в календаре
+   */
   public static final int FORMAT_DAYS_AND_MONTH_AND_YEAR = PANEL_OF_DAYS_AND_MONTH_AND_YEAR;
   public static final int FORMAT_MONTH_AND_YEAR_ONLY = PANEL_OF_MONTH_AND_YEAR_ONLY;
   public static final int FORMAT_YEAR_ONLY = PANEL_OF_YEAR_ONLY;
   
+  /**
+   * Признак видимости навигационной панели в календаре
+   */
   private boolean isVisibleNavigationPanel = false;
   
+  /**
+   * Задать максимальный год в диапазаоне лет 
+   * @param maxYear задается максимальный год в диапазоне в выпадающем списке
+   */
   public void setMaxYear(int maxYear) {
       if (isVisibleNavigationPanel) {
           ((JepDatePicker)editableCard.getDatePicker()).setMaxYear(maxYear);
       }
   }
   
+  /**
+   * Задать минимальный год в диапазоне лет
+   * @param minYear задается минимальный год в диапазоне в выпадающем списке
+   */
   public void setMinYear(int minYear) {
       if (isVisibleNavigationPanel) {
           ((JepDatePicker)editableCard.getDatePicker()).setMinYear(minYear);
       }
   }
   
+  /**
+   * Получить макаисмальный год из диапазона в выпадающем списке
+   * @return максимальный год из заданного диапазона
+   */
   public int getMaxYear() {
       return ((JepDatePicker)editableCard.getDatePicker()).getMaxYear();
   }
   
+  /**
+   * Получить минимальный год из диапазона в выпадающем списке
+   * @return минимальный год из заданного диапазон 
+   */
   public int getMinYear() {
       return ((JepDatePicker)editableCard.getDatePicker()).getMinYear();
   }
@@ -144,6 +166,10 @@ public class JepDateField extends JepMultiStateField<MaskedDateBox, HTML> {
       addChangeValueListener();
   }
   
+  /**
+   * Сощдание календаря с навигационной панелью с возможностью выбрать месяц и год
+   * @param typeViewPanelOfCalendar
+   */
   private void createDatePicker(Integer typeViewPanelOfCalendar) {
       Mask mask = null;
       
