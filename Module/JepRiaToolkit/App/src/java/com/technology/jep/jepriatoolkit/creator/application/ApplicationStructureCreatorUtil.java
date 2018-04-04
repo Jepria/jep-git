@@ -158,6 +158,7 @@ public class ApplicationStructureCreatorUtil {
     resultData.put(PACKAGE_PREFIX_TEMPLATE_PARAMETER, application.getPackagePrefix());
     resultData.put(PACKAGE_NAME_TEMPLATE_PARAMETER, application.getProjectPackage());
     resultData.put(SECURITY_ROLES_TEMPLATE_PARAMETER, applicationParser.getRoles());
+    resultData.put(SECURITY_ROLE_CONSTANS_TEMPLATE_PARAMETER, applicationParser.getRoleConstants());
     List<ModuleInfo> mods = new ArrayList<ModuleInfo>(forms.size());
     boolean hasTextFile = false;
     boolean hasBinaryFile = false;

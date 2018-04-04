@@ -1,6 +1,7 @@
 package ${packagePrefix?lower_case}.${packageName?lower_case}.${moduleName?lower_case}.main.client.ui.main;
  
 import static ${packagePrefix?lower_case}.${packageName?lower_case}.${moduleName?lower_case}.main.client.${moduleName}ClientConstant.*;
+import static ${packagePrefix?lower_case}.${packageName?lower_case}.${moduleName?lower_case}.main.shared.${moduleName}Constant.*;
 
 import java.util.ArrayList;
 
@@ -20,7 +21,7 @@ public class ${moduleName}MainModulePresenter
       <#if form.moduleRoleNames?has_content>
     addModuleProtection(${form.formName?upper_case}_MODULE_ID, new ArrayList<String>() {{
      <#list form.moduleRoleNames![] as roleName>
-     add("${roleName}");
+     add(${roleName?upper_case}_ROLE_ID);
      </#list>
     }});
       </#if>
