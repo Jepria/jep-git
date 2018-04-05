@@ -42,4 +42,7 @@ public class AutoTestConstant {
   
   public static final String TEST_PROPERTIES_TEMPLATE_PROPERTY = "fileTemplate.testProperties";
   public static final String TEST_PROPERTIES_PATH_TEMPLATE_PROPERTY = "fileTemplate.testProperties.path";
+  
+  public static final String MODULE_AUTOMATION_CONSTANTS_TEMPLATE_PROPERTY = "fileTemplate.automationConstant";
+  public static final String MODULE_AUTOMATION_CONSTANTS_PATH_TEMPLATE_PROPERTY = "fileTemplate.automationConstant.path";
 }
