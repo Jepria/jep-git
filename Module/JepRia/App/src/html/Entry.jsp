@@ -3,10 +3,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%@ page import="com.technology.jep.jepria.client.JepRiaClientConstant" %>
-<%@ page import="com.technology.jep.jepria.server.util.JepServerUtil"%>
+<%@ page import="com.technology.jep.jepria.server.util.JepServerUtil" %>
+<%@ page import="com.technology.jep.jepria.server.JepRiaServerConstant" %>
 <%@ page import="java.util.ResourceBundle" %>
 
-<% ResourceBundle jepRiaText = ResourceBundle.getBundle("com.technology.jep.jepria.shared.text.JepRiaText", JepServerUtil.getLocale(request)); %>
+<% ResourceBundle jepRiaText = ResourceBundle.getBundle(JepRiaServerConstant.JEP_RIA_RESOURCE_BUNDLE_NAME, JepServerUtil.getLocale(request)); %>
 
 <% 
 // имя приложения определяет context path и имена js-файлов
