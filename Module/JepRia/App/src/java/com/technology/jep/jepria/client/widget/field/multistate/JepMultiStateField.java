@@ -170,8 +170,8 @@ public abstract class JepMultiStateField<E extends Widget, V extends Widget> ext
    */
   public static final String FIELD_INDICATOR_STYLE = "jepRia-Field-Icon";
   
-  /*
-   * автоматический расчет высоты поля и лайбла в зависимости от наполнения определяется в стиле - мин размер 2-px
+  /**
+   * Автоматический расчет высоты поля и лайбла в зависимости от наполнения определяется в стиле - мин размер 2-px
    */
   public static final String FIELD_AUTO_HEIGTH_STYLE = "jepRia-AutoHeight";
 
@@ -189,7 +189,17 @@ public abstract class JepMultiStateField<E extends Widget, V extends Widget> ext
    * Наименование селектора (класса стилей) для карты просмотра.
    */
   public static final String VIEW_CARD_STYLE = "jepRia-MultiStateField-ViewCard";
+  
+  /**
+   * Наименование селектора (класса стилей) для панели поля вертикальной ориентации.
+   */
+  public static final String PANEL_ORIENTATION_VERTICAL_STYLE = "jepRia-vPanelStyle";
 
+  /**
+   * Наименование селектора (класса стилей) для панели поля горизонтальной ориентации.
+   */
+  public static final String PANEL_ORIENTATION_HORIZONTAL_STYLE = "jepRia-hPanelStyle";
+  
   /**
    * Наименование атрибута выравнивания DOM-элемента.
    */
