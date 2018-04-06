@@ -21,7 +21,6 @@ import com.google.gwt.safehtml.shared.SafeHtmlUtils;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiTemplate;
-import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DeckPanel;
 import com.google.gwt.user.client.ui.FlowPanel;
@@ -198,21 +197,21 @@ public abstract class JepMultiStateField<E extends Widget, V extends Widget> ext
 
   protected JepMultiStateFieldLayoutUiBinder uiBinder = GWT.create(JepMultiStateFieldLayoutUiBinder.class);
 
+  @SuppressWarnings("rawtypes")
   @UiTemplate("JepMultiStateField.ui.xml")
-  interface JepMultiStateFieldLayoutUiBinder extends UiBinder<DeckPanel, JepMultiStateField> {
-  }
+  interface JepMultiStateFieldLayoutUiBinder extends UiBinder<DeckPanel, JepMultiStateField> {}
   
   protected DeckPanel getMainWidget() {
-        return uiBinder.createAndBindUi(this);
-    }
+    return uiBinder.createAndBindUi(this);
+  }
   
   public HTML getEditableCardLabel() {
-      return editableCardLabel;
+    return editableCardLabel;
   }
   
   public HTML getViewCardLabel() {
-        return viewCardLabel;
-    }
+    return viewCardLabel;
+  }
   
   @Deprecated
   public JepMultiStateField() {
@@ -236,23 +235,23 @@ public abstract class JepMultiStateField<E extends Widget, V extends Widget> ext
     this.fieldIdAsWebEl = fieldIdAsWebEl;
 
     // Если у добавляемого виджета не задана ширина, DeckPanel выставит 100%.
-        // Нам это не нужно, т.к. приводит к смещению вправо индикаторов
-        // загрузки и некорректного значения.
-        editablePanel.getElement().getStyle().clearWidth();
-        observable = new JepObservableImpl();
-        
-        // Добавляем карту просмотра.
-        addViewCard();
+    // Нам это не нужно, т.к. приводит к смещению вправо индикаторов
+    // загрузки и некорректного значения.
+    editablePanel.getElement().getStyle().clearWidth();
+    observable = new JepObservableImpl();
+    
+    // Добавляем карту просмотра.
+    addViewCard();
     
     Element fieldViewCard = getViewCard().getElement();
         
-        // Инициализируем карту редактирования.
-        addEditableCard();
-        
-        Element fieldEditableCard = getEditableCard().getElement();
-        
-        fieldViewCard.addClassName(VIEW_CARD_STYLE);
-        fieldEditableCard.addClassName(EDITABLE_CARD_STYLE);
+    // Инициализируем карту редактирования.
+    addEditableCard();
+    
+    Element fieldEditableCard = getEditableCard().getElement();
+    
+    fieldViewCard.addClassName(VIEW_CARD_STYLE);
+    fieldEditableCard.addClassName(EDITABLE_CARD_STYLE);
 
     // Устанавливаем значения лейблов поля.
     setFieldLabel(fieldLabel);
@@ -326,8 +325,7 @@ public abstract class JepMultiStateField<E extends Widget, V extends Widget> ext
   /**
    * Метод, добавляющий на панель Просмотра соответствующее поле (компонент) Gwt.<br/>
    */
-  protected void addViewCard(){
-  }
+  protected void addViewCard() {}
   
   /**
    * Метод, добавляющий на панель Редактирования соответствующее поле (компонент) Gwt.<br/>
@@ -505,26 +503,26 @@ public abstract class JepMultiStateField<E extends Widget, V extends Widget> ext
    * @param fieldHeight высота
    */
   public void setFieldHeight(int fieldHeight) {
-      if (fieldHeight == FIELD_DEFAULT_HEIGHT) {
-          setFieldAutoHeight(fieldHeight);
-      } else {
-          String height = "" + fieldHeight + Unit.PX;
-          // Инициализируем высоту карты редактирования.
-          editableCard.setHeight(height);
-          // Инициализируем высоту карты просмотра.
-          viewCardLabel.setHeight(height);
-          viewCard.setHeight(height);
-      }
+    if (fieldHeight == FIELD_DEFAULT_HEIGHT) {
+        setFieldAutoHeight(fieldHeight);
+    } else {
+        String height = "" + fieldHeight + Unit.PX;
+        // Инициализируем высоту карты редактирования.
+        editableCard.setHeight(height);
+        // Инициализируем высоту карты просмотра.
+        viewCardLabel.setHeight(height);
+        viewCard.setHeight(height);
+    }
   }
   
   public void setFieldAutoHeight(int fieldHeight) {
-          String height = "" + fieldHeight + Unit.PX;
-       // Инициализируем высоту карты редактирования.
-          editableCard.setHeight(height);
-          // Инициализируем высоту карты просмотра.
-          viewCardLabel.getElement().addClassName(FIELD_AUTO_HEIGTH_STYLE);
-          viewCard.setHeight(height);
-      }
+    String height = "" + fieldHeight + Unit.PX;
+   // Инициализируем высоту карты редактирования.
+    editableCard.setHeight(height);
+    // Инициализируем высоту карты просмотра.
+    viewCardLabel.getElement().addClassName(FIELD_AUTO_HEIGTH_STYLE);
+    viewCard.setHeight(height);
+  }
 
   /**
    * Добавление слушателя определенного типа собитий.<br/>
@@ -630,11 +628,15 @@ public abstract class JepMultiStateField<E extends Widget, V extends Widget> ext
   }
   
   
-  // обертка в DIV
+  /**
+   * Обертка виджета в DIV.
+   * @param widget Виджет.
+   * @return Виджет.
+   */
   public Widget wrapDiv(Widget widget) {
-      HTMLPanel div = new HTMLPanel("");
-      div.add(widget);
-      return div;
+    HTMLPanel div = new HTMLPanel("");
+    div.add(widget);
+    return div;
   }
 
   /**
