@@ -21,7 +21,6 @@ import com.google.gwt.safehtml.shared.SafeHtmlUtils;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiTemplate;
-import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DeckPanel;
 import com.google.gwt.user.client.ui.FlowPanel;
@@ -488,10 +487,10 @@ public abstract class JepMultiStateField<E extends Widget, V extends Widget> ext
 	 * @param fieldHeight высота
 	 */
 	public void setFieldHeight(int fieldHeight) {
+	    String height = "" + fieldHeight + Unit.PX;
 	    if (fieldHeight == FIELD_DEFAULT_HEIGHT) {
-	        setFieldAutoHeight(fieldHeight);
+	        setFieldAutoHeight(height);
 	    } else {
-	        String height = "" + fieldHeight + Unit.PX;
 	        // Инициализируем высоту карты редактирования.
 	        editableCard.setHeight(height);
 	        // Инициализируем высоту карты просмотра.
@@ -500,13 +499,12 @@ public abstract class JepMultiStateField<E extends Widget, V extends Widget> ext
 	    }
 	}
 	
-	public void setFieldAutoHeight(int fieldHeight) {
-	        String height = "" + fieldHeight + Unit.PX;
+	public void setFieldAutoHeight(String height) {
 	     // Инициализируем высоту карты редактирования.
 	        editableCard.setHeight(height);
 	        // Инициализируем высоту карты просмотра.
 	        viewCardLabel.getElement().addClassName(FIELD_AUTO_HEIGTH_STYLE);
-	        viewCard.setHeight(height);
+	        viewCard.getElement().addClassName(FIELD_AUTO_HEIGTH_STYLE);
 	    }
 
 	/**
