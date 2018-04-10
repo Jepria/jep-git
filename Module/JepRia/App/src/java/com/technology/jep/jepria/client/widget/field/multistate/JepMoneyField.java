@@ -6,7 +6,6 @@ import static com.technology.jep.jepria.shared.JepRiaConstant.DEFAULT_DECIMAL_FO
 import java.math.BigDecimal;
 import java.text.ParseException;
 
-import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.dom.client.NativeEvent;
 import com.google.gwt.event.dom.client.DomEvent;
 import com.google.gwt.i18n.client.NumberFormat;
@@ -48,6 +47,20 @@ public class JepMoneyField extends JepBaseNumberField<BigDecimalBox> {
       @Override
       public void setValue(BigDecimal value) {
         super.setText(BigDecimalRenderer.instance().render(value).replaceAll(groupingSeparator, ""));
+      }
+      
+      @Override
+      public BigDecimal getValueOrThrow() throws ParseException {
+          String text = getText();
+          Double parseResult = null;
+          if (!JepRiaUtil.isEmpty(text)) {
+              parseResult = getNumberFormat().parse(text.replaceAll("\\" + DECIMAL_RANK_SEPARATOR, ""));
+          }
+          
+          if(parseResult == null)
+              return null;
+          else
+              return new BigDecimal(parseResult);
       }
     };
     editablePanel.add(editableCard);
@@ -224,12 +237,12 @@ public class JepMoneyField extends JepBaseNumberField<BigDecimalBox> {
    */
   @Override
   public boolean isValid(){
-    boolean isValid = super.isValid();
+      String value = editableCard.getText().replaceAll("\\" + DECIMAL_RANK_SEPARATOR, "");
+    boolean isValid = super.isValid(value);
     try {
-      String value = editableCard.getText();
       // Проверка на наличие недопустимых символов необходима
       // для случаев копирования значения из буфера обмена.
-      if (!isDecimalPartValid(value)){
+      if (!isDecimalPartValid(value)) {
         throw new ParseException(null, -1);
       }
     }

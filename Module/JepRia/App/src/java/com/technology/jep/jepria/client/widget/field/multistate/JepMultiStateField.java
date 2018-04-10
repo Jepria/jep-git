@@ -21,12 +21,15 @@ import com.google.gwt.safehtml.shared.SafeHtmlUtils;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiTemplate;
+import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DeckPanel;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Image;
+import com.google.gwt.user.client.ui.InlineHTML;
+import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.technology.jep.jepria.client.JepRiaAutomationConstant;
 import com.technology.jep.jepria.client.ui.WorkstateEnum;
@@ -590,6 +593,8 @@ public abstract class JepMultiStateField<E extends Widget, V extends Widget> ext
 		return mainPanel.getWidgetIndex(child);
 	}
 
+
+        Widget loadingWidget = null;
 	/**
 	 * Установка или скрытие изображения загрузки (справа от карты
 	 * редактирования).
@@ -599,11 +604,12 @@ public abstract class JepMultiStateField<E extends Widget, V extends Widget> ext
 	public void setLoadingImage(boolean imageVisible) {
 		if (loadingIcon == null) {
 			loadingIcon = new Image(JepImages.loading());
-			loadingIcon.addStyleName(FIELD_INDICATOR_STYLE);
 
 		}
-		if (!loadingIcon.isAttached()) {
-		    editablePanel.add(wrapDiv(loadingIcon));
+		if (loadingWidget == null) {
+                    loadingWidget = wrapSpan(loadingIcon);
+		    loadingWidget.addStyleName(FIELD_INDICATOR_STYLE);
+		    editablePanel.add(loadingWidget);
 		}
 		loadingIcon.setTitle(imageVisible ? JepTexts.loadingPanel_dataLoading() : "");
 		loadingIcon.setAltText(imageVisible ? JepTexts.loadingPanel_dataLoading() : "");
@@ -617,7 +623,16 @@ public abstract class JepMultiStateField<E extends Widget, V extends Widget> ext
 	    div.add(widget);
 	    return div;
 	}
+	
+	// обертка в SPAN
+        public Widget wrapSpan(Widget widget) {
+            InlineHTML spanBlock = new InlineHTML();
+            spanBlock.getElement().appendChild(widget.getElement());
+            return spanBlock;
+        }
 
+    
+        Widget widgetIcon = null;
 	/**
 	 * Установка сообщения об ошибке.
 	 * 
@@ -626,10 +641,11 @@ public abstract class JepMultiStateField<E extends Widget, V extends Widget> ext
 	public void markInvalid(String error) {
 		if (errorIcon == null) {
 			errorIcon = new Image(JepImages.field_invalid());
-			errorIcon.addStyleName(FIELD_INDICATOR_STYLE);
 		}
-		if (!errorIcon.isAttached()) {
-		    editablePanel.add(wrapDiv(errorIcon));
+		if (widgetIcon == null) {
+		    widgetIcon = wrapSpan(errorIcon);
+		    widgetIcon.addStyleName(FIELD_INDICATOR_STYLE);
+		    editablePanel.add(widgetIcon);
 		}
 		errorIcon.setTitle(error);
 		errorIcon.setAltText(error);
@@ -651,7 +667,6 @@ public abstract class JepMultiStateField<E extends Widget, V extends Widget> ext
 			errorIcon.setTitle("");
 			errorIcon.setAltText("");
 			errorIcon.setVisible(false);
-
 		}
 
 		markedInvalid = false;

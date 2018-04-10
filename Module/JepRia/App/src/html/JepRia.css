@@ -117,10 +117,9 @@ input[type=text]::-ms-clear {
 
 /* Панель постраничного листания списка. */
 .jepRia-PagingBar {
-  height: 22px;
-  font: 11px arial, tahoma, verdana, helvetica;
+  font: 11px arial, tahoma, helvetica, sans-serif;
   vertical-align: middle;
-  text-align: left;
+  horizontal-align: left;
   margin: 0;
   padding: 2px 2px 2px 2px;
   border-style: solid;
@@ -132,7 +131,6 @@ input[type=text]::-ms-clear {
 }
 .jepRia-PagingBar table {
   height: 100%;
-  width: 100%;
 }
 .jepRia-PagingBar td {
   height: 100%;
@@ -142,7 +140,7 @@ input[type=text]::-ms-clear {
   margin: 0px 5px 0px 5px;
 }
 .jepRia-PagingBar .gwt-Button {
-  white-space: nowrap;
+  font: 11px arial, tahoma, verdana, helvetica;
   height: 100%;
   padding: 1px 1px;
   background-color: transparent;
@@ -173,6 +171,11 @@ input[type=text]::-ms-clear {
 .jepRia-PagingBar .gwt-Button.buttonDisabled:hover {
   border: solid 1px transparent;
   background-color: transparent;
+}
+/* Текст на кнопке инструментальной панели постраничного листания списка. */
+.jepRia-PagingBar .gwt-Button .gwt-Label {
+  white-space: nowrap;
+  font: 11px arial, tahoma, verdana, helvetica;
 }
 /* Разделитель инструментальной панели постраничного листания списка. */
 .jepRia-PagingBar .jepRia-Separator {
@@ -527,7 +530,6 @@ input[type=text]::-ms-clear {
   margin-top: 3px;
   margin-left: 3px;
   cursor: pointer;
-  position: absolute;
 }
 
 /* Основной стиль шрифта приложения, применяемый ко всем элементам формы. */
