@@ -44,11 +44,6 @@ if (appTitle == null) {
     <!-- be added before this line.                 -->
     <!--                                           -->
     <script type="text/javascript" language="javascript" src="<%= appName %>/<%= appName %>.nocache.js"></script>
-    <style>
-      td {
-        text-align: left;
-      }
-    </style>
   </head>
 
   <body style="margin: 0px; padding: 0px; width: 100%; height: 100%;">

@@ -52,7 +52,7 @@ import com.technology.jep.jepria.client.widget.event.JepObservableImpl;
  * </dl>
  */
 public class PagingStandardBar extends SimplePanel implements PagingToolBar {
-  
+
   private static final String PAGING_BAR_STYLE = "jepRia-PagingBar";
   private static final String PAGING_BAR_NUMBER_STYLE = "jepRia-PagingBar-pageNumber";
 
@@ -118,6 +118,7 @@ public class PagingStandardBar extends SimplePanel implements PagingToolBar {
     panel.add(buttonsPanel);
     panel.add(displayText);
     panel.add(pageSizePanel);
+    panel.setWidth("100%");
     
     panel.setCellHorizontalAlignment(buttonsPanel, HasHorizontalAlignment.ALIGN_LEFT);
     panel.setCellHorizontalAlignment(displayText, HasHorizontalAlignment.ALIGN_CENTER);
@@ -232,6 +233,7 @@ public class PagingStandardBar extends SimplePanel implements PagingToolBar {
     pageSizePanel.add(pageSizeText);
     pageSizePrefix.getElement().getStyle().setTextAlign(TextAlign.RIGHT);
     pageSizePanel.setCellWidth(pageSizeText, 30 + Unit.PX.getType());
+    pageSizePanel.setWidth("100%");
   }
 
   public Button makeButton(String buttonId, ImageResource icon, String name, String title, ClickHandler handler) {

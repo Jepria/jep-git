@@ -355,7 +355,7 @@ public abstract class MainModulePresenter<V extends MainView, E extends MainEven
    * @param place Place, на который нужно перейти после загрузки модуля
    * @param isFromHistory признак запуска модуля из обработчика History (при использовании кнопок Back/Forward браузера)
    */
-  private void startModule(final String moduleId, final Place place, final boolean isFromHistory) {
+  protected void startModule(final String moduleId, final Place place, final boolean isFromHistory) {
     clientFactory.getPlainClientFactory(moduleId, 
       new LoadAsyncCallback<PlainClientFactory<PlainEventBus, JepDataServiceAsync>>() {
         public void onSuccessLoad(PlainClientFactory<PlainEventBus, JepDataServiceAsync> plainClientFactory) {

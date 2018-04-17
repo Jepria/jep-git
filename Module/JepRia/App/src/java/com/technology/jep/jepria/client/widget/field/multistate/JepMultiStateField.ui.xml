@@ -1,13 +1,13 @@
 <!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder" xmlns:g="urn:import:com.google.gwt.user.client.ui">
-	<g:DeckPanel>
-		<g:FlowPanel ui:field="viewPanel" addStyleNames="jepRia-hPanelStyle">
-			<g:HTML addStyleNames="jepRia-FontStyle jepRia-MultiStateField-Label" ui:field="viewCardLabel"></g:HTML>
-	 		<g:HTML addStyleNames="jepRia-FontStyle" ui:field="viewCard"></g:HTML>
-	 	</g:FlowPanel>	
-		<g:FlowPanel ui:field="editablePanel" addStyleNames="jepRia-hPanelStyle">
-			<g:HTML addStyleNames="jepRia-FontStyle jepRia-MultiStateField-Label" ui:field="editableCardLabel"></g:HTML>
-			<!-- Editable card will be HERE! -->
-		</g:FlowPanel>	
-	</g:DeckPanel>
+  <g:DeckPanel>
+    <g:FlowPanel ui:field="viewPanel" addStyleNames="jepRia-hPanelStyle jepRia-viewPanel">
+      <g:HTML addStyleNames="jepRia-FontStyle jepRia-MultiStateField-Label" ui:field="viewCardLabel"></g:HTML>
+       <g:HTML addStyleNames="jepRia-FontStyle" ui:field="viewCard"></g:HTML>
+     </g:FlowPanel>
+    <g:FlowPanel ui:field="editablePanel" addStyleNames="jepRia-hPanelStyle jepRia-editablePanel">
+      <g:HTML addStyleNames="jepRia-FontStyle jepRia-MultiStateField-Label" ui:field="editableCardLabel"></g:HTML>
+      <!-- Editable card will be HERE! -->
+    </g:FlowPanel>
+  </g:DeckPanel>
 </ui:UiBinder>
