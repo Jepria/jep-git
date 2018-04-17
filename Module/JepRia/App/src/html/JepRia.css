@@ -796,14 +796,26 @@ img {
   padding-right: 20px; /* без отступа справа некорректное отображение */
 }
 
+/* Стили панели карт поля вертикальной ориентации. */
 .jepRia-vPanelStyle {
-    display: inline-block;
+  display: inline-block;
 }
 
+/* Стили наименования поля вертикальной ориентации. */
+.jepRia-vPanelStyle .jepRia-MultiStateField-Label {
+  text-align: left;
+}
+
+/* Стили наименования поля карты редактирования вертикальной ориентации. */
+.jepRia-editablePanel.jepRia-vPanelStyle .jepRia-MultiStateField-Label {
+  margin-bottom: 2px;
+}
+
+/* Стили панели карт поля горизонтальной ориентации. */
 .jepRia-hPanelStyle {
-    display: inline-flex;
+  display: inline-flex;
 }
 
 .jepRia-AutoHeight {
-	min-height:20px; 
+  min-height: 20px; 
 }

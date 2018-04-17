@@ -21,15 +21,12 @@ import com.google.gwt.safehtml.shared.SafeHtmlUtils;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiTemplate;
-import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DeckPanel;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Image;
-import com.google.gwt.user.client.ui.InlineHTML;
-import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.technology.jep.jepria.client.JepRiaAutomationConstant;
 import com.technology.jep.jepria.client.ui.WorkstateEnum;
@@ -44,738 +41,768 @@ import com.technology.jep.jepria.client.widget.field.validation.Validator;
 import com.technology.jep.jepria.shared.util.JepRiaUtil;
 
 /**
- * Р‘Р°Р·РѕРІС‹Р№ РєР»Р°СЃСЃ РїРѕР»РµР№, РїРѕРґРґРµСЂР¶РёРІР°СЋС‰РёС… РЅРµСЃРєРѕР»СЊРєРѕ СЂР°Р±РѕС‡РёС… СЃРѕСЃС‚РѕСЏРЅРёР№.<br/>
- * Р’ РѕР±С‰РµРј СЃР»СѓС‡Р°Рµ РґР»СЏ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёСЏ РїРѕР»СЏ РЅРµРѕР±С…РѕРґРёРјРѕ РІС‹РїРѕР»РЅРёС‚СЊ СЃР»РµРґСѓСЋС‰РёРµ С€Р°РіРё:<br/>
+ * Базовый класс полей, поддерживающих несколько рабочих состояний.<br/>
+ * В общем случае для использования поля необходимо выполнить следующие шаги:<br/>
  * <code>
  * <br/>
- *   // РЎРѕР·РґР°С‚СЊ СЌРєР·РµРјРїР»СЏСЂ СѓРїСЂР°РІР»СЏСЋС‰РµРіРѕ РїРѕР»СЏРјРё РєР»Р°СЃСЃР°.<br/>
+ *   // Создать экземпляр управляющего полями класса.<br/>
  *   FieldManager fieldManager = new FieldManager();<br/>
- *   // РЎРѕР·РґР°С‚СЊ СЌРєР·РµРјРїР»СЏСЂ РїРѕР»СЏ (РЅР°РїСЂРёРјРµСЂ: РїРѕР»СЏ РІРІРѕРґР° РґР°С‚С‹).<br/>
+ *   // Создать экземпляр поля (например: поля ввода даты).<br/>
  *   JepDateField dateField = new JepDateField(formText.work_beginDate());<br/>
- *   // Р Р°Р·РјРµСЃС‚РёС‚СЊ РїРѕР»Рµ РІ СЂРѕРґРёС‚РµР»СЊСЃРєРѕРј РєРѕРЅС‚РµР№РЅРµСЂРµ.<br/>
+ *   // Разместить поле в родительском контейнере.<br/>
  *   getFormPanel().add(dateField);<br/>
- *   // Р—Р°СЂРµРіРёСЃС‚СЂРёСЂРѕРІР°С‚СЊ РїРѕР»Рµ РІ СѓРїСЂР°РІР»СЏСЋС‰РµРј РєР»Р°СЃСЃРµ.<br/>
+ *   // Зарегистрировать поле в управляющем классе.<br/>
  *   fieldManager.put(BEGIN_DATE, dateField);<br/>
  * <br/>
  * </code>
- * Р”Р»СЏ СЃС‚Р°РЅРґР°СЂС‚РЅС‹С… РґРµС‚Р°Р»СЊРЅС‹С… С„РѕСЂРј, РІСЃРµ СЌС‚Рё С€Р°РіРё РјРѕРіСѓС‚ Р±С‹С‚СЊ &quot;РѕР±РµСЂРЅСѓС‚С‹&quot; РІ СЂРµР°Р»РёР·Р°С†РёРё view РґРµС‚Р°Р»СЊРЅРѕР№ С„РѕСЂРјС‹.<br/>
+ * Для стандартных детальных форм, все эти шаги могут быть &quot;обернуты&quot; в реализации view детальной формы.<br/>
  * <br/>
- * РРµСЂР°СЂС…РёСЏ РїРѕР»РµР№ РїРѕРґРґРµСЂР¶РёРІР°РµС‚СЃСЏ Р°РЅР°Р»РѕРіРёС‡РЅРѕР№ (РїРѕ РІРѕР·РјРѕР¶РЅРѕСЃС‚Рё) РёРµСЂР°СЂС…РёРё СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓСЋС‰РёС… РїРѕР»РµР№ Gwt.<br/>
+ * Иерархия полей поддерживается аналогичной (по возможности) иерархии соответствующих полей Gwt.<br/>
  * <br/>
- * РљРѕРЅС†РµРїС†РёСЏ РїРѕРґРґРµСЂР¶РєРё РѕР±СЂР°Р±РѕС‚РєРё СЃРѕР±С‹С‚РёР№ РѕС‚СЂР°Р¶РµРЅР° РІ РѕРїРёСЃР°РЅРёРё РїР°РєРµС‚Р° {@link com.technology.jep.jepria.client.widget}.
+ * Концепция поддержки обработки событий отражена в описании пакета {@link com.technology.jep.jepria.client.widget}.
  */
 public abstract class JepMultiStateField<E extends Widget, V extends Widget> extends Composite implements JepField<E, V>, JepMultiState, JepObservable, Validator {
 
-	/**
-	 * РћСЃРЅРѕРІРЅР°СЏ РїР°РЅРµР»СЊ РІРёРґР¶РµС‚Р°
-	 */
-	protected DeckPanel mainPanel;
+  /**
+   * Основная панель виджета
+   */
+  protected DeckPanel mainPanel;
 
-	/**
-	 * РџР°РЅРµР»СЊ, РЅР° РєРѕС‚РѕСЂРѕР№ СЂР°СЃРїРѕР»Р°РіР°РµС‚СЃСЏ РєР°СЂС‚Р° СЂРµР¶РёРјР° РџСЂРѕСЃРјРѕС‚СЂР°.<br/>
-	 * РџР°РЅРµР»СЊ РЅРµРѕР±С…РѕРґРёРјР° РґР»СЏ РїСЂРёРјРµРЅРµРЅРёСЏ С‚СЂРµР±СѓРµРјРѕРіРѕ layout'Р° РґР»СЏ РєРѕРјРїРѕРЅРµРЅС‚Р° РєР°СЂС‚С‹
-	 * РџСЂРѕСЃРјРѕС‚СЂР°.<br/>
-	 */
-	@UiField
-	protected FlowPanel viewPanel;
-	
-	public FlowPanel getViewPanel() {
+  /**
+   * Панель, на которой располагается карта режима Просмотра.<br/>
+   * Панель необходима для применения требуемого layout'а для компонента карты
+   * Просмотра.<br/>
+   */
+  @UiField
+  protected FlowPanel viewPanel;
+  
+  public FlowPanel getViewPanel() {
         return viewPanel;
     }
 
     @UiField
-	protected HTML viewCardLabel;
+  protected HTML viewCardLabel;
 
-	/**
-	 * РљР°СЂС‚Р° РґР»СЏ СЂРµР¶РёРјР° РџСЂРѕСЃРјРѕС‚СЂР°.<br/>
-	 * Р РµР¶РёРј РїСЂРѕСЃРјРѕС‚СЂР° РѕРїСЂРµРґРµР»СЏРµС‚СЃСЏ РјРµС‚РѕРґРѕРј {@link com.technology.jep.jepria.client.ui.WorkstateEnum#isViewState(WorkstateEnum workstate)}.<br/>
-	 * <br/>
-	 * РћСЃРЅРѕРІРЅР°СЏ РёРґРµСЏ Jep-РїРѕР»РµР№: РѕРЅРё РґРѕР»Р¶РЅС‹ Р±С‹С‚СЊ Р»РµРіРєРёРјРё. РџРѕСЌС‚РѕРјСѓ, РєР°СЂС‚Р° РџСЂРѕСЃРјРѕС‚СЂР° РґРѕР»Р¶РЅР° Р±С‹С‚СЊ РёРјРµРЅРЅРѕ С‚РµРєСЃС‚РѕРІС‹Рј (РёР»Рё РїСЂРѕСЃС‚С‹Рј Html) РїСЂРµРґСЃС‚Р°РІР»РµРЅРёРµРј
-	 * Р·РЅР°С‡РµРЅРёСЏ РєР°СЂС‚С‹ Р РµРґР°РєС‚РёСЂРѕРІР°РЅРёСЏ.<br/>
-	 * Р’ С‚РµС… СЃР»СѓС‡Р°СЏС…, РєРѕРіРґР° С‡РёСЃС‚Рѕ С‚РµРєСЃС‚РѕРІРѕРµ РїСЂРµРґСЃС‚Р°РІР»РµРЅРёРµ РЅРµС†РµР»РµСЃРѕРѕР±СЂР°Р·РЅРѕ (СЃРїРёСЃРєРё, РґРµСЂРµРІСЊСЏ Рё С‚.Рї.) - РІ РїРѕР»Рµ РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ РўРћР›Р¬РљРћ РѕРґРЅР° РєР°СЂС‚Р° - 
-	 * РєР°СЂС‚Р° Р РµРґР°РєС‚РёСЂРѕРІР°РЅРёСЏ (С‚.Рµ. РєР°СЂС‚Р° РџСЂРѕСЃРјРѕС‚СЂР° - РІРѕРѕР±С‰Рµ РќР• РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ).
-	 */
-	@UiField
-	protected V viewCard;
+  /**
+   * Карта для режима Просмотра.<br/>
+   * Режим просмотра определяется методом {@link com.technology.jep.jepria.client.ui.WorkstateEnum#isViewState(WorkstateEnum workstate)}.<br/>
+   * <br/>
+   * Основная идея Jep-полей: они должны быть легкими. Поэтому, карта Просмотра должна быть именно текстовым (или простым Html) представлением
+   * значения карты Редактирования.<br/>
+   * В тех случаях, когда чисто текстовое представление нецелесообразно (списки, деревья и т.п.) - в поле используется ТОЛЬКО одна карта - 
+   * карта Редактирования (т.е. карта Просмотра - вообще НЕ используется).
+   */
+  @UiField
+  protected V viewCard;
 
-	/**
-	 * РџР°РЅРµР»СЊ, РЅР° РєРѕС‚РѕСЂРѕР№ СЂР°СЃРїРѕР»Р°РіР°РµС‚СЃСЏ РєР°СЂС‚Р° СЂРµР¶РёРјР° Р РµРґР°РєС‚РёСЂРѕРІР°РЅРёРµ.<br/>
-	 * РџР°РЅРµР»СЊ РЅРµРѕР±С…РѕРґРёРјР° РґР»СЏ РїСЂРёРјРµРЅРµРЅРёСЏ С‚СЂРµР±СѓРµРјРѕРіРѕ layout'Р° РґР»СЏ РєРѕРјРїРѕРЅРµРЅС‚Р° РєР°СЂС‚С‹ Р РµРґР°РєС‚РёСЂРѕРІР°РЅРёРµ.<br/>
-	 */
-	@UiField
-	protected FlowPanel editablePanel;
-	
-	public FlowPanel getEditablePanel() {
+  /**
+   * Панель, на которой располагается карта режима Редактирование.<br/>
+   * Панель необходима для применения требуемого layout'а для компонента карты Редактирование.<br/>
+   */
+  @UiField
+  protected FlowPanel editablePanel;
+  
+  public FlowPanel getEditablePanel() {
         return editablePanel;
     }
 
     @UiField
-	protected HTML editableCardLabel;
+  protected HTML editableCardLabel;
 
-	/**
-	 * РљР°СЂС‚Р° РґР»СЏ СЂРµР¶РёРјР° Р РµРґР°РєС‚РёСЂРѕРІР°РЅРёРµ.<br/>
-	 * Р РµР¶РёРј СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёСЏ РѕРїСЂРµРґРµР»СЏРµС‚СЃСЏ РјРµС‚РѕРґРѕРј{@link com.technology.jep.jepria.client.ui.WorkstateEnum#isEditableState(WorkstateEnum workstate)}
-	 */
-	protected E editableCard;
+  /**
+   * Карта для режима Редактирование.<br/>
+   * Режим редактирования определяется методом{@link com.technology.jep.jepria.client.ui.WorkstateEnum#isEditableState(WorkstateEnum workstate)}
+   */
+  protected E editableCard;
 
-	/**
-	 * РўРµРєСѓС‰РµРµ СЃРѕСЃС‚РѕСЏРЅРёРµ РїРѕР»СЏ.
-	 */
-	protected WorkstateEnum _workstate;
+  /**
+   * Текущее состояние поля.
+   */
+  protected WorkstateEnum _workstate;
 
-	/**
-	 * РџСЂРёР·РЅР°Рє РІРѕР·РјРѕР¶РЅРѕСЃС‚Рё РѕС‚РѕР±СЂР°Р¶РµРЅРёСЏ РєР°СЂС‚С‹ Р РµРґР°РєС‚РёСЂРѕРІР°РЅРёСЏ РїРѕР»СЏ.
-	 */
-	protected boolean editable = true;
+  /**
+   * Признак возможности отображения карты Редактирования поля.
+   */
+  protected boolean editable = true;
 
-	/**
-	 * РџСЂРёР·РЅР°Рє РґРѕСЃС‚СѓРїРЅРѕСЃС‚Рё РїСѓСЃС‚РѕРіРѕ Р·РЅР°С‡РµРЅРёСЏ РїРѕР»СЏ.
-	 */
-	protected boolean allowBlank = true;
+  /**
+   * Признак доступности пустого значения поля.
+   */
+  protected boolean allowBlank = true;
 
-	/**
-	 * РџСЂРёР·РЅР°Рє РЅРµРІР°Р»РёРґРЅРѕСЃС‚Рё РїРѕР»СЏ.
-	 */
-	private boolean markedInvalid = false;
+  /**
+   * Признак невалидности поля.
+   */
+  private boolean markedInvalid = false;
 
-	/**
-	 * РћР±СЉРµРєС‚ РґР»СЏ СЂР°Р±РѕС‚С‹ СЃРѕ СЃР»СѓС€Р°С‚РµР»СЏРјРё СЃРѕР±С‹С‚РёР№ РїРѕР»СЏ.
-	 */
-	protected JepObservable observable;
+  /**
+   * Объект для работы со слушателями событий поля.
+   */
+  protected JepObservable observable;
 
-	/**
-	 * РРЅРґРёРєР°С‚РѕСЂ Р·Р°РіСЂСѓР·РєРё РґР°РЅРЅС‹С….
-	 */
-	protected Image loadingIcon;
+  /**
+   * Индикатор загрузки данных.
+   */
+  protected Image loadingIcon;
 
-	/**
-	 * РћС€РёР±РєР° РїСЂРё РІР°Р»РёРґР°С†РёРё РґР°РЅРЅС‹С….
-	 */
-	protected Image errorIcon;
+  /**
+   * Ошибка при валидации данных.
+   */
+  protected Image errorIcon;
 
-	/**
-	 * РњРµС‚РєР° РїРѕР»СЏ.
-	 */
-	private String fieldLabel;
+  /**
+   * Метка поля.
+   */
+  private String fieldLabel;
 
-	/**
-	 * ID РґР°РЅРЅРѕРіРѕ Jep-РїРѕР»СЏ РєР°Рє Web-СЌР»РµРјРµРЅС‚Р°.
-	 */
-	protected String fieldIdAsWebEl;
+  /**
+   * ID данного Jep-поля как Web-элемента.
+   */
+  protected String fieldIdAsWebEl;
 
-	/**
-	 * Р Р°Р·РґРµР»РёС‚РµР»СЊ РґР»СЏ РјРµС‚РєРё РїРѕР»СЏ (РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ, РґРІРѕРµС‚РѕС‡РёРµ).
-	 */
-	private String labelSeparator = ":";
+  /**
+   * Разделитель для метки поля (по умолчанию, двоеточие).
+   */
+  private String labelSeparator = ":";
 
-	/**
-	 * РќР°РёРјРµРЅРѕРІР°РЅРёРµ СЃРµР»РµРєС‚РѕСЂР° (РєР»Р°СЃСЃР° СЃС‚РёР»РµР№) С‚РµРєСЃС‚РѕРІРѕР№ РѕР±Р»Р°СЃС‚Рё РІРІРѕРґР°.
-	 */
-	public static final String FIELD_INDICATOR_STYLE = "jepRia-Field-Icon";
-	
-	/*
-	 * Р°РІС‚РѕРјР°С‚РёС‡РµСЃРєРёР№ СЂР°СЃС‡РµС‚ РІС‹СЃРѕС‚С‹ РїРѕР»СЏ Рё Р»Р°Р№Р±Р»Р° РІ Р·Р°РІРёСЃРёРјРѕСЃС‚Рё РѕС‚ РЅР°РїРѕР»РЅРµРЅРёСЏ РѕРїСЂРµРґРµР»СЏРµС‚СЃСЏ РІ СЃС‚РёР»Рµ - РјРёРЅ СЂР°Р·РјРµСЂ 2-px
-	 */
-	public static final String FIELD_AUTO_HEIGTH_STYLE = "jepRia-AutoHeight";
-
-	/**
-	 * РќР°РёРјРµРЅРѕРІР°РЅРёРµ СЃРµР»РµРєС‚РѕСЂР° (РєР»Р°СЃСЃР° СЃС‚РёР»РµР№) РјРµС‚РѕРє РєР°СЂС‚ СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёСЏ Рё РїСЂРѕСЃРјРѕС‚СЂР°.
-	 */
-	public static final String LABEL_FIELD_STYLE = "jepRia-MultiStateField-Label";
-
-	/**
-	 * РќР°РёРјРµРЅРѕРІР°РЅРёРµ СЃРµР»РµРєС‚РѕСЂР° (РєР»Р°СЃСЃР° СЃС‚РёР»РµР№) РґР»СЏ РєР°СЂС‚С‹ СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёСЏ.
-	 */
-	public static final String EDITABLE_CARD_STYLE = "jepRia-MultiStateField-EditableCard";
-
-	/**
-	 * РќР°РёРјРµРЅРѕРІР°РЅРёРµ СЃРµР»РµРєС‚РѕСЂР° (РєР»Р°СЃСЃР° СЃС‚РёР»РµР№) РґР»СЏ РєР°СЂС‚С‹ РїСЂРѕСЃРјРѕС‚СЂР°.
-	 */
-	public static final String VIEW_CARD_STYLE = "jepRia-MultiStateField-ViewCard";
-
-	/**
-	 * РќР°РёРјРµРЅРѕРІР°РЅРёРµ Р°С‚СЂРёР±СѓС‚Р° РІС‹СЂР°РІРЅРёРІР°РЅРёСЏ DOM-СЌР»РµРјРµРЅС‚Р°.
-	 */
-	public static final String ALIGN_ATTRIBUTE_NAME = "align";
-
-	protected JepMultiStateFieldLayoutUiBinder uiBinder = GWT.create(JepMultiStateFieldLayoutUiBinder.class);
-
-	@UiTemplate("JepMultiStateField.ui.xml")
-	interface JepMultiStateFieldLayoutUiBinder extends UiBinder<DeckPanel, JepMultiStateField> {
-	}
-	
-	protected DeckPanel getMainWidget() {
-        return uiBinder.createAndBindUi(this);
-    }
-	
-	public HTML getEditableCardLabel() {
-	    return editableCardLabel;
-	}
-	
-	public HTML getViewCardLabel() {
-        return viewCardLabel;
-    }
-	
-	@Deprecated
-	public JepMultiStateField() {
-		this(null);
-	}
+  /**
+   * Наименование селектора (класса стилей) текстовой области ввода.
+   */
+  public static final String FIELD_INDICATOR_STYLE = "jepRia-Field-Icon";
   
-	@Deprecated
-	public JepMultiStateField(String fieldLabel) {
-		this(null, fieldLabel);
-	}
-	
-	public JepMultiStateField(String fieldIdAsWebEl, String fieldLabel) {
-		initWidget(mainPanel = getMainWidget());
-		// РљРѕСЂСЂРµРєС‚РёСЂРѕРІРєР° РїР°СЂР°РјРµС‚СЂРѕРІ
-		fieldLabel = (fieldLabel != null) ? fieldLabel : "";
+  /**
+   * Автоматический расчет высоты поля и лайбла в зависимости от наполнения определяется в стиле - мин размер 2-px
+   */
+  public static final String FIELD_AUTO_HEIGTH_STYLE = "jepRia-AutoHeight";
 
-		// Р•СЃР»Рё fieldIdAsWebEl РЅРµ РїСѓСЃС‚РѕРµ, С‚Рѕ РЅРµРѕР±С…РѕРґРёРјРѕ РёРЅРёС†РёР°Р»РёР·РёСЂРѕРІР°С‚СЊ РІ
-		// РЅР°С‡Р°Р»Рµ РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂР°,
-		// С‡С‚РѕР±С‹ РєРѕСЂСЂРµРєС‚РЅРѕРµ Р·РЅР°С‡РµРЅРёРµ РїРµСЂРµРґР°Р»РѕСЃСЊ РІ РєР°СЂС‚С‹
-		// СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёСЏ/РїСЂРѕСЃРјРѕС‚СЂР°.
-		this.fieldIdAsWebEl = fieldIdAsWebEl;
+  /**
+   * Наименование селектора (класса стилей) меток карт редактирования и просмотра.
+   */
+  public static final String LABEL_FIELD_STYLE = "jepRia-MultiStateField-Label";
 
-		// Р•СЃР»Рё Сѓ РґРѕР±Р°РІР»СЏРµРјРѕРіРѕ РІРёРґР¶РµС‚Р° РЅРµ Р·Р°РґР°РЅР° С€РёСЂРёРЅР°, DeckPanel РІС‹СЃС‚Р°РІРёС‚ 100%.
-        // РќР°Рј СЌС‚Рѕ РЅРµ РЅСѓР¶РЅРѕ, С‚.Рє. РїСЂРёРІРѕРґРёС‚ Рє СЃРјРµС‰РµРЅРёСЋ РІРїСЂР°РІРѕ РёРЅРґРёРєР°С‚РѕСЂРѕРІ
-        // Р·Р°РіСЂСѓР·РєРё Рё РЅРµРєРѕСЂСЂРµРєС‚РЅРѕРіРѕ Р·РЅР°С‡РµРЅРёСЏ.
-        editablePanel.getElement().getStyle().clearWidth();
-        observable = new JepObservableImpl();
-        
-        // Р”РѕР±Р°РІР»СЏРµРј РєР°СЂС‚Сѓ РїСЂРѕСЃРјРѕС‚СЂР°.
-        addViewCard();
-		
-		Element fieldViewCard = getViewCard().getElement();
-        
-        // РРЅРёС†РёР°Р»РёР·РёСЂСѓРµРј РєР°СЂС‚Сѓ СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёСЏ.
-        addEditableCard();
-        
-        Element fieldEditableCard = getEditableCard().getElement();
-        
-        fieldViewCard.addClassName(VIEW_CARD_STYLE);
-        fieldEditableCard.addClassName(EDITABLE_CARD_STYLE);
+  /**
+   * Наименование селектора (класса стилей) для карты редактирования.
+   */
+  public static final String EDITABLE_CARD_STYLE = "jepRia-MultiStateField-EditableCard";
 
-		// РЈСЃС‚Р°РЅР°РІР»РёРІР°РµРј Р·РЅР°С‡РµРЅРёСЏ Р»РµР№Р±Р»РѕРІ РїРѕР»СЏ.
-		setFieldLabel(fieldLabel);
+  /**
+   * Наименование селектора (класса стилей) для карты просмотра.
+   */
+  public static final String VIEW_CARD_STYLE = "jepRia-MultiStateField-ViewCard";
+  
+  /**
+   * Наименование селектора (класса стилей) для панели поля вертикальной ориентации.
+   */
+  public static final String PANEL_ORIENTATION_VERTICAL_STYLE = "jepRia-vPanelStyle";
 
-		// РЈСЃС‚Р°РЅРѕРІРєР° СЂР°Р·РјРµСЂРѕРІ РєР°СЂС‚ РїСЂРѕСЃРјРѕС‚СЂР° Рё СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёСЏ.
-		setFieldWidth(FIELD_DEFAULT_WIDTH);
-		setFieldHeight(FIELD_DEFAULT_HEIGHT);
+  /**
+   * Наименование селектора (класса стилей) для панели поля горизонтальной ориентации.
+   */
+  public static final String PANEL_ORIENTATION_HORIZONTAL_STYLE = "jepRia-hPanelStyle";
+  
+  /**
+   * Наименование атрибута выравнивания DOM-элемента.
+   */
+  public static final String ALIGN_ATTRIBUTE_NAME = "align";
 
-		// РЈСЃС‚Р°РЅРѕРІРєР° С€РёСЂРёРЅ Р»РµР№Р±Р»РѕРІ Рё РёС… СЂР°Р·РґРµР»РёС‚РµР»РµР№.
-		setLabelWidth(FIELD_LABEL_DEFAULT_WIDTH);
+  protected JepMultiStateFieldLayoutUiBinder uiBinder = GWT.create(JepMultiStateFieldLayoutUiBinder.class);
 
-		// РџСЂРёРјРµРЅРµРЅРёРµ СЃС‚РёР»РµР№ Рє РїРѕР»СЋ.
-		applyStyle();
+  @SuppressWarnings("rawtypes")
+  @UiTemplate("JepMultiStateField.ui.xml")
+  interface JepMultiStateFieldLayoutUiBinder extends UiBinder<DeckPanel, JepMultiStateField> {}
+  
+  protected DeckPanel getMainWidget() {
+    return uiBinder.createAndBindUi(this);
+  }
+  
+  public HTML getEditableCardLabel() {
+    return editableCardLabel;
+  }
+  
+  public HTML getViewCardLabel() {
+    return viewCardLabel;
+  }
+  
+  @Deprecated
+  public JepMultiStateField() {
+    this(null);
+  }
+  
+  @Deprecated
+  public JepMultiStateField(String fieldLabel) {
+    this(null, fieldLabel);
+  }
+  
+  public JepMultiStateField(String fieldIdAsWebEl, String fieldLabel) {
+    initWidget(mainPanel = getMainWidget());
+    // Корректировка параметров
+    fieldLabel = (fieldLabel != null) ? fieldLabel : "";
 
-		changeWorkstate(SEARCH);
+    // Если fieldIdAsWebEl не пустое, то необходимо инициализировать в
+    // начале конструктора,
+    // чтобы корректное значение передалось в карты
+    // редактирования/просмотра.
+    this.fieldIdAsWebEl = fieldIdAsWebEl;
 
-		// РЈСЃС‚Р°РЅРѕРІРєР° web-ID РїРѕР»СЏ
-		if (this.fieldIdAsWebEl != null) {
-			setWebId(this.fieldIdAsWebEl);
-		}
-
-		// РЈСЃС‚Р°РЅРѕРІРєР° Р°С‚СЂРёР±СѓС‚РѕРІ РєР°СЂС‚
-		setCardWebAttrs();
-	}
-
-	/**
-	 * РџРѕР»СѓС‡Р°РµС‚ web-ID РїРѕР»СЏ.
-	 * 
-	 * @return web-ID РїРѕР»СЏ.
-	 */
-	public String getWebId() {
-		return fieldIdAsWebEl;
-	}
-
-	/**
-	 * РЈСЃС‚Р°РЅРѕРІРєР° web-ID РїРѕР»СЏ
-	 * 
-	 * @param fieldIdAsWebEl web-ID РїРѕР»СЏ
-	 */
-	public void setWebId(String fieldIdAsWebEl) {
-		this.fieldIdAsWebEl = fieldIdAsWebEl;
-		this.getElement().setId(fieldIdAsWebEl);
-		// РЈСЃС‚Р°РЅРѕРІРєР° web-ID РґСЂСѓРіРёС… СЌР»РµРјРµРЅС‚РѕРІ РїРѕР»СЏ
-		setWebIds();
-	}
-
-	/**
-	 * РЈСЃС‚Р°РЅРѕРІРєР° web-ID РґРІСѓС… РєР°СЂС‚ РґР°РЅРЅРѕРіРѕ Jep-РїРѕР»СЏ.
-	 */
-	private void setCardWebAttrs() {
-		editableCard.getElement().setAttribute(JepRiaAutomationConstant.JEP_CARD_TYPE_HTML_ATTR,JepRiaAutomationConstant.JEP_CARD_TYPE_VALUE_EDTB);
-		viewCard.getElement().setAttribute(JepRiaAutomationConstant.JEP_CARD_TYPE_HTML_ATTR, JepRiaAutomationConstant.JEP_CARD_TYPE_VALUE_VIEW);
-	}
-
-	/**
-	 * РЈСЃС‚Р°РЅРѕРІРєР° web-ID РІРЅСѓС‚СЂРµРЅРЅРёС… РєРѕРјРїРѕРЅРµРЅС‚РѕРІ, СЃРїРµС†РёС„РёС‡РЅС‹С… РґР»СЏ РєРѕРЅРєСЂРµС‚РЅРѕРіРѕ Jep-РїРѕР»СЏ. 
-	 * РњРµС‚РѕРґ РїСЂРµРґРЅР°Р·РЅР°С‡РµРЅ РґР»СЏ РїРµСЂРµРєСЂС‹С‚РёСЏ РїРѕС‚РѕРјРєР°РјРё. Р—Р° РѕСЃРЅРѕРІСѓ РЅР°Р·РЅР°С‡Р°РµРјС‹С… РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂРѕРІ СЃР»РµРґСѓРµС‚ Р±СЂР°С‚СЊ Р·РЅР°С‡РµРЅРёРµ РїРѕР»СЏ
-	 * this.fieldIdAsWebEl .
-	 */
-	protected void setWebIds() {
-		this.getInputElement().setId(fieldIdAsWebEl + JepRiaAutomationConstant.JEP_FIELD_INPUT_POSTFIX);
-	}
-
-	/**
-	 * РџРѕР»СѓС‡РµРЅРёРµ РєР°СЂС‚С‹ РџСЂРѕСЃРјРѕС‚СЂР°.
-	 */
-	public V getViewCard() {
-		return (V) viewCard;
-	}
-
-	/**
-	 * РњРµС‚РѕРґ, РґРѕР±Р°РІР»СЏСЋС‰РёР№ РЅР° РїР°РЅРµР»СЊ РџСЂРѕСЃРјРѕС‚СЂР° СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓСЋС‰РµРµ РїРѕР»Рµ (РєРѕРјРїРѕРЅРµРЅС‚) Gwt.<br/>
-	 */
-	protected void addViewCard(){
-	}
-	
-	/**
-	 * РњРµС‚РѕРґ, РґРѕР±Р°РІР»СЏСЋС‰РёР№ РЅР° РїР°РЅРµР»СЊ Р РµРґР°РєС‚РёСЂРѕРІР°РЅРёСЏ СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓСЋС‰РµРµ РїРѕР»Рµ (РєРѕРјРїРѕРЅРµРЅС‚) Gwt.<br/>
-	 */
-	protected abstract void addEditableCard();
-
-	/**
-	 * РџРѕР»СѓС‡РµРЅРёРµ РєР°СЂС‚С‹ Р РµРґР°РєС‚РёСЂРѕРІР°РЅРёСЏ (СЃ РІРѕР·РјРѕР¶РЅРѕСЃС‚СЊСЋ РїСЂРµРѕР±СЂР°Р·РѕРІР°РЅРёСЏ Рє
-	 * СѓРєР°Р·Р°РЅРЅРѕРјСѓ РІРёРґР¶РµС‚Сѓ).
-	 */
-	public E getEditableCard() {
-		return editableCard;
-	}
-
-	/**
-	 * РЈСЃС‚Р°РЅРѕРІРєР° РЅР°РёРјРµРЅРѕРІР°РЅРёСЏ РїРѕР»СЏ Рё СЃР±СЂРѕСЃ СЂР°Р·РґРµР»РёС‚РµР»СЏ РјРµС‚РєРё, РµСЃР»Рё РѕРЅРѕ РїСѓСЃС‚РѕРµ.
-	 * 
-	 * @param label РЅР°РёРјРµРЅРѕРІР°РЅРёРµ РїРѕР»СЏ
-	 */
-	public void setFieldLabel(String label) {
-
-		this.fieldLabel = label;
+    // Если у добавляемого виджета не задана ширина, DeckPanel выставит 100%.
+    // Нам это не нужно, т.к. приводит к смещению вправо индикаторов
+    // загрузки и некорректного значения.
+    editablePanel.getElement().getStyle().clearWidth();
+    observable = new JepObservableImpl();
     
-		if (JepRiaUtil.isEmpty(label)) {
-		  setLabelSeparator("");
-		} else {
-		  label = label + this.labelSeparator;
-		}
-		
-		this.viewCardLabel.setHTML(label);
-		
-		if (this.allowBlank) {
-		  this.editableCardLabel.setHTML(label);
+    // Добавляем карту просмотра.
+    addViewCard();
+    
+    Element fieldViewCard = getViewCard().getElement();
+        
+    // Инициализируем карту редактирования.
+    addEditableCard();
+    
+    Element fieldEditableCard = getEditableCard().getElement();
+    
+    fieldViewCard.addClassName(VIEW_CARD_STYLE);
+    fieldEditableCard.addClassName(EDITABLE_CARD_STYLE);
 
-		} else if (!JepRiaUtil.isEmpty(label)) {
-		  final String idAttr = fieldIdAsWebEl == null ? "" : ("id='" + fieldIdAsWebEl + JEP_FIELD_ALLOW_BLANK_POSTFIX + "'");
+    // Устанавливаем значения лейблов поля.
+    setFieldLabel(fieldLabel);
 
-		  this.editableCardLabel.setHTML(JepClientUtil.substitute(REQUIRED_MARKER, idAttr) + label);
+    // Установка размеров карт просмотра и редактирования.
+    setFieldWidth(FIELD_DEFAULT_WIDTH);
+    setFieldHeight(FIELD_DEFAULT_HEIGHT);
 
-		}
-	}
+    // Установка ширин лейблов и их разделителей.
+    setLabelWidth(FIELD_LABEL_DEFAULT_WIDTH);
 
-	/**
-	 * РџРѕР»СѓС‡РµРЅРёРµ РЅР°РёРјРµРЅРѕРІР°РЅРёСЏ РїРѕР»СЏ.
-	 *
-	 * @return РЅР°РёРјРµРЅРѕРІР°РЅРёРµ РїРѕР»СЏ
-	 */
-	public String getFieldLabel() {
-		return this.fieldLabel;
-	}
+    // Применение стилей к полю.
+    applyStyle();
 
-	/**
-	 * РЈСЃС‚Р°РЅРѕРІРєР° РЅРѕРІРѕРіРѕ СЃРѕСЃС‚РѕСЏРЅРёСЏ
-	 * 
-	 * @param newWorkstate РЅРѕРІРѕРµ СЃРѕСЃС‚РѕСЏРЅРёРµ
+    changeWorkstate(SEARCH);
 
-	 */
-	public void changeWorkstate(WorkstateEnum newWorkstate) {
-		// РўРѕР»СЊРєРѕ РІ СЃР»СѓС‡Р°Рµ, РµСЃР»Рё РґРµР№СЃС‚РІРёС‚РµР»СЊРЅРѕ РёР·РјРµРЅСЏРµС‚СЃСЏ СЃРѕСЃС‚РѕСЏРЅРёРµ.
-		if (newWorkstate != null && !newWorkstate.equals(_workstate)) {
-			onChangeWorkstate(newWorkstate);
-			_workstate = newWorkstate;
-		}
-	}
+    // Установка web-ID поля
+    if (this.fieldIdAsWebEl != null) {
+      setWebId(this.fieldIdAsWebEl);
+    }
 
-	/**
-	 * РћР±СЂР°Р±РѕС‚С‡РёРє РЅРѕРІРѕРіРѕ СЃРѕСЃС‚РѕСЏРЅРёСЏ
-	 * 
-	 * @param newWorkstate РЅРѕРІРѕРµ СЃРѕСЃС‚РѕСЏРЅРёРµ
+    // Установка атрибутов карт
+    setCardWebAttrs();
+  }
 
-	 */
-	protected void onChangeWorkstate(WorkstateEnum newWorkstate) {
-		// РџСЂРё СЃРјРµРЅРµ СЃРѕСЃС‚РѕСЏРЅРёСЏ, РѕС‡РёС‰Р°РµРј РѕС€РёР±РєРё РІР°Р»РёРґР°С†РёРё, РµСЃР»Рё С‚Р°РєРѕРІС‹Рµ
-		// РїСЂРёСЃСѓС‚СЃС‚РІСѓСЋС‚.
+  /**
+   * Получает web-ID поля.
+   * 
+   * @return web-ID поля.
+   */
+  public String getWebId() {
+    return fieldIdAsWebEl;
+  }
 
-		clearInvalid();
+  /**
+   * Установка web-ID поля
+   * 
+   * @param fieldIdAsWebEl web-ID поля
+   */
+  public void setWebId(String fieldIdAsWebEl) {
+    this.fieldIdAsWebEl = fieldIdAsWebEl;
+    this.getElement().setId(fieldIdAsWebEl);
+    // Установка web-ID других элементов поля
+    setWebIds();
+  }
 
-		// Р•СЃР»Рё РїСЂРѕРёР·РѕС€Р»Рѕ РїРµСЂРµРєР»СЋС‡РµРЅРёРµ РёР· СЂРµР¶РёРјР° Р РµРґР°РєС‚РёСЂРѕРІР°РЅРёСЏ РІ СЂРµР¶РёРј
-		// РџСЂРѕСЃРјРѕС‚СЂР°, С‚Рѕ РѕР±РЅРѕРІРёРј Р·РЅР°С‡РµРЅРёРµ РєР°СЂС‚С‹ СЂРµР¶РёРјР° РџСЂРѕСЃРјРѕС‚СЂР°.
+  /**
+   * Установка web-ID двух карт данного Jep-поля.
+   */
+  private void setCardWebAttrs() {
+    editableCard.getElement().setAttribute(JepRiaAutomationConstant.JEP_CARD_TYPE_HTML_ATTR,JepRiaAutomationConstant.JEP_CARD_TYPE_VALUE_EDTB);
+    viewCard.getElement().setAttribute(JepRiaAutomationConstant.JEP_CARD_TYPE_HTML_ATTR, JepRiaAutomationConstant.JEP_CARD_TYPE_VALUE_VIEW);
+  }
 
-		if (WorkstateEnum.isEditableState(_workstate) && WorkstateEnum.isViewState(newWorkstate)) {
-			setViewValue(getValue());
-		}
-		// Р•СЃР»Рё РІС‹СЃС‚Р°РІР»РµРЅ РїСЂРёР·РЅР°Рє РЅРµСЂРµРґР°РєС‚РёСЂСѓРµРјРѕСЃС‚Рё РІ СЂРµР¶РёРјРµ Р РµРґР°РєС‚РёСЂРѕРІР°РЅРёСЏ, С‚Рѕ
-		// РїРµСЂРµРєР»СЋС‡Р°РµРј РєР°СЂС‚Сѓ РІ СЂРµР¶РёРј РџСЂРѕСЃРјРѕС‚СЂР°.
+  /**
+   * Установка web-ID внутренних компонентов, специфичных для конкретного Jep-поля. 
+   * Метод предназначен для перекрытия потомками. За основу назначаемых идентификаторов следует брать значение поля
+   * this.fieldIdAsWebEl .
+   */
+  protected void setWebIds() {
+    this.getInputElement().setId(fieldIdAsWebEl + JepRiaAutomationConstant.JEP_FIELD_INPUT_POSTFIX);
+  }
 
-		if (WorkstateEnum.isEditableState(newWorkstate) && editable) {
-			showWidget(getWidgetIndex(editablePanel));
-		} else {
-			showWidget(getWidgetIndex(viewPanel));
-		}
-	}
+  /**
+   * Получение карты Просмотра.
+   */
+  public V getViewCard() {
+    return (V) viewCard;
+  }
 
-	/**
-	 * РЈСЃС‚Р°РЅРѕРІРєР° Р·РЅР°С‡РµРЅРёСЏ РґР»СЏ РєР°СЂС‚С‹ РџСЂРѕСЃРјРѕС‚СЂР°.<br/>
-	 * РџСЂРё РїРµСЂРµРіСЂСѓР·РєРµ РґР°РЅРЅРѕРіРѕ РјРµС‚РѕРґР° РІ РЅР°СЃР»РµРґРЅРёРєР°С… РЅРµРѕР±С…РѕРґРёРјРѕ РѕР±РµСЃРїРµС‡РёС‚СЊ, С‡С‚РѕР±С‹
-	 * РґР°РЅРЅС‹Р№ РјРµС‚РѕРґ Р±С‹Р» Р±С‹СЃС‚СЂС‹Рј/РќР• СЂРµСЃСѓСЂСЃРѕ-Р·Р°С‚СЂР°С‚РЅС‹Рј.<br/>
-	 * 
-	 * РћСЃРЅРѕРІРЅР°СЏ РёРґРµСЏ Jep-РїРѕР»РµР№: РѕРЅРё РґРѕР»Р¶РЅС‹ Р±С‹С‚СЊ Р»РµРіРєРёРјРё. РџРѕСЌС‚РѕРјСѓ, РєР°СЂС‚Р°
-	 * РџСЂРѕСЃРјРѕС‚СЂР° РґРѕР»Р¶РЅР° Р±С‹С‚СЊ РёРјРµРЅРЅРѕ С‚РµРєСЃС‚РѕРІС‹Рј (РёР»Рё РїСЂРѕСЃС‚С‹Рј Html) РїСЂРµРґСЃС‚Р°РІР»РµРЅРёРµРј
-	 * Р·РЅР°С‡РµРЅРёСЏ РєР°СЂС‚С‹ Р РµРґР°РєС‚РёСЂРѕРІР°РЅРёСЏ.<br/>
-	 * Р’ С‚РµС… СЃР»СѓС‡Р°СЏС…, РєРѕРіРґР° С‡РёСЃС‚Рѕ С‚РµРєСЃС‚РѕРІРѕРµ РїСЂРµРґСЃС‚Р°РІР»РµРЅРёРµ РЅРµС†РµР»РµСЃРѕРѕР±СЂР°Р·РЅРѕ
-	 * (СЃРїРёСЃРєРё, РґРµСЂРµРІСЊСЏ Рё С‚.Рї.) - РІ РїРѕР»Рµ РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ РўРћР›Р¬РљРћ РѕРґРЅР° РєР°СЂС‚Р° - РєР°СЂС‚Р°
-	 * Р РµРґР°РєС‚РёСЂРѕРІР°РЅРёСЏ (С‚.Рµ. РєР°СЂС‚Р° РџСЂРѕСЃРјРѕС‚СЂР° - РІРѕРѕР±С‰Рµ РќР• РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ).
-	 * 
-	 * Р”Р»СЏ СЃС‚СЂРѕРєРѕРІС‹С… Р·РЅР°С‡РµРЅРёР№ РїСЂРѕРёР·РІРѕРґРёС‚СЃСЏ РєРѕРґРёСЂРѕРІР°РЅРёРµ СЃРїРµС†РёР°Р»СЊРЅС‹С… СЃРёРјРІРѕР»РѕРІ РІ
-	 * html-СЌРєРІРёРІР°Р»РµРЅС‚ РґР»СЏ РєРѕСЂСЂРµРєС‚РЅРѕРіРѕ РѕС‚РѕР±СЂР°Р¶РµРЅРёСЏ РЅР° СЃС‚СЂР°РЅРёС†Рµ.
-	 * 
-	 * @param value Р·РЅР°С‡РµРЅРёРµ РґР»СЏ РєР°СЂС‚С‹ РџСЂРѕСЃРјРѕС‚СЂР°
-	 */
-	protected void setViewValue(Object value) {
-		((HTML) viewCard).setHTML(value instanceof String ? SafeHtmlUtils.htmlEscape((String) value) : (value != null ? value.toString() : null));
-	}
+  /**
+   * Метод, добавляющий на панель Просмотра соответствующее поле (компонент) Gwt.<br/>
+   */
+  protected void addViewCard() {}
+  
+  /**
+   * Метод, добавляющий на панель Редактирования соответствующее поле (компонент) Gwt.<br/>
+   */
+  protected abstract void addEditableCard();
 
-	/**
-	 * РћС‡РёСЃС‚РєР° Р·РЅР°С‡РµРЅРёСЏ РґР»СЏ РєР°СЂС‚С‹ РџСЂРѕСЃРјРѕС‚СЂР°.<br/>
-	 * РџСЂРё РїРµСЂРµРіСЂСѓР·РєРµ РґР°РЅРЅРѕРіРѕ РјРµС‚РѕРґР° РІ РЅР°СЃР»РµРґРЅРёРєР°С… РЅРµРѕР±С…РѕРґРёРјРѕ РѕР±РµСЃРїРµС‡РёС‚СЊ, С‡С‚РѕР±С‹
-	 * РґР°РЅРЅС‹Р№ РјРµС‚РѕРґ Р±С‹Р» Р±С‹СЃС‚СЂС‹Рј/РќР• СЂРµСЃСѓСЂСЃРѕ-Р·Р°С‚СЂР°С‚РЅС‹Рј.<br/>
-	 * 
-	 * РћСЃРЅРѕРІРЅР°СЏ РёРґРµСЏ Jep-РїРѕР»РµР№: РѕРЅРё РґРѕР»Р¶РЅС‹ Р±С‹С‚СЊ Р»РµРіРєРёРјРё. РџРѕСЌС‚РѕРјСѓ, РєР°СЂС‚Р°
-	 * РџСЂРѕСЃРјРѕС‚СЂР° РґРѕР»Р¶РЅР° Р±С‹С‚СЊ РёРјРµРЅРЅРѕ С‚РµРєСЃС‚РѕРІС‹Рј (РёР»Рё РїСЂРѕСЃС‚С‹Рј Html) РїСЂРµРґСЃС‚Р°РІР»РµРЅРёРµРј
-	 * Р·РЅР°С‡РµРЅРёСЏ РєР°СЂС‚С‹ Р РµРґР°РєС‚РёСЂРѕРІР°РЅРёСЏ.<br/>
-	 * Р’ С‚РµС… СЃР»СѓС‡Р°СЏС…, РєРѕРіРґР° С‡РёСЃС‚Рѕ С‚РµРєСЃС‚РѕРІРѕРµ РїСЂРµРґСЃС‚Р°РІР»РµРЅРёРµ РЅРµС†РµР»РµСЃРѕРѕР±СЂР°Р·РЅРѕ
-	 * (СЃРїРёСЃРєРё, РґРµСЂРµРІСЊСЏ Рё С‚.Рї.) - РІ РїРѕР»Рµ РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ РўРћР›Р¬РљРћ РѕРґРЅР° РєР°СЂС‚Р° - РєР°СЂС‚Р°
-	 * Р РµРґР°РєС‚РёСЂРѕРІР°РЅРёСЏ (С‚.Рµ. РєР°СЂС‚Р° РџСЂРѕСЃРјРѕС‚СЂР° - РІРѕРѕР±С‰Рµ РќР• РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ).
-	 */
-	protected void clearView() {
-		setViewValue(null);
-	}
+  /**
+   * Получение карты Редактирования (с возможностью преобразования к
+   * указанному виджету).
+   */
+  public E getEditableCard() {
+    return editableCard;
+  }
 
-	/**
-	 * РЈСЃС‚Р°РЅРѕРІРєР° С€РёСЂРёРЅС‹ РЅР°РёРјРµРЅРѕРІР°РЅРёСЏ РїРѕР»СЏ.
-	 * 
-	 * @param labelWidth С€РёСЂРёРЅР° РЅР°РёРјРµРЅРѕРІР°РЅРёСЏ РїРѕР»СЏ
-	 */
-	public void setLabelWidth(int labelWidth) {
-		viewCardLabel.setWidth(labelWidth + Unit.PX.getType());
-		editableCardLabel.setWidth(labelWidth + Unit.PX.getType());
-	}
+  /**
+   * Установка наименования поля и сброс разделителя метки, если оно пустое.
+   * 
+   * @param label наименование поля
+   */
+  public void setFieldLabel(String label) {
 
-	/**
-	 * РЈСЃС‚Р°РЅРѕРІРєР° С€РёСЂРёРЅС‹ РєРѕРјРїРѕРЅРµРЅС‚Р° СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёСЏ РїРѕР»СЏ.
-	 * 
-	 * @param fieldWidth С€РёСЂРёРЅР° РєРѕРјРїРѕРЅРµРЅС‚Р° СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёСЏ РїРѕР»СЏ
-	 */
-	public void setFieldWidth(int fieldWidth) {
-		viewCard.setWidth(fieldWidth + Unit.PX.getType());
-		editableCard.setWidth(fieldWidth + Unit.PX.getType());
-	}
+    this.fieldLabel = label;
+    
+    if (JepRiaUtil.isEmpty(label)) {
+      setLabelSeparator("");
+    } else {
+      label = label + this.labelSeparator;
+    }
+    
+    this.viewCardLabel.setHTML(label);
+    
+    if (this.allowBlank) {
+      this.editableCardLabel.setHTML(label);
 
-	
-	/**
-	 * РЈСЃС‚Р°РЅРѕРІРєР° РІС‹СЃРѕС‚С‹ РїРѕР»СЏ.<br>
-	 * РџРѕ СѓРјРѕР»С‡Р°РЅРёСЋ РјРµС‚РѕРґС‹ РІС‹СЃС‚Р°РІР»СЏРµС‚ РІС‹СЃРѕС‚Сѓ РєР°Рє РґР»СЏ РєРѕРјРїРѕРЅРµРЅС‚Р° СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёСЏ,
-	 * С‚Р°Рє Рё РґР»СЏ РєРѕРјРїРѕРЅРµРЅС‚Р° РїСЂРѕСЃРјРѕС‚СЂР°. Р•СЃР»Рё РЅРµРѕР±С…РѕРґРёРјРѕ РґСЂСѓРіРѕРµ РїРѕРІРµРґРµРЅРёРµ, РґР°РЅРЅС‹Р№
-	 * РјРµС‚РѕРґ РїРµСЂРµРѕРїСЂРµРґРµР»СЏРµС‚СЃСЏ РІ РєР»Р°СЃСЃРµ-РЅР°СЃР»РµРґРЅРёРєРµ.
-	 * 
-	 * @param fieldHeight РІС‹СЃРѕС‚Р°
-	 */
-	public void setFieldHeight(int fieldHeight) {
-	    String height = "" + fieldHeight + Unit.PX;
-	    if (fieldHeight == FIELD_DEFAULT_HEIGHT) {
-	        setFieldAutoHeight(height);
-	    } else {
-	        // РРЅРёС†РёР°Р»РёР·РёСЂСѓРµРј РІС‹СЃРѕС‚Сѓ РєР°СЂС‚С‹ СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёСЏ.
-	        editableCard.setHeight(height);
-	        // РРЅРёС†РёР°Р»РёР·РёСЂСѓРµРј РІС‹СЃРѕС‚Сѓ РєР°СЂС‚С‹ РїСЂРѕСЃРјРѕС‚СЂР°.
-	        viewCardLabel.setHeight(height);
-	        viewCard.setHeight(height);
-	    }
-	}
-	
-	public void setFieldAutoHeight(String height) {
-	     // РРЅРёС†РёР°Р»РёР·РёСЂСѓРµРј РІС‹СЃРѕС‚Сѓ РєР°СЂС‚С‹ СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёСЏ.
-	        editableCard.setHeight(height);
-	        // РРЅРёС†РёР°Р»РёР·РёСЂСѓРµРј РІС‹СЃРѕС‚Сѓ РєР°СЂС‚С‹ РїСЂРѕСЃРјРѕС‚СЂР°.
-	        viewCardLabel.getElement().addClassName(FIELD_AUTO_HEIGTH_STYLE);
-	        viewCard.getElement().addClassName(FIELD_AUTO_HEIGTH_STYLE);
-	    }
+    } else if (!JepRiaUtil.isEmpty(label)) {
+      final String idAttr = fieldIdAsWebEl == null ? "" : ("id='" + fieldIdAsWebEl + JEP_FIELD_ALLOW_BLANK_POSTFIX + "'");
 
-	/**
-	 * Р”РѕР±Р°РІР»РµРЅРёРµ СЃР»СѓС€Р°С‚РµР»СЏ РѕРїСЂРµРґРµР»РµРЅРЅРѕРіРѕ С‚РёРїР° СЃРѕР±РёС‚РёР№.<br/>
-	 * Р РµР°Р»РёР·СѓРµС‚СЃСЏ РІС‹Р·РѕРІРѕРј РјРµС‚РѕРґР° {@link com.technology.jep.jepria.client.widget.event.JepObservableImpl#addListener(JepEventType eventType, JepListener listener)}
-	 * РѕР±СЉРµРєС‚Р° {@link #observable}.
-	 *
-	 * @param eventType С‚РёРї СЃРѕР±С‹С‚РёСЏ
-	 * @param listener СЃР»СѓС€Р°С‚РµР»СЊ
-	 */
-	public void addListener(JepEventType eventType, JepListener listener) {
-		observable.addListener(eventType, listener);
-	}
+      this.editableCardLabel.setHTML(JepClientUtil.substitute(REQUIRED_MARKER, idAttr) + label);
 
-	/**
-	 * РЈРґР°Р»РµРЅРёРµ СЃР»СѓС€Р°С‚РµР»СЏ РѕРїСЂРµРґРµР»РµРЅРЅРѕРіРѕ С‚РёРїР° СЃРѕР±РёС‚РёР№.<br/>
-	 * Р РµР°Р»РёР·СѓРµС‚СЃСЏ РІС‹Р·РѕРІРѕРј РјРµС‚РѕРґР°
-	 * {@link com.technology.jep.jepria.client.widget.event.JepObservableImpl#removeListener(JepEventType eventType, JepListener listener)}
-	 * РѕР±СЉРµРєС‚Р° {@link #observable}.
-	 *
-	 * @param eventType С‚РёРї СЃРѕР±С‹С‚РёСЏ
-	 * @param listener  СЃР»СѓС€Р°С‚РµР»СЊ
-	 */
-	public void removeListener(JepEventType eventType, JepListener listener) {
-		observable.removeListener(eventType, listener);
-	}
+    }
+  }
 
-	/**
-	 * РЈРІРµРґРѕРјР»РµРЅРёРµ СЃР»СѓС€Р°С‚РµР»РµР№ РѕРїСЂРµРґРµР»РµРЅРЅРѕРіРѕ С‚РёРїР° Рѕ СЃРѕР±С‹С‚РёРё.<br/>
-	 * Р РµР°Р»РёР·СѓРµС‚СЃСЏ РІС‹Р·РѕРІРѕРј РјРµС‚РѕРґР°
-	 * {@link com.technology.jep.jepria.client.widget.event.JepObservableImpl#notifyListeners(JepEventType eventType, JepEvent event)}
-	 * РѕР±СЉРµРєС‚Р° {@link #observable}.
-	 *
-	 * @param eventType С‚РёРї СЃРѕР±С‹С‚РёСЏ
-	 * @param event СЃРѕР±С‹С‚РёРµ
-	 */
-	public void notifyListeners(JepEventType eventType, JepEvent event) {
-		observable.notifyListeners(eventType, event);
-	}
+  /**
+   * Получение наименования поля.
+   *
+   * @return наименование поля
+   */
+  public String getFieldLabel() {
+    return this.fieldLabel;
+  }
 
-	/**
-	 * РџРѕР»СѓС‡РµРЅРёРµ СЃРїРёСЃРєР° СЃР»СѓС€Р°С‚РµР»РµР№ РѕРїСЂРµРґРµР»РµРЅРЅРѕРіРѕ С‚РёРїР° СЃРѕР±РёС‚РёР№.<br/>
-	 * Р РµР°Р»РёР·СѓРµС‚СЃСЏ РІС‹Р·РѕРІРѕРј РјРµС‚РѕРґР°
-	 * {@link com.technology.jep.jepria.client.widget.event.JepObservableImpl#getListeners(JepEventType eventType)}
-	 * РѕР±СЉРµРєС‚Р° {@link #observable}.
-	 *
-	 * @param eventType С‚РёРї СЃРѕР±С‹С‚РёСЏ
-	 *
-	 * @return СЃРїРёСЃРѕРє СЃР»СѓС€Р°С‚РµР»РµР№
-	 */
-	public List<JepListener> getListeners(JepEventType eventType) {
-		return observable.getListeners(eventType);
-	}
+  /**
+   * Установка нового состояния
+   * 
+   * @param newWorkstate новое состояние
 
-	/**
-	 * РЈСЃС‚Р°РЅРѕРІРєР° РґРѕСЃС‚СѓРїРЅРѕСЃС‚Рё РёР»Рё РЅРµРґРѕСЃС‚СѓРїРЅРѕСЃС‚Рё (РєР°СЂС‚С‹ Р РµРґР°РєС‚РёСЂРѕРІР°РЅРёСЏ) РїРѕР»СЏ РґР»СЏ
-	 * СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёСЏ.
-	 * 
-	 * @param enabled true - РїРѕР»Рµ РґРѕСЃС‚СѓРїРЅРѕ РґР»СЏ СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёСЏ, false - РїРѕР»Рµ РЅРµ РґРѕСЃС‚СѓРїРЅРѕ РґР»СЏ СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёСЏ
-	 */
-	public abstract void setEnabled(boolean enabled);
+   */
+  public void changeWorkstate(WorkstateEnum newWorkstate) {
+    // Только в случае, если действительно изменяется состояние.
+    if (newWorkstate != null && !newWorkstate.equals(_workstate)) {
+      onChangeWorkstate(newWorkstate);
+      _workstate = newWorkstate;
+    }
+  }
 
-	/**
-	 * РЈСЃС‚Р°РЅРѕРІРєР° РІРѕР·РјРѕР¶РЅРѕСЃС‚Рё РѕС‚РѕР±СЂР°Р¶РµРЅРёСЏ РєР°СЂС‚С‹ Р РµРґР°РєС‚РёСЂРѕРІР°РЅРёСЏ РїРѕР»СЏ.
-	 * 
-	 * @param editable true - РєР°СЂС‚Р° Р РµРґР°РєС‚РёСЂРѕРІР°РЅРёСЏ РїРѕР»СЏ РѕС‚РѕР±СЂР°Р¶Р°РµС‚СЃСЏ (РѕР±С‹С‡РЅС‹Р№ СЂРµР¶РёРј), false - РІСЃРµРіРґР° РѕС‚РѕР±СЂР°Р¶Р°РµС‚СЃСЏ С‚РѕР»СЊРєРѕ РєР°СЂС‚Р° РџСЂРѕСЃРјРѕС‚СЂР° РїРѕР»СЏ
-	 */
-	public void setEditable(boolean editable) {
-		this.editable = editable;
+  /**
+   * Обработчик нового состояния
+   * 
+   * @param newWorkstate новое состояние
 
-		if (WorkstateEnum.isEditableState(_workstate) && editable) {
-			showWidget(getWidgetIndex(editablePanel));
-		} else {
-			showWidget(getWidgetIndex(viewPanel));
-		}
-	}
-	
-	public void showWidget(int index) {
-		mainPanel.showWidget(index);
-	}
-	
-	public int getWidgetIndex(Widget child) {
-		return mainPanel.getWidgetIndex(child);
-	}
+   */
+  protected void onChangeWorkstate(WorkstateEnum newWorkstate) {
+    // При смене состояния, очищаем ошибки валидации, если таковые
+    // присутствуют.
 
+    clearInvalid();
 
-        Widget loadingWidget = null;
-	/**
-	 * РЈСЃС‚Р°РЅРѕРІРєР° РёР»Рё СЃРєСЂС‹С‚РёРµ РёР·РѕР±СЂР°Р¶РµРЅРёСЏ Р·Р°РіСЂСѓР·РєРё (СЃРїСЂР°РІР° РѕС‚ РєР°СЂС‚С‹
-	 * СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёСЏ).
-	 * 
-	 * @param imageVisible	РїРѕРєР°Р·Р°С‚СЊ/СЃРєСЂС‹С‚СЊ РёР·РѕР±СЂР°Р¶РµРЅРёРµ Р·Р°РіСЂСѓР·РєРё
-	 */
-	public void setLoadingImage(boolean imageVisible) {
-		if (loadingIcon == null) {
-			loadingIcon = new Image(JepImages.loading());
+    // Если произошло переключение из режима Редактирования в режим
+    // Просмотра, то обновим значение карты режима Просмотра.
 
-		}
-		if (loadingWidget == null) {
-                    loadingWidget = wrapSpan(loadingIcon);
-		    loadingWidget.addStyleName(FIELD_INDICATOR_STYLE);
-		    editablePanel.add(loadingWidget);
-		}
-		loadingIcon.setTitle(imageVisible ? JepTexts.loadingPanel_dataLoading() : "");
-		loadingIcon.setAltText(imageVisible ? JepTexts.loadingPanel_dataLoading() : "");
-		loadingIcon.setVisible(imageVisible);
-	}
-	
-	
-	// РѕР±РµСЂС‚РєР° РІ DIV
-	public Widget wrapDiv(Widget widget) {
-	    HTMLPanel div = new HTMLPanel("");
-	    div.add(widget);
-	    return div;
-	}
-	
-	// РѕР±РµСЂС‚РєР° РІ SPAN
-        public Widget wrapSpan(Widget widget) {
-            InlineHTML spanBlock = new InlineHTML();
-            spanBlock.getElement().appendChild(widget.getElement());
-            return spanBlock;
-        }
+    if (WorkstateEnum.isEditableState(_workstate) && WorkstateEnum.isViewState(newWorkstate)) {
+      setViewValue(getValue());
+    }
+    // Если выставлен признак нередактируемости в режиме Редактирования, то
+    // переключаем карту в режим Просмотра.
+
+    if (WorkstateEnum.isEditableState(newWorkstate) && editable) {
+      showWidget(getWidgetIndex(editablePanel));
+    } else {
+      showWidget(getWidgetIndex(viewPanel));
+    }
+  }
+
+  /**
+   * Установка значения для карты Просмотра.<br/>
+   * При перегрузке данного метода в наследниках необходимо обеспечить, чтобы
+   * данный метод был быстрым/НЕ ресурсо-затратным.<br/>
+   * 
+   * Основная идея Jep-полей: они должны быть легкими. Поэтому, карта
+   * Просмотра должна быть именно текстовым (или простым Html) представлением
+   * значения карты Редактирования.<br/>
+   * В тех случаях, когда чисто текстовое представление нецелесообразно
+   * (списки, деревья и т.п.) - в поле используется ТОЛЬКО одна карта - карта
+   * Редактирования (т.е. карта Просмотра - вообще НЕ используется).
+   * 
+   * Для строковых значений производится кодирование специальных символов в
+   * html-эквивалент для корректного отображения на странице.
+   * 
+   * @param value значение для карты Просмотра
+   */
+  protected void setViewValue(Object value) {
+    ((HTML) viewCard).setHTML(value instanceof String ? SafeHtmlUtils.htmlEscape((String) value) : (value != null ? value.toString() : null));
+  }
+
+  /**
+   * Очистка значения для карты Просмотра.<br/>
+   * При перегрузке данного метода в наследниках необходимо обеспечить, чтобы
+   * данный метод был быстрым/НЕ ресурсо-затратным.<br/>
+   * 
+   * Основная идея Jep-полей: они должны быть легкими. Поэтому, карта
+   * Просмотра должна быть именно текстовым (или простым Html) представлением
+   * значения карты Редактирования.<br/>
+   * В тех случаях, когда чисто текстовое представление нецелесообразно
+   * (списки, деревья и т.п.) - в поле используется ТОЛЬКО одна карта - карта
+   * Редактирования (т.е. карта Просмотра - вообще НЕ используется).
+   */
+  protected void clearView() {
+    setViewValue(null);
+  }
+
+  /**
+   * Установка ширины наименования поля (в пикселях).
+   * 
+   * @param width ширина наименования поля (в пикселях). 
+   */
+  public void setLabelWidth(int width) {
+    setLabelWidth(width + Unit.PX.getType());
+  }
+  
+  /**
+   * Установка ширины наименования поля.
+   * 
+   * @param width ширина наименования поля.
+   */
+  public void setLabelWidth(String width) {
+    viewCardLabel.setWidth(width);
+    editableCardLabel.setWidth(width);
+  }
+  
+  /**
+   * Установка ширины компонента редактирования поля (в пикселях).
+   * 
+   * @param width ширина компонента редактирования поля (в пикселях).
+   */
+  public void setFieldWidth(int width) {
+    setFieldWidth(width + Unit.PX.getType());
+  }
+
+  /**
+   * Установка ширины компонента редактирования поля.
+   * 
+   * @param width ширина компонента редактирования поля
+   */
+  public void setFieldWidth(String width) {
+    viewCard.setWidth(width);
+    editableCard.setWidth(width);
+  }
+  
+  /**
+   * Установка высоты поля.<br>
+   * По умолчанию методы выставляет высоту как для компонента редактирования,
+   * так и для компонента просмотра. Если необходимо другое поведение, данный
+   * метод переопределяется в классе-наследнике.
+   * 
+   * @param fieldHeight высота
+   */
+  public void setFieldHeight(int fieldHeight) {
+    String height = "" + fieldHeight + Unit.PX;
+    if (fieldHeight == FIELD_DEFAULT_HEIGHT) {
+      setFieldAutoHeight(height);
+    } else {
+      // Инициализируем высоту карты редактирования.
+      editableCard.setHeight(height);
+      // Инициализируем высоту карты просмотра.
+      viewCardLabel.setHeight(height);
+      viewCard.setHeight(height);
+    }
+  }
+  
+  public void setFieldAutoHeight(String height) {
+    // Инициализируем высоту карты редактирования.
+    editableCard.setHeight(height);
+    // Инициализируем высоту карты просмотра.
+    viewCardLabel.getElement().addClassName(FIELD_AUTO_HEIGTH_STYLE);
+    viewCard.getElement().addClassName(FIELD_AUTO_HEIGTH_STYLE);
+  }
+
+  /**
+   * Добавление слушателя определенного типа собитий.<br/>
+   * Реализуется вызовом метода {@link com.technology.jep.jepria.client.widget.event.JepObservableImpl#addListener(JepEventType eventType, JepListener listener)}
+   * объекта {@link #observable}.
+   *
+   * @param eventType тип события
+   * @param listener слушатель
+   */
+  public void addListener(JepEventType eventType, JepListener listener) {
+    observable.addListener(eventType, listener);
+  }
+
+  /**
+   * Удаление слушателя определенного типа собитий.<br/>
+   * Реализуется вызовом метода
+   * {@link com.technology.jep.jepria.client.widget.event.JepObservableImpl#removeListener(JepEventType eventType, JepListener listener)}
+   * объекта {@link #observable}.
+   *
+   * @param eventType тип события
+   * @param listener  слушатель
+   */
+  public void removeListener(JepEventType eventType, JepListener listener) {
+    observable.removeListener(eventType, listener);
+  }
+
+  /**
+   * Уведомление слушателей определенного типа о событии.<br/>
+   * Реализуется вызовом метода
+   * {@link com.technology.jep.jepria.client.widget.event.JepObservableImpl#notifyListeners(JepEventType eventType, JepEvent event)}
+   * объекта {@link #observable}.
+   *
+   * @param eventType тип события
+   * @param event событие
+   */
+  public void notifyListeners(JepEventType eventType, JepEvent event) {
+    observable.notifyListeners(eventType, event);
+  }
+
+  /**
+   * Получение списка слушателей определенного типа собитий.<br/>
+   * Реализуется вызовом метода
+   * {@link com.technology.jep.jepria.client.widget.event.JepObservableImpl#getListeners(JepEventType eventType)}
+   * объекта {@link #observable}.
+   *
+   * @param eventType тип события
+   *
+   * @return список слушателей
+   */
+  public List<JepListener> getListeners(JepEventType eventType) {
+    return observable.getListeners(eventType);
+  }
+
+  /**
+   * Установка доступности или недоступности (карты Редактирования) поля для
+   * редактирования.
+   * 
+   * @param enabled true - поле доступно для редактирования, false - поле не доступно для редактирования
+   */
+  public abstract void setEnabled(boolean enabled);
+
+  /**
+   * Установка возможности отображения карты Редактирования поля.
+   * 
+   * @param editable true - карта Редактирования поля отображается (обычный режим), false - всегда отображается только карта Просмотра поля
+   */
+  public void setEditable(boolean editable) {
+    this.editable = editable;
+
+    if (WorkstateEnum.isEditableState(_workstate) && editable) {
+      showWidget(getWidgetIndex(editablePanel));
+    } else {
+      showWidget(getWidgetIndex(viewPanel));
+    }
+  }
+  
+  public void showWidget(int index) {
+    mainPanel.showWidget(index);
+  }
+  
+  public int getWidgetIndex(Widget child) {
+    return mainPanel.getWidgetIndex(child);
+  }
+
+  Widget loadingWidget = null;
+  /**
+   * Установка или скрытие изображения загрузки (справа от карты
+   * редактирования).
+   * 
+   * @param imageVisible  показать/скрыть изображение загрузки
+   */
+  public void setLoadingImage(boolean imageVisible) {
+    if (loadingIcon == null) {
+      loadingIcon = new Image(JepImages.loading());
+    }
+    if (loadingWidget == null) {
+      loadingWidget = wrapSpan(loadingIcon);
+      loadingWidget.addStyleName(FIELD_INDICATOR_STYLE);
+      editablePanel.add(loadingWidget);
+    }
+    loadingIcon.setTitle(imageVisible ? JepTexts.loadingPanel_dataLoading() : "");
+    loadingIcon.setAltText(imageVisible ? JepTexts.loadingPanel_dataLoading() : "");
+    loadingIcon.setVisible(imageVisible);
+  }
+  
+  
+  /**
+   * Обертка виджета в DIV.
+   * @param widget Виджет.
+   * @return Виджет.
+   */
+  public Widget wrapDiv(Widget widget) {
+    HTMLPanel div = new HTMLPanel("");
+    div.add(widget);
+    return div;
+  }
+
+  /**
+   * Обертка в SPAN
+   */
+  public Widget wrapSpan(Widget widget) {
+    InlineHTML spanBlock = new InlineHTML();
+    spanBlock.getElement().appendChild(widget.getElement());
+    return spanBlock;
+  }
 
     
-        Widget widgetIcon = null;
-	/**
-	 * РЈСЃС‚Р°РЅРѕРІРєР° СЃРѕРѕР±С‰РµРЅРёСЏ РѕР± РѕС€РёР±РєРµ.
-	 * 
-	 * @param error	С‚РµРєСЃС‚ СЃРѕРѕР±С‰РµРЅРёСЏ РѕР± РѕС€РёР±РєРµ
-	 */
-	public void markInvalid(String error) {
-		if (errorIcon == null) {
-			errorIcon = new Image(JepImages.field_invalid());
-		}
-		if (widgetIcon == null) {
-		    widgetIcon = wrapSpan(errorIcon);
-		    widgetIcon.addStyleName(FIELD_INDICATOR_STYLE);
-		    editablePanel.add(widgetIcon);
-		}
-		errorIcon.setTitle(error);
-		errorIcon.setAltText(error);
-		errorIcon.setVisible(true);
+  Widget widgetIcon = null;
+  /**
+   * Установка сообщения об ошибке.
+   * 
+   * @param error  текст сообщения об ошибке
+   */
+  public void markInvalid(String error) {
+    if (errorIcon == null) {
+      errorIcon = new Image(JepImages.field_invalid());
+    }
+    if (widgetIcon == null) {
+      widgetIcon = wrapSpan(errorIcon);
+      widgetIcon.addStyleName(FIELD_INDICATOR_STYLE);
+      editablePanel.add(widgetIcon);
+    }
+    errorIcon.setTitle(error);
+    errorIcon.setAltText(error);
+    errorIcon.setVisible(true);
 
-		markedInvalid = true;
+    markedInvalid = true;
 
-		getInputElement().getStyle().setBorderColor(FIELD_INVALID_COLOR);
-	}
+    getInputElement().getStyle().setBorderColor(FIELD_INVALID_COLOR);
+  }
 
-	/**
-	 * РћС‡РёСЃС‚РєР° СЃРѕРѕР±С‰РµРЅРёСЏ РѕР± РѕС€РёР±РєРµ.
-	 */
-	public void clearInvalid() {
-		// РџСЂРѕРІРµСЂСЏРµРј: Р±С‹Р»Рѕ Р»Рё РїРѕР»Рµ РґРµР№СЃС‚РІРёС‚РµР»СЊРЅРѕ РЅРµРІР°Р»РёРґРЅРѕ.
-		if (!markedInvalid) return;
+  /**
+   * Очистка сообщения об ошибке.
+   */
+  public void clearInvalid() {
+    // Проверяем: было ли поле действительно невалидно.
+    if (!markedInvalid) return;
 
-		if (errorIcon != null) {
-			errorIcon.setTitle("");
-			errorIcon.setAltText("");
-			errorIcon.setVisible(false);
-		}
+    if (errorIcon != null) {
+      errorIcon.setTitle("");
+      errorIcon.setAltText("");
+      errorIcon.setVisible(false);
+    }
 
-		markedInvalid = false;
+    markedInvalid = false;
 
-		getInputElement().getStyle().clearBorderColor();
-	}
+    getInputElement().getStyle().clearBorderColor();
+  }
 
-	/**
-	 * РћРїСЂРµРґРµР»СЏРµС‚: СЏРІР»СЏРµС‚СЃСЏ Р»Рё РїСѓСЃС‚РѕРµ Р·РЅР°С‡РµРЅРёРµ РґРѕРїСѓСЃС‚РёРјС‹Рј Р·РЅР°С‡РµРЅРёРµРј РїРѕР»СЏ.
-	 * 
-	 * @param allowBlank true - РґРѕРїСѓСЃРєР°РµС‚ РїСѓСЃС‚РѕРµ Р·РЅР°С‡РµРЅРёРµ РїРѕР»СЏ, false - РїРѕР»Рµ РѕР±СЏР·Р°С‚РµР»СЊРЅРѕРµ РґР»СЏ Р·Р°РїРѕР»РЅРµРЅРёСЏ.
-	 */
-	public void setAllowBlank(boolean allowBlank) {
-		this.allowBlank = allowBlank;
-		setFieldLabel(getFieldLabel());
-	}
+  /**
+   * Определяет: является ли пустое значение допустимым значением поля.
+   * 
+   * @param allowBlank true - допускает пустое значение поля, false - поле обязательное для заполнения.
+   */
+  public void setAllowBlank(boolean allowBlank) {
+    this.allowBlank = allowBlank;
+    setFieldLabel(getFieldLabel());
+  }
 
-	/**
-	 * РЈСЃС‚Р°РЅРѕРІРєР° Р·РЅР°С‡РµРЅРёСЏ СЂР°Р·РґРµР»РёС‚РµР»СЏ. РџРѕ СѓРјРѕР»С‡Р°РЅРёСЋ, СЃРёРјРІРѕР» РґРІРѕРµС‚РѕС‡РёСЏ.
-	 * 
-	 * @param labelSeparator РЅРѕРІС‹Р№ СЂР°Р·РґРµР»РёС‚РµР»СЊ
-	 */
-	public void setLabelSeparator(String labelSeparator) {
-		this.labelSeparator = labelSeparator;
-	}
+  /**
+   * Установка значения разделителя. По умолчанию, символ двоеточия.
+   * 
+   * @param labelSeparator новый разделитель
+   */
+  public void setLabelSeparator(String labelSeparator) {
+    this.labelSeparator = labelSeparator;
+  }
 
-	/**
-	 * РџРѕР»СѓС‡РµРЅРёРµ Р·РЅР°С‡РµРЅРёСЏ РєРѕРјРїРѕРЅРµРЅС‚Р° РёР· DOM-РґРµСЂРµРІР° РґРѕРєСѓРјРµРЅС‚Р°.
-	 * 
-	 * @return РІРѕР·РІСЂР°С‰Р°РµРјРѕРµ Р·РЅР°С‡РµРЅРёРµ
-	 */
-	public String getRawValue() {
-		return getInputElement().getPropertyString("value");
-	}
+  /**
+   * Получение значения компонента из DOM-дерева документа.
+   * 
+   * @return возвращаемое значение
+   */
+  public String getRawValue() {
+    return getInputElement().getPropertyString("value");
+  }
 
-	/**
-	 * РџСЂРѕРІРµСЂСЏРµС‚, СЃРѕРґРµСЂР¶РёС‚ Р»Рё РїРѕР»Рµ РґРѕРїСѓСЃС‚РёРјРѕРµ Р·РЅР°С‡РµРЅРёРµ. <br>
-	 * РџСЂРµРґРІР°СЂРёС‚РµР»СЊРЅРѕ РѕС‡РёС‰Р°РµС‚ СЃРѕРѕР±С‰РµРЅРёРµ РѕР± РѕС€РёР±РєРµ. Р•СЃР»Рё РїРѕР»Рµ СЏРІР»СЏРµС‚СЃСЏ
-	 * РѕР±СЏР·Р°С‚РµР»СЊРЅС‹Рј, Р° РІРІРµРґС‘РЅРЅРѕРµ Р·РЅР°С‡РµРЅРёРµ РїСѓСЃС‚Рѕ, СѓСЃС‚Р°РЅР°РІР»РёРІР°РµС‚ СЃРѕРѕР±С‰РµРЅРёРµ РѕР±
-	 * РѕС€РёР±РєРµ Рё РІРѕР·РІСЂР°С‰Р°РµС‚ false. РџСЂРµРґРЅР°Р·РЅР°С‡РµРЅ РґР»СЏ РїРµСЂРµРѕРїСЂРµРґРµР»РµРЅРёСЏ РІ
-	 * РєР»Р°СЃСЃР°С…-РЅР°СЃР»РµРґРЅРёРєР°С….
-	 *
-	 * @return true - РµСЃР»Рё РїРѕР»Рµ СЃРѕРґРµСЂР¶РёС‚ РґРѕРїСѓСЃС‚РёРјРѕРµ Р·РЅР°С‡РµРЅРёРµ, false - РІ	РїСЂРѕС‚РёРІРЅРѕРј СЃР»СѓС‡Р°Рµ
-	 */
-	@Override
-	public boolean isValid() {
-		// РџРµСЂРµРґ РїСЂРѕРІРµСЂРєРѕР№, РѕС‡РёС‰Р°РµРј РїСЂРµРґС‹РґСѓС‰РёРµ РѕС€РёР±РєРё.
-		clearInvalid();
-		if (!allowBlank && JepRiaUtil.isEmpty(getRawValue())) {
-			markInvalid(JepTexts.field_blankText());
-			return false;
-		}
-		return true;
+  /**
+   * Проверяет, содержит ли поле допустимое значение. <br>
+   * Предварительно очищает сообщение об ошибке. Если поле является
+   * обязательным, а введённое значение пусто, устанавливает сообщение об
+   * ошибке и возвращает false. Предназначен для переопределения в
+   * классах-наследниках.
+   *
+   * @return true - если поле содержит допустимое значение, false - в  противном случае
+   */
+  @Override
+  public boolean isValid() {
+    // Перед проверкой, очищаем предыдущие ошибки.
+    clearInvalid();
+    if (!allowBlank && JepRiaUtil.isEmpty(getRawValue())) {
+      markInvalid(JepTexts.field_blankText());
+      return false;
+    }
+    return true;
 
-	}
+  }
 
-	/*
-	 * TODO РњРµС‚РѕРґ РёРјРµРµС‚ СЃРјС‹СЃР» РЅРµ РґР»СЏ РІСЃРµС… РїРѕР»РµР№, Р° Р»РёС€СЊ РґР»СЏ С‚РµС…, РІ РѕСЃРЅРѕРІРµ
-	 * РєРѕС‚РѕСЂС‹С… Р»РµР¶РёС‚ РѕРґРёРЅ СЌР»РµРјРµРЅС‚ С‚РёРїР° input. Р”Р»СЏ JepListField,
-	 * JepDualListField, JepTreeField Рё С‚.Рґ. СЌС‚Рѕ, РѕС‡РµРІРёРґРЅРѕ, РЅРµ С‚Р°Рє. РЎР»РµРґСѓРµС‚
-	 * РїРѕРґСѓРјР°С‚СЊ РЅР°Рґ РїРµСЂРµРЅРѕСЃРѕРј РґР°РЅРЅРѕРіРѕ РјРµС‚РѕРґР° Рё СЂРµС„Р°РєС‚РѕСЂРёРЅРіРѕРј РёСЃРїРѕР»СЊР·СѓСЋС‰РёС… РµРіРѕ
-	 * РјРµС‚РѕРґРѕРІ.
-	 */
+  /*
+   * TODO Метод имеет смысл не для всех полей, а лишь для тех, в основе
+   * которых лежит один элемент типа input. Для JepListField,
+   * JepDualListField, JepTreeField и т.д. это, очевидно, не так. Следует
+   * подумать над переносом данного метода и рефакторингом использующих его
+   * методов.
+   */
 
-	/**
-	 * РџРѕР»СѓС‡РµРЅРёРµ DOM-СЌР»РµРјРµРЅС‚Р° РєР°СЂС‚С‹ СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёСЏ.
-	 * 
-	 * @return DOM-СЌР»РµРјРµРЅС‚
-	 */
-	protected Element getInputElement() {
-		return editableCard.getElement();
-	}
+  /**
+   * Получение DOM-элемента карты редактирования.
+   * 
+   * @return DOM-элемент
+   */
+  protected Element getInputElement() {
+    return editableCard.getElement();
+  }
 
-	/**
-	 * РћС‡РёС‰Р°РµС‚ Р·РЅР°С‡РµРЅРёРµ РїРѕР»СЏ.<br/>
-	 * РџСЂРё РѕС‡РёСЃС‚РєРµ Р·РЅР°С‡РµРЅРёСЏ РїРѕР»СЏ, РѕС‡РёС‰Р°СЋС‚СЃСЏ Р·РЅР°С‡РµРЅРёСЏ РґР»СЏ РѕР±РµРёС… РєР°СЂС‚ СЃСЂР°Р·Сѓ: РґР»СЏ
-	 * РєР°СЂС‚С‹ Р РµРґР°РєС‚РёСЂРѕРІР°РЅРёСЏ Рё РєР°СЂС‚С‹ РџСЂРѕСЃРјРѕС‚СЂР°.
-	 * 
-	 * РћСЃРѕР±РµРЅРЅРѕСЃС‚СЊ:<br/>
-	 * РџРµСЂРµРєСЂС‹С‚РёРµ РјРµС‚РѕРґР° РѕР±СѓСЃР»РѕРІР»РµРЅРѕ РІС‹Р·С‹РІРѕРј РјРµС‚РѕРґР°
-	 * {@link com.google.gwt.user.client.ui.Panel#clear}, СѓРґР°Р»СЏСЋС€СЏРµРіРѕ РІСЃРµ
-	 * СЌР»РµРјРµРЅС‚С‹ СЃ РїР°РЅРµР»Рё.
-	 */
-	public void clear() {
-		clearView();
-	}
+  /**
+   * Очищает значение поля.<br/>
+   * При очистке значения поля, очищаются значения для обеих карт сразу: для
+   * карты Редактирования и карты Просмотра.
+   * 
+   * Особенность:<br/>
+   * Перекрытие метода обусловлено вызывом метода
+   * {@link com.google.gwt.user.client.ui.Panel#clear}, удаляюшяего все
+   * элементы с панели.
+   */
+  public void clear() {
+    clearView();
+  }
 
-	/**
-	 * РњРµС‚РѕРґ РґР»СЏ СЃС‚РёР»РёР·Р°С†РёРё РїРѕР»СЏ.<br/>
-	 * Р”Р»СЏ РїСЂРёРјРµРЅРµРЅРёСЏ РЅРѕРІС‹С… СЃС‚РёР»РµР№ СЌР»РµРјРµРЅС‚Р° РЅРµРѕР±С…РѕРґРёРјРѕ РІ РЅР°СЃР»РµРґРЅРёРєР°С… РїРµСЂРµРєСЂС‹РІР°С‚СЊ
-	 * РґР°РЅРЅС‹Р№ РјРµС‚РѕРґ.
-	 */
-	protected void applyStyle() {
-		// РЈСЃС‚Р°РЅР°РІР»РёРІР°РµРј Р°С‚СЂРёР±СѓС‚С‹ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ РґР»СЏ РєРѕРјРїРѕРЅРµРЅС‚Р° JepMultiStateField.
-		mainPanel.getElement().getStyle().setMarginBottom(5, Unit.PX);
-		// РЈСЃС‚Р°РЅРѕРІРєР° РѕСЃРЅРѕРІРЅРѕРіРѕ С€СЂРёС„С‚Р° РІ РєР°СЂС‚Сѓ СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёСЏ.
-		getInputElement().addClassName(MAIN_FONT_STYLE);
-		// РЈРґР°Р»СЏРµРј РІС‹СЃС‚СѓРїС‹ Рё РѕС‚СЃС‚СѓРїС‹ РєР°СЂС‚С‹ СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёСЏ.
-		removeMarginsAndPaddings(getInputElement());
-	}
+  /**
+   * Метод для стилизации поля.<br/>
+   * Для применения новых стилей элемента необходимо в наследниках перекрывать
+   * данный метод.
+   */
+  protected void applyStyle() {
+    // Устанавливаем атрибуты по умолчанию для компонента JepMultiStateField.
+    mainPanel.getElement().getStyle().setMarginBottom(5, Unit.PX);
+    // Установка основного шрифта в карту редактирования.
+    getInputElement().addClassName(MAIN_FONT_STYLE);
+    // Удаляем выступы и отступы карты редактирования.
+    removeMarginsAndPaddings(getInputElement());
+  }
 
-	/**
-	 * РЈРґР°Р»РµРЅРёРµ РѕС‚СЃС‚СѓРїРѕРІ Рё РІС‹СЃС‚СѓРїРѕРІ СЌР»РµРјРµРЅС‚Р°.
-	 * 
-	 * @param stylezedElement СЃС‚РёР»РёР·СѓРµРјС‹Р№ СЌР»РµРјРµРЅС‚
-	 */
-	protected static void removeMarginsAndPaddings(Element stylezedElement) {
-		Style style = stylezedElement.getStyle();
-		style.setMargin(0, Unit.PX);
-		style.setPadding(0, Unit.PX);
-	}
+  /**
+   * Удаление отступов и выступов элемента.
+   * 
+   * @param stylezedElement стилизуемый элемент
+   */
+  protected static void removeMarginsAndPaddings(Element stylezedElement) {
+    Style style = stylezedElement.getStyle();
+    style.setMargin(0, Unit.PX);
+    style.setPadding(0, Unit.PX);
+  }
 }
