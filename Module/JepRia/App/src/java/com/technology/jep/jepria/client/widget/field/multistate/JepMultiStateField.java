@@ -104,10 +104,10 @@ public abstract class JepMultiStateField<E extends Widget, V extends Widget> ext
   protected FlowPanel editablePanel;
   
   public FlowPanel getEditablePanel() {
-        return editablePanel;
-    }
+    return editablePanel;
+  }
 
-    @UiField
+  @UiField
   protected HTML editableCardLabel;
 
   /**
@@ -375,7 +375,6 @@ public abstract class JepMultiStateField<E extends Widget, V extends Widget> ext
       final String idAttr = fieldIdAsWebEl == null ? "" : ("id='" + fieldIdAsWebEl + JEP_FIELD_ALLOW_BLANK_POSTFIX + "'");
 
       this.editableCardLabel.setHTML(JepClientUtil.substitute(REQUIRED_MARKER, idAttr) + label);
-
     }
   }
 
