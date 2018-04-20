@@ -10,7 +10,21 @@ import com.technology.jep.jepria.shared.exceptions.ApplicationException;
  * Класс, реализующий загрузку (upload) файла в CLOB.
  */
 public class TextFileUploadImpl extends AbstractFileUpload implements TextFileUpload {
-  
+
+  /**
+   * {@inheritDoc}
+   */
+  public TextFileUploadImpl(){
+    super();
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  public TextFileUploadImpl(boolean transactionable){
+    super(transactionable);
+  }
+
   /**
    * {@inheritDoc}
    */
@@ -25,8 +39,9 @@ public class TextFileUploadImpl extends AbstractFileUpload implements TextFileUp
 
     int result = -1;
     try {
-      CallContext.begin(dataSourceJndiName, moduleName);
-
+      if (transactionable) {
+        CallContext.begin(dataSourceJndiName, moduleName);
+      }
       super.largeObject = new TextLargeObject(tableName, fileFieldName, keyFieldName, rowId);
       result = ((TextLargeObject)super.largeObject).beginWrite();
     } catch (ApplicationException ex) {

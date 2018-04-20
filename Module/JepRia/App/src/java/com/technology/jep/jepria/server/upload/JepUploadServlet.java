@@ -70,6 +70,11 @@ public class JepUploadServlet extends HttpServlet {
    * Кодировка текстовых файлов.
    */
   private final Charset textFileCharset;
+
+  /**
+   * Признак необходимости производить загрузку в отдельной транзакции.
+   */
+  private final boolean transactionable;
   
   /**
    * Создаёт сервлет загрузки файлов на сервер.<br>
@@ -80,7 +85,7 @@ public class JepUploadServlet extends HttpServlet {
   public JepUploadServlet(
       JepLobRecordDefinition fileRecordDefinition,
       String dataSourceJndiName) {
-    this(fileRecordDefinition, dataSourceJndiName, JepRiaServerConstant.DEFAULT_ENCODING);
+    this(fileRecordDefinition, dataSourceJndiName, JepRiaServerConstant.DEFAULT_ENCODING, true);
   }
   /**
    * Создаёт сервлет загрузки файлов на сервер.
@@ -92,10 +97,26 @@ public class JepUploadServlet extends HttpServlet {
     JepLobRecordDefinition fileRecordDefinition,
     String dataSourceJndiName,
     Charset textFileCharset) {
-    
+
+    this(fileRecordDefinition, dataSourceJndiName, textFileCharset, true);
+  }
+
+  /**
+   * Создаёт сервлет загрузки файлов на сервер.
+   * @param fileRecordDefinition определение записи
+   * @param dataSourceJndiName JNDI-наименование источника данных
+   * @param textFileCharset кодировка текстовых файлов
+   */
+  public JepUploadServlet(
+          JepLobRecordDefinition fileRecordDefinition,
+          String dataSourceJndiName,
+          Charset textFileCharset,
+          boolean transactionable) {
+
     this.fileRecordDefinition = fileRecordDefinition;
     this.dataSourceJndiName = dataSourceJndiName;
     this.textFileCharset = textFileCharset;
+    this.transactionable = transactionable;
   }
 
   /**
@@ -269,7 +290,7 @@ public class JepUploadServlet extends HttpServlet {
       if(primaryKeyMap.size() == 1) {
         FileUploadStream.uploadFile(
           inputStream,
-          new BinaryFileUploadImpl(),
+          new BinaryFileUploadImpl(transactionable),
           tableName,
           fileFieldName,
           fileRecordDefinition.getKeyFieldName(),
@@ -279,7 +300,7 @@ public class JepUploadServlet extends HttpServlet {
       } else {
         FileUploadStream.uploadFile(
           inputStream,
-          new BinaryFileUploadImpl(),
+          new BinaryFileUploadImpl(transactionable),
           tableName,
           fileFieldName,
           primaryKeyMap,
@@ -308,7 +329,7 @@ public class JepUploadServlet extends HttpServlet {
       if(primaryKeyMap.size() == 1) {
         FileUploadWriter.uploadFile(
           new InputStreamReader(inputStream, textFileCharset),
-          new TextFileUploadImpl(),
+          new TextFileUploadImpl(transactionable),
           tableName,
           fileFieldName,
           fileRecordDefinition.getKeyFieldName(),
@@ -318,7 +339,7 @@ public class JepUploadServlet extends HttpServlet {
       } else {
         FileUploadWriter.uploadFile(
           new InputStreamReader(inputStream, textFileCharset),
-          new TextFileUploadImpl(),
+          new TextFileUploadImpl(transactionable),
           tableName,
           fileFieldName,
           primaryKeyMap,
