@@ -14,6 +14,20 @@ public class BinaryFileUploadImpl extends AbstractFileUpload implements BinaryFi
   /**
    * {@inheritDoc}
    */
+  public BinaryFileUploadImpl(){
+    super();
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  public BinaryFileUploadImpl(boolean transactionable){
+    super(transactionable);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
   public int beginWrite(
     String tableName
     , String fileFieldName
@@ -25,8 +39,9 @@ public class BinaryFileUploadImpl extends AbstractFileUpload implements BinaryFi
 
     int result = -1;
     try {
-      CallContext.begin(dataSourceJndiName, moduleName);
-
+      if (transactionable) {
+        CallContext.begin(dataSourceJndiName, moduleName);
+      }
       super.largeObject = new BinaryLargeObject(tableName, fileFieldName, keyFieldName, rowId);
       result = ((BinaryLargeObject)super.largeObject).beginWrite();
     } catch (ApplicationException ex) {
