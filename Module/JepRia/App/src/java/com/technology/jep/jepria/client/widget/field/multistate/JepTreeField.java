@@ -29,12 +29,12 @@ public class JepTreeField extends JepMultiStateField<TreeField<JepOption>, HTML>
   /**
    * Список узлов, которые необходимо отметить.
    */
-  private List<JepOption> checkedValues = null;
+  protected List<JepOption> checkedValues = null;
   
   /**
    * Список узлов, которые необходимо раскрыть.
    */
-  private List<JepOption> expandedValues = null;
+  protected List<JepOption> expandedValues = null;
   
   private final static int DEFAULT_TREE_FIELD_HEIGHT = 300;
   
