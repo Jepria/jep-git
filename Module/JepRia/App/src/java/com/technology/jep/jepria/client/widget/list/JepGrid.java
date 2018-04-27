@@ -51,7 +51,6 @@ import com.google.gwt.view.client.ProvidesKey;
 import com.google.gwt.view.client.SelectionModel;
 import com.google.gwt.view.client.SetSelectionModel;
 import com.technology.jep.jepria.client.util.JepClientUtil;
-import com.technology.jep.jepria.client.widget.container.ElementSimplePanel;
 import com.technology.jep.jepria.client.widget.list.event.RowPositionChangeEvent;
 import com.technology.jep.jepria.client.widget.list.header.ResizableHeader;
 import com.technology.jep.jepria.shared.util.JepRiaUtil;
@@ -88,11 +87,6 @@ public class JepGrid<T> extends DataGrid<T> {
    * Флаг допустимости настройки порядка следования колонок и их отображения в таблице данных 
    */
   private boolean isColumnConfigurable = true;
-  
-  /**
-   * Флаг доступности переноса строк таблицы данных
-   */
-  private boolean dndEnabled = false;
   
   /**
    * Текущий режим работы Drag&Drop
@@ -161,12 +155,6 @@ public class JepGrid<T> extends DataGrid<T> {
    * Курсор после строки.
    */
   protected Boolean isDraggedAfter = false;
-
-  /**
-   * Флаг отключенного выделения текста в ячейках </br>
-   * (важно значение "true" при Drag&Drop, иначе вместо перетаскиваний будет выделяться текст).
-   */
-  private boolean isTextSelectionDisabled = false;
   
   /**
    * Флаг начала события DragStart
@@ -481,13 +469,21 @@ public class JepGrid<T> extends DataGrid<T> {
   }
   
   /**
-   * Обработчик события наведения мыши на элементы таблицы.
+   * Обработчик события наведения мыши на элементы таблицы.<br/>
+   * По умолчанию устанавливает всплывающую подсказку для каждой ячейки, содержащей
+   * текст. Если текста нет (к примеру, внутри какой-то DOM-элемент), подсказка не назначается. 
    * @param event событие
    */
   protected void onMouseOver(CellPreviewEvent<T> event) {
     Element cellElement = event.getNativeEvent().getEventTarget().cast();
-    String toolTip = cellElement.getInnerText();
-    cellElement.setTitle(JepClientUtil.jsTrim(toolTip)); // убираем первые пробелы для древовидного справочника
+    String innerText = JepClientUtil.jsTrim(cellElement.getInnerText()); // Убираем первые пробелы для древовидного справочника.
+    /*
+     * Проверка необходима, чтобы избежать назначения всплывающей подсказки ячейке с DOM-элементом
+     * (например, иконкой). В противном случае всплывающая подсказка DOM-элемента будет затёрта.
+     */
+    if (!JepRiaUtil.isEmpty(innerText)) {
+      cellElement.setTitle(innerText);
+    }
   }
   
   /**
@@ -634,12 +630,10 @@ public class JepGrid<T> extends DataGrid<T> {
     }
     this.dndMode = mode;
     if(mode == DndMode.NONE) {
-      isTextSelectionDisabled = false;
       this.getElement().setClassName(JepRiaUtil.removeStrIfPresent(this.getElement().getClassName(), " noselect"));
     }
     else {
       this.getElement().setClassName(this.getElement().getClassName()+" noselect");
-      isTextSelectionDisabled = true;
     }
   }
   
