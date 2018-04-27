@@ -13,10 +13,31 @@ public interface ${form.formName}Auto extends JepRiaModuleAuto {
    */
   </#if>
   <#list form.sortDetailFormFields as field>
-  <#--TODO: реализовать поддержку всех виджетов (может быть не только String).
-  void set${field.fieldIdAsParameter?cap_first}(String ${field.fieldId});
-  String get${field.fieldName?cap_first}();
-  -->
+    <#switch field.fieldWidget>
+      <#case "JepComboBoxField">
+  public void set${field.fieldIdAsParameter?cap_first}(String ${field.fieldIdAsParameter?uncap_first});
+  public String get${field.fieldIdAsParameter?cap_first}();
+        <#break>
+      <#case "JepCheckBoxField">
+  public void set${field.fieldIdAsParameter?cap_first}(Boolean ${field.fieldIdAsParameter?uncap_first});
+  public Boolean get${field.fieldIdAsParameter?cap_first}();
+        <#break>
+      <#case "JepTreeField">
+  public void set${field.fieldIdAsParameter?cap_first}(String[] ${field.fieldIdAsParameter?uncap_first});
+  public String get${field.fieldIdAsParameter?cap_first}();
+        <#break>
+      <#case "JepListField">
+  public void set${field.fieldIdAsParameter?cap_first}(String[] ${field.fieldIdAsParameter?uncap_first});e
+  public String get${field.fieldIdAsParameter?cap_first}();
+        <#break>
+      <#case "JepDualListField">
+  public void set${field.fieldIdAsParameter?cap_first}(String[] ${field.fieldIdAsParameter?uncap_first});
+  public String get${field.fieldIdAsParameter?cap_first}();
+        <#break>
+      <#default>    
+  public void set${field.fieldIdAsParameter?cap_first}(String ${field.fieldIdAsParameter?uncap_first});
+  public String get${field.fieldIdAsParameter?cap_first}();
+    </#switch>
   </#list>
   <#if !form.isDependent>
   void setMaxRowCount(String maxRowCount);

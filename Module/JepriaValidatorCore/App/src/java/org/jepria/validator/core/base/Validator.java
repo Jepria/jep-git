@@ -3,6 +3,9 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.jepria.validator.core.base.contextadapter.ContextReadAdapter;
 import org.jepria.validator.core.base.contextadapter.ContextWriteAdapter;
@@ -58,6 +61,8 @@ public class Validator {
    * @param rules набор правил. Если {@code null} или список пуст, метод завершается. Валидация проходит по порядку правил, определенному данным списком
    * @param resourcesForValidation множество ресурсов для валидации. Если {@code null} или список пуст, метод завершается
    * @param validationMessageCollector сборщик сообщений при валидации (или {@code null})
+   * @param progressCallback обратная связь для сообщения о прогрессе валидации, или null
+   * 
    * Если {@code null}, то подставляется сборщик по умолчанию {@link MessageCollector#DUMMY}
    * <br><br>
    * <i>
@@ -67,7 +72,8 @@ public class Validator {
   public void validateInContext(
       List<ValidatorRule> rules,
       List<Resource> resourcesForValidation, 
-      MessageCollector validationMessageCollector) {
+      MessageCollector validationMessageCollector,
+      ProgressCallback progressCallback) {
     
     if (rules == null || rules.isEmpty() || 
         resourcesForValidation == null || resourcesForValidation.isEmpty()) {
@@ -79,7 +85,7 @@ public class Validator {
     }
     
     for (ValidatorRule rule: rules) {
-      validateUnderRule(rule, resourcesForValidation, validationMessageCollector, false, null);
+      validateUnderRule(rule, resourcesForValidation, validationMessageCollector, false, null, progressCallback);
     }
   }
   
@@ -126,6 +132,45 @@ public class Validator {
   }
   
   /**
+   * Класс, реализующий обратную связь для сообщения о прогрессе.
+   */
+  public static abstract class ProgressCallback {
+    
+    /**
+     * Обратный вызов, сообщает об очередном завершенном этапе прогресса
+     * @param completed количество завершенных этапов
+     * @param total общее количество этапов
+     */
+    protected abstract void onProgress(int completed, int total);
+    
+    protected void onInitialized() {};
+    
+    public void initialize() {
+      onInitialized();
+    }
+    
+    private int total;
+    
+    /**
+     * Выставляет общее количество этапов прогресса
+     * @param total
+     */
+    public void setTotal(int total) {
+      this.total = total;
+    }
+    
+    private int completed = 0;
+    
+    /**
+     * Сообщает об очередном завершенном этапе прогресса
+     */
+    public void onNextCompleted() {
+      completed++;
+      onProgress(completed, total);
+    };
+  }
+  
+  /**
    * Последовательно валидирует набор ресурсов по валидационному правилу
    * 
    * @param rule валидационное правило. Если {@code null}, метод завершается
@@ -133,6 +178,7 @@ public class Validator {
    * @param validationMessageCollector сборщик сообщений при валидации (или {@code null})
    * @param transform {@code true} если требуется рефакторинг переданных ресурсов, {@code false} если только валидация
    * @param transformMessageCollector сборщик сообщений при рефакторинге (или {@code null}). Используется только если {@code transform true}
+   * @param progressCallback
    * <br><br>
    * <i>
    * <b>Конвенция:</b> Ресурсы из множества должны валидироваться одним и тем же правилом независимо друг от друга,
@@ -144,7 +190,8 @@ public class Validator {
       List<Resource> resourcesForValidation, 
       MessageCollector validationMessageCollector,
       boolean transform,
-      MessageCollector transformMessageCollector) {
+      MessageCollector transformMessageCollector,
+      ProgressCallback progressCallback) {
     
     if (rule == null || 
         resourcesForValidation == null || resourcesForValidation.isEmpty()) {
@@ -182,6 +229,12 @@ public class Validator {
               
               transformMessageHandlerToCollector.setResource(resource);
               rule.setMessageHandler(transformMessageHandlerToCollector);
+              
+              
+              // В случае если реально рефакторится java-файл, проверим его на JSNI методы (обход бага JavaPasrer)
+              // TODO удалить эту строку когда баг пофиксят
+              if (resource.getName().endsWith(".java")) {checkJsniMethods(resourceWithContent);}
+              
               
               DisposableContentRefactoringHelper contentRefactoringHelper = new DisposableContentRefactoringHelper(resourceWithContent);
               contentRefactoringAction.perform(contentRefactoringHelper);
@@ -222,6 +275,35 @@ public class Validator {
         }
       } finally {
         rule.setMessageHandler(null);
+      }
+      
+      if (progressCallback != null) {
+        progressCallback.onNextCompleted();
+      }
+    }
+  }
+  
+  /**
+   * Обход бага: JavaParser удаляет имплементации JSNI-методов, заключенных в последовательности / * - { ... } - * /
+   * Данный метод сканирует файл в поисках таких имплементаций и выводит предупреждение в System.out.
+   * 
+   * @deprecated remove the method with all use cases when the bug gets fixed. 
+   */
+  @Deprecated
+  private static void checkJsniMethods(PlainResource javaResource) {
+    Pattern pattern = Pattern.compile("/\\*\\-\\{");
+    try (Scanner sc = new Scanner(javaResource.newInputStream(), "UTF-8")) {
+      int lineNum = 0;
+      while (sc.hasNextLine()) {
+        lineNum++;
+        String line = sc.nextLine();
+        Matcher m = pattern.matcher(line);
+        int col = 0;
+        while(m.find(col)) {
+          col = m.start() + 1;
+          System.out.println("/WARNING: Found JSNI method implementation at " + javaResource.getPathName() + ":" + lineNum + ":" + col + ". "
+              + "This will be erased by JavaParser (because it is not supported), restore manually after validation.");
+        }
       }
     }
   }

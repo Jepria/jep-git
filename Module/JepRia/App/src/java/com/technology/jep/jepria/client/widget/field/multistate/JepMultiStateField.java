@@ -23,9 +23,11 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiTemplate;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DeckPanel;
+import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HTML;
-import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Image;
+import com.google.gwt.user.client.ui.InlineHTML;
 import com.google.gwt.user.client.ui.Widget;
 import com.technology.jep.jepria.client.JepRiaAutomationConstant;
 import com.technology.jep.jepria.client.ui.WorkstateEnum;
@@ -62,686 +64,745 @@ import com.technology.jep.jepria.shared.util.JepRiaUtil;
  */
 public abstract class JepMultiStateField<E extends Widget, V extends Widget> extends Composite implements JepField<E, V>, JepMultiState, JepObservable, Validator {
 
-	/**
-	 * Основная панель виджета
-	 */
-	protected DeckPanel mainPanel;
+  /**
+   * Основная панель виджета
+   */
+  protected DeckPanel mainPanel;
 
-	/**
-	 * Панель, на которой располагается карта режима Просмотра.<br/>
-	 * Панель необходима для применения требуемого layout'а для компонента карты
-	 * Просмотра.<br/>
-	 */
-	@UiField
-	public HorizontalPanel viewPanel;
-
-	@UiField
-	public HTML viewCardLabel;
-
-	/**
-	 * Карта для режима Просмотра.<br/>
-	 * Режим просмотра определяется методом {@link com.technology.jep.jepria.client.ui.WorkstateEnum#isViewState(WorkstateEnum workstate)}.<br/>
-	 * <br/>
-	 * Основная идея Jep-полей: они должны быть легкими. Поэтому, карта Просмотра должна быть именно текстовым (или простым Html) представлением
-	 * значения карты Редактирования.<br/>
-	 * В тех случаях, когда чисто текстовое представление нецелесообразно (списки, деревья и т.п.) - в поле используется ТОЛЬКО одна карта - 
-	 * карта Редактирования (т.е. карта Просмотра - вообще НЕ используется).
-	 */
-	@UiField
-	public V viewCard;
-
-	/**
-	 * Панель, на которой располагается карта режима Редактирование.<br/>
-	 * Панель необходима для применения требуемого layout'а для компонента карты Редактирование.<br/>
-	 */
-	@UiField
-	public HorizontalPanel editablePanel;
-
-	@UiField
-	public HTML editableCardLabel;
-
-	/**
-	 * Карта для режима Редактирование.<br/>
-	 * Режим редактирования определяется методом{@link com.technology.jep.jepria.client.ui.WorkstateEnum#isEditableState(WorkstateEnum workstate)}
-	 */
-	public E editableCard;
-
-	/**
-	 * Текущее состояние поля.
-	 */
-	protected WorkstateEnum _workstate;
-
-	/**
-	 * Признак возможности отображения карты Редактирования поля.
-	 */
-	protected boolean editable = true;
-
-	/**
-	 * Признак доступности пустого значения поля.
-	 */
-	protected boolean allowBlank = true;
-
-	/**
-	 * Признак невалидности поля.
-	 */
-	private boolean markedInvalid = false;
-
-	/**
-	 * Объект для работы со слушателями событий поля.
-	 */
-	protected JepObservable observable;
-
-	/**
-	 * Индикатор загрузки данных.
-	 */
-	protected Image loadingIcon;
-
-	/**
-	 * Ошибка при валидации данных.
-	 */
-	protected Image errorIcon;
-
-	/**
-	 * Метка поля.
-	 */
-	private String fieldLabel;
-
-	/**
-	 * ID данного Jep-поля как Web-элемента.
-	 */
-	protected String fieldIdAsWebEl;
-
-	/**
-	 * Разделитель для метки поля (по умолчанию, двоеточие).
-	 */
-	private String labelSeparator = ":";
-
-	/**
-	 * Наименование селектора (класса стилей) текстовой области ввода.
-	 */
-	public static final String FIELD_INDICATOR_STYLE = "jepRia-Field-Icon";
-
-	/**
-	 * Наименование селектора (класса стилей) меток карт редактирования и просмотра.
-	 */
-	public static final String LABEL_FIELD_STYLE = "jepRia-MultiStateField-Label";
-
-	/**
-	 * Наименование селектора (класса стилей) для карты редактирования.
-	 */
-	public static final String EDITABLE_CARD_STYLE = "jepRia-MultiStateField-EditableCard";
-
-	/**
-	 * Наименование селектора (класса стилей) для карты просмотра.
-	 */
-	public static final String VIEW_CARD_STYLE = "jepRia-MultiStateField-ViewCard";
-
-	/**
-	 * Наименование атрибута выравнивания DOM-элемента.
-	 */
-	public static final String ALIGN_ATTRIBUTE_NAME = "align";
-
-	protected JepMultiStateFieldLayoutUiBinder uiBinder = GWT.create(JepMultiStateFieldLayoutUiBinder.class);
-
-	@UiTemplate("JepMultiStateField.ui.xml")
-	interface JepMultiStateFieldLayoutUiBinder extends UiBinder<DeckPanel, JepMultiStateField> {
-	}
-
-	protected DeckPanel getMainWidget() {
-		return uiBinder.createAndBindUi(this);
-	}
-	
-	@Deprecated
-	public JepMultiStateField() {
-		this(null);
-	}
+  /**
+   * Панель, на которой располагается карта режима Просмотра.<br/>
+   * Панель необходима для применения требуемого layout'а для компонента карты
+   * Просмотра.<br/>
+   */
+  @UiField
+  protected FlowPanel viewPanel;
   
-	@Deprecated
-	public JepMultiStateField(String fieldLabel) {
-		this(null, fieldLabel);
-	}
-	
-	public JepMultiStateField(String fieldIdAsWebEl, String fieldLabel) {
-		initWidget(mainPanel = getMainWidget());
-		
-		// Корректировка параметров
-		fieldLabel = (fieldLabel != null) ? fieldLabel : "";
+  public FlowPanel getViewPanel() {
+        return viewPanel;
+    }
 
-		// Если fieldIdAsWebEl не пустое, то необходимо инициализировать в
-		// начале конструктора,
-		// чтобы корректное значение передалось в карты
-		// редактирования/просмотра.
-		this.fieldIdAsWebEl = fieldIdAsWebEl;
+  @UiField
+  protected HTML viewCardLabel;
 
-		// Получим ссылку на родительский td-элемент
-		Element tdLabel = viewCardLabel.getElement().getParentElement();
-		// По умолчанию, в горизонтальной панели добавление элемента
-		// сопровождается
-		// выставлением атрибута выравнивания. Более правильно проводить
-		// стилизацию CSS-преобразованием
+  /**
+   * Карта для режима Просмотра.<br/>
+   * Режим просмотра определяется методом {@link com.technology.jep.jepria.client.ui.WorkstateEnum#isViewState(WorkstateEnum workstate)}.<br/>
+   * <br/>
+   * Основная идея Jep-полей: они должны быть легкими. Поэтому, карта Просмотра должна быть именно текстовым (или простым Html) представлением
+   * значения карты Редактирования.<br/>
+   * В тех случаях, когда чисто текстовое представление нецелесообразно (списки, деревья и т.п.) - в поле используется ТОЛЬКО одна карта - 
+   * карта Редактирования (т.е. карта Просмотра - вообще НЕ используется).
+   */
+  @UiField
+  protected V viewCard;
 
-		tdLabel.removeAttribute(ALIGN_ATTRIBUTE_NAME);
-		tdLabel.addClassName(LABEL_FIELD_STYLE);
-		
-		// Получим ссылку на родительский td-элемент
-		tdLabel = editableCardLabel.getElement().getParentElement();
-		// По умолчанию, в горизонтальной панели добавление элемента
-		// сопровождается
-		// выставлением атрибута выравнивания. Более правильно проводить
-		// стилизацию CSS-преобразованием
-		tdLabel.removeAttribute(ALIGN_ATTRIBUTE_NAME);
-		tdLabel.addClassName(LABEL_FIELD_STYLE);
+  /**
+   * Панель, на которой располагается карта режима Редактирование.<br/>
+   * Панель необходима для применения требуемого layout'а для компонента карты Редактирование.<br/>
+   */
+  @UiField
+  protected FlowPanel editablePanel;
+  
+  public FlowPanel getEditablePanel() {
+    return editablePanel;
+  }
 
-		// Если у добавляемого виджета не задана ширина, DeckPanel выставит 100%.
-		// Нам это не нужно, т.к. приводит к смещению вправо индикаторов
-		// загрузки и некорректного значения.
-		editablePanel.getElement().getStyle().clearWidth();
-		observable = new JepObservableImpl();
-		// Добавляем карту просмотра.
-	    addViewCard();
-		// Получим ссылку на родительский td-элемент
-		Element tdField = getViewCard().getElement().getParentElement();
-		// По умолчанию, в горизонтальной панели добавление элемента
-		// сопровождается
-		// выставлением атрибута выравнивания. Более правильно проводить
-		// стилизацию CSS-преобразованием
-		tdField.removeAttribute(ALIGN_ATTRIBUTE_NAME);
-		tdField.addClassName(VIEW_CARD_STYLE);
-		
-		// Инициализируем карту редактирования.
-		addEditableCard();
-		// Получим ссылку на родительский td-элемент
-		tdField = getEditableCard().getElement().getParentElement();
-		tdField.removeAttribute(ALIGN_ATTRIBUTE_NAME);
-		tdField.addClassName(EDITABLE_CARD_STYLE);
+  @UiField
+  protected HTML editableCardLabel;
 
-		// Устанавливаем значения лейблов поля.
-		setFieldLabel(fieldLabel);
+  /**
+   * Карта для режима Редактирование.<br/>
+   * Режим редактирования определяется методом{@link com.technology.jep.jepria.client.ui.WorkstateEnum#isEditableState(WorkstateEnum workstate)}
+   */
+  protected E editableCard;
 
-		// Установка размеров карт просмотра и редактирования.
-		setFieldWidth(FIELD_DEFAULT_WIDTH);
-		setFieldHeight(FIELD_DEFAULT_HEIGHT);
+  /**
+   * Текущее состояние поля.
+   */
+  protected WorkstateEnum _workstate;
 
-		// Установка ширин лейблов и их разделителей.
-		setLabelWidth(FIELD_LABEL_DEFAULT_WIDTH);
+  /**
+   * Признак возможности отображения карты Редактирования поля.
+   */
+  protected boolean editable = true;
 
-		// Применение стилей к полю.
-		applyStyle();
+  /**
+   * Признак доступности пустого значения поля.
+   */
+  protected boolean allowBlank = true;
 
-		changeWorkstate(SEARCH);
+  /**
+   * Признак невалидности поля.
+   */
+  private boolean markedInvalid = false;
 
-		// Установка web-ID поля
-		if (this.fieldIdAsWebEl != null) {
-			setWebId(this.fieldIdAsWebEl);
-		}
+  /**
+   * Объект для работы со слушателями событий поля.
+   */
+  protected JepObservable observable;
 
-		// Установка атрибутов карт
-		setCardWebAttrs();
-	}
+  /**
+   * Индикатор загрузки данных.
+   */
+  protected Image loadingIcon;
 
-	/**
-	 * Получает web-ID поля.
-	 * 
-	 * @return web-ID поля.
-	 */
-	public String getWebId() {
-		return fieldIdAsWebEl;
-	}
+  /**
+   * Ошибка при валидации данных.
+   */
+  protected Image errorIcon;
 
-	/**
-	 * Установка web-ID поля
-	 * 
-	 * @param fieldIdAsWebEl web-ID поля
-	 */
-	public void setWebId(String fieldIdAsWebEl) {
-		this.fieldIdAsWebEl = fieldIdAsWebEl;
-		this.getElement().setId(fieldIdAsWebEl);
-		// Установка web-ID других элементов поля
-		setWebIds();
-	}
+  /**
+   * Метка поля.
+   */
+  private String fieldLabel;
 
-	/**
-	 * Установка web-ID двух карт данного Jep-поля.
-	 */
-	private void setCardWebAttrs() {
-		editableCard.getElement().setAttribute(JepRiaAutomationConstant.JEP_CARD_TYPE_HTML_ATTR,JepRiaAutomationConstant.JEP_CARD_TYPE_VALUE_EDTB);
-		viewCard.getElement().setAttribute(JepRiaAutomationConstant.JEP_CARD_TYPE_HTML_ATTR, JepRiaAutomationConstant.JEP_CARD_TYPE_VALUE_VIEW);
-	}
+  /**
+   * ID данного Jep-поля как Web-элемента.
+   */
+  protected String fieldIdAsWebEl;
 
-	/**
-	 * Установка web-ID внутренних компонентов, специфичных для конкретного Jep-поля. 
-	 * Метод предназначен для перекрытия потомками. За основу назначаемых идентификаторов следует брать значение поля
-	 * this.fieldIdAsWebEl .
-	 */
-	protected void setWebIds() {
-		this.getInputElement().setId(fieldIdAsWebEl + JepRiaAutomationConstant.JEP_FIELD_INPUT_POSTFIX);
-	}
+  /**
+   * Разделитель для метки поля (по умолчанию, двоеточие).
+   */
+  private String labelSeparator = ":";
 
-	/**
-	 * Получение карты Просмотра.
-	 */
-	public V getViewCard() {
-		return (V) viewCard;
-	}
+  /**
+   * Наименование селектора (класса стилей) текстовой области ввода.
+   */
+  public static final String FIELD_INDICATOR_STYLE = "jepRia-Field-Icon";
+  
+  /**
+   * Автоматический расчет высоты поля и лайбла в зависимости от наполнения определяется в стиле - мин размер 2-px
+   */
+  public static final String FIELD_AUTO_HEIGTH_STYLE = "jepRia-AutoHeight";
 
-	/**
-	 * Метод, добавляющий на панель Просмотра соответствующее поле (компонент) Gwt.<br/>
-	 */
-	protected void addViewCard(){
-	}
-	
-	/**
-	 * Метод, добавляющий на панель Редактирования соответствующее поле (компонент) Gwt.<br/>
-	 */
-	protected abstract void addEditableCard();
+  /**
+   * Наименование селектора (класса стилей) меток карт редактирования и просмотра.
+   */
+  public static final String LABEL_FIELD_STYLE = "jepRia-MultiStateField-Label";
 
-	/**
-	 * Получение карты Редактирования (с возможностью преобразования к
-	 * указанному виджету).
-	 */
-	public E getEditableCard() {
-		return editableCard;
-	}
+  /**
+   * Наименование селектора (класса стилей) для карты редактирования.
+   */
+  public static final String EDITABLE_CARD_STYLE = "jepRia-MultiStateField-EditableCard";
 
-	/**
-	 * Установка наименования поля и сброс разделителя метки, если оно пустое.
-	 * 
-	 * @param label наименование поля
-	 */
-	public void setFieldLabel(String label) {
+  /**
+   * Наименование селектора (класса стилей) для карты просмотра.
+   */
+  public static final String VIEW_CARD_STYLE = "jepRia-MultiStateField-ViewCard";
+  
+  /**
+   * Наименование селектора (класса стилей) для панели поля вертикальной ориентации.
+   */
+  public static final String PANEL_ORIENTATION_VERTICAL_STYLE = "jepRia-vPanelStyle";
 
-		this.fieldLabel = label;
+  /**
+   * Наименование селектора (класса стилей) для панели поля горизонтальной ориентации.
+   */
+  public static final String PANEL_ORIENTATION_HORIZONTAL_STYLE = "jepRia-hPanelStyle";
+  
+  /**
+   * Наименование атрибута выравнивания DOM-элемента.
+   */
+  public static final String ALIGN_ATTRIBUTE_NAME = "align";
+
+  protected JepMultiStateFieldLayoutUiBinder uiBinder = GWT.create(JepMultiStateFieldLayoutUiBinder.class);
+
+  @SuppressWarnings("rawtypes")
+  @UiTemplate("JepMultiStateField.ui.xml")
+  interface JepMultiStateFieldLayoutUiBinder extends UiBinder<DeckPanel, JepMultiStateField> {}
+  
+  protected DeckPanel getMainWidget() {
+    return uiBinder.createAndBindUi(this);
+  }
+  
+  public HTML getEditableCardLabel() {
+    return editableCardLabel;
+  }
+  
+  public HTML getViewCardLabel() {
+    return viewCardLabel;
+  }
+  
+  @Deprecated
+  public JepMultiStateField() {
+    this(null);
+  }
+  
+  @Deprecated
+  public JepMultiStateField(String fieldLabel) {
+    this(null, fieldLabel);
+  }
+  
+  public JepMultiStateField(String fieldIdAsWebEl, String fieldLabel) {
+    initWidget(mainPanel = getMainWidget());
+    // Корректировка параметров
+    fieldLabel = (fieldLabel != null) ? fieldLabel : "";
+
+    // Если fieldIdAsWebEl не пустое, то необходимо инициализировать в
+    // начале конструктора,
+    // чтобы корректное значение передалось в карты
+    // редактирования/просмотра.
+    this.fieldIdAsWebEl = fieldIdAsWebEl;
+
+    // Если у добавляемого виджета не задана ширина, DeckPanel выставит 100%.
+    // Нам это не нужно, т.к. приводит к смещению вправо индикаторов
+    // загрузки и некорректного значения.
+    editablePanel.getElement().getStyle().clearWidth();
+    observable = new JepObservableImpl();
     
-		if (JepRiaUtil.isEmpty(label)) {
-		  setLabelSeparator("");
-		} else {
-		  label = label + this.labelSeparator;
-		}
-		
-		this.viewCardLabel.setHTML(label);
-		
-		if (this.allowBlank) {
-		  this.editableCardLabel.setHTML(label);
+    // Добавляем карту просмотра.
+    addViewCard();
+    
+    Element fieldViewCard = getViewCard().getElement();
+        
+    // Инициализируем карту редактирования.
+    addEditableCard();
+    
+    Element fieldEditableCard = getEditableCard().getElement();
+    
+    fieldViewCard.addClassName(VIEW_CARD_STYLE);
+    fieldEditableCard.addClassName(EDITABLE_CARD_STYLE);
 
-		} else if (!JepRiaUtil.isEmpty(label)) {
-		  final String idAttr = fieldIdAsWebEl == null ? "" : ("id='" + fieldIdAsWebEl + JEP_FIELD_ALLOW_BLANK_POSTFIX + "'");
+    // Устанавливаем значения лейблов поля.
+    setFieldLabel(fieldLabel);
 
-		  this.editableCardLabel.setHTML(JepClientUtil.substitute(REQUIRED_MARKER, idAttr) + label);
+    // Установка размеров карт просмотра и редактирования.
+    setFieldWidth(FIELD_DEFAULT_WIDTH);
+    setFieldHeight(FIELD_DEFAULT_HEIGHT);
 
-		}
-	}
+    // Установка ширин лейблов и их разделителей.
+    setLabelWidth(FIELD_LABEL_DEFAULT_WIDTH);
 
-	/**
-	 * Получение наименования поля.
-	 *
-	 * @return наименование поля
-	 */
-	public String getFieldLabel() {
-		return this.fieldLabel;
-	}
+    // Применение стилей к полю.
+    applyStyle();
 
-	/**
-	 * Установка нового состояния
-	 * 
-	 * @param newWorkstate новое состояние
+    changeWorkstate(SEARCH);
 
-	 */
-	public void changeWorkstate(WorkstateEnum newWorkstate) {
-		// Только в случае, если действительно изменяется состояние.
-		if (newWorkstate != null && !newWorkstate.equals(_workstate)) {
-			onChangeWorkstate(newWorkstate);
-			_workstate = newWorkstate;
-		}
-	}
+    // Установка web-ID поля
+    if (this.fieldIdAsWebEl != null) {
+      setWebId(this.fieldIdAsWebEl);
+    }
 
-	/**
-	 * Обработчик нового состояния
-	 * 
-	 * @param newWorkstate новое состояние
+    // Установка атрибутов карт
+    setCardWebAttrs();
+  }
 
-	 */
-	protected void onChangeWorkstate(WorkstateEnum newWorkstate) {
-		// При смене состояния, очищаем ошибки валидации, если таковые
-		// присутствуют.
+  /**
+   * Получает web-ID поля.
+   * 
+   * @return web-ID поля.
+   */
+  public String getWebId() {
+    return fieldIdAsWebEl;
+  }
 
-		clearInvalid();
+  /**
+   * Установка web-ID поля
+   * 
+   * @param fieldIdAsWebEl web-ID поля
+   */
+  public void setWebId(String fieldIdAsWebEl) {
+    this.fieldIdAsWebEl = fieldIdAsWebEl;
+    this.getElement().setId(fieldIdAsWebEl);
+    // Установка web-ID других элементов поля
+    setWebIds();
+  }
 
-		// Если произошло переключение из режима Редактирования в режим
-		// Просмотра, то обновим значение карты режима Просмотра.
+  /**
+   * Установка web-ID двух карт данного Jep-поля.
+   */
+  private void setCardWebAttrs() {
+    editableCard.getElement().setAttribute(JepRiaAutomationConstant.JEP_CARD_TYPE_HTML_ATTR,JepRiaAutomationConstant.JEP_CARD_TYPE_VALUE_EDTB);
+    viewCard.getElement().setAttribute(JepRiaAutomationConstant.JEP_CARD_TYPE_HTML_ATTR, JepRiaAutomationConstant.JEP_CARD_TYPE_VALUE_VIEW);
+  }
 
-		if (WorkstateEnum.isEditableState(_workstate) && WorkstateEnum.isViewState(newWorkstate)) {
-			setViewValue(getValue());
-		}
-		// Если выставлен признак нередактируемости в режиме Редактирования, то
-		// переключаем карту в режим Просмотра.
+  /**
+   * Установка web-ID внутренних компонентов, специфичных для конкретного Jep-поля. 
+   * Метод предназначен для перекрытия потомками. За основу назначаемых идентификаторов следует брать значение поля
+   * this.fieldIdAsWebEl .
+   */
+  protected void setWebIds() {
+    this.getInputElement().setId(fieldIdAsWebEl + JepRiaAutomationConstant.JEP_FIELD_INPUT_POSTFIX);
+  }
 
-		if (WorkstateEnum.isEditableState(newWorkstate) && editable) {
-			showWidget(getWidgetIndex(editablePanel));
-		} else {
-			showWidget(getWidgetIndex(viewPanel));
-		}
-	}
+  /**
+   * Получение карты Просмотра.
+   */
+  public V getViewCard() {
+    return (V) viewCard;
+  }
 
-	/**
-	 * Установка значения для карты Просмотра.<br/>
-	 * При перегрузке данного метода в наследниках необходимо обеспечить, чтобы
-	 * данный метод был быстрым/НЕ ресурсо-затратным.<br/>
-	 * 
-	 * Основная идея Jep-полей: они должны быть легкими. Поэтому, карта
-	 * Просмотра должна быть именно текстовым (или простым Html) представлением
-	 * значения карты Редактирования.<br/>
-	 * В тех случаях, когда чисто текстовое представление нецелесообразно
-	 * (списки, деревья и т.п.) - в поле используется ТОЛЬКО одна карта - карта
-	 * Редактирования (т.е. карта Просмотра - вообще НЕ используется).
-	 * 
-	 * Для строковых значений производится кодирование специальных символов в
-	 * html-эквивалент для корректного отображения на странице.
-	 * 
-	 * @param value значение для карты Просмотра
-	 */
-	protected void setViewValue(Object value) {
-		((HTML) viewCard).setHTML(value instanceof String ? SafeHtmlUtils.htmlEscape((String) value) : (value != null ? value.toString() : null));
-	}
+  /**
+   * Метод, добавляющий на панель Просмотра соответствующее поле (компонент) Gwt.<br/>
+   */
+  protected void addViewCard() {}
+  
+  /**
+   * Метод, добавляющий на панель Редактирования соответствующее поле (компонент) Gwt.<br/>
+   */
+  protected abstract void addEditableCard();
 
-	/**
-	 * Очистка значения для карты Просмотра.<br/>
-	 * При перегрузке данного метода в наследниках необходимо обеспечить, чтобы
-	 * данный метод был быстрым/НЕ ресурсо-затратным.<br/>
-	 * 
-	 * Основная идея Jep-полей: они должны быть легкими. Поэтому, карта
-	 * Просмотра должна быть именно текстовым (или простым Html) представлением
-	 * значения карты Редактирования.<br/>
-	 * В тех случаях, когда чисто текстовое представление нецелесообразно
-	 * (списки, деревья и т.п.) - в поле используется ТОЛЬКО одна карта - карта
-	 * Редактирования (т.е. карта Просмотра - вообще НЕ используется).
-	 */
-	protected void clearView() {
-		setViewValue(null);
-	}
+  /**
+   * Получение карты Редактирования (с возможностью преобразования к
+   * указанному виджету).
+   */
+  public E getEditableCard() {
+    return editableCard;
+  }
 
-	/**
-	 * Установка ширины наименования поля.
-	 * 
-	 * @param labelWidth ширина наименования поля
-	 */
-	public void setLabelWidth(int labelWidth) {
-		viewPanel.setCellWidth(viewCardLabel, labelWidth + Unit.PX.getType());
-		editablePanel.setCellWidth(editableCardLabel, labelWidth + Unit.PX.getType());
-	}
+  /**
+   * Установка наименования поля и сброс разделителя метки, если оно пустое.
+   * 
+   * @param label наименование поля
+   */
+  public void setFieldLabel(String label) {
 
-	/**
-	 * Установка ширины компонента редактирования поля.
-	 * 
-	 * @param fieldWidth ширина компонента редактирования поля
-	 */
-	public void setFieldWidth(int fieldWidth) {
-		viewCard.setWidth(fieldWidth + Unit.PX.getType());
-		editableCard.setWidth(fieldWidth + Unit.PX.getType());
-	}
+    this.fieldLabel = label;
+    
+    if (JepRiaUtil.isEmpty(label)) {
+      setLabelSeparator("");
+    } else {
+      label = label + this.labelSeparator;
+    }
+    
+    this.viewCardLabel.setHTML(label);
+    
+    if (this.allowBlank) {
+      this.editableCardLabel.setHTML(label);
 
-	/**
-	 * Установка высоты поля.<br>
-	 * По умолчанию методы выставляет высоту как для компонента редактирования,
-	 * так и для компонента просмотра. Если необходимо другое поведение, данный
-	 * метод переопределяется в классе-наследнике.
-	 * 
-	 * @param fieldHeight высота
-	 */
-	public void setFieldHeight(int fieldHeight) {
-		String height = fieldHeight + Unit.PX.getType();
-		// Инициализируем высоту карты редактирования.
-		editableCard.setHeight(height);
-		// Инициализируем высоту карты просмотра.
-		viewPanel.setCellHeight(viewCardLabel, height);
-		viewPanel.setCellHeight(viewCard, height);
-	}
+    } else if (!JepRiaUtil.isEmpty(label)) {
+      final String idAttr = fieldIdAsWebEl == null ? "" : ("id='" + fieldIdAsWebEl + JEP_FIELD_ALLOW_BLANK_POSTFIX + "'");
 
-	/**
-	 * Добавление слушателя определенного типа собитий.<br/>
-	 * Реализуется вызовом метода {@link com.technology.jep.jepria.client.widget.event.JepObservableImpl#addListener(JepEventType eventType, JepListener listener)}
-	 * объекта {@link #observable}.
-	 *
-	 * @param eventType тип события
-	 * @param listener слушатель
-	 */
-	public void addListener(JepEventType eventType, JepListener listener) {
-		observable.addListener(eventType, listener);
-	}
+      this.editableCardLabel.setHTML(JepClientUtil.substitute(REQUIRED_MARKER, idAttr) + label);
+    }
+  }
 
-	/**
-	 * Удаление слушателя определенного типа собитий.<br/>
-	 * Реализуется вызовом метода
-	 * {@link com.technology.jep.jepria.client.widget.event.JepObservableImpl#removeListener(JepEventType eventType, JepListener listener)}
-	 * объекта {@link #observable}.
-	 *
-	 * @param eventType тип события
-	 * @param listener  слушатель
-	 */
-	public void removeListener(JepEventType eventType, JepListener listener) {
-		observable.removeListener(eventType, listener);
-	}
+  /**
+   * Получение наименования поля.
+   *
+   * @return наименование поля
+   */
+  public String getFieldLabel() {
+    return this.fieldLabel;
+  }
 
-	/**
-	 * Уведомление слушателей определенного типа о событии.<br/>
-	 * Реализуется вызовом метода
-	 * {@link com.technology.jep.jepria.client.widget.event.JepObservableImpl#notifyListeners(JepEventType eventType, JepEvent event)}
-	 * объекта {@link #observable}.
-	 *
-	 * @param eventType тип события
-	 * @param event событие
-	 */
-	public void notifyListeners(JepEventType eventType, JepEvent event) {
-		observable.notifyListeners(eventType, event);
-	}
+  /**
+   * Установка нового состояния
+   * 
+   * @param newWorkstate новое состояние
 
-	/**
-	 * Получение списка слушателей определенного типа собитий.<br/>
-	 * Реализуется вызовом метода
-	 * {@link com.technology.jep.jepria.client.widget.event.JepObservableImpl#getListeners(JepEventType eventType)}
-	 * объекта {@link #observable}.
-	 *
-	 * @param eventType тип события
-	 *
-	 * @return список слушателей
-	 */
-	public List<JepListener> getListeners(JepEventType eventType) {
-		return observable.getListeners(eventType);
-	}
+   */
+  public void changeWorkstate(WorkstateEnum newWorkstate) {
+    // Только в случае, если действительно изменяется состояние.
+    if (newWorkstate != null && !newWorkstate.equals(_workstate)) {
+      onChangeWorkstate(newWorkstate);
+      _workstate = newWorkstate;
+    }
+  }
 
-	/**
-	 * Установка доступности или недоступности (карты Редактирования) поля для
-	 * редактирования.
-	 * 
-	 * @param enabled true - поле доступно для редактирования, false - поле не доступно для редактирования
-	 */
-	public abstract void setEnabled(boolean enabled);
+  /**
+   * Обработчик нового состояния
+   * 
+   * @param newWorkstate новое состояние
 
-	/**
-	 * Установка возможности отображения карты Редактирования поля.
-	 * 
-	 * @param editable true - карта Редактирования поля отображается (обычный режим), false - всегда отображается только карта Просмотра поля
-	 */
-	public void setEditable(boolean editable) {
-		this.editable = editable;
+   */
+  protected void onChangeWorkstate(WorkstateEnum newWorkstate) {
+    // При смене состояния, очищаем ошибки валидации, если таковые
+    // присутствуют.
 
-		if (WorkstateEnum.isEditableState(_workstate) && editable) {
-			showWidget(getWidgetIndex(editablePanel));
-		} else {
-			showWidget(getWidgetIndex(viewPanel));
-		}
-	}
-	
-	public void showWidget(int index) {
-		mainPanel.showWidget(index);
-	}
-	
-	public int getWidgetIndex(Widget child) {
-		return mainPanel.getWidgetIndex(child);
-	}
+    clearInvalid();
 
-	/**
-	 * Установка или скрытие изображения загрузки (справа от карты
-	 * редактирования).
-	 * 
-	 * @param imageVisible	показать/скрыть изображение загрузки
-	 */
-	public void setLoadingImage(boolean imageVisible) {
-		if (loadingIcon == null) {
-			loadingIcon = new Image(JepImages.loading());
-			loadingIcon.addStyleName(FIELD_INDICATOR_STYLE);
+    // Если произошло переключение из режима Редактирования в режим
+    // Просмотра, то обновим значение карты режима Просмотра.
 
-		}
-		if (!loadingIcon.isAttached()) {
-			editablePanel.add(loadingIcon);
-		}
-		loadingIcon.setTitle(imageVisible ? JepTexts.loadingPanel_dataLoading() : "");
-		loadingIcon.setAltText(imageVisible ? JepTexts.loadingPanel_dataLoading() : "");
-		loadingIcon.setVisible(imageVisible);
-	}
+    if (WorkstateEnum.isEditableState(_workstate) && WorkstateEnum.isViewState(newWorkstate)) {
+      setViewValue(getValue());
+    }
+    // Если выставлен признак нередактируемости в режиме Редактирования, то
+    // переключаем карту в режим Просмотра.
 
-	/**
-	 * Установка сообщения об ошибке.
-	 * 
-	 * @param error	текст сообщения об ошибке
-	 */
-	public void markInvalid(String error) {
-		if (errorIcon == null) {
-			errorIcon = new Image(JepImages.field_invalid());
-			errorIcon.addStyleName(FIELD_INDICATOR_STYLE);
-		}
-		if (!errorIcon.isAttached()) {
-			editablePanel.add(errorIcon);
-		}
-		errorIcon.setTitle(error);
-		errorIcon.setAltText(error);
-		errorIcon.setVisible(true);
+    if (WorkstateEnum.isEditableState(newWorkstate) && editable) {
+      showWidget(getWidgetIndex(editablePanel));
+    } else {
+      showWidget(getWidgetIndex(viewPanel));
+    }
+  }
 
-		markedInvalid = true;
+  /**
+   * Установка значения для карты Просмотра.<br/>
+   * При перегрузке данного метода в наследниках необходимо обеспечить, чтобы
+   * данный метод был быстрым/НЕ ресурсо-затратным.<br/>
+   * 
+   * Основная идея Jep-полей: они должны быть легкими. Поэтому, карта
+   * Просмотра должна быть именно текстовым (или простым Html) представлением
+   * значения карты Редактирования.<br/>
+   * В тех случаях, когда чисто текстовое представление нецелесообразно
+   * (списки, деревья и т.п.) - в поле используется ТОЛЬКО одна карта - карта
+   * Редактирования (т.е. карта Просмотра - вообще НЕ используется).
+   * 
+   * Для строковых значений производится кодирование специальных символов в
+   * html-эквивалент для корректного отображения на странице.
+   * 
+   * @param value значение для карты Просмотра
+   */
+  protected void setViewValue(Object value) {
+    ((HTML) viewCard).setHTML(value instanceof String ? SafeHtmlUtils.htmlEscape((String) value) : (value != null ? value.toString() : null));
+  }
 
-		getInputElement().getStyle().setBorderColor(FIELD_INVALID_COLOR);
-	}
+  /**
+   * Очистка значения для карты Просмотра.<br/>
+   * При перегрузке данного метода в наследниках необходимо обеспечить, чтобы
+   * данный метод был быстрым/НЕ ресурсо-затратным.<br/>
+   * 
+   * Основная идея Jep-полей: они должны быть легкими. Поэтому, карта
+   * Просмотра должна быть именно текстовым (или простым Html) представлением
+   * значения карты Редактирования.<br/>
+   * В тех случаях, когда чисто текстовое представление нецелесообразно
+   * (списки, деревья и т.п.) - в поле используется ТОЛЬКО одна карта - карта
+   * Редактирования (т.е. карта Просмотра - вообще НЕ используется).
+   */
+  protected void clearView() {
+    setViewValue(null);
+  }
 
-	/**
-	 * Очистка сообщения об ошибке.
-	 */
-	public void clearInvalid() {
-		// Проверяем: было ли поле действительно невалидно.
-		if (!markedInvalid) return;
+  /**
+   * Установка ширины наименования поля (в пикселях).
+   * 
+   * @param width ширина наименования поля (в пикселях). 
+   */
+  public void setLabelWidth(int width) {
+    setLabelWidth(width + Unit.PX.getType());
+  }
+  
+  /**
+   * Установка ширины наименования поля.
+   * 
+   * @param width ширина наименования поля.
+   */
+  public void setLabelWidth(String width) {
+    viewCardLabel.setWidth(width);
+    editableCardLabel.setWidth(width);
+  }
+  
+  /**
+   * Установка ширины компонента редактирования поля (в пикселях).
+   * 
+   * @param width ширина компонента редактирования поля (в пикселях).
+   */
+  public void setFieldWidth(int width) {
+    setFieldWidth(width + Unit.PX.getType());
+  }
 
-		if (errorIcon != null) {
-			errorIcon.setTitle("");
-			errorIcon.setAltText("");
-			errorIcon.setVisible(false);
+  /**
+   * Установка ширины компонента редактирования поля.
+   * 
+   * @param width ширина компонента редактирования поля
+   */
+  public void setFieldWidth(String width) {
+    viewCard.setWidth(width);
+    editableCard.setWidth(width);
+  }
+  
+  /**
+   * Установка высоты поля.<br>
+   * По умолчанию методы выставляет высоту как для компонента редактирования,
+   * так и для компонента просмотра. Если необходимо другое поведение, данный
+   * метод переопределяется в классе-наследнике.
+   * 
+   * @param fieldHeight высота
+   */
+  public void setFieldHeight(int fieldHeight) {
+    String height = "" + fieldHeight + Unit.PX;
+    if (fieldHeight == FIELD_DEFAULT_HEIGHT) {
+      setFieldAutoHeight(height);
+    } else {
+      // Инициализируем высоту карты редактирования.
+      editableCard.setHeight(height);
+      // Инициализируем высоту карты просмотра.
+      viewCardLabel.setHeight(height);
+      viewCard.setHeight(height);
+    }
+  }
+  
+  public void setFieldAutoHeight(String height) {
+    // Инициализируем высоту карты редактирования.
+    editableCard.setHeight(height);
+    // Инициализируем высоту карты просмотра.
+    viewCardLabel.getElement().addClassName(FIELD_AUTO_HEIGTH_STYLE);
+    viewCard.getElement().addClassName(FIELD_AUTO_HEIGTH_STYLE);
+  }
 
-		}
+  /**
+   * Добавление слушателя определенного типа собитий.<br/>
+   * Реализуется вызовом метода {@link com.technology.jep.jepria.client.widget.event.JepObservableImpl#addListener(JepEventType eventType, JepListener listener)}
+   * объекта {@link #observable}.
+   *
+   * @param eventType тип события
+   * @param listener слушатель
+   */
+  public void addListener(JepEventType eventType, JepListener listener) {
+    observable.addListener(eventType, listener);
+  }
 
-		markedInvalid = false;
+  /**
+   * Удаление слушателя определенного типа собитий.<br/>
+   * Реализуется вызовом метода
+   * {@link com.technology.jep.jepria.client.widget.event.JepObservableImpl#removeListener(JepEventType eventType, JepListener listener)}
+   * объекта {@link #observable}.
+   *
+   * @param eventType тип события
+   * @param listener  слушатель
+   */
+  public void removeListener(JepEventType eventType, JepListener listener) {
+    observable.removeListener(eventType, listener);
+  }
 
-		getInputElement().getStyle().clearBorderColor();
-	}
+  /**
+   * Уведомление слушателей определенного типа о событии.<br/>
+   * Реализуется вызовом метода
+   * {@link com.technology.jep.jepria.client.widget.event.JepObservableImpl#notifyListeners(JepEventType eventType, JepEvent event)}
+   * объекта {@link #observable}.
+   *
+   * @param eventType тип события
+   * @param event событие
+   */
+  public void notifyListeners(JepEventType eventType, JepEvent event) {
+    observable.notifyListeners(eventType, event);
+  }
 
-	/**
-	 * Определяет: является ли пустое значение допустимым значением поля.
-	 * 
-	 * @param allowBlank true - допускает пустое значение поля, false - поле обязательное для заполнения.
-	 */
-	public void setAllowBlank(boolean allowBlank) {
-		this.allowBlank = allowBlank;
-		setFieldLabel(getFieldLabel());
-	}
+  /**
+   * Получение списка слушателей определенного типа собитий.<br/>
+   * Реализуется вызовом метода
+   * {@link com.technology.jep.jepria.client.widget.event.JepObservableImpl#getListeners(JepEventType eventType)}
+   * объекта {@link #observable}.
+   *
+   * @param eventType тип события
+   *
+   * @return список слушателей
+   */
+  public List<JepListener> getListeners(JepEventType eventType) {
+    return observable.getListeners(eventType);
+  }
 
-	/**
-	 * Установка значения разделителя. По умолчанию, символ двоеточия.
-	 * 
-	 * @param labelSeparator новый разделитель
-	 */
-	public void setLabelSeparator(String labelSeparator) {
-		this.labelSeparator = labelSeparator;
-	}
+  /**
+   * Установка доступности или недоступности (карты Редактирования) поля для
+   * редактирования.
+   * 
+   * @param enabled true - поле доступно для редактирования, false - поле не доступно для редактирования
+   */
+  public abstract void setEnabled(boolean enabled);
 
-	/**
-	 * Получение значения компонента из DOM-дерева документа.
-	 * 
-	 * @return возвращаемое значение
-	 */
-	public String getRawValue() {
-		return getInputElement().getPropertyString("value");
-	}
+  /**
+   * Установка возможности отображения карты Редактирования поля.
+   * 
+   * @param editable true - карта Редактирования поля отображается (обычный режим), false - всегда отображается только карта Просмотра поля
+   */
+  public void setEditable(boolean editable) {
+    this.editable = editable;
 
-	/**
-	 * Проверяет, содержит ли поле допустимое значение. <br>
-	 * Предварительно очищает сообщение об ошибке. Если поле является
-	 * обязательным, а введённое значение пусто, устанавливает сообщение об
-	 * ошибке и возвращает false. Предназначен для переопределения в
-	 * классах-наследниках.
-	 *
-	 * @return true - если поле содержит допустимое значение, false - в	противном случае
-	 */
-	@Override
-	public boolean isValid() {
-		// Перед проверкой, очищаем предыдущие ошибки.
-		clearInvalid();
-		if (!allowBlank && JepRiaUtil.isEmpty(getRawValue())) {
-			markInvalid(JepTexts.field_blankText());
-			return false;
-		}
-		return true;
+    if (WorkstateEnum.isEditableState(_workstate) && editable) {
+      showWidget(getWidgetIndex(editablePanel));
+    } else {
+      showWidget(getWidgetIndex(viewPanel));
+    }
+  }
+  
+  public void showWidget(int index) {
+    mainPanel.showWidget(index);
+  }
+  
+  public int getWidgetIndex(Widget child) {
+    return mainPanel.getWidgetIndex(child);
+  }
 
-	}
+  Widget loadingWidget = null;
+  /**
+   * Установка или скрытие изображения загрузки (справа от карты
+   * редактирования).
+   * 
+   * @param imageVisible  показать/скрыть изображение загрузки
+   */
+  public void setLoadingImage(boolean imageVisible) {
+    if (loadingIcon == null) {
+      loadingIcon = new Image(JepImages.loading());
+    }
+    if (loadingWidget == null) {
+      loadingWidget = wrapSpan(loadingIcon);
+      loadingWidget.addStyleName(FIELD_INDICATOR_STYLE);
+      editablePanel.add(loadingWidget);
+    }
+    loadingIcon.setTitle(imageVisible ? JepTexts.loadingPanel_dataLoading() : "");
+    loadingIcon.setAltText(imageVisible ? JepTexts.loadingPanel_dataLoading() : "");
+    loadingIcon.setVisible(imageVisible);
+  }
+  
+  
+  /**
+   * Обертка виджета в DIV.
+   * @param widget Виджет.
+   * @return Виджет.
+   */
+  public Widget wrapDiv(Widget widget) {
+    HTMLPanel div = new HTMLPanel("");
+    div.add(widget);
+    return div;
+  }
 
-	/*
-	 * TODO Метод имеет смысл не для всех полей, а лишь для тех, в основе
-	 * которых лежит один элемент типа input. Для JepListField,
-	 * JepDualListField, JepTreeField и т.д. это, очевидно, не так. Следует
-	 * подумать над переносом данного метода и рефакторингом использующих его
-	 * методов.
-	 */
+  /**
+   * Обертка в SPAN
+   */
+  public Widget wrapSpan(Widget widget) {
+    InlineHTML spanBlock = new InlineHTML();
+    spanBlock.getElement().appendChild(widget.getElement());
+    return spanBlock;
+  }
 
-	/**
-	 * Получение DOM-элемента карты редактирования.
-	 * 
-	 * @return DOM-элемент
-	 */
-	protected Element getInputElement() {
-		return editableCard.getElement();
-	}
+    
+  Widget widgetIcon = null;
+  /**
+   * Установка сообщения об ошибке.
+   * 
+   * @param error  текст сообщения об ошибке
+   */
+  public void markInvalid(String error) {
+    if (errorIcon == null) {
+      errorIcon = new Image(JepImages.field_invalid());
+    }
+    if (widgetIcon == null) {
+      widgetIcon = wrapSpan(errorIcon);
+      widgetIcon.addStyleName(FIELD_INDICATOR_STYLE);
+      editablePanel.add(widgetIcon);
+    }
+    errorIcon.setTitle(error);
+    errorIcon.setAltText(error);
+    errorIcon.setVisible(true);
 
-	/**
-	 * Очищает значение поля.<br/>
-	 * При очистке значения поля, очищаются значения для обеих карт сразу: для
-	 * карты Редактирования и карты Просмотра.
-	 * 
-	 * Особенность:<br/>
-	 * Перекрытие метода обусловлено вызывом метода
-	 * {@link com.google.gwt.user.client.ui.Panel#clear}, удаляюшяего все
-	 * элементы с панели.
-	 */
-	public void clear() {
-		clearView();
-	}
+    markedInvalid = true;
 
-	/**
-	 * Метод для стилизации поля.<br/>
-	 * Для применения новых стилей элемента необходимо в наследниках перекрывать
-	 * данный метод.
-	 */
-	protected void applyStyle() {
-		// Устанавливаем атрибуты по умолчанию для компонента JepMultiStateField.
-		mainPanel.getElement().getStyle().setMarginBottom(5, Unit.PX);
-		// Установка основного шрифта в карту редактирования.
-		getInputElement().addClassName(MAIN_FONT_STYLE);
-		// Удаляем выступы и отступы карты редактирования.
-		removeMarginsAndPaddings(getInputElement());
-	}
+    getInputElement().getStyle().setBorderColor(FIELD_INVALID_COLOR);
+  }
 
-	/**
-	 * Удаление отступов и выступов элемента.
-	 * 
-	 * @param stylezedElement стилизуемый элемент
-	 */
-	protected static void removeMarginsAndPaddings(Element stylezedElement) {
-		Style style = stylezedElement.getStyle();
-		style.setMargin(0, Unit.PX);
-		style.setPadding(0, Unit.PX);
-	}
+  /**
+   * Очистка сообщения об ошибке.
+   */
+  public void clearInvalid() {
+    // Проверяем: было ли поле действительно невалидно.
+    if (!markedInvalid) return;
+
+    if (errorIcon != null) {
+      errorIcon.setTitle("");
+      errorIcon.setAltText("");
+      errorIcon.setVisible(false);
+    }
+
+    markedInvalid = false;
+
+    getInputElement().getStyle().clearBorderColor();
+  }
+
+  /**
+   * Определяет: является ли пустое значение допустимым значением поля.
+   * 
+   * @param allowBlank true - допускает пустое значение поля, false - поле обязательное для заполнения.
+   */
+  public void setAllowBlank(boolean allowBlank) {
+    this.allowBlank = allowBlank;
+    setFieldLabel(getFieldLabel());
+  }
+
+  /**
+   * Установка значения разделителя. По умолчанию, символ двоеточия.
+   * 
+   * @param labelSeparator новый разделитель
+   */
+  public void setLabelSeparator(String labelSeparator) {
+    this.labelSeparator = labelSeparator;
+  }
+
+  /**
+   * Получение значения компонента из DOM-дерева документа.
+   * 
+   * @return возвращаемое значение
+   */
+  public String getRawValue() {
+    return getInputElement().getPropertyString("value");
+  }
+
+  /**
+   * Проверяет, содержит ли поле допустимое значение. <br>
+   * Предварительно очищает сообщение об ошибке. Если поле является
+   * обязательным, а введённое значение пусто, устанавливает сообщение об
+   * ошибке и возвращает false. Предназначен для переопределения в
+   * классах-наследниках.
+   *
+   * @return true - если поле содержит допустимое значение, false - в  противном случае
+   */
+  @Override
+  public boolean isValid() {
+    // Перед проверкой, очищаем предыдущие ошибки.
+    clearInvalid();
+    if (!allowBlank && JepRiaUtil.isEmpty(getRawValue())) {
+      markInvalid(JepTexts.field_blankText());
+      return false;
+    }
+    return true;
+
+  }
+
+  /*
+   * TODO Метод имеет смысл не для всех полей, а лишь для тех, в основе
+   * которых лежит один элемент типа input. Для JepListField,
+   * JepDualListField, JepTreeField и т.д. это, очевидно, не так. Следует
+   * подумать над переносом данного метода и рефакторингом использующих его
+   * методов.
+   */
+
+  /**
+   * Получение DOM-элемента карты редактирования.
+   * 
+   * @return DOM-элемент
+   */
+  protected Element getInputElement() {
+    return editableCard.getElement();
+  }
+
+  /**
+   * Очищает значение поля.<br/>
+   * При очистке значения поля, очищаются значения для обеих карт сразу: для
+   * карты Редактирования и карты Просмотра.
+   * 
+   * Особенность:<br/>
+   * Перекрытие метода обусловлено вызывом метода
+   * {@link com.google.gwt.user.client.ui.Panel#clear}, удаляюшяего все
+   * элементы с панели.
+   */
+  public void clear() {
+    clearView();
+  }
+
+  /**
+   * Метод для стилизации поля.<br/>
+   * Для применения новых стилей элемента необходимо в наследниках перекрывать
+   * данный метод.
+   */
+  protected void applyStyle() {
+    // Устанавливаем атрибуты по умолчанию для компонента JepMultiStateField.
+    mainPanel.getElement().getStyle().setMarginBottom(5, Unit.PX);
+    // Установка основного шрифта в карту редактирования.
+    getInputElement().addClassName(MAIN_FONT_STYLE);
+    // Удаляем выступы и отступы карты редактирования.
+    removeMarginsAndPaddings(getInputElement());
+  }
+
+  /**
+   * Удаление отступов и выступов элемента.
+   * 
+   * @param stylezedElement стилизуемый элемент
+   */
+  protected static void removeMarginsAndPaddings(Element stylezedElement) {
+    Style style = stylezedElement.getStyle();
+    style.setMargin(0, Unit.PX);
+    style.setPadding(0, Unit.PX);
+  }
 }

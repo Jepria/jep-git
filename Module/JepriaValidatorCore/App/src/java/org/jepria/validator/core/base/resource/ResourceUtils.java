@@ -21,7 +21,7 @@ public class ResourceUtils {
    * Преобразует поток в {@link CompilationUnit} и закрывает поток.
    */
   public static CompilationUnit asJava(InputStream inputStream) {
-    CompilationUnit unit = JavaParser.parse(inputStream);
+    CompilationUnit unit = JavaParser.parse(inputStream);// TODO specify charset
     try {
       inputStream.close();
       return unit;
@@ -35,7 +35,7 @@ public class ResourceUtils {
    */
   public static Document asXml(InputStream inputStream) {
     try {
-      Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(inputStream);
+      Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(inputStream);//TODO where to specify charset?
       inputStream.close();
       return document;
     } catch (SAXException | IOException | ParserConfigurationException e) {

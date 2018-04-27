@@ -18,7 +18,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":6,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10};
+var methods = {"i0":6,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],4:["t3","Abstract Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -142,28 +142,20 @@ implements <a href="../../../../../../com/technology/jep/jepria/client/ui/Client
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/client/ui/ClientFactoryImpl.html#eventBus">eventBus</a></span></code>&nbsp;</td>
 </tr>
 <tr class="rowColor">
-<td class="colFirst"><code>protected <a href="../../../../../../com/technology/jep/jepria/client/ui/eventbus/EventFilter.html" title="interface in com.technology.jep.jepria.client.ui.eventbus">EventFilter</a>&lt;<a href="../../../../../../com/technology/jep/jepria/client/ui/ClientFactoryImpl.html" title="type parameter in ClientFactoryImpl">E</a>&gt;</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/client/ui/ClientFactoryImpl.html#eventFilter">eventFilter</a></span></code>&nbsp;</td>
-</tr>
-<tr class="altColor">
 <td class="colFirst"><code>protected <a href="../../../../../../com/technology/jep/jepria/client/exception/ExceptionManager.html" title="interface in com.technology.jep.jepria.client.exception">ExceptionManager</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/client/ui/ClientFactoryImpl.html#exceptionManager">exceptionManager</a></span></code>&nbsp;</td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code>protected static <a href="../../../../../../com/technology/jep/jepria/shared/log/JepLogger.html" title="interface in com.technology.jep.jepria.shared.log">JepLogger</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/client/ui/ClientFactoryImpl.html#logger">logger</a></span></code>&nbsp;</td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code>protected <a href="../../../../../../com/technology/jep/jepria/client/message/JepMessageBox.html" title="interface in com.technology.jep.jepria.client.message">JepMessageBox</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/client/ui/ClientFactoryImpl.html#messageBox">messageBox</a></span></code>&nbsp;</td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code>protected <a href="../../../../../../com/technology/jep/jepria/client/history/place/JepPlaceController.html" title="class in com.technology.jep.jepria.client.history.place">JepPlaceController</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/client/ui/ClientFactoryImpl.html#placeController">placeController</a></span></code>&nbsp;</td>
-</tr>
-<tr class="altColor">
-<td class="colFirst"><code>protected <a href="../../../../../../com/technology/jep/jepria/client/ui/UiSecurity.html" title="class in com.technology.jep.jepria.client.ui">UiSecurity</a></code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/client/ui/ClientFactoryImpl.html#uiSecurity">uiSecurity</a></span></code>&nbsp;</td>
 </tr>
 </table>
 </li>
@@ -210,38 +202,30 @@ implements <a href="../../../../../../com/technology/jep/jepria/client/ui/Client
 </td>
 </tr>
 <tr id="i2" class="altColor">
-<td class="colFirst"><code><a href="../../../../../../com/technology/jep/jepria/client/ui/eventbus/EventFilter.html" title="interface in com.technology.jep.jepria.client.ui.eventbus">EventFilter</a>&lt;<a href="../../../../../../com/technology/jep/jepria/client/ui/ClientFactoryImpl.html" title="type parameter in ClientFactoryImpl">E</a>&gt;</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/client/ui/ClientFactoryImpl.html#getEventFilter--">getEventFilter</a></span>()</code>&nbsp;</td>
-</tr>
-<tr id="i3" class="rowColor">
 <td class="colFirst"><code><a href="../../../../../../com/technology/jep/jepria/client/exception/ExceptionManager.html" title="interface in com.technology.jep.jepria.client.exception">ExceptionManager</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/client/ui/ClientFactoryImpl.html#getExceptionManager--">getExceptionManager</a></span>()</code>
 <div class="block">Получение обработчика исключений.</div>
 </td>
 </tr>
-<tr id="i4" class="altColor">
+<tr id="i3" class="rowColor">
 <td class="colFirst"><code><a href="../../../../../../com/technology/jep/jepria/shared/log/JepLogger.html" title="interface in com.technology.jep.jepria.shared.log">JepLogger</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/client/ui/ClientFactoryImpl.html#getLogger--">getLogger</a></span>()</code>
 <div class="block">Получение логгера.</div>
 </td>
 </tr>
-<tr id="i5" class="rowColor">
+<tr id="i4" class="altColor">
 <td class="colFirst"><code><a href="../../../../../../com/technology/jep/jepria/client/message/JepMessageBox.html" title="interface in com.technology.jep.jepria.client.message">JepMessageBox</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/client/ui/ClientFactoryImpl.html#getMessageBox--">getMessageBox</a></span>()</code>
 <div class="block">Получение интерфейса вывода сообщений.</div>
 </td>
 </tr>
-<tr id="i6" class="altColor">
+<tr id="i5" class="rowColor">
 <td class="colFirst"><code><a href="../../../../../../com/technology/jep/jepria/shared/text/JepRiaText.html" title="interface in com.technology.jep.jepria.shared.text">JepRiaText</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/client/ui/ClientFactoryImpl.html#getTexts--">getTexts</a></span>()</code>
 <div class="block">Тексты JepRia.</div>
 </td>
 </tr>
-<tr id="i7" class="rowColor">
-<td class="colFirst"><code><a href="../../../../../../com/technology/jep/jepria/client/ui/UiSecurity.html" title="class in com.technology.jep.jepria.client.ui">UiSecurity</a></code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/client/ui/ClientFactoryImpl.html#getUiSecurity--">getUiSecurity</a></span>()</code>&nbsp;</td>
-</tr>
-<tr id="i8" class="altColor">
+<tr id="i6" class="altColor">
 <td class="colFirst"><code>protected void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/client/ui/ClientFactoryImpl.html#initActivityMappers-com.technology.jep.jepria.client.ui.ClientFactory-">initActivityMappers</a></span>(<a href="../../../../../../com/technology/jep/jepria/client/ui/ClientFactory.html" title="interface in com.technology.jep.jepria.client.ui">ClientFactory</a>&lt;<a href="../../../../../../com/technology/jep/jepria/client/ui/ClientFactoryImpl.html" title="type parameter in ClientFactoryImpl">E</a>&gt;&nbsp;clientFactory)</code>
 <div class="block">Метод вызывается в конструкторе с целью инициализации ActivityMapper'ов и ActivityManager'ов.</div>
@@ -308,28 +292,10 @@ implements <a href="../../../../../../com/technology/jep/jepria/client/ui/Client
 <a name="exceptionManager">
 <!--   -->
 </a>
-<ul class="blockList">
+<ul class="blockListLast">
 <li class="blockList">
 <h4>exceptionManager</h4>
 <pre>protected&nbsp;<a href="../../../../../../com/technology/jep/jepria/client/exception/ExceptionManager.html" title="interface in com.technology.jep.jepria.client.exception">ExceptionManager</a> exceptionManager</pre>
-</li>
-</ul>
-<a name="eventFilter">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>eventFilter</h4>
-<pre>protected&nbsp;<a href="../../../../../../com/technology/jep/jepria/client/ui/eventbus/EventFilter.html" title="interface in com.technology.jep.jepria.client.ui.eventbus">EventFilter</a>&lt;<a href="../../../../../../com/technology/jep/jepria/client/ui/ClientFactoryImpl.html" title="type parameter in ClientFactoryImpl">E</a> extends com.google.gwt.event.shared.EventBus&gt; eventFilter</pre>
-</li>
-</ul>
-<a name="uiSecurity">
-<!--   -->
-</a>
-<ul class="blockListLast">
-<li class="blockList">
-<h4>uiSecurity</h4>
-<pre>protected&nbsp;<a href="../../../../../../com/technology/jep/jepria/client/ui/UiSecurity.html" title="class in com.technology.jep.jepria.client.ui">UiSecurity</a> uiSecurity</pre>
 </li>
 </ul>
 </li>
@@ -383,32 +349,6 @@ implements <a href="../../../../../../com/technology/jep/jepria/client/ui/Client
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>новый экземпляр</dd>
-</dl>
-</li>
-</ul>
-<a name="getEventFilter--">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>getEventFilter</h4>
-<pre>public&nbsp;<a href="../../../../../../com/technology/jep/jepria/client/ui/eventbus/EventFilter.html" title="interface in com.technology.jep.jepria.client.ui.eventbus">EventFilter</a>&lt;<a href="../../../../../../com/technology/jep/jepria/client/ui/ClientFactoryImpl.html" title="type parameter in ClientFactoryImpl">E</a>&gt;&nbsp;getEventFilter()</pre>
-<dl>
-<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../../../../../../com/technology/jep/jepria/client/ui/ClientFactory.html#getEventFilter--">getEventFilter</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../../com/technology/jep/jepria/client/ui/ClientFactory.html" title="interface in com.technology.jep.jepria.client.ui">ClientFactory</a>&lt;<a href="../../../../../../com/technology/jep/jepria/client/ui/ClientFactoryImpl.html" title="type parameter in ClientFactoryImpl">E</a> extends com.google.gwt.event.shared.EventBus&gt;</code></dd>
-</dl>
-</li>
-</ul>
-<a name="getUiSecurity--">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>getUiSecurity</h4>
-<pre>public&nbsp;<a href="../../../../../../com/technology/jep/jepria/client/ui/UiSecurity.html" title="class in com.technology.jep.jepria.client.ui">UiSecurity</a>&nbsp;getUiSecurity()</pre>
-<dl>
-<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../../../../../../com/technology/jep/jepria/client/ui/ClientFactory.html#getUiSecurity--">getUiSecurity</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../../com/technology/jep/jepria/client/ui/ClientFactory.html" title="interface in com.technology.jep.jepria.client.ui">ClientFactory</a>&lt;<a href="../../../../../../com/technology/jep/jepria/client/ui/ClientFactoryImpl.html" title="type parameter in ClientFactoryImpl">E</a> extends com.google.gwt.event.shared.EventBus&gt;</code></dd>
 </dl>
 </li>
 </ul>

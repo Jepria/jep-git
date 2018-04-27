@@ -6,26 +6,14 @@ import com.google.gwt.place.shared.Place;
 import com.technology.jep.jepria.client.history.place.JepViewListPlace;
 import com.technology.jep.jepria.client.history.scope.JepScope;
 import com.technology.jep.jepria.client.history.scope.JepScopeStack;
-import com.technology.jep.jepria.client.ui.ClientFactory;
 import com.technology.jep.jepria.client.ui.eventbus.event.EnterModuleEvent;
 import com.technology.jep.jepria.client.ui.eventbus.event.SetScopeEvent;
 import com.technology.jep.jepria.client.ui.eventbus.event.UpdateScopeEvent;
 
 public class JepEventBus extends ResettableEventBus {
-  /**
-   * Клиентская фабрика.
-   */
-  private ClientFactory<?> clientFactory;
-  
-  public JepEventBus(ClientFactory<?> clientFactory) {
-    super(new SimpleEventBus());
-    this.clientFactory = clientFactory;
-  }
 
-  protected void checkAndFireEvent(BusEvent<?> event) {
-    if(clientFactory.getEventFilter().checkEvent(event)) {
-      fireEvent(event);
-    }
+  public JepEventBus() {
+    super(new SimpleEventBus());
   }
 
   public void updateScope(UpdateScopeEvent updateScopeEvent) {
@@ -74,6 +62,6 @@ public class JepEventBus extends ResettableEventBus {
    * @param place Место входа.
    */
   public void enterModule(String moduleId, Place place) {
-    checkAndFireEvent(new EnterModuleEvent(moduleId, place));
+    fireEvent(new EnterModuleEvent(moduleId, place));
   }
 }

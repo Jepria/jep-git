@@ -1,10 +1,13 @@
 package com.technology.jep.jepria.client.exception;
 
+import static com.technology.jep.jepria.client.JepRiaClientConstant.JepTexts;
+
 import org.jepria.ssoutils.SsoUiConstants;
 
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.user.client.rpc.InvocationException;
 import com.technology.jep.jepria.client.entrance.Entrance;
+import com.technology.jep.jepria.client.message.ErrorDialog;
 import com.technology.jep.jepria.client.message.JepMessageBoxImpl;
 
 public class ExceptionManagerImpl implements ExceptionManager {
@@ -18,23 +21,34 @@ public class ExceptionManagerImpl implements ExceptionManager {
   public void handleException(Throwable th, String message) {
     // Workaround для 12152 (пока "проглатываем")
     Log.error("ExceptionManager(" + th + "," + message + ")");
-    if(is12152StatusCodeException(th)) {
-      while(th.getCause() != null) {
+    if (is12152StatusCodeException(th)) {
+      while (th.getCause() != null) {
         Log.debug("ExceptionManager(): th.getCause() = " + th.getCause());
         Log.debug("ExceptionManager(): th.getMessage() = " + th.getMessage());
         th = th.getCause();
       }
       Log.error("ExceptionManager(" + th + "," + message + "): 12152 StatusCodeException cause = " + th);
-      return;
-    }
-    
-    if(isJavaSsoTimeout(th) || isSsoTimeout(th)) {
+    } else if (isJavaSsoTimeout(th) || isSsoTimeout(th)) {
        // logout на серверной стороне уже выполнен силами javasso, "закрепляем" состояние logout со стороны клиента
       Entrance.logout(); 
+    } else if (is0StatusCodeException(th)) {
+      Log.error(message, th);
+      ErrorDialog errorDialog = new ErrorDialog(JepTexts.errors_dialog_title(), th, JepTexts.errors_client_statusCode0());
+      errorDialog.show();
     } else {
       Log.error(message, th);
       JepMessageBoxImpl.instance.showError(th, message);
     }
+  }
+
+  /**
+   * Проверка, является ли исключение ошибкой 0 (в этом случае запрос возвращает status code 0)
+   * @param th Исключение
+   * @return true, если ошибка 0, иначе false.
+   */
+  private boolean is0StatusCodeException(Throwable th) {
+    String strException = th.toString();
+    return strException != null && strException.contains("StatusCodeException: 0 ");
   }
 
   private static boolean is12152StatusCodeException(Throwable th) {

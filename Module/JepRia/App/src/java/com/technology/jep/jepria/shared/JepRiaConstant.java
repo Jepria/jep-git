@@ -19,6 +19,16 @@ public class JepRiaConstant {
   public static final String DEFAULT_DATE_FORMAT = "dd.MM.yyyy";
   
   /**
+   * Формат даты по умолчанию.- только месяц и год
+   */
+  public static final String DEFAULT_DATE_MONTH_AND_YEAR_ONLY_FORMAT = "MM.yyyy";
+  
+  /**
+   * Формат даты по умолчанию.- только год
+   */
+  public static final String DEFAULT_DATE_YEAR_ONLY_FORMAT = "yyyy";
+  
+  /**
    * Формат времени по умолчанию.
    */
   public static final String DEFAULT_TIME_FORMAT = "HH:mm:ss";
@@ -31,7 +41,8 @@ public class JepRiaConstant {
   /**
    * Формат десятичных чисел по умолчанию.
    */
-  public static final String DEFAULT_DECIMAL_FORMAT = "###,###,##0.00";
+  public static final String DEFAULT_DECIMAL_SEPARATOR = ".";
+  public static final String DEFAULT_DECIMAL_FORMAT = "###,###,##0" + DEFAULT_DECIMAL_SEPARATOR + "00";
   
   /**
    * Ограничение на возвращаемое количество записей, в случае, если пользователь не указал количество записей явно.

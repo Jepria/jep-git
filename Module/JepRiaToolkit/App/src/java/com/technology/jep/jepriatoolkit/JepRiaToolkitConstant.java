@@ -1019,6 +1019,7 @@ public class JepRiaToolkitConstant {
   public static final String PACKAGE_PREFIX_TEMPLATE_PARAMETER = "packagePrefix";
   public static final String PACKAGE_NAME_TEMPLATE_PARAMETER = "packageName";
   public static final String SECURITY_ROLES_TEMPLATE_PARAMETER = "securityRoles";
+  public static final String SECURITY_ROLE_CONSTANS_TEMPLATE_PARAMETER = "roleConstants";
   public static final String REALM_APPNAME_TEMPLATE_PARAMETER = "appNameRealm";
   public static final String FORMS_TEMPLATE_PARAMETER = "forms";
   public static final String FORM_TEMPLATE_PARAMETER = "form";

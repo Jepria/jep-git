@@ -8,33 +8,33 @@
   <!-- Проверка, что BIN_HOME определен, иначе - ошибка -->
   <fail unless="BIN_HOME" message="Binary repository path not specified. Specify it either in environment variable %BIN_HOME% or use -DBIN_HOME=... command line argument." />
 
-	<property file="build.properties" />
+  <property file="build.properties" />
   <property file="dependency.properties" />
   
-	<!-- Общие наборы файлов -->
-	<path id="libs">
+  <!-- Общие наборы файлов -->
+  <path id="libs">
     <pathelement location="${JAVAPARSER-CORE_LIB}" />
   </path>
   
   <fileset dir="build-core" id="classes-build-core"/>
   
-	<target name="build" depends="jar-core, doc"/>
-	
-	<target name="java-compile-core">
+  <target name="build" depends="jar-core, doc"/>
+  
+  <target name="java-compile-core">
     <mkdir dir="build-core" />
     <javac debug="on" destdir="build-core" encoding="utf-8" includeantruntime="false" srcdir="src/java">
       <classpath refid="libs" />
     </javac>
   </target>
-	
+  
   <target name="jar-core" depends="java-compile-core">
     <jar destfile="${DISTR_DIR}/jepria-validator-core-${CURRENT_VERSION}.jar">
       <fileset refid="classes-build-core" />
       <fileset dir="src/java" includes="**/*.java" /> <!-- with source code -->
-    	<!-- Не добавлять Main-class в манифест -->
+      <!-- Не добавлять Main-class в манифест -->
     </jar>
   </target>
-	
+  
   <target name="clean">
     <delete includeemptydirs="true" quiet="true">
       <fileset dir="build-core" />
@@ -42,16 +42,16 @@
     
     <delete file="${DISTR_DIR}/jepria-validator-core-${CURRENT_VERSION}.jar"/>
   </target>
-	
+  
   <!-- Для javadoc -->
-	<property name="JAVA_DOC_DIR" value="../Doc/App/AutoGen" />
-	
-	<target name="doc" depends="java-compile-core">
+  <property name="JAVA_DOC_DIR" value="../Doc/App/AutoGen" />
+  
+  <target name="doc" depends="java-compile-core">
     <javadoc sourcepath="src/java"
       locale="ru"
       packagenames="*"
       includenosourcepackages="true"
-      overview="src/java/org/jepria/validator/core/overview.html"
+      overview="src/java/org/jepria/validator/overview.html"
       destdir="${JAVA_DOC_DIR}"
       encoding="UTF-8"
       docencoding="UTF-8"

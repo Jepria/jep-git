@@ -53,9 +53,6 @@ import com.technology.jep.jepria.client.widget.event.JepObservableImpl;
  */
 public class PagingStandardBar extends SimplePanel implements PagingToolBar {
 
-  
-  String DEFAULT_HEIGHT = "22px";
-  
   private static final String PAGING_BAR_STYLE = "jepRia-PagingBar";
   private static final String PAGING_BAR_NUMBER_STYLE = "jepRia-PagingBar-pageNumber";
 
@@ -97,7 +94,6 @@ public class PagingStandardBar extends SimplePanel implements PagingToolBar {
     setStyleName(PAGING_BAR_STYLE);
     addItems();
     setWidget(panel);
-    setHeight(DEFAULT_HEIGHT);
 
     observable = new JepObservableImpl();
 

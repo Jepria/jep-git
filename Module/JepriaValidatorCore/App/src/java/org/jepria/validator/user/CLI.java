@@ -14,6 +14,7 @@ import java.util.NoSuchElementException;
 
 import org.jepria.validator.core.base.Message;
 import org.jepria.validator.core.base.MessageCollector;
+import org.jepria.validator.core.base.Validator.ProgressCallback;
 import org.jepria.validator.core.base.ValidatorRule;
 import org.jepria.validator.core.base.resource.Resource;
 import org.jepria.validator.core.fs.FileContextValidator;
@@ -70,6 +71,7 @@ public class CLI implements Runnable {
   private List<String> directoriesOpt = null;
   private List<String> outputOpt = null;
   private List<String> filterMessagesOpt = null;
+  private boolean progressOpt = false;
   
   /**
    * Выводимый в консоль уровень сообщения-исключения
@@ -153,7 +155,7 @@ public class CLI implements Runnable {
         break;
       }
       case "-rc": case "--ruleClasses": {
-        if (!argParser.contains("-rl") && !argParser.contains("--ruleList")) {
+        if (argParser.contains("-rl") || argParser.contains("--ruleList")) {
           out.println("WARN: " + arg + " option is superseded with the --ruleList option");
         } else {
           if (argParser.hasMoreElements()) {
@@ -202,6 +204,10 @@ public class CLI implements Runnable {
           requiredValue(arg);
           return;
         }
+        break;
+      }
+      case "-p": case "--progress": {
+        instance.progressOpt = true;
         break;
       }
       default: {
@@ -357,11 +363,35 @@ public class CLI implements Runnable {
       }
       out.println();
       
-      fileValidationContext.validate(rules, null, validationMessageCollector, transformOpt, transformMessageCollector);
       
+      ProgressCallback progressCallback = null;
+      if (progressOpt) {
+        progressCallback = new ProgressCallbackImpl();
+      }
+      
+      
+      fileValidationContext.validate(rules, null, validationMessageCollector, transformOpt, transformMessageCollector, progressCallback);
     }
     
-  }    
+  }
+  
+  private class ProgressCallbackImpl extends ProgressCallback {
+    private int progressPercent = 0;
+    
+    @Override
+    public void onProgress(int completed, int total) {
+      int percent = (int)(((double)completed / total) * 100);
+      if (percent > progressPercent) {
+        progressPercent = percent;
+        out.println(progressPercent + "%");
+      }
+    }
+    
+    @Override
+    protected void onInitialized() {
+      out.println("0%");
+    }
+  }
   
   private static class ParseException extends Exception {
     private static final long serialVersionUID = 3345298173160009998L;
@@ -405,7 +435,7 @@ public class CLI implements Runnable {
     out.println(" -rc,--ruleClasses <arg>  semicolon-separated list of rule classnames, in necessary order.");
     out.println("                          When used together with -rl option, has no effect");
     out.println(" -fm,--filterMessages <level>;<level>;... output message level filtering");
-    
+    out.println(" -p,--progress            print progress in percents");
     out.println(" -h                       print brief help (this screen)");
     out.println(" --help                   print full help");
   }
@@ -437,7 +467,7 @@ public class CLI implements Runnable {
     out.println("                          The value '" + VERBOSE_LEVEL + "' as a <level> refers to regular messages,");
     out.println("                          which come without any explicit level.");
     out.println("                          If the option is missing, messages of all levels are printed.");
-
+    out.println(" -p,--progress            print progress in percents");
     out.println(" -h                       print brief help");
     out.println(" --help                   print full help (this screen)");
   }

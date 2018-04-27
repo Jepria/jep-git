@@ -3,6 +3,7 @@ package com.technology.jep.jepria.client.ui.main;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -15,7 +16,6 @@ import org.powermock.modules.junit4.PowerMockRunner;
 import org.powermock.reflect.internal.WhiteboxImpl;
 
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.dev.util.collect.HashSet;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.place.shared.Place;
@@ -24,8 +24,6 @@ import com.technology.jep.jepria.client.async.LoadAsyncCallback;
 import com.technology.jep.jepria.client.exception.ExceptionManager;
 import com.technology.jep.jepria.client.history.place.MainPlaceController;
 import com.technology.jep.jepria.client.message.JepMessageBox;
-import com.technology.jep.jepria.client.ui.UiSecurity;
-import com.technology.jep.jepria.client.ui.eventbus.EventFilter;
 import com.technology.jep.jepria.client.ui.plain.PlainClientFactory;
 import com.technology.jep.jepria.client.util.JepClientUtil;
 import com.technology.jep.jepria.shared.log.JepLogger;
@@ -103,7 +101,7 @@ public class MainModulePresenterTest {
      * Для упрощения процесса тестирования добьёмся того, чтобы getAccessibleModules()
      * возвращал заданный список модулей.
      */
-    Set<String> modules = new HashSet<String>();
+    Set<String> modules = new HashSet<>();
     modules.add("Module1");
     modules.add("Module2");
     modules.add("Module3");  
@@ -136,7 +134,7 @@ public class MainModulePresenterTest {
     mockJepRiaClientConstant();
 
     final JepMessageBox messageBoxMock = Mockito.mock(JepMessageBox.class);
-    Mockito.when(messageBoxMock.showError(Mockito.anyString())).thenReturn(null);    
+    Mockito.when(messageBoxMock.alert(Mockito.anyString(), Mockito.anyString())).thenReturn(null);    
     MainClientFactory<?, ?> cf = createMainClientFactoryMock(messageBoxMock);
     
     MainModulePresenter<?, ?, ?, ?> p = PowerMockito.spy(new MainModulePresenter(cf){});    
@@ -161,7 +159,7 @@ public class MainModulePresenterTest {
      * не будем проверять переданный методу текст. Следует заметить, что этот вызов
      * не является статическим либо приватным, поэтому прибегать к PowerMock не требуется.
      */
-    Mockito.verify(messageBoxMock, Mockito.times(1)).showError(Mockito.anyString());
+    Mockito.verify(messageBoxMock, Mockito.times(1)).alert(Mockito.anyString(), Mockito.anyString());
   }
 
   /**
@@ -179,18 +177,6 @@ public class MainModulePresenterTest {
       @Override
       public EventBus getEventBus() {
         return null;
-      }
-
-      @Override
-      public EventFilter getEventFilter() {
-        return null;
-      }
-
-      @Override
-      public UiSecurity getUiSecurity() {
-        UiSecurity uiSecurityMock = Mockito.mock(UiSecurity.class);
-        Mockito.when(uiSecurityMock.getFirstRequiredRole(Mockito.any())).thenReturn("TestRole");
-        return uiSecurityMock;
       }
 
       @Override

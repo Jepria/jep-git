@@ -56,6 +56,10 @@ public class ApplicationSettingParser {
   private List<String> forms = new ArrayList<String>();
   private List<List<String>> formWithTheirDependencies = new ArrayList<List<String>>();
   private List<String> securityRoles = new ArrayList<String>();
+  /**
+   * Список ролей где Camel Case заменен на Snake Case. Для формирования файла с константами ролей.
+   */
+  private List<String> roleConstants = new ArrayList<String>();
   private Map<Module, List<ModuleField>> formFields = new HashMap<Module, List<ModuleField>>();
   
   private ApplicationSettingParser(){}
@@ -144,20 +148,26 @@ public class ApplicationSettingParser {
         }
         //now retrieve the futures after computation (auto wait for it)
         int received = 0;
-        Set<String> roles = new HashSet<String>();
+        Set<String> camelCaseRoles = new HashSet<String>();
         while (received < moduleCount) {
           Future<Pair<Module, List<ModuleField>>> resultFuture = null;
           try {
             resultFuture = completionService.take();
             Pair<Module, List<ModuleField>> pair = resultFuture.get(); 
             Module m = pair.getKey();
+            List<String> moduleRoles = m.getModuleRoleNames();
+            // заполнение общего списка ролей, необходимого для генерации web.xml
+            if (moduleRoles != null) {
+              camelCaseRoles.addAll(moduleRoles);
+              List<String> snakeCaseModuleRoles = new ArrayList<>(moduleRoles.size());
+              for(String role : moduleRoles) {
+                snakeCaseModuleRoles.add(role.replaceAll("([^_A-Z])([A-Z])", "$1_$2"));
+              }
+              m.setModuleRoleNames(snakeCaseModuleRoles);
+            }
             modules.add(m);
             // добавляем соответствие модуля его списку полей
             formFields.put(m, pair.getValue());
-            // заполнение общего списка ролей, необходимого для генерации web.xml
-            if (m.getModuleRoleNames() != null) {
-              roles.addAll(m.getModuleRoleNames());
-            }
           } catch (InterruptedException e) {
             e.printStackTrace();
           } catch (ExecutionException e) {
@@ -166,8 +176,10 @@ public class ApplicationSettingParser {
           received++;
         }
         
-        this.securityRoles = new ArrayList<String>(roles);
-        
+        this.securityRoles = new ArrayList<String>(camelCaseRoles);
+        for (String role : camelCaseRoles) {
+          this.roleConstants.add(role.replaceAll("([^_A-Z])([A-Z])", "$1_$2"));
+        }
         // поиск зависимостей у модулей
         for (int i = 0; i < forms.size(); i++) {
           List<String> nodesWithChildren = document.getNodesWithChildren(forms.get(i));
@@ -310,6 +322,11 @@ public class ApplicationSettingParser {
   public List<String> getRoles() {
     return securityRoles;
   }
+
+  public List<String> getRoleConstants() {
+    return roleConstants;
+  }
+  
   
   public ApplicationStructureDocument getDocument(){
     return document;

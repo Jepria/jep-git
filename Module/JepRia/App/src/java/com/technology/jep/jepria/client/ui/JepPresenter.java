@@ -44,18 +44,17 @@ abstract public class JepPresenter<E extends EventBus, F extends ClientFactory<E
    * @param newWorkstate Новое состояние.
    */
   protected void changeWorkstate(WorkstateEnum newWorkstate) {
-    // Только в случае, если действительно изменяется состояние
-    // и оно применимо для данного презентера
-    if(newWorkstate != null 
-        && !newWorkstate.equals(_workstate)
-          && isAcceptableWorkstate(newWorkstate)) {
+    // Состояние меняется:
+    if (newWorkstate != null && // если состояние не null,
+        !newWorkstate.equals(_workstate) && // если действительно изменяется состояние,
+        isAcceptableWorkstate(newWorkstate) && // если оно применимо для данного презентера,
+        isDataReady(newWorkstate)) { // если данные для данного состояния готовы
       onChangeWorkstate(newWorkstate);
 
       _workstate = newWorkstate;
       adjustToWorkstate(_workstate);
-    }
-    else {
-      // смена состояния происходит всегда, чтобы у каждого презентера  
+    } else {
+      // cмена состояния происходит всегда, чтобы у каждого презентера
       // хранилась актуальная копия текущего рабочего состояния модуля
       _workstate = newWorkstate;
     }
@@ -87,12 +86,28 @@ abstract public class JepPresenter<E extends EventBus, F extends ClientFactory<E
    * позволяет существенно повысить производительность путем сокращения числа "лишних"
    * срабатываний презентера.<br>
    * Также для обработки специфичных прикладному модулю случаев, достаточно переопределить
-   * метод с необходимой бизнес-логикой.  
+   * метод с необходимой бизнес-логикой.
    * 
    * @param workstate  рабочее состояние
-   * @return  true - если рабочее состояние применимо для текущего презентера
+   * @return true - если рабочее состояние применимо для текущего презентера
    */
-  protected boolean isAcceptableWorkstate(WorkstateEnum workstate){
+  protected boolean isAcceptableWorkstate(WorkstateEnum workstate) {
+    return true;
+  }
+  
+  /**
+   * Метод проверки соответствия рабочего состояния и готовности данных.<br>
+   * Особенности:<br>
+   * В общем случае, смена состояния презентера должна происходить всегда.
+   * Однако в случаях детальной формы, в состояниях просмотра и редактирования, проверка готовности данных
+   * позволяет избежать ошибочных срабатываний презентера.<br>
+   * Также для обработки специфичных прикладному модулю случаев, достаточно переопределить
+   * метод с необходимой бизнес-логикой.
+   * 
+   * @param workstate Рабочее состояние.
+   * @return Результат проверки: true - если данные для данного рабочего состояния готовы.
+   */
+  protected boolean isDataReady(WorkstateEnum workstate) {
     return true;
   }
 }

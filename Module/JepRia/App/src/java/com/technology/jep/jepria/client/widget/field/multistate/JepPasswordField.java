@@ -1,7 +1,6 @@
-package com.technology.jep.jepria.client.widget.field;
+package com.technology.jep.jepria.client.widget.field.multistate;
 
 import com.google.gwt.user.client.ui.PasswordTextBox;
-import com.technology.jep.jepria.client.widget.field.multistate.JepBaseTextField;
 
 public class JepPasswordField extends JepBaseTextField<PasswordTextBox> {
 

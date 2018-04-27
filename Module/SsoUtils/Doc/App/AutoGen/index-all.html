@@ -68,22 +68,14 @@
 <!--   -->
 </a></div>
 <!-- ========= END OF TOP NAVBAR ========= -->
-<div class="contentContainer"><a href="#I:A">A</a>&nbsp;<a href="#I:B">B</a>&nbsp;<a href="#I:C">C</a>&nbsp;<a href="#I:D">D</a>&nbsp;<a href="#I:E">E</a>&nbsp;<a href="#I:G">G</a>&nbsp;<a href="#I:H">H</a>&nbsp;<a href="#I:J">J</a>&nbsp;<a href="#I:L">L</a>&nbsp;<a href="#I:O">O</a>&nbsp;<a href="#I:R">R</a>&nbsp;<a href="#I:S">S</a>&nbsp;<a href="#I:T">T</a>&nbsp;<a href="#I:Z:Z_">_</a>&nbsp;<a name="I:A">
-<!--   -->
-</a>
-<h2 class="title">A</h2>
-<dl>
-<dt><span class="memberNameLink"><a href="org/jepria/ssoutils/SsoUiUtils.html#AMP_SUB">AMP_SUB</a></span> - Static variable in class org.jepria.ssoutils.<a href="org/jepria/ssoutils/SsoUiUtils.html" title="class in org.jepria.ssoutils">SsoUiUtils</a></dt>
-<dd>
-<div class="block">Символ для замены апмерсанда</div>
-</dd>
-</dl>
-<a name="I:B">
+<div class="contentContainer"><a href="#I:B">B</a>&nbsp;<a href="#I:C">C</a>&nbsp;<a href="#I:D">D</a>&nbsp;<a href="#I:E">E</a>&nbsp;<a href="#I:G">G</a>&nbsp;<a href="#I:H">H</a>&nbsp;<a href="#I:J">J</a>&nbsp;<a href="#I:L">L</a>&nbsp;<a href="#I:O">O</a>&nbsp;<a href="#I:R">R</a>&nbsp;<a href="#I:S">S</a>&nbsp;<a href="#I:T">T</a>&nbsp;<a href="#I:Z:Z_">_</a>&nbsp;<a name="I:B">
 <!--   -->
 </a>
 <h2 class="title">B</h2>
 <dl>
 <dt><span class="memberNameLink"><a href="org/jepria/ssoutils/SsoUiUtils.html#buildSsoUiUrl-java.lang.String-javax.servlet.http.HttpServletRequest-">buildSsoUiUrl(String, HttpServletRequest)</a></span> - Static method in class org.jepria.ssoutils.<a href="org/jepria/ssoutils/SsoUiUtils.html" title="class in org.jepria.ssoutils">SsoUiUtils</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/jepria/ssoutils/SsoUiUtils.html#buildSsoUiUrl-java.lang.String-javax.servlet.http.HttpServletRequest-java.lang.String-">buildSsoUiUrl(String, HttpServletRequest, String)</a></span> - Static method in class org.jepria.ssoutils.<a href="org/jepria/ssoutils/SsoUiUtils.html" title="class in org.jepria.ssoutils">SsoUiUtils</a></dt>
 <dd>
 <div class="block">Возвращает URL с необходимыми параметрами для перенаправления с логин-страницы любого приложения в соответствующее SsoUi</div>
 </dd>
@@ -104,13 +96,19 @@
 </a>
 <h2 class="title">D</h2>
 <dl>
-<dt><span class="memberNameLink"><a href="org/jepria/ssoutils/SsoUiUtils.html#decodeAmps-java.lang.String-">decodeAmps(String)</a></span> - Static method in class org.jepria.ssoutils.<a href="org/jepria/ssoutils/SsoUiUtils.html" title="class in org.jepria.ssoutils">SsoUiUtils</a></dt>
+<dt><span class="memberNameLink"><a href="org/jepria/ssoutils/SsoUiUtils.html#decodeFragment-java.lang.String-">decodeFragment(String)</a></span> - Static method in class org.jepria.ssoutils.<a href="org/jepria/ssoutils/SsoUiUtils.html" title="class in org.jepria.ssoutils">SsoUiUtils</a></dt>
 <dd>
-<div class="block">Декодирует строку, закодированную с помощью <a href="org/jepria/ssoutils/SsoUiUtils.html#encodeAmps-java.lang.String-"><code>encodeAmps(java.lang.String)</code></a>
+<div class="block">Декодирует строку, закодированную JS-функцией <a href="org/jepria/ssoutils/SsoUiUtils.html#encodeFragmentFunction--"><code>encodeFragmentFunction()</code></a>
+ <br><br>
+ Алгоритм кодирования аналогичен методу <a href="org/jepria/ssoutils/SsoUiUtils.html#decodeQueryStr-java.lang.String-"><code>decodeQueryStr(java.lang.String)</code></a>.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org/jepria/ssoutils/SsoUiUtils.html#decodeQueryStr-java.lang.String-">decodeQueryStr(String)</a></span> - Static method in class org.jepria.ssoutils.<a href="org/jepria/ssoutils/SsoUiUtils.html" title="class in org.jepria.ssoutils">SsoUiUtils</a></dt>
+<dd>
+<div class="block">Декодирует строку, закодированную методом <a href="org/jepria/ssoutils/SsoUiUtils.html#encodeQueryStr-java.lang.String-"><code>encodeQueryStr(java.lang.String)</code></a>
  <br>
  Например,<br>
- <code>'AMPS_3_7_AMPSa=1_b=2_c=_' -&gt; 'a=1&amp;b=2&amp;c=_'</code><br>
- <code>'AMPS__AMPSx=y' -&gt; 'x=y'</code></div>
+ <code>decodeQueryStr("enc_3_7_enca=1_b=2_c=_") === "a=1&amp;b=2&amp;c=_"</code><br>
+ <code>decodeQueryStr("enc__encx=y") === "x=y"</code></div>
 </dd>
 <dt><span class="memberNameLink"><a href="org/jepria/ssoutils/SsoUiUtils.html#DEFAULT_SSOUI_CONTEXT">DEFAULT_SSOUI_CONTEXT</a></span> - Static variable in class org.jepria.ssoutils.<a href="org/jepria/ssoutils/SsoUiUtils.html" title="class in org.jepria.ssoutils">SsoUiUtils</a></dt>
 <dd>
@@ -123,9 +121,13 @@
 </a>
 <h2 class="title">E</h2>
 <dl>
-<dt><span class="memberNameLink"><a href="org/jepria/ssoutils/SsoUiUtils.html#encodeAmps-java.lang.String-">encodeAmps(String)</a></span> - Static method in class org.jepria.ssoutils.<a href="org/jepria/ssoutils/SsoUiUtils.html" title="class in org.jepria.ssoutils">SsoUiUtils</a></dt>
+<dt><span class="memberNameLink"><a href="org/jepria/ssoutils/SsoUiUtils.html#encodeFragmentFunction--">encodeFragmentFunction()</a></span> - Static method in class org.jepria.ssoutils.<a href="org/jepria/ssoutils/SsoUiUtils.html" title="class in org.jepria.ssoutils">SsoUiUtils</a></dt>
 <dd>
-<div class="block">Кодирует амперсанды в строке, заменяя их символом '_' (<a href="org/jepria/ssoutils/SsoUiUtils.html#AMP_SUB"><code>AMP_SUB</code></a>).</div>
+<div class="block">Возвращает текст JS-функции для кодирования фрагмента URL (части после символа #).</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org/jepria/ssoutils/SsoUiUtils.html#encodeQueryStr-java.lang.String-">encodeQueryStr(String)</a></span> - Static method in class org.jepria.ssoutils.<a href="org/jepria/ssoutils/SsoUiUtils.html" title="class in org.jepria.ssoutils">SsoUiUtils</a></dt>
+<dd>
+<div class="block">Функция для кодирования строки параметров URL (части после символа ?).</div>
 </dd>
 <dt><span class="memberNameLink"><a href="org/jepria/ssoutils/JepPrincipal.html#equals-java.lang.Object-">equals(Object)</a></span> - Method in class org.jepria.ssoutils.<a href="org/jepria/ssoutils/JepPrincipal.html" title="class in org.jepria.ssoutils">JepPrincipal</a></dt>
 <dd>&nbsp;</dd>
@@ -197,13 +199,25 @@
 </a>
 <h2 class="title">R</h2>
 <dl>
+<dt><span class="memberNameLink"><a href="org/jepria/ssoutils/SsoUiConstants.html#REQUEST_PARAMETER_APP_TITLE">REQUEST_PARAMETER_APP_TITLE</a></span> - Static variable in class org.jepria.ssoutils.<a href="org/jepria/ssoutils/SsoUiConstants.html" title="class in org.jepria.ssoutils">SsoUiConstants</a></dt>
+<dd>
+<div class="block">Параметр, содержащий название приложения, которое нужно отобразить в заголовке SsoUi.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="org/jepria/ssoutils/SsoUiConstants.html#REQUEST_PARAMETER_ENTER_MODULE">REQUEST_PARAMETER_ENTER_MODULE</a></span> - Static variable in class org.jepria.ssoutils.<a href="org/jepria/ssoutils/SsoUiConstants.html" title="class in org.jepria.ssoutils">SsoUiConstants</a></dt>
 <dd>
 <div class="block">Параметр, содержащий имя модуля, на который нужно вернуться после авторизации через Sso.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="org/jepria/ssoutils/SsoUiConstants.html#REQUEST_PARAMETER_FRAGMENT">REQUEST_PARAMETER_FRAGMENT</a></span> - Static variable in class org.jepria.ssoutils.<a href="org/jepria/ssoutils/SsoUiConstants.html" title="class in org.jepria.ssoutils">SsoUiConstants</a></dt>
+<dd>
+<div class="block">Параметр, содержащий fragment запроса, после которого потребовалась авторизация через Sso (часть URL после символа #).</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org/jepria/ssoutils/SsoUiConstants.html#REQUEST_PARAMETER_LOCALE">REQUEST_PARAMETER_LOCALE</a></span> - Static variable in class org.jepria.ssoutils.<a href="org/jepria/ssoutils/SsoUiConstants.html" title="class in org.jepria.ssoutils">SsoUiConstants</a></dt>
+<dd>
+<div class="block">Параметр, содержащий locale запроса.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="org/jepria/ssoutils/SsoUiConstants.html#REQUEST_PARAMETER_QUERY_STRING">REQUEST_PARAMETER_QUERY_STRING</a></span> - Static variable in class org.jepria.ssoutils.<a href="org/jepria/ssoutils/SsoUiConstants.html" title="class in org.jepria.ssoutils">SsoUiConstants</a></dt>
 <dd>
-<div class="block">Параметр, содержащий queryString запроса, после которого потребовалась авторизация через Sso.</div>
+<div class="block">Параметр, содержащий queryString запроса, после которого потребовалась авторизация через Sso (часть URL после символа ?).</div>
 </dd>
 </dl>
 <a name="I:S">
@@ -242,7 +256,7 @@
 <dt><span class="memberNameLink"><a href="org/jepria/ssoutils/JepPrincipal.html#Z:Z_operatorId">_operatorId</a></span> - Variable in class org.jepria.ssoutils.<a href="org/jepria/ssoutils/JepPrincipal.html" title="class in org.jepria.ssoutils">JepPrincipal</a></dt>
 <dd>&nbsp;</dd>
 </dl>
-<a href="#I:A">A</a>&nbsp;<a href="#I:B">B</a>&nbsp;<a href="#I:C">C</a>&nbsp;<a href="#I:D">D</a>&nbsp;<a href="#I:E">E</a>&nbsp;<a href="#I:G">G</a>&nbsp;<a href="#I:H">H</a>&nbsp;<a href="#I:J">J</a>&nbsp;<a href="#I:L">L</a>&nbsp;<a href="#I:O">O</a>&nbsp;<a href="#I:R">R</a>&nbsp;<a href="#I:S">S</a>&nbsp;<a href="#I:T">T</a>&nbsp;<a href="#I:Z:Z_">_</a>&nbsp;</div>
+<a href="#I:B">B</a>&nbsp;<a href="#I:C">C</a>&nbsp;<a href="#I:D">D</a>&nbsp;<a href="#I:E">E</a>&nbsp;<a href="#I:G">G</a>&nbsp;<a href="#I:H">H</a>&nbsp;<a href="#I:J">J</a>&nbsp;<a href="#I:L">L</a>&nbsp;<a href="#I:O">O</a>&nbsp;<a href="#I:R">R</a>&nbsp;<a href="#I:S">S</a>&nbsp;<a href="#I:T">T</a>&nbsp;<a href="#I:Z:Z_">_</a>&nbsp;</div>
 <!-- ======= START OF BOTTOM NAVBAR ====== -->
 <div class="bottomNav"><a name="navbar.bottom">
 <!--   -->

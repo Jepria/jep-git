@@ -28,6 +28,7 @@ import com.technology.jep.jepriatoolkit.creator.application.ApplicationStructure
 import com.technology.jep.jepriatoolkit.creator.module.Application;
 import com.technology.jep.jepriatoolkit.creator.module.ModuleInfo;
 import com.technology.jep.jepriatoolkit.parser.ApplicationSettingParser;
+import com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil;
 
 @SuppressWarnings("unchecked")
 public class AutoTestStructureCreator extends Task {
@@ -102,7 +103,7 @@ public class AutoTestStructureCreator extends Task {
       ApplicationSettingParser applicationParser = ApplicationSettingParser.getInstance(isEmptyOrNotInitializedParameter(applicationStructureFile) ? getApplicationDefinitionFile() : applicationStructureFile);
       
       application = applicationParser.getApplication();
-      packagePrefix = application.getPackagePrefix().toLowerCase();
+      packagePrefix = JepRiaToolkitUtil.packagePrefixToPath(application.getPackagePrefix().toLowerCase());
       packageProject = application.getProjectPackage().toLowerCase();
       packageApplication = application.getName().toLowerCase();
       
@@ -117,6 +118,9 @@ public class AutoTestStructureCreator extends Task {
       
       echoMessage(multipleConcat("Create Test Structure for '", packagePrefix, DOT, packageProject, DOT, packageApplication, "' module"));
       createTestFileStructure();
+      
+      echoMessage("Create Automation Constants");
+      createAutomatonConstants();
       
       echoMessage("Create Java Classes of Auto");
       createAuto();
@@ -141,7 +145,7 @@ public class AutoTestStructureCreator extends Task {
     }
 
   }
-  
+
 
   /**
    * Создание файловой структуры тестов приложения
@@ -190,6 +194,25 @@ public class AutoTestStructureCreator extends Task {
         getAutoTestDefinitionProperty(TEST_PROPERTIES_TEMPLATE_PROPERTY ),
         getDataForTemplates(), 
         format(getAutoTestDefinitionProperty(TEST_PROPERTIES_PATH_TEMPLATE_PROPERTY)));
+  }
+
+  /**
+   * Создание констант для полей в прикладных модулей
+   */
+  private void createAutomatonConstants() {
+    Map<String, Object> data = dataForTemplates;
+    List<ModuleInfo> moduleInfos = (List<ModuleInfo>) data.get(FORMS_TEMPLATE_PARAMETER);
+    
+    for (ModuleInfo moduleInfo : moduleInfos) {
+      String formName = moduleInfo.getFormName();
+      convertTemplateToFile(
+          getAutoTestDefinitionProperty(MODULE_AUTOMATION_CONSTANTS_TEMPLATE_PROPERTY ),
+          prepareFormData(moduleInfo, dataForTemplates), 
+          format(getAutoTestDefinitionProperty(MODULE_AUTOMATION_CONSTANTS_PATH_TEMPLATE_PROPERTY),
+              application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName.toLowerCase(), 
+              formName, application.getPackagePrefixAsPath().toLowerCase()),
+              isOverrideExistsFiles);
+    }
   }
   
   /**

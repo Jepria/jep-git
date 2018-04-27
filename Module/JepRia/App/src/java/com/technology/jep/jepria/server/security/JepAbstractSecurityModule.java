@@ -193,7 +193,10 @@ public abstract class JepAbstractSecurityModule implements JepSecurityModule {
       return pkg_Operator.isChangePassword(this.db, operatorId);
     } catch (SQLException ex) {
       throw new SystemException("Password change check error", ex);
+    } finally {
+      db.closeAll();
     }
+    
   }
   
   /**
@@ -210,6 +213,8 @@ public abstract class JepAbstractSecurityModule implements JepSecurityModule {
       pkg_Operator.changePassword(this.db, operatorId, password, newPassword, newPasswordConfirm);
     } catch (SQLException ex) {
       throw new SystemException("Wrong authentication", ex);
+    } finally {
+      db.closeAll();
     }
   }
   

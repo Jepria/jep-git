@@ -18,7 +18,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10};
+var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -205,11 +205,15 @@ extends <a href="../../../../../../com/technology/jep/jepria/client/ui/JepActivi
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>protected void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/client/ui/JepPresenter.html#changeWorkstate-com.google.gwt.place.shared.Place-">changeWorkstate</a></span>(com.google.gwt.place.shared.Place&nbsp;place)</code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/client/ui/JepPresenter.html#changeWorkstate-com.google.gwt.place.shared.Place-">changeWorkstate</a></span>(com.google.gwt.place.shared.Place&nbsp;place)</code>
+<div class="block">Изменение состояния.</div>
+</td>
 </tr>
 <tr id="i2" class="altColor">
 <td class="colFirst"><code>protected void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/client/ui/JepPresenter.html#changeWorkstate-com.technology.jep.jepria.client.ui.WorkstateEnum-">changeWorkstate</a></span>(<a href="../../../../../../com/technology/jep/jepria/client/ui/WorkstateEnum.html" title="enum in com.technology.jep.jepria.client.ui">WorkstateEnum</a>&nbsp;newWorkstate)</code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/client/ui/JepPresenter.html#changeWorkstate-com.technology.jep.jepria.client.ui.WorkstateEnum-">changeWorkstate</a></span>(<a href="../../../../../../com/technology/jep/jepria/client/ui/WorkstateEnum.html" title="enum in com.technology.jep.jepria.client.ui">WorkstateEnum</a>&nbsp;newWorkstate)</code>
+<div class="block">Изменение состояния.</div>
+</td>
 </tr>
 <tr id="i3" class="rowColor">
 <td class="colFirst"><code>com.google.gwt.place.shared.Place</code></td>
@@ -222,10 +226,18 @@ extends <a href="../../../../../../com/technology/jep/jepria/client/ui/JepActivi
 </td>
 </tr>
 <tr id="i5" class="rowColor">
-<td class="colFirst"><code>protected void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/client/ui/JepPresenter.html#onChangeWorkstate-com.technology.jep.jepria.client.ui.WorkstateEnum-">onChangeWorkstate</a></span>(<a href="../../../../../../com/technology/jep/jepria/client/ui/WorkstateEnum.html" title="enum in com.technology.jep.jepria.client.ui">WorkstateEnum</a>&nbsp;workstate)</code>&nbsp;</td>
+<td class="colFirst"><code>protected boolean</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/client/ui/JepPresenter.html#isDataReady-com.technology.jep.jepria.client.ui.WorkstateEnum-">isDataReady</a></span>(<a href="../../../../../../com/technology/jep/jepria/client/ui/WorkstateEnum.html" title="enum in com.technology.jep.jepria.client.ui">WorkstateEnum</a>&nbsp;workstate)</code>
+<div class="block">Метод проверки соответствия рабочего состояния и готовности данных.</div>
+</td>
 </tr>
 <tr id="i6" class="altColor">
+<td class="colFirst"><code>protected void</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/client/ui/JepPresenter.html#onChangeWorkstate-com.technology.jep.jepria.client.ui.WorkstateEnum-">onChangeWorkstate</a></span>(<a href="../../../../../../com/technology/jep/jepria/client/ui/WorkstateEnum.html" title="enum in com.technology.jep.jepria.client.ui">WorkstateEnum</a>&nbsp;workstate)</code>
+<div class="block">Hook-метод, вызываемый перед изменением текущего состояния (_workstate) на workstate.</div>
+</td>
+</tr>
+<tr id="i7" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/client/ui/JepPresenter.html#setPlace-com.google.gwt.place.shared.Place-">setPlace</a></span>(com.google.gwt.place.shared.Place&nbsp;place)</code>
 <div class="block">Используется в случаях, когда презентеры не пересоздаются для новых Place.</div>
@@ -344,6 +356,11 @@ extends <a href="../../../../../../com/technology/jep/jepria/client/ui/JepActivi
 <li class="blockList">
 <h4>changeWorkstate</h4>
 <pre>protected&nbsp;void&nbsp;changeWorkstate(com.google.gwt.place.shared.Place&nbsp;place)</pre>
+<div class="block">Изменение состояния.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>place</code> - Место.</dd>
+</dl>
 </li>
 </ul>
 <a name="changeWorkstate-com.technology.jep.jepria.client.ui.WorkstateEnum-">
@@ -353,6 +370,11 @@ extends <a href="../../../../../../com/technology/jep/jepria/client/ui/JepActivi
 <li class="blockList">
 <h4>changeWorkstate</h4>
 <pre>protected&nbsp;void&nbsp;changeWorkstate(<a href="../../../../../../com/technology/jep/jepria/client/ui/WorkstateEnum.html" title="enum in com.technology.jep.jepria.client.ui">WorkstateEnum</a>&nbsp;newWorkstate)</pre>
+<div class="block">Изменение состояния.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>newWorkstate</code> - Новое состояние.</dd>
+</dl>
 </li>
 </ul>
 <a name="onChangeWorkstate-com.technology.jep.jepria.client.ui.WorkstateEnum-">
@@ -362,6 +384,12 @@ extends <a href="../../../../../../com/technology/jep/jepria/client/ui/JepActivi
 <li class="blockList">
 <h4>onChangeWorkstate</h4>
 <pre>protected&nbsp;void&nbsp;onChangeWorkstate(<a href="../../../../../../com/technology/jep/jepria/client/ui/WorkstateEnum.html" title="enum in com.technology.jep.jepria.client.ui">WorkstateEnum</a>&nbsp;workstate)</pre>
+<div class="block">Hook-метод, вызываемый перед изменением текущего состояния (_workstate) на workstate. <br/>
+ Предназначен для переопределения в наследниках.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>workstate</code> - Новое состояние.</dd>
+</dl>
 </li>
 </ul>
 <a name="adjustToWorkstate-com.technology.jep.jepria.client.ui.WorkstateEnum-">
@@ -382,7 +410,7 @@ extends <a href="../../../../../../com/technology/jep/jepria/client/ui/JepActivi
 <a name="isAcceptableWorkstate-com.technology.jep.jepria.client.ui.WorkstateEnum-">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>isAcceptableWorkstate</h4>
 <pre>protected&nbsp;boolean&nbsp;isAcceptableWorkstate(<a href="../../../../../../com/technology/jep/jepria/client/ui/WorkstateEnum.html" title="enum in com.technology.jep.jepria.client.ui">WorkstateEnum</a>&nbsp;workstate)</pre>
@@ -399,6 +427,28 @@ extends <a href="../../../../../../com/technology/jep/jepria/client/ui/JepActivi
 <dd><code>workstate</code> - рабочее состояние</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>true - если рабочее состояние применимо для текущего презентера</dd>
+</dl>
+</li>
+</ul>
+<a name="isDataReady-com.technology.jep.jepria.client.ui.WorkstateEnum-">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>isDataReady</h4>
+<pre>protected&nbsp;boolean&nbsp;isDataReady(<a href="../../../../../../com/technology/jep/jepria/client/ui/WorkstateEnum.html" title="enum in com.technology.jep.jepria.client.ui">WorkstateEnum</a>&nbsp;workstate)</pre>
+<div class="block">Метод проверки соответствия рабочего состояния и готовности данных.<br>
+ Особенности:<br>
+ В общем случае, смена состояния презентера должна происходить всегда.
+ Однако в случаях детальной формы, в состояниях просмотра и редактирования, проверка готовности данных
+ позволяет избежать ошибочных срабатываний презентера.<br>
+ Также для обработки специфичных прикладному модулю случаев, достаточно переопределить
+ метод с необходимой бизнес-логикой.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>workstate</code> - Рабочее состояние.</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>Результат проверки: true - если данные для данного рабочего состояния готовы.</dd>
 </dl>
 </li>
 </ul>

@@ -19,22 +19,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.tools.ant.BuildException;
-import org.apache.tools.ant.Task;
 
+import com.technology.jep.jepriatoolkit.ant.StaticTask;
 import com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil;
 
-public class BuildConfigSwitcher extends Task {
+public class BuildConfigSwitcher extends StaticTask {
 
-  private String packageName, moduleName;
   private String currentConfig, targetConfig;
-  private String configPath;
   private List<String> targetConfigFiles, currentConfigFiles, commonConfigFiles, updateConfigFiles;
 
-  /**
-   * Основной метод, который выполняет переключение BuildConfig
-   */
   @Override
-  public void execute() throws BuildException {
+  protected String getExecutionId() {
+    return "BuildConfigSwitcher";
+  }
+  
+  @Override
+  public void executeStatic() throws BuildException {
 
     // получаем список файлов target конфигурации, если конфиг не найден (null) - критическая ошибка!
     targetConfigFiles = getFileList(BUILD_CONFIG_PATH_PREFIX + targetConfig);
@@ -260,7 +260,7 @@ public class BuildConfigSwitcher extends Task {
     } else {
       InputStream configInputStream = new BufferedInputStream(new FileInputStream(configFile));
       InputStream srcInputStream = new BufferedInputStream(new FileInputStream(srcFile));
-      int configFileData, srcFileData;
+      int configFileData;
 
       while (!diffFound
           && (configFileData = configInputStream.read()) != -1) {
@@ -278,14 +278,6 @@ public class BuildConfigSwitcher extends Task {
 
   public void setTargetConfig(String targetConfig) {
     this.targetConfig = targetConfig;
-  }
-
-  public void setPackageName(String packageName) {
-    this.packageName = packageName;
-  }
-
-  public void setModuleName(String moduleName) {
-    this.moduleName = moduleName;
   }
 
   private void printList(String header, List<String> stringList) {

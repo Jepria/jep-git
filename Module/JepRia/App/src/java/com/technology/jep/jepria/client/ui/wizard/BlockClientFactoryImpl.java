@@ -26,7 +26,7 @@ public abstract class BlockClientFactoryImpl<S extends JepDataServiceAsync> exte
   
   @Override
   protected JepEventBus createEventBus() {
-    return new JepEventBus(this);
+    return new JepEventBus();
   }
   
   @Override

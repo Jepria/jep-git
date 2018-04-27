@@ -33,6 +33,7 @@ public class AuthorizationByPasswordHash extends LoginAuthorization {
 	      " begin" 
 	      + "  ? := pkg_Operator.Login("
 	        + " operatorLogin => ?"
+	        + ", password => ?" 
 	        + ", passwordHash => ?" 
 	      + ");" 
 	      + "  ? := pkg_Operator.GetCurrentUserID;" 
@@ -41,15 +42,17 @@ public class AuthorizationByPasswordHash extends LoginAuthorization {
 			CallableStatement callableStatement = db.prepare(sqlQuery);
 			// Установим Логин.
 			callableStatement.setString(2, login);
+			// Установим Пароль.
+			callableStatement.setNull(3, Types.VARCHAR);
 			// Установим Хэш.
-			callableStatement.setString(3, hash);
+			callableStatement.setString(4, hash);
 
 			callableStatement.registerOutParameter(1, Types.VARCHAR);
-			callableStatement.registerOutParameter(4, Types.INTEGER);
+			callableStatement.registerOutParameter(5, Types.INTEGER);
 
 			callableStatement.execute();
 
-			result = callableStatement.getInt(4);
+			result = callableStatement.getInt(5);
 			if (callableStatement.wasNull())
 				result = null;
 

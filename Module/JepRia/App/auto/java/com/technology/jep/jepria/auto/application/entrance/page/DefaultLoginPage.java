@@ -48,7 +48,8 @@ public class DefaultLoginPage extends PlainPage implements LoginPage {
    */
   @Override
   public void doLogin() {
-    loginButton.click();
+    getWait().until(org.openqa.selenium.support.ui.ExpectedConditions.invisibilityOfElementLocated(By.id("loadingProgress")));
+    getWait().until(org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable(loginButton)).click();
   }
 
   /* (non-Javadoc)

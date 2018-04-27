@@ -306,6 +306,7 @@
   <target name="build" depends="jar, jar-auto, jar-test, jar-resources, jar-dependency" />
 
   <target name="doc" depends="java-compile, java-auto-compile">
+    <delete includeemptydirs="true" dir="${JAVA_DOC_DIR}"/>
     <javadoc sourcepath="src/java;auto/java;test/java"
       locale="ru"
       packagenames="*"

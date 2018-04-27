@@ -7,6 +7,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.dom.client.NativeEvent;
 import com.google.gwt.event.dom.client.DomEvent;
 import com.google.gwt.i18n.client.LocaleInfo;
@@ -249,11 +250,36 @@ public abstract class JepBaseNumberField<E extends ValueBox<? extends Number>> e
   public boolean isValid() {
     boolean isValid = super.isValid();
     try {
+        
       Object value = editableCard.getValueOrThrow();
       // Проверка на наличие недопустимых символов необходима
       // для случаев копирования значения из буфера обмена.
       if (!JepRiaUtil.isEmpty(value)){
         String strValue = editableCard.getText();
+        for (int index = 0; index < strValue.length(); index++){
+          if (!allowed.contains(strValue.charAt(index))){
+            throw new ParseException(null, -1);
+          }
+        }
+      }
+    }
+    catch(ParseException e){
+      markInvalid(JepClientUtil.substitute(JepTexts.numberField_nanText(), getRawValue()));
+      return false;
+    }
+    return isValid;
+  }
+  
+  /**
+   * {@inheritDoc}
+   */
+  public boolean isValid(String value) {
+    boolean isValid = super.isValid();
+    try {
+      // Проверка на наличие недопустимых символов необходима
+      // для случаев копирования значения из буфера обмена.
+      if (!JepRiaUtil.isEmpty(value)){
+        String strValue = value;
         for (int index = 0; index < strValue.length(); index++){
           if (!allowed.contains(strValue.charAt(index))){
             throw new ParseException(null, -1);

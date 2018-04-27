@@ -24,6 +24,7 @@ import com.google.gwt.user.client.ui.*;
 import com.google.gwt.user.datepicker.client.*;
 import com.technology.jep.jepria.client.widget.field.masked.Mask;
 import com.technology.jep.jepria.client.widget.field.masked.MaskedTextBox;
+import com.technology.jep.jepria.client.widget.field.multistate.customized.JepDatePicker;
 import com.technology.jep.jepria.shared.util.JepRiaUtil;
 
 /**
@@ -137,7 +138,7 @@ public class MaskedDateBox extends Composite implements HasEnabled,
     }
   
     public void onClick(ClickEvent event) {
-      showDatePicker();
+        showDatePicker();
     }
   
     public void onClose(CloseEvent<PopupPanel> event) {
@@ -264,6 +265,11 @@ public class MaskedDateBox extends Composite implements HasEnabled,
         }
       }
       });
+      
+  }
+  
+  public void setStyleClassName(String className) {
+      box.getElement().addClassName(className);
   }
 
   public HandlerRegistration addValueChangeHandler(
@@ -459,6 +465,14 @@ public class MaskedDateBox extends Composite implements HasEnabled,
   public void setValue(Date date, boolean fireEvents) {
     setValue(picker.getValue(), date, fireEvents, true);
   }
+  
+  /**
+   * Необходимо управлять видимостью всплывающей панели
+   */
+  private boolean popupShowForceFireEvent = true;
+  public void setVisiblePopup(boolean isShow) {
+      popupShowForceFireEvent = isShow;
+  }
 
   /**
    * Parses the current date box's value and shows that date.
@@ -469,7 +483,13 @@ public class MaskedDateBox extends Composite implements HasEnabled,
       current = new Date();
     }
     picker.setCurrentMonth(current);
-    popup.showRelativeTo(this);
+    
+    if (popupShowForceFireEvent) {
+        popup.showRelativeTo(this);
+    } else {
+        popup.hide();
+    }
+    
   }
 
   /**
