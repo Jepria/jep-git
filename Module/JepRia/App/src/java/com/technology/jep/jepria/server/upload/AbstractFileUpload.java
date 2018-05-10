@@ -14,6 +14,22 @@ public abstract class AbstractFileUpload implements FileUpload {
 
   protected CallContext storedContext;
   protected LargeObject largeObject = null;
+  protected final boolean transactionable;
+
+  /**
+   * Создаёт загрузчик файлов на сервер.
+   */
+  public AbstractFileUpload(){
+    this(true);
+  }
+
+  /**
+   * Создаёт загрузчик файлов на сервер.
+   * @param transactionable проведение загрузки в рамках отдельной транзакции
+   */
+  public AbstractFileUpload(boolean transactionable){
+    this.transactionable = transactionable;
+  }
 
   /**
    * Функция-обертка для {@link #beginWrite(String tableName, String fileFieldName, String keyFieldName, Object rowId, String dataSourceJndiName, String moduleName)}.
@@ -49,7 +65,9 @@ public abstract class AbstractFileUpload implements FileUpload {
     CallContext.attach(storedContext);
     try {
       largeObject.endWrite();
-      CallContext.commit();
+      if (transactionable) {
+        CallContext.commit();
+      }
     } catch (SpaceException ex) {
       cancel();
       throw ex;
@@ -74,7 +92,9 @@ public abstract class AbstractFileUpload implements FileUpload {
       if (largeObject != null) {
         largeObject.cancel();
       }
-      CallContext.rollback();
+      if (transactionable) {
+        CallContext.rollback();
+      }
     } catch (Exception ex) {
       ex.printStackTrace();
     } finally {

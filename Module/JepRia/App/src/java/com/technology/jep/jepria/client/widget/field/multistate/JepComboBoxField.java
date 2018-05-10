@@ -182,6 +182,8 @@ public class JepComboBoxField extends JepBaseTextField<ComboBox<JepOption>> impl
       case FIRST_TIME_USE_EVENT:
         addFirstTimeUseListener();
         break;
+      default:
+        break;
     }
     
     super.addListener(eventType, listener);
@@ -266,7 +268,7 @@ public class JepComboBoxField extends JepBaseTextField<ComboBox<JepOption>> impl
    */
   public void afterFirstTimeUseFailure() {
     // Сбросим признак успешного заполнения списка - запрос выполняемый при первом обращении к полю.
-    firstTimeUsedQuery = null;
+    clearFirstTimeUsedQuery();
     setLoadingImage(false);
   }
   
@@ -461,5 +463,20 @@ public class JepComboBoxField extends JepBaseTextField<ComboBox<JepOption>> impl
     }
     
     if(match != null) setValue(match);
+  }
+  
+  /**
+   * Очищает запрос, с которым выпадающий список раскрывается впервые.
+   */
+  private void clearFirstTimeUsedQuery() {
+    firstTimeUsedQuery = null;
+  }
+  
+  /**
+   * Сбрасывает поле. Очищает значение и запрос, с которым выпадающий список раскрывается впервые.
+   */
+  public void reset() {
+    clear();
+    clearFirstTimeUsedQuery();
   }
 }
