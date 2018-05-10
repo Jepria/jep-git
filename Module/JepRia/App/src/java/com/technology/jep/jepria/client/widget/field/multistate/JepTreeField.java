@@ -201,13 +201,18 @@ public class JepTreeField extends JepMultiStateField<TreeField<JepOption>, HTML>
    */
   protected void processExpanding() {
     if(expandedValues != null && expandedValues.size() > 0) {
-      Iterator<JepOption> iterator = expandedValues.iterator();
-      while(iterator.hasNext()) {
-        JepOption option = iterator.next();
-        // Удаляем значение, т.к. открытие узлов - это разовая (в данном случае) операция
-        // и НЕ нужно повторно открывать указанные узлы (которые пользователь, возможно, уже закрыл).
-        editableCard.setExpanded(option, true);
-        iterator.remove();
+      JepOption option = expandedValues.get(0);
+      editableCard.setExpanded(option, true);
+      if (editableCard.isNodeOpened(option)) {
+        expandedValues.remove(0);
+        processExpanding();
+      } else {
+        Scheduler.get().scheduleDeferred(new ScheduledCommand() {
+          @Override
+          public void execute() {
+            processExpanding();
+          }
+        });
       }
     }
   }
@@ -261,7 +266,7 @@ public class JepTreeField extends JepMultiStateField<TreeField<JepOption>, HTML>
    * {@inheritDoc}
    */
   public void setEnabled(boolean enabled) {
-    // TODO реализовать блокировку поля
+    editableCard.setEnabled(enabled);
   }
   
   /**
@@ -280,13 +285,9 @@ public class JepTreeField extends JepMultiStateField<TreeField<JepOption>, HTML>
   @Override
   public void clear() {
     checkedValues = null;
+    editableCard.collapseAll();
     editableCard.clearSelection();
     expandedValues = null;
-    Scheduler.get().scheduleDeferred(new ScheduledCommand(){
-      @Override
-      public void execute() {
-        editableCard.collapseAll();
-      }});
   }
   
   /**

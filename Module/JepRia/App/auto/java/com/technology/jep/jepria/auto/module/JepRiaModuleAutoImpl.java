@@ -808,7 +808,7 @@ public class JepRiaModuleAutoImpl<P extends JepRiaModulePage> implements JepRiaM
             
             // Ждем загрузки ветки дерева (признаком этого является обновление всего виджета, в частности, отваливания элемента folder).
             // FIXME Опасное место! А вдруг JepTreeField будет переработан так, что виджет перестанет обновляться после каждой загрузки?
-            getWait().until(stalenessOf(folder));
+            //getWait().until(stalenessOf(folder));
             break;
           } else {
             logger.debug(indent + "TREEFIELD_SELECT: The folder " + part + " is expanded, continue with its descendants");

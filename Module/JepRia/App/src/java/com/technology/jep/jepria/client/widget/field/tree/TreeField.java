@@ -53,6 +53,7 @@ import com.google.gwt.view.client.DefaultSelectionEventManager.EventTranslator;
 import com.google.gwt.view.client.DefaultSelectionEventManager.SelectAction;
 import com.google.gwt.view.client.HasData;
 import com.google.gwt.view.client.MultiSelectionModel;
+import com.google.gwt.view.client.Range;
 import com.google.gwt.view.client.SelectionChangeEvent;
 import com.google.gwt.view.client.SetSelectionModel;
 import com.google.gwt.view.client.TreeViewModel;
@@ -136,6 +137,11 @@ public class TreeField<V extends JepOption> extends Composite implements HasChec
    * Наименование селектора (класса стилей) для данного компонента
    */
   private static final String JEP_RIA_TREE_FIELD_STYLE = "jepRia-TreeField-Input";
+
+  /**
+   * Наименование селектора (класса стилей) для недоступных элементов.
+   */
+  private static final String DISABLED_FIELD_STYLE = "jepRia-Field-disabled";
   
   /**
    * Карта соответствия узла дерева с его логическим представлением.
@@ -661,6 +667,14 @@ public class TreeField<V extends JepOption> extends Composite implements HasChec
   }
   
   /**
+   * Установка признака доступности/недоступности элемента. 
+   * 
+   * @param enabled  true - поле становится доступным, в противном случае - блокируется.
+   */
+  public void setEnabled(boolean enabled){
+  }
+  
+  /**
    * Устанавливает или снимает границы компонента.
    * 
    * @param borders    признак наличия границ компонента
@@ -909,15 +923,9 @@ public class TreeField<V extends JepOption> extends Composite implements HasChec
             }
             openingNode = null;
             // If data retrieve without delays, we should initialize tree firstly
-            Scheduler.get().scheduleDeferred(new Scheduler.ScheduledCommand() {
-              @Override
-              public void execute() {
-                onRangeChanged(display);
-              }
-            });
+            showTree();
+            refreshDisplay(display, info.getData());
           }
-
-          
         });
       }
       // node have been already saved with its children -
