@@ -21,7 +21,7 @@ public class ${moduleName}MainModulePresenter
       <#if form.moduleRoleNames?has_content>
     addModuleProtection(${form.formName?upper_case}_MODULE_ID, new ArrayList<String>() {{
      <#list form.moduleRoleNames![] as roleName>
-     add(${roleName?upper_case}_ROLE_ID);
+     add(ROLE_${roleName?upper_case});
      </#list>
     }});
       </#if>
