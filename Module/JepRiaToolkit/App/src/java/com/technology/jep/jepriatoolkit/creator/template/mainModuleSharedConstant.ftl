@@ -6,7 +6,7 @@ public class ${moduleName}Constant extends JepRiaConstant  {
 
     <#list roleConstants as constantName>
       <#assign i = constantName?index>
-  public static final String ${constantName?upper_case}_ROLE_ID = "${securityRoles[i]}";
+  public static final String ROLE_${constantName?upper_case} = "${securityRoles[i]}";
     </#list> 
     
 }
