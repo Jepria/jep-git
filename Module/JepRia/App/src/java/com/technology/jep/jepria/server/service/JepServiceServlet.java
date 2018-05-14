@@ -1,5 +1,8 @@
 package com.technology.jep.jepria.server.service;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.log4j.Logger;
 
 import com.google.gwt.user.client.rpc.RemoteService;
@@ -20,7 +23,7 @@ abstract public class JepServiceServlet extends RemoteServiceServlet implements 
    * @return идентификатор пользователя
    */
   protected Integer getOperatorId() {
-    return SecurityFactory.getSecurityModule(getThreadLocalRequest()).getOperatorId();
+    return SecurityFactory.getSecurityModule(getJEPThreadLocalRequest()).getOperatorId();
   }
   
   /**
@@ -34,7 +37,7 @@ abstract public class JepServiceServlet extends RemoteServiceServlet implements 
    * @throws Exception
    */
   protected boolean isRole(String role, boolean makeError) throws ApplicationException {
-    return SecurityFactory.getSecurityModule(getThreadLocalRequest()).isRole(role, makeError);
+    return SecurityFactory.getSecurityModule(getJEPThreadLocalRequest()).isRole(role, makeError);
   }
   
   protected ApplicationException buildException(String message, Throwable th) {
@@ -43,5 +46,22 @@ abstract public class JepServiceServlet extends RemoteServiceServlet implements 
   
   protected ApplicationException buildException(Throwable th) {
     return buildException(null, th);
+  }
+  
+  /**
+   * Предоставляет возможность переопределить в потомках получения HTTPRequestServlet другим способом
+   * @return
+   */
+  protected HttpServletRequest getJEPThreadLocalRequest() {
+      return getThreadLocalRequest();
+  }
+  
+  /**
+   * Предоставляет возможность переопределить в потомках получения HttpServletResponse другим способом
+   * @return
+   */
+  
+  protected HttpServletResponse getJEPThreadLocalResponse() {
+      return getThreadLocalResponse();
   }
 }

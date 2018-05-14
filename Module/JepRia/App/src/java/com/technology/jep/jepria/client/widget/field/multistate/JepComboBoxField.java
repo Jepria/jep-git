@@ -70,8 +70,8 @@ public class JepComboBoxField extends JepBaseTextField<ComboBox<JepOption>> impl
   
   public JepComboBoxField(String fieldIdAsWebEl, String fieldLabel) {
     super(fieldIdAsWebEl, fieldLabel);
-    // Выставляем высоту компонента + 1px граница
-    setFieldHeight(FIELD_DEFAULT_HEIGHT + 2);
+    // Выставляем высоту компонента
+    setFieldHeight(FIELD_DEFAULT_HEIGHT);
     loadEmptyOptionList();
   }
   

@@ -6,4 +6,5 @@ package com.technology.jep.jepria.shared.field;
 public class JepFieldNames {
   public static final String OPERATOR_ID = "jep_oid";
   public static final String MAX_ROW_COUNT = "jep_mrc";
+  public static final String ROLES = "jep_roles";
 }

@@ -35,8 +35,20 @@
     <pathelement location="${COMMONS-FILEUPLOAD_LIB}" />
     <pathelement location="${JUNIT_LIB}" />
     <pathelement location="${OJDBC6DMS_LIB}" />
+    <pathelement location="${SPRING-BEANS_LIB}" />
+    <pathelement location="${SPRING-CORE_LIB}" />
+    <pathelement location="${SPRING_WEB}" />
+    <pathelement location="${SPRING_CONTEXT}" />
+    <pathelement location="${SPRING_WEBMVC}" />
+<!--    <pathelement location="${JACKSON_CORE}" />
+    <pathelement location="${JACKSON_DATABIND}" />
+    <pathelement location="${JACKSON_ANNOTATION}" /> -->
+    <pathelement location="${GSON_LIB}" />
+    <pathelement location="${SPRING_AOP}" />
+    <pathelement location="${AOP_ASPECTJRT}" />
+    <pathelement location="${AOP_ASPECTJWEAVER}" />
   	
-  	<pathelement location="${SSO-UTILS_LIB}" />
+    <pathelement location="${SSO-UTILS_LIB}" />
   </path>
   <path id="selenium-libs">
     <pathelement location="${SELENIUM_LIB}" />
