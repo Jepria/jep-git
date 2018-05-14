@@ -32,24 +32,29 @@ public class JepListField extends JepMultiStateField<CheckBoxListField<JepOption
     this(null);
   }
   
-  public JepListField(String fieldLabel){
+  public JepListField(String fieldLabel) {
     this(null, fieldLabel);
   }
   
+  /**
+   * Конструктор. Для корректной работы кликов по текстам label, необходимо указать fieldIdAsWebEl.
+   * @param fieldIdAsWebEl ID данного Jep-поля как Web-элемента.
+   * @param fieldLabel Наименование поля.
+   */
   public JepListField(String fieldIdAsWebEl, String fieldLabel) {
-        super(fieldIdAsWebEl, fieldLabel);
-        
-        // Установка высоты карты редактирования, по умолчанию видны 5 опций.
-     // Высота каждой опции складывается из обычной высоты и по 1px границы сверху и снизу + 1.5px верхний отступ.
-     setFieldHeight(5 * (FIELD_DEFAULT_HEIGHT + 3.5));
-    }
+    super(fieldIdAsWebEl, fieldLabel);
+    
+    // Установка высоты карты редактирования, по умолчанию видны 5 опций.
+    // Высота каждой опции складывается из обычной высоты и по 1px границы сверху и снизу + 1.5px верхний отступ.
+    setFieldHeight(5 * (FIELD_DEFAULT_HEIGHT + 3.5));
+  }
   
   /**
    * {@inheritDoc}
    */
   @Override
   protected void addEditableCard() {
-    editableCard = new CheckBoxListField<JepOption>(fieldIdAsWebEl);
+    editableCard = new CheckBoxListField<JepOption>();
     editablePanel.add(editableCard);
   }
   
@@ -137,7 +142,7 @@ public class JepListField extends JepMultiStateField<CheckBoxListField<JepOption
    * Метод не поддерживается данным полем.
    */
   @Override
-  public String getRawValue(){
+  public String getRawValue() {
     throw new UnsupportedOperationException("ListField does not have a raw value.");
   }
   

@@ -95,14 +95,9 @@ public class CheckBoxListField<T extends JepOption> extends Composite implements
   private static final String LIST_FIELD_COMMON_STYLE = "jepRia-ListField-Input-common";
   
   /**
-   * ID объемлющего Jep-поля как Web-элемента. Переменная нужна как поле класса для использования при реднеринге.
+   * ID объемлющего Jep-поля как Web-элемента. Переменная нужна как поле класса для использования при рендеринге.
    */
-  private final String fieldIdAsWebEl;
-  
-  @Deprecated
-  public CheckBoxListField() {
-    this("");
-  }
+  private String fieldIdAsWebEl;
   
   /**
    * Вспомогательный класс для хранения данных, представляемых элементом списка.
@@ -121,9 +116,7 @@ public class CheckBoxListField<T extends JepOption> extends Composite implements
   /**
    * Default constructor. Uses default text cell implementation of this class
    */
-  public CheckBoxListField(String fieldIdAsWebEl) {
-    this.fieldIdAsWebEl = fieldIdAsWebEl;
-    
+  public CheckBoxListField() {
     // Now create a Table which takes an object i.e BaseDataMode
     table = new DataGrid<T>();
     table.addStyleName(LIST_FIELD_COMMON_STYLE);
@@ -484,6 +477,8 @@ public class CheckBoxListField<T extends JepOption> extends Composite implements
    * @param fieldIdAsWebEl ID JepListField'а, который берется за основу ID внутренних компонентов
    */
   public void setCompositeWebIds(String fieldIdAsWebEl) {
+    this.fieldIdAsWebEl = fieldIdAsWebEl;
+    
     table.getElement().setId(fieldIdAsWebEl + JepRiaAutomationConstant.JEP_FIELD_INPUT_POSTFIX);
     selectAllCheckBox.getElement().setId(fieldIdAsWebEl + JepRiaAutomationConstant.JEP_LIST_FIELD_CHECKALL_POSTFIX);
   }
