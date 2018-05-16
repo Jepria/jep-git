@@ -7,7 +7,6 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.dom.client.NativeEvent;
 import com.google.gwt.event.dom.client.DomEvent;
 import com.google.gwt.i18n.client.LocaleInfo;
@@ -324,7 +323,7 @@ public abstract class JepBaseNumberField<E extends ValueBox<? extends Number>> e
   @Override
   protected void applyStyle(){
     // Переопределяем стиль поля как TextBox.
-    editableCard.setStyleName(TEXT_FIELD_STYLE);
+    editableCard.addStyleName(TEXT_FIELD_STYLE);
     
     super.applyStyle();
   }

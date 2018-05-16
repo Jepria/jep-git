@@ -77,6 +77,12 @@ public class JepRiaClientConstant extends JepRiaConstant {
   public static final String UPLOAD_SUCCESS_SUBSTRING = "success";
   
   /**
+   * Префикс классов стилей. <br/>
+   * <br/>TODO: заменить написание префикса во всех классах стилей на данную константу. 
+   */
+  public static final String STYLE_PREFIX = "jepRia-";
+  
+  /**
    * Наименование селектора (класса стилей) основного шрифта приложений.
    */
   public static final String MAIN_FONT_STYLE = "jepRia-FontStyle";
