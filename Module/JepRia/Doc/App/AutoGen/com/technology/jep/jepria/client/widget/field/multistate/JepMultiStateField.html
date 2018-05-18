@@ -18,8 +18,8 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":6,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10,"i14":10,"i15":10,"i16":10,"i17":10,"i18":10,"i19":10,"i20":10,"i21":10,"i22":10,"i23":10,"i24":9,"i25":10,"i26":10,"i27":10,"i28":6,"i29":10,"i30":10,"i31":10,"i32":10,"i33":10,"i34":10,"i35":10,"i36":10,"i37":10,"i38":10,"i39":10,"i40":10,"i41":10,"i42":10};
-var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],2:["t2","Instance Methods"],4:["t3","Abstract Methods"],8:["t4","Concrete Methods"]};
+var methods = {"i0":6,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10,"i14":10,"i15":10,"i16":10,"i17":10,"i18":10,"i19":10,"i20":10,"i21":10,"i22":10,"i23":10,"i24":10,"i25":10,"i26":10,"i27":10,"i28":10,"i29":6,"i30":10,"i31":10,"i32":10,"i33":10,"i34":10,"i35":10,"i36":10,"i37":10,"i38":10,"i39":10,"i40":10,"i41":10,"i42":10,"i43":10,"i44":10};
+var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],4:["t3","Abstract Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
 var tableTab = "tableTab";
@@ -228,17 +228,17 @@ implements <a href="../../../../../../../../com/technology/jep/jepria/client/wid
 </td>
 </tr>
 <tr class="rowColor">
-<td class="colFirst"><code><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html" title="type parameter in JepMultiStateField">E</a></code></td>
+<td class="colFirst"><code>protected <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html" title="type parameter in JepMultiStateField">E</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#editableCard">editableCard</a></span></code>
 <div class="block">Карта для режима Редактирование.</div>
 </td>
 </tr>
 <tr class="altColor">
-<td class="colFirst"><code>com.google.gwt.user.client.ui.HTML</code></td>
+<td class="colFirst"><code>protected com.google.gwt.user.client.ui.HTML</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#editableCardLabel">editableCardLabel</a></span></code>&nbsp;</td>
 </tr>
 <tr class="rowColor">
-<td class="colFirst"><code>com.google.gwt.user.client.ui.FlowPanel</code></td>
+<td class="colFirst"><code>protected com.google.gwt.user.client.ui.FlowPanel</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#editablePanel">editablePanel</a></span></code>
 <div class="block">Панель, на которой располагается карта режима Редактирование.</div>
 </td>
@@ -251,7 +251,9 @@ implements <a href="../../../../../../../../com/technology/jep/jepria/client/wid
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code>static java.lang.String</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#FIELD_AUTO_HEIGTH_STYLE">FIELD_AUTO_HEIGTH_STYLE</a></span></code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#FIELD_AUTO_HEIGTH_STYLE">FIELD_AUTO_HEIGTH_STYLE</a></span></code>
+<div class="block">Автоматический расчет высоты поля и лайбла в зависимости от наполнения определяется в стиле - мин размер 2-px</div>
+</td>
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code>static java.lang.String</code></td>
@@ -272,26 +274,26 @@ implements <a href="../../../../../../../../com/technology/jep/jepria/client/wid
 </td>
 </tr>
 <tr class="rowColor">
-<td class="colFirst"><code>private static int</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#HORIZONTAL_ORIENTATION">HORIZONTAL_ORIENTATION</a></span></code>&nbsp;</td>
-</tr>
-<tr class="altColor">
 <td class="colFirst"><code>static java.lang.String</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#LABEL_FIELD_STYLE">LABEL_FIELD_STYLE</a></span></code>
 <div class="block">Наименование селектора (класса стилей) меток карт редактирования и просмотра.</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code>private java.lang.String</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#labelSeparator">labelSeparator</a></span></code>
 <div class="block">Разделитель для метки поля (по умолчанию, двоеточие).</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code>protected com.google.gwt.user.client.ui.Image</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#loadingIcon">loadingIcon</a></span></code>
 <div class="block">Индикатор загрузки данных.</div>
 </td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>(package private) com.google.gwt.user.client.ui.Widget</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#loadingWidget">loadingWidget</a></span></code>&nbsp;</td>
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code>protected com.google.gwt.user.client.ui.DeckPanel</code></td>
@@ -312,34 +314,46 @@ implements <a href="../../../../../../../../com/technology/jep/jepria/client/wid
 </td>
 </tr>
 <tr class="altColor">
+<td class="colFirst"><code>static java.lang.String</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#PANEL_ORIENTATION_HORIZONTAL_STYLE">PANEL_ORIENTATION_HORIZONTAL_STYLE</a></span></code>
+<div class="block">Наименование селектора (класса стилей) для панели поля горизонтальной ориентации.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static java.lang.String</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#PANEL_ORIENTATION_VERTICAL_STYLE">PANEL_ORIENTATION_VERTICAL_STYLE</a></span></code>
+<div class="block">Наименование селектора (класса стилей) для панели поля вертикальной ориентации.</div>
+</td>
+</tr>
+<tr class="altColor">
 <td class="colFirst"><code>protected <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.JepMultiStateFieldLayoutUiBinder.html" title="interface in com.technology.jep.jepria.client.widget.field.multistate">JepMultiStateField.JepMultiStateFieldLayoutUiBinder</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#uiBinder">uiBinder</a></span></code>&nbsp;</td>
 </tr>
 <tr class="rowColor">
-<td class="colFirst"><code>private static int</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#VERTICAL_ORIENTATION">VERTICAL_ORIENTATION</a></span></code>&nbsp;</td>
-</tr>
-<tr class="altColor">
 <td class="colFirst"><code>static java.lang.String</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#VIEW_CARD_STYLE">VIEW_CARD_STYLE</a></span></code>
 <div class="block">Наименование селектора (класса стилей) для карты просмотра.</div>
 </td>
 </tr>
-<tr class="rowColor">
-<td class="colFirst"><code><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html" title="type parameter in JepMultiStateField">V</a></code></td>
+<tr class="altColor">
+<td class="colFirst"><code>protected <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html" title="type parameter in JepMultiStateField">V</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#viewCard">viewCard</a></span></code>
 <div class="block">Карта для режима Просмотра.</div>
 </td>
 </tr>
-<tr class="altColor">
-<td class="colFirst"><code>com.google.gwt.user.client.ui.HTML</code></td>
+<tr class="rowColor">
+<td class="colFirst"><code>protected com.google.gwt.user.client.ui.HTML</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#viewCardLabel">viewCardLabel</a></span></code>&nbsp;</td>
 </tr>
-<tr class="rowColor">
-<td class="colFirst"><code>com.google.gwt.user.client.ui.FlowPanel</code></td>
+<tr class="altColor">
+<td class="colFirst"><code>protected com.google.gwt.user.client.ui.FlowPanel</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#viewPanel">viewPanel</a></span></code>
 <div class="block">Панель, на которой располагается карта режима Просмотра.</div>
 </td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>(package private) com.google.gwt.user.client.ui.Widget</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#widgetIcon">widgetIcon</a></span></code>&nbsp;</td>
 </tr>
 </table>
 <ul class="blockList">
@@ -386,7 +400,7 @@ implements <a href="../../../../../../../../com/technology/jep/jepria/client/wid
 </a>
 <h3>Method Summary</h3>
 <table class="memberSummary" border="0" cellpadding="3" cellspacing="0" summary="Method Summary table, listing methods, and an explanation">
-<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t1" class="tableTab"><span><a href="javascript:show(1);">Static Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">Instance Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t3" class="tableTab"><span><a href="javascript:show(4);">Abstract Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t4" class="tableTab"><span><a href="javascript:show(8);">Concrete Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
+<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">Instance Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t3" class="tableTab"><span><a href="javascript:show(4);">Abstract Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t4" class="tableTab"><span><a href="javascript:show(8);">Concrete Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
 <tr>
 <th class="colFirst" scope="col">Modifier and Type</th>
 <th class="colLast" scope="col">Method and Description</th>
@@ -413,7 +427,7 @@ implements <a href="../../../../../../../../com/technology/jep/jepria/client/wid
 <tr id="i3" class="rowColor">
 <td class="colFirst"><code>protected void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#applyStyle--">applyStyle</a></span>()</code>
-<div class="block">Метод для стилизации поля.</div>
+<div class="block">Метод для стилизации поля, а именно добавления классов на динамические элементы, напирмер, карту редактирования.</div>
 </td>
 </tr>
 <tr id="i4" class="altColor">
@@ -448,194 +462,208 @@ implements <a href="../../../../../../../../com/technology/jep/jepria/client/wid
 </td>
 </tr>
 <tr id="i9" class="rowColor">
+<td class="colFirst"><code>com.google.gwt.user.client.ui.HTML</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#getEditableCardLabel--">getEditableCardLabel</a></span>()</code>&nbsp;</td>
+</tr>
+<tr id="i10" class="altColor">
+<td class="colFirst"><code>com.google.gwt.user.client.ui.FlowPanel</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#getEditablePanel--">getEditablePanel</a></span>()</code>&nbsp;</td>
+</tr>
+<tr id="i11" class="rowColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#getFieldLabel--">getFieldLabel</a></span>()</code>
 <div class="block">Получение наименования поля.</div>
 </td>
 </tr>
-<tr id="i10" class="altColor">
+<tr id="i12" class="altColor">
 <td class="colFirst"><code>protected com.google.gwt.dom.client.Element</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#getInputElement--">getInputElement</a></span>()</code>
 <div class="block">Получение DOM-элемента карты редактирования.</div>
 </td>
 </tr>
-<tr id="i11" class="rowColor">
+<tr id="i13" class="rowColor">
 <td class="colFirst"><code>java.util.List&lt;<a href="../../../../../../../../com/technology/jep/jepria/client/widget/event/JepListener.html" title="interface in com.technology.jep.jepria.client.widget.event">JepListener</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#getListeners-com.technology.jep.jepria.client.widget.event.JepEventType-">getListeners</a></span>(<a href="../../../../../../../../com/technology/jep/jepria/client/widget/event/JepEventType.html" title="enum in com.technology.jep.jepria.client.widget.event">JepEventType</a>&nbsp;eventType)</code>
 <div class="block">Получение списка слушателей определенного типа собитий.</div>
 </td>
 </tr>
-<tr id="i12" class="altColor">
+<tr id="i14" class="altColor">
 <td class="colFirst"><code>protected com.google.gwt.user.client.ui.DeckPanel</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#getMainWidget--">getMainWidget</a></span>()</code>&nbsp;</td>
 </tr>
-<tr id="i13" class="rowColor">
+<tr id="i15" class="rowColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#getRawValue--">getRawValue</a></span>()</code>
 <div class="block">Получение значения компонента из DOM-дерева документа.</div>
 </td>
 </tr>
-<tr id="i14" class="altColor">
+<tr id="i16" class="altColor">
 <td class="colFirst"><code><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html" title="type parameter in JepMultiStateField">V</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#getViewCard--">getViewCard</a></span>()</code>
 <div class="block">Получение карты Просмотра.</div>
 </td>
 </tr>
-<tr id="i15" class="rowColor">
+<tr id="i17" class="rowColor">
+<td class="colFirst"><code>com.google.gwt.user.client.ui.HTML</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#getViewCardLabel--">getViewCardLabel</a></span>()</code>&nbsp;</td>
+</tr>
+<tr id="i18" class="altColor">
+<td class="colFirst"><code>com.google.gwt.user.client.ui.FlowPanel</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#getViewPanel--">getViewPanel</a></span>()</code>&nbsp;</td>
+</tr>
+<tr id="i19" class="rowColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#getWebId--">getWebId</a></span>()</code>
 <div class="block">Получает web-ID поля.</div>
 </td>
 </tr>
-<tr id="i16" class="altColor">
+<tr id="i20" class="altColor">
 <td class="colFirst"><code>int</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#getWidgetIndex-com.google.gwt.user.client.ui.Widget-">getWidgetIndex</a></span>(com.google.gwt.user.client.ui.Widget&nbsp;child)</code>&nbsp;</td>
 </tr>
-<tr id="i17" class="rowColor">
+<tr id="i21" class="rowColor">
 <td class="colFirst"><code>boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#isValid--">isValid</a></span>()</code>
 <div class="block">Проверяет, содержит ли поле допустимое значение.</div>
 </td>
 </tr>
-<tr id="i18" class="altColor">
+<tr id="i22" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#markInvalid-java.lang.String-">markInvalid</a></span>(java.lang.String&nbsp;error)</code>
 <div class="block">Установка сообщения об ошибке.</div>
 </td>
 </tr>
-<tr id="i19" class="rowColor">
+<tr id="i23" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#notifyListeners-com.technology.jep.jepria.client.widget.event.JepEventType-com.technology.jep.jepria.client.widget.event.JepEvent-">notifyListeners</a></span>(<a href="../../../../../../../../com/technology/jep/jepria/client/widget/event/JepEventType.html" title="enum in com.technology.jep.jepria.client.widget.event">JepEventType</a>&nbsp;eventType,
                <a href="../../../../../../../../com/technology/jep/jepria/client/widget/event/JepEvent.html" title="class in com.technology.jep.jepria.client.widget.event">JepEvent</a>&nbsp;event)</code>
 <div class="block">Уведомление слушателей определенного типа о событии.</div>
 </td>
 </tr>
-<tr id="i20" class="altColor">
+<tr id="i24" class="altColor">
 <td class="colFirst"><code>protected void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#onChangeWorkstate-com.technology.jep.jepria.client.ui.WorkstateEnum-">onChangeWorkstate</a></span>(<a href="../../../../../../../../com/technology/jep/jepria/client/ui/WorkstateEnum.html" title="enum in com.technology.jep.jepria.client.ui">WorkstateEnum</a>&nbsp;newWorkstate)</code>
 <div class="block">Обработчик нового состояния</div>
 </td>
 </tr>
-<tr id="i21" class="rowColor">
-<td class="colFirst"><code>private void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#prepareStyleLabel--">prepareStyleLabel</a></span>()</code>&nbsp;</td>
-</tr>
-<tr id="i22" class="altColor">
-<td class="colFirst"><code>protected void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#prepareStyleLabel-java.lang.Integer-">prepareStyleLabel</a></span>(java.lang.Integer&nbsp;orientation)</code>&nbsp;</td>
-</tr>
-<tr id="i23" class="rowColor">
+<tr id="i25" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#removeListener-com.technology.jep.jepria.client.widget.event.JepEventType-com.technology.jep.jepria.client.widget.event.JepListener-">removeListener</a></span>(<a href="../../../../../../../../com/technology/jep/jepria/client/widget/event/JepEventType.html" title="enum in com.technology.jep.jepria.client.widget.event">JepEventType</a>&nbsp;eventType,
               <a href="../../../../../../../../com/technology/jep/jepria/client/widget/event/JepListener.html" title="interface in com.technology.jep.jepria.client.widget.event">JepListener</a>&nbsp;listener)</code>
 <div class="block">Удаление слушателя определенного типа собитий.</div>
 </td>
 </tr>
-<tr id="i24" class="altColor">
-<td class="colFirst"><code>protected static void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#removeMarginsAndPaddings-com.google.gwt.dom.client.Element-">removeMarginsAndPaddings</a></span>(com.google.gwt.dom.client.Element&nbsp;stylezedElement)</code>
-<div class="block">Удаление отступов и выступов элемента.</div>
-</td>
-</tr>
-<tr id="i25" class="rowColor">
+<tr id="i26" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#setAllowBlank-boolean-">setAllowBlank</a></span>(boolean&nbsp;allowBlank)</code>
 <div class="block">Определяет: является ли пустое значение допустимым значением поля.</div>
 </td>
 </tr>
-<tr id="i26" class="altColor">
+<tr id="i27" class="rowColor">
 <td class="colFirst"><code>private void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#setCardWebAttrs--">setCardWebAttrs</a></span>()</code>
 <div class="block">Установка web-ID двух карт данного Jep-поля.</div>
 </td>
 </tr>
-<tr id="i27" class="rowColor">
+<tr id="i28" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#setEditable-boolean-">setEditable</a></span>(boolean&nbsp;editable)</code>
 <div class="block">Установка возможности отображения карты Редактирования поля.</div>
 </td>
 </tr>
-<tr id="i28" class="altColor">
+<tr id="i29" class="rowColor">
 <td class="colFirst"><code>abstract void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#setEnabled-boolean-">setEnabled</a></span>(boolean&nbsp;enabled)</code>
 <div class="block">Установка доступности или недоступности (карты Редактирования) поля для
  редактирования.</div>
 </td>
 </tr>
-<tr id="i29" class="rowColor">
-<td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#setFieldAutoHeight--">setFieldAutoHeight</a></span>()</code>&nbsp;</td>
-</tr>
 <tr id="i30" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#setFieldAutoHeight-java.lang.String-">setFieldAutoHeight</a></span>(java.lang.String&nbsp;height)</code>&nbsp;</td>
+</tr>
+<tr id="i31" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#setFieldHeight-int-">setFieldHeight</a></span>(int&nbsp;fieldHeight)</code>
 <div class="block">Установка высоты поля.</div>
 </td>
 </tr>
-<tr id="i31" class="rowColor">
+<tr id="i32" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#setFieldLabel-java.lang.String-">setFieldLabel</a></span>(java.lang.String&nbsp;label)</code>
 <div class="block">Установка наименования поля и сброс разделителя метки, если оно пустое.</div>
 </td>
 </tr>
-<tr id="i32" class="altColor">
+<tr id="i33" class="rowColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#setFieldWidth-int-">setFieldWidth</a></span>(int&nbsp;fieldWidth)</code>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#setFieldWidth-int-">setFieldWidth</a></span>(int&nbsp;width)</code>
+<div class="block">Установка ширины компонента редактирования поля (в пикселях).</div>
+</td>
+</tr>
+<tr id="i34" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#setFieldWidth-java.lang.String-">setFieldWidth</a></span>(java.lang.String&nbsp;width)</code>
 <div class="block">Установка ширины компонента редактирования поля.</div>
 </td>
 </tr>
-<tr id="i33" class="rowColor">
+<tr id="i35" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#setLabelSeparator-java.lang.String-">setLabelSeparator</a></span>(java.lang.String&nbsp;labelSeparator)</code>
 <div class="block">Установка значения разделителя.</div>
 </td>
 </tr>
-<tr id="i34" class="altColor">
+<tr id="i36" class="altColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#setLabelWidth-int-">setLabelWidth</a></span>(int&nbsp;labelWidth)</code>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#setLabelWidth-int-">setLabelWidth</a></span>(int&nbsp;width)</code>
+<div class="block">Установка ширины наименования поля (в пикселях).</div>
+</td>
+</tr>
+<tr id="i37" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#setLabelWidth-java.lang.String-">setLabelWidth</a></span>(java.lang.String&nbsp;width)</code>
 <div class="block">Установка ширины наименования поля.</div>
 </td>
 </tr>
-<tr id="i35" class="rowColor">
+<tr id="i38" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#setLoadingImage-boolean-">setLoadingImage</a></span>(boolean&nbsp;imageVisible)</code>
 <div class="block">Установка или скрытие изображения загрузки (справа от карты
  редактирования).</div>
 </td>
 </tr>
-<tr id="i36" class="altColor">
+<tr id="i39" class="rowColor">
 <td class="colFirst"><code>protected void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#setViewValue-java.lang.Object-">setViewValue</a></span>(java.lang.Object&nbsp;value)</code>
 <div class="block">Установка значения для карты Просмотра.</div>
 </td>
 </tr>
-<tr id="i37" class="rowColor">
+<tr id="i40" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#setWebId-java.lang.String-">setWebId</a></span>(java.lang.String&nbsp;fieldIdAsWebEl)</code>
 <div class="block">Установка web-ID поля</div>
 </td>
 </tr>
-<tr id="i38" class="altColor">
+<tr id="i41" class="rowColor">
 <td class="colFirst"><code>protected void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#setWebIds--">setWebIds</a></span>()</code>
 <div class="block">Установка web-ID внутренних компонентов, специфичных для конкретного Jep-поля.</div>
 </td>
 </tr>
-<tr id="i39" class="rowColor">
+<tr id="i42" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#showWidget-int-">showWidget</a></span>(int&nbsp;index)</code>&nbsp;</td>
 </tr>
-<tr id="i40" class="altColor">
-<td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#turnOnHorizontalOrientedPanel--">turnOnHorizontalOrientedPanel</a></span>()</code>&nbsp;</td>
-</tr>
-<tr id="i41" class="rowColor">
-<td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#turnOnVerticalOrientedPanel--">turnOnVerticalOrientedPanel</a></span>()</code>&nbsp;</td>
-</tr>
-<tr id="i42" class="altColor">
+<tr id="i43" class="rowColor">
 <td class="colFirst"><code>com.google.gwt.user.client.ui.Widget</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#wrapDiv-com.google.gwt.user.client.ui.Widget-">wrapDiv</a></span>(com.google.gwt.user.client.ui.Widget&nbsp;widget)</code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#wrapDiv-com.google.gwt.user.client.ui.Widget-">wrapDiv</a></span>(com.google.gwt.user.client.ui.Widget&nbsp;widget)</code>
+<div class="block">Обертка виджета в DIV.</div>
+</td>
+</tr>
+<tr id="i44" class="altColor">
+<td class="colFirst"><code>com.google.gwt.user.client.ui.Widget</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#wrapSpan-com.google.gwt.user.client.ui.Widget-">wrapSpan</a></span>(com.google.gwt.user.client.ui.Widget&nbsp;widget)</code>
+<div class="block">Обертка в SPAN</div>
+</td>
 </tr>
 </table>
 <ul class="blockList">
@@ -703,8 +731,8 @@ implements <a href="../../../../../../../../com/technology/jep/jepria/client/wid
 <ul class="blockList">
 <li class="blockList">
 <h4>viewPanel</h4>
-<pre>@UiField(provided=true)
-public&nbsp;com.google.gwt.user.client.ui.FlowPanel viewPanel</pre>
+<pre>@UiField
+protected&nbsp;com.google.gwt.user.client.ui.FlowPanel viewPanel</pre>
 <div class="block">Панель, на которой располагается карта режима Просмотра.<br/>
  Панель необходима для применения требуемого layout'а для компонента карты
  Просмотра.<br/></div>
@@ -717,7 +745,7 @@ public&nbsp;com.google.gwt.user.client.ui.FlowPanel viewPanel</pre>
 <li class="blockList">
 <h4>viewCardLabel</h4>
 <pre>@UiField
-public&nbsp;com.google.gwt.user.client.ui.HTML viewCardLabel</pre>
+protected&nbsp;com.google.gwt.user.client.ui.HTML viewCardLabel</pre>
 </li>
 </ul>
 <a name="viewCard">
@@ -727,7 +755,7 @@ public&nbsp;com.google.gwt.user.client.ui.HTML viewCardLabel</pre>
 <li class="blockList">
 <h4>viewCard</h4>
 <pre>@UiField
-public&nbsp;<a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html" title="type parameter in JepMultiStateField">V</a> extends com.google.gwt.user.client.ui.Widget viewCard</pre>
+protected&nbsp;<a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html" title="type parameter in JepMultiStateField">V</a> extends com.google.gwt.user.client.ui.Widget viewCard</pre>
 <div class="block">Карта для режима Просмотра.<br/>
  Режим просмотра определяется методом <a href="../../../../../../../../com/technology/jep/jepria/client/ui/WorkstateEnum.html#isViewState-com.technology.jep.jepria.client.ui.WorkstateEnum-"><code>WorkstateEnum.isViewState(WorkstateEnum workstate)</code></a>.<br/>
  <br/>
@@ -743,8 +771,8 @@ public&nbsp;<a href="../../../../../../../../com/technology/jep/jepria/client/wi
 <ul class="blockList">
 <li class="blockList">
 <h4>editablePanel</h4>
-<pre>@UiField(provided=true)
-public&nbsp;com.google.gwt.user.client.ui.FlowPanel editablePanel</pre>
+<pre>@UiField
+protected&nbsp;com.google.gwt.user.client.ui.FlowPanel editablePanel</pre>
 <div class="block">Панель, на которой располагается карта режима Редактирование.<br/>
  Панель необходима для применения требуемого layout'а для компонента карты Редактирование.<br/></div>
 </li>
@@ -756,7 +784,7 @@ public&nbsp;com.google.gwt.user.client.ui.FlowPanel editablePanel</pre>
 <li class="blockList">
 <h4>editableCardLabel</h4>
 <pre>@UiField
-public&nbsp;com.google.gwt.user.client.ui.HTML editableCardLabel</pre>
+protected&nbsp;com.google.gwt.user.client.ui.HTML editableCardLabel</pre>
 </li>
 </ul>
 <a name="editableCard">
@@ -765,7 +793,7 @@ public&nbsp;com.google.gwt.user.client.ui.HTML editableCardLabel</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>editableCard</h4>
-<pre>public&nbsp;<a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html" title="type parameter in JepMultiStateField">E</a> extends com.google.gwt.user.client.ui.Widget editableCard</pre>
+<pre>protected&nbsp;<a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html" title="type parameter in JepMultiStateField">E</a> extends com.google.gwt.user.client.ui.Widget editableCard</pre>
 <div class="block">Карта для режима Редактирование.<br/>
  Режим редактирования определяется методом<a href="../../../../../../../../com/technology/jep/jepria/client/ui/WorkstateEnum.html#isEditableState-com.technology.jep.jepria.client.ui.WorkstateEnum-"><code>WorkstateEnum.isEditableState(WorkstateEnum workstate)</code></a></div>
 </li>
@@ -870,32 +898,6 @@ public&nbsp;com.google.gwt.user.client.ui.HTML editableCardLabel</pre>
 <div class="block">Разделитель для метки поля (по умолчанию, двоеточие).</div>
 </li>
 </ul>
-<a name="HORIZONTAL_ORIENTATION">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>HORIZONTAL_ORIENTATION</h4>
-<pre>private static final&nbsp;int HORIZONTAL_ORIENTATION</pre>
-<dl>
-<dt><span class="seeLabel">See Also:</span></dt>
-<dd><a href="../../../../../../../../constant-values.html#com.technology.jep.jepria.client.widget.field.multistate.JepMultiStateField.HORIZONTAL_ORIENTATION">Constant Field Values</a></dd>
-</dl>
-</li>
-</ul>
-<a name="VERTICAL_ORIENTATION">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>VERTICAL_ORIENTATION</h4>
-<pre>private static final&nbsp;int VERTICAL_ORIENTATION</pre>
-<dl>
-<dt><span class="seeLabel">See Also:</span></dt>
-<dd><a href="../../../../../../../../constant-values.html#com.technology.jep.jepria.client.widget.field.multistate.JepMultiStateField.VERTICAL_ORIENTATION">Constant Field Values</a></dd>
-</dl>
-</li>
-</ul>
 <a name="FIELD_INDICATOR_STYLE">
 <!--   -->
 </a>
@@ -917,6 +919,7 @@ public&nbsp;com.google.gwt.user.client.ui.HTML editableCardLabel</pre>
 <li class="blockList">
 <h4>FIELD_AUTO_HEIGTH_STYLE</h4>
 <pre>public static final&nbsp;java.lang.String FIELD_AUTO_HEIGTH_STYLE</pre>
+<div class="block">Автоматический расчет высоты поля и лайбла в зависимости от наполнения определяется в стиле - мин размер 2-px</div>
 <dl>
 <dt><span class="seeLabel">See Also:</span></dt>
 <dd><a href="../../../../../../../../constant-values.html#com.technology.jep.jepria.client.widget.field.multistate.JepMultiStateField.FIELD_AUTO_HEIGTH_STYLE">Constant Field Values</a></dd>
@@ -965,6 +968,34 @@ public&nbsp;com.google.gwt.user.client.ui.HTML editableCardLabel</pre>
 </dl>
 </li>
 </ul>
+<a name="PANEL_ORIENTATION_VERTICAL_STYLE">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>PANEL_ORIENTATION_VERTICAL_STYLE</h4>
+<pre>public static final&nbsp;java.lang.String PANEL_ORIENTATION_VERTICAL_STYLE</pre>
+<div class="block">Наименование селектора (класса стилей) для панели поля вертикальной ориентации.</div>
+<dl>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><a href="../../../../../../../../constant-values.html#com.technology.jep.jepria.client.widget.field.multistate.JepMultiStateField.PANEL_ORIENTATION_VERTICAL_STYLE">Constant Field Values</a></dd>
+</dl>
+</li>
+</ul>
+<a name="PANEL_ORIENTATION_HORIZONTAL_STYLE">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>PANEL_ORIENTATION_HORIZONTAL_STYLE</h4>
+<pre>public static final&nbsp;java.lang.String PANEL_ORIENTATION_HORIZONTAL_STYLE</pre>
+<div class="block">Наименование селектора (класса стилей) для панели поля горизонтальной ориентации.</div>
+<dl>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><a href="../../../../../../../../constant-values.html#com.technology.jep.jepria.client.widget.field.multistate.JepMultiStateField.PANEL_ORIENTATION_HORIZONTAL_STYLE">Constant Field Values</a></dd>
+</dl>
+</li>
+</ul>
 <a name="ALIGN_ATTRIBUTE_NAME">
 <!--   -->
 </a>
@@ -982,10 +1013,28 @@ public&nbsp;com.google.gwt.user.client.ui.HTML editableCardLabel</pre>
 <a name="uiBinder">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>uiBinder</h4>
 <pre>protected&nbsp;<a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.JepMultiStateFieldLayoutUiBinder.html" title="interface in com.technology.jep.jepria.client.widget.field.multistate">JepMultiStateField.JepMultiStateFieldLayoutUiBinder</a> uiBinder</pre>
+</li>
+</ul>
+<a name="loadingWidget">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>loadingWidget</h4>
+<pre>com.google.gwt.user.client.ui.Widget loadingWidget</pre>
+</li>
+</ul>
+<a name="widgetIcon">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>widgetIcon</h4>
+<pre>com.google.gwt.user.client.ui.Widget widgetIcon</pre>
 </li>
 </ul>
 </li>
@@ -1036,22 +1085,22 @@ public&nbsp;JepMultiStateField(java.lang.String&nbsp;fieldLabel)</pre>
 <!--   -->
 </a>
 <h3>Method Detail</h3>
-<a name="turnOnHorizontalOrientedPanel--">
+<a name="getViewPanel--">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>turnOnHorizontalOrientedPanel</h4>
-<pre>public&nbsp;void&nbsp;turnOnHorizontalOrientedPanel()</pre>
+<h4>getViewPanel</h4>
+<pre>public&nbsp;com.google.gwt.user.client.ui.FlowPanel&nbsp;getViewPanel()</pre>
 </li>
 </ul>
-<a name="turnOnVerticalOrientedPanel--">
+<a name="getEditablePanel--">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>turnOnVerticalOrientedPanel</h4>
-<pre>public&nbsp;void&nbsp;turnOnVerticalOrientedPanel()</pre>
+<h4>getEditablePanel</h4>
+<pre>public&nbsp;com.google.gwt.user.client.ui.FlowPanel&nbsp;getEditablePanel()</pre>
 </li>
 </ul>
 <a name="getMainWidget--">
@@ -1063,22 +1112,22 @@ public&nbsp;JepMultiStateField(java.lang.String&nbsp;fieldLabel)</pre>
 <pre>protected&nbsp;com.google.gwt.user.client.ui.DeckPanel&nbsp;getMainWidget()</pre>
 </li>
 </ul>
-<a name="prepareStyleLabel--">
+<a name="getEditableCardLabel--">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>prepareStyleLabel</h4>
-<pre>private&nbsp;void&nbsp;prepareStyleLabel()</pre>
+<h4>getEditableCardLabel</h4>
+<pre>public&nbsp;com.google.gwt.user.client.ui.HTML&nbsp;getEditableCardLabel()</pre>
 </li>
 </ul>
-<a name="prepareStyleLabel-java.lang.Integer-">
+<a name="getViewCardLabel--">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>prepareStyleLabel</h4>
-<pre>protected&nbsp;void&nbsp;prepareStyleLabel(java.lang.Integer&nbsp;orientation)</pre>
+<h4>getViewCardLabel</h4>
+<pre>public&nbsp;com.google.gwt.user.client.ui.HTML&nbsp;getViewCardLabel()</pre>
 </li>
 </ul>
 <a name="getWebId--">
@@ -1293,13 +1342,27 @@ public&nbsp;JepMultiStateField(java.lang.String&nbsp;fieldLabel)</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>setLabelWidth</h4>
-<pre>public&nbsp;void&nbsp;setLabelWidth(int&nbsp;labelWidth)</pre>
-<div class="block">Установка ширины наименования поля.</div>
+<pre>public&nbsp;void&nbsp;setLabelWidth(int&nbsp;width)</pre>
+<div class="block">Установка ширины наименования поля (в пикселях).</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/JepField.html#setLabelWidth-int-">setLabelWidth</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/JepField.html" title="interface in com.technology.jep.jepria.client.widget.field">JepField</a>&lt;<a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html" title="type parameter in JepMultiStateField">E</a> extends com.google.gwt.user.client.ui.Widget,<a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html" title="type parameter in JepMultiStateField">V</a> extends com.google.gwt.user.client.ui.Widget&gt;</code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>labelWidth</code> - ширина наименования поля</dd>
+<dd><code>width</code> - ширина наименования поля (в пикселях).</dd>
+</dl>
+</li>
+</ul>
+<a name="setLabelWidth-java.lang.String-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setLabelWidth</h4>
+<pre>public&nbsp;void&nbsp;setLabelWidth(java.lang.String&nbsp;width)</pre>
+<div class="block">Установка ширины наименования поля.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>width</code> - ширина наименования поля.</dd>
 </dl>
 </li>
 </ul>
@@ -1309,13 +1372,27 @@ public&nbsp;JepMultiStateField(java.lang.String&nbsp;fieldLabel)</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>setFieldWidth</h4>
-<pre>public&nbsp;void&nbsp;setFieldWidth(int&nbsp;fieldWidth)</pre>
-<div class="block">Установка ширины компонента редактирования поля.</div>
+<pre>public&nbsp;void&nbsp;setFieldWidth(int&nbsp;width)</pre>
+<div class="block">Установка ширины компонента редактирования поля (в пикселях).</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/JepField.html#setFieldWidth-int-">setFieldWidth</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/JepField.html" title="interface in com.technology.jep.jepria.client.widget.field">JepField</a>&lt;<a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html" title="type parameter in JepMultiStateField">E</a> extends com.google.gwt.user.client.ui.Widget,<a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html" title="type parameter in JepMultiStateField">V</a> extends com.google.gwt.user.client.ui.Widget&gt;</code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>fieldWidth</code> - ширина компонента редактирования поля</dd>
+<dd><code>width</code> - ширина компонента редактирования поля (в пикселях).</dd>
+</dl>
+</li>
+</ul>
+<a name="setFieldWidth-java.lang.String-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setFieldWidth</h4>
+<pre>public&nbsp;void&nbsp;setFieldWidth(java.lang.String&nbsp;width)</pre>
+<div class="block">Установка ширины компонента редактирования поля.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>width</code> - ширина компонента редактирования поля</dd>
 </dl>
 </li>
 </ul>
@@ -1336,13 +1413,13 @@ public&nbsp;JepMultiStateField(java.lang.String&nbsp;fieldLabel)</pre>
 </dl>
 </li>
 </ul>
-<a name="setFieldAutoHeight--">
+<a name="setFieldAutoHeight-java.lang.String-">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>setFieldAutoHeight</h4>
-<pre>public&nbsp;void&nbsp;setFieldAutoHeight()</pre>
+<pre>public&nbsp;void&nbsp;setFieldAutoHeight(java.lang.String&nbsp;height)</pre>
 </li>
 </ul>
 <a name="addListener-com.technology.jep.jepria.client.widget.event.JepEventType-com.technology.jep.jepria.client.widget.event.JepListener-">
@@ -1501,6 +1578,23 @@ public&nbsp;JepMultiStateField(java.lang.String&nbsp;fieldLabel)</pre>
 <li class="blockList">
 <h4>wrapDiv</h4>
 <pre>public&nbsp;com.google.gwt.user.client.ui.Widget&nbsp;wrapDiv(com.google.gwt.user.client.ui.Widget&nbsp;widget)</pre>
+<div class="block">Обертка виджета в DIV.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>widget</code> - Виджет.</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>Виджет.</dd>
+</dl>
+</li>
+</ul>
+<a name="wrapSpan-com.google.gwt.user.client.ui.Widget-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>wrapSpan</h4>
+<pre>public&nbsp;com.google.gwt.user.client.ui.Widget&nbsp;wrapSpan(com.google.gwt.user.client.ui.Widget&nbsp;widget)</pre>
+<div class="block">Обертка в SPAN</div>
 </li>
 </ul>
 <a name="markInvalid-java.lang.String-">
@@ -1589,7 +1683,7 @@ public&nbsp;JepMultiStateField(java.lang.String&nbsp;fieldLabel)</pre>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/validation/Validator.html#isValid--">isValid</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/validation/Validator.html" title="interface in com.technology.jep.jepria.client.widget.field.validation">Validator</a></code></dd>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>true - если поле содержит допустимое значение, false - в        противном случае</dd>
+<dd>true - если поле содержит допустимое значение, false - в  противном случае</dd>
 </dl>
 </li>
 </ul>
@@ -1631,27 +1725,15 @@ public&nbsp;JepMultiStateField(java.lang.String&nbsp;fieldLabel)</pre>
 <a name="applyStyle--">
 <!--   -->
 </a>
-<ul class="blockList">
+<ul class="blockListLast">
 <li class="blockList">
 <h4>applyStyle</h4>
 <pre>protected&nbsp;void&nbsp;applyStyle()</pre>
-<div class="block">Метод для стилизации поля.<br/>
+<div class="block">Метод для стилизации поля, а именно добавления классов на динамические элементы, напирмер, карту редактирования. 
+ Все стили должны определяется <b>в css-файле</b>.
+ <br/><br/>
  Для применения новых стилей элемента необходимо в наследниках перекрывать
  данный метод.</div>
-</li>
-</ul>
-<a name="removeMarginsAndPaddings-com.google.gwt.dom.client.Element-">
-<!--   -->
-</a>
-<ul class="blockListLast">
-<li class="blockList">
-<h4>removeMarginsAndPaddings</h4>
-<pre>protected static&nbsp;void&nbsp;removeMarginsAndPaddings(com.google.gwt.dom.client.Element&nbsp;stylezedElement)</pre>
-<div class="block">Удаление отступов и выступов элемента.</div>
-<dl>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>stylezedElement</code> - стилизуемый элемент</dd>
-</dl>
 </li>
 </ul>
 </li>

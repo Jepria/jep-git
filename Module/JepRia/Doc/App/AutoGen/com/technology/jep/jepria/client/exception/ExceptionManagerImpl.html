@@ -18,7 +18,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":10,"i1":10,"i2":9,"i3":9,"i4":9};
+var methods = {"i0":10,"i1":10,"i2":10,"i3":9,"i4":9,"i5":9};
 var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -183,17 +183,23 @@ implements <a href="../../../../../../com/technology/jep/jepria/client/exception
 </td>
 </tr>
 <tr id="i2" class="altColor">
+<td class="colFirst"><code>private boolean</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/client/exception/ExceptionManagerImpl.html#is0StatusCodeException-java.lang.Throwable-">is0StatusCodeException</a></span>(java.lang.Throwable&nbsp;th)</code>
+<div class="block">Проверка, является ли исключение ошибкой 0 (в этом случае запрос возвращает status code 0)</div>
+</td>
+</tr>
+<tr id="i3" class="rowColor">
 <td class="colFirst"><code>private static boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/client/exception/ExceptionManagerImpl.html#is12152StatusCodeException-java.lang.Throwable-">is12152StatusCodeException</a></span>(java.lang.Throwable&nbsp;th)</code>&nbsp;</td>
 </tr>
-<tr id="i3" class="rowColor">
+<tr id="i4" class="altColor">
 <td class="colFirst"><code>private static boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/client/exception/ExceptionManagerImpl.html#isJavaSsoTimeout-java.lang.Throwable-">isJavaSsoTimeout</a></span>(java.lang.Throwable&nbsp;caught)</code>
 <div class="block">Метод проверяет, не похож ли текст ошибки на JavaSso-ошибку логина,
  получаемую при устаревании сессии (только для OC4J)</div>
 </td>
 </tr>
-<tr id="i4" class="altColor">
+<tr id="i5" class="rowColor">
 <td class="colFirst"><code>private static boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/client/exception/ExceptionManagerImpl.html#isSsoTimeout-java.lang.Throwable-">isSsoTimeout</a></span>(java.lang.Throwable&nbsp;caught)</code>
 <div class="block">Метод проверяет, не похож ли текст ошибки на Sso-ошибку логина,
@@ -289,6 +295,22 @@ implements <a href="../../../../../../com/technology/jep/jepria/client/exception
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>th</code> - обрабатываемое исключение</dd>
 <dd><code>message</code> - сообщение об ошибке</dd>
+</dl>
+</li>
+</ul>
+<a name="is0StatusCodeException-java.lang.Throwable-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>is0StatusCodeException</h4>
+<pre>private&nbsp;boolean&nbsp;is0StatusCodeException(java.lang.Throwable&nbsp;th)</pre>
+<div class="block">Проверка, является ли исключение ошибкой 0 (в этом случае запрос возвращает status code 0)</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>th</code> - Исключение</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>true, если ошибка 0, иначе false.</dd>
 </dl>
 </li>
 </ul>

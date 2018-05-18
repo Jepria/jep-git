@@ -146,6 +146,10 @@ implements <a href="../../../../../../com/technology/jep/jepria/server/upload/Fi
 <td class="colFirst"><code>protected <a href="../../../../../../com/technology/jep/jepria/server/dao/CallContext.html" title="class in com.technology.jep.jepria.server.dao">CallContext</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/server/upload/AbstractFileUpload.html#storedContext">storedContext</a></span></code>&nbsp;</td>
 </tr>
+<tr class="altColor">
+<td class="colFirst"><code>protected boolean</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/server/upload/AbstractFileUpload.html#transactionable">transactionable</a></span></code>&nbsp;</td>
+</tr>
 </table>
 </li>
 </ul>
@@ -161,7 +165,14 @@ implements <a href="../../../../../../com/technology/jep/jepria/server/upload/Fi
 <th class="colOne" scope="col">Constructor and Description</th>
 </tr>
 <tr class="altColor">
-<td class="colOne"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/server/upload/AbstractFileUpload.html#AbstractFileUpload--">AbstractFileUpload</a></span>()</code>&nbsp;</td>
+<td class="colOne"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/server/upload/AbstractFileUpload.html#AbstractFileUpload--">AbstractFileUpload</a></span>()</code>
+<div class="block">Создаёт загрузчик файлов на сервер.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/server/upload/AbstractFileUpload.html#AbstractFileUpload-boolean-">AbstractFileUpload</a></span>(boolean&nbsp;transactionable)</code>
+<div class="block">Создаёт загрузчик файлов на сервер.</div>
+</td>
 </tr>
 </table>
 </li>
@@ -237,10 +248,19 @@ implements <a href="../../../../../../com/technology/jep/jepria/server/upload/Fi
 <a name="largeObject">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>largeObject</h4>
 <pre>protected&nbsp;<a href="../../../../../../com/technology/jep/jepria/server/db/LargeObject.html" title="class in com.technology.jep.jepria.server.db">LargeObject</a> largeObject</pre>
+</li>
+</ul>
+<a name="transactionable">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>transactionable</h4>
+<pre>protected final&nbsp;boolean transactionable</pre>
 </li>
 </ul>
 </li>
@@ -254,10 +274,25 @@ implements <a href="../../../../../../com/technology/jep/jepria/server/upload/Fi
 <a name="AbstractFileUpload--">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>AbstractFileUpload</h4>
 <pre>public&nbsp;AbstractFileUpload()</pre>
+<div class="block">Создаёт загрузчик файлов на сервер.</div>
+</li>
+</ul>
+<a name="AbstractFileUpload-boolean-">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>AbstractFileUpload</h4>
+<pre>public&nbsp;AbstractFileUpload(boolean&nbsp;transactionable)</pre>
+<div class="block">Создаёт загрузчик файлов на сервер.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>transactionable</code> - проведение загрузки в рамках отдельной транзакции</dd>
+</dl>
 </li>
 </ul>
 </li>
