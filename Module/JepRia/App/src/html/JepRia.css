@@ -524,6 +524,12 @@ input[type=text]::-ms-clear {
   position: absolute;
 }
 
+/* Стили области ввода текста поля выбора опций */
+.jepRia-ComboBox-Input{
+  padding: 0px;
+  margin: 0px;
+}
+
 /* Стиль для индикаторов, располагающихся справа от поля. */
 .jepRia-Field-Icon {
   vertical-align: middle;
@@ -543,6 +549,8 @@ input[type=text]::-ms-clear {
   position: relative;
   top: 4px;
   left: 0px;
+  padding: 0px;
+  margin: 0px;
 }
 
 /* Стиль для поля области ввода текста. */
@@ -762,6 +770,19 @@ img {
   -khtml-opacity: 0.6; /* Very old safari browsers. */
   filter: alpha(opacity = 60); /* IE. */
 }
+
+/* Стили поля, поддерживающего несколько рабочих состояний. */
+.jepRia-MultiStateField {
+  padding: 0px;
+  margin: 0px;
+  margin-bottom: 5px;
+}
+
+/* Стили карты редактирования поля чекбокса. */
+.jepRia-CheckBox .jepRia-MultiStateField-EditableCard {
+  display: block;
+}
+
 /* Styles for editable and view cards label. */
 .jepRia-MultiStateField-Label {
   text-align: right;
@@ -769,8 +790,11 @@ img {
 /* Styles for view card. */
 .jepRia-MultiStateField-ViewCard {
 }
-/* Styles for editable card. */
+
+/* Общие стили карт редактирования. */
 .jepRia-MultiStateField-EditableCard {
+  padding: 0px;
+  margin: 0px;
 }
 
 /* Style for datebox popup window. */

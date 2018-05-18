@@ -8,13 +8,13 @@ import java.util.Objects;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.InputElement;
 import com.google.gwt.dom.client.Node;
-import com.google.gwt.dom.client.Style.Display;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.HTML;
 import com.technology.jep.jepria.client.JepRiaAutomationConstant;
+import com.technology.jep.jepria.client.JepRiaClientConstant;
 import com.technology.jep.jepria.client.widget.event.JepEvent;
 import com.technology.jep.jepria.client.widget.event.JepEventType;
 import com.technology.jep.jepria.client.widget.event.JepListener;
@@ -36,6 +36,11 @@ public class JepCheckBoxField extends JepMultiStateField<CheckBox, HTML> {
    */
   private static final String CHECK_BOX_FIELD_STYLE = "jepRia-CheckBox-Input";
   
+  /**
+   * Наименование класса стилей поля чекбокса.
+   */
+  private static final String FIELD_STYLE = JepRiaClientConstant.STYLE_PREFIX + "CheckBox";
+  
   private Element inputCheck;
   
   public JepCheckBoxField() {
@@ -48,6 +53,9 @@ public class JepCheckBoxField extends JepMultiStateField<CheckBox, HTML> {
   
   public JepCheckBoxField(String fieldIdAsWebEl, String fieldLabel) {
     super(fieldIdAsWebEl, fieldLabel);
+    
+    addStyleName(FIELD_STYLE);
+    
     // Эмулирование label, при нажатии на наименование, значение изменяется на противоположное. 
     editableCardLabel.addClickHandler(event -> {
      if(editableCard.isEnabled()) { // Только, если карта Редактирования доступна. 
@@ -175,18 +183,15 @@ public class JepCheckBoxField extends JepMultiStateField<CheckBox, HTML> {
    * {@inheritDoc}
    */
   @Override
-  protected void applyStyle(){
+  protected void applyStyle() {
     super.applyStyle();
-    // Сделаем отображение элемента блочным.
-    getInputElement().getStyle().setDisplay(Display.BLOCK);
-    // Удалим умолчательные отступы чекбокса.
-    for (int i = 0; i < getInputElement().getChildCount(); i++){
+    // Устанавливаем класс для input 
+    for (int i = 0; i < getInputElement().getChildCount(); i++) {
       Node child = getInputElement().getChild(i);
       // Найдем соответствующий input-элемент.
-      if (child instanceof InputElement){
+      if (child instanceof InputElement) {
         InputElement childElement = (InputElement) child;
         childElement.addClassName(CHECK_BOX_FIELD_STYLE);
-        removeMarginsAndPaddings(childElement);
         break;
       }
     }

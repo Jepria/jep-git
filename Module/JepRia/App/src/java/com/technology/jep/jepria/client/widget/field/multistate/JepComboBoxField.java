@@ -12,6 +12,7 @@ import java.util.*;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
+import com.technology.jep.jepria.client.JepRiaClientConstant;
 import com.technology.jep.jepria.client.widget.event.JepEvent;
 import com.technology.jep.jepria.client.widget.event.JepEventType;
 import com.technology.jep.jepria.client.widget.event.JepListener;
@@ -60,7 +61,12 @@ public class JepComboBoxField extends JepBaseTextField<ComboBox<JepOption>> impl
    */
   private String firstTimeUsedQuery = null;
   
-  public JepComboBoxField(){
+  /**
+   * Наименование класса стилей поля.
+   */
+  private static final String COMBOBOX_FIELD_INPUT_STYLE = JepRiaClientConstant.STYLE_PREFIX + "ComboBox-Input";
+  
+  public JepComboBoxField() {
     this(null);
   }
   
@@ -207,10 +213,10 @@ public class JepComboBoxField extends JepBaseTextField<ComboBox<JepOption>> impl
    * {@link com.technology.jep.jepria.client.widget.event.JepEventType#FIRST_TIME_USE_EVENT } .
    */
   protected void addFirstTimeUseListener() {
-    editableCard.addBeforeExpandHandler(new BeforeExpandHandler(){
+    editableCard.addBeforeExpandHandler(new BeforeExpandHandler() {
       @Override
       public void onBeforeExpand(BeforeExpandEvent event) {
-        if(firstTimeUsedQuery == null && getListeners(FIRST_TIME_USE_EVENT).size() != 0){
+        if(firstTimeUsedQuery == null && getListeners(FIRST_TIME_USE_EVENT).size() != 0) {
           clearInvalid();
           setLoadingImage(true);
           firstTimeUsedQuery = getRawValue();
@@ -385,7 +391,7 @@ public class JepComboBoxField extends JepBaseTextField<ComboBox<JepOption>> impl
    * {@inheritDoc} 
    */
   @Override
-  public void setMaxLength(int maxLength){
+  public void setMaxLength(int maxLength) {
     throw new UnsupportedOperationException("ComboBox can't limit maxLength!");
   }
 
@@ -401,7 +407,7 @@ public class JepComboBoxField extends JepBaseTextField<ComboBox<JepOption>> impl
    * {@inheritDoc} 
    */
   @Override
-  public void setEmptyText(String emptyText){
+  public void setEmptyText(String emptyText) {
     getValueBoxElement().setPropertyString("placeholder", emptyText);
   }
   
@@ -409,7 +415,7 @@ public class JepComboBoxField extends JepBaseTextField<ComboBox<JepOption>> impl
    * {@inheritDoc} 
    */
   @Override
-  public String getRawValue(){
+  public String getRawValue() {
     return getValueBoxElement().getPropertyString("value");
   }
   
@@ -426,12 +432,12 @@ public class JepComboBoxField extends JepBaseTextField<ComboBox<JepOption>> impl
    * {@inheritDoc} 
    */
   @Override
-  public void clearInvalid(){
+  public void clearInvalid() {
     getValueBoxElement().getStyle().clearBorderColor();
     super.clearInvalid();
   }
   
-  protected Element getValueBoxElement(){
+  protected Element getValueBoxElement() {
     return editableCard.getValueBoxBase().getElement();
   }
   
@@ -439,11 +445,10 @@ public class JepComboBoxField extends JepBaseTextField<ComboBox<JepOption>> impl
    * {@inheritDoc} 
    */
   @Override
-  protected void applyStyle(){
+  protected void applyStyle() {
     super.applyStyle();
     getValueBoxElement().addClassName(MAIN_FONT_STYLE);
-    // Удаляем выступы и отступы карты редактирования.
-    removeMarginsAndPaddings(getValueBoxElement());
+    getValueBoxElement().addClassName(COMBOBOX_FIELD_INPUT_STYLE);
   }
   
   /**

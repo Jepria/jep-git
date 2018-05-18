@@ -8,8 +8,6 @@ import java.util.Date;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.core.client.Scheduler.ScheduledCommand;
-import com.google.gwt.dom.client.Style;
-import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.editor.client.IsEditor;
 import com.google.gwt.editor.client.LeafValueEditor;
 import com.google.gwt.editor.client.adapters.TakesValueEditor;
@@ -24,7 +22,6 @@ import com.google.gwt.user.client.ui.*;
 import com.google.gwt.user.datepicker.client.*;
 import com.technology.jep.jepria.client.widget.field.masked.Mask;
 import com.technology.jep.jepria.client.widget.field.masked.MaskedTextBox;
-import com.technology.jep.jepria.client.widget.field.multistate.customized.JepDatePicker;
 import com.technology.jep.jepria.shared.util.JepRiaUtil;
 
 /**
@@ -249,9 +246,6 @@ public class MaskedDateBox extends Composite implements HasEnabled,
     box.setDirectionEstimator(false);
     box.setMask(mask);
     box.getElement().addClassName(MAIN_FONT_STYLE);
-    Style style = box.getElement().getStyle();
-    style.setMargin(0, Unit.PX);
-    style.setPadding(0, Unit.PX);
     popup.addCloseHandler(handler);
     setValue(date);
     
