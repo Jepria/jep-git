@@ -56,6 +56,7 @@ com.technology.jep.jepria.client.widget.event
 com.technology.jep.jepria.client.widget.field
 com.technology.jep.jepria.client.widget.field.masked
 com.technology.jep.jepria.client.widget.field.multistate
+com.technology.jep.jepria.client.widget.field.multistate.customized
 com.technology.jep.jepria.client.widget.field.multistate.event
 com.technology.jep.jepria.client.widget.field.multistate.large
 com.technology.jep.jepria.client.widget.field.tree

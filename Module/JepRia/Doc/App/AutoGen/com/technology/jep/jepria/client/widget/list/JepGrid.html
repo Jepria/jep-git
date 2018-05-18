@@ -273,82 +273,69 @@ extends com.google.gwt.user.cellview.client.DataGrid&lt;T&gt;</pre>
 </td>
 </tr>
 <tr class="altColor">
-<td class="colFirst"><code>private boolean</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#dndEnabled">dndEnabled</a></span></code>
-<div class="block">Флаг доступности переноса строк таблицы данных</div>
-</td>
-</tr>
-<tr class="rowColor">
 <td class="colFirst"><code>private <a href="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.DndMode.html" title="enum in com.technology.jep.jepria.client.widget.list">JepGrid.DndMode</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#dndMode">dndMode</a></span></code>
 <div class="block">Текущий режим работы Drag&Drop</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code>protected com.google.gwt.event.shared.HandlerRegistration</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#dragLeaveHandler">dragLeaveHandler</a></span></code>
 <div class="block">Обработчик системного события покидания строки таблицы другой строки</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code>protected com.google.gwt.event.shared.HandlerRegistration</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#dragOverHandler">dragOverHandler</a></span></code>
 <div class="block">Обработчик системного события нахождения строки таблицы над другой строкой</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code>protected com.google.gwt.event.shared.HandlerRegistration</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#dragStartHandler">dragStartHandler</a></span></code>
 <div class="block">Обработчик системного события начала переноса строки таблицы</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code>protected com.google.gwt.event.shared.HandlerRegistration</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#dropHandler">dropHandler</a></span></code>
 <div class="block">Обработчик системного события завершения переноса строки таблицы</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code>private boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#initialized">initialized</a></span></code>
 <div class="block">Флаг полной инициализации виджета</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code>private boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#isColumnConfigurable">isColumnConfigurable</a></span></code>
 <div class="block">Флаг допустимости настройки порядка следования колонок и их отображения в таблице данных</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code>protected java.lang.Boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#isDraggedAfter">isDraggedAfter</a></span></code>
 <div class="block">Флаги позиции курсора при Drag&Drop.</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code>protected java.lang.Boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#isDraggedBefore">isDraggedBefore</a></span></code>
 <div class="block">Флаги позиции курсора при Drag&Drop.</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code>protected java.lang.Boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#isDraggedOver">isDraggedOver</a></span></code>
 <div class="block">Флаги позиции курсора при Drag&Drop.</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code>private boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#isDragStarted">isDragStarted</a></span></code>
 <div class="block">Флаг начала события DragStart</div>
-</td>
-</tr>
-<tr class="altColor">
-<td class="colFirst"><code>private boolean</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#isTextSelectionDisabled">isTextSelectionDisabled</a></span></code>
-<div class="block">Флаг отключенного выделения текста в ячейках </br>
- (важно значение "true" при Drag&Drop, иначе вместо перетаскиваний будет выделяться текст).</div>
 </td>
 </tr>
 <tr class="rowColor">
@@ -793,16 +780,6 @@ extends com.google.gwt.user.cellview.client.DataGrid&lt;T&gt;</pre>
 <div class="block">Флаг допустимости настройки порядка следования колонок и их отображения в таблице данных</div>
 </li>
 </ul>
-<a name="dndEnabled">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>dndEnabled</h4>
-<pre>private&nbsp;boolean dndEnabled</pre>
-<div class="block">Флаг доступности переноса строк таблицы данных</div>
-</li>
-</ul>
 <a name="dndMode">
 <!--   -->
 </a>
@@ -950,17 +927,6 @@ extends com.google.gwt.user.cellview.client.DataGrid&lt;T&gt;</pre>
 <pre>protected&nbsp;java.lang.Boolean isDraggedAfter</pre>
 <div class="block">Флаги позиции курсора при Drag&Drop.
  Курсор после строки.</div>
-</li>
-</ul>
-<a name="isTextSelectionDisabled">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>isTextSelectionDisabled</h4>
-<pre>private&nbsp;boolean isTextSelectionDisabled</pre>
-<div class="block">Флаг отключенного выделения текста в ячейках </br>
- (важно значение "true" при Drag&Drop, иначе вместо перетаскиваний будет выделяться текст).</div>
 </li>
 </ul>
 <a name="isDragStarted">
@@ -1253,7 +1219,9 @@ public&nbsp;JepGrid(java.lang.String&nbsp;cookieId,
 <li class="blockList">
 <h4>onMouseOver</h4>
 <pre>protected&nbsp;void&nbsp;onMouseOver(com.google.gwt.view.client.CellPreviewEvent&lt;<a href="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html" title="type parameter in JepGrid">T</a>&gt;&nbsp;event)</pre>
-<div class="block">Обработчик события наведения мыши на элементы таблицы.</div>
+<div class="block">Обработчик события наведения мыши на элементы таблицы.<br/>
+ По умолчанию устанавливает всплывающую подсказку для каждой ячейки, содержащей
+ текст. Если текста нет (к примеру, внутри какой-то DOM-элемент), подсказка не назначается.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>event</code> - событие</dd>
