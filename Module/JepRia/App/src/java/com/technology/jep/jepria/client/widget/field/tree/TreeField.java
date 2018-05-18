@@ -378,7 +378,6 @@ public class TreeField<V extends JepOption> extends Composite implements HasChec
           // refresh expanded node
           refreshNode(currentNode);
         }
-        ensureVisible(currentNode);
       }
     });
     
@@ -923,8 +922,15 @@ public class TreeField<V extends JepOption> extends Composite implements HasChec
             }
             openingNode = null;
             // If data retrieve without delays, we should initialize tree firstly
-            showTree();
+            info.setFromCache(true);
             refreshDisplay(display, info.getData());
+            showTree();
+            if (expandNode != null) {
+              TreeNode openingNode = nodeMapOfDisplay.get(expandNode).getNode();
+              if (openingNode != null) { // it node has no child
+                OpenEvent.fire(tree, openingNode);
+              }
+            }
           }
         });
       }
