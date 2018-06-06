@@ -494,14 +494,18 @@ public class DetailFormPresenter<V extends DetailFormView, E extends PlainEventB
    */
   @Override
   public void onDoGetRecord(DoGetRecordEvent event) {
-  
-    final PagingConfig pagingConfig = event.getPagingConfig();
+    JepClientUtil.showLoadingPanel(null, JepTexts.loadingPanel_dataLoading());
+    view.asWidget().setVisible(false); // Скрываем форму, чтобы во время загрузки пользователь не видел ее в "разобранном" виде.
     
+    final PagingConfig pagingConfig = event.getPagingConfig();
     clientFactory.getService().find(pagingConfig, new JepAsyncCallback<PagingResult<JepRecord>>() {
       public void onSuccess(PagingResult<JepRecord> pagingResult) {
         List<JepRecord> result = pagingResult.getData();
         if(result.size() == 1) {
           adjustToRecord(result.get(0));
+          
+          view.asWidget().setVisible(true); // Отображаем форму.
+          JepClientUtil.hideLoadingPanel();
         } else {
           String message = this.getClass() 
             + ": onDoGetRecord: pagingConfig.getTemplateRecord() = " + pagingConfig.getTemplateRecord() + " , find result size != 1";
