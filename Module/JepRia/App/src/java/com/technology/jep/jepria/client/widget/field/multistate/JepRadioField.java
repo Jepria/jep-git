@@ -9,7 +9,6 @@ import java.util.Objects;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.user.client.ui.HTML;
-import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.technology.jep.jepria.client.widget.event.JepEvent;
 import com.technology.jep.jepria.client.widget.event.JepEventType;
 import com.technology.jep.jepria.client.widget.event.JepListener;
@@ -103,7 +102,7 @@ public class JepRadioField extends JepMultiStateField<RadioListField<JepOption>,
    * {@inheritDoc} 
    */
   @Override
-  public void clear(){
+  public void clear() {
     clearView();
     setValue(null);
   }
@@ -129,7 +128,7 @@ public class JepRadioField extends JepMultiStateField<RadioListField<JepOption>,
    * Метод не поддерживается данным полем.
    */
   @Override
-  public String getRawValue(){
+  public String getRawValue() {
     throw new UnsupportedOperationException("RadioField does not have a raw value.");
   }
   
@@ -140,7 +139,7 @@ public class JepRadioField extends JepMultiStateField<RadioListField<JepOption>,
   public boolean isValid() {
     // Перед проверкой, очищаем предыдущие ошибки.
     clearInvalid();
-    if (!allowBlank && JepRiaUtil.isEmpty(getValue())){
+    if (!allowBlank && JepRiaUtil.isEmpty(getValue())) {
       markInvalid(JepTexts.field_blankText());
       return false;
     }
@@ -152,10 +151,9 @@ public class JepRadioField extends JepMultiStateField<RadioListField<JepOption>,
    * {@inheritDoc}
    */
   @Override
-  public void applyStyle(){
+  public void applyStyle() {
     super.applyStyle();
     
     getInputElement().addClassName(RADIO_FIELD_STYLE);
-    editableCard.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
   }
 }

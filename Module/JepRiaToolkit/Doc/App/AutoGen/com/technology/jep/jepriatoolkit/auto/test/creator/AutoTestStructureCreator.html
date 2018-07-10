@@ -18,7 +18,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10};
+var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -248,59 +248,65 @@ extends org.apache.tools.ant.Task</pre>
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>private void</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepriatoolkit/auto/test/creator/AutoTestStructureCreator.html#createAutomatonConstants--">createAutomatonConstants</a></span>()</code>
+<div class="block">Создание констант для полей в прикладных модулей</div>
+</td>
+</tr>
+<tr id="i2" class="altColor">
+<td class="colFirst"><code>private void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepriatoolkit/auto/test/creator/AutoTestStructureCreator.html#createAutoTest--">createAutoTest</a></span>()</code>
 <div class="block">Создание родительского класса тестов (тестов на уровне приложения).</div>
 </td>
 </tr>
-<tr id="i2" class="altColor">
+<tr id="i3" class="rowColor">
 <td class="colFirst"><code>private void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepriatoolkit/auto/test/creator/AutoTestStructureCreator.html#createAutoTestConstant--">createAutoTestConstant</a></span>()</code>
 <div class="block">Создание класса констант тестов</div>
 </td>
 </tr>
-<tr id="i3" class="rowColor">
+<tr id="i4" class="altColor">
 <td class="colFirst"><code>private void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepriatoolkit/auto/test/creator/AutoTestStructureCreator.html#createModuleAutoTestData--">createModuleAutoTestData</a></span>()</code>
 <div class="block">Создание файлов с входными данными для тестов модулей приложения.</div>
 </td>
 </tr>
-<tr id="i4" class="altColor">
+<tr id="i5" class="rowColor">
 <td class="colFirst"><code>private void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepriatoolkit/auto/test/creator/AutoTestStructureCreator.html#createModuleAutoTestXml--">createModuleAutoTestXml</a></span>()</code>
 <div class="block">Создание xml для запуска тестов модулей приложения.</div>
 </td>
 </tr>
-<tr id="i5" class="rowColor">
+<tr id="i6" class="altColor">
 <td class="colFirst"><code>private void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepriatoolkit/auto/test/creator/AutoTestStructureCreator.html#createTestFileStructure--">createTestFileStructure</a></span>()</code>
 <div class="block">Создание файловой структуры тестов приложения</div>
 </td>
 </tr>
-<tr id="i6" class="altColor">
+<tr id="i7" class="rowColor">
 <td class="colFirst"><code>private void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepriatoolkit/auto/test/creator/AutoTestStructureCreator.html#createTestProperties--">createTestProperties</a></span>()</code>
 <div class="block">Создание test.properties, параметры авто-тестов.</div>
 </td>
 </tr>
-<tr id="i7" class="rowColor">
+<tr id="i8" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepriatoolkit/auto/test/creator/AutoTestStructureCreator.html#execute--">execute</a></span>()</code>
 <div class="block">Основной метод, который выполняет Task</div>
 </td>
 </tr>
-<tr id="i8" class="altColor">
+<tr id="i9" class="rowColor">
 <td class="colFirst"><code>private java.util.Map&lt;java.lang.String,java.lang.Object&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepriatoolkit/auto/test/creator/AutoTestStructureCreator.html#getDataForTemplates--">getDataForTemplates</a></span>()</code>
 <div class="block">Получает данные для шаблонизатора.</div>
 </td>
 </tr>
-<tr id="i9" class="rowColor">
+<tr id="i10" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepriatoolkit/auto/test/creator/AutoTestStructureCreator.html#setApplicationStructureFile-java.lang.String-">setApplicationStructureFile</a></span>(java.lang.String&nbsp;applicationStructureFile)</code>
 <div class="block">Устанавливает значение applicationStructureFile из соответствуюего атбируба Task.</div>
 </td>
 </tr>
-<tr id="i10" class="altColor">
+<tr id="i11" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepriatoolkit/auto/test/creator/AutoTestStructureCreator.html#setIsOverrideExistsFiles-java.lang.String-">setIsOverrideExistsFiles</a></span>(java.lang.String&nbsp;isOverrideExistsFiles)</code>
 <div class="block">Устанавливает значение isOverrideExistsFiles из соответствуюего атбируба Task.</div>
@@ -520,6 +526,16 @@ extends org.apache.tools.ant.Task</pre>
 <h4>createAutoTestConstant</h4>
 <pre>private&nbsp;void&nbsp;createAutoTestConstant()</pre>
 <div class="block">Создание класса констант тестов</div>
+</li>
+</ul>
+<a name="createAutomatonConstants--">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>createAutomatonConstants</h4>
+<pre>private&nbsp;void&nbsp;createAutomatonConstants()</pre>
+<div class="block">Создание констант для полей в прикладных модулей</div>
 </li>
 </ul>
 <a name="createAuto--">

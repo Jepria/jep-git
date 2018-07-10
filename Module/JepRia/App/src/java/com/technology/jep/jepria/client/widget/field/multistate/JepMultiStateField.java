@@ -15,7 +15,6 @@ import java.util.List;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Element;
-import com.google.gwt.dom.client.Style;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.safehtml.shared.SafeHtmlUtils;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -782,27 +781,14 @@ public abstract class JepMultiStateField<E extends Widget, V extends Widget> ext
   }
 
   /**
-   * Метод для стилизации поля.<br/>
+   * Метод для стилизации поля, а именно добавления классов на динамические элементы, напирмер, карту редактирования. 
+   * Все стили должны определяется <b>в css-файле</b>.
+   * <br/><br/>
    * Для применения новых стилей элемента необходимо в наследниках перекрывать
    * данный метод.
    */
   protected void applyStyle() {
-    // Устанавливаем атрибуты по умолчанию для компонента JepMultiStateField.
-    mainPanel.getElement().getStyle().setMarginBottom(5, Unit.PX);
     // Установка основного шрифта в карту редактирования.
     getInputElement().addClassName(MAIN_FONT_STYLE);
-    // Удаляем выступы и отступы карты редактирования.
-    removeMarginsAndPaddings(getInputElement());
-  }
-
-  /**
-   * Удаление отступов и выступов элемента.
-   * 
-   * @param stylezedElement стилизуемый элемент
-   */
-  protected static void removeMarginsAndPaddings(Element stylezedElement) {
-    Style style = stylezedElement.getStyle();
-    style.setMargin(0, Unit.PX);
-    style.setPadding(0, Unit.PX);
   }
 }

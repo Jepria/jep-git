@@ -178,6 +178,12 @@ extends javax.servlet.http.HttpServlet</pre>
 <div class="block">Кодировка текстовых файлов.</div>
 </td>
 </tr>
+<tr class="rowColor">
+<td class="colFirst"><code>private boolean</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/server/upload/JepUploadServlet.html#transactionable">transactionable</a></span></code>
+<div class="block">Признак необходимости производить загрузку в отдельной транзакции.</div>
+</td>
+</tr>
 </table>
 </li>
 </ul>
@@ -202,6 +208,14 @@ extends javax.servlet.http.HttpServlet</pre>
 <td class="colOne"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/server/upload/JepUploadServlet.html#JepUploadServlet-com.technology.jep.jepria.shared.record.lob.JepLobRecordDefinition-java.lang.String-java.nio.charset.Charset-">JepUploadServlet</a></span>(<a href="../../../../../../com/technology/jep/jepria/shared/record/lob/JepLobRecordDefinition.html" title="class in com.technology.jep.jepria.shared.record.lob">JepLobRecordDefinition</a>&nbsp;fileRecordDefinition,
                 java.lang.String&nbsp;dataSourceJndiName,
                 java.nio.charset.Charset&nbsp;textFileCharset)</code>
+<div class="block">Создаёт сервлет загрузки файлов на сервер.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colOne"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/server/upload/JepUploadServlet.html#JepUploadServlet-com.technology.jep.jepria.shared.record.lob.JepLobRecordDefinition-java.lang.String-java.nio.charset.Charset-boolean-">JepUploadServlet</a></span>(<a href="../../../../../../com/technology/jep/jepria/shared/record/lob/JepLobRecordDefinition.html" title="class in com.technology.jep.jepria.shared.record.lob">JepLobRecordDefinition</a>&nbsp;fileRecordDefinition,
+                java.lang.String&nbsp;dataSourceJndiName,
+                java.nio.charset.Charset&nbsp;textFileCharset,
+                boolean&nbsp;transactionable)</code>
 <div class="block">Создаёт сервлет загрузки файлов на сервер.</div>
 </td>
 </tr>
@@ -361,11 +375,21 @@ extends javax.servlet.http.HttpServlet</pre>
 <a name="textFileCharset">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>textFileCharset</h4>
 <pre>private final&nbsp;java.nio.charset.Charset textFileCharset</pre>
 <div class="block">Кодировка текстовых файлов.</div>
+</li>
+</ul>
+<a name="transactionable">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>transactionable</h4>
+<pre>private final&nbsp;boolean transactionable</pre>
+<div class="block">Признак необходимости производить загрузку в отдельной транзакции.</div>
 </li>
 </ul>
 </li>
@@ -396,12 +420,31 @@ extends javax.servlet.http.HttpServlet</pre>
 <a name="JepUploadServlet-com.technology.jep.jepria.shared.record.lob.JepLobRecordDefinition-java.lang.String-java.nio.charset.Charset-">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>JepUploadServlet</h4>
 <pre>public&nbsp;JepUploadServlet(<a href="../../../../../../com/technology/jep/jepria/shared/record/lob/JepLobRecordDefinition.html" title="class in com.technology.jep.jepria.shared.record.lob">JepLobRecordDefinition</a>&nbsp;fileRecordDefinition,
                         java.lang.String&nbsp;dataSourceJndiName,
                         java.nio.charset.Charset&nbsp;textFileCharset)</pre>
+<div class="block">Создаёт сервлет загрузки файлов на сервер.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>fileRecordDefinition</code> - определение записи</dd>
+<dd><code>dataSourceJndiName</code> - JNDI-наименование источника данных</dd>
+<dd><code>textFileCharset</code> - кодировка текстовых файлов</dd>
+</dl>
+</li>
+</ul>
+<a name="JepUploadServlet-com.technology.jep.jepria.shared.record.lob.JepLobRecordDefinition-java.lang.String-java.nio.charset.Charset-boolean-">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>JepUploadServlet</h4>
+<pre>public&nbsp;JepUploadServlet(<a href="../../../../../../com/technology/jep/jepria/shared/record/lob/JepLobRecordDefinition.html" title="class in com.technology.jep.jepria.shared.record.lob">JepLobRecordDefinition</a>&nbsp;fileRecordDefinition,
+                        java.lang.String&nbsp;dataSourceJndiName,
+                        java.nio.charset.Charset&nbsp;textFileCharset,
+                        boolean&nbsp;transactionable)</pre>
 <div class="block">Создаёт сервлет загрузки файлов на сервер.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>

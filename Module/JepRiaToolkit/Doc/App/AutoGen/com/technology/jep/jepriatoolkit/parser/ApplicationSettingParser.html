@@ -18,7 +18,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":9,"i5":9,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10};
+var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":9,"i5":9,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10};
 var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -150,6 +150,12 @@ extends java.lang.Object</pre>
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code>private java.util.List&lt;java.lang.String&gt;</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/technology/jep/jepriatoolkit/parser/ApplicationSettingParser.html#roleConstants">roleConstants</a></span></code>
+<div class="block">Список ролей где Camel Case заменен на Snake Case.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>private java.util.List&lt;java.lang.String&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/technology/jep/jepriatoolkit/parser/ApplicationSettingParser.html#securityRoles">securityRoles</a></span></code>&nbsp;</td>
 </tr>
 </table>
@@ -227,27 +233,31 @@ extends java.lang.Object</pre>
 </tr>
 <tr id="i8" class="altColor">
 <td class="colFirst"><code>java.util.List&lt;java.lang.String&gt;</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/technology/jep/jepriatoolkit/parser/ApplicationSettingParser.html#getRoles--">getRoles</a></span>()</code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/technology/jep/jepriatoolkit/parser/ApplicationSettingParser.html#getRoleConstants--">getRoleConstants</a></span>()</code>&nbsp;</td>
 </tr>
 <tr id="i9" class="rowColor">
+<td class="colFirst"><code>java.util.List&lt;java.lang.String&gt;</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/technology/jep/jepriatoolkit/parser/ApplicationSettingParser.html#getRoles--">getRoles</a></span>()</code>&nbsp;</td>
+</tr>
+<tr id="i10" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/technology/jep/jepriatoolkit/parser/ApplicationSettingParser.html#notifyAboutAbsentFields--">notifyAboutAbsentFields</a></span>()</code>
 <div class="block">Оповещение о полях, присутствующих на детальной или списочной формах, но
  не указанных в секции &lt;record&gt;</div>
 </td>
 </tr>
-<tr id="i10" class="altColor">
+<tr id="i11" class="rowColor">
 <td class="colFirst"><code>boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/technology/jep/jepriatoolkit/parser/ApplicationSettingParser.html#parseApplicationSettingXML-java.lang.String-java.lang.Boolean...-">parseApplicationSettingXML</a></span>(java.lang.String&nbsp;applicationStructureFile,
                           java.lang.Boolean...&nbsp;isPossibleAnotherFile)</code>
 <div class="block">Разбор и проверка <ApplicationName>Definition.xml</div>
 </td>
 </tr>
-<tr id="i11" class="rowColor">
+<tr id="i12" class="altColor">
 <td class="colFirst"><code>java.util.List&lt;<a href="../../../../../com/technology/jep/jepriatoolkit/creator/module/Module.html" title="class in com.technology.jep.jepriatoolkit.creator.module">Module</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/technology/jep/jepriatoolkit/parser/ApplicationSettingParser.html#prepareModulesToInheritance-java.util.List-">prepareModulesToInheritance</a></span>(java.util.List&lt;<a href="../../../../../com/technology/jep/jepriatoolkit/creator/module/Module.html" title="class in com.technology.jep.jepriatoolkit.creator.module">Module</a>&gt;&nbsp;modules)</code>&nbsp;</td>
 </tr>
-<tr id="i12" class="altColor">
+<tr id="i13" class="rowColor">
 <td class="colFirst"><code>java.util.List&lt;<a href="../../../../../com/technology/jep/jepriatoolkit/creator/module/Module.html" title="class in com.technology.jep.jepriatoolkit.creator.module">Module</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/technology/jep/jepriatoolkit/parser/ApplicationSettingParser.html#prepareModuleToInheritance-com.technology.jep.jepriatoolkit.creator.module.Module-java.util.List-">prepareModuleToInheritance</a></span>(<a href="../../../../../com/technology/jep/jepriatoolkit/creator/module/Module.html" title="class in com.technology.jep.jepriatoolkit.creator.module">Module</a>&nbsp;mod,
                           java.util.List&lt;<a href="../../../../../com/technology/jep/jepriatoolkit/creator/module/Module.html" title="class in com.technology.jep.jepriatoolkit.creator.module">Module</a>&gt;&nbsp;allModules)</code>&nbsp;</td>
@@ -317,6 +327,16 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>securityRoles</h4>
 <pre>private&nbsp;java.util.List&lt;java.lang.String&gt; securityRoles</pre>
+</li>
+</ul>
+<a name="roleConstants">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>roleConstants</h4>
+<pre>private&nbsp;java.util.List&lt;java.lang.String&gt; roleConstants</pre>
+<div class="block">Список ролей где Camel Case заменен на Snake Case. Для формирования файла с константами ролей.</div>
 </li>
 </ul>
 <a name="formFields">
@@ -503,6 +523,15 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>getRoles</h4>
 <pre>public&nbsp;java.util.List&lt;java.lang.String&gt;&nbsp;getRoles()</pre>
+</li>
+</ul>
+<a name="getRoleConstants--">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getRoleConstants</h4>
+<pre>public&nbsp;java.util.List&lt;java.lang.String&gt;&nbsp;getRoleConstants()</pre>
 </li>
 </ul>
 <a name="getDocument--">

@@ -33,7 +33,7 @@ public class StartAppInstall extends AppInstall {
 
   // атрибуты таска
   private String version, svnPath, svnVersionInfo;
-  
+
   /**
    * {@inheritDoc}
    */
@@ -44,20 +44,20 @@ public class StartAppInstall extends AppInstall {
 
   /**
    * {@inheritDoc}
-   * @throws MalformedURLException 
+   * @throws MalformedURLException
    */
   @Override
   public URL prepareUrl() throws MalformedURLException {
-    
+
     checkParameter(version, "Incorrect parameter: VERSION!");
     checkParameter(svnPath, "Incorrect argument: svnPath!");
     checkParameter(svnVersionInfo, "Incorrect argument: svnVersionInfo!");
-    
-    String errorMsg = "Error parsing map.xml!"; 
-    
+
+    String errorMsg = "Error parsing map.xml!";
+
     MapXml mapXml = null;
     String installVersion;
-    
+
     try { //TODO: use Multiple Exception Types in catch after jdk > 6
       mapXml = parseMapXml();
       installVersion = getInstallVersion(version); //устанавливаемая версия модуля, взятая из пути модуля
@@ -92,9 +92,9 @@ public class StartAppInstall extends AppInstall {
    * Получение служебной информации из map.xml <br/>
    * TODO: Необходим рефакторинг, - обработка исключений (переменная stage), перенести функцию в класс MapXml.
    * @return Описание map.xml
-   * @throws ParserConfigurationException 
-   * @throws SAXException 
-   * @throws IOException 
+   * @throws ParserConfigurationException
+   * @throws SAXException
+   * @throws IOException
    */
   private MapXml parseMapXml() throws ParserConfigurationException, SAXException, IOException {
 
@@ -106,7 +106,7 @@ public class StartAppInstall extends AppInstall {
          JepRiaToolkitUtil.multipleConcat(ERROR_PREFIX, "Error parsing map.xml : ", END_OF_LINE, TAB, io.getMessage()));
       throw io;
     }
-    
+
     Integer stage = 1;
     String svnRoot = null;
     String initPath = null;
@@ -115,34 +115,34 @@ public class StartAppInstall extends AppInstall {
     try {
       XPathFactory factory = XPathFactory.newInstance();
       XPath xpath = factory.newXPath();
-      
+
       XPathExpression expr = xpath.compile("//map/version/text()");
       //версия модуля, взятая из map.xml
       moduleVersion = (String) expr.evaluate(mapXmlDocument, XPathConstants.STRING);
       stage++;
-      
+
       xpath.reset();
       expr = xpath.compile("//map/path/text()");
       //корень модуля, взятый из map.xml
       svnRoot = ((Node) expr.evaluate(mapXmlDocument, XPathConstants.NODE)).getTextContent();
       stage++;
-      
+
       xpath.reset();
       expr = xpath.compile("//map/initialPath/text()");
       //начальный путь модуля, взятый из map.xml
       initPath = ((Node) expr.evaluate(mapXmlDocument, XPathConstants.NODE)).getTextContent();
       stage++;
-      
+
       boolean isFault = false;
 
       if (JepRiaToolkitUtil.isEmpty(moduleVersion)){
         JepRiaToolkitUtil.echoMessage(
             JepRiaToolkitUtil.multipleConcat(ERROR_PREFIX, "Invalid parameter 'Module Version', check map.xml!"));
         isFault = true;
-      }   
-      
+      }
+
       if (!isFault) mapXml = new MapXml(svnRoot, initPath, moduleVersion);
-      
+
     } catch(Exception e) {
       String errorMessageName = new String();
       switch(stage) {
@@ -153,19 +153,19 @@ public class StartAppInstall extends AppInstall {
       }
       JepRiaToolkitUtil.echoMessage(JepRiaToolkitUtil.multipleConcat(ERROR_PREFIX, errorMessageName));
     }
-    
+
     return mapXml;
   }
-  
+
   /**
    * Валидация версии
-   * 
+   *
    * @param version  проверяемая версия
    * @return флаг валидности
    * @throws IllegalArgumentException
    */
   private boolean checkVersion(String version) {
-    Pattern pattern = Pattern.compile("^[\\d]+([\\.][\\d]+)*$");
+    Pattern pattern = Pattern.compile("^[\\d]+([\\.][\\d]+)*(_[\\w]*)?$");
     boolean flag = !JepRiaUtil.isEmpty(version) && pattern.matcher(version).matches();
     if (!flag) {
       throw new IllegalArgumentException("Not correct version (value="+version+")");
@@ -175,7 +175,7 @@ public class StartAppInstall extends AppInstall {
 
   /**
    * Получение версии из строки.
-   * 
+   *
    * @param version Строка.
    * @return Версия в формате цифр, разделенных точками.
    * @throws IllegalArgumentException
@@ -195,11 +195,11 @@ public class StartAppInstall extends AppInstall {
   public void setVersion(String version){
     this.version = version;
   }
-  
+
   public void setSvnVersionInfo(String svnVersionInfo) {
     this.svnVersionInfo = svnVersionInfo;
   }
-  
+
   public void setSvnPath(String svnPath) {
     this.svnPath = svnPath;
   }

@@ -37,6 +37,7 @@ import com.google.gwt.safehtml.shared.SafeHtml;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.safehtml.shared.SafeHtmlUtils;
 import com.google.gwt.user.cellview.client.CellTree;
+import com.google.gwt.user.cellview.client.HasKeyboardSelectionPolicy.KeyboardSelectionPolicy;
 import com.google.gwt.user.cellview.client.TreeNode;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Event;
@@ -388,6 +389,7 @@ public class TreeField<V extends JepOption> extends Composite implements HasChec
         refreshNode((V) event.getTarget().getValue());
       }
     });
+    result.setKeyboardSelectionPolicy(KeyboardSelectionPolicy.DISABLED);
     
     return result;
   }
@@ -923,8 +925,15 @@ public class TreeField<V extends JepOption> extends Composite implements HasChec
             }
             openingNode = null;
             // If data retrieve without delays, we should initialize tree firstly
-            showTree();
+            info.setFromCache(true);
             refreshDisplay(display, info.getData());
+            showTree();
+            if (expandNode != null) {
+              TreeNode openingNode = nodeMapOfDisplay.get(expandNode).getNode();
+              if (openingNode != null) { // it node has no child
+                OpenEvent.fire(tree, openingNode);
+              }
+            }
           }
         });
       }

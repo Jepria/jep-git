@@ -86,10 +86,14 @@ public class JepClientUtil {
       loading.getStyle().setDisplay(Display.INLINE_BLOCK);
       appendDisabledLayer(layerId);
       if (!JepRiaUtil.isEmpty(header)) {
-        loadingHeader.setInnerHTML(header);
+        if (loadingHeader != null) {// loadingHeader может отсутствовать в кастомном модуле
+          loadingHeader.setInnerHTML(header);
+        }
       }
       if (!JepRiaUtil.isEmpty(message)) {
-        loadingMessage.setInnerHTML(message);
+        if (loadingMessage != null) {// loadingMessage может отсутствовать в кастомном модуле
+          loadingMessage.setInnerHTML(message);
+        }
       }
     }
   }
