@@ -67,6 +67,12 @@ public enum JepTypeEnum {
    * {@link com.technology.jep.jepria.shared.field.option.JepOption}.
    */
   OPTION,
+  
+  /**
+   * Тип поля, для представления денежных единиц
+   */
+  
+  MONEY,
 
   /**
    * Тип поля, содержащий в качестве своего значения экземпляр класса реализующего интерфейс
@@ -143,6 +149,7 @@ public enum JepTypeEnum {
   protected static final String BINARY_FILE_TOKEN = "BFE";
   protected static final String TEXT_FILE_TOKEN = "TFE";
   protected static final String CLOB_TOKEN = "C";
+  protected static final String MONEY_TOKEN = "MNY";
   
   /**
    * Преобразует тип в строковое представление (в History Token).
@@ -195,6 +202,9 @@ public enum JepTypeEnum {
       case CLOB:
         result = CLOB_TOKEN;
         break;
+      case MONEY:
+          result = MONEY_TOKEN;
+          break;
     }
     
     return result;
@@ -236,6 +246,8 @@ public enum JepTypeEnum {
       result = TEXT_FILE;
     } else if(CLOB_TOKEN.equals(token)) {
       result = CLOB;
+    } else if (MONEY.equals(token)) {
+        result = MONEY;
     }
     
     return result;

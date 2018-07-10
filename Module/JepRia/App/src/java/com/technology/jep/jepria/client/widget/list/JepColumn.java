@@ -2,6 +2,7 @@ package com.technology.jep.jepria.client.widget.list;
 
 import static com.technology.jep.jepria.shared.JepRiaConstant.DEFAULT_DATE_FORMAT;
 import static com.technology.jep.jepria.shared.JepRiaConstant.DEFAULT_TIME_FORMAT;
+import static com.technology.jep.jepria.shared.JepRiaConstant.DEFAULT_DECIMAL_FORMAT;
 
 import java.util.Objects;
 
@@ -148,6 +149,7 @@ public class JepColumn<T, C> extends Column<T, C> {
       case INTEGER: return new NumberCell(NumberFormat.getFormat("#"));
       case DOUBLE: case FLOAT: return new NumberCell(NumberFormat.getFormat("#.#"));
       case BIGDECIMAL: return new NumberCell(NumberFormat.getFormat("#0.00"));
+      case MONEY: return new NumberCell(NumberFormat.getFormat(DEFAULT_DECIMAL_FORMAT));
       case BOOLEAN: return new JepCheckBoxCell();
       default: return new TextCell();
     }
