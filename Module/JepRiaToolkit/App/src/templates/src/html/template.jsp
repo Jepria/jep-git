@@ -10,6 +10,19 @@
 		
 		<title><%ModuleName%> Module</title>
 		<script type="text/javascript" language="javascript" src="<%ModuleName%>/<%ModuleName%>.nocache.js"></script>
+		<script>
+			function loadJSON(file, callback) {   
+				var xhr = new XMLHttpRequest();
+				xhr.overrideMimeType("application/json");
+				xhr.open('GET', file, true); 
+				xhr.onreadystatechange = function () {
+					if (xhr.readyState == 4 && xhr.status == "200") {
+						callback(xhr.responseText);
+					}
+				};
+			xhr.send();
+		 	}
+		</script>
 	</head>
  
 	<body style="margin: 0px; padding: 0px; width: 100%; height: 100%;">
@@ -34,9 +47,29 @@
 			                <div class="jepRia-testBuildMessageHeader">
 			                    Attention please!
 			                </div> 
-			                <div class="jepRia-testBuildMessageInfo">
-			                    This is test build!
-			                </div> 
+							<div class="jepRia-testBuildMessageInfo">
+							This is test <span id="name-testBuildMessageInfo"></span> build!<br>Deploy at: <span id="time_stamp-testBuildMessageInfo"></span><br>
+							SVN: <span id="svn-testBuildMessageInfo"></span><br>
+							Library: <span id="library-testBuildMessageInfo"></span><br>
+							<span id="developer-testBuildMessageInfo"></span>
+							<small><span id="UUID-testBuildMessageInfo"></span></small>
+							<script>
+								loadJSON("./actuator/version.json", function(response) {
+								var version_JSON = JSON.parse(response);
+								document.getElementById('name-testBuildMessageInfo').innerHTML=version_JSON.svn.repo_name+'/'+version_JSON.svn.module_name;
+								document.getElementById('time_stamp-testBuildMessageInfo').innerHTML=version_JSON.compile.time_stamp;
+								document.getElementById('svn-testBuildMessageInfo').innerHTML=version_JSON.svn.tag_version+'/'+version_JSON.svn.revision;
+								document.getElementById('UUID-testBuildMessageInfo').innerHTML=version_JSON.compile.UUID;
+								document.getElementById('developer-testBuildMessageInfo').innerHTML='Developer: '+version_JSON.compile.user_name+' '+version_JSON.compile.host_name;
+								var library='';
+								for(var key in version_JSON.library){
+									library+=key + ':' + version_JSON.library[key]+' ';
+								}
+								document.getElementById('library-testBuildMessageInfo').innerHTML=library;
+								console.info(version_JSON);
+								});
+							</script>
+						</div> 
 			            </div> 
 			        </div>
 					
