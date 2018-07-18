@@ -32,7 +32,7 @@ public class JepMainServiceServlet extends JepServiceServlet implements JepMainS
     logger.debug("getUserData()");
     JepDto userData = new JepDto();
     
-    JepSecurityModule securityModule = SecurityFactory.getSecurityModule(getJEPThreadLocalRequest());
+    JepSecurityModule securityModule = SecurityFactory.getSecurityModule(getThreadLocalRequestWrapper());
     userData.set(JEP_USER_NAME_FIELD_NAME, securityModule.getUsername());
     userData.set(OPERATOR_ID, getOperatorId());
     userData.set(JEP_USER_ROLES_FIELD_NAME, securityModule.getRoles());
@@ -41,8 +41,8 @@ public class JepMainServiceServlet extends JepServiceServlet implements JepMainS
   
   public String logout(String currentUrl) throws Exception {
     logger.debug("logout()");
-    HttpServletRequest request = getJEPThreadLocalRequest();
-    HttpServletResponse response =  getJEPThreadLocalResponse();
+    HttpServletRequest request = getThreadLocalRequestWrapper();
+    HttpServletResponse response =  getThreadLocalResponseWrapper();
     return SecurityFactory.getSecurityModule(request).logout(request, response, currentUrl);
   }
 }

@@ -6,16 +6,18 @@ import static com.technology.jep.jepria.client.JepRiaClientConstant.DEFAULT_DATE
 import static com.technology.jep.jepria.client.JepRiaClientConstant.FIELD_DEFAULT_HEIGHT;
 import static com.technology.jep.jepria.client.JepRiaClientConstant.FIELD_DEFAULT_WIDTH;
 import static com.technology.jep.jepria.client.JepRiaClientConstant.JepTexts;
+import static com.technology.jep.jepria.client.JepRiaClientConstant.PANEL_OF_DAYS_AND_MONTH_AND_YEAR;
+import static com.technology.jep.jepria.client.JepRiaClientConstant.PANEL_OF_MONTH_AND_YEAR_ONLY;
+import static com.technology.jep.jepria.client.JepRiaClientConstant.PANEL_OF_YEAR_ONLY;
 import static com.technology.jep.jepria.shared.JepRiaConstant.DEFAULT_DATE_FORMAT;
 import static com.technology.jep.jepria.shared.JepRiaConstant.DEFAULT_DATE_MONTH_AND_YEAR_ONLY_FORMAT;
 import static com.technology.jep.jepria.shared.JepRiaConstant.DEFAULT_DATE_YEAR_ONLY_FORMAT;
 
-import static com.technology.jep.jepria.client.JepRiaClientConstant.PANEL_OF_DAYS_AND_MONTH_AND_YEAR;
-import static com.technology.jep.jepria.client.JepRiaClientConstant.PANEL_OF_MONTH_AND_YEAR_ONLY;
-import static com.technology.jep.jepria.client.JepRiaClientConstant.PANEL_OF_YEAR_ONLY;
-
 import java.util.Date;
 
+import com.google.gwt.event.dom.client.KeyCodes;
+import com.google.gwt.event.dom.client.KeyUpEvent;
+import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.i18n.client.DateTimeFormat;
@@ -89,18 +91,20 @@ public class JepDateField extends JepMultiStateField<MaskedDateBox, HTML> {
   public static final int FORMAT_YEAR_ONLY = PANEL_OF_YEAR_ONLY;
   
   /**
-   * Признак видимости навигационной панели в календаре
+   * Граничные даты диапазона возможных значений дат
    */
-  private boolean isVisibleNavigationPanel = false;
+  private Date minDate, maxDate = new Date();
   
   /**
    * Задать максимальный год в диапазаоне лет 
    * @param maxYear задается максимальный год в диапазоне в выпадающем списке
    */
   public void setMaxYear(int maxYear) {
-      if (isVisibleNavigationPanel) {
-          ((JepDatePicker)editableCard.getDatePicker()).setMaxYear(maxYear);
-      }
+    if (((JepDatePicker)editableCard.getDatePicker()).setMaxYear(maxYear)) {
+      maxDate = new Date(((JepDatePicker) editableCard.getDatePicker()).getMaxYear() - 1900, 12 - 1, 31);
+    } else {
+      maxDate = new Date(maxYear - 1900, 12 - 1, 31);
+    }
   }
   
   /**
@@ -108,26 +112,38 @@ public class JepDateField extends JepMultiStateField<MaskedDateBox, HTML> {
    * @param minYear задается минимальный год в диапазоне в выпадающем списке
    */
   public void setMinYear(int minYear) {
-      if (isVisibleNavigationPanel) {
-          ((JepDatePicker)editableCard.getDatePicker()).setMinYear(minYear);
-      }
+    if (((JepDatePicker)editableCard.getDatePicker()).setMinYear(minYear)) {
+      minDate = new Date(((JepDatePicker) editableCard.getDatePicker()).getMinYear() - 1900, 1 - 1, 01);  
+    } else {
+      minDate = new Date(minYear - 1900, 1 - 1, 01);
+    }
   }
   
   /**
-   * Получить макаисмальный год из диапазона в выпадающем списке
-   * @return максимальный год из заданного диапазона
+   * Устанавлилваем границы диапазон дат
    */
-  public int getMaxYear() {
-      return ((JepDatePicker)editableCard.getDatePicker()).getMaxYear();
+  protected void setActualFrameDate() {
+    minDate = new Date(((JepDatePicker) editableCard.getDatePicker()).getMinYear() - 1900, 1 - 1, 01);
+    maxDate = new Date(((JepDatePicker) editableCard.getDatePicker()).getMaxYear() - 1900, 12 - 1, 31);
+  }
+
+  /**
+   * Получить минимальную граничную дату
+   * @return
+   */
+  public Date getMinLimitDate() {
+    return minDate;
   }
   
-  /**
-   * Получить минимальный год из диапазона в выпадающем списке
-   * @return минимальный год из заданного диапазон 
-   */
-  public int getMinYear() {
-      return ((JepDatePicker)editableCard.getDatePicker()).getMinYear();
+/**
+ * Получить максимальную граничную дату
+ * @return
+ */
+  public Date getMaxLimitDate() {
+    return maxDate;
   }
+  
+  private int TYPE_DATEPICKER = FORMAT_DAYS_AND_MONTH_AND_YEAR;
   
   /**
    * Метод для управления панелью навигации в календаре
@@ -138,32 +154,40 @@ public class JepDateField extends JepMultiStateField<MaskedDateBox, HTML> {
    * <br>Следующая комбинация параметров приводит к отображению стандартного календаря:
    *  typeViewPanelOfCalendar = FORMAT_DAYS_AND_MONTH_AND_YEAR and visibleNavigationPanel = null
    */
-  public void setNavigationPanelOfCalendar(int typeViewPanelOfCalendar, Boolean visibleNavigationPanel) {
-      editableCard.removeFromParent();
+  public void setNavigationPanel(int typeViewPanelOfCalendar, Boolean visibleNavigationPanel) {
+    editableCard.removeFromParent();
+    
+    if (typeViewPanelOfCalendar == FORMAT_DAYS_AND_MONTH_AND_YEAR && visibleNavigationPanel == null) {
+      addEditableCard();
       
-      if (typeViewPanelOfCalendar == FORMAT_DAYS_AND_MONTH_AND_YEAR && visibleNavigationPanel == null) {
-          addEditableCard();
-          
-          setFieldWidth(FIELD_DEFAULT_WIDTH);
-          setFieldHeight(FIELD_DEFAULT_HEIGHT);
-          
-          isVisibleNavigationPanel = false;
+    } else {
+      createDatePicker(typeViewPanelOfCalendar);
+      if (typeViewPanelOfCalendar == FORMAT_DAYS_AND_MONTH_AND_YEAR 
+              && visibleNavigationPanel) {
+        ((JepDatePicker)editableCard.getDatePicker()).setVisibleDaysPanel(true);
       } else {
-          createDatePicker(typeViewPanelOfCalendar);
-          if (typeViewPanelOfCalendar == FORMAT_DAYS_AND_MONTH_AND_YEAR 
-                  && visibleNavigationPanel) {
-              ((JepDatePicker)editableCard.getDatePicker()).setVisibleDaysPanel(true);
-          } else {
-              ((JepDatePicker)editableCard.getDatePicker()).setVisibleDaysPanel(false);
-          }
-          
-          isVisibleNavigationPanel = visibleNavigationPanel == null ? false : visibleNavigationPanel;
-          
-          ((JepDatePicker)editableCard.getDatePicker()).setVisibleNavigationPanel(isVisibleNavigationPanel);
-          editableCard.setVisiblePopup(isVisibleNavigationPanel);
+        ((JepDatePicker)editableCard.getDatePicker()).setVisibleDaysPanel(false);
       }
       
-      addChangeValueListener();
+      boolean isVisibleNavigationPanel = visibleNavigationPanel == null ? false : visibleNavigationPanel;
+      
+      ((JepDatePicker)editableCard.getDatePicker()).setVisibleNavigationPanel(isVisibleNavigationPanel);
+      editableCard.setVisiblePopup(isVisibleNavigationPanel);
+    }
+    
+    TYPE_DATEPICKER = typeViewPanelOfCalendar;
+    
+    // Обновляем метки элементов для новых объектах
+    setWebId(getWebId());;
+    setCardWebAttrs();
+    
+    getViewCard().getElement().addClassName(VIEW_CARD_STYLE);
+    getEditableCard().getElement().addClassName(EDITABLE_CARD_STYLE);
+    
+    setFieldWidth(FIELD_DEFAULT_WIDTH);
+    setFieldHeight(FIELD_DEFAULT_HEIGHT);
+
+    addChangeValueListener();
   }
   
   /**
@@ -171,37 +195,38 @@ public class JepDateField extends JepMultiStateField<MaskedDateBox, HTML> {
    * @param typeViewPanelOfCalendar
    */
   private void createDatePicker(Integer typeViewPanelOfCalendar) {
-      Mask mask = null;
-      
-      if (typeViewPanelOfCalendar == null 
-              || typeViewPanelOfCalendar > PANEL_OF_YEAR_ONLY) {
-          typeViewPanelOfCalendar = PANEL_OF_DAYS_AND_MONTH_AND_YEAR;
-      }
-      
-      switch (typeViewPanelOfCalendar.intValue()) {
-          case PANEL_OF_MONTH_AND_YEAR_ONLY:
-              this.format = DateTimeFormat.getFormat(DEFAULT_DATE_MONTH_AND_YEAR_ONLY_FORMAT);
-              mask = new Mask(DEFAULT_DATE_MONTH_AND_YEARS_ONLY_FORMAT_MASK);
-              break;
-          case PANEL_OF_YEAR_ONLY:
-              this.format = DateTimeFormat.getFormat(DEFAULT_DATE_YEAR_ONLY_FORMAT);
-              mask = new Mask(DEFAULT_DATE_YEARS_ONLY_FORMAT_MASK);
-              break;
-          case PANEL_OF_DAYS_AND_MONTH_AND_YEAR:
-          default:
-              this.format = DateTimeFormat.getFormat(DEFAULT_DATE_FORMAT);
-              mask = new Mask(DEFAULT_DATE_FORMAT_MASK);
-      }
-      
-      editableCard = new MaskedDateBox(new JepDatePicker(typeViewPanelOfCalendar) {
+    Mask mask = null;
+    
+    if (typeViewPanelOfCalendar == null 
+            || typeViewPanelOfCalendar > PANEL_OF_YEAR_ONLY) {
+      typeViewPanelOfCalendar = PANEL_OF_DAYS_AND_MONTH_AND_YEAR;
+    }
+    
+    switch (typeViewPanelOfCalendar.intValue()) {
+      case PANEL_OF_MONTH_AND_YEAR_ONLY:
+        this.format = DateTimeFormat.getFormat(DEFAULT_DATE_MONTH_AND_YEAR_ONLY_FORMAT);
+        mask = new Mask(DEFAULT_DATE_MONTH_AND_YEARS_ONLY_FORMAT_MASK);
+        break;
+      case PANEL_OF_YEAR_ONLY:
+        this.format = DateTimeFormat.getFormat(DEFAULT_DATE_YEAR_ONLY_FORMAT);
+        mask = new Mask(DEFAULT_DATE_YEARS_ONLY_FORMAT_MASK);
+        break;
+      case PANEL_OF_DAYS_AND_MONTH_AND_YEAR:
+      default:
+        this.format = DateTimeFormat.getFormat(DEFAULT_DATE_FORMAT);
+        mask = new Mask(DEFAULT_DATE_FORMAT_MASK);
+    }
+    
+    editableCard = new MaskedDateBox(
+        new JepDatePicker(typeViewPanelOfCalendar) {
           @Override
           protected void changeYearWhenBakwards() {
-              handlerChangeDatePicker();
+            handlerChangeDatePicker();
           }
           
           @Override
           protected void changeYearWhenForwards() {
-              handlerChangeDatePicker();
+            handlerChangeDatePicker();
           }
           
           @Override
@@ -211,23 +236,26 @@ public class JepDateField extends JepMultiStateField<MaskedDateBox, HTML> {
           
           @Override
           public void changeMonthWhenForwards() {
-              handlerChangeDatePicker();
+            handlerChangeDatePicker();
           }
-
+    
           @Override
           public void doWhenFireEventYearListBox() {
-              handlerChangeDatePicker();
+            handlerChangeDatePicker();
           }
-
+    
           @Override
           public void doWhenFireEventMonthListBox() {
-              handlerChangeDatePicker();
+            handlerChangeDatePicker();
           }
-      }, null, new XDefaultFormat(format), mask);
-      
-      editableCard.setStyleClassName(FIELD_AUTO_HEIGTH_STYLE);
-      
-      editablePanel.add(editableCard);
+        }, 
+        null, new XDefaultFormat(format), mask);
+    
+    editableCard.setStyleClassName(FIELD_AUTO_HEIGTH_STYLE);
+    
+    setActualFrameDate();
+    
+    editablePanel.add(editableCard);
   }
   
   /**
@@ -235,15 +263,57 @@ public class JepDateField extends JepMultiStateField<MaskedDateBox, HTML> {
    * 
    */
   protected void handlerChangeDatePicker() {
-      
-      Date newDate = ((JepDatePicker) editableCard.getDatePicker()).getActualDate() == null ? new Date() : ((JepDatePicker) editableCard.getDatePicker()).getActualDate();
-      Date oldDate = getValue();
-
-      if (!equalsWithFormat(oldDate, newDate)) {
-          setValue(newDate);
-          notifyListeners(JepEventType.CHANGE_VALUE_EVENT, new JepEvent(JepDateField.this, newDate));
-          currentDate = newDate;
+    Date newDate = ((JepDatePicker) editableCard.getDatePicker()).getActualDate() == null ? new Date() : ((JepDatePicker) editableCard.getDatePicker()).getActualDate();
+    Date oldDate = getValue();
+    
+    // Отмечаем ошибкой, если вышли за пределы диапазаона доступных значений 
+    inRangeDate(newDate);
+    
+    if (!equalsWithFormat(oldDate, newDate)) {
+      if (TYPE_DATEPICKER != FORMAT_DAYS_AND_MONTH_AND_YEAR) {
+        setValue(newDate);
       }
+      notifyListeners(JepEventType.CHANGE_VALUE_EVENT, new JepEvent(JepDateField.this, newDate));
+      currentDate = newDate;
+    }
+  }
+  
+  /**
+   * Обработчик события ввода/редактирования в поле календаря
+   * 
+   */
+  protected void handlerKeyboardEvent() {
+    Date oldDate = ((JepDatePicker) editableCard.getDatePicker()).getActualDate() == null ? new Date() : ((JepDatePicker) editableCard.getDatePicker()).getActualDate();
+    Date newDate = getValue();
+
+    if (!equalsWithFormat(oldDate, newDate)) {
+      clearInvalid();
+      ((JepDatePicker) editableCard.getDatePicker()).refresh(newDate);
+      notifyListeners(JepEventType.CHANGE_VALUE_EVENT, new JepEvent(JepDateField.this, newDate));
+      currentDate = newDate;
+    }
+  }
+  
+  /**
+   * Проверка на принадлежность диапазона граничных дат
+   * @param newDate
+   */
+  protected boolean inRangeDate(Date newDate) {
+    boolean result = true;
+    if (newDate != null) {
+      if (getMinLimitDate().after(newDate) && !getMinLimitDate().equals(newDate)) {
+        clearInvalid();
+        markInvalid(JepClientUtil.substitute(JepTexts.dateField_lessThen(), format.format(newDate), format.format(getMinLimitDate())));
+        result = false;
+      } else if (getMaxLimitDate().before(newDate) && !getMaxLimitDate().equals(newDate)) {
+        clearInvalid();
+        markInvalid(JepClientUtil.substitute(JepTexts.dateField_moreThen(), format.format(newDate), format.format(getMaxLimitDate())));        
+        result = false;
+      } else {
+        clearInvalid();
+      }
+    }
+    return result;
   }
   
   /**
@@ -309,18 +379,6 @@ public class JepDateField extends JepMultiStateField<MaskedDateBox, HTML> {
     return editableCard.getValue();
   }
   
-  public int getValueDay() {
-      return getValue().getDay();
-  }
-  
-  public int getValueMonth() {
-      return getValue().getMonth();
-  }
-  
-  public int getValueYear() {
-      return getValue().getYear();
-  }
-
   /**
    * {@inheritDoc}
    */
@@ -343,27 +401,124 @@ public class JepDateField extends JepMultiStateField<MaskedDateBox, HTML> {
    */
   protected void addChangeValueListener() {
     editableCard.getDatePicker().addValueChangeHandler(
-        new ValueChangeHandler<Date>() {
-            public void onValueChange(ValueChangeEvent<Date> event) {
-                Date newDate = getValue();
-                if (!equalsWithFormat(currentDate, newDate)) {
-                  notifyListeners(JepEventType.CHANGE_VALUE_EVENT, new JepEvent(JepDateField.this, newDate));
-                  currentDate = newDate;
-                }
-            }
+      new ValueChangeHandler<Date>() {
+        public void onValueChange(ValueChangeEvent<Date> event) {
+          // Отмечаем ошибкой, если вышли за пределы диапазаона доступных значений и ставим граничнцю дату 
+          Date newDate = getValue();
+          
+          inRangeDate(newDate);
+          
+          if (!equalsWithFormat(currentDate, newDate)) {
+            notifyListeners(JepEventType.CHANGE_VALUE_EVENT, new JepEvent(JepDateField.this, newDate));
+            currentDate = newDate;
+          }
         }
-      );
+      }
+    );
+    
     editableCard.addValueChangeHandler(
-        new ValueChangeHandler<Date>() {
-            public void onValueChange(ValueChangeEvent<Date> event) {
-                Date newDate = getValue();
-                if (!equalsWithFormat(currentDate, newDate)) {
-                  notifyListeners(JepEventType.CHANGE_VALUE_EVENT, new JepEvent(JepDateField.this, newDate));
-                  currentDate = newDate;
-                }
-            }
+      new ValueChangeHandler<Date>() {
+        public void onValueChange(ValueChangeEvent<Date> event) {
+          // Отмечаем ошибкой, если вышли за пределы диапазаона доступных значений и ставим граничнцю дату
+          Date newDate = getValue();
+          
+          inRangeDate(newDate);
+          
+          if (!equalsWithFormat(currentDate, newDate)) {
+            notifyListeners(JepEventType.CHANGE_VALUE_EVENT, new JepEvent(JepDateField.this, newDate));
+            currentDate = newDate;
+          }
         }
-      );
+      }
+    );
+    
+    /**
+     * Вешаем слушателя на нажатие кнопок
+     */
+    editableCard.addDomHandler(new KeyUpHandler() {
+      @Override
+      public void onKeyUp(KeyUpEvent keyupevent) {
+        int code = keyupevent.getNativeKeyCode();
+        if (passCodeKey(code)) {
+          Date newDate = null;
+          try {
+            if (getRawValue() != null && (getRawValue().equals("") || getRawValue().equals("**.**.****"))) {
+              clearInvalid();
+            } else {
+              newDate = validDate(getRawValue());
+              if (newDate != null) {
+                if (inRangeDate(newDate)) {
+                  handlerKeyboardEvent();
+                }
+              }
+            }
+          } catch(Exception e) {
+            clearInvalid();
+            markInvalid(JepClientUtil.substitute(JepTexts.dateField_invalidText(),getRawValue()));
+          }
+        }
+      }
+    }, KeyUpEvent.getType());
+  }
+  
+  /**
+   * Валидация введенной даты
+   */
+  protected Date validDate(String date) throws Exception {
+    Date result = null;
+    String exceptionMessage = "Incorrect date";
+
+    if (date != null) {
+      String[] dateParts = date.split("\\.");
+      switch (TYPE_DATEPICKER) {
+      case FORMAT_DAYS_AND_MONTH_AND_YEAR: {
+        if (/* validate day */ 1 <= Integer.valueOf(dateParts[0]) && Integer.valueOf(dateParts[0]) <= 31
+            /* validate month */ && 1 <= Integer.valueOf(dateParts[1]) && Integer.valueOf(dateParts[1]) <= 12
+            /* validate year */ && dateParts[2].length() == 4) {
+          result = format.parse(date);
+        } else {
+          throw new Exception(exceptionMessage);
+        }
+        break;
+      } 
+      case FORMAT_MONTH_AND_YEAR_ONLY: {
+        if (/* validate month */ 1 <= Integer.valueOf(dateParts[0]) && Integer.valueOf(dateParts[0]) <= 12
+            /* validate year */ && dateParts[1].length() == 4) {
+          result = format.parse(date);
+        } else {
+          throw new Exception(exceptionMessage);
+        }
+        break;
+      }
+      
+      case FORMAT_YEAR_ONLY: {
+        if (/* validate year */ dateParts[0].length() == 4) {
+          result = format.parse(date);
+        } else {
+          throw new Exception(exceptionMessage);
+        }
+          break;
+        }
+      }
+    }
+    
+    return result; 
+  }
+  
+  /**
+   * Проверяем нажатые клавиши
+   * @param code
+   * @return вернет Истину, если введен допустимый код, иначе Ложь
+   */
+  
+  protected boolean passCodeKey(int code) {
+    if (KeyCodes.KEY_NUM_ZERO <= code && code <= KeyCodes.KEY_NUM_NINE
+         || KeyCodes.KEY_ZERO <= code && code <= KeyCodes.KEY_NINE  
+         || KeyCodes.KEY_BACKSPACE == code
+         || KeyCodes.KEY_DELETE == code) {
+      return true;
+    }
+    return false;
   }
   
   /**
@@ -380,7 +535,8 @@ public class JepDateField extends JepMultiStateField<MaskedDateBox, HTML> {
       markInvalid(JepTexts.field_blankText());
       return false;
     }
-    return true;
+      
+    return inRangeDate(getValue());
   }
   
   /**

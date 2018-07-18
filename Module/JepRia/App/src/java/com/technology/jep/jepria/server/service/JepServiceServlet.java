@@ -23,7 +23,7 @@ abstract public class JepServiceServlet extends RemoteServiceServlet implements 
    * @return идентификатор пользователя
    */
   protected Integer getOperatorId() {
-    return SecurityFactory.getSecurityModule(getJEPThreadLocalRequest()).getOperatorId();
+    return SecurityFactory.getSecurityModule(getThreadLocalRequestWrapper()).getOperatorId();
   }
   
   /**
@@ -37,7 +37,7 @@ abstract public class JepServiceServlet extends RemoteServiceServlet implements 
    * @throws Exception
    */
   protected boolean isRole(String role, boolean makeError) throws ApplicationException {
-    return SecurityFactory.getSecurityModule(getJEPThreadLocalRequest()).isRole(role, makeError);
+    return SecurityFactory.getSecurityModule(getThreadLocalRequestWrapper()).isRole(role, makeError);
   }
   
   protected ApplicationException buildException(String message, Throwable th) {
@@ -52,7 +52,7 @@ abstract public class JepServiceServlet extends RemoteServiceServlet implements 
    * Предоставляет возможность переопределить в потомках получения HTTPRequestServlet другим способом
    * @return
    */
-  protected HttpServletRequest getJEPThreadLocalRequest() {
+  protected HttpServletRequest getThreadLocalRequestWrapper() {
       return getThreadLocalRequest();
   }
   
@@ -61,7 +61,7 @@ abstract public class JepServiceServlet extends RemoteServiceServlet implements 
    * @return
    */
   
-  protected HttpServletResponse getJEPThreadLocalResponse() {
+  protected HttpServletResponse getThreadLocalResponseWrapper() {
       return getThreadLocalResponse();
   }
 }

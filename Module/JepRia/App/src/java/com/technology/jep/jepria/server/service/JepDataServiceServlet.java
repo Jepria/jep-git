@@ -225,7 +225,7 @@ abstract public class JepDataServiceServlet<D extends JepDataStandard> extends J
         maxRowCount,
         getOperatorId());
     
-    HttpSession session = getJEPThreadLocalRequest().getSession();
+    HttpSession session = getThreadLocalRequestWrapper().getSession();
     // Сохраним результаты поиска для возможного повторного использования в приложении 
     // (например, для сортировки или выгрузки отчета в Excel).
     session.setAttribute(FOUND_RECORDS_SESSION_ATTRIBUTE + pagingConfig.getListUID(), resultRecords);
@@ -263,7 +263,7 @@ abstract public class JepDataServiceServlet<D extends JepDataStandard> extends J
     PagingResult<JepRecord> pagingResult = new PagingResult<JepRecord>();
     List<JepRecord> resultRecords = null;
     
-    HttpSession session = getJEPThreadLocalRequest().getSession();
+    HttpSession session = getThreadLocalRequestWrapper().getSession();
     resultRecords = (List<JepRecord>)session.getAttribute(FOUND_RECORDS_SESSION_ATTRIBUTE + sortConfig.getListUID());
     
     // Если в сессии не оказалось необходимых данных, то получим их заново.
@@ -323,8 +323,7 @@ abstract public class JepDataServiceServlet<D extends JepDataStandard> extends J
     PagingResult<JepRecord> pagingResult = new PagingResult<JepRecord>();
     List<JepRecord> resultRecords = null;
     
-    HttpSession session = getJEPThreadLocalRequest().getSession();
-    resultRecords = (List<JepRecord>)session.getAttribute(FOUND_RECORDS_SESSION_ATTRIBUTE + pagingConfig.getListUID());
+    HttpSession session = getThreadLocalRequestWrapper().getSession();
     
     // Если в сессии не оказалось необходимых данных, то получим их заново.
     if(resultRecords == null) {
@@ -364,7 +363,7 @@ abstract public class JepDataServiceServlet<D extends JepDataStandard> extends J
   @Override
   public Integer prepareDownload(String fileName, String mimeType, String fieldName, String recordKey, String contentDisposition, String extension, String fileNamePrefix) {
     Integer downloadId = (new Random()).nextInt();
-    HttpSession session = getJEPThreadLocalRequest().getSession();
+    HttpSession session = getThreadLocalRequestWrapper().getSession();
     session.setAttribute(DOWNLOAD_FILE_NAME + downloadId, fileName);
     session.setAttribute(DOWNLOAD_MIME_TYPE + downloadId, mimeType);
     session.setAttribute(DOWNLOAD_FIELD_NAME + downloadId, fieldName);
@@ -390,7 +389,7 @@ abstract public class JepDataServiceServlet<D extends JepDataStandard> extends J
     logger.trace("BEGIN prepareExcel(" + pagingConfig + ")");
 
     Integer listUID = pagingConfig.getListUID();
-    HttpSession session = getJEPThreadLocalRequest().getSession();
+    HttpSession session = getThreadLocalRequestWrapper().getSession();
 
     // Если в selectedRecords только одна строка - работаем по полному набору данных!
     if (selectedRecords != null && selectedRecords.size() < 2) {
@@ -590,7 +589,7 @@ abstract public class JepDataServiceServlet<D extends JepDataStandard> extends J
    * @param findConfig конфигурация поиска
    */
   protected final void clearFoundRecords(FindConfig findConfig) {
-    HttpSession session = getJEPThreadLocalRequest().getSession();
+    HttpSession session = getThreadLocalRequestWrapper().getSession();
     session.removeAttribute(FOUND_RECORDS_SESSION_ATTRIBUTE + findConfig.getListUID());
   }
 
@@ -600,7 +599,7 @@ abstract public class JepDataServiceServlet<D extends JepDataStandard> extends J
    * @return TRUE, если автообновление нужно; FALSE в противном случае
    */
   public Boolean isRefreshNeeded(Integer listUID) {
-    HttpSession session = getJEPThreadLocalRequest().getSession();
+    HttpSession session = getThreadLocalRequestWrapper().getSession();
     return Boolean.TRUE.equals(session.getAttribute(IS_REFRESH_NEEDED + listUID));
   }
 }

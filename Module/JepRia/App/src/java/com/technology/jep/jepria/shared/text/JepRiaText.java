@@ -2,7 +2,7 @@ package com.technology.jep.jepria.shared.text;
 
 /**
  * Interface to represent the constants contained in resource bundle:
- * 	'C:/javaenterpriseplatform-git/Module/JepRia/App/src/java/com/technology/jep/jepria/shared/text/JepRiaText.properties'.
+ * 	'C:/git/javaenterpriseplatform/Module/JepRia/App/src/java/com/technology/jep/jepria/shared/text/JepRiaText.properties'.
  */
 public interface JepRiaText extends com.google.gwt.i18n.client.Constants {
   
@@ -401,6 +401,24 @@ public interface JepRiaText extends com.google.gwt.i18n.client.Constants {
   @DefaultStringValue("{0} - недопустимая дата")
   @Key("dateField.invalidText")
   String dateField_invalidText();
+
+  /**
+   * Translated "Введенная дата {0} меньше минимально допустимой {1}".
+   * 
+   * @return translated "Введенная дата {0} меньше минимально допустимой {1}"
+   */
+  @DefaultStringValue("Введенная дата {0} меньше минимально допустимой {1}")
+  @Key("dateField.lessThen")
+  String dateField_lessThen();
+
+  /**
+   * Translated "Введенная дата {0} больше максимально допустимой {1}".
+   * 
+   * @return translated "Введенная дата {0} больше максимально допустимой {1}"
+   */
+  @DefaultStringValue("Введенная дата {0} больше максимально допустимой {1}")
+  @Key("dateField.moreThen")
+  String dateField_moreThen();
 
   /**
    * Translated "Вы уверены, что хотите удалить текущую запись?".

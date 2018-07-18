@@ -1,13 +1,16 @@
 package com.technology.jep.jepria.client.widget.field.multistate;
 
 import static com.technology.jep.jepria.client.JepRiaClientConstant.JepTexts;
+import static com.technology.jep.jepria.client.util.JepClientUtil.isSpecialKey;
 import static com.technology.jep.jepria.shared.JepRiaConstant.DEFAULT_DECIMAL_FORMAT;
 
 import java.math.BigDecimal;
 import java.text.ParseException;
 
-import com.google.gwt.dom.client.NativeEvent;
 import com.google.gwt.event.dom.client.DomEvent;
+import com.google.gwt.event.dom.client.KeyCodes;
+import com.google.gwt.event.dom.client.KeyUpEvent;
+import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.i18n.client.NumberFormat;
 import com.technology.jep.jepria.client.util.JepClientUtil;
 import com.technology.jep.jepria.client.widget.field.BigDecimalBox;
@@ -16,7 +19,6 @@ import com.technology.jep.jepria.shared.util.JepRiaUtil;
 /**
  * Поле для ввода числа денежного формата.
  */
-@SuppressWarnings("unchecked")
 public class JepMoneyField extends JepBaseNumberField<BigDecimalBox> {
 
   /**
@@ -38,6 +40,7 @@ public class JepMoneyField extends JepBaseNumberField<BigDecimalBox> {
     setNumberFormat(NumberFormat.getFormat(DEFAULT_DECIMAL_FORMAT));
   }
 
+  
   /**
    * {@inheritDoc}
    */
@@ -51,18 +54,27 @@ public class JepMoneyField extends JepBaseNumberField<BigDecimalBox> {
       
       @Override
       public BigDecimal getValueOrThrow() throws ParseException {
-          String text = getText();
-          Double parseResult = null;
-          if (!JepRiaUtil.isEmpty(text)) {
-              parseResult = getNumberFormat().parse(text.replaceAll("\\" + DECIMAL_RANK_SEPARATOR, ""));
-          }
-          
-          if(parseResult == null)
-              return null;
-          else
-              return new BigDecimal(parseResult);
+        String text = getText();
+        Double parseResult = null;
+        if (!JepRiaUtil.isEmpty(text)) {
+            parseResult = getNumberFormat().parse(text.replaceAll("\\" + DECIMAL_RANK_SEPARATOR, ""));
+        }
+        
+        if(parseResult == null)
+            return null;
+        else
+            return new BigDecimal(parseResult);
       }
     };
+    
+    // Переопределяем обработчик поднятия клавиши (сигнатура метода отлична от определенного в родителе - KeyUpEvent)
+    editableCard.addKeyUpHandler(new KeyUpHandler() {
+        @Override
+        public void onKeyUp(KeyUpEvent event) {
+            keyUpEventHandler(event);
+        }
+    });
+    
     editablePanel.add(editableCard);
     
     // Добавляем обработчик события "нажатия клавиши" для проверки ввода символов.
@@ -93,7 +105,7 @@ public class JepMoneyField extends JepBaseNumberField<BigDecimalBox> {
    * @return количество разрешенных для ввода символов после точки
    */
   public Integer getMaxNumberCharactersAfterDecimalSeparator() {
-    return maxNumberCharactersAfterDecimalSeparator;
+      return maxNumberCharactersAfterDecimalSeparator;
   }
   
   /**
@@ -103,7 +115,7 @@ public class JepMoneyField extends JepBaseNumberField<BigDecimalBox> {
    */
   public void setMaxNumberCharactersAfterDecimalSeparator(
       Integer maxNumberCharactersAfterDecimalSeparator) {
-    this.maxNumberCharactersAfterDecimalSeparator = maxNumberCharactersAfterDecimalSeparator;
+      this.maxNumberCharactersAfterDecimalSeparator = maxNumberCharactersAfterDecimalSeparator;
   }  
   
   /**
@@ -134,102 +146,148 @@ public class JepMoneyField extends JepBaseNumberField<BigDecimalBox> {
   @Override
   protected boolean keyPressEventHandler(DomEvent<?> event){
     boolean result = super.keyPressEventHandler(event);
+    
     if (result){
-      /*
-       * Firefox имеет особенность: событие KeyPress генерируется не только при нажатии
-       * на алфавитно-цифровые клавиши, поэтому необходимо проверять значение charCode 
-       * на равенство нулю.
-       */
-      NativeEvent nativeEvent = event.getNativeEvent();
-      if (nativeEvent.getCharCode() == 0) {
-        return true;
-        }
-      /*
-       * Не реагируем, если нажата одна из клавиш Alt, Ctrl или Meta, 
-       * иначе не будут работать сочетания клавиш наподобие Ctrl-C, Ctrl-V.
-       */
-      if (nativeEvent.getAltKey() || nativeEvent.getCtrlKey() || nativeEvent.getMetaKey()) {
-        return true;
+      if (!numberFormating(event.getNativeEvent().getCharCode())) {
+          event.preventDefault();
       }
-      
-      int keyCode = nativeEvent.getKeyCode();
+    }
+    return result;
+  }
+  
+  protected void keyUpEventHandler(KeyUpEvent event) {
+    int keyCode = event.getNativeKeyCode();
+    if(delayedTask != null) {
+      if (isModifierKey(keyCode) || !isSpecialKey(event)) {
+        startTypingTimeout();
+      }
+    } else {
+      if (isModifierKey(keyCode)) {
+        if (!numberFormating(keyCode)) {
+            event.preventDefault();
+        }
+      }
+    }
+  }
+  
+  /**
+   * Форматирование введенного числа с разделителем тысячных групп разрядов числа и дробной частью до сотых  
+   * @param keyCode
+   * @return
+   */
+  protected boolean numberFormating(int keyCode) {
       final StringBuilder sb = new StringBuilder();
       sb.append(String.valueOf(getRawValue()));
-      sb.insert(editableCard.getCursorPos(), String.valueOf((char) keyCode));
+      
+      boolean isModifierKey = isModifierKey(keyCode);
+      
+      if (!isModifierKey) {
+          sb.insert(editableCard.getCursorPos(), String.valueOf((char) keyCode));
+      }
+      
       String aux = sb.toString();
       int currentPosCursor = editableCard.getCursorPos();
       
       StringBuilder valueEdit = new StringBuilder();
       
       valueEdit.append(String.valueOf(getRawValueWithSeparatorRanks()));
-      valueEdit.insert(currentPosCursor, MARKER_SYMBOL);
+      
+      // Удаление выделенного текста
+      if (editableCard.getSelectedText() != null && editableCard.getSelectedText().length() > 0) {
+          String selectedText = editableCard.getSelectedText();
+          valueEdit.replace(currentPosCursor, currentPosCursor + selectedText.length(), "");
+      }
+      
+      if (!isModifierKey) {
+          valueEdit.insert(currentPosCursor, MARKER_SYMBOL);
+      }
+      
       String value = valueEdit.toString();
       boolean posCursorAfterDecimalSeparator = currentPosCursor > value.indexOf(decimalSeparator);
       boolean alreadyHasDecimalSeparator = value.indexOf(decimalSeparator) > 0;
       // дополнительно проверяем, что мы находимся в области редактирования дробной части
       if (posCursorAfterDecimalSeparator && alreadyHasDecimalSeparator)
           if (!isDecimalPartValid(aux)) {
-            event.preventDefault();
             return false;
           }
       
-      // проверяем,, что позиция курсора находится в целой части числа, необходимо для сокращения времени на форматирование
+      // проверяем,, что позиция курсора находится в целой части числа, необходимо для работы только форматирования целой части числа
       posCursorAfterDecimalSeparator = currentPosCursor > value.indexOf(decimalSeparator);
       alreadyHasDecimalSeparator = value.indexOf(decimalSeparator) > 0;
       if (!JepRiaUtil.isEmpty(getRawValueWithSeparatorRanks())) {
-          if (!String.valueOf((char) keyCode).contains(decimalSeparator)) {
-              if (posCursorAfterDecimalSeparator && alreadyHasDecimalSeparator) {
-                  return true;
-              }
-              
-              // разделяем целую часть чилса от дровной
-              String[] parts = value.split("\\" + decimalSeparator, 2);
-              String decimalPart1, decimalPart2 = "";
-              boolean has2Parts = false;
-              if (parts.length == 2 ) {
-                  decimalPart1 = parts[0];
-                  decimalPart2 = parts[1];
-                  has2Parts = true;
-              } else {
-                  decimalPart1 = parts[0];
-              }
-              
-              decimalPart1 = decimalPart1.replaceAll("\\s", "");
-              
-              //непосредственное форматирование введенных значений
-              String reverseText = new StringBuilder(decimalPart1).reverse().toString();
-              StringBuilder formatNumber = new StringBuilder();
-              for (int i = 0; i < reverseText.length(); i++) {
-                  char ch = reverseText.toCharArray()[i];
-                  if (i % 3 == 0 && i > 0) {
-                      formatNumber.append(DECIMAL_RANK_SEPARATOR);
-                  } 
-                  formatNumber.append(ch);
-              }
-              
-              // меняем направление текста
-              String fromatedText = formatNumber.reverse().toString();
-              // вычисляем позицию маркера 
-              int evaluatingPositionCursor = fromatedText.indexOf(MARKER_SYMBOL);
-              // удаляем маркер
-              fromatedText = fromatedText.replaceAll("\\" + String.valueOf(MARKER_SYMBOL), "");
-              getEditableCard().setText(fromatedText + (has2Parts ? decimalSeparator + decimalPart2 : ""));
-              getEditableCard().setCursorPos(evaluatingPositionCursor);
+        if (!String.valueOf((char) keyCode).contains(decimalSeparator) ) {
+          if (posCursorAfterDecimalSeparator && alreadyHasDecimalSeparator) {
+              return true;
           }
-      }
+
+          // разделяем целую часть числа от дровной
+          String[] parts = value.split("\\" + decimalSeparator, 2);
+          String decimalPart1, decimalPart2 = "";
+          boolean has2Parts = false;
+          if (parts.length == 2 ) {
+              decimalPart1 = parts[0];
+              decimalPart2 = parts[1];
+              has2Parts = true;
+          } else {
+              decimalPart1 = parts[0];
+          }
+          
+          decimalPart1 = decimalPart1.replaceAll("\\s", "");
+          
+          //непосредственное форматирование введенных значений
+          String reverseText = new StringBuilder(decimalPart1).reverse().toString();
+          StringBuilder formatNumber = new StringBuilder();
+          char[] charArray = reverseText.toCharArray();
+          long sizeText = reverseText.length();
+          for (int i = 0; i < sizeText; i++) {
+              char ch = charArray[i];
+              if (i % 3 == 0 && i > 0) {
+                  formatNumber.append(DECIMAL_RANK_SEPARATOR);
+              } 
+              formatNumber.append(ch);
+          }
+          
+          // меняем направление текста
+          String fromatedText = formatNumber.reverse().toString();
+          
+          // вычисляем позицию маркера 
+          int evaluatingPositionCursor = currentPosCursor;
+          if (!isModifierKey) {
+              evaluatingPositionCursor = fromatedText.indexOf(MARKER_SYMBOL);
+          } else {
+              evaluatingPositionCursor = evaluatingPositionCursor > fromatedText.length() && evaluatingPositionCursor > 0 ? evaluatingPositionCursor - 1 : evaluatingPositionCursor;
+          }
+          
+          // удаляем маркер
+          if (!isModifierKey) {
+              fromatedText = fromatedText.replace(String.valueOf(MARKER_SYMBOL), "");
+          }
+          
+          getEditableCard().setText(fromatedText + (has2Parts ? decimalSeparator + decimalPart2 : ""));
+          getEditableCard().setCursorPos(evaluatingPositionCursor);
+      } 
     }
-    return result;
+    return true;
+  }
+  
+  /**
+   * Проверка что код нажатой кнопки принадлежит к группе редактируемых кнопок - DELTE или BACKSPACE
+   * @param keyCode
+   * @return
+   */
+  protected boolean isModifierKey(int keyCode) {
+    return keyCode == KeyCodes.KEY_BACKSPACE || keyCode == KeyCodes.KEY_DELETE;
   }
   
   @Override
   public String getRawValue() {
-      String value = getInputElement().getPropertyString("value").replaceAll(" ", "");
-      return value;
+    String value = getInputElement().getPropertyString("value").replaceAll(" ", "");
+    return value;
   }
   
   public String getRawValueWithSeparatorRanks() {
-      String value = getInputElement().getPropertyString("value");
-      return value;
+    String value = getInputElement().getPropertyString("value");
+    return value;
   }
   
   /**
@@ -237,7 +295,7 @@ public class JepMoneyField extends JepBaseNumberField<BigDecimalBox> {
    */
   @Override
   public boolean isValid(){
-      String value = editableCard.getText().replaceAll("\\" + DECIMAL_RANK_SEPARATOR, "");
+    String value = editableCard.getText().replaceAll("\\" + DECIMAL_RANK_SEPARATOR, "");
     boolean isValid = super.isValid(value);
     try {
       // Проверка на наличие недопустимых символов необходима
@@ -245,8 +303,7 @@ public class JepMoneyField extends JepBaseNumberField<BigDecimalBox> {
       if (!isDecimalPartValid(value)) {
         throw new ParseException(null, -1);
       }
-    }
-    catch(ParseException e){
+    } catch(ParseException e) {
       markInvalid(JepClientUtil.substitute(JepTexts.numberField_nanText(), getRawValue()));
       return false;
     }
