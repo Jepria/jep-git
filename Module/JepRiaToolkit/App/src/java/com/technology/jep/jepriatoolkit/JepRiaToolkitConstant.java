@@ -1012,7 +1012,10 @@ public class JepRiaToolkitConstant {
   
   public static final String CLIENT_MODULE_IMAGES_TEMPLATE_PROPERTY = "fileTemplate.clientModuleToolBarImages";
   public static final String CLIENT_MODULE_IMAGES_PATH_TEMPLATE_PROPERTY = "fileTemplate.clientModuleToolBarImages.path";
-  
+
+  public static final String JS_VERSION_INFO_SOURCE_PATH_PROPERTY = "fileTemplate.jsVersionInfo.path.source";
+  public static final String JS_VERSION_INFO_DESTINATION_PATH_PROPERTY = "fileTemplate.jsVersionInfo.path.destination";
+
   public static final String CURRENT_DIRECTORY_ENVIRONMENT_VARIABLE = "user.dir";
   
   public static final String MODULE_NAME_TEMPLATE_PARAMETER = "moduleName";
