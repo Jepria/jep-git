@@ -7,16 +7,19 @@ import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.PropertyHelper;
 import org.apache.tools.ant.Task;
 
-import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.PREFIX_DESTINATION_RESOURCE;
-import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.WEB_XML_PATH_TEMPLATE_PROPERTY;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
+import static com.technology.jep.jepriatoolkit.JepRiaToolkitConstant.*;
 import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.*;
-import static java.text.MessageFormat.format;
 
 
 public class AppSign extends Task {
     // атрибуты таска
     private String libraryVersion, hostName, userName, projectName, moduleName, svnRevision, svnTag;
     private String taskResult, buildConfig;
+
     @Override
     public void execute() throws BuildException {
         checkParameter(libraryVersion, "Incorrect parameter: libraryVersion!");
@@ -31,6 +34,21 @@ public class AppSign extends Task {
                 .set("svn", Json.make(appVersion.getSvn()));
         PropertyHelper ph = PropertyHelper.getPropertyHelper(getProject());
         ph.setProperty(taskResult, json, false);
+        // кладем JS файл в проект
+        String jsVersionInfoTemplateContent = readFromJar(
+                getDefinitionProperty(JS_VERSION_INFO_SOURCE_PATH_PROPERTY, "/templates/src/js/load-version-info.js")
+                , UTF_8);
+        Path jsDir = Paths.get("./src/js/");
+        if (Files.notExists(jsDir)) {
+            try {
+                Files.createDirectory(jsDir);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        writeToFile(jsVersionInfoTemplateContent,
+                getDefinitionProperty(JS_VERSION_INFO_DESTINATION_PATH_PROPERTY, "src/js/load-version-info.js")
+                , UTF_8, true);
     }
 
     public String getLibraryVersion() {
@@ -89,8 +107,13 @@ public class AppSign extends Task {
         this.svnTag = svnTag;
     }
 
-    public String getTaskResult() { return taskResult; }
-    public void setTaskResult(String taskResult) { this.taskResult = taskResult;}
+    public String getTaskResult() {
+        return taskResult;
+    }
+
+    public void setTaskResult(String taskResult) {
+        this.taskResult = taskResult;
+    }
 
     public String getBuildConfig() {
         return buildConfig;
