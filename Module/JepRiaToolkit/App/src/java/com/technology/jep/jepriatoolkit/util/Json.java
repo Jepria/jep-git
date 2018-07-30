@@ -26,23 +26,12 @@ import java.net.URI;
 import java.net.URL;
 import java.text.CharacterIterator;
 import java.text.StringCharacterIterator;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.IdentityHashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
-//import java.util.function.Function;
+import java.util.*;
 import java.util.regex.Pattern;
 
+//import java.util.function.Function;
+
 /**
- *
  * <p>
  * Represents a JSON (JavaScript Object Notation) entity. For more information about JSON, please see
  * <a href="http://www.json.org" target="_">http://www.json.org</a>.
@@ -250,12 +239,1003 @@ import java.util.regex.Pattern;
  * for (Json error : errors.asJsonList())
  * 	   System.out.println("Validation error " + err);
  * </code></pre>
+ *
  * @author Borislav Iordanov
  * @version 2.0.0
  */
-public class Json implements java.io.Serializable, Iterable<Json>
-{
+public class Json implements java.io.Serializable, Iterable<Json> {
+    public static final Factory defaultFactory = new DefaultFactory();
     private static final long serialVersionUID = 1L;
+    static NullJson topnull = new NullJson();
+    /**
+     * A utility class that is used to perform JSON escaping so that ", <, >, etc. characters are
+     * properly encoded in the JSON string representation before returning to the client code.
+     *
+     * <p>This class contains a single method to escape a passed in string value:
+     * <pre>
+     *   String jsonStringValue = "beforeQuote\"afterQuote";
+     *   String escapedValue = Escaper.escapeJsonString(jsonStringValue);
+     * </pre></p>
+     *
+     * @author Inderjeet Singh
+     * @author Joel Leitch
+     */
+    static Escaper escaper = new Escaper(false);
+    private static Factory globalFactory = defaultFactory;
+    // TODO: maybe use initialValue thread-local method to attach global factory by default here...
+    private static ThreadLocal<Factory> threadFactory = new ThreadLocal<Factory>();
+    Json enclosing = null;
+
+    protected Json() {
+    }
+
+    protected Json(Json enclosing) {
+        this.enclosing = enclosing;
+    }
+
+    static String fetchContent(URL url) {
+        java.io.Reader reader = null;
+        try {
+            reader = new java.io.InputStreamReader((java.io.InputStream) url.getContent());
+            StringBuilder content = new StringBuilder();
+            char[] buf = new char[1024];
+            for (int n = reader.read(buf); n > -1; n = reader.read(buf))
+                content.append(buf, 0, n);
+            return content.toString();
+        } catch (Exception ex) {
+            throw new RuntimeException(ex);
+        } finally {
+            if (reader != null) try {
+                reader.close();
+            } catch (Throwable t) {
+            }
+        }
+    }
+
+    static Json resolvePointer(String pointerRepresentation, Json top) {
+        String[] parts = pointerRepresentation.split("/");
+        Json result = top;
+        for (String p : parts) {
+            // TODO: unescaping and decoding
+            if (p.length() == 0)
+                continue;
+            p = p.replace("~1", "/").replace("~0", "~");
+            if (result.isArray())
+                result = result.at(Integer.parseInt(p));
+            else if (result.isObject())
+                result = result.at(p);
+            else
+                throw new RuntimeException("Can't resolve pointer " + pointerRepresentation +
+                        " on document " + top.toString(200));
+        }
+        return result;
+    }
+
+    static URI makeAbsolute(URI base, String ref) throws Exception {
+        URI refuri;
+        if (base != null && base.getAuthority() != null && !new URI(ref).isAbsolute()) {
+            StringBuilder sb = new StringBuilder();
+            if (base.getScheme() != null)
+                sb.append(base.getScheme()).append("://");
+            sb.append(base.getAuthority());
+            if (!ref.startsWith("/")) {
+                if (ref.startsWith("#"))
+                    sb.append(base.getPath());
+                else {
+                    int slashIdx = base.getPath().lastIndexOf('/');
+                    sb.append(slashIdx == -1 ? base.getPath() : base.getPath().substring(0, slashIdx)).append("/");
+                }
+            }
+            refuri = new URI(sb.append(ref).toString());
+        } else if (base != null)
+            refuri = base.resolve(ref);
+        else
+            refuri = new URI(ref);
+        return refuri;
+    }
+
+    static Json resolveRef(URI base,
+                           Json refdoc,
+                           URI refuri,
+                           Map<String, Json> resolved,
+                           Map<Json, Json> expanded,
+                           Function<URI, Json> uriResolver) throws Exception {
+        if (refuri.isAbsolute() &&
+                (base == null || !base.isAbsolute() ||
+                        !base.getScheme().equals(refuri.getScheme()) ||
+                        !Objects.equals(base.getHost(), refuri.getHost()) ||
+                        base.getPort() != refuri.getPort() ||
+                        !base.getPath().equals(refuri.getPath()))) {
+            URI docuri = null;
+            refuri = refuri.normalize();
+            if (refuri.getHost() == null)
+                docuri = new URI(refuri.getScheme() + ":" + refuri.getPath());
+            else
+                docuri = new URI(refuri.getScheme() + "://" + refuri.getHost() +
+                        ((refuri.getPort() > -1) ? ":" + refuri.getPort() : "") +
+                        refuri.getPath());
+            refdoc = uriResolver.apply(docuri);
+            refdoc = expandReferences(refdoc, refdoc, docuri, resolved, expanded, uriResolver);
+        }
+        if (refuri.getFragment() == null)
+            return refdoc;
+        else
+            return resolvePointer(refuri.getFragment(), refdoc);
+    }
+
+    /**
+     * <p>
+     * Replace all JSON references, as per the http://tools.ietf.org/html/draft-pbryan-zyp-json-ref-03
+     * specification, by their referants.
+     * </p>
+     *
+     * @param json
+     * @param duplicate
+     * @param done
+     * @return
+     */
+    static Json expandReferences(Json json,
+                                 Json topdoc,
+                                 URI base,
+                                 Map<String, Json> resolved,
+                                 Map<Json, Json> expanded,
+                                 Function<URI, Json> uriResolver) throws Exception {
+        if (expanded.containsKey(json)) return json;
+        if (json.isObject()) {
+            if (json.has("id") && json.at("id").isString()) // change scope of nest references
+            {
+                base = base.resolve(json.at("id").asString());
+            }
+
+            if (json.has("$ref")) {
+                URI refuri = makeAbsolute(base, json.at("$ref").asString()); // base.resolve(json.at("$ref").asString());
+                Json ref = resolved.get(refuri.toString());
+                if (ref == null) {
+                    ref = Json.object();
+                    resolved.put(refuri.toString(), ref);
+                    ref.with(resolveRef(base, topdoc, refuri, resolved, expanded, uriResolver));
+                }
+                json = ref;
+            } else {
+                for (Map.Entry<String, Json> e : json.asJsonMap().entrySet())
+                    json.set(e.getKey(), expandReferences(e.getValue(), topdoc, base, resolved, expanded, uriResolver));
+            }
+        } else if (json.isArray()) {
+            for (int i = 0; i < json.asJsonList().size(); i++)
+                json.set(i,
+                        expandReferences(json.at(i), topdoc, base, resolved, expanded, uriResolver));
+        }
+        expanded.put(json, json);
+        return json;
+    }
+
+    public static Schema schema(Json S) {
+        return new DefaultSchema(null, S, null);
+    }
+
+    public static Schema schema(URI uri) {
+        return schema(uri, null);
+    }
+
+    public static Schema schema(URI uri, Function<URI, Json> relativeReferenceResolver) {
+        try {
+            return new DefaultSchema(uri, Json.read(Json.fetchContent(uri.toURL())), relativeReferenceResolver);
+        } catch (Exception ex) {
+            throw new RuntimeException(ex);
+        }
+    }
+
+    public static Schema schema(Json S, URI uri) {
+        return new DefaultSchema(uri, S, null);
+    }
+
+    /**
+     * <p>Return the {@link Factory} currently in effect. This is the factory that the {@link #make(Object)} method
+     * will dispatch on upon determining the type of its argument. If you already know the type
+     * of element to construct, you can avoid the type introspection implicit to the make method
+     * and call the factory directly. This will result in an optimization. </p>
+     *
+     * @return the factory
+     */
+    public static Factory factory() {
+        Factory f = threadFactory.get();
+        return f != null ? f : globalFactory;
+    }
+
+    /**
+     * <p>
+     * Specify a global Json {@link Factory} to be used by all threads that don't have a
+     * specific thread-local factory attached to them.
+     * </p>
+     *
+     * @param factory The new global factory
+     */
+    public static void setGlobalFactory(Factory factory) {
+        globalFactory = factory;
+    }
+
+    /**
+     * <p>
+     * Attach a thread-local Json {@link Factory} to be used specifically by this thread. Thread-local
+     * Json factories are the only means to have different {@link Factory} implementations used simultaneously
+     * in the same application (well, more accurately, the same ClassLoader).
+     * </p>
+     *
+     * @param factory the new thread local factory
+     */
+    public static void attachFactory(Factory factory) {
+        threadFactory.set(factory);
+    }
+
+    /**
+     * <p>
+     * Clear the thread-local factory previously attached to this thread via the
+     * {@link #attachFactory(Factory)} method. The global factory takes effect after
+     * a call to this method.
+     * </p>
+     */
+    public static void detachFactory() {
+        threadFactory.remove();
+    }
+
+    /**
+     * <p>
+     * Parse a JSON entity from its string representation.
+     * </p>
+     *
+     * @param jsonAsString A valid JSON representation as per the <a href="http://www.json.org">json.org</a>
+     *                     grammar. Cannot be <code>null</code>.
+     * @return The JSON entity parsed: an object, array, string, number or boolean, or null. Note that
+     * this method will never return the actual Java <code>null</code>.
+     */
+    public static Json read(String jsonAsString) {
+        return (Json) new Reader().read(jsonAsString);
+    }
+
+    /**
+     * <p>
+     * Parse a JSON entity from a <code>URL</code>.
+     * </p>
+     *
+     * @param location A valid URL where to load a JSON document from. Cannot be <code>null</code>.
+     * @return The JSON entity parsed: an object, array, string, number or boolean, or null. Note that
+     * this method will never return the actual Java <code>null</code>.
+     */
+    public static Json read(URL location) {
+        return (Json) new Reader().read(fetchContent(location));
+    }
+
+    /**
+     * <p>
+     * Parse a JSON entity from a {@link CharacterIterator}.
+     * </p>
+     *
+     * @param it A character iterator.
+     * @return the parsed JSON element
+     * @see #read(String)
+     */
+    public static Json read(CharacterIterator it) {
+        return (Json) new Reader().read(it);
+    }
+
+    /**
+     * @return the <code>null Json</code> instance.
+     */
+    public static Json nil() {
+        return factory().nil();
+    }
+
+    /**
+     * @return a newly constructed, empty JSON object.
+     */
+    public static Json object() {
+        return factory().object();
+    }
+
+    /**
+     * <p>Return a new JSON object initialized from the passed list of
+     * name/value pairs. The number of arguments must
+     * be even. Each argument at an even position is taken to be a name
+     * for the following value. The name arguments are normally of type
+     * Java String, but they can be of any other type having an appropriate
+     * <code>toString</code> method. Each value is first converted
+     * to a <code>Json</code> instance using the {@link #make(Object)} method.
+     * </p>
+     *
+     * @param args A sequence of name value pairs.
+     * @return the new JSON object.
+     */
+    public static Json object(Object... args) {
+        Json j = object();
+        if (args.length % 2 != 0)
+            throw new IllegalArgumentException("An even number of arguments is expected.");
+        for (int i = 0; i < args.length; i++)
+            j.set(args[i].toString(), factory().make(args[++i]));
+        return j;
+    }
+
+    /**
+     * @return a new constructed, empty JSON array.
+     */
+    public static Json array() {
+        return factory().array();
+    }
+
+    /**
+     * <p>Return a new JSON array filled up with the list of arguments.</p>
+     *
+     * @param args The initial content of the array.
+     * @return the new JSON array
+     */
+    public static Json array(Object... args) {
+        Json A = array();
+        for (Object x : args)
+            A.add(factory().make(x));
+        return A;
+    }
+
+    /**
+     * <p>
+     * Convert an arbitrary Java instance to a {@link Json} instance.
+     * </p>
+     *
+     * <p>
+     * Maps, Collections and arrays are recursively copied where each of
+     * their elements concerted into <code>Json</code> instances as well. The keys
+     * of a {@link Map} parameter are normally strings, but anything with a meaningful
+     * <code>toString</code> implementation will work as well.
+     * </p>
+     *
+     * @param anything Any Java object that the current JSON factory in effect is capable of handling.
+     * @return The <code>Json</code>. This method will never return <code>null</code>. It will
+     * throw an {@link IllegalArgumentException} if it doesn't know how to convert the argument
+     * to a <code>Json</code> instance.
+     * @throws IllegalArgumentException when the concrete type of the parameter is
+     *                                  unknown.
+     */
+    public static Json make(Object anything) {
+        return factory().make(anything);
+    }
+
+    /**
+     * <p>
+     * Set the parent (i.e. enclosing element) of Json element.
+     * </p>
+     *
+     * @param el
+     * @param parent
+     */
+    static void setParent(Json el, Json parent) {
+        if (el.enclosing == null)
+            el.enclosing = parent;
+        else if (el.enclosing instanceof ParentArrayJson)
+            ((ParentArrayJson) el.enclosing).L.add(parent);
+        else {
+            ParentArrayJson A = new ParentArrayJson();
+            A.L.add(el.enclosing);
+            A.L.add(parent);
+            el.enclosing = A;
+        }
+    }
+
+    /**
+     * <p>
+     * Remove/unset the parent (i.e. enclosing element) of Json element.
+     * </p>
+     *
+     * @param el
+     * @param parent
+     */
+    static void removeParent(Json el, Json parent) {
+        if (el.enclosing == parent)
+            el.enclosing = null;
+        else if (el.enclosing.isArray()) {
+            ArrayJson A = (ArrayJson) el.enclosing;
+            int idx = 0;
+            while (A.L.get(idx) != parent && idx < A.L.size()) idx++;
+            if (idx < A.L.size())
+                A.L.remove(idx);
+        }
+    }
+
+    public static void main(String[] argv) {
+        try {
+            URI assetUri = new URI("https://raw.githubusercontent.com/pudo/aleph/master/aleph/schema/entity/asset.json");
+            URI schemaRoot = new URI("https://raw.githubusercontent.com/pudo/aleph/master/aleph/schema/");
+
+            // This fails
+            Json.schema(assetUri);
+
+            // And so does this
+            Json asset = Json.read(assetUri.toURL());
+            Json.schema(asset, schemaRoot);
+        } catch (Throwable t) {
+            t.printStackTrace();
+        }
+    }
+
+    // end of static utility method section
+
+    @Override
+    public Iterator<Json> iterator() {
+        return new Iterator<Json>() {
+            @Override
+            public boolean hasNext() {
+                return false;
+            }
+
+            @Override
+            public Json next() {
+                return null;
+            }
+
+            @Override
+            public void remove() {
+            }
+        };
+    }
+
+    /**
+     * <p>Return a string representation of <code>this</code> that does
+     * not exceed a certain maximum length. This is useful in constructing
+     * error messages or any other place where only a "preview" of the
+     * JSON element should be displayed. Some JSON structures can get
+     * very large and this method will help avoid string serializing
+     * the whole of them. </p>
+     *
+     * @param maxCharacters The maximum number of characters for
+     *                      the string representation.
+     * @return The string representation of this object.
+     */
+    public String toString(int maxCharacters) {
+        return toString();
+    }
+
+    /**
+     * <p>Explicitly set the parent of this element. The parent is presumably an array
+     * or an object. Normally, there's no need to call this method as the parent is
+     * automatically set by the framework. You may need to call it however, if you implement
+     * your own {@link Factory} with your own implementations of the Json types.
+     * </p>
+     *
+     * @param enclosing The parent element.
+     */
+    public void attachTo(Json enclosing) {
+        this.enclosing = enclosing;
+    }
+
+    /**
+     * @return the <code>Json</code> entity, if any, enclosing this
+     * <code>Json</code>. The returned value can be <code>null</code> or
+     * a <code>Json</code> object or list, but not one of the primitive types.
+     */
+    public final Json up() {
+        return enclosing;
+    }
+
+    /**
+     * @return a clone (a duplicate) of this <code>Json</code> entity. Note that cloning
+     * is deep if array and objects. Primitives are also cloned, even though their values are immutable
+     * because the new enclosing entity (the result of the {@link #up()} method) may be different.
+     * since they are immutable.
+     */
+    public Json dup() {
+        return this;
+    }
+
+    /**
+     * <p>Return the <code>Json</code> element at the specified index of this
+     * <code>Json</code> array. This method applies only to Json arrays.
+     * </p>
+     *
+     * @param index The index of the desired element.
+     * @return The JSON element at the specified index in this array.
+     */
+    public Json at(int index) {
+        throw new UnsupportedOperationException();
+    }
+
+    /**
+     * <p>
+     * Return the specified property of a <code>Json</code> object or <code>null</code>
+     * if there's no such property. This method applies only to Json objects.
+     * </p>
+     *
+     * @param The property name.
+     * @return The JSON element that is the value of that property.
+     */
+    public Json at(String property) {
+        throw new UnsupportedOperationException();
+    }
+
+    /**
+     * <p>
+     * Return the specified property of a <code>Json</code> object if it exists.
+     * If it doesn't, then create a new property with value the <code>def</code>
+     * parameter and return that parameter.
+     * </p>
+     *
+     * @param property The property to return.
+     * @param def      The default value to set and return in case the property doesn't exist.
+     */
+    public final Json at(String property, Json def) {
+        Json x = at(property);
+        if (x == null) {
+//			set(property, def);
+            return def;
+        } else
+            return x;
+    }
+
+    /**
+     * <p>
+     * Return the specified property of a <code>Json</code> object if it exists.
+     * If it doesn't, then create a new property with value the <code>def</code>
+     * parameter and return that parameter.
+     * </p>
+     *
+     * @param property The property to return.
+     * @param def      The default value to set and return in case the property doesn't exist.
+     */
+    public final Json at(String property, Object def) {
+        return at(property, make(def));
+    }
+
+    /**
+     * <p>
+     * Return true if this <code>Json</code> object has the specified property
+     * and false otherwise.
+     * </p>
+     *
+     * @param property The name of the property.
+     */
+    public boolean has(String property) {
+        throw new UnsupportedOperationException();
+    }
+
+    /**
+     * <p>
+     * Return <code>true</code> if and only if this <code>Json</code> object has a property with
+     * the specified value. In particular, if the object has no such property <code>false</code> is returned.
+     * </p>
+     *
+     * @param property The property name.
+     * @param value    The value to compare with. Comparison is done via the equals method.
+     *                 If the value is not an instance of <code>Json</code>, it is first converted to
+     *                 such an instance.
+     * @return
+     */
+    public boolean is(String property, Object value) {
+        throw new UnsupportedOperationException();
+    }
+
+    /**
+     * <p>
+     * Return <code>true</code> if and only if this <code>Json</code> array has an element with
+     * the specified value at the specified index. In particular, if the array has no element at
+     * this index, <code>false</code> is returned.
+     * </p>
+     *
+     * @param index The 0-based index of the element in a JSON array.
+     * @param value The value to compare with. Comparison is done via the equals method.
+     *              If the value is not an instance of <code>Json</code>, it is first converted to
+     *              such an instance.
+     * @return
+     */
+    public boolean is(int index, Object value) {
+        throw new UnsupportedOperationException();
+    }
+
+    /**
+     * <p>
+     * Add the specified <code>Json</code> element to this array.
+     * </p>
+     *
+     * @return this
+     */
+    public Json add(Json el) {
+        throw new UnsupportedOperationException();
+    }
+
+    /**
+     * <p>
+     * Add an arbitrary Java object to this <code>Json</code> array. The object
+     * is first converted to a <code>Json</code> instance by calling the static
+     * {@link #make} method.
+     * </p>
+     *
+     * @param anything Any Java object that can be converted to a Json instance.
+     * @return this
+     */
+    public final Json add(Object anything) {
+        return add(make(anything));
+    }
+
+    /**
+     * <p>
+     * Remove the specified property from a <code>Json</code> object and return
+     * that property.
+     * </p>
+     *
+     * @param property The property to be removed.
+     * @return The property value or <code>null</code> if the object didn't have such
+     * a property to begin with.
+     */
+    public Json atDel(String property) {
+        throw new UnsupportedOperationException();
+    }
+
+    /**
+     * <p>
+     * Remove the element at the specified index from a <code>Json</code> array and return
+     * that element.
+     * </p>
+     *
+     * @param index The index of the element to delete.
+     * @return The element value.
+     */
+    public Json atDel(int index) {
+        throw new UnsupportedOperationException();
+    }
+
+    /**
+     * <p>
+     * Delete the specified property from a <code>Json</code> object.
+     * </p>
+     *
+     * @param property The property to be removed.
+     * @return this
+     */
+    public Json delAt(String property) {
+        throw new UnsupportedOperationException();
+    }
+
+    /**
+     * <p>
+     * Remove the element at the specified index from a <code>Json</code> array.
+     * </p>
+     *
+     * @param index The index of the element to delete.
+     * @return this
+     */
+    public Json delAt(int index) {
+        throw new UnsupportedOperationException();
+    }
+
+    /**
+     * <p>
+     * Remove the specified element from a <code>Json</code> array.
+     * </p>
+     *
+     * @param el The element to delete.
+     * @return this
+     */
+    public Json remove(Json el) {
+        throw new UnsupportedOperationException();
+    }
+
+    /**
+     * <p>
+     * Remove the specified Java object (converted to a Json instance)
+     * from a <code>Json</code> array. This is equivalent to
+     * <code>remove({@link #make(Object)})</code>.
+     * </p>
+     *
+     * @param anything The object to delete.
+     * @return this
+     */
+    public final Json remove(Object anything) {
+        return remove(make(anything));
+    }
+
+    /**
+     * <p>
+     * Set a <code>Json</code> objects's property.
+     * </p>
+     *
+     * @param property The property name.
+     * @param value    The value of the property.
+     * @return this
+     */
+    public Json set(String property, Json value) {
+        throw new UnsupportedOperationException();
+    }
+
+    /**
+     * <p>
+     * Set a <code>Json</code> objects's property.
+     * </p>
+     *
+     * @param property The property name.
+     * @param value    The value of the property, converted to a <code>Json</code> representation
+     *                 with {@link #make}.
+     * @return this
+     */
+    public final Json set(String property, Object value) {
+        return set(property, make(value));
+    }
+
+    /**
+     * <p>
+     * Change the value of a JSON array element. This must be an array.
+     * </p>
+     *
+     * @param index 0-based index of the element in the array.
+     * @param value the new value of the element
+     * @return this
+     */
+    public Json set(int index, Object value) {
+        throw new UnsupportedOperationException();
+    }
+
+    /**
+     * <p>
+     * Combine this object or array with the passed in object or array. The types of
+     * <code>this</code> and the <code>object</code> argument must match. If both are
+     * <code>Json</code> objects, all properties of the parameter are added to <code>this</code>.
+     * If both are arrays, all elements of the parameter are appended to <code>this</code>
+     * </p>
+     *
+     * @param object  The object or array whose properties or elements must be added to this
+     *                Json object or array.
+     * @param options A sequence of options that governs the merging process.
+     * @return this
+     */
+    public Json with(Json object, Json[] options) {
+        throw new UnsupportedOperationException();
+    }
+
+    /**
+     * Same as <code>{}@link #with(Json,Json...options)}</code> with each option
+     * argument converted to <code>Json</code> first.
+     */
+    public Json with(Json object, Object... options) {
+        Json[] jopts = new Json[options.length];
+        for (int i = 0; i < jopts.length; i++)
+            jopts[i] = make(options[i]);
+        return with(object, jopts);
+    }
+
+    /**
+     * @return the underlying value of this <code>Json</code> entity. The actual value will
+     * be a Java Boolean, String, Number, Map, List or null. For complex entities (objects
+     * or arrays), the method will perform a deep copy and extra underlying values recursively
+     * for all nested elements.
+     */
+    public Object getValue() {
+        throw new UnsupportedOperationException();
+    }
+
+    /**
+     * @return the boolean value of a boolean <code>Json</code> instance. Call
+     * {@link #isBoolean()} first if you're not sure this instance is indeed a
+     * boolean.
+     */
+    public boolean asBoolean() {
+        throw new UnsupportedOperationException();
+    }
+
+    /**
+     * @return the string value of a string <code>Json</code> instance. Call
+     * {@link #isString()} first if you're not sure this instance is indeed a
+     * string.
+     */
+    public String asString() {
+        throw new UnsupportedOperationException();
+    }
+
+    /**
+     * @return the integer value of a number <code>Json</code> instance. Call
+     * {@link #isNumber()} first if you're not sure this instance is indeed a
+     * number.
+     */
+    public int asInteger() {
+        throw new UnsupportedOperationException();
+    }
+
+    /**
+     * @return the float value of a float <code>Json</code> instance. Call
+     * {@link #isNumber()} first if you're not sure this instance is indeed a
+     * number.
+     */
+    public float asFloat() {
+        throw new UnsupportedOperationException();
+    }
+
+    /**
+     * @return the double value of a number <code>Json</code> instance. Call
+     * {@link #isNumber()} first if you're not sure this instance is indeed a
+     * number.
+     */
+    public double asDouble() {
+        throw new UnsupportedOperationException();
+    }
+
+    /**
+     * @return the long value of a number <code>Json</code> instance. Call
+     * {@link #isNumber()} first if you're not sure this instance is indeed a
+     * number.
+     */
+    public long asLong() {
+        throw new UnsupportedOperationException();
+    }
+
+    /**
+     * @return the short value of a number <code>Json</code> instance. Call
+     * {@link #isNumber()} first if you're not sure this instance is indeed a
+     * number.
+     */
+    public short asShort() {
+        throw new UnsupportedOperationException();
+    }
+
+    /**
+     * @return the byte value of a number <code>Json</code> instance. Call
+     * {@link #isNumber()} first if you're not sure this instance is indeed a
+     * number.
+     */
+    public byte asByte() {
+        throw new UnsupportedOperationException();
+    }
+
+    /**
+     * @return the first character of a string <code>Json</code> instance. Call
+     * {@link #isString()} first if you're not sure this instance is indeed a
+     * string.
+     */
+    public char asChar() {
+        throw new UnsupportedOperationException();
+    }
+
+    /**
+     * @return a map of the properties of an object <code>Json</code> instance. The map
+     * is a clone of the object and can be modified safely without affecting it. Call
+     * {@link #isObject()} first if you're not sure this instance is indeed a
+     * <code>Json</code> object.
+     */
+    public Map<String, Object> asMap() {
+        throw new UnsupportedOperationException();
+    }
+
+    /**
+     * @return the underlying map of properties of a <code>Json</code> object. The returned
+     * map is the actual object representation so any modifications to it are modifications
+     * of the <code>Json</code> object itself. Call
+     * {@link #isObject()} first if you're not sure this instance is indeed a
+     * <code>Json</code> object.
+     */
+    public Map<String, Json> asJsonMap() {
+        throw new UnsupportedOperationException();
+    }
+
+    /**
+     * @return a list of the elements of a <code>Json</code> array. The list is a clone
+     * of the array and can be modified safely without affecting it. Call
+     * {@link #isArray()} first if you're not sure this instance is indeed a
+     * <code>Json</code> array.
+     */
+    public List<Object> asList() {
+        throw new UnsupportedOperationException();
+    }
+
+    /**
+     * @return the underlying {@link List} representation of a <code>Json</code> array.
+     * The returned list is the actual array representation so any modifications to it
+     * are modifications of the <code>Json</code> array itself. Call
+     * {@link #isArray()} first if you're not sure this instance is indeed a
+     * <code>Json</code> array.
+     */
+    public List<Json> asJsonList() {
+        throw new UnsupportedOperationException();
+    }
+
+    /**
+     * @return <code>true</code> if this is a <code>Json</code> null entity
+     * and <code>false</code> otherwise.
+     */
+    public boolean isNull() {
+        return false;
+    }
+
+    /**
+     * @return <code>true</code> if this is a <code>Json</code> string entity
+     * and <code>false</code> otherwise.
+     */
+    public boolean isString() {
+        return false;
+    }
+
+    /**
+     * @return <code>true</code> if this is a <code>Json</code> number entity
+     * and <code>false</code> otherwise.
+     */
+    public boolean isNumber() {
+        return false;
+    }
+
+    /**
+     * @return <code>true</code> if this is a <code>Json</code> boolean entity
+     * and <code>false</code> otherwise.
+     */
+    public boolean isBoolean() {
+        return false;
+    }
+
+    /**
+     * @return <code>true</code> if this is a <code>Json</code> array (i.e. list) entity
+     * and <code>false</code> otherwise.
+     */
+    public boolean isArray() {
+        return false;
+    }
+
+    /**
+     * @return <code>true</code> if this is a <code>Json</code> object entity
+     * and <code>false</code> otherwise.
+     */
+    public boolean isObject() {
+        return false;
+    }
+
+    /**
+     * @return <code>true</code> if this is a <code>Json</code> primitive entity
+     * (one of string, number or boolean) and <code>false</code> otherwise.
+     */
+    public boolean isPrimitive() {
+        return isString() || isNumber() || isBoolean();
+    }
+
+    /**
+     * <p>
+     * Json-pad this object as an argument to a callback function.
+     * </p>
+     *
+     * @param callback The name of the callback function. Can be null or empty,
+     *                 in which case no padding is done.
+     * @return The jsonpadded, stringified version of this object if the <code>callback</code>
+     * is not null or empty, or just the stringified version of the object.
+     */
+    public String pad(String callback) {
+        return (callback != null && callback.length() > 0)
+                ? callback + "(" + toString() + ");"
+                : toString();
+    }
+
+    /**
+     * Return an object representing the complete configuration
+     * of a merge. The properties of the object represent paths
+     * of the JSON structure being merged and the values represent
+     * the set of options that apply to each path.
+     *
+     * @param options the configuration options
+     * @return the configuration object
+     */
+    protected Json collectWithOptions(Json... options) {
+        Json result = object();
+        for (Json opt : options) {
+            if (opt.isString()) {
+                if (!result.has(""))
+                    result.set("", object());
+                result.at("").set(opt.asString(), true);
+            } else {
+                if (!opt.has("for"))
+                    opt.set("for", array(""));
+                Json forPaths = opt.at("for");
+                if (!forPaths.isArray())
+                    forPaths = array(forPaths);
+                for (Json path : forPaths.asJsonList()) {
+                    if (!result.has(path.asString()))
+                        result.set(path.asString(), object());
+                    Json at_path = result.at(path.asString());
+                    at_path.set("merge", opt.is("merge", true));
+                    at_path.set("dup", opt.is("dup", true));
+                    at_path.set("sort", opt.is("sort", true));
+                    at_path.set("compareBy", opt.at("compareBy", nil()));
+                }
+            }
+        }
+        return result;
+    }
 
     /**
      * <p>
@@ -289,10 +1269,8 @@ public class Json implements java.io.Serializable, Iterable<Json>
      * </p>
      *
      * @author Borislav Iordanov
-     *
      */
-    public static interface Factory
-    {
+    public static interface Factory {
         /**
          * Construct and return an object representing JSON <code>null</code>. Implementations are
          * free to cache a return the same instance. The resulting value must return
@@ -307,6 +1285,7 @@ public class Json implements java.io.Serializable, Iterable<Json>
          * Construct and return a JSON boolean. The resulting value must return
          * <code>true</code> from <code>isBoolean()</code> and the passed
          * in parameter from <code>getValue()</code>.
+         *
          * @param value The boolean value.
          * @return A JSON with <code>isBoolean() == true</code>. Implementations
          * are free to cache and return the same instance for true and false.
@@ -317,6 +1296,7 @@ public class Json implements java.io.Serializable, Iterable<Json>
          * Construct and return a JSON string. The resulting value must return
          * <code>true</code> from <code>isString()</code> and the passed
          * in parameter from <code>getValue()</code>.
+         *
          * @param value The string to wrap as a JSON value.
          * @return A JSON element with the given string as a value.
          */
@@ -357,11 +1337,15 @@ public class Json implements java.io.Serializable, Iterable<Json>
          * instance.
          *
          * @param anything An arbitray Java object from which to construct a <code>Json</code>
-         * element.
+         *                 element.
          * @return The newly constructed <code>Json</code> instance.
          */
         Json make(Object anything);
     }
+
+    //-------------------------------------------------------------------------
+    // END OF PUBLIC INTERFACE
+    //-------------------------------------------------------------------------
 
     public static interface Function<T, R> {
 
@@ -381,24 +1365,23 @@ public class Json implements java.io.Serializable, Iterable<Json>
      * is validating input.
      * </p>
      *
-     *  <p>
-     *  More information about the various JSON schema specifications can be
-     *  found at http://json-schema.org. JSON Schema is an  IETF draft (v4 currently) and
-     *  our implementation follows this set of specifications. A JSON schema is specified
-     *  as a JSON object that contains keywords defined by the specification. Here are
-     *  a few introductory materials:
-     *  <ul>
-     *  <li>http://jsonary.com/documentation/json-schema/ -
-     *  a very well-written tutorial covering the whole standard</li>
-     *  <li>http://spacetelescope.github.io/understanding-json-schema/ -
-     *  online book, tutorial (Python/Ruby based)</li>
-     *  </ul>
-     *  </p>
-     * @author Borislav Iordanov
+     * <p>
+     * More information about the various JSON schema specifications can be
+     * found at http://json-schema.org. JSON Schema is an  IETF draft (v4 currently) and
+     * our implementation follows this set of specifications. A JSON schema is specified
+     * as a JSON object that contains keywords defined by the specification. Here are
+     * a few introductory materials:
+     * <ul>
+     * <li>http://jsonary.com/documentation/json-schema/ -
+     * a very well-written tutorial covering the whole standard</li>
+     * <li>http://spacetelescope.github.io/understanding-json-schema/ -
+     * online book, tutorial (Python/Ruby based)</li>
+     * </ul>
+     * </p>
      *
+     * @author Borislav Iordanov
      */
-    public static interface Schema
-    {
+    public static interface Schema {
         /**
          * <p>
          * Validate a JSON document according to this schema. The validations attempts to
@@ -427,505 +1410,49 @@ public class Json implements java.io.Serializable, Iterable<Json>
         //Json generate(Json options);
     }
 
-    @Override
-    public Iterator<Json> iterator()
-    {
-        return new Iterator<Json>()
-        {
-            @Override
-            public boolean hasNext() { return false; }
-            @Override
-            public Json next() { return null; }
-            @Override
-            public void remove() { }
-        };
-    }
-
-    static String fetchContent(URL url)
-    {
-        java.io.Reader reader = null;
-        try
-        {
-            reader = new java.io.InputStreamReader((java.io.InputStream)url.getContent());
-            StringBuilder content = new StringBuilder();
-            char [] buf = new char[1024];
-            for (int n = reader.read(buf); n > -1; n = reader.read(buf))
-                content.append(buf, 0, n);
-            return content.toString();
-        }
-        catch (Exception ex)
-        {
-            throw new RuntimeException(ex);
-        }
-        finally
-        {
-            if (reader != null) try { reader.close(); } catch (Throwable t) { }
-        }
-    }
-
-    static Json resolvePointer(String pointerRepresentation, Json top)
-    {
-        String [] parts = pointerRepresentation.split("/");
-        Json result = top;
-        for (String p : parts)
-        {
-            // TODO: unescaping and decoding
-            if (p.length() == 0)
-                continue;
-            p = p.replace("~1", "/").replace("~0", "~");
-            if (result.isArray())
-                result = result.at(Integer.parseInt(p));
-            else if (result.isObject())
-                result = result.at(p);
-            else
-                throw new RuntimeException("Can't resolve pointer " + pointerRepresentation +
-                        " on document " + top.toString(200));
-        }
-        return result;
-    }
-
-    static URI makeAbsolute(URI base, String ref) throws Exception
-    {
-        URI refuri;
-        if (base != null && base.getAuthority() != null && !new URI(ref).isAbsolute())
-        {
-            StringBuilder sb = new StringBuilder();
-            if (base.getScheme() != null)
-                sb.append(base.getScheme()).append("://");
-            sb.append(base.getAuthority());
-            if (!ref.startsWith("/"))
-            {
-                if (ref.startsWith("#"))
-                    sb.append(base.getPath());
-                else
-                {
-                    int slashIdx = base.getPath().lastIndexOf('/');
-                    sb.append(slashIdx == -1 ? base.getPath() : base.getPath().substring(0,  slashIdx)).append("/");
-                }
-            }
-            refuri = new URI(sb.append(ref).toString());
-        }
-        else if (base != null)
-            refuri = base.resolve(ref);
-        else
-            refuri = new URI(ref);
-        return refuri;
-    }
-
-    static Json resolveRef(URI base,
-                           Json refdoc,
-                           URI refuri,
-                           Map<String, Json> resolved,
-                           Map<Json, Json> expanded,
-                           Function<URI, Json> uriResolver) throws Exception
-    {
-        if (refuri.isAbsolute() &&
-                (base == null || !base.isAbsolute() ||
-                        !base.getScheme().equals(refuri.getScheme()) ||
-                        !Objects.equals(base.getHost(), refuri.getHost()) ||
-                        base.getPort() != refuri.getPort() ||
-                        !base.getPath().equals(refuri.getPath())))
-        {
-            URI docuri = null;
-            refuri = refuri.normalize();
-            if (refuri.getHost() == null)
-                docuri = new URI(refuri.getScheme() + ":" + refuri.getPath());
-            else
-                docuri = new URI(refuri.getScheme() + "://" + refuri.getHost() +
-                        ((refuri.getPort() > -1) ? ":" + refuri.getPort() : "") +
-                        refuri.getPath());
-            refdoc = uriResolver.apply(docuri);
-            refdoc = expandReferences(refdoc, refdoc, docuri, resolved, expanded, uriResolver);
-        }
-        if (refuri.getFragment() == null)
-            return refdoc;
-        else
-            return resolvePointer(refuri.getFragment(), refdoc);
-    }
-
-    /**
-     * <p>
-     * Replace all JSON references, as per the http://tools.ietf.org/html/draft-pbryan-zyp-json-ref-03
-     * specification, by their referants.
-     * </p>
-     * @param json
-     * @param duplicate
-     * @param done
-     * @return
-     */
-    static Json expandReferences(Json json,
-                                 Json topdoc,
-                                 URI base,
-                                 Map<String, Json> resolved,
-                                 Map<Json, Json> expanded,
-                                 Function<URI, Json> uriResolver) throws Exception
-    {
-        if (expanded.containsKey(json)) return json;
-        if (json.isObject())
-        {
-            if (json.has("id") && json.at("id").isString()) // change scope of nest references
-            {
-                base = base.resolve(json.at("id").asString());
-            }
-
-            if (json.has("$ref"))
-            {
-                URI refuri = makeAbsolute(base, json.at("$ref").asString()); // base.resolve(json.at("$ref").asString());
-                Json ref = resolved.get(refuri.toString());
-                if (ref == null)
-                {
-                    ref = Json.object();
-                    resolved.put(refuri.toString(), ref);
-                    ref.with(resolveRef(base, topdoc, refuri, resolved, expanded, uriResolver));
-                }
-                json = ref;
-            }
-            else
-            {
-                for (Map.Entry<String, Json> e : json.asJsonMap().entrySet())
-                    json.set(e.getKey(), expandReferences(e.getValue(), topdoc, base, resolved, expanded, uriResolver));
-            }
-        }
-        else if (json.isArray())
-        {
-            for (int i = 0; i < json.asJsonList().size(); i++)
-                json.set(i,
-                        expandReferences(json.at(i), topdoc, base, resolved, expanded, uriResolver));
-        }
-        expanded.put(json,  json);
-        return json;
-    }
-
-    static class DefaultSchema implements Schema
-    {
-        static interface Instruction extends Function<Json, Json>{}
-
-        static Json maybeError(Json errors, Json E)
-        { return E == null ? errors : (errors == null ? Json.array() : errors).with(E, new Json[0]); }
-
+    static class DefaultSchema implements Schema {
         // Anything is valid schema
-        static Instruction any = new Instruction() { public Json apply(Json param) { return null; } };
-
-        // Type validation
-        class IsObject implements Instruction { public Json apply(Json param)
-        { return param.isObject() ? null : Json.make(param.toString(maxchars)); } }
-        class IsArray implements Instruction { public Json apply(Json param)
-        { return param.isArray() ? null : Json.make(param.toString(maxchars)); } }
-        class IsString implements Instruction { public Json apply(Json param)
-        { return param.isString() ? null : Json.make(param.toString(maxchars)); } }
-        class IsBoolean implements Instruction { public Json apply(Json param)
-        { return param.isBoolean() ? null : Json.make(param.toString(maxchars)); } }
-        class IsNull implements Instruction { public Json apply(Json param)
-        { return param.isNull() ? null : Json.make(param.toString(maxchars)); } }
-        class IsNumber implements Instruction { public Json apply(Json param)
-        { return param.isNumber() ? null : Json.make(param.toString(maxchars)); } }
-        class IsInteger implements Instruction { public Json apply(Json param)
-        { return param.isNumber() && ((Number)param.getValue()) instanceof Integer  ? null : Json.make(param.toString(maxchars)); } }
-
-        class CheckString implements Instruction
-        {
-            int min = 0, max = Integer.MAX_VALUE;
-            Pattern pattern;
-
-            public Json apply(Json param)
-            {
-                Json errors = null;
-                if (!param.isString()) return errors;
-                String s = param.asString();
-                final int size = s.codePointCount(0, s.length());
-                if (size < min || size > max)
-                    errors = maybeError(errors,Json.make("String  " + param.toString(maxchars) +
-                            " has length outside of the permitted range [" + min + "," + max + "]."));
-                if (pattern != null && !pattern.matcher(s).matches())
-                    errors = maybeError(errors,Json.make("String  " + param.toString(maxchars) +
-                            " does not match regex " + pattern.toString()));
-                return errors;
+        static Instruction any = new Instruction() {
+            public Json apply(Json param) {
+                return null;
             }
-        }
+        };
+        int maxchars = 50;
+        URI uri;
+        Json theschema;
+        Instruction start;
 
-        class CheckNumber implements Instruction
-        {
-            double min = Double.NaN, max = Double.NaN, multipleOf = Double.NaN;
-            boolean exclusiveMin = false, exclusiveMax = false;
-            public Json apply(Json param)
-            {
-                Json errors = null;
-                if (!param.isNumber()) return errors;
-                double value = param.asDouble();
-                if (!Double.isNaN(min) && (value < min || exclusiveMin && value == min))
-                    errors = maybeError(errors,Json.make("Number " + param + " is below allowed minimum " + min));
-                if (!Double.isNaN(max) && (value > max || exclusiveMax && value == max))
-                    errors = maybeError(errors,Json.make("Number " + param + " is above allowed maximum " + max));
-                if (!Double.isNaN(multipleOf) && (value / multipleOf) % 1 != 0)
-                    errors = maybeError(errors,Json.make("Number " + param + " is not a multiple of  " + multipleOf));
-                return errors;
-            }
-        }
-
-        class CheckArray implements Instruction
-        {
-            int min = 0, max = Integer.MAX_VALUE;
-            Boolean uniqueitems = null;
-            Instruction additionalSchema = any;
-            Instruction schema;
-            ArrayList<Instruction> schemas;
-
-            public Json apply(Json param)
-            {
-                Json errors = null;
-                if (!param.isArray()) return errors;
-                if (schema == null && schemas == null && additionalSchema == null) // no schema specified
-                    return errors;
-                int size = param.asJsonList().size();
-                for (int i = 0; i < size; i++)
-                {
-                    Instruction S = schema != null ? schema
-                            : (schemas != null && i < schemas.size()) ? schemas.get(i) : additionalSchema;
-                    if (S == null)
-                        errors = maybeError(errors,Json.make("Additional items are not permitted: " +
-                                param.at(i) + " in " + param.toString(maxchars)));
-                    else
-                        errors = maybeError(errors, S.apply(param.at(i)));
-                    if (uniqueitems != null && uniqueitems && param.asJsonList().lastIndexOf(param.at(i)) > i)
-                        errors = maybeError(errors,Json.make("Element " + param.at(i) + " is duplicate in array."));
-                    if (errors != null && !errors.asJsonList().isEmpty())
-                        break;
-                }
-                if (size < min || size > max)
-                    errors = maybeError(errors,Json.make("Array  " + param.toString(maxchars) +
-                            " has number of elements outside of the permitted range [" + min + "," + max + "]."));
-                return errors;
-            }
-        }
-
-        class CheckPropertyPresent implements Instruction
-        {
-            String propname;
-            public CheckPropertyPresent(String propname) { this.propname = propname; }
-            public Json apply(Json param)
-            {
-                if (!param.isObject()) return null;
-                if (param.has(propname)) return null;
-                else return Json.array().add(Json.make("Required property " + propname +
-                        " missing from object " + param.toString(maxchars)));
-            }
-        }
-
-        class CheckObject implements Instruction
-        {
-            int min = 0, max = Integer.MAX_VALUE;
-            Instruction additionalSchema = any;
-            ArrayList<CheckProperty> props = new ArrayList<CheckProperty>();
-            ArrayList<CheckPatternProperty> patternProps = new ArrayList<CheckPatternProperty>();
-
-            // Object validation
-            class CheckProperty implements Instruction
-            {
-                String name;
-                Instruction schema;
-                public CheckProperty(String name, Instruction schema)
-                { this.name = name; this.schema = schema; }
-                public Json apply(Json param)
-                {
-                    Json value = param.at(name);
-                    if (value == null)
-                        return null;
-                    else
-                        return schema.apply(param.at(name));
-                }
-            }
-
-            class CheckPatternProperty // implements Instruction
-            {
-                Pattern pattern;
-                Instruction schema;
-                public CheckPatternProperty(String pattern, Instruction schema)
-                { this.pattern = Pattern.compile(pattern); this.schema = schema; }
-                public Json apply(Json param, Set<String> found)
-                {
-                    Json errors = null;
-                    for (Map.Entry<String, Json> e : param.asJsonMap().entrySet())
-                        if (pattern.matcher(e.getKey()).find()) {
-                            found.add(e.getKey());
-                            errors = maybeError(errors, schema.apply(e.getValue()));
+        DefaultSchema(URI uri, Json theschema, Function<URI, Json> relativeReferenceResolver) {
+            try {
+                this.uri = uri == null ? new URI("") : uri;
+                if (relativeReferenceResolver == null)
+                    relativeReferenceResolver = new Function<URI, Json>() {
+                        public Json apply(URI docuri) {
+                            try {
+                                return Json.read(fetchContent(docuri.toURL()));
+                            } catch (Exception ex) {
+                                throw new RuntimeException(ex);
+                            }
                         }
-                    return errors;
-                }
+                    };
+                this.theschema = theschema.dup();
+                this.theschema = expandReferences(this.theschema,
+                        this.theschema,
+                        this.uri,
+                        new HashMap<String, Json>(),
+                        new IdentityHashMap<Json, Json>(),
+                        relativeReferenceResolver);
+            } catch (Exception ex) {
+                throw new RuntimeException(ex);
             }
-
-            public Json apply(Json param)
-            {
-                Json errors = null;
-                if (!param.isObject()) return errors;
-                HashSet<String> checked = new HashSet<String>();
-                for (CheckProperty I : props) {
-                    if (param.has(I.name)) checked.add(I.name);
-                    errors = maybeError(errors, I.apply(param));
-                }
-                for (CheckPatternProperty I : patternProps) {
-
-                    errors = maybeError(errors, I.apply(param, checked));
-                }
-                if (additionalSchema != any) for (Map.Entry<String, Json> e : param.asJsonMap().entrySet())
-                    if (!checked.contains(e.getKey()))
-                        errors = maybeError(errors, additionalSchema == null ?
-                                Json.make("Extra property '" + e.getKey() +
-                                        "', schema doesn't allow any properties not explicitly defined:" +
-                                        param.toString(maxchars))
-                                : additionalSchema.apply(e.getValue()));
-                if (param.asJsonMap().size() < min)
-                    errors = maybeError(errors, Json.make("Object " + param.toString(maxchars) +
-                            " has fewer than the permitted " + min + "  number of properties."));
-                if (param.asJsonMap().size() > max)
-                    errors = maybeError(errors, Json.make("Object " + param.toString(maxchars) +
-                            " has more than the permitted " + min + "  number of properties."));
-                return errors;
-            }
+            this.start = compile(this.theschema, new IdentityHashMap<Json, Instruction>());
         }
 
-        class Sequence implements Instruction
-        {
-            ArrayList<Instruction> seq = new ArrayList<Instruction>();
-            public Json apply(Json param)
-            {
-                Json errors = null;
-                for (Instruction I : seq)
-                    errors = maybeError(errors, I.apply(param));
-                return errors;
-            }
-            public Sequence add(Instruction I) { seq.add(I); return this; }
+        static Json maybeError(Json errors, Json E) {
+            return E == null ? errors : (errors == null ? Json.array() : errors).with(E, new Json[0]);
         }
 
-        class CheckType implements Instruction
-        {
-            Json types;
-            public CheckType(Json types) { this.types = types; }
-            public Json apply(Json param)
-            {
-                String ptype = param.isString() ? "string" :
-                        param.isObject() ? "object" :
-                                param.isArray() ? "array" :
-                                        param.isNumber() ? "number" :
-                                                param.isNull() ? "null" : "boolean";
-                for (Json type : types.asJsonList())
-                    if (type.asString().equals(ptype))
-                        return null;
-                    else if (type.asString().equals("integer") &&
-                            param.isNumber() &&
-                            param.asDouble() % 1 == 0)
-                        return null;
-                return Json.array().add(Json.make("Type mistmatch for " + param.toString(maxchars) +
-                        ", allowed types: " + types));
-            }
-        }
-
-        class CheckEnum implements Instruction
-        {
-            Json theenum;
-            public CheckEnum(Json theenum) { this.theenum = theenum; }
-            public Json apply(Json param)
-            {
-                for (Json option : theenum.asJsonList())
-                    if (param.equals(option))
-                        return null;
-                return Json.array().add("Element " + param.toString(maxchars) +
-                        " doesn't match any of enumerated possibilities " + theenum);
-            }
-        }
-
-        class CheckAny implements Instruction
-        {
-            ArrayList<Instruction> alternates = new ArrayList<Instruction>();
-            Json schema;
-            public Json apply(Json param)
-            {
-                for (Instruction I : alternates)
-                    if (I.apply(param) == null)
-                        return null;
-                return Json.array().add("Element " + param.toString(maxchars) +
-                        " must conform to at least one of available sub-schemas " +
-                        schema.toString(maxchars));
-            }
-        }
-
-        class CheckOne implements Instruction
-        {
-            ArrayList<Instruction> alternates = new ArrayList<Instruction>();
-            Json schema;
-            public Json apply(Json param)
-            {
-                int matches = 0;
-                Json errors = Json.array();
-                for (Instruction I : alternates)
-                {
-                    Json result = I.apply(param);
-                    if (result == null)
-                        matches++;
-                    else
-                        errors.add(result);
-                }
-                if (matches != 1)
-                {
-                    return Json.array().add("Element " + param.toString(maxchars) +
-                            " must conform to exactly one of available sub-schemas, but not more " +
-                            schema.toString(maxchars)).add(errors);
-                }
-                else
-                    return null;
-            }
-        }
-
-        class CheckNot implements Instruction
-        {
-            Instruction I;
-            Json schema;
-            public CheckNot(Instruction I, Json schema) { this.I = I; this.schema = schema; }
-            public Json apply(Json param)
-            {
-                if (I.apply(param) != null)
-                    return null;
-                else
-                    return Json.array().add("Element " + param.toString(maxchars) +
-                            " must NOT conform to the schema " + schema.toString(maxchars));
-            }
-        }
-
-        class CheckSchemaDependency implements Instruction
-        {
-            Instruction schema;
-            String property;
-            public CheckSchemaDependency(String property, Instruction schema) { this.property = property; this.schema = schema; }
-            public Json apply(Json param)
-            {
-                if (!param.isObject()) return null;
-                else if (!param.has(property)) return null;
-                else return (schema.apply(param));
-            }
-        }
-
-        class CheckPropertyDependency implements Instruction
-        {
-            Json required;
-            String property;
-            public CheckPropertyDependency(String property, Json required) { this.property = property; this.required = required; }
-            public Json apply(Json param)
-            {
-                if (!param.isObject()) return null;
-                if (!param.has(property)) return null;
-                else
-                {
-                    Json errors = null;
-                    for (Json p : required.asJsonList())
-                        if (!param.has(p.asString()))
-                            errors = maybeError(errors, Json.make("Conditionally required property " + p +
-                                    " missing from object " + param.toString(maxchars)));
-                    return errors;
-                }
-            }
-        }
-
-        Instruction compile(Json S, Map<Json, Instruction> compiled)
-        {
+        Instruction compile(Json S, Map<Json, Instruction> compiled) {
             Instruction result = compiled.get(S);
             if (result != null)
                 return result;
@@ -936,23 +1463,20 @@ public class Json implements java.io.Serializable, Iterable<Json>
                         Json.array().add(S.at("type")) : S.at("type")));
             if (S.has("enum"))
                 seq.add(new CheckEnum(S.at("enum")));
-            if (S.has("allOf"))
-            {
+            if (S.has("allOf")) {
                 Sequence sub = new Sequence();
                 for (Json x : S.at("allOf").asJsonList())
                     sub.add(compile(x, compiled));
                 seq.add(sub);
             }
-            if (S.has("anyOf"))
-            {
+            if (S.has("anyOf")) {
                 CheckAny any = new CheckAny();
                 any.schema = S.at("anyOf");
                 for (Json x : any.schema.asJsonList())
                     any.alternates.add(compile(x, compiled));
                 seq.add(any);
             }
-            if (S.has("oneOf"))
-            {
+            if (S.has("oneOf")) {
                 CheckOne any = new CheckOne();
                 any.schema = S.at("oneOf");
                 for (Json x : any.schema.asJsonList())
@@ -962,8 +1486,7 @@ public class Json implements java.io.Serializable, Iterable<Json>
             if (S.has("not"))
                 seq.add(new CheckNot(compile(S.at("not"), compiled), S.at("not")));
 
-            if (S.has("required") && S.at("required").isArray())
-            {
+            if (S.has("required") && S.at("required").isArray()) {
                 for (Json p : S.at("required").asJsonList())
                     seq.add(new CheckPropertyPresent(p.asString()));
             }
@@ -976,8 +1499,7 @@ public class Json implements java.io.Serializable, Iterable<Json>
                 for (Map.Entry<String, Json> p : S.at("patternProperties").asJsonMap().entrySet())
                     objectCheck.patternProps.add(objectCheck.new CheckPatternProperty(p.getKey(),
                             compile(p.getValue(), compiled)));
-            if (S.has("additionalProperties"))
-            {
+            if (S.has("additionalProperties")) {
                 if (S.at("additionalProperties").isObject())
                     objectCheck.additionalSchema = compile(S.at("additionalProperties"), compiled);
                 else if (!S.at("additionalProperties").asBoolean())
@@ -997,8 +1519,7 @@ public class Json implements java.io.Serializable, Iterable<Json>
             if (S.has("items"))
                 if (S.at("items").isObject())
                     arrayCheck.schema = compile(S.at("items"), compiled);
-                else
-                {
+                else {
                     arrayCheck.schemas = new ArrayList<Instruction>();
                     for (Json s : S.at("items").asJsonList())
                         arrayCheck.schemas.add(compile(s, compiled));
@@ -1052,277 +1573,459 @@ public class Json implements java.io.Serializable, Iterable<Json>
                         seq.add(new CheckPropertyDependency(e.getKey(), e.getValue()));
                     else
                         seq.add(new CheckPropertyDependency(e.getKey(), Json.array(e.getValue())));
-            result = seq.seq.size() == 1 ?  seq.seq.get(0) : seq;
+            result = seq.seq.size() == 1 ? seq.seq.get(0) : seq;
             compiled.put(S, result);
             return result;
         }
 
-        int maxchars = 50;
-        URI uri;
-        Json theschema;
-        Instruction start;
-
-        DefaultSchema(URI uri, Json theschema, Function<URI, Json> relativeReferenceResolver)
-        {
-            try
-            {
-                this.uri = uri == null ? new URI("") : uri;
-                if (relativeReferenceResolver == null)
-                    relativeReferenceResolver = new Function<URI, Json>() { public Json apply(URI docuri) {
-                        try { return Json.read(fetchContent(docuri.toURL())); }
-                        catch(Exception ex) { throw new RuntimeException(ex); }
-                    }};
-                this.theschema = theschema.dup();
-                this.theschema = expandReferences(this.theschema,
-                        this.theschema,
-                        this.uri,
-                        new HashMap<String, Json>(),
-                        new IdentityHashMap<Json, Json>(),
-                        relativeReferenceResolver);
-            }
-            catch (Exception ex)  { throw new RuntimeException(ex); }
-            this.start = compile(this.theschema, new IdentityHashMap<Json, Instruction>());
-        }
-
-        public Json validate(Json document)
-        {
+        public Json validate(Json document) {
             Json result = Json.object("ok", true);
             Json errors = start.apply(document);
             return errors == null ? result : result.set("errors", errors).set("ok", false);
         }
 
-        public Json toJson()
-        {
+        public Json toJson() {
             return theschema;
         }
 
-        public Json generate(Json options)
-        {
+        public Json generate(Json options) {
             // TODO...
             return Json.nil();
         }
-    }
 
-    public static Schema schema(Json S)
-    {
-        return new DefaultSchema(null, S, null);
-    }
+        static interface Instruction extends Function<Json, Json> {
+        }
 
-    public static Schema schema(URI uri)
-    {
-        return schema(uri, null);
-    }
-
-    public static Schema schema(URI uri, Function<URI, Json> relativeReferenceResolver)
-    {
-        try { return new DefaultSchema(uri, Json.read(Json.fetchContent(uri.toURL())), relativeReferenceResolver); }
-        catch (Exception ex) { throw new RuntimeException(ex); }
-    }
-
-    public static Schema schema(Json S, URI uri)
-    {
-        return new DefaultSchema(uri, S, null);
-    }
-
-    public static class DefaultFactory implements Factory
-    {
-        public Json nil() { return Json.topnull; }
-        public Json bool(boolean x) { return new BooleanJson(x ? Boolean.TRUE : Boolean.FALSE, null); }
-        public Json string(String x) { return new StringJson(x, null); }
-        public Json number(Number x) { return new NumberJson(x, null); }
-        public Json array() { return new ArrayJson(); }
-        public Json object() { return new ObjectJson(); }
-        public Json make(Object anything)
-        {
-            if (anything == null)
-                return topnull;
-            else if (anything instanceof Json)
-                return (Json)anything;
-            else if (anything instanceof String)
-                return factory().string((String)anything);
-            else if (anything instanceof Collection<?>)
-            {
-                Json L = array();
-                for (Object x : (Collection<?>)anything)
-                    L.add(factory().make(x));
-                return L;
+        // Type validation
+        class IsObject implements Instruction {
+            public Json apply(Json param) {
+                return param.isObject() ? null : Json.make(param.toString(maxchars));
             }
-            else if (anything instanceof Map<?,?>)
-            {
-                Json O = object();
-                for (Map.Entry<?,?> x : ((Map<?,?>)anything).entrySet())
-                    O.set(x.getKey().toString(), factory().make(x.getValue()));
-                return O;
+        }
+
+        class IsArray implements Instruction {
+            public Json apply(Json param) {
+                return param.isArray() ? null : Json.make(param.toString(maxchars));
             }
-            else if (anything instanceof Pair)
-            {
-                Json O = object();
-                O.set(((Pair) anything).getKey().toString(),factory().make(((Pair)anything).getValue()));
-                return O;
+        }
+
+        class IsString implements Instruction {
+            public Json apply(Json param) {
+                return param.isString() ? null : Json.make(param.toString(maxchars));
             }
-            else if (anything instanceof Boolean)
-                return factory().bool((Boolean)anything);
-            else if (anything instanceof Number)
-                return factory().number((Number)anything);
-            else if (anything.getClass().isArray())
-            {
-                Class<?> comp = anything.getClass().getComponentType();
-                if (!comp.isPrimitive())
-                    return Json.array((Object[])anything);
-                Json A = array();
-                if (boolean.class == comp)
-                    for (boolean b : (boolean[])anything) A.add(b);
-                else if (byte.class == comp)
-                    for (byte b : (byte[])anything) A.add(b);
-                else if (char.class == comp)
-                    for (char b : (char[])anything) A.add(b);
-                else if (short.class == comp)
-                    for (short b : (short[])anything) A.add(b);
-                else if (int.class == comp)
-                    for (int b : (int[])anything) A.add(b);
-                else if (long.class == comp)
-                    for (long b : (long[])anything) A.add(b);
-                else if (float.class == comp)
-                    for (float b : (float[])anything) A.add(b);
-                else if (double.class == comp)
-                    for (double b : (double[])anything) A.add(b);
-                return A;
+        }
+
+        class IsBoolean implements Instruction {
+            public Json apply(Json param) {
+                return param.isBoolean() ? null : Json.make(param.toString(maxchars));
             }
-            else
-                throw new IllegalArgumentException("Don't know how to convert to Json : " + anything);
+        }
+
+        class IsNull implements Instruction {
+            public Json apply(Json param) {
+                return param.isNull() ? null : Json.make(param.toString(maxchars));
+            }
+        }
+
+        class IsNumber implements Instruction {
+            public Json apply(Json param) {
+                return param.isNumber() ? null : Json.make(param.toString(maxchars));
+            }
+        }
+
+        class IsInteger implements Instruction {
+            public Json apply(Json param) {
+                return param.isNumber() && ((Number) param.getValue()) instanceof Integer ? null : Json.make(param.toString(maxchars));
+            }
+        }
+
+        class CheckString implements Instruction {
+            int min = 0, max = Integer.MAX_VALUE;
+            Pattern pattern;
+
+            public Json apply(Json param) {
+                Json errors = null;
+                if (!param.isString()) return errors;
+                String s = param.asString();
+                final int size = s.codePointCount(0, s.length());
+                if (size < min || size > max)
+                    errors = maybeError(errors, Json.make("String  " + param.toString(maxchars) +
+                            " has length outside of the permitted range [" + min + "," + max + "]."));
+                if (pattern != null && !pattern.matcher(s).matches())
+                    errors = maybeError(errors, Json.make("String  " + param.toString(maxchars) +
+                            " does not match regex " + pattern.toString()));
+                return errors;
+            }
+        }
+
+        class CheckNumber implements Instruction {
+            double min = Double.NaN, max = Double.NaN, multipleOf = Double.NaN;
+            boolean exclusiveMin = false, exclusiveMax = false;
+
+            public Json apply(Json param) {
+                Json errors = null;
+                if (!param.isNumber()) return errors;
+                double value = param.asDouble();
+                if (!Double.isNaN(min) && (value < min || exclusiveMin && value == min))
+                    errors = maybeError(errors, Json.make("Number " + param + " is below allowed minimum " + min));
+                if (!Double.isNaN(max) && (value > max || exclusiveMax && value == max))
+                    errors = maybeError(errors, Json.make("Number " + param + " is above allowed maximum " + max));
+                if (!Double.isNaN(multipleOf) && (value / multipleOf) % 1 != 0)
+                    errors = maybeError(errors, Json.make("Number " + param + " is not a multiple of  " + multipleOf));
+                return errors;
+            }
+        }
+
+        class CheckArray implements Instruction {
+            int min = 0, max = Integer.MAX_VALUE;
+            Boolean uniqueitems = null;
+            Instruction additionalSchema = any;
+            Instruction schema;
+            ArrayList<Instruction> schemas;
+
+            public Json apply(Json param) {
+                Json errors = null;
+                if (!param.isArray()) return errors;
+                if (schema == null && schemas == null && additionalSchema == null) // no schema specified
+                    return errors;
+                int size = param.asJsonList().size();
+                for (int i = 0; i < size; i++) {
+                    Instruction S = schema != null ? schema
+                            : (schemas != null && i < schemas.size()) ? schemas.get(i) : additionalSchema;
+                    if (S == null)
+                        errors = maybeError(errors, Json.make("Additional items are not permitted: " +
+                                param.at(i) + " in " + param.toString(maxchars)));
+                    else
+                        errors = maybeError(errors, S.apply(param.at(i)));
+                    if (uniqueitems != null && uniqueitems && param.asJsonList().lastIndexOf(param.at(i)) > i)
+                        errors = maybeError(errors, Json.make("Element " + param.at(i) + " is duplicate in array."));
+                    if (errors != null && !errors.asJsonList().isEmpty())
+                        break;
+                }
+                if (size < min || size > max)
+                    errors = maybeError(errors, Json.make("Array  " + param.toString(maxchars) +
+                            " has number of elements outside of the permitted range [" + min + "," + max + "]."));
+                return errors;
+            }
+        }
+
+        class CheckPropertyPresent implements Instruction {
+            String propname;
+
+            public CheckPropertyPresent(String propname) {
+                this.propname = propname;
+            }
+
+            public Json apply(Json param) {
+                if (!param.isObject()) return null;
+                if (param.has(propname)) return null;
+                else return Json.array().add(Json.make("Required property " + propname +
+                        " missing from object " + param.toString(maxchars)));
+            }
+        }
+
+        class CheckObject implements Instruction {
+            int min = 0, max = Integer.MAX_VALUE;
+            Instruction additionalSchema = any;
+            ArrayList<CheckProperty> props = new ArrayList<CheckProperty>();
+            ArrayList<CheckPatternProperty> patternProps = new ArrayList<CheckPatternProperty>();
+
+            public Json apply(Json param) {
+                Json errors = null;
+                if (!param.isObject()) return errors;
+                HashSet<String> checked = new HashSet<String>();
+                for (CheckProperty I : props) {
+                    if (param.has(I.name)) checked.add(I.name);
+                    errors = maybeError(errors, I.apply(param));
+                }
+                for (CheckPatternProperty I : patternProps) {
+
+                    errors = maybeError(errors, I.apply(param, checked));
+                }
+                if (additionalSchema != any) for (Map.Entry<String, Json> e : param.asJsonMap().entrySet())
+                    if (!checked.contains(e.getKey()))
+                        errors = maybeError(errors, additionalSchema == null ?
+                                Json.make("Extra property '" + e.getKey() +
+                                        "', schema doesn't allow any properties not explicitly defined:" +
+                                        param.toString(maxchars))
+                                : additionalSchema.apply(e.getValue()));
+                if (param.asJsonMap().size() < min)
+                    errors = maybeError(errors, Json.make("Object " + param.toString(maxchars) +
+                            " has fewer than the permitted " + min + "  number of properties."));
+                if (param.asJsonMap().size() > max)
+                    errors = maybeError(errors, Json.make("Object " + param.toString(maxchars) +
+                            " has more than the permitted " + min + "  number of properties."));
+                return errors;
+            }
+
+            // Object validation
+            class CheckProperty implements Instruction {
+                String name;
+                Instruction schema;
+
+                public CheckProperty(String name, Instruction schema) {
+                    this.name = name;
+                    this.schema = schema;
+                }
+
+                public Json apply(Json param) {
+                    Json value = param.at(name);
+                    if (value == null)
+                        return null;
+                    else
+                        return schema.apply(param.at(name));
+                }
+            }
+
+            class CheckPatternProperty // implements Instruction
+            {
+                Pattern pattern;
+                Instruction schema;
+
+                public CheckPatternProperty(String pattern, Instruction schema) {
+                    this.pattern = Pattern.compile(pattern);
+                    this.schema = schema;
+                }
+
+                public Json apply(Json param, Set<String> found) {
+                    Json errors = null;
+                    for (Map.Entry<String, Json> e : param.asJsonMap().entrySet())
+                        if (pattern.matcher(e.getKey()).find()) {
+                            found.add(e.getKey());
+                            errors = maybeError(errors, schema.apply(e.getValue()));
+                        }
+                    return errors;
+                }
+            }
+        }
+
+        class Sequence implements Instruction {
+            ArrayList<Instruction> seq = new ArrayList<Instruction>();
+
+            public Json apply(Json param) {
+                Json errors = null;
+                for (Instruction I : seq)
+                    errors = maybeError(errors, I.apply(param));
+                return errors;
+            }
+
+            public Sequence add(Instruction I) {
+                seq.add(I);
+                return this;
+            }
+        }
+
+        class CheckType implements Instruction {
+            Json types;
+
+            public CheckType(Json types) {
+                this.types = types;
+            }
+
+            public Json apply(Json param) {
+                String ptype = param.isString() ? "string" :
+                        param.isObject() ? "object" :
+                                param.isArray() ? "array" :
+                                        param.isNumber() ? "number" :
+                                                param.isNull() ? "null" : "boolean";
+                for (Json type : types.asJsonList())
+                    if (type.asString().equals(ptype))
+                        return null;
+                    else if (type.asString().equals("integer") &&
+                            param.isNumber() &&
+                            param.asDouble() % 1 == 0)
+                        return null;
+                return Json.array().add(Json.make("Type mistmatch for " + param.toString(maxchars) +
+                        ", allowed types: " + types));
+            }
+        }
+
+        class CheckEnum implements Instruction {
+            Json theenum;
+
+            public CheckEnum(Json theenum) {
+                this.theenum = theenum;
+            }
+
+            public Json apply(Json param) {
+                for (Json option : theenum.asJsonList())
+                    if (param.equals(option))
+                        return null;
+                return Json.array().add("Element " + param.toString(maxchars) +
+                        " doesn't match any of enumerated possibilities " + theenum);
+            }
+        }
+
+        class CheckAny implements Instruction {
+            ArrayList<Instruction> alternates = new ArrayList<Instruction>();
+            Json schema;
+
+            public Json apply(Json param) {
+                for (Instruction I : alternates)
+                    if (I.apply(param) == null)
+                        return null;
+                return Json.array().add("Element " + param.toString(maxchars) +
+                        " must conform to at least one of available sub-schemas " +
+                        schema.toString(maxchars));
+            }
+        }
+
+        class CheckOne implements Instruction {
+            ArrayList<Instruction> alternates = new ArrayList<Instruction>();
+            Json schema;
+
+            public Json apply(Json param) {
+                int matches = 0;
+                Json errors = Json.array();
+                for (Instruction I : alternates) {
+                    Json result = I.apply(param);
+                    if (result == null)
+                        matches++;
+                    else
+                        errors.add(result);
+                }
+                if (matches != 1) {
+                    return Json.array().add("Element " + param.toString(maxchars) +
+                            " must conform to exactly one of available sub-schemas, but not more " +
+                            schema.toString(maxchars)).add(errors);
+                } else
+                    return null;
+            }
+        }
+
+        class CheckNot implements Instruction {
+            Instruction I;
+            Json schema;
+
+            public CheckNot(Instruction I, Json schema) {
+                this.I = I;
+                this.schema = schema;
+            }
+
+            public Json apply(Json param) {
+                if (I.apply(param) != null)
+                    return null;
+                else
+                    return Json.array().add("Element " + param.toString(maxchars) +
+                            " must NOT conform to the schema " + schema.toString(maxchars));
+            }
+        }
+
+        class CheckSchemaDependency implements Instruction {
+            Instruction schema;
+            String property;
+
+            public CheckSchemaDependency(String property, Instruction schema) {
+                this.property = property;
+                this.schema = schema;
+            }
+
+            public Json apply(Json param) {
+                if (!param.isObject()) return null;
+                else if (!param.has(property)) return null;
+                else return (schema.apply(param));
+            }
+        }
+
+        class CheckPropertyDependency implements Instruction {
+            Json required;
+            String property;
+
+            public CheckPropertyDependency(String property, Json required) {
+                this.property = property;
+                this.required = required;
+            }
+
+            public Json apply(Json param) {
+                if (!param.isObject()) return null;
+                if (!param.has(property)) return null;
+                else {
+                    Json errors = null;
+                    for (Json p : required.asJsonList())
+                        if (!param.has(p.asString()))
+                            errors = maybeError(errors, Json.make("Conditionally required property " + p +
+                                    " missing from object " + param.toString(maxchars)));
+                    return errors;
+                }
+            }
         }
     }
 
-    public static final Factory defaultFactory = new DefaultFactory();
+    public static class DefaultFactory implements Factory {
+        public Json nil() {
+            return Json.topnull;
+        }
 
-    private static Factory globalFactory = defaultFactory;
+        public Json bool(boolean x) {
+            return new BooleanJson(x ? Boolean.TRUE : Boolean.FALSE, null);
+        }
 
-    // TODO: maybe use initialValue thread-local method to attach global factory by default here...
-    private static ThreadLocal<Factory> threadFactory = new ThreadLocal<Factory>();
+        public Json string(String x) {
+            return new StringJson(x, null);
+        }
 
-    /**
-     * <p>Return the {@link Factory} currently in effect. This is the factory that the {@link #make(Object)} method
-     * will dispatch on upon determining the type of its argument. If you already know the type
-     * of element to construct, you can avoid the type introspection implicit to the make method
-     * and call the factory directly. This will result in an optimization. </p>
-     *
-     * @return the factory
-     */
-    public static Factory factory()
-    {
-        Factory f = threadFactory.get();
-        return f != null ? f : globalFactory;
-    }
+        public Json number(Number x) {
+            return new NumberJson(x, null);
+        }
 
-    /**
-     * <p>
-     * Specify a global Json {@link Factory} to be used by all threads that don't have a
-     * specific thread-local factory attached to them.
-     * </p>
-     *
-     * @param factory The new global factory
-     */
-    public static void setGlobalFactory(Factory factory) { globalFactory = factory; }
+        public Json array() {
+            return new ArrayJson();
+        }
 
-    /**
-     * <p>
-     * Attach a thread-local Json {@link Factory} to be used specifically by this thread. Thread-local
-     * Json factories are the only means to have different {@link Factory} implementations used simultaneously
-     * in the same application (well, more accurately, the same ClassLoader).
-     * </p>
-     *
-     * @param factory the new thread local factory
-     */
-    public static void attachFactory(Factory factory) { threadFactory.set(factory); }
+        public Json object() {
+            return new ObjectJson();
+        }
 
-    /**
-     * <p>
-     * Clear the thread-local factory previously attached to this thread via the
-     * {@link #attachFactory(Factory)} method. The global factory takes effect after
-     * a call to this method.
-     * </p>
-     */
-    public static void detachFactory() { threadFactory.remove(); }
-
-    /**
-     * <p>
-     * Parse a JSON entity from its string representation.
-     * </p>
-     *
-     * @param jsonAsString A valid JSON representation as per the <a href="http://www.json.org">json.org</a>
-     * grammar. Cannot be <code>null</code>.
-     * @return The JSON entity parsed: an object, array, string, number or boolean, or null. Note that
-     * this method will never return the actual Java <code>null</code>.
-     */
-    public static Json read(String jsonAsString) { return (Json)new Reader().read(jsonAsString); }
-
-    /**
-     * <p>
-     * Parse a JSON entity from a <code>URL</code>.
-     * </p>
-     *
-     * @param location A valid URL where to load a JSON document from. Cannot be <code>null</code>.
-     * @return The JSON entity parsed: an object, array, string, number or boolean, or null. Note that
-     * this method will never return the actual Java <code>null</code>.
-     */
-    public static Json read(URL location) { return (Json)new Reader().read(fetchContent(location)); }
-
-    /**
-     * <p>
-     * Parse a JSON entity from a {@link CharacterIterator}.
-     * </p>
-     * @param it A character iterator.
-     * @return the parsed JSON element
-     * @see #read(String)
-     */
-    public static Json read(CharacterIterator it) { return (Json)new Reader().read(it); }
-    /**
-     * @return the <code>null Json</code> instance.
-     */
-    public static Json nil() { return factory().nil(); }
-    /**
-     * @return a newly constructed, empty JSON object.
-     */
-    public static Json object()	{ return factory().object();	}
-    /**
-     * <p>Return a new JSON object initialized from the passed list of
-     * name/value pairs. The number of arguments must
-     * be even. Each argument at an even position is taken to be a name
-     * for the following value. The name arguments are normally of type
-     * Java String, but they can be of any other type having an appropriate
-     * <code>toString</code> method. Each value is first converted
-     * to a <code>Json</code> instance using the {@link #make(Object)} method.
-     * </p>
-     * @param args A sequence of name value pairs.
-     * @return the new JSON object.
-     */
-    public static Json object(Object...args)
-    {
-        Json j = object();
-        if (args.length % 2 != 0)
-            throw new IllegalArgumentException("An even number of arguments is expected.");
-        for (int i = 0; i < args.length; i++)
-            j.set(args[i].toString(), factory().make(args[++i]));
-        return j;
-    }
-
-    /**
-     * @return a new constructed, empty JSON array.
-     */
-    public static Json array() { return factory().array(); }
-
-    /**
-     * <p>Return a new JSON array filled up with the list of arguments.</p>
-     *
-     * @param args The initial content of the array.
-     * @return the new JSON array
-     */
-    public static Json array(Object...args)
-    {
-        Json A = array();
-        for (Object x : args)
-            A.add(factory().make(x));
-        return A;
+        public Json make(Object anything) {
+            if (anything == null)
+                return topnull;
+            else if (anything instanceof Json)
+                return (Json) anything;
+            else if (anything instanceof String)
+                return factory().string((String) anything);
+            else if (anything instanceof Collection<?>) {
+                Json L = array();
+                for (Object x : (Collection<?>) anything)
+                    L.add(factory().make(x));
+                return L;
+            } else if (anything instanceof Map<?, ?>) {
+                Json O = object();
+                for (Map.Entry<?, ?> x : ((Map<?, ?>) anything).entrySet())
+                    O.set(x.getKey().toString(), factory().make(x.getValue()));
+                return O;
+            } else if (anything instanceof Pair) {
+                Json O = object();
+                O.set(((Pair) anything).getKey().toString(), factory().make(((Pair) anything).getValue()));
+                return O;
+            } else if (anything instanceof Boolean)
+                return factory().bool((Boolean) anything);
+            else if (anything instanceof Number)
+                return factory().number((Number) anything);
+            else if (anything.getClass().isArray()) {
+                Class<?> comp = anything.getClass().getComponentType();
+                if (!comp.isPrimitive())
+                    return Json.array((Object[]) anything);
+                Json A = array();
+                if (boolean.class == comp)
+                    for (boolean b : (boolean[]) anything) A.add(b);
+                else if (byte.class == comp)
+                    for (byte b : (byte[]) anything) A.add(b);
+                else if (char.class == comp)
+                    for (char b : (char[]) anything) A.add(b);
+                else if (short.class == comp)
+                    for (short b : (short[]) anything) A.add(b);
+                else if (int.class == comp)
+                    for (int b : (int[]) anything) A.add(b);
+                else if (long.class == comp)
+                    for (long b : (long[]) anything) A.add(b);
+                else if (float.class == comp)
+                    for (float b : (float[]) anything) A.add(b);
+                else if (double.class == comp)
+                    for (double b : (double[]) anything) A.add(b);
+                return A;
+            } else
+                throw new IllegalArgumentException("Don't know how to convert to Json : " + anything);
+        }
     }
 
     /**
@@ -1332,10 +2035,8 @@ public class Json implements java.io.Serializable, Iterable<Json>
      * </p>
      *
      * @author Borislav Iordanov
-     *
      */
-    public static class help
-    {
+    public static class help {
         /**
          * <p>
          * Perform JSON escaping so that ", <, >, etc. characters are properly encoded in the
@@ -1343,7 +2044,9 @@ public class Json implements java.io.Serializable, Iterable<Json>
          * serializing property names or string values.
          * </p>
          */
-        public static String escape(String string) { return escaper.escapeJsonString(string); }
+        public static String escape(String string) {
+            return escaper.escapeJsonString(string);
+        }
 
         /**
          * <p>
@@ -1351,11 +2054,14 @@ public class Json implements java.io.Serializable, Iterable<Json>
          * the <code>element</code> parameter.
          * </p>
          */
-        public static Json resolvePointer(String pointer, Json element) { return Json.resolvePointer(pointer, element); }
+        public static Json resolvePointer(String pointer, Json element) {
+            return Json.resolvePointer(pointer, element);
+        }
     }
 
     static class JsonSingleValueIterator implements Iterator<Json> {
         private boolean retrieved = false;
+
         @Override
         public boolean hasNext() {
             return !retrieved;
@@ -1372,538 +2078,41 @@ public class Json implements java.io.Serializable, Iterable<Json>
         }
     }
 
-
-    /**
-     * <p>
-     * Convert an arbitrary Java instance to a {@link Json} instance.
-     * </p>
-     *
-     * <p>
-     * Maps, Collections and arrays are recursively copied where each of
-     * their elements concerted into <code>Json</code> instances as well. The keys
-     * of a {@link Map} parameter are normally strings, but anything with a meaningful
-     * <code>toString</code> implementation will work as well.
-     * </p>
-     *
-     * @param anything Any Java object that the current JSON factory in effect is capable of handling.
-     * @return The <code>Json</code>. This method will never return <code>null</code>. It will
-     * throw an {@link IllegalArgumentException} if it doesn't know how to convert the argument
-     * to a <code>Json</code> instance.
-     * @throws IllegalArgumentException when the concrete type of the parameter is
-     * unknown.
-     */
-    public static Json make(Object anything)
-    {
-        return factory().make(anything);
-    }
-
-    // end of static utility method section
-
-    Json enclosing = null;
-
-    protected Json() { }
-    protected Json(Json enclosing) { this.enclosing = enclosing; }
-
-    /**
-     * <p>Return a string representation of <code>this</code> that does
-     * not exceed a certain maximum length. This is useful in constructing
-     * error messages or any other place where only a "preview" of the
-     * JSON element should be displayed. Some JSON structures can get
-     * very large and this method will help avoid string serializing
-     * the whole of them. </p>
-     * @param maxCharacters The maximum number of characters for
-     * the string representation.
-     * @return The string representation of this object.
-     */
-    public String toString(int maxCharacters) { return toString(); }
-
-    /**
-     * <p>Explicitly set the parent of this element. The parent is presumably an array
-     * or an object. Normally, there's no need to call this method as the parent is
-     * automatically set by the framework. You may need to call it however, if you implement
-     * your own {@link Factory} with your own implementations of the Json types.
-     * </p>
-     *
-     * @param enclosing The parent element.
-     */
-    public void attachTo(Json enclosing) { this.enclosing = enclosing; }
-
-    /**
-     * @return the <code>Json</code> entity, if any, enclosing this
-     * <code>Json</code>. The returned value can be <code>null</code> or
-     * a <code>Json</code> object or list, but not one of the primitive types.
-     */
-    public final Json up() { return enclosing; }
-
-    /**
-     * @return a clone (a duplicate) of this <code>Json</code> entity. Note that cloning
-     * is deep if array and objects. Primitives are also cloned, even though their values are immutable
-     * because the new enclosing entity (the result of the {@link #up()} method) may be different.
-     * since they are immutable.
-     */
-    public Json dup() { return this; }
-
-    /**
-     * <p>Return the <code>Json</code> element at the specified index of this
-     * <code>Json</code> array. This method applies only to Json arrays.
-     * </p>
-     *
-     * @param index The index of the desired element.
-     * @return The JSON element at the specified index in this array.
-     */
-    public Json at(int index) { throw new UnsupportedOperationException(); }
-
-    /**
-     * <p>
-     * Return the specified property of a <code>Json</code> object or <code>null</code>
-     * if there's no such property. This method applies only to Json objects.
-     * </p>
-     * @param The property name.
-     * @return The JSON element that is the value of that property.
-     */
-    public Json at(String property)	{ throw new UnsupportedOperationException(); }
-
-    /**
-     * <p>
-     * Return the specified property of a <code>Json</code> object if it exists.
-     * If it doesn't, then create a new property with value the <code>def</code>
-     * parameter and return that parameter.
-     * </p>
-     *
-     * @param property The property to return.
-     * @param def The default value to set and return in case the property doesn't exist.
-     */
-    public final Json at(String property, Json def)
-    {
-        Json x = at(property);
-        if (x == null)
-        {
-//			set(property, def);
-            return def;
-        }
-        else
-            return x;
-    }
-
-    /**
-     * <p>
-     * Return the specified property of a <code>Json</code> object if it exists.
-     * If it doesn't, then create a new property with value the <code>def</code>
-     * parameter and return that parameter.
-     * </p>
-     *
-     * @param property The property to return.
-     * @param def The default value to set and return in case the property doesn't exist.
-     */
-    public final Json at(String property, Object def)
-    {
-        return at(property, make(def));
-    }
-
-    /**
-     * <p>
-     * Return true if this <code>Json</code> object has the specified property
-     * and false otherwise.
-     * </p>
-     *
-     * @param property The name of the property.
-     */
-    public boolean has(String property)	{ throw new UnsupportedOperationException(); }
-
-    /**
-     * <p>
-     * Return <code>true</code> if and only if this <code>Json</code> object has a property with
-     * the specified value. In particular, if the object has no such property <code>false</code> is returned.
-     * </p>
-     *
-     * @param property The property name.
-     * @param value The value to compare with. Comparison is done via the equals method.
-     * If the value is not an instance of <code>Json</code>, it is first converted to
-     * such an instance.
-     * @return
-     */
-    public boolean is(String property, Object value) { throw new UnsupportedOperationException(); }
-
-    /**
-     * <p>
-     * Return <code>true</code> if and only if this <code>Json</code> array has an element with
-     * the specified value at the specified index. In particular, if the array has no element at
-     * this index, <code>false</code> is returned.
-     * </p>
-     *
-     * @param index The 0-based index of the element in a JSON array.
-     * @param value The value to compare with. Comparison is done via the equals method.
-     * If the value is not an instance of <code>Json</code>, it is first converted to
-     * such an instance.
-     * @return
-     */
-    public boolean is(int index, Object value) { throw new UnsupportedOperationException(); }
-
-    /**
-     * <p>
-     * Add the specified <code>Json</code> element to this array.
-     * </p>
-     *
-     * @return this
-     */
-    public Json add(Json el) { throw new UnsupportedOperationException(); }
-
-    /**
-     * <p>
-     * Add an arbitrary Java object to this <code>Json</code> array. The object
-     * is first converted to a <code>Json</code> instance by calling the static
-     * {@link #make} method.
-     * </p>
-     *
-     * @param anything Any Java object that can be converted to a Json instance.
-     * @return this
-     */
-    public final Json add(Object anything) { return add(make(anything)); }
-
-    /**
-     * <p>
-     * Remove the specified property from a <code>Json</code> object and return
-     * that property.
-     * </p>
-     *
-     * @param property The property to be removed.
-     * @return The property value or <code>null</code> if the object didn't have such
-     * a property to begin with.
-     */
-    public Json atDel(String property)	{ throw new UnsupportedOperationException(); }
-
-    /**
-     * <p>
-     * Remove the element at the specified index from a <code>Json</code> array and return
-     * that element.
-     * </p>
-     *
-     * @param index The index of the element to delete.
-     * @return The element value.
-     */
-    public Json atDel(int index)	{ throw new UnsupportedOperationException(); }
-
-    /**
-     * <p>
-     * Delete the specified property from a <code>Json</code> object.
-     * </p>
-     *
-     * @param property The property to be removed.
-     * @return this
-     */
-    public Json delAt(String property)	{ throw new UnsupportedOperationException(); }
-
-    /**
-     * <p>
-     * Remove the element at the specified index from a <code>Json</code> array.
-     * </p>
-     *
-     * @param index The index of the element to delete.
-     * @return this
-     */
-    public Json delAt(int index) { throw new UnsupportedOperationException(); }
-
-    /**
-     * <p>
-     * Remove the specified element from a <code>Json</code> array.
-     * </p>
-     *
-     * @param el The element to delete.
-     * @return this
-     */
-    public Json remove(Json el)	{ throw new UnsupportedOperationException(); }
-
-    /**
-     * <p>
-     * Remove the specified Java object (converted to a Json instance)
-     * from a <code>Json</code> array. This is equivalent to
-     * <code>remove({@link #make(Object)})</code>.
-     * </p>
-     *
-     * @param anything The object to delete.
-     * @return this
-     */
-    public final Json remove(Object anything) { return remove(make(anything)); }
-
-    /**
-     * <p>
-     * Set a <code>Json</code> objects's property.
-     * </p>
-     *
-     * @param property The property name.
-     * @param value The value of the property.
-     * @return this
-     */
-    public Json set(String property, Json value) { throw new UnsupportedOperationException();	}
-
-    /**
-     * <p>
-     * Set a <code>Json</code> objects's property.
-     * </p>
-     *
-     * @param property The property name.
-     * @param value The value of the property, converted to a <code>Json</code> representation
-     * with {@link #make}.
-     * @return this
-     */
-    public final Json set(String property, Object value) { return set(property, make(value)); }
-
-    /**
-     * <p>
-     * Change the value of a JSON array element. This must be an array.
-     * </p>
-     * @param index 0-based index of the element in the array.
-     * @param value the new value of the element
-     * @return this
-     */
-    public Json set(int index, Object value) { throw new UnsupportedOperationException(); }
-
-    /**
-     * <p>
-     * Combine this object or array with the passed in object or array. The types of
-     * <code>this</code> and the <code>object</code> argument must match. If both are
-     * <code>Json</code> objects, all properties of the parameter are added to <code>this</code>.
-     * If both are arrays, all elements of the parameter are appended to <code>this</code>
-     * </p>
-     * @param object The object or array whose properties or elements must be added to this
-     * Json object or array.
-     * @param options A sequence of options that governs the merging process.
-     * @return this
-     */
-    public Json with(Json object, Json[]options) { throw new UnsupportedOperationException(); }
-
-    /**
-     * Same as <code>{}@link #with(Json,Json...options)}</code> with each option
-     * argument converted to <code>Json</code> first.
-     */
-    public Json with(Json object, Object...options)
-    {
-        Json [] jopts = new Json[options.length];
-        for (int i = 0; i < jopts.length; i++)
-            jopts[i] = make(options[i]);
-        return with(object, jopts);
-    }
-
-    /**
-     * @return the underlying value of this <code>Json</code> entity. The actual value will
-     * be a Java Boolean, String, Number, Map, List or null. For complex entities (objects
-     * or arrays), the method will perform a deep copy and extra underlying values recursively
-     * for all nested elements.
-     */
-    public Object getValue() { throw new UnsupportedOperationException(); }
-
-    /**
-     * @return the boolean value of a boolean <code>Json</code> instance. Call
-     * {@link #isBoolean()} first if you're not sure this instance is indeed a
-     * boolean.
-     */
-    public boolean asBoolean() { throw new UnsupportedOperationException(); }
-
-    /**
-     * @return the string value of a string <code>Json</code> instance. Call
-     * {@link #isString()} first if you're not sure this instance is indeed a
-     * string.
-     */
-    public String asString() { throw new UnsupportedOperationException(); }
-
-    /**
-     * @return the integer value of a number <code>Json</code> instance. Call
-     * {@link #isNumber()} first if you're not sure this instance is indeed a
-     * number.
-     */
-    public int asInteger() { throw new UnsupportedOperationException(); }
-
-    /**
-     * @return the float value of a float <code>Json</code> instance. Call
-     * {@link #isNumber()} first if you're not sure this instance is indeed a
-     * number.
-     */
-    public float asFloat() { throw new UnsupportedOperationException(); }
-
-    /**
-     * @return the double value of a number <code>Json</code> instance. Call
-     * {@link #isNumber()} first if you're not sure this instance is indeed a
-     * number.
-     */
-    public double asDouble() { throw new UnsupportedOperationException(); }
-
-    /**
-     * @return the long value of a number <code>Json</code> instance. Call
-     * {@link #isNumber()} first if you're not sure this instance is indeed a
-     * number.
-     */
-    public long asLong() { throw new UnsupportedOperationException(); }
-
-    /**
-     * @return the short value of a number <code>Json</code> instance. Call
-     * {@link #isNumber()} first if you're not sure this instance is indeed a
-     * number.
-     */
-    public short asShort() { throw new UnsupportedOperationException(); }
-
-    /**
-     * @return the byte value of a number <code>Json</code> instance. Call
-     * {@link #isNumber()} first if you're not sure this instance is indeed a
-     * number.
-     */
-    public byte asByte() { throw new UnsupportedOperationException(); }
-
-    /**
-     * @return the first character of a string <code>Json</code> instance. Call
-     * {@link #isString()} first if you're not sure this instance is indeed a
-     * string.
-     */
-    public char asChar() { throw new UnsupportedOperationException(); }
-
-    /**
-     * @return a map of the properties of an object <code>Json</code> instance. The map
-     * is a clone of the object and can be modified safely without affecting it. Call
-     * {@link #isObject()} first if you're not sure this instance is indeed a
-     * <code>Json</code> object.
-     */
-    public Map<String, Object> asMap() { throw new UnsupportedOperationException(); }
-
-    /**
-     * @return the underlying map of properties of a <code>Json</code> object. The returned
-     * map is the actual object representation so any modifications to it are modifications
-     * of the <code>Json</code> object itself. Call
-     * {@link #isObject()} first if you're not sure this instance is indeed a
-     * <code>Json</code> object.
-     */
-    public Map<String, Json> asJsonMap() { throw new UnsupportedOperationException(); }
-
-    /**
-     * @return a list of the elements of a <code>Json</code> array. The list is a clone
-     * of the array and can be modified safely without affecting it. Call
-     * {@link #isArray()} first if you're not sure this instance is indeed a
-     * <code>Json</code> array.
-     */
-    public List<Object> asList()  { throw new UnsupportedOperationException(); }
-
-    /**
-     * @return the underlying {@link List} representation of a <code>Json</code> array.
-     * The returned list is the actual array representation so any modifications to it
-     * are modifications of the <code>Json</code> array itself. Call
-     * {@link #isArray()} first if you're not sure this instance is indeed a
-     * <code>Json</code> array.
-     */
-    public List<Json> asJsonList() { throw new UnsupportedOperationException(); }
-
-    /**
-     * @return <code>true</code> if this is a <code>Json</code> null entity
-     * and <code>false</code> otherwise.
-     */
-    public boolean isNull() { return false; }
-    /**
-     * @return <code>true</code> if this is a <code>Json</code> string entity
-     * and <code>false</code> otherwise.
-     */
-    public boolean isString() { return false; }
-    /**
-     * @return <code>true</code> if this is a <code>Json</code> number entity
-     * and <code>false</code> otherwise.
-     */
-    public boolean isNumber() { return false; }
-    /**
-     * @return <code>true</code> if this is a <code>Json</code> boolean entity
-     * and <code>false</code> otherwise.
-     */
-    public boolean isBoolean() { return false;	}
-    /**
-     * @return <code>true</code> if this is a <code>Json</code> array (i.e. list) entity
-     * and <code>false</code> otherwise.
-     */
-    public boolean isArray() { return false; }
-    /**
-     * @return <code>true</code> if this is a <code>Json</code> object entity
-     * and <code>false</code> otherwise.
-     */
-    public boolean isObject(){ return false; }
-    /**
-     * @return <code>true</code> if this is a <code>Json</code> primitive entity
-     * (one of string, number or boolean) and <code>false</code> otherwise.
-     *
-     */
-    public boolean isPrimitive() { return isString() || isNumber() || isBoolean(); }
-
-    /**
-     * <p>
-     * Json-pad this object as an argument to a callback function.
-     * </p>
-     *
-     * @param callback The name of the callback function. Can be null or empty,
-     * in which case no padding is done.
-     * @return The jsonpadded, stringified version of this object if the <code>callback</code>
-     * is not null or empty, or just the stringified version of the object.
-     */
-    public String pad(String callback)
-    {
-        return (callback != null && callback.length() > 0)
-                ? callback + "(" + toString() + ");"
-                : toString();
-    }
-
-    //-------------------------------------------------------------------------
-    // END OF PUBLIC INTERFACE
-    //-------------------------------------------------------------------------
-
-    /**
-     * Return an object representing the complete configuration
-     * of a merge. The properties of the object represent paths
-     * of the JSON structure being merged and the values represent
-     * the set of options that apply to each path.
-     * @param options the configuration options
-     * @return the configuration object
-     */
-    protected Json collectWithOptions(Json...options)
-    {
-        Json result = object();
-        for (Json opt : options)
-        {
-            if (opt.isString())
-            {
-                if (!result.has(""))
-                    result.set("", object());
-                result.at("").set(opt.asString(), true);
-            }
-            else
-            {
-                if (!opt.has("for"))
-                    opt.set("for", array(""));
-                Json forPaths = opt.at("for");
-                if (!forPaths.isArray())
-                    forPaths = array(forPaths);
-                for (Json path : forPaths.asJsonList())
-                {
-                    if (!result.has(path.asString()))
-                        result.set(path.asString(), object());
-                    Json at_path = result.at(path.asString());
-                    at_path.set("merge", opt.is("merge", true));
-                    at_path.set("dup", opt.is("dup", true));
-                    at_path.set("sort", opt.is("sort", true));
-                    at_path.set("compareBy", opt.at("compareBy", nil()));
-                }
-            }
-        }
-        return result;
-    }
-
-    static class NullJson extends Json
-    {
+    static class NullJson extends Json {
         private static final long serialVersionUID = 1L;
 
-        NullJson() {}
-        NullJson(Json e) {super(e);}
+        NullJson() {
+        }
 
-        public Object getValue() { return null; }
-        public Json dup() { return new NullJson(); }
-        public boolean isNull() { return true; }
-        public String toString() { return "null"; }
-        public List<Object> asList() { return (List<Object>)Collections.singletonList(null); }
+        NullJson(Json e) {
+            super(e);
+        }
 
-        public int hashCode() { return 0; }
-        public boolean equals(Object x)
-        {
+        public Object getValue() {
+            return null;
+        }
+
+        public Json dup() {
+            return new NullJson();
+        }
+
+        public boolean isNull() {
+            return true;
+        }
+
+        public String toString() {
+            return "null";
+        }
+
+        public List<Object> asList() {
+            return (List<Object>) Collections.singletonList(null);
+        }
+
+        public int hashCode() {
+            return 0;
+        }
+
+        public boolean equals(Object x) {
             return x instanceof NullJson;
         }
 
@@ -1920,75 +2129,56 @@ public class Json implements java.io.Serializable, Iterable<Json>
 
     }
 
-    static NullJson topnull = new NullJson();
-
-    /**
-     * <p>
-     * Set the parent (i.e. enclosing element) of Json element.
-     * </p>
-     *
-     * @param el
-     * @param parent
-     */
-    static void setParent(Json el, Json parent)
-    {
-        if (el.enclosing == null)
-            el.enclosing = parent;
-        else if (el.enclosing instanceof ParentArrayJson)
-            ((ParentArrayJson)el.enclosing).L.add(parent);
-        else
-        {
-            ParentArrayJson A = new ParentArrayJson();
-            A.L.add(el.enclosing);
-            A.L.add(parent);
-            el.enclosing = A;
-        }
-    }
-
-    /**
-     * <p>
-     * Remove/unset the parent (i.e. enclosing element) of Json element.
-     * </p>
-     *
-     * @param el
-     * @param parent
-     */
-    static void removeParent(Json el, Json parent)
-    {
-        if (el.enclosing == parent)
-            el.enclosing = null;
-        else if (el.enclosing.isArray())
-        {
-            ArrayJson A = (ArrayJson)el.enclosing;
-            int idx = 0;
-            while (A.L.get(idx) != parent && idx < A.L.size()) idx++;
-            if (idx < A.L.size())
-                A.L.remove(idx);
-        }
-    }
-
-    static class BooleanJson extends Json
-    {
+    static class BooleanJson extends Json {
         private static final long serialVersionUID = 1L;
 
         boolean val;
-        BooleanJson() {}
-        BooleanJson(Json e) {super(e);}
-        BooleanJson(Boolean val, Json e) { super(e); this.val = val; }
 
-        public Object getValue() { return val; }
-        public Json dup() { return new BooleanJson(val, null); }
-        public boolean asBoolean() { return val; }
-        public boolean isBoolean() { return true;	}
-        public String toString() { return val ? "true" : "false"; }
+        BooleanJson() {
+        }
+
+        BooleanJson(Json e) {
+            super(e);
+        }
+
+        BooleanJson(Boolean val, Json e) {
+            super(e);
+            this.val = val;
+        }
+
+        public Object getValue() {
+            return val;
+        }
+
+        public Json dup() {
+            return new BooleanJson(val, null);
+        }
+
+        public boolean asBoolean() {
+            return val;
+        }
+
+        public boolean isBoolean() {
+            return true;
+        }
+
+        public String toString() {
+            return val ? "true" : "false";
+        }
 
         @SuppressWarnings("unchecked")
-        public List<Object> asList() { return (List<Object>)(List<?>)Collections.singletonList(val); }
-        public int hashCode() { return val ? 1 : 0; }
-        public boolean equals(Object x)
-        {
-            return x instanceof BooleanJson && ((BooleanJson)x).val == val;
+        public List<Object> asList() {
+            return (List<Object>) (List<?>) Collections.singletonList(val);
         }
+
+        public int hashCode() {
+            return val ? 1 : 0;
+        }
+
+        public boolean equals(Object x) {
+            return x instanceof BooleanJson && ((BooleanJson) x).val == val;
+        }
+
         @Override
         public Iterator<Json> iterator() {
             return new JsonSingleValueIterator() {
@@ -2002,46 +2192,89 @@ public class Json implements java.io.Serializable, Iterable<Json>
 
     }
 
-    static class StringJson extends Json
-    {
+    static class StringJson extends Json {
         private static final long serialVersionUID = 1L;
 
         String val;
 
-        StringJson() {}
-        StringJson(Json e) {super(e);}
-        StringJson(String val, Json e) { super(e); this.val = val; }
+        StringJson() {
+        }
 
-        public Json dup() { return new StringJson(val, null); }
-        public boolean isString() { return true; }
-        public Object getValue() { return val; }
-        public String asString() { return val; }
-        public int asInteger() { return Integer.parseInt(val); }
-        public float asFloat() { return Float.parseFloat(val); }
-        public double asDouble() { return Double.parseDouble(val); }
-        public long asLong() { return Long.parseLong(val); }
-        public short asShort() { return Short.parseShort(val); }
-        public byte asByte() { return Byte.parseByte(val); }
-        public char asChar() { return val.charAt(0); }
+        StringJson(Json e) {
+            super(e);
+        }
+
+        StringJson(String val, Json e) {
+            super(e);
+            this.val = val;
+        }
+
+        public Json dup() {
+            return new StringJson(val, null);
+        }
+
+        public boolean isString() {
+            return true;
+        }
+
+        public Object getValue() {
+            return val;
+        }
+
+        public String asString() {
+            return val;
+        }
+
+        public int asInteger() {
+            return Integer.parseInt(val);
+        }
+
+        public float asFloat() {
+            return Float.parseFloat(val);
+        }
+
+        public double asDouble() {
+            return Double.parseDouble(val);
+        }
+
+        public long asLong() {
+            return Long.parseLong(val);
+        }
+
+        public short asShort() {
+            return Short.parseShort(val);
+        }
+
+        public byte asByte() {
+            return Byte.parseByte(val);
+        }
+
+        public char asChar() {
+            return val.charAt(0);
+        }
+
         @SuppressWarnings("unchecked")
-        public List<Object> asList() { return (List<Object>)(List<?>)Collections.singletonList(val); }
+        public List<Object> asList() {
+            return (List<Object>) (List<?>) Collections.singletonList(val);
+        }
 
-        public String toString()
-        {
+        public String toString() {
             return '"' + escaper.escapeJsonString(val) + '"';
         }
-        public String toString(int maxCharacters)
-        {
+
+        public String toString(int maxCharacters) {
             if (val.length() <= maxCharacters)
                 return toString();
             else
-                return '"' + escaper.escapeJsonString(val.subSequence(0,  maxCharacters)) + "...\"";
+                return '"' + escaper.escapeJsonString(val.subSequence(0, maxCharacters)) + "...\"";
         }
 
-        public int hashCode() { return val.hashCode(); }
-        public boolean equals(Object x)
-        {
-            return x instanceof StringJson && ((StringJson)x).val.equals(val);
+        public int hashCode() {
+            return val.hashCode();
+        }
+
+        public boolean equals(Object x) {
+            return x instanceof StringJson && ((StringJson) x).val.equals(val);
         }
 
         @Override
@@ -2057,35 +2290,78 @@ public class Json implements java.io.Serializable, Iterable<Json>
 
     }
 
-    static class NumberJson extends Json
-    {
+    static class NumberJson extends Json {
         private static final long serialVersionUID = 1L;
 
         Number val;
 
-        NumberJson() {}
-        NumberJson(Json e) {super(e);}
-        NumberJson(Number val, Json e) { super(e); this.val = val; }
+        NumberJson() {
+        }
 
-        public Json dup() { return new NumberJson(val, null); }
-        public boolean isNumber() { return true; }
-        public Object getValue() { return val; }
-        public String asString() { return val.toString(); }
-        public int asInteger() { return val.intValue(); }
-        public float asFloat() { return val.floatValue(); }
-        public double asDouble() { return val.doubleValue(); }
-        public long asLong() { return val.longValue(); }
-        public short asShort() { return val.shortValue(); }
-        public byte asByte() { return val.byteValue(); }
+        NumberJson(Json e) {
+            super(e);
+        }
+
+        NumberJson(Number val, Json e) {
+            super(e);
+            this.val = val;
+        }
+
+        public Json dup() {
+            return new NumberJson(val, null);
+        }
+
+        public boolean isNumber() {
+            return true;
+        }
+
+        public Object getValue() {
+            return val;
+        }
+
+        public String asString() {
+            return val.toString();
+        }
+
+        public int asInteger() {
+            return val.intValue();
+        }
+
+        public float asFloat() {
+            return val.floatValue();
+        }
+
+        public double asDouble() {
+            return val.doubleValue();
+        }
+
+        public long asLong() {
+            return val.longValue();
+        }
+
+        public short asShort() {
+            return val.shortValue();
+        }
+
+        public byte asByte() {
+            return val.byteValue();
+        }
 
         @SuppressWarnings("unchecked")
-        public List<Object> asList() { return (List<Object>)(List<?>)Collections.singletonList(val); }
+        public List<Object> asList() {
+            return (List<Object>) (List<?>) Collections.singletonList(val);
+        }
 
-        public String toString() { return val.toString(); }
-        public int hashCode() { return val.hashCode(); }
-        public boolean equals(Object x)
-        {
-            return x instanceof NumberJson && val.doubleValue() == ((NumberJson)x).val.doubleValue();
+        public String toString() {
+            return val.toString();
+        }
+
+        public int hashCode() {
+            return val.hashCode();
+        }
+
+        public boolean equals(Object x) {
+            return x instanceof NumberJson && val.doubleValue() == ((NumberJson) x).val.doubleValue();
         }
 
         @Override
@@ -2101,25 +2377,26 @@ public class Json implements java.io.Serializable, Iterable<Json>
 
     }
 
-    static class ArrayJson extends Json
-    {
+    static class ArrayJson extends Json {
         private static final long serialVersionUID = 1L;
 
         List<Json> L = new ArrayList<Json>();
 
-        ArrayJson() { }
-        ArrayJson(Json e) { super(e); }
+        ArrayJson() {
+        }
+
+        ArrayJson(Json e) {
+            super(e);
+        }
 
         @Override
         public Iterator<Json> iterator() {
             return L.iterator();
         }
 
-        public Json dup()
-        {
+        public Json dup() {
             ArrayJson j = new ArrayJson();
-            for (Json e : L)
-            {
+            for (Json e : L) {
                 Json v = e.dup();
                 v.enclosing = j;
                 j.L.add(v);
@@ -2127,82 +2404,88 @@ public class Json implements java.io.Serializable, Iterable<Json>
             return j;
         }
 
-        public Json set(int index, Object value)
-        {
+        public Json set(int index, Object value) {
             Json jvalue = make(value);
             L.set(index, jvalue);
             setParent(jvalue, this);
             return this;
         }
 
-        public List<Json> asJsonList() { return L; }
-        public List<Object> asList()
-        {
+        public List<Json> asJsonList() {
+            return L;
+        }
+
+        public List<Object> asList() {
             ArrayList<Object> A = new ArrayList<Object>();
-            for (Json x: L)
+            for (Json x : L)
                 A.add(x.getValue());
             return A;
         }
-        public boolean is(int index, Object value)
-        {
+
+        public boolean is(int index, Object value) {
             if (index < 0 || index >= L.size())
                 return false;
             else
                 return L.get(index).equals(make(value));
         }
-        public Object getValue() { return asList(); }
-        public boolean isArray() { return true; }
-        public Json at(int index) { return L.get(index); }
-        public Json add(Json el)
-        {
+
+        public Object getValue() {
+            return asList();
+        }
+
+        public boolean isArray() {
+            return true;
+        }
+
+        public Json at(int index) {
+            return L.get(index);
+        }
+
+        public Json add(Json el) {
             L.add(el);
             setParent(el, this);
             return this;
         }
-        public Json remove(Json el) { L.remove(el); el.enclosing = null; return this; }
 
-        boolean isEqualJson(Json left, Json right)
-        {
+        public Json remove(Json el) {
+            L.remove(el);
+            el.enclosing = null;
+            return this;
+        }
+
+        boolean isEqualJson(Json left, Json right) {
             if (left == null)
                 return right == null;
             else
                 return left.equals(right);
         }
 
-        boolean isEqualJson(Json left, Json right, Json fields)
-        {
+        boolean isEqualJson(Json left, Json right, Json fields) {
             if (fields.isNull())
                 return left.equals(right);
             else if (fields.isString())
                 return isEqualJson(resolvePointer(fields.asString(), left),
                         resolvePointer(fields.asString(), right));
-            else if (fields.isArray())
-            {
+            else if (fields.isArray()) {
                 for (Json field : fields.asJsonList())
                     if (!isEqualJson(resolvePointer(field.asString(), left),
                             resolvePointer(field.asString(), right)))
                         return false;
                 return true;
-            }
-            else
+            } else
                 throw new IllegalArgumentException("Compare by options should be either a property name or an array of property names: " + fields);
         }
 
-        @SuppressWarnings({ "unchecked", "rawtypes" })
-        int compareJson(Json left, Json right, Json fields)
-        {
+        @SuppressWarnings({"unchecked", "rawtypes"})
+        int compareJson(Json left, Json right, Json fields) {
             if (fields.isNull())
-                return ((Comparable)left.getValue()).compareTo(right.getValue());
-            else if (fields.isString())
-            {
+                return ((Comparable) left.getValue()).compareTo(right.getValue());
+            else if (fields.isString()) {
                 Json leftProperty = resolvePointer(fields.asString(), left);
                 Json rightProperty = resolvePointer(fields.asString(), right);
-                return ((Comparable)leftProperty).compareTo(rightProperty);
-            }
-            else if (fields.isArray())
-            {
-                for (Json field : fields.asJsonList())
-                {
+                return ((Comparable) leftProperty).compareTo(rightProperty);
+            } else if (fields.isArray()) {
+                for (Json field : fields.asJsonList()) {
                     Json leftProperty = resolvePointer(field.asString(), left);
                     Json rightProperty = resolvePointer(field.asString(), right);
                     int result = ((Comparable) leftProperty).compareTo(rightProperty);
@@ -2210,24 +2493,19 @@ public class Json implements java.io.Serializable, Iterable<Json>
                         return result;
                 }
                 return 0;
-            }
-            else
+            } else
                 throw new IllegalArgumentException("Compare by options should be either a property name or an array of property names: " + fields);
         }
 
-        Json withOptions(Json array, Json allOptions, String path)
-        {
+        Json withOptions(Json array, Json allOptions, String path) {
             Json opts = allOptions.at(path, object());
             boolean dup = opts.is("dup", true);
             Json compareBy = opts.at("compareBy", nil());
-            if (opts.is("sort", true))
-            {
+            if (opts.is("sort", true)) {
                 int thisIndex = 0, thatIndex = 0;
-                while (thatIndex < array.asJsonList().size())
-                {
+                while (thatIndex < array.asJsonList().size()) {
                     Json thatElement = array.at(thatIndex);
-                    if (thisIndex == L.size())
-                    {
+                    if (thisIndex == L.size()) {
                         L.add(dup ? thatElement.dup() : thatElement);
                         thisIndex++;
                         thatIndex++;
@@ -2244,15 +2522,11 @@ public class Json implements java.io.Serializable, Iterable<Json>
                         thatIndex++;
                     }
                 }
-            }
-            else
-            {
-                for (Json thatElement : array.asJsonList())
-                {
+            } else {
+                for (Json thatElement : array.asJsonList()) {
                     boolean present = false;
                     for (Json thisElement : L)
-                        if (isEqualJson(thisElement, thatElement, compareBy))
-                        {
+                        if (isEqualJson(thisElement, thatElement, compareBy)) {
                             present = true;
                             break;
                         }
@@ -2263,57 +2537,48 @@ public class Json implements java.io.Serializable, Iterable<Json>
             return this;
         }
 
-        public Json with(Json object, Json...options)
-        {
+        public Json with(Json object, Json... options) {
             if (object == null) return this;
             if (!object.isArray())
                 add(object);
-            else if (options.length > 0)
-            {
+            else if (options.length > 0) {
                 Json O = collectWithOptions(options);
                 return withOptions(object, O, "");
-            }
-            else
+            } else
                 // what about "enclosing" here? we don't have a provision where a Json
                 // element belongs to more than one enclosing elements...
-                L.addAll(((ArrayJson)object).L);
+                L.addAll(((ArrayJson) object).L);
             return this;
         }
 
-        public Json atDel(int index)
-        {
+        public Json atDel(int index) {
             Json el = L.remove(index);
             if (el != null)
                 el.enclosing = null;
             return el;
         }
 
-        public Json delAt(int index)
-        {
+        public Json delAt(int index) {
             Json el = L.remove(index);
             if (el != null)
                 el.enclosing = null;
             return this;
         }
 
-        public String toString()
-        {
+        public String toString() {
             return toString(Integer.MAX_VALUE);
         }
 
-        public String toString(int maxCharacters)
-        {
+        public String toString(int maxCharacters) {
             return toStringImpl(maxCharacters, new IdentityHashMap<Json, Json>());
         }
 
-        String toStringImpl(int maxCharacters, Map<Json, Json> done)
-        {
+        String toStringImpl(int maxCharacters, Map<Json, Json> done) {
             StringBuilder sb = new StringBuilder("[");
-            for (Iterator<Json> i = L.iterator(); i.hasNext(); )
-            {
+            for (Iterator<Json> i = L.iterator(); i.hasNext(); ) {
                 Json value = i.next();
-                String s = value.isObject() ? ((ObjectJson)value).toStringImpl(maxCharacters, done)
-                        : value.isArray() ? ((ArrayJson)value).toStringImpl(maxCharacters, done)
+                String s = value.isObject() ? ((ObjectJson) value).toStringImpl(maxCharacters, done)
+                        : value.isArray() ? ((ArrayJson) value).toStringImpl(maxCharacters, done)
                         : value.toString(maxCharacters);
                 if (sb.length() + s.length() > maxCharacters)
                     s = s.substring(0, Math.max(0, maxCharacters - sb.length()));
@@ -2321,8 +2586,7 @@ public class Json implements java.io.Serializable, Iterable<Json>
                     sb.append(s);
                 if (i.hasNext())
                     sb.append(",");
-                if (sb.length() >= maxCharacters)
-                {
+                if (sb.length() >= maxCharacters) {
                     sb.append("...");
                     break;
                 }
@@ -2331,192 +2595,12 @@ public class Json implements java.io.Serializable, Iterable<Json>
             return sb.toString();
         }
 
-        public int hashCode() { return L.hashCode(); }
-        public boolean equals(Object x)
-        {
-            return x instanceof ArrayJson && ((ArrayJson)x).L.equals(L);
-        }
-    }
-
-    static class ParentArrayJson extends ArrayJson
-    {
-
-        /**
-         *
-         */
-        private static final long serialVersionUID = 1L;
-
-    }
-
-    static class ObjectJson extends Json
-    {
-        private static final long serialVersionUID = 1L;
-
-        Map<String, Json> object = new HashMap<String, Json>();
-
-        @Override
-        public Iterator<Json> iterator() {
-            return object.values().iterator();
+        public int hashCode() {
+            return L.hashCode();
         }
 
-        ObjectJson() { }
-        ObjectJson(Json e) { super(e); }
-
-        public Json dup()
-        {
-            ObjectJson j = new ObjectJson();
-            for (Map.Entry<String, Json> e : object.entrySet())
-            {
-                Json v = e.getValue().dup();
-                v.enclosing = j;
-                j.object.put(e.getKey(), v);
-            }
-            return j;
-        }
-
-        public boolean has(String property)
-        {
-            return object.containsKey(property);
-        }
-
-        public boolean is(String property, Object value)
-        {
-            Json p = object.get(property);
-            if (p == null)
-                return false;
-            else
-                return p.equals(make(value));
-        }
-
-        public Json at(String property)
-        {
-            return object.get(property);
-        }
-
-        protected Json withOptions(Json other, Json allOptions, String path)
-        {
-            if (!allOptions.has(path))
-                allOptions.set(path, object());
-            Json options = allOptions.at(path, object());
-            boolean duplicate = options.is("dup", true);
-            if (options.is("merge", true))
-            {
-                for (Map.Entry<String, Json> e : other.asJsonMap().entrySet())
-                {
-                    Json local = object.get(e.getKey());
-                    if (local instanceof ObjectJson)
-                        ((ObjectJson)local).withOptions(e.getValue(), allOptions, path + "/" + e.getKey());
-                    else if (local instanceof ArrayJson)
-                        ((ArrayJson)local).withOptions(e.getValue(), allOptions, path + "/" + e.getKey());
-                    else
-                        set(e.getKey(), duplicate ? e.getValue().dup() : e.getValue());
-                }
-            }
-            else if (duplicate)
-                for (Map.Entry<String, Json> e : other.asJsonMap().entrySet())
-                    set(e.getKey(), e.getValue().dup());
-            else
-                for (Map.Entry<String, Json> e : other.asJsonMap().entrySet())
-                    set(e.getKey(), e.getValue());
-            return this;
-        }
-
-        public Json with(Json x, Json...options)
-        {
-            if (x == null) return this;
-            if (!x.isObject())
-                throw new UnsupportedOperationException();
-            if (options.length > 0)
-            {
-                Json O = collectWithOptions(options);
-                return withOptions(x, O, "");
-            }
-            else for (Map.Entry<String, Json> e : x.asJsonMap().entrySet())
-                set(e.getKey(), e.getValue());
-            return this;
-        }
-
-        public Json set(String property, Json el)
-        {
-            if (property == null)
-                throw new IllegalArgumentException("Null property names are not allowed, value is " + el);
-            if (el == null)
-                el = nil();
-            setParent(el, this);
-            object.put(property, el);
-            return this;
-        }
-
-        public Json atDel(String property)
-        {
-            Json el = object.remove(property);
-            removeParent(el, this);
-            return el;
-        }
-
-        public Json delAt(String property)
-        {
-            Json el = object.remove(property);
-            removeParent(el, this);
-            return this;
-        }
-
-        public Object getValue() { return asMap(); }
-        public boolean isObject() { return true; }
-        public Map<String, Object> asMap()
-        {
-            HashMap<String, Object> m = new HashMap<String, Object>();
-            for (Map.Entry<String, Json> e : object.entrySet())
-                m.put(e.getKey(), e.getValue().getValue());
-            return m;
-        }
-        @Override
-        public Map<String, Json> asJsonMap() { return object; }
-
-        public String toString()
-        {
-            return toString(Integer.MAX_VALUE);
-        }
-
-        public String toString(int maxCharacters)
-        {
-            return toStringImpl(maxCharacters, new IdentityHashMap<Json, Json>());
-        }
-
-        String toStringImpl(int maxCharacters, Map<Json, Json> done)
-        {
-            StringBuilder sb = new StringBuilder("{");
-            if (done.containsKey(this))
-                return sb.append("...}").toString();
-            done.put(this, this);
-            for (Iterator<Map.Entry<String, Json>> i = object.entrySet().iterator(); i.hasNext(); )
-            {
-                Map.Entry<String, Json> x  = i.next();
-                sb.append('"');
-                sb.append(escaper.escapeJsonString(x.getKey()));
-                sb.append('"');
-                sb.append(":");
-                String s = x.getValue().isObject() ? ((ObjectJson)x.getValue()).toStringImpl(maxCharacters, done)
-                        : x.getValue().isArray() ? ((ArrayJson)x.getValue()).toStringImpl(maxCharacters, done)
-                        : x.getValue().toString(maxCharacters);
-                if (sb.length() + s.length() > maxCharacters)
-                    s = s.substring(0, Math.max(0, maxCharacters - sb.length()));
-                sb.append(s);
-                if (i.hasNext())
-                    sb.append(",");
-                if (sb.length() >= maxCharacters)
-                {
-                    sb.append("...");
-                    break;
-                }
-            }
-            sb.append("}");
-            return sb.toString();
-        }
-        public int hashCode() { return object.hashCode(); }
-        public boolean equals(Object x)
-        {
-            return x instanceof ObjectJson && ((ObjectJson)x).object.equals(object);
+        public boolean equals(Object x) {
+            return x instanceof ArrayJson && ((ArrayJson) x).L.equals(L);
         }
     }
 
@@ -2540,20 +2624,180 @@ public class Json implements java.io.Serializable, Iterable<Json>
      * limitations under the License.
      */
 
-    /**
-     * A utility class that is used to perform JSON escaping so that ", <, >, etc. characters are
-     * properly encoded in the JSON string representation before returning to the client code.
-     *
-     * <p>This class contains a single method to escape a passed in string value:
-     * <pre>
-     *   String jsonStringValue = "beforeQuote\"afterQuote";
-     *   String escapedValue = Escaper.escapeJsonString(jsonStringValue);
-     * </pre></p>
-     *
-     * @author Inderjeet Singh
-     * @author Joel Leitch
-     */
-    static Escaper escaper = new Escaper(false);
+    static class ParentArrayJson extends ArrayJson {
+
+        /**
+         *
+         */
+        private static final long serialVersionUID = 1L;
+
+    }
+
+    static class ObjectJson extends Json {
+        private static final long serialVersionUID = 1L;
+
+        Map<String, Json> object = new HashMap<String, Json>();
+
+        ObjectJson() {
+        }
+
+        ObjectJson(Json e) {
+            super(e);
+        }
+
+        @Override
+        public Iterator<Json> iterator() {
+            return object.values().iterator();
+        }
+
+        public Json dup() {
+            ObjectJson j = new ObjectJson();
+            for (Map.Entry<String, Json> e : object.entrySet()) {
+                Json v = e.getValue().dup();
+                v.enclosing = j;
+                j.object.put(e.getKey(), v);
+            }
+            return j;
+        }
+
+        public boolean has(String property) {
+            return object.containsKey(property);
+        }
+
+        public boolean is(String property, Object value) {
+            Json p = object.get(property);
+            if (p == null)
+                return false;
+            else
+                return p.equals(make(value));
+        }
+
+        public Json at(String property) {
+            return object.get(property);
+        }
+
+        protected Json withOptions(Json other, Json allOptions, String path) {
+            if (!allOptions.has(path))
+                allOptions.set(path, object());
+            Json options = allOptions.at(path, object());
+            boolean duplicate = options.is("dup", true);
+            if (options.is("merge", true)) {
+                for (Map.Entry<String, Json> e : other.asJsonMap().entrySet()) {
+                    Json local = object.get(e.getKey());
+                    if (local instanceof ObjectJson)
+                        ((ObjectJson) local).withOptions(e.getValue(), allOptions, path + "/" + e.getKey());
+                    else if (local instanceof ArrayJson)
+                        ((ArrayJson) local).withOptions(e.getValue(), allOptions, path + "/" + e.getKey());
+                    else
+                        set(e.getKey(), duplicate ? e.getValue().dup() : e.getValue());
+                }
+            } else if (duplicate)
+                for (Map.Entry<String, Json> e : other.asJsonMap().entrySet())
+                    set(e.getKey(), e.getValue().dup());
+            else
+                for (Map.Entry<String, Json> e : other.asJsonMap().entrySet())
+                    set(e.getKey(), e.getValue());
+            return this;
+        }
+
+        public Json with(Json x, Json... options) {
+            if (x == null) return this;
+            if (!x.isObject())
+                throw new UnsupportedOperationException();
+            if (options.length > 0) {
+                Json O = collectWithOptions(options);
+                return withOptions(x, O, "");
+            } else for (Map.Entry<String, Json> e : x.asJsonMap().entrySet())
+                set(e.getKey(), e.getValue());
+            return this;
+        }
+
+        public Json set(String property, Json el) {
+            if (property == null)
+                throw new IllegalArgumentException("Null property names are not allowed, value is " + el);
+            if (el == null)
+                el = nil();
+            setParent(el, this);
+            object.put(property, el);
+            return this;
+        }
+
+        public Json atDel(String property) {
+            Json el = object.remove(property);
+            removeParent(el, this);
+            return el;
+        }
+
+        public Json delAt(String property) {
+            Json el = object.remove(property);
+            removeParent(el, this);
+            return this;
+        }
+
+        public Object getValue() {
+            return asMap();
+        }
+
+        public boolean isObject() {
+            return true;
+        }
+
+        public Map<String, Object> asMap() {
+            HashMap<String, Object> m = new HashMap<String, Object>();
+            for (Map.Entry<String, Json> e : object.entrySet())
+                m.put(e.getKey(), e.getValue().getValue());
+            return m;
+        }
+
+        @Override
+        public Map<String, Json> asJsonMap() {
+            return object;
+        }
+
+        public String toString() {
+            return toString(Integer.MAX_VALUE);
+        }
+
+        public String toString(int maxCharacters) {
+            return toStringImpl(maxCharacters, new IdentityHashMap<Json, Json>());
+        }
+
+        String toStringImpl(int maxCharacters, Map<Json, Json> done) {
+            StringBuilder sb = new StringBuilder("{");
+            if (done.containsKey(this))
+                return sb.append("...}").toString();
+            done.put(this, this);
+            for (Iterator<Map.Entry<String, Json>> i = object.entrySet().iterator(); i.hasNext(); ) {
+                Map.Entry<String, Json> x = i.next();
+                sb.append('"');
+                sb.append(escaper.escapeJsonString(x.getKey()));
+                sb.append('"');
+                sb.append(":");
+                String s = x.getValue().isObject() ? ((ObjectJson) x.getValue()).toStringImpl(maxCharacters, done)
+                        : x.getValue().isArray() ? ((ArrayJson) x.getValue()).toStringImpl(maxCharacters, done)
+                        : x.getValue().toString(maxCharacters);
+                if (sb.length() + s.length() > maxCharacters)
+                    s = s.substring(0, Math.max(0, maxCharacters - sb.length()));
+                sb.append(s);
+                if (i.hasNext())
+                    sb.append(",");
+                if (sb.length() >= maxCharacters) {
+                    sb.append("...");
+                    break;
+                }
+            }
+            sb.append("}");
+            return sb.toString();
+        }
+
+        public int hashCode() {
+            return object.hashCode();
+        }
+
+        public boolean equals(Object x) {
+            return x instanceof ObjectJson && ((ObjectJson) x).object.equals(object);
+        }
+    }
 
     final static class Escaper {
 
@@ -2584,6 +2828,33 @@ public class Json implements java.io.Serializable, Iterable<Json>
 
         Escaper(boolean escapeHtmlCharacters) {
             this.escapeHtmlCharacters = escapeHtmlCharacters;
+        }
+
+        private static boolean isControlCharacter(int codePoint) {
+            // JSON spec defines these code points as control characters, so they must be escaped
+            return codePoint < 0x20
+                    || codePoint == 0x2028  // Line separator
+                    || codePoint == 0x2029  // Paragraph separator
+                    || (codePoint >= 0x7f && codePoint <= 0x9f);
+        }
+
+        private static void appendHexJavaScriptRepresentation(int codePoint, Appendable out)
+                throws IOException {
+            if (Character.isSupplementaryCodePoint(codePoint)) {
+                // Handle supplementary unicode values which are not representable in
+                // javascript.  We deal with these by escaping them as two 4B sequences
+                // so that they will round-trip properly when sent from java to javascript
+                // and back.
+                char[] surrogates = Character.toChars(codePoint);
+                appendHexJavaScriptRepresentation(surrogates[0], out);
+                appendHexJavaScriptRepresentation(surrogates[1], out);
+                return;
+            }
+            out.append("\\u")
+                    .append(HEX_CHARS[(codePoint >>> 12) & 0xf])
+                    .append(HEX_CHARS[(codePoint >>> 8) & 0xf])
+                    .append(HEX_CHARS[(codePoint >>> 4) & 0xf])
+                    .append(HEX_CHARS[codePoint & 0xf]);
         }
 
         public String escapeJsonString(CharSequence plainText) {
@@ -2651,43 +2922,21 @@ public class Json implements java.io.Serializable, Iterable<Json>
             }
             return false;
         }
-
-        private static boolean isControlCharacter(int codePoint) {
-            // JSON spec defines these code points as control characters, so they must be escaped
-            return codePoint < 0x20
-                    || codePoint == 0x2028  // Line separator
-                    || codePoint == 0x2029  // Paragraph separator
-                    || (codePoint >= 0x7f && codePoint <= 0x9f);
-        }
-
-        private static void appendHexJavaScriptRepresentation(int codePoint, Appendable out)
-                throws IOException {
-            if (Character.isSupplementaryCodePoint(codePoint)) {
-                // Handle supplementary unicode values which are not representable in
-                // javascript.  We deal with these by escaping them as two 4B sequences
-                // so that they will round-trip properly when sent from java to javascript
-                // and back.
-                char[] surrogates = Character.toChars(codePoint);
-                appendHexJavaScriptRepresentation(surrogates[0], out);
-                appendHexJavaScriptRepresentation(surrogates[1], out);
-                return;
-            }
-            out.append("\\u")
-                    .append(HEX_CHARS[(codePoint >>> 12) & 0xf])
-                    .append(HEX_CHARS[(codePoint >>> 8) & 0xf])
-                    .append(HEX_CHARS[(codePoint >>> 4) & 0xf])
-                    .append(HEX_CHARS[codePoint & 0xf]);
-        }
     }
 
-    public static class MalformedJsonException extends RuntimeException
-    {
+    public static class MalformedJsonException extends RuntimeException {
         private static final long serialVersionUID = 1L;
-        public MalformedJsonException(String msg) { super(msg); }
-    }
 
-    private static class Reader
-    {
+        public MalformedJsonException(String msg) {
+            super(msg);
+        }
+    }
+    // END Reader
+
+    private static class Reader {
+        public static final int FIRST = 0;
+        public static final int CURRENT = 1;
+        public static final int NEXT = 2;
         private static final Object OBJECT_END = new String("}");
         private static final Object ARRAY_END = new String("]");
         private static final Object OBJECT_START = new String("{");
@@ -2696,13 +2945,9 @@ public class Json implements java.io.Serializable, Iterable<Json>
         private static final Object COMMA = new String(",");
         private static final HashSet<Object> PUNCTUATION = new HashSet<Object>(
                 Arrays.asList(OBJECT_END, OBJECT_START, ARRAY_END, ARRAY_START, COLON, COMMA));
-        public static final int FIRST = 0;
-        public static final int CURRENT = 1;
-        public static final int NEXT = 2;
-
         private static Map<Character, Character> escapes = new HashMap<Character, Character>();
-        static
-        {
+
+        static {
             escapes.put(new Character('"'), new Character('"'));
             escapes.put(new Character('\\'), new Character('\\'));
             escapes.put(new Character('/'), new Character('/'));
@@ -2718,8 +2963,7 @@ public class Json implements java.io.Serializable, Iterable<Json>
         private Object token;
         private StringBuffer buf = new StringBuffer();
 
-        private char next()
-        {
+        private char next() {
             if (it.getIndex() == it.getEndIndex())
                 throw new MalformedJsonException("Reached end of input at the " +
                         it.getIndex() + "th character.");
@@ -2727,49 +2971,39 @@ public class Json implements java.io.Serializable, Iterable<Json>
             return c;
         }
 
-        private char previous()
-        {
+        private char previous() {
             c = it.previous();
             return c;
         }
 
-        private void skipWhiteSpace()
-        {
-            do
-            {
+        private void skipWhiteSpace() {
+            do {
                 if (Character.isWhitespace(c))
                     ;
-                else if (c == '/')
-                {
+                else if (c == '/') {
                     next();
-                    if (c == '*')
-                    {
+                    if (c == '*') {
                         // skip multiline comments
                         while (c != CharacterIterator.DONE)
                             if (next() == '*' && next() == '/')
                                 break;
                         if (c == CharacterIterator.DONE)
                             throw new MalformedJsonException("Unterminated comment while parsing JSON string.");
-                    }
-                    else if (c == '/')
+                    } else if (c == '/')
                         while (c != '\n' && c != CharacterIterator.DONE)
                             next();
-                    else
-                    {
+                    else {
                         previous();
                         break;
                     }
-                }
-                else
+                } else
                     break;
             } while (next() != CharacterIterator.DONE);
         }
 
-        public Object read(CharacterIterator ci, int start)
-        {
+        public Object read(CharacterIterator ci, int start) {
             it = ci;
-            switch (start)
-            {
+            switch (start) {
                 case FIRST:
                     c = it.first();
                     break;
@@ -2783,44 +3017,53 @@ public class Json implements java.io.Serializable, Iterable<Json>
             return read();
         }
 
-        public Object read(CharacterIterator it)
-        {
+        public Object read(CharacterIterator it) {
             return read(it, NEXT);
         }
 
-        public Object read(String string)
-        {
+        public Object read(String string) {
             return read(new StringCharacterIterator(string), FIRST);
         }
 
-        private void expected(Object expectedToken, Object actual)
-        {
+        private void expected(Object expectedToken, Object actual) {
             if (expectedToken != actual)
                 throw new MalformedJsonException("Expected " + expectedToken + ", but got " + actual + " instead");
         }
 
         @SuppressWarnings("unchecked")
-        private <T> T read()
-        {
+        private <T> T read() {
             skipWhiteSpace();
             char ch = c;
             next();
-            switch (ch)
-            {
-                case '"': token = readString(); break;
-                case '[': token = readArray(); break;
-                case ']': token = ARRAY_END; break;
-                case ',': token = COMMA; break;
-                case '{': token = readObject(); break;
-                case '}': token = OBJECT_END; break;
-                case ':': token = COLON; break;
+            switch (ch) {
+                case '"':
+                    token = readString();
+                    break;
+                case '[':
+                    token = readArray();
+                    break;
+                case ']':
+                    token = ARRAY_END;
+                    break;
+                case ',':
+                    token = COMMA;
+                    break;
+                case '{':
+                    token = readObject();
+                    break;
+                case '}':
+                    token = OBJECT_END;
+                    break;
+                case ':':
+                    token = COLON;
+                    break;
                 case 't':
                     if (c != 'r' || next() != 'u' || next() != 'e')
                         throw new MalformedJsonException("Invalid JSON token: expected 'true' keyword.");
                     next();
                     token = factory().bool(Boolean.TRUE);
                     break;
-                case'f':
+                case 'f':
                     if (c != 'a' || next() != 'l' || next() != 's' || next() != 'e')
                         throw new MalformedJsonException("Invalid JSON token: expected 'false' keyword.");
                     next();
@@ -2836,14 +3079,12 @@ public class Json implements java.io.Serializable, Iterable<Json>
                     c = it.previous();
                     if (Character.isDigit(c) || c == '-') {
                         token = readNumber();
-                    }
-                    else throw new MalformedJsonException("Invalid JSON near position: " + it.getIndex());
+                    } else throw new MalformedJsonException("Invalid JSON near position: " + it.getIndex());
             }
-            return (T)token;
+            return (T) token;
         }
 
-        private String readObjectKey()
-        {
+        private String readObjectKey() {
             Object key = read();
             if (key == null)
                 throw new MalformedJsonException("Missing object key (don't forget to put quotes!).");
@@ -2852,74 +3093,62 @@ public class Json implements java.io.Serializable, Iterable<Json>
             else if (PUNCTUATION.contains(key))
                 throw new MalformedJsonException("Missing object key, found: " + key);
             else
-                return ((Json)key).asString();
+                return ((Json) key).asString();
         }
 
-        private Json readObject()
-        {
+        private Json readObject() {
             Json ret = object();
             String key = readObjectKey();
-            while (token != OBJECT_END)
-            {
+            while (token != OBJECT_END) {
                 expected(COLON, read()); // should be a colon
-                if (token != OBJECT_END)
-                {
+                if (token != OBJECT_END) {
                     Json value = read();
                     ret.set(key, value);
                     if (read() == COMMA) {
                         key = readObjectKey();
                         if (key == null || PUNCTUATION.contains(key))
                             throw new MalformedJsonException("Expected a property name, but found: " + key);
-                    }
-                    else
+                    } else
                         expected(OBJECT_END, token);
                 }
             }
             return ret;
         }
 
-        private Json readArray()
-        {
+        private Json readArray() {
             Json ret = array();
             Object value = read();
-            while (token != ARRAY_END)
-            {
+            while (token != ARRAY_END) {
                 if (PUNCTUATION.contains(value))
                     throw new MalformedJsonException("Expected array element, but found: " + value);
-                ret.add((Json)value);
+                ret.add((Json) value);
                 if (read() == COMMA) {
                     value = read();
                     if (value == ARRAY_END)
                         throw new MalformedJsonException("Expected array element, but found end of array after command.");
-                }
-                else
+                } else
                     expected(ARRAY_END, token);
             }
             return ret;
         }
 
-        private Json readNumber()
-        {
+        private Json readNumber() {
             int length = 0;
             boolean isFloatingPoint = false;
             buf.setLength(0);
 
-            if (c == '-')
-            {
+            if (c == '-') {
                 add();
             }
             length += addDigits();
-            if (c == '.')
-            {
+            if (c == '.') {
                 add();
                 length += addDigits();
                 isFloatingPoint = true;
             }
-            if (c == 'e' || c == 'E')
-            {
+            if (c == 'e' || c == 'E') {
                 add();
-                if (c == '+' || c == '-')
-                {
+                if (c == '+' || c == '-') {
                     add();
                 }
                 addDigits();
@@ -2933,39 +3162,28 @@ public class Json implements java.io.Serializable, Iterable<Json>
             return factory().number(n);
         }
 
-        private int addDigits()
-        {
+        private int addDigits() {
             int ret;
-            for (ret = 0; Character.isDigit(c); ++ret)
-            {
+            for (ret = 0; Character.isDigit(c); ++ret) {
                 add();
             }
             return ret;
         }
 
-        private Json readString()
-        {
+        private Json readString() {
             buf.setLength(0);
-            while (c != '"')
-            {
-                if (c == '\\')
-                {
+            while (c != '"') {
+                if (c == '\\') {
                     next();
-                    if (c == 'u')
-                    {
+                    if (c == 'u') {
                         add(unicode());
-                    }
-                    else
-                    {
+                    } else {
                         Object value = escapes.get(new Character(c));
-                        if (value != null)
-                        {
+                        if (value != null) {
                             add(((Character) value).charValue());
                         }
                     }
-                }
-                else
-                {
+                } else {
                     add();
                 }
             }
@@ -2973,58 +3191,50 @@ public class Json implements java.io.Serializable, Iterable<Json>
             return factory().string(buf.toString());
         }
 
-        private void add(char cc)
-        {
+        private void add(char cc) {
             buf.append(cc);
             next();
         }
 
-        private void add()
-        {
+        private void add() {
             add(c);
         }
 
-        private char unicode()
-        {
+        private char unicode() {
             int value = 0;
-            for (int i = 0; i < 4; ++i)
-            {
-                switch (next())
-                {
-                    case '0': case '1': case '2': case '3': case '4':
-                    case '5': case '6': case '7': case '8': case '9':
-                    value = (value << 4) + c - '0';
-                    break;
-                    case 'a': case 'b': case 'c': case 'd': case 'e': case 'f':
-                    value = (value << 4) + (c - 'a') + 10;
-                    break;
-                    case 'A': case 'B': case 'C': case 'D': case 'E': case 'F':
-                    value = (value << 4) + (c - 'A') + 10;
-                    break;
+            for (int i = 0; i < 4; ++i) {
+                switch (next()) {
+                    case '0':
+                    case '1':
+                    case '2':
+                    case '3':
+                    case '4':
+                    case '5':
+                    case '6':
+                    case '7':
+                    case '8':
+                    case '9':
+                        value = (value << 4) + c - '0';
+                        break;
+                    case 'a':
+                    case 'b':
+                    case 'c':
+                    case 'd':
+                    case 'e':
+                    case 'f':
+                        value = (value << 4) + (c - 'a') + 10;
+                        break;
+                    case 'A':
+                    case 'B':
+                    case 'C':
+                    case 'D':
+                    case 'E':
+                    case 'F':
+                        value = (value << 4) + (c - 'A') + 10;
+                        break;
                 }
             }
             return (char) value;
-        }
-    }
-    // END Reader
-
-    public static void main(String []argv)
-    {
-        try
-        {
-            URI assetUri = new URI("https://raw.githubusercontent.com/pudo/aleph/master/aleph/schema/entity/asset.json");
-            URI schemaRoot = new URI("https://raw.githubusercontent.com/pudo/aleph/master/aleph/schema/");
-
-            // This fails
-            Json.schema(assetUri);
-
-            // And so does this
-            Json asset = Json.read(assetUri.toURL());
-            Json.schema(asset, schemaRoot);
-        }
-        catch (Throwable t)
-        {
-            t.printStackTrace();
         }
     }
 }
