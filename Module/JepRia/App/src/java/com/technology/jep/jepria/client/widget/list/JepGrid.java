@@ -69,9 +69,9 @@ public class JepGrid<T> extends DataGrid<T> {
   private ScrollPanel contentWidget;
   
   /**
-   * Идентификатор таблицы данных для сохранения конфигурации столбцов в cookies
+   * Идентификатор таблицы данных для сохранения конфигурации столбцов в cookies или в localStorage
    */
-  private final String cookieId;
+  private final String gridStorageId;
   
   /**
    * Список колонок таблица данных
@@ -207,26 +207,26 @@ public class JepGrid<T> extends DataGrid<T> {
   /**
    * Создает таблицу данных на списочной форме.
    * 
-   * @param cookieId      идентификатор таблицы данных для сохранения в Cookies
+   * @param gridStorageId      идентификатор таблицы данных для сохранения в Cookies
    * @param gridIdAsWebEl    идентификатор таблицы данных как веб-элемента
    * @param columns      список колонок
    */
-  public JepGrid(String cookieId, String gridIdAsWebEl, List<JepColumn> columns) {
-    this(cookieId, gridIdAsWebEl, columns, null);
+  public JepGrid(String gridStorageId, String gridIdAsWebEl, List<JepColumn> columns) {
+    this(gridStorageId, gridIdAsWebEl, columns, null);
   }
   
   /**
    * Создает таблицу данных на списочной форме.
    * 
-   * @param cookieId      идентификатор таблицы данных для сохранения в Cookies
+   * @param gridStorageId      идентификатор таблицы данных для сохранения в Cookies
    * @param gridIdAsWebEl    идентификатор таблицы данных как веб-элемента
    * @param columns      список колонок
    * @param keyProvider    провайдер ключей таблицы данных
    */
-  public JepGrid(String cookieId, String gridIdAsWebEl, List<JepColumn> columns, ProvidesKey<T> keyProvider) {
+  public JepGrid(String gridStorageId, String gridIdAsWebEl, List<JepColumn> columns, ProvidesKey<T> keyProvider) {
     super(DEFAULT_PAGE_SIZE, (DataGridResource) GWT.create(DataGridResource.class), keyProvider);
     
-    this.cookieId = cookieId;
+    this.gridStorageId = gridStorageId;
     
     if (gridIdAsWebEl != null) {
       this.getElement().setId(gridIdAsWebEl);
@@ -258,7 +258,7 @@ public class JepGrid<T> extends DataGrid<T> {
   /**
    * Создает таблицу данных на списочной форме.
    * 
-   * @param cookieId      идентификатор таблицы данных для сохранения в Cookies
+   * @param gridStorageId      идентификатор таблицы данных для сохранения в Cookies
    * @param gridIdAsWebEl    идентификатор таблицы данных как веб-элемента
    * @param columns      список колонок
    * @param wrapHeaders    допустимость переноса наименования колонок
@@ -266,14 +266,14 @@ public class JepGrid<T> extends DataGrid<T> {
    * Особенность: следует использовать альтернативные перегруженные конструкторы 
    */
   @Deprecated
-  public JepGrid(String cookieId, String gridIdAsWebEl, List<JepColumn> columns, boolean wrapHeaders) {
-    this(cookieId, gridIdAsWebEl, columns, wrapHeaders, null);
+  public JepGrid(String gridStorageId, String gridIdAsWebEl, List<JepColumn> columns, boolean wrapHeaders) {
+    this(gridStorageId, gridIdAsWebEl, columns, wrapHeaders, null);
   }
   
   /**
    * Создает таблицу данных на списочной форме.
    * 
-   * @param cookieId      идентификатор таблицы данных для сохранения в Cookies
+   * @param gridStorageId      идентификатор таблицы данных для сохранения в Cookies
    * @param gridIdAsWebEl    идентификатор таблицы данных как веб-элемента
    * @param columns      список колонок
    * @param wrapHeaders    допустимость переноса наименования колонок
@@ -282,8 +282,8 @@ public class JepGrid<T> extends DataGrid<T> {
    * Особенность: следует использовать альтернативные перегруженные конструкторы
    */
   @Deprecated
-  public JepGrid(String cookieId, String gridIdAsWebEl, List<JepColumn> columns, boolean wrapHeaders, ProvidesKey<T> keyProvider) {
-    this(cookieId, gridIdAsWebEl, columns, keyProvider);
+  public JepGrid(String gridStorageId, String gridIdAsWebEl, List<JepColumn> columns, boolean wrapHeaders, ProvidesKey<T> keyProvider) {
+    this(gridStorageId, gridIdAsWebEl, columns, keyProvider);
     this.wrapHeaders = wrapHeaders;
   }
 
@@ -380,20 +380,25 @@ public class JepGrid<T> extends DataGrid<T> {
     Date expires = new Date();
     expires.setYear(expires.getYear() + 1);
 
-    Cookies.setCookie(cookieId, getColumnCharacteristicsAsString(), expires);
+    if (JepClientUtil.isLocalStorageSupported()) {
+		JepClientUtil.setLocalStorageVariable("grid_" + gridStorageId, getColumnCharacteristicsAsString());
+	} else {
+		Cookies.setCookie(gridStorageId, getColumnCharacteristicsAsString(), expires);
+	} 
+    
   }
   
   /**
    * Метод извлечения данных о таблице данных из строки
    * 
-   * @param cookieString      строка, хранящая информация по таблице данных
+   * @param storageString      строка, хранящая информация по таблице данных
    * @return карта соответствий идентификатора колонки и ее характеристик
    */
-  private Map<String, ColumnCharasteristic> parseColumnCharacteristics(String cookieString) {
+  private Map<String, ColumnCharasteristic> parseColumnCharacteristics(String storageString) {
     Map<String, ColumnCharasteristic> columnVisibles = new HashMap<String, ColumnCharasteristic>();
 
-    if (cookieString != null) {
-      String[] columnVisibleList = cookieString.split(";");
+    if (storageString != null) {
+      String[] columnVisibleList = storageString.split(";");
       for (String columnCharacteristicAsStr : columnVisibleList) {
         String[] characteristics = columnCharacteristicAsStr.split(CHARACTERISTIC_SEPARATOR);
         if (characteristics.length < 4) continue;
@@ -747,8 +752,8 @@ public class JepGrid<T> extends DataGrid<T> {
     
     initialized = true;
     
-    final Map<String, ColumnCharasteristic> customColumnCharacteristics = parseColumnCharacteristics(Cookies.getCookie(cookieId));
-    
+    final Map<String, ColumnCharasteristic> customColumnCharacteristics = getColumnCharacteristics(); 
+
     if (!customColumnCharacteristics.isEmpty()){
       Collections.sort(columns, new Comparator<JepColumn>() {
         @Override
@@ -783,7 +788,17 @@ public class JepGrid<T> extends DataGrid<T> {
     }
   }
   
-  /**
+  private Map<String, JepGrid<T>.ColumnCharasteristic> getColumnCharacteristics() {
+
+	if (JepClientUtil.isLocalStorageSupported()) {
+		return parseColumnCharacteristics(JepClientUtil.getLocalStorageVariable("grid_" + gridStorageId, String.class));
+	} else {
+		return parseColumnCharacteristics(Cookies.getCookie(gridStorageId));
+	} 
+	  
+  }
+
+   /**
    * Привязка слушателей переноса строк к таблице данных. 
    */
   private void bindDragAndDropListeners(){

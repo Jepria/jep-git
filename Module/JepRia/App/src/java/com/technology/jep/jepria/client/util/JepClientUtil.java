@@ -2,9 +2,16 @@ package com.technology.jep.jepria.client.util;
 
 import static com.technology.jep.jepria.shared.JepRiaConstant.LOCAL_LANG;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Stack;
+import java.util.stream.Collectors;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.BodyElement;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
@@ -15,6 +22,7 @@ import com.google.gwt.dom.client.Style.Display;
 import com.google.gwt.event.dom.client.DomEvent;
 import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.i18n.client.LocaleInfo;
+import com.google.gwt.storage.client.Storage;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Timer;
 import com.technology.jep.jepria.client.history.place.JepCreatePlace;
@@ -29,6 +37,7 @@ import com.technology.jep.jepria.client.history.scope.JepScopeStack;
 import com.technology.jep.jepria.client.ui.WorkstateEnum;
 import com.technology.jep.jepria.client.widget.field.ComboBox;
 import com.technology.jep.jepria.client.widget.list.header.menu.GridHeaderMenuBar;
+import com.technology.jep.jepria.shared.log.JepLoggerImpl;
 import com.technology.jep.jepria.shared.record.JepRecord;
 import com.technology.jep.jepria.shared.util.JepRiaUtil;
 
@@ -418,5 +427,72 @@ public class JepClientUtil {
   public static boolean isLocalLang() {
     return LOCAL_LANG.equals(LocaleInfo.getCurrentLocale().getLocaleName());
   }
+
+  /**
+   * Сохранение строки в хранилище localStorage
+   * 
+   * @param key Ключ в хранилище localStorage
+   * @param value Значение в хранилище localStorage
+   */
+  public final static void setLocalStorageVariable(String key, String value) {
+	  Storage storage = Storage.getLocalStorageIfSupported();
+	  
+	  if (storage != null) {
+		  storage.setItem(key, value);
+	  } else {
+		  JepLoggerImpl.instance.error("Storage is not supported by this browser!");
+	  }
+  }
+
+  /**
+   * Сохранение строки в хранилище localStorage
+   * 
+   * @param key Ключ в хранилище localStorage
+   * @param value Значение в хранилище localStorage
+   */
+  public final static void setLocalStorageVariable(String key, JepRecord value) {
+	  Storage storage = Storage.getLocalStorageIfSupported();
+	  if (storage != null) {
+		  storage.setItem(key, value.toHistoryToken());
+	  } else {
+		  JepLoggerImpl.instance.error("Storage is not supported by this browser!");
+	  }
+  }
+  /**
+   * Получение строки из хранилища localStorage
+   * 
+   * @param key Ключ в хранилище localStorage
+   * @param value Значение в хранилище localStorage
+ * @return 
+   * 
+   * @return Строка, содержащая значение параметра 
+   */
+  public final static <T> T getLocalStorageVariable(String key, Class<T> type) {
+	  Storage storage = Storage.getLocalStorageIfSupported();
+	  
+	  if (storage != null) {
+		  if (storage.getItem(key) != null) {
+			  if (type.equals(String.class)) {
+				  return (T) storage.getItem(key);
+			  } else if (type.equals(JepRecord.class)) {
+				  return (T) new JepRecord(storage.getItem(key));
+			  }
+		  }
+	  } else {
+		  JepLoggerImpl.instance.error("Storage is not supported by this browser!");
+	  }
+	  
+	  return null;
+  }
+
+  /**
+   * Проверка доступности хранилица localStorage 
+   * 
+   * @return признак доступности хранилища true - доступно, false - не доступно 
+   */
+  public final static boolean isLocalStorageSupported() {
+	  return Storage.isLocalStorageSupported();
+  }
+
 
 }

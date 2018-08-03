@@ -3,14 +3,22 @@ package com.technology.jep.jepria.shared.history;
 import static com.technology.jep.jepria.shared.field.JepTypeEnum.BOOLEAN;
 import static com.technology.jep.jepria.shared.field.JepTypeEnum.DATE;
 import static com.technology.jep.jepria.shared.field.JepTypeEnum.INTEGER;
+import static com.technology.jep.jepria.shared.field.JepTypeEnum.FLOAT;
 import static com.technology.jep.jepria.shared.field.JepTypeEnum.LIST_OF_OPTION;
+import static com.technology.jep.jepria.shared.field.JepTypeEnum.BIGDECIMAL;
+import static com.technology.jep.jepria.shared.field.JepTypeEnum.LIST_OF_PRIMITIVE;
 import static com.technology.jep.jepria.shared.field.JepTypeEnum.OPTION;
 import static com.technology.jep.jepria.shared.field.JepTypeEnum.STRING;
 import static com.technology.jep.jepria.shared.field.JepTypeEnum.TIME;
+import static com.technology.jep.jepria.shared.field.JepTypeEnum.DOUBLE;
+import static com.technology.jep.jepria.shared.history.JepHistoryConstant.LIST_VALUE_SEPARATOR;
+import static com.technology.jep.jepria.shared.history.JepHistoryConstant.LIST_VALUE_SEPARATOR_REGEXP;
 import static com.technology.jep.jepria.shared.history.JepHistoryConstant.MAP_NAME_TYPE_VALUE_SEPARATOR;
 import static com.technology.jep.jepria.shared.history.JepHistoryConstant.MAP_PROPERTY_SEPARATOR;
 import static com.technology.jep.jepria.shared.history.JepHistoryConstant.MAP_PROPERTY_SEPARATOR_REGEXP;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -19,6 +27,7 @@ import java.util.Set;
 
 import com.technology.jep.jepria.shared.field.JepTypeEnum;
 import com.technology.jep.jepria.shared.field.option.JepOption;
+import com.technology.jep.jepria.shared.log.JepLoggerImpl;
 import com.technology.jep.jepria.shared.time.JepTime;
 import com.technology.jep.jepria.shared.util.JepRiaUtil;
 
@@ -60,15 +69,21 @@ public class JepHistoryToken {
    * @param value объект для преобразования в строковое представление
    * @return строковое представление объекта включая тип или <code>null</code>, если преобразовать объект в строку невозможно
    */
-  private static String valueToToken(Object value) {
+  public static String valueToToken(Object value) {
     String result = null;
     
     if(value == null) {
       result = null;
     } else if(value instanceof String) {
       result = STRING.toHistoryToken() + MAP_NAME_TYPE_VALUE_SEPARATOR + (String)value;
+    } else if(value instanceof Float) {
+      result = FLOAT.toHistoryToken() + MAP_NAME_TYPE_VALUE_SEPARATOR + value.toString();
+    } else if(value instanceof BigDecimal) {
+      result = BIGDECIMAL.toHistoryToken() + MAP_NAME_TYPE_VALUE_SEPARATOR + value.toString();
     } else if(value instanceof Integer) {
       result = INTEGER.toHistoryToken() + MAP_NAME_TYPE_VALUE_SEPARATOR + value.toString();
+    } else if(value instanceof Double) {
+      result = DOUBLE.toHistoryToken() + MAP_NAME_TYPE_VALUE_SEPARATOR + value.toString();
     } else if(value instanceof Boolean) {
       result = BOOLEAN.toHistoryToken() + MAP_NAME_TYPE_VALUE_SEPARATOR + (((Boolean)value) ? "1" : "0");
     } else if(value instanceof Date) {
@@ -83,6 +98,18 @@ public class JepHistoryToken {
         Object item = list.get(0);
         if(item instanceof JepOption) {
           result = LIST_OF_OPTION.toHistoryToken() + MAP_NAME_TYPE_VALUE_SEPARATOR + JepOption.getListAsToken((List<JepOption>)list);
+        } else {
+        	StringBuilder resultToken = new StringBuilder();
+            for(Object option: list) {
+                if(option != null) {
+                	if(resultToken.length() > 0) {
+                		resultToken.append(LIST_VALUE_SEPARATOR);
+                	}
+                	resultToken.append(valueToToken(option));
+                }
+              }
+              
+            result = LIST_OF_PRIMITIVE.toHistoryToken() + MAP_NAME_TYPE_VALUE_SEPARATOR +  resultToken.toString();
         }
       }
     }
@@ -118,7 +145,7 @@ public class JepHistoryToken {
    * @param token строковое представление объекта включая тип
    * @return объект заданного типа созданный на основе строкового представления или <code>null</code>, если создать объект невозможно
    */
-  private static Object tokenToValue(String token) {
+  public static Object tokenToValue(String token) {
     Object result = null;
     
     if(token == null) {
@@ -144,9 +171,18 @@ public class JepHistoryToken {
       case STRING:
         result = valueToken;
         break;
+      case FLOAT:
+        result = new Float(valueToken);
+        break;
+      case BIGDECIMAL:
+        result = new BigDecimal(valueToken);
+        break;
       case INTEGER:
         result = new Integer(valueToken);
         break;
+      case DOUBLE:
+          result = new Double(valueToken);
+          break;
       case BOOLEAN:
         result = new Boolean("1".equals(valueToken));
         break;
@@ -163,6 +199,18 @@ public class JepHistoryToken {
       case LIST_OF_OPTION:
         result = JepOption.buildListFromToken(valueToken);
         break;
+      case LIST_OF_PRIMITIVE:
+		    List<Object> resultList = new ArrayList<Object>();
+		    if(valueToken != null) {
+		      String[] listTokenTab = valueToken.split(LIST_VALUE_SEPARATOR_REGEXP);
+		      for(int i = 0; i < listTokenTab.length; i++) {
+		        if(listTokenTab[i] != null) {
+		          resultList.add(tokenToValue(listTokenTab[i]));
+		        }
+		      }
+		    }
+    	  result = resultList;
+          break;
     }
 
     return result;

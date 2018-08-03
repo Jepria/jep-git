@@ -1,12 +1,18 @@
 package com.technology.jep.jepria.shared.record;
 
+import static com.technology.jep.jepria.shared.history.JepHistoryConstant.SCOPE_PARAMETER_SEPARATOR;
+
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 import com.google.gwt.user.client.rpc.IsSerializable;
 import com.technology.jep.jepria.shared.dto.JepDto;
 import com.technology.jep.jepria.shared.field.option.JepOption;
+import com.technology.jep.jepria.shared.history.JepHistoryToken;
 import com.technology.jep.jepria.shared.record.lob.JepFileReference;
 import com.technology.jep.jepria.shared.time.JepTime;
 
@@ -50,7 +56,28 @@ public class JepRecord extends JepDto {
   public JepRecord(JepRecord record) {
     super(record);
   }
-  
+
+  /**
+   * Конструктор восстанавливающий (создающий) объект из строкового представления (из History Token'а).
+   *
+   * @param token строковое представление объекта (History Token)
+   *
+   * @see com.technology.jep.jepria.shared.history.JepHistoryToken#tokenToValue(String token)
+   */
+  public JepRecord(String token) {
+    String[] value = token.split(SCOPE_PARAMETER_SEPARATOR);
+
+    this.setProperties((HashMap<String, Object>) JepHistoryToken.buildMapFromToken(value[0]));
+    
+    if (value.length == 2) {
+		List<Object> list = (List<Object>)JepHistoryToken.tokenToValue(value[1]);
+		primaryKey = list.stream()
+				   .map(object -> Objects.toString(object, null))
+				   .collect(Collectors.toList());
+    }
+
+  }
+
   /**
    * Метод перегружен для обеспечения хранения currentRecord в списке Grid-а (для эффективного извлечения оттуда).<br/>
    * <br/>
@@ -122,4 +149,23 @@ public class JepRecord extends JepDto {
     return primaryKey;
   }
 
+  /**
+   * Преобразует объект в строковое представление (в History Token).
+   *
+   * @return строковое представление объекта (History Token)
+   *
+   * @see com.technology.jep.jepria.shared.history.JepHistoryToken#valueToToken(Object value)
+   */
+  public String toHistoryToken() {
+    StringBuffer sbResult = new StringBuffer();
+
+    sbResult.append(JepHistoryToken.getMapAsToken(this.getProperties()));
+
+    if (primaryKey != null) {
+	    sbResult.append(SCOPE_PARAMETER_SEPARATOR);
+	    sbResult.append(JepHistoryToken.valueToToken(primaryKey));
+    }
+    
+    return sbResult.toString();
+  }
 }

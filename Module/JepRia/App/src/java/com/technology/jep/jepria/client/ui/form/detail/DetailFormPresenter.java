@@ -47,6 +47,7 @@ import com.technology.jep.jepria.shared.history.JepHistoryToken;
 import com.technology.jep.jepria.shared.load.FindConfig;
 import com.technology.jep.jepria.shared.load.PagingConfig;
 import com.technology.jep.jepria.shared.load.PagingResult;
+import com.technology.jep.jepria.shared.log.JepLoggerImpl;
 import com.technology.jep.jepria.shared.record.JepRecord;
 import com.technology.jep.jepria.shared.service.data.JepDataServiceAsync;
 import com.technology.jep.jepria.shared.util.JepRiaUtil;
@@ -148,6 +149,9 @@ public class DetailFormPresenter<V extends DetailFormView, E extends PlainEventB
     
     // "Привязка" элементов представления к функционалу презентера.
     bind();
+    // Получаем поисковой шаблон из localStorage браузера если таковой сохранялся ранее.
+    searchTemplate =      
+    	    JepClientUtil.getLocalStorageVariable("find_" + getClass().getCanonicalName(), JepRecord.class);
     // Переведем презентер модуля в заданный режим.
     changeWorkstate(place);
   }
@@ -280,6 +284,8 @@ public class DetailFormPresenter<V extends DetailFormView, E extends PlainEventB
   public void onSearch(SearchEvent event) {
     // Проинициализируем поисковый шаблон (независимо откуда был осуществлен переход: с формы поиска или с главной формы на подчиненную).
     searchTemplate = event.getPagingConfig().getTemplateRecord();
+    // Сохраняем поисковый шаблон для загрузки данных шаблона после перегрузки формы
+    JepClientUtil.setLocalStorageVariable("find_" + getClass().getCanonicalName(), searchTemplate);
   }
   
   /**

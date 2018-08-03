@@ -79,7 +79,12 @@ public enum JepTypeEnum {
    * List&lt;{@link com.technology.jep.jepria.shared.field.option.JepOption}&gt;.
    */
   LIST_OF_OPTION,
-  
+
+  /**
+   * Тип поля, для представления списков примитивных данных
+   */
+  LIST_OF_PRIMITIVE,
+
   BINARY_FILE,
   TEXT_FILE,
   CLOB;
@@ -145,6 +150,7 @@ public enum JepTypeEnum {
    * List&lt;{@link com.technology.jep.jepria.shared.field.option.JepOption}&gt;.
    */
   protected static final String LIST_OF_OPTION_TOKEN = "LO";
+  protected static final String LIST_OF_PRIMITIVE_TOKEN = "LP";
   
   protected static final String BINARY_FILE_TOKEN = "BFE";
   protected static final String TEXT_FILE_TOKEN = "TFE";
@@ -193,6 +199,9 @@ public enum JepTypeEnum {
       case LIST_OF_OPTION:
         result = LIST_OF_OPTION_TOKEN;
         break;
+      case LIST_OF_PRIMITIVE:
+          result = LIST_OF_PRIMITIVE_TOKEN;
+          break;
       case BINARY_FILE:
         result = BINARY_FILE_TOKEN;
         break;
@@ -240,6 +249,8 @@ public enum JepTypeEnum {
       result = OPTION;
     } else if(LIST_OF_OPTION_TOKEN.equals(token)) {
       result = LIST_OF_OPTION;
+    } else if(LIST_OF_PRIMITIVE_TOKEN.equals(token)) {
+        result = LIST_OF_PRIMITIVE;
     } else if(BINARY_FILE_TOKEN.equals(token)) {
       result = BINARY_FILE;
     } else if(TEXT_FILE_TOKEN.equals(token)) {

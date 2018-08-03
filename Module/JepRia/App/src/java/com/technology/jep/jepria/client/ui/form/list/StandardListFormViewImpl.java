@@ -26,12 +26,12 @@ public abstract class StandardListFormViewImpl extends ListFormViewImpl<GridMana
   protected JepGrid<JepRecord> grid;
   
   @Deprecated
-  public StandardListFormViewImpl(String cookieId) {
-    this(cookieId, null);
+  public StandardListFormViewImpl(String gridStorageId) {
+    this(gridStorageId, null);
   }
   
   @SuppressWarnings("unchecked")
-  public StandardListFormViewImpl(String cookieId, String gridIdAsWebEl) {
+  public StandardListFormViewImpl(String gridStorageId, String gridIdAsWebEl) {
     super(new GridManager());
     
     HeaderPanel gridPanel = new HeaderPanel();
@@ -45,7 +45,7 @@ public abstract class StandardListFormViewImpl extends ListFormViewImpl<GridMana
         columnConfigurations = new ArrayList<JepColumn>();
     }
     
-    grid = new JepGrid<JepRecord>(cookieId, gridIdAsWebEl, columnConfigurations);
+    grid = new JepGrid<JepRecord>(gridStorageId, gridIdAsWebEl, columnConfigurations);
     PagingStandardBar pagingBar = new PagingStandardBar(25);
     
     gridPanel.setContentWidget(grid);
