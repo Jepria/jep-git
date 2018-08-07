@@ -301,11 +301,11 @@ public class JepDateField extends JepMultiStateField<MaskedDateBox, HTML> {
   protected boolean inRangeDate(Date newDate) {
     boolean result = true;
     if (newDate != null) {
-      if (getMinLimitDate().after(newDate) && !getMinLimitDate().equals(newDate)) {
+      if (!JepRiaUtil.isEmpty(getMinLimitDate()) && getMinLimitDate().after(newDate) && !getMinLimitDate().equals(newDate)) {
         clearInvalid();
         markInvalid(JepClientUtil.substitute(JepTexts.dateField_lessThen(), format.format(newDate), format.format(getMinLimitDate())));
         result = false;
-      } else if (getMaxLimitDate().before(newDate) && !getMaxLimitDate().equals(newDate)) {
+      } else if (!JepRiaUtil.isEmpty(getMaxLimitDate()) && getMaxLimitDate().before(newDate) && !getMaxLimitDate().equals(newDate)) {
         clearInvalid();
         markInvalid(JepClientUtil.substitute(JepTexts.dateField_moreThen(), format.format(newDate), format.format(getMaxLimitDate())));        
         result = false;

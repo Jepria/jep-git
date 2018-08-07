@@ -5,6 +5,7 @@ import static com.technology.jep.jepria.client.JepRiaClientConstant.JepTexts;
 import java.util.Objects;
 
 import com.allen_sauer.gwt.log.client.Log;
+import com.google.gwt.uibinder.client.UiConstructor;
 import com.technology.jep.jepria.client.message.JepMessageBoxImpl;
 import com.technology.jep.jepria.client.util.JepClientUtil;
 import com.technology.jep.jepria.client.widget.field.masked.Mask;
@@ -15,12 +16,13 @@ import com.technology.jep.jepria.client.widget.field.multistate.event.PasteForbi
 import com.technology.jep.jepria.client.widget.field.multistate.event.PasteForbiddenEvent.PasteForbiddenHandler;
 import com.technology.jep.jepria.shared.util.JepRiaUtil;
 
-public class JepMaskedTextField extends JepBaseTextField<MaskedTextBox> {
+public class JepMaskedTextField extends com.technology.jep.jepria.client.widget.field.multistate.JepBaseTextField<MaskedTextBox> {
   
   public JepMaskedTextField(Mask mask) {
     this(null, "", mask);
   }
 
+  @UiConstructor
   public JepMaskedTextField(String fieldLabel, String mask) {
     this(null, fieldLabel, new Mask(mask));
   }

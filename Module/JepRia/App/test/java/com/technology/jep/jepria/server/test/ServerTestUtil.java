@@ -42,7 +42,7 @@ public class ServerTestUtil {
     dsPool.setUser(dbUsername);
     dsPool.setPassword(dbPassword);
     
-    ic.bind(jndiName, dsPool);
+    ic.rebind(jndiName, dsPool);
     
     logger.info("DataSource '" + jndiName + "' has created");
   }

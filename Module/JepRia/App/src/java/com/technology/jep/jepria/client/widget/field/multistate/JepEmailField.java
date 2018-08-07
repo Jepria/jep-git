@@ -3,12 +3,22 @@ package com.technology.jep.jepria.client.widget.field.multistate;
 import static com.technology.jep.jepria.client.JepRiaClientConstant.JepTexts;
 
 import com.google.gwt.regexp.shared.RegExp;
+import com.google.gwt.uibinder.client.UiConstructor;
 import com.technology.jep.jepria.shared.util.JepRiaUtil;
 
 /**
  * Поле для ввода электронной почты.
  */
 public class JepEmailField extends JepTextField {
+
+  /**
+   * Конструтор. Если входящие параметры не определены для данного поля, то передавать null.
+   * @param fieldLabel Label
+   */
+  @UiConstructor
+  public JepEmailField(String fieldLabel) {
+    this(null, fieldLabel);
+  }
 
   /**
    * Конструтор. Если входящие параметры не определены для данного поля, то передавать null.
