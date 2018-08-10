@@ -2,29 +2,17 @@ package com.technology.jep.jepria.client.util;
 
 import static com.technology.jep.jepria.shared.JepRiaConstant.LOCAL_LANG;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Stack;
-import java.util.stream.Collectors;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.BodyElement;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.NativeEvent;
-import com.google.gwt.dom.client.Node;
-import com.google.gwt.dom.client.NodeList;
-import com.google.gwt.dom.client.Style.Display;
 import com.google.gwt.event.dom.client.DomEvent;
 import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.i18n.client.LocaleInfo;
 import com.google.gwt.storage.client.Storage;
-import com.google.gwt.user.client.DOM;
-import com.google.gwt.user.client.Timer;
 import com.technology.jep.jepria.client.history.place.JepCreatePlace;
 import com.technology.jep.jepria.client.history.place.JepEditPlace;
 import com.technology.jep.jepria.client.history.place.JepSearchPlace;
@@ -35,20 +23,18 @@ import com.technology.jep.jepria.client.history.place.JepWorkstatePlace;
 import com.technology.jep.jepria.client.history.scope.JepScope;
 import com.technology.jep.jepria.client.history.scope.JepScopeStack;
 import com.technology.jep.jepria.client.ui.WorkstateEnum;
+import com.technology.jep.jepria.client.widget.LoadingPanel;
 import com.technology.jep.jepria.client.widget.field.ComboBox;
 import com.technology.jep.jepria.client.widget.list.header.menu.GridHeaderMenuBar;
 import com.technology.jep.jepria.shared.log.JepLoggerImpl;
 import com.technology.jep.jepria.shared.record.JepRecord;
-import com.technology.jep.jepria.shared.util.JepRiaUtil;
 
 public class JepClientUtil {
 
-  private static final String LOADING_PANEL_ID = "loadingProgress";
-  private static final String LOADING_HEADER_ID = "loadingHeader";
-  private static final String LOADING_MESSAGE_ID = "loadingMessage";
-  private static final String DISABLED_LAYER_ID = "disabledLayerId";
-
-  private static final String DISABLED_LAYER_STYLE = "jepRia-disabledLayer";
+  /**
+   * Панель загрузки
+   */
+  private static final LoadingPanel loadingPanel = new LoadingPanel(); 
 
   public static final BodyElement BODY = Document.get().getBody();
 
@@ -57,160 +43,47 @@ public class JepClientUtil {
   }-*/;
 
   /**
-   * Показ загрузочной панели с предустановленным заголовком и сообщением
+   * Показ загрузочной панели с предустановленным заголовком и сообщением.
    *
-   * @param header    заголовок (меняется, если он установлен)
-   * @param message    описательное сообщение (меняется, если он установлен)
+   * @param header заголовок (меняется, если он установлен)
+   * @param message описательное сообщение (меняется, если он установлен)
    */
   public static void showLoadingPanel(String header, String message) {
-    showLoadingPanel(null, header, message);
+    loadingPanel.setHeader(header);
+    loadingPanel.setMessage(message);
+    loadingPanel.show();
   }
 
   /**
-   * Показ загрузочной панели с предустановленным заголовком и сообщением
+   * Показ загрузочной панели с предустановленным заголовком и сообщением. <br/>
+   * 
+   * Метод устарел, так как layerId больше не используется. Необходимо использовать {@link #showLoadingPanel(String, String)}
    *
    * @param layerId    идентификатор слоя блокировки
    * @param header    заголовок (меняется, если он установлен)
    * @param message    описательное сообщение (меняется, если он установлен)
    */
+  @Deprecated
   public static void showLoadingPanel(String layerId, String header, String message) {
-    Element loading = DOM.getElementById(LOADING_PANEL_ID);
-    Element loadingHeader = DOM.getElementById(LOADING_HEADER_ID);
-    Element loadingMessage = DOM.getElementById(LOADING_MESSAGE_ID);
-    if (loading != null) {
-
-      if (!JepRiaUtil.isEmpty(layerId)) {
-        loading = DOM.clone(loading, true);
-        loading.setId(generateElementLayerId(LOADING_PANEL_ID, layerId));
-
-        loadingHeader = getNestedElementById(loading, LOADING_HEADER_ID);
-        loadingHeader.setId(generateElementLayerId(LOADING_HEADER_ID, layerId));
-
-        loadingMessage = getNestedElementById(loading, LOADING_MESSAGE_ID);
-        loadingMessage.setId(generateElementLayerId(LOADING_MESSAGE_ID, layerId));
-
-        BODY.appendChild(loading);
-      }
-
-      loading.getStyle().setDisplay(Display.INLINE_BLOCK);
-      appendDisabledLayer(layerId);
-      if (!JepRiaUtil.isEmpty(header)) {
-        if (loadingHeader != null) {// loadingHeader может отсутствовать в кастомном модуле
-          loadingHeader.setInnerHTML(header);
-        }
-      }
-      if (!JepRiaUtil.isEmpty(message)) {
-        if (loadingMessage != null) {// loadingMessage может отсутствовать в кастомном модуле
-          loadingMessage.setInnerHTML(message);
-        }
-      }
-    }
+    showLoadingPanel(header, message);
   }
 
   /**
-   * Поиск элемента по его идентификатору относительно родительского.
-   *
-   * @param parent    родительский элемент в DOM-дереве
-   * @param id      идентификатор искомого элемента
-   * @return элемент в DOM-дереве
+   * Скрытие загрузочной панели.
    */
-  private static Element getNestedElementById(Element parent, String id){
-    NodeList<Node> childNodes = parent.getChildNodes();
-    for (int i = 0; i < childNodes.getLength(); i++){
-      Node node = childNodes.getItem(i);
-      if (!Element.is(node)) continue;
-      Element element = Element.as(node);
-      if (id.equalsIgnoreCase(element.getId())){
-        return element;
-      }
-      else {
-        Element el = getNestedElementById(element, id);
-        if (el != null){
-          return el;
-        }
-      }
-    }
-    return null;
-  }
-
-  private static Node getDisabledLayer(String layerId) {
-    String disabledLayerId = generateElementLayerId(DISABLED_LAYER_ID, layerId);
-    Element disabledLayer = DOM.getElementById(disabledLayerId);
-
-    if(disabledLayer == null) {
-      disabledLayer = DOM.createDiv();
-      disabledLayer.setId(disabledLayerId);
-
-      disabledLayer.addClassName(DISABLED_LAYER_STYLE);
-    }
-
-    return disabledLayer;
-  }
-
-  /**
-   * Генерация уникального идентификатора элемента.
-   *
-   * @param elementId      идентификатор элемента
-   * @param layerId      идентификатор слоя
-   * @return уникальный идентификатор
-   */
-  private static final String generateElementLayerId(String elementId, String layerId){
-    return elementId + (layerId == null ? "" : ("_" + layerId));
-  }
-
-  /**
-   * Скрытие загрузочной панели
-   */
-  public static void hideLoadingPanel(){
+  public static void hideLoadingPanel() {
     hideLoadingPanel(null);
   }
-
+  
   /**
-   * Скрытие загрузочной панели
+   * Скрытие загрузочной панели. <br/>
+   * 
+   * Метод устарел, так как layerId больше не используется. Необходимо использовать {@link #hideLoadingPanel(String)}
    *
    * @param layerId    идентификатор слоя блокировки
    */
-  public static void hideLoadingPanel(final String layerId){
-    removeDisabledLayer(layerId);
-    final Element loading = DOM.getElementById(generateElementLayerId(LOADING_PANEL_ID, layerId));
-    if (loading != null) {
-      Timer t = new Timer() {
-        @Override
-        public void run() {
-          if (!JepRiaUtil.isEmpty(layerId)) {
-            BODY.removeChild(loading);
-          } else {
-            loading.getStyle().setDisplay(Display.NONE);
-          }
-        }
-      };
-      t.schedule(500);
-    }
-  }
-
-  /**
-   * Создание блокирующего страницу слоя
-   *
-   * @param layerId    идентификатор слоя блокировки
-   */
-  public static void appendDisabledLayer(String layerId) {
-    BODY.appendChild(getDisabledLayer(layerId));
-  }
-
-  /**
-   * Удаление блокирующего страницу слоя
-   *
-   * @param layerId    идентификатор слоя блокировки
-   */
-  public static void removeDisabledLayer(final String layerId) {
-    Timer t = new Timer() {
-      public void run() {
-        if (!JepRiaUtil.isEmpty(DOM.getElementById(generateElementLayerId(DISABLED_LAYER_ID, layerId)))){
-          BODY.removeChild(getDisabledLayer(layerId));
-        }
-      }
-    };
-    t.schedule(500);
+  public static void hideLoadingPanel(final String layerId) {
+    loadingPanel.hide();
   }
 
   public static void addForeignKey(JepRecord record) {
@@ -435,13 +308,13 @@ public class JepClientUtil {
    * @param value Значение в хранилище localStorage
    */
   public final static void setLocalStorageVariable(String key, String value) {
-	  Storage storage = Storage.getLocalStorageIfSupported();
-	  
-	  if (storage != null) {
-		  storage.setItem(key, value);
-	  } else {
-		  JepLoggerImpl.instance.error("Storage is not supported by this browser!");
-	  }
+    Storage storage = Storage.getLocalStorageIfSupported();
+    
+    if (storage != null) {
+      storage.setItem(key, value);
+    } else {
+      JepLoggerImpl.instance.error("Storage is not supported by this browser!");
+    }
   }
 
   /**
@@ -451,12 +324,12 @@ public class JepClientUtil {
    * @param value Значение в хранилище localStorage
    */
   public final static void setLocalStorageVariable(String key, JepRecord value) {
-	  Storage storage = Storage.getLocalStorageIfSupported();
-	  if (storage != null) {
-		  storage.setItem(key, value.toHistoryToken());
-	  } else {
-		  JepLoggerImpl.instance.error("Storage is not supported by this browser!");
-	  }
+    Storage storage = Storage.getLocalStorageIfSupported();
+    if (storage != null) {
+      storage.setItem(key, value.toHistoryToken());
+    } else {
+      JepLoggerImpl.instance.error("Storage is not supported by this browser!");
+    }
   }
   /**
    * Получение строки из хранилища localStorage
@@ -468,21 +341,21 @@ public class JepClientUtil {
    * @return Строка, содержащая значение параметра 
    */
   public final static <T> T getLocalStorageVariable(String key, Class<T> type) {
-	  Storage storage = Storage.getLocalStorageIfSupported();
-	  
-	  if (storage != null) {
-		  if (storage.getItem(key) != null) {
-			  if (type.equals(String.class)) {
-				  return (T) storage.getItem(key);
-			  } else if (type.equals(JepRecord.class)) {
-				  return (T) new JepRecord(storage.getItem(key));
-			  }
-		  }
-	  } else {
-		  JepLoggerImpl.instance.error("Storage is not supported by this browser!");
-	  }
-	  
-	  return null;
+    Storage storage = Storage.getLocalStorageIfSupported();
+    
+    if (storage != null) {
+      if (storage.getItem(key) != null) {
+        if (type.equals(String.class)) {
+          return (T) storage.getItem(key);
+        } else if (type.equals(JepRecord.class)) {
+          return (T) new JepRecord(storage.getItem(key));
+        }
+      }
+    } else {
+      JepLoggerImpl.instance.error("Storage is not supported by this browser!");
+    }
+    
+    return null;
   }
 
   /**
@@ -491,8 +364,6 @@ public class JepClientUtil {
    * @return признак доступности хранилища true - доступно, false - не доступно 
    */
   public final static boolean isLocalStorageSupported() {
-	  return Storage.isLocalStorageSupported();
+    return Storage.isLocalStorageSupported();
   }
-
-
 }
