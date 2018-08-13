@@ -3,6 +3,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%@ page import="com.technology.jep.jepria.client.JepRiaClientConstant" %>
+<%@ page import="com.technology.jep.jepria.client.widget.LoadingProgress" %>
+<%@ page import="com.technology.jep.jepria.client.widget.DisabledLayer" %>
 <%@ page import="com.technology.jep.jepria.server.util.JepServerUtil" %>
 <%@ page import="com.technology.jep.jepria.server.JepRiaServerConstant" %>
 <%@ page import="java.util.ResourceBundle" %>
@@ -70,18 +72,6 @@ if (appTitle == null) {
       </div>
     </div>
 
-    <div id="loadingProgress" class="jepRia-fullScreenContainer">
-      <div class="jepRia-fullScreenContainerCenter jepRia-loadingProgress">
-          <img class="jepRia-loadingProgressImg" src="images/loading.gif" width="32" height="32" alt="Loading..."/>
-            <div>
-              <p>
-                <span id="loadingHeader"><%= appTitle %></span>
-              </p>
-            <span id="loadingMessage" class="jepRia-loadingMessage"><%= jepRiaText.getString("loadingMessage") %></span>
-          </div>
-      </div>
-    </div>
-
     <table style="width: 100%; height: 100%; border: 0px; table-layout: fixed; border-collapse: collapse; margin: 0px; padding: 0px;">
       <tr>
         <td style="width: 100%; height: 100%;">
@@ -89,6 +79,19 @@ if (appTitle == null) {
         </td>
       </tr>
     </table>
+    
+    <div id="<%= LoadingProgress.LOADING_PROGRESS_ID %>" class="jepRia-fullScreenContainer">
+      <div class="jepRia-fullScreenContainerCenter jepRia-loadingProgress">
+          <img class="jepRia-loadingProgressImg" src="images/loading.gif" width="32" height="32" alt="Loading..."/>
+            <div>
+              <p>
+                <span id="<%= LoadingProgress.LOADING_HEADER_ID %>"><%= appTitle %></span>
+              </p>
+            <span id="<%= LoadingProgress.LOADING_MESSAGE_ID %>" class="jepRia-loadingMessage"><%= jepRiaText.getString("loadingMessage") %></span>
+          </div>
+      </div>
+    </div>
+    <div class="<%= DisabledLayer.DISABLED_LAYER_STYLE %>" id="<%= DisabledLayer.DISABLED_LAYER_ID %>"></div>
     
     <!-- According to HTML5 Specification we can place link and style tags in any place inside <BODY> -->
     <!-- For that purpose we should use attribute 'property' -->

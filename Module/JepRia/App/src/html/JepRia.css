@@ -339,6 +339,7 @@ input[type=text]::-ms-clear {
   height: 100%;
   position:absolute;
   text-align:center;
+  top: 0;
 }
 
 /* Центральный блок в контейнере */
