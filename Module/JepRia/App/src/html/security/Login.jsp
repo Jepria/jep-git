@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+﻿﻿<!DOCTYPE html>
 <%@ page contentType="text/html;charset=utf-8" language="java"%>
 <%@ page import="org.jepria.ssoutils.SsoUiUtils"%>
 <%@ page import="org.jepria.ssoutils.SsoUiConstants"%>
@@ -56,6 +56,14 @@ if (response.getStatus() == 403) {
   
   String ssoUiUrl = SsoUiUtils.buildSsoUiUrl(ssoUiContext, request, appTitle);
   
+  if (request.getHeader("x-gwt-module-base") != null || request.getHeader("jepria-login-noscript") != null) {
+    // js исполняться не будет, потому что либо 
+    // редирект на эту логин-страницу произошел вследствие вызова gwt-сервиса, а не по ссылке браузера,
+    // либо клиент явно указал что он не поддерживает js.
+    response.sendRedirect(ssoUiUrl);
+    
+  } else {
+    // предполагаем, что js будет исполняться
 %>
   <HTML>
     <BODY>
@@ -71,6 +79,9 @@ if (response.getStatus() == 403) {
       </script>
     </BODY>
   </HTML>
-<%
+<%    
+    
+  }
 }
+
 %>
