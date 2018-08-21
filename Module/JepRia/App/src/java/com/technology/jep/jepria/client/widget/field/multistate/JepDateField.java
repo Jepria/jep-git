@@ -535,8 +535,12 @@ public class JepDateField extends JepMultiStateField<MaskedDateBox, HTML> {
       markInvalid(JepTexts.field_blankText());
       return false;
     }
+    
+    if (editableCard.getDatePicker() instanceof JepDatePicker) {
+      return inRangeDate(getValue());
+    }
       
-    return inRangeDate(getValue());
+    return true;
   }
   
   /**
