@@ -10,7 +10,6 @@
 		
 		<title><%ModuleName%> Module</title>
 		<script type="text/javascript" language="javascript" src="<%ModuleName%>/<%ModuleName%>.nocache.js"></script>
-		<script type="text/javascript" language="javascript" src="./js/load-version-info.js"></script>
 	</head>
  
 	<body style="margin: 0px; padding: 0px; width: 100%; height: 100%;">

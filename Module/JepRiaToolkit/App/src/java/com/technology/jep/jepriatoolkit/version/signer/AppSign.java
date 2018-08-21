@@ -34,21 +34,6 @@ public class AppSign extends Task {
                 .set("svn", Json.make(appVersion.getSvn()));
         PropertyHelper ph = PropertyHelper.getPropertyHelper(getProject());
         ph.setProperty(taskResult, json, false);
-        // кладем JS файл в проект
-        String jsVersionInfoTemplateContent = readFromJar(
-                getDefinitionProperty(JS_VERSION_INFO_SOURCE_PATH_PROPERTY, "/templates/src/js/load-version-info.js")
-                , UTF_8);
-        Path jsDir = Paths.get("./src/js/");
-        if (Files.notExists(jsDir)) {
-            try {
-                Files.createDirectory(jsDir);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        writeToFile(jsVersionInfoTemplateContent,
-                getDefinitionProperty(JS_VERSION_INFO_DESTINATION_PATH_PROPERTY, "src/js/load-version-info.js")
-                , UTF_8, true);
     }
 
     public String getLibraryVersion() {
