@@ -69,11 +69,11 @@ loadJSON("./actuator/version.json", function(response) {
 		for(var key in versionJSON.library){
 				library+=key + ':' + versionJSON.library[key]+' ';
 		}
-		myClasses[0].innerHTML='This is test '+versionJSON.svn.repo_name+'/'+versionJSON.svn.module_name+' build!<br>Deploy at: '+versionJSON.compile.time_stamp+'<br>'+
-		'SVN: '+versionJSON.svn.tag_version+'/'+versionJSON.svn.revision+'<br>'+
+		myClasses[0].innerHTML='This is test '+versionJSON.svn.repo_name+'/'+versionJSON.svn.module_name+' build!<br>Build at: '+versionJSON.compile.time_stamp+'<br>'+
+		'Based on SVN: '+versionJSON.svn.tag_version+'/'+versionJSON.svn.revision+'<br>'+
 		'Library: '+library+'<br>'+
 		'Developer: '+versionJSON.compile.user_name+' '+versionJSON.compile.host_name+
-		'<small>'+versionJSON.compile.UUID+'</small>';
+		'<br><small>'+versionJSON.compile.UUID+'</small>';
 	}
 	console.info(versionJSON);
 });
