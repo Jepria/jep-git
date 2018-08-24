@@ -231,6 +231,18 @@ public abstract class JepBaseTextField<E extends Widget & HasValue> extends JepM
   }
   
   /**
+   * Возвращает максимальную длину поля
+   * @return
+   */
+  public Integer getMaxLength(){
+    try {
+      return Integer.valueOf(getInputElement().getAttribute("maxLength")); 
+    } catch (Exception e) {
+      return Integer.MAX_VALUE;
+    }
+  }
+  
+  /**
    * Обработка события "нажатия клавиши" в поле.
    * 
    * @param event  срабатываемое событие
