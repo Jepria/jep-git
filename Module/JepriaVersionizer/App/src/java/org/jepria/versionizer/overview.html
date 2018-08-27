@@ -1,0 +1,45 @@
+<html>
+<head>
+</head>
+<body>
+
+Пакет содержит базовый функционал версионизатора, позволяющего автоматизировать выпуск версий системной библиотеки, вспомогательных и прикладных модулей.<br/>
+
+<h2>Содержание Description</h2>
+
+<ul>
+  <li><a href="#about">Описание</a></li>
+  <li><a href="#todo">Доработки</a></li>
+  <li><a href="#releaseNotes">Замечания к версиям</a></li>
+</ul>
+
+<h3><a name="about">Описание</a></h3>
+Запуск производится нативным jdk из командной строки.<br/>
+При этом необходимо указать опцию кодировки UTF-8, а в класспасе указать пути ко всем зависимостям (в частности, jsoup), а в конце &mdash; Main-класс.<br/>
+<br/>
+Модули, которые участвуют в выпускаемой версии, можно конфигурировать через агрументы командной строки и через UI.
+Конфигурация модулей через аргументы командной строки:
+<ul>
+  <li><code>--core C:\work\Jepria 1.0.0</code> &mdash; конфигурация Jepria с обязательным указанием пути до папки с модулем и имени версии</li>
+  <li><code>--toolkit C:\work\JepriaToolkit 2.0.0</code> &mdash; конфигурация JepriaToolkit с обязательным указанием пути до папки с модулем и имени версии</li>
+  <li><code>--application C:\work\JepriaShowcase 3.0.0</code> &mdash; конфигурация прикладного модуля с обязательным указанием пути до папки с модулем и имени версии</li>
+</ul>
+Модули, конфигурация которых не указана в аргументах командной строки, конфигурируются через UI. 
+Опция <code>--no-ui-conf</code> использует только конфигурацию модулей из агрументов командной строки. 
+<br/>
+Примеры:
+<br/>
+«Голый» запуск (конфигурация всех модулей запрашивается через UI):
+<pre>java -Dfile.encoding=UTF-8 -cp "C:\work\Bin\build\org\jepria\versionizer\core\1.0.0\jepria-versionizer-core-1.0.0.jar;C:\work\Bin\build\org\jsoup\jsoup\1.11.2\jsoup-1.11.2.jar" org.jepria.versionizer.Main</pre>
+Запуск с указанной конфигурацией Jepria (конфигурация toolkit и application будет запрашиваться через UI):
+<pre>java -Dfile.encoding=UTF-8 -cp "C:\work\Bin\build\org\jepria\versionizer\core\1.0.0\jepria-versionizer-core-1.0.0.jar;C:\work\Bin\build\org\jsoup\jsoup\1.11.2\jsoup-1.11.2.jar" org.jepria.versionizer.Main --core C:\work\Jepria 1.0.0</pre>
+Запуск с указанной конфигурацией Jepria (конфигурация toolkit и application не будет запрашиваться):
+<pre>java -Dfile.encoding=UTF-8 -cp "C:\work\Bin\build\org\jepria\versionizer\core\1.0.0\jepria-versionizer-core-1.0.0.jar;C:\work\Bin\build\org\jsoup\jsoup\1.11.2\jsoup-1.11.2.jar" org.jepria.versionizer.Main --core C:\work\Jepria 1.0.0 --no-ui-conf</pre>
+<br/>
+<h3><a name="todo">Доработки</a></h3>
+<br/>
+<h3><a name="releaseNotes">Замечания к версиям</a></h3>
+<h4>Версии</h4>
+<br/>
+</body>
+</html>
