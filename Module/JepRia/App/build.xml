@@ -38,6 +38,12 @@
   	
   	<pathelement location="${SSO-UTILS_LIB}" />
   </path>
+	
+	<path id="jepria-versionizer-libs">
+    <pathelement location="${JEPRIA-VERSIONIZER_LIB}" />
+		<pathelement location="${JSOUP_LIB}" />
+  </path>
+	
   <path id="selenium-libs">
     <pathelement location="${SELENIUM_LIB}" />
     
@@ -133,6 +139,17 @@
   </fileset>
 	
   <fileset id="dependency-jar" file="dependency.properties"/>
+	
+	<target name="create-version">
+		<input message="Enter target Jepria version name (like 1.0.0):" addproperty="target.version"/>
+		<java classname="org.jepria.versionizer.Main">
+		  <classpath refid="jepria-versionizer-libs" />
+			<arg value="-Dfile.encoding=UTF-8"/>
+			<arg value="--core" />
+			<arg value=".." />
+			<arg value="${target.version}" />
+		</java>
+	</target>
 	
   <!-- Проверка наличия всех используемых библиотек (зависимостей) -->
   <target name="check-dependencies" >
