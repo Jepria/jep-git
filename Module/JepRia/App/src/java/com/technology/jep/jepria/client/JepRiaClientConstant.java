@@ -108,6 +108,11 @@ public class JepRiaClientConstant extends JepRiaConstant {
   public static final String DEFAULT_DATE_FORMAT_MASK = "00.00.0000";
   
   /**
+   * Маска, соответствующая формату представления даты и время
+   */
+  public static final String DEFAULT_DATE_TIME_FORMAT_MASK = "00.00.0000 00:00:00";
+  
+  /**
    * Маска, соответствующая дате без указания дня, только месяц и год.
    */
   public static final String DEFAULT_DATE_MONTH_AND_YEARS_ONLY_FORMAT_MASK = "00.0000";
@@ -152,6 +157,13 @@ public class JepRiaClientConstant extends JepRiaConstant {
    * Вид панели в календаре в формате dd.MM.yyyy
    */
   public static final int PANEL_OF_DAYS_AND_MONTH_AND_YEAR = 0;
+  
+  
+  /*
+   * Вид панели в календаре в формате dd.MM.yyyy HH:mm:ss
+   */
+  public static final int PANEL_OF_DAYS_AND_MONTH_AND_YEAR_TIME = 4;
+  
   
   /*
    * Вид панели в календаре в формате MM.yyyy

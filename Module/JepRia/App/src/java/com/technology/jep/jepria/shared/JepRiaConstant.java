@@ -19,6 +19,11 @@ public class JepRiaConstant {
   public static final String DEFAULT_DATE_FORMAT = "dd.MM.yyyy";
   
   /**
+   * Формат даты и время.
+   */
+  public static final String DEFAULT_DATE_TIME_FORMAT = "dd.MM.yyyy HH:mm:ss";
+  
+  /**
    * Формат даты по умолчанию.- только месяц и год
    */
   public static final String DEFAULT_DATE_MONTH_AND_YEAR_ONLY_FORMAT = "MM.yyyy";

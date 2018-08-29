@@ -36,6 +36,7 @@ import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.datepicker.client.DateBox;
 import com.google.gwt.user.datepicker.client.DatePicker;
+import com.technology.jep.jepria.client.widget.field.multistate.customized.JepDatePicker;
 import com.technology.jep.jepria.shared.util.JepRiaUtil;
 
 /**
@@ -142,16 +143,19 @@ public class MaskedDateBox extends Composite implements HasEnabled,
       FocusHandler, BlurHandler, ClickHandler, KeyDownHandler,
       CloseHandler<PopupPanel> {
 
+    @Override
     public void onBlur(BlurEvent event) {
       if (isDatePickerShowing() == false) {
         updateDateFromTextBox();
       }
     }
   
+    @Override
     public void onClick(ClickEvent event) {
         showDatePicker();
     }
   
+    @Override
     public void onClose(CloseEvent<PopupPanel> event) {
       // If we are not closing because we have picked a new value, make sure the
       // current value is updated.
@@ -160,12 +164,14 @@ public class MaskedDateBox extends Composite implements HasEnabled,
       }
     }
   
+    @Override
     public void onFocus(FocusEvent event) {
       if (allowDPShow && isDatePickerShowing() == false) {
         showDatePicker();
       }
     }
   
+    @Override
     public void onKeyDown(KeyDownEvent event) {
       switch (event.getNativeKeyCode()) {
         case KeyCodes.KEY_ENTER:
@@ -182,6 +188,7 @@ public class MaskedDateBox extends Composite implements HasEnabled,
       }
     }
   
+    @Override
     public void onValueChange(ValueChangeEvent<Date> event) {
       setValue(parseDate(false), event.getValue(), true, true);
       hideDatePicker();
@@ -266,7 +273,7 @@ public class MaskedDateBox extends Composite implements HasEnabled,
       Event.addNativePreviewHandler(new NativePreviewHandler() {
         @Override
       public void onPreviewNativeEvent(NativePreviewEvent event) {
-        if (event.getTypeInt() == Event.ONMOUSEWHEEL){
+        if (event.getTypeInt() == Event.ONMOUSEWHEEL || event.getNativeEvent().getKeyCode() == KeyCodes.KEY_ENTER){
           if (isDatePickerShowing()) {
             hideDatePicker();
           }
@@ -471,7 +478,8 @@ public class MaskedDateBox extends Composite implements HasEnabled,
   }
 
   public void setValue(Date date, boolean fireEvents) {
-    setValue(picker.getValue(), date, fireEvents, true);
+    Date currentDate = picker instanceof JepDatePicker ? ((JepDatePicker)picker).getActualDate() : picker.getValue();
+    setValue(currentDate, date, fireEvents, true);
   }
   
   /**
