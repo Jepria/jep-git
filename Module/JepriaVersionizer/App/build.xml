@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project default="build" name="Module Building">
+  
+  <!-- Значения property - immutable, если BIN_HOME не был задан ранее, то берется из переменной окружения -->
+  <property environment="env" />
+  <property name="BIN_HOME" value="${env.BIN_HOME}" />
+
+  <!-- Проверка, что BIN_HOME определен, иначе - ошибка -->
+  <fail unless="BIN_HOME" message="Binary repository path not specified. Specify it either in environment variable %BIN_HOME% or use -DBIN_HOME=... command line argument." />
+
+  <property file="build.properties" />
+  <property file="dependency.properties" />
+  
+  <!-- Общие наборы файлов -->
+  <path id="libs">
+    <pathelement location="${JSOUP_LIB}" />
+  </path>
+  
+  <fileset dir="build-core" id="classes-build-core"/>
+  
+  <target name="build" depends="clean, jar-core"/>
+  
+  <target name="java-compile-core">
+    <mkdir dir="build-core" />
+    <javac debug="on" destdir="build-core" encoding="utf-8" includeantruntime="false" srcdir="src/java">
+      <classpath refid="libs" />
+    </javac>
+  </target>
+  
+	<property name="MODULE_PACKAGE" value="org/jepria/versionizer"/>
+	
+	<target name="text-ru-encode">
+    <native2ascii dest="src/java/${MODULE_PACKAGE}/text" encoding="UTF-8" ext=".target_properties" includes="**/*_Source.properties" src="src/java/${MODULE_PACKAGE}/text" />
+    <!-- Без удаления иногда возникают проблемы во время 'move' -->
+    <delete file="src/java/${MODULE_PACKAGE}/text/Text_ru.properties" />
+    <move file="src/java/${MODULE_PACKAGE}/text/Text_ru_Source.target_properties" tofile="src/java/${MODULE_PACKAGE}/text/Text_ru.properties" />
+	</target>
+	
+  <target name="jar-core" depends="text-ru-encode, java-compile-core">
+    <jar destfile="${DISTR_DIR}/jepria-versionizer-core-${CURRENT_VERSION}.jar">
+      <fileset refid="classes-build-core" />
+    	<fileset dir="src/java" includes="**/text/*.properties" />
+
+    	<fileset dir="src/java" includes="**/*.java" /> <!-- with source code -->
+    	
+    	<!-- Добавляем Main-class в манифест -->
+    	<manifest>
+        <attribute name="Main-Class" value="org.jepria.versionizer.Main"/>
+      </manifest>
+    </jar>
+  </target>
+  
+  <target name="clean">
+    <delete includeemptydirs="true" quiet="true">
+      <fileset dir="build-core" />
+    </delete>
+    
+    <delete file="${DISTR_DIR}/jepria-versionizer-core-${CURRENT_VERSION}.jar"/>
+  </target>
+  
+  <!-- Для javadoc -->
+  <property name="JAVA_DOC_DIR" value="../Doc/App/AutoGen" />
+  
+  <target name="doc" depends="java-compile-core">
+    <javadoc sourcepath="src/java"
+      locale="ru"
+      packagenames="*"
+      includenosourcepackages="true"
+      overview="src/java/org/jepria/versionizer/overview.html"
+      destdir="${JAVA_DOC_DIR}"
+      encoding="UTF-8"
+      docencoding="UTF-8"
+      charset="UTF-8"
+      access="private"
+      additionalparam="-notimestamp -Xdoclint:none"
+      Windowtitle="Jepria Versionizer JavaDoc"
+      Doctitle="Jepria Versionizer API Reference">
+      <classpath refid="libs" />
+    </javadoc>
+  </target>
+</project>
