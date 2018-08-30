@@ -465,8 +465,7 @@ public class JepMoneyField extends JepBaseNumberField<BigDecimalBox> {
         }
       }
       
-      
-      if (vector != null && vector.length >= 0) {
+      if (vector != null && vector.length > 0) {
         String decimal = vector[0];
         for (int i = 0; decimal != null && i < decimal.length(); ++i) {
           char ch = decimal.charAt(i);
