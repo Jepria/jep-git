@@ -84,7 +84,8 @@ public class JepMoneyField extends JepBaseNumberField<BigDecimalBox> {
       
       @Override
       public void setValue(BigDecimal value) {
-        super.setText(BigDecimalRenderer.instance().render(value).replaceAll(groupingSeparator, ""));
+        String text = BigDecimalRenderer.instance().render(value).replaceAll(groupingSeparator, "");
+        formatNumber(text, -1);
       }
       
       @Override
@@ -465,8 +466,7 @@ public class JepMoneyField extends JepBaseNumberField<BigDecimalBox> {
         }
       }
       
-      
-      if (vector != null && vector.length >= 0) {
+      if (vector != null && vector.length > 0) {
         String decimal = vector[0];
         for (int i = 0; decimal != null && i < decimal.length(); ++i) {
           char ch = decimal.charAt(i);
