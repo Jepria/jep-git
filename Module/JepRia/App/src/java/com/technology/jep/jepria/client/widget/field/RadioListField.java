@@ -16,7 +16,6 @@ import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.Random;
 import com.google.gwt.user.client.ui.HasValue;
-import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.RadioButton;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.technology.jep.jepria.shared.field.option.JepOption;
@@ -102,5 +101,9 @@ public class RadioListField<T extends JepOption> extends VerticalPanel implement
       }
     }
     return null;
+  }
+  
+  public void setEnabled(boolean enabled) {
+    radios.values().forEach(radio -> radio.setEnabled(enabled));
   }
 }
