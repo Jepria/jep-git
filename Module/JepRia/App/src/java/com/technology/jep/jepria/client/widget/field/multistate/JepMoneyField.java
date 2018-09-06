@@ -84,7 +84,8 @@ public class JepMoneyField extends JepBaseNumberField<BigDecimalBox> {
       
       @Override
       public void setValue(BigDecimal value) {
-        super.setText(BigDecimalRenderer.instance().render(value).replaceAll(groupingSeparator, ""));
+        String text = BigDecimalRenderer.instance().render(value).replaceAll(groupingSeparator, "");
+        formatNumber(text, -1);
       }
       
       @Override
