@@ -1,11 +1,6 @@
 package com.technology.jep.jepriatoolkit.version.signer.version;
 
-import com.technology.jep.jepriatoolkit.util.Pair;
-import org.w3c.dom.Element;
-
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /*
@@ -26,46 +21,46 @@ import java.util.Map;
     "tag_version": "2.2.1"
   }
 }
-*/
+ */
 public class Version {
-    private Map<String, String> library;
-    private Map<String, String> compile;
-    private Map<String, String> svn;
-    public Version() {
-        library = new HashMap<String, String>();
-        compile = new HashMap<String, String>();
-        svn = new HashMap<String, String>();
-    }
-    public void addLibInf(String name, String value){
-        library.put(name, value);
-    }
-    public void addCompileInf(String name, String value){
-        compile.put(name, value);
-    }
-    public void addSvnInf(String name, String value){
-        svn.put(name, value);
-    }
-    public Map<String, String> getLibrary() {
-        return library;
-    }
+  private Map<String, String> library;
+  private Map<String, String> compile;
+  private Map<String, String> svn;
+  public Version() {
+    library = new HashMap<String, String>();
+    compile = new HashMap<String, String>();
+    svn = new HashMap<String, String>();
+  }
+  public void addLibInf(String name, String value){
+    library.put(name, value);
+  }
+  public void addCompileInf(String name, String value){
+    compile.put(name, value);
+  }
+  public void addSvnInf(String name, String value){
+    svn.put(name, value);
+  }
+  public Map<String, String> getLibrary() {
+    return library;
+  }
 
-    public void setLibrary(Map<String, String> library) {
-        this.library = library;
-    }
+  public void setLibrary(Map<String, String> library) {
+    this.library = library;
+  }
 
-    public Map<String, String> getCompile() {
-        return compile;
-    }
+  public Map<String, String> getCompile() {
+    return compile;
+  }
 
-    public void setCompile(Map<String, String> compile) {
-        this.compile = compile;
-    }
+  public void setCompile(Map<String, String> compile) {
+    this.compile = compile;
+  }
 
-    public Map<String, String> getSvn() {
-        return svn;
-    }
+  public Map<String, String> getSvn() {
+    return svn;
+  }
 
-    public void setSvn(Map<String, String> svn) {
-        this.svn = svn;
-    }
+  public void setSvn(Map<String, String> svn) {
+    this.svn = svn;
+  }
 }
