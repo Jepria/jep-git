@@ -28,7 +28,7 @@ public class JepMoneyField extends JepBaseNumberField<BigDecimalBox> {
   /**
    * Символ тысячного разделителя 
    */
-  private final char DECIMAL_RANK_SEPARATOR = ' ';
+  private static final char DECIMAL_RANK_SEPARATOR = ' ';
   
   /**
    * Количество символов, разрешенных для ввода после разделителя разрядов (по умолчанию, 2)
@@ -85,21 +85,25 @@ public class JepMoneyField extends JepBaseNumberField<BigDecimalBox> {
       @Override
       public void setValue(BigDecimal value) {
         String text = BigDecimalRenderer.instance().render(value).replaceAll(groupingSeparator, "");
-        formatNumber(text, -1);
+        if (!JepRiaUtil.isEmpty(text)) {
+          formatNumber(text, -1);
+        } else {
+          super.setText(text);
+        }
       }
       
       @Override
       public BigDecimal getValueOrThrow() throws NumberFormatException {
         String text = getText();
-        Double parseResult = null;
+        BigDecimal parseResult = null;
         if (!JepRiaUtil.isEmpty(text)) {
-            parseResult = getNumberFormat().parse(text.replaceAll("\\" + DECIMAL_RANK_SEPARATOR, ""));
+            parseResult = new BigDecimal(getNumberFormat().parse(text.replaceAll("\\" + DECIMAL_RANK_SEPARATOR, "")));
         }
         
         if(parseResult == null)
             return null;
         else
-            return new BigDecimal(parseResult);
+            return parseResult;
       }
       
       /**
@@ -411,7 +415,7 @@ public class JepMoneyField extends JepBaseNumberField<BigDecimalBox> {
   
   @Override
   public String getRawValue() {
-    return getInputElement().getPropertyString("value").replaceAll(" ", "");
+    return getInputElement().getPropertyString("value").replaceAll("\\s", "");
   }
   
   /**
