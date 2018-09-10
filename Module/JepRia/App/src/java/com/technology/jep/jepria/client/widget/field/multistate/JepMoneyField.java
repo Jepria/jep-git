@@ -97,28 +97,17 @@ public class JepMoneyField extends JepBaseNumberField<BigDecimalBox> {
         String text = getText();
         BigDecimal parseResult = null;
         if (!JepRiaUtil.isEmpty(text)) {
-            parseResult = new BigDecimal(getNumberFormat().parse(text.replaceAll("\\" + DECIMAL_RANK_SEPARATOR, "")));
+          try {
+            String prepareText = text.replaceAll("\\" + DECIMAL_RANK_SEPARATOR, "");
+            getNumberFormat().parse(prepareText);
+            parseResult = new BigDecimal(prepareText);
+          } catch(NumberFormatException e) {
+            throw e;
+          }
         }
         
-        if(parseResult == null)
-            return null;
-        else
-            return parseResult;
+        return parseResult;
       }
-      
-      /**
-       *  Получаем у браузера вставляемые данные из буфера обмена
-       * @param event
-       * @return
-       */
-      public native String getClipboardData(Event event) /*-{
-        try {
-          return event.clipboardData.getData('text/plain');
-        } catch (message) {
-          return 'ERROR: ' + message;
-        } 
-      }-*/;
-      
     };
     
     // Переопределяем обработчик поднятия клавиши (сигнатура метода отлична от определенного в родителе - KeyUpEvent)

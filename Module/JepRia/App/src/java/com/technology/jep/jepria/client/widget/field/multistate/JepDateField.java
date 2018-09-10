@@ -265,6 +265,11 @@ public class JepDateField extends JepMultiStateField<MaskedDateBox, HTML> {
           protected void doFireEventClickDatePicker() {
             handlerChangeDatePicker();
           }
+
+          @Override
+          protected void doFireEventChangeTime() {
+            handlerChangeDatePicker();
+          }
         }, 
         null, new XDefaultFormat(format), mask);
     
