@@ -3,6 +3,7 @@ package com.technology.jep.jepria.client.widget.field.multistate;
 import static com.technology.jep.jepria.client.JepRiaClientConstant.JepTexts;
 import static com.technology.jep.jepria.client.util.JepClientUtil.isSpecialKey;
 import static com.technology.jep.jepria.shared.JepRiaConstant.DEFAULT_DECIMAL_FORMAT;
+import static com.technology.jep.jepria.shared.JepRiaConstant.DEFAULT_DECIMAL_SEPARATOR;
 
 import java.math.BigDecimal;
 import java.text.ParseException;
@@ -100,7 +101,7 @@ public class JepMoneyField extends JepBaseNumberField<BigDecimalBox> {
           try {
             String prepareText = text.replaceAll("\\" + DECIMAL_RANK_SEPARATOR, "");
             getNumberFormat().parse(prepareText);
-            parseResult = new BigDecimal(prepareText);
+            parseResult = new BigDecimal(prepareText.replaceAll("\\" + decimalSeparator, "."));
           } catch(NumberFormatException e) {
             throw e;
           }
