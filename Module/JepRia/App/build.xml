@@ -37,6 +37,9 @@
     <pathelement location="${OJDBC6DMS_LIB}" />
   	
   	<pathelement location="${SSO-UTILS_LIB}" />
+  	
+  	<!-- JAX-RS/Rest -->
+    <pathelement location="${JERSEY-JAVAX-WS-RS-AI_LIB}" />
   </path>
 	
 	<path id="jepria-versionizer-libs">
