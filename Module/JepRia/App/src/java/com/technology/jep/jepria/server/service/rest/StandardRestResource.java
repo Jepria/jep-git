@@ -8,6 +8,8 @@ import java.util.function.Supplier;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import org.jepria.server.service.rest.jaxrs.BaseRestResource;
+
 import com.technology.jep.jepria.server.dao.JepDataStandard;
 import com.technology.jep.jepria.shared.exceptions.ApplicationException;
 import com.technology.jep.jepria.shared.field.JepTypeEnum;

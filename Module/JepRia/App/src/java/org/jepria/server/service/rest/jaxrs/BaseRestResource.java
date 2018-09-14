@@ -1,4 +1,4 @@
-package com.technology.jep.jepria.server.service.rest;
+package org.jepria.server.service.rest.jaxrs;
 
 import java.util.function.Supplier;
 
