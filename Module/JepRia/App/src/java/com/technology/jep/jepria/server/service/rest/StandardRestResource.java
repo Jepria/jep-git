@@ -3,6 +3,7 @@ package com.technology.jep.jepria.server.service.rest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Supplier;
 
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
@@ -14,14 +15,10 @@ import com.technology.jep.jepria.shared.record.JepRecord;
 import com.technology.jep.jepria.shared.record.JepRecordDefinition;
 import com.technology.jep.jepria.shared.util.Mutable;
 
-public class StandardRestResource<S extends JepDataStandard> {
+public class StandardRestResource<D extends JepDataStandard> extends BaseRestResource<D> {
   
-  protected final JepRecordDefinition recordDefinition;
-  protected final S dao;// TODO or DaoProvider<S>?
-  
-  protected StandardRestResource(JepRecordDefinition recordDefinition, S dao) {
-    this.recordDefinition = recordDefinition;
-    this.dao = dao;
+  protected StandardRestResource(JepRecordDefinition recordDefinition, Supplier<D> daoSupplier, String entityName) {
+    super(recordDefinition, daoSupplier, entityName);
   }
 
   // returns Object to support Map, Dto or Response
@@ -53,6 +50,8 @@ public class StandardRestResource<S extends JepDataStandard> {
       primaryKeyMap.put(primaryKey0, primaryKeyValueTyped);
       
       
+      
+      final D dao = daoSupplier.get();
       
       try {
         List<JepRecord> result = dao.find(

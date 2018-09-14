@@ -4,10 +4,12 @@ import java.util.Map;
 
 import com.technology.jep.jepria.shared.record.JepRecord;
 
+/**
+ * Временный класс для поддержания обратной совместимости "новой" и "старой" архитектур Jerpia
+ */
 @Deprecated
 public class Compat {
   
-  @Deprecated
   public static JepRecord mapToRecord(Map<String, Object> map) {
     if (map == null) {
       return null;

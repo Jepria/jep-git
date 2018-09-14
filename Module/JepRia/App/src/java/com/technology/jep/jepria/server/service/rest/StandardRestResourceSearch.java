@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.function.Supplier;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -20,21 +21,17 @@ import com.technology.jep.jepria.shared.JepRiaConstant;
 import com.technology.jep.jepria.shared.exceptions.ApplicationException;
 import com.technology.jep.jepria.shared.field.JepLikeEnum;
 import com.technology.jep.jepria.shared.field.JepTypeEnum;
-import com.technology.jep.jepria.shared.load.rest.SearchParamsDto;
 import com.technology.jep.jepria.shared.load.rest.SearchEntity;
+import com.technology.jep.jepria.shared.load.rest.SearchParamsDto;
 import com.technology.jep.jepria.shared.record.JepRecord;
 import com.technology.jep.jepria.shared.record.JepRecordDefinition;
 import com.technology.jep.jepria.shared.util.Mutable;
 
 
-public class StandardRestResourceSearch<S extends JepDataStandard> {
+public class StandardRestResourceSearch<D extends JepDataStandard> extends BaseRestResource<D> {
   
-  protected final JepRecordDefinition recordDefinition;
-  protected final S dao;// TODO or DaoProvider<S>?
-  
-  protected StandardRestResourceSearch(JepRecordDefinition recordDefinition, S dao) {
-    this.recordDefinition = recordDefinition;
-    this.dao = dao;
+  protected StandardRestResourceSearch(JepRecordDefinition recordDefinition, Supplier<D> daoSupplier, String entityName) {
+    super(recordDefinition, daoSupplier, entityName);
   }
 
   protected String generateSearchID(SearchParamsDto searchParamsDto) {
@@ -67,6 +64,9 @@ public class StandardRestResourceSearch<S extends JepDataStandard> {
       Map<String, Object> template = createTemplate(model);
       
       Mutable<Boolean> autoRefreshFlag = new Mutable<Boolean>(false);
+      
+      
+      final D dao = daoSupplier.get();
       
       List<JepRecord> resultRecords = dao.find(
           Compat.mapToRecord(template),

@@ -3,41 +3,84 @@ package com.technology.jep.jepria.server.service.rest;
 import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Supplier;
 
 import javax.ws.rs.NotFoundException;
+import javax.ws.rs.ServerErrorException;
+import javax.ws.rs.core.Response.Status;
 
-import com.technology.jep.jepria.server.dao.JepDataStandard;
 import com.technology.jep.jepria.shared.record.JepRecordDefinition;
 
-public class StandardRestOptionResource<S extends JepDataStandard> {
+/**
+ * Реализация стандартного REST-ресурса для получения опций
+ *
+ * @param <D> интерфейс Dao
+ */
+public class StandardRestOptionResource<D> extends BaseRestResource<D> {
   
-  protected final JepRecordDefinition recordDefinition;
-  protected final S dao;// TODO or DaoProvider<S>?
-  protected final String entityName;
-  
-  protected StandardRestOptionResource(JepRecordDefinition recordDefinition, S dao, String entityName) {
-    this.recordDefinition = recordDefinition;
-    this.dao = dao;
-    this.entityName = entityName;
+  protected StandardRestOptionResource(JepRecordDefinition recordDefinition, Supplier<D> daoSupplier, String entityName) {
+    super(recordDefinition, daoSupplier, entityName);
   }
 
   public List<Map<String, Object>> getOptions() {
+    
+    final D dao = daoSupplier.get();
+    
+    
+    final Method getOptionsMethod;
+    
     try {
-      final Method getMethod;
-      try {
-        getMethod = dao.getClass().getMethod("get" + entityName);
-      } catch (NoSuchMethodException e) {
-        // TODO
-        throw new NotFoundException();
-      }
-      
-      Object result = getMethod.invoke(dao);
-      
-      return (List<Map<String, Object>>)result;
+      getOptionsMethod = getMethod(dao.getClass());
       
     } catch (Throwable e) {
-      // TODO
-      throw new RuntimeException(e);
+      // any error results 404 status
+      e.printStackTrace();
+      throw new NotFoundException();
     }
+    
+    
+    final Object result;
+    
+    try {
+      
+      Object[] invocationParams = getInvocationParams();
+      if (invocationParams == null || invocationParams.length == 0) {
+        result = getOptionsMethod.invoke(dao);
+      } else {
+        result = getOptionsMethod.invoke(dao, invocationParams);
+      }
+      
+    } catch (Throwable e) {
+      
+      e.printStackTrace();
+      throw new ServerErrorException(Status.INTERNAL_SERVER_ERROR);
+    }
+    
+    return (List<Map<String, Object>>)result;
+  }
+  
+  /**
+   * Поиск вызываемого метода в Dao-классе
+   * @param daoClass
+   * @return метод получения опций, либо null если подходящего метода не найдено (в этом случае будет 404 статус) 
+   */
+  protected Method getMethod(Class<?> daoClass) {
+    try {
+      
+      String methodName = "get" + entityName;
+      return daoClass.getMethod(methodName);
+      
+    } catch (NoSuchMethodException | SecurityException e) {
+      e.printStackTrace();
+      return null;
+    }
+  }
+  
+  /**
+   * Определение параметров для вызова метода получения опций 
+   * @return объекты-параметры или null 
+   */
+  protected Object[] getInvocationParams() {
+    return null;
   }
 }
