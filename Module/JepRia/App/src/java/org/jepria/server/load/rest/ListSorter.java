@@ -1,4 +1,4 @@
-package com.technology.jep.jepria.server.service.rest;
+package org.jepria.server.load.rest;
 
 import java.util.Comparator;
 import java.util.Map;

@@ -1,4 +1,4 @@
-package com.technology.jep.jepria.shared.load.rest;
+package org.jepria.server.load.rest;
 
 import java.util.Map;
 
@@ -45,6 +45,10 @@ public class SearchEntity {
   public void setTemplate(Map<String, Object> template) {
     this.template = template;
   }
-  
+
+  @Override
+  public String toString() {
+    return "SearchEntity [resultSize=" + resultSize + ", model=" + model + ", template=" + template + "]";
+  }
   
 }

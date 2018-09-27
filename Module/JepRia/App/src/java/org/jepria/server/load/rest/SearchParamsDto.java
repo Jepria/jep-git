@@ -1,4 +1,4 @@
-package com.technology.jep.jepria.shared.load.rest;
+package org.jepria.server.load.rest;
 
 import java.util.Map;
 
