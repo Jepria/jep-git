@@ -6,7 +6,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Supplier;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -27,20 +26,14 @@ import com.technology.jep.jepria.shared.util.Mutable;
 
 public class StandardResourceController {
 
-  /**
-   * Supplier because it may not have been initialized in constructor 
-   */
-  private final Supplier<JepRecordDefinition> recordDefinitionSupplier;
+  private final JepRecordDefinition recordDefinition;
   
-  /**
-   * Supplier because it may not have been initialized in constructor 
-   */
-  private final Supplier<JepDataStandard> daoSupplier;
+  private final JepDataStandard dao;
   
-  public StandardResourceController(Supplier<JepRecordDefinition> recordDefinitionSupplier, 
-      Supplier<JepDataStandard> daoSupplier) {
-    this.recordDefinitionSupplier = recordDefinitionSupplier;
-    this.daoSupplier = daoSupplier;
+  public StandardResourceController(JepRecordDefinition recordDefinition, 
+      JepDataStandard dao) {
+    this.recordDefinition = recordDefinition;
+    this.dao = dao;
   }
   
   private static String normalizeResourceName(String resourceName) {
@@ -70,12 +63,12 @@ public class StandardResourceController {
    */
   public Object getResourceById(String recordId) {
 
-    String[] primaryKey = recordDefinitionSupplier.get().getPrimaryKey();
+    String[] primaryKey = recordDefinition.getPrimaryKey();
     if (primaryKey != null && primaryKey.length == 1) {
 
       String primaryKey0 = primaryKey[0];
 
-      JepTypeEnum primaryKeyType = recordDefinitionSupplier.get().getTypeMap().get(primaryKey0);
+      JepTypeEnum primaryKeyType = recordDefinition.getTypeMap().get(primaryKey0);
       final Object primaryKeyValueTyped;
 
       switch (primaryKeyType) {
@@ -96,8 +89,6 @@ public class StandardResourceController {
       primaryKeyMap.put(primaryKey0, primaryKeyValueTyped);
 
 
-
-      final JepDataStandard dao = daoSupplier.get();
 
       try {
         List<JepRecord> result = dao.find(
@@ -166,8 +157,6 @@ public class StandardResourceController {
     try {
       String optionResourceNameNormalized = normalizeResourceName(optionResourceName);
       
-      final JepDataStandard dao = daoSupplier.get();
-  
       final Method getOptionsMethod;
   
       try {
@@ -220,9 +209,6 @@ public class StandardResourceController {
       
       Mutable<Boolean> autoRefreshFlag = new Mutable<Boolean>(false);
       
-      
-      final JepDataStandard dao = daoSupplier.get();
-      
       List<Map<String, Object>> resultRecords = Compat.recListToMapList(
           dao.find(
               Compat.mapToRecord(template),
@@ -264,8 +250,8 @@ public class StandardResourceController {
     
     Map<String, Object> template = new HashMap<>(model);
     
-    Map<String, JepLikeEnum> matchMap = recordDefinitionSupplier.get().getLikeMap();
-    Map<String, JepTypeEnum> typeMap = recordDefinitionSupplier.get().getTypeMap();
+    Map<String, JepLikeEnum> matchMap = recordDefinition.getLikeMap();
+    Map<String, JepTypeEnum> typeMap = recordDefinition.getTypeMap();
     
     if (matchMap == null || matchMap.size() == 0 || typeMap == null || typeMap.size() == 0) {
       return template;

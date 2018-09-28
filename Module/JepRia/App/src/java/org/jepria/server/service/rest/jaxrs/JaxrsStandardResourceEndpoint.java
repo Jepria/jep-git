@@ -1,6 +1,5 @@
 package org.jepria.server.service.rest.jaxrs;
 
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,9 +16,9 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.jepria.server.load.rest.SearchEntity;
 import org.jepria.server.load.rest.SearchParamsDto;
 import org.jepria.server.service.rest.SearchState;
+import org.jepria.server.service.rest.SearchStateImpl;
 import org.jepria.server.service.rest.StandardResourceDescription;
 import org.jepria.server.service.rest.jersey.ServletContainer;
 
@@ -57,47 +56,7 @@ public final class JaxrsStandardResourceEndpoint extends BaseStandardResourceEnd
   
   @Override
   protected SearchState getSearchState(String searchId) {
-    
-    return new SearchState() {
-      
-      private static final String SESSION_KEY_SUFFIX_SEARCH_RESULT_RECORDS = "searchResultRecords";
-      private static final String SESSION_KEY_SUFFIX_SEARCH_ENTITY = "searchEntity";
-      private static final String SESSION_KEY_SUFFIX_REFRESH_FLAG = "refreshFlag";
-      
-      private String generateSessionKeyPrefix(String searchId) {
-        return JaxrsStandardResourceEndpoint.class.getCanonicalName() + "[Resource=" + getResourceDescription().getResourceName() + ";SearchId=" + searchId + "].";
-      }
-      
-      @Override
-      public List<?> getSearchResultRecords() {
-        return (List<?>)request.getSession().getAttribute(generateSessionKeyPrefix(searchId) + SESSION_KEY_SUFFIX_SEARCH_RESULT_RECORDS);
-      }
-
-      @Override
-      public void setSearchResultRecords(List<?> searchResultRecords) {
-        request.getSession().setAttribute(generateSessionKeyPrefix(searchId) + SESSION_KEY_SUFFIX_SEARCH_RESULT_RECORDS, searchResultRecords);
-      }
-
-      @Override
-      public SearchEntity getSearchEntity() {
-        return (SearchEntity)request.getSession().getAttribute(generateSessionKeyPrefix(searchId) + SESSION_KEY_SUFFIX_SEARCH_ENTITY);
-      }
-
-      @Override
-      public void setSearchEntity(SearchEntity searchEntity) {
-        request.getSession().setAttribute(generateSessionKeyPrefix(searchId) + SESSION_KEY_SUFFIX_SEARCH_ENTITY, searchEntity);
-      }
-      
-      @Override
-      public void setRefreshFlag(Boolean refreshFlag) {
-        request.getSession().setAttribute(generateSessionKeyPrefix(searchId) + SESSION_KEY_SUFFIX_REFRESH_FLAG, refreshFlag);
-      }
-      
-      @Override
-      public Boolean getRefreshFlag() {
-        return (Boolean)request.getSession().getAttribute(generateSessionKeyPrefix(searchId) + SESSION_KEY_SUFFIX_REFRESH_FLAG);
-      }
-    };
+    return new SearchStateImpl(request, searchId, getResourceDescription().getResourceName());
   }
   
   //////// CRUD ////////
