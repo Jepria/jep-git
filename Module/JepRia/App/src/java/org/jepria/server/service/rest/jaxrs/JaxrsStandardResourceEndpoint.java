@@ -59,6 +59,12 @@ public final class JaxrsStandardResourceEndpoint extends BaseStandardResourceEnd
     return new SearchStateImpl(request, searchId, getResourceDescription().getResourceName());
   }
   
+  @Override
+  protected Integer getOperatorId() {
+    // TODO return request.getHeader("operatorId");
+    return 1;
+  }
+  
   //////// CRUD ////////
   
   @GET

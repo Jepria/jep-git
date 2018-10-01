@@ -37,6 +37,12 @@ import org.jepria.server.service.rest.StandardResourceDescription;
   protected abstract SearchState getSearchState(String searchId);
   
   /**
+   * Get operatorId from the request
+   * @return
+   */
+  protected abstract Integer getOperatorId();
+  
+  /**
    * Supplier protects the internal field from direct access from within the class members,
    * and initializes the field lazily (due to the DI: the injectable fields are being injected after the object construction)
    */
@@ -62,7 +68,7 @@ import org.jepria.server.service.rest.StandardResourceDescription;
   }
   
   public Response getResourceById(String recordId) {
-    Object record = controller.get().getResourceById(recordId);
+    Object record = controller.get().getResourceById(recordId, getOperatorId());
     if (record == null) {
       return Response.status(Status.NOT_FOUND).build();
     } else {
@@ -71,24 +77,24 @@ import org.jepria.server.service.rest.StandardResourceDescription;
   }
   
   public Response create(Map<String, Object> instance) {
-    Object createdId = controller.get().create(instance);
+    Object createdId = controller.get().create(instance, getOperatorId());
     return Response.status(Status.CREATED).header("Location", createdId).build(); 
   }
   
   public Response deleteResourceById(String recordId) {
-    controller.get().deleteResourceById(recordId);
+    controller.get().deleteResourceById(recordId, getOperatorId());
     return Response.ok().build();
   }
   
   public Response update(String recordId, Map<String, Object> fields) {
-    controller.get().update(recordId, fields);
+    controller.get().update(recordId, fields, getOperatorId());
     return Response.ok().build();
   }
 
   //////// OPTIONS ////////
   
   public Response listOptions(String optionResourceName) {
-    List<?> result = controller.get().listOptions(optionResourceName);
+    List<?> result = controller.get().listOptions(optionResourceName, getOperatorId());
     if (result == null || result.isEmpty()) {
       return Response.status(Status.NOT_FOUND).build();
     } else {
@@ -108,7 +114,7 @@ import org.jepria.server.service.rest.StandardResourceDescription;
     
     final SearchState searchState = getSearchState(searchId);
     
-    controller.get().postSearch(searchParamsDto, searchState);
+    controller.get().postSearch(searchParamsDto, searchState, getOperatorId());
     if (searchId == null) {
       return Response.status(Status.NOT_FOUND).build();
     } else {
@@ -120,7 +126,7 @@ import org.jepria.server.service.rest.StandardResourceDescription;
     
     final SearchState searchState = getSearchState(searchId);
     
-    SearchEntity result = controller.get().getSearchEntity(searchState);
+    SearchEntity result = controller.get().getSearchEntity(searchState, getOperatorId());
     if (result == null) {
       return Response.status(Status.NOT_FOUND).build();
     } else {
@@ -136,7 +142,7 @@ import org.jepria.server.service.rest.StandardResourceDescription;
     
     final SearchState searchState = getSearchState(searchId);
     
-    List<?> result = controller.get().fetchData(searchState, pageSize, page, sortField, sortOrder);
+    List<?> result = controller.get().fetchData(searchState, pageSize, page, sortField, sortOrder, getOperatorId());
     if (result == null || result.isEmpty()) {
       return Response.status(Status.NOT_FOUND).build();
     } else {

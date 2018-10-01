@@ -65,7 +65,7 @@ public class StandardResourceControllerImpl implements StandardResourceControlle
   //////////// CRUD ///////////////////
 
   @Override
-  public Object getResourceById(String recordId) {
+  public Object getResourceById(String recordId, Integer operatorId) {
 
     String[] primaryKey = recordDefinition.getPrimaryKey();
     
@@ -107,7 +107,7 @@ public class StandardResourceControllerImpl implements StandardResourceControlle
           Compat.mapToRecord(primaryKeyMap), 
           new Mutable<Boolean>(false), 
           1, 
-          1/*TODO operatorId*/);
+          operatorId);
 
       
       // check find result is of size 1
@@ -131,19 +131,19 @@ public class StandardResourceControllerImpl implements StandardResourceControlle
   }
   
   @Override
-  public Object create(Map<String, Object> instance) {
+  public Object create(Map<String, Object> instance, Integer operatorId) {
     // TODO
     throw new NotImplementedYetException();
   }
   
   @Override
-  public void deleteResourceById(String recordId) {
+  public void deleteResourceById(String recordId, Integer operatorId) {
     // TODO
     throw new NotImplementedYetException();
   }
   
   @Override
-  public void update(String recordId, Map<String, Object> fields) {
+  public void update(String recordId, Map<String, Object> fields, Integer operatorId) {
     // TODO
     throw new NotImplementedYetException();
   }
@@ -151,7 +151,7 @@ public class StandardResourceControllerImpl implements StandardResourceControlle
   /////////////////////////// OPTIONS RESOURCE //////////////////////////
   
   @Override
-  public List<?> listOptions(String optionResourceName) {
+  public List<?> listOptions(String optionResourceName, Integer operatorId) {
 
     try {
       String optionResourceNameNormalized = normalizeResourceName(optionResourceName);
@@ -186,7 +186,7 @@ public class StandardResourceControllerImpl implements StandardResourceControlle
   /////////////////////////// SEARCH RESOURCE ///////////////////////////
   
   @Override
-  public void postSearch(SearchParamsDto searchParamsDto, SearchState searchState) {
+  public void postSearch(SearchParamsDto searchParamsDto, SearchState searchState, Integer operatorId) {
     
     Map<String, Object> model = searchParamsDto.getModel();
     if (model == null) {
@@ -210,7 +210,7 @@ public class StandardResourceControllerImpl implements StandardResourceControlle
               Compat.mapToRecord(template),
               autoRefreshFlag,
               maxRowCount,
-              1/*TODO operatorId*/));
+              operatorId));
       
       
       // Statefulness:
@@ -291,7 +291,7 @@ public class StandardResourceControllerImpl implements StandardResourceControlle
   }
   
   @Override
-  public SearchEntity getSearchEntity(SearchState searchState) {
+  public SearchEntity getSearchEntity(SearchState searchState, Integer operatorId) {
     return searchState.getSearchEntity();
   }
 
@@ -303,7 +303,8 @@ public class StandardResourceControllerImpl implements StandardResourceControlle
       Integer pageSize, 
       Integer page, 
       String sortField,
-      String sortOrder) {
+      String sortOrder,
+      Integer operatorId) {
     
     List<?> records = (List<?>)searchState.getSearchResultRecords();
 

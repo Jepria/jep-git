@@ -12,28 +12,31 @@ public interface StandardResourceController {
 
   /**
    * @param recordId
+   * @param operatorId
    * @return instance normally; {@code null} to indicate 'not found' status
    */
-  Object getResourceById(String recordId);
+  Object getResourceById(String recordId, Integer operatorId);
   
   /**
    * @param instance
+   * @param operatorId
    * @return created instance ID normally; never {@code null}
    */
-  Object create(Map<String, Object> instance);
+  Object create(Map<String, Object> instance, Integer operatorId);
   
-  void deleteResourceById(String recordId);
+  void deleteResourceById(String recordId, Integer operatorId);
   
-  void update(String recordId, Map<String, Object> fields);
+  void update(String recordId, Map<String, Object> fields, Integer operatorId);
   
   /////////////////////////// OPTIONS RESOURCE //////////////////////////
   
   /**
    * 
    * @param optionResourceName
+   * @param operatorId
    * @return non-empty list normally; {@code null} or empty list to indicate 'not found' status
    */
-  List<?> listOptions(String optionResourceName);
+  List<?> listOptions(String optionResourceName, Integer operatorId);
   
   
   /////////////////////////// SEARCH RESOURCE ///////////////////////////
@@ -41,15 +44,17 @@ public interface StandardResourceController {
   /**
    * @param searchParamsDto
    * @param searchState search state corresponding to the particular invocation; not {@code null}
+   * @param operatorId
    */
-  void postSearch(SearchParamsDto searchParamsDto, SearchState searchState);
+  void postSearch(SearchParamsDto searchParamsDto, SearchState searchState, Integer operatorId);
   
   /**
    * 
    * @param searchState search state corresponding to the particular invocation; not {@code null}
+   * @param operatorId
    * @return search entity normally; {@code null} to indicate 'not found' status
    */
-  SearchEntity getSearchEntity(SearchState searchState);
+  SearchEntity getSearchEntity(SearchState searchState, Integer operatorId);
   
   /**
    * @param searchState search state corresponding to the particular invocation; not {@code null}
@@ -57,11 +62,13 @@ public interface StandardResourceController {
    * @param page
    * @param sortField
    * @param sortOrder
+   * @param operatorId
    * @return non-empty list normally; {@code null} or empty list to indicate 'not found' status
    */
   List<?> fetchData(SearchState searchState,
       Integer pageSize, 
       Integer page, 
       String sortField,
-      String sortOrder);
+      String sortOrder,
+      Integer operatorId);
 }
