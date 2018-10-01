@@ -12,6 +12,7 @@ import org.jepria.server.load.rest.SearchEntity;
 import org.jepria.server.load.rest.SearchParamsDto;
 import org.jepria.server.service.rest.SearchState;
 import org.jepria.server.service.rest.StandardResourceController;
+import org.jepria.server.service.rest.StandardResourceControllerImpl;
 import org.jepria.server.service.rest.StandardResourceDescription;
 
 /**
@@ -51,7 +52,7 @@ import org.jepria.server.service.rest.StandardResourceDescription;
   };
   
   protected StandardResourceController createStandardResourceController() {
-    return new StandardResourceController(getResourceDescription().getRecordDefinition(), getResourceDescription().getDao());
+    return new StandardResourceControllerImpl(getResourceDescription().getRecordDefinition(), getResourceDescription().getDao());
   }
   
   //////// CRUD ////////
