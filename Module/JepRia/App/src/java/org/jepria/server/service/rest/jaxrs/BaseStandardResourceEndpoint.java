@@ -16,7 +16,9 @@ import org.jepria.server.service.rest.StandardResourceDescription;
 
 /**
  * Base Jaxrs REST resource.
- * Bridge between Jaxrs and {@link StandardResourceController}
+ * Bridge between {@link JaxrsStandardResourceEndpoint} and {@link StandardResourceController}
+ * <br/><br/>
+ * package visibility: only for extension by {@link JaxrsStandardResourceEndpoint}
  */
 /*package*/abstract class BaseStandardResourceEndpoint {
   
@@ -34,7 +36,7 @@ import org.jepria.server.service.rest.StandardResourceDescription;
   protected abstract SearchState getSearchState(String searchId);
   
   /**
-   * Supplier protects the internal field from direct access within the class members,
+   * Supplier protects the internal field from direct access from within the class members,
    * and initializes the field lazily (due to the DI: the injectable fields are being injected after the object construction)
    */
   private final Supplier<StandardResourceController> controller = new Supplier<StandardResourceController>() {
@@ -42,11 +44,15 @@ import org.jepria.server.service.rest.StandardResourceDescription;
     @Override
     public StandardResourceController get() {
       if (instance == null) {
-        instance = new StandardResourceController(getResourceDescription().getRecordDefinition(), getResourceDescription().getDao());
+        instance = createStandardResourceController();
       }
       return instance;
     }
   };
+  
+  protected StandardResourceController createStandardResourceController() {
+    return new StandardResourceController(getResourceDescription().getRecordDefinition(), getResourceDescription().getDao());
+  }
   
   //////// CRUD ////////
   
@@ -91,7 +97,7 @@ import org.jepria.server.service.rest.StandardResourceDescription;
   
   //////// SEARCH ////////
   
-  private static String generateSearchID(SearchParamsDto searchParamsDto) {
+  protected String generateSearchID(SearchParamsDto searchParamsDto) {
     return UUID.randomUUID().toString();
   }
   

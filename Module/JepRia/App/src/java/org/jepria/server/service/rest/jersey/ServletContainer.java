@@ -61,7 +61,8 @@ public class ServletContainer extends org.glassfish.jersey.servlet.ServletContai
       standardResourceDescription = instantiateStandardResourceDescription(standardRecourceDescriptionClassname);
       
       // add standard resource provider (only if standardResourceDescription is defined in init-params)
-      addInitParam(initParameters, ServerProperties.PROVIDER_CLASSNAMES, org.jepria.server.service.rest.jaxrs.JaxrsStandardResourceEndpoint.class.getCanonicalName());
+      addInitParam(initParameters, ServerProperties.PROVIDER_CLASSNAMES, 
+          org.jepria.server.service.rest.jaxrs.JaxrsStandardResourceEndpoint.class.getCanonicalName());
     }
       
     
@@ -116,8 +117,9 @@ public class ServletContainer extends org.glassfish.jersey.servlet.ServletContai
   private static StandardResourceDescription instantiateStandardResourceDescription(String resourceDescriptionClassname) {
     
     try {
-      Class<StandardResourceDescription> resourceDescriptionClass = (Class<StandardResourceDescription>)Class.forName(resourceDescriptionClassname);
-      StandardResourceDescription resourceDescription = resourceDescriptionClass.newInstance();
+      Class<?> resourceDescriptionClass = (Class<?>)Class.forName(resourceDescriptionClassname);
+      Object newInstance = resourceDescriptionClass.newInstance();
+      StandardResourceDescription resourceDescription = (StandardResourceDescription)newInstance;
       return resourceDescription;
       
     } catch (Throwable e) {

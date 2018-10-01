@@ -26,9 +26,9 @@ import com.technology.jep.jepria.shared.util.Mutable;
 
 public class StandardResourceController {
 
-  private final JepRecordDefinition recordDefinition;
+  protected final JepRecordDefinition recordDefinition;
   
-  private final JepDataStandard dao;
+  protected final JepDataStandard dao;
   
   public StandardResourceController(JepRecordDefinition recordDefinition, 
       JepDataStandard dao) {
@@ -36,7 +36,14 @@ public class StandardResourceController {
     this.dao = dao;
   }
   
-  private static String normalizeResourceName(String resourceName) {
+  /**
+   * Converts url-styled resource name to dao-styled resource name:
+   * <br/>
+   * {@code feature-status} -> {@code FeatureStatus}
+   * @param resourceName url-styled resource name
+   * @return dao-styled resource name; {@code null} if the input is {@code null} 
+   */
+  protected static String normalizeResourceName(String resourceName) {
     if (resourceName == null) {
       return null;
     }
@@ -59,76 +66,76 @@ public class StandardResourceController {
 
   /**
    * @param recordId
-   * @return instance or null
+   * @return instance normally; {@code null} to indicate 'not found' status
    */
   public Object getResourceById(String recordId) {
 
     String[] primaryKey = recordDefinition.getPrimaryKey();
-    if (primaryKey != null && primaryKey.length == 1) {
+    
+    // check primary key is of length 1
+    if (primaryKey == null) {
+      throw new NullPointerException("Primary key must not be null");
+    } else if (primaryKey.length != 1) {
+      // TODO add support
+      throw new UnsupportedOperationException("Only primary key of length 1 is supported (actual length: " + primaryKey.length + ")");
+    }
+    
 
-      String primaryKey0 = primaryKey[0];
+    String primaryKey0 = primaryKey[0];
 
-      JepTypeEnum primaryKeyType = recordDefinition.getTypeMap().get(primaryKey0);
-      final Object primaryKeyValueTyped;
+    JepTypeEnum primaryKeyType = recordDefinition.getTypeMap().get(primaryKey0);
+    final Object primaryKeyValueTyped;
 
-      switch (primaryKeyType) {
-      case INTEGER: {
-        primaryKeyValueTyped = Integer.parseInt(recordId); 
-        break;
+    switch (primaryKeyType) {
+    case INTEGER: {
+      primaryKeyValueTyped = Integer.parseInt(recordId); 
+      break;
+    }
+    case STRING: {
+      primaryKeyValueTyped = recordId;
+      break;
+    }
+    default: {
+      // TODO add support
+      throw new UnsupportedOperationException("Only primary key of type INTEGER or STRING is supported (actual type: " + primaryKeyType + ")");
+    }}
+
+    Map<String, Object> primaryKeyMap = new HashMap<>();
+    primaryKeyMap.put(primaryKey0, primaryKeyValueTyped);
+
+
+
+    try {
+      List<JepRecord> result = dao.find(
+          Compat.mapToRecord(primaryKeyMap), 
+          new Mutable<Boolean>(false), 
+          1, 
+          1/*TODO operatorId*/);
+
+      
+      // check find result is of size 1
+      if (result == null || result.size() == 0) {
+        // return 404 (empty result)
+        return null;
+      } else if (result.size() != 1) {
+        // TODO 
+        throw new IllegalStateException("Expected find result of size 1 (actual size: " + result.size() + ")");
       }
-      case STRING: {
-        primaryKeyValueTyped = recordId;
-        break;
-      }
-      default: {
-        // TODO
-        throw new UnsupportedOperationException();
-      }}
+      
+      
+      // return a single-record result
+      return result.get(0);
 
-      Map<String, Object> primaryKeyMap = new HashMap<>();
-      primaryKeyMap.put(primaryKey0, primaryKeyValueTyped);
+    } catch (ApplicationException e) {
 
-
-
-      try {
-        List<JepRecord> result = dao.find(
-            Compat.mapToRecord(primaryKeyMap), 
-            new Mutable<Boolean>(false), 
-            1, 
-            1/*TODO operatorId*/);
-
-        if (result == null || result.size() == 0) {
-
-          // return 404 (empty result)
-          return null;
-
-        } else if (result.size() == 1) {
-
-          // return normal result (single-record)
-          return result.get(0);
-
-        } else {
-
-          // TODO 
-          throw new IllegalStateException("result size > 1");
-
-        }
-
-      } catch (ApplicationException e) {
-
-        // TODO Auto-generated catch block
-        throw new RuntimeException(e);
-      }
-
-    } else {
-      // TODO
-      throw new IllegalStateException();
+      // TODO Auto-generated catch block
+      throw new RuntimeException(e);
     }
   }
   
   /**
    * @param instance
-   * @return created instance ID, not null
+   * @return created instance ID normally; never {@code null}
    */
   public Object create(Map<String, Object> instance) {
     // TODO
@@ -150,7 +157,7 @@ public class StandardResourceController {
   /**
    * 
    * @param optionResourceName
-   * @return non-empty list (null or empty list means 'not found' status)
+   * @return non-empty list normally; {@code null} or empty list to indicate 'not found' status
    */
   public List<?> listOptions(String optionResourceName) {
 
@@ -188,7 +195,7 @@ public class StandardResourceController {
   
   /**
    * @param searchParamsDto
-   * @param searchState not null
+   * @param searchState search state corresponding to the particular invocation; not {@code null}
    */
   public void postSearch(SearchParamsDto searchParamsDto, SearchState searchState) {
     
@@ -243,7 +250,12 @@ public class StandardResourceController {
     }
   }
   
-  private Map<String, Object> createTemplate(Map<String, Object> model) {
+  /**
+   * Create search template from a search model
+   * @param model
+   * @return {@code null} if the input is {@code null}
+   */
+  protected Map<String, Object> createTemplate(Map<String, Object> model) {
     if (model == null) {
       return null;
     }
@@ -279,6 +291,7 @@ public class StandardResourceController {
             entry.setValue("%" + valueStr);
             break;
           case EXACT:
+            // the value is already EXACT
             break;
           }
         }
@@ -290,8 +303,8 @@ public class StandardResourceController {
   
   /**
    * 
-   * @param searchState not null
-   * @return null means 'not found' status
+   * @param searchState search state corresponding to the particular invocation; not {@code null}
+   * @return search entity normally; {@code null} to indicate 'not found' status
    */
   public SearchEntity getSearchEntity(SearchState searchState) {
     return searchState.getSearchEntity();
@@ -300,12 +313,12 @@ public class StandardResourceController {
   private static final int DEFAULT_PAGE_SIZE = 25;
   
   /**
-   * @param searchState not null
+   * @param searchState search state corresponding to the particular invocation; not {@code null}
    * @param pageSize
    * @param page
    * @param sortField
    * @param sortOrder
-   * @return non-empty list (null or empty list means 'not found' status)
+   * @return non-empty list normally; {@code null} or empty list to indicate 'not found' status
    */
   public List<?> fetchData(SearchState searchState,
       Integer pageSize, 
