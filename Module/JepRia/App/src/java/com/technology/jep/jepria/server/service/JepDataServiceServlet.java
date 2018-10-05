@@ -323,7 +323,9 @@ abstract public class JepDataServiceServlet<D extends JepDataStandard> extends J
     PagingResult<JepRecord> pagingResult = new PagingResult<JepRecord>();
     List<JepRecord> resultRecords = null;
     
+    // Возьмем из сессии уже отобранные ранее методом find данные.
     HttpSession session = getThreadLocalRequestWrapper().getSession();
+    resultRecords = (List<JepRecord>)session.getAttribute(FOUND_RECORDS_SESSION_ATTRIBUTE + pagingConfig.getListUID());
     
     // Если в сессии не оказалось необходимых данных, то получим их заново.
     if(resultRecords == null) {
