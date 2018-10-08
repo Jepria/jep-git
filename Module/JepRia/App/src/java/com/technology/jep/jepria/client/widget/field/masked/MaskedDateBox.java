@@ -190,7 +190,17 @@ public class MaskedDateBox extends Composite implements HasEnabled,
   
     @Override
     public void onValueChange(ValueChangeEvent<Date> event) {
-      setValue(parseDate(false), event.getValue(), true, true);
+      Date date = event.getValue();
+      if (getDatePicker() instanceof JepDatePicker) {
+        Date dateTime = ((JepDatePicker)getDatePicker()).getActualDate();
+        if (date != null && dateTime != null) {
+          date.setHours(dateTime.getHours());
+          date.setMinutes(dateTime.getMinutes());
+          date.setSeconds(dateTime.getSeconds());
+        }
+      }
+      
+      setValue(parseDate(false), date, true, true);
       hideDatePicker();
       preventDatePickerPopup();
       box.setFocus(true);
@@ -395,7 +405,11 @@ public class MaskedDateBox extends Composite implements HasEnabled,
    * @return true, если содержит, и false в противном случае
    */
   public boolean isValid() {
-    return box.isValid() && (JepRiaUtil.isEmpty(box.getValue()) || format.parse(this, box.getValue(), false) != null);
+    if (JepRiaUtil.isAndoridMobile()) {
+      return box.isValid();
+    } else {
+      return box.isValid() && (JepRiaUtil.isEmpty(box.getValue()) || format.parse(this, box.getValue(), false) != null);
+    }
   }
   
   /**
@@ -539,9 +553,13 @@ public class MaskedDateBox extends Composite implements HasEnabled,
    */
   private void setValue(Date oldDate, Date date, boolean fireEvents, boolean updateText) {
     if (date != null) {
-      picker.setCurrentMonth(date);
+      if (picker instanceof JepDatePicker) {
+        ((JepDatePicker) picker).refresh(date);
+      } else {
+        picker.setCurrentMonth(date);
+        picker.setValue(date, false);
+      }
     }
-    picker.setValue(date, false);
     
     if (updateText) {
       format.reset(this, false);
@@ -556,9 +574,9 @@ public class MaskedDateBox extends Composite implements HasEnabled,
 
   private void updateDateFromTextBox() {
     Date parsedDate = parseDate(true);
-    if (fireNullValues || (parsedDate != null)) {
-      setValue(picker.getValue(), parsedDate, true, false);
+    if (fireNullValues || parsedDate != null) {
+      Date currentDate = picker instanceof JepDatePicker ? ((JepDatePicker)picker).getActualDate() : picker.getValue();
+      setValue(currentDate, parsedDate, true, false);
     }
   }
-
 }

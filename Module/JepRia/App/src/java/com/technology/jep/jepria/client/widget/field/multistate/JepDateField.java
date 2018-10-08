@@ -56,12 +56,6 @@ import com.technology.jep.jepria.shared.util.JepRiaUtil;
 public class JepDateField extends JepMultiStateField<MaskedDateBox, HTML> {
   
   /**
-   * Текущее значение поля, для проверки действительности изменения перед уведомлением слушателей
-   * {@link com.technology.jep.jepria.client.widget.event.JepEventType#CHANGE_VALUE_EVENT CHANGE_VALUE_EVENT}.
-  */
-  private Date currentDate = null;
-  
-  /**
    * Формат представления даты.<br>
    * Влияет на отображение даты на карте просмотра и на сравнение дат.
    */
@@ -155,7 +149,7 @@ public class JepDateField extends JepMultiStateField<MaskedDateBox, HTML> {
   
   /**
    * Метод для управления панелью навигации в календаре
-   * @param typeViewPanelOfCalendar - тип формата ввода даты, может принимать знаяения:  FORMAT_DAYS_AND_MONTH_AND_YEAR_TIME - стандартный календарь и время(dd.MM.yyyy HH:mm:ss), <br> FORMAT_DAYS_AND_MONTH_AND_YEAR - стандартный календарь (dd.MM.yyyy), <br>FORMAT_MONTH_AND_YEAR_ONLY - Навигация только месяц и год (mm.YYYY), <br>FORMAT_YEAR_ONLY - Навигация только год (yyyy)
+   * @param typeViewPanelOfCalendar - тип формата ввода даты, может принимать значения:  FORMAT_DAYS_AND_MONTH_AND_YEAR_TIME - стандартный календарь и время(dd.MM.yyyy HH:mm:ss), <br> FORMAT_DAYS_AND_MONTH_AND_YEAR - стандартный календарь (dd.MM.yyyy), <br>FORMAT_MONTH_AND_YEAR_ONLY - Навигация только месяц и год (mm.YYYY), <br>FORMAT_YEAR_ONLY - Навигация только год (yyyy)
    * <br>любые другие значения приводятся к FORMAT_DAYS_AND_MONTH_AND_YEAR
    * @param visibleNavigationPanel -управляет отображением панели навигации в календаре: true- отображет, false - не отображет
    * <br><b>Примечание:</b>
@@ -199,7 +193,7 @@ public class JepDateField extends JepMultiStateField<MaskedDateBox, HTML> {
   }
   
   /**
-   * Сощдание календаря с навигационной панелью с возможностью выбрать месяц и год
+   * Создание календаря с навигационной панелью с возможностью выбрать месяц и год
    * @param typeViewPanelOfCalendar
    */
   private void createDatePicker(Integer typeViewPanelOfCalendar) {
@@ -230,48 +224,48 @@ public class JepDateField extends JepMultiStateField<MaskedDateBox, HTML> {
     }
     
     editableCard = new MaskedDateBox(
-        new JepDatePicker(typeViewPanelOfCalendar) {
-          @Override
-          protected void changeYearWhenBakwards() {
-            handlerChangeDatePicker();
-          }
-          
-          @Override
-          protected void changeYearWhenForwards() {
-            handlerChangeDatePicker();
-          }
-          
-          @Override
-          public void changeMonthWhenBakwards() {
-              handlerChangeDatePicker();
-          }
-          
-          @Override
-          public void changeMonthWhenForwards() {
-            handlerChangeDatePicker();
-          }
-    
-          @Override
-          public void doWhenFireEventYearListBox() {
-            handlerChangeDatePicker();
-          }
-    
-          @Override
-          public void doWhenFireEventMonthListBox() {
-            handlerChangeDatePicker();
-          }
+      new JepDatePicker(typeViewPanelOfCalendar) {
+        @Override
+        protected void changeYearWhenBakwards() {
+          handlerChangeDatePicker();
+        }
+        
+        @Override
+        protected void changeYearWhenForwards() {
+          handlerChangeDatePicker();
+        }
+        
+        @Override
+        public void changeMonthWhenBakwards() {
+          handlerChangeDatePicker();
+        }
+        
+        @Override
+        public void changeMonthWhenForwards() {
+          handlerChangeDatePicker();
+        }
+  
+        @Override
+        public void doWhenFireEventYearListBox() {
+          handlerChangeDatePicker();
+        }
+  
+        @Override
+        public void doWhenFireEventMonthListBox() {
+          handlerChangeDatePicker();
+        }
 
-          @Override
-          protected void doFireEventClickDatePicker() {
-            handlerChangeDatePicker();
-          }
+        @Override
+        protected void doFireEventClickDatePicker() {
+          handlerChangeDatePicker();
+        }
 
-          @Override
-          protected void doFireEventChangeTime() {
-            handlerChangeDatePicker();
-          }
-        }, 
-        null, new XDefaultFormat(format), mask);
+        @Override
+        protected void doFireEventChangeTime() {
+          handlerChangeDatePicker();
+        }
+      }, 
+      null, new XDefaultFormat(format), mask);
     
     editableCard.setStyleClassName(FIELD_AUTO_HEIGTH_STYLE);
     
@@ -281,17 +275,15 @@ public class JepDateField extends JepMultiStateField<MaskedDateBox, HTML> {
   }
   
   /**
-   * Обработчик событий в панели навигации календаря
+   * Обработчик событий в панели навигации календаря - при выборе дня на календаре
    * 
    */
   protected void handlerChangeDatePicker() {
     Date newDate = ((JepDatePicker) editableCard.getDatePicker()).getActualDate() == null ? new Date() : ((JepDatePicker) editableCard.getDatePicker()).getActualDate();
     
-    // Отмечаем ошибкой, если вышли за пределы диапазаона доступных значений 
+    // Отмечаем ошибкой, если вышли за пределы диапазона допустимых значений 
     inRangeDate(newDate);
-    
     setValue(newDate);
-    notifyListeners(JepEventType.CHANGE_VALUE_EVENT, new JepEvent(JepDateField.this, newDate));
   }
   
   /**
@@ -299,15 +291,9 @@ public class JepDateField extends JepMultiStateField<MaskedDateBox, HTML> {
    * 
    */
   protected void handlerKeyboardEvent() {
-    Date oldDate = ((JepDatePicker) editableCard.getDatePicker()).getActualDate() == null ? new Date() : ((JepDatePicker) editableCard.getDatePicker()).getActualDate();
     Date newDate = getValue();
-
-    if (!equalsWithFormat(oldDate, newDate)) {
-      clearInvalid();
-      ((JepDatePicker) editableCard.getDatePicker()).refresh(newDate);
-      notifyListeners(JepEventType.CHANGE_VALUE_EVENT, new JepEvent(JepDateField.this, newDate));
-      currentDate = newDate;
-    }
+    ((JepDatePicker) editableCard.getDatePicker()).refresh(newDate);
+    notifyListeners(JepEventType.CHANGE_VALUE_EVENT, new JepEvent(this, newDate));
   }
   
   /**
@@ -357,7 +343,6 @@ public class JepDateField extends JepMultiStateField<MaskedDateBox, HTML> {
     if(!equalsWithFormat(oldValue, (Date)value)) {
       editableCard.setValue((Date) value);
       clearInvalid();
-      currentDate = (Date) value;
       setViewValue(value);
     }
   }
@@ -412,33 +397,20 @@ public class JepDateField extends JepMultiStateField<MaskedDateBox, HTML> {
   }
   
   /**
-   * Добавление прослушивателей для реализации прослушивания события 
+   * Добавление прослушивателей
    * {@link com.technology.jep.jepria.client.widget.event.JepEventType#CHANGE_VALUE_EVENT}.
    */
   protected void addChangeValueListener() {
     
+    // Срабатывает при выборе в панели календаря 
     editableCard.addValueChangeHandler(
       new ValueChangeHandler<Date>() {
         public void onValueChange(ValueChangeEvent<Date> event) {
-          
-          if (getValue() != null) {
-            Date newDate = new Date(getValue().getTime());
-  
-            if (TYPE_DATEPICKER == FORMAT_DAYS_AND_MONTH_AND_YEAR_TIME) {
-              Date datePickerDate = ((JepDatePicker) editableCard.getDatePicker()).getActualDate();
-              if (newDate != null && datePickerDate != null) {
-                newDate.setHours(datePickerDate.getHours());
-                newDate.setMinutes(datePickerDate.getMinutes());
-                newDate.setSeconds(datePickerDate.getSeconds());
-              }
-            }
-            
-            // Отмечаем ошибкой, если вышли за пределы диапазаона доступных значений и ставим граничнцю дату
-            inRangeDate(newDate);
-  
-            notifyListeners(JepEventType.CHANGE_VALUE_EVENT, new JepEvent(JepDateField.this, newDate));
-            setValue(newDate);
-          }
+          Date newDate = event.getValue();
+          // Отмечаем ошибкой, если вышли за пределы диапазаона доступных значений и ставим граничнцю дату
+          inRangeDate(newDate);
+
+          setValue(newDate);
         }
       }
     );
@@ -449,29 +421,54 @@ public class JepDateField extends JepMultiStateField<MaskedDateBox, HTML> {
     editableCard.addDomHandler(new KeyUpHandler() {
       @Override
       public void onKeyUp(KeyUpEvent keyupevent) {
-        int code = keyupevent.getNativeKeyCode();
-        if (passCodeKey(code)) {
+        if (JepRiaUtil.isAndoridMobile()) {
           Date newDate = null;
+          String value = getRawValue();
           try {
-            if (getRawValue() != null && (getRawValue().equals("") || JepRiaUtil.isEmpty(getValue()))) {
-              clearInvalid();
-            } else {
-              newDate = validDate(getRawValue());
-              if (newDate != null) {
-                if (inRangeDate(newDate)) {
-                  handlerKeyboardEvent();
-                }
-              }
+            newDate = validDate(value);
+            if (newDate != null) {
+              inRangeDate(newDate);
+              handlerKeyboardEvent(newDate);
             }
           } catch(Exception e) {
             clearInvalid();
-            markInvalid(JepClientUtil.substitute(JepTexts.dateField_invalidText(),getRawValue()));
+            markInvalid(JepClientUtil.substitute(JepTexts.dateField_invalidText(), value));
+          }
+        } else {
+          int code = keyupevent.getNativeKeyCode();
+          if (passCodeKey(code)) {
+            Date newDate = null;
+            try {
+              if (getRawValue() != null && (getRawValue().equals("") || JepRiaUtil.isEmpty(getValue()))) {
+                clearInvalid();
+              } else {
+                newDate = validDate(getRawValue());
+                if (newDate != null) {
+                  inRangeDate(newDate);
+                  handlerKeyboardEvent();
+                }
+              }
+            } catch(Exception e) {
+              clearInvalid();
+              markInvalid(JepClientUtil.substitute(JepTexts.dateField_invalidText(),getRawValue()));
+            }
           }
         }
       }
     }, KeyUpEvent.getType());
   }
   
+  /**
+   *  Обработчик введенного текста с мобильного устройства
+   * @param value
+   */
+  protected void handlerKeyboardEvent(Date value) {
+    Date newDate = value;
+
+    ((JepDatePicker) editableCard.getDatePicker()).refresh(newDate);
+    notifyListeners(JepEventType.CHANGE_VALUE_EVENT, new JepEvent(this, newDate));
+  }
+
   /**
    * Валидация введенной даты
    */

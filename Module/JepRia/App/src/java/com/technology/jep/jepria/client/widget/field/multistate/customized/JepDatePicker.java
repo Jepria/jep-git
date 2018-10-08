@@ -5,6 +5,7 @@ import static com.technology.jep.jepria.client.JepRiaClientConstant.PANEL_OF_DAY
 
 import java.util.Date;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -22,10 +23,13 @@ import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.user.datepicker.client.CalendarModel;
 import com.google.gwt.user.datepicker.client.DatePicker;
 import com.google.gwt.user.datepicker.client.DefaultCalendarView;
+import com.technology.jep.jepria.shared.text.JepRiaText;
 import com.technology.jep.jepria.shared.util.JepRiaUtil;
 
 public abstract class JepDatePicker extends DatePicker {
 
+  public static final JepRiaText JepTexts = (JepRiaText) GWT.create(JepRiaText.class);
+  
   private MonthAndYearSelector monthSelector;
   
   public JepDatePicker(int showPanelElements) {
@@ -34,25 +38,21 @@ public abstract class JepDatePicker extends DatePicker {
     monthSelector.setPicker(this);
     monthSelector.setModel(this.getModel());
     
-    if (showPanelElements == PANEL_OF_DAYS_AND_MONTH_AND_YEAR_TIME) {
+    if (showPanelElements == PANEL_OF_DAYS_AND_MONTH_AND_YEAR_TIME
+        || showPanelElements == PANEL_OF_DAYS_AND_MONTH_AND_YEAR) {
       HorizontalPanel hPanel = new HorizontalPanel();
       ((VerticalPanel)getWidget()).getElement().getStyle().setBackgroundColor("white");
       hPanel.getElement().setAttribute("align", "right");
       hPanel.getElement().setAttribute("cellpadding", "5px");
-      hPanel.add(createTime());
-      hPanel.add(createButtonToday());
+      if (showPanelElements == PANEL_OF_DAYS_AND_MONTH_AND_YEAR_TIME) {
+        hPanel.add(createTime());
+      }
+      hPanel.add(createButtonToday(showPanelElements));
       ((VerticalPanel)getWidget()).add(hPanel);
-      
-      getView().addHandler(new ClickHandler() {
-        @Override
-        public void onClick(ClickEvent clickevent) {
-          doFireEventClickDatePicker();
-        }
-      }, ClickEvent.getType());
     }
   }
   
-  protected Widget createButtonToday() {
+  protected Widget createButtonToday(int showPanelElements) {
     LocaleInfo locale = LocaleInfo.getCurrentLocale();
     
     HorizontalPanel vPanel = new HorizontalPanel();
@@ -60,17 +60,28 @@ public abstract class JepDatePicker extends DatePicker {
     Button todayButton = new Button();
     
     if (locale.getLocaleName().equalsIgnoreCase("ru")) {
-      todayButton.setHTML("<b>Сейчас</b>");
+      if (showPanelElements == PANEL_OF_DAYS_AND_MONTH_AND_YEAR_TIME) {
+        todayButton.setHTML("<b>" + JepTexts.button_now() + "</b>");
+      } else if (showPanelElements == PANEL_OF_DAYS_AND_MONTH_AND_YEAR) {
+        todayButton.setHTML("<b>" + JepTexts.button_today() + "</b>");
+      }
+      
     } else {
-      todayButton.setHTML("<b>Now</b>");
+      if (showPanelElements == PANEL_OF_DAYS_AND_MONTH_AND_YEAR_TIME) {
+        todayButton.setHTML("<b>" + JepTexts.button_now() + "</b>");
+      } else if (showPanelElements == PANEL_OF_DAYS_AND_MONTH_AND_YEAR) {
+        todayButton.setHTML("<b>" + JepTexts.button_today() + "</b>");
+      }
+      
     }
     todayButton.setStyleName("datePickerMonthSelector");
-    todayButton.getElement().getStyle().setHeight(22, Unit.PX);
+    todayButton.getElement().getStyle().setHeight(21, Unit.PX);
     
     todayButton.addClickHandler(new ClickHandler() {
       @Override
       public void onClick(ClickEvent clickevent) {
         refresh(new Date());
+        doFireEventClickDatePicker();
       }
     });
     vPanel.add(todayButton);
@@ -163,15 +174,16 @@ public abstract class JepDatePicker extends DatePicker {
   
   public Date getActualDate() {
     Date date = getValue();
-    if (hours != null && minutes != null && seconds != null && date != null) {
-      date.setHours(Integer.valueOf(hours.getText()));
-      date.setMinutes(Integer.valueOf(minutes.getText()));
-      date.setSeconds(Integer.valueOf(seconds.getText()));
-    }
     
     if (getCurrentMonth() != null && date != null) {
       date.setMonth(getCurrentMonth().getMonth());
       date.setYear(getCurrentMonth().getYear());
+    }
+    
+    if (hours != null && minutes != null && seconds != null && date != null) {
+      date.setHours(Integer.valueOf(hours.getText()));
+      date.setMinutes(Integer.valueOf(minutes.getText()));
+      date.setSeconds(Integer.valueOf(seconds.getText()));
     }
     
     return date;
@@ -264,10 +276,6 @@ public abstract class JepDatePicker extends DatePicker {
         selectAll(seconds.getElement());
       }
     });
-  }
-  
-  public Date getCurrentDate() {
-    return getValue();
   }
   
   public Integer getMinYear() {

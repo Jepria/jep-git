@@ -114,7 +114,7 @@ public class Mask {
   /**
    * Список позиций маски.
    */
-  private final List<MaskItem> items;  
+  protected final List<MaskItem> items;  
   /**
    * Символ, используемый для вывода пустой обязательной позиции (по умолчанию - &quot;*&quot;).
    */
@@ -746,7 +746,7 @@ public class Mask {
    * @param max верхняя граница диапазона
    * @return true, если значение входит в диапазон, false в противном случае
    */
-  private static boolean inRange(int value, int min, int max) {
+  protected static boolean inRange(int value, int min, int max) {
     return (value <= max) & (value >= min);
   }
 

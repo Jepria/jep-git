@@ -2,7 +2,7 @@ package com.technology.jep.jepria.shared.text;
 
 /**
  * Interface to represent the constants contained in resource bundle:
- * 	'D:/GIT/javaenterpriseplatform/Module/JepRia/App/src/java/com/technology/jep/jepria/shared/text/JepRiaText.properties'.
+ * 	'C:/git/javaenterpriseplatform/Module/JepRia/App/src/java/com/technology/jep/jepria/shared/text/JepRiaText.properties'.
  */
 public interface JepRiaText extends com.google.gwt.i18n.client.Constants {
   
@@ -205,6 +205,15 @@ public interface JepRiaText extends com.google.gwt.i18n.client.Constants {
   String button_next_alt();
 
   /**
+   * Translated "Сейчас".
+   * 
+   * @return translated "Сейчас"
+   */
+  @DefaultStringValue("Сейчас")
+  @Key("button.now")
+  String button_now();
+
+  /**
    * Translated "Открыть в Pdf".
    * 
    * @return translated "Открыть в Pdf"
@@ -293,6 +302,15 @@ public interface JepRiaText extends com.google.gwt.i18n.client.Constants {
   @DefaultStringValue("Выбрать")
   @Key("button.select.alt")
   String button_select_alt();
+
+  /**
+   * Translated "Сегодня".
+   * 
+   * @return translated "Сегодня"
+   */
+  @DefaultStringValue("Сегодня")
+  @Key("button.today")
+  String button_today();
 
   /**
    * Translated "Перейти на уровень выше".

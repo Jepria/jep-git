@@ -3,8 +3,10 @@ package com.technology.jep.jepria.client.widget.field.masked;
 import static com.technology.jep.jepria.client.JepRiaClientConstant.JepTexts;
 import static com.technology.jep.jepria.client.util.JepClientUtil.getChar;
 
-import com.google.gwt.event.dom.client.FocusEvent;
 import com.google.gwt.dom.client.Element;
+import com.google.gwt.event.dom.client.BlurEvent;
+import com.google.gwt.event.dom.client.BlurHandler;
+import com.google.gwt.event.dom.client.FocusEvent;
 import com.google.gwt.event.dom.client.FocusHandler;
 import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.dom.client.KeyDownEvent;
@@ -35,12 +37,12 @@ public class MaskedTextBox extends TextBox
   /**
    * Наименование CSS-класса стилей для поля с маской.
    */
-  private static final String MASKED_TEXT_BOX_STYLE = "jepRia-MaskedTextBox";
+  protected static final String MASKED_TEXT_BOX_STYLE = "jepRia-MaskedTextBox";
   
   /**
    * Содержимое поля в виде массива символов.
    */
-  private char[] charValue;
+  protected char[] charValue;
   /**
    * Флаг, показывающий, что требуется вызвать событие {@link InputForbiddenEvent}.
    */
@@ -48,18 +50,12 @@ public class MaskedTextBox extends TextBox
   /**
    * Маска, наложенная на поле.
    */
-  private Mask mask;
+  protected Mask mask;
   
   public MaskedTextBox(Mask mask) {
     this.mask = mask;
     setCharValue(new char[mask.size()]);
-    sinkEvents(Event.ONPASTE);
-    addDomHandler(new KeyPressHandler() {
-      @Override
-      public void onKeyPress(KeyPressEvent event) {
-        onKeyPressEvent(event);
-      }
-    }, KeyPressEvent.getType());
+    
     addDomHandler(new KeyDownHandler() {
       @Override
       public void onKeyDown(KeyDownEvent event) {
@@ -78,9 +74,26 @@ public class MaskedTextBox extends TextBox
         onFocusEvent(event);
       }
     }, FocusEvent.getType());
+    addDomHandler(new BlurHandler() {
+      @Override
+      public void onBlur(BlurEvent blurevent) {
+        obBlurEvent(blurevent);
+      }
+    }, BlurEvent.getType());
+    
     addStyleName(MASKED_TEXT_BOX_STYLE);
-    this.addCutHandler(this.getElement());
-    this.addPreventUndoRedoHandler(this.getElement());
+    
+    if (!JepRiaUtil.isAndoridMobile()) {
+      sinkEvents(Event.ONPASTE);
+      addDomHandler(new KeyPressHandler() {
+        @Override
+        public void onKeyPress(KeyPressEvent event) {
+          onKeyPressEvent(event);
+        }
+      }, KeyPressEvent.getType());
+      this.addCutHandler(this.getElement());
+      this.addPreventUndoRedoHandler(this.getElement());
+    }
   }
 
   public MaskedTextBox(String mask) {
@@ -128,7 +141,7 @@ public class MaskedTextBox extends TextBox
   @Override
   public String getValue() {
     if (mask.match(charValue, false)) {
-      return mask.getText(charValue, false);
+        return mask.getText(charValue, false);
     }
     else {
       return null;
@@ -248,7 +261,7 @@ public class MaskedTextBox extends TextBox
    * Проверка, пусто ли содержимое.
    * @return true, если пусто, и false, если нет
    */
-  private boolean isEmpty() {
+  protected boolean isEmpty() {
     return mask.isValueEmpty(charValue);
   }
 
@@ -258,7 +271,7 @@ public class MaskedTextBox extends TextBox
    * (left, right, backspace, delete).
    * @param event событие
    */
-  private void onKeyDownEvent(KeyDownEvent event) {
+  protected void onKeyDownEvent(KeyDownEvent event) {
     if (event.getNativeKeyCode() == KeyCodes.KEY_BACKSPACE) {
       event.preventDefault();
       int cursorPos = getCursorPos();
@@ -309,7 +322,7 @@ public class MaskedTextBox extends TextBox
    * Осуществляет перехват и обработку пользовательского ввода.
    * @param event событие
    */
-  private void onKeyPressEvent(KeyPressEvent event) {
+  protected void onKeyPressEvent(KeyPressEvent event) {
     if (event.getNativeEvent().getCharCode() == 0) {
       /*
        * Firefox имеет особенность: событие KeyPress генерируется не только при нажатии
@@ -333,6 +346,7 @@ public class MaskedTextBox extends TextBox
        */
       return;
     }
+    
     int position = getCursorPos();
     char currentCharacter = getChar(event.getNativeEvent());
     int selectionLength = getSelectionLength();
@@ -367,7 +381,7 @@ public class MaskedTextBox extends TextBox
    * вызывает событие {@link InputForbiddenEvent} и сбрасывает флаг.
    * @param event событие
    */
-  private void onKeyUpEvent(KeyUpEvent event) {
+  protected void onKeyUpEvent(KeyUpEvent event) {
     if (fireInputForbidden) {
       fireInputForbidden = false;
       fireEvent(new InputForbiddenEvent());
@@ -416,9 +430,19 @@ public class MaskedTextBox extends TextBox
    * Если поле пустое, то устанавливает курсор на первый специальный символ маски.
    * @param event
    */
-  private void onFocusEvent(FocusEvent event) {
+  protected void onFocusEvent(FocusEvent event) {
     if(isEmpty()) {
       setCursorPos(mask.getFirstSpecialSymbolPosition());
+    }
+  }
+  
+  /**
+   * Обработчик события при потере фокуса на поле
+   * @param event
+   */
+  protected void obBlurEvent(BlurEvent event) {
+    if(isEmpty()) {
+      clear();
     }
   }
 
@@ -475,10 +499,10 @@ public class MaskedTextBox extends TextBox
     int selectionLength = getSelectionLength();
     if (selectionLength > 0) {
       char[] tempCharValue = (position + selectionLength) <= charValue.length ? 
-          mask.clearChars(charValue, position, selectionLength) :
-            mask.clearChars(charValue, position - selectionLength, selectionLength);
-          setCharValue(tempCharValue);
-          setCursorPos(position);
+        mask.clearChars(charValue, position, selectionLength) :
+          mask.clearChars(charValue, position - selectionLength, selectionLength);
+      setCharValue(tempCharValue);
+      setCursorPos(position);
     }
   }
   
@@ -486,7 +510,7 @@ public class MaskedTextBox extends TextBox
    * Установка содержимого.
    * @param charValue массив символов
    */
-  private void setCharValue(char[] charValue) {
+  protected void setCharValue(char[] charValue) {
     mask.applyLiterals(charValue);
     this.charValue = charValue;
     setText(mask.getText(charValue, true));

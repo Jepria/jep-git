@@ -125,7 +125,7 @@ public class JepMoneyField extends JepBaseNumberField<BigDecimalBox> {
           keyDownEventHandler(event);
       }
     });
-      
+    
     editablePanel.add(editableCard);
     
     // Добавляем обработчик события "нажатия клавиши" для проверки ввода символов.
@@ -204,7 +204,7 @@ public class JepMoneyField extends JepBaseNumberField<BigDecimalBox> {
   }
   
   /**
-   *  Признак, что была надата комбинация кнопок SHIFT+INSERT
+   *  Признак, что была нажата комбинация кнопок SHIFT+INSERT
    */
   private boolean isPressedSHIFTplusINSERT = false;
   
@@ -258,11 +258,11 @@ public class JepMoneyField extends JepBaseNumberField<BigDecimalBox> {
     if (!JepRiaUtil.isEmpty(value)) {
       // Получаем текущюю позицию курсора
       int currentPositionCursor = editableCard.getCursorPos();
-      // Вычисляем пол-во разделителей до форматирования
+      // Вычисляем кол-во разделителей до форматирования
       int countSpacesBefore = value.split("\\" + DECIMAL_RANK_SEPARATOR).length - 1;
       // удаляем тысячные разделители 
       value = value.replaceAll("\\" + DECIMAL_RANK_SEPARATOR, "");
-      // разделяем целую часть числа от дровной
+      // разделяем целую часть числа от дробной
       String[] parts = value.split("\\" + decimalSeparator, 2);
       String decimalPart1, decimalPart2 = "";
       boolean has2Parts = false;
@@ -331,7 +331,7 @@ public class JepMoneyField extends JepBaseNumberField<BigDecimalBox> {
         }
       }
 
-      // Проверяем, что не вышли за допустимый диапозон
+      // Проверяем, что не вышли за допустимый диапазон
       if (currentPositionCursor + shiftPosition > lengthText) {
         if (currentPositionCursor > lengthText) {
           shiftPosition = lengthText - currentPositionCursor;
@@ -351,7 +351,7 @@ public class JepMoneyField extends JepBaseNumberField<BigDecimalBox> {
   /**
    * Форматирование введенного числа с разделителем тысячных групп разрядов числа и дробной частью до сотых  
    * @param keyCode
-   * @return true если вычисляемое значение число
+   * @return true если вычисляемое значение - число
    */
   protected boolean checkNumberFormat(int keyCode) {
     int currentPosCursor = editableCard.getCursorPos();
@@ -395,9 +395,9 @@ public class JepMoneyField extends JepBaseNumberField<BigDecimalBox> {
     return targetValue;
   }
   /**
-   * Проверка что код нажатой кнопки принадлежит к группе редактируемых кнопок - DELTE или BACKSPACE
+   * Проверка что код нажатой кнопки принадлежит к группе редактируемых кнопок - DELETE или BACKSPACE
    * @param keyCode
-   * @return если надатая клавиша является BACKSPACE или DELETE, то возвращаем истину, иначе - ложь 
+   * @return если нажатая клавиша является BACKSPACE или DELETE, то возвращаем истину, иначе - ложь 
    */
   protected boolean isModifierKey(int keyCode) {
     return keyCode == KeyCodes.KEY_BACKSPACE || keyCode == KeyCodes.KEY_DELETE;
