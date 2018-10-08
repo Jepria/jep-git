@@ -1,7 +1,6 @@
 package com.technology.jep.jepria.client.widget.field.masked;
 
 import static com.technology.jep.jepria.client.JepRiaClientConstant.JepTexts;
-import static com.technology.jep.jepria.client.util.JepClientUtil.getChar;
 
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.dom.client.BlurEvent;
@@ -19,6 +18,7 @@ import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.ui.TextBox;
+
 import com.technology.jep.jepria.client.util.JepClientUtil;
 import com.technology.jep.jepria.client.widget.field.multistate.event.InputForbiddenEvent;
 import com.technology.jep.jepria.client.widget.field.multistate.event.InputForbiddenEvent.HasInputForbiddenHandlers;
@@ -83,7 +83,7 @@ public class MaskedTextBox extends TextBox
     
     addStyleName(MASKED_TEXT_BOX_STYLE);
     
-    if (!JepRiaUtil.isAndoridMobile()) {
+    if (!JepClientUtil.isMobile()) {
       sinkEvents(Event.ONPASTE);
       addDomHandler(new KeyPressHandler() {
         @Override
@@ -348,7 +348,7 @@ public class MaskedTextBox extends TextBox
     }
     
     int position = getCursorPos();
-    char currentCharacter = getChar(event.getNativeEvent());
+    char currentCharacter = JepClientUtil.getChar(event.getNativeEvent());
     int selectionLength = getSelectionLength();
     if (selectionLength > 0) {
       char[] tempRawValue = mask.clearChars(charValue, position, selectionLength);

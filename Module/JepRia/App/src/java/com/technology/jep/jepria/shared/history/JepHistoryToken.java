@@ -99,13 +99,13 @@ public class JepHistoryToken {
         if(item instanceof JepOption) {
           result = LIST_OF_OPTION.toHistoryToken() + MAP_NAME_TYPE_VALUE_SEPARATOR + JepOption.getListAsToken((List<JepOption>)list);
         } else {
-        	StringBuilder resultToken = new StringBuilder();
+          StringBuilder resultToken = new StringBuilder();
             for(Object option: list) {
                 if(option != null) {
-                	if(resultToken.length() > 0) {
-                		resultToken.append(LIST_VALUE_SEPARATOR);
-                	}
-                	resultToken.append(valueToToken(option));
+                  if(resultToken.length() > 0) {
+                    resultToken.append(LIST_VALUE_SEPARATOR);
+                  }
+                  resultToken.append(valueToToken(option));
                 }
               }
               
@@ -200,16 +200,16 @@ public class JepHistoryToken {
         result = JepOption.buildListFromToken(valueToken);
         break;
       case LIST_OF_PRIMITIVE:
-		    List<Object> resultList = new ArrayList<Object>();
-		    if(valueToken != null) {
-		      String[] listTokenTab = valueToken.split(LIST_VALUE_SEPARATOR_REGEXP);
-		      for(int i = 0; i < listTokenTab.length; i++) {
-		        if(listTokenTab[i] != null) {
-		          resultList.add(tokenToValue(listTokenTab[i]));
-		        }
-		      }
-		    }
-    	  result = resultList;
+        List<Object> resultList = new ArrayList<Object>();
+        if(valueToken != null) {
+          String[] listTokenTab = valueToken.split(LIST_VALUE_SEPARATOR_REGEXP);
+          for(int i = 0; i < listTokenTab.length; i++) {
+            if(listTokenTab[i] != null) {
+              resultList.add(tokenToValue(listTokenTab[i]));
+            }
+          }
+        }
+        result = resultList;
           break;
     }
 

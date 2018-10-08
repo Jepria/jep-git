@@ -18,7 +18,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":10,"i1":10,"i2":10,"i3":10};
+var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -221,6 +221,18 @@ implements com.google.gwt.user.client.rpc.RemoteService</pre>
 </td>
 </tr>
 <tr id="i3" class="rowColor">
+<td class="colFirst"><code>protected javax.servlet.http.HttpServletRequest</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/server/service/JepServiceServlet.html#getThreadLocalRequestWrapper--">getThreadLocalRequestWrapper</a></span>()</code>
+<div class="block">Предоставляет возможность переопределить в потомках получения HTTPRequestServlet другим способом.</div>
+</td>
+</tr>
+<tr id="i4" class="altColor">
+<td class="colFirst"><code>protected javax.servlet.http.HttpServletResponse</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/server/service/JepServiceServlet.html#getThreadLocalResponseWrapper--">getThreadLocalResponseWrapper</a></span>()</code>
+<div class="block">Предоставляет возможность переопределить в потомках получения HttpServletResponse другим способом.</div>
+</td>
+</tr>
+<tr id="i5" class="rowColor">
 <td class="colFirst"><code>protected boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/server/service/JepServiceServlet.html#isRole-java.lang.String-boolean-">isRole</a></span>(java.lang.String&nbsp;role,
       boolean&nbsp;makeError)</code>
@@ -362,10 +374,38 @@ implements com.google.gwt.user.client.rpc.RemoteService</pre>
 <a name="buildException-java.lang.Throwable-">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>buildException</h4>
 <pre>protected&nbsp;<a href="../../../../../../com/technology/jep/jepria/shared/exceptions/ApplicationException.html" title="class in com.technology.jep.jepria.shared.exceptions">ApplicationException</a>&nbsp;buildException(java.lang.Throwable&nbsp;th)</pre>
+</li>
+</ul>
+<a name="getThreadLocalRequestWrapper--">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getThreadLocalRequestWrapper</h4>
+<pre>protected&nbsp;javax.servlet.http.HttpServletRequest&nbsp;getThreadLocalRequestWrapper()</pre>
+<div class="block">Предоставляет возможность переопределить в потомках получения HTTPRequestServlet другим способом.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the HttpServletRequest object for the current call. It is stored thread-locally so that simultaneous invocations can have different request objects.</dd>
+</dl>
+</li>
+</ul>
+<a name="getThreadLocalResponseWrapper--">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>getThreadLocalResponseWrapper</h4>
+<pre>protected&nbsp;javax.servlet.http.HttpServletResponse&nbsp;getThreadLocalResponseWrapper()</pre>
+<div class="block">Предоставляет возможность переопределить в потомках получения HttpServletResponse другим способом.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the HttpServletResponse object for the current call. It is stored thread-locally so that simultaneous invocations can have different response objects.</dd>
+</dl>
 </li>
 </ul>
 </li>

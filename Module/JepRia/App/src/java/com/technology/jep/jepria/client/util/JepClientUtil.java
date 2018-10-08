@@ -13,6 +13,8 @@ import com.google.gwt.event.dom.client.DomEvent;
 import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.i18n.client.LocaleInfo;
 import com.google.gwt.storage.client.Storage;
+import com.google.gwt.user.client.Window;
+
 import com.technology.jep.jepria.client.history.place.JepCreatePlace;
 import com.technology.jep.jepria.client.history.place.JepEditPlace;
 import com.technology.jep.jepria.client.history.place.JepSearchPlace;
@@ -28,6 +30,7 @@ import com.technology.jep.jepria.client.widget.field.ComboBox;
 import com.technology.jep.jepria.client.widget.list.header.menu.GridHeaderMenuBar;
 import com.technology.jep.jepria.shared.log.JepLoggerImpl;
 import com.technology.jep.jepria.shared.record.JepRecord;
+import com.technology.jep.jepria.shared.util.JepRiaUtil;
 
 public class JepClientUtil {
 
@@ -37,10 +40,6 @@ public class JepClientUtil {
   private static final LoadingPanel loadingPanel = new LoadingPanel(); 
 
   public static final BodyElement BODY = Document.get().getBody();
-
-  public static native String getUserAgent() /*-{
-    return navigator.userAgent.toLowerCase();
-  }-*/;
 
   /**
    * Показ загрузочной панели с предустановленным заголовком и сообщением.
@@ -292,7 +291,7 @@ public class JepClientUtil {
   }-*/;
 
   /**
-   * Функция определяет: является ли текущий язык основным языком для пользователей.
+   * Проверяет, является ли текущий язык основным языком для пользователей.
    * 
    * @return возвращает true, если текущий язык является основным языком для
    *         пользователей. В противном случае возвращает false.
@@ -318,7 +317,7 @@ public class JepClientUtil {
   }
 
   /**
-   * Сохранение строки в хранилище localStorage
+   * Сохранение записи в хранилище localStorage
    * 
    * @param key Ключ в хранилище localStorage
    * @param value Значение в хранилище localStorage
@@ -332,13 +331,12 @@ public class JepClientUtil {
     }
   }
   /**
-   * Получение строки из хранилища localStorage
+   * Получение значения из хранилища localStorage
    * 
    * @param key Ключ в хранилище localStorage
-   * @param value Значение в хранилище localStorage
- * @return 
+   * @param type Тип значения в хранилище localStorage
    * 
-   * @return Строка, содержащая значение параметра 
+   * @return Значение в хранилище localStorage
    */
   public final static <T> T getLocalStorageVariable(String key, Class<T> type) {
     Storage storage = Storage.getLocalStorageIfSupported();
@@ -366,4 +364,15 @@ public class JepClientUtil {
   public final static boolean isLocalStorageSupported() {
     return Storage.isLocalStorageSupported();
   }
+  
+  /**
+   * Проверяет, является ли клиентский браузер мобильным.
+   *
+   * @return true - клиентский барузер является мобильным, false - клиентский браузер не является мобильным
+   * @see <a href="https://deviceatlas.com/blog/mobile-browser-user-agent-strings" target="_blank">https://deviceatlas.com/blog/mobile-browser-user-agent-strings</a>
+   */
+  public final static boolean isMobile() {
+    return JepRiaUtil.isMobile(Window.Navigator.getUserAgent());
+  }
+  
 }

@@ -84,7 +84,7 @@ public abstract class JepAbstractSecurityModule implements JepSecurityModule {
   abstract protected boolean isObsolete(Principal principal);
   
   /**
-   * Определяет: принадлежит ли указанная роль role текущему оператору. Если
+   * Проверяет, принадлежит ли указанная роль role текущему оператору. Если
    * параметр makeError установлен в true, то при отсутствии роли у текущего
    * оператора выбрасывается исключение.
    * 

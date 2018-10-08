@@ -197,6 +197,16 @@ extends java.lang.Enum&lt;<a href="../../../../../../com/technology/jep/jepria/s
 </td>
 </tr>
 <tr class="altColor">
+<td class="colOne"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/shared/field/JepTypeEnum.html#LIST_OF_PRIMITIVE">LIST_OF_PRIMITIVE</a></span></code>
+<div class="block">Тип поля, для представления списков примитивных данных</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/shared/field/JepTypeEnum.html#MONEY">MONEY</a></span></code>
+<div class="block">Тип поля, для представления денежных единиц с тысячным разделителем - пробелом</div>
+</td>
+</tr>
+<tr class="altColor">
 <td class="colOne"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/shared/field/JepTypeEnum.html#OPTION">OPTION</a></span></code>
 <div class="block">Тип поля, содержащий в качестве своего значения экземпляр класса 
  <a href="../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option"><code>JepOption</code></a>.</div>
@@ -292,6 +302,14 @@ extends java.lang.Enum&lt;<a href="../../../../../../com/technology/jep/jepria/s
 <div class="block">Строковое представление (History Token) представляющее тип поля, содержащий в качестве своего значения экземпляр класса реализующего интерфейс
  List&lt;<a href="../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option"><code>JepOption</code></a>&gt;.</div>
 </td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>protected static java.lang.String</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/shared/field/JepTypeEnum.html#LIST_OF_PRIMITIVE_TOKEN">LIST_OF_PRIMITIVE_TOKEN</a></span></code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>protected static java.lang.String</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/shared/field/JepTypeEnum.html#MONEY_TOKEN">MONEY_TOKEN</a></span></code>&nbsp;</td>
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code>protected static java.lang.String</code></td>
@@ -495,6 +513,16 @@ the order they are declared.</div>
  <a href="../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option"><code>JepOption</code></a>.</div>
 </li>
 </ul>
+<a name="MONEY">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>MONEY</h4>
+<pre>public static final&nbsp;<a href="../../../../../../com/technology/jep/jepria/shared/field/JepTypeEnum.html" title="enum in com.technology.jep.jepria.shared.field">JepTypeEnum</a> MONEY</pre>
+<div class="block">Тип поля, для представления денежных единиц с тысячным разделителем - пробелом</div>
+</li>
+</ul>
 <a name="LIST_OF_OPTION">
 <!--   -->
 </a>
@@ -504,6 +532,16 @@ the order they are declared.</div>
 <pre>public static final&nbsp;<a href="../../../../../../com/technology/jep/jepria/shared/field/JepTypeEnum.html" title="enum in com.technology.jep.jepria.shared.field">JepTypeEnum</a> LIST_OF_OPTION</pre>
 <div class="block">Тип поля, содержащий в качестве своего значения экземпляр класса реализующего интерфейс
  List&lt;<a href="../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option"><code>JepOption</code></a>&gt;.</div>
+</li>
+</ul>
+<a name="LIST_OF_PRIMITIVE">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>LIST_OF_PRIMITIVE</h4>
+<pre>public static final&nbsp;<a href="../../../../../../com/technology/jep/jepria/shared/field/JepTypeEnum.html" title="enum in com.technology.jep.jepria.shared.field">JepTypeEnum</a> LIST_OF_PRIMITIVE</pre>
+<div class="block">Тип поля, для представления списков примитивных данных</div>
 </li>
 </ul>
 <a name="BINARY_FILE">
@@ -704,6 +742,19 @@ the order they are declared.</div>
 </dl>
 </li>
 </ul>
+<a name="LIST_OF_PRIMITIVE_TOKEN">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>LIST_OF_PRIMITIVE_TOKEN</h4>
+<pre>protected static final&nbsp;java.lang.String LIST_OF_PRIMITIVE_TOKEN</pre>
+<dl>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><a href="../../../../../../constant-values.html#com.technology.jep.jepria.shared.field.JepTypeEnum.LIST_OF_PRIMITIVE_TOKEN">Constant Field Values</a></dd>
+</dl>
+</li>
+</ul>
 <a name="BINARY_FILE_TOKEN">
 <!--   -->
 </a>
@@ -733,13 +784,26 @@ the order they are declared.</div>
 <a name="CLOB_TOKEN">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>CLOB_TOKEN</h4>
 <pre>protected static final&nbsp;java.lang.String CLOB_TOKEN</pre>
 <dl>
 <dt><span class="seeLabel">See Also:</span></dt>
 <dd><a href="../../../../../../constant-values.html#com.technology.jep.jepria.shared.field.JepTypeEnum.CLOB_TOKEN">Constant Field Values</a></dd>
+</dl>
+</li>
+</ul>
+<a name="MONEY_TOKEN">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>MONEY_TOKEN</h4>
+<pre>protected static final&nbsp;java.lang.String MONEY_TOKEN</pre>
+<dl>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><a href="../../../../../../constant-values.html#com.technology.jep.jepria.shared.field.JepTypeEnum.MONEY_TOKEN">Constant Field Values</a></dd>
 </dl>
 </li>
 </ul>

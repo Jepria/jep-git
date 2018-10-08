@@ -381,10 +381,10 @@ public class JepGrid<T> extends DataGrid<T> {
     expires.setYear(expires.getYear() + 1);
 
     if (JepClientUtil.isLocalStorageSupported()) {
-		JepClientUtil.setLocalStorageVariable("grid_" + gridStorageId, getColumnCharacteristicsAsString());
-	} else {
-		Cookies.setCookie(gridStorageId, getColumnCharacteristicsAsString(), expires);
-	} 
+    JepClientUtil.setLocalStorageVariable("grid_" + gridStorageId, getColumnCharacteristicsAsString());
+  } else {
+    Cookies.setCookie(gridStorageId, getColumnCharacteristicsAsString(), expires);
+  } 
     
   }
   
@@ -790,12 +790,12 @@ public class JepGrid<T> extends DataGrid<T> {
   
   private Map<String, JepGrid<T>.ColumnCharasteristic> getColumnCharacteristics() {
 
-	if (JepClientUtil.isLocalStorageSupported()) {
-		return parseColumnCharacteristics(JepClientUtil.getLocalStorageVariable("grid_" + gridStorageId, String.class));
-	} else {
-		return parseColumnCharacteristics(Cookies.getCookie(gridStorageId));
-	} 
-	  
+  if (JepClientUtil.isLocalStorageSupported()) {
+    return parseColumnCharacteristics(JepClientUtil.getLocalStorageVariable("grid_" + gridStorageId, String.class));
+  } else {
+    return parseColumnCharacteristics(Cookies.getCookie(gridStorageId));
+  } 
+    
   }
 
    /**

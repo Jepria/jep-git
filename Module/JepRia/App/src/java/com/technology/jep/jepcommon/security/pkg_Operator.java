@@ -56,7 +56,7 @@ public class pkg_Operator {
    * @throws SQLException при отсутствии пользователя с указанным логином
    */
   public static final Integer logon(Db db, String login) throws SQLException {
-	  return AuthorizationHelper.getInstance(db, login, null, null).logon();
+    return AuthorizationHelper.getInstance(db, login, null, null).logon();
   }
 
   /**

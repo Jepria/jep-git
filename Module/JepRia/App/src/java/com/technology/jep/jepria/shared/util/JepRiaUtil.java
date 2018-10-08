@@ -4,7 +4,6 @@ import static com.technology.jep.jepria.shared.JepRiaConstant.UNDEFINED_INT;
 
 import java.util.List;
 
-import com.google.gwt.user.client.Window;
 import com.technology.jep.jepria.shared.field.option.JepOption;
 import com.technology.jep.jepria.shared.record.lob.JepClob;
 import com.technology.jep.jepria.shared.record.lob.JepFileReference;
@@ -12,7 +11,7 @@ import com.technology.jep.jepria.shared.record.lob.JepFileReference;
 public class JepRiaUtil {
 
   /**
-   * Функция определяет: является ли переданный объект пустым.
+   * Проверяет, является ли переданный объект пустым.
    * 
    * @param obj проверяемый объект
    */
@@ -143,7 +142,15 @@ public class JepRiaUtil {
     return baseLine;
   }
   
-  public static boolean isAndoridMobile() {
-    return Window.Navigator.getUserAgent().contains("Android");
+  /**
+   * Проверяет, является ли клиентский браузер мобильным.
+   *
+   * @param ua строка, содержащая наименование (User-Agent) клиентского браузера
+   * @return true - клиентский барузер является мобильным, false - клиентский браузер не является мобильным
+   * @see <a href="https://deviceatlas.com/blog/mobile-browser-user-agent-strings" target="_blank">https://deviceatlas.com/blog/mobile-browser-user-agent-strings</a>
+   */
+  public static boolean isMobile(String ua) {
+    return (ua != null && ua.matches(".*(?i:mobile|mini).*"));
   }
+  
 }

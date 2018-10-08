@@ -26,6 +26,7 @@ import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.datepicker.client.DatePicker;
+
 import com.technology.jep.jepria.client.util.JepClientUtil;
 import com.technology.jep.jepria.client.widget.event.JepEvent;
 import com.technology.jep.jepria.client.widget.event.JepEventType;
@@ -131,16 +132,16 @@ public class JepDateField extends JepMultiStateField<MaskedDateBox, HTML> {
 
   /**
    * Получить минимальную граничную дату
-   * @return
+   * @return минимальная граничная дата
    */
   public Date getMinLimitDate() {
     return minDate;
   }
   
-/**
- * Получить максимальную граничную дату
- * @return
- */
+  /**
+   * Получить максимальную граничную дату
+   * @return максимальная граничная дата
+   */
   public Date getMaxLimitDate() {
     return maxDate;
   }
@@ -421,7 +422,7 @@ public class JepDateField extends JepMultiStateField<MaskedDateBox, HTML> {
     editableCard.addDomHandler(new KeyUpHandler() {
       @Override
       public void onKeyUp(KeyUpEvent keyupevent) {
-        if (JepRiaUtil.isAndoridMobile()) {
+        if (JepClientUtil.isMobile()) {
           Date newDate = null;
           String value = getRawValue();
           try {

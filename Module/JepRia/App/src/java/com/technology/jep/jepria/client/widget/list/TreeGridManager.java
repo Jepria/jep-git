@@ -105,7 +105,7 @@ public class TreeGridManager<W extends AbstractCellTable<JepRecord>, P extends P
    * {@inheritDoc}
    */
   public void setDndEnabled(boolean dndEnabled) {
-	super.setDndEnabled(dndEnabled);
+  super.setDndEnabled(dndEnabled);
     if (dndEnabled) {
       ((JepGrid<?>) widget).setDndMode(DndMode.BOTH);
     } else {
@@ -450,8 +450,8 @@ public class TreeGridManager<W extends AbstractCellTable<JepRecord>, P extends P
 
   /**
    * Вставка строки перед заданным записью.
-   * @param oldPositionRecords				записи, перед которыми идет вставка новой записи
-   * @param newPositionRecord				вставляемая запись
+   * @param oldPositionRecords        записи, перед которыми идет вставка новой записи
+   * @param newPositionRecord        вставляемая запись
    */
   private void insertBefore(List<JepRecord> oldPositionRecords, JepRecord newPositionRecord) {
     ListTreeNode newParentTreeNode = null;
@@ -480,8 +480,8 @@ public class TreeGridManager<W extends AbstractCellTable<JepRecord>, P extends P
   
   /**
    * Вставка строки после заданной записи.
-   * @param oldPositionRecords				записи, после которых идет вставка новой записи
-   * @param newPositionRecord				вставляемая запись
+   * @param oldPositionRecords        записи, после которых идет вставка новой записи
+   * @param newPositionRecord        вставляемая запись
    */
   private void insertAfter(List<JepRecord> oldPositionRecords, JepRecord newPositionRecord) {
     ListTreeNode newParentTreeNode = null;
@@ -515,8 +515,8 @@ public class TreeGridManager<W extends AbstractCellTable<JepRecord>, P extends P
   /**
    * Проверка является ли запись record2 дочерней в дереве для записи record1.
    * 
-   * @param record1				родительская запись
-   * @param record2				дочерняя запись
+   * @param record1        родительская запись
+   * @param record2        дочерняя запись
    * @return проверка иерархичности записей record1 и record2
    */
   private boolean isChild(JepRecord record1, JepRecord record2){
