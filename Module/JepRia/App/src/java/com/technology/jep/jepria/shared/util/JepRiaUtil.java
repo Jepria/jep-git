@@ -4,6 +4,7 @@ import static com.technology.jep.jepria.shared.JepRiaConstant.UNDEFINED_INT;
 
 import java.util.List;
 
+import com.google.gwt.user.client.Window;
 import com.technology.jep.jepria.shared.field.option.JepOption;
 import com.technology.jep.jepria.shared.record.lob.JepClob;
 import com.technology.jep.jepria.shared.record.lob.JepFileReference;
@@ -140,5 +141,9 @@ public class JepRiaUtil {
       return newClassName;
     }
     return baseLine;
+  }
+  
+  public static boolean isAndoridMobile() {
+    return Window.Navigator.getUserAgent().contains("Android");
   }
 }
