@@ -381,10 +381,10 @@ public class JepGrid<T> extends DataGrid<T> {
     expires.setYear(expires.getYear() + 1);
 
     if (JepClientUtil.isLocalStorageSupported()) {
-    JepClientUtil.setLocalStorageVariable("grid_" + gridStorageId, getColumnCharacteristicsAsString());
-  } else {
-    Cookies.setCookie(gridStorageId, getColumnCharacteristicsAsString(), expires);
-  } 
+      JepClientUtil.setLocalStorageVariable("grid_" + gridStorageId, getColumnCharacteristicsAsString());
+    } else {
+      Cookies.setCookie(gridStorageId, getColumnCharacteristicsAsString(), expires);
+    }
     
   }
   

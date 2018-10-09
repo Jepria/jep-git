@@ -130,9 +130,9 @@ public class JepLoginModule implements LoginModule {
     Integer operatorId = null;
     this.username = ((NameCallback) callbacks[0]).getName();
     boolean withHash = this.username.endsWith(LOGIN_SUFFIX_FOR_HASH_AUTHORIZATION); 
-  if (withHash){
-    this.username = this.username.split(LOGIN_SUFFIX_FOR_HASH_AUTHORIZATION)[0];
-  }
+    if (withHash){
+      this.username = this.username.split(LOGIN_SUFFIX_FOR_HASH_AUTHORIZATION)[0];
+    }
     String password = getPassword(callbacks);
     try {
       doJepAuthentication(this.username, password, withHash);

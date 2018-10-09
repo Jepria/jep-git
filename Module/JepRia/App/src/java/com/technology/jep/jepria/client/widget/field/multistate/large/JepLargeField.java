@@ -215,11 +215,11 @@ public abstract class JepLargeField<V extends Widget> extends JepMultiStateField
    */
   @Override
   protected void addViewCard() {
-  V newViewCard = createViewCard();
-  if (!(newViewCard instanceof HTML)) { // для виджетов, не являющихся HTML
-    viewCard.removeFromParent();
-    viewCard = newViewCard;
-  }
+    V newViewCard = createViewCard();
+    if (!(newViewCard instanceof HTML)) { // для виджетов, не являющихся HTML
+      viewCard.removeFromParent();
+      viewCard = newViewCard;
+    }
     viewPanel.add(viewCard);
   }
   
