@@ -18,7 +18,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":9,"i1":41,"i2":9,"i3":9,"i4":9};
+var methods = {"i0":9,"i1":41,"i2":9,"i3":9,"i4":9,"i5":9};
 var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],8:["t4","Concrete Methods"],32:["t6","Deprecated Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -171,10 +171,16 @@ extends java.lang.Object</pre>
 <tr id="i3" class="rowColor">
 <td class="colFirst"><code>static boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/shared/util/JepRiaUtil.html#isEmpty-java.lang.Object-">isEmpty</a></span>(java.lang.Object&nbsp;obj)</code>
-<div class="block">Функция определяет: является ли переданный объект пустым.</div>
+<div class="block">Проверяет, является ли переданный объект пустым.</div>
 </td>
 </tr>
 <tr id="i4" class="altColor">
+<td class="colFirst"><code>static boolean</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/shared/util/JepRiaUtil.html#isMobile-java.lang.String-">isMobile</a></span>(java.lang.String&nbsp;ua)</code>
+<div class="block">Проверяет, является ли клиентский браузер мобильным.</div>
+</td>
+</tr>
+<tr id="i5" class="rowColor">
 <td class="colFirst"><code>static java.lang.String</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/shared/util/JepRiaUtil.html#removeStrIfPresent-java.lang.String-java.lang.String-">removeStrIfPresent</a></span>(java.lang.String&nbsp;baseLine,
                   java.lang.String&nbsp;removedLine)</code>
@@ -227,7 +233,7 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>isEmpty</h4>
 <pre>public static&nbsp;boolean&nbsp;isEmpty(java.lang.Object&nbsp;obj)</pre>
-<div class="block">Функция определяет: является ли переданный объект пустым.</div>
+<div class="block">Проверяет, является ли переданный объект пустым.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>obj</code> - проверяемый объект</dd>
@@ -293,7 +299,7 @@ public static&nbsp;boolean&nbsp;equalWithNull(java.lang.Object&nbsp;obj1,
 <a name="removeStrIfPresent-java.lang.String-java.lang.String-">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>removeStrIfPresent</h4>
 <pre>public static final&nbsp;java.lang.String&nbsp;removeStrIfPresent(java.lang.String&nbsp;baseLine,
@@ -305,6 +311,24 @@ public static&nbsp;boolean&nbsp;equalWithNull(java.lang.Object&nbsp;obj1,
 <dd><code>removedLine</code> - удаляемая строка</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>новая строка</dd>
+</dl>
+</li>
+</ul>
+<a name="isMobile-java.lang.String-">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>isMobile</h4>
+<pre>public static&nbsp;boolean&nbsp;isMobile(java.lang.String&nbsp;ua)</pre>
+<div class="block">Проверяет, является ли клиентский браузер мобильным.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>ua</code> - строка, содержащая наименование (User-Agent) клиентского браузера</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>true - клиентский барузер является мобильным, false - клиентский браузер не является мобильным</dd>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><a href="https://deviceatlas.com/blog/mobile-browser-user-agent-strings" target="_blank">https://deviceatlas.com/blog/mobile-browser-user-agent-strings</a></dd>
 </dl>
 </li>
 </ul>

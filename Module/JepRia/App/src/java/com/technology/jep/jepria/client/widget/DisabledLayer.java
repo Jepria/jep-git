@@ -6,20 +6,35 @@ import com.google.gwt.dom.client.Style.Display;
 import com.technology.jep.jepria.client.util.JepClientUtil;
 
 /**
- * Контейнер маски, закрывающей экран.
+ * Контейнер слоя маски, закрывающей экран.
  */
 public final class DisabledLayer {
   
+  /**
+   * Класc слоя маски.
+   */
   public static final String DISABLED_LAYER_STYLE = "jepRia-disabledLayer";
   
+  /**
+   * Идентификатор слоя маски.
+   */
   public static final String DISABLED_LAYER_ID = "disabledLayerId";
 
+  /**
+   * Элемент слоя маски.
+   */
   private Element disabledLayer;
   
+  /**
+   * Конструктор. Маппинг элементов по идентификаторам.
+   */
   public DisabledLayer() {
     disabledLayer = Document.get().getElementById(DISABLED_LAYER_ID);
   }
 
+  /**
+   * Отображает маску.
+   */
   public void show() {
     if (disabledLayer == null) { 
       create(); // Для обратной совместимости, если контейнера нет в разметке (в jsp).
@@ -28,6 +43,9 @@ public final class DisabledLayer {
     disabledLayer.getStyle().setDisplay(Display.BLOCK);
   }
 
+  /**
+   * Скрывает маску.
+   */
   public void hide() {
     if (disabledLayer != null) {
       disabledLayer.getStyle().setDisplay(Display.NONE);

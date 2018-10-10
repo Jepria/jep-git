@@ -11,7 +11,7 @@ import com.technology.jep.jepria.shared.record.lob.JepFileReference;
 public class JepRiaUtil {
 
   /**
-   * Функция определяет: является ли переданный объект пустым.
+   * Проверяет, является ли переданный объект пустым.
    * 
    * @param obj проверяемый объект
    */
@@ -141,4 +141,18 @@ public class JepRiaUtil {
     }
     return baseLine;
   }
+  
+  /**
+   * Проверяет, является ли клиентский браузер мобильным.
+   *
+   * @param ua строка, содержащая наименование (User-Agent) клиентского браузера
+   * @return true - клиентский барузер является мобильным, false - клиентский браузер не является мобильным
+   * @see <a href="https://deviceatlas.com/blog/mobile-browser-user-agent-strings" target="_blank">https://deviceatlas.com/blog/mobile-browser-user-agent-strings</a>
+   */
+  public static boolean isMobile(String ua) {
+    // Правила использования модификаторов i (игнорирования регистра) для регулярных выражений в Java и JavaScript, к сожалению, отличаются.
+    // Поэтому, для поддержания единой точки определения признака "мобильности", приходится предварительно привести явно строку к ниженму регистру.
+    return (ua != null && ua.toLowerCase().matches(".*(mobile|mini).*"));
+  }
+  
 }

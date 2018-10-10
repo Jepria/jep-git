@@ -49,16 +49,18 @@ abstract public class JepServiceServlet extends RemoteServiceServlet implements 
   }
   
   /**
-   * Предоставляет возможность переопределить в потомках получения HTTPRequestServlet другим способом
-   * @return
+   * Предоставляет возможность переопределить в потомках получения HTTPRequestServlet другим способом.
+   *
+   * @return the HttpServletRequest object for the current call. It is stored thread-locally so that simultaneous invocations can have different request objects.
    */
   protected HttpServletRequest getThreadLocalRequestWrapper() {
       return getThreadLocalRequest();
   }
   
   /**
-   * Предоставляет возможность переопределить в потомках получения HttpServletResponse другим способом
-   * @return
+   * Предоставляет возможность переопределить в потомках получения HttpServletResponse другим способом.
+   *
+   * @return the HttpServletResponse object for the current call. It is stored thread-locally so that simultaneous invocations can have different response objects.
    */
   
   protected HttpServletResponse getThreadLocalResponseWrapper() {

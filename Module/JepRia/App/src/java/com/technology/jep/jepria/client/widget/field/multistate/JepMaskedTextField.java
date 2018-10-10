@@ -16,7 +16,7 @@ import com.technology.jep.jepria.client.widget.field.multistate.event.PasteForbi
 import com.technology.jep.jepria.client.widget.field.multistate.event.PasteForbiddenEvent.PasteForbiddenHandler;
 import com.technology.jep.jepria.shared.util.JepRiaUtil;
 
-public class JepMaskedTextField extends com.technology.jep.jepria.client.widget.field.multistate.JepBaseTextField<MaskedTextBox> {
+public class JepMaskedTextField extends JepBaseTextField<MaskedTextBox> {
   
   public JepMaskedTextField(Mask mask) {
     this(null, "", mask);

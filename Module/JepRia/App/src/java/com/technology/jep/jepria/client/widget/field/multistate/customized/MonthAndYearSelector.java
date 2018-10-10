@@ -4,11 +4,14 @@ import static com.technology.jep.jepria.client.JepRiaClientConstant.PANEL_OF_DAY
 import static com.technology.jep.jepria.client.JepRiaClientConstant.PANEL_OF_MONTH_AND_YEAR_ONLY;
 import static com.technology.jep.jepria.client.JepRiaClientConstant.PANEL_OF_YEAR_ONLY;
 
+import java.util.Date;
+
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.i18n.client.LocaleInfo;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.HTMLTable.CellFormatter;
 import com.google.gwt.user.client.ui.ListBox;
@@ -272,6 +275,7 @@ public class MonthAndYearSelector extends MonthSelector {
       public void onChange(ChangeEvent event) {
         setYear(Integer.parseInt(yearListBox.getItemText(yearListBox.getSelectedIndex())) - MIN_YEAR);
         doWhenChangeYearListBox();
+        picker.refreshComponents();
       }
     });
     monthListBox.addChangeHandler(new ChangeHandler() {
@@ -280,6 +284,7 @@ public class MonthAndYearSelector extends MonthSelector {
         int monthIndex = monthListBox.getSelectedIndex();
         setMonth(monthIndex);
         doWhenChangeMonthListBox();
+        picker.refreshComponents();
       }
     });
 
@@ -330,19 +335,26 @@ public class MonthAndYearSelector extends MonthSelector {
 
   public void addMonths(int numMonths) {
     model.shiftCurrentMonth(numMonths);
-    picker.refreshComponents();
+    picker.setValue(model.getCurrentMonth());
+    refresh();
   }
 
   @SuppressWarnings("deprecation")
   public void setMonth(int month) {
-    model.getCurrentMonth().setMonth(month);
-    picker.refreshComponents();
+    Date changedDate = model.getCurrentMonth();
+    changedDate.setMonth(month);
+    model.setCurrentMonth(changedDate);
+    picker.setValue(model.getCurrentMonth());
+    refresh();
   }
 
   @SuppressWarnings("deprecation")
   public void setYear(int year) {
-    model.getCurrentMonth().setYear(year);
-    picker.refreshComponents();
+    Date changedDate = model.getCurrentMonth();
+    changedDate.setYear(year);
+    model.setCurrentMonth(changedDate);
+    picker.setValue(model.getCurrentMonth());
+    refresh();
   }
   
   protected void setVisibleNavigationPanel(boolean visible) {

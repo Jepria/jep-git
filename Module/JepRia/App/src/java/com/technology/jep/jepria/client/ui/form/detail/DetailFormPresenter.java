@@ -151,7 +151,7 @@ public class DetailFormPresenter<V extends DetailFormView, E extends PlainEventB
     bind();
     // Получаем поисковой шаблон из localStorage браузера если таковой сохранялся ранее.
     searchTemplate =      
-    	    JepClientUtil.getLocalStorageVariable("find_" + getClass().getCanonicalName(), JepRecord.class);
+          JepClientUtil.getLocalStorageVariable("find_" + getClass().getCanonicalName(), JepRecord.class);
     // Переведем презентер модуля в заданный режим.
     changeWorkstate(place);
   }

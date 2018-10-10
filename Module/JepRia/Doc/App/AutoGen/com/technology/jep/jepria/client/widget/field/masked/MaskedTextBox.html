@@ -18,7 +18,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":9,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10,"i14":10,"i15":10,"i16":10,"i17":10,"i18":10,"i19":10,"i20":10,"i21":10};
+var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":9,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10,"i14":10,"i15":10,"i16":10,"i17":10,"i18":10,"i19":10,"i20":10,"i21":10,"i22":10};
 var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -201,7 +201,7 @@ implements <a href="../../../../../../../../com/technology/jep/jepria/client/wid
 <th class="colLast" scope="col">Field and Description</th>
 </tr>
 <tr class="altColor">
-<td class="colFirst"><code>private char[]</code></td>
+<td class="colFirst"><code>protected char[]</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/masked/MaskedTextBox.html#charValue">charValue</a></span></code>
 <div class="block">Содержимое поля в виде массива символов.</div>
 </td>
@@ -213,13 +213,13 @@ implements <a href="../../../../../../../../com/technology/jep/jepria/client/wid
 </td>
 </tr>
 <tr class="altColor">
-<td class="colFirst"><code>private <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/masked/Mask.html" title="class in com.technology.jep.jepria.client.widget.field.masked">Mask</a></code></td>
+<td class="colFirst"><code>protected <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/masked/Mask.html" title="class in com.technology.jep.jepria.client.widget.field.masked">Mask</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/masked/MaskedTextBox.html#mask">mask</a></span></code>
 <div class="block">Маска, наложенная на поле.</div>
 </td>
 </tr>
 <tr class="rowColor">
-<td class="colFirst"><code>private static java.lang.String</code></td>
+<td class="colFirst"><code>protected static java.lang.String</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/masked/MaskedTextBox.html#MASKED_TEXT_BOX_STYLE">MASKED_TEXT_BOX_STYLE</a></span></code>
 <div class="block">Наименование CSS-класса стилей для поля с маской.</div>
 </td>
@@ -336,7 +336,7 @@ implements <a href="../../../../../../../../com/technology/jep/jepria/client/wid
 </td>
 </tr>
 <tr id="i10" class="altColor">
-<td class="colFirst"><code>private boolean</code></td>
+<td class="colFirst"><code>protected boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/masked/MaskedTextBox.html#isEmpty--">isEmpty</a></span>()</code>
 <div class="block">Проверка, пусто ли содержимое.</div>
 </td>
@@ -348,60 +348,66 @@ implements <a href="../../../../../../../../com/technology/jep/jepria/client/wid
 </td>
 </tr>
 <tr id="i12" class="altColor">
+<td class="colFirst"><code>protected void</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/masked/MaskedTextBox.html#obBlurEvent-com.google.gwt.event.dom.client.BlurEvent-">obBlurEvent</a></span>(com.google.gwt.event.dom.client.BlurEvent&nbsp;event)</code>
+<div class="block">Обработчик события при потере фокуса на поле</div>
+</td>
+</tr>
+<tr id="i13" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/masked/MaskedTextBox.html#onBrowserEvent-com.google.gwt.user.client.Event-">onBrowserEvent</a></span>(com.google.gwt.user.client.Event&nbsp;event)</code>
 <div class="block">Обработчик события браузера.</div>
 </td>
 </tr>
-<tr id="i13" class="rowColor">
-<td class="colFirst"><code>private void</code></td>
+<tr id="i14" class="altColor">
+<td class="colFirst"><code>protected void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/masked/MaskedTextBox.html#onFocusEvent-com.google.gwt.event.dom.client.FocusEvent-">onFocusEvent</a></span>(com.google.gwt.event.dom.client.FocusEvent&nbsp;event)</code>
 <div class="block">Обработчик события <code>FocusEvent</code>.</div>
 </td>
 </tr>
-<tr id="i14" class="altColor">
-<td class="colFirst"><code>private void</code></td>
+<tr id="i15" class="rowColor">
+<td class="colFirst"><code>protected void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/masked/MaskedTextBox.html#onKeyDownEvent-com.google.gwt.event.dom.client.KeyDownEvent-">onKeyDownEvent</a></span>(com.google.gwt.event.dom.client.KeyDownEvent&nbsp;event)</code>
 <div class="block">Обработчик события <code>KeyDownEvent</code>.</div>
 </td>
 </tr>
-<tr id="i15" class="rowColor">
-<td class="colFirst"><code>private void</code></td>
+<tr id="i16" class="altColor">
+<td class="colFirst"><code>protected void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/masked/MaskedTextBox.html#onKeyPressEvent-com.google.gwt.event.dom.client.KeyPressEvent-">onKeyPressEvent</a></span>(com.google.gwt.event.dom.client.KeyPressEvent&nbsp;event)</code>
 <div class="block">Обработчик события <code>KeyPressEvent</code>.</div>
 </td>
 </tr>
-<tr id="i16" class="altColor">
-<td class="colFirst"><code>private void</code></td>
+<tr id="i17" class="rowColor">
+<td class="colFirst"><code>protected void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/masked/MaskedTextBox.html#onKeyUpEvent-com.google.gwt.event.dom.client.KeyUpEvent-">onKeyUpEvent</a></span>(com.google.gwt.event.dom.client.KeyUpEvent&nbsp;event)</code>
 <div class="block">Обработчик события <code>KeyUpEvent</code>.</div>
 </td>
 </tr>
-<tr id="i17" class="rowColor">
+<tr id="i18" class="altColor">
 <td class="colFirst"><code>private void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/masked/MaskedTextBox.html#onPasteEvent-com.google.gwt.user.client.Event-">onPasteEvent</a></span>(com.google.gwt.user.client.Event&nbsp;event)</code>
 <div class="block">Обработчик события вставки.</div>
 </td>
 </tr>
-<tr id="i18" class="altColor">
-<td class="colFirst"><code>private void</code></td>
+<tr id="i19" class="rowColor">
+<td class="colFirst"><code>protected void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/masked/MaskedTextBox.html#setCharValue-char:A-">setCharValue</a></span>(char[]&nbsp;charValue)</code>
 <div class="block">Установка содержимого.</div>
 </td>
 </tr>
-<tr id="i19" class="rowColor">
+<tr id="i20" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/masked/MaskedTextBox.html#setMask-com.technology.jep.jepria.client.widget.field.masked.Mask-">setMask</a></span>(<a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/masked/Mask.html" title="class in com.technology.jep.jepria.client.widget.field.masked">Mask</a>&nbsp;mask)</code>
 <div class="block">Установка маски на поле.</div>
 </td>
 </tr>
-<tr id="i20" class="altColor">
+<tr id="i21" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/masked/MaskedTextBox.html#setMask-java.lang.String-">setMask</a></span>(java.lang.String&nbsp;mask)</code>
 <div class="block">Установка маски на поле.</div>
 </td>
 </tr>
-<tr id="i21" class="rowColor">
+<tr id="i22" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/masked/MaskedTextBox.html#setValue-java.lang.String-boolean-">setValue</a></span>(java.lang.String&nbsp;value,
         boolean&nbsp;fireEvents)</code>
@@ -499,7 +505,7 @@ implements <a href="../../../../../../../../com/technology/jep/jepria/client/wid
 <ul class="blockList">
 <li class="blockList">
 <h4>MASKED_TEXT_BOX_STYLE</h4>
-<pre>private static final&nbsp;java.lang.String MASKED_TEXT_BOX_STYLE</pre>
+<pre>protected static final&nbsp;java.lang.String MASKED_TEXT_BOX_STYLE</pre>
 <div class="block">Наименование CSS-класса стилей для поля с маской.</div>
 <dl>
 <dt><span class="seeLabel">See Also:</span></dt>
@@ -513,7 +519,7 @@ implements <a href="../../../../../../../../com/technology/jep/jepria/client/wid
 <ul class="blockList">
 <li class="blockList">
 <h4>charValue</h4>
-<pre>private&nbsp;char[] charValue</pre>
+<pre>protected&nbsp;char[] charValue</pre>
 <div class="block">Содержимое поля в виде массива символов.</div>
 </li>
 </ul>
@@ -533,7 +539,7 @@ implements <a href="../../../../../../../../com/technology/jep/jepria/client/wid
 <ul class="blockListLast">
 <li class="blockList">
 <h4>mask</h4>
-<pre>private&nbsp;<a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/masked/Mask.html" title="class in com.technology.jep.jepria.client.widget.field.masked">Mask</a> mask</pre>
+<pre>protected&nbsp;<a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/masked/Mask.html" title="class in com.technology.jep.jepria.client.widget.field.masked">Mask</a> mask</pre>
 <div class="block">Маска, наложенная на поле.</div>
 </li>
 </ul>
@@ -769,7 +775,7 @@ implements <a href="../../../../../../../../com/technology/jep/jepria/client/wid
 <ul class="blockList">
 <li class="blockList">
 <h4>isEmpty</h4>
-<pre>private&nbsp;boolean&nbsp;isEmpty()</pre>
+<pre>protected&nbsp;boolean&nbsp;isEmpty()</pre>
 <div class="block">Проверка, пусто ли содержимое.</div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
@@ -783,7 +789,7 @@ implements <a href="../../../../../../../../com/technology/jep/jepria/client/wid
 <ul class="blockList">
 <li class="blockList">
 <h4>onKeyDownEvent</h4>
-<pre>private&nbsp;void&nbsp;onKeyDownEvent(com.google.gwt.event.dom.client.KeyDownEvent&nbsp;event)</pre>
+<pre>protected&nbsp;void&nbsp;onKeyDownEvent(com.google.gwt.event.dom.client.KeyDownEvent&nbsp;event)</pre>
 <div class="block">Обработчик события <code>KeyDownEvent</code>.
  Осуществляет перехват и обработку нажатия на служебные клавиши
  (left, right, backspace, delete).</div>
@@ -799,7 +805,7 @@ implements <a href="../../../../../../../../com/technology/jep/jepria/client/wid
 <ul class="blockList">
 <li class="blockList">
 <h4>onKeyPressEvent</h4>
-<pre>private&nbsp;void&nbsp;onKeyPressEvent(com.google.gwt.event.dom.client.KeyPressEvent&nbsp;event)</pre>
+<pre>protected&nbsp;void&nbsp;onKeyPressEvent(com.google.gwt.event.dom.client.KeyPressEvent&nbsp;event)</pre>
 <div class="block">Обработчик события <code>KeyPressEvent</code>.<br>
  Осуществляет перехват и обработку пользовательского ввода.</div>
 <dl>
@@ -814,7 +820,7 @@ implements <a href="../../../../../../../../com/technology/jep/jepria/client/wid
 <ul class="blockList">
 <li class="blockList">
 <h4>onKeyUpEvent</h4>
-<pre>private&nbsp;void&nbsp;onKeyUpEvent(com.google.gwt.event.dom.client.KeyUpEvent&nbsp;event)</pre>
+<pre>protected&nbsp;void&nbsp;onKeyUpEvent(com.google.gwt.event.dom.client.KeyUpEvent&nbsp;event)</pre>
 <div class="block">Обработчик события <code>KeyUpEvent</code>.<br>
  Если установлен флаг <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/masked/MaskedTextBox.html#fireInputForbidden"><code>fireInputForbidden</code></a>, 
  вызывает событие <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/event/InputForbiddenEvent.html" title="class in com.technology.jep.jepria.client.widget.field.multistate.event"><code>InputForbiddenEvent</code></a> и сбрасывает флаг.</div>
@@ -844,9 +850,23 @@ implements <a href="../../../../../../../../com/technology/jep/jepria/client/wid
 <ul class="blockList">
 <li class="blockList">
 <h4>onFocusEvent</h4>
-<pre>private&nbsp;void&nbsp;onFocusEvent(com.google.gwt.event.dom.client.FocusEvent&nbsp;event)</pre>
+<pre>protected&nbsp;void&nbsp;onFocusEvent(com.google.gwt.event.dom.client.FocusEvent&nbsp;event)</pre>
 <div class="block">Обработчик события <code>FocusEvent</code>.<br> 
  Если поле пустое, то устанавливает курсор на первый специальный символ маски.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>event</code> - </dd>
+</dl>
+</li>
+</ul>
+<a name="obBlurEvent-com.google.gwt.event.dom.client.BlurEvent-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>obBlurEvent</h4>
+<pre>protected&nbsp;void&nbsp;obBlurEvent(com.google.gwt.event.dom.client.BlurEvent&nbsp;event)</pre>
+<div class="block">Обработчик события при потере фокуса на поле</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>event</code> - </dd>
@@ -911,7 +931,7 @@ implements <a href="../../../../../../../../com/technology/jep/jepria/client/wid
 <ul class="blockListLast">
 <li class="blockList">
 <h4>setCharValue</h4>
-<pre>private&nbsp;void&nbsp;setCharValue(char[]&nbsp;charValue)</pre>
+<pre>protected&nbsp;void&nbsp;setCharValue(char[]&nbsp;charValue)</pre>
 <div class="block">Установка содержимого.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>

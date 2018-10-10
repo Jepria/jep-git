@@ -18,7 +18,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10,"i14":10,"i15":10,"i16":10,"i17":10,"i18":10,"i19":10};
+var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10,"i14":10,"i15":10,"i16":10,"i17":10,"i18":10,"i19":10,"i20":10,"i21":10,"i22":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -190,21 +190,18 @@ extends <a href="../../../../../../../../com/technology/jep/jepria/client/widget
 <th class="colLast" scope="col">Field and Description</th>
 </tr>
 <tr class="altColor">
-<td class="colFirst"><code>private java.util.Date</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepDateField.html#currentDate">currentDate</a></span></code>
-<div class="block">Текущее значение поля, для проверки действительности изменения перед уведомлением слушателей
- <a href="../../../../../../../../com/technology/jep/jepria/client/widget/event/JepEventType.html#CHANGE_VALUE_EVENT"><code>CHANGE_VALUE_EVENT</code></a>.</div>
-</td>
-</tr>
-<tr class="rowColor">
 <td class="colFirst"><code>protected com.google.gwt.i18n.client.DateTimeFormat</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepDateField.html#format">format</a></span></code>
 <div class="block">Формат представления даты.</div>
 </td>
 </tr>
+<tr class="rowColor">
+<td class="colFirst"><code>static int</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepDateField.html#FORMAT_DAYS_AND_MONTH_AND_YEAR">FORMAT_DAYS_AND_MONTH_AND_YEAR</a></span></code>&nbsp;</td>
+</tr>
 <tr class="altColor">
 <td class="colFirst"><code>static int</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepDateField.html#FORMAT_DAYS_AND_MONTH_AND_YEAR">FORMAT_DAYS_AND_MONTH_AND_YEAR</a></span></code>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepDateField.html#FORMAT_DAYS_AND_MONTH_AND_YEAR_TIME">FORMAT_DAYS_AND_MONTH_AND_YEAR_TIME</a></span></code>
 <div class="block">Виды навигационной панели в календаре</div>
 </td>
 </tr>
@@ -217,10 +214,20 @@ extends <a href="../../../../../../../../com/technology/jep/jepria/client/widget
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepDateField.html#FORMAT_YEAR_ONLY">FORMAT_YEAR_ONLY</a></span></code>&nbsp;</td>
 </tr>
 <tr class="rowColor">
-<td class="colFirst"><code>private boolean</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepDateField.html#isVisibleNavigationPanel">isVisibleNavigationPanel</a></span></code>
-<div class="block">Признак видимости навигационной панели в календаре</div>
+<td class="colFirst"><code>private java.util.Date</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepDateField.html#maxDate">maxDate</a></span></code>
+<div class="block">Граничные даты диапазона возможных значений дат</div>
 </td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>private java.util.Date</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepDateField.html#minDate">minDate</a></span></code>
+<div class="block">Граничные даты диапазона возможных значений дат</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>private int</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepDateField.html#TYPE_DATEPICKER">TYPE_DATEPICKER</a></span></code>&nbsp;</td>
 </tr>
 </table>
 <ul class="blockList">
@@ -282,7 +289,7 @@ extends <a href="../../../../../../../../com/technology/jep/jepria/client/widget
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>protected void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepDateField.html#addChangeValueListener--">addChangeValueListener</a></span>()</code>
-<div class="block">Добавление прослушивателей для реализации прослушивания события 
+<div class="block">Добавление прослушивателей
  <a href="../../../../../../../../com/technology/jep/jepria/client/widget/event/JepEventType.html#CHANGE_VALUE_EVENT"><code>JepEventType.CHANGE_VALUE_EVENT</code></a>.</div>
 </td>
 </tr>
@@ -308,7 +315,7 @@ extends <a href="../../../../../../../../com/technology/jep/jepria/client/widget
 <tr id="i4" class="altColor">
 <td class="colFirst"><code>private void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepDateField.html#createDatePicker-java.lang.Integer-">createDatePicker</a></span>(java.lang.Integer&nbsp;typeViewPanelOfCalendar)</code>
-<div class="block">Сощдание календаря с навигационной панелью с возможностью выбрать месяц и год</div>
+<div class="block">Создание календаря с навигационной панелью с возможностью выбрать месяц и год</div>
 </td>
 </tr>
 <tr id="i5" class="rowColor">
@@ -319,15 +326,15 @@ extends <a href="../../../../../../../../com/technology/jep/jepria/client/widget
 </td>
 </tr>
 <tr id="i6" class="altColor">
-<td class="colFirst"><code>int</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepDateField.html#getMaxYear--">getMaxYear</a></span>()</code>
-<div class="block">Получить макаисмальный год из диапазона в выпадающем списке</div>
+<td class="colFirst"><code>java.util.Date</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepDateField.html#getMaxLimitDate--">getMaxLimitDate</a></span>()</code>
+<div class="block">Получить максимальную граничную дату</div>
 </td>
 </tr>
 <tr id="i7" class="rowColor">
-<td class="colFirst"><code>int</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepDateField.html#getMinYear--">getMinYear</a></span>()</code>
-<div class="block">Получить минимальный год из диапазона в выпадающем списке</div>
+<td class="colFirst"><code>java.util.Date</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepDateField.html#getMinLimitDate--">getMinLimitDate</a></span>()</code>
+<div class="block">Получить минимальную граничную дату</div>
 </td>
 </tr>
 <tr id="i8" class="altColor">
@@ -337,21 +344,27 @@ extends <a href="../../../../../../../../com/technology/jep/jepria/client/widget
 </td>
 </tr>
 <tr id="i9" class="rowColor">
-<td class="colFirst"><code>int</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepDateField.html#getValueDay--">getValueDay</a></span>()</code>&nbsp;</td>
-</tr>
-<tr id="i10" class="altColor">
-<td class="colFirst"><code>int</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepDateField.html#getValueMonth--">getValueMonth</a></span>()</code>&nbsp;</td>
-</tr>
-<tr id="i11" class="rowColor">
-<td class="colFirst"><code>int</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepDateField.html#getValueYear--">getValueYear</a></span>()</code>&nbsp;</td>
-</tr>
-<tr id="i12" class="altColor">
 <td class="colFirst"><code>protected void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepDateField.html#handlerChangeDatePicker--">handlerChangeDatePicker</a></span>()</code>
-<div class="block">Обработчик событий в панели навигации календаря</div>
+<div class="block">Обработчик событий в панели навигации календаря - при выборе дня на календаре</div>
+</td>
+</tr>
+<tr id="i10" class="altColor">
+<td class="colFirst"><code>protected void</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepDateField.html#handlerKeyboardEvent--">handlerKeyboardEvent</a></span>()</code>
+<div class="block">Обработчик события ввода/редактирования в поле календаря</div>
+</td>
+</tr>
+<tr id="i11" class="rowColor">
+<td class="colFirst"><code>protected void</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepDateField.html#handlerKeyboardEvent-java.util.Date-">handlerKeyboardEvent</a></span>(java.util.Date&nbsp;value)</code>
+<div class="block">Обработчик введенного текста с мобильного устройства</div>
+</td>
+</tr>
+<tr id="i12" class="altColor">
+<td class="colFirst"><code>protected boolean</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepDateField.html#inRangeDate-java.util.Date-">inRangeDate</a></span>(java.util.Date&nbsp;newDate)</code>
+<div class="block">Проверка на принадлежность диапазона граничных дат</div>
 </td>
 </tr>
 <tr id="i13" class="rowColor">
@@ -361,41 +374,59 @@ extends <a href="../../../../../../../../com/technology/jep/jepria/client/widget
 </td>
 </tr>
 <tr id="i14" class="altColor">
+<td class="colFirst"><code>protected boolean</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepDateField.html#passCodeKey-int-">passCodeKey</a></span>(int&nbsp;code)</code>
+<div class="block">Проверяем нажатые клавиши</div>
+</td>
+</tr>
+<tr id="i15" class="rowColor">
+<td class="colFirst"><code>protected void</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepDateField.html#setActualFrameDate--">setActualFrameDate</a></span>()</code>
+<div class="block">Устанавлилваем границы диапазон дат</div>
+</td>
+</tr>
+<tr id="i16" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepDateField.html#setEnabled-boolean-">setEnabled</a></span>(boolean&nbsp;enabled)</code>
 <div class="block">Установка доступности или недоступности (карты Редактирования) поля для
  редактирования.</div>
 </td>
 </tr>
-<tr id="i15" class="rowColor">
-<td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepDateField.html#setMaxYear-int-">setMaxYear</a></span>(int&nbsp;maxYear)</code>
-<div class="block">Задать максимальный год в диапазаоне лет</div>
-</td>
-</tr>
-<tr id="i16" class="altColor">
-<td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepDateField.html#setMinYear-int-">setMinYear</a></span>(int&nbsp;minYear)</code>
-<div class="block">Задать минимальный год в диапазоне лет</div>
-</td>
-</tr>
 <tr id="i17" class="rowColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepDateField.html#setNavigationPanelOfCalendar-int-java.lang.Boolean-">setNavigationPanelOfCalendar</a></span>(int&nbsp;typeViewPanelOfCalendar,
-                            java.lang.Boolean&nbsp;visibleNavigationPanel)</code>
-<div class="block">Метод для управления панелью навигации в календаре</div>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepDateField.html#setMaxYear-int-">setMaxYear</a></span>(int&nbsp;maxYear)</code>
+<div class="block">Задать максимальный год в диапазаоне лет, если используется JepDatePicker</div>
 </td>
 </tr>
 <tr id="i18" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepDateField.html#setMinYear-int-">setMinYear</a></span>(int&nbsp;minYear)</code>
+<div class="block">Задать минимальный год в диапазоне лет, если используется JepDatePicker</div>
+</td>
+</tr>
+<tr id="i19" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepDateField.html#setNavigationPanel-int-java.lang.Boolean-">setNavigationPanel</a></span>(int&nbsp;typeViewPanelOfCalendar,
+                  java.lang.Boolean&nbsp;visibleNavigationPanel)</code>
+<div class="block">Метод для управления панелью навигации в календаре</div>
+</td>
+</tr>
+<tr id="i20" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepDateField.html#setValue-java.lang.Object-">setValue</a></span>(java.lang.Object&nbsp;value)</code>
 <div class="block">Установка значения поля.</div>
 </td>
 </tr>
-<tr id="i19" class="rowColor">
+<tr id="i21" class="rowColor">
 <td class="colFirst"><code>protected void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepDateField.html#setViewValue-java.lang.Object-">setViewValue</a></span>(java.lang.Object&nbsp;value)</code>
 <div class="block">Установка значения карты Просмотра.</div>
+</td>
+</tr>
+<tr id="i22" class="altColor">
+<td class="colFirst"><code>protected java.util.Date</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepDateField.html#validDate-java.lang.String-">validDate</a></span>(java.lang.String&nbsp;date)</code>
+<div class="block">Валидация введенной даты</div>
 </td>
 </tr>
 </table>
@@ -404,7 +435,7 @@ extends <a href="../../../../../../../../com/technology/jep/jepria/client/widget
 <!--   -->
 </a>
 <h3>Methods inherited from class&nbsp;com.technology.jep.jepria.client.widget.field.multistate.<a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html" title="class in com.technology.jep.jepria.client.widget.field.multistate">JepMultiStateField</a></h3>
-<code><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#addViewCard--">addViewCard</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#applyStyle--">applyStyle</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#changeWorkstate-com.technology.jep.jepria.client.ui.WorkstateEnum-">changeWorkstate</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#clearInvalid--">clearInvalid</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#clearView--">clearView</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#getEditableCard--">getEditableCard</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#getEditableCardLabel--">getEditableCardLabel</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#getEditablePanel--">getEditablePanel</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#getFieldLabel--">getFieldLabel</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#getInputElement--">getInputElement</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#getListeners-com.technology.jep.jepria.client.widget.event.JepEventType-">getListeners</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#getMainWidget--">getMainWidget</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#getRawValue--">getRawValue</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#getViewCard--">getViewCard</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#getViewCardLabel--">getViewCardLabel</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#getViewPanel--">getViewPanel</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#getWebId--">getWebId</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#getWidgetIndex-com.google.gwt.user.client.ui.Widget-">getWidgetIndex</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#markInvalid-java.lang.String-">markInvalid</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#notifyListeners-com.technology.jep.jepria.client.widget.event.JepEventType-com.technology.jep.jepria.client.widget.event.JepEvent-">notifyListeners</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#onChangeWorkstate-com.technology.jep.jepria.client.ui.WorkstateEnum-">onChangeWorkstate</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#removeListener-com.technology.jep.jepria.client.widget.event.JepEventType-com.technology.jep.jepria.client.widget.event.JepListener-">removeListener</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#setAllowBlank-boolean-">setAllowBlank</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#setEditable-boolean-">setEditable</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#setFieldAutoHeight-java.lang.String-">setFieldAutoHeight</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#setFieldHeight-int-">setFieldHeight</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#setFieldLabel-java.lang.String-">setFieldLabel</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#setFieldWidth-int-">setFieldWidth</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#setFieldWidth-java.lang.String-">setFieldWidth</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#setLabelSeparator-java.lang.String-">setLabelSeparator</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#setLabelWidth-int-">setLabelWidth</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#setLabelWidth-java.lang.String-">setLabelWidth</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#setLoadingImage-boolean-">setLoadingImage</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#setWebId-java.lang.String-">setWebId</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#setWebIds--">setWebIds</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#showWidget-int-">showWidget</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#wrapDiv-com.google.gwt.user.client.ui.Widget-">wrapDiv</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#wrapSpan-com.google.gwt.user.client.ui.Widget-">wrapSpan</a></code></li>
+<code><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#addViewCard--">addViewCard</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#applyStyle--">applyStyle</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#changeWorkstate-com.technology.jep.jepria.client.ui.WorkstateEnum-">changeWorkstate</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#clearInvalid--">clearInvalid</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#clearView--">clearView</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#getEditableCard--">getEditableCard</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#getEditableCardLabel--">getEditableCardLabel</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#getEditablePanel--">getEditablePanel</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#getFieldLabel--">getFieldLabel</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#getInputElement--">getInputElement</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#getListeners-com.technology.jep.jepria.client.widget.event.JepEventType-">getListeners</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#getMainWidget--">getMainWidget</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#getRawValue--">getRawValue</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#getViewCard--">getViewCard</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#getViewCardLabel--">getViewCardLabel</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#getViewPanel--">getViewPanel</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#getWebId--">getWebId</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#getWidgetIndex-com.google.gwt.user.client.ui.Widget-">getWidgetIndex</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#markInvalid-java.lang.String-">markInvalid</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#notifyListeners-com.technology.jep.jepria.client.widget.event.JepEventType-com.technology.jep.jepria.client.widget.event.JepEvent-">notifyListeners</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#onChangeWorkstate-com.technology.jep.jepria.client.ui.WorkstateEnum-">onChangeWorkstate</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#removeListener-com.technology.jep.jepria.client.widget.event.JepEventType-com.technology.jep.jepria.client.widget.event.JepListener-">removeListener</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#setAllowBlank-boolean-">setAllowBlank</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#setCardWebAttrs--">setCardWebAttrs</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#setEditable-boolean-">setEditable</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#setFieldAutoHeight-java.lang.String-">setFieldAutoHeight</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#setFieldHeight-int-">setFieldHeight</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#setFieldLabel-java.lang.String-">setFieldLabel</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#setFieldWidth-int-">setFieldWidth</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#setFieldWidth-java.lang.String-">setFieldWidth</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#setLabelSeparator-java.lang.String-">setLabelSeparator</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#setLabelWidth-int-">setLabelWidth</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#setLabelWidth-java.lang.String-">setLabelWidth</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#setLoadingImage-boolean-">setLoadingImage</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#setWebId-java.lang.String-">setWebId</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#setWebIds--">setWebIds</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#showWidget-int-">showWidget</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#wrapDiv-com.google.gwt.user.client.ui.Widget-">wrapDiv</a>, <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.html#wrapSpan-com.google.gwt.user.client.ui.Widget-">wrapSpan</a></code></li>
 </ul>
 <ul class="blockList">
 <li class="blockList"><a name="methods.inherited.from.class.com.google.gwt.user.client.ui.Composite">
@@ -448,17 +479,6 @@ extends <a href="../../../../../../../../com/technology/jep/jepria/client/widget
 <!--   -->
 </a>
 <h3>Field Detail</h3>
-<a name="currentDate">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>currentDate</h4>
-<pre>private&nbsp;java.util.Date currentDate</pre>
-<div class="block">Текущее значение поля, для проверки действительности изменения перед уведомлением слушателей
- <a href="../../../../../../../../com/technology/jep/jepria/client/widget/event/JepEventType.html#CHANGE_VALUE_EVENT"><code>CHANGE_VALUE_EVENT</code></a>.</div>
-</li>
-</ul>
 <a name="format">
 <!--   -->
 </a>
@@ -470,6 +490,20 @@ extends <a href="../../../../../../../../com/technology/jep/jepria/client/widget
  Влияет на отображение даты на карте просмотра и на сравнение дат.</div>
 </li>
 </ul>
+<a name="FORMAT_DAYS_AND_MONTH_AND_YEAR_TIME">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>FORMAT_DAYS_AND_MONTH_AND_YEAR_TIME</h4>
+<pre>public static final&nbsp;int FORMAT_DAYS_AND_MONTH_AND_YEAR_TIME</pre>
+<div class="block">Виды навигационной панели в календаре</div>
+<dl>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><a href="../../../../../../../../constant-values.html#com.technology.jep.jepria.client.widget.field.multistate.JepDateField.FORMAT_DAYS_AND_MONTH_AND_YEAR_TIME">Constant Field Values</a></dd>
+</dl>
+</li>
+</ul>
 <a name="FORMAT_DAYS_AND_MONTH_AND_YEAR">
 <!--   -->
 </a>
@@ -477,7 +511,6 @@ extends <a href="../../../../../../../../com/technology/jep/jepria/client/widget
 <li class="blockList">
 <h4>FORMAT_DAYS_AND_MONTH_AND_YEAR</h4>
 <pre>public static final&nbsp;int FORMAT_DAYS_AND_MONTH_AND_YEAR</pre>
-<div class="block">Виды навигационной панели в календаре</div>
 <dl>
 <dt><span class="seeLabel">See Also:</span></dt>
 <dd><a href="../../../../../../../../constant-values.html#com.technology.jep.jepria.client.widget.field.multistate.JepDateField.FORMAT_DAYS_AND_MONTH_AND_YEAR">Constant Field Values</a></dd>
@@ -510,14 +543,33 @@ extends <a href="../../../../../../../../com/technology/jep/jepria/client/widget
 </dl>
 </li>
 </ul>
-<a name="isVisibleNavigationPanel">
+<a name="minDate">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>minDate</h4>
+<pre>private&nbsp;java.util.Date minDate</pre>
+<div class="block">Граничные даты диапазона возможных значений дат</div>
+</li>
+</ul>
+<a name="maxDate">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>maxDate</h4>
+<pre>private&nbsp;java.util.Date maxDate</pre>
+<div class="block">Граничные даты диапазона возможных значений дат</div>
+</li>
+</ul>
+<a name="TYPE_DATEPICKER">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
-<h4>isVisibleNavigationPanel</h4>
-<pre>private&nbsp;boolean isVisibleNavigationPanel</pre>
-<div class="block">Признак видимости навигационной панели в календаре</div>
+<h4>TYPE_DATEPICKER</h4>
+<pre>private&nbsp;int TYPE_DATEPICKER</pre>
 </li>
 </ul>
 </li>
@@ -577,10 +629,10 @@ extends <a href="../../../../../../../../com/technology/jep/jepria/client/widget
 <li class="blockList">
 <h4>setMaxYear</h4>
 <pre>public&nbsp;void&nbsp;setMaxYear(int&nbsp;maxYear)</pre>
-<div class="block">Задать максимальный год в диапазаоне лет</div>
+<div class="block">Задать максимальный год в диапазаоне лет, если используется JepDatePicker</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>maxYear</code> - задается максимальный год в диапазоне в выпадающем списке</dd>
+<dd><code>maxYear</code> - задается максимальный год в диапазоне в выпадающем списке, если используется JepDatePicker, иначе ограничения не устанавливаются</dd>
 </dl>
 </li>
 </ul>
@@ -591,53 +643,63 @@ extends <a href="../../../../../../../../com/technology/jep/jepria/client/widget
 <li class="blockList">
 <h4>setMinYear</h4>
 <pre>public&nbsp;void&nbsp;setMinYear(int&nbsp;minYear)</pre>
-<div class="block">Задать минимальный год в диапазоне лет</div>
+<div class="block">Задать минимальный год в диапазоне лет, если используется JepDatePicker</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>minYear</code> - задается минимальный год в диапазоне в выпадающем списке</dd>
+<dd><code>minYear</code> - задается минимальный год в диапазоне в выпадающем списке, если используется JepDatePicker, иначе ограничения не устанавливаются</dd>
 </dl>
 </li>
 </ul>
-<a name="getMaxYear--">
+<a name="setActualFrameDate--">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>getMaxYear</h4>
-<pre>public&nbsp;int&nbsp;getMaxYear()</pre>
-<div class="block">Получить макаисмальный год из диапазона в выпадающем списке</div>
+<h4>setActualFrameDate</h4>
+<pre>protected&nbsp;void&nbsp;setActualFrameDate()</pre>
+<div class="block">Устанавлилваем границы диапазон дат</div>
+</li>
+</ul>
+<a name="getMinLimitDate--">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getMinLimitDate</h4>
+<pre>public&nbsp;java.util.Date&nbsp;getMinLimitDate()</pre>
+<div class="block">Получить минимальную граничную дату</div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>максимальный год из заданного диапазона</dd>
+<dd>минимальная граничная дата</dd>
 </dl>
 </li>
 </ul>
-<a name="getMinYear--">
+<a name="getMaxLimitDate--">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>getMinYear</h4>
-<pre>public&nbsp;int&nbsp;getMinYear()</pre>
-<div class="block">Получить минимальный год из диапазона в выпадающем списке</div>
+<h4>getMaxLimitDate</h4>
+<pre>public&nbsp;java.util.Date&nbsp;getMaxLimitDate()</pre>
+<div class="block">Получить максимальную граничную дату</div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>минимальный год из заданного диапазон</dd>
+<dd>максимальная граничная дата</dd>
 </dl>
 </li>
 </ul>
-<a name="setNavigationPanelOfCalendar-int-java.lang.Boolean-">
+<a name="setNavigationPanel-int-java.lang.Boolean-">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>setNavigationPanelOfCalendar</h4>
-<pre>public&nbsp;void&nbsp;setNavigationPanelOfCalendar(int&nbsp;typeViewPanelOfCalendar,
-                                         java.lang.Boolean&nbsp;visibleNavigationPanel)</pre>
+<h4>setNavigationPanel</h4>
+<pre>public&nbsp;void&nbsp;setNavigationPanel(int&nbsp;typeViewPanelOfCalendar,
+                               java.lang.Boolean&nbsp;visibleNavigationPanel)</pre>
 <div class="block">Метод для управления панелью навигации в календаре</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>typeViewPanelOfCalendar</code> - - тип формата ввода даты, может принимать знаяения:  FORMAT_DAYS_AND_MONTH_AND_YEAR - стандартный календарь (dd.MM.yyyy), <br>FORMAT_MONTH_AND_YEAR_ONLY - Навигация только месяц и год (mm.YYYY), <br>FORMAT_YEAR_ONLY - Навигация только год (yyyy)
+<dd><code>typeViewPanelOfCalendar</code> - - тип формата ввода даты, может принимать значения:  FORMAT_DAYS_AND_MONTH_AND_YEAR_TIME - стандартный календарь и время(dd.MM.yyyy HH:mm:ss), <br> FORMAT_DAYS_AND_MONTH_AND_YEAR - стандартный календарь (dd.MM.yyyy), <br>FORMAT_MONTH_AND_YEAR_ONLY - Навигация только месяц и год (mm.YYYY), <br>FORMAT_YEAR_ONLY - Навигация только год (yyyy)
  <br>любые другие значения приводятся к FORMAT_DAYS_AND_MONTH_AND_YEAR</dd>
 <dd><code>visibleNavigationPanel</code> - -управляет отображением панели навигации в календаре: true- отображет, false - не отображет
  <br><b>Примечание:</b>
@@ -653,7 +715,7 @@ extends <a href="../../../../../../../../com/technology/jep/jepria/client/widget
 <li class="blockList">
 <h4>createDatePicker</h4>
 <pre>private&nbsp;void&nbsp;createDatePicker(java.lang.Integer&nbsp;typeViewPanelOfCalendar)</pre>
-<div class="block">Сощдание календаря с навигационной панелью с возможностью выбрать месяц и год</div>
+<div class="block">Создание календаря с навигационной панелью с возможностью выбрать месяц и год</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>typeViewPanelOfCalendar</code> - </dd>
@@ -667,7 +729,31 @@ extends <a href="../../../../../../../../com/technology/jep/jepria/client/widget
 <li class="blockList">
 <h4>handlerChangeDatePicker</h4>
 <pre>protected&nbsp;void&nbsp;handlerChangeDatePicker()</pre>
-<div class="block">Обработчик событий в панели навигации календаря</div>
+<div class="block">Обработчик событий в панели навигации календаря - при выборе дня на календаре</div>
+</li>
+</ul>
+<a name="handlerKeyboardEvent--">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>handlerKeyboardEvent</h4>
+<pre>protected&nbsp;void&nbsp;handlerKeyboardEvent()</pre>
+<div class="block">Обработчик события ввода/редактирования в поле календаря</div>
+</li>
+</ul>
+<a name="inRangeDate-java.util.Date-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>inRangeDate</h4>
+<pre>protected&nbsp;boolean&nbsp;inRangeDate(java.util.Date&nbsp;newDate)</pre>
+<div class="block">Проверка на принадлежность диапазона граничных дат</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>newDate</code> - </dd>
+</dl>
 </li>
 </ul>
 <a name="addEditableCard--">
@@ -773,33 +859,6 @@ extends <a href="../../../../../../../../com/technology/jep/jepria/client/widget
 </dl>
 </li>
 </ul>
-<a name="getValueDay--">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>getValueDay</h4>
-<pre>public&nbsp;int&nbsp;getValueDay()</pre>
-</li>
-</ul>
-<a name="getValueMonth--">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>getValueMonth</h4>
-<pre>public&nbsp;int&nbsp;getValueMonth()</pre>
-</li>
-</ul>
-<a name="getValueYear--">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>getValueYear</h4>
-<pre>public&nbsp;int&nbsp;getValueYear()</pre>
-</li>
-</ul>
 <a name="addListener-com.technology.jep.jepria.client.widget.event.JepEventType-com.technology.jep.jepria.client.widget.event.JepListener-">
 <!--   -->
 </a>
@@ -829,8 +888,53 @@ extends <a href="../../../../../../../../com/technology/jep/jepria/client/widget
 <li class="blockList">
 <h4>addChangeValueListener</h4>
 <pre>protected&nbsp;void&nbsp;addChangeValueListener()</pre>
-<div class="block">Добавление прослушивателей для реализации прослушивания события 
+<div class="block">Добавление прослушивателей
  <a href="../../../../../../../../com/technology/jep/jepria/client/widget/event/JepEventType.html#CHANGE_VALUE_EVENT"><code>JepEventType.CHANGE_VALUE_EVENT</code></a>.</div>
+</li>
+</ul>
+<a name="handlerKeyboardEvent-java.util.Date-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>handlerKeyboardEvent</h4>
+<pre>protected&nbsp;void&nbsp;handlerKeyboardEvent(java.util.Date&nbsp;value)</pre>
+<div class="block">Обработчик введенного текста с мобильного устройства</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>value</code> - </dd>
+</dl>
+</li>
+</ul>
+<a name="validDate-java.lang.String-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>validDate</h4>
+<pre>protected&nbsp;java.util.Date&nbsp;validDate(java.lang.String&nbsp;date)
+                            throws java.lang.Exception</pre>
+<div class="block">Валидация введенной даты</div>
+<dl>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code>java.lang.Exception</code></dd>
+</dl>
+</li>
+</ul>
+<a name="passCodeKey-int-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>passCodeKey</h4>
+<pre>protected&nbsp;boolean&nbsp;passCodeKey(int&nbsp;code)</pre>
+<div class="block">Проверяем нажатые клавиши</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>code</code> - </dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>вернет Истину, если введен допустимый код, иначе Ложь</dd>
+</dl>
 </li>
 </ul>
 <a name="isValid--">

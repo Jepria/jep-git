@@ -371,6 +371,7 @@ public final class JepRiaToolkitUtil {
    * @param destinationFile файл, в который будет производиться копирование
    */
   public static void copyFile(File sourceFile, File destinationFile) throws IOException {
+	if (destinationFile.exists() && !destinationFile.canWrite()) return;
     FileChannel sourceChannel = null;
     FileChannel destChannel = null;
     try {

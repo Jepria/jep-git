@@ -23,6 +23,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.technology.jep.jepria.shared.exceptions.SystemException;
 import com.technology.jep.jepria.shared.record.lob.JepClob;
+import com.technology.jep.jepria.shared.util.JepRiaUtil;
 
 /**
  * Класс содержащий вспомогательные/полезные функции.
@@ -30,6 +31,11 @@ import com.technology.jep.jepria.shared.record.lob.JepClob;
  * @version 1.0
  */
 public class JepServerUtil {
+  /**
+   * The User-Agent Http header.
+   */
+  private static final String USER_AGENT_HEADER = "User-Agent";
+  
   /**
    * Стандартный форматировщик дат.<br/>
    * Преобразует строки в даты и даты в строки формата {@link com.technology.jep.jepria.shared.JepRiaConstant#DEFAULT_DATE_FORMAT}.
@@ -215,7 +221,7 @@ public class JepServerUtil {
   }
 
   /**
-   * Функция определяет: является ли текущий язык основным языком для пользователей.
+   * Проверяет, является ли текущий язык основным языком для пользователей.
    * 
    * @param request запрос, используя который из сессии получим текущий язык
    * 
@@ -376,4 +382,16 @@ reader.read();
       ((oracle.sql.CLOB)clob).setActivePrefetch(false);
     }
   }
+  
+  /**
+   * Проверяет, является ли клиентский браузер мобильным.
+   *
+   * @param request запрос
+   * @return true - клиентский барузер является мобильным, false - клиентский браузер не является мобильным
+   * @see <a href="https://deviceatlas.com/blog/mobile-browser-user-agent-strings" target="_blank">https://deviceatlas.com/blog/mobile-browser-user-agent-strings</a>
+   */
+  public static boolean isMobile(HttpServletRequest request) {
+    return JepRiaUtil.isMobile(request.getHeader(USER_AGENT_HEADER));
+  }
+  
 }

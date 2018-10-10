@@ -232,7 +232,7 @@ public abstract class JepBaseTextField<E extends Widget & HasValue> extends JepM
   
   /**
    * Возвращает максимальную длину поля
-   * @return
+   * @return максимальная длина поля
    */
   public Integer getMaxLength(){
     try {

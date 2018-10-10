@@ -18,7 +18,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10,"i14":10,"i15":10,"i16":10,"i17":10,"i18":10,"i19":10,"i20":10,"i21":10,"i22":10,"i23":10,"i24":10,"i25":10,"i26":10,"i27":10,"i28":10,"i29":10,"i30":10,"i31":10,"i32":10,"i33":10};
+var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10,"i14":10,"i15":10,"i16":10,"i17":10,"i18":10,"i19":10,"i20":10,"i21":10,"i22":10,"i23":10,"i24":10,"i25":10,"i26":10,"i27":10,"i28":10,"i29":10,"i30":10,"i31":10,"i32":10,"i33":10,"i34":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -267,39 +267,39 @@ extends com.google.gwt.user.cellview.client.DataGrid&lt;T&gt;</pre>
 </td>
 </tr>
 <tr class="rowColor">
-<td class="colFirst"><code>private java.lang.String</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#cookieId">cookieId</a></span></code>
-<div class="block">Идентификатор таблицы данных для сохранения конфигурации столбцов в cookies</div>
-</td>
-</tr>
-<tr class="altColor">
 <td class="colFirst"><code>private <a href="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.DndMode.html" title="enum in com.technology.jep.jepria.client.widget.list">JepGrid.DndMode</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#dndMode">dndMode</a></span></code>
 <div class="block">Текущий режим работы Drag&Drop</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code>protected com.google.gwt.event.shared.HandlerRegistration</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#dragLeaveHandler">dragLeaveHandler</a></span></code>
 <div class="block">Обработчик системного события покидания строки таблицы другой строки</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code>protected com.google.gwt.event.shared.HandlerRegistration</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#dragOverHandler">dragOverHandler</a></span></code>
 <div class="block">Обработчик системного события нахождения строки таблицы над другой строкой</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code>protected com.google.gwt.event.shared.HandlerRegistration</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#dragStartHandler">dragStartHandler</a></span></code>
 <div class="block">Обработчик системного события начала переноса строки таблицы</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code>protected com.google.gwt.event.shared.HandlerRegistration</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#dropHandler">dropHandler</a></span></code>
 <div class="block">Обработчик системного события завершения переноса строки таблицы</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>private java.lang.String</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#gridStorageId">gridStorageId</a></span></code>
+<div class="block">Идентификатор таблицы данных для сохранения конфигурации столбцов в cookies или в localStorage</div>
 </td>
 </tr>
 <tr class="rowColor">
@@ -394,14 +394,14 @@ extends com.google.gwt.user.cellview.client.DataGrid&lt;T&gt;</pre>
 <th class="colOne" scope="col">Constructor and Description</th>
 </tr>
 <tr class="altColor">
-<td class="colOne"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#JepGrid-java.lang.String-java.lang.String-java.util.List-">JepGrid</a></span>(java.lang.String&nbsp;cookieId,
+<td class="colOne"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#JepGrid-java.lang.String-java.lang.String-java.util.List-">JepGrid</a></span>(java.lang.String&nbsp;gridStorageId,
        java.lang.String&nbsp;gridIdAsWebEl,
        java.util.List&lt;<a href="../../../../../../../com/technology/jep/jepria/client/widget/list/JepColumn.html" title="class in com.technology.jep.jepria.client.widget.list">JepColumn</a>&gt;&nbsp;columns)</code>
 <div class="block">Создает таблицу данных на списочной форме.</div>
 </td>
 </tr>
 <tr class="rowColor">
-<td class="colOne"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#JepGrid-java.lang.String-java.lang.String-java.util.List-boolean-">JepGrid</a></span>(java.lang.String&nbsp;cookieId,
+<td class="colOne"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#JepGrid-java.lang.String-java.lang.String-java.util.List-boolean-">JepGrid</a></span>(java.lang.String&nbsp;gridStorageId,
        java.lang.String&nbsp;gridIdAsWebEl,
        java.util.List&lt;<a href="../../../../../../../com/technology/jep/jepria/client/widget/list/JepColumn.html" title="class in com.technology.jep.jepria.client.widget.list">JepColumn</a>&gt;&nbsp;columns,
        boolean&nbsp;wrapHeaders)</code>
@@ -409,7 +409,7 @@ extends com.google.gwt.user.cellview.client.DataGrid&lt;T&gt;</pre>
 </td>
 </tr>
 <tr class="altColor">
-<td class="colOne"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#JepGrid-java.lang.String-java.lang.String-java.util.List-boolean-com.google.gwt.view.client.ProvidesKey-">JepGrid</a></span>(java.lang.String&nbsp;cookieId,
+<td class="colOne"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#JepGrid-java.lang.String-java.lang.String-java.util.List-boolean-com.google.gwt.view.client.ProvidesKey-">JepGrid</a></span>(java.lang.String&nbsp;gridStorageId,
        java.lang.String&nbsp;gridIdAsWebEl,
        java.util.List&lt;<a href="../../../../../../../com/technology/jep/jepria/client/widget/list/JepColumn.html" title="class in com.technology.jep.jepria.client.widget.list">JepColumn</a>&gt;&nbsp;columns,
        boolean&nbsp;wrapHeaders,
@@ -418,7 +418,7 @@ extends com.google.gwt.user.cellview.client.DataGrid&lt;T&gt;</pre>
 </td>
 </tr>
 <tr class="rowColor">
-<td class="colOne"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#JepGrid-java.lang.String-java.lang.String-java.util.List-com.google.gwt.view.client.ProvidesKey-">JepGrid</a></span>(java.lang.String&nbsp;cookieId,
+<td class="colOne"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#JepGrid-java.lang.String-java.lang.String-java.util.List-com.google.gwt.view.client.ProvidesKey-">JepGrid</a></span>(java.lang.String&nbsp;gridStorageId,
        java.lang.String&nbsp;gridIdAsWebEl,
        java.util.List&lt;<a href="../../../../../../../com/technology/jep/jepria/client/widget/list/JepColumn.html" title="class in com.technology.jep.jepria.client.widget.list">JepColumn</a>&gt;&nbsp;columns,
        com.google.gwt.view.client.ProvidesKey&lt;<a href="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html" title="type parameter in JepGrid">T</a>&gt;&nbsp;keyProvider)</code>
@@ -497,66 +497,70 @@ extends com.google.gwt.user.cellview.client.DataGrid&lt;T&gt;</pre>
 </td>
 </tr>
 <tr id="i9" class="rowColor">
+<td class="colFirst"><code>private java.util.Map&lt;java.lang.String,<a href="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.ColumnCharasteristic.html" title="class in com.technology.jep.jepria.client.widget.list">JepGrid.ColumnCharasteristic</a>&gt;</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#getColumnCharacteristics--">getColumnCharacteristics</a></span>()</code>&nbsp;</td>
+</tr>
+<tr id="i10" class="altColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#getColumnCharacteristicsAsString--">getColumnCharacteristicsAsString</a></span>()</code>
 <div class="block">Возврат характеристик колонки в виде строки</div>
 </td>
 </tr>
-<tr id="i10" class="altColor">
+<tr id="i11" class="rowColor">
 <td class="colFirst"><code>java.util.List&lt;<a href="../../../../../../../com/technology/jep/jepria/client/widget/list/JepColumn.html" title="class in com.technology.jep.jepria.client.widget.list">JepColumn</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#getColumns--">getColumns</a></span>()</code>
 <div class="block">Получение списка колонок таблицы данных</div>
 </td>
 </tr>
-<tr id="i11" class="rowColor">
+<tr id="i12" class="altColor">
 <td class="colFirst"><code>com.google.gwt.user.client.ui.ScrollPanel</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#getContentWidget--">getContentWidget</a></span>()</code>
 <div class="block">Получить ссылку на виджет со строками таблицы</div>
 </td>
 </tr>
-<tr id="i12" class="altColor">
+<tr id="i13" class="rowColor">
 <td class="colFirst"><code>(package private) <a href="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.DndMode.html" title="enum in com.technology.jep.jepria.client.widget.list">JepGrid.DndMode</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#getCurrentDndMode--">getCurrentDndMode</a></span>()</code>
 <div class="block">Возвращает текущий режим работы Drag&Drop</div>
 </td>
 </tr>
-<tr id="i13" class="rowColor">
+<tr id="i14" class="altColor">
 <td class="colFirst"><code>int</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#getIndexColumnById-java.lang.String-">getIndexColumnById</a></span>(java.lang.String&nbsp;id)</code>
 <div class="block">Получение точного индекса колонки по ее идентификатору</div>
 </td>
 </tr>
-<tr id="i14" class="altColor">
+<tr id="i15" class="rowColor">
 <td class="colFirst"><code>com.google.gwt.dom.client.TableRowElement</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#getRowElement-com.google.gwt.event.dom.client.DomEvent-">getRowElement</a></span>(com.google.gwt.event.dom.client.DomEvent&lt;?&gt;&nbsp;event)</code>
 <div class="block">Получение строки таблицы по DOM-событию</div>
 </td>
 </tr>
-<tr id="i15" class="rowColor">
+<tr id="i16" class="altColor">
 <td class="colFirst"><code>int</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#getRowIndexByEvent-com.google.gwt.event.dom.client.DomEvent-">getRowIndexByEvent</a></span>(com.google.gwt.event.dom.client.DomEvent&lt;?&gt;&nbsp;event)</code>
 <div class="block">Перегруженная версия получения индекса строки таблицы по DOM-событию</div>
 </td>
 </tr>
-<tr id="i16" class="altColor">
+<tr id="i17" class="rowColor">
 <td class="colFirst"><code>int</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#getScrollLeft--">getScrollLeft</a></span>()</code>
 <div class="block">Получение значения левого отступа прокручиваемой области данных грида.</div>
 </td>
 </tr>
-<tr id="i17" class="rowColor">
+<tr id="i18" class="altColor">
 <td class="colFirst"><code>java.util.List&lt;<a href="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html" title="type parameter in JepGrid">T</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#getSelection--">getSelection</a></span>()</code>
 <div class="block">Возвращается список выделенных строк.</div>
 </td>
 </tr>
-<tr id="i18" class="altColor">
+<tr id="i19" class="rowColor">
 <td class="colFirst"><code>int</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#indexOf-com.technology.jep.jepria.client.widget.list.JepColumn-">indexOf</a></span>(<a href="../../../../../../../com/technology/jep/jepria/client/widget/list/JepColumn.html" title="class in com.technology.jep.jepria.client.widget.list">JepColumn</a>&nbsp;column)</code>
 <div class="block">Получение точного индекса колонки</div>
 </td>
 </tr>
-<tr id="i19" class="rowColor">
+<tr id="i20" class="altColor">
 <td class="colFirst"><code>protected void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#initialize--">initialize</a></span>()</code>
 <div class="block">Инициализируется список колонок таблицы данных и в случае необходимости добавляются слушатели 
@@ -564,38 +568,38 @@ extends com.google.gwt.user.cellview.client.DataGrid&lt;T&gt;</pre>
  <a href="../../../../../../../com/technology/jep/jepria/client/widget/event/JepEventType.html#DRAG_LEAVE_EVENT"><code>JepEventType.DRAG_LEAVE_EVENT</code></a>, <a href="../../../../../../../com/technology/jep/jepria/client/widget/event/JepEventType.html#DROP_EVENT"><code>JepEventType.DROP_EVENT</code></a></div>
 </td>
 </tr>
-<tr id="i20" class="altColor">
+<tr id="i21" class="rowColor">
 <td class="colFirst"><code>boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#isColumnVisible-java.lang.String-">isColumnVisible</a></span>(java.lang.String&nbsp;id)</code>
 <div class="block">Проверка видимости колонку</div>
 </td>
 </tr>
-<tr id="i21" class="rowColor">
+<tr id="i22" class="altColor">
 <td class="colFirst"><code>private boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#isCursorBetweenElements-com.google.gwt.dom.client.Element-com.google.gwt.dom.client.NativeEvent-">isCursorBetweenElements</a></span>(com.google.gwt.dom.client.Element&nbsp;rowElement,
                        com.google.gwt.dom.client.NativeEvent&nbsp;event)</code>
 <div class="block">Определяет находится ли курсор мыши между строками таблицы.</div>
 </td>
 </tr>
-<tr id="i22" class="altColor">
+<tr id="i23" class="rowColor">
 <td class="colFirst"><code>private boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#isCursorOnTableBottom-int-">isCursorOnTableBottom</a></span>(int&nbsp;currentClientY)</code>
 <div class="block">Определяет находится ли курсор в нижней части таблицы.</div>
 </td>
 </tr>
-<tr id="i23" class="rowColor">
+<tr id="i24" class="altColor">
 <td class="colFirst"><code>private boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#isCursorOnTableTop-int-">isCursorOnTableTop</a></span>(int&nbsp;currentClientY)</code>
 <div class="block">Определяет находится ли курсор в верхней части таблицы.</div>
 </td>
 </tr>
-<tr id="i24" class="altColor">
+<tr id="i25" class="rowColor">
 <td class="colFirst"><code>(package private) boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#isDndEnabled--">isDndEnabled</a></span>()</code>
 <div class="block">Возвращает флаг доступности переноса строк на таблице данных</div>
 </td>
 </tr>
-<tr id="i25" class="rowColor">
+<tr id="i26" class="altColor">
 <td class="colFirst"><code>protected void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#onLoad--">onLoad</a></span>()</code>
 <div class="block">
@@ -604,19 +608,19 @@ extends com.google.gwt.user.cellview.client.DataGrid&lt;T&gt;</pre>
  Конфигурирование виджета происходит в момент его добавления к DOM-дереву и единожды.</div>
 </td>
 </tr>
-<tr id="i26" class="altColor">
+<tr id="i27" class="rowColor">
 <td class="colFirst"><code>protected void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#onMouseOver-com.google.gwt.view.client.CellPreviewEvent-">onMouseOver</a></span>(com.google.gwt.view.client.CellPreviewEvent&lt;<a href="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html" title="type parameter in JepGrid">T</a>&gt;&nbsp;event)</code>
 <div class="block">Обработчик события наведения мыши на элементы таблицы.</div>
 </td>
 </tr>
-<tr id="i27" class="rowColor">
+<tr id="i28" class="altColor">
 <td class="colFirst"><code>private java.util.Map&lt;java.lang.String,<a href="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.ColumnCharasteristic.html" title="class in com.technology.jep.jepria.client.widget.list">JepGrid.ColumnCharasteristic</a>&gt;</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#parseColumnCharacteristics-java.lang.String-">parseColumnCharacteristics</a></span>(java.lang.String&nbsp;cookieString)</code>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#parseColumnCharacteristics-java.lang.String-">parseColumnCharacteristics</a></span>(java.lang.String&nbsp;storageString)</code>
 <div class="block">Метод извлечения данных о таблице данных из строки</div>
 </td>
 </tr>
-<tr id="i28" class="altColor">
+<tr id="i29" class="rowColor">
 <td class="colFirst"><code>protected void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#replaceAllChildren-java.util.List-com.google.gwt.safehtml.shared.SafeHtml-">replaceAllChildren</a></span>(java.util.List&lt;<a href="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html" title="type parameter in JepGrid">T</a>&gt;&nbsp;values,
                   com.google.gwt.safehtml.shared.SafeHtml&nbsp;html)</code>
@@ -625,7 +629,7 @@ extends com.google.gwt.user.cellview.client.DataGrid&lt;T&gt;</pre>
  После переинициализации новых данных, каждая строка таблицы данных становится доступной для перетаскивания.</div>
 </td>
 </tr>
-<tr id="i29" class="rowColor">
+<tr id="i30" class="altColor">
 <td class="colFirst"><code>protected void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#replaceChildren-java.util.List-int-com.google.gwt.safehtml.shared.SafeHtml-">replaceChildren</a></span>(java.util.List&lt;<a href="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html" title="type parameter in JepGrid">T</a>&gt;&nbsp;values,
                int&nbsp;start,
@@ -635,25 +639,25 @@ extends com.google.gwt.user.cellview.client.DataGrid&lt;T&gt;</pre>
  После выбора строки, выбранная строка вновь доступна для перетаскивания.</div>
 </td>
 </tr>
-<tr id="i30" class="altColor">
+<tr id="i31" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#setColumnConfigurable-boolean-">setColumnConfigurable</a></span>(boolean&nbsp;isColumnConfigurable)</code>
 <div class="block">Установка или отключение возможности конфигурирования характеристик колонок.</div>
 </td>
 </tr>
-<tr id="i31" class="rowColor">
+<tr id="i32" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#setDndMode-com.technology.jep.jepria.client.widget.list.JepGrid.DndMode-">setDndMode</a></span>(<a href="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.DndMode.html" title="enum in com.technology.jep.jepria.client.widget.list">JepGrid.DndMode</a>&nbsp;mode)</code>
 <div class="block">Установка или отключение возможности переноса строк в таблице данных.</div>
 </td>
 </tr>
-<tr id="i32" class="altColor">
+<tr id="i33" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#setWrapHeaders-boolean-">setWrapHeaders</a></span>(boolean&nbsp;wrapHeaders)</code>
 <div class="block">Установка или отключение возможности переноса наименований колонок.</div>
 </td>
 </tr>
-<tr id="i33" class="rowColor">
+<tr id="i34" class="altColor">
 <td class="colFirst"><code>boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html#toggleColumn-com.technology.jep.jepria.client.widget.list.JepColumn-">toggleColumn</a></span>(<a href="../../../../../../../com/technology/jep/jepria/client/widget/list/JepColumn.html" title="class in com.technology.jep.jepria.client.widget.list">JepColumn</a>&nbsp;currentColumn)</code>
 <div class="block">Переключение видимости колонки (добавление/удаление)</div>
@@ -740,14 +744,14 @@ extends com.google.gwt.user.cellview.client.DataGrid&lt;T&gt;</pre>
 <div class="block">Виджет со строками таблицы</div>
 </li>
 </ul>
-<a name="cookieId">
+<a name="gridStorageId">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>cookieId</h4>
-<pre>private final&nbsp;java.lang.String cookieId</pre>
-<div class="block">Идентификатор таблицы данных для сохранения конфигурации столбцов в cookies</div>
+<h4>gridStorageId</h4>
+<pre>private final&nbsp;java.lang.String gridStorageId</pre>
+<div class="block">Идентификатор таблицы данных для сохранения конфигурации столбцов в cookies или в localStorage</div>
 </li>
 </ul>
 <a name="columns">
@@ -972,13 +976,13 @@ extends com.google.gwt.user.cellview.client.DataGrid&lt;T&gt;</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>JepGrid</h4>
-<pre>public&nbsp;JepGrid(java.lang.String&nbsp;cookieId,
+<pre>public&nbsp;JepGrid(java.lang.String&nbsp;gridStorageId,
                java.lang.String&nbsp;gridIdAsWebEl,
                java.util.List&lt;<a href="../../../../../../../com/technology/jep/jepria/client/widget/list/JepColumn.html" title="class in com.technology.jep.jepria.client.widget.list">JepColumn</a>&gt;&nbsp;columns)</pre>
 <div class="block">Создает таблицу данных на списочной форме.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>cookieId</code> - идентификатор таблицы данных для сохранения в Cookies</dd>
+<dd><code>gridStorageId</code> - идентификатор таблицы данных для сохранения в Cookies</dd>
 <dd><code>gridIdAsWebEl</code> - идентификатор таблицы данных как веб-элемента</dd>
 <dd><code>columns</code> - список колонок</dd>
 </dl>
@@ -990,14 +994,14 @@ extends com.google.gwt.user.cellview.client.DataGrid&lt;T&gt;</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>JepGrid</h4>
-<pre>public&nbsp;JepGrid(java.lang.String&nbsp;cookieId,
+<pre>public&nbsp;JepGrid(java.lang.String&nbsp;gridStorageId,
                java.lang.String&nbsp;gridIdAsWebEl,
                java.util.List&lt;<a href="../../../../../../../com/technology/jep/jepria/client/widget/list/JepColumn.html" title="class in com.technology.jep.jepria.client.widget.list">JepColumn</a>&gt;&nbsp;columns,
                com.google.gwt.view.client.ProvidesKey&lt;<a href="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.html" title="type parameter in JepGrid">T</a>&gt;&nbsp;keyProvider)</pre>
 <div class="block">Создает таблицу данных на списочной форме.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>cookieId</code> - идентификатор таблицы данных для сохранения в Cookies</dd>
+<dd><code>gridStorageId</code> - идентификатор таблицы данных для сохранения в Cookies</dd>
 <dd><code>gridIdAsWebEl</code> - идентификатор таблицы данных как веб-элемента</dd>
 <dd><code>columns</code> - список колонок</dd>
 <dd><code>keyProvider</code> - провайдер ключей таблицы данных</dd>
@@ -1011,7 +1015,7 @@ extends com.google.gwt.user.cellview.client.DataGrid&lt;T&gt;</pre>
 <li class="blockList">
 <h4>JepGrid</h4>
 <pre>@Deprecated
-public&nbsp;JepGrid(java.lang.String&nbsp;cookieId,
+public&nbsp;JepGrid(java.lang.String&nbsp;gridStorageId,
                             java.lang.String&nbsp;gridIdAsWebEl,
                             java.util.List&lt;<a href="../../../../../../../com/technology/jep/jepria/client/widget/list/JepColumn.html" title="class in com.technology.jep.jepria.client.widget.list">JepColumn</a>&gt;&nbsp;columns,
                             boolean&nbsp;wrapHeaders)</pre>
@@ -1019,7 +1023,7 @@ public&nbsp;JepGrid(java.lang.String&nbsp;cookieId,
 <div class="block">Создает таблицу данных на списочной форме.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>cookieId</code> - идентификатор таблицы данных для сохранения в Cookies</dd>
+<dd><code>gridStorageId</code> - идентификатор таблицы данных для сохранения в Cookies</dd>
 <dd><code>gridIdAsWebEl</code> - идентификатор таблицы данных как веб-элемента</dd>
 <dd><code>columns</code> - список колонок</dd>
 <dd><code>wrapHeaders</code> - допустимость переноса наименования колонок
@@ -1035,7 +1039,7 @@ public&nbsp;JepGrid(java.lang.String&nbsp;cookieId,
 <li class="blockList">
 <h4>JepGrid</h4>
 <pre>@Deprecated
-public&nbsp;JepGrid(java.lang.String&nbsp;cookieId,
+public&nbsp;JepGrid(java.lang.String&nbsp;gridStorageId,
                             java.lang.String&nbsp;gridIdAsWebEl,
                             java.util.List&lt;<a href="../../../../../../../com/technology/jep/jepria/client/widget/list/JepColumn.html" title="class in com.technology.jep.jepria.client.widget.list">JepColumn</a>&gt;&nbsp;columns,
                             boolean&nbsp;wrapHeaders,
@@ -1044,7 +1048,7 @@ public&nbsp;JepGrid(java.lang.String&nbsp;cookieId,
 <div class="block">Создает таблицу данных на списочной форме.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>cookieId</code> - идентификатор таблицы данных для сохранения в Cookies</dd>
+<dd><code>gridStorageId</code> - идентификатор таблицы данных для сохранения в Cookies</dd>
 <dd><code>gridIdAsWebEl</code> - идентификатор таблицы данных как веб-элемента</dd>
 <dd><code>columns</code> - список колонок</dd>
 <dd><code>wrapHeaders</code> - допустимость переноса наименования колонок</dd>
@@ -1140,11 +1144,11 @@ public&nbsp;JepGrid(java.lang.String&nbsp;cookieId,
 <ul class="blockList">
 <li class="blockList">
 <h4>parseColumnCharacteristics</h4>
-<pre>private&nbsp;java.util.Map&lt;java.lang.String,<a href="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.ColumnCharasteristic.html" title="class in com.technology.jep.jepria.client.widget.list">JepGrid.ColumnCharasteristic</a>&gt;&nbsp;parseColumnCharacteristics(java.lang.String&nbsp;cookieString)</pre>
+<pre>private&nbsp;java.util.Map&lt;java.lang.String,<a href="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.ColumnCharasteristic.html" title="class in com.technology.jep.jepria.client.widget.list">JepGrid.ColumnCharasteristic</a>&gt;&nbsp;parseColumnCharacteristics(java.lang.String&nbsp;storageString)</pre>
 <div class="block">Метод извлечения данных о таблице данных из строки</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>cookieString</code> - строка, хранящая информация по таблице данных</dd>
+<dd><code>storageString</code> - строка, хранящая информация по таблице данных</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>карта соответствий идентификатора колонки и ее характеристик</dd>
 </dl>
@@ -1551,6 +1555,15 @@ public&nbsp;JepGrid(java.lang.String&nbsp;cookieId,
 <div class="block">Инициализируется список колонок таблицы данных и в случае необходимости добавляются слушатели 
  событий <a href="../../../../../../../com/technology/jep/jepria/client/widget/event/JepEventType.html#DRAG_START_EVENT"><code>JepEventType.DRAG_START_EVENT</code></a>, <a href="../../../../../../../com/technology/jep/jepria/client/widget/event/JepEventType.html#DRAG_OVER_EVENT"><code>JepEventType.DRAG_OVER_EVENT</code></a>,
  <a href="../../../../../../../com/technology/jep/jepria/client/widget/event/JepEventType.html#DRAG_LEAVE_EVENT"><code>JepEventType.DRAG_LEAVE_EVENT</code></a>, <a href="../../../../../../../com/technology/jep/jepria/client/widget/event/JepEventType.html#DROP_EVENT"><code>JepEventType.DROP_EVENT</code></a></div>
+</li>
+</ul>
+<a name="getColumnCharacteristics--">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getColumnCharacteristics</h4>
+<pre>private&nbsp;java.util.Map&lt;java.lang.String,<a href="../../../../../../../com/technology/jep/jepria/client/widget/list/JepGrid.ColumnCharasteristic.html" title="class in com.technology.jep.jepria.client.widget.list">JepGrid.ColumnCharasteristic</a>&gt;&nbsp;getColumnCharacteristics()</pre>
 </li>
 </ul>
 <a name="bindDragAndDropListeners--">

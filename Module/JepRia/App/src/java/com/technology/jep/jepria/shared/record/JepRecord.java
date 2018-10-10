@@ -70,10 +70,10 @@ public class JepRecord extends JepDto {
     this.setProperties((HashMap<String, Object>) JepHistoryToken.buildMapFromToken(value[0]));
     
     if (value.length == 2) {
-		List<Object> list = (List<Object>)JepHistoryToken.tokenToValue(value[1]);
-		primaryKey = list.stream()
-				   .map(object -> Objects.toString(object, null))
-				   .collect(Collectors.toList());
+    List<Object> list = (List<Object>)JepHistoryToken.tokenToValue(value[1]);
+    primaryKey = list.stream()
+           .map(object -> Objects.toString(object, null))
+           .collect(Collectors.toList());
     }
 
   }
@@ -95,7 +95,7 @@ public class JepRecord extends JepDto {
   }
 
   /**
-   * Определяет: равен ли текущий объект заданному.<br/>
+   * Проверяет, равен ли текущий объект заданному.<br/>
    * Объекты считаются равными, если равны их первичные ключи. Если первичный ключ текущего объекта равен null, то наименования полей первичного
    * ключа берутся из первичного ключа сравниваемой записи. Если первичные ключи обеих записей равны null, то сравнение идет по всем полям текущего
    * объекта.<br/>
@@ -162,8 +162,8 @@ public class JepRecord extends JepDto {
     sbResult.append(JepHistoryToken.getMapAsToken(this.getProperties()));
 
     if (primaryKey != null) {
-	    sbResult.append(SCOPE_PARAMETER_SEPARATOR);
-	    sbResult.append(JepHistoryToken.valueToToken(primaryKey));
+      sbResult.append(SCOPE_PARAMETER_SEPARATOR);
+      sbResult.append(JepHistoryToken.valueToToken(primaryKey));
     }
     
     return sbResult.toString();

@@ -282,7 +282,7 @@ public class FieldManager extends HashMap<String, JepMultiStateField> implements
   }
   
   /**
-   * Определяет: является ли пустое значение допустимым значением поля.
+   * Определяет, является ли пустое значение допустимым значением поля.
    * 
    * @param fieldId поле
    * @param allowBlank true - допускает пустое значение поля, false - поле обязательное для заполнения.

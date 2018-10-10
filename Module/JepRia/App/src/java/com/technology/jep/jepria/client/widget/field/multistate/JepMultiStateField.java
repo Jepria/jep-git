@@ -701,7 +701,7 @@ public abstract class JepMultiStateField<E extends Widget, V extends Widget> ext
   }
 
   /**
-   * Определяет: является ли пустое значение допустимым значением поля.
+   * Определяет, является ли пустое значение допустимым значением поля.
    * 
    * @param allowBlank true - допускает пустое значение поля, false - поле обязательное для заполнения.
    */

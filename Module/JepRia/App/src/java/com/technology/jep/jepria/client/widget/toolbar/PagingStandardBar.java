@@ -299,7 +299,7 @@ public class PagingStandardBar extends SimplePanel implements PagingToolBar {
   }
   
   /**
-   * Функция определяет: может ли переданная ей строка быть преобразована 
+   * Проверяет, может ли переданная ей строка быть преобразована 
    * к типу Integer.
    * 
    * @param value строка, которую проверяем

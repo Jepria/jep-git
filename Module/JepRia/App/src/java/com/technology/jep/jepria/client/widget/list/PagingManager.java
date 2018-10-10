@@ -75,18 +75,18 @@ public class PagingManager<W extends AbstractHasData<JepRecord>, P extends Pagin
   protected ListDataProvider<JepRecord> dataProvider;
   
   protected enum DropType {
-	  /**
-	   * Вставка записи(ей) перед целевого узла
-	   */
-	  BEFORE,
-	  /**
-	   * Вставка записи(ей) после целевого узла
-	   */
-	  AFTER,
-	  /**
-	   * Объединение записи(ей) и целевого узла
-	   */
-	  APPEND
+    /**
+     * Вставка записи(ей) перед целевого узла
+     */
+    BEFORE,
+    /**
+     * Вставка записи(ей) после целевого узла
+     */
+    AFTER,
+    /**
+     * Объединение записи(ей) и целевого узла
+     */
+    APPEND
   }
   
   public PagingManager() {
@@ -588,7 +588,7 @@ public class PagingManager<W extends AbstractHasData<JepRecord>, P extends Pagin
               break;
     case BEFORE : insertBefore(rowList, newRecord);
               break;
-	default:
+  default:
               break;
     }
   }
