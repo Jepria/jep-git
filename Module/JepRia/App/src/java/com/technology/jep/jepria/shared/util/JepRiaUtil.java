@@ -150,7 +150,9 @@ public class JepRiaUtil {
    * @see <a href="https://deviceatlas.com/blog/mobile-browser-user-agent-strings" target="_blank">https://deviceatlas.com/blog/mobile-browser-user-agent-strings</a>
    */
   public static boolean isMobile(String ua) {
-    return (ua != null && ua.matches(".*(?i:mobile|mini).*"));
+    // Правила использования модификаторов i (игнорирования регистра) для регулярных выражений в Java и JavaScript, к сожалению, отличаются.
+    // Поэтому, для поддержания единой точки определения признака "мобильности", приходится предварительно привести явно строку к ниженму регистру.
+    return (ua != null && ua.toLowerCase().matches(".*(mobile|mini).*"));
   }
   
 }
