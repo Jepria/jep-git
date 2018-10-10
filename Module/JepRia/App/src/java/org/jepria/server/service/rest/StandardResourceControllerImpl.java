@@ -151,16 +151,16 @@ public class StandardResourceControllerImpl implements StandardResourceControlle
   /////////////////////////// OPTIONS RESOURCE //////////////////////////
   
   @Override
-  public List<?> listOptions(String optionResourceName, Integer operatorId) {
+  public List<?> listOptions(String optionEntityName, Integer operatorId) {
 
     try {
-      String optionResourceNameNormalized = normalizeResourceName(optionResourceName);
+      String optionEntityNameNormalized = normalizeResourceName(optionEntityName);
       
       final Method getOptionsMethod;
   
       try {
   
-        String methodName = "get" + optionResourceNameNormalized;
+        String methodName = "get" + optionEntityNameNormalized;
         Class<?> daoClass = dao.getClass();
         getOptionsMethod = daoClass.getMethod(methodName);
   

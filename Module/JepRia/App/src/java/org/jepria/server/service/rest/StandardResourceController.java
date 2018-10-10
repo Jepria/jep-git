@@ -32,11 +32,11 @@ public interface StandardResourceController {
   
   /**
    * 
-   * @param optionResourceName
+   * @param optionEntityName
    * @param operatorId
    * @return non-empty list normally; {@code null} or empty list to indicate 'not found' status
    */
-  List<?> listOptions(String optionResourceName, Integer operatorId);
+  List<?> listOptions(String optionEntityName, Integer operatorId);
   
   
   /////////////////////////// SEARCH RESOURCE ///////////////////////////

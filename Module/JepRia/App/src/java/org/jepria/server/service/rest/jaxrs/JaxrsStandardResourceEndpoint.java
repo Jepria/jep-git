@@ -1,6 +1,9 @@
 package org.jepria.server.service.rest.jaxrs;
 
+import java.util.List;
 import java.util.Map;
+import java.util.UUID;
+import java.util.function.Supplier;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
@@ -15,33 +18,29 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 
+import org.jepria.server.load.rest.SearchEntity;
 import org.jepria.server.load.rest.SearchParamsDto;
 import org.jepria.server.service.rest.SearchState;
 import org.jepria.server.service.rest.SearchStateImpl;
-import org.jepria.server.service.rest.StandardResourceDescription;
-import org.jepria.server.service.rest.jersey.ServletContainer;
+import org.jepria.server.service.rest.StandardResourceController;
+import org.jepria.server.service.rest.StandardResourceControllerImpl;
+import org.jepria.server.service.rest.ResourceDescription;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
 /**
  * Standard Jaxrs REST resource
- * <br/><br/>
- * Example for copying into application resource to override one or more REST methods.
- * 
- * @final no need to override (annotations are not inherited and all the code will be duplicated in descendant)
  */
 @Path("")
 @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
 @Consumes(MediaType.APPLICATION_JSON + ";charset=utf-8")
 @Api
-public final class JaxrsStandardResourceEndpoint extends BaseStandardResourceEndpoint {
+public abstract class JaxrsStandardResourceEndpoint {
   
-  /**
-   * For reflective instantiation
-   */
-  public JaxrsStandardResourceEndpoint() {}
+  protected JaxrsStandardResourceEndpoint() {}
   
   /**
    * Injectable field
@@ -49,102 +48,163 @@ public final class JaxrsStandardResourceEndpoint extends BaseStandardResourceEnd
   @Context 
   private HttpServletRequest request;
   
-  @Override
-  protected StandardResourceDescription getResourceDescription() {
-    return (StandardResourceDescription)request.getAttribute(ServletContainer.STANDARD_RESOURCE_DESCRIPTION_REQUEST_ATTR);
-  }
+  /**
+   * Provides application resource description
+   * @return
+   */
+  protected abstract ResourceDescription getResourceDescription();
   
-  @Override
+  /**
+   * Provides search state by the searchId (for stateful search)
+   * @param searchId
+   * @return
+   */
   protected SearchState getSearchState(String searchId) {
     return new SearchStateImpl(request, searchId, getResourceDescription().getResourceName());
   }
   
-  @Override
+  /**
+   * Get operatorId from the request
+   * @return
+   */
   protected Integer getOperatorId() {
     // TODO return request.getHeader("operatorId");
     return 1;
+  }
+  
+  /**
+   * Supplier protects the internal field from direct access from within the class members,
+   * and initializes the field lazily (due to the DI: the injectable fields are being injected after the object construction)
+   */
+  private final Supplier<StandardResourceController> controller = new Supplier<StandardResourceController>() {
+    private StandardResourceController instance = null;
+    @Override
+    public StandardResourceController get() {
+      if (instance == null) {
+        instance = createStandardResourceController();
+      }
+      return instance;
+    }
+  };
+  
+  protected StandardResourceController createStandardResourceController() {
+    return new StandardResourceControllerImpl(getResourceDescription().getRecordDefinition(), getResourceDescription().getDao());
   }
   
   //////// CRUD ////////
   
   @GET
   @ApiOperation(value = "List this resource as options")
-  @Override
   public Response listAsOptions() {
-    return super.listAsOptions();
+    return listOptions(getResourceDescription().getResourceName());
   }
   
   @GET
   @Path("{recordId}")
   @ApiOperation(value = "Get resource by ID")
-  @Override
   public Response getResourceById(@PathParam("recordId") String recordId) {
-    return super.getResourceById(recordId);
+    Object record = controller.get().getResourceById(recordId, getOperatorId());
+    if (record == null) {
+      return Response.status(Status.NOT_FOUND).build();
+    } else {
+      return Response.ok(record).build();
+    }
   }
   
   @POST
   @ApiOperation(value = "Create a new instance")
-  @Override
   public Response create(Map<String, Object> instance) {
-    return super.create(instance);
+    Object createdId = controller.get().create(instance, getOperatorId());
+    return Response.status(Status.CREATED).header("Location", createdId).build();
   }
   
   @DELETE
   @Path("{recordId}")
   @ApiOperation(value = "Delete resource by ID")
-  @Override
   public Response deleteResourceById(@PathParam("recordId") String recordId) {
-    return super.deleteResourceById(recordId);
+    controller.get().deleteResourceById(recordId, getOperatorId());
+    return Response.ok().build();
   }
   
   @PUT
   @Path("{recordId}")
   @ApiOperation(value = "Update resource by ID")
-  @Override
   public Response update(@PathParam("recordId") String recordId, Map<String, Object> fields) {
-    return super.update(recordId, fields);
+    controller.get().update(recordId, fields, getOperatorId());
+    return Response.ok().build();
   }
 
   //////// OPTIONS ////////
   
   @GET
-  @Path("options/{optionResourceName}")
-  @ApiOperation(value = "List options")
-  @Override
-  public Response listOptions(@PathParam("optionResourceName") String optionResourceName) {
-    return super.listOptions(optionResourceName);
+  @Path("option/{optionEntityName}")
+  @ApiOperation(value = "List options by option-entity name")
+  public Response listOptions(@PathParam("optionEntityName") String optionEntityName) {
+    List<?> result = controller.get().listOptions(optionEntityName, getOperatorId());
+    if (result == null || result.isEmpty()) {
+      return Response.status(Status.NOT_FOUND).build();
+    } else {
+      return Response.ok(result).build();
+    }
   }
   
   //////// SEARCH ////////
   
+  protected String generateSearchID(SearchParamsDto searchParamsDto) {
+    return UUID.randomUUID().toString();
+  }
+  
   @POST
   @Path("search")
   @ApiOperation(value = "Post search params")
-  @Override
   public Response postSearch(SearchParamsDto searchParamsDto) {
-    return super.postSearch(searchParamsDto);
+    
+    final String searchId = generateSearchID(searchParamsDto);
+    
+    final SearchState searchState = getSearchState(searchId);
+    
+    controller.get().postSearch(searchParamsDto, searchState, getOperatorId());
+    if (searchId == null) {
+      return Response.status(Status.NOT_FOUND).build();
+    } else {
+      return Response.status(Status.CREATED).header("Location", "search/" + searchId).build();
+    }
   }
   
   @GET
   @Path("search/{searchId}")
   @ApiOperation(value = "Get search entity by ID")
-  @Override
   public Response getSearchEntity(
       @PathParam("searchId") String searchId) {
-    return super.getSearchEntity(searchId);
+
+    final SearchState searchState = getSearchState(searchId);
+    
+    SearchEntity result = controller.get().getSearchEntity(searchState, getOperatorId());
+    if (result == null) {
+      return Response.status(Status.NOT_FOUND).build();
+    } else {
+      return Response.ok(result).build();
+    }
   }
   
   @GET
   @Path("search/{searchId}/data/paged-by-{pageSize:\\d+}/{page}")
   @ApiOperation(value = "Fetch paged data")
-  @Override
   public Response fetchData(
       @PathParam("searchId") String searchId,
       @PathParam("pageSize") Integer pageSize, 
       @PathParam("page") Integer page, 
       @QueryParam("sortField") String sortField,
       @QueryParam("sortOrder") String sortOrder) {
-    return super.fetchData(searchId, pageSize, page, sortField, sortOrder);
+
+    final SearchState searchState = getSearchState(searchId);
+    
+    List<?> result = controller.get().fetchData(searchState, pageSize, page, sortField, sortOrder, getOperatorId());
+    if (result == null || result.isEmpty()) {
+      return Response.status(Status.NOT_FOUND).build();
+    } else {
+      return Response.ok(result).build();
+    }
   }
   
   
