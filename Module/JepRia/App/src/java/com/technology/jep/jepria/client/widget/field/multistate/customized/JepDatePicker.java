@@ -23,6 +23,9 @@ import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.user.datepicker.client.CalendarModel;
 import com.google.gwt.user.datepicker.client.DatePicker;
 import com.google.gwt.user.datepicker.client.DefaultCalendarView;
+import com.sun.javafx.webkit.KeyCodeMap;
+import com.technology.jep.jepria.client.util.JepClientUtil;
+import com.technology.jep.jepria.client.widget.field.masked.MaskedTextBoxMobile;
 import com.technology.jep.jepria.shared.text.JepRiaText;
 import com.technology.jep.jepria.shared.util.JepRiaUtil;
 
@@ -181,9 +184,9 @@ public abstract class JepDatePicker extends DatePicker {
     }
     
     if (hours != null && minutes != null && seconds != null && date != null) {
-      date.setHours(Integer.valueOf(hours.getText()));
-      date.setMinutes(Integer.valueOf(minutes.getText()));
-      date.setSeconds(Integer.valueOf(seconds.getText()));
+      date.setHours(Integer.valueOf(JepRiaUtil.isEmpty(hours.getText()) ? defaultValue : hours.getText()));
+      date.setMinutes(Integer.valueOf(JepRiaUtil.isEmpty(minutes.getText()) ? defaultValue : minutes.getText()));
+      date.setSeconds(Integer.valueOf(JepRiaUtil.isEmpty(seconds.getText()) ? defaultValue : seconds.getText()));
     }
     
     return date;
@@ -195,14 +198,35 @@ public abstract class JepDatePicker extends DatePicker {
         || key ==KeyCodes.KEY_RIGHT || key ==KeyCodes.KEY_LEFT || key ==KeyCodes.KEY_TAB;
   }
   
+  protected boolean isPermitValue(char[] chs) {
+    boolean result = chs != null && chs.length > 0 ? true : false;
+    for (char ch : chs) {
+      if (!(isDecimalKey((int)ch) || ch >= 96 && ch <= 105)) {
+        result = false;
+        break;
+      }
+    }
+    return result;
+  }
+  
   protected boolean isDecimalKey(int key) {
     return key >= KeyCodes.KEY_ZERO && key <= KeyCodes.KEY_NINE;
   }
   
+  final String defaultValue = "0";
+  private String preValue;
   protected void appendHandlers(TextBox widget, int maxValue, TextBox nextWidget) {
-    final String defaultValue = "0";
     
-    widget.addKeyDownHandler(keydownevent -> {
+    if (JepClientUtil.isMobile()) {
+      
+      widget.addKeyDownHandler(keydownevent -> {
+        preValue = widget.getText();
+      });
+    
+      widget.addKeyUpHandler(keyuphandler -> handlerEventKeyUpMobileDevice(widget, keyuphandler.getNativeKeyCode(), maxValue));
+    
+    } else {
+      widget.addKeyDownHandler(keydownevent -> {
         int keyCode = keydownevent.getNativeKeyCode();
         if (!isPermitKey(keyCode)) {
           widget.cancelKey();
@@ -253,6 +277,7 @@ public abstract class JepDatePicker extends DatePicker {
         doFireEventChangeTime();
       }
     });
+    }
   }
   
   private void initFocusHandlers() {
@@ -305,4 +330,25 @@ public abstract class JepDatePicker extends DatePicker {
   
   protected abstract void doFireEventClickDatePicker();
   protected abstract void doFireEventChangeTime();
+  
+  protected void handlerEventKeyUpMobileDevice(Widget widget, int keyCode, int maxValue) {
+    TextBox textBox = (TextBox)widget;
+    Integer value = 0;
+    String postValue = textBox.getText();
+    value = isPermitValue(postValue.toCharArray()) ? new Integer(postValue) 
+        : isPermitValue(preValue.toCharArray()) ? new Integer(preValue) : new Integer(defaultValue);
+      
+    if (value < 0) {
+      textBox.setValue(defaultValue);
+    } else if (value > maxValue) {
+      textBox.setValue(String.valueOf(maxValue));
+    } else if (value == null) {
+      textBox.setValue(defaultValue);
+    }
+    
+    if (JepRiaUtil.isEmpty(textBox.getValue())) {
+      textBox.setValue(defaultValue);
+    }
+    doFireEventChangeTime();
+  }
 }

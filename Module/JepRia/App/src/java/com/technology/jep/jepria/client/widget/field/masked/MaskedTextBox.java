@@ -18,7 +18,6 @@ import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.ui.TextBox;
-
 import com.technology.jep.jepria.client.util.JepClientUtil;
 import com.technology.jep.jepria.client.widget.field.multistate.event.InputForbiddenEvent;
 import com.technology.jep.jepria.client.widget.field.multistate.event.InputForbiddenEvent.HasInputForbiddenHandlers;
@@ -54,6 +53,7 @@ public class MaskedTextBox extends TextBox
   
   public MaskedTextBox(Mask mask) {
     this.mask = mask;
+    sinkEvents(Event.ONPASTE);
     setCharValue(new char[mask.size()]);
     
     addDomHandler(new KeyDownHandler() {
@@ -83,8 +83,7 @@ public class MaskedTextBox extends TextBox
     
     addStyleName(MASKED_TEXT_BOX_STYLE);
     
-    if (!JepClientUtil.isMobile()) {
-      sinkEvents(Event.ONPASTE);
+    if (!MaskedTextBoxMobile.isSupportMobileDevice()) {
       addDomHandler(new KeyPressHandler() {
         @Override
         public void onKeyPress(KeyPressEvent event) {
@@ -94,6 +93,7 @@ public class MaskedTextBox extends TextBox
       this.addCutHandler(this.getElement());
       this.addPreventUndoRedoHandler(this.getElement());
     }
+    
   }
 
   public MaskedTextBox(String mask) {
@@ -392,7 +392,7 @@ public class MaskedTextBox extends TextBox
    * Обработчик события вставки.
    * @param event событие
    */
-  private void onPasteEvent(Event event) {
+  protected void onPasteEvent(Event event) {
     String clipboardData = getClipboardData(event);
     event.stopPropagation();
     event.preventDefault();

@@ -36,8 +36,6 @@ import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.datepicker.client.DateBox;
 import com.google.gwt.user.datepicker.client.DatePicker;
-
-import com.technology.jep.jepria.client.util.JepClientUtil;
 import com.technology.jep.jepria.client.widget.field.multistate.customized.JepDatePicker;
 import com.technology.jep.jepria.shared.util.JepRiaUtil;
 
@@ -230,7 +228,7 @@ public class MaskedDateBox extends Composite implements HasEnabled,
   /**
    * Текстовое поле с маской для ввода даты.
    */
-  private final MaskedTextBox box = new MaskedTextBox("");
+  private final MaskedTextBox box = MaskedTextBoxMobile.isSupportMobileDevice() ? new MaskedTextBoxMobile("") : new MaskedTextBox("");
   private final DatePicker picker;
   private LeafValueEditor<Date> editor;
   private XDefaultFormat format;
@@ -407,7 +405,7 @@ public class MaskedDateBox extends Composite implements HasEnabled,
    * @return true, если содержит, и false в противном случае
    */
   public boolean isValid() {
-    if (JepClientUtil.isMobile()) {
+    if (MaskedTextBoxMobile.isSupportMobileDevice()) {
       return box.isValid();
     } else {
       return box.isValid() && (JepRiaUtil.isEmpty(box.getValue()) || format.parse(this, box.getValue(), false) != null);
