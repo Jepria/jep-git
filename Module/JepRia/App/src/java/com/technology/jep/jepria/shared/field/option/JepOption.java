@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.technology.jep.jepria.shared.dto.JepDto;
+import com.technology.jep.jepria.shared.history.JepHistoryConstant;
+import com.technology.jep.jepria.shared.history.JepHistoryToken;
 
 public class JepOption extends JepDto {
   private static final long serialVersionUID = 1L;
@@ -45,7 +47,13 @@ public class JepOption extends JepDto {
    */
   public JepOption(String token) {
     String[] valueTab = token.split(OPTION_NAME_VALUE_SEPARATOR_REGEXP, 2); // Считаем, что наименование - это все, что после первого разделителя.
-    String value = valueTab[0];
+    
+    String valueToken = valueTab[0];
+    if (valueToken != null) {
+      valueToken = valueToken.replace(JepHistoryConstant.OPTION_VALUE_TYPE_SEPARATOR, JepHistoryConstant.MAP_NAME_TYPE_VALUE_SEPARATOR);
+    }
+    final Object value = JepHistoryToken.tokenToValue(valueToken); 
+        
     String name = valueTab.length > 1 ? valueTab[1] : null;
     setValue(value);    
     setName(name);
@@ -116,7 +124,14 @@ public class JepOption extends JepDto {
   public String toHistoryToken() {
     StringBuffer sbResult = new StringBuffer();
 
-    sbResult.append(this.<Object>get(OPTION_VALUE)); // Сначала идет значение - чтобы снизить вероятность наличия в первых символах token'а разделителя.
+    final Object value = this.<Object>get(OPTION_VALUE);
+    
+    String valueToken = JepHistoryToken.valueToToken(value);
+    if (valueToken != null) {
+      valueToken = valueToken.replace(JepHistoryConstant.MAP_NAME_TYPE_VALUE_SEPARATOR, JepHistoryConstant.OPTION_VALUE_TYPE_SEPARATOR);
+    }
+        
+    sbResult.append(valueToken); // Сначала идет значение - чтобы снизить вероятность наличия в первых символах token'а разделителя.
     sbResult.append(OPTION_NAME_VALUE_SEPARATOR);
     sbResult.append(this.<String>get(OPTION_NAME));
 

@@ -69,6 +69,11 @@ public class JepHistoryConstant {
   public static final String OPTION_NAME_VALUE_SEPARATOR = "$c$";
   
   /**
+   * Разделитель между именем типа и значением <code>JepOption</code> в строке History.<br/>
+   */
+  public static final String OPTION_VALUE_TYPE_SEPARATOR = "$t$";
+  
+  /**
    * Регулярное выражение позволяющее выделить разделитель между именем и значением элемента 
    * {@link com.technology.jep.jepria.shared.field.option.JepOption} в строке History.<br/>
    * <br/>
