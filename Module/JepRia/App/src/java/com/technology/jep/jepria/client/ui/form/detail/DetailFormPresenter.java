@@ -13,6 +13,7 @@ import java.util.List;
 import com.google.gwt.core.client.Scheduler.ScheduledCommand;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.place.shared.Place;
+import com.google.gwt.storage.client.Storage;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.technology.jep.jepria.client.JepScheduledCommand;
 import com.technology.jep.jepria.client.async.JepAsyncCallback;
@@ -149,9 +150,7 @@ public class DetailFormPresenter<V extends DetailFormView, E extends PlainEventB
     
     // "Привязка" элементов представления к функционалу презентера.
     bind();
-    // Получаем поисковой шаблон из localStorage браузера если таковой сохранялся ранее.
-    searchTemplate =      
-          JepClientUtil.getLocalStorageVariable("find_" + getClass().getCanonicalName(), JepRecord.class);
+
     // Переведем презентер модуля в заданный режим.
     changeWorkstate(place);
   }
@@ -180,7 +179,15 @@ public class DetailFormPresenter<V extends DetailFormView, E extends PlainEventB
       fields.clear();
       resetScope();
     } else if(SEARCH.equals(workstate)) {
-      if(searchTemplate != null) {
+      // Получаем поисковой шаблон из localStorage браузера если таковой сохранялся ранее.
+	  Storage storage = Storage.getLocalStorageIfSupported();
+	  if (storage != null) {
+	    if (storage.getItem("find_" + getClass().getCanonicalName()) != null) {
+	 	  searchTemplate = new JepRecord(storage.getItem("find_" + getClass().getCanonicalName()));
+	    }
+	  }
+
+	  if(searchTemplate != null) {
         // Если есть сохраненные поисковые параметры, то восстановим их.
         fields.setValues(searchTemplate);
       } else {
@@ -285,7 +292,10 @@ public class DetailFormPresenter<V extends DetailFormView, E extends PlainEventB
     // Проинициализируем поисковый шаблон (независимо откуда был осуществлен переход: с формы поиска или с главной формы на подчиненную).
     searchTemplate = event.getPagingConfig().getTemplateRecord();
     // Сохраняем поисковый шаблон для загрузки данных шаблона после перегрузки формы
-    JepClientUtil.setLocalStorageVariable("find_" + getClass().getCanonicalName(), searchTemplate);
+    Storage storage = Storage.getLocalStorageIfSupported();
+    if (storage != null) {
+      storage.setItem("find_" + getClass().getCanonicalName(), searchTemplate.toHistoryToken());
+    }
   }
   
   /**

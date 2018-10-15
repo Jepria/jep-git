@@ -60,6 +60,11 @@ public class JepDateField extends JepMultiStateField<MaskedDateBox, HTML> {
    * Влияет на отображение даты на карте просмотра и на сравнение дат.
    */
   protected DateTimeFormat format;
+  
+  /**
+   * Клиент использует мобильную платформу?
+   */
+  private final boolean IS_CLIENT_USE_MOBILE_PLATFORM = JepClientUtil.isMobile();
 
   /**
    * Создаёт поле для ввода даты с пустой меткой в стандартном формате (dd.MM.yyyy).
@@ -421,7 +426,7 @@ public class JepDateField extends JepMultiStateField<MaskedDateBox, HTML> {
     editableCard.addDomHandler(new KeyUpHandler() {
       @Override
       public void onKeyUp(KeyUpEvent keyupevent) {
-        if (JepClientUtil.isMobile()) {
+        if (IS_CLIENT_USE_MOBILE_PLATFORM) {
           Date newDate = null;
           String value = getRawValue();
           try {

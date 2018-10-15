@@ -37,6 +37,7 @@ import com.google.gwt.event.dom.client.DropEvent;
 import com.google.gwt.event.dom.client.DropHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.safehtml.shared.SafeHtml;
+import com.google.gwt.storage.client.Storage;
 import com.google.gwt.user.cellview.client.DataGrid;
 import com.google.gwt.user.cellview.client.Header;
 import com.google.gwt.user.client.Cookies;
@@ -372,20 +373,18 @@ public class JepGrid<T> extends DataGrid<T> {
   }
   
   /**
-   * Метод перезаписи изменившихся данных о колонках в Cookie
+   * Метод перезаписи изменившихся данных о колонках в хранилище localStorage
    */
   @SuppressWarnings("deprecation")
   public void columnCharacteristicsChanged() {
-    // сохраняем в Cookie пользовательские настройки ширины столбцов
+    // сохраняем в хранилище localStorage пользовательские настройки ширины столбцов
     Date expires = new Date();
     expires.setYear(expires.getYear() + 1);
 
-    if (JepClientUtil.isLocalStorageSupported()) {
-      JepClientUtil.setLocalStorageVariable("grid_" + gridStorageId, getColumnCharacteristicsAsString());
-    } else {
-      Cookies.setCookie(gridStorageId, getColumnCharacteristicsAsString(), expires);
+    Storage storage = Storage.getLocalStorageIfSupported();
+    if (storage != null) {
+    	storage.setItem("grid_" + gridStorageId, getColumnCharacteristicsAsString());
     }
-    
   }
   
   /**
@@ -789,13 +788,11 @@ public class JepGrid<T> extends DataGrid<T> {
   }
   
   private Map<String, JepGrid<T>.ColumnCharasteristic> getColumnCharacteristics() {
-
-  if (JepClientUtil.isLocalStorageSupported()) {
-    return parseColumnCharacteristics(JepClientUtil.getLocalStorageVariable("grid_" + gridStorageId, String.class));
-  } else {
-    return parseColumnCharacteristics(Cookies.getCookie(gridStorageId));
-  } 
-    
+	  Storage storage = Storage.getLocalStorageIfSupported();
+	    if (storage != null) {
+    	  return parseColumnCharacteristics(storage.getItem("grid_" + gridStorageId));
+	    }
+	  return null;
   }
 
    /**

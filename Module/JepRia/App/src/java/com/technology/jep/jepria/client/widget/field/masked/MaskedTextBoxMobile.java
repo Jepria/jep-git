@@ -223,7 +223,7 @@ public class MaskedTextBoxMobile extends MaskedTextBox {
    * Подтверждаем, что своим функ-м можем поддержать соответствующую мобильную платформу
    * @return
    */
-  public static native boolean isSupportMobileDevice() /*-{
+  public static native boolean isSupportedMobilePlatform() /*-{
     if( navigator.userAgent.match(/Android/i)
        || window.navigator.userAgent.indexOf('iPhone') != -1
        ) {

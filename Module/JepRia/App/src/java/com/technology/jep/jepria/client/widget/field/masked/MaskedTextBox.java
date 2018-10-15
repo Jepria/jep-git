@@ -83,7 +83,7 @@ public class MaskedTextBox extends TextBox
     
     addStyleName(MASKED_TEXT_BOX_STYLE);
     
-    if (!MaskedTextBoxMobile.isSupportMobileDevice()) {
+    if (!MaskedTextBoxMobile.isSupportedMobilePlatform()) {
       addDomHandler(new KeyPressHandler() {
         @Override
         public void onKeyPress(KeyPressEvent event) {
