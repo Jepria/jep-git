@@ -307,19 +307,17 @@ public class JepDateField extends JepMultiStateField<MaskedDateBox, HTML> {
    */
   protected boolean inRangeDate(Date newDate) {
     boolean result = true;
-    if (newDate != null) {
-      if (editableCard.getDatePicker() instanceof JepDatePicker) {
-        if (!JepRiaUtil.isEmpty(getMinLimitDate()) && getMinLimitDate().after(newDate) && !getMinLimitDate().equals(newDate)) {
-          clearInvalid();
-          markInvalid(JepClientUtil.substitute(JepTexts.dateField_lessThen(), format.format(newDate), format.format(getMinLimitDate())));
-          result = false;
-        } else if (!JepRiaUtil.isEmpty(getMaxLimitDate()) && getMaxLimitDate().before(newDate) && !getMaxLimitDate().equals(newDate)) {
-          clearInvalid();
-          markInvalid(JepClientUtil.substitute(JepTexts.dateField_moreThen(), format.format(newDate), format.format(getMaxLimitDate())));
-          result = false;
-        } else {
-          clearInvalid();
-        }
+    if (newDate != null && editableCard.getDatePicker() instanceof JepDatePicker) {
+      if (!JepRiaUtil.isEmpty(getMinLimitDate()) && getMinLimitDate().after(newDate) && !getMinLimitDate().equals(newDate)) {
+        clearInvalid();
+        markInvalid(JepClientUtil.substitute(JepTexts.dateField_lessThen(), format.format(newDate), format.format(getMinLimitDate())));
+        result = false;
+      } else if (!JepRiaUtil.isEmpty(getMaxLimitDate()) && getMaxLimitDate().before(newDate) && !getMaxLimitDate().equals(newDate)) {
+        clearInvalid();
+        markInvalid(JepClientUtil.substitute(JepTexts.dateField_moreThen(), format.format(newDate), format.format(getMaxLimitDate())));
+        result = false;
+      } else {
+        clearInvalid();
       }
     }
     return result;
@@ -467,9 +465,7 @@ public class JepDateField extends JepMultiStateField<MaskedDateBox, HTML> {
    *  Обработчик введенного текста с мобильного устройства
    * @param value
    */
-  protected void handlerKeyboardEvent(Date value) {
-    Date newDate = value;
-
+  protected void handlerKeyboardEvent(Date newDate) {
     ((JepDatePicker) editableCard.getDatePicker()).refresh(newDate);
     notifyListeners(JepEventType.CHANGE_VALUE_EVENT, new JepEvent(this, newDate));
   }

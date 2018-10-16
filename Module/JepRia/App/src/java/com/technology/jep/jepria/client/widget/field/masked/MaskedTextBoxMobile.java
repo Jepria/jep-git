@@ -101,7 +101,7 @@ public class MaskedTextBoxMobile extends MaskedTextBox {
   }
   
   /**
-   * Заполнение массива маской отсутствующих знаяений, например: 12.11 -> 12.11.****
+   * Заполнение массива маской отсутствующих значений, например: 12.11 -> 12.11.****
    * @param chars
    * @param position
    * @param correctPos
@@ -224,13 +224,7 @@ public class MaskedTextBoxMobile extends MaskedTextBox {
    * @return
    */
   public static native boolean isSupportedMobilePlatform() /*-{
-    if( navigator.userAgent.match(/Android/i)
-       || window.navigator.userAgent.indexOf('iPhone') != -1
-       ) {
-          return true;
-        }
-       else {
-          return false;
-    }
+    return navigator.userAgent.match(/Android/i)
+       || window.navigator.userAgent.indexOf('iPhone') != -1;
   }-*/;
 }
