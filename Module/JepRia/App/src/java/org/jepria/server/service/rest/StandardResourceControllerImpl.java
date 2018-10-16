@@ -1,8 +1,8 @@
 package org.jepria.server.service.rest;
 
 import java.lang.reflect.Method;
-import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,6 +10,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.jepria.server.load.rest.Compat;
+import org.jepria.server.load.rest.FieldSortConfigDto;
 import org.jepria.server.load.rest.ListSorter;
 import org.jepria.server.load.rest.SearchEntity;
 import org.jepria.server.load.rest.SearchParamsDto;
@@ -216,6 +217,18 @@ public class StandardResourceControllerImpl implements StandardResourceControlle
       // Statefulness:
 
 
+      // sorting
+      List<FieldSortConfigDto> fieldSortConfigs = searchParamsDto.getFieldSearchConfigs();
+      
+      if (fieldSortConfigs != null && fieldSortConfigs.size() > 0) {
+        ListSorter listSorter = new ListSorter(fieldSortConfigs, getFieldComparators());
+        
+        synchronized (resultRecords) {
+          Collections.sort(resultRecords, listSorter);
+        }
+      }
+      
+      
       // Сохраним результаты поиска для возможного повторного использования в приложении 
       // (например, для сортировки или выгрузки отчета в Excel).
       searchState.setSearchResultRecords(resultRecords);
@@ -237,6 +250,11 @@ public class StandardResourceControllerImpl implements StandardResourceControlle
       // TODO Auto-generated catch block
       throw new RuntimeException(e);
     }
+  }
+  
+  protected Map<String, Comparator<Object>> getFieldComparators() {
+    // TODO build from recordDefinition
+    return null;
   }
   
   /**
@@ -302,8 +320,6 @@ public class StandardResourceControllerImpl implements StandardResourceControlle
   public List<?> fetchData(SearchState searchState,
       Integer pageSize, 
       Integer page, 
-      String sortField,
-      String sortOrder,
       Integer operatorId) {
     
     List<?> records = (List<?>)searchState.getSearchResultRecords();
@@ -312,24 +328,7 @@ public class StandardResourceControllerImpl implements StandardResourceControlle
       return null;
     }
     
-    
-    
-    // sorting
-    if (sortField != null) {
-      
-      @SuppressWarnings("unchecked")
-      List<Map<String, Object>> sortRecords = new ArrayList<>((List<Map<String, Object>>)records);// typed copy of the list 
-      
-      final int sortOrder0 = "desc".equals(sortOrder) ? -1 : 1;
-      
-      synchronized (sortRecords) {
-        Collections.sort(sortRecords, new ListSorter(sortField, sortOrder0));
-      }
-      
-      records = sortRecords;
-    }
-    
-    
+        
     
     // paging
     pageSize = pageSize == null ? DEFAULT_PAGE_SIZE : pageSize;

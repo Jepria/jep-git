@@ -60,15 +60,11 @@ public interface StandardResourceController {
    * @param searchState search state corresponding to the particular invocation; not {@code null}
    * @param pageSize
    * @param page
-   * @param sortField
-   * @param sortOrder
    * @param operatorId
    * @return non-empty list normally; {@code null} or empty list to indicate 'not found' status
    */
   List<?> fetchData(SearchState searchState,
       Integer pageSize, 
       Integer page, 
-      String sortField,
-      String sortOrder,
       Integer operatorId);
 }

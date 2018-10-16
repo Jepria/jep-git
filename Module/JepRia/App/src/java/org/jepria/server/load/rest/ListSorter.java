@@ -1,56 +1,73 @@
 package org.jepria.server.load.rest;
 
+import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
 import java.util.Map;
 
 import com.technology.jep.jepria.shared.util.DefaultComparator;
 
 /**
- * Сортировщик списка записей по определённому полю
+ * Сортировщик списка записей по определённой конфигурации
  */
 public class ListSorter implements Comparator<Map<String, Object>> {
 
   /**
-   * Поле для сортировки записей
+   * non-null and non-empty
    */
-  protected final String sortFieldName;
+  private final List<FieldSortConfigDto> fieldSortConfigs;
   
   /**
-   * Порядок сортировки: >= 0: в натуральном порядке, < 0: в обратном порядке
+   * non-null
    */
-  protected final int sortOrder;
-  
-  public ListSorter(String sortFieldName) {
-    this(sortFieldName, 1);
-  }
-  
-  public ListSorter(String sortFieldName, int sortOrder) {
-    this(sortFieldName, sortOrder, DefaultComparator.instance);
-  }
+  private final Map<String, Comparator<Object>> fieldComparators;
   
   /**
-   * Схема сравнения значений полей записей
+   * @param fieldSortConfigs non-null & non-empty
+   * @param fieldComparators
    */
-  protected final Comparator<Object> valueComparator;
-
-  /**
-   * 
-   * @param sortFieldName Поле для сортировки записей
-   * @param valueComparator Схема сравнения значений полей записей
-   */
-  public ListSorter(String sortFieldName, int sortOrder, Comparator<Object> valueComparator) {
-    this.sortFieldName = sortFieldName;
-    this.sortOrder = sortOrder;
-    this.valueComparator = valueComparator;
+  public ListSorter(List<FieldSortConfigDto> fieldSortConfigs, Map<String, Comparator<Object>> fieldComparators) {
+    if (fieldSortConfigs == null || fieldSortConfigs.size() == 0) {
+      // TODO
+      throw new IllegalArgumentException();
+    }
+    this.fieldSortConfigs = fieldSortConfigs;
+    
+    this.fieldComparators = fieldComparators == null ? Collections.emptyMap() : fieldComparators;
   }
-
+  
+  public ListSorter(List<FieldSortConfigDto> fieldSortConfigs) {
+    this(fieldSortConfigs, null);
+  }
+  
   @Override
   public int compare(Map<String, Object> m1, Map<String, Object> m2) {
-    if (sortFieldName != null) {
-      Object v1 = m1.get(sortFieldName);
-      Object v2 = m2.get(sortFieldName);
-      return valueComparator.compare(sortOrder >= 0 ? v1 : v2, sortOrder >= 0 ? v2 : v1);
+    
+    for (FieldSortConfigDto fieldSortConfig: fieldSortConfigs) {
+      
+      final String fieldName = fieldSortConfig.getFieldName();
+      
+      final Object v1 = m1.get(fieldName);
+      final Object v2 = m2.get(fieldName);
+      
+      final Comparator<Object> fieldComparator = fieldComparators.getOrDefault(fieldName, getDefaultComparator());
+      
+      int cmpResult = fieldComparator.compare(v1,  v2);
+      
+      // apply field sort order to a particular comparison rseult
+      cmpResult *= fieldSortConfig.getSortOrderAsInt();
+      
+      if (cmpResult != 0) {
+        // return immediately on the first difference
+        return cmpResult;
+      }
     }
-    return valueComparator.compare(sortOrder >= 0 ? m1 : m2, sortOrder >= 0 ? m2 : m1);
+    
+    // all field values from fieldSortConfigs are equal
+    return 0;
+  }
+  
+  protected Comparator<Object> getDefaultComparator() {
+    return DefaultComparator.instance;
   }
 }

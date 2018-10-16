@@ -14,7 +14,6 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -22,11 +21,11 @@ import javax.ws.rs.core.Response.Status;
 
 import org.jepria.server.load.rest.SearchEntity;
 import org.jepria.server.load.rest.SearchParamsDto;
+import org.jepria.server.service.rest.ResourceDescription;
 import org.jepria.server.service.rest.SearchState;
 import org.jepria.server.service.rest.SearchStateImpl;
 import org.jepria.server.service.rest.StandardResourceController;
 import org.jepria.server.service.rest.StandardResourceControllerImpl;
-import org.jepria.server.service.rest.ResourceDescription;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -193,13 +192,11 @@ public abstract class JaxrsStandardResourceEndpoint {
   public Response fetchData(
       @PathParam("searchId") String searchId,
       @PathParam("pageSize") Integer pageSize, 
-      @PathParam("page") Integer page, 
-      @QueryParam("sortField") String sortField,
-      @QueryParam("sortOrder") String sortOrder) {
+      @PathParam("page") Integer page) {
 
     final SearchState searchState = getSearchState(searchId);
     
-    List<?> result = controller.get().fetchData(searchState, pageSize, page, sortField, sortOrder, getOperatorId());
+    List<?> result = controller.get().fetchData(searchState, pageSize, page, getOperatorId());
     if (result == null || result.isEmpty()) {
       return Response.status(Status.NOT_FOUND).build();
     } else {
