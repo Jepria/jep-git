@@ -13,14 +13,14 @@ public class SearchEntity {
   private int resultSize;
 
   /**
-   * Исходная поисковая модель
+   * Исходный (пользовательский) поисковый шаблон
    */
-  private Map<String, Object> model;
+  private Map<String, Object> template;
   
   /**
    * Поисковый шаблон, полученный из поисковой модели
    */
-  private Map<String, Object> template;
+  private Map<String, Object> model;
   
   public int getResultSize() {
     return resultSize;
@@ -28,14 +28,6 @@ public class SearchEntity {
 
   public void setResultSize(int resultSize) {
     this.resultSize = resultSize;
-  }
-
-  public Map<String, Object> getModel() {
-    return model;
-  }
-
-  public void setModel(Map<String, Object> model) {
-    this.model = model;
   }
 
   public Map<String, Object> getTemplate() {
@@ -46,9 +38,17 @@ public class SearchEntity {
     this.template = template;
   }
 
+  public Map<String, Object> getModel() {
+    return model;
+  }
+
+  public void setModel(Map<String, Object> model) {
+    this.model = model;
+  }
+
   @Override
   public String toString() {
-    return "SearchEntity [resultSize=" + resultSize + ", model=" + model + ", template=" + template + "]";
+    return "SearchEntity [resultSize=" + resultSize + ", template=" + template + ", model=" + model + "]";
   }
   
 }

@@ -188,10 +188,10 @@ public class StandardResourceControllerImpl implements StandardResourceControlle
   @Override
   public void postSearch(SearchParamsDto searchParamsDto, SearchState searchState, Integer operatorId) {
     
-    Map<String, Object> model = searchParamsDto.getModel();
-    if (model == null) {
+    Map<String, Object> template = searchParamsDto.getTemplate();
+    if (template == null) {
       // search with no params
-      model = Collections.emptyMap();
+      template = Collections.emptyMap();
     }
     
     Integer maxRowCount = searchParamsDto.getMaxRowCount();
@@ -201,13 +201,13 @@ public class StandardResourceControllerImpl implements StandardResourceControlle
     
     try {
       
-      Map<String, Object> template = createTemplate(model);
+      Map<String, Object> model = createModel(template);
       
       Mutable<Boolean> autoRefreshFlag = new Mutable<Boolean>(false);
       
       List<Map<String, Object>> resultRecords = Compat.recListToMapList(
           dao.find(
-              Compat.mapToRecord(template),
+              Compat.mapToRecord(model),
               autoRefreshFlag,
               maxRowCount,
               operatorId));
@@ -223,8 +223,8 @@ public class StandardResourceControllerImpl implements StandardResourceControlle
       // Сформируем поисковую сущность
       SearchEntity searchEntity = new SearchEntity();
       searchEntity.setResultSize(resultRecords.size());
-      searchEntity.setModel(model);
       searchEntity.setTemplate(template);
+      searchEntity.setModel(model);
       
       // Сохраним информацию по поисковому запросу
       searchState.setSearchEntity(searchEntity);
@@ -240,25 +240,25 @@ public class StandardResourceControllerImpl implements StandardResourceControlle
   }
   
   /**
-   * Create search template from a search model
-   * @param model
+   * Create search model from a search template
+   * @param template
    * @return {@code null} if the input is {@code null}
    */
-  protected Map<String, Object> createTemplate(Map<String, Object> model) {
-    if (model == null) {
+  protected Map<String, Object> createModel(Map<String, Object> template) {
+    if (template == null) {
       return null;
     }
     
-    Map<String, Object> template = new HashMap<>(model);
+    Map<String, Object> model = new HashMap<>(template);
     
     Map<String, JepLikeEnum> matchMap = recordDefinition.getLikeMap();
     Map<String, JepTypeEnum> typeMap = recordDefinition.getTypeMap();
     
     if (matchMap == null || matchMap.size() == 0 || typeMap == null || typeMap.size() == 0) {
-      return template;
+      return model;
     }
 
-    template.entrySet().forEach(entry -> {
+    model.entrySet().forEach(entry -> {
 
       final String key = entry.getKey();
       final Object value = entry.getValue();
@@ -287,7 +287,7 @@ public class StandardResourceControllerImpl implements StandardResourceControlle
       }
     });
     
-    return template;
+    return model;
   }
   
   @Override

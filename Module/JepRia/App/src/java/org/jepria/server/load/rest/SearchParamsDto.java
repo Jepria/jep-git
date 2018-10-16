@@ -4,16 +4,16 @@ import java.util.Map;
 
 public class SearchParamsDto {
   
-  private Map<String, Object> model;
+  private Map<String, Object> template;
   
   private Integer maxRowCount;
 
-  public Map<String, Object> getModel() {
-    return model;
+  public Map<String, Object> getTemplate() {
+    return template;
   }
 
-  public void setModel(Map<String, Object> model) {
-    this.model = model;
+  public void setTemplate(Map<String, Object> template) {
+    this.template = template;
   }
 
   public Integer getMaxRowCount() {
