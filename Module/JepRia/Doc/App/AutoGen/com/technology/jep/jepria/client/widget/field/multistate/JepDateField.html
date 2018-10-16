@@ -214,18 +214,24 @@ extends <a href="../../../../../../../../com/technology/jep/jepria/client/widget
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepDateField.html#FORMAT_YEAR_ONLY">FORMAT_YEAR_ONLY</a></span></code>&nbsp;</td>
 </tr>
 <tr class="rowColor">
+<td class="colFirst"><code>private boolean</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepDateField.html#IS_CLIENT_USE_MOBILE_PLATFORM">IS_CLIENT_USE_MOBILE_PLATFORM</a></span></code>
+<div class="block">Клиент использует мобильную платформу?</div>
+</td>
+</tr>
+<tr class="altColor">
 <td class="colFirst"><code>private java.util.Date</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepDateField.html#maxDate">maxDate</a></span></code>
 <div class="block">Граничные даты диапазона возможных значений дат</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code>private java.util.Date</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepDateField.html#minDate">minDate</a></span></code>
 <div class="block">Граничные даты диапазона возможных значений дат</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code>private int</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepDateField.html#TYPE_DATEPICKER">TYPE_DATEPICKER</a></span></code>&nbsp;</td>
 </tr>
@@ -357,7 +363,7 @@ extends <a href="../../../../../../../../com/technology/jep/jepria/client/widget
 </tr>
 <tr id="i11" class="rowColor">
 <td class="colFirst"><code>protected void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepDateField.html#handlerKeyboardEvent-java.util.Date-">handlerKeyboardEvent</a></span>(java.util.Date&nbsp;value)</code>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepDateField.html#handlerKeyboardEvent-java.util.Date-">handlerKeyboardEvent</a></span>(java.util.Date&nbsp;newDate)</code>
 <div class="block">Обработчик введенного текста с мобильного устройства</div>
 </td>
 </tr>
@@ -488,6 +494,16 @@ extends <a href="../../../../../../../../com/technology/jep/jepria/client/widget
 <pre>protected&nbsp;com.google.gwt.i18n.client.DateTimeFormat format</pre>
 <div class="block">Формат представления даты.<br>
  Влияет на отображение даты на карте просмотра и на сравнение дат.</div>
+</li>
+</ul>
+<a name="IS_CLIENT_USE_MOBILE_PLATFORM">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>IS_CLIENT_USE_MOBILE_PLATFORM</h4>
+<pre>private final&nbsp;boolean IS_CLIENT_USE_MOBILE_PLATFORM</pre>
+<div class="block">Клиент использует мобильную платформу?</div>
 </li>
 </ul>
 <a name="FORMAT_DAYS_AND_MONTH_AND_YEAR_TIME">
@@ -898,7 +914,7 @@ extends <a href="../../../../../../../../com/technology/jep/jepria/client/widget
 <ul class="blockList">
 <li class="blockList">
 <h4>handlerKeyboardEvent</h4>
-<pre>protected&nbsp;void&nbsp;handlerKeyboardEvent(java.util.Date&nbsp;value)</pre>
+<pre>protected&nbsp;void&nbsp;handlerKeyboardEvent(java.util.Date&nbsp;newDate)</pre>
 <div class="block">Обработчик введенного текста с мобильного устройства</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>

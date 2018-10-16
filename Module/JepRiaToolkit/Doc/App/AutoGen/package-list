@@ -15,3 +15,5 @@ com.technology.jep.jepriatoolkit.switcher
 com.technology.jep.jepriatoolkit.util
 com.technology.jep.jepriatoolkit.version
 com.technology.jep.jepriatoolkit.version.appinstall
+com.technology.jep.jepriatoolkit.version.signer
+com.technology.jep.jepriatoolkit.version.signer.version

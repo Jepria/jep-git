@@ -28,7 +28,8 @@
   <h3><a name="releaseNotes">Замечания к версиям</a></h3> 
   <h4>Версии</h4> 
   <ul>
-   <li><a href="#10.9.0">10.9.0 (2018-05-18)</a></li>  
+   <li><a href="#10.10.0">10.10.0 (2018-10-16)</a></li> 
+   <li><a href="#10.9.0">10.9.0 (2018-05-18)</a></li> 
    <li><a href="#10.8.0">10.8.0 (2018-03-22)</a></li> 
    <li><a href="#10.7.0">10.7.0 (2018-02-15)</a></li> 
    <li><a href="#10.6.2">10.6.2 (2018-01-30)</a></li> 
@@ -150,42 +151,69 @@
    <li><a href="#2.0.0">2.0.0 (2011-03-03)</a></li> 
    <li><a href="#1.0.0">1.0.0 (2010-11-01)</a></li> 
   </ul>
-  <h5><a name="10.9.0">10.9.0 (2018-05-18)</a></h5>
+  <h5><a name="10.10.0">10.10.0 (2018-10-16)</a></h5>
   <ul>
-   <li><b>fix:</b> Восстановлена работа каскадного выделения при разворачивании узла</li>
-   <li><b>refactor:</b> Перенос стилей из метода applyStyle класса JepMultiStateField (и его наследников) в css файл (Feature 4721)</li>
-   <li><b>refactor:</b> Для JepListField реализована возможность задать fieldIdAsWebEl не только через конструктор (Feature: 4661)</li>
-   <li><b>feat:</b> Названия констант для ролей входа в модуль переименованы в ROLE_{role_short_name}</li>
-   <li><b>fix:</b> Исправлено разворачивание узлов в JepTreeField</li>
-   <li><b>chore:</b> Для более удобнй работы в наследниках понижена строгость видимости полей (с private на protected)</li>
-   <li><b>feat:</b> Добавлена возможность сбросить (reset) JepComboBoxField для повторного заполнения (повторно использовать FIRST_TIME_USE_EVENT)</li>
-   <li><b>feat:</b> Добавлен признак транзакционности для загрузки файлов</li>
-   <li><b>fix:</b> исправлено некорректное оформление кода</li>
-   <li><b>fix:</b> исправлена некорректная кодировка русских символов по результатам merge</li>
-   <li><b>doc:</b> Тестовый коммит</li>
-   <li><b>fix:</b> Добавлен import, пропущен по результатам merge</li>
-   <li><b>fix:</b> Скорректированы стили для отображения иконок</li>
-   <li><b>fix:</b> Исправлена "ошибка 0" (Feature: 4681)</li>
-   <li><b>feat:</b> В разметку Jep-поля (JepMultiStateField.ui.xml) добавлены классы для панелей карт</li>
-   <li><b>feat:</b> Стили для отображения поля вертикальной ориентации</li>
-   <li><b>refactor:</b> В Entry.jsp удалены стили для td</li>
-   <li><b>fix:</b> Скорректирован функционал по заданию высоты для карт</li>
-   <li><b>feat:</b> Добавлены стили для полей вертикальной ориентации</li>
-   <li><b>refactor:</b> В форматировании JepMultiStateField символ табуляции заменен на два пробела</li>
-   <li><b>feat:</b> В JepMultiStateField добавлены методы установки ширины наименования/компонента редактирования поля (ранее можно было задать только в пикселях)</li>
-   <li><b>refactor:</b> В MainModulePresenter у метода startModule изменен модификатор доступа на protected</li>
-   <li><b>refactor:</b> В форматировании JepMultiStateField символ табуляции заменен на два пробела</li>
-   <li><b>refactor:</b> В Entry.jsp строковое значение заменено константой</li>
-   <li><b>feat:</b> Добавлена генерация констант для полей и интерфейсного API для авто-тестов</li>
-   <li><b>fix:</b> Определена ширина лейбла в 200px</li>
-   <li><b>feat:</b> Добавлена генерация ролей доступа к модулям в общие константы</li>
-   <li><b>fix:</b> Добавлено ожидание исчезновения маски при авторизации через Selenium</li>
-   <li><b>fix:</b> Исправлено ширина поля по умолчанию для лейбла - 150px Добавлены комментарии к методам</li>
-   <li><b>fix:</b> Скорректирован ф-л отображения всплывающей панели; Скорректирован ф-л задания стилей</li>
-   <li><b>fix:</b> Правки по оформлению Задание стиля для приведения к стандартному виду (задания высоты редактируемой карты)</li>
-   <li><b>refactor:</b> актуализация генератора автотестов для корректной работы с параметром пакетного префикса</li>
-   <li><b>fix:</b> обновлен "битый" testProperties.ftl (была проблема с кодировкой или лишними символами)</li>
-  </ul>   
+<li> <b>fix (JepRia)</b> тесты JepRiaShowcase не проходили из-за неверного JDBC соединения</li>
+<li> <b>feat</b> P067.T2742 WO120546 - LocalStorage vs Cookies</li>
+<li> <b>feat(Jepria):</b> JepOption: добавлено указание типа значения при сериализации в History Token</li>
+<li> <b>feature(JepRia):</b> Добавлен функ-л по обработке событий ввода на маскированных полях</li>
+<li> <b>fix(JepRia):</b> Определение мобильного браузера для клиента: исправлено некорректное для JavaScript использование модификатора i.</li>
+<li> <b>feat(Jepria):</b> Добавлена возможность определять является ли браузер мобильным и на клиенте и на сервере.</li>
+<li> <b>fix</b> Исправлен баг, не с первого раза выбиралась дата из выпадающего списка/нажатия кнопок переключения месяца/года</li>
+<li> <b>fix(JepRia):</b> Восстановлена работоспособность кеширования данных на сервере (ошибочно) утраченная/удаленная в ревизии 889ac593b9a1a06b8c12c7b7ccf863598a91bebd.</li>
+<li> <b>*</b> Исправление парсинга и представления числа в BigDecimal</li>
+<li> <b>refactor (JepRia):</b> изменения в виджетах для возможности использования средствами UiBinder</li>
+<li> <b>*</b> Исправлено условие: длина массива строго больше нуля</li>
+<li> <b>feat(JepRia):</b> реализация setEnabled для JepRadioField</li>
+<li> <b>[+]</b> Добавление времени JepDateField</li>
+<li> <b>feat(Jepria):</b> в build.xml появилась цель ant create-version</li>
+<li> <b>*</b> Скорректировано форматирование при вводе денежного представления числа</li>
+<li> <b>*</b> изменен формат вывода информации о сборке</li>
+<li> <b>*</b> Валидация диапазона дат осуществляется только для экземпляра JepDatePicker</li>
+<li> <b>refactor(JepRia):</b> Рефакторинг панели прогресса загрузки (Feature: 4541).</li>
+<li> <b>fix(Jepria):</b> Login: добавлена возможность редиректить на SsoUi с использованием JS и без него</li>
+<li> <b>feat (JepRia):</b> изменения в виджетах для возможности использования средствами UiBinder</li>
+<li> <b>fix (JepRia):</b>  - JepMoneyField: форматирование введенного числа с тысячными разделителями - JepDateField: расширение функциональности	1. Возможность отключать datePicker. 2. Возможность выбирать только месяц и год.3. Возможность выбирать только год. 4. Кнопка Сегодня - Переименован метод getJEPThreadLocalRequest -> getThreadLocalRequestWrapper, getJEPThreadLocalResponse -> getThreadLocalResponseWrapper</li>
+<li> <b>fix(Jepria):</b> добавлена проверка на возсожный null в showLoadingPanel</li>
+<li> <b>refactor(JepRia):</b> добавлена панель загрузки во время обработки события DoGetRecordEvent в DetailFormPresenter.</li>
+<li> <b>fix(JepRia):</b> Исправлено прокручивание детальной формы в случае, если TreeField не попадал в поле видимости пользователя.</li>
+  </ul> 
+  <h5><a name="10.9.0">10.9.0 (2018-05-18)</a></h5> 
+  <ul> 
+   <li><b>fix:</b> Восстановлена работа каскадного выделения при разворачивании узла</li> 
+   <li><b>refactor:</b> Перенос стилей из метода applyStyle класса JepMultiStateField (и его наследников) в css файл (Feature 4721)</li> 
+   <li><b>refactor:</b> Для JepListField реализована возможность задать fieldIdAsWebEl не только через конструктор (Feature: 4661)</li> 
+   <li><b>feat:</b> Названия констант для ролей входа в модуль переименованы в ROLE_{role_short_name}</li> 
+   <li><b>fix:</b> Исправлено разворачивание узлов в JepTreeField</li> 
+   <li><b>chore:</b> Для более удобнй работы в наследниках понижена строгость видимости полей (с private на protected)</li> 
+   <li><b>feat:</b> Добавлена возможность сбросить (reset) JepComboBoxField для повторного заполнения (повторно использовать FIRST_TIME_USE_EVENT)</li> 
+   <li><b>feat:</b> Добавлен признак транзакционности для загрузки файлов</li> 
+   <li><b>fix:</b> исправлено некорректное оформление кода</li> 
+   <li><b>fix:</b> исправлена некорректная кодировка русских символов по результатам merge</li> 
+   <li><b>doc:</b> Тестовый коммит</li> 
+   <li><b>fix:</b> Добавлен import, пропущен по результатам merge</li> 
+   <li><b>fix:</b> Скорректированы стили для отображения иконок</li> 
+   <li><b>fix:</b> Исправлена "ошибка 0" (Feature: 4681)</li> 
+   <li><b>feat:</b> В разметку Jep-поля (JepMultiStateField.ui.xml) добавлены классы для панелей карт</li> 
+   <li><b>feat:</b> Стили для отображения поля вертикальной ориентации</li> 
+   <li><b>refactor:</b> В Entry.jsp удалены стили для td</li> 
+   <li><b>fix:</b> Скорректирован функционал по заданию высоты для карт</li> 
+   <li><b>feat:</b> Добавлены стили для полей вертикальной ориентации</li> 
+   <li><b>refactor:</b> В форматировании JepMultiStateField символ табуляции заменен на два пробела</li> 
+   <li><b>feat:</b> В JepMultiStateField добавлены методы установки ширины наименования/компонента редактирования поля (ранее можно было задать только в пикселях)</li> 
+   <li><b>refactor:</b> В MainModulePresenter у метода startModule изменен модификатор доступа на protected</li> 
+   <li><b>refactor:</b> В форматировании JepMultiStateField символ табуляции заменен на два пробела</li> 
+   <li><b>refactor:</b> В Entry.jsp строковое значение заменено константой</li> 
+   <li><b>feat:</b> Добавлена генерация констант для полей и интерфейсного API для авто-тестов</li> 
+   <li><b>fix:</b> Определена ширина лейбла в 200px</li> 
+   <li><b>feat:</b> Добавлена генерация ролей доступа к модулям в общие константы</li> 
+   <li><b>fix:</b> Добавлено ожидание исчезновения маски при авторизации через Selenium</li> 
+   <li><b>fix:</b> Исправлено ширина поля по умолчанию для лейбла - 150px Добавлены комментарии к методам</li> 
+   <li><b>fix:</b> Скорректирован ф-л отображения всплывающей панели; Скорректирован ф-л задания стилей</li> 
+   <li><b>fix:</b> Правки по оформлению Задание стиля для приведения к стандартному виду (задания высоты редактируемой карты)</li> 
+   <li><b>refactor:</b> актуализация генератора автотестов для корректной работы с параметром пакетного префикса</li> 
+   <li><b>fix:</b> обновлен "битый" testProperties.ftl (была проблема с кодировкой или лишними символами)</li> 
+  </ul> 
   <h5><a name="10.8.0">10.8.0 (2018-03-22)</a></h5> 
   <ul> 
    <li><b>fix:</b> Исправлен метод clear() в JepTreeField.</li> 
@@ -344,7 +372,7 @@
   </ul> Основные шаги для перехода на версию 10.3.0: 
   <ol> 
    <li>Во всех клиентских фабриках метод вида <pre>
-  &#64;Override
+  {@literal @}Override
   public S getService() {
     if(dataService == null) {
       dataService = (S) GWT.create(SomeService.class);
@@ -352,7 +380,7 @@
     return dataService;
   }
   </pre> заменить методом <pre>
-  &#64;Override
+  {@literal @}Override
   public S createService() {
     return GWT.create(SomeService.class);
   }
@@ -380,15 +408,19 @@
    <li>Создать новый класс рядом с главным презентером приложения (пакет <code>main.client.ui.main</code>) по шаблону (используя обращения к текстам из предыдущего пункта): <pre>
   public class MyMainViewImpl extends MainViewImpl {
 
-    &#64;Override
+    {@literal @}Override
     protected List
      
+     
      <moduleconfiguration>
+      
       
        getModuleConfigurations() {
       List
       
+      
       <moduleconfiguration>
+       
        
         ret = new ArrayList&lt;&gt;();
       ret.add(new ModuleConfiguration(MODULE_ID_1, moduleText.submodule_1_title()));
@@ -400,13 +432,15 @@
   }
   
       
+      
       </moduleconfiguration>
+     
      
      </moduleconfiguration></pre> </li> 
    <li>В главной клиентской фабрике приложения (пакет <code>main</code>) создать статический инстанс виджета главного представления и переопределить метод <code>getMainView()</code>, по аналогии с <code>detailFormView</code> и <code>listFormView</code> в plain-фабриках: <pre>
   private static final IsWidget mainView = new MyMainViewImpl();
 
-  &#64;Override
+  {@literal @}Override
   public IsWidget getMainView() {
     return mainView;
   } 
@@ -414,13 +448,13 @@
   </pre></pre></li> 
    <li>Может потребоваться изменить возвращаемый тип метода с</li> 
    <pre>
-  &#64;Override
+  {@literal @}Override
   public <b>Activity</b> createMainModulePresenter() {
     return new MyMainModulePresenter(this);
   }
   </pre> на 
    <pre>
-  &#64;Override
+  {@literal @}Override
   public <b>MainModulePresenter</b> createMainModulePresenter() {
     return new MyMainModulePresenter(this);
   }
