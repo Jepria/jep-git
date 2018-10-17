@@ -27,6 +27,8 @@ import org.jepria.server.service.rest.SearchState;
 import org.jepria.server.service.rest.SearchStateImpl;
 import org.jepria.server.service.rest.StandardResourceController;
 import org.jepria.server.service.rest.StandardResourceControllerImpl;
+import org.jepria.server.service.rest.StandardSearchResourceController;
+import org.jepria.server.service.rest.StandardSearchResourceControllerImpl;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -82,7 +84,7 @@ public abstract class JaxrsStandardResourceEndpoint {
    * Supplier protects the internal field from direct access from within the class members,
    * and initializes the field lazily (due to the DI: the injectable fields are being injected after the object construction)
    */
-  private final Supplier<StandardResourceController> controller = new Supplier<StandardResourceController>() {
+  private final Supplier<StandardResourceController> standardController = new Supplier<StandardResourceController>() {
     private StandardResourceController instance = null;
     @Override
     public StandardResourceController get() {
@@ -93,8 +95,27 @@ public abstract class JaxrsStandardResourceEndpoint {
     }
   };
   
+  /**
+   * Supplier protects the internal field from direct access from within the class members,
+   * and initializes the field lazily (due to the DI: the injectable fields are being injected after the object construction)
+   */
+  private final Supplier<StandardSearchResourceController> searchController = new Supplier<StandardSearchResourceController>() {
+    private StandardSearchResourceController instance = null;
+    @Override
+    public StandardSearchResourceController get() {
+      if (instance == null) {
+        instance = createStandardSearchResourceController();
+      }
+      return instance;
+    }
+  };
+  
   protected StandardResourceController createStandardResourceController() {
     return new StandardResourceControllerImpl(getResourceDescription().getRecordDefinition(), getResourceDescription().getDao());
+  }
+  
+  protected StandardSearchResourceController createStandardSearchResourceController() {
+    return new StandardSearchResourceControllerImpl(getResourceDescription().getRecordDefinition(), getResourceDescription().getDao());
   }
   
   //////// CRUD ////////
@@ -109,7 +130,7 @@ public abstract class JaxrsStandardResourceEndpoint {
   @Path("{recordId}")
   @ApiOperation(value = "Get resource by ID")
   public Response getResourceById(@PathParam("recordId") String recordId) {
-    Object record = controller.get().getResourceById(recordId, getCredential());
+    Object record = standardController.get().getResourceById(recordId, getCredential());
     if (record == null) {
       return Response.status(Status.NOT_FOUND).build();
     } else {
@@ -120,7 +141,7 @@ public abstract class JaxrsStandardResourceEndpoint {
   @POST
   @ApiOperation(value = "Create a new instance")
   public Response create(Map<String, Object> instance) {
-    Object createdId = controller.get().create(instance, getCredential());
+    Object createdId = standardController.get().create(instance, getCredential());
     return Response.status(Status.CREATED).header("Location", createdId).build();
   }
   
@@ -128,7 +149,7 @@ public abstract class JaxrsStandardResourceEndpoint {
   @Path("{recordId}")
   @ApiOperation(value = "Delete resource by ID")
   public Response deleteResourceById(@PathParam("recordId") String recordId) {
-    controller.get().deleteResourceById(recordId, getCredential());
+    standardController.get().deleteResourceById(recordId, getCredential());
     return Response.ok().build();
   }
   
@@ -136,7 +157,7 @@ public abstract class JaxrsStandardResourceEndpoint {
   @Path("{recordId}")
   @ApiOperation(value = "Update resource by ID")
   public Response update(@PathParam("recordId") String recordId, Map<String, Object> fields) {
-    controller.get().update(recordId, fields, getCredential());
+    standardController.get().update(recordId, fields, getCredential());
     return Response.ok().build();
   }
 
@@ -146,7 +167,7 @@ public abstract class JaxrsStandardResourceEndpoint {
   @Path("option/{optionEntityName}")
   @ApiOperation(value = "List options by option-entity name")
   public Response listOptions(@PathParam("optionEntityName") String optionEntityName) {
-    List<?> result = controller.get().listOptions(optionEntityName, getCredential());
+    List<?> result = standardController.get().listOptions(optionEntityName, getCredential());
     if (result == null || result.isEmpty()) {
       return Response.status(Status.NOT_FOUND).build();
     } else {
@@ -169,7 +190,7 @@ public abstract class JaxrsStandardResourceEndpoint {
     
     final SearchState searchState = getSearchState(searchId);
     
-    controller.get().postSearch(searchParamsDto, searchState, getCredential());
+    searchController.get().postSearch(searchParamsDto, searchState, getCredential());
     if (searchId == null) {
       return Response.status(Status.NOT_FOUND).build();
     } else {
@@ -185,7 +206,7 @@ public abstract class JaxrsStandardResourceEndpoint {
 
     final SearchState searchState = getSearchState(searchId);
     
-    SearchEntity result = controller.get().getSearchEntity(searchState, getCredential());
+    SearchEntity result = searchController.get().getSearchEntity(searchState, getCredential());
     if (result == null) {
       return Response.status(Status.NOT_FOUND).build();
     } else {
@@ -203,7 +224,7 @@ public abstract class JaxrsStandardResourceEndpoint {
 
     final SearchState searchState = getSearchState(searchId);
     
-    List<?> result = controller.get().fetchData(searchState, pageSize, page, getCredential());
+    List<?> result = searchController.get().fetchData(searchState, pageSize, page, getCredential());
     if (result == null || result.isEmpty()) {
       return Response.status(Status.NOT_FOUND).build();
     } else {
