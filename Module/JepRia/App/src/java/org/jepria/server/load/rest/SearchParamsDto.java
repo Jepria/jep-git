@@ -9,7 +9,7 @@ public class SearchParamsDto {
   
   private Integer maxRowCount;
 
-  private List<FieldSortConfigDto> fieldSearchConfigs;
+  private List<FieldSortConfigDto> sortConfig;
   
   public Map<String, Object> getTemplate() {
     return template;
@@ -19,12 +19,12 @@ public class SearchParamsDto {
     this.template = template;
   }
   
-  public List<FieldSortConfigDto> getFieldSearchConfigs() {
-    return fieldSearchConfigs;
+  public List<FieldSortConfigDto> getSortConfig() {
+    return sortConfig;
   }
 
-  public void setFieldSearchConfigs(List<FieldSortConfigDto> fieldSearchConfigs) {
-    this.fieldSearchConfigs = fieldSearchConfigs;
+  public void setSortConfig(List<FieldSortConfigDto> sortConfig) {
+    this.sortConfig = sortConfig;
   }
 
   public Integer getMaxRowCount() {

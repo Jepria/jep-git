@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.function.Supplier;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -15,9 +16,8 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import org.jepria.server.service.rest.Credential;
-import org.jepria.server.service.rest.ResourceDescription;
-import org.jepria.server.service.rest.StandardResourceController;
-import org.jepria.server.service.rest.StandardResourceControllerImpl;
+import org.jepria.server.service.rest.SearchStorage;
+import org.jepria.server.service.rest.SessionSearchStorage;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -29,7 +29,7 @@ import io.swagger.annotations.ApiOperation;
 @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
 @Consumes(MediaType.APPLICATION_JSON + ";charset=utf-8")
 @Api
-public abstract class JaxrsApplicationOptionEndpoint {
+public abstract class JaxrsApplicationOptionEndpoint extends JaxrsStandardEndpointBase {
   
   protected JaxrsApplicationOptionEndpoint() {}
   
@@ -40,15 +40,10 @@ public abstract class JaxrsApplicationOptionEndpoint {
   private HttpServletRequest request;
   
   /**
-   * Provides application resource description
-   * @return
-   */
-  protected abstract ResourceDescription getResourceDescription();
-  
-  /**
    * Get credential from the request
    * @return
    */
+  @Override
   protected Credential getCredential() {
     Integer operatorId = 1;
     // TODO = (Integer)request.getHeader("operatorId");
@@ -60,26 +55,17 @@ public abstract class JaxrsApplicationOptionEndpoint {
     };
   }
   
-  /**
-   * Supplier protects the internal field from direct access from within the class members,
-   * and initializes the field lazily (due to the DI: the injectable fields are being injected after the object construction)
-   */
-  private final Supplier<StandardResourceController> controller = new Supplier<StandardResourceController>() {
-    private StandardResourceController instance = null;
-    @Override
-    public StandardResourceController get() {
-      if (instance == null) {
-        instance = createStandardResourceController();
-      }
-      return instance;
-    }
-  };
-  
-  protected StandardResourceController createStandardResourceController() {
-    return new StandardResourceControllerImpl(getResourceDescription().getRecordDefinition(), getResourceDescription().getDao());
+  @Override
+  protected SearchStorage getSearchStorage() {
+    return new SessionSearchStorage(
+        getResourceDescription().getResourceName(),
+        new Supplier<HttpSession>() {
+          @Override
+          public HttpSession get() {
+            return request.getSession();
+          }
+        });
   }
-  
-  //////// OPTIONS ////////
   
   @GET
   @Path("{optionEntityName}")

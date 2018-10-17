@@ -1,5 +1,6 @@
 package org.jepria.server.load.rest;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -10,7 +11,7 @@ public class SearchEntity {
   /**
    * Количество записей в результирующем списке поиска
    */
-  private int resultSize;
+  private int resultsetSize;
 
   /**
    * Исходный (пользовательский) поисковый шаблон
@@ -22,12 +23,19 @@ public class SearchEntity {
    */
   private Map<String, Object> model;
   
-  public int getResultSize() {
-    return resultSize;
+  private List<?> resultset;
+  
+  private Boolean autoRefresh;
+  
+  
+  
+  
+  public int getResultsetSize() {
+    return resultsetSize;
   }
 
-  public void setResultSize(int resultSize) {
-    this.resultSize = resultSize;
+  public void setResultsetSize(int resultsetSize) {
+    this.resultsetSize = resultsetSize;
   }
 
   public Map<String, Object> getTemplate() {
@@ -45,10 +53,28 @@ public class SearchEntity {
   public void setModel(Map<String, Object> model) {
     this.model = model;
   }
+  
+  public List<?> getResultset() {
+    return resultset;
+  }
+
+  public void setResultset(List<?> resultset) {
+    this.resultset = resultset;
+  }
+  
+  
+
+  public Boolean getAutoRefresh() {
+    return autoRefresh;
+  }
+
+  public void setAutoRefresh(Boolean autoRefresh) {
+    this.autoRefresh = autoRefresh;
+  }
 
   @Override
   public String toString() {
-    return "SearchEntity [resultSize=" + resultSize + ", template=" + template + ", model=" + model + "]";
+    return "SearchEntity [resultSize=" + resultsetSize + ", template=" + template + ", model=" + model + "]";
   }
   
 }
