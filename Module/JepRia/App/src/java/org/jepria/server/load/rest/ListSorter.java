@@ -55,7 +55,8 @@ public class ListSorter implements Comparator<Map<String, Object>> {
       int cmpResult = fieldComparator.compare(v1,  v2);
       
       // apply field sort order to a particular comparison rseult
-      cmpResult *= fieldSortConfig.getSortOrderAsInt();
+      int fieldSortOrder = "desc".equals(fieldSortConfig.getSortOrder()) ? -1 : 1; 
+      cmpResult *= fieldSortOrder;
       
       if (cmpResult != 0) {
         // return immediately on the first difference
