@@ -12,31 +12,31 @@ public interface StandardResourceController {
 
   /**
    * @param recordId
-   * @param operatorId
+   * @param credential
    * @return instance normally; {@code null} to indicate 'not found' status
    */
-  Object getResourceById(String recordId, Integer operatorId);
+  Object getResourceById(String recordId, Credential credential);
   
   /**
    * @param instance
-   * @param operatorId
+   * @param credential
    * @return created instance ID normally; never {@code null}
    */
-  Object create(Map<String, Object> instance, Integer operatorId);
+  Object create(Map<String, Object> instance, Credential credential);
   
-  void deleteResourceById(String recordId, Integer operatorId);
+  void deleteResourceById(String recordId, Credential credential);
   
-  void update(String recordId, Map<String, Object> fields, Integer operatorId);
+  void update(String recordId, Map<String, Object> fields, Credential credential);
   
   /////////////////////////// OPTIONS RESOURCE //////////////////////////
   
   /**
    * 
    * @param optionEntityName
-   * @param operatorId
+   * @param credential
    * @return non-empty list normally; {@code null} or empty list to indicate 'not found' status
    */
-  List<?> listOptions(String optionEntityName, Integer operatorId);
+  List<?> listOptions(String optionEntityName, Credential credential);
   
   
   /////////////////////////// SEARCH RESOURCE ///////////////////////////
@@ -44,27 +44,27 @@ public interface StandardResourceController {
   /**
    * @param searchParamsDto
    * @param searchState search state corresponding to the particular invocation; not {@code null}
-   * @param operatorId
+   * @param credential
    */
-  void postSearch(SearchParamsDto searchParamsDto, SearchState searchState, Integer operatorId);
+  void postSearch(SearchParamsDto searchParamsDto, SearchState searchState, Credential credential);
   
   /**
    * 
    * @param searchState search state corresponding to the particular invocation; not {@code null}
-   * @param operatorId
+   * @param credential
    * @return search entity normally; {@code null} to indicate 'not found' status
    */
-  SearchEntity getSearchEntity(SearchState searchState, Integer operatorId);
+  SearchEntity getSearchEntity(SearchState searchState, Credential credential);
   
   /**
    * @param searchState search state corresponding to the particular invocation; not {@code null}
    * @param pageSize
    * @param page
-   * @param operatorId
+   * @param credential
    * @return non-empty list normally; {@code null} or empty list to indicate 'not found' status
    */
   List<?> fetchData(SearchState searchState,
       Integer pageSize, 
       Integer page, 
-      Integer operatorId);
+      Credential credential);
 }

@@ -14,9 +14,10 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import org.jepria.server.service.rest.Credential;
+import org.jepria.server.service.rest.ResourceDescription;
 import org.jepria.server.service.rest.StandardResourceController;
 import org.jepria.server.service.rest.StandardResourceControllerImpl;
-import org.jepria.server.service.rest.ResourceDescription;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -45,12 +46,18 @@ public abstract class JaxrsApplicationOptionEndpoint {
   protected abstract ResourceDescription getResourceDescription();
   
   /**
-   * Get operatorId from the request
+   * Get credential from the request
    * @return
    */
-  protected Integer getOperatorId() {
-    // TODO return request.getHeader("operatorId");
-    return 1;
+  protected Credential getCredential() {
+    Integer operatorId = 1;
+    // TODO = (Integer)request.getHeader("operatorId");
+    return new Credential() {
+      @Override
+      public Integer getOperatorId() {
+        return operatorId;
+      }
+    };
   }
   
   /**
@@ -78,7 +85,7 @@ public abstract class JaxrsApplicationOptionEndpoint {
   @Path("{optionEntityName}")
   @ApiOperation(value = "List options by option-entity name")
   public Response listOptions(@PathParam("optionEntityName") String optionEntityName) {
-    List<?> result = controller.get().listOptions(optionEntityName, getOperatorId());
+    List<?> result = controller.get().listOptions(optionEntityName, getCredential());
     if (result == null || result.isEmpty()) {
       return Response.status(Status.NOT_FOUND).build();
     } else {

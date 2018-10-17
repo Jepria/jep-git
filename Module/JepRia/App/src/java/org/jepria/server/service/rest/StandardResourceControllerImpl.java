@@ -66,7 +66,7 @@ public class StandardResourceControllerImpl implements StandardResourceControlle
   //////////// CRUD ///////////////////
 
   @Override
-  public Object getResourceById(String recordId, Integer operatorId) {
+  public Object getResourceById(String recordId, Credential credential) {
 
     String[] primaryKey = recordDefinition.getPrimaryKey();
     
@@ -108,7 +108,7 @@ public class StandardResourceControllerImpl implements StandardResourceControlle
           Compat.mapToRecord(primaryKeyMap), 
           new Mutable<Boolean>(false), 
           1, 
-          operatorId);
+          credential.getOperatorId());
 
       
       // check find result is of size 1
@@ -132,19 +132,19 @@ public class StandardResourceControllerImpl implements StandardResourceControlle
   }
   
   @Override
-  public Object create(Map<String, Object> instance, Integer operatorId) {
+  public Object create(Map<String, Object> instance, Credential credential) {
     // TODO
     throw new NotImplementedYetException();
   }
   
   @Override
-  public void deleteResourceById(String recordId, Integer operatorId) {
+  public void deleteResourceById(String recordId, Credential credential) {
     // TODO
     throw new NotImplementedYetException();
   }
   
   @Override
-  public void update(String recordId, Map<String, Object> fields, Integer operatorId) {
+  public void update(String recordId, Map<String, Object> fields, Credential credential) {
     // TODO
     throw new NotImplementedYetException();
   }
@@ -152,7 +152,7 @@ public class StandardResourceControllerImpl implements StandardResourceControlle
   /////////////////////////// OPTIONS RESOURCE //////////////////////////
   
   @Override
-  public List<?> listOptions(String optionEntityName, Integer operatorId) {
+  public List<?> listOptions(String optionEntityName, Credential credential) {
 
     try {
       String optionEntityNameNormalized = normalizeResourceName(optionEntityName);
@@ -187,7 +187,7 @@ public class StandardResourceControllerImpl implements StandardResourceControlle
   /////////////////////////// SEARCH RESOURCE ///////////////////////////
   
   @Override
-  public void postSearch(SearchParamsDto searchParamsDto, SearchState searchState, Integer operatorId) {
+  public void postSearch(SearchParamsDto searchParamsDto, SearchState searchState, Credential credential) {
     
     Map<String, Object> template = searchParamsDto.getTemplate();
     if (template == null) {
@@ -211,7 +211,7 @@ public class StandardResourceControllerImpl implements StandardResourceControlle
               Compat.mapToRecord(model),
               autoRefreshFlag,
               maxRowCount,
-              operatorId));
+              credential.getOperatorId()));
       
       
       // Statefulness:
@@ -309,7 +309,7 @@ public class StandardResourceControllerImpl implements StandardResourceControlle
   }
   
   @Override
-  public SearchEntity getSearchEntity(SearchState searchState, Integer operatorId) {
+  public SearchEntity getSearchEntity(SearchState searchState, Credential credential) {
     return searchState.getSearchEntity();
   }
 
@@ -320,7 +320,7 @@ public class StandardResourceControllerImpl implements StandardResourceControlle
   public List<?> fetchData(SearchState searchState,
       Integer pageSize, 
       Integer page, 
-      Integer operatorId) {
+      Credential credential) {
     
     List<?> records = (List<?>)searchState.getSearchResultRecords();
 
