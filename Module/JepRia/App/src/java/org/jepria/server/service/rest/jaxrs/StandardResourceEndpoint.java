@@ -175,13 +175,13 @@ public abstract class StandardResourceEndpoint extends StandardEndpointBase {
   
   @GET
   @Path("search/{searchId}/resultset")
-  @ApiOperation(value = "Get entire resultset")
+  @ApiOperation(value = "Get whole resultset")
   public Response getResultset(
       @PathParam("searchId") String searchId) {
     final List<?> result;
     
     try {
-      result = searchController.get().getEntireResultset(searchId, getCredential());
+      result = searchController.get().getResultset(searchId, getCredential());
     } catch (NoSuchSearchIdException e) {
       // TODO log?
       return Response.status(Status.NOT_FOUND).build();
@@ -215,7 +215,7 @@ public abstract class StandardResourceEndpoint extends StandardEndpointBase {
     final List<?> result;
     
     try {
-      result = searchController.get().fetchResultsetPaged(searchId, pageSize, page, getCredential());
+      result = searchController.get().getResultsetPaged(searchId, pageSize, page, getCredential());
     } catch (NoSuchSearchIdException e) {
       // TODO log?
       return Response.status(Status.NOT_FOUND).build();

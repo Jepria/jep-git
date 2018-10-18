@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.jepria.server.load.rest.Compat;
+import org.jepria.compat.Compat;
 import org.jepria.server.service.security.Credential;
 
 import com.technology.jep.jepria.shared.exceptions.ApplicationException;
@@ -57,20 +57,20 @@ public class ResourceControllerImpl implements ResourceController {
   @Override
   public Object getResourceById(String recordId, Credential credential) {
 
-    String[] primaryKey = resourceDescription.getRecordDefinition().getPrimaryKey();
+    List<String> primaryKey = resourceDescription.getRecordDefinition().getPrimaryKey();
     
     // check primary key is of length 1
     if (primaryKey == null) {
       throw new NullPointerException("Primary key must not be null");
-    } else if (primaryKey.length != 1) {
+    } else if (primaryKey.size() != 1) {
       // TODO add support
-      throw new UnsupportedOperationException("Only primary key of length 1 is supported (actual length: " + primaryKey.length + ")");
+      throw new UnsupportedOperationException("Only primary key of length 1 is supported (actual length: " + primaryKey.size() + ")");
     }
     
 
-    String primaryKey0 = primaryKey[0];
+    String primaryKey0 = primaryKey.get(0);
 
-    JepTypeEnum primaryKeyType = resourceDescription.getRecordDefinition().getTypeMap().get(primaryKey0);
+    JepTypeEnum primaryKeyType = resourceDescription.getRecordDefinition().getFieldTypes().get(primaryKey0);
     final Object primaryKeyValueTyped;
 
     switch (primaryKeyType) {
@@ -94,7 +94,7 @@ public class ResourceControllerImpl implements ResourceController {
 
     try {
       List<JepRecord> result = resourceDescription.getDao().find(
-          Compat.mapToRecord(primaryKeyMap), 
+          Compat.convertRecord(primaryKeyMap), 
           new Mutable<Boolean>(false), 
           1, 
           credential.getOperatorId());

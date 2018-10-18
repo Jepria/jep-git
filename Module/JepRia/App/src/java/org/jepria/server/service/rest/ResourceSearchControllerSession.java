@@ -11,8 +11,8 @@ import java.util.function.Supplier;
 
 import javax.servlet.http.HttpSession;
 
+import org.jepria.compat.Compat;
 import org.jepria.server.load.rest.ColumnSortConfigurationDto;
-import org.jepria.server.load.rest.Compat;
 import org.jepria.server.load.rest.ListSorter;
 import org.jepria.server.load.rest.SearchParamsDto;
 import org.jepria.server.service.security.Credential;
@@ -115,8 +115,8 @@ public class ResourceSearchControllerSession implements ResourceSearchController
 
     Map<String, Object> preparedTemplate = new HashMap<>(template);
 
-    Map<String, JepLikeEnum> matchMap = resourceDescription.getRecordDefinition().getLikeMap();
-    Map<String, JepTypeEnum> typeMap = resourceDescription.getRecordDefinition().getTypeMap();
+    Map<String, JepLikeEnum> matchMap = resourceDescription.getRecordDefinition().getFieldMatch();
+    Map<String, JepTypeEnum> typeMap = resourceDescription.getRecordDefinition().getFieldTypes();
 
     if (matchMap == null || matchMap.size() == 0 || typeMap == null || typeMap.size() == 0) {
       // leave unchanged
@@ -179,7 +179,7 @@ public class ResourceSearchControllerSession implements ResourceSearchController
     try {
       resultset = Compat.recListToMapList(
           resourceDescription.getDao().find(
-              Compat.mapToRecord(searchModel.preparedTemplate),
+              Compat.convertRecord(searchModel.preparedTemplate),
               autoRefreshFlag,
               searchModel.maxRowCount,
               credential.getOperatorId()));
@@ -201,7 +201,8 @@ public class ResourceSearchControllerSession implements ResourceSearchController
     List<ColumnSortConfigurationDto> fieldSortConfigs = searchParams.getListSortConfiguration();
 
     if (fieldSortConfigs != null && fieldSortConfigs.size() > 0) {
-      ListSorter listSorter = new ListSorter(fieldSortConfigs, getFieldComparators());
+      Map<String, Comparator<Object>> fieldComparators = resourceDescription.getRecordDefinition().getFieldComparators();
+      ListSorter listSorter = new ListSorter(fieldSortConfigs, fieldComparators);
 
       synchronized (resultset) {
         Collections.sort(resultset, listSorter);
@@ -210,11 +211,6 @@ public class ResourceSearchControllerSession implements ResourceSearchController
     
     
     session.get().setAttribute(getSessionAttrNameSearchResultset(searchId), resultset);
-  }
-  
-  protected Map<String, Comparator<Object>> getFieldComparators() {
-    // TODO build from recordDefinition
-    return null;
   }
   
   @Override
@@ -260,14 +256,15 @@ public class ResourceSearchControllerSession implements ResourceSearchController
   }
   
   
-  protected boolean allowedGetResultset(String searchId, Credential credential) throws NoSuchSearchIdException {
-    // TODO this is a sample!
-    return getResultsetLocal(searchId, credential).size() <= 5;
+  protected boolean isSupportedGetResultset(String searchId, Credential credential) throws NoSuchSearchIdException {
+    final int actualResultsetSize = getResultsetLocal(searchId, credential).size();
+    final int maxResultsetSize = resourceDescription.getRecordDefinition().getResultsetSizeLimit();  
+    return actualResultsetSize <= maxResultsetSize;
   }
   
   @Override
-  public List<?> getEntireResultset(String searchId, Credential credential) throws NoSuchSearchIdException, UnsupportedMethodException {
-    if (!allowedGetResultset(searchId, credential)) {
+  public List<?> getResultset(String searchId, Credential credential) throws NoSuchSearchIdException, UnsupportedMethodException {
+    if (!isSupportedGetResultset(searchId, credential)) {
       throw new UnsupportedMethodException();
     } else {
       return getResultsetLocal(searchId, credential);
@@ -275,7 +272,7 @@ public class ResourceSearchControllerSession implements ResourceSearchController
   }
   
   @Override
-  public List<?> fetchResultsetPaged(String searchId, int pageSize, int page, Credential credential) throws NoSuchSearchIdException {
+  public List<?> getResultsetPaged(String searchId, int pageSize, int page, Credential credential) throws NoSuchSearchIdException {
     List<?> resultset = getResultsetLocal(searchId, credential);
     return paging(resultset, pageSize, page);
   }

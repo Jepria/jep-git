@@ -1,4 +1,4 @@
-package org.jepria.server.load.rest;
+package org.jepria.compat;
 
 import java.util.List;
 import java.util.Map;
@@ -12,7 +12,7 @@ import com.technology.jep.jepria.shared.record.JepRecord;
 @Deprecated
 public class Compat {
   
-  public static JepRecord mapToRecord(Map<String, Object> map) {
+  public static JepRecord convertRecord(Map<String, Object> map) {
     if (map == null) {
       return null;
     }

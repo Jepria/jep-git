@@ -54,7 +54,7 @@ public interface ResourceSearchController {
    * @return
    * @throws NoSuchSearchIdException if no search request found by the searchId
    */
-  List<?> fetchResultsetPaged(String searchId, int pageSize, int page, Credential credential) throws NoSuchSearchIdException;
+  List<?> getResultsetPaged(String searchId, int pageSize, int page, Credential credential) throws NoSuchSearchIdException;
 
   /**
    * 
@@ -62,9 +62,10 @@ public interface ResourceSearchController {
    * @param credential
    * @return
    * @throws NoSuchSearchIdException if no search request found by the searchId,
-   * @throws UnsupportedMethodException if getEntireResultset method is not allowed for the searchId (use {@link #fetchResultsetPaged} instead)
+   * @throws UnsupportedMethodException if {@link #getResultset} is not supported for the searchId (the resultset is too large).
+   * Then use {@link #fetchResultsetPaged} instead
    */
-  List<?> getEntireResultset(String searchId, Credential credential) throws NoSuchSearchIdException, UnsupportedMethodException;
+  List<?> getResultset(String searchId, Credential credential) throws NoSuchSearchIdException, UnsupportedMethodException;
 
   /**
    * @param searchId

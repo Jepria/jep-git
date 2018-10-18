@@ -1,7 +1,8 @@
 package org.jepria.server.service.rest;
 
+import org.jepria.shared.RecordDefinition;
+
 import com.technology.jep.jepria.server.dao.JepDataStandard;
-import com.technology.jep.jepria.shared.record.JepRecordDefinition;
 
 /**
  * Implementors provide standard applicational description for the REST resources  
@@ -12,6 +13,6 @@ public interface ResourceDescription {
 
   String getResourceName();
 
-  JepRecordDefinition getRecordDefinition();
+  RecordDefinition getRecordDefinition();
 
 }
