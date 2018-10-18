@@ -41,7 +41,6 @@
   	<!-- REST/JAX-RS -->
     <pathelement location="${JERSEY-JAVAX-WS-RS-AI_LIB}" />
   	<pathelement location="${JERSEY-JERSEY-SERVER_LIB}" />
-  	<pathelement location="${JERSEY-JERSEY-CONTAINER-SERVLET-CORE_LIB}" />
   	<pathelement location="${JERSEY-JERSEY-COMMON_LIB}" />
   	
   	<!-- REST/Swagger -->
