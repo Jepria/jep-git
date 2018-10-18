@@ -2,18 +2,14 @@ package org.jepria.server.service.rest.jaxrs;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
-
-import org.jepria.server.service.rest.Credential;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -25,31 +21,9 @@ import io.swagger.annotations.ApiOperation;
 @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
 @Consumes(MediaType.APPLICATION_JSON + ";charset=utf-8")
 @Api
-public abstract class JaxrsApplicationOptionEndpoint extends JaxrsStandardEndpointBase {
+public abstract class StandardApplicationOptionEndpoint extends StandardEndpointBase {
   
-  protected JaxrsApplicationOptionEndpoint() {}
-  
-  /**
-   * Injectable field
-   */
-  @Context 
-  private HttpServletRequest request;
-  
-  /**
-   * Get credential from the request
-   * @return
-   */
-  @Override
-  protected Credential getCredential() {
-    Integer operatorId = 1;
-    // TODO = (Integer)request.getHeader("operatorId");
-    return new Credential() {
-      @Override
-      public Integer getOperatorId() {
-        return operatorId;
-      }
-    };
-  }
+  protected StandardApplicationOptionEndpoint() {}
   
   @GET
   @Path("{optionEntityName}")

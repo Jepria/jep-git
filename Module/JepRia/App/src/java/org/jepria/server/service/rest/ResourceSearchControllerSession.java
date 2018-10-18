@@ -15,6 +15,7 @@ import org.jepria.server.load.rest.ColumnSortConfigurationDto;
 import org.jepria.server.load.rest.Compat;
 import org.jepria.server.load.rest.ListSorter;
 import org.jepria.server.load.rest.SearchParamsDto;
+import org.jepria.server.service.security.Credential;
 
 import com.technology.jep.jepria.shared.JepRiaConstant;
 import com.technology.jep.jepria.shared.exceptions.ApplicationException;
@@ -22,9 +23,9 @@ import com.technology.jep.jepria.shared.field.JepLikeEnum;
 import com.technology.jep.jepria.shared.field.JepTypeEnum;
 import com.technology.jep.jepria.shared.util.Mutable;
 
-public class StandardResourceSearchControllerSession implements StandardResourceSearchController {
+public class ResourceSearchControllerSession implements ResourceSearchController {
 
-  protected final StandardResourceDescription resourceDescription;
+  protected final ResourceDescription resourceDescription;
 
   protected final Supplier<HttpSession> session;
 
@@ -32,20 +33,20 @@ public class StandardResourceSearchControllerSession implements StandardResource
 
   public static final boolean LAZY_SEARCH_DEFAULT = true;
 
-  //a tuple {session,resource} has single SearchUID
   private final String searchUID;
  
-  public StandardResourceSearchControllerSession(StandardResourceDescription resourceDescription,
+  public ResourceSearchControllerSession(ResourceDescription resourceDescription,
       Supplier<HttpSession> session, boolean lazySearch) {
     this.resourceDescription = resourceDescription;
     this.session = session;
     this.lazySearch = lazySearch;
     
-    searchUID = Integer.toHexString(Objects.hash(session, resourceDescription.getResourceName()));
+    // create single searchUID for a tuple {session,resource} 
+    searchUID = Integer.toHexString(Objects.hash(session.get(), resourceDescription.getResourceName()));
   }
 
-  public StandardResourceSearchControllerSession(
-      StandardResourceDescription resourceDescription,
+  public ResourceSearchControllerSession(
+      ResourceDescription resourceDescription,
       Supplier<HttpSession> session) {
     this(resourceDescription, session, LAZY_SEARCH_DEFAULT);
   }
@@ -197,7 +198,7 @@ public class StandardResourceSearchControllerSession implements StandardResource
     
     
     // sorting
-    List<ColumnSortConfigurationDto> fieldSortConfigs = searchParams.getColumnSortConfigurations();
+    List<ColumnSortConfigurationDto> fieldSortConfigs = searchParams.getListSortConfiguration();
 
     if (fieldSortConfigs != null && fieldSortConfigs.size() > 0) {
       ListSorter listSorter = new ListSorter(fieldSortConfigs, getFieldComparators());
@@ -265,9 +266,9 @@ public class StandardResourceSearchControllerSession implements StandardResource
   }
   
   @Override
-  public List<?> getResultset(String searchId, Credential credential) throws NoSuchSearchIdException, GetResultsetDisallowedException {
+  public List<?> getEntireResultset(String searchId, Credential credential) throws NoSuchSearchIdException, UnsupportedMethodException {
     if (!allowedGetResultset(searchId, credential)) {
-      throw new GetResultsetDisallowedException();
+      throw new UnsupportedMethodException();
     } else {
       return getResultsetLocal(searchId, credential);
     }

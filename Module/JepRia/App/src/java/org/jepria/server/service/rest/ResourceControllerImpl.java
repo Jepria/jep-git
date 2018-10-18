@@ -8,6 +8,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.jepria.server.load.rest.Compat;
+import org.jepria.server.service.security.Credential;
 
 import com.technology.jep.jepria.shared.exceptions.ApplicationException;
 import com.technology.jep.jepria.shared.exceptions.NotImplementedYetException;
@@ -15,11 +16,11 @@ import com.technology.jep.jepria.shared.field.JepTypeEnum;
 import com.technology.jep.jepria.shared.record.JepRecord;
 import com.technology.jep.jepria.shared.util.Mutable;
 
-public class StandardResourceControllerImpl implements StandardResourceController {
+public class ResourceControllerImpl implements ResourceController {
 
-  protected final StandardResourceDescription resourceDescription;
+  protected final ResourceDescription resourceDescription;
   
-  public StandardResourceControllerImpl(StandardResourceDescription resourceDescription) {
+  public ResourceControllerImpl(ResourceDescription resourceDescription) {
     this.resourceDescription = resourceDescription;
   }
 

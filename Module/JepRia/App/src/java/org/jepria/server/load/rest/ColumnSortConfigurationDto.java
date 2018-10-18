@@ -6,7 +6,7 @@ package org.jepria.server.load.rest;
 public class ColumnSortConfigurationDto {
   
   /**
-   * Имя поля
+   * Имя столбца
    */
   private String columnName;
   

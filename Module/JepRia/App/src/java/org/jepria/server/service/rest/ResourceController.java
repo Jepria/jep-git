@@ -3,7 +3,9 @@ package org.jepria.server.service.rest;
 import java.util.List;
 import java.util.Map;
 
-public interface StandardResourceController {
+import org.jepria.server.service.security.Credential;
+
+public interface ResourceController {
 
   //////////// CRUD ///////////////////
 

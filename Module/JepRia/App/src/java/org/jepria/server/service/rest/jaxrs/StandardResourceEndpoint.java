@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -18,13 +17,13 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
+import javax.ws.rs.core.UriInfo;
 
 import org.jepria.server.load.rest.SearchParamsDto;
-import org.jepria.server.service.rest.Credential;
-import org.jepria.server.service.rest.StandardResourceSearchController;
-import org.jepria.server.service.rest.StandardResourceSearchController.GetResultsetDisallowedException;
-import org.jepria.server.service.rest.StandardResourceSearchController.NoSuchSearchIdException;
-import org.jepria.server.service.rest.StandardResourceSearchControllerSession;
+import org.jepria.server.service.rest.ResourceSearchController;
+import org.jepria.server.service.rest.ResourceSearchController.NoSuchSearchIdException;
+import org.jepria.server.service.rest.ResourceSearchController.UnsupportedMethodException;
+import org.jepria.server.service.rest.ResourceSearchControllerSession;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -36,40 +35,18 @@ import io.swagger.annotations.ApiOperation;
 @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
 @Consumes(MediaType.APPLICATION_JSON + ";charset=utf-8")
 @Api
-public abstract class JaxrsStandardResourceEndpoint extends JaxrsStandardEndpointBase {
+public abstract class StandardResourceEndpoint extends StandardEndpointBase {
   
-  protected JaxrsStandardResourceEndpoint() {}
+  protected StandardResourceEndpoint() {}
   
-  /**
-   * Injectable field
-   */
-  @Context 
-  private HttpServletRequest request;
-  
-  /**
-   * Get credential from the request
-   * @return
-   */
-  @Override
-  protected Credential getCredential() {
-    Integer operatorId = 1;
-    // TODO = (Integer)request.getHeader("operatorId");
-    return new Credential() {
-      @Override
-      public Integer getOperatorId() {
-        return operatorId;
-      }
-    };
-  }
-
   /**
    * Supplier protects the internal field from direct access from within the class members,
    * and initializes the field lazily (due to the DI: the injectable fields are being injected after the object construction)
    */
-  protected final Supplier<StandardResourceSearchController> searchController = new Supplier<StandardResourceSearchController>() {
-    private StandardResourceSearchController instance = null;
+  protected final Supplier<ResourceSearchController> searchController = new Supplier<ResourceSearchController>() {
+    private ResourceSearchController instance = null;
     @Override
-    public StandardResourceSearchController get() {
+    public ResourceSearchController get() {
       if (instance == null) {
         instance = createSearchController();
       }
@@ -77,8 +54,8 @@ public abstract class JaxrsStandardResourceEndpoint extends JaxrsStandardEndpoin
     }
   };
   
-  protected StandardResourceSearchController createSearchController() {
-    return new StandardResourceSearchControllerSession(
+  protected ResourceSearchController createSearchController() {
+    return new ResourceSearchControllerSession(
         getResourceDescription(),
         new Supplier<HttpSession>() {
           @Override
@@ -150,9 +127,16 @@ public abstract class JaxrsStandardResourceEndpoint extends JaxrsStandardEndpoin
   @POST
   @Path("search")
   @ApiOperation(value = "Post search params")
-  public Response postSearch(SearchParamsDto searchParams) {
+  /**
+   * @param searchParams
+   * @param uriInfo injectable parameter for building correct "Location" response header
+   * @return
+   */
+  public Response postSearch(SearchParamsDto searchParams, @Context UriInfo uriInfo) {
     final String searchId = searchController.get().postSearchRequest(searchParams, getCredential());
-    return Response.status(Status.CREATED).header("Location", "search/" + searchId).build();
+    // ссылка на созданный ресурс
+    final String location = uriInfo.getPath() + "/" + searchId;
+    return Response.status(Status.CREATED).header("Location", location).build();
   }
   
   @GET
@@ -197,11 +181,11 @@ public abstract class JaxrsStandardResourceEndpoint extends JaxrsStandardEndpoin
     final List<?> result;
     
     try {
-      result = searchController.get().getResultset(searchId, getCredential());
+      result = searchController.get().getEntireResultset(searchId, getCredential());
     } catch (NoSuchSearchIdException e) {
       // TODO log?
       return Response.status(Status.NOT_FOUND).build();
-    } catch (GetResultsetDisallowedException e) {
+    } catch (UnsupportedMethodException e) {
       // TODO correct to use 405 here?
       return Response.status(Status.METHOD_NOT_ALLOWED).build();
     }

@@ -6,7 +6,7 @@ import com.technology.jep.jepria.shared.record.JepRecordDefinition;
 /**
  * Implementors provide standard applicational description for the REST resources  
  */
-public interface StandardResourceDescription {
+public interface ResourceDescription {
 
   JepDataStandard getDao();
 

@@ -3,8 +3,13 @@ package org.jepria.server.service.rest;
 import java.util.List;
 
 import org.jepria.server.load.rest.SearchParamsDto;
+import org.jepria.server.service.security.Credential;
 
-public interface StandardResourceSearchController {
+/**
+ * The interface has CREATE and READ methods only.
+ * UPDATE or DELETE methods (recycling and cleaning strategy) are implementation-dependent
+ */
+public interface ResourceSearchController {
 
   public static class NoSuchSearchIdException extends Exception {
     private static final long serialVersionUID = 1L;
@@ -20,7 +25,10 @@ public interface StandardResourceSearchController {
     }
   }
 
-  public static class GetResultsetDisallowedException extends Exception {
+  /**
+   * Exception indicates that 
+   */
+  public static class UnsupportedMethodException extends Exception {
     private static final long serialVersionUID = 1L;
   }
 
@@ -51,14 +59,14 @@ public interface StandardResourceSearchController {
   /**
    * 
    * @param searchId
+   * @param credential
    * @return
    * @throws NoSuchSearchIdException if no search request found by the searchId,
-   * GetResultsetDisallowedException if getResultset is not allowed; use fetchResultsetPaged instead
+   * @throws UnsupportedMethodException if getEntireResultset method is not allowed for the searchId (use {@link #fetchResultsetPaged} instead)
    */
-  List<?> getResultset(String searchId, Credential credential) throws NoSuchSearchIdException, GetResultsetDisallowedException;
+  List<?> getEntireResultset(String searchId, Credential credential) throws NoSuchSearchIdException, UnsupportedMethodException;
 
   /**
-   * 
    * @param searchId
    * @return
    * @throws NoSuchSearchIdException if no search request found by the searchId
