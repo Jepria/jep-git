@@ -1,10 +1,8 @@
 package org.jepria.server.service.rest.jaxrs;
 
 import java.util.List;
-import java.util.function.Supplier;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -16,8 +14,6 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import org.jepria.server.service.rest.Credential;
-import org.jepria.server.service.rest.SearchStorage;
-import org.jepria.server.service.rest.SessionSearchStorage;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -55,23 +51,11 @@ public abstract class JaxrsApplicationOptionEndpoint extends JaxrsStandardEndpoi
     };
   }
   
-  @Override
-  protected SearchStorage getSearchStorage() {
-    return new SessionSearchStorage(
-        getResourceDescription().getResourceName(),
-        new Supplier<HttpSession>() {
-          @Override
-          public HttpSession get() {
-            return request.getSession();
-          }
-        });
-  }
-  
   @GET
   @Path("{optionEntityName}")
   @ApiOperation(value = "List options by option-entity name")
   public Response listOptions(@PathParam("optionEntityName") String optionEntityName) {
-    List<?> result = controller.get().listOptions(optionEntityName, getCredential());
+    List<?> result = resourceController.get().listOptions(optionEntityName, getCredential());
     if (result == null || result.isEmpty()) {
       return Response.status(Status.NOT_FOUND).build();
     } else {

@@ -19,11 +19,12 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
-import org.jepria.server.load.rest.SearchEntity;
 import org.jepria.server.load.rest.SearchParamsDto;
 import org.jepria.server.service.rest.Credential;
-import org.jepria.server.service.rest.SearchStorage;
-import org.jepria.server.service.rest.SessionSearchStorage;
+import org.jepria.server.service.rest.StandardResourceSearchController;
+import org.jepria.server.service.rest.StandardResourceSearchController.GetResultsetDisallowedException;
+import org.jepria.server.service.rest.StandardResourceSearchController.NoSuchSearchIdException;
+import org.jepria.server.service.rest.StandardResourceSearchControllerSession;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -61,10 +62,24 @@ public abstract class JaxrsStandardResourceEndpoint extends JaxrsStandardEndpoin
     };
   }
 
-  @Override
-  protected SearchStorage getSearchStorage() {
-    return new SessionSearchStorage(
-        getResourceDescription().getResourceName(),
+  /**
+   * Supplier protects the internal field from direct access from within the class members,
+   * and initializes the field lazily (due to the DI: the injectable fields are being injected after the object construction)
+   */
+  protected final Supplier<StandardResourceSearchController> searchController = new Supplier<StandardResourceSearchController>() {
+    private StandardResourceSearchController instance = null;
+    @Override
+    public StandardResourceSearchController get() {
+      if (instance == null) {
+        instance = createSearchController();
+      }
+      return instance;
+    }
+  };
+  
+  protected StandardResourceSearchController createSearchController() {
+    return new StandardResourceSearchControllerSession(
+        getResourceDescription(),
         new Supplier<HttpSession>() {
           @Override
           public HttpSession get() {
@@ -85,7 +100,7 @@ public abstract class JaxrsStandardResourceEndpoint extends JaxrsStandardEndpoin
   @Path("{recordId}")
   @ApiOperation(value = "Get resource by ID")
   public Response getResourceById(@PathParam("recordId") String recordId) {
-    Object record = controller.get().getResourceById(recordId, getCredential());
+    Object record = resourceController.get().getResourceById(recordId, getCredential());
     if (record == null) {
       return Response.status(Status.NOT_FOUND).build();
     } else {
@@ -96,7 +111,7 @@ public abstract class JaxrsStandardResourceEndpoint extends JaxrsStandardEndpoin
   @POST
   @ApiOperation(value = "Create a new instance")
   public Response create(Map<String, Object> instance) {
-    Object createdId = controller.get().create(instance, getCredential());
+    Object createdId = resourceController.get().create(instance, getCredential());
     return Response.status(Status.CREATED).header("Location", createdId).build();
   }
   
@@ -104,7 +119,7 @@ public abstract class JaxrsStandardResourceEndpoint extends JaxrsStandardEndpoin
   @Path("{recordId}")
   @ApiOperation(value = "Delete resource by ID")
   public Response deleteResourceById(@PathParam("recordId") String recordId) {
-    controller.get().deleteResourceById(recordId, getCredential());
+    resourceController.get().deleteResourceById(recordId, getCredential());
     return Response.ok().build();
   }
   
@@ -112,7 +127,7 @@ public abstract class JaxrsStandardResourceEndpoint extends JaxrsStandardEndpoin
   @Path("{recordId}")
   @ApiOperation(value = "Update resource by ID")
   public Response update(@PathParam("recordId") String recordId, Map<String, Object> fields) {
-    controller.get().update(recordId, fields, getCredential());
+    resourceController.get().update(recordId, fields, getCredential());
     return Response.ok().build();
   }
 
@@ -122,7 +137,7 @@ public abstract class JaxrsStandardResourceEndpoint extends JaxrsStandardEndpoin
   @Path("option/{optionEntityName}")
   @ApiOperation(value = "List options by option-entity name")
   public Response listOptions(@PathParam("optionEntityName") String optionEntityName) {
-    List<?> result = controller.get().listOptions(optionEntityName, getCredential());
+    List<?> result = resourceController.get().listOptions(optionEntityName, getCredential());
     if (result == null || result.isEmpty()) {
       return Response.status(Status.NOT_FOUND).build();
     } else {
@@ -135,41 +150,93 @@ public abstract class JaxrsStandardResourceEndpoint extends JaxrsStandardEndpoin
   @POST
   @Path("search")
   @ApiOperation(value = "Post search params")
-  public Response postSearch(SearchParamsDto searchParamsDto) {
-    
-    final String searchId = controller.get().postSearch(searchParamsDto, getCredential());
-    
-    if (searchId == null) {
-      // TODO
-      throw new IllegalStateException("searchId must not be null");
-    }
-    
+  public Response postSearch(SearchParamsDto searchParams) {
+    final String searchId = searchController.get().postSearchRequest(searchParams, getCredential());
     return Response.status(Status.CREATED).header("Location", "search/" + searchId).build();
   }
   
   @GET
   @Path("search/{searchId}")
-  @ApiOperation(value = "Get search entity by ID")
-  public Response getSearchEntity(
+  @ApiOperation(value = "Get search request by ID")
+  public Response getSearchRequest(
       @PathParam("searchId") String searchId) {
-
-    SearchEntity result = controller.get().getSearchEntity(searchId, getCredential());
-    if (result == null) {
+    final SearchParamsDto result;
+    
+    try {
+      result = searchController.get().getSearchParams(searchId, getCredential());
+    } catch (NoSuchSearchIdException e) {
+      // TODO log?
+      return Response.status(Status.NOT_FOUND).build();
+    }
+    
+    return Response.ok(result).build();
+  }
+  
+  @GET
+  @Path("search/{searchId}/resultset-size")
+  @ApiOperation(value = "Get search resultset size")
+  public Response getSearchResultsetSize(
+      @PathParam("searchId") String searchId) {
+    final int result;
+    
+    try {
+      result = searchController.get().getResultsetSize(searchId, getCredential());
+    } catch (NoSuchSearchIdException e) {
+      // TODO log?
+      return Response.status(Status.NOT_FOUND).build();
+    }
+    
+    return Response.ok(result).build();
+  }
+  
+  @GET
+  @Path("search/{searchId}/resultset")
+  @ApiOperation(value = "Get entire resultset")
+  public Response getResultset(
+      @PathParam("searchId") String searchId) {
+    final List<?> result;
+    
+    try {
+      result = searchController.get().getResultset(searchId, getCredential());
+    } catch (NoSuchSearchIdException e) {
+      // TODO log?
+      return Response.status(Status.NOT_FOUND).build();
+    } catch (GetResultsetDisallowedException e) {
+      // TODO correct to use 405 here?
+      return Response.status(Status.METHOD_NOT_ALLOWED).build();
+    }
+    
+    if (result == null || result.isEmpty()) {
       return Response.status(Status.NOT_FOUND).build();
     } else {
       return Response.ok(result).build();
     }
   }
   
+  
+  private static final int DEFAULT_PAGE_SIZE = 25;
+  
   @GET
-  @Path("search/{searchId}/data/paged-by-{pageSize:\\d+}/{page}")
-  @ApiOperation(value = "Fetch paged data")
-  public Response fetchData(
+  @Path("search/{searchId}/resultset/paged-by-{pageSize:\\d+}/{page}")
+  @ApiOperation(value = "Fetch resultset paged")
+  public Response fetchResultsetPaged(
       @PathParam("searchId") String searchId,
       @PathParam("pageSize") Integer pageSize, 
       @PathParam("page") Integer page) {
-
-    List<?> result = controller.get().fetchData(searchId, pageSize, page, getCredential());
+    
+    // normalize paging parameters
+    pageSize = pageSize == null ? DEFAULT_PAGE_SIZE : pageSize;
+    page = page == null ? 1 : page;
+    
+    final List<?> result;
+    
+    try {
+      result = searchController.get().fetchResultsetPaged(searchId, pageSize, page, getCredential());
+    } catch (NoSuchSearchIdException e) {
+      // TODO log?
+      return Response.status(Status.NOT_FOUND).build();
+    }
+    
     if (result == null || result.isEmpty()) {
       return Response.status(Status.NOT_FOUND).build();
     } else {

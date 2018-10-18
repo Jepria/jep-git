@@ -4,9 +4,9 @@ import com.technology.jep.jepria.server.dao.JepDataStandard;
 import com.technology.jep.jepria.shared.record.JepRecordDefinition;
 
 /**
- * Implementors provide application description for the REST resources backed by {@link org.jepria.server.service.rest.jaxrs.BaseStandardResourceEndpoint}  
+ * Implementors provide standard applicational description for the REST resources  
  */
-public interface ResourceDescription {
+public interface StandardResourceDescription {
 
   JepDataStandard getDao();
 

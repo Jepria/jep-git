@@ -15,7 +15,7 @@ public class ListSorter implements Comparator<Map<String, Object>> {
   /**
    * non-null and non-empty
    */
-  private final List<FieldSortConfigDto> fieldSortConfigs;
+  private final List<ColumnSortConfigurationDto> columnSortConfigurations;
   
   /**
    * non-null
@@ -23,29 +23,29 @@ public class ListSorter implements Comparator<Map<String, Object>> {
   private final Map<String, Comparator<Object>> fieldComparators;
   
   /**
-   * @param fieldSortConfigs non-null & non-empty
+   * @param columnSortConfigurations non-null & non-empty
    * @param fieldComparators
    */
-  public ListSorter(List<FieldSortConfigDto> fieldSortConfigs, Map<String, Comparator<Object>> fieldComparators) {
-    if (fieldSortConfigs == null || fieldSortConfigs.size() == 0) {
+  public ListSorter(List<ColumnSortConfigurationDto> columnSortConfigurations, Map<String, Comparator<Object>> fieldComparators) {
+    if (columnSortConfigurations == null || columnSortConfigurations.size() == 0) {
       // TODO
       throw new IllegalArgumentException();
     }
-    this.fieldSortConfigs = fieldSortConfigs;
+    this.columnSortConfigurations = columnSortConfigurations;
     
     this.fieldComparators = fieldComparators == null ? Collections.emptyMap() : fieldComparators;
   }
   
-  public ListSorter(List<FieldSortConfigDto> fieldSortConfigs) {
+  public ListSorter(List<ColumnSortConfigurationDto> fieldSortConfigs) {
     this(fieldSortConfigs, null);
   }
   
   @Override
   public int compare(Map<String, Object> m1, Map<String, Object> m2) {
     
-    for (FieldSortConfigDto fieldSortConfig: fieldSortConfigs) {
+    for (ColumnSortConfigurationDto columnSortConfiguration: columnSortConfigurations) {
       
-      final String fieldName = fieldSortConfig.getFieldName();
+      final String fieldName = columnSortConfiguration.getColumnName();
       
       final Object v1 = m1.get(fieldName);
       final Object v2 = m2.get(fieldName);
@@ -55,7 +55,7 @@ public class ListSorter implements Comparator<Map<String, Object>> {
       int cmpResult = fieldComparator.compare(v1,  v2);
       
       // apply field sort order to a particular comparison rseult
-      int fieldSortOrder = "desc".equals(fieldSortConfig.getSortOrder()) ? -1 : 1; 
+      int fieldSortOrder = "desc".equals(columnSortConfiguration.getSortOrder()) ? -1 : 1; 
       cmpResult *= fieldSortOrder;
       
       if (cmpResult != 0) {

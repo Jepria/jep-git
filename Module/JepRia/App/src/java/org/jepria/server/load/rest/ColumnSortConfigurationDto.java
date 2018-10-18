@@ -3,24 +3,24 @@ package org.jepria.server.load.rest;
 /**
  * Конфигурация сортировки значений определенного поля списка
  */
-public class FieldSortConfigDto {
+public class ColumnSortConfigurationDto {
   
   /**
    * Имя поля
    */
-  private String fieldName;
+  private String columnName;
   
   /**
    * Порядок сортировки
    */
   private String sortOrder;
 
-  public String getFieldName() {
-    return fieldName;
+  public String getColumnName() {
+    return columnName;
   }
 
-  public void setFieldName(String fieldName) {
-    this.fieldName = fieldName;
+  public void setColumnName(String columnName) {
+    this.columnName = columnName;
   }
 
   public String getSortOrder() {
