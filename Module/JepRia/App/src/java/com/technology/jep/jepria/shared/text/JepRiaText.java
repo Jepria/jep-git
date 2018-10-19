@@ -2,7 +2,7 @@ package com.technology.jep.jepria.shared.text;
 
 /**
  * Interface to represent the constants contained in resource bundle:
- * 	'D:/Projects/Git/JEP/Module/JepRia/App/src/java/com/technology/jep/jepria/shared/text/JepRiaText.properties'.
+ * 	'C:/work/sf.git/Module/JepRia/App/src/java/com/technology/jep/jepria/shared/text/JepRiaText.properties'.
  */
 public interface JepRiaText extends com.google.gwt.i18n.client.Constants {
   
@@ -844,29 +844,29 @@ public interface JepRiaText extends com.google.gwt.i18n.client.Constants {
   String form_detail_field_rowCount();
 
   /**
-   * Translated "1$c$Январь$l$2$c$Февраль$l$3$c$Март$l$4$c$Апрель$l$5$c$Май$l$6$c$Июнь$l$7$c$Июль$l$8$c$Август$l$9$c$Сентябрь$l$10$c$Октябрь$l$11$c$Ноябрь$l$12$c$Декабрь".
+   * Translated "I$t$1$c$Январь$l$I$t$2$c$Февраль$l$I$t$3$c$Март$l$I$t$4$c$Апрель$l$I$t$5$c$Май$l$I$t$6$c$Июнь$l$I$t$7$c$Июль$l$I$t$8$c$Август$l$I$t$9$c$Сентябрь$l$I$t$10$c$Октябрь$l$I$t$11$c$Ноябрь$l$I$t$12$c$Декабрь".
    * 
-   * @return translated "1$c$Январь$l$2$c$Февраль$l$3$c$Март$l$4$c$Апрель$l$5$c$Май$l$6$c$Июнь$l$7$c$Июль$l$8$c$Август$l$9$c$Сентябрь$l$10$c$Октябрь$l$11$c$Ноябрь$l$12$c$Декабрь"
+   * @return translated "I$t$1$c$Январь$l$I$t$2$c$Февраль$l$I$t$3$c$Март$l$I$t$4$c$Апрель$l$I$t$5$c$Май$l$I$t$6$c$Июнь$l$I$t$7$c$Июль$l$I$t$8$c$Август$l$I$t$9$c$Сентябрь$l$I$t$10$c$Октябрь$l$I$t$11$c$Ноябрь$l$I$t$12$c$Декабрь"
    */
-  @DefaultStringValue("1$c$Январь$l$2$c$Февраль$l$3$c$Март$l$4$c$Апрель$l$5$c$Май$l$6$c$Июнь$l$7$c$Июль$l$8$c$Август$l$9$c$Сентябрь$l$10$c$Октябрь$l$11$c$Ноябрь$l$12$c$Декабрь")
+  @DefaultStringValue("I$t$1$c$Январь$l$I$t$2$c$Февраль$l$I$t$3$c$Март$l$I$t$4$c$Апрель$l$I$t$5$c$Май$l$I$t$6$c$Июнь$l$I$t$7$c$Июль$l$I$t$8$c$Август$l$I$t$9$c$Сентябрь$l$I$t$10$c$Октябрь$l$I$t$11$c$Ноябрь$l$I$t$12$c$Декабрь")
   @Key("form.detail.option.token.months")
   String form_detail_option_token_months();
 
   /**
-   * Translated "1$c$Понедельник$l$2$c$Вторник$l$3$c$Среда$l$4$c$Четверг$l$5$c$Пятница$l$6$c$Суббота$l$7$c$Воскресенье".
+   * Translated "I$t$1$c$Понедельник$l$I$t$2$c$Вторник$l$I$t$3$c$Среда$l$I$t$4$c$Четверг$l$I$t$5$c$Пятница$l$I$t$6$c$Суббота$l$I$t$7$c$Воскресенье".
    * 
-   * @return translated "1$c$Понедельник$l$2$c$Вторник$l$3$c$Среда$l$4$c$Четверг$l$5$c$Пятница$l$6$c$Суббота$l$7$c$Воскресенье"
+   * @return translated "I$t$1$c$Понедельник$l$I$t$2$c$Вторник$l$I$t$3$c$Среда$l$I$t$4$c$Четверг$l$I$t$5$c$Пятница$l$I$t$6$c$Суббота$l$I$t$7$c$Воскресенье"
    */
-  @DefaultStringValue("1$c$Понедельник$l$2$c$Вторник$l$3$c$Среда$l$4$c$Четверг$l$5$c$Пятница$l$6$c$Суббота$l$7$c$Воскресенье")
+  @DefaultStringValue("I$t$1$c$Понедельник$l$I$t$2$c$Вторник$l$I$t$3$c$Среда$l$I$t$4$c$Четверг$l$I$t$5$c$Пятница$l$I$t$6$c$Суббота$l$I$t$7$c$Воскресенье")
   @Key("form.detail.option.token.weekDays")
   String form_detail_option_token_weekDays();
 
   /**
-   * Translated "0$c$Нет$l$1$c$Да".
+   * Translated "I$t$0$c$Нет$l$I$t$1$c$Да".
    * 
-   * @return translated "0$c$Нет$l$1$c$Да"
+   * @return translated "I$t$0$c$Нет$l$I$t$1$c$Да"
    */
-  @DefaultStringValue("0$c$Нет$l$1$c$Да")
+  @DefaultStringValue("I$t$0$c$Нет$l$I$t$1$c$Да")
   @Key("form.detail.option.token.yesNo")
   String form_detail_option_token_yesNo();
 
