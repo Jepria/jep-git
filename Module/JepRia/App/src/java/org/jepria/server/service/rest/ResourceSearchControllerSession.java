@@ -62,8 +62,8 @@ public class ResourceSearchControllerSession implements ResourceSearchController
    *
    */
   private class SearchModel {
-    private Map<String, Object> preparedTemplate;
-    private int maxResultsetSize;
+    public Map<String, Object> preparedTemplate;
+    public int maxResultsetSize;
   }
 
   protected SearchModel createSearchModel(SearchParamsDto searchParams) {

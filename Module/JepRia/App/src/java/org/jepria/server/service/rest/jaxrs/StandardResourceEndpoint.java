@@ -1,5 +1,7 @@
 package org.jepria.server.service.rest.jaxrs;
 
+import java.net.URI;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
@@ -13,12 +15,12 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.ResponseBuilder;
 import javax.ws.rs.core.Response.Status;
-import javax.ws.rs.core.UriInfo;
 
+import org.glassfish.jersey.uri.UriTemplate;
 import org.jepria.server.load.rest.SearchParamsDto;
 import org.jepria.server.service.rest.ResourceSearchController;
 import org.jepria.server.service.rest.ResourceSearchController.MaxResultsetSizeExceedException;
@@ -123,6 +125,13 @@ public abstract class StandardResourceEndpoint extends StandardEndpointBase {
   }
   
   //////// SEARCH ////////
+
+  // public static for Jersey's introspection only
+  public static class PostSearchReturnSubresponseDto {
+    public Integer status;
+    public String reasonPhrase;
+    public Object entity;
+  }
   
   @POST
   @Path("search")
@@ -132,11 +141,90 @@ public abstract class StandardResourceEndpoint extends StandardEndpointBase {
    * @param uriInfo injectable parameter for building correct "Location" response header
    * @return
    */
-  public Response postSearch(SearchParamsDto searchParams, @Context UriInfo uriInfo) {
+  public Response postSearch(SearchParamsDto searchParams/*, @Context UriInfo uriInfo, @HeaderParam("jepria-postSearch-return") Map<String, String> postSearchReturnHeaderValue*/) {
     final String searchId = searchController.get().postSearchRequest(searchParams, getCredential());
+    
     // ссылка на созданный ресурс
-    final String location = uriInfo.getPath() + "/" + searchId;
-    return Response.status(Status.CREATED).header("Location", location).build();
+    final URI location = URI.create(request.getRequestURL() + "/" + searchId);
+    final ResponseBuilder response = Response.created(location);
+    
+    
+    // клиент может запросить результаты поиска непосредственно в ответе данного запроса
+    final String postSearchReturnHeaderValue = request.getHeader("jepria-postSearch-return");
+    if (postSearchReturnHeaderValue != null) {
+      try {
+        Map<String, Object> subrequest = new HashMap<>();
+        
+        final String subrequestUrl = 
+            URI.create(request.getRequestURL() + "/" + searchId + "/" + postSearchReturnHeaderValue).toString();
+        subrequest.put("jepria-postSearch-return__subrequest-url", subrequestUrl);
+        
+        PostSearchReturnSubresponseDto subresponse = getPostSearchReturnSubresponse(postSearchReturnHeaderValue, searchId);
+        subrequest.put("jepria-postSearch-return__subresponse", subresponse);
+        
+        response.entity(subrequest);
+        
+      } catch (IllegalPostSearchReturnHeaderValue e) {
+        response.status(Status.BAD_REQUEST.getStatusCode(), "Illegal 'jepria-postSearch-return' header value: " + e.getIllegalValue());
+      }
+    }
+    
+    return response.build();
+  }
+  
+  private class IllegalPostSearchReturnHeaderValue extends Exception {
+    private static final long serialVersionUID = 1L;
+    
+    private final String illegalValue;
+    
+    public IllegalPostSearchReturnHeaderValue(String illegalValue) {
+      this.illegalValue = illegalValue;
+    }
+    
+    public String getIllegalValue() {
+      return illegalValue;
+    }
+  }
+  
+  protected PostSearchReturnSubresponseDto getPostSearchReturnSubresponse(String postSearchReturnHeaderValue, String searchId) throws IllegalPostSearchReturnHeaderValue {
+    if (postSearchReturnHeaderValue == null) {
+      return null;
+    }
+    
+    final PostSearchReturnSubresponseDto postSearchReturnData = new PostSearchReturnSubresponseDto();
+
+    
+    UriTemplate uriTemplate;
+    Map<String, String> uriTemplateMap;
+
+    // check getResultset
+    uriTemplate = new UriTemplate(URI_TEMPLATE__GET_RESULTSET);
+    uriTemplateMap = new HashMap<>();
+    if (uriTemplate.match(postSearchReturnHeaderValue, uriTemplateMap)) {
+      Response subresponse = getResultset(searchId);
+      postSearchReturnData.status = subresponse.getStatus();
+      postSearchReturnData.reasonPhrase = subresponse.getStatusInfo().getReasonPhrase();
+      postSearchReturnData.entity = subresponse.getEntity();
+      return postSearchReturnData;
+    }
+    
+    
+    // check getResultsetPaged
+    uriTemplate = new UriTemplate(URI_TEMPLATE__GET_RESULTSET_PAGED);
+    uriTemplateMap = new HashMap<>();
+    if (uriTemplate.match(postSearchReturnHeaderValue, uriTemplateMap)) {
+      Integer pageSize = Integer.parseInt(uriTemplateMap.get("pageSize"));
+      Integer page = Integer.parseInt(uriTemplateMap.get("page"));
+      
+      Response subresponse = getResultsetPaged(searchId, pageSize, page);
+      postSearchReturnData.status = subresponse.getStatus();
+      postSearchReturnData.reasonPhrase = subresponse.getStatusInfo().getReasonPhrase();
+      postSearchReturnData.entity = subresponse.getEntity();
+      return postSearchReturnData;
+    }
+    
+    
+    throw new IllegalPostSearchReturnHeaderValue(postSearchReturnHeaderValue);
   }
   
   @GET
@@ -173,11 +261,15 @@ public abstract class StandardResourceEndpoint extends StandardEndpointBase {
     return Response.ok(result).build();
   }
   
+  private static final String URI_TEMPLATE__GET_RESULTSET = "resultset";
+  private static final String URI_TEMPLATE__GET_RESULTSET_PAGED = "resultset/paged-by-{pageSize:\\d+}/{page}";
+  
   @GET
-  @Path("search/{searchId}/resultset")
+  @Path("search/{searchId}/" + URI_TEMPLATE__GET_RESULTSET)
   @ApiOperation(value = "Get whole resultset")
   public Response getResultset(
       @PathParam("searchId") String searchId) {
+    
     final List<?> result;
     
     try {
@@ -197,13 +289,12 @@ public abstract class StandardResourceEndpoint extends StandardEndpointBase {
     }
   }
   
-  
   private static final int DEFAULT_PAGE_SIZE = 25;
   
   @GET
-  @Path("search/{searchId}/resultset/paged-by-{pageSize:\\d+}/{page}")
-  @ApiOperation(value = "Fetch resultset paged")
-  public Response fetchResultsetPaged(
+  @Path("search/{searchId}/" + URI_TEMPLATE__GET_RESULTSET_PAGED)
+  @ApiOperation(value = "Get resultset paged")
+  public Response getResultsetPaged(
       @PathParam("searchId") String searchId,
       @PathParam("pageSize") Integer pageSize, 
       @PathParam("page") Integer page) {
