@@ -21,8 +21,8 @@ import javax.ws.rs.core.UriInfo;
 
 import org.jepria.server.load.rest.SearchParamsDto;
 import org.jepria.server.service.rest.ResourceSearchController;
+import org.jepria.server.service.rest.ResourceSearchController.MaxResultsetSizeExceedException;
 import org.jepria.server.service.rest.ResourceSearchController.NoSuchSearchIdException;
-import org.jepria.server.service.rest.ResourceSearchController.UnsupportedMethodException;
 import org.jepria.server.service.rest.ResourceSearchControllerSession;
 
 import io.swagger.annotations.Api;
@@ -185,9 +185,9 @@ public abstract class StandardResourceEndpoint extends StandardEndpointBase {
     } catch (NoSuchSearchIdException e) {
       // TODO log?
       return Response.status(Status.NOT_FOUND).build();
-    } catch (UnsupportedMethodException e) {
-      // TODO correct to use 405 here?
-      return Response.status(Status.METHOD_NOT_ALLOWED).build();
+    } catch (MaxResultsetSizeExceedException e) {
+      // TODO log?
+      return Response.status(Status.BAD_REQUEST.getStatusCode(), e.getMessage()).build();
     }
     
     if (result == null || result.isEmpty()) {

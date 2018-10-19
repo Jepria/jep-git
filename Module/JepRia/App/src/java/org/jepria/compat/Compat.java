@@ -22,7 +22,7 @@ public class Compat {
     return rec;
   }
   
-  public static List<Map<String, Object>> recListToMapList(List<JepRecord> list) {
+  public static List<Map<String, Object>> convertList(List<JepRecord> list) {
     if (list == null) {
       return null;
     }

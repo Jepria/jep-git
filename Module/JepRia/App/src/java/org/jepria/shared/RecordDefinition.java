@@ -11,6 +11,6 @@ public interface RecordDefinition {
   List<String> getPrimaryKey();
   Map<String, JepTypeEnum> getFieldTypes();
   Map<String, JepLikeEnum> getFieldMatch();
-  int getResultsetSizeLimit();
+  int getMaxResultsetSize();
   Map<String, Comparator<Object>> getFieldComparators();
 }

@@ -25,11 +25,12 @@ public interface ResourceSearchController {
     }
   }
 
-  /**
-   * Exception indicates that 
-   */
-  public static class UnsupportedMethodException extends Exception {
+  public static class MaxResultsetSizeExceedException extends Exception {
     private static final long serialVersionUID = 1L;
+    
+    public MaxResultsetSizeExceedException(String message) {
+      super(message);
+    }
   }
 
   /**
@@ -62,10 +63,10 @@ public interface ResourceSearchController {
    * @param credential
    * @return
    * @throws NoSuchSearchIdException if no search request found by the searchId,
-   * @throws UnsupportedMethodException if {@link #getResultset} is not supported for the searchId (the resultset is too large).
+   * @throws MaxResultsetSizeExceedException if {@link #getResultset} is too large to return.
    * Then use {@link #fetchResultsetPaged} instead
    */
-  List<?> getResultset(String searchId, Credential credential) throws NoSuchSearchIdException, UnsupportedMethodException;
+  List<?> getResultset(String searchId, Credential credential) throws NoSuchSearchIdException, MaxResultsetSizeExceedException;
 
   /**
    * @param searchId

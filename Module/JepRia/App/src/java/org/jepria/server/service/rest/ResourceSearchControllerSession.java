@@ -17,7 +17,6 @@ import org.jepria.server.load.rest.ListSorter;
 import org.jepria.server.load.rest.SearchParamsDto;
 import org.jepria.server.service.security.Credential;
 
-import com.technology.jep.jepria.shared.JepRiaConstant;
 import com.technology.jep.jepria.shared.exceptions.ApplicationException;
 import com.technology.jep.jepria.shared.field.JepLikeEnum;
 import com.technology.jep.jepria.shared.field.JepTypeEnum;
@@ -29,26 +28,15 @@ public class ResourceSearchControllerSession implements ResourceSearchController
 
   protected final Supplier<HttpSession> session;
 
-  protected final boolean lazySearch;
-
-  public static final boolean LAZY_SEARCH_DEFAULT = true;
-
   private final String searchUID;
  
   public ResourceSearchControllerSession(ResourceDescription resourceDescription,
-      Supplier<HttpSession> session, boolean lazySearch) {
+      Supplier<HttpSession> session) {
     this.resourceDescription = resourceDescription;
     this.session = session;
-    this.lazySearch = lazySearch;
     
     // create single searchUID for a tuple {session,resource} 
     searchUID = Integer.toHexString(Objects.hash(session.get(), resourceDescription.getResourceName()));
-  }
-
-  public ResourceSearchControllerSession(
-      ResourceDescription resourceDescription,
-      Supplier<HttpSession> session) {
-    this(resourceDescription, session, LAZY_SEARCH_DEFAULT);
   }
 
   private String getSessionAttrNameCommonPrefix() {
@@ -63,28 +51,10 @@ public class ResourceSearchControllerSession implements ResourceSearchController
     return getSessionAttrNameCommonPrefix() + "SearchId=" + searchId + ";Key=SearchResultset;";
   }
   
-  protected String generateSearchUID(SearchParamsDto searchParams) {
-    return searchUID;
-  }
-
-
   @Override
   public String postSearchRequest(SearchParamsDto searchParams, Credential credential) {
-
-    final String searchId = generateSearchUID(searchParams);
-
-    session.get().setAttribute(getSessionAttrNameSearchParams(searchId), searchParams);
-
-    if (!lazySearch) {
-      try {
-        doSearch(searchId, credential);
-      } catch (NoSuchSearchIdException e) {
-        e.printStackTrace();
-        // TODO print stack trace? SWALLOW, NO RE-THROW! 
-      }
-    }
-    
-    return searchId;
+    session.get().setAttribute(getSessionAttrNameSearchParams(searchUID), searchParams);
+    return searchUID;
   }
 
   /**
@@ -93,7 +63,7 @@ public class ResourceSearchControllerSession implements ResourceSearchController
    */
   private class SearchModel {
     private Map<String, Object> preparedTemplate;
-    private int maxRowCount;
+    private int maxResultsetSize;
   }
 
   protected SearchModel createSearchModel(SearchParamsDto searchParams) {
@@ -106,13 +76,15 @@ public class ResourceSearchControllerSession implements ResourceSearchController
       template = Collections.emptyMap();
     }
 
-    Integer maxRowCount = searchParams.getMaxRowCount();
-    if (maxRowCount == null) {     
-      maxRowCount = JepRiaConstant.DEFAULT_MAX_ROW_COUNT;
+    
+    // maxResultsetSize: из клиентских поисковых параметров; если не задано - то из RecordDefinition 
+    Integer maxResultsetSize = searchParams.getMaxResultsetSize();
+    if (maxResultsetSize == null) {
+      maxResultsetSize = resourceDescription.getRecordDefinition().getMaxResultsetSize();
     }
+    searchModel.maxResultsetSize = maxResultsetSize;
 
-    searchModel.maxRowCount = maxRowCount;
-
+    
     Map<String, Object> preparedTemplate = new HashMap<>(template);
 
     Map<String, JepLikeEnum> matchMap = resourceDescription.getRecordDefinition().getFieldMatch();
@@ -177,11 +149,11 @@ public class ResourceSearchControllerSession implements ResourceSearchController
     List<Map<String, Object>> resultset;
     
     try {
-      resultset = Compat.recListToMapList(
+      resultset = Compat.convertList(
           resourceDescription.getDao().find(
               Compat.convertRecord(searchModel.preparedTemplate),
               autoRefreshFlag,
-              searchModel.maxRowCount,
+              searchModel.maxResultsetSize,
               credential.getOperatorId()));
     } catch (ApplicationException e) {
       //TODO
@@ -241,7 +213,7 @@ public class ResourceSearchControllerSession implements ResourceSearchController
   protected List<?> getResultsetLocal(String searchId, Credential credential) throws NoSuchSearchIdException {
     String sessionAttrName = getSessionAttrNameSearchResultset(searchId);
     
-    // нужно отличить когда сессия не содержит атрибута или когда она содержит атрибут со значением null
+    // проверка если сессия не содержит атрибута (а не если она содержит атрибут со значением null)
     if (!Collections.list(session.get().getAttributeNames()).contains(sessionAttrName)) {
       doSearch(searchId, credential);
     }
@@ -256,19 +228,31 @@ public class ResourceSearchControllerSession implements ResourceSearchController
   }
   
   
-  protected boolean isSupportedGetResultset(String searchId, Credential credential) throws NoSuchSearchIdException {
-    final int actualResultsetSize = getResultsetLocal(searchId, credential).size();
-    final int maxResultsetSize = resourceDescription.getRecordDefinition().getResultsetSizeLimit();  
-    return actualResultsetSize <= maxResultsetSize;
+  protected void checkResultsetSizeOrThrow(String searchId, Credential credential) throws NoSuchSearchIdException, MaxResultsetSizeExceedException {
+    final int actualResultsetSize = getResultsetSize(searchId, credential);
+    
+    SearchParamsDto searchParams = getSearchParams(searchId, credential);
+    if (searchParams.getMaxResultsetSize() != null) {
+      // check maxResultsetSize from the search params
+      final int maxResultsetSize = searchParams.getMaxResultsetSize();
+      if (actualResultsetSize > maxResultsetSize) {
+        throw new MaxResultsetSizeExceedException("The actual resultset size (" + actualResultsetSize + ")"
+            + " exceeds the maxResultsetSize (" + maxResultsetSize + ") specified in the search params");
+      }
+    } else {
+      // check maxResultsetSize from the RecordDefinition
+      final int maxResultsetSize = resourceDescription.getRecordDefinition().getMaxResultsetSize();
+      if (actualResultsetSize > maxResultsetSize) {
+        throw new MaxResultsetSizeExceedException("The actual resultset size (" + actualResultsetSize + ")"
+            + " exceeds the maxResultsetSize (" + maxResultsetSize + ") specified by the Resource");
+      }
+    }
   }
   
   @Override
-  public List<?> getResultset(String searchId, Credential credential) throws NoSuchSearchIdException, UnsupportedMethodException {
-    if (!isSupportedGetResultset(searchId, credential)) {
-      throw new UnsupportedMethodException();
-    } else {
-      return getResultsetLocal(searchId, credential);
-    }
+  public List<?> getResultset(String searchId, Credential credential) throws NoSuchSearchIdException, MaxResultsetSizeExceedException {
+    checkResultsetSizeOrThrow(searchId, credential);
+    return getResultsetLocal(searchId, credential);
   }
   
   @Override

@@ -7,7 +7,7 @@ public class SearchParamsDto {
   
   private Map<String, Object> template;
   
-  private Integer maxRowCount;
+  private Integer maxResultsetSize;
 
   private List<ColumnSortConfigurationDto> listSortConfiguration;
   
@@ -27,12 +27,12 @@ public class SearchParamsDto {
     this.listSortConfiguration = listSortConfiguration;
   }
 
-  public Integer getMaxRowCount() {
-    return maxRowCount;
+  public Integer getMaxResultsetSize() {
+    return maxResultsetSize;
   }
 
-  public void setMaxRowCount(Integer maxRowCount) {
-    this.maxRowCount = maxRowCount;
+  public void setMaxResultsetSize(Integer maxResultsetSize) {
+    this.maxResultsetSize = maxResultsetSize;
   }
   
 }
