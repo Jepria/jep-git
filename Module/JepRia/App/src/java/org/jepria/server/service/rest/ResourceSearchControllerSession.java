@@ -130,7 +130,7 @@ public class ResourceSearchControllerSession implements ResourceSearchController
   }
 
   /**
-   * Осуществляет DAO поиск и сохраняет результат в сессию
+   * Осуществляет DAO-поиск и сохраняет результат в сессию
    * @param searchId
    * @throws NoSuchSearchIdException
    */
@@ -153,14 +153,14 @@ public class ResourceSearchControllerSession implements ResourceSearchController
           resourceDescription.getDao().find(
               Compat.convertRecord(searchModel.preparedTemplate),
               autoRefreshFlag,
-              searchModel.maxResultsetSize,
+              searchModel.maxResultsetSize + 2,
               credential.getOperatorId()));
     } catch (ApplicationException e) {
       //TODO
       throw new RuntimeException(e);
     }
 
-    // TODO restore :
+    // TODO move the autorefreshFlag logic from server-side to client-side
     // Сохраним флаг автообновления.
     // autoRefreshFlag.get();
     
@@ -236,15 +236,15 @@ public class ResourceSearchControllerSession implements ResourceSearchController
       // check maxResultsetSize from the search params
       final int maxResultsetSize = searchParams.getMaxResultsetSize();
       if (actualResultsetSize > maxResultsetSize) {
-        throw new MaxResultsetSizeExceedException("The actual resultset size (" + actualResultsetSize + ")"
-            + " exceeds the maxResultsetSize (" + maxResultsetSize + ") specified in the search params");
+        // TODO the exception handlers do not know who defined the maxResultsetSize limit (in this case: SearchParamsDto)
+        throw new MaxResultsetSizeExceedException(actualResultsetSize, maxResultsetSize);
       }
     } else {
       // check maxResultsetSize from the RecordDefinition
       final int maxResultsetSize = resourceDescription.getRecordDefinition().getMaxResultsetSize();
       if (actualResultsetSize > maxResultsetSize) {
-        throw new MaxResultsetSizeExceedException("The actual resultset size (" + actualResultsetSize + ")"
-            + " exceeds the maxResultsetSize (" + maxResultsetSize + ") specified by the Resource");
+        // TODO the exception handlers do not know who defined the maxResultsetSize limit (in this case: RecordDefinition)
+        throw new MaxResultsetSizeExceedException(actualResultsetSize, maxResultsetSize);
       }
     }
   }

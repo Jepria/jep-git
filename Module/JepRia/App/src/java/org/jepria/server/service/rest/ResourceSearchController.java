@@ -25,11 +25,25 @@ public interface ResourceSearchController {
     }
   }
 
+  
+  
   public static class MaxResultsetSizeExceedException extends Exception {
     private static final long serialVersionUID = 1L;
     
-    public MaxResultsetSizeExceedException(String message) {
-      super(message);
+    private final int actualResultsetSize;
+    private final int maxResultsetSize;
+    
+    public MaxResultsetSizeExceedException(int actualResultsetSize, int maxResultsetSize) {
+      this.actualResultsetSize = actualResultsetSize;
+      this.maxResultsetSize = maxResultsetSize;
+    }
+
+    public int getActualResultsetSize() {
+      return actualResultsetSize;
+    }
+
+    public int getMaxResultsetSize() {
+      return maxResultsetSize;
     }
   }
 
