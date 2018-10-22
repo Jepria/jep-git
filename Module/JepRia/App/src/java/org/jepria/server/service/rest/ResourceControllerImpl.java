@@ -13,7 +13,6 @@ import org.jepria.server.service.security.Credential;
 import com.technology.jep.jepria.shared.exceptions.ApplicationException;
 import com.technology.jep.jepria.shared.exceptions.NotImplementedYetException;
 import com.technology.jep.jepria.shared.field.JepTypeEnum;
-import com.technology.jep.jepria.shared.record.JepRecord;
 import com.technology.jep.jepria.shared.util.Mutable;
 
 public class ResourceControllerImpl implements ResourceController {
@@ -94,7 +93,7 @@ public class ResourceControllerImpl implements ResourceController {
 
 
     try {
-      List<JepRecord> result = resourceDescription.getDao().find(
+      List<?> result = resourceDescription.getDao().find(
           Compat.convertRecord(primaryKeyMap), 
           new Mutable<Boolean>(false), 
           1, 

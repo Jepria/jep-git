@@ -34,7 +34,9 @@ public abstract class StandardEndpointBase<D extends JepDataStandard> {
     return new Credential() {
       @Override
       public int getOperatorId() {
-        return (int)request.getAttribute("org.jepria.auth.jwt.OperatorId");
+        return 1;
+        // TODO
+//        return (int)request.getAttribute("org.jepria.auth.jwt.OperatorId");
       }
     };
   }
