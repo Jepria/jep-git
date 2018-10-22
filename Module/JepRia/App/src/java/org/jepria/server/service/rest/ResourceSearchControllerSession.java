@@ -54,7 +54,18 @@ public class ResourceSearchControllerSession implements ResourceSearchController
   @Override
   public String postSearchRequest(SearchParamsDto searchParams, Credential credential) {
     session.get().setAttribute(getSessionAttrNameSearchParams(searchUID), searchParams);
+    
+    // инвалидируем предыдущие результаты поиска
+    invalidateExistingResultset();
+    
     return searchUID;
+  }
+  
+  /**
+   * Инвалидация существующих результатов поиска
+   */
+  private void invalidateExistingResultset() {
+    session.get().removeAttribute(getSessionAttrNameSearchResultset(searchUID));
   }
 
   /**
@@ -204,6 +215,11 @@ public class ResourceSearchControllerSession implements ResourceSearchController
     return getResultsetLocal(searchId, credential).size();
   }
   
+  private boolean sessionContainsAttribute(String attributeName) {
+    // проверка если сессия именно не содержит атрибута (а не если она содержит оный атрибут со значением null)
+    return Collections.list(session.get().getAttributeNames()).contains(attributeName);
+  }
+  
   /**
    * 
    * @param searchId
@@ -213,8 +229,8 @@ public class ResourceSearchControllerSession implements ResourceSearchController
   protected List<?> getResultsetLocal(String searchId, Credential credential) throws NoSuchSearchIdException {
     String sessionAttrName = getSessionAttrNameSearchResultset(searchId);
     
-    // проверка если сессия не содержит атрибута (а не если она содержит атрибут со значением null)
-    if (!Collections.list(session.get().getAttributeNames()).contains(sessionAttrName)) {
+    if (!sessionContainsAttribute(sessionAttrName)) {
+      // поиск не осуществлялся или был инвалидирован
       doSearch(searchId, credential);
     }
     
