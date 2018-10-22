@@ -10,30 +10,45 @@ import javax.ws.rs.core.Response.ResponseBuilder;
 import javax.ws.rs.core.Response.Status;
 
 /**
- * Class for extending responses for 'extended-response' request headers
+ * Class for extending ResponseBuilders (namely, while processing 'extended-response' request headers)
  */
-public class ExtendedResponse {
+public final class ResponseBuilderExtender {
   
   public static final String HEADER_NAME__EXTENDED_RESPONSE = "extended-response";
   
-  private ExtendedResponse() {}
+  private final ResponseBuilder originalResponseBuilder;
+  
+  private final ExtendedResponseHandler handler;
+  
+  private ResponseBuilderExtender(ResponseBuilder originalResponseBuilder, ExtendedResponseHandler handler) {
+    this.originalResponseBuilder = originalResponseBuilder;
+    this.handler = handler;
+  }
   
   /**
-   * Extends the response using the handler applied to the extendedResponseValue
-   * @param originalResponse not null
-   * @param handler
-   * @param extendedResponseValue not null
-   * @return
+   * Extends the ResponseBuilder with the handler
+   * @param responseBuilder the {@link ResponseBuilder} to extend, not null
+   * @param handler the handler to extend the underlying {@link ResponseBuilder} with, not null
+   * @return a ResponseBuilderExtender instance to apply the handler 
+   * @throws IllegalArgumentException if either responseBuilder or handler is null
    */
-  public static ResponseBuilder from(ResponseBuilder originalResponse, ExtendedResponseHandler handler, String extendedResponseValue) {
-    if (originalResponse == null) {
-      throw new IllegalArgumentException("extendedResponseValue must not be null");
+  public static ResponseBuilderExtender extendWithHandler(ResponseBuilder responseBuilder, ExtendedResponseHandler handler) {
+    if (responseBuilder == null) {
+      throw new IllegalArgumentException("responseBuilder must not be null");
+    }
+    if (handler == null) {
+      throw new IllegalArgumentException("handler must not be null");
     }
     
-    if (extendedResponseValue == null) {
-      throw new IllegalArgumentException("extendedResponseValue must not be null");
-    }
-    
+    return new ResponseBuilderExtender(responseBuilder, handler);
+  }
+  
+  /**
+   * Extends the underlying {@link ResponseBuilder} by applying the handler to the particular extendedResponseValue
+   * @param extendedResponseValue
+   * @return the extended ResponseBuilder
+   */
+  public ResponseBuilder appliedToValue(String extendedResponseValue) {
     final Object extendedResponse;
     try {
       extendedResponse = handler.handle(extendedResponseValue);
@@ -42,10 +57,10 @@ public class ExtendedResponse {
       return Response.status(Status.BAD_REQUEST.getStatusCode(), reasonPhrase);
     }
 
-    ResponseBuilder response = originalResponse;
+    ResponseBuilder response = originalResponseBuilder;
     
     // move current entity under 'original-response' key, add 'extended-response' field
-    Response rOriginalResponse = originalResponse.build();
+    Response rOriginalResponse = originalResponseBuilder.build();
     Object originalEntity = rOriginalResponse.getEntity();
     response = Response.fromResponse(rOriginalResponse);
 
@@ -61,27 +76,24 @@ public class ExtendedResponse {
   }
   
   /**
-   * Extends the response using the handler applied to the value of {@link #HEADER_NAME__EXTENDED_RESPONSE} request header
-   * @param originalResponse
-   * @param handler
+   * Extends the underlying {@link ResponseBuilder} by applying the handler to the value of {@link #HEADER_NAME__EXTENDED_RESPONSE} request header
    * @param request not null
-   * @return
+   * @throws IllegalArgumentException if request is null
+   * @see 
    */
-  public static ResponseBuilder from(ResponseBuilder originalResponse, ExtendedResponseHandler handler, HttpServletRequest request) {
+  public ResponseBuilder appliedToRequest(HttpServletRequest request) {
     if (request == null) {
       throw new IllegalArgumentException("request must not be null");
     }
     
     if (Collections.list(request.getHeaderNames()).contains(HEADER_NAME__EXTENDED_RESPONSE)) {
       String extendedResponseValue = request.getHeader(HEADER_NAME__EXTENDED_RESPONSE);
-      if (extendedResponseValue != null) {
-        return from(originalResponse, handler, extendedResponseValue);
-      }
+      return appliedToValue(extendedResponseValue);
     }
     
-    return originalResponse;
+    return originalResponseBuilder;
   }
-
+  
   public static class UnsupportedHeaderValueException extends Exception {
     private static final long serialVersionUID = 1L;
     
@@ -94,8 +106,7 @@ public class ExtendedResponse {
   
   public static interface ExtendedResponseHandler {
     /**
-     * Handle particular extendedResponseValue within a request to the endpoint (that value is one of comma-separated values of a 
-     * {@link StandardResourceEndpoint#HEADER_NAME__EXTENDED_RESPONSE} request header, if any) 
+     * Handles particular extendedResponseValue within a request to the endpoint 
      * @param extendedResponseValue
      * @return object ready to be serialized into a response
      * @throws UnsupportedHeaderValueException if the implementor cannot handle such extendedResponseValue  

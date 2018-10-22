@@ -1,10 +1,11 @@
 package org.jepria.server.service.rest.jaxrs;
 
 import java.net.URI;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpSession;
 import javax.ws.rs.Consumes;
@@ -20,14 +21,13 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.ResponseBuilder;
 import javax.ws.rs.core.Response.Status;
 
-import org.glassfish.jersey.uri.UriTemplate;
 import org.jepria.server.load.rest.SearchParamsDto;
 import org.jepria.server.service.rest.ResourceSearchController;
 import org.jepria.server.service.rest.ResourceSearchController.MaxResultsetSizeExceedException;
 import org.jepria.server.service.rest.ResourceSearchController.NoSuchSearchIdException;
 import org.jepria.server.service.rest.ResourceSearchControllerSession;
-import org.jepria.server.service.rest.jaxrs.ExtendedResponse.ExtendedResponseHandler;
-import org.jepria.server.service.rest.jaxrs.ExtendedResponse.UnsupportedHeaderValueException;
+import org.jepria.server.service.rest.jaxrs.ResponseBuilderExtender.ExtendedResponseHandler;
+import org.jepria.server.service.rest.jaxrs.ResponseBuilderExtender.UnsupportedHeaderValueException;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -144,7 +144,7 @@ public abstract class StandardResourceEndpoint extends StandardEndpointBase {
 
 
     // клиент может запросить ответ, расширенный результатами поиска данного запроса
-    response = ExtendedResponse.from(response, new PostSearchExtendedResponseHandlerImpl(searchId), request);
+    response = ResponseBuilderExtender.extendWithHandler(response, new PostSearchExtendedResponseHandler(searchId)).appliedToRequest(request);
 
     return response.build();
   }
@@ -168,11 +168,11 @@ public abstract class StandardResourceEndpoint extends StandardEndpointBase {
     public Object entity;
   }
 
-  private class PostSearchExtendedResponseHandlerImpl implements ExtendedResponseHandler {
+  private class PostSearchExtendedResponseHandler implements ExtendedResponseHandler {
 
     final String searchId;
 
-    public PostSearchExtendedResponseHandlerImpl(String searchId) {
+    public PostSearchExtendedResponseHandler(String searchId) {
       this.searchId = searchId;
     }
 
@@ -182,13 +182,8 @@ public abstract class StandardResourceEndpoint extends StandardEndpointBase {
         return null;
       }
 
-      UriTemplate uriTemplate;
-      Map<String, String> uriTemplateMap;
-
       // check getResultset
-      uriTemplate = new UriTemplate(URI_TEMPLATE__GET_RESULTSET);
-      uriTemplateMap = new HashMap<>();
-      if (uriTemplate.match(extendedResponseValue, uriTemplateMap)) {
+      if (extendedResponseValue.equals("resultset")) {
         Response subresponse = getResultset(searchId);
 
         final PostSearchExtendedResponseItemDto extResponseItemDto = new PostSearchExtendedResponseItemDto();
@@ -205,11 +200,10 @@ public abstract class StandardResourceEndpoint extends StandardEndpointBase {
 
 
       // check getResultsetPaged
-      uriTemplate = new UriTemplate(URI_TEMPLATE__GET_RESULTSET_PAGED);
-      uriTemplateMap = new HashMap<>();
-      if (uriTemplate.match(extendedResponseValue, uriTemplateMap)) {
-        Integer pageSize = Integer.parseInt(uriTemplateMap.get("pageSize"));
-        Integer page = Integer.parseInt(uriTemplateMap.get("page"));
+      Matcher m = Pattern.compile("resultset/paged-by-(\\d+)/(\\d+)").matcher(extendedResponseValue);
+      if (m.matches()) {
+        final int pageSize = Integer.valueOf(m.group(1));// TODO possible Integer overflow
+        final int page = Integer.valueOf(m.group(2));// TODO possible Integer overflow
 
         Response subresponse = getResultsetPaged(searchId, pageSize, page);
 
@@ -263,11 +257,8 @@ public abstract class StandardResourceEndpoint extends StandardEndpointBase {
     return Response.ok(result).build();
   }
 
-  private static final String URI_TEMPLATE__GET_RESULTSET = "resultset";
-  private static final String URI_TEMPLATE__GET_RESULTSET_PAGED = "resultset/paged-by-{pageSize:\\d+}/{page}";
-
   @GET
-  @Path("search/{searchId}/" + URI_TEMPLATE__GET_RESULTSET)
+  @Path("search/{searchId}/resultset")
   @ApiOperation(value = "Get whole resultset")
   public Response getResultset(
       @PathParam("searchId") String searchId) {
@@ -295,7 +286,7 @@ public abstract class StandardResourceEndpoint extends StandardEndpointBase {
   private static final int DEFAULT_PAGE_SIZE = 25;
 
   @GET
-  @Path("search/{searchId}/" + URI_TEMPLATE__GET_RESULTSET_PAGED)
+  @Path("search/{searchId}/resultset/paged-by-{pageSize:\\d+}/{page}")
   @ApiOperation(value = "Get resultset paged")
   public Response getResultsetPaged(
       @PathParam("searchId") String searchId,

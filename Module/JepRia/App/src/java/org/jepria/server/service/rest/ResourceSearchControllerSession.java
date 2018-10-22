@@ -40,7 +40,7 @@ public class ResourceSearchControllerSession implements ResourceSearchController
   }
 
   private String getSessionAttrNameCommonPrefix() {
-    return "SearchEngine:ResourceName=" + resourceDescription.getResourceName() + ";";
+    return "SearchController:ResourceName=" + resourceDescription.getResourceName() + ";";
   }
 
   private String getSessionAttrNameSearchParams(String searchId) {

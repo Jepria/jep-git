@@ -29,12 +29,10 @@ public abstract class StandardEndpointBase {
    * @return
    */
   protected Credential getCredential() {
-    Integer operatorId = 1;
-    // TODO = (Integer)request.getHeader("operatorId");
     return new Credential() {
       @Override
       public Integer getOperatorId() {
-        return operatorId;
+        return (Integer)request.getAttribute("org.jepria.auth.jwt.OperatorId");
       }
     };
   }
