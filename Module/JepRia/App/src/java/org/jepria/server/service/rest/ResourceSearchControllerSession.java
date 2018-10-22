@@ -24,13 +24,14 @@ import com.technology.jep.jepria.shared.util.Mutable;
 
 public class ResourceSearchControllerSession implements ResourceSearchController {
 
-  protected final ResourceDescription resourceDescription;
+  // нет необходимости параметризовать, так как механизм поиска не специфицируется на прикладном уровне 
+  protected final ResourceDescription<?> resourceDescription;
 
   protected final Supplier<HttpSession> session;
 
   private final String searchUID;
  
-  public ResourceSearchControllerSession(ResourceDescription resourceDescription,
+  public ResourceSearchControllerSession(ResourceDescription<?> resourceDescription,
       Supplier<HttpSession> session) {
     this.resourceDescription = resourceDescription;
     this.session = session;

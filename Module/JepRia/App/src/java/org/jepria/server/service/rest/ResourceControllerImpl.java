@@ -18,9 +18,10 @@ import com.technology.jep.jepria.shared.util.Mutable;
 
 public class ResourceControllerImpl implements ResourceController {
 
-  protected final ResourceDescription resourceDescription;
+  // нет необходимости параметризовать, так как механизм CRUD не специфицируется на прикладном уровне 
+  protected final ResourceDescription<?> resourceDescription;
   
-  public ResourceControllerImpl(ResourceDescription resourceDescription) {
+  public ResourceControllerImpl(ResourceDescription<?> resourceDescription) {
     this.resourceDescription = resourceDescription;
   }
 
