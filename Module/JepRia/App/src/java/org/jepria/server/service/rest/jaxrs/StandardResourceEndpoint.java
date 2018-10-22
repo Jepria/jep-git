@@ -26,8 +26,8 @@ import org.jepria.server.service.rest.ResourceSearchController;
 import org.jepria.server.service.rest.ResourceSearchController.MaxResultsetSizeExceedException;
 import org.jepria.server.service.rest.ResourceSearchController.NoSuchSearchIdException;
 import org.jepria.server.service.rest.ResourceSearchControllerSession;
-import org.jepria.server.service.rest.jaxrs.ResponseExtender.ExtendResponseHandler;
-import org.jepria.server.service.rest.jaxrs.ResponseExtender.UnsupportedHeaderValueException;
+import org.jepria.server.service.rest.jaxrs.ExtendedResponse.ExtendedResponseHandler;
+import org.jepria.server.service.rest.jaxrs.ExtendedResponse.UnsupportedHeaderValueException;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -144,7 +144,7 @@ public abstract class StandardResourceEndpoint extends StandardEndpointBase {
 
 
     // клиент может запросить ответ, расширенный результатами поиска данного запроса
-    response = ResponseExtender.extend(response, new PostSearchExtendResponseHandlerImpl(searchId), request);
+    response = ExtendedResponse.from(response, new PostSearchExtendedResponseHandlerImpl(searchId), request);
 
     return response.build();
   }
@@ -168,17 +168,17 @@ public abstract class StandardResourceEndpoint extends StandardEndpointBase {
     public Object entity;
   }
 
-  private class PostSearchExtendResponseHandlerImpl implements ExtendResponseHandler {
+  private class PostSearchExtendedResponseHandlerImpl implements ExtendedResponseHandler {
 
     final String searchId;
 
-    public PostSearchExtendResponseHandlerImpl(String searchId) {
+    public PostSearchExtendedResponseHandlerImpl(String searchId) {
       this.searchId = searchId;
     }
 
     @Override
-    public Object handle(String extendResponseValue) throws UnsupportedHeaderValueException {
-      if (extendResponseValue == null) {
+    public Object handle(String extendedResponseValue) throws UnsupportedHeaderValueException {
+      if (extendedResponseValue == null) {
         return null;
       }
 
@@ -188,7 +188,7 @@ public abstract class StandardResourceEndpoint extends StandardEndpointBase {
       // check getResultset
       uriTemplate = new UriTemplate(URI_TEMPLATE__GET_RESULTSET);
       uriTemplateMap = new HashMap<>();
-      if (uriTemplate.match(extendResponseValue, uriTemplateMap)) {
+      if (uriTemplate.match(extendedResponseValue, uriTemplateMap)) {
         Response subresponse = getResultset(searchId);
 
         final PostSearchExtendedResponseItemDto extResponseItemDto = new PostSearchExtendedResponseItemDto();
@@ -196,7 +196,7 @@ public abstract class StandardResourceEndpoint extends StandardEndpointBase {
         final PostSearchSubresponseDto subresponseDto = new PostSearchSubresponseDto();
         extResponseItemDto.subrequest = subrequestDto;
         extResponseItemDto.subresponse = subresponseDto;
-        subrequestDto.url = URI.create(request.getRequestURL() + "/" + searchId + "/" + extendResponseValue).toString();
+        subrequestDto.url = URI.create(request.getRequestURL() + "/" + searchId + "/" + extendedResponseValue).toString();
         subresponseDto.status = subresponse.getStatus();
         subresponseDto.reasonPhrase = subresponse.getStatusInfo().getReasonPhrase();
         subresponseDto.entity = subresponse.getEntity();
@@ -207,7 +207,7 @@ public abstract class StandardResourceEndpoint extends StandardEndpointBase {
       // check getResultsetPaged
       uriTemplate = new UriTemplate(URI_TEMPLATE__GET_RESULTSET_PAGED);
       uriTemplateMap = new HashMap<>();
-      if (uriTemplate.match(extendResponseValue, uriTemplateMap)) {
+      if (uriTemplate.match(extendedResponseValue, uriTemplateMap)) {
         Integer pageSize = Integer.parseInt(uriTemplateMap.get("pageSize"));
         Integer page = Integer.parseInt(uriTemplateMap.get("page"));
 
@@ -218,14 +218,14 @@ public abstract class StandardResourceEndpoint extends StandardEndpointBase {
         final PostSearchSubresponseDto subresponseDto = new PostSearchSubresponseDto();
         extResponseItemDto.subrequest = subrequestDto;
         extResponseItemDto.subresponse = subresponseDto;
-        subrequestDto.url = URI.create(request.getRequestURL() + "/" + searchId + "/" + extendResponseValue).toString();
+        subrequestDto.url = URI.create(request.getRequestURL() + "/" + searchId + "/" + extendedResponseValue).toString();
         subresponseDto.status = subresponse.getStatus();
         subresponseDto.reasonPhrase = subresponse.getStatusInfo().getReasonPhrase();
         subresponseDto.entity = subresponse.getEntity();
         return extResponseItemDto;
       }
 
-      throw new UnsupportedHeaderValueException(extendResponseValue);
+      throw new UnsupportedHeaderValueException(extendedResponseValue);
     }
   }
 

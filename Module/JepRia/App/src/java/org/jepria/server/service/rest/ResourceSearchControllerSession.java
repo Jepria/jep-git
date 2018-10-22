@@ -153,7 +153,7 @@ public class ResourceSearchControllerSession implements ResourceSearchController
           resourceDescription.getDao().find(
               Compat.convertRecord(searchModel.preparedTemplate),
               autoRefreshFlag,
-              searchModel.maxResultsetSize + 2,
+              searchModel.maxResultsetSize,
               credential.getOperatorId()));
     } catch (ApplicationException e) {
       //TODO
