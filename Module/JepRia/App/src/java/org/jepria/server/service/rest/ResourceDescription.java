@@ -7,9 +7,9 @@ import com.technology.jep.jepria.server.dao.JepDataStandard;
 /**
  * Implementors provide standard applicational description for the REST resources  
  */
-public interface ResourceDescription {
+public interface ResourceDescription<D extends JepDataStandard> {
 
-  JepDataStandard getDao();
+  D getDao();
 
   String getResourceName();
 

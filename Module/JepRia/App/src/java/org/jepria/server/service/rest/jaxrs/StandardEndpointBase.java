@@ -10,13 +10,15 @@ import org.jepria.server.service.rest.ResourceControllerImpl;
 import org.jepria.server.service.rest.ResourceDescription;
 import org.jepria.server.service.security.Credential;
 
-public abstract class StandardEndpointBase {
+import com.technology.jep.jepria.server.dao.JepDataStandard;
+
+public abstract class StandardEndpointBase<D extends JepDataStandard> {
 
   /**
    * Provides application resource description
    * @return
    */
-  protected abstract ResourceDescription getResourceDescription();
+  protected abstract ResourceDescription<D> getResourceDescription();
   
   /**
    * Injectable field
@@ -31,8 +33,8 @@ public abstract class StandardEndpointBase {
   protected Credential getCredential() {
     return new Credential() {
       @Override
-      public Integer getOperatorId() {
-        return (Integer)request.getAttribute("org.jepria.auth.jwt.OperatorId");
+      public int getOperatorId() {
+        return (int)request.getAttribute("org.jepria.auth.jwt.OperatorId");
       }
     };
   }

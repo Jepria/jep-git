@@ -29,6 +29,8 @@ import org.jepria.server.service.rest.ResourceSearchControllerSession;
 import org.jepria.server.service.rest.jaxrs.ResponseBuilderExtender.ExtendedResponseHandler;
 import org.jepria.server.service.rest.jaxrs.ResponseBuilderExtender.UnsupportedHeaderValueException;
 
+import com.technology.jep.jepria.server.dao.JepDataStandard;
+
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
@@ -39,7 +41,7 @@ import io.swagger.annotations.ApiOperation;
 @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
 @Consumes(MediaType.APPLICATION_JSON + ";charset=utf-8")
 @Api
-public abstract class StandardResourceEndpoint extends StandardEndpointBase {
+public abstract class StandardResourceEndpoint<D extends JepDataStandard> extends StandardEndpointBase<D> {
 
   protected StandardResourceEndpoint() {}
 
