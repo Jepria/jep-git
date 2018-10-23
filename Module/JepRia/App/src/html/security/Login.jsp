@@ -1,7 +1,7 @@
 ﻿﻿<!DOCTYPE html>
 <%@ page contentType="text/html;charset=utf-8" language="java"%>
-<%@ page import="org.jepria.ssoutils.SsoUiUtils"%>
-<%@ page import="org.jepria.ssoutils.SsoUiConstants"%>
+<%@ page import="org.jepria.auth.utils.sso.SsoUiUtils"%>
+<%@ page import="org.jepria.auth.utils.sso.SsoUiConstants"%>
 <%@ page import="com.technology.jep.jepria.server.security.SecurityFactory" %>
 <%@ page import="static com.technology.jep.jepria.server.util.JepServerUtil.getLocale"%>
 <%@ page import="java.util.ResourceBundle" %>

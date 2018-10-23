@@ -2,7 +2,7 @@ package com.technology.jep.jepria.client.exception;
 
 import static com.technology.jep.jepria.client.JepRiaClientConstant.JepTexts;
 
-import org.jepria.ssoutils.SsoUiConstants;
+import org.jepria.auth.utils.sso.SsoUiConstants;
 
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.user.client.rpc.InvocationException;
