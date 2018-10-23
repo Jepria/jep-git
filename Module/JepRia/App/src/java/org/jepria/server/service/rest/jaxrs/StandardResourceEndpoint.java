@@ -7,6 +7,7 @@ import java.util.function.Supplier;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -18,7 +19,6 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.ResponseBuilder;
 import javax.ws.rs.core.Response.Status;
 
 import org.jepria.server.load.rest.SearchParamsDto;
@@ -26,8 +26,6 @@ import org.jepria.server.service.rest.ResourceSearchController;
 import org.jepria.server.service.rest.ResourceSearchController.MaxResultsetSizeExceedException;
 import org.jepria.server.service.rest.ResourceSearchController.NoSuchSearchIdException;
 import org.jepria.server.service.rest.ResourceSearchControllerSession;
-import org.jepria.server.service.rest.jaxrs.ResponseBuilderExtender.ExtendedResponseHandler;
-import org.jepria.server.service.rest.jaxrs.ResponseBuilderExtender.UnsupportedHeaderValueException;
 
 import com.technology.jep.jepria.server.dao.JepDataStandard;
 
@@ -130,6 +128,8 @@ public abstract class StandardResourceEndpoint<D extends JepDataStandard> extend
 
   //////// SEARCH ////////
 
+  public static final String HEADER_NAME__EXTENDED_RESPONSE = "extended-response";
+  
   @POST
   @Path("search")
   @ApiOperation(value = "Post search params")
@@ -142,18 +142,71 @@ public abstract class StandardResourceEndpoint<D extends JepDataStandard> extend
 
     // ссылка на созданный ресурс
     final URI location = URI.create(request.getRequestURL() + "/" + searchId);
-    ResponseBuilder response = Response.created(location);
+    Response response = Response.created(location).build();
 
 
     // клиент может запросить ответ, расширенный результатами поиска данного запроса
-    response = ResponseBuilderExtender.extendWithHandler(response, new PostSearchExtendedResponseHandler(searchId)).appliedToRequest(request);
+    response = postSearchProcessExtendedResponseHeader(request, response, searchId);
+    
+    return response;
+  }
+  
+  /**
+   * Считывает заголовок 'extended-response' запроса. В случае, если заголовок имеет валидные для postSearch значения, 
+   * расширяет ответ необходимыми данными
+   * @param request
+   * @param response
+   * @param searchId
+   * @return extended response if a proper 'extended-response' header is present in the request; otherwise response itself 
+   */
+  private Response postSearchProcessExtendedResponseHeader(HttpServletRequest request, Response response, String searchId) {
+    String extendedResponseHeaderValue = request.getHeader(HEADER_NAME__EXTENDED_RESPONSE);
+      
+    // check 'resultset' header value
+    if ("resultset".equals(extendedResponseHeaderValue)) {
+      Response subresponse = getResultset(searchId);
 
-    return response.build();
+      final PostSearchExtendedResponseDto extResponseDto = new PostSearchExtendedResponseDto();
+      final PostSearchSubrequestDto subrequestDto = new PostSearchSubrequestDto();
+      final PostSearchSubresponseDto subresponseDto = new PostSearchSubresponseDto();
+      extResponseDto.subrequest = subrequestDto;
+      extResponseDto.subresponse = subresponseDto;
+      subrequestDto.url = URI.create(request.getRequestURL() + "/" + searchId + "/" + extendedResponseHeaderValue).toString();
+      subresponseDto.status = subresponse.getStatus();
+      subresponseDto.reasonPhrase = subresponse.getStatusInfo().getReasonPhrase();
+      subresponseDto.entity = subresponse.getEntity();
+      
+      return ExtendedResponse.from(response).extend(extResponseDto).asResponse();
+      
+    }
+        
+    // check 'resultset/paged-by-x/y' header value
+    Matcher m = Pattern.compile("resultset/paged-by-(\\d+)/(\\d+)").matcher(extendedResponseHeaderValue);
+    if (m.matches()) {
+      final int pageSize = Integer.valueOf(m.group(1));// TODO possible Integer overflow
+      final int page = Integer.valueOf(m.group(2));// TODO possible Integer overflow
+
+      Response subresponse = getResultsetPaged(searchId, pageSize, page);
+
+      final PostSearchExtendedResponseDto extResponseDto = new PostSearchExtendedResponseDto();
+      final PostSearchSubrequestDto subrequestDto = new PostSearchSubrequestDto();
+      final PostSearchSubresponseDto subresponseDto = new PostSearchSubresponseDto();
+      extResponseDto.subrequest = subrequestDto;
+      extResponseDto.subresponse = subresponseDto;
+      subrequestDto.url = URI.create(request.getRequestURL() + "/" + searchId + "/" + extendedResponseHeaderValue).toString();
+      subresponseDto.status = subresponse.getStatus();
+      subresponseDto.reasonPhrase = subresponse.getStatusInfo().getReasonPhrase();
+      subresponseDto.entity = subresponse.getEntity();
+      
+      return ExtendedResponse.from(response).extend(extResponseDto).asResponse();
+    }
+    
+    return response;
   }
 
 
   //public static for Jersey's introspection only
-  public static class PostSearchExtendedResponseItemDto {
+  public static class PostSearchExtendedResponseDto {
     public PostSearchSubrequestDto subrequest;
     public PostSearchSubresponseDto subresponse;
   }
@@ -168,61 +221,6 @@ public abstract class StandardResourceEndpoint<D extends JepDataStandard> extend
     public Integer status;
     public String reasonPhrase;
     public Object entity;
-  }
-
-  private class PostSearchExtendedResponseHandler implements ExtendedResponseHandler {
-
-    final String searchId;
-
-    public PostSearchExtendedResponseHandler(String searchId) {
-      this.searchId = searchId;
-    }
-
-    @Override
-    public Object handle(String extendedResponseValue) throws UnsupportedHeaderValueException {
-      if (extendedResponseValue == null) {
-        return null;
-      }
-
-      // check getResultset
-      if (extendedResponseValue.equals("resultset")) {
-        Response subresponse = getResultset(searchId);
-
-        final PostSearchExtendedResponseItemDto extResponseItemDto = new PostSearchExtendedResponseItemDto();
-        final PostSearchSubrequestDto subrequestDto = new PostSearchSubrequestDto();
-        final PostSearchSubresponseDto subresponseDto = new PostSearchSubresponseDto();
-        extResponseItemDto.subrequest = subrequestDto;
-        extResponseItemDto.subresponse = subresponseDto;
-        subrequestDto.url = URI.create(request.getRequestURL() + "/" + searchId + "/" + extendedResponseValue).toString();
-        subresponseDto.status = subresponse.getStatus();
-        subresponseDto.reasonPhrase = subresponse.getStatusInfo().getReasonPhrase();
-        subresponseDto.entity = subresponse.getEntity();
-        return extResponseItemDto;
-      }
-
-
-      // check getResultsetPaged
-      Matcher m = Pattern.compile("resultset/paged-by-(\\d+)/(\\d+)").matcher(extendedResponseValue);
-      if (m.matches()) {
-        final int pageSize = Integer.valueOf(m.group(1));// TODO possible Integer overflow
-        final int page = Integer.valueOf(m.group(2));// TODO possible Integer overflow
-
-        Response subresponse = getResultsetPaged(searchId, pageSize, page);
-
-        final PostSearchExtendedResponseItemDto extResponseItemDto = new PostSearchExtendedResponseItemDto();
-        final PostSearchSubrequestDto subrequestDto = new PostSearchSubrequestDto();
-        final PostSearchSubresponseDto subresponseDto = new PostSearchSubresponseDto();
-        extResponseItemDto.subrequest = subrequestDto;
-        extResponseItemDto.subresponse = subresponseDto;
-        subrequestDto.url = URI.create(request.getRequestURL() + "/" + searchId + "/" + extendedResponseValue).toString();
-        subresponseDto.status = subresponse.getStatus();
-        subresponseDto.reasonPhrase = subresponse.getStatusInfo().getReasonPhrase();
-        subresponseDto.entity = subresponse.getEntity();
-        return extResponseItemDto;
-      }
-
-      throw new UnsupportedHeaderValueException(extendedResponseValue);
-    }
   }
 
   @GET

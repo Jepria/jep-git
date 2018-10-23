@@ -3,7 +3,7 @@ package org.jepria.server.service.rest;
 import java.util.List;
 
 import org.jepria.server.load.rest.SearchParamsDto;
-import org.jepria.server.service.security.Credential;
+import org.jepria.server.security.Credential;
 
 /**
  * The interface has CREATE and READ methods only.

@@ -3,7 +3,7 @@ package org.jepria.server.service.rest;
 import java.util.List;
 import java.util.Map;
 
-import org.jepria.server.service.security.Credential;
+import org.jepria.server.security.Credential;
 
 public interface ResourceController {
 

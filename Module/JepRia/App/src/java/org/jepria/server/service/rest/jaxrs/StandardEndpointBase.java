@@ -5,10 +5,10 @@ import java.util.function.Supplier;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.core.Context;
 
+import org.jepria.server.security.Credential;
 import org.jepria.server.service.rest.ResourceController;
 import org.jepria.server.service.rest.ResourceControllerImpl;
 import org.jepria.server.service.rest.ResourceDescription;
-import org.jepria.server.service.security.Credential;
 
 import com.technology.jep.jepria.server.dao.JepDataStandard;
 

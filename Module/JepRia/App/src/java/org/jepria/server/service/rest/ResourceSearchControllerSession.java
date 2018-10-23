@@ -15,7 +15,7 @@ import org.jepria.compat.Compat;
 import org.jepria.server.load.rest.ColumnSortConfigurationDto;
 import org.jepria.server.load.rest.ListSorter;
 import org.jepria.server.load.rest.SearchParamsDto;
-import org.jepria.server.service.security.Credential;
+import org.jepria.server.security.Credential;
 
 import com.technology.jep.jepria.shared.exceptions.ApplicationException;
 import com.technology.jep.jepria.shared.field.JepLikeEnum;

@@ -8,7 +8,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.jepria.compat.Compat;
-import org.jepria.server.service.security.Credential;
+import org.jepria.server.security.Credential;
 
 import com.technology.jep.jepria.shared.exceptions.ApplicationException;
 import com.technology.jep.jepria.shared.exceptions.NotImplementedYetException;
