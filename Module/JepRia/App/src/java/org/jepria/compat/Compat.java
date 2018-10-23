@@ -2,8 +2,10 @@ package org.jepria.compat;
 
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.jepria.shared.RecordDefinition;
@@ -68,18 +70,29 @@ public class Compat {
       }
       
       @Override
-      public Map<String, JepTypeEnum> getFieldTypes() {
-        return jepRecordDefinition.getTypeMap();
-      }
-      
-      @Override
-      public Map<String, JepLikeEnum> getFieldMatch() {
-        return jepRecordDefinition.getLikeMap();
-      }
-      
-      @Override
       public Map<String, Comparator<Object>> getFieldComparators() {
         return null;
+      }
+
+      private final Set<String> knownFieldNames = new HashSet<>();
+      {
+        knownFieldNames.addAll(jepRecordDefinition.getTypeMap().keySet());
+        knownFieldNames.addAll(jepRecordDefinition.getLikeMap().keySet());
+      }
+      
+      @Override
+      public Set<String> getFieldNames() {
+        return knownFieldNames;
+      }
+
+      @Override
+      public JepTypeEnum getFieldType(String fieldName) {
+        return jepRecordDefinition.getType(fieldName);
+      }
+
+      @Override
+      public JepLikeEnum getFieldMatch(String fieldName) {
+        return jepRecordDefinition.getLikeMap().get(fieldName);
       }
     }; 
   }

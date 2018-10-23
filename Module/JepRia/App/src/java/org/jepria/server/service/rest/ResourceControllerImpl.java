@@ -68,9 +68,9 @@ public class ResourceControllerImpl implements ResourceController {
     }
     
 
-    String primaryKey0 = primaryKey.get(0);
+    final String primaryKey0 = primaryKey.get(0);
 
-    JepTypeEnum primaryKeyType = resourceDescription.getRecordDefinition().getFieldTypes().get(primaryKey0);
+    JepTypeEnum primaryKeyType = resourceDescription.getRecordDefinition().getFieldType(primaryKey0);
     final Object primaryKeyValueTyped;
 
     switch (primaryKeyType) {
@@ -93,7 +93,7 @@ public class ResourceControllerImpl implements ResourceController {
 
 
     try {
-      List<?> result = resourceDescription.getDao().find(
+      List<?> daoResultList = resourceDescription.getDao().find(
           Compat.convertRecord(primaryKeyMap), 
           new Mutable<Boolean>(false), 
           1, 
@@ -101,17 +101,24 @@ public class ResourceControllerImpl implements ResourceController {
 
       
       // check find result is of size 1
-      if (result == null || result.size() == 0) {
+      if (daoResultList == null || daoResultList.size() == 0) {
         // return 404 (empty result)
         return null;
-      } else if (result.size() != 1) {
+      } else if (daoResultList.size() != 1) {
         // TODO 
-        throw new IllegalStateException("Expected find result of size 1 (actual size: " + result.size() + ")");
+        throw new IllegalStateException("Expected find result of size 1 (actual size: " + daoResultList.size() + ")");
       }
       
       
-      // return a single-record result
-      return result.get(0);
+      // daoResult is a single record
+      final Object daoResult = daoResultList.get(0);
+      
+      
+      // TODO convert the DAO result into a target response object here (using DTO or RecordDefinition, whatever)
+      final Object result = daoResult;
+      
+      
+      return result;
 
     } catch (ApplicationException e) {
 
@@ -161,9 +168,14 @@ public class ResourceControllerImpl implements ResourceController {
       }
   
   
-      final Object result = getOptionsMethod.invoke(resourceDescription.getDao());
-  
-      return (List<?>)result;
+      final Object daoResult = getOptionsMethod.invoke(resourceDescription.getDao());
+      
+      
+      // TODO convert the DAO result into a target response object here (using DTO or RecordDefinition, whatever)
+      final List<?> result = (List<?>)daoResult;
+      
+      
+      return result;
       
     } catch (Throwable e) {
       // TODO

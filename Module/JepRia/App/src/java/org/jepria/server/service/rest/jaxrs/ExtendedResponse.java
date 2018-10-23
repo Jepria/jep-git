@@ -18,7 +18,7 @@ import javax.ws.rs.core.Response.ResponseBuilder;
  * }
  * </pre>
  * Same response extended with the code 
- * <pre>ExtendedResponse.from(response).extend("{ 'extKey': 'extvalue' }").asResponse();</pre>
+ * <pre>ExtendedResponse.from(response).extend("{ 'extKey': 'extValue' }").asResponse();</pre>
  * <pre>
  * { 
  *   "basic-response":

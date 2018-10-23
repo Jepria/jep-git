@@ -99,42 +99,34 @@ public class ResourceSearchControllerSession implements ResourceSearchController
     
     Map<String, Object> preparedTemplate = new HashMap<>(template);
 
-    Map<String, JepLikeEnum> matchMap = resourceDescription.getRecordDefinition().getFieldMatch();
-    Map<String, JepTypeEnum> typeMap = resourceDescription.getRecordDefinition().getFieldTypes();
+    preparedTemplate.entrySet().forEach(entry -> {
 
-    if (matchMap == null || matchMap.size() == 0 || typeMap == null || typeMap.size() == 0) {
-      // leave unchanged
-    } else {
+      final String key = entry.getKey();
+      final Object value = entry.getValue();
 
-      preparedTemplate.entrySet().forEach(entry -> {
+      JepTypeEnum valueType = resourceDescription.getRecordDefinition().getFieldType(key);
+      JepLikeEnum matchType = resourceDescription.getRecordDefinition().getFieldMatch(key);
 
-        final String key = entry.getKey();
-        final Object value = entry.getValue();
-
-        JepTypeEnum valueType = typeMap.get(key);
-        JepLikeEnum matchType = matchMap.get(key);
-
-        if (valueType == JepTypeEnum.STRING && value instanceof String) {
-          String valueStr = (String)value;
-          if (matchType != null) {
-            switch(matchType) {
-            case FIRST:
-              entry.setValue(valueStr + "%");
-              break;
-            case CONTAINS:
-              entry.setValue("%" + valueStr + "%");
-              break;
-            case LAST:
-              entry.setValue("%" + valueStr);
-              break;
-            case EXACT:
-              // the value is already EXACT
-              break;
-            }
+      if (valueType == JepTypeEnum.STRING && value instanceof String) {
+        String valueStr = (String)value;
+        if (matchType != null) {
+          switch(matchType) {
+          case FIRST:
+            entry.setValue(valueStr + "%");
+            break;
+          case CONTAINS:
+            entry.setValue("%" + valueStr + "%");
+            break;
+          case LAST:
+            entry.setValue("%" + valueStr);
+            break;
+          case EXACT:
+            // the value is already EXACT
+            break;
           }
         }
-      });
-    }
+      }
+    });
 
     searchModel.preparedTemplate = preparedTemplate;
 
