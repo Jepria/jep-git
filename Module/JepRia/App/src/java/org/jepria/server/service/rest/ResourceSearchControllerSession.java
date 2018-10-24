@@ -173,24 +173,20 @@ public class ResourceSearchControllerSession implements ResourceSearchController
     }
     
     
+    
     // sorting
+    
     List<ColumnSortConfigurationDto> fieldSortConfigs = searchParams.getListSortConfiguration();
 
-    if (fieldSortConfigs != null && fieldSortConfigs.size() > 0) {
-      
-      final Map<String, Comparator<Object>> fieldComparators = new HashMap<>();
-      
-      if (resourceDescription.getRecordDefinition().getFieldNames() != null) {
-        resourceDescription.getRecordDefinition().getFieldNames().forEach(fieldName -> fieldComparators.put(fieldName,
-            resourceDescription.getRecordDefinition().getFieldComparator(fieldName)));
-      }
-      
-      ListSorter listSorter = new ListSorter(fieldSortConfigs, fieldComparators);
-
-      synchronized (resultset) {
-        Collections.sort(resultset, listSorter);
-      }
+    // collect field comparators      
+    final Map<String, Comparator<Object>> fieldComparators = new HashMap<>();
+    if (resourceDescription.getRecordDefinition().getFieldNames() != null) {
+      resourceDescription.getRecordDefinition().getFieldNames().forEach(fieldName -> fieldComparators.put(fieldName,
+          resourceDescription.getRecordDefinition().getFieldComparator(fieldName)));
     }
+    
+    new ListSorter(fieldSortConfigs, fieldComparators).sort(resultset);
+    
     
     
     session.get().setAttribute(getSessionAttrNameSearchResultset(searchId), resultset);

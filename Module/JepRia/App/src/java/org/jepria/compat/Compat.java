@@ -70,7 +70,7 @@ public class Compat {
       }
       
       @Override
-      public Map<String, Comparator<Object>> getFieldComparators() {
+      public Comparator<Object> getFieldComparator(String fieldName) {
         return null;
       }
 

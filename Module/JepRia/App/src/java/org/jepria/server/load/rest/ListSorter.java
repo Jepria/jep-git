@@ -23,16 +23,11 @@ public class ListSorter implements Comparator<Map<String, Object>> {
   private final Map<String, Comparator<Object>> fieldComparators;
   
   /**
-   * @param columnSortConfigurations non-null & non-empty
+   * @param columnSortConfigurations
    * @param fieldComparators
    */
   public ListSorter(List<ColumnSortConfigurationDto> columnSortConfigurations, Map<String, Comparator<Object>> fieldComparators) {
-    if (columnSortConfigurations == null || columnSortConfigurations.size() == 0) {
-      // TODO
-      throw new IllegalArgumentException();
-    }
     this.columnSortConfigurations = columnSortConfigurations;
-    
     this.fieldComparators = fieldComparators == null ? Collections.emptyMap() : fieldComparators;
   }
   
@@ -70,5 +65,15 @@ public class ListSorter implements Comparator<Map<String, Object>> {
   
   protected Comparator<Object> getDefaultComparator() {
     return DefaultComparator.instance;
+  }
+  
+  /**
+   * Invokes {@link Collections#sort(List)} if the internal state is valid
+   * @param list
+   */
+  public void sort(List<Map<String, Object>> list) {
+    if (columnSortConfigurations != null && columnSortConfigurations.size() > 0) {
+      Collections.sort(list, this);
+    }
   }
 }
