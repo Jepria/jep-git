@@ -177,7 +177,14 @@ public class ResourceSearchControllerSession implements ResourceSearchController
     List<ColumnSortConfigurationDto> fieldSortConfigs = searchParams.getListSortConfiguration();
 
     if (fieldSortConfigs != null && fieldSortConfigs.size() > 0) {
-      Map<String, Comparator<Object>> fieldComparators = resourceDescription.getRecordDefinition().getFieldComparators();
+      
+      final Map<String, Comparator<Object>> fieldComparators = new HashMap<>();
+      
+      if (resourceDescription.getRecordDefinition().getFieldNames() != null) {
+        resourceDescription.getRecordDefinition().getFieldNames().forEach(fieldName -> fieldComparators.put(fieldName,
+            resourceDescription.getRecordDefinition().getFieldComparator(fieldName)));
+      }
+      
       ListSorter listSorter = new ListSorter(fieldSortConfigs, fieldComparators);
 
       synchronized (resultset) {

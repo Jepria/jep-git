@@ -2,10 +2,16 @@ package org.jepria.shared;
 
 import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
+import java.util.Set;
 
-public interface RecordDefinition extends FieldsetDefinition {
+import com.technology.jep.jepria.shared.field.JepLikeEnum;
+import com.technology.jep.jepria.shared.field.JepTypeEnum;
+
+public interface RecordDefinition {
+  Set<String> getFieldNames();
+  JepTypeEnum getFieldType(String fieldName);
+  JepLikeEnum getFieldMatch(String fieldName);
   List<String> getPrimaryKey();
   int getMaxResultsetSize();
-  Map<String, Comparator<Object>> getFieldComparators();
+  Comparator<Object> getFieldComparator(String fieldName);
 }

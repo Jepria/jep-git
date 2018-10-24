@@ -22,6 +22,9 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import org.jepria.server.load.rest.SearchParamsDto;
+import org.jepria.server.service.rest.ResourceController;
+import org.jepria.server.service.rest.ResourceControllerImpl;
+import org.jepria.server.service.rest.ResourceDescription;
 import org.jepria.server.service.rest.ResourceSearchController;
 import org.jepria.server.service.rest.ResourceSearchController.MaxResultsetSizeExceedException;
 import org.jepria.server.service.rest.ResourceSearchController.NoSuchSearchIdException;
@@ -39,9 +42,35 @@ import io.swagger.annotations.ApiOperation;
 @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
 @Consumes(MediaType.APPLICATION_JSON + ";charset=utf-8")
 @Api
-public abstract class StandardResourceEndpoint<D extends JepDataStandard> extends StandardEndpointBase<D> {
+public abstract class StandardResourceEndpoint<D extends JepDataStandard> extends StandardEndpointBase {
 
   protected StandardResourceEndpoint() {}
+  
+  /**
+   * Provides application resource description
+   * @return
+   */
+  protected abstract ResourceDescription<D> getResourceDescription();
+  
+  /**
+   * Supplier protects the internal field from direct access from within the class members,
+   * and initializes the field lazily (due to the DI: the injectable fields are being injected after the object construction)
+   */
+  protected final Supplier<ResourceController> resourceController = new Supplier<ResourceController>() {
+    private ResourceController instance = null;
+    @Override
+    public ResourceController get() {
+      if (instance == null) {
+        instance = createResourceController();
+      }
+      return instance;
+    }
+  };
+  
+  protected ResourceController createResourceController() {
+    return new ResourceControllerImpl(getResourceDescription());
+  }
+  
 
   /**
    * Supplier protects the internal field from direct access from within the class members,
