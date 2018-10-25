@@ -45,11 +45,11 @@ public final class ExtendedResponse {
   }
   
   /**
-   * Performs extension on the {@link #response}
+   * Performs extension on the underlying response
    */
   public static interface Extender {
     /**
-     * Performs extension on the underlying {@link #response}
+     * Performs extension on the underlying response
      * @param extendedEntity entity to put under the 'extended-response' response body key
      * @return extended response
      */
@@ -57,7 +57,8 @@ public final class ExtendedResponse {
   }
   
   /**
-   * @param responseBuilder
+   * Extends the response provided as ResponseBuilder
+   * @param responseBuilder not null
    * @return
    */
   public static Extender from(ResponseBuilder responseBuilder) {
@@ -68,6 +69,11 @@ public final class ExtendedResponse {
     return from(responseBuilder.build());
   }
   
+  /**
+   * Extends the response provided as Response
+   * @param response not null
+   * @return
+   */
   public static Extender from(Response response) {
     if (response == null) {
       throw new IllegalArgumentException("response must not be null");
@@ -99,11 +105,18 @@ public final class ExtendedResponse {
   }
   
   
-    
+  /**
+   * 
+   * @return the extended response as {@link Response}
+   */
   public Response asResponse() {
     return response;
   }
   
+  /**
+   * 
+   * @return the extended response as {@link ResponseBuilder}
+   */
   public ResponseBuilder asBuilder() {
     return Response.fromResponse(response);
   }

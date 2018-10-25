@@ -32,16 +32,13 @@ import org.jepria.server.service.rest.ResourceSearchControllerSession;
 
 import com.technology.jep.jepria.server.dao.JepDataStandard;
 
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
 /**
  * Standard Jaxrs REST resource
  */
-@Path("")
 @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
 @Consumes(MediaType.APPLICATION_JSON + ";charset=utf-8")
-@Api
 public abstract class StandardResourceEndpoint<D extends JepDataStandard> extends StandardEndpointBase {
 
   protected StandardResourceEndpoint() {}
@@ -190,44 +187,47 @@ public abstract class StandardResourceEndpoint<D extends JepDataStandard> extend
    */
   private Response postSearchProcessExtendedResponseHeader(HttpServletRequest request, Response response, String searchId) {
     String extendedResponseHeaderValue = request.getHeader(HEADER_NAME__EXTENDED_RESPONSE);
-      
-    // check 'resultset' header value
-    if ("resultset".equals(extendedResponseHeaderValue)) {
-      Response subresponse = getResultset(searchId);
-
-      final PostSearchExtendedResponseDto extResponseDto = new PostSearchExtendedResponseDto();
-      final PostSearchSubrequestDto subrequestDto = new PostSearchSubrequestDto();
-      final PostSearchSubresponseDto subresponseDto = new PostSearchSubresponseDto();
-      extResponseDto.subrequest = subrequestDto;
-      extResponseDto.subresponse = subresponseDto;
-      subrequestDto.url = URI.create(request.getRequestURL() + "/" + searchId + "/" + extendedResponseHeaderValue).toString();
-      subresponseDto.status = subresponse.getStatus();
-      subresponseDto.reasonPhrase = subresponse.getStatusInfo().getReasonPhrase();
-      subresponseDto.entity = subresponse.getEntity();
-      
-      return ExtendedResponse.from(response).extend(extResponseDto).asResponse();
-      
-    }
+    
+    if (extendedResponseHeaderValue != null) {
+    
+      // check 'resultset' header value
+      if ("resultset".equals(extendedResponseHeaderValue)) {
+        Response subresponse = getResultset(searchId);
+  
+        final PostSearchExtendedResponseDto extResponseDto = new PostSearchExtendedResponseDto();
+        final PostSearchSubrequestDto subrequestDto = new PostSearchSubrequestDto();
+        final PostSearchSubresponseDto subresponseDto = new PostSearchSubresponseDto();
+        extResponseDto.subrequest = subrequestDto;
+        extResponseDto.subresponse = subresponseDto;
+        subrequestDto.url = URI.create(request.getRequestURL() + "/" + searchId + "/" + extendedResponseHeaderValue).toString();
+        subresponseDto.status = subresponse.getStatus();
+        subresponseDto.reasonPhrase = subresponse.getStatusInfo().getReasonPhrase();
+        subresponseDto.entity = subresponse.getEntity();
         
-    // check 'resultset/paged-by-x/y' header value
-    Matcher m = Pattern.compile("resultset/paged-by-(\\d+)/(\\d+)").matcher(extendedResponseHeaderValue);
-    if (m.matches()) {
-      final int pageSize = Integer.valueOf(m.group(1));// TODO possible Integer overflow
-      final int page = Integer.valueOf(m.group(2));// TODO possible Integer overflow
-
-      Response subresponse = getResultsetPaged(searchId, pageSize, page);
-
-      final PostSearchExtendedResponseDto extResponseDto = new PostSearchExtendedResponseDto();
-      final PostSearchSubrequestDto subrequestDto = new PostSearchSubrequestDto();
-      final PostSearchSubresponseDto subresponseDto = new PostSearchSubresponseDto();
-      extResponseDto.subrequest = subrequestDto;
-      extResponseDto.subresponse = subresponseDto;
-      subrequestDto.url = URI.create(request.getRequestURL() + "/" + searchId + "/" + extendedResponseHeaderValue).toString();
-      subresponseDto.status = subresponse.getStatus();
-      subresponseDto.reasonPhrase = subresponse.getStatusInfo().getReasonPhrase();
-      subresponseDto.entity = subresponse.getEntity();
-      
-      return ExtendedResponse.from(response).extend(extResponseDto).asResponse();
+        return ExtendedResponse.from(response).extend(extResponseDto).asResponse();
+        
+      }
+          
+      // check 'resultset/paged-by-x/y' header value
+      Matcher m = Pattern.compile("resultset/paged-by-(\\d+)/(\\d+)").matcher(extendedResponseHeaderValue);
+      if (m.matches()) {
+        final int pageSize = Integer.valueOf(m.group(1));// TODO possible Integer overflow
+        final int page = Integer.valueOf(m.group(2));// TODO possible Integer overflow
+  
+        Response subresponse = getResultsetPaged(searchId, pageSize, page);
+  
+        final PostSearchExtendedResponseDto extResponseDto = new PostSearchExtendedResponseDto();
+        final PostSearchSubrequestDto subrequestDto = new PostSearchSubrequestDto();
+        final PostSearchSubresponseDto subresponseDto = new PostSearchSubresponseDto();
+        extResponseDto.subrequest = subrequestDto;
+        extResponseDto.subresponse = subresponseDto;
+        subrequestDto.url = URI.create(request.getRequestURL() + "/" + searchId + "/" + extendedResponseHeaderValue).toString();
+        subresponseDto.status = subresponse.getStatus();
+        subresponseDto.reasonPhrase = subresponse.getStatusInfo().getReasonPhrase();
+        subresponseDto.entity = subresponse.getEntity();
+        
+        return ExtendedResponse.from(response).extend(extResponseDto).asResponse();
+      }
     }
     
     return response;
@@ -341,6 +341,4 @@ public abstract class StandardResourceEndpoint<D extends JepDataStandard> extend
       return Response.ok(result).build();
     }
   }
-
-
 }
