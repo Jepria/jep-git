@@ -78,7 +78,7 @@ public final class LoadingProgress {
    */
   public void show() {
     if (loadingProgress != null) {
-      loadingProgress.getStyle().setDisplay(Display.INLINE_BLOCK);
+      loadingProgress.getStyle().clearDisplay();
     }
   }
 

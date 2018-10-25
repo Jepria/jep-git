@@ -1,16 +1,17 @@
 package com.technology.jep.jepria.shared.history;
 
+import static com.technology.jep.jepria.shared.field.JepTypeEnum.BIGDECIMAL;
 import static com.technology.jep.jepria.shared.field.JepTypeEnum.BOOLEAN;
 import static com.technology.jep.jepria.shared.field.JepTypeEnum.DATE;
-import static com.technology.jep.jepria.shared.field.JepTypeEnum.INTEGER;
+import static com.technology.jep.jepria.shared.field.JepTypeEnum.DOUBLE;
 import static com.technology.jep.jepria.shared.field.JepTypeEnum.FLOAT;
+import static com.technology.jep.jepria.shared.field.JepTypeEnum.INTEGER;
 import static com.technology.jep.jepria.shared.field.JepTypeEnum.LIST_OF_OPTION;
-import static com.technology.jep.jepria.shared.field.JepTypeEnum.BIGDECIMAL;
 import static com.technology.jep.jepria.shared.field.JepTypeEnum.LIST_OF_PRIMITIVE;
+import static com.technology.jep.jepria.shared.field.JepTypeEnum.LIST_OF_RECORD;
 import static com.technology.jep.jepria.shared.field.JepTypeEnum.OPTION;
 import static com.technology.jep.jepria.shared.field.JepTypeEnum.STRING;
 import static com.technology.jep.jepria.shared.field.JepTypeEnum.TIME;
-import static com.technology.jep.jepria.shared.field.JepTypeEnum.DOUBLE;
 import static com.technology.jep.jepria.shared.history.JepHistoryConstant.LIST_VALUE_SEPARATOR;
 import static com.technology.jep.jepria.shared.history.JepHistoryConstant.LIST_VALUE_SEPARATOR_REGEXP;
 import static com.technology.jep.jepria.shared.history.JepHistoryConstant.MAP_NAME_TYPE_VALUE_SEPARATOR;
@@ -27,7 +28,7 @@ import java.util.Set;
 
 import com.technology.jep.jepria.shared.field.JepTypeEnum;
 import com.technology.jep.jepria.shared.field.option.JepOption;
-import com.technology.jep.jepria.shared.log.JepLoggerImpl;
+import com.technology.jep.jepria.shared.record.JepRecord;
 import com.technology.jep.jepria.shared.time.JepTime;
 import com.technology.jep.jepria.shared.util.JepRiaUtil;
 
@@ -71,7 +72,7 @@ public class JepHistoryToken {
    */
   public static String valueToToken(Object value) {
     String result = null;
-    
+
     if(value == null) {
       result = null;
     } else if(value instanceof String) {
@@ -93,27 +94,29 @@ public class JepHistoryToken {
     } else if(value instanceof JepOption && !JepRiaUtil.isEmpty(value)) {
       result = OPTION.toHistoryToken() + MAP_NAME_TYPE_VALUE_SEPARATOR + ((JepOption)value).toHistoryToken();
     } else if(value instanceof List) {
-      List list = (List)value;
-      if(list.size() > 0) {
+      List<?> list = (List<?>)value;
+      if (list.size() > 0) {
         Object item = list.get(0);
-        if(item instanceof JepOption) {
+        if (item instanceof JepOption) {
           result = LIST_OF_OPTION.toHistoryToken() + MAP_NAME_TYPE_VALUE_SEPARATOR + JepOption.getListAsToken((List<JepOption>)list);
+        } else if (item instanceof JepRecord) {
+          result = LIST_OF_RECORD.toHistoryToken() + MAP_NAME_TYPE_VALUE_SEPARATOR + JepRecord.getListAsToken((List<JepRecord>)list);
         } else {
           StringBuilder resultToken = new StringBuilder();
-            for(Object option: list) {
-                if(option != null) {
-                  if(resultToken.length() > 0) {
-                    resultToken.append(LIST_VALUE_SEPARATOR);
-                  }
-                  resultToken.append(valueToToken(option));
-                }
+          for (Object option: list) {
+            if (option != null) {
+              if (resultToken.length() > 0) {
+                resultToken.append(LIST_VALUE_SEPARATOR);
               }
-              
-            result = LIST_OF_PRIMITIVE.toHistoryToken() + MAP_NAME_TYPE_VALUE_SEPARATOR +  resultToken.toString();
+              resultToken.append(valueToToken(option));
+            }
+          }
+
+          result = LIST_OF_PRIMITIVE.toHistoryToken() + MAP_NAME_TYPE_VALUE_SEPARATOR +  resultToken.toString();
         }
       }
     }
-    
+
     return result;
   }
 
@@ -147,72 +150,75 @@ public class JepHistoryToken {
    */
   public static Object tokenToValue(String token) {
     Object result = null;
-    
+
     if(token == null) {
       return null;
     }
-    
+
     String[] typeValue = token.split(MAP_NAME_TYPE_VALUE_SEPARATOR, 2); // Считаем, что значение - это все, что после первого разделителя.
-    
+
     if(typeValue.length != 2) {
       return null;
     }
-    
+
     String typeToken = typeValue[0];
     String valueToken = typeValue[1];
-    
+
     Object type = JepTypeEnum.buildTypeFromToken(typeToken);
-    
+
     if(type == null) {
       return null;
     }
-    
+
     switch((JepTypeEnum)type) {
-      case STRING:
-        result = valueToken;
-        break;
-      case FLOAT:
-        result = new Float(valueToken);
-        break;
-      case BIGDECIMAL:
-        result = new BigDecimal(valueToken);
-        break;
-      case INTEGER:
-        result = new Integer(valueToken);
-        break;
-      case DOUBLE:
-          result = new Double(valueToken);
-          break;
-      case BOOLEAN:
-        result = new Boolean("1".equals(valueToken));
-        break;
-      case DATE:
-        long time = Long.parseLong(valueToken);
-        result = new Date(time);
-        break;
-      case TIME:
-        result = new JepTime(valueToken);
-        break;
-      case OPTION:
-        result = new JepOption(valueToken);
-        break;
-      case LIST_OF_OPTION:
-        result = JepOption.buildListFromToken(valueToken);
-        break;
-      case LIST_OF_PRIMITIVE:
-        List<Object> resultList = new ArrayList<Object>();
-        if(valueToken != null) {
-          String[] listTokenTab = valueToken.split(LIST_VALUE_SEPARATOR_REGEXP);
-          for(int i = 0; i < listTokenTab.length; i++) {
-            if(listTokenTab[i] != null) {
-              resultList.add(tokenToValue(listTokenTab[i]));
-            }
+    case STRING:
+      result = valueToken;
+      break;
+    case FLOAT:
+      result = new Float(valueToken);
+      break;
+    case BIGDECIMAL:
+      result = new BigDecimal(valueToken);
+      break;
+    case INTEGER:
+      result = new Integer(valueToken);
+      break;
+    case DOUBLE:
+      result = new Double(valueToken);
+      break;
+    case BOOLEAN:
+      result = new Boolean("1".equals(valueToken));
+      break;
+    case DATE:
+      long time = Long.parseLong(valueToken);
+      result = new Date(time);
+      break;
+    case TIME:
+      result = new JepTime(valueToken);
+      break;
+    case OPTION:
+      result = new JepOption(valueToken);
+      break;
+    case LIST_OF_OPTION:
+      result = JepOption.buildListFromToken(valueToken);
+      break;
+    case LIST_OF_PRIMITIVE:
+      List<Object> resultList = new ArrayList<Object>();
+      if(valueToken != null) {
+        String[] listTokenTab = valueToken.split(LIST_VALUE_SEPARATOR_REGEXP);
+        for(int i = 0; i < listTokenTab.length; i++) {
+          if(listTokenTab[i] != null) {
+            resultList.add(tokenToValue(listTokenTab[i]));
           }
         }
-        result = resultList;
-          break;
+      }
+      result = resultList;
+      break;
+    case LIST_OF_RECORD:
+      result = JepRecord.buildListFromToken(valueToken);
+      break;
     }
-
+    
     return result;
   }
 
@@ -233,19 +239,19 @@ public class JepHistoryToken {
       String valueToken = valueToToken(value);
       if(valueToken != null) {
         buffer.setLength(0);
-        
+
         if(resultToken.length() > 0) {
           buffer.append(MAP_PROPERTY_SEPARATOR);
         }
-        
+
         buffer.append(key);
         buffer.append(MAP_NAME_TYPE_VALUE_SEPARATOR);
         buffer.append(valueToken);
-        
+
         resultToken.append(buffer.toString());
       }
     }
-    
+
     return resultToken.toString();
   }
 
@@ -267,13 +273,13 @@ public class JepHistoryToken {
         if(entry.length == 2) {
           String nameToken = entry[0];
           String valueToken = entry[1];
-          
+
           Object value = tokenToValue(valueToken);
-          
+
           if(value != null) {
             resultMap.put(nameToken, value);
           }
-          
+
         }
       }
     }

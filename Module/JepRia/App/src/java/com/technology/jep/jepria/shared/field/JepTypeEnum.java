@@ -16,252 +16,264 @@ public enum JepTypeEnum {
    * Тип поля, содержащий в качестве своего значения экземпляр класса 
    * <code>java.lang.String</code>.
    */
-  STRING,
+  STRING(HistoryToken.S),
 
   /**
    * Тип поля, содержащий в качестве своего значения экземпляр класса 
    * <code>java.lang.Integer</code>.
    */
-  INTEGER,
+  INTEGER(HistoryToken.I),
 
   /**
    * Тип поля, содержащий в качестве своего значения экземпляр класса 
    * <code>java.lang.Float</code>.
    */
-  FLOAT,
+  FLOAT(HistoryToken.F),
 
   /**
    * Тип поля, содержащий в качестве своего значения экземпляр класса 
    * <code>java.lang.Double</code>.
    */
-  DOUBLE,
+  DOUBLE(HistoryToken.D),
 
   /**
    * Тип поля, содержащий в качестве своего значения экземпляр класса 
    * <code>java.math.BigDecimal</code>.
    */
-  BIGDECIMAL,
+  BIGDECIMAL(HistoryToken.BD),
 
   /**
    * Тип поля, содержащий в качестве своего значения экземпляр класса 
    * <code>java.lang.Boolean</code>.
    */
-  BOOLEAN,
+  BOOLEAN(HistoryToken.B),
 
   /**
    * Тип поля, содержащий в качестве своего значения экземпляр класса 
    * <code>java.util.Date</code>.
    */
-  DATE,
+  DATE(HistoryToken.DE),
 
   /**
    * Тип поля, содержащий в качестве своего значения экземпляр класса 
    * {@link com.technology.jep.jepria.shared.time.JepTime}.
    */
-  TIME,
-  
-  DATE_TIME,
-  
+  TIME(HistoryToken.TE),
+
+  DATE_TIME(HistoryToken.DTE),
+
   /**
    * Тип поля, содержащий в качестве своего значения экземпляр класса 
    * {@link com.technology.jep.jepria.shared.field.option.JepOption}.
    */
-  OPTION,
-  
+  OPTION(HistoryToken.O),
+
   /**
    * Тип поля, для представления денежных единиц с тысячным разделителем - пробелом
    */
-  
-  MONEY,
+
+  MONEY(HistoryToken.MNY),
 
   /**
    * Тип поля, содержащий в качестве своего значения экземпляр класса реализующего интерфейс
    * List&lt;{@link com.technology.jep.jepria.shared.field.option.JepOption}&gt;.
    */
-  LIST_OF_OPTION,
+  LIST_OF_OPTION(HistoryToken.LO),
 
   /**
    * Тип поля, для представления списков примитивных данных
    */
-  LIST_OF_PRIMITIVE,
-
-  BINARY_FILE,
-  TEXT_FILE,
-  CLOB;
+  LIST_OF_PRIMITIVE(HistoryToken.LP),
 
   /**
-   * Строковое представление (History Token) представляющее тип поля, содержащий в качестве своего значения экземпляр класса 
-   * <code>java.lang.String</code>.
+   * Тип поля, для представления списков записей
    */
-  protected static final String STRING_TOKEN = "S";
+  LIST_OF_RECORD(HistoryToken.LR),
 
-  /**
-   * Строковое представление (History Token) представляющее тип поля, содержащий в качестве своего значения экземпляр класса 
-   * <code>java.lang.Integer</code>.
-   */
-  protected static final String INTEGER_TOKEN = "I";
+  BINARY_FILE(HistoryToken.BFE),
+  TEXT_FILE(HistoryToken.TFE),
+  CLOB(HistoryToken.C);
 
-  /**
-   * Строковое представление (History Token) представляющее тип поля, содержащий в качестве своего значения экземпляр класса 
-   * <code>java.lang.Float</code>.
-   */
-  protected static final String FLOAT_TOKEN = "F";
+  private final HistoryToken historyToken;
 
-  /**
-   * Строковое представление (History Token) представляющее тип поля, содержащий в качестве своего значения экземпляр класса 
-   * <code>java.lang.Double</code>.
-   */
-  protected static final String DOUBLE_TOKEN = "D";
+  private JepTypeEnum(HistoryToken historyToken) {
+    this.historyToken = historyToken;
+  }
 
-  /**
-   * Строковое представление (History Token) представляющее тип поля, содержащий в качестве своего значения экземпляр класса 
-   * <code>java.math.BigDecimal</code>.
-   */
-  protected static final String BIGDECIMAL_TOKEN = "BD";
+  public static enum HistoryToken {
+    /**
+     * Строковое представление (History Token) представляющее тип поля, содержащий в качестве своего значения экземпляр класса 
+     * <code>java.lang.String</code>.
+     */
+    S,
 
-  /**
-   * Строковое представление (History Token) представляющее тип поля, содержащий в качестве своего значения экземпляр класса 
-   * <code>java.lang.Boolean</code>.
-   */
-  protected static final String BOOLEAN_TOKEN = "B";
+    /**
+     * Строковое представление (History Token) представляющее тип поля, содержащий в качестве своего значения экземпляр класса 
+     * <code>java.lang.Integer</code>.
+     */
+    I,
 
-  /**
-   * Строковое представление (History Token) представляющее тип поля, содержащий в качестве своего значения экземпляр класса 
-   * <code>java.util.Date</code>.
-   */
-  protected static final String DATE_TOKEN = "DE";
+    /**
+     * Строковое представление (History Token) представляющее тип поля, содержащий в качестве своего значения экземпляр класса 
+     * <code>java.lang.Float</code>.
+     */
+    F,
 
-  /**
-   * Строковое представление (History Token) представляющее тип поля, содержащий в качестве своего значения экземпляр класса 
-   * {@link com.technology.jep.jepria.shared.time.JepTime}.
-   */
-  protected static final String TIME_TOKEN = "TE";
-  
-  protected static final String DATE_TIME_TOKEN = "DTE";
-  
-  /**
-   * Строковое представление (History Token) представляющее тип поля, содержащий в качестве своего значения экземпляр класса 
-   * {@link com.technology.jep.jepria.shared.field.option.JepOption}.
-   */
-  protected static final String OPTION_TOKEN = "O";
+    /**
+     * Строковое представление (History Token) представляющее тип поля, содержащий в качестве своего значения экземпляр класса 
+     * <code>java.lang.Double</code>.
+     */
+    D,
 
-  /**
-   * Строковое представление (History Token) представляющее тип поля, содержащий в качестве своего значения экземпляр класса реализующего интерфейс
-   * List&lt;{@link com.technology.jep.jepria.shared.field.option.JepOption}&gt;.
-   */
-  protected static final String LIST_OF_OPTION_TOKEN = "LO";
-  protected static final String LIST_OF_PRIMITIVE_TOKEN = "LP";
-  
-  protected static final String BINARY_FILE_TOKEN = "BFE";
-  protected static final String TEXT_FILE_TOKEN = "TFE";
-  protected static final String CLOB_TOKEN = "C";
-  protected static final String MONEY_TOKEN = "MNY";
-  
+    /**
+     * Строковое представление (History Token) представляющее тип поля, содержащий в качестве своего значения экземпляр класса 
+     * <code>java.math.BigDecimal</code>.
+     */
+    BD,
+
+    /**
+     * Строковое представление (History Token) представляющее тип поля, содержащий в качестве своего значения экземпляр класса 
+     * <code>java.lang.Boolean</code>.
+     */
+    B,
+
+    /**
+     * Строковое представление (History Token) представляющее тип поля, содержащий в качестве своего значения экземпляр класса 
+     * <code>java.util.Date</code>.
+     */
+    DE,
+
+    /**
+     * Строковое представление (History Token) представляющее тип поля, содержащий в качестве своего значения экземпляр класса 
+     * {@link com.technology.jep.jepria.shared.time.JepTime}.
+     */
+    TE,
+
+    /**
+     * DATE_TIME_TOKEN
+     */
+    DTE,
+
+    /**
+     * Строковое представление (History Token) представляющее тип поля, содержащий в качестве своего значения экземпляр класса 
+     * {@link com.technology.jep.jepria.shared.field.option.JepOption}.
+     */
+    O,
+
+    /**
+     * Строковое представление (History Token) представляющее тип поля, содержащий в качестве своего значения экземпляр класса реализующего интерфейс
+     * List&lt;{@link com.technology.jep.jepria.shared.field.option.JepOption}&gt;.
+     */
+    LO,
+
+    /**
+     * LIST_OF_PRIMITIVE_TOKEN
+     */
+    LP,
+
+    /**
+     * LIST_OF_RECORD_TOKEN
+     */
+    LR,
+
+    /**
+     * BINARY_FILE_TOKEN
+     */
+    BFE,
+    /**
+     * TEXT_FILE_TOKEN
+     */
+    TFE,
+
+    /**
+     * CLOB_TOKEN
+     */
+    C,
+
+    /**
+     * MONEY_TOKEN
+     */
+    MNY
+  }
+
   /**
    * Преобразует тип в строковое представление (в History Token).
    *
    * @return строковое представление типа
    */
   public String toHistoryToken() {
-    String result = "";
-    
-    switch(this) {
-      case STRING:
-        result = STRING_TOKEN;
-        break;
-      case INTEGER:
-        result = INTEGER_TOKEN;
-        break;
-      case FLOAT:
-        result = FLOAT_TOKEN;
-        break;
-      case DOUBLE:
-        result = DOUBLE_TOKEN;
-        break;
-      case BIGDECIMAL:
-        result = BIGDECIMAL_TOKEN;
-        break;
-      case BOOLEAN:
-        result = BOOLEAN_TOKEN;
-        break;
-      case DATE:
-        result = DATE_TOKEN;
-        break;
-      case TIME:
-        result = TIME_TOKEN;
-        break;
-      case DATE_TIME:
-        result = DATE_TIME_TOKEN;
-        break;
-      case OPTION:
-        result = OPTION_TOKEN;
-        break;
-      case LIST_OF_OPTION:
-        result = LIST_OF_OPTION_TOKEN;
-        break;
-      case LIST_OF_PRIMITIVE:
-          result = LIST_OF_PRIMITIVE_TOKEN;
-          break;
-      case BINARY_FILE:
-        result = BINARY_FILE_TOKEN;
-        break;
-      case TEXT_FILE:
-        result = TEXT_FILE_TOKEN;
-        break;
-      case CLOB:
-        result = CLOB_TOKEN;
-        break;
-      case MONEY:
-          result = MONEY_TOKEN;
-          break;
-    }
-    
-    return result;
+    return historyToken.name();
   }
-  
+
   /**
    * Преобразует строковое представление (History Token) в тип.
    *
    * @return тип, созданный на основе строкового представления или <code>null</code>, если определить тип невозможно
    */
-  public static Object buildTypeFromToken(String token) {
-    Object result = null;
-    
-    if(STRING_TOKEN.equals(token)) {
-      result = STRING;
-    } else if(INTEGER_TOKEN.equals(token)) {
-      result = INTEGER;
-    } else if(FLOAT_TOKEN.equals(token)) {
-      result = FLOAT;
-    } else if(DOUBLE_TOKEN.equals(token)) {
-      result = DOUBLE;
-    } else if(BIGDECIMAL_TOKEN.equals(token)) {
-      result = BIGDECIMAL;
-    } else if(BOOLEAN_TOKEN.equals(token)) {
-      result = BOOLEAN;
-    } else if(DATE_TOKEN.equals(token)) {
-      result = DATE;
-    } else if(TIME_TOKEN.equals(token)) {
-      result = TIME;
-    } else if(DATE_TIME_TOKEN.equals(token)) {
-      result = DATE_TIME;
-    } else if(OPTION_TOKEN.equals(token)) {
-      result = OPTION;
-    } else if(LIST_OF_OPTION_TOKEN.equals(token)) {
-      result = LIST_OF_OPTION;
-    } else if(LIST_OF_PRIMITIVE_TOKEN.equals(token)) {
-        result = LIST_OF_PRIMITIVE;
-    } else if(BINARY_FILE_TOKEN.equals(token)) {
-      result = BINARY_FILE;
-    } else if(TEXT_FILE_TOKEN.equals(token)) {
-      result = TEXT_FILE;
-    } else if(CLOB_TOKEN.equals(token)) {
-      result = CLOB;
-    } else if (MONEY.equals(token)) {
-        result = MONEY;
+  public static JepTypeEnum buildTypeFromToken(String token) {
+    final HistoryToken historyToken;
+    try {
+      historyToken = HistoryToken.valueOf(token);
+    } catch (IllegalArgumentException e) {
+      return null;
     }
-    
-    return result;
+
+    switch (historyToken) {
+    case S: {
+      return STRING;
+    }
+    case I: {
+      return INTEGER;      
+    }
+    case F: {
+      return FLOAT;
+    }
+    case D: {
+      return DOUBLE;
+    }
+    case BD: {
+      return BIGDECIMAL;
+    }
+    case B: {
+      return BOOLEAN;
+    }
+    case DE: {
+      return DATE;
+    }
+    case TE: {
+      return TIME;
+    }
+    case DTE: {
+      return DATE_TIME;
+    }
+    case O: {
+      return OPTION;
+    }
+    case LO: {
+      return LIST_OF_OPTION;
+    }
+    case LP: {
+      return LIST_OF_PRIMITIVE;
+    }
+    case LR: {
+      return LIST_OF_RECORD;
+    }
+    case BFE: {
+      return BINARY_FILE;
+    }
+    case TFE: {
+      return TEXT_FILE;
+    }
+    case C: {
+      return CLOB;
+    }
+    case MNY: {
+      return MONEY;
+    }
+    default: {
+      return null;
+    }
+    }
   }
-  
+
 }
