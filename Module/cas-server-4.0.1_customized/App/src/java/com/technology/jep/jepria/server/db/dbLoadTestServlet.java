@@ -47,8 +47,8 @@ public class dbLoadTestServlet extends HttpServlet {
     trace("touchDataSourceForCheckLoad() START");
     
     for(int i = 0; i < 100000; i++) {
-      Integer operatorId = doJepAuthentication("NagornyyS", "123");
-      trace(i + ": doJepAuthentication(\"NagornyyS\", \"123\") = " + operatorId);
+      Integer operatorId = doJepAuthentication("LOGIN", "PASSWORD");
+      trace(i + ": doJepAuthentication(\"LOGIN\", \"PASSWORD\") = " + operatorId);
     }
     
     trace("touchDataSourceForCheckLoad() END");
