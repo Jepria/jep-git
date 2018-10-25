@@ -1,5 +1,7 @@
 package com.technology.jep.jepria.shared.record;
 
+import static com.technology.jep.jepria.shared.history.JepHistoryConstant.LIST_VALUE_SEPARATOR;
+import static com.technology.jep.jepria.shared.history.JepHistoryConstant.LIST_VALUE_SEPARATOR_REGEXP;
 import static com.technology.jep.jepria.shared.history.JepHistoryConstant.SCOPE_PARAMETER_SEPARATOR;
 
 import java.util.ArrayList;
@@ -167,5 +169,44 @@ public class JepRecord extends JepDto {
     }
     
     return sbResult.toString();
+  }
+  
+  /**
+   * Преобразует строковое представление (так называемый History Token) в список объектов 
+   * List&lt;{@link com.technology.jep.jepria.shared.field.option.JepOption}&gt;.
+   *
+   * @param listToken строковое представление списка (так называемый History Token)
+   * @return список объектов List&lt;{@link com.technology.jep.jepria.shared.field.option.JepOption}&gt;
+   *
+   * @see com.technology.jep.jepria.shared.history.JepHistoryToken#tokenToValue(String token)
+   */
+  public static List<JepRecord> buildListFromToken(String listToken) {
+    List<JepRecord> resultList = new ArrayList<JepRecord>();
+    if (listToken != null) {
+      String[] listTokenTab = listToken.split(LIST_VALUE_SEPARATOR_REGEXP);
+      int entryNumber = listTokenTab.length;
+      for (int i = 0; i < entryNumber; i++) {
+        if (listTokenTab[i] != null) {
+          resultList.add(new JepRecord(listTokenTab[i]));
+        }
+      }
+    }
+    return resultList;
+  }
+  
+  public static String getListAsToken(List<JepRecord> list) {
+    StringBuilder resultToken = new StringBuilder();
+    for (JepRecord record: list) {
+      if (record != null) {
+        
+        if (resultToken.length() > 0) {
+          resultToken.append(LIST_VALUE_SEPARATOR);
+        }
+        
+        resultToken.append(record.toHistoryToken());
+      }
+    }
+    
+    return resultToken.toString();
   }
 }

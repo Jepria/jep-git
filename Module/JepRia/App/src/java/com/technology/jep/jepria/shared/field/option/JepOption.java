@@ -149,10 +149,10 @@ public class JepOption extends JepDto {
    */
   public static String getListAsToken(List<JepOption> list) {
     StringBuilder resultToken = new StringBuilder();
-    for(JepOption option: list) {
-      if(option != null) {
+    for (JepOption option: list) {
+      if (option != null) {
         
-        if(resultToken.length() > 0) {
+        if (resultToken.length() > 0) {
           resultToken.append(LIST_VALUE_SEPARATOR);
         }
         
@@ -174,11 +174,11 @@ public class JepOption extends JepDto {
    */
   public static List<JepOption> buildListFromToken(String listToken) {
     List<JepOption> resultList = new ArrayList<JepOption>();
-    if(listToken != null) {
+    if (listToken != null) {
       String[] listTokenTab = listToken.split(LIST_VALUE_SEPARATOR_REGEXP);
       int entryNumber = listTokenTab.length;
-      for(int i = 0; i < entryNumber; i++) {
-        if(listTokenTab[i] != null) {
+      for (int i = 0; i < entryNumber; i++) {
+        if (listTokenTab[i] != null) {
           resultList.add(new JepOption(listTokenTab[i]));
         }
       }
