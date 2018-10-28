@@ -74,6 +74,8 @@ public enum JepTypeEnum {
 
   MONEY(HistoryToken.MNY),
 
+  RECORD(HistoryToken.R),
+  
   /**
    * Тип поля, содержащий в качестве своего значения экземпляр класса реализующего интерфейс
    * List&lt;{@link com.technology.jep.jepria.shared.field.option.JepOption}&gt;.
@@ -193,7 +195,13 @@ public enum JepTypeEnum {
     /**
      * MONEY_TOKEN
      */
-    MNY
+    MNY,
+    
+    /**
+     * JEP_RECORD
+     */
+    R
+    
   }
 
   /**
@@ -270,10 +278,11 @@ public enum JepTypeEnum {
     case MNY: {
       return MONEY;
     }
-    default: {
-      return null;
+    case R: {
+      return RECORD;
     }
     }
+    return null;
   }
 
 }

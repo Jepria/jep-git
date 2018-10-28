@@ -9,7 +9,7 @@ import static com.technology.jep.jepria.shared.field.JepTypeEnum.INTEGER;
 import static com.technology.jep.jepria.shared.field.JepTypeEnum.LIST_OF_OPTION;
 import static com.technology.jep.jepria.shared.field.JepTypeEnum.LIST_OF_PRIMITIVE;
 import static com.technology.jep.jepria.shared.field.JepTypeEnum.LIST_OF_RECORD;
-import static com.technology.jep.jepria.shared.field.JepTypeEnum.OPTION;
+import static com.technology.jep.jepria.shared.field.JepTypeEnum.*;
 import static com.technology.jep.jepria.shared.field.JepTypeEnum.STRING;
 import static com.technology.jep.jepria.shared.field.JepTypeEnum.TIME;
 import static com.technology.jep.jepria.shared.history.JepHistoryConstant.LIST_VALUE_SEPARATOR;
@@ -93,6 +93,8 @@ public class JepHistoryToken {
       result = TIME.toHistoryToken() + MAP_NAME_TYPE_VALUE_SEPARATOR + ((JepTime)value).toHistoryToken();
     } else if(value instanceof JepOption && !JepRiaUtil.isEmpty(value)) {
       result = OPTION.toHistoryToken() + MAP_NAME_TYPE_VALUE_SEPARATOR + ((JepOption)value).toHistoryToken();
+    } else if(value instanceof JepRecord && !JepRiaUtil.isEmpty(value)) {
+      result = RECORD.toHistoryToken() + MAP_NAME_TYPE_VALUE_SEPARATOR + ((JepRecord)value).toHistoryToken();
     } else if(value instanceof List) {
       List<?> list = (List<?>)value;
       if (list.size() > 0) {
@@ -198,6 +200,9 @@ public class JepHistoryToken {
       break;
     case OPTION:
       result = new JepOption(valueToken);
+      break;
+    case RECORD:
+      result = new JepRecord(valueToken);
       break;
     case LIST_OF_OPTION:
       result = JepOption.buildListFromToken(valueToken);
