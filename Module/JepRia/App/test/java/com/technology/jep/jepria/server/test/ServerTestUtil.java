@@ -21,7 +21,7 @@ public class ServerTestUtil {
   /**
    * Умолчательный источник данных, по которому выполняется аутентификация и авторизация
    */
-  private static final DataSourceDef DEFAULT_DATASOURCE_DEF = new DataSourceDef("java:/comp/env/jdbc/RFInfoDS", "jdbc:oracle:thin:@//vsmldbrfid1.rusfinance.ru:1521/RFINFOT1", "information", "information");
+  private static final DataSourceDef DEFAULT_DATASOURCE_DEF = new DataSourceDef("java:/comp/env/jdbc/RFInfoDS", "jdbc:oracle:thin:@//db-server:1521/Oracle", "login", "password");
 
   public static InitialContext prepareInitialContextForJdbc() throws NamingException {
     System.setProperty(Context.INITIAL_CONTEXT_FACTORY, "org.apache.naming.java.javaURLContextFactory");
