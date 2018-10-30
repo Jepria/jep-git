@@ -57,7 +57,7 @@ public final class ExtendedResponse {
   }
   
   /**
-   * Extends the response provided as ResponseBuilder
+   * Extends the original response provided as a ResponseBuilder
    * @param responseBuilder not null
    * @return
    */
@@ -70,7 +70,7 @@ public final class ExtendedResponse {
   }
   
   /**
-   * Extends the response provided as Response
+   * Extends the original response provided as a Response
    * @param response not null
    * @return
    */

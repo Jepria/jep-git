@@ -17,18 +17,19 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import org.jepria.server.load.rest.SearchParamsDto;
 import org.jepria.server.service.rest.ResourceController;
-import org.jepria.server.service.rest.ResourceControllerImpl;
+import org.jepria.server.service.rest.ResourceControllerBase;
 import org.jepria.server.service.rest.ResourceDescription;
 import org.jepria.server.service.rest.ResourceSearchController;
 import org.jepria.server.service.rest.ResourceSearchController.MaxResultsetSizeExceedException;
 import org.jepria.server.service.rest.ResourceSearchController.NoSuchSearchIdException;
-import org.jepria.server.service.rest.ResourceSearchControllerSession;
+import org.jepria.server.service.rest.ResourceSearchControllerBase;
 
 import com.technology.jep.jepria.server.dao.JepDataStandard;
 
@@ -64,8 +65,19 @@ public abstract class StandardResourceEndpoint<D extends JepDataStandard> extend
     }
   };
   
+  /**
+   * Локальное (внутреннее) расширение внешнего класса для упрощённого использования в наследниках.
+   * Использование в наследниках упрощается наличием у локального класса конструктора без параметров
+   * (локальный класс неявно зависит от содержащего класса)
+   */
+  protected class ResourceControllerImplLocal extends ResourceControllerBase {
+    protected ResourceControllerImplLocal() {
+      super(getResourceDescription());
+    }
+  }
+  
   protected ResourceController createResourceController() {
-    return new ResourceControllerImpl(getResourceDescription());
+    return new ResourceControllerImplLocal();
   }
   
 
@@ -84,15 +96,26 @@ public abstract class StandardResourceEndpoint<D extends JepDataStandard> extend
     }
   };
 
+
+  /**
+   * Локальное (внутреннее) расширение внешнего класса для упрощённого использования в наследниках.
+   * Использование в наследниках упрощается наличием у локального класса конструктора без параметров
+   * (локальный класс неявно зависит от содержащего класса)
+   */
+  protected class ResourceSearchControllerImplLocal extends ResourceSearchControllerBase {
+    protected ResourceSearchControllerImplLocal() {
+      super(getResourceDescription(),
+          new Supplier<HttpSession>() {
+        @Override
+        public HttpSession get() {
+          return request.getSession();
+        }
+      });
+    }
+  }
+
   protected ResourceSearchController createSearchController() {
-    return new ResourceSearchControllerSession(
-        getResourceDescription(),
-        new Supplier<HttpSession>() {
-          @Override
-          public HttpSession get() {
-            return request.getSession();
-          }
-        });
+    return new ResourceSearchControllerImplLocal();
   }
 
   //////// CRUD ////////
@@ -172,68 +195,94 @@ public abstract class StandardResourceEndpoint<D extends JepDataStandard> extend
 
 
     // клиент может запросить ответ, расширенный результатами поиска данного запроса
-    response = postSearchProcessExtendedResponseHeader(request, response, searchId);
+    response = postSearchExtendedResponseHeaderProcessor.process(request, response, searchId);
     
     return response;
   }
   
-  /**
-   * Считывает заголовок 'extended-response' запроса. В случае, если заголовок имеет валидные для postSearch значения, 
-   * расширяет ответ необходимыми данными
-   * @param request
-   * @param response
-   * @param searchId
-   * @return extended response if a proper 'extended-response' header is present in the request; otherwise response itself 
-   */
-  private Response postSearchProcessExtendedResponseHeader(HttpServletRequest request, Response response, String searchId) {
-    String extendedResponseHeaderValue = request.getHeader(HEADER_NAME__EXTENDED_RESPONSE);
-    
-    if (extendedResponseHeaderValue != null) {
-    
-      // check 'resultset' header value
-      if ("resultset".equals(extendedResponseHeaderValue)) {
-        Response subresponse = getResultset(searchId);
+  private interface PostSearchExtendedResponseHeaderProcessor {
+    /**
+     * Считывает заголовок 'extended-response' запроса. В случае, если заголовок имеет валидные для postSearch значения, 
+     * расширяет ответ необходимыми данными
+     * @param request
+     * @param response
+     * @param searchId
+     * @return extended response if a proper 'extended-response' header is present in the request; otherwise response itself 
+     */
+    Response process(HttpServletRequest request, Response response, String searchId);
+  }
   
-        final PostSearchExtendedResponseDto extResponseDto = new PostSearchExtendedResponseDto();
-        final PostSearchSubrequestDto subrequestDto = new PostSearchSubrequestDto();
-        final PostSearchSubresponseDto subresponseDto = new PostSearchSubresponseDto();
-        extResponseDto.subrequest = subrequestDto;
-        extResponseDto.subresponse = subresponseDto;
-        subrequestDto.url = URI.create(request.getRequestURL() + "/" + searchId + "/" + extendedResponseHeaderValue).toString();
-        subresponseDto.status = subresponse.getStatus();
-        subresponseDto.reasonPhrase = subresponse.getStatusInfo().getReasonPhrase();
-        subresponseDto.entity = subresponse.getEntity();
+  private final PostSearchExtendedResponseHeaderProcessor postSearchExtendedResponseHeaderProcessor = new PostSearchExtendedResponseHeaderProcessor() {
+    
+    @Override
+    public Response process(HttpServletRequest request, Response response, String searchId) {
+      String extendedResponseHeaderValue = request.getHeader(HEADER_NAME__EXTENDED_RESPONSE);
+      
+      if (extendedResponseHeaderValue != null) {
         
-        return ExtendedResponse.from(response).extend(extResponseDto).asResponse();
-        
-      }
+        // check 'resultset' header value
+        if ("resultset".equals(extendedResponseHeaderValue)) {
+          Response subresponse = getResultset(searchId);
+    
+          final PostSearchExtendedResponseDto extResponseDto = new PostSearchExtendedResponseDto();
+          final PostSearchSubrequestDto subrequestDto = new PostSearchSubrequestDto();
+          final PostSearchSubresponseDto subresponseDto = new PostSearchSubresponseDto();
+          extResponseDto.subrequest = subrequestDto;
+          extResponseDto.subresponse = subresponseDto;
+          subrequestDto.url = URI.create(request.getRequestURL() + "/" + searchId + "/" + extendedResponseHeaderValue).toString();
+          subresponseDto.status = subresponse.getStatus();
+          subresponseDto.reasonPhrase = subresponse.getStatusInfo().getReasonPhrase();
+          subresponseDto.entity = subresponse.getEntity();
           
-      // check 'resultset/paged-by-x/y' header value
-      Matcher m = Pattern.compile("resultset/paged-by-(\\d+)/(\\d+)").matcher(extendedResponseHeaderValue);
-      if (m.matches()) {
-        final int pageSize = Integer.valueOf(m.group(1));// TODO possible Integer overflow
-        final int page = Integer.valueOf(m.group(2));// TODO possible Integer overflow
-  
-        Response subresponse = getResultsetPaged(searchId, pageSize, page);
-  
-        final PostSearchExtendedResponseDto extResponseDto = new PostSearchExtendedResponseDto();
-        final PostSearchSubrequestDto subrequestDto = new PostSearchSubrequestDto();
-        final PostSearchSubresponseDto subresponseDto = new PostSearchSubresponseDto();
-        extResponseDto.subrequest = subrequestDto;
-        extResponseDto.subresponse = subresponseDto;
-        subrequestDto.url = URI.create(request.getRequestURL() + "/" + searchId + "/" + extendedResponseHeaderValue).toString();
-        subresponseDto.status = subresponse.getStatus();
-        subresponseDto.reasonPhrase = subresponse.getStatusInfo().getReasonPhrase();
-        subresponseDto.entity = subresponse.getEntity();
+          return ExtendedResponse.from(response).extend(extResponseDto).asResponse();
+          
+        }
+
         
-        return ExtendedResponse.from(response).extend(extResponseDto).asResponse();
+        
+        // check 'resultset/paged-by-x/y' header value
+        Matcher m1 = Pattern.compile("resultset/paged-by-(\\d+)/(\\d+)").matcher(extendedResponseHeaderValue);
+        // check 'resultset?pageSize=x&page=y' header value
+        Matcher m2 = Pattern.compile("resultset\\?pageSize\\=(\\d+)&page\\=(\\d+)").matcher(extendedResponseHeaderValue);
+        // check 'resultset?page=y&pageSize=x' header value
+        Matcher m3 = Pattern.compile("resultset\\?page\\=(\\d+)&pageSize\\=(\\d+)").matcher(extendedResponseHeaderValue);
+        
+        if (m1.matches() || m2.matches() || m3.matches()) {
+          final int pageSize, page;
+          if (m1.matches()) {
+            pageSize = Integer.valueOf(m1.group(1));// TODO possible Integer overflow
+            page = Integer.valueOf(m1.group(2));// TODO possible Integer overflow
+          } else if (m2.matches()) {
+            pageSize = Integer.valueOf(m2.group(1));// TODO possible Integer overflow
+            page = Integer.valueOf(m2.group(2));// TODO possible Integer overflow
+          } else if (m3.matches()) {
+            pageSize = Integer.valueOf(m3.group(2));// TODO possible Integer overflow
+            page = Integer.valueOf(m3.group(1));// TODO possible Integer overflow
+          } else {
+            // impossible
+            throw new IllegalStateException();
+          }
+          
+          Response subresponse = getResultsetPaged(searchId, pageSize, page);
+          
+          final PostSearchExtendedResponseDto extResponseDto = new PostSearchExtendedResponseDto();
+          final PostSearchSubrequestDto subrequestDto = new PostSearchSubrequestDto();
+          final PostSearchSubresponseDto subresponseDto = new PostSearchSubresponseDto();
+          extResponseDto.subrequest = subrequestDto;
+          extResponseDto.subresponse = subresponseDto;
+          subrequestDto.url = URI.create(request.getRequestURL() + "/" + searchId + "/" + extendedResponseHeaderValue).toString();
+          subresponseDto.status = subresponse.getStatus();
+          subresponseDto.reasonPhrase = subresponse.getStatusInfo().getReasonPhrase();
+          subresponseDto.entity = subresponse.getEntity();
+          
+          return ExtendedResponse.from(response).extend(extResponseDto).asResponse();
+          
+        }
       }
+      return response;
     }
-    
-    return response;
-  }
-
-
+  };
+  
   //public static for Jersey's introspection only
   public static class PostSearchExtendedResponseDto {
     public PostSearchSubrequestDto subrequest;
@@ -288,10 +337,29 @@ public abstract class StandardResourceEndpoint<D extends JepDataStandard> extend
 
   @GET
   @Path("search/{searchId}/resultset")
-  @ApiOperation(value = "Get whole resultset")
+  @ApiOperation(value = "Get resultset: whole or paged with query parameters")
+  // either both pageSize and page are empty, or both are not empty
   public Response getResultset(
-      @PathParam("searchId") String searchId) {
-
+      @PathParam("searchId") String searchId,
+      @QueryParam("pageSize") Integer pageSize, 
+      @QueryParam("page") Integer page) {
+    
+    // paging is supported not only with path params, but also with query params
+    if (pageSize != null || page != null) {
+      if (pageSize == null || page == null) {
+        return Response.status(Status.BAD_REQUEST.getStatusCode(), 
+            "Either 'pageSize' and 'page' query params are both empty (for getting whole resultset), "
+            + "or both non-empty (for getting resultset paged)").build();
+      } else {
+        return getResultsetPaged(searchId, pageSize, page);
+      }
+    }
+    
+    return getResultset(searchId);  
+  }
+  
+  protected Response getResultset(String searchId) {
+    
     final List<?> result;
 
     try {

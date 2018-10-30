@@ -22,7 +22,11 @@ import com.technology.jep.jepria.shared.field.JepLikeEnum;
 import com.technology.jep.jepria.shared.field.JepTypeEnum;
 import com.technology.jep.jepria.shared.util.Mutable;
 
-public class ResourceSearchControllerSession implements ResourceSearchController {
+/**
+ * Реализация поискового контроллера, состоящего на HTTP сессиях.
+ */
+// TODO отразить в названии тот факт, что это именно сессионная реализация (добавлением слова Session)
+public class ResourceSearchControllerBase implements ResourceSearchController {
 
   // нет необходимости параметризовать, так как механизм поиска не специфицируется на прикладном уровне 
   protected final ResourceDescription<?> resourceDescription;
@@ -31,7 +35,7 @@ public class ResourceSearchControllerSession implements ResourceSearchController
 
   private final String searchUID;
  
-  public ResourceSearchControllerSession(ResourceDescription<?> resourceDescription,
+  public ResourceSearchControllerBase(ResourceDescription<?> resourceDescription,
       Supplier<HttpSession> session) {
     this.resourceDescription = resourceDescription;
     this.session = session;

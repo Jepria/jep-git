@@ -15,16 +15,14 @@ import com.technology.jep.jepria.shared.exceptions.NotImplementedYetException;
 import com.technology.jep.jepria.shared.field.JepTypeEnum;
 import com.technology.jep.jepria.shared.util.Mutable;
 
-public class ResourceControllerImpl implements ResourceController {
+public class ResourceControllerBase implements ResourceController {
 
   // нет необходимости параметризовать, так как механизм CRUD не специфицируется на прикладном уровне 
   protected final ResourceDescription<?> resourceDescription;
   
-  public ResourceControllerImpl(ResourceDescription<?> resourceDescription) {
+  public ResourceControllerBase(ResourceDescription<?> resourceDescription) {
     this.resourceDescription = resourceDescription;
   }
-
-  
   
   /**
    * Converts url-styled resource name to dao-styled resource name:
@@ -159,6 +157,7 @@ public class ResourceControllerImpl implements ResourceController {
   
         String methodName = "get" + optionEntityNameNormalized;
         Class<?> daoClass = resourceDescription.getDao().getClass();
+        System.out.println("///class:" + daoClass.getCanonicalName() + ",meth:" + methodName);
         getOptionsMethod = daoClass.getMethod(methodName);
   
       } catch (NoSuchMethodException e) {
