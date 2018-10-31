@@ -164,7 +164,7 @@ public abstract class StandardResourceEndpoint<D extends JepDataStandard> extend
   //////// OPTIONS ////////
 
   @GET
-  @Path("options/{optionEntityName}")
+  @Path("option/{optionEntityName}")
   @ApiOperation(value = "List options by option-entity name")
   public Response listOptions(@PathParam("optionEntityName") String optionEntityName) {
     List<?> result = resourceController.get().listOptions(optionEntityName, getCredential());
