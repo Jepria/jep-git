@@ -45,7 +45,6 @@ public class ExtendedResponseHeaderProcessor {
   
   public static interface Handler {
     /**
-     * 
      * @param headerValue not null
      * @return null to indicate unsupported headerValue
      */
@@ -55,7 +54,7 @@ public class ExtendedResponseHeaderProcessor {
   private Handler handler;
 
   /**
-   * @param request the original request to take the header value from
+   * @param request the original request to take the header values from
    */
   public void setRequest(HttpServletRequest request) {
     this.request = request;
@@ -113,25 +112,35 @@ public class ExtendedResponseHeaderProcessor {
       throw new IllegalStateException("the handler has not been set");
     }
     
-    final String headerValue = request.getHeader(HEADER_NAME__EXTENDED_RESPONSE);
-    
-    if (headerValue != null) {
-      Object extendedEntityPart = handler.handle(headerValue);
-          
-      Object basicEntityPart = response.getEntity();
+    final String headerValue0 = request.getHeader(HEADER_NAME__EXTENDED_RESPONSE);
+    if (headerValue0 != null) {
       
-      Map<String, Object> newEntity = new HashMap<>();
-      if (basicEntityPart != null) {
-        newEntity.put("basic-response", basicEntityPart);
+      Map<String, Object> extendedEntityParts = new HashMap<>();
+      
+      String[] headerValues = headerValue0.split("\\s*,\\s*");
+      for (String headerValue: headerValues) {
+        if (headerValue != null) {
+        
+          Object extendedEntityPart = handler.handle(headerValue);
+          extendedEntityParts.put(headerValue, extendedEntityPart);
+          responseExtended = true;
+        }
       }
-      newEntity.put("extended-response", extendedEntityPart);
       
-      ResponseBuilder extendedResponseBuilder = Response.fromResponse(response);
-      extendedResponseBuilder.entity(newEntity);
-      
-      extendedResponse = extendedResponseBuilder.build();
-      
-      responseExtended = true;
+      if (responseExtended) {
+        Object basicEntityPart = response.getEntity();
+        
+        Map<String, Object> newEntity = new HashMap<>();
+        if (basicEntityPart != null) {
+          newEntity.put("basic-response", basicEntityPart);
+        }
+        newEntity.put("extended-response", extendedEntityParts);
+        
+        ResponseBuilder extendedResponseBuilder = Response.fromResponse(response);
+        extendedResponseBuilder.entity(newEntity);
+        
+        extendedResponse = extendedResponseBuilder.build();
+      }
     }
   }
 }
