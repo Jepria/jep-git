@@ -1,6 +1,7 @@
 package org.jepria.server.service.rest.jaxrs;
 
 import java.net.URI;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
@@ -218,95 +219,77 @@ public abstract class StandardResourceEndpoint<D extends JepDataStandard> extend
     @Override
     public Object handle(String headerValue) {
       
-      // handle 'resultset-size' header value
-      if ("resultset-size".equals(headerValue)) {
-        Response subresponse = getSearchResultsetSize(searchId);
-        String subrequestUrl = URI.create(request.getRequestURL() + "/" + searchId + "/" + headerValue).toString();
-        
-        PostSearchExtendedResponseDto extResponseDto = createPostSearchExtendedResponseDto(subrequestUrl, subresponse);
-        return extResponseDto;
-
-      }
-      
-      
-      // handle 'resultset' header value
-      if ("resultset".equals(headerValue)) {
-        Response subresponse = getResultset(searchId);
-        String subrequestUrl = URI.create(request.getRequestURL() + "/" + searchId + "/" + headerValue).toString();
-        
-        PostSearchExtendedResponseDto extResponseDto = createPostSearchExtendedResponseDto(subrequestUrl, subresponse);
-        return extResponseDto;
-      }
-
-
-
-      // handle 'resultset/paged-by-x/y' header value
-      Matcher m1 = Pattern.compile("resultset/paged-by-(\\d+)/(\\d+)").matcher(headerValue);
-      // handle 'resultset?pageSize=x&page=y' header value
-      Matcher m2 = Pattern.compile("resultset\\?pageSize\\=(\\d+)&page\\=(\\d+)").matcher(headerValue);
-      // handle 'resultset?page=y&pageSize=x' header value
-      Matcher m3 = Pattern.compile("resultset\\?page\\=(\\d+)&pageSize\\=(\\d+)").matcher(headerValue);
-
-      if (m1.matches() || m2.matches() || m3.matches()) {
-        final int pageSize, page;
-        if (m1.matches()) {
-          pageSize = Integer.valueOf(m1.group(1));// TODO possible Integer overflow
-          page = Integer.valueOf(m1.group(2));// TODO possible Integer overflow
-        } else if (m2.matches()) {
-          pageSize = Integer.valueOf(m2.group(1));// TODO possible Integer overflow
-          page = Integer.valueOf(m2.group(2));// TODO possible Integer overflow
-        } else if (m3.matches()) {
-          pageSize = Integer.valueOf(m3.group(2));// TODO possible Integer overflow
-          page = Integer.valueOf(m3.group(1));// TODO possible Integer overflow
-        } else {
-          // impossible
-          throw new IllegalStateException();
+      {// return resultset size
+        if ("resultset-size".equals(headerValue)) {
+          try {
+            return searchController.get().getResultsetSize(searchId, getCredential());
+          } catch (NoSuchSearchIdException e) {
+            // невозможно, поскольку searchId был создан в рамках этого же запроса
+            throw new IllegalStateException();
+          }
         }
-
-        Response subresponse = getResultsetPaged(searchId, pageSize, page);
-        String subrequestUrl = URI.create(request.getRequestURL() + "/" + searchId + "/" + headerValue).toString();
-        
-        PostSearchExtendedResponseDto extResponseDto = createPostSearchExtendedResponseDto(subrequestUrl, subresponse);
-        return extResponseDto;
       }
+
+      {// return paged resultset: 'resultset/paged-by-x/y' or 'resultset?pageSize=x&page=y'
+
+        // TODO or better to use org.glassfish.jersey.uri.UriTemplate? 
+        // https://stackoverflow.com/questions/17840512/java-better-way-to-parse-a-restful-resource-url
+        
+        Matcher m1 = Pattern.compile("resultset/paged-by-(\\d+)/(\\d+)").matcher(headerValue);
+        Matcher m2 = Pattern.compile("resultset\\?pageSize\\=(\\d+)&page\\=(\\d+)").matcher(headerValue);
+        Matcher m3 = Pattern.compile("resultset\\?page\\=(\\d+)&pageSize\\=(\\d+)").matcher(headerValue);
+  
+        if (m1.matches() || m2.matches() || m3.matches()) {
+          final int pageSize, page;
+          if (m1.matches()) {
+            pageSize = Integer.valueOf(m1.group(1));// TODO possible Integer overflow
+            page = Integer.valueOf(m1.group(2));// TODO possible Integer overflow
+          } else if (m2.matches()) {
+            pageSize = Integer.valueOf(m2.group(1));// TODO possible Integer overflow
+            page = Integer.valueOf(m2.group(2));// TODO possible Integer overflow
+          } else if (m3.matches()) {
+            pageSize = Integer.valueOf(m3.group(2));// TODO possible Integer overflow
+            page = Integer.valueOf(m3.group(1));// TODO possible Integer overflow
+          } else {
+            // programmatically impossible
+            throw new IllegalStateException();
+          }
+  
+          // подзапрос на выдачу данных
+          Response subresponse = getResultsetPaged(searchId, pageSize, page); 
+          final Object subresponseData;
+          if (subresponse != null && subresponse.getEntity() != null) {
+            subresponseData = subresponse.getEntity(); 
+          } else {
+            subresponseData = new Object();// avoid null
+          }
+          
+
+          final String href = URI.create(request.getRequestURL() + "/" + searchId + "/" + headerValue).toString();
+          
+          
+          // компоновка ответа из ответа подзапроса, в виде
+          // {
+          //   "data": [<список с запрошенными результатами>],
+          //   "href": "<для удобства: готовый url, по которому выдаются в точности те же данные, что и в поле data>"
+          // }
+          Map<String, Object> ret = new HashMap<>();
+          ret.put("data", subresponseData);
+          ret.put("href", href);
+
+          return ret;
+        }
+      }
+      
+      
+      // намеренно не поддерживается возврат полного результата (/resultset) в extended-response, потому что в общем случае
+      // клиент должен принять решение о том, запрашивать ли результат целиком только на основе ответа /resultset-size,
+      // что невозможно в рамках одного запроса-ответа
       
       return null;
     }
   }
   
-  protected PostSearchExtendedResponseDto createPostSearchExtendedResponseDto(String subrequestUrl, Response subresponse) {
-    
-    final PostSearchExtendedResponseDto extResponseDto = new PostSearchExtendedResponseDto();
-    final PostSearchSubrequestDto subrequestDto = new PostSearchSubrequestDto();
-    final PostSearchSubresponseDto subresponseDto = new PostSearchSubresponseDto();
-    extResponseDto.subrequest = subrequestDto;
-    extResponseDto.subresponse = subresponseDto;
-    subrequestDto.url = subrequestUrl;
-    subresponseDto.status = subresponse.getStatus();
-    subresponseDto.reasonPhrase = subresponse.getStatusInfo().getReasonPhrase();
-    subresponseDto.entity = subresponse.getEntity();
-
-    return extResponseDto;
-  }
-
-  //public static for Jersey's introspection only
-  public static class PostSearchExtendedResponseDto {
-    public PostSearchSubrequestDto subrequest;
-    public PostSearchSubresponseDto subresponse;
-  }
-
-  //public static for Jersey's introspection only
-  public static class PostSearchSubrequestDto {
-    public String url;
-  }
-
-  //public static for Jersey's introspection only
-  public static class PostSearchSubresponseDto {
-    public Integer status;
-    public String reasonPhrase;
-    public Object entity;
-  }
-
   @GET
   @Path("search/{searchId}")
   @ApiOperation(value = "Get search request by ID")
