@@ -25,7 +25,7 @@ import com.technology.jep.jepria.shared.util.Mutable;
 /**
  * Реализация поискового контроллера, состоящего на HTTP сессиях.
  */
-// TODO отразить в названии тот факт, что это именно сессионная реализация (добавлением слова Session)
+// TODO отразить в названии класса тот факт, что это именно сессионная реализация (добавлением слова Session)
 public class ResourceSearchControllerBase implements ResourceSearchController {
 
   // нет необходимости параметризовать, так как механизм поиска не специфицируется на прикладном уровне 

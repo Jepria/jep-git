@@ -77,8 +77,8 @@ public interface ResourceSearchController {
    * @param credential
    * @return
    * @throws NoSuchSearchIdException if no search request found by the searchId,
-   * @throws MaxResultsetSizeExceedException if {@link #getResultset} is too large to return.
-   * Then use {@link #etResultsetPaged} instead
+   * @throws MaxResultsetSizeExceedException if {@link #getResultset} is too large to return (as defined by client or server).
+   * Then use {@link #getResultsetPaged} instead
    */
   List<?> getResultset(String searchId, Credential credential) throws NoSuchSearchIdException, MaxResultsetSizeExceedException;
 
