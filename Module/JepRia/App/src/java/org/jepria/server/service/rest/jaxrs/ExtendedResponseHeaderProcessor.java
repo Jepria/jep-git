@@ -112,29 +112,34 @@ public class ExtendedResponseHeaderProcessor {
       throw new IllegalStateException("the handler has not been set");
     }
     
-    final String headerValue0 = request.getHeader(HEADER_NAME__EXTENDED_RESPONSE);
-    if (headerValue0 != null) {
+    final String header = request.getHeader(HEADER_NAME__EXTENDED_RESPONSE);
+    if (header != null) {
       
-      Map<String, Object> extendedEntityParts = new HashMap<>();
+      Map<String, Object> extendedResponseEntity = new HashMap<>();
       
-      String[] headerValues = headerValue0.split("\\s*,\\s*");
+      String[] headerValues = header.split("\\s*,\\s*");
       for (String headerValue: headerValues) {
         if (headerValue != null) {
         
           Object extendedEntityPart = handler.handle(headerValue);
-          extendedEntityParts.put(headerValue, extendedEntityPart);
-          responseExtended = true;
+          
+          if (extendedEntityPart != null) {
+            extendedResponseEntity.put(headerValue, extendedEntityPart);
+            responseExtended = true;
+          } else {
+            // null means that the particular header value is not supported by the handler 
+          }
         }
       }
       
       if (responseExtended) {
-        Object basicEntityPart = response.getEntity();
+        Object basicResponseEntity = response.getEntity();
         
         Map<String, Object> newEntity = new HashMap<>();
-        if (basicEntityPart != null) {
-          newEntity.put("basic-response", basicEntityPart);
+        if (basicResponseEntity != null) {
+          newEntity.put("basic-response", basicResponseEntity);
         }
-        newEntity.put("extended-response", extendedEntityParts);
+        newEntity.put("extended-response", extendedResponseEntity);
         
         ResponseBuilder extendedResponseBuilder = Response.fromResponse(response);
         extendedResponseBuilder.entity(newEntity);
