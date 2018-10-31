@@ -7,7 +7,6 @@ import java.util.function.Supplier;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -164,7 +163,7 @@ public abstract class StandardResourceEndpoint<D extends JepDataStandard> extend
   //////// OPTIONS ////////
 
   @GET
-  @Path("option/{optionEntityName}")
+  @Path("options/{optionEntityName}")
   @ApiOperation(value = "List options by option-entity name")
   public Response listOptions(@PathParam("optionEntityName") String optionEntityName) {
     List<?> result = resourceController.get().listOptions(optionEntityName, getCredential());
@@ -218,31 +217,34 @@ public abstract class StandardResourceEndpoint<D extends JepDataStandard> extend
 
     @Override
     public Object handle(String headerValue) {
-      // check 'resultset' header value
-      if ("resultset".equals(headerValue)) {
-        Response subresponse = getResultset(searchId);
-
-        final PostSearchExtendedResponseDto extResponseDto = new PostSearchExtendedResponseDto();
-        final PostSearchSubrequestDto subrequestDto = new PostSearchSubrequestDto();
-        final PostSearchSubresponseDto subresponseDto = new PostSearchSubresponseDto();
-        extResponseDto.subrequest = subrequestDto;
-        extResponseDto.subresponse = subresponseDto;
-        subrequestDto.url = URI.create(request.getRequestURL() + "/" + searchId + "/" + headerValue).toString();
-        subresponseDto.status = subresponse.getStatus();
-        subresponseDto.reasonPhrase = subresponse.getStatusInfo().getReasonPhrase();
-        subresponseDto.entity = subresponse.getEntity();
-
+      
+      // handle 'resultset-size' header value
+      if ("resultset-size".equals(headerValue)) {
+        Response subresponse = getSearchResultsetSize(searchId);
+        String subrequestUrl = URI.create(request.getRequestURL() + "/" + searchId + "/" + headerValue).toString();
+        
+        PostSearchExtendedResponseDto extResponseDto = createPostSearchExtendedResponseDto(subrequestUrl, subresponse);
         return extResponseDto;
 
+      }
+      
+      
+      // handle 'resultset' header value
+      if ("resultset".equals(headerValue)) {
+        Response subresponse = getResultset(searchId);
+        String subrequestUrl = URI.create(request.getRequestURL() + "/" + searchId + "/" + headerValue).toString();
+        
+        PostSearchExtendedResponseDto extResponseDto = createPostSearchExtendedResponseDto(subrequestUrl, subresponse);
+        return extResponseDto;
       }
 
 
 
-      // check 'resultset/paged-by-x/y' header value
+      // handle 'resultset/paged-by-x/y' header value
       Matcher m1 = Pattern.compile("resultset/paged-by-(\\d+)/(\\d+)").matcher(headerValue);
-      // check 'resultset?pageSize=x&page=y' header value
+      // handle 'resultset?pageSize=x&page=y' header value
       Matcher m2 = Pattern.compile("resultset\\?pageSize\\=(\\d+)&page\\=(\\d+)").matcher(headerValue);
-      // check 'resultset?page=y&pageSize=x' header value
+      // handle 'resultset?page=y&pageSize=x' header value
       Matcher m3 = Pattern.compile("resultset\\?page\\=(\\d+)&pageSize\\=(\\d+)").matcher(headerValue);
 
       if (m1.matches() || m2.matches() || m3.matches()) {
@@ -262,23 +264,30 @@ public abstract class StandardResourceEndpoint<D extends JepDataStandard> extend
         }
 
         Response subresponse = getResultsetPaged(searchId, pageSize, page);
-
-        final PostSearchExtendedResponseDto extResponseDto = new PostSearchExtendedResponseDto();
-        final PostSearchSubrequestDto subrequestDto = new PostSearchSubrequestDto();
-        final PostSearchSubresponseDto subresponseDto = new PostSearchSubresponseDto();
-        extResponseDto.subrequest = subrequestDto;
-        extResponseDto.subresponse = subresponseDto;
-        subrequestDto.url = URI.create(request.getRequestURL() + "/" + searchId + "/" + headerValue).toString();
-        subresponseDto.status = subresponse.getStatus();
-        subresponseDto.reasonPhrase = subresponse.getStatusInfo().getReasonPhrase();
-        subresponseDto.entity = subresponse.getEntity();
-
+        String subrequestUrl = URI.create(request.getRequestURL() + "/" + searchId + "/" + headerValue).toString();
+        
+        PostSearchExtendedResponseDto extResponseDto = createPostSearchExtendedResponseDto(subrequestUrl, subresponse);
         return extResponseDto;
-
       }
+      
       return null;
     }
-  };
+  }
+  
+  protected PostSearchExtendedResponseDto createPostSearchExtendedResponseDto(String subrequestUrl, Response subresponse) {
+    
+    final PostSearchExtendedResponseDto extResponseDto = new PostSearchExtendedResponseDto();
+    final PostSearchSubrequestDto subrequestDto = new PostSearchSubrequestDto();
+    final PostSearchSubresponseDto subresponseDto = new PostSearchSubresponseDto();
+    extResponseDto.subrequest = subrequestDto;
+    extResponseDto.subresponse = subresponseDto;
+    subrequestDto.url = subrequestUrl;
+    subresponseDto.status = subresponse.getStatus();
+    subresponseDto.reasonPhrase = subresponse.getStatusInfo().getReasonPhrase();
+    subresponseDto.entity = subresponse.getEntity();
+
+    return extResponseDto;
+  }
 
   //public static for Jersey's introspection only
   public static class PostSearchExtendedResponseDto {
