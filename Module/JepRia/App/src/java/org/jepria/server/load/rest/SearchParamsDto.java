@@ -7,8 +7,6 @@ public class SearchParamsDto {
   
   private Map<String, Object> template;
   
-  private Integer maxResultsetSize;
-
   private List<ColumnSortConfigurationDto> listSortConfiguration;
   
   public Map<String, Object> getTemplate() {
@@ -27,12 +25,4 @@ public class SearchParamsDto {
     this.listSortConfiguration = listSortConfiguration;
   }
 
-  public Integer getMaxResultsetSize() {
-    return maxResultsetSize;
-  }
-
-  public void setMaxResultsetSize(Integer maxResultsetSize) {
-    this.maxResultsetSize = maxResultsetSize;
-  }
-  
 }

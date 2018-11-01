@@ -17,7 +17,9 @@ import org.jepria.server.load.rest.ListSorter;
 import org.jepria.server.load.rest.SearchParamsDto;
 import org.jepria.server.security.Credential;
 
+import com.technology.jep.jepria.shared.JepRiaConstant;
 import com.technology.jep.jepria.shared.exceptions.ApplicationException;
+import com.technology.jep.jepria.shared.field.JepFieldNames;
 import com.technology.jep.jepria.shared.field.JepLikeEnum;
 import com.technology.jep.jepria.shared.field.JepTypeEnum;
 import com.technology.jep.jepria.shared.util.Mutable;
@@ -79,7 +81,7 @@ public class ResourceSearchControllerBase implements ResourceSearchController {
    */
   private class SearchModel {
     public Map<String, Object> preparedTemplate;
-    public int maxResultsetSize;
+    public int maxRowCount;
   }
 
   protected SearchModel createSearchModel(SearchParamsDto searchParams) {
@@ -93,16 +95,14 @@ public class ResourceSearchControllerBase implements ResourceSearchController {
     }
 
     
-    // maxResultsetSize: из клиентских поисковых параметров; если не задано - то из RecordDefinition 
-    Integer maxResultsetSize = searchParams.getMaxResultsetSize();
-    if (maxResultsetSize == null) {
-      maxResultsetSize = resourceDescription.getRecordDefinition().getMaxResultsetSize();
-    }
-    searchModel.maxResultsetSize = maxResultsetSize;
+    // maxRowCount: если не задано в клиентских параметрах, то дефолтное значение 
+    Integer maxRowCount = (Integer)template.get(JepFieldNames.MAX_ROW_COUNT);
+    searchModel.maxRowCount = maxRowCount != null ? maxRowCount : JepRiaConstant.DEFAULT_MAX_ROW_COUNT;
 
     
     Map<String, Object> preparedTemplate = new HashMap<>(template);
 
+    // применяем MatchType к каждому полю
     preparedTemplate.entrySet().forEach(entry -> {
 
       final String key = entry.getKey();
@@ -161,7 +161,7 @@ public class ResourceSearchControllerBase implements ResourceSearchController {
           resourceDescription.getDao().find(
               Compat.convertRecord(searchModel.preparedTemplate),
               autoRefreshFlag,
-              searchModel.maxResultsetSize,
+              searchModel.maxRowCount,
               credential.getOperatorId()));
     } catch (ApplicationException e) {
       //TODO

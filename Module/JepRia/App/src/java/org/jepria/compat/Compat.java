@@ -1,20 +1,10 @@
 package org.jepria.compat;
 
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.stream.Collectors;
 
-import org.jepria.shared.RecordDefinition;
-
-import com.technology.jep.jepria.shared.JepRiaConstant;
-import com.technology.jep.jepria.shared.field.JepLikeEnum;
-import com.technology.jep.jepria.shared.field.JepTypeEnum;
 import com.technology.jep.jepria.shared.record.JepRecord;
-import com.technology.jep.jepria.shared.record.JepRecordDefinition;
 
 /**
  * Временный класс для поддержания обратной совместимости "новой" и "старой" архитектур Jerpia
@@ -44,56 +34,5 @@ public class Compat {
     }
     
     return list.stream().map(rec -> (Map<String, Object>)rec).collect(Collectors.toList());
-  }
-  
-  /**
-   * Convert JepRecordDefinition to RecordDefiniton
-   */
-  public static RecordDefinition convertRecordDefinition(JepRecordDefinition jepRecordDefinition) {
-    if (jepRecordDefinition == null) {
-      return null;
-    }
-    
-    return new RecordDefinition() {
-      
-      @Override
-      public List<String> getPrimaryKey() {
-        if (jepRecordDefinition.getPrimaryKey() == null) {
-          return null;
-        }
-        return Arrays.asList(jepRecordDefinition.getPrimaryKey());
-      }
-      
-      @Override
-      public int getMaxResultsetSize() {
-        return JepRiaConstant.DEFAULT_MAX_ROW_COUNT;
-      }
-      
-      @Override
-      public Comparator<Object> getFieldComparator(String fieldName) {
-        return null;
-      }
-
-      private final Set<String> knownFieldNames = new HashSet<>();
-      {
-        knownFieldNames.addAll(jepRecordDefinition.getTypeMap().keySet());
-        knownFieldNames.addAll(jepRecordDefinition.getLikeMap().keySet());
-      }
-      
-      @Override
-      public Set<String> getFieldNames() {
-        return knownFieldNames;
-      }
-
-      @Override
-      public JepTypeEnum getFieldType(String fieldName) {
-        return jepRecordDefinition.getType(fieldName);
-      }
-
-      @Override
-      public JepLikeEnum getFieldMatch(String fieldName) {
-        return jepRecordDefinition.getLikeMap().get(fieldName);
-      }
-    }; 
   }
 }
