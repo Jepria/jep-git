@@ -25,28 +25,6 @@ public interface ResourceSearchController {
     }
   }
 
-  
-  
-  public static class MaxResultsetSizeExceedException extends Exception {
-    private static final long serialVersionUID = 1L;
-    
-    private final int actualResultsetSize;
-    private final int maxResultsetSize;
-    
-    public MaxResultsetSizeExceedException(int actualResultsetSize, int maxResultsetSize) {
-      this.actualResultsetSize = actualResultsetSize;
-      this.maxResultsetSize = maxResultsetSize;
-    }
-
-    public int getActualResultsetSize() {
-      return actualResultsetSize;
-    }
-
-    public int getMaxResultsetSize() {
-      return maxResultsetSize;
-    }
-  }
-
   /**
    * 
    * @param searchParams
@@ -76,11 +54,9 @@ public interface ResourceSearchController {
    * @param searchId
    * @param credential
    * @return
-   * @throws NoSuchSearchIdException if no search request found by the searchId,
-   * @throws MaxResultsetSizeExceedException if {@link #getResultset} is too large to return (as defined by client or server).
-   * Then use {@link #getResultsetPaged} instead
+   * @throws NoSuchSearchIdException if no search request found by the searchId
    */
-  List<?> getResultset(String searchId, Credential credential) throws NoSuchSearchIdException, MaxResultsetSizeExceedException;
+  List<?> getResultset(String searchId, Credential credential) throws NoSuchSearchIdException;
 
   /**
    * @param searchId

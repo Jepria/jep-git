@@ -27,7 +27,6 @@ import org.jepria.server.service.rest.ResourceController;
 import org.jepria.server.service.rest.ResourceControllerBase;
 import org.jepria.server.service.rest.ResourceDescription;
 import org.jepria.server.service.rest.ResourceSearchController;
-import org.jepria.server.service.rest.ResourceSearchController.MaxResultsetSizeExceedException;
 import org.jepria.server.service.rest.ResourceSearchController.NoSuchSearchIdException;
 import org.jepria.server.service.rest.ResourceSearchControllerBase;
 
@@ -356,10 +355,6 @@ public abstract class StandardResourceEndpoint<D extends JepDataStandard> extend
     } catch (NoSuchSearchIdException e) {
       // TODO log?
       return Response.status(Status.NOT_FOUND).build();
-    } catch (MaxResultsetSizeExceedException e) {
-      // TODO log?
-      final String message = "The actual resultset size (" + e.getActualResultsetSize() + ") exceeds the maxResultsetSize (" + e.getMaxResultsetSize() + ")";
-      return Response.status(Status.BAD_REQUEST.getStatusCode(), message).build();
     }
 
     if (result == null || result.isEmpty()) {

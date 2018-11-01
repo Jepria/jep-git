@@ -243,31 +243,8 @@ public class ResourceSearchControllerBase implements ResourceSearchController {
     return resultset;
   }
   
-  
-  protected void checkResultsetSizeOrThrow(String searchId, Credential credential) throws NoSuchSearchIdException, MaxResultsetSizeExceedException {
-    final int actualResultsetSize = getResultsetSize(searchId, credential);
-    
-    SearchParamsDto searchParams = getSearchParams(searchId, credential);
-    if (searchParams.getMaxResultsetSize() != null) {
-      // check maxResultsetSize from the search params
-      final int maxResultsetSize = searchParams.getMaxResultsetSize();
-      if (actualResultsetSize > maxResultsetSize) {
-        // TODO the exception handlers do not know who defined the maxResultsetSize limit (in this case: SearchParamsDto)
-        throw new MaxResultsetSizeExceedException(actualResultsetSize, maxResultsetSize);
-      }
-    } else {
-      // check maxResultsetSize from the RecordDefinition
-      final int maxResultsetSize = resourceDescription.getRecordDefinition().getMaxResultsetSize();
-      if (actualResultsetSize > maxResultsetSize) {
-        // TODO the exception handlers do not know who defined the maxResultsetSize limit (in this case: RecordDefinition)
-        throw new MaxResultsetSizeExceedException(actualResultsetSize, maxResultsetSize);
-      }
-    }
-  }
-  
   @Override
-  public List<?> getResultset(String searchId, Credential credential) throws NoSuchSearchIdException, MaxResultsetSizeExceedException {
-    checkResultsetSizeOrThrow(searchId, credential);
+  public List<?> getResultset(String searchId, Credential credential) throws NoSuchSearchIdException {
     return getResultsetLocal(searchId, credential);
   }
   
