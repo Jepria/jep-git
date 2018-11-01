@@ -10,22 +10,22 @@ public interface ResourceController {
   //////////// CRUD ///////////////////
 
   /**
-   * @param recordId
+   * @param resourceId
    * @param credential
    * @return instance normally; {@code null} to indicate 'not found' status
    */
-  Object getResourceById(String recordId, Credential credential);
+  Object getResourceById(String resourceId, Credential credential);
   
   /**
-   * @param instance
+   * @param record
    * @param credential
    * @return created instance ID normally; never {@code null}
    */
-  Object create(Map<String, Object> instance, Credential credential);
+  Object create(Map<String, Object> record, Credential credential);
   
-  void deleteResourceById(String recordId, Credential credential);
+  void deleteResourceById(String resourceId, Credential credential);
   
-  void update(String recordId, Map<String, Object> fields, Credential credential);
+  void update(String resourceId, Map<String, Object> fields, Credential credential);
   
   /////////////////////////// OPTIONS RESOURCE //////////////////////////
   

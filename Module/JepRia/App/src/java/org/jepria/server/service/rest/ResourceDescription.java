@@ -1,8 +1,8 @@
 package org.jepria.server.service.rest;
 
+import org.jepria.server.dao.JepDataStandard;
 import org.jepria.shared.RecordDefinition;
 
-import com.technology.jep.jepria.server.dao.JepDataStandard;
 
 /**
  * Implementors provide standard applicational description for the REST resources  

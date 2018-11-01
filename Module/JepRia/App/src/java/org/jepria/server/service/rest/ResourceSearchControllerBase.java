@@ -17,12 +17,8 @@ import org.jepria.server.load.rest.ListSorter;
 import org.jepria.server.load.rest.SearchParamsDto;
 import org.jepria.server.security.Credential;
 
-import com.technology.jep.jepria.shared.JepRiaConstant;
-import com.technology.jep.jepria.shared.exceptions.ApplicationException;
-import com.technology.jep.jepria.shared.field.JepFieldNames;
 import com.technology.jep.jepria.shared.field.JepLikeEnum;
 import com.technology.jep.jepria.shared.field.JepTypeEnum;
-import com.technology.jep.jepria.shared.util.Mutable;
 
 /**
  * Реализация поискового контроллера, состоящего на HTTP сессиях.
@@ -96,8 +92,8 @@ public class ResourceSearchControllerBase implements ResourceSearchController {
 
     
     // maxRowCount: если не задано в клиентских параметрах, то дефолтное значение 
-    Integer maxRowCount = (Integer)template.get(JepFieldNames.MAX_ROW_COUNT);
-    searchModel.maxRowCount = maxRowCount != null ? maxRowCount : JepRiaConstant.DEFAULT_MAX_ROW_COUNT;
+    Integer maxRowCount = (Integer)template.get(Compat.MAX_ROW_COUNT__FIELD_NAME);
+    searchModel.maxRowCount = maxRowCount != null ? maxRowCount : Compat.DEFAULT_MAX_ROW_COUNT;
 
     
     Map<String, Object> preparedTemplate = new HashMap<>(template);
@@ -152,26 +148,18 @@ public class ResourceSearchControllerBase implements ResourceSearchController {
     
     SearchModel searchModel = createSearchModel(searchParams);
     
-    Mutable<Boolean> autoRefreshFlag = new Mutable<Boolean>(false);
-
     List<Map<String, Object>> resultset;
     
     try {
-      resultset = Compat.convertList(
-          resourceDescription.getDao().find(
-              Compat.convertRecord(searchModel.preparedTemplate),
-              autoRefreshFlag,
+      resultset = resourceDescription.getDao().find(
+              searchModel.preparedTemplate,
               searchModel.maxRowCount,
-              credential.getOperatorId()));
-    } catch (ApplicationException e) {
+              credential.getOperatorId());
+    } catch (Throwable e) {
       //TODO
       throw new RuntimeException(e);
     }
 
-    // TODO move the autorefreshFlag logic from server-side to client-side
-    // Сохраним флаг автообновления.
-    // autoRefreshFlag.get();
-    
     if (resultset == null) {
       resultset = new ArrayList<>();
     }
