@@ -18,6 +18,7 @@ import static com.technology.jep.jepria.shared.JepRiaConstant.DEFAULT_DATE_YEAR_
 
 import java.util.Date;
 
+import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
@@ -199,7 +200,8 @@ public class JepDateField extends JepMultiStateField<MaskedDateBox, HTML> {
   
   /**
    * Создание календаря с навигационной панелью с возможностью выбрать месяц и год
-   * @param typeViewPanelOfCalendar
+   * @param typeViewPanelOfCalendar - тип формата ввода даты, может принимать значения:  FORMAT_DAYS_AND_MONTH_AND_YEAR_TIME - стандартный календарь и время(dd.MM.yyyy HH:mm:ss), <br> FORMAT_DAYS_AND_MONTH_AND_YEAR - стандартный календарь (dd.MM.yyyy), <br>FORMAT_MONTH_AND_YEAR_ONLY - Навигация только месяц и год (mm.YYYY), <br>FORMAT_YEAR_ONLY - Навигация только год (yyyy)
+   * <br>любые другие значения приводятся к FORMAT_DAYS_AND_MONTH_AND_YEAR
    */
   private void createDatePicker(Integer typeViewPanelOfCalendar) {
     Mask mask = null;
@@ -232,32 +234,26 @@ public class JepDateField extends JepMultiStateField<MaskedDateBox, HTML> {
       new JepDatePicker(typeViewPanelOfCalendar) {
         @Override
         protected void changeYearWhenBakwards() {
-          handlerChangeDatePicker();
         }
         
         @Override
         protected void changeYearWhenForwards() {
-          handlerChangeDatePicker();
         }
         
         @Override
         public void changeMonthWhenBakwards() {
-          handlerChangeDatePicker();
         }
         
         @Override
         public void changeMonthWhenForwards() {
-          handlerChangeDatePicker();
         }
   
         @Override
         public void doWhenFireEventYearListBox() {
-          handlerChangeDatePicker();
         }
   
         @Override
         public void doWhenFireEventMonthListBox() {
-          handlerChangeDatePicker();
         }
 
         @Override
@@ -463,7 +459,7 @@ public class JepDateField extends JepMultiStateField<MaskedDateBox, HTML> {
   
   /**
    *  Обработчик введенного текста с мобильного устройства
-   * @param value
+   * @param newDate
    */
   protected void handlerKeyboardEvent(Date newDate) {
     ((JepDatePicker) editableCard.getDatePicker()).refresh(newDate);
@@ -472,6 +468,7 @@ public class JepDateField extends JepMultiStateField<MaskedDateBox, HTML> {
 
   /**
    * Валидация введенной даты
+   * return @Date дата корректная
    */
   protected Date validDate(String date) throws Exception {
     Date result = null;

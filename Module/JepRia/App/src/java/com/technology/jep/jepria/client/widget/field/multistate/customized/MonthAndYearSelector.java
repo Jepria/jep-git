@@ -11,7 +11,6 @@ import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.i18n.client.LocaleInfo;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.HTMLTable.CellFormatter;
 import com.google.gwt.user.client.ui.ListBox;
@@ -217,7 +216,7 @@ public class MonthAndYearSelector extends MonthSelector {
     backwards.addClickHandler(new ClickHandler() {
       public void onClick(ClickEvent event) {
         if (!(model.getCurrentMonth().getMonth() == 0 && getYearIndexOfListBox(model.getCurrentMonth().getYear()) == 0)) {
-          addMonths(-1);
+          addMonthsWithFireChangeValue(-1);
           changeMonthWhenBakwards();
         }
       }
@@ -232,12 +231,12 @@ public class MonthAndYearSelector extends MonthSelector {
     forwards.addClickHandler(new ClickHandler() {
       public void onClick(ClickEvent event) {
         if (getYearIndexOfListBox(model.getCurrentMonth().getYear()) < maxYear - minYear) {
-          addMonths(+1);
+          addMonthsWithFireChangeValue(+1);
           changeMonthWhenForwards();
         }
         else if(model.getCurrentMonth().getMonth() < 11 && getYearIndexOfListBox(model.getCurrentMonth().getYear()) == maxYear - minYear)
         {
-          addMonths(+1);
+          addMonthsWithFireChangeValue(+1);
           changeMonthWhenForwards();
         }
       }
@@ -247,9 +246,8 @@ public class MonthAndYearSelector extends MonthSelector {
     backwardsYear.addClickHandler(new ClickHandler() {
       public void onClick(ClickEvent event) {
         if (!(getYearIndexOfListBox(model.getCurrentMonth().getYear()) == 0)) {
-          addMonths(-12);
+          addMonthsWithFireChangeValue(-12);
           changeYearWhenBakwards();
-          picker.refreshComponents();
         }
       }
     });
@@ -263,9 +261,8 @@ public class MonthAndYearSelector extends MonthSelector {
     forwardsYear.addClickHandler(new ClickHandler() {
       public void onClick(ClickEvent event) {
         if (getYearIndexOfListBox(model.getCurrentMonth().getYear()) < maxYear - minYear) {
-          addMonths(+12);
+          addMonthsWithFireChangeValue(+12);
           changeYearWhenForwards();
-          picker.refreshComponents();
         }
       }
     });
@@ -273,18 +270,16 @@ public class MonthAndYearSelector extends MonthSelector {
     yearListBox.addChangeHandler(new ChangeHandler() {
       @Override
       public void onChange(ChangeEvent event) {
-        setYear(Integer.parseInt(yearListBox.getItemText(yearListBox.getSelectedIndex())) - MIN_YEAR);
+        addYearWithFireChangeValue(Integer.parseInt(yearListBox.getItemText(yearListBox.getSelectedIndex())) - MIN_YEAR);
         doWhenChangeYearListBox();
-        picker.refreshComponents();
       }
     });
     monthListBox.addChangeHandler(new ChangeHandler() {
       @Override
       public void onChange(ChangeEvent event) {
         int monthIndex = monthListBox.getSelectedIndex();
-        setMonth(monthIndex);
+        addMonthWithFireChangeValue(monthIndex);
         doWhenChangeMonthListBox();
-        picker.refreshComponents();
       }
     });
 
@@ -333,28 +328,45 @@ public class MonthAndYearSelector extends MonthSelector {
     initWidget(grid);
   }
 
+  private void addMonthsWithFireChangeValue(int numMonths) {
+    addMonths(numMonths);
+    if (!picker.isVisibleDaysPanel()) 
+      picker.setValue(model.getCurrentMonth(), true);
+  }
+  
   public void addMonths(int numMonths) {
     model.shiftCurrentMonth(numMonths);
-    picker.setValue(model.getCurrentMonth());
-    refresh();
+    picker.refreshComponents();
   }
 
+  private void addMonthWithFireChangeValue(int month) {
+    setMonth(month);
+    if (!picker.isVisibleDaysPanel()) 
+      picker.setValue(model.getCurrentMonth(), true);
+  }
+  
   @SuppressWarnings("deprecation")
   public void setMonth(int month) {
-    Date changedDate = model.getCurrentMonth();
+    Date changedDate = picker.getActualDate();
+    changedDate = changedDate == null ? model.getCurrentMonth() : changedDate;
     changedDate.setMonth(month);
     model.setCurrentMonth(changedDate);
-    picker.setValue(model.getCurrentMonth());
-    refresh();
+    picker.refreshComponents();
   }
 
+  private void addYearWithFireChangeValue(int year) {
+    setYear(year);
+    if (!picker.isVisibleDaysPanel()) 
+      picker.setValue(model.getCurrentMonth(), true);
+  }
+  
   @SuppressWarnings("deprecation")
   public void setYear(int year) {
-    Date changedDate = model.getCurrentMonth();
+    Date changedDate = picker.getActualDate();
+    changedDate = changedDate == null ? model.getCurrentMonth() : changedDate;
     changedDate.setYear(year);
     model.setCurrentMonth(changedDate);
-    picker.setValue(model.getCurrentMonth());
-    refresh();
+    picker.refreshComponents();
   }
   
   protected void setVisibleNavigationPanel(boolean visible) {

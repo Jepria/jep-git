@@ -17,6 +17,9 @@ public class MaskedTextBoxMobile extends MaskedTextBox {
     super(mask);
   }
   
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public boolean isValid() {
     boolean isValid = true;
@@ -25,12 +28,18 @@ public class MaskedTextBoxMobile extends MaskedTextBox {
     return isValid || isEmpty();
   }
   
+  /**
+   * {@inheritDoc}
+   */
   @Override
   protected boolean isEmpty() {
     String value = getText();
     return JepRiaUtil.isEmpty(value) || mask.getText(new char[mask.size()], true).equals(value);
   }
   
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public String getValue() {
    char[] charValue = getText().toCharArray();
@@ -47,19 +56,33 @@ public class MaskedTextBoxMobile extends MaskedTextBox {
    */
   private String beforeValue;
   
+  
+  /**
+   * {@inheritDoc}
+   */
   @Override
   protected void onKeyDownEvent(KeyDownEvent event) {
     beforeValue = getText();
   }
   
+  
+  /**
+   * {@inheritDoc}
+   */
   @Override
   protected void onKeyPressEvent(KeyPressEvent event) {
   }
   
+  /**
+   * {@inheritDoc}
+   */
   @Override
   protected void onPasteEvent(Event event) {
   }
   
+  /**
+   * {@inheritDoc}
+   */
   @Override
   protected void onKeyUpEvent(KeyUpEvent event) {
     if (event.getNativeKeyCode() == KeyCodes.KEY_BACKSPACE) {
@@ -78,8 +101,8 @@ public class MaskedTextBoxMobile extends MaskedTextBox {
   
   /**
    * Разница между двумя строками
-   * @param value1
-   * @param value2
+   * @param value1 первое сравниваемое значение
+   * @param value2 второе сравниваемое значение
    * @return char предполагается, что разница будет в один символ
    */
   protected char diffValues(String value1, String value2) {
@@ -102,10 +125,10 @@ public class MaskedTextBoxMobile extends MaskedTextBox {
   
   /**
    * Заполнение массива маской отсутствующих значений, например: 12.11 -> 12.11.****
-   * @param chars
-   * @param position
-   * @param correctPos
-   * @return
+   * @param chars массив символов для привидения к маске
+   * @param position позиция символа для маскировании 
+   * @param correctPos сдвиг позиции 
+   * @return массив символов с маскированием отсутствующих символов
    */
   protected char[] fillValueByMask(char[] chars, int position, int correctPos) {
     MaskItem item = mask.items.get(position);
@@ -131,10 +154,10 @@ public class MaskedTextBoxMobile extends MaskedTextBox {
   
   /**
    * Заменя символа в массиве по позиции
-   * @param value
-   * @param position
-   * @param replacedChar
-   * @return
+   * @param value Строка для замены
+   * @param position позиция замены
+   * @param replacedChar символ замены
+   * @return массив символов с результатом подстановки
    */
   protected char[] replaceCharByPos(String value, int position, char replacedChar) {
     char[] chars = new char[mask.size()];
@@ -151,6 +174,9 @@ public class MaskedTextBoxMobile extends MaskedTextBox {
   
   /**
    * Форматирование текстового значения по маске на основе разницы двух текстовых полей и позиции курсора
+   * @param postValue значение поля после ввода с клавиатуры
+   * @param preValue значение поля перед вводом с клавиатру
+   * @param position позиция воода
    */
   protected void handlerPostInput(String postValue, String preValue, int position) {
     int correctedPosition = position > 0 ? position - 1 : 0;
@@ -221,7 +247,10 @@ public class MaskedTextBoxMobile extends MaskedTextBox {
  
   /**
    * Подтверждаем, что своим функ-м можем поддержать соответствующую мобильную платформу
-   * @return
+   * поддерживаются следующие платформы: 
+   * <br> - Android
+   * <br> - iPhone
+   * @return если Истина, то поддерживаем соответствующую платформу, Ложь - не поддерживаем
    */
   public static native boolean isSupportedMobilePlatform() /*-{
     return navigator.userAgent.match(/Android/i)

@@ -23,9 +23,7 @@ import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.user.datepicker.client.CalendarModel;
 import com.google.gwt.user.datepicker.client.DatePicker;
 import com.google.gwt.user.datepicker.client.DefaultCalendarView;
-import com.sun.javafx.webkit.KeyCodeMap;
 import com.technology.jep.jepria.client.util.JepClientUtil;
-import com.technology.jep.jepria.client.widget.field.masked.MaskedTextBoxMobile;
 import com.technology.jep.jepria.shared.text.JepRiaText;
 import com.technology.jep.jepria.shared.util.JepRiaUtil;
 
@@ -100,9 +98,9 @@ public abstract class JepDatePicker extends DatePicker {
   }
   
   public void refresh(Date newDate) {
-    this.setValue(newDate);
     monthSelector.setMonth(newDate.getMonth());
     monthSelector.setYear(newDate.getYear());
+    this.setValue(newDate);
     setTime(newDate);
   }
   
@@ -155,42 +153,75 @@ public abstract class JepDatePicker extends DatePicker {
     return widget;
   }
   
+  /**
+   * Выделяем все содержимое соответствующего элемента
+   * @param element
+   */
   private native void selectAll(Element element) /*-{
     element.setSelectionRange(0, element.value.length);
   }-*/;
   
-  protected void setTime(Date newDate) {
-    if (hours != null && minutes != null && seconds != null && newDate != null) {
-      hours.setValue(String.valueOf(newDate.getHours()));
-      minutes.setValue(String.valueOf(newDate.getMinutes()));
-      seconds.setValue(String.valueOf(newDate.getSeconds()));
+  /**
+   * Устанавливаем время
+   * @param newTime
+   */
+  protected void setTime(Date newTime) {
+    if (hours != null && minutes != null && seconds != null && newTime != null) {
+      hours.setValue(String.valueOf(newTime.getHours()));
+      minutes.setValue(String.valueOf(newTime.getMinutes()));
+      seconds.setValue(String.valueOf(newTime.getSeconds()));
     }
   }
   
+  /**
+   * Устанавливаем видимость панели навигации по дням месяца   
+   * @param visible
+   */
   public void setVisibleDaysPanel(boolean visible) {
     getView().setVisible(visible);
   }
   
+  /**
+   * Видимость панели с календарем
+   * @return
+   */
+  public boolean isVisibleDaysPanel() {
+    return getView().isVisible();
+  }
+  
+  /**
+   * Устанавливаем видимость панели календаря
+   * @param visible
+   */
   public void setVisibleNavigationPanel(boolean visible) {
     monthSelector.setVisibleNavigationPanel(visible);
   }
   
+  /**
+   * @return получить актуальную дату из панели календаря
+   */
   public Date getActualDate() {
     Date date = getValue();
-    
-    if (getCurrentMonth() != null && date != null) {
-      date.setMonth(getCurrentMonth().getMonth());
-      date.setYear(getCurrentMonth().getYear());
-    }
-    
+
     if (hours != null && minutes != null && seconds != null && date != null) {
       date.setHours(Integer.valueOf(JepRiaUtil.isEmpty(hours.getText()) ? defaultValue : hours.getText()));
       date.setMinutes(Integer.valueOf(JepRiaUtil.isEmpty(minutes.getText()) ? defaultValue : minutes.getText()));
       date.setSeconds(Integer.valueOf(JepRiaUtil.isEmpty(seconds.getText()) ? defaultValue : seconds.getText()));
     }
     
+    if (monthSelector.getModel().getCurrentMonth() != null && date != null) {
+      date.setMonth(monthSelector.getModel().getCurrentMonth().getMonth());
+      date.setYear(monthSelector.getModel().getCurrentMonth().getYear());
+    }
+    
     return date;
   }
+  
+  /**
+   * Проверка на нажатие допустимых клавиш с клавиатуры 
+   * @param key код нажатой клавиши
+   * @return Истина - допустимо, Ложь - недопусимо
+   */
   
   protected boolean isPermitKey(int key) {
     return isDecimalKey(key) 
@@ -198,6 +229,11 @@ public abstract class JepDatePicker extends DatePicker {
         || key ==KeyCodes.KEY_RIGHT || key ==KeyCodes.KEY_LEFT || key ==KeyCodes.KEY_TAB;
   }
   
+  /**
+   * Проверка на допустимость символов
+   * @param chs массив проверяемых символов
+   * @return Истина - допустимо, Ложь - недопусимо
+   */
   protected boolean isPermitValue(char[] chs) {
     boolean result = chs != null && chs.length > 0 ? true : false;
     for (char ch : chs) {
@@ -209,12 +245,25 @@ public abstract class JepDatePicker extends DatePicker {
     return result;
   }
   
+  /**
+   * Проверка, что код символа соответствует коду числа
+   * @param key код символа
+   * @return Истина - допустимо, Ложь - недопусимо
+   */
   protected boolean isDecimalKey(int key) {
     return key >= KeyCodes.KEY_ZERO && key <= KeyCodes.KEY_NINE;
   }
   
+  
   final String defaultValue = "0";
   private String preValue;
+  
+  /**
+   * Обработчик событий воода с клавиатру, обработчик обеспечивает обработку событий в стационарных и мобильных броузерах 
+   * @param widget
+   * @param maxValue определяет верхнюю границу диапазона числа
+   * @param nextWidget определяет виджет на который надо переключиться при нажатии клавишив TAB
+   */
   protected void appendHandlers(TextBox widget, int maxValue, TextBox nextWidget) {
     
     if (JepClientUtil.isMobile()) {
@@ -303,33 +352,47 @@ public abstract class JepDatePicker extends DatePicker {
     });
   }
   
+  /**
+   * Получить минимально допустимый год
+   * @return
+   */
   public Integer getMinYear() {
     return ((MonthAndYearSelector) getMonthSelector()).getMinYear();
   }
 
+  /**
+   * Установить минимально допустимый год
+   * @param minYear
+   * @return Если попали в допустимый диапахон (01.01.1900 - 31.12.2100) - Истина, иначе - Ложь
+   */
   public boolean setMinYear(Integer minYear) {
     return ((MonthAndYearSelector) getMonthSelector()).setMinYear(minYear);
     
   }
 
+  /**
+   * Получить максимально допустимый год
+   * @return год
+   */
   public Integer getMaxYear() {
     return ((MonthAndYearSelector) getMonthSelector()).getMaxYear();
   }
 
+  /**
+   * Установить максимально допустимый год
+   * @param maxYear
+   * @return Если попали в допустимый диапахон (01.01.1900 - 31.12.2100) - Истина, иначе - Ложь
+   */
   public boolean setMaxYear(Integer maxYear) {
     return  ((MonthAndYearSelector) getMonthSelector()).setMaxYear(maxYear);
   }
   
-  protected abstract void changeYearWhenBakwards();
-  protected abstract void changeYearWhenForwards();
-  protected abstract void changeMonthWhenBakwards();
-  protected abstract void changeMonthWhenForwards();
-  
-  protected abstract void doWhenFireEventYearListBox();
-  protected abstract void doWhenFireEventMonthListBox();
-  
-  protected abstract void doFireEventClickDatePicker();
-  protected abstract void doFireEventChangeTime();
+  /**
+   * 
+   * @param widget
+   * @param keyCode
+   * @param maxValue
+   */
   
   protected void handlerEventKeyUpMobileDevice(Widget widget, int keyCode, int maxValue) {
     TextBox textBox = (TextBox)widget;
@@ -351,4 +414,44 @@ public abstract class JepDatePicker extends DatePicker {
     }
     doFireEventChangeTime();
   }
+  
+  /**
+   * Пропаганда события уменьшения года 
+   */
+  protected abstract void changeYearWhenBakwards();
+  
+  /**
+   * Пропаганда события увеличение года 
+   */
+  protected abstract void changeYearWhenForwards();
+  
+  /**
+   * Пропаганда события уменьшения месяца 
+   */
+  protected abstract void changeMonthWhenBakwards();
+  
+  /**
+   * Пропаганда события увеличение месяца 
+   */
+  protected abstract void changeMonthWhenForwards();
+  
+  /**
+   * Пропаганда события выбора года из списка 
+   */
+  protected abstract void doWhenFireEventYearListBox();
+  
+  /**
+   * Пропаганда события выбора месяца из списка 
+   */
+  protected abstract void doWhenFireEventMonthListBox();
+  
+  /**
+   * Пропаганда события нажатия кнопки на панели календаря
+   */
+  protected abstract void doFireEventClickDatePicker();
+  
+  /**
+   * Пропаганда события измеения времени на панели календаря
+   */
+  protected abstract void doFireEventChangeTime();
 }

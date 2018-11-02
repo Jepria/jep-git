@@ -199,12 +199,18 @@ public class MaskedDateBox extends Composite implements HasEnabled,
           date.setMinutes(dateTime.getMinutes());
           date.setSeconds(dateTime.getSeconds());
         }
+        setValue(parseDate(false), date, true, true);
+        if (((JepDatePicker)getDatePicker()).isVisibleDaysPanel()) {
+          hideDatePicker();
+        }
+        preventDatePickerPopup();
+        box.setFocus(true);
+      } else {
+        setValue(parseDate(false), date, true, true);
+        hideDatePicker();
+        preventDatePickerPopup();
+        box.setFocus(true);
       }
-      
-      setValue(parseDate(false), date, true, true);
-      hideDatePicker();
-      preventDatePickerPopup();
-      box.setFocus(true);
     }
   }
   
@@ -286,16 +292,16 @@ public class MaskedDateBox extends Composite implements HasEnabled,
     popup.addCloseHandler(handler);
     setValue(date);
     
-      Event.addNativePreviewHandler(new NativePreviewHandler() {
-        @Override
-      public void onPreviewNativeEvent(NativePreviewEvent event) {
-        if (event.getTypeInt() == Event.ONMOUSEWHEEL || event.getNativeEvent().getKeyCode() == KeyCodes.KEY_ENTER){
-          if (isDatePickerShowing()) {
-            hideDatePicker();
-          }
+    Event.addNativePreviewHandler(new NativePreviewHandler() {
+      @Override
+    public void onPreviewNativeEvent(NativePreviewEvent event) {
+      if (event.getTypeInt() == Event.ONMOUSEWHEEL || event.getNativeEvent().getKeyCode() == KeyCodes.KEY_ENTER){
+        if (isDatePickerShowing()) {
+          hideDatePicker();
         }
       }
-      });
+    }
+    });
       
   }
   
