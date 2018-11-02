@@ -9,6 +9,8 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.jepria.compat.Compat;
+import org.jepria.server.dao.JepDataStandard;
 import org.jepria.server.security.Credential;
 
 import com.technology.jep.jepria.shared.field.JepTypeEnum;
@@ -57,7 +59,9 @@ public class ResourceControllerBase implements ResourceController {
 
     final List<?> daoResultList;
     try {
-      daoResultList = resourceDescription.getDao().find(primaryKeyMap, 1, credential.getOperatorId());
+      // TODO remove backward compatibility: resourceDescription.getDao() must return org.jepria.server.dao.JepDataStandard
+      JepDataStandard dao = Compat.convertDao(resourceDescription.getDao());
+      daoResultList = dao.find(primaryKeyMap, 1, credential.getOperatorId());
     } catch (Throwable e) {
       // TODO or log?
       throw new RuntimeException(e);
@@ -177,7 +181,9 @@ public class ResourceControllerBase implements ResourceController {
   public Object create(Map<String, Object> record, Credential credential) {
     final Object daoResult;
     try {
-      daoResult = resourceDescription.getDao().create(record, credential.getOperatorId());
+      // TODO remove backward compatibility: resourceDescription.getDao() must return org.jepria.server.dao.JepDataStandard
+      JepDataStandard dao = Compat.convertDao(resourceDescription.getDao());
+      daoResult = dao.create(record, credential.getOperatorId());
     } catch (Throwable e) {
       // TODO or log?
       throw new RuntimeException(e);
@@ -191,7 +197,9 @@ public class ResourceControllerBase implements ResourceController {
     Map<String, Object> primaryKeyMap = getResourceIdParser().parse(resourceId);
 
     try {
-      resourceDescription.getDao().delete(primaryKeyMap, credential.getOperatorId());
+      // TODO remove backward compatibility: resourceDescription.getDao() must return org.jepria.server.dao.JepDataStandard
+      JepDataStandard dao = Compat.convertDao(resourceDescription.getDao());
+      dao.delete(primaryKeyMap, credential.getOperatorId());
     } catch (Throwable e) {
       // TODO or log?
       throw new RuntimeException(e);
@@ -208,7 +216,9 @@ public class ResourceControllerBase implements ResourceController {
     updateModel.putAll(primaryKeyMap);
     
     try {
-      resourceDescription.getDao().update(updateModel, credential.getOperatorId());
+      // TODO remove backward compatibility: resourceDescription.getDao() must return org.jepria.server.dao.JepDataStandard
+      JepDataStandard dao = Compat.convertDao(resourceDescription.getDao());
+      dao.update(updateModel, credential.getOperatorId());
     } catch (Throwable e) {
       // TODO or log?
       throw new RuntimeException(e);
@@ -230,7 +240,6 @@ public class ResourceControllerBase implements ResourceController {
 
         String methodName = "get" + optionEntityNameNormalized;
         Class<?> daoClass = resourceDescription.getDao().getClass();
-        System.out.println("///class:" + daoClass.getCanonicalName() + ",meth:" + methodName);
         getOptionsMethod = daoClass.getMethod(methodName);
 
       } catch (NoSuchMethodException e) {
