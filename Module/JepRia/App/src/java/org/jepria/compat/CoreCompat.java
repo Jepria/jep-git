@@ -21,10 +21,11 @@ import com.technology.jep.jepria.shared.util.DefaultComparator;
 import com.technology.jep.jepria.shared.util.Mutable;
 
 /**
- * Временный класс для поддержания обратной совместимости "новой" и "старой" архитектур Jerpia
+ * Временный класс для поддержания обратной совместимости "новой" и "старой" архитектур Jerpia.
+ * Предназначен для использования только в системном коде
  */
 @Deprecated
-public class Compat {
+public class CoreCompat {
   
   public static RecordDefinition convertRecordDefinition(JepRecordDefinition jepRecordDefinition) {
     if (jepRecordDefinition == null) {

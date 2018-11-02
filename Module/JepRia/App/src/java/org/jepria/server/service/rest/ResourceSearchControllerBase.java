@@ -11,7 +11,7 @@ import java.util.function.Supplier;
 
 import javax.servlet.http.HttpSession;
 
-import org.jepria.compat.Compat;
+import org.jepria.compat.CoreCompat;
 import org.jepria.server.dao.JepDataStandard;
 import org.jepria.server.load.rest.ColumnSortConfigurationDto;
 import org.jepria.server.load.rest.ListSorter;
@@ -93,8 +93,8 @@ public class ResourceSearchControllerBase implements ResourceSearchController {
 
     
     // maxRowCount: если не задано в клиентских параметрах, то дефолтное значение 
-    Integer maxRowCount = (Integer)template.get(Compat.MAX_ROW_COUNT__FIELD_NAME);
-    searchModel.maxRowCount = maxRowCount != null ? maxRowCount : Compat.DEFAULT_MAX_ROW_COUNT;
+    Integer maxRowCount = (Integer)template.get(CoreCompat.MAX_ROW_COUNT__FIELD_NAME);
+    searchModel.maxRowCount = maxRowCount != null ? maxRowCount : CoreCompat.DEFAULT_MAX_ROW_COUNT;
 
     
     Map<String, Object> preparedTemplate = new HashMap<>(template);
@@ -153,7 +153,7 @@ public class ResourceSearchControllerBase implements ResourceSearchController {
     
     try {
       // TODO remove backward compatibility: resourceDescription.getDao() must return org.jepria.server.dao.JepDataStandard
-      JepDataStandard dao = Compat.convertDao(resourceDescription.getDao());
+      JepDataStandard dao = CoreCompat.convertDao(resourceDescription.getDao());
       resultset = dao.find(
               searchModel.preparedTemplate,
               searchModel.maxRowCount,

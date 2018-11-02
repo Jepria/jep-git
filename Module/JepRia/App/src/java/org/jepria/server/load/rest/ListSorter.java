@@ -5,7 +5,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
-import org.jepria.compat.Compat;
+import org.jepria.compat.CoreCompat;
 
 /**
  * Сортировщик списка записей по определённой конфигурации
@@ -64,7 +64,7 @@ public class ListSorter implements Comparator<Map<String, Object>> {
   }
   
   protected Comparator<Object> getDefaultComparator() {
-    return Compat.getDefaultComparator();
+    return CoreCompat.getDefaultComparator();
   }
   
   /**
