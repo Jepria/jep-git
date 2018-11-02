@@ -6,15 +6,18 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpSession;
 
 import org.jepria.compat.CoreCompat;
 import org.jepria.server.dao.JepDataStandard;
+import org.jepria.server.load.ColumnSortConfiguration;
+import org.jepria.server.load.ListSorter;
 import org.jepria.server.load.rest.ColumnSortConfigurationDto;
-import org.jepria.server.load.rest.ListSorter;
 import org.jepria.server.load.rest.SearchParamsDto;
 import org.jepria.server.security.Credential;
 
@@ -139,17 +142,17 @@ public class ResourceSearchControllerBase implements ResourceSearchController {
    * @param searchId
    * @throws NoSuchSearchIdException
    */
-  protected void doSearch(String searchId, Credential credential) throws NoSuchSearchIdException {
+  protected void doSearch(String searchId, Credential credential) throws NoSuchElementException {
 
     SearchParamsDto searchParams = (SearchParamsDto)session.get().getAttribute(getSessionAttrNameSearchParams(searchId));
     if (searchParams == null) {
       // must not be thrown because the attribute has been set just before doSearch invocation
-      throw new NoSuchSearchIdException(searchId);
+      throw new NoSuchElementException(searchId);
     }
     
     SearchModel searchModel = createSearchModel(searchParams);
     
-    List<Map<String, Object>> resultset;
+    List<Map<String, ?>> resultset;
     
     try {
       // TODO remove backward compatibility: resourceDescription.getDao() must return org.jepria.server.dao.JepDataStandard
@@ -171,8 +174,15 @@ public class ResourceSearchControllerBase implements ResourceSearchController {
     
     // sorting
     
-    List<ColumnSortConfigurationDto> fieldSortConfigs = searchParams.getListSortConfiguration();
-
+    
+    // collect columnSortConfigurations
+    List<ColumnSortConfigurationDto> columnSortConfigurationDtos = searchParams.getListSortConfiguration();
+    List<ColumnSortConfiguration> columnSortConfigurations = 
+        columnSortConfigurationDtos.stream().map(
+            columnSortConfigurationDto -> new ColumnSortConfiguration(
+                columnSortConfigurationDto.getColumnName(),
+                "desc".equals(columnSortConfigurationDto.getSortOrder()) ? -1 : 1)).collect(Collectors.toList());
+    
     // collect field comparators      
     final Map<String, Comparator<Object>> fieldComparators = new HashMap<>();
     if (resourceDescription.getRecordDefinition().getFieldNames() != null) {
@@ -180,7 +190,7 @@ public class ResourceSearchControllerBase implements ResourceSearchController {
           resourceDescription.getRecordDefinition().getFieldComparator(fieldName)));
     }
     
-    new ListSorter(fieldSortConfigs, fieldComparators).sort(resultset);
+    Collections.sort(resultset, new ListSorter(columnSortConfigurations, fieldComparators));
     
     
     
@@ -188,12 +198,12 @@ public class ResourceSearchControllerBase implements ResourceSearchController {
   }
   
   @Override
-  public SearchParamsDto getSearchParams(String searchId, Credential credential) throws NoSuchSearchIdException {
+  public SearchParamsDto getSearchParams(String searchId, Credential credential) throws NoSuchElementException {
     String sessionAttrName = getSessionAttrNameSearchParams(searchId);
     
     // нужно отличить когда сессия не содержит атрибута или когда она содержит атрибут со значением null
     if (!Collections.list(session.get().getAttributeNames()).contains(sessionAttrName)) {
-      throw new NoSuchSearchIdException(searchId);
+      throw new NoSuchElementException(searchId);
     }
     
     SearchParamsDto searchParams = (SearchParamsDto)session.get().getAttribute(sessionAttrName);
@@ -202,7 +212,7 @@ public class ResourceSearchControllerBase implements ResourceSearchController {
   }
   
   @Override
-  public int getResultsetSize(String searchId, Credential credential) throws NoSuchSearchIdException {
+  public int getResultsetSize(String searchId, Credential credential) throws NoSuchElementException {
     return getResultsetLocal(searchId, credential).size();
   }
   
@@ -217,7 +227,7 @@ public class ResourceSearchControllerBase implements ResourceSearchController {
    * @return non-null
    * @throws NoSuchSearchIdException
    */
-  protected List<?> getResultsetLocal(String searchId, Credential credential) throws NoSuchSearchIdException {
+  protected List<?> getResultsetLocal(String searchId, Credential credential) throws NoSuchElementException {
     String sessionAttrName = getSessionAttrNameSearchResultset(searchId);
     
     if (!sessionContainsAttribute(sessionAttrName)) {
@@ -235,12 +245,12 @@ public class ResourceSearchControllerBase implements ResourceSearchController {
   }
   
   @Override
-  public List<?> getResultset(String searchId, Credential credential) throws NoSuchSearchIdException {
+  public List<?> getResultset(String searchId, Credential credential) throws NoSuchElementException {
     return getResultsetLocal(searchId, credential);
   }
   
   @Override
-  public List<?> getResultsetPaged(String searchId, int pageSize, int page, Credential credential) throws NoSuchSearchIdException {
+  public List<?> getResultsetPaged(String searchId, int pageSize, int page, Credential credential) throws NoSuchElementException {
     List<?> resultset = getResultsetLocal(searchId, credential);
     return paging(resultset, pageSize, page);
   }

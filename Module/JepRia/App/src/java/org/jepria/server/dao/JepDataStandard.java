@@ -16,7 +16,7 @@ public interface JepDataStandard {
    * @param operatorId идентификатор пользователя
    * @return список записей
    */
-  List<Map<String, Object>> find(Map<String, Object> model, Integer maxRowCount, Integer operatorId);
+  List<Map<String, ?>> find(Map<String, ?> model, Integer maxRowCount, Integer operatorId);
   
   /**
    * Создание записи
@@ -26,7 +26,7 @@ public interface JepDataStandard {
    * @return идентификатор созданной записи или null, если запись идентифицируется по сложному
    * первичному ключу
    */
-  Object create(Map<String, Object> record, Integer operatorId);
+  Object create(Map<String, ?> record, Integer operatorId);
 
   /**
    * Редактирование записи
@@ -34,7 +34,7 @@ public interface JepDataStandard {
    * @param record запись с новыми значениями
    * @param operatorId идентификатор пользователя
    */
-  void update(Map<String, Object> record, Integer operatorId);
+  void update(Map<String, ?> record, Integer operatorId);
 
   /**
    * Удаление записи
@@ -42,5 +42,5 @@ public interface JepDataStandard {
    * @param record удаляемая запись (одного поля recordId может быть недостаточно для случаев с составным первичным ключом)
    * @param operatorId идентификатор пользователя
    */
-  void delete(Map<String, Object> record, Integer operatorId);
+  void delete(Map<String, ?> record, Integer operatorId);
 }

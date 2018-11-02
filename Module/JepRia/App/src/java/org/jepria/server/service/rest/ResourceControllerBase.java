@@ -2,16 +2,16 @@ package org.jepria.server.service.rest;
 
 import java.lang.reflect.Method;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
+import java.util.NoSuchElementException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.jepria.compat.CoreCompat;
 import org.jepria.server.dao.JepDataStandard;
 import org.jepria.server.security.Credential;
+import org.jepria.shared.RecordDefinition.IncompletePrimaryKeyException;
 
 import com.technology.jep.jepria.shared.field.JepTypeEnum;
 
@@ -53,9 +53,14 @@ public class ResourceControllerBase implements ResourceController {
   //////////// CRUD ///////////////////
 
   @Override
-  public Object getResourceById(String resourceId, Credential credential) {
+  public Object getResourceById(String resourceId, Credential credential) throws NoSuchElementException {
 
-    Map<String, Object> primaryKeyMap = getResourceIdParser().parse(resourceId);
+    final Map<String, ?> primaryKeyMap;
+    try {
+      primaryKeyMap = getResourceIdParser().parse(resourceId);
+    } catch (IncompletePrimaryKeyException e) {
+      throw new NoSuchElementException("The resourceId '" + resourceId + "' cannot be parsed against the primary key");
+    }
 
     final List<?> daoResultList;
     try {
@@ -93,8 +98,9 @@ public class ResourceControllerBase implements ResourceController {
      * Parse resourceId (simple or composite) into a primary key map with typed values, based on RecordDefinition
      * @param resourceId
      * @return
+     * @throws IncompletePrimaryKeyException 
      */
-    Map<String, Object> parse(String resourceId);
+    Map<String, ?> parse(String resourceId) throws IncompletePrimaryKeyException;
   }
 
   protected ResourceIdParser getResourceIdParser() {
@@ -103,11 +109,11 @@ public class ResourceControllerBase implements ResourceController {
 
   private class ResourceIdParserImpl implements ResourceIdParser {
     @Override
-    public Map<String, Object> parse(String resourceId) {
+    public Map<String, Object> parse(String resourceId) throws IncompletePrimaryKeyException {
       Map<String, Object> ret = new HashMap<>();
 
       if (resourceId != null) {
-        List<String> primaryKey = resourceDescription.getRecordDefinition().getPrimaryKey();
+        final List<String> primaryKey = resourceDescription.getRecordDefinition().getPrimaryKey();
 
         if (primaryKey.size() == 1) {
           // simple primary key
@@ -136,21 +142,17 @@ public class ResourceControllerBase implements ResourceController {
             }
           }
 
-          // check that the parsed resourceId key set matches the primary key set from RecordDefinition
-          Set<String> primaryKeySet = new HashSet<>(resourceDescription.getRecordDefinition().getPrimaryKey());
-          if (!primaryKeySet.equals(resourceIdFieldMap.keySet())) {
-            throw new IllegalArgumentException("The parsed resourceId key set " + resourceIdFieldMap.keySet() + " does not match the primary key set " + primaryKeySet);
-          }
+          // check or throw
+          resourceIdFieldMap = resourceDescription.getRecordDefinition().buildPrimaryKey(resourceIdFieldMap);
 
+          
+          // create typed values
           for (final String fieldName: resourceIdFieldMap.keySet()) {
             final String fieldvalueStr = resourceIdFieldMap.get(fieldName);
             final Object fieldValue = getTypedValue(fieldName, fieldvalueStr);
 
             ret.put(fieldName, fieldValue);
           }
-
-        } else {
-          throw new IllegalArgumentException("primary key size is not >= 1: " + primaryKey.size());
         }
       }
 
@@ -192,9 +194,14 @@ public class ResourceControllerBase implements ResourceController {
   }
 
   @Override
-  public void deleteResourceById(String resourceId, Credential credential) {
+  public void deleteResource(String resourceId, Credential credential) throws NoSuchElementException {
 
-    Map<String, Object> primaryKeyMap = getResourceIdParser().parse(resourceId);
+    final Map<String, ?> primaryKeyMap;
+    try {
+      primaryKeyMap = getResourceIdParser().parse(resourceId);
+    } catch (IncompletePrimaryKeyException e) {
+      throw new NoSuchElementException("The resourceId '" + resourceId + "' cannot be parsed against the primary key");
+    }
 
     try {
       // TODO remove backward compatibility: resourceDescription.getDao() must return org.jepria.server.dao.JepDataStandard
@@ -207,10 +214,15 @@ public class ResourceControllerBase implements ResourceController {
   }
 
   @Override
-  public void update(String resourceId, Map<String, Object> fields, Credential credential) {
+  public void update(String resourceId, Map<String, Object> fields, Credential credential) throws NoSuchElementException {
     
-    Map<String, Object> primaryKeyMap = getResourceIdParser().parse(resourceId);
-
+    final Map<String, ?> primaryKeyMap;
+    try {
+      primaryKeyMap = getResourceIdParser().parse(resourceId);
+    } catch (IncompletePrimaryKeyException e) {
+      throw new NoSuchElementException("The resourceId '" + resourceId + "' cannot be parsed against the primary key");
+    }
+    
     // overwrite primary key fields with values from resourceId, if any
     Map<String, Object> updateModel = new HashMap<>(fields);
     updateModel.putAll(primaryKeyMap);
@@ -229,23 +241,22 @@ public class ResourceControllerBase implements ResourceController {
   /////////////////////////// OPTIONS RESOURCE //////////////////////////
 
   @Override
-  public List<?> listOptions(String optionEntityName, Credential credential) {
+  public List<?> listOptions(String optionEntityName, Credential credential) throws NoSuchElementException {
 
     try {
       String optionEntityNameNormalized = normalizeResourceName(optionEntityName);
 
       final Method getOptionsMethod;
 
+      final String methodName = "get" + optionEntityNameNormalized;
       try {
-
-        String methodName = "get" + optionEntityNameNormalized;
         Class<?> daoClass = resourceDescription.getDao().getClass();
         getOptionsMethod = daoClass.getMethod(methodName);
-
+        
       } catch (NoSuchMethodException e) {
-        // Only NoSuchMethodException equals 'not found' status
-        e.printStackTrace();
-        return null;
+        NoSuchElementException rethrown = new NoSuchElementException("The dao class contains no '" + methodName + "' method");
+        rethrown.addSuppressed(e);
+        throw rethrown;
       }
 
 

@@ -1,18 +1,12 @@
 package org.jepria.server.load.rest;
 
 /**
- * Конфигурация сортировки значений определенного поля списка
+ * Dto для представления {@link org.jepria.server.load.ColumnSortConfiguration}
  */
 public class ColumnSortConfigurationDto {
   
-  /**
-   * Имя столбца
-   */
   private String columnName;
   
-  /**
-   * Порядок сортировки
-   */
   private String sortOrder;
 
   public String getColumnName() {
@@ -30,6 +24,5 @@ public class ColumnSortConfigurationDto {
   public void setSortOrder(String sortOrder) {
     this.sortOrder = sortOrder;
   }
-  
-  
 }
+

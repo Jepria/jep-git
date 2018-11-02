@@ -68,12 +68,12 @@ public class CoreCompat {
   /**
    * Convert List(Map(String, Object)) to List(JepRecord)
    */
-  public static List<Map<String, Object>> convertList(List<JepRecord> list) {
+  public static List<Map<String, ?>> convertList(List<JepRecord> list) {
     if (list == null) {
       return null;
     }
     
-    return list.stream().map(rec -> (Map<String, Object>)rec).collect(Collectors.toList());
+    return list.stream().map(rec -> (Map<String, ?>)rec).collect(Collectors.toList());
   }
   
   public static Comparator<Object> getDefaultComparator() {
@@ -94,7 +94,7 @@ public class CoreCompat {
     
     return new org.jepria.server.dao.JepDataStandard() {
       @Override
-      public List<Map<String, Object>> find(Map<String, Object> model, Integer maxRowCount, Integer operatorId) {
+      public List<Map<String, ?>> find(Map<String, ?> model, Integer maxRowCount, Integer operatorId) {
         JepRecord templateRecord = new JepRecord();
         templateRecord.putAll(model);
         
@@ -109,7 +109,7 @@ public class CoreCompat {
       }
   
       @Override
-      public Object create(Map<String, Object> record, Integer operatorId) {
+      public Object create(Map<String, ?> record, Integer operatorId) {
         JepRecord templateRecord = new JepRecord();
         templateRecord.putAll(record);
         
@@ -124,7 +124,7 @@ public class CoreCompat {
       }
   
       @Override
-      public void update(Map<String, Object> record, Integer operatorId) {
+      public void update(Map<String, ?> record, Integer operatorId) {
         JepRecord templateRecord = new JepRecord();
         templateRecord.putAll(record);
         
@@ -136,7 +136,7 @@ public class CoreCompat {
       }
   
       @Override
-      public void delete(Map<String, Object> record, Integer operatorId) {
+      public void delete(Map<String, ?> record, Integer operatorId) {
         JepRecord templateRecord = new JepRecord();
         templateRecord.putAll(record);
         

@@ -4,6 +4,7 @@ import java.net.URI;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.function.Supplier;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -27,7 +28,6 @@ import org.jepria.server.service.rest.ResourceController;
 import org.jepria.server.service.rest.ResourceControllerBase;
 import org.jepria.server.service.rest.ResourceDescription;
 import org.jepria.server.service.rest.ResourceSearchController;
-import org.jepria.server.service.rest.ResourceSearchController.NoSuchSearchIdException;
 import org.jepria.server.service.rest.ResourceSearchControllerBase;
 
 import com.technology.jep.jepria.server.dao.JepDataStandard;
@@ -148,7 +148,7 @@ public abstract class StandardResourceEndpoint<D extends JepDataStandard> extend
   @Path("{recordId}")
   @ApiOperation(value = "Delete resource by ID")
   public Response deleteResourceById(@PathParam("recordId") String recordId) {
-    resourceController.get().deleteResourceById(recordId, getCredential());
+    resourceController.get().deleteResource(recordId, getCredential());
     return Response.ok().build();
   }
 
@@ -222,7 +222,7 @@ public abstract class StandardResourceEndpoint<D extends JepDataStandard> extend
         if ("resultset-size".equals(headerValue)) {
           try {
             return searchController.get().getResultsetSize(searchId, getCredential());
-          } catch (NoSuchSearchIdException e) {
+          } catch (NoSuchElementException e) {
             // невозможно, поскольку searchId был создан в рамках этого же запроса
             throw new IllegalStateException();
           }
@@ -298,7 +298,7 @@ public abstract class StandardResourceEndpoint<D extends JepDataStandard> extend
 
     try {
       result = searchController.get().getSearchParams(searchId, getCredential());
-    } catch (NoSuchSearchIdException e) {
+    } catch (NoSuchElementException e) {
       // TODO log?
       return Response.status(Status.NOT_FOUND).build();
     }
@@ -315,7 +315,7 @@ public abstract class StandardResourceEndpoint<D extends JepDataStandard> extend
 
     try {
       result = searchController.get().getResultsetSize(searchId, getCredential());
-    } catch (NoSuchSearchIdException e) {
+    } catch (NoSuchElementException e) {
       // TODO log?
       return Response.status(Status.NOT_FOUND).build();
     }
@@ -352,7 +352,7 @@ public abstract class StandardResourceEndpoint<D extends JepDataStandard> extend
 
     try {
       result = searchController.get().getResultset(searchId, getCredential());
-    } catch (NoSuchSearchIdException e) {
+    } catch (NoSuchElementException e) {
       // TODO log?
       return Response.status(Status.NOT_FOUND).build();
     }
@@ -382,7 +382,7 @@ public abstract class StandardResourceEndpoint<D extends JepDataStandard> extend
 
     try {
       result = searchController.get().getResultsetPaged(searchId, pageSize, page, getCredential());
-    } catch (NoSuchSearchIdException e) {
+    } catch (NoSuchElementException e) {
       // TODO log?
       return Response.status(Status.NOT_FOUND).build();
     }

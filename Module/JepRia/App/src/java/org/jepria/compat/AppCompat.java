@@ -13,7 +13,8 @@ import com.technology.jep.jepria.shared.field.JepTypeEnum;
 import com.technology.jep.jepria.shared.record.JepRecordDefinition;
 
 /**
- * Временный класс для обеспечения постепенного перехода со "старой" на "новую" архитектуру Jerpia
+ * Временный класс для обеспечения постепенного перехода со "старой" на "новую" архитектуру Jerpia.
+ * Предназначен для использования только в прикладном коде
  */
 @Deprecated
 public class AppCompat {

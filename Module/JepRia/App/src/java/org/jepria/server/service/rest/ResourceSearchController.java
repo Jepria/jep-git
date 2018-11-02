@@ -1,6 +1,7 @@
 package org.jepria.server.service.rest;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.jepria.server.load.rest.SearchParamsDto;
 import org.jepria.server.security.Credential;
@@ -10,20 +11,6 @@ import org.jepria.server.security.Credential;
  * UPDATE or DELETE methods (recycling and cleaning strategy) are implementation-dependent
  */
 public interface ResourceSearchController {
-
-  public static class NoSuchSearchIdException extends Exception {
-    private static final long serialVersionUID = 1L;
-
-    private final String searchId;
-
-    public String getSearchId() {
-      return searchId;
-    }
-
-    public NoSuchSearchIdException(String searchId) {
-      this.searchId = searchId;
-    }
-  }
 
   /**
    * 
@@ -35,9 +22,9 @@ public interface ResourceSearchController {
    * 
    * @param searchId
    * @return non-null
-   * @throws NoSuchSearchIdException if no search request found by the searchId 
+   * @throws NoSuchElementException if the requested searchId does not exist 
    */
-  SearchParamsDto getSearchParams(String searchId, Credential credential) throws NoSuchSearchIdException;
+  SearchParamsDto getSearchParams(String searchId, Credential credential) throws NoSuchElementException;
 
   /**
    * 
@@ -45,23 +32,23 @@ public interface ResourceSearchController {
    * @param pageSize
    * @param page
    * @return
-   * @throws NoSuchSearchIdException if no search request found by the searchId
+   * @throws NoSuchElementException if the requested searchId does not exist
    */
-  List<?> getResultsetPaged(String searchId, int pageSize, int page, Credential credential) throws NoSuchSearchIdException;
+  List<?> getResultsetPaged(String searchId, int pageSize, int page, Credential credential) throws NoSuchElementException;
 
   /**
    * 
    * @param searchId
    * @param credential
    * @return
-   * @throws NoSuchSearchIdException if no search request found by the searchId
+   * @throws NoSuchElementException if the requested searchId does not exist
    */
-  List<?> getResultset(String searchId, Credential credential) throws NoSuchSearchIdException;
+  List<?> getResultset(String searchId, Credential credential) throws NoSuchElementException;
 
   /**
    * @param searchId
    * @return
-   * @throws NoSuchSearchIdException if no search request found by the searchId
+   * @throws NoSuchElementException if the requested searchId does not exist
    */
-  int getResultsetSize(String searchId, Credential credential) throws NoSuchSearchIdException;
+  int getResultsetSize(String searchId, Credential credential) throws NoSuchElementException;
 }
