@@ -4,44 +4,23 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.ResponseBuilder;
 
 /**
- * Class for extending response body with arbitrary entity.
- * <br/>
- * Example:
- * <br/>
- * Response body before extension:
- * <pre>
- * {
- *   "key": "value"
- * }
- * </pre>
- * Same response extended with the code 
- * <pre>ExtendedResponse.from(response).extend("{ 'extKey': 'extValue' }").asResponse();</pre>
- * <pre>
- * { 
- *   "basic-response":
- *     {
- *       "key": "value"
- *     },
- *   "extended-response": 
- *     {
- *       "extKey": "extValue"
- *     }
- * }
- * </pre>
- * 
+ * Класс для создания расширенных ответов на основе заголовка запроса и обработчика
  */
 public class ExtendedResponseHeaderProcessor {
   
   public static final String HEADER_NAME__EXTENDED_RESPONSE = "extended-response";
   
-  public ExtendedResponseHeaderProcessor() {}
+  /**
+   * @param request the request to take 'extended-response' header values from
+   */
+  public ExtendedResponseHeaderProcessor(HttpServletRequest request, Handler handler) {
+    this.request = request;
+    this.handler = handler;
+  }
   
-  private HttpServletRequest request;
-  private Response response;
+  private final HttpServletRequest request;
   
   public static interface Handler {
     /**
@@ -51,100 +30,44 @@ public class ExtendedResponseHeaderProcessor {
     Object handle(String headerValue);
   }
   
-  private Handler handler;
+  private final Handler handler;
 
-  /**
-   * @param request the original request to take the header values from
-   */
-  public void setRequest(HttpServletRequest request) {
-    this.request = request;
-  }
-
-  /**
-   * @param response the original response to be extended
-   */
-  public void setResponse(Response response) {
-    this.response = response;
-  }
-
-  /**
-   * 
-   * @param handler the handler to handle the header and create the extended response part
-   */
-  public void setHandler(Handler handler) {
-    this.handler = handler;
-  }
-  
-  private boolean responseExtended = false;
-
-  /**
-   * After the {@link #process()} invocation, indicates whether or not the actual response extension succeeded.
-   * @return
-   */
-  public boolean responseExtended() {
-    return responseExtended;
-  }
-  
-  private Response extendedResponse; 
+  private Map<String, Object> extendedResponses; 
   
   /**
-   * 
-   * @return the extended response if and only if {@link #responseExtended()} returns {@code true};
-   * otherwise {@code null}
+   * @return the extended responses mapped to each 'extended-response' header value; non-empty or null
    */
-  public Response getExtendedResponse() {
-    return extendedResponse;
+  public Map<String, Object> getExtendedResponses() {
+    return extendedResponses;
   }
   
   /**
    * Perform response extension.
-   * Before the invocation, {@link #setRequest(HttpServletRequest)}, {@link #setResponse(Response)}, {@link #setHandler(Handler)} must be called
-   * After the invocation, {@link #responseExtended()} will indicate whether or not the actual response extension succeeded.
    */
   public void process() {
-    if (request == null) {
-      throw new IllegalStateException("the request has not been set");
-    }
-    if (response == null) {
-      throw new IllegalStateException("the response has not been set");
-    }
-    if (handler == null) {
-      throw new IllegalStateException("the handler has not been set");
-    }
-    
-    final String header = request.getHeader(HEADER_NAME__EXTENDED_RESPONSE);
-    if (header != null) {
-      
-      Map<String, Object> extendedResponseEntity = new HashMap<>();
-      
-      String[] headerValues = header.split("\\s*,\\s*");
-      for (String headerValue: headerValues) {
-        if (headerValue != null) {
+    if (request != null && handler != null) {
+      final String header = request.getHeader(HEADER_NAME__EXTENDED_RESPONSE);
+      if (header != null) {
         
-          Object extendedEntityPart = handler.handle(headerValue);
+        Map<String, Object> extendedResponses = new HashMap<>();
+        
+        String[] headerValues = header.split("\\s*,\\s*");
+        for (String headerValue: headerValues) {
+          if (headerValue != null) {
           
-          if (extendedEntityPart != null) {
-            extendedResponseEntity.put(headerValue, extendedEntityPart);
-            responseExtended = true;
-          } else {
-            // null means that the particular header value is not supported by the handler 
+            Object extendedEntityPart = handler.handle(headerValue);
+            
+            if (extendedEntityPart != null) {
+              extendedResponses.put(headerValue, extendedEntityPart);
+            } else {
+              // null means that the particular header value is not supported by the handler 
+            }
           }
         }
-      }
-      
-      if (responseExtended) {
-        Object basicResponseEntity = response.getEntity();
         
-        Map<String, Object> newEntity = new HashMap<>();
-        if (basicResponseEntity != null) {
-          newEntity.put("basic-response", basicResponseEntity);
+        if (!extendedResponses.isEmpty()) {
+          this.extendedResponses = extendedResponses;
         }
-        newEntity.put("extended-response", extendedResponseEntity);
-        
-        ResponseBuilder extendedResponseBuilder = Response.fromResponse(response);
-        extendedResponseBuilder.entity(newEntity);
-        
-        extendedResponse = extendedResponseBuilder.build();
       }
     }
   }

@@ -192,15 +192,16 @@ public abstract class StandardResourceEndpoint<D extends JepDataStandard> extend
 
 
     // клиент может запросить ответ, расширенный результатами поиска данного запроса
-    ExtendedResponseHeaderProcessor processor = new ExtendedResponseHeaderProcessor();
-    processor.setRequest(request);
-    processor.setResponse(response);
-    processor.setHandler(new PostSearchExtendedResponseHandler(searchId));
+    ExtendedResponseHeaderProcessor processor = new ExtendedResponseHeaderProcessor(request, new PostSearchExtendedResponseHandler(searchId));
     processor.process();
-    if (processor.responseExtended()) {
-      response = processor.getExtendedResponse();
+    Map<String, Object> extendedResponses = processor.getExtendedResponses();
+    
+    if (extendedResponses != null) {
+      ExtendedResponseBuilder extendedResponseBuilder = ExtendedResponseBuilder.extend(response);
+      extendedResponseBuilder.extendedEntity(extendedResponses);
+      response = extendedResponseBuilder.build();
     }
-
+    
     return response;
   }
 

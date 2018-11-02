@@ -9,7 +9,6 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.function.Supplier;
-import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpSession;
 
@@ -176,12 +175,7 @@ public class ResourceSearchControllerBase implements ResourceSearchController {
     
     
     // collect columnSortConfigurations
-    List<ColumnSortConfigurationDto> columnSortConfigurationDtos = searchParams.getListSortConfiguration();
-    List<ColumnSortConfiguration> columnSortConfigurations = 
-        columnSortConfigurationDtos.stream().map(
-            columnSortConfigurationDto -> new ColumnSortConfiguration(
-                columnSortConfigurationDto.getColumnName(),
-                "desc".equals(columnSortConfigurationDto.getSortOrder()) ? -1 : 1)).collect(Collectors.toList());
+    final List<ColumnSortConfiguration> columnSortConfigurations = convertColumnSortConfigurations(searchParams.getListSortConfiguration());
     
     // collect field comparators      
     final Map<String, Comparator<Object>> fieldComparators = new HashMap<>();
@@ -192,9 +186,26 @@ public class ResourceSearchControllerBase implements ResourceSearchController {
     
     Collections.sort(resultset, new ListSorter(columnSortConfigurations, fieldComparators));
     
-    
-    
     session.get().setAttribute(getSessionAttrNameSearchResultset(searchId), resultset);
+  }
+  
+  /**
+   * @param list
+   * @return or null if the input is null
+   */
+  protected static List<ColumnSortConfiguration> convertColumnSortConfigurations(List<ColumnSortConfigurationDto> list) {
+    if (list == null) {
+      return null;
+    }
+    
+    List<ColumnSortConfiguration> ret = new ArrayList<>();
+    for (ColumnSortConfigurationDto item: list) {
+      ColumnSortConfiguration columnSortConfiguration = new ColumnSortConfiguration(
+          item.getColumnName(),
+          "desc".equals(item.getSortOrder()) ? -1 : 1);
+      ret.add(columnSortConfiguration);
+    }
+    return ret;
   }
   
   @Override
