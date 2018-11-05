@@ -192,15 +192,7 @@ public abstract class StandardResourceEndpoint<D extends JepDataStandard> extend
 
 
     // клиент может запросить ответ, расширенный результатами поиска данного запроса
-    ExtendedResponseHeaderProcessor processor = new ExtendedResponseHeaderProcessor(request, new PostSearchExtendedResponseHandler(searchId));
-    processor.process();
-    Map<String, Object> extendedResponses = processor.getExtendedResponses();
-    
-    if (extendedResponses != null) {
-      ExtendedResponseBuilder extendedResponseBuilder = ExtendedResponseBuilder.extend(response);
-      extendedResponseBuilder.extendedEntity(extendedResponses);
-      response = extendedResponseBuilder.build();
-    }
+    response = ExtendedResponse.extend(response).valuesFrom(request).handler(new PostSearchExtendedResponseHandler(searchId)).create(); 
     
     return response;
   }
@@ -208,7 +200,7 @@ public abstract class StandardResourceEndpoint<D extends JepDataStandard> extend
   /**
    * Реализация хендлера для postSearch-заголовков
    */
-  private class PostSearchExtendedResponseHandler implements ExtendedResponseHeaderProcessor.Handler {
+  private class PostSearchExtendedResponseHandler implements ExtendedResponse.Handler {
 
     private final String searchId;
 
@@ -217,10 +209,10 @@ public abstract class StandardResourceEndpoint<D extends JepDataStandard> extend
     }
 
     @Override
-    public Object handle(String headerValue) {
+    public Object handle(String value) {
       
       {// return resultset size
-        if ("resultset-size".equals(headerValue)) {
+        if ("resultset-size".equals(value)) {
           try {
             return searchController.get().getResultsetSize(searchId, getCredential());
           } catch (NoSuchElementException e) {
@@ -235,9 +227,9 @@ public abstract class StandardResourceEndpoint<D extends JepDataStandard> extend
         // TODO or better to use org.glassfish.jersey.uri.UriTemplate? 
         // https://stackoverflow.com/questions/17840512/java-better-way-to-parse-a-restful-resource-url
         
-        Matcher m1 = Pattern.compile("resultset/paged-by-(\\d+)/(\\d+)").matcher(headerValue);
-        Matcher m2 = Pattern.compile("resultset\\?pageSize\\=(\\d+)&page\\=(\\d+)").matcher(headerValue);
-        Matcher m3 = Pattern.compile("resultset\\?page\\=(\\d+)&pageSize\\=(\\d+)").matcher(headerValue);
+        Matcher m1 = Pattern.compile("resultset/paged-by-(\\d+)/(\\d+)").matcher(value);
+        Matcher m2 = Pattern.compile("resultset\\?pageSize\\=(\\d+)&page\\=(\\d+)").matcher(value);
+        Matcher m3 = Pattern.compile("resultset\\?page\\=(\\d+)&pageSize\\=(\\d+)").matcher(value);
   
         if (m1.matches() || m2.matches() || m3.matches()) {
           final int pageSize, page;
@@ -265,7 +257,7 @@ public abstract class StandardResourceEndpoint<D extends JepDataStandard> extend
           }
           
 
-          final String href = URI.create(request.getRequestURL() + "/" + searchId + "/" + headerValue).toString();
+          final String href = URI.create(request.getRequestURL() + "/" + searchId + "/" + value).toString();
           
           
           // компоновка ответа из ответа подзапроса, в виде
