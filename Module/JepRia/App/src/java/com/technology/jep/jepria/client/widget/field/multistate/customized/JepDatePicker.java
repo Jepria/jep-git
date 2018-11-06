@@ -33,6 +33,10 @@ public abstract class JepDatePicker extends DatePicker {
   
   private MonthAndYearSelector monthSelector;
   
+  public JepDatePicker() {
+    this(PANEL_OF_DAYS_AND_MONTH_AND_YEAR);
+  }
+  
   public JepDatePicker(int showPanelElements) {
     super(new MonthAndYearSelector(showPanelElements), new DefaultCalendarView(), new CalendarModel());
     monthSelector = (MonthAndYearSelector) this.getMonthSelector();
@@ -53,7 +57,13 @@ public abstract class JepDatePicker extends DatePicker {
     }
   }
   
-  protected Widget createButtonToday(int showPanelElements) {
+  /**
+   * Создаем кнопку под панелью календаря
+   * @param kindPresentPanelElements вид панели элементов навигации для календаря
+   * @return widget
+   */
+  
+  protected Widget createButtonToday(int kindPresentPanelElements) {
     LocaleInfo locale = LocaleInfo.getCurrentLocale();
     
     HorizontalPanel vPanel = new HorizontalPanel();
@@ -61,16 +71,16 @@ public abstract class JepDatePicker extends DatePicker {
     Button todayButton = new Button();
     
     if (locale.getLocaleName().equalsIgnoreCase("ru")) {
-      if (showPanelElements == PANEL_OF_DAYS_AND_MONTH_AND_YEAR_TIME) {
+      if (kindPresentPanelElements == PANEL_OF_DAYS_AND_MONTH_AND_YEAR_TIME) {
         todayButton.setHTML("<b>" + JepTexts.button_now() + "</b>");
-      } else if (showPanelElements == PANEL_OF_DAYS_AND_MONTH_AND_YEAR) {
+      } else if (kindPresentPanelElements == PANEL_OF_DAYS_AND_MONTH_AND_YEAR) {
         todayButton.setHTML("<b>" + JepTexts.button_today() + "</b>");
       }
       
     } else {
-      if (showPanelElements == PANEL_OF_DAYS_AND_MONTH_AND_YEAR_TIME) {
+      if (kindPresentPanelElements == PANEL_OF_DAYS_AND_MONTH_AND_YEAR_TIME) {
         todayButton.setHTML("<b>" + JepTexts.button_now() + "</b>");
-      } else if (showPanelElements == PANEL_OF_DAYS_AND_MONTH_AND_YEAR) {
+      } else if (kindPresentPanelElements == PANEL_OF_DAYS_AND_MONTH_AND_YEAR) {
         todayButton.setHTML("<b>" + JepTexts.button_today() + "</b>");
       }
       
@@ -89,14 +99,18 @@ public abstract class JepDatePicker extends DatePicker {
     return vPanel;
   }
   
-  public JepDatePicker() {
-    this(PANEL_OF_DAYS_AND_MONTH_AND_YEAR);
-  }
-
+  /**
+   * Обновляем содержимое панели календаря
+   */
+  
   public void refreshComponents() {
     super.refreshAll();
   }
   
+  /**
+   * Обновляем навигационной панели календаря 
+   * @param newDate
+   */
   public void refresh(Date newDate) {
     monthSelector.setMonth(newDate.getMonth());
     monthSelector.setYear(newDate.getYear());
@@ -108,6 +122,10 @@ public abstract class JepDatePicker extends DatePicker {
   private TextBox minutes;
   private TextBox seconds;
   
+  /**
+   * Создаем поля редактирования для ввода времени 
+   * @return widget
+   */
   protected Widget createTime() {
     HorizontalPanel vPanel = new HorizontalPanel();
     vPanel.getElement().getStyle().setHeight(22, Unit.PX);
@@ -388,7 +406,7 @@ public abstract class JepDatePicker extends DatePicker {
   }
   
   /**
-   * 
+   * Обработка ввода с клавиатуры для мобильных платформ
    * @param widget
    * @param keyCode
    * @param maxValue

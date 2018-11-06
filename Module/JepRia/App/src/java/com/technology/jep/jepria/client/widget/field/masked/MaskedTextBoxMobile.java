@@ -56,7 +56,6 @@ public class MaskedTextBoxMobile extends MaskedTextBox {
    */
   private String beforeValue;
   
-  
   /**
    * {@inheritDoc}
    */
@@ -64,7 +63,6 @@ public class MaskedTextBoxMobile extends MaskedTextBox {
   protected void onKeyDownEvent(KeyDownEvent event) {
     beforeValue = getText();
   }
-  
   
   /**
    * {@inheritDoc}
