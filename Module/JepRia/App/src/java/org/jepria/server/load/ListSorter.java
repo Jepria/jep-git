@@ -46,7 +46,11 @@ public class ListSorter implements Comparator<Map<String, ?>> {
         final Object v1 = m1.get(fieldName);
         final Object v2 = m2.get(fieldName);
         
-        final Comparator<Object> fieldComparator = fieldComparators.getOrDefault(fieldName, getDefaultComparator());
+        Comparator<Object> fieldComparator = fieldComparators.get(fieldName);
+        
+        if (fieldComparator == null) {
+          fieldComparator = getDefaultComparator();
+        }
         
         int cmpResult = fieldComparator.compare(v1,  v2);
         
