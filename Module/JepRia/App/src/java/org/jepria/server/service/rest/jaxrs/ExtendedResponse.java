@@ -5,28 +5,45 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.ResponseBuilder;
 
 /**
- * Класс для создания расширенных ответов на основе заголовка запроса и обработчика
+ * Класс для создания расширенных ответов на основе прикладного обработчика
  */
 public class ExtendedResponse {
   
   public static final String HEADER_NAME__EXTENDED_RESPONSE = "extended-response";
   
+  /**
+   * Конфигуратор расширения ответа 
+   */
   public static interface Configurator {
+    /**
+     * Конфигурирует источник значений: запрос.
+     * @param request запрос, из заголовка которого берутся значения для обработки
+     */
     Configurator valuesFrom(HttpServletRequest request);
+    
+    /**
+     * Конфигурирует обработчик значений
+     * @param handler обработчик значений
+     */
     Configurator handler(Handler handler);
+    
+    /**
+     * Завершает конфигурирование расширения ответа и производит его расширение
+     * @return расширенный ответ
+     */
     Response create();
   }
 
   /**
-   * Creates a processor
-   * @param request the request to take 'extended-response' header values from
+   * Создаёт конфигуратор
+   * @param response ответ, подлежащий расширению
+   * @return экземпляр конфигуратора
    */
   public static Configurator extend(Response response) {
     if (response == null) {
