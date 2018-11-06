@@ -285,6 +285,7 @@ public class JepDateField extends JepMultiStateField<MaskedDateBox, HTML> {
     // Отмечаем ошибкой, если вышли за пределы диапазона допустимых значений 
     inRangeDate(newDate);
     setValue(newDate);
+    notifyListeners(JepEventType.CHANGE_VALUE_EVENT, new JepEvent(JepDateField.this, newDate));
   }
   
   /**
@@ -408,8 +409,8 @@ public class JepDateField extends JepMultiStateField<MaskedDateBox, HTML> {
           Date newDate = event.getValue();
           // Отмечаем ошибкой, если вышли за пределы диапазаона доступных значений и ставим граничнцю дату
           inRangeDate(newDate);
-
           setValue(newDate);
+          notifyListeners(JepEventType.CHANGE_VALUE_EVENT, new JepEvent(JepDateField.this, newDate));
         }
       }
     );
