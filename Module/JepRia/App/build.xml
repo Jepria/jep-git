@@ -39,9 +39,12 @@
   	<pathelement location="${SSO-UTILS_LIB}" />
   	
   	<!-- REST/JAX-RS -->
-    <pathelement location="${JERSEY-JAVAX-WS-RS-AI_LIB}" />
-  	<pathelement location="${JERSEY-JERSEY-SERVER_LIB}" />
-  	<pathelement location="${JERSEY-JERSEY-COMMON_LIB}" />
+    <pathelement location="${JERSEY-JAVAX-WS-RS-AI_LIB}"/>
+  	<pathelement location="${JERSEY-JERSEY-SERVER_LIB}"/>
+  	<pathelement location="${JERSEY-JERSEY-COMMON_LIB}"/>
+  	<pathelement location="${JERSEY-AOPALLIANCE-REPACKAGED_LIB}"/>
+  	<pathelement location="${JERSEY-HK2-API_LIB}"/>
+  	<pathelement location="${JERSEY-JAVAX-INJECT-1_LIB}"/>
   	
   	<!-- REST/Swagger -->
   	<pathelement location="${SWAGGER-SWAGGER-ANNOTATIONS_LIB}" />

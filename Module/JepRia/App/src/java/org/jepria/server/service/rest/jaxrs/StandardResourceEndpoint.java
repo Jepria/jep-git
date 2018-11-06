@@ -29,6 +29,9 @@ import org.jepria.server.service.rest.ResourceControllerBase;
 import org.jepria.server.service.rest.ResourceDescription;
 import org.jepria.server.service.rest.ResourceSearchController;
 import org.jepria.server.service.rest.ResourceSearchControllerBase;
+import org.jepria.server.service.rest.jaxrs.extendedresposne.ExtendedResponse;
+import org.jepria.server.service.rest.jaxrs.extendedresposne.ExtendedResponseProducerConfigurator;
+import org.jepria.server.service.rest.jaxrs.extendedresposne.ProducesExtendedResponse;
 
 import com.technology.jep.jepria.server.dao.JepDataStandard;
 
@@ -183,16 +186,16 @@ public abstract class StandardResourceEndpoint<D extends JepDataStandard> extend
    * @param searchParams
    * @return
    */
-  public Response postSearch(SearchParamsDto searchParams) {
+  @ProducesExtendedResponse
+  public Response postSearch(SearchParamsDto searchParams,
+      @ExtendedResponseProducerConfigurator ExtendedResponse.ProducerConfigurator configurator) {
     final String searchId = searchController.get().postSearchRequest(searchParams, getCredential());
 
     // ссылка на созданный ресурс
     final URI location = URI.create(request.getRequestURL() + "/" + searchId);
     Response response = Response.created(location).build();
 
-
-    // клиент может запросить ответ, расширенный результатами поиска данного запроса
-    response = ExtendedResponse.extend(response).valuesFrom(request).handler(new PostSearchExtendedResponseHandler(searchId)).create(); 
+    configurator.setFactory(new PostSearchExtendedResponseFactory(searchId));
     
     return response;
   }
@@ -200,16 +203,16 @@ public abstract class StandardResourceEndpoint<D extends JepDataStandard> extend
   /**
    * Реализация хендлера для postSearch-заголовков
    */
-  private class PostSearchExtendedResponseHandler implements ExtendedResponse.Handler {
+  private class PostSearchExtendedResponseFactory implements ExtendedResponse.Factory {
 
     private final String searchId;
 
-    public PostSearchExtendedResponseHandler(String searchId) {
+    public PostSearchExtendedResponseFactory(String searchId) {
       this.searchId = searchId;
     }
 
     @Override
-    public Object handle(String value) {
+    public Object createExtendedResponse(String value) {
       
       {// return resultset size
         if ("resultset-size".equals(value)) {
