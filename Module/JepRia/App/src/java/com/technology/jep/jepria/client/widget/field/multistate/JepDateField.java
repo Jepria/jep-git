@@ -294,7 +294,6 @@ public class JepDateField extends JepMultiStateField<MaskedDateBox, HTML> {
    */
   protected void handlerKeyboardEvent() {
     Date newDate = getValue();
-    ((JepDatePicker) editableCard.getDatePicker()).refresh(newDate);
     notifyListeners(JepEventType.CHANGE_VALUE_EVENT, new JepEvent(this, newDate));
   }
   
@@ -463,7 +462,6 @@ public class JepDateField extends JepMultiStateField<MaskedDateBox, HTML> {
    * @param newDate
    */
   protected void handlerKeyboardEvent(Date newDate) {
-    ((JepDatePicker) editableCard.getDatePicker()).refresh(newDate);
     notifyListeners(JepEventType.CHANGE_VALUE_EVENT, new JepEvent(this, newDate));
   }
 

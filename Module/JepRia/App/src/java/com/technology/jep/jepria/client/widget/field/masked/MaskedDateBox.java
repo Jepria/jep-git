@@ -199,7 +199,7 @@ public class MaskedDateBox extends Composite implements HasEnabled,
           date.setMinutes(dateTime.getMinutes());
           date.setSeconds(dateTime.getSeconds());
         }
-        setValue(parseDate(false), date, true, true);
+        setValue(null, date, true, true);
         if (((JepDatePicker)getDatePicker()).isVisibleDaysPanel()) {
           hideDatePicker();
         }
