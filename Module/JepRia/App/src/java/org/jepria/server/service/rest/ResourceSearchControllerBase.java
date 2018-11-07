@@ -44,36 +44,117 @@ public class ResourceSearchControllerBase implements ResourceSearchController {
     // create single searchUID for a tuple {session,resource} 
     searchUID = Integer.toHexString(Objects.hash(session.get(), resourceDescription.getResourceName()));
   }
-
-  private String getSessionAttrNameCommonPrefix() {
-    return "SearchController:ResourceName=" + resourceDescription.getResourceName() + ";";
+  
+  /**
+   * В сессионной реализации контроллера поиска, обращение клиента возможно только с searchId равным значению поля searchUID
+   * @param searchId
+   * @throws NoSuchElementException в случае несовпадающего searchId
+   */
+  private void checkSearchIdOrElseThrow(String searchId) throws NoSuchElementException {
+    if (!searchUID.equals(searchId)) {
+      throw new NoSuchElementException(searchId);
+    }
   }
 
-  private String getSessionAttrNameSearchParams(String searchId) {
-    return getSessionAttrNameCommonPrefix() + "SearchId=" + searchId + ";Key=SearchParams;";
+  
+  /**
+   * @return сохранённый атрибут сессии: клиентские поисковые параметры
+   */
+  private SearchParamsDto getSessionSearchParams() {
+    final String key = "SearchController:ResourceName=" + resourceDescription.getResourceName() + ";SearchId=" + searchUID + ";Key=SearchParams;";
+    return (SearchParamsDto)session.get().getAttribute(key);
   }
+  /**
+   * Сохраняет атрибут сессии: клиентские поисковые параметры 
+   * @param searchParams
+   */
+  private void setSessionSearchParams(SearchParamsDto searchParams) {
+    final String key = "SearchController:ResourceName=" + resourceDescription.getResourceName() + ";SearchId=" + searchUID + ";Key=SearchParams;";
+    if (searchParams == null) {
+      session.get().removeAttribute(key);
+    } else {
+      session.get().setAttribute(key, searchParams);
+    }
+  }
+  
+  /**
+   * @return сохранённый атрибут сессии: результирующий список
+   * в соответствии с последним клиентским запросом 
+   */
+  private List<?> getSessionResultset() {
+    final String key = "SearchController:ResourceName=" + resourceDescription.getResourceName() + ";SearchId=" + searchUID + ";Key=SearchResultset;";
+    return (List<?>)session.get().getAttribute(key);
+  }
+  /**
+   * Сохраняет атрибут сессии: результирующий список
+   * в соответствии с последним клиентским запросом
+   * @param resultset
+   */
+  private void setSessionResultset(List<?> resultset) {
+    final String key = "SearchController:ResourceName=" + resourceDescription.getResourceName() + ";SearchId=" + searchUID + ";Key=SearchResultset;";
+    if (resultset == null) {
+      session.get().removeAttribute(key);
+    } else {
+      session.get().setAttribute(key, resultset);
+    }
+  }
+  
+  /**
+   * @return сохранённый атрибут сессии: является ли сессионный результирующий список {@link #getSessionResultset()} 
+   * отсортированным в соответствии с последним клиентским запросом
+   */
+  private boolean getSessionResultsetSortValid() {
+    final String key = "SearchController:ResourceName=" + resourceDescription.getResourceName() + ";SearchId=" + searchUID + ";Key=SearchResultsetSortValid;";
+    return Boolean.TRUE.equals(session.get().getAttribute(key));
+  }
+  /**
+   * Сохраняет атрибут сессии: является ли сессионный результирующий список {@link #getSessionResultset()}
+   * отсортированным в соответствии с последним клиентским запросом
+   * @param resultsetSortValid
+   */
+  private void setSessionResultsetSortValid(boolean resultsetSortValid) {
+    final String key = "SearchController:ResourceName=" + resourceDescription.getResourceName() + ";SearchId=" + searchUID + ";Key=SearchResultsetSortValid;";
+    if (!resultsetSortValid) {
+      session.get().removeAttribute(key);
+    } else {
+      session.get().setAttribute(key, true);
+    }
+  }
+  
 
-  private String getSessionAttrNameSearchResultset(String searchId) {
-    return getSessionAttrNameCommonPrefix() + "SearchId=" + searchId + ";Key=SearchResultset;";
-  }
   
   @Override
   public String postSearchRequest(SearchParamsDto searchParams, Credential credential) {
-    session.get().setAttribute(getSessionAttrNameSearchParams(searchUID), searchParams);
+
+    // В зависимости от существующих и новых поисковых параметров инвалидируем результирующий список и/или его сортировку
+    final SearchParamsDto existingParams = getSessionSearchParams();
     
-    // инвалидируем предыдущие результаты поиска
-    invalidateExistingResultset();
+    boolean invalidateResultset = true;
+    boolean invalidateResultsetSort = true;
+    
+    if (existingParams != null && searchParams != null) {
+      if (Objects.equals(existingParams.getTemplate(), searchParams.getTemplate())) {
+        if (!Objects.equals(existingParams.getListSortConfiguration(), searchParams.getListSortConfiguration())) {
+          // не инвалидируем результирующий список, если изменились только параметры сортировки
+          invalidateResultset = false;
+        }
+      }
+    }
+    
+    if (invalidateResultset) {
+      setSessionResultset(null);
+    }
+    if (invalidateResultsetSort) {
+      setSessionResultsetSortValid(false);
+    }
+    
+    
+    // сохраняем новые поисковые параметры
+    setSessionSearchParams(searchParams);
     
     return searchUID;
   }
   
-  /**
-   * Инвалидация существующих результатов поиска
-   */
-  private void invalidateExistingResultset() {
-    session.get().removeAttribute(getSessionAttrNameSearchResultset(searchUID));
-  }
-
   /**
    * Специфичная для DAO-поиска поисковая модель, формируемая на основе пользовательских поисковых параметров 
    *
@@ -83,6 +164,11 @@ public class ResourceSearchControllerBase implements ResourceSearchController {
     public int maxRowCount;
   }
 
+  /**
+   * Преобразует клиентские поисковые параметры в специфичную для DAO-поиска поисковую модель
+   * @param searchParams
+   * @return
+   */
   protected SearchModel createSearchModel(SearchParamsDto searchParams) {
 
     SearchModel searchModel = new SearchModel();
@@ -137,16 +223,14 @@ public class ResourceSearchControllerBase implements ResourceSearchController {
   }
 
   /**
-   * Осуществляет DAO-поиск и сохраняет результат в сессию
+   * Осуществляет DAO-поиск и сохраняет результирующий список в сессию
    * @param searchId
-   * @throws NoSuchSearchIdException
    */
-  protected void doSearch(String searchId, Credential credential) throws NoSuchElementException {
+  protected void doSearch(Credential credential) {
 
-    SearchParamsDto searchParams = (SearchParamsDto)session.get().getAttribute(getSessionAttrNameSearchParams(searchId));
+    final SearchParamsDto searchParams = getSessionSearchParams();
     if (searchParams == null) {
-      // must not be thrown because the attribute has been set just before doSearch invocation
-      throw new NoSuchElementException(searchId);
+      throw new IllegalStateException("The session attribute must have already been set at this point");
     }
     
     SearchModel searchModel = createSearchModel(searchParams);
@@ -169,10 +253,19 @@ public class ResourceSearchControllerBase implements ResourceSearchController {
       resultset = new ArrayList<>();
     }
     
+    setSessionResultset(resultset);
+  }
+   
+  /**
+   * Осуществляет сортировку результирующего списка, сохранённого в сессию, и выставляет сессионный признак валидности его сортировки
+   * @param searchId
+   */
+  protected void doSort() {
     
-    
-    // sorting
-    
+    final SearchParamsDto searchParams = getSessionSearchParams();
+    if (searchParams == null) {
+      throw new IllegalStateException("The session attribute must have already been set at this point");
+    }
     
     // collect columnSortConfigurations
     final List<ColumnSortConfiguration> columnSortConfigurations = convertColumnSortConfigurations(searchParams.getListSortConfiguration());
@@ -184,12 +277,23 @@ public class ResourceSearchControllerBase implements ResourceSearchController {
           resourceDescription.getRecordDefinition().getFieldComparator(fieldName)));
     }
     
-    Collections.sort(resultset, new ListSorter(columnSortConfigurations, fieldComparators));
     
-    session.get().setAttribute(getSessionAttrNameSearchResultset(searchId), resultset);
+    
+    final List<?> resultset = getSessionResultset();
+    
+    if (resultset == null) {
+      throw new IllegalStateException("The session attribute must have already been set at this point");
+    }
+
+    
+    Collections.sort((List<Map<String, ?>>)resultset, new ListSorter(columnSortConfigurations, fieldComparators));
+    // sorting affects the session attribute as well 
+    
+    setSessionResultsetSortValid(true);
   }
   
   /**
+   * Преобразует конфигурацию сортировки столбцов списка из {@link ColumnSortConfigurationDto} в {@link ColumnSortConfiguration}
    * @param list
    * @return or null if the input is null
    */
@@ -210,26 +314,21 @@ public class ResourceSearchControllerBase implements ResourceSearchController {
   
   @Override
   public SearchParamsDto getSearchParams(String searchId, Credential credential) throws NoSuchElementException {
-    String sessionAttrName = getSessionAttrNameSearchParams(searchId);
+    checkSearchIdOrElseThrow(searchId);
     
-    // нужно отличить когда сессия не содержит атрибута или когда она содержит атрибут со значением null
-    if (!Collections.list(session.get().getAttributeNames()).contains(sessionAttrName)) {
-      throw new NoSuchElementException(searchId);
+    SearchParamsDto searchParams = getSessionSearchParams();
+    if (searchParams == null) {
+      throw new IllegalStateException("The session attribute must have already been set at this point");
     }
-    
-    SearchParamsDto searchParams = (SearchParamsDto)session.get().getAttribute(sessionAttrName);
     
     return searchParams;
   }
   
   @Override
   public int getResultsetSize(String searchId, Credential credential) throws NoSuchElementException {
-    return getResultsetLocal(searchId, credential).size();
-  }
-  
-  private boolean sessionContainsAttribute(String attributeName) {
-    // проверка если сессия именно не содержит атрибута (а не если она содержит оный атрибут со значением null)
-    return Collections.list(session.get().getAttributeNames()).contains(attributeName);
+    checkSearchIdOrElseThrow(searchId);
+    
+    return getResultsetLocal(credential).size();
   }
   
   /**
@@ -238,31 +337,54 @@ public class ResourceSearchControllerBase implements ResourceSearchController {
    * @return non-null
    * @throws NoSuchSearchIdException
    */
-  protected List<?> getResultsetLocal(String searchId, Credential credential) throws NoSuchElementException {
-    String sessionAttrName = getSessionAttrNameSearchResultset(searchId);
+  protected List<?> getResultsetLocal(Credential credential) throws NoSuchElementException {
     
-    if (!sessionContainsAttribute(sessionAttrName)) {
-      // поиск не осуществлялся или был инвалидирован
-      doSearch(searchId, credential);
-    }
-    
-    List<?> resultset = (List<?>)session.get().getAttribute(sessionAttrName);
+    // поиск (если необходимо)
+    List<?> resultset = getSessionResultset();
     
     if (resultset == null) {
-      throw new IllegalStateException("the method must not return null");
+      // поиск не осуществлялся или был инвалидирован
+      doSearch(credential);
+      
+      resultset = getSessionResultset();
+      
+      if (resultset == null) {
+        throw new IllegalStateException("The session attribute must have already been set at this point");
+      }
     }
+    
+    
+    // сортировка (если необходимо)
+    boolean resultsetSortValid = getSessionResultsetSortValid();
+    
+    if (!resultsetSortValid) {
+      // сортировка не осуществлялась или была инвалидирована
+      doSort();
+      
+      resultset = getSessionResultset();
+      
+      if (resultset == null) {
+        throw new IllegalStateException("The session attribute must have already been set at this point");
+      }
+    }
+    
     
     return resultset;
   }
   
   @Override
   public List<?> getResultset(String searchId, Credential credential) throws NoSuchElementException {
-    return getResultsetLocal(searchId, credential);
+    checkSearchIdOrElseThrow(searchId);
+    
+    return getResultsetLocal(credential);
   }
   
   @Override
   public List<?> getResultsetPaged(String searchId, int pageSize, int page, Credential credential) throws NoSuchElementException {
-    List<?> resultset = getResultsetLocal(searchId, credential);
+    checkSearchIdOrElseThrow(searchId);
+    
+    List<?> resultset = getResultsetLocal(credential);
+    
     return paging(resultset, pageSize, page);
   }
   
