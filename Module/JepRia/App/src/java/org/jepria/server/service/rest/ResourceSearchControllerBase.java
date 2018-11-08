@@ -13,7 +13,7 @@ import java.util.function.Supplier;
 import javax.servlet.http.HttpSession;
 
 import org.jepria.compat.CoreCompat;
-import org.jepria.server.dao.JepDataStandard;
+import org.jepria.server.dao.Dao;
 import org.jepria.server.load.ColumnSortConfiguration;
 import org.jepria.server.load.ListSorter;
 import org.jepria.server.load.rest.ColumnSortConfigurationDto;
@@ -238,8 +238,7 @@ public class ResourceSearchControllerBase implements ResourceSearchController {
     List<Map<String, ?>> resultset;
     
     try {
-      // TODO remove backward compatibility: resourceDescription.getDao() must return org.jepria.server.dao.JepDataStandard
-      JepDataStandard dao = CoreCompat.convertDao(resourceDescription.getDao());
+      Dao dao = resourceDescription.getDao();
       resultset = dao.find(
               searchModel.preparedTemplate,
               searchModel.maxRowCount,

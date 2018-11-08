@@ -8,8 +8,7 @@ import java.util.NoSuchElementException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.jepria.compat.CoreCompat;
-import org.jepria.server.dao.JepDataStandard;
+import org.jepria.server.dao.Dao;
 import org.jepria.server.security.Credential;
 import org.jepria.shared.RecordDefinition.IncompletePrimaryKeyException;
 
@@ -64,8 +63,7 @@ public class ResourceControllerBase implements ResourceController {
 
     final List<?> daoResultList;
     try {
-      // TODO remove backward compatibility: resourceDescription.getDao() must return org.jepria.server.dao.JepDataStandard
-      JepDataStandard dao = CoreCompat.convertDao(resourceDescription.getDao());
+      Dao dao = resourceDescription.getDao();
       daoResultList = dao.find(primaryKeyMap, 1, credential.getOperatorId());
     } catch (Throwable e) {
       // TODO or log?
@@ -183,8 +181,7 @@ public class ResourceControllerBase implements ResourceController {
   public Object create(Map<String, Object> record, Credential credential) {
     final Object daoResult;
     try {
-      // TODO remove backward compatibility: resourceDescription.getDao() must return org.jepria.server.dao.JepDataStandard
-      JepDataStandard dao = CoreCompat.convertDao(resourceDescription.getDao());
+      Dao dao = resourceDescription.getDao();
       daoResult = dao.create(record, credential.getOperatorId());
     } catch (Throwable e) {
       // TODO or log?
@@ -204,8 +201,7 @@ public class ResourceControllerBase implements ResourceController {
     }
 
     try {
-      // TODO remove backward compatibility: resourceDescription.getDao() must return org.jepria.server.dao.JepDataStandard
-      JepDataStandard dao = CoreCompat.convertDao(resourceDescription.getDao());
+      Dao dao = resourceDescription.getDao();
       dao.delete(primaryKeyMap, credential.getOperatorId());
     } catch (Throwable e) {
       // TODO or log?
@@ -228,8 +224,7 @@ public class ResourceControllerBase implements ResourceController {
     updateModel.putAll(primaryKeyMap);
     
     try {
-      // TODO remove backward compatibility: resourceDescription.getDao() must return org.jepria.server.dao.JepDataStandard
-      JepDataStandard dao = CoreCompat.convertDao(resourceDescription.getDao());
+      Dao dao = resourceDescription.getDao();
       dao.update(updateModel, credential.getOperatorId());
     } catch (Throwable e) {
       // TODO or log?

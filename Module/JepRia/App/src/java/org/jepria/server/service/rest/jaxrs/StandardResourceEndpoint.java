@@ -23,14 +23,13 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import org.jepria.server.dao.Dao;
 import org.jepria.server.load.rest.SearchParamsDto;
 import org.jepria.server.service.rest.ResourceController;
 import org.jepria.server.service.rest.ResourceControllerBase;
 import org.jepria.server.service.rest.ResourceDescription;
 import org.jepria.server.service.rest.ResourceSearchController;
 import org.jepria.server.service.rest.ResourceSearchControllerBase;
-
-import com.technology.jep.jepria.server.dao.JepDataStandard;
 
 import io.swagger.annotations.ApiOperation;
 
@@ -39,7 +38,7 @@ import io.swagger.annotations.ApiOperation;
  */
 @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
 @Consumes(MediaType.APPLICATION_JSON + ";charset=utf-8")
-public abstract class StandardResourceEndpoint<D extends JepDataStandard> extends StandardEndpointBase {
+public abstract class StandardResourceEndpoint<D extends Dao> extends StandardEndpointBase {
 
   protected StandardResourceEndpoint() {}
 
