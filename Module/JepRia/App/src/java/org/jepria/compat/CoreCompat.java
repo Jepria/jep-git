@@ -8,8 +8,10 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import org.jepria.server.dao.Dao;
 import org.jepria.shared.RecordDefinition;
 
+import com.technology.jep.jepria.server.dao.JepDataStandard;
 import com.technology.jep.jepria.shared.JepRiaConstant;
 import com.technology.jep.jepria.shared.exceptions.ApplicationException;
 import com.technology.jep.jepria.shared.field.JepFieldNames;
@@ -83,16 +85,13 @@ public class CoreCompat {
   public static final int DEFAULT_MAX_ROW_COUNT = JepRiaConstant.DEFAULT_MAX_ROW_COUNT;
   public static final String MAX_ROW_COUNT__FIELD_NAME = JepFieldNames.MAX_ROW_COUNT;
   
-  /**
-   * Descendand of this class is an org.jepria.server.dao.JepDataStandard with com.technology.jep.jepria.server.dao.JepDataStandard's implementation
-   */
-  public static org.jepria.server.dao.JepDataStandard convertDao(com.technology.jep.jepria.server.dao.JepDataStandard dao) {
+  public static Dao convertDao(JepDataStandard dao) {
 
     if (dao == null) {
       return null;
     }
     
-    return new org.jepria.server.dao.JepDataStandard() {
+    return new Dao() {
       @Override
       public List<Map<String, ?>> find(Map<String, ?> model, Integer maxRowCount, Integer operatorId) {
         JepRecord templateRecord = new JepRecord();

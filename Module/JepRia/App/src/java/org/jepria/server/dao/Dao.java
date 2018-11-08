@@ -6,8 +6,7 @@ import java.util.Map;
 /**
  * Базовый интерфейс работы с записями в БД на прикладном уровне.
  */
-// TODO переименовать, избавиться от слова Jep
-public interface JepDataStandard {
+public interface Dao {
   /**
    * Поиск.
    * 
