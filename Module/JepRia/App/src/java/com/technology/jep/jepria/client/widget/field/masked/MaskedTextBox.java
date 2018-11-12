@@ -428,7 +428,7 @@ public class MaskedTextBox extends TextBox
   /**
    * Обработчик события {@link FocusEvent}.<br> 
    * Если поле пустое, то устанавливает курсор на первый специальный символ маски.
-   * @param event
+   * @param event событие фокуса на поле
    */
   protected void onFocusEvent(FocusEvent event) {
     if(isEmpty()) {
@@ -438,7 +438,7 @@ public class MaskedTextBox extends TextBox
   
   /**
    * Обработчик события при потере фокуса на поле
-   * @param event
+   * @param event событие потери фокуса на поле
    */
   protected void obBlurEvent(BlurEvent event) {
     if(isEmpty()) {
