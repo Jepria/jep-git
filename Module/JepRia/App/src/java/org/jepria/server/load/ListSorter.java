@@ -1,16 +1,21 @@
 package org.jepria.server.load;
 
+import java.lang.reflect.Type;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.json.bind.Jsonb;
+import javax.json.bind.JsonbBuilder;
 
 import org.jepria.compat.CoreCompat;
 
 /**
  * Сортировщик списка записей по определённой конфигурации
  */
-public class ListSorter implements Comparator<Map<String, ?>> {
+public class ListSorter<T> implements Comparator<T> {
 
   /**
    * non-null
@@ -36,8 +41,16 @@ public class ListSorter implements Comparator<Map<String, ?>> {
   }
   
   @Override
-  public int compare(Map<String, ?> m1, Map<String, ?> m2) {
+  public int compare(T r1, T r2) {
     if (columnSortConfigurations != null) {
+      
+
+      // convert Dtos to Maps
+      final Type type = new HashMap<String, Object>(){}.getClass().getGenericSuperclass();
+      Jsonb jsonb = JsonbBuilder.create();
+      final Map<String, ?> m1 = jsonb.fromJson(jsonb.toJson(r1), type);
+      final Map<String, ?> m2 = jsonb.fromJson(jsonb.toJson(r2), type);
+      
       
       for (ColumnSortConfiguration columnSortConfiguration: columnSortConfigurations) {
         

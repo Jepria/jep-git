@@ -6,7 +6,7 @@ import java.util.Map;
 /**
  * Базовый интерфейс работы с записями в БД на прикладном уровне.
  */
-public interface Dao {
+public interface Dao<T> {
   /**
    * Поиск.
    * 
@@ -15,17 +15,16 @@ public interface Dao {
    * @param operatorId идентификатор пользователя
    * @return список записей
    */
-  List<Map<String, ?>> find(Map<String, ?> model, Integer maxRowCount, Integer operatorId);
+  List<T> find(Map<String, ?> model, Integer maxRowCount, Integer operatorId);
   
   /**
    * Создание записи
    * 
    * @param record создаваемая запись
    * @param operatorId идентификатор пользователя
-   * @return идентификатор созданной записи или null, если запись идентифицируется по сложному
-   * первичному ключу
+   * @return первичный ключ созданной записи (простой или составной)
    */
-  Object create(Map<String, ?> record, Integer operatorId);
+  Object create(T record, Integer operatorId);
 
   /**
    * Редактирование записи
@@ -33,7 +32,7 @@ public interface Dao {
    * @param record запись с новыми значениями
    * @param operatorId идентификатор пользователя
    */
-  void update(Map<String, ?> record, Integer operatorId);
+  void update(T record, Integer operatorId);
 
   /**
    * Удаление записи
@@ -41,5 +40,5 @@ public interface Dao {
    * @param record удаляемая запись (одного поля recordId может быть недостаточно для случаев с составным первичным ключом)
    * @param operatorId идентификатор пользователя
    */
-  void delete(Map<String, ?> record, Integer operatorId);
+  void delete(Map<String, ?> primaryKeyMap, Integer operatorId);
 }

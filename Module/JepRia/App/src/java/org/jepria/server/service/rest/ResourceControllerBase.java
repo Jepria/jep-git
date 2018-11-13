@@ -8,19 +8,18 @@ import java.util.NoSuchElementException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.jepria.compat.CoreCompat;
 import org.jepria.server.dao.Dao;
 import org.jepria.server.security.Credential;
 import org.jepria.shared.RecordDefinition.IncompletePrimaryKeyException;
 
 import com.technology.jep.jepria.shared.field.JepTypeEnum;
 
-public class ResourceControllerBase implements ResourceController {
+public class ResourceControllerBase<T> implements ResourceController<T> {
 
   // нет необходимости параметризовать, так как механизм CRUD не специфицируется на прикладном уровне 
-  protected final ResourceDescription<?> resourceDescription;
+  protected final ResourceDescription<?, T> resourceDescription;
 
-  public ResourceControllerBase(ResourceDescription<?> resourceDescription) {
+  public ResourceControllerBase(ResourceDescription<?, T> resourceDescription) {
     this.resourceDescription = resourceDescription;
   }
 
@@ -53,7 +52,7 @@ public class ResourceControllerBase implements ResourceController {
   //////////// CRUD ///////////////////
 
   @Override
-  public Object getResourceById(String resourceId, Credential credential) throws NoSuchElementException {
+  public T getResourceById(String resourceId, Credential credential) throws NoSuchElementException {
 
     final Map<String, ?> primaryKeyMap;
     try {
@@ -62,10 +61,9 @@ public class ResourceControllerBase implements ResourceController {
       throw new NoSuchElementException("The resourceId '" + resourceId + "' cannot be parsed against the primary key");
     }
 
-    final List<?> daoResultList;
+    final List<T> daoResultList;
     try {
-      // TODO remove backward compatibility: resourceDescription.getDao() must return org.jepria.server.dao.JepDataStandard
-      Dao dao = CoreCompat.convertDao(resourceDescription.getDao());
+      Dao<T> dao = resourceDescription.getDao();
       daoResultList = dao.find(primaryKeyMap, 1, credential.getOperatorId());
     } catch (Throwable e) {
       // TODO or log?
@@ -74,8 +72,8 @@ public class ResourceControllerBase implements ResourceController {
 
     // check find result is of size 1
     if (daoResultList == null || daoResultList.size() == 0) {
-      // return 404 (empty result)
-      return null;
+      throw new NoSuchElementException();
+      
     } else if (daoResultList.size() != 1) {
       // TODO 
       throw new IllegalStateException("Expected find result of size 1 (actual size: " + daoResultList.size() + ")");
@@ -83,12 +81,7 @@ public class ResourceControllerBase implements ResourceController {
 
 
     // daoResult is a single record
-    final Object daoResult = daoResultList.get(0);
-
-
-    // TODO convert the DAO result into a target response object here (using DTO or RecordDefinition, whatever)
-    final Object result = daoResult;
-
+    final T result = daoResultList.get(0);
 
     return result;
   }
@@ -180,17 +173,17 @@ public class ResourceControllerBase implements ResourceController {
   }
 
   @Override
-  public Object create(Map<String, Object> record, Credential credential) {
+  public String create(T record, Credential credential) {
     final Object daoResult;
     try {
       // TODO remove backward compatibility: resourceDescription.getDao() must return org.jepria.server.dao.JepDataStandard
-      Dao dao = CoreCompat.convertDao(resourceDescription.getDao());
+      Dao<T> dao = resourceDescription.getDao();
       daoResult = dao.create(record, credential.getOperatorId());
     } catch (Throwable e) {
       // TODO or log?
       throw new RuntimeException(e);
     }
-    return daoResult;
+    return daoResult.toString();// TODO convert like Parser
   }
 
   @Override
@@ -205,7 +198,7 @@ public class ResourceControllerBase implements ResourceController {
 
     try {
       // TODO remove backward compatibility: resourceDescription.getDao() must return org.jepria.server.dao.JepDataStandard
-      Dao dao = CoreCompat.convertDao(resourceDescription.getDao());
+      Dao<T> dao = resourceDescription.getDao();
       dao.delete(primaryKeyMap, credential.getOperatorId());
     } catch (Throwable e) {
       // TODO or log?
@@ -214,7 +207,7 @@ public class ResourceControllerBase implements ResourceController {
   }
 
   @Override
-  public void update(String resourceId, Map<String, Object> fields, Credential credential) throws NoSuchElementException {
+  public void update(String resourceId, T newRecord, Credential credential) throws NoSuchElementException {
     
     final Map<String, ?> primaryKeyMap;
     try {
@@ -224,13 +217,13 @@ public class ResourceControllerBase implements ResourceController {
     }
     
     // overwrite primary key fields with values from resourceId, if any
-    Map<String, Object> updateModel = new HashMap<>(fields);
-    updateModel.putAll(primaryKeyMap);
+    Map<String, Object> updateModel = new HashMap<>();
+    updateModel.putAll(primaryKeyMap);// TODO put primaryKeyMap into newRecord
     
     try {
       // TODO remove backward compatibility: resourceDescription.getDao() must return org.jepria.server.dao.JepDataStandard
-      Dao dao = CoreCompat.convertDao(resourceDescription.getDao());
-      dao.update(updateModel, credential.getOperatorId());
+      Dao<T> dao = resourceDescription.getDao();
+      dao.update(newRecord, credential.getOperatorId());
     } catch (Throwable e) {
       // TODO or log?
       throw new RuntimeException(e);

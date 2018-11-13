@@ -27,16 +27,16 @@ import com.technology.jep.jepria.shared.field.JepTypeEnum;
  * Реализация поискового контроллера, состоящего на HTTP сессиях.
  */
 // TODO отразить в названии класса тот факт, что это именно сессионная реализация (добавлением слова Session)
-public class ResourceSearchControllerBase implements ResourceSearchController {
+public class ResourceSearchControllerBase<T> implements ResourceSearchController<T> {
 
   // нет необходимости параметризовать, так как механизм поиска не специфицируется на прикладном уровне 
-  protected final ResourceDescription<?> resourceDescription;
+  protected final ResourceDescription<?, T> resourceDescription;
 
   protected final Supplier<HttpSession> session;
 
   private final String searchUID;
  
-  public ResourceSearchControllerBase(ResourceDescription<?> resourceDescription,
+  public ResourceSearchControllerBase(ResourceDescription<?, T> resourceDescription,
       Supplier<HttpSession> session) {
     this.resourceDescription = resourceDescription;
     this.session = session;
@@ -81,16 +81,16 @@ public class ResourceSearchControllerBase implements ResourceSearchController {
    * @return сохранённый атрибут сессии: результирующий список
    * в соответствии с последним клиентским запросом 
    */
-  private List<?> getSessionResultset() {
+  private List<T> getSessionResultset() {
     final String key = "SearchController:ResourceName=" + resourceDescription.getResourceName() + ";SearchId=" + searchUID + ";Key=SearchResultset;";
-    return (List<?>)session.get().getAttribute(key);
+    return (List<T>)session.get().getAttribute(key);
   }
   /**
    * Сохраняет атрибут сессии: результирующий список
    * в соответствии с последним клиентским запросом
    * @param resultset
    */
-  private void setSessionResultset(List<?> resultset) {
+  private void setSessionResultset(List<T> resultset) {
     final String key = "SearchController:ResourceName=" + resourceDescription.getResourceName() + ";SearchId=" + searchUID + ";Key=SearchResultset;";
     if (resultset == null) {
       session.get().removeAttribute(key);
@@ -235,11 +235,11 @@ public class ResourceSearchControllerBase implements ResourceSearchController {
     
     SearchModel searchModel = createSearchModel(searchParams);
     
-    List<Map<String, ?>> resultset;
+    List<T> resultset;
     
     try {
       // TODO remove backward compatibility: resourceDescription.getDao() must return org.jepria.server.dao.JepDataStandard
-      Dao dao = CoreCompat.convertDao(resourceDescription.getDao());
+      Dao<T> dao = resourceDescription.getDao();
       resultset = dao.find(
               searchModel.preparedTemplate,
               searchModel.maxRowCount,
@@ -279,14 +279,14 @@ public class ResourceSearchControllerBase implements ResourceSearchController {
     
     
     
-    final List<?> resultset = getSessionResultset();
+    final List<T> resultset = getSessionResultset();
     
     if (resultset == null) {
       throw new IllegalStateException("The session attribute must have already been set at this point");
     }
 
     
-    Collections.sort((List<Map<String, ?>>)resultset, new ListSorter(columnSortConfigurations, fieldComparators));
+    Collections.sort((List<T>)resultset, new ListSorter<T>(columnSortConfigurations, fieldComparators));
     // sorting affects the session attribute as well 
     
     setSessionResultsetSortValid(true);
@@ -337,10 +337,10 @@ public class ResourceSearchControllerBase implements ResourceSearchController {
    * @return non-null
    * @throws NoSuchSearchIdException
    */
-  protected List<?> getResultsetLocal(Credential credential) throws NoSuchElementException {
+  protected List<T> getResultsetLocal(Credential credential) throws NoSuchElementException {
     
     // поиск (если необходимо)
-    List<?> resultset = getSessionResultset();
+    List<T> resultset = getSessionResultset();
     
     if (resultset == null) {
       // поиск не осуществлялся или был инвалидирован
@@ -373,22 +373,22 @@ public class ResourceSearchControllerBase implements ResourceSearchController {
   }
   
   @Override
-  public List<?> getResultset(String searchId, Credential credential) throws NoSuchElementException {
+  public List<T> getResultset(String searchId, Credential credential) throws NoSuchElementException {
     checkSearchIdOrElseThrow(searchId);
     
     return getResultsetLocal(credential);
   }
   
   @Override
-  public List<?> getResultsetPaged(String searchId, int pageSize, int page, Credential credential) throws NoSuchElementException {
+  public List<T> getResultsetPaged(String searchId, int pageSize, int page, Credential credential) throws NoSuchElementException {
     checkSearchIdOrElseThrow(searchId);
     
-    List<?> resultset = getResultsetLocal(credential);
+    List<T> resultset = getResultsetLocal(credential);
     
     return paging(resultset, pageSize, page);
   }
   
-  private static List<?> paging(List<?> resultset, int pageSize, int page) {
+  private static <T> List<T> paging(List<T> resultset, int pageSize, int page) {
     if (resultset == null) {
       return null;
     }
@@ -403,7 +403,7 @@ public class ResourceSearchControllerBase implements ResourceSearchController {
     
     if (fromIndex < toIndex) {
       
-      List<?> pageRecords = Collections.unmodifiableList(resultset.subList(fromIndex, toIndex));
+      List<T> pageRecords = Collections.unmodifiableList(resultset.subList(fromIndex, toIndex));
       return pageRecords;
       
     } else {
