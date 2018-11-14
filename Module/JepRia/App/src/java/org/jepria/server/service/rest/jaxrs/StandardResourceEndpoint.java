@@ -27,9 +27,9 @@ import org.jepria.server.dao.Dao;
 import org.jepria.server.load.rest.SearchParamsDto;
 import org.jepria.server.service.rest.ResourceController;
 import org.jepria.server.service.rest.ResourceControllerBase;
-import org.jepria.server.service.rest.ResourceDescription;
 import org.jepria.server.service.rest.ResourceSearchController;
 import org.jepria.server.service.rest.ResourceSearchControllerBase;
+import org.jepria.shared.RecordDefinition;
 
 import io.swagger.annotations.ApiOperation;
 
@@ -40,10 +40,19 @@ import io.swagger.annotations.ApiOperation;
 @Consumes(MediaType.APPLICATION_JSON + ";charset=utf-8")
 public abstract class StandardResourceEndpoint<D extends Dao> extends StandardEndpointBase {
 
-  protected final ResourceDescription<D> resourceDescription;
+  /**
+   * Implementors provide standard applicational description for the REST resources  
+   */
+  public static interface Description<D extends Dao> {
+    D getDao();
+    String getResourceName();
+    RecordDefinition getRecordDefinition();
+  }
+  
+  protected final Description<D> description;
 
-  protected StandardResourceEndpoint(ResourceDescription<D> resourceDescription) {
-    this.resourceDescription = resourceDescription;
+  protected StandardResourceEndpoint(Description<D> description) {
+    this.description = description;
   }
 
   /**
@@ -71,9 +80,9 @@ public abstract class StandardResourceEndpoint<D extends Dao> extends StandardEn
       super(new Supplier<Dao>() {
         @Override
         public Dao get() {
-          return resourceDescription.getDao();
+          return description.getDao();
         }
-      }, resourceDescription.getRecordDefinition());
+      }, description.getRecordDefinition());
     }
   }
 
@@ -108,9 +117,9 @@ public abstract class StandardResourceEndpoint<D extends Dao> extends StandardEn
       super(new Supplier<Dao>() {
         @Override
         public Dao get() {
-          return resourceDescription.getDao();
+          return description.getDao();
         }
-      }, resourceDescription.getRecordDefinition(),
+      }, description.getRecordDefinition(),
           new Supplier<HttpSession>() {
         @Override
         public HttpSession get() {
@@ -129,7 +138,7 @@ public abstract class StandardResourceEndpoint<D extends Dao> extends StandardEn
   @GET
   @ApiOperation(value = "List this resource as options")
   public Response listAsOptions() {
-    return listOptions(resourceDescription.getResourceName());
+    return listOptions(description.getResourceName());
   }
 
   @GET
