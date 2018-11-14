@@ -10,7 +10,7 @@ import org.jepria.server.security.Credential;
  * The interface has CREATE and READ methods only.
  * UPDATE or DELETE methods (recycling and cleaning strategy) are implementation-dependent
  */
-public interface ResourceSearchController<T> {
+public interface ResourceSearchController {
 
   /**
    * 
@@ -34,7 +34,7 @@ public interface ResourceSearchController<T> {
    * @return
    * @throws NoSuchElementException if the requested searchId does not exist
    */
-  List<T> getResultsetPaged(String searchId, int pageSize, int page, Credential credential) throws NoSuchElementException;
+  List<?> getResultsetPaged(String searchId, int pageSize, int page, Credential credential) throws NoSuchElementException;
 
   /**
    * 
@@ -43,7 +43,7 @@ public interface ResourceSearchController<T> {
    * @return
    * @throws NoSuchElementException if the requested searchId does not exist
    */
-  List<T> getResultset(String searchId, Credential credential) throws NoSuchElementException;
+  List<?> getResultset(String searchId, Credential credential) throws NoSuchElementException;
 
   /**
    * @param searchId

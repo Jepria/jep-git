@@ -1,11 +1,12 @@
 package org.jepria.server.service.rest;
 
 import java.util.List;
+import java.util.Map;
 import java.util.NoSuchElementException;
 
 import org.jepria.server.security.Credential;
 
-public interface ResourceController<T> {
+public interface ResourceController {
 
   //////////// CRUD ///////////////////
 
@@ -15,14 +16,14 @@ public interface ResourceController<T> {
    * @return instance, non-null
    * @throws NoSuchElementException if the requested resourceId does not exist
    */
-  T getResourceById(String resourceId, Credential credential) throws NoSuchElementException;
+  Object getResourceById(String resourceId, Credential credential) throws NoSuchElementException;
   
   /**
    * @param record
    * @param credential
-   * @return created resourceId, non-null
+   * @return created instance ID, non-null
    */
-  String create(T record, Credential credential);
+  Object create(Map<String, Object> record, Credential credential);
   
   /**
    * 
@@ -38,7 +39,7 @@ public interface ResourceController<T> {
    * @param credential
    * @throws NoSuchElementException if the requested resourceId does not exist
    */
-  void update(String resourceId, T newRecord, Credential credential) throws NoSuchElementException;
+  void update(String resourceId, Map<String, Object> fields, Credential credential) throws NoSuchElementException;
   
   /////////////////////////// OPTIONS RESOURCE //////////////////////////
   

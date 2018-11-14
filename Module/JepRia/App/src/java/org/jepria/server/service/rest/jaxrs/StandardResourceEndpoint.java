@@ -1,7 +1,6 @@
 package org.jepria.server.service.rest.jaxrs;
 
 import java.net.URI;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,11 +10,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpSession;
-import javax.ws.rs.BadRequestException;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
-import javax.ws.rs.NotFoundException;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
@@ -26,13 +23,14 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
-import org.jepria.server.dao.Dao;
 import org.jepria.server.load.rest.SearchParamsDto;
 import org.jepria.server.service.rest.ResourceController;
 import org.jepria.server.service.rest.ResourceControllerBase;
 import org.jepria.server.service.rest.ResourceDescription;
 import org.jepria.server.service.rest.ResourceSearchController;
 import org.jepria.server.service.rest.ResourceSearchControllerBase;
+
+import com.technology.jep.jepria.server.dao.JepDataStandard;
 
 import io.swagger.annotations.ApiOperation;
 
@@ -41,7 +39,7 @@ import io.swagger.annotations.ApiOperation;
  */
 @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
 @Consumes(MediaType.APPLICATION_JSON + ";charset=utf-8")
-public abstract class StandardResourceEndpoint<D extends Dao<T>, T> extends StandardEndpointBase {
+public abstract class StandardResourceEndpoint<D extends JepDataStandard> extends StandardEndpointBase {
 
   protected StandardResourceEndpoint() {}
 
@@ -49,16 +47,16 @@ public abstract class StandardResourceEndpoint<D extends Dao<T>, T> extends Stan
    * Provides application resource description
    * @return
    */
-  protected abstract ResourceDescription<D, T> getResourceDescription();
+  protected abstract ResourceDescription<D> getResourceDescription();
 
   /**
    * Supplier protects the internal field from direct access from within the class members,
    * and initializes the field lazily (due to the DI: the injectable fields are being injected after the object construction)
    */
-  protected final Supplier<ResourceController<T>> resourceController = new Supplier<ResourceController<T>>() {
-    private ResourceController<T> instance = null;
+  protected final Supplier<ResourceController> resourceController = new Supplier<ResourceController>() {
+    private ResourceController instance = null;
     @Override
-    public ResourceController<T> get() {
+    public ResourceController get() {
       if (instance == null) {
         instance = createResourceController();
       }
@@ -71,13 +69,13 @@ public abstract class StandardResourceEndpoint<D extends Dao<T>, T> extends Stan
    * Использование в наследниках упрощается наличием у локального класса конструктора без параметров
    * (локальный класс неявно зависит от содержащего класса)
    */
-  protected class ResourceControllerImplLocal extends ResourceControllerBase<T> {
+  protected class ResourceControllerImplLocal extends ResourceControllerBase {
     protected ResourceControllerImplLocal() {
       super(getResourceDescription());
     }
   }
 
-  protected ResourceController<T> createResourceController() {
+  protected ResourceController createResourceController() {
     return new ResourceControllerImplLocal();
   }
 
@@ -86,10 +84,10 @@ public abstract class StandardResourceEndpoint<D extends Dao<T>, T> extends Stan
    * Supplier protects the internal field from direct access from within the class members,
    * and initializes the field lazily (due to the DI: the injectable fields are being injected after the object construction)
    */
-  protected final Supplier<ResourceSearchController<T>> searchController = new Supplier<ResourceSearchController<T>>() {
-    private ResourceSearchController<T> instance = null;
+  protected final Supplier<ResourceSearchController> searchController = new Supplier<ResourceSearchController>() {
+    private ResourceSearchController instance = null;
     @Override
-    public ResourceSearchController<T> get() {
+    public ResourceSearchController get() {
       if (instance == null) {
         instance = createSearchController();
       }
@@ -103,7 +101,7 @@ public abstract class StandardResourceEndpoint<D extends Dao<T>, T> extends Stan
    * Использование в наследниках упрощается наличием у локального класса конструктора без параметров
    * (локальный класс неявно зависит от содержащего класса)
    */
-  protected class ResourceSearchControllerImplLocal extends ResourceSearchControllerBase<T> {
+  protected class ResourceSearchControllerImplLocal extends ResourceSearchControllerBase {
     protected ResourceSearchControllerImplLocal() {
       super(getResourceDescription(),
           new Supplier<HttpSession>() {
@@ -115,7 +113,7 @@ public abstract class StandardResourceEndpoint<D extends Dao<T>, T> extends Stan
     }
   }
 
-  protected ResourceSearchController<T> createSearchController() {
+  protected ResourceSearchController createSearchController() {
     return new ResourceSearchControllerImplLocal();
   }
 
@@ -123,45 +121,43 @@ public abstract class StandardResourceEndpoint<D extends Dao<T>, T> extends Stan
 
   @GET
   @ApiOperation(value = "List this resource as options")
-  public List<?> listAsOptions() {
+  public Response listAsOptions() {
     return listOptions(getResourceDescription().getResourceName());
   }
 
   @GET
   @Path("{recordId}")
   @ApiOperation(value = "Get resource by ID")
-  public T getResourceById(@PathParam("recordId") String recordId) {
-    final T record;
-    
-    try {
-      record = resourceController.get().getResourceById(recordId, getCredential());
-    } catch (NoSuchElementException e) {
-      // 404
-      throw new NotFoundException(e);
+  public Response getResourceById(@PathParam("recordId") String recordId) {
+    Object record = resourceController.get().getResourceById(recordId, getCredential());
+    if (record == null) {
+      return Response.status(Status.NOT_FOUND).build();
+    } else {
+      return Response.ok(record).build();
     }
-    
-    return record;
   }
 
   @POST
   @ApiOperation(value = "Create a new instance")
-  public Response create(T record) {
-    final String createdId = resourceController.get().create(record, getCredential());
+  public Response create(Map<String, Object> instance) {
+    Object createdId = resourceController.get().create(instance, getCredential());
     return Response.status(Status.CREATED).header("Location", createdId).build();
   }
 
   @DELETE
   @Path("{recordId}")
   @ApiOperation(value = "Delete resource by ID")
-  public void deleteResourceById(@PathParam("recordId") String recordId) {
+  public Response deleteResourceById(@PathParam("recordId") String recordId) {
     resourceController.get().deleteResource(recordId, getCredential());
+    return Response.ok().build();
   }
 
   @PUT
   @Path("{recordId}")
   @ApiOperation(value = "Update resource by ID")
-  public void update(@PathParam("recordId") String recordId, T record) {
-    resourceController.get().update(recordId, record, getCredential());
+  public Response update(@PathParam("recordId") String recordId, Map<String, Object> fields) {
+    resourceController.get().update(recordId, fields, getCredential());
+    return Response.ok().build();
   }
 
   //////// OPTIONS ////////
@@ -169,20 +165,12 @@ public abstract class StandardResourceEndpoint<D extends Dao<T>, T> extends Stan
   @GET
   @Path("option/{optionEntityName}")
   @ApiOperation(value = "List options by option-entity name")
-  public List<?> listOptions(@PathParam("optionEntityName") String optionEntityName) {
-    final List<?> result;
-    
-    try {
-      result = resourceController.get().listOptions(optionEntityName, getCredential());
-    } catch (NoSuchElementException e) {
-      // 404
-      throw new NotFoundException(e);
-    }
+  public Response listOptions(@PathParam("optionEntityName") String optionEntityName) {
+    List<?> result = resourceController.get().listOptions(optionEntityName, getCredential());
     if (result == null || result.isEmpty()) {
-      // 204
-      return null;
+      return Response.status(Status.NOT_FOUND).build();
     } else {
-      return result;
+      return Response.ok(result).build();
     }
   }
 
@@ -227,12 +215,9 @@ public abstract class StandardResourceEndpoint<D extends Dao<T>, T> extends Stan
         if ("resultset-size".equals(value)) {
           try {
             return searchController.get().getResultsetSize(searchId, getCredential());
-          } catch (Throwable e) {
-            // TODO process jaxrs exceptions like NotFoundException or BadRequestException differently, or add "status":"exception" as an extended-response block 
-            
-            // do not re-throw
-            e.printStackTrace();
-            return null;
+          } catch (NoSuchElementException e) {
+            // невозможно, поскольку searchId был создан в рамках этого же запроса
+            throw new IllegalStateException();
           }
         }
       }
@@ -263,21 +248,15 @@ public abstract class StandardResourceEndpoint<D extends Dao<T>, T> extends Stan
           }
   
           // подзапрос на выдачу данных
-          List<T> subresponse;
-          try {
-            subresponse = getResultsetPaged(searchId, pageSize, page);
-          } catch (Throwable e) {
-            // TODO process jaxrs exceptions like NotFoundException or BadRequestException differently...
-            
-            // do not re-throw
-            e.printStackTrace();
-            return null;
+          Response subresponse = getResultsetPaged(searchId, pageSize, page); 
+          final Object subresponseData;
+          if (subresponse != null && subresponse.getEntity() != null) {
+            subresponseData = subresponse.getEntity(); 
+          } else {
+            subresponseData = new Object();// avoid null
           }
           
-          if (subresponse == null) {
-            subresponse = new ArrayList<>();
-          }
-          
+
           final String href = URI.create(request.getRequestURL() + "/" + searchId + "/" + value).toString();
           
           
@@ -287,7 +266,7 @@ public abstract class StandardResourceEndpoint<D extends Dao<T>, T> extends Stan
           //   "href": "<для удобства: готовый url, по которому выдаются в точности те же данные, что и в поле data>"
           // }
           Map<String, Object> ret = new HashMap<>();
-          ret.put("data", subresponse);
+          ret.put("data", subresponseData);
           ret.put("href", href);
 
           return ret;
@@ -306,41 +285,42 @@ public abstract class StandardResourceEndpoint<D extends Dao<T>, T> extends Stan
   @GET
   @Path("search/{searchId}")
   @ApiOperation(value = "Get search request by ID")
-  public SearchParamsDto getSearchRequest(
+  public Response getSearchRequest(
       @PathParam("searchId") String searchId) {
     final SearchParamsDto result;
 
     try {
       result = searchController.get().getSearchParams(searchId, getCredential());
     } catch (NoSuchElementException e) {
-      // 404
-      throw new NotFoundException(e);
+      // TODO log?
+      return Response.status(Status.NOT_FOUND).build();
     }
 
-    return result;
+    return Response.ok(result).build();
   }
 
   @GET
   @Path("search/{searchId}/resultset-size")
   @ApiOperation(value = "Get search resultset size")
-  public int getSearchResultsetSize(
+  public Response getSearchResultsetSize(
       @PathParam("searchId") String searchId) {
     final int result;
 
     try {
       result = searchController.get().getResultsetSize(searchId, getCredential());
     } catch (NoSuchElementException e) {
-      throw new NotFoundException(e);
+      // TODO log?
+      return Response.status(Status.NOT_FOUND).build();
     }
 
-    return result;
+    return Response.ok(result).build();
   }
 
   @GET
   @Path("search/{searchId}/resultset")
   @ApiOperation(value = "Get resultset: whole or paged with query parameters")
   // either both pageSize and page are empty, or both are not empty
-  public List<T> getResultset(
+  public Response getResultset(
       @PathParam("searchId") String searchId,
       @QueryParam("pageSize") Integer pageSize, 
       @QueryParam("page") Integer page) {
@@ -348,11 +328,9 @@ public abstract class StandardResourceEndpoint<D extends Dao<T>, T> extends Stan
     // paging is supported not only with path params, but also with query params
     if (pageSize != null || page != null) {
       if (pageSize == null || page == null) {
-        
-        final String message = "Either 'pageSize' and 'page' query params are both empty (for getting whole resultset), "
-            + "or both non-empty (for getting resultset paged)"; 
-        throw new BadRequestException(message);
-        
+        return Response.status(Status.BAD_REQUEST.getStatusCode(), 
+            "Either 'pageSize' and 'page' query params are both empty (for getting whole resultset), "
+                + "or both non-empty (for getting resultset paged)").build();
       } else {
         return getResultsetPaged(searchId, pageSize, page);
       }
@@ -361,22 +339,21 @@ public abstract class StandardResourceEndpoint<D extends Dao<T>, T> extends Stan
     return getResultset(searchId);  
   }
 
-  protected List<T> getResultset(String searchId) {
+  protected Response getResultset(String searchId) {
 
-    final List<T> result;
+    final List<?> result;
 
     try {
       result = searchController.get().getResultset(searchId, getCredential());
     } catch (NoSuchElementException e) {
-      // 404
-      throw new NotFoundException(e);
+      // TODO log?
+      return Response.status(Status.NOT_FOUND).build();
     }
 
     if (result == null || result.isEmpty()) {
-      // 204
-      return null;
+      return Response.status(Status.NOT_FOUND).build();
     } else {
-      return result;
+      return Response.ok(result).build();
     }
   }
 
@@ -385,7 +362,7 @@ public abstract class StandardResourceEndpoint<D extends Dao<T>, T> extends Stan
   @GET
   @Path("search/{searchId}/resultset/paged-by-{pageSize:\\d+}/{page}")
   @ApiOperation(value = "Get resultset paged")
-  public List<T> getResultsetPaged(
+  public Response getResultsetPaged(
       @PathParam("searchId") String searchId,
       @PathParam("pageSize") Integer pageSize, 
       @PathParam("page") Integer page) {
@@ -394,20 +371,19 @@ public abstract class StandardResourceEndpoint<D extends Dao<T>, T> extends Stan
     pageSize = pageSize == null ? DEFAULT_PAGE_SIZE : pageSize;
     page = page == null ? 1 : page;
 
-    final List<T> result;
+    final List<?> result;
 
     try {
       result = searchController.get().getResultsetPaged(searchId, pageSize, page, getCredential());
     } catch (NoSuchElementException e) {
-      // 404
-      throw new NotFoundException(e);
+      // TODO log?
+      return Response.status(Status.NOT_FOUND).build();
     }
 
     if (result == null || result.isEmpty()) {
-      // 204
-      return null;
+      return Response.status(Status.NOT_FOUND).build();
     } else {
-      return result;
+      return Response.ok(result).build();
     }
   }
 }
