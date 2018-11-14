@@ -23,14 +23,13 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import org.jepria.server.dao.Dao;
 import org.jepria.server.load.rest.SearchParamsDto;
 import org.jepria.server.service.rest.ResourceController;
 import org.jepria.server.service.rest.ResourceControllerBase;
-import org.jepria.server.service.rest.ResourceDescription;
 import org.jepria.server.service.rest.ResourceSearchController;
 import org.jepria.server.service.rest.ResourceSearchControllerBase;
-
-import com.technology.jep.jepria.server.dao.JepDataStandard;
+import org.jepria.shared.RecordDefinition;
 
 import io.swagger.annotations.ApiOperation;
 
@@ -39,15 +38,22 @@ import io.swagger.annotations.ApiOperation;
  */
 @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
 @Consumes(MediaType.APPLICATION_JSON + ";charset=utf-8")
-public abstract class StandardResourceEndpoint<D extends JepDataStandard> extends StandardEndpointBase {
-
-  protected StandardResourceEndpoint() {}
+public abstract class StandardResourceEndpoint<D extends Dao> extends StandardEndpointBase {
 
   /**
-   * Provides application resource description
-   * @return
+   * Implementors provide standard applicational description for the REST resources  
    */
-  protected abstract ResourceDescription<D> getResourceDescription();
+  public static interface Description<D extends Dao> {
+    D getDao();
+    String getResourceName();
+    RecordDefinition getRecordDefinition();
+  }
+  
+  protected final Description<D> description;
+
+  protected StandardResourceEndpoint(Description<D> description) {
+    this.description = description;
+  }
 
   /**
    * Supplier protects the internal field from direct access from within the class members,
@@ -71,7 +77,12 @@ public abstract class StandardResourceEndpoint<D extends JepDataStandard> extend
    */
   protected class ResourceControllerImplLocal extends ResourceControllerBase {
     protected ResourceControllerImplLocal() {
-      super(getResourceDescription());
+      super(new Supplier<Dao>() {
+        @Override
+        public Dao get() {
+          return description.getDao();
+        }
+      }, description.getRecordDefinition());
     }
   }
 
@@ -103,7 +114,12 @@ public abstract class StandardResourceEndpoint<D extends JepDataStandard> extend
    */
   protected class ResourceSearchControllerImplLocal extends ResourceSearchControllerBase {
     protected ResourceSearchControllerImplLocal() {
-      super(getResourceDescription(),
+      super(new Supplier<Dao>() {
+        @Override
+        public Dao get() {
+          return description.getDao();
+        }
+      }, description.getRecordDefinition(),
           new Supplier<HttpSession>() {
         @Override
         public HttpSession get() {
@@ -122,7 +138,7 @@ public abstract class StandardResourceEndpoint<D extends JepDataStandard> extend
   @GET
   @ApiOperation(value = "List this resource as options")
   public Response listAsOptions() {
-    return listOptions(getResourceDescription().getResourceName());
+    return listOptions(description.getResourceName());
   }
 
   @GET
