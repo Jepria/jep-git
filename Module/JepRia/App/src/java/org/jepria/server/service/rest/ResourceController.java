@@ -21,9 +21,9 @@ public interface ResourceController {
   /**
    * @param record
    * @param credential
-   * @return created instance ID, non-null
+   * @return created resourceId, non-null
    */
-  Object create(Map<String, Object> record, Credential credential);
+  String create(Map<String, ?> record, Credential credential);
   
   /**
    * 
@@ -39,7 +39,7 @@ public interface ResourceController {
    * @param credential
    * @throws NoSuchElementException if the requested resourceId does not exist
    */
-  void update(String resourceId, Map<String, Object> fields, Credential credential) throws NoSuchElementException;
+  void update(String resourceId, Map<String, ?> newRecord, Credential credential) throws NoSuchElementException;
   
   /////////////////////////// OPTIONS RESOURCE //////////////////////////
   

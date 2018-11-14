@@ -40,13 +40,11 @@ import io.swagger.annotations.ApiOperation;
 @Consumes(MediaType.APPLICATION_JSON + ";charset=utf-8")
 public abstract class StandardResourceEndpoint<D extends Dao> extends StandardEndpointBase {
 
-  protected StandardResourceEndpoint() {}
+  protected final ResourceDescription<D> resourceDescription;
 
-  /**
-   * Provides application resource description
-   * @return
-   */
-  protected abstract ResourceDescription<D> getResourceDescription();
+  protected StandardResourceEndpoint(ResourceDescription<D> resourceDescription) {
+    this.resourceDescription = resourceDescription;
+  }
 
   /**
    * Supplier protects the internal field from direct access from within the class members,
@@ -70,7 +68,12 @@ public abstract class StandardResourceEndpoint<D extends Dao> extends StandardEn
    */
   protected class ResourceControllerImplLocal extends ResourceControllerBase {
     protected ResourceControllerImplLocal() {
-      super(getResourceDescription());
+      super(new Supplier<Dao>() {
+        @Override
+        public Dao get() {
+          return resourceDescription.getDao();
+        }
+      }, resourceDescription.getRecordDefinition());
     }
   }
 
@@ -102,7 +105,12 @@ public abstract class StandardResourceEndpoint<D extends Dao> extends StandardEn
    */
   protected class ResourceSearchControllerImplLocal extends ResourceSearchControllerBase {
     protected ResourceSearchControllerImplLocal() {
-      super(getResourceDescription(),
+      super(new Supplier<Dao>() {
+        @Override
+        public Dao get() {
+          return resourceDescription.getDao();
+        }
+      }, resourceDescription.getRecordDefinition(),
           new Supplier<HttpSession>() {
         @Override
         public HttpSession get() {
@@ -121,7 +129,7 @@ public abstract class StandardResourceEndpoint<D extends Dao> extends StandardEn
   @GET
   @ApiOperation(value = "List this resource as options")
   public Response listAsOptions() {
-    return listOptions(getResourceDescription().getResourceName());
+    return listOptions(resourceDescription.getResourceName());
   }
 
   @GET
