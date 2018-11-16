@@ -13,6 +13,7 @@ import static com.technology.jep.jepria.client.JepRiaClientConstant.MAIN_FONT_ST
 
 import java.util.*;
 import java.util.Map.Entry;
+import java.util.stream.Collectors;
 
 import com.google.gwt.aria.client.Roles;
 import com.google.gwt.cell.client.AbstractCell;
@@ -400,7 +401,14 @@ public class TreeField<V extends JepOption> extends Composite implements HasChec
    * @return  список узлов дерева
    */
   public List<V> getCheckedSelection() {
-    return new ArrayList<V>(selectionModel.getSelectedSet());
+    List<V> selected = new ArrayList<V>(selectionModel.getSelectedSet());
+    if (this.checkStyle != CheckCascade.NONE) {
+      return selected.stream().filter(item -> {
+        return !partialSelectedNodes.contains(item);
+      }).collect(Collectors.toList());
+    } else {
+      return selected;
+    }
   }
   
   /**
@@ -1051,6 +1059,7 @@ public class TreeField<V extends JepOption> extends Composite implements HasChec
         if (in == 1) {
           checkedState = 1;
         } else if (in == 0) {
+          partialSelectedNodes.add(value);
           checkedState = 2;
         } else {
           checkedState = 0;
