@@ -82,6 +82,11 @@ public class JepDateField extends JepMultiStateField<MaskedDateBox, HTML> {
     this(null, fieldLabel);
   }
   
+  /**
+   * Создаёт поле для ввода даты в стандартном формате (dd.MM.yyyy).
+   * @param fieldIdAsWebEl id элемента DOM
+   * @param fieldLabel метка
+   */
   public JepDateField(String fieldIdAsWebEl, String fieldLabel) {
     super(fieldIdAsWebEl, fieldLabel);
   }
@@ -93,6 +98,11 @@ public class JepDateField extends JepMultiStateField<MaskedDateBox, HTML> {
   public static final int FORMAT_DAYS_AND_MONTH_AND_YEAR = PANEL_OF_DAYS_AND_MONTH_AND_YEAR;
   public static final int FORMAT_MONTH_AND_YEAR_ONLY = PANEL_OF_MONTH_AND_YEAR_ONLY;
   public static final int FORMAT_YEAR_ONLY = PANEL_OF_YEAR_ONLY;
+  
+  /**
+   * Тип календаря, поумолчанию выставляется отображение календаря с выпадающими списками: месяц, год 
+   */
+  private int TYPE_DATEPICKER = FORMAT_DAYS_AND_MONTH_AND_YEAR;
   
   /**
    * Граничные даты диапазона возможных значений дат
@@ -150,8 +160,6 @@ public class JepDateField extends JepMultiStateField<MaskedDateBox, HTML> {
   public Date getMaxLimitDate() {
     return maxDate;
   }
-  
-  private int TYPE_DATEPICKER = FORMAT_DAYS_AND_MONTH_AND_YEAR;
   
   /**
    * Метод для управления панелью навигации в календаре
@@ -299,7 +307,8 @@ public class JepDateField extends JepMultiStateField<MaskedDateBox, HTML> {
   
   /**
    * Проверка на принадлежность диапазона граничных дат
-   * @param newDate
+   * @param newDate новая дата проверяем попадания в диапазон
+   * @return Истина - попали в диапазон, Ложь - не попали в диапазон
    */
   protected boolean inRangeDate(Date newDate) {
     boolean result = true;
@@ -400,8 +409,9 @@ public class JepDateField extends JepMultiStateField<MaskedDateBox, HTML> {
    * {@link com.technology.jep.jepria.client.widget.event.JepEventType#CHANGE_VALUE_EVENT}.
    */
   protected void addChangeValueListener() {
-    
-    // Срабатывает при выборе в панели календаря 
+    /*
+     *  Срабатывает при выборе в панели календаря 
+     */
     editableCard.addValueChangeHandler(
       new ValueChangeHandler<Date>() {
         public void onValueChange(ValueChangeEvent<Date> event) {
@@ -459,7 +469,7 @@ public class JepDateField extends JepMultiStateField<MaskedDateBox, HTML> {
   
   /**
    *  Обработчик введенного текста с мобильного устройства
-   * @param newDate
+   * @param newDate новое значние даты календаря
    */
   protected void handlerKeyboardEvent(Date newDate) {
     notifyListeners(JepEventType.CHANGE_VALUE_EVENT, new JepEvent(this, newDate));
@@ -467,7 +477,8 @@ public class JepDateField extends JepMultiStateField<MaskedDateBox, HTML> {
 
   /**
    * Валидация введенной даты
-   * return @Date дата корректная
+   * @param дата в текстовом представлении
+   * @return @Date дата корректная
    */
   protected Date validDate(String date) throws Exception {
     Date result = null;
@@ -538,7 +549,7 @@ public class JepDateField extends JepMultiStateField<MaskedDateBox, HTML> {
   
   /**
    * Проверяем нажатые клавиши
-   * @param code
+   * @param code код клавиши
    * @return вернет Истину, если введен допустимый код, иначе Ложь
    */
   
