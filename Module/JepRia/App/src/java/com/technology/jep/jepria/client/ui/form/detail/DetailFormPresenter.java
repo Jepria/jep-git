@@ -292,10 +292,21 @@ public class DetailFormPresenter<V extends DetailFormView, E extends PlainEventB
     // Проинициализируем поисковый шаблон (независимо откуда был осуществлен переход: с формы поиска или с главной формы на подчиненную).
     searchTemplate = event.getPagingConfig().getTemplateRecord();
     // Сохраняем поисковый шаблон для загрузки данных шаблона после перегрузки формы
-    Storage storage = Storage.getLocalStorageIfSupported();
-    if (storage != null) {
-      storage.setItem("find_" + getClass().getCanonicalName(), searchTemplate.toHistoryToken());
-    }
+    eventBus.saveSearchTemplate(searchTemplate);
+  }
+  
+  /**
+   * Метод сохранения поискового шаблона в Local Storage<br/>
+   * Должен вызываться в событии onSaveSearchTemplate клиентского презентера<br/>
+   * 
+   * @param searchTemplate поисковой шаблон
+   */
+  public void saveSearchTemplate(JepRecord searchTemplate) {
+	    // Сохраняем поисковый шаблон для загрузки данных шаблона после перегрузки формы
+	    Storage storage = Storage.getLocalStorageIfSupported();
+	    if (storage != null) {
+	      storage.setItem("find_" + getClass().getCanonicalName(), searchTemplate.toHistoryToken());
+	    }
   }
   
   /**
