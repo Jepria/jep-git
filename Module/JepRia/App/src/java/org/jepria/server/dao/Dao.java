@@ -11,7 +11,7 @@ import java.util.Map;
  */
 public interface Dao {
   
-  default void sort(List<?> dataset, LinkedHashMap<String, Comparator<Object>> fieldComparators) {
+  default void sort(List<Map<String, ?>> dataset, LinkedHashMap<String, Comparator<Object>> fieldComparators) {
     
     if (dataset == null) {
       return;
@@ -54,8 +54,7 @@ public interface Dao {
     };
     
     
-    // assert dataset is of type List<Map<String, ?>>
-    Collections.sort((List<Map<String, ?>>)dataset, recordComparator);
+    Collections.sort(dataset, recordComparator);
     
   }
   

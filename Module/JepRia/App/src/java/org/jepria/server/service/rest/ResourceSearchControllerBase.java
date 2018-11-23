@@ -84,16 +84,16 @@ public class ResourceSearchControllerBase implements ResourceSearchController {
    * @return сохранённый атрибут сессии: результирующий список
    * в соответствии с последним клиентским запросом 
    */
-  private List<?> getSessionResultset() {
+  private List<Map<String, ?>> getSessionResultset() {
     final String key = "SearchController:DaoName=" + daoSupplier.get().getClass().getSimpleName() + ";SearchId=" + searchUID + ";Key=SearchResultset;";
-    return (List<?>)session.get().getAttribute(key);
+    return (List<Map<String, ?>>)session.get().getAttribute(key);
   }
   /**
    * Сохраняет атрибут сессии: результирующий список
    * в соответствии с последним клиентским запросом
    * @param resultset
    */
-  private void setSessionResultset(List<?> resultset) {
+  private void setSessionResultset(List<Map<String, ?>> resultset) {
     final String key = "SearchController:DaoName=" + daoSupplier.get().getClass().getSimpleName() + ";SearchId=" + searchUID + ";Key=SearchResultset;";
     if (resultset == null) {
       session.get().removeAttribute(key);
@@ -238,7 +238,7 @@ public class ResourceSearchControllerBase implements ResourceSearchController {
     
     SearchModel searchModel = createSearchModel(searchParams);
     
-    List<?> resultset;
+    List<Map<String, ?>> resultset;
     
     try {
       Dao dao = daoSupplier.get();
@@ -295,7 +295,7 @@ public class ResourceSearchControllerBase implements ResourceSearchController {
       }
       
       
-      final List<?> resultset = getSessionResultset();
+      final List<Map<String, ?>> resultset = getSessionResultset();
       
       if (resultset == null) {
         throw new IllegalStateException("The session attribute must have already been set at this point");
