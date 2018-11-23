@@ -56,7 +56,7 @@ public class ResourceControllerBase implements ResourceController {
   //////////// CRUD ///////////////////
 
   @Override
-  public Object getResourceById(String resourceId, Credential credential) throws NoSuchElementException {
+  public Map<String, ?> getResourceById(String resourceId, Credential credential) throws NoSuchElementException {
 
     final Map<String, ?> primaryKeyMap;
     try {
@@ -65,7 +65,7 @@ public class ResourceControllerBase implements ResourceController {
       throw new NoSuchElementException("The resourceId '" + resourceId + "' cannot be parsed against the primary key");
     }
 
-    final List<?> daoResultList;
+    final List<Map<String, ?>> daoResultList;
     try {
       Dao dao = daoSupplier.get();
       daoResultList = dao.find(primaryKeyMap, 1, credential.getOperatorId());
@@ -85,7 +85,7 @@ public class ResourceControllerBase implements ResourceController {
 
 
     // daoResult is a single record
-    final Object result = daoResultList.get(0);
+    final Map<String, ?> result = daoResultList.get(0);
 
     return result;
   }

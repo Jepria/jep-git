@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 
 import org.jepria.compat.CoreCompat;
 import org.jepria.server.dao.Dao;
+import org.jepria.server.dao.RecordComparator;
 import org.jepria.server.load.rest.ColumnSortConfigurationDto;
 import org.jepria.server.load.rest.SearchParamsDto;
 import org.jepria.server.security.Credential;
@@ -301,10 +302,10 @@ public class ResourceSearchControllerBase implements ResourceSearchController {
         throw new IllegalStateException("The session attribute must have already been set at this point");
       }
 
-      
-      Dao dao = daoSupplier.get();
-      dao.sort(resultset, fieldComparators);
+
+      Collections.sort(resultset, new RecordComparator(fieldComparators));
       // sorting affects the session attribute as well 
+      
       
       setSessionResultsetSortValid(true);
       
@@ -336,10 +337,10 @@ public class ResourceSearchControllerBase implements ResourceSearchController {
    * @return non-null
    * @throws NoSuchSearchIdException
    */
-  protected List<?> getResultsetLocal(Credential credential) throws NoSuchElementException {
+  protected List<Map<String, ?>> getResultsetLocal(Credential credential) throws NoSuchElementException {
     
     // поиск (если необходимо)
-    List<?> resultset = getSessionResultset();
+    List<Map<String, ?>> resultset = getSessionResultset();
     
     if (resultset == null) {
       // поиск не осуществлялся или был инвалидирован
@@ -372,22 +373,22 @@ public class ResourceSearchControllerBase implements ResourceSearchController {
   }
   
   @Override
-  public List<?> getResultset(String searchId, Credential credential) throws NoSuchElementException {
+  public List<Map<String, ?>> getResultset(String searchId, Credential credential) throws NoSuchElementException {
     checkSearchIdOrElseThrow(searchId);
     
     return getResultsetLocal(credential);
   }
   
   @Override
-  public List<?> getResultsetPaged(String searchId, int pageSize, int page, Credential credential) throws NoSuchElementException {
+  public List<Map<String, ?>> getResultsetPaged(String searchId, int pageSize, int page, Credential credential) throws NoSuchElementException {
     checkSearchIdOrElseThrow(searchId);
     
-    List<?> resultset = getResultsetLocal(credential);
+    List<Map<String, ?>> resultset = getResultsetLocal(credential);
     
     return paging(resultset, pageSize, page);
   }
   
-  private static <T> List<T> paging(List<T> resultset, int pageSize, int page) {
+  private static List<Map<String, ?>> paging(List<Map<String, ?>> resultset, int pageSize, int page) {
     if (resultset == null) {
       return null;
     }
@@ -402,7 +403,7 @@ public class ResourceSearchControllerBase implements ResourceSearchController {
     
     if (fromIndex < toIndex) {
       
-      List<T> pageRecords = Collections.unmodifiableList(resultset.subList(fromIndex, toIndex));
+      List<Map<String, ?>> pageRecords = Collections.unmodifiableList(resultset.subList(fromIndex, toIndex));
       return pageRecords;
       
     } else {

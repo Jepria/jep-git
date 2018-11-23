@@ -16,7 +16,7 @@ public interface ResourceController {
    * @return instance, non-null
    * @throws NoSuchElementException if the requested resourceId does not exist
    */
-  Object getResourceById(String resourceId, Credential credential) throws NoSuchElementException;
+  Map<String, ?> getResourceById(String resourceId, Credential credential) throws NoSuchElementException;
   
   /**
    * @param record

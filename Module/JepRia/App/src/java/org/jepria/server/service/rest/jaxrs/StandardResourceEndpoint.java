@@ -145,7 +145,7 @@ public abstract class StandardResourceEndpoint<D extends Dao> extends StandardEn
   @Path("{recordId}")
   @ApiOperation(value = "Get resource by ID")
   public Response getResourceById(@PathParam("recordId") String recordId) {
-    Object record = resourceController.get().getResourceById(recordId, getCredential());
+    Map<String, ?> record = resourceController.get().getResourceById(recordId, getCredential());
     if (record == null) {
       return Response.status(Status.NOT_FOUND).build();
     } else {
@@ -357,7 +357,7 @@ public abstract class StandardResourceEndpoint<D extends Dao> extends StandardEn
 
   protected Response getResultset(String searchId) {
 
-    final List<?> result;
+    final List<Map<String, ?>> result;
 
     try {
       result = searchController.get().getResultset(searchId, getCredential());
@@ -387,7 +387,7 @@ public abstract class StandardResourceEndpoint<D extends Dao> extends StandardEn
     pageSize = pageSize == null ? DEFAULT_PAGE_SIZE : pageSize;
     page = page == null ? 1 : page;
 
-    final List<?> result;
+    final List<Map<String, ?>> result;
 
     try {
       result = searchController.get().getResultsetPaged(searchId, pageSize, page, getCredential());

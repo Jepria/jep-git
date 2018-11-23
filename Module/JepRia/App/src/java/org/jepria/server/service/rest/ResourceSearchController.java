@@ -1,6 +1,7 @@
 package org.jepria.server.service.rest;
 
 import java.util.List;
+import java.util.Map;
 import java.util.NoSuchElementException;
 
 import org.jepria.server.load.rest.SearchParamsDto;
@@ -34,7 +35,7 @@ public interface ResourceSearchController {
    * @return
    * @throws NoSuchElementException if the requested searchId does not exist
    */
-  List<?> getResultsetPaged(String searchId, int pageSize, int page, Credential credential) throws NoSuchElementException;
+  List<Map<String, ?>> getResultsetPaged(String searchId, int pageSize, int page, Credential credential) throws NoSuchElementException;
 
   /**
    * 
@@ -43,7 +44,7 @@ public interface ResourceSearchController {
    * @return
    * @throws NoSuchElementException if the requested searchId does not exist
    */
-  List<?> getResultset(String searchId, Credential credential) throws NoSuchElementException;
+  List<Map<String, ?>> getResultset(String searchId, Credential credential) throws NoSuchElementException;
 
   /**
    * @param searchId
