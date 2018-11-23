@@ -1,6 +1,8 @@
 package org.jepria.server.service.rest.jaxrs;
 
+import java.lang.reflect.Type;
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,11 +10,16 @@ import java.util.NoSuchElementException;
 import java.util.function.Supplier;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
+import javax.json.bind.Jsonb;
+import javax.json.bind.JsonbBuilder;
 import javax.servlet.http.HttpSession;
+import javax.ws.rs.BadRequestException;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
+import javax.ws.rs.NotFoundException;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
@@ -38,7 +45,7 @@ import io.swagger.annotations.ApiOperation;
  */
 @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
 @Consumes(MediaType.APPLICATION_JSON + ";charset=utf-8")
-public abstract class StandardResourceEndpoint<D extends Dao> extends StandardEndpointBase {
+public abstract class StandardResourceEndpoint<D extends Dao, T> extends StandardEndpointBase {
 
   /**
    * Implementors provide standard applicational description for the REST resources  
@@ -50,9 +57,11 @@ public abstract class StandardResourceEndpoint<D extends Dao> extends StandardEn
   }
   
   protected final Description<D> description;
+  protected final Class<T> dtoClass;
 
-  protected StandardResourceEndpoint(Description<D> description) {
+  protected StandardResourceEndpoint(Description<D> description, Class<T> dtoClass) {
     this.description = description;
+    this.dtoClass = dtoClass;
   }
 
   /**
@@ -137,43 +146,48 @@ public abstract class StandardResourceEndpoint<D extends Dao> extends StandardEn
 
   @GET
   @ApiOperation(value = "List this resource as options")
-  public Response listAsOptions() {
+  public List<?> listAsOptions() {
     return listOptions(description.getResourceName());
   }
 
   @GET
   @Path("{recordId}")
   @ApiOperation(value = "Get resource by ID")
-  public Response getResourceById(@PathParam("recordId") String recordId) {
-    Map<String, ?> record = resourceController.get().getResourceById(recordId, getCredential());
-    if (record == null) {
-      return Response.status(Status.NOT_FOUND).build();
-    } else {
-      return Response.ok(record).build();
+  public T getResourceById(@PathParam("recordId") String recordId) {
+    final T resource;
+
+    try {
+      Map<String, ?> record = resourceController.get().getResourceById(recordId, getCredential());
+      resource = mapToDto(record);
+    } catch (NoSuchElementException e) {
+      // 404
+      throw new NotFoundException(e);
     }
+
+    return resource;
   }
 
   @POST
-  @ApiOperation(value = "Create a new instance")
-  public Response create(Map<String, Object> instance) {
-    Object createdId = resourceController.get().create(instance, getCredential());
+  @ApiOperation(value = "Create a new resource instance")
+  public Response create(T resource) {
+    Map<String, ?> record = dtoToMap(resource);
+    final String createdId = resourceController.get().create(record, getCredential());
     return Response.status(Status.CREATED).header("Location", createdId).build();
   }
 
   @DELETE
   @Path("{recordId}")
   @ApiOperation(value = "Delete resource by ID")
-  public Response deleteResourceById(@PathParam("recordId") String recordId) {
+  public void deleteResourceById(@PathParam("recordId") String recordId) {
     resourceController.get().deleteResource(recordId, getCredential());
-    return Response.ok().build();
   }
 
   @PUT
   @Path("{recordId}")
   @ApiOperation(value = "Update resource by ID")
-  public Response update(@PathParam("recordId") String recordId, Map<String, Object> fields) {
-    resourceController.get().update(recordId, fields, getCredential());
-    return Response.ok().build();
+  public void update(@PathParam("recordId") String recordId, T resource) {
+    Map<String, ?> record = dtoToMap(resource);
+    resourceController.get().update(recordId, record, getCredential());
   }
 
   //////// OPTIONS ////////
@@ -181,12 +195,20 @@ public abstract class StandardResourceEndpoint<D extends Dao> extends StandardEn
   @GET
   @Path("option/{optionEntityName}")
   @ApiOperation(value = "List options by option-entity name")
-  public Response listOptions(@PathParam("optionEntityName") String optionEntityName) {
-    List<?> result = resourceController.get().listOptions(optionEntityName, getCredential());
+  public List<?> listOptions(@PathParam("optionEntityName") String optionEntityName) {
+    final List<?> result;
+
+    try {
+      result = resourceController.get().listOptions(optionEntityName, getCredential());
+    } catch (NoSuchElementException e) {
+      // 404
+      throw new NotFoundException(e);
+    }
     if (result == null || result.isEmpty()) {
-      return Response.status(Status.NOT_FOUND).build();
+      // 204
+      return null;
     } else {
-      return Response.ok(result).build();
+      return result;
     }
   }
 
@@ -209,7 +231,7 @@ public abstract class StandardResourceEndpoint<D extends Dao> extends StandardEn
 
     // клиент может запросить ответ, расширенный результатами поиска данного запроса
     response = ExtendedResponse.extend(response).valuesFrom(request).handler(new PostSearchExtendedResponseHandler(searchId)).create(); 
-    
+
     return response;
   }
 
@@ -226,14 +248,17 @@ public abstract class StandardResourceEndpoint<D extends Dao> extends StandardEn
 
     @Override
     public Object handle(String value) {
-      
+
       {// return resultset size
         if ("resultset-size".equals(value)) {
           try {
             return searchController.get().getResultsetSize(searchId, getCredential());
-          } catch (NoSuchElementException e) {
-            // невозможно, поскольку searchId был создан в рамках этого же запроса
-            throw new IllegalStateException();
+          } catch (Throwable e) {
+            // TODO process jaxrs exceptions like NotFoundException or BadRequestException differently, or add "status":"exception" as an extended-response block 
+
+            // do not re-throw
+            e.printStackTrace();
+            return null;
           }
         }
       }
@@ -242,11 +267,11 @@ public abstract class StandardResourceEndpoint<D extends Dao> extends StandardEn
 
         // TODO or better to use org.glassfish.jersey.uri.UriTemplate? 
         // https://stackoverflow.com/questions/17840512/java-better-way-to-parse-a-restful-resource-url
-        
+
         Matcher m1 = Pattern.compile("resultset/paged-by-(\\d+)/(\\d+)").matcher(value);
         Matcher m2 = Pattern.compile("resultset\\?pageSize\\=(\\d+)&page\\=(\\d+)").matcher(value);
         Matcher m3 = Pattern.compile("resultset\\?page\\=(\\d+)&pageSize\\=(\\d+)").matcher(value);
-  
+
         if (m1.matches() || m2.matches() || m3.matches()) {
           final int pageSize, page;
           if (m1.matches()) {
@@ -262,81 +287,86 @@ public abstract class StandardResourceEndpoint<D extends Dao> extends StandardEn
             // programmatically impossible
             throw new IllegalStateException();
           }
-  
+
           // подзапрос на выдачу данных
-          Response subresponse = getResultsetPaged(searchId, pageSize, page); 
-          final Object subresponseData;
-          if (subresponse != null && subresponse.getEntity() != null) {
-            subresponseData = subresponse.getEntity(); 
-          } else {
-            subresponseData = new Object();// avoid null
+          List<T> subresponse;
+          try {
+            subresponse = getResultsetPaged(searchId, pageSize, page);
+          } catch (Throwable e) {
+            // TODO process jaxrs exceptions like NotFoundException or BadRequestException differently...
+
+            // do not re-throw
+            e.printStackTrace();
+            return null;
           }
-          
+
+          if (subresponse == null) {
+            subresponse = new ArrayList<>();
+          }
 
           final String href = URI.create(request.getRequestURL() + "/" + searchId + "/" + value).toString();
-          
-          
+
+
           // компоновка ответа из ответа подзапроса, в виде
           // {
           //   "data": [<список с запрошенными результатами>],
           //   "href": "<для удобства: готовый url, по которому выдаются в точности те же данные, что и в поле data>"
           // }
           Map<String, Object> ret = new HashMap<>();
-          ret.put("data", subresponseData);
+          ret.put("data", subresponse);
           ret.put("href", href);
 
           return ret;
         }
       }
-      
-      
+
+
       // намеренно не поддерживается возврат полного результата (/resultset) в extended-response, потому что в общем случае
       // клиент должен принять решение о том, запрашивать ли результат целиком только на основе ответа /resultset-size,
       // что невозможно в рамках одного запроса-ответа
-      
+
       return null;
     }
   }
-  
+
   @GET
   @Path("search/{searchId}")
   @ApiOperation(value = "Get search request by ID")
-  public Response getSearchRequest(
+  public SearchParamsDto getSearchRequest(
       @PathParam("searchId") String searchId) {
     final SearchParamsDto result;
 
     try {
       result = searchController.get().getSearchParams(searchId, getCredential());
     } catch (NoSuchElementException e) {
-      // TODO log?
-      return Response.status(Status.NOT_FOUND).build();
+      // 404
+      throw new NotFoundException(e);
     }
 
-    return Response.ok(result).build();
+    return result;
   }
 
   @GET
   @Path("search/{searchId}/resultset-size")
   @ApiOperation(value = "Get search resultset size")
-  public Response getSearchResultsetSize(
+  public int getSearchResultsetSize(
       @PathParam("searchId") String searchId) {
     final int result;
 
     try {
       result = searchController.get().getResultsetSize(searchId, getCredential());
     } catch (NoSuchElementException e) {
-      // TODO log?
-      return Response.status(Status.NOT_FOUND).build();
+      throw new NotFoundException(e);
     }
 
-    return Response.ok(result).build();
+    return result;
   }
 
   @GET
   @Path("search/{searchId}/resultset")
   @ApiOperation(value = "Get resultset: whole or paged with query parameters")
   // either both pageSize and page are empty, or both are not empty
-  public Response getResultset(
+  public List<T> getResultset(
       @PathParam("searchId") String searchId,
       @QueryParam("pageSize") Integer pageSize, 
       @QueryParam("page") Integer page) {
@@ -344,9 +374,11 @@ public abstract class StandardResourceEndpoint<D extends Dao> extends StandardEn
     // paging is supported not only with path params, but also with query params
     if (pageSize != null || page != null) {
       if (pageSize == null || page == null) {
-        return Response.status(Status.BAD_REQUEST.getStatusCode(), 
-            "Either 'pageSize' and 'page' query params are both empty (for getting whole resultset), "
-                + "or both non-empty (for getting resultset paged)").build();
+
+        final String message = "Either 'pageSize' and 'page' query params are both empty (for getting whole resultset), "
+            + "or both non-empty (for getting resultset paged)"; 
+        throw new BadRequestException(message);
+
       } else {
         return getResultsetPaged(searchId, pageSize, page);
       }
@@ -355,21 +387,24 @@ public abstract class StandardResourceEndpoint<D extends Dao> extends StandardEn
     return getResultset(searchId);  
   }
 
-  protected Response getResultset(String searchId) {
+  protected List<T> getResultset(String searchId) {
 
-    final List<Map<String, ?>> result;
+    final List<Map<String, ?>> records;
 
     try {
-      result = searchController.get().getResultset(searchId, getCredential());
+      records = searchController.get().getResultset(searchId, getCredential());
     } catch (NoSuchElementException e) {
-      // TODO log?
-      return Response.status(Status.NOT_FOUND).build();
+      // 404
+      throw new NotFoundException(e);
     }
 
-    if (result == null || result.isEmpty()) {
-      return Response.status(Status.NOT_FOUND).build();
+    if (records == null || records.isEmpty()) {
+      // 204
+      return null;
     } else {
-      return Response.ok(result).build();
+
+      final List<T> result = records.stream().map(record -> mapToDto(record)).collect(Collectors.toList());
+      return result;
     }
   }
 
@@ -378,7 +413,7 @@ public abstract class StandardResourceEndpoint<D extends Dao> extends StandardEn
   @GET
   @Path("search/{searchId}/resultset/paged-by-{pageSize:\\d+}/{page}")
   @ApiOperation(value = "Get resultset paged")
-  public Response getResultsetPaged(
+  public List<T> getResultsetPaged(
       @PathParam("searchId") String searchId,
       @PathParam("pageSize") Integer pageSize, 
       @PathParam("page") Integer page) {
@@ -387,19 +422,36 @@ public abstract class StandardResourceEndpoint<D extends Dao> extends StandardEn
     pageSize = pageSize == null ? DEFAULT_PAGE_SIZE : pageSize;
     page = page == null ? 1 : page;
 
-    final List<Map<String, ?>> result;
+    final List<Map<String, ?>> records;
 
     try {
-      result = searchController.get().getResultsetPaged(searchId, pageSize, page, getCredential());
+      records = searchController.get().getResultsetPaged(searchId, pageSize, page, getCredential());
     } catch (NoSuchElementException e) {
-      // TODO log?
-      return Response.status(Status.NOT_FOUND).build();
+      // 404
+      throw new NotFoundException(e);
     }
 
-    if (result == null || result.isEmpty()) {
-      return Response.status(Status.NOT_FOUND).build();
+    if (records == null || records.isEmpty()) {
+      // 204
+      return null;
     } else {
-      return Response.ok(result).build();
+
+      final List<T> result = records.stream().map(record -> mapToDto(record)).collect(Collectors.toList());
+      return result;
     }
+  }
+  
+  protected Map<String, ?> dtoToMap(T dto) {
+    final Type type = new HashMap<String, Object>().getClass().getGenericSuperclass();
+    Jsonb jsonb = JsonbBuilder.create();
+    final Map<String, ?> map = jsonb.fromJson(jsonb.toJson(dto), type);
+    return map;
+  }
+  
+  protected T mapToDto(Map<String, ?> map) {
+    final Type type = dtoClass.getGenericSuperclass();
+    Jsonb jsonb = JsonbBuilder.create();
+    T resource = jsonb.fromJson(jsonb.toJson(map), type);
+    return resource;
   }
 }
