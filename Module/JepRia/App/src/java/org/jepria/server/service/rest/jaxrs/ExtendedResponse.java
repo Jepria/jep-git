@@ -15,7 +15,10 @@ import javax.ws.rs.core.Response.ResponseBuilder;
  */
 public class ExtendedResponse {
   
-  public static final String HEADER_NAME__EXTENDED_RESPONSE = "extended-response";
+  /**
+   * HTTP-заголовок запроса, требующий расширенного ответа
+   */
+  public static final String REQUEST_HEADER_NAME = "extended-response";
   
   /**
    * Конфигуратор расширения ответа 
@@ -39,6 +42,8 @@ public class ExtendedResponse {
      */
     Response create();
   }
+  
+  private ExtendedResponse() {}
 
   /**
    * Создаёт конфигуратор
@@ -65,7 +70,7 @@ public class ExtendedResponse {
 
     @Override
     public Configurator valuesFrom(HttpServletRequest request) {
-      final String header = request.getHeader(HEADER_NAME__EXTENDED_RESPONSE);
+      final String header = request.getHeader(REQUEST_HEADER_NAME);
       if (header != null) {
         values = new ArrayList<>();
         String[] headerValues = header.split("\\s*,\\s*");
