@@ -1,6 +1,5 @@
 package org.jepria.server.service.rest.jaxrs;
 
-import java.lang.reflect.Type;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,8 +11,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-import javax.json.bind.Jsonb;
-import javax.json.bind.JsonbBuilder;
 import javax.servlet.http.HttpSession;
 import javax.ws.rs.BadRequestException;
 import javax.ws.rs.Consumes;
@@ -31,6 +28,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import org.jepria.server.dao.Dao;
+import org.jepria.server.dao.DtoUtil;
 import org.jepria.server.load.rest.SearchParamsDto;
 import org.jepria.server.service.rest.ResourceController;
 import org.jepria.server.service.rest.ResourceControllerBase;
@@ -57,6 +55,8 @@ public abstract class StandardResourceEndpoint<D extends Dao, T> extends Standar
   }
   
   protected final Description<D> description;
+  
+  // декомпозиция: Class<T> dtoClass не входит в Description<D>, чтобы не параметризовать Description типом T 
   protected final Class<T> dtoClass;
 
   protected StandardResourceEndpoint(Description<D> description, Class<T> dtoClass) {
@@ -158,7 +158,7 @@ public abstract class StandardResourceEndpoint<D extends Dao, T> extends Standar
 
     try {
       Map<String, ?> record = resourceController.get().getResourceById(recordId, getCredential());
-      resource = mapToDto(record);
+      resource = DtoUtil.mapToDto(record, dtoClass);
     } catch (NoSuchElementException e) {
       // 404
       throw new NotFoundException(e);
@@ -170,7 +170,7 @@ public abstract class StandardResourceEndpoint<D extends Dao, T> extends Standar
   @POST
   @ApiOperation(value = "Create a new resource instance")
   public Response create(T resource) {
-    Map<String, ?> record = dtoToMap(resource);
+    Map<String, ?> record = DtoUtil.dtoToMap(resource);
     final String createdId = resourceController.get().create(record, getCredential());
     return Response.status(Status.CREATED).header("Location", createdId).build();
   }
@@ -186,7 +186,7 @@ public abstract class StandardResourceEndpoint<D extends Dao, T> extends Standar
   @Path("{recordId}")
   @ApiOperation(value = "Update resource by ID")
   public void update(@PathParam("recordId") String recordId, T resource) {
-    Map<String, ?> record = dtoToMap(resource);
+    Map<String, ?> record = DtoUtil.dtoToMap(resource);
     resourceController.get().update(recordId, record, getCredential());
   }
 
@@ -403,7 +403,7 @@ public abstract class StandardResourceEndpoint<D extends Dao, T> extends Standar
       return null;
     } else {
 
-      final List<T> result = records.stream().map(record -> mapToDto(record)).collect(Collectors.toList());
+      final List<T> result = records.stream().map(record -> DtoUtil.mapToDto(record, dtoClass)).collect(Collectors.toList());
       return result;
     }
   }
@@ -436,22 +436,8 @@ public abstract class StandardResourceEndpoint<D extends Dao, T> extends Standar
       return null;
     } else {
 
-      final List<T> result = records.stream().map(record -> mapToDto(record)).collect(Collectors.toList());
+      final List<T> result = records.stream().map(record -> DtoUtil.mapToDto(record, dtoClass)).collect(Collectors.toList());
       return result;
     }
-  }
-  
-  protected Map<String, ?> dtoToMap(T dto) {
-    final Type type = new HashMap<String, Object>().getClass().getGenericSuperclass();
-    Jsonb jsonb = JsonbBuilder.create();
-    final Map<String, ?> map = jsonb.fromJson(jsonb.toJson(dto), type);
-    return map;
-  }
-  
-  protected T mapToDto(Map<String, ?> map) {
-    final Type type = dtoClass.getGenericSuperclass();
-    Jsonb jsonb = JsonbBuilder.create();
-    T resource = jsonb.fromJson(jsonb.toJson(map), type);
-    return resource;
   }
 }
