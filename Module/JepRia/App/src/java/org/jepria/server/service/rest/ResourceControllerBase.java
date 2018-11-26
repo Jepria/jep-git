@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
-import java.util.function.Supplier;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -19,11 +18,11 @@ import com.technology.jep.jepria.shared.field.JepTypeEnum;
 public class ResourceControllerBase implements ResourceController {
 
   // нет необходимости параметризовать, так как механизм CRUD не специфицируется на прикладном уровне 
-  protected final Supplier<Dao> daoSupplier;
+  protected final Dao dao;
   protected final RecordDefinition recordDefinition;
 
-  public ResourceControllerBase(Supplier<Dao> daoSupplier, RecordDefinition recordDefinition) {
-    this.daoSupplier = daoSupplier;
+  public ResourceControllerBase(Dao dao, RecordDefinition recordDefinition) {
+    this.dao = dao;
     this.recordDefinition = recordDefinition;
   }
 
@@ -67,7 +66,6 @@ public class ResourceControllerBase implements ResourceController {
 
     final List<Map<String, ?>> daoResultList;
     try {
-      Dao dao = daoSupplier.get();
       daoResultList = dao.find(primaryKeyMap, 1, credential.getOperatorId());
     } catch (Throwable e) {
       // TODO or log?
@@ -180,7 +178,6 @@ public class ResourceControllerBase implements ResourceController {
   public String create(Map<String, ?> record, Credential credential) {
     final Object daoResult;
     try {
-      Dao dao = daoSupplier.get();
       daoResult = dao.create(record, credential.getOperatorId());
     } catch (Throwable e) {
       // TODO or log?
@@ -200,7 +197,6 @@ public class ResourceControllerBase implements ResourceController {
     }
 
     try {
-      Dao dao = daoSupplier.get();
       dao.delete(primaryKeyMap, credential.getOperatorId());
     } catch (Throwable e) {
       // TODO or log?
@@ -223,7 +219,6 @@ public class ResourceControllerBase implements ResourceController {
     updateModel.putAll(primaryKeyMap);// TODO put primaryKeyMap into newRecord
     
     try {
-      Dao dao = daoSupplier.get();
       dao.update(newRecord, credential.getOperatorId());
     } catch (Throwable e) {
       // TODO or log?
@@ -244,7 +239,7 @@ public class ResourceControllerBase implements ResourceController {
 
       final String methodName = "get" + optionEntityNameNormalized;
       try {
-        Class<?> daoClass = daoSupplier.get().getClass();
+        Class<?> daoClass = dao.getClass();
         getOptionsMethod = daoClass.getMethod(methodName);
         
       } catch (NoSuchMethodException e) {
@@ -254,7 +249,7 @@ public class ResourceControllerBase implements ResourceController {
       }
 
 
-      final Object daoResult = getOptionsMethod.invoke(daoSupplier.get());
+      final Object daoResult = getOptionsMethod.invoke(dao);
 
 
       // TODO convert the DAO result into a target response object here (using DTO or RecordDefinition, whatever)

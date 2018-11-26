@@ -53,9 +53,9 @@ public abstract class StandardResourceEndpoint<D extends Dao, T> extends Standar
     String getResourceName();
     RecordDefinition getRecordDefinition();
   }
-  
+
   protected final Description<D> description;
-  
+
   // декомпозиция: Class<T> dtoClass не входит в Description<D>, чтобы не параметризовать Description типом T 
   protected final Class<T> dtoClass;
 
@@ -86,12 +86,7 @@ public abstract class StandardResourceEndpoint<D extends Dao, T> extends Standar
    */
   protected class ResourceControllerImplLocal extends ResourceControllerBase {
     protected ResourceControllerImplLocal() {
-      super(new Supplier<Dao>() {
-        @Override
-        public Dao get() {
-          return description.getDao();
-        }
-      }, description.getRecordDefinition());
+      super(description.getDao(), description.getRecordDefinition());
     }
   }
 
@@ -123,12 +118,7 @@ public abstract class StandardResourceEndpoint<D extends Dao, T> extends Standar
    */
   protected class ResourceSearchControllerImplLocal extends ResourceSearchControllerBase {
     protected ResourceSearchControllerImplLocal() {
-      super(new Supplier<Dao>() {
-        @Override
-        public Dao get() {
-          return description.getDao();
-        }
-      }, description.getRecordDefinition(),
+      super(description.getDao(), description.getRecordDefinition(),
           new Supplier<HttpSession>() {
         @Override
         public HttpSession get() {

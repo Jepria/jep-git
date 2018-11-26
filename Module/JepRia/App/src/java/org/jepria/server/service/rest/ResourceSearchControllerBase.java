@@ -31,20 +31,19 @@ import com.technology.jep.jepria.shared.field.JepTypeEnum;
 public class ResourceSearchControllerBase implements ResourceSearchController {
 
   // нет необходимости параметризовать, так как механизм поиска не специфицируется на прикладном уровне
-  //нет необходимости параметризовать, так как механизм CRUD не специфицируется на прикладном уровне 
-  protected final Supplier<Dao> daoSupplier;
+  protected final Dao dao;
   protected final RecordDefinition recordDefinition;
 
   protected final Supplier<HttpSession> session;
   
-  public ResourceSearchControllerBase(Supplier<Dao> daoSupplier, RecordDefinition recordDefinition, Supplier<HttpSession> session) {
-    this.daoSupplier = daoSupplier;
+  public ResourceSearchControllerBase(Dao dao, RecordDefinition recordDefinition, Supplier<HttpSession> session) {
+    this.dao = dao;
     this.recordDefinition = recordDefinition;
     
     this.session = session;
     
     // create single searchUID for a tuple {session,resource} 
-    searchUID = Integer.toHexString(Objects.hash(session.get(), daoSupplier.get().getClass().getName()));
+    searchUID = Integer.toHexString(Objects.hash(session.get(), dao.getClass().getName()));
   }
 
   private final String searchUID;
@@ -65,7 +64,7 @@ public class ResourceSearchControllerBase implements ResourceSearchController {
    * @return сохранённый атрибут сессии: клиентские поисковые параметры
    */
   private SearchParamsDto getSessionSearchParams() {
-    final String key = "SearchController:DaoName=" + daoSupplier.get().getClass().getSimpleName() + ";SearchId=" + searchUID + ";Key=SearchParams;";
+    final String key = "SearchController:DaoName=" + dao.getClass().getSimpleName() + ";SearchId=" + searchUID + ";Key=SearchParams;";
     return (SearchParamsDto)session.get().getAttribute(key);
   }
   /**
@@ -73,7 +72,7 @@ public class ResourceSearchControllerBase implements ResourceSearchController {
    * @param searchParams
    */
   private void setSessionSearchParams(SearchParamsDto searchParams) {
-    final String key = "SearchController:DaoName=" + daoSupplier.get().getClass().getSimpleName() + ";SearchId=" + searchUID + ";Key=SearchParams;";
+    final String key = "SearchController:DaoName=" + dao.getClass().getSimpleName() + ";SearchId=" + searchUID + ";Key=SearchParams;";
     if (searchParams == null) {
       session.get().removeAttribute(key);
     } else {
@@ -86,7 +85,7 @@ public class ResourceSearchControllerBase implements ResourceSearchController {
    * в соответствии с последним клиентским запросом 
    */
   private List<Map<String, ?>> getSessionResultset() {
-    final String key = "SearchController:DaoName=" + daoSupplier.get().getClass().getSimpleName() + ";SearchId=" + searchUID + ";Key=SearchResultset;";
+    final String key = "SearchController:DaoName=" + dao.getClass().getSimpleName() + ";SearchId=" + searchUID + ";Key=SearchResultset;";
     return (List<Map<String, ?>>)session.get().getAttribute(key);
   }
   /**
@@ -95,7 +94,7 @@ public class ResourceSearchControllerBase implements ResourceSearchController {
    * @param resultset
    */
   private void setSessionResultset(List<Map<String, ?>> resultset) {
-    final String key = "SearchController:DaoName=" + daoSupplier.get().getClass().getSimpleName() + ";SearchId=" + searchUID + ";Key=SearchResultset;";
+    final String key = "SearchController:DaoName=" + dao.getClass().getSimpleName() + ";SearchId=" + searchUID + ";Key=SearchResultset;";
     if (resultset == null) {
       session.get().removeAttribute(key);
     } else {
@@ -108,7 +107,7 @@ public class ResourceSearchControllerBase implements ResourceSearchController {
    * отсортированным в соответствии с последним клиентским запросом
    */
   private boolean getSessionResultsetSortValid() {
-    final String key = "SearchController:DaoName=" + daoSupplier.get().getClass().getSimpleName() + ";SearchId=" + searchUID + ";Key=SearchResultsetSortValid;";
+    final String key = "SearchController:DaoName=" + dao.getClass().getSimpleName() + ";SearchId=" + searchUID + ";Key=SearchResultsetSortValid;";
     return Boolean.TRUE.equals(session.get().getAttribute(key));
   }
   /**
@@ -117,7 +116,7 @@ public class ResourceSearchControllerBase implements ResourceSearchController {
    * @param resultsetSortValid
    */
   private void setSessionResultsetSortValid(boolean resultsetSortValid) {
-    final String key = "SearchController:DaoName=" + daoSupplier.get().getClass().getSimpleName() + ";SearchId=" + searchUID + ";Key=SearchResultsetSortValid;";
+    final String key = "SearchController:DaoName=" + dao.getClass().getSimpleName() + ";SearchId=" + searchUID + ";Key=SearchResultsetSortValid;";
     if (!resultsetSortValid) {
       session.get().removeAttribute(key);
     } else {
@@ -242,7 +241,6 @@ public class ResourceSearchControllerBase implements ResourceSearchController {
     List<Map<String, ?>> resultset;
     
     try {
-      Dao dao = daoSupplier.get();
       resultset = dao.find(
               searchModel.preparedTemplate,
               searchModel.maxRowCount,
