@@ -44,8 +44,6 @@
   	<pathelement location="${JERSEY-JERSEY-COMMON_LIB}" />
   	<pathelement location="${JERSEY-JAVAX-JSON-BIND-API_LIB}" />
   	
-  	<!-- REST/Swagger -->
-  	<pathelement location="${SWAGGER-SWAGGER-ANNOTATIONS_LIB}" />
   </path>
 	
 	<path id="jepria-versionizer-libs">

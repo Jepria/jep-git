@@ -5,9 +5,6 @@ import javax.ws.rs.core.Context;
 
 import org.jepria.server.security.Credential;
 
-import io.swagger.annotations.Api;
-
-@Api
 public abstract class StandardEndpointBase {
 
   protected StandardEndpointBase() {}

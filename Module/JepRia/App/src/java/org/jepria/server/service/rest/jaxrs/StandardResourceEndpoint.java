@@ -36,14 +36,22 @@ import org.jepria.server.service.rest.ResourceSearchController;
 import org.jepria.server.service.rest.ResourceSearchControllerBase;
 import org.jepria.shared.RecordDefinition;
 
-import io.swagger.annotations.ApiOperation;
-
 /**
  * Standard Jaxrs REST resource
+ * <br/>
+ * Не содержит Swagger-аннотаций.
+ * <br/>
+ * Из двух вариантов работы endpoint-методов
+ * <ol>
+ * <li>Возвращать объект типа Response с заданными entity и статусом</li>
+ * <li>Возвращать объект-entity любого прикладного типа, порождать ошибочные статусы классами javax.ws.rs.*Exception</li>
+ * </ol>
+ * выбран второй вариант (первый вариант применяется только там, где второй невозможен)
+ * 
  */
 @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
 @Consumes(MediaType.APPLICATION_JSON + ";charset=utf-8")
-public abstract class StandardResourceEndpoint<D extends Dao, T> extends StandardEndpointBase {
+public class StandardResourceEndpoint<D extends Dao, T> extends StandardEndpointBase {
 
   /**
    * Implementors provide standard applicational description for the REST resources  
@@ -135,14 +143,12 @@ public abstract class StandardResourceEndpoint<D extends Dao, T> extends Standar
   //////// CRUD ////////
 
   @GET
-  @ApiOperation(value = "List this resource as options")
   public List<?> listAsOptions() {
     return listOptions(description.getResourceName());
   }
 
   @GET
   @Path("{recordId}")
-  @ApiOperation(value = "Get resource by ID")
   public T getResourceById(@PathParam("recordId") String recordId) {
     final T resource;
 
@@ -158,7 +164,6 @@ public abstract class StandardResourceEndpoint<D extends Dao, T> extends Standar
   }
 
   @POST
-  @ApiOperation(value = "Create a new resource instance")
   public Response create(T resource) {
     Map<String, ?> record = DtoUtil.dtoToMap(resource);
     final String createdId = resourceController.get().create(record, getCredential());
@@ -167,14 +172,12 @@ public abstract class StandardResourceEndpoint<D extends Dao, T> extends Standar
 
   @DELETE
   @Path("{recordId}")
-  @ApiOperation(value = "Delete resource by ID")
   public void deleteResourceById(@PathParam("recordId") String recordId) {
     resourceController.get().deleteResource(recordId, getCredential());
   }
 
   @PUT
   @Path("{recordId}")
-  @ApiOperation(value = "Update resource by ID")
   public void update(@PathParam("recordId") String recordId, T resource) {
     Map<String, ?> record = DtoUtil.dtoToMap(resource);
     resourceController.get().update(recordId, record, getCredential());
@@ -184,7 +187,6 @@ public abstract class StandardResourceEndpoint<D extends Dao, T> extends Standar
 
   @GET
   @Path("option/{optionEntityName}")
-  @ApiOperation(value = "List options by option-entity name")
   public List<?> listOptions(@PathParam("optionEntityName") String optionEntityName) {
     final List<?> result;
 
@@ -206,7 +208,6 @@ public abstract class StandardResourceEndpoint<D extends Dao, T> extends Standar
 
   @POST
   @Path("search")
-  @ApiOperation(value = "Post search params")
   /**
    * @param searchParams
    * @return
@@ -321,7 +322,6 @@ public abstract class StandardResourceEndpoint<D extends Dao, T> extends Standar
 
   @GET
   @Path("search/{searchId}")
-  @ApiOperation(value = "Get search request by ID")
   public SearchParamsDto getSearchRequest(
       @PathParam("searchId") String searchId) {
     final SearchParamsDto result;
@@ -338,7 +338,6 @@ public abstract class StandardResourceEndpoint<D extends Dao, T> extends Standar
 
   @GET
   @Path("search/{searchId}/resultset-size")
-  @ApiOperation(value = "Get search resultset size")
   public int getSearchResultsetSize(
       @PathParam("searchId") String searchId) {
     final int result;
@@ -354,7 +353,6 @@ public abstract class StandardResourceEndpoint<D extends Dao, T> extends Standar
 
   @GET
   @Path("search/{searchId}/resultset")
-  @ApiOperation(value = "Get resultset: whole or paged with query parameters")
   // either both pageSize and page are empty, or both are not empty
   public List<T> getResultset(
       @PathParam("searchId") String searchId,
@@ -402,7 +400,6 @@ public abstract class StandardResourceEndpoint<D extends Dao, T> extends Standar
 
   @GET
   @Path("search/{searchId}/resultset/paged-by-{pageSize:\\d+}/{page}")
-  @ApiOperation(value = "Get resultset paged")
   public List<T> getResultsetPaged(
       @PathParam("searchId") String searchId,
       @PathParam("pageSize") Integer pageSize, 
