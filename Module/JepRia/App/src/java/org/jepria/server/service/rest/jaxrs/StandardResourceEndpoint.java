@@ -143,11 +143,6 @@ public class StandardResourceEndpoint<D extends Dao, T> extends StandardEndpoint
   //////// CRUD ////////
 
   @GET
-  public List<OptionDto> listAsOptions() {
-    return listOptions(description.getResourceName());
-  }
-
-  @GET
   @Path("{recordId}")
   public T getResourceById(@PathParam("recordId") String recordId) {
     final T resource;
@@ -190,6 +185,11 @@ public class StandardResourceEndpoint<D extends Dao, T> extends StandardEndpoint
 
   //////// OPTIONS ////////
 
+  @GET
+  public List<OptionDto> listAsOptions() {
+    return listOptions(description.getResourceName());
+  }
+  
   @GET
   @Path("option/{optionEntityName}")
   public List<OptionDto> listOptions(@PathParam("optionEntityName") String optionEntityName) {
