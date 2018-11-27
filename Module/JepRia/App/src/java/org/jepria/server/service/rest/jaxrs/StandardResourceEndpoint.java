@@ -25,7 +25,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
 
 import org.jepria.server.dao.Dao;
 import org.jepria.server.dao.DtoUtil;
@@ -167,7 +166,12 @@ public class StandardResourceEndpoint<D extends Dao, T> extends StandardEndpoint
   public Response create(T resource) {
     Map<String, ?> record = DtoUtil.dtoToMap(resource);
     final String createdId = resourceController.get().create(record, getCredential());
-    return Response.status(Status.CREATED).header("Location", createdId).build();
+    
+    // ссылка на созданный ресурс
+    final URI location = URI.create(request.getRequestURL() + "/" + createdId);
+    Response response = Response.created(location).build();
+    
+    return response;
   }
 
   @DELETE
