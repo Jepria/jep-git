@@ -14,6 +14,7 @@ import com.technology.jep.jepria.shared.JepRiaConstant;
 import com.technology.jep.jepria.shared.field.JepFieldNames;
 import com.technology.jep.jepria.shared.field.JepLikeEnum;
 import com.technology.jep.jepria.shared.field.JepTypeEnum;
+import com.technology.jep.jepria.shared.field.option.JepOption;
 import com.technology.jep.jepria.shared.record.JepRecord;
 import com.technology.jep.jepria.shared.record.JepRecordDefinition;
 import com.technology.jep.jepria.shared.util.DefaultComparator;
@@ -80,5 +81,8 @@ public class CoreCompat {
   
   public static final int DEFAULT_MAX_ROW_COUNT = JepRiaConstant.DEFAULT_MAX_ROW_COUNT;
   public static final String MAX_ROW_COUNT__FIELD_NAME = JepFieldNames.MAX_ROW_COUNT;
+  
+  public static final String OPTION_NAME_KEY = JepOption.OPTION_NAME;
+  public static final String OPTION_VALUE_KEY = JepOption.OPTION_VALUE;
   
 }

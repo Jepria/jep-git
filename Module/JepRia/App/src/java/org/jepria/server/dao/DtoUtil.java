@@ -7,6 +7,9 @@ import java.util.Map;
 import javax.json.bind.Jsonb;
 import javax.json.bind.JsonbBuilder;
 
+import org.jepria.compat.CoreCompat;
+import org.jepria.server.load.rest.OptionDto;
+
 /**
  * Утилитарные методы для работы с Dto
  */
@@ -26,6 +29,15 @@ public class DtoUtil {
     final Jsonb jsonb = JsonbBuilder.create();
     final T resource = jsonb.fromJson(jsonb.toJson(map), dtoClass);
     return resource;
+  }
+  
+  public static OptionDto mapToOptionDto(Map<String, ?> map) {
+    final OptionDto dto = new OptionDto();
+    dto.setName((String)map.get(CoreCompat.OPTION_NAME_KEY));
+    Object value = map.get(CoreCompat.OPTION_VALUE_KEY);
+    String valueStr = value == null ? null : value.toString();
+    dto.setValue(valueStr);
+    return dto;
   }
   
 }

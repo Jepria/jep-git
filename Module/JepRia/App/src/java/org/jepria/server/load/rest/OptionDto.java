@@ -1,15 +1,14 @@
 package org.jepria.server.load.rest;
 
 /**
- * Общий класс Dto для опций, не зависящий от типа значений опции
+ * Класс для представления базовых опций (в общем случае значение опции представляется строкой).
  */
 public class OptionDto {
   
-  public OptionDto() {
-  }
+  public OptionDto() {}
   
   private String name;
-  private Object value;
+  private String value;
   
   public String getName() {
     return name;
@@ -19,11 +18,11 @@ public class OptionDto {
     this.name = name;
   }
   
-  public <X> X getValue() {
-    return (X)value;
+  public String getValue() {
+    return value;
   }
   
-  public void setValue(Object value) {
+  public void setValue(String value) {
     this.value = value;
   }
   

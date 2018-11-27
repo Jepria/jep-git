@@ -208,7 +208,7 @@ public class StandardResourceEndpoint<D extends Dao, T> extends StandardEndpoint
       
       final List<Map<String, ?>> options = (List<Map<String, ?>>)records;
       
-      final List<OptionDto> result = options.stream().map(option -> DtoUtil.mapToDto(option, OptionDto.class)).collect(Collectors.toList());
+      final List<OptionDto> result = options.stream().map(record -> DtoUtil.mapToOptionDto(record)).collect(Collectors.toList());
       
       return result;
     }
