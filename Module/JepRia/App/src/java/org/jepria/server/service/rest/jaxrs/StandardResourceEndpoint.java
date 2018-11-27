@@ -28,6 +28,7 @@ import javax.ws.rs.core.Response;
 
 import org.jepria.server.dao.Dao;
 import org.jepria.server.dao.DtoUtil;
+import org.jepria.server.load.rest.OptionDto;
 import org.jepria.server.load.rest.SearchParamsDto;
 import org.jepria.server.service.rest.ResourceController;
 import org.jepria.server.service.rest.ResourceControllerBase;
@@ -142,7 +143,7 @@ public class StandardResourceEndpoint<D extends Dao, T> extends StandardEndpoint
   //////// CRUD ////////
 
   @GET
-  public List<?> listAsOptions() {
+  public List<OptionDto> listAsOptions() {
     return listOptions(description.getResourceName());
   }
 
@@ -191,19 +192,24 @@ public class StandardResourceEndpoint<D extends Dao, T> extends StandardEndpoint
 
   @GET
   @Path("option/{optionEntityName}")
-  public List<?> listOptions(@PathParam("optionEntityName") String optionEntityName) {
-    final List<?> result;
+  public List<OptionDto> listOptions(@PathParam("optionEntityName") String optionEntityName) {
+    final List<?> records;
 
     try {
-      result = resourceController.get().listOptions(optionEntityName, getCredential());
+      records = resourceController.get().listOptions(optionEntityName, getCredential());
     } catch (NoSuchElementException e) {
       // 404
       throw new NotFoundException(e);
     }
-    if (result == null || result.isEmpty()) {
+    if (records == null || records.isEmpty()) {
       // 204
       return null;
     } else {
+      
+      final List<Map<String, ?>> options = (List<Map<String, ?>>)records;
+      
+      final List<OptionDto> result = options.stream().map(option -> DtoUtil.mapToDto(option, OptionDto.class)).collect(Collectors.toList());
+      
       return result;
     }
   }

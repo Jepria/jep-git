@@ -252,7 +252,6 @@ public class ResourceControllerBase implements ResourceController {
       final Object daoResult = getOptionsMethod.invoke(dao);
 
 
-      // TODO convert the DAO result into a target response object here (using DTO or RecordDefinition, whatever)
       final List<?> result = (List<?>)daoResult;
 
 
