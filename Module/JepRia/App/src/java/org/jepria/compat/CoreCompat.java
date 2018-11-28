@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import org.jepria.shared.RecordDefinition;
+import org.jepria.server.data.RecordDefinition;
 
 import com.technology.jep.jepria.shared.JepRiaConstant;
 import com.technology.jep.jepria.shared.field.JepFieldNames;

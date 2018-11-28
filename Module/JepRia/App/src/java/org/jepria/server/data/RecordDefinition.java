@@ -1,4 +1,4 @@
-package org.jepria.shared;
+package org.jepria.server.data;
 
 import java.util.Comparator;
 import java.util.List;

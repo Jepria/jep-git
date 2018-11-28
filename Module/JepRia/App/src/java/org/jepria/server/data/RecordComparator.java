@@ -1,11 +1,11 @@
-package org.jepria.server.dao;
+package org.jepria.server.data;
 
 import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
- * Класс для сравнения записей, представленных типом {@code Map<String, ?>}, при сортировке списка
+ * Класс для сравнения записей, представленных в виде Map, для сортировки списка
  */
 // TODO переименовать в MapRecordComparator?
 public class RecordComparator implements Comparator<Map<String, ?>> {

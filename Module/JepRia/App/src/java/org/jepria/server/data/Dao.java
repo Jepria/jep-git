@@ -1,17 +1,17 @@
-package org.jepria.server.dao;
+package org.jepria.server.data;
 
 import java.util.List;
 import java.util.Map;
 
 /**
- * Базовый интерфейс работы с записями в БД на прикладном уровне.
+ * Базовый интерфейс работы с записями в БД.
  */
 public interface Dao {
   
   /**
-   * Поиск.
+   * Поиск записей
    * 
-   * @param model модель, по которому выполняется поиск
+   * @param model модель, по которой выполняется поиск
    * @param maxRowCount максимальное число возвращаемых записей
    * @param operatorId идентификатор пользователя
    * @return список записей

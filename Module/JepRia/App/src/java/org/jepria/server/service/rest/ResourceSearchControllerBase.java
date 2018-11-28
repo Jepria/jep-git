@@ -14,12 +14,12 @@ import java.util.function.Supplier;
 import javax.servlet.http.HttpSession;
 
 import org.jepria.compat.CoreCompat;
-import org.jepria.server.dao.Dao;
-import org.jepria.server.dao.RecordComparator;
-import org.jepria.server.load.rest.ColumnSortConfigurationDto;
-import org.jepria.server.load.rest.SearchParamsDto;
+import org.jepria.server.data.ColumnSortConfigurationDto;
+import org.jepria.server.data.Dao;
+import org.jepria.server.data.RecordComparator;
+import org.jepria.server.data.RecordDefinition;
+import org.jepria.server.data.SearchParamsDto;
 import org.jepria.server.security.Credential;
-import org.jepria.shared.RecordDefinition;
 
 import com.technology.jep.jepria.shared.field.JepLikeEnum;
 import com.technology.jep.jepria.shared.field.JepTypeEnum;

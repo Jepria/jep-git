@@ -26,15 +26,15 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.jepria.server.dao.Dao;
-import org.jepria.server.dao.DtoUtil;
-import org.jepria.server.load.rest.OptionDto;
-import org.jepria.server.load.rest.SearchParamsDto;
+import org.jepria.server.data.Dao;
+import org.jepria.server.data.DtoUtil;
+import org.jepria.server.data.OptionDto;
+import org.jepria.server.data.RecordDefinition;
+import org.jepria.server.data.SearchParamsDto;
 import org.jepria.server.service.rest.ResourceController;
 import org.jepria.server.service.rest.ResourceControllerBase;
 import org.jepria.server.service.rest.ResourceSearchController;
 import org.jepria.server.service.rest.ResourceSearchControllerBase;
-import org.jepria.shared.RecordDefinition;
 
 /**
  * Standard Jaxrs REST resource
@@ -54,10 +54,13 @@ import org.jepria.shared.RecordDefinition;
 public class StandardResourceEndpoint<D extends Dao, T> extends StandardEndpointBase {
 
   /**
-   * Implementors provide standard applicational description for the REST resources  
+   * Прикладное описание стандартного REST-ресурса  
    */
   public static interface Description<D extends Dao> {
     D getDao();
+    /**
+     * @return название сущности, которой управляет ресурс
+     */
     String getResourceName();
     RecordDefinition getRecordDefinition();
   }

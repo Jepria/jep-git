@@ -8,10 +8,10 @@ import java.util.NoSuchElementException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.jepria.server.dao.Dao;
+import org.jepria.server.data.Dao;
+import org.jepria.server.data.RecordDefinition;
+import org.jepria.server.data.RecordDefinition.IncompletePrimaryKeyException;
 import org.jepria.server.security.Credential;
-import org.jepria.shared.RecordDefinition;
-import org.jepria.shared.RecordDefinition.IncompletePrimaryKeyException;
 
 import com.technology.jep.jepria.shared.field.JepTypeEnum;
 

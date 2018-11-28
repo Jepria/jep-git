@@ -1,4 +1,4 @@
-package org.jepria.server.load.rest;
+package org.jepria.server.data;
 
 import java.util.List;
 import java.util.Map;
@@ -7,6 +7,8 @@ import java.util.Map;
  * Dto для представления пользовательских параметров поиска
  */
 public class SearchParamsDto {
+  
+  public SearchParamsDto() {}
   
   private Map<String, Object> template;
   

@@ -1,13 +1,15 @@
-package org.jepria.server.load.rest;
+package org.jepria.server.data;
 
 /**
- * Класс для представления базовых опций (в общем случае значение опции представляется строкой).
+ * Класс для представления опций в общем виде
  */
 public class OptionDto {
   
   public OptionDto() {}
   
   private String name;
+  
+  // В общем виде значение опции представляется строкой
   private String value;
   
   public String getName() {

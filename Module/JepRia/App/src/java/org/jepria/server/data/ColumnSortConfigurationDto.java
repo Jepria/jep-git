@@ -1,9 +1,11 @@
-package org.jepria.server.load.rest;
+package org.jepria.server.data;
 
 /**
- * Dto для представления {@link org.jepria.server.load.ColumnSortConfiguration}
+ * Dto для представления конфигурации сортировки списка по конкретному столбцу
  */
 public class ColumnSortConfigurationDto {
+  
+  public ColumnSortConfigurationDto() {}
   
   private String columnName;
   

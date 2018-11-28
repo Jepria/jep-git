@@ -1,4 +1,4 @@
-package org.jepria.server.dao;
+package org.jepria.server.data;
 
 import java.lang.reflect.Type;
 import java.util.HashMap;
@@ -8,7 +8,6 @@ import javax.json.bind.Jsonb;
 import javax.json.bind.JsonbBuilder;
 
 import org.jepria.compat.CoreCompat;
-import org.jepria.server.load.rest.OptionDto;
 
 /**
  * Утилитарные методы для работы с Dto
@@ -18,6 +17,11 @@ public class DtoUtil {
   
   private DtoUtil() {}
   
+  /**
+   * Преобразование Dto-объекта в Map 
+   * @param dto
+   * @return
+   */
   public static Map<String, ?> dtoToMap(Object dto) {
     final Type type = new HashMap<String, Object>().getClass();
     final Jsonb jsonb = JsonbBuilder.create();
@@ -25,12 +29,23 @@ public class DtoUtil {
     return map;
   }
   
+  /**
+   * Преобразование Map в Dto-объект
+   * @param map
+   * @param dtoClass
+   * @return
+   */
   public static <T> T mapToDto(Map<String, ?> map, Class<T> dtoClass) {
     final Jsonb jsonb = JsonbBuilder.create();
     final T resource = jsonb.fromJson(jsonb.toJson(map), dtoClass);
     return resource;
   }
   
+  /**
+   * Преобразование Map в {@link OptionDto}-объект
+   * @param map
+   * @return
+   */
   public static OptionDto mapToOptionDto(Map<String, ?> map) {
     final OptionDto dto = new OptionDto();
     dto.setName((String)map.get(CoreCompat.OPTION_NAME_KEY));
