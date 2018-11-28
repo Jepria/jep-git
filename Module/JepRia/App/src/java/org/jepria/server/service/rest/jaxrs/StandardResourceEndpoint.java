@@ -52,7 +52,7 @@ import org.jepria.server.service.rest.ResourceSearchControllerBase;
  */
 @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
 @Consumes(MediaType.APPLICATION_JSON + ";charset=utf-8")
-public class StandardResourceEndpoint<D extends Dao, T> extends StandardEndpointBase {
+public class StandardResourceEndpoint<D extends Dao, TR, TW> extends StandardEndpointBase {
 
   /**
    * Прикладное описание стандартного REST-ресурса  
@@ -68,12 +68,12 @@ public class StandardResourceEndpoint<D extends Dao, T> extends StandardEndpoint
 
   protected final Description<D> description;
 
-  // декомпозиция: Class<T> dtoClass не входит в Description<D>, чтобы не параметризовать Description типом T 
-  protected final Class<T> dtoClass;
+  // декомпозиция: Class<TR> dtoReadClass не входит в Description<D>, чтобы не параметризовать Description типом TR 
+  protected final Class<TR> dtoReadClass;
 
-  protected StandardResourceEndpoint(Description<D> description, Class<T> dtoClass) {
+  protected StandardResourceEndpoint(Description<D> description, Class<TR> dtoReadClass) {
     this.description = description;
-    this.dtoClass = dtoClass;
+    this.dtoReadClass = dtoReadClass;
   }
 
   /**
@@ -148,12 +148,12 @@ public class StandardResourceEndpoint<D extends Dao, T> extends StandardEndpoint
 
   @GET
   @Path("{recordId}")
-  public T getResourceById(@PathParam("recordId") String recordId) {
-    final T resource;
+  public TR getResourceById(@PathParam("recordId") String recordId) {
+    final TR resource;
 
     try {
       Map<String, ?> record = resourceController.get().getResourceById(recordId, getCredential());
-      resource = DtoUtil.mapToDto(record, dtoClass);
+      resource = DtoUtil.mapToDto(record, dtoReadClass);
     } catch (NoSuchElementException e) {
       // 404
       throw new NotFoundException(e);
@@ -163,7 +163,7 @@ public class StandardResourceEndpoint<D extends Dao, T> extends StandardEndpoint
   }
 
   @POST
-  public Response create(T resource) {
+  public Response create(TW resource) {
     Map<String, ?> record = DtoUtil.dtoToMap(resource);
     final String createdId = resourceController.get().create(record, getCredential());
     
@@ -182,7 +182,7 @@ public class StandardResourceEndpoint<D extends Dao, T> extends StandardEndpoint
 
   @PUT
   @Path("{recordId}")
-  public void update(@PathParam("recordId") String recordId, T resource) {
+  public void update(@PathParam("recordId") String recordId, TW resource) {
     Map<String, ?> record = DtoUtil.dtoToMap(resource);
     resourceController.get().update(recordId, record, getCredential());
   }
@@ -294,7 +294,7 @@ public class StandardResourceEndpoint<D extends Dao, T> extends StandardEndpoint
           }
 
           // подзапрос на выдачу данных
-          List<T> subresponse;
+          List<TR> subresponse;
           try {
             subresponse = getResultsetPaged(searchId, pageSize, page);
           } catch (Throwable e) {
@@ -368,7 +368,7 @@ public class StandardResourceEndpoint<D extends Dao, T> extends StandardEndpoint
   @GET
   @Path("search/{searchId}/resultset")
   // either both pageSize and page are empty, or both are not empty
-  public List<T> getResultset(
+  public List<TR> getResultset(
       @PathParam("searchId") String searchId,
       @QueryParam("pageSize") Integer pageSize, 
       @QueryParam("page") Integer page) {
@@ -389,7 +389,7 @@ public class StandardResourceEndpoint<D extends Dao, T> extends StandardEndpoint
     return getResultset(searchId);  
   }
 
-  protected List<T> getResultset(String searchId) {
+  protected List<TR> getResultset(String searchId) {
 
     final List<Map<String, ?>> records;
 
@@ -405,14 +405,14 @@ public class StandardResourceEndpoint<D extends Dao, T> extends StandardEndpoint
       return null;
     } else {
 
-      final List<T> result = records.stream().map(record -> DtoUtil.mapToDto(record, dtoClass)).collect(Collectors.toList());
+      final List<TR> result = records.stream().map(record -> DtoUtil.mapToDto(record, dtoReadClass)).collect(Collectors.toList());
       return result;
     }
   }
 
   @GET
   @Path("search/{searchId}/resultset/paged-by-{pageSize:\\d+}/{page}")
-  public List<T> getResultsetPaged(
+  public List<TR> getResultsetPaged(
       @PathParam("searchId") String searchId,
       @PathParam("pageSize") Integer pageSize, 
       @PathParam("page") Integer page) {
@@ -435,7 +435,7 @@ public class StandardResourceEndpoint<D extends Dao, T> extends StandardEndpoint
       return null;
     } else {
 
-      final List<T> result = records.stream().map(record -> DtoUtil.mapToDto(record, dtoClass)).collect(Collectors.toList());
+      final List<TR> result = records.stream().map(record -> DtoUtil.mapToDto(record, dtoReadClass)).collect(Collectors.toList());
       return result;
     }
   }

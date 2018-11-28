@@ -13,6 +13,7 @@ import javax.ws.rs.core.Response.ResponseBuilder;
 /**
  * Класс для создания расширенных ответов на основе прикладного обработчика
  */
+// TODO некрасивая архитектура класса (и сценарий его использования). Однако другие архитектуры (фабрика, кастомная аннотация, pojo-класс) ещё более некрасивы.
 public class ExtendedResponse {
   
   /**
@@ -37,7 +38,7 @@ public class ExtendedResponse {
     Configurator handler(Handler handler);
     
     /**
-     * Завершает конфигурирование расширения ответа и производит его расширение
+     * Создаёт расширенный ответ по конфигурации
      * @return расширенный ответ
      */
     Response create();
@@ -46,7 +47,7 @@ public class ExtendedResponse {
   private ExtendedResponse() {}
 
   /**
-   * Создаёт конфигуратор
+   * Конфигурирует расширение заданного ответа
    * @param response ответ, подлежащий расширению
    * @return экземпляр конфигуратора
    */
@@ -134,11 +135,13 @@ public class ExtendedResponse {
     
   }
   
-  
+  /**
+   * Прикладной обработчик значений расширяемого ответа 
+   */
   public static interface Handler {
     /**
-     * @param headerValue not null
-     * @return null to indicate unsupported headerValue
+     * @param value not null значение для обработки
+     * @return объект, являющийся расширением ответа для заданного значения; null если значение не поддерживается обработчиком
      */
     Object handle(String value);
   }
