@@ -16,13 +16,12 @@ import javax.servlet.http.HttpSession;
 import org.jepria.compat.CoreCompat;
 import org.jepria.server.data.ColumnSortConfigurationDto;
 import org.jepria.server.data.Dao;
+import org.jepria.server.data.FieldType;
+import org.jepria.server.data.MatchType;
 import org.jepria.server.data.RecordComparator;
 import org.jepria.server.data.RecordDefinition;
 import org.jepria.server.data.SearchParamsDto;
 import org.jepria.server.security.Credential;
-
-import com.technology.jep.jepria.shared.field.JepLikeEnum;
-import com.technology.jep.jepria.shared.field.JepTypeEnum;
 
 /**
  * Реализация поискового контроллера, состоящего на HTTP сессиях.
@@ -196,23 +195,23 @@ public class ResourceSearchControllerBase implements ResourceSearchController {
       final String key = entry.getKey();
       final Object value = entry.getValue();
 
-      JepTypeEnum valueType = recordDefinition.getFieldType(key);
-      JepLikeEnum matchType = recordDefinition.getFieldMatch(key);
+      FieldType valueType = recordDefinition.getFieldType(key);
+      MatchType matchType = recordDefinition.getMatchType(key);
 
-      if (valueType == JepTypeEnum.STRING && value instanceof String) {
+      if (valueType == FieldType.STRING && value instanceof String) {
         String valueStr = (String)value;
         if (matchType != null) {
           switch(matchType) {
-          case FIRST:
+          case STARTS:
             entry.setValue(valueStr + "%");
             break;
           case CONTAINS:
             entry.setValue("%" + valueStr + "%");
             break;
-          case LAST:
+          case ENDS:
             entry.setValue("%" + valueStr);
             break;
-          case EXACT:
+          case MATCHES:
             // the value is already EXACT
             break;
           }

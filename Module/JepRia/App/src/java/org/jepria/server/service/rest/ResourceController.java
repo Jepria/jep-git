@@ -6,9 +6,10 @@ import java.util.NoSuchElementException;
 
 import org.jepria.server.security.Credential;
 
+/**
+ * Контроллер базовых операций над объектами сущности (CRUD, options)  
+ */
 public interface ResourceController {
-
-  //////////// CRUD ///////////////////
 
   /**
    * @param resourceId
@@ -40,8 +41,6 @@ public interface ResourceController {
    * @throws NoSuchElementException if the requested resourceId does not exist
    */
   void update(String resourceId, Map<String, ?> newRecord, Credential credential) throws NoSuchElementException;
-  
-  /////////////////////////// OPTIONS RESOURCE //////////////////////////
   
   /**
    * 

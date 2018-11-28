@@ -6,9 +6,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import com.technology.jep.jepria.shared.field.JepLikeEnum;
-import com.technology.jep.jepria.shared.field.JepTypeEnum;
-
 /**
  * Описание записи
  */
@@ -23,14 +20,14 @@ public interface RecordDefinition {
    * @param fieldName
    * @return
    */
-  JepTypeEnum getFieldType(String fieldName);
+  FieldType getFieldType(String fieldName);
   
   /**
    * Определяет тип строкового вхождения при поиске по полю записи  
    * @param fieldName
    * @return
    */
-  JepLikeEnum getFieldMatch(String fieldName);
+  MatchType getMatchType(String fieldName);
   
   /**
    * @return первичный ключ записи (простой или составной), non-null

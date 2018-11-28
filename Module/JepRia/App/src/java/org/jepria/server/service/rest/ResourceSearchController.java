@@ -8,8 +8,11 @@ import org.jepria.server.data.SearchParamsDto;
 import org.jepria.server.security.Credential;
 
 /**
- * The interface has CREATE and READ methods only.
- * UPDATE or DELETE methods (recycling and cleaning strategy) are implementation-dependent
+ * Контроллер поиска объектов сущности.
+ * <br/>
+ * Интерфейс предусматривает только методы создания и чтения (create/POST, read/GET).
+ * Методы модификации и удаления (update/PUT, delete/DELETE &mdash; стратегия обновления, переиспользования и очистки созданных объектов) 
+ * определяются конкретной реализацией
  */
 public interface ResourceSearchController {
 

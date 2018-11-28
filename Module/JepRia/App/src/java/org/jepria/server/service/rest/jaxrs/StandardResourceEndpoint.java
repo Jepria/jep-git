@@ -26,6 +26,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.jepria.compat.CoreCompat;
 import org.jepria.server.data.Dao;
 import org.jepria.server.data.DtoUtil;
 import org.jepria.server.data.OptionDto;
@@ -409,8 +410,6 @@ public class StandardResourceEndpoint<D extends Dao, T> extends StandardEndpoint
     }
   }
 
-  private static final int DEFAULT_PAGE_SIZE = 25;
-
   @GET
   @Path("search/{searchId}/resultset/paged-by-{pageSize:\\d+}/{page}")
   public List<T> getResultsetPaged(
@@ -419,7 +418,7 @@ public class StandardResourceEndpoint<D extends Dao, T> extends StandardEndpoint
       @PathParam("page") Integer page) {
 
     // normalize paging parameters
-    pageSize = pageSize == null ? DEFAULT_PAGE_SIZE : pageSize;
+    pageSize = pageSize == null ? CoreCompat.DEFAULT_PAGE_SIZE : pageSize;
     page = page == null ? 1 : page;
 
     final List<Map<String, ?>> records;

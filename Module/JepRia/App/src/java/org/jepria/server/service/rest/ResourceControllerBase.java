@@ -9,11 +9,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.jepria.server.data.Dao;
+import org.jepria.server.data.FieldType;
 import org.jepria.server.data.RecordDefinition;
 import org.jepria.server.data.RecordDefinition.IncompletePrimaryKeyException;
 import org.jepria.server.security.Credential;
 
-import com.technology.jep.jepria.shared.field.JepTypeEnum;
 
 public class ResourceControllerBase implements ResourceController {
 
@@ -155,7 +155,7 @@ public class ResourceControllerBase implements ResourceController {
     }
 
     private Object getTypedValue(String fieldName, String strValue) {
-      JepTypeEnum type = recordDefinition.getFieldType(fieldName);
+      FieldType type = recordDefinition.getFieldType(fieldName);
       if (type == null) {
         throw new IllegalArgumentException("Could not determine type for the field '" + fieldName + "'");
       }
