@@ -211,8 +211,8 @@ public class ResourceSearchControllerBase implements ResourceSearchController {
           case ENDS:
             entry.setValue("%" + valueStr);
             break;
-          case MATCHES:
-            // the value is already EXACT
+          case EXACT:
+            // NO-OP
             break;
           }
         }
