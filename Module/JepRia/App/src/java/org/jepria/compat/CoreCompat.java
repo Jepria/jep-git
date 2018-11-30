@@ -1,15 +1,11 @@
 package org.jepria.compat;
 
 import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 import com.technology.jep.jepria.shared.JepRiaConstant;
 import com.technology.jep.jepria.shared.field.JepFieldNames;
 import com.technology.jep.jepria.shared.field.option.JepOption;
 import com.technology.jep.jepria.shared.load.PagingConfig;
-import com.technology.jep.jepria.shared.record.JepRecord;
 import com.technology.jep.jepria.shared.util.DefaultComparator;
 
 /**
@@ -19,17 +15,6 @@ import com.technology.jep.jepria.shared.util.DefaultComparator;
 @Deprecated
 public class CoreCompat {
 
-  /**
-   * Convert List(Map(String, Object)) to List(JepRecord)
-   */
-  public static List<Map<String, ?>> convertList(List<JepRecord> list) {
-    if (list == null) {
-      return null;
-    }
-    
-    return list.stream().map(rec -> (Map<String, ?>)rec).collect(Collectors.toList());
-  }
-  
   public static Comparator<Object> getDefaultComparator() {
     return DefaultComparator.instance;
   }
