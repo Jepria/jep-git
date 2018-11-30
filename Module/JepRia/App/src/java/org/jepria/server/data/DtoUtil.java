@@ -23,6 +23,10 @@ public class DtoUtil {
    * @return
    */
   public static Map<String, ?> dtoToMap(Object dto) {
+    if (dto == null) {
+      return null;
+    }
+    
     final Type type = new HashMap<String, Object>().getClass();
     final Jsonb jsonb = JsonbBuilder.create();
     final Map<String, ?> map = jsonb.fromJson(jsonb.toJson(dto), type);
@@ -36,6 +40,10 @@ public class DtoUtil {
    * @return
    */
   public static <T> T mapToDto(Map<String, ?> map, Class<T> dtoClass) {
+    if (map == null) {
+      return null;
+    }
+    
     final Jsonb jsonb = JsonbBuilder.create();
     final T resource = jsonb.fromJson(jsonb.toJson(map), dtoClass);
     return resource;
@@ -47,6 +55,10 @@ public class DtoUtil {
    * @return
    */
   public static OptionDto mapToOptionDto(Map<String, ?> map) {
+    if (map == null) {
+      return null;
+    }
+    
     final OptionDto dto = new OptionDto();
     dto.setName((String)map.get(CoreCompat.OPTION_NAME_KEY));
     Object value = map.get(CoreCompat.OPTION_VALUE_KEY);
