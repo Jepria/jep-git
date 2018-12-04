@@ -52,10 +52,15 @@ import org.jepria.server.service.rest.SearchRequest;
  * </ol>
  * выбран второй вариант (первый вариант применяется только там, где второй невозможен)
  * 
+ * @param TQ заглушка для обеспечения работоспособности Swagger:
+ * Cейчас Swagger игнорирует (не документирует) endpoint-методы с generic-параметрами, в частности, метод {@code postSearch(SearchRequestDto<TS> searchRequestDto)}.
+ * Чтобы Swagger документировал этот метод, необходимо создать прикланой класс-маркер {@code TQ extends SearchRequestDto<TS>} и объявить метод в виде
+ * {@code postSearch(TQ searchRequestDto)}. При обеспечении работоспособности Swagger с generic-параметрами, убрать параметр {@code TQ}, 
+ * и все его упоминания заменить {@code SearchRequestDto<TS>}  
  */
 @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
 @Consumes(MediaType.APPLICATION_JSON + ";charset=utf-8")
-public class StandardResourceEndpoint<D extends Dao, TR, TW, TS> extends StandardEndpointBase {
+public class StandardResourceEndpoint<D extends Dao, TR, TW, TS, TQ extends SearchRequestDto<TS>> extends StandardEndpointBase {
 
   /**
    * Прикладное описание стандартного REST-ресурса  
@@ -231,7 +236,7 @@ public class StandardResourceEndpoint<D extends Dao, TR, TW, TS> extends Standar
    * @param searchRequestDto
    * @return
    */
-  public Response postSearch(SearchRequestDto<TS> searchRequestDto) {
+  public Response postSearch(TQ searchRequestDto) {
     
     final SearchRequest searchRequest = convertSearchRequest(searchRequestDto);
     
@@ -248,7 +253,7 @@ public class StandardResourceEndpoint<D extends Dao, TR, TW, TS> extends Standar
     return response;
   }
   
-  protected SearchRequest convertSearchRequest(SearchRequestDto<TS> searchRequestDto) {
+  private SearchRequest convertSearchRequest(SearchRequestDto<TS> searchRequestDto) {
     if (searchRequestDto == null) {
       return null;
     }
@@ -269,7 +274,7 @@ public class StandardResourceEndpoint<D extends Dao, TR, TW, TS> extends Standar
     };
   }
   
-  protected SearchRequestDto<TS> convertSearchRequest(SearchRequest searchRequest) {
+  private SearchRequestDto<TS> convertSearchRequest(SearchRequest searchRequest) {
     if (searchRequest == null) {
       return null;
     }
