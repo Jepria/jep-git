@@ -1,24 +1,23 @@
 package org.jepria.server.data;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * Dto для представления пользовательского поискового запроса
  */
-public class SearchRequestDto {
+public class SearchRequestDto<T> {
   
   public SearchRequestDto() {}
   
-  private Map<String, Object> template;
+  private T template;
   
   private List<ColumnSortConfigurationDto> listSortConfiguration;
   
-  public Map<String, Object> getTemplate() {
+  public T getTemplate() {
     return template;
   }
 
-  public void setTemplate(Map<String, Object> template) {
+  public void setTemplate(T template) {
     this.template = template;
   }
   

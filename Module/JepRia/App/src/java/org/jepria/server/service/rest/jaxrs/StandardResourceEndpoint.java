@@ -55,7 +55,7 @@ import org.jepria.server.service.rest.SearchRequest;
  */
 @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
 @Consumes(MediaType.APPLICATION_JSON + ";charset=utf-8")
-public class StandardResourceEndpoint<D extends Dao, TR, TW> extends StandardEndpointBase {
+public class StandardResourceEndpoint<D extends Dao, TR, TW, TS> extends StandardEndpointBase {
 
   /**
    * Прикладное описание стандартного REST-ресурса  
@@ -71,12 +71,14 @@ public class StandardResourceEndpoint<D extends Dao, TR, TW> extends StandardEnd
 
   protected final Description<D> description;
 
-  // декомпозиция: Class<TR> dtoReadClass не входит в Description<D>, чтобы не параметризовать Description типом TR 
+  // декомпозиция: вспомогательные (для рефлективного создания Dto) поля типа Class<?> не входят в Description<D> (чтобы не параметризовать Description типами) 
   protected final Class<TR> dtoReadClass;
+  protected final Class<TS> dtoSearchClass;
 
-  protected StandardResourceEndpoint(Description<D> description, Class<TR> dtoReadClass) {
+  protected StandardResourceEndpoint(Description<D> description, Class<TR> dtoReadClass, Class<TS> dtoSearchClass) {
     this.description = description;
     this.dtoReadClass = dtoReadClass;
+    this.dtoSearchClass = dtoSearchClass;
   }
 
   /**
@@ -229,7 +231,7 @@ public class StandardResourceEndpoint<D extends Dao, TR, TW> extends StandardEnd
    * @param searchRequestDto
    * @return
    */
-  public Response postSearch(SearchRequestDto searchRequestDto) {
+  public Response postSearch(SearchRequestDto<TS> searchRequestDto) {
     
     final SearchRequest searchRequest = convertSearchRequest(searchRequestDto);
     
@@ -246,12 +248,12 @@ public class StandardResourceEndpoint<D extends Dao, TR, TW> extends StandardEnd
     return response;
   }
   
-  protected SearchRequest convertSearchRequest(SearchRequestDto searchRequestDto) {
+  protected SearchRequest convertSearchRequest(SearchRequestDto<TS> searchRequestDto) {
     if (searchRequestDto == null) {
       return null;
     }
     
-    final Map<String, Object> template = searchRequestDto.getTemplate();
+    final Map<String, Object> template = DtoUtil.dtoToMap(searchRequestDto.getTemplate());
     final LinkedHashMap<String, Integer> listSortConfig = convertListSortConfig(searchRequestDto.getListSortConfiguration());
     
     return new SearchRequest() {
@@ -363,7 +365,7 @@ public class StandardResourceEndpoint<D extends Dao, TR, TW> extends StandardEnd
 
   @GET
   @Path("search/{searchId}")
-  public SearchRequestDto getSearchRequest(
+  public SearchRequestDto<TS> getSearchRequest(
       @PathParam("searchId") String searchId) {
     final SearchRequest searchRequest;
 
@@ -374,8 +376,8 @@ public class StandardResourceEndpoint<D extends Dao, TR, TW> extends StandardEnd
       throw new NotFoundException(e);
     }
     
-    final SearchRequestDto result = new SearchRequestDto();
-    result.setTemplate(searchRequest.getTemplate());
+    final SearchRequestDto<TS> result = new SearchRequestDto<>();
+    result.setTemplate(DtoUtil.mapToDto(searchRequest.getTemplate(), dtoSearchClass));
     result.setListSortConfiguration(convertListSortConfig(searchRequest.getListSortConfig()));
     return result;
   }
