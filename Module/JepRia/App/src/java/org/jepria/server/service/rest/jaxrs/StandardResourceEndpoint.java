@@ -269,6 +269,17 @@ public class StandardResourceEndpoint<D extends Dao, TR, TW, TS> extends Standar
     };
   }
   
+  protected SearchRequestDto<TS> convertSearchRequest(SearchRequest searchRequest) {
+    if (searchRequest == null) {
+      return null;
+    }
+    
+    final SearchRequestDto<TS> searchRequestDto = new SearchRequestDto<>();
+    searchRequestDto.setTemplate(DtoUtil.mapToDto(searchRequest.getTemplate(), dtoSearchClass));
+    searchRequestDto.setListSortConfiguration(convertListSortConfig(searchRequest.getListSortConfig()));
+    return searchRequestDto;
+  }
+  
   /**
    * Реализация хендлера для postSearch-заголовков
    */
@@ -376,9 +387,8 @@ public class StandardResourceEndpoint<D extends Dao, TR, TW, TS> extends Standar
       throw new NotFoundException(e);
     }
     
-    final SearchRequestDto<TS> result = new SearchRequestDto<>();
-    result.setTemplate(DtoUtil.mapToDto(searchRequest.getTemplate(), dtoSearchClass));
-    result.setListSortConfiguration(convertListSortConfig(searchRequest.getListSortConfig()));
+    final SearchRequestDto<TS> result = convertSearchRequest(searchRequest);
+    
     return result;
   }
   
