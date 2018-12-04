@@ -188,8 +188,7 @@ public class ResourceSearchControllerBase implements ResourceSearchController {
     Map<String, Object> preparedTemplate = new HashMap<>(template);
 
     // применяем MatchType к каждому полю
-    preparedTemplate.entrySet().forEach(entry -> {
-
+    for (Map.Entry<String, Object> entry: preparedTemplate.entrySet()) {
       final String key = entry.getKey();
       final Object value = entry.getValue();
 
@@ -215,7 +214,7 @@ public class ResourceSearchControllerBase implements ResourceSearchController {
           }
         }
       }
-    });
+    }
 
     searchModel.preparedTemplate = preparedTemplate;
 
