@@ -3,6 +3,7 @@ package org.jepria.server.service.rest.jaxrs;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
@@ -27,15 +28,17 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.jepria.compat.CoreCompat;
+import org.jepria.server.data.ColumnSortConfigurationDto;
 import org.jepria.server.data.Dao;
 import org.jepria.server.data.DtoUtil;
 import org.jepria.server.data.OptionDto;
 import org.jepria.server.data.RecordDefinition;
-import org.jepria.server.data.SearchParamsDto;
+import org.jepria.server.data.SearchRequestDto;
 import org.jepria.server.service.rest.ResourceController;
 import org.jepria.server.service.rest.ResourceControllerBase;
 import org.jepria.server.service.rest.ResourceSearchController;
 import org.jepria.server.service.rest.ResourceSearchControllerBase;
+import org.jepria.server.service.rest.SearchRequest;
 
 /**
  * Standard Jaxrs REST resource
@@ -223,11 +226,14 @@ public class StandardResourceEndpoint<D extends Dao, TR, TW> extends StandardEnd
   @POST
   @Path("search")
   /**
-   * @param searchParams
+   * @param searchRequestDto
    * @return
    */
-  public Response postSearch(SearchParamsDto searchParams) {
-    final String searchId = searchController.get().postSearchRequest(searchParams, getCredential());
+  public Response postSearch(SearchRequestDto searchRequestDto) {
+    
+    final SearchRequest searchRequest = convertSearchRequest(searchRequestDto);
+    
+    final String searchId = searchController.get().postSearchRequest(searchRequest, getCredential());
 
     // ссылка на созданный ресурс
     final URI location = URI.create(request.getRequestURL() + "/" + searchId);
@@ -239,7 +245,28 @@ public class StandardResourceEndpoint<D extends Dao, TR, TW> extends StandardEnd
 
     return response;
   }
-
+  
+  protected SearchRequest convertSearchRequest(SearchRequestDto searchRequestDto) {
+    if (searchRequestDto == null) {
+      return null;
+    }
+    
+    final Map<String, Object> template = searchRequestDto.getTemplate();
+    final LinkedHashMap<String, Integer> listSortConfig = convertListSortConfig(searchRequestDto.getListSortConfiguration());
+    
+    return new SearchRequest() {
+      @Override
+      public Map<String, Object> getTemplate() {
+        return template;
+      }
+      
+      @Override
+      public LinkedHashMap<String, Integer> getListSortConfig() {
+        return listSortConfig;
+      }
+    };
+  }
+  
   /**
    * Реализация хендлера для postSearch-заголовков
    */
@@ -336,18 +363,48 @@ public class StandardResourceEndpoint<D extends Dao, TR, TW> extends StandardEnd
 
   @GET
   @Path("search/{searchId}")
-  public SearchParamsDto getSearchRequest(
+  public SearchRequestDto getSearchRequest(
       @PathParam("searchId") String searchId) {
-    final SearchParamsDto result;
+    final SearchRequest searchRequest;
 
     try {
-      result = searchController.get().getSearchParams(searchId, getCredential());
+      searchRequest = searchController.get().getSearchRequest(searchId, getCredential());
     } catch (NoSuchElementException e) {
       // 404
       throw new NotFoundException(e);
     }
-
+    
+    final SearchRequestDto result = new SearchRequestDto();
+    result.setTemplate(searchRequest.getTemplate());
+    result.setListSortConfiguration(convertListSortConfig(searchRequest.getListSortConfig()));
     return result;
+  }
+  
+  private LinkedHashMap<String, Integer> convertListSortConfig(List<ColumnSortConfigurationDto> listSortConfig) {
+    final LinkedHashMap<String, Integer> ret = new LinkedHashMap<>();
+    
+    if (listSortConfig != null) {
+      for (ColumnSortConfigurationDto colSorftConfig: listSortConfig) {
+        ret.put(colSorftConfig.getColumnName(), "desc".equals(colSorftConfig.getSortOrder()) ? -1 : 1);
+      }
+    }
+    
+    return ret;
+  }
+  
+  private List<ColumnSortConfigurationDto> convertListSortConfig(LinkedHashMap<String, Integer> listSortConfig) {
+    final List<ColumnSortConfigurationDto> ret = new ArrayList<>();
+    
+    if (listSortConfig != null) {
+      for (Map.Entry<String, Integer> colSortConfig: listSortConfig.entrySet()) {
+        ColumnSortConfigurationDto colSortConfigDto = new ColumnSortConfigurationDto();
+        colSortConfigDto.setColumnName(colSortConfig.getKey());
+        colSortConfigDto.setSortOrder(colSortConfig.getValue() != null && colSortConfig.getValue() < 0 ? "desc" : "asc");
+        ret.add(colSortConfigDto);
+      }
+    }
+    
+    return ret;
   }
 
   @GET

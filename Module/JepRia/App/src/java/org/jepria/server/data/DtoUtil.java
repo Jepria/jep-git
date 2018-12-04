@@ -22,14 +22,14 @@ public class DtoUtil {
    * @param dto
    * @return
    */
-  public static Map<String, ?> dtoToMap(Object dto) {
+  public static Map<String, Object> dtoToMap(Object dto) {
     if (dto == null) {
       return null;
     }
     
     final Type type = new HashMap<String, Object>().getClass();
     final Jsonb jsonb = JsonbBuilder.create();
-    final Map<String, ?> map = jsonb.fromJson(jsonb.toJson(dto), type);
+    final Map<String, Object> map = jsonb.fromJson(jsonb.toJson(dto), type);
     return map;
   }
   
@@ -66,5 +66,4 @@ public class DtoUtil {
     dto.setValue(valueStr);
     return dto;
   }
-  
 }

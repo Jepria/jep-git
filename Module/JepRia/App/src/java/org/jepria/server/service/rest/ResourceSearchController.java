@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
-import org.jepria.server.data.SearchParamsDto;
 import org.jepria.server.security.Credential;
 
 /**
@@ -18,17 +17,17 @@ public interface ResourceSearchController {
 
   /**
    * 
-   * @param searchParams
+   * @param searchRequest
    * @return non-null
    */
-  String postSearchRequest(SearchParamsDto searchParams, Credential credential);
+  String postSearchRequest(SearchRequest searchRequest, Credential credential);
   /**
    * 
    * @param searchId
    * @return non-null
    * @throws NoSuchElementException if the requested searchId does not exist 
    */
-  SearchParamsDto getSearchParams(String searchId, Credential credential) throws NoSuchElementException;
+  SearchRequest getSearchRequest(String searchId, Credential credential) throws NoSuchElementException;
 
   /**
    * 

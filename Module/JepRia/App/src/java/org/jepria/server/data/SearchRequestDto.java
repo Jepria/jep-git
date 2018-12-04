@@ -4,11 +4,11 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Dto для представления пользовательских параметров поиска
+ * Dto для представления пользовательского поискового запроса
  */
-public class SearchParamsDto {
+public class SearchRequestDto {
   
-  public SearchParamsDto() {}
+  public SearchRequestDto() {}
   
   private Map<String, Object> template;
   

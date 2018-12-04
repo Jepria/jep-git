@@ -14,13 +14,11 @@ import java.util.function.Supplier;
 import javax.servlet.http.HttpSession;
 
 import org.jepria.compat.CoreCompat;
-import org.jepria.server.data.ColumnSortConfigurationDto;
 import org.jepria.server.data.Dao;
 import org.jepria.server.data.FieldType;
 import org.jepria.server.data.MatchType;
 import org.jepria.server.data.RecordComparator;
 import org.jepria.server.data.RecordDefinition;
-import org.jepria.server.data.SearchParamsDto;
 import org.jepria.server.security.Credential;
 
 /**
@@ -60,22 +58,22 @@ public class ResourceSearchControllerBase implements ResourceSearchController {
 
   
   /**
-   * @return сохранённый атрибут сессии: клиентские поисковые параметры
+   * @return сохранённый атрибут сессии: клиентский поисковый запрос
    */
-  private SearchParamsDto getSessionSearchParams() {
-    final String key = "SearchController:DaoName=" + dao.getClass().getSimpleName() + ";SearchId=" + searchUID + ";Key=SearchParams;";
-    return (SearchParamsDto)session.get().getAttribute(key);
+  private SearchRequest getSessionSearchRequest() {
+    final String key = "SearchController:DaoName=" + dao.getClass().getSimpleName() + ";SearchId=" + searchUID + ";Key=SearchRequest;";
+    return (SearchRequest)session.get().getAttribute(key);
   }
   /**
-   * Сохраняет атрибут сессии: клиентские поисковые параметры 
-   * @param searchParams
+   * Сохраняет атрибут сессии: клиентский поисковый запрос
+   * @param searchRequest
    */
-  private void setSessionSearchParams(SearchParamsDto searchParams) {
-    final String key = "SearchController:DaoName=" + dao.getClass().getSimpleName() + ";SearchId=" + searchUID + ";Key=SearchParams;";
-    if (searchParams == null) {
+  private void setSessionSearchRequest(SearchRequest searchRequest) {
+    final String key = "SearchController:DaoName=" + dao.getClass().getSimpleName() + ";SearchId=" + searchUID + ";Key=SearchRequest;";
+    if (searchRequest == null) {
       session.get().removeAttribute(key);
     } else {
-      session.get().setAttribute(key, searchParams);
+      session.get().setAttribute(key, searchRequest);
     }
   }
   
@@ -126,17 +124,17 @@ public class ResourceSearchControllerBase implements ResourceSearchController {
 
   
   @Override
-  public String postSearchRequest(SearchParamsDto searchParams, Credential credential) {
+  public String postSearchRequest(SearchRequest searchRequest, Credential credential) {
 
     // В зависимости от существующих и новых поисковых параметров инвалидируем результирующий список и/или его сортировку
-    final SearchParamsDto existingParams = getSessionSearchParams();
+    final SearchRequest existingRequest = getSessionSearchRequest();
     
     boolean invalidateResultset = true;
     boolean invalidateResultsetSort = true;
     
-    if (existingParams != null && searchParams != null) {
-      if (Objects.equals(existingParams.getTemplate(), searchParams.getTemplate())) {
-        if (!Objects.equals(existingParams.getListSortConfiguration(), searchParams.getListSortConfiguration())) {
+    if (existingRequest != null && searchRequest != null) {
+      if (Objects.equals(existingRequest.getTemplate(), searchRequest.getTemplate())) {
+        if (!Objects.equals(existingRequest.getListSortConfig(), searchRequest.getListSortConfig())) {
           // не инвалидируем результирующий список, если изменились только параметры сортировки
           invalidateResultset = false;
         }
@@ -152,7 +150,7 @@ public class ResourceSearchControllerBase implements ResourceSearchController {
     
     
     // сохраняем новые поисковые параметры
-    setSessionSearchParams(searchParams);
+    setSessionSearchRequest(searchRequest);
     
     return searchUID;
   }
@@ -167,22 +165,22 @@ public class ResourceSearchControllerBase implements ResourceSearchController {
   }
 
   /**
-   * Преобразует клиентские поисковые параметры в специфичную для DAO-поиска поисковую модель
-   * @param searchParams
+   * Преобразует клиентский поисковый запрос в специфичную для DAO-поиска поисковую модель
+   * @param searchRequest
    * @return
    */
-  protected SearchModel createSearchModel(SearchParamsDto searchParams) {
+  protected SearchModel createSearchModel(SearchRequest searchRequest) {
 
     SearchModel searchModel = new SearchModel();
 
-    Map<String, Object> template = searchParams.getTemplate();
+    Map<String, Object> template = searchRequest.getTemplate();
     if (template == null) {
       // search with no params
       template = Collections.emptyMap();
     }
 
     
-    // maxRowCount: если не задано в клиентских параметрах, то дефолтное значение 
+    // maxRowCount: если не задано в клиентском поисковом запросе, то дефолтное значение 
     Integer maxRowCount = (Integer)template.get(CoreCompat.MAX_ROW_COUNT__FIELD_NAME);
     searchModel.maxRowCount = maxRowCount != null ? maxRowCount : CoreCompat.DEFAULT_MAX_ROW_COUNT;
 
@@ -230,12 +228,12 @@ public class ResourceSearchControllerBase implements ResourceSearchController {
    */
   protected void doSearch(Credential credential) {
 
-    final SearchParamsDto searchParams = getSessionSearchParams();
-    if (searchParams == null) {
+    final SearchRequest searchRequest = getSessionSearchRequest();
+    if (searchRequest == null) {
       throw new IllegalStateException("The session attribute must have already been set at this point");
     }
     
-    SearchModel searchModel = createSearchModel(searchParams);
+    SearchModel searchModel = createSearchModel(searchRequest);
     
     List<Map<String, ?>> resultset;
     
@@ -262,21 +260,21 @@ public class ResourceSearchControllerBase implements ResourceSearchController {
    */
   protected void doSort() {
     
-    final SearchParamsDto searchParams = getSessionSearchParams();
-    if (searchParams == null) {
+    final SearchRequest searchRequest = getSessionSearchRequest();
+    if (searchRequest == null) {
       throw new IllegalStateException("The session attribute must have already been set at this point");
     }
     
     
-    List<ColumnSortConfigurationDto> listSortConfiguration = searchParams.getListSortConfiguration();
-    if (listSortConfiguration != null) {
+    LinkedHashMap<String, Integer> listSortConfig = searchRequest.getListSortConfig();
+    if (listSortConfig != null) {
       
       final LinkedHashMap<String, Comparator<Object>> fieldComparators = new LinkedHashMap<>();
       
-      for (ColumnSortConfigurationDto columnSortConfiguration: listSortConfiguration) {
+      for (Map.Entry<String, Integer> columnSortConfig: listSortConfig.entrySet()) {
       
-        final String fieldName = columnSortConfiguration.getColumnName();
-        final int sortOrder = "desc".equals(columnSortConfiguration.getSortOrder()) ? -1 : 1; 
+        final String fieldName = columnSortConfig.getKey();
+        final int sortOrder = columnSortConfig.getValue(); 
             
         Comparator<Object> fieldComparatorBase0 = recordDefinition.getFieldComparator(fieldName);
         final Comparator<Object> fieldComparatorBase = fieldComparatorBase0 != null ? fieldComparatorBase0 : CoreCompat.getDefaultComparator();  
@@ -310,15 +308,15 @@ public class ResourceSearchControllerBase implements ResourceSearchController {
   }
   
   @Override
-  public SearchParamsDto getSearchParams(String searchId, Credential credential) throws NoSuchElementException {
+  public SearchRequest getSearchRequest(String searchId, Credential credential) throws NoSuchElementException {
     checkSearchIdOrElseThrow(searchId);
     
-    SearchParamsDto searchParams = getSessionSearchParams();
-    if (searchParams == null) {
+    SearchRequest searchRequest = getSessionSearchRequest();
+    if (searchRequest == null) {
       throw new IllegalStateException("The session attribute must have already been set at this point");
     }
     
-    return searchParams;
+    return searchRequest;
   }
   
   @Override
