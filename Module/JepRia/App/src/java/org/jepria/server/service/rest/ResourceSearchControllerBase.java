@@ -250,6 +250,7 @@ public class ResourceSearchControllerBase implements ResourceSearchController {
       resultset = new ArrayList<>();
     }
     
+    // сессионный атрибут проставляется именно в doSearch
     setSessionResultset(resultset);
   }
    
@@ -268,27 +269,7 @@ public class ResourceSearchControllerBase implements ResourceSearchController {
     LinkedHashMap<String, Integer> listSortConfig = searchRequest.getListSortConfig();
     if (listSortConfig != null) {
       
-      final LinkedHashMap<String, Comparator<Object>> fieldComparators = new LinkedHashMap<>();
-      
-      for (Map.Entry<String, Integer> columnSortConfig: listSortConfig.entrySet()) {
-      
-        final String fieldName = columnSortConfig.getKey();
-        final int sortOrder = columnSortConfig.getValue(); 
-            
-        Comparator<Object> fieldComparatorBase0 = recordDefinition.getFieldComparator(fieldName);
-        final Comparator<Object> fieldComparatorBase = fieldComparatorBase0 != null ? fieldComparatorBase0 : CoreCompat.getDefaultComparator();  
-        
-        // apply sort order
-        Comparator<Object> fieldComparatorOrdered = new Comparator<Object>() {
-          @Override
-          public int compare(Object o1, Object o2) {
-            return fieldComparatorBase.compare(o1, o2) * sortOrder;
-          }
-        };
-        
-        fieldComparators.putIfAbsent(fieldName, fieldComparatorOrdered);
-      }
-      
+      final Comparator<Map<String, ?>> sortComparator = createSortComparator(listSortConfig);
       
       final List<Map<String, ?>> resultset = getSessionResultset();
       
@@ -296,14 +277,67 @@ public class ResourceSearchControllerBase implements ResourceSearchController {
         throw new IllegalStateException("The session attribute must have already been set at this point");
       }
 
-
-      Collections.sort(resultset, new RecordComparator(fieldComparators));
+      Collections.sort(resultset, sortComparator);
       // sorting affects the session attribute as well 
-      
-      
-      setSessionResultsetSortValid(true);
-      
     }
+    
+    // сессионный атрибут проставляется именно в doSort
+    setSessionResultsetSortValid(true);
+  }
+  
+  /**
+   * 
+   * @param listSortConfig non null
+   * @return
+   */
+  protected Comparator<Map<String, ?>> createSortComparator(LinkedHashMap<String, Integer> listSortConfig) {
+    
+    if (listSortConfig == null) {
+      throw new IllegalArgumentException("input must not be null");
+    }
+    
+    
+    final LinkedHashMap<String, Comparator<Object>> fieldComparators = new LinkedHashMap<>();
+    
+    for (Map.Entry<String, Integer> columnSortConfig: listSortConfig.entrySet()) {
+    
+      final String fieldName = columnSortConfig.getKey();
+      
+      final Integer sortOrder0 = columnSortConfig.getValue();
+      final int sortOrder = sortOrder0 != null ? sortOrder0 : 1;
+          
+      final Comparator<Object> fieldComparator = getFieldComparatorOrDefault(fieldName);
+      
+      // apply sort order
+      final Comparator<Object> fielComparatorWithSortOrder = new Comparator<Object>() {
+        @Override
+        public int compare(Object o1, Object o2) {
+          return fieldComparator.compare(o1, o2) * sortOrder;
+        }
+      };
+      
+      fieldComparators.putIfAbsent(fieldName, fielComparatorWithSortOrder);
+    }
+    
+    
+    
+    // При сортировке записи будут считаться "условно" равными, если будут равны значения только тех полей, которые участвуют в сравнении.
+    // Однако в этом случае результат сортировки двух списков, состоящих из одних и тех же элементов (но различающиеся порядком элементов)
+    // по одним и тем же полям может различаться в зависимости от изначального порядка элементов в этих списках.
+    // Чтобы этого избежать, при "условном" равенстве записей (в последнюю очередь) нужно проводить уточняющую сортировку по заведомо уникальному полю (primary key)
+    for (String primaryKey: recordDefinition.getPrimaryKey()) {
+      fieldComparators.putIfAbsent(primaryKey, getFieldComparatorOrDefault(primaryKey));
+    }
+    
+    
+    
+    return new RecordComparator(fieldComparators);
+  }
+  
+  // TODO вспомогательный метод. Но стоит ли он своего наличия?
+  protected Comparator<Object> getFieldComparatorOrDefault(String fieldName) {
+    final Comparator<Object> fieldComparator0 = recordDefinition.getFieldComparator(fieldName);
+    return fieldComparator0 != null ? fieldComparator0 : CoreCompat.getDefaultComparator();
   }
   
   @Override

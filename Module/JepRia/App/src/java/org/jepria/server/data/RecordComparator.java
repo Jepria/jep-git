@@ -46,7 +46,7 @@ public class RecordComparator implements Comparator<Map<String, ?>> {
       }
     }
     
-    // условно считаем записи равными
+    // Записи "условно" равны (равны значения только тех полей, которые участвуют в сравнении)
     return 0;
   }
 
