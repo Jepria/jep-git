@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
@@ -32,7 +33,7 @@ public class ResourceSearchControllerBase implements ResourceSearchController {
   protected final RecordDefinition recordDefinition;
 
   protected final Supplier<HttpSession> session;
-  
+
   public ResourceSearchControllerBase(Dao dao, RecordDefinition recordDefinition, Supplier<HttpSession> session) {
     this.dao = dao;
     this.recordDefinition = recordDefinition;
@@ -42,7 +43,18 @@ public class ResourceSearchControllerBase implements ResourceSearchController {
     // create single searchUID for a tuple {session,resource} 
     searchUID = Integer.toHexString(Objects.hash(session.get(), dao.getClass().getName()));
   }
+  
+  
+  /**
+   * Флаг строгой сортировки записей списка
+   */
+  protected boolean strictSort = false;
+  
+  public void setStrictSort(boolean strictSort) {
+    this.strictSort = strictSort;
+  }
 
+  
   private final String searchUID;
  
   /**
@@ -285,7 +297,7 @@ public class ResourceSearchControllerBase implements ResourceSearchController {
     LinkedHashMap<String, Integer> listSortConfig = searchRequest.getListSortConfig();
     if (listSortConfig != null) {
       
-      final Comparator<Map<String, ?>> sortComparator = createSortComparator(listSortConfig);
+      final Comparator<Map<String, ?>> sortComparator = createRecordComparator(listSortConfig);
       
       final List<Map<String, ?>> resultset = sessionResultset.get();
       
@@ -302,59 +314,24 @@ public class ResourceSearchControllerBase implements ResourceSearchController {
   }
   
   /**
-   * 
-   * @param listSortConfig non null
+   * Создаёт Comparator записей для сортировки списка
    * @return
    */
-  protected Comparator<Map<String, ?>> createSortComparator(LinkedHashMap<String, Integer> listSortConfig) {
+  protected Comparator<Map<String, ?>> createRecordComparator(LinkedHashMap<String, Integer> listSortConfig) {
     
-    if (listSortConfig == null) {
-      throw new IllegalArgumentException("input must not be null");
-    }
-    
-    
-    final LinkedHashMap<String, Comparator<Object>> fieldComparators = new LinkedHashMap<>();
-    
-    for (Map.Entry<String, Integer> columnSortConfig: listSortConfig.entrySet()) {
-    
-      final String fieldName = columnSortConfig.getKey();
-      
-      final Integer sortOrder0 = columnSortConfig.getValue();
-      final int sortOrder = sortOrder0 != null ? sortOrder0 : 1;
-          
-      final Comparator<Object> fieldComparator = getFieldComparatorOrDefault(fieldName);
-      
-      // apply sort order
-      final Comparator<Object> fielComparatorWithSortOrder = new Comparator<Object>() {
-        @Override
-        public int compare(Object o1, Object o2) {
-          return fieldComparator.compare(o1, o2) * sortOrder;
-        }
-      };
-      
-      fieldComparators.putIfAbsent(fieldName, fielComparatorWithSortOrder);
-    }
-    
-    
-    
-    // При сортировке записи будут считаться "условно" равными, если будут равны значения только тех полей, которые участвуют в сравнении.
-    // Однако в этом случае результат сортировки двух списков, состоящих из одних и тех же элементов (но различающиеся порядком элементов)
-    // по одним и тем же полям может различаться в зависимости от изначального порядка элементов в этих списках.
-    // Чтобы этого избежать, при "условном" равенстве записей (в последнюю очередь) нужно проводить уточняющую сортировку по заведомо уникальному полю (primary key)
-    for (String primaryKey: recordDefinition.getPrimaryKey()) {
-      fieldComparators.putIfAbsent(primaryKey, getFieldComparatorOrDefault(primaryKey));
-    }
-    
-    
-    
-    return new RecordComparator(fieldComparators);
+    return new RecordComparator(new LinkedHashSet<>(listSortConfig.keySet()), 
+        fieldName -> recordDefinition.getFieldComparator(fieldName), 
+        fieldName -> {
+          if (listSortConfig != null) {
+            Integer sortOrder = listSortConfig.get(fieldName);
+            if (sortOrder != null) {
+              return sortOrder;
+            }
+          }
+          return 1;
+        }, strictSort);
   }
   
-  // TODO вспомогательный метод. Но стоит ли он своего наличия?
-  protected Comparator<Object> getFieldComparatorOrDefault(String fieldName) {
-    final Comparator<Object> fieldComparator0 = recordDefinition.getFieldComparator(fieldName);
-    return fieldComparator0 != null ? fieldComparator0 : CoreCompat.getDefaultComparator();
-  }
   
   @Override
   public SearchRequest getSearchRequest(String searchId, Credential credential) throws NoSuchElementException {
