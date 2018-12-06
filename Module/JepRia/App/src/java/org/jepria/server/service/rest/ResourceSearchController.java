@@ -1,5 +1,6 @@
 package org.jepria.server.service.rest;
 
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
@@ -15,6 +16,20 @@ import org.jepria.server.security.Credential;
  */
 public interface ResourceSearchController {
 
+  /**
+   * Интерфейс клиентского поискового запроса для использования в контроллере 
+   */
+  public interface SearchRequest {
+    /**
+     * @return поисковый шаблон
+     */
+    Map<String, Object> getTemplate();
+    /**
+     * @return упорядоченная последовательность имён столбцов списка с указанием порядка сортировки данных в каждом столбце (>=0 или <0)
+     */
+    LinkedHashMap<String, Integer> getListSortConfig();
+  }
+  
   /**
    * 
    * @param searchRequest

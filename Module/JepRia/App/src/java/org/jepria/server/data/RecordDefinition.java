@@ -41,7 +41,7 @@ public interface RecordDefinition {
    */
   Comparator<Object> getFieldComparator(String fieldName);
   
-  public static class IncompletePrimaryKeyException extends Exception {
+  public class IncompletePrimaryKeyException extends Exception {
     private static final long serialVersionUID = 1L;
   }
   

@@ -37,8 +37,8 @@ import org.jepria.server.data.SearchRequestDto;
 import org.jepria.server.service.rest.ResourceController;
 import org.jepria.server.service.rest.ResourceControllerBase;
 import org.jepria.server.service.rest.ResourceSearchController;
+import org.jepria.server.service.rest.ResourceSearchController.SearchRequest;
 import org.jepria.server.service.rest.ResourceSearchControllerBase;
-import org.jepria.server.service.rest.SearchRequest;
 
 /**
  * Standard Jaxrs REST resource
@@ -58,7 +58,7 @@ import org.jepria.server.service.rest.SearchRequest;
 public class StandardResourceEndpoint<D extends Dao, TR, TW, TS> extends StandardEndpointBase {
 
   /**
-   * Прикладное описание стандартного REST-ресурса  
+   * Прикладное описание стандартного REST-ресурса для использования в endpointe
    */
   public static interface Description<D extends Dao> {
     D getDao();
@@ -259,12 +259,21 @@ public class StandardResourceEndpoint<D extends Dao, TR, TW, TS> extends Standar
     return new SearchRequest() {
       @Override
       public Map<String, Object> getTemplate() {
-        return template;
+        if (template == null) {
+          return new HashMap<>();// return modifiable collection
+        } else {
+          // TODO assert the collection to return is modifiable
+          return template;
+        }
       }
       
       @Override
       public LinkedHashMap<String, Integer> getListSortConfig() {
-        return listSortConfig;
+        if (listSortConfig == null) {
+          return new LinkedHashMap<>();// return modifiable collection
+        } else {
+          return listSortConfig;
+        }
       }
     };
   }
@@ -392,7 +401,12 @@ public class StandardResourceEndpoint<D extends Dao, TR, TW, TS> extends Standar
     return result;
   }
   
-  private LinkedHashMap<String, Integer> convertListSortConfig(List<ColumnSortConfigurationDto> listSortConfig) {
+  /**
+   * @param listSortConfig
+   * @return modifiable collection, non null
+   */
+  protected LinkedHashMap<String, Integer> convertListSortConfig(List<ColumnSortConfigurationDto> listSortConfig) {
+
     final LinkedHashMap<String, Integer> ret = new LinkedHashMap<>();
     
     if (listSortConfig != null) {

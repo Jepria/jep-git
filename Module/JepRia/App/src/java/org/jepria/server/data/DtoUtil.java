@@ -20,7 +20,7 @@ public class DtoUtil {
   /**
    * Преобразование Dto-объекта в Map 
    * @param dto
-   * @return
+   * @return null for null
    */
   public static Map<String, Object> dtoToMap(Object dto) {
     if (dto == null) {
@@ -37,7 +37,7 @@ public class DtoUtil {
    * Преобразование Map в Dto-объект
    * @param map
    * @param dtoClass
-   * @return
+   * @return null for null
    */
   public static <T> T mapToDto(Map<String, ?> map, Class<T> dtoClass) {
     if (map == null) {
@@ -52,7 +52,7 @@ public class DtoUtil {
   /**
    * Преобразование Map в {@link OptionDto}-объект
    * @param map
-   * @return
+   * @return null for null
    */
   public static OptionDto mapToOptionDto(Map<String, ?> map) {
     if (map == null) {
