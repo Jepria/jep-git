@@ -57,77 +57,93 @@ public class ResourceSearchControllerBase implements ResourceSearchController {
   }
 
   
+  
+  
+  
   /**
-   * @return сохранённый атрибут сессии: клиентский поисковый запрос
+   * Property-интерфейс для управления атрибутами сессии 
+   * @param <T>
    */
-  private SearchRequest getSessionSearchRequest() {
-    final String key = "SearchController:DaoName=" + dao.getClass().getSimpleName() + ";SearchId=" + searchUID + ";Key=SearchRequest;";
-    return (SearchRequest)session.get().getAttribute(key);
-  }
-  /**
-   * Сохраняет атрибут сессии: клиентский поисковый запрос
-   * @param searchRequest
-   */
-  private void setSessionSearchRequest(SearchRequest searchRequest) {
-    final String key = "SearchController:DaoName=" + dao.getClass().getSimpleName() + ";SearchId=" + searchUID + ";Key=SearchRequest;";
-    if (searchRequest == null) {
-      session.get().removeAttribute(key);
-    } else {
-      session.get().setAttribute(key, searchRequest);
-    }
+  protected static interface Property<T> {
+    T get();
+    void set(T object);
   }
   
   /**
-   * @return сохранённый атрибут сессии: результирующий список
-   * в соответствии с последним клиентским запросом 
+   * Контейнер сохранённого в сессию клиентского поискового запроса.
    */
-  private List<Map<String, ?>> getSessionResultset() {
-    final String key = "SearchController:DaoName=" + dao.getClass().getSimpleName() + ";SearchId=" + searchUID + ";Key=SearchResultset;";
-    return (List<Map<String, ?>>)session.get().getAttribute(key);
-  }
-  /**
-   * Сохраняет атрибут сессии: результирующий список
-   * в соответствии с последним клиентским запросом
-   * @param resultset
-   */
-  private void setSessionResultset(List<Map<String, ?>> resultset) {
-    final String key = "SearchController:DaoName=" + dao.getClass().getSimpleName() + ";SearchId=" + searchUID + ";Key=SearchResultset;";
-    if (resultset == null) {
-      session.get().removeAttribute(key);
-    } else {
-      session.get().setAttribute(key, resultset);
+  //  паттерн "Свойство" использован для инкапсуляции чтения и записи атрибута сессии
+  protected final Property<SearchRequest> sessionSearchRequest = new Property<SearchRequest>() {
+    @Override
+    public SearchRequest get() {
+      final String key = "SearchController:DaoName=" + dao.getClass().getSimpleName() + ";SearchId=" + searchUID + ";Key=SearchRequest;";
+      return (SearchRequest)session.get().getAttribute(key);
     }
-  }
+    @Override
+    public void set(SearchRequest searchRequest) {
+      final String key = "SearchController:DaoName=" + dao.getClass().getSimpleName() + ";SearchId=" + searchUID + ";Key=SearchRequest;";
+      if (searchRequest == null) {
+        session.get().removeAttribute(key);
+      } else {
+        session.get().setAttribute(key, searchRequest);
+      }
+    }
+  };
   
   /**
-   * @return сохранённый атрибут сессии: является ли сессионный результирующий список {@link #getSessionResultset()} 
-   * отсортированным в соответствии с последним клиентским запросом
+   * Контейнер сохранённого в сессию результирующего списка в соответствии с последним клиентским запросом 
    */
-  private boolean getSessionResultsetSortValid() {
-    final String key = "SearchController:DaoName=" + dao.getClass().getSimpleName() + ";SearchId=" + searchUID + ";Key=SearchResultsetSortValid;";
-    return Boolean.TRUE.equals(session.get().getAttribute(key));
-  }
-  /**
-   * Сохраняет атрибут сессии: является ли сессионный результирующий список {@link #getSessionResultset()}
-   * отсортированным в соответствии с последним клиентским запросом
-   * @param resultsetSortValid
-   */
-  private void setSessionResultsetSortValid(boolean resultsetSortValid) {
-    final String key = "SearchController:DaoName=" + dao.getClass().getSimpleName() + ";SearchId=" + searchUID + ";Key=SearchResultsetSortValid;";
-    if (!resultsetSortValid) {
-      session.get().removeAttribute(key);
-    } else {
-      session.get().setAttribute(key, true);
+  //  паттерн "Свойство" использован для инкапсуляции чтения и записи атрибута сессии
+  protected final Property<List<Map<String, ?>>> sessionResultset = new Property<List<Map<String, ?>>>() {
+    @Override
+    public List<Map<String, ?>> get() {
+      final String key = "SearchController:DaoName=" + dao.getClass().getSimpleName() + ";SearchId=" + searchUID + ";Key=SearchResultset;";
+      return (List<Map<String, ?>>)session.get().getAttribute(key);
     }
-  }
-  
 
+    @Override
+    public void set(List<Map<String, ?>> resultset) {
+      final String key = "SearchController:DaoName=" + dao.getClass().getSimpleName() + ";SearchId=" + searchUID + ";Key=SearchResultset;";
+      if (resultset == null) {
+        session.get().removeAttribute(key);
+      } else {
+        session.get().setAttribute(key, resultset);
+      }
+    }
+  };
+
+  /**
+   * Контейнер сохранённого в сессию признака, является ли сохранённый в сессии результирующий список 
+   * отсортированным в соответствии с последним клиентским запросом
+   */
+  //  паттерн "Свойство" использован для инкапсуляции чтения и записи атрибута сессии
+  protected final Property<Boolean> sessionResultsetSortValid = new Property<Boolean>() {
+    @Override
+    public Boolean get() {
+      final String key = "SearchController:DaoName=" + dao.getClass().getSimpleName() + ";SearchId=" + searchUID + ";Key=SearchResultsetSortValid;";
+      return Boolean.TRUE.equals(session.get().getAttribute(key));
+    }
+    @Override
+    public void set(Boolean resultsetSortValid) {
+      final String key = "SearchController:DaoName=" + dao.getClass().getSimpleName() + ";SearchId=" + searchUID + ";Key=SearchResultsetSortValid;";
+      if (Boolean.FALSE.equals(resultsetSortValid)) {
+        session.get().removeAttribute(key);
+      } else {
+        session.get().setAttribute(key, true);
+      }
+    }
+    
+  };
+  
+  
+  
+  
   
   @Override
   public String postSearchRequest(SearchRequest searchRequest, Credential credential) {
 
     // В зависимости от существующих и новых поисковых параметров инвалидируем результирующий список и/или его сортировку
-    final SearchRequest existingRequest = getSessionSearchRequest();
+    final SearchRequest existingRequest = sessionSearchRequest.get();
     
     boolean invalidateResultset = true;
     boolean invalidateResultsetSort = true;
@@ -142,15 +158,15 @@ public class ResourceSearchControllerBase implements ResourceSearchController {
     }
     
     if (invalidateResultset) {
-      setSessionResultset(null);
+      sessionResultset.set(null);
     }
     if (invalidateResultsetSort) {
-      setSessionResultsetSortValid(false);
+      sessionResultsetSortValid.set(false);
     }
     
     
     // сохраняем новые поисковые параметры
-    setSessionSearchRequest(searchRequest);
+    sessionSearchRequest.set(searchRequest);
     
     return searchUID;
   }
@@ -227,7 +243,7 @@ public class ResourceSearchControllerBase implements ResourceSearchController {
    */
   protected void doSearch(Credential credential) {
 
-    final SearchRequest searchRequest = getSessionSearchRequest();
+    final SearchRequest searchRequest = sessionSearchRequest.get();
     if (searchRequest == null) {
       throw new IllegalStateException("The session attribute must have already been set at this point");
     }
@@ -251,7 +267,7 @@ public class ResourceSearchControllerBase implements ResourceSearchController {
     }
     
     // сессионный атрибут проставляется именно в doSearch
-    setSessionResultset(resultset);
+    sessionResultset.set(resultset);
   }
    
   /**
@@ -260,7 +276,7 @@ public class ResourceSearchControllerBase implements ResourceSearchController {
    */
   protected void doSort() {
     
-    final SearchRequest searchRequest = getSessionSearchRequest();
+    final SearchRequest searchRequest = sessionSearchRequest.get();
     if (searchRequest == null) {
       throw new IllegalStateException("The session attribute must have already been set at this point");
     }
@@ -271,7 +287,7 @@ public class ResourceSearchControllerBase implements ResourceSearchController {
       
       final Comparator<Map<String, ?>> sortComparator = createSortComparator(listSortConfig);
       
-      final List<Map<String, ?>> resultset = getSessionResultset();
+      final List<Map<String, ?>> resultset = sessionResultset.get();
       
       if (resultset == null) {
         throw new IllegalStateException("The session attribute must have already been set at this point");
@@ -282,7 +298,7 @@ public class ResourceSearchControllerBase implements ResourceSearchController {
     }
     
     // сессионный атрибут проставляется именно в doSort
-    setSessionResultsetSortValid(true);
+    sessionResultsetSortValid.set(true);
   }
   
   /**
@@ -344,7 +360,7 @@ public class ResourceSearchControllerBase implements ResourceSearchController {
   public SearchRequest getSearchRequest(String searchId, Credential credential) throws NoSuchElementException {
     checkSearchIdOrElseThrow(searchId);
     
-    SearchRequest searchRequest = getSessionSearchRequest();
+    SearchRequest searchRequest = sessionSearchRequest.get();
     if (searchRequest == null) {
       throw new IllegalStateException("The session attribute must have already been set at this point");
     }
@@ -368,13 +384,13 @@ public class ResourceSearchControllerBase implements ResourceSearchController {
   protected List<Map<String, ?>> getResultsetLocal(Credential credential) throws NoSuchElementException {
     
     // поиск (если необходимо)
-    List<Map<String, ?>> resultset = getSessionResultset();
+    List<Map<String, ?>> resultset = sessionResultset.get();
     
     if (resultset == null) {
       // поиск не осуществлялся или был инвалидирован
       doSearch(credential);
       
-      resultset = getSessionResultset();
+      resultset = sessionResultset.get();
       
       if (resultset == null) {
         throw new IllegalStateException("The session attribute must have already been set at this point");
@@ -383,13 +399,13 @@ public class ResourceSearchControllerBase implements ResourceSearchController {
     
     
     // сортировка (если необходимо)
-    boolean resultsetSortValid = getSessionResultsetSortValid();
+    boolean resultsetSortValid = sessionResultsetSortValid.get();
     
     if (!resultsetSortValid) {
       // сортировка не осуществлялась или была инвалидирована
       doSort();
       
-      resultset = getSessionResultset();
+      resultset = sessionResultset.get();
       
       if (resultset == null) {
         throw new IllegalStateException("The session attribute must have already been set at this point");
