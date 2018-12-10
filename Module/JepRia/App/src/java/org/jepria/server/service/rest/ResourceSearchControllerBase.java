@@ -42,6 +42,8 @@ public class ResourceSearchControllerBase implements ResourceSearchController {
     
     // create single searchUID for a tuple {session,resource} 
     searchUID = Integer.toHexString(Objects.hash(session.get(), dao.getClass().getName()));
+    
+    sessionAttrKeyPrefix = "SearchController:DaoName=" + dao.getClass().getSimpleName() + ";SearchId=" + searchUID;
   }
   
   
@@ -81,19 +83,21 @@ public class ResourceSearchControllerBase implements ResourceSearchController {
     void set(T object);
   }
   
+  private final String sessionAttrKeyPrefix;
+  
   /**
    * Контейнер сохранённого в сессию клиентского поискового запроса.
    */
   //  паттерн "Свойство" использован для инкапсуляции чтения и записи атрибута сессии
-  protected final Property<SearchRequest> sessionSearchRequest = new Property<SearchRequest>() {
+  private final Property<SearchRequest> sessionSearchRequest = new Property<SearchRequest>() {
     @Override
     public SearchRequest get() {
-      final String key = "SearchController:DaoName=" + dao.getClass().getSimpleName() + ";SearchId=" + searchUID + ";Key=SearchRequest;";
+      String key = sessionAttrKeyPrefix + ";Key=SearchRequest;";
       return (SearchRequest)session.get().getAttribute(key);
     }
     @Override
     public void set(SearchRequest searchRequest) {
-      final String key = "SearchController:DaoName=" + dao.getClass().getSimpleName() + ";SearchId=" + searchUID + ";Key=SearchRequest;";
+      String key = sessionAttrKeyPrefix + ";Key=SearchRequest;";
       if (searchRequest == null) {
         session.get().removeAttribute(key);
       } else {
@@ -106,16 +110,15 @@ public class ResourceSearchControllerBase implements ResourceSearchController {
    * Контейнер сохранённого в сессию результирующего списка в соответствии с последним клиентским запросом 
    */
   //  паттерн "Свойство" использован для инкапсуляции чтения и записи атрибута сессии
-  protected final Property<List<Map<String, ?>>> sessionResultset = new Property<List<Map<String, ?>>>() {
+  private final Property<List<Map<String, ?>>> sessionResultset = new Property<List<Map<String, ?>>>() {
     @Override
     public List<Map<String, ?>> get() {
-      final String key = "SearchController:DaoName=" + dao.getClass().getSimpleName() + ";SearchId=" + searchUID + ";Key=SearchResultset;";
+      String key = sessionAttrKeyPrefix + ";Key=SearchResultset;";
       return (List<Map<String, ?>>)session.get().getAttribute(key);
     }
-
     @Override
     public void set(List<Map<String, ?>> resultset) {
-      final String key = "SearchController:DaoName=" + dao.getClass().getSimpleName() + ";SearchId=" + searchUID + ";Key=SearchResultset;";
+      String key = sessionAttrKeyPrefix + ";Key=SearchResultset;";
       if (resultset == null) {
         session.get().removeAttribute(key);
       } else {
@@ -129,15 +132,15 @@ public class ResourceSearchControllerBase implements ResourceSearchController {
    * отсортированным в соответствии с последним клиентским запросом
    */
   //  паттерн "Свойство" использован для инкапсуляции чтения и записи атрибута сессии
-  protected final Property<Boolean> sessionResultsetSortValid = new Property<Boolean>() {
+  private final Property<Boolean> sessionResultsetSortValid = new Property<Boolean>() {
     @Override
     public Boolean get() {
-      final String key = "SearchController:DaoName=" + dao.getClass().getSimpleName() + ";SearchId=" + searchUID + ";Key=SearchResultsetSortValid;";
+      String key = sessionAttrKeyPrefix + ";Key=SearchResultsetSortValid;";
       return Boolean.TRUE.equals(session.get().getAttribute(key));
     }
     @Override
     public void set(Boolean resultsetSortValid) {
-      final String key = "SearchController:DaoName=" + dao.getClass().getSimpleName() + ";SearchId=" + searchUID + ";Key=SearchResultsetSortValid;";
+      String key = sessionAttrKeyPrefix + ";Key=SearchResultsetSortValid;";
       if (Boolean.FALSE.equals(resultsetSortValid)) {
         session.get().removeAttribute(key);
       } else {
@@ -146,10 +149,6 @@ public class ResourceSearchControllerBase implements ResourceSearchController {
     }
     
   };
-  
-  
-  
-  
   
   @Override
   public String postSearchRequest(SearchRequest searchRequest, Credential credential) {
