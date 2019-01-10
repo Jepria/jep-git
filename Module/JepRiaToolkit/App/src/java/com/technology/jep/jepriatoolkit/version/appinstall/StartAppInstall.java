@@ -32,7 +32,7 @@ import com.technology.jep.jepriatoolkit.version.MapXml;
 public class StartAppInstall extends AppInstall {
 
   // атрибуты таска
-  private String version, svnPath, svnVersionInfo;
+  private String version, svnPath, svnVersionInfo, mapXmlPath;
 
   /**
    * {@inheritDoc}
@@ -100,7 +100,7 @@ public class StartAppInstall extends AppInstall {
 
     Document mapXmlDocument = null;
     try{
-      mapXmlDocument = JepRiaToolkitUtil.getDOM("../Doc/map.xml");
+      mapXmlDocument = JepRiaToolkitUtil.getDOM(JepRiaUtil.isEmpty(mapXmlPath) ? "../Doc/map.xml" : mapXmlPath);
     } catch(IOException io) {
       JepRiaToolkitUtil.echoMessage(
          JepRiaToolkitUtil.multipleConcat(ERROR_PREFIX, "Error parsing map.xml : ", END_OF_LINE, TAB, io.getMessage()));
@@ -202,6 +202,10 @@ public class StartAppInstall extends AppInstall {
 
   public void setSvnPath(String svnPath) {
     this.svnPath = svnPath;
+  }
+  
+  public void setMapXmlPath(String mapXmlPath) {
+    this.mapXmlPath = mapXmlPath;
   }
 
   /**
