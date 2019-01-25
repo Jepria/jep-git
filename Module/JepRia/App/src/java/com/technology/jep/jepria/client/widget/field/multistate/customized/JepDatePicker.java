@@ -60,7 +60,7 @@ public abstract class JepDatePicker extends DatePicker {
   /**
    * Создаем кнопку под панелью календаря
    * @param kindPresentPanelElements вид панели элементов навигации для календаря
-   * @return widget
+   * @return widget созданный объект представления кнопки
    */
   
   protected Widget createButtonToday(int kindPresentPanelElements) {
@@ -118,13 +118,24 @@ public abstract class JepDatePicker extends DatePicker {
     setTime(newDate);
   }
   
+  /**
+   * Виджет для редактирования часов на панели календаря
+   */
   private TextBox hours;
+  
+  /**
+   * Виджет для редактирования минут на панели календаря
+   */
   private TextBox minutes;
+  
+  /**
+   * Виджет для редактирования секунд на панели календаря
+   */
   private TextBox seconds;
   
   /**
    * Создаем поля редактирования для ввода времени 
-   * @return widget
+   * @return widget объект для редактирования времени на панели календаря
    */
   protected Widget createTime() {
     HorizontalPanel vPanel = new HorizontalPanel();
@@ -140,6 +151,10 @@ public abstract class JepDatePicker extends DatePicker {
     return vPanel;
   }
   
+  /**
+   * Создания и инициализация виджета для редактирования часов
+   * @return объект 
+   */
   private TextBox initHoursField() {
     TextBox  widget = new TextBox();
     widget.setMaxLength(2);
@@ -151,6 +166,10 @@ public abstract class JepDatePicker extends DatePicker {
     return widget;
   }
   
+  /**
+   * Создания и инициализация виджета для редактирования минут
+   * @return объект 
+   */
   private TextBox initMinuteField() {
     TextBox  widget = new TextBox();
     widget.setMaxLength(2);
@@ -161,6 +180,10 @@ public abstract class JepDatePicker extends DatePicker {
     return widget;
   }
   
+  /**
+   * Создания и инициализация виджета для редактирования секунд
+   * @return объект 
+   */
   private TextBox initSecondsField() {
     final TextBox  widget = new TextBox();
     widget.setMaxLength(2);
@@ -173,7 +196,7 @@ public abstract class JepDatePicker extends DatePicker {
   
   /**
    * Выделяем все содержимое соответствующего элемента
-   * @param element
+   * @param element элемент для выделения содержимого
    */
   private native void selectAll(Element element) /*-{
     element.setSelectionRange(0, element.value.length);
@@ -181,7 +204,7 @@ public abstract class JepDatePicker extends DatePicker {
   
   /**
    * Устанавливаем время
-   * @param newTime
+   * @param newTime новое занчение времени
    */
   protected void setTime(Date newTime) {
     if (hours != null && minutes != null && seconds != null && newTime != null) {
@@ -193,7 +216,7 @@ public abstract class JepDatePicker extends DatePicker {
   
   /**
    * Устанавливаем видимость панели навигации по дням месяца   
-   * @param visible
+   * @param visible Истина - видим, Ложь - невидим
    */
   public void setVisibleDaysPanel(boolean visible) {
     getView().setVisible(visible);
@@ -201,7 +224,7 @@ public abstract class JepDatePicker extends DatePicker {
   
   /**
    * Видимость панели с календарем
-   * @return
+   * @return Истина - видим, Ложь - невидим
    */
   public boolean isVisibleDaysPanel() {
     return getView().isVisible();
@@ -209,13 +232,14 @@ public abstract class JepDatePicker extends DatePicker {
   
   /**
    * Устанавливаем видимость панели календаря
-   * @param visible
+   * @param visible Истина - видим, Ложь - невидим
    */
   public void setVisibleNavigationPanel(boolean visible) {
     monthSelector.setVisibleNavigationPanel(visible);
   }
   
   /**
+   * Получиь актуальное значение календаря
    * @return получить актуальную дату из панели календаря
    */
   public Date getActualDate() {
@@ -273,7 +297,7 @@ public abstract class JepDatePicker extends DatePicker {
   }
   
   
-  final String defaultValue = "0";
+  final private String defaultValue = "0";
   private String preValue;
   
   /**
@@ -347,6 +371,9 @@ public abstract class JepDatePicker extends DatePicker {
     }
   }
   
+  /**
+   * Инициализация фокус-обработчиков на виджитах по редактированию времени на панели календаря
+   */
   private void initFocusHandlers() {
     hours.addFocusHandler(new FocusHandler() {
       @Override
@@ -372,7 +399,7 @@ public abstract class JepDatePicker extends DatePicker {
   
   /**
    * Получить минимально допустимый год
-   * @return
+   * @return минимально-возможный год
    */
   public Integer getMinYear() {
     return ((MonthAndYearSelector) getMonthSelector()).getMinYear();
@@ -380,7 +407,7 @@ public abstract class JepDatePicker extends DatePicker {
 
   /**
    * Установить минимально допустимый год
-   * @param minYear
+   * @param minYear минимально-возможный год
    * @return Если попали в допустимый диапахон (01.01.1900 - 31.12.2100) - Истина, иначе - Ложь
    */
   public boolean setMinYear(Integer minYear) {
@@ -390,7 +417,7 @@ public abstract class JepDatePicker extends DatePicker {
 
   /**
    * Получить максимально допустимый год
-   * @return год
+   * @return максимально-возможный год
    */
   public Integer getMaxYear() {
     return ((MonthAndYearSelector) getMonthSelector()).getMaxYear();
@@ -398,7 +425,7 @@ public abstract class JepDatePicker extends DatePicker {
 
   /**
    * Установить максимально допустимый год
-   * @param maxYear
+   * @param maxYear максимально-возможный год
    * @return Если попали в допустимый диапахон (01.01.1900 - 31.12.2100) - Истина, иначе - Ложь
    */
   public boolean setMaxYear(Integer maxYear) {
@@ -407,9 +434,9 @@ public abstract class JepDatePicker extends DatePicker {
   
   /**
    * Обработка ввода с клавиатуры для мобильных платформ
-   * @param widget
-   * @param keyCode
-   * @param maxValue
+   * @param widget объект 
+   * @param keyCode введенный символ 
+   * @param maxValue шаг переноса позиции курсора
    */
   
   protected void handlerEventKeyUpMobileDevice(Widget widget, int keyCode, int maxValue) {

@@ -13,6 +13,11 @@ import com.technology.jep.jepria.shared.util.JepRiaUtil;
 
 public class MaskedTextBoxMobile extends MaskedTextBox {
   
+  /**
+   * Сохраняем значение поля ввода при нажатии клавиши
+   */
+  private String beforeValue;
+  
   public MaskedTextBoxMobile(String mask) {
     super(mask);
   }
@@ -50,11 +55,6 @@ public class MaskedTextBoxMobile extends MaskedTextBox {
       return null;
     }
   }
-  
-  /**
-   * Сохраняем значение поля ввода при нажатии клавиши
-   */
-  private String beforeValue;
   
   /**
    * {@inheritDoc}

@@ -108,7 +108,8 @@ public class JepMaskedTextField extends JepBaseTextField<MaskedTextBox> {
 
   /**
    * Данный метод не поддерживается.<br> 
-   * Максимальная длина задаётся маской. 
+   * Максимальная длина задаётся маской.
+   * @param maxLength максимальная длина поля 
    */
   @Override
   public void setMaxLength(int maxLength) {
