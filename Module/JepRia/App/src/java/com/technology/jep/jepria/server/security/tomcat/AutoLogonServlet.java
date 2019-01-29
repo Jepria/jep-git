@@ -1,5 +1,6 @@
 package com.technology.jep.jepria.server.security.tomcat;
 
+import static com.technology.jep.jepria.server.JepRiaServerConstant.LOGIN_SUFFIX_FOR_HASH_AUTHORIZATION;
 import static com.technology.jep.jepria.shared.util.JepRiaUtil.isEmpty;
 import static javax.servlet.http.HttpServletResponse.SC_BAD_REQUEST;
 import static javax.servlet.http.HttpServletResponse.SC_UNAUTHORIZED;
@@ -55,18 +56,18 @@ public class AutoLogonServlet extends HttpServlet {
     }
     
     // if the user was authorized, execute logout before login procedure
-    if (request.getUserPrincipal() != null){
-      request.getSession().invalidate();
-      request.logout();
-    }
-    try {
-      request.login(login, password);
-    }
-    catch(ServletException e){
-      // incorrect authentication data
-      e.printStackTrace();
-      resp.sendError(SC_UNAUTHORIZED);
-      return;
+    String pureLogin = login != null && login.contains(LOGIN_SUFFIX_FOR_HASH_AUTHORIZATION) ? login.split(LOGIN_SUFFIX_FOR_HASH_AUTHORIZATION)[0] : login;
+    if (request.getUserPrincipal() == null
+        || (request.getUserPrincipal() != null && !request.getUserPrincipal().getName().equalsIgnoreCase(pureLogin))) {
+      try {
+        request.getSession().invalidate();
+        request.logout();
+        request.login(login, password);
+      } catch (ServletException e) {
+        e.printStackTrace();
+        resp.sendError(SC_UNAUTHORIZED, e.getMessage());
+        return;
+      }
     }
     resp.sendRedirect(resp.encodeRedirectURL(initURL));
   }

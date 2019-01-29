@@ -13,6 +13,7 @@ import com.technology.jep.jepria.client.ui.eventbus.plain.event.PrepareReportEve
 import com.technology.jep.jepria.client.ui.eventbus.plain.event.RefreshFieldsEvent;
 import com.technology.jep.jepria.client.ui.eventbus.plain.event.RefreshListEvent;
 import com.technology.jep.jepria.client.ui.eventbus.plain.event.SaveEvent;
+import com.technology.jep.jepria.client.ui.eventbus.plain.event.SaveSearchTemplateEvent;
 import com.technology.jep.jepria.client.ui.eventbus.plain.event.SearchEvent;
 import com.technology.jep.jepria.client.ui.eventbus.plain.event.SetCurrentRecordEvent;
 import com.technology.jep.jepria.client.ui.eventbus.plain.event.SetListUIDEvent;
@@ -76,6 +77,10 @@ public class PlainEventBus extends JepEventBus {
 
   public void save() {
     fireEvent(new SaveEvent());
+  }
+
+  public void saveSearchTemplate(JepRecord searchTemplate) {
+    fireEvent(new SaveSearchTemplateEvent(searchTemplate));
   }
 
   public void doDelete() {
