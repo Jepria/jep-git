@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+  <h1>Инструкция по внедрению REST API на Jersey+Swagger в типовое приложение на Jepria</h1>
+  <ol>
+  
+  
+    <h2><code>build.xml</code></h2>
+    <li>
+      Включаем внешние зависимости Jersey и Swagger
+      <pre>
+&lt;include-dependency-package libPath="${JERSEY-DEPENDENCY_LIB}" destFilename="dependency-jersey.properties"/&gt;
+&lt;property file="dependency-jersey.properties" /&gt;
+
+&lt;include-dependency-package libPath="${SWAGGER-DEPENDENCY_LIB}" destFilename="dependency-swagger.properties"/&gt;
+&lt;property file="dependency-swagger.properties" /&gt;
+      </pre>
+    </li>
+    <li>
+      В общие наборы файлов <code>&lt;path id="libs"&gt;</code> добавляем только те зависимости, которые необходимы для компиляции кода:
+      <pre>
+&lt;!-- REST/JAX-RS --&gt;
+&lt;pathelement location="${JERSEY-JAVAX-WS-RS-AI_LIB}" /&gt;
+
+&lt;!-- REST/Swagger --&gt;
+&lt;pathelement location="${SWAGGER-SWAGGER-ANNOTATIONS_LIB}" /&gt;
+      </pre>
+    </li>
+    <li>
+      В <code>&lt;target name="war"&gt;</code>, в блок <code>&lt;copy todir="temp-war/WEB-INF/lib"&gt;</code> добавляем копирование всех новых зависимостей:
+      <pre>
+&lt;!-- REST/Jersey --&gt;
+&lt;fileset file="${JERSEY-JAVAX-WS-RS-AI_LIB}" /&gt;
+&lt;fileset file="${JERSEY-AOPALLIANCE-REPACKAGED_LIB}" /&gt;
+&lt;fileset file="${JERSEY-CDI-API_LIB}" /&gt;
+&lt;fileset file="${JERSEY-EL-API_LIB}" /&gt;
+&lt;fileset file="${JERSEY-HK2-API_LIB}" /&gt;
+&lt;fileset file="${JERSEY-HK2-LOCATOR_LIB}" /&gt;
+&lt;fileset file="${JERSEY-HK2-UTILS_LIB}" /&gt;
+&lt;fileset file="${JERSEY-JAVASSIST_LIB}" /&gt;
+&lt;fileset file="${JERSEY-JAVAX-ANNOTATION-API_LIB}" /&gt;
+&lt;fileset file="${JERSEY-JAVAX-INJECT-1_LIB}" /&gt;
+&lt;fileset file="${JERSEY-JAVAX-INJECT-2_LIB}" /&gt;
+&lt;fileset file="${JERSEY-JAVAX-JSON_LIB}" /&gt;
+&lt;fileset file="${JERSEY-JAVAX-JSON-API_LIB}" /&gt;
+&lt;fileset file="${JERSEY-JAVAX-JSON-BIND-API_LIB}" /&gt;
+&lt;fileset file="${JERSEY-JAVAX-SERVLET-API_LIB}" /&gt;
+&lt;fileset file="${JERSEY-JAXB-API_LIB}" /&gt;
+&lt;fileset file="${JERSEY-JBOSS-INTERCEPTORS-API_LIB}" /&gt;
+&lt;fileset file="${JERSEY-JSR250-API_LIB}" /&gt;
+&lt;fileset file="${JERSEY-ORG-OSGI-CORE_LIB}" /&gt;
+&lt;fileset file="${JERSEY-OSGI-RESOURCE-LOCATOR_LIB}" /&gt;
+&lt;fileset file="${JERSEY-PERSISTENCE-API_LIB}" /&gt;
+&lt;fileset file="${JERSEY-VALIDATION-API_LIB}" /&gt;
+&lt;fileset file="${JERSEY-YASSON_LIB}" /&gt;
+&lt;fileset file="${JERSEY-JERSEY-CLIENT_LIB}" /&gt;
+&lt;fileset file="${JERSEY-JERSEY-COMMON_LIB}" /&gt;
+&lt;fileset file="${JERSEY-JERSEY-CONTAINER-SERVLET-CORE_LIB}" /&gt;
+&lt;fileset file="${JERSEY-JERSEY-CONTAINER-SERVLET_LIB}" /&gt;
+&lt;fileset file="${JERSEY-JERSEY-HK2_LIB}" /&gt;
+&lt;fileset file="${JERSEY-JERSEY-MEDIA-JAXB_LIB}" /&gt;
+&lt;fileset file="${JERSEY-JERSEY-MEDIA-JSON-BINDING_LIB}" /&gt;
+&lt;fileset file="${JERSEY-JERSEY-MEDIA-SSE_LIB}" /&gt;
+&lt;fileset file="${JERSEY-JERSEY-SERVER_LIB}" /&gt;
+
+&lt;!-- REST/Swagger --&gt;
+&lt;fileset file="${SWAGGER-ANNOTATIONS_LIB}" /&gt;
+&lt;fileset file="${SWAGGER-COMMONS-LANG_LIB}" /&gt;
+&lt;fileset file="${SWAGGER-DOM4J_LIB}" /&gt;
+&lt;fileset file="${SWAGGER-GSON_LIB}" /&gt;
+&lt;fileset file="${SWAGGER-GUAVA_LIB}" /&gt;
+&lt;fileset file="${SWAGGER-JACKSON-ANNOTATIONS_LIB}" /&gt;
+&lt;fileset file="${SWAGGER-JACKSON-CORE_LIB}" /&gt;
+&lt;fileset file="${SWAGGER-JACKSON-DATABIND_LIB}" /&gt;
+&lt;fileset file="${SWAGGER-JACKSON-DATAFORMAT-YAML_LIB}" /&gt;
+&lt;fileset file="${SWAGGER-JAVASSIST_LIB}" /&gt;
+&lt;fileset file="${SWAGGER-JERSEY-MEDIA-MULTIPART_LIB}" /&gt;
+&lt;fileset file="${SWAGGER-LOGBACK_LIB}" /&gt;
+&lt;fileset file="${SWAGGER-REFLECTIONS_LIB}" /&gt;
+&lt;fileset file="${SWAGGER-SLF4J-API_LIB}" /&gt;
+&lt;fileset file="${SWAGGER-SLF4J-SIMPLE_LIB}" /&gt;
+&lt;fileset file="${SWAGGER-SLF4J_LIB}" /&gt;
+&lt;fileset file="${SWAGGER-SNAKEYAML_LIB}" /&gt;
+&lt;fileset file="${SWAGGER-SWAGGER-ANNOTATIONS_LIB}" /&gt;
+&lt;fileset file="${SWAGGER-SWAGGER-CORE_LIB}" /&gt;
+&lt;fileset file="${SWAGGER-SWAGGER-JAXRS_LIB}" /&gt;
+&lt;fileset file="${SWAGGER-SWAGGER-JERSEY2-JAXRS_LIB}" /&gt;
+&lt;fileset file="${SWAGGER-SWAGGER-MODELS_LIB}" /&gt;
+&lt;fileset file="${SWAGGER-SWAGGER-SERVLET_LIB}" /&gt;
+      </pre> 
+    </li>
+    <li>
+      Если необходим Swagger, в <code>&lt;target name="war"&gt;</code>, в серию инструкций <code>&lt;copy&gt;</code> добавляем инструкцию:
+      <pre>
+&lt;!-- REST/Swagger --&gt;
+&lt;unzip src="${SWAGGER-UI_LIB}" dest="temp-war/swagger"/&gt;
+      </pre>
+    </li>
+    
+    
+    <h2><code>dependency.properties</code></h2>
+    <li>
+      Добавляем указанные в build.xml новые внешние зависимости:
+      <pre>
+# REST/Jersey
+JERSEY-DEPENDENCY_LIB=${BIN_HOME}/build/org/glassfish/jersey/bundles/jaxrs-ri/2.26/jaxrs-ri-dependency-2.26.jar
+
+# REST/Swagger
+SWAGGER-DEPENDENCY_LIB=${BIN_HOME}/build/io/swagger/1.5.17/swagger-dependency-1.5.17.jar
+SWAGGER-UI_LIB=${BIN_HOME}/build/io/swagger-ui/3.10.0/swagger-ui-3.10.0.jar
+      </pre>
+    </li>
+    
+    
+    <h2><code>web.xml</code></h2>
+    <li>
+      Добавляем блок Jersey и блок Swagger:
+      <pre> 
+&lt;!-- REST/Jersey: --&gt;      
+&lt;servlet&gt;
+  &lt;servlet-name&gt;REST service&lt;/servlet-name&gt;
+  &lt;servlet-class&gt;org.glassfish.jersey.servlet.ServletContainer&lt;/servlet-class&gt;
+  &lt;init-param&gt;
+    &lt;param-name&gt;jersey.config.server.provider.packages&lt;/param-name&gt;
+    &lt;param-value&gt;
+        <b>application.packages.with.rest.resource.classes</b>,
+        io.swagger.jaxrs.listing
+    &lt;/param-value&gt;
+  &lt;/init-param&gt;
+  &lt;load-on-startup&gt;1&lt;/load-on-startup&gt;
+&lt;/servlet&gt;
+&lt;servlet-mapping&gt;
+  &lt;servlet-name&gt;REST service&lt;/servlet-name&gt;
+  &lt;url-pattern&gt;/api/*&lt;/url-pattern&gt;
+&lt;/servlet-mapping&gt;
+&lt;!-- :REST/Jersey --&gt;
+
+&lt;!-- REST/Swagger: --&gt;
+&lt;servlet&gt;
+  &lt;servlet-name&gt;Jersey2Config&lt;/servlet-name&gt;
+  &lt;servlet-class&gt;io.swagger.jersey.config.JerseyJaxrsConfig&lt;/servlet-class&gt;
+  &lt;init-param&gt;
+    &lt;param-name&gt;api.version&lt;/param-name&gt;
+    &lt;param-value&gt;1.0.0&lt;/param-value&gt;
+  &lt;/init-param&gt;
+  &lt;init-param&gt;
+    &lt;param-name&gt;swagger.api.basepath&lt;/param-name&gt;
+    &lt;param-value&gt;/<b>ApplicationContextPath</b>/api&lt;/param-value&gt;
+  &lt;/init-param&gt;
+  &lt;load-on-startup&gt;2&lt;/load-on-startup&gt;
+&lt;/servlet&gt;
+
+&lt;servlet&gt;
+  &lt;servlet-name&gt;ApiDocs&lt;/servlet-name&gt;
+  &lt;jsp-file&gt;/swagger/jepria-swagger-docs.jsp&lt;/jsp-file&gt;
+  &lt;init-param&gt;
+    &lt;param-name&gt;swagger.api.basepath&lt;/param-name&gt;
+    &lt;param-value&gt;/<b>ApplicationContextPath</b>/api&lt;/param-value&gt;
+  &lt;/init-param&gt;
+  &lt;init-param&gt;
+    &lt;param-name&gt;jepria.swagger.disabled&lt;/param-name&gt;
+    &lt;param-value&gt;false&lt;/param-value&gt;
+  &lt;/init-param&gt;
+  &lt;init-param&gt;
+    &lt;param-name&gt;jepria.swagger.title&lt;/param-name&gt;
+    &lt;param-value&gt;REST API&lt;/param-value&gt;
+  &lt;/init-param&gt;
+&lt;/servlet&gt;
+&lt;servlet-mapping&gt;
+  &lt;servlet-name&gt;ApiDocs&lt;/servlet-name&gt;
+  &lt;url-pattern&gt;/api-docs&lt;/url-pattern&gt;
+&lt;/servlet-mapping&gt;
+&lt;!-- :REST/Swagger --&gt;
+      </pre>
+    </li>
+    <li>
+      Помещаем в нужный блок <code>&lt;security-constraint&gt;</code> (публичный либо защищённый) следующие значения:
+      <pre>
+&lt;url-pattern&gt;/api/*&lt;/url-pattern&gt;
+&lt;url-pattern&gt;/api-docs/*&lt;/url-pattern&gt;
+&lt;url-pattern&gt;/swagger/*&lt;/url-pattern&gt;
+      </pre>
+    </li>
+    
+    
+    <h2>Java код</h2>
+    <li>
+      В пакете <code><b>application.packages.with.rest.resource.classes</b></code> создаём java-классы, описывающие REST-ресурсы.<br/>
+      Минимальный код:
+      <pre>
+package application.packages.with.rest.resource.classes;
+
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.core.Response;
+
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
+@Api
+@Path("resource") // Обязательно наличие @Path на уровне класса для корректной работы, возможно с пустым значением @Path("")
+public class Resource {
+  
+  @GET
+  @Path("hello-world") 
+  @ApiOperation(value = "Hello world method")
+  public Response helloWorld() {
+
+    return Response.ok("Hello world!").build();
+  }
+}
+      </pre>  
+    </li>
+    
+    
+    <h2>Сборка и запуск</h2>
+    <li>
+      Сборка и установка выполняются привычной командой <code>ant</code>.<br/>
+      После установки доступны следующие ресурсы:
+      <ul>
+        <li><code>http://server.com/<b>ApplicationContextPath</b>/api/resource/hello-world</code> — собственно REST-эндпоинт</li>
+        <li><code>http://server.com/<b>ApplicationContextPath</b>/api-docs</code> — сгенерированная Swagger-документация REST-эндпоинта</li>
+      </ul>
+    </li>
+  </ol>
+</body>
+</html>
