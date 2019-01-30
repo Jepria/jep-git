@@ -125,7 +125,7 @@ public class JepCheckBoxField extends JepMultiStateField<CheckBox, HTML> {
    */
   @Override
   protected void setViewValue(Object value) {
-    super.setViewValue(JepRiaUtil.isEmpty(value) ? "" : (getValue() ? JepTexts.yes() : JepTexts.no()));
+    super.setViewValue(Boolean.TRUE.equals(value) ? JepTexts.yes() : JepTexts.no());
   }
   
   /**
