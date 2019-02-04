@@ -10,6 +10,8 @@ import static com.technology.jep.jepria.shared.JepRiaConstant.FILE_SIZE_HIDDEN_F
 import static com.technology.jep.jepria.shared.JepRiaConstant.PRIMARY_KEY_HIDDEN_FIELD_NAME;
 import static com.technology.jep.jepria.shared.JepRiaConstant.IS_DELETED_FILE_HIDDEN_FIELD_NAME;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import com.google.gwt.core.client.GWT;
@@ -26,7 +28,6 @@ import com.google.gwt.user.client.ui.FormPanel.SubmitEvent;
 import com.google.gwt.user.client.ui.FormPanel.SubmitHandler;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Hidden;
-import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
@@ -131,6 +132,11 @@ public abstract class JepLargeField<V extends Widget> extends JepMultiStateField
    */
   private Image undoIcon;
   
+  /**
+   * Список разрешенных расширений файлов
+   */
+  private final List<String> allowedExtensions = new ArrayList<String>(); 
+  
   @Deprecated
   public JepLargeField(String fieldLabel) {
     this(null, fieldLabel, null);
@@ -144,9 +150,20 @@ public abstract class JepLargeField<V extends Widget> extends JepMultiStateField
    */
   public JepLargeField(String fieldIdAsWebEl, String fieldLabel, String inputName) {
     super(fieldIdAsWebEl, fieldLabel);
-    if(!JepRiaUtil.isEmpty(inputName)) setFieldName(inputName);
+    if (!JepRiaUtil.isEmpty(inputName)) setFieldName(inputName);
   }
   
+  /**
+   * Возвращает список разрешенный расширений.
+   * @return Список разрешенный расширений.
+   */
+  public List<String> getAllowedExtensions() {
+    return allowedExtensions;
+  }
+  
+  /**
+   * {@inheritDoc}
+   */
   @Override
   protected void addEditableCard() {
     formPanel = new FormPanel();
@@ -279,7 +296,7 @@ public abstract class JepLargeField<V extends Widget> extends JepMultiStateField
    * @return соответствующий URL
    */
   protected String buildDownloadUrl(Object reference) {
-    if(reference instanceof JepFileReference) {
+    if (reference instanceof JepFileReference) {
       JepFileReference<?> fileReference = (JepFileReference<?>) reference;
       StringBuilder sbUrl = new StringBuilder();
       
@@ -294,7 +311,7 @@ public abstract class JepLargeField<V extends Widget> extends JepMultiStateField
       sbUrl.append(fileReference.getRecordKey());
       
       String mimeType = fileReference.getMimeType();
-      if(mimeType != null) {
+      if (mimeType != null) {
         sbUrl.append("&");
         sbUrl.append(DOWNLOAD_MIME_TYPE);
         sbUrl.append("=");
@@ -375,7 +392,7 @@ public abstract class JepLargeField<V extends Widget> extends JepMultiStateField
   @Override
   public void setValue(Object value) {
     Object oldValue = getValue();
-    if(!Objects.equals(oldValue, value)) {
+    if (!Objects.equals(oldValue, value)) {
       fileReference = (JepFileReference<?>) value;
       setViewValue(value);
       prepareEditableTools(fileReference, _workstate);
@@ -509,7 +526,7 @@ public abstract class JepLargeField<V extends Widget> extends JepMultiStateField
   @SuppressWarnings("unchecked")
   public JepFileReference<?> getValue() {
 
-    if(fileReference == null) {
+    if (fileReference == null) {
       fileReference = new JepFileReference<Object>();
     }
 
@@ -525,6 +542,7 @@ public abstract class JepLargeField<V extends Widget> extends JepMultiStateField
       String fileName = editableCard.getFilename();
       if (!JepRiaUtil.isEmpty(fileName)) {
         fileReference.setFileName(fileName);
+        fileReference.setFileExtension(JepFileReference.detectFileExtension(fileName));
       }
       
       currentValue = fileReference;
@@ -574,22 +592,33 @@ public abstract class JepLargeField<V extends Widget> extends JepMultiStateField
     
     // Перед проверкой, очищаем предыдущие ошибки.
     clearInvalid();
-    if (!allowBlank && (JepRiaUtil.isEmpty(getValue()) || isDeleted())) {
+    
+    boolean isEmpty = JepRiaUtil.isEmpty(getValue()) || isDeleted();
+    if (!allowBlank && isEmpty) {
       markInvalid(JepTexts.field_blankText());
       return false;
     }
-    
-    Integer maxUploadFileSize = JepRiaUtil.isEmpty(hiddenSizeField.getValue()) ? null : Integer.decode(hiddenSizeField.getValue());
-    // Если задан максимальный размер загружаемого файла, а также имеется клиентская поддержка получения размера файла
-    // проверяем данные значения на допустимость
-    if (!JepRiaUtil.isEmpty(maxUploadFileSize) && !JepRiaUtil.isEmpty(fileSize) && 
-        fileSize > maxUploadFileSize){
-      markInvalid(JepClientUtil.substitute(JepTexts.errors_file_uploadFileSizeError(), maxUploadFileSize, fileSize));
-      return false;
+
+    if (!isEmpty) {
+      Integer maxUploadFileSize = JepRiaUtil.isEmpty(hiddenSizeField.getValue()) ? null : Integer.decode(hiddenSizeField.getValue());
+      // Если задан максимальный размер загружаемого файла, а также имеется клиентская поддержка получения размера файла
+      // проверяем данные значения на допустимость
+      if (!JepRiaUtil.isEmpty(maxUploadFileSize) && fileSize > maxUploadFileSize) {
+        markInvalid(JepClientUtil.substitute(JepTexts.errors_file_uploadFileSizeError(), maxUploadFileSize, fileSize));
+        return false;
+      } else if (allowedExtensions.size() > 0) { // валидация только если заданы допустимые расширения
+        if (!allowedExtensions.contains(getValue().getFileExtension())) {
+          markInvalid(
+              JepClientUtil.substitute(
+                  JepTexts.errors_file_uploadExtension(), String.join(", ",allowedExtensions)
+              )
+          );
+          return false;
+        }
+      }
     }
     
     return true;
-    
   }
   
   /**
@@ -597,7 +626,7 @@ public abstract class JepLargeField<V extends Widget> extends JepMultiStateField
    */
   @Override
   public int getWidgetIndex(Widget child) {
-    if (child.equals(editablePanel)){
+    if (child.equals(editablePanel)) {
       child = formPanel;
     }
     return super.getWidgetIndex(child);
@@ -608,7 +637,7 @@ public abstract class JepLargeField<V extends Widget> extends JepMultiStateField
    * 
    * @param length allowed file size (Kbytes)
    */
-  public void setMaxUploadFileSize(int length){
+  public void setMaxUploadFileSize(int length) {
     hiddenSizeField.setValue(length + "");
   }
   
