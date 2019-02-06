@@ -1,58 +1,46 @@
 package com.technology.jep.jepria.client.widget.field;
 
-import static com.technology.jep.jepria.client.JepRiaAutomationConstant.JEP_LIST_FIELD_ITEM_CHECKBOX_INFIX;
-import static com.technology.jep.jepria.client.JepRiaAutomationConstant.JEP_OPTION_VALUE_HTML_ATTR;
 import static com.technology.jep.jepria.client.JepRiaClientConstant.JepTexts;
 import static com.technology.jep.jepria.client.JepRiaClientConstant.MAIN_FONT_STYLE;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
-import com.google.gwt.cell.client.AbstractEditableCell;
 import com.google.gwt.cell.client.Cell;
-import com.google.gwt.cell.client.CompositeCell;
-import com.google.gwt.cell.client.FieldUpdater;
-import com.google.gwt.cell.client.HasCell;
-import com.google.gwt.cell.client.ValueUpdater;
-import com.google.gwt.dom.client.BrowserEvents;
-import com.google.gwt.dom.client.Element;
-import com.google.gwt.dom.client.InputElement;
-import com.google.gwt.dom.client.NativeEvent;
-import com.google.gwt.event.dom.client.KeyCodes;
-import com.google.gwt.event.logical.shared.HasValueChangeHandlers;
+import com.google.gwt.cell.client.CheckboxCell;
+import com.google.gwt.cell.client.TextCell;
+import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
+import com.google.gwt.safehtml.shared.SafeHtml;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
-import com.google.gwt.safehtml.shared.SafeHtmlUtils;
+import com.google.gwt.user.cellview.client.AbstractCellTable;
 import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.DataGrid;
 import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.HasWidgets;
-import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
-import com.google.gwt.user.client.ui.Widget;
+import com.google.gwt.view.client.DefaultSelectionEventManager;
 import com.google.gwt.view.client.MultiSelectionModel;
+import com.google.gwt.view.client.SelectionChangeEvent;
+import com.google.gwt.view.client.SelectionChangeEvent.Handler;
+import com.google.gwt.view.client.SelectionChangeEvent.HasSelectionChangedHandlers;
 import com.technology.jep.jepria.client.JepRiaAutomationConstant;
 import com.technology.jep.jepria.client.util.JepClientUtil;
 import com.technology.jep.jepria.shared.field.option.JepOption;
- 
-/**
- * This widget will create a Checkbox List view.
- */
-public class CheckBoxListField<T extends JepOption> extends Composite implements HasWidgets, HasValueChangeHandlers<T> {
+
+public class CheckBoxListField<T extends JepOption> extends Composite implements HasSelectionChangedHandlers {
+
+  /**
+   * Наименование селектора (класса стилей) главного компонента.
+   */
+  private static final String LIST_FIELD_COMMON_STYLE = "jepRia-ListField-Input-common";
   
   /**
-   * Флаг "Выбрать все".
+   * Наименование селектора (класса стилей) ячеек таблицы.
    */
-  protected CheckBox selectAllCheckBox;
-  
-  /**
-   * Панель для размещения списка и флага "Выделить все".
-   */
-  protected VerticalPanel widgetPanel;
+  private static final String LIST_FIELD_STYLE = "jepRia-ListField-Input";
   
   /**
    * Наименование класса стилей для флага "Выделить все".
@@ -60,118 +48,139 @@ public class CheckBoxListField<T extends JepOption> extends Composite implements
   private static final String SELECT_ALL_CHECK_BOX_STYLE = "jepRia-ListField-SelectAllCheckBox";
   
   /**
-   * Панель для горизонтального размещения панели с виджетами и индикатора загрузки.
+   * Шаблон для содержимого ячейки с чекбоксом.
    */
-  private HorizontalPanel panel;
+  private static final String CHECKBOX_CELL_HTML_PATTERN = "<input type=\"checkbox\" tabindex=\"-1\" {0} id='{1}'/>";
   
-  protected DataGrid<T> table;
-  private List<T> data = new ArrayList<T>();
+  /**
+   * Шаблон для содержимого ячейки с меткой.
+   */
+  private static final String LABEL_CELL_HTML_PATTERN = 
+      "<label for='{0}' style='user-select: none; -moz-user-select: none; -ms-user-select: none' "
+      + "unselectable='on' class='item " + MAIN_FONT_STYLE + "'>&nbsp;{1}</label>";
+  
+  /**
+   * Таблица с чекбоксами и подписями.
+   */
+  private AbstractCellTable<T> table = new DataGrid<>();
+  
+  /**
+   * Ячейка для чекбоксов. Особенность: указывается id для того, чтобы связать с label.
+   */
+  private Cell<Boolean> checkBoxCell = new CheckboxCell(true, false){
+    @Override
+    public void render(Context context, Boolean value, SafeHtmlBuilder sb) {
+      // Get the view data.
+      Object key = context.getKey();
+      Boolean viewData = getViewData(key);
+      if (viewData != null && viewData.equals(value)) {
+        clearViewData(key);
+        viewData = null;
+      }
+      
+      String checkBoxId = getCheckBoxId(key.toString());
+
+      if (value != null && ((viewData != null) ? viewData : value)) {
+        sb.append(() -> JepClientUtil.substitute(CHECKBOX_CELL_HTML_PATTERN, "checked", checkBoxId));
+      } else {
+        sb.append(() -> JepClientUtil.substitute(CHECKBOX_CELL_HTML_PATTERN, "", checkBoxId));
+      }
+    }
+  };
+  
+  /**
+   * Колонка с чекбоксами.
+   */
+  private Column<T, Boolean> checkBoxColumn = new Column<T, Boolean>(checkBoxCell){
+    @Override
+    public Boolean getValue(T object) {
+      return selectionModel.isSelected(object);
+    }};
+
+  /**
+   * Ячейка для меток (label) чекбоксов. Особенность: указывается id чекбокса, что необходимо
+   * для обработки клика.
+   * Shift-click и Ctrl-click по элементу <label> принудительно игнорируются в Firefox, поэтому
+   * в этом браузере работать не будет, см. https://bugzilla.mozilla.org/show_bug.cgi?id=559506
+   */
+  private Cell<String> labelCell = new TextCell(){
+    @Override
+    public void render(Context context, SafeHtml value, SafeHtmlBuilder sb) {
+      if (value != null) {
+        sb.append(() -> JepClientUtil.substitute(LABEL_CELL_HTML_PATTERN, getCheckBoxId(context.getKey().toString()), value.asString()));
+      }
+    }
+  };
+
+  /**
+   * Получение id чекбокса.
+   * @param key ключ
+   * @return id
+   */
+  private String getCheckBoxId(String key) {
+    return fieldIdAsWebEl + JepRiaAutomationConstant.JEP_LIST_FIELD_ITEM_CHECKBOX_INFIX + key.replaceAll("\\s+","_");
+  }
+  
+  /**
+   * Колонка для меток.
+   */
+  private Column<T, String> labelColumn = new Column<T, String>(labelCell){
+    @Override
+    public String getValue(T object) {
+      return object.getName();
+    }};
+  
+  /**
+   * Флаг "Выбрать все".
+   */
+  private CheckBox selectAllCheckBox;
+  
+  /**
+   * Панель для размещения виджетов.
+   */
+  private VerticalPanel widgetPanel = new VerticalPanel();
+  
+  /**
+   * Модель выделения. 
+   */
+  private MultiSelectionModel<T> selectionModel = new MultiSelectionModel<T>();
   
   /**
    * Флаг свойства disabled данного поля. Необходимо хранить это значение, поскольку оно используется при каждом рендеринге.
    */
   private boolean disabled = false;
-  
+
   /**
-   * Multi Selection Model. 
-   */
-  private MultiSelectionModel<T> selectionModel = new MultiSelectionModel<T>();
-  
-  /**
-   * An html string representation of a checked input box with a label.
-   */
-  private static final String CHECKBOX_HTML = 
-      "<input type='checkbox' tabindex='-1' {4} " + JEP_OPTION_VALUE_HTML_ATTR + "='{1}' style='float:left;cursor:pointer;' {2} {3}/>" +
-      "<label for='{0}' title='{1}' class='item " + MAIN_FONT_STYLE + "'>&nbsp;{1}</label>";
-  
-  /**
-   * Наименование селектора (класса стилей) компонента, в который помещен чекбокс и текстовый лейбл.
-   */
-  private static final String LIST_FIELD_STYLE = "jepRia-ListField-Input";
-  
-  /**
-   * Наименование селектора (класса стилей) главного компонента.
-   */
-  private static final String LIST_FIELD_COMMON_STYLE = "jepRia-ListField-Input-common";
-  
-  /**
-   * ID объемлющего Jep-поля как Web-элемента. Переменная нужна как поле класса для использования при рендеринге.
+   * Id поля.
    */
   private String fieldIdAsWebEl;
   
   /**
-   * Вспомогательный класс для хранения данных, представляемых элементом списка.
-   * По сути, пара &lt;Boolean, String&gt; = &lt;отмечен?, подпись&gt;.
-   * @author RomanovAS
+   * Список хранимых опций.
    */
-  private class CheckBoxDataAggregator {
-    public final Boolean checked;
-    public final String label;
-    public CheckBoxDataAggregator(Boolean checked, String label) {
-      this.checked = checked;
-      this.label = label;
-    }
-  }
+  private List<T> options = new ArrayList<T>();
   
   /**
-   * Default constructor. Uses default text cell implementation of this class
+   * Флаг, определяющий, нужно ли предотвращать вызов обработчика события {@link SelectionChangeEvent}.
    */
-  public CheckBoxListField() {
-    // Now create a Table which takes an object i.e BaseDataMode
-    table = new DataGrid<T>();
-    table.addStyleName(LIST_FIELD_COMMON_STYLE);
-    
-    // FIXME TODO Ниже нужно избежать использования CompositeCell, так как после рефакторинга
-    // элемент списка состоит из одного, а не двух элементов и поэтому больше не является композитным.
-    // Проблема в том, что Column не создается от HasCell (зато создается от CompositeCell(HasCell)),
-    // а использование HasCell нужно для задания в нем FieldUpdater.
-    
-    List<HasCell<T, ?>> cellComponents = new ArrayList<HasCell<T, ?>>();
+  private boolean preventSelectionChange = false;
   
-    cellComponents.add(new HasCell<T, CheckBoxDataAggregator>() {
+  public CheckBoxListField() {
+    checkBoxColumn.setCellStyleNames(LIST_FIELD_STYLE);
+    labelColumn.setCellStyleNames(LIST_FIELD_STYLE);
     
-      private Cell<CheckBoxDataAggregator> cell = new JepCheckBoxCell();
-        
-      public Cell<CheckBoxDataAggregator> getCell() {
-        return cell;
-      }
-      
-      public FieldUpdater<T, CheckBoxDataAggregator> getFieldUpdater() {
-        return new FieldUpdater<T, CheckBoxDataAggregator>() {
-          public void update(int index, T object, CheckBoxDataAggregator newData) {
-            selectionModel.setSelected(object, newData.checked);
-            ValueChangeEvent.fire(CheckBoxListField.this, object);
-          }
-        };
-      }
-      
-      public CheckBoxDataAggregator getValue(T object) {
-        return new CheckBoxDataAggregator(selectionModel.isSelected(object), object.getName());
-      }
-    });
-    
-    CompositeCell<T> compositeCell = new CompositeCell<T>(cellComponents);
-    
-    Column<T, T> columnCell = new Column<T, T>(compositeCell) {
-      @Override
-      public T getValue(T object) {
-        return object;
-      }
-    };
-    columnCell.setCellStyleNames(LIST_FIELD_STYLE);
-    
-    // Here we are adding a Column. This column is rendered using the composite cell
-    table.addColumn(columnCell);
-    table.setColumnWidth(columnCell, "100%");
-    
-    table.setSelectionModel(selectionModel);
+    table.addStyleName(LIST_FIELD_COMMON_STYLE);
+    table.setSelectionModel(selectionModel, DefaultSelectionEventManager.createCheckboxManager());
+    table.addColumn(checkBoxColumn);
+    table.addColumn(labelColumn);
+    table.setWidth("100" + Unit.PCT);
+    // Необходимо принудительно задать ширину колонки с чекбоксами (любую фиксированную).
+    table.setColumnWidth(checkBoxColumn, "20px");
     
     selectAllCheckBox = new CheckBox(JepTexts.listField_selectAll());
     selectAllCheckBox.addStyleName(SELECT_ALL_CHECK_BOX_STYLE);
-    selectAllCheckBox.addStyleName(MAIN_FONT_STYLE);
-    
-    setSelectAllCheckBoxVisible(false);
-    
+    selectAllCheckBox.addStyleName(MAIN_FONT_STYLE);    
+    setSelectAllCheckBoxVisible(false);    
     selectAllCheckBox.addValueChangeHandler(new ValueChangeHandler<Boolean>() {      
       @Override
       public void onValueChange(ValueChangeEvent<Boolean> event) {
@@ -179,57 +188,74 @@ public class CheckBoxListField<T extends JepOption> extends Composite implements
       }
     });
     
-    addValueChangeHandler(new ValueChangeHandler<T>() {
-      @Override
-      public void onValueChange(ValueChangeEvent<T> event) {
-        selectAllCheckBox.setValue(data.size() == getSelection().size());
-      }
+    selectionModel.addSelectionChangeHandler(event -> {
+      selectAllCheckBox.setValue(options.size() == getSelection().size());
     });
     
-    widgetPanel = new VerticalPanel();    
-    populateWidgetPanel();
-    
-    panel = new HorizontalPanel();
-    panel.add(widgetPanel);
-    
-    initWidget(panel);
+    widgetPanel.add(table);
+    widgetPanel.add(selectAllCheckBox);
+    initWidget(widgetPanel);
+  }
+
+  /**
+   * Обрабатывает клик по флагу "Выделить все"
+   * @param selectAll true, если флаг был установлен; false, если снят
+   */
+  private void onSelectAll(boolean selectAll) {
+    if (selectAll) {
+      setSelection(options, true);
+    }
+    else {
+      setSelection(null, true);
+    }
   }
 
   /**
    * {@inheritDoc}
    */
   @Override
-  public void add(Widget w) {
-    panel.add(w);
+  public HandlerRegistration addSelectionChangeHandler(Handler handler) {
+    return selectionModel.addSelectionChangeHandler(event -> {
+      if (preventSelectionChange) {
+        preventSelectionChange = false;
+      } else {
+        handler.onSelectionChange(event);
+      }
+    });
   }
 
   /**
-   * Метод не поддерживается.
+   * Получение списка выделенных элементов. Создаётся копия списка, поэтому дальнейшие манипуляции
+   * с результатом должны быть безопасными.
+   * @return список выделенных элементов
    */
-  @Override
-  public void clear() {
-    throw new UnsupportedOperationException();
+  public List<T> getSelection() {
+    return new ArrayList<T>(selectionModel.getSelectedSet());
+  }
+
+  /**
+   * Принудительное обновление данных в таблице.
+   */
+  public void refreshData() {
+    if (options != null) {
+      table.setRowData(this.options);
+    }
+  }
+
+  /**
+   * Установка id элементов, из которых состоит виджет.
+   * @param fieldIdAsWebEl id поля
+   */
+  public void setCompositeWebIds(String fieldIdAsWebEl) {
+    this.fieldIdAsWebEl = fieldIdAsWebEl;
+    
+    table.getElement().setId(fieldIdAsWebEl + JepRiaAutomationConstant.JEP_FIELD_INPUT_POSTFIX);
+    selectAllCheckBox.getElement().setId(fieldIdAsWebEl + JepRiaAutomationConstant.JEP_LIST_FIELD_CHECKALL_POSTFIX);
   }
   
   /**
-   * Метод не поддерживается.
-   */
-  @Override
-  public Iterator<Widget> iterator() {
-    throw new UnsupportedOperationException();
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public boolean remove(Widget w) {
-    return panel.remove(w);
-  }
-
-  /**
    * Управление доступностью компонента.
-   * @param enabled доступность компонента
+   * @param enabled true - доступен, false - нет
    */
   public void setEnabled(boolean enabled) {
     disabled = !enabled;
@@ -246,7 +272,7 @@ public class CheckBoxListField<T extends JepOption> extends Composite implements
     
     selectAllCheckBox.setEnabled(enabled);
   }
-  
+
   /**
    * Установка высоты.<br>
    * Устанавливает высоту виджета. Если флаг "Выделить все" показан,
@@ -257,7 +283,31 @@ public class CheckBoxListField<T extends JepOption> extends Composite implements
   public void setHeight(String height) {
     table.setHeight(height);
   }
-  
+
+  /**
+   * Установка выделенных опций.
+   * @param value список выделенных опций
+   * @param fireEvent true - вызвать событие {@link SelectionChangeEvent}, false - нет
+   */
+  public void setSelection(List<T> selectedOptions, boolean fireEvent) {
+    if (!fireEvent) {
+      preventSelectionChange = true;
+    }
+    for (T option : options){
+      selectionModel.setSelected(option, selectedOptions != null && selectedOptions.contains(option));
+    }
+    selectAllCheckBox.setValue(selectedOptions != null && selectedOptions.size() == options.size());
+  }
+
+  /**
+   * Установка списка доступных опций.
+   * @param options список опций
+   */
+  public void setOptions(List<T> options) {
+    this.options = new ArrayList<>(options);
+    refreshData();
+  }
+
   /**
    * Установка видимости флага "Выделить все".<br>
    * По умолчанию флаг невидим.
@@ -266,7 +316,7 @@ public class CheckBoxListField<T extends JepOption> extends Composite implements
   public void setSelectAllCheckBoxVisible(boolean visible) {
     selectAllCheckBox.setVisible(visible);
   }
-
+  
   /**
    * Установка ширины.<br>
    * Метод перегружен, т.к. необходимо задать ширину не только списка,
@@ -278,208 +328,5 @@ public class CheckBoxListField<T extends JepOption> extends Composite implements
     table.setWidth(width);
     selectAllCheckBox.setWidth(width);
   }
-
-  /**
-   * Обработчик события щелчка по флагу "Выделить все".<br>
-   * Если флаг проставлен, выделяются все опции. В противном случае все опции сбрасываются.
-   * После этого вызывается событие 
-   * {@link com.technology.jep.jepria.client.widget.event.JepEventType#CHANGE_SELECTION_EVENT}.
-   */
-  protected void onSelectAll(boolean selectAll) {
-    if (selectAll) {
-      setSelection(data);
-    }
-    else {
-      setSelection(null);
-    }
-
-    ValueChangeEvent.fire(CheckBoxListField.this, null);
-  }
-
-  /**
-   * Заполнение панели списком и флагом "Выделить все".<br>
-   * При необходимости изменить стандартный порядок следования виджетов,
-   * метод следует переопределить в классе-наследнике.
-   */
-  protected void populateWidgetPanel() {
-    widgetPanel.add(table);
-    widgetPanel.add(selectAllCheckBox);
-  }
   
-  /**
-   * Set options.
-   * 
-   * @param data    options
-   */
-  public void setData(List<T> data) {
-    this.data = data;
-    refreshData();
-  }
-  
-  public void refreshData(){
-    if (data != null){  
-      this.table.setRowData(this.data);
-    }    
-  }
-  /**
-   * Get selected values
-   * 
-   * @return    selected values
-   */
-  public List<T> getSelection(){
-    return new ArrayList<T>(selectionModel.getSelectedSet());
-  }
-  
-  /**
-   * Set selected options in list field
-   * 
-   * @param selectedOptions  options
-   */
-  public void setSelection(List<T> selectedOptions){
-    for (T option : data){
-      selectionModel.setSelected(option, selectedOptions != null && selectedOptions.contains(option));
-    }
-    selectAllCheckBox.setValue(selectedOptions != null && selectedOptions.size() == data.size());
-  }
-    
-  /**
-   * Add value change handler.
-   * 
-   * @param handler  specified handler for {@link com.google.gwt.event.logical.shared.ValueChangeEvent}
-   */
-  public HandlerRegistration addValueChangeHandler(ValueChangeHandler<T> handler){
-    return addHandler(handler, ValueChangeEvent.getType());
-  }
-  
-  /**
-   * Change content widget.
-   * 
-   * @param widget  specified widget
-   */  
-  public void replaceWidget(Widget widget){
-    table.setVisibleRangeAndClearData(table.getVisibleRange(), true);
-    table.setLoadingIndicator(widget);
-  }
-  
-  /**
-   * Проверяет, выбраны ли все опции.
-   * @return true, если выбраны все опции, false в противном случае
-   */
-  public boolean isAllSelected() {
-    return getSelection().size() == data.size();
-  }
-  
-  /**
-   * Данный класс является аналогом gwt-класса {@link com.google.gwt.cell.client.CheckboxCell},
-   * с единственной существенной разницей:
-   * CheckBoxCell extends AbstractEditableCell<Boolean, Boolean>
-   * JepCheckBoxCell extends AbstractEditableCell<CheckBoxDataAggregator, CheckBoxDataAggregator>
-   */
-  private class JepCheckBoxCell extends AbstractEditableCell<CheckBoxDataAggregator, CheckBoxDataAggregator> {
-    
-    /**
-     * Начало блока кода, аналогичного классу com.google.gwt.cell.client.CheckBoxCell
-     */
-    public JepCheckBoxCell() {
-      super(BrowserEvents.CHANGE, BrowserEvents.KEYDOWN);
-    }
-    
-    // These booleans (false,true) are very important for right behavior of CBCell selection.
-    @Override
-    public boolean dependsOnSelection() {
-      return false;
-    }
-    @Override
-    public boolean handlesSelection() {
-      return true;
-    }
-
-    @Override
-    public boolean isEditing(Context context, Element parent, CheckBoxDataAggregator value) {
-      return false;
-    }
-    
-    @Override
-    public void onBrowserEvent(Context context, Element parent, CheckBoxDataAggregator value,
-        NativeEvent event, ValueUpdater<CheckBoxDataAggregator> valueUpdater) {
-      
-      String type = event.getType();
-      
-      boolean enterPressed = BrowserEvents.KEYDOWN.equals(type)
-          && event.getKeyCode() == KeyCodes.KEY_ENTER;
-      if (BrowserEvents.CHANGE.equals(type) || enterPressed) {
-        InputElement input = parent.getFirstChild().cast();
-        Boolean isChecked = input.isChecked();
-
-        /*
-        * Toggle the value if the enter key was pressed and the cell handles
-        * selection or doesn't depend on selection. If the cell depends on
-        * selection but doesn't handle selection, then ignore the enter key and
-        * let the SelectionEventManager determine which keys will trigger a
-        * change.
-        */
-        if (enterPressed && (handlesSelection() || !dependsOnSelection())) {
-          isChecked = !isChecked;
-          input.setChecked(isChecked);
-        }
-
-        /*
-        * Save the new value. However, if the cell depends on the selection, then
-        * do not save the value because we can get into an inconsistent state.
-        */
-        if (value.checked != isChecked && !dependsOnSelection()) {
-          setViewData(context.getKey(), new CheckBoxDataAggregator(isChecked, value.label));
-        } else {
-          clearViewData(context.getKey());
-        }
-
-        if (valueUpdater != null) {
-          valueUpdater.update(new CheckBoxDataAggregator(isChecked, value.label));
-        }
-      }
-    }
-    /**
-     * Конец блока кода, аналогичного классу com.google.gwt.cell.client.CheckBoxCell
-     */
-    
-    @Override
-    public void render(Context context, CheckBoxDataAggregator value, SafeHtmlBuilder sb) {
-      Object key = context.getKey();
-      Boolean viewData = getViewData(key) != null ? getViewData(key).checked : null;
-      if (viewData != null && viewData.equals(value.checked)) {
-        clearViewData(key);
-        viewData = null;
-      }
-      
-      final String checkBoxHtmlString;
-      final String checkBoxId, idAttrWithVal;
-      if (fieldIdAsWebEl == null) {
-        checkBoxId = idAttrWithVal = "";
-      } else {
-        checkBoxId = fieldIdAsWebEl + JEP_LIST_FIELD_ITEM_CHECKBOX_INFIX + value.label;
-        idAttrWithVal = "id='" + checkBoxId + "'";
-      }
-      
-      boolean checked = value.checked != null && ((viewData != null) ? viewData : value.checked);
-      checkBoxHtmlString = JepClientUtil.substitute(CHECKBOX_HTML,
-          checkBoxId,
-          value.label,
-          checked ? "checked" : "",
-          disabled ? "disabled" : "",
-          idAttrWithVal);
-      
-      sb.append(SafeHtmlUtils.fromSafeConstant(checkBoxHtmlString));
-    }
-  }
-  
-  /**
-   * Установка ID внутренних компонентов CheckBoxListField: table-списка как INPUT, кнопки "выделить все"
-   * @param fieldIdAsWebEl ID JepListField'а, который берется за основу ID внутренних компонентов
-   */
-  public void setCompositeWebIds(String fieldIdAsWebEl) {
-    this.fieldIdAsWebEl = fieldIdAsWebEl;
-    
-    table.getElement().setId(fieldIdAsWebEl + JepRiaAutomationConstant.JEP_FIELD_INPUT_POSTFIX);
-    selectAllCheckBox.getElement().setId(fieldIdAsWebEl + JepRiaAutomationConstant.JEP_LIST_FIELD_CHECKALL_POSTFIX);
-  }
 }
