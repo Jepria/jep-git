@@ -56,7 +56,7 @@ public class JepUploadServlet extends HttpServlet {
   /**
    * Определение записи.
    */
-  private JepLobRecordDefinition fileRecordDefinition = null;
+  protected JepLobRecordDefinition fileRecordDefinition = null;
   /**
    * JNDI-имя источника данных.
    */
@@ -159,7 +159,7 @@ public class JepUploadServlet extends HttpServlet {
             if (!fileItem.isFormField()) {
               // check file size if necessary
               long fileSize = fileItem.getSize();
-              if (!JepRiaUtil.isEmpty(specifiedFileSize) && fileSize > specifiedFileSize){
+              if (!JepRiaUtil.isEmpty(specifiedFileSize) && fileSize > specifiedFileSize) {
                 ResourceBundle resource = ResourceBundle.getBundle(JEP_RIA_RESOURCE_BUNDLE_NAME);
                 response.setCharacterEncoding("UTF-8");
                 response.setContentType("text/plain; charset=UTF-8");
@@ -179,18 +179,18 @@ public class JepUploadServlet extends HttpServlet {
               boolean isDeleted = isDeletedFormField != null && 
                   Boolean.valueOf(isDeletedFormField.getString());
               
-              if(!JepRiaUtil.isEmpty(fileName) || isDeleted) {
+              if (!JepRiaUtil.isEmpty(fileName) || isDeleted) {
                 String fileFieldName = getFileFieldName(fileItem);
                 JepTypeEnum fileFieldType = getFileFieldType(fileItem);
                 String tableName = fileRecordDefinition.getTableName();
                 try {
-                  if(fileFieldType == BINARY_FILE) {
+                  if (fileFieldType == BINARY_FILE) {
                     uploadBinary(
                       fileItem.getInputStream(),
                       tableName,
                       fileFieldName,
                       primaryKeyMap);
-                  } else if(fileFieldType == TEXT_FILE){
+                  } else if (fileFieldType == TEXT_FILE) {
                     uploadText(
                       fileItem.getInputStream(),
                       tableName,
@@ -210,7 +210,7 @@ public class JepUploadServlet extends HttpServlet {
           }
 
           response.setStatus(HttpServletResponse.SC_CREATED);
-          if(errorMessage.length() == 0) {
+          if (errorMessage.length() == 0) {
             response.getWriter().print("Upload success");
           } else {
             response.getWriter().print(errorMessage);
@@ -287,7 +287,7 @@ public class JepUploadServlet extends HttpServlet {
     , Map<String, Object> primaryKeyMap
     ) throws IOException, Exception {
     
-      if(primaryKeyMap.size() == 1) {
+      if (primaryKeyMap.size() == 1) {
         FileUploadStream.uploadFile(
           inputStream,
           new BinaryFileUploadImpl(transactionable),
@@ -326,7 +326,7 @@ public class JepUploadServlet extends HttpServlet {
     , Map<String, Object> primaryKeyMap
     ) throws IOException, Exception {
     
-      if(primaryKeyMap.size() == 1) {
+      if (primaryKeyMap.size() == 1) {
         FileUploadWriter.uploadFile(
           new InputStreamReader(inputStream, textFileCharset),
           new TextFileUploadImpl(transactionable),
@@ -357,7 +357,7 @@ public class JepUploadServlet extends HttpServlet {
    */
   protected FileItem getFormField(List<FileItem> items, String fieldName) {
         for (FileItem item : items) {
-          if(item.isFormField() && fieldName.equalsIgnoreCase(item.getFieldName())) {
+          if (item.isFormField() && fieldName.equalsIgnoreCase(item.getFieldName())) {
             return item;
           }
         }

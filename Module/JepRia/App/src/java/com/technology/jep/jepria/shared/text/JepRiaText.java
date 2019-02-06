@@ -601,15 +601,6 @@ public interface JepRiaText extends com.google.gwt.i18n.client.Constants {
   String errors_file_uploadFileSizeError();
 
   /**
-   * Translated "Нельзя загружать пустой файл.".
-   * 
-   * @return translated "Нельзя загружать пустой файл."
-   */
-  @DefaultStringValue("Нельзя загружать пустой файл.")
-  @Key("errors.file.uploadZeroSize")
-  String errors_file_uploadZeroSize();
-
-  /**
    * Translated "Конфигурация виджета должна быть настроена до ее отрисовки.".
    * 
    * @return translated "Конфигурация виджета должна быть настроена до ее отрисовки."

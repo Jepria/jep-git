@@ -603,7 +603,7 @@ public abstract class JepLargeField<V extends Widget> extends JepMultiStateField
       Integer maxUploadFileSize = JepRiaUtil.isEmpty(hiddenSizeField.getValue()) ? null : Integer.decode(hiddenSizeField.getValue());
       // Если задан максимальный размер загружаемого файла, а также имеется клиентская поддержка получения размера файла
       // проверяем данные значения на допустимость
-      if (!JepRiaUtil.isEmpty(maxUploadFileSize) && fileSize > maxUploadFileSize) {
+      if (!JepRiaUtil.isEmpty(maxUploadFileSize) && !JepRiaUtil.isEmpty(fileSize) && fileSize > maxUploadFileSize) {
         markInvalid(JepClientUtil.substitute(JepTexts.errors_file_uploadFileSizeError(), maxUploadFileSize, fileSize));
         return false;
       } else if (allowedExtensions.size() > 0) { // валидация только если заданы допустимые расширения
