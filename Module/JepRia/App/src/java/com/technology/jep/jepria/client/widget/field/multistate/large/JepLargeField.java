@@ -606,7 +606,7 @@ public abstract class JepLargeField<V extends Widget> extends JepMultiStateField
       if (!JepRiaUtil.isEmpty(maxUploadFileSize) && !JepRiaUtil.isEmpty(fileSize) && fileSize > maxUploadFileSize) {
         markInvalid(JepClientUtil.substitute(JepTexts.errors_file_uploadFileSizeError(), maxUploadFileSize, fileSize));
         return false;
-      } else if (allowedExtensions.size() > 0) { // валидация только если заданы допустимые расширения
+      } else if (allowedExtensions.size() > 0 && !JepRiaUtil.isEmpty(getValue().getFileExtension())) { // валидация только если заданы допустимые расширения
         if (!allowedExtensions.contains(getValue().getFileExtension())) {
           markInvalid(
               JepClientUtil.substitute(
