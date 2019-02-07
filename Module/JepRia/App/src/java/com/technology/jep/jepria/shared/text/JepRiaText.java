@@ -2,7 +2,7 @@ package com.technology.jep.jepria.shared.text;
 
 /**
  * Interface to represent the constants contained in resource bundle:
- * 	'C:/git/Module/JepRia/App/src/java/com/technology/jep/jepria/shared/text/JepRiaText.properties'.
+ * 	'D:/git/Jep/Module/JepRia/App/src/java/com/technology/jep/jepria/shared/text/JepRiaText.properties'.
  */
 public interface JepRiaText extends com.google.gwt.i18n.client.Constants {
   
@@ -581,6 +581,15 @@ public interface JepRiaText extends com.google.gwt.i18n.client.Constants {
   @DefaultStringValue("При загрузке файла произошла ошибка.")
   @Key("errors.file.uploadError")
   String errors_file_uploadError();
+
+  /**
+   * Translated "Некорректное расширение файла (список разрешенных расширений - {0}).".
+   * 
+   * @return translated "Некорректное расширение файла (список разрешенных расширений - {0})."
+   */
+  @DefaultStringValue("Некорректное расширение файла (список разрешенных расширений - {0}).")
+  @Key("errors.file.uploadExtension")
+  String errors_file_uploadExtension();
 
   /**
    * Translated "Превышен допустимый размер загружаемого файла (разрешена передача {0} Кбайт, реальное значение - {1} Кбайт). ".

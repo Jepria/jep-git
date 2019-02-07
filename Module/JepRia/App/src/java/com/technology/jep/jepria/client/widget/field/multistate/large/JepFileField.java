@@ -38,7 +38,7 @@ public class JepFileField extends JepLargeField<HTML> {
   private String downloadFileNamePrefix;
   
   @Deprecated
-  public JepFileField(){
+  public JepFileField() {
     this(null);
   }
   
@@ -60,7 +60,7 @@ public class JepFileField extends JepLargeField<HTML> {
   public JepFileField(String fieldIdAsWebEl, String fieldLabel, String inputName) {
     super(fieldIdAsWebEl, fieldLabel, inputName);
   }
-  
+
   /**
    * {@inheritDoc}
    */
@@ -110,7 +110,7 @@ public class JepFileField extends JepLargeField<HTML> {
    * 
    * @return    наименование скачиваемого файла
    */
-  public String getDownloadFileName(){
+  public String getDownloadFileName() {
     return downloadFileName;
   }
   
@@ -119,7 +119,7 @@ public class JepFileField extends JepLargeField<HTML> {
    * 
    * @param downloadFileName наименование скачиваемого файла
    */
-  public void setDownloadFileName(String downloadFileName){
+  public void setDownloadFileName(String downloadFileName) {
     this.downloadFileName = downloadFileName;
   }
   
@@ -128,7 +128,7 @@ public class JepFileField extends JepLargeField<HTML> {
    * 
    * @return    префикс для наименования скачиваемого файла
    */
-  public String getDownloadFileNamePrefix(){
+  public String getDownloadFileNamePrefix() {
     return downloadFileNamePrefix;
   }
   
@@ -137,7 +137,7 @@ public class JepFileField extends JepLargeField<HTML> {
    * 
    * @param downloadFileNamePrefix наименование префикса для скачиваемого файла
    */
-  public void setDownloadFileNamePrefix(String downloadFileNamePrefix){
+  public void setDownloadFileNamePrefix(String downloadFileNamePrefix) {
     this.downloadFileNamePrefix = downloadFileNamePrefix;
   }
   

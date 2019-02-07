@@ -1,5 +1,7 @@
 package com.technology.jep.jepria.shared.record.lob;
 
+import com.google.gwt.regexp.shared.MatchResult;
+import com.google.gwt.regexp.shared.RegExp;
 import com.google.gwt.user.client.rpc.IsSerializable;
 
 /**
@@ -30,7 +32,7 @@ public class JepFileReference<T> implements IsSerializable {
   /**
    * Признак необходимости удаления файла.
    */
-  private Boolean isDeleted = Boolean.FALSE;
+  private boolean isDeleted = false;
 
   public JepFileReference() {}
   
@@ -83,14 +85,14 @@ public class JepFileReference<T> implements IsSerializable {
    * @return Признак необходимости удаления файла.
    */
   public boolean isDeleted() {
-    return isDeleted == null ? false : isDeleted.booleanValue();
+    return isDeleted;
   }
 
   /**
    * Устанавливает признак необходимости удаления файла.
    * @param isDeleted Признак необходимости удаления файла.
    */
-  public void setDeleted(Boolean isDeleted) {
+  public void setDeleted(boolean isDeleted) {
     this.isDeleted = isDeleted;
   }
     
@@ -154,6 +156,20 @@ public class JepFileReference<T> implements IsSerializable {
     }
 
     return fileExtension;
+  }
+  
+  /**
+   * Определяет расширение файла по его имени.
+   * @param fileName Имя файла
+   */
+  public static String detectFileExtension(String fileName) {
+    RegExp fileExtensionExp = RegExp.compile("\\.([a-z0-9]+)$", "i");
+    MatchResult fileExtensionMatch = fileExtensionExp.exec(fileName);
+    return fileExtensionMatch.getGroup(1);
+  }
+  
+  public void setFileExtension(String fileExtension) {
+    this.fileExtension = fileExtension;
   }
 
   public String getFileExtension() {
