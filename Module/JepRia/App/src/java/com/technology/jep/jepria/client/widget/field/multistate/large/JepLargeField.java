@@ -607,10 +607,10 @@ public abstract class JepLargeField<V extends Widget> extends JepMultiStateField
         markInvalid(JepClientUtil.substitute(JepTexts.errors_file_uploadFileSizeError(), maxUploadFileSize, fileSize));
         return false;
       } else if (allowedExtensions.size() > 0 && !JepRiaUtil.isEmpty(getValue().getFileExtension())) { // валидация только если заданы допустимые расширения
-        if (!allowedExtensions.contains(getValue().getFileExtension())) {
+        if (!allowedExtensions.contains(getValue().getFileExtension().toLowerCase())) {
           markInvalid(
               JepClientUtil.substitute(
-                  JepTexts.errors_file_uploadExtension(), String.join(", ",allowedExtensions)
+                  JepTexts.errors_file_uploadExtension(), String.join(", ", allowedExtensions)
               )
           );
           return false;
