@@ -11,8 +11,12 @@ import static com.technology.jep.jepria.client.JepRiaAutomationConstant.JEP_TREE
 import static com.technology.jep.jepria.client.JepRiaClientConstant.JepTexts;
 import static com.technology.jep.jepria.client.JepRiaClientConstant.MAIN_FONT_STYLE;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import com.google.gwt.aria.client.Roles;
@@ -20,6 +24,7 @@ import com.google.gwt.cell.client.AbstractCell;
 import com.google.gwt.cell.client.Cell;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.Scheduler;
+import com.google.gwt.core.client.Scheduler.ScheduledCommand;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.NativeEvent;
 import com.google.gwt.dom.client.NodeList;
@@ -29,11 +34,17 @@ import com.google.gwt.event.logical.shared.OpenEvent;
 import com.google.gwt.event.logical.shared.OpenHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
+import com.google.gwt.event.shared.EventHandler;
+import com.google.gwt.event.shared.GwtEvent;
+import com.google.gwt.event.shared.HandlerManager;
 import com.google.gwt.event.shared.HandlerRegistration;
+import com.google.gwt.event.shared.GwtEvent.Type;
+import com.google.gwt.event.shared.HasHandlers;
 import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.safecss.shared.SafeStyles;
 import com.google.gwt.safecss.shared.SafeStylesBuilder;
 import com.google.gwt.safehtml.client.SafeHtmlTemplates;
+import com.google.gwt.safehtml.client.SafeHtmlTemplates.Template;
 import com.google.gwt.safehtml.shared.SafeHtml;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.safehtml.shared.SafeHtmlUtils;
@@ -55,7 +66,6 @@ import com.google.gwt.view.client.DefaultSelectionEventManager.EventTranslator;
 import com.google.gwt.view.client.DefaultSelectionEventManager.SelectAction;
 import com.google.gwt.view.client.HasData;
 import com.google.gwt.view.client.MultiSelectionModel;
-import com.google.gwt.view.client.Range;
 import com.google.gwt.view.client.SelectionChangeEvent;
 import com.google.gwt.view.client.SetSelectionModel;
 import com.google.gwt.view.client.TreeViewModel;
@@ -66,11 +76,12 @@ import com.technology.jep.jepria.client.widget.container.ElementSimplePanel;
 import com.technology.jep.jepria.client.widget.field.multistate.event.CheckChangeEvent;
 import com.technology.jep.jepria.client.widget.field.multistate.event.CheckChangeEvent.CheckChangeHandler;
 import com.technology.jep.jepria.client.widget.field.multistate.event.CheckChangeEvent.HasCheckChangeHandlers;
+import com.technology.jep.jepria.client.widget.field.tree.event.RefreshEndEvent;
+import com.technology.jep.jepria.client.widget.field.tree.event.RefreshStartEvent;
 import com.technology.jep.jepria.client.widget.field.tree.images.TreeFieldResources;
 import com.technology.jep.jepria.shared.field.option.JepOption;
 import com.technology.jep.jepria.shared.field.option.JepParentOption;
 import com.technology.jep.jepria.shared.util.JepRiaUtil;
-
 /**
  * Класс, представляющий реализацию поля выбора в виде древовидной иерархии.
  */
@@ -172,7 +183,7 @@ public class TreeField<V extends JepOption> extends Composite implements HasChec
   /**
    * Модель множественного выбора узлов дерева.
    */
-  private SetSelectionModel<V> selectionModel;
+  private TreeFieldSelectionModel selectionModel;
   
   /**
    * Возможность выбора узлов дерева (по умолчанию, допускается выделение узлов). 
@@ -283,8 +294,6 @@ public class TreeField<V extends JepOption> extends Composite implements HasChec
    */
   public void setLoader(DataLoader<V> dataLoader){
     this.loader = dataLoader;
-    
-    selectionModel = getSelectionModel();
     tree = getTree();
   }
 
@@ -292,65 +301,14 @@ public class TreeField<V extends JepOption> extends Composite implements HasChec
    * Получает модель выбора в древовидном справочнике.
    */
   protected SetSelectionModel<V> getSelectionModel() {
-    SetSelectionModel<V> result = new MultiSelectionModel<V>(){
-      @Override
-      public void setSelected(V item, boolean selected) {
-        
-        super.setSelected(item, selected);
-        
-        // если текущий узел был отмечен как частично выделенный
-        if (partialSelectedNodes.contains(item)){
-          partialSelectedNodes.remove(item);
-        }
-        
-        refreshNode(item);
-        
-        switch (checkStyle){
-          case PARENTS : {
-            TreeNodeInfo<V> treeNodeInfo = nodeMapOfDisplay.get(item);
-            if (JepRiaUtil.isEmpty(treeNodeInfo)) return;
-            V parentValue = treeNodeInfo.getParent();
-            while (!JepRiaUtil.isEmpty(parentValue)){
-              // если родительский узел был отмечен как частично выделенный
-              if (partialSelectedNodes.contains(parentValue)){
-                partialSelectedNodes.remove(parentValue);
-              }
-              refreshNode(parentValue);
-              parentValue = nodeMapOfDisplay.get(parentValue).getParent();
-            }
-            break;
-          }
-          case CHILDREN : {
-            List<V> children = getChildrenNodes(item);
-            if (!JepRiaUtil.isEmpty(children)){
-              for (V child : children){
-                if (selected ? !isSelected(child) : isSelected(child)){
-                  setSelected(child, selected);
-                }
-              }
-            }
-            break;
-          }
-        }
-      }
-    };
-    
-    result.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
-      @Override
-      public void onSelectionChange(SelectionChangeEvent event) {
-        boolean isSameList = availableSelectedNodes.containsAll(getCheckedSelection()) && 
-            getCheckedSelection().containsAll(availableSelectedNodes);
-        selectAllCheckBox.setValue(isSameList);
-      }
-    });
-    
-    return result;
+    return new TreeFieldSelectionModel();
   }
 
   /**
    * Формирует GWT-виджет древовидного справочника.
    */
   protected CellTree getTree() {
+    selectionModel = (TreeFieldSelectionModel) getSelectionModel();
     CellTree result = new CellTree(new TreeModel(), null, images, messages, Integer.MAX_VALUE){
       @Override
       public void onBrowserEvent(Event event) {
@@ -464,9 +422,10 @@ public class TreeField<V extends JepOption> extends Composite implements HasChec
     // очищаем логический список частично выделенных узлов
     partialSelectedNodes.clear();
     // также визуально убираем галочки на карте редактирования
-    for (V option : getCheckedSelection()) {
-      setChecked(option, false);
-    }
+    selectionModel.clear();
+//    for (V option : getCheckedSelection()) {
+//      setChecked(option, false);
+//    }
   }
 
   /**
@@ -556,7 +515,7 @@ public class TreeField<V extends JepOption> extends Composite implements HasChec
    * @return    логический признак выбора узла
    */
   public boolean isSelected(V value){
-    return selectionModel.isSelected(value);
+    return selectionModel.isSelected(value) || partialSelectedNodes.contains(value);
   }
   
   /**
@@ -643,8 +602,14 @@ public class TreeField<V extends JepOption> extends Composite implements HasChec
   
   /**
    * Refresh state of tree
+   * @param clearNodeMap Clear nodes saved in cash
    */
-  public void refresh(){
+  public void refresh(boolean clearNodeMap){
+    // очищаем логический список частично выделенных узлов
+    partialSelectedNodes.clear();
+    if (clearNodeMap) {
+      nodeMapOfDisplay.clear();
+    }
     ((TreeModel) tree.getTreeViewModel()).refresh();
   }
   
@@ -820,15 +785,57 @@ public class TreeField<V extends JepOption> extends Composite implements HasChec
     return SelectAction.DEFAULT;
   }
   
+  protected int hasPartlySelectedChildren(V value){
+    List<V> children = getChildrenNodes(value);
+    if (JepRiaUtil.isEmpty(children)) return -1;
+    
+    int childrenCount = children.size(), selectedCount = 0;
+    
+    for (int i = 0; i < childrenCount; i++){
+      V childValue = children.get(i);
+      int selected = hasPartlySelectedChildren(childValue);
+      if (selected == 0) {
+        if (!partialSelectedNodes.contains(value)){
+          partialSelectedNodes.add(value);
+        }
+        return 0;
+      }
+      if (isSelected(childValue)) selectedCount++;
+    }
+    
+    if (selectedCount == 0){ // no one node is selected
+      partialSelectedNodes.remove(value);
+      return -1;
+    } else if (selectedCount == childrenCount){ // all nodes are selected
+      partialSelectedNodes.remove(value);
+      if (!isSelected(value)) {
+        selectionModel.setSelected(value, true);
+      }
+      return 1;
+    } else { // some of nodes are selected
+      if (!partialSelectedNodes.contains(value)){
+        partialSelectedNodes.add(value);
+      }
+      return 0;
+    }
+  }
+  
   /**
    * Модель представления данных в компоненте.
    */
-  class TreeModel implements TreeViewModel {
+  class TreeModel implements TreeViewModel, HasHandlers {
+
+    private HandlerManager handlerManager;
     
     /**
      * Провайдер данных.
      */
     private TreeDataProvider provider;
+    
+    public TreeModel() {
+      super();
+      handlerManager = new HandlerManager(this);
+    }
     
     /**
      * Менеджер для управления выбором узлов дерева.
@@ -857,8 +864,6 @@ public class TreeField<V extends JepOption> extends Composite implements HasChec
       return new DefaultNodeInfo<V>(provider, getTreeCell(), selectionModel, selectionManager, null);
     }
 
-    
-
     /**
      * Проверка, что указанный узел дерева является листовым.
      * 
@@ -881,8 +886,18 @@ public class TreeField<V extends JepOption> extends Composite implements HasChec
      * Обновляет информацию о структуре дерева.
      */
     public void refresh(){
-      nodeMapOfDisplay.clear();
-      treePanel.setWidget(tree = getTree());
+      fireEvent(new RefreshStartEvent());
+      tree = getTree();
+      treePanel.clear();
+      showTree();
+      fireEvent(new RefreshEndEvent());
+    }
+
+
+
+    @Override
+    public void fireEvent(GwtEvent<?> event) {
+      handlerManager.fireEvent(event);
     }
   }
   
@@ -933,15 +948,8 @@ public class TreeField<V extends JepOption> extends Composite implements HasChec
             }
             openingNode = null;
             // If data retrieve without delays, we should initialize tree firstly
-            info.setFromCache(true);
             refreshDisplay(display, info.getData());
-            showTree();
-            if (expandNode != null) {
-              TreeNode openingNode = nodeMapOfDisplay.get(expandNode).getNode();
-              if (openingNode != null) { // it node has no child
-                OpenEvent.fire(tree, openingNode);
-              }
-            }
+            selectionModel.afterDataLoad(expandNode);
           }
         });
       }
@@ -953,18 +961,7 @@ public class TreeField<V extends JepOption> extends Composite implements HasChec
         if (!isFromCache){
           nodeInfo.setFromCache(true);
         }
-        
         refreshDisplay(display, nodeInfo.getData());
-        
-        if (JepRiaUtil.isEmpty(expandNode)){
-          showTree();
-        } 
-        else if (!isFromCache) { // expand node again
-          TreeNode openingNode = nodeMapOfDisplay.get(expandNode).getNode();
-          if (openingNode != null) { // it node has no child
-            OpenEvent.fire(tree, openingNode);
-          }
-        }
       }
     }
     
@@ -977,8 +974,13 @@ public class TreeField<V extends JepOption> extends Composite implements HasChec
      * @param data      список узлов дерева
      */
     public void refreshDisplay(HasData<V> display, List<V> data){
-      display.setRowData(display.getVisibleRange().getStart(), data);
-      display.setRowCount(data.size(), true);
+      Scheduler.get().scheduleDeferred(new ScheduledCommand() {
+        @Override
+        public void execute() {
+          display.setRowData(display.getVisibleRange().getStart(), data);
+          display.setRowCount(data.size(), true);
+        }
+      });
     }
     
     /**
@@ -1052,17 +1054,18 @@ public class TreeField<V extends JepOption> extends Composite implements HasChec
       } else if (checkNodes == CheckNodes.PARENT && isLeaf) {
         // допустимо выделение только родительских узлов, не отображаем соответствующую картинку
         checkedState = null;
-      } else if (partialSelectedNodes.contains(value)){
-        checkedState = 2;
-      } else if (isNodeOpened(value) && checkStyle.equals(CheckCascade.PARENTS)) {
+      } else if (checkStyle.equals(CheckCascade.PARENTS)) {
         int in = hasPartlySelectedChildren(value);
         if (in == 1) {
           checkedState = 1;
         } else if (in == 0) {
-          partialSelectedNodes.add(value);
           checkedState = 2;
         } else {
-          checkedState = 0;
+          if (isSelected(value)) {
+            checkedState = 1;
+          } else {
+            checkedState = 0;
+          }
         }
       } else {
         if (isSelected(value)) {
@@ -1075,41 +1078,6 @@ public class TreeField<V extends JepOption> extends Composite implements HasChec
       sb.append(getCellHtml(value));
     }
     
-    protected int hasPartlySelectedChildren(V value){
-      List<V> children = isNodeOpened(value) ? getChildrenNodes(value) : null;
-      if (JepRiaUtil.isEmpty(children)) return -1;
-      
-      int childrenCount = children.size(), selectedCount = 0;
-      
-      for (int i = 0; i < childrenCount; i++){
-        V childrenValue = children.get(i);
-        int selected = hasPartlySelectedChildren(childrenValue);
-        if (selected == 0) {
-          if (!isSelected(value)) {
-            selectionModel.setSelected(value, true);
-          }
-          return 0;
-        }
-        if (isSelected(childrenValue)) selectedCount++;
-      }
-      
-      if (selectedCount == 0){ // no one node is selected
-        if (isSelected(value)) {
-          selectionModel.setSelected(value, false);
-        }
-        return -1;
-      } else if (selectedCount == childrenCount){ // all nodes are selected
-        if (!isSelected(value)) {
-          selectionModel.setSelected(value, true);
-        }
-        return 1;
-      } else { // some of nodes are selected
-        if (!isSelected(value)) {
-          selectionModel.setSelected(value, true);
-        }
-        return 0;
-      }
-    }
     
     protected SafeHtml getCellHtml(V value){
       final boolean isLeaf = isLeaf(value);
@@ -1183,6 +1151,96 @@ public class TreeField<V extends JepOption> extends Composite implements HasChec
           value.getName(),
             cssBuilder.toSafeStyles(),
                 SafeHtmlUtils.fromString(PADDING));
+    }
+  }
+  
+  class TreeFieldSelectionModel extends MultiSelectionModel<V> implements RefreshStartEvent.Handler, RefreshEndEvent.Handler {
+    
+    private boolean isRefreshInProgress = false;
+    
+    public TreeFieldSelectionModel() {
+      super();
+      super.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
+        @Override
+        public void onSelectionChange(SelectionChangeEvent event) {
+          boolean isSameList = availableSelectedNodes.containsAll(getCheckedSelection()) && 
+              getCheckedSelection().containsAll(availableSelectedNodes);
+          selectAllCheckBox.setValue(isSameList);
+        }
+      });
+    }
+    
+    @Override
+    public void setSelected(V item, boolean selected) {
+      if (isRefreshInProgress) return;
+      boolean wasSelected = isSelected(item);
+      Scheduler.get().scheduleDeferred(new ScheduledCommand(){
+        @Override
+        public void execute() {
+          TreeFieldSelectionModel.super.setSelected(item, selected);
+          checkStyleBasedSelection(item, wasSelected, selected);
+        }});
+    }
+    
+    protected void checkStyleBasedSelection(V item, boolean wasSelected, boolean selected) {
+      switch (checkStyle) {
+        case PARENTS : {
+          if (partialSelectedNodes.contains(item)) {
+            wasSelected = true;
+            if (selected) {
+              super.setSelected(item, false);
+              selected = false;
+            }
+            partialSelectedNodes.remove(item);
+          }
+          if (!selected && wasSelected) {
+            List<V> children = getChildrenNodes(item);
+            if (!JepRiaUtil.isEmpty(children)) {
+              for (V child : children) {
+                setSelected(child, false);
+              }
+            }
+          }
+          TreeNodeInfo<V> treeNodeInfo = nodeMapOfDisplay.get(item);
+          if (JepRiaUtil.isEmpty(treeNodeInfo)) return;
+          V parentValue = treeNodeInfo.getParent();
+          while (!JepRiaUtil.isEmpty(parentValue)) {
+            refreshNode(parentValue);
+            parentValue = nodeMapOfDisplay.get(parentValue).getParent();
+          }
+          refreshNode(item);
+          break;
+        }
+        case CHILDREN : {
+          List<V> children = getChildrenNodes(item);
+          if (!JepRiaUtil.isEmpty(children)){
+            for (V child : children){
+              if (selected ? !isSelected(child) : isSelected(child)){
+                setSelected(child, selected);
+              }
+            }
+          }
+          refreshNode(item);
+        }
+      }
+    }
+    
+    
+    public void afterDataLoad(V item) {
+      if (item != null) {
+        boolean isSelected = isSelected(item);
+        checkStyleBasedSelection(item, isSelected, isSelected);
+      }
+    }
+
+    @Override
+    public void onRefreshEnd(RefreshEndEvent event) {
+      isRefreshInProgress = false;
+    }
+
+    @Override
+    public void onRefreshStart(RefreshStartEvent event) {
+      isRefreshInProgress = true;
     }
   }
   

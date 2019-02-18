@@ -285,9 +285,10 @@ public class JepTreeField extends JepMultiStateField<TreeField<JepOption>, HTML>
   @Override
   public void clear() {
     checkedValues = null;
-    editableCard.collapseAll();
-    editableCard.clearSelection();
     expandedValues = null;
+    //editableCard.clearSelection();
+    //editableCard.collapseAll();
+    editableCard.refresh(false);
   }
   
   /**
