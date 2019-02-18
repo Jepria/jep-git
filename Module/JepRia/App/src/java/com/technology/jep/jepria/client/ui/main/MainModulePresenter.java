@@ -1,9 +1,9 @@
 package com.technology.jep.jepria.client.ui.main;
 
-import static com.technology.jep.jepria.client.JepRiaClientConstant.JepTexts;
 import static com.technology.jep.jepria.client.JepRiaClientConstant.APPLICATION_SLOT;
 import static com.technology.jep.jepria.client.JepRiaClientConstant.ENTRY_MODULE_NAME_REQUEST_PARAMETER;
 import static com.technology.jep.jepria.client.JepRiaClientConstant.ENTRY_STATE_NAME_REQUEST_PARAMETER;
+import static com.technology.jep.jepria.client.JepRiaClientConstant.JepTexts;
 import static com.technology.jep.jepria.shared.JepRiaConstant.JEP_USER_NAME_FIELD_NAME;
 import static com.technology.jep.jepria.shared.JepRiaConstant.JEP_USER_ROLES_FIELD_NAME;
 import static com.technology.jep.jepria.shared.field.JepFieldNames.OPERATOR_ID;
@@ -86,7 +86,7 @@ public abstract class MainModulePresenter<V extends MainView, E extends MainEven
   /**
    * Карта соответствия <moduleId, множество ролей>
    */
-  protected Map<String, List<String>> accessMap = new HashMap<String, List<String>>();
+  protected Map<String, String[]> accessMap = new HashMap<>();
   
   private boolean isProtectedModuleVisible = false;
 
@@ -189,7 +189,8 @@ public abstract class MainModulePresenter<V extends MainView, E extends MainEven
       public void onSuccess(JepDto userData) {
         Log.trace("MainModulePresenter.getUserData().onSuccess(): userData = " + userData);
         ClientSecurity.instance.setOperatorId((Integer) userData.get(OPERATOR_ID));
-        ClientSecurity.instance.setRoles((List<String>) userData.get(JEP_USER_ROLES_FIELD_NAME));
+        List<String> roles = (List<String>) userData.get(JEP_USER_ROLES_FIELD_NAME);
+        ClientSecurity.instance.setRoles(roles == null ? null : roles.toArray(new String[roles.size()]));
         enterScope((String)userData.get(JEP_USER_NAME_FIELD_NAME));
       }
     });
@@ -423,24 +424,14 @@ public abstract class MainModulePresenter<V extends MainView, E extends MainEven
   }
   
   /**
-   * Определяет роли пользователя, необходимые для доступа к модулю. <br/>
-   * Оставлен для обратной совместимости, необходимо использовать {@link #addModuleProtection(String, List)}.
-   *
-   * @param moduleId защищаемый модуль
-   * @param strRoles список ролей через запятую, наличие которых необходимо для доступа к модулю
-   */
-  @Deprecated
-  protected void addModuleProtection(String moduleId, String strRoles) {
-    accessMap.put(moduleId, ClientSecurity.getRoles(strRoles));
-  }
-  
-  /**
    * Определяет роли пользователя, необходимые для доступа к модулю.
    *
    * @param moduleId защищаемый модуль
-   * @param roles список ролей, наличие которых необходимо для доступа к модулю
+   * @param roles список ролей, наличие <b>любой из которых</b> необходимо для доступа к модулю
    */
-  protected void addModuleProtection(String moduleId, List<String> roles) {
-    accessMap.put(moduleId, roles);
+  protected void addModuleProtection(String moduleId, String...roles) {
+    if (roles != null) {
+      accessMap.put(moduleId, roles);
+    }
   }
 }

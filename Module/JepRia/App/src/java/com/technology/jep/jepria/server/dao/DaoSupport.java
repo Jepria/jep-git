@@ -150,7 +150,7 @@ public class DaoSupport {
       
       setApplicationInfo(query);
       // Выполнение запроса    
-      callableStatement.execute();
+      executeStatement(callableStatement);
 
       result = (T)callableStatement.getObject(1);
       if (callableStatement.wasNull()) {
@@ -162,6 +162,27 @@ public class DaoSupport {
     }
     
     return result;
+  }
+
+  private static final String PACKAGE_STATE_DISCARDED_ERROR_CODE = "ORA-04068";
+  
+  /**
+   * Обёртка для вызова {@link CallableStatement#execute()}. <br/>Если возникло исключение
+   * ORA-04068: Existing state of packages has been discarded, рекурсивно вызывает сама себя.
+   * Любые другие исключения выбрасываются выше.
+   * @param statement запрос
+   * @throws SQLException исключение 
+   */
+  private static void executeStatement(CallableStatement statement) throws SQLException {
+    try {
+      statement.execute();
+    } catch (SQLException e) {
+      if (e.getMessage().startsWith(PACKAGE_STATE_DISCARDED_ERROR_CODE)) {
+        executeStatement(statement);
+      } else {
+        throw e;
+      }
+    }
   }
   
   /**
@@ -184,8 +205,7 @@ public class DaoSupport {
       setInputParamsToStatement(callableStatement, 1, params);
 
       setApplicationInfo(query);
-      // Выполнение запроса    
-      callableStatement.execute();
+      executeStatement(callableStatement);
 
     } catch (Throwable th) {
       throw new ApplicationException(th.getMessage(), th);
@@ -249,7 +269,7 @@ public class DaoSupport {
           params);
   
       setApplicationInfo(query);
-      callableStatement.execute();
+      executeStatement(callableStatement);
 
       result = getResult(callableStatement, resultTypeClass, params);
 
@@ -483,7 +503,7 @@ public class DaoSupport {
     Db db = CallContext.getDb();
     CallableStatement statement = db.prepare(query);
     setInputParamsToStatement(statement, 1, moduleName, actionName);
-    statement.execute();
+    executeStatement(statement);
   }
   
   /**
@@ -530,8 +550,7 @@ public class DaoSupport {
   
       setInputParamsToStatement(callableStatement, 2, params);
       
-      // Выполнение запроса.
-      callableStatement.execute();
+      executeStatement(callableStatement);
   
       //Получим набор.
       resultSet = (ResultSet) callableStatement.getObject(1);
