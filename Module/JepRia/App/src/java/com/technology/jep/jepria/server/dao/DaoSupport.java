@@ -150,7 +150,7 @@ public class DaoSupport {
       
       setApplicationInfo(query);
       // Выполнение запроса    
-      executeStatement(callableStatement);
+      callableStatement.execute();
 
       result = (T)callableStatement.getObject(1);
       if (callableStatement.wasNull()) {
@@ -162,27 +162,6 @@ public class DaoSupport {
     }
     
     return result;
-  }
-
-  private static final String PACKAGE_STATE_DISCARDED_ERROR_CODE = "ORA-04068";
-  
-  /**
-   * Обёртка для вызова {@link CallableStatement#execute()}. <br/>Если возникло исключение
-   * ORA-04068: Existing state of packages has been discarded, рекурсивно вызывает сама себя.
-   * Любые другие исключения выбрасываются выше.
-   * @param statement запрос
-   * @throws SQLException исключение 
-   */
-  private static void executeStatement(CallableStatement statement) throws SQLException {
-    try {
-      statement.execute();
-    } catch (SQLException e) {
-      if (e.getMessage().startsWith(PACKAGE_STATE_DISCARDED_ERROR_CODE)) {
-        executeStatement(statement);
-      } else {
-        throw e;
-      }
-    }
   }
   
   /**
@@ -205,7 +184,7 @@ public class DaoSupport {
       setInputParamsToStatement(callableStatement, 1, params);
 
       setApplicationInfo(query);
-      executeStatement(callableStatement);
+      callableStatement.execute();
 
     } catch (Throwable th) {
       throw new ApplicationException(th.getMessage(), th);
@@ -269,7 +248,7 @@ public class DaoSupport {
           params);
   
       setApplicationInfo(query);
-      executeStatement(callableStatement);
+      callableStatement.execute();
 
       result = getResult(callableStatement, resultTypeClass, params);
 
@@ -441,7 +420,7 @@ public class DaoSupport {
       CallableStatement callableStatement = db.prepare(query);
     
       setApplicationInfo(query);
-      resultSet = ResultSetWrapper.wrap(setParamsAndExecute(callableStatement, executionType, params));
+      resultSet = setParamsAndExecute(callableStatement, executionType, params);
       
       while (resultSet.next()) {
         T resultModel = recordClass.newInstance();
@@ -501,9 +480,9 @@ public class DaoSupport {
           + ");"
        + " end;";
     Db db = CallContext.getDb();
-    CallableStatement statement = db.prepare(query);
-    setInputParamsToStatement(statement, 1, moduleName, actionName);
-    executeStatement(statement);
+    CallableStatement callableStatement = db.prepare(query);
+    setInputParamsToStatement(callableStatement, 1, moduleName, actionName);
+    callableStatement.execute();
   }
   
   /**
@@ -550,10 +529,10 @@ public class DaoSupport {
   
       setInputParamsToStatement(callableStatement, 2, params);
       
-      executeStatement(callableStatement);
+      callableStatement.execute();
   
       //Получим набор.
-      resultSet = (ResultSet) callableStatement.getObject(1);
+      resultSet = ResultSetWrapper.wrap((ResultSet) callableStatement.getObject(1));
     } else if (executionType == ExecutionType.QUERY) {
       setInputParamsToStatement(callableStatement, 1, params);
       
