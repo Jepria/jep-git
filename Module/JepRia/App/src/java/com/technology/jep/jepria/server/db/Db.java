@@ -14,6 +14,7 @@ import javax.sql.DataSource;
 
 import org.apache.log4j.Logger;
 
+import com.technology.jep.jepria.server.dao.OracleCallableStatementWrapper;
 import com.technology.jep.jepria.shared.exceptions.SystemException;
 
 /**
@@ -71,7 +72,7 @@ public class Db {
     CallableStatement cs = (CallableStatement) statementsMap.get(sql);
     if (cs == null) {
       try {
-        cs = getConnection().prepareCall(sql);
+        cs = OracleCallableStatementWrapper.wrap(getConnection().prepareCall(sql));
       } catch(SQLException th) {
         throw new SystemException("PrepareCall Error for query '" + sql + "'", th);
       }

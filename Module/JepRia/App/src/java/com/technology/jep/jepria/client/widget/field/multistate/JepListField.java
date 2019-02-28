@@ -7,8 +7,6 @@ import static com.technology.jep.jepria.client.widget.event.JepEventType.CHANGE_
 import java.util.List;
 import java.util.Objects;
 
-import javax.annotation.Nonnull;
-
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.user.client.ui.HTML;
@@ -41,7 +39,7 @@ public class JepListField extends JepMultiStateField<CheckBoxListField<JepOption
    * @param fieldIdAsWebEl ID данного Jep-поля как Web-элемента.
    * @param fieldLabel Наименование поля.
    */
-  public JepListField(@Nonnull String fieldIdAsWebEl, String fieldLabel) {
+  public JepListField(String fieldIdAsWebEl, String fieldLabel) {
     super(fieldIdAsWebEl, fieldLabel);
     
     if (JepRiaUtil.isEmpty(fieldIdAsWebEl)) {
@@ -162,19 +160,6 @@ public class JepListField extends JepMultiStateField<CheckBoxListField<JepOption
       notifyListeners(CHANGE_SELECTION_EVENT, new JepEvent(JepListField.this, getValue()));
     });
     
-  }
-  
-  // TODO Есть ощущение, что данный метод не работает. Необходимо разобраться.
-  
-  /**
-   * Установка текста по умолчанию для пустого (не заполненного значением) поля.
-   * 
-   * @param emptyText пустой текст
-   */
-  public void setEmptyText(String emptyText){
-    HTML emptyTextWidget = new HTML(emptyText);
-    emptyTextWidget.setStyleName(LIST_FIELD_EMPTYTEXT_STYLE);
-//    editableCard.replaceWidget(emptyTextWidget);
   }
   
   /**
