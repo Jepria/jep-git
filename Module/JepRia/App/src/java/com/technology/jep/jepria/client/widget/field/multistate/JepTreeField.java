@@ -35,6 +35,11 @@ public class JepTreeField extends JepMultiStateField<TreeField<JepOption>, HTML>
    * Список узлов, которые необходимо раскрыть.
    */
   protected List<JepOption> expandedValues = null;
+
+  /**
+   * Возможность выбора узлов дерева (по умолчанию, допускается выделение узлов). 
+   */
+  private boolean checkable = true;
   
   private final static int DEFAULT_TREE_FIELD_HEIGHT = 300;
   
@@ -140,6 +145,15 @@ public class JepTreeField extends JepMultiStateField<TreeField<JepOption>, HTML>
   public void setCheckNodes(TreeField.CheckNodes checkNodes) {
     editableCard.setCheckNodes(checkNodes);
   }
+
+  /**
+   * Возвращает признак возможности выбора элементов дерева.
+   * 
+   * @return признак возможности выбора элементов дерева
+   */
+  public boolean isCheckable() {
+    return checkable;
+  }
   
   /**
    * {@inheritDoc}
@@ -192,6 +206,7 @@ public class JepTreeField extends JepMultiStateField<TreeField<JepOption>, HTML>
     // происходит удаление элементов списка, что может привести к потенциальным ошибкам 
     // в клиентских модулях
     this.expandedValues = new ArrayList<JepOption>(expandedValues);
+    editableCard.setCheckable(false);
     processExpanding();
   }
   
@@ -201,6 +216,7 @@ public class JepTreeField extends JepMultiStateField<TreeField<JepOption>, HTML>
    */
   protected void processExpanding() {
     if(expandedValues != null && expandedValues.size() > 0) {
+      setLoadingImage(true);
       JepOption option = expandedValues.get(0);
       editableCard.setExpanded(option, true);
       if (editableCard.isNodeOpened(option)) {
@@ -214,6 +230,9 @@ public class JepTreeField extends JepMultiStateField<TreeField<JepOption>, HTML>
           }
         });
       }
+    } else {
+      setLoadingImage(false);
+      editableCard.setCheckable(checkable);
     }
   }
 
@@ -251,10 +270,12 @@ public class JepTreeField extends JepMultiStateField<TreeField<JepOption>, HTML>
       editableCard.scrollToTop();
       if(WorkstateEnum.isEditableState(newWorkstate)) { // Для случая Редактирования: ...
         editableCard.setCheckable(true);// позволим отмечать узлы дерева
+        checkable = true;
         editableCard.setBorders(true); // отобразим границы рабочей области компонента
         editableCard.setBackgroundColor("white"); // установим белый фон рабочей области компонента
       } else { // Для случая Просмотра: ...
         editableCard.setCheckable(false); // запретим отмечать узлы дерева
+        checkable = false;
         editableCard.setBorders(false); // скроем границы рабочей области компонента
         editableCard.setBackgroundColor("transparent"); // установим прозрачный фон рабочей области компонента
       }      
@@ -286,8 +307,6 @@ public class JepTreeField extends JepMultiStateField<TreeField<JepOption>, HTML>
   public void clear() {
     checkedValues = null;
     expandedValues = null;
-    //editableCard.clearSelection();
-    //editableCard.collapseAll();
     editableCard.refresh(false);
   }
   
