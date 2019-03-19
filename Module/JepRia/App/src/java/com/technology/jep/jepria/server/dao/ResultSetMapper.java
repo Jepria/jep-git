@@ -36,12 +36,15 @@ public abstract class ResultSetMapper<T> {
   /**
    * Получение объекта {@link com.technology.jep.jepria.shared.field.option.JepOption} из {@code ResultSet}. Если значение {@code == null}, то метод возвращает {@code EMPTY_OPTION}.
    * 
+   * @deprecated Так как тип значения, возвращаемого rs.getObject(columnOptionValue), может отличаться от ожидаемого, 
+   * например, вместо Integer может вернуться BigDecimal, что приведет к потенциальным ClassCastException в прикладном коде.
    * @param rs                  {@code ResultSet}
    * @param columnOptionValue     Имя столбца для значения опции
    * @param columnOptionName    Имя столбца для наименования опции 
    * @return опция из указанных значений имени и значения
    * @throws SQLException
    */
+  @Deprecated
   public static JepOption getOption(ResultSet rs, String columnOptionValue, String columnOptionName) throws SQLException {
     Object optionValue = rs.getObject(columnOptionValue);
     if (rs.wasNull()) {
