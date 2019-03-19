@@ -7,16 +7,14 @@ import static com.technology.jep.jepria.client.widget.event.JepEventType.CHANGE_
 import java.util.List;
 import java.util.Objects;
 
+import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Style.Unit;
-import com.google.gwt.event.logical.shared.ValueChangeEvent;
-import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.user.client.ui.HTML;
 import com.technology.jep.jepria.client.widget.event.JepEvent;
-import com.technology.jep.jepria.client.widget.event.JepEventType;
-import com.technology.jep.jepria.client.widget.event.JepListener;
 import com.technology.jep.jepria.client.widget.field.CheckBoxListField;
 import com.technology.jep.jepria.client.widget.field.JepOptionField;
 import com.technology.jep.jepria.shared.field.option.JepOption;
+import com.technology.jep.jepria.shared.util.JepRiaUtil;
 
 /**
  * Поле, разрешающее выбор одновременно нескольких опций (множественный выбор).
@@ -33,20 +31,26 @@ public class JepListField extends JepMultiStateField<CheckBoxListField<JepOption
   }
   
   public JepListField(String fieldLabel) {
-    this(null, fieldLabel);
+    this(Document.get().createUniqueId(), fieldLabel);
   }
   
   /**
-   * Конструктор. Для корректной работы кликов по текстам label, необходимо указать fieldIdAsWebEl.
+   * Конструктор. Требование непустого fieldIdAsWebEl нужно для корректной работы кликов по элементам label.
    * @param fieldIdAsWebEl ID данного Jep-поля как Web-элемента.
    * @param fieldLabel Наименование поля.
    */
   public JepListField(String fieldIdAsWebEl, String fieldLabel) {
     super(fieldIdAsWebEl, fieldLabel);
     
+    if (JepRiaUtil.isEmpty(fieldIdAsWebEl)) {
+      throw new IllegalArgumentException("fieldIdAsWebEl must not be null or empty for JepListfield");
+    }
+    
     // Установка высоты карты редактирования, по умолчанию видны 5 опций.
     // Высота каждой опции складывается из обычной высоты и по 1px границы сверху и снизу + 1.5px верхний отступ.
     setFieldHeight(5 * (FIELD_DEFAULT_HEIGHT + 3.5));
+    
+    addChangeSelectionListener();
   }
   
   /**
@@ -72,7 +76,7 @@ public class JepListField extends JepMultiStateField<CheckBoxListField<JepOption
   public void setValue(Object value) {
     Object oldValue = getValue();
     if(!Objects.equals(oldValue, value)) {
-      editableCard.setSelection((List<JepOption>) value);
+      editableCard.setSelection((List<JepOption>) value, false);
       setViewValue(value);
     }
   }
@@ -97,7 +101,7 @@ public class JepListField extends JepMultiStateField<CheckBoxListField<JepOption
   @Override
   public void clear() {
     super.clear();
-    editableCard.setSelection(null);
+    editableCard.setSelection(null, false);
   }
 
   /**
@@ -135,7 +139,7 @@ public class JepListField extends JepMultiStateField<CheckBoxListField<JepOption
    */
   @Override
   public void setOptions(List<JepOption> options) {
-    editableCard.setData(options);
+    editableCard.setOptions(options);
   }
   
   /**
@@ -146,46 +150,16 @@ public class JepListField extends JepMultiStateField<CheckBoxListField<JepOption
     throw new UnsupportedOperationException("ListField does not have a raw value.");
   }
   
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public void addListener(JepEventType eventType, JepListener listener) {
-  
-    switch(eventType) {
-      case CHANGE_SELECTION_EVENT:
-        addChangeSelectionListener();
-        break;
-    }
-    
-    super.addListener(eventType, listener);
-  }
-  
+  // FIXME Необходимо разобраться, почему в первый раз листенер не срабатывает.
   /**
    * Добавление листенеров для перехвата события 
    * {@link com.technology.jep.jepria.client.widget.event.JepEventType#CHANGE_SELECTION_EVENT } .
    */
   protected void addChangeSelectionListener() {
-    editableCard.addValueChangeHandler(new ValueChangeHandler<JepOption>() {
-      @Override
-      public void onValueChange(ValueChangeEvent<JepOption> event) {
-        notifyListeners(CHANGE_SELECTION_EVENT, new JepEvent(JepListField.this, getValue()));
-      }
+    editableCard.addSelectionChangeHandler(event -> {
+      notifyListeners(CHANGE_SELECTION_EVENT, new JepEvent(JepListField.this, getValue()));
     });
     
-  }
-  
-  // TODO Есть ощущение, что данный метод не работает. Необходимо разобраться.
-  
-  /**
-   * Установка текста по умолчанию для пустого (незаполненного значением) поля.
-   * 
-   * @param emptyText пустой текст
-   */
-  public void setEmptyText(String emptyText){
-    HTML emptyTextWidget = new HTML(emptyText);
-    emptyTextWidget.setStyleName(LIST_FIELD_EMPTYTEXT_STYLE);
-    editableCard.replaceWidget(emptyTextWidget);
   }
   
   /**

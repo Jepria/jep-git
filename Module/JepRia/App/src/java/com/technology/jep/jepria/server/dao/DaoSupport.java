@@ -184,7 +184,6 @@ public class DaoSupport {
       setInputParamsToStatement(callableStatement, 1, params);
 
       setApplicationInfo(query);
-      // Выполнение запроса    
       callableStatement.execute();
 
     } catch (Throwable th) {
@@ -421,7 +420,7 @@ public class DaoSupport {
       CallableStatement callableStatement = db.prepare(query);
     
       setApplicationInfo(query);
-      resultSet = ResultSetWrapper.wrap(setParamsAndExecute(callableStatement, executionType, params));
+      resultSet = setParamsAndExecute(callableStatement, executionType, params);
       
       while (resultSet.next()) {
         T resultModel = recordClass.newInstance();
@@ -481,9 +480,9 @@ public class DaoSupport {
           + ");"
        + " end;";
     Db db = CallContext.getDb();
-    CallableStatement statement = db.prepare(query);
-    setInputParamsToStatement(statement, 1, moduleName, actionName);
-    statement.execute();
+    CallableStatement callableStatement = db.prepare(query);
+    setInputParamsToStatement(callableStatement, 1, moduleName, actionName);
+    callableStatement.execute();
   }
   
   /**
@@ -530,11 +529,10 @@ public class DaoSupport {
   
       setInputParamsToStatement(callableStatement, 2, params);
       
-      // Выполнение запроса.
       callableStatement.execute();
   
       //Получим набор.
-      resultSet = (ResultSet) callableStatement.getObject(1);
+      resultSet = ResultSetWrapper.wrap((ResultSet) callableStatement.getObject(1));
     } else if (executionType == ExecutionType.QUERY) {
       setInputParamsToStatement(callableStatement, 1, params);
       
