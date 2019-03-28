@@ -27,7 +27,6 @@ public class JepEmailField extends JepTextField {
    */
   public JepEmailField(String fieldIdAsWebEl, String fieldLabel) {
     super(fieldIdAsWebEl, fieldLabel);
-    editableCard.getElement().setPropertyString("type", "email"); // HTML5
   }
   
   /**
