@@ -477,7 +477,7 @@ public class JepDateField extends JepMultiStateField<MaskedDateBox, HTML> {
 
   /**
    * Валидация введенной даты
-   * @param дата в текстовом представлении
+   * @param date дата в текстовом представлении
    * @return @Date дата корректная
    */
   protected Date validDate(String date) throws Exception {

@@ -18,7 +18,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":10,"i1":6,"i2":6,"i3":6,"i4":6,"i5":10,"i6":10,"i7":6,"i8":6,"i9":6,"i10":6,"i11":10,"i12":10,"i13":10,"i14":10,"i15":10,"i16":10,"i17":10,"i18":10,"i19":10,"i20":10,"i21":10,"i22":10,"i23":10,"i24":10,"i25":10,"i26":10,"i27":10,"i28":10,"i29":10};
+var methods = {"i0":10,"i1":6,"i2":6,"i3":6,"i4":6,"i5":10,"i6":10,"i7":6,"i8":6,"i9":6,"i10":6,"i11":10,"i12":10,"i13":10,"i14":10,"i15":10,"i16":10,"i17":10,"i18":10,"i19":10,"i20":10,"i21":10,"i22":10,"i23":10,"i24":10,"i25":10,"i26":10,"i27":10,"i28":10,"i29":10,"i30":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],4:["t3","Abstract Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -168,12 +168,14 @@ extends com.google.gwt.user.datepicker.client.DatePicker</pre>
 <th class="colLast" scope="col">Field and Description</th>
 </tr>
 <tr class="altColor">
-<td class="colFirst"><code>(package private) java.lang.String</code></td>
+<td class="colFirst"><code>private java.lang.String</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/customized/JepDatePicker.html#defaultValue">defaultValue</a></span></code>&nbsp;</td>
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code>private com.google.gwt.user.client.ui.TextBox</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/customized/JepDatePicker.html#hours">hours</a></span></code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/customized/JepDatePicker.html#hours">hours</a></span></code>
+<div class="block">Виджет для редактирования часов на панели календаря</div>
+</td>
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code>static <a href="../../../../../../../../../com/technology/jep/jepria/shared/text/JepRiaText.html" title="interface in com.technology.jep.jepria.shared.text">JepRiaText</a></code></td>
@@ -181,7 +183,9 @@ extends com.google.gwt.user.datepicker.client.DatePicker</pre>
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code>private com.google.gwt.user.client.ui.TextBox</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/customized/JepDatePicker.html#minutes">minutes</a></span></code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/customized/JepDatePicker.html#minutes">minutes</a></span></code>
+<div class="block">Виджет для редактирования минут на панели календаря</div>
+</td>
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code>private <a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/customized/MonthAndYearSelector.html" title="class in com.technology.jep.jepria.client.widget.field.multistate.customized">MonthAndYearSelector</a></code></td>
@@ -193,7 +197,9 @@ extends com.google.gwt.user.datepicker.client.DatePicker</pre>
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code>private com.google.gwt.user.client.ui.TextBox</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/customized/JepDatePicker.html#seconds">seconds</a></span></code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/customized/JepDatePicker.html#seconds">seconds</a></span></code>
+<div class="block">Виджет для редактирования секунд на панели календаря</div>
+</td>
 </tr>
 </table>
 <ul class="blockList">
@@ -241,125 +247,191 @@ extends com.google.gwt.user.datepicker.client.DatePicker</pre>
 <td class="colFirst"><code>protected void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/customized/JepDatePicker.html#appendHandlers-com.google.gwt.user.client.ui.TextBox-int-com.google.gwt.user.client.ui.TextBox-">appendHandlers</a></span>(com.google.gwt.user.client.ui.TextBox&nbsp;widget,
               int&nbsp;maxValue,
-              com.google.gwt.user.client.ui.TextBox&nbsp;nextWidget)</code>&nbsp;</td>
+              com.google.gwt.user.client.ui.TextBox&nbsp;nextWidget)</code>
+<div class="block">Обработчик событий воода с клавиатру, обработчик обеспечивает обработку событий в стационарных и мобильных броузерах</div>
+</td>
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>protected abstract void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/customized/JepDatePicker.html#changeMonthWhenBakwards--">changeMonthWhenBakwards</a></span>()</code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/customized/JepDatePicker.html#changeMonthWhenBakwards--">changeMonthWhenBakwards</a></span>()</code>
+<div class="block">Пропаганда события уменьшения месяца</div>
+</td>
 </tr>
 <tr id="i2" class="altColor">
 <td class="colFirst"><code>protected abstract void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/customized/JepDatePicker.html#changeMonthWhenForwards--">changeMonthWhenForwards</a></span>()</code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/customized/JepDatePicker.html#changeMonthWhenForwards--">changeMonthWhenForwards</a></span>()</code>
+<div class="block">Пропаганда события увеличение месяца</div>
+</td>
 </tr>
 <tr id="i3" class="rowColor">
 <td class="colFirst"><code>protected abstract void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/customized/JepDatePicker.html#changeYearWhenBakwards--">changeYearWhenBakwards</a></span>()</code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/customized/JepDatePicker.html#changeYearWhenBakwards--">changeYearWhenBakwards</a></span>()</code>
+<div class="block">Пропаганда события уменьшения года</div>
+</td>
 </tr>
 <tr id="i4" class="altColor">
 <td class="colFirst"><code>protected abstract void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/customized/JepDatePicker.html#changeYearWhenForwards--">changeYearWhenForwards</a></span>()</code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/customized/JepDatePicker.html#changeYearWhenForwards--">changeYearWhenForwards</a></span>()</code>
+<div class="block">Пропаганда события увеличение года</div>
+</td>
 </tr>
 <tr id="i5" class="rowColor">
 <td class="colFirst"><code>protected com.google.gwt.user.client.ui.Widget</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/customized/JepDatePicker.html#createButtonToday-int-">createButtonToday</a></span>(int&nbsp;showPanelElements)</code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/customized/JepDatePicker.html#createButtonToday-int-">createButtonToday</a></span>(int&nbsp;kindPresentPanelElements)</code>
+<div class="block">Создаем кнопку под панелью календаря</div>
+</td>
 </tr>
 <tr id="i6" class="altColor">
 <td class="colFirst"><code>protected com.google.gwt.user.client.ui.Widget</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/customized/JepDatePicker.html#createTime--">createTime</a></span>()</code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/customized/JepDatePicker.html#createTime--">createTime</a></span>()</code>
+<div class="block">Создаем поля редактирования для ввода времени</div>
+</td>
 </tr>
 <tr id="i7" class="rowColor">
 <td class="colFirst"><code>protected abstract void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/customized/JepDatePicker.html#doFireEventChangeTime--">doFireEventChangeTime</a></span>()</code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/customized/JepDatePicker.html#doFireEventChangeTime--">doFireEventChangeTime</a></span>()</code>
+<div class="block">Пропаганда события измеения времени на панели календаря</div>
+</td>
 </tr>
 <tr id="i8" class="altColor">
 <td class="colFirst"><code>protected abstract void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/customized/JepDatePicker.html#doFireEventClickDatePicker--">doFireEventClickDatePicker</a></span>()</code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/customized/JepDatePicker.html#doFireEventClickDatePicker--">doFireEventClickDatePicker</a></span>()</code>
+<div class="block">Пропаганда события нажатия кнопки на панели календаря</div>
+</td>
 </tr>
 <tr id="i9" class="rowColor">
 <td class="colFirst"><code>protected abstract void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/customized/JepDatePicker.html#doWhenFireEventMonthListBox--">doWhenFireEventMonthListBox</a></span>()</code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/customized/JepDatePicker.html#doWhenFireEventMonthListBox--">doWhenFireEventMonthListBox</a></span>()</code>
+<div class="block">Пропаганда события выбора месяца из списка</div>
+</td>
 </tr>
 <tr id="i10" class="altColor">
 <td class="colFirst"><code>protected abstract void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/customized/JepDatePicker.html#doWhenFireEventYearListBox--">doWhenFireEventYearListBox</a></span>()</code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/customized/JepDatePicker.html#doWhenFireEventYearListBox--">doWhenFireEventYearListBox</a></span>()</code>
+<div class="block">Пропаганда события выбора года из списка</div>
+</td>
 </tr>
 <tr id="i11" class="rowColor">
 <td class="colFirst"><code>java.util.Date</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/customized/JepDatePicker.html#getActualDate--">getActualDate</a></span>()</code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/customized/JepDatePicker.html#getActualDate--">getActualDate</a></span>()</code>
+<div class="block">Получиь актуальное значение календаря</div>
+</td>
 </tr>
 <tr id="i12" class="altColor">
 <td class="colFirst"><code>java.lang.Integer</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/customized/JepDatePicker.html#getMaxYear--">getMaxYear</a></span>()</code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/customized/JepDatePicker.html#getMaxYear--">getMaxYear</a></span>()</code>
+<div class="block">Получить максимально допустимый год</div>
+</td>
 </tr>
 <tr id="i13" class="rowColor">
 <td class="colFirst"><code>java.lang.Integer</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/customized/JepDatePicker.html#getMinYear--">getMinYear</a></span>()</code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/customized/JepDatePicker.html#getMinYear--">getMinYear</a></span>()</code>
+<div class="block">Получить минимально допустимый год</div>
+</td>
 </tr>
 <tr id="i14" class="altColor">
 <td class="colFirst"><code>protected void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/customized/JepDatePicker.html#handlerEventKeyUpMobileDevice-com.google.gwt.user.client.ui.Widget-int-int-">handlerEventKeyUpMobileDevice</a></span>(com.google.gwt.user.client.ui.Widget&nbsp;widget,
                              int&nbsp;keyCode,
-                             int&nbsp;maxValue)</code>&nbsp;</td>
+                             int&nbsp;maxValue)</code>
+<div class="block">Обработка ввода с клавиатуры для мобильных платформ</div>
+</td>
 </tr>
 <tr id="i15" class="rowColor">
 <td class="colFirst"><code>private void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/customized/JepDatePicker.html#initFocusHandlers--">initFocusHandlers</a></span>()</code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/customized/JepDatePicker.html#initFocusHandlers--">initFocusHandlers</a></span>()</code>
+<div class="block">Инициализация фокус-обработчиков на виджитах по редактированию времени на панели календаря</div>
+</td>
 </tr>
 <tr id="i16" class="altColor">
 <td class="colFirst"><code>private com.google.gwt.user.client.ui.TextBox</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/customized/JepDatePicker.html#initHoursField--">initHoursField</a></span>()</code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/customized/JepDatePicker.html#initHoursField--">initHoursField</a></span>()</code>
+<div class="block">Создания и инициализация виджета для редактирования часов</div>
+</td>
 </tr>
 <tr id="i17" class="rowColor">
 <td class="colFirst"><code>private com.google.gwt.user.client.ui.TextBox</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/customized/JepDatePicker.html#initMinuteField--">initMinuteField</a></span>()</code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/customized/JepDatePicker.html#initMinuteField--">initMinuteField</a></span>()</code>
+<div class="block">Создания и инициализация виджета для редактирования минут</div>
+</td>
 </tr>
 <tr id="i18" class="altColor">
 <td class="colFirst"><code>private com.google.gwt.user.client.ui.TextBox</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/customized/JepDatePicker.html#initSecondsField--">initSecondsField</a></span>()</code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/customized/JepDatePicker.html#initSecondsField--">initSecondsField</a></span>()</code>
+<div class="block">Создания и инициализация виджета для редактирования секунд</div>
+</td>
 </tr>
 <tr id="i19" class="rowColor">
 <td class="colFirst"><code>protected boolean</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/customized/JepDatePicker.html#isDecimalKey-int-">isDecimalKey</a></span>(int&nbsp;key)</code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/customized/JepDatePicker.html#isDecimalKey-int-">isDecimalKey</a></span>(int&nbsp;key)</code>
+<div class="block">Проверка, что код символа соответствует коду числа</div>
+</td>
 </tr>
 <tr id="i20" class="altColor">
 <td class="colFirst"><code>protected boolean</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/customized/JepDatePicker.html#isPermitKey-int-">isPermitKey</a></span>(int&nbsp;key)</code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/customized/JepDatePicker.html#isPermitKey-int-">isPermitKey</a></span>(int&nbsp;key)</code>
+<div class="block">Проверка на нажатие допустимых клавиш с клавиатуры</div>
+</td>
 </tr>
 <tr id="i21" class="rowColor">
 <td class="colFirst"><code>protected boolean</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/customized/JepDatePicker.html#isPermitValue-char:A-">isPermitValue</a></span>(char[]&nbsp;chs)</code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/customized/JepDatePicker.html#isPermitValue-char:A-">isPermitValue</a></span>(char[]&nbsp;chs)</code>
+<div class="block">Проверка на допустимость символов</div>
+</td>
 </tr>
 <tr id="i22" class="altColor">
-<td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/customized/JepDatePicker.html#refresh-java.util.Date-">refresh</a></span>(java.util.Date&nbsp;newDate)</code>&nbsp;</td>
+<td class="colFirst"><code>boolean</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/customized/JepDatePicker.html#isVisibleDaysPanel--">isVisibleDaysPanel</a></span>()</code>
+<div class="block">Видимость панели с календарем</div>
+</td>
 </tr>
 <tr id="i23" class="rowColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/customized/JepDatePicker.html#refreshComponents--">refreshComponents</a></span>()</code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/customized/JepDatePicker.html#refresh-java.util.Date-">refresh</a></span>(java.util.Date&nbsp;newDate)</code>
+<div class="block">Обновляем навигационной панели календаря</div>
+</td>
 </tr>
 <tr id="i24" class="altColor">
-<td class="colFirst"><code>private void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/customized/JepDatePicker.html#selectAll-com.google.gwt.dom.client.Element-">selectAll</a></span>(com.google.gwt.dom.client.Element&nbsp;element)</code>&nbsp;</td>
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/customized/JepDatePicker.html#refreshComponents--">refreshComponents</a></span>()</code>
+<div class="block">Обновляем содержимое панели календаря</div>
+</td>
 </tr>
 <tr id="i25" class="rowColor">
-<td class="colFirst"><code>boolean</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/customized/JepDatePicker.html#setMaxYear-java.lang.Integer-">setMaxYear</a></span>(java.lang.Integer&nbsp;maxYear)</code>&nbsp;</td>
+<td class="colFirst"><code>private void</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/customized/JepDatePicker.html#selectAll-com.google.gwt.dom.client.Element-">selectAll</a></span>(com.google.gwt.dom.client.Element&nbsp;element)</code>
+<div class="block">Выделяем все содержимое соответствующего элемента</div>
+</td>
 </tr>
 <tr id="i26" class="altColor">
 <td class="colFirst"><code>boolean</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/customized/JepDatePicker.html#setMinYear-java.lang.Integer-">setMinYear</a></span>(java.lang.Integer&nbsp;minYear)</code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/customized/JepDatePicker.html#setMaxYear-java.lang.Integer-">setMaxYear</a></span>(java.lang.Integer&nbsp;maxYear)</code>
+<div class="block">Установить максимально допустимый год</div>
+</td>
 </tr>
 <tr id="i27" class="rowColor">
-<td class="colFirst"><code>protected void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/customized/JepDatePicker.html#setTime-java.util.Date-">setTime</a></span>(java.util.Date&nbsp;newDate)</code>&nbsp;</td>
+<td class="colFirst"><code>boolean</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/customized/JepDatePicker.html#setMinYear-java.lang.Integer-">setMinYear</a></span>(java.lang.Integer&nbsp;minYear)</code>
+<div class="block">Установить минимально допустимый год</div>
+</td>
 </tr>
 <tr id="i28" class="altColor">
-<td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/customized/JepDatePicker.html#setVisibleDaysPanel-boolean-">setVisibleDaysPanel</a></span>(boolean&nbsp;visible)</code>&nbsp;</td>
+<td class="colFirst"><code>protected void</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/customized/JepDatePicker.html#setTime-java.util.Date-">setTime</a></span>(java.util.Date&nbsp;newTime)</code>
+<div class="block">Устанавливаем время</div>
+</td>
 </tr>
 <tr id="i29" class="rowColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/customized/JepDatePicker.html#setVisibleNavigationPanel-boolean-">setVisibleNavigationPanel</a></span>(boolean&nbsp;visible)</code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/customized/JepDatePicker.html#setVisibleDaysPanel-boolean-">setVisibleDaysPanel</a></span>(boolean&nbsp;visible)</code>
+<div class="block">Устанавливаем видимость панели навигации по дням месяца</div>
+</td>
+</tr>
+<tr id="i30" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/customized/JepDatePicker.html#setVisibleNavigationPanel-boolean-">setVisibleNavigationPanel</a></span>(boolean&nbsp;visible)</code>
+<div class="block">Устанавливаем видимость панели календаря</div>
+</td>
 </tr>
 </table>
 <ul class="blockList">
@@ -443,6 +515,7 @@ extends com.google.gwt.user.datepicker.client.DatePicker</pre>
 <li class="blockList">
 <h4>hours</h4>
 <pre>private&nbsp;com.google.gwt.user.client.ui.TextBox hours</pre>
+<div class="block">Виджет для редактирования часов на панели календаря</div>
 </li>
 </ul>
 <a name="minutes">
@@ -452,6 +525,7 @@ extends com.google.gwt.user.datepicker.client.DatePicker</pre>
 <li class="blockList">
 <h4>minutes</h4>
 <pre>private&nbsp;com.google.gwt.user.client.ui.TextBox minutes</pre>
+<div class="block">Виджет для редактирования минут на панели календаря</div>
 </li>
 </ul>
 <a name="seconds">
@@ -461,6 +535,7 @@ extends com.google.gwt.user.datepicker.client.DatePicker</pre>
 <li class="blockList">
 <h4>seconds</h4>
 <pre>private&nbsp;com.google.gwt.user.client.ui.TextBox seconds</pre>
+<div class="block">Виджет для редактирования секунд на панели календаря</div>
 </li>
 </ul>
 <a name="defaultValue">
@@ -469,7 +544,7 @@ extends com.google.gwt.user.datepicker.client.DatePicker</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>defaultValue</h4>
-<pre>final&nbsp;java.lang.String defaultValue</pre>
+<pre>private final&nbsp;java.lang.String defaultValue</pre>
 <dl>
 <dt><span class="seeLabel">See Also:</span></dt>
 <dd><a href="../../../../../../../../../constant-values.html#com.technology.jep.jepria.client.widget.field.multistate.customized.JepDatePicker.defaultValue">Constant Field Values</a></dd>
@@ -493,22 +568,22 @@ extends com.google.gwt.user.datepicker.client.DatePicker</pre>
 <!--   -->
 </a>
 <h3>Constructor Detail</h3>
-<a name="JepDatePicker-int-">
+<a name="JepDatePicker--">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>JepDatePicker</h4>
-<pre>public&nbsp;JepDatePicker(int&nbsp;showPanelElements)</pre>
+<pre>public&nbsp;JepDatePicker()</pre>
 </li>
 </ul>
-<a name="JepDatePicker--">
+<a name="JepDatePicker-int-">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
 <h4>JepDatePicker</h4>
-<pre>public&nbsp;JepDatePicker()</pre>
+<pre>public&nbsp;JepDatePicker(int&nbsp;showPanelElements)</pre>
 </li>
 </ul>
 </li>
@@ -525,7 +600,14 @@ extends com.google.gwt.user.datepicker.client.DatePicker</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>createButtonToday</h4>
-<pre>protected&nbsp;com.google.gwt.user.client.ui.Widget&nbsp;createButtonToday(int&nbsp;showPanelElements)</pre>
+<pre>protected&nbsp;com.google.gwt.user.client.ui.Widget&nbsp;createButtonToday(int&nbsp;kindPresentPanelElements)</pre>
+<div class="block">Создаем кнопку под панелью календаря</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>kindPresentPanelElements</code> - вид панели элементов навигации для календаря</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>widget созданный объект представления кнопки</dd>
+</dl>
 </li>
 </ul>
 <a name="refreshComponents--">
@@ -535,6 +617,7 @@ extends com.google.gwt.user.datepicker.client.DatePicker</pre>
 <li class="blockList">
 <h4>refreshComponents</h4>
 <pre>public&nbsp;void&nbsp;refreshComponents()</pre>
+<div class="block">Обновляем содержимое панели календаря</div>
 </li>
 </ul>
 <a name="refresh-java.util.Date-">
@@ -544,6 +627,11 @@ extends com.google.gwt.user.datepicker.client.DatePicker</pre>
 <li class="blockList">
 <h4>refresh</h4>
 <pre>public&nbsp;void&nbsp;refresh(java.util.Date&nbsp;newDate)</pre>
+<div class="block">Обновляем навигационной панели календаря</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>newDate</code> - </dd>
+</dl>
 </li>
 </ul>
 <a name="createTime--">
@@ -553,6 +641,11 @@ extends com.google.gwt.user.datepicker.client.DatePicker</pre>
 <li class="blockList">
 <h4>createTime</h4>
 <pre>protected&nbsp;com.google.gwt.user.client.ui.Widget&nbsp;createTime()</pre>
+<div class="block">Создаем поля редактирования для ввода времени</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>widget объект для редактирования времени на панели календаря</dd>
+</dl>
 </li>
 </ul>
 <a name="initHoursField--">
@@ -562,6 +655,11 @@ extends com.google.gwt.user.datepicker.client.DatePicker</pre>
 <li class="blockList">
 <h4>initHoursField</h4>
 <pre>private&nbsp;com.google.gwt.user.client.ui.TextBox&nbsp;initHoursField()</pre>
+<div class="block">Создания и инициализация виджета для редактирования часов</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>объект</dd>
+</dl>
 </li>
 </ul>
 <a name="initMinuteField--">
@@ -571,6 +669,11 @@ extends com.google.gwt.user.datepicker.client.DatePicker</pre>
 <li class="blockList">
 <h4>initMinuteField</h4>
 <pre>private&nbsp;com.google.gwt.user.client.ui.TextBox&nbsp;initMinuteField()</pre>
+<div class="block">Создания и инициализация виджета для редактирования минут</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>объект</dd>
+</dl>
 </li>
 </ul>
 <a name="initSecondsField--">
@@ -580,6 +683,11 @@ extends com.google.gwt.user.datepicker.client.DatePicker</pre>
 <li class="blockList">
 <h4>initSecondsField</h4>
 <pre>private&nbsp;com.google.gwt.user.client.ui.TextBox&nbsp;initSecondsField()</pre>
+<div class="block">Создания и инициализация виджета для редактирования секунд</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>объект</dd>
+</dl>
 </li>
 </ul>
 <a name="selectAll-com.google.gwt.dom.client.Element-">
@@ -589,6 +697,11 @@ extends com.google.gwt.user.datepicker.client.DatePicker</pre>
 <li class="blockList">
 <h4>selectAll</h4>
 <pre>private&nbsp;void&nbsp;selectAll(com.google.gwt.dom.client.Element&nbsp;element)</pre>
+<div class="block">Выделяем все содержимое соответствующего элемента</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>element</code> - элемент для выделения содержимого</dd>
+</dl>
 </li>
 </ul>
 <a name="setTime-java.util.Date-">
@@ -597,7 +710,12 @@ extends com.google.gwt.user.datepicker.client.DatePicker</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>setTime</h4>
-<pre>protected&nbsp;void&nbsp;setTime(java.util.Date&nbsp;newDate)</pre>
+<pre>protected&nbsp;void&nbsp;setTime(java.util.Date&nbsp;newTime)</pre>
+<div class="block">Устанавливаем время</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>newTime</code> - новое занчение времени</dd>
+</dl>
 </li>
 </ul>
 <a name="setVisibleDaysPanel-boolean-">
@@ -607,6 +725,25 @@ extends com.google.gwt.user.datepicker.client.DatePicker</pre>
 <li class="blockList">
 <h4>setVisibleDaysPanel</h4>
 <pre>public&nbsp;void&nbsp;setVisibleDaysPanel(boolean&nbsp;visible)</pre>
+<div class="block">Устанавливаем видимость панели навигации по дням месяца</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>visible</code> - Истина - видим, Ложь - невидим</dd>
+</dl>
+</li>
+</ul>
+<a name="isVisibleDaysPanel--">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>isVisibleDaysPanel</h4>
+<pre>public&nbsp;boolean&nbsp;isVisibleDaysPanel()</pre>
+<div class="block">Видимость панели с календарем</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>Истина - видим, Ложь - невидим</dd>
+</dl>
 </li>
 </ul>
 <a name="setVisibleNavigationPanel-boolean-">
@@ -616,6 +753,11 @@ extends com.google.gwt.user.datepicker.client.DatePicker</pre>
 <li class="blockList">
 <h4>setVisibleNavigationPanel</h4>
 <pre>public&nbsp;void&nbsp;setVisibleNavigationPanel(boolean&nbsp;visible)</pre>
+<div class="block">Устанавливаем видимость панели календаря</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>visible</code> - Истина - видим, Ложь - невидим</dd>
+</dl>
 </li>
 </ul>
 <a name="getActualDate--">
@@ -625,6 +767,11 @@ extends com.google.gwt.user.datepicker.client.DatePicker</pre>
 <li class="blockList">
 <h4>getActualDate</h4>
 <pre>public&nbsp;java.util.Date&nbsp;getActualDate()</pre>
+<div class="block">Получиь актуальное значение календаря</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>получить актуальную дату из панели календаря</dd>
+</dl>
 </li>
 </ul>
 <a name="isPermitKey-int-">
@@ -634,6 +781,13 @@ extends com.google.gwt.user.datepicker.client.DatePicker</pre>
 <li class="blockList">
 <h4>isPermitKey</h4>
 <pre>protected&nbsp;boolean&nbsp;isPermitKey(int&nbsp;key)</pre>
+<div class="block">Проверка на нажатие допустимых клавиш с клавиатуры</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>key</code> - код нажатой клавиши</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>Истина - допустимо, Ложь - недопусимо</dd>
+</dl>
 </li>
 </ul>
 <a name="isPermitValue-char:A-">
@@ -643,6 +797,13 @@ extends com.google.gwt.user.datepicker.client.DatePicker</pre>
 <li class="blockList">
 <h4>isPermitValue</h4>
 <pre>protected&nbsp;boolean&nbsp;isPermitValue(char[]&nbsp;chs)</pre>
+<div class="block">Проверка на допустимость символов</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>chs</code> - массив проверяемых символов</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>Истина - допустимо, Ложь - недопусимо</dd>
+</dl>
 </li>
 </ul>
 <a name="isDecimalKey-int-">
@@ -652,6 +813,13 @@ extends com.google.gwt.user.datepicker.client.DatePicker</pre>
 <li class="blockList">
 <h4>isDecimalKey</h4>
 <pre>protected&nbsp;boolean&nbsp;isDecimalKey(int&nbsp;key)</pre>
+<div class="block">Проверка, что код символа соответствует коду числа</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>key</code> - код символа</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>Истина - допустимо, Ложь - недопусимо</dd>
+</dl>
 </li>
 </ul>
 <a name="appendHandlers-com.google.gwt.user.client.ui.TextBox-int-com.google.gwt.user.client.ui.TextBox-">
@@ -663,6 +831,13 @@ extends com.google.gwt.user.datepicker.client.DatePicker</pre>
 <pre>protected&nbsp;void&nbsp;appendHandlers(com.google.gwt.user.client.ui.TextBox&nbsp;widget,
                               int&nbsp;maxValue,
                               com.google.gwt.user.client.ui.TextBox&nbsp;nextWidget)</pre>
+<div class="block">Обработчик событий воода с клавиатру, обработчик обеспечивает обработку событий в стационарных и мобильных броузерах</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>widget</code> - </dd>
+<dd><code>maxValue</code> - определяет верхнюю границу диапазона числа</dd>
+<dd><code>nextWidget</code> - определяет виджет на который надо переключиться при нажатии клавишив TAB</dd>
+</dl>
 </li>
 </ul>
 <a name="initFocusHandlers--">
@@ -672,6 +847,7 @@ extends com.google.gwt.user.datepicker.client.DatePicker</pre>
 <li class="blockList">
 <h4>initFocusHandlers</h4>
 <pre>private&nbsp;void&nbsp;initFocusHandlers()</pre>
+<div class="block">Инициализация фокус-обработчиков на виджитах по редактированию времени на панели календаря</div>
 </li>
 </ul>
 <a name="getMinYear--">
@@ -681,6 +857,11 @@ extends com.google.gwt.user.datepicker.client.DatePicker</pre>
 <li class="blockList">
 <h4>getMinYear</h4>
 <pre>public&nbsp;java.lang.Integer&nbsp;getMinYear()</pre>
+<div class="block">Получить минимально допустимый год</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>минимально-возможный год</dd>
+</dl>
 </li>
 </ul>
 <a name="setMinYear-java.lang.Integer-">
@@ -690,6 +871,13 @@ extends com.google.gwt.user.datepicker.client.DatePicker</pre>
 <li class="blockList">
 <h4>setMinYear</h4>
 <pre>public&nbsp;boolean&nbsp;setMinYear(java.lang.Integer&nbsp;minYear)</pre>
+<div class="block">Установить минимально допустимый год</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>minYear</code> - минимально-возможный год</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>Если попали в допустимый диапахон (01.01.1900 - 31.12.2100) - Истина, иначе - Ложь</dd>
+</dl>
 </li>
 </ul>
 <a name="getMaxYear--">
@@ -699,6 +887,11 @@ extends com.google.gwt.user.datepicker.client.DatePicker</pre>
 <li class="blockList">
 <h4>getMaxYear</h4>
 <pre>public&nbsp;java.lang.Integer&nbsp;getMaxYear()</pre>
+<div class="block">Получить максимально допустимый год</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>максимально-возможный год</dd>
+</dl>
 </li>
 </ul>
 <a name="setMaxYear-java.lang.Integer-">
@@ -708,6 +901,31 @@ extends com.google.gwt.user.datepicker.client.DatePicker</pre>
 <li class="blockList">
 <h4>setMaxYear</h4>
 <pre>public&nbsp;boolean&nbsp;setMaxYear(java.lang.Integer&nbsp;maxYear)</pre>
+<div class="block">Установить максимально допустимый год</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>maxYear</code> - максимально-возможный год</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>Если попали в допустимый диапахон (01.01.1900 - 31.12.2100) - Истина, иначе - Ложь</dd>
+</dl>
+</li>
+</ul>
+<a name="handlerEventKeyUpMobileDevice-com.google.gwt.user.client.ui.Widget-int-int-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>handlerEventKeyUpMobileDevice</h4>
+<pre>protected&nbsp;void&nbsp;handlerEventKeyUpMobileDevice(com.google.gwt.user.client.ui.Widget&nbsp;widget,
+                                             int&nbsp;keyCode,
+                                             int&nbsp;maxValue)</pre>
+<div class="block">Обработка ввода с клавиатуры для мобильных платформ</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>widget</code> - объект</dd>
+<dd><code>keyCode</code> - введенный символ</dd>
+<dd><code>maxValue</code> - шаг переноса позиции курсора</dd>
+</dl>
 </li>
 </ul>
 <a name="changeYearWhenBakwards--">
@@ -717,6 +935,7 @@ extends com.google.gwt.user.datepicker.client.DatePicker</pre>
 <li class="blockList">
 <h4>changeYearWhenBakwards</h4>
 <pre>protected abstract&nbsp;void&nbsp;changeYearWhenBakwards()</pre>
+<div class="block">Пропаганда события уменьшения года</div>
 </li>
 </ul>
 <a name="changeYearWhenForwards--">
@@ -726,6 +945,7 @@ extends com.google.gwt.user.datepicker.client.DatePicker</pre>
 <li class="blockList">
 <h4>changeYearWhenForwards</h4>
 <pre>protected abstract&nbsp;void&nbsp;changeYearWhenForwards()</pre>
+<div class="block">Пропаганда события увеличение года</div>
 </li>
 </ul>
 <a name="changeMonthWhenBakwards--">
@@ -735,6 +955,7 @@ extends com.google.gwt.user.datepicker.client.DatePicker</pre>
 <li class="blockList">
 <h4>changeMonthWhenBakwards</h4>
 <pre>protected abstract&nbsp;void&nbsp;changeMonthWhenBakwards()</pre>
+<div class="block">Пропаганда события уменьшения месяца</div>
 </li>
 </ul>
 <a name="changeMonthWhenForwards--">
@@ -744,6 +965,7 @@ extends com.google.gwt.user.datepicker.client.DatePicker</pre>
 <li class="blockList">
 <h4>changeMonthWhenForwards</h4>
 <pre>protected abstract&nbsp;void&nbsp;changeMonthWhenForwards()</pre>
+<div class="block">Пропаганда события увеличение месяца</div>
 </li>
 </ul>
 <a name="doWhenFireEventYearListBox--">
@@ -753,6 +975,7 @@ extends com.google.gwt.user.datepicker.client.DatePicker</pre>
 <li class="blockList">
 <h4>doWhenFireEventYearListBox</h4>
 <pre>protected abstract&nbsp;void&nbsp;doWhenFireEventYearListBox()</pre>
+<div class="block">Пропаганда события выбора года из списка</div>
 </li>
 </ul>
 <a name="doWhenFireEventMonthListBox--">
@@ -762,6 +985,7 @@ extends com.google.gwt.user.datepicker.client.DatePicker</pre>
 <li class="blockList">
 <h4>doWhenFireEventMonthListBox</h4>
 <pre>protected abstract&nbsp;void&nbsp;doWhenFireEventMonthListBox()</pre>
+<div class="block">Пропаганда события выбора месяца из списка</div>
 </li>
 </ul>
 <a name="doFireEventClickDatePicker--">
@@ -771,26 +995,17 @@ extends com.google.gwt.user.datepicker.client.DatePicker</pre>
 <li class="blockList">
 <h4>doFireEventClickDatePicker</h4>
 <pre>protected abstract&nbsp;void&nbsp;doFireEventClickDatePicker()</pre>
+<div class="block">Пропаганда события нажатия кнопки на панели календаря</div>
 </li>
 </ul>
 <a name="doFireEventChangeTime--">
 <!--   -->
 </a>
-<ul class="blockList">
+<ul class="blockListLast">
 <li class="blockList">
 <h4>doFireEventChangeTime</h4>
 <pre>protected abstract&nbsp;void&nbsp;doFireEventChangeTime()</pre>
-</li>
-</ul>
-<a name="handlerEventKeyUpMobileDevice-com.google.gwt.user.client.ui.Widget-int-int-">
-<!--   -->
-</a>
-<ul class="blockListLast">
-<li class="blockList">
-<h4>handlerEventKeyUpMobileDevice</h4>
-<pre>protected&nbsp;void&nbsp;handlerEventKeyUpMobileDevice(com.google.gwt.user.client.ui.Widget&nbsp;widget,
-                                             int&nbsp;keyCode,
-                                             int&nbsp;maxValue)</pre>
+<div class="block">Пропаганда события измеения времени на панели календаря</div>
 </li>
 </ul>
 </li>

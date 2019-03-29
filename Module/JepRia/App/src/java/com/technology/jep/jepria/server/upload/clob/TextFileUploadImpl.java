@@ -12,14 +12,14 @@ import com.technology.jep.jepria.shared.exceptions.ApplicationException;
 public class TextFileUploadImpl extends AbstractFileUpload implements TextFileUpload {
 
   /**
-   * {@inheritDoc}
+   * Создаёт загрузчик файлов на сервер.
    */
   public TextFileUploadImpl(){
     super();
   }
 
   /**
-   * {@inheritDoc}
+   * Создаёт загрузчик файлов на сервер.
    */
   public TextFileUploadImpl(boolean transactionable){
     super(transactionable);

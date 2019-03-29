@@ -18,7 +18,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10,"i14":10,"i15":10,"i16":10,"i17":10};
+var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -49,7 +49,7 @@ var activeTableTab = "activeTableTab";
 <div class="subNav">
 <ul class="navList">
 <li><a href="../../../../../../../com/technology/jep/jepria/client/widget/field/BigDecimalBox.BigDecimalRenderer.html" title="class in com.technology.jep.jepria.client.widget.field"><span class="typeNameLink">Prev&nbsp;Class</span></a></li>
-<li><a href="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.CheckBoxDataAggregator.html" title="class in com.technology.jep.jepria.client.widget.field"><span class="typeNameLink">Next&nbsp;Class</span></a></li>
+<li><a href="../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.html" title="class in com.technology.jep.jepria.client.widget.field"><span class="typeNameLink">Next&nbsp;Class</span></a></li>
 </ul>
 <ul class="navList">
 <li><a href="../../../../../../../index.html?com/technology/jep/jepria/client/widget/field/CheckBoxListField.html" target="_top">Frames</a></li>
@@ -73,7 +73,7 @@ var activeTableTab = "activeTableTab";
 <div>
 <ul class="subNavList">
 <li>Summary:&nbsp;</li>
-<li><a href="#nested.class.summary">Nested</a>&nbsp;|&nbsp;</li>
+<li><a href="#nested.classes.inherited.from.class.com.google.gwt.user.client.ui.UIObject">Nested</a>&nbsp;|&nbsp;</li>
 <li><a href="#field.summary">Field</a>&nbsp;|&nbsp;</li>
 <li><a href="#constructor.summary">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">Method</a></li>
@@ -123,14 +123,13 @@ var activeTableTab = "activeTableTab";
 <li class="blockList">
 <dl>
 <dt>All Implemented Interfaces:</dt>
-<dd>com.google.gwt.event.logical.shared.HasAttachHandlers, com.google.gwt.event.logical.shared.HasValueChangeHandlers&lt;T&gt;, com.google.gwt.event.shared.HasHandlers, com.google.gwt.user.client.EventListener, com.google.gwt.user.client.ui.HasVisibility, com.google.gwt.user.client.ui.HasWidgets, com.google.gwt.user.client.ui.IsRenderable, com.google.gwt.user.client.ui.IsWidget, java.lang.Iterable&lt;com.google.gwt.user.client.ui.Widget&gt;</dd>
+<dd>com.google.gwt.event.logical.shared.HasAttachHandlers, com.google.gwt.event.shared.HasHandlers, com.google.gwt.user.client.EventListener, com.google.gwt.user.client.ui.HasVisibility, com.google.gwt.user.client.ui.IsRenderable, com.google.gwt.user.client.ui.IsWidget, com.google.gwt.view.client.SelectionChangeEvent.HasSelectionChangedHandlers</dd>
 </dl>
 <hr>
 <br>
 <pre>public class <span class="typeNameLabel">CheckBoxListField&lt;T extends <a href="../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</a>&gt;</span>
 extends com.google.gwt.user.client.ui.Composite
-implements com.google.gwt.user.client.ui.HasWidgets, com.google.gwt.event.logical.shared.HasValueChangeHandlers&lt;T&gt;</pre>
-<div class="block">This widget will create a Checkbox List view.</div>
+implements com.google.gwt.view.client.SelectionChangeEvent.HasSelectionChangedHandlers</pre>
 </li>
 </ul>
 </div>
@@ -143,41 +142,12 @@ implements com.google.gwt.user.client.ui.HasWidgets, com.google.gwt.event.logica
 <!--   -->
 </a>
 <h3>Nested Class Summary</h3>
-<table class="memberSummary" border="0" cellpadding="3" cellspacing="0" summary="Nested Class Summary table, listing nested classes, and an explanation">
-<caption><span>Nested Classes</span><span class="tabEnd">&nbsp;</span></caption>
-<tr>
-<th class="colFirst" scope="col">Modifier and Type</th>
-<th class="colLast" scope="col">Class and Description</th>
-</tr>
-<tr class="altColor">
-<td class="colFirst"><code>private class&nbsp;</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.CheckBoxDataAggregator.html" title="class in com.technology.jep.jepria.client.widget.field">CheckBoxListField.CheckBoxDataAggregator</a></span></code>
-<div class="block">Вспомогательный класс для хранения данных, представляемых элементом списка.</div>
-</td>
-</tr>
-<tr class="rowColor">
-<td class="colFirst"><code>private class&nbsp;</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.JepCheckBoxCell.html" title="class in com.technology.jep.jepria.client.widget.field">CheckBoxListField.JepCheckBoxCell</a></span></code>
-<div class="block">Данный класс является аналогом gwt-класса <code>CheckboxCell</code>,
- с единственной существенной разницей:
- CheckBoxCell extends AbstractEditableCell<Boolean, Boolean>
- JepCheckBoxCell extends AbstractEditableCell<CheckBoxDataAggregator, CheckBoxDataAggregator></div>
-</td>
-</tr>
-</table>
 <ul class="blockList">
 <li class="blockList"><a name="nested.classes.inherited.from.class.com.google.gwt.user.client.ui.UIObject">
 <!--   -->
 </a>
 <h3>Nested classes/interfaces inherited from class&nbsp;com.google.gwt.user.client.ui.UIObject</h3>
 <code>com.google.gwt.user.client.ui.UIObject.DebugIdImpl, com.google.gwt.user.client.ui.UIObject.DebugIdImplEnabled</code></li>
-</ul>
-<ul class="blockList">
-<li class="blockList"><a name="nested.classes.inherited.from.class.com.google.gwt.user.client.ui.HasWidgets">
-<!--   -->
-</a>
-<h3>Nested classes/interfaces inherited from interface&nbsp;com.google.gwt.user.client.ui.HasWidgets</h3>
-<code>com.google.gwt.user.client.ui.HasWidgets.ForIsWidget</code></li>
 </ul>
 </li>
 </ul>
@@ -195,24 +165,50 @@ implements com.google.gwt.user.client.ui.HasWidgets, com.google.gwt.event.logica
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code>private static java.lang.String</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.html#CHECKBOX_HTML">CHECKBOX_HTML</a></span></code>
-<div class="block">An html string representation of a checked input box with a label.</div>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.html#CHECKBOX_CELL_HTML_PATTERN">CHECKBOX_CELL_HTML_PATTERN</a></span></code>
+<div class="block">Шаблон для содержимого ячейки с чекбоксом.</div>
 </td>
 </tr>
 <tr class="rowColor">
-<td class="colFirst"><code>private java.util.List&lt;<a href="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.html" title="type parameter in CheckBoxListField">T</a>&gt;</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.html#data">data</a></span></code>&nbsp;</td>
+<td class="colFirst"><code>private com.google.gwt.cell.client.Cell&lt;java.lang.Boolean&gt;</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.html#checkBoxCell">checkBoxCell</a></span></code>
+<div class="block">Ячейка для чекбоксов.</div>
+</td>
 </tr>
 <tr class="altColor">
+<td class="colFirst"><code>private com.google.gwt.user.cellview.client.Column&lt;<a href="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.html" title="type parameter in CheckBoxListField">T</a>,java.lang.Boolean&gt;</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.html#checkBoxColumn">checkBoxColumn</a></span></code>
+<div class="block">Колонка с чекбоксами.</div>
+</td>
+</tr>
+<tr class="rowColor">
 <td class="colFirst"><code>private boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.html#disabled">disabled</a></span></code>
 <div class="block">Флаг свойства disabled данного поля.</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code>private java.lang.String</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.html#fieldIdAsWebEl">fieldIdAsWebEl</a></span></code>
-<div class="block">ID объемлющего Jep-поля как Web-элемента.</div>
+<div class="block">Id поля.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>private static java.lang.String</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.html#LABEL_CELL_HTML_PATTERN">LABEL_CELL_HTML_PATTERN</a></span></code>
+<div class="block">Шаблон для содержимого ячейки с меткой.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>private com.google.gwt.cell.client.Cell&lt;java.lang.String&gt;</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.html#labelCell">labelCell</a></span></code>
+<div class="block">Ячейка для меток (label) чекбоксов.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>private com.google.gwt.user.cellview.client.Column&lt;<a href="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.html" title="type parameter in CheckBoxListField">T</a>,java.lang.String&gt;</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.html#labelColumn">labelColumn</a></span></code>
+<div class="block">Колонка для меток.</div>
 </td>
 </tr>
 <tr class="altColor">
@@ -224,41 +220,49 @@ implements com.google.gwt.user.client.ui.HasWidgets, com.google.gwt.event.logica
 <tr class="rowColor">
 <td class="colFirst"><code>private static java.lang.String</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.html#LIST_FIELD_STYLE">LIST_FIELD_STYLE</a></span></code>
-<div class="block">Наименование селектора (класса стилей) компонента, в который помещен чекбокс и текстовый лейбл.</div>
+<div class="block">Наименование селектора (класса стилей) ячеек таблицы.</div>
 </td>
 </tr>
 <tr class="altColor">
-<td class="colFirst"><code>private com.google.gwt.user.client.ui.HorizontalPanel</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.html#panel">panel</a></span></code>
-<div class="block">Панель для горизонтального размещения панели с виджетами и индикатора загрузки.</div>
+<td class="colFirst"><code>private java.util.List&lt;<a href="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.html" title="type parameter in CheckBoxListField">T</a>&gt;</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.html#options">options</a></span></code>
+<div class="block">Список хранимых опций.</div>
 </td>
 </tr>
 <tr class="rowColor">
+<td class="colFirst"><code>private boolean</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.html#preventSelectionChange">preventSelectionChange</a></span></code>
+<div class="block">Флаг, определяющий, нужно ли предотвращать вызов обработчика события <code>SelectionChangeEvent</code>.</div>
+</td>
+</tr>
+<tr class="altColor">
 <td class="colFirst"><code>private static java.lang.String</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.html#SELECT_ALL_CHECK_BOX_STYLE">SELECT_ALL_CHECK_BOX_STYLE</a></span></code>
 <div class="block">Наименование класса стилей для флага "Выделить все".</div>
 </td>
 </tr>
-<tr class="altColor">
-<td class="colFirst"><code>protected com.google.gwt.user.client.ui.CheckBox</code></td>
+<tr class="rowColor">
+<td class="colFirst"><code>private com.google.gwt.user.client.ui.CheckBox</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.html#selectAllCheckBox">selectAllCheckBox</a></span></code>
 <div class="block">Флаг "Выбрать все".</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code>private com.google.gwt.view.client.MultiSelectionModel&lt;<a href="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.html" title="type parameter in CheckBoxListField">T</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.html#selectionModel">selectionModel</a></span></code>
-<div class="block">Multi Selection Model.</div>
+<div class="block">Модель выделения.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>private com.google.gwt.user.cellview.client.AbstractCellTable&lt;<a href="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.html" title="type parameter in CheckBoxListField">T</a>&gt;</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.html#table">table</a></span></code>
+<div class="block">Таблица с чекбоксами и подписями.</div>
 </td>
 </tr>
 <tr class="altColor">
-<td class="colFirst"><code>protected com.google.gwt.user.cellview.client.DataGrid&lt;<a href="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.html" title="type parameter in CheckBoxListField">T</a>&gt;</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.html#table">table</a></span></code>&nbsp;</td>
-</tr>
-<tr class="rowColor">
-<td class="colFirst"><code>protected com.google.gwt.user.client.ui.VerticalPanel</code></td>
+<td class="colFirst"><code>private com.google.gwt.user.client.ui.VerticalPanel</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.html#widgetPanel">widgetPanel</a></span></code>
-<div class="block">Панель для размещения списка и флага "Выделить все".</div>
+<div class="block">Панель для размещения виджетов.</div>
 </td>
 </tr>
 </table>
@@ -283,9 +287,7 @@ implements com.google.gwt.user.client.ui.HasWidgets, com.google.gwt.event.logica
 <th class="colOne" scope="col">Constructor and Description</th>
 </tr>
 <tr class="altColor">
-<td class="colOne"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.html#CheckBoxListField--">CheckBoxListField</a></span>()</code>
-<div class="block">Default constructor.</div>
-</td>
+<td class="colOne"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.html#CheckBoxListField--">CheckBoxListField</a></span>()</code>&nbsp;</td>
 </tr>
 </table>
 </li>
@@ -303,102 +305,71 @@ implements com.google.gwt.user.client.ui.HasWidgets, com.google.gwt.event.logica
 <th class="colLast" scope="col">Method and Description</th>
 </tr>
 <tr id="i0" class="altColor">
-<td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.html#add-com.google.gwt.user.client.ui.Widget-">add</a></span>(com.google.gwt.user.client.ui.Widget&nbsp;w)</code></td>
+<td class="colFirst"><code>com.google.gwt.event.shared.HandlerRegistration</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.html#addSelectionChangeHandler-com.google.gwt.view.client.SelectionChangeEvent.Handler-">addSelectionChangeHandler</a></span>(com.google.gwt.view.client.SelectionChangeEvent.Handler&nbsp;handler)</code></td>
 </tr>
 <tr id="i1" class="rowColor">
-<td class="colFirst"><code>com.google.gwt.event.shared.HandlerRegistration</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.html#addValueChangeHandler-com.google.gwt.event.logical.shared.ValueChangeHandler-">addValueChangeHandler</a></span>(com.google.gwt.event.logical.shared.ValueChangeHandler&lt;<a href="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.html" title="type parameter in CheckBoxListField">T</a>&gt;&nbsp;handler)</code>
-<div class="block">Add value change handler.</div>
+<td class="colFirst"><code>private java.lang.String</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.html#getCheckBoxId-java.lang.String-">getCheckBoxId</a></span>(java.lang.String&nbsp;key)</code>
+<div class="block">Получение id чекбокса.</div>
 </td>
 </tr>
 <tr id="i2" class="altColor">
-<td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.html#clear--">clear</a></span>()</code>
-<div class="block">Метод не поддерживается.</div>
+<td class="colFirst"><code>java.util.List&lt;<a href="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.html" title="type parameter in CheckBoxListField">T</a>&gt;</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.html#getSelection--">getSelection</a></span>()</code>
+<div class="block">Получение списка выделенных элементов.</div>
 </td>
 </tr>
 <tr id="i3" class="rowColor">
-<td class="colFirst"><code>java.util.List&lt;<a href="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.html" title="type parameter in CheckBoxListField">T</a>&gt;</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.html#getSelection--">getSelection</a></span>()</code>
-<div class="block">Get selected values</div>
+<td class="colFirst"><code>private void</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.html#onSelectAll-boolean-">onSelectAll</a></span>(boolean&nbsp;selectAll)</code>
+<div class="block">Обрабатывает клик по флагу "Выделить все"</div>
 </td>
 </tr>
 <tr id="i4" class="altColor">
-<td class="colFirst"><code>boolean</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.html#isAllSelected--">isAllSelected</a></span>()</code>
-<div class="block">Проверяет, выбраны ли все опции.</div>
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.html#refreshData--">refreshData</a></span>()</code>
+<div class="block">Принудительное обновление данных в таблице.</div>
 </td>
 </tr>
 <tr id="i5" class="rowColor">
-<td class="colFirst"><code>java.util.Iterator&lt;com.google.gwt.user.client.ui.Widget&gt;</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.html#iterator--">iterator</a></span>()</code>
-<div class="block">Метод не поддерживается.</div>
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.html#setCompositeWebIds-java.lang.String-">setCompositeWebIds</a></span>(java.lang.String&nbsp;fieldIdAsWebEl)</code>
+<div class="block">Установка id элементов, из которых состоит виджет.</div>
 </td>
 </tr>
 <tr id="i6" class="altColor">
-<td class="colFirst"><code>protected void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.html#onSelectAll-boolean-">onSelectAll</a></span>(boolean&nbsp;selectAll)</code>
-<div class="block">Обработчик события щелчка по флагу "Выделить все".</div>
-</td>
-</tr>
-<tr id="i7" class="rowColor">
-<td class="colFirst"><code>protected void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.html#populateWidgetPanel--">populateWidgetPanel</a></span>()</code>
-<div class="block">Заполнение панели списком и флагом "Выделить все".</div>
-</td>
-</tr>
-<tr id="i8" class="altColor">
-<td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.html#refreshData--">refreshData</a></span>()</code>&nbsp;</td>
-</tr>
-<tr id="i9" class="rowColor">
-<td class="colFirst"><code>boolean</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.html#remove-com.google.gwt.user.client.ui.Widget-">remove</a></span>(com.google.gwt.user.client.ui.Widget&nbsp;w)</code></td>
-</tr>
-<tr id="i10" class="altColor">
-<td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.html#replaceWidget-com.google.gwt.user.client.ui.Widget-">replaceWidget</a></span>(com.google.gwt.user.client.ui.Widget&nbsp;widget)</code>
-<div class="block">Change content widget.</div>
-</td>
-</tr>
-<tr id="i11" class="rowColor">
-<td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.html#setCompositeWebIds-java.lang.String-">setCompositeWebIds</a></span>(java.lang.String&nbsp;fieldIdAsWebEl)</code>
-<div class="block">Установка ID внутренних компонентов CheckBoxListField: table-списка как INPUT, кнопки "выделить все"</div>
-</td>
-</tr>
-<tr id="i12" class="altColor">
-<td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.html#setData-java.util.List-">setData</a></span>(java.util.List&lt;<a href="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.html" title="type parameter in CheckBoxListField">T</a>&gt;&nbsp;data)</code>
-<div class="block">Set options.</div>
-</td>
-</tr>
-<tr id="i13" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.html#setEnabled-boolean-">setEnabled</a></span>(boolean&nbsp;enabled)</code>
 <div class="block">Управление доступностью компонента.</div>
 </td>
 </tr>
-<tr id="i14" class="altColor">
+<tr id="i7" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.html#setHeight-java.lang.String-">setHeight</a></span>(java.lang.String&nbsp;height)</code>
 <div class="block">Установка высоты.</div>
 </td>
 </tr>
-<tr id="i15" class="rowColor">
+<tr id="i8" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.html#setOptions-java.util.List-">setOptions</a></span>(java.util.List&lt;<a href="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.html" title="type parameter in CheckBoxListField">T</a>&gt;&nbsp;options)</code>
+<div class="block">Установка списка доступных опций.</div>
+</td>
+</tr>
+<tr id="i9" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.html#setSelectAllCheckBoxVisible-boolean-">setSelectAllCheckBoxVisible</a></span>(boolean&nbsp;visible)</code>
 <div class="block">Установка видимости флага "Выделить все".</div>
 </td>
 </tr>
-<tr id="i16" class="altColor">
+<tr id="i10" class="altColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.html#setSelection-java.util.List-">setSelection</a></span>(java.util.List&lt;<a href="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.html" title="type parameter in CheckBoxListField">T</a>&gt;&nbsp;selectedOptions)</code>
-<div class="block">Set selected options in list field</div>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.html#setSelection-java.util.List-boolean-">setSelection</a></span>(java.util.List&lt;<a href="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.html" title="type parameter in CheckBoxListField">T</a>&gt;&nbsp;selectedOptions,
+            boolean&nbsp;fireEvent)</code>
+<div class="block">Установка выделенных опций.</div>
 </td>
 </tr>
-<tr id="i17" class="rowColor">
+<tr id="i11" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.html#setWidth-java.lang.String-">setWidth</a></span>(java.lang.String&nbsp;width)</code>
 <div class="block">Установка ширины.</div>
@@ -434,13 +405,6 @@ implements com.google.gwt.user.client.ui.HasWidgets, com.google.gwt.event.logica
 <code>clone, equals, finalize, getClass, hashCode, notify, notifyAll, wait, wait, wait</code></li>
 </ul>
 <ul class="blockList">
-<li class="blockList"><a name="methods.inherited.from.class.java.lang.Iterable">
-<!--   -->
-</a>
-<h3>Methods inherited from interface&nbsp;java.lang.Iterable</h3>
-<code>forEach, spliterator</code></li>
-</ul>
-<ul class="blockList">
 <li class="blockList"><a name="methods.inherited.from.class.com.google.gwt.event.shared.HasHandlers">
 <!--   -->
 </a>
@@ -461,24 +425,32 @@ implements com.google.gwt.user.client.ui.HasWidgets, com.google.gwt.event.logica
 <!--   -->
 </a>
 <h3>Field Detail</h3>
-<a name="selectAllCheckBox">
+<a name="LIST_FIELD_COMMON_STYLE">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>selectAllCheckBox</h4>
-<pre>protected&nbsp;com.google.gwt.user.client.ui.CheckBox selectAllCheckBox</pre>
-<div class="block">Флаг "Выбрать все".</div>
+<h4>LIST_FIELD_COMMON_STYLE</h4>
+<pre>private static final&nbsp;java.lang.String LIST_FIELD_COMMON_STYLE</pre>
+<div class="block">Наименование селектора (класса стилей) главного компонента.</div>
+<dl>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><a href="../../../../../../../constant-values.html#com.technology.jep.jepria.client.widget.field.CheckBoxListField.LIST_FIELD_COMMON_STYLE">Constant Field Values</a></dd>
+</dl>
 </li>
 </ul>
-<a name="widgetPanel">
+<a name="LIST_FIELD_STYLE">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>widgetPanel</h4>
-<pre>protected&nbsp;com.google.gwt.user.client.ui.VerticalPanel widgetPanel</pre>
-<div class="block">Панель для размещения списка и флага "Выделить все".</div>
+<h4>LIST_FIELD_STYLE</h4>
+<pre>private static final&nbsp;java.lang.String LIST_FIELD_STYLE</pre>
+<div class="block">Наименование селектора (класса стилей) ячеек таблицы.</div>
+<dl>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><a href="../../../../../../../constant-values.html#com.technology.jep.jepria.client.widget.field.CheckBoxListField.LIST_FIELD_STYLE">Constant Field Values</a></dd>
+</dl>
 </li>
 </ul>
 <a name="SELECT_ALL_CHECK_BOX_STYLE">
@@ -495,14 +467,32 @@ implements com.google.gwt.user.client.ui.HasWidgets, com.google.gwt.event.logica
 </dl>
 </li>
 </ul>
-<a name="panel">
+<a name="CHECKBOX_CELL_HTML_PATTERN">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>panel</h4>
-<pre>private&nbsp;com.google.gwt.user.client.ui.HorizontalPanel panel</pre>
-<div class="block">Панель для горизонтального размещения панели с виджетами и индикатора загрузки.</div>
+<h4>CHECKBOX_CELL_HTML_PATTERN</h4>
+<pre>private static final&nbsp;java.lang.String CHECKBOX_CELL_HTML_PATTERN</pre>
+<div class="block">Шаблон для содержимого ячейки с чекбоксом.</div>
+<dl>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><a href="../../../../../../../constant-values.html#com.technology.jep.jepria.client.widget.field.CheckBoxListField.CHECKBOX_CELL_HTML_PATTERN">Constant Field Values</a></dd>
+</dl>
+</li>
+</ul>
+<a name="LABEL_CELL_HTML_PATTERN">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>LABEL_CELL_HTML_PATTERN</h4>
+<pre>private static final&nbsp;java.lang.String LABEL_CELL_HTML_PATTERN</pre>
+<div class="block">Шаблон для содержимого ячейки с меткой.</div>
+<dl>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><a href="../../../../../../../constant-values.html#com.technology.jep.jepria.client.widget.field.CheckBoxListField.LABEL_CELL_HTML_PATTERN">Constant Field Values</a></dd>
+</dl>
 </li>
 </ul>
 <a name="table">
@@ -511,16 +501,81 @@ implements com.google.gwt.user.client.ui.HasWidgets, com.google.gwt.event.logica
 <ul class="blockList">
 <li class="blockList">
 <h4>table</h4>
-<pre>protected&nbsp;com.google.gwt.user.cellview.client.DataGrid&lt;<a href="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.html" title="type parameter in CheckBoxListField">T</a> extends <a href="../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</a>&gt; table</pre>
+<pre>private&nbsp;com.google.gwt.user.cellview.client.AbstractCellTable&lt;<a href="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.html" title="type parameter in CheckBoxListField">T</a> extends <a href="../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</a>&gt; table</pre>
+<div class="block">Таблица с чекбоксами и подписями.</div>
 </li>
 </ul>
-<a name="data">
+<a name="checkBoxCell">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>data</h4>
-<pre>private&nbsp;java.util.List&lt;<a href="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.html" title="type parameter in CheckBoxListField">T</a> extends <a href="../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</a>&gt; data</pre>
+<h4>checkBoxCell</h4>
+<pre>private&nbsp;com.google.gwt.cell.client.Cell&lt;java.lang.Boolean&gt; checkBoxCell</pre>
+<div class="block">Ячейка для чекбоксов. Особенность: указывается id для того, чтобы связать с label.</div>
+</li>
+</ul>
+<a name="checkBoxColumn">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>checkBoxColumn</h4>
+<pre>private&nbsp;com.google.gwt.user.cellview.client.Column&lt;<a href="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.html" title="type parameter in CheckBoxListField">T</a> extends <a href="../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</a>,java.lang.Boolean&gt; checkBoxColumn</pre>
+<div class="block">Колонка с чекбоксами.</div>
+</li>
+</ul>
+<a name="labelCell">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>labelCell</h4>
+<pre>private&nbsp;com.google.gwt.cell.client.Cell&lt;java.lang.String&gt; labelCell</pre>
+<div class="block">Ячейка для меток (label) чекбоксов. Особенность: указывается id чекбокса, что необходимо
+ для обработки клика.
+ Shift-click и Ctrl-click по элементу <label> принудительно игнорируются в Firefox, поэтому
+ в этом браузере работать не будет, см. https://bugzilla.mozilla.org/show_bug.cgi?id=559506</div>
+</li>
+</ul>
+<a name="labelColumn">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>labelColumn</h4>
+<pre>private&nbsp;com.google.gwt.user.cellview.client.Column&lt;<a href="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.html" title="type parameter in CheckBoxListField">T</a> extends <a href="../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</a>,java.lang.String&gt; labelColumn</pre>
+<div class="block">Колонка для меток.</div>
+</li>
+</ul>
+<a name="selectAllCheckBox">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>selectAllCheckBox</h4>
+<pre>private&nbsp;com.google.gwt.user.client.ui.CheckBox selectAllCheckBox</pre>
+<div class="block">Флаг "Выбрать все".</div>
+</li>
+</ul>
+<a name="widgetPanel">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>widgetPanel</h4>
+<pre>private&nbsp;com.google.gwt.user.client.ui.VerticalPanel widgetPanel</pre>
+<div class="block">Панель для размещения виджетов.</div>
+</li>
+</ul>
+<a name="selectionModel">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>selectionModel</h4>
+<pre>private&nbsp;com.google.gwt.view.client.MultiSelectionModel&lt;<a href="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.html" title="type parameter in CheckBoxListField">T</a> extends <a href="../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</a>&gt; selectionModel</pre>
+<div class="block">Модель выделения.</div>
 </li>
 </ul>
 <a name="disabled">
@@ -533,66 +588,34 @@ implements com.google.gwt.user.client.ui.HasWidgets, com.google.gwt.event.logica
 <div class="block">Флаг свойства disabled данного поля. Необходимо хранить это значение, поскольку оно используется при каждом рендеринге.</div>
 </li>
 </ul>
-<a name="selectionModel">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>selectionModel</h4>
-<pre>private&nbsp;com.google.gwt.view.client.MultiSelectionModel&lt;<a href="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.html" title="type parameter in CheckBoxListField">T</a> extends <a href="../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</a>&gt; selectionModel</pre>
-<div class="block">Multi Selection Model.</div>
-</li>
-</ul>
-<a name="CHECKBOX_HTML">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>CHECKBOX_HTML</h4>
-<pre>private static final&nbsp;java.lang.String CHECKBOX_HTML</pre>
-<div class="block">An html string representation of a checked input box with a label.</div>
-<dl>
-<dt><span class="seeLabel">See Also:</span></dt>
-<dd><a href="../../../../../../../constant-values.html#com.technology.jep.jepria.client.widget.field.CheckBoxListField.CHECKBOX_HTML">Constant Field Values</a></dd>
-</dl>
-</li>
-</ul>
-<a name="LIST_FIELD_STYLE">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>LIST_FIELD_STYLE</h4>
-<pre>private static final&nbsp;java.lang.String LIST_FIELD_STYLE</pre>
-<div class="block">Наименование селектора (класса стилей) компонента, в который помещен чекбокс и текстовый лейбл.</div>
-<dl>
-<dt><span class="seeLabel">See Also:</span></dt>
-<dd><a href="../../../../../../../constant-values.html#com.technology.jep.jepria.client.widget.field.CheckBoxListField.LIST_FIELD_STYLE">Constant Field Values</a></dd>
-</dl>
-</li>
-</ul>
-<a name="LIST_FIELD_COMMON_STYLE">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>LIST_FIELD_COMMON_STYLE</h4>
-<pre>private static final&nbsp;java.lang.String LIST_FIELD_COMMON_STYLE</pre>
-<div class="block">Наименование селектора (класса стилей) главного компонента.</div>
-<dl>
-<dt><span class="seeLabel">See Also:</span></dt>
-<dd><a href="../../../../../../../constant-values.html#com.technology.jep.jepria.client.widget.field.CheckBoxListField.LIST_FIELD_COMMON_STYLE">Constant Field Values</a></dd>
-</dl>
-</li>
-</ul>
 <a name="fieldIdAsWebEl">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>fieldIdAsWebEl</h4>
+<pre>private&nbsp;java.lang.String fieldIdAsWebEl</pre>
+<div class="block">Id поля.</div>
+</li>
+</ul>
+<a name="options">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>options</h4>
+<pre>private&nbsp;java.util.List&lt;<a href="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.html" title="type parameter in CheckBoxListField">T</a> extends <a href="../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</a>&gt; options</pre>
+<div class="block">Список хранимых опций.</div>
+</li>
+</ul>
+<a name="preventSelectionChange">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
-<h4>fieldIdAsWebEl</h4>
-<pre>private&nbsp;java.lang.String fieldIdAsWebEl</pre>
-<div class="block">ID объемлющего Jep-поля как Web-элемента. Переменная нужна как поле класса для использования при рендеринге.</div>
+<h4>preventSelectionChange</h4>
+<pre>private&nbsp;boolean preventSelectionChange</pre>
+<div class="block">Флаг, определяющий, нужно ли предотвращать вызов обработчика события <code>SelectionChangeEvent</code>.</div>
 </li>
 </ul>
 </li>
@@ -610,7 +633,6 @@ implements com.google.gwt.user.client.ui.HasWidgets, com.google.gwt.event.logica
 <li class="blockList">
 <h4>CheckBoxListField</h4>
 <pre>public&nbsp;CheckBoxListField()</pre>
-<div class="block">Default constructor. Uses default text cell implementation of this class</div>
 </li>
 </ul>
 </li>
@@ -621,59 +643,85 @@ implements com.google.gwt.user.client.ui.HasWidgets, com.google.gwt.event.logica
 <!--   -->
 </a>
 <h3>Method Detail</h3>
-<a name="add-com.google.gwt.user.client.ui.Widget-">
+<a name="getCheckBoxId-java.lang.String-">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>add</h4>
-<pre>public&nbsp;void&nbsp;add(com.google.gwt.user.client.ui.Widget&nbsp;w)</pre>
+<h4>getCheckBoxId</h4>
+<pre>private&nbsp;java.lang.String&nbsp;getCheckBoxId(java.lang.String&nbsp;key)</pre>
+<div class="block">Получение id чекбокса.</div>
 <dl>
-<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code>add</code>&nbsp;in interface&nbsp;<code>com.google.gwt.user.client.ui.HasWidgets</code></dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>key</code> - ключ</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>id</dd>
 </dl>
 </li>
 </ul>
-<a name="clear--">
+<a name="onSelectAll-boolean-">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>clear</h4>
-<pre>public&nbsp;void&nbsp;clear()</pre>
-<div class="block">Метод не поддерживается.</div>
+<h4>onSelectAll</h4>
+<pre>private&nbsp;void&nbsp;onSelectAll(boolean&nbsp;selectAll)</pre>
+<div class="block">Обрабатывает клик по флагу "Выделить все"</div>
 <dl>
-<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code>clear</code>&nbsp;in interface&nbsp;<code>com.google.gwt.user.client.ui.HasWidgets</code></dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>selectAll</code> - true, если флаг был установлен; false, если снят</dd>
 </dl>
 </li>
 </ul>
-<a name="iterator--">
+<a name="addSelectionChangeHandler-com.google.gwt.view.client.SelectionChangeEvent.Handler-">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>iterator</h4>
-<pre>public&nbsp;java.util.Iterator&lt;com.google.gwt.user.client.ui.Widget&gt;&nbsp;iterator()</pre>
-<div class="block">Метод не поддерживается.</div>
+<h4>addSelectionChangeHandler</h4>
+<pre>public&nbsp;com.google.gwt.event.shared.HandlerRegistration&nbsp;addSelectionChangeHandler(com.google.gwt.view.client.SelectionChangeEvent.Handler&nbsp;handler)</pre>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code>iterator</code>&nbsp;in interface&nbsp;<code>com.google.gwt.user.client.ui.HasWidgets</code></dd>
-<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code>iterator</code>&nbsp;in interface&nbsp;<code>java.lang.Iterable&lt;com.google.gwt.user.client.ui.Widget&gt;</code></dd>
+<dd><code>addSelectionChangeHandler</code>&nbsp;in interface&nbsp;<code>com.google.gwt.view.client.SelectionChangeEvent.HasSelectionChangedHandlers</code></dd>
 </dl>
 </li>
 </ul>
-<a name="remove-com.google.gwt.user.client.ui.Widget-">
+<a name="getSelection--">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>remove</h4>
-<pre>public&nbsp;boolean&nbsp;remove(com.google.gwt.user.client.ui.Widget&nbsp;w)</pre>
+<h4>getSelection</h4>
+<pre>public&nbsp;java.util.List&lt;<a href="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.html" title="type parameter in CheckBoxListField">T</a>&gt;&nbsp;getSelection()</pre>
+<div class="block">Получение списка выделенных элементов. Создаётся копия списка, поэтому дальнейшие манипуляции
+ с результатом должны быть безопасными.</div>
 <dl>
-<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code>remove</code>&nbsp;in interface&nbsp;<code>com.google.gwt.user.client.ui.HasWidgets</code></dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>список выделенных элементов</dd>
+</dl>
+</li>
+</ul>
+<a name="refreshData--">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>refreshData</h4>
+<pre>public&nbsp;void&nbsp;refreshData()</pre>
+<div class="block">Принудительное обновление данных в таблице.</div>
+</li>
+</ul>
+<a name="setCompositeWebIds-java.lang.String-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setCompositeWebIds</h4>
+<pre>public&nbsp;void&nbsp;setCompositeWebIds(java.lang.String&nbsp;fieldIdAsWebEl)</pre>
+<div class="block">Установка id элементов, из которых состоит виджет.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>fieldIdAsWebEl</code> - id поля</dd>
 </dl>
 </li>
 </ul>
@@ -687,7 +735,7 @@ implements com.google.gwt.user.client.ui.HasWidgets, com.google.gwt.event.logica
 <div class="block">Управление доступностью компонента.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>enabled</code> - доступность компонента</dd>
+<dd><code>enabled</code> - true - доступен, false - нет</dd>
 </dl>
 </li>
 </ul>
@@ -709,6 +757,36 @@ implements com.google.gwt.user.client.ui.HasWidgets, com.google.gwt.event.logica
 </dl>
 </li>
 </ul>
+<a name="setSelection-java.util.List-boolean-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setSelection</h4>
+<pre>public&nbsp;void&nbsp;setSelection(java.util.List&lt;<a href="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.html" title="type parameter in CheckBoxListField">T</a>&gt;&nbsp;selectedOptions,
+                         boolean&nbsp;fireEvent)</pre>
+<div class="block">Установка выделенных опций.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>selectedOptions</code> - список выделенных опций</dd>
+<dd><code>fireEvent</code> - true - вызвать событие <code>SelectionChangeEvent</code>, false - нет</dd>
+</dl>
+</li>
+</ul>
+<a name="setOptions-java.util.List-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setOptions</h4>
+<pre>public&nbsp;void&nbsp;setOptions(java.util.List&lt;<a href="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.html" title="type parameter in CheckBoxListField">T</a>&gt;&nbsp;options)</pre>
+<div class="block">Установка списка доступных опций.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>options</code> - список опций</dd>
+</dl>
+</li>
+</ul>
 <a name="setSelectAllCheckBoxVisible-boolean-">
 <!--   -->
 </a>
@@ -727,7 +805,7 @@ implements com.google.gwt.user.client.ui.HasWidgets, com.google.gwt.event.logica
 <a name="setWidth-java.lang.String-">
 <!--   -->
 </a>
-<ul class="blockList">
+<ul class="blockListLast">
 <li class="blockList">
 <h4>setWidth</h4>
 <pre>public&nbsp;void&nbsp;setWidth(java.lang.String&nbsp;width)</pre>
@@ -739,140 +817,6 @@ implements com.google.gwt.user.client.ui.HasWidgets, com.google.gwt.event.logica
 <dd><code>setWidth</code>&nbsp;in class&nbsp;<code>com.google.gwt.user.client.ui.UIObject</code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>width</code> - ширина</dd>
-</dl>
-</li>
-</ul>
-<a name="onSelectAll-boolean-">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>onSelectAll</h4>
-<pre>protected&nbsp;void&nbsp;onSelectAll(boolean&nbsp;selectAll)</pre>
-<div class="block">Обработчик события щелчка по флагу "Выделить все".<br>
- Если флаг проставлен, выделяются все опции. В противном случае все опции сбрасываются.
- После этого вызывается событие 
- <a href="../../../../../../../com/technology/jep/jepria/client/widget/event/JepEventType.html#CHANGE_SELECTION_EVENT"><code>JepEventType.CHANGE_SELECTION_EVENT</code></a>.</div>
-</li>
-</ul>
-<a name="populateWidgetPanel--">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>populateWidgetPanel</h4>
-<pre>protected&nbsp;void&nbsp;populateWidgetPanel()</pre>
-<div class="block">Заполнение панели списком и флагом "Выделить все".<br>
- При необходимости изменить стандартный порядок следования виджетов,
- метод следует переопределить в классе-наследнике.</div>
-</li>
-</ul>
-<a name="setData-java.util.List-">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>setData</h4>
-<pre>public&nbsp;void&nbsp;setData(java.util.List&lt;<a href="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.html" title="type parameter in CheckBoxListField">T</a>&gt;&nbsp;data)</pre>
-<div class="block">Set options.</div>
-<dl>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>data</code> - options</dd>
-</dl>
-</li>
-</ul>
-<a name="refreshData--">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>refreshData</h4>
-<pre>public&nbsp;void&nbsp;refreshData()</pre>
-</li>
-</ul>
-<a name="getSelection--">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>getSelection</h4>
-<pre>public&nbsp;java.util.List&lt;<a href="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.html" title="type parameter in CheckBoxListField">T</a>&gt;&nbsp;getSelection()</pre>
-<div class="block">Get selected values</div>
-<dl>
-<dt><span class="returnLabel">Returns:</span></dt>
-<dd>selected values</dd>
-</dl>
-</li>
-</ul>
-<a name="setSelection-java.util.List-">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>setSelection</h4>
-<pre>public&nbsp;void&nbsp;setSelection(java.util.List&lt;<a href="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.html" title="type parameter in CheckBoxListField">T</a>&gt;&nbsp;selectedOptions)</pre>
-<div class="block">Set selected options in list field</div>
-<dl>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>selectedOptions</code> - options</dd>
-</dl>
-</li>
-</ul>
-<a name="addValueChangeHandler-com.google.gwt.event.logical.shared.ValueChangeHandler-">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>addValueChangeHandler</h4>
-<pre>public&nbsp;com.google.gwt.event.shared.HandlerRegistration&nbsp;addValueChangeHandler(com.google.gwt.event.logical.shared.ValueChangeHandler&lt;<a href="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.html" title="type parameter in CheckBoxListField">T</a>&gt;&nbsp;handler)</pre>
-<div class="block">Add value change handler.</div>
-<dl>
-<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code>addValueChangeHandler</code>&nbsp;in interface&nbsp;<code>com.google.gwt.event.logical.shared.HasValueChangeHandlers&lt;<a href="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.html" title="type parameter in CheckBoxListField">T</a> extends <a href="../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</a>&gt;</code></dd>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>handler</code> - specified handler for <code>ValueChangeEvent</code></dd>
-</dl>
-</li>
-</ul>
-<a name="replaceWidget-com.google.gwt.user.client.ui.Widget-">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>replaceWidget</h4>
-<pre>public&nbsp;void&nbsp;replaceWidget(com.google.gwt.user.client.ui.Widget&nbsp;widget)</pre>
-<div class="block">Change content widget.</div>
-<dl>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>widget</code> - specified widget</dd>
-</dl>
-</li>
-</ul>
-<a name="isAllSelected--">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>isAllSelected</h4>
-<pre>public&nbsp;boolean&nbsp;isAllSelected()</pre>
-<div class="block">Проверяет, выбраны ли все опции.</div>
-<dl>
-<dt><span class="returnLabel">Returns:</span></dt>
-<dd>true, если выбраны все опции, false в противном случае</dd>
-</dl>
-</li>
-</ul>
-<a name="setCompositeWebIds-java.lang.String-">
-<!--   -->
-</a>
-<ul class="blockListLast">
-<li class="blockList">
-<h4>setCompositeWebIds</h4>
-<pre>public&nbsp;void&nbsp;setCompositeWebIds(java.lang.String&nbsp;fieldIdAsWebEl)</pre>
-<div class="block">Установка ID внутренних компонентов CheckBoxListField: table-списка как INPUT, кнопки "выделить все"</div>
-<dl>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>fieldIdAsWebEl</code> - ID JepListField'а, который берется за основу ID внутренних компонентов</dd>
 </dl>
 </li>
 </ul>
@@ -904,7 +848,7 @@ implements com.google.gwt.user.client.ui.HasWidgets, com.google.gwt.event.logica
 <div class="subNav">
 <ul class="navList">
 <li><a href="../../../../../../../com/technology/jep/jepria/client/widget/field/BigDecimalBox.BigDecimalRenderer.html" title="class in com.technology.jep.jepria.client.widget.field"><span class="typeNameLink">Prev&nbsp;Class</span></a></li>
-<li><a href="../../../../../../../com/technology/jep/jepria/client/widget/field/CheckBoxListField.CheckBoxDataAggregator.html" title="class in com.technology.jep.jepria.client.widget.field"><span class="typeNameLink">Next&nbsp;Class</span></a></li>
+<li><a href="../../../../../../../com/technology/jep/jepria/client/widget/field/ComboBox.html" title="class in com.technology.jep.jepria.client.widget.field"><span class="typeNameLink">Next&nbsp;Class</span></a></li>
 </ul>
 <ul class="navList">
 <li><a href="../../../../../../../index.html?com/technology/jep/jepria/client/widget/field/CheckBoxListField.html" target="_top">Frames</a></li>
@@ -928,7 +872,7 @@ implements com.google.gwt.user.client.ui.HasWidgets, com.google.gwt.event.logica
 <div>
 <ul class="subNavList">
 <li>Summary:&nbsp;</li>
-<li><a href="#nested.class.summary">Nested</a>&nbsp;|&nbsp;</li>
+<li><a href="#nested.classes.inherited.from.class.com.google.gwt.user.client.ui.UIObject">Nested</a>&nbsp;|&nbsp;</li>
 <li><a href="#field.summary">Field</a>&nbsp;|&nbsp;</li>
 <li><a href="#constructor.summary">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">Method</a></li>

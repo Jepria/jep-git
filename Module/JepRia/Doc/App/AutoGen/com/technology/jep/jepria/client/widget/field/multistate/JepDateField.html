@@ -233,7 +233,9 @@ extends <a href="../../../../../../../../com/technology/jep/jepria/client/widget
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code>private int</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepDateField.html#TYPE_DATEPICKER">TYPE_DATEPICKER</a></span></code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepDateField.html#TYPE_DATEPICKER">TYPE_DATEPICKER</a></span></code>
+<div class="block">Тип календаря, поумолчанию выставляется отображение календаря с выпадающими списками: месяц, год</div>
+</td>
 </tr>
 </table>
 <ul class="blockList">
@@ -275,7 +277,9 @@ extends <a href="../../../../../../../../com/technology/jep/jepria/client/widget
 </tr>
 <tr class="altColor">
 <td class="colOne"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepDateField.html#JepDateField-java.lang.String-java.lang.String-">JepDateField</a></span>(java.lang.String&nbsp;fieldIdAsWebEl,
-            java.lang.String&nbsp;fieldLabel)</code>&nbsp;</td>
+            java.lang.String&nbsp;fieldLabel)</code>
+<div class="block">Создаёт поле для ввода даты в стандартном формате (dd.MM.yyyy).</div>
+</td>
 </tr>
 </table>
 </li>
@@ -559,6 +563,16 @@ extends <a href="../../../../../../../../com/technology/jep/jepria/client/widget
 </dl>
 </li>
 </ul>
+<a name="TYPE_DATEPICKER">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>TYPE_DATEPICKER</h4>
+<pre>private&nbsp;int TYPE_DATEPICKER</pre>
+<div class="block">Тип календаря, поумолчанию выставляется отображение календаря с выпадающими списками: месяц, год</div>
+</li>
+</ul>
 <a name="minDate">
 <!--   -->
 </a>
@@ -572,20 +586,11 @@ extends <a href="../../../../../../../../com/technology/jep/jepria/client/widget
 <a name="maxDate">
 <!--   -->
 </a>
-<ul class="blockList">
+<ul class="blockListLast">
 <li class="blockList">
 <h4>maxDate</h4>
 <pre>private&nbsp;java.util.Date maxDate</pre>
 <div class="block">Граничные даты диапазона возможных значений дат</div>
-</li>
-</ul>
-<a name="TYPE_DATEPICKER">
-<!--   -->
-</a>
-<ul class="blockListLast">
-<li class="blockList">
-<h4>TYPE_DATEPICKER</h4>
-<pre>private&nbsp;int TYPE_DATEPICKER</pre>
 </li>
 </ul>
 </li>
@@ -628,6 +633,12 @@ extends <a href="../../../../../../../../com/technology/jep/jepria/client/widget
 <h4>JepDateField</h4>
 <pre>public&nbsp;JepDateField(java.lang.String&nbsp;fieldIdAsWebEl,
                     java.lang.String&nbsp;fieldLabel)</pre>
+<div class="block">Создаёт поле для ввода даты в стандартном формате (dd.MM.yyyy).</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>fieldIdAsWebEl</code> - id элемента DOM</dd>
+<dd><code>fieldLabel</code> - метка</dd>
+</dl>
 </li>
 </ul>
 </li>
@@ -734,7 +745,8 @@ extends <a href="../../../../../../../../com/technology/jep/jepria/client/widget
 <div class="block">Создание календаря с навигационной панелью с возможностью выбрать месяц и год</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>typeViewPanelOfCalendar</code> - </dd>
+<dd><code>typeViewPanelOfCalendar</code> - - тип формата ввода даты, может принимать значения:  FORMAT_DAYS_AND_MONTH_AND_YEAR_TIME - стандартный календарь и время(dd.MM.yyyy HH:mm:ss), <br> FORMAT_DAYS_AND_MONTH_AND_YEAR - стандартный календарь (dd.MM.yyyy), <br>FORMAT_MONTH_AND_YEAR_ONLY - Навигация только месяц и год (mm.YYYY), <br>FORMAT_YEAR_ONLY - Навигация только год (yyyy)
+ <br>любые другие значения приводятся к FORMAT_DAYS_AND_MONTH_AND_YEAR</dd>
 </dl>
 </li>
 </ul>
@@ -768,7 +780,9 @@ extends <a href="../../../../../../../../com/technology/jep/jepria/client/widget
 <div class="block">Проверка на принадлежность диапазона граничных дат</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>newDate</code> - </dd>
+<dd><code>newDate</code> - новая дата проверяем попадания в диапазон</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>Истина - попали в диапазон, Ложь - не попали в диапазон</dd>
 </dl>
 </li>
 </ul>
@@ -918,7 +932,7 @@ extends <a href="../../../../../../../../com/technology/jep/jepria/client/widget
 <div class="block">Обработчик введенного текста с мобильного устройства</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>value</code> - </dd>
+<dd><code>newDate</code> - новое значние даты календаря</dd>
 </dl>
 </li>
 </ul>
@@ -932,6 +946,10 @@ extends <a href="../../../../../../../../com/technology/jep/jepria/client/widget
                             throws java.lang.Exception</pre>
 <div class="block">Валидация введенной даты</div>
 <dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>date</code> - дата в текстовом представлении</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>@Date дата корректная</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
 <dd><code>java.lang.Exception</code></dd>
 </dl>
@@ -947,7 +965,7 @@ extends <a href="../../../../../../../../com/technology/jep/jepria/client/widget
 <div class="block">Проверяем нажатые клавиши</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>code</code> - </dd>
+<dd><code>code</code> - код клавиши</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>вернет Истину, если введен допустимый код, иначе Ложь</dd>
 </dl>

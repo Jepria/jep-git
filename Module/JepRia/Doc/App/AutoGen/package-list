@@ -60,6 +60,7 @@ com.technology.jep.jepria.client.widget.field.multistate.customized
 com.technology.jep.jepria.client.widget.field.multistate.event
 com.technology.jep.jepria.client.widget.field.multistate.large
 com.technology.jep.jepria.client.widget.field.tree
+com.technology.jep.jepria.client.widget.field.tree.event
 com.technology.jep.jepria.client.widget.field.tree.images
 com.technology.jep.jepria.client.widget.field.validation
 com.technology.jep.jepria.client.widget.field.wysiwyg

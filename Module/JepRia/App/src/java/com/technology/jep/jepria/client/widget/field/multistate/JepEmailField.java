@@ -37,7 +37,7 @@ public class JepEmailField extends JepTextField {
       (     #   start of group #1
         \\.[_A-Za-z0-9-]+ #     follow by a dot "." and string in the bracket [ ], must contains one or more (+)
       )*      #   end of group #1, this group is optional (*)
-        @     #     must contains a "@" symbol
+        {@literal @}     #     must contains a "{@literal @}" symbol
          [A-Za-z0-9-]+      #       follow by string in the bracket [ ], must contains one or more (+)
           (     #         start of group #2 - first level TLD checking
            \\.[A-Za-z0-9]+  #           follow by a dot "." and string in the bracket [ ], must contains one or more (+)

@@ -18,7 +18,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10,"i14":10,"i15":10,"i16":10,"i17":10,"i18":10,"i19":10,"i20":10};
+var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10,"i14":10,"i15":10,"i16":10,"i17":10,"i18":10,"i19":10,"i20":10,"i21":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -176,16 +176,22 @@ extends <a href="../../../../../../../../com/technology/jep/jepria/client/widget
 <th class="colLast" scope="col">Field and Description</th>
 </tr>
 <tr class="altColor">
+<td class="colFirst"><code>private boolean</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepTreeField.html#checkable">checkable</a></span></code>
+<div class="block">Возможность выбора узлов дерева (по умолчанию, допускается выделение узлов).</div>
+</td>
+</tr>
+<tr class="rowColor">
 <td class="colFirst"><code>protected java.util.List&lt;<a href="../../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepTreeField.html#checkedValues">checkedValues</a></span></code>
 <div class="block">Список узлов, которые необходимо отметить.</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code>private static int</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepTreeField.html#DEFAULT_TREE_FIELD_HEIGHT">DEFAULT_TREE_FIELD_HEIGHT</a></span></code>&nbsp;</td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code>protected java.util.List&lt;<a href="../../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepTreeField.html#expandedValues">expandedValues</a></span></code>
 <div class="block">Список узлов, которые необходимо раскрыть.</div>
@@ -284,92 +290,98 @@ extends <a href="../../../../../../../../com/technology/jep/jepria/client/widget
 </tr>
 <tr id="i6" class="altColor">
 <td class="colFirst"><code>boolean</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepTreeField.html#isCheckable--">isCheckable</a></span>()</code>
+<div class="block">Возвращает признак возможности выбора элементов дерева.</div>
+</td>
+</tr>
+<tr id="i7" class="rowColor">
+<td class="colFirst"><code>boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepTreeField.html#isValid--">isValid</a></span>()</code>
 <div class="block">Проверяет: содержит ли допустимое значение поле.</div>
 </td>
 </tr>
-<tr id="i7" class="rowColor">
+<tr id="i8" class="altColor">
 <td class="colFirst"><code>protected void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepTreeField.html#onChangeWorkstate-com.technology.jep.jepria.client.ui.WorkstateEnum-">onChangeWorkstate</a></span>(<a href="../../../../../../../../com/technology/jep/jepria/client/ui/WorkstateEnum.html" title="enum in com.technology.jep.jepria.client.ui">WorkstateEnum</a>&nbsp;newWorkstate)</code>
 <div class="block">Обработчик нового состояния</div>
 </td>
 </tr>
-<tr id="i8" class="altColor">
+<tr id="i9" class="rowColor">
 <td class="colFirst"><code>protected void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepTreeField.html#processChecking--">processChecking</a></span>()</code>
 <div class="block">Отмечает отрисованные узлы и удаляет их из списка узлов, которые необходимо отметить 
  <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepTreeField.html#checkedValues"><code>checkedValues</code></a>.</div>
 </td>
 </tr>
-<tr id="i9" class="rowColor">
+<tr id="i10" class="altColor">
 <td class="colFirst"><code>protected void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepTreeField.html#processExpanding--">processExpanding</a></span>()</code>
 <div class="block">Раскрывает отрисованные узлы и удаляет их из списка узлов, которые необходимо раскрыть 
  <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepTreeField.html#expandedValues"><code>expandedValues</code></a>.</div>
 </td>
 </tr>
-<tr id="i10" class="altColor">
+<tr id="i11" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepTreeField.html#setCheckNodes-com.technology.jep.jepria.client.widget.field.tree.TreeField.CheckNodes-">setCheckNodes</a></span>(<a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.CheckNodes.html" title="enum in com.technology.jep.jepria.client.widget.field.tree">TreeField.CheckNodes</a>&nbsp;checkNodes)</code>
 <div class="block">Устанавливает какие узлы можно отмечать.</div>
 </td>
 </tr>
-<tr id="i11" class="rowColor">
+<tr id="i12" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepTreeField.html#setCheckStyle-com.technology.jep.jepria.client.widget.field.tree.TreeField.CheckCascade-">setCheckStyle</a></span>(<a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.CheckCascade.html" title="enum in com.technology.jep.jepria.client.widget.field.tree">TreeField.CheckCascade</a>&nbsp;checkCascade)</code>
 <div class="block">Устанавливает стиль поведения (каскадного выделения) для отмечаемых узлов.</div>
 </td>
 </tr>
-<tr id="i12" class="altColor">
+<tr id="i13" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepTreeField.html#setEditable-boolean-">setEditable</a></span>(boolean&nbsp;editable)</code>
 <div class="block">Метод не поддерживается.</div>
 </td>
 </tr>
-<tr id="i13" class="rowColor">
+<tr id="i14" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepTreeField.html#setEnabled-boolean-">setEnabled</a></span>(boolean&nbsp;enabled)</code>
 <div class="block">Установка доступности или недоступности (карты Редактирования) поля для
  редактирования.</div>
 </td>
 </tr>
-<tr id="i14" class="altColor">
+<tr id="i15" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepTreeField.html#setExpanded-java.util.List-">setExpanded</a></span>(java.util.List&lt;<a href="../../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</a>&gt;&nbsp;expandedValues)</code>
 <div class="block">Указывает, какие узлы необходимо раскрыть.</div>
 </td>
 </tr>
-<tr id="i15" class="rowColor">
+<tr id="i16" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepTreeField.html#setFieldHeight-int-">setFieldHeight</a></span>(int&nbsp;fieldHeight)</code>
 <div class="block">Установка высоты поля.</div>
 </td>
 </tr>
-<tr id="i16" class="altColor">
+<tr id="i17" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepTreeField.html#setLoader-com.technology.jep.jepria.client.async.DataLoader-">setLoader</a></span>(<a href="../../../../../../../../com/technology/jep/jepria/client/async/DataLoader.html" title="interface in com.technology.jep.jepria.client.async">DataLoader</a>&lt;<a href="../../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</a>&gt;&nbsp;loader)</code>
 <div class="block">Установка загрузчика узлов нижележащего уровня.</div>
 </td>
 </tr>
-<tr id="i17" class="rowColor">
+<tr id="i18" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepTreeField.html#setSelectAllCheckBoxVisible-boolean-">setSelectAllCheckBoxVisible</a></span>(boolean&nbsp;visible)</code>
 <div class="block">Установка видимости флага "Выделить все".</div>
 </td>
 </tr>
-<tr id="i18" class="altColor">
+<tr id="i19" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepTreeField.html#setValue-java.lang.Object-">setValue</a></span>(java.lang.Object&nbsp;value)</code>
 <div class="block">Установка значения поля.</div>
 </td>
 </tr>
-<tr id="i19" class="rowColor">
+<tr id="i20" class="altColor">
 <td class="colFirst"><code>protected void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepTreeField.html#setViewValue-java.lang.Object-">setViewValue</a></span>(java.lang.Object&nbsp;value)</code>
 <div class="block">Метод предка перегружен пустой реализацией, т.к. в данном компоненте карта Просмотра не используется.</div>
 </td>
 </tr>
-<tr id="i20" class="altColor">
+<tr id="i21" class="rowColor">
 <td class="colFirst"><code>protected void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/multistate/JepTreeField.html#setWebIds--">setWebIds</a></span>()</code>
 <div class="block">Установка web-ID внутренних компонентов, специфичных для конкретного Jep-поля.</div>
@@ -443,6 +455,16 @@ extends <a href="../../../../../../../../com/technology/jep/jepria/client/widget
 <h4>expandedValues</h4>
 <pre>protected&nbsp;java.util.List&lt;<a href="../../../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</a>&gt; expandedValues</pre>
 <div class="block">Список узлов, которые необходимо раскрыть.</div>
+</li>
+</ul>
+<a name="checkable">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>checkable</h4>
+<pre>private&nbsp;boolean checkable</pre>
+<div class="block">Возможность выбора узлов дерева (по умолчанию, допускается выделение узлов).</div>
 </li>
 </ul>
 <a name="DEFAULT_TREE_FIELD_HEIGHT">
@@ -596,6 +618,20 @@ extends <a href="../../../../../../../../com/technology/jep/jepria/client/widget
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>checkNodes</code> - какие узлы можно отмечать</dd>
+</dl>
+</li>
+</ul>
+<a name="isCheckable--">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>isCheckable</h4>
+<pre>public&nbsp;boolean&nbsp;isCheckable()</pre>
+<div class="block">Возвращает признак возможности выбора элементов дерева.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>признак возможности выбора элементов дерева</dd>
 </dl>
 </li>
 </ul>
