@@ -54,7 +54,7 @@ public class ClientSecurity {
   /**
    * Проверка наличия у пользователя хотя бы одной из заданных ролей.
    * 
-   * @param checkedRoles роли, наличие <b>любой из которых</b> проверяется
+   * @param roles роли, наличие <b>любой из которых</b> проверяется
    * @return true, если есть хотя бы одна роль, иначе - false
    */
   public boolean isUserHaveRoles(String... roles) {
@@ -73,7 +73,7 @@ public class ClientSecurity {
   /**
    * Проверка наличия у пользователя всех заданных ролей.
    * 
-   * @param checkedRoles роли, наличие <b>всех из которых</b> проверяется
+   * @param roles роли, наличие <b>всех из которых</b> проверяется
    * @return true, если есть все заданные роли, иначе - false
    */
   public boolean isUserHaveAllRoles(String...roles) {

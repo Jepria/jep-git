@@ -12,14 +12,14 @@ import com.technology.jep.jepria.shared.exceptions.ApplicationException;
 public class BinaryFileUploadImpl extends AbstractFileUpload implements BinaryFileUpload {
 
   /**
-   * {@inheritDoc}
+   * Создаёт загрузчик файлов на сервер.
    */
   public BinaryFileUploadImpl(){
     super();
   }
 
   /**
-   * {@inheritDoc}
+   * Создаёт загрузчик файлов на сервер.
    */
   public BinaryFileUploadImpl(boolean transactionable){
     super(transactionable);

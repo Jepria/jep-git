@@ -34,6 +34,7 @@ import com.google.gwt.dom.client.BrowserEvents;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.NativeEvent;
 import com.google.gwt.dom.client.NodeList;
+import com.google.gwt.dom.client.Style.Display;
 import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.logical.shared.CloseEvent;
 import com.google.gwt.event.logical.shared.CloseHandler;
@@ -108,7 +109,11 @@ public class TreeField<V extends JepOption> extends Composite implements HasChec
     /**
      * Checks cascade to all parent nodes.
      */
-    PARENTS;
+    PARENTS,
+    /**
+     * Checks cascade either parent or child nodes.
+     */
+    BOTH;
   }
 
   /**
@@ -298,7 +303,6 @@ public class TreeField<V extends JepOption> extends Composite implements HasChec
    */
   public void setLoader(DataLoader<V> dataLoader){
     this.loader = dataLoader;
-    tree = getTree();
   }
 
   /**
@@ -355,7 +359,7 @@ public class TreeField<V extends JepOption> extends Composite implements HasChec
       }
     });
     result.setKeyboardSelectionPolicy(KeyboardSelectionPolicy.DISABLED);
-    
+    result.getElement().getStyle().setDisplay(Display.INLINE_BLOCK);
     return result;
   }
   
@@ -633,7 +637,18 @@ public class TreeField<V extends JepOption> extends Composite implements HasChec
     if (clearNodeMap) {
       nodeMapOfDisplay.clear();
     }
-    ((TreeModel) tree.getTreeViewModel()).refresh();
+    refreshTree();
+  }
+  
+  /**
+   * Обновляет информацию о структуре дерева.
+   */
+  private void refreshTree(){
+    fireEvent(new RefreshStartEvent());
+    tree = getTree();
+    treePanel.clear();
+    showTree();
+    fireEvent(new RefreshEndEvent());
   }
   
   /**
@@ -642,6 +657,9 @@ public class TreeField<V extends JepOption> extends Composite implements HasChec
    * @param checkNodes    признак возможного выбора
    */
   public void setCheckNodes(CheckNodes checkNodes) {
+    if (!checkNodes.equals(CheckNodes.BOTH) && !checkStyle.equals(CheckCascade.NONE)){
+      throw new IllegalStateException("Check Cascade PARENT/CHILDREN/BOTH is available only with Check Nodes BOTH");
+    }
     this.checkNodes = checkNodes;
   }
 
@@ -651,6 +669,9 @@ public class TreeField<V extends JepOption> extends Composite implements HasChec
    * @param checkStyle    признак возможного выбора
    */
   public void setCheckStyle(CheckCascade checkStyle) {
+    if (!checkNodes.equals(CheckNodes.BOTH) && !checkStyle.equals(CheckCascade.NONE)){
+      throw new IllegalStateException("Check Cascade PARENT/CHILDREN/BOTH is available only with Check Nodes BOTH");
+    }
     this.checkStyle = checkStyle;
   }
   
@@ -895,18 +916,6 @@ public class TreeField<V extends JepOption> extends Composite implements HasChec
     public void refreshNode(V value){
       provider.refreshNode(value);
     }
-    
-    /**
-     * Обновляет информацию о структуре дерева.
-     */
-    public void refresh(){
-      fireEvent(new RefreshStartEvent());
-      tree = getTree();
-      treePanel.clear();
-      showTree();
-      fireEvent(new RefreshEndEvent());
-    }
-
 
 
     @Override
@@ -971,7 +980,7 @@ public class TreeField<V extends JepOption> extends Composite implements HasChec
                 selectionModel.setSelected(selectedItem, true);
               }
             }
-            if (checkStyle.equals(CheckCascade.CHILDREN) && selectionModel.isSelected(expandNode)) {
+            if ((checkStyle.equals(CheckCascade.CHILDREN) || checkStyle.equals(CheckCascade.BOTH)) && selectionModel.isSelected(expandNode)) {
               selectionModel.selectChildren(expandNode, true);
             }
             openingNode = null;
@@ -1085,7 +1094,7 @@ public class TreeField<V extends JepOption> extends Composite implements HasChec
       } else if (checkNodes == CheckNodes.PARENT && isLeaf) {
         // допустимо выделение только родительских узлов, не отображаем соответствующую картинку
         checkedState = null;
-      } else if (checkStyle.equals(CheckCascade.PARENTS)) {
+      } else if (checkStyle.equals(CheckCascade.PARENTS) || checkStyle.equals(CheckCascade.BOTH)) {
         int in = hasPartlySelectedChildren(value);
         if (in == 1) {
           checkedState = 1;
@@ -1211,19 +1220,14 @@ public class TreeField<V extends JepOption> extends Composite implements HasChec
     }
     
     public void selectAll(boolean selected) {   
+      availableSelectedNodes.addAll(this.getSelectedSet());//Сливаем узлы, доступные для выделения, с выделенными, для случаев, когда было принудительно установлено выделение на не подгруженные в кэш узлы
       for (V item : availableSelectedNodes) {
-        if (checkStyle == CheckCascade.PARENTS && partialSelectedNodes.contains(item)) {
-          partialSelectedNodes.remove(item);
-        }      
-        TreeNodeInfo<V> treeNodeInfo = getNodeInfoByValue(item);
-        if (treeNodeInfo != null){
-          V parentValue = treeNodeInfo.getParent();
-          if (parentValue != null) {
-            if (selected) getNodeInfoByValue(parentValue).addSelectedChild(item);
-            else getNodeInfoByValue(parentValue).removeSelectedChild(item);
-          }
-        }
+        updateSelectedNodeInfo(item, selected);
         super.setSelected(item, selected);
+        if ((checkStyle == CheckCascade.PARENTS || checkStyle == CheckCascade.BOTH) && partialSelectedNodes.contains(item)) {
+          partialSelectedNodes.remove(item);
+          refreshNode(item);
+        }      
       }
     }
     
@@ -1263,10 +1267,7 @@ public class TreeField<V extends JepOption> extends Composite implements HasChec
               selectChildren(item, false);
             }
             super.setSelected(item, selected);
-            if (parentValue != null) {
-              if (selected) getNodeInfoByValue(parentValue).addSelectedChild(item);
-              else getNodeInfoByValue(parentValue).removeSelectedChild(item);
-            }
+            updateSelectedNodeInfo(item, selected);
           }
           while (parentValue != null) {
             refreshNode(parentValue);
@@ -1276,28 +1277,54 @@ public class TreeField<V extends JepOption> extends Composite implements HasChec
         }
         case CHILDREN : {
           super.setSelected(item, selected);
-          TreeNodeInfo<V> treeNodeInfo = getNodeInfoByValue(item);
-          if (treeNodeInfo != null){
-           V parentValue = treeNodeInfo.getParent();
-           if (parentValue != null) {
-             if (selected) getNodeInfoByValue(parentValue).addSelectedChild(item);
-             else getNodeInfoByValue(parentValue).removeSelectedChild(item);
-           }
-          }
+          updateSelectedNodeInfo(item, selected);
           selectChildren(item, selected);
           refreshNode(item);
           break;
         }
-        case NONE : {
-          super.setSelected(item, selected);
+        case BOTH: {
           TreeNodeInfo<V> treeNodeInfo = getNodeInfoByValue(item);
+          V parentValue = null;
           if (treeNodeInfo != null){
-            V parentValue = treeNodeInfo.getParent();
-            if (parentValue != null) {
-              if (selected) getNodeInfoByValue(parentValue).addSelectedChild(item);
-              else getNodeInfoByValue(parentValue).removeSelectedChild(item);
-            }
+            parentValue = treeNodeInfo.getParent();
           }
+          if (partialSelectedNodes.contains(item) && (treeNodeInfo.getChildren() == null || treeNodeInfo.getChildren().isEmpty())) {
+            return;// Если узел был принудительно установлен как частично выделенный и его потомки еще не были загружены, то не снимать с него выделение
+          }
+          if (partialSelectedNodes.contains(item)) {//Если узел частично выделенный, удаляем его из массива и снимаем выделение со всех его потомков
+            partialSelectedNodes.remove(item);
+            if (isSelected(item)) {
+              super.setSelected(item, false);
+            }
+            selectChildren(item, false);
+            if (parentValue != null) {
+              getNodeInfoByValue(parentValue).removeSelectedChild(item);
+            }
+          } else {
+            super.setSelected(item, selected);
+            selectChildren(item, selected);
+            updateSelectedNodeInfo(item, selected);
+          }
+          while (parentValue != null) {
+            refreshNode(parentValue);
+            parentValue = getNodeInfoByValue(parentValue).getParent();
+          }
+          break;
+        }
+        case NONE: {
+          super.setSelected(item, selected);
+          updateSelectedNodeInfo(item, selected);
+        }
+      }
+    }
+    
+    private void updateSelectedNodeInfo(V item, boolean selected) {
+      TreeNodeInfo<V> treeNodeInfo = getNodeInfoByValue(item);
+      if (treeNodeInfo != null){
+        V parentValue = treeNodeInfo.getParent();
+        if (parentValue != null) {
+          if (selected) getNodeInfoByValue(parentValue).addSelectedChild(item);
+          else getNodeInfoByValue(parentValue).removeSelectedChild(item);
         }
       }
     }

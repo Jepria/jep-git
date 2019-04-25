@@ -18,7 +18,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":10,"i1":9,"i2":10,"i3":9,"i4":10,"i5":9,"i6":10,"i7":10,"i8":10,"i9":10};
+var methods = {"i0":9,"i1":10,"i2":9,"i3":10,"i4":9,"i5":10,"i6":9,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10};
 var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -147,7 +147,7 @@ implements com.google.gwt.user.client.rpc.IsSerializable</pre>
 </td>
 </tr>
 <tr class="altColor">
-<td class="colFirst"><code>private java.lang.Boolean</code></td>
+<td class="colFirst"><code>private boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/shared/record/lob/JepFileReference.html#isDeleted">isDeleted</a></span></code>
 <div class="block">Признак необходимости удаления файла.</div>
 </td>
@@ -212,52 +212,62 @@ implements com.google.gwt.user.client.rpc.IsSerializable</pre>
 <th class="colLast" scope="col">Method and Description</th>
 </tr>
 <tr id="i0" class="altColor">
+<td class="colFirst"><code>static java.lang.String</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/shared/record/lob/JepFileReference.html#detectFileExtension-java.lang.String-">detectFileExtension</a></span>(java.lang.String&nbsp;fileName)</code>
+<div class="block">Определяет расширение файла по его имени.</div>
+</td>
+</tr>
+<tr id="i1" class="rowColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/shared/record/lob/JepFileReference.html#getFileExtension--">getFileExtension</a></span>()</code>&nbsp;</td>
 </tr>
-<tr id="i1" class="rowColor">
+<tr id="i2" class="altColor">
 <td class="colFirst"><code>static java.lang.String</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/shared/record/lob/JepFileReference.html#getFileExtension-java.lang.Object-">getFileExtension</a></span>(java.lang.Object&nbsp;value)</code>
 <div class="block">Получение значения расширения имени файла из объекта типа <a href="../../../../../../../com/technology/jep/jepria/shared/record/lob/JepFileReference.html" title="class in com.technology.jep.jepria.shared.record.lob"><code>JepFileReference</code></a>.</div>
 </td>
 </tr>
-<tr id="i2" class="altColor">
+<tr id="i3" class="rowColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/shared/record/lob/JepFileReference.html#getFileName--">getFileName</a></span>()</code>&nbsp;</td>
 </tr>
-<tr id="i3" class="rowColor">
+<tr id="i4" class="altColor">
 <td class="colFirst"><code>static java.lang.String</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/shared/record/lob/JepFileReference.html#getFileName-java.lang.Object-">getFileName</a></span>(java.lang.Object&nbsp;value)</code>
 <div class="block">Получение значения имени файла из объекта типа <a href="../../../../../../../com/technology/jep/jepria/shared/record/lob/JepFileReference.html" title="class in com.technology.jep.jepria.shared.record.lob"><code>JepFileReference</code></a>.</div>
 </td>
 </tr>
-<tr id="i4" class="altColor">
+<tr id="i5" class="rowColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/shared/record/lob/JepFileReference.html#getMimeType--">getMimeType</a></span>()</code>&nbsp;</td>
 </tr>
-<tr id="i5" class="rowColor">
+<tr id="i6" class="altColor">
 <td class="colFirst"><code>static java.lang.String</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/shared/record/lob/JepFileReference.html#getMimeType-java.lang.Object-">getMimeType</a></span>(java.lang.Object&nbsp;value)</code>
 <div class="block">Получение значения MIME-типа файла из объекта типа <a href="../../../../../../../com/technology/jep/jepria/shared/record/lob/JepFileReference.html" title="class in com.technology.jep.jepria.shared.record.lob"><code>JepFileReference</code></a>.</div>
 </td>
 </tr>
-<tr id="i6" class="altColor">
+<tr id="i7" class="rowColor">
 <td class="colFirst"><code><a href="../../../../../../../com/technology/jep/jepria/shared/record/lob/JepFileReference.html" title="type parameter in JepFileReference">T</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/shared/record/lob/JepFileReference.html#getRecordKey--">getRecordKey</a></span>()</code>&nbsp;</td>
 </tr>
-<tr id="i7" class="rowColor">
+<tr id="i8" class="altColor">
 <td class="colFirst"><code>boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/shared/record/lob/JepFileReference.html#isDeleted--">isDeleted</a></span>()</code>
 <div class="block">Вовращает признак необходимости удаления файла.</div>
 </td>
 </tr>
-<tr id="i8" class="altColor">
+<tr id="i9" class="rowColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/shared/record/lob/JepFileReference.html#setDeleted-java.lang.Boolean-">setDeleted</a></span>(java.lang.Boolean&nbsp;isDeleted)</code>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/shared/record/lob/JepFileReference.html#setDeleted-boolean-">setDeleted</a></span>(boolean&nbsp;isDeleted)</code>
 <div class="block">Устанавливает признак необходимости удаления файла.</div>
 </td>
 </tr>
-<tr id="i9" class="rowColor">
+<tr id="i10" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/shared/record/lob/JepFileReference.html#setFileExtension-java.lang.String-">setFileExtension</a></span>(java.lang.String&nbsp;fileExtension)</code>&nbsp;</td>
+</tr>
+<tr id="i11" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/shared/record/lob/JepFileReference.html#setFileName-java.lang.String-">setFileName</a></span>(java.lang.String&nbsp;fileName)</code>&nbsp;</td>
 </tr>
@@ -329,7 +339,7 @@ implements com.google.gwt.user.client.rpc.IsSerializable</pre>
 <ul class="blockListLast">
 <li class="blockList">
 <h4>isDeleted</h4>
-<pre>private&nbsp;java.lang.Boolean isDeleted</pre>
+<pre>private&nbsp;boolean isDeleted</pre>
 <div class="block">Признак необходимости удаления файла.</div>
 </li>
 </ul>
@@ -416,13 +426,13 @@ implements com.google.gwt.user.client.rpc.IsSerializable</pre>
 </dl>
 </li>
 </ul>
-<a name="setDeleted-java.lang.Boolean-">
+<a name="setDeleted-boolean-">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>setDeleted</h4>
-<pre>public&nbsp;void&nbsp;setDeleted(java.lang.Boolean&nbsp;isDeleted)</pre>
+<pre>public&nbsp;void&nbsp;setDeleted(boolean&nbsp;isDeleted)</pre>
 <div class="block">Устанавливает признак необходимости удаления файла.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -505,6 +515,29 @@ implements com.google.gwt.user.client.rpc.IsSerializable</pre>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>расширение имени файла</dd>
 </dl>
+</li>
+</ul>
+<a name="detectFileExtension-java.lang.String-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>detectFileExtension</h4>
+<pre>public static&nbsp;java.lang.String&nbsp;detectFileExtension(java.lang.String&nbsp;fileName)</pre>
+<div class="block">Определяет расширение файла по его имени.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>fileName</code> - Имя файла</dd>
+</dl>
+</li>
+</ul>
+<a name="setFileExtension-java.lang.String-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setFileExtension</h4>
+<pre>public&nbsp;void&nbsp;setFileExtension(java.lang.String&nbsp;fileExtension)</pre>
 </li>
 </ul>
 <a name="getFileExtension--">

@@ -18,7 +18,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10};
+var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10,"i14":10,"i15":10,"i16":10,"i17":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -130,11 +130,19 @@ extends java.lang.Object</pre>
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code>private java.util.List&lt;<a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeNodeInfo.html" title="type parameter in TreeNodeInfo">V</a>&gt;</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeNodeInfo.html#data">data</a></span></code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeNodeInfo.html#children">children</a></span></code>&nbsp;</td>
 </tr>
 <tr class="rowColor">
+<td class="colFirst"><code>private java.util.List&lt;<a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeNodeInfo.html" title="type parameter in TreeNodeInfo">V</a>&gt;</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeNodeInfo.html#data">data</a></span></code>&nbsp;</td>
+</tr>
+<tr class="altColor">
 <td class="colFirst"><code>private com.google.gwt.view.client.HasData&lt;<a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeNodeInfo.html" title="type parameter in TreeNodeInfo">V</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeNodeInfo.html#display">display</a></span></code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>private boolean</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeNodeInfo.html#isDestroyed">isDestroyed</a></span></code>&nbsp;</td>
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code>private boolean</code></td>
@@ -147,6 +155,10 @@ extends java.lang.Object</pre>
 <tr class="altColor">
 <td class="colFirst"><code>private <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeNodeInfo.html" title="type parameter in TreeNodeInfo">V</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeNodeInfo.html#parent">parent</a></span></code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>private java.util.Set&lt;<a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeNodeInfo.html" title="type parameter in TreeNodeInfo">V</a>&gt;</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeNodeInfo.html#selectedChildren">selectedChildren</a></span></code>&nbsp;</td>
 </tr>
 </table>
 </li>
@@ -163,8 +175,9 @@ extends java.lang.Object</pre>
 <th class="colOne" scope="col">Constructor and Description</th>
 </tr>
 <tr class="altColor">
-<td class="colOne"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeNodeInfo.html#TreeNodeInfo-com.google.gwt.view.client.HasData-java.util.List-V-">TreeNodeInfo</a></span>(com.google.gwt.view.client.HasData&lt;<a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeNodeInfo.html" title="type parameter in TreeNodeInfo">V</a>&gt;&nbsp;display,
+<td class="colOne"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeNodeInfo.html#TreeNodeInfo-com.google.gwt.view.client.HasData-java.util.List-java.util.List-V-">TreeNodeInfo</a></span>(com.google.gwt.view.client.HasData&lt;<a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeNodeInfo.html" title="type parameter in TreeNodeInfo">V</a>&gt;&nbsp;display,
             java.util.List&lt;<a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeNodeInfo.html" title="type parameter in TreeNodeInfo">V</a>&gt;&nbsp;data,
+            java.util.List&lt;<a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeNodeInfo.html" title="type parameter in TreeNodeInfo">V</a>&gt;&nbsp;children,
             <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeNodeInfo.html" title="type parameter in TreeNodeInfo">V</a>&nbsp;parent)</code>&nbsp;</td>
 </tr>
 </table>
@@ -183,42 +196,74 @@ extends java.lang.Object</pre>
 <th class="colLast" scope="col">Method and Description</th>
 </tr>
 <tr id="i0" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeNodeInfo.html#addSelectedChild-V-">addSelectedChild</a></span>(<a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeNodeInfo.html" title="type parameter in TreeNodeInfo">V</a>&nbsp;item)</code>&nbsp;</td>
+</tr>
+<tr id="i1" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeNodeInfo.html#clearSelectedChildren--">clearSelectedChildren</a></span>()</code>&nbsp;</td>
+</tr>
+<tr id="i2" class="altColor">
+<td class="colFirst"><code>java.util.List&lt;<a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeNodeInfo.html" title="type parameter in TreeNodeInfo">V</a>&gt;</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeNodeInfo.html#getChildren--">getChildren</a></span>()</code>&nbsp;</td>
+</tr>
+<tr id="i3" class="rowColor">
 <td class="colFirst"><code>java.util.List&lt;<a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeNodeInfo.html" title="type parameter in TreeNodeInfo">V</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeNodeInfo.html#getData--">getData</a></span>()</code>&nbsp;</td>
 </tr>
-<tr id="i1" class="rowColor">
+<tr id="i4" class="altColor">
 <td class="colFirst"><code>com.google.gwt.view.client.HasData&lt;<a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeNodeInfo.html" title="type parameter in TreeNodeInfo">V</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeNodeInfo.html#getDisplay--">getDisplay</a></span>()</code>&nbsp;</td>
 </tr>
-<tr id="i2" class="altColor">
+<tr id="i5" class="rowColor">
 <td class="colFirst"><code>com.google.gwt.user.cellview.client.TreeNode</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeNodeInfo.html#getNode--">getNode</a></span>()</code>&nbsp;</td>
 </tr>
-<tr id="i3" class="rowColor">
+<tr id="i6" class="altColor">
 <td class="colFirst"><code><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeNodeInfo.html" title="type parameter in TreeNodeInfo">V</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeNodeInfo.html#getParent--">getParent</a></span>()</code>&nbsp;</td>
 </tr>
-<tr id="i4" class="altColor">
+<tr id="i7" class="rowColor">
+<td class="colFirst"><code>java.util.Set&lt;<a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeNodeInfo.html" title="type parameter in TreeNodeInfo">V</a>&gt;</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeNodeInfo.html#getSelectedChildren--">getSelectedChildren</a></span>()</code>&nbsp;</td>
+</tr>
+<tr id="i8" class="altColor">
+<td class="colFirst"><code>boolean</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeNodeInfo.html#isDestroyed--">isDestroyed</a></span>()</code>&nbsp;</td>
+</tr>
+<tr id="i9" class="rowColor">
 <td class="colFirst"><code>boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeNodeInfo.html#isFromCache--">isFromCache</a></span>()</code>&nbsp;</td>
 </tr>
-<tr id="i5" class="rowColor">
+<tr id="i10" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeNodeInfo.html#removeSelectedChild-V-">removeSelectedChild</a></span>(<a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeNodeInfo.html" title="type parameter in TreeNodeInfo">V</a>&nbsp;item)</code>&nbsp;</td>
+</tr>
+<tr id="i11" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeNodeInfo.html#setChildren-java.util.List-">setChildren</a></span>(java.util.List&lt;<a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeNodeInfo.html" title="type parameter in TreeNodeInfo">V</a>&gt;&nbsp;children)</code>&nbsp;</td>
+</tr>
+<tr id="i12" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeNodeInfo.html#setData-java.util.List-">setData</a></span>(java.util.List&lt;<a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeNodeInfo.html" title="type parameter in TreeNodeInfo">V</a>&gt;&nbsp;data)</code>&nbsp;</td>
 </tr>
-<tr id="i6" class="altColor">
+<tr id="i13" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeNodeInfo.html#setDestroyed-boolean-">setDestroyed</a></span>(boolean&nbsp;isDestroyed)</code>&nbsp;</td>
+</tr>
+<tr id="i14" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeNodeInfo.html#setDisplay-com.google.gwt.view.client.HasData-">setDisplay</a></span>(com.google.gwt.view.client.HasData&lt;<a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeNodeInfo.html" title="type parameter in TreeNodeInfo">V</a>&gt;&nbsp;display)</code>&nbsp;</td>
 </tr>
-<tr id="i7" class="rowColor">
+<tr id="i15" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeNodeInfo.html#setFromCache-boolean-">setFromCache</a></span>(boolean&nbsp;isFromCache)</code>&nbsp;</td>
 </tr>
-<tr id="i8" class="altColor">
+<tr id="i16" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeNodeInfo.html#setNode-com.google.gwt.user.cellview.client.TreeNode-">setNode</a></span>(com.google.gwt.user.cellview.client.TreeNode&nbsp;node)</code>&nbsp;</td>
 </tr>
-<tr id="i9" class="rowColor">
+<tr id="i17" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeNodeInfo.html#setParent-V-">setParent</a></span>(<a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeNodeInfo.html" title="type parameter in TreeNodeInfo">V</a>&nbsp;parent)</code>&nbsp;</td>
 </tr>
@@ -271,6 +316,24 @@ extends java.lang.Object</pre>
 <pre>private&nbsp;java.util.List&lt;<a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeNodeInfo.html" title="type parameter in TreeNodeInfo">V</a>&gt; data</pre>
 </li>
 </ul>
+<a name="children">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>children</h4>
+<pre>private&nbsp;java.util.List&lt;<a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeNodeInfo.html" title="type parameter in TreeNodeInfo">V</a>&gt; children</pre>
+</li>
+</ul>
+<a name="selectedChildren">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>selectedChildren</h4>
+<pre>private&nbsp;java.util.Set&lt;<a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeNodeInfo.html" title="type parameter in TreeNodeInfo">V</a>&gt; selectedChildren</pre>
+</li>
+</ul>
 <a name="node">
 <!--   -->
 </a>
@@ -283,10 +346,19 @@ extends java.lang.Object</pre>
 <a name="isFromCache">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>isFromCache</h4>
 <pre>private&nbsp;boolean isFromCache</pre>
+</li>
+</ul>
+<a name="isDestroyed">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>isDestroyed</h4>
+<pre>private&nbsp;boolean isDestroyed</pre>
 </li>
 </ul>
 </li>
@@ -297,9 +369,9 @@ extends java.lang.Object</pre>
 <!--   -->
 </a>
 <h3>Constructor Detail</h3>
-<a name="TreeNodeInfo-com.google.gwt.view.client.HasData-java.util.List-java.lang.Object-">
+<a name="TreeNodeInfo-com.google.gwt.view.client.HasData-java.util.List-java.util.List-java.lang.Object-">
 <!--   -->
-</a><a name="TreeNodeInfo-com.google.gwt.view.client.HasData-java.util.List-V-">
+</a><a name="TreeNodeInfo-com.google.gwt.view.client.HasData-java.util.List-java.util.List-V-">
 <!--   -->
 </a>
 <ul class="blockListLast">
@@ -307,6 +379,7 @@ extends java.lang.Object</pre>
 <h4>TreeNodeInfo</h4>
 <pre>public&nbsp;TreeNodeInfo(com.google.gwt.view.client.HasData&lt;<a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeNodeInfo.html" title="type parameter in TreeNodeInfo">V</a>&gt;&nbsp;display,
                     java.util.List&lt;<a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeNodeInfo.html" title="type parameter in TreeNodeInfo">V</a>&gt;&nbsp;data,
+                    java.util.List&lt;<a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeNodeInfo.html" title="type parameter in TreeNodeInfo">V</a>&gt;&nbsp;children,
                     <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeNodeInfo.html" title="type parameter in TreeNodeInfo">V</a>&nbsp;parent)</pre>
 </li>
 </ul>
@@ -404,10 +477,86 @@ extends java.lang.Object</pre>
 <a name="setNode-com.google.gwt.user.cellview.client.TreeNode-">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>setNode</h4>
 <pre>public&nbsp;void&nbsp;setNode(com.google.gwt.user.cellview.client.TreeNode&nbsp;node)</pre>
+</li>
+</ul>
+<a name="getChildren--">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getChildren</h4>
+<pre>public&nbsp;java.util.List&lt;<a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeNodeInfo.html" title="type parameter in TreeNodeInfo">V</a>&gt;&nbsp;getChildren()</pre>
+</li>
+</ul>
+<a name="setChildren-java.util.List-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setChildren</h4>
+<pre>public&nbsp;void&nbsp;setChildren(java.util.List&lt;<a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeNodeInfo.html" title="type parameter in TreeNodeInfo">V</a>&gt;&nbsp;children)</pre>
+</li>
+</ul>
+<a name="getSelectedChildren--">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getSelectedChildren</h4>
+<pre>public&nbsp;java.util.Set&lt;<a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeNodeInfo.html" title="type parameter in TreeNodeInfo">V</a>&gt;&nbsp;getSelectedChildren()</pre>
+</li>
+</ul>
+<a name="clearSelectedChildren--">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>clearSelectedChildren</h4>
+<pre>public&nbsp;void&nbsp;clearSelectedChildren()</pre>
+</li>
+</ul>
+<a name="addSelectedChild-java.lang.Object-">
+<!--   -->
+</a><a name="addSelectedChild-V-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>addSelectedChild</h4>
+<pre>public&nbsp;void&nbsp;addSelectedChild(<a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeNodeInfo.html" title="type parameter in TreeNodeInfo">V</a>&nbsp;item)</pre>
+</li>
+</ul>
+<a name="removeSelectedChild-java.lang.Object-">
+<!--   -->
+</a><a name="removeSelectedChild-V-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>removeSelectedChild</h4>
+<pre>public&nbsp;void&nbsp;removeSelectedChild(<a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeNodeInfo.html" title="type parameter in TreeNodeInfo">V</a>&nbsp;item)</pre>
+</li>
+</ul>
+<a name="isDestroyed--">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>isDestroyed</h4>
+<pre>public&nbsp;boolean&nbsp;isDestroyed()</pre>
+</li>
+</ul>
+<a name="setDestroyed-boolean-">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>setDestroyed</h4>
+<pre>public&nbsp;void&nbsp;setDestroyed(boolean&nbsp;isDestroyed)</pre>
 </li>
 </ul>
 </li>

@@ -268,9 +268,15 @@ public abstract class JepBaseNumberField<E extends ValueBox<? extends Number>> e
     }
     return isValid;
   }
-  
+
   /**
-   * {@inheritDoc}
+   * Проверяет, содержит ли поле допустимое значение. <br>
+   * Предварительно очищает сообщение об ошибке. Если поле является
+   * обязательным, а введённое значение пусто, устанавливает сообщение об
+   * ошибке и возвращает false.
+   *
+   * @param value проверяемое значение
+   * @return true - если поле содержит допустимое значение, false - в  противном случае
    */
   public boolean isValid(String value) {
     boolean isValid = super.isValid();

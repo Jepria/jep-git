@@ -109,9 +109,10 @@ public class PagingManager<W extends AbstractHasData<JepRecord>, P extends Pagin
    * @param list список значений
    */
   public void set(List<JepRecord> list) {
-    dataProvider.setList(list);
     if (getSelectionModel() != null)
       getSelectionModel().clear();
+    
+    dataProvider.setList(list);
 
     int size = list.size();
 

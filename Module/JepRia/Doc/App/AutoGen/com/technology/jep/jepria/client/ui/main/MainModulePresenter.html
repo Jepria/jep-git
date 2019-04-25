@@ -18,8 +18,8 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":10,"i1":42,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10,"i14":10,"i15":10,"i16":10,"i17":10,"i18":10,"i19":10,"i20":10,"i21":10};
-var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"],32:["t6","Deprecated Methods"]};
+var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10,"i14":10,"i15":10,"i16":10,"i17":10,"i18":10,"i19":10,"i20":10};
+var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
 var tableTab = "tableTab";
@@ -165,7 +165,7 @@ implements <a href="../../../../../../../com/technology/jep/jepria/client/ui/eve
 <th class="colLast" scope="col">Field and Description</th>
 </tr>
 <tr class="altColor">
-<td class="colFirst"><code>protected java.util.Map&lt;java.lang.String,java.util.List&lt;java.lang.String&gt;&gt;</code></td>
+<td class="colFirst"><code>protected java.util.Map&lt;java.lang.String,java.lang.String[]&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/ui/main/MainModulePresenter.html#accessMap">accessMap</a></span></code>
 <div class="block">Карта соответствия <moduleId, множество ролей></div>
 </td>
@@ -218,121 +218,114 @@ implements <a href="../../../../../../../com/technology/jep/jepria/client/ui/eve
 </a>
 <h3>Method Summary</h3>
 <table class="memberSummary" border="0" cellpadding="3" cellspacing="0" summary="Method Summary table, listing methods, and an explanation">
-<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">Instance Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t4" class="tableTab"><span><a href="javascript:show(8);">Concrete Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t6" class="tableTab"><span><a href="javascript:show(32);">Deprecated Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
+<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">Instance Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t4" class="tableTab"><span><a href="javascript:show(8);">Concrete Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
 <tr>
 <th class="colFirst" scope="col">Modifier and Type</th>
 <th class="colLast" scope="col">Method and Description</th>
 </tr>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>protected void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/ui/main/MainModulePresenter.html#addModuleProtection-java.lang.String-java.util.List-">addModuleProtection</a></span>(java.lang.String&nbsp;moduleId,
-                   java.util.List&lt;java.lang.String&gt;&nbsp;roles)</code>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/ui/main/MainModulePresenter.html#addModuleProtection-java.lang.String-java.lang.String...-">addModuleProtection</a></span>(java.lang.String&nbsp;moduleId,
+                   java.lang.String...&nbsp;roles)</code>
 <div class="block">Определяет роли пользователя, необходимые для доступа к модулю.</div>
 </td>
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>protected void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/ui/main/MainModulePresenter.html#addModuleProtection-java.lang.String-java.lang.String-">addModuleProtection</a></span>(java.lang.String&nbsp;moduleId,
-                   java.lang.String&nbsp;strRoles)</code>
-<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
-</td>
-</tr>
-<tr id="i2" class="altColor">
-<td class="colFirst"><code>protected void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/ui/main/MainModulePresenter.html#bind--">bind</a></span>()</code>&nbsp;</td>
 </tr>
-<tr id="i3" class="rowColor">
+<tr id="i2" class="altColor">
 <td class="colFirst"><code>private void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/ui/main/MainModulePresenter.html#bindModule-java.lang.String-">bindModule</a></span>(java.lang.String&nbsp;moduleId)</code>&nbsp;</td>
 </tr>
-<tr id="i4" class="altColor">
+<tr id="i3" class="rowColor">
 <td class="colFirst"><code>private boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/ui/main/MainModulePresenter.html#checkAccess-java.lang.String-">checkAccess</a></span>(java.lang.String&nbsp;moduleId)</code>
 <div class="block">Проверяет наличие прав у пользователя на отображение модуля.</div>
 </td>
 </tr>
-<tr id="i5" class="rowColor">
+<tr id="i4" class="altColor">
 <td class="colFirst"><code>private void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/ui/main/MainModulePresenter.html#clearRootPanel-com.google.gwt.user.client.ui.RootPanel-">clearRootPanel</a></span>(com.google.gwt.user.client.ui.RootPanel&nbsp;rootPanel)</code>&nbsp;</td>
 </tr>
-<tr id="i6" class="altColor">
+<tr id="i5" class="rowColor">
 <td class="colFirst"><code>protected void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/ui/main/MainModulePresenter.html#enterScope-java.lang.String-">enterScope</a></span>(java.lang.String&nbsp;username)</code>&nbsp;</td>
 </tr>
-<tr id="i7" class="rowColor">
+<tr id="i6" class="altColor">
 <td class="colFirst"><code>private java.util.Set&lt;java.lang.String&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/ui/main/MainModulePresenter.html#getAccessibleModules--">getAccessibleModules</a></span>()</code>&nbsp;</td>
 </tr>
-<tr id="i8" class="altColor">
+<tr id="i7" class="rowColor">
 <td class="colFirst"><code>protected java.util.Set&lt;java.lang.String&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/ui/main/MainModulePresenter.html#getAccessibleModules-com.technology.jep.jepria.client.history.scope.JepScope-">getAccessibleModules</a></span>(<a href="../../../../../../../com/technology/jep/jepria/client/history/scope/JepScope.html" title="class in com.technology.jep.jepria.client.history.scope">JepScope</a>&nbsp;scope)</code>&nbsp;</td>
 </tr>
-<tr id="i9" class="rowColor">
+<tr id="i8" class="altColor">
 <td class="colFirst"><code>protected <a href="../../../../../../../com/technology/jep/jepria/client/ui/WorkstateEnum.html" title="enum in com.technology.jep.jepria.client.ui">WorkstateEnum</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/ui/main/MainModulePresenter.html#getDefaultWorkState-java.lang.String-">getDefaultWorkState</a></span>(java.lang.String&nbsp;entryModuleName)</code>
 <div class="block">Возвращает состояние по умолчанию при входе в приложение.</div>
 </td>
 </tr>
-<tr id="i10" class="altColor">
+<tr id="i9" class="rowColor">
 <td class="colFirst"><code>private java.lang.String[]</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/ui/main/MainModulePresenter.html#getModules-com.technology.jep.jepria.client.history.scope.JepScope-">getModules</a></span>(<a href="../../../../../../../com/technology/jep/jepria/client/history/scope/JepScope.html" title="class in com.technology.jep.jepria.client.history.scope">JepScope</a>&nbsp;scope)</code>&nbsp;</td>
 </tr>
-<tr id="i11" class="rowColor">
+<tr id="i10" class="altColor">
 <td class="colFirst"><code>protected void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/ui/main/MainModulePresenter.html#loadUserDataAndEnterScope--">loadUserDataAndEnterScope</a></span>()</code>&nbsp;</td>
 </tr>
-<tr id="i12" class="altColor">
+<tr id="i11" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/ui/main/MainModulePresenter.html#onEnterFromHistory-com.technology.jep.jepria.client.ui.eventbus.main.event.EnterFromHistoryEvent-">onEnterFromHistory</a></span>(<a href="../../../../../../../com/technology/jep/jepria/client/ui/eventbus/main/event/EnterFromHistoryEvent.html" title="class in com.technology.jep.jepria.client.ui.eventbus.main.event">EnterFromHistoryEvent</a>&nbsp;event)</code>
 <div class="block">Обработчик входа в модуль из History (например: при использовании кнопок Back/Forward браузера).</div>
 </td>
 </tr>
-<tr id="i13" class="rowColor">
+<tr id="i12" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/ui/main/MainModulePresenter.html#onEnterModule-com.technology.jep.jepria.client.ui.eventbus.event.EnterModuleEvent-">onEnterModule</a></span>(<a href="../../../../../../../com/technology/jep/jepria/client/ui/eventbus/event/EnterModuleEvent.html" title="class in com.technology.jep.jepria.client.ui.eventbus.event">EnterModuleEvent</a>&nbsp;event)</code>
 <div class="block">Обработчик входа в модуль из приложения (например: при использовании закладок/Tab'ов MainView).</div>
 </td>
 </tr>
-<tr id="i14" class="altColor">
+<tr id="i13" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/ui/main/MainModulePresenter.html#onExitScope-com.technology.jep.jepria.client.ui.eventbus.event.ExitScopeEvent-">onExitScope</a></span>(<a href="../../../../../../../com/technology/jep/jepria/client/ui/eventbus/event/ExitScopeEvent.html" title="class in com.technology.jep.jepria.client.ui.eventbus.event">ExitScopeEvent</a>&nbsp;exitScopeEvent)</code>
 <div class="block">Called when a <a href="../../../../../../../com/technology/jep/jepria/client/ui/eventbus/event/ExitScopeEvent.html" title="class in com.technology.jep.jepria.client.ui.eventbus.event"><code>ExitScopeEvent</code></a> is fired.</div>
 </td>
 </tr>
-<tr id="i15" class="rowColor">
+<tr id="i14" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/ui/main/MainModulePresenter.html#onSetMainView-com.technology.jep.jepria.client.ui.eventbus.main.event.SetMainViewEvent-">onSetMainView</a></span>(<a href="../../../../../../../com/technology/jep/jepria/client/ui/eventbus/main/event/SetMainViewEvent.html" title="class in com.technology.jep.jepria.client.ui.eventbus.main.event">SetMainViewEvent</a>&nbsp;event)</code>
 <div class="block">Called when a <a href="../../../../../../../com/technology/jep/jepria/client/ui/eventbus/main/event/SetMainViewEvent.html" title="class in com.technology.jep.jepria.client.ui.eventbus.main.event"><code>SetMainViewEvent</code></a> is fired.</div>
 </td>
 </tr>
-<tr id="i16" class="altColor">
+<tr id="i15" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/ui/main/MainModulePresenter.html#onSetMainViewBody-com.technology.jep.jepria.client.ui.eventbus.main.event.SetMainViewBodyEvent-">onSetMainViewBody</a></span>(<a href="../../../../../../../com/technology/jep/jepria/client/ui/eventbus/main/event/SetMainViewBodyEvent.html" title="class in com.technology.jep.jepria.client.ui.eventbus.main.event">SetMainViewBodyEvent</a>&nbsp;event)</code>
 <div class="block">Called when a <a href="../../../../../../../com/technology/jep/jepria/client/ui/eventbus/main/event/SetMainViewBodyEvent.html" title="class in com.technology.jep.jepria.client.ui.eventbus.main.event"><code>SetMainViewBodyEvent</code></a> is fired.</div>
 </td>
 </tr>
-<tr id="i17" class="rowColor">
+<tr id="i16" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/ui/main/MainModulePresenter.html#onStart-com.technology.jep.jepria.client.ui.eventbus.main.event.StartEvent-">onStart</a></span>(<a href="../../../../../../../com/technology/jep/jepria/client/ui/eventbus/main/event/StartEvent.html" title="class in com.technology.jep.jepria.client.ui.eventbus.main.event">StartEvent</a>&nbsp;event)</code>
 <div class="block">Обработчик события старта Main-модуля (приложения).</div>
 </td>
 </tr>
-<tr id="i18" class="altColor">
+<tr id="i17" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/ui/main/MainModulePresenter.html#onUpdateScope-com.technology.jep.jepria.client.ui.eventbus.event.UpdateScopeEvent-">onUpdateScope</a></span>(<a href="../../../../../../../com/technology/jep/jepria/client/ui/eventbus/event/UpdateScopeEvent.html" title="class in com.technology.jep.jepria.client.ui.eventbus.event">UpdateScopeEvent</a>&nbsp;updateScopeEvent)</code>
 <div class="block">Обработчик обновления области видимости данных (набора закладок и контекста).</div>
 </td>
 </tr>
-<tr id="i19" class="rowColor">
+<tr id="i18" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/ui/main/MainModulePresenter.html#setProtectedModuleItemsVisibility-boolean-">setProtectedModuleItemsVisibility</a></span>(boolean&nbsp;isProtectedModuleVisible)</code>&nbsp;</td>
 </tr>
-<tr id="i20" class="altColor">
+<tr id="i19" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/ui/main/MainModulePresenter.html#start-com.google.gwt.user.client.ui.AcceptsOneWidget-com.google.gwt.event.shared.EventBus-">start</a></span>(com.google.gwt.user.client.ui.AcceptsOneWidget&nbsp;container,
      com.google.gwt.event.shared.EventBus&nbsp;eventBus)</code>&nbsp;</td>
 </tr>
-<tr id="i21" class="rowColor">
+<tr id="i20" class="altColor">
 <td class="colFirst"><code>protected void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/client/ui/main/MainModulePresenter.html#startModule-java.lang.String-com.google.gwt.place.shared.Place-boolean-">startModule</a></span>(java.lang.String&nbsp;moduleId,
            com.google.gwt.place.shared.Place&nbsp;place,
@@ -375,7 +368,7 @@ implements <a href="../../../../../../../com/technology/jep/jepria/client/ui/eve
 <ul class="blockList">
 <li class="blockList">
 <h4>accessMap</h4>
-<pre>protected&nbsp;java.util.Map&lt;java.lang.String,java.util.List&lt;java.lang.String&gt;&gt; accessMap</pre>
+<pre>protected&nbsp;java.util.Map&lt;java.lang.String,java.lang.String[]&gt; accessMap</pre>
 <div class="block">Карта соответствия <moduleId, множество ролей></div>
 </li>
 </ul>
@@ -699,38 +692,19 @@ implements <a href="../../../../../../../com/technology/jep/jepria/client/ui/eve
 </dl>
 </li>
 </ul>
-<a name="addModuleProtection-java.lang.String-java.lang.String-">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>addModuleProtection</h4>
-<pre>@Deprecated
-protected&nbsp;void&nbsp;addModuleProtection(java.lang.String&nbsp;moduleId,
-                                                java.lang.String&nbsp;strRoles)</pre>
-<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
-<div class="block">Определяет роли пользователя, необходимые для доступа к модулю. <br/>
- Оставлен для обратной совместимости, необходимо использовать <a href="../../../../../../../com/technology/jep/jepria/client/ui/main/MainModulePresenter.html#addModuleProtection-java.lang.String-java.util.List-"><code>addModuleProtection(String, List)</code></a>.</div>
-<dl>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>moduleId</code> - защищаемый модуль</dd>
-<dd><code>strRoles</code> - список ролей через запятую, наличие которых необходимо для доступа к модулю</dd>
-</dl>
-</li>
-</ul>
-<a name="addModuleProtection-java.lang.String-java.util.List-">
+<a name="addModuleProtection-java.lang.String-java.lang.String...-">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
 <h4>addModuleProtection</h4>
 <pre>protected&nbsp;void&nbsp;addModuleProtection(java.lang.String&nbsp;moduleId,
-                                   java.util.List&lt;java.lang.String&gt;&nbsp;roles)</pre>
+                                   java.lang.String...&nbsp;roles)</pre>
 <div class="block">Определяет роли пользователя, необходимые для доступа к модулю.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>moduleId</code> - защищаемый модуль</dd>
-<dd><code>roles</code> - список ролей, наличие которых необходимо для доступа к модулю</dd>
+<dd><code>roles</code> - список ролей, наличие <b>любой из которых</b> необходимо для доступа к модулю</dd>
 </dl>
 </li>
 </ul>
