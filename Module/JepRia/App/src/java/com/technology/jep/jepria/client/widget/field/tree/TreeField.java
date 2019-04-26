@@ -255,8 +255,6 @@ public class TreeField<V extends JepOption> extends Composite implements HasChec
    */
   private final V EMPTY_TREE_OPTION = (V) new JepOption(messages.emptyTree(), null);
   
-  //private final TreeModel treeModel = new TreeModel();
-  
   /**
    * Создает экземпляры данного класса.
    */
