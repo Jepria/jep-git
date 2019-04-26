@@ -1,10 +1,13 @@
 package com.technology.jep.jepria.shared.util;
 
 import static com.technology.jep.jepria.shared.JepRiaConstant.UNDEFINED_INT;
+import static com.technology.jep.jepria.shared.field.TreeCellNames.PARENT;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.technology.jep.jepria.shared.field.option.JepOption;
+import com.technology.jep.jepria.shared.field.option.JepParentOption;
 import com.technology.jep.jepria.shared.record.lob.JepClob;
 import com.technology.jep.jepria.shared.record.lob.JepFileReference;
 
@@ -155,4 +158,19 @@ public class JepRiaUtil {
     return (ua != null && ua.toLowerCase().matches(".*(mobile|mini).*"));
   }
   
+  /**
+   * Фильтрует список опций древовидного справочника, убирает опции, родитель которых отсутствует в списке.
+   * @param options
+   * @return
+   */
+  public static List<JepOption> removeOptionsWithoutParents(List<JepOption> options) {
+    return options.stream().filter(option -> {
+      if (!(option instanceof JepParentOption)){ // a leaf node
+        JepParentOption parentOption = option.get(PARENT);
+        return JepRiaUtil.isEmpty(parentOption) || options.contains(parentOption);
+      }
+      return true;
+    }).collect(Collectors.toList());
+  }
+
 }
