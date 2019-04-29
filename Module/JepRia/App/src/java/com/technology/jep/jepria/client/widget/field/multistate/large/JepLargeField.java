@@ -2,6 +2,7 @@ package com.technology.jep.jepria.client.widget.field.multistate.large;
 
 import static com.technology.jep.jepria.client.JepRiaClientConstant.JepImages;
 import static com.technology.jep.jepria.client.JepRiaClientConstant.JepTexts;
+import static com.technology.jep.jepria.client.JepRiaClientConstant.UPLOAD_SUCCESS_SUBSTRING;
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.EDIT;
 import static com.technology.jep.jepria.shared.JepRiaConstant.DOWNLOAD_FIELD_NAME;
 import static com.technology.jep.jepria.shared.JepRiaConstant.DOWNLOAD_MIME_TYPE;
@@ -722,6 +723,19 @@ public abstract class JepLargeField<V extends Widget> extends JepMultiStateField
    * @param value значение
    */
   abstract protected void setViewValue(V viewCard, Object value);
+  
+  /**
+   * Проверка, что сабмит был успешен.<br/>
+   * По умолчанию возвращает true, если получен пустой ответ или ответ содержит подстроку 
+   * &quot;success&quot;. В противном случае возвращает false. Может быть переопределён 
+   * в классе-наследнике. <br/><br/>
+   * TODO: хранить resultHtml в поле класса, а не как параметр функции.
+   * @param resultHtml полученный от сервера результат сабмита в виде строки
+   * @return true в случае успешного сабмита, false в противном случае
+   */
+  public boolean isSubmitSuccessful(String resultHtml) {
+    return JepRiaUtil.isEmpty(resultHtml) || resultHtml.contains(UPLOAD_SUCCESS_SUBSTRING);
+  }
   
   /**
    * Класс содержит константы, связанные с стилями и автоматизацией класса JepLargeField.
