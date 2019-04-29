@@ -18,8 +18,8 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":10,"i1":10,"i2":41,"i3":10,"i4":10,"i5":10,"i6":10,"i7":42,"i8":10,"i9":10,"i10":10};
-var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"],32:["t6","Deprecated Methods"]};
+var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10};
+var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
 var tableTab = "tableTab";
@@ -174,7 +174,7 @@ extends java.lang.Object</pre>
 </a>
 <h3>Method Summary</h3>
 <table class="memberSummary" border="0" cellpadding="3" cellspacing="0" summary="Method Summary table, listing methods, and an explanation">
-<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t1" class="tableTab"><span><a href="javascript:show(1);">Static Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">Instance Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t4" class="tableTab"><span><a href="javascript:show(8);">Concrete Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t6" class="tableTab"><span><a href="javascript:show(32);">Deprecated Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
+<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">Instance Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t4" class="tableTab"><span><a href="javascript:show(8);">Concrete Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
 <tr>
 <th class="colFirst" scope="col">Modifier and Type</th>
 <th class="colLast" scope="col">Method and Description</th>
@@ -188,46 +188,34 @@ extends java.lang.Object</pre>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/client/security/ClientSecurity.html#getRoles--">getRoles</a></span>()</code>&nbsp;</td>
 </tr>
 <tr id="i2" class="altColor">
-<td class="colFirst"><code>static java.util.List&lt;java.lang.String&gt;</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/client/security/ClientSecurity.html#getRoles-java.lang.String-">getRoles</a></span>(java.lang.String&nbsp;strRoles)</code>
-<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
-</td>
-</tr>
-<tr id="i3" class="rowColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/client/security/ClientSecurity.html#getUsername--">getUsername</a></span>()</code>&nbsp;</td>
 </tr>
-<tr id="i4" class="altColor">
+<tr id="i3" class="rowColor">
 <td class="colFirst"><code>boolean</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/client/security/ClientSecurity.html#isUserHaveAllRoles-java.util.List-">isUserHaveAllRoles</a></span>(java.util.List&lt;java.lang.String&gt;&nbsp;checkedRoles)</code>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/client/security/ClientSecurity.html#isUserHaveAllRoles-java.lang.String...-">isUserHaveAllRoles</a></span>(java.lang.String...&nbsp;roles)</code>
 <div class="block">Проверка наличия у пользователя всех заданных ролей.</div>
 </td>
 </tr>
-<tr id="i5" class="rowColor">
+<tr id="i4" class="altColor">
 <td class="colFirst"><code>boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/client/security/ClientSecurity.html#isUserHaveRole-java.lang.String-">isUserHaveRole</a></span>(java.lang.String&nbsp;role)</code>&nbsp;</td>
 </tr>
-<tr id="i6" class="altColor">
+<tr id="i5" class="rowColor">
 <td class="colFirst"><code>boolean</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/client/security/ClientSecurity.html#isUserHaveRoles-java.util.List-">isUserHaveRoles</a></span>(java.util.List&lt;java.lang.String&gt;&nbsp;checkedRoles)</code>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/client/security/ClientSecurity.html#isUserHaveRoles-java.lang.String...-">isUserHaveRoles</a></span>(java.lang.String...&nbsp;roles)</code>
 <div class="block">Проверка наличия у пользователя хотя бы одной из заданных ролей.</div>
 </td>
 </tr>
-<tr id="i7" class="rowColor">
-<td class="colFirst"><code>boolean</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/client/security/ClientSecurity.html#isUserHaveRoles-java.lang.String-">isUserHaveRoles</a></span>(java.lang.String&nbsp;strRoles)</code>
-<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
-</td>
-</tr>
-<tr id="i8" class="altColor">
+<tr id="i6" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/client/security/ClientSecurity.html#setOperatorId-java.lang.Integer-">setOperatorId</a></span>(java.lang.Integer&nbsp;operatorId)</code>&nbsp;</td>
 </tr>
-<tr id="i9" class="rowColor">
+<tr id="i7" class="rowColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/client/security/ClientSecurity.html#setRoles-java.util.List-">setRoles</a></span>(java.util.List&lt;java.lang.String&gt;&nbsp;roles)</code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/client/security/ClientSecurity.html#setRoles-java.lang.String...-">setRoles</a></span>(java.lang.String...&nbsp;roles)</code>&nbsp;</td>
 </tr>
-<tr id="i10" class="altColor">
+<tr id="i8" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/client/security/ClientSecurity.html#setUsername-java.lang.String-">setUsername</a></span>(java.lang.String&nbsp;username)</code>&nbsp;</td>
 </tr>
@@ -359,13 +347,13 @@ extends java.lang.Object</pre>
 <pre>public&nbsp;void&nbsp;setOperatorId(java.lang.Integer&nbsp;operatorId)</pre>
 </li>
 </ul>
-<a name="setRoles-java.util.List-">
+<a name="setRoles-java.lang.String...-">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>setRoles</h4>
-<pre>public&nbsp;void&nbsp;setRoles(java.util.List&lt;java.lang.String&gt;&nbsp;roles)</pre>
+<pre>public&nbsp;void&nbsp;setRoles(java.lang.String...&nbsp;roles)</pre>
 </li>
 </ul>
 <a name="isUserHaveRole-java.lang.String-">
@@ -377,58 +365,36 @@ extends java.lang.Object</pre>
 <pre>public&nbsp;boolean&nbsp;isUserHaveRole(java.lang.String&nbsp;role)</pre>
 </li>
 </ul>
-<a name="isUserHaveRoles-java.util.List-">
+<a name="isUserHaveRoles-java.lang.String...-">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>isUserHaveRoles</h4>
-<pre>public&nbsp;boolean&nbsp;isUserHaveRoles(java.util.List&lt;java.lang.String&gt;&nbsp;checkedRoles)</pre>
+<pre>public&nbsp;boolean&nbsp;isUserHaveRoles(java.lang.String...&nbsp;roles)</pre>
 <div class="block">Проверка наличия у пользователя хотя бы одной из заданных ролей.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>checkedRoles</code> - роли, наличие которых проверяется</dd>
+<dd><code>roles</code> - роли, наличие <b>любой из которых</b> проверяется</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>true, если есть хотя бы одна роль, иначе - false</dd>
 </dl>
 </li>
 </ul>
-<a name="isUserHaveRoles-java.lang.String-">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>isUserHaveRoles</h4>
-<pre>@Deprecated
-public&nbsp;boolean&nbsp;isUserHaveRoles(java.lang.String&nbsp;strRoles)</pre>
-<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
-</li>
-</ul>
-<a name="isUserHaveAllRoles-java.util.List-">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>isUserHaveAllRoles</h4>
-<pre>public&nbsp;boolean&nbsp;isUserHaveAllRoles(java.util.List&lt;java.lang.String&gt;&nbsp;checkedRoles)</pre>
-<div class="block">Проверка наличия у пользователя всех заданных ролей.</div>
-<dl>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>checkedRoles</code> - роли, наличие которых проверяется</dd>
-<dt><span class="returnLabel">Returns:</span></dt>
-<dd>true, если есть все заданные роли, иначе - false</dd>
-</dl>
-</li>
-</ul>
-<a name="getRoles-java.lang.String-">
+<a name="isUserHaveAllRoles-java.lang.String...-">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
-<h4>getRoles</h4>
-<pre>@Deprecated
-public static&nbsp;java.util.List&lt;java.lang.String&gt;&nbsp;getRoles(java.lang.String&nbsp;strRoles)</pre>
-<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
+<h4>isUserHaveAllRoles</h4>
+<pre>public&nbsp;boolean&nbsp;isUserHaveAllRoles(java.lang.String...&nbsp;roles)</pre>
+<div class="block">Проверка наличия у пользователя всех заданных ролей.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>roles</code> - роли, наличие <b>всех из которых</b> проверяется</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>true, если есть все заданные роли, иначе - false</dd>
+</dl>
 </li>
 </ul>
 </li>

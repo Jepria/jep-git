@@ -1682,27 +1682,34 @@
 </tr>
 <tbody>
 <tr class="altColor">
-<td class="colFirst"><a name="com.technology.jep.jepria.client.widget.field.CheckBoxListField.CHECKBOX_HTML">
+<td class="colFirst"><a name="com.technology.jep.jepria.client.widget.field.CheckBoxListField.CHECKBOX_CELL_HTML_PATTERN">
 <!--   -->
 </a><code>private&nbsp;static&nbsp;final&nbsp;java.lang.String</code></td>
-<td><code><a href="com/technology/jep/jepria/client/widget/field/CheckBoxListField.html#CHECKBOX_HTML">CHECKBOX_HTML</a></code></td>
-<td class="colLast"><code>"&lt;input type=\'checkbox\' tabindex=\'-1\' {4} data-jep-option-value=\'{1}\' style=\'float:left;cursor:pointer;\' {2} {3}/&gt;&lt;label for=\'{0}\' title=\'{1}\' class=\'item jepRia-FontStyle\'&gt;&amp;nbsp;{1}&lt;/label&gt;"</code></td>
+<td><code><a href="com/technology/jep/jepria/client/widget/field/CheckBoxListField.html#CHECKBOX_CELL_HTML_PATTERN">CHECKBOX_CELL_HTML_PATTERN</a></code></td>
+<td class="colLast"><code>"&lt;input type=\"checkbox\" tabindex=\"-1\" {0} id=\'{1}\'/&gt;"</code></td>
 </tr>
 <tr class="rowColor">
+<td class="colFirst"><a name="com.technology.jep.jepria.client.widget.field.CheckBoxListField.LABEL_CELL_HTML_PATTERN">
+<!--   -->
+</a><code>private&nbsp;static&nbsp;final&nbsp;java.lang.String</code></td>
+<td><code><a href="com/technology/jep/jepria/client/widget/field/CheckBoxListField.html#LABEL_CELL_HTML_PATTERN">LABEL_CELL_HTML_PATTERN</a></code></td>
+<td class="colLast"><code>"&lt;label for=\'{0}\' style=\'user-select: none; -moz-user-select: none; -ms-user-select: none\' unselectable=\'on\' class=\'item jepRia-FontStyle\'&gt;&amp;nbsp;{1}&lt;/label&gt;"</code></td>
+</tr>
+<tr class="altColor">
 <td class="colFirst"><a name="com.technology.jep.jepria.client.widget.field.CheckBoxListField.LIST_FIELD_COMMON_STYLE">
 <!--   -->
 </a><code>private&nbsp;static&nbsp;final&nbsp;java.lang.String</code></td>
 <td><code><a href="com/technology/jep/jepria/client/widget/field/CheckBoxListField.html#LIST_FIELD_COMMON_STYLE">LIST_FIELD_COMMON_STYLE</a></code></td>
 <td class="colLast"><code>"jepRia-ListField-Input-common"</code></td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><a name="com.technology.jep.jepria.client.widget.field.CheckBoxListField.LIST_FIELD_STYLE">
 <!--   -->
 </a><code>private&nbsp;static&nbsp;final&nbsp;java.lang.String</code></td>
 <td><code><a href="com/technology/jep/jepria/client/widget/field/CheckBoxListField.html#LIST_FIELD_STYLE">LIST_FIELD_STYLE</a></code></td>
 <td class="colLast"><code>"jepRia-ListField-Input"</code></td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><a name="com.technology.jep.jepria.client.widget.field.CheckBoxListField.SELECT_ALL_CHECK_BOX_STYLE">
 <!--   -->
 </a><code>private&nbsp;static&nbsp;final&nbsp;java.lang.String</code></td>
@@ -2186,7 +2193,7 @@
 <tr class="altColor">
 <td class="colFirst"><a name="com.technology.jep.jepria.client.widget.field.multistate.customized.JepDatePicker.defaultValue">
 <!--   -->
-</a><code>final&nbsp;java.lang.String</code></td>
+</a><code>private&nbsp;final&nbsp;java.lang.String</code></td>
 <td><code><a href="com/technology/jep/jepria/client/widget/field/multistate/customized/JepDatePicker.html#defaultValue">defaultValue</a></code></td>
 <td class="colLast"><code>"0"</code></td>
 </tr>
@@ -2785,6 +2792,25 @@
 </li>
 </ul>
 <ul class="blockList">
+<li class="blockList">
+<table class="constantsSummary" border="0" cellpadding="3" cellspacing="0" summary="Constant Field Values table, listing constant fields, and values">
+<caption><span>com.technology.jep.jepria.server.dao.<a href="com/technology/jep/jepria/server/dao/OracleCallableStatementWrapper.html" title="class in com.technology.jep.jepria.server.dao">OracleCallableStatementWrapper</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th scope="col">Constant Field</th>
+<th class="colLast" scope="col">Value</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><a name="com.technology.jep.jepria.server.dao.OracleCallableStatementWrapper.PACKAGE_STATE_DISCARDED_ERROR_CODE">
+<!--   -->
+</a><code>private&nbsp;static&nbsp;final&nbsp;java.lang.String</code></td>
+<td><code><a href="com/technology/jep/jepria/server/dao/OracleCallableStatementWrapper.html#PACKAGE_STATE_DISCARDED_ERROR_CODE">PACKAGE_STATE_DISCARDED_ERROR_CODE</a></code></td>
+<td class="colLast"><code>"ORA-04068"</code></td>
+</tr>
+</tbody>
+</table>
+</li>
 <li class="blockList">
 <table class="constantsSummary" border="0" cellpadding="3" cellspacing="0" summary="Constant Field Values table, listing constant fields, and values">
 <caption><span>com.technology.jep.jepria.server.dao.<a href="com/technology/jep/jepria/server/dao/ResultSetMapper.html" title="class in com.technology.jep.jepria.server.dao">ResultSetMapper</a>&lt;<a href="com/technology/jep/jepria/server/dao/ResultSetMapper.html" title="type parameter in ResultSetMapper">T</a>&gt;</span><span class="tabEnd">&nbsp;</span></caption>
@@ -3659,130 +3685,6 @@
 </a><code>public&nbsp;static&nbsp;final&nbsp;java.lang.String</code></td>
 <td><code><a href="com/technology/jep/jepria/shared/field/JepFieldNames.html#OPERATOR_ID">OPERATOR_ID</a></code></td>
 <td class="colLast"><code>"jep_oid"</code></td>
-</tr>
-</tbody>
-</table>
-</li>
-<li class="blockList">
-<table class="constantsSummary" border="0" cellpadding="3" cellspacing="0" summary="Constant Field Values table, listing constant fields, and values">
-<caption><span>com.technology.jep.jepria.shared.field.<a href="com/technology/jep/jepria/shared/field/JepTypeEnum.html" title="enum in com.technology.jep.jepria.shared.field">JepTypeEnum</a></span><span class="tabEnd">&nbsp;</span></caption>
-<tr>
-<th class="colFirst" scope="col">Modifier and Type</th>
-<th scope="col">Constant Field</th>
-<th class="colLast" scope="col">Value</th>
-</tr>
-<tbody>
-<tr class="altColor">
-<td class="colFirst"><a name="com.technology.jep.jepria.shared.field.JepTypeEnum.BIGDECIMAL_TOKEN">
-<!--   -->
-</a><code>protected&nbsp;static&nbsp;final&nbsp;java.lang.String</code></td>
-<td><code><a href="com/technology/jep/jepria/shared/field/JepTypeEnum.html#BIGDECIMAL_TOKEN">BIGDECIMAL_TOKEN</a></code></td>
-<td class="colLast"><code>"BD"</code></td>
-</tr>
-<tr class="rowColor">
-<td class="colFirst"><a name="com.technology.jep.jepria.shared.field.JepTypeEnum.BINARY_FILE_TOKEN">
-<!--   -->
-</a><code>protected&nbsp;static&nbsp;final&nbsp;java.lang.String</code></td>
-<td><code><a href="com/technology/jep/jepria/shared/field/JepTypeEnum.html#BINARY_FILE_TOKEN">BINARY_FILE_TOKEN</a></code></td>
-<td class="colLast"><code>"BFE"</code></td>
-</tr>
-<tr class="altColor">
-<td class="colFirst"><a name="com.technology.jep.jepria.shared.field.JepTypeEnum.BOOLEAN_TOKEN">
-<!--   -->
-</a><code>protected&nbsp;static&nbsp;final&nbsp;java.lang.String</code></td>
-<td><code><a href="com/technology/jep/jepria/shared/field/JepTypeEnum.html#BOOLEAN_TOKEN">BOOLEAN_TOKEN</a></code></td>
-<td class="colLast"><code>"B"</code></td>
-</tr>
-<tr class="rowColor">
-<td class="colFirst"><a name="com.technology.jep.jepria.shared.field.JepTypeEnum.CLOB_TOKEN">
-<!--   -->
-</a><code>protected&nbsp;static&nbsp;final&nbsp;java.lang.String</code></td>
-<td><code><a href="com/technology/jep/jepria/shared/field/JepTypeEnum.html#CLOB_TOKEN">CLOB_TOKEN</a></code></td>
-<td class="colLast"><code>"C"</code></td>
-</tr>
-<tr class="altColor">
-<td class="colFirst"><a name="com.technology.jep.jepria.shared.field.JepTypeEnum.DATE_TIME_TOKEN">
-<!--   -->
-</a><code>protected&nbsp;static&nbsp;final&nbsp;java.lang.String</code></td>
-<td><code><a href="com/technology/jep/jepria/shared/field/JepTypeEnum.html#DATE_TIME_TOKEN">DATE_TIME_TOKEN</a></code></td>
-<td class="colLast"><code>"DTE"</code></td>
-</tr>
-<tr class="rowColor">
-<td class="colFirst"><a name="com.technology.jep.jepria.shared.field.JepTypeEnum.DATE_TOKEN">
-<!--   -->
-</a><code>protected&nbsp;static&nbsp;final&nbsp;java.lang.String</code></td>
-<td><code><a href="com/technology/jep/jepria/shared/field/JepTypeEnum.html#DATE_TOKEN">DATE_TOKEN</a></code></td>
-<td class="colLast"><code>"DE"</code></td>
-</tr>
-<tr class="altColor">
-<td class="colFirst"><a name="com.technology.jep.jepria.shared.field.JepTypeEnum.DOUBLE_TOKEN">
-<!--   -->
-</a><code>protected&nbsp;static&nbsp;final&nbsp;java.lang.String</code></td>
-<td><code><a href="com/technology/jep/jepria/shared/field/JepTypeEnum.html#DOUBLE_TOKEN">DOUBLE_TOKEN</a></code></td>
-<td class="colLast"><code>"D"</code></td>
-</tr>
-<tr class="rowColor">
-<td class="colFirst"><a name="com.technology.jep.jepria.shared.field.JepTypeEnum.FLOAT_TOKEN">
-<!--   -->
-</a><code>protected&nbsp;static&nbsp;final&nbsp;java.lang.String</code></td>
-<td><code><a href="com/technology/jep/jepria/shared/field/JepTypeEnum.html#FLOAT_TOKEN">FLOAT_TOKEN</a></code></td>
-<td class="colLast"><code>"F"</code></td>
-</tr>
-<tr class="altColor">
-<td class="colFirst"><a name="com.technology.jep.jepria.shared.field.JepTypeEnum.INTEGER_TOKEN">
-<!--   -->
-</a><code>protected&nbsp;static&nbsp;final&nbsp;java.lang.String</code></td>
-<td><code><a href="com/technology/jep/jepria/shared/field/JepTypeEnum.html#INTEGER_TOKEN">INTEGER_TOKEN</a></code></td>
-<td class="colLast"><code>"I"</code></td>
-</tr>
-<tr class="rowColor">
-<td class="colFirst"><a name="com.technology.jep.jepria.shared.field.JepTypeEnum.LIST_OF_OPTION_TOKEN">
-<!--   -->
-</a><code>protected&nbsp;static&nbsp;final&nbsp;java.lang.String</code></td>
-<td><code><a href="com/technology/jep/jepria/shared/field/JepTypeEnum.html#LIST_OF_OPTION_TOKEN">LIST_OF_OPTION_TOKEN</a></code></td>
-<td class="colLast"><code>"LO"</code></td>
-</tr>
-<tr class="altColor">
-<td class="colFirst"><a name="com.technology.jep.jepria.shared.field.JepTypeEnum.LIST_OF_PRIMITIVE_TOKEN">
-<!--   -->
-</a><code>protected&nbsp;static&nbsp;final&nbsp;java.lang.String</code></td>
-<td><code><a href="com/technology/jep/jepria/shared/field/JepTypeEnum.html#LIST_OF_PRIMITIVE_TOKEN">LIST_OF_PRIMITIVE_TOKEN</a></code></td>
-<td class="colLast"><code>"LP"</code></td>
-</tr>
-<tr class="rowColor">
-<td class="colFirst"><a name="com.technology.jep.jepria.shared.field.JepTypeEnum.MONEY_TOKEN">
-<!--   -->
-</a><code>protected&nbsp;static&nbsp;final&nbsp;java.lang.String</code></td>
-<td><code><a href="com/technology/jep/jepria/shared/field/JepTypeEnum.html#MONEY_TOKEN">MONEY_TOKEN</a></code></td>
-<td class="colLast"><code>"MNY"</code></td>
-</tr>
-<tr class="altColor">
-<td class="colFirst"><a name="com.technology.jep.jepria.shared.field.JepTypeEnum.OPTION_TOKEN">
-<!--   -->
-</a><code>protected&nbsp;static&nbsp;final&nbsp;java.lang.String</code></td>
-<td><code><a href="com/technology/jep/jepria/shared/field/JepTypeEnum.html#OPTION_TOKEN">OPTION_TOKEN</a></code></td>
-<td class="colLast"><code>"O"</code></td>
-</tr>
-<tr class="rowColor">
-<td class="colFirst"><a name="com.technology.jep.jepria.shared.field.JepTypeEnum.STRING_TOKEN">
-<!--   -->
-</a><code>protected&nbsp;static&nbsp;final&nbsp;java.lang.String</code></td>
-<td><code><a href="com/technology/jep/jepria/shared/field/JepTypeEnum.html#STRING_TOKEN">STRING_TOKEN</a></code></td>
-<td class="colLast"><code>"S"</code></td>
-</tr>
-<tr class="altColor">
-<td class="colFirst"><a name="com.technology.jep.jepria.shared.field.JepTypeEnum.TEXT_FILE_TOKEN">
-<!--   -->
-</a><code>protected&nbsp;static&nbsp;final&nbsp;java.lang.String</code></td>
-<td><code><a href="com/technology/jep/jepria/shared/field/JepTypeEnum.html#TEXT_FILE_TOKEN">TEXT_FILE_TOKEN</a></code></td>
-<td class="colLast"><code>"TFE"</code></td>
-</tr>
-<tr class="rowColor">
-<td class="colFirst"><a name="com.technology.jep.jepria.shared.field.JepTypeEnum.TIME_TOKEN">
-<!--   -->
-</a><code>protected&nbsp;static&nbsp;final&nbsp;java.lang.String</code></td>
-<td><code><a href="com/technology/jep/jepria/shared/field/JepTypeEnum.html#TIME_TOKEN">TIME_TOKEN</a></code></td>
-<td class="colLast"><code>"TE"</code></td>
 </tr>
 </tbody>
 </table>

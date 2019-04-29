@@ -287,6 +287,15 @@ public class JepComboBoxField extends JepBaseTextField<ComboBox<JepOption>> impl
     editableCard.setExpanded(true);
     super.afterTypingTimeoutSuccess();
   }
+
+  /**
+   * {@inheritDoc} 
+   */
+  @Override
+  protected void handlePaste(String value) {
+    getValueBoxElement().setPropertyString("value", value);
+    startTypingTimeout();
+  }
   
   /**
    * {@inheritDoc} 

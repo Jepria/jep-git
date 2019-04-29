@@ -7,6 +7,7 @@ import java.util.*;
 
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.core.client.Scheduler.ScheduledCommand;
+import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HTML;
@@ -41,6 +42,11 @@ public class JepTreeField extends JepMultiStateField<TreeField<JepOption>, HTML>
    */
   private boolean checkable = true;
   
+  /**
+   * Флаг установленного загрузчика.
+   */
+  protected boolean hasLoader = false;
+  
   private final static int DEFAULT_TREE_FIELD_HEIGHT = 300;
   
   public JepTreeField() {
@@ -48,7 +54,7 @@ public class JepTreeField extends JepMultiStateField<TreeField<JepOption>, HTML>
   }
   
   public JepTreeField(String fieldLabel){
-    this(null, fieldLabel);
+    this(Document.get().createUniqueId(), fieldLabel);
   }
   
   public JepTreeField(String fieldIdAsWebEl, String fieldLabel){
@@ -72,6 +78,7 @@ public class JepTreeField extends JepMultiStateField<TreeField<JepOption>, HTML>
    * @param loader загрузчик узлов нижележащего уровня
    */
   public void setLoader(final DataLoader<JepOption> loader){
+    hasLoader = true;
     editableCard.setLoader(new DataLoader<JepOption>() {
       public void load(Object loadConfig, final AsyncCallback<List<JepOption>> callback) {
         loader.load(loadConfig, new JepAsyncCallback<List<JepOption>>() {
@@ -113,6 +120,14 @@ public class JepTreeField extends JepMultiStateField<TreeField<JepOption>, HTML>
   @SuppressWarnings("unchecked")
   public List<JepOption> getValue() {
     return editableCard.getCheckedSelection();
+  }
+  
+  /**
+   * Пометить узлы в дереве, как частично выделенные.
+   * @param values список узлов
+   */
+  public void setPartialSelected(List<JepOption> values) {
+    editableCard.setPartialSelected(values);
   }
 
   /**
@@ -267,7 +282,7 @@ public class JepTreeField extends JepMultiStateField<TreeField<JepOption>, HTML>
     // Если карта Редактирования уже создана (первый раз метод вызывается в предке, когда карты Редактирования еще нет).
     if(editableCard != null) {
       // При смене состояния прокручиваем карту Редактирования наверх.
-      editableCard.scrollToTop();
+      if (hasLoader) editableCard.refresh(false);
       if(WorkstateEnum.isEditableState(newWorkstate)) { // Для случая Редактирования: ...
         editableCard.setCheckable(true);// позволим отмечать узлы дерева
         checkable = true;

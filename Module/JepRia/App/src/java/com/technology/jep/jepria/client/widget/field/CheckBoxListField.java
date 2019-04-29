@@ -286,7 +286,7 @@ public class CheckBoxListField<T extends JepOption> extends Composite implements
 
   /**
    * Установка выделенных опций.
-   * @param value список выделенных опций
+   * @param selectedOptions список выделенных опций
    * @param fireEvent true - вызвать событие {@link SelectionChangeEvent}, false - нет
    */
   public void setSelection(List<T> selectedOptions, boolean fireEvent) {
