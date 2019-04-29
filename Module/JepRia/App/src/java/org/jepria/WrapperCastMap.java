@@ -77,7 +77,7 @@ public class WrapperCastMap<K, V> implements CastMap<K, V> {
   }
 
   protected void handleCastException(Object key, Class<?> castTo, ClassCastException e) {
-    throw e;
+    throw new CastOnGetException(key, castTo, e);
   }
 
   //////////////////////////

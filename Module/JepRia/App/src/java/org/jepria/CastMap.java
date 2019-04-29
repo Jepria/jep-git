@@ -22,4 +22,28 @@ public interface CastMap<K, V> extends Map<K, V> {
     Objects.requireNonNull(map);
     return new WrapperCastMap<>(map);
   }
+  
+  public static class CastOnGetException extends RuntimeException {
+    private static final long serialVersionUID = 1L;
+    
+    private final Object key;
+    private final Class<?> castTo;
+    
+    public CastOnGetException(Object key, Class<?> castTo) {
+      this.key = key;
+      this.castTo = castTo;
+    }
+    
+    public CastOnGetException(Object key, Class<?> castTo, Throwable cause) {
+      super(cause);
+      this.key = key;
+      this.castTo = castTo;
+    }
+    public Object getKey() {
+      return key;
+    }
+    public Class<?> getCastTo() {
+      return castTo;
+    }
+  } 
 }

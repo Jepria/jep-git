@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.jepria.CastMap;
+import org.jepria.CastMap.CastOnGetException;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonIOException;
@@ -72,6 +73,15 @@ public class RestService extends HttpServlet {
           try {
             // TODO better to pass the request here or put it into ThreadLocal like GWT does?
             result = endpointMethod.getData(req, getParameterMap(req));
+            
+          } catch (CastOnGetException e) {
+            
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            response.getWriter().println("The parameter " + e.getKey() + " expected to be of type " + e.getCastTo().getCanonicalName());
+            response.flushBuffer();
+            
+            return;
+            
           } catch (Exception e) {
             // TODO handle properly
             throw new RuntimeException(e);
