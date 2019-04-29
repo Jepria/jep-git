@@ -2,6 +2,7 @@ package org.jepria.server.service.rest.basic;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,6 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.jepria.CastMap;
 import org.jepria.CastMap.CastOnGetException;
+import org.jepria.TypedValueParser;
+import org.jepria.TypedValueParser.TypedValueParseException;
+import org.jepria.TypedValueParserImpl;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonIOException;
@@ -108,14 +112,13 @@ public class RestService extends HttpServlet {
 
   }
 
-  // TODO return Map<String, String> (as-is from query string) or Map<String, Object> (typed) ?
   /**
-   * 
    * @param req
    * @return or else empty map, non null
    */
-  protected Map<String, Object> getRequestParameterMap(HttpServletRequest req) {
-    final Map<String, Object> map = new HashMap<>();
+  // return namely Map<String, String>, not Map<String, Object>
+  protected Map<String, String> getRequestParameterMap(HttpServletRequest req) {
+    final Map<String, String> map = new HashMap<>();
 
     if (req != null) {
       Map<String, String[]> original = req.getParameterMap();
@@ -154,12 +157,49 @@ public class RestService extends HttpServlet {
     return map;
   }
   
-  protected CastMap<String, Object> getParameterMap(HttpServletRequest req) {
-    final Map<String, Object> map = getRequestParameterMap(req);
+  protected CastMap<String, ?> getParameterMap(HttpServletRequest req) {
+    final ParamCastMap map = new ParamCastMap();
+    map.putAll(getRequestParameterMap(req));
     map.putAll(getBodyParameterMap(req));
-    return CastMap.from(map);
+    return map;
   }
+  
+  protected TypedValueParser getTypedValueParser() {
+    return new TypedValueParserImpl();
+  }
+  
+  // local class
+  protected class ParamCastMap extends HashMap<String, Object> implements CastMap<String, Object> {
 
+    private static final long serialVersionUID = -4621908477271689859L;
+    
+    @Override
+    public Integer getInteger(Object key) {
+      try {
+        return getTypedValueParser().parse(get(key), Integer.class);
+      } catch (TypedValueParseException e) {
+        throw new CastOnGetException(key, Integer.class);
+      }
+    }
+
+    @Override
+    public String getString(Object key) {
+      try {
+        return getTypedValueParser().parse(get(key), String.class);
+      } catch (TypedValueParseException e) {
+        throw new CastOnGetException(key, String.class);
+      }
+    }
+
+    @Override
+    public BigDecimal getBigDecimal(Object key) {
+      try {
+        return getTypedValueParser().parse(get(key), BigDecimal.class);
+      } catch (TypedValueParseException e) {
+        throw new CastOnGetException(key, BigDecimal.class);
+      }
+    }
+  }
 }
 
 
