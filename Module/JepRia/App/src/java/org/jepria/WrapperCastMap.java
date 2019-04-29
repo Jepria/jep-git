@@ -36,7 +36,7 @@ public class WrapperCastMap<K, V> implements CastMap<K, V> {
       handleCastException(key, Integer.class, e);
 
       // generally unreachable
-      return null;
+      throw e;
     }
   }
 
@@ -48,7 +48,7 @@ public class WrapperCastMap<K, V> implements CastMap<K, V> {
       handleCastException(key, String.class, e);
 
       // generally unreachable
-      return null;
+      throw e;
     }
   }
 
@@ -60,7 +60,7 @@ public class WrapperCastMap<K, V> implements CastMap<K, V> {
       handleCastException(key, BigDecimal.class, e);
 
       // generally unreachable
-      return null;
+      throw e;
     }
   }
 
@@ -72,7 +72,7 @@ public class WrapperCastMap<K, V> implements CastMap<K, V> {
       handleCastException(key, Number.class, e);
 
       // generally unreachable
-      return null;
+      throw e;
     }
   }
 
