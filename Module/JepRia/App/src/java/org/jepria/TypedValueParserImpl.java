@@ -11,6 +11,7 @@ public class TypedValueParserImpl implements TypedValueParser {
     }
     if (type == Integer.class) {
       if (value instanceof String) {
+        // parse
         try {
           return (T)(Integer)Integer.parseInt((String)value);
         } catch (NumberFormatException e) {
@@ -18,9 +19,11 @@ public class TypedValueParserImpl implements TypedValueParser {
         }
         
       } else if (value instanceof Integer) {
+        // cast
         return (T)(Integer)value;
         
       } else if (value instanceof Number) {
+        // convert
         int valueInt = ((Number)value).intValue();
         double valueDbl = ((Number)value).doubleValue();
         // TODO add tolerance for double, e.g. 10.00000000000000000001 == 10 ?
@@ -31,13 +34,16 @@ public class TypedValueParserImpl implements TypedValueParser {
       
     } else if (type == String.class) {
       if (value instanceof String) {
+        // cast
         return (T)(String)value;
       } else {
+        // convert
         return (T)(String)String.valueOf(value);
       }
       
     } else if (type == BigDecimal.class) {
       if (value instanceof String) {
+        // parse
         try {
           return (T)new BigDecimal((String)value);
         } catch (NumberFormatException e) {
@@ -45,9 +51,11 @@ public class TypedValueParserImpl implements TypedValueParser {
         }
         
       } else if (value instanceof BigDecimal) {
+        // cast
         return (T)(BigDecimal)value;
         
       } else if (value instanceof Number) {
+        // convert
         try {
           return (T)BigDecimal.valueOf(((Number)value).doubleValue());
         } catch (NumberFormatException e) {

@@ -23,20 +23,26 @@ public interface CastMap<K, V> extends Map<K, V> {
     private static final long serialVersionUID = 1L;
     
     private final Object key;
+    private final Object value;
     private final Class<?> castTo;
     
-    public CastOnGetException(Object key, Class<?> castTo) {
+    public CastOnGetException(Object key, Object value, Class<?> castTo) {
       this.key = key;
+      this.value = value;
       this.castTo = castTo;
     }
     
-    public CastOnGetException(Object key, Class<?> castTo, Throwable cause) {
+    public CastOnGetException(Object key, Object value, Class<?> castTo, Throwable cause) {
       super(cause);
       this.key = key;
+      this.value = value;
       this.castTo = castTo;
     }
     public Object getKey() {
       return key;
+    }
+    public Object getValue() {
+      return value;
     }
     public Class<?> getCastTo() {
       return castTo;

@@ -5,6 +5,7 @@ import java.io.InputStreamReader;
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -22,38 +23,31 @@ import com.google.gson.JsonIOException;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 
-// регистрационный подход: в прикладной реализации метода регистрируются все возможные entity.
-// в отличие от лобового подхода, все запросы незарегистрированных энтитей будут выдавать 404
-// Преимущество: каждой энтити при регистрации можно указать не только дата экстрактор, но и некую метаинфу: для сваггера, для джсшемы и т.д.
+// В прикладной реализации сервиса регистрируются всевозможные эндпоинт-методы (или сущности целиком).
+// Преимущества перед императивным подходом: решена проблема с выдачей 404 ошибки если запросили незарегистрированную сущность,
+// для каждой сущности при регистрации можно указать не только data supplier, но и любую метаинформацию: Swagger, JsonSchema и т.д.
 public class RestService extends HttpServlet {
 
   private static final long serialVersionUID = 1L;
 
   public RestService() {}
 
-  private final Map<String, EndpointMethod> optionExtractors = new HashMap<>();
+  private final Map<String, EndpointMethod> methods = new HashMap<>();
 
-  // по сути, Supplier, который позволяет выбрасывать exception
-  // = по сути, Callable, который не связан с concurrent
   public static abstract class EndpointMethod {
     public abstract Object getData(HttpServletRequest request, CastMap<String, ?> params) throws Exception;
     public EndpointMethod() {}
   }
 
   protected void registerOptions(String entity, EndpointMethod endpointMethod) {
-    if (entity == null) {
-      throw new NullPointerException("Cannot register null entity");
+    Objects.requireNonNull(entity);
+    Objects.requireNonNull(endpointMethod);
+    
+    if (methods.containsKey(entity)) {
+      throw new IllegalArgumentException("The method has already been registered, cannot register twice");
     }
 
-    if (endpointMethod == null) {
-      throw new NullPointerException("Cannot register null data extractor");
-    }
-
-    if (optionExtractors.containsKey(entity)) {
-      throw new IllegalArgumentException("The entity has already been registered, cannot register twice");
-    }
-
-    optionExtractors.put(entity, endpointMethod);
+    methods.put(entity, endpointMethod);
   }
 
   @Override
@@ -66,11 +60,9 @@ public class RestService extends HttpServlet {
 
         final String entity = path.substring("/option/".length());
 
-        EndpointMethod endpointMethod = optionExtractors.get(entity);
+        EndpointMethod endpointMethod = methods.get(entity);
 
         if (endpointMethod != null) {
-
-          // inject the extractor fields
 
           final Object result;
 
@@ -81,7 +73,7 @@ public class RestService extends HttpServlet {
           } catch (CastOnGetException e) {
             
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            response.getWriter().println("The parameter " + e.getKey() + " expected to be of type " + e.getCastTo().getCanonicalName());
+            response.getWriter().println("Cannot parse the parameter " + e.getKey() + "=" + e.getValue() + " as " + e.getCastTo().getCanonicalName());
             response.flushBuffer();
             
             return;
@@ -178,7 +170,7 @@ public class RestService extends HttpServlet {
       try {
         return getTypedValueParser().parse(get(key), Integer.class);
       } catch (TypedValueParseException e) {
-        throw new CastOnGetException(key, Integer.class);
+        throw new CastOnGetException(key, e.getValue(), Integer.class);
       }
     }
 
@@ -187,7 +179,7 @@ public class RestService extends HttpServlet {
       try {
         return getTypedValueParser().parse(get(key), String.class);
       } catch (TypedValueParseException e) {
-        throw new CastOnGetException(key, String.class);
+        throw new CastOnGetException(key, e.getValue(), String.class);
       }
     }
 
@@ -196,7 +188,7 @@ public class RestService extends HttpServlet {
       try {
         return getTypedValueParser().parse(get(key), BigDecimal.class);
       } catch (TypedValueParseException e) {
-        throw new CastOnGetException(key, BigDecimal.class);
+        throw new CastOnGetException(key, e.getValue(), BigDecimal.class);
       }
     }
   }
