@@ -12,30 +12,23 @@ import static com.technology.jep.jepria.client.JepRiaClientConstant.JepTexts;
 import static com.technology.jep.jepria.client.JepRiaClientConstant.MAIN_FONT_STYLE;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import com.google.gwt.aria.client.Roles;
 import com.google.gwt.cell.client.AbstractCell;
 import com.google.gwt.cell.client.Cell;
-import com.google.gwt.cell.client.ValueUpdater;
-import com.google.gwt.cell.client.Cell.Context;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.core.client.Scheduler.ScheduledCommand;
-import com.google.gwt.dom.client.BrowserEvents;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.NativeEvent;
 import com.google.gwt.dom.client.NodeList;
 import com.google.gwt.dom.client.Style.Display;
-import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.logical.shared.CloseEvent;
 import com.google.gwt.event.logical.shared.CloseHandler;
 import com.google.gwt.event.logical.shared.OpenEvent;
@@ -155,6 +148,8 @@ public class TreeField<V extends JepOption> extends Composite implements HasChec
    * Раскрываемый узел
    */
   private V openingNode;
+
+  private boolean isRefreshInProgress = false;
   
   /**
    * Наименование селектора (класса стилей) для данного компонента
@@ -267,7 +262,6 @@ public class TreeField<V extends JepOption> extends Composite implements HasChec
     this.fieldIdAsWebEl = fieldIdAsWebEl;
     
     widgetPanel = new VerticalPanel();
-    
     treePanel = new ScrollPanel(); 
     
     selectAllCheckBox = new CheckBox(JepTexts.listField_selectAll());
@@ -396,9 +390,6 @@ public class TreeField<V extends JepOption> extends Composite implements HasChec
   public void setPartialSelected(List<V> list){
     if (!JepRiaUtil.isEmpty(list) && !list.isEmpty()){
       this.partialSelectedNodes = new HashSet<V>(list);
-      for (V option : nodeMapOfDisplay.keySet()) {
-        list.get(0).equals(option);
-      }
       for (V node : list){
         refreshNode(node);
       }
@@ -644,11 +635,12 @@ public class TreeField<V extends JepOption> extends Composite implements HasChec
    * Обновляет информацию о структуре дерева.
    */
   private void refreshTree(){
+    if (isRefreshInProgress) return;
+    isRefreshInProgress = true;
     fireEvent(new RefreshStartEvent());
     tree = getTree();
     treePanel.clear();
     showTree();
-    fireEvent(new RefreshEndEvent());
   }
   
   /**
@@ -984,6 +976,10 @@ public class TreeField<V extends JepOption> extends Composite implements HasChec
               selectionModel.selectChildren(expandNode, true);
             }
             openingNode = null;
+            if (isRefreshInProgress) {
+              fireEvent(new RefreshEndEvent());
+              isRefreshInProgress = false;
+            }
             refreshDisplay(display, result);
             refreshNode(expandNode);
           }
@@ -1001,6 +997,10 @@ public class TreeField<V extends JepOption> extends Composite implements HasChec
         }
         for (V child: nodeInfo.getChildren()) {
           getNodeInfoByValue(child).setDestroyed(false);
+        }
+        if (isRefreshInProgress) {
+          fireEvent(new RefreshEndEvent());
+          isRefreshInProgress = false;
         }
         refreshDisplay(display, nodeInfo.getChildren());
         refreshNode(expandNode);
@@ -1320,7 +1320,7 @@ public class TreeField<V extends JepOption> extends Composite implements HasChec
     
     private void updateSelectedNodeInfo(V item, boolean selected) {
       TreeNodeInfo<V> treeNodeInfo = getNodeInfoByValue(item);
-      if (treeNodeInfo != null){
+      if (treeNodeInfo != null) {
         V parentValue = treeNodeInfo.getParent();
         if (parentValue != null) {
           if (selected) getNodeInfoByValue(parentValue).addSelectedChild(item);

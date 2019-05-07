@@ -1,13 +1,13 @@
 package com.technology.jep.jepria.client.ui.form.detail;
 
 import static com.technology.jep.jepria.client.JepRiaClientConstant.JepTexts;
-import static com.technology.jep.jepria.client.JepRiaClientConstant.UPLOAD_SUCCESS_SUBSTRING;
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.CREATE;
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.EDIT;
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.SEARCH;
 import static com.technology.jep.jepria.client.ui.WorkstateEnum.VIEW_DETAILS;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 import com.google.gwt.core.client.Scheduler.ScheduledCommand;
@@ -48,7 +48,6 @@ import com.technology.jep.jepria.shared.history.JepHistoryToken;
 import com.technology.jep.jepria.shared.load.FindConfig;
 import com.technology.jep.jepria.shared.load.PagingConfig;
 import com.technology.jep.jepria.shared.load.PagingResult;
-import com.technology.jep.jepria.shared.log.JepLoggerImpl;
 import com.technology.jep.jepria.shared.record.JepRecord;
 import com.technology.jep.jepria.shared.service.data.JepDataServiceAsync;
 import com.technology.jep.jepria.shared.util.JepRiaUtil;
@@ -169,16 +168,16 @@ public class DetailFormPresenter<V extends DetailFormView, E extends PlainEventB
   protected void onChangeWorkstate(WorkstateEnum workstate) {
     fields.changeWorkstate(workstate);
 
-    if(VIEW_DETAILS.equals(workstate)) {
+    if (VIEW_DETAILS.equals(workstate)) {
       fields.setValues(currentRecord);
       updateScope(workstate);
-    } else if(EDIT.equals(workstate)) {
+    } else if (EDIT.equals(workstate)) {
       fields.setValues(currentRecord);
       updateScope(workstate);
-    } else if(CREATE.equals(workstate)) {
+    } else if (CREATE.equals(workstate)) {
       fields.clear();
       resetScope();
-    } else if(SEARCH.equals(workstate)) {
+    } else if (SEARCH.equals(workstate)) {
       // Получаем поисковой шаблон из localStorage браузера если таковой сохранялся ранее.
 	  Storage storage = Storage.getLocalStorageIfSupported();
 	  if (storage != null) {
@@ -187,7 +186,7 @@ public class DetailFormPresenter<V extends DetailFormView, E extends PlainEventB
 	    }
 	  }
 
-	  if(searchTemplate != null) {
+	  if (searchTemplate != null) {
         // Если есть сохраненные поисковые параметры, то восстановим их.
         fields.setValues(searchTemplate);
       } else {
@@ -225,8 +224,8 @@ public class DetailFormPresenter<V extends DetailFormView, E extends PlainEventB
     JepScope scope = JepScopeStack.instance.peek();
     // Только в случае, если действительно изменяется текущая область видимости модулей
     // Для поэлементного сравнение массивов, а не по ссылкам в памяти, следует использовать метод equals утилитарного класса Arrays
-    if(scopes != null && !Arrays.equals(scope.getModuleIds(), scopes)) { // и указаны родительский и дочерние модули ...
-      if(scope.isMainActive()) { // Если текущий модуль является родительским ...
+    if (scopes != null && !Arrays.equals(scope.getModuleIds(), scopes)) { // и указаны родительский и дочерние модули ...
+      if (scope.isMainActive()) { // Если текущий модуль является родительским ...
         scope.setModuleIds(scopes);
         scope.getModuleStates()[0] = workstate;  // Обновление рабочего состояния родительского модуля.
         
@@ -265,7 +264,7 @@ public class DetailFormPresenter<V extends DetailFormView, E extends PlainEventB
    */
   @Override
   public void onDoSearch(DoSearchEvent event) {
-    if(fields.isValid()) {
+    if (fields.isValid()) {
       // Получим значения с формы.
       JepRecord formProperties = fields.getValues();
       // Добавим foreignKey.
@@ -319,19 +318,19 @@ public class DetailFormPresenter<V extends DetailFormView, E extends PlainEventB
    */
   @Override
   public void onSave(SaveEvent event) {
-    if(fields.isValid()) {
+    if (fields.isValid()) {
       JepRecord formProperties = fields.getValues();
       
       logger.debug(this.getClass() + ".onSave(): formProperties = " + formProperties);
       
       // Для подчинённых объектов добавляется foreignKey.
-      if(JepScopeStack.instance.size() > 1 || !JepScopeStack.instance.peek().isMainActive()) {
+      if (JepScopeStack.instance.size() > 1 || !JepScopeStack.instance.peek().isMainActive()) {
         JepClientUtil.addForeignKey(formProperties);
       }
       
       // Для режима редактирования текущую запись
       // необходимо дополнить или переписать значениями с формы.
-      if(EDIT.equals(_workstate)) {
+      if (EDIT.equals(_workstate)) {
         JepRecord updatedRecord = new JepRecord(currentRecord);
         updatedRecord.update(formProperties);
         formProperties = updatedRecord;
@@ -342,9 +341,9 @@ public class DetailFormPresenter<V extends DetailFormView, E extends PlainEventB
       
       eventBus.setSaveButtonEnabled(false);
       
-      if(CREATE.equals(_workstate)) {
+      if (CREATE.equals(_workstate)) {
         saveOnCreate(formProperties);
-      } else if(EDIT.equals(_workstate)) {
+      } else if (EDIT.equals(_workstate)) {
         saveOnEdit(formProperties);
       }
       
@@ -380,9 +379,123 @@ public class DetailFormPresenter<V extends DetailFormView, E extends PlainEventB
   }
   
   /**
-   * Счетчик количества сабмитов
+   * Класс, методы которого вызываются во время обработки и загрузки файлов. <br/>
+   * Создан для более гибкой работы с файлами. Методы можно переопределять и переиспользовать в потомках.
    */
-  protected int submitCounter;
+  protected class AfterSubmitCallback {
+    
+    /**
+     * Счетчик количества сабмитов.
+     */
+    private int counter;
+    
+    /**
+     * Все сабмиты успешно загрузились.
+     */
+    private boolean isAllSuccess; 
+    
+    /**
+     * Текущая запись данных формы.
+     */
+    protected final JepRecord record;
+    
+    /**
+     * Конструктор. Инициализация значения по умолчанию.
+     * @param record ссылка на запись
+     */
+    public AfterSubmitCallback(JepRecord record) {
+      counter = 0;
+      isAllSuccess = true;
+      this.record = record;
+    }
+    
+    /**
+     * Подготовка LOB-полей перед сабмитом формы
+     * 
+     * @param field LOB-поле
+     */
+    public void prepareLobField(JepLargeField<?> field) {
+      onPrepareLobField(field);
+      
+      setPrimaryKey(field);
+      
+      field.setBeforeSubmitCommand(new ScheduledCommand() {
+        @Override
+        public void execute() {
+          if (counter++ == 0) {
+            JepClientUtil.showLoadingPanel(null, clientFactory.getTexts().loadingPanel_fileLoading());
+          }
+        }
+      });
+      
+      field.setAfterSubmitCommand(new JepScheduledCommand<String>() {
+        public void execute() {
+          counter--;
+          String resultHtml = getData();
+          if (field.isSubmitSuccessful(resultHtml)) {
+            AfterSubmitCallback.this.onSuccess();
+          } else {
+            AfterSubmitCallback.this.onFailure(resultHtml);
+          }
+          
+          if (counter == 0) {
+            JepClientUtil.hideLoadingPanel();
+            if (isAllSuccess) {
+              AfterSubmitCallback.this.onSuccessAll();
+            } else {
+              AfterSubmitCallback.this.onFailureAtLeastOne();
+            }
+          }
+        }
+      });
+    }
+
+    /**
+     * Привязывает первичный ключ к поле. Устанавливает значение в скрытое поле.
+     * @param field Поле файла.
+     */
+    protected void setPrimaryKey(JepLargeField<?> field) {
+      field.getHiddenPrimaryKeyField().setValue(
+          JepHistoryToken.getMapAsToken(clientFactory.getRecordDefinition().buildPrimaryKeyMap(record))
+      );
+    }
+
+    /**
+     * Hook-метод. Вызывается перед подготовкой Lob-полей.
+     * @param field Поле
+     */
+    protected void onPrepareLobField(JepLargeField<?> field) {}
+
+    /**
+     * Действие после последного сабмита (или при их отсутствии) в случае успешного сабмита всех Lob-полей формы.
+     */
+    public void onSuccessAll() {
+      afterSave(record);
+    }
+
+    /**
+     * Действие в случае успешного сабмита.
+     */
+    protected void onSuccess() {}
+    
+    
+    /**
+     * Действие после последного сабмита (или при их отсутствии) в случае неуспешного сабмита хотя бы одного Lob-поля формы. 
+     */
+    public void onFailureAtLeastOne() {
+      afterSave(record);  
+    }
+    
+    /**
+     * Действие в случае ошибки при сабмите.<br/>
+     * По умолчанию выдаёт сообщение об ошибке.
+     * @param errorMsg полученный от сервера результат сабмита в виде строки
+     */
+    protected void onFailure(String errorMsg) {
+      isAllSuccess = false;
+      messageBox.showError(clientFactory.getTexts().errors_file_uploadError() + "\n" + errorMsg);
+    }
+  }
   
   /**
    * Метод, вызываемый после успешного сохранения информации
@@ -390,93 +503,33 @@ public class DetailFormPresenter<V extends DetailFormView, E extends PlainEventB
    * @param resultRecord    ссылка на созданную запись
    */
   public void onSaveSuccess(JepRecord resultRecord) {
-    submitCounter = 0;
+    submitLobFieldList(fields.values(), new AfterSubmitCallback(resultRecord));
+  }
+  
+  /**
+   *  
+   */
+  /**
+   * Загрузка LOB-полей формы.
+   * @param fieldList Список полей
+   * @param callback Логика обработки полей
+   */
+  protected <M extends JepMultiStateField<?,?>> void submitLobFieldList(Collection<M> fieldList, AfterSubmitCallback callback) {
+    boolean isAnyLobField = false;
     
-    for (JepMultiStateField<?, ?> field: fields.values()) {  
+    for (M field: fieldList) {
       JepLargeField<?> largeField;
-      if((field instanceof JepLargeField) && (largeField = (JepLargeField<?>)field).isFileReadyToUpload()) {
-        prepareLOBField(largeField, resultRecord);
+      if ((field instanceof JepLargeField) && (largeField = (JepLargeField<?>)field).isFileReadyToUpload()) {
+        isAnyLobField = true;
+        
+        callback.prepareLobField(largeField);
         largeField.getFormPanel().submit();
       }
     }
-    if (submitCounter == 0) {
-      afterSave(resultRecord);
-    }
-  }
-  
-  /**
-   * Подготовка LOB-полей перед сабмитом формы
-   * 
-   * @param field          LOB-поле
-   * @param resultRecord      текущий рекорд, по которому готовим поле
-   */
-  protected void prepareLOBField(final JepLargeField<?> field, final JepRecord resultRecord) {
     
-    field.getHiddenPrimaryKeyField().setValue(JepHistoryToken.getMapAsToken(clientFactory.getRecordDefinition().buildPrimaryKeyMap(resultRecord)));
-    
-    field.setBeforeSubmitCommand(new ScheduledCommand() {
-      @Override
-      public void execute() {
-        if (submitCounter++ == 0){
-          JepClientUtil.showLoadingPanel(null, clientFactory.getTexts().loadingPanel_fileLoading());
-        }
-      }
-    });
-    
-    field.setAfterSubmitCommand(new JepScheduledCommand<String>(){
-      public void execute() {
-        submitCounter--;
-        String resultHtml = getData();
-        if (submitSuccessful(resultHtml)) {
-          onSubmitSuccess(resultRecord);
-        }
-        else {
-          onSubmitFailure(resultRecord, resultHtml);
-        }
-      }
-    });
-  }
-
-  /**
-   * Проверка, что сабмит был успешен.<br/>
-   * По умолчанию возвращает true, если получен пустой ответ или ответ содержит подстроку 
-   * &quot;success&quot;. В противном случае возвращает false. Может быть переопределён 
-   * в классе-наследнике.
-   * @param resultHtml полученный от сервера результат сабмита в виде строки
-   * @return true в случае успешного сабмита, false в противном случае
-   */
-  protected boolean submitSuccessful(String resultHtml) {
-    return JepRiaUtil.isEmpty(resultHtml) || resultHtml.contains(UPLOAD_SUCCESS_SUBSTRING);
-  }
-
-  /**
-   * Действие в случае успешного сабмита.<br/>
-   * По умолчанию проверяет, остались ли ещё незавершённые сабмиты, и если нет, 
-   * то скрывает индикатор загрузки и вызывает afterSave(). 
-   * Может быть переопределён в классе-наследнике.
-   * @param resultRecord запись
-   */
-  protected void onSubmitSuccess(JepRecord resultRecord) {
-    if (submitCounter == 0) {
-      JepClientUtil.hideLoadingPanel();
-      afterSave(resultRecord);  
-    }
-  }
-  
-  /**
-   * Действие в случае ошибки при сабмите.<br/>
-   * По умолчанию выдаёт сообщение об ошибке, и далее проверяет, остались ли 
-   * ещё незавершённые сабмиты. Если нет, то скрывает индикатор загрузки и вызывает 
-   * afterSave(). Может быть переопределён в классе-наследнике.
-   * @param resultRecord запись
-   * @param resultHtml полученный от сервера результат сабмита в виде строки
-   */
-  protected void onSubmitFailure(JepRecord resultRecord, String resultHtml) {
-    messageBox.showError(
-        clientFactory.getTexts().errors_file_uploadError() + "\n" + resultHtml);
-    if (submitCounter == 0) {
-      JepClientUtil.hideLoadingPanel();
-      afterSave(resultRecord);  
+    // иначе будет вызван после загрузки последнего файла
+    if (!isAnyLobField) {
+      callback.onSuccessAll();
     }
   }
   
@@ -500,7 +553,7 @@ public class DetailFormPresenter<V extends DetailFormView, E extends PlainEventB
    */
   protected void afterSave(JepRecord resultRecord) {
     // Поскольку БД-модуль не обязан возвращать родительский ключ.
-    if(JepScopeStack.instance.size() > 1 || !JepScopeStack.instance.peek().isMainActive()) {
+    if (JepScopeStack.instance.size() > 1 || !JepScopeStack.instance.peek().isMainActive()) {
       JepClientUtil.addForeignKey(resultRecord);
     }
     // Текущую запись обновляем ТОЛЬКО после успешного сохранения.
@@ -528,7 +581,7 @@ public class DetailFormPresenter<V extends DetailFormView, E extends PlainEventB
     clientFactory.getService().find(pagingConfig, new JepAsyncCallback<PagingResult<JepRecord>>() {
       public void onSuccess(PagingResult<JepRecord> pagingResult) {
         List<JepRecord> result = pagingResult.getData();
-        if(result.size() == 1) {
+        if (result.size() == 1) {
           adjustToRecord(result.get(0));
           
           view.asWidget().setVisible(true); // Отображаем форму.
@@ -569,7 +622,7 @@ public class DetailFormPresenter<V extends DetailFormView, E extends PlainEventB
   @Override
   public void onDoDelete(DoDeleteEvent event) {
     // Проверим состояние, чтобы обеспечить срабатывание данного обработчика только при активной детальной форме.
-    if(VIEW_DETAILS.equals(_workstate) || EDIT.equals(_workstate)) {
+    if (VIEW_DETAILS.equals(_workstate) || EDIT.equals(_workstate)) {
       messageBox.confirmDeletion(false, new ConfirmCallback() {
         public void onConfirm(Boolean yes) {
           onDeleteConfirmation(yes, currentRecord);
@@ -585,7 +638,7 @@ public class DetailFormPresenter<V extends DetailFormView, E extends PlainEventB
    * @param record запись, которую необходимо удалить
    */
   protected void onDeleteConfirmation(Boolean yes, final JepRecord record) {
-    if(yes) {
+    if (yes) {
       JepClientUtil.showLoadingPanel(null, JepTexts.loadingPanel_deletingRecords());
       FindConfig deleteConfig = new FindConfig(record);
       deleteConfig.setListUID(listUID);

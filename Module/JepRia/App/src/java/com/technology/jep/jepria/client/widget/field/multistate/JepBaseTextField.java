@@ -8,6 +8,7 @@ import static com.technology.jep.jepria.client.widget.event.JepEventType.TYPING_
 
 import java.util.Objects;
 
+import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.dom.client.BlurEvent;
 import com.google.gwt.event.dom.client.BlurHandler;
 import com.google.gwt.event.dom.client.DomEvent;
@@ -337,6 +338,7 @@ public abstract class JepBaseTextField<E extends Widget & HasValue> extends JepM
     initKeyDownHandler();
     initKeyPressHandler();
     initKeyUpHandler();
+    initPasteHandler(this.getEditableCard().getElement());
   }
   
   /**
@@ -380,4 +382,34 @@ public abstract class JepBaseTextField<E extends Widget & HasValue> extends JepM
       }, KeyUpEvent.getType());
     }
   }
+
+  /**
+   * Инициализация обработчика "вставки".
+   */
+  protected void handlePaste(String value) {
+    getInputElement().setPropertyString("value", value);
+    startTypingTimeout();
+  }
+  
+  /**
+   * Перехват и обработка Paste Event.
+   * @param element объект поля.
+   */
+  private native void initPasteHandler(Element element)
+  /*-{
+      var temp = this;  // hack to hold on to 'this' reference
+      element.onpaste = function(e) {
+        var clipBoardData;
+        e.preventDefault();//Заблокируем стандартное поведение события.
+        e.stopPropagation();
+        //Вручную добавляем выделенный текст из поля в буфер обмена.
+        if (e.clipboardData) { 
+          clipBoardData = e.clipboardData.getData('text/plain');
+        }
+        if ($wnd.clipboardData) {
+          clipBoardData = $wnd.clipboardData.getData("Text");
+        }
+        temp.@com.technology.jep.jepria.client.widget.field.multistate.JepBaseTextField::handlePaste(Ljava/lang/String;)(clipBoardData);
+      }
+  }-*/;
 }
