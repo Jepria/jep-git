@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.jepria.CastMap;
 
-import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
@@ -82,7 +82,7 @@ public class RestService extends HttpServlet {
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
 
-            response.getWriter().println(new Gson().toJson(result));
+            response.getWriter().println(createGsonBuilder().create().toJson(result));
           } else {
             // empty response, write nothing, do not set content type as far as there is no content (however not a NO_CONTENT status)
             response.setStatus(HttpServletResponse.SC_OK);
@@ -131,7 +131,7 @@ public class RestService extends HttpServlet {
 
     if (req != null) {
       try {
-        Map<String, Object> gsonMap = new Gson().fromJson(new InputStreamReader(req.getInputStream()), new TypeToken<Map<String, Object>>() { }.getType());
+        Map<String, Object> gsonMap = createGsonBuilder().create().fromJson(new InputStreamReader(req.getInputStream()), new TypeToken<Map<String, Object>>() { }.getType());
         if (gsonMap != null) {
           map.putAll(gsonMap);
         }
@@ -148,6 +148,13 @@ public class RestService extends HttpServlet {
     final Map<String, Object> map = getRequestParameterMap(req);
     map.putAll(getBodyParameterMap(req));
     return CastMap.from(map);
+  }
+  
+  /**
+   * Creates a GsonBuilder instance that can be used to build Gson with various configuration settings.
+   */
+  protected GsonBuilder createGsonBuilder() {
+    return new GsonBuilder();
   }
 
 }
