@@ -20,6 +20,7 @@ import org.jepria.TypedValueParser.TypedValueParseException;
 import org.jepria.TypedValueParserImpl;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 // В прикладной реализации сервиса регистрируются всевозможные эндпоинт-методы (или сущности целиком).
@@ -317,6 +318,13 @@ public class RestService extends HttpServlet {
 
   protected TypedValueParser getTypedValueParser() {
     return new TypedValueParserImpl();
+  }
+  
+  /**
+   * Creates a GsonBuilder instance that can be used to build Gson with various configuration settings.
+   */
+  protected GsonBuilder createGsonBuilder() {
+    return new GsonBuilder();
   }
 
   // local class
