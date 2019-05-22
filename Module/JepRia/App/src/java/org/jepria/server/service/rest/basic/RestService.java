@@ -516,61 +516,61 @@ public class RestService extends HttpServlet {
             final EndpointMethod method = methods.get(locator);
             final SwaggerInfo swaggerInfo = method.swaggerInfo();
             
-            if (swaggerInfo != null) {
-              methodObject.put("summary", swaggerInfo.summary());
-              methodObject.put("description", swaggerInfo.description());
-              
-              {
-                List<?> parameters = swaggerInfo.parameters();
-                if (parameters != null && parameters.size() > 0) {
-                  methodObject.put("parameters", parameters);
-                }
-              }
-              
-              {
-                Map<Integer, ?> responses = swaggerInfo.responses();
-                
-                if (responses == null) {
-                  // at least put an empty map, otherwise the swagger will not show responses at all (even through 'Try it out')
-                  methodObject.put("responses", new HashMap<>());
-                  
-                } else {
-                  
-                  // convert responses to plain objects
-                  Map<Integer, Object> responsesMap = new HashMap<>();
-                  
-                  for (Integer responseCode: responses.keySet()) {
-                    final Object responseObject = responses.get(responseCode);
-                    final Object responsePlain;
-                    
-                    if (responseObject instanceof Response) {
-                      
-                      final Response response = (Response) responseObject;
-                      Map<String, Object> responseMap = new HashMap<>();
-                      
-                      {
-                        responseMap.put("description", response.description);
-    
-                        Map<String, Object> schema = new HashMap<>();
-                        deployType(response.type, schema);
-                        responseMap.put("schema", schema);
-                      }
-                      
-                      responsePlain = responseMap;
-                      
-                    } else {
-                      // retain unchanged
-                      responsePlain = responseObject;
-                    }
-                    
-                    responsesMap.put(responseCode, responsePlain);
-                  }
-                  
-                  methodObject.put("responses", responsesMap);
-                }
-              }
+            
+            final String summary = swaggerInfo == null ? null : swaggerInfo.summary();
+            final String description = swaggerInfo == null ? null : swaggerInfo.description();
+            final List<?> parameters = swaggerInfo == null ? null : swaggerInfo.parameters();
+            final Map<Integer, ?> responses = swaggerInfo == null ? null : swaggerInfo.responses();
+            
+            if (summary != null) {
+              methodObject.put("summary", summary);
+            }
+            if (description != null) {
+              methodObject.put("description", description);
+            }
+             
+            if (parameters != null && parameters.size() > 0) {
+              methodObject.put("parameters", parameters);
             }
             
+            if (responses != null) {
+              // convert responses to plain objects
+              Map<Integer, Object> responsesMap = new HashMap<>();
+              
+              for (Integer responseCode: responses.keySet()) {
+                final Object responseObject = responses.get(responseCode);
+                final Object responsePlain;
+                
+                if (responseObject instanceof Response) {
+                  
+                  final Response response = (Response) responseObject;
+                  Map<String, Object> responseMap = new HashMap<>();
+                  
+                  {
+                    responseMap.put("description", response.description);
+
+                    Map<String, Object> schema = new HashMap<>();
+                    deployType(response.type, schema);
+                    responseMap.put("schema", schema);
+                  }
+                  
+                  responsePlain = responseMap;
+                  
+                } else {
+                  // retain unchanged
+                  responsePlain = responseObject;
+                }
+                
+                responsesMap.put(responseCode, responsePlain);
+              }
+              
+              methodObject.put("responses", responsesMap);
+              
+            } else {
+              // at least put an empty map, otherwise the swagger will not show responses at all (even through 'Try it out')
+              methodObject.put("responses", new HashMap<>());
+            }
+              
             pathItem.put(httpMethod, methodObject);
           }
           
