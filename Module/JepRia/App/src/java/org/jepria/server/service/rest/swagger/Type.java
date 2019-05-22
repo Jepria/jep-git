@@ -1,5 +1,6 @@
 package org.jepria.server.service.rest.swagger;
 
+import java.util.Collections;
 import java.util.Map;
 import java.util.Objects;
 
@@ -41,14 +42,18 @@ public class Type {
   
   // Object can be extended
   public static class Object extends Type {
+    /**
+     * Unmodifiable map
+     */
     public final Map<String, Type> properties;
     
     /**
-     * @param properties null-safe
+     * @param properties null-safe. The map is unmodifiable after creation 
      */
     public Object(Map<String, Type> properties) {
       super("object");
-      this.properties = properties; 
+      // important to make map unmodifiable to avoid adding cyclic references: Type A {b: B}, Type B {a: A}
+      this.properties = properties == null ? null : Collections.unmodifiableMap(properties); 
     }
     
     @Override

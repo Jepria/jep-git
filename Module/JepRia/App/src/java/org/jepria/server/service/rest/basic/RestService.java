@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Scanner;
-import java.util.Stack;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -24,7 +23,7 @@ import org.jepria.TypedValueParser.TypedValueParseException;
 import org.jepria.TypedValueParserImpl;
 import org.jepria.server.service.rest.swagger.Response;
 import org.jepria.server.service.rest.swagger.SwaggerInfo;
-import org.jepria.server.service.rest.swagger.Type;
+import org.jepria.server.service.rest.swagger.TypeDeployer;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -466,14 +465,11 @@ public class RestService extends HttpServlet {
     return new SwaggerSchema(basePath, title);
   }
   
-  // protected because it is specific fot the servlet class
+  // protected: specific for the servlet class
   protected class SwaggerSchema extends HashMap<String, Object> {
     private static final long serialVersionUID = -6030879117607380842L;
     
-    // helper
-    private final Map<Type, String> externalTypes = new HashMap<>();
-    // helper
-    private final Map<String, Object> definitions = new HashMap<>();
+    protected final TypeDeployer typeDeployer = new TypeDeployer.Recursive();
     
     public SwaggerSchema(String basePath, String title) {
       // meta info
@@ -550,7 +546,7 @@ public class RestService extends HttpServlet {
                     responseMap.put("description", response.description);
 
                     Map<String, Object> schema = new HashMap<>();
-                    deployType(response.type, schema);
+                    typeDeployer.deploy(response.type, schema);
                     responseMap.put("schema", schema);
                   }
                   
@@ -579,136 +575,9 @@ public class RestService extends HttpServlet {
       put("paths", paths);
       
       
+      Map<String, Object> definitions = typeDeployer.getDefinitions();
       if (definitions.size() > 0) {
         put("definitions", definitions);
-      }
-    }
-    
-    /**
-     * Deploys the type into a tree
-     * @param type null-safe
-     * @param target map to deploy the type into, if {@code null}, does nothing
-     */
-    protected void deployType(Type type, Map<String, Object> target) {
-      Stack<TypeTreeNode> nodes = new Stack<>();
-      
-      // push to deploy the node
-      TypeTreeNode node = new TypeTreeNode();
-      node.type = type;
-      node.target = target;
-      nodes.push(node);
-      
-      while (nodes.size() > 0) {
-        deployTypeTree(nodes);
-      }
-    }
-    
-    protected class TypeTreeNode {
-      public Type type;
-      public Map<String, Object> target;
-    }
-    
-    /**
-     * Deploys the type tree non-recursively
-     * @param nodes stack of tree nodes to deploy (to avoid recursive invocations)
-     */
-    protected void deployTypeTree(Stack<TypeTreeNode> nodes) {
-      if (nodes != null && nodes.size() > 0) {
-        TypeTreeNode node = nodes.pop(); 
-        Type type = node.type;
-        Map<String, Object> target = node.target;
-        
-        if (target != null) {
-          if (type == null) {
-            // treat null as an empty object
-            
-            // push to deploy the next node (equivalent for a recursive invocation)
-            TypeTreeNode nextNode = new TypeTreeNode();
-            nextNode.type = Type.object(null);
-            nextNode.target = target;
-            nodes.push(nextNode);
-            
-          } else if (type instanceof Type.Primitive) {
-            target.put("type", type.literal);
-            
-          } else if (type instanceof Type.Array) {
-            Type.Array typeArray = (Type.Array) type;
-            target.put("type", typeArray.literal);
-            Map<String, Object> itemsMap = new HashMap<>();
-            target.put("items", itemsMap);
-            
-            // push to deploy the next node (equivalent for a recursive invocation)
-            TypeTreeNode nextNode = new TypeTreeNode();
-            nextNode.type = typeArray.items;
-            nextNode.target = itemsMap;
-            nodes.push(nextNode);
-            
-          } else if (type instanceof Type.Object) {
-            Type.Object typeObject = (Type.Object) type;
-            
-            if (typeObject.properties == null || typeObject.properties.size() == 0) {
-              // empty object
-              target.put("type", typeObject.literal);
-            } else {
-              // externalize complex type
-              
-              
-              //
-              ////
-              //////
-              //////// formerly separate method has been inlined to avoid recursive calls:
-              final String typeRef;
-              {
-                String externalTypeRef = externalTypes.get(typeObject);
-                if (externalTypeRef == null) {
-                  // the type has not been externalized yet
-                  
-                  String newExternalTypeRef;
-                  {// create new definition
-                    String typeRefName = "Type" + (definitions.size() + 1);
-                    newExternalTypeRef = "#/definitions/" + typeRefName;
-                    externalTypes.put(typeObject, newExternalTypeRef);// put-before
-                    
-                    Map<String, Object> definition = new HashMap<>();
-                    definitions.put(typeRefName, definition); // put-before
-                    {
-                      definition.put("type", typeObject.literal);
-                      
-                      Map<String, Type> properties = typeObject.properties;
-                      if (properties != null) {
-                        Map<String, Object> propertiesMap = new HashMap<>();
-                        {
-                          for (String propertyName: properties.keySet()) {
-                            Type propertyType = properties.get(propertyName);
-                            Map<String, Object> propertyTypeMap = new HashMap<>();
-                            propertiesMap.put(propertyName, propertyTypeMap); // put-before
-                            
-                            // push to deploy the next node (equivalent for a recursive invocation)
-                            TypeTreeNode nextNode = new TypeTreeNode();
-                            nextNode.type = propertyType;
-                            nextNode.target = propertyTypeMap;
-                            nodes.push(nextNode);
-                          }
-                        }
-                        definition.put("properties", propertiesMap);
-                      }
-                    }
-                    
-                  }
-                  externalTypeRef = newExternalTypeRef; 
-                }
-                typeRef = externalTypeRef;
-              }
-              ////////
-              //////
-              ////
-              //
-              
-              
-              target.put("$ref", typeRef);
-            }
-          }
-        }
       }
     }
   }
