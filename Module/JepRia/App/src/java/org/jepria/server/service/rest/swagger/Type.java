@@ -4,7 +4,8 @@ import java.util.Collections;
 import java.util.Map;
 import java.util.Objects;
 
-public class Type {
+// abstract: not to instantiate
+public abstract class Type {
   
   public final String literal;
   
@@ -25,18 +26,18 @@ public class Type {
   public int hashCode() {
     return Objects.hash(literal);
   }
-  
+
   @Override
   public boolean equals(java.lang.Object obj) {
     if (obj == null) {
       return false;
     } else if (obj == this) {
       return true;
-    } else if (!(obj instanceof Type)) {
+    } else if (getClass() != obj.getClass()) {
       return false;
     } else {
-      Type objType = (Type) obj;
-      return objType.hashCode() == this.hashCode();
+      Type type = (Type) obj;
+      return Objects.equals(literal, type.literal);
     }
   }
   
@@ -67,11 +68,11 @@ public class Type {
         return false;
       } else if (obj == this) {
         return true;
-      } else if (!(obj instanceof Object)) {
+      } else if (getClass() != obj.getClass()) {
         return false;
       } else {
-        Object objObject = (Object) obj;
-        return objObject.hashCode() == this.hashCode();
+        Type.Object type = (Type.Object) obj;
+        return Objects.equals(literal, type.literal) && Objects.equals(properties, type.properties);
       }
     }
   }
@@ -96,11 +97,11 @@ public class Type {
         return false;
       } else if (obj == this) {
         return true;
-      } else if (!(obj instanceof Array)) {
+      } else if (getClass() != obj.getClass()) {
         return false;
       } else {
-        Array objArray = (Array) obj;
-        return objArray.hashCode() == this.hashCode();
+        Type.Array type = (Type.Array) obj;
+        return Objects.equals(literal, type.literal) && Objects.equals(items, type.items);
       }
     }
   }
@@ -128,5 +129,9 @@ public class Type {
   
   public static Type object(Map<String, Type> properties) {
     return new Type.Object(properties);
+  }
+  
+  public static Type object() {
+    return new Type.Object(null);
   }
 }
