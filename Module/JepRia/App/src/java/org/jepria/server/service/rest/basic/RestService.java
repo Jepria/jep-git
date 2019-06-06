@@ -26,7 +26,6 @@ import org.jepria.server.service.rest.swagger.SwaggerInfo;
 import org.jepria.server.service.rest.swagger.TypeDeployer;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 // В прикладной реализации сервиса регистрируются всевозможные эндпоинт-методы (или сущности целиком).
@@ -184,7 +183,7 @@ public class RestService extends HttpServlet {
           response.setStatus(HttpServletResponse.SC_OK);
           response.setContentType("application/json");
           response.setCharacterEncoding("UTF-8");
-          response.getWriter().println(new Gson().toJson(result));
+          serialize(result, response.getWriter());
           response.flushBuffer();
           return;
           
@@ -266,7 +265,7 @@ public class RestService extends HttpServlet {
         response.setStatus(HttpServletResponse.SC_OK);
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-        response.getWriter().println(new Gson().toJson(result));
+        serialize(result, response.getWriter());
         response.flushBuffer();
         return;
         
@@ -372,13 +371,7 @@ public class RestService extends HttpServlet {
   protected TypedValueParser getTypedValueParser() {
     return new TypedValueParserImpl();
   }
-  
-  /**
-   * Creates a GsonBuilder instance that can be used to build Gson with various configuration settings.
-   */
-  protected GsonBuilder createGsonBuilder() {
-    return new GsonBuilder();
-  }
+
 
   // local class
   protected class ParamCastMap extends HashMap<String, Object> implements CastMap<String, Object> {
