@@ -80,6 +80,7 @@ import com.technology.jep.jepria.client.widget.field.tree.event.RefreshStartEven
 import com.technology.jep.jepria.client.widget.field.tree.images.TreeFieldResources;
 import com.technology.jep.jepria.shared.field.option.JepOption;
 import com.technology.jep.jepria.shared.field.option.JepParentOption;
+import com.technology.jep.jepria.shared.log.JepLoggerImpl;
 import com.technology.jep.jepria.shared.util.JepRiaUtil;
 /**
  * Класс, представляющий реализацию поля выбора в виде древовидной иерархии.
@@ -164,7 +165,7 @@ public class TreeField<V extends JepOption> extends Composite implements HasChec
   /**
    * Карта соответствия узла дерева с его логическим представлением.
    */
-  private Map<V, TreeNodeInfo<V>> nodeMapOfDisplay = new HashMap<V, TreeNodeInfo<V>>();
+  private Map<Object, TreeNodeInfo<V>> nodeMapOfDisplay = new HashMap<Object, TreeNodeInfo<V>>();
   
   /**
    * Список доступных для выбора узлов, учитывающий возможность установки значения в модель выбора
@@ -325,7 +326,7 @@ public class TreeField<V extends JepOption> extends Composite implements HasChec
       public void onOpen(OpenEvent<TreeNode> event) {
         TreeNode node = event.getTarget();
         V currentNode = (V) node.getValue();
-        TreeNodeInfo<V> info = nodeMapOfDisplay.get(currentNode);
+        TreeNodeInfo<V> info = nodeMapOfDisplay.get(currentNode != null ? currentNode.getValue() : null);
         if (JepRiaUtil.isEmpty(info)) return;
         
         if (JepRiaUtil.isEmpty(info.getNode())){
@@ -436,7 +437,7 @@ public class TreeField<V extends JepOption> extends Composite implements HasChec
     partialSelectedNodes.clear();
     // также визуально убираем галочки на карте редактирования
     selectionModel.clear();
-    for (Entry<V, TreeNodeInfo<V>> entry : nodeMapOfDisplay.entrySet()) {
+    for (Entry<Object, TreeNodeInfo<V>> entry : nodeMapOfDisplay.entrySet()) {
       entry.getValue().clearSelectedChildren();
     }
   }
@@ -622,7 +623,7 @@ public class TreeField<V extends JepOption> extends Composite implements HasChec
   public void refresh(boolean clearNodeMap){
     // очищаем логический список частично выделенных узлов
     partialSelectedNodes.clear();
-    for (Entry<V, TreeNodeInfo<V>> entry : nodeMapOfDisplay.entrySet()) {
+    for (Entry<Object, TreeNodeInfo<V>> entry : nodeMapOfDisplay.entrySet()) {
       entry.getValue().clearSelectedChildren();
     }
     if (clearNodeMap) {
@@ -712,7 +713,7 @@ public class TreeField<V extends JepOption> extends Composite implements HasChec
    * @return логическое описание дерева
    */
   public TreeNodeInfo<V> getNodeInfoByValue(V node){
-    return nodeMapOfDisplay.get(node);
+    return nodeMapOfDisplay.get(node != null ? node.getValue() : null);
   }
   
   /**
@@ -831,6 +832,9 @@ public class TreeField<V extends JepOption> extends Composite implements HasChec
     TreeNodeInfo<V> nodeInfo = getNodeInfoByValue(value);
     if (nodeInfo.getSelectedChildren().isEmpty()) {
       partialSelectedNodes.remove(value);
+      if (isSelected(value)) {
+        selectionModel.setSelected(value, false);
+      } 
       SelectionChangeEvent.fire(selectionModel);
       return -1;
     } else if (nodeInfo.getSelectedChildren().size() == nodeInfo.getChildren().size()) {
@@ -960,10 +964,10 @@ public class TreeField<V extends JepOption> extends Composite implements HasChec
             }
             for (V value : result){
               // store info (current nodes and correspondent display) about tree level
-              if (nodeMapOfDisplay.containsKey(value)) {
-                nodeMapOfDisplay.get(value).setDisplay(display);
+              if (nodeMapOfDisplay.containsKey(value != null ? value.getValue() : null)) {
+                nodeMapOfDisplay.get(value != null ? value.getValue() : null).setDisplay(display);
               } else {
-                nodeMapOfDisplay.put(value, new TreeNodeInfo<V>(display, result, null, expandNode));
+                nodeMapOfDisplay.put(value.getValue(), new TreeNodeInfo<V>(display, result, null, expandNode));
               }
               markNodeAsSelectedIfAvailable(value);
             }
@@ -984,10 +988,9 @@ public class TreeField<V extends JepOption> extends Composite implements HasChec
             refreshNode(expandNode);
           }
         });
-      }
+      } else {
       // node have been already saved with its children -
       // fetch children's info from cache
-      else {
         for (V node : nodeInfo.getChildren()){
           getNodeInfoByValue(node).setDisplay(display);
         }
@@ -1031,7 +1034,7 @@ public class TreeField<V extends JepOption> extends Composite implements HasChec
      * @param value      узел дерева
      */
     public void refreshNode(V value){
-      TreeNodeInfo<V> nodeInfo = nodeMapOfDisplay.get(value);
+      TreeNodeInfo<V> nodeInfo = nodeMapOfDisplay.get(value != null ? value.getValue() : null);
       if (!JepRiaUtil.isEmpty(nodeInfo)) {
         refreshDisplay(nodeInfo.getDisplay(), nodeInfo.getData());
       }      
@@ -1335,12 +1338,12 @@ public class TreeField<V extends JepOption> extends Composite implements HasChec
      * @param selected
      */
     public void selectChildren(V item, boolean selected) {
-      boolean isParentCheckStyle = checkStyle.equals(CheckCascade.PARENTS);
+      boolean isPartialCheckStyle = checkStyle.equals(CheckCascade.PARENTS) || checkStyle.equals(CheckCascade.BOTH);
       List<V> children = getChildrenNodes(item);      
       TreeNodeInfo<V> treeNodeInfo = getNodeInfoByValue(item);
       if (children != null){
         for (V child : children){
-          if (isParentCheckStyle && partialSelectedNodes.contains(child)) {
+          if (isPartialCheckStyle && partialSelectedNodes.contains(child)) {
             partialSelectedNodes.remove(child);
           }
           super.setSelected(child, selected);
