@@ -40,7 +40,19 @@ public class RestService extends HttpServlet {
   private final Map<MethodLocator, EndpointMethod> methods = new LinkedHashMap<>(); // maintain order for clarity
 
   public static interface EndpointMethod {
-    Object getData(HttpServletRequest request, CastMap<String, ?> params) throws Exception;
+    /**
+     * 
+     * @param request not null
+     * @param pathParams not null
+     * @param queryParams not null
+     * @param bodyParams not null
+     * @return
+     * @throws Exception
+     */
+    Object getData(HttpServletRequest request, 
+        List<String> pathParams, 
+        CastMap<String, ?> queryParams, 
+        CastMap<String, ?> bodyParams) throws Exception;
     
     default SwaggerInfo swaggerInfo() {
       return null;
@@ -142,10 +154,10 @@ public class RestService extends HttpServlet {
   
       if (endpointMethod != null) {
   
-        final ParamCastMap paramMap = new ParamCastMap();
+        final ParamCastMap queryParams = new ParamCastMap();
   
         try {
-          paramMap.putAll(deserializeUrlParams(req));
+          queryParams.putAll(deserializeUrlParams(req));
         } catch (Throwable e) {
           e.printStackTrace();
   
@@ -157,13 +169,13 @@ public class RestService extends HttpServlet {
           return;
         }
   
-        // GET does not suppot body
+        // GET does not support body
   
         final Object result;
   
         try {
           // TODO better to pass the request here or put it into ThreadLocal like GWT does?
-          result = endpointMethod.getData(req, paramMap);
+          result = endpointMethod.getData(req, null, queryParams, null);
   
         } catch (CastOnGetException e) {
   
@@ -211,10 +223,10 @@ public class RestService extends HttpServlet {
 
     if (endpointMethod != null) {
 
-      final ParamCastMap paramMap = new ParamCastMap();
+      final ParamCastMap queryParams = new ParamCastMap();
 
       try {
-        paramMap.putAll(deserializeUrlParams(req));
+        queryParams.putAll(deserializeUrlParams(req));
       } catch (Throwable e) {
         e.printStackTrace();
 
@@ -226,9 +238,10 @@ public class RestService extends HttpServlet {
         return;
       }
 
-      // TODO body params will discard the same URL params
+      final ParamCastMap bodyParams = new ParamCastMap();
+      
       try {
-        paramMap.putAll(deserializeBody(req));
+        bodyParams.putAll(deserializeBody(req));
       } catch (Throwable e) {
         e.printStackTrace();
 
@@ -245,7 +258,7 @@ public class RestService extends HttpServlet {
 
       try {
         // TODO better to pass the request here or put it into ThreadLocal like GWT does?
-        result = endpointMethod.getData(req, paramMap);
+        result = endpointMethod.getData(req, null, queryParams, bodyParams);
 
       } catch (CastOnGetException e) {
 
@@ -317,18 +330,20 @@ public class RestService extends HttpServlet {
     if (req != null) {
       
       final String body;
-      
-      try (Scanner sc = new Scanner(new InputStreamReader(req.getInputStream(), "UTF-8"))) {// TODO extract charset
-        sc.useDelimiter("\\Z");
-        if (sc.hasNext()) {
-          body = sc.next();
-        } else {
-          body = null;
+      {
+        // TODO not recommended to use Scanner for reading InputStreams
+        try (Scanner sc = new Scanner(new InputStreamReader(req.getInputStream(), "UTF-8"))) {// TODO extract charset
+          sc.useDelimiter("\\Z");
+          if (sc.hasNext()) {
+            body = sc.next();
+          } else {
+            body = null;
+          }
+        } catch (RuntimeException e) {
+          throw e;
+        } catch (Throwable e) {
+          throw new RuntimeException(e);
         }
-      } catch (RuntimeException e) {
-        throw e;
-      } catch (Throwable e) {
-        throw new RuntimeException(e);
       }
 
       
