@@ -14,7 +14,6 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -182,7 +181,7 @@ public class RestService extends HttpServlet {
   }
   
   @Override
-  protected void doGet(HttpServletRequest req, HttpServletResponse response) throws ServletException, IOException {
+  protected void doGet(HttpServletRequest req, HttpServletResponse response) throws IOException {
 
     final String path = req.getPathInfo();
     
@@ -279,7 +278,7 @@ public class RestService extends HttpServlet {
   }
   
   @Override
-  protected void doPost(HttpServletRequest req, HttpServletResponse response) throws ServletException, IOException {
+  protected void doPost(HttpServletRequest req, HttpServletResponse response) throws IOException {
 
     final String path = req.getPathInfo();
 
