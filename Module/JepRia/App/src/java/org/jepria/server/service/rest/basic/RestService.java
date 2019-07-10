@@ -366,6 +366,167 @@ public class RestService extends HttpServlet {
     }
   }
   
+  @Override
+  protected void doPut(HttpServletRequest req, HttpServletResponse response) throws IOException {
+
+    final String path = req.getPathInfo();
+
+    List<EndpointMethodRouted> endpointMethodsRouted = route("put", path);
+    
+    if (endpointMethodsRouted != null) {
+
+      if (endpointMethodsRouted.size() != 1) {
+        throw new IllegalStateException("Multiple endpoint methods match the requested path");
+      }
+      
+      final EndpointMethodRouted endpointMethodRouted = endpointMethodsRouted.iterator().next();
+
+      final ParamCastMap queryParams = new ParamCastMap();
+
+      try {
+        queryParams.putAll(deserializeUrlParams(req));
+      } catch (Throwable e) {
+        e.printStackTrace();
+
+        response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        response.setContentType("text/plain");
+        response.setCharacterEncoding("utf-8");
+        response.getWriter().println("Failed to parse URL parameters");
+        response.flushBuffer();
+        return;
+      }
+
+      final ParamCastMap bodyParams = new ParamCastMap();
+      
+      try {
+        bodyParams.putAll(deserializeBody(req));
+      } catch (Throwable e) {
+        e.printStackTrace();
+
+        response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        response.setContentType("text/plain");
+        response.setCharacterEncoding("utf-8");
+        response.getWriter().println("Failed to parse JSON body");
+        response.flushBuffer();
+        return;
+      }
+
+
+      final Object result;
+
+      try {
+        // TODO better to pass the request here or put it into ThreadLocal like GWT does?
+        result = endpointMethodRouted.endpointMethod.getData(req, endpointMethodRouted.pathParams, queryParams, bodyParams);
+
+      } catch (CastOnGetException e) {
+
+        response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        response.setContentType("text/plain");
+        response.setCharacterEncoding("utf-8");
+        response.getWriter().println("Cannot parse the parameter " + e.getKey() + "=" + e.getValue() + " as " + e.getCastTo().getCanonicalName());
+        response.flushBuffer();
+        return;
+
+      } catch (Exception e) {
+        // TODO handle properly
+        throw new RuntimeException(e);
+      }
+
+      if (result != null) {
+        response.setStatus(HttpServletResponse.SC_OK);
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        serialize(result, response.getWriter());
+        response.flushBuffer();
+        return;
+        
+      } else {
+        // empty response, write nothing, do not set content type as far as there is no content (however not a NO_CONTENT status)
+        response.setStatus(HttpServletResponse.SC_OK);
+        response.flushBuffer();
+        return;
+      }
+
+    } else {
+      response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+      response.flushBuffer();
+      return;
+    }
+  }
+  
+  @Override
+  protected void doDelete(HttpServletRequest req, HttpServletResponse response) throws IOException {
+
+    final String path = req.getPathInfo();
+
+    List<EndpointMethodRouted> endpointMethodsRouted = route("put", path);
+    
+    if (endpointMethodsRouted != null) {
+
+      if (endpointMethodsRouted.size() != 1) {
+        throw new IllegalStateException("Multiple endpoint methods match the requested path");
+      }
+      
+      final EndpointMethodRouted endpointMethodRouted = endpointMethodsRouted.iterator().next();
+
+      final ParamCastMap queryParams = new ParamCastMap();
+
+      try {
+        queryParams.putAll(deserializeUrlParams(req));
+      } catch (Throwable e) {
+        e.printStackTrace();
+
+        response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        response.setContentType("text/plain");
+        response.setCharacterEncoding("utf-8");
+        response.getWriter().println("Failed to parse URL parameters");
+        response.flushBuffer();
+        return;
+      }
+
+      // DELETE does not support body params
+
+      final Object result;
+
+      try {
+        // TODO better to pass the request here or put it into ThreadLocal like GWT does?
+        result = endpointMethodRouted.endpointMethod.getData(req, endpointMethodRouted.pathParams, queryParams, null);
+
+      } catch (CastOnGetException e) {
+
+        response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        response.setContentType("text/plain");
+        response.setCharacterEncoding("utf-8");
+        response.getWriter().println("Cannot parse the parameter " + e.getKey() + "=" + e.getValue() + " as " + e.getCastTo().getCanonicalName());
+        response.flushBuffer();
+        return;
+
+      } catch (Exception e) {
+        // TODO handle properly
+        throw new RuntimeException(e);
+      }
+
+      if (result != null) {
+        response.setStatus(HttpServletResponse.SC_OK);
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        serialize(result, response.getWriter());
+        response.flushBuffer();
+        return;
+        
+      } else {
+        // empty response, write nothing, do not set content type as far as there is no content (however not a NO_CONTENT status)
+        response.setStatus(HttpServletResponse.SC_OK);
+        response.flushBuffer();
+        return;
+      }
+
+    } else {
+      response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+      response.flushBuffer();
+      return;
+    }
+  }
 
   /**
    * @param req
