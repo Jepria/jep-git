@@ -3,6 +3,7 @@ package org.jepria.server.service.rest.basic;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -10,6 +11,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -96,9 +99,18 @@ public class RestService extends HttpServlet {
   
   protected class MethodLocator {
     public final String httpMethod;
+    /**
+     * nullable
+     */
     public final String path;
 
+    /**
+     * 
+     * @param httpMethod not null
+     * @param path nullable
+     */
     public MethodLocator(String httpMethod, String path) {
+      Objects.requireNonNull(httpMethod);
       this.httpMethod = httpMethod;
       this.path = path;
     }
@@ -123,6 +135,52 @@ public class RestService extends HttpServlet {
     }
   }
 
+  protected class EndpointMethodRouted {
+    public final EndpointMethod endpointMethod;
+    public final List<String> pathParams;
+    
+    public EndpointMethodRouted(EndpointMethod endpointMethod, List<String> pathParams) {
+      this.endpointMethod = endpointMethod;
+      this.pathParams = pathParams;
+    }
+  }
+  
+  /**
+   * 
+   * @param httpMethod
+   * @param path nullable
+   * @return or else empty list, not null
+   */
+  protected List<EndpointMethodRouted> route(String httpMethod, String path) {
+    
+    final List<EndpointMethodRouted> ret = new ArrayList<>();
+    
+    for (MethodLocator locator: methods.keySet()) {
+      final EndpointMethod endpointMethod = methods.get(locator);
+      
+      if (httpMethod.equalsIgnoreCase(locator.httpMethod)) {
+        final List<String> pathParams = new ArrayList<>();
+        
+        if (path == null && locator.path == null) {
+          // empty path param list
+          ret.add(new EndpointMethodRouted(endpointMethod, pathParams));
+          
+        } else if (path != null && locator.path != null) {
+          Matcher m = Pattern.compile(locator.path).matcher(path);
+          if (m.matches()) {
+            // parse path params
+            for (int i = 0; i < m.groupCount(); i++) {
+              pathParams.add(m.group(i));
+            }
+            ret.add(new EndpointMethodRouted(endpointMethod, pathParams));
+          }
+        }
+      }
+    } 
+    
+    return ret;
+  }
+  
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse response) throws ServletException, IOException {
 
@@ -150,10 +208,16 @@ public class RestService extends HttpServlet {
       
     } else {
 
-      EndpointMethod endpointMethod = methods.get(newMethodLocator("get", path));
+      List<EndpointMethodRouted> endpointMethodsRouted = route("get", path);
   
-      if (endpointMethod != null) {
+      if (endpointMethodsRouted != null) {
   
+        if (endpointMethodsRouted.size() != 1) {
+          throw new IllegalStateException("Multiple endpoint methods match the requested path");
+        }
+        
+        final EndpointMethodRouted endpointMethodRouted = endpointMethodsRouted.iterator().next();
+        
         final ParamCastMap queryParams = new ParamCastMap();
   
         try {
@@ -175,7 +239,7 @@ public class RestService extends HttpServlet {
   
         try {
           // TODO better to pass the request here or put it into ThreadLocal like GWT does?
-          result = endpointMethod.getData(req, null, queryParams, null);
+          result = endpointMethodRouted.endpointMethod.getData(req, endpointMethodRouted.pathParams, queryParams, null);
   
         } catch (CastOnGetException e) {
   
@@ -219,9 +283,15 @@ public class RestService extends HttpServlet {
 
     final String path = req.getPathInfo();
 
-    EndpointMethod endpointMethod = methods.get(newMethodLocator("post", path));
+    List<EndpointMethodRouted> endpointMethodsRouted = route("post", path);
+    
+    if (endpointMethodsRouted != null) {
 
-    if (endpointMethod != null) {
+      if (endpointMethodsRouted.size() != 1) {
+        throw new IllegalStateException("Multiple endpoint methods match the requested path");
+      }
+      
+      final EndpointMethodRouted endpointMethodRouted = endpointMethodsRouted.iterator().next();
 
       final ParamCastMap queryParams = new ParamCastMap();
 
@@ -258,7 +328,7 @@ public class RestService extends HttpServlet {
 
       try {
         // TODO better to pass the request here or put it into ThreadLocal like GWT does?
-        result = endpointMethod.getData(req, null, queryParams, bodyParams);
+        result = endpointMethodRouted.endpointMethod.getData(req, endpointMethodRouted.pathParams, queryParams, bodyParams);
 
       } catch (CastOnGetException e) {
 
@@ -295,6 +365,7 @@ public class RestService extends HttpServlet {
       return;
     }
   }
+  
 
   /**
    * @param req
