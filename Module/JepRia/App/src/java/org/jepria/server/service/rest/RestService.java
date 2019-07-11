@@ -127,8 +127,30 @@ public class RestService extends HttpServlet {
         if (!(obj instanceof MethodLocator)) {
           return false;
         } else {
-          MethodLocator typed = (MethodLocator) obj;
-          return typed.hashCode() == this.hashCode();
+          MethodLocator locator = (MethodLocator) obj;
+          
+          if (httpMethod == null) {
+            if (locator.httpMethod != null) {
+              return false;
+            }
+          } else {
+            if (!httpMethod.equalsIgnoreCase(locator.httpMethod)) {
+              return false;
+            }
+          }
+          
+          if (path == null) {
+            if (locator.path != null) {
+              return false;
+            }
+          } else {
+            // TODO consider null, empty and '/' path equal?
+            if (!path.equalsIgnoreCase(locator.path)) {
+              return false;
+            } 
+          }
+          
+          return true;
         }
       }
     }
