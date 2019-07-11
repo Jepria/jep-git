@@ -1,4 +1,4 @@
-package org.jepria.server.service.rest.swagger;
+package org.jepria.server.service.apispec;
 
 public class Parameter {
   

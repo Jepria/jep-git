@@ -1,4 +1,4 @@
-package org.jepria.server.service.rest.basic;
+package org.jepria.server.service.rest;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -23,9 +23,9 @@ import org.jepria.CastMap.CastOnGetException;
 import org.jepria.TypedValueParser;
 import org.jepria.TypedValueParser.TypedValueParseException;
 import org.jepria.TypedValueParserImpl;
-import org.jepria.server.service.rest.swagger.Response;
-import org.jepria.server.service.rest.swagger.SwaggerInfo;
-import org.jepria.server.service.rest.swagger.TypeDeployer;
+import org.jepria.server.service.apispec.ApiSpec;
+import org.jepria.server.service.apispec.Response;
+import org.jepria.server.service.apispec.TypeDeployer;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -56,7 +56,7 @@ public class RestService extends HttpServlet {
         CastMap<String, ?> queryParams, 
         CastMap<String, ?> bodyParams) throws Exception;
     
-    default SwaggerInfo swaggerInfo() {
+    default ApiSpec apiSpec() {
       return null;
     }
   }
@@ -749,13 +749,13 @@ public class RestService extends HttpServlet {
             methodObject.put("produces", Arrays.asList("application/json;charset=utf-8"));
             
             final EndpointMethod method = methods.get(locator);
-            final SwaggerInfo swaggerInfo = method.swaggerInfo();
+            final ApiSpec apiSpec = method.apiSpec();
             
             
-            final String summary = swaggerInfo == null ? null : swaggerInfo.summary();
-            final String description = swaggerInfo == null ? null : swaggerInfo.description();
-            final List<?> parameters = swaggerInfo == null ? null : swaggerInfo.parameters();
-            final Map<Integer, ?> responses = swaggerInfo == null ? null : swaggerInfo.responses();
+            final String summary = apiSpec == null ? null : apiSpec.summary();
+            final String description = apiSpec == null ? null : apiSpec.description();
+            final List<?> parameters = apiSpec == null ? null : apiSpec.parameters();
+            final Map<Integer, ?> responses = apiSpec == null ? null : apiSpec.responses();
             
             if (summary != null) {
               methodObject.put("summary", summary);
