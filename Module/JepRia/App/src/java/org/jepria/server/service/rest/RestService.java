@@ -2,7 +2,6 @@ package org.jepria.server.service.rest;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -20,8 +19,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.jepria.CastMap;
 import org.jepria.CastMap.CastOnGetException;
+import org.jepria.SimpleCastMap;
 import org.jepria.TypedValueParser;
-import org.jepria.TypedValueParser.TypedValueParseException;
 import org.jepria.TypedValueParserImpl;
 import org.jepria.server.service.apispec.ApiSpec;
 import org.jepria.server.service.apispec.Response;
@@ -239,7 +238,7 @@ public class RestService extends HttpServlet {
         
         final EndpointMethodRouted endpointMethodRouted = endpointMethodsRouted.iterator().next();
         
-        final ParamCastMap queryParams = new ParamCastMap();
+        final CastMap<String, Object> queryParams = new SimpleCastMap(getTypedValueParser());
   
         try {
           queryParams.putAll(deserializeUrlParams(req));
@@ -314,7 +313,7 @@ public class RestService extends HttpServlet {
       
       final EndpointMethodRouted endpointMethodRouted = endpointMethodsRouted.iterator().next();
 
-      final ParamCastMap queryParams = new ParamCastMap();
+      final CastMap<String, Object> queryParams = new SimpleCastMap(getTypedValueParser());
 
       try {
         queryParams.putAll(deserializeUrlParams(req));
@@ -329,7 +328,7 @@ public class RestService extends HttpServlet {
         return;
       }
 
-      final ParamCastMap bodyParams = new ParamCastMap();
+      final CastMap<String, Object> bodyParams = new SimpleCastMap(getTypedValueParser());
       
       try {
         bodyParams.putAll(deserializeBody(req));
@@ -402,7 +401,7 @@ public class RestService extends HttpServlet {
       
       final EndpointMethodRouted endpointMethodRouted = endpointMethodsRouted.iterator().next();
 
-      final ParamCastMap queryParams = new ParamCastMap();
+      final CastMap<String, Object> queryParams = new SimpleCastMap(getTypedValueParser());
 
       try {
         queryParams.putAll(deserializeUrlParams(req));
@@ -417,7 +416,7 @@ public class RestService extends HttpServlet {
         return;
       }
 
-      final ParamCastMap bodyParams = new ParamCastMap();
+      final CastMap<String, Object> bodyParams = new SimpleCastMap(getTypedValueParser());
       
       try {
         bodyParams.putAll(deserializeBody(req));
@@ -490,7 +489,7 @@ public class RestService extends HttpServlet {
       
       final EndpointMethodRouted endpointMethodRouted = endpointMethodsRouted.iterator().next();
 
-      final ParamCastMap queryParams = new ParamCastMap();
+      final CastMap<String, Object> queryParams = new SimpleCastMap(getTypedValueParser());
 
       try {
         queryParams.putAll(deserializeUrlParams(req));
@@ -638,40 +637,6 @@ public class RestService extends HttpServlet {
 
   protected TypedValueParser getTypedValueParser() {
     return new TypedValueParserImpl();
-  }
-
-
-  // local class
-  protected class ParamCastMap extends HashMap<String, Object> implements CastMap<String, Object> {
-
-    private static final long serialVersionUID = -4621908477271689859L;
-
-    @Override
-    public Integer getInteger(Object key) {
-      try {
-        return getTypedValueParser().parse(get(key), Integer.class);
-      } catch (TypedValueParseException e) {
-        throw new CastOnGetException(key, e.getValue(), Integer.class);
-      }
-    }
-
-    @Override
-    public String getString(Object key) {
-      try {
-        return getTypedValueParser().parse(get(key), String.class);
-      } catch (TypedValueParseException e) {
-        throw new CastOnGetException(key, e.getValue(), String.class);
-      }
-    }
-
-    @Override
-    public BigDecimal getBigDecimal(Object key) {
-      try {
-        return getTypedValueParser().parse(get(key), BigDecimal.class);
-      } catch (TypedValueParseException e) {
-        throw new CastOnGetException(key, e.getValue(), BigDecimal.class);
-      }
-    }
   }
 
   /**
