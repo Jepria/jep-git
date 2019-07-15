@@ -26,9 +26,6 @@ import org.jepria.server.service.apispec.ApiSpec;
 import org.jepria.server.service.apispec.Response;
 import org.jepria.server.service.apispec.TypeDeployer;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
 // В прикладной реализации сервиса регистрируются всевозможные эндпоинт-методы (или сущности целиком).
 // Преимущества перед императивным подходом: решена проблема с выдачей 404 ошибки если запросили незарегистрированную сущность,
 // для каждой сущности при регистрации можно указать не только data supplier, но и любую метаинформацию: Swagger, JsonSchema и т.д.
@@ -210,7 +207,7 @@ public class RestService extends HttpServlet {
       
       Map<String, Object> swaggerJsonMap = buildSwaggerSchema(req);
       StringBuilder sb = new StringBuilder();
-      serialize(swaggerJsonMap, sb);
+      new JsonSerializer().serialize(swaggerJsonMap, sb);
       String swaggerJson = sb.toString();
       
       if (swaggerJson != null) {
@@ -279,7 +276,7 @@ public class RestService extends HttpServlet {
           response.setStatus(HttpServletResponse.SC_OK);
           response.setContentType("application/json");
           response.setCharacterEncoding("UTF-8");
-          serialize(result, response.getWriter());
+          new JsonSerializer().serialize(result, response.getWriter());
           response.flushBuffer();
           return;
           
@@ -368,7 +365,7 @@ public class RestService extends HttpServlet {
         response.setStatus(HttpServletResponse.SC_OK);
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-        serialize(result, response.getWriter());
+        new JsonSerializer().serialize(result, response.getWriter());
         response.flushBuffer();
         return;
         
@@ -456,7 +453,7 @@ public class RestService extends HttpServlet {
         response.setStatus(HttpServletResponse.SC_OK);
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-        serialize(result, response.getWriter());
+        new JsonSerializer().serialize(result, response.getWriter());
         response.flushBuffer();
         return;
         
@@ -530,7 +527,7 @@ public class RestService extends HttpServlet {
         response.setStatus(HttpServletResponse.SC_OK);
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-        serialize(result, response.getWriter());
+        new JsonSerializer().serialize(result, response.getWriter());
         response.flushBuffer();
         return;
         
@@ -604,7 +601,7 @@ public class RestService extends HttpServlet {
       
       if (body != null && !"".equals(body)) {
         try {
-          gsonMap = deserialize(body);
+          gsonMap = new JsonSerializer().deserialize(body);
         } catch (Throwable e) {
           
           // limit body log size (and append a hint)
@@ -639,33 +636,6 @@ public class RestService extends HttpServlet {
     return new TypedValueParserImpl();
   }
 
-  /**
-   * 
-   * @param json may be {@code null}
-   * @return
-   * @throws RuntimeException if deserialization fails
-   */
-  protected Map<String, Object> deserialize(String json) {
-    if (json == null) {
-      return null;
-    }
-    return new Gson().fromJson(json, new TypeToken<Map<String, Object>>() { }.getType());
-  }
-  
-  /**
-   * 
-   * @param object may be {@code null}
-   * @param out to write result to
-   * @throws RuntimeException if serialization fails
-   */
-  protected void serialize(Object object, Appendable out) {
-    if (object == null) {
-      return;
-    }
-    new Gson().toJson(object, out);
-  }
-  
-  
   protected Map<String, Object> buildSwaggerSchema(HttpServletRequest request) {
     final String basePath;
     final String title;
