@@ -2,6 +2,8 @@ package org.jepria.server.service.rest;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.Reader;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -9,7 +11,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -327,9 +328,15 @@ public class RestService extends HttpServlet {
 
       final CastMap<String, Object> bodyParams = new CastMapBase(getTypedValueParser());
       
-      try {
-        bodyParams.putAll(deserializeBody(req));
-      } catch (Throwable e) {
+      final Map<String, Object> m;
+      // TODO determine the charset from the request header
+      try (Reader reader = new InputStreamReader(req.getInputStream(), Charset.forName("UTF-8"))) {
+        m = new JsonSerializer().deserialize(reader);
+        
+      } catch (IOException e) {
+        throw new RuntimeException(e);
+        
+      } catch (JsonParseException e) {
         e.printStackTrace();
 
         response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
@@ -339,6 +346,8 @@ public class RestService extends HttpServlet {
         response.flushBuffer();
         return;
       }
+      
+      bodyParams.putAll(m);
 
 
       final Object result;
@@ -415,9 +424,15 @@ public class RestService extends HttpServlet {
 
       final CastMap<String, Object> bodyParams = new CastMapBase(getTypedValueParser());
       
-      try {
-        bodyParams.putAll(deserializeBody(req));
-      } catch (Throwable e) {
+      final Map<String, Object> m;
+      // TODO determine the charset from the request header
+      try (Reader reader = new InputStreamReader(req.getInputStream(), Charset.forName("UTF-8"))) {
+        m = new JsonSerializer().deserialize(reader);
+        
+      } catch (IOException e) {
+        throw new RuntimeException(e);
+        
+      } catch (JsonParseException e) {
         e.printStackTrace();
 
         response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
@@ -427,6 +442,8 @@ public class RestService extends HttpServlet {
         response.flushBuffer();
         return;
       }
+      
+      bodyParams.putAll(m);
 
 
       final Object result;
@@ -565,70 +582,6 @@ public class RestService extends HttpServlet {
       }
     }
 
-    return map;
-  }
-
-  /**
-   * @param req
-   * @return
-   * @throws RuntimeException if parsing fails
-   */
-  protected Map<String, Object> deserializeBody(HttpServletRequest req) {
-    final Map<String, Object> map = new HashMap<>();
-
-    if (req != null) {
-      
-      final String body;
-      {
-        // TODO not recommended to use Scanner for reading InputStreams
-        try (Scanner sc = new Scanner(new InputStreamReader(req.getInputStream(), "UTF-8"))) {// TODO extract charset
-          sc.useDelimiter("\\Z");
-          if (sc.hasNext()) {
-            body = sc.next();
-          } else {
-            body = null;
-          }
-        } catch (RuntimeException e) {
-          throw e;
-        } catch (Throwable e) {
-          throw new RuntimeException(e);
-        }
-      }
-
-      
-      
-      final Map<String, Object> gsonMap;
-      
-      if (body != null && !"".equals(body)) {
-        try {
-          gsonMap = new JsonSerializer().deserialize(body);
-        } catch (Throwable e) {
-          
-          // limit body log size (and append a hint)
-          final String bodyLog; 
-          
-          {
-            final int bodyLogSizeLimit = 10000; // no need to extract constant
-            int bodySize = body.length();
-            if (bodySize > bodyLogSizeLimit) {
-              bodyLog = body.substring(0, bodyLogSizeLimit) + "|... " + bodyLogSizeLimit + " out of " + (bodySize - bodyLogSizeLimit) + " chars displayed";
-            } else {
-              bodyLog = body;
-            }
-          }
-          
-          throw new RuntimeException("Failed to deserialize the request body to JSON: [" + bodyLog + "]", e);
-        }
-        
-      } else {
-        gsonMap = null;
-      }
-
-      if (gsonMap != null) {
-        map.putAll(gsonMap);
-      }
-    }
-    
     return map;
   }
 
