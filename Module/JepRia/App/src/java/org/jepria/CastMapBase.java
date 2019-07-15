@@ -2,6 +2,7 @@ package org.jepria;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 import org.jepria.TypedValueParser.TypedValueParseException;
@@ -9,11 +10,17 @@ import org.jepria.TypedValueParser.TypedValueParseException;
 /**
  * Simple {@link CastMap} implementation that uses a {@link TypedValueParser} to parse values
  */
-public class SimpleCastMap extends HashMap<String, Object> implements CastMap<String, Object> {
+public class CastMapBase extends HashMap<String, Object> implements CastMap<String, Object> {
 
   protected final TypedValueParser parser;
 
-  public SimpleCastMap(TypedValueParser parser) {
+  public CastMapBase(TypedValueParser parser, Map<? extends String, ? extends Object> source) {
+    super(source);
+    Objects.requireNonNull(parser);
+    this.parser = parser;
+  }
+  
+  public CastMapBase(TypedValueParser parser) {
     Objects.requireNonNull(parser);
     this.parser = parser;
   }

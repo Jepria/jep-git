@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.jepria.CastMap;
 import org.jepria.CastMap.CastOnGetException;
-import org.jepria.SimpleCastMap;
+import org.jepria.CastMapBase;
 import org.jepria.TypedValueParser;
 import org.jepria.TypedValueParserImpl;
 import org.jepria.server.service.apispec.ApiSpec;
@@ -235,7 +235,7 @@ public class RestService extends HttpServlet {
         
         final EndpointMethodRouted endpointMethodRouted = endpointMethodsRouted.iterator().next();
         
-        final CastMap<String, Object> queryParams = new SimpleCastMap(getTypedValueParser());
+        final CastMap<String, Object> queryParams = new CastMapBase(getTypedValueParser());
   
         try {
           queryParams.putAll(deserializeUrlParams(req));
@@ -310,7 +310,7 @@ public class RestService extends HttpServlet {
       
       final EndpointMethodRouted endpointMethodRouted = endpointMethodsRouted.iterator().next();
 
-      final CastMap<String, Object> queryParams = new SimpleCastMap(getTypedValueParser());
+      final CastMap<String, Object> queryParams = new CastMapBase(getTypedValueParser());
 
       try {
         queryParams.putAll(deserializeUrlParams(req));
@@ -325,7 +325,7 @@ public class RestService extends HttpServlet {
         return;
       }
 
-      final CastMap<String, Object> bodyParams = new SimpleCastMap(getTypedValueParser());
+      final CastMap<String, Object> bodyParams = new CastMapBase(getTypedValueParser());
       
       try {
         bodyParams.putAll(deserializeBody(req));
@@ -398,7 +398,7 @@ public class RestService extends HttpServlet {
       
       final EndpointMethodRouted endpointMethodRouted = endpointMethodsRouted.iterator().next();
 
-      final CastMap<String, Object> queryParams = new SimpleCastMap(getTypedValueParser());
+      final CastMap<String, Object> queryParams = new CastMapBase(getTypedValueParser());
 
       try {
         queryParams.putAll(deserializeUrlParams(req));
@@ -413,7 +413,7 @@ public class RestService extends HttpServlet {
         return;
       }
 
-      final CastMap<String, Object> bodyParams = new SimpleCastMap(getTypedValueParser());
+      final CastMap<String, Object> bodyParams = new CastMapBase(getTypedValueParser());
       
       try {
         bodyParams.putAll(deserializeBody(req));
@@ -486,7 +486,7 @@ public class RestService extends HttpServlet {
       
       final EndpointMethodRouted endpointMethodRouted = endpointMethodsRouted.iterator().next();
 
-      final CastMap<String, Object> queryParams = new SimpleCastMap(getTypedValueParser());
+      final CastMap<String, Object> queryParams = new CastMapBase(getTypedValueParser());
 
       try {
         queryParams.putAll(deserializeUrlParams(req));
