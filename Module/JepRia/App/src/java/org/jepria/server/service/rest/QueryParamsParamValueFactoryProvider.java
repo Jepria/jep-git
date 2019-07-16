@@ -61,9 +61,11 @@ public class QueryParamsParamValueFactoryProvider extends AbstractValueFactoryPr
         if (validatorClass != null && (Class<?>)validatorClass != (Class<?>)QueryParams.VoidValidator.class) {
           factory.injectValidator(validatorClass);
         }
+        return factory;
+        
       } else {
         throw new IllegalArgumentException(
-            "The parameter type [" + parameterClass + "] is not supported "
+            "The parameter type [" + parameterClass.getCanonicalName() + "] is not supported "
                 + "for the [" + QueryParams.class.getCanonicalName() + "] annotation");
       }
     }
