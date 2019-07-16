@@ -36,7 +36,7 @@ public class BodyParamsParamValueFactoryProvider extends AbstractValueFactoryPro
   @Inject
   public BodyParamsParamValueFactoryProvider(MultivaluedParameterExtractorProvider mpep,
       ServiceLocator locator) {
-    super(mpep, locator, Parameter.Source.UNKNOWN);
+    super(mpep, locator, Parameter.Source.ENTITY);
   }
 
   @Override

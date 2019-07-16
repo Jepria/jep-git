@@ -33,7 +33,7 @@ public class QueryParamsParamValueFactoryProvider extends AbstractValueFactoryPr
   @Inject
   public QueryParamsParamValueFactoryProvider(MultivaluedParameterExtractorProvider mpep,
       ServiceLocator locator) {
-    super(mpep, locator, Parameter.Source.UNKNOWN);
+    super(mpep, locator, Parameter.Source.QUERY);
   }
 
   @Override
