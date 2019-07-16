@@ -1,7 +1,7 @@
 package org.jepria.server.service.rest;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ValidatorEngine<T> {
   
@@ -20,25 +20,15 @@ public class ValidatorEngine<T> {
     }
   }
   
-  protected class InvalidParameter {
-    public final Object invalidValue;
-    public final String message;
-    
-    public InvalidParameter(Object invalidValue, String message) {
-      this.invalidValue = invalidValue;
-      this.message = message;
-    }
-  }
-  
   public void validate(T target) throws ValidationException {
     if (validator != null) {
       
-      final Map<String, InvalidParameter> invalidParams = new HashMap<>();
+      final List<InvalidParameter> invalidParams = new ArrayList<>();
       
       final ValidationContext context = new ValidationContext() {
         @Override
         public void invalidParameter(String name, Object invalidValue, String message) {
-          invalidParams.put(name, new InvalidParameter(invalidValue, message));
+          invalidParams.add(new InvalidParameter(null, name, invalidValue, message));
         }
       };
       
@@ -46,9 +36,9 @@ public class ValidatorEngine<T> {
       
       if (!valid) {
         if (invalidParams.isEmpty()) {
-          throw new ValidationException("One or more parameter value is invalid");
+          throw new ValidationException();
         } else {
-          throw new ValidationException("Invalid parameter values: " + invalidParams.keySet());
+          throw new ValidationException(invalidParams);
         }
       }
     }
