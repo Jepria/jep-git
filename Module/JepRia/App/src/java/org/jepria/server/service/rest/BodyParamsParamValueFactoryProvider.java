@@ -46,31 +46,29 @@ public class BodyParamsParamValueFactoryProvider extends AbstractValueFactoryPro
     if (annotation != null) {
       // annotation is present
       
+      final ValidatingParamValueFactory<? extends Map<String, ?>> factory;
+      
       if (org.jepria.CastMap.class.isAssignableFrom(parameterClass)) {
-        CastMapFactory factory = new CastMapFactory();
-        // inject validator
-        @SuppressWarnings("unchecked")
-        Class<Validator<CastMap<String, Object>>> validatorClass = (Class<Validator<CastMap<String, Object>>>)annotation.validator();
-        if (validatorClass != null && (Class<?>)validatorClass != (Class<?>)BodyParams.VoidValidator.class) {
-          factory.injectValidator(validatorClass);
-        }
-        return factory;
+        factory = new CastMapFactory();
         
       } else if (java.util.Map.class.isAssignableFrom(parameterClass)) {
-        MapFactory factory = new MapFactory();
-        // inject validator
-        @SuppressWarnings("unchecked")
-        Class<Validator<Map<String, Object>>> validatorClass = (Class<Validator<Map<String, Object>>>)annotation.validator();
-        if (validatorClass != null && (Class<?>)validatorClass != (Class<?>)BodyParams.VoidValidator.class) {
-          factory.injectValidator(validatorClass);
-        }
-        return factory;
+        factory = new MapFactory();
         
       } else {
         throw new IllegalArgumentException(
             "The parameter type [" + parameterClass.getCanonicalName() + "] is not supported "
                 + "for the [" + BodyParams.class.getCanonicalName() + "] annotation");
       }
+      
+      
+      // inject validator
+      Class<? extends Validator<? super Map<String, ?>>> validatorClass = annotation.validator();
+      if (validatorClass != null && validatorClass != BodyParams.VoidValidator.class) {
+        factory.injectValidator(validatorClass);
+      }
+      
+      return factory;
+      
     }
     return null;
   }

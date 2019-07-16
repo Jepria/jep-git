@@ -3,8 +3,9 @@ package org.jepria.server.service.rest;
 import org.glassfish.jersey.server.internal.inject.AbstractContainerRequestValueFactory;
 
 /**
- * An {@link AbstractContainerRequestValueFactory} that validates parameter map
- * @param <T>
+ * An {@link AbstractContainerRequestValueFactory} that validates values 
+ * with an injected {@link Validator}
+ * @param <T> value type
  */
 public abstract class ValidatingParamValueFactory<T> extends AbstractContainerRequestValueFactory<T> {
   
@@ -16,7 +17,11 @@ public abstract class ValidatingParamValueFactory<T> extends AbstractContainerRe
     }
   }
   
-  public void injectValidator(Class<Validator<T>> validatorClass) {
+  /**
+   * Injects a {@link Validator} for validating the values
+   * @param validatorClass
+   */
+  public void injectValidator(Class<? extends Validator<? super T>> validatorClass) {
     this.validatorEngine = new ValidatorEngine<>(validatorClass);
   }
 }

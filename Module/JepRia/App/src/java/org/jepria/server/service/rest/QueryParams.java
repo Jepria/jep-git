@@ -14,8 +14,7 @@ import java.util.Map;
 @Target(ElementType.PARAMETER)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface QueryParams {
-  // exactly that generic declaration necessary
-  Class<? extends Validator<? extends Map<String, ?>>> validator() default VoidValidator.class;
+  Class<? extends Validator<? super Map<String, ?>>> validator() default VoidValidator.class;
   
   public static final class VoidValidator implements Validator<Map<String, ?>> {
     @Override
