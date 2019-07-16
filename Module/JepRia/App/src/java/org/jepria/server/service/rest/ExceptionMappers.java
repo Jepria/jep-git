@@ -26,8 +26,12 @@ public class ExceptionMappers {
         }
       }
       
+      StringBuilder sb = new StringBuilder();
+      new JsonSerializer().serialize(invalidParamMap, sb);
+      String entity = sb.toString();
+      
       return Response.status(Response.Status.BAD_REQUEST)
-          .entity(invalidParamMap)
+          .entity(entity)
           .type("application/json;charset=UTF-8").build();
     }
   }
