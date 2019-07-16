@@ -25,6 +25,8 @@ import org.jepria.TypedValueParserImpl;
 
 /**
  * A ValueFactoryProvider for the parameters annotated with {@link QueryParams}.
+ * 
+ * @see Doc/App/jersey-custom-method-parameter-injection
  */
 public class QueryParamsParamValueFactoryProvider extends AbstractValueFactoryProvider {
 
