@@ -7,6 +7,7 @@ public class ApplicationConfigBase extends ResourceConfig {
   public ApplicationConfigBase() {
     register(new QueryParamsParamValueFactoryProvider.Binder());
     register(new BodyParamsParamValueFactoryProvider.Binder());
+    // exception mappers
     register(new ExceptionMappers.Validation());
     register(new ExceptionMappers.JsonParse());
   }

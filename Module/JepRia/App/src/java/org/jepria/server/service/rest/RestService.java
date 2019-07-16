@@ -328,7 +328,7 @@ public class RestService extends HttpServlet {
 
       final CastMap<String, Object> bodyParams = new CastMapBase(getTypedValueParser());
       
-      final Map<String, Object> m;
+      final Map<String, ?> m;
       // TODO determine the charset from the request header
       try (Reader reader = new InputStreamReader(req.getInputStream(), Charset.forName("UTF-8"))) {
         m = new JsonSerializer().deserialize(reader);
@@ -424,7 +424,7 @@ public class RestService extends HttpServlet {
 
       final CastMap<String, Object> bodyParams = new CastMapBase(getTypedValueParser());
       
-      final Map<String, Object> m;
+      final Map<String, ?> m;
       // TODO determine the charset from the request header
       try (Reader reader = new InputStreamReader(req.getInputStream(), Charset.forName("UTF-8"))) {
         m = new JsonSerializer().deserialize(reader);

@@ -3,20 +3,17 @@ package org.jepria.server.service.rest;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.jepria.server.service.rest.Validator.Context;
-
 public class ValidatorEngine<T> {
   
-  protected final Validator<T> validator;
+  protected final Validator<? super T> validator; 
 
-  public ValidatorEngine(Validator<T> validator) {
+  public ValidatorEngine(Validator<? super T> validator) { 
     this.validator = validator;
   }
   
-  public ValidatorEngine(Class<Validator<T>> validatorClass) {
+  public ValidatorEngine(Class<? extends Validator<? super T>> validatorClass) { 
     if (validatorClass != null) {
-      @SuppressWarnings("unchecked")
-      Validator<T> validator = (Validator<T>)newValidatorInstance(validatorClass); 
+      Validator<? super T> validator = newValidatorInstance(validatorClass); 
       this.validator = validator;
     } else {
       this.validator = null;
@@ -38,7 +35,7 @@ public class ValidatorEngine<T> {
       
       final Map<String, InvalidParameter> invalidParams = new HashMap<>();
       
-      final Validator.Context context = new Context() {
+      final ValidationContext context = new ValidationContext() {
         @Override
         public void invalidParameter(String name, Object invalidValue, String message) {
           invalidParams.put(name, new InvalidParameter(invalidValue, message));
@@ -57,7 +54,7 @@ public class ValidatorEngine<T> {
     }
   }
   
-  protected Validator<?> newValidatorInstance(Class<? extends Validator<?>> validatorClass) {
+  protected Validator<? super T> newValidatorInstance(Class<? extends Validator<? super T>> validatorClass) { 
     try {
       return validatorClass.newInstance();
     } catch (InstantiationException e) {

@@ -42,37 +42,32 @@ public class QueryParamsParamValueFactoryProvider extends AbstractValueFactoryPr
     
     if (annotation != null) {
       // annotation is present
-      final ValidatingParamValueFactory<? extends Map<String, Object>> factory;
       
       if (org.jepria.CastMap.class.isAssignableFrom(parameterClass)) {
-        factory = new CastMapFactory();
+        CastMapFactory factory = new CastMapFactory();
+        // inject validator
+        @SuppressWarnings("unchecked")
+        Class<Validator<CastMap<String, Object>>> validatorClass = (Class<Validator<CastMap<String, Object>>>)annotation.validator();
+        if (validatorClass != null && (Class<?>)validatorClass != (Class<?>)QueryParams.VoidValidator.class) {
+          factory.injectValidator(validatorClass);
+        }
+        return factory;
+        
       } else if (java.util.Map.class.isAssignableFrom(parameterClass)) {
-        factory = new MapFactory();
+        MapFactory factory = new MapFactory();
+        // inject validator
+        @SuppressWarnings("unchecked")
+        Class<Validator<Map<String, Object>>> validatorClass = (Class<Validator<Map<String, Object>>>)annotation.validator();
+        if (validatorClass != null && (Class<?>)validatorClass != (Class<?>)QueryParams.VoidValidator.class) {
+          factory.injectValidator(validatorClass);
+        }
       } else {
         throw new IllegalArgumentException(
             "The parameter type [" + parameterClass + "] is not supported "
                 + "for the [" + QueryParams.class.getCanonicalName() + "] annotation");
       }
-      
-      // inject validator
-      Class<? extends Validator<?>> validatorClass = annotation.validator();
-      factory.injectValidator(validatorClass);
-      
-      return factory;
     }
     return null;
-  }
-  
-  protected <T> Validator<T> newValidatorInstance(Class<? extends Validator<? extends T>> validatorClass) {
-    try {
-      @SuppressWarnings("unchecked")
-      Validator<T> validator = (Validator<T>)validatorClass.newInstance(); 
-      return validator;
-    } catch (InstantiationException e) {
-      throw new RuntimeException(e);
-    } catch (IllegalAccessException e) {
-      throw new RuntimeException(e);
-    }
   }
   
   public static class QueryParamsParamInjectionResolver extends ParamInjectionResolver<QueryParams> {

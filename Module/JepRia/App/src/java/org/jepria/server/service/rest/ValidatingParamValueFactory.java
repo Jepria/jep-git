@@ -8,7 +8,7 @@ import org.glassfish.jersey.server.internal.inject.AbstractContainerRequestValue
  */
 public abstract class ValidatingParamValueFactory<T> extends AbstractContainerRequestValueFactory<T> {
   
-  protected ValidatorEngine<T> validatorEngine = null;
+  protected ValidatorEngine<? super T> validatorEngine = null;
   
   protected void validate(T target) {
     if (validatorEngine != null) {
@@ -16,12 +16,7 @@ public abstract class ValidatingParamValueFactory<T> extends AbstractContainerRe
     }
   }
   
-  public void injectValidator(Class<? extends Validator<?>> validatorClass) {
-    if (validatorClass != null 
-        && (Class<?>)validatorClass != (Class<?>)Validator.Void.class) {
-      @SuppressWarnings("unchecked")
-      Class<Validator<T>> validatorClass0 = (Class<Validator<T>>)validatorClass;
-      this.validatorEngine = new ValidatorEngine<>(validatorClass0);
-    }
+  public void injectValidator(Class<Validator<T>> validatorClass) {
+    this.validatorEngine = new ValidatorEngine<>(validatorClass);
   }
 }
