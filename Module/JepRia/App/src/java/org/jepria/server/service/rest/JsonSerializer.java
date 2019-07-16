@@ -14,7 +14,7 @@ public class JsonSerializer {
    * @return {@code null} for {@code null} 
    * @throws JsonParseException if deserialization fails
    */
-  public Map<String, ?> deserialize(String json) throws JsonParseException {
+  public Map<String, Object> deserialize(String json) throws JsonParseException {
     if (json == null) {
       return null;
     }
@@ -22,7 +22,7 @@ public class JsonSerializer {
     final Gson gson = new Gson();
     
     try {
-      return gson.fromJson(json, new TypeToken<Map<String, ?>>() { }.getType());
+      return gson.fromJson(json, new TypeToken<Map<String, Object>>() { }.getType());
       
     } catch (IllegalStateException | JsonSyntaxException e) {
       // Note: do not catch Throwable, catch particular common exceptions instead
@@ -35,7 +35,7 @@ public class JsonSerializer {
    * @return {@code null} for {@code null} 
    * @throws JsonParseException if deserialization fails
    */
-  public Map<String, ?> deserialize(Reader reader) throws JsonParseException {
+  public Map<String, Object> deserialize(Reader reader) throws JsonParseException {
     if (reader == null) {
       return null;
     }
@@ -43,7 +43,7 @@ public class JsonSerializer {
     final Gson gson = new Gson();
     
     try (Reader r = reader) {
-      return gson.fromJson(reader, new TypeToken<Map<String, ?>>() { }.getType());
+      return gson.fromJson(reader, new TypeToken<Map<String, Object>>() { }.getType());
       
     } catch (IllegalStateException | JsonSyntaxException e) {
       // Note: do not catch Throwable, catch particular common exceptions instead

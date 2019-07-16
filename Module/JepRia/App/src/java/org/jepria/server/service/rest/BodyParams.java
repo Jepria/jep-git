@@ -8,19 +8,11 @@ import java.util.Map;
 
 /**
  * Binds a HTTP entity body parsed into a JSON tree to a resource method parameter.
- * The annotated parameter must be of either {@link java.util.Map} or {@link org.jepria.CastMap} type.
- * The annotated method parameter is not {@code null}, but at least an empty map. 
+ * The annotated parameter must be of either {@link java.util.Map} or {@link org.jepria.CastMap} type. 
  */
 @Target(ElementType.PARAMETER)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface BodyParams {
   // exactly that generic declaration necessary
-  Class<? extends Validator<? extends Map<String, ?>>> validator() default VoidValidator.class;
-  
-  public static final class VoidValidator implements Validator<Map<String, ?>> {
-    @Override
-    public boolean validate(Map<String, ?> value, ValidationContext context) {
-      return true;
-    }
-  }
+  Class<? extends Validator<? extends Map<String, ?>>> validator() default Validator.Void.class;
 }

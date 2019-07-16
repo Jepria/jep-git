@@ -45,30 +45,23 @@ public class BodyParamsParamValueFactoryProvider extends AbstractValueFactoryPro
     
     if (annotation != null) {
       // annotation is present
+      final ValidatingParamValueFactory<?> factory;
       
       if (org.jepria.CastMap.class.isAssignableFrom(parameterClass)) {
-        CastMapFactory factory = new CastMapFactory();
-        // inject validator
-        @SuppressWarnings("unchecked")
-        Class<Validator<CastMap<String, Object>>> validatorClass = (Class<Validator<CastMap<String, Object>>>)annotation.validator();
-        if (validatorClass != null && (Class<?>)validatorClass != (Class<?>)BodyParams.VoidValidator.class) {
-          factory.injectValidator(validatorClass);
-        }
-        return factory;
-        
+        factory = new CastMapFactory();
       } else if (java.util.Map.class.isAssignableFrom(parameterClass)) {
-        MapFactory factory = new MapFactory();
-        // inject validator
-        @SuppressWarnings("unchecked")
-        Class<Validator<Map<String, Object>>> validatorClass = (Class<Validator<Map<String, Object>>>)annotation.validator();
-        if (validatorClass != null && (Class<?>)validatorClass != (Class<?>)BodyParams.VoidValidator.class) {
-          factory.injectValidator(validatorClass);
-        }
+        factory = new MapFactory();
       } else {
         throw new IllegalArgumentException(
             "The parameter type [" + parameterClass + "] is not supported "
                 + "for the [" + BodyParams.class.getCanonicalName() + "] annotation");
       }
+      
+      // inject validator
+      Class<? extends Validator<?>> validatorClass = annotation.validator();
+      factory.injectValidator(validatorClass);
+      
+      return factory;
     }
     return null;
   }
@@ -120,7 +113,7 @@ public class BodyParamsParamValueFactoryProvider extends AbstractValueFactoryPro
     public CastMap<String, Object> provide() {
       final CastMap<String, Object> params = creator.get();
 
-      final Map<String, ?> m;
+      final Map<String, Object> m;
       // TODO determine the charset from the request header
       try (Reader reader = new InputStreamReader(getContainerRequest().getEntityStream(), Charset.forName("UTF-8"))) {
         m = new JsonSerializer().deserialize(reader);
@@ -170,7 +163,7 @@ public class BodyParamsParamValueFactoryProvider extends AbstractValueFactoryPro
     public Map<String, Object> provide() {
       final Map<String, Object> params = creator.get();
 
-      final Map<String, ?> m;
+      final Map<String, Object> m;
       // TODO determine the charset from the request header
       try (Reader reader = new InputStreamReader(getContainerRequest().getEntityStream(), Charset.forName("UTF-8"))) {
         m = new JsonSerializer().deserialize(reader);
