@@ -3,6 +3,7 @@ package org.jepria.server.service.rest;
 import javax.ws.rs.ext.ExceptionMapper;
 
 import org.glassfish.jersey.server.ResourceConfig;
+import org.jepria.CastMap;
 
 public class ApplicationConfigBase extends ResourceConfig {
   
@@ -18,6 +19,9 @@ public class ApplicationConfigBase extends ResourceConfig {
     if ((em = createExceptionMapper(JsonParseException.class)) != null) {
       register(em);
     }
+    if ((em = createExceptionMapper(CastMap.CastOnGetException.class)) != null) {
+      register(em);
+    }
   }
   
   /**
@@ -31,6 +35,9 @@ public class ApplicationConfigBase extends ResourceConfig {
     }
     if (exceptionClass == JsonParseException.class) {
       return (ExceptionMapper<T>) new ExceptionMappers.JsonParse();
+    }
+    if (exceptionClass == CastMap.CastOnGetException.class) {
+      return (ExceptionMapper<T>) new ExceptionMappers.CastOnGet();
     }
     return null;
   }
