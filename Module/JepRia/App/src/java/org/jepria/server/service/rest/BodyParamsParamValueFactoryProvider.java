@@ -17,6 +17,7 @@ import org.glassfish.hk2.api.InjectionResolver;
 import org.glassfish.hk2.api.ServiceLocator;
 import org.glassfish.hk2.api.TypeLiteral;
 import org.glassfish.hk2.utilities.binding.AbstractBinder;
+import org.glassfish.jersey.server.internal.inject.AbstractContainerRequestValueFactory;
 import org.glassfish.jersey.server.internal.inject.AbstractValueFactoryProvider;
 import org.glassfish.jersey.server.internal.inject.MultivaluedParameterExtractorProvider;
 import org.glassfish.jersey.server.internal.inject.ParamInjectionResolver;
@@ -36,7 +37,7 @@ public class BodyParamsParamValueFactoryProvider extends AbstractValueFactoryPro
   @Inject
   public BodyParamsParamValueFactoryProvider(MultivaluedParameterExtractorProvider mpep,
       ServiceLocator locator) {
-    super(mpep, locator, Parameter.Source.ENTITY);
+    super(mpep, locator, Parameter.Source.UNKNOWN);
   }
 
   @Override
@@ -48,30 +49,19 @@ public class BodyParamsParamValueFactoryProvider extends AbstractValueFactoryPro
     if (annotation != null) {
       // annotation is present
       
-      final ValidatingParamValueFactory<? extends Map<String, ?>> factory;
-      
       if (org.jepria.CastMap.class.isAssignableFrom(parameterClass)) {
-        factory = new CastMapFactory();
+        return new CastMapFactory();
         
       } else if (java.util.Map.class.isAssignableFrom(parameterClass)) {
-        factory = new MapFactory();
+        return new MapFactory();
         
       } else {
         throw new IllegalArgumentException(
             "The parameter type [" + parameterClass.getCanonicalName() + "] is not supported "
                 + "for the [" + BodyParams.class.getCanonicalName() + "] annotation");
       }
-      
-      
-      // inject validator
-      Class<? extends Validator<? super Map<String, ?>>> validatorClass = annotation.validator();
-      if (validatorClass != null && validatorClass != BodyParams.VoidValidator.class) {
-        factory.injectValidator(validatorClass);
-      }
-      
-      return factory;
-      
     }
+    
     return null;
   }
   
@@ -99,7 +89,7 @@ public class BodyParamsParamValueFactoryProvider extends AbstractValueFactoryPro
     } 
   }
 
-  protected class CastMapFactory extends ValidatingParamValueFactory<CastMap<String, Object>> {
+  protected class CastMapFactory extends AbstractContainerRequestValueFactory<CastMap<String, Object>> {
 
     /**
      * @param creator creates new instances. Not {@code null}, must not return {@code null} 
@@ -140,8 +130,6 @@ public class BodyParamsParamValueFactoryProvider extends AbstractValueFactoryPro
         });
       }
       
-      validate(params);
-
       return params; 
     }
 
@@ -149,7 +137,7 @@ public class BodyParamsParamValueFactoryProvider extends AbstractValueFactoryPro
     public void dispose(CastMap<String, Object> t) { }
   }
 
-  protected class MapFactory extends ValidatingParamValueFactory<Map<String, Object>> {
+  protected class MapFactory extends AbstractContainerRequestValueFactory<Map<String, Object>> {
 
     /**
      * @param creator creates new instances. Not {@code null}, must not return {@code null} 
@@ -189,8 +177,6 @@ public class BodyParamsParamValueFactoryProvider extends AbstractValueFactoryPro
         });
       }
       
-      validate(params);
-
       return params; 
     }
 

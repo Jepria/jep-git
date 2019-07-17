@@ -44,6 +44,7 @@
   	<pathelement location="${JERSEY-JERSEY-COMMON_LIB}" />
     <pathelement location="${JERSEY-HK2-API_LIB}" />
     <pathelement location="${JERSEY-JAVAX-INJECT_LIB}" />
+  	<pathelement location="${JERSEY-VALIDATION-API_LIB}" />
   	
   </path>
 	
