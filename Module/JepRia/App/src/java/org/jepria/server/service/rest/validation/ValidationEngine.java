@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.validation.ClockProvider;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import javax.validation.ConstraintViolation;
@@ -128,6 +129,12 @@ public class ValidationEngine {
       // TODO Auto-generated method stub
       return null;
     }
+    
+    @Override
+    public ClockProvider getClockProvider() {
+      // TODO Auto-generated method stub
+      return null;
+    }
 
     protected abstract class ConstraintViolationBuilderImpl implements ConstraintValidatorContext.ConstraintViolationBuilder {
 
@@ -159,6 +166,13 @@ public class ValidationEngine {
         // TODO Auto-generated method stub
         return null;
       }
+      
+      @Override
+      public ContainerElementNodeBuilderCustomizableContext addContainerElementNode(String arg0, Class<?> arg1,
+          Integer arg2) {
+        // TODO Auto-generated method stub
+        return null;
+      }
 
       @Override
       public NodeBuilderCustomizableContext addPropertyNode(String name) {
@@ -174,7 +188,7 @@ public class ValidationEngine {
       }
 
       private abstract class NodeBuilderCustomizableContextImpl implements 
-      ConstraintValidatorContext.ConstraintViolationBuilder.NodeBuilderCustomizableContext {
+          ConstraintValidatorContext.ConstraintViolationBuilder.NodeBuilderCustomizableContext {
 
         @Override
         public LeafNodeBuilderCustomizableContext addBeanNode() {
@@ -196,6 +210,19 @@ public class ValidationEngine {
 
         @Override
         public NodeContextBuilder inIterable() {
+          // TODO Auto-generated method stub
+          return null;
+        }
+        
+        @Override
+        public ContainerElementNodeBuilderCustomizableContext addContainerElementNode(String arg0, Class<?> arg1,
+            Integer arg2) {
+          // TODO Auto-generated method stub
+          return null;
+        }
+        
+        @Override
+        public NodeBuilderCustomizableContext inContainer(Class<?> arg0, Integer arg1) {
           // TODO Auto-generated method stub
           return null;
         }

@@ -9,8 +9,8 @@ import org.jepria.CastMap;
 public class ApplicationConfigBase extends ResourceConfig {
   
   public ApplicationConfigBase() {
-    register(new QueryParamsParamValueFactoryProvider.Binder());
-    register(new BodyParamsParamValueFactoryProvider.Binder());
+    register(QueryParamsFeature.class);
+    register(BodyParamsFeature.class);
     register(new ConfiguredValidatorImpl.Binder());
     
     
