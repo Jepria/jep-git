@@ -26,6 +26,14 @@ public class ApplicationConfigBase extends ResourceConfig {
     if ((em = createExceptionMapper(CastMap.CastOnGetException.class)) != null) {
       register(em);
     }
+    
+    
+    // Note:
+    // Некоторые исключения (например, org.glassfish.jersey.message.internal.MessageBodyProviderNotFoundException
+    // при преобразовании возвращаемого значения метода в HTTP Response) могут по каким-то причинам не логироваться, 
+    // таким образом сложно обнаружить причину статуса 500.
+    // Чтобы этого избежать, регистрируем логирующий ExceptionMapper для любого Throwable.
+    register(new ExceptionMappers.Logging());
   }
   
   /**

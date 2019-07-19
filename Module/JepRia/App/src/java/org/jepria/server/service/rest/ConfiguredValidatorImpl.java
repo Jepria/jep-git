@@ -20,6 +20,11 @@ import org.jepria.server.service.rest.validation.ValidatorImpl;
 
 public class ConfiguredValidatorImpl extends ValidatorImpl implements ConfiguredValidator {
 
+  /* 
+   * Example of @Inject-annotated field binding (source code): 
+   * org.glassfish.jersey.internal.ExceptionMapperFactory.Binder,
+   * org.glassfish.jersey.internal.JaxrsProviders#mappers
+   */
   public static class Binder extends AbstractBinder {
     @Override
     protected void configure() {
