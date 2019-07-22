@@ -1,10 +1,12 @@
 package org.jepria.server.service.rest;
 
+import javax.json.bind.JsonbException;
 import javax.validation.ConstraintViolationException;
 import javax.ws.rs.ext.ExceptionMapper;
 
 import org.glassfish.jersey.server.ResourceConfig;
 import org.jepria.CastMap;
+import org.jepria.server.service.rest.gson.JsonBindingProvider;
 
 public class ApplicationConfigBase extends ResourceConfig {
   
@@ -13,6 +15,7 @@ public class ApplicationConfigBase extends ResourceConfig {
     register(BodyParamsFeature.class);
     register(new ConfiguredValidatorImpl.Binder());
     
+    register(JsonBindingProvider.class);
     
     
     // register exception mappers
@@ -20,7 +23,7 @@ public class ApplicationConfigBase extends ResourceConfig {
     if ((em = createExceptionMapper(ConstraintViolationException.class)) != null) {
       register(em);
     }
-    if ((em = createExceptionMapper(JsonParseException.class)) != null) {
+    if ((em = createExceptionMapper(JsonbException.class)) != null) {
       register(em);
     }
     if ((em = createExceptionMapper(CastMap.CastOnGetException.class)) != null) {
@@ -45,8 +48,8 @@ public class ApplicationConfigBase extends ResourceConfig {
     if (exceptionClass == ConstraintViolationException.class) {
       return (ExceptionMapper<T>) new ExceptionMappers.ConstraintViolationMapper();
     }
-    if (exceptionClass == JsonParseException.class) {
-      return (ExceptionMapper<T>) new ExceptionMappers.JsonParse();
+    if (exceptionClass == JsonbException.class) {
+      return (ExceptionMapper<T>) new ExceptionMappers.Jsonb();
     }
     if (exceptionClass == CastMap.CastOnGetException.class) {
       return (ExceptionMapper<T>) new ExceptionMappers.CastOnGet();

@@ -3,6 +3,7 @@ package org.jepria.server.service.rest;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.lang.reflect.Type;
 import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.Map;
@@ -21,6 +22,7 @@ import org.glassfish.jersey.server.spi.internal.ValueParamProvider;
 import org.jepria.CastMap;
 import org.jepria.CastMapBase;
 import org.jepria.TypedValueParserImpl;
+import org.jepria.server.service.rest.gson.DefaultGsonBuilder;
 
 /**
  * Feature supports annotating resource method parameters with {@link BodyParams} annotation.
@@ -103,7 +105,7 @@ public class BodyParamsFeature implements Feature {
         final Map<String, ?> m;
         // TODO determine the charset from the request header
         try (Reader reader = new InputStreamReader(request.getEntityStream(), Charset.forName("UTF-8"))) {
-          m = new JsonSerializer().deserialize(reader);
+          m = new DefaultGsonBuilder().build().fromJson(reader, (Type)new HashMap<String, Object>().getClass());
           
         } catch (IOException e) {
           throw new RuntimeException(e);
@@ -149,7 +151,7 @@ public class BodyParamsFeature implements Feature {
         final Map<String, ?> m;
         // TODO determine the charset from the request header
         try (Reader reader = new InputStreamReader(request.getEntityStream(), Charset.forName("UTF-8"))) {
-          m = new JsonSerializer().deserialize(reader);
+          m = new DefaultGsonBuilder().build().fromJson(reader, (Type)new HashMap<String, Object>().getClass());
           
         } catch (IOException e) {
           throw new RuntimeException(e);

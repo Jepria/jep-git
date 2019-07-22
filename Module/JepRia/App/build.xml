@@ -45,6 +45,7 @@
     <pathelement location="${JERSEY-HK2-API_LIB}" />
     <pathelement location="${JERSEY-JAKARTA-INJECT_LIB}" />
   	<pathelement location="${JERSEY-VALIDATION-API_LIB}" />
+  	<pathelement location="${JERSEY-JAKARTA-JSON-BIND-API_LIB}" />
   	
   </path>
 	

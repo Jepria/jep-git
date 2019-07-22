@@ -1,16 +1,19 @@
 package org.jepria.server.service.rest;
 
+import java.io.StringWriter;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.json.bind.JsonbException;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
 
 import org.jepria.CastMap;
+import org.jepria.server.service.rest.gson.DefaultGsonBuilder;
 import org.jepria.server.service.rest.validation.ConstraintViolationBase;
 import org.jepria.server.service.rest.validation.PathBase;
 
@@ -63,9 +66,9 @@ public class ExceptionMappers {
       responseMap.put("invalidParams", invalidParamsMap);
     }
     
-    StringBuilder sb = new StringBuilder();
-    new JsonSerializer().serialize(responseMap, sb);
-    String entity = sb.toString();
+    StringWriter sw = new StringWriter();
+    new DefaultGsonBuilder().build().toJson(responseMap, sw);
+    String entity = sw.toString();
     
     return Response.status(Response.Status.BAD_REQUEST)
         .entity(entity)
@@ -87,9 +90,9 @@ public class ExceptionMappers {
     }      
   }
   
-  public static class JsonParse implements ExceptionMapper<JsonParseException> {
+  public static class Jsonb implements ExceptionMapper<JsonbException> {
     @Override
-    public Response toResponse(JsonParseException e) {
+    public Response toResponse(JsonbException e) {
       return Response.status(Response.Status.BAD_REQUEST)
           .entity(e.getClass().getCanonicalName() + ": " + e.getMessage())
           .type("text/plain;charset=UTF-8").build();

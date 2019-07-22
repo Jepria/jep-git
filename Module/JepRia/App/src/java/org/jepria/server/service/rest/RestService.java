@@ -3,6 +3,8 @@ package org.jepria.server.service.rest;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.io.StringWriter;
+import java.lang.reflect.Type;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -14,6 +16,7 @@ import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.json.bind.JsonbException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -26,6 +29,7 @@ import org.jepria.TypedValueParserImpl;
 import org.jepria.server.service.apispec.ApiSpec;
 import org.jepria.server.service.apispec.Response;
 import org.jepria.server.service.apispec.TypeDeployer;
+import org.jepria.server.service.rest.gson.DefaultGsonBuilder;
 
 // В прикладной реализации сервиса регистрируются всевозможные эндпоинт-методы (или сущности целиком).
 // Преимущества перед императивным подходом: решена проблема с выдачей 404 ошибки если запросили незарегистрированную сущность,
@@ -207,9 +211,9 @@ public class RestService extends HttpServlet {
     if ("/swagger.json".equals(path)) {
       
       Map<String, Object> swaggerJsonMap = buildSwaggerSchema(req);
-      StringBuilder sb = new StringBuilder();
-      new JsonSerializer().serialize(swaggerJsonMap, sb);
-      String swaggerJson = sb.toString();
+      StringWriter sw = new StringWriter();
+      new DefaultGsonBuilder().build().toJson(swaggerJsonMap, sw);
+      String swaggerJson = sw.toString();
       
       if (swaggerJson != null) {
         response.setContentType("applcation/json");
@@ -277,7 +281,7 @@ public class RestService extends HttpServlet {
           response.setStatus(HttpServletResponse.SC_OK);
           response.setContentType("application/json");
           response.setCharacterEncoding("UTF-8");
-          new JsonSerializer().serialize(result, response.getWriter());
+          new DefaultGsonBuilder().build().toJson(result, response.getWriter());
           response.flushBuffer();
           return;
           
@@ -331,12 +335,12 @@ public class RestService extends HttpServlet {
       final Map<String, ?> m;
       // TODO determine the charset from the request header
       try (Reader reader = new InputStreamReader(req.getInputStream(), Charset.forName("UTF-8"))) {
-        m = new JsonSerializer().deserialize(reader);
+        m = new DefaultGsonBuilder().build().fromJson(reader, (Type)new HashMap<String, Object>().getClass());
         
       } catch (IOException e) {
         throw new RuntimeException(e);
         
-      } catch (JsonParseException e) {
+      } catch (JsonbException e) {
         e.printStackTrace();
 
         response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
@@ -374,7 +378,7 @@ public class RestService extends HttpServlet {
         response.setStatus(HttpServletResponse.SC_OK);
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-        new JsonSerializer().serialize(result, response.getWriter());
+        new DefaultGsonBuilder().build().toJson(result, response.getWriter());
         response.flushBuffer();
         return;
         
@@ -427,12 +431,12 @@ public class RestService extends HttpServlet {
       final Map<String, ?> m;
       // TODO determine the charset from the request header
       try (Reader reader = new InputStreamReader(req.getInputStream(), Charset.forName("UTF-8"))) {
-        m = new JsonSerializer().deserialize(reader);
+        m = new DefaultGsonBuilder().build().fromJson(reader, (Type)new HashMap<String, Object>().getClass());
         
       } catch (IOException e) {
         throw new RuntimeException(e);
         
-      } catch (JsonParseException e) {
+      } catch (JsonbException e) {
         e.printStackTrace();
 
         response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
@@ -470,7 +474,7 @@ public class RestService extends HttpServlet {
         response.setStatus(HttpServletResponse.SC_OK);
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-        new JsonSerializer().serialize(result, response.getWriter());
+        new DefaultGsonBuilder().build().toJson(result, response.getWriter());
         response.flushBuffer();
         return;
         
@@ -544,7 +548,7 @@ public class RestService extends HttpServlet {
         response.setStatus(HttpServletResponse.SC_OK);
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-        new JsonSerializer().serialize(result, response.getWriter());
+        new DefaultGsonBuilder().build().toJson(result, response.getWriter());
         response.flushBuffer();
         return;
         
