@@ -115,3 +115,8 @@ com.technology.jep.jepria.shared.time
 com.technology.jep.jepria.shared.util
 com.technology.jep.test.reporter
 com.technology.jep.test.util
+org.jepria
+org.jepria.server.service.apispec
+org.jepria.server.service.rest
+org.jepria.server.service.rest.gson
+org.jepria.server.service.rest.validation
