@@ -37,6 +37,16 @@
     <pathelement location="${OJDBC6DMS_LIB}" />
   	
   	<pathelement location="${SSO-UTILS_LIB}" />
+  	
+  	<!-- REST/JAX-RS -->
+  	<pathelement location="${JERSEY-JAKARTA-WS-RS-API_LIB}" />
+  	<pathelement location="${JERSEY-JERSEY-SERVER_LIB}" />
+  	<pathelement location="${JERSEY-JERSEY-COMMON_LIB}" />
+    <pathelement location="${JERSEY-HK2-API_LIB}" />
+    <pathelement location="${JERSEY-JAKARTA-INJECT_LIB}" />
+  	<pathelement location="${JERSEY-VALIDATION-API_LIB}" />
+  	<pathelement location="${JERSEY-JAKARTA-JSON-BIND-API_LIB}" />
+  	
   </path>
 	
 	<path id="jepria-versionizer-libs">
