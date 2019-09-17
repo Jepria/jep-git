@@ -11,4 +11,7 @@ public class ${form.formName?cap_first}AutomationConstant {
     </#list>
   public static final String ${form.formName?upper_case}_MAXROWCOUNT_FIELD = "${form.formName?upper_case}_MAXROWCOUNT_FIELD";
   </#if>
+  <#if form.sortListFormFields?has_content>
+  public static final String ${form.formName?upper_case}_GRID_ID = "${form.formName?upper_case}_GRID_ID";
+  </#if>
 }

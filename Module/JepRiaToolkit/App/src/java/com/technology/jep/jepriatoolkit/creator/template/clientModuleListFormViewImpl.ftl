@@ -4,6 +4,7 @@ import static ${packagePrefix?lower_case}.${packageName?lower_case}.${moduleName
 <#assign import = "">
 <#list form.sortListFormFields as field>
 <#if field_index == 0>
+import static ${packagePrefix?lower_case}.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.client.${form.formName}AutomationConstant.${form.formName?upper_case}_GRID_ID;
 import static ${packagePrefix?lower_case}.${packageName?lower_case}.${moduleName?lower_case}.${form.formName?lower_case}.client.${form.formName}ClientConstant.${form.formName?uncap_first}Text;
 </#if>
 <#if field.isDateType || field.isTimeType || field.isDateTimeType || field.isBooleanType || field.isIntegerType || field.isBigDecimalType>
@@ -23,7 +24,7 @@ import com.technology.jep.jepria.client.widget.list.JepColumn;
 public class ${form.formName}ListFormViewImpl extends StandardListFormViewImpl { 
   
   public ${form.formName}ListFormViewImpl() {
-    super(${form.formName}ListFormViewImpl.class.getCanonicalName());
+    super(${form.formName}ListFormViewImpl.class.getCanonicalName(), ${form.formName?upper_case}_GRID_ID);
   }
   
   @Override
