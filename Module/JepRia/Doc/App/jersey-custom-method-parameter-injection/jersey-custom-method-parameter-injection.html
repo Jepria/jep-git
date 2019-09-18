@@ -1,0 +1,1532 @@
+<!DOCTYPE html>
+<!-- saved from url=(0084)https://psamsotha.github.io/jersey/2015/11/01/jersey-method-parameter-injection.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- favicon stuff -->
+  <link rel="apple-touch-icon" sizes="180x180" href="https://psamsotha.github.io/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="https://psamsotha.github.io/favicon-32x32.png" sizes="32x32">
+  <link rel="icon" type="image/png" href="https://psamsotha.github.io/favicon-16x16.png" sizes="16x16">
+  <link rel="manifest" href="https://psamsotha.github.io/manifest.json">
+  <link rel="mask-icon" href="https://psamsotha.github.io/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="apple-mobile-web-app-title" content="Peeskillet">
+  <meta name="application-name" content="Peeskillet">
+  <meta name="theme-color" content="#ffffff">
+  <!-- end favicon -->
+
+  <title>
+    jersey - 
+    Custom Method Parameter Injection with Jersey
+  </title>
+  <meta name="description" content="How we can use custom annotation injection for method parameters of our resource methods in Jersey.">
+
+  <link rel="stylesheet" href="./jersey-custom-method-parameter-injection_files/main.css">
+  <link rel="canonical" href="https://psamsotha.github.io/jersey/2015/11/01/jersey-method-parameter-injection.html">
+  <link rel="alternate" type="application/rss+xml" title="Paul Samsotha Blog" href="https://psamsotha.github.io/feed.xml">
+
+  <script type="text/javascript" async="" src="./jersey-custom-method-parameter-injection_files/pinit_main.js.Без названия"></script><script src="./jersey-custom-method-parameter-injection_files/sdk.js.Без названия" async="" crossorigin="anonymous"></script><script src="./jersey-custom-method-parameter-injection_files/cb=gapi.loaded_1" async=""></script><script src="./jersey-custom-method-parameter-injection_files/cb=gapi.loaded_0" async=""></script><script id="facebook-jssdk" src="./jersey-custom-method-parameter-injection_files/sdk.js(1).Без названия"></script><script async="" src="./jersey-custom-method-parameter-injection_files/analytics.js.Без названия"></script><script async="" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <script>
+    (adsbygoogle = window.adsbygoogle || []).push({
+      google_ad_client: "ca-pub-5723433679253306",
+      enable_page_level_ads: true
+    });
+  </script>
+  <!-- Google Analytics -->
+  
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-89168307-1', 'auto');
+    ga('send', 'pageview');
+  </script>
+  
+<script src="./jersey-custom-method-parameter-injection_files/embed.js.Без названия" data-timestamp="1563287606168"></script><meta class="foundation-mq"><link rel="preload" as="style" href="https://c.disquscdn.com/next/embed/styles/lounge.90bbe7dd462e64a6c99045d2dadef75c.css"><link rel="preload" as="script" href="https://c.disquscdn.com/next/embed/common.bundle.4f78a44956523083e2be1589c3559f2b.js"><link rel="preload" as="script" href="https://c.disquscdn.com/next/embed/lounge.bundle.ea36f75b54a9a94de9a101cd1513ac52.js"><link rel="preload" as="script" href="https://disqus.com/next/config.js"><style type="text/css"> span.PIN_1563287607366_embed_grid { 
+  width: 100%;
+  max-width: 257px;
+  min-width: 140px;
+  display: inline-block;
+  box-shadow: inset 0 0 1px #000;
+  border-radius: 5px;
+  overflow: hidden;
+  font: 12px "Helvetica Neue", Helvetica, arial, sans-serif;
+  color: rgb(54, 54, 54);
+  box-sizing: border-box;
+  background: #fff;
+  cursor: pointer;
+  -webkit-font-smoothing: antialiased;
+}
+ span.PIN_1563287607366_embed_grid * { 
+  display: block;
+  position: relative;
+  font: inherit;
+  cursor: inherit;
+  color: inherit;
+  box-sizing: inherit;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+}
+ span.PIN_1563287607366_embed_grid .PIN_1563287607366_hd { 
+  height: 55px;
+}
+ span.PIN_1563287607366_embed_grid .PIN_1563287607366_hd .PIN_1563287607366_img { 
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  height: 36px;
+  width: 36px;
+  border-radius: 18px;
+  background: transparent url () 0 0 no-repeat;
+  background-size: cover;
+}
+ span.PIN_1563287607366_embed_grid .PIN_1563287607366_hd .PIN_1563287607366_pinner { 
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 75%;
+  position: absolute;
+  top: 20px;
+  left: 56px;
+  font-size: 14px;
+  font-weight: bold;
+}
+ span.PIN_1563287607366_embed_grid .PIN_1563287607366_bd { 
+  padding: 0 10px;
+  -moz-scrollbars: none;
+  -ms-overflow-style: none;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+ span.PIN_1563287607366_embed_grid .PIN_1563287607366_bd .PIN_1563287607366_ct { 
+  width: 100%;
+  height: auto;
+}
+ span.PIN_1563287607366_embed_grid .PIN_1563287607366_bd .PIN_1563287607366_ct .PIN_1563287607366_col { 
+  display: inline-block;
+  width: 100%;
+  padding: 1px;
+  vertical-align: top;
+  min-width: 60px;
+}
+ span.PIN_1563287607366_embed_grid .PIN_1563287607366_bd .PIN_1563287607366_ct .PIN_1563287607366_col .PIN_1563287607366_img { 
+  margin: 0;
+  display: inline-block;
+  width: 100%;
+  background: transparent url() 0 0 no-repeat;
+  background-size: cover;
+  box-shadow: inset 0 0 1px #000;
+  border-radius: 2px;
+}
+ span.PIN_1563287607366_embed_grid .PIN_1563287607366_ft { 
+  padding: 11px;
+}
+ span.PIN_1563287607366_embed_grid .PIN_1563287607366_ft .PIN_1563287607366_button { 
+  border-radius: 3px;
+  text-align: center;
+  box-shadow: inset 0 0 1px #888;
+  background-color: #efefef;
+  position: relative;
+  display: block;
+  overflow: hidden;
+  height: 33px;
+  width: 100%;
+  min-width: 70px;
+  padding: 0 3px;
+}
+ span.PIN_1563287607366_embed_grid .PIN_1563287607366_ft .PIN_1563287607366_button .PIN_1563287607366_label { 
+  position: absolute;
+  left: 0;
+  width: 100%;
+  text-align: center;
+}
+ span.PIN_1563287607366_embed_grid .PIN_1563287607366_ft .PIN_1563287607366_button .PIN_1563287607366_label.PIN_1563287607366_top { 
+  top: 0;
+}
+ span.PIN_1563287607366_embed_grid .PIN_1563287607366_ft .PIN_1563287607366_button .PIN_1563287607366_label.PIN_1563287607366_bottom { 
+  bottom: 0;
+}
+ span.PIN_1563287607366_embed_grid .PIN_1563287607366_ft .PIN_1563287607366_button .PIN_1563287607366_label .PIN_1563287607366_string { 
+  white-space: pre;
+  color: #746d6a;
+  font-size: 13px;
+  font-weight: bold;
+  vertical-align: top;
+  display: inline-block;
+  height: 33px;
+  line-height: 33px;
+}
+ span.PIN_1563287607366_embed_grid .PIN_1563287607366_ft .PIN_1563287607366_button .PIN_1563287607366_label .PIN_1563287607366_logo { 
+  display: inline-block;
+  vertical-align: bottom;
+  height: 32px;
+  width: 80px;
+  background: transparent url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMTJweCIgd2lkdGg9IjUwcHgiIHZpZXdCb3g9IjAgMCA1MCAxMiI+PGc+PHBhdGggZD0iTTE5LjY5LDkuMjggTDE5LjY5LDQuMjggTDIxLjI3LDQuMjggTDIxLjI3LDkuMjggTDE5LjY5LDkuMjggWiBNNS45NywwLjAwIEM5LjI3LDAuMDAgMTEuOTUsMi42OSAxMS45NSw2LjAwIEMxMS45NSw5LjMxIDkuMjcsMTIuMDAgNS45NywxMi4wMCBDNS4zOCwxMi4wMCA0LjgwLDExLjkxIDQuMjYsMTEuNzUgQzQuMjYsMTEuNzUgNC4yNiwxMS43NSA0LjI2LDExLjc1IEM0LjI1LDExLjc1IDQuMjQsMTEuNzQgNC4yMywxMS43NCBMNC4yMSwxMS43MyBDNC4yMSwxMS43MyA0LjIxLDExLjczIDQuMjEsMTEuNzMgQzQuNDUsMTEuMzMgNC44MSwxMC42OCA0Ljk1LDEwLjE2IEM1LjAyLDkuODggNS4zMiw4LjczIDUuMzIsOC43MyBDNS41Miw5LjExIDYuMDgsOS40MiA2LjY5LDkuNDIgQzguNDksOS40MiA5Ljc5LDcuNzYgOS43OSw1LjY5IEM5Ljc5LDMuNzEgOC4xOCwyLjIzIDYuMTEsMi4yMyBDMy41MywyLjIzIDIuMTYsMy45NiAyLjE2LDUuODYgQzIuMTYsNi43NCAyLjYzLDcuODMgMy4zNyw4LjE4IEMzLjQ5LDguMjMgMy41NSw4LjIxIDMuNTcsOC4xMCBDMy41OSw4LjAyIDMuNjksNy42MSAzLjc0LDcuNDIgQzMuNzUsNy4zNiAzLjc1LDcuMzEgMy43MCw3LjI1IEMzLjQ1LDYuOTUgMy4yNSw2LjM5IDMuMjUsNS44OCBDMy4yNSw0LjU1IDQuMjUsMy4yNyA1Ljk1LDMuMjcgQzcuNDIsMy4yNyA4LjQ1LDQuMjggOC40NSw1LjcxIEM4LjQ1LDcuMzQgNy42Myw4LjQ2IDYuNTcsOC40NiBDNS45OCw4LjQ2IDUuNTQsNy45OCA1LjY4LDcuMzggQzUuODUsNi42NyA2LjE4LDUuOTAgNi4xOCw1LjM4IEM2LjE4LDQuOTIgNS45Myw0LjU0IDUuNDIsNC41NCBDNC44Miw0LjU0IDQuMzQsNS4xNiA0LjM0LDUuOTkgQzQuMzQsNi41MiA0LjUyLDYuODggNC41Miw2Ljg4IEM0LjUyLDYuODggMy45Myw5LjQwIDMuODIsOS44NyBDMy43MCwxMC4zOCAzLjc1LDExLjExIDMuODAsMTEuNTkgTDMuODAsMTEuNTkgQzMuNzksMTEuNTkgMy43OCwxMS41OCAzLjc4LDExLjU4IEMzLjc3LDExLjU4IDMuNzYsMTEuNTggMy43NiwxMS41NyBDMy43NiwxMS41NyAzLjc2LDExLjU3IDMuNzYsMTEuNTcgQzEuNTYsMTAuNjkgMC4wMCw4LjUzIDAuMDAsNi4wMCBDMC4wMCwyLjY5IDIuNjcsMC4wMCA1Ljk3LDAuMDAgWiBNMTYuODcsMi4zMSBDMTcuNzEsMi4zMSAxOC4zNCwyLjU0IDE4Ljc2LDIuOTUgQzE5LjIxLDMuMzcgMTkuNDYsMy45NiAxOS40Niw0LjY2IEMxOS40Niw2LjAwIDE4LjU0LDYuOTUgMTcuMTEsNi45NSBMMTUuNzIsNi45NSBMMTUuNzIsOS4yOCBMMTQuMTIsOS4yOCBMMTQuMTIsMi4zMSBMMTYuODcsMi4zMSBaIE0xNi45NCw1LjU4IEMxNy41Niw1LjU4IDE3LjkxLDUuMjEgMTcuOTEsNC42NSBDMTcuOTEsNC4xMCAxNy41NSwzLjc2IDE2Ljk0LDMuNzYgTDE1LjcyLDMuNzYgTDE1LjcyLDUuNTggTDE2Ljk0LDUuNTggWiBNNTAuMDAsNS4yOCBMNDkuMTksNS4yOCBMNDkuMTksNy42MiBDNDkuMTksOC4wMSA0OS40MCw4LjExIDQ5Ljc0LDguMTEgQzQ5LjgzLDguMTEgNDkuOTMsOC4xMCA1MC4wMCw4LjEwIEw1MC4wMCw5LjI4IEM0OS44NCw5LjMxIDQ5LjU4LDkuMzMgNDkuMjIsOS4zMyBDNDguMzAsOS4zMyA0Ny42NCw5LjAzIDQ3LjY0LDcuOTYgTDQ3LjY0LDUuMjggTDQ3LjE2LDUuMjggTDQ3LjE2LDQuMjggTDQ3LjY0LDQuMjggTDQ3LjY0LDIuNzAgTDQ5LjE5LDIuNzAgTDQ5LjE5LDQuMjggTDUwLjAwLDQuMjggTDUwLjAwLDUuMjggWiBNNDUuMzEsNi4xMyBDNDYuMTgsNi4yNyA0Ny4yMSw2LjUwIDQ3LjIxLDcuNzcgQzQ3LjIxLDguODcgNDYuMjUsOS40MyA0NC45NSw5LjQzIEM0My41NSw5LjQzIDQyLjY1LDguODEgNDIuNTQsNy43OCBMNDQuMDUsNy43OCBDNDQuMTUsOC4yMCA0NC40Niw4LjQwIDQ0Ljk0LDguNDAgQzQ1LjQyLDguNDAgNDUuNzIsOC4yMiA0NS43Miw3LjkwIEM0NS43Miw3LjQ1IDQ1LjEyLDcuNDAgNDQuNDYsNy4yOSBDNDMuNTksNy4xNCA0Mi42Nyw2LjkxIDQyLjY3LDUuNzQgQzQyLjY3LDQuNjggNDMuNjQsNC4xNCA0NC44Miw0LjE0IEM0Ni4yMiw0LjE0IDQ2Ljk4LDQuNzUgNDcuMDYsNS43NCBMNDUuNjAsNS43NCBDNDUuNTQsNS4yOSA0NS4yNCw1LjE1IDQ0LjgwLDUuMTUgQzQ0LjQyLDUuMTUgNDQuMTIsNS4zMCA0NC4xMiw1LjYxIEM0NC4xMiw1Ljk2IDQ0LjY4LDYuMDEgNDUuMzEsNi4xMyBaIE0yMC40OCwyLjAwIEMyMS4wMCwyLjAwIDIxLjQzLDIuNDIgMjEuNDMsMi45NSBDMjEuNDMsMy40OCAyMS4wMCwzLjkwIDIwLjQ4LDMuOTAgQzE5Ljk1LDMuOTAgMTkuNTMsMy40OCAxOS41MywyLjk1IEMxOS41MywyLjQyIDE5Ljk1LDIuMDAgMjAuNDgsMi4wMCBaIE0yOC40OCw3LjYyIEMyOC40OCw4LjAxIDI4LjcwLDguMTEgMjkuMDQsOC4xMSBDMjkuMTAsOC4xMSAyOS4xOCw4LjEwIDI5LjI0LDguMTAgTDI5LjI0LDkuMjkgQzI5LjA4LDkuMzEgMjguODMsOS4zMyAyOC41Miw5LjMzIEMyNy42MCw5LjMzIDI2Ljk0LDkuMDMgMjYuOTQsNy45NiBMMjYuOTQsNS4yOCBMMjYuNDIsNS4yOCBMMjYuNDIsNC4yOCBMMjYuOTQsNC4yOCBMMjYuOTQsMi43MCBMMjguNDgsMi43MCBMMjguNDgsNC4yOCBMMjkuMjQsNC4yOCBMMjkuMjQsNS4yOCBMMjguNDgsNS4yOCBMMjguNDgsNy42MiBaIE0yNC42OSw0LjE0IEMyNS43Nyw0LjE0IDI2LjQxLDQuOTIgMjYuNDEsNi4wMyBMMjYuNDEsOS4yOCBMMjQuODMsOS4yOCBMMjQuODMsNi4zNSBDMjQuODMsNS44MiAyNC41Nyw1LjQ2IDI0LjA1LDUuNDYgQzIzLjUzLDUuNDYgMjMuMTgsNS45MCAyMy4xOCw2LjUyIEwyMy4xOCw5LjI4IEwyMS42MCw5LjI4IEwyMS42MCw0LjI4IEwyMy4xMiw0LjI4IEwyMy4xMiw0Ljk3IEwyMy4xNSw0Ljk3IEMyMy41Miw0LjQzIDI0LjAwLDQuMTQgMjQuNjksNC4xNCBaIE0zMy40Miw0Ljc2IEMzMi45OSw0LjM3IDMyLjQzLDQuMTQgMzEuNzIsNC4xNCBDMzAuMjAsNC4xNCAyOS4xNiw1LjI4IDI5LjE2LDYuNzcgQzI5LjE2LDguMjggMzAuMTcsOS40MiAzMS44MSw5LjQyIEMzMi40NCw5LjQyIDMyLjk1LDkuMjYgMzMuMzcsOC45NiBDMzMuODAsOC42NiAzNC4xMCw4LjIzIDM0LjIwLDcuNzggTDMyLjY2LDcuNzggQzMyLjUyLDguMTAgMzIuMjUsOC4yOCAzMS44Myw4LjI4IEMzMS4xOCw4LjI4IDMwLjgxLDcuODYgMzAuNzIsNy4xOSBMMzQuMjksNy4xOSBDMzQuMzAsNi4xOCAzNC4wMSw1LjMxIDMzLjQyLDQuNzYgTDMzLjQyLDQuNzYgWiBNNDEuNjYsNC43NiBDNDIuMjYsNS4zMSA0Mi41NSw2LjE4IDQyLjU0LDcuMTkgTDM4Ljk3LDcuMTkgQzM5LjA2LDcuODYgMzkuNDMsOC4yOCA0MC4wOCw4LjI4IEM0MC41MCw4LjI4IDQwLjc3LDguMTAgNDAuOTEsNy43OCBMNDIuNDUsNy43OCBDNDIuMzQsOC4yMyA0Mi4wNSw4LjY2IDQxLjYyLDguOTYgQzQxLjIwLDkuMjYgNDAuNjksOS40MiA0MC4wNiw5LjQyIEMzOC40Miw5LjQyIDM3LjQxLDguMjggMzcuNDEsNi43NyBDMzcuNDEsNS4yOCAzOC40NSw0LjE0IDM5Ljk3LDQuMTQgQzQwLjY3LDQuMTQgNDEuMjQsNC4zNyA0MS42Niw0Ljc2IFogTTMwLjczLDYuMjQgQzMwLjgzLDUuNjUgMzEuMTQsNS4yNyAzMS43NSw1LjI3IEMzMi4yNiw1LjI3IDMyLjYzLDUuNjUgMzIuNjksNi4yNCBMMzAuNzMsNi4yNCBaIE0zOC45OCw2LjI0IEw0MC45NCw2LjI0IEM0MC44OCw1LjY1IDQwLjUxLDUuMjcgNDAuMDAsNS4yNyBDMzkuMzksNS4yNyAzOS4wOCw1LjY1IDM4Ljk4LDYuMjQgWiBNMzcuNTQsNC4yMSBMMzcuNTQsNS42MCBDMzYuNjQsNS41MSAzNi4wNyw1Ljk5IDM2LjA3LDcuMDMgTDM2LjA3LDkuMjggTDM0LjQ4LDkuMjggTDM0LjQ4LDQuMjggTDM2LjAwLDQuMjggTDM2LjAwLDUuMDYgTDM2LjAzLDUuMDYgQzM2LjM4LDQuNDcgMzYuNzgsNC4yMSAzNy4zOSw0LjIxIEMzNy40NSw0LjIxIDM3LjUwLDQuMjEgMzcuNTQsNC4yMSBaIiBmaWxsPSIjZTYwMDIzIj48L3BhdGg+PC9nPjwvc3ZnPg==) 50% 50% no-repeat;
+  background-size: contain;
+}
+ span.PIN_1563287607366_embed_grid .PIN_1563287607366_ft .PIN_1563287607366_button:hover { 
+  box-shadow: inset 0 0 1px #000;
+}
+ span.PIN_1563287607366_embed_grid.PIN_1563287607366_noscroll .PIN_1563287607366_bd { 
+  overflow: hidden;
+}
+ span.PIN_1563287607366_embed_grid.PIN_1563287607366_board .PIN_1563287607366_hd .PIN_1563287607366_pinner { 
+  top: 10px;
+}
+ span.PIN_1563287607366_embed_grid.PIN_1563287607366_board .PIN_1563287607366_hd .PIN_1563287607366_board { 
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 75%;
+  position: absolute;
+  bottom: 10px;
+  left: 56px;
+  color: #363636;
+  font-size: 12px;
+}
+ span.PIN_1563287607366_embed_grid.PIN_1563287607366_c2 { 
+  max-width: 494px;
+  min-width: 140px;
+}
+ span.PIN_1563287607366_embed_grid.PIN_1563287607366_c2 .PIN_1563287607366_bd .PIN_1563287607366_ct .PIN_1563287607366_col { 
+  width: 50%;
+}
+ span.PIN_1563287607366_embed_grid.PIN_1563287607366_c3 { 
+  max-width: 731px;
+  min-width: 200px;
+}
+ span.PIN_1563287607366_embed_grid.PIN_1563287607366_c3 .PIN_1563287607366_bd .PIN_1563287607366_ct .PIN_1563287607366_col { 
+  width: 33.33%;
+}
+ span.PIN_1563287607366_embed_grid.PIN_1563287607366_c4 { 
+  max-width: 968px;
+  min-width: 260px;
+}
+ span.PIN_1563287607366_embed_grid.PIN_1563287607366_c4 .PIN_1563287607366_bd .PIN_1563287607366_ct .PIN_1563287607366_col { 
+  width: 25%;
+}
+ span.PIN_1563287607366_embed_grid.PIN_1563287607366_c5 { 
+  max-width: 1205px;
+  min-width: 320px;
+}
+ span.PIN_1563287607366_embed_grid.PIN_1563287607366_c5 .PIN_1563287607366_bd .PIN_1563287607366_ct .PIN_1563287607366_col { 
+  width: 20%;
+}
+ span.PIN_1563287607366_embed_grid.PIN_1563287607366_c6 { 
+  max-width: 1442px;
+  min-width: 380px;
+}
+ span.PIN_1563287607366_embed_grid.PIN_1563287607366_c6 .PIN_1563287607366_bd .PIN_1563287607366_ct .PIN_1563287607366_col { 
+  width: 16.66%;
+}
+ span.PIN_1563287607366_embed_grid.PIN_1563287607366_c7 { 
+  max-width: 1679px;
+  min-width: 440px;
+}
+ span.PIN_1563287607366_embed_grid.PIN_1563287607366_c7 .PIN_1563287607366_bd .PIN_1563287607366_ct .PIN_1563287607366_col { 
+  width: 14.28%;
+}
+ span.PIN_1563287607366_embed_grid.PIN_1563287607366_c8 { 
+  max-width: 1916px;
+  min-width: 500px;
+}
+ span.PIN_1563287607366_embed_grid.PIN_1563287607366_c8 .PIN_1563287607366_bd .PIN_1563287607366_ct .PIN_1563287607366_col { 
+  width: 12.5%;
+}
+ span.PIN_1563287607366_embed_grid.PIN_1563287607366_c9 { 
+  max-width: 2153px;
+  min-width: 560px;
+}
+ span.PIN_1563287607366_embed_grid.PIN_1563287607366_c9 .PIN_1563287607366_bd .PIN_1563287607366_ct .PIN_1563287607366_col { 
+  width: 11.11%;
+}
+ span.PIN_1563287607366_embed_grid.PIN_1563287607366_c10 { 
+  max-width: 2390px;
+  min-width: 620px;
+}
+ span.PIN_1563287607366_embed_grid.PIN_1563287607366_c10 .PIN_1563287607366_bd .PIN_1563287607366_ct .PIN_1563287607366_col { 
+  width: 10%;
+}
+ span.PIN_1563287607366_embed_pin { 
+  width: 100%;
+  min-width: 160px;
+  max-width: 236px;
+  display: inline-block;
+  box-sizing: border-box;
+  box-shadow: inset 0 0 1px #000;
+  border-radius: 5px;
+  overflow: hidden;
+  font: 12px "Helvetica Neue", Helvetica, arial, sans-serif;
+  color: #363636;
+  background: #fff;
+  cursor: pointer;
+  -webkit-font-smoothing: antialiased;
+}
+ span.PIN_1563287607366_embed_pin * { 
+  display: block;
+  position: relative;
+  font: inherit;
+  cursor: inherit;
+  color: inherit;
+  box-sizing: inherit;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+}
+ span.PIN_1563287607366_embed_pin .PIN_1563287607366_bd { 
+  border-bottom: 1px solid rgba(0, 0, 0, 0.09);
+}
+ span.PIN_1563287607366_embed_pin .PIN_1563287607366_bd .PIN_1563287607366_hd { 
+  border-bottom: 1px solid rgba(0, 0, 0, 0.09);
+}
+ span.PIN_1563287607366_embed_pin .PIN_1563287607366_bd .PIN_1563287607366_hd .PIN_1563287607366_container { 
+  width: 100%;
+}
+ span.PIN_1563287607366_embed_pin .PIN_1563287607366_bd .PIN_1563287607366_hd .PIN_1563287607366_container .PIN_1563287607366_img,  span.PIN_1563287607366_embed_pin .PIN_1563287607366_bd .PIN_1563287607366_hd .PIN_1563287607366_container .PIN_1563287607366_iframe,  span.PIN_1563287607366_embed_pin .PIN_1563287607366_bd .PIN_1563287607366_hd .PIN_1563287607366_container .PIN_1563287607366_video { 
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  background: transparent url() 0 0 no-repeat;
+  background-size: cover;
+  border: none;
+}
+ span.PIN_1563287607366_embed_pin .PIN_1563287607366_bd .PIN_1563287607366_hd .PIN_1563287607366_container .PIN_1563287607366_native { 
+  height: 64px;
+  width: 64px;
+  background: transparent url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iNjNweCIgd2lkdGg9IjYzcHgiIHZpZXdCb3g9IjAgMCA2NCA2NCI+PGc+PHBhdGggZD0iTSAzMiAzMiBtIC0zMiwgMCBhIDMxLCAzMSAwIDEsIDAgNjMsIDAgYSAzMSwgMzEgMCAxLDAgLTYzLCAwIHoiIGZpbGw9IiMwMDAiPjwvcGF0aD48cGF0aCBkPSJNIDI1IDE5IEwgNDggMzIgIEwgMjUgNDUgWiIgZmlsbD0iI2ZmZiI+PC9wYXRoPjwvZz48L3N2Zz4=) 0 0 no-repeat;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -32px;
+  margin-left: -32px;
+  opacity: .75;
+}
+ span.PIN_1563287607366_embed_pin .PIN_1563287607366_bd .PIN_1563287607366_hd .PIN_1563287607366_container .PIN_1563287607366_control { 
+  width: 50px;
+  height: 24px;
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  background: rgba(0, 0, 0, .4);
+  color: #fff;
+  box-shadow: 0 0 2px rgba(0, 0, 0, .2);
+  border: 2px solid rgba(255, 255, 255, .68);
+  border-radius: 13px;
+}
+ span.PIN_1563287607366_embed_pin .PIN_1563287607366_bd .PIN_1563287607366_hd .PIN_1563287607366_container .PIN_1563287607366_control.PIN_1563287607366_paused::after,  span.PIN_1563287607366_embed_pin .PIN_1563287607366_bd .PIN_1563287607366_hd .PIN_1563287607366_container .PIN_1563287607366_control.PIN_1563287607366_playing::after { 
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  font-size: 10px;
+  line-height: 19px;
+  white-space: pre;
+  font-weight: bold;
+  font-style: normal;
+  text-align: center;
+}
+ span.PIN_1563287607366_embed_pin .PIN_1563287607366_bd .PIN_1563287607366_hd .PIN_1563287607366_container .PIN_1563287607366_control.PIN_1563287607366_paused::after { 
+  content: "▶ GIF";
+}
+ span.PIN_1563287607366_embed_pin .PIN_1563287607366_bd .PIN_1563287607366_hd .PIN_1563287607366_container .PIN_1563287607366_control.PIN_1563287607366_playing::after { 
+  content: "❙ ❙ GIF";
+}
+ span.PIN_1563287607366_embed_pin .PIN_1563287607366_bd .PIN_1563287607366_hd .PIN_1563287607366_repin { 
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  height: 28px;
+  width: auto;
+  color: #fff;
+  background: #e60023 url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMzBweCIgd2lkdGg9IjMwcHgiIHZpZXdCb3g9Ii0xIC0xIDMxIDMxIj48Zz48cGF0aCBkPSJNMjkuNDQ5LDE0LjY2MiBDMjkuNDQ5LDIyLjcyMiAyMi44NjgsMjkuMjU2IDE0Ljc1LDI5LjI1NiBDNi42MzIsMjkuMjU2IDAuMDUxLDIyLjcyMiAwLjA1MSwxNC42NjIgQzAuMDUxLDYuNjAxIDYuNjMyLDAuMDY3IDE0Ljc1LDAuMDY3IEMyMi44NjgsMC4wNjcgMjkuNDQ5LDYuNjAxIDI5LjQ0OSwxNC42NjIiIGZpbGw9IiNmZmYiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIxIj48L3BhdGg+PHBhdGggZD0iTTE0LjczMywxLjY4NiBDNy41MTYsMS42ODYgMS42NjUsNy40OTUgMS42NjUsMTQuNjYyIEMxLjY2NSwyMC4xNTkgNS4xMDksMjQuODU0IDkuOTcsMjYuNzQ0IEM5Ljg1NiwyNS43MTggOS43NTMsMjQuMTQzIDEwLjAxNiwyMy4wMjIgQzEwLjI1MywyMi4wMSAxMS41NDgsMTYuNTcyIDExLjU0OCwxNi41NzIgQzExLjU0OCwxNi41NzIgMTEuMTU3LDE1Ljc5NSAxMS4xNTcsMTQuNjQ2IEMxMS4xNTcsMTIuODQyIDEyLjIxMSwxMS40OTUgMTMuNTIyLDExLjQ5NSBDMTQuNjM3LDExLjQ5NSAxNS4xNzUsMTIuMzI2IDE1LjE3NSwxMy4zMjMgQzE1LjE3NSwxNC40MzYgMTQuNDYyLDE2LjEgMTQuMDkzLDE3LjY0MyBDMTMuNzg1LDE4LjkzNSAxNC43NDUsMTkuOTg4IDE2LjAyOCwxOS45ODggQzE4LjM1MSwxOS45ODggMjAuMTM2LDE3LjU1NiAyMC4xMzYsMTQuMDQ2IEMyMC4xMzYsMTAuOTM5IDE3Ljg4OCw4Ljc2NyAxNC42NzgsOC43NjcgQzEwLjk1OSw4Ljc2NyA4Ljc3NywxMS41MzYgOC43NzcsMTQuMzk4IEM4Ljc3NywxNS41MTMgOS4yMSwxNi43MDkgOS43NDksMTcuMzU5IEM5Ljg1NiwxNy40ODggOS44NzIsMTcuNiA5Ljg0LDE3LjczMSBDOS43NDEsMTguMTQxIDkuNTIsMTkuMDIzIDkuNDc3LDE5LjIwMyBDOS40MiwxOS40NCA5LjI4OCwxOS40OTEgOS4wNCwxOS4zNzYgQzcuNDA4LDE4LjYyMiA2LjM4NywxNi4yNTIgNi4zODcsMTQuMzQ5IEM2LjM4NywxMC4yNTYgOS4zODMsNi40OTcgMTUuMDIyLDYuNDk3IEMxOS41NTUsNi40OTcgMjMuMDc4LDkuNzA1IDIzLjA3OCwxMy45OTEgQzIzLjA3OCwxOC40NjMgMjAuMjM5LDIyLjA2MiAxNi4yOTcsMjIuMDYyIEMxNC45NzMsMjIuMDYyIDEzLjcyOCwyMS4zNzkgMTMuMzAyLDIwLjU3MiBDMTMuMzAyLDIwLjU3MiAxMi42NDcsMjMuMDUgMTIuNDg4LDIzLjY1NyBDMTIuMTkzLDI0Ljc4NCAxMS4zOTYsMjYuMTk2IDEwLjg2MywyNy4wNTggQzEyLjA4NiwyNy40MzQgMTMuMzg2LDI3LjYzNyAxNC43MzMsMjcuNjM3IEMyMS45NSwyNy42MzcgMjcuODAxLDIxLjgyOCAyNy44MDEsMTQuNjYyIEMyNy44MDEsNy40OTUgMjEuOTUsMS42ODYgMTQuNzMzLDEuNjg2IiBmaWxsPSIjZTYwMDIzIj48L3BhdGg+PC9nPjwvc3ZnPg==) 5px 50% no-repeat;
+  background-size: 18px 18px;
+  text-indent: 28px;
+  font: 14px/28px "Helvetica Neue", Helvetica, Arial, "sans-serif";
+  font-weight: bold;
+  border-radius: 4px;
+  padding: 0 6px 0 0;
+}
+ span.PIN_1563287607366_embed_pin .PIN_1563287607366_bd .PIN_1563287607366_hd .PIN_1563287607366_repin:hover { 
+  background-color: #e60023;
+  box-shadow: none;
+}
+ span.PIN_1563287607366_embed_pin .PIN_1563287607366_bd .PIN_1563287607366_source { 
+  height: 38px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.09);
+}
+ span.PIN_1563287607366_embed_pin .PIN_1563287607366_bd .PIN_1563287607366_source .PIN_1563287607366_img { 
+  position: absolute;
+  top: 50%;
+  margin-top: -8px;
+  left: 10px;
+  height: 16px;
+  width: 16px;
+  background: transparent url() 0 0 no-repeat;
+  background-size: 16px 16px;
+}
+ span.PIN_1563287607366_embed_pin .PIN_1563287607366_bd .PIN_1563287607366_source .PIN_1563287607366_domain { 
+  line-height: 38px;
+  max-width: 75%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: bold;
+  color: #b9b9b9;
+  position: absolute;
+  top: 0px;
+  left: 35px;
+}
+ span.PIN_1563287607366_embed_pin .PIN_1563287607366_bd .PIN_1563287607366_source.PIN_1563287607366_nofav .PIN_1563287607366_img { 
+  display: none;
+}
+ span.PIN_1563287607366_embed_pin .PIN_1563287607366_bd .PIN_1563287607366_source.PIN_1563287607366_nofav .PIN_1563287607366_domain { 
+  max-width: 85%;
+  left: 10px;
+}
+ span.PIN_1563287607366_embed_pin .PIN_1563287607366_bd .PIN_1563287607366_source .PIN_1563287607366_menu { 
+  height: inherit;
+}
+ span.PIN_1563287607366_embed_pin .PIN_1563287607366_bd .PIN_1563287607366_source .PIN_1563287607366_menu .PIN_1563287607366_toggle { 
+  position: absolute;
+  top: 0;
+  right: 5px;
+  height: inherit;
+  width: 30px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.09);
+  background: #fff url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iNXB4IiB3aWR0aD0iMjBweCIgdmlld0JveD0iMCAwIDIwIDUiPjxnPjxwYXRoIGQ9Ik0xNy41LDUgQzE4Ljg4MSw1IDIwLDMuODgxIDIwLDIuNSBDMjAsMS4xMTkgMTguODgxLDAgMTcuNSwwIEMxNi4xMTksMCAxNSwxLjExOSAxNSwyLjUgQzE1LDMuODgxIDE2LjExOSw1IDE3LjUsNSBaIE0xMCw1IEMxMS4zOCw1IDEyLjUsMy44ODEgMTIuNSwyLjUgQzEyLjUsMS4xMTkgMTEuMzgsMCAxMCwwIEM4LjYyLDAgNy41LDEuMTE5IDcuNSwyLjUgQzcuNSwzLjg4MSA4LjYyLDUgMTAsNSBNMi41LDUgQzMuODgxLDUgNSwzLjg4MSA1LDIuNSBDNSwxLjExOSAzLjg4MSwwIDIuNSwwIEMxLjEyLDAgMCwxLjExOSAwLDIuNSBDMCwzLjg4MSAxLjEyIDUsMi41LDUgWiIgZmlsbD0iI2I1YjViNSI+PC9wYXRoPjwvZz48L3N2Zz4=) 50% 50% no-repeat;
+  background-size: fill;
+}
+ span.PIN_1563287607366_embed_pin .PIN_1563287607366_bd .PIN_1563287607366_source .PIN_1563287607366_menu .PIN_1563287607366_dropdown { 
+  display: none;
+  border-radius: 5px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, .33);
+  font-weight: bold;
+  font-size: 12px;
+  background: #fff;
+  text-align: left;
+  padding: 10px;
+  position: absolute;
+  max-width: 195px;
+  right: 10px;
+  top: 39px;
+  z-index: 1;
+}
+ span.PIN_1563287607366_embed_pin .PIN_1563287607366_bd .PIN_1563287607366_source .PIN_1563287607366_menu .PIN_1563287607366_dropdown::after { 
+  content: "";
+  position: absolute;
+  top: -6px;
+  right: 1px;
+  border-bottom: 8px solid #fff;
+  border-right: 8px solid transparent;
+  border-left: 8px solid transparent;
+}
+ span.PIN_1563287607366_embed_pin .PIN_1563287607366_bd .PIN_1563287607366_source .PIN_1563287607366_menu .PIN_1563287607366_dropdown::before { 
+  content: "";
+  position: absolute;
+  top: -7px;
+  right: 2px;
+  border-bottom: 7px solid #e2e2e2;
+  border-right: 7px solid transparent;
+  border-left: 7px solid transparent;
+}
+ span.PIN_1563287607366_embed_pin .PIN_1563287607366_bd .PIN_1563287607366_description { 
+  font-size: 14px;
+  line-height: 17px;
+  margin: 8px 12px;
+}
+ span.PIN_1563287607366_embed_pin .PIN_1563287607366_bd .PIN_1563287607366_attribution { 
+  height: 22px;
+  margin-top: 5px;
+}
+ span.PIN_1563287607366_embed_pin .PIN_1563287607366_bd .PIN_1563287607366_attribution .PIN_1563287607366_img { 
+  position: absolute;
+  top: 50%;
+  margin-top: -8px;
+  left: 10px;
+  height: 16px;
+  width: 16px;
+  background: transparent url() 0 0 no-repeat;
+  background-size: 16px 16px;
+}
+ span.PIN_1563287607366_embed_pin .PIN_1563287607366_bd .PIN_1563287607366_attribution .PIN_1563287607366_by { 
+  line-height: 22px;
+  max-width: 75%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 11px;
+  font-weight: bold;
+  color: #b9b9b9;
+  position: absolute;
+  top: 0px;
+  left: 35px;
+}
+ span.PIN_1563287607366_embed_pin .PIN_1563287607366_bd .PIN_1563287607366_stats { 
+  height: 24px;
+  line-height: 24px;
+  margin: 0 0 0 10px;
+}
+ span.PIN_1563287607366_embed_pin .PIN_1563287607366_bd .PIN_1563287607366_stats .PIN_1563287607366_repins { 
+  padding-left: 17px;
+  padding-right: 10px;
+  color: #a8a8a8;
+  font-size: 11px;
+  font-weight: bold;
+  display: inline-block;
+  background: transparent url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMTRweCIgd2lkdGg9IjE0cHgiIHZpZXdCb3g9IjAgMCAxNCAxNCI+PGc+PHBhdGggZD0iTTExLjk3OSw2Ljg1OSBMMTMuOTksNS4wMTEgTDExLjI0MSw1LjAxMSBMMTAuNDg2LDAgTDkuNzM5LDUuMDExIEw3LDUuMDExIEw4Ljk4Niw2Ljg1OCBMOC45ODYsMTEuMDE3IEM4LjUwNSwxMC45ODUgOC4xNDMsMTEuMDEyIDguMTQzLDExLjIxMyBDOC4xNDMsMTEuNjg3IDguNTAzLDEyLjAwMSA4Ljk4NiwxMi4wMDEgTDExLjk4MiwxMiBDMTIuNDY1LDEyIDEyLjg4OCwxMS42ODYgMTIuODg4LDExLjIxMyBDMTIuODg4LDExLjAxMSAxMi40NjUsMTAuOTg1IDExLjk4MiwxMS4wMTcgTDExLjk3OSw2Ljg1OSBaIE00Ljk3OSw3LjE0MiBMNi45OSw4Ljk5IEw0LjI0MSw4Ljk5IEwzLjQ4NiwxNC4wMDEgTDIuNzM5LDguOTkgTDAsOC45OSBMMS45ODYsNy4xNDMgTDEuOTg2LDIuOTg0IEMxLjUwNSwzLjAxNiAxLjE0MywyLjk4OSAxLjE0MywyLjc4OCBDMS4xNDMsMi4zMTUgMS41MDMsMiAxLjk4NiwyIEw0Ljk4MiwyLjAwMSBDNS40NjUsMi4wMDEgNS44ODgsMi4zMTUgNS44ODgsMi43ODkgQzUuODg4LDIuOTkgNS40NjUsMy4wMTcgNC45ODIsMi45ODQgTDQuOTc5LDcuMTQyIFoiIGZpbGw9IiNiNWI1YjUiPjwvcGF0aD48L2c+PC9zdmc+) 0 50% no-repeat;
+}
+ span.PIN_1563287607366_embed_pin .PIN_1563287607366_bd .PIN_1563287607366_stats .PIN_1563287607366_done { 
+  padding-left: 15px;
+  padding-right: 10px;
+  color: #a8a8a8;
+  font-size: 11px;
+  font-weight: bold;
+  display: inline-block;
+  background: transparent url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMTJweCIgd2lkdGg9IjEycHgiIHZpZXdCb3g9IjAgMCAxMiAxMiI+PGc+PHBhdGggZD0iTTAsNiBMMiw0IEw1LDcgTDEwLDEgTDEyLDMgTDUsMTEgWiIgZmlsbD0iI2I1YjViNSI+PC9wYXRoPjwvZz48L3N2Zz4=) 0 50% no-repeat;
+}
+ span.PIN_1563287607366_embed_pin .PIN_1563287607366_ft { 
+  height: 50px;
+  margin-right: 10px;
+  overflow: hidden;
+}
+ span.PIN_1563287607366_embed_pin .PIN_1563287607366_ft:after { 
+  content: '-------------------------------------------------------------------------------------';
+  display: block;
+  height: 1px;
+  line-height: 1px;
+  color: #fff;
+}
+ span.PIN_1563287607366_embed_pin .PIN_1563287607366_ft .PIN_1563287607366_img { 
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  height: 30px;
+  width: 30px;
+  border-radius: 30px;
+  background: transparent url() 0 0 no-repeat;
+  background-size: 30px 30px;
+}
+ span.PIN_1563287607366_embed_pin .PIN_1563287607366_ft .PIN_1563287607366_pinner,  span.PIN_1563287607366_embed_pin .PIN_1563287607366_ft  .PIN_1563287607366_board { 
+  position: absolute;
+  left: 50px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 75%;
+}
+ span.PIN_1563287607366_embed_pin .PIN_1563287607366_ft .PIN_1563287607366_pinner { 
+  font-weight: bold;
+  top: 10px;
+}
+ span.PIN_1563287607366_embed_pin .PIN_1563287607366_ft .PIN_1563287607366_board { 
+  bottom: 10px;
+}
+ span.PIN_1563287607366_embed_pin.PIN_1563287607366_ja .PIN_1563287607366_bd .PIN_1563287607366_hd .PIN_1563287607366_repin { 
+  background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMThweCIgd2lkdGg9IjQxcHgiIHZpZXdCb3g9IjAgMCA0MSAxOCI+PGc+PHBhdGggZD0iTTE5LjgyMiw3LjE3MyBDMTkuODIyLDYuNTEgMTkuODM1LDYuMjc2IDE5Ljg4Nyw1Ljk2NCBMMTguMTQ1LDUuOTY0IEMxOC4xOTcsNi4yODkgMTguMTk3LDYuNDk3IDE4LjE5Nyw3LjE2IEwxOC4yMSwxMy4xOTIgQzE4LjIxLDEzLjk0NiAxOC4yMjMsMTQuMTY3IDE4LjI0OSwxNC4zODggQzE4LjMyNywxNS4wMjUgMTguNTIyLDE1LjQ0MSAxOC44ODYsMTUuNzE0IEMxOS4zOTMsMTYuMTA0IDIwLjI5LDE2LjI3MyAyMS45MjgsMTYuMjczIEMyMi43MjEsMTYuMjczIDI0LjM1OSwxNi4xOTUgMjUuMTI2LDE2LjExNyBDMjYuNTA0LDE1Ljk4NyAyNi41NjksMTUuOTc0IDI2Ljg0MiwxNS45NzQgTDI2Ljc2NCwxNC4yNDUgQzI2LjE5MiwxNC40MTQgMjUuOTA2LDE0LjQ3OSAyNS4yODIsMTQuNTU3IEMyNC4zMzMsMTQuNjg3IDIzLjEzNywxNC43NjUgMjIuMjY2LDE0Ljc2NSBDMjEuMDA1LDE0Ljc2NSAyMC4yNjQsMTQuNjQ4IDIwLjA0MywxNC40MjcgQzE5Ljg2MSwxNC4yNDUgMTkuODA5LDEzLjk1OSAxOS44MDksMTMuMjMxIEMxOS44MDksMTMuMTc5IDE5LjgwOSwxMy4xMDEgMTkuODIyLDEzLjAyMyBMMTkuODIyLDExLjMwNyBDMjEuOTkzLDEwLjkwNCAyNC4wMDgsMTAuMjI4IDI1LjkzMiw5LjI0IEwyNi4yNyw5LjA3MSBDMjYuMzc0LDkuMDE5IDI2LjQsOS4wMDYgMjYuNTQzLDguOTU0IEwyNS41MDMsNy40ODUgQzI0LjY1OCw4LjI3OCAyMS43ODUsOS40MzUgMTkuODIyLDkuNzk5IEwxOS44MjIsNy4xNzMgWiBNMjcuMzEsNC44NzIgQzI2LjQ5MSw0Ljg3MiAyNS44MTUsNS41NDggMjUuODE1LDYuMzY3IEMyNS44MTUsNy4xOTkgMjYuNDkxLDcuODc1IDI3LjMxLDcuODc1IEMyOC4xNDIsNy44NzUgMjguODE4LDcuMTk5IDI4LjgxOCw2LjM2NyBDMjguODE4LDUuNTQ4IDI4LjE0Miw0Ljg3MiAyNy4zMSw0Ljg3MiBMMjcuMzEsNC44NzIgWiBNMjcuMzEsNS41MjIgQzI3Ljc5MSw1LjUyMiAyOC4xNjgsNS44OTkgMjguMTY4LDYuMzY3IEMyOC4xNjgsNi44MzUgMjcuNzkxLDcuMjI1IDI3LjMxLDcuMjI1IEMyNi44NDIsNy4yMjUgMjYuNDY1LDYuODM1IDI2LjQ2NSw2LjM2NyBDMjYuNDY1LDUuODk5IDI2Ljg0Miw1LjUyMiAyNy4zMSw1LjUyMiBMMjcuMzEsNS41MjIgWiBNMzAuNTg2LDcuNjU0IEMzMS43OTUsOC4zMyAzMi44NjEsOS4xODggMzMuOTAxLDEwLjI5MyBMMzUuMDE5LDguODc2IEMzNC4wMTgsNy45MjcgMzMuMjEyLDcuMzI5IDMxLjY2NSw2LjM2NyBMMzAuNTg2LDcuNjU0IFogTTMxLjA0MSwxNi4yMzQgQzMxLjM0LDE2LjEzIDMxLjM3OSwxNi4xMTcgMzEuODk5LDE2LjAxMyBDMzMuOTE0LDE1LjU4NCAzNS41MjYsMTQuOTQ3IDM2Ljg1MiwxNC4wNjMgQzM4LjYzMywxMi44OCAzOS44NjgsMTEuMzQ2IDQwLjk3Myw4Ljk2NyBDNDAuMzEsOC40OTkgNDAuMTAyLDguMzA0IDM5LjU5NSw3LjY5MyBDMzkuMjA1LDguNzQ2IDM4Ljg0MSw5LjQ2MSAzOC4yNjksMTAuMjkzIEMzNy4yNDIsMTEuNzc1IDM2LjAzMywxMi43NzYgMzQuNDA4LDEzLjQ3OCBDMzMuMjI1LDEzLjk5OCAzMS42NzgsMTQuMzc1IDMwLjU2LDE0LjQ0IEwzMS4wNDEsMTYuMjM0IFogTTcuNDU4LDAgQzIuNSwwIDAsMy41MjIgMCw2LjQ1OSBDMCw4LjIzNyAwLjY4LDkuODE5IDIuMTM3LDEwLjQwOSBDMi4zNzYsMTAuNTA1IDIuNTksMTAuNDEyIDIuNjYsMTAuMTUgQzIuNzA4LDkuOTY5IDIuODIyLDkuNTExIDIuODczLDkuMzIgQzIuOTQzLDkuMDYxIDIuOTE2LDguOTcgMi43MjMsOC43NDQgQzIuMzAyLDguMjUzIDIuMDM0LDcuNjE3IDIuMDM0LDYuNzE2IEMyLjAzNCw0LjEwNCA0LjAwNywxLjc2NSA3LjE3MiwxLjc2NSBDOS45NzUsMS43NjUgMTEuNTE0LDMuNDYxIDExLjUxNCw1LjcyNiBDMTEuNTE0LDguNzA4IDEwLjE4MywxMS4xOCA4LjIwNiwxMS4xOCBDNy4xMTQsMTEuMTggNi4yOTcsMTAuMzI5IDYuNTU5LDkuMjMzIEM2Ljg3Miw3LjkyMiA3LjQ4LDYuNTA5IDcuNDgsNS41NjQgQzcuNDgsNC43MTcgNy4wMjIsNC4wMTEgNi4wNzIsNC4wMTEgQzQuOTU2LDQuMDExIDQuMDYsNS4xNTUgNC4wNiw2LjY4NyBDNC4wNiw3LjY2MyA0LjM5Myw4LjMyMyA0LjM5Myw4LjMyMyBDNC4zOTMsOC4zMjMgMy4yNTEsMTMuMTE3IDMuMDUxLDEzLjk1NyBDMi42NTIsMTUuNjI5IDIuOTkxLDE3LjY3OSAzLjAxOSwxNy44ODYgQzMuMDM2LDE4LjAwOSAzLjE5NSwxOC4wMzggMy4yNjcsMTcuOTQ2IEMzLjM3LDE3LjgxMiA0LjcsMTYuMTg3IDUuMTUxLDE0LjU2MiBDNS4yNzksMTQuMTAyIDUuODg1LDExLjcyIDUuODg1LDExLjcyIEM2LjI0OCwxMi40MDYgNy4zMDgsMTMuMDA5IDguNDM1LDEzLjAwOSBDMTEuNzksMTMuMDA5IDE0LjA2Niw5Ljk3OSAxNC4wNjYsNS45MjMgQzE0LjA2NiwyLjg1NyAxMS40NDQsMCA3LjQ1OCwwIFoiIGZpbGw9IiNmZmYiPjwvcGF0aD48L2c+PC9zdmc+);
+}
+ span.PIN_1563287607366_embed_pin.PIN_1563287607366_ja .PIN_1563287607366_bd .PIN_1563287607366_hd .PIN_1563287607366_repin.PIN_1563287607366_save { 
+  background: #e60023 url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMzBweCIgd2lkdGg9IjMwcHgiIHZpZXdCb3g9Ii0xIC0xIDMxIDMxIj48Zz48cGF0aCBkPSJNMjkuNDQ5LDE0LjY2MiBDMjkuNDQ5LDIyLjcyMiAyMi44NjgsMjkuMjU2IDE0Ljc1LDI5LjI1NiBDNi42MzIsMjkuMjU2IDAuMDUxLDIyLjcyMiAwLjA1MSwxNC42NjIgQzAuMDUxLDYuNjAxIDYuNjMyLDAuMDY3IDE0Ljc1LDAuMDY3IEMyMi44NjgsMC4wNjcgMjkuNDQ5LDYuNjAxIDI5LjQ0OSwxNC42NjIiIGZpbGw9IiNmZmYiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIxIj48L3BhdGg+PHBhdGggZD0iTTE0LjczMywxLjY4NiBDNy41MTYsMS42ODYgMS42NjUsNy40OTUgMS42NjUsMTQuNjYyIEMxLjY2NSwyMC4xNTkgNS4xMDksMjQuODU0IDkuOTcsMjYuNzQ0IEM5Ljg1NiwyNS43MTggOS43NTMsMjQuMTQzIDEwLjAxNiwyMy4wMjIgQzEwLjI1MywyMi4wMSAxMS41NDgsMTYuNTcyIDExLjU0OCwxNi41NzIgQzExLjU0OCwxNi41NzIgMTEuMTU3LDE1Ljc5NSAxMS4xNTcsMTQuNjQ2IEMxMS4xNTcsMTIuODQyIDEyLjIxMSwxMS40OTUgMTMuNTIyLDExLjQ5NSBDMTQuNjM3LDExLjQ5NSAxNS4xNzUsMTIuMzI2IDE1LjE3NSwxMy4zMjMgQzE1LjE3NSwxNC40MzYgMTQuNDYyLDE2LjEgMTQuMDkzLDE3LjY0MyBDMTMuNzg1LDE4LjkzNSAxNC43NDUsMTkuOTg4IDE2LjAyOCwxOS45ODggQzE4LjM1MSwxOS45ODggMjAuMTM2LDE3LjU1NiAyMC4xMzYsMTQuMDQ2IEMyMC4xMzYsMTAuOTM5IDE3Ljg4OCw4Ljc2NyAxNC42NzgsOC43NjcgQzEwLjk1OSw4Ljc2NyA4Ljc3NywxMS41MzYgOC43NzcsMTQuMzk4IEM4Ljc3NywxNS41MTMgOS4yMSwxNi43MDkgOS43NDksMTcuMzU5IEM5Ljg1NiwxNy40ODggOS44NzIsMTcuNiA5Ljg0LDE3LjczMSBDOS43NDEsMTguMTQxIDkuNTIsMTkuMDIzIDkuNDc3LDE5LjIwMyBDOS40MiwxOS40NCA5LjI4OCwxOS40OTEgOS4wNCwxOS4zNzYgQzcuNDA4LDE4LjYyMiA2LjM4NywxNi4yNTIgNi4zODcsMTQuMzQ5IEM2LjM4NywxMC4yNTYgOS4zODMsNi40OTcgMTUuMDIyLDYuNDk3IEMxOS41NTUsNi40OTcgMjMuMDc4LDkuNzA1IDIzLjA3OCwxMy45OTEgQzIzLjA3OCwxOC40NjMgMjAuMjM5LDIyLjA2MiAxNi4yOTcsMjIuMDYyIEMxNC45NzMsMjIuMDYyIDEzLjcyOCwyMS4zNzkgMTMuMzAyLDIwLjU3MiBDMTMuMzAyLDIwLjU3MiAxMi42NDcsMjMuMDUgMTIuNDg4LDIzLjY1NyBDMTIuMTkzLDI0Ljc4NCAxMS4zOTYsMjYuMTk2IDEwLjg2MywyNy4wNTggQzEyLjA4NiwyNy40MzQgMTMuMzg2LDI3LjYzNyAxNC43MzMsMjcuNjM3IEMyMS45NSwyNy42MzcgMjcuODAxLDIxLjgyOCAyNy44MDEsMTQuNjYyIEMyNy44MDEsNy40OTUgMjEuOTUsMS42ODYgMTQuNzMzLDEuNjg2IiBmaWxsPSIjZTYwMDIzIj48L3BhdGg+PC9nPjwvc3ZnPg==) 5px 50% no-repeat;
+  background-size: 16px 16px;
+}
+ span.PIN_1563287607366_embed_pin.PIN_1563287607366_medium { 
+  min-width: 237px;
+  max-width: 345px;
+}
+ span.PIN_1563287607366_embed_pin.PIN_1563287607366_large { 
+  min-width: 345px;
+  max-width: 600px;
+  padding: 30px 34px 10px;
+  font-size: 14px;
+}
+ span.PIN_1563287607366_embed_pin.PIN_1563287607366_large .PIN_1563287607366_bd { 
+  border-bottom: none;
+}
+ span.PIN_1563287607366_embed_pin.PIN_1563287607366_large .PIN_1563287607366_bd .PIN_1563287607366_hd { 
+  padding-top: 50px;
+  border-bottom: none;
+}
+ span.PIN_1563287607366_embed_pin.PIN_1563287607366_large .PIN_1563287607366_bd .PIN_1563287607366_hd .PIN_1563287607366_container .PIN_1563287607366_img,  span.PIN_1563287607366_embed_pin.PIN_1563287607366_large .PIN_1563287607366_bd .PIN_1563287607366_hd .PIN_1563287607366_container .PIN_1563287607366_video { 
+  border-radius: 8px;
+}
+ span.PIN_1563287607366_embed_pin.PIN_1563287607366_large .PIN_1563287607366_bd .PIN_1563287607366_hd .PIN_1563287607366_repin { 
+  top: 0px;
+  left: 0px;
+}
+ span.PIN_1563287607366_embed_pin.PIN_1563287607366_large .PIN_1563287607366_bd .PIN_1563287607366_source { 
+  height: 50px;
+}
+ span.PIN_1563287607366_embed_pin.PIN_1563287607366_large .PIN_1563287607366_bd .PIN_1563287607366_source .PIN_1563287607366_domain { 
+  line-height: 50px;
+}
+ span.PIN_1563287607366_embed_pin.PIN_1563287607366_large .PIN_1563287607366_bd .PIN_1563287607366_stats { 
+  position: absolute;
+  top: 0;
+  right: 0;
+  text-align: right;
+}
+ span.PIN_1563287607366_embed_pin.PIN_1563287607366_large .PIN_1563287607366_bd .PIN_1563287607366_description { 
+  font-size: 16px;
+  line-height: 20px;
+}
+ span.PIN_1563287607366_embed_pin.PIN_1563287607366_large .PIN_1563287607366_bd .PIN_1563287607366_menu { 
+  height: inherit;
+}
+ span.PIN_1563287607366_embed_pin.PIN_1563287607366_large .PIN_1563287607366_bd .PIN_1563287607366_menu .PIN_1563287607366_dropdown { 
+  top: 50px;
+  font-size: 14px;
+  padding: 10px;
+}
+ span.PIN_1563287607366_embed_pin.PIN_1563287607366_large .PIN_1563287607366_ft { 
+  height: 60px;
+  font-size: 16px;
+}
+ span.PIN_1563287607366_embed_pin.PIN_1563287607366_large .PIN_1563287607366_ft .PIN_1563287607366_board,  span.PIN_1563287607366_embed_pin.PIN_1563287607366_large .PIN_1563287607366_ft .PIN_1563287607366_pinner { 
+  left: 60px;
+}
+ span.PIN_1563287607366_embed_pin.PIN_1563287607366_large .PIN_1563287607366_ft .PIN_1563287607366_img { 
+  height: 40px;
+  width: 40px;
+  background-size: 40px 40px;
+  border-radius: 20px;
+}
+ .PIN_1563287607366_button_follow { 
+  display: inline-block;
+  color: #363636;
+  box-sizing: border-box;
+  box-shadow: inset 0 0 1px #888;
+  border-radius: 3px;
+  font: bold 11px/20px "Helvetica Neue", Helvetica, arial, sans-serif !important;
+  cursor: pointer;
+  -webkit-font-smoothing: antialiased;
+  height: 20px;
+  padding: 0 4px 0 20px;
+  background-color: #efefef;
+  position: relative;
+  white-space: nowrap;
+  vertical-align: baseline;
+}
+ .PIN_1563287607366_button_follow:hover { 
+  box-shadow: inset 0 0 1px #000;
+}
+ .PIN_1563287607366_button_follow::after { 
+  content: "";
+  position: absolute;
+  height: 14px;
+  width: 14px;
+  top: 3px;
+  left: 3px;
+  background: transparent url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMzBweCIgd2lkdGg9IjMwcHgiIHZpZXdCb3g9Ii0xIC0xIDMxIDMxIj48Zz48cGF0aCBkPSJNMjkuNDQ5LDE0LjY2MiBDMjkuNDQ5LDIyLjcyMiAyMi44NjgsMjkuMjU2IDE0Ljc1LDI5LjI1NiBDNi42MzIsMjkuMjU2IDAuMDUxLDIyLjcyMiAwLjA1MSwxNC42NjIgQzAuMDUxLDYuNjAxIDYuNjMyLDAuMDY3IDE0Ljc1LDAuMDY3IEMyMi44NjgsMC4wNjcgMjkuNDQ5LDYuNjAxIDI5LjQ0OSwxNC42NjIiIGZpbGw9IiNmZmYiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIxIj48L3BhdGg+PHBhdGggZD0iTTE0LjczMywxLjY4NiBDNy41MTYsMS42ODYgMS42NjUsNy40OTUgMS42NjUsMTQuNjYyIEMxLjY2NSwyMC4xNTkgNS4xMDksMjQuODU0IDkuOTcsMjYuNzQ0IEM5Ljg1NiwyNS43MTggOS43NTMsMjQuMTQzIDEwLjAxNiwyMy4wMjIgQzEwLjI1MywyMi4wMSAxMS41NDgsMTYuNTcyIDExLjU0OCwxNi41NzIgQzExLjU0OCwxNi41NzIgMTEuMTU3LDE1Ljc5NSAxMS4xNTcsMTQuNjQ2IEMxMS4xNTcsMTIuODQyIDEyLjIxMSwxMS40OTUgMTMuNTIyLDExLjQ5NSBDMTQuNjM3LDExLjQ5NSAxNS4xNzUsMTIuMzI2IDE1LjE3NSwxMy4zMjMgQzE1LjE3NSwxNC40MzYgMTQuNDYyLDE2LjEgMTQuMDkzLDE3LjY0MyBDMTMuNzg1LDE4LjkzNSAxNC43NDUsMTkuOTg4IDE2LjAyOCwxOS45ODggQzE4LjM1MSwxOS45ODggMjAuMTM2LDE3LjU1NiAyMC4xMzYsMTQuMDQ2IEMyMC4xMzYsMTAuOTM5IDE3Ljg4OCw4Ljc2NyAxNC42NzgsOC43NjcgQzEwLjk1OSw4Ljc2NyA4Ljc3NywxMS41MzYgOC43NzcsMTQuMzk4IEM4Ljc3NywxNS41MTMgOS4yMSwxNi43MDkgOS43NDksMTcuMzU5IEM5Ljg1NiwxNy40ODggOS44NzIsMTcuNiA5Ljg0LDE3LjczMSBDOS43NDEsMTguMTQxIDkuNTIsMTkuMDIzIDkuNDc3LDE5LjIwMyBDOS40MiwxOS40NCA5LjI4OCwxOS40OTEgOS4wNCwxOS4zNzYgQzcuNDA4LDE4LjYyMiA2LjM4NywxNi4yNTIgNi4zODcsMTQuMzQ5IEM2LjM4NywxMC4yNTYgOS4zODMsNi40OTcgMTUuMDIyLDYuNDk3IEMxOS41NTUsNi40OTcgMjMuMDc4LDkuNzA1IDIzLjA3OCwxMy45OTEgQzIzLjA3OCwxOC40NjMgMjAuMjM5LDIyLjA2MiAxNi4yOTcsMjIuMDYyIEMxNC45NzMsMjIuMDYyIDEzLjcyOCwyMS4zNzkgMTMuMzAyLDIwLjU3MiBDMTMuMzAyLDIwLjU3MiAxMi42NDcsMjMuMDUgMTIuNDg4LDIzLjY1NyBDMTIuMTkzLDI0Ljc4NCAxMS4zOTYsMjYuMTk2IDEwLjg2MywyNy4wNTggQzEyLjA4NiwyNy40MzQgMTMuMzg2LDI3LjYzNyAxNC43MzMsMjcuNjM3IEMyMS45NSwyNy42MzcgMjcuODAxLDIxLjgyOCAyNy44MDEsMTQuNjYyIEMyNy44MDEsNy40OTUgMjEuOTUsMS42ODYgMTQuNzMzLDEuNjg2IiBmaWxsPSIjZTYwMDIzIj48L3BhdGg+PC9nPjwvc3ZnPg==) 0 0 no-repeat;
+  background-size: 14px 14px;
+}
+ .PIN_1563287607366_button_follow.PIN_1563287607366_tall { 
+  height: 26px;
+  line-height: 26px;
+  font-size: 13px;
+  padding: 0 6px 0 25px;
+  border-radius: 3px;
+}
+ .PIN_1563287607366_button_follow.PIN_1563287607366_tall::after { 
+  height: 18px;
+  width: 18px;
+  top: 4px;
+  left: 4px;
+  background-size: 18px 18px;
+}
+ .PIN_1563287607366_button_pin { 
+  cursor: pointer;
+  display: inline-block;
+  box-sizing: border-box;
+  box-shadow: inset 0 0 1px #888;
+  border-radius: 3px;
+  height: 20px;
+  width: 40px;
+  -webkit-font-smoothing: antialiased;
+  background: #efefef url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMThweCIgd2lkdGg9IjQycHgiIHZpZXdCb3g9IjAgMCA0MiAxOCI+PGc+PHBhdGggZD0iTTE2Ljg1Myw2LjM0NSBDMTcuNjMyLDYuMzQ1IDE4LjM4LDUuNzAyIDE4LjUxLDQuOTA5IEMxOC42NjQsNC4xMzggMTguMTM1LDMuNDk0IDE3LjM1NywzLjQ5NCBDMTYuNTc4LDMuNDk0IDE1LjgzLDQuMTM4IDE1LjY5OCw0LjkwOSBDMTUuNTQ2LDUuNzAyIDE2LjA1Myw2LjM0NSAxNi44NTMsNi4zNDUgWiBNNy40NTgsMCBDMi41LDAgMCwzLjUyMiAwLDYuNDU5IEMwLDguMjM3IDAuNjgsOS44MTkgMi4xMzcsMTAuNDA5IEMyLjM3NiwxMC41MDUgMi41OSwxMC40MTIgMi42NiwxMC4xNSBDMi43MDgsOS45NjkgMi44MjIsOS41MTEgMi44NzMsOS4zMiBDMi45NDMsOS4wNjEgMi45MTYsOC45NyAyLjcyMyw4Ljc0NCBDMi4zMDIsOC4yNTMgMi4wMzQsNy42MTcgMi4wMzQsNi43MTYgQzIuMDM0LDQuMTA0IDQuMDA3LDEuNzY1IDcuMTcyLDEuNzY1IEM5Ljk3NSwxLjc2NSAxMS41MTQsMy40NjEgMTEuNTE0LDUuNzI2IEMxMS41MTQsOC43MDggMTAuMTgzLDExLjE4IDguMjA2LDExLjE4IEM3LjExNCwxMS4xOCA2LjI5NywxMC4zMjkgNi41NTksOS4yMzMgQzYuODcyLDcuOTIyIDcuNDgsNi41MDkgNy40OCw1LjU2NCBDNy40OCw0LjcxNyA3LjAyMiw0LjAxMSA2LjA3Miw0LjAxMSBDNC45NTYsNC4wMTEgNC4wNiw1LjE1NSA0LjA2LDYuNjg3IEM0LjA2LDcuNjYzIDQuMzkzLDguMzIzIDQuMzkzLDguMzIzIEM0LjM5Myw4LjMyMyAzLjI1MSwxMy4xMTcgMy4wNTEsMTMuOTU3IEMyLjY1MiwxNS42MjkgMi45OTEsMTcuNjc5IDMuMDE5LDE3Ljg4NiBDMy4wMzYsMTguMDA5IDMuMTk1LDE4LjAzOCAzLjI2NywxNy45NDYgQzMuMzcsMTcuODEyIDQuNywxNi4xODcgNS4xNTEsMTQuNTYyIEM1LjI3OSwxNC4xMDIgNS44ODUsMTEuNzIgNS44ODUsMTEuNzIgQzYuMjQ4LDEyLjQwNiA3LjMwOCwxMy4wMDkgOC40MzUsMTMuMDA5IEMxMS43OSwxMy4wMDkgMTQuMDY2LDkuOTc5IDE0LjA2Niw1LjkyMyBDMTQuMDY2LDIuODU3IDExLjQ0NCwwIDcuNDU4LDAgWiBNMjYuODk2LDE0LjE4OSBDMjYuMzQ4LDE0LjE4OSAyNi4xMTcsMTMuOTE1IDI2LjExNywxMy4zMjggQzI2LjExNywxMi40MDQgMjcuMDM1LDEwLjA5MSAyNy4wMzUsOS4wNDEgQzI3LjAzNSw3LjYzOCAyNi4yNzYsNi44MjYgMjQuNzIsNi44MjYgQzIzLjczOSw2LjgyNiAyMi43MjIsNy40NTMgMjIuMjkxLDguMDAzIEMyMi4yOTEsOC4wMDMgMjIuNDIyLDcuNTUzIDIyLjQ2Nyw3LjM4IEMyMi41MTUsNy4xOTYgMjIuNDE1LDYuODg0IDIyLjE3Myw2Ljg4NCBMMjAuNjUxLDYuODg0IEMyMC4zMjgsNi44ODQgMjAuMjM4LDcuMDU1IDIwLjE5MSw3LjI0NCBDMjAuMTcyLDcuMzIgMTkuNjI0LDkuNTg0IDE5LjA5OCwxMS42MzIgQzE4LjczOCwxMy4wMzQgMTcuODYzLDE0LjIwNSAxNi45MjgsMTQuMjA1IEMxNi40NDcsMTQuMjA1IDE2LjIzMywxMy45MDYgMTYuMjMzLDEzLjM5OSBDMTYuMjMzLDEyLjk1OSAxNi41MTksMTEuODc3IDE2Ljg2LDEwLjUzNCBDMTcuMjc2LDguODk4IDE3LjY0Miw3LjU1MSAxNy42ODEsNy4zOTQgQzE3LjczMiw3LjE5MiAxNy42NDIsNy4wMTcgMTcuMzc5LDcuMDE3IEwxNS44NDksNy4wMTcgQzE1LjU3Miw3LjAxNyAxNS40NzMsNy4xNjEgMTUuNDE0LDcuMzYxIEMxNS40MTQsNy4zNjEgMTQuOTgzLDguOTc3IDE0LjUyNywxMC43NzUgQzE0LjE5NiwxMi4wNzkgMTMuODMsMTMuNDA5IDEzLjgzLDE0LjAzNCBDMTMuODMsMTUuMTQ4IDE0LjMzNiwxNS45NDQgMTUuNzI0LDE1Ljk0NCBDMTYuNzk2LDE1Ljk0NCAxNy42NDQsMTUuNDUgMTguMjkyLDE0Ljc2NCBDMTguMTk3LDE1LjEzNSAxOC4xMzYsMTUuNDE0IDE4LjEzLDE1LjQzOSBDMTguMDc0LDE1LjY1IDE4LjE0MiwxNS44MzggMTguMzk0LDE1LjgzOCBMMTkuOTYxLDE1LjgzOCBDMjAuMjMzLDE1LjgzOCAyMC4zMzcsMTUuNzMgMjAuMzk0LDE1LjQ5NCBDMjAuNDQ5LDE1LjI2OSAyMS42MTksMTAuNjY3IDIxLjYxOSwxMC42NjcgQzIxLjkyOCw5LjQ0MyAyMi42OTIsOC42MzIgMjMuNzY4LDguNjMyIEMyNC4yNzksOC42MzIgMjQuNzIsOC45NjcgMjQuNjY5LDkuNjE4IEMyNC42MTIsMTAuMzMzIDIzLjc0MSwxMi45MDMgMjMuNzQxLDE0LjAzMSBDMjMuNzQxLDE0Ljg4NCAyNC4wNiwxNS45NDUgMjUuNjgzLDE1Ljk0NSBDMjYuNzg5LDE1Ljk0NSAyNy42MDMsMTUuNDY0IDI4LjE5NSwxNC43ODYgTDI3LjQ4OSwxMy45NDEgQzI3LjMxMSwxNC4wOTQgMjcuMTE0LDE0LjE4OSAyNi44OTYsMTQuMTg5IFogTTQxLjcwMSw2Ljg3MyBMNDAuMTM0LDYuODczIEM0MC4xMzQsNi44NzMgNDAuODU2LDQuMTA5IDQwLjg3Myw0LjAzNSBDNDAuOTQyLDMuNzQ1IDQwLjY5OCwzLjU3OCA0MC40NDEsMy42MzEgQzQwLjQ0MSwzLjYzMSAzOS4yMywzLjg2NiAzOS4wMDUsMy45MTMgQzM4Ljc3OSwzLjk1OCAzOC42MDQsNC4wODEgMzguNTIyLDQuNDAzIEMzOC41MTIsNC40NDUgMzcuODgsNi44NzMgMzcuODgsNi44NzMgTDM2LjYyMiw2Ljg3MyBDMzYuMzg1LDYuODczIDM2LjI0NSw2Ljk2OCAzNi4xOTIsNy4xODggQzM2LjExNSw3LjUwNCAzNS45NzUsOC4xNDUgMzUuOTM2LDguMjk3IEMzNS44ODUsOC40OTQgMzYsOC42NDQgMzYuMjIyLDguNjQ0IEwzNy40NTcsOC42NDQgQzM3LjQ0OCw4LjY3NyAzNy4wNjQsMTAuMTI1IDM2LjcyNSwxMS41MjEgTDM2LjcyNCwxMS41MTYgQzM2LjcyLDExLjUzMiAzNi43MTYsMTEuNTQ2IDM2LjcxMiwxMS41NjIgTDM2LjcxMiwxMS41NTYgQzM2LjcxMiwxMS41NTYgMzYuNzA4LDExLjU3MSAzNi43MDIsMTEuNTk4IEMzNi4zMjQsMTIuOTY4IDM1LjExOCwxNC4yMDkgMzQuMjAxLDE0LjIwOSBDMzMuNzIxLDE0LjIwOSAzMy41MDYsMTMuOTA5IDMzLjUwNiwxMy40MDIgQzMzLjUwNiwxMi45NjMgMzMuNzkyLDExLjg4IDM0LjEzNCwxMC41MzcgQzM0LjU0OSw4LjkwMSAzNC45MTUsNy41NTUgMzQuOTU1LDcuMzk3IEMzNS4wMDYsNy4xOTYgMzQuOTE1LDcuMDIgMzQuNjUyLDcuMDIgTDMzLjEyMiw3LjAyIEMzMi44NDUsNy4wMiAzMi43NDYsNy4xNjQgMzIuNjg3LDcuMzY0IEMzMi42ODcsNy4zNjQgMzIuMjU3LDguOTggMzEuOCwxMC43NzggQzMxLjQ2OSwxMi4wODMgMzEuMTAzLDEzLjQxMiAzMS4xMDMsMTQuMDM3IEMzMS4xMDMsMTUuMTUxIDMxLjYwOSwxNS45NDggMzIuOTk3LDE1Ljk0OCBDMzQuMDcsMTUuOTQ4IDM1LjEzNiwxNS40NTMgMzUuNzgzLDE0Ljc2NyBDMzUuNzgzLDE0Ljc2NyAzNi4wMTEsMTQuNTIxIDM2LjIzLDE0LjIyOSBDMzYuMjQxLDE0LjU4MSAzNi4zMjQsMTQuODM3IDM2LjQxMSwxNS4wMTggQzM2LjQ1OCwxNS4xMTkgMzYuNTE1LDE1LjIxNSAzNi41ODEsMTUuMzAzIEMzNi41ODIsMTUuMzA0IDM2LjU4MywxNS4zMDYgMzYuNTg1LDE1LjMwOCBMMzYuNTg1LDE1LjMwOCBDMzYuODkxLDE1LjcxMyAzNy4zOTgsMTUuOTYyIDM4LjE1MSwxNS45NjIgQzM5Ljg5NCwxNS45NjIgNDAuOTQ0LDE0LjkzOCA0MS41NjIsMTMuOTA5IEw0MC43MDQsMTMuMjM5IEM0MC4zMzMsMTMuNzc0IDM5LjgzOSwxNC4xNzUgMzkuMzI0LDE0LjE3NSBDMzguODQ2LDE0LjE3NSAzOC41NzksMTMuODc4IDM4LjU3OSwxMy4zNzIgQzM4LjU3OSwxMi45MzUgMzguODg5LDExLjg2OCAzOS4yMjksMTAuNTMgQzM5LjM0NCwxMC4wODMgMzkuNTE2LDkuNDAxIDM5LjcwOCw4LjY0NCBMNDEuMzAyLDguNjQ0IEM0MS41MzksOC42NDQgNDEuNjc4LDguNTQ5IDQxLjczMiw4LjMyOSBDNDEuODA4LDguMDEyIDQxLjk0OCw3LjM3MiA0MS45ODgsNy4yMjEgQzQyLjAzOSw3LjAyMyA0MS45MjMsNi44NzMgNDEuNzAxLDYuODczIFogTTM0LjEyNiw2LjM0OCBDMzQuOTA1LDYuMzQ4IDM1LjY1Myw1LjcwNiAzNS43ODMsNC45MTIgQzM1LjkzNyw0LjE0MSAzNS40MDksMy40OTggMzQuNjMsMy40OTggQzMzLjg1MSwzLjQ5OCAzMy4xMDMsNC4xNDEgMzIuOTcxLDQuOTEyIEMzMi44MTksNS43MDYgMzMuMzI2LDYuMzQ4IDM0LjEyNiw2LjM0OCBaIiBmaWxsPSIjZTYwMDIzIj48L3BhdGg+PC9nPjwvc3ZnPg==) 50% 50% no-repeat;
+  background-size: 75%;
+  position: relative;
+  font: 12px "Helvetica Neue", Helvetica, arial, sans-serif;
+  color: #555;
+  text-align: center;
+  vertical-align: baseline;
+}
+ .PIN_1563287607366_button_pin:hover { 
+  box-shadow: inset 0 0 1px #000;
+}
+ .PIN_1563287607366_button_pin.PIN_1563287607366_above .PIN_1563287607366_count { 
+  position: absolute;
+  top: -28px;
+  left: 0;
+  height: 28px;
+  width: inherit;
+  line-height: 24px;
+  background: transparent url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iNzZweCIgd2lkdGg9IjExNHB4IiB2aWV3Qm94PSIwIDAgMTE0IDc2Ij48Zz48cGF0aCBkPSJNOSAxQzQuNiAxIDEgNC42IDEgOXY0M2MwIDQuMyAzLjYgOCA4IDhoMjZsMTggMTVoNy41bDE2LTE1SDEwNWM0LjQgMCA4LTMuNyA4LThWOWMwLTQuNC0zLjYtOC04LThIOXoiIGZpbGw9IiNmZmYiIHN0cm9rZT0iI2I1YjViNSIgc3Ryb2tlLXdpZHRoPSIyIj48L3BhdGg+PC9nPjwvc3ZnPg==) 0 0 no-repeat;
+  background-size: 40px 28px;
+}
+ .PIN_1563287607366_button_pin.PIN_1563287607366_above.PIN_1563287607366_padded { 
+  margin-top: 28px;
+}
+ .PIN_1563287607366_button_pin.PIN_1563287607366_beside .PIN_1563287607366_count { 
+  position: absolute;
+  right: -45px;
+  text-align: center;
+  text-indent: 5px;
+  height: inherit;
+  width: 45px;
+  font-size: 11px;
+  line-height: 20px;
+  background: transparent url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iNTZweCIgd2lkdGg9IjEyNnB4IiB2aWV3Qm94PSIyIDAgMTMwIDYwIj48Zz48cGF0aCBkPSJNMTE5LjYgMmM0LjUgMCA4IDMuNiA4IDh2NDBjMCA0LjQtMy41IDgtOCA4SDIzLjNMMS42IDMyLjR2LTQuNkwyMy4zIDJoOTYuM3oiIGZpbGw9IiNmZmYiIHN0cm9rZT0iI2I1YjViNSIgc3Ryb2tlLXdpZHRoPSIyIj48L3BhdGg+PC9nPjwvc3ZnPg==);
+  background-size: cover;
+}
+ .PIN_1563287607366_button_pin.PIN_1563287607366_beside.PIN_1563287607366_padded { 
+  margin-right: 45px;
+}
+ .PIN_1563287607366_button_pin.PIN_1563287607366_ja { 
+  background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMThweCIgd2lkdGg9IjQxcHgiIHZpZXdCb3g9IjAgMCA0MSAxOCI+PGc+PHBhdGggZD0iTTE5LjgyMiw3LjE3MyBDMTkuODIyLDYuNTEgMTkuODM1LDYuMjc2IDE5Ljg4Nyw1Ljk2NCBMMTguMTQ1LDUuOTY0IEMxOC4xOTcsNi4yODkgMTguMTk3LDYuNDk3IDE4LjE5Nyw3LjE2IEwxOC4yMSwxMy4xOTIgQzE4LjIxLDEzLjk0NiAxOC4yMjMsMTQuMTY3IDE4LjI0OSwxNC4zODggQzE4LjMyNywxNS4wMjUgMTguNTIyLDE1LjQ0MSAxOC44ODYsMTUuNzE0IEMxOS4zOTMsMTYuMTA0IDIwLjI5LDE2LjI3MyAyMS45MjgsMTYuMjczIEMyMi43MjEsMTYuMjczIDI0LjM1OSwxNi4xOTUgMjUuMTI2LDE2LjExNyBDMjYuNTA0LDE1Ljk4NyAyNi41NjksMTUuOTc0IDI2Ljg0MiwxNS45NzQgTDI2Ljc2NCwxNC4yNDUgQzI2LjE5MiwxNC40MTQgMjUuOTA2LDE0LjQ3OSAyNS4yODIsMTQuNTU3IEMyNC4zMzMsMTQuNjg3IDIzLjEzNywxNC43NjUgMjIuMjY2LDE0Ljc2NSBDMjEuMDA1LDE0Ljc2NSAyMC4yNjQsMTQuNjQ4IDIwLjA0MywxNC40MjcgQzE5Ljg2MSwxNC4yNDUgMTkuODA5LDEzLjk1OSAxOS44MDksMTMuMjMxIEMxOS44MDksMTMuMTc5IDE5LjgwOSwxMy4xMDEgMTkuODIyLDEzLjAyMyBMMTkuODIyLDExLjMwNyBDMjEuOTkzLDEwLjkwNCAyNC4wMDgsMTAuMjI4IDI1LjkzMiw5LjI0IEwyNi4yNyw5LjA3MSBDMjYuMzc0LDkuMDE5IDI2LjQsOS4wMDYgMjYuNTQzLDguOTU0IEwyNS41MDMsNy40ODUgQzI0LjY1OCw4LjI3OCAyMS43ODUsOS40MzUgMTkuODIyLDkuNzk5IEwxOS44MjIsNy4xNzMgWiBNMjcuMzEsNC44NzIgQzI2LjQ5MSw0Ljg3MiAyNS44MTUsNS41NDggMjUuODE1LDYuMzY3IEMyNS44MTUsNy4xOTkgMjYuNDkxLDcuODc1IDI3LjMxLDcuODc1IEMyOC4xNDIsNy44NzUgMjguODE4LDcuMTk5IDI4LjgxOCw2LjM2NyBDMjguODE4LDUuNTQ4IDI4LjE0Miw0Ljg3MiAyNy4zMSw0Ljg3MiBMMjcuMzEsNC44NzIgWiBNMjcuMzEsNS41MjIgQzI3Ljc5MSw1LjUyMiAyOC4xNjgsNS44OTkgMjguMTY4LDYuMzY3IEMyOC4xNjgsNi44MzUgMjcuNzkxLDcuMjI1IDI3LjMxLDcuMjI1IEMyNi44NDIsNy4yMjUgMjYuNDY1LDYuODM1IDI2LjQ2NSw2LjM2NyBDMjYuNDY1LDUuODk5IDI2Ljg0Miw1LjUyMiAyNy4zMSw1LjUyMiBMMjcuMzEsNS41MjIgWiBNMzAuNTg2LDcuNjU0IEMzMS43OTUsOC4zMyAzMi44NjEsOS4xODggMzMuOTAxLDEwLjI5MyBMMzUuMDE5LDguODc2IEMzNC4wMTgsNy45MjcgMzMuMjEyLDcuMzI5IDMxLjY2NSw2LjM2NyBMMzAuNTg2LDcuNjU0IFogTTMxLjA0MSwxNi4yMzQgQzMxLjM0LDE2LjEzIDMxLjM3OSwxNi4xMTcgMzEuODk5LDE2LjAxMyBDMzMuOTE0LDE1LjU4NCAzNS41MjYsMTQuOTQ3IDM2Ljg1MiwxNC4wNjMgQzM4LjYzMywxMi44OCAzOS44NjgsMTEuMzQ2IDQwLjk3Myw4Ljk2NyBDNDAuMzEsOC40OTkgNDAuMTAyLDguMzA0IDM5LjU5NSw3LjY5MyBDMzkuMjA1LDguNzQ2IDM4Ljg0MSw5LjQ2MSAzOC4yNjksMTAuMjkzIEMzNy4yNDIsMTEuNzc1IDM2LjAzMywxMi43NzYgMzQuNDA4LDEzLjQ3OCBDMzMuMjI1LDEzLjk5OCAzMS42NzgsMTQuMzc1IDMwLjU2LDE0LjQ0IEwzMS4wNDEsMTYuMjM0IFogTTcuNDU4LDAgQzIuNSwwIDAsMy41MjIgMCw2LjQ1OSBDMCw4LjIzNyAwLjY4LDkuODE5IDIuMTM3LDEwLjQwOSBDMi4zNzYsMTAuNTA1IDIuNTksMTAuNDEyIDIuNjYsMTAuMTUgQzIuNzA4LDkuOTY5IDIuODIyLDkuNTExIDIuODczLDkuMzIgQzIuOTQzLDkuMDYxIDIuOTE2LDguOTcgMi43MjMsOC43NDQgQzIuMzAyLDguMjUzIDIuMDM0LDcuNjE3IDIuMDM0LDYuNzE2IEMyLjAzNCw0LjEwNCA0LjAwNywxLjc2NSA3LjE3MiwxLjc2NSBDOS45NzUsMS43NjUgMTEuNTE0LDMuNDYxIDExLjUxNCw1LjcyNiBDMTEuNTE0LDguNzA4IDEwLjE4MywxMS4xOCA4LjIwNiwxMS4xOCBDNy4xMTQsMTEuMTggNi4yOTcsMTAuMzI5IDYuNTU5LDkuMjMzIEM2Ljg3Miw3LjkyMiA3LjQ4LDYuNTA5IDcuNDgsNS41NjQgQzcuNDgsNC43MTcgNy4wMjIsNC4wMTEgNi4wNzIsNC4wMTEgQzQuOTU2LDQuMDExIDQuMDYsNS4xNTUgNC4wNiw2LjY4NyBDNC4wNiw3LjY2MyA0LjM5Myw4LjMyMyA0LjM5Myw4LjMyMyBDNC4zOTMsOC4zMjMgMy4yNTEsMTMuMTE3IDMuMDUxLDEzLjk1NyBDMi42NTIsMTUuNjI5IDIuOTkxLDE3LjY3OSAzLjAxOSwxNy44ODYgQzMuMDM2LDE4LjAwOSAzLjE5NSwxOC4wMzggMy4yNjcsMTcuOTQ2IEMzLjM3LDE3LjgxMiA0LjcsMTYuMTg3IDUuMTUxLDE0LjU2MiBDNS4yNzksMTQuMTAyIDUuODg1LDExLjcyIDUuODg1LDExLjcyIEM2LjI0OCwxMi40MDYgNy4zMDgsMTMuMDA5IDguNDM1LDEzLjAwOSBDMTEuNzksMTMuMDA5IDE0LjA2Niw5Ljk3OSAxNC4wNjYsNS45MjMgQzE0LjA2NiwyLjg1NyAxMS40NDQsMCA3LjQ1OCwwIFoiIGZpbGw9IiNlNjAwMjMiPjwvcGF0aD48L2c+PC9zdmc+);
+  background-size: 72%;
+}
+ .PIN_1563287607366_button_pin.PIN_1563287607366_red { 
+  background-color: #e60023;
+  background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMThweCIgd2lkdGg9IjQycHgiIHZpZXdCb3g9IjAgMCA0MiAxOCI+PGc+PHBhdGggZD0iTTE2Ljg1Myw2LjM0NSBDMTcuNjMyLDYuMzQ1IDE4LjM4LDUuNzAyIDE4LjUxLDQuOTA5IEMxOC42NjQsNC4xMzggMTguMTM1LDMuNDk0IDE3LjM1NywzLjQ5NCBDMTYuNTc4LDMuNDk0IDE1LjgzLDQuMTM4IDE1LjY5OCw0LjkwOSBDMTUuNTQ2LDUuNzAyIDE2LjA1Myw2LjM0NSAxNi44NTMsNi4zNDUgWiBNNy40NTgsMCBDMi41LDAgMCwzLjUyMiAwLDYuNDU5IEMwLDguMjM3IDAuNjgsOS44MTkgMi4xMzcsMTAuNDA5IEMyLjM3NiwxMC41MDUgMi41OSwxMC40MTIgMi42NiwxMC4xNSBDMi43MDgsOS45NjkgMi44MjIsOS41MTEgMi44NzMsOS4zMiBDMi45NDMsOS4wNjEgMi45MTYsOC45NyAyLjcyMyw4Ljc0NCBDMi4zMDIsOC4yNTMgMi4wMzQsNy42MTcgMi4wMzQsNi43MTYgQzIuMDM0LDQuMTA0IDQuMDA3LDEuNzY1IDcuMTcyLDEuNzY1IEM5Ljk3NSwxLjc2NSAxMS41MTQsMy40NjEgMTEuNTE0LDUuNzI2IEMxMS41MTQsOC43MDggMTAuMTgzLDExLjE4IDguMjA2LDExLjE4IEM3LjExNCwxMS4xOCA2LjI5NywxMC4zMjkgNi41NTksOS4yMzMgQzYuODcyLDcuOTIyIDcuNDgsNi41MDkgNy40OCw1LjU2NCBDNy40OCw0LjcxNyA3LjAyMiw0LjAxMSA2LjA3Miw0LjAxMSBDNC45NTYsNC4wMTEgNC4wNiw1LjE1NSA0LjA2LDYuNjg3IEM0LjA2LDcuNjYzIDQuMzkzLDguMzIzIDQuMzkzLDguMzIzIEM0LjM5Myw4LjMyMyAzLjI1MSwxMy4xMTcgMy4wNTEsMTMuOTU3IEMyLjY1MiwxNS42MjkgMi45OTEsMTcuNjc5IDMuMDE5LDE3Ljg4NiBDMy4wMzYsMTguMDA5IDMuMTk1LDE4LjAzOCAzLjI2NywxNy45NDYgQzMuMzcsMTcuODEyIDQuNywxNi4xODcgNS4xNTEsMTQuNTYyIEM1LjI3OSwxNC4xMDIgNS44ODUsMTEuNzIgNS44ODUsMTEuNzIgQzYuMjQ4LDEyLjQwNiA3LjMwOCwxMy4wMDkgOC40MzUsMTMuMDA5IEMxMS43OSwxMy4wMDkgMTQuMDY2LDkuOTc5IDE0LjA2Niw1LjkyMyBDMTQuMDY2LDIuODU3IDExLjQ0NCwwIDcuNDU4LDAgWiBNMjYuODk2LDE0LjE4OSBDMjYuMzQ4LDE0LjE4OSAyNi4xMTcsMTMuOTE1IDI2LjExNywxMy4zMjggQzI2LjExNywxMi40MDQgMjcuMDM1LDEwLjA5MSAyNy4wMzUsOS4wNDEgQzI3LjAzNSw3LjYzOCAyNi4yNzYsNi44MjYgMjQuNzIsNi44MjYgQzIzLjczOSw2LjgyNiAyMi43MjIsNy40NTMgMjIuMjkxLDguMDAzIEMyMi4yOTEsOC4wMDMgMjIuNDIyLDcuNTUzIDIyLjQ2Nyw3LjM4IEMyMi41MTUsNy4xOTYgMjIuNDE1LDYuODg0IDIyLjE3Myw2Ljg4NCBMMjAuNjUxLDYuODg0IEMyMC4zMjgsNi44ODQgMjAuMjM4LDcuMDU1IDIwLjE5MSw3LjI0NCBDMjAuMTcyLDcuMzIgMTkuNjI0LDkuNTg0IDE5LjA5OCwxMS42MzIgQzE4LjczOCwxMy4wMzQgMTcuODYzLDE0LjIwNSAxNi45MjgsMTQuMjA1IEMxNi40NDcsMTQuMjA1IDE2LjIzMywxMy45MDYgMTYuMjMzLDEzLjM5OSBDMTYuMjMzLDEyLjk1OSAxNi41MTksMTEuODc3IDE2Ljg2LDEwLjUzNCBDMTcuMjc2LDguODk4IDE3LjY0Miw3LjU1MSAxNy42ODEsNy4zOTQgQzE3LjczMiw3LjE5MiAxNy42NDIsNy4wMTcgMTcuMzc5LDcuMDE3IEwxNS44NDksNy4wMTcgQzE1LjU3Miw3LjAxNyAxNS40NzMsNy4xNjEgMTUuNDE0LDcuMzYxIEMxNS40MTQsNy4zNjEgMTQuOTgzLDguOTc3IDE0LjUyNywxMC43NzUgQzE0LjE5NiwxMi4wNzkgMTMuODMsMTMuNDA5IDEzLjgzLDE0LjAzNCBDMTMuODMsMTUuMTQ4IDE0LjMzNiwxNS45NDQgMTUuNzI0LDE1Ljk0NCBDMTYuNzk2LDE1Ljk0NCAxNy42NDQsMTUuNDUgMTguMjkyLDE0Ljc2NCBDMTguMTk3LDE1LjEzNSAxOC4xMzYsMTUuNDE0IDE4LjEzLDE1LjQzOSBDMTguMDc0LDE1LjY1IDE4LjE0MiwxNS44MzggMTguMzk0LDE1LjgzOCBMMTkuOTYxLDE1LjgzOCBDMjAuMjMzLDE1LjgzOCAyMC4zMzcsMTUuNzMgMjAuMzk0LDE1LjQ5NCBDMjAuNDQ5LDE1LjI2OSAyMS42MTksMTAuNjY3IDIxLjYxOSwxMC42NjcgQzIxLjkyOCw5LjQ0MyAyMi42OTIsOC42MzIgMjMuNzY4LDguNjMyIEMyNC4yNzksOC42MzIgMjQuNzIsOC45NjcgMjQuNjY5LDkuNjE4IEMyNC42MTIsMTAuMzMzIDIzLjc0MSwxMi45MDMgMjMuNzQxLDE0LjAzMSBDMjMuNzQxLDE0Ljg4NCAyNC4wNiwxNS45NDUgMjUuNjgzLDE1Ljk0NSBDMjYuNzg5LDE1Ljk0NSAyNy42MDMsMTUuNDY0IDI4LjE5NSwxNC43ODYgTDI3LjQ4OSwxMy45NDEgQzI3LjMxMSwxNC4wOTQgMjcuMTE0LDE0LjE4OSAyNi44OTYsMTQuMTg5IFogTTQxLjcwMSw2Ljg3MyBMNDAuMTM0LDYuODczIEM0MC4xMzQsNi44NzMgNDAuODU2LDQuMTA5IDQwLjg3Myw0LjAzNSBDNDAuOTQyLDMuNzQ1IDQwLjY5OCwzLjU3OCA0MC40NDEsMy42MzEgQzQwLjQ0MSwzLjYzMSAzOS4yMywzLjg2NiAzOS4wMDUsMy45MTMgQzM4Ljc3OSwzLjk1OCAzOC42MDQsNC4wODEgMzguNTIyLDQuNDAzIEMzOC41MTIsNC40NDUgMzcuODgsNi44NzMgMzcuODgsNi44NzMgTDM2LjYyMiw2Ljg3MyBDMzYuMzg1LDYuODczIDM2LjI0NSw2Ljk2OCAzNi4xOTIsNy4xODggQzM2LjExNSw3LjUwNCAzNS45NzUsOC4xNDUgMzUuOTM2LDguMjk3IEMzNS44ODUsOC40OTQgMzYsOC42NDQgMzYuMjIyLDguNjQ0IEwzNy40NTcsOC42NDQgQzM3LjQ0OCw4LjY3NyAzNy4wNjQsMTAuMTI1IDM2LjcyNSwxMS41MjEgTDM2LjcyNCwxMS41MTYgQzM2LjcyLDExLjUzMiAzNi43MTYsMTEuNTQ2IDM2LjcxMiwxMS41NjIgTDM2LjcxMiwxMS41NTYgQzM2LjcxMiwxMS41NTYgMzYuNzA4LDExLjU3MSAzNi43MDIsMTEuNTk4IEMzNi4zMjQsMTIuOTY4IDM1LjExOCwxNC4yMDkgMzQuMjAxLDE0LjIwOSBDMzMuNzIxLDE0LjIwOSAzMy41MDYsMTMuOTA5IDMzLjUwNiwxMy40MDIgQzMzLjUwNiwxMi45NjMgMzMuNzkyLDExLjg4IDM0LjEzNCwxMC41MzcgQzM0LjU0OSw4LjkwMSAzNC45MTUsNy41NTUgMzQuOTU1LDcuMzk3IEMzNS4wMDYsNy4xOTYgMzQuOTE1LDcuMDIgMzQuNjUyLDcuMDIgTDMzLjEyMiw3LjAyIEMzMi44NDUsNy4wMiAzMi43NDYsNy4xNjQgMzIuNjg3LDcuMzY0IEMzMi42ODcsNy4zNjQgMzIuMjU3LDguOTggMzEuOCwxMC43NzggQzMxLjQ2OSwxMi4wODMgMzEuMTAzLDEzLjQxMiAzMS4xMDMsMTQuMDM3IEMzMS4xMDMsMTUuMTUxIDMxLjYwOSwxNS45NDggMzIuOTk3LDE1Ljk0OCBDMzQuMDcsMTUuOTQ4IDM1LjEzNiwxNS40NTMgMzUuNzgzLDE0Ljc2NyBDMzUuNzgzLDE0Ljc2NyAzNi4wMTEsMTQuNTIxIDM2LjIzLDE0LjIyOSBDMzYuMjQxLDE0LjU4MSAzNi4zMjQsMTQuODM3IDM2LjQxMSwxNS4wMTggQzM2LjQ1OCwxNS4xMTkgMzYuNTE1LDE1LjIxNSAzNi41ODEsMTUuMzAzIEMzNi41ODIsMTUuMzA0IDM2LjU4MywxNS4zMDYgMzYuNTg1LDE1LjMwOCBMMzYuNTg1LDE1LjMwOCBDMzYuODkxLDE1LjcxMyAzNy4zOTgsMTUuOTYyIDM4LjE1MSwxNS45NjIgQzM5Ljg5NCwxNS45NjIgNDAuOTQ0LDE0LjkzOCA0MS41NjIsMTMuOTA5IEw0MC43MDQsMTMuMjM5IEM0MC4zMzMsMTMuNzc0IDM5LjgzOSwxNC4xNzUgMzkuMzI0LDE0LjE3NSBDMzguODQ2LDE0LjE3NSAzOC41NzksMTMuODc4IDM4LjU3OSwxMy4zNzIgQzM4LjU3OSwxMi45MzUgMzguODg5LDExLjg2OCAzOS4yMjksMTAuNTMgQzM5LjM0NCwxMC4wODMgMzkuNTE2LDkuNDAxIDM5LjcwOCw4LjY0NCBMNDEuMzAyLDguNjQ0IEM0MS41MzksOC42NDQgNDEuNjc4LDguNTQ5IDQxLjczMiw4LjMyOSBDNDEuODA4LDguMDEyIDQxLjk0OCw3LjM3MiA0MS45ODgsNy4yMjEgQzQyLjAzOSw3LjAyMyA0MS45MjMsNi44NzMgNDEuNzAxLDYuODczIFogTTM0LjEyNiw2LjM0OCBDMzQuOTA1LDYuMzQ4IDM1LjY1Myw1LjcwNiAzNS43ODMsNC45MTIgQzM1LjkzNyw0LjE0MSAzNS40MDksMy40OTggMzQuNjMsMy40OTggQzMzLjg1MSwzLjQ5OCAzMy4xMDMsNC4xNDEgMzIuOTcxLDQuOTEyIEMzMi44MTksNS43MDYgMzMuMzI2LDYuMzQ4IDM0LjEyNiw2LjM0OCBaIiBmaWxsPSIjZmZmIj48L3BhdGg+PC9nPjwvc3ZnPg==);
+}
+ .PIN_1563287607366_button_pin.PIN_1563287607366_red.PIN_1563287607366_ja { 
+  background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMThweCIgd2lkdGg9IjQxcHgiIHZpZXdCb3g9IjAgMCA0MSAxOCI+PGc+PHBhdGggZD0iTTE5LjgyMiw3LjE3MyBDMTkuODIyLDYuNTEgMTkuODM1LDYuMjc2IDE5Ljg4Nyw1Ljk2NCBMMTguMTQ1LDUuOTY0IEMxOC4xOTcsNi4yODkgMTguMTk3LDYuNDk3IDE4LjE5Nyw3LjE2IEwxOC4yMSwxMy4xOTIgQzE4LjIxLDEzLjk0NiAxOC4yMjMsMTQuMTY3IDE4LjI0OSwxNC4zODggQzE4LjMyNywxNS4wMjUgMTguNTIyLDE1LjQ0MSAxOC44ODYsMTUuNzE0IEMxOS4zOTMsMTYuMTA0IDIwLjI5LDE2LjI3MyAyMS45MjgsMTYuMjczIEMyMi43MjEsMTYuMjczIDI0LjM1OSwxNi4xOTUgMjUuMTI2LDE2LjExNyBDMjYuNTA0LDE1Ljk4NyAyNi41NjksMTUuOTc0IDI2Ljg0MiwxNS45NzQgTDI2Ljc2NCwxNC4yNDUgQzI2LjE5MiwxNC40MTQgMjUuOTA2LDE0LjQ3OSAyNS4yODIsMTQuNTU3IEMyNC4zMzMsMTQuNjg3IDIzLjEzNywxNC43NjUgMjIuMjY2LDE0Ljc2NSBDMjEuMDA1LDE0Ljc2NSAyMC4yNjQsMTQuNjQ4IDIwLjA0MywxNC40MjcgQzE5Ljg2MSwxNC4yNDUgMTkuODA5LDEzLjk1OSAxOS44MDksMTMuMjMxIEMxOS44MDksMTMuMTc5IDE5LjgwOSwxMy4xMDEgMTkuODIyLDEzLjAyMyBMMTkuODIyLDExLjMwNyBDMjEuOTkzLDEwLjkwNCAyNC4wMDgsMTAuMjI4IDI1LjkzMiw5LjI0IEwyNi4yNyw5LjA3MSBDMjYuMzc0LDkuMDE5IDI2LjQsOS4wMDYgMjYuNTQzLDguOTU0IEwyNS41MDMsNy40ODUgQzI0LjY1OCw4LjI3OCAyMS43ODUsOS40MzUgMTkuODIyLDkuNzk5IEwxOS44MjIsNy4xNzMgWiBNMjcuMzEsNC44NzIgQzI2LjQ5MSw0Ljg3MiAyNS44MTUsNS41NDggMjUuODE1LDYuMzY3IEMyNS44MTUsNy4xOTkgMjYuNDkxLDcuODc1IDI3LjMxLDcuODc1IEMyOC4xNDIsNy44NzUgMjguODE4LDcuMTk5IDI4LjgxOCw2LjM2NyBDMjguODE4LDUuNTQ4IDI4LjE0Miw0Ljg3MiAyNy4zMSw0Ljg3MiBMMjcuMzEsNC44NzIgWiBNMjcuMzEsNS41MjIgQzI3Ljc5MSw1LjUyMiAyOC4xNjgsNS44OTkgMjguMTY4LDYuMzY3IEMyOC4xNjgsNi44MzUgMjcuNzkxLDcuMjI1IDI3LjMxLDcuMjI1IEMyNi44NDIsNy4yMjUgMjYuNDY1LDYuODM1IDI2LjQ2NSw2LjM2NyBDMjYuNDY1LDUuODk5IDI2Ljg0Miw1LjUyMiAyNy4zMSw1LjUyMiBMMjcuMzEsNS41MjIgWiBNMzAuNTg2LDcuNjU0IEMzMS43OTUsOC4zMyAzMi44NjEsOS4xODggMzMuOTAxLDEwLjI5MyBMMzUuMDE5LDguODc2IEMzNC4wMTgsNy45MjcgMzMuMjEyLDcuMzI5IDMxLjY2NSw2LjM2NyBMMzAuNTg2LDcuNjU0IFogTTMxLjA0MSwxNi4yMzQgQzMxLjM0LDE2LjEzIDMxLjM3OSwxNi4xMTcgMzEuODk5LDE2LjAxMyBDMzMuOTE0LDE1LjU4NCAzNS41MjYsMTQuOTQ3IDM2Ljg1MiwxNC4wNjMgQzM4LjYzMywxMi44OCAzOS44NjgsMTEuMzQ2IDQwLjk3Myw4Ljk2NyBDNDAuMzEsOC40OTkgNDAuMTAyLDguMzA0IDM5LjU5NSw3LjY5MyBDMzkuMjA1LDguNzQ2IDM4Ljg0MSw5LjQ2MSAzOC4yNjksMTAuMjkzIEMzNy4yNDIsMTEuNzc1IDM2LjAzMywxMi43NzYgMzQuNDA4LDEzLjQ3OCBDMzMuMjI1LDEzLjk5OCAzMS42NzgsMTQuMzc1IDMwLjU2LDE0LjQ0IEwzMS4wNDEsMTYuMjM0IFogTTcuNDU4LDAgQzIuNSwwIDAsMy41MjIgMCw2LjQ1OSBDMCw4LjIzNyAwLjY4LDkuODE5IDIuMTM3LDEwLjQwOSBDMi4zNzYsMTAuNTA1IDIuNTksMTAuNDEyIDIuNjYsMTAuMTUgQzIuNzA4LDkuOTY5IDIuODIyLDkuNTExIDIuODczLDkuMzIgQzIuOTQzLDkuMDYxIDIuOTE2LDguOTcgMi43MjMsOC43NDQgQzIuMzAyLDguMjUzIDIuMDM0LDcuNjE3IDIuMDM0LDYuNzE2IEMyLjAzNCw0LjEwNCA0LjAwNywxLjc2NSA3LjE3MiwxLjc2NSBDOS45NzUsMS43NjUgMTEuNTE0LDMuNDYxIDExLjUxNCw1LjcyNiBDMTEuNTE0LDguNzA4IDEwLjE4MywxMS4xOCA4LjIwNiwxMS4xOCBDNy4xMTQsMTEuMTggNi4yOTcsMTAuMzI5IDYuNTU5LDkuMjMzIEM2Ljg3Miw3LjkyMiA3LjQ4LDYuNTA5IDcuNDgsNS41NjQgQzcuNDgsNC43MTcgNy4wMjIsNC4wMTEgNi4wNzIsNC4wMTEgQzQuOTU2LDQuMDExIDQuMDYsNS4xNTUgNC4wNiw2LjY4NyBDNC4wNiw3LjY2MyA0LjM5Myw4LjMyMyA0LjM5Myw4LjMyMyBDNC4zOTMsOC4zMjMgMy4yNTEsMTMuMTE3IDMuMDUxLDEzLjk1NyBDMi42NTIsMTUuNjI5IDIuOTkxLDE3LjY3OSAzLjAxOSwxNy44ODYgQzMuMDM2LDE4LjAwOSAzLjE5NSwxOC4wMzggMy4yNjcsMTcuOTQ2IEMzLjM3LDE3LjgxMiA0LjcsMTYuMTg3IDUuMTUxLDE0LjU2MiBDNS4yNzksMTQuMTAyIDUuODg1LDExLjcyIDUuODg1LDExLjcyIEM2LjI0OCwxMi40MDYgNy4zMDgsMTMuMDA5IDguNDM1LDEzLjAwOSBDMTEuNzksMTMuMDA5IDE0LjA2Niw5Ljk3OSAxNC4wNjYsNS45MjMgQzE0LjA2NiwyLjg1NyAxMS40NDQsMCA3LjQ1OCwwIFoiIGZpbGw9IiNmZmYiPjwvcGF0aD48L2c+PC9zdmc+);
+}
+ .PIN_1563287607366_button_pin.PIN_1563287607366_white { 
+  background-color: #fff;
+}
+ .PIN_1563287607366_button_pin.PIN_1563287607366_save { 
+  border-radius: 2px;
+  text-indent: 20px;
+  width: auto;
+  padding: 0 4px 0 0;
+  text-align: center;
+  text-decoration: none;
+  font: 11px/20px "Helvetica Neue", Helvetica, sans-serif;
+  font-weight: bold;
+  color: #fff!important;
+  background: #e60023 url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMzBweCIgd2lkdGg9IjMwcHgiIHZpZXdCb3g9Ii0xIC0xIDMxIDMxIj48Zz48cGF0aCBkPSJNMjkuNDQ5LDE0LjY2MiBDMjkuNDQ5LDIyLjcyMiAyMi44NjgsMjkuMjU2IDE0Ljc1LDI5LjI1NiBDNi42MzIsMjkuMjU2IDAuMDUxLDIyLjcyMiAwLjA1MSwxNC42NjIgQzAuMDUxLDYuNjAxIDYuNjMyLDAuMDY3IDE0Ljc1LDAuMDY3IEMyMi44NjgsMC4wNjcgMjkuNDQ5LDYuNjAxIDI5LjQ0OSwxNC42NjIiIGZpbGw9IiNmZmYiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIxIj48L3BhdGg+PHBhdGggZD0iTTE0LjczMywxLjY4NiBDNy41MTYsMS42ODYgMS42NjUsNy40OTUgMS42NjUsMTQuNjYyIEMxLjY2NSwyMC4xNTkgNS4xMDksMjQuODU0IDkuOTcsMjYuNzQ0IEM5Ljg1NiwyNS43MTggOS43NTMsMjQuMTQzIDEwLjAxNiwyMy4wMjIgQzEwLjI1MywyMi4wMSAxMS41NDgsMTYuNTcyIDExLjU0OCwxNi41NzIgQzExLjU0OCwxNi41NzIgMTEuMTU3LDE1Ljc5NSAxMS4xNTcsMTQuNjQ2IEMxMS4xNTcsMTIuODQyIDEyLjIxMSwxMS40OTUgMTMuNTIyLDExLjQ5NSBDMTQuNjM3LDExLjQ5NSAxNS4xNzUsMTIuMzI2IDE1LjE3NSwxMy4zMjMgQzE1LjE3NSwxNC40MzYgMTQuNDYyLDE2LjEgMTQuMDkzLDE3LjY0MyBDMTMuNzg1LDE4LjkzNSAxNC43NDUsMTkuOTg4IDE2LjAyOCwxOS45ODggQzE4LjM1MSwxOS45ODggMjAuMTM2LDE3LjU1NiAyMC4xMzYsMTQuMDQ2IEMyMC4xMzYsMTAuOTM5IDE3Ljg4OCw4Ljc2NyAxNC42NzgsOC43NjcgQzEwLjk1OSw4Ljc2NyA4Ljc3NywxMS41MzYgOC43NzcsMTQuMzk4IEM4Ljc3NywxNS41MTMgOS4yMSwxNi43MDkgOS43NDksMTcuMzU5IEM5Ljg1NiwxNy40ODggOS44NzIsMTcuNiA5Ljg0LDE3LjczMSBDOS43NDEsMTguMTQxIDkuNTIsMTkuMDIzIDkuNDc3LDE5LjIwMyBDOS40MiwxOS40NCA5LjI4OCwxOS40OTEgOS4wNCwxOS4zNzYgQzcuNDA4LDE4LjYyMiA2LjM4NywxNi4yNTIgNi4zODcsMTQuMzQ5IEM2LjM4NywxMC4yNTYgOS4zODMsNi40OTcgMTUuMDIyLDYuNDk3IEMxOS41NTUsNi40OTcgMjMuMDc4LDkuNzA1IDIzLjA3OCwxMy45OTEgQzIzLjA3OCwxOC40NjMgMjAuMjM5LDIyLjA2MiAxNi4yOTcsMjIuMDYyIEMxNC45NzMsMjIuMDYyIDEzLjcyOCwyMS4zNzkgMTMuMzAyLDIwLjU3MiBDMTMuMzAyLDIwLjU3MiAxMi42NDcsMjMuMDUgMTIuNDg4LDIzLjY1NyBDMTIuMTkzLDI0Ljc4NCAxMS4zOTYsMjYuMTk2IDEwLjg2MywyNy4wNTggQzEyLjA4NiwyNy40MzQgMTMuMzg2LDI3LjYzNyAxNC43MzMsMjcuNjM3IEMyMS45NSwyNy42MzcgMjcuODAxLDIxLjgyOCAyNy44MDEsMTQuNjYyIEMyNy44MDEsNy40OTUgMjEuOTUsMS42ODYgMTQuNzMzLDEuNjg2IiBmaWxsPSIjZTYwMDIzIj48L3BhdGg+PC9nPjwvc3ZnPg==) 3px 50% no-repeat;
+  background-size: 14px 14px;
+  -webkit-font-smoothing: antialiased;
+}
+ .PIN_1563287607366_button_pin.PIN_1563287607366_save:hover { 
+  background-color: #e60023;
+  box-shadow: none;
+  color: #fff!important;
+}
+ .PIN_1563287607366_button_pin.PIN_1563287607366_save .PIN_1563287607366_count { 
+  text-indent: 0;
+  position: absolute;
+  color: #555;
+  background: #efefef;
+  border-radius: 2px;
+}
+ .PIN_1563287607366_button_pin.PIN_1563287607366_save .PIN_1563287607366_count::before { 
+  content: "";
+  position: absolute;
+}
+ .PIN_1563287607366_button_pin.PIN_1563287607366_save.PIN_1563287607366_beside .PIN_1563287607366_count { 
+  right: -46px;
+  height: 20px;
+  width: 40px;
+  font-size: 10px;
+  line-height: 20px;
+}
+ .PIN_1563287607366_button_pin.PIN_1563287607366_save.PIN_1563287607366_beside .PIN_1563287607366_count::before { 
+  top: 3px;
+  left: -4px;
+  border-right: 7px solid #efefef;
+  border-top: 7px solid transparent;
+  border-bottom: 7px solid transparent;
+}
+ .PIN_1563287607366_button_pin.PIN_1563287607366_save.PIN_1563287607366_above .PIN_1563287607366_count { 
+  top: -36px;
+  width: 100%;
+  height: 30px;
+  font-size: 10px;
+  line-height: 30px;
+}
+ .PIN_1563287607366_button_pin.PIN_1563287607366_save.PIN_1563287607366_above .PIN_1563287607366_count::before { 
+  bottom: -4px;
+  left: 4px;
+  border-top: 7px solid #efefef;
+  border-right: 7px solid transparent;
+  border-left: 7px solid transparent;
+}
+ .PIN_1563287607366_button_pin.PIN_1563287607366_save.PIN_1563287607366_above.PIN_1563287607366_padded { 
+  margin-top: 28px;
+}
+ .PIN_1563287607366_button_pin.PIN_1563287607366_tall { 
+  height: 28px;
+  width: 56px;
+  border-radius: 3px;
+}
+ .PIN_1563287607366_button_pin.PIN_1563287607366_tall.PIN_1563287607366_above .PIN_1563287607366_count { 
+  position: absolute;
+  height: 37px;
+  width: inherit;
+  top: -37px;
+  left: 0;
+  line-height: 30px;
+  font-size: 14px;
+  background: transparent url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iNzZweCIgd2lkdGg9IjExNHB4IiB2aWV3Qm94PSIwIDAgMTE0IDc2Ij48Zz48cGF0aCBkPSJNOSAxQzQuNiAxIDEgNC42IDEgOXY0M2MwIDQuMyAzLjYgOCA4IDhoMjZsMTggMTVoNy41bDE2LTE1SDEwNWM0LjQgMCA4LTMuNyA4LThWOWMwLTQuNC0zLjYtOC04LThIOXoiIGZpbGw9IiNmZmYiIHN0cm9rZT0iI2I1YjViNSIgc3Ryb2tlLXdpZHRoPSIyIj48L3BhdGg+PC9nPjwvc3ZnPg==);
+  background-size: cover;
+}
+ .PIN_1563287607366_button_pin.PIN_1563287607366_tall.PIN_1563287607366_above.PIN_1563287607366_padded { 
+  margin-top: 37px;
+}
+ .PIN_1563287607366_button_pin.PIN_1563287607366_tall.PIN_1563287607366_beside .PIN_1563287607366_count { 
+  text-indent: 5px;
+  position: absolute;
+  right: -63px;
+  height: inherit;
+  width: 63px;
+  font-size: 14px;
+  line-height: 28px;
+  background: transparent url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iNTZweCIgd2lkdGg9IjEyNnB4IiB2aWV3Qm94PSIyIDAgMTMwIDYwIj48Zz48cGF0aCBkPSJNMTE5LjYgMmM0LjUgMCA4IDMuNiA4IDh2NDBjMCA0LjQtMy41IDgtOCA4SDIzLjNMMS42IDMyLjR2LTQuNkwyMy4zIDJoOTYuM3oiIGZpbGw9IiNmZmYiIHN0cm9rZT0iI2I1YjViNSIgc3Ryb2tlLXdpZHRoPSIyIj48L3BhdGg+PC9nPjwvc3ZnPg==);
+  background-size: cover;
+}
+ .PIN_1563287607366_button_pin.PIN_1563287607366_tall.PIN_1563287607366_beside.PIN_1563287607366_padded { 
+  margin-right: 63px;
+}
+ .PIN_1563287607366_button_pin.PIN_1563287607366_tall.PIN_1563287607366_save { 
+  border-radius: 4px;
+  width: auto;
+  background-position-x: 6px;
+  background-size: 18px 18px;
+  text-indent: 29px;
+  font: 14px/28px "Helvetica Neue", Helvetica, Arial, "sans-serif";
+  font-weight: bold;
+  padding: 0 6px 0 0;
+}
+ .PIN_1563287607366_button_pin.PIN_1563287607366_tall.PIN_1563287607366_save .PIN_1563287607366_count { 
+  position: absolute;
+  color: #555;
+  font-size: 12px;
+  text-indent: 0;
+  background: #efefef;
+  border-radius: 4px;
+}
+ .PIN_1563287607366_button_pin.PIN_1563287607366_tall.PIN_1563287607366_save .PIN_1563287607366_count::before { 
+  content: "";
+  position: absolute;
+}
+ .PIN_1563287607366_button_pin.PIN_1563287607366_tall.PIN_1563287607366_save.PIN_1563287607366_above .PIN_1563287607366_count { 
+  font-size: 14px;
+  top: -50px;
+  width: 100%;
+  height: 44px;
+  line-height: 44px;
+}
+ .PIN_1563287607366_button_pin.PIN_1563287607366_tall.PIN_1563287607366_save.PIN_1563287607366_above .PIN_1563287607366_count::before { 
+  bottom: -4px;
+  left: 7px;
+  border-top: 7px solid #efefef;
+  border-right: 7px solid transparent;
+  border-left: 7px solid transparent;
+}
+ .PIN_1563287607366_button_pin.PIN_1563287607366_tall.PIN_1563287607366_save.PIN_1563287607366_beside .PIN_1563287607366_count { 
+  font-size: 14px;
+  right: -63px;
+  width: 56px;
+  height: 28px;
+  line-height: 28px;
+}
+ .PIN_1563287607366_button_pin.PIN_1563287607366_tall.PIN_1563287607366_save.PIN_1563287607366_beside .PIN_1563287607366_count::before { 
+  top: 7px;
+  left: -4px;
+  border-right: 7px solid #efefef;
+  border-top: 7px solid transparent;
+  border-bottom: 7px solid transparent;
+}
+ .PIN_1563287607366_button_pin.PIN_1563287607366_round { 
+  height: 16px;
+  width: 16px;
+  background: transparent url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMzBweCIgd2lkdGg9IjMwcHgiIHZpZXdCb3g9Ii0xIC0xIDMxIDMxIj48Zz48cGF0aCBkPSJNMjkuNDQ5LDE0LjY2MiBDMjkuNDQ5LDIyLjcyMiAyMi44NjgsMjkuMjU2IDE0Ljc1LDI5LjI1NiBDNi42MzIsMjkuMjU2IDAuMDUxLDIyLjcyMiAwLjA1MSwxNC42NjIgQzAuMDUxLDYuNjAxIDYuNjMyLDAuMDY3IDE0Ljc1LDAuMDY3IEMyMi44NjgsMC4wNjcgMjkuNDQ5LDYuNjAxIDI5LjQ0OSwxNC42NjIiIGZpbGw9IiNmZmYiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIxIj48L3BhdGg+PHBhdGggZD0iTTE0LjczMywxLjY4NiBDNy41MTYsMS42ODYgMS42NjUsNy40OTUgMS42NjUsMTQuNjYyIEMxLjY2NSwyMC4xNTkgNS4xMDksMjQuODU0IDkuOTcsMjYuNzQ0IEM5Ljg1NiwyNS43MTggOS43NTMsMjQuMTQzIDEwLjAxNiwyMy4wMjIgQzEwLjI1MywyMi4wMSAxMS41NDgsMTYuNTcyIDExLjU0OCwxNi41NzIgQzExLjU0OCwxNi41NzIgMTEuMTU3LDE1Ljc5NSAxMS4xNTcsMTQuNjQ2IEMxMS4xNTcsMTIuODQyIDEyLjIxMSwxMS40OTUgMTMuNTIyLDExLjQ5NSBDMTQuNjM3LDExLjQ5NSAxNS4xNzUsMTIuMzI2IDE1LjE3NSwxMy4zMjMgQzE1LjE3NSwxNC40MzYgMTQuNDYyLDE2LjEgMTQuMDkzLDE3LjY0MyBDMTMuNzg1LDE4LjkzNSAxNC43NDUsMTkuOTg4IDE2LjAyOCwxOS45ODggQzE4LjM1MSwxOS45ODggMjAuMTM2LDE3LjU1NiAyMC4xMzYsMTQuMDQ2IEMyMC4xMzYsMTAuOTM5IDE3Ljg4OCw4Ljc2NyAxNC42NzgsOC43NjcgQzEwLjk1OSw4Ljc2NyA4Ljc3NywxMS41MzYgOC43NzcsMTQuMzk4IEM4Ljc3NywxNS41MTMgOS4yMSwxNi43MDkgOS43NDksMTcuMzU5IEM5Ljg1NiwxNy40ODggOS44NzIsMTcuNiA5Ljg0LDE3LjczMSBDOS43NDEsMTguMTQxIDkuNTIsMTkuMDIzIDkuNDc3LDE5LjIwMyBDOS40MiwxOS40NCA5LjI4OCwxOS40OTEgOS4wNCwxOS4zNzYgQzcuNDA4LDE4LjYyMiA2LjM4NywxNi4yNTIgNi4zODcsMTQuMzQ5IEM2LjM4NywxMC4yNTYgOS4zODMsNi40OTcgMTUuMDIyLDYuNDk3IEMxOS41NTUsNi40OTcgMjMuMDc4LDkuNzA1IDIzLjA3OCwxMy45OTEgQzIzLjA3OCwxOC40NjMgMjAuMjM5LDIyLjA2MiAxNi4yOTcsMjIuMDYyIEMxNC45NzMsMjIuMDYyIDEzLjcyOCwyMS4zNzkgMTMuMzAyLDIwLjU3MiBDMTMuMzAyLDIwLjU3MiAxMi42NDcsMjMuMDUgMTIuNDg4LDIzLjY1NyBDMTIuMTkzLDI0Ljc4NCAxMS4zOTYsMjYuMTk2IDEwLjg2MywyNy4wNTggQzEyLjA4NiwyNy40MzQgMTMuMzg2LDI3LjYzNyAxNC43MzMsMjcuNjM3IEMyMS45NSwyNy42MzcgMjcuODAxLDIxLjgyOCAyNy44MDEsMTQuNjYyIEMyNy44MDEsNy40OTUgMjEuOTUsMS42ODYgMTQuNzMzLDEuNjg2IiBmaWxsPSIjZTYwMDIzIj48L3BhdGg+PC9nPjwvc3ZnPg==) 0 0 no-repeat;
+  background-size: 16px 16px;
+  box-shadow: none;
+}
+ .PIN_1563287607366_button_pin.PIN_1563287607366_round.PIN_1563287607366_tall { 
+  height: 32px;
+  width: 32px;
+  background-size: 32px 32px;
+}
+</style><style type="text/css">.fb_hidden{position:absolute;top:-10000px;z-index:10001}.fb_reposition{overflow:hidden;position:relative}.fb_invisible{display:none}.fb_reset{background:none;border:0;border-spacing:0;color:#000;cursor:auto;direction:ltr;font-family:"lucida grande", tahoma, verdana, arial, sans-serif;font-size:11px;font-style:normal;font-variant:normal;font-weight:normal;letter-spacing:normal;line-height:1;margin:0;overflow:visible;padding:0;text-align:left;text-decoration:none;text-indent:0;text-shadow:none;text-transform:none;visibility:visible;white-space:normal;word-spacing:normal}.fb_reset>div{overflow:hidden}@keyframes fb_transform{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}.fb_animate{animation:fb_transform .3s forwards}
+.fb_dialog{background:rgba(82, 82, 82, .7);position:absolute;top:-10000px;z-index:10001}.fb_dialog_advanced{border-radius:8px;padding:10px}.fb_dialog_content{background:#fff;color:#373737}.fb_dialog_close_icon{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 0 transparent;cursor:pointer;display:block;height:15px;position:absolute;right:18px;top:17px;width:15px}.fb_dialog_mobile .fb_dialog_close_icon{left:5px;right:auto;top:5px}.fb_dialog_padding{background-color:transparent;position:absolute;width:1px;z-index:-1}.fb_dialog_close_icon:hover{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -15px transparent}.fb_dialog_close_icon:active{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -30px transparent}.fb_dialog_iframe{line-height:0}.fb_dialog_content .dialog_title{background:#6d84b4;border:1px solid #365899;color:#fff;font-size:14px;font-weight:bold;margin:0}.fb_dialog_content .dialog_title>span{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/yd/r/Cou7n-nqK52.gif) no-repeat 5px 50%;float:left;padding:5px 0 7px 26px}body.fb_hidden{height:100%;left:0;margin:0;overflow:visible;position:absolute;top:-10000px;transform:none;width:100%}.fb_dialog.fb_dialog_mobile.loading{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/ya/r/3rhSv5V8j3o.gif) white no-repeat 50% 50%;min-height:100%;min-width:100%;overflow:hidden;position:absolute;top:0;z-index:10001}.fb_dialog.fb_dialog_mobile.loading.centered{background:none;height:auto;min-height:initial;min-width:initial;width:auto}.fb_dialog.fb_dialog_mobile.loading.centered #fb_dialog_loader_spinner{width:100%}.fb_dialog.fb_dialog_mobile.loading.centered .fb_dialog_content{background:none}.loading.centered #fb_dialog_loader_close{clear:both;color:#fff;display:block;font-size:18px;padding-top:20px}#fb-root #fb_dialog_ipad_overlay{background:rgba(0, 0, 0, .4);bottom:0;left:0;min-height:100%;position:absolute;right:0;top:0;width:100%;z-index:10000}#fb-root #fb_dialog_ipad_overlay.hidden{display:none}.fb_dialog.fb_dialog_mobile.loading iframe{visibility:hidden}.fb_dialog_mobile .fb_dialog_iframe{position:sticky;top:0}.fb_dialog_content .dialog_header{background:linear-gradient(from(#738aba), to(#2c4987));border-bottom:1px solid;border-color:#1d3c78;box-shadow:white 0 1px 1px -1px inset;color:#fff;font:bold 14px Helvetica, sans-serif;text-overflow:ellipsis;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0;vertical-align:middle;white-space:nowrap}.fb_dialog_content .dialog_header table{height:43px;width:100%}.fb_dialog_content .dialog_header td.header_left{font-size:12px;padding-left:5px;vertical-align:middle;width:60px}.fb_dialog_content .dialog_header td.header_right{font-size:12px;padding-right:5px;vertical-align:middle;width:60px}.fb_dialog_content .touchable_button{background:linear-gradient(from(#4267B2), to(#2a4887));background-clip:padding-box;border:1px solid #29487d;border-radius:3px;display:inline-block;line-height:18px;margin-top:3px;max-width:85px;padding:4px 12px;position:relative}.fb_dialog_content .dialog_header .touchable_button input{background:none;border:none;color:#fff;font:bold 12px Helvetica, sans-serif;margin:2px -12px;padding:2px 6px 3px 6px;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}.fb_dialog_content .dialog_header .header_center{color:#fff;font-size:16px;font-weight:bold;line-height:18px;text-align:center;vertical-align:middle}.fb_dialog_content .dialog_content{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/y9/r/jKEcVPZFk-2.gif) no-repeat 50% 50%;border:1px solid #4a4a4a;border-bottom:0;border-top:0;height:150px}.fb_dialog_content .dialog_footer{background:#f5f6f7;border:1px solid #4a4a4a;border-top-color:#ccc;height:40px}#fb_dialog_loader_close{float:left}.fb_dialog.fb_dialog_mobile .fb_dialog_close_button{text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}.fb_dialog.fb_dialog_mobile .fb_dialog_close_icon{visibility:hidden}#fb_dialog_loader_spinner{animation:rotateSpinner 1.2s linear infinite;background-color:transparent;background-image:url(https://static.xx.fbcdn.net/rsrc.php/v3/yD/r/t-wz8gw1xG1.png);background-position:50% 50%;background-repeat:no-repeat;height:24px;width:24px}@keyframes rotateSpinner{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+.fb_iframe_widget{display:inline-block;position:relative}.fb_iframe_widget span{display:inline-block;position:relative;text-align:justify}.fb_iframe_widget iframe{position:absolute}.fb_iframe_widget_fluid_desktop,.fb_iframe_widget_fluid_desktop span,.fb_iframe_widget_fluid_desktop iframe{max-width:100%}.fb_iframe_widget_fluid_desktop iframe{min-width:220px;position:relative}.fb_iframe_widget_lift{z-index:1}.fb_iframe_widget_fluid{display:inline}.fb_iframe_widget_fluid span{width:100%}</style><script src="./jersey-custom-method-parameter-injection_files/alfie.f51946af45e0b561c60f768335c9eb79.js.Без названия" async="" charset="UTF-8"></script></head>
+
+
+  <body data-whatinput="mouse">
+    <div style="height: 0; width: 0; position: absolute; visibility: hidden">
+  <!-- inject:svg --><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><symbol id="back-arrow" viewBox="0 0 512 512"><polygon points="352,128.4 319.7,96 160,256 160,256 160,256 319.7,416 352,383.6 224.7,256 "></polygon></symbol><symbol id="email" viewBox="0 0 512 512"><path d="M484.748,96.359H27.439h-3.966h-9.625h-6.63v318.585H505V96.359h-17.218H484.748z M464.837,116.271  L272.529,308.578c-8.769,8.769-24.073,8.769-32.842,0L47.35,116.271H464.837z M27.128,124.203l129.287,129.268L27.128,382.759  V124.203z M43.014,395.029l127.489-127.47l55.106,55.097c8.138,8.148,18.978,12.64,30.499,12.64c11.521,0,22.361-4.492,30.499-12.64  l55.106-55.106l127.479,127.479H43.014z M485.089,382.769L355.801,253.472l129.287-129.297V382.769z" fill="#37404D"></path></symbol><symbol id="forward-arrow" viewBox="0 0 512 512"><polygon points="160,128.4 192.3,96 352,256 352,256 352,256 192.3,416 160,383.6 287.3,256 "></polygon></symbol><symbol id="github-plain" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"></path></symbol><symbol id="pio-logo" viewBox="0 0 145.87 34.95">
+  <g>
+    <path d="M33.28,38.85a3.29,3.29,0,0,0-.11-1,1.73,1.73,0,0,1-.11-0.56,0.68,0.68,0,0,1,.38-0.59,1.65,1.65,0,0,1,.89-0.23,2.9,2.9,0,0,1,1.93.62A1.91,1.91,0,0,1,37,38.62V54.3a8.43,8.43,0,0,0,1.86-.47,12,12,0,0,0,2.14-1,12.82,12.82,0,0,0,2.14-1.65A11.56,11.56,0,0,0,45,48.84a12.38,12.38,0,0,0,1.32-3,12.54,12.54,0,0,0,.5-3.67,9.82,9.82,0,0,0-.43-2.81A7.93,7.93,0,0,0,45,36.74a7.31,7.31,0,0,0-2.43-2A7.72,7.72,0,0,0,39,34a12.43,12.43,0,0,0-4.94.89,9.18,9.18,0,0,0-3.36,2.39,9.52,9.52,0,0,0-1.91,3.48,14.15,14.15,0,0,0-.61,4.18,11.37,11.37,0,0,0,.27,2.68,9.62,9.62,0,0,0,.6,1.78,4.75,4.75,0,0,0,.61,1L30,50.8a0.49,0.49,0,0,1,.56.09,0.89,0.89,0,0,1,.16.56,3.42,3.42,0,0,1-.22,1,5.43,5.43,0,0,1-.6,1.23,2.7,2.7,0,0,1-.87.87,0.83,0.83,0,0,1-1-.11,12.46,12.46,0,0,1-.87-0.94A9,9,0,0,1,26,51.68a15,15,0,0,1-1-2.74,14,14,0,0,1-.45-3.71,16.83,16.83,0,0,1,1.05-6.11,13.55,13.55,0,0,1,3-4.68,13.09,13.09,0,0,1,4.56-3A15.7,15.7,0,0,1,39,30.39a12.62,12.62,0,0,1,4.77.87,10.51,10.51,0,0,1,3.66,2.43,10.76,10.76,0,0,1,2.33,3.71,13.14,13.14,0,0,1,.82,4.71,14.74,14.74,0,0,1-1.12,5.8,16.53,16.53,0,0,1-3,4.72A17.11,17.11,0,0,1,37,57.91v6.33a0.92,0.92,0,0,1-.4.86,1.75,1.75,0,0,1-.94.25,3.14,3.14,0,0,1-.84-0.12,3.52,3.52,0,0,1-.76-0.3,2.15,2.15,0,0,1-.56-0.43A0.77,0.77,0,0,1,33.28,64V38.85Z" transform="translate(-24.53 -30.39)"></path>
+    <path d="M63.13,50a8.85,8.85,0,0,1-.46,2.74,9.64,9.64,0,0,1-1.36,2.66,10.47,10.47,0,0,1-2.23,2.25A9.57,9.57,0,0,1,56,59.2a5.37,5.37,0,0,0,.62,1.16,4.11,4.11,0,0,0,.93.95,4.4,4.4,0,0,0,1.25.63,5.3,5.3,0,0,0,1.65.23,5.15,5.15,0,0,0,2.41-.53,5.27,5.27,0,0,0,1.7-1.39,7.46,7.46,0,0,0,1.11-1.95,12.34,12.34,0,0,0,.63-2.18A1.45,1.45,0,0,1,67,55.06a1.37,1.37,0,0,1,1-.13,1.79,1.79,0,0,1,.91.6,1.38,1.38,0,0,1,.32,1.09A16.38,16.38,0,0,1,69,58.28a10,10,0,0,1-.67,1.9,10.62,10.62,0,0,1-1.14,1.89,7.77,7.77,0,0,1-1.7,1.65,8.59,8.59,0,0,1-2.37,1.17,10,10,0,0,1-3.12.45,8.13,8.13,0,0,1-3.18-.64,8.24,8.24,0,0,1-2.72-1.85,9,9,0,0,1-1.9-3,10.66,10.66,0,0,1-.71-4,13.68,13.68,0,0,1,.63-4.23,12.12,12.12,0,0,1,1.66-3.39A8.23,8.23,0,0,1,56.1,46a5.08,5.08,0,0,1,2.7-.81,4.51,4.51,0,0,1,1.82.35,3.81,3.81,0,0,1,1.37,1,4.39,4.39,0,0,1,.86,1.54A6.27,6.27,0,0,1,63.13,50ZM55.4,55.7a3.82,3.82,0,0,0,0,.42,4,4,0,0,1,0,.45,6.64,6.64,0,0,0,1.62-1.08A6.76,6.76,0,0,0,58.31,54a7.33,7.33,0,0,0,.8-1.84,7.6,7.6,0,0,0,.28-2.07,2.4,2.4,0,0,0-.27-1.24,0.83,0.83,0,0,0-.74-0.45,1.54,1.54,0,0,0-1,.4,3.57,3.57,0,0,0-.8,1A7.22,7.22,0,0,0,56,51.29q-0.22.81-.36,1.63a14.79,14.79,0,0,0-.19,1.56A11.43,11.43,0,0,0,55.4,55.7Z" transform="translate(-24.53 -30.39)"></path>
+    <path d="M77.38,50a8.85,8.85,0,0,1-.46,2.74,9.64,9.64,0,0,1-1.36,2.66,10.47,10.47,0,0,1-2.23,2.25,9.57,9.57,0,0,1-3.06,1.51,5.37,5.37,0,0,0,.62,1.16,4.11,4.11,0,0,0,.93.95,4.4,4.4,0,0,0,1.25.63,5.3,5.3,0,0,0,1.65.23,5.15,5.15,0,0,0,2.41-.53,5.27,5.27,0,0,0,1.7-1.39A7.46,7.46,0,0,0,80,58.3a12.34,12.34,0,0,0,.63-2.18,1.45,1.45,0,0,1,.67-1.07,1.37,1.37,0,0,1,1-.13,1.79,1.79,0,0,1,.91.6,1.38,1.38,0,0,1,.32,1.09,16.38,16.38,0,0,1-.32,1.66,10,10,0,0,1-.67,1.9,10.62,10.62,0,0,1-1.14,1.89,7.77,7.77,0,0,1-1.7,1.65,8.59,8.59,0,0,1-2.37,1.17,10,10,0,0,1-3.12.45A8.13,8.13,0,0,1,71,64.69a8.24,8.24,0,0,1-2.72-1.85,9,9,0,0,1-1.9-3,10.66,10.66,0,0,1-.71-4,13.68,13.68,0,0,1,.63-4.23A12.12,12.12,0,0,1,68,48.23,8.23,8.23,0,0,1,70.35,46a5.08,5.08,0,0,1,2.7-.81,4.51,4.51,0,0,1,1.82.35,3.81,3.81,0,0,1,1.37,1,4.39,4.39,0,0,1,.86,1.54A6.27,6.27,0,0,1,77.38,50ZM69.65,55.7a3.82,3.82,0,0,0,0,.42,4,4,0,0,1,0,.45,6.64,6.64,0,0,0,1.62-1.08A6.76,6.76,0,0,0,72.56,54a7.33,7.33,0,0,0,.8-1.84,7.6,7.6,0,0,0,.28-2.07,2.4,2.4,0,0,0-.27-1.24,0.83,0.83,0,0,0-.74-0.45,1.54,1.54,0,0,0-1,.4,3.57,3.57,0,0,0-.8,1,7.22,7.22,0,0,0-.56,1.45q-0.22.81-.36,1.63a14.79,14.79,0,0,0-.19,1.56A11.43,11.43,0,0,0,69.65,55.7Z" transform="translate(-24.53 -30.39)"></path>
+    <path d="M83.31,57.41a1.17,1.17,0,0,1-.7.93,1.39,1.39,0,0,1-1,0,1.87,1.87,0,0,1-.84-0.73,1.39,1.39,0,0,1-.2-1.12,32.08,32.08,0,0,1,1-3.53l1.32-3.86A5.78,5.78,0,0,1,82.33,48a3.22,3.22,0,0,1-.21-1.16,2.28,2.28,0,0,1,.46-1.28,6.52,6.52,0,0,1,1.1-1.23A7,7,0,0,1,85,43.39,2.65,2.65,0,0,1,86.2,43a1.51,1.51,0,0,1,1.3.59,2.58,2.58,0,0,1,.43,1.57,3.35,3.35,0,0,1-.18,1.07,9.57,9.57,0,0,1-.39,1Q87.16,47.69,87,48a2.64,2.64,0,0,0-.2.42,20,20,0,0,0,1.76,2.65q0.91,1.15,1.68,2.27a12,12,0,0,1,1.25,2.39,8.19,8.19,0,0,1,.49,3,6.65,6.65,0,0,1-.06.87,5.56,5.56,0,0,1-.18.84,5.14,5.14,0,0,0,1.49-.52,5.31,5.31,0,0,0,1.13-.81,4.56,4.56,0,0,0,.8-1A6.7,6.7,0,0,0,95.67,57a3.49,3.49,0,0,1,.52-1,0.76,0.76,0,0,1,.59-0.3,1.16,1.16,0,0,1,.62.2,2.29,2.29,0,0,1,.56.5,3.06,3.06,0,0,1,.4.63,1.42,1.42,0,0,1,.15.59,2.44,2.44,0,0,1-.19.84,6.06,6.06,0,0,1-.5,1,8.64,8.64,0,0,1-.71,1,6.37,6.37,0,0,1-.82.83,10.38,10.38,0,0,1-2.65,1.54,12.47,12.47,0,0,1-3.77.79,7.3,7.3,0,0,1-2.05,1.23,7,7,0,0,1-2.66.48,6.6,6.6,0,0,1-1.54-.19,10.19,10.19,0,0,1-1.5-.48,9.61,9.61,0,0,1-1.3-.64,4.87,4.87,0,0,1-.94-0.7,4,4,0,0,1-1.15-1.7,3.23,3.23,0,0,1-.13-1.54A2.33,2.33,0,0,1,79.1,59a1,1,0,0,1,.77-0.43,2.31,2.31,0,0,1,.74.2q0.5,0.2,1.16.52l1.43,0.67q0.77,0.35,1.55.67a12.82,12.82,0,0,0,1.51.52,5.21,5.21,0,0,0,1.35.2,4.82,4.82,0,0,0,.73-1.24,4.28,4.28,0,0,0,.33-1.69,6.87,6.87,0,0,0-.3-2.09,8.36,8.36,0,0,0-.8-1.78A10.83,10.83,0,0,0,86.44,53q-0.62-.71-1.25-1.35-0.56,1.38-1,2.73T83.31,57.41Z" transform="translate(-24.53 -30.39)"></path>
+    <path d="M95.9,34.42a3.28,3.28,0,0,0-.08-0.82,3.05,3.05,0,0,0-.16-0.48,1.49,1.49,0,0,0-.16-0.28,0.36,0.36,0,0,1-.08-0.22,0.28,0.28,0,0,1,.14-0.23,1.41,1.41,0,0,1,.38-0.16,3.19,3.19,0,0,1,.5-0.11,4.08,4.08,0,0,1,.53,0,2.72,2.72,0,0,1,1.89.62,1.93,1.93,0,0,1,.69,1.49v15q0.59-.8,1.23-1.51a10.75,10.75,0,0,1,1.35-1.27,6.63,6.63,0,0,1,1.46-.88,3.92,3.92,0,0,1,4.83,1.27,5,5,0,0,1,.77,1.65,7.74,7.74,0,0,1-.2,4.52,9.82,9.82,0,0,1-1.12,2.19,11.33,11.33,0,0,1-1.49,1.76,13.86,13.86,0,0,1-1.54,1.29,8.65,8.65,0,0,0,.46,1.49A5.75,5.75,0,0,0,106,61a3.38,3.38,0,0,0,1,.89,2.4,2.4,0,0,0,1.25.33,2.61,2.61,0,0,0,1.54-.5A5.41,5.41,0,0,0,111,60.4a8.19,8.19,0,0,0,.93-1.66,9.39,9.39,0,0,0,.54-1.7,2.22,2.22,0,0,1,.43-1.05,1,1,0,0,1,.63-0.36,1.11,1.11,0,0,1,.69.18,2.15,2.15,0,0,1,.61.55,2.42,2.42,0,0,1,.39.76,1.47,1.47,0,0,1,0,.8,22.13,22.13,0,0,1-.94,2.25,11.87,11.87,0,0,1-1.55,2.44,9,9,0,0,1-2.2,1.95,5.34,5.34,0,0,1-2.91.8,4.74,4.74,0,0,1-2.57-.73,7.4,7.4,0,0,1-2-1.83,8.52,8.52,0,0,1-1.28-2.41,7.8,7.8,0,0,1-.45-2.51,1.19,1.19,0,0,1,.33-0.76,9.22,9.22,0,0,1,.83-0.84q0.5-.46,1.08-1A9.57,9.57,0,0,0,104.72,54a6.76,6.76,0,0,0,.83-1.58,5.63,5.63,0,0,0,.33-2,2.31,2.31,0,0,0-.43-1.45,1.35,1.35,0,0,0-1.11-.56,2.28,2.28,0,0,0-1,.32,4.49,4.49,0,0,0-1.25,1.09,10.89,10.89,0,0,0-1.31,2.05A18.58,18.58,0,0,0,99.53,55v8.25q0,0.35,0,.71a1.76,1.76,0,0,1-.14.66,1.21,1.21,0,0,1-.4.49,1.31,1.31,0,0,1-.79.2,3.9,3.9,0,0,1-.76-0.08,2.11,2.11,0,0,1-.75-0.3,1.71,1.71,0,0,1-.56-0.63,2.29,2.29,0,0,1-.22-1.09V34.42Z" transform="translate(-24.53 -30.39)"></path>
+    <path d="M115.24,40.91a2.71,2.71,0,0,1-1.11-.23,2.9,2.9,0,0,1-.91-0.63,3.16,3.16,0,0,1-.62-0.93,2.77,2.77,0,0,1-.23-1.14,2.91,2.91,0,0,1,.23-1.17,3,3,0,0,1,.62-0.93,2.88,2.88,0,0,1,2-.83,3,3,0,0,1,1.17.22,2.75,2.75,0,0,1,1.54,1.54,3,3,0,0,1,.22,1.17,2.89,2.89,0,0,1-.22,1.14,3,3,0,0,1-.61.93,2.87,2.87,0,0,1-.93.63A2.91,2.91,0,0,1,115.24,40.91ZM116.34,60q0,0.16,0,.53a3.15,3.15,0,0,0,.14.74,1.72,1.72,0,0,0,.38.66,0.94,0.94,0,0,0,.73.28,1.71,1.71,0,0,0,1.23-.52,4.76,4.76,0,0,0,.91-1.29,9.69,9.69,0,0,0,.64-1.68q0.26-.9.42-1.7a2.22,2.22,0,0,1,.43-1.05,1,1,0,0,1,.63-0.36,1.06,1.06,0,0,1,.68.18,2.38,2.38,0,0,1,.61.55,2.29,2.29,0,0,1,.4.76,1.47,1.47,0,0,1,0,.8,23.29,23.29,0,0,1-.86,2.51,10.7,10.7,0,0,1-1.35,2.41,7.31,7.31,0,0,1-2,1.83,4.93,4.93,0,0,1-2.7.73A3.88,3.88,0,0,1,115,65a3.81,3.81,0,0,1-1.27-1,4.23,4.23,0,0,1-.79-1.43,5.52,5.52,0,0,1-.27-1.73V48a3.29,3.29,0,0,0-.11-1,1.73,1.73,0,0,1-.11-0.56,0.66,0.66,0,0,1,.38-0.57,1.71,1.71,0,0,1,.89-0.22,2.72,2.72,0,0,1,1.89.62,1.93,1.93,0,0,1,.69,1.49V60Z" transform="translate(-24.53 -30.39)"></path>
+    <path d="M131.46,57a2.11,2.11,0,0,1,.43-1,1,1,0,0,1,.63-0.35,1.15,1.15,0,0,1,.69.16,2.06,2.06,0,0,1,.61.53,2.3,2.3,0,0,1,.39.74,1.5,1.5,0,0,1,0,.81,22.13,22.13,0,0,1-.94,2.25,11.87,11.87,0,0,1-1.55,2.44,9,9,0,0,1-2.2,1.95,5.34,5.34,0,0,1-2.91.8,6.08,6.08,0,0,1-2.44-.46,4.82,4.82,0,0,1-1.77-1.29,5.57,5.57,0,0,1-1.08-2A8.64,8.64,0,0,1,121,59V37.16a8.6,8.6,0,0,1,.34-2.47,6.26,6.26,0,0,1,.94-1.95,4.55,4.55,0,0,1,1.39-1.27,3.34,3.34,0,0,1,1.69-.46,3.75,3.75,0,0,1,1.78.39,3.52,3.52,0,0,1,1.2,1,5.09,5.09,0,0,1,.74,1.45,9.48,9.48,0,0,1,.39,1.68,15.68,15.68,0,0,1,.14,1.69q0,0.83,0,1.51a22.08,22.08,0,0,1-.33,3.69q-0.33,1.93-.83,3.81t-1.1,3.6q-0.6,1.72-1.15,3.06t-1,2.18a4.44,4.44,0,0,1-.6,1v2.79a4.25,4.25,0,0,0,.61,2.38,2.16,2.16,0,0,0,1.95.93,2.61,2.61,0,0,0,1.54-.5A5.41,5.41,0,0,0,130,60.4a8.19,8.19,0,0,0,.93-1.66A9.39,9.39,0,0,0,131.46,57Zm-6.82-7.24a7.54,7.54,0,0,0,.5-1.32q0.25-.83.47-1.84T126,44.52q0.19-1.1.33-2.16t0.22-2q0.08-.93.08-1.58a12.65,12.65,0,0,0-.35-3.5,1.24,1.24,0,0,0-.94-1.11,0.41,0.41,0,0,0-.33.19,1.62,1.62,0,0,0-.23.48,3.13,3.13,0,0,0-.13.63,6.08,6.08,0,0,0,0,.62V49.8Z" transform="translate(-24.53 -30.39)"></path>
+    <path d="M142,57a2.11,2.11,0,0,1,.43-1,1,1,0,0,1,.63-0.35,1.15,1.15,0,0,1,.69.16,2.06,2.06,0,0,1,.61.53,2.3,2.3,0,0,1,.39.74,1.5,1.5,0,0,1,0,.81,22.13,22.13,0,0,1-.94,2.25,11.87,11.87,0,0,1-1.55,2.44,9,9,0,0,1-2.2,1.95,5.34,5.34,0,0,1-2.91.8,6.08,6.08,0,0,1-2.44-.46A4.82,4.82,0,0,1,133,63.59a5.57,5.57,0,0,1-1.08-2,8.64,8.64,0,0,1-.36-2.59V37.16a8.6,8.6,0,0,1,.34-2.47,6.26,6.26,0,0,1,.94-1.95,4.55,4.55,0,0,1,1.39-1.27,3.34,3.34,0,0,1,1.69-.46,3.75,3.75,0,0,1,1.78.39,3.52,3.52,0,0,1,1.2,1,5.09,5.09,0,0,1,.74,1.45,9.48,9.48,0,0,1,.39,1.68,15.68,15.68,0,0,1,.14,1.69q0,0.83,0,1.51a22.08,22.08,0,0,1-.33,3.69q-0.33,1.93-.83,3.81t-1.1,3.6q-0.6,1.72-1.15,3.06t-1,2.18a4.44,4.44,0,0,1-.6,1v2.79a4.25,4.25,0,0,0,.61,2.38,2.16,2.16,0,0,0,1.95.93,2.61,2.61,0,0,0,1.54-.5,5.41,5.41,0,0,0,1.27-1.27,8.19,8.19,0,0,0,.93-1.66A9.39,9.39,0,0,0,142,57Zm-6.82-7.24a7.54,7.54,0,0,0,.5-1.32q0.25-.83.47-1.84t0.41-2.11q0.19-1.1.33-2.16t0.22-2q0.08-.93.08-1.58a12.65,12.65,0,0,0-.35-3.5,1.24,1.24,0,0,0-.94-1.11,0.41,0.41,0,0,0-.33.19,1.62,1.62,0,0,0-.23.48,3.13,3.13,0,0,0-.13.63,6.08,6.08,0,0,0,0,.62V49.8Z" transform="translate(-24.53 -30.39)"></path>
+    <path d="M153.18,50a8.85,8.85,0,0,1-.46,2.74,9.64,9.64,0,0,1-1.36,2.66,10.47,10.47,0,0,1-2.23,2.25,9.57,9.57,0,0,1-3.06,1.51,5.37,5.37,0,0,0,.62,1.16,4.11,4.11,0,0,0,.93.95,4.4,4.4,0,0,0,1.25.63,5.3,5.3,0,0,0,1.65.23,5.15,5.15,0,0,0,2.41-.53,5.27,5.27,0,0,0,1.7-1.39,7.46,7.46,0,0,0,1.11-1.95,12.34,12.34,0,0,0,.63-2.18,1.45,1.45,0,0,1,.67-1.07,1.37,1.37,0,0,1,1-.13,1.79,1.79,0,0,1,.91.6,1.38,1.38,0,0,1,.32,1.09,16.38,16.38,0,0,1-.32,1.66,10,10,0,0,1-.67,1.9,10.62,10.62,0,0,1-1.14,1.89,7.77,7.77,0,0,1-1.7,1.65,8.59,8.59,0,0,1-2.37,1.17,10,10,0,0,1-3.12.45,8.13,8.13,0,0,1-3.18-.64,8.24,8.24,0,0,1-2.72-1.85,9,9,0,0,1-1.9-3,10.66,10.66,0,0,1-.71-4,13.68,13.68,0,0,1,.63-4.23,12.12,12.12,0,0,1,1.66-3.39A8.23,8.23,0,0,1,146.15,46a5.08,5.08,0,0,1,2.7-.81,4.51,4.51,0,0,1,1.82.35,3.81,3.81,0,0,1,1.37,1,4.39,4.39,0,0,1,.86,1.54A6.27,6.27,0,0,1,153.18,50Zm-7.73,5.67a3.82,3.82,0,0,0,0,.42,4,4,0,0,1,0,.45,6.64,6.64,0,0,0,1.62-1.08,6.76,6.76,0,0,0,1.24-1.5,7.33,7.33,0,0,0,.8-1.84,7.6,7.6,0,0,0,.28-2.07,2.4,2.4,0,0,0-.27-1.24,0.83,0.83,0,0,0-.74-0.45,1.54,1.54,0,0,0-1,.4,3.57,3.57,0,0,0-.8,1,7.22,7.22,0,0,0-.56,1.45q-0.22.81-.36,1.63a14.79,14.79,0,0,0-.19,1.56A11.43,11.43,0,0,0,145.45,55.7Z" transform="translate(-24.53 -30.39)"></path>
+    <path d="M152.06,41.43q0.54,0,1.2.07t1.36,0.06l1.78,0V33.46a3.28,3.28,0,0,0-.08-0.82,3.05,3.05,0,0,0-.16-0.48,1.49,1.49,0,0,0-.16-0.28,0.36,0.36,0,0,1-.08-0.22,0.28,0.28,0,0,1,.14-0.23,1.41,1.41,0,0,1,.38-0.16,3.19,3.19,0,0,1,.5-0.11,4.08,4.08,0,0,1,.53,0,2.72,2.72,0,0,1,1.89.62,1.93,1.93,0,0,1,.69,1.49v8.41q2.2,0,4.65,0t4.91-.16a0.52,0.52,0,0,1,.53-0.26,0.55,0.55,0,0,1,.26.45,3.48,3.48,0,0,1,0,.87,5.22,5.22,0,0,1-.19,1,2.82,2.82,0,0,1-.39.83,0.69,0.69,0,0,1-.55.35q-2.88.07-5.1,0.08H160V60a2.57,2.57,0,0,0,.45,1.69,1.5,1.5,0,0,0,1.2.52,1.73,1.73,0,0,0,1.25-.52,4.76,4.76,0,0,0,.91-1.29,9.08,9.08,0,0,0,.63-1.68q0.25-.9.41-1.7a2.11,2.11,0,0,1,.47-1.09,1,1,0,0,1,.68-0.34,1.17,1.17,0,0,1,.59.18,2.17,2.17,0,0,1,.55.46,2.41,2.41,0,0,1,.4.63,1.76,1.76,0,0,1,.15.7v0.12a0.74,0.74,0,0,1,0,.21,20,20,0,0,1-.83,2.51,10.45,10.45,0,0,1-1.36,2.41,7.47,7.47,0,0,1-2,1.83,4.93,4.93,0,0,1-2.7.73A5.16,5.16,0,0,1,159,65a3.45,3.45,0,0,1-1.39-.94,4.48,4.48,0,0,1-.91-1.65,7.93,7.93,0,0,1-.33-2.44V44.76H155l-1,0-0.87,0a1.29,1.29,0,0,1-1-.5,2.94,2.94,0,0,1-.61-1.11,2.1,2.1,0,0,1,0-1.11A0.61,0.61,0,0,1,152.06,41.43Z" transform="translate(-24.53 -30.39)"></path>
+  </g>
+</symbol><symbol id="rss-plain" viewBox="0 0 24 24"><path d="M6.503 20.752c0 1.794-1.456 3.248-3.251 3.248-1.796 0-3.252-1.454-3.252-3.248 0-1.794 1.456-3.248 3.252-3.248 1.795.001 3.251 1.454 3.251 3.248zm-6.503-12.572v4.811c6.05.062 10.96 4.966 11.022 11.009h4.817c-.062-8.71-7.118-15.758-15.839-15.82zm0-3.368c10.58.046 19.152 8.594 19.183 19.188h4.817c-.03-13.231-10.755-23.954-24-24v4.812z"></path></symbol><symbol id="so-plain" viewBox="0 0 24 24"><path d="M15 21h-10v-2h10v2zm6-11.665l-1.621-9.335-1.993.346 1.62 9.335 1.994-.346zm-5.964 6.937l-9.746-.975-.186 2.016 9.755.879.177-1.92zm.538-2.587l-9.276-2.608-.526 1.954 9.306 2.5.496-1.846zm1.204-2.413l-8.297-4.864-1.029 1.743 8.298 4.865 1.028-1.744zm1.866-1.467l-5.339-7.829-1.672 1.14 5.339 7.829 1.672-1.14zm-2.644 4.195v8h-12v-8h-2v10h16v-10h-2z"></path></symbol></svg><!-- endinject -->
+</div>
+
+    
+      <header class="site-header" role="banner" data-page="Custom Method Parameter Injection with Jersey">
+  <div class="topbar post-topbar">
+    <div class="site-constraint">
+      <a class="topbar-logo" href="https://psamsotha.github.io/" title="Home Page">
+        <svg class="topbar-logo-svg">
+          <use xlink:href="#pio-logo"></use>
+        </svg>
+      </a>
+      <nav class="topbar-nav-wrapper">
+        <span class="topbar-nav-label" role="button" tabindex="0">Menu</span>
+        <ul class="topbar-nav collapse">
+          <li>
+            <a class="topbar-nav-item" href="https://psamsotha.github.io/" title="Home">
+              Home
+            </a>
+          </li>
+          <li>
+            <a class="topbar-nav-item" href="https://psamsotha.github.io/archive/" title="Archive">
+              Archive
+            </a>
+          </li>
+          <li>
+            <a class="topbar-nav-item" href="https://psamsotha.github.io/contact/" title="Contact">
+              Contact
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</header>
+
+    
+
+    <div class="main-content">
+      <section class="post" itemscope="" itemtype="http://schema.org/BlogPosting">
+
+  <div class="post-banner" style="background-image: linear-gradient(to bottom, rgba(0,0,0,0) 0%,rgba(0,0,0,0.01) 2%,#29383E 100%), url(&#39;/assets/images/self-park-lg.jpg&#39;)">
+  
+    <div class="post-banner-container">
+      <div class="post-title">
+        <h1 class="post-title-text">Custom Method Parameter Injection with Jersey</h1>
+      </div>
+      <h2 class="post-subtitle">
+        by<span class="post-author" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <span itemprop="name"><b>Paul Samsotha</b></span> on
+        </span>
+        <time class="post-date" datetime="2015-11-01T00:00:00-07:00" itemprop="datePublished">
+          Nov 1, 2015
+        </time> 
+      </h2>
+    </div>
+  </div>
+
+  <div class="ad-top-banner">
+  
+  <script async="" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <ins class="adsbygoogle" style="display:inline-block;width:728px;height:90px" data-ad-client="ca-pub-5723433679253306" data-ad-slot="4390426910"></ins>
+  <script>
+  (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+  
+</div>
+
+
+  <article class="post-content">
+
+    <p>In this article I will explain how to handle custom method parameter injection with Jersey 2. I will first go through some “non-custom” injections that work, then go through some custom injections that <em>don’t</em> work, then finally go through how to make them work.</p>
+
+<p>This article assumes you have <em>some</em> working knowledge of dependency injection with Jersey, which is handle by it’s underlying DI framework <a href="https://hk2.java.net/2.4.0-b07/" target="_blank">HK2</a>. if you don’t have any experience, you can still follow along, but it would probably make more sense to you if you first go through <a href="https://jersey.java.net/documentation/latest/ioc.html" target="_blank">Custom Injection and Lifecycle Management</a> from the Jersey user guide.</p>
+
+<div class="in-article-ad">
+  <script async="" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-5723433679253306" data-ad-slot="5406098871"></ins>
+  <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+</div>
+
+<p>Let’s start off with an example. I will use the concept of a tenant in the example, but in no way does the example try to implement any multi-tenant features. When I was trying to think of an example, the first thing that came to mind was a Stack Overflow question where the poster was having trouble with method parameter injection, and the domain of the question was about multi-tenancy. So the example kind of stuck in my head.</p>
+
+<p>The code can be found <a href="https://gist.github.com/psamsotha/3f7e1a1b31e0611f37ec" target="_blank">on GitHub as a single Gist file</a>. I didn’t think it was necessary to create a complete project for this. The class is a JUnit test class using <a href="https://jersey.java.net/documentation/latest/test-framework.html" target="_blank">Jersey Test Framework</a>. So just run it like any other JUnit test. There is only one Maven dependency to make it work, which is listed in the comments.</p>
+
+<p>If you look at the file, you will see a lot of things commented out. This is on purpose. What I will do is start with a first example, and as we move along I will have you un-comment things to demonstrate something else.</p>
+
+<p>So let’s get started. We are going to start with a simple <code class="highlighter-rouge">Tenant</code> class, which we want to inject into a method parameter.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">Tenant</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="nf">Tenant</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span> <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span> <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>The first example is a working example. We will inject the <code class="highlighter-rouge">Tenant</code> using the <code class="highlighter-rouge">@Context</code> annotation, which is known by Jersey. If you look at the first paragraph, this is what I mean by “non-custom” injection. Later we will try to use our own annotation, which is what I consider “custom” injection.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Path</span><span class="o">(</span><span class="s">"with-context"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">WithContextNoOther</span> <span class="o">{</span>
+
+    <span class="nd">@GET</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">get</span><span class="o">(</span><span class="nd">@Context</span> <span class="n">Tenant</span> <span class="n">tenant</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">tenant</span><span class="o">.</span><span class="na">name</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>To make this work, we will use an HK2 <code class="highlighter-rouge">Factory</code> to create the <code class="highlighter-rouge">Tenant</code></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">TenantFactory</span> <span class="kd">implements</span> <span class="n">Factory</span><span class="o">&lt;</span><span class="n">Tenant</span><span class="o">&gt;</span> <span class="o">{</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">Tenant</span> <span class="nf">provide</span><span class="o">()</span> <span class="o">{</span> <span class="k">return</span> <span class="k">new</span> <span class="n">Tenant</span><span class="o">(</span><span class="n">TENANT_NAME</span><span class="o">);</span> <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">dispose</span><span class="o">(</span><span class="n">Tenant</span> <span class="n">t</span><span class="o">)</span> <span class="o">{</span> <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Then we need to bind the factory to HK2 in a <code class="highlighter-rouge">AbstractBinder</code>, then register the binder with the <code class="highlighter-rouge">ResourceConfig</code></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">TenantBinder</span> <span class="kd">extends</span> <span class="n">AbstractBinder</span> <span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">configure</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">bindFactory</span><span class="o">(</span><span class="n">TenantFactory</span><span class="o">.</span><span class="na">class</span><span class="o">).</span><span class="na">to</span><span class="o">(</span><span class="n">Tenant</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="nd">@Override</span>
+<span class="kd">public</span> <span class="n">ResourceConfig</span> <span class="nf">configure</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nf">ResourceConfig</span><span class="o">()</span>
+            <span class="o">.</span><span class="na">register</span><span class="o">(</span><span class="k">new</span> <span class="n">TenantBinder</span><span class="o">())</span>
+            <span class="o">.</span><span class="na">register</span><span class="o">(</span><span class="n">WithContextNoOther</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">register</span><span class="o">(</span><span class="n">DebugMapper</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>If you run the test, you will see that it passes.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Test</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">should_return_tenant_with_Context_injection</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">Response</span> <span class="n">response</span> <span class="o">=</span> <span class="n">target</span><span class="o">(</span><span class="s">"with-context"</span><span class="o">).</span><span class="na">request</span><span class="o">().</span><span class="na">get</span><span class="o">();</span>
+    <span class="n">assertEquals</span><span class="o">(</span><span class="mi">200</span><span class="o">,</span> <span class="n">response</span><span class="o">.</span><span class="na">getStatus</span><span class="o">());</span>
+    <span class="n">assertEquals</span><span class="o">(</span><span class="n">TENANT_NAME</span><span class="o">,</span> <span class="n">response</span><span class="o">.</span><span class="na">readEntity</span><span class="o">(</span><span class="n">String</span><span class="o">.</span><span class="na">class</span><span class="o">));</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>The injection works fine as expected. Next we will add a another method parameter, which will be the entity body of the request. This is just so we have some context later on.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Path</span><span class="o">(</span><span class="s">"with-context-and-entity"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">WithContextAndEntity</span> <span class="o">{</span>
+
+    <span class="nd">@POST</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">post</span><span class="o">(</span><span class="nd">@Context</span> <span class="n">Tenant</span> <span class="n">tenant</span><span class="o">,</span> <span class="n">String</span> <span class="n">body</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">tenant</span><span class="o">.</span><span class="na">name</span> <span class="o">+</span> <span class="s">":"</span> <span class="o">+</span> <span class="n">body</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>To run the test on this endpoint, you should un-comment the configuration where I register the class</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Override</span>
+<span class="kd">public</span> <span class="n">ResourceConfig</span> <span class="nf">configure</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nf">ResourceConfig</span><span class="o">()</span>
+            <span class="o">.</span><span class="na">register</span><span class="o">(</span><span class="k">new</span> <span class="n">TenantBinder</span><span class="o">())</span>
+            <span class="o">.</span><span class="na">register</span><span class="o">(</span><span class="n">WithContextNoOther</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">register</span><span class="o">(</span><span class="n">WithContextAndEntity</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">register</span><span class="o">(</span><span class="n">DebugMapper</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>And un-comment the <code class="highlighter-rouge">@Test</code> method.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Test</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">should_return_tenant_with_Context_injection_and_entity</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">Response</span> <span class="n">response</span> <span class="o">=</span> <span class="n">target</span><span class="o">(</span><span class="s">"with-context-and-entity"</span><span class="o">).</span><span class="na">request</span><span class="o">()</span>
+            <span class="o">.</span><span class="na">post</span><span class="o">(</span><span class="n">Entity</span><span class="o">.</span><span class="na">text</span><span class="o">(</span><span class="n">MESSAGE_BODY</span><span class="o">));</span>
+    <span class="n">assertEquals</span><span class="o">(</span><span class="mi">200</span><span class="o">,</span> <span class="n">response</span><span class="o">.</span><span class="na">getStatus</span><span class="o">());</span>
+    <span class="n">assertEquals</span><span class="o">(</span><span class="n">NAME_AND_MESSAGE</span><span class="o">,</span> <span class="n">response</span><span class="o">.</span><span class="na">readEntity</span><span class="o">(</span><span class="n">String</span><span class="o">.</span><span class="na">class</span><span class="o">));</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>You will see that this also passes. But now we want to inject with a custom annotation, say</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Target</span><span class="o">(</span><span class="n">ElementType</span><span class="o">.</span><span class="na">PARAMETER</span><span class="o">)</span>
+<span class="nd">@Retention</span><span class="o">(</span><span class="n">RetentionPolicy</span><span class="o">.</span><span class="na">RUNTIME</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">static</span> <span class="nd">@interface</span> <span class="n">TenantParam</span> <span class="o">{}</span>
+</code></pre></div></div>
+
+<p>If you’ve ever used a custom annotation or if you look at the Jersey user guide link I provided above, you will see that in order to use a custom annotation for injection, we need to provide our own <code class="highlighter-rouge">InjectionResolver</code>. Here is the implementation we will use for the example</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">TenantParamResolver</span> <span class="kd">implements</span> <span class="n">InjectionResolver</span><span class="o">&lt;</span><span class="n">TenantParam</span><span class="o">&gt;</span> <span class="o">{</span>
+    
+    <span class="nd">@Inject</span>
+    <span class="nd">@Named</span><span class="o">(</span><span class="n">InjectionResolver</span><span class="o">.</span><span class="na">SYSTEM_RESOLVER_NAME</span><span class="o">)</span>
+    <span class="n">InjectionResolver</span><span class="o">&lt;</span><span class="n">Inject</span><span class="o">&gt;</span> <span class="n">systemInjectionResolver</span><span class="o">;</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">Object</span> <span class="nf">resolve</span><span class="o">(</span><span class="n">Injectee</span> <span class="n">injectee</span><span class="o">,</span> <span class="n">ServiceHandle</span><span class="o">&lt;?&gt;</span> <span class="n">root</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">Tenant</span><span class="o">.</span><span class="na">class</span> <span class="o">==</span> <span class="n">injectee</span><span class="o">.</span><span class="na">getRequiredType</span><span class="o">())</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="n">systemInjectionResolver</span><span class="o">.</span><span class="na">resolve</span><span class="o">(</span><span class="n">injectee</span><span class="o">,</span> <span class="n">root</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">isConstructorParameterIndicator</span><span class="o">()</span> <span class="o">{</span> <span class="k">return</span> <span class="kc">false</span><span class="o">;</span> <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">isMethodParameterIndicator</span><span class="o">()</span> <span class="o">{</span> <span class="k">return</span> <span class="kc">false</span><span class="o">;</span> <span class="o">}</span>   
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Then we will register the <code class="highlighter-rouge">InjectionResolver</code> in our <code class="highlighter-rouge">AbstractBinder</code>. Just un-comment the part in the <code class="highlighter-rouge">TenantBinder</code> where we register it</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">TenantBinder</span> <span class="kd">extends</span> <span class="n">AbstractBinder</span> <span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">configure</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">bindFactory</span><span class="o">(</span><span class="n">TenantFactory</span><span class="o">.</span><span class="na">class</span><span class="o">).</span><span class="na">to</span><span class="o">(</span><span class="n">Tenant</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+        <span class="n">bind</span><span class="o">(</span><span class="n">TenantParamResolver</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">to</span><span class="o">(</span><span class="k">new</span> <span class="n">TypeLiteral</span><span class="o">&lt;</span><span class="n">InjectionResolver</span><span class="o">&lt;</span><span class="n">TenantParam</span><span class="o">&gt;&gt;(){})</span>
+                <span class="o">.</span><span class="na">in</span><span class="o">(</span><span class="n">Singleton</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Here is the resource class/method we will use to test</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Path</span><span class="o">(</span><span class="s">"with-custom"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">WithCustomNoOther</span> <span class="o">{</span>
+
+    <span class="nd">@GET</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">get</span><span class="o">(</span><span class="nd">@TenantParam</span> <span class="n">Tenant</span> <span class="n">tenant</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">tenant</span><span class="o">.</span><span class="na">name</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>And un-comment the registration of the resource class, and also the <code class="highlighter-rouge">@Test</code> method for this test</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Override</span>
+<span class="kd">public</span> <span class="n">ResourceConfig</span> <span class="nf">configure</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nf">ResourceConfig</span><span class="o">()</span>
+            <span class="o">.</span><span class="na">register</span><span class="o">(</span><span class="k">new</span> <span class="n">TenantBinder</span><span class="o">())</span>
+            <span class="o">.</span><span class="na">register</span><span class="o">(</span><span class="n">WithContextNoOther</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">register</span><span class="o">(</span><span class="n">WithContextAndEntity</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">register</span><span class="o">(</span><span class="n">WithCustomNoOther</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">register</span><span class="o">(</span><span class="n">DebugMapper</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+<span class="o">}</span>
+
+<span class="nd">@Test</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">should_return_tenant_with_Custom_injection</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">Response</span> <span class="n">response</span> <span class="o">=</span> <span class="n">target</span><span class="o">(</span><span class="s">"with-custom"</span><span class="o">).</span><span class="na">request</span><span class="o">().</span><span class="na">get</span><span class="o">();</span>
+    <span class="n">assertEquals</span><span class="o">(</span><span class="mi">200</span><span class="o">,</span> <span class="n">response</span><span class="o">.</span><span class="na">getStatus</span><span class="o">());</span>
+    <span class="n">assertEquals</span><span class="o">(</span><span class="n">TENANT_NAME</span><span class="o">,</span> <span class="n">response</span><span class="o">.</span><span class="na">readEntity</span><span class="o">(</span><span class="n">String</span><span class="o">.</span><span class="na">class</span><span class="o">));</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<div class="in-article-banner">
+  <script async="" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <!-- Post In Article Leaderboard 1 -->
+  <ins class="adsbygoogle" style="display:inline-block;width:728px;height:90px" data-ad-client="ca-pub-5723433679253306" data-ad-slot="7994525776"></ins>
+  <script>
+  (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+</div>
+
+<p>When you run the test you will see two things. The first is that the test assertion fails, as it expects a 200 response, but we get a 500. Second, if you look at the log (or console), you will see that we logged a <code class="highlighter-rouge">NullPointerException</code> where we tried to call <code class="highlighter-rouge">tenant.name</code> in the resource method. This is because the injection failed, and the <code class="highlighter-rouge">Tenant</code> never got injected.</p>
+
+<p>Now before we try to fix this, let’s try out something else to see a different result. First comment back out the previous <code class="highlighter-rouge">@Test</code>. We don’t care for it right now. Also comment out the registration of the <code class="highlighter-rouge">WithCustomNoOther.class</code>. What we will do here is use the <code class="highlighter-rouge">WithCustomAndEntity.class</code>. We will not test it though, we will only register it.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Path</span><span class="o">(</span><span class="s">"with-custom-and-entity"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">WithCustomAndEntity</span> <span class="o">{</span>
+
+    <span class="nd">@POST</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">post</span><span class="o">(</span><span class="nd">@TenantParam</span> <span class="n">Tenant</span> <span class="n">tenant</span><span class="o">,</span> <span class="n">String</span> <span class="n">body</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">tenant</span><span class="o">.</span><span class="na">name</span> <span class="o">+</span> <span class="s">":"</span> <span class="o">+</span> <span class="n">body</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="nd">@Override</span>
+<span class="kd">public</span> <span class="n">ResourceConfig</span> <span class="nf">configure</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nf">ResourceConfig</span><span class="o">()</span>
+            <span class="o">.</span><span class="na">register</span><span class="o">(</span><span class="k">new</span> <span class="n">TenantBinder</span><span class="o">())</span>
+            <span class="o">.</span><span class="na">register</span><span class="o">(</span><span class="n">WithContextNoOther</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">register</span><span class="o">(</span><span class="n">WithContextAndEntity</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+            <span class="c1">//.register(WithCustomNoOther.class)</span>
+            <span class="o">.</span><span class="na">register</span><span class="o">(</span><span class="n">WithCustomAndEntity</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">register</span><span class="o">(</span><span class="n">DebugMapper</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>So at this point, the only thing that should be changed from the previous successful test, is that we just registered the <code class="highlighter-rouge">WithCustomAndEntity.class</code>. We should still only have the previous successful <code class="highlighter-rouge">@Test</code> methods un-commented.</p>
+
+<p>Now run the test and see what happens….</p>
+
+<p>What the heck! Both tests fail, when previously they passed, and all we did was register a new resource class. Part of the error/exception reads</p>
+
+<blockquote>
+  <p>org.glassfish.jersey.server.model.ModelValidationException: Validation of the application resource model has failed during application initialization</p>
+</blockquote>
+
+<p>If you remember the previous failing test, hopefully you noticed that this is a completely different exception. The previous exception was a <code class="highlighter-rouge">NullPointerException</code>, meaning that the endpoint was actually being hit. This new exception actually caused the server to not even start. You will see that no requests were logged from our <code class="highlighter-rouge">LoggingFilter</code>.</p>
+
+<p>So what <em>is</em> this <code class="highlighter-rouge">ModelValidationException</code>? Well anytime you create an object-oriented application, you want to carefully model your application domain. This way you can just process the domain objects. With this same concept in mind, Jersey models <em>its</em> application domain, which consists of resources and resource methods, etc. Behind the scene, these concepts are modeled as <a href="https://jersey.java.net/apidocs/2.19/jersey/org/glassfish/jersey/server/model/Resource.html" target="_blank"><code class="highlighter-rouge">Resource</code></a> and <a href="https://jersey.java.net/apidocs/2.19/jersey/org/glassfish/jersey/server/model/ResourceMethod.html" target="_blank"><code class="highlighter-rouge">ResourceMethod</code></a>, respectively.</p>
+
+<p>On startup, Jersey validates these model components to make sure that they follow the rules, ensuring there are no unexpected problems at runtime related resource definitions. Part of the validation consists of making sure that all method parameters are injectable. When Jersey sees that something is not injectable, it will raise a flag and throw an exception, making sure we fix the problem.</p>
+
+<p>When scanning the resource methods, Jersey introspects the method parameters looking to make sure that each parameter has a <a href="https://jersey.java.net/apidocs/2.19/jersey/org/glassfish/jersey/server/model/ResourceMethod.html" target="_blank"><code class="highlighter-rouge">ValueFactoryProvider</code></a> that can handle the injection. This is what the documentation fails to mention. The <code class="highlighter-rouge">InjectionResolver</code> is enough to handle field and constructor injection, but not for method parameter injection. The reason it works for <code class="highlighter-rouge">@Context</code> is that there is a <code class="highlighter-rouge">ValueFactoryProvider</code> that handle the <code class="highlighter-rouge">@Context</code> annotated parameters.</p>
+
+<p>The reason we didn’t get this exception on the first fail to</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@GET</span>
+<span class="kd">public</span> <span class="n">String</span> <span class="nf">get</span><span class="o">(</span><span class="nd">@TenantParam</span> <span class="n">Tenant</span> <span class="n">tenant</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">tenant</span><span class="o">.</span><span class="na">name</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>is that we are allowed to have one method parameter as the entity body parameter. I’m sure you’ve noticed in your experience with Jersey, that when you want a method parameter to be the body, say a JSON-parsed-to-POJO body, you don’t use an annotation (unless its for form or multipart). This is allowed for one method parameter. A request should only have one entity body, therefore only one entity parameter is allowed. There is even a <a href="https://github.com/jersey/jersey/blob/master/core-server/src/main/java/org/glassfish/jersey/server/internal/inject/EntityParamValueFactoryProvider.java" target="_blank"><code class="highlighter-rouge">EntityParamValueFactoryProvider</code></a> to handle this one entity parameter. The reason we get the exception with</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@POST</span>
+<span class="kd">public</span> <span class="n">String</span> <span class="nf">post</span><span class="o">(</span><span class="nd">@TenantParam</span> <span class="n">Tenant</span> <span class="n">tenant</span><span class="o">,</span> <span class="n">String</span> <span class="n">body</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">tenant</span><span class="o">.</span><span class="na">name</span> <span class="o">+</span> <span class="s">":"</span> <span class="o">+</span> <span class="n">body</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>is that the <code class="highlighter-rouge">@TenantParam</code> is not recognized by the validator. So it thinks there may be two entity body parameters. It validates the <code class="highlighter-rouge">Tenant</code> just fine, but then it gets to the second parameter, which is also assumed to be and entity. So the exception points to the <code class="highlighter-rouge">String</code> parameter, and not the <code class="highlighter-rouge">Tenant</code> parameter.</p>
+
+<blockquote>
+  <p>No injection source found for a parameter of type public java.lang.String</p>
+</blockquote>
+
+<p>So with all that being said, the fix here is to provide a <code class="highlighter-rouge">ValueFactoryProvider</code>. The main method is the <code class="highlighter-rouge">Factory&lt;?&gt; getValueFactory(Parameter)</code> method, which returns a <code class="highlighter-rouge">Factory</code>. In the method, we should check the <code class="highlighter-rouge">Parameter</code> argument to see if we can handle it. If not we just return null. What happens on startup is that all the <code class="highlighter-rouge">ValueFactoryProvider</code>s registered are traversed while trying to validate each parameter. If none of the providers return a <code class="highlighter-rouge">Factory</code> for the parameter, then a validation error is thrown. Since the <code class="highlighter-rouge">EntityParamValueFactoryProvider</code> can only handle one parameter for each resource method, the first method parameter get the provider, and the second doesn’t, and the traversal returns null.</p>
+
+<p>Here is the example <code class="highlighter-rouge">ValueFactoryProvider</code> we will use.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">TenantParamValueProvider</span> <span class="kd">implements</span> <span class="n">ValueFactoryProvider</span> <span class="o">{</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">Factory</span><span class="o">&lt;?&gt;</span> <span class="n">getValueFactory</span><span class="o">(</span><span class="n">Parameter</span> <span class="n">parameter</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">parameter</span><span class="o">.</span><span class="na">getRawType</span><span class="o">()</span> <span class="o">==</span> <span class="n">Tenant</span><span class="o">.</span><span class="na">class</span>
+                <span class="o">&amp;&amp;</span> <span class="n">parameter</span><span class="o">.</span><span class="na">isAnnotationPresent</span><span class="o">(</span><span class="n">TenantParam</span><span class="o">.</span><span class="na">class</span><span class="o">))</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="k">new</span> <span class="nf">TenantFactory</span><span class="o">();</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">ValueFactoryProvider</span><span class="o">.</span><span class="na">PriorityType</span> <span class="nf">getPriority</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">Priority</span><span class="o">.</span><span class="na">NORMAL</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Here’s we just check that the parameter is of type <code class="highlighter-rouge">Tenant</code> and that it is annotated with <code class="highlighter-rouge">@TenantParam</code>. Any other parameter qualifications, we cannot handle and just return null. Now just un-comment the registration of this provider in the <code class="highlighter-rouge">TenantBinder</code></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">TenantBinder</span> <span class="kd">extends</span> <span class="n">AbstractBinder</span> <span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">configure</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">bindFactory</span><span class="o">(</span><span class="n">TenantFactory</span><span class="o">.</span><span class="na">class</span><span class="o">).</span><span class="na">to</span><span class="o">(</span><span class="n">Tenant</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+        <span class="n">bind</span><span class="o">(</span><span class="n">TenantParamResolver</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">to</span><span class="o">(</span><span class="k">new</span> <span class="n">TypeLiteral</span><span class="o">&lt;</span><span class="n">InjectionResolver</span><span class="o">&lt;</span><span class="n">TenantParam</span><span class="o">&gt;&gt;(){})</span>
+                <span class="o">.</span><span class="na">in</span><span class="o">(</span><span class="n">Singleton</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+        <span class="n">bind</span><span class="o">(</span><span class="n">TenantParamValueProvider</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">to</span><span class="o">(</span><span class="n">ValueFactoryProvider</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">in</span><span class="o">(</span><span class="n">Singleton</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Make sure all the resource classes are registered</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Override</span>
+<span class="kd">public</span> <span class="n">ResourceConfig</span> <span class="nf">configure</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nf">ResourceConfig</span><span class="o">()</span>
+            <span class="o">.</span><span class="na">register</span><span class="o">(</span><span class="k">new</span> <span class="n">TenantBinder</span><span class="o">())</span>
+            <span class="o">.</span><span class="na">register</span><span class="o">(</span><span class="n">WithContextNoOther</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">register</span><span class="o">(</span><span class="n">WithContextAndEntity</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">register</span><span class="o">(</span><span class="n">WithCustomNoOther</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">register</span><span class="o">(</span><span class="n">WithCustomAndEntity</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">register</span><span class="o">(</span><span class="n">DebugMapper</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>And un-comment all the <code class="highlighter-rouge">@Test</code> methods. There should be four in total. Then run the test… and Woo Hoo!. We passed.</p>
+
+<p>If you look at the bottom of the test class, you will see a <code class="highlighter-rouge">TenantParamValueFactoryProvider</code>. This is a model I use for many of the param providers I create. I closely models how Jersey creates them. You can look in <a href="https://github.com/jersey/jersey/tree/master/core-server/src/main/java/org/glassfish/jersey/server/internal/inject" target="_blank">this package</a> for some of the providers that handle such parameters like <code class="highlighter-rouge">@PathParam</code> and <code class="highlighter-rouge">@QueryParam</code>.</p>
+
+<p>In this implementation you will notice that the <code class="highlighter-rouge">TenantFactory</code>, instead of implementing <code class="highlighter-rouge">Factory</code>, it extends <code class="highlighter-rouge">AbstractContainerRequestValueFactory</code>. This is a convenience class that  gives us access the <code class="highlighter-rouge">ContainerRequest</code>, which is the context of the request. You can get a lot of information from it. Also instead of directly implementing <code class="highlighter-rouge">InjectionResolver</code>, we extend <code class="highlighter-rouge">ParamInjectionResolver</code>. This is also a convenience class that needs to get passed an instance of <code class="highlighter-rouge">AbstractValueFactoryProvider</code> (which is actually a <code class="highlighter-rouge">ValueFactoryProvider</code>).</p>
+
+<p>To see this version work, you can un-comment the registration of its <code class="highlighter-rouge">Binder</code> and comment the registration of the <code class="highlighter-rouge">TenantBinder</code></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Override</span>
+<span class="kd">public</span> <span class="n">ResourceConfig</span> <span class="nf">configure</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nf">ResourceConfig</span><span class="o">()</span>
+            <span class="c1">//.register(new TenantBinder())</span>
+            <span class="o">.</span><span class="na">register</span><span class="o">(</span><span class="k">new</span> <span class="n">TenantParamValueFactoryProvider</span><span class="o">.</span><span class="na">Binder</span><span class="o">())</span>
+            <span class="o">.</span><span class="na">register</span><span class="o">(</span><span class="n">WithContextNoOther</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">register</span><span class="o">(</span><span class="n">WithContextAndEntity</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">register</span><span class="o">(</span><span class="n">WithCustomNoOther</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">register</span><span class="o">(</span><span class="n">WithCustomAndEntity</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">register</span><span class="o">(</span><span class="n">DebugMapper</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>And that’s it. Hope you guys found this article informative.</p>
+
+
+
+    
+<div class="ad-bottom-banner">
+  <script async="" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <ins class="adsbygoogle" style="display:inline-block;width:728px;height:90px" data-ad-client="ca-pub-5723433679253306" data-ad-slot="1966026244"></ins>
+    <script>
+    (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+</div>
+
+
+    <div class="support-container">
+      <h2>Support Me</h2>
+      <p>
+        If you found any information in this post useful, please show your support and
+        like it, share it, tweet it, pin it, and/or plus one it. Much thanks!
+      </p>
+    </div>
+
+    <div class="social-share">
+  <div class="social-share-item">
+    <div class="twitter-tweet">
+      <a href="https://twitter.com/share" class="twitter-share-button" data-show-count="false" target="_blank">Tweet</a>
+    </div>
+  </div>
+  <div class="social-share-item">
+    <div class="pinterest-save">
+      <span class="PIN_1563287607366_button_pin PIN_1563287607366_save" data-pin-log="button_pinit_bookmarklet" data-pin-href="https://www.pinterest.com/pin/create/button/">Save</span>
+    </div>
+  </div>
+  <div class="social-share-item">
+    <div class="fb-like fb_iframe_widget" data-href="https://psamsotha.github.io/jersey/2015/11/01/jersey-method-parameter-injection.html" data-width="100px" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true" fb-xfbml-state="rendered" fb-iframe-plugin-query="action=like&amp;app_id=&amp;container_width=0&amp;href=https%3A%2F%2Fpsamsotha.github.io%2Fjersey%2F2015%2F11%2F01%2Fjersey-method-parameter-injection.html&amp;layout=button_count&amp;locale=en_US&amp;sdk=joey&amp;share=true&amp;show_faces=false&amp;width=100px"><span style="vertical-align: top; width: 0px; height: 0px; overflow: hidden;"><iframe name="f1d06911d84c648" height="1000px" title="fb:like Facebook Social Plugin" frameborder="0" allowtransparency="true" allowfullscreen="true" scrolling="no" allow="encrypted-media" src="./jersey-custom-method-parameter-injection_files/like.html" style="border: none; visibility: visible; width: 0px; height: 0px;"></iframe></span></div>
+  </div>
+  <div class="social-share-item">
+    <div class="google-plusone">
+      <div id="___plusone_0" style="position: absolute; width: 450px; left: -10000px;"><iframe ng-non-bindable="" frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" style="position:absolute;top:-10000px;width:450px;margin:0px;border-style:none" tabindex="0" vspace="0" width="100%" id="I0_1563287606601" name="I0_1563287606601" src="./jersey-custom-method-parameter-injection_files/fastbutton.html" data-gapiattached="true"></iframe></div><div class="g-plusone" data-size="tall" data-annotation="inline" data-width="300" data-href="https://psamsotha.github.io/jersey/2015/11/01/jersey-method-parameter-injection.html" data-gapiscan="true" data-onload="true" data-gapistub="true">
+      </div>
+    </div>
+  </div> 
+</div>
+
+    <div class="recommended-books">
+  <h2>Recommended Books</h2>
+  <div class="books">
+    
+
+    
+    <div class="book">
+      <a href="https://www.amazon.com/RESTful-Java-JAX-RS-2-0-Distributed/dp/144936134X/ref=as_li_ss_il?s=books&amp;ie=UTF8&amp;qid=1518141512&amp;sr=1-1&amp;keywords=RESTful+Java+with+JAX-RS+2.0&amp;linkCode=li3&amp;tag=psamsothagith-20&amp;linkId=f6f05210313788bb4079e275b6ea4031" target="_blank">
+        <img border="0" src="./jersey-custom-method-parameter-injection_files/q">
+      </a>
+      <img src="./jersey-custom-method-parameter-injection_files/ir" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;">
+    </div>
+    <div class="book">
+      <a href="https://www.amazon.com/Java-Application-Development-Enterprise-applications-ebook/dp/B072MFGRVF/ref=as_li_ss_il?s=books&amp;ie=UTF8&amp;qid=1518141512&amp;sr=1-9-spons&amp;keywords=RESTful+Java+with+JAX-RS+2.0&amp;psc=1&amp;linkCode=li3&amp;tag=psamsothagith-20&amp;linkId=dcf82546007e8a4fb653138030b7b466" target="_blank">
+        <img border="0" src="./jersey-custom-method-parameter-injection_files/q(1)">
+      </a>
+      <img src="./jersey-custom-method-parameter-injection_files/ir(1)" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;">
+    </div>
+    <div class="book">
+      <a href="https://www.amazon.com/Java-Angular-practical-single-page-applications/dp/1788291204/ref=as_li_ss_il?s=books&amp;ie=UTF8&amp;qid=1518139816&amp;sr=1-17&amp;keywords=angular&amp;linkCode=li3&amp;tag=psamsothagith-20&amp;linkId=a39f44f60cffde5e5b94e9977b614d3e" target="_blank">
+        <img border="0" src="./jersey-custom-method-parameter-injection_files/q(2)">
+      </a>
+      <img src="./jersey-custom-method-parameter-injection_files/ir(2)" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;">
+    </div>
+    
+  </div>
+  
+</div>
+
+    <!--
+  check for posts in category that are not this post.
+  If there are no posts, we should not include the Related Articles
+-->
+
+
+
+  
+    
+    
+
+
+<div class="related-articles">
+  <h2>Related Articles</h2>
+  <div class="related-articles-group row expanded" data-equalizer="uywn1p-equalizer" data-resize="b71016-eq">
+    
+    
+      
+        <!-- Little hack. Liquid doesn't seem to support counting using assign -->
+        <!-- https://github.com/jekyll/jekyll/issues/2141 -->
+        <!-- https://github.com/Shopify/liquid/issues/316 -->
+        
+        <a class="related-article post-details small-12 medium-6 columns clickable" href="https://psamsotha.github.io/jersey/2017/01/07/jersey-pagination-with-spring-data.html" data-equalizer-watch="" style="height: 220px;">   
+          <h2 class="post-title">                
+            Jersey Pagination With Spring Data JPA
+          </h2>
+          <p class="post-date">January 7, 2017</p>
+          <p class="post-description">How we can implement pagination and sorting using Jersey along with Spring Data JPA.</p> 
+        </a>
+      
+      
+    
+      
+        <!-- Little hack. Liquid doesn't seem to support counting using assign -->
+        <!-- https://github.com/jekyll/jekyll/issues/2141 -->
+        <!-- https://github.com/Shopify/liquid/issues/316 -->
+        
+        <a class="related-article post-details small-12 medium-6 columns clickable" href="https://psamsotha.github.io/jersey/2015/12/27/jersey-configuration-properties.html" data-equalizer-watch="" style="height: 220px;">   
+          <h2 class="post-title">                
+            Working with Jersey Configuration Properties
+          </h2>
+          <p class="post-date">December 27, 2015</p>
+          <p class="post-description">A few different ways of how we can use configuration properties in a Jersey application.</p> 
+        </a>
+      
+      
+        
+  </div>
+</div>
+
+
+    <div class="disqus-comments">
+      
+        <div id="disqus_thread"><iframe id="dsq-app3046" name="dsq-app3046" allowtransparency="true" frameborder="0" scrolling="no" tabindex="0" title="Disqus" width="100%" src="./jersey-custom-method-parameter-injection_files/saved_resource.html" style="width: 1px !important; min-width: 100% !important; border: none !important; overflow: hidden !important; height: 390px !important;" horizontalscrolling="no" verticalscrolling="no"></iframe></div>
+<script>
+    /**
+     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+     */
+   
+    var disqus_config = function () {
+        
+    };
+
+    (function() {  // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        
+        s.src = '//peeskillet-io.disqus.com/embed.js';
+        
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+      
+    </div>
+
+    <script id="dsq-count-scr" src="./jersey-custom-method-parameter-injection_files/count.js.Без названия" async=""></script>
+
+    <div class="post-sidebar">
+      <div class="ad-sidebar">
+  <!-- <div class="ad">
+    
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <ins class="adsbygoogle"
+          style="display:inline-block;width:300px;height:250px"
+          data-ad-client="ca-pub-5723433679253306"
+          data-ad-slot="4778752801"></ins>
+    <script>
+    (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+    
+  </div>
+  <div class="ad">
+    
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <ins class="adsbygoogle"
+         style="display:inline-block;width:300px;height:250px"
+         data-ad-client="ca-pub-5723433679253306"
+         data-ad-slot="8349815238"></ins>
+    <script>
+    (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+    
+  </div> -->
+</div>
+    </div>
+
+  </article>
+
+</section>
+
+
+      <div class="clearfooter"></div>
+    </div>
+
+    <footer class="site-footer">
+  <div class="site-constraint row">
+    <div class="footer-logo small-6 columns">
+      <svg class="footer-logo-icon">
+        <use xlink:href="#pio-logo"></use>
+      </svg>
+    </div>
+    <div class="footer-social small-6 columns">
+      <div class="social-links">
+        <ul>
+          <li><a href="http://stackoverflow.com/users/2587435/peeskillet" target="_blank">
+            <svg class="social-icon">
+              <use xlink:href="#so-plain"></use>
+            </svg>
+          </a></li>
+          <li><a href="https://github.com/psamsotha" target="_blank">
+            <svg class="social-icon">
+              <use xlink:href="#github-plain"></use>
+            </svg>
+          </a></li>
+          <li><a href="https://psamsotha.github.io/feed.xml">
+            <svg class="social-icon">
+              <use xlink:href="#rss-plain"></use>
+            </svg>
+          </a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="footer-license">
+    <p class="license-message">
+      This site is open source, licensed under <a href="https://psamsotha.github.io/license">MIT</a>.<br>
+      The source code is available at <a href="https://github.com/psamsotha/psamsotha.github.io" target="_blank">GitHub</a>.
+    </p>
+  </div>
+</footer>
+
+
+    
+      <script src="./jersey-custom-method-parameter-injection_files/main.js.Без названия"></script>
+      <!-- disqus -->
+      <script id="dsq-count-scr" src="./jersey-custom-method-parameter-injection_files/count.js.Без названия" async=""></script>
+      <!-- social buttons -->
+      <div id="fb-root" class=" fb_reset"><div style="position: absolute; top: -10000px; width: 0px; height: 0px;"><div><iframe name="fb_xdm_frame_https" id="fb_xdm_frame_https" aria-hidden="true" title="Facebook Cross Domain Communication Frame" tabindex="-1" frameborder="0" allowtransparency="true" allowfullscreen="true" scrolling="no" allow="encrypted-media" src="./jersey-custom-method-parameter-injection_files/xd_arbiter.html" style="border: none;"></iframe></div><div></div></div></div>
+      <script async="" src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+      
+      <script>(function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.8";
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));</script>
+      <script src="./jersey-custom-method-parameter-injection_files/platform.js.Без названия" async="" defer="" gapi_processed="true"></script>
+    
+  
+
+
+<iframe style="display: none;" src="./jersey-custom-method-parameter-injection_files/saved_resource(1).html"></iframe><iframe name="oauth2relay897254593" id="oauth2relay897254593" src="./jersey-custom-method-parameter-injection_files/postmessageRelay.html" tabindex="-1" aria-hidden="true" style="width: 1px; height: 1px; position: absolute; top: -100px;"></iframe><script id="PIN_1563287607366.f.callback[0]" type="text/javascript" charset="utf-8" src="./jersey-custom-method-parameter-injection_files/saved_resource"></script></body></html>

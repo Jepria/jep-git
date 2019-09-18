@@ -282,7 +282,7 @@ public class JepTreeField extends JepMultiStateField<TreeField<JepOption>, HTML>
     // Если карта Редактирования уже создана (первый раз метод вызывается в предке, когда карты Редактирования еще нет).
     if(editableCard != null) {
       // При смене состояния прокручиваем карту Редактирования наверх.
-      if (hasLoader) editableCard.refresh(false);
+      if (hasLoader) editableCard.refresh();
       if(WorkstateEnum.isEditableState(newWorkstate)) { // Для случая Редактирования: ...
         editableCard.setCheckable(true);// позволим отмечать узлы дерева
         checkable = true;
@@ -322,7 +322,7 @@ public class JepTreeField extends JepMultiStateField<TreeField<JepOption>, HTML>
   public void clear() {
     checkedValues = null;
     expandedValues = null;
-    editableCard.refresh(false);
+    editableCard.refresh();
   }
   
   /**

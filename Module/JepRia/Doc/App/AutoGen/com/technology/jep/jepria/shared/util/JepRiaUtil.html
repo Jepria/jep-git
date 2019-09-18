@@ -18,7 +18,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":9,"i1":41,"i2":9,"i3":9,"i4":9,"i5":9};
+var methods = {"i0":9,"i1":41,"i2":9,"i3":9,"i4":9,"i5":9,"i6":9};
 var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],8:["t4","Concrete Methods"],32:["t6","Deprecated Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -181,6 +181,12 @@ extends java.lang.Object</pre>
 </td>
 </tr>
 <tr id="i5" class="rowColor">
+<td class="colFirst"><code>static java.util.List&lt;<a href="../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</a>&gt;</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/shared/util/JepRiaUtil.html#removeOptionsWithoutParents-java.util.List-">removeOptionsWithoutParents</a></span>(java.util.List&lt;<a href="../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</a>&gt;&nbsp;options)</code>
+<div class="block">Фильтрует список опций древовидного справочника, убирает опции, родитель которых отсутствует в списке.</div>
+</td>
+</tr>
+<tr id="i6" class="altColor">
 <td class="colFirst"><code>static java.lang.String</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/shared/util/JepRiaUtil.html#removeStrIfPresent-java.lang.String-java.lang.String-">removeStrIfPresent</a></span>(java.lang.String&nbsp;baseLine,
                   java.lang.String&nbsp;removedLine)</code>
@@ -317,7 +323,7 @@ public static&nbsp;boolean&nbsp;equalWithNull(java.lang.Object&nbsp;obj1,
 <a name="isMobile-java.lang.String-">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>isMobile</h4>
 <pre>public static&nbsp;boolean&nbsp;isMobile(java.lang.String&nbsp;ua)</pre>
@@ -329,6 +335,21 @@ public static&nbsp;boolean&nbsp;equalWithNull(java.lang.Object&nbsp;obj1,
 <dd>true - клиентский барузер является мобильным, false - клиентский браузер не является мобильным</dd>
 <dt><span class="seeLabel">See Also:</span></dt>
 <dd><a href="https://deviceatlas.com/blog/mobile-browser-user-agent-strings" target="_blank">https://deviceatlas.com/blog/mobile-browser-user-agent-strings</a></dd>
+</dl>
+</li>
+</ul>
+<a name="removeOptionsWithoutParents-java.util.List-">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>removeOptionsWithoutParents</h4>
+<pre>public static&nbsp;java.util.List&lt;<a href="../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</a>&gt;&nbsp;removeOptionsWithoutParents(java.util.List&lt;<a href="../../../../../../com/technology/jep/jepria/shared/field/option/JepOption.html" title="class in com.technology.jep.jepria.shared.field.option">JepOption</a>&gt;&nbsp;options)</pre>
+<div class="block">Фильтрует список опций древовидного справочника, убирает опции, родитель которых отсутствует в списке.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>options</code> - </dd>
+<dt><span class="returnLabel">Returns:</span></dt>
 </dl>
 </li>
 </ul>
