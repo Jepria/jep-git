@@ -1,5 +1,6 @@
 package com.technology.jep.jepriatoolkit.creator.module;
 
+import static com.technology.jep.jepria.shared.field.JepTypeEnum.STRING;
 import static com.technology.jep.jepria.shared.field.JepTypeEnum.BIGDECIMAL;
 import static com.technology.jep.jepria.shared.field.JepTypeEnum.BINARY_FILE;
 import static com.technology.jep.jepria.shared.field.JepTypeEnum.BOOLEAN;
@@ -32,7 +33,7 @@ import com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil;
 @XmlRootElement(name = FIELD_TAG_NAME)
 @XmlAccessorType(XmlAccessType.NONE)
 public class ModuleField {
-  
+
   @XmlTransient
   private String moduleId;
   @XmlAttribute(name=FIELD_ID_ATTRIBUTE, required=true)
@@ -91,7 +92,7 @@ public class ModuleField {
   private List<WorkstateEnum> editableWorkStates;
   @XmlTransient
   private List<WorkstateEnum> enableWorkStates;
-  
+
   public static final Map<String, String> FIELD_WIDGET = new HashMap<String, String>();
   static {
     // Список предопределенных полей и их соответствующих классов
@@ -113,19 +114,19 @@ public class ModuleField {
     FIELD_WIDGET.put(JEP_TREE_FIELD, multipleConcat(FIELD_PREFIX, JEP_TREE_FIELD));
     FIELD_WIDGET.put(JEP_DUAL_LIST_FIELD, multipleConcat(FIELD_PREFIX, JEP_DUAL_LIST_FIELD));
   }
-  
+
   @SuppressWarnings("unused")
   private ModuleField(){}
-  
+
   public ModuleField(String moduleId, String fieldId){
     setModuleId(moduleId);
     setFieldId(fieldId);
   }
-  
+
   public ModuleField(ModuleField mf, FieldType type){
     setModuleId(mf.moduleId);
     setFieldId(mf.fieldId);
-    
+
     switch (type) {
       case FORM_DETAIL : {
         setFieldDetailFormName(equalWithNull(mf.fieldDetailFormName, mf.fieldListFormName) || NO_NAME.equalsIgnoreCase(mf.fieldDetailFormName) ? null : mf.fieldDetailFormName);
@@ -151,7 +152,7 @@ public class ModuleField {
       }
     }
   }
-  
+
   public ModuleField(String moduleId, String fieldId, String fieldType, String fieldName, String fieldNameEn, String fieldLike, String fieldWidget, String fieldMaxLength, String fieldWidth, String labelWidth, String fieldHeight, String visibleWorkstates, String mandatoryWorkstates, String editableWorkstates, String enableWorkstates){
     this(moduleId, fieldId);
     setFieldType(fieldType);
@@ -170,7 +171,7 @@ public class ModuleField {
     setMandatoryWorkStates(mandatoryWorkstates);
     setEditableWorkStates(editableWorkstates);
     setEnableWorkStates(enableWorkstates);
-  }  
+  }
   public String getModuleId() {
     return moduleId;
   }
@@ -187,6 +188,10 @@ public class ModuleField {
     return initCap(JepRiaToolkitUtil.getFieldIdAsParameter(
         subtractFieldSuffix(fieldId), null));
   }
+
+  /*public String getFieldIdAsParameter() {
+    return initCap(JepRiaToolkitUtil.getFieldIdAsParameter(fieldId, null)); //без отрезания хвостов _ID и _CODE
+  }*/
   public String getFieldIdWithPrefix(String prefix){
     return JepRiaToolkitUtil.getFieldIdAsParameter(fieldId, prefix);
   }
@@ -286,16 +291,16 @@ public class ModuleField {
   }
   public List<WorkstateEnum> getVisibleWorkStates() {
     return visibleWorkStates;
-  }  
+  }
   public void setVisibleWorkStates(String workstates) {
     visibleWorkStates = getWorkStates(workstates);
   }
   public List<WorkstateEnum> getMandatoryWorkStates() {
     return mandatoryWorkStates;
-  }  
+  }
   public void setMandatoryWorkStates(String workstates) {
     mandatoryWorkStates = getWorkStates(workstates);
-  }  
+  }
   public List<WorkstateEnum> getEditableWorkStates() {
     return editableWorkStates;
   }
@@ -308,8 +313,8 @@ public class ModuleField {
           editableWorkStates.add(workstate);
         }
       }
-    } 
-  }  
+    }
+  }
   public List<WorkstateEnum> getEnableWorkStates() {
     return enableWorkStates;
   }
@@ -361,15 +366,15 @@ public class ModuleField {
     }
   }
   public boolean isCLOB(){
-    return (isEmpty(fieldType) ? 
+    return (isEmpty(fieldType) ?
           (isEmpty(fieldWidget) ? false :
-            JEP_FILE_FIELD.equalsIgnoreCase(fieldWidget)) : 
+            JEP_FILE_FIELD.equalsIgnoreCase(fieldWidget)) :
               (TEXT_FILE.name().equalsIgnoreCase(fieldType) ||
                   CLOB.name().equalsIgnoreCase(fieldType)));
   }
   public boolean isBLOB(){
-    return (isEmpty(fieldType) ? 
-          (isEmpty(fieldWidget) ? false : 
+    return (isEmpty(fieldType) ?
+          (isEmpty(fieldWidget) ? false :
             (JEP_FILE_FIELD.equalsIgnoreCase(fieldWidget) ||
               JEP_IMAGE_FIELD.equalsIgnoreCase(fieldWidget))) :
           BINARY_FILE.name().equalsIgnoreCase(fieldType));
@@ -405,8 +410,8 @@ public class ModuleField {
     this.detailFormIndex = detailFormIndex;
   }
   public Integer getFormIndex(boolean isDetailForm){
-    return isDetailForm ? 
-        (getIsDetailFormField() ? getDetailFormIndex() : null) : 
+    return isDetailForm ?
+        (getIsDetailFormField() ? getDetailFormIndex() : null) :
         (getIsListFormField() ? getListFormIndex() : null);
   }
   public boolean getIsEditable() {
@@ -495,6 +500,9 @@ public class ModuleField {
   public boolean getIsDateTimeType(){
     return DATE_TIME.name().equalsIgnoreCase(fieldType);
   }
+  public boolean getIsStringType(){
+    return STRING.name().equalsIgnoreCase(fieldType);
+  }
   public String getDisplayValueForComboBox(){
     return JepRiaToolkitUtil.getDisplayValueForComboBox(fieldId);
   }
@@ -527,7 +535,7 @@ public class ModuleField {
         resultSet = multipleConcat("getTimestamp(rs, ", fieldId, ")");
         break;
       case OPTION:
-        String optionNameFieldId = fieldId.endsWith("CODE") ? fieldId.replace("CODE", "NAME") : fieldId.replace("ID", "NAME"); 
+        String optionNameFieldId = fieldId.endsWith("CODE") ? fieldId.replace("CODE", "NAME") : fieldId.replace("ID", "NAME");
         resultSet = multipleConcat("getOption(rs, ", fieldId, ", ", optionNameFieldId, ")");
         break;
       case BINARY_FILE:
@@ -544,7 +552,7 @@ public class ModuleField {
     }
     return resultSet;
   }
-  
+
   public String getOption(){
     String bufferFieldId = new String(this.fieldId);
     this.fieldId = multipleConcat(getFieldIdAsParameter(), "Options.", fieldId);
@@ -552,13 +560,13 @@ public class ModuleField {
     this.fieldId = bufferFieldId;
     return result;
   }
-  
+
   public boolean getEnabledOnViewDetails(boolean hasViewDetailsWS){
-    return !isEmpty(visibleWorkStates) ? 
-        visibleWorkStates.contains(WorkstateEnum.VIEW_DETAILS) : 
+    return !isEmpty(visibleWorkStates) ?
+        visibleWorkStates.contains(WorkstateEnum.VIEW_DETAILS) :
           isDetailFormField && hasViewDetailsWS;
   }
-  
+
   public boolean getIsKeyOption(List<ModuleField> moduleFields, boolean hasViewDetailsWS){
     boolean isKeyOption = false;
     if (!getIsComboBoxField()) {
@@ -569,11 +577,11 @@ public class ModuleField {
     }
     return isKeyOption;
   }
-  
+
   public String getParameter(boolean isFind){
     boolean isOptionField = getIsComboBoxField() ;
-    boolean isOptionListField = getIsOptionField() && !isOptionField; 
-    return 
+    boolean isOptionListField = getIsOptionField() && !isOptionField;
+    return
       multipleConcat((isOptionField ? "JepOption.<String>getValue(" : ""),
           (isOptionListField ? "JepOption.getOptionValuesAsString((List<JepOption>)" : ""),
             (isFind ? "templateRecord" : "record"), ".get(", fieldId.toUpperCase(), ")", (isOptionField || isOptionListField ? ")" : ""));

@@ -73,7 +73,6 @@ import java.net.URLEncoder;
 import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Properties;
 import java.util.PropertyResourceBundle;
@@ -128,10 +127,10 @@ import com.technology.jep.jepriatoolkit.creator.module.ModuleField;
 public final class JepRiaToolkitUtil {
 
   private static final String WIN_CHARSET = "windows-1251";
-  
+
   /**
    * Функция чтения из файла
-   * 
+   *
    * @param filePath  путь до файла, из которого производится считывание
    * @param charset  кодировка
    * @return содержимое файла
@@ -149,10 +148,10 @@ public final class JepRiaToolkitUtil {
     }
     return sb.toString();
   }
-  
+
   /**
    * Функция чтения из архива jar
-   * 
+   *
    * @param jarPath  путь до файла в архиве
    * @param charset  кодировка
    * @return содержимое файла
@@ -171,23 +170,23 @@ public final class JepRiaToolkitUtil {
     }
     return sb.toString();
   }
-  
+
   /**
    * Функция записи строки в файл
-   * 
+   *
    * @param fileContent необходимое для записи содержимое
    * @param filePath    путь до файла, в который будет произведена запись содержимого
    * @param charset     кодировка
    */
-  public static void writeToFile(String fileContent, String filePath, String charset, boolean overwrite) 
+  public static void writeToFile(String fileContent, String filePath, String charset, boolean overwrite)
   {
     if (overwrite || !new File(filePath).exists())
       writeToFile(fileContent, filePath, charset);
   }
-  
+
   /**
    * Функция записи строки в файл
-   * 
+   *
    * @param fileContent необходимое для записи содержимое
    * @param filePath    путь до файла, в который будет произведена запись содержимого
    * @param charset     кодировка
@@ -216,7 +215,7 @@ public final class JepRiaToolkitUtil {
 
   /**
    * Функция записи строки в файл
-   * 
+   *
    * @param fileContent  необходимое для записи содержимое
    * @param filePath     путь до файла, в который будет произведена запись содержимого
    */
@@ -226,7 +225,7 @@ public final class JepRiaToolkitUtil {
 
   /**
    * Создание структуры документа
-   * 
+   *
    * @return объекта созданной структуры
    * @throws ParserConfigurationException
    */
@@ -240,7 +239,7 @@ public final class JepRiaToolkitUtil {
 
   /**
    * Получение структуры документа
-   * 
+   *
    * @param fileNameOrPath наименование файла настроек или пути для генерации структуры
    * @return документ
    * @throws IOException
@@ -257,7 +256,7 @@ public final class JepRiaToolkitUtil {
 
   /**
    * Создание билдера для построения DOM-структуры
-   * 
+   *
    * @return билдер
    * @throws ParserConfigurationException
    */
@@ -273,7 +272,7 @@ public final class JepRiaToolkitUtil {
 
   /**
    * Печать в форматируемом виде xml-файла
-   *  
+   *
    * @param doc            объект, в котором хранится вся структура документа
    * @param destination    наименование файла, в который будет произведена запись
    * @throws TransformerConfigurationException
@@ -290,10 +289,10 @@ public final class JepRiaToolkitUtil {
     xform.transform(new DOMSource(doc), new StreamResult(destination));
 
   }
-  
+
   /**
    * Печать в форматируемом виде xml-файла (включая удаление пустых узлов)
-   * 
+   *
    * @param doc объект, в котором хранится вся структура документа
    * @param destination наименование файла, в который будет произведена запись
    * @param isTab флаг то, что разделителями выступает табуляция (4 проблема), в противном случае - 2 пробела
@@ -307,8 +306,8 @@ public final class JepRiaToolkitUtil {
     XPathFactory xpathFactory = XPathFactory.newInstance();
     // XPath to find empty text nodes.
     XPathExpression xpathExp = xpathFactory.newXPath().compile(
-          "//text()[normalize-space(.) = '']");  
-    NodeList emptyTextNodes = (NodeList) 
+          "//text()[normalize-space(.) = '']");
+    NodeList emptyTextNodes = (NodeList)
             xpathExp.evaluate(doc, XPathConstants.NODESET);
     // Remove each empty text node from document.
     for (int i = 0; i < emptyTextNodes.getLength(); i++) {
@@ -326,7 +325,7 @@ public final class JepRiaToolkitUtil {
 
   /**
    * Преобразование первой буквы слова в нижний регистр
-   * 
+   *
    * @param word преобразуемое слово
    * @return преобразованное слово
    */
@@ -340,7 +339,7 @@ public final class JepRiaToolkitUtil {
 
   /**
    * Преобразование первой буквы слова в верхний регистр
-   * 
+   *
    * @param word преобразуемое слово
    * @return преобразованное слово
    */
@@ -354,19 +353,19 @@ public final class JepRiaToolkitUtil {
 
   /**
    * Функция копирования файла в файл
-   * 
+   *
    * @param sourceFile файл-источник, из которого будет производиться копирование
    * @param destinationFile файл, в который будет производиться копирование
-   * 
+   *
    * @throws IOException в случае отсутствия файла-источника или файла-приемника
    */
   public static void copyFile(String sourceFile, String destinationFile) throws IOException {
     copyFile(new File(sourceFile), new File(destinationFile));
   }
-  
+
   /**
    * Функция копирования файла в файл
-   * 
+   *
    * @param sourceFile файл-источник, из которого будет производиться копирование
    * @param destinationFile файл, в который будет производиться копирование
    */
@@ -390,7 +389,7 @@ public final class JepRiaToolkitUtil {
 
   /**
    * Создание директории
-   * 
+   *
    * @param dirName наименование директории
    */
   public static void makeDir(String dirName) {
@@ -398,10 +397,10 @@ public final class JepRiaToolkitUtil {
     dir.setDir(new File(dirName));
     dir.execute();
   }
-  
+
   /**
    * Удаление директории
-   * 
+   *
    * @param dirName наименование директории
    */
   public static void deleteDir(String dirName) {
@@ -412,7 +411,7 @@ public final class JepRiaToolkitUtil {
 
   /**
    * Вывод сообщения
-   * 
+   *
    * @param message сообщение
    */
   public static void echoMessage(String message) {
@@ -423,7 +422,7 @@ public final class JepRiaToolkitUtil {
 
   /**
    * Преобразование рабочего состояния к строке
-   * 
+   *
    * @param workstate рабочее состоние
    * @return состояние в виде строки
    */
@@ -433,7 +432,7 @@ public final class JepRiaToolkitUtil {
 
   /**
    * Получение списка рабочих состояний из строки
-   * 
+   *
    * @param workStatesAsString строка
    * @return список рабочих состояний
    */
@@ -471,11 +470,11 @@ public final class JepRiaToolkitUtil {
     }
     return result;
   }
-  
-  
+
+
   /**
    * Преобразование типа поля к соответствующему представителю перечисления
-   * 
+   *
    * @param fieldType тип поля
    * @return тип поля как представитель перечисления JepTypeEnum
    */
@@ -492,7 +491,7 @@ public final class JepRiaToolkitUtil {
    * Получение наименования поля в виде параметра Если поле составное, т.е.
    * его слова разделены _, то слово преобразуется к виду параметра Например,
    * поле FIELD_ID преобразуется к fieldId
-   * 
+   *
    * @param field  наименование поля
    * @param prefix префикс
    * @return наименование поля как параметр
@@ -517,7 +516,7 @@ public final class JepRiaToolkitUtil {
 
   /**
    * Множественное объединение строк
-   * 
+   *
    * @param strings объединяемые строки
    * @return единая строка
    */
@@ -531,7 +530,7 @@ public final class JepRiaToolkitUtil {
 
   /**
    * Подбор подходящего типа поля для указанного виджета
-   * 
+   *
    * @param fieldWidget виджет
    * @return потенциально близкий к виджету тип поля
    */
@@ -558,7 +557,7 @@ public final class JepRiaToolkitUtil {
 
   /**
    * Обрезает суфикс у идентификатора поля
-   * 
+   *
    * @param fieldId  идентификатор поля
    * @return идентификатор без суфикса
    */
@@ -566,10 +565,10 @@ public final class JepRiaToolkitUtil {
     Integer lastIndexOfSuffix = null;
     if (isEmpty(fieldId))
       fieldId = new String();
-    else if ((lastIndexOfSuffix = fieldId.toUpperCase().lastIndexOf(
-        IDENTIFICATOR_SUFFIX)) != -1
-        || (lastIndexOfSuffix = fieldId.toUpperCase().lastIndexOf(
-            IDENTIFICATOR_CODE_SUFFIX)) != -1) {
+    else if (
+        (((lastIndexOfSuffix = fieldId.toUpperCase().lastIndexOf(IDENTIFICATOR_SUFFIX)) != -1) && (fieldId.length() == fieldId.toUpperCase().lastIndexOf(IDENTIFICATOR_SUFFIX) + IDENTIFICATOR_SUFFIX.length()) )
+        ||
+        (((lastIndexOfSuffix = fieldId.toUpperCase().lastIndexOf(IDENTIFICATOR_CODE_SUFFIX)) != -1)  && (fieldId.length() == fieldId.toUpperCase().lastIndexOf(IDENTIFICATOR_CODE_SUFFIX) + IDENTIFICATOR_CODE_SUFFIX.length()) )) {
       fieldId = fieldId.substring(0, lastIndexOfSuffix);
     }
     return fieldId;
@@ -577,7 +576,7 @@ public final class JepRiaToolkitUtil {
 
   /**
    * Обрезает суфикс у идентификатора пользовательской кнопки
-   * 
+   *
    * @param buttonId  идентификатор кнопки
    * @return идентификатор без суфикса
    */
@@ -596,7 +595,7 @@ public final class JepRiaToolkitUtil {
 
   /**
    * Получение идентификатора отображаемого значения для выпадающего списка
-   * 
+   *
    * @param comboBoxId  идентификатор комбобокса
    * @return поле отображаемого значения
    */
@@ -607,7 +606,7 @@ public final class JepRiaToolkitUtil {
 
   /**
    * Получение списка полей с опциями из списка всех полей
-   * 
+   *
    * @param fields  список всех полей
    * @return список полей, являющихся либо выпадающим списком, либо листфилдом
    */
@@ -625,7 +624,7 @@ public final class JepRiaToolkitUtil {
 
   /**
    * Формирование URL вида <протокол>://<сервер>:<порт>
-   * 
+   *
    * @param protocol   протокол
    * @param serverName сервер
    * @param serverPort порт
@@ -647,7 +646,7 @@ public final class JepRiaToolkitUtil {
 
   /**
    * Запуск цели Ant по ее наименованию
-   * 
+   *
    * @param targetName   наименование цели
    * @param properties   указание необходимых пользовательских свойств для выполнения данной цели
    */
@@ -655,7 +654,7 @@ public final class JepRiaToolkitUtil {
     File buildFile = new File(BUILD_FILE);
     Project p = new Project();
     p.setUserProperty("ant.file", buildFile.getAbsolutePath());
-    
+
     loadPropertiesFromFile(p, "build.properties");
     loadPropertiesFromFile(p, "deploy.properties");
     loadPropertiesFromFile(p, "local.properties");
@@ -663,7 +662,7 @@ public final class JepRiaToolkitUtil {
     for (Pair<String, String> prop : properties) {
       p.setUserProperty(prop.getKey(), prop.getValue());
     }
-    boolean defaultTarget = isEmpty(targetName) || 
+    boolean defaultTarget = isEmpty(targetName) ||
         BUILD_AND_DEPLOY_TASK_TARGET.equalsIgnoreCase(targetName);
     // для умолчательной цели делаем детальный вывод в консоль (для возможности отслеживания операций)
     if (defaultTarget) {
@@ -693,7 +692,7 @@ public final class JepRiaToolkitUtil {
         Properties props = new Properties();
         props.load(new FileInputStream(buildPropertiesFile));
         for (Object k : props.keySet()){
-          String key = (String) k; 
+          String key = (String) k;
           String value = props.getProperty(key);
           if (!JepRiaToolkitUtil.isEmptyOrNotInitializedParameter(value.split("/")[0])) {
             p.setUserProperty(key, value);
@@ -708,35 +707,35 @@ public final class JepRiaToolkitUtil {
 
   /**
    * Функция определяет: является ли переданная ей строка пустой.
-   * 
+   *
    * @param sourceString исходная строка, которую проверяем
-   * 
+   *
    * @return возвращает true, если передано значение null или переданная
    *         строка состоит только из пробелов.
    */
   public static boolean isEmpty(String sourceString) {
     return sourceString == null || sourceString.trim().length() == 0;
   }
-  
+
   /**
    * Функция определяет: является ли переданное ей число пустым или неопределенным.
-   * 
+   *
    * @param sourceInteger
    *            исходное число, которое проверяем
-   * 
+   *
    * @return возвращает true, если передано значение null или переданное
    *         значение не определено
    */
   public static boolean isEmpty(Integer sourceInteger) {
     return sourceInteger == null || sourceInteger.intValue() == UNDEFINED_INT;
   }
-  
+
   /**
    * Функция определяет: является ли переданное ей число пустым или неопределенным.
-   * 
+   *
    * @param sourceList
    *            исходное число, которое проверяем
-   * 
+   *
    * @return возвращает true, если передано значение null или переданное
    *         значение не определено
    */
@@ -746,7 +745,7 @@ public final class JepRiaToolkitUtil {
 
   /**
    * Функция определяет: является ли переданный объект пустым.
-   * 
+   *
    * @param obj   проверяемый объект
    */
   public static boolean isEmpty(Object obj) {
@@ -769,9 +768,9 @@ public final class JepRiaToolkitUtil {
   /**
    * Функция определяет: является ли переданная ей пустой строкой или
    * непроинициализированным параметром комманды.
-   * 
+   *
    * @param sourceString   исходная строка, которую проверяем
-   * 
+   *
    * @return возвращает true, если передано значение null или переданная
    *         строка состоит только из пробелов, а также строка является
    *         параметром Ant. Пример, ${PORT}, ${MODULE_NAME} и т.д.
@@ -779,14 +778,14 @@ public final class JepRiaToolkitUtil {
   public static boolean isEmptyOrNotInitializedParameter(String sourceString) {
     return isEmpty(sourceString) ? true : isNotInitializedParameter(sourceString);
   }
-  
+
   public static boolean isNotInitializedParameter(String sourceString) {
     return !isEmpty(sourceString) && sourceString.startsWith("${") && sourceString.endsWith("}");
   }
 
   /**
    * Проверяет является ли workstate состоянием формы редактирования
-   * 
+   *
    * @param workstate проверямое состояние
    * @return true, если проверяемое состояние принадлежит форме редактирования
    */
@@ -797,7 +796,7 @@ public final class JepRiaToolkitUtil {
 
   /**
    * Кодирование строки
-   * 
+   *
    * @param inputString      кодируемая строка
    * @return кодированная строка
    * @throws UnsupportedEncodingException
@@ -815,12 +814,12 @@ public final class JepRiaToolkitUtil {
 
   /**
    * Декодирование строки
-   * 
+   *
    * @param decodeString      декодируемая строка
    * @return раскодированная строка
    * @throws UnsupportedEncodingException
    */
-  public static String decode(String decodeString) 
+  public static String decode(String decodeString)
     throws UnsupportedEncodingException {
     StringBuilder sb = new StringBuilder();
     StringBuilder temp = new StringBuilder();
@@ -836,10 +835,10 @@ public final class JepRiaToolkitUtil {
     }
     return URLDecoder.decode(sb.toString(), UTF_8);
   }
-  
+
   /**
    * Сортировка полей на основании их следования в описании списочной и детальной форм
-   * 
+   *
    * @param fields        список полей модуля
    * @param isDetailForm      признак поле детальной формы или списочной формы
    * @return отсортированный список полей
@@ -849,35 +848,31 @@ public final class JepRiaToolkitUtil {
     for (ModuleField moduleField : fields){
       if (!isEmpty(moduleField.getFormIndex(isDetailForm))){
         result.add(moduleField);
-      } 
-    }
-    Collections.sort(result, new Comparator<ModuleField>() {
-      public int compare(ModuleField   moduleField1, ModuleField moduleField2){
-        return moduleField1.getFormIndex(isDetailForm).compareTo(moduleField2.getFormIndex(isDetailForm));  
       }
-    });
-    return result; 
+    }
+    Collections.sort(result, (moduleField1, moduleField2) -> moduleField1.getFormIndex(isDetailForm).compareTo(moduleField2.getFormIndex(isDetailForm)));
+    return result;
   }
-  
+
   /**
    * Возврат строки без пробелов
-   * 
+   *
    * @param str  преобразуемая строка
    * @return строка без пробельных символов
    */
   public static String getStringWithoutWhitespaces(String str){
     return isEmpty(str) ? str : str.replaceAll(REGEXP_FOR_BLANK, "");
   }
-  
+
   /**
    * Метод преобразования идентификатора к адекватному наименованию
-   * 
+   *
    * @param fieldId      идентфикатор
    * @return адекватное название идентификатора
    */
   public static String getNameFromID(String fieldId){
     if (isEmpty(fieldId)) return "";
-    
+
     String[] results = fieldId.toLowerCase().replaceAll(UNDERSCORE, WHITE_SPACE).split(REGEXP_FOR_BLANK);
     StringBuilder result = new StringBuilder();
     for (String res : results){
@@ -887,29 +882,29 @@ public final class JepRiaToolkitUtil {
     }
     return result.toString();
   }
-  
+
   public static String appendIfHasNot(String base, String fragment) {
     return base.contains(fragment) ? "" : fragment;
   }
-  
+
   public static String replacePackageModuleNames(String source, String packagePrefix, String packageName, String moduleName) {
     source = source.replaceAll("<%PackageName%>", packageName);
     source = source.replaceAll("<%packagename%>", packageName.toLowerCase());
-    
+
     source = source.replaceAll("<%ModuleName%>", moduleName);
     source = source.replaceAll("<%modulename%>", moduleName.toLowerCase());
-    
+
     source = source.replaceAll("<%packageprefix%>", packagePrefix.toLowerCase());
-    
+
     return source;
   }
-  
+
   public static void checkParameter(String paramName, String errorMessage) {
     if (isEmptyOrNotInitializedParameter(paramName)) {
       throw new BuildException(errorMessage);
     }
   }
-  
+
   public static String getDefinitionProperty(String property, String defaultValue, ResourceBundle... appResourceBundles){
     String value = null;
     try {
@@ -918,16 +913,11 @@ public final class JepRiaToolkitUtil {
     catch(Exception e){}
     return isEmpty(value) ? defaultValue : value;
   }
-  
+
   public static String getApplicationDefinitionFile(){
     File file = new File(currentSourceDirectory());
     // filter files in current directory which match the requirements
-    File[] appropriateFiles = file.listFiles(new FileFilter() {
-      @Override
-      public boolean accept(File pathname) {
-        return pathname.getName().endsWith(APPLICATION_SETTING_FILE_ENDING);
-      }
-    });
+    File[] appropriateFiles = file.listFiles((FileFilter) pathname -> pathname.getName().endsWith(APPLICATION_SETTING_FILE_ENDING));
     if (appropriateFiles.length > 1){
       throw new BuildException("You should directly determine file for application definition with help -DAPPLICATION_STRUCTURE_FILE_PATH argument in command line!");
     }
@@ -938,10 +928,10 @@ public final class JepRiaToolkitUtil {
       return appropriateFiles[0].getName();
     }
   }
-  
+
   /**
    * Извлечение на основе регулярного выражения недостающих директорий файловой структуры и имени файлов
-   * 
+   *
    * @param regexpPattern  шаблон регулярного выражения
    * @return список директорий и имен файлов
    */
@@ -969,16 +959,13 @@ public final class JepRiaToolkitUtil {
           }
         }
         final String patt = part;
-        File[] files = new File(currentPath).listFiles(new FileFilter() {
-          @Override
-          public boolean accept(File file) {
-            String convertValue = patt.replaceAll("\\{(.*?)\\}", "(.*)");
-            return isPart ? file.isFile() && file.getName().matches(convertValue) : file.isDirectory();
-          }
+        File[] files = new File(currentPath).listFiles((FileFilter) file -> {
+          String convertValue = patt.replaceAll("\\{(.*?)\\}", "(.*)");
+          return isPart ? file.isFile() && file.getName().matches(convertValue) : file.isDirectory();
         });
         if (files == null)
           throw new BuildException(multipleConcat("The path '", regexpPattern, "' doesn't exist on the file system!"));
-        
+
         if (files.length > 0){
           part = files[0].getName();
           if (isPart){
@@ -1009,12 +996,7 @@ public final class JepRiaToolkitUtil {
             break;
           }
         }
-        File[] files = new File(currentPath).listFiles(new FileFilter() {
-          @Override
-          public boolean accept(File file) {
-            return file.isDirectory();
-          }
-        });
+        File[] files = new File(currentPath).listFiles((FileFilter) file -> file.isDirectory());
         part = files[0].getName();
         result.add(part);
       }
@@ -1022,21 +1004,21 @@ public final class JepRiaToolkitUtil {
     }
     return result;
   }
-  
+
   /**
    * Подстановка значений директорий и имен файлов в передаваемом шаблоне
-   * 
+   *
    * @param pattern    шаблон регулярного выражения
    * @return путь файловой системы
    */
   public static String convertPatternInRealPath(String pattern){
     return format(pattern, extractFileNamesByPattern(pattern).toArray());
   }
-  
+
   /**
-   * Подстановка значений директорий и имен файлов в передаваемом шаблоне и подавление возможного исключения, 
+   * Подстановка значений директорий и имен файлов в передаваемом шаблоне и подавление возможного исключения,
    * поскольку файла с указанным путем возможно не существует, что является штатной ситуацией.
-   * 
+   *
    * @param pattern    шаблон регулярного выражения
    * @return путь файловой системы
    */
@@ -1050,9 +1032,9 @@ public final class JepRiaToolkitUtil {
   }
   /**
    * Получение имени приложения из конфигурационного файла application.xml
-   * 
+   *
    * @param applicationXmlPath путь до конфигурационного файла application.xml
-   * 
+   *
    * @return наименование приложения
    */
   public static String getApplicationName(String applicationXmlPath) {
@@ -1071,12 +1053,12 @@ public final class JepRiaToolkitUtil {
     }
     return null;
   }
-  
+
   /**
    * Получение списка модулей приложения из main.gwt.xml
-   * 
+   *
    * @param mainGwtXmlPath путь до main.gwt.xml
-   * 
+   *
    * @return список модулей
    */
   public static List<String> getModuleNames(String mainGwtXmlPath) {
@@ -1090,11 +1072,11 @@ public final class JepRiaToolkitUtil {
       NodeList nodes = (NodeList) expr.evaluate(doc, XPathConstants.NODESET);
       if (nodes != null){
         for (int i = 0; i < nodes.getLength(); i++){
-          Node node = nodes.item(i); 
+          Node node = nodes.item(i);
           if (node.getNodeType() == Node.ELEMENT_NODE){
             Element el = (Element) node;
             String nameAttr = el.getAttribute("name");
-            if (nameAttr.startsWith("com.technology") && 
+            if (nameAttr.startsWith("com.technology") &&
                 !nameAttr.equalsIgnoreCase("com.technology.jep.jepria.JepRia")){
               result.add(nameAttr.substring(nameAttr.lastIndexOf(DOT) + 1));
             }
@@ -1109,10 +1091,10 @@ public final class JepRiaToolkitUtil {
     }
     return result;
   }
-  
+
   /**
-   * Преобразование объектной модели в виде XML-файла 
-   * 
+   * Преобразование объектной модели в виде XML-файла
+   *
    * @param object      преобразуемый объект
    * @param fileNameOrPath  путь до файла
    */
@@ -1130,7 +1112,7 @@ public final class JepRiaToolkitUtil {
       e.printStackTrace();
     }
   }
-  
+
   public static Element convertModuleToXml(String moduleName, String applicationName){
     try {
       JAXBContext jaxbContext = JAXBContext.newInstance(Module.class);
@@ -1158,10 +1140,10 @@ public final class JepRiaToolkitUtil {
     }
     return null;
   }
-  
+
   /**
    * Получение потока для мэппинга состояния объекта к xml-файлу.
-   * 
+   *
    * @param fileNameOrPath    путь до xml-файла
    * @return поток для сериализации
    * @throws FileNotFoundException ошибка при сохранении объекта во внешний файл
@@ -1188,7 +1170,7 @@ public final class JepRiaToolkitUtil {
 
         return serializer;
     }
-  
+
   /**
    * Добавление модуля в приложение.
    * Возвращает XML-документ, соответствующий приложению с добавленным модулем.
@@ -1214,26 +1196,26 @@ public final class JepRiaToolkitUtil {
     }
     return null;
   }
-  
+
   /**
    * Нормализация пути к файлу.
-   * 
+   *
    * @param path  нормализуемый путь
    * @return нормализованный путь до файла
    */
   public static String normalizePath(String path){
     return new File(path).toURI().normalize().toString();
   }
-  
+
   /**
    * Получение абсолютного пути на директории исходных кодов проекта.
-   * 
+   *
    * @return абсолютный путь до директории src
    */
   public static String currentSourceDirectory(){
     return System.getProperty(CURRENT_DIRECTORY_ENVIRONMENT_VARIABLE);
   }
-  
+
   public static ResourceBundle getResourceByPath(String filePath){
     BufferedReader reader = null;
     try {
@@ -1252,14 +1234,14 @@ public final class JepRiaToolkitUtil {
     }
     return null;
   }
-  
+
   public static String extractStringFromQuotes(String strWithQuotes){
     return strWithQuotes.replaceAll("\"", "");
   }
-  
+
   /**
    * Сравнение объектов на равенство.
-   * 
+   *
    * @param obj1      первый сравниваемый объект
    * @param obj2      второй сравниваемый объект
    * @return признак равенства сравниваемых объектов
@@ -1272,7 +1254,7 @@ public final class JepRiaToolkitUtil {
     } else {
       return obj1.equals(obj2);
     }
-  }  
+  }
 
   /**
    * Конвертация текстовых ресурсов
@@ -1280,34 +1262,34 @@ public final class JepRiaToolkitUtil {
   public static void encodeTextResources() {
     runAntTarget(ALL_TEXT_ENCODE_TASK_TARGET);
   }
-  
+
   /**
    * Создание структуры приложения с указанием файла для сборки
-   * 
+   *
    * @param fileName    наименование файла сборки
    */
   public static void createApplicationStructure(String fileName) {
     runAntTarget(CREATE_STRUCTURE_TASK_TARGET, new Pair<String, String>(APPLICATION_STRUCTURE_FILE_PATH_TASK_ATTRIBUTE, fileName));
   }
-  
+
   /**
    * Сборка и развертывание приложения
    */
   public static void buildAndDeploy() {
     runAntTarget(null);
   }
-  
+
   public static void buildAndDeployWithCustomConfigName(String configName) {
     runAntTarget(BUILD_AND_DEPLOY_TASK_TARGET, new Pair<String, String>(BUILD_CONFIG_PROPERTY, configName));
   }
-  
+
   /**
    * Сборка и развертывание приложения
    */
   public static void antClean() {
     runAntTarget(CLEAN_TASK_TARGET);
   }
-  
+
   /**
    * Преобразует строку вида 'com.technology' в 'com/technology'
    * @param packagePrefix

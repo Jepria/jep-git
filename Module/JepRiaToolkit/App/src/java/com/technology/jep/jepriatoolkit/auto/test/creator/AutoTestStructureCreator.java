@@ -18,6 +18,7 @@ import static com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil.normalizeP
 import static java.text.MessageFormat.format;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -26,36 +27,37 @@ import org.apache.tools.ant.Task;
 
 import com.technology.jep.jepriatoolkit.creator.application.ApplicationStructureCreatorUtil;
 import com.technology.jep.jepriatoolkit.creator.module.Application;
+import com.technology.jep.jepriatoolkit.creator.module.ModuleField;
 import com.technology.jep.jepriatoolkit.creator.module.ModuleInfo;
 import com.technology.jep.jepriatoolkit.parser.ApplicationSettingParser;
 import com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil;
 
 @SuppressWarnings("unchecked")
 public class AutoTestStructureCreator extends Task {
-  
+
   /**
    * Атрибут таска. Путь к файлу описания структуры приложения.
    */
   public String applicationStructureFile;
-  
+
   /**
-   * Атрибут таска. Флаг, означающий - перезаписывать ли файлы при генерации. 
+   * Атрибут таска. Флаг, означающий - перезаписывать ли файлы при генерации.
    * Только для прикладных модулей (по аналогии с isBuild).
    */
   public boolean isOverrideExistsFiles;
-  
+
   /**
-   *  Объект, хранящий характеристики приложения, извлекаемые из конфигурационного файла приложения.  
+   *  Объект, хранящий характеристики приложения, извлекаемые из конфигурационного файла приложения.
    */
   private Application application;
-  
+
   private List<String> forms = new ArrayList<String>();
-  
+
   /**
    *  Данные для шаблонизатора.
    */
   private Map<String, Object> dataForTemplates = null;
-  
+
   /**
    * Получает данные для шаблонизатора.
    * @return Данные для шаблонизатора.
@@ -63,27 +65,27 @@ public class AutoTestStructureCreator extends Task {
   private Map<String, Object> getDataForTemplates() {
     return dataForTemplates;
   }
-  
+
   /**
    * Префикс пакета (например: com.technology).
    */
   private String packagePrefix;
-  
+
   /**
    * Пакет проекта.
    */
   private String packageProject;
-  
+
   /**
    * Пакет приложения.
    */
   private String packageApplication;
-  
+
   /**
    * Путь к папке, в которой лежат шаблоны
    */
   private final static String AUTO_TEST_TEMPLATE_PATH = "/com/technology/jep/jepriatoolkit/auto/test/creator/template";
-  
+
   /**
    * Основной метод, который выполняет Task
    */
@@ -91,52 +93,52 @@ public class AutoTestStructureCreator extends Task {
   public void execute() throws BuildException {
     try {
       /*
-       * Код ниже для отладки. TODO: продумать общее решение. 
+       * Код ниже для отладки. TODO: продумать общее решение.
        *
       echoMessage("Begin sleep");
       echoMessage("Time to start remote debug.");
       Thread.sleep(3000);
       echoMessage("End sleep");
        */
-      
+
       // Разбор и проверка applicationStructureFile (по умолчанию, <ApplicationName>Definition.xml)
       ApplicationSettingParser applicationParser = ApplicationSettingParser.getInstance(isEmptyOrNotInitializedParameter(applicationStructureFile) ? getApplicationDefinitionFile() : applicationStructureFile);
-      
+
       application = applicationParser.getApplication();
       packagePrefix = JepRiaToolkitUtil.packagePrefixToPath(application.getPackagePrefix().toLowerCase());
       packageProject = application.getProjectPackage().toLowerCase();
       packageApplication = application.getName().toLowerCase();
-      
+
       forms = applicationParser.getForms();
       dataForTemplates = prepareData(applicationParser);
-      
+
       applicationParser.notifyAboutAbsentFields();
       //TODO: код выше получился одинаковый для appcreator и testcreator
-        
+
       //переопределяем путь
       ApplicationStructureCreatorUtil.setTemplatePath(AUTO_TEST_TEMPLATE_PATH);
-      
+
       echoMessage(multipleConcat("Create Test Structure for '", packagePrefix, DOT, packageProject, DOT, packageApplication, "' module"));
       createTestFileStructure();
-      
+
       echoMessage("Create Automation Constants");
       createAutomatonConstants();
-      
+
       echoMessage("Create Java Classes of Auto");
       createAuto();
-      
+
       echoMessage("Create Java Classes of Auto Test");
       createAutoTest();
-      
+
       echoMessage("Create Java Classes of Auto Test Constant");
       createAutoTestConstant();
-      
+
       echoMessage("Generate XML for Module Auto Test");
       createModuleAutoTestXml();
-      
+
       echoMessage("Generate Data for Module Auto Test");
       createModuleAutoTestData();
-      
+
       echoMessage("Generate test.properties");
       createTestProperties();
 
@@ -153,7 +155,7 @@ public class AutoTestStructureCreator extends Task {
   private void createTestFileStructure() {
 
     makeDir(format(getAutoTestDefinitionProperty(AUTO_DIRECTORY_PROPERTY), packageProject, packageApplication, packagePrefix));
-    
+
     makeDir(format(getAutoTestDefinitionProperty(TEST_DIRECTORY_PROPERTY), packageProject, packageApplication, packagePrefix));
 
     if (forms.size() == 0) {
@@ -165,23 +167,23 @@ public class AutoTestStructureCreator extends Task {
         String formName = ((String) forms.get(i)).toLowerCase();
         makeDir(format(getAutoTestDefinitionProperty(AUTO_MODULE_DIRECTORY_PROPERTY),
             packageProject, packageApplication, formName, packagePrefix));
-        
+
         makeDir(format(getAutoTestDefinitionProperty(TEST_MODULE_DIRECTORY_PROPERTY),
             packageProject, packageApplication, formName, packagePrefix));
-        
+
         makeDir(format(getAutoTestDefinitionProperty(MODULE_AUTO_TEST_RESOURCES_DIRECTORY_PROPERTY),
             packageProject, packageApplication, formName, packagePrefix));
       }
     }
   }
-  
+
   /**
    * Создание test.properties, параметры авто-тестов.
    */
   private void createTestProperties() {
     convertTemplateToFile(
         getAutoTestDefinitionProperty(AUTO_TEST_CONSTANT_TEMPLATE_PROPERTY),
-        getDataForTemplates(), 
+        getDataForTemplates(),
         format(getAutoTestDefinitionProperty(AUTO_TEST_CONSTANT_PATH_TEMPLATE_PROPERTY),
             packageProject, packageApplication, application.getName(), packagePrefix));
   }
@@ -192,7 +194,7 @@ public class AutoTestStructureCreator extends Task {
   private void createAutoTestConstant() {
     convertTemplateToFile(
         getAutoTestDefinitionProperty(TEST_PROPERTIES_TEMPLATE_PROPERTY ),
-        getDataForTemplates(), 
+        getDataForTemplates(),
         format(getAutoTestDefinitionProperty(TEST_PROPERTIES_PATH_TEMPLATE_PROPERTY)));
   }
 
@@ -202,21 +204,21 @@ public class AutoTestStructureCreator extends Task {
   private void createAutomatonConstants() {
     Map<String, Object> data = dataForTemplates;
     List<ModuleInfo> moduleInfos = (List<ModuleInfo>) data.get(FORMS_TEMPLATE_PARAMETER);
-    
+
     for (ModuleInfo moduleInfo : moduleInfos) {
       String formName = moduleInfo.getFormName();
       convertTemplateToFile(
           getAutoTestDefinitionProperty(MODULE_AUTOMATION_CONSTANTS_TEMPLATE_PROPERTY ),
-          prepareFormData(moduleInfo, dataForTemplates), 
+          prepareFormData(moduleInfo, dataForTemplates),
           format(getAutoTestDefinitionProperty(MODULE_AUTOMATION_CONSTANTS_PATH_TEMPLATE_PROPERTY),
-              application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName.toLowerCase(), 
+              application.getProjectPackage().toLowerCase(), application.getName().toLowerCase(), formName.toLowerCase(),
               formName, application.getPackagePrefixAsPath().toLowerCase()),
               isOverrideExistsFiles);
     }
   }
-  
+
   /**
-   * Создание класса автоматизации (интерфейсов и реализации). <br/> 
+   * Создание класса автоматизации (интерфейсов и реализации). <br/>
    * Создание классов автоматизации модулей, и класса предоставляющих доступ к их объектам.
    */
   private void createAuto() {
@@ -230,30 +232,30 @@ public class AutoTestStructureCreator extends Task {
         dataForTemplates,
         format(getAutoTestDefinitionProperty(AUTO_IMPL_PATH_TEMPLATE_PROPERTY),
             packageProject, packageApplication, application.getName(), packagePrefix));
-    
+
     Map<String, Object> allDataForTemplates = getDataForTemplates();
     List<ModuleInfo> moduleInfos = (List<ModuleInfo>) allDataForTemplates.get(FORMS_TEMPLATE_PARAMETER);
     for (ModuleInfo moduleInfo : moduleInfos) {
-      
+
       String formName = moduleInfo.getFormName();
       convertTemplateToFile(
           getAutoTestDefinitionProperty(MODULE_AUTO_TEMPLATE_PROPERTY),
-          prepareFormData(moduleInfo, allDataForTemplates), 
+          prepareFormData(moduleInfo, allDataForTemplates),
           format(getAutoTestDefinitionProperty(MODULE_AUTO_PATH_TEMPLATE_PROPERTY),
               packageProject, packageApplication, formName.toLowerCase(), formName, packagePrefix),
           isOverrideExistsFiles);
-      
+
       convertTemplateToFile(
           getAutoTestDefinitionProperty(MODULE_AUTO_IMPL_TEMPLATE_PROPERTY),
-          prepareFormData(moduleInfo, allDataForTemplates), 
+          prepareFormData(moduleInfo, allDataForTemplates),
           format(getAutoTestDefinitionProperty(MODULE_AUTO_IMPL_PATH_TEMPLATE_PROPERTY),
               packageProject, packageApplication, formName.toLowerCase(), formName, packagePrefix),
           isOverrideExistsFiles);
     }
   }
-  
+
   /**
-   * Создание родительского класса тестов (тестов на уровне приложения). <br/> 
+   * Создание родительского класса тестов (тестов на уровне приложения). <br/>
    * Создание классов тестов на уровне модулей приложения.
    */
   private void createAutoTest() {
@@ -262,47 +264,49 @@ public class AutoTestStructureCreator extends Task {
         dataForTemplates,
         format(getAutoTestDefinitionProperty(AUTO_TEST_PATH_TEMPLATE_PROPERTY),
             packageProject, packageApplication, application.getName(), packagePrefix));
-    
+
     Map<String, Object> allDataForTemplates = getDataForTemplates();
     List<ModuleInfo> moduleInfos = (List<ModuleInfo>) allDataForTemplates.get(FORMS_TEMPLATE_PARAMETER);
     for (ModuleInfo moduleInfo : moduleInfos) {
-      
+      Map<String, Object> innerData = prepareFormData(moduleInfo, allDataForTemplates);
       String formName = moduleInfo.getFormName();
+      System.out.println(format(getAutoTestDefinitionProperty(MODULE_AUTO_TEST_PATH_TEMPLATE_PROPERTY),
+          packageProject, packageApplication, formName.toLowerCase(), formName, packagePrefix));
       convertTemplateToFile(
           getAutoTestDefinitionProperty(MODULE_AUTO_TEST_TEMPLATE_PROPERTY),
-          prepareFormData(moduleInfo, allDataForTemplates), 
+          innerData,
           format(getAutoTestDefinitionProperty(MODULE_AUTO_TEST_PATH_TEMPLATE_PROPERTY),
               packageProject, packageApplication, formName.toLowerCase(), formName, packagePrefix),
               isOverrideExistsFiles);
     }
   }
 
-  /** 
+  /**
    * Создание файлов с входными данными для тестов модулей приложения.
    */
   private void createModuleAutoTestData() {
     echoMessage("    TBD...");
   }
-  
-  /** 
+
+  /**
    * Создание xml для запуска тестов модулей приложения.
    */
   private void createModuleAutoTestXml() {
-    
+
     Map<String, Object> allDataForTemplates = getDataForTemplates();
     List<ModuleInfo> moduleInfos = (List<ModuleInfo>) allDataForTemplates.get(FORMS_TEMPLATE_PARAMETER);
     for (ModuleInfo moduleInfo : moduleInfos) {
-      
+
       String formName = moduleInfo.getFormName();
       convertTemplateToFile(
           getAutoTestDefinitionProperty(MODULE_AUTO_TEST_XML_TEMPLATE_PROPERTY),
-          prepareFormData(moduleInfo, allDataForTemplates), 
+          prepareFormData(moduleInfo, allDataForTemplates),
           format(getAutoTestDefinitionProperty(MODULE_AUTO_TEST_XML_PATH_TEMPLATE_PROPERTY),
               packageProject, packageApplication, formName.toLowerCase(), formName, packagePrefix),
           isOverrideExistsFiles);
     }
   }
-  
+
   /**
    * Устанавливает значение applicationStructureFile из соответствуюего атбируба Task.
    * @param applicationStructureFile
@@ -314,12 +318,23 @@ public class AutoTestStructureCreator extends Task {
   /**
    * Устанавливает значение isOverrideExistsFiles из соответствуюего атбируба Task. <br/>
    * Приводит значение к boolean.
-   * @param isOverrideExistsFiles 
+   * @param isOverrideExistsFiles
    */
   public void setIsOverrideExistsFiles(String isOverrideExistsFiles) {
-    
-    this.isOverrideExistsFiles = isEmptyOrNotInitializedParameter(isOverrideExistsFiles) 
+
+    this.isOverrideExistsFiles = isEmptyOrNotInitializedParameter(isOverrideExistsFiles)
         ? false : Boolean.parseBoolean(isOverrideExistsFiles);
     echoMessage("Task parameter - IS_OVERRIDE_EXISTS_FILES: " + this.isOverrideExistsFiles);
   }
+
+  /**
+   * Может пригодиться при отладке
+   * */
+  public static void printMap(Map mp) {
+    if(!mp.isEmpty()) {
+      mp.forEach((k, v) -> {
+        System.out.println("Key = " + k + " - " + v);
+    });
+    }
+}
 }
