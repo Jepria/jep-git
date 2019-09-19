@@ -1,8 +1,6 @@
 package org.jepria.server.service.rest;
 
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.Reader;
+import java.io.*;
 import java.lang.reflect.Type;
 import java.nio.charset.Charset;
 import java.util.HashMap;
@@ -15,6 +13,7 @@ import javax.inject.Singleton;
 import javax.ws.rs.core.Feature;
 import javax.ws.rs.core.FeatureContext;
 
+import com.google.gson.JsonSyntaxException;
 import org.glassfish.jersey.internal.inject.AbstractBinder;
 import org.glassfish.jersey.server.ContainerRequest;
 import org.glassfish.jersey.server.model.Parameter;
@@ -102,26 +101,31 @@ public class BodyParamsFeature implements Feature {
 
         final CastMap<String, Object> params = creator.get();
 
-        final Map<String, ?> m;
-        // TODO determine the charset from the request header
-        try (Reader reader = new InputStreamReader(request.getEntityStream(), Charset.forName("UTF-8"))) {
-          m = new DefaultGsonBuilder().build().fromJson(reader, (Type)new HashMap<String, Object>().getClass());
-          
-        } catch (IOException e) {
-          throw new RuntimeException(e);
-        }
-        
+        final Map<String, ?> m = entityToMap(request);
+
         if (m != null) {
-          m.forEach((key, value) -> {
+          for (String key: m.keySet()) {
+            Object value = m.get(key);
             if (key != null && value != null) {
               // the first declared value wins over the same-named parameters
-              params.put(key, value);
+              params.putIfAbsent(key, value);
             }
-          });
+          }
         }
         
         return params; 
       }
+    }
+
+    protected String inputStreamToString(InputStream inputStream, String charset)
+            throws IOException {
+      ByteArrayOutputStream result = new ByteArrayOutputStream();
+      byte[] buffer = new byte[1024];
+      int length;
+      while ((length = inputStream.read(buffer)) != -1) {
+        result.write(buffer, 0, length);
+      }
+      return result.toString(charset);
     }
 
     protected class MapProvider implements Function<ContainerRequest, Map<String, Object>> {
@@ -148,25 +152,42 @@ public class BodyParamsFeature implements Feature {
 
         final Map<String, Object> params = creator.get();
 
-        final Map<String, ?> m;
-        // TODO determine the charset from the request header
-        try (Reader reader = new InputStreamReader(request.getEntityStream(), Charset.forName("UTF-8"))) {
-          m = new DefaultGsonBuilder().build().fromJson(reader, (Type)new HashMap<String, Object>().getClass());
-          
-        } catch (IOException e) {
-          throw new RuntimeException(e);
-        }
-        
+        final Map<String, ?> m = entityToMap(request);
+
         if (m != null) {
-          m.forEach((key, value) -> {
+          for (String key: m.keySet()) {
+            Object value = m.get(key);
             if (key != null && value != null) {
-              params.put(key, value);
+              // the first declared value wins over the same-named parameters
+              params.putIfAbsent(key, value);
             }
-          });
+          }
         }
         
         return params; 
       }
+    }
+
+    protected Map<String, ?> entityToMap(ContainerRequest request) {
+      final Map<String, ?> m;
+      final String entity;
+
+      try (InputStream in = request.getEntityStream()) {
+        // TODO determine the charset from the request header
+        entity = inputStreamToString(in, "UTF-8");
+      } catch (IOException e) {
+        throw new RuntimeException(e);
+      }
+
+      try {
+        m = new DefaultGsonBuilder().build().fromJson(entity, (Type) new HashMap<String, Object>().getClass());
+      } catch (JsonSyntaxException e) {
+        // TODO throw extended exception with attached source that caused the exception?
+        throw e;
+      }
+
+
+      return m;
     }
   }
   
