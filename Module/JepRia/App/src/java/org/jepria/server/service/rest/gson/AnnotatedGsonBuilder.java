@@ -1,11 +1,10 @@
 package org.jepria.server.service.rest.gson;
 
-import java.util.function.Supplier;
-
-import javax.ws.rs.container.ResourceInfo;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+
+import javax.ws.rs.container.ResourceInfo;
+import java.util.function.Supplier;
 
 /**
  * Builds {@link Gson} instances from various configuration annotations (e.g. {@link JsonConfig} or {@link JsonConfigPrepared})
@@ -61,7 +60,7 @@ public class AnnotatedGsonBuilder {
 
     if (jsonConfigGson == null && jsonConfigParams == null) {
       // no json config
-      return new Gson();
+      return new DefaultGsonBuilder().get().create();
 
     } else if (jsonConfigGson != null && jsonConfigParams == null) {
       // prepared Gson
@@ -100,7 +99,7 @@ public class AnnotatedGsonBuilder {
   }
 
   protected Gson fromConfigParams(JsonConfig config) {
-    GsonBuilder builder = new GsonBuilder();
+    GsonBuilder builder = new DefaultGsonBuilder().get();
 
     if (config.generateNonExecutableJson()) {
       builder.generateNonExecutableJson();

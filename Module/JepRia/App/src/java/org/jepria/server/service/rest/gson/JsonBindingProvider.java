@@ -40,11 +40,8 @@
 
 package org.jepria.server.service.rest.gson;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Type;
+import com.google.gson.Gson;
+import org.glassfish.jersey.message.internal.AbstractMessageReaderWriterProvider;
 
 import javax.json.bind.Jsonb;
 import javax.json.bind.JsonbException;
@@ -56,10 +53,11 @@ import javax.ws.rs.container.ResourceInfo;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
-
-import org.glassfish.jersey.message.internal.AbstractMessageReaderWriterProvider;
-
-import com.google.gson.Gson;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Type;
 
 /**
  * Entity provider (reader and writer) for JSONB.
@@ -79,7 +77,7 @@ public class JsonBindingProvider extends AbstractMessageReaderWriterProvider<Obj
      *  which calls
      *  org.jvnet.hk2.internal.Utilities.proxiesAvailable()
      *  which calls
-     *  [ClassLoader] loader.loadClass("javassist.util.proxy.MethodHandler");
+     *  [ClassLoader] loader.loadClass("javassist.util.JsonBindingProviderproxy.MethodHandler");
      *  TODO add fail-fast dependency checking here?
      */
     @Context
@@ -141,5 +139,13 @@ public class JsonBindingProvider extends AbstractMessageReaderWriterProvider<Obj
      */
     private static boolean supportsMediaType(final MediaType mediaType) {
         return mediaType.getSubtype().equals(JSON) || mediaType.getSubtype().endsWith(PLUS_JSON);
+    }
+
+    /**
+     * Method for obtaining resource-contextual Jsonb for various utility purposes
+     * @return
+     */
+    public static Jsonb getJsonb() {
+        return new JsonBindingProvider().getJsonb(null, null);
     }
 }

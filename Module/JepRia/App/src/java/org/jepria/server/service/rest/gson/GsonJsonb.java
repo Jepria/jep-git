@@ -1,17 +1,11 @@
 package org.jepria.server.service.rest.gson;
 
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.io.Reader;
-import java.io.Writer;
-import java.lang.reflect.Type;
+import com.google.gson.Gson;
 
 import javax.json.bind.Jsonb;
 import javax.json.bind.JsonbException;
-
-import com.google.gson.Gson;
+import java.io.*;
+import java.lang.reflect.Type;
 
 /**
  * {@link com.google.gson.Gson} to {@link javax.json.bind.Jsonb} adapter

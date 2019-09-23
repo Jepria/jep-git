@@ -16,5 +16,5 @@ public @interface JsonConfig {
   boolean serializeNulls()              default false;  // default is com.google.gson.Gson.DEFAULT_SERIALIZE_NULLS
   boolean prettyPrinting()              default false;  // default is com.google.gson.Gson.DEFAULT_PRETTY_PRINT 
   boolean escapeHtml()                  default true;   // default is com.google.gson.Gson.DEFAULT_ESCAPE_HTML
-  String dateFormat()                   default "dd.MM.yyyy";
+  String dateFormat()                   default DefaultGsonBuilder.DEFAULT_DATE_FORMAT;
 }

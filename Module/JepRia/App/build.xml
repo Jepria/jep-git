@@ -37,16 +37,23 @@
     <pathelement location="${OJDBC6DMS_LIB}" />
   	
   	<pathelement location="${SSO-UTILS_LIB}" />
-  	
-  	<!-- REST/JAX-RS -->
-  	<pathelement location="${JERSEY-JAKARTA-WS-RS-API_LIB}" />
-  	<pathelement location="${JERSEY-JERSEY-SERVER_LIB}" />
-  	<pathelement location="${JERSEY-JERSEY-COMMON_LIB}" />
-    <pathelement location="${JERSEY-HK2-API_LIB}" />
-    <pathelement location="${JERSEY-JAKARTA-INJECT_LIB}" />
-  	<pathelement location="${JERSEY-VALIDATION-API_LIB}" />
-  	<pathelement location="${JERSEY-JAKARTA-JSON-BIND-API_LIB}" />
-  	
+
+    <!-- REST/JAX-RS/Jersey -->
+    <!-- Basic Jersey dependencies, for org.jepria.server.service.rest.jersey.ApplicationConfigBase -->
+    <pathelement location="${JERSEY-JERSEY-SERVER_LIB}" />
+    <pathelement location="${JERSEY-JAKARTA-WS-RS-API_LIB}" />
+    <pathelement location="${JERSEY-JERSEY-COMMON_LIB}" />
+    <!-- Jersey2Jaxrs dependencies, for org.jepria.server.service.rest.jersey.JerseyJaxrsConfig -->
+    <pathelement location="${SWAGGER-SWAGGER-JERSEY2-JAXRS_LIB}" />
+    <pathelement location="${SWAGGER-SWAGGER-JAXRS_LIB}" />
+    <!-- JsonBindingProvider feature dependencies, for org.jepria.server.service.rest.gson.JsonBindingProvider -->
+    <pathelement location="${JERSEY-JAKARTA-JSON-BIND-API_LIB}" />
+    <pathelement location="${GSON_LIB}" />
+    <!-- Swagger annotations -->
+    <pathelement location="${SWAGGER-SWAGGER-ANNOTATIONS_LIB}" />
+    <!-- -->
+
+
   </path>
 	
 	<path id="jepria-versionizer-libs">
