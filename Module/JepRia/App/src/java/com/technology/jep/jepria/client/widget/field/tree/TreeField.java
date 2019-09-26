@@ -637,7 +637,7 @@ public class TreeField<V extends JepOption> extends Composite implements HasChec
    * @param clearNodeMap Clear cashed nodes
    * @param blockRefresh Block any another attempts to refresh tree until current is finished
    */
-  protected void refresh(boolean clearNodeMap, boolean blockRefresh){
+  public void refresh(boolean clearNodeMap, boolean blockRefresh){
     for (Entry<Object, TreeNodeInfo<V>> entry : nodeMapOfDisplay.entrySet()) {
       entry.getValue().clearSelectedChildren();
     }
@@ -973,6 +973,11 @@ public class TreeField<V extends JepOption> extends Composite implements HasChec
         loader.load(expandNode, new JepAsyncCallback<List<V>>() {
           @Override
           public void onSuccess(List<V> result) {
+            if (isRefreshNeeded) {
+              isRefreshInProgress = false;
+              refreshTree(true);
+              return;
+            }
             if (nodeInfo != null) {
               nodeInfo.setChildren(result);
             }
