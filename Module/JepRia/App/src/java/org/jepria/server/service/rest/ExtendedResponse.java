@@ -6,7 +6,7 @@ import javax.ws.rs.core.Response.ResponseBuilder;
 import java.util.*;
 
 /**
- * Функционал создания расширенных ответов сервиса по запросу клиентом в заголовке "extended-response".
+ * Функционал создания расширенных ответов сервиса по запросу клиентом в заголовке "Extended-Response".
  * <br>
  * Пример использования:
  * <br>
@@ -18,43 +18,43 @@ import java.util.*;
  *   "age": 30
  * }
  * </pre>
- * Ответ сервиса может быть расширен другими данными, если клиент запрашивает их в заголовке запроса "extended-response".
+ * Ответ сервиса может быть расширен другими данными, если клиент запрашивает их в заголовке запроса "Extended-Response".
  * Например, сервис поддерживает расширения ответов дополнительными данными по запросам "address" и "family".
  * Тогда сервис работает следующим образом:
  * <pre>
- * Запрос: /user/123; Header "extended-response: address"
+ * Запрос: /user/123; Header "Extended-Response: address"
  * Ответ: {
- *   "basic-response": {
+ *   "Basic-Response": {
  *     "name": "John",
  *     "age": 30
  *   },
- *   "extended-response": {
+ *   "Extended-Response": {
  *     "address": {
  *       "street": "20 Avenue",
  *       "building": 12
  *     }
  *   }
  * }
- * Запрос: /user/123; Header "extended-response: family"
+ * Запрос: /user/123; Header "Extended-Response: family"
  * Ответ: {
- *   "basic-response": {
+ *   "Basic-Response": {
  *     "name": "John",
  *     "age": 30
  *   },
- *   "extended-response": {
+ *   "Extended-Response": {
  *     "family": {
  *       "mother": {...},
  *       "father": {...}
  *     }
  *   }
  * }
- * Запрос: /user/123; Header "extended-response: address, family"
+ * Запрос: /user/123; Header "Extended-Response: address, family"
  * Ответ: {
- *   "basic-response": {
+ *   "Basic-Response": {
  *     "name": "John",
  *     "age": 30
  *   },
- *   "extended-response": {
+ *   "Extended-Response": {
  *     "address": {
  *       "street": "20 Avenue",
  *       "building": 12
@@ -97,7 +97,7 @@ public class ExtendedResponse {
   /**
    * HTTP-заголовок запроса, требующий расширенного ответа
    */
-  public static final String REQUEST_HEADER_NAME = "extended-response";
+  public static final String REQUEST_HEADER_NAME = "Extended-Response";
   
   /**
    * Конфигуратор расширения ответа 
@@ -202,8 +202,8 @@ public class ExtendedResponse {
         basicEntity = Collections.emptyMap();
       }
       
-      extendedEntity.put("basic-response", basicEntity);
-      extendedEntity.put("extended-response", extendedResponses);
+      extendedEntity.put("Basic-Response", basicEntity);
+      extendedEntity.put("Extended-Response", extendedResponses);
       extendedResponseBuilder.entity(extendedEntity);
       
       

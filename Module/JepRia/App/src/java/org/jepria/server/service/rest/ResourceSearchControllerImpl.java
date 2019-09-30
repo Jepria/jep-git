@@ -1,8 +1,6 @@
 package org.jepria.server.service.rest;
 
-import org.jepria.server.data.Dao;
 import org.jepria.server.data.RecordComparator;
-import org.jepria.server.data.RecordDefinition;
 import org.jepria.server.service.security.Credential;
 
 import javax.servlet.http.HttpSession;
@@ -26,9 +24,9 @@ public class ResourceSearchControllerImpl implements ResourceSearchController {
     this.session = session;
     
     // create single searchUID for a tuple {session,resource}
-    searchUID = Integer.toHexString(Objects.hash(session.get().getId(), description.getEntityName()));
+    searchUID = Integer.toHexString(Objects.hash(session.get().getId(), description.getEntityName())); // TODO is this UID unique enough?
     
-    sessionAttrKeyPrefix = "SearchController:EntityName=" + description.getEntityName() + ";SearchId=" + searchUID;
+    sessionAttrKeyPrefix = "ResourceSearchController;entity=" + description.getEntityName() + ";searchId=" + searchUID;
   }
   
   private final String searchUID;
@@ -66,12 +64,12 @@ public class ResourceSearchControllerImpl implements ResourceSearchController {
   private final Property<SearchRequest> sessionSearchRequest = new Property<SearchRequest>() {
     @Override
     public SearchRequest get() {
-      String key = sessionAttrKeyPrefix + ";Key=SearchRequest;";
+      String key = sessionAttrKeyPrefix + ";key=sreq;";
       return (SearchRequest)session.get().getAttribute(key);
     }
     @Override
     public void set(SearchRequest searchRequest) {
-      String key = sessionAttrKeyPrefix + ";Key=SearchRequest;";
+      String key = sessionAttrKeyPrefix + ";key=sreq;";
       if (searchRequest == null) {
         session.get().removeAttribute(key);
       } else {
@@ -81,18 +79,18 @@ public class ResourceSearchControllerImpl implements ResourceSearchController {
   };
   
   /**
-   * Контейнер сохранённого в сессию результирующего списка в соответствии с последним клиентским запросом 
+   * Контейнер сохранённого в сессию результирующего списка в соответствии с последним клиентским запросом
    */
   //  паттерн "Свойство" использован для инкапсуляции чтения и записи атрибута сессии
   private final Property<List<?>> sessionResultset = new Property<List<?>>() {
     @Override
     public List<?> get() {
-      String key = sessionAttrKeyPrefix + ";Key=SearchResultset;";
+      String key = sessionAttrKeyPrefix + ";key=rset;";
       return (List<?>)session.get().getAttribute(key);
     }
     @Override
     public void set(List<?> resultset) {
-      String key = sessionAttrKeyPrefix + ";Key=SearchResultset;";
+      String key = sessionAttrKeyPrefix + ";key=rset;";
       if (resultset == null) {
         session.get().removeAttribute(key);
       } else {
@@ -109,12 +107,12 @@ public class ResourceSearchControllerImpl implements ResourceSearchController {
   private final Property<Boolean> sessionResultsetSortValid = new Property<Boolean>() {
     @Override
     public Boolean get() {
-      String key = sessionAttrKeyPrefix + ";Key=SearchResultsetSortValid;";
+      String key = sessionAttrKeyPrefix + ";key=sort;";
       return Boolean.TRUE.equals(session.get().getAttribute(key));
     }
     @Override
     public void set(Boolean resultsetSortValid) {
-      String key = sessionAttrKeyPrefix + ";Key=SearchResultsetSortValid;";
+      String key = sessionAttrKeyPrefix + ";key=sort;";
       if (Boolean.FALSE.equals(resultsetSortValid)) {
         session.get().removeAttribute(key);
       } else {
@@ -130,26 +128,19 @@ public class ResourceSearchControllerImpl implements ResourceSearchController {
     // В зависимости от существующих и новых поисковых параметров инвалидируем результирующий список и/или его сортировку
     final SearchRequest existingRequest = sessionSearchRequest.get();
     
-    boolean invalidateResultset = true;
-    boolean invalidateResultsetSort = true;
-    
-    if (existingRequest != null && searchRequest != null) {
-      if (Objects.equals(existingRequest.getTemplateToken(), searchRequest.getTemplateToken())) {
-        if (!Objects.equals(existingRequest.getListSortConfig(), searchRequest.getListSortConfig())) {
-          // не инвалидируем результирующий список, если изменились только параметры сортировки
-          invalidateResultset = false;
-        }
+
+    if (existingRequest != null && searchRequest != null && Objects.equals(existingRequest.getTemplateToken(), searchRequest.getTemplateToken())) {
+      // resultset remains valid
+
+      // TODO do not test equality but test sublistness instead
+      if (!Objects.equals(existingRequest.getListSortConfig(), searchRequest.getListSortConfig())) {
+        invalidateSort();
       }
+    } else {
+      invalidateResultsetAndSort();
     }
-    
-    if (invalidateResultset) {
-      sessionResultset.set(null);
-    }
-    if (invalidateResultsetSort) {
-      sessionResultsetSortValid.set(false);
-    }
-    
-    
+
+
     // сохраняем новые поисковые параметры
     sessionSearchRequest.set(searchRequest);
     
@@ -188,26 +179,29 @@ public class ResourceSearchControllerImpl implements ResourceSearchController {
    * Осуществляет сортировку результирующего списка, сохранённого в сессию, и выставляет сессионный признак валидности его сортировки
    */
   protected void doSort() {
-    
+
     final SearchRequest searchRequest = sessionSearchRequest.get();
     if (searchRequest == null) {
       throw new IllegalStateException("The session attribute must have already been set at this point");
     }
     
     
-    LinkedHashMap<String, Integer> listSortConfig = searchRequest.getListSortConfig();
+    Map<String, Integer> listSortConfig = searchRequest.getListSortConfig();
     if (listSortConfig != null) {
-      
-      final Comparator<Object> sortComparator = createRecordComparator(listSortConfig);
-      
+
       final List<?> resultset = sessionResultset.get();
-      
+
       if (resultset == null) {
         throw new IllegalStateException("The session attribute must have already been set at this point");
       }
 
-      Collections.sort(resultset, sortComparator);
-      // sorting affects the session attribute as well 
+      if (resultset.size() > 1) {
+
+        final Comparator<Object> sortComparator = createRecordComparator(listSortConfig);
+
+        Collections.sort(resultset, sortComparator);
+        // sorting affects the session attribute as well
+      }
     }
     
     // сессионный атрибут проставляется именно в doSort
@@ -216,9 +210,10 @@ public class ResourceSearchControllerImpl implements ResourceSearchController {
   
   /**
    * Создаёт Comparator записей для сортировки списка
+   * @param listSortConfig <b>ordered</b> map, see {@link }
    * @return
    */
-  protected Comparator<Object> createRecordComparator(LinkedHashMap<String, Integer> listSortConfig) {
+  protected Comparator<Object> createRecordComparator(Map<String, Integer> listSortConfig) {
     
     return new RecordComparator(new ArrayList<>(listSortConfig.keySet()),
         fieldName -> description.getRecordDefinition().getFieldComparator(fieldName),
@@ -328,5 +323,27 @@ public class ResourceSearchControllerImpl implements ResourceSearchController {
     } else {
       return null;
     }
+  }
+
+  @Override
+  public void invalidateResultset(String searchId) throws NoSuchElementException {
+    checkSearchIdOrElseThrow(searchId);
+
+    invalidateResultsetAndSort();
+  }
+
+  /**
+   * Invalidates both resultset and sort
+   */
+  protected void invalidateResultsetAndSort() {
+    sessionResultset.set(null);
+    sessionResultsetSortValid.set(false);
+  }
+
+  /**
+   * Invalidates sort validity only
+   */
+  protected void invalidateSort() {
+    sessionResultsetSortValid.set(false);
   }
 }

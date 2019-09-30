@@ -255,15 +255,21 @@ public class ResourceEndpointBase extends EndpointBase {
 
   /**
    * Supports HTTP request headers:
-   * "extended-response: resultset/paged-by-X/Y"
-   * "extended-response: resultset?pageSize=X&page=Y"
-   * "extended-response: resultset?page=Y&pageSize=X"
+   * <br/>
+   * {@code "Extended-Response: resultset/paged-by-X/Y"}
+   * <br/>
+   * {@code "Extended-Response: resultset?pageSize=X&page=Y"}
+   * <br/>
+   * {@code "Extended-Response: resultset?page=Y&pageSize=X"}
+   * <br/>
    * to get the search resultset in the same POST request response body, instead of POST+GET
    * @param searchRequestDto
+   * @param extendedResponse Extended-Response header value
+   * @param cacheControl Cache-Control header value
    * @param <T>
    * @return
    */
-  public <T> Response postSearch(SearchRequestDto<T> searchRequestDto) {
+  public <T> Response postSearch(SearchRequestDto<T> searchRequestDto, String extendedResponse, String cacheControl) {
 
     final ResourceSearchController.SearchRequest searchRequest = convertSearchRequest(searchRequestDto);
 
@@ -275,7 +281,10 @@ public class ResourceEndpointBase extends EndpointBase {
 
 
     // клиент может запросить ответ, расширенный результатами поиска данного запроса
-    response = ExtendedResponse.extend(response).valuesFrom(request).handler(new PostSearchExtendedResponseHandler(searchId)).create();
+    // TODO переместить запрос расширенного ответа из заголовка в параметр запроса? Поддержать оба случая?
+    if (extendedResponse != null) {
+      response = ExtendedResponse.extend(response).valuesFrom(request).handler(new PostSearchExtendedResponseHandler(searchId, cacheControl)).create();
+    }
 
     return response;
   }
@@ -284,9 +293,9 @@ public class ResourceEndpointBase extends EndpointBase {
 
     protected final Object templateDto;
     protected final String templateToken;
-    protected final LinkedHashMap<String, Integer> listSortConfig;
+    protected final Map<String, Integer> listSortConfig;
 
-    public SearchRequestImpl(Object templateDto, LinkedHashMap<String, Integer> listSortConfig) {
+    public SearchRequestImpl(Object templateDto, Map<String, Integer> listSortConfig) {
       this.templateDto = templateDto;
 
       // для преобразования в токен используется не общий контексно-зависимый сериализатор, а просто _некий_ сериализатор
@@ -306,7 +315,7 @@ public class ResourceEndpointBase extends EndpointBase {
     }
 
     @Override
-    public LinkedHashMap<String, Integer> getListSortConfig() {
+    public Map<String, Integer> getListSortConfig() {
       return listSortConfig;
     }
   }
@@ -322,7 +331,7 @@ public class ResourceEndpointBase extends EndpointBase {
     }
 
     final Object templateDto = searchRequestDto.getTemplate();
-    final LinkedHashMap<String, Integer> listSortConfig = convertListSortConfig(searchRequestDto.getListSortConfiguration());
+    final Map<String, Integer> listSortConfig = convertListSortConfig(searchRequestDto.getListSortConfiguration());
 
     return new SearchRequestImpl(templateDto, listSortConfig);
   }
@@ -362,7 +371,7 @@ public class ResourceEndpointBase extends EndpointBase {
           try {
             return resourceSearchController.get().getResultsetSize(searchId, getCredential());
           } catch (Throwable e) {
-            // TODO process jaxrs exceptions like NotFoundException or BadRequestException differently, or add "status":"exception" as an extended-response block
+            // TODO process jaxrs exceptions like NotFoundException or BadRequestException differently, or add "status":"exception" as an Extended-Response block
 
             // do not re-throw
             e.printStackTrace();
@@ -399,7 +408,7 @@ public class ResourceEndpointBase extends EndpointBase {
           // подзапрос на выдачу данных
           List<?> subresponse;
           try {
-            subresponse = getResultsetPaged(searchId, pageSize, page);
+            subresponse = getResultsetPaged(searchId, pageSize, page, null);
           } catch (Throwable e) {
             // TODO process jaxrs exceptions like NotFoundException or BadRequestException differently...
 
@@ -429,7 +438,7 @@ public class ResourceEndpointBase extends EndpointBase {
       }
 
 
-      // намеренно не поддерживается возврат полного результата (/resultset) в extended-response, потому что в общем случае
+      // намеренно не поддерживается возврат полного результата (/resultset) в Extended-Response, потому что в общем случае
       // клиент должен принять решение о том, запрашивать ли результат целиком только на основе ответа /resultset-size,
       // что невозможно в рамках одного запроса-ответа
 
@@ -456,9 +465,9 @@ public class ResourceEndpointBase extends EndpointBase {
 
   /**
    * @param listSortConfig
-   * @return modifiable collection, null for null is important
+   * @return <b>ordered</b> map, modifiable collection, null for null is important
    */
-  protected LinkedHashMap<String, Integer> convertListSortConfig(List<ColumnSortConfigurationDto> listSortConfig) {
+  protected Map<String, Integer> convertListSortConfig(List<ColumnSortConfigurationDto> listSortConfig) {
     if (listSortConfig == null) {
       return null;
     }
@@ -472,10 +481,10 @@ public class ResourceEndpointBase extends EndpointBase {
 
   /**
    *
-   * @param listSortConfig
+   * @param listSortConfig <b>ordered</b> map
    * @return null for null is important
    */
-  private List<ColumnSortConfigurationDto> convertListSortConfig(LinkedHashMap<String, Integer> listSortConfig) {
+  private List<ColumnSortConfigurationDto> convertListSortConfig(Map<String, Integer> listSortConfig) {
     if (listSortConfig == null) {
       return null;
     }
@@ -490,7 +499,21 @@ public class ResourceEndpointBase extends EndpointBase {
     return ret;
   }
 
-  public int getSearchResultsetSize(String searchId) {
+  /**
+   * Invalidates the resultset if the request contains header {@code Cache-Control: no-cache}
+   * @param searchId
+   * @param cacheControl Cache-Control header value
+   */
+  protected void invalidateResultsetOnNoCache(String searchId, String cacheControl) {
+    if ("no-cache".equals(request.getHeader("Cache-Control"))) {
+      resourceSearchController.get().invalidateResultset(searchId);
+    }
+  }
+
+  public int getSearchResultsetSize(String searchId, String cacheControl) {
+
+    invalidateResultsetOnNoCache(searchId, cacheControl);
+
     final int result;
 
     try {
@@ -502,11 +525,20 @@ public class ResourceEndpointBase extends EndpointBase {
     return result;
   }
 
+  /**
+   *
+   * @param searchId
+   * @param pageSize
+   * @param page
+   * @param cacheControl Cache-Control header value
+   * @return
+   */
   // either both pageSize and page are empty, or both are not empty
   public List<?> getResultset(
           String searchId,
           Integer pageSize,
-          Integer page) {
+          Integer page,
+          String cacheControl) {
 
     // paging is supported not only with path params, but also with query params
     if (pageSize != null || page != null) {
@@ -517,14 +549,22 @@ public class ResourceEndpointBase extends EndpointBase {
         throw new BadRequestException(message);
 
       } else {
-        return getResultsetPaged(searchId, pageSize, page);
+        return getResultsetPaged(searchId, pageSize, page, cacheControl);
       }
     }
 
-    return getResultset(searchId);
+    return getResultset(searchId, cacheControl);
   }
 
-  protected List<?> getResultset(String searchId) {
+  /**
+   *
+   * @param searchId
+   * @param cacheControl Cache-Control header value
+   * @return
+   */
+  protected List<?> getResultset(String searchId, String cacheControl) {
+
+    invalidateResultsetOnNoCache(searchId, cacheControl);
 
     final List<?> records;
 
@@ -547,14 +587,25 @@ public class ResourceEndpointBase extends EndpointBase {
   // TODO move the constant out of here?
   protected static final int DEFAULT_PAGE_SIZE = 25;
 
+  /**
+   *
+   * @param searchId
+   * @param pageSize
+   * @param page
+   * @param cacheControl Cache-Control header value
+   * @return
+   */
   public List<?> getResultsetPaged(
           String searchId,
           Integer pageSize,
-          Integer page) {
+          Integer page,
+          String cacheControl) {
 
     // normalize paging parameters
     pageSize = pageSize == null ? DEFAULT_PAGE_SIZE : pageSize;
     page = page == null ? 1 : page;
+
+    invalidateResultsetOnNoCache(searchId, cacheControl);
 
     final List<?> records;
 
