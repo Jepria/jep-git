@@ -195,7 +195,7 @@ public class ResourceSearchControllerImpl implements ResourceSearchController {
         throw new IllegalStateException("The session attribute must have already been set at this point");
       }
 
-      if (resultset.size() > 1) {
+      if (resultset.size() > 1) { // sort lengthy lists only
 
         final Comparator<Object> sortComparator = createRecordComparator(listSortConfig);
 
@@ -244,45 +244,44 @@ public class ResourceSearchControllerImpl implements ResourceSearchController {
   @Override
   public int getResultsetSize(String searchId, Credential credential) throws NoSuchElementException {
     checkSearchIdOrElseThrow(searchId);
-    
-    return getResultsetLocal(credential).size();
+
+    List<?> resultset = getResultsetLocal(credential, false); // no need to sort for getting size only
+
+    return resultset == null ? 0 : resultset.size();
   }
-  
+
   /**
-   * @return non-null
+   *
+   * @param credential
+   * @param sort whether to return a resultset in "raw" order (as-is, without applying sort configuration from the search request), or with requested sort configuration applied
+   * @return non-null, at least empty
    */
-  protected List<?> getResultsetLocal(Credential credential) {
+  protected List<?> getResultsetLocal(Credential credential, boolean sort) {
     
     // поиск (если необходимо)
     List<?> resultset = sessionResultset.get();
     
-    if (resultset == null) {
-      // поиск не осуществлялся или был инвалидирован
+    if (resultset == null) {// поиск не осуществлялся или был инвалидирован
       doSearch(credential);
-      
-      resultset = sessionResultset.get();
-      
-      if (resultset == null) {
-        throw new IllegalStateException("The session attribute must have already been set at this point");
-      }
     }
     
-    
-    // сортировка (если необходимо)
-    boolean resultsetSortValid = sessionResultsetSortValid.get();
-    
-    if (!resultsetSortValid) {
-      // сортировка не осуществлялась или была инвалидирована
-      doSort();
-      
-      resultset = sessionResultset.get();
-      
-      if (resultset == null) {
-        throw new IllegalStateException("The session attribute must have already been set at this point");
+
+    if (sort) {// сортировка (если необходимо)
+
+      boolean resultsetSortValid = sessionResultsetSortValid.get();
+
+      if (!resultsetSortValid) {// сортировка не осуществлялась или была инвалидирована
+        doSort();
       }
     }
-    
-    
+
+
+    // check session/resultset state
+    resultset = sessionResultset.get();
+    if (resultset == null) {
+      throw new IllegalStateException("The session attribute must have already been set at this point");
+    }
+
     return resultset;
   }
   
@@ -290,14 +289,14 @@ public class ResourceSearchControllerImpl implements ResourceSearchController {
   public List<?> getResultset(String searchId, Credential credential) throws NoSuchElementException {
     checkSearchIdOrElseThrow(searchId);
     
-    return getResultsetLocal(credential);
+    return getResultsetLocal(credential, true);
   }
   
   @Override
   public List<?> getResultsetPaged(String searchId, int pageSize, int page, Credential credential) throws NoSuchElementException {
     checkSearchIdOrElseThrow(searchId);
     
-    List<?> resultset = getResultsetLocal(credential);
+    List<?> resultset = getResultsetLocal(credential, true);
     
     return paging(resultset, pageSize, page);
   }

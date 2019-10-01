@@ -426,7 +426,7 @@ public class ResourceEndpointBase extends EndpointBase {
    * @param cacheControl Cache-Control header value
    */
   protected void invalidateResultsetOnNoCache(String searchId, String cacheControl) {
-    if ("no-cache".equals(request.getHeader("Cache-Control"))) {
+    if ("no-cache".equals(cacheControl)) {
       resourceSearchController.get().invalidateResultset(searchId);
     }
   }
