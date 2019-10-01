@@ -113,85 +113,6 @@ public class ResourceEndpointBase extends EndpointBase {
 
 
 
-  //////// Jaxrs-annotated methods for descendants ////////
-
-  /*
-
-  @GET
-  @Path("{recordId}")
-  public Dto getResourceById(@PathParam("recordId") String recordId) {
-    return (Dto)super.getResourceById(recordId);
-  }
-
-  @POST
-  public Response create(Dto resource) {
-    return super.create(resource);
-  }
-
-  @DELETE
-  @Path("{recordId}")
-  public void deleteResourceById(@PathParam("recordId") String recordId) {
-    super.deleteResourceById(recordId);
-  }
-
-  @PUT
-  @Path("{recordId}")
-  public void update(@PathParam("recordId") String recordId, Dto resource) {
-    super.update(recordId, resource);
-  }
-
-  @GET
-  public List<OptionDto> listAsOptions() {
-    return super.listAsOptions();
-  }
-
-  @GET
-  @Path("option/{optionEntityName}")
-  public List<OptionDto> listOptions(@PathParam("optionEntityName") String optionEntityName) {
-    return super.listOptions(optionEntityName);
-  }
-
-  @POST
-  @Path("search")
-  public Response postSearch_(SearchRequestDto<Dto> searchRequestDto) {
-    return super.postSearch(searchRequestDto);
-  }
-
-  @GET
-  @Path("search/{searchId}")
-  public SearchRequestDto<Dto> getSearchRequest(
-          @PathParam("searchId") String searchId) {
-    return (SearchRequestDto<Dto>)super.getSearchRequest(searchId);
-  }
-
-  @GET
-  @Path("search/{searchId}/resultset-size")
-  public int getSearchResultsetSize(@PathParam("searchId") String searchId) {
-    return super.getSearchResultsetSize(searchId);
-  }
-
-  @GET
-  @Path("search/{searchId}/resultset")
-  public List<Dto> getResultset(
-          @PathParam("searchId") String searchId,
-          @QueryParam("pageSize") Integer pageSize,
-          @QueryParam("page") Integer page) {
-    return (List<Dto>)super.getResultset(searchId, pageSize, page);
-  }
-
-  @GET
-  @Path("search/{searchId}/resultset/paged-by-{pageSize:\\d+}/{page}")
-  public List<Dto> getResultsetPaged(
-          @PathParam("searchId") String searchId,
-          @PathParam("pageSize") Integer pageSize,
-          @PathParam("page") Integer page) {
-    return (List<Dto>)super.getResultsetPaged(searchId, pageSize, page);
-  }
-
-  */
-
-
-
   //////// CRUD ////////
 
   public Object getResourceById(String recordId) {
@@ -283,7 +204,7 @@ public class ResourceEndpointBase extends EndpointBase {
     // клиент может запросить ответ, расширенный результатами поиска данного запроса
     // TODO переместить запрос расширенного ответа из заголовка в параметр запроса? Поддержать оба случая?
     if (extendedResponse != null) {
-      response = ExtendedResponse.extend(response).valuesFrom(request).handler(new PostSearchExtendedResponseHandler(searchId, cacheControl)).create();
+      response = ExtendedResponse.extend(response).valuesFrom(request).handler(new PostSearchExtendedResponseHandler(searchId)).create();
     }
 
     return response;
