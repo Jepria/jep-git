@@ -1,9 +1,5 @@
 package com.technology.jep.jepria.server.dao.transaction;
 
-import java.lang.reflect.InvocationHandler;
-import java.lang.reflect.Method;
-import java.lang.reflect.Proxy;
-
 import com.technology.jep.jepria.server.dao.transaction.annotation.After;
 import com.technology.jep.jepria.server.dao.transaction.annotation.Before;
 import com.technology.jep.jepria.server.dao.transaction.handler.EndTransactionHandler;
@@ -11,11 +7,18 @@ import com.technology.jep.jepria.server.dao.transaction.handler.EndTransactionHa
 import com.technology.jep.jepria.server.dao.transaction.handler.StartTransactionHandler;
 import com.technology.jep.jepria.server.dao.transaction.handler.StartTransactionHandlerImpl;
 import com.technology.jep.jepria.server.db.Db;
+import org.apache.log4j.Logger;
+
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
 
 /**
  * Фабрика, создающая прокси для выполнения методов Dao в рамках одной транзакции.
  */
 public class TransactionFactory {
+
+  protected static Logger logger = Logger.getLogger(TransactionFactory.class.getName());
 
   /**
    * Обработчик вызова метода Dao, обеспечивающий его выполнение в рамках одной транзакции.<br/>
@@ -77,9 +80,10 @@ public class TransactionFactory {
       Object result = null;
       synchronized (db) {
         try {
+          final long startTime = System.currentTimeMillis();
           result = method.invoke(dao, args);
-        }
-        catch(Exception exc) {
+          logger.trace(dao.getClass() +"." + method.getName() + " execution time: " + (System.currentTimeMillis() - startTime)/1000.00 + " (seconds)");
+        } catch(Exception exc) {
           /*
            * Необходимо вызвать getCause(), поскольку выброшенное из Dao исключение
            * будет обёрнуто в InvocationTargetException.
