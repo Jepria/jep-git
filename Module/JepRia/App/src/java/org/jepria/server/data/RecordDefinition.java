@@ -15,6 +15,7 @@ public interface RecordDefinition {
    * Полный набор имён полей, которые может содержать запись
    */
   // TODO this can be determined from the Dto annotations
+  // TODO объяснить в комментарии, какие поля нужно возвращать (все возможные или часть?)
   Set<String> getFieldNames();
   
   /**

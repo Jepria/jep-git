@@ -11,13 +11,20 @@ public interface Dao {
   /**
    * Поиск записей
    * 
-   * @param template поисковый шаблон
+   * @param template поисковый шаблон (объект прикладного класса SearchDto)
    * @param operatorId идентификатор пользователя
-   * @return список записей
+   * @return список записей (список объектов прикладного класса Dto)
    */
   // maxRowCount это атрибут шаблона, а не отдельное поле!
   List<?> find(Object template, Integer operatorId);
 
+  /**
+   *
+   * @param primaryKeyMap первичный ключ
+   * @param operatorId
+   * @return
+   */
+  // primaryKey не передаётся в виде целого Dto потому что здесь нужен именно первичный ключ. primaryKey является мапом потому что первичный ключ может быть составным
   Object findByPrimaryKey(Map<String, ?> primaryKeyMap, Integer operatorId);
 
   /**
@@ -36,6 +43,7 @@ public interface Dao {
    * @param record запись с новыми значениями
    * @param operatorId идентификатор пользователя
    */
+  // primaryKey не передаётся в виде целого Dto потому что здесь нужен именно первичный ключ. primaryKey является мапом потому что первичный ключ может быть составным
   void update(Map<String, ?> primaryKey, Object record, Integer operatorId);
 
   /**
@@ -44,5 +52,6 @@ public interface Dao {
    * @param primaryKey первичный ключ удаляемой записи (простой или составной)
    * @param operatorId идентификатор пользователя
    */
+  // primaryKey не передаётся в виде целого Dto потому что здесь нужен именно первичный ключ. primaryKey является мапом потому что первичный ключ может быть составным
   void delete(Map<String, ?> primaryKey, Integer operatorId);
 }
