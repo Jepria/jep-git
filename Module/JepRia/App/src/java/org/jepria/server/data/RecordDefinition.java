@@ -35,9 +35,11 @@ public interface RecordDefinition {
   /**
    * Определяет способ сравнения значений определённого поля записи
    * @param fieldName
-   * @return
+   * @return custom field comparator or {@code null} to use default comparator
    */
-  Comparator<Object> getFieldComparator(String fieldName);
+  default Comparator<Object> getFieldComparator(String fieldName) {
+    return null;
+  }
   
   public class IncompletePrimaryKeyException extends Exception {
     private static final long serialVersionUID = 1L;

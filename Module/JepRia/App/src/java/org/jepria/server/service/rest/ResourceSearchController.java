@@ -2,7 +2,6 @@ package org.jepria.server.service.rest;
 
 import org.jepria.server.service.security.Credential;
 
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
@@ -32,9 +31,14 @@ public interface ResourceSearchController {
     String getTemplateToken();
 
     /**
-     * @return упорядоченная последовательность имён столбцов списка с указанием порядка сортировки данных в каждом столбце (>=0 или <0)
+     * @return <b>упорядоченный</b> map.
+     * <br/>
+     * ключ: имя столбца списка для сортировки записей по нему,
+     * <br/>
+     * значение: порядок сортировки записей списка по данному столбцу (неотрицательное: по возрастанию, отрицательное: по убыванию)
+     * <br/>
      */
-    LinkedHashMap<String, Integer> getListSortConfig();
+    Map<String, Integer> getListSortConfig();
   }
   
   /**
@@ -76,4 +80,11 @@ public interface ResourceSearchController {
    * @throws NoSuchElementException if the requested searchId does not exist
    */
   int getResultsetSize(String searchId, Credential credential) throws NoSuchElementException;
+
+  /**
+   * Invalidates resultset (if any) by the searchId
+   * @param searchId
+   * @throws NoSuchElementException if the requested searchId does not exist
+   */
+  void invalidateResultset(String searchId) throws NoSuchElementException;
 }
