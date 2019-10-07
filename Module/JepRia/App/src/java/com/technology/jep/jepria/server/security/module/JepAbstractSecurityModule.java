@@ -1,25 +1,21 @@
-package com.technology.jep.jepria.server.security;
-
-import static com.technology.jep.jepria.server.JepRiaServerConstant.DEFAULT_DATA_SOURCE_JNDI_NAME;
-import static com.technology.jep.jepria.server.security.JepSecurityConstant.GUEST_LOGIN;
-import static com.technology.jep.jepria.server.security.JepSecurityConstant.GUEST_PASSWORD;
-import static com.technology.jep.jepria.server.security.JepSecurityConstant.JEP_SECURITY_MODULE_ATTRIBUTE_NAME;
-
-import java.security.Principal;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSessionBindingEvent;
-
-import org.apache.log4j.Logger;
+package com.technology.jep.jepria.server.security.module;
 
 import com.technology.jep.jepcommon.security.pkg_Operator;
 import com.technology.jep.jepria.server.db.Db;
 import com.technology.jep.jepria.shared.exceptions.ApplicationException;
 import com.technology.jep.jepria.shared.exceptions.SystemException;
+import org.apache.log4j.Logger;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSessionBindingEvent;
+import java.security.Principal;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import static com.technology.jep.jepria.server.JepRiaServerConstant.DEFAULT_DATA_SOURCE_JNDI_NAME;
+import static com.technology.jep.jepria.server.security.JepSecurityConstant.*;
 
 /**
  * Модуль поддержки безопасности

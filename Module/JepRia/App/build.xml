@@ -38,6 +38,11 @@
   	
   	<pathelement location="${SSO-UTILS_LIB}" />
 
+    <pathelement location="${JWT_LIB}" />
+    <pathelement location="${ASM}" />
+    <pathelement location="${NIMBUS_JOSE_JWT}" />
+    <pathelement location="${JSON_SMART}" />
+
     <!-- REST/JAX-RS/Jersey -->
     <!-- Basic Jersey dependencies, for org.jepria.server.service.rest.jersey.ApplicationConfigBase -->
     <pathelement location="${JERSEY-JERSEY-SERVER_LIB}" />

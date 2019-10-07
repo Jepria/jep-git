@@ -2,7 +2,8 @@ package com.technology.jep.jepria.server.security;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.technology.jep.jepria.server.security.tomcat.JepSecurityModule_Tomcat;
+import com.technology.jep.jepria.server.security.module.JepSecurityModule;
+import com.technology.jep.jepria.server.security.module.JepSecurityModuleImpl;
 import com.technology.jep.jepria.server.util.JepServerUtil;
 
 public class SecurityFactory {
@@ -11,7 +12,7 @@ public class SecurityFactory {
     JepSecurityModule result = null;
     
     if(JepServerUtil.isTomcat(request)) {
-      result = JepSecurityModule_Tomcat.getInstance(request);
+      result = JepSecurityModuleImpl.getInstance(request);
     }
     
     return result;
