@@ -3,14 +3,13 @@ package org.jepria.server.data;
 /**
  * Класс для представления опций в общем виде
  */
-public class OptionDto {
+public class OptionDto<T> {
   
   public OptionDto() {}
   
   private String name;
   
-  // В общем виде значение опции представляется строкой
-  private String value;
+  private T value;
   
   public String getName() {
     return name;
@@ -20,11 +19,11 @@ public class OptionDto {
     this.name = name;
   }
   
-  public String getValue() {
+  public T getValue() {
     return value;
   }
   
-  public void setValue(String value) {
+  public void setValue(T value) {
     this.value = value;
   }
   
