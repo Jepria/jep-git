@@ -123,7 +123,7 @@ public class DaoSupport {
   @SuppressWarnings("unchecked")
   public static <T> T create(
       String query
-      , Class<T> resultTypeClass
+      , Class<? super T> resultTypeClass
       , Object... params)
       throws ApplicationException {
     
@@ -205,7 +205,7 @@ public class DaoSupport {
   public static <T> List<T> find(
       String query
       , ResultSetMapper<T> mapper
-      , Class<T> recordClass
+      , Class<? super T> recordClass
       , Object... params) 
       throws ApplicationException {
       
@@ -226,7 +226,7 @@ public class DaoSupport {
    */
   public static <T> T executeAndReturn(
       String query
-      , Class<T> resultTypeClass
+      , Class<? super T> resultTypeClass
       , Object... params) 
       throws ApplicationException {
 
@@ -268,12 +268,12 @@ public class DaoSupport {
    */
   private static <T> void setOutputParamsToStatement(
       CallableStatement callableStatement,
-      Class<T> resultTypeClass,
+      Class<? super T> resultTypeClass,
       Object[] params) throws SQLException {
     if(resultTypeClass.isArray()) {
       Object[] outputParamTypes = (Object[]) params[0];
       for(int i = 0; i < outputParamTypes.length; i++) {
-        registerParameter(callableStatement, i + params.length, (Class<T>) outputParamTypes[i]);
+        registerParameter(callableStatement, i + params.length, (Class<? super T>) outputParamTypes[i]);
       }
     } else {
       registerParameter(callableStatement, 1, resultTypeClass);
@@ -290,7 +290,7 @@ public class DaoSupport {
   private static <T> void registerParameter(
       CallableStatement callableStatement,
       int paramNumber,
-      Class<T> resultTypeClass) throws SQLException {
+      Class<? super T> resultTypeClass) throws SQLException {
     if (resultTypeClass.equals(Integer.class)) {
       callableStatement.registerOutParameter(paramNumber, Types.INTEGER);
     } else if (resultTypeClass.equals(String.class)) {
@@ -317,7 +317,7 @@ public class DaoSupport {
    */
   private static <T> T getResult(
       CallableStatement callableStatement,
-      Class<T> resultTypeClass,
+      Class<? super T> resultTypeClass,
       Object[] params) throws SQLException {
     T result = null;
     
@@ -351,7 +351,7 @@ public class DaoSupport {
   public static <T> List<T> select(
       String query
       , ResultSetMapper<T> mapper
-      , Class<T> modelClass
+      , Class<? super T> modelClass
       , Object... params) 
       throws ApplicationException {
       
@@ -405,7 +405,7 @@ public class DaoSupport {
   private static <T> List<T> findOrSelect(
       String query
       , ResultSetMapper<T> mapper
-      , Class<T> recordClass
+      , Class<? super T> recordClass
       , ExecutionType executionType
       , Object... params)
       throws ApplicationException {
@@ -423,7 +423,7 @@ public class DaoSupport {
       resultSet = setParamsAndExecute(callableStatement, executionType, params);
       
       while (resultSet.next()) {
-        T resultModel = recordClass.newInstance();
+        T resultModel = (T)recordClass.newInstance();
         
         mapper.map(resultSet, resultModel);
         
