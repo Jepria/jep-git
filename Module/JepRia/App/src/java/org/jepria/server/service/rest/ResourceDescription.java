@@ -9,5 +9,4 @@ import org.jepria.server.data.RecordDefinition;
 public interface ResourceDescription {
   Dao getDao();
   RecordDefinition getRecordDefinition();
-  String getEntityName();
 }

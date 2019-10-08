@@ -1,17 +1,12 @@
 package org.jepria.server.service.rest;
 
-import org.jepria.server.data.Dao;
-import org.jepria.server.data.RecordDefinition;
 import org.jepria.server.data.RecordDefinition.IncompletePrimaryKeyException;
 import org.jepria.server.service.security.Credential;
 
-import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 
 public class ResourceBasicControllerImpl implements ResourceBasicController {
@@ -20,32 +15,6 @@ public class ResourceBasicControllerImpl implements ResourceBasicController {
 
   public ResourceBasicControllerImpl(ResourceDescription description) {
     this.description = description;
-  }
-
-  /**
-   * Converts url-styled resource name to dao-styled resource name:
-   * <br/>
-   * {@code feature-status} -> {@code FeatureStatus}
-   * @param resourceName url-styled resource name
-   * @return dao-styled resource name; {@code null} if the input is {@code null} 
-   */
-  protected String normalizeResourceName(String resourceName) {
-    if (resourceName == null) {
-      return null;
-    }
-
-    String ret = resourceName;
-
-    while (true) {
-      Matcher m = Pattern.compile("(^|[-_]+)([a-z])").matcher(ret);
-      if (!m.find()) {
-        break;
-      } else {
-        ret = ret.substring(0, m.start()) + Character.toUpperCase(m.group(2).charAt(0)) + ret.substring(m.end(), ret.length());
-      }
-    }
-
-    return ret;
   }
 
   //////////// CRUD ///////////////////
@@ -199,41 +168,4 @@ public class ResourceBasicControllerImpl implements ResourceBasicController {
     
   }
 
-  /////////////////////////// OPTIONS RESOURCE //////////////////////////
-
-  @Override
-  public List<?> listOptions(String optionEntityName, Credential credential) throws NoSuchElementException {
-
-    try {
-
-      final Object dao = description.getDao();
-
-      String optionEntityNameNormalized = normalizeResourceName(optionEntityName);
-
-      final Method getOptionsMethod;
-
-      final String methodName = "get" + optionEntityNameNormalized;
-      try {
-        Class<?> daoClass = dao.getClass();
-        getOptionsMethod = daoClass.getMethod(methodName);
-        
-      } catch (NoSuchMethodException e) {
-        NoSuchElementException rethrown = new NoSuchElementException("The dao class contains no '" + methodName + "' method");
-        rethrown.addSuppressed(e);
-        throw rethrown;
-      }
-
-
-      final Object daoResult = getOptionsMethod.invoke(dao);
-
-
-      final List<?> result = (List<?>)daoResult;
-
-
-      return result;
-
-    } catch (Throwable e) {
-      throw new RuntimeException(e);
-    }
-  }
 }

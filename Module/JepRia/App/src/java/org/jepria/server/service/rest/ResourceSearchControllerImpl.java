@@ -22,11 +22,14 @@ public class ResourceSearchControllerImpl implements ResourceSearchController {
     this.description = description;
 
     this.session = session;
-    
+
+    // TODO improper value (will be proxy). How to obtain properly?
+    final String entityName = description.getDao().getClass().getSimpleName();
+
     // create single searchUID for a tuple {session,resource}
-    searchUID = Integer.toHexString(Objects.hash(session.get().getId(), description.getEntityName())); // TODO is this UID unique enough?
+    searchUID = Integer.toHexString(Objects.hash(session.get().getId(), entityName)); // TODO is this UID unique enough?
     
-    sessionAttrKeyPrefix = "ResourceSearchController;entity=" + description.getEntityName() + ";searchId=" + searchUID;
+    sessionAttrKeyPrefix = "ResourceSearchController;entity=" + entityName + ";searchId=" + searchUID;
   }
   
   private final String searchUID;

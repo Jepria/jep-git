@@ -2,7 +2,8 @@ package org.jepria.server.service.rest;
 
 import com.google.gson.Gson;
 import io.swagger.annotations.Api;
-import org.jepria.server.data.*;
+import org.jepria.server.data.ColumnSortConfigurationDto;
+import org.jepria.server.data.SearchRequestDto;
 
 import javax.servlet.http.HttpSession;
 import javax.ws.rs.*;
@@ -13,7 +14,6 @@ import java.util.*;
 import java.util.function.Supplier;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 @Api
 @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
@@ -26,17 +26,6 @@ public class ResourceEndpointBase extends EndpointBase {
   protected ResourceEndpointBase(ResourceDescription description) {
     this.description = description;
   }
-
-//  // TODO redundant code
-//  protected String getResourceName() {
-//    String className = this.getClass().getSimpleName();
-//    int suffixIndex = className.lastIndexOf("Endpoint");
-//    if (suffixIndex != -1) {
-//      return className.substring(0, suffixIndex);
-//    } else {
-//      return className;
-//    }
-//  }
 
   //////////// Controllers: ////////////
 
@@ -144,32 +133,6 @@ public class ResourceEndpointBase extends EndpointBase {
 
   public void update(String recordId, Object resource) {
     resourceBasicController.get().update(recordId, resource, getCredential());
-  }
-
-  //////// OPTIONS ////////
-
-  public List<OptionDto> listAsOptions() {
-    return listOptions(description.getEntityName());
-  }
-
-  public List<OptionDto> listOptions(String optionEntityName) {
-    final List<?> records;
-
-    try {
-      records = resourceBasicController.get().listOptions(optionEntityName, getCredential());
-    } catch (NoSuchElementException e) {
-      // 404
-      throw new NotFoundException(e);
-    }
-    if (records == null || records.isEmpty()) {
-      // 204
-      return null;
-    } else {
-
-      final List<OptionDto> result = records.stream().map(record -> DtoUtil.mapToOptionDto(record)).collect(Collectors.toList());
-
-      return result;
-    }
   }
 
   //////// SEARCH ////////

@@ -32,42 +32,6 @@ public class DtoUtil {
     return map;
   }
 
-  /**
-   * Преобразование Map в {@link OptionDto}-объект
-   * @param entityDto
-   * @return null for null
-   */
-  // TODO remove this method?
-  public static OptionDto mapToOptionDto(Object entityDto) {
-    if (entityDto == null) {
-      return null;
-    }
-
-    // TODO
-    if (true) throw new UnsupportedOperationException();
-
-    // TODO get key and value fields from entityDto and RecordDefinition using reflection
-    OptionDto optionDto = new OptionDto();
-    optionDto.setName("name-of-" + entityDto);
-    optionDto.setValue("value-of-" + entityDto);
-    return optionDto;
-  }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
