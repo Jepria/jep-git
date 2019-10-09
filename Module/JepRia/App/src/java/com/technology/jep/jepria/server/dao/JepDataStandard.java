@@ -8,7 +8,9 @@ import com.technology.jep.jepria.shared.util.Mutable;
 
 /**
  * Базовый интерфейс работы с данными БД.
+ * @deprecated for Rest use {@link org.jepria.server.data.Dao} instead
  */
+@Deprecated
 public interface JepDataStandard {
   /**
    * Поиск.
