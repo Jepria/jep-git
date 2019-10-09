@@ -10,6 +10,7 @@ import com.technology.jep.jepria.client.message.JepMessageBoxImpl;
 import com.technology.jep.jepria.client.util.JepClientUtil;
 import com.technology.jep.jepria.client.widget.field.masked.Mask;
 import com.technology.jep.jepria.client.widget.field.masked.MaskedTextBox;
+import com.technology.jep.jepria.client.widget.field.masked.MaskedTextBoxMobile;
 import com.technology.jep.jepria.client.widget.field.multistate.event.InputForbiddenEvent;
 import com.technology.jep.jepria.client.widget.field.multistate.event.InputForbiddenEvent.InputForbiddenHandler;
 import com.technology.jep.jepria.client.widget.field.multistate.event.PasteForbiddenEvent;
@@ -41,7 +42,8 @@ public class JepMaskedTextField extends JepBaseTextField<MaskedTextBox> {
    */
   @Override
   protected void addEditableCard() {
-    editableCard = new MaskedTextBox(new Mask(""));
+    editableCard = JepClientUtil.isMobile() && MaskedTextBoxMobile.isSupportedMobilePlatform() ?
+        new MaskedTextBoxMobile("") : new MaskedTextBox("");
     editablePanel.add(editableCard);
     
     editableCard.addInputForbiddenHandler(new InputForbiddenHandler() {
