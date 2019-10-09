@@ -18,18 +18,17 @@ public class TextFileDownloadImpl extends AbstractFileDownload implements TextFi
    * @return рекомендуемая величина буфера
    * @throws ApplicationException
    */
+  @Override
   public int beginRead(
       String tableName
       , String fileFieldName
       , String keyFieldName
       , Object rowId
-      , String dataSourceJndiName
-      , String moduleName) 
+      )
       throws ApplicationException {
 
     int result = -1;
     try {
-      CallContext.begin(dataSourceJndiName, moduleName);
 
       super.largeObject = new TextLargeObject(tableName, fileFieldName, keyFieldName, rowId);
       result = ((TextLargeObject)super.largeObject).beginRead();
@@ -52,6 +51,7 @@ public class TextFileDownloadImpl extends AbstractFileDownload implements TextFi
    * @param dataBlock блок данных
    * @throws SpaceException
    */
+  @Override
   public int continueRead(char[] dataBlock) throws SpaceException {
     CallContext.attach(storedContext);
     boolean cancelled = true;

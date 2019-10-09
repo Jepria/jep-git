@@ -1,7 +1,7 @@
 package com.technology.jep.jepria.server.upload.clob;
 
-import com.technology.jep.jepria.server.db.clob.TextLargeObject;
 import com.technology.jep.jepria.server.dao.CallContext;
+import com.technology.jep.jepria.server.db.clob.TextLargeObject;
 import com.technology.jep.jepria.server.exceptions.SpaceException;
 import com.technology.jep.jepria.server.upload.AbstractFileUpload;
 import com.technology.jep.jepria.shared.exceptions.ApplicationException;
@@ -19,29 +19,18 @@ public class TextFileUploadImpl extends AbstractFileUpload implements TextFileUp
   }
 
   /**
-   * Создаёт загрузчик файлов на сервер.
-   */
-  public TextFileUploadImpl(boolean transactionable){
-    super(transactionable);
-  }
-
-  /**
    * {@inheritDoc}
    */
+  @Override
   public int beginWrite(
     String tableName
     , String fileFieldName
     , String keyFieldName
-    , Object rowId
-    , String dataSourceJndiName
-    , String moduleName) 
+    , Object rowId)
     throws ApplicationException {
 
     int result = -1;
     try {
-      if (transactionable) {
-        CallContext.begin(dataSourceJndiName, moduleName);
-      }
       super.largeObject = new TextLargeObject(tableName, fileFieldName, keyFieldName, rowId);
       result = ((TextLargeObject)super.largeObject).beginWrite();
     } catch (ApplicationException ex) {
@@ -57,6 +46,7 @@ public class TextFileUploadImpl extends AbstractFileUpload implements TextFileUp
   /**
    * {@inheritDoc}
    */
+  @Override
   public void continueWrite(char[] dataBlock) throws SpaceException {
     CallContext.attach(storedContext);
     boolean cancelled = false;

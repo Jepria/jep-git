@@ -1,16 +1,18 @@
 package com.technology.jep.jepria.server.upload.clob;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.Reader;
-import java.io.Writer;
-import java.util.Map;
-
+import com.technology.jep.jepria.server.dao.CallContext;
 import com.technology.jep.jepria.server.exceptions.SpaceException;
 import com.technology.jep.jepria.server.upload.FileUpload;
 import com.technology.jep.jepria.shared.exceptions.ApplicationException;
 import com.technology.jep.jepria.shared.exceptions.NotImplementedYetException;
 import com.technology.jep.jepria.shared.exceptions.SystemException;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.Reader;
+import java.io.Writer;
+import java.sql.SQLException;
+import java.util.Map;
 
 /**
  * <pre>
@@ -100,7 +102,8 @@ public class FileUploadWriter extends Writer {
       , String keyFieldName
       , Object rowId
       , String dataSourceJndiName
-      , String moduleName) 
+      , String moduleName
+      , boolean transactionable)
       throws IOException {
 
     Writer writeStream = null;
@@ -108,13 +111,17 @@ public class FileUploadWriter extends Writer {
     try {
       // Здесь выполняется преобразование из байтов в символы
       bufferedReader = new BufferedReader(reader);
+
+      if (transactionable) {
+        CallContext.begin(dataSourceJndiName, moduleName);
+      }
+
       final int WRITE_LENGTH = fileUpload.beginWrite(
           tableName
           , fileFieldName
           , keyFieldName
           , rowId
-          , dataSourceJndiName
-          , moduleName);
+          );
       writeStream = new FileUploadWriter((TextFileUpload)fileUpload);
       char[] readBuffer = new char[WRITE_LENGTH];
       while (true) {
@@ -141,8 +148,23 @@ public class FileUploadWriter extends Writer {
       }
       try {
         fileUpload.endWrite();
+
+        if (transactionable) {
+          if (fileUpload.isCancelled()) {
+            CallContext.rollback();
+          } else {
+            CallContext.commit();
+          }
+        }
+
       } catch (SpaceException e) {
         e.printStackTrace();
+      } catch (SQLException ex) {
+        throw new SystemException("end write error", ex);
+      } finally {
+        if (transactionable) {
+          CallContext.end();
+        }
       }
     }
   }
@@ -165,7 +187,8 @@ public class FileUploadWriter extends Writer {
       , String fileFieldName
       , Map<String, Object> primaryKeyMap
       , String dataSourceJndiName
-      , String moduleName) {
+      , String moduleName
+      , boolean transactionable) {
     throw new NotImplementedYetException();
   }
 

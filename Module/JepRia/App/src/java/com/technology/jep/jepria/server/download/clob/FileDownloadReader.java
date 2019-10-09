@@ -1,17 +1,16 @@
 package com.technology.jep.jepria.server.download.clob;
 
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.io.Reader;
-import java.nio.charset.Charset;
-
-import com.technology.jep.jepria.server.JepRiaServerConstant;
+import com.technology.jep.jepria.server.dao.CallContext;
 import com.technology.jep.jepria.server.download.FileDownload;
 import com.technology.jep.jepria.server.exceptions.SpaceException;
 import com.technology.jep.jepria.shared.exceptions.ApplicationException;
 import com.technology.jep.jepria.shared.exceptions.SystemException;
+
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.Reader;
+import java.io.Writer;
+import java.sql.SQLException;
 
 /**
  * <pre>
@@ -58,6 +57,7 @@ public class FileDownloadReader extends Reader {
   /**
    * Закрывает входной поток. Пустая реализация на текущий момент.
    */
+  @Override
   public void close() throws IOException {
   }
   
@@ -73,18 +73,17 @@ public class FileDownloadReader extends Reader {
   /**
    * Загрузка файла в выходной поток из поля Clob таблицы базы данных.
    * 
-   * @param fileStream           выходной поток записи файла
+   * @param writer           выходной поток записи файла
    * @param fileDownload        интерфейс загрузки файла
    * @param tableName           имя таблицы, откуда берем СLOB
    * @param fileFieldName        имя атрибута в таблице, откуда берем СLOB
    * @param keyFieldName        PK в таблице tableName
    * @param rowId               идентификатор строки таблицы
    * @param dataSourceJndiName   имя источника данных
-   * @param encoding            кодировка, в который пишем в выходной поток
    * @throws IOException
    */
   public static void downloadFile(
-      OutputStream fileStream
+      Writer writer
       , FileDownload fileDownload
       , String tableName
       , String fileFieldName
@@ -92,21 +91,25 @@ public class FileDownloadReader extends Reader {
       , Object rowId
       , String dataSourceJndiName
       , String moduleName
-      , Charset encoding) 
+      , final boolean transactionable)
       throws IOException {
 
     Reader readStream = null;
-    BufferedWriter writer = null;
+    BufferedWriter bufferedWriter = null;
     try {
       // Здесь выполняется преобразование из байтов в символы
-      writer = new BufferedWriter(new OutputStreamWriter(fileStream, encoding));
+      bufferedWriter = new BufferedWriter(writer);
+
+      if (transactionable) {
+        CallContext.begin(dataSourceJndiName, moduleName);
+      }
+
       final int WRITE_LENGTH = fileDownload.beginRead(
           tableName
           , fileFieldName
           , keyFieldName
           , rowId
-          , dataSourceJndiName
-          , moduleName);
+          );
       readStream = new FileDownloadReader((TextFileDownload)fileDownload);
       char[] readBuffer = new char[WRITE_LENGTH];
       while (true) {
@@ -114,11 +117,11 @@ public class FileDownloadReader extends Reader {
         if (size == -1) {
           break;
         } else if (size == WRITE_LENGTH) {
-          writer.write(readBuffer);
+          bufferedWriter.write(readBuffer);
         } else {
           char[] lastBuffer = new char[size];
           System.arraycopy(readBuffer, 0, lastBuffer, 0, size);
-          writer.write(lastBuffer);
+          bufferedWriter.write(lastBuffer);
         }
       }
     } catch (ApplicationException e) {
@@ -127,50 +130,39 @@ public class FileDownloadReader extends Reader {
       if(readStream != null) {
         readStream.close();
       }
-      if(writer != null) {
-        writer.close();
+      if(bufferedWriter != null) {
+        bufferedWriter.close();
       }
       if(fileDownload != null) {
         try {
           fileDownload.endRead();
+
+          if (transactionable) {
+            if (fileDownload.isCancelled()) {
+              CallContext.rollback();
+            } else {
+              CallContext.commit();
+            }
+          }
+
         } catch (SpaceException e) {
           e.printStackTrace();
+        } catch (SQLException ex) {
+          throw new SystemException("end write error", ex);
+        } finally {
+          if (transactionable) {
+            CallContext.end();
+          }
         }
       }
-      if(fileStream != null) {
+      if(writer != null) {
         try {
-          fileStream.flush();
-          fileStream.close();
+          writer.flush();
+          writer.close();
         } catch (IOException e) {
           e.printStackTrace();
         }
       }
     }
-  }
-  
-  /**
-   * Загрузка файла в выходной поток из поля Clob таблицы базы данных.
-   * 
-   * @param fileStream           выходной поток записи файла
-   * @param fileDownload        интерфейс загрузки файла
-   * @param tableName           имя таблицы, откуда берем СLOB
-   * @param fileFieldName        имя атрибута в таблице, откуда берем СLOB
-   * @param keyFieldName        PK в таблице tableName
-   * @param rowId               идентификатор строки таблицы
-   * @param dataSourceJndiName   имя источника данных
-   * @throws IOException
-   */
-  public static void downloadFile(
-      OutputStream fileStream
-      , FileDownload fileDownload
-      , String tableName
-      , String fileFieldName
-      , String keyFieldName
-      , Object rowId
-      , String dataSourceJndiName
-      , String moduleName) 
-      throws IOException {
-    downloadFile(fileStream, fileDownload, tableName, fileFieldName, keyFieldName, rowId, dataSourceJndiName,
-        moduleName, JepRiaServerConstant.DEFAULT_ENCODING);
   }
 }

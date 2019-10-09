@@ -440,7 +440,8 @@ abstract public class JepDataServiceServlet<D extends JepDataStandard> extends J
           keyFieldName,
           recordId,
           this.dataSourceJndiName,
-          moduleName);
+          moduleName,
+          true);
 
       result = outputStream;
     } catch (Throwable th) {
@@ -568,7 +569,8 @@ abstract public class JepDataServiceServlet<D extends JepDataStandard> extends J
             ((JepLobRecordDefinition)recordDefinition).getKeyFieldName(),
             primaryKeyMap.values().toArray()[0],
             this.dataSourceJndiName,
-            null);
+            null,
+            true);
       }
       catch(IOException e) {
         throw new ApplicationException(e.getMessage(), e);
@@ -581,7 +583,8 @@ abstract public class JepDataServiceServlet<D extends JepDataStandard> extends J
           fileFieldName,
           primaryKeyMap,
           this.dataSourceJndiName,
-          moduleName);
+          moduleName,
+          true);
     }
   }
   

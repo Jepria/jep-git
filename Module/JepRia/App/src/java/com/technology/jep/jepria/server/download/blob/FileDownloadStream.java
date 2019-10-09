@@ -1,14 +1,16 @@
 package com.technology.jep.jepria.server.download.blob;
 
-import java.io.BufferedOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-
+import com.technology.jep.jepria.server.dao.CallContext;
 import com.technology.jep.jepria.server.download.FileDownload;
 import com.technology.jep.jepria.server.exceptions.SpaceException;
 import com.technology.jep.jepria.shared.exceptions.ApplicationException;
 import com.technology.jep.jepria.shared.exceptions.SystemException;
+
+import java.io.BufferedOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.sql.SQLException;
 
 /**
  * <pre>
@@ -53,13 +55,15 @@ public class FileDownloadStream extends InputStream {
   
   /**
    * Закрывает входной поток. Пустая реализация на текущий момент.
-   */  
+   */
+  @Override
   public void close() throws IOException {
   }
   
   /**
    * {@inheritDoc}
    */
+  @Override
   public int read(byte[] b, int off, int len) throws IOException {
     if (b == null) {
       return -1;
@@ -75,6 +79,7 @@ public class FileDownloadStream extends InputStream {
   /**
    * {@inheritDoc}
    */
+  @Override
   public int read(byte[] b) throws IOException {
     try {
       return fileDownload.continueRead(b);
@@ -86,6 +91,7 @@ public class FileDownloadStream extends InputStream {
   /**
    * {@inheritDoc}
    */
+  @Override
   public int read() throws IOException {
     byte[] bytes = new byte[1];
     try {
@@ -117,20 +123,25 @@ public class FileDownloadStream extends InputStream {
       , String keyFieldName
       , Object rowId
       , String dataSourceJndiName
-      , String moduleName) 
+      , String moduleName
+      , final boolean transactionable)
       throws IOException {
 
     OutputStream writeStream = null;
     InputStream readStream = null;
     try {
       writeStream = new BufferedOutputStream(fileStream);
+
+      if (transactionable) {
+        CallContext.begin(dataSourceJndiName, moduleName);
+      }
+
       final int WRITE_LENGTH = fileDownload.beginRead(
           tableName
           , fileFieldName
           , keyFieldName
           , rowId
-          , dataSourceJndiName
-          , moduleName);
+          );
       readStream = new FileDownloadStream((BinaryFileDownload)fileDownload);
       byte[] readBuffer = new byte[WRITE_LENGTH];
       while (true) {
@@ -158,8 +169,23 @@ public class FileDownloadStream extends InputStream {
       
       try {
         fileDownload.endRead();
+
+        if (transactionable) {
+          if (fileDownload.isCancelled()) {
+            CallContext.rollback();
+          } else {
+            CallContext.commit();
+          }
+        }
+
       } catch (SpaceException e) {
         e.printStackTrace();
+      } catch (SQLException ex) {
+        throw new SystemException("end write error", ex);
+      } finally {
+        if (transactionable) {
+          CallContext.end();
+        }
       }
     }
   }

@@ -75,7 +75,7 @@ public class JepUploadServlet extends HttpServlet {
    * Признак необходимости производить загрузку в отдельной транзакции.
    */
   private final boolean transactionable;
-  
+
   /**
    * Создаёт сервлет загрузки файлов на сервер.<br>
    * Для текстовых файлов используется кодировка по умолчанию - UTF-8.
@@ -290,22 +290,24 @@ public class JepUploadServlet extends HttpServlet {
       if (primaryKeyMap.size() == 1) {
         FileUploadStream.uploadFile(
           inputStream,
-          new BinaryFileUploadImpl(transactionable),
+          new BinaryFileUploadImpl(),
           tableName,
           fileFieldName,
           fileRecordDefinition.getKeyFieldName(),
           primaryKeyMap.values().toArray()[0],
           this.dataSourceJndiName,
-          this.moduleName);
+          this.moduleName,
+          transactionable);
       } else {
         FileUploadStream.uploadFile(
           inputStream,
-          new BinaryFileUploadImpl(transactionable),
+          new BinaryFileUploadImpl(),
           tableName,
           fileFieldName,
           primaryKeyMap,
           this.dataSourceJndiName,
-          this.moduleName);
+          this.moduleName,
+          transactionable);
       }
     
   }
@@ -329,22 +331,24 @@ public class JepUploadServlet extends HttpServlet {
       if (primaryKeyMap.size() == 1) {
         FileUploadWriter.uploadFile(
           new InputStreamReader(inputStream, textFileCharset),
-          new TextFileUploadImpl(transactionable),
+          new TextFileUploadImpl(),
           tableName,
           fileFieldName,
           fileRecordDefinition.getKeyFieldName(),
           primaryKeyMap.values().toArray()[0],
           this.dataSourceJndiName,
-          this.moduleName);
+          this.moduleName,
+          transactionable);
       } else {
         FileUploadWriter.uploadFile(
           new InputStreamReader(inputStream, textFileCharset),
-          new TextFileUploadImpl(transactionable),
+          new TextFileUploadImpl(),
           tableName,
           fileFieldName,
           primaryKeyMap,
           this.dataSourceJndiName,
-          this.moduleName);
+          this.moduleName,
+          transactionable);
       }
     
   }
