@@ -91,7 +91,9 @@ import com.technology.jep.jepria.shared.util.JepRiaUtil;
  * вызвать {@link CallContext#begin(String, String)} для старта транзакции, далее
  * {@link CallContext#commit()} либо {@link CallContext#rollback()}. После завершения
  * необходимо освободить ресурсы с помощью {@link CallContext#end()}.
+ * @deprecated use {@link org.jepria.server.data.DaoSupport} instead
  */
+@Deprecated
 public class DaoSupport {
   protected static Logger logger = Logger.getLogger(DaoSupport.class.getName());  
   
@@ -204,7 +206,7 @@ public class DaoSupport {
    */
   public static <T> List<T> find(
       String query
-      , ResultSetMapper<T> mapper
+      , ResultSetMapper<? super T> mapper
       , Class<? super T> recordClass
       , Object... params) 
       throws ApplicationException {
@@ -350,7 +352,7 @@ public class DaoSupport {
    */
   public static <T> List<T> select(
       String query
-      , ResultSetMapper<T> mapper
+      , ResultSetMapper<? super T> mapper
       , Class<? super T> modelClass
       , Object... params) 
       throws ApplicationException {
@@ -404,7 +406,7 @@ public class DaoSupport {
    */
   private static <T> List<T> findOrSelect(
       String query
-      , ResultSetMapper<T> mapper
+      , ResultSetMapper<? super T> mapper
       , Class<? super T> recordClass
       , ExecutionType executionType
       , Object... params)
