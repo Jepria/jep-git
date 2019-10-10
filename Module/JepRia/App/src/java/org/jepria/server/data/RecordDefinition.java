@@ -1,10 +1,6 @@
 package org.jepria.server.data;
 
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.stream.Collectors;
+import java.util.*;
 
 /**
  * Описание записи
@@ -42,12 +38,12 @@ public interface RecordDefinition {
     return null;
   }
   
-  public class IncompletePrimaryKeyException extends Exception {
+  class IncompletePrimaryKeyException extends Exception {
     private static final long serialVersionUID = 1L;
   }
   
   /**
-   * Извлекает из данной записи первичный ключ
+   * Извлекает из данной записи первичный ключ, корректируя регистр полей в соответствии с объявлением в {@link #getPrimaryKey()}
    * @param record запись, non-null
    * @return первичный ключ, non-null
    * @throws IncompletePrimaryKeyException если входная запись содержит не все поля из первичного ключа
@@ -60,11 +56,23 @@ public interface RecordDefinition {
 
     final List<String> primaryKey = getPrimaryKey();
     
-    // Проверяем, что все поля первичного ключа присутствуют в записи
-    if (!record.keySet().containsAll(primaryKey)) {
-      throw new IncompletePrimaryKeyException(); 
+    final Map<String, X> ret = new HashMap<>();
+
+    for (Map.Entry<String, X> e: record.entrySet()) {
+      // Note: проверка полей регистронезависимым методом
+      for (String primaryKeyElement: primaryKey) {
+        if (primaryKeyElement.equalsIgnoreCase(e.getKey())) {
+          ret.put(primaryKeyElement, e.getValue()); // associate original key with a value from the record
+          break;
+        }
+      }
     }
-    
-    return record.keySet().stream().filter(k -> primaryKey.contains(k)).collect(Collectors.toMap(k -> k, v -> (X)v));
+
+    // Проверяем, что все поля первичного ключа присутствуют в записи (здесь осталось достаточным проверить размер)
+    if (ret.size() != primaryKey.size()) {
+      throw new IncompletePrimaryKeyException();
+    }
+
+    return ret;
   }
 }

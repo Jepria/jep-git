@@ -26,7 +26,7 @@ public class ResourceBasicControllerImpl implements ResourceBasicController {
     try {
       primaryKeyMap = getResourceIdParser().parse(resourceId);
     } catch (IncompletePrimaryKeyException e) {
-      throw new NoSuchElementException("The resourceId '" + resourceId + "' cannot be parsed against the primary key");
+      throw new IllegalArgumentException("The resourceId '" + resourceId + "' cannot be parsed against the primary key");
     }
 
     final Object resource;
@@ -79,10 +79,10 @@ public class ResourceBasicControllerImpl implements ResourceBasicController {
 
           Map<String, String> resourceIdFieldMap = new HashMap<>();
 
-          String[] resourceIdParts = resourceId.split("\\s*,\\s*");
+          String[] resourceIdParts = resourceId.split("\\s*[,;]\\s*");// TODO split both by , and ; or by one of them only?
           for (String resourceIdPart: resourceIdParts) {
             if (resourceIdPart != null) {
-              String[] resourceIdPartKv = resourceIdPart.split("\\s*\\=\\s*");
+              String[] resourceIdPartKv = resourceIdPart.split("\\s*=\\s*");
               if (resourceIdPartKv.length != 2) {
                 throw new IllegalArgumentException("Could not split '" + resourceIdPart + "' as 'key=value'");
               }
@@ -93,7 +93,7 @@ public class ResourceBasicControllerImpl implements ResourceBasicController {
           // check or throw
           resourceIdFieldMap = description.getRecordDefinition().buildPrimaryKey(resourceIdFieldMap);
 
-          
+
           // create typed values
           for (final String fieldName: resourceIdFieldMap.keySet()) {
             final String fieldValueStr = resourceIdFieldMap.get(fieldName);
