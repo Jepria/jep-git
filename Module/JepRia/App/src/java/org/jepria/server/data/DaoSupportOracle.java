@@ -46,7 +46,7 @@ public class DaoSupportOracle implements DaoSupport {
   }
 
   @Override
-  public <T> T execute(String query, Class<? super T> resultTypeClass, Object... params) {
+  public <T> T executeAndReturn(String query, Class<? super T> resultTypeClass, Object... params) {
     // TODO stub implementation
     try {
       return com.technology.jep.jepria.server.dao.DaoSupport.executeAndReturn(query, resultTypeClass, params);
@@ -125,6 +125,7 @@ public class DaoSupportOracle implements DaoSupport {
 
   @Override
   public void downloadClob(String tableName, String dataFieldName, String whereClause, Writer writer) {
+    // TODO stub implementation from com.technology.jep.jepria.server.upload.JepUploadServlet
     try {
       FileDownloadReader.downloadFile(
               writer
@@ -142,6 +143,7 @@ public class DaoSupportOracle implements DaoSupport {
 
   @Override
   public void downloadBlob(String tableName, String dataFieldName, String whereClause, OutputStream stream) {
+    // TODO stub implementation from com.technology.jep.jepria.server.upload.JepUploadServlet
     try {
       FileDownloadStream.downloadFile(
               stream

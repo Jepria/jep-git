@@ -20,7 +20,7 @@ public interface DaoSupport {
 
   <T> List<T> find(String query, ResultSetMapper<? super T> mapper, Class<? super T> recordClass, Object... params);
 
-  <T> T execute(String query, Class<? super T> resultTypeClass, Object... params);
+  <T> T executeAndReturn(String query, Class<? super T> resultTypeClass, Object... params);
 
   <T> List<T> select(String query, ResultSetMapper<? super T> mapper, Class<? super T> modelClass, Object... params);
 
