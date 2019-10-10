@@ -1,13 +1,12 @@
 package org.jepria.server.service.rest;
 
 import com.google.gson.Gson;
-import io.swagger.annotations.Api;
 import org.jepria.server.data.ColumnSortConfigurationDto;
 import org.jepria.server.data.SearchRequestDto;
 
 import javax.servlet.http.HttpSession;
-import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
+import javax.ws.rs.BadRequestException;
+import javax.ws.rs.NotFoundException;
 import javax.ws.rs.core.Response;
 import java.net.URI;
 import java.util.*;
@@ -15,10 +14,11 @@ import java.util.function.Supplier;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-@Api
-@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
-@Consumes(MediaType.APPLICATION_JSON + ";charset=utf-8")
-@Path("")
+/**
+ * Базовый endpoint для манипуляций с сущностью.
+ * Предполагает операции CRUD (create, get by id, update, delete) и session-stateful поиск с пагинацией и сортировкой.
+ * Эндпоинтам, не предполагающим этих операций, нет смысла наследоваться от данного класса.
+ */
 public class ResourceEndpointBase extends EndpointBase {
 
   protected final ResourceDescription description;
