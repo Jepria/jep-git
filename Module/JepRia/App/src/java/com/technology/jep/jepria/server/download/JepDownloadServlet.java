@@ -15,6 +15,7 @@ import static com.technology.jep.jepria.shared.field.JepTypeEnum.TEXT_FILE;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.Charset;
@@ -294,7 +295,8 @@ public class JepDownloadServlet extends HttpServlet {
       fileRecordDefinition.getKeyFieldName(),
       recordKey,
       this.dataSourceJndiName,
-      this.moduleName);
+      this.moduleName,
+      true);
   }
 
   /**
@@ -314,7 +316,7 @@ public class JepDownloadServlet extends HttpServlet {
     ) throws IOException, NamingException {
     
     FileDownloadReader.downloadFile(
-      outputStream,
+      new OutputStreamWriter(outputStream, textFileCharset),
       new TextFileDownloadImpl(),
       tableName,
       fileFieldName,
@@ -322,7 +324,7 @@ public class JepDownloadServlet extends HttpServlet {
       recordKey,
       this.dataSourceJndiName,
       this.moduleName,
-      textFileCharset);
+      true);
   }
   
   /**

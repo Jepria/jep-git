@@ -18,18 +18,17 @@ public class BinaryFileDownloadImpl extends AbstractFileDownload implements Bina
    * @return рекомендуемая величина буфера
    * @throws ApplicationException
    */
+  @Override
   public int beginRead(
       String tableName
       , String fileFieldName
       , String keyFieldName
       , Object rowId
-      , String dataSourceJndiName
-      , String moduleName) 
+      )
       throws ApplicationException {
 
     int result = -1;
     try {
-      CallContext.begin(dataSourceJndiName, moduleName);
 
       super.largeObject = new BinaryLargeObject(tableName, fileFieldName, keyFieldName, rowId);
       result = ((BinaryLargeObject)super.largeObject).beginRead();
@@ -49,6 +48,7 @@ public class BinaryFileDownloadImpl extends AbstractFileDownload implements Bina
    * @param dataBlock блок данных
    * @throws SpaceException
    */
+  @Override
   public int continueRead(byte[] dataBlock) throws SpaceException {
     CallContext.attach(storedContext);
     boolean cancelled = true;

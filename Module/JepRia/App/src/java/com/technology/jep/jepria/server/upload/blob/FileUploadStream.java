@@ -1,16 +1,18 @@
 package com.technology.jep.jepria.server.upload.blob;
 
-import java.io.BufferedInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.Map;
-
+import com.technology.jep.jepria.server.dao.CallContext;
 import com.technology.jep.jepria.server.exceptions.SpaceException;
 import com.technology.jep.jepria.server.upload.FileUpload;
 import com.technology.jep.jepria.shared.exceptions.ApplicationException;
 import com.technology.jep.jepria.shared.exceptions.NotImplementedYetException;
 import com.technology.jep.jepria.shared.exceptions.SystemException;
+
+import java.io.BufferedInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.sql.SQLException;
+import java.util.Map;
 
 /**
  * <pre>
@@ -128,7 +130,8 @@ public class FileUploadStream extends OutputStream {
     , String keyFieldName
     , Object rowId
     , String dataSourceJndiName
-    , String moduleName) 
+    , String moduleName
+    , final boolean transactionable)
     throws IOException {
     if(tableName == null) {
       throw new SystemException("tableName is empty");
@@ -146,13 +149,17 @@ public class FileUploadStream extends OutputStream {
     InputStream readStream = null;
     try {
       readStream = new BufferedInputStream(fileStream);
+
+      if (transactionable) {
+        CallContext.begin(dataSourceJndiName, moduleName);
+      }
+
       final int WRITE_LENGTH = fileUpload.beginWrite(
           tableName
           , fileFieldName
           , keyFieldName
           , rowId
-          , dataSourceJndiName
-          , moduleName);
+          );
       writeStream = new FileUploadStream((BinaryFileUpload)fileUpload);
       byte[] readBuffer = new byte[WRITE_LENGTH];
       while (true) {
@@ -179,8 +186,23 @@ public class FileUploadStream extends OutputStream {
       
       try {
         fileUpload.endWrite();
+
+        if (transactionable) {
+          if (fileUpload.isCancelled()) {
+            CallContext.rollback();
+          } else {
+            CallContext.commit();
+          }
+        }
+
       } catch (SpaceException e) {
         e.printStackTrace();
+      } catch (SQLException ex) {
+        throw new SystemException("end write error", ex);
+      } finally {
+        if (transactionable) {
+          CallContext.end();
+        }
       }
     }
   }
@@ -204,7 +226,8 @@ public class FileUploadStream extends OutputStream {
       String fileFieldName,
       Map<String, Object> primaryKeyMap,
       String dataSourceJndiName,
-      String moduleName) {
+      String moduleName,
+      final boolean transactionable) {
     throw new NotImplementedYetException();
   }
 

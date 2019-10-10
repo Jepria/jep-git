@@ -1,13 +1,17 @@
 package com.technology.jep.jepria.shared.record;
- 
-import java.util.HashMap;
-import java.util.Map;
 
 import com.google.gwt.user.client.rpc.IsSerializable;
 import com.technology.jep.jepria.shared.exceptions.SystemException;
 import com.technology.jep.jepria.shared.field.JepLikeEnum;
 import com.technology.jep.jepria.shared.field.JepTypeEnum;
 
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * @deprecated for Rest use {@link org.jepria.server.data.RecordDefinition} instead
+ */
+@Deprecated
 public class JepRecordDefinition implements IsSerializable {
   
   private String[] primaryKey;

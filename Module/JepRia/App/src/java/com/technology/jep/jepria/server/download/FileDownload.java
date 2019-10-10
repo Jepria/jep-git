@@ -14,7 +14,6 @@ public interface FileDownload {
    * @param fileFieldName   имя поля, из которого выполняется чтение
    * @param keyFieldName   имя поля, идентифицирующего строку таблицы
    * @param rowId         идентификатор строки таблицы
-   * @param dataSourceJndiName  JNDI-имя источника данных модуля
    * @return рекомендуемый размер буфера
    * @throws ApplicationException 
    */
@@ -23,8 +22,7 @@ public interface FileDownload {
       , String fileFieldName
       , String keyFieldName
       , Object rowId
-      , String dataSourceJndiName
-      , String moduleName) 
+      )
       throws ApplicationException;
   
   /**
@@ -53,4 +51,9 @@ public interface FileDownload {
    * Для удаления bean необходимо в классе реализации перед методом указать декларацию Remove.
    */
   void cancel();
+
+  /**
+   * Whether the reading has been cancelled (interrupted) or ended successfully (to decide whether to do rollback or commit at the end)
+   */
+  boolean isCancelled();
 }

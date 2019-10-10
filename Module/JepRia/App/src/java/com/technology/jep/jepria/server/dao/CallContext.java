@@ -41,7 +41,7 @@ public class CallContext {
    */
   public static void begin(String dataSourceJndiName, String moduleName) {
     CallContext callContext = new CallContext(dataSourceJndiName, moduleName);
-    context.set(callContext);
+    attach(callContext);
   }
   
   /**

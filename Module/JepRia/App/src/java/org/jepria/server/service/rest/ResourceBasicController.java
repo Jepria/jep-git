@@ -2,7 +2,6 @@ package org.jepria.server.service.rest;
 
 import org.jepria.server.service.security.Credential;
 
-import java.util.List;
 import java.util.NoSuchElementException;
 
 /**
@@ -39,14 +38,4 @@ public interface ResourceBasicController {
    * @throws NoSuchElementException if the requested resourceId does not exist
    */
   void update(String resourceId, Object newRecord, Credential credential) throws NoSuchElementException;
-  
-  /**
-   * 
-   * @param optionEntityName
-   * @param credential
-   * @return non-empty, non-null list
-   * @throws NoSuchElementException if the requested optionEntityName does not exist
-   */
-  List<?> listOptions(String optionEntityName, Credential credential) throws NoSuchElementException;
-  
 }

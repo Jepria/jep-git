@@ -5,7 +5,9 @@ import com.technology.jep.jepria.server.dao.transaction.TransactionFactory;
 /**
  * Серверная фабрика.
  * @param <D> интерфейс Dao
+ * @deprecated for Rest use {@link org.jepria.server.ServerFactory} instead
  */
+@Deprecated
 public abstract class ServerFactory<D> implements DaoProvider<D> {
   
   /**

@@ -11,7 +11,9 @@ import com.technology.jep.jepria.shared.util.JepRiaUtil;
 
 /**
  * Определение записи, содержащей одно или несколько Lob-полей.
+ * @deprecated for Rest use {@link org.jepria.server.data.RecordDefinition} instead
  */
+@Deprecated
 public class JepLobRecordDefinition extends JepRecordDefinition {
 
   /**

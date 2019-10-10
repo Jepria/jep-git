@@ -1,7 +1,5 @@
 package com.technology.jep.jepria.server.download;
 
-import java.sql.SQLException;
-
 import com.technology.jep.jepria.server.dao.CallContext;
 import com.technology.jep.jepria.server.db.LargeObject;
 import com.technology.jep.jepria.server.exceptions.SpaceException;
@@ -15,7 +13,14 @@ public abstract class AbstractFileDownload implements FileDownload {
 
   protected CallContext storedContext;
   protected LargeObject largeObject = null;
-  
+
+  protected boolean cancelled = false;
+
+  @Override
+  public boolean isCancelled() {
+    return cancelled;
+  }
+
   /**
    * Метод начинает чтение данных из LOB. 
    * 
@@ -23,6 +28,7 @@ public abstract class AbstractFileDownload implements FileDownload {
    * @return рекомендуемая величина буфера
    * @throws ApplicationException
    */
+  @Override
   public int beginRead(Object rowId) 
     throws ApplicationException {
 
@@ -34,40 +40,31 @@ public abstract class AbstractFileDownload implements FileDownload {
    * 
    * @throws SpaceException
    */
+  @Override
   public void endRead() throws SpaceException {
     CallContext.attach(storedContext);
     try {
       largeObject.endRead();
-      CallContext.commit();
     } catch (SpaceException ex) {
       cancel();
       throw ex;
-    } catch (SQLException ex) {
-      throw new SystemException("end write error", ex);
     } catch (Throwable th) {
       th.printStackTrace();
       throw new SystemException("end write error", new RuntimeException(th));
-    } finally {
-      CallContext.end();
     }
   }
   
   /**
    * Метод отменяет текущую операцию и откатывает транзакцию.
    */
+  @Override
   public void cancel() {
+    cancelled = true;
     if (storedContext != null) {
       CallContext.attach(storedContext);
     }
-    try {
-      if (largeObject != null) {
-        largeObject.cancel();
-      }
-      CallContext.rollback();
-    } catch (Exception ex) {
-      ex.printStackTrace();
-    } finally {
-      CallContext.end();
+    if (largeObject != null) {
+      largeObject.cancel();
     }
   }
 

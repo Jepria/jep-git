@@ -19,29 +19,18 @@ public class BinaryFileUploadImpl extends AbstractFileUpload implements BinaryFi
   }
 
   /**
-   * Создаёт загрузчик файлов на сервер.
-   */
-  public BinaryFileUploadImpl(boolean transactionable){
-    super(transactionable);
-  }
-
-  /**
    * {@inheritDoc}
    */
+  @Override
   public int beginWrite(
     String tableName
     , String fileFieldName
     , String keyFieldName
-    , Object rowId
-    , String dataSourceJndiName
-    , String moduleName) 
+    , Object rowId)
     throws ApplicationException {
 
     int result = -1;
     try {
-      if (transactionable) {
-        CallContext.begin(dataSourceJndiName, moduleName);
-      }
       super.largeObject = new BinaryLargeObject(tableName, fileFieldName, keyFieldName, rowId);
       result = ((BinaryLargeObject)super.largeObject).beginWrite();
     } catch (ApplicationException ex) {
@@ -57,6 +46,7 @@ public class BinaryFileUploadImpl extends AbstractFileUpload implements BinaryFi
   /**
    * {@inheritDoc}
    */
+  @Override
   public void continueWrite(byte[] dataBlock) throws SpaceException {
     CallContext.attach(storedContext);
     boolean cancelled = false;

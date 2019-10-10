@@ -1,7 +1,7 @@
 package com.technology.jep.jepria.server.upload;
 
-import com.technology.jep.jepria.server.db.LargeObject;
 import com.technology.jep.jepria.server.dao.CallContext;
+import com.technology.jep.jepria.server.db.LargeObject;
 import com.technology.jep.jepria.server.exceptions.SpaceException;
 import com.technology.jep.jepria.shared.exceptions.ApplicationException;
 import com.technology.jep.jepria.shared.exceptions.SystemException;
@@ -14,27 +14,18 @@ public abstract class AbstractFileUpload implements FileUpload {
 
   protected CallContext storedContext;
   protected LargeObject largeObject = null;
-  protected final boolean transactionable;
 
-  /**
-   * Создаёт загрузчик файлов на сервер.
-   */
-  public AbstractFileUpload(){
-    this(true);
+  protected boolean cancelled = false;
+
+  @Override
+  public boolean isCancelled() {
+    return cancelled;
   }
 
   /**
-   * Создаёт загрузчик файлов на сервер.
-   * @param transactionable проведение загрузки в рамках отдельной транзакции
-   */
-  public AbstractFileUpload(boolean transactionable){
-    this.transactionable = transactionable;
-  }
-
-  /**
-   * Функция-обертка для {@link #beginWrite(String tableName, String fileFieldName, String keyFieldName, Object rowId, String dataSourceJndiName, String moduleName)}.
+   * Функция-обертка для {@link #beginWrite(String tableName, String fileFieldName, String keyFieldName, Object rowId)}.
    * В классе реализации в конкретном модуле данный метод перегружаем вызывая в нем 
-   * {@link #beginWrite(String tableName, String fileFieldName, String keyFieldName, Object rowId, String dataSourceJndiName, String moduleName)}
+   * {@link #beginWrite(String tableName, String fileFieldName, String keyFieldName, Object rowId)}
    * с подставленными из констант класса реализации параметрами:<br/>
    * <code>
    * tableName,<br/>
@@ -48,6 +39,7 @@ public abstract class AbstractFileUpload implements FileUpload {
    * @return рекомендуемый размер буфера
    * @throws ApplicationException 
    */
+  @Override
   public int beginWrite(Object rowId) 
     throws ApplicationException {
 
@@ -61,21 +53,17 @@ public abstract class AbstractFileUpload implements FileUpload {
    *
    * @throws SpaceException
    */
+  @Override
   public void endWrite() throws SpaceException {
     CallContext.attach(storedContext);
     try {
       largeObject.endWrite();
-      if (transactionable) {
-        CallContext.commit();
-      }
     } catch (SpaceException ex) {
       cancel();
       throw ex;
     } catch (Throwable th) {
       th.printStackTrace();
       throw new SystemException("end write error", new RuntimeException(th));
-    } finally {
-      CallContext.end();
     }
   }
 
@@ -84,25 +72,14 @@ public abstract class AbstractFileUpload implements FileUpload {
    * После выполнения этого метода stateful bean должен быть удалён. 
    * Для удаления bean необходимо в классе реализации перед методом указать декларацию Remove.
    */
+  @Override
   public void cancel() {
+    cancelled = true;
     if (storedContext != null) {
       CallContext.attach(storedContext);
     }
-    try {
-      if (largeObject != null) {
-        largeObject.cancel();
-      }
-      if (transactionable) {
-        CallContext.rollback();
-      }
-    } catch (Exception ex) {
-      ex.printStackTrace();
-    } finally {
-      try {
-        CallContext.end();
-      } catch (Throwable e) {
-        e.printStackTrace();
-      }
+    if (largeObject != null) {
+      largeObject.cancel();
     }
   }
 }
