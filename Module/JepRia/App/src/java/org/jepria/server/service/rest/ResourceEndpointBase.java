@@ -14,9 +14,12 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Базовый endpoint для манипуляций с сущностью.
- * Предполагает entity-операции (create, get-by-id, update, delete) и session-stateful поиск со страничным листанием и сортировкой.
- * Эндпоинтам, не предполагающим этих операций, нет смысла наследоваться от данного класса.
+ * Базовый jaxrs-адаптер для манипуляций с сущностью.
+ * <br/>
+ * <i>В устаревшей терминологии: endpoint, ResourceEndpointBase</i>
+ * <br/>
+ * Предполагает CRUD-операции (create, get-by-id, update, delete) и session-stateful поиск со страничным листанием и сортировкой.
+ * Адаптерам, не предполагающим этих операций, нет смысла наследоваться от данного класса.
  */
 public abstract class ResourceEndpointBase extends EndpointBase {
 
@@ -24,35 +27,35 @@ public abstract class ResourceEndpointBase extends EndpointBase {
    * Supplier protects the internal field from direct access from within the class members,
    * and initializes the field lazily (due to the DI: the injectable fields are being injected after the object construction)
    */
-  protected final Supplier<ResourceBasicController> resourceBasicController = new Supplier<ResourceBasicController>() {
+  protected final Supplier<ResourceBasicController> entityService = new Supplier<ResourceBasicController>() {
     private ResourceBasicController instance = null;
     @Override
     public ResourceBasicController get() {
       if (instance == null) {
-        instance = createResourceBasicController();
+        instance = createEntityService();
       }
       return instance;
     }
   };
 
-  protected abstract ResourceBasicController createResourceBasicController();
+  protected abstract ResourceBasicController createEntityService();
 
   /**
    * Supplier protects the internal field from direct access from within the class members,
    * and initializes the field lazily (due to the DI: the injectable fields are being injected after the object construction)
    */
-  protected final Supplier<ResourceSearchController> resourceSearchController = new Supplier<ResourceSearchController>() {
+  protected final Supplier<ResourceSearchController> searchService = new Supplier<ResourceSearchController>() {
     private ResourceSearchController instance = null;
     @Override
     public ResourceSearchController get() {
       if (instance == null) {
-        instance = createResourceSearchController();
+        instance = createSearchService();
       }
       return instance;
     }
   };
 
-  protected abstract ResourceSearchController createResourceSearchController();
+  protected abstract ResourceSearchController createSearchService();
 
 
 
@@ -62,7 +65,7 @@ public abstract class ResourceEndpointBase extends EndpointBase {
     final Object resource;
 
     try {
-      resource = resourceBasicController.get().getResourceById(recordId, getCredential());
+      resource = entityService.get().getResourceById(recordId, getCredential());
     } catch (NoSuchElementException e) {
       // 404
       throw new NotFoundException(e);
@@ -72,7 +75,7 @@ public abstract class ResourceEndpointBase extends EndpointBase {
   }
 
   public Response create(Object resource) {
-    final String createdId = resourceBasicController.get().create(resource, getCredential());
+    final String createdId = entityService.get().create(resource, getCredential());
 
     // ссылка на созданный ресурс
     final URI location = URI.create(request.getRequestURL() + "/" + createdId);
@@ -82,11 +85,11 @@ public abstract class ResourceEndpointBase extends EndpointBase {
   }
 
   public void deleteResourceById(String recordId) {
-    resourceBasicController.get().deleteResource(recordId, getCredential());
+    entityService.get().deleteResource(recordId, getCredential());
   }
 
   public void update(String recordId, Object resource) {
-    resourceBasicController.get().update(recordId, resource, getCredential());
+    entityService.get().update(recordId, resource, getCredential());
   }
 
   //////// SEARCH ////////
@@ -111,7 +114,7 @@ public abstract class ResourceEndpointBase extends EndpointBase {
 
     final ResourceSearchController.SearchRequest searchRequest = convertSearchRequest(searchRequestDto);
 
-    final String searchId = resourceSearchController.get().postSearchRequest(searchRequest, getCredential());
+    final String searchId = searchService.get().postSearchRequest(searchRequest, getCredential());
 
     // ссылка на созданный ресурс
     final URI location = URI.create(request.getRequestURL() + "/" + searchId);
@@ -207,7 +210,7 @@ public abstract class ResourceEndpointBase extends EndpointBase {
       {// return resultset size
         if ("resultset-size".equals(value)) {
           try {
-            return resourceSearchController.get().getResultsetSize(searchId, getCredential());
+            return searchService.get().getResultsetSize(searchId, getCredential());
           } catch (Throwable e) {
             // TODO process jaxrs exceptions like NotFoundException or BadRequestException differently, or add "status":"exception" as an Extended-Response block
 
@@ -290,7 +293,7 @@ public abstract class ResourceEndpointBase extends EndpointBase {
     final ResourceSearchController.SearchRequest searchRequest;
 
     try {
-      searchRequest = resourceSearchController.get().getSearchRequest(searchId, getCredential());
+      searchRequest = searchService.get().getSearchRequest(searchId, getCredential());
     } catch (NoSuchElementException e) {
       // 404
       throw new NotFoundException(e);
@@ -344,7 +347,7 @@ public abstract class ResourceEndpointBase extends EndpointBase {
    */
   protected void invalidateResultsetOnNoCache(String searchId, String cacheControl) {
     if ("no-cache".equals(cacheControl)) {
-      resourceSearchController.get().invalidateResultset(searchId);
+      searchService.get().invalidateResultset(searchId);
     }
   }
 
@@ -355,7 +358,7 @@ public abstract class ResourceEndpointBase extends EndpointBase {
     final int result;
 
     try {
-      result = resourceSearchController.get().getResultsetSize(searchId, getCredential());
+      result = searchService.get().getResultsetSize(searchId, getCredential());
     } catch (NoSuchElementException e) {
       throw new NotFoundException(e);
     }
@@ -407,7 +410,7 @@ public abstract class ResourceEndpointBase extends EndpointBase {
     final List<?> records;
 
     try {
-      records = resourceSearchController.get().getResultset(searchId, getCredential());
+      records = searchService.get().getResultset(searchId, getCredential());
     } catch (NoSuchElementException e) {
       // 404
       throw new NotFoundException(e);
@@ -448,7 +451,7 @@ public abstract class ResourceEndpointBase extends EndpointBase {
     final List<?> records;
 
     try {
-      records = resourceSearchController.get().getResultsetPaged(searchId, pageSize, page, getCredential());
+      records = searchService.get().getResultsetPaged(searchId, pageSize, page, getCredential());
     } catch (NoSuchElementException e) {
       // 404
       throw new NotFoundException(e);

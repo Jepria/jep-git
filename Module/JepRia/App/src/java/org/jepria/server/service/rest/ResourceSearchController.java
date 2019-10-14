@@ -7,7 +7,9 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 
 /**
- * Контроллер поиска объектов сущности.
+ * Сервис поиска объектов сущности
+ * <br/>
+ * <i>В устаревшей терминологии: контроллер поиска, ResourceSearchController</i>
  * <br/>
  * Интерфейс предусматривает только методы создания и чтения (create/POST, read/GET).
  * Методы модификации и удаления (update/PUT, delete/DELETE &mdash; стратегия обновления, переиспользования и очистки созданных объектов) 
@@ -16,7 +18,7 @@ import java.util.NoSuchElementException;
 public interface ResourceSearchController {
 
   /**
-   * Интерфейс клиентского поискового запроса для использования в контроллере (internal representation)
+   * Интерфейс клиентского поискового запроса для использования внутри сервиса (internal representation)
    */
   public interface SearchRequest {
 

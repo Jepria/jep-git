@@ -8,7 +8,7 @@ import java.util.*;
 import java.util.function.Supplier;
 
 /**
- * Реализация поискового контроллера, состоящего на HTTP сессиях.
+ * Реализация поискового сервиса, состоящего на HTTP сессиях.
  */
 // TODO отразить в названии класса тот факт, что это именно сессионная реализация (добавлением слова Session)
 public class ResourceSearchControllerImpl implements ResourceSearchController {
@@ -29,13 +29,13 @@ public class ResourceSearchControllerImpl implements ResourceSearchController {
     // create single searchUID for a tuple {session,resource}
     searchUID = Integer.toHexString(Objects.hash(session.get().getId(), entityName)); // TODO is this UID unique enough?
     
-    sessionAttrKeyPrefix = "ResourceSearchController;entity=" + entityName + ";searchId=" + searchUID;
+    sessionAttrKeyPrefix = "SearchService;entity=" + entityName + ";searchId=" + searchUID;
   }
   
   private final String searchUID;
  
   /**
-   * В сессионной реализации контроллера поиска, обращение клиента возможно только с searchId равным значению поля searchUID
+   * В сессионной реализации поискового сервиса, обращение клиента возможно только с searchId равным значению поля searchUID
    * @param searchId
    * @throws NoSuchElementException в случае несовпадающего searchId
    */

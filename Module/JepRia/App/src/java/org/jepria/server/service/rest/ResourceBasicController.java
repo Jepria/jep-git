@@ -5,7 +5,10 @@ import org.jepria.server.service.security.Credential;
 import java.util.NoSuchElementException;
 
 /**
- * Контроллер базовых операций над объектами сущности (CRUD, options)  
+ * Сервис сущности, обслуживающий базовые CRUD-операции над объектами сущности (create, get-by-id, update, delete)
+ * <br/>
+ * <i>В устаревшей терминологии: контроллер сущности, CRUD-контроллер, ResourceBasicController</i>
+ * <br/>
  */
 public interface ResourceBasicController {
 
