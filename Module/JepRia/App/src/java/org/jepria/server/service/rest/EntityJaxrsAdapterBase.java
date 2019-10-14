@@ -21,16 +21,16 @@ import java.util.regex.Pattern;
  * Предполагает CRUD-операции (create, get-by-id, update, delete) и session-stateful поиск со страничным листанием и сортировкой.
  * Адаптерам, не предполагающим этих операций, нет смысла наследоваться от данного класса.
  */
-public abstract class ResourceEndpointBase extends EndpointBase {
+public abstract class EntityJaxrsAdapterBase extends JaxrsAdapterBase {
 
   /**
    * Supplier protects the internal field from direct access from within the class members,
    * and initializes the field lazily (due to the DI: the injectable fields are being injected after the object construction)
    */
-  protected final Supplier<ResourceBasicController> entityService = new Supplier<ResourceBasicController>() {
-    private ResourceBasicController instance = null;
+  protected final Supplier<EntityService> entityService = new Supplier<EntityService>() {
+    private EntityService instance = null;
     @Override
-    public ResourceBasicController get() {
+    public EntityService get() {
       if (instance == null) {
         instance = createEntityService();
       }
@@ -38,16 +38,16 @@ public abstract class ResourceEndpointBase extends EndpointBase {
     }
   };
 
-  protected abstract ResourceBasicController createEntityService();
+  protected abstract EntityService createEntityService();
 
   /**
    * Supplier protects the internal field from direct access from within the class members,
    * and initializes the field lazily (due to the DI: the injectable fields are being injected after the object construction)
    */
-  protected final Supplier<ResourceSearchController> searchService = new Supplier<ResourceSearchController>() {
-    private ResourceSearchController instance = null;
+  protected final Supplier<SearchService> searchService = new Supplier<SearchService>() {
+    private SearchService instance = null;
     @Override
-    public ResourceSearchController get() {
+    public SearchService get() {
       if (instance == null) {
         instance = createSearchService();
       }
@@ -55,7 +55,7 @@ public abstract class ResourceEndpointBase extends EndpointBase {
     }
   };
 
-  protected abstract ResourceSearchController createSearchService();
+  protected abstract SearchService createSearchService();
 
 
 
@@ -112,7 +112,7 @@ public abstract class ResourceEndpointBase extends EndpointBase {
    */
   public <T> Response postSearch(SearchRequestDto<T> searchRequestDto, String extendedResponse, String cacheControl) {
 
-    final ResourceSearchController.SearchRequest searchRequest = convertSearchRequest(searchRequestDto);
+    final SearchService.SearchRequest searchRequest = convertSearchRequest(searchRequestDto);
 
     final String searchId = searchService.get().postSearchRequest(searchRequest, getCredential());
 
@@ -130,7 +130,7 @@ public abstract class ResourceEndpointBase extends EndpointBase {
     return response;
   }
 
-  protected class SearchRequestImpl implements ResourceSearchController.SearchRequest {
+  protected class SearchRequestImpl implements SearchService.SearchRequest {
 
     protected final Object templateDto;
     protected final String templateToken;
@@ -166,7 +166,7 @@ public abstract class ResourceEndpointBase extends EndpointBase {
    * @param searchRequestDto
    * @return null for null
    */
-  protected ResourceSearchController.SearchRequest convertSearchRequest(SearchRequestDto<?> searchRequestDto) {
+  protected SearchService.SearchRequest convertSearchRequest(SearchRequestDto<?> searchRequestDto) {
     if (searchRequestDto == null) {
       return null;
     }
@@ -182,7 +182,7 @@ public abstract class ResourceEndpointBase extends EndpointBase {
    * @param searchRequest
    * @return null for null
    */
-  protected SearchRequestDto<?> convertSearchRequest(ResourceSearchController.SearchRequest searchRequest) {
+  protected SearchRequestDto<?> convertSearchRequest(SearchService.SearchRequest searchRequest) {
     if (searchRequest == null) {
       return null;
     }
@@ -290,7 +290,7 @@ public abstract class ResourceEndpointBase extends EndpointBase {
 
   public SearchRequestDto<?> getSearchRequest(
           String searchId) {
-    final ResourceSearchController.SearchRequest searchRequest;
+    final SearchService.SearchRequest searchRequest;
 
     try {
       searchRequest = searchService.get().getSearchRequest(searchId, getCredential());

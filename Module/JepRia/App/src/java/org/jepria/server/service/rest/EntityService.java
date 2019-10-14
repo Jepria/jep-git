@@ -10,7 +10,7 @@ import java.util.NoSuchElementException;
  * <i>В устаревшей терминологии: контроллер сущности, CRUD-контроллер, ResourceBasicController</i>
  * <br/>
  */
-public interface ResourceBasicController {
+public interface EntityService {
 
   /**
    * @param resourceId

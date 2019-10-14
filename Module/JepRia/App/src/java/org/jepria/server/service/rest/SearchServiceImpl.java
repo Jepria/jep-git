@@ -11,13 +11,13 @@ import java.util.function.Supplier;
  * Реализация поискового сервиса, состоящего на HTTP сессиях.
  */
 // TODO отразить в названии класса тот факт, что это именно сессионная реализация (добавлением слова Session)
-public class ResourceSearchControllerImpl implements ResourceSearchController {
+public class SearchServiceImpl implements SearchService {
 
   protected final ResourceDescription description;
 
   protected final Supplier<HttpSession> session;
 
-  public ResourceSearchControllerImpl(ResourceDescription description, Supplier<HttpSession> session) {
+  public SearchServiceImpl(ResourceDescription description, Supplier<HttpSession> session) {
 
     this.description = description;
 

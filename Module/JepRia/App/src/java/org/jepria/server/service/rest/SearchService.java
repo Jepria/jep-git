@@ -15,7 +15,7 @@ import java.util.NoSuchElementException;
  * Методы модификации и удаления (update/PUT, delete/DELETE &mdash; стратегия обновления, переиспользования и очистки созданных объектов) 
  * определяются конкретной реализацией
  */
-public interface ResourceSearchController {
+public interface SearchService {
 
   /**
    * Интерфейс клиентского поискового запроса для использования внутри сервиса (internal representation)

@@ -9,11 +9,11 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 
 
-public class ResourceBasicControllerImpl implements ResourceBasicController {
+public class EntityServiceImpl implements EntityService {
 
   protected final ResourceDescription description;
 
-  public ResourceBasicControllerImpl(ResourceDescription description) {
+  public EntityServiceImpl(ResourceDescription description) {
     this.description = description;
   }
 

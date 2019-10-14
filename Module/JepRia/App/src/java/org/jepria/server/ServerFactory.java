@@ -2,8 +2,8 @@ package org.jepria.server;
 
 import com.technology.jep.jepria.server.dao.transaction.TransactionFactory;
 import org.jepria.server.service.ServiceProvider;
-import org.jepria.server.service.rest.ResourceBasicController;
-import org.jepria.server.service.rest.ResourceSearchController;
+import org.jepria.server.service.rest.EntityService;
+import org.jepria.server.service.rest.SearchService;
 
 import javax.servlet.http.HttpSession;
 import java.util.function.Supplier;
@@ -77,13 +77,13 @@ public class ServerFactory<D> implements ServiceProvider {
 
   @Override
   // Important to have the default void implementation, because not every ServerFactory has to provide an EntityService
-  public ResourceBasicController getEntityService() {
+  public EntityService getEntityService() {
     return null;
   }
 
   @Override
   // Important to have the default void implementation, because not every ServerFactory has to provide a SearchService
-  public ResourceSearchController getSearchService(Supplier<HttpSession> session) {
+  public SearchService getSearchService(Supplier<HttpSession> session) {
     return null;
   }
 }

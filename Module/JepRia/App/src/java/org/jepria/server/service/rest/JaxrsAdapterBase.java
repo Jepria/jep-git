@@ -20,9 +20,9 @@ import javax.ws.rs.core.MediaType;
  * <i>В устаревшей терминологии: endpoint, EndpointBase</i>
  * <br/>
  */
-public class EndpointBase {
+public class JaxrsAdapterBase {
 
-  protected EndpointBase() {}
+  protected JaxrsAdapterBase() {}
 
   /**
    * Injectable field
