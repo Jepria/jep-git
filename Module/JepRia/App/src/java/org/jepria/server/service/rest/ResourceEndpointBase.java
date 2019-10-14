@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import org.jepria.server.data.ColumnSortConfigurationDto;
 import org.jepria.server.data.SearchRequestDto;
 
-import javax.servlet.http.HttpSession;
 import javax.ws.rs.BadRequestException;
 import javax.ws.rs.NotFoundException;
 import javax.ws.rs.core.Response;
@@ -16,19 +15,10 @@ import java.util.regex.Pattern;
 
 /**
  * Базовый endpoint для манипуляций с сущностью.
- * Предполагает операции CRUD (create, get by id, update, delete) и session-stateful поиск с пагинацией и сортировкой.
+ * Предполагает entity-операции (create, get-by-id, update, delete) и session-stateful поиск со страничным листанием и сортировкой.
  * Эндпоинтам, не предполагающим этих операций, нет смысла наследоваться от данного класса.
  */
-public class ResourceEndpointBase extends EndpointBase {
-
-  protected final ResourceDescription description;
-
-  protected ResourceEndpointBase(ResourceDescription description) {
-    this.description = description;
-  }
-
-  //////////// Controllers: ////////////
-
+public abstract class ResourceEndpointBase extends EndpointBase {
 
   /**
    * Supplier protects the internal field from direct access from within the class members,
@@ -45,21 +35,7 @@ public class ResourceEndpointBase extends EndpointBase {
     }
   };
 
-  /**
-   * Локальное (внутреннее) расширение внешнего класса для упрощённого использования в наследниках.
-   * Использование в наследниках упрощается наличием у локального класса конструктора без параметров
-   * (локальный класс неявно зависит от содержащего класса)
-   */
-  protected class ResourceBasicControllerImplLocal extends ResourceBasicControllerImpl {
-    protected ResourceBasicControllerImplLocal() {
-      super(ResourceEndpointBase.this.description);
-    }
-  }
-
-  protected ResourceBasicController createResourceBasicController() {
-    return new ResourceBasicControllerImplLocal();
-  }
-
+  protected abstract ResourceBasicController createResourceBasicController();
 
   /**
    * Supplier protects the internal field from direct access from within the class members,
@@ -76,29 +52,7 @@ public class ResourceEndpointBase extends EndpointBase {
     }
   };
 
-
-  /**
-   * Локальное (внутреннее) расширение внешнего класса для упрощённого использования в наследниках.
-   * Использование в наследниках упрощается наличием у локального класса конструктора без параметров
-   * (локальный класс неявно зависит от содержащего класса)
-   */
-  protected class ResourceSearchControllerImplLocal extends ResourceSearchControllerImpl {
-    protected ResourceSearchControllerImplLocal() {
-      super(ResourceEndpointBase.this.description,
-              new Supplier<HttpSession>() {
-                @Override
-                public HttpSession get() {
-                  return request.getSession();
-                }
-              });
-    }
-  }
-
-  protected ResourceSearchController createResourceSearchController() {
-    return new ResourceSearchControllerImplLocal();
-  }
-
-  //////////// :Controllers ////////////
+  protected abstract ResourceSearchController createResourceSearchController();
 
 
 
