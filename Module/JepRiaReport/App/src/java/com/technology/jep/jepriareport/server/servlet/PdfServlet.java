@@ -9,17 +9,21 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.technology.jep.jepriareport.server.JepReportConstant;
+
 import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JRExporterParameter;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.export.JRPdfExporter;
 import net.sf.jasperreports.engine.util.FileBufferedOutputStream;
+import net.sf.jasperreports.export.SimpleExporterInput;
+import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
+import net.sf.jasperreports.export.SimplePdfExporterConfiguration;
 import net.sf.jasperreports.j2ee.servlets.BaseHttpServlet;
-
-import com.technology.jep.jepriareport.server.JepReportConstant;
 
 public class PdfServlet extends BaseHttpServlet {
   
+  private static final long serialVersionUID = 1L;
+
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response)
       throws IOException, ServletException {
@@ -50,8 +54,11 @@ public class PdfServlet extends BaseHttpServlet {
     if (isBuffered.booleanValue()) {
       FileBufferedOutputStream fbos = new FileBufferedOutputStream();
       JRPdfExporter exporter = new JRPdfExporter();
-      exporter.setParameter(JRExporterParameter.JASPER_PRINT_LIST, jasperPrintList);
-      exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, fbos);
+      exporter.setExporterInput(SimpleExporterInput.getInstance(jasperPrintList));
+      exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(fbos));
+      SimplePdfExporterConfiguration configuration = new SimplePdfExporterConfiguration();
+      configuration.setCreatingBatchModeBookmarks(true);
+      exporter.setConfiguration(configuration);
 
       try {
         exporter.exportReport();
@@ -82,10 +89,13 @@ public class PdfServlet extends BaseHttpServlet {
       }
     } else {
       JRPdfExporter exporter = new JRPdfExporter();
-      exporter.setParameter(JRExporterParameter.JASPER_PRINT_LIST, jasperPrintList);
+      exporter.setExporterInput(SimpleExporterInput.getInstance(jasperPrintList));
 
       OutputStream ouputStream = response.getOutputStream();
-      exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, ouputStream);
+      exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(ouputStream));
+      SimplePdfExporterConfiguration configuration = new SimplePdfExporterConfiguration();
+      configuration.setCreatingBatchModeBookmarks(true);
+      exporter.setConfiguration(configuration);
 
       try {
         exporter.exportReport();

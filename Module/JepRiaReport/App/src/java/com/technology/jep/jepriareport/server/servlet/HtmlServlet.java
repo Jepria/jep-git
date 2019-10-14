@@ -1,22 +1,21 @@
 package com.technology.jep.jepriareport.server.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.technology.jep.jepria.shared.exceptions.SystemException;
+
 import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JRExporterParameter;
 import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.export.JRHtmlExporter;
-import net.sf.jasperreports.engine.export.JRHtmlExporterParameter;
+import net.sf.jasperreports.engine.export.HtmlExporter;
+import net.sf.jasperreports.export.SimpleExporterInput;
+import net.sf.jasperreports.export.SimpleHtmlExporterOutput;
 import net.sf.jasperreports.j2ee.servlets.BaseHttpServlet;
 import net.sf.jasperreports.j2ee.servlets.ImageServlet;
-
-import com.technology.jep.jepria.shared.exceptions.SystemException;
 
 @SuppressWarnings("serial")
 public class HtmlServlet extends HttpServlet {
@@ -26,15 +25,13 @@ public class HtmlServlet extends HttpServlet {
       throws IOException, ServletException {
     try {
       JasperPrint jasperPrint = (JasperPrint) request.getSession().getAttribute(BaseHttpServlet.DEFAULT_JASPER_PRINT_SESSION_ATTRIBUTE);
-      JRHtmlExporter htmlExporter = new JRHtmlExporter();
-      htmlExporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+      HtmlExporter htmlExporter = new HtmlExporter();
+      htmlExporter.setExporterInput(new SimpleExporterInput(jasperPrint));
+      
       request.getSession().setAttribute(ImageServlet.DEFAULT_JASPER_PRINT_SESSION_ATTRIBUTE, jasperPrint);
       response.setContentType("text/html; charset=UTF-8");
 
-      PrintWriter out = response.getWriter();
-
-      htmlExporter.setParameter(JRExporterParameter.OUTPUT_WRITER, out);
-      htmlExporter.setParameter(JRHtmlExporterParameter.IMAGES_URI, "../servlets/image?image=");
+      htmlExporter.setExporterOutput(new SimpleHtmlExporterOutput(response.getWriter()));
 
       htmlExporter.exportReport();
     } catch (JRException jrex) {
