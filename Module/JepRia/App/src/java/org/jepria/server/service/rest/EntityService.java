@@ -13,32 +13,32 @@ import java.util.NoSuchElementException;
 public interface EntityService {
 
   /**
-   * @param resourceId
+   * @param recordId
    * @param credential
    * @return instance, non-null
-   * @throws NoSuchElementException if the requested resourceId does not exist
+   * @throws NoSuchElementException if the requested recordId does not exist
    */
-  Object getResourceById(String resourceId, Credential credential) throws NoSuchElementException;
+  Object getRecordById(String recordId, Credential credential) throws NoSuchElementException;
   
   /**
    * @param record
    * @param credential
-   * @return created resourceId, non-null
+   * @return created recordId, non-null
    */
   String create(Object record, Credential credential);
   
   /**
-   * @param resourceId
+   * @param recordId
    * @param credential
-   * @throws NoSuchElementException if the requested resourceId does not exist
+   * @throws NoSuchElementException if the requested recordId does not exist
    */
-  void deleteResource(String resourceId, Credential credential) throws NoSuchElementException;
+  void deleteRecord(String recordId, Credential credential) throws NoSuchElementException;
   
   /**
-   * @param resourceId
+   * @param recordId
    * @param newRecord
    * @param credential
-   * @throws NoSuchElementException if the requested resourceId does not exist
+   * @throws NoSuchElementException if the requested recordId does not exist
    */
-  void update(String resourceId, Object newRecord, Credential credential) throws NoSuchElementException;
+  void update(String recordId, Object newRecord, Credential credential) throws NoSuchElementException;
 }

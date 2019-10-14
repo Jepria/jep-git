@@ -61,35 +61,35 @@ public abstract class EntityJaxrsAdapterBase extends JaxrsAdapterBase {
 
   //////// CRUD ////////
 
-  public Object getResourceById(String recordId) {
-    final Object resource;
+  public Object getRecordById(String recordId) {
+    final Object record;
 
     try {
-      resource = entityService.get().getResourceById(recordId, getCredential());
+      record = entityService.get().getRecordById(recordId, getCredential());
     } catch (NoSuchElementException e) {
       // 404
       throw new NotFoundException(e);
     }
 
-    return resource;
+    return record;
   }
 
-  public Response create(Object resource) {
-    final String createdId = entityService.get().create(resource, getCredential());
+  public Response create(Object record) {
+    final String createdId = entityService.get().create(record, getCredential());
 
-    // ссылка на созданный ресурс
+    // ссылка на созданную запись
     final URI location = URI.create(request.getRequestURL() + "/" + createdId);
     Response response = Response.created(location).build();
 
     return response;
   }
 
-  public void deleteResourceById(String recordId) {
-    entityService.get().deleteResource(recordId, getCredential());
+  public void deleteRecordById(String recordId) {
+    entityService.get().deleteRecord(recordId, getCredential());
   }
 
-  public void update(String recordId, Object resource) {
-    entityService.get().update(recordId, resource, getCredential());
+  public void update(String recordId, Object record) {
+    entityService.get().update(recordId, record, getCredential());
   }
 
   //////// SEARCH ////////
@@ -116,7 +116,7 @@ public abstract class EntityJaxrsAdapterBase extends JaxrsAdapterBase {
 
     final String searchId = searchService.get().postSearchRequest(searchRequest, getCredential());
 
-    // ссылка на созданный ресурс
+    // ссылка на созданную запись
     final URI location = URI.create(request.getRequestURL() + "/" + searchId);
     Response response = Response.created(location).build();
 

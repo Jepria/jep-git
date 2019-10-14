@@ -26,83 +26,83 @@ public class EntityServiceImpl implements EntityService {
   //////////// CRUD ///////////////////
 
   @Override
-  public Object getResourceById(String resourceId, Credential credential) throws NoSuchElementException {
+  public Object getRecordById(String recordId, Credential credential) throws NoSuchElementException {
 
     final Map<String, ?> primaryKeyMap;
     try {
-      primaryKeyMap = getResourceIdParser().parse(resourceId);
+      primaryKeyMap = getRecordIdParser().parse(recordId);
     } catch (IncompletePrimaryKeyException e) {
-      throw new IllegalArgumentException("The resourceId '" + resourceId + "' cannot be parsed against the primary key");
+      throw new IllegalArgumentException("The recordId '" + recordId + "' cannot be parsed against the primary key");
     }
 
-    final Object resource;
+    final Object record;
     try {
-      resource = dao.get().findByPrimaryKey(primaryKeyMap, credential.getOperatorId());
+      record = dao.get().findByPrimaryKey(primaryKeyMap, credential.getOperatorId());
     } catch (Throwable e) {
       throw new RuntimeException(e);
     }
 
     // check find result is of size 1
-    if (resource == null) {
+    if (record == null) {
       throw new NoSuchElementException();
     }
 
-    return resource;
+    return record;
   }
 
-  private interface ResourceIdParser {
+  private interface RecordIdParser {
     /**
-     * Parse resourceId (simple or composite) into a primary key map with typed values, based on RecordDefinition
-     * @param resourceId
+     * Parse recordId (simple or composite) into a primary key map with typed values, based on RecordDefinition
+     * @param recordId
      * @return
      * @throws IncompletePrimaryKeyException 
      */
-    Map<String, ?> parse(String resourceId) throws IncompletePrimaryKeyException;
+    Map<String, ?> parse(String recordId) throws IncompletePrimaryKeyException;
   }
 
-  protected ResourceIdParser getResourceIdParser() {
-    return new ResourceIdParserImpl();
+  protected RecordIdParser getRecordIdParser() {
+    return new RecordIdParserImpl();
   }
 
-  private class ResourceIdParserImpl implements ResourceIdParser {
+  private class RecordIdParserImpl implements RecordIdParser {
     @Override
-    public Map<String, Object> parse(String resourceId) throws IncompletePrimaryKeyException {
+    public Map<String, Object> parse(String recordId) throws IncompletePrimaryKeyException {
       Map<String, Object> ret = new HashMap<>();
 
-      if (resourceId != null) {
+      if (recordId != null) {
         final List<String> primaryKey = recordDefinition.get().getPrimaryKey();
 
         if (primaryKey.size() == 1) {
           // simple primary key: "value"
 
           final String fieldName = primaryKey.get(0);
-          final Object fieldValue = getTypedValue(fieldName, resourceId);
+          final Object fieldValue = getTypedValue(fieldName, recordId);
 
           ret.put(fieldName, fieldValue);
 
         } else if (primaryKey.size() > 1) {
           // composite primary key: "key1=value1,key2=value2"
 
-          Map<String, String> resourceIdFieldMap = new HashMap<>();
+          Map<String, String> recordIdFieldMap = new HashMap<>();
 
-          String[] resourceIdParts = resourceId.split("\\s*[,;]\\s*");// TODO split both by , and ; or by one of them only?
-          for (String resourceIdPart: resourceIdParts) {
-            if (resourceIdPart != null) {
-              String[] resourceIdPartKv = resourceIdPart.split("\\s*=\\s*");
-              if (resourceIdPartKv.length != 2) {
-                throw new IllegalArgumentException("Could not split '" + resourceIdPart + "' as 'key=value'");
+          String[] recordIdParts = recordId.split("\\s*[,;]\\s*");// TODO split both by , and ; or by one of them only?
+          for (String recordIdPart: recordIdParts) {
+            if (recordIdPart != null) {
+              String[] recordIdPartKv = recordIdPart.split("\\s*=\\s*");
+              if (recordIdPartKv.length != 2) {
+                throw new IllegalArgumentException("Could not split '" + recordIdPart + "' as 'key=value'");
               }
-              resourceIdFieldMap.put(resourceIdPartKv[0], resourceIdPartKv[1]);
+              recordIdFieldMap.put(recordIdPartKv[0], recordIdPartKv[1]);
             }
           }
 
           // check or throw
-          resourceIdFieldMap = recordDefinition.get().buildPrimaryKey(resourceIdFieldMap);
+          recordIdFieldMap = recordDefinition.get().buildPrimaryKey(recordIdFieldMap);
 
 
           // create typed values
-          for (final String fieldName: resourceIdFieldMap.keySet()) {
-            final String fieldValueStr = resourceIdFieldMap.get(fieldName);
+          for (final String fieldName: recordIdFieldMap.keySet()) {
+            final String fieldValueStr = recordIdFieldMap.get(fieldName);
             final Object fieldValue = getTypedValue(fieldName, fieldValueStr);
 
             ret.put(fieldName, fieldValue);
@@ -140,13 +140,13 @@ public class EntityServiceImpl implements EntityService {
   }
 
   @Override
-  public void deleteResource(String resourceId, Credential credential) throws NoSuchElementException {
+  public void deleteRecord(String recordId, Credential credential) throws NoSuchElementException {
 
     final Map<String, ?> primaryKeyMap;
     try {
-      primaryKeyMap = getResourceIdParser().parse(resourceId);
+      primaryKeyMap = getRecordIdParser().parse(recordId);
     } catch (IncompletePrimaryKeyException e) {
-      throw new NoSuchElementException("The resourceId '" + resourceId + "' cannot be parsed against the primary key");
+      throw new NoSuchElementException("The recordId '" + recordId + "' cannot be parsed against the primary key");
     }
 
     try {
@@ -157,13 +157,13 @@ public class EntityServiceImpl implements EntityService {
   }
 
   @Override
-  public void update(String resourceId, Object newRecord, Credential credential) throws NoSuchElementException {
+  public void update(String recordId, Object newRecord, Credential credential) throws NoSuchElementException {
     
     final Map<String, ?> primaryKeyMap;
     try {
-      primaryKeyMap = getResourceIdParser().parse(resourceId);
+      primaryKeyMap = getRecordIdParser().parse(recordId);
     } catch (IncompletePrimaryKeyException e) {
-      throw new NoSuchElementException("The resourceId '" + resourceId + "' cannot be parsed against the primary key");
+      throw new NoSuchElementException("The recordId '" + recordId + "' cannot be parsed against the primary key");
     }
     
     try {

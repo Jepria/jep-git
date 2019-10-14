@@ -32,7 +32,7 @@ public class SearchServiceImpl implements SearchService {
     // TODO improper value (will be proxy). How to obtain properly?
     final String entityName = dao.get().getClass().getSimpleName();
 
-    // create single searchUID for a tuple {session,resource}
+    // create single searchUID for a tuple {session,entity}
     searchUID = Integer.toHexString(Objects.hash(session.get().getId(), entityName)); // TODO is this UID unique enough?
     
     sessionAttrKeyPrefix = "SearchService;entity=" + entityName + ";searchId=" + searchUID;
