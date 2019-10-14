@@ -1,6 +1,8 @@
 package org.jepria.server.service.rest;
 
+import org.jepria.server.data.Dao;
 import org.jepria.server.data.RecordComparator;
+import org.jepria.server.data.RecordDefinition;
 import org.jepria.server.service.security.Credential;
 
 import javax.servlet.http.HttpSession;
@@ -13,18 +15,22 @@ import java.util.function.Supplier;
 // TODO отразить в названии класса тот факт, что это именно сессионная реализация (добавлением слова Session)
 public class SearchServiceImpl implements SearchService {
 
-  protected final ResourceDescription description;
+  protected final Supplier<Dao> dao;
+
+  protected final Supplier<RecordDefinition> recordDefinition;
 
   protected final Supplier<HttpSession> session;
 
-  public SearchServiceImpl(ResourceDescription description, Supplier<HttpSession> session) {
+  public SearchServiceImpl(Supplier<Dao> dao, Supplier<RecordDefinition> recordDefinition, Supplier<HttpSession> session) {
 
-    this.description = description;
+    this.dao = dao;
+
+    this.recordDefinition = recordDefinition;
 
     this.session = session;
 
     // TODO improper value (will be proxy). How to obtain properly?
-    final String entityName = description.getDao().getClass().getSimpleName();
+    final String entityName = dao.get().getClass().getSimpleName();
 
     // create single searchUID for a tuple {session,resource}
     searchUID = Integer.toHexString(Objects.hash(session.get().getId(), entityName)); // TODO is this UID unique enough?
@@ -163,7 +169,7 @@ public class SearchServiceImpl implements SearchService {
     List<?> resultset;
     
     try {
-      resultset = description.getDao().find(
+      resultset = dao.get().find(
               searchRequest.getTemplate(),
               credential.getOperatorId());
     } catch (Throwable e) {
@@ -219,7 +225,7 @@ public class SearchServiceImpl implements SearchService {
   protected Comparator<Object> createRecordComparator(Map<String, Integer> listSortConfig) {
     
     return new RecordComparator(new ArrayList<>(listSortConfig.keySet()),
-        fieldName -> description.getRecordDefinition().getFieldComparator(fieldName),
+        fieldName -> recordDefinition.get().getFieldComparator(fieldName),
         fieldName -> {
           if (listSortConfig != null) {
             Integer sortOrder = listSortConfig.get(fieldName);

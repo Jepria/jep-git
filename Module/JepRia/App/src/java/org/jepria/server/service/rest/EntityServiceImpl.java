@@ -1,5 +1,7 @@
 package org.jepria.server.service.rest;
 
+import org.jepria.server.data.Dao;
+import org.jepria.server.data.RecordDefinition;
 import org.jepria.server.data.RecordDefinition.IncompletePrimaryKeyException;
 import org.jepria.server.service.security.Credential;
 
@@ -7,14 +9,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
+import java.util.function.Supplier;
 
 
 public class EntityServiceImpl implements EntityService {
 
-  protected final ResourceDescription description;
+  protected final Supplier<Dao> dao;
 
-  public EntityServiceImpl(ResourceDescription description) {
-    this.description = description;
+  protected final Supplier<RecordDefinition> recordDefinition;
+
+  public EntityServiceImpl(Supplier<Dao> dao, Supplier<RecordDefinition> recordDefinition) {
+    this.dao = dao;
+    this.recordDefinition = recordDefinition;
   }
 
   //////////// CRUD ///////////////////
@@ -31,7 +37,7 @@ public class EntityServiceImpl implements EntityService {
 
     final Object resource;
     try {
-      resource = description.getDao().findByPrimaryKey(primaryKeyMap, credential.getOperatorId());
+      resource = dao.get().findByPrimaryKey(primaryKeyMap, credential.getOperatorId());
     } catch (Throwable e) {
       throw new RuntimeException(e);
     }
@@ -64,7 +70,7 @@ public class EntityServiceImpl implements EntityService {
       Map<String, Object> ret = new HashMap<>();
 
       if (resourceId != null) {
-        final List<String> primaryKey = description.getRecordDefinition().getPrimaryKey();
+        final List<String> primaryKey = recordDefinition.get().getPrimaryKey();
 
         if (primaryKey.size() == 1) {
           // simple primary key: "value"
@@ -91,7 +97,7 @@ public class EntityServiceImpl implements EntityService {
           }
 
           // check or throw
-          resourceIdFieldMap = description.getRecordDefinition().buildPrimaryKey(resourceIdFieldMap);
+          resourceIdFieldMap = recordDefinition.get().buildPrimaryKey(resourceIdFieldMap);
 
 
           // create typed values
@@ -108,7 +114,7 @@ public class EntityServiceImpl implements EntityService {
     }
 
     private Object getTypedValue(String fieldName, String strValue) {
-      Class<?> type = description.getRecordDefinition().getFieldType(fieldName);
+      Class<?> type = recordDefinition.get().getFieldType(fieldName);
       if (type == null) {
         throw new IllegalArgumentException("Could not determine type for the field '" + fieldName + "'");
       } else if (type == Integer.class) {
@@ -126,7 +132,7 @@ public class EntityServiceImpl implements EntityService {
   public String create(Object record, Credential credential) {
     final Object daoResult;
     try {
-      daoResult = description.getDao().create(record, credential.getOperatorId());
+      daoResult = dao.get().create(record, credential.getOperatorId());
     } catch (Throwable e) {
       throw new RuntimeException(e);
     }
@@ -144,7 +150,7 @@ public class EntityServiceImpl implements EntityService {
     }
 
     try {
-      description.getDao().delete(primaryKeyMap, credential.getOperatorId());
+      dao.get().delete(primaryKeyMap, credential.getOperatorId());
     } catch (Throwable e) {
       throw new RuntimeException(e);
     }
@@ -161,7 +167,7 @@ public class EntityServiceImpl implements EntityService {
     }
     
     try {
-      description.getDao().update(primaryKeyMap, newRecord, credential.getOperatorId());
+      dao.get().update(primaryKeyMap, newRecord, credential.getOperatorId());
     } catch (Throwable e) {
       throw new RuntimeException(e);
     }
