@@ -63,7 +63,7 @@ public interface DaoSupport {
   /**
    * @param tableName
    * @param dataFieldName field in the table which to upload object data to
-   * @param whereClause must select a single row from the table, which to upload object data to
+   * @param whereClause must select a single row from the table, which to download object data from
    * @param writer object data target
    */
   // no charset parameter because the database already knows which charset it uses to store clob
@@ -73,7 +73,7 @@ public interface DaoSupport {
    *
    * @param tableName
    * @param dataFieldName field in the table which to upload object data to
-   * @param whereClause must select a single row from the table, which to upload object data to
+   * @param whereClause must select a single row from the table, download object data from
    * @param stream object data target
    */
   void downloadBlob(String tableName, String dataFieldName, String whereClause, OutputStream stream);

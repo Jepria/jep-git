@@ -132,7 +132,7 @@ public class DaoSupportOracle implements DaoSupport {
               , new TextFileDownloadImpl()
               , tableName
               , dataFieldName
-              , whereClause + " and " + 1, 1 // internally transformed to "where [whereClause] and 1=1"
+              , " ( " + whereClause + " ) and " + 1, 1 // internally transformed to "where ( [whereClause] ) and 1=1"
               , null
               , null
               , false);
@@ -150,7 +150,7 @@ public class DaoSupportOracle implements DaoSupport {
               , new BinaryFileDownloadImpl()
               , tableName
               , dataFieldName
-              , whereClause + " and " + 1, 1 // internally transformed to "where [whereClause] and 1=1"
+              , " ( " + whereClause + " ) and " + 1, 1 // internally transformed to "where ( [whereClause] ) and 1=1"
               , null
               , null
               , false);
