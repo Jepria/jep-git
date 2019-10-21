@@ -1,13 +1,5 @@
 package com.technology.jep.jepria.server.db.clob;
 
-import java.io.IOException;
-import java.io.Reader;
-import java.io.Writer;
-import java.sql.CallableStatement;
-import java.sql.Clob;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
 import com.technology.jep.jepria.server.dao.CallContext;
 import com.technology.jep.jepria.server.dao.DaoSupport;
 import com.technology.jep.jepria.server.db.LargeObject;
@@ -15,6 +7,15 @@ import com.technology.jep.jepria.server.exceptions.SpaceException;
 import com.technology.jep.jepria.server.util.JepServerUtil;
 import com.technology.jep.jepria.shared.exceptions.ApplicationException;
 import com.technology.jep.jepria.shared.exceptions.SystemException;
+
+import java.io.IOException;
+import java.io.Reader;
+import java.io.StringReader;
+import java.io.Writer;
+import java.sql.CallableStatement;
+import java.sql.Clob;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
  * Класс поддерживает запись в поле CLOB.
@@ -83,17 +84,27 @@ public class TextLargeObject extends LargeObject {
     int result = 0;
     try {
       database = CallContext.getDb();
-      
+
       // Получаем поток для записи поля СLOB
       CallableStatement cs = database.prepare(super.sqlObtainInputStream);
       DaoSupport.setModule(CallContext.getModuleName(), "DownloadBLOB");
       ResultSet rs = cs.executeQuery();
       if(rs.next()) {
         Clob clob = (Clob) rs.getClob(1);
-        
+
         JepServerUtil.disableClobPrefetch(clob);
-        
-        reader = clob.getCharacterStream();
+
+        if (clob != null) {
+          // non-empty clob
+          reader = clob.getCharacterStream();
+        } else {
+          // empty clob
+
+          // TODO это грубый костыль в проектировании!
+          // Здесь нужно сделать {reader = null; return 0;}, но поскольку далее везде доступ к переменной reader нигде не проверяется на null, проще сделать пустой reader
+          reader = new StringReader("");
+        }
+
         result = WRITE_LENGTH;
       } else {
         throw new ApplicationException("Record of table '" + tableName + "' with id '" + keyFieldName + "' was not found", null);
@@ -133,6 +144,7 @@ public class TextLargeObject extends LargeObject {
   /**
    * Функция завершения записи в поле Clob (закрывает поток открытый {@link #beginWrite()} и вызывает освобождение ресурсов {@link #closeAll()}).
    */
+  @Override
   public void endWrite() throws SpaceException {
     try {
       writer.flush();
@@ -146,6 +158,7 @@ public class TextLargeObject extends LargeObject {
   /**
    * Функция завершения чтения из поля Clob (закрывает поток открытый {@link #beginRead()} и вызывает освобождение ресурсов {@link #closeAll()}).
    */
+  @Override
   public void endRead() throws SpaceException {
     try {
       reader.close();
@@ -158,6 +171,7 @@ public class TextLargeObject extends LargeObject {
   /**
    * Функция освобождения ресурсов.
    */
+  @Override
   protected void closeAll() {
     try {
       database.closeAll();

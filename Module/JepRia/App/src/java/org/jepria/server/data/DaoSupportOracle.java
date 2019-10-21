@@ -86,6 +86,23 @@ public class DaoSupportOracle implements DaoSupport {
   }
 
   @Override
+  public void deleteClob(String tableName, String dataFieldName, String whereClause) {
+    // TODO stub implementation
+
+    final Reader emptyReader = new Reader() {
+      @Override
+      public int read(char[] cbuf, int off, int len) throws IOException {
+        return -1;
+      }
+      @Override
+      public void close() throws IOException {
+      }
+    };
+
+    uploadClob(tableName, dataFieldName, whereClause, emptyReader);
+  }
+
+  @Override
   public void uploadClob(String tableName, String dataFieldName, String whereClause, Reader reader) {
     // TODO stub implementation from com.technology.jep.jepria.server.upload.JepUploadServlet
     try {
@@ -102,6 +119,20 @@ public class DaoSupportOracle implements DaoSupport {
     } catch (IOException e) {
       throw new RuntimeException(e);
     }
+  }
+
+  @Override
+  public void deleteBlob(String tableName, String dataFieldName, String whereClause) {
+    // TODO stub implementation
+
+    final InputStream emptyStream = new InputStream() {
+      @Override
+      public int read() throws IOException {
+        return -1;
+      }
+    };
+
+    uploadBlob(tableName, dataFieldName, whereClause, emptyStream);
   }
 
   @Override
@@ -132,7 +163,7 @@ public class DaoSupportOracle implements DaoSupport {
               , new TextFileDownloadImpl()
               , tableName
               , dataFieldName
-              , whereClause + " and " + 1, 1 // internally transformed to "where [whereClause] and 1=1"
+              , " ( " + whereClause + " ) and " + 1, 1 // internally transformed to "where ( [whereClause] ) and 1=1"
               , null
               , null
               , false);
@@ -150,7 +181,7 @@ public class DaoSupportOracle implements DaoSupport {
               , new BinaryFileDownloadImpl()
               , tableName
               , dataFieldName
-              , whereClause + " and " + 1, 1 // internally transformed to "where [whereClause] and 1=1"
+              , " ( " + whereClause + " ) and " + 1, 1 // internally transformed to "where ( [whereClause] ) and 1=1"
               , null
               , null
               , false);

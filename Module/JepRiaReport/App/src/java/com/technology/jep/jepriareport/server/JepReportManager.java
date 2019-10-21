@@ -4,6 +4,7 @@ import static com.technology.jep.jepriareport.server.JepReportConstant.LIST_IN_F
 import static com.technology.jep.jepriareport.server.JepReportConstant.LIST_IN_MEMORY_MODE;
 
 import java.io.File;
+import java.sql.Connection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -57,6 +58,43 @@ public class JepReportManager {
       JepReportParameters applicationParameters,
       String reportDefinitionPath) throws JRException, ApplicationException {
     
+    JasperPrint jasperPrint = fillReport(request, applicationParameters, reportDefinitionPath, null);
+    
+    request.getSession().setAttribute(BaseHttpServlet.DEFAULT_JASPER_PRINT_SESSION_ATTRIBUTE, jasperPrint);
+  }
+  
+  /**
+   * Подготовка отчета и сохранения в сессионной переменной с передачей подключения к бд
+   * @param request
+   * @param applicationParameters
+   * @param reportDefinitionPath
+   * @param conn
+   * @throws JRException
+   * @throws ApplicationException
+   */
+  
+  public static void preparePrintForm(HttpServletRequest request,
+      JepReportParameters applicationParameters,
+      String reportDefinitionPath, Connection conn) throws JRException, ApplicationException {
+    
+    JasperPrint jasperPrint = fillReport(request, applicationParameters, reportDefinitionPath, conn);
+    
+    request.getSession().setAttribute(BaseHttpServlet.DEFAULT_JASPER_PRINT_SESSION_ATTRIBUTE, jasperPrint);
+    
+  }
+
+  /**
+   * ffill jasper report
+   * @param request
+   * @param applicationParameters
+   * @param reportDefinitionPath
+   * @return JasperPrint
+   * @throws JRException
+   * @throws ApplicationException
+   */
+  private static JasperPrint fillReport(HttpServletRequest request,
+      JepReportParameters applicationParameters,
+      String reportDefinitionPath, Connection conn) throws JRException, ApplicationException {
     HttpSession session = request.getSession();
     ServletContext servletContext = session.getServletContext();
     String realPath = servletContext.getRealPath(reportDefinitionPath);
@@ -64,11 +102,12 @@ public class JepReportManager {
     
     Map<String, Object> parameters = fillStandardParameters(request.getLocale());
     parameters = fillApplicationParameters(parameters, applicationParameters);
-    JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters);
+
+    JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, conn);
     
     removeBlankPage(jasperPrint.getPages());  // Удаление последней пустой страницы (обход возможных баг)
     
-    request.getSession().setAttribute(BaseHttpServlet.DEFAULT_JASPER_PRINT_SESSION_ATTRIBUTE, jasperPrint);
+    return jasperPrint;
   }
 
   /**

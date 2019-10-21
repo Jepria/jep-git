@@ -14,13 +14,19 @@ import javax.ws.rs.core.MediaType;
 @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
 @Consumes(MediaType.APPLICATION_JSON + ";charset=utf-8")
 @Path("") // important
-public class EndpointBase {
+/**
+ * jaxrs-адаптер (транспортный слой)
+ * <br/>
+ * <i>В устаревшей терминологии: endpoint, EndpointBase</i>
+ * <br/>
+ */
+public class JaxrsAdapterBase {
 
-  protected EndpointBase() {}
+  protected JaxrsAdapterBase() {}
 
   /**
    * Injectable field
-   * @deprecated do not use the field in application endpoints, inject (override) own request explicitly instead
+   * @deprecated do not use the field in application adapters, inject (override) own request explicitly instead
    */
   @Context
   @Deprecated

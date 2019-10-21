@@ -24,7 +24,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
 
-import com.technology.jep.jepria.shared.util.JepRiaUtil;
 import com.technology.jep.jepriatoolkit.util.JepRiaToolkitUtil;
 import com.technology.jep.jepriatoolkit.version.MapXml;
 
@@ -100,7 +99,7 @@ public class StartAppInstall extends AppInstall {
 
     Document mapXmlDocument = null;
     try{
-      mapXmlDocument = JepRiaToolkitUtil.getDOM(JepRiaUtil.isEmpty(mapXmlPath) ? "../Doc/map.xml" : mapXmlPath);
+      mapXmlDocument = JepRiaToolkitUtil.getDOM(mapXmlPath == null ? "../Doc/map.xml" : mapXmlPath);
     } catch(IOException io) {
       JepRiaToolkitUtil.echoMessage(
          JepRiaToolkitUtil.multipleConcat(ERROR_PREFIX, "Error parsing map.xml : ", END_OF_LINE, TAB, io.getMessage()));
@@ -166,7 +165,7 @@ public class StartAppInstall extends AppInstall {
    */
   private boolean checkVersion(String version) {
     Pattern pattern = Pattern.compile("^[\\d]+([\\.][\\d]+)*(_[\\w]*)?$");
-    boolean flag = !JepRiaUtil.isEmpty(version) && pattern.matcher(version).matches();
+    boolean flag = version != null && pattern.matcher(version).matches();
     if (!flag) {
       throw new IllegalArgumentException("Not correct version (value="+version+")");
     }
@@ -181,7 +180,7 @@ public class StartAppInstall extends AppInstall {
    * @throws IllegalArgumentException
    */
   private String getInstallVersion(String version) {
-    if (JepRiaUtil.isEmpty(version)) {
+    if (version == null) {
       return null;
     } else {
       if (version.contains("\\"))
