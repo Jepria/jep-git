@@ -42,37 +42,6 @@ public class TokenRequestWrapper extends HttpServletRequestWrapper {
   private
   String tokenString = null;
   private JepPrincipal principal;
-  private Supplier<Set<String>> roles = new Supplier<Set<String>>() {
-    private Db db;
-    private Set<String> roles = new HashSet<>();
-
-    private Db getDb() {
-      if (this.db == null) {
-        this.db = new Db(DEFAULT_DATA_SOURCE_JNDI_NAME);
-      }
-      return this.db;
-    }
-
-    private Set<String> getRoles() throws SQLException {
-      logger.trace("BEGIN getRoles()");
-      Set<String> roles = new HashSet<>();
-      roles.addAll(pkg_Operator.getRoles(getDb(), principal.getName()));
-      logger.trace("END getRoles()");
-      return roles;
-    }
-
-    @Override
-    public Set<String> get() {
-      if (this.roles.isEmpty()) {
-        try {
-          roles = getRoles();
-        } catch (SQLException e) {
-          e.printStackTrace();
-        }
-      }
-      return this.roles;
-    }
-  };
   private Db db;
 
   public TokenRequestWrapper(HttpServletRequest request) {
@@ -107,11 +76,11 @@ public class TokenRequestWrapper extends HttpServletRequestWrapper {
     logger.trace("BEGIN isUserInRole()");
     //language=Oracle
     String sqlQuery = "select decode(count(1), 0, 0, 1)" +
-                      " from op_role or" +
+                      " from op_role opr" +
                         " inner join v_op_operator_role vopr" +
-                          " on vopr.role_id = or.role_id" +
+                          " on vopr.role_id = opr.role_id" +
                             " and vopr.operator_id = " + principal.getOperatorId() +
-                            " and or.SHORT_NAME in (" + s + ")";
+                            " and opr.SHORT_NAME in (" + s + ")";
 
     //Добавили индекс role_id + short_name в op_role т.к. больше никаких данных не используется, на выходе получим FAST INDEX FULL SCAN
     Integer result = null;
@@ -149,7 +118,7 @@ public class TokenRequestWrapper extends HttpServletRequestWrapper {
         return false;
       }
       Token token = TokenImpl.parseFromString(tokenString);
-      Verifier verifier = new VerifierRSA(null,
+      Verifier verifier = new VerifierRSA(null,//TODO сделать нормальную реализацию
         Collections.singletonList("JRFeature"),
         "http://msk-dit-20507-1/auth/jwt",
         new Date(),
