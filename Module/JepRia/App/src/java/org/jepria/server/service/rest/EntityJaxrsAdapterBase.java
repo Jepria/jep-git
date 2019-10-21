@@ -59,7 +59,7 @@ public abstract class EntityJaxrsAdapterBase extends JaxrsAdapterBase {
 
 
 
-  //////// CRUD ////////
+  //------------ entity methods ------------//
 
   public Object getRecordById(String recordId) {
     final Object record;
@@ -92,7 +92,7 @@ public abstract class EntityJaxrsAdapterBase extends JaxrsAdapterBase {
     entityService.get().update(recordId, record, getCredential());
   }
 
-  //////// SEARCH ////////
+  //------------ search methods ------------//
 
   /**
    * Supports HTTP request headers:
