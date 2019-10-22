@@ -38,19 +38,25 @@
   	
   	<pathelement location="${SSO-UTILS_LIB}" />
 
-    <!-- Rest/Jersey: Basic Jersey dependencies, for org.jepria.server.service.rest.jersey.ApplicationConfigBase -->
+    <pathelement location="${JWT_LIB}" />
+    <pathelement location="${ASM}" />
+    <pathelement location="${NIMBUS_JOSE_JWT}" />
+    <pathelement location="${JSON_SMART}" />
+
+    <!-- REST/JAX-RS/Jersey -->
+    <!-- Basic Jersey dependencies, for org.jepria.server.service.rest.jersey.ApplicationConfigBase -->
     <pathelement location="${JERSEY-JERSEY-SERVER_LIB}" />
     <pathelement location="${JERSEY-JAKARTA-WS-RS-API_LIB}" />
     <pathelement location="${JERSEY-JERSEY-COMMON_LIB}" />
-    <!-- Rest/Jersey/Swagger: Jersey2Jaxrs compile dependencies, for org.jepria.server.service.rest.jersey.JerseyJaxrsConfig -->
+    <!-- Jersey2Jaxrs dependencies, for org.jepria.server.service.rest.jersey.JerseyJaxrsConfig -->
     <pathelement location="${SWAGGER-SWAGGER-JERSEY2-JAXRS_LIB}" />
     <pathelement location="${SWAGGER-SWAGGER-JAXRS_LIB}" />
-    <!-- Jepria/Jersey: JsonBindingProvider feature compile dependencies, for org.jepria.server.service.rest.gson.JsonBindingProvider -->
+    <!-- JsonBindingProvider feature dependencies, for org.jepria.server.service.rest.gson.JsonBindingProvider -->
     <pathelement location="${JERSEY-JAKARTA-JSON-BIND-API_LIB}" />
     <pathelement location="${GSON_LIB}" />
-    <!-- Rest/Jersey/Swagger: swagger annotations -->
+    <!-- Swagger annotations -->
     <pathelement location="${SWAGGER-SWAGGER-ANNOTATIONS_LIB}" />
-
+    <!-- -->
 
   </path>
 	
