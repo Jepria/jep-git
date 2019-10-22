@@ -1,13 +1,12 @@
-package com.technology.jep.jepria.server.security;
+package com.technology.jep.jepria.server.security.module;
 
-import java.security.Principal;
-import java.util.List;
+import com.technology.jep.jepria.shared.exceptions.ApplicationException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSessionBindingListener;
-
-import com.technology.jep.jepria.shared.exceptions.ApplicationException;
+import java.security.Principal;
+import java.util.List;
 
 public interface JepSecurityModule extends HttpSessionBindingListener {
   /**

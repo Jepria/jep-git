@@ -1,7 +1,9 @@
 package org.jepria.server.service.rest.jersey;
 
 import org.glassfish.jersey.server.ResourceConfig;
+import org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature;
 import org.jepria.server.service.rest.gson.JsonBindingProvider;
+import org.jepria.server.service.security.HttpBasicDynamicFeature;
 
 import javax.json.bind.JsonbException;
 import javax.ws.rs.core.Response;
@@ -13,6 +15,8 @@ public class ApplicationConfigBase extends ResourceConfig {
     packages("io.swagger.jaxrs.listing");
 
     register(JsonBindingProvider.class);
+    register(HttpBasicDynamicFeature.class);
+    register(RolesAllowedDynamicFeature.class);
 
 
     // register exception mappers

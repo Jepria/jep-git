@@ -1,14 +1,18 @@
 package org.jepria.server;
 
 import com.technology.jep.jepria.server.dao.transaction.TransactionFactory;
+import org.jepria.server.service.ServiceProvider;
+import org.jepria.server.service.rest.EntityService;
+import org.jepria.server.service.rest.SearchService;
 
+import javax.servlet.http.HttpSession;
 import java.util.function.Supplier;
 
 /**
  * Серверная фабрика.
  * @param <D> интерфейс Dao
  */
-public class ServerFactory<D> {
+public class ServerFactory<D> implements ServiceProvider {
   
   /**
    * Исходный объект Dao.
@@ -69,5 +73,17 @@ public class ServerFactory<D> {
    */
   public void setModuleName(String moduleName) {
     this.moduleName = moduleName;
+  }
+
+  @Override
+  // Important to have the default void implementation, because not every ServerFactory has to provide an EntityService
+  public EntityService getEntityService() {
+    return null;
+  }
+
+  @Override
+  // Important to have the default void implementation, because not every ServerFactory has to provide a SearchService
+  public SearchService getSearchService(Supplier<HttpSession> session) {
+    return null;
   }
 }

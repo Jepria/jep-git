@@ -1,30 +1,25 @@
-package com.technology.jep.jepria.server.security.tomcat;
+package com.technology.jep.jepria.server.security.module;
 
-import static com.technology.jep.jepria.server.security.JepSecurityConstant.JEP_SECURITY_MODULE_ATTRIBUTE_NAME;
-
-import java.security.Principal;
-import java.sql.SQLException;
-import java.util.Objects;
+import com.technology.jep.jepcommon.security.pkg_Operator;
+import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.security.Principal;
+import java.sql.SQLException;
+import java.util.Objects;
 
-import org.apache.log4j.Logger;
-
-import com.technology.jep.jepcommon.security.pkg_Operator;
-import com.technology.jep.jepria.server.security.JepAbstractSecurityModule;
-import com.technology.jep.jepria.server.security.JepSecurityModule;
-import com.technology.jep.jepria.shared.util.JepRiaUtil;
+import static com.technology.jep.jepria.server.security.JepSecurityConstant.JEP_SECURITY_MODULE_ATTRIBUTE_NAME;
 
 /**
  * Модуль поддержки безопасности для Tomcat
  * TODO Убрать избыточный код из аналогов
  */
-public class JepSecurityModule_Tomcat extends JepAbstractSecurityModule {
+public class JepSecurityModuleImpl extends JepAbstractSecurityModule {
 
   static {
-    logger = Logger.getLogger(JepSecurityModule_Tomcat.class.getName());
+    logger = Logger.getLogger(JepSecurityModuleImpl.class.getName());
   }
 
   /**
@@ -39,18 +34,18 @@ public class JepSecurityModule_Tomcat extends JepAbstractSecurityModule {
   public static synchronized JepSecurityModule getInstance(HttpServletRequest request) {
     HttpSession session = request.getSession();
     Principal principal = request.getUserPrincipal();
-    JepSecurityModule_Tomcat securityModule;
+    JepSecurityModuleImpl securityModule;
     if(principal == null) { // Работает гость ?
-      securityModule = (JepSecurityModule_Tomcat) session.getAttribute(JEP_SECURITY_MODULE_ATTRIBUTE_NAME);
+      securityModule = (JepSecurityModuleImpl) session.getAttribute(JEP_SECURITY_MODULE_ATTRIBUTE_NAME);
       if(securityModule == null) { // Первый вход ?
-        securityModule = new JepSecurityModule_Tomcat();
+        securityModule = new JepSecurityModuleImpl();
         session.setAttribute(JEP_SECURITY_MODULE_ATTRIBUTE_NAME, securityModule);
         securityModule.doLogonByGuest();
       }
     } else {  // Входили через SSO
-      securityModule = (JepSecurityModule_Tomcat) session.getAttribute(JEP_SECURITY_MODULE_ATTRIBUTE_NAME);
+      securityModule = (JepSecurityModuleImpl) session.getAttribute(JEP_SECURITY_MODULE_ATTRIBUTE_NAME);
       if (securityModule == null || securityModule.isObsolete(principal)) {
-        securityModule = new JepSecurityModule_Tomcat();
+        securityModule = new JepSecurityModuleImpl();
         session.setAttribute(JEP_SECURITY_MODULE_ATTRIBUTE_NAME, securityModule);
         securityModule.updateSubject(principal);
       }
@@ -68,6 +63,20 @@ public class JepSecurityModule_Tomcat extends JepAbstractSecurityModule {
         request.logout();
         return currentUrl;
   }
+
+// TODO Заменит текущую реализацию при переходе на JWT
+/*  @Override
+  public String logout(HttpServletRequest request, HttpServletResponse response, String currentUrl) throws Exception {
+    Cookie[] cookies = request.getCookies();
+    for (Cookie cookie: cookies) {
+      if (cookie.getName().equalsIgnoreCase(RFI_OAUTH_TOKEN)) {
+        cookie.setMaxAge(0);
+        response.addCookie(cookie);
+      }
+    }
+    request.getSession().invalidate();
+    return currentUrl;
+  }*/
   
   /**
    * {@inheritDoc}

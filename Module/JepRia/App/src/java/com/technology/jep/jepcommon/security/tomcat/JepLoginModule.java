@@ -163,7 +163,7 @@ public class JepLoginModule implements LoginModule {
    * <p> If this LoginModule's own authentication attempt
    * succeeded (checked by retrieving the private state saved by the
    * <code>login</code> method), then this method associates a
-   * <code>Principal</code>
+   * <code>PrincipalImpl</code>
    * with the <code>Subject</code> located in the
    * <code>LoginModule</code>.  If this LoginModule's own
    * authentication attempted failed, then this method removes
@@ -279,7 +279,7 @@ public class JepLoginModule implements LoginModule {
   /**
    * Logout the user.
    * <p/>
-   * <p> This method removes the <code>Principal</code>
+   * <p> This method removes the <code>PrincipalImpl</code>
    * that was added by the <code>commit</code> method.
    * <p/>
    * <p/>

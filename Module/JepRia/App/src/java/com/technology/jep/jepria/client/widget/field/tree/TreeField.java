@@ -612,7 +612,7 @@ public class TreeField<V extends JepOption> extends Composite implements HasChec
    */
   public void refreshNode(V node){
     TreeNodeInfo<V> nodeInfo = getNodeInfoByValue(node);
-    if (!(nodeInfo == null || getTreeNode(node) == null || nodeInfo.isDestroyed())) {
+    if (!(nodeInfo == null || nodeInfo.isDestroyed())) {
       ((TreeModel) tree.getTreeViewModel()).refreshNode(node);
     }
   }
@@ -629,7 +629,7 @@ public class TreeField<V extends JepOption> extends Composite implements HasChec
    * @param clearNodeMap Clear cashed nodes
    */
   public void refresh(boolean clearNodeMap){
-    refresh(clearNodeMap, true);
+    refresh(clearNodeMap, false);
   }
   
   /**
@@ -641,6 +641,7 @@ public class TreeField<V extends JepOption> extends Composite implements HasChec
     for (Entry<Object, TreeNodeInfo<V>> entry : nodeMapOfDisplay.entrySet()) {
       entry.getValue().clearSelectedChildren();
     }
+    partialSelectedNodes.clear();
     if (clearNodeMap) {
       nodeMapOfDisplay.clear();
     }
@@ -653,6 +654,8 @@ public class TreeField<V extends JepOption> extends Composite implements HasChec
   private void refreshTree(boolean blockRefresh){
     if (isRefreshInProgress && blockRefresh) {
       isRefreshNeeded = true;
+    }
+    if (isRefreshInProgress) {
       return;
     }
     isRefreshNeeded = false;
@@ -975,7 +978,7 @@ public class TreeField<V extends JepOption> extends Composite implements HasChec
           public void onSuccess(List<V> result) {
             if (isRefreshNeeded) {
               isRefreshInProgress = false;
-              refreshTree(true);
+              refreshTree(false);
               return;
             }
             if (nodeInfo != null) {
@@ -1131,7 +1134,6 @@ public class TreeField<V extends JepOption> extends Composite implements HasChec
           if (isSelected(value)) {
             checkedState = 1;
           } else {
-            GWT.log(value.toString());
             checkedState = 0;
           }
         }
@@ -1343,10 +1345,6 @@ public class TreeField<V extends JepOption> extends Composite implements HasChec
             selectChildren(item, selected);
             updateSelectedNodeInfo(item, selected);
           }
-          while (parentValue != null) {
-            refreshNode(parentValue);
-            parentValue = getNodeInfoByValue(parentValue).getParent();
-          }
           break;
         }
         case NONE: {
@@ -1363,6 +1361,14 @@ public class TreeField<V extends JepOption> extends Composite implements HasChec
         if (parentValue != null) {
           if (selected) getNodeInfoByValue(parentValue).addSelectedChild(item);
           else getNodeInfoByValue(parentValue).removeSelectedChild(item);
+          while (parentValue != null) {
+            if (getNodeInfoByValue(parentValue).getSelectedChildren().size() > 0
+              && getNodeInfoByValue(parentValue).getChildren().size() > getNodeInfoByValue(parentValue).getSelectedChildren().size()) {
+              partialSelectedNodes.add(parentValue);
+            }
+            refreshNode(parentValue);
+            parentValue = getNodeInfoByValue(parentValue).getParent();
+          }
         }
       }
     }
