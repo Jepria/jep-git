@@ -1,22 +1,11 @@
 package com.technology.jep.jepria.server.security.servlet;
 
-import com.technology.jep.jepria.server.security.SecurityFactory;
 import com.technology.jep.jepria.server.security.TokenRequestWrapper;
-import com.technology.jep.jepria.server.security.module.SecurityModuleToken;
-import com.technology.jep.jepria.server.security.module.JepSecurityModule;
-import org.jepria.jwt.token.TokenImpl;
-import org.jepria.jwt.token.VerifierRSA;
-import org.jepria.jwt.token.interfaces.Token;
-import org.jepria.jwt.token.interfaces.Verifier;
 
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
-import java.security.NoSuchAlgorithmException;
-import java.security.spec.InvalidKeySpecException;
-import java.text.ParseException;
 import java.util.*;
 
 public class SecurityFilter implements Filter {
