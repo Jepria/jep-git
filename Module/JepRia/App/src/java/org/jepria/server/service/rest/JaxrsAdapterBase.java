@@ -3,6 +3,7 @@ package org.jepria.server.service.rest;
 import io.swagger.annotations.Api;
 import org.jepria.server.service.security.Credential;
 import org.jepria.server.service.security.PrincipalImpl;
+import org.jepria.ssoutils.JepPrincipal;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
@@ -11,6 +12,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.SecurityContext;
+import java.security.Principal;
 
 @Api
 @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
@@ -47,8 +49,23 @@ public class JaxrsAdapterBase {
       @Override
       public int getOperatorId() {
         if (securityContext != null && securityContext.getUserPrincipal() != null) {
-          return ((PrincipalImpl) securityContext.getUserPrincipal()).getOperatorId();
+          Principal principal = securityContext.getUserPrincipal();
+
+          if (principal instanceof PrincipalImpl) {
+            return ((PrincipalImpl) principal).getOperatorId();
+
+          } else if (principal instanceof JepPrincipal) {
+            // backward compat with ssoutils
+            return ((JepPrincipal) principal).getOperatorId();
+
+          } else if (principal == null) {
+            throw new IllegalStateException("Null principal");
+          } else {
+            throw new IllegalStateException("Unknown principal type: " + principal.getClass().getCanonicalName());
+          }
+
         } else {
+          // TODO is it correct to return Server operiatorId if the user is not logged in?
           return 1;// operatorId = Server
         }
       }
