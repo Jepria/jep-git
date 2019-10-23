@@ -1,7 +1,8 @@
 package com.technology.jep.jepria.shared.exceptions;
 
-import com.google.gwt.user.client.rpc.IsSerializable;
 import com.technology.jep.jepria.client.async.JepAsyncCallback;
+
+import java.io.Serializable;
 
 /**
  * Общий предок исключений, "выбрасываемых" сервисными методами системного и прикладного кода.<br/>
@@ -13,7 +14,7 @@ import com.technology.jep.jepria.client.async.JepAsyncCallback;
  * Более того, указание данного проверяемого исключения в сигнатуре сервисного метода, акцентирует внимание прикладного разработчика 
  * на возможное появление ошибок во время его работы.
  */
-public class ApplicationException extends Exception implements IsSerializable {
+public class ApplicationException extends Exception implements Serializable {
   
   private static final long serialVersionUID = 1L;
 

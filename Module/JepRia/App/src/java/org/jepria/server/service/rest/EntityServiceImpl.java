@@ -23,8 +23,6 @@ public class EntityServiceImpl implements EntityService {
     this.recordDefinition = recordDefinition;
   }
 
-  //////////// CRUD ///////////////////
-
   @Override
   public Object getRecordById(String recordId, Credential credential) throws NoSuchElementException {
 
