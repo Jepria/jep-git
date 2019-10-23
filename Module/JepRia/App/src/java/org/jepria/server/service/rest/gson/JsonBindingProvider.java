@@ -44,9 +44,7 @@ import com.google.gson.Gson;
 import org.glassfish.jersey.message.internal.AbstractMessageReaderWriterProvider;
 
 import javax.json.bind.Jsonb;
-import javax.json.bind.JsonbException;
 import javax.ws.rs.Consumes;
-import javax.ws.rs.ProcessingException;
 import javax.ws.rs.Produces;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.container.ResourceInfo;
@@ -101,11 +99,11 @@ public class JsonBindingProvider extends AbstractMessageReaderWriterProvider<Obj
                            MultivaluedMap<String, String> httpHeaders,
                            InputStream entityStream) throws IOException, WebApplicationException {
         Jsonb jsonb = getJsonb(type, annotations);
-        try {
+//        try {
             return jsonb.fromJson(entityStream, genericType);
-        } catch (JsonbException e) {
-            throw new ProcessingException("Error deserializing object from entity stream", e);
-        }
+//        } catch (JsonbException e) {
+//            throw new ProcessingException("Error deserializing object from entity stream", e);
+//        }
     }
 
     @Override
@@ -120,12 +118,12 @@ public class JsonBindingProvider extends AbstractMessageReaderWriterProvider<Obj
                         MultivaluedMap<String, Object> httpHeaders,
                         OutputStream entityStream) throws IOException, WebApplicationException {
         Jsonb jsonb = getJsonb(type, annotations);
-        try {
+//        try {
             entityStream.write(jsonb.toJson(o).getBytes(AbstractMessageReaderWriterProvider.getCharset(mediaType)));
             entityStream.flush();
-        } catch (IOException e) {
-            throw new ProcessingException("Error writing JSON-B serialized object", e);
-        }
+//        } catch (IOException e) {
+//            throw new ProcessingException("Error writing JSON-B serialized object", e);
+//        }
     }
 
     private Jsonb getJsonb(Class<?> type, Annotation[] annotations) {
