@@ -35,12 +35,7 @@ public class EntityServiceImpl implements EntityService {
       throw new IllegalArgumentException("The recordId '" + recordId + "' cannot be parsed against the primary key");
     }
 
-    final Object record;
-    try {
-      record = dao.get().findByPrimaryKey(primaryKeyMap, credential.getOperatorId());
-    } catch (Throwable e) {
-      throw new RuntimeException(e);
-    }
+    final Object record = dao.get().findByPrimaryKey(primaryKeyMap, credential.getOperatorId());
 
     // check find result is of size 1
     if (record == null) {
@@ -131,11 +126,9 @@ public class EntityServiceImpl implements EntityService {
   @Override
   public String create(Object record, Credential credential) {
     final Object daoResult;
-    try {
-      daoResult = dao.get().create(record, credential.getOperatorId());
-    } catch (Throwable e) {
-      throw new RuntimeException(e);
-    }
+
+    daoResult = dao.get().create(record, credential.getOperatorId());
+
     return daoResult.toString();// TODO convert like Parser
   }
 
@@ -149,11 +142,7 @@ public class EntityServiceImpl implements EntityService {
       throw new NoSuchElementException("The recordId '" + recordId + "' cannot be parsed against the primary key");
     }
 
-    try {
-      dao.get().delete(primaryKeyMap, credential.getOperatorId());
-    } catch (Throwable e) {
-      throw new RuntimeException(e);
-    }
+    dao.get().delete(primaryKeyMap, credential.getOperatorId());
   }
 
   @Override
@@ -166,12 +155,7 @@ public class EntityServiceImpl implements EntityService {
       throw new NoSuchElementException("The recordId '" + recordId + "' cannot be parsed against the primary key");
     }
     
-    try {
-      dao.get().update(primaryKeyMap, newRecord, credential.getOperatorId());
-    } catch (Throwable e) {
-      throw new RuntimeException(e);
-    }
-    
+    dao.get().update(primaryKeyMap, newRecord, credential.getOperatorId());
   }
 
 }

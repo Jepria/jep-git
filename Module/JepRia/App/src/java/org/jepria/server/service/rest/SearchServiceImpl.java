@@ -167,14 +167,10 @@ public class SearchServiceImpl implements SearchService {
     }
     
     List<?> resultset;
-    
-    try {
-      resultset = dao.get().find(
-              searchRequest.getTemplate(),
-              credential.getOperatorId());
-    } catch (Throwable e) {
-      throw new RuntimeException(e);
-    }
+
+    resultset = dao.get().find(
+            searchRequest.getTemplate(),
+            credential.getOperatorId());
 
     if (resultset == null) {
       resultset = new ArrayList<>();
