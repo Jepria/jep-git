@@ -4,15 +4,13 @@ import com.google.gson.Gson;
 import io.swagger.annotations.Api;
 import org.jepria.server.data.ColumnSortConfigurationDto;
 import org.jepria.server.data.SearchRequestDto;
-import org.jepria.server.service.security.Credential;
-import org.jepria.server.service.security.JaxrsCredential;
+import org.jepria.server.service.security.JepSecurityContext;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.SecurityContext;
 import java.net.URI;
 import java.util.*;
 import java.util.function.Supplier;
@@ -37,15 +35,7 @@ public class JaxrsAdapterBase {
   protected HttpServletRequest request;
 
   @Context
-  protected SecurityContext securityContext;
-  /**
-   * Get credential from the injected request
-   * @return
-   */
-  // TODO replace with custom SecurityContext class injection
-  protected Credential getCredential() {
-    return new JaxrsCredential(() -> securityContext);
-  }
+  protected JepSecurityContext securityContext;
 
   /**
    * Adapter for endpoint methods related to entity operations
@@ -62,7 +52,7 @@ public class JaxrsAdapterBase {
       final Object record;
 
       try {
-        record = entityService.get().getRecordById(recordId, getCredential());
+        record = entityService.get().getRecordById(recordId, securityContext.getCredential());
       } catch (NoSuchElementException e) {
         // 404
         throw new NotFoundException(e);
@@ -72,7 +62,7 @@ public class JaxrsAdapterBase {
     }
 
     public Response create(Object record) {
-      final String createdId = entityService.get().create(record, getCredential());
+      final String createdId = entityService.get().create(record, securityContext.getCredential());
 
       // ссылка на созданную запись
       final URI location = URI.create(request.getRequestURL() + "/" + createdId);
@@ -82,11 +72,11 @@ public class JaxrsAdapterBase {
     }
 
     public void deleteRecordById(String recordId) {
-      entityService.get().deleteRecord(recordId, getCredential());
+      entityService.get().deleteRecord(recordId, securityContext.getCredential());
     }
 
     public void update(String recordId, Object record) {
-      entityService.get().update(recordId, record, getCredential());
+      entityService.get().update(recordId, record, securityContext.getCredential());
     }
 
   }
@@ -122,7 +112,7 @@ public class JaxrsAdapterBase {
 
       final SearchService.SearchRequest searchRequest = convertSearchRequest(searchRequestDto);
 
-      final String searchId = searchService.get().postSearchRequest(searchRequest, getCredential());
+      final String searchId = searchService.get().postSearchRequest(searchRequest, securityContext.getCredential());
 
       // ссылка на созданную запись
       final URI location = URI.create(request.getRequestURL() + "/" + searchId);
@@ -218,7 +208,7 @@ public class JaxrsAdapterBase {
         {// return resultset size
           if ("resultset-size".equals(value)) {
             try {
-              return searchService.get().getResultsetSize(searchId, getCredential());
+              return searchService.get().getResultsetSize(searchId, securityContext.getCredential());
             } catch (Throwable e) {
               // TODO process jaxrs exceptions like NotFoundException or BadRequestException differently, or add "status":"exception" as an Extended-Response block
 
@@ -301,7 +291,7 @@ public class JaxrsAdapterBase {
       final SearchService.SearchRequest searchRequest;
 
       try {
-        searchRequest = searchService.get().getSearchRequest(searchId, getCredential());
+        searchRequest = searchService.get().getSearchRequest(searchId, securityContext.getCredential());
       } catch (NoSuchElementException e) {
         // 404
         throw new NotFoundException(e);
@@ -366,7 +356,7 @@ public class JaxrsAdapterBase {
       final int result;
 
       try {
-        result = searchService.get().getResultsetSize(searchId, getCredential());
+        result = searchService.get().getResultsetSize(searchId, securityContext.getCredential());
       } catch (NoSuchElementException e) {
         throw new NotFoundException(e);
       }
@@ -418,7 +408,7 @@ public class JaxrsAdapterBase {
       final List<?> records;
 
       try {
-        records = searchService.get().getResultset(searchId, getCredential());
+        records = searchService.get().getResultset(searchId, securityContext.getCredential());
       } catch (NoSuchElementException e) {
         // 404
         throw new NotFoundException(e);
@@ -459,7 +449,7 @@ public class JaxrsAdapterBase {
       final List<?> records;
 
       try {
-        records = searchService.get().getResultsetPaged(searchId, pageSize, page, getCredential());
+        records = searchService.get().getResultsetPaged(searchId, pageSize, page, securityContext.getCredential());
       } catch (NoSuchElementException e) {
         // 404
         throw new NotFoundException(e);

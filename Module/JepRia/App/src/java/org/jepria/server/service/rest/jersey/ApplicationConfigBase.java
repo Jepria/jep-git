@@ -22,6 +22,8 @@ public class ApplicationConfigBase extends ResourceConfig {
     register(RolesAllowedDynamicFeature.class);
 
 
+    register(new JepSecurityContextBinder());
+
 
     // register exception mappers
 
@@ -110,7 +112,7 @@ public class ApplicationConfigBase extends ResourceConfig {
   }
 
   /**
-   * Looks up the hierarchically-closest superclass of the exception and returns the ExceptionMapper registered for it (if any)
+   * Looks up the closest superclass of the exception and returns the ExceptionMapper registered for it (if any)
    * @param exceptionClass
    * @param <E>
    * @return

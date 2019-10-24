@@ -43,7 +43,7 @@
     <pathelement location="${NIMBUS_JOSE_JWT}" />
     <pathelement location="${JSON_SMART}" />
 
-    <!-- REST/JAX-RS/Jersey -->
+    <!-- Rest/Jaxrs/Jersey -->
     <!-- Basic Jersey dependencies, for org.jepria.server.service.rest.jersey.ApplicationConfigBase -->
     <pathelement location="${JERSEY-JERSEY-SERVER_LIB}" />
     <pathelement location="${JERSEY-JAKARTA-WS-RS-API_LIB}" />
@@ -56,6 +56,8 @@
     <pathelement location="${GSON_LIB}" />
     <!-- Swagger annotations -->
     <pathelement location="${SWAGGER-SWAGGER-ANNOTATIONS_LIB}" />
+    <!-- Jersey/HK2 dependencies, for org.jepria.server.service.rest.jersey.JepSecurityContextFactory -->
+    <pathelement location="${JERSEY-HK2-API_LIB}" />
     <!-- -->
 
   </path>
