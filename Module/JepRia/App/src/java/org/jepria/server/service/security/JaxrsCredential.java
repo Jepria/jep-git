@@ -37,4 +37,16 @@ public class JaxrsCredential implements Credential {
     return 1;// operatorId = Server
   }
 
+  @Override
+  public String getUsername() {
+    final Principal principal = securityContext.get().getUserPrincipal();
+    return principal == null ? null : principal.getName();
+  }
+
+  @Override
+  public boolean isUserInRole(String roleShortName) {
+    return securityContext.get().isUserInRole(roleShortName);
+  }
+
+
 }
