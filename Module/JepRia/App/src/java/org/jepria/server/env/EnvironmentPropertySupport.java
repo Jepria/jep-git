@@ -7,6 +7,22 @@ public interface EnvironmentPropertySupport {
 
   Object getProperty(String name);
 
+  default String getPropertyAsString(String name) {
+    Object value = getProperty(name);
+    return value == null ? null : String.valueOf(value);
+  }
+
+  default Object getProperty(String name, Object defaultValue) {
+    Object value = getProperty(name);
+    return value == null ? defaultValue : value;
+  }
+
+  default String getPropertyAsString(String name, String defaultValue) {
+    String value = getPropertyAsString(name);
+    return value == null ? defaultValue : value;
+  }
+
+
   /**
    * @param request
    * @return property support for web applications
