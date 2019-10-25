@@ -12,6 +12,11 @@ import javax.servlet.ServletContext;
 
   @Override
   public Object getProperty(String name) {
+    return getPropertyAsString(name);
+  }
+
+  @Override
+  public String getPropertyAsString(String name) {
     return context.getInitParameter(name);
   }
 }
