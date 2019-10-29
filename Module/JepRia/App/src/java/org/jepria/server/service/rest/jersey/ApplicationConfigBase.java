@@ -2,6 +2,7 @@ package org.jepria.server.service.rest.jersey;
 
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature;
+import org.jepria.server.service.rest.XCacheControlFilter;
 import org.jepria.server.service.rest.gson.JsonBindingProvider;
 import org.jepria.server.service.security.HttpBasicDynamicFeature;
 
@@ -23,6 +24,9 @@ public class ApplicationConfigBase extends ResourceConfig {
 
 
     register(new JepSecurityContextBinder());
+
+    // Note: 
+    register(new XCacheControlFilter());
 
 
     // register exception mappers
