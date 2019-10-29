@@ -25,7 +25,10 @@ public class ApplicationConfigBase extends ResourceConfig {
 
     register(new JepSecurityContextBinder());
 
-    // Note: 
+    /*
+    Note: Cache-Control header replacement for React Native/Expo mobile apps
+    TODO remove when okHttp Cache-Control header issue will be fixed https://github.com/expo/expo/issues/1639
+     */
     register(new XCacheControlFilter());
 
 
