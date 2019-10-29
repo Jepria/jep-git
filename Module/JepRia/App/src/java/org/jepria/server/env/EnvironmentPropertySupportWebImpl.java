@@ -2,6 +2,9 @@ package org.jepria.server.env;
 
 import org.jepria.server.env.PropertyAccessObject.Property;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.servlet.ServletContext;
 import java.io.IOException;
 import java.io.InputStream;
@@ -103,4 +106,44 @@ public class EnvironmentPropertySupportWebImpl implements EnvironmentPropertySup
     }
   }
 
+  protected static class PropertyAccessObjectSystemEnv extends PropertyAccessObject {
+    @Override
+    protected String location() {
+      return "System environment properties / java.lang.System.getenv";
+    }
+    @Override
+    protected String getPropertyValue(String name) {
+      return System.getenv(name);
+    }
+  }
+
+  protected static class PropertyAccessObjectSystemProp extends PropertyAccessObject {
+    @Override
+    protected String location() {
+      return "System or JVM properties / java.lang.System.getProperty";
+    }
+    @Override
+    protected String getPropertyValue(String name) {
+      return System.getProperty(name);
+    }
+  }
+
+  protected static class PropertyAccessObjectTomcatEnv extends PropertyAccessObject {
+    @Override
+    protected String location() {
+      return "java:comp/env maintained by Tomcat / Context/Environment entries";
+    }
+    @Override
+    protected String getPropertyValue(String name) {
+      try {
+        Context initCtx = new InitialContext();
+        Context envCtx = (Context) initCtx.lookup("java:comp/env");
+        return (String) envCtx.lookup(name);
+      } catch (NamingException e) {
+        // TODO fail-fast or fail-safe? what if the user configured the env variable, but the exception occurred?
+        return null;
+      }
+    }
+
+  }
 }
