@@ -15,8 +15,6 @@ import java.util.*;
 public class ApplicationConfigBase extends ResourceConfig {
 
   public ApplicationConfigBase() {
-    packages("io.swagger.jaxrs.listing");
-
 
     register(JsonBindingProvider.class);
     register(HttpBasicDynamicFeature.class);
@@ -25,7 +23,7 @@ public class ApplicationConfigBase extends ResourceConfig {
 
     register(new JepSecurityContextBinder());
 
-    // Note: 
+    // Note:
     register(new XCacheControlFilter());
 
 

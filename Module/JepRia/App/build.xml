@@ -48,14 +48,9 @@
     <pathelement location="${JERSEY-JERSEY-SERVER_LIB}" />
     <pathelement location="${JERSEY-JAKARTA-WS-RS-API_LIB}" />
     <pathelement location="${JERSEY-JERSEY-COMMON_LIB}" />
-    <!-- Jersey2Jaxrs dependencies, for org.jepria.server.service.rest.jersey.JerseyJaxrsConfig -->
-    <pathelement location="${SWAGGER-SWAGGER-JERSEY2-JAXRS_LIB}" />
-    <pathelement location="${SWAGGER-SWAGGER-JAXRS_LIB}" />
     <!-- JsonBindingProvider feature dependencies, for org.jepria.server.service.rest.gson.JsonBindingProvider -->
     <pathelement location="${JERSEY-JAKARTA-JSON-BIND-API_LIB}" />
     <pathelement location="${GSON_LIB}" />
-    <!-- Swagger annotations -->
-    <pathelement location="${SWAGGER-SWAGGER-ANNOTATIONS_LIB}" />
     <!-- Jersey/HK2 dependencies, for org.jepria.server.service.rest.jersey.JepSecurityContextFactory -->
     <pathelement location="${JERSEY-HK2-API_LIB}" />
     <!-- -->

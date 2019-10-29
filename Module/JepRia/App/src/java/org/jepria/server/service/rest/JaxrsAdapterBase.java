@@ -1,7 +1,6 @@
 package org.jepria.server.service.rest;
 
 import com.google.gson.Gson;
-import io.swagger.annotations.Api;
 import org.jepria.server.data.ColumnSortConfigurationDto;
 import org.jepria.server.data.SearchRequestDto;
 import org.jepria.server.service.security.JepSecurityContext;
@@ -17,7 +16,6 @@ import java.util.function.Supplier;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-@Api
 @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
 @Consumes(MediaType.APPLICATION_JSON + ";charset=utf-8")
 @Path("") // important
