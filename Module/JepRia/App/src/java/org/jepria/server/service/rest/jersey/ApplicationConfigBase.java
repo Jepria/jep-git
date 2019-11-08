@@ -111,6 +111,15 @@ public class ApplicationConfigBase extends ResourceConfig {
   // see https://stackoverflow.com/questions/2625546/is-using-the-class-instance-as-a-map-key-a-best-practice
   protected final Map<String, ExceptionMapper<?>> exceptionMappersRegistered = new HashMap<>();
 
+  /**
+   * Метод регистрирует {@link ExceptionMapper} не только штатно (собственно вызовом {@link #register(Object)}),
+   * но также в связке с типом исключения, для которого он регистрируется.
+   * Это необходимо для того, чтобы иметь возможность по возникшему в программе исключению (точнее, по его классу),
+   * получить {@link ExceptionMapper}, который был зарегистрирован для него (или для предка этого исключения) при инициализации программы.
+   * @param exceptionClass
+   * @param mapper
+   * @param <E>
+   */
   protected <E extends Throwable> void registerExceptionMapper(Class<E> exceptionClass, ExceptionMapper<E> mapper) {
     register(mapper);
     exceptionMappersRegistered.put(exceptionClass.getCanonicalName(), mapper);
