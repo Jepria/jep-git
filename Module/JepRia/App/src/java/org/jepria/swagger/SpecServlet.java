@@ -13,15 +13,19 @@ import java.util.*;
 
 public class SpecServlet extends HttpServlet {
 
-  protected String swaggerUiPath;
+  protected String swaggerUiRootPath;
   protected String specRootPath;
   protected String apiMappingUrl;
 
   @Override
   public void init() {
-    swaggerUiPath = getServletConfig().getInitParameter("swagger-ui-root-path");
-    if (swaggerUiPath == null) {
+    swaggerUiRootPath = getServletConfig().getInitParameter("swagger-ui-root-path");
+    if (swaggerUiRootPath == null || "".equals(swaggerUiRootPath)) {
       throw new NullPointerException("swagger-ui-root-path parameter is mandatory");
+    } else {
+      if (!swaggerUiRootPath.startsWith("/") || swaggerUiRootPath.length() > 1 && swaggerUiRootPath.endsWith("/")) {
+        throw new IllegalArgumentException("swagger-ui-root-path parameter value must either be '/' or be starting with '/' but not ending with '/': " + specRootPath);
+      }
     }
 
     specRootPath = getServletConfig().getInitParameter("spec-root-path");
@@ -29,7 +33,7 @@ public class SpecServlet extends HttpServlet {
       specRootPath = "/"; // default value
     } else {
       if (!specRootPath.startsWith("/") || specRootPath.length() > 1 && specRootPath.endsWith("/")) {
-        throw new IllegalArgumentException("spec-root-path parameter value must either be '/' or (must start with '/' and must not end with '/'): " + specRootPath);
+        throw new IllegalArgumentException("spec-root-path parameter value must either be '/' or be starting with '/' but not ending with '/': " + specRootPath);
       }
     }
 
@@ -57,7 +61,7 @@ public class SpecServlet extends HttpServlet {
   }
 
   protected void entry(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-    String targetPath = swaggerUiPath + "/index.html.jsp";
+    String targetPath = swaggerUiRootPath + "/index.html.jsp";
 
     // deploy index.html.jsp with the following values
     req.setAttribute("org.jepria.swagger.specServletMapping", getServletMapping(req));
@@ -68,7 +72,7 @@ public class SpecServlet extends HttpServlet {
 
   protected void swaggerUi(HttpServletRequest req, HttpServletResponse resp, String resourcePath) throws ServletException, IOException {
     // return the resource as-is
-    req.getRequestDispatcher(swaggerUiPath + resourcePath).forward(req, resp);
+    req.getRequestDispatcher(swaggerUiRootPath + resourcePath).forward(req, resp);
   }
 
   protected void spec(HttpServletRequest req, HttpServletResponse resp, String resourcePath) throws ServletException, IOException {
@@ -76,42 +80,42 @@ public class SpecServlet extends HttpServlet {
 
     if (apiMappingUrl != null) {
       // deploy the resource: set 'url' for template 'server' and 'servers' fields
-      // Note: for some reason, 'server' field is ignored by the swagger-ui (although it could be used instead of 'servers' field according to docs), so works with 'servers' only
+      // Note: for some reason, 'server' field is ignored by the swagger-ui (although it could be used instead of 'servers' field according to docs), so work with 'servers' only
 
-      final Map<String, Object> specAsMap;
+      final Map<String, Object> specObject;
       try (InputStream specIn = req.getServletContext().getResourceAsStream(targetPath)) {
-        specAsMap = JsonBindingProvider.getJsonb().fromJson(specIn, Map.class); // new HashMap<String, Object>(){}.getClass() not working
+        specObject = JsonBindingProvider.getJsonb().fromJson(specIn, Map.class); // new HashMap<String, Object>(){}.getClass() not working
       }
 
-      List<Map<String, Object>> servers = (List<Map<String, Object>>) specAsMap.get("servers");
-      if (servers != null) {
-        for (Map<String, Object> server : servers) {
-          if (server != null) {
-            String url = (String) server.get("url");
+      List<Map<String, Object>> serversObject = (List<Map<String, Object>>) specObject.get("servers");
+      if (serversObject != null) {
+        for (Map<String, Object> serverObject : serversObject) {
+          if (serverObject != null) {
+            String url = (String) serverObject.get("url");
             if ("/{appContextPath}/{apiEndpoint}".equals(url)) {
-              server.put("url", req.getContextPath() + apiMappingUrl);
+              serverObject.put("url", req.getContextPath() + apiMappingUrl);
             }
           }
         }
       } else {
-        servers = new ArrayList<>();
-        Map<String, Object> server = new HashMap<>();
-        server.put("url", req.getContextPath() + apiMappingUrl);
-        servers.add(server);
-        specAsMap.put("servers", servers);
+        serversObject = new ArrayList<>();
+        Map<String, Object> serverObject = new HashMap<>();
+        serverObject.put("url", req.getContextPath() + apiMappingUrl);
+        serversObject.add(serverObject);
+        specObject.put("servers", serversObject);
       }
 
       resp.setContentType("application/json");
       resp.setCharacterEncoding("UTF-8");
 
-      JsonBindingProvider.getJsonb().toJson(specAsMap, resp.getWriter());
+      JsonBindingProvider.getJsonb().toJson(specObject, resp.getWriter());
       resp.setStatus(HttpServletResponse.SC_OK);
       resp.flushBuffer();
 
     } else {
       // return the resource as-is
 
-      // Note: this is abnormal case!
+      // Note: this is an abnormal case!
       req.getRequestDispatcher(targetPath).forward(req, resp);
     }
   }
