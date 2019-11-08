@@ -15,13 +15,19 @@ import java.util.function.Supplier;
 // TODO отразить в названии класса тот факт, что это именно сессионная реализация (добавлением слова Session)
 public class SearchServiceImpl implements SearchService {
 
-  protected final Supplier<Dao> dao;
+  protected final Dao dao;
 
-  protected final Supplier<RecordDefinition> recordDefinition;
+  protected final RecordDefinition recordDefinition;
 
   protected final Supplier<HttpSession> session;
 
-  public SearchServiceImpl(Supplier<Dao> dao, Supplier<RecordDefinition> recordDefinition, Supplier<HttpSession> session) {
+  /**
+   *
+   * @param dao
+   * @param recordDefinition
+   * @param session используется Supplier потому что сессия – вещь зыбкая, неперсистентная (имеет право изменяться от вызова к вызову или с течением времени)
+   */
+  public SearchServiceImpl(Dao dao, RecordDefinition recordDefinition, Supplier<HttpSession> session) {
 
     this.dao = dao;
 
@@ -30,7 +36,7 @@ public class SearchServiceImpl implements SearchService {
     this.session = session;
 
     // TODO improper value (will be proxy). How to obtain properly?
-    final String entityName = dao.get().getClass().getSimpleName();
+    final String entityName = dao.getClass().getSimpleName();
 
     // create single searchUID for a tuple {session,entity}
     searchUID = Integer.toHexString(Objects.hash(session.get().getId(), entityName)); // TODO is this UID unique enough?
@@ -168,7 +174,7 @@ public class SearchServiceImpl implements SearchService {
     
     List<?> resultset;
 
-    resultset = dao.get().find(
+    resultset = dao.find(
             searchRequest.getTemplate(),
             credential.getOperatorId());
 
@@ -221,7 +227,7 @@ public class SearchServiceImpl implements SearchService {
   protected Comparator<Object> createRecordComparator(Map<String, Integer> listSortConfig) {
     
     return new RecordComparator(new ArrayList<>(listSortConfig.keySet()),
-        fieldName -> recordDefinition.get().getFieldComparator(fieldName),
+        fieldName -> recordDefinition.getFieldComparator(fieldName),
         fieldName -> {
           if (listSortConfig != null) {
             Integer sortOrder = listSortConfig.get(fieldName);

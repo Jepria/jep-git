@@ -9,16 +9,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
-import java.util.function.Supplier;
 
 
 public class EntityServiceImpl implements EntityService {
 
-  protected final Supplier<Dao> dao;
+  protected final Dao dao;
 
-  protected final Supplier<RecordDefinition> recordDefinition;
+  protected final RecordDefinition recordDefinition;
 
-  public EntityServiceImpl(Supplier<Dao> dao, Supplier<RecordDefinition> recordDefinition) {
+  public EntityServiceImpl(Dao dao, RecordDefinition recordDefinition) {
     this.dao = dao;
     this.recordDefinition = recordDefinition;
   }
@@ -33,7 +32,7 @@ public class EntityServiceImpl implements EntityService {
       throw new IllegalArgumentException("The recordId '" + recordId + "' cannot be parsed against the primary key");
     }
 
-    final Object record = dao.get().findByPrimaryKey(primaryKeyMap, credential.getOperatorId());
+    final Object record = dao.findByPrimaryKey(primaryKeyMap, credential.getOperatorId());
 
     // check find result is of size 1
     if (record == null) {
@@ -63,7 +62,7 @@ public class EntityServiceImpl implements EntityService {
       Map<String, Object> ret = new HashMap<>();
 
       if (recordId != null) {
-        final List<String> primaryKey = recordDefinition.get().getPrimaryKey();
+        final List<String> primaryKey = recordDefinition.getPrimaryKey();
 
         if (primaryKey.size() == 1) {
           // simple primary key: "value"
@@ -90,7 +89,7 @@ public class EntityServiceImpl implements EntityService {
           }
 
           // check or throw
-          recordIdFieldMap = recordDefinition.get().buildPrimaryKey(recordIdFieldMap);
+          recordIdFieldMap = recordDefinition.buildPrimaryKey(recordIdFieldMap);
 
 
           // create typed values
@@ -107,7 +106,7 @@ public class EntityServiceImpl implements EntityService {
     }
 
     private Object getTypedValue(String fieldName, String strValue) {
-      Class<?> type = recordDefinition.get().getFieldType(fieldName);
+      Class<?> type = recordDefinition.getFieldType(fieldName);
       if (type == null) {
         throw new IllegalArgumentException("Could not determine type for the field '" + fieldName + "'");
       } else if (type == Integer.class) {
@@ -125,7 +124,7 @@ public class EntityServiceImpl implements EntityService {
   public String create(Object record, Credential credential) {
     final Object daoResult;
 
-    daoResult = dao.get().create(record, credential.getOperatorId());
+    daoResult = dao.create(record, credential.getOperatorId());
 
     return daoResult.toString();// TODO convert like Parser
   }
@@ -140,7 +139,7 @@ public class EntityServiceImpl implements EntityService {
       throw new NoSuchElementException("The recordId '" + recordId + "' cannot be parsed against the primary key");
     }
 
-    dao.get().delete(primaryKeyMap, credential.getOperatorId());
+    dao.delete(primaryKeyMap, credential.getOperatorId());
   }
 
   @Override
@@ -153,7 +152,7 @@ public class EntityServiceImpl implements EntityService {
       throw new NoSuchElementException("The recordId '" + recordId + "' cannot be parsed against the primary key");
     }
     
-    dao.get().update(primaryKeyMap, newRecord, credential.getOperatorId());
+    dao.update(primaryKeyMap, newRecord, credential.getOperatorId());
   }
 
 }
