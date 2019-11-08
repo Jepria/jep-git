@@ -43,29 +43,55 @@ public class SpecServlet extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     String path = req.getPathInfo();
-    if (path == null || "".equals(path) || "/".equals(path)) {
-      entry(req, resp);
-      return;
-    } else if (path.startsWith("/swagger-ui/")) {
-      String resourcePath = path.substring("/swagger-ui".length());
+    if (path != null && path.startsWith(PATH_PREFIX__SWAGGER_UI + "/")) {
+      // requested swagger-ui resource
+      String resourcePath = path.substring(PATH_PREFIX__SWAGGER_UI.length());
       swaggerUi(req, resp, resourcePath);
       return;
-    } else if (path.startsWith("/spec/")) {
-      String resourcePath = path.substring("/spec".length());
+    } else if (path != null && path.startsWith(PATH_PREFIX__SPEC + "/")) {
+      // requested spec resource
+      String resourcePath = path.substring(PATH_PREFIX__SPEC.length());
       spec(req, resp, resourcePath);
       return;
     } else {
-      // TODO message?
-      resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Either api-docs root / or /swagger-ui/* or /spec/* resource may be requested");
+      // requested ui probably with particular spec selected
+      ui(req, resp, path);
     }
   }
 
-  protected void entry(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+  private static final String PATH_PREFIX__SPEC = "/_spec";
+
+  // Note: This constant has an external referrer: io/swagger-ui/{version}/swagger-ui-{version}-multispec.jar/index.html.jsp
+  private static final String PATH_PREFIX__SWAGGER_UI = "/_swagger-ui";
+
+  protected void ui(HttpServletRequest req, HttpServletResponse resp, String specName) throws ServletException, IOException {
     String targetPath = swaggerUiRootPath + "/index.html.jsp";
 
+    List<Spec> specs = collectSpecs(req.getServletContext(), specRootPath);
+
+    if (specName != null && !"".equals(specName) && !"/".equals(specName)) {
+      // select particular spec
+      boolean specFound = false;
+      for (Spec spec : specs) {
+        if (specName.equals(spec.name())) {
+          // set the selected spec as first element
+          specs.remove(spec);
+          specs.add(0, spec);
+          specFound = true;
+          break;
+        }
+      }
+      if (!specFound) {
+        resp.sendError(404, "No such spec to select: " + specName);
+        resp.flushBuffer();
+        return;
+      }
+    }
+
+    String uiJsonUrls = buildUrls(specs, req.getContextPath() + req.getServletPath() + "/_spec");
+
     // deploy index.html.jsp with the following values
-    req.setAttribute("org.jepria.swagger.specServletMapping", getServletMapping(req));
-    String uiJsonUrls =  buildUrls(collectSpecs(req.getServletContext(), specRootPath), getRootUrl(req) + getServletMapping(req) + "/spec");
+    req.setAttribute("org.jepria.swagger.apiDocsContext", req.getContextPath() + req.getServletPath());
     req.setAttribute("org.jepria.swagger.uiJsonUrls", uiJsonUrls);
     req.getRequestDispatcher(targetPath).forward(req, resp);
   }
@@ -190,16 +216,6 @@ public class SpecServlet extends HttpServlet {
     }
   }
 
-  protected String getRootUrl(HttpServletRequest request) {
-    String contextPath = request.getContextPath();
-    String url = request.getRequestURL().toString();
-    int index = url.indexOf(contextPath);
-    if (index == -1) {
-      throw new IllegalStateException("HttpServletRequest.getRequestURL() must contain HttpServletRequest.getContextPath()");
-    }
-    return url.substring(0, index + contextPath.length());
-  }
-
   protected String buildUrls(List<Spec> specs, String rootUrl) {
     StringBuilder sb = new StringBuilder();
     sb.append('[');
@@ -217,29 +233,5 @@ public class SpecServlet extends HttpServlet {
     sb.append(']');
 
     return sb.toString();
-  }
-
-  /**
-   * For the servlet which this request has been dispatched to, returns the actual url mapping which this request matched.
-   * May differ from the value of {@code servlet-mapping/url-pattern} servlet parameter value
-   * @param request
-   * @return
-   */
-  protected String getServletMapping(HttpServletRequest request) {
-    final String uri = request.getRequestURI();
-    final String ctx = request.getContextPath();
-    final String path = request.getPathInfo();
-    if (!uri.startsWith(ctx)) {
-      throw new IllegalStateException("HttpServletRequest.getRequestURI() must start with HttpServletRequest.getContextPath()");
-    }
-    if (path != null && !uri.endsWith(path)) {
-      throw new IllegalStateException("HttpServletRequest.getRequestURI() must end with HttpServletRequest.getPathInfo()");
-    }
-
-    String ret = uri.substring(ctx.length());
-    if (path != null) {
-      ret = ret.substring(0, ret.length() - path.length());
-    }
-    return ret;
   }
 }
