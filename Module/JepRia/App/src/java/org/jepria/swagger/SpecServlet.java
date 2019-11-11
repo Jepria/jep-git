@@ -15,7 +15,7 @@ public class SpecServlet extends HttpServlet {
 
   protected String swaggerUiRootPath;
   protected String specRootPath;
-  protected String apiMappingUrl;
+  protected String apiServletPath;
 
   @Override
   public void init() {
@@ -24,7 +24,7 @@ public class SpecServlet extends HttpServlet {
       throw new NullPointerException("swagger-ui-root-path parameter is mandatory");
     } else {
       if (!swaggerUiRootPath.startsWith("/") || swaggerUiRootPath.length() > 1 && swaggerUiRootPath.endsWith("/")) {
-        throw new IllegalArgumentException("swagger-ui-root-path parameter value must either be '/' or be starting with '/' but not ending with '/': " + specRootPath);
+        throw new IllegalArgumentException("swagger-ui-root-path parameter value must either be '/' or be starting with '/' but not ending with '/': " + swaggerUiRootPath);
       }
     }
 
@@ -37,7 +37,7 @@ public class SpecServlet extends HttpServlet {
       }
     }
 
-    apiMappingUrl = getServletConfig().getInitParameter("api-mapping-url");
+    apiServletPath = getServletConfig().getInitParameter("api-servlet-path");
   }
 
   @Override
@@ -104,7 +104,7 @@ public class SpecServlet extends HttpServlet {
   protected void spec(HttpServletRequest req, HttpServletResponse resp, String resourcePath) throws ServletException, IOException {
     String targetPath = specRootPath + resourcePath;
 
-    if (apiMappingUrl != null) {
+    if (apiServletPath != null) {
       // deploy the resource: set 'url' for template 'server' and 'servers' fields
       // Note: for some reason, 'server' field is ignored by the swagger-ui (although it could be used instead of 'servers' field according to docs), so work with 'servers' only
 
@@ -119,14 +119,14 @@ public class SpecServlet extends HttpServlet {
           if (serverObject != null) {
             String url = (String) serverObject.get("url");
             if ("/{appContextPath}/{apiEndpoint}".equals(url)) {
-              serverObject.put("url", req.getContextPath() + apiMappingUrl);
+              serverObject.put("url", req.getContextPath() + apiServletPath);
             }
           }
         }
       } else {
         serversObject = new ArrayList<>();
         Map<String, Object> serverObject = new HashMap<>();
-        serverObject.put("url", req.getContextPath() + apiMappingUrl);
+        serverObject.put("url", req.getContextPath() + apiServletPath);
         serversObject.add(serverObject);
         specObject.put("servers", serversObject);
       }
