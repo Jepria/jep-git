@@ -32,7 +32,7 @@ import java.util.Properties;
   public Property lookupProperty(String context, String name) {
 
 
-    { // 1) context/name: get property by context/name
+    { // 1) context#name: get property by context#name
       if (context != null) {
         String contextName = getContextName(context, name);
         String value = getPropertyValue(contextName);
@@ -46,12 +46,12 @@ import java.util.Properties;
     }
 
 
-    { // 2) context/app-conf.file -> name: get property by name from the external conf file denoted by context/app-conf.file property value
+    { // 2) context#app-conf.file -> name: get property by name from the external conf file denoted by context#app-conf.file property value
       if (context != null) {
         String confFilePropName = getContextName(context, PROPERTY_NAME__APP_CONF_FILE);
         String confFilePropValue = getPropertyValue(confFilePropName);
         
-        // initialize the external conf file denoted by context/app-conf.file property value, if any
+        // initialize the external conf file denoted by context#app-conf.file property value, if any
         final Properties contextConfFileProps = initPropsByConfFileProperty(confFilePropValue);
 
 
@@ -74,7 +74,7 @@ import java.util.Properties;
     final Properties confFileProps = initPropsByConfFileProperty(confFilePropValue);
 
 
-    { // 3) app-conf.file -> context/name: get property by context/name from the external conf file denoted by app-conf.file property value
+    { // 3) app-conf.file -> context#name: get property by context#name from the external conf file denoted by app-conf.file property value
       if (context != null) {
         if (confFileProps != null) {
           String contextName = getContextName(context, name);
@@ -130,7 +130,8 @@ import java.util.Properties;
     if (context == null) {
       return null;
     } else {
-      return context + (context.endsWith("/") ? "" : "/") + name;
+      context = context.replaceAll("/", "#"); // slash to hash
+      return context + (context.endsWith("#") ? "" : "#") + name;
     }
   }
 
