@@ -32,7 +32,19 @@ public class EntityServiceImpl implements EntityService {
       throw new IllegalArgumentException("The recordId '" + recordId + "' cannot be parsed against the primary key");
     }
 
-    final Object record = dao.findByPrimaryKey(primaryKeyMap, credential.getOperatorId());
+    final Object record;
+    final List<?> records = dao.findByPrimaryKey(primaryKeyMap, credential.getOperatorId());
+
+    // validate records
+    if (records == null || records.size() == 0) {
+      record = null;
+    } else {
+      if (records.size() > 1) {
+        throw new IllegalStateException("Expected a list of size at most 1, actual size: " + records.size());
+      } else {
+        record = records.iterator().next();
+      }
+    }
 
     // check find result is of size 1
     if (record == null) {
