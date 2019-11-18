@@ -1,5 +1,6 @@
 package com.technology.jep.jepria.server.util;
 
+import static com.technology.jep.jepria.server.JepRiaServerConstant.DEFAULT_ENCODING;
 import static com.technology.jep.jepria.server.JepRiaServerConstant.HTTP_REQUEST_PARAMETER_LANG;
 import static com.technology.jep.jepria.server.JepRiaServerConstant.LOCALE_KEY;
 import static com.technology.jep.jepria.shared.JepRiaConstant.DEFAULT_DATE_FORMAT;
@@ -7,12 +8,15 @@ import static com.technology.jep.jepria.shared.JepRiaConstant.HTTP_REQUEST_PARAM
 import static com.technology.jep.jepria.shared.JepRiaConstant.LOCAL_LANG;
 
 import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.URL;
 import java.sql.Clob;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Scanner;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -392,6 +396,39 @@ reader.read();
    */
   public static boolean isMobile(HttpServletRequest request) {
     return JepRiaUtil.isMobile(request.getHeader(USER_AGENT_HEADER));
+  }
+  
+  /**
+   * Возвращает содержимое по заданному Url.
+   * 
+   * @param url адрес запроса
+   * @return содержимое по заданному Url
+   */
+  public static String getContent(String url) {
+    String content = "";
+    
+    try {
+      Scanner sc = new Scanner(new InputStreamReader(new URL(url).openStream(), DEFAULT_ENCODING));
+      sc.useDelimiter("\\Z");
+      if(sc.hasNext()) {
+        content = sc.next();
+      }
+      sc.close();
+    } catch (Throwable e) {
+      e.printStackTrace();
+    }
+    
+    return content;
+  }
+  
+  /**
+   * Возвращает строку вида <протокол>://<сервер>:<порт>.
+   * 
+   * @param request запрос
+   * @return строка вида <протокол>://<сервер>:<порт>
+   */
+  public static String getServerUrl(HttpServletRequest request) {
+    return request.getRequestURL().substring(0, request.getRequestURL().indexOf(request.getContextPath()));
   }
   
 }
