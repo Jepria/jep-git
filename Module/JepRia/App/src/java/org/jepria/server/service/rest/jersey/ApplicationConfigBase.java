@@ -2,6 +2,7 @@ package org.jepria.server.service.rest.jersey;
 
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature;
+import org.jepria.server.service.rest.MetaInfoResource;
 import org.jepria.server.service.rest.XCacheControlFilter;
 import org.jepria.server.service.rest.gson.JsonBindingProvider;
 import org.jepria.server.service.security.HttpBasicDynamicFeature;
@@ -41,6 +42,7 @@ public class ApplicationConfigBase extends ResourceConfig {
     // registerExceptionMapper(Throwable.class, new ExceptionMapperDefault());
 
 
+    registerMetaInfoResource();
   }
 
   /**
@@ -155,6 +157,10 @@ public class ApplicationConfigBase extends ResourceConfig {
     } else {
       return null;
     }
+  }
+
+  protected void registerMetaInfoResource() {
+    register(MetaInfoResource.class);
   }
 
 }

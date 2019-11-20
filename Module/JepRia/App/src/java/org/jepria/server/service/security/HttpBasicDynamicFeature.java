@@ -3,6 +3,7 @@ package org.jepria.server.service.security;
 import com.technology.jep.jepcommon.security.pkg_Operator;
 import com.technology.jep.jepria.server.db.Db;
 import org.glassfish.jersey.server.model.AnnotatedMethod;
+import org.jepria.server.service.rest.MetaInfoResource;
 
 import javax.annotation.Priority;
 import javax.servlet.http.HttpServletRequest;
@@ -46,11 +47,21 @@ public class HttpBasicDynamicFeature implements DynamicFeature {
     } else if (methodAnnotation != null) {
       context.register(new HttpBasicContainerRequestFilter(methodAnnotation.passwordType()));
       return;
+    } else if (MetaInfoResource.class.equals(resourceInfo.getResourceClass())) {
+      // регистрируем фильтр для ресурса MetaInfoResource так, как будто на нём есть аннотация @HttpBasic
+
+      // TODO
+      // создать аннотацию вроде @Protected, которая будет работать аналогично аннотации @HttpBasic, с той лишь разницей, что
+      // @Protected не зависит от метода аутентификации (HttpBasic, OAuth и т.д.).
+      // @Protected просто говорит о том, что ресурс защищён (неважно каким образом).
+      // Далее ресурс MetaInfoResource можно пометить такой аннотацией и убрать его регистрацию отсюда
+
+      context.register(new HttpBasicContainerRequestFilter(PASSWORD));
     }
   }
 
   @Priority(Priorities.AUTHENTICATION)
-  final class HttpBasicContainerRequestFilter  implements ContainerRequestFilter {
+  public final class HttpBasicContainerRequestFilter  implements ContainerRequestFilter {
 
     @Context
     HttpServletRequest request;
