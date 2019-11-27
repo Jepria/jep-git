@@ -90,7 +90,12 @@ public class TransactionFactory {
            */
           caught = exc.getCause();
         }
+
         endTransactionHandlerClass.newInstance().handle(caught);
+
+        if (caught != null) {
+          throw caught;
+        }
       }
       return result;
     }

@@ -1,9 +1,8 @@
 package com.technology.jep.jepria.server.dao.transaction.handler;
 
-import java.sql.SQLException;
-
 import com.technology.jep.jepria.server.dao.CallContext;
-import com.technology.jep.jepria.shared.exceptions.ApplicationException;
+
+import java.sql.SQLException;
 
 /**
  * Стандартная реализация обработчика завершения транзакции.<br/>
@@ -24,10 +23,9 @@ public class EndTransactionHandlerImpl implements EndTransactionHandler {
    *   commit либо rollback, выбрасывается последнее возникшее исключение.</li>
    * </ul>
    * @param caught перехваченное исключение
-   * @throws ApplicationException последнее выброшенное исключение
    */
   @Override
-  public void handle(Throwable caught) throws ApplicationException {
+  public void handle(Throwable caught) {
     try {
       if (caught == null) {
         CallContext.commit();
@@ -41,9 +39,6 @@ public class EndTransactionHandlerImpl implements EndTransactionHandler {
     }
     finally {
       CallContext.end();
-    }
-    if (caught != null) {
-      throw new ApplicationException(caught.getMessage(), caught);
     }
   }
 

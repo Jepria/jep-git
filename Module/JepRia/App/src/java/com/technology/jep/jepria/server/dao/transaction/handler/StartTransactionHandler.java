@@ -2,7 +2,6 @@ package com.technology.jep.jepria.server.dao.transaction.handler;
 
 import com.technology.jep.jepria.server.dao.CallContext;
 import com.technology.jep.jepria.server.db.Db;
-import com.technology.jep.jepria.shared.exceptions.ApplicationException;
 
 /**
  * Интерфейс обработчика начала транзакции.
@@ -14,7 +13,6 @@ public interface StartTransactionHandler {
    * чтобы в <code>ThreadLocal</code> был размещён объект {@link Db}.
    * @param dataSourceJndiName JNDI-имя источника данных
    * @param moduleName имя модуля для передачи в DB.
-   * @throws ApplicationException в случае ошибки
    */
-  Db handle(String dataSourceJndiName, String moduleName) throws ApplicationException;
+  Db handle(String dataSourceJndiName, String moduleName);
 }
