@@ -41,18 +41,20 @@ public class AutoLogonServlet extends HttpServlet {
         login = request.getParameter("username"),
           password = request.getParameter("password");
     // all parameters are mandatory
-    if (isEmpty(initURL) || isEmpty(login) || isEmpty(password)){
+    if (isEmpty(login) || isEmpty(password)){
       resp.setStatus(SC_BAD_REQUEST);
       return;
     }  
     
     // security constraint for requested resource (only within this server)
     String serverURL = getServerUrl(request);
-    try {
-      URL url = new URL(initURL);
-      initURL = serverURL + url.getFile();
-    } catch (MalformedURLException e) {
-      initURL = serverURL + (initURL.startsWith("/") ? "" : "/") + initURL;
+    if (initURL != null) {
+      try {
+        URL url = new URL(initURL);
+        initURL = serverURL + url.getFile();
+      } catch (MalformedURLException e) {
+        initURL = serverURL + (initURL.startsWith("/") ? "" : "/") + initURL;
+      }
     }
     
     // if the user was authorized, execute logout before login procedure
@@ -69,7 +71,12 @@ public class AutoLogonServlet extends HttpServlet {
         return;
       }
     }
-    resp.sendRedirect(resp.encodeRedirectURL(initURL));
+
+    if (initURL != null) {
+      resp.sendRedirect(resp.encodeRedirectURL(initURL));
+    } else {
+      resp.setStatus(200);
+    }
   }
   
   /**
