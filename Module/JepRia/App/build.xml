@@ -38,7 +38,7 @@
   	
   	<pathelement location="${SSO-UTILS_LIB}" />
 
-    <pathelement location="${JWT_LIB}" />
+    <pathelement location="${OAUTH_SDK}" />
     <pathelement location="${ASM}" />
     <pathelement location="${NIMBUS_JOSE_JWT}" />
     <pathelement location="${JSON_SMART}" />
