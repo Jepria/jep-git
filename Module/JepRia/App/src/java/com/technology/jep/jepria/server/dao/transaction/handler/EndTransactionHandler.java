@@ -22,7 +22,6 @@ public interface EndTransactionHandler {
    *   commit либо rollback, следует выбросить последнее возникшее исключение.</li>
    * </ul>
    * @param caught перехваченное исключение
-   * @throws Exception последнее выброшенное исключение
    */
-  void handle(Throwable caught) throws Exception;
+  void handle(Throwable caught);
 }

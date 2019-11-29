@@ -9,7 +9,9 @@ import static com.technology.jep.jepria.shared.JepRiaConstant.LOCAL_LANG;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.sql.Clob;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
@@ -421,6 +423,27 @@ reader.read();
    */
   public static String getServerUrl(HttpServletRequest request) {
     return request.getRequestURL().substring(0, request.getRequestURL().indexOf(request.getContextPath()));
+  }
+  
+  /**
+   * Возвращает исходную строку закодированную методом URLEncoder.encode(source, "UTF-8") 
+   * без необходимости обрабатывать исключение, которое практически возникнуть не может 
+   * - кодировка UTF-8 существует/стандарт.
+   * 
+   * @param source исходная строка
+   * @return закодированная методом URLEncoder.encode(source, "UTF-8") строка
+   */
+  public static String encode(String source) {
+    String result = null;
+    
+    try {
+      result = URLEncoder.encode(source, DEFAULT_ENCODING);
+    // Данное исключение практически возникнуть не может - кодировка UTF-8 существует/стандарт.
+    } catch(UnsupportedEncodingException e) {
+      e.printStackTrace();
+    }
+    
+    return result;
   }
   
 }

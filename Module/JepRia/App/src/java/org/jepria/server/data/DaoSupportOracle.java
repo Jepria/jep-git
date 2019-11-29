@@ -12,76 +12,105 @@ import com.technology.jep.jepria.server.upload.clob.TextFileUploadImpl;
 import com.technology.jep.jepria.shared.exceptions.ApplicationException;
 
 import java.io.*;
+import java.sql.SQLException;
 import java.util.List;
 
 public class DaoSupportOracle implements DaoSupport {
   @Override
   public <T> T create(String query, Class<? super T> resultTypeClass, Object... params) {
-    // TODO stub implementation
+    // TODO this is backward compat, independent implementation required
     try {
       return com.technology.jep.jepria.server.dao.DaoSupport.create(query, resultTypeClass, params);
     } catch (ApplicationException e) {
-      throw new RuntimeException(e);
+      if (e.getCause() instanceof SQLException) {
+        throw new RuntimeSQLException((SQLException) e.getCause());
+      } else {
+        throw new RuntimeException(e);
+      }
     }
   }
 
   @Override
   public void execute(String query, Object... params) {
-    // TODO stub implementation
+    // TODO this is backward compat, independent implementation required
     try {
       com.technology.jep.jepria.server.dao.DaoSupport.execute(query, params);
     } catch (ApplicationException e) {
-      throw new RuntimeException(e);
+      if (e.getCause() instanceof SQLException) {
+        throw new RuntimeSQLException((SQLException) e.getCause());
+      } else {
+        throw new RuntimeException(e);
+      }
     }
   }
 
   @Override
   public <T> List<T> find(String query, ResultSetMapper<? super T> mapper, Class<? super T> dtoClass, Object... params) {
-    // TODO stub implementation
+    // TODO this is backward compat, independent implementation required
     try {
       return com.technology.jep.jepria.server.dao.DaoSupport.find(query, mapper, dtoClass, params);
     } catch (ApplicationException e) {
-      throw new RuntimeException(e);
+      if (e.getCause() instanceof SQLException) {
+        throw new RuntimeSQLException((SQLException) e.getCause());
+      } else {
+        throw new RuntimeException(e);
+      }
     }
   }
 
   @Override
   public <T> T executeAndReturn(String query, Class<? super T> resultTypeClass, Object... params) {
-    // TODO stub implementation
+    // TODO this is backward compat, independent implementation required
     try {
       return com.technology.jep.jepria.server.dao.DaoSupport.executeAndReturn(query, resultTypeClass, params);
     } catch (ApplicationException e) {
-      throw new RuntimeException(e);
+      if (e.getCause() instanceof SQLException) {
+        throw new RuntimeSQLException((SQLException) e.getCause());
+      } else {
+        throw new RuntimeException(e);
+      }
     }
   }
 
   @Override
   public <T> List<T> select(String query, ResultSetMapper<? super T> mapper, Class<? super T> dtoClass, Object... params) {
-    // TODO stub implementation
+    // TODO this is backward compat, independent implementation required
     try {
       return com.technology.jep.jepria.server.dao.DaoSupport.select(query, mapper, dtoClass, params);
     } catch (ApplicationException e) {
-      throw new RuntimeException(e);
+      if (e.getCause() instanceof SQLException) {
+        throw new RuntimeSQLException((SQLException) e.getCause());
+      } else {
+        throw new RuntimeException(e);
+      }
     }
   }
 
   @Override
   public void update(String query, Object... params) {
-    // TODO stub implementation
+    // TODO this is backward compat, independent implementation required
     try {
       com.technology.jep.jepria.server.dao.DaoSupport.update(query, params);
     } catch (ApplicationException e) {
-      throw new RuntimeException(e);
+      if (e.getCause() instanceof SQLException) {
+        throw new RuntimeSQLException((SQLException) e.getCause());
+      } else {
+        throw new RuntimeException(e);
+      }
     }
   }
 
   @Override
   public void delete(String query, Object... params) {
-    // TODO stub implementation
+    // TODO this is backward compat, independent implementation required
     try {
       com.technology.jep.jepria.server.dao.DaoSupport.delete(query, params);
     } catch (ApplicationException e) {
-      throw new RuntimeException(e);
+      if (e.getCause() instanceof SQLException) {
+        throw new RuntimeSQLException((SQLException) e.getCause());
+      } else {
+        throw new RuntimeException(e);
+      }
     }
   }
 
