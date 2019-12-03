@@ -2,6 +2,9 @@ package com.technology.jep.jepria.client.exception;
 
 import static com.technology.jep.jepria.client.JepRiaClientConstant.JepTexts;
 
+import com.google.gwt.http.client.Response;
+import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.rpc.StatusCodeException;
 import org.jepria.ssoutils.SsoUiConstants;
 
 import com.allen_sauer.gwt.log.client.Log;
@@ -30,7 +33,9 @@ public class ExceptionManagerImpl implements ExceptionManager {
       Log.error("ExceptionManager(" + th + "," + message + "): 12152 StatusCodeException cause = " + th);
     } else if (isJavaSsoTimeout(th) || isSsoTimeout(th)) {
        // logout на серверной стороне уже выполнен силами javasso, "закрепляем" состояние logout со стороны клиента
-      Entrance.logout(); 
+      Entrance.logout();
+    } else if (hasTokenExpiredException(th)) {
+      Window.Location.reload();
     } else if (is0StatusCodeException(th)) {
       Log.error(message, th);
       ErrorDialog errorDialog = new ErrorDialog(JepTexts.errors_dialog_title(), th, JepTexts.errors_client_statusCode0());
@@ -39,6 +44,15 @@ public class ExceptionManagerImpl implements ExceptionManager {
       Log.error(message, th);
       JepMessageBoxImpl.instance.showError(th, message);
     }
+  }
+
+  /**
+   * Проверка на ошибку истечения срока действия OAuth токена
+   * @param th Исключение
+   * @return
+   */
+  private boolean hasTokenExpiredException(Throwable th) {
+    return th.getMessage().contains("<meta name=\"login\" content=\"login\">");
   }
 
   /**
@@ -65,14 +79,14 @@ public class ExceptionManagerImpl implements ExceptionManager {
     String message = caught.getMessage();
     return message != null && message.contains("JavaSSO");  // TODO Сделать строже
   }
-  
+
   /**
    * Метод проверяет, не похож ли текст ошибки на Sso-ошибку логина,
    * получаемую при устаревании сессии (только для Tomcat)
    */
   private static boolean isSsoTimeout(Throwable caught) {
     String message = caught.getMessage();
-    return caught instanceof InvocationException 
-        && message != null && message.contains("id=\"" + SsoUiConstants.LOGIN_FORM_HTML_ID + "\"");  // TODO Сделать строже
+    return caught instanceof InvocationException
+      && message != null && message.contains("id=\"" + SsoUiConstants.LOGIN_FORM_HTML_ID + "\"");  // TODO Сделать строже
   }
 }

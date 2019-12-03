@@ -3,6 +3,7 @@ package com.technology.jep.jepria.server.security.module;
 import com.technology.jep.jepcommon.security.pkg_Operator;
 import org.apache.log4j.Logger;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -59,24 +60,10 @@ public class JepSecurityModuleImpl extends JepAbstractSecurityModule {
   @Override
   public String logout(HttpServletRequest request, HttpServletResponse response, String currentUrl) throws Exception {
     logger.info(this.getClass() + ".logout(request, response, " + currentUrl + ")");
-        request.getSession().invalidate();
-        request.logout();
-        return currentUrl;
-  }
-
-// TODO Заменит текущую реализацию при переходе на JWT
-/*  @Override
-  public String logout(HttpServletRequest request, HttpServletResponse response, String currentUrl) throws Exception {
-    Cookie[] cookies = request.getCookies();
-    for (Cookie cookie: cookies) {
-      if (cookie.getName().equalsIgnoreCase(RFI_OAUTH_TOKEN)) {
-        cookie.setMaxAge(0);
-        response.addCookie(cookie);
-      }
-    }
     request.getSession().invalidate();
+    request.logout();
     return currentUrl;
-  }*/
+  }
   
   /**
    * {@inheritDoc}

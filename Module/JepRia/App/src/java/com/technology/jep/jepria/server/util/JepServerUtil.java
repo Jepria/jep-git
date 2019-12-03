@@ -280,15 +280,7 @@ public class JepServerUtil {
   public static String detectMimeType(String fileExtension) {
     return fileExtension != null ? fileExtensionMimeTypeMap.get(fileExtension.toLowerCase()) : null;
   }
-  
-  public static String getServerUrl(HttpServletRequest request) {
-    return request.getScheme().toLowerCase()
-        + "://"
-        + request.getServerName()
-        + ":"
-        + request.getServerPort();
-  }
-    
+
   /**
    * Возвращает имя приложения.
    * Достигается путем вызова {@link ServletContext#getContextPath()}.
