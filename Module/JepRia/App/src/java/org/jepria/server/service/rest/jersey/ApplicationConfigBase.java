@@ -4,6 +4,7 @@ import org.glassfish.hk2.api.InterceptionService;
 import org.glassfish.jersey.internal.inject.AbstractBinder;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature;
+import org.jepria.server.data.RuntimeSQLException;
 import org.jepria.server.service.rest.MetaInfoResource;
 import org.jepria.server.service.rest.XCacheControlFilter;
 import org.jepria.server.service.rest.gson.JsonBindingProvider;
@@ -18,6 +19,8 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
 import java.lang.reflect.UndeclaredThrowableException;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class ApplicationConfigBase extends ResourceConfig {
 
@@ -43,6 +46,8 @@ public class ApplicationConfigBase extends ResourceConfig {
 
     // Note: unchecked-исключения могут быть обёрнуты в java.lang.reflect.UndeclaredThrowableException, и таким образом не отлавливаться целевыми обработчиками.
     registerExceptionMapper(UndeclaredThrowableException.class, new ExceptionMapperUndeclaredThrowable());
+
+    registerExceptionMapper(RuntimeSQLException.class, new ExceptionMapperRuntimeSQL());
 
     // Подключение отладочного обработчика исключений (только для отладки! Иначе штатные исключения вроде jaxaw.ws.rs.NotFoundException не будут корректно обрабатываться на уровне Jersey)
     // registerExceptionMapper(Throwable.class, new ExceptionMapperDefault());
@@ -86,6 +91,29 @@ public class ApplicationConfigBase extends ResourceConfig {
         // use default (lowest-level) mapper
         return new ExceptionMapperDefault().toResponse(cause);
       }
+    }
+  }
+
+  public static class ExceptionMapperRuntimeSQL implements ExceptionMapper<RuntimeSQLException> {
+    @Override
+    public Response toResponse(RuntimeSQLException e) {
+      // error codes ORA-20150 and greater are custom
+      e.printStackTrace();
+
+      final String topLevelMessage;
+      { // extract top-level message only from the SQLException message // TODO refine or refactor
+        String message = e.getSQLException().getMessage();
+        Matcher m = Pattern.compile("ORA-\\d+:\\s+(.+?)(\\R.*)?", Pattern.DOTALL).matcher(message);
+        if (m.matches()) {
+          topLevelMessage = m.group(1);
+        } else {
+          topLevelMessage = message;
+        }
+      }
+
+      Map<String, String> responseMap = new HashMap<>();
+      responseMap.put("SQLException", topLevelMessage);
+      return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(responseMap).build();
     }
   }
 
