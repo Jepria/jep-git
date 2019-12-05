@@ -1,12 +1,18 @@
 package org.jepria.server.service.rest.jersey;
 
+import org.glassfish.hk2.api.InterceptionService;
+import org.glassfish.jersey.internal.inject.AbstractBinder;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature;
 import org.jepria.server.service.rest.MetaInfoResource;
 import org.jepria.server.service.rest.XCacheControlFilter;
 import org.jepria.server.service.rest.gson.JsonBindingProvider;
+import org.jepria.server.service.rest.jersey.validate.ExceptionMapperValidation;
+import org.jepria.server.service.rest.jersey.validate.ValidationException;
+import org.jepria.server.service.rest.jersey.validate.ValidationInterceptionService;
 import org.jepria.server.service.security.HttpBasicDynamicFeature;
 
+import javax.inject.Singleton;
 import javax.json.bind.JsonbException;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
@@ -43,6 +49,8 @@ public class ApplicationConfigBase extends ResourceConfig {
 
 
     registerMetaInfoResource();
+
+    registerValidation();
   }
 
   /**
@@ -163,4 +171,16 @@ public class ApplicationConfigBase extends ResourceConfig {
     register(MetaInfoResource.class);
   }
 
+  protected void registerValidation() {
+    register(new AbstractBinder() {
+      @Override
+      protected void configure() {
+        bind(ValidationInterceptionService.class)
+                .to(InterceptionService.class)
+                .in(Singleton.class);
+      }
+    });
+
+    registerExceptionMapper(ValidationException.class, new ExceptionMapperValidation());
+  }
 }

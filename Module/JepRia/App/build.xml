@@ -51,9 +51,12 @@
     <!-- JsonBindingProvider feature dependencies, for org.jepria.server.service.rest.gson.JsonBindingProvider -->
     <pathelement location="${JERSEY-JAKARTA-JSON-BIND-API_LIB}" />
     <pathelement location="${GSON_LIB}" />
-    <!-- Jersey/HK2 dependencies, for org.jepria.server.service.rest.jersey.JepSecurityContextFactory -->
+    <!-- Jersey/HK2 dependencies, for org.jepria.server.service.rest.jersey.JepSecurityContextFactory, org.jepria.server.service.rest.jersey.validate.ValidationInterceptionService -->
     <pathelement location="${JERSEY-HK2-API_LIB}" />
-    <!-- -->
+    <!-- Javax validation -->
+    <pathelement location="${JERSEY-AOPALLIANCE-REPACKAGED_LIB}" />
+    <pathelement location="${JERSEY-JAKARTA-INJECT_LIB}" />
+    <pathelement location="${JERSEY-VALIDATION-API_LIB}" />
 
   </path>
 	

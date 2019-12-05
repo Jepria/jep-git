@@ -437,7 +437,7 @@ reader.read();
     String result = null;
     
     try {
-      result = URLEncoder.encode(source, DEFAULT_ENCODING);
+      result = URLEncoder.encode(source, "UTF-8");
     // Данное исключение практически возникнуть не может - кодировка UTF-8 существует/стандарт.
     } catch(UnsupportedEncodingException e) {
       e.printStackTrace();
