@@ -103,28 +103,6 @@ under the License.
     </proxy>
     -->
 
-	<!--proxies>
-		<proxy>
-		  <active>true</active>
-		  <protocol>http</protocol>
-		  <host>smsktmg.rusfinance.ru</host>
-		  <port>8080</port>
-		  <nonProxyHosts>local.net|some.host.com</nonProxyHosts>
-		</proxy>
-	</proxies-->
-
-	
-    <!--proxy>
-      <id>optional</id>
-      <active>true</active>
-      <protocol>http</protocol>
-      <username>BadosovNG</username>
-      <password></password>
-      <host>smsktmg.rusfinance.ru</host>
-      <port>8080</port>
-      <nonProxyHosts>local.net|some.host.com</nonProxyHosts>
-    </proxy-->
-
   </proxies>
 
   <!-- servers
@@ -180,17 +158,11 @@ under the License.
     </mirror>
      -->
 
-	<!--mirror>
-      <id>nexus</id>
+    <!--mirror>
+      <id><произвольный уникальный идентификатор зеркала></id>
       <mirrorOf>central</mirrorOf>
-      <url>http://10.190.13.78:8081/nexus/content/repositories/maven-proxy/</url>
-    </mirror-->            
-
-    <mirror>
-      <id>rusfinance</id>
-      <mirrorOf>central</mirrorOf>
-      <url>http://vmskappint2:8081/repository/maven-central/</url>
-    </mirror>
+      <url><путь до корпоративного репозитория Nexus></url>
+    </mirror-->
 	
   </mirrors>
 
