@@ -4,25 +4,29 @@ import org.glassfish.hk2.api.InterceptionService;
 import org.glassfish.jersey.internal.inject.AbstractBinder;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature;
-import org.jepria.server.data.RuntimeSQLException;
+import org.glassfish.jersey.spi.ExceptionMappers;
+import org.jepria.server.service.rest.ErrorDto;
 import org.jepria.server.service.rest.MetaInfoResource;
 import org.jepria.server.service.rest.XCacheControlFilter;
 import org.jepria.server.service.rest.gson.JsonBindingProvider;
 import org.jepria.server.service.rest.jersey.validate.ExceptionMapperValidation;
-import org.jepria.server.service.rest.jersey.validate.ValidationException;
 import org.jepria.server.service.rest.jersey.validate.ValidationInterceptionService;
 import org.jepria.server.service.security.HttpBasicDynamicFeature;
 
+import javax.inject.Inject;
+import javax.inject.Provider;
 import javax.inject.Singleton;
 import javax.json.bind.JsonbException;
+import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
 import java.lang.reflect.UndeclaredThrowableException;
-import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class ApplicationConfigBase extends ResourceConfig {
+
+  @Inject
+  // for finding proper ExceptionMappers at runtime
+  private Provider<ExceptionMappers> mappers;
 
   public ApplicationConfigBase() {
 
@@ -42,16 +46,13 @@ public class ApplicationConfigBase extends ResourceConfig {
 
     // register exception mappers
 
-    registerExceptionMapper(JsonbException.class, new ExceptionMapperJsonb());
+    register(new ExceptionMapperJsonb());
 
     // Note: unchecked-исключения могут быть обёрнуты в java.lang.reflect.UndeclaredThrowableException, и таким образом не отлавливаться целевыми обработчиками.
-    registerExceptionMapper(UndeclaredThrowableException.class, new ExceptionMapperUndeclaredThrowable());
+    register(new ExceptionMapperUndeclaredThrowable());
 
-    registerExceptionMapper(RuntimeSQLException.class, new ExceptionMapperRuntimeSQL());
-
-    // Подключение отладочного обработчика исключений (только для отладки! Иначе штатные исключения вроде jaxaw.ws.rs.NotFoundException не будут корректно обрабатываться на уровне Jersey)
-    // registerExceptionMapper(Throwable.class, new ExceptionMapperDefault());
-
+    // Подключение обработчика исключений для всех прочих исключений
+    register(new ExceptionMapperDefault());
 
     registerMetaInfoResource();
 
@@ -78,120 +79,27 @@ public class ApplicationConfigBase extends ResourceConfig {
     @Override
     public Response toResponse(UndeclaredThrowableException e) {
       Throwable cause = e.getCause();
-
       // delegate exception handling to the proper ExceptionMapper
-      ExceptionMapper mapper = getRegisteredExceptionMapper(cause.getClass());
-      if (mapper != null) {
-        // use registered mapper
-        return mapper.toResponse(cause);
-
-      } else {
-        // Do not rethrow exception from here (it will be swallowed by the container)
-
-        // use default (lowest-level) mapper
-        return new ExceptionMapperDefault().toResponse(cause);
-      }
-    }
-  }
-
-  public static class ExceptionMapperRuntimeSQL implements ExceptionMapper<RuntimeSQLException> {
-    @Override
-    public Response toResponse(RuntimeSQLException e) {
-      // error codes ORA-20150 and greater are custom
-      e.printStackTrace();
-
-      final String topLevelMessage;
-      { // extract top-level message only from the SQLException message // TODO refine or refactor
-        String message = e.getSQLException().getMessage();
-        Matcher m = Pattern.compile("ORA-\\d+:\\s+(.+?)(\\R.*)?", Pattern.DOTALL).matcher(message);
-        if (m.matches()) {
-          topLevelMessage = m.group(1);
-        } else {
-          topLevelMessage = message;
-        }
-      }
-
-      Map<String, String> responseMap = new HashMap<>();
-      responseMap.put("SQLException", topLevelMessage);
-      return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(responseMap).build();
+      return mappers.get().findMapping(cause).toResponse(cause);
     }
   }
 
   /**
-   * Lowest-level ExceptionMapper that simply logs exceptions which can potentially be swallowed. Used for debugging purposes
+   * Lowest-level ExceptionMapper that handles all other exceptions
    */
   public static class ExceptionMapperDefault implements ExceptionMapper<Throwable> {
     @Override
     public Response toResponse(Throwable e) {
 
-      // TODO this printing results INFO log level in Tomcat logs. Make the Level ERROR
-      System.err.println(new Date() + ": Exception handled by " + ExceptionMapperDefault.class.getCanonicalName() + ":");
-      e.printStackTrace();
+      if (e instanceof WebApplicationException) {
+        WebApplicationException wae = (WebApplicationException) e;
+        return wae.getResponse();
 
-      return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
-    }
-  }
+      } else {
+        ErrorDto errorDto = ExceptionManager.newInstance().registerExceptionAndPrepareErrorDto(e);
+        return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(errorDto).build();
 
-
-
-  //------------ ExceptionMapper registration ------------//
-
-  // Механизм локальной регистрации ExceptionMapperов нужен для того, чтобы иметь возможность по возникшему в программе исключению (точнее, по его классу),
-  // получить ExceptionMapper, который был зарегистрирован для него (или для предка этого исключения) при инициализации программы.
-  // TODO похоже, что в Jersey нет стандартного механизма getRegisteredExceptionMapper(Class<E> exceptionClass). В случае, если он будет обнаружен, удалить данную реализацию
-  // Механизм требует регистрации ExceptionMapperов не стандартным методом register, а специальным методом registerExceptionMapper, который помимо собственно вызова register,
-  // сохраняет зарегистрированный ExceptionMapper в связке с типом исключения, для которого он регистрируется.
-
-  /**
-   * Internal storage of the registered ExceptionMappers
-   */
-  // TODO this Map must use type Class<? extends Throwable> as key (not String), but it seems to cause memory leaks (see link below). So use canonical classnames of the exception classes instead.
-  // see https://stackoverflow.com/questions/2625546/is-using-the-class-instance-as-a-map-key-a-best-practice
-  protected final Map<String, ExceptionMapper<?>> exceptionMappersRegistered = new HashMap<>();
-
-  /**
-   * Метод регистрирует {@link ExceptionMapper} не только штатно (собственно вызовом {@link #register(Object)}),
-   * но также в связке с типом исключения, для которого он регистрируется.
-   * Это необходимо для того, чтобы иметь возможность по возникшему в программе исключению (точнее, по его классу),
-   * получить {@link ExceptionMapper}, который был зарегистрирован для него (или для предка этого исключения) при инициализации программы.
-   * @param exceptionClass
-   * @param mapper
-   * @param <E>
-   */
-  protected <E extends Throwable> void registerExceptionMapper(Class<E> exceptionClass, ExceptionMapper<E> mapper) {
-    register(mapper);
-    exceptionMappersRegistered.put(exceptionClass.getCanonicalName(), mapper);
-  }
-
-  /**
-   * Looks up the closest superclass of the exception and returns the ExceptionMapper registered for it (if any)
-   * @param exceptionClass
-   * @param <E>
-   * @return
-   */
-  protected <E extends Throwable> ExceptionMapper<? super E> getRegisteredExceptionMapper(Class<E> exceptionClass) {
-
-    List<String> hierarchy = new ArrayList<>();
-    Class<?> hierarchyElement = exceptionClass;
-    while (hierarchyElement != null) {
-      hierarchy.add(hierarchyElement.getCanonicalName());
-      hierarchyElement = hierarchyElement.getSuperclass();
-    }
-
-    int minDegree = -1;
-    ExceptionMapper<?> closestMapper = null;
-    for (String exceptionClassName: exceptionMappersRegistered.keySet()) {
-      int degree = hierarchy.indexOf((String)exceptionClassName);
-      if (degree != -1 && (minDegree == -1 || degree < minDegree)) {
-        minDegree = degree;
-        closestMapper = exceptionMappersRegistered.get((String)exceptionClassName);
       }
-    }
-
-    if (minDegree != -1 && closestMapper != null) {
-      return (ExceptionMapper<? super E>)closestMapper;
-    } else {
-      return null;
     }
   }
 
@@ -209,6 +117,6 @@ public class ApplicationConfigBase extends ResourceConfig {
       }
     });
 
-    registerExceptionMapper(ValidationException.class, new ExceptionMapperValidation());
+    register(new ExceptionMapperValidation());
   }
 }
