@@ -21,8 +21,12 @@ public class ValidationMethodInterceptor implements MethodInterceptor {
     Set<ConstraintViolation<?>> violations = new HashSet<>();
 
     for (Object argument : methodInvocation.getArguments()) {
-      Set<ConstraintViolation<Object>> violationsForArgument = validator.validate(argument);
-      violations.addAll(violationsForArgument);
+      if (argument != null) {
+        Set<ConstraintViolation<Object>> violationsForArgument = validator.validate(argument);
+        violations.addAll(violationsForArgument);
+      } else {
+        // NO-OP: the validated object must not be null by contract
+      }
     }
 
     if (violations.isEmpty()) {
