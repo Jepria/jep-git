@@ -18,7 +18,7 @@ public class ExceptionMapperValidation implements ExceptionMapper<ValidationExce
 
       for (ConstraintViolation<?> violation: violations) {
         ConstraintViolationDto violationDto = new ConstraintViolationDto();
-        violationDto.setPropertyPath(violation.getPropertyPath().toString());
+        violationDto.setPropertyPath(String.valueOf(violation.getPropertyPath()));
         violationDto.setViolationDescription(violation.getMessage());
         violationsDto.add(violationDto);
       }
