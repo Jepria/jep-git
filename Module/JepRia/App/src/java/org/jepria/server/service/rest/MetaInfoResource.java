@@ -29,7 +29,7 @@ public class MetaInfoResource extends JaxrsAdapterBase {
     Map<String, Object> responseBodyMap = new LinkedHashMap<>();
 
     if (roles != null) {
-      String[] tokens = roles.split("\\s*[,;]\\s*");
+      String[] tokens = roles.split("[~,;]"); // support '~' because it is a delimiter for a composite primary key. TODO support also both ,; delimiters?
       for (String role: tokens) {
         if (!"".equals(role)) {
           responseBodyMap.put(role, securityContext.isUserInRole(role) ? 1 : 0);

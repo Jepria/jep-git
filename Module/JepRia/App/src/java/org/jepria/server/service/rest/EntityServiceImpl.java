@@ -29,7 +29,7 @@ public class EntityServiceImpl implements EntityService {
     try {
       primaryKeyMap = getRecordIdParser().parse(recordId);
     } catch (IncompletePrimaryKeyException e) {
-      throw new IllegalArgumentException("The recordId '" + recordId + "' cannot be parsed against the primary key");
+      throw new IllegalArgumentException("The recordId [" + recordId + "] cannot be parsed against the primary key: incomplete");
     }
 
     final Object record;
@@ -85,16 +85,16 @@ public class EntityServiceImpl implements EntityService {
           ret.put(fieldName, fieldValue);
 
         } else if (primaryKey.size() > 1) {
-          // composite primary key: "key1=value1,key2=value2"
+          // composite primary key: "key1=value1.key2=value2" or "key1=value1~key2=value2"
 
           Map<String, String> recordIdFieldMap = new HashMap<>();
 
-          String[] recordIdParts = recordId.split("\\s*[,;]\\s*");// TODO split both by , and ; or by one of them only?
+          String[] recordIdParts = recordId.split("~");// '.' and '~' are url-safe, but '~' has lower frequence; ',' and ';' are reserved; space is url-unsafe (see https://www.ietf.org/rfc/rfc3986.txt)
           for (String recordIdPart: recordIdParts) {
             if (recordIdPart != null) {
-              String[] recordIdPartKv = recordIdPart.split("\\s*=\\s*");
+              String[] recordIdPartKv = recordIdPart.split("="); // space is url-
               if (recordIdPartKv.length != 2) {
-                throw new IllegalArgumentException("Could not split '" + recordIdPart + "' as 'key=value'");
+                throw new IllegalArgumentException("Could not split [" + recordIdPart + "] as a key-value pair with [=] delimiter");
               }
               recordIdFieldMap.put(recordIdPartKv[0], recordIdPartKv[1]);
             }
@@ -148,7 +148,7 @@ public class EntityServiceImpl implements EntityService {
     try {
       primaryKeyMap = getRecordIdParser().parse(recordId);
     } catch (IncompletePrimaryKeyException e) {
-      throw new NoSuchElementException("The recordId '" + recordId + "' cannot be parsed against the primary key");
+      throw new NoSuchElementException("The recordId [" + recordId + "] cannot be parsed against the primary key: incomplete");
     }
 
     dao.delete(primaryKeyMap, credential.getOperatorId());
@@ -161,7 +161,7 @@ public class EntityServiceImpl implements EntityService {
     try {
       primaryKeyMap = getRecordIdParser().parse(recordId);
     } catch (IncompletePrimaryKeyException e) {
-      throw new NoSuchElementException("The recordId '" + recordId + "' cannot be parsed against the primary key");
+      throw new NoSuchElementException("The recordId [" + recordId + "] cannot be parsed against the primary key: incomplete");
     }
     
     dao.update(primaryKeyMap, newRecord, credential.getOperatorId());
