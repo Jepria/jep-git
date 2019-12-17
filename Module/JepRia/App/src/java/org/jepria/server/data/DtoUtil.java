@@ -11,7 +11,7 @@ import java.util.Map;
 /**
  * Утилитарные методы для работы с Dto
  */
-public class DtoUtil {
+public final class DtoUtil {
   
   private DtoUtil() {}
 
