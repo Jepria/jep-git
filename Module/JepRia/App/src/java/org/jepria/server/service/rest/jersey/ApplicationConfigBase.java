@@ -51,8 +51,7 @@ public class ApplicationConfigBase extends ResourceConfig {
     // Note: unchecked-исключения могут быть обёрнуты в java.lang.reflect.UndeclaredThrowableException, и таким образом не отлавливаться целевыми обработчиками.
     register(new ExceptionMapperUndeclaredThrowable());
 
-    // Подключение обработчика исключений для всех прочих исключений
-    register(new ExceptionMapperDefault());
+    registerExceptionMapperDefault();
 
     registerMetaInfoResource();
 
@@ -118,5 +117,12 @@ public class ApplicationConfigBase extends ResourceConfig {
     });
 
     register(new ExceptionMapperValidation());
+  }
+
+  /**
+   * Регистрация общего обработчика исключений (обработчик Throwable)
+   */
+  protected void registerExceptionMapperDefault() {
+    register(new ExceptionMapperDefault());
   }
 }
