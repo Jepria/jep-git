@@ -1,5 +1,6 @@
 package org.jepria.server.data;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -8,7 +9,8 @@ import java.util.List;
 public class SearchRequestDto<T> {
   
   public SearchRequestDto() {}
-  
+
+  @Valid
   private T template;
 
   private List<ColumnSortConfigurationDto> listSortConfiguration;

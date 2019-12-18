@@ -207,7 +207,7 @@ public class DirectValidatorImpl implements DirectValidator {
   protected <T> void processAnnotation(Object object, NotNull annotation, Path propertyPath, Set<ConstraintViolation<T>> constraintViolations) {
     if (object == null) {
       ConstraintViolationImpl<T> cv = new ConstraintViolationImpl<>();
-      cv.setMessage(annotation.message());
+      cv.setMessage(annotation.message()); // TODO evaluate message of form {string.resource.reference}
       cv.setPropertyPath(propertyPath);
       constraintViolations.add(cv);
     }
@@ -226,7 +226,16 @@ public class DirectValidatorImpl implements DirectValidator {
   }
 
   protected <T> void processAnnotation(Object object, Pattern annotation, Path propertyPath, Set<ConstraintViolation<T>> constraintViolations) {
-    // TODO not implemented yet
+    if (object instanceof CharSequence) {
+      CharSequence cs = (CharSequence)object;
+      final String regexp = annotation.regexp();
+      if (!cs.toString().matches(regexp)) {
+        ConstraintViolationImpl<T> cv = new ConstraintViolationImpl<>();
+        cv.setMessage(annotation.message()); // TODO evaluate message of form {string.resource.reference}
+        cv.setPropertyPath(propertyPath);
+        constraintViolations.add(cv);
+      }
+    }
   }
 
   protected <T> void processAnnotation(Object object, Positive annotation, Path propertyPath, Set<ConstraintViolation<T>> constraintViolations) {
