@@ -3,6 +3,8 @@ package com.technology.jep.jepria.client.widget.field.masked;
 import static com.technology.jep.jepria.client.JepRiaClientConstant.DEFAULT_DATE_FORMAT_MASK;
 import static com.technology.jep.jepria.client.JepRiaClientConstant.MAIN_FONT_STYLE;
 
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.Date;
 
 import com.google.gwt.core.client.GWT;
