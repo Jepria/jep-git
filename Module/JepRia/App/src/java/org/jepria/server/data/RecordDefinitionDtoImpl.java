@@ -6,11 +6,13 @@ import java.util.*;
 /**
  * RecordDefinition built from a set of DTO classes
  */
+// TODO реализовать аннотацию прикладных Dto-классов вместо явного создания прикладного (? extends RecordDefinitionDtoImpl) с явной передачей параметров-классов
 public class RecordDefinitionDtoImpl implements RecordDefinition {
 
-  // unmodifiable
+  // unmodifiable collection
   protected final Set<String> primaryKey;
-  // unmodifiable
+  // unmodifiable collection
+  // TODO пока что эта коллекция содержит только поля, являющиеся первичными ключами, а должна по идее содержать все поля всех ДТОв. Мешает это сделать то обстоятельство, что потенциально в разных Dto-классах могут встретиться поля с одинаковым именем, но с разными типами.
   protected final Map<String, Class<?>> fieldMap;
 
   /**
@@ -30,17 +32,19 @@ public class RecordDefinitionDtoImpl implements RecordDefinition {
         final String fieldName = field.getName();
         final Class<?> fieldType = field.getType();
 
-        Class<?> fieldTypeExs = fieldMap.get(fieldName);
+        if (field.getAnnotation(PrimaryKey.class) != null) { // TODO после рефакторинга этот блок должен выполняться для всех полей (то есть нужно просто убрать if), см. TODO на поле fieldMap
+          Class<?> fieldTypeExs = fieldMap.get(fieldName);
 
-        if (fieldTypeExs != null) {
-          // the field exists
-          if (!fieldTypeExs.equals(fieldType)) {
-            throw new IllegalStateException("The field " + fieldName + " has multiple conflicting types" +
-                    " (" + fieldTypeExs.getCanonicalName() + " and " + fieldType.getCanonicalName() + ")" +
-                    " among the DTO classes " + Arrays.toString(dtoClasses));
+          if (fieldTypeExs != null) {
+            // the field exists
+            if (!fieldTypeExs.equals(fieldType)) {
+              throw new IllegalStateException("The field " + fieldName + " has multiple conflicting types" +
+                      " (" + fieldTypeExs.getCanonicalName() + " and " + fieldType.getCanonicalName() + ")" +
+                      " among the DTO classes " + Arrays.toString(dtoClasses));
+            }
+          } else {
+            fieldMap.put(fieldName, fieldType);
           }
-        } else {
-          fieldMap.put(fieldName, fieldType);
         }
 
         if (field.getAnnotation(PrimaryKey.class) != null) {
