@@ -564,15 +564,13 @@ public class MaskedDateBox extends Composite implements HasEnabled,
    * вместо {@link com.google.gwt.user.datepicker.client.DateChangeEvent}.
    */
   private void setValue(Date oldDate, Date date, boolean fireEvents, boolean updateText) {
-    if (date != null) {
       if (picker instanceof JepDatePicker) {
         ((JepDatePicker) picker).refresh(date);
       } else {
-        picker.setCurrentMonth(date);
+        picker.setCurrentMonth(date != null ? date : new Date());
         picker.setValue(date, false);
       }
-    }
-    
+
     if (updateText) {
       format.reset(this, false);
       box.setValue(getFormat().format(this, date));
