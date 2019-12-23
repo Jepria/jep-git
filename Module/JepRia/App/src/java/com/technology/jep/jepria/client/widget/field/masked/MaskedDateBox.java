@@ -3,6 +3,8 @@ package com.technology.jep.jepria.client.widget.field.masked;
 import static com.technology.jep.jepria.client.JepRiaClientConstant.DEFAULT_DATE_FORMAT_MASK;
 import static com.technology.jep.jepria.client.JepRiaClientConstant.MAIN_FONT_STYLE;
 
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.Date;
 
 import com.google.gwt.core.client.GWT;
@@ -564,15 +566,13 @@ public class MaskedDateBox extends Composite implements HasEnabled,
    * вместо {@link com.google.gwt.user.datepicker.client.DateChangeEvent}.
    */
   private void setValue(Date oldDate, Date date, boolean fireEvents, boolean updateText) {
-    if (date != null) {
       if (picker instanceof JepDatePicker) {
         ((JepDatePicker) picker).refresh(date);
       } else {
-        picker.setCurrentMonth(date);
+        picker.setCurrentMonth(date != null ? date : new Date());
         picker.setValue(date, false);
       }
-    }
-    
+
     if (updateText) {
       format.reset(this, false);
       box.setValue(getFormat().format(this, date));
