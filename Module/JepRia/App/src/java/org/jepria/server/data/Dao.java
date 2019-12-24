@@ -29,7 +29,7 @@ public interface Dao {
    * сигнатуры и реализации методов {@link #findByPrimaryKey(Map, Integer)} и {@link #find(Object, Integer)} были идентичными,
    * а также во избежание лишних проверок на прикладном уровне.
    *
-   * @param primaryKeyMap первичный ключ
+   * @param primaryKeyMap первичный ключ (простой или составной) с именами полей в регистре lower snake case (например, {@code entity_id})
    * @param operatorId
    * @return
    */
@@ -48,7 +48,7 @@ public interface Dao {
   /**
    * Редактирование записи
    *
-   * @param primaryKey первичный ключ редактируемой записи (простой или составной)
+   * @param primaryKey первичный ключ редактируемой записи (простой или составной) с именами полей в регистре lower snake case (например, {@code entity_id})
    * @param record запись с новыми значениями
    * @param operatorId идентификатор пользователя
    */
@@ -58,7 +58,7 @@ public interface Dao {
   /**
    * Удаление записи
    * 
-   * @param primaryKey первичный ключ удаляемой записи (простой или составной)
+   * @param primaryKey первичный ключ удаляемой записи (простой или составной) с именами полей в регистре lower snake case (например, {@code entity_id})
    * @param operatorId идентификатор пользователя
    */
   // primaryKey не передаётся в виде целого Dto потому что здесь нужен именно первичный ключ. primaryKey является мапом потому что первичный ключ может быть составным
