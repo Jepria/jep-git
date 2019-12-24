@@ -23,7 +23,7 @@ public class ExceptionManagerImpl implements ExceptionManager {
     // print everything to the same stream
     final PrintStream errStream  = System.err;
 
-    errStream.println(new Date() + ": Exception handled (errorId=" + String.valueOf(errorId) + "):"); // even if errorId is null, print "null"
+    errStream.println(new Date() + ": Exception handled (errorId=" + errorId + "):"); // even if errorId is null, print "null"
     e.printStackTrace(errStream);
 
     return errorId;

@@ -1,5 +1,8 @@
 package org.jepria.server.service.rest;
 
+/**
+ * Класс для представления деталей серверной ошибки типа Internal Server Error (HTTP-статус 500) клиенту
+ */
 public class ErrorDto {
   private int errorCode;
   private String errorMessage;

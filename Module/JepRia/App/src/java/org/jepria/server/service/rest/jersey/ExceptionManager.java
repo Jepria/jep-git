@@ -11,7 +11,7 @@ import org.jepria.server.service.rest.ErrorDto;
  * } catch (BusinessLogicException e) {
  *   ErrorDto errorDto = ExceptionManager.newInstance().registerExceptionAndPrepareErrorDto(e);
  *   errorDto.setErrorCode(1234);
- *   errorDto.setErrorMessage("A business-logic exception occurred!");
+ *   errorDto.setErrorMessage("A business-logic exception occurred!"); // override a message or leave the prepared
  *   return Response.serverError().entity(errorDto).build();
  * }</pre>
  */
