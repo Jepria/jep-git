@@ -127,7 +127,7 @@ public class HttpBasicDynamicFeature implements DynamicFeature {
         Db db = getDb();
         Integer result = null;
         try {
-          CallableStatement callableStatement = getDb().prepare(sqlQuery);
+          CallableStatement callableStatement = db.prepare(sqlQuery);
           callableStatement.registerOutParameter(1, OracleTypes.INTEGER);
           callableStatement.setInt(2, operatorId);
           callableStatement.setString(3, roleName);
