@@ -67,7 +67,8 @@ public class ValidationMethodInterceptor implements MethodInterceptor {
       // TODO property path must not refer to java parameters, but to jaxrs parameters (header/query/body) instead
       propertyPath = new PathImpl();
       PathNodeImpl methodNode = new PathNodeImpl();
-      methodNode.setName(parameter.getDeclaringExecutable().getName());
+      String methodName = parameter.getDeclaringExecutable().getDeclaringClass().getCanonicalName() + "." + parameter.getDeclaringExecutable().getName();
+      methodNode.setName(methodName);
       propertyPath.add(methodNode);
       PathNodeImpl methodParameterNode = new PathNodeImpl();
       methodParameterNode.setName(parameter.getType().getCanonicalName() + "_" + parameter.getName());
