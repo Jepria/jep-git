@@ -16,8 +16,8 @@ import java.util.function.Supplier;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
-@Consumes(MediaType.APPLICATION_JSON + ";charset=utf-8")
+@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8") // might be overridden on an application method level
+@Consumes(MediaType.APPLICATION_JSON + ";charset=utf-8") // might be overridden on an application method level
 @Path("") // important
 /**
  * jaxrs-адаптер (транспортный слой)
