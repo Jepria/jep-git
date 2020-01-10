@@ -2,6 +2,7 @@ package org.jepria.server.service.security;
 
 import com.technology.jep.jepcommon.security.pkg_Operator;
 import com.technology.jep.jepria.server.db.Db;
+import oracle.jdbc.OracleTypes;
 import org.glassfish.jersey.server.model.AnnotatedMethod;
 import org.jepria.server.service.rest.MetaInfoResource;
 
@@ -22,6 +23,7 @@ import java.security.Principal;
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.Base64;
 
 import static com.technology.jep.jepria.server.JepRiaServerConstant.DEFAULT_DATA_SOURCE_JNDI_NAME;
@@ -103,7 +105,6 @@ public class HttpBasicDynamicFeature implements DynamicFeature {
 
       private final String username;
       private final Integer operatorId;
-      private Db db;
 
       public JerseySecurityContext(String username, Integer operatorId) {
         this.username = username;
@@ -111,35 +112,32 @@ public class HttpBasicDynamicFeature implements DynamicFeature {
       }
 
       private Db getDb() {
-        if (this.db == null) {
-          this.db = new Db(DEFAULT_DATA_SOURCE_JNDI_NAME);
-        }
-        return this.db;
+        return new Db(DEFAULT_DATA_SOURCE_JNDI_NAME);
       }
 
       @Override
       public boolean isUserInRole(final String roleName) {
+        //language=Oracle
         String sqlQuery =
-          "select decode(count(1), 0, 0, 1)" +
-            " from op_role opr" +
-            " inner join v_op_operator_role vopr" +
-            " on vopr.role_id = opr.role_id" +
-            " and vopr.operator_id = " + operatorId +
-            " and opr.short_name = '" + roleName + "'";
-
+          "begin ? := pkg_operator.isrole(" +
+                "operatorid => ?, " +
+                "roleshortname => ?" +
+              "); " +
+            "end;";
+        Db db = getDb();
         Integer result = null;
         try {
-          CallableStatement callableStatement = getDb().prepare(sqlQuery);
-
-          ResultSet resultSet = callableStatement.executeQuery();
-          if (resultSet.next()) {
-            result = new Integer(resultSet.getInt(1));
-          }
+          CallableStatement callableStatement = db.prepare(sqlQuery);
+          callableStatement.registerOutParameter(1, OracleTypes.INTEGER);
+          callableStatement.setInt(2, operatorId);
+          callableStatement.setString(3, roleName);
+          callableStatement.execute();
+          result = new Integer(callableStatement.getInt(1));
           if(callableStatement.wasNull()) result = null;
         } catch (SQLException e) {
           e.printStackTrace();
         } finally {
-          db.closeStatement(sqlQuery);
+          db.closeAll();
         }
 
         return result != null && result.intValue() == 1;
