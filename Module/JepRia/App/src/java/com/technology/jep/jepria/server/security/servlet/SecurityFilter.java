@@ -176,7 +176,7 @@ public class SecurityFilter implements Filter {
        return;
     }
     if (request.authenticate(response)) {
-      if (securityRoles.length == 0 || ((TokenRequestWrapper) request).isUserInRoles(securityRoles)) {
+      if (Arrays.stream(securityRoles).anyMatch(request::isUserInRole)) {
         filterChain.doFilter(request, servletResponse);
       } else {
         response.sendError(403, "Access denied");

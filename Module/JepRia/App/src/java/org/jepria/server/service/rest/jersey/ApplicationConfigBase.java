@@ -11,6 +11,7 @@ import org.jepria.server.service.rest.XCacheControlFilter;
 import org.jepria.server.service.rest.gson.JsonBindingProvider;
 import org.jepria.server.service.rest.jersey.validate.ExceptionMapperValidation;
 import org.jepria.server.service.rest.jersey.validate.ValidationInterceptionService;
+import org.jepria.server.service.security.CorsResponseFilter;
 import org.jepria.server.service.security.HttpBasicDynamicFeature;
 
 import javax.inject.Inject;
@@ -56,6 +57,8 @@ public class ApplicationConfigBase extends ResourceConfig {
     registerMetaInfoResource();
 
     registerValidation();
+
+    registerCorsHandler();
   }
 
   /**
@@ -124,5 +127,12 @@ public class ApplicationConfigBase extends ResourceConfig {
    */
   protected void registerExceptionMapperDefault() {
     register(new ExceptionMapperDefault());
+  }
+
+  /**
+   * Регистрация обработчика CORS
+   */
+  protected void registerCorsHandler() {
+    register(CorsResponseFilter.class);
   }
 }

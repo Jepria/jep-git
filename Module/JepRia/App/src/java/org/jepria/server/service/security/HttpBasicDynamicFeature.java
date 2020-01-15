@@ -37,6 +37,10 @@ import static org.jepria.server.service.security.HttpBasic.PASSWORD_HASH;
  */
 public class HttpBasicDynamicFeature implements DynamicFeature {
 
+  protected Db getDb() {
+    return new Db(DEFAULT_DATA_SOURCE_JNDI_NAME);
+  }
+
   @Override
   public void configure(ResourceInfo resourceInfo, FeatureContext context) {
     final AnnotatedMethod am = new AnnotatedMethod(resourceInfo.getResourceMethod());
@@ -86,18 +90,21 @@ public class HttpBasicDynamicFeature implements DynamicFeature {
       }
       authString = authString.replaceFirst("[Bb]asic ", "");
       String[] credentials = new String(Base64.getDecoder().decode(authString)).split(":");
+      Db db = getDb();
       try {
         Integer operatorId = null;
         if (PASSWORD.equals(passwordType)) {
-          operatorId = pkg_Operator.logon(new Db(DEFAULT_DATA_SOURCE_JNDI_NAME), credentials[0], credentials[1], null);
+          operatorId = pkg_Operator.logon(db, credentials[0], credentials[1], null);
         } else {
-          operatorId = pkg_Operator.logon(new Db(DEFAULT_DATA_SOURCE_JNDI_NAME), credentials[0], null, credentials[1]);
+          operatorId = pkg_Operator.logon(db, credentials[0], null, credentials[1]);
         }
         requestContext.setSecurityContext(new JerseySecurityContext(credentials[0], operatorId));
       } catch (SQLException e) {
         throw new WebApplicationException(
           Response.status(Response.Status.UNAUTHORIZED)
             .header(HttpHeaders.WWW_AUTHENTICATE, "Basic").build());
+      } finally {
+        db.closeAll();
       }
     }
 
@@ -109,10 +116,6 @@ public class HttpBasicDynamicFeature implements DynamicFeature {
       public JerseySecurityContext(String username, Integer operatorId) {
         this.username = username;
         this.operatorId = operatorId;
-      }
-
-      private Db getDb() {
-        return new Db(DEFAULT_DATA_SOURCE_JNDI_NAME);
       }
 
       @Override

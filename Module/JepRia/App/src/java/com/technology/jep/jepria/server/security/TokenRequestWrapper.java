@@ -73,36 +73,33 @@ public class TokenRequestWrapper extends HttpServletRequestWrapper {
       return securityModule.getRoles().contains(role);
     } else {
       //language=Oracle
-      String sqlQuery = "begin " +
-        "? := PKG_OPERATOR.ISROLE(" +
-        "OPERATORID => ?," +
-        "ROLESHORTNAME => ?" +
-        ");" +
-        "end;";
-
-      //Добавили индекс role_id + short_name в op_role т.к. больше никаких данных не используется, на выходе получим FAST INDEX FULL SCAN
+      String sqlQuery =
+        "begin ? := pkg_operator.isrole(" +
+          "operatorid => ?, " +
+          "roleshortname => ?" +
+          "); " +
+          "end;";
+      Db db = getDb();
       Integer result = null;
       try {
-        CallableStatement callableStatement = getDb().prepare(sqlQuery);
+        CallableStatement callableStatement = db.prepare(sqlQuery);
         callableStatement.registerOutParameter(1, OracleTypes.INTEGER);
         callableStatement.setInt(2, principal.getOperatorId());
         callableStatement.setString(3, role);
-        ResultSet resultSet = callableStatement.executeQuery();
-        if (resultSet.next()) {
-          result = new Integer(resultSet.getInt(1));
-        }
+        callableStatement.execute();
+        result = new Integer(callableStatement.getInt(1));
         if(callableStatement.wasNull()) result = null;
       } catch (SQLException e) {
         e.printStackTrace();
       } finally {
-        db.closeStatement(sqlQuery);
+        db.closeAll();
       }
 
-      logger.trace("END isUserInRole()");
       return result != null && result.intValue() == 1;
     }
   }
 
+  @Deprecated
   public boolean isUserInRoles(String[] roles) {
     logger.trace("BEGIN isUserInRoles(" + roles + ")");
     JepSecurityModule securityModule = delegate.getSession().getAttribute(JEP_SECURITY_MODULE_ATTRIBUTE_NAME) != null ? (JepSecurityModule) delegate.getSession().getAttribute(JEP_SECURITY_MODULE_ATTRIBUTE_NAME) : null;
